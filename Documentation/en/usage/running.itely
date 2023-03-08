@@ -51,6 +51,7 @@ scope of this manual; please consult other documentation on this topic
 if you are unfamiliar with the command line.
 
 @menu
+* The PATH environment variable::
 * Invoking LilyPond::
 * Basic command-line options for LilyPond::
 * Advanced command-line options for LilyPond::
@@ -58,6 +59,50 @@ if you are unfamiliar with the command line.
 * Relocation::
 * LilyPond in chroot jail::
 @end menu
+
+@node The PATH environment variable
+@unnumberedsubsec The @env{PATH} environment variable
+
+[You can skip this section if you use a package manager like
+MacPorts to install LilyPond; @env{PATH} should already be set up
+correctly.]
+
+Throughout the LilyPond manuals, examples simply show
+@command{lilypond} as the program to call.  However, this only
+works if the @env{PATH} environment variable is adjusted so that
+LilyPond's binary directory is included.
+
+Assuming that you have unpacked a LilyPond binary package for
+version @version{} within a directory @file{/home/me}, the binary
+directory to be added to @env{PATH} is
+
+@example
+/home/me/lilypond-@version{}/bin
+@end example
+
+@noindent
+On Windows, a typical directory might be
+
+@example
+C:\Users\me\lilypond-@version{}\bin
+@end example
+
+Please consult the documentation for your operating system (or do
+a search in the internet) how to actually modify @env{PATH}.  In
+case you are updating from an older LilyPond version you should
+ensure that the old LilyPond binary directory is removed from
+@env{PATH}; after everything is done you can check with a call to
+@code{lilypond --version} whether the correct version gets found
+on the command line.
+
+If, for whatever reason, adjusting @env{PATH} is not possible or
+appropriate, or if you have multiple LilyPond versions installed
+in parallel, use the full path to the binary, for example
+
+@example
+/home/me/lilypond-@version{}/bin/lilypond music.ly
+@end example
+
 
 @node Invoking LilyPond
 @unnumberedsubsec Invoking @command{lilypond}

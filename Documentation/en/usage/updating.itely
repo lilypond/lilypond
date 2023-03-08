@@ -20,16 +20,18 @@
 @cindex Updating a LilyPond file
 @cindex convert-ly
 
-As LilyPond is improved, the syntax (input language) of some commands
-and functions can change.  This can result in unexpected errors,
-warnings or even wrong output when input files, previously created for older
-versions of LilyPond are then used with later versions.
+As LilyPond is improved, the syntax (input language) of some
+commands and functions can change.  This usually results in
+unexpected errors, warnings, or even wrong output when input
+files, previously created for older versions of LilyPond, are then
+used with later versions.
 
-To help with this the @command{convert-ly} command can be used to
-upgrade these older input files to use the newer syntax.
+To help with this, the @command{convert-ly} command can be used to
+upgrade older input files to the newer syntax.
 
 @menu
 * Why does the syntax change?::
+* Command-line preliminaries::
 * Invoking convert-ly::
 * Command-line options for convert-ly::
 * Problems running convert-ly::
@@ -44,37 +46,41 @@ upgrade these older input files to use the newer syntax.
 @cindex convert-ly
 @cindex updating old input files
 
-Often, syntax changes are made to make the input simpler to both read
-and write, but occasionally the changes are made to accommodate new
-features or enhancements to existing functions.
+Syntax changes are often made to make the LilyPond input code
+simpler for both reading and writing, but occasionally changes are
+made to accommodate new features or enhancements to existing
+functions.
 
-To illustrate this here is a real example:
+Here is a real example to illustrate this.
 
-All @code{\paper} and @code{\layout} property names were supposed to be
-written in the form @code{first-second-third}.  However, in LilyPond
-version 2.11.60, it was noticed that the @code{printallheaders} property
-did not follow this convention.  Should this property be left alone
-(confusing new users with an inconsistent format)? Or should it be
-changed (annoying old users with existing LilyPond input files)?
+All @code{\paper} and @code{\layout} property names are supposed
+to be written in the form
+@code{@var{first}-@/@var{second}-@/@var{third}}.  However, in
+LilyPond version 2.11.60, it was noticed that the
+@code{printallheaders} property did not follow this convention.
+Should this property be left alone (confusing new users with an
+inconsistent format)?  Or should it be changed (annoying old users
+with existing LilyPond input files)?  The decision was eventually
+made to change the name of the property to
+@code{print-all-headers}, and by using the @command{convert-ly}
+command old users had a way to automatically update their existing
+input files.
 
-The decision was made to change the name of the property to
-@code{print-all-headers}, and by using the @command{convert-ly} command
-the old users had a way to automatically update their existing input
-files.
+Unfortunately, the @command{convert-ly} command is not capable to
+manage all syntax changes.  For example, accents and non-English
+characters were entered using standard @LaTeX{} notation in
+versions of LilyPond before 2.6; words like @q{Noël} (which is
+@q{Christmas} in French) had to be entered as @code{No\"el}.
+Starting with LilyPond 2.6, the special letter @samp{ë} must be
+entered directly as a UTF-8 character.  Because
+@command{convert-ly} cannot convert @LaTeX{} special characters
+into UTF-8 characters, older LilyPond input files have to be
+edited manually to take care of that.
 
-However, the @command{convert-ly} command cannot always be used to
-manage all syntax changes.  In versions of LilyPond before 2.4.2,
-accents and non-English characters were entered using standard LaTeX
-notation. For example the French word for @q{Christmas} was entered as
-@code{No\"el}.  But in LilyPond 2.6 onwards, the special @code{ë} must
-be entered directly as a UTF-8 character.  The @command{convert-ly}
-command cannot change LaTeX special characters into UTF-8 characters, so
-older LilyPond input files have to edited manually.
-
-The conversion rules of the @command{convert-ly} command work using text
-pattern-matching and replacement (rather than @q{understanding} the
-context of what it is changing within a given input file).  This has
-several consequences:
+The conversion rules of the @command{convert-ly} command work by
+using text pattern matching and replacement (rather than
+@q{understanding} the context of what it is changing within a
+given input file).  This has several consequences:
 
 @itemize @bullet
 @item
@@ -84,108 +90,180 @@ conversions may require additional, manual fixes, so the original input
 files should be kept for comparison just in case.
 
 @item
-Only conversions to newer syntax changes are possible: there are no rule
-sets to go back to older versions of LilyPond.  So the input file
-should only be upgraded when older versions of LilyPond are no longer
-being maintained.  Again, the original input files should be kept just
-in case; perhaps using version control systems (i.e. Git) to help with
-maintaining multiple versions of your input files.
+Only conversions to newer syntax changes are possible: there are
+no rule sets to go back to older versions of LilyPond.  As a
+consequence, input files should only be upgraded when older
+versions of LilyPond are no longer being maintained.  Again, the
+original data should be kept just in case, perhaps by using
+version control systems like Git to help maintain multiple
+versions of your input files.
 
 @item
 LilyPond is quite robust when processing @q{creatively} placed or
-omitted whitespace, but the rules used by @command{convert-ly} often
-make some stylistic assumptions.  Therefore following the input style as
-used in the LilyPond manuals is advised for painless upgrades,
-particularly as the examples in the manuals themselves are all upgraded
-using the @command{convert-ly} command.
+omitted whitespace, but the rules used by @command{convert-ly}
+often make some stylistic assumptions.  For painless upgrades it
+is therefore advised to follow the input style as used in the
+LilyPond manuals, particularly as the examples in the manuals
+themselves are all upgraded using the @command{convert-ly}
+command.
 @end itemize
+
+
+@node Command-line preliminaries
+@section Command-line preliminaries
+
+This and the following sections only cover the command-line usage
+of @command{convert-ly}.  GUI applications like Frescobaldi have
+their own interfaces to @command{convert-ly}.
+
+By @q{command line}, we mean the command line in the operating
+system.  Windows users might be more familiar with the terms
+@q{DOS shell} or @q{command shell}.  macOS users might be more
+familiar with the terms @q{terminal} or @q{console}.
+
+Describing how to use this part of an operating system is outside
+the scope of this manual; please consult other documentation on
+this topic if you are unfamiliar with the command line.
+
+@xref{The PATH environment variable} how to set up the operating
+system so that @command{convert-ly} can be used on the command
+line without specifying a path.
+
+
+@subheading Additional setup for Windows
+
+[Non-Windows users can skip this section; Windows users who have
+a Python interpreter already installed (version 3.8 or higher) can
+skip this section, too.]
+
+@command{convert-ly} is actually a Python script called
+@file{convert-ly.py}.  In the LilyPond binary bundle for Windows
+it is located in the same directory as the @file{lilypond.exe}
+binary and a Python interpreter, @file{python.exe}.  Assuming that
+you have unpacked version @version{} within a directory
+@file{C:\Users\me} and @env{PATH} is correctly set up, it would be
+still necessary to say
+
+@example
+python C:\Users\me\lilypond-@version{}\bin\convert-ly.py myfile.ly
+@end example
+
+@noindent
+which is tedious to type.
+
+Three steps are necessary to allow the omission of both the
+interpreter (@file{python.exe}) and the @file{.py}
+extension.@footnote{Note that steps 1 and 2 must be done using the
+default command prompt, @file{cmd.exe}, and not using PowerShell!}
+
+@enumerate
+@item
+On the command line, say
+
+@example
+assoc .py=PythonScript
+@end example
+
+@noindent
+to associate the extension @file{.py} with the file type
+@q{PythonScript}.
+
+@item
+As the next command, say
+
+@example
+ftype PythonScript=C:\Users\me\lilypond-@version{}\bin\python.exe %1 %*
+@end example
+
+@noindent
+to make files of type @q{PythonScript} be handled by LilyPond's
+@command{python.exe}.  You have to adjust the path to the actual
+location, and don't omit the trailing @samp{%1 %*}!
+
+@item
+Modify the @env{PATHEXT} environment variable and add @file{.py}
+to already present entries.  Do this in exactly the same way as
+you have already done with @env{PATH}.
+
+@end enumerate
+
+Now close the command line and open it again, then test whether
+@code{convert-ly --version} works.
 
 
 @node Invoking convert-ly
 @section Invoking @command{convert-ly}
 
-The @command{convert-ly} command uses the @code{\version} number in
-the input file to detect older versions.  In most cases, to upgrade your
-input file it is sufficient just to run;
+The @command{convert-ly} command uses the @code{\version} number
+in the input file to detect older versions.  In most cases it is
+sufficient just to run
 
 @example
 convert-ly -e myfile.ly
 @end example
 
 @noindent
-in the directory containing the input file.  This will upgrade
-@file{myfile.ly} in-place and preserve the original file by renaming it
-@file{myfile.ly~}.  The @code{\version} number in the upgraded input
-file, along with any required syntax updates, is also changed.
+in the directory containing the input file; this upgrades
+@file{myfile.ly} in-place and preserves the original file by
+renaming it to @file{myfile.ly~}.  The @code{\version} number in
+the upgraded input file, along with any required syntax updates,
+is also changed.
 
-When run, the @command{convert-ly} command will output the version
-numbers of which conversions have been made to.  If no version numbers
-are listed in the output for the file, it is already up to date and
-using the latest LilyPond syntax.
+When run, the @command{convert-ly} command outputs the version
+numbers of which conversions have been made to.  If no version
+numbers are listed in the output for the file, it is already up to
+date and using the latest LilyPond syntax.
 
-@warning{For each new version of LilyPond, a new @command{convert-ly}
-command is created, however not every version of LilyPond will need
-syntax changes for its input files from the version before.  This means
-that the @command{convert-ly} command will only convert input files up
-to the latest syntax change it has and this, in turn, may mean that the
-@code{@bs{}version} number left in the upgraded input file is sometimes
-earlier than the version of @command{convert-ly} command itself.}
+@warning{For each new version of LilyPond, a new
+@command{convert-ly} command is created.  However, not every
+version of LilyPond needs syntax changes for its input files from
+the version before.  This means that the @command{convert-ly}
+command only converts input files up to the latest syntax change
+it has and this, in turn, may mean that the @code{@bs{}version}
+number left in the upgraded input file is sometimes lower than the
+version of the @command{convert-ly} command itself.}
 
-To convert all input files in a single directory use;
+To convert all input files in a single directory, use
 
 @example
 convert-ly -e *.ly
 @end example
 
-Linux and macOS users can both use the appropriate terminal
-application, but macOS users can also execute this command
-directly under the menu entry @code{Compile > Update syntax}.
-
-A Windows user would run the command;
-
-@example
-convert-ly.py -e *.ly
-@end example
-
 @noindent
-entering these commands in a @code{command prompt} usually found under
-@code{Start > Accessories > Command Prompt} or for version 8 users,
-by typing in the search window @q{command prompt}.
-
-To convert all input files that reside in different sets of
-subdirectories;
+as a command.  To handle all input files that reside in different
+subdirectories, try
 
 @example
 find . -name '*.ly' -exec convert-ly -e '@{@}' \;
 @end example
 
-This example searches and converts all input files in the current
-directory and all directories below it recursively.  The converted files
-will be located in the same directory along with their renamed
-originals.  This should also work for macOS users, although only
-via the terminal app.
+@noindent
+to recursively search and convert them in the current directory
+and all directories below it.  The converted files will be located
+in the same directory along with their renamed originals.
 
-Windows user would use;
-
-@example
-forfiles /s /M *.ly /c "cmd /c convert-ly.py -e @@file"
-@end example
-
-Alternatively, an explicit path to the top-level of your folder
-containing all the sub-folders that have input files in them can be
-stated using the @code{/p} option;
+On Windows, execute
 
 @example
-forfiles /s /p C:\Documents\MyScores /M *.ly /c "cmd /c convert-ly.py -e @@file"
+forfiles /s /M *.ly /c "cmd /c convert-ly -e @@file"
 @end example
 
-If there are spaces in the path to the top-level folder, then the whole
-path needs to be inside double quotes;
+@noindent
+instead.  The @command{forfiles} command also accepts an explicit
+path to the top level of your folder containing all the
+sub-folders that have input files in them by using the @option{/p}
+option.
 
-@example
-forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c convert-ly.py -e @@file"
-@end example
+@smallexample
+forfiles /s /p C:\Documents\MyScores /M *.ly /c "cmd /c convert-ly -e @@file"
+@end smallexample
 
+If there are spaces in the path to the top-level folder, the whole
+path needs to be inside double quotes, for example
+
+@smallexample
+forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c convert-ly -e @@file"
+@end smallexample
 
 
 @node Command-line options for convert-ly
@@ -197,11 +275,21 @@ The program is invoked as follows:
 convert-ly [@var{option}]@dots{} @var{filename}@dots{}
 @end example
 
+@noindent
+By default, @command{convert-ly} writes its data to standard
+output.
+
 The following options can be given:
 
 @table @code
+@item --version
+Show version number and exit.
+
+@item -h, --help
+Show usage help and exit.
+
 @item -d, --diff-version-update
-increase the @code{\version} string only if the file has actually
+Increase the @code{\version} string only if the file has actually
 been changed.  In that case, the version header will correspond to
 the version after the last actual change.  An unstable version
 number will be rounded up to the next stable version number unless
@@ -210,47 +298,56 @@ the version will instead reflect the last @emph{attempted}
 conversion.
 
 @item -e, --edit
-Apply the conversions direct to the input file, modifying it
-in-place.  The original file is renamed as @file{myfile.ly~}.  This
-backup file may be a hidden file on some operating systems.
-Alternatively, if you want to specify a different name for the
-upgraded file without using the @code{-e} options default @code{~}
-appended to the old input file, the output can be redirected instead;
+Apply the conversions directly to the input file, modifying it
+in-place.  If the original file is called @file{myfile.ly}, a
+backup is retained under the name @file{myfile.ly~}, i.e., a tilde
+character gets appended.  This backup file may be a hidden file on
+some operating systems.
+
+If you want the converted output to be stored under a different
+name, redirect the standard output to a file.
 
 @example
 convert-ly myfile.ly > mynewfile.ly
 @end example
 
-Windows user would use;
-
-@example
-convert-ly.py myfile.ly > mynewfile.ly
-@end example
+@noindent
+See also option @option{--backup-numbered}.
 
 @item -b, --backup-numbered
-When used with the @samp{-e} option, number the backup files so that
-no previous version is overwritten.  The backup files may be hidden
-on some operating systems.
+When used with the @samp{-e} option, number the backup files so
+that no previous version is overwritten.  Assuming the input file
+is called @file{myfile.ly}, try to store the backup in
+@file{myfile.ly.~1~}.  If it exists, try @file{myfile.ly.~2~}
+instead, etc.  The backup files may be hidden on some operating
+systems.
 
 @item -f, --from=@var{from-patchlevel}
 Set the version to convert from.  If this is not set,
-@command{convert-ly} will guess this, on the basis of @code{\version}
-strings in the file. E.g. @option{--from=2.10.25}
+@command{convert-ly} will guess it on the basis of the (first)
+@code{\version} string in the file.  Example:
+@option{--from=2.10.25}
 
 @item -h, --help
 Print usage help.
 
 @item -l @var{loglevel}, --loglevel=@var{loglevel}
-Set the output verbosity to @var{loglevel}. Possible values, in upper
-case, are @code{PROGRESS} (the default), @code{NONE}, @code{WARNING},
-@code{ERROR} and @code{DEBUG}.
+Set the output verbosity to @var{loglevel}.  Possible values, in
+upper case, are @code{PROGRESS} (the default), @code{NONE},
+@code{WARNING}, @code{ERROR}, and @code{DEBUG}.
 
 @item -n, --no-version
 Normally, @command{convert-ly} adds a @code{\version} indicator
 to the output.  Specifying this option suppresses this.
 
+@item -c, --current-version
+By default, @command{convert-ly} updates the @code{\version}
+string to the lowest necessary version.  If this option is given,
+the current LilyPond version (@version{}) is used instead.
+
 @item -s, --show-rules
-Show all known conversions and exit.
+Show conversion descriptions and exit.  The amount of information
+can be adjusted with options @option{--from} and @option{--to}.
 
 @item -t, --to=@var{to-patchlevel}
 Explicitly set which @code{\version} to convert to, otherwise the
@@ -261,9 +358,15 @@ starting version.
 convert-ly --to=2.14.1 myfile.ly
 @end example
 
+@item -v, --verbose
+Display rule descriptions during conversion.
+
+@item -w, --warranty
+Show warranty and copyright and exit.
+
 @end table
 
-To upgrade LilyPond fragments in texinfo files, use
+To upgrade LilyPond fragments in Texinfo files, use
 
 @example
 convert-ly --from=@dots{} --to=@dots{} --no-version *.itely
@@ -279,33 +382,35 @@ convert-ly --from=@dots{} --to=@dots{} -s
 @node Problems running convert-ly
 @section Problems running @code{convert-ly}
 
-When running convert-ly in a Command Prompt window under Windows
-on a file which has spaces in the filename or in the path to it,
-it is necessary to surround the entire input file name with three
-(!) sets of double quotes:
+If an input (or output) file name contains spaces it is necessary to surround the
+file name with double quotes.
 
 @example
-convert-ly """D:/My Scores/Ode.ly""" > "D:/My Scores/new Ode.ly"
+convert-ly "D:/My Scores/Ode.ly" > "D:/My Scores/new Ode.ly"
 @end example
 
-If the simple @command{convert-ly -e *.ly} command fails because the
-expanded command line becomes too long, the @command{convert-ly}
-command may be placed in a loop instead.  This example for UNIX
-will upgrade all @file{.ly} files in the current directory
+If the invocation of @command{convert-ly -e *.ly} fails because
+the expanded command line becomes too long, the
+@command{convert-ly} command may be placed in a loop instead.
+This example for UNIX upgrades all @file{.ly} files in the current
+directory
 
 @example
-for f in *.ly; do convert-ly -e $f; done;
+for f in *.ly; do convert-ly -e $f; done
 @end example
 
-In the Windows Command Prompt window the corresponding command is
+For Windows, the corresponding command is
 
 @example
-for %x in (*.ly) do convert-ly -e """%x"""
+for %x in (*.ly) do convert-ly.py -e "%x"
 @end example
 
-Not all language changes are handled.  Only one output option can be
-specified.  Automatically updating scheme and LilyPond scheme
-interfaces is quite unlikely; be prepared to tweak scheme code
+@noindent
+in the command prompt window.
+
+As discussed earlier, not all language changes are handled.  In
+particular, automatically updating Scheme and LilyPond Scheme
+interfaces is quite unlikely; be prepared to tweak Scheme code
 manually.
 
 
@@ -315,63 +420,26 @@ manually.
 In theory, a program like @command{convert-ly} could handle any
 syntax change.  After all, a computer program interprets the old
 version and the new version, so another computer program can
-translate one file into another@footnote{At least, this is
-possible in any LilyPond file which does not contain scheme.  If
-there is scheme in the file, then the LilyPond file contains a
-Turing-complete language, and we run into problems with the famous
-@qq{Halting Problem} in computer science.}.
+translate one file into another.@footnote{At least, this is
+possible in any LilyPond file that does not contain Scheme code.
+Otherwise the LilyPond file contains a Turing-complete language,
+and we run into problems with the famous @qq{Halting Problem} in
+computer science.}
 
 However, the LilyPond project has limited resources: not all
-conversions are performed automatically.  Below is a list of known
-problems.
+conversions are performed automatically.  If @command{convert-ly}
+is not able to handle a syntax change, it emits a warnings like
+the following (from the 2.23.12 conversion rule).
 
+@example
+Not smart enough to convert music following \fine.
 
-@verbatim
-1.6->2.0:
- Doesn't always convert figured bass correctly, specifically things like {<
->}.  Mats' comment on working around this:
-   To be able to run convert-ly
-   on it, I first replaced all occurrences of '{<' to some dummy like '{#'
-   and similarly I replaced '>}' with '&}'.  After the conversion, I could
-   then change back from '{ #' to '{ <' and from '& }' to '> }'.
- Doesn't convert all text markup correctly.  In the old markup syntax,
- it was possible to group a number of markup commands together within
-parentheses, e.g.
-   -#'((bold italic) "string")
-   This will incorrectly be converted into
-   -\markup{{\bold italic} "string"}
-   instead of the correct
-   -\markup{\bold \italic "string"}
-2.0->2.2:
- Doesn't handle \partCombine
- Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple
-stanzas.
-2.0->2.4:
- \magnify isn't changed to \fontsize.
-    - \magnify #m => \fontsize #f, where f = 6ln(m)/ln(2)
- remove-tag isn't changed.
-    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
- first-page-number isn't changed.
-    - first-page-number no => print-first-page-number = ##f
- Line breaks in header strings aren't converted.
-    - \\\\  as line break in \header strings => \markup \center-align <
-      "First Line" "Second Line" >
- Crescendo and decrescendo terminators aren't converted.
-    - \rced => \!
-    - \rc => \!
-2.2->2.4:
- \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly
-converted.
-2.4.2->2.5.9
- \markup{ \center-align <{ ... }> } should be converted to:
- \markup{ \center-align {\line { ... }} }
- but now, \line is missing.
-2.4->2.6
- Special LaTeX characters such as $~$ in text are not converted to UTF8.
-2.8
- \score{} must now begin with a music expression.  Anything else
- (particularly \header{}) must come after the music.
-@end verbatim
+Warning: \fine no longer enforces the end of the music.
+If your piece has music following \fine that you want to
+exclude when it is unfolded, use \volta to exclude it.
+Please refer to the manual for details, and update manually.
+@end example
+
 
 @node Writing code to support multiple versions
 @section Writing code to support multiple versions
@@ -386,28 +454,28 @@ three elements.  Missing elements are ignored so @code{'(2 20)} is
 equivalent to @emph{any} version of the 2.20 line of versions.
 Constructs like the following are possible:
 
-@verbatim
+@example
 #(cond
   ((ly:version? > '(2 20))
    (ly:message "This is code to run for LilyPond after 2.20"))
   ((ly:version? = '(2 19 57))
    (ly:message "This will only be executed with LilyPond 2.19.57"))
   (else (ly:message "This will be executed in any other version")))
-@end verbatim
+@end example
 
 Usually this will be integrated in library functions to allow alternative
 syntax to be used, but it is also possible to use the comparison directly
 within the music like in the following example:
 
-@verbatim
-{
+@example
+@{
   c' d' e' f'
   #(if (ly:version? = '(2 21))
-       #{ \override NoteHead.color = #red #}
-       #{ \override NoteHead.color = #blue #})
+       #@{ \override NoteHead.color = #red #@}
+       #@{ \override NoteHead.color = #blue #@})
   g' a' b' c''
-}
-@end verbatim
+@}
+@end example
 
 @strong{Note:} This function has been introduced in LilyPond 2.21.80, so
 it is not possible to compare with versions earlier than that.
