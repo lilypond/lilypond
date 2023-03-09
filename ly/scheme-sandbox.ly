@@ -24,7 +24,7 @@
 % One typical thing you might want to put there is
 % (use-modules (ice-9 readline))
 % (activate-readline)
-% in order to activate command line editing for interactive sessions.
+% in order to activate command-line editing for interactive sessions.
 % You need libreadline support and the respective Guile module to be
 % installed for that.  In Debian, for example, this is part of the
 % guile-1.8-libs package.  Depending on your system and version, the

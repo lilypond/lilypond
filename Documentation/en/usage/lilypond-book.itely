@@ -419,7 +419,7 @@ and then saying only how many systems you want before each fragment,
 
 
 @morerefs
-There are specific @command{lilypond-book} command line options and
+There are specific @command{lilypond-book} command-line options and
 other details to know when processing @LaTeX{} documents, see
 @ref{Invoking lilypond-book}.
 @endmorerefs
@@ -509,7 +509,7 @@ produces
 
 
 @morerefs
-There are specific @command{lilypond-book} command line options and
+There are specific @command{lilypond-book} command-line options and
 other details to know when processing Texinfo documents, see
 @ref{Invoking lilypond-book}.
 @endmorerefs
@@ -586,7 +586,7 @@ produces
 
 
 @morerefs
-There are specific @command{lilypond-book} command line options and
+There are specific @command{lilypond-book} command-line options and
 other details to know when processing HTML documents, see
 @ref{Invoking lilypond-book}.
 @endmorerefs
@@ -779,7 +779,7 @@ Since this is the default, @code{nofragment} is redundant normally.
 Set up snippet for inline use, that is, to be typeset within a paragraph.
 The snippet itself is formatted with a very small left padding
 (approximately the same as the right padding), ignoring the value given by
-the command line option @option{--left-padding}.
+the command-line option @option{--left-padding}.
 
 For Texinfo output, it suppresses the insertion of a blank line before and
 after the snippet.  For HTML output, it suppresses the insertion of
@@ -1055,9 +1055,9 @@ See the documentation of Texinfo for further details.
 @end ifnotinfo
 
 
-@subheading Command line options
+@subheading Command-line options
 
-@command{lilypond-book} accepts the following command line options.
+@command{lilypond-book} accepts the following command-line options.
 
 @table @code
 @item -f @var{format}
@@ -1109,7 +1109,7 @@ If this option is not used and the environment variable
 Place generated files into directory @var{dir}.  Running
 @command{lilypond-book} generates lots of small files that LilyPond will
 process.  To avoid all that clutter in the source directory, use the
-@option{--output} command line option, and change to that directory
+@option{--output} command-line option, and change to that directory
 before running @command{latex} or @command{makeinfo}.
 
 @example

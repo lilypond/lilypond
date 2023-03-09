@@ -2,7 +2,7 @@
 
 \header {
   texidoc = "Test functionality of the @option{-danti-alias-factor}
-             command line option.  Affects PNG output only."
+             command-line option.  Affects PNG output only."
 }
 
 #(ly:set-option 'anti-alias-factor 2)

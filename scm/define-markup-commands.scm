@@ -1348,8 +1348,8 @@ To disable the colored background, set @code{background-color} to @code{#f}.
 For EPS images, this always works (where EPS images work in the first place).
 On the other hand, for PNG images, it works in the Cairo backend (which can
 output all supported formats), as well as in the SVG backend, but @emph{not} in
-the PostScript backend, which is the default.  See @rprogram{Advanced command
-line options for LilyPond} for how to activate the Cairo backend.
+the PostScript backend, which is the default.  See @rprogram{Advanced
+command-line options for LilyPond} for how to activate the Cairo backend.
 "
   ;; From the width and height of the actual image plus one of the scaled
   ;; dimensions specified by the user, determine the scaling factor from image

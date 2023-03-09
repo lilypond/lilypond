@@ -31,7 +31,7 @@
 #
 # `encodingdefs.ps` is a PostScript resource file that defines the
 # necessary font encodings and font name commands.  It gets included
-# in the output if you use the `--ps` or `--eps` command line option
+# in the output if you use the `--ps` or `--eps` command-line option
 # of `lilypond`.
 #
 # `font-encodings.scm` provides a hash to quickly find the proper

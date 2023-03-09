@@ -51,7 +51,7 @@ Download the appropriate file from here:
 
 @warning{Apart from installing and configuring LilyDev in VirtualBox,
 the rest of the chapter assumes that you are comfortable using the
-command-line and is intended for users who may have never created a
+command line and is intended for users who may have never created a
 patch or compiled software before.  More experienced developers (who
 prefer to use their own development environment) may still find it
 instructive to skim over the following information.}

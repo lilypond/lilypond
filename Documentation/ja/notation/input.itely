@@ -2916,7 +2916,7 @@ Portable Document Format (PDF), PostScript (PS) です。@c
 コマンド ライン オプションを指定することにより、@c
 Portable Network Graphics (PNG), Scalable Vector Graphics (SVG),
 Encapsulated PostScript (EPS) フォーマットによる出力が利用可能です。@c
-@rprogram{Basic command line options for LilyPond} を参照してください。
+@rprogram{Basic command-line options for LilyPond} を参照してください。
 
 @menu
 * SVG 出力::
@@ -3005,7 +3005,7 @@ LilyPond の Feta グリフのサンプル小節です:
 @code{svg} バックエンドで @code{svg-woff} オプションが無効な場合に使われます。
 @file{gonville-*.woff} ファイルは
 @code{svg} バックエンドで @code{svg-woff} オプションが有効な場合に使われます。
-更なる情報は、@rprogram{Advanced command line options for LilyPond} を@c
+更なる情報は、@rprogram{Advanced command-line options for LilyPond} を@c
 参照してください。
 
 次の構文は、記譜フォント (記号類とブレースの両方) を

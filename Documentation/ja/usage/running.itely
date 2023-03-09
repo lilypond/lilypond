@@ -183,10 +183,10 @@ forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c lilypond @@file"
 
 @node LilyPond の基本的なコマンド ライン オプション
 @unnumberedsubsec LilyPond の基本的なコマンド ライン オプション
-@translationof Basic command line options for LilyPond
+@translationof Basic command-line options for LilyPond
 
 @cindex Invoking @command{lilypond} (@command{lilypond} を呼び出す)
-@cindex command line options for @command{lilypond} (@command{lilypond} のためのコマンド ライン オプション)
+@cindex command-line options for @command{lilypond} (@command{lilypond} のためのコマンド ライン オプション)
 @cindex options, command line (コマンド ライン オプション)
 @cindex switches (切り換え)
 
@@ -501,7 +501,7 @@ GNU LilyPond の保証責任を表示します。@c
 
 @node LilyPond の高度なコマンド ライン オプション
 @unnumberedsubsec LilyPond の高度なコマンド ライン オプション
-@translationof Advanced command line options for LilyPond
+@translationof Advanced command-line options for LilyPond
 
 オプション @option{-d} は LilyPond の Scheme 関数 @code{ly:set-option}
 のコマンドラインインタフェースです。@c
@@ -872,7 +872,7 @@ CPU とメモリ使用を制限すべきです。
 妨げます。
 
 @option{--jail} はさらに安全な代替手段ですが、セットアップにかかる手間も@c
-増えます。@ref{Basic command line options for LilyPond} を参照してください。
+増えます。@ref{Basic command-line options for LilyPond} を参照してください。
 
 @item @code{separate-log-files} @var{bool}
 @var{bool} が @code{#t} なら、@c

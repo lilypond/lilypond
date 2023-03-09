@@ -6,7 +6,7 @@
 #include "std-string.hh"
 
 /**
-   a struct this for initialising the commandline options.
+   a struct this for initialising the command-line options.
 */
 struct Long_option_init
 {
@@ -28,9 +28,8 @@ struct Long_option_init
   static std::string table_string (Long_option_init *);
 };
 
-/** C++ for version of long_getopt.  For processing GNU style command
-    line arguments.  No pointer (return values, arguments) contents are
-    copied.
+/** C++ for version of long_getopt.  For processing GNU style command-line
+    arguments.  No pointer (return values, arguments) contents are copied.
 
     TODO: handle
     command  - , and command --

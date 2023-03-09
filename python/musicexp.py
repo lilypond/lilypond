@@ -268,7 +268,7 @@ class Duration:
 
 def set_create_midi(option):
     """
-    Implement the midi command line option '-m' and '--midi'.
+    Implement the midi command-line option '-m' and '--midi'.
     If True, add midi-block to .ly file (see L{musicexp.Score.print_ly}).
 
     @param option: Indicates whether the midi-block has to be added or not.
@@ -290,7 +290,7 @@ def get_create_midi():
     except NameError:
         return False
 
-# implement the command line option '--transpose'
+# implement the command-line option '--transpose'
 
 
 def set_transpose(option):
@@ -311,7 +311,7 @@ def get_transpose(optType):
         elif optType == "integer":
             return 0
 
-# implement the command line option '--tab-clef'
+# implement the command-line option '--tab-clef'
 
 
 def set_tab_clef(option):
@@ -325,7 +325,7 @@ def get_tab_clef():
     except NameError:
         return "tab"
 
-# definitions of the command line option '--string-numbers'
+# definitions of the command-line option '--string-numbers'
 
 
 def set_string_numbers(option):

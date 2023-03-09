@@ -232,7 +232,7 @@ or
 @end example
 
 @item
-Command-line:
+Command line:
 
 @example
 lilypond -dpoint-and-click=note-event   example.ly
@@ -263,7 +263,7 @@ or
 @end example
 
 @item
-Command-line:
+Command line:
 
 @smallexample
 lilypond \
@@ -402,13 +402,13 @@ When invoked with quantizing (@option{-s} and @option{-d} options)
 not very good at this.  It is therefore not recommended to use
 @command{midi2ly} for human-generated midi files.
 
-It is invoked from the command-line as follows,
+It is invoked from the command line as follows,
 
 @example
 midi2ly [@var{option}]@dots{} @var{midi-file}
 @end example
 
-Note that by @q{command-line}, we mean the command line of the
+Note that by @q{command line}, we mean the command line of the
 operating system.  See @ref{Converting from other formats}, for
 more information about this.
 
@@ -470,13 +470,13 @@ representing music notation.
 
 @command{musicxml2ly} extracts notes, articulations, score structure and
 lyrics from @q{part-wise} MusicXML files then writes them to a
-@file{.ly} file. It is run from the command-line as follows;
+@file{.ly} file. It is run from the command line as follows;
 
 @example
 musicxml2ly [@var{option}]@dots{} @var{file.xml}
 @end example
 
-Note that by @q{command-line}, we mean the command line of the
+Note that by @q{command line}, we mean the command line of the
 operating system.  See @ref{Converting from other formats}, for
 more information about this.
 
@@ -494,7 +494,7 @@ converts @code{<frame>} events to a separate FretBoard voice instead of
 markups.
 
 @item -h, --help
-print usage and a summary of all the available command line options.
+print usage and a summary of all the available command-line options.
 
 @item -l, --language=LANG
 use @var{LANG} for pitch names, e.g. @code{deutsch} for note names in
@@ -655,13 +655,13 @@ ETF (Enigma Transport Format) is a format used by Coda Music
 Technology's Finale product.  @command{etf2ly} will convert part of an
 ETF file to a ready-to-use LilyPond file.
 
-It is invoked from the command-line as follows;
+It is invoked from the command line as follows;
 
 @example
 etf2ly [@var{option}]@dots{} @var{etf-file}
 @end example
 
-Note that by @q{command-line}, we mean the command line of the
+Note that by @q{command line}, we mean the command line of the
 operating system.  See @ref{Converting from other formats}, for
 more information about this.
 

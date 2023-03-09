@@ -2942,7 +2942,7 @@ són el format de document portàtil (PDF) i PostScript (PS).  Els
 formats de sortida Grafics de xarxa portàtil (PNG), Grafics de
 vector escalables (SVG) i Postscript encapsulat (EPS) també hi són
 disponibles a través d'opcions de la línia d'ordres, vegeu
-@rprogramnamed{Basic command line options for LilyPond,Opcions
+@rprogramnamed{Basic command-line options for LilyPond,Opcions
 bàsiques de la línia d'ordre per al LilyPond}.
 
 @node Substitució del tipus de lletra de la notació
@@ -2996,7 +2996,7 @@ PostScript). Els fitxers @file{gonville-*.svg} són per al
 fitxers @file{gonville-*.woff} són per al @emph{rerefons}
 @code{svg} amb l'opció @code{svg-woff}. Per a més informació,
 consulteu
-@rprogramnamed{Advanced command line options for LilyPond,Opcions
+@rprogramnamed{Advanced command-line options for LilyPond,Opcions
 avançades de línia d'ordres per al LilyPond}.
 
 La sintaxi següent canvia el tipus de lletra de la notació

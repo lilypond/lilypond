@@ -141,7 +141,7 @@ haben.
 
 @node Grundlegende Optionen auf der Kommandozeile für LilyPond
 @unnumberedsubsec Grundlegende Optionen auf der Kommandozeile für LilyPond
-@translationof Basic command line options for LilyPond
+@translationof Basic command-line options for LilyPond
 
 Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 
@@ -380,7 +380,7 @@ Zeigt die Garantiebedingungen an, unter denen GNU LilyPond steht. (Es besteht
 
 @node Fortgeschrittene Optionen auf der Kommandozeile für LilyPond
 @unnumberedsubsec Fortgeschrittene Optionen auf der Kommandozeile für LilyPond
-@translationof Advanced command line options for LilyPond
+@translationof Advanced command-line options for LilyPond
 
 @table @code
 

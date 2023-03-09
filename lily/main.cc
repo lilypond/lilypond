@@ -115,7 +115,7 @@ static Getopt_long *option_parser = 0;
 
 /*
   Data to be used to display when
-  -h command line option is detected.
+  -h command-line option is detected.
 */
 static Long_option_init options_static[] = {
   {_i ("FORMATs"), "formats", 'f',

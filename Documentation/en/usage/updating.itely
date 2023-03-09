@@ -31,7 +31,7 @@ upgrade these older input files to use the newer syntax.
 @menu
 * Why does the syntax change?::
 * Invoking convert-ly::
-* Command line options for convert-ly::
+* Command-line options for convert-ly::
 * Problems running convert-ly::
 * Manual conversions::
 * Writing code to support multiple versions::
@@ -188,8 +188,8 @@ forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c convert-ly.py -e @@fi
 
 
 
-@node Command line options for convert-ly
-@section Command line options for @command{convert-ly}
+@node Command-line options for convert-ly
+@section Command-line options for @command{convert-ly}
 
 The program is invoked as follows:
 

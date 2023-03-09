@@ -758,7 +758,7 @@ We don't cover this slightly more complicated setup here.
 
 (If you omit the @option{--noconfigure} option, @file{autogen.sh}
 not only creates the @file{configure} script but also executes it,
-forwarding all given command line options.  This is a convenient
+forwarding all given command-line options.  This is a convenient
 shorthand for experienced users.  For clarity, however, we explain
 the process in two separate steps.)
 

@@ -193,7 +193,7 @@ forfiles /s /p "C:\Documentos\Mis Partituras" /M *.ly /c "cmd /c lilypond @@file
 
 @node Opciones básicas de la línea de órdenes para LilyPond
 @unnumberedsubsec Opciones básicas de la línea de órdenes para LilyPond
-@translationof Basic command line options for LilyPond
+@translationof Basic command-line options for LilyPond
 
 @cindex Invoca a @command{lilypond}
 @cindex opciones de la línea de órdenes para @command{lilypond}
@@ -524,7 +524,7 @@ Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 
 @node Opciones avanzadas de línea de órdenes para LilyPond
 @unnumberedsubsec Opciones avanzadas de línea de órdenes para LilyPond
-@translationof Advanced command line options for LilyPond
+@translationof Advanced command-line options for LilyPond
 
 La opción @option{-d} es la interfaz de la línea de órdenes a la
 función de Scheme de LilyPond @code{ly:set-option}.  Esto

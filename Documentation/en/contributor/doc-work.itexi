@@ -807,7 +807,7 @@ is part of an @code{@@item}, individual lines in the
 additional level of @code{@@itemize} or @code{@@enumerate}
 shortens the line by about 4 columns.
 
-For long command line examples, if possible, use a trailing
+For long command-line examples, if possible, use a trailing
 backslash to break up a single line, indenting the next line with
 2 spaces.  If this isn't feasible, use @samp{@@smallexample
 @dots{} @@end@tie{}smallexample} instead, which uses a smaller

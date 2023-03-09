@@ -591,7 +591,7 @@ push @Texi2HTML::Config::command_handler_process, \&lilypond_bodytext;
 
 # Never use 'section ' as a prefix to the link text.
 #
-# Ideally, we would like to simply use command line option `--short-ref`
+# Ideally, we would like to simply use command-line option `--short-ref`
 # instead of providing a customized handler.  Unfortunately, this option
 # drops formatting stuff like `<code>` in link texts, so we take a different
 # route by setting `$is_section` to false, which has the desired effect.

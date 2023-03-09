@@ -245,7 +245,7 @@ imagination.
 
 @subsubheading Create new tools using LilyPond
 
-As LilyPond isn't a monolithic GUI program but a command line tool it
+As LilyPond isn't a monolithic GUI program but a command-line tool it
 can be used from within other applications too. This way it is possible
 to equip tools like, e.g., web applications with LilyPond's engraving
 power. There already exist several online tools using LilyPond.

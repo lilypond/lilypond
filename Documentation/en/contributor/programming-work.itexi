@@ -1073,7 +1073,7 @@ end
 @node Debugging Scheme code
 @subsection Debugging Scheme code
 
-Scheme code can be developed using the Guile command line
+Scheme code can be developed using the Guile command-line
 interpreter @code{top-repl}.  You can either investigate
 interactively using just Guile or you can use the debugging
 tools available within Guile.
@@ -1146,8 +1146,8 @@ To set breakpoints and/or enable tracing in Scheme functions, put
 @end example
 
 in your input file after any scheme procedures you have defined in
-that file.  This will invoke the Guile command-line after having set
-up the environment for the debug command-line.  When your input file
+that file.  This will invoke the Guile command line after having set
+up the environment for the debug command line.  When your input file
 is processed, a guile prompt will be displayed.  You may now enter
 commands to set up breakpoints and enable tracing by the Guile debugger.
 

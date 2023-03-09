@@ -2,7 +2,7 @@
 
 \header {
   texidoc = "Test functionality of the @option{-dpng-width} and
-             @option{-dpng-height} command line options.  Affects
+             @option{-dpng-height} command-line options.  Affects
              PNG output only."
 }
 

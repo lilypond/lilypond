@@ -134,7 +134,7 @@ tenen res a veure amb el LilyPond.
 
 @node Opcions bàsiques de la línia d'ordres per al LilyPond
 @unnumberedsubsec Opcions bàsiques de la línia d'ordres per al LilyPond
-@translationof Basic command line options for LilyPond
+@translationof Basic command-line options for LilyPond
 
 @cindex invocació de @command{lilypond}
 @cindex opcions de la línia d'ordres per a @command{lilypond}
@@ -361,7 +361,7 @@ Mostra la garantia del GNU LilyPond (no ve amb
 
 @node Opcions avançades de la línia d'ordres per al LilyPond
 @unnumberedsubsec Opcions avançades de la línia d'ordres per al LilyPond
-@translationof Advanced command line options for LilyPond
+@translationof Advanced command-line options for LilyPond
 
 @table @code
 

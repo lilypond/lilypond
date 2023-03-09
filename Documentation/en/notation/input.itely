@@ -2321,7 +2321,7 @@ Any @file{.ly} file can then include the entire library simply with
 
 @noindent
 However, that behavior can be changed globally by passing the
-command line option @option{-drelative-includes=#f},
+command-line option @option{-drelative-includes=#f},
 or by adding @code{#(ly:set-option 'relative-includes #f)}
 at the top of the main input file.  In that case, each file will be
 included relatively to the location of the main file, regardless
@@ -3480,8 +3480,8 @@ Internals Reference:
 The default output formats for the printed score are Portable
 Document Format (PDF) and PostScript (PS).  Portable
 Network Graphics (PNG), Scalable Vector Graphics (SVG) and Encapsulated
-PostScript (EPS) output formats are available through command line options,
-see @rprogram{Basic command line options for LilyPond}.
+PostScript (EPS) output formats are available through command-line options,
+see @rprogram{Basic command-line options for LilyPond}.
 
 @menu
 * SVG Output::
@@ -3582,7 +3582,7 @@ for @code{ps} and @code{eps} backend (for PDF and PostScript outputs).
 for @code{svg} backend without @code{svg-woff} option.
 @file{gonville-*.woff} files are
 for @code{svg} backend with @code{svg-woff} option.
-For more information, see @rprogram{Advanced command line options for LilyPond}.
+For more information, see @rprogram{Advanced command-line options for LilyPond}.
 
 The following syntax changes the notation font (general and brace)
 to the Gonville font.

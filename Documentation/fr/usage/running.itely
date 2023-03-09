@@ -189,7 +189,7 @@ forfiles /s /p "C:\Documents\Mes Partitions" /M *.ly /c "cmd /c lilypond @@file"
 
 @node Options basiques de lilypond
 @unnumberedsubsec Options basiques de @command{lilypond}
-@translationof Basic command line options for LilyPond
+@translationof Basic command-line options for LilyPond
 
 @cindex lancement de @command{lilypond}
 @cindex ligne de commande, options pour @command{lilypond}
@@ -514,7 +514,7 @@ est livré @strong{SANS GARANTIE} !
 
 @node Options avancées de lilypond
 @unnumberedsubsec Options avancées de @command{lilypond}
-@translationof Advanced command line options for LilyPond
+@translationof Advanced command-line options for LilyPond
 
 L'option @option{-d} est l'interface de la ligne de commande à la
 fonction Scheme de LilyPond @code{ly:set-option}. Par voie de

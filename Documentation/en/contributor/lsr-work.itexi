@@ -265,7 +265,7 @@ overwriting existing files.
 
 This flow of actions can be adjusted; say
 @samp{scripts/auxiliar/makelsr.pl --help} to get a detailed
-description of the provided command line options and used
+description of the provided command-line options and used
 environment variables.
 
 
@@ -336,7 +336,7 @@ scripts/auxiliar/makelsr.pl
 @end example
 
 Say @samp{scripts/auxiliar/makelsr.pl --help} to find out how to
-modify this call; for example, command line option @option{--dump
+modify this call; for example, command-line option @option{--dump
 @var{file}} makes the script use a locally stored dump file.
 
 @item
