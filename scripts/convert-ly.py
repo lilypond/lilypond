@@ -359,7 +359,7 @@ def do_options():
         opt_parser.print_help()
         sys.exit(2)
 
-    return args
+    return ly.handle_globs(args)
 
 
 def main():

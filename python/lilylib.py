@@ -95,6 +95,18 @@ def debug_output(s, fullmessage=False, newline=True):
     _print_logmessage("DEBUG", s, fullmessage, newline)
 
 
+def handle_globs(args):
+    # On Windows, we have to expand globs by ourselves.
+    if os.name == 'nt':
+        from glob import glob
+        # In `cmd.exe`, only `*` and `?` are metacharacters but not `[` (and
+        # `]`).
+        return [file for arg in args
+                       for file in glob(arg.replace('[', '[[]'))]
+    else:
+        return args
+
+
 class _NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
     def format_heading(self, heading):
         if heading:
