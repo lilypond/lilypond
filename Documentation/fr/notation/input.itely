@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 14e7b471ee6f365bbf550c1e0c79ea13ec96abf8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1629,33 +1629,40 @@ Il répond à la syntaxe :
 \footnote [@var{marque}] @var{décalage} @var{annotation} @var{musique}
 @end example
 
+@c In this and the following footnote examples we use `\markup`
+@c commands to ensure enough vertical space so that footnotes are
+@c not clipped.  This is issue #6128.
+
 @c KEEP LY
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "Notes de bas de page événementielles"
+  \markup \null
   \relative c'' {
-    \footnote #'(-1 . 3) "Une note" a4
+    \footnote #'(-1 . 3) "Une note." a4
     a4
-    \footnote #'(2 . 2) "Un silence" r4
+    \footnote #'(2 . 2) "Un silence." r4
     a4
   }
 }
 @end lilypond
 
-Un accord @emph{dans son intégralité} ne peut pas faire l'objet
-d'une note de bas de page événementielle : un accord, même s'il ne
-contient qu'une seule et unique note, ne génère aucun événement en
-propre.  Une des notes @emph{au sein} de l'accord peut toutefois
-se voir attribuer une annotation :
+Lorsqu'un accord fait l'objet d'une note de bas de page événementielle,
+chacune des hauteurs qui le composent se voit individuellement affublée
+de cette même annotation, ce qui n'est pas ce à quoi on pourrait
+s'attendre. Une des notes @emph{au sein} de l'accord peut toutefois se
+voir attribuer une annotation :
 
 @c KEEP LY
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "Notes de bas de page événementielles"
+  \markup \null
   \relative c'' {
-    \footnote #'(2 . 3) "Résultat non probant" <a-3>2
-    <\footnote #'(-2 . -3) "Résultat probant" a-3>4
-    <a-3 \footnote #'(3 . 1/2) "Tout aussi probant" c-5>4
+    \footnote #'(1 . 3) "Un accord." <a-3 c-5>2
+    <a-3 \footnote #'(3 . 0.5) "Une note dans un accord." c-5>4
   }
 }
 @end lilypond
@@ -1676,12 +1683,14 @@ annotation. La syntaxe consacrée est :
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "Notes de bas de page événementielles"
+  \markup \null
   \relative {
-    a'4_\footnote #'(0 . -1) "Une liaison arbitrairement en dessous" (
-    b8^\footnote #'(1 . 0.5) "Une ligature manuelle forcée en haut" [
+    a'4_\footnote #'(0 . -1) "Une liaison arbitrairement en dessous." (
+    b8^\footnote #'(1 . 0.5) "Une ligature manuelle forcée en haut." [
     b8 ]
     c4 )
-    c-\footnote #'(1 . 1) "Tenuto" --
+    c-\footnote #'(1 . 1) "Tenuto." --
   }
 }
 @end lilypond
@@ -1702,12 +1711,14 @@ requis après le texte de l'annotation, en lieu et place de
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "Notes de bas de page temporelles"
+  \markup \null
   \relative c'' {
-    \footnote #'(-1 . -3) "Un bémol" Accidental
+    \footnote #'(-1 . -3) "Un bémol." Accidental
     aes4 c
-    \footnote #'(-1 . 0.5) "Un autre bémol" Accidental
+    \footnote #'(-1 . 0.5) "Un autre bémol." Accidental
     ees
-    \footnote #'(1 . -2) "Une hampe" Stem
+    \footnote #'(1 . -2) "Une hampe." Stem
     aes
   }
 }
@@ -1721,10 +1732,12 @@ annotation :
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "Notes de bas de page temporelles"
+  \markup \null
   \relative c' {
-    \footnote #'(-1 . 3) "Un bémol" Accidental
+    \footnote #'(-1 . 3) "Un bémol." Accidental
     <ees ges bes>4
-    \footnote #'(2 . 0.5) "Une articulation" Script
+    \footnote #'(2 . 0.5) "Une articulation." Script
     c'->-.
   }
 }
@@ -1747,11 +1760,13 @@ d'annoter l'événement directement consécutif :
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "Notes de bas de page temporelles"
+  \markup \null
   \relative c'' {
-    < \footnote #'(1 . -2) "Un la" a
-      \single \footnote #'(-1 . -1) "Un dièse" Accidental
+    < \footnote #'(1 . -2) "Un la." a
+      \single \footnote #'(-1 . -1) "Un dièse." Accidental
       cis
-      \single \footnote #'(0.5 . 0.5) "Un bémol" Accidental
+      \single \footnote #'(0.5 . 0.5) "Un bémol." Accidental
       ees fis
     >2
   }
@@ -1783,15 +1798,17 @@ l'objet est créé dans un autre contexte que celui du plus bas niveau.
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "Notes de bas de page temporelles"
+  \markup \null
   \relative c'' {
     r1 |
-    \footnote #'(-0.5 . -1) "Changement de métrique" Staff.TimeSignature
+    \footnote #'(-0.5 . -1) "Changement de métrique." Staff.TimeSignature
     \time 3/4
-    \footnote #'(1 . -1) "Hampe de l'accord" Stem
+    \footnote #'(1 . -1) "Hampe de l'accord." Stem
     <c e g>4 q q
-    \footnote #'(-0.5 . 1) "Barre de mesure" Staff.BarLine
+    \footnote #'(-0.5 . 1) "Barre de mesure." Staff.BarLine
     q q
-    \footnote #'(0.5 . -1) "Changement d'armure" Staff.KeySignature
+    \footnote #'(0.5 . -1) "Changement d'armure." Staff.KeySignature
     \key c \minor
     q
   }
@@ -1805,15 +1822,17 @@ l'objet à l'appel supprimé :
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
+  \markup "Appels de note personnalisés"
+  \markup \null
   \relative c' {
-    \footnote "*" #'(0.5 . -2) \markup { \italic "* La première note" }
+    \footnote "*" #'(0.5 . -2) \markup { \italic "* La première note." }
     a'4 b8
     \footnote \markup { \super "$" } #'(0.5 . 1)
-      \markup { \super "$" \italic " La deuxième note" }
+      \markup { \super "$" \italic " La deuxième note." }
     e c4
     \once \override Score.Footnote.annotation-line = ##f
     b-\footnote \markup \tiny "+" #'(0.1 . 0.1)
-      \markup { \super "+" \italic " Éditorial" } \p
+      \markup { \super "+" \italic " Éditorial." } \p
   }
 }
 @end lilypond
@@ -1871,9 +1890,9 @@ Par exemple :
   \header { tagline = ##f }
   \markup {
     "A simple"
-    \auto-footnote "tune" \italic " By me"
+    \auto-footnote "tune" \italic " By me."
     "is shown below.  It is a"
-    \auto-footnote "recent" \italic " Aug 2012"
+    \auto-footnote "recent" \italic " Aug 2012."
     "composition."
   }
   \relative {
@@ -1921,10 +1940,10 @@ la rubrique @ref{Équivalents ASCII} :
   \header { tagline = ##f }
   \markup {
     "A simple tune"
-    \footnote "*" \italic "* By me"
+    \footnote "*" \italic "* By me."
     "is shown below.  It is a recent"
     \footnote \super &dagger; \concat {
-      \super &dagger; \italic " Aug 2012"
+      \super &dagger; \italic " Aug 2012."
     }
     "composition."
   }
@@ -1943,11 +1962,11 @@ unicode -- voir la rubrique @ref{Unicode} :
   \markup {
     "A simple tune"
     \footnote \super \char##x00a7 \concat {
-      \super \char##x00a7 \italic " By me"
+      \super \char##x00a7 \italic " By me."
     }
     "is shown below.  It is a recent"
     \footnote \super \char##x00b6 \concat {
-      \super \char##x00b6 \italic " Aug 2012"
+      \super \char##x00b6 \italic " Aug 2012."
     }
     "composition."
   }

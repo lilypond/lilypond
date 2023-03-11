@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 14e7b471ee6f365bbf550c1e0c79ea13ec96abf8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.11"
+@c \version "2.23.13"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -576,7 +576,7 @@ est que la durée de la dernière alternative est nulle, le repère
 automatique est supprimé, ce qui permet de le remplacer par un libellé
 de section.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,line-width=12.0\cm]
 music = \fixed c' {
   f1
   \repeat segno 2 {

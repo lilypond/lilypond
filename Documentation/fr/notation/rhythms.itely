@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 14e7b471ee6f365bbf550c1e0c79ea13ec96abf8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.11"
+@c \version "2.23.13"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -1268,8 +1268,8 @@ Glossaire musicologique :
 @rglosnamed{caesura, césure}.
 
 Manuel de notation :
-@ref{Barre de mesure kiévienne},
 @ref{Barre de phrase en musique liturgique},
+@ref{Barres de mesure kiéviennes},
 @ref{Divisions},
 @ref{Signes de respiration}.
 
@@ -3362,25 +3362,166 @@ types de barre de mesure, en respectant la syntaxe :
 @end example
 
 @noindent
-Au-delà de @var{type_de_barre} (la chaîne de caractères qui sera utilisée
-pour faire appel à cette nouvelle barre), cette instruction prend trois
-valeurs : les deux premières déterminent l'apparence de la barre
-lorsqu'elle intervient sur un saut de ligne, auquel cas les premier et
-second glyphes indiqués s'imprimeront respectivement à la @var{fin} du
-système et au @var{début} du suivant. Le troisième glyphe indiqué n'est
-utile que dans le cas d'un système à plusieurs portées (voir
-@ref{Regroupement de portées}) où il apparaîtra en tant
-qu'@var{extension} entre les portées.
+En résumé, l'argument @var{type_de_barre} détermine à la fois le glyphe
+qui sera utilisé en cours de portée et l'identifiant de cette barre de
+mesure. Les autres arguments déterminent les glyphes à utiliser aux
+extrémités de la portée et dans l'espace entres les portées d'un
+système. Le fait de régler @var{fin}, @var{début} ou @var{extension} à
+@code{#t} revient à utiliser le glyphe de @var{type_de_barre} à la
+position correspondante. Un réglage à @code{#f} se traduira par
+l'absence de barre à cette même position.
 
-Les arguments fournis à @code{\defineBarline} qui spécifient les glyphes
-de remplacement peuvent prendre les valeurs @code{#t} ou @code{#f}
-(absence de barre). La chaîne
-vide @code{""} qui correspond à une barre invisible.
+Dans le détail, l'argument @var{type_de_barre} est une chaîne de
+caractères qui a deux fonctions : il détermine d'une part le glyphe qui
+sera imprimé lorsqu'une barre de mesure intervient en cours de portée
+et, d'autre part, il sert d'identifiant pour l'objet barre de mesure
+appelé par @code{\bar @var{type_de_barre}}. Il doit être de la forme
+@var{dessin} ou @var{dessin}@code{-}@var{annotation} (avec un trait
+d'union littéral), où @var{annotation} est une chaîne quelconque et
+@var{dessin} une chaîne dont les caractères sont les noms de l'un des
+éléments de barre prédéfinis listés ci-après. La représentation qui
+résulte de la concaténation de ces éléments sera utilisée en cours de
+portée. Par exemple, un @var{type_de_barre} égal à @code{";|"} ou
+@code{";|-autre"} spécifie une barre composite constituée d'une ligne
+pointillée (@samp{;}) accouplée à une ligne pleine (@samp{|}) :
 
-Une fois la définition explicitée, la nouvelle barre s'utilise à
-l'aide de @code{\bar} @var{type_de_barre}.
+@lilypond[quote,verbatim]
+\defineBarLine ";|" #'(#t #t #t)
+\defineBarLine ";|-autre" #'(#f #f #f)
+\fixed c' {
+   \bar ";|" a1 \bar ";|" b1 \bar ";|-autre" c'1 \bar ";|-autre"
+}
+@end lilypond
 
-Sont à ce jour disponibles dix éléments différents :
+@noindent
+L'@var{annotation} (@var{autre} dans le second exemple ci-dessus) permet
+de distinguer ce type de barre des autres ayant le même @var{dessin}
+mais adoptant des comportements différents à l'occasion d'un saut de
+ligne ou en cas de portées multiples. Par convention, la chaîne
+spécifiée pour @var{fin} est souvent reprise comme annotation, aussi
+aurions-nous pu avoir nommé le second exemple @samp{";|-f"}.
+
+Les arguments @var{fin} et @var{début} spécifient la barre à afficher à
+la fin d'une ligne et au début de la suivante lorsque @code{\bar
+@var{type_de_barre}} intervient sur un saut de ligne. @var{début}
+s'appliquera aussi lorsque @code{\bar @var{type_de_barre}} est placé au
+commencement de la pièce. Le format de ces arguments est identique à
+@var{type_de_barre}. La chaîne d'éléments de barre détermine le glyphe
+qui apparaîtra selon son positionnement dans la ligne. De plus, chacun
+de ces éléments peut prendre la valeur @code{#t} pour reproduire la
+valeur de @var{type_de_barre}, ou @code{#f} pour ne rien afficher. Dans
+l'exemple suivant, tous les types de barre impriment un trait pointillé
+suivi d'un trait plein lorsqu'en cours de ligne, mais le comportement
+change en début ou en fin de ligne.
+
+@lilypond[quote,verbatim,line-width=80]
+%   pointillé-plein partout
+\defineBarLine  ";|"  #'( #t #t #t)
+%   plein-gras en fin, plein-plein en début
+\defineBarLine  ";|-A" #'( "|."  "||"  #f )
+%   pointillé-plein en fin, rien en début
+\defineBarLine  ";|-B" #'( #t  #f  #f )
+%   rien en fin, pointillé-plein en début
+\defineBarLine  ";|-C" #'( #f  #t  #f )
+\relative c'' {
+  \bar ";|" \textMark "\";|\""
+  a1  \bar ";|-A"
+  a1  \bar ";|-A" \textEndMark "\";|-A\"" \break
+  b1  \bar ";|-B" b \bar ";|-B" \textEndMark "\";|-B\"" \break
+  c1  \bar ";|-C" c \bar ";|-C" \textEndMark "\";|-C\"" \break
+  d1  \bar ";|" \textEndMark "\";|\""
+}
+@end lilypond
+
+Il est à noter que les chaînes de @var{début} ou de @var{fin} peuvent
+être des noms de type de barre précédemment définis. Dans le cadre d'un
+contexte de portée unique, ceci n'a pas d'importance puisque les
+éléments de barre dans la chaîne spécifiée seront utilisés sans les
+personnalisations de la barre à laquelle il est fait référence par cette
+chaîne. Il est néanmoins important, dans le cadre d'un système à
+plusieurs portées, que @var{fin} et @var{début} fassent référence à des
+types de barre déjà définis (y compris @var{type_de_barre}) ou soient
+réglés à @code{#t} ou @code{#f}.
+
+L'argument @var{extension} sera effectif dans les systèmes à plusieurs
+portées (voir @ref{Regroupement de portées}) puisqu'il détermine ce qui
+apparaîtra entre les portées regroupées. Cet argument est composé d'une
+chaîne d'éléments de barre, de même longueur que @var{type_de_barre} ou
+plus court -- tout élément supplémentaire sera ignoré. Chaque élément
+sera imprimé dans le prolongement de l'élément correspondant de
+@var{type_de_barre}. Le caractère espace @code{" "} permer de préserver
+de l'espace et ainsi aligner correctement les différents tronçons
+d'une barre d'un seul tenant entre les portées d'un système. Régler
+@var{extension} à @code{#t} revient à sélectionner le glyphe utilisé en
+cours de ligne. Le régler à @code{#f} omet la barre inter-portées et lui
+affecter @code{""} (une chaîne vide) générera une extension de largeur
+zéro. Voici quelques exemples :
+
+@lilypond[quote,verbatim]
+\defineBarLine  ";|!-A"  #'(#t #t "!|")
+\defineBarLine  ";|!-B"  #'(#t #t " !|")
+\defineBarLine  ";|!-C"  #'(#t #t #t)
+\defineBarLine  ";|!-D"  #'(#t #t #f)
+\fixed c' {
+  \new StaffGroup <<
+    \new Staff {
+      a1 \bar ";|!-A"
+      b  \bar ";|!-B"
+      c' \bar ";|!-C"
+      d' \bar ";|!-D"
+      e'
+    }
+    \new Staff {
+      a1 b c' d' e'
+    }
+  >>
+}
+@end lilypond
+
+Lorsqu'intervient un saut de ligne seront utilisés, en lieu et place de
+@var{extension}, @var{fin} et @var{début} pour déterminer la barre
+inter-portées à afficher. Dans le cas d'un regroupement de portées,
+LilyPond émettra un avertissement si @var{fin} et @var{début} ne font
+pas référence à des types de barre définis, et aucune prolongation ne
+sera imprimée. Il est toujours possible d'affecter @code{#f} à @var{fin}
+et @var{début}, auquel cas aucune prolongation n'apparaîtra à la
+position correspondante. Ces arguments peuvent aussi être affectés d'un
+@code{#t} ou @var{type_de_barre}, auquel cas @var{extension} déterminera
+le type de prolongation à utiliser à l'endroit correspondant.
+
+@lilypond[quote,verbatim]
+\defineBarLine  "!|-t"  #'(#t #t #t)
+\defineBarLine  "|!-t"  #'(#t #t #t)
+\defineBarLine  ";|!-bad"  #'("|!" "!|" #t)  % fails at line breaks
+\defineBarLine  ";|!-good" #'("!|-t" "|!-t" #t)
+\relative c'' {
+  \new StaffGroup <<
+    \new Staff {
+      \bar ";|!-good"
+      a1 \bar ";|!-good"
+      % \bar ";|!-bad"     % "WARNING: No span bar glyph defined..."
+      b1 \bar ";|!-good"
+    }
+    \new Staff {
+      a1 b1
+    }
+  >>
+}
+@end lilypond
+
+Notez bien que dans le cas où @var{extension} est consitué d'une chaîne,
+celle-ci devrait comporter @emph{uniquement} des éléments de barre de
+mesure ou une espace (@samp{ }), et sans annotation comme c'est possible
+pour les autres arguments -- LilyPond émettra un avertissement lorsque
+@var{extension} contient une annotation. La seule exception à cette
+règle est une valeur égale à @var{type_de_barre} qui, lui, peut
+comporter une annotation.
+
+Les différents éléments de barre de mesure sont indiqués ci-dessous. La
+plupart dispose par ailleurs de types de barre prédéfinis (utilisables
+en argument à @code{\bar}) qui les les référencent individuellement.
+Certains éléments sont premièrement destinés à être combinés à d'autres
+et, de ce fait, n'ont pas de type de barre prédéfinis individuellement.
 
 @lilypond[quote,verbatim]
 \defineBarLine ":" #'(#f #t #f)
@@ -3406,83 +3547,14 @@ Sont à ce jour disponibles dix éléments différents :
 @end lilypond
 
 Le type @code{"="} fournit un double trait destiné à être utilisé
-en combinaison avec un @emph{segno}.  Nous vous recommandons de
+en combinaison avec un @emph{segno}. Nous vous recommandons de
 lui préférer @code{\bar} @var{"||"} pour imprimer une simple
 double barre fine.
 
-Le signe @code{"-"} permet d'annoter un type de barre de mesure
-pour le distinguer lorsqu'il en existe plusieurs ayant la même
-apparence mais au comportement différent en fin de ligne ou en
-matière d'extension.  Ce qui suit le @code{"-"} n'est d'aucune
-utilité dans la construction de la barre.
-
-@lilypond[quote,verbatim]
-\defineBarLine "||-dashedSpan" #'(#t #f "!!")
-
-\new StaffGroup <<
-  \new Staff \relative c'' {
-    c1 \bar "||"
-    c1 \bar "||-dashedSpan"
-    c1
-  }
-  \new Staff \relative c'' {
-    c1
-    c1
-    c1
-  }
->>
-@end lilypond
-
-Par ailleurs, le caractère espace @code{" "} permer de préserver
-de l'espace et ainsi aligner correctement les différents tronçons
-d'une barre d'un seul tenant entre les portées d'un système :
-
-@lilypond[quote,verbatim]
-\defineBarLine ":|.-wrong" #'(#t #f "|.")
-\defineBarLine ":|.-right" #'(#t #f " |.")
-
-\new StaffGroup <<
-  \new Staff \relative c'' {
-    c1 \bar ":|.-wrong"
-    c1 \bar ":|.-right"
-    c1
-  }
-  \new Staff \relative c'' {
-    c1
-    c1
-    c1
-  }
->>
-@end lilypond
-
-Un nouveau type de barre de mesure défini à l'aide de
-@code{\defineBarLine} peut même, à son tour, s'utiliser dans la
-définition d'un autre. Une telle définition « imbriquée » autorise le
-recours à des glyphes personnalisés là où ce ne serait en principe pas
-possible, comme en fin de système :
-
-@lilypond[quote,verbatim]
-\defineBarLine "||-dashEverywhere" #'("!!" "!!" "!!")
-\defineBarLine "||-advancedDashSpan" #'("||-dashEverywhere" #f "!!")
-
-\new StaffGroup <<
-  \new Staff \relative c'' {
-    c1 \bar "||"
-    c1 \bar "||-advancedDashSpan"
-    c1 \bar "||-advancedDashSpan"
-  }
-  \new Staff \relative c'' {
-    c1
-    c1
-    c1
-  }
->>
-@end lilypond
-
-Si d'autres éléments étaient nécessaires, LilyPond dispose de
-moyens aisés pour les définir.  Pour de plus amples informations
-quant à la manière de modifier ou ajouter des barres de mesure,
-consultez le fichier @file{scm/bar-line.scm}.
+Si d'autres éléments étaient nécessaires, LilyPond dispose de moyens
+aisés pour les définir. Pour de plus amples informations quant à la
+manière de modifier ou ajouter des barres de mesure, consultez le
+fichier @file{scm/bar-line.scm}.
 
 Dans une partition comprenant plusieurs portées, la commande @code{\bar}
 placée sur une portée s'applique automatiquement à toutes les portées.
