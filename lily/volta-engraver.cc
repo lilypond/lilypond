@@ -44,7 +44,7 @@
 class Volta_layer
 {
 public:
-  Moment started_mom_;
+  Moment start_mom_;
   Spanner *bracket_ = nullptr;
   Spanner *end_bracket_ = nullptr;
   Spanner *spanner_ = nullptr;
@@ -309,7 +309,7 @@ Volta_engraver::process_music ()
         {
           auto voltaSpannerDuration = from_scm (
             get_property (this, "voltaSpannerDuration"), Moment::infinity ());
-          end = (voltaSpannerDuration <= now_mom () - layer.started_mom_);
+          end = (voltaSpannerDuration <= now_mom () - layer.start_mom_);
         }
 
       if (end && !layer.bracket_)
@@ -340,7 +340,7 @@ Volta_engraver::process_music ()
 
       if (!layer.bracket_ && Text_interface::is_markup (bracket_text))
         {
-          layer.started_mom_ = now_mom ();
+          layer.start_mom_ = now_mom ();
 
           layer.bracket_ = make_spanner ("VoltaBracket", SCM_EOL);
 
