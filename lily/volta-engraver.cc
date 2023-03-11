@@ -52,6 +52,8 @@ public:
   SCM numbers_ = SCM_EOL;
   // sorted, deduped union of numbers_
   SCM groomed_numbers_ = SCM_EOL;
+  SCM text_ = SCM_EOL;
+  bool start_bracket_this_timestep_ = false;
   bool got_new_nums_this_timestep_ = false;
 
 public:
@@ -59,6 +61,7 @@ public:
   {
     scm_gc_mark (numbers_);
     scm_gc_mark (groomed_numbers_);
+    scm_gc_mark (text_);
   }
 };
 
@@ -266,7 +269,6 @@ Volta_engraver::process_music ()
         }
 
       bool end = false;
-      SCM bracket_text = SCM_EOL;
 
       if (layer_no == 0) // manual repeat commands
         {
@@ -281,12 +283,12 @@ Volta_engraver::process_music ()
                   if (scm_is_false (label))
                     end = true;
                   else
-                    bracket_text = label;
+                    layer.text_ = label;
                 }
             }
         }
 
-      if (scm_is_null (bracket_text)) // no user-supplied label
+      if (scm_is_null (layer.text_)) // no user-supplied label
         {
           // use an automatic label?
           if (layer.got_new_nums_this_timestep_
@@ -300,7 +302,7 @@ Volta_engraver::process_music ()
               const auto &s = format_numbers (layer.groomed_numbers_);
               if (!s.empty ())
                 {
-                  bracket_text = ly_string2scm (s);
+                  layer.text_ = ly_string2scm (s);
                 }
             }
         }
@@ -322,7 +324,7 @@ Volta_engraver::process_music ()
         }
 
       if (layer.bracket_
-          && (scm_is_string (bracket_text) || scm_is_pair (bracket_text)))
+          && (scm_is_string (layer.text_) || scm_is_pair (layer.text_)))
         {
           warning (_ ("already have a volta spanner, "
                       "ending that one prematurely"));
@@ -338,17 +340,12 @@ Volta_engraver::process_music ()
           layer.bracket_ = 0;
         }
 
-      if (!layer.bracket_ && Text_interface::is_markup (bracket_text))
+      if (!layer.bracket_ && Text_interface::is_markup (layer.text_))
         {
+          layer.start_bracket_this_timestep_ = true;
           layer.start_mom_ = now_mom ();
 
           layer.bracket_ = make_spanner ("VoltaBracket", SCM_EOL);
-
-          // Allow \override Score.VoltaBracket.text = "foo".
-          if (scm_is_null (get_property (layer.bracket_, "text")))
-            {
-              set_property (layer.bracket_, "text", bracket_text);
-            }
 
           if (!layer.spanner_)
             {
@@ -411,6 +408,18 @@ Volta_engraver::stop_translation_timestep ()
 
   for (auto &layer : layers_)
     {
+      if (layer.start_bracket_this_timestep_)
+        {
+          // check before setting text to respect user overrides
+          {
+            SCM text_sym = ly_symbol2scm ("text");
+            if (scm_is_null (get_property (layer.bracket_, text_sym)))
+              set_property (layer.bracket_, text_sym, layer.text_);
+          }
+
+          layer.start_bracket_this_timestep_ = false;
+        }
+
       if (layer.end_bracket_ && !layer.end_bracket_->get_bound (RIGHT))
         layer.end_bracket_->set_bound (RIGHT, ci);
 
@@ -448,6 +457,8 @@ Volta_engraver::stop_translation_timestep ()
 
       if (layer.spanner_ && layer.bracket_ && !layer.spanner_->get_bound (LEFT))
         layer.spanner_->set_bound (LEFT, layer.bracket_->get_bound (LEFT));
+
+      layer.text_ = SCM_EOL;
     }
 }
 
