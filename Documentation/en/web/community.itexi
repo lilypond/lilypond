@@ -909,6 +909,7 @@ announcements and changelogs
 @subheading Announcements
 
 Announcements and news by version:
+@uref{https://lilypond.org/doc/v2.24/Documentation/web/news,v2.24},
 @uref{https://lilypond.org/doc/v2.22/Documentation/web/news,v2.22},
 @uref{https://lilypond.org/doc/v2.20/Documentation/web/news,v2.20},
 @uref{https://lilypond.org/doc/v2.18/Documentation/web/index#Lilypond-2_002e18_002e0-released_0021-December-29_002c-2013,v2.18},
@@ -926,6 +927,7 @@ Announcements and news by version:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Descriptive list of changes by version:
+@uref{https://lilypond.org/doc/v2.24/Documentation/changes/,v2.24},
 @uref{https://lilypond.org/doc/v2.22/Documentation/changes/,v2.22},
 @uref{https://lilypond.org/doc/v2.20/Documentation/changes/,v2.20},
 @uref{https://lilypond.org/doc/v2.18/Documentation/changes/,v2.18},
@@ -949,7 +951,8 @@ Descriptive list of changes by version:
 @subheading Thanks
 
 Thanks to developers, contributors, bug hunters and suggestions for
-@uref{https://lilypond.org/doc/v2.20/Documentation/web/authors,v2.22},
+@uref{https://lilypond.org/doc/v2.24/Documentation/web/authors,v2.24},
+@uref{https://lilypond.org/doc/v2.22/Documentation/web/authors,v2.22},
 @uref{https://lilypond.org/doc/v2.20/Documentation/web/authors,v2.20},
 @miscLink{THANKS-2.18,v2.18},
 @miscLink{THANKS-2.16,v2.16},
