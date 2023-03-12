@@ -867,11 +867,11 @@ sub lilypond_print_toc_div ($)
         die "no such file: $name.ihtml: $!";
     my $search_string = decode ('UTF-8', <FILE>);
     # We depend on an external entity here, which we cannot control.  Suppose
-    # we go from 2.15.x to 2.17.x and put the documentation under "v2.17".
+    # we go from 2.23.x to 2.25.x and put the documentation under "v2.25".
     # For some time, Google won't have the new location in its index, so the
-    # search would get nothing.  It is better to keep "v2.15" in the search for
+    # search would get nothing.  It is better to keep "v2.23" in the search for
     # a while.
-    my $search_site = "lilypond.org/doc/v2.23";
+    my $search_site = "lilypond.org/doc/v2.25";
     if ($web_manual) {
         $search_site = "lilypond.org";
     }
