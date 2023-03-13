@@ -349,6 +349,47 @@ title, like the book itself, by specifying a @code{\header} block.
 @}
 @end example
 
+@cindex variable, and @code{\book}
+@cindex variable, and @code{\bookpart}
+@cindex @code{\book}, and variables
+@cindex @code{\bookpart}, and variables
+
+By design, you cannot define variables within a @code{\book} or
+@code{\bookpart} block (the same is true for @code{\score}, by the
+way); this is especially relevant if you want to use multiple
+files to set up your music with variables that should be @q{local}
+to single files.  You can use the following structure for such
+situations.
+
+@example
+% movement1.ly
+variableI = @{ ... @}
+bookpartI = \bookpart @{ \score @{ ... use \variableI ... @} @}
+
+% movement2.ly
+variableII = @{ ... @}
+bookpartII = \bookpart @{ \score @{ ... use \variableII ... @} @}
+
+% main.ly
+\include "movement1.ly"
+\include "movement2.ly"
+\book @{
+  \bookpart @{ \bookpartI @}
+  \bookpart @{ \bookpartII @}
+@}
+@end example
+
+@cindex @code{\book}, and @code{\layout}
+@cindex @code{\bookpart}, and @code{\layout}
+@cindex @code{\layout}, and @code{\book}
+@cindex @code{\layout}, and @code{\bookpart}
+
+Similarly, you can't directly have a @code{\layout} block within
+@code{\book} or @code{\bookpart}.  Put it into a @code{\score}
+block instead that is included by @code{\book} or
+@code{\bookpart}.
+
+
 @node Multiple output files from one input file
 @subsection Multiple output files from one input file
 
