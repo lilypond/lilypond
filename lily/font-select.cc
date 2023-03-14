@@ -82,14 +82,6 @@ get_font_by_design_size (Output_def *layout, Real requested, SCM font_vector)
 }
 
 Font_metric *
-get_font_by_mag_step (Output_def *layout, Real requested_step, SCM font_vector,
-                      Real default_size)
-{
-  return get_font_by_design_size (
-    layout, default_size * pow (2.0, requested_step / 6.0), font_vector);
-}
-
-Font_metric *
 select_font (Output_def *layout, SCM chain)
 {
   SCM name
@@ -107,11 +99,13 @@ select_font (Output_def *layout, SCM chain)
       SCM base_size = scm_slot_ref (leaf, ly_symbol2scm ("default-size"));
       SCM vec = scm_slot_ref (leaf, ly_symbol2scm ("size-vector"));
 
-      Real req = from_scm<double> (
+      Real requested_step = from_scm<double> (
         ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
         0.0);
 
-      return get_font_by_mag_step (layout, req, vec,
-                                   from_scm<double> (base_size));
+      Real design_size
+        = from_scm<double> (base_size) * pow (2.0, requested_step / 6.0);
+
+      return get_font_by_design_size (layout, design_size, vec);
     }
 }
