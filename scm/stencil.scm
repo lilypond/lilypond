@@ -1011,3 +1011,10 @@ on @var{axis}."
   (let ((skyp (ly:skylines-for-stencil stencil (other-axis axis))))
     (cons (ly:skyline-max-height (car skyp))
           (ly:skyline-max-height (cdr skyp)))))
+
+(define-public (stencil-pad-around amount stencil)
+  "Add a padding of @var{amount} around @var{stencil}, returning a
+new stencil."
+  (let* ((x (interval-widen (ly:stencil-extent stencil X) amount))
+         (y (interval-widen (ly:stencil-extent stencil Y) amount)))
+    (ly:stencil-add stencil (make-transparent-box-stencil x y))))

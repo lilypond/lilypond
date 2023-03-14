@@ -2681,11 +2681,7 @@ its actual printed extent.
   }
 }
 @end lilypond"
-  (let* ((m (interpret-markup layout props arg))
-         (x (interval-widen (ly:stencil-extent m X) amount))
-         (y (interval-widen (ly:stencil-extent m Y) amount)))
-    (ly:stencil-add (make-transparent-box-stencil x y)
-                    m)))
+  (stencil-pad-around amount (interpret-markup layout props arg)))
 
 (define-markup-command (pad-x layout props amount arg)
   (number? markup?)
