@@ -1348,14 +1348,15 @@ class Part(Music_xml_node):
                 if isinstance(n, Note) and n.is_grace():
                     n._prev_when = last_moment
                     n._prev_measure_position = last_measure_position
-                # After-graces are placed at the same position as the previous note
-                if isinstance(n, Note) and n.is_after_grace():
-                    # TODO: We should do the same for grace notes at the end of
-                    # a measure with no following note!!!
-                    n._when = last_moment
-                    n._measure_position = last_measure_position
-                elif isinstance(n, Note) and n.is_grace():
-                    pending_graces.append(n)
+                    # After-graces are placed at the same position as the
+                    # previous note
+                    if n.is_after_grace():
+                        # TODO: We should do the same for grace notes at the end
+                        # of a measure with no following note!!!
+                        n._when = last_moment
+                        n._measure_position = last_measure_position
+                    else:
+                        pending_graces.append(n)
                 elif dur > 0:
                     pending_graces = []
 
