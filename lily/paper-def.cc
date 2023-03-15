@@ -82,9 +82,9 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
   PangoFontDescription *description
     = pango_font_description_from_string (font_descr.c_str ());
 
-  double font_description_size
-    = round_halfway_up (factor * pango_font_description_get_size (description));
-  pango_font_description_set_size (description, gint (font_description_size));
+  gint font_description_size = static_cast<gint> (
+    std::lround (factor * pango_font_description_get_size (description)));
+  pango_font_description_set_size (description, font_description_size);
 
   Font_metric *fm
     = all_fonts_global->find_pango_font (description, output_scale (layout));
