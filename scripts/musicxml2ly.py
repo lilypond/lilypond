@@ -1958,10 +1958,10 @@ def musicxml_figured_bass_to_lily(n):
         note = musicxml_figured_bass_note_to_lily(i)
         if note:
             res.append(note)
-    dur = n.get_maybe_exist_named_child('duration')
-    if dur:
+    dur = n.get('duration')
+    if dur is not None:
         # apply the duration to res
-        length = Fraction(int(dur.get_text()), n._divisions) * Fraction(1, 4)
+        length = Fraction(dur, n._divisions) * Fraction(1, 4)
         res.set_real_duration(length)
         res.set_duration(musicexp.Duration.from_fraction(length))
     if getattr(n, 'parentheses', None) == 'yes':

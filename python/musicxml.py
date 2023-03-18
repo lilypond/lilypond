@@ -32,6 +32,12 @@ import musicexp
 import musicxml2ly_conversion
 import utilities
 
+def minidom_demarshal_text_to_int(node):
+    text = ''.join([n.data for n in node.childNodes
+                    if (n.nodeType == node.TEXT_NODE)])
+    return int(text)
+
+
 def minidom_demarshal_text_to_str(node):
     text = ''.join([n.data for n in node.childNodes
                     if (n.nodeType == node.TEXT_NODE)])
@@ -396,10 +402,7 @@ class Credit(Xml_node):
 
 
 class Duration(Music_xml_node):
-
-    def get_length(self):
-        dur = int(self.get_text()) * Fraction(1, 4)
-        return dur
+    minidom_demarshal_to_value = minidom_demarshal_text_to_int
 
 
 class Hash_text(Music_xml_node):
@@ -597,6 +600,11 @@ class Attributes(Measure_element):
     def get_transposition(self):
         return self.get_named_attribute('transpose')
 
+class Backup(Measure_element):
+    max_occurs_by_child = {
+        'duration': 1,
+    }
+
 
 class Barline(Measure_element):
 
@@ -741,6 +749,7 @@ class Notehead(Music_xml_node):
 class Note(Measure_element):
     max_occurs_by_child = {
         'chord': 1,
+        'duration': 1,
         'grace': 1,
         'rest': 1,
         'staff': 1,
@@ -1337,16 +1346,15 @@ class Part(Music_xml_node):
                     factor = Fraction(1, divisions)
 
 
-                if n.get_maybe_exist_typed_child(Duration):
-                    mxl_dur = n.get_maybe_exist_typed_child(Duration)
-                    dur = mxl_dur.get_length() * factor
+                if 'duration' in n:
+                    dur = Fraction(n['duration'], 4) * factor
 
                     if n.get_name() == 'backup':
                         dur = -dur
                         # reset all graces before the backup to after-graces:
                         self.graces_to_aftergraces(pending_graces)
                         pending_graces = []
-                    if 'grace' in n:
+                    if 'grace' in n: # not expected to coexist with 'duration'
                         dur = 0
 
                     rest = n.get('rest')
@@ -1626,11 +1634,13 @@ class Extend(Music_xml_node):
 
 
 class FiguredBass(Music_xml_node):
-    pass
-
+    max_occurs_by_child = {
+        'duration': 1,
+    }
 
 class Forward(Music_xml_node):
     max_occurs_by_child = {
+        'duration': 1,
         'staff': 1,
         'voice': 1,
     }
@@ -1737,6 +1747,7 @@ class_dict = {
     '#text': Hash_text,
     'accidental': Accidental,
     'attributes': Attributes,
+    'backup': Backup,
     'barline': Barline,
     'bar-style': BarStyle,
     'bass': Bass,
