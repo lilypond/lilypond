@@ -7,7 +7,7 @@ include $(depth)/make/lilypond.make
 ifeq ($(out),www)
   ifndef VERBOSE
     TEX_QUIET = >/dev/null
-    PLTOTF_QUIET = &>/dev/null
+    PLTOTF_QUIET = >/dev/null 2>&1
   else
     TEX_QUIET =
     PLTOTF_QUIET =
