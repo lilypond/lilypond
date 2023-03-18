@@ -757,6 +757,7 @@ class Note(Measure_element):
     max_occurs_by_child = {
         'accidental': 1,
         'chord': 1,
+        'dot': 2,
         'duration': 1,
         'grace': 1,
         'instrument': 2,
@@ -776,6 +777,7 @@ class Note(Measure_element):
         self.instrument_name = ''
         self._after_grace = False
         self._duration = 1
+        self._content['dot'] = []
         self._content['instrument'] = []
         self._content['lyric'] = []
 
@@ -797,11 +799,7 @@ class Note(Measure_element):
 
     def get_duration_info(self):
         log = self.get_duration_log()
-        if log is not None:
-            dots = len(self.get_typed_children(Dot))
-            return(log, dots)
-        else:
-            return None
+        return (log, len(self['dot'])) if (log is not None) else None
 
     def get_factor(self):
         return 1
@@ -1612,10 +1610,6 @@ class Direction(Measure_element):
     }
 
 
-class Dot(Music_xml_node):
-    pass
-
-
 class Elision(Music_xml_node):
     pass
 
@@ -1770,7 +1764,6 @@ class_dict = {
     'credit': Credit,
     'dashes': Dashes,
     'degree': ChordModification,
-    'dot': Dot,
     'direction': Direction,
     'direction-type': DirType,
     'display-octave': Display_octave,
