@@ -737,6 +737,7 @@ class Notehead(Music_xml_node):
 class Note(Measure_element):
     max_occurs_by_child = {
         'grace': 1,
+        'staff': 1,
         'voice': 1,
     }
 
@@ -1194,12 +1195,13 @@ class Musicxml_voice:
     def add_element(self, e):
         self._elements.append(e)
         if isinstance(e, Note):
-            staff = e.get_maybe_exist_typed_child(Staff)
-            if staff is not None:
-                name = staff.get_text()
+            try:
+                name = e['staff']
                 if not self._start_staff and ('grace' not in e):
                     self._start_staff = name
                 self._staves[name] = True
+            except KeyError: # no <staff>
+                pass
 
             lyrics = e.get_typed_children(Lyric)
             if not self._has_lyrics:
@@ -1459,16 +1461,11 @@ class Part(Music_xml_node):
             if vid is not None:
                 last_voice = vid
 
-            staff_id = n.get_maybe_exist_named_child('staff')
-            sid = None
-            if staff_id:
-                sid = staff_id.get_text()
-            else:
-                # TODO: Check whether we shall really use "None" here, or
-                #       rather use "1" as the default?
-                #       If this is changed, need to change the corresponding
-                #       check in extract_attributes_for_staff, too.
-                sid = "None"
+            # TODO: Check whether we shall really use "None" here, or
+            #       rather use "1" as the default?
+            #       If this is changed, need to change the corresponding
+            #       check in extract_attributes_for_staff, too.
+            sid = n.get('staff', 'None')
             if vid and vid not in voices:
                 voices[vid] = Musicxml_voice()
             if vid and sid and ('grace' not in n):
@@ -1613,6 +1610,7 @@ class DirType(Music_xml_node):
 
 class Direction(Measure_element):
     max_occurs_by_child = {
+        'staff': 1,
         'voice': 1,
     }
 
@@ -1635,6 +1633,7 @@ class FiguredBass(Music_xml_node):
 
 class Forward(Music_xml_node):
     max_occurs_by_child = {
+        'staff': 1,
         'voice': 1,
     }
 
@@ -1649,7 +1648,9 @@ class Grace(Music_xml_node):
 
 
 class Harmony(Music_xml_node):
-    pass
+    max_occurs_by_child = {
+        'staff': 1,
+    }
 
 
 class Hash_comment(Music_xml_node):
@@ -1697,7 +1698,13 @@ class Slide(Music_xml_spanner):
 
 
 class Staff(Music_xml_node):
-    pass
+    # TODO: We are leaving this staff number as text when we could convert it to
+    # an integer.  It would make more sense to convert it to an integer.  The
+    # spec says that the staves of a part are numbered in order starting from 1
+    # at the top.  We could track them in lists rather than in dictionaries.
+    # Other staff-number attributes (e.g., the 'number' attribute of <clef>)
+    # would need to be converted too.
+    minidom_demarshal_to_value = minidom_demarshal_text_to_str
 
 
 class Text(Music_xml_node):

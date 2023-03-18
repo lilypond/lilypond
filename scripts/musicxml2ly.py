@@ -2316,9 +2316,8 @@ def musicxml_voice_to_lily_voice(voice):
         tie_started = False
         if n.get_name() == 'forward':
             continue
-        staff = n.get_maybe_exist_named_child('staff')
+        staff = n.get('staff')
         if staff:
-            staff = staff.get_text()
             if current_staff and staff != current_staff and not n.get_maybe_exist_named_child('chord'):
                 voice_builder.add_command(musicexp.StaffChange(staff))
             current_staff = staff
