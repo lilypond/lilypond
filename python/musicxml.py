@@ -756,6 +756,7 @@ class Notehead(Music_xml_node):
 class Note(Measure_element):
     max_occurs_by_child = {
         'accidental': 1,
+        'beam': 2, # actually 8
         'chord': 1,
         'dot': 2,
         'duration': 1,
@@ -777,6 +778,7 @@ class Note(Measure_element):
         self.instrument_name = ''
         self._after_grace = False
         self._duration = 1
+        self._content['beam'] = []
         self._content['dot'] = []
         self._content['instrument'] = []
         self._content['lyric'] = []

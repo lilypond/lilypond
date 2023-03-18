@@ -2654,7 +2654,7 @@ def musicxml_voice_to_lily_voice(voice):
                     if ev is not None:
                         ev_chord.append(ev)
 
-        mxl_beams = [b for b in n.get_named_children('beam')
+        mxl_beams = [b for b in n['beam']
                      if (b.get_type() in ('begin', 'end')
                          and b.is_primary())]
         if mxl_beams and not conversion_settings.ignore_beaming:
