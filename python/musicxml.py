@@ -763,6 +763,7 @@ class Note(Measure_element):
         'grace': 1,
         'instrument': 2,
         'lyric': 2,
+        'notations': 2,
         'notehead': 1,
         'pitch': 1,
         'rest': 1,
@@ -782,6 +783,7 @@ class Note(Measure_element):
         self._content['dot'] = []
         self._content['instrument'] = []
         self._content['lyric'] = []
+        self._content['notations'] = []
 
     def is_after_grace(self):
         grace = self.get('grace', False)

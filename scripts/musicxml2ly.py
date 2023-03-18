@@ -2552,7 +2552,7 @@ def musicxml_voice_to_lily_voice(voice):
                 fretboards_builder.add_music(fb, ev_chord.get_length())
             pending_fretboards = []
 
-        notations_children = n.get_typed_children(musicxml.Notations)
+        notations_children = n['notations']
         tuplet_event = None
         span_events = []
 
