@@ -315,12 +315,27 @@ class Identification(Xml_node):
 
 
 class Credit(Xml_node):
+    max_occurs_by_child = {
+        'credit-words': 2,
+    }
+
+    def __init__(self):
+        Xml_node.__init__(self)
+        self._content['credit-words'] = []
 
     def get_type(self):
         type = self.get_maybe_exist_named_child('credit-type')
         if type is not None:
             return type.get_text()
         else:
+            return None
+
+    ## TODO: Should this method even exist?  Review all callers since there can
+    ## be multiple <credit-words> in a <credit>.
+    def get_first_credit_words(self):
+        try:
+            return self['credit-words'][0]
+        except IndexError:
             return None
 
     def find_type(self, credits):
@@ -332,8 +347,7 @@ class Credit(Xml_node):
         xs = self.get_default_xs(credits)
         xs.sort(reverse=True)
 
-        # Words child of the self credit-element
-        words = self.get_maybe_exist_named_child('credit-words')
+        words = self.get_first_credit_words()
         size = getattr(words, 'font-size', None)
         if size is not None:
             size = int(float(size))
@@ -379,7 +393,7 @@ class Credit(Xml_node):
     def get_font_sizes(self, credits):
         sizes = []
         for cred in credits:
-            words = cred.get_maybe_exist_named_child('credit-words')
+            words = cred.get_first_credit_words()
             text = getattr(words, 'font-size', None)
             if text is not None:
                 sizes.append(int(float(text)))
@@ -388,7 +402,7 @@ class Credit(Xml_node):
     def get_default_xs(self, credits):
         default_xs = []
         for cred in credits:
-            words = cred.get_maybe_exist_named_child('credit-words')
+            words = cred.get_first_credit_words()
             text = getattr(words, 'default-x', None)
             if text is not None:
                 default_xs.append(round(float(text)))
@@ -397,14 +411,14 @@ class Credit(Xml_node):
     def get_default_ys(self, credits):
         default_ys = []
         for cred in credits:
-            words = cred.get_maybe_exist_named_child('credit-words')
+            words = cred.get_first_credit_words()
             text = getattr(words, 'default-y', None)
             if text is not None:
                 default_ys.append(round(float(text)))
         return default_ys
 
     def get_text(self):
-        words = self.get_maybe_exist_named_child('credit-words')
+        words = self.get_first_credit_words()
         if words is not None:
             return words.get_text()
         else:
