@@ -432,7 +432,7 @@ update-info-directory-file-install: install-info-files
 	cd $(DESTDIR)$(infodir) ; \
 	  $(foreach f, $(INFO_DOCS), \
 	    install-info --info-dir=$(DESTDIR)$(infodir) \
-	      $(f).info &> /dev/null ; ) true
+	      $(f).info > /dev/null 2>&1 ; ) true
 
 install-info-files:  uninstall-info-files $(INFO_FILES)
 	$(INSTALLPY) -d $(DESTDIR)$(infodir) ; \
@@ -449,7 +449,7 @@ update-info-directory-file-uninstall:
 	    $(foreach f, $(ALL_INFO_DOCS), \
 	      install-info --remove \
 	        --info-dir=$(DESTDIR)$(infodir) \
-	        $(f).info &> /dev/null ; ) true )
+	        $(f).info > /dev/null 2>&1 ; ) true )
 
 ifeq ($(out),www)
   UPDATE_IMAGE_SYMLINKS = \
