@@ -162,30 +162,19 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
       bool allow_flexa = true;
 
       // first check special cases
-      // 1. beginning
-      if (at_beginning)
-        {
-          // a. semibreves
-          if (duration_log == 0)
-            {
-              prim = MLP_UP | MLP_BREVIS;
-              general_case = false;
-            }
-          // b. descendens longa or brevis
-          else if (i < s - 1
-                   && (unsmob<Pitch> (
-                         get_property (primitives[i + 1]->event_cause (),
-                                       "pitch"))
-                         ->steps ()
-                       < pitch)
-                   && duration_log > -3)
+      // 1. initial descendens longa or brevis
+      if (at_beginning && i < s - 1
+          && 0 > duration_log && duration_log > -3
+          && (unsmob<Pitch>
+              (get_property (primitives[i + 1]->event_cause (), "pitch"))
+              ->steps ()
+              < pitch))
             {
               int left_stem = duration_log == -1 ? MLP_DOWN : 0;
               prim = left_stem | MLP_BREVIS;
               general_case = false;
             }
-        }
-      // 2. initial semibrevis must not be followed by a brevis
+      // 2. semibrevis must not be followed by a brevis
       //    (theoretical sources require semibrevis, but
       //     longa and maxima can be denoted unambiguously,
       //     and in extremely rare cases these are used,
@@ -208,15 +197,16 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
               continue;
             }
         }
-      // 3. semibreves are otherwise not allowed
+      // 3. semibreves are denoted by an upward tail on the left
+      //    (theoretical sources require them at the beginning, but
+      //     an upward tail is not used for anything else in the middle,
+      //     and in extremely rare cases it's used to denote swmibreves,
+      //     see e.g. Fayrfax's Aeternae laudis lilium
+      //     in the Lambeth Choirbook: fol. 58v, start of the fourth line)
       else if (duration_log == 0)
         {
-          nr->warning (
-            _ ("semibreves can only appear at the beginning of a ligature,\n"
-               "and there may be at most two of them"));
-          prim = MLP_NONE;
-          at_beginning = true;
-          continue;
+          prim = MLP_UP | MLP_BREVIS;
+          general_case = false;
         }
       // 4. end, descendens
       else if (i == s - 1 && pitch < prev_pitch)
@@ -258,10 +248,12 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
             - both of the notes must be of brevis shape
               (i.e. can't be maxima or flexa;
               longa is forbidden as well - it's nonexistent anyway)
+            - there mustn't be a stem here
             - no compulsory flexa for the next note,
               i.e. it's not an ultimate descending breve
           */
-          make_flexa = !at_beginning && prev_brevis_shape && duration_log > -2;
+          make_flexa = !at_beginning && prev_brevis_shape && duration_log > -2
+            && !(prim & MLP_STEM);
           if (make_flexa && i == s - 2)
             {
               /*
@@ -356,9 +348,10 @@ Mensural_ligature_engraver::propagate_properties (
 
   min_length = 0.0;
   Item *prev_primitive = NULL;
+  int prev_output;
   for (const auto &primitive : primitives)
     {
-      int output = from_scm<int> (get_property (primitive, "primitive"));
+      int const output = from_scm<int> (get_property (primitive, "primitive"));
       set_property (primitive, "thickness", to_scm (thickness));
 
       switch (output & MLP_ANY)
@@ -393,7 +386,17 @@ Mensural_ligature_engraver::propagate_properties (
           break;
         }
 
+      /*
+        join to the previous notehead is handled with the previous note.
+        let it know when this note has a left stem,
+        as it mustn't be hidden by the join
+      */
+      if (prev_primitive && (output & MLP_UP))
+        set_property (prev_primitive, "primitive",
+                      to_scm (prev_output | MLP_JOIN_UP));
+
       prev_primitive = primitive;
+      prev_output = output;
     }
 }
 

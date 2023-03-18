@@ -235,11 +235,19 @@ internal_brew_primitive (Grob *me)
 
               /*
                 if the previous note is longa-shaped,
-                the joining line may hide the stem, so made it longer
-                to serve as stem as well
+                the joining line may hide the stem,
+                so make join longer to serve as stem as well
               */
               if (primitive & MLP_LONGA)
                 y_bottom -= stem_length + 0.25 * blotdiameter;
+
+              /*
+                if next note has a left upward stem,
+                the joining line may hide that,
+                so make join longer to serve as stem as well
+              */
+              if (primitive & MLP_JOIN_UP)
+                y_top = stem_length + 0.25 * blotdiameter;
             }
 
           Interval x_extent (width - thickness, width);

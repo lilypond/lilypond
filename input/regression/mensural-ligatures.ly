@@ -56,6 +56,10 @@
   <>^"SL " \[ g1 b\longa \]
   <>^"SMx " \[ b1 g\maxima \]
   <>^"SMx " \[ g1 b\maxima \]
+
+  % "unofficial", but unambiguous
+  <>^"BS " \[ b\breve g1 \]
+  <>^"BS " \[ g\breve b1 \]
   \bar "|" \break
 
 % ligaturae ternariae, quaternariae, etc. (sicut in Apel[1])
@@ -145,6 +149,15 @@
   <>^"B.B.B.B.B.B.B.B.B. " \[ a\breve. g b a e g f a g \]
   % TODO: the first dot is too high to avoid a non-existent (ledger) line
   <>^"B.B. "               \[ b a \]
+  <>^"BSLB "               \[ f\breve a1 g\longa a\breve \]
+  <>^"BSS "                \[ a\breve
+                              \once \override NoteHead.ligature-flexa = ##t
+                              d1 e \]
+  <>^"BSS "                \[ e\breve
+                              \once \override NoteHead.ligature-flexa = ##t
+                              f1 g \]
+  <>^"BSS "                \[ d\breve a1 e \]
+  <>^"BLSS "               \[ a\breve b\longa d1 e \]
   \bar "|" \break
 
 % invalid ligatures (those commented out are rejected with explanation)
@@ -153,7 +166,7 @@
 % <>^"SS "   \[ a1 as \]
   <>^"BBB "  \[ a\breve g as \]
 % <>^"LLB "  \[ f\longa g f\breve \]
-% <>^"BSLB " \[ f\breve a1 g\longa a\breve \]
+% <>^"BSB " \[ f\breve a1 g\breve \]
 }
 
 
