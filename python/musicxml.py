@@ -1179,22 +1179,23 @@ class Musicxml_voice:
 
     def add_element(self, e):
         self._elements.append(e)
-        if(isinstance(e, Note)
-                and e.get_maybe_exist_typed_child(Staff)):
-            name = e.get_maybe_exist_typed_child(Staff).get_text()
+        if isinstance(e, Note):
+            staff = e.get_maybe_exist_typed_child(Staff)
+            if staff is not None:
+                name = staff.get_text()
+                if (not self._start_staff
+                    and not e.get_maybe_exist_typed_child(Grace)):
+                    self._start_staff = name
+                self._staves[name] = True
 
-            if not self._start_staff and not e.get_maybe_exist_typed_child(Grace):
-                self._start_staff = name
-            self._staves[name] = True
+            lyrics = e.get_typed_children(Lyric)
+            if not self._has_lyrics:
+                self.has_lyrics = len(lyrics) > 0
 
-        lyrics = e.get_typed_children(Lyric)
-        if not self._has_lyrics:
-            self.has_lyrics = len(lyrics) > 0
-
-        for l in lyrics:
-            nr = l.get_number()
-            if nr > 0 and nr not in self._lyrics:
-                self._lyrics.append(nr)
+            for l in lyrics:
+                nr = l.get_number()
+                if nr > 0 and nr not in self._lyrics:
+                    self._lyrics.append(nr)
 
     def insert(self, idx, e):
         self._elements.insert(idx, e)
