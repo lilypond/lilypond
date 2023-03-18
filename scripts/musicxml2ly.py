@@ -2570,7 +2570,7 @@ def musicxml_voice_to_lily_voice(voice):
             # First, close all open slurs, only then start any new slur
             # TODO: Record the number of the open slur to dtermine the correct
             #       closing slur!
-            endslurs = [s for s in notations.get_named_children('slur')
+            endslurs = [s for s in notations['slur']
                         if s.get_type() in ('stop')]
             if endslurs and not inside_slur:
                 endslurs[0].message(
@@ -2584,7 +2584,7 @@ def musicxml_voice_to_lily_voice(voice):
                 lily_ev = musicxml_spanner_to_lily_event(endslurs[0])
                 ev_chord.append(lily_ev)
 
-            startslurs = [s for s in notations.get_named_children('slur')
+            startslurs = [s for s in notations['slur']
                           if s.get_type() in ('start')]
             if startslurs and inside_slur:
                 startslurs[0].message(

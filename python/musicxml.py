@@ -975,6 +975,13 @@ class Sound(Music_xml_node):
 
 
 class Notations(Music_xml_node):
+    max_occurs_by_child = {
+        'slur': 2,
+    }
+
+    def __init__(self):
+        Music_xml_node.__init__(self)
+        self._content['slur'] = []
 
     def get_tie(self):
         ts = self.get_named_children('tied')
