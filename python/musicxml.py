@@ -759,6 +759,7 @@ class Note(Measure_element):
         'chord': 1,
         'duration': 1,
         'grace': 1,
+        'instrument': 2,
         'lyric': 2,
         'notehead': 1,
         'pitch': 1,
@@ -775,6 +776,7 @@ class Note(Measure_element):
         self.instrument_name = ''
         self._after_grace = False
         self._duration = 1
+        self._content['instrument'] = []
         self._content['lyric'] = []
 
     def is_after_grace(self):
@@ -1392,11 +1394,12 @@ class Part(Music_xml_node):
                         measure_position = 0
                     last_moment = now
                     last_measure_position = measure_position
-                if n._name == 'note':
-                    instrument = n.get_maybe_exist_named_child('instrument')
-                    if instrument:
-                        n.instrument_name = part_list.get_instrument(
-                            instrument.id)
+                instruments = n.get('instrument', []) # only in <note>
+                if len(instruments) > 0:
+                    ## TODO: <note> can contain any number of <instrument> but
+                    ## we are only paying attention to the first.
+                    instr = instruments[0]
+                    n.instrument_name = part_list.get_instrument(instr.id)
 
             # reset all graces at the end of the measure to after-graces:
             self.graces_to_aftergraces(pending_graces)
