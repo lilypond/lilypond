@@ -519,6 +519,7 @@ Axis_group_interface::combine_skylines (SCM smob)
           ret.merge (skyp);
         }
     }
+  ret.shift (-me->relative_coordinate (x_common, X_AXIS));
   return to_scm (ret);
 }
 
