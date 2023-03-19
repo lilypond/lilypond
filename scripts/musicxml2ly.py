@@ -2637,37 +2637,6 @@ def musicxml_voice_to_lily_voice(voice):
                 else:
                     is_tied = False
 
-            fermatas = notations.get_named_children('fermata')
-            for a in fermatas:
-                ev = musicxml_fermata_to_lily_event(a)
-                if ev:
-                    ev_chord.append(ev)
-
-            arpeggiate = notations.get_named_children('arpeggiate')
-            for a in arpeggiate:
-                ev = musicxml_arpeggiate_to_lily_event(a)
-                if ev:
-                    ev_chord.append(ev)
-
-            arpeggiate = notations.get_named_children('non-arpeggiate')
-            for a in arpeggiate:
-                ev = musicxml_nonarpeggiate_to_lily_event(a)
-                if ev:
-                    ev_chord.append(ev)
-
-            glissandos = notations.get_named_children('glissando')
-            glissandos += notations.get_named_children('slide')
-            for a in glissandos:
-                ev = musicxml_spanner_to_lily_event(a)
-                if ev:
-                    ev_chord.append(ev)
-
-            # accidental-marks are direct children of <notation>!
-            for a in notations.get_named_children('accidental-mark'):
-                ev = musicxml_articulation_to_lily_event(a)
-                if ev:
-                    ev_chord.append(ev)
-
             # Articulations can contain the following child elements:
             #         accent | strong-accent | staccato | tenuto |
             #         detached-legato | staccatissimo | spiccato |
@@ -2683,21 +2652,36 @@ def musicxml_voice_to_lily_voice(voice):
             #         trill-mark | turn | delayed-turn | inverted-turn |
             #         shake | wavy-line | mordent | inverted-mordent |
             #         schleifer | tremolo | other-ornament, accidental-mark
-            ornaments = notations.get_named_children('ornaments')
-            ornaments += notations.get_named_children('articulations')
-            ornaments += notations.get_named_children('technical')
-
-            for a in ornaments:
-                for ch in a.get_all_children():
+            def convert_and_append_all_child_articulations(mxl_node):
+                for ch in mxl_node.get_all_children():
                     ev = musicxml_articulation_to_lily_event(ch)
-                    if ev:
+                    if ev is not None:
                         ev_chord.append(ev)
 
-            dynamics = notations.get_named_children('dynamics')
-            for a in dynamics:
-                for ch in a.get_all_children():
+            def convert_and_append_all_child_dynamics(mxl_node):
+                for ch in mxl_node.get_all_children():
                     ev = musicxml_dynamics_to_lily_event(ch)
-                    if ev:
+                    if ev is not None:
+                        ev_chord.append(ev)
+
+            notation_handlers = {
+                'accidental-mark': musicxml_articulation_to_lily_event,
+                'arpeggiate': musicxml_arpeggiate_to_lily_event,
+                'articulations': convert_and_append_all_child_articulations,
+                'dynamics': convert_and_append_all_child_dynamics,
+                'fermata': musicxml_fermata_to_lily_event,
+                'glissando': musicxml_spanner_to_lily_event,
+                'non-arpeggiate': musicxml_nonarpeggiate_to_lily_event,
+                'ornaments': convert_and_append_all_child_articulations,
+                'slide': musicxml_spanner_to_lily_event,
+                'technical': convert_and_append_all_child_articulations,
+            }
+
+            for a in notations.get_all_children():
+                handler = notation_handlers.get(a.get_name(), None)
+                if handler is not None:
+                    ev = handler(a)
+                    if ev is not None:
                         ev_chord.append(ev)
 
         mxl_beams = [b for b in n.get_named_children('beam')
