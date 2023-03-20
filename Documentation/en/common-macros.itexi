@@ -39,9 +39,17 @@ Macro definitions that contain translatable text belong to file
 @c We need this for `@warning`: Due to a bug in `texi2html`, ordinary
 @c backslashes disappear if used in commands like `@code`.
 
+@ifnottex
 @macro bs
 \\
 @end macro
+@end ifnottex
+
+@iftex
+@tex
+\global\let\bs = \backslashchar
+@end tex
+@end iftex
 
 
 @ifnotinfo
@@ -360,6 +368,10 @@ Macro definitions that contain translatable text belong to file
 @c * `@funindexpost \foo' gets sorted after `@funindex foo'.
 @c
 @c `@cpindex' is the internal version of `@cindex'.
+@c
+@c Another special case is indexing `\\'; you have to write
+@c
+@c   @funindex @sortas{@bs{}@bs{}} \\
 
 @tex
 {

@@ -1024,7 +1024,7 @@ Notation Reference:
 
 @funindex << ... \\ ... >>
 @funindex <<
-@funindex \\
+@funindex @sortas{@bs{}@bs{}} \\
 @funindex >>
 
 Polyphonic music in LilyPond, while not difficult, uses concepts

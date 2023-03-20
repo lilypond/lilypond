@@ -657,8 +657,8 @@ when two voices are required.
 
 Let us see how this is done in LilyPond input syntax.
 
-@funindex << \\ >>
-@funindex \\
+@funindex << ... \\ ... >>
+@funindex @sortas{@bs{}@bs{}} \\
 
 The easiest way to enter fragments with more than one voice on a
 staff is to enter each voice as a sequence (with
