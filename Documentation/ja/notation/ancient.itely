@@ -2397,7 +2397,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 
 @morerefs
 音楽用語集:
-@rglos{kievan notation}
+@rglos{Kievan notation}
 
 @knownissues
 LilyPond は Synodal スタイルのキエフ記譜法をサポートしています。@c
@@ -2423,7 +2423,7 @@ LilyPond はガリツィアでルシン語の単旋律聖歌に使われた、@c
 
 @morerefs
 音楽用語集:
-@rglos{kievan notation},
+@rglos{Kievan notation},
 @rglos{clef}
 
 記譜法リファレンス:
@@ -2461,7 +2461,7 @@ b'2
 
 @morerefs
 音楽用語集:
-@rglos{kievan notation},
+@rglos{Kievan notation},
 @rglos{note head}
 
 記譜法リファレンス:
@@ -2498,7 +2498,7 @@ bes' dis'
 
 @morerefs
 音楽用語集:
-@rglos{kievan notation},
+@rglos{Kievan notation},
 @rglos{accidental}
 
 記譜法リファレンス:

@@ -2501,7 +2501,7 @@ propio canto:
 
 @morerefs
 Glosario musical:
-@rglos{kievan notation}.
+@rglos{Kievan notation}.
 
 @knownissues
 LilyPond contempla la notación del canto kievano en el estilo
@@ -2529,7 +2529,7 @@ Tse-fa-ut).  Se utiliza para indicar la posición del Do:
 
 @morerefs
 Glosario musical:
-@rglos{kievan notation},
+@rglos{Kievan notation},
 @rglos{clef}.
 
 Referencia de la notación:
@@ -2572,7 +2572,7 @@ b'2
 
 @morerefs
 Glosario musical:
-@rglos{kievan notation},
+@rglos{Kievan notation},
 @rglos{note head}.
 
 Referencia de la notación:
@@ -2611,7 +2611,7 @@ bes' dis'
 
 @morerefs
 Glosario musical:
-@rglos{kievan notation},
+@rglos{Kievan notation},
 @rglos{accidental}.
 
 Referencia de la notación:

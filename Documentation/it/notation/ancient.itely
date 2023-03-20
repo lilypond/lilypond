@@ -2446,7 +2446,7 @@ immediatamente all'inserimento delle note del canto:
 
 @morerefs
 Glossario musicale:
-@rglosnamed{kievan notation,notazione di Kiev}.
+@rglosnamed{Kievan notation,notazione di Kiev}.
 @endmorerefs
 
 @knownissues
@@ -2475,7 +2475,7 @@ per indicare la posizione del Do (@code{c}):
 
 @morerefs
 Glossario musicale:
-@rglosnamed{kievan notation,notazione di Kiev},
+@rglosnamed{Kievan notation,notazione di Kiev},
 @rglosnamed{clef,chiave}.
 
 Guida alla notazione:
@@ -2515,7 +2515,7 @@ b'2
 
 @morerefs
 Glossario musicale:
-@rglosnamed{kievan notation,notazione di Kiev},
+@rglosnamed{Kievan notation,notazione di Kiev},
 @rglosnamed{note head,testa di nota}.
 
 Guida alla notazione:
@@ -2552,7 +2552,7 @@ bes' dis'
 
 @morerefs
 Glossario musicale:
-@rglosnamed{kievan notation,notazione di Kiev},
+@rglosnamed{Kievan notation,notazione di Kiev},
 @rglosnamed{accidental,alterazione}.
 
 Guida alla notazione:

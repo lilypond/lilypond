@@ -2512,7 +2512,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 
 @morerefs
 Glossaire musicologique :
-@rglosnamed{kievan notation, notation kiévienne}.
+@rglosnamed{Kievan notation, notation kiévienne}.
 @endmorerefs
 
 @knownissues
@@ -2543,7 +2543,7 @@ La notation kiévienne n'utilise qu'une seule clef -- la clef
 @morerefs
 Glossaire musicologique :
 @rglos{clef},
-@rglosnamed{kievan notation, notation kiévienne}.
+@rglosnamed{Kievan notation, notation kiévienne}.
 
 Manuel de notation :
 @ref{Clefs}.
@@ -2582,7 +2582,7 @@ b'2
 
 @morerefs
 Glossaire musicologique :
-@rglosnamed{kievan notation, notation kiévienne},
+@rglosnamed{Kievan notation, notation kiévienne},
 @rglosnamed{note head, tête de note}.
 
 Manuel de notation :
@@ -2619,7 +2619,7 @@ bes' dis'
 @morerefs
 Glossaire musicologique :
 @rglosnamed{accidental, altération},
-@rglosnamed{kievan notation, notation kiévienne}.
+@rglosnamed{Kievan notation, notation kiévienne}.
 
 Manuel de notation :
 @ref{Altérations},

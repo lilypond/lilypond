@@ -2559,7 +2559,7 @@ richtigen Werten, sodass man sofort den Choral notieren kann:
 
 @morerefs
 Glossar:
-@rglos{kievan notation}.
+@rglos{Kievan notation}.
 
 @knownissues
 LilyPond unterstützt Kiever Notation des Synodischen Stils, welcher
@@ -2587,7 +2587,7 @@ Er bezeichnet die Position von @code{c}:
 
 @morerefs
 Glossar:
-@rglos{kievan notation},
+@rglos{Kievan notation},
 @rglos{clef}.
 
 Notationsreferenz:
@@ -2621,7 +2621,7 @@ b'2
 
 @morerefs
 Glossar:
-@rglos{kievan notation},
+@rglos{Kievan notation},
 @rglos{note head}.
 
 Notationsreferenz:
@@ -2657,7 +2657,7 @@ bes' dis'
 
 @morerefs
 Glossar:
-@rglos{kievan notation},
+@rglos{Kievan notation},
 @rglos{accidental}.
 
 Notationsreferenz:

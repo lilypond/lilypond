@@ -258,7 +258,7 @@ Languages in this order.
 * just intonation::
 * key::
 * key signature::
-* kievan notation::
+* Kievan notation::
 * laissez vibrer::
 * largo::
 * leading note::
@@ -4910,8 +4910,8 @@ key of the music.
 @endmorerefs
 
 
-@node kievan notation
-@section kievan notation
+@node Kievan notation
+@section Kievan notation
 
 A form of medieval music notation used predominantly in the chantbooks
 of the Russian Orthodox Church as well as Carpatho-Russian and Ukrainian
