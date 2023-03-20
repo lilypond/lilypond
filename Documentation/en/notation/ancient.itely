@@ -963,7 +963,7 @@ When typesetting a piece in Gregorian chant notation, the
 @code{Vaticana_ligature_engraver} automatically selects the
 proper note heads, so there is no need to explicitly set the note
 head style.  Still, the note head style can be set, e.g., to
-@code{vaticana_punctum} to produce punctum neumes.  Similarly, the
+@code{vaticana.punctum} to produce punctum neumes.  Similarly, the
 @code{Mensural_ligature_engraver} automatically assembles
 mensural ligatures.
 

@@ -975,7 +975,7 @@ Quando si scrive un brano nella notazione del canto gregoriano, l'incisore
 @code{Vaticana_ligature_engraver} seleziona automaticamente le teste di
 nota adeguate, dunque non c'è bisogno di impostare esplicitamente lo stile
 della testa di nota.  È tuttavia possibile modificare lo stile della testa
-di nota, per esempio su @code{vaticana_punctum} per produrre i neumi @i{punctum}.
+di nota, per esempio su @code{vaticana.punctum} per produrre i neumi @i{punctum}.
 Analogamente, l'incisore @code{Mensural_ligature_engraver} raggruppa
 automaticamente le legature mensurali.
 

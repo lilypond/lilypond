@@ -1023,7 +1023,7 @@ gregoriano, el grabador @code{Vaticana_ligature_engraver}
 selecciona automáticamente la cabeza adecuada de las figuras, de
 manera que no es necesario establecer explícitamente el estilo de
 las cabezas.  A pesar de ello se puede establecer el estilo de las
-cabezas, p.ej.: a @code{vaticana_punctum} para producir neumas de
+cabezas, p.ej.: a @code{vaticana.punctum} para producir neumas de
 punctum.  De forma similar, el grabador
 @code{Mensural_ligature_engraver} construye ligaduras mensurales
 automáticamente.  Consulte @ref{Ligaduras} para ver cómo funcionan

@@ -967,7 +967,7 @@ ficta = { \once \set suggestAccidentals = ##t }
 @code{Vaticana_ligature_engraver} が適切な符頭を選択するため、@c
 符頭のスタイルについては明示的に指定する必要はありません。@c
 しかし、例えばパンクトゥム ネウマを表示するために、@c
-スタイルを @code{vaticana_punctum} にすることができます。@c
+スタイルを @code{vaticana.punctum} にすることができます。@c
 同じように、@code{Mensural_ligature_engraver} が自動的に@c
 計量記譜法のリガトゥーラを作り出します。
 

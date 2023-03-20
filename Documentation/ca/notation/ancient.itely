@@ -1055,7 +1055,7 @@ En gravar una peça de notació de cant gregorià, el gravador
 @code{Vaticana_ligature_engraver} tria automàticament el cap
 adequat de les figures, de manera que no cal establir
 explícitament l'estil dels caps.  Malgrat això es pot establir
-l'estil dels caps, per exemple: a @code{vaticana_punctum} per
+l'estil dels caps, per exemple: a @code{vaticana.punctum} per
 produir neumes de punctum.  De forma semblant, el gravador
 @code{Mensural_ligature_engraver} construeix lligadures mensurals
 automàticament.  Consulteu @ref{Lligadures} per veure com

@@ -1078,7 +1078,7 @@ Wenn ein gregorianischer Choral notiert wird, wählt der
 @code{Vaticana_ligature_engraver} automatisch die richtigen
 Notenköpfe aus, so dass man den Notenkopfstil nicht explizit
 setzen muss.  Der Stil kann dennoch gesetzt werden, etwa
-auf @code{vaticana_punctum} um punctum-Neumen zu erzeugen.  Ähnlich
+auf @code{vaticana.punctum} um punctum-Neumen zu erzeugen.  Ähnlich
 funktioniert auch der @code{Mensural_ligature_engraver},
 der Mensuralligaturen setzt.
 

@@ -1027,7 +1027,7 @@ Si vous écrivez en notation grégorienne, le
 @code{Vaticana_ligature_engraver} se chargera de sélectionner les têtes
 de note appropriées ; il est donc inutile de spécifier le style à
 utiliser. Vous pouvez cependant spécifier par exemple le style
-@code{vaticana_punctum} pour obtenir des neumes punctums. De même, c'est
+@code{vaticana.punctum} pour obtenir des neumes punctums. De même, c'est
 le @code{Mensural_ligature_engraver} qui se chargera des ligatures
 mensurales.
 
