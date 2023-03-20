@@ -47,7 +47,7 @@ or stretched.
 Two types of blocks can contain layout settings:
 @code{\paper @{@dots{}@}} and @code{\layout @{@dots{}@}}.  The
 @code{\paper} block contains page layout settings that are expected
-to be the same for all scores in a book or bookpart, such as the
+to be the same for all scores in a book or book part, such as the
 paper height, or whether to print page numbers, etc.  See
 @ref{Page layout}.  The @code{\layout} block contains score layout
 settings, such as the number of systems to use, or the space
@@ -97,7 +97,7 @@ Within a @code{\book} block but outside all the @code{\bookpart} and
 
 @item
 Within a @code{\bookpart} block but outside all @code{\score} blocks
-within that bookpart.
+within that book part.
 
 @end itemize
 
@@ -213,7 +213,7 @@ However, there are two functions that can be used to change it:
 #(set-default-paper-size "quarto")
 @end example
 
-which must always be placed at the toplevel scope, and
+which must always be placed at the top-level scope, and
 
 @item set-paper-size
 
@@ -227,7 +227,7 @@ which must always be placed in a @code{\paper} block.
 @end table
 
 If the @code{set-default-paper-size} function is used in the
-toplevel scope, it must come before any @code{\paper} block.
+top-level scope, it must come before any @code{\paper} block.
 @code{set-@/default-@/paper-@/size} sets the paper size for all
 pages, whereas @code{set-@/paper-@/size} only sets the paper size
 for the pages that the @code{\paper} block applies to.  For
@@ -638,7 +638,7 @@ Also see @code{check-consistency}.
 @funindex line-width
 
 When specified in a @code{\paper} block this defines the horizontal
-extent available for the staff lines in un-indented systems.  If left
+extent available for the staff lines in unindented systems.  If left
 unspecified, the paper's @code{line-width} is determined from
 @code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}.
 If the paper's @code{line-width} is specified, and both
@@ -936,7 +936,7 @@ is set to @code{ly:@/page-@/turn-@/breaking}.  Page breaks are then chosen
 to minimize the number of page turns.  Since page turns are required
 on moving from an odd-numbered page to an even-numbered one, a
 layout in which the last page is odd-numbered will usually be
-favoured.  Places where page turns are preferred can be indicated
+favored.  Places where page turns are preferred can be indicated
 manually by inserting @code{\allowPageTurn} or automatically by
 including the @code{Page_turn_engraver} (see @ref{Optimal page turning}).
 
@@ -1040,16 +1040,16 @@ The type of numerals used for page numbers.  Choices include
 @code{'roman-lower}, and @code{'roman-upper}.  Default:
 @code{'arabic}.
 
-@cindex page numbers, per bookpart
+@cindex page numbers, per book part
 @cindex page numbers, independent for introduction
 @item bookpart-level-page-numbering
 @funindex bookpart-level-page-numbering
 
-If set to true, each bookpart has its indepdendent sequence of
+If set to true, each book part has its independent sequence of
 page numbers, starting at @code{first-page-number} (1 by default).
 
-This may also be used for one bookpart only.  The typical use case
-is numbering pages of the first bookpart independently and in
+This may also be used for one book part only.  The typical use case
+is numbering pages of the first book part independently and in
 roman numerals, as may be wished for an analytical introduction to
 the work being published.
 
@@ -1185,7 +1185,7 @@ block.
 While the @code{\paper} block contains settings that relate to the
 page formatting of the whole document, the @code{\layout} block
 contains settings for score-specific layout.  To set score layout
-options globally, enter them in a toplevel @code{\layout} block.
+options globally, enter them in a top-level @code{\layout} block.
 To set layout options for an individual score, enter them in a
 @code{\layout} block inside the @code{\score} block, after the
 music.  Settings that can appear in a @code{\layout} block
@@ -1239,7 +1239,7 @@ Here is an example @code{\layout} block:
 @}
 @end example
 
-Multiple @code{\layout} blocks can be entered as toplevel expressions.
+Multiple @code{\layout} blocks can be entered as top-level expressions.
 This can, for example, be useful if different settings are stored in
 separate files and included optionally.  Internally, when
 a @code{\layout} block is evaluated, a copy of the current
@@ -1357,8 +1357,8 @@ Snippets:
 @funindex layout-set-staff-size
 
 The default @strong{staff size} is 20 points, which corresponds to
-a staff height of 7.03mm (one point is equal to 100/7227 of an
-inch, or 2540/7227 mm).  The staff size may be changed in three
+a staff height of 7.03@dmn{mm} (one point is equal to 100/7227 of an
+inch, or 2540/7227@dmn{mm}).  The staff size may be changed in three
 ways:
 
 @enumerate
@@ -1373,8 +1373,8 @@ To set the staff size globally for all scores in a file (or in a
 @end example
 
 @noindent
-The above example sets the global default staff size to 14pt
-(4.92mm) and scales all fonts accordingly.
+The above example sets the global default staff size to 14@dmn{pt}
+(4.92@dmn{mm}) and scales all fonts accordingly.
 
 @item
 To set the staff size for a single score within a book, use
@@ -1394,7 +1394,7 @@ block:
 @funindex \magnifyStaff
 To set the staff size for a single staff within a system, use the
 @code{\magnifyStaff} command.  For example, traditionally engraved
-chamber music scores with piano often used 7mm piano staves while
+chamber music scores with piano often used 7@dmn{mm} piano staves while
 the other staves were typically between 3/5 and 5/7 as large
 (between 60% and 71%).  To achieve the 5/7 proportion, use:
 
@@ -1473,7 +1473,7 @@ When using @code{\magnifyStaff} only for some staves in a @code{StaffGroup},
   >>
 @end lilypond
 
-You may want to cancel magnifying @code{BarLine} grobs, mimick them on the other
+You may want to cancel magnifying @code{BarLine} grobs, mimic them on the other
 staves or apply intermediate values for every @code{Staff}.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1497,7 +1497,7 @@ mus = { b1 \bar "|."}
       \mus
   >>
 
-\markup "Mimick \\magnifyStaff on other staves:"
+\markup "Mimic \\magnifyStaff on other staves:"
 \new StaffGroup
   <<
     \new Staff
@@ -1845,7 +1845,7 @@ Snippets:
 @knownissues
 
 The @code{\once} prefix is ineffective with @code{\autoPageBreaksOn}
-and @code{\autoPageBreaksOff}.  If auto page breaking is off and is
+and @code{\autoPageBreaksOff}.  If automatic page breaking is off and is
 then turned on to permit a page break, it must remain on for a few
 bars (the precise number of bars depends on the score) before being
 turned off, else the opportunity to break the page will not be taken.
@@ -2372,7 +2372,7 @@ example, to require a minimum amount of padding between a
 The distance between consecutive staves within the current
 staff group.  The @code{staff-staff-spacing} property of an
 individual staff's @code{VerticalAxisGroup} grob can be
-overriden with different spacing settings for that staff.
+overridden with different spacing settings for that staff.
 
 @item staffgroup-staff-spacing
 The distance between the last staff of the current staff group and
@@ -2380,7 +2380,7 @@ the staff just below it in the same system, even if one or more
 non-staff lines (such as @code{Lyrics}) exist between the two
 staves.  Does not apply to the bottom staff of a system.  The
 @code{staff-staff-spacing} property of an individual staff's
-@code{VerticalAxisGroup} grob can be overriden with different
+@code{VerticalAxisGroup} grob can be overridden with different
 spacing settings for that staff.
 @end table
 
@@ -2701,7 +2701,7 @@ complicated.  Also see @ref{Breaks}.
 
 By using explicit @code{\break} commands, the music is divided into five
 measures per line.  Vertical spacing is from LilyPond's own defaults but
-the vertical startpoint of each system is set explicitly using the
+the vertical start point of each system is set explicitly using the
 @code{Y-offset} pair in the @code{line-break-system-details} attribute
 of the @code{NonMusicalPaperColumn} grob:
 
@@ -2780,7 +2780,7 @@ Y-axis.
 }
 @end lilypond
 
-Now that we have set the vertical startpoint of each system
+Now that we have set the vertical start point of each system
 explicitly, we can also set the vertical distances between staves
 within each system manually.  We do this using the @code{alignment-distances}
 subproperty of @code{line-break-system-details}.
@@ -2831,7 +2831,7 @@ Note that here we assign two different values to the
 @code{line-break-system-details} attribute alist accepts many
 additional spacing parameters (including, for example, a corresponding
 @code{X-offset} pair), we need only set the @code{Y-offset} and
-@code{alignment-distances} pairs to control the vertical startpoint of
+@code{alignment-distances} pairs to control the vertical start point of
 every system and every staff.  Finally, note that @code{alignment-distances}
 specifies the vertical positioning of staves but not of staff groups.
 
@@ -4042,7 +4042,7 @@ default value).  Note that:
 
 @noindent
 In this case, one staff space is approximately equal to
-1.757mm.  Thus the @code{paper-height} measurement of 59.75
+1.757@dmn{mm}.  Thus the @code{paper-height} measurement of 59.75
 staff spaces is equivalent to 105 millimeters, the height
 of @code{a6} paper in landscape orientation.  The pairs
 (@var{a},@var{b}) are intervals, where @var{a} is the lower

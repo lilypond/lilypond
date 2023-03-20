@@ -232,9 +232,9 @@ Lyrics are interpreted in @code{\lyricmode} and printed in a
 @end example
 
 Two variants of @code{\lyricmode} additionally set an associated
-context used to synchronise the lyric syllables to music.  The more
+context used to synchronize the lyric syllables to music.  The more
 convenient @code{\addlyrics} immediately follows the musical content
-of the Voice context with which it should be synchronised, implicitly
+of the Voice context with which it should be synchronized, implicitly
 creating a Lyrics context of its own.  The more versatile
 @code{\lyricsto} requires both specifying the associated Voice context
 by name and explicitly creating a containing Lyrics context.  For
@@ -922,7 +922,7 @@ Internals Reference:
 @node Techniques specific to lyrics
 @subsection Techniques specific to lyrics
 
-@c TODO this whole section is to be reorganised
+@c TODO this whole section is to be reorganized
 
 @menu
 * Working with lyrics and variables::
@@ -2089,7 +2089,7 @@ within the lyrics by setting the @code{associatedVoice} property:
 
 @noindent
 The text for the first stanza is set to the melody called
-@q{lahlah} in the usual way, but the second stanza is set initally
+@q{lahlah} in the usual way, but the second stanza is set initially
 to the @code{lahlah} context and is then switched to the
 @code{alternative} melody for the syllables @q{ran} to @q{sau} by
 the lines:
@@ -2125,7 +2125,7 @@ to the music, and the rest added in verse form at
 the end of the piece.  This can be accomplished by adding
 the extra verses into a @code{\markup} section outside
 of the main score block.  Notice that there are several
-different ways to force linebreaks when using
+different ways to force line breaks when using
 @code{\markup}.  For inputting a whole string you may use
 @code{\string-lines} with manually inserted @code{\n}
 or automatic line breaks as entered or

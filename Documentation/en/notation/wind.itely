@@ -189,7 +189,7 @@ instead.
 
 Some modern music use cross-fingering on c and@tie{}f to flatten those notes.
 This can be indicated by @code{c-flat} or @code{f-flat}.  Similarly, the
-piobaireachd high g can be written @code{g-flat} when it occurs in light
+@emph{Piobaireachd} high@tie{}g can be written @code{g-flat} when it occurs in light
 music.
 
 @morerefs

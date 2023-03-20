@@ -55,7 +55,7 @@ pitch and harmony in contemporary music.
 @item Non-standard key signatures are addressed in
 @ref{Key signature}.
 
-@item Contemporary practises in displaying accidentals are
+@item Contemporary practices in displaying accidentals are
 addressed in @ref{Automatic accidentals}.
 
 @end itemize
@@ -117,7 +117,7 @@ addressed in @ref{Grouping staves}.
 
 @ignore
     Extended discussion of modern tuplets, including
-    non-standard ratios, nested tuplets and customising
+    non-standard ratios, nested tuplets and customizing
     the appearance of tuplets (ratios, note values, etc.)
     Also how to provide an ossia RhythmicStaff to help
     players break down a complicated tuplet.
@@ -151,7 +151,7 @@ addressed in @ref{Grouping staves}.
 @unnumberedsubsubsec Beams in contemporary music
 
 @ignore
-    Beaming practises, stemlets, Boulez-esque displaying
+    Beaming practices, stemlets, Boulez-esque displaying
     of beamed notes with flags
 @end ignore
 

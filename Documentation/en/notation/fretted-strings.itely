@@ -254,7 +254,7 @@ can add a string number indication to the pitch name.  If you don't want
 to have string number indications appear in traditional notation, you
 can override the respective stencil.  Usually it will be more
 comfortable to define the playing position by using the value of
-@code{minimumFret}.  The default value for minimumFret is 0.
+@code{minimumFret}.  The default value for @code{minimumFret} is 0.
 
 Even when @code{minimumFret} is set, open strings are used whenever
 possible.  This behavior can be changed by setting @code{restrainOpenStrings}
@@ -287,13 +287,13 @@ to @code{#t}.
 @cindex @code{q}, chord repetition
 
 Chord constructs can be repeated by the chord repetition symbol
-@code{q}.  In combination with tabulatures, its behavior of removing
+@code{q}.  In combination with tablatures, its behavior of removing
 string and finger numbers alongside with other events is cumbersome, so
 you'll want to run
 @example
 \chordRepeats #'(string-number-event fingering-event)
 @end example
-explicitly on music expressions in tabulature using @ref{Chord
+explicitly on music expressions in tablature using @ref{Chord
 repetition}.  This particular command is so common that it is available
 as @code{\tabChordRepeats}.
 

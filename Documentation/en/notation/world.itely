@@ -269,8 +269,8 @@ With that being said LilyPond is not aiming at providing a full suite of all
 possible maqams.  It rather defines the most common ones that are frequently
 used and offers key signatures by grouping maqams together.
 In general, a maqam uses the key signature of its family, or a
-neighbouring family, and varying accidentals are marked throughout the
-music.  When forming key signatures neighbouring maqam families are grouped
+neighboring family, and varying accidentals are marked throughout the
+music.  When forming key signatures neighboring maqam families are grouped
 together.  For example, maqam @notation{saba} seldom occurs outside of the
 context of maqam @notation{bayati} and adds only a single alteration.
 Although both maqams come from different @emph{maqam families}
@@ -554,7 +554,7 @@ examples:
 @end itemize
 
 @item
-Method books by the following authors for the Oud (the Arabic
+Method books by the following authors for the oud (the Arabic
 lute) contain examples of mainly Turkish and Arabic compositions.
 
 @itemize

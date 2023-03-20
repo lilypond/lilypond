@@ -292,7 +292,7 @@ bottom staff.  The syntax for this is
 This will create two staves inside the current staff group
 (usually a @code{PianoStaff}), called @code{"up"} and
 @code{"down"}.  The lower staff will be in the bass clef by default.
-The autoChanger switches on the basis of the pitch (middle@tie{}C is the
+The auto-changer switches on the basis of the pitch (middle@tie{}C is the
 turning point), and it looks ahead skipping over rests to switch
 in advance.
 
@@ -563,7 +563,7 @@ while the sostenuto pedal uses mixed by default.
 @end lilypond
 
 The placement of the pedal commands matches the physical movement of the
-sustain pedal during piano performance.  Pedalling to the final bar line
+sustain pedal during piano performance.  Pedaling to the final bar line
 is indicated by omitting the final pedal off command.
 
 Pedal indications may be placed in a @code{Dynamics} context,

@@ -110,7 +110,6 @@ with slurs as follows:
 @end lilypond
 
 @noindent
-
 Roman numerals can be used for string numbers (rather
 than the default circled Arabic numbers), as explained in
 @ref{String number indications}.

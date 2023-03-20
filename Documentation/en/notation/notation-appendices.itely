@@ -1027,8 +1027,8 @@ For more modification possibilities like ottavation digits,
 @cindex French clef
 @cindex clef, soprano
 @cindex soprano clef
-@cindex clef, mezzosoprano
-@cindex mezzosoprano clef
+@cindex clef, mezzo-soprano
+@cindex mezzo-soprano clef
 @cindex clef, alto
 @cindex alto clef
 @cindex clef, C
@@ -1062,11 +1062,11 @@ For more modification possibilities like ottavation digits,
 @cindex clef, ancient music
 @cindex clef, Petrucci
 @cindex clef, mensural
-@cindex clef, blackmensural
+@cindex clef, black mensural
 @cindex clef, Kievan
 @cindex Petrucci clef
 @cindex mensural clef
-@cindex blackmensural clef
+@cindex black mensural clef
 @cindex Kievan clef
 
 @menu
@@ -2532,7 +2532,7 @@ b4 4 \breathe 4
 @cindex cymbal, various
 @cindex crash cymbal
 @cindex ride cymbal
-@cindex chinese cymbal
+@cindex Chinese cymbal
 @cindex splash cymbal
 @cindex ride bell
 @cindex cowbell
@@ -2554,7 +2554,7 @@ b4 4 \breathe 4
 @cindex cabasa
 @cindex maracas
 @cindex whistle
-@cindex handclap
+@cindex hand clap
 @cindex tambourine
 @cindex vibraslap
 @cindex tam tam
@@ -3009,7 +3009,7 @@ invocations, so permitting state to be maintained.
 @cindex typeface
 
 A @strong{glyph} is a particular graphical representation of a typographic
-character, or a combination of two characters formating a ligature.
+character, or a combination of two characters forming a ligature.
 A set of glyphs with a single style and shape comprise a font, and
 a set of fonts covering several styles and sizes comprise a typeface.
 

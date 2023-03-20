@@ -224,7 +224,7 @@ Handles typesetting for percussion.  Can contain @code{DrumVoice}.
 @strong{@emph{VaticanaStaff}}
 
 Same as @code{Staff}, except that it is designed for typesetting
-a piece in gregorian style.
+a piece in Gregorian style.
 
 @strong{@emph{MensuralStaff}}
 
@@ -234,7 +234,7 @@ a piece in mensural style.
 @node Bottom-level contexts -- voices
 @unnumberedsubsubsec Bottom-level contexts -- voices
 
-@code{Voice}-level contexts initialise certain properties and start
+@code{Voice}-level contexts initialize certain properties and start
 appropriate engravers.  A bottom-level context is one without
 @code{defaultchild}.  While it is possible to let it
 accept/@/contain subcontexts, they can only be created and entered
@@ -250,7 +250,7 @@ if you require multiple voices on the same staff.
 @strong{@emph{VaticanaVoice}}
 
 Same as @code{Voice}, except that it is designed for typesetting
-a piece in gregorian style.
+a piece in Gregorian style.
 
 @strong{@emph{MensuralVoice}}
 
@@ -472,7 +472,7 @@ Alternatively, variables may be employed to similar effect.  See
 @item
 @funindex \applyContext
 @code{\context} with no name will match the first of any previously
-created contexts of the same type in the same context heirarchy,
+created contexts of the same type in the same context hierarchy,
 even one that has been given a name, and its music expression will be
 passed to that context for interpretation.  This form is rarely
 useful.  However, @code{\context} with no name and no music expression
@@ -1788,7 +1788,7 @@ does not amount to much.  The initialization file (see
 
 @noindent
 As you can see, the @code{Fingering} object is nothing more than a
-bunch of variable settings, and the webpage in the Internals Reference
+bunch of variable settings, and the web page in the Internals Reference
 is directly generated from this definition.
 
 
@@ -1928,7 +1928,7 @@ all stems are thickened.
 
 Analogous to @code{\set}, the @var{context} argument may be left out,
 causing the default context @code{Voice} to be used.  Adding
-@code{\once} applies the change during one timestep only.
+@code{\once} applies the change during one time step only.
 
 @lilypond[quote,fragment,verbatim]
 c''4
@@ -3669,7 +3669,7 @@ the bound object, so a glissando points to the vertical center of
 the note head.
 
 For horizontal spanners, such as text spanners and trill spanners,
-it is hardcoded to 0.
+it is hard-coded to 0.
 
 @item attach-dir
 This determines where the line starts and ends in the X-direction,
@@ -3928,7 +3928,7 @@ This behavior is controlled by the @code{break-visibility}
 property, which is explained in
 @c Leave this ref on a newline - formats incorrectly otherwise -td
 @rlearning{Visibility and color of objects}.  This property takes
-a vector of three booleans which, in order, determine whether the
+a vector of three Booleans which, in order, determine whether the
 object is printed at the end of, within the body of, or at the
 beginning of a line.  Or to be more precise, before a line break,
 where there is no line break, or after a line break.
@@ -4059,7 +4059,7 @@ The visibility of such explicit key signature and clef changes is
 controlled by the @code{explicitKeySignatureVisibility} and
 @code{explicitClefVisibility} properties.  These are the equivalent
 of the @code{break-visibility} property and both take a vector of
-three booleans or the predefined functions listed above, exactly like
+three Booleans or the predefined functions listed above, exactly like
 @code{break-visibility}.  Both are properties of the Staff context,
 not the layout objects themselves, and so they are set using the
 @code{\set} command.  Both are set by default to @code{all-visible}.
@@ -4697,7 +4697,7 @@ curve is drawn can be found on the web, but the following
 description and image may be helpful.  The curve starts from the first
 control point heading directly towards the second, gradually bending
 over to head towards the third and continuing to bend over to head
-towards the fourth, arriving there travelling directly from the third
+towards the fourth, arriving there traveling directly from the third
 control point.  The curve is entirely contained in the
 quadrilateral defined by the four control points.
 

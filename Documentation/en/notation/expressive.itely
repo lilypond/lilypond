@@ -633,7 +633,7 @@ items such as text scripts, text spanners, and piano pedal marks.
 {snippets/vertically-aligned-dynamics-and-textscripts.ly}
 
 @cindex vertical alignment, dynamics, breaking
-@cindex aligment, breaking vertical, dynamics
+@cindex alignment, breaking vertical, dynamics
 @cindex dynamics, breaking vertical alignment
 @cindex text script, breaking vertical alignment
 @cindex alignment breaking vertical, text scripts
@@ -867,7 +867,7 @@ Simultaneous or overlapping slurs require special attention.  Most
 occurrences of outer slurs actually indicate phrasing, and phrasing
 slurs may overlap a regular slur, see @ref{Phrasing slurs}.  When
 multiple regular slurs are needed in a single @code{Voice},
-matching slur starts and ends need to be labelled by preceding
+matching slur starts and ends need to be labeled by preceding
 them with @code{\=} followed by an identifying key (a symbol or
 non-negative integer).
 
@@ -1254,7 +1254,7 @@ Snippets:
 @subsection Expressive marks as lines
 
 This section explains how to create various expressive marks that
-follow a linear path: glissandos, arpeggios, and trills.
+follow a linear path: glissandi, arpeggios, and trills.
 
 @menu
 * Glissando::

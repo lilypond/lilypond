@@ -524,13 +524,13 @@ Nocturne.pdf
 @funindex \book
 @funindex \bookpart
 
-A @file{.ly} file may contain any number of toplevel expressions, where a
-toplevel expression is one of the following:
+A @file{.ly} file may contain any number of top-level expressions, where a
+top-level expression is one of the following:
 
 @itemize
 @item
 An output definition, such as @code{\paper}, @code{\midi}, and
-@code{\layout}.  Such a definition at the toplevel changes the default
+@code{\layout}.  Such a definition at the top-level changes the default
 book-wide settings.  If more than one such definition of the same type
 is entered at the top level the definitions are combined, but in
 conflicting situations the later definitions take precedence.  For
@@ -550,9 +550,9 @@ books within the file (see @ref{Titles explained}).
 
 @item
 A @code{\score} block.  This score will be collected with other
-toplevel scores, and combined as a single @code{\book}.
+top-level scores, and combined as a single @code{\book}.
 This behavior can be changed by setting the variable
-@code{toplevel-score-handler} at toplevel.  (The default handler is
+@code{toplevel-score-handler} at top level.  (The default handler is
 defined in the file @file{../scm/lily-library.scm} and set in the file
 @file{../ly/declarations-init.ly}.)
 
@@ -568,7 +568,7 @@ within @command{lilypond-book} documents, where you explicitly have to add
 a @code{\book} block if you want more than a single @code{\score}
 or @code{\markup} in the same example.  This behavior can be
 changed by setting the variable @code{toplevel-book-handler} at
-toplevel.  The default handler is defined in the init file
+top level.  The default handler is defined in the init file
 @file{../scm/lily.scm}.
 
 @item
@@ -583,7 +583,7 @@ A compound music expression, such as
 @end example
 
 This will add the piece in a @code{\score} and format it in a
-single book together with all other toplevel @code{\score}s and music
+single book together with all other top-level @code{\score}s and music
 expressions.  In other words, a file containing only the above
 music expression will be translated into
 
@@ -603,7 +603,7 @@ music expression will be translated into
 @end example
 
 This behavior can be changed by setting the variable
-@code{toplevel-music-handler} at toplevel.  The default handler is
+@code{toplevel-music-handler} at top level.  The default handler is
 defined in the init file @file{../scm/lily.scm}.
 
 @item
@@ -643,7 +643,7 @@ Examples: @code{"foo bar"}, @code{"a-b-c"}, @code{"Horn 3"}.
 @end itemize
 
 The following example shows three things that may be entered at
-toplevel
+top level.
 
 @example
 \layout @{
@@ -1859,7 +1859,7 @@ bottom of the page, preceded by the @var{mark}.
 
 Any easy to type character such as @samp{*} or @samp{+} may be used
 as a mark, as shown in @ref{Footnotes in music expressions}.
-Alteratively, ASCII aliases may be used (@pxref{ASCII aliases}):
+Alternatively, ASCII aliases may be used (@pxref{ASCII aliases}):
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1936,7 +1936,7 @@ footnote marks and annotation lines.
 @cindex page numbers, referencing
 
 A particular place of a score can be marked using the @code{\label}
-command, either at top-level or inside music.  This label can then be
+command, either at top level or inside music.  This label can then be
 referred to in a markup, to get the number of the page where the marked
 point is placed, using the @code{\page-ref} markup command.
 
@@ -1992,7 +1992,7 @@ i.e., a two digit number.
 A table of contents is included using the
 @code{\markuplist \table-of-contents} command.  The elements which
 should appear in the table of contents are entered with the
-@code{\tocItem} command, which may be used either at top-level, or
+@code{\tocItem} command, which may be used either at top level, or
 inside a music expression.
 
 @verbatim
@@ -2293,7 +2293,7 @@ statements of their own.  These second-level
 @code{\include} statements are then interpreted relatively
 to the path of the file containing that command, which is
 convenient for multiple files located in the same subdirectory.
-For example, a general library, libA, may itself use subfiles which
+For example, a general library, @q{libA}, may itself use subfiles which
 are @code{\include}d by the entry file of that library, like this:
 
 @example
@@ -2337,7 +2337,7 @@ specified as an option when invoking LilyPond from the command
 line.  The included files are then specified using just their
 file name.  For example, to compile @file{main.ly} which includes
 files located in a subdirectory called @file{parts} by this method,
-cd to the directory containing @file{main.ly} and enter
+change to the directory containing @file{main.ly} and enter
 
 @example
 lilypond --include=parts main.ly
@@ -2727,7 +2727,7 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 }
 @end lilypond
 
-Both commands get a tag, the material to splice in at every occurence of
+Both commands get a tag, the material to splice in at every occurrence of
 the tag, and the tagged expression.
 
 @morerefs
@@ -4465,8 +4465,8 @@ compensate for the note-shortening behavior.}
 @cindex swing.ly
 
 The @file{swing} script provides additional functions allowing
-for regular durations to be played with an inequal rhythm.  The most
-obvious example is @q{swing} intepretation commonly found in jazz
+for regular durations to be played with an unequal rhythm.  The most
+obvious example is @q{swing} interpretation commonly found in jazz
 music where binary eighth notes should be played in a ternary fashion;
 however additional interpretations are also supported.
 

@@ -334,7 +334,7 @@ will appear during compilation.  This message can be suppressed by:
 @end example
 
 However, this not only suppresses the warning but will prevent any
-collision resolution whatsover and may have other unintended effects
+collision resolution whatsoever and may have other unintended effects
 (also see @emph{Known Issues} in @ref{Collision resolution}).
 
 
@@ -594,7 +594,7 @@ etc.
 
 Though this may seem counterintuitive, it simplifies the automatic
 layout process.  Note that the odd-numbered voices are given
-upstems, and the even-numbered voices are given downstems:
+up-stems, and the even-numbered voices are given down-stems:
 
 @lilypond[quote,verbatim]
 \new Staff <<
@@ -866,8 +866,8 @@ occurring.
 By default, the outer voices (normally voices one and two) have
 @code{\shiftOff} specified, while the inner voices (three and
 above) have @code{\shiftOn} specified.  When a shift is applied,
-voices with upstems (odd-numbered voices) are shifted to the
-right, and voices with downstems (even-numbered voices) are
+voices with up-stems (odd-numbered voices) are shifted to the
+right, and voices with down-stems (even-numbered voices) are
 shifted to the left.
 
 Here is an example to help you visualize how an abbreviated
@@ -1079,7 +1079,7 @@ and second parts get marked with @qq{Solo} and @qq{Solo II},
 respectively.  The unison (@notation{a due}) parts are marked with the
 text @qq{a2}.
 
-By default, the partCombiner merges two notes of the same pitch as an
+By default, the part combiner merges two notes of the same pitch as an
 @notation{a due} note, combines notes with the same
 rhythm less than a ninth apart as chords and separates notes more than
 a ninth apart (or when the voices cross) into
@@ -1087,7 +1087,7 @@ separate voices.  This can be overridden with an optional argument of a pair
 of numbers after the @code{\partCombine} command: the first specifies
 the interval where notes start to be combined (the default is zero) and the
 second where the notes are split into separate voices.  Setting the second
-argument to zero means that the partCombiner splits notes with an interval of
+argument to zero means that the part combiner splits notes with an interval of
 a second or more, setting it to one splits notes of a third or more, and so on.
 
 @lilypond[quote,verbatim]
@@ -1204,7 +1204,7 @@ instrumentTwo = \relative {
 
 The @code{\partCombine} command is not designed to work with
 lyrics; if one of the voices is explicitly named in order to
-attach lyrics to it, the partCombiner will stop working.  However,
+attach lyrics to it, the part combiner will stop working.  However,
 this effect can be achieved using a @code{NullVoice} context.  See
 @ref{Polyphony with shared lyrics}.
 

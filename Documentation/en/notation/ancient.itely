@@ -18,7 +18,7 @@
 
 @cindex Vaticana, Editio
 @cindex Medicaea, Editio
-@cindex hufnagel
+@cindex Hufnagel
 @cindex Petrucci
 @cindex mensural
 
@@ -113,7 +113,7 @@ style mimics the writing style in chant manuscripts from Germany
 and Central Europe during the middle ages.  It is named after the
 basic note shape (the @emph{virga}), which looks like a small
 nail.
-@cindex hufnagel
+@cindex Hufnagel
 @end itemize
 
 Three styles emulate the appearance of late-medieval and
@@ -154,8 +154,8 @@ styles, since these signs are not used in plainchant notation, and
 the Petrucci style has no flags or accidentals of its own.
 
 Each element of the notation can be changed independently of the
-others, so that one can use mensural flags, petrucci note heads,
-classical rests and vaticana clefs in the same piece, if one
+others, so that one can use mensural flags, Petrucci note heads,
+classical rests and Vaticana clefs in the same piece, if one
 wishes.
 
 @morerefs
@@ -412,11 +412,11 @@ Music Glossary:
 @cindex clef, ancient music
 @cindex clef, Petrucci
 @cindex clef, mensural
-@cindex clef, blackmensural
+@cindex clef, black mensural
 @cindex clef, Kievan
 @cindex Petrucci clef
 @cindex mensural clef
-@cindex blackmensural clef
+@cindex black mensural clef
 @cindex Kievan clef
 
 Mensural clefs are supported using the @code{\clef} command.  Some of
@@ -1108,7 +1108,7 @@ Editio Medicaea style fa clef
 @end lilypond
 
 @item
-hufnagel style do clef
+Hufnagel style do clef
 @tab
 @code{hufnagel-do1}, @code{hufnagel-do2},@*
 @code{hufnagel-do3}
@@ -1124,7 +1124,7 @@ hufnagel style do clef
 @end lilypond
 
 @item
-hufnagel style fa clef
+Hufnagel style fa clef
 @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
@@ -1140,7 +1140,7 @@ hufnagel style fa clef
 @end lilypond
 
 @item
-hufnagel style combined do/fa clef
+Hufnagel style combined do/fa clef
 @tab
 @code{hufnagel-do-fa}
 @tab
@@ -2453,7 +2453,7 @@ Music Glossary:
 
 @knownissues
 LilyPond supports Kievan notation of the Synodal style, as used in
-the corpus of chantbooks printed by the Russian Holy Synod in the
+the corpus of chant books printed by the Russian Holy Synod in the
 1910's and recently reprinted by the Moscow Patriarchate Publishing
 House.  LilyPond does not support the older (less common) forms of
 Kievan notation that were used in Galicia to notate Rusyn plainchant.
@@ -2601,9 +2601,9 @@ Notation Reference:
 @cindex Kievan ligature
 
 Notes within a Kievan melisma are usually placed close to each other
-and the melismata separated by whitespace. This is done to allow
-the chanter to quickly identify the melodic structures of Znamenny
-chant. In LilyPond, melismata are treated as ligatures and the
+and the melismata separated by whitespace.  This is done to allow
+the chanter to quickly identify the melodic structures of @emph{Znamenny
+chant}.  In LilyPond, melismata are treated as ligatures and the
 spacing is implemented by the @code{Kievan_ligature_engraver}.
 
 When the @code{KievanVoice} and @code{KievanStaff} contexts are used,

@@ -192,7 +192,7 @@ Snippets:
 @cindex drum
 
 A percussion part for more than one instrument typically uses a
-multiline staff where each position in the staff refers to one
+multi-line staff where each position in the staff refers to one
 piece of percussion.  To typeset the music, the notes must be
 interpreted in @code{DrumStaff} and @code{DrumVoice} context.
 
@@ -541,7 +541,7 @@ drumPitchNames.rs = #'ridecymbal
 
 In a similar manner, the @code{drumPitchTable} property
 associates a specific pitch (meaning a different instrument
-sound, as provided by available MIDI soundfonts) to each
+sound, as provided by available MIDI sound fonts) to each
 notation.  That property needs to be defined as a hash table,
 which is again converted from an association list (stored by
 default as the @code{midiDrumPitches} variable).  Redefining

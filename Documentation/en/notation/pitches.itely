@@ -1155,7 +1155,7 @@ This section discusses how to alter the output of pitches.
 @cindex bass clef
 @cindex French clef
 @cindex soprano clef
-@cindex mezzosoprano clef
+@cindex mezzo-soprano clef
 @cindex baritone clef
 @cindex varbaritone clef
 @cindex subbass clef
@@ -1172,7 +1172,7 @@ This section discusses how to alter the output of pitches.
 @cindex clef, bass
 @cindex clef, french
 @cindex clef, soprano
-@cindex clef, mezzosoprano
+@cindex clef, mezzo-soprano
 @cindex clef, baritone
 @cindex clef, varbaritone
 @cindex clef, subbass
@@ -1398,13 +1398,13 @@ at the start of the staff.  The key signature may be altered:
 @cindex mode
 @cindex major
 @cindex minor
-@cindex ionian
-@cindex locrian
-@cindex aeolian
-@cindex mixolydian
-@cindex lydian
-@cindex phrygian
-@cindex dorian
+@cindex Ionian
+@cindex Locrian
+@cindex Aeolian
+@cindex Mixolydian
+@cindex Lydian
+@cindex Phrygian
+@cindex Dorian
 
 @noindent
 Here, @code{@var{mode}} should be @code{\major} or @code{\minor}
@@ -2087,7 +2087,7 @@ musicB = {
 
 @funindex modern-voice
 
-This rule is used for multivoice accidentals to be read both by
+This rule is used for multi-voice accidentals to be read both by
 musicians playing one voice and musicians playing all voices.
 Accidentals are typeset for each voice, but they @emph{are}
 canceled across voices in the same @code{Staff}.  Hence,
@@ -2566,7 +2566,7 @@ musicB = {
 
 @funindex neo-modern-voice
 
-This rule is used for multivoice accidentals to be read both by
+This rule is used for multi-voice accidentals to be read both by
 musicians playing one voice and musicians playing all voices.
 Accidentals are typeset for each voice as with @code{neo-modern},
 but they are canceled across voices in the same @code{Staff}.

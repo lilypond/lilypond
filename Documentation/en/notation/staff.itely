@@ -286,7 +286,7 @@ New staff group contexts may be defined.  For details, see
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/display-bracket-with-only-one-staff-in-a-system.ly}
 
-@cindex mensurstriche layout
+@cindex Mensurstriche layout
 @cindex renaissance music
 @cindex transcription of mensural music
 @cindex mensural music, transcription of
@@ -459,7 +459,7 @@ sections are also described.
 
 The @code{\stopStaff} and @code{\startStaff} commands can be used to
 stop or (re)start the staff lines respectively, from being printed at
-any point witin a score.
+any point within a score.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -800,7 +800,7 @@ Internals Reference:
 @cindex hiding staves
 @cindex hiding ancient staves
 @cindex hiding rhythmic staves
-@cindex hiding vaticana staves
+@cindex hiding Vaticana staves
 @cindex empty staff
 
 @funindex \RemoveEmptyStaves
@@ -935,7 +935,7 @@ it is part of the larger group of fretted strings, which is playing.
       R1\fermata
       R1*3
     }
-    \new Staff \with { instrumentName = "Basson" } \relative c {
+    \new Staff \with { instrumentName = "Bassoon" } \relative c {
       \key c \minor
       \clef bass
       r2 r4 \tuplet 3/2 { r8 g'( b,) }
@@ -1168,7 +1168,7 @@ Methods to quote other voices and to format cue notes
 are also described, as well as a way to contract
 multiple consecutive empty measures in individual parts.
 
-Aditionally, a method for printing @emph{divisi} staves,
+Additionally, a method for printing @emph{divisi} staves,
 sometimes used in individual or desk parts, can be found in
 @ref{Hiding staves}.
 
@@ -1567,7 +1567,7 @@ The simplest way to format cue notes is to explicitly create a
 }
 @end lilypond
 
-The @code{\cueClef} command can also be used with an explict
+The @code{\cueClef} command can also be used with an explicit
 @code{CueVoice} context if a change of clef is required and will print
 an appropriately sized clef for the cue notes.  The @code{\cueClefUnset}
 command can then be used to switch back to the original clef, again with
@@ -1929,7 +1929,7 @@ set in the @code{Score} context as explained in
 
 @cindex church rest
 @cindex rest, church
-@cindex kirchenpause
+@cindex Kirchenpause
 @cindex multi-measure rest, style
 @cindex style, multi-measure rests
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]

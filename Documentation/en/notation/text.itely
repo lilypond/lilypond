@@ -449,7 +449,7 @@ command, if available.  For text that identifies a section, use
 instructions, use @code{\jump} (@pxref{Manual repeat marks}).
 These commands have different default layout settings, and they
 create separate objects which can be styled differently from
-generic text marks in stylesheets.
+generic text marks in style sheets.
 
 A text mark is entered using either @code{\textMark} or
 @code{\textEndMark}.  The @code{\textMark} command draws a
@@ -1418,11 +1418,11 @@ the @code{line-width} property.  By default it is set to
 }
 @end lilypond
 
-@cindex wordwrapped text
+@cindex word-wrapped text
 @cindex justified text
 @cindex text, justified
-@cindex text, wordwrapped
-@cindex markup text, wordwrapped
+@cindex text, word-wrapped
+@cindex markup text, word-wrapped
 @cindex markup text, justified
 
 @funindex \wordwrap
@@ -2172,7 +2172,7 @@ implies that, contrary to single fonts, a trailing comma is never
 necessary.}
 
 Note that @code{make-pango-font-tree} resets the notation fonts to
-@q{emmentaler} as the default.
+@q{Emmentaler} as the default.
 
 The example below adjusts the font size in relation to the global
 staff size.

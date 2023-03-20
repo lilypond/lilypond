@@ -271,7 +271,7 @@ The following shorthand commands are also available:
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
 @w{@code{font-size = 0}}) depends on the standard staff height.
-For a 20pt staff, an 11pt font is selected.
+For a 20@dmn{pt} staff, an 11@dmn{pt} font is selected.
 
 
 @predefined
@@ -647,8 +647,8 @@ d''
 e''
 @end lilypond
 
-@cindex css color codes
-@cindex color, css-like codes
+@cindex CSS color codes
+@cindex color, CSS-like codes
 
 In addition to a limited set of simple colors
 available as predefined variables (see @q{Normal colors} in
@@ -1171,7 +1171,7 @@ should be printed or not is determined through the
 By setting both that property to a symbol and
 @code{printOctaveNames} to @code{#t}, note names can be
 obtained that closely resemble LilyPond entry syntax.
-If a more generalistic result is desired, @q{scientific}
+If a more general result is desired, @q{scientific}
 octave names may also be obtained.
 
 @lilypond[verbatim,quote]
