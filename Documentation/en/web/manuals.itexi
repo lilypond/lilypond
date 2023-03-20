@@ -414,7 +414,7 @@ reporting, and development.
 
 @divClass{keep-bullets}
 @itemize
-@ref{Top,Web}
+@item @ref{Top,Web}
 @end itemize
 @divEnd
 

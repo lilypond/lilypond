@@ -31,7 +31,7 @@
          (string-append
           (format #f "@item Sets grob property @code{~a} "
                   (grob-property-path path))
-          (format #f "in @code{@rinternals{~a}} to" name-sym)
+          (format #f "in @rinternals{~a} to" name-sym)
           (if (pretty-printable? value)
               (format #f ":~a\n" (scm->texi value))
               (format #f " ~a.\n" (scm->texi value))))))
@@ -39,7 +39,7 @@
        (string-append
         (format #f "@item Reverts grob property @code{~a} "
                 (grob-property-path (car args)))
-        (format #f "in @code{@rinternals{~a}}.\n"
+        (format #f "in @rinternals{~a}.\n"
                 name-sym)))
       ((assign)
        (string-append
@@ -51,9 +51,9 @@
        (format #f "@item Unsets translator property @code{~a}.\n"
                name-sym))
       ((consists)
-       (format #f "@item Adds @code{@rinternals{~a}}.\n" name-sym))
+       (format #f "@item Adds @rinternals{~a}.\n" name-sym))
       ((remove)
-       (format #f "@item Removes @code{@rinternals{~a}}.\n" name-sym))
+       (format #f "@item Removes @rinternals{~a}.\n" name-sym))
       (else ""))))
 
 (define (document-context-mod context-mod-pair)

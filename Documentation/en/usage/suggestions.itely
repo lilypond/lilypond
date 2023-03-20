@@ -71,8 +71,9 @@ all of the LilyPond templates contain @code{\version} numbers.
 will make debugging any problems in your input files much simpler.
 
 @item
-@strong{Include @rnotation{Bar and bar number checks} as well as
-@rnotation{Octave checks}}.  Including @q{checks} of this type in your input
+@strong{Include bar checks, bar number checks, as well as octave checks}
+(see @rnotation{Bar and bar number checks} and @rnotation{Octave
+checks}).  Including @q{checks} of this type in your input
 files will help pinpoint mistakes more quickly. How often checks are
 added will depend on the complexity of the music being typeset.  For
 simple compositions, checks added at a few at strategic points within
