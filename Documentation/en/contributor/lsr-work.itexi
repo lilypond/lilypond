@@ -6,7 +6,7 @@
 * Introduction to LSR::
 * Adding and editing snippets::
 * Approving snippets::
-* The makelsr.pl script::
+* The makelsr script::
 * LSR to Git::
 * Renaming a snippet::
 * Updating the LSR to a new version::
@@ -69,7 +69,7 @@ cd /your/lilypond/git/top/dir
 scripts/auxiliar/makelsr.pl --new
 @end example
 
-@xref{The makelsr.pl script}, for more details.
+@xref{The makelsr script}, for more details.
 
 Be sure that @samp{make doc} runs successfully before submitting a
 patch, to prevent breaking compilation (@pxref{Generating
@@ -170,7 +170,7 @@ snippet.
 @end enumerate
 
 
-@node The makelsr.pl script
+@node The makelsr script
 @section The @command{makelsr.pl} script
 
 As you might have guessed already, @command{makelsr.pl} is a
@@ -318,7 +318,7 @@ variables}) in case your build directory isn't
 
 @item
 Check the other prerequisites necessary for executing the
-@command{makelsr.pl} script (@pxref{The makelsr.pl script}).
+@command{makelsr.pl} script (@pxref{The makelsr script}).
 
 @item
 If you are using a git repository, create and check out a branch,

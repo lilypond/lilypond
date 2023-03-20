@@ -294,7 +294,7 @@ Notation Reference:
 * Ties::
 * Slurs::
 * Phrasing slurs::
-* Warnings slurs vs. ties::
+* Warnings slurs vs ties::
 @end menu
 
 
@@ -361,7 +361,7 @@ slurs at the same time.
 @end lilypond
 
 
-@node Warnings slurs vs. ties
+@node Warnings slurs vs ties
 @unnumberedsubsubsec Warnings: slurs vs.@: ties
 
 @cindex slurs versus ties
