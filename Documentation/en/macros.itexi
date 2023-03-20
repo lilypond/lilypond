@@ -237,94 +237,117 @@ For LilyPond version @version{}
 
 @c ** bigpage **
 
+
+@c The inserted `@c` lines prevent warnings like
+@c
+@c `@vindex should only appear at the beginning of a line`
+
 @ifset bigpage
 
 @macro rglos{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,music-glossary-big-page,Music Glossary}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Music Glossary}
 @end macro
 
 @macro rlearning{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,learning-big-page,Learning Manual}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,learning-big-page,Learning Manual}
 @end macro
 
 @macro rnotation{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,notation-big-page,Notation Reference}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notation Reference}
 @end macro
 
 @macro rextend{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,extending-big-page,Extending}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending-big-page,Extending}
 @end macro
 
 @macro rchanges{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,changes-big-page,Changes}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes-big-page,Changes}
 @end macro
 
 @macro rcontrib{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,contributor-big-page,Contributor's Guide}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor-big-page,Contributor's Guide}
 @end macro
 
 @macro rweb{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,web-big-page,General Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web-big-page,General Information}
 @end macro
 
 @macro ressay{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,essay-big-page,Essay}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay-big-page,Essay}
 @end macro
 
 @macro rprogram{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,usage-big-page,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage-big-page,Application Usage}
 @end macro
@@ -338,11 +361,13 @@ For LilyPond version @version{}
 @end macro
 
 @macro rinternals{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,internals-big-page,Internals Reference}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals-big-page,Internals Reference}
 @end macro
@@ -357,91 +382,109 @@ For LilyPond version @version{}
 @ifnotinfo
 
 @macro rglos{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
 @end macro
 
 @macro rlearning{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,learning,Learning Manual}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,,learning,Learning Manual}
 @end macro
 
 @macro rnotation{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,notation,Notation Reference}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation,Notation Reference}
 @end macro
 
 @macro rchanges{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,changes,Changes}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes,Changes}
 @end macro
 
 @macro rextend{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,extending,Extending}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending,Extending}
 @end macro
 
 @macro rcontrib{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,contributor,Contributor's Guide}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
 @end macro
 
 @macro rweb{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,web,General Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web,General Information}
 @end macro
 
 @macro ressay{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,essay,Essay}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay,Essay}
 @end macro
 
 @macro rprogram{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,usage,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage,Application Usage}
 @end macro
@@ -455,11 +498,13 @@ For LilyPond version @version{}
 @end macro
 
 @macro rinternals{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,internals,Internals Reference}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals,Internals Reference}
 @end macro
@@ -469,91 +514,109 @@ For LilyPond version @version{}
 @ifinfo
 
 @macro rglos{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
 @end macro
 
 @macro rlearning{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro rnotation{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-notation,Notation Reference}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notation Reference}
 @end macro
 
 @macro rchanges{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-changes,Changes}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Changes}
 @end macro
 
 @macro rextend{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-extending,Extending}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extending}
 @end macro
 
 @macro rcontrib{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-contributor,Contributor's Guide}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Contributor's Guide}
 @end macro
 
 @macro rweb{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-web,General Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-web, General Information}
 @end macro
 
 @macro ressay{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-essay,Essay}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-essay,Essay}
 @end macro
 
 @macro rprogram{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-usage,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-usage,Application Usage}
 @end macro
@@ -567,11 +630,13 @@ For LilyPond version @version{}
 @end macro
 
 @macro rinternals{TEXT}
+@c
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals,Internals Reference}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
+@c
 @vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals Reference}
 @end macro
