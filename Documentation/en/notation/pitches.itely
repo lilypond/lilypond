@@ -1277,14 +1277,14 @@ will be ignored.  The command
 @code{\set Staff.forceClef = ##t} changes this behavior.
 
 @lilypond[verbatim,quote,fragment]
-  \clef treble
-  c'1
-  \clef treble
-  c'1
-  \set Staff.forceClef = ##t
-  c'1
-  \clef treble
-  c'1
+\clef treble
+c'1
+\clef treble
+c'1
+\set Staff.forceClef = ##t
+c'1
+\clef treble
+c'1
 @end lilypond
 
 @noindent
@@ -1298,22 +1298,22 @@ When there is a manual clef change, the glyph of the changed clef
 will be smaller than normal.  This behavior can be overridden.
 
 @lilypond[verbatim,quote,fragment]
-  \clef "treble"
-  c'1
-  \clef "bass"
-  c'1
-  \clef "treble"
-  c'1
-  \override Staff.Clef.full-size-change = ##t
-  \clef "bass"
-  c'1
-  \clef "treble"
-  c'1
-  \revert Staff.Clef.full-size-change
-  \clef "bass"
-  c'1
-  \clef "treble"
-  c'1
+\clef "treble"
+c'1
+\clef "bass"
+c'1
+\clef "treble"
+c'1
+\override Staff.Clef.full-size-change = ##t
+\clef "bass"
+c'1
+\clef "treble"
+c'1
+\revert Staff.Clef.full-size-change
+\clef "bass"
+c'1
+\clef "treble"
+c'1
 @end lilypond
 
 

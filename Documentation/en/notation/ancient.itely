@@ -2467,9 +2467,9 @@ There is only one clef used in Kievan notation (the Tse-fa-ut Clef).
 It is used to indicate the position of @code{c}:
 
 @lilypond[quote,fragment,notime,verbatim]
-  \clef "kievan-do"
-  \kievanOn
-  c'
+\clef "kievan-do"
+\kievanOn
+c'
 @end lilypond
 
 @morerefs
