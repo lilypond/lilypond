@@ -1506,32 +1506,34 @@ neumes tels qu'ils apparaissent dans la notation du plain-chant.
 Les têtes de note peuvent être @emph{modifiées} ou @emph{jointes}.
 
 @itemize
-@item L'aspect d'une tête de note se modifie en @emph{préfixant} le nom
-d'une hauteur par l'une des commandes suivantes :
+@item
 @funindex \virga
-@code{\virga},
 @funindex \stropha
-@code{\stropha},
 @funindex \inclinatum
-@code{\inclinatum},
 @funindex \auctum
-@code{\auctum},
 @funindex \descendens
-@code{\descendens},
 @funindex \ascendens
-@code{\ascendens},
 @funindex \oriscus
-@code{\oriscus},
 @funindex \quilisma
-@code{\quilisma},
 @funindex \deminutum
-@code{\deminutum},
 @funindex \cavum
-@code{\cavum},
 @funindex \linea
+L'aspect d'une tête de note se modifie en @emph{préfixant} le nom
+d'une hauteur par l'une des commandes suivantes :
+@code{\virga},
+@code{\stropha},
+@code{\inclinatum},
+@code{\auctum},
+@code{\descendens},
+@code{\ascendens},
+@code{\oriscus},
+@code{\quilisma},
+@code{\deminutum},
+@code{\cavum},
 @code{\linea}.
 
-@item Une ligature, autrement dit la juxtaposition de notes,
+@item
+Une ligature, autrement dit la juxtaposition de notes,
 s'obtient en plaçant une commande de jointure @code{\pes} ou
 @code{\flexa} pour marquer une ligne mélodique respectivement ascendante
 ou descendante, entre les notes qui la composent.

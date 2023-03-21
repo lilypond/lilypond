@@ -92,6 +92,8 @@ canto gregoriano:
 
 @itemize
 @item
+@cindex Solesmes
+@cindex Vaticana, Editio
 @emph{Editio Vaticana} es un estilo completo para canto
 gregoriano, que sigue la apariencia de las ediciones de Solesmes,
 los libros de canto oficiales del Vaticano desde 1904.  LilyPond
@@ -99,10 +101,9 @@ contempla todos los signos de notación que se utilizan en este
 estilo, entre ellos las ligaduras, @emph{custodias} y símbolos
 especiales como el quilisma y el oriscus.
 
-@cindex Solesmes
-@cindex Vaticana, Editio
-
 @item
+@cindex Ratisbona, Editio
+@cindex Medicaea, Editio
 El estilo @emph{Editio Medicaea} ofrece ciertas funcionalidades
 que se usan en las ediciones Medicaea (o de Ratisbona) que se
 usaban con anterioridad a las ediciones de Solesmes.  Las
@@ -110,47 +111,44 @@ diferencias más significativas con respecto al estilo
 @emph{Vaticana} son las claves, que tienen trazos descendentes, y
 la cabeza de las figuras, que son cuadradas y regulares.
 
-@cindex Ratisbona, Editio
-@cindex Medicaea, Editio
-
 @item
+@cindex hufnagel
 El estilo @emph{Hufnagel} (en @qq{uña de herradura}) o
 @emph{gótico} reproduce el estilo de escritura en los manuscritos
 de canto medievales de Alemania y Centro Europa.  Recibe el nombre
 de la forma de la nota básica (la @emph{virga}), que parece una
 pequeña uña.
-@cindex hufnagel
 @end itemize
 
 Tres estilos emulan la apariencia de los manuscritos y ediciones
 impresas de música mensural tardomedievales y renacentistas:
 
 @itemize
-@item El estilo @emph{Mensural}
+@item
+@cindex mensural
+El estilo @emph{Mensural}
 se asemeja bastante al estilo de escritura utilizado en los
 manuscritos tardomedievales y renacentistas tempranos, con la
 cabeza de sus figuras en forma de rombo pequeñas y estrechas, y
 los silencios que imitan un estilo dibujado a mano.
 
-@cindex mensural
-
-@item El estilo @emph{Neomensural}
+@item
+@cindex neomensural
+El estilo @emph{Neomensural}
 es una versión modernizada y estilizada del anterior: la cabeza de
 las figuras es más ancha y los silencios están formados por trazos
 rectilíneos.  Este estilo está particularmente indicado, p.ej.,
 para los @emph{incipits} de transcripciones de fragmentos de
 música mensural.
 
-@cindex neomensural
-
-@item El estilo @emph{Petrucci}
+@item
+@cindex Petrucci
+El estilo @emph{Petrucci}
 recibe su nombre de Ottaviano Petrucci (1466-1539), el primer
 impresor en utilizar tipos móviles para la música (en su
 @emph{Harmonice musices odhecaton}, 1501).  Este estilo utiliza
 para las figuras una cabeza más grande que los otros estilos
 mensurales.
-
-@cindex Petrucci
 
 @end itemize
 
@@ -1509,30 +1507,30 @@ Las cabezas de las notas se pueden @emph{modificar} y/o
 
 @itemize
 @item
+@funindex \virga
+@funindex \stropha
+@funindex \inclinatum
+@funindex \auctum
+@funindex \descendens
+@funindex \ascendens
+@funindex \oriscus
+@funindex \quilisma
+@funindex \deminutum
+@funindex \cavum
+@funindex \linea
 La forma de la cabeza se puede modificar @emph{precediendo} el
 nombre de la nota con una cualquiera de las instrucciones
 siguientes:
-@funindex \virga
 @code{\virga},
-@funindex \stropha
 @code{\stropha},
-@funindex \inclinatum
 @code{\inclinatum},
-@funindex \auctum
 @code{\auctum},
-@funindex \descendens
 @code{\descendens},
-@funindex \ascendens
 @code{\ascendens},
-@funindex \oriscus
 @code{\oriscus},
-@funindex \quilisma
 @code{\quilisma},
-@funindex \deminutum
 @code{\deminutum},
-@funindex \cavum
 @code{\cavum},
-@funindex \linea
 @code{\linea}.
 
 @item

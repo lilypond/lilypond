@@ -90,51 +90,52 @@
 グレゴリオ聖歌を譜刻するのに適したスタイルが 3 つあります:
 
 @itemize
-@item @emph{Editio Vaticana} はグレゴリオ聖歌のスタイルとしては@c
+@item
+@cindex Solesmes
+@cindex Vaticana, Editio
+@emph{Editio Vaticana} はグレゴリオ聖歌のスタイルとしては@c
 完全なものです。Solesmes 版に続くものであり、1904 年からのバチカン公式の@c
 聖歌本です。LilyPond はリガトゥーラ、@emph{クストス}、quilisma や oriscus
 などの特殊記号を含めた全ての譜刻記号に対応しています。
 
-@cindex Solesmes
-@cindex Vaticana, Editio
-
-@item @emph{Editio Medicaea} スタイルは、Solesmes 版より以前に使われた、@c
+@item
+@cindex Ratisbona, Editio
+@cindex Medicaea, Editio
+@emph{Editio Medicaea} スタイルは、Solesmes 版より以前に使われた、@c
 Medicaea (あるいは Ratisbona) 版に用いられるいくつかの記号に対応しています。@c
 Vaticana スタイルとの大きな違いは音部記号と符頭であり、@c
 音部記号は右下がりに、符頭は四角形で通常の大きさになっています。
 
-@cindex Ratisbona, Editio
-@cindex Medicaea, Editio
-
-@item @emph{Hufnagel} (@qq{蹄鉄の釘}) あるいは@emph{ゴシック}スタイルは、@c
+@item
+@cindex hufnagel
+@emph{Hufnagel} (@qq{蹄鉄の釘}) あるいは@emph{ゴシック}スタイルは、@c
 中世のドイツや中央ヨーロッパで用いられた写本のスタイルを模倣します。@c
 この名前は、基本的な符頭 (@emph{ヴィルガ}) が小さな釘のように@c
 見えることから付けられました。
-@cindex hufnagel
 @end itemize
 
 中世後期やルネサンス期に用いられる、計量音楽の写本や印刷本の見た目を模倣する@c
 スタイルが 3 つあります:
 
 @itemize
-@item @emph{Mensural} スタイルは中世後期やルネサンス初期の写本に使われる@c
+@item
+@cindex mensural (計量記譜法)
+@emph{Mensural} スタイルは中世後期やルネサンス初期の写本に使われる@c
 スタイルに最も近いです。このスタイルは、小さくて幅の狭いダイアモンド型の@c
 符頭や、手書きスタイルの休符を含みます。
 
-@cindex mensural (計量記譜法)
-
-@item @emph{Neomensural} スタイルは、昔のスタイルをより現代化し様式化した@c
+@item
+@cindex neomensural (新しい計量記譜法)
+@emph{Neomensural} スタイルは、昔のスタイルをより現代化し様式化した@c
 ものです。符頭はより広がり、休符は直線からなります。@c
 このスタイルは計量音楽の転写におけるインキピットなどに特に適しています。
 
-@cindex neomensural (新しい計量記譜法)
-
-@item @emph{Petrucci} スタイルは、@c
+@item
+@cindex Petrucci
+@emph{Petrucci} スタイルは、@c
 初めて活字を用いて音楽を印刷した (@emph{Harmonice musices odhecaton}, 1501)
 Ottaviano Petrucci (1466-1539) にちなんで@c
 名付けられました。他の計量記譜法のスタイルよりも大きな符頭を持ちます。
-
-@cindex Petrucci
 
 @end itemize
 
@@ -1412,32 +1413,34 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 符頭は@emph{変更}されたり、@emph{結合}されたりします。
 
 @itemize
-@item 符頭の形を変更するには、音名の@emph{前}に以下のコマンドの@c
-いずれかを入力します:
+@item
 @funindex \virga
-@code{\virga},
 @funindex \stropha
-@code{\stropha},
 @funindex \inclinatum
-@code{\inclinatum},
 @funindex \auctum
-@code{\auctum},
 @funindex \descendens
-@code{\descendens},
 @funindex \ascendens
-@code{\ascendens},
 @funindex \oriscus
-@code{\oriscus},
 @funindex \quilisma
-@code{\quilisma},
 @funindex \deminutum
-@code{\deminutum},
 @funindex \cavum
-@code{\cavum},
 @funindex \linea
+符頭の形を変更するには、音名の@emph{前}に以下のコマンドの@c
+いずれかを入力します:
+@code{\virga},
+@code{\stropha},
+@code{\inclinatum},
+@code{\auctum},
+@code{\descendens},
+@code{\ascendens},
+@code{\oriscus},
+@code{\quilisma},
+@code{\deminutum},
+@code{\cavum},
 @code{\linea}
 
-@item リガトゥーラは、結合する音符の@emph{間}に @code{\pes} や @code{\flexa}
+@item
+リガトゥーラは、結合する音符の@emph{間}に @code{\pes} や @code{\flexa}
 のコマンドを入力することで生成します。それぞれ、上向きと下向きの動きに@c
 対応します。
 @end itemize

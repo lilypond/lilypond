@@ -94,6 +94,8 @@ cant gregorià:
 
 @itemize
 @item
+@cindex Solesmes
+@cindex Vaticana, Editio
 @emph{Editio Vaticana} és un estil complet per a cant gregorià,
 que segueix l'aparença de les edicions de Solesmes, els llibres
 oficials del Vaticà des de 1904.  El LilyPond té suport per a tots
@@ -101,55 +103,51 @@ els signes de notació que es fan servir en aquest estil, entre
 ells les lligadures, @emph{custòdies} i símbols especials com el
 quilisma i l'oriscus.
 
-@cindex Solesmes
-@cindex Vaticana, Editio
-
 @item
+@cindex Ratisbona, Editio
+@cindex Medicaea, Editio
 L'estil @emph{Editio Medicaea} ofereix certes funcionalitats que
 s'usen a les edicions Medicaea (o de Ratisbona) que s'usaven abans
 de les edicions de Solesmes. Les diferències més significatives
 respecte a l'estil @emph{Vaticana} són les claus, que tenen traços
 descendents, i el cap de les figures, que són quadrats i regulars.
 
-@cindex Ratisbona, Editio
-@cindex Medicaea, Editio
-
 @item
+@cindex hufnagel
 L'estil @emph{Hufnagel} (en @qq{ungla de ferradura}) o
 @emph{gòtic} reprodueix l'estil d'escriptura al manuscrits
 medievals d'Alemanya i Europa Central.  Rep el nom de la forma de
 la nota bàsica (la @emph{virga}), que sembla una petita ungla.
-@cindex hufnagel
 @end itemize
 
 Tres estils emulen l'aparença dels manuscrits i edicions impreses
 de música mensural medieval tardà i renaixentista:
 
 @itemize
-@item L'estil @emph{Mensural}
+@item
+@cindex mensural
+L'estil @emph{Mensural}
 s'assembla força a l'estil d'escriptura utilitzat als manuscrits
 medievals tardans i renaixentistes primerencs, amb el cap de les
 seves figures petites i estretes en forma de rombe, i els silencis
 que imiten un estil dibuixar a mà.
 
-@cindex mensural
-
-@item L'estil @emph{Neomensural}
+@item
+@cindex neomensural
+L'estil @emph{Neomensural}
 és una versió modernitzada i estilitzada de l'anterior: el cap de
 les figures és més ampla i els silencis estan format per traços
 rectilinis.  Aquest estil és particularment indicat, per exemple
 per als @emph{incipits} de transcripcions de fragments de música
 mensural.
 
-@cindex neomensural
-
-@item L'estil @emph{Petrucci}
+@item
+@cindex Petrucci
+L'estil @emph{Petrucci}
 rep el seu nom d'Ottaviano Petrucci (1466-1539, el primer
 impressor a utilitzar tipus mòbils per a la música (al seu
 @emph{Harmonice musices odhecaton}, 1501).  Aquest estil fa servir
 per a les figures un cap més gran que els altres estils mensurals.
-
-@cindex Petrucci
 
 @end itemize
 
@@ -1507,29 +1505,29 @@ Els caps de les notes es poden @emph{modificar} i/o
 
 @itemize
 @item
+@funindex \virga
+@funindex \stropha
+@funindex \inclinatum
+@funindex \auctum
+@funindex \descendens
+@funindex \ascendens
+@funindex \oriscus
+@funindex \quilisma
+@funindex \deminutum
+@funindex \cavum
+@funindex \linea
 La forma del cap es pot modificar @emph{precedint} el nom de la
 nota amb qualssevol de les ordres següents:
-@funindex \virga
 @code{\virga},
-@funindex \stropha
 @code{\stropha},
-@funindex \inclinatum
 @code{\inclinatum},
-@funindex \auctum
 @code{\auctum},
-@funindex \descendens
 @code{\descendens},
-@funindex \ascendens
 @code{\ascendens},
-@funindex \oriscus
 @code{\oriscus},
-@funindex \quilisma
 @code{\quilisma},
-@funindex \deminutum
 @code{\deminutum},
-@funindex \cavum
 @code{\cavum},
-@funindex \linea
 @code{\linea}.
 
 @item

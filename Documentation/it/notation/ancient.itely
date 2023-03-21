@@ -90,57 +90,58 @@ Guida alla notazione:
 Per scrivere il canto gregoriano sono disponibili tre stili:
 
 @itemize
-@item @emph{Editio Vaticana} è uno stile completo per il canto
+@item
+@cindex Solesmes
+@cindex Vaticana, Editio
+@emph{Editio Vaticana} è uno stile completo per il canto
 gregoriano, che riprende l'aspetto delle edizioni Solesmes,
 i libri ufficiali di canti del Vaticano dal 1904.
 LilyPond supporta tutti i segni della notazione usati in questo
 stile, incluse legature, @emph{custodes} e segni speciali come
 il quilisma e l'oriscus.
 
-@cindex Solesmes
-@cindex Vaticana, Editio
-
-@item Lo stile @emph{Editio Medicaea} offre alcune funzionalità
+@item
+@cindex Ratisbona, Editio
+@cindex Medicaea, Editio
+Lo stile @emph{Editio Medicaea} offre alcune funzionalità
 utilizzate nelle edizioni Medicaea (o Ratisbona), che venivano
 usate prima delle edizioni Solesmes.  Le differenze più rilevanti
 rispetto allo stile @emph{Vaticana} sono le chiavi, che hanno
 dei tratti inclinati verso il basso, e le teste di nota, che sono
 quadrate e regolari.
 
-@cindex Ratisbona, Editio
-@cindex Medicaea, Editio
-
-@item Lo stile @emph{Hufnagel} (@qq{chiodo del ferro di cavallo}) o
+@item
+@cindex hufnagel
+Lo stile @emph{Hufnagel} (@qq{chiodo del ferro di cavallo}) o
 @emph{Gotico} replica lo stile di scrittura dei manoscritti tedeschi
 e mitteleuropei del Medioevo.  Il nome deriva dalla forma essenziale
 della nota (la @emph{virga}), che assomiglia a un piccolo chiodo.
-@cindex hufnagel
 @end itemize
 
 Tre stili emulano l'aspetto dei manoscritti e delle stampe di musica
 mensurale del tardo Medioevo e del Rinascimento:
 
 @itemize
-@item Lo stile @emph{Mensurale} assomiglia molto allo stile di scrittura
+@item
+@cindex mensurale
+Lo stile @emph{Mensurale} assomiglia molto allo stile di scrittura
 usato nei manoscritti del tardo Medioevo e del primo Rinascimento, con
 le sue teste di nota a diamante, piccole e strette, e le sue pause che
 ricordano uno stile a mano libera.
 
-@cindex mensurale
-
-@item Lo stile @emph{Neomensurale} è una versione rinnovata e stilizzata
+@item
+@cindex neomensurale
+Lo stile @emph{Neomensurale} è una versione rinnovata e stilizzata
 del precedente: le teste di nota sono più larghe e le pause sono fatte
 di linee dritte.  Questo stile è particolarmente adatto agli incipit
 dei pezzi trascritti di musica mensurale.
 
-@cindex neomensurale
-
-@item Lo stile @emph{Petrucci} prende il nome da Ottaviano Petrucci
+@item
+@cindex Petrucci
+Lo stile @emph{Petrucci} prende il nome da Ottaviano Petrucci
 (1466-1539), il primo tipografo a usare i caratteri mobili per la musica
 (nel suo @emph{Harmonice musices odhecaton}, 1501).  Questo stile usa
 delle teste di nota più grandi rispetto agli altri stili mensurali.
-
-@cindex Petrucci
 
 @end itemize
 
@@ -1445,32 +1446,34 @@ nella notazione del canto gregoriano.
 Le teste di nota possono essere @emph{modificate} e/o @emph{unite}.
 
 @itemize
-@item La forma della testa di nota può essere modificata
-@emph{anteponendo} al nome della nota uno dei seguenti comandi:
+@item
 @funindex \virga
-@code{\virga},
 @funindex \stropha
-@code{\stropha},
 @funindex \inclinatum
-@code{\inclinatum},
 @funindex \auctum
-@code{\auctum},
 @funindex \descendens
-@code{\descendens},
 @funindex \ascendens
-@code{\ascendens},
 @funindex \oriscus
-@code{\oriscus},
 @funindex \quilisma
-@code{\quilisma},
 @funindex \deminutum
-@code{\deminutum},
 @funindex \cavum
-@code{\cavum},
 @funindex \linea
+La forma della testa di nota può essere modificata
+@emph{anteponendo} al nome della nota uno dei seguenti comandi:
+@code{\virga},
+@code{\stropha},
+@code{\inclinatum},
+@code{\auctum},
+@code{\descendens},
+@code{\ascendens},
+@code{\oriscus},
+@code{\quilisma},
+@code{\deminutum},
+@code{\cavum},
 @code{\linea}.
 
-@item Le legature, ovvero le note unite insieme, si producono mettendo uno
+@item
+Le legature, ovvero le note unite insieme, si producono mettendo uno
 dei comandi di unione, @code{\pes} o @code{\flexa}, rispettivamente per il
 movimento verso l'alto e verso il basso, @emph{tra} le note da unire.
 @end itemize

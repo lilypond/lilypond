@@ -88,59 +88,60 @@ Notation Reference:
 Three styles are available for typesetting Gregorian chant:
 
 @itemize
-@item @emph{Editio Vaticana} is a complete style for
+@item
+@cindex Solesmes
+@cindex Vaticana, Editio
+@emph{Editio Vaticana} is a complete style for
 Gregorian chant, following the appearance of the Solesmes
 editions, the official chant books of the Vatican since 1904.
 LilyPond has support for all the notational signs used in this
 style, including ligatures, @emph{custodes}, and special signs
 such as the quilisma and the oriscus.
 
-@cindex Solesmes
-@cindex Vaticana, Editio
-
-@item The @emph{Editio Medicaea} style offers certain features
+@item
+@cindex Ratisbona, Editio
+@cindex Medicaea, Editio
+The @emph{Editio Medicaea} style offers certain features
 used in the Medicaea (or Ratisbona) editions which were used prior
 to the Solesmes editions.  The most significant differences from
 the @emph{Vaticana} style are the clefs, which have
 downward-slanted strokes, and the note heads, which are square and
 regular.
 
-@cindex Ratisbona, Editio
-@cindex Medicaea, Editio
-
-@item The @emph{Hufnagel} (@qq{horseshoe nail}) or @emph{Gothic}
+@item
+@cindex Hufnagel
+The @emph{Hufnagel} (@qq{horseshoe nail}) or @emph{Gothic}
 style mimics the writing style in chant manuscripts from Germany
 and Central Europe during the middle ages.  It is named after the
 basic note shape (the @emph{virga}), which looks like a small
 nail.
-@cindex Hufnagel
 @end itemize
 
 Three styles emulate the appearance of late-medieval and
 renaissance manuscripts and prints of mensural music:
 
 @itemize
-@item The @emph{Mensural} style most closely resembles the
+@item
+@cindex mensural
+The @emph{Mensural} style most closely resembles the
 writing style used in late-medieval and early renaissance
 manuscripts, with its small and narrow, diamond-shaped note heads
 and its rests which approach a hand-drawn style.
 
-@cindex mensural
-
-@item The @emph{Neomensural} style is a modernized and
+@item
+@cindex neomensural
+The @emph{Neomensural} style is a modernized and
 stylized version of the former: the note heads are broader and the
 rests are made up of straight lines.  This style is particularly
 suited, e.g., for incipits of transcribed pieces of mensural
 music.
 
-@cindex neomensural
-
-@item The @emph{Petrucci} style is named after Ottaviano Petrucci
+@item
+@cindex Petrucci
+The @emph{Petrucci} style is named after Ottaviano Petrucci
 (1466-1539), the first printer to use movable type for music (in
 his @emph{Harmonice musices odhecaton}, 1501).  The style uses
 larger note heads than the other mensural styles.
-
-@cindex Petrucci
 
 @end itemize
 
@@ -1440,33 +1441,35 @@ plainchant notation.
 Note heads can be @emph{modified} and/or @emph{joined}.
 
 @itemize
-@item The shape of
-the note head can be modified by @emph{prefixing} the note name
-with any of the following commands:
+
+@item
 @funindex \virga
-@code{\virga},
 @funindex \stropha
-@code{\stropha},
 @funindex \inclinatum
-@code{\inclinatum},
 @funindex \auctum
-@code{\auctum},
 @funindex \descendens
-@code{\descendens},
 @funindex \ascendens
-@code{\ascendens},
 @funindex \oriscus
-@code{\oriscus},
 @funindex \quilisma
-@code{\quilisma},
 @funindex \deminutum
-@code{\deminutum},
 @funindex \cavum
-@code{\cavum},
 @funindex \linea
+The shape of the note head can be modified by @emph{prefixing} the
+note name with any of the following commands:
+@code{\virga},
+@code{\stropha},
+@code{\inclinatum},
+@code{\auctum},
+@code{\descendens},
+@code{\ascendens},
+@code{\oriscus},
+@code{\quilisma},
+@code{\deminutum},
+@code{\cavum},
 @code{\linea}.
 
-@item Ligatures, properly speaking (i.e., notes joined together), are
+@item
+Ligatures, properly speaking (i.e., notes joined together), are
 produced by placing one of the joining commands @code{\pes} or
 @code{\flexa}, for upwards and downwards movement, respectively,
 @emph{between} the notes to be joined.
