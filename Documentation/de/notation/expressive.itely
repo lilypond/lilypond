@@ -734,9 +734,9 @@ Eigene Muster für die Strichelung können definiert werden:
 }
 @end lilypond
 
+@predefined
 @funindex \slurUp
 
-@predefined
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},

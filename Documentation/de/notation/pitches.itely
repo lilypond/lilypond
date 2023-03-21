@@ -2909,10 +2909,10 @@ sich in @ref{Die Notensystemgröße einstellen}.
 }
 @end lilypond
 
+@predefined
 @funindex \easyHeadsOn
 @funindex \easyHeadsOff
 
-@predefined
 @code{\easyHeadsOn},
 @code{\easyHeadsOff}.
 @endpredefined

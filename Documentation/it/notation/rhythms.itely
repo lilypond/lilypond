@@ -992,12 +992,11 @@ R1\fermata
 Quando una pausa multipla segue immediatamente un comando @code{\partial}, potrebbero
 non apparire i relativi avvertimenti del controllo battuta.
 
-
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 @funindex \compressMMRests
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\compressMMRests},

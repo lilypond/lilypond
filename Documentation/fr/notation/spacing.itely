@@ -2188,10 +2188,11 @@ entre des blocs @code{\score} ou des @emph{markups} de haut niveau.
 
 @predefined
 @funindex \pageTurn
-@code{\pageTurn},
 @funindex \noPageTurn
-@code{\noPageTurn},
 @funindex \allowPageTurn
+
+@code{\pageTurn},
+@code{\noPageTurn},
 @code{\allowPageTurn}.
 @endpredefined
 

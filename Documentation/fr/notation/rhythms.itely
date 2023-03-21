@@ -1107,11 +1107,11 @@ Un silence multimesure placé directement après une commande
 @code{\partial} risque fort de perturber le vérificateur de limites et
 numéros de mesure.
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 @funindex \compressMMRests
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\compressMMRests}.

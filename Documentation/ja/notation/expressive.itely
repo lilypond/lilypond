@@ -838,12 +838,9 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 }
 @end lilypond
 
-
-
+@predefined
 @funindex \slurUp
 
-
-@predefined
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},

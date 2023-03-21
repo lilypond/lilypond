@@ -1830,11 +1830,11 @@ Unicode 文字をマークに使うこともできます
 ブックのページ数が 10 から 99 までの範囲であるのなら、ゲージを "00"
 -- つまり、2 桁の数 -- にします。
 
-
 @predefined
 @funindex \label
-@code{\label},
 @funindex \page-ref
+
+@code{\label},
 @code{\page-ref}
 @endpredefined
 
@@ -2021,8 +2021,9 @@ tocAct =
 
 @predefined
 @funindex \table-of-contents
-@code{\table-of-contents},
 @funindex \tocItem
+
+@code{\table-of-contents},
 @code{\tocItem}
 @endpredefined
 

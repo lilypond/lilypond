@@ -1853,8 +1853,9 @@ pot ser "00", és a dir, un nombre de dos dígits.
 
 @predefined
 @funindex \label
-@code{\label},
 @funindex \page-ref
+
+@code{\label},
 @code{\page-ref}.
 @endpredefined
 
@@ -2048,8 +2049,9 @@ Fitxers d'inici:
 
 @predefined
 @funindex \table-of-contents
-@code{\table-of-contents},
 @funindex \tocItem
+
+@code{\table-of-contents},
 @code{\tocItem}.
 @endpredefined
 

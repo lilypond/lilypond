@@ -237,10 +237,10 @@ For more information, see @ref{Articulations and ornamentations}.
 For more information about the relative ordering of text scripts and
 articulations, see @rlearning{Placement of objects}.
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff}.
 @endpredefined
@@ -316,12 +316,11 @@ obtained using @code{\markup} blocks, as described in
 The line style, as well as the text string, can be defined as an
 object property.  This syntax is described in @ref{Line styles}.
 
+@predefined
 @funindex \textSpannerUp
 @funindex \textSpannerDown
 @funindex \textSpannerNeutral
 
-
-@predefined
 @code{\textSpannerUp},
 @code{\textSpannerDown},
 @code{\textSpannerNeutral}.
@@ -675,10 +674,10 @@ books entirely within LilyPond.  For a description of this feature
 and the specific syntax it requires, @pxref{Text markup
 introduction}.
 
+@predefined
 @funindex \markup
 @funindex \markuplist
 
-@predefined
 @code{\markup},
 @code{\markuplist}.
 @endpredefined
@@ -1126,6 +1125,7 @@ commands can be found in @ref{Font markup}.
 Defining custom font sets is also possible, as explained in
 @ref{Fonts}.
 
+@predefined
 @funindex \teeny
 @funindex \tiny
 @funindex \small
@@ -1135,8 +1135,6 @@ Defining custom font sets is also possible, as explained in
 @funindex \smaller
 @funindex \larger
 
-
-@predefined
 @code{\teeny},
 @code{\tiny},
 @code{\small},

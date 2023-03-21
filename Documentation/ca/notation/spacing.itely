@@ -1787,9 +1787,9 @@ del llibre.
 @}
 @end example
 
-
 @predefined
 @funindex \pageBreak
+
 @code{\pageBreak},
 @code{\noPageBreak},
 @code{\autoPageBreaksOn},
@@ -1998,10 +1998,11 @@ superior i entre les partitures.
 
 @predefined
 @funindex \pageTurn
-@code{\pageTurn},
 @funindex \noPageTurn
-@code{\noPageTurn},
 @funindex \allowPageTurn
+
+@code{\pageTurn},
+@code{\noPageTurn},
 @code{\allowPageTurn}.
 @endpredefined
 

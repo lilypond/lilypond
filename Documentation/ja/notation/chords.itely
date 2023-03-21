@@ -762,10 +762,10 @@ chordmusic = \relative {
 
 @end table
 
-
 @predefined
 @cindex major seven symbol (長七和音の記号)
 @cindex symbol, major seven (長七和音の記号)
+
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
 @code{\germanChords},
@@ -1092,9 +1092,9 @@ example, the vertical spacing of the figures may be set with
 
 @end multitable
 
-
 @predefined
 @cindex figured bass, extender lines (通奏低音の継続線)
+
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}
 @endpredefined
@@ -1196,6 +1196,7 @@ example, the vertical spacing of the figures may be set with
 
 @predefined
 @cindex figured bass, alignment (通奏低音の揃え位置)
+
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}

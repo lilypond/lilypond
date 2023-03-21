@@ -107,12 +107,10 @@ werden.  Siehe auch @ref{Artikulationszeichen und Verzierungen}.
 Zu weiterer Information zu der relativen Anordnung von Textbeschriftungen
 und Artikulationen, siehe @rlearning{Positionierung von Objekten}.
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
-@funindex textLengthOn
-@funindex textLengthOff
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff}.
 @endpredefined
@@ -197,14 +195,11 @@ geändert werden.  Diese Syntax ist beschrieben in @ref{Linienstile}.
 Textstrecker sind Teil des @code{Dynamic}-Kontextes, siehe
 @rinternals{Dynamics}.
 
-@funindex textSpannerUp
-@funindex textSpannerDown
-@funindex textSpannerNeutral
+@predefined
 @funindex \textSpannerUp
 @funindex \textSpannerDown
 @funindex \textSpannerNeutral
 
-@predefined
 @code{\textSpannerUp},
 @code{\textSpannerDown},
 @code{\textSpannerNeutral}.
@@ -384,12 +379,10 @@ dass man Textdokumente oder Bücher ausschließlich mit LilyPond
 setzen kann.  Einzelheiten zu den vielfältigen Möglichkeiten finden
 sich in @ref{Textbeschriftung über mehrere Seiten}.
 
-@funindex \markuplist
-@funindex \markup
-@funindex markuplist
-@funindex markup
-
 @predefined
+@funindex \markup
+@funindex \markuplist
+
 @code{\markup},
 @code{\markuplist}.
 @endpredefined
@@ -713,6 +706,7 @@ der Schriftarten findet sich in @ref{Font markup}.
 Es ist auch möglich, eigene Schriftfamilien zu definieren, wie erklärt in
 @ref{Schriftarten}.
 
+@predefined
 @funindex \teeny
 @funindex \tiny
 @funindex \small
@@ -721,16 +715,7 @@ Es ist auch möglich, eigene Schriftfamilien zu definieren, wie erklärt in
 @funindex \huge
 @funindex \smaller
 @funindex \larger
-@funindex teeny
-@funindex tiny
-@funindex small
-@funindex normalsize
-@funindex large
-@funindex huge
-@funindex smaller
-@funindex larger
 
-@predefined
 @code{\teeny},
 @code{\tiny},
 @code{\small},
@@ -1423,9 +1408,9 @@ Schnipsel:
 Referenz der Interna:
 @rinternals{TextScript}.
 
+@predefined
 @funindex \markuplist
 
-@predefined
 @code{\markuplist}.
 @endpredefined
 

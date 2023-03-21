@@ -1973,11 +1973,11 @@ the markup have to be known before, so a gauge is used to decide these
 dimensions.  If the book has between 10 and 99 pages, it may be @qq{00},
 i.e., a two digit number.
 
-
 @predefined
 @funindex \label
-@code{\label},
 @funindex \page-ref
+
+@code{\label},
 @code{\page-ref}.
 @endpredefined
 
@@ -2216,16 +2216,17 @@ Installed Files:
 
 @predefined
 @funindex \table-of-contents
-@code{\table-of-contents},
 @funindex \tocItem
-@code{\tocItem},
 @funindex tocItemMarkup
-@code{tocItemMarkup},
 @funindex tocTitleMarkup
-@code{tocTitleMarkup},
 @funindex tocFormatMarkup
-@code{tocFormatMarkup},
 @funindex tocIndentMarkup
+
+@code{\table-of-contents},
+@code{\tocItem},
+@code{tocItemMarkup},
+@code{tocTitleMarkup},
+@code{tocFormatMarkup},
 @code{tocIndentMarkup}.
 @endpredefined
 

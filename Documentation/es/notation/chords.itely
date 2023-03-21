@@ -790,6 +790,7 @@ se usa cuando el acorde está alterado.
 @predefined
 @cindex mayor, séptima, símbolo de
 @cindex símbolo de séptima mayor
+
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
 @code{\germanChords},
@@ -1123,9 +1124,9 @@ Fin de línea de continuación
 
 @end multitable
 
-
 @predefined
 @cindex bajo cifrado, líneas de extensión
+
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
 @endpredefined
@@ -1230,6 +1231,7 @@ cifrado se puede presentar encima o debajo del mismo.
 
 @predefined
 @cindex bajo cifrado, alineación
+
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.

@@ -1057,12 +1057,11 @@ R1\fermata
 When a multi-measure rest immediately follows a @code{\partial}
 setting, resulting bar-check warnings may not be displayed.
 
-
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 @funindex \compressMMRests
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\compressMMRests}.

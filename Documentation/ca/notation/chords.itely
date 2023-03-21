@@ -728,18 +728,18 @@ l'acord està alterat.
 
 @end table
 
-
 @predefined
 @funindex major seven symbols
+@funindex \germanChords
+@funindex \semiGermanChords
+@funindex \italianChords
+@funindex \frenchChords
+
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
-@funindex \germanChords
 @code{\germanChords},
-@funindex \semiGermanChords
 @code{\semiGermanChords},
-@funindex \italianChords
 @code{\italianChords},
-@funindex \frenchChords
 @code{\frenchChords}.
 @endpredefined
 
@@ -1044,9 +1044,9 @@ Fin de línia de continuació
 
 @end multitable
 
-
 @predefined
 @cindex baix xifrat, línies d'extensió
+
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
 @endpredefined
@@ -1140,9 +1140,9 @@ pot presentar a sobre o a sota del pentagrama.
 >>
 @end lilypond
 
-
 @predefined
 @cindex baix xifrat, alineació
+
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.

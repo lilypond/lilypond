@@ -259,10 +259,10 @@ Pour de plus amples détails sur la manière de combiner indications
 textuelles et articulations, reportez-vous au chapitre
 @rlearning{Positionnement des objets}.
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff}.
 @endpredefined
@@ -344,11 +344,11 @@ Le style de ligne se définit lui aussi comme une propriété de l'objet.
 Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 @ref{Styles de ligne}.
 
+@predefined
 @funindex \textSpannerUp
 @funindex \textSpannerDown
 @funindex \textSpannerNeutral
 
-@predefined
 @code{\textSpannerUp},
 @code{\textSpannerDown},
 @code{\textSpannerNeutral}.
@@ -707,10 +707,10 @@ de générer des ouvrages complets uniquement grâce à LilyPond.  Cette
 fonctionnalité, ainsi que la syntaxe appropriée, est abordée plus en
 détail au chapitre @ref{Introduction au formatage de texte}.
 
+@predefined
 @funindex \markup
 @funindex \markuplist
 
-@predefined
 @code{\markup},
 @code{\markuplist}.
 @endpredefined
@@ -1177,6 +1177,7 @@ d'utiliser des fontes personnalisées est disponible à l'annexe
 Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 @ref{Fontes}.
 
+@predefined
 @funindex \teeny
 @funindex \tiny
 @funindex \small
@@ -1186,7 +1187,6 @@ Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 @funindex \smaller
 @funindex \larger
 
-@predefined
 @code{\teeny},
 @code{\tiny},
 @code{\small},

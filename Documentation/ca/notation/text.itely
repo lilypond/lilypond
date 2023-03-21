@@ -106,10 +106,10 @@ Per veure més informació sobre l'ordre relatiu de les inscripcions
 de text i les articulacions, consulteu
 @rlearning{Col·locació dels objectes}.
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff}.
 @endpredefined
@@ -189,12 +189,11 @@ L'estil de la línia, així com la cadena de text, es definir com
 una propietat d'objecte.  Aquesta sintaxi es descriu a
 @ref{Estils de línia}.
 
+@predefined
 @funindex \textSpannerUp
 @funindex \textSpannerDown
 @funindex \textSpannerNeutral
 
-
-@predefined
 @code{\textSpannerUp},
 @code{\textSpannerDown},
 @code{\textSpannerNeutral}.
@@ -301,10 +300,10 @@ s'imprimeixen al principi de la línia següent.
 }
 @end lilypond
 
+@predefined
 @funindex \markLengthOn
 @funindex \markLengthOff
 
-@predefined
 @code{\markLengthOn},
 @code{\markLengthOff}.
 @endpredefined
@@ -378,11 +377,10 @@ des del LilyPond.  Aquesta funcionalitat i la sintaxi que
 requereix es descriuen a
 @ref{Elements de marcatge de diverses pàgines}.
 
-
+@predefined
 @funindex \markup
 @funindex \markuplist
 
-@predefined
 @code{\markup},
 @code{\markuplist}.
 @endpredefined
@@ -698,6 +696,7 @@ utilització personalitzada dels tipus de lletres a
 També es possible definir conjunts personalitzats de tipus de
 lletra, tal i com s'explica a @ref{Explicació dels tipus de lletra}.
 
+@predefined
 @funindex \teeny
 @funindex \tiny
 @funindex \small
@@ -707,8 +706,6 @@ lletra, tal i com s'explica a @ref{Explicació dels tipus de lletra}.
 @funindex \smaller
 @funindex \larger
 
-
-@predefined
 @code{\teeny},
 @code{\tiny},
 @code{\small},
@@ -1370,9 +1367,9 @@ Fragments de codi:
 Referència de funcionament intern:
 @rinternals{TextScript}.
 
+@predefined
 @funindex \markuplist
 
-@predefined
 @code{\markuplist}.
 @endpredefined
 

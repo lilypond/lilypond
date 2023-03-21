@@ -246,10 +246,10 @@ Essay on automated music engraving:
 テキスト スクリプトとアーティキュレーションの順序についての更なる情報は
 @rlearning{オブジェクトの配置} を参照してください。
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff}
 @endpredefined
@@ -328,12 +328,11 @@ Essay on automated music engraving:
 線のスタイルもオブジェクト プロパティとして定義することができます。@c
 線スタイルの構文は @ref{Line styles} で記述されています。
 
+@predefined
 @funindex \textSpannerUp
 @funindex \textSpannerDown
 @funindex \textSpannerNeutral
 
-
-@predefined
 @code{\textSpannerUp},
 @code{\textSpannerDown},
 @code{\textSpannerNeutral}
@@ -443,10 +442,10 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 }
 @end lilypond
 
+@predefined
 @funindex \markLengthOn
 @funindex \markLengthOff
 
-@predefined
 @code{\markLengthOn},
 @code{\markLengthOff}
 @endpredefined
@@ -524,10 +523,10 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @ref{複数ページにわたるマークアップ} で記述されています。
 
 
+@predefined
 @funindex \markup
 @funindex \markuplist
 
-@predefined
 @code{\markup},
 @code{\markuplist}
 @endpredefined
@@ -857,6 +856,7 @@ allegro = \markup { \bold \large Allegro }
 @ref{フォント} で説明されているように、@c
 カスタム フォント セットを定義することも可能です。
 
+@predefined
 @funindex \teeny
 @funindex \tiny
 @funindex \small
@@ -866,7 +866,6 @@ allegro = \markup { \bold \large Allegro }
 @funindex \smaller
 @funindex \larger
 
-@predefined
 @code{\teeny},
 @code{\tiny},
 @code{\small},
@@ -1545,9 +1544,9 @@ a'1_\markup {
 内部リファレンス:
 @rinternals{TextScript}
 
+@predefined
 @funindex \markuplist
 
-@predefined
 @code{\markuplist}
 @endpredefined
 

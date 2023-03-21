@@ -420,8 +420,9 @@ Stimmenverlaufs ausgegeben werden:
 
 @predefined
 @funindex \showStaffSwitch
-@code{\showStaffSwitch},
 @funindex \hideStaffSwitch
+
+@code{\showStaffSwitch},
 @code{\hideStaffSwitch}.
 @endpredefined
 

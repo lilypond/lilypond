@@ -1817,11 +1817,11 @@ ecco perché serve una misura di riferimento per decidere tali dimensioni. Se il
 libro ha un numero di pagine compreso tra 10 e 99, tale misura sarà "00", ovvero
 un numero di due cifre.
 
-
 @predefined
 @funindex \label
-@code{\label},
 @funindex \page-ref
+
+@code{\label},
 @code{\page-ref}.
 @endpredefined
 
@@ -2013,8 +2013,9 @@ File installati:
 
 @predefined
 @funindex \table-of-contents
-@code{\table-of-contents},
 @funindex \tocItem
+
+@code{\table-of-contents},
 @code{\tocItem}.
 @endpredefined
 

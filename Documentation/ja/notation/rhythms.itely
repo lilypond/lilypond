@@ -1022,12 +1022,11 @@ R1\fermata
 複数小節にまたがる休符が @code{\partial} 設定の直後にある場合、@c
 小節チェックの警告が表示されないかもしれません。
 
-
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 @funindex \compressMMRests
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\compressMMRests}

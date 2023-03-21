@@ -255,10 +255,10 @@ Para ver más información sobre el orden relativo de las
 inscripciones de texto y las articulaciones, consulte
 @rlearning{Colocación de los objetos}.
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff}.
 @endpredefined
@@ -339,12 +339,11 @@ El estilo de la línea, así como la cadena de texto, se pueden
 definir como una propiedad de objeto.  Esta sintaxis se describe
 en @ref{Estilos de línea}.
 
+@predefined
 @funindex \textSpannerUp
 @funindex \textSpannerDown
 @funindex \textSpannerNeutral
 
-
-@predefined
 @code{\textSpannerUp},
 @code{\textSpannerDown},
 @code{\textSpannerNeutral}.
@@ -456,10 +455,10 @@ siguiente.
 }
 @end lilypond
 
+@predefined
 @funindex \markLengthOn
 @funindex \markLengthOff
 
-@predefined
 @code{\markLengthOn},
 @code{\markLengthOff}.
 @endpredefined
@@ -538,11 +537,10 @@ posibilitando la impresión de documentos de texto o libros
 requiere se describen en
 @ref{Elementos de marcado de varias páginas}.
 
-
+@predefined
 @funindex \markup
 @funindex \markuplist
 
-@predefined
 @code{\markup},
 @code{\markuplist}.
 @endpredefined
@@ -873,6 +871,7 @@ y utilización personalizada de las fuentes tipográficas en
 También es posible definir conjuntos personalizados de fuentes,
 tal y como se explica en @ref{Tipografías}.
 
+@predefined
 @funindex \teeny
 @funindex \tiny
 @funindex \small
@@ -882,8 +881,6 @@ tal y como se explica en @ref{Tipografías}.
 @funindex \smaller
 @funindex \larger
 
-
-@predefined
 @code{\teeny},
 @code{\tiny},
 @code{\small},
@@ -1617,9 +1614,9 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
+@predefined
 @funindex \markuplist
 
-@predefined
 @code{\markuplist}.
 @endpredefined
 

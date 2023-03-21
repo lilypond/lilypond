@@ -956,12 +956,12 @@ Wenn eine Mehrtaktpause direkt auf einen Auftakt mit @code{\partial}
 folgt, werden möglicherweise daraus resultierende
 Taktprüfungswarnungen nicht angezeigt.
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 @funindex \compressEmptyMeasures
 @funindex \expandEmptyMeasures
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\compressEmptyMeasures},

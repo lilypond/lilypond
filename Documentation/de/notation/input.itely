@@ -1531,12 +1531,12 @@ schon vorher bekannt sein.  Die Größe wird mithilfe des Platzhalters
 bestimmt.  Wenn eine Partitur zwischen 10 und 99 Seiten hat, kann man
 "00" schreiben, also eine zweistellige Zahl.
 
-@code{\label}
-@code{\page-ref}
-
 @predefined
-@funindex \label,
-@funindex \page-ref.
+@funindex \label
+@funindex \page-ref
+
+@code{\label},
+@code{\page-ref}.
 @endpredefined
 
 
@@ -1677,10 +1677,10 @@ Linie gefüllt werden:
 Installierte Dateien:
 @file{ly/toc-init.ly}.
 
+@predefined
 @funindex \table-of-contents
 @funindex \tocItem
 
-@predefined
 @code{\table-of-contents},
 @code{\tocItem}.
 @endpredefined

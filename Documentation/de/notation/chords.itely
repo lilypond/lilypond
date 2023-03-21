@@ -770,15 +770,16 @@ nicht verwendet, wenn der Grundton erhöht oder erniedrigt ist.
 
 @predefined
 @funindex major seven symbols
+@funindex \germanChords
+@funindex \semiGermanChords
+@funindex \italianChords
+@funindex \frenchChords
+
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
-@funindex \germanChords
 @code{\germanChords},
-@funindex \semiGermanChords
 @code{\semiGermanChords},
-@funindex \italianChords
 @code{\italianChords},
-@funindex \frenchChords
 @code{\frenchChords}.
 @endpredefined
 
@@ -1070,6 +1071,7 @@ End of continuation line
 
 @predefined
 @cindex Generalbass Fortsetzungslinie
+
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
 @endpredefined

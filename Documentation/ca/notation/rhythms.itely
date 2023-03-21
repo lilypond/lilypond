@@ -978,11 +978,11 @@ Quan un silenci multicompàs segueix immediatament a l'establiment
 d'un compàs parcial amb @code{\partial}, és possible que no es
 mostrin els advertiments corresponents de comprovació de compàs.
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 @funindex \compressMMRests
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\compressMMRests}.

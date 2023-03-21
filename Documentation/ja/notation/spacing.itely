@@ -1901,10 +1901,11 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 
 @predefined
 @funindex \pageTurn
-@code{\pageTurn},
 @funindex \noPageTurn
-@code{\noPageTurn},
 @funindex \allowPageTurn
+
+@code{\pageTurn},
+@code{\noPageTurn},
 @code{\allowPageTurn}
 @endpredefined
 

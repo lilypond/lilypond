@@ -766,6 +766,7 @@ réduit à néant si la fondamentale est altérée.
 @predefined
 @cindex symbole de septième majeure
 @cindex septième majeure, symbole
+
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
 @code{\germanChords},
@@ -1299,6 +1300,7 @@ terminaison d'une prolongation
 
 @predefined
 @cindex basse chiffrée, lignes d'extension
+
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
 @endpredefined
@@ -1446,6 +1448,7 @@ des sous-propriétés @code{minimum-@/distance} et @code{padding} de
 
 @predefined
 @cindex basse chiffrée, alignement
+
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.

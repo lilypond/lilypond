@@ -1474,8 +1474,9 @@ kompliziert.  Mehr Einzelheiten finden sich in
 
 @predefined
 @funindex \break
-@code{\break},
 @funindex \noBreak
+
+@code{\break},
 @code{\noBreak}.
 @endpredefined
 
@@ -1564,13 +1565,11 @@ Buchteilen benutzt werden.
 @}
 @end example
 
-
-
-
 @predefined
 @funindex \pageBreak
-@code{\pageBreak},
 @funindex \noPageBreak
+
+@code{\pageBreak},
 @code{\noPageBreak}.
 @endpredefined
 
@@ -1672,13 +1671,13 @@ Die Seitenumblätter-Befehle @code{\pageTurn}, @code{\noPageTurn} und
 @code{\allowPageTurn} können auch auf oberster Dateiebene benutzt
 werden, etwa zwischen Partituren und Textabschnitten.
 
-
 @predefined
 @funindex \pageTurn
-@code{\pageTurn},
 @funindex \noPageTurn
-@code{\noPageTurn},
 @funindex \allowPageTurn
+
+@code{\pageTurn},
+@code{\noPageTurn},
 @code{\allowPageTurn}.
 @endpredefined
 

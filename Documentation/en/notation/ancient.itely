@@ -1282,19 +1282,19 @@ the predefined staff contexts for Gregorian chant configure
 }
 @end lilypond
 
-
 @predefined
 @funindex \virgula
-@code{\virgula},
 @funindex \caesura
-@code{\caesura},
 @funindex \divisioMinima
-@code{\divisioMinima},
 @funindex \divisioMaior
-@code{\divisioMaior},
 @funindex \divisioMaxima
-@code{\divisioMaxima},
 @funindex \finalis
+
+@code{\virgula},
+@code{\caesura},
+@code{\divisioMinima},
+@code{\divisioMaior},
+@code{\divisioMaxima},
 @code{\finalis}.
 @endpredefined
 
@@ -2337,30 +2337,30 @@ Initio Debilis}
 @end multitable
 @endIndentedBlock
 
-
 @predefined
-The following head prefixes are supported:
 @funindex \virga
-@code{\virga},
 @funindex \stropha
-@code{\stropha},
 @funindex \inclinatum
-@code{\inclinatum},
 @funindex \auctum
-@code{\auctum},
 @funindex \descendens
-@code{\descendens},
 @funindex \ascendens
-@code{\ascendens},
 @funindex \oriscus
-@code{\oriscus},
 @funindex \quilisma
-@code{\quilisma},
 @funindex \deminutum
-@code{\deminutum},
 @funindex \cavum
-@code{\cavum},
 @funindex \linea
+
+The following head prefixes are supported:
+@code{\virga},
+@code{\stropha},
+@code{\inclinatum},
+@code{\auctum},
+@code{\descendens},
+@code{\ascendens},
+@code{\oriscus},
+@code{\quilisma},
+@code{\deminutum},
+@code{\cavum},
 @code{\linea}.
 @endpredefined
 

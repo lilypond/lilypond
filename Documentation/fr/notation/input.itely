@@ -2057,8 +2057,9 @@ emporte-pièce sur deux caractères -- soit @code{"00"}.
 
 @predefined
 @funindex \label
-@code{\label},
 @funindex \page-ref
+
+@code{\label},
 @code{\page-ref}.
 @endpredefined
 
@@ -2293,16 +2294,17 @@ Cet exemple illustre par ailleurs l'utilisation de la commande
 
 @predefined
 @funindex \table-of-contents
-@code{\table-of-contents},
 @funindex \tocItem
-@code{\tocItem},
 @funindex tocItemMarkup
-@code{tocItemMarkup},
 @funindex tocTitleMarkup
-@code{tocTitleMarkup},
 @funindex tocFormatMarkup
-@code{tocFormatMarkup},
 @funindex tocIndentMarkup
+
+@code{\table-of-contents},
+@code{\tocItem},
+@code{tocItemMarkup},
+@code{tocTitleMarkup},
+@code{tocFormatMarkup},
 @code{tocIndentMarkup}.
 @endpredefined
 

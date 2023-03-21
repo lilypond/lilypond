@@ -1904,8 +1904,9 @@ puede ser "00", es decir, un número de dos dígitos.
 
 @predefined
 @funindex \label
-@code{\label},
 @funindex \page-ref
+
+@code{\label},
 @code{\page-ref}.
 @endpredefined
 
@@ -2155,16 +2156,17 @@ Archivos de inicio:
 
 @predefined
 @funindex \table-of-contents
-@code{\table-of-contents},
 @funindex \tocItem
-@code{\tocItem},
 @funindex tocItemMarkup
-@code{tocItemMarkup},
 @funindex tocTitleMarkup
-@code{tocTitleMarkup},
 @funindex tocFormatMarkup
-@code{tocFormatMarkup},
 @funindex tocIndentMarkup
+
+@code{\table-of-contents},
+@code{\tocItem},
+@code{tocItemMarkup},
+@code{tocTitleMarkup},
+@code{tocFormatMarkup},
 @code{tocIndentMarkup}.
 @endpredefined
 

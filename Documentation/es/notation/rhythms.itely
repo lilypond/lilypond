@@ -1047,11 +1047,11 @@ establecimiento de un compás parcial con @code{\partial}, es
 posible que no se emitan las advertencias correspondientes de
 comprobación de compás.
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 @funindex \compressMMRests
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\compressMMRests}.

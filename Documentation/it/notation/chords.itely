@@ -760,9 +760,9 @@ porre uno spazio tra la fondamentale e il modificatore impostando
 
 @end table
 
-
 @predefined
 @cindex simboli di settima maggiore
+
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
 @code{\germanChords},
@@ -1085,10 +1085,10 @@ Fine della linea di continuazione
 
 @end multitable
 
-
 @predefined
 @cindex linee di estensione del basso continuo
 @cindex basso continuo, linee di estensione
+
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
 @endpredefined
@@ -1193,6 +1193,7 @@ visualizzato sopra o sotto il rigo.
 @predefined
 @cindex allineamento del basso continuo
 @cindex basso continuo, allineamento
+
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.

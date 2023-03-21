@@ -752,10 +752,10 @@ used when the root is altered.
 
 @end table
 
-
 @predefined
 @cindex major seven symbol
 @cindex symbol, major seven
+
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
 @code{\germanChords},
@@ -1262,9 +1262,9 @@ end of continuation line
 @end multitable
 @endIndentedBlock
 
-
 @predefined
 @cindex figured bass, extender lines
+
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
 @endpredefined
@@ -1414,6 +1414,7 @@ with subproperties @code{minimum-@/distance} and @code{padding} of
 
 @predefined
 @cindex figured bass, alignment
+
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.

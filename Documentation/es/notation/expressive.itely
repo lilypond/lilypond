@@ -941,11 +941,9 @@ expresión:
 }
 @end lilypond
 
-
+@predefined
 @funindex \slurUp
 
-
-@predefined
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},

@@ -808,11 +808,9 @@ Es poden definir patrons de discontinuïtat per a les lligadures d'expressió:
 }
 @end lilypond
 
-
+@predefined
 @funindex \slurUp
 
-
-@predefined
 @code{\slurUp},
 @code{\slurDown},
 @code{\slurNeutral},

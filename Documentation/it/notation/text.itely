@@ -97,10 +97,10 @@ articolazioni.  Ulteriori informazioni in @ref{Articolazioni e abbellimenti}.
 Per maggiori informazioni sull'ordinamento relativo delle scritte e delle
 articolazioni si veda @rlearning{Posizionamento degli oggetti}.
 
+@predefined
 @funindex \textLengthOn
 @funindex \textLengthOff
 
-@predefined
 @code{\textLengthOn},
 @code{\textLengthOff}.
 @endpredefined
@@ -177,12 +177,11 @@ può ottenere una formattazione diversa tramite i blocchi @code{\markup}, come
 Lo stile della linea, così come la stringa testuale, può essere definito come
 una proprietà dell'oggetto.  Questa sintassi è descritta in @ref{Stili della linea}.
 
+@predefined
 @funindex \textSpannerUp
 @funindex \textSpannerDown
 @funindex \textSpannerNeutral
 
-
-@predefined
 @code{\textSpannerUp},
 @code{\textSpannerDown},
 @code{\textSpannerNeutral}.
@@ -291,10 +290,10 @@ successiva.
 }
 @end lilypond
 
+@predefined
 @funindex \markLengthOn
 @funindex \markLengthOff
 
-@predefined
 @code{\markLengthOn},
 @code{\markLengthOff}.
 @endpredefined
@@ -366,10 +365,10 @@ possibile la realizzazione di documenti o libri interamente con LilyPond.
 Questa funzionalità, e la sintassi specifica che richiede, è descritta
 in @ref{Testo formattato su più pagine}.
 
+@predefined
 @funindex \markup
 @funindex \markuplist
 
-@predefined
 @code{\markup},
 @code{\markuplist}.
 @endpredefined
@@ -695,6 +694,7 @@ tipi di carattere personalizzati si trova in @ref{Font markup}.
 È possibile anche definire i propri gruppi di tipi di carattere, come
 è spiegato in @ref{Tipi di carattere}.
 
+@predefined
 @funindex \teeny
 @funindex \tiny
 @funindex \small
@@ -704,8 +704,6 @@ tipi di carattere personalizzati si trova in @ref{Font markup}.
 @funindex \smaller
 @funindex \larger
 
-
-@predefined
 @code{\teeny},
 @code{\tiny},
 @code{\small},
@@ -1357,9 +1355,9 @@ Guida al funzionamento interno:
 @rinternals{TextScript}.
 @endmorerefs
 
+@predefined
 @funindex \markuplist
 
-@predefined
 @code{\markuplist}.
 @endpredefined
 

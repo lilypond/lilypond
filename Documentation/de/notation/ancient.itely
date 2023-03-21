@@ -1398,20 +1398,14 @@ sich in der Datei @file{gregorian.ly} auch eine Definition für
 }
 @end lilypond
 
+@predefined
 @funindex \virgula
 @funindex \caesura
 @funindex \divisioMinima
 @funindex \divisioMaior
 @funindex \divisioMaxima
 @funindex \finalis
-@funindex virgula
-@funindex caesura
-@funindex divisioMinima
-@funindex divisioMaior
-@funindex divisioMaxima
-@funindex finalis
 
-@predefined
 @code{\virgula},
 @code{\caesura},
 @code{\divisioMinima},
@@ -2446,28 +2440,29 @@ als Tonhöhen eingesetzt werden.
 @end multitable
 
 @predefined
-Folgende Notenpräfixe sind unterstützt:
 @funindex \virga
-@code{\virga},
 @funindex \stropha
-@code{\stropha},
 @funindex \inclinatum
-@code{\inclinatum},
 @funindex \auctum
-@code{\auctum},
 @funindex \descendens
-@code{\descendens},
 @funindex \ascendens
-@code{\ascendens},
 @funindex \oriscus
-@code{\oriscus},
 @funindex \quilisma
-@code{\quilisma},
 @funindex \deminutum
-@code{\deminutum},
 @funindex \cavum
-@code{\cavum},
 @funindex \linea
+
+Folgende Notenpräfixe sind unterstützt:
+@code{\virga},
+@code{\stropha},
+@code{\inclinatum},
+@code{\auctum},
+@code{\descendens},
+@code{\ascendens},
+@code{\oriscus},
+@code{\quilisma},
+@code{\deminutum},
+@code{\cavum},
 @code{\linea}.
 @endpredefined
 
