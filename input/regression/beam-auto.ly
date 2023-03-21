@@ -1,9 +1,13 @@
 
 \version "2.16.0"
 \header{
-  texidoc = "@cindex Beaming Presets
+  texidoc = "
+@cindex beaming presets
+@cindex preset, beaming
+
 There are presets for the @code{auto-beam} engraver in the case of common
-time signatures. " }
+time signatures.
+" }
 
 \relative c''{
 

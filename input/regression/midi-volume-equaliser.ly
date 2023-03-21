@@ -1,8 +1,11 @@
 \version "2.21.0"
 \header {
-  texidoc = "@cindex Midi Volume Equaliser
+  texidoc = "
+@cindex MIDI, volume equalizer
+
 The full orchestra plays a note, where groups stop one after
-another. Use this to tune equalizer settings. "
+another. Use this to tune equalizer settings.
+"
 }
 
 #(set-global-staff-size 16)

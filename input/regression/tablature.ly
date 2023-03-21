@@ -1,6 +1,9 @@
 \version "2.16.0"
 
-\header{ texidoc = "@cindex Tabulature
+\header {
+  texidoc = "
+@cindex tablature
+
 A sample tablature, with both normal staff and tab.
 
 Tablature is done by overriding the note-head formatting function, and

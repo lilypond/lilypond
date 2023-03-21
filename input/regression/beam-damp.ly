@@ -1,8 +1,14 @@
 
 \version "2.16.0"
-\header { texidoc = "@cindex Beam Damp
-Beams are less steep than the notes they encompass. " }
-\layout{
+\header {
+  texidoc = "
+@cindex beam damp
+@cindex damp, beam
+
+Beams are less steep than the notes they encompass.
+" }
+
+\layout {
   ragged-right = ##t
 }
 

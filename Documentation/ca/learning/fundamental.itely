@@ -120,7 +120,7 @@ musical estigués rodejada per un embolcall fet per les
 instruccions que acabem de veure.
 
 @cindex contextos implícits
-v@cindex implícits, contextos
+@cindex implícits, contextos
 
 @strong{¡Advertiment!}  Molts dels exemples que apareixen a la
 documentació del LilyPond ometen les instruccions @code{\new

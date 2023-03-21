@@ -1034,8 +1034,9 @@ circle of diameter@tie{}0 (i.e., sharp corners).
                 (box-padding 0.5))
   #:as-string (format #f "[~a]"
                       (markup->string arg #:layout layout #:props props))
-  "@cindex enclosing text in box, with rounded corners
-   @cindex drawing box, with rounded corners, around text
+  "
+@cindex enclosing text in box, with rounded corners
+@cindex drawing box, with rounded corners, around text
 Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup; the @code{corner-radius} property
@@ -5697,7 +5698,8 @@ where @var{X} is the number of staff spaces."
   (number-list? markup-list?)
   #:properties ((padding 0)
                 (baseline-skip))
-  "@cindex creating a table
+  "
+@cindex creating a table
 
 Returns a table.
 

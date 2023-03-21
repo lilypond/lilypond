@@ -3,8 +3,11 @@
 #(ly:set-option 'warning-as-error #f)
 
 \header {
-  texidoc="@cindex Grace End
- Grace notes after the last note do not confuse the timing code."
+  texidoc = "
+@cindex grace notes, at end
+
+Grace notes after the last note do not confuse the timing code.
+"
 }
 
 \context Voice \relative {

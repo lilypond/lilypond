@@ -1,7 +1,11 @@
 \version "2.19.21"
 % possible rename to staff-something.  -gp
 
-\header{ texidoc = "@cindex Staff Remove
+\header {
+  texidoc = "
+@cindex staff, removing
+@cindex removing staff
+
 The printing of the staff lines may be suppressed by removing the 
 corresponding engraver.
 "

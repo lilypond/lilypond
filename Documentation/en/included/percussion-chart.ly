@@ -3,9 +3,11 @@
 % this chart is used in the manual too.
 
 \header {
-  texidoc ="@cindex Percussion notes
+  texidoc ="
+@cindex percussion notes
 
-This chart shows all percussion and drum notes."
+This chart shows all percussion and drum notes.
+"
 }
 
 myBreak = { \bar " " \break }
