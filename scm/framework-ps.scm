@@ -21,6 +21,7 @@
 
 (use-modules (ice-9 string-fun)
              ((ice-9 iconv) #:select (bytevector->string string->bytevector))
+             (ice-9 match)
              (guile)
              (lily page)
              (lily paper-system)
@@ -698,18 +699,64 @@
       (display "mark /PageMode /UseOutlines /DOCVIEW pdfmark\n\n" port))
 
   (if (ly:get-option 'embed-source-code)
-      (let ((source-list (delete-duplicates
-                          (remove (lambda (str)
-                                    (or
-                                     (string-contains str
-                                                      (ly:get-option 'datadir))
-                                     (string=? str
-                                               "<included string>")))
-                                  (ly:source-files)))))
+      (let* ((source-paths
+              ;; Sort the paths just to remove duplicates (delete-duplicates is
+              ;; a bad O(n^2)).
+              (uniq-list
+               (sort (remove (lambda (str)
+                               ;; TODO: improve this.
+                               (or (string-contains str (ly:get-option 'datadir))
+                                   (string=? str "<included string>")))
+                             (ly:source-files))
+                     string<?)))
+             ;; We use only the base name in the embedding metadata because an
+             ;; absolute path can't be saved on the receiver's computer, and
+             ;; relative paths have problems too (whether they are supported is
+             ;; not clear from the Adobe pdfmark reference; at the time of this
+             ;; writing, Evince gives an error when trying to save an embedded
+             ;; file with a relative path without changing the path in the
+             ;; dialog, and Firefox just trims the leading directory
+             ;; components).
+             (source-paths+basenames
+              (sort (map (lambda (path)
+                           (cons path (basename path)))
+                         source-paths)
+                    ;; Sort by base name this time, this is the final ordering
+                    ;; we want.
+                    (comparator-from-key cdr string<?)))
+             ;; Be helpful and detect conflicts, like with \include
+             ;; "directory1/included.ily" and \include "directory2/included.ily"
+             ;; which would both result into included.ily. Technically, they
+             ;; could both be embedded, but it would result into a confusing
+             ;; experience when trying to save all embedded files from the PDF
+             ;; file.
+             (final-paths+basenames
+              (let loop ((source-paths+basenames source-paths+basenames)
+                         (acc '()))
+                (match source-paths+basenames
+                  (()
+                   (reverse! acc))
+                  ((one)
+                   (reverse! (cons one acc)))
+                  (((and first-pair (path1 . basename1))
+                    . (and rest ((path2 . basename2) . _)))
+                   (if (equal? basename1 basename2)
+                       (begin
+                         (ly:warning (G_ "conflict between embedded source \
+files '~a' and '~a', which both have the base file name '~a'; skipping the \
+former one")
+                                     path1 path2 basename1)
+                         ;; Drop the first file in conflict
+                         (loop rest acc))
+                       (loop rest (cons first-pair acc))))))))
+        ;; Makes the pdfmark ignored if the PostScript interpreter does not
+        ;; support it (useful when using the PostScript output directly with
+        ;; --ps).
         (display "\n/pdfmark where
 {pop} {userdict /pdfmark /cleartomark load put} ifelse" port)
-        (for-each (lambda (fname idx)
-                    (format port "\n
+        (for-each (match-lambda*
+                    (((path . basename) idx)
+                     (format port "\n
 mark /_objdef {ly~a_stream} /type /stream   /OBJ pdfmark
 mark {ly~a_stream} << /Type /EmbeddedFile>> /PUT pdfmark
 mark {ly~a_stream} (~a) /PUT pdfmark
@@ -717,10 +764,11 @@ mark /Name (LilyPond source file ~a)
 /FS << /Type /Filespec /F (~a) /EF << /F {ly~a_stream} >> >> /EMBED pdfmark
 mark {ly~a_stream} /CLOSE pdfmark
 \n"
-                            idx idx idx
-                            (ps-quote (ly:gulp-file fname))
-                            idx fname idx idx))
-                  source-list (iota (length source-list))))))
+                             idx idx idx
+                             (ps-quote (ly:gulp-file path))
+                             idx basename idx idx)))
+                  final-paths+basenames
+                  (iota (length final-paths+basenames))))))
 
 (define (dump-pdf-bookmarks toc-alist page-numbers port)
   (let* ((sorted-page-numbers
