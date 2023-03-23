@@ -2414,14 +2414,10 @@ note head are modified within a single chord:
 For the @code{\tweak} command to work, it must
 remain immediately adjacent to the object to which it is
 to apply after the input file has been converted to a music stream.
-Tweaking a whole chord does not do anything since its music event
-only acts as a container, and all layout objects are created from events
-inside of the @code{EventChord}:
+Tweaking a whole chord tweaks all the contained notes:
 
-@lilypond[verbatim,fragment,quote]
-\tweak color #red c''4
-\tweak color #red <c'' e''>4
-<\tweak color #red c'' e''>4
+@lilypond[verbatim,quote]
+{ <\tweak color #red c'' e''>4 }
 @end lilypond
 
 The simple @code{\tweak} command cannot be used to modify any object
