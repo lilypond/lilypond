@@ -3313,17 +3313,6 @@ direction_reqd_event:
 			Music *a = original->clone ();
 			// origin will be set by post_event_nofinger
 			$$ = a->unprotect ();
-// -----------------------------------------------------------------
-// obsoletion handling, may be removed at some point (e.g. for 2.26)
-		} else if (scm_is_string (s)) {
-			string s_string = ly_scm2string (s);
-			@$.warning (_f ("Re-defining dash%s using a string is deprecated. \
-Please try replacing \"%s\" by \\%s or run convert-ly.",
-				ly_scm2string ($1), s_string, s_string));
-			Music *a = MY_MAKE_MUSIC ("ArticulationEvent", @$);
-			set_property (a, "articulation-type", scm_string_to_symbol (s));
-			$$ = a->unprotect ();
-// -----------------------------------------------------------------
 		} else {
 			parser->parser_error (@1, _ ("expecting post-event as script definition"));
 			$$ = SCM_UNSPECIFIED;

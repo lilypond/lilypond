@@ -727,15 +727,6 @@ making it possible to @code{\\revert} to any previous value afterwards."
               'symbol sym))
 
 (define-public (make-articulation name . properties)
-  ;; -----------------------------------------------------------------
-  ;; obsoletion handling, may be removed at some point (e.g., for 2.26)
-  (if (string? name)
-      (begin
-        (ly:warning "articulation types should be symbols instead of \
-strings since 2.23.6. Please replace (make-articulation \"~a\" ...) \
-by (make-articulation '~a ...) or run convert-ly." name name)
-        (set! name (string->symbol name))))
-  ;; -----------------------------------------------------------------
   (apply make-music 'ArticulationEvent
          'articulation-type name
          properties))
