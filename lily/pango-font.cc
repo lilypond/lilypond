@@ -487,15 +487,22 @@ Pango_font::text_stencil (Output_def * /* state */, const std::string &str,
   */
   PangoLayout *layout = pango_layout_new (context_);
 
+  PangoAttrList *list = pango_attr_list_new ();
   if (!features_str.empty ())
     {
-      PangoAttrList *list = pango_attr_list_new ();
       PangoAttribute *features_attr
         = pango_attr_font_features_new (features_str.c_str ());
       pango_attr_list_insert (list, features_attr);
-      pango_layout_set_attributes (layout, list);
-      pango_attr_list_unref (list);
     }
+  if (music_string)
+    {
+      // For music fonts, falling back to text fonts is surprising.
+      PangoAttribute *fallback_attr = pango_attr_fallback_new (false);
+      pango_attr_list_insert (list, fallback_attr);
+    }
+
+  pango_layout_set_attributes (layout, list);
+  pango_attr_list_unref (list);
 
   pango_layout_set_text (layout, str.c_str (), static_cast<int> (str.size ()));
   GSList *lines = pango_layout_get_lines (layout);

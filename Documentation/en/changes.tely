@@ -303,6 +303,27 @@ The @code{\lookup} markup command can now only be used for braces;
 for other glyphs, use the @code{\musicglyph} command.  Instead of
 @code{\lookup}, it is also generally recommended to use @code{\left-brace}.
 
+
+@item
+In markup, when a music font is used (such as for dynamic markings), a
+glyph absent from the music font was previously rendered in a normal
+text font. This is no longer the case; a warning about the missing glyph
+is output instead.  In order to use a text font, use the @code{\text}
+markup command.  For example:
+
+@lilypond[verbatim,quote]
+dolceP =
+#(make-dynamic-script
+  #{
+    \markup {
+      \text \medium dolce
+      p
+    }
+  #})
+
+{ c'\dolceP }
+@end lilypond
+
 @end itemize
 
 @node New for specialist notation
