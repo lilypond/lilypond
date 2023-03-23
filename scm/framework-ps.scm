@@ -760,13 +760,13 @@ former one")
 mark /_objdef {ly~a_stream} /type /stream   /OBJ pdfmark
 mark {ly~a_stream} << /Type /EmbeddedFile>> /PUT pdfmark
 mark {ly~a_stream} (~a) /PUT pdfmark
-mark /Name (LilyPond source file ~a)
+mark /Name (~a)
 /FS << /Type /Filespec /F (~a) /EF << /F {ly~a_stream} >> >> /EMBED pdfmark
 mark {ly~a_stream} /CLOSE pdfmark
 \n"
                              idx idx idx
                              (ps-quote (ly:gulp-file path))
-                             idx basename idx idx)))
+                             basename basename idx idx)))
                   final-paths+basenames
                   (iota (length final-paths+basenames))))))
 
