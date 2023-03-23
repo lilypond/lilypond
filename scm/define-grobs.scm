@@ -3932,8 +3932,6 @@ of a voice.")))))
         (baseline-skip . 1.7)
         (direction . ,UP)
         (edge-height . (2.0 . 2.0)) ;; staff-space;
-        (font-encoding . fetaText)
-        (font-features . ("cv47" "ss01"))
         (font-size . -4)
         (range-collapse-threshold . 3)
         (shorten-pair . ,ly:volta-bracket::calc-shorten-pair)

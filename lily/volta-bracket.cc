@@ -100,7 +100,7 @@ Volta_bracket_interface::print (SCM smob)
   if (!orig_span || broken_first_bracket)
     {
       SCM text = get_property (me, "text");
-      SCM properties = me->get_property_alist_chain (SCM_EOL);
+      SCM properties = Font_interface::text_font_alist_chain (me);
       auto num = Text_interface::interpret_markup (layout, properties, text);
       num.align_to (Y_AXIS, UP);
       num.translate_axis (-0.5, Y_AXIS);

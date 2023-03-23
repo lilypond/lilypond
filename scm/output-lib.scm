@@ -1749,29 +1749,40 @@ visible, just that they exist."
           (interval-union '(0 . 0) (cons smaller larger)))
         '(0 . 0))))
 
-(define-public volta-bracket-interface::calc-text
-  (let ((en-dash "\u2013")
-        (hair-space "\u200a"))
-    (lambda (grob)
-      (let* ((volta-numbers (ly:grob-property grob 'volta-numbers))
-             (ranges (group-into-ranges volta-numbers))
-             (threshold (ly:grob-property grob 'range-collapse-threshold)))
-        (define (format-num x)
-          (string-append (number->string x) "."))
-        (apply string-append
-               (list-join
-                (map (match-lambda
-                       ((start . end)
-                        (apply string-append
-                               (if (<= threshold (1+ (- end start)))
-                                   (list (format-num start)
-                                         en-dash
-                                         (format-num end))
-                                   (map format-num
-                                        (iota (1+ (- end start))
-                                              start))))))
-                     ranges)
-                hair-space))))))
+(define-public (volta-bracket-interface::calc-text grob)
+  (let* ((enlarge-text
+          (lambda (text)
+            ;; Should this be configurable?  It would probably be better to add
+            ;; an en dash and a hair space to Emmentaler, with the right size.
+            (make-fontsize-markup 5.2 text)))
+         (en-dash (enlarge-text "\u2013"))
+         (hair-space (enlarge-text "\u200a"))
+         (volta-numbers (ly:grob-property grob 'volta-numbers))
+         (ranges (group-into-ranges volta-numbers))
+         (threshold (ly:grob-property grob 'range-collapse-threshold)))
+    (define (format-num num)
+      ;; FIXME: this should use make-finger-markup, but \finger
+      ;; overrides the font size.
+      (make-override-markup
+       '((font-encoding . fetaText)
+         (font-features . ("cv47" "ss01")))
+       (string-append (number->string num) ".")))
+    (make-concat-markup
+     (list-join
+      (map (match-lambda
+             ((start . end)
+              (make-concat-markup
+               (if (<= threshold (1+ (- end start)))
+                   (list (format-num start)
+                         en-dash
+                         (format-num end))
+                   (list-join
+                    (map format-num
+                         (iota (1+ (- end start))
+                               start))
+                    hair-space)))))
+           ranges)
+      hair-space))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; centered-spanner-interface
