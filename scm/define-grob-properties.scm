@@ -894,6 +894,11 @@ horizontal edges.")
 ;;;
 ;;; r
 ;;;
+     (range-collapse-threshold ,index? "If the length of a volta
+range is greater than or equal to this threshold, print it with
+a dash.  For example, if this is@tie{}3, a @code{\volta 1,2,3} is
+printed as @samp{1.-3.}, but if it is@tie{}4, it is printed as
+@samp{1.2.3.}.")
      (rank-on-page ,number? "0-based index of the system on a page.")
      (ratio ,number? "Parameter for slur shape.  The higher this
 number, the quicker the slur attains its @code{height-limit}.")
@@ -1585,6 +1590,8 @@ Internally used to distribute beam shortening over stems.")
      (stem-info ,pair? "A cache of stem parameters.")
      (system-Y-offset ,number? "The Y-offset (relative to the bottom of the
 top-margin of the page) of the system to which this staff belongs.")
+
+     (volta-numbers ,number-list? "List of volta numbers.")
 
 
      ;;;;;;;;;;;;;;;;

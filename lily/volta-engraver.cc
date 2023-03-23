@@ -81,7 +81,6 @@ protected:
   void listen_dal_segno (Stream_event *);
   void listen_fine (Stream_event *);
   void listen_volta_span (Stream_event *);
-  static std::string format_numbers (SCM volta_numbers);
 
   void derived_mark () const override;
   void finalize () override;
@@ -111,73 +110,6 @@ Volta_engraver::Volta_engraver (Context *c)
   // We need at least one layer to support manual repeat commands.
   // Others may be created as needed.
   layers_.resize (1);
-}
-
-// TODO: The volta number formatter could be a Scheme procedure configured as a
-// context property.  It might make life easier if the formatter received a
-// list with ranges represented by pairs rather than making the formatter
-// implement the range-discovery algorithm that is implemented here.
-std::string
-Volta_engraver::format_numbers (SCM volta_numbers)
-{
-  volta_numbers = scm_sort_list (volta_numbers, Guile_user::less);
-  volta_numbers = Srfi_1::delete_duplicates (volta_numbers, Guile_user::equal);
-
-  // Use a dash for runs of 3 or more.  Behind Bars has an example using "1.2."
-  // (p.236) but otherwise doesn't say much about this.
-  //
-  // TODO: It seems that "1.2.3." might also be more readable than "1.-3."
-  // Should there be a context property controlling how large a range should be
-  // before using a dash?
-
-  constexpr auto EN_DASH = "\u2013";
-  constexpr auto HAIR_SPACE = "\u200a";
-
-  std::string result;
-
-  if (scm_is_null (volta_numbers))
-    return result;
-
-  size_t range_start = 0;
-  size_t prev_num = 0;
-
-  auto handle_num = [&] (size_t num) {
-    if (range_start)
-      {
-        if (num != prev_num + 1) // end range
-          {
-            if (!result.empty ())
-              result += HAIR_SPACE;
-            result += std::to_string (range_start) + '.';
-            result += (prev_num - range_start > 1) ? EN_DASH : HAIR_SPACE;
-            result += std::to_string (prev_num) + '.';
-            range_start = 0;
-          }
-      }
-    else if (prev_num)
-      {
-        if (num != prev_num + 1)
-          {
-            if (!result.empty ())
-              result += HAIR_SPACE;
-            result += std::to_string (prev_num) + '.';
-          }
-        else
-          {
-            range_start = prev_num;
-          }
-      }
-
-    prev_num = num;
-  };
-
-  for (auto num : as_ly_scm_list_t<size_t> (volta_numbers))
-    {
-      handle_num (num);
-    }
-  handle_num (0);
-
-  return result;
 }
 
 void
@@ -377,21 +309,13 @@ Volta_engraver::stop_translation_timestep ()
     {
       if (layer.start_bracket_this_timestep_)
         {
-          // check before setting text to respect user overrides
-          SCM text_sym = ly_symbol2scm ("text");
-          if (scm_is_null (get_property (layer.bracket_, text_sym)))
-            {
-              // If there is no manual label, format an automatic one.
-              if (scm_is_null (layer.text_) && layer.start_ev_)
-                {
-                  SCM nums = get_property (layer.start_ev_, "volta-numbers");
-                  const auto &s = format_numbers (nums);
-                  if (!s.empty ())
-                    layer.text_ = ly_string2scm (s);
-                }
+          if (!scm_is_null (layer.text_)) // explicit label from repeatCommands
+            set_property (layer.bracket_, "text", layer.text_);
 
-              if (Text_interface::is_markup (layer.text_))
-                set_property (layer.bracket_, text_sym, layer.text_);
+          if (layer.start_ev_)
+            {
+              SCM nums = get_property (layer.start_ev_, "volta-numbers");
+              set_property (layer.bracket_, "volta-numbers", nums);
             }
 
           layer.start_bracket_this_timestep_ = false;

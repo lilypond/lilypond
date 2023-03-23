@@ -160,6 +160,8 @@ Volta bracket with number.
 bars
 dashed-edge
 height
+range-collapse-threshold
 shorten-pair
 thickness
+volta-numbers
                )");

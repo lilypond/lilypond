@@ -724,6 +724,28 @@ signature, unlike @code{fold}."
        (lambda new-vals
          (apply fold-values proc rest new-vals))))))
 
+(define-public (group-into-ranges lst)
+  "Turn a (possibly unsorted) list of integers into a sorted list
+of ranges, represented as pairs.  For example:
+
+@example
+(group-into-ranges '(1 4 3 6 7 2)) @result{} ((1 . 4) (6 . 7))
+@end example"
+  (let loop ((lst (uniq-list (sort lst <)))
+             (acc '()))
+    (match lst
+      (()
+       (reverse! acc))
+      ((next . rest)
+       (loop rest
+             (match acc
+               (((last-start . (? (lambda (x) (eqv? next (1+ x))) last-end)) . acc-rest)
+                ;; This number continues the previous range
+                (cons (cons last-start next) acc-rest))
+               (_
+                ;; Start a new range
+                (cons (cons next next) acc))))))))
+
 (define-public (offset-add a b)
   (cons (+ (car a) (car b))
         (+ (cdr a) (cdr b))))
