@@ -433,7 +433,7 @@
       </note>
       <direction>
         <direction-type>
-          <dynamics><other-dynamics>abc-ffz</other-dynamics></dynamics>
+          <dynamics><other-dynamics>ffz</other-dynamics></dynamics>
         </direction-type>
       </direction>
       <note>
@@ -441,7 +441,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><text>abc-ffz (oth.)</text></lyric>
+        <lyric number="1"><text>ffz (oth.)</text></lyric>
       </note>
     </measure>
     <!-- Spanners (there is another unit test for testing the various options):

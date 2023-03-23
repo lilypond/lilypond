@@ -23,6 +23,6 @@
 \markup {
   \vspace #2
   This is an unusual time signature:
-  \compound-meter #'((6.22e23 1) (-4 . 3) (3.14) (9876 5432 0) (-1))
+  \compound-meter #'((6.22 1) (-4 . 3) (3.14) (9876 5432 0) (-1))
   (Isn't it pretty?)
 }

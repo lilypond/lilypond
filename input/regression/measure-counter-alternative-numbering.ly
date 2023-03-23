@@ -11,6 +11,8 @@ This also works with compressed multi-measure rests."
     \override BarNumber.break-visibility = ##(#t #t #t)
     alternativeNumberingStyle = #'numbers-with-letters
     \override MultiMeasureRestNumber.direction = #DOWN
+    \override MeasureCounter.font-encoding = #'latin1
+    \override MeasureCounter.font-size = 1
   }
 }
 

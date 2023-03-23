@@ -16,7 +16,8 @@ this is configurable."
   R1*5
   c1
   \stopMeasureCount
-  \override Staff.MeasureCounter.number-range-separator = "…"
+  \override Staff.MeasureCounter.number-range-separator =
+    \markup \bold \text "…"
   \startMeasureCount
   R1*7
   \stopMeasureCount
