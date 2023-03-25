@@ -1985,9 +1985,9 @@ bar line in the section.
 The @code{Page_turn_engraver} reads the context property
 @code{minimumPageTurnLength} to determine how long a note-free
 section must be before a page turn is considered.  The default
-value for @code{minimumPageTurnLength} is
-@code{(ly:make-moment 1/1)}.  If you want to disable page turns,
-set it to something @q{very large}.
+value for @code{minimumPageTurnLength} is @code{\musicLength 1}.
+If you want to disable page turns, set it to something @q{very
+large}.
 
 @example
 \new Staff \with @{ \consists Page_turn_engraver @}
@@ -3189,13 +3189,9 @@ Internals Reference:
 @end menu
 
 Horizontal spacing may be altered with the
-@code{base-shortest-duration} property.  Here
-we compare the same music; once without altering
-the property, and then altered.  Larger values
-of @code{ly:make-moment} will produce smaller
-music.  Note that @code{ly:make-moment} constructs
-a duration, so @code{1 4} is a longer duration
-than @code{1 16}.
+@code{base-shortest-duration} property.  Here we compare the same
+music; once without altering the property, and then altered.
+Larger values yield tighter spacing.
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
@@ -3717,14 +3713,11 @@ by the @code{\set} command.  As with all context settings, users can
 pick which of the three different locations they would like to
 set @code{proportionalNotationDuration} in to.
 
-The @code{proportionalNotationDuration} setting takes a single argument,
-which is the reference duration against that all music will be spaced.
-The LilyPond Scheme function @code{make-moment} takes two arguments
--- a numerator and denominator which together express some fraction of
-a whole note.  The call @code{(ly:make-moment 1/20)} therefore produces
-a reference duration of a twentieth note.  Values such as
-@code{(ly:make-moment 1/16)}, @code{(ly:make-moment 1/8)}, and
-@code{(ly:make-moment 3/97)} are all possible as well.
+The @code{proportionalNotationDuration} setting takes a single
+argument, which is the reference length against which all music
+will be spaced.  The call @code{\musicLength 1*1/20} specifies one
+twentieth of a whole note.  Values such as @code{\musicLength 16}
+and @code{\musicLength @{2 2.@}} are possible as well.
 
 How do we select the right reference duration to pass to
 @code{proportionalNotationDuration}?  Usually by a process of trial

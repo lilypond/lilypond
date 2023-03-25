@@ -4516,9 +4516,9 @@ may be obtained as follows:
 
 @item
 @code{\applySwingWithOffset} adds yet another argument between the
-@q{weight list} and the music expression: an offset length (entered as
-a @code{ly:make-moment} expression).  This command should be used when
-the music expression has to start off-beat, with a partial swing cycle.
+@q{weight list} and the music expression: an offset length.  This
+command should be used when the music expression has to start
+off-beat, with a partial swing cycle.
 @end itemize
 
 @warning{As with the @file{articulate} script, all swing commands are also

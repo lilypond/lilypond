@@ -782,12 +782,12 @@ the start of the next note.")
      (tupletFullLengthNote ,boolean? "If set, end at the next note,
 otherwise end on the matter (time signatures, etc.@:) before the note.")
      (tupletSpannerDuration ,ly:moment? "Normally, a tuplet bracket is
-as wide as the @code{\\times} expression that gave rise to it.  By
-setting this property, you can make brackets last shorter.
+as wide as the @code{\\times} expression that gave rise to it.  This
+property can shorten the bracket.
 
 @example
 @{
-  \\set tupletSpannerDuration = #(ly:make-moment 1 4)
+  \\set tupletSpannerDuration = \\musicLength 4
   \\times 2/3 @{ c8 c c c c c @}
 @}
 @end example")

@@ -1032,10 +1032,10 @@ and preceded by an apostrophe (quote mark)
   @tab Any valid markup
   @tab @code{\markup @{ \italic "cresc." @}}, @code{"bagpipe"}
 @item Moment
-  @tab A fraction of a whole note constructed with the
-make-moment function
-  @tab @code{(ly:make-moment 1/4)},
-       @code{(ly:make-moment 3/8)}
+  @tab A musical length; this type is distinct from a note
+  duration
+  @tab @code{\musicLength 4.},
+       @code{\musicLength @{2 2.@}}
 @item Number
   @tab Any positive or negative, possibly decimal, value
   @tab @code{3}, @w{@code{-2.45}}

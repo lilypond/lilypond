@@ -612,7 +612,7 @@ An accidental alters a note by:
     \context {
       \Score
       \override SpacingSpanner.base-shortest-duration =
-        #(ly:make-moment 1/32)
+        \musicLength 32
     }
   }
 }
@@ -1907,7 +1907,7 @@ the top line high F:
     \context {
       \Score
       \override SpacingSpanner.base-shortest-duration =
-        #(ly:make-moment 1/1)
+        \musicLength 1
       \override  NonMusicalPaperColumn.line-break-system-details =
         #'((alignment-distances . (3 3)))
       \override BarLine.stencil = ##f
@@ -1968,7 +1968,7 @@ have been selected:
     \context {
       \Score
       \override SpacingSpanner.base-shortest-duration =
-        #(ly:make-moment 2/1)
+        \musicLength 1*2
       \override  NonMusicalPaperColumn.line-break-system-details =
         #'((alignment-distances . (3 3)))
       \override BarLine.stencil = ##f
@@ -2031,7 +2031,7 @@ shown below, where the notes show an arpeggio on a C major chord.
     \context {
       \Score
       \override SpacingSpanner.base-shortest-duration =
-        #(ly:make-moment 2/1)
+        \musicLength 1*2
       \override  NonMusicalPaperColumn.line-break-system-details =
         #'((alignment-distances . (3 3)))
       \override BarLine.stencil = ##f
@@ -4219,7 +4219,7 @@ part in modern choral scores).
 @lilypond[quote,notime]
 \relative c'' {
   \override Staff.Clef.full-size-change = ##t
-    \set Score.proportionalNotationDuration = #(ly:make-moment 1/8)
+    \set Score.proportionalNotationDuration = \musicLength 8
     \clef french
     g1
     \clef treble

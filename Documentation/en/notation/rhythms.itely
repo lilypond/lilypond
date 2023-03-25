@@ -2592,10 +2592,8 @@ compatible with the new value of @code{baseMoment}.
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-@code{baseMoment} is a @dfn{moment}; a unit of musical duration.  A
-quantity of type @q{moment} is created by the Scheme function
-@code{ly:make-moment}.  For more information about this function,
-@pxref{Time administration}.
+@code{baseMoment} is a @dfn{moment}; a unit of musical duration.
+For more information about this type, @pxref{Time administration}.
 
 By default @code{baseMoment} is set to one over the denominator of
 the time signature.  Any exceptions to this default can be found in
@@ -4644,10 +4642,10 @@ The next bar line then falls at 9/8 rather than 5/4.
 @end lilypond
 
 @noindent
-As the example illustrates, @code{ly:make-moment n/m} constructs a
-duration of n/m of a whole note.  For example,
-@code{ly:make-moment 1/8} is an eighth note duration and
-@code{ly:make-moment 7/16} is the duration of seven sixteenths
+As the example illustrates, @code{\musicLength @var{music}}
+computes the musical length of the given music.  For example,
+@code{\musicLength 8} is the length of an eighth note and
+@code{\musicLength @{8. 8 8@}} is the length of seven sixteenth
 notes.
 
 @morerefs
