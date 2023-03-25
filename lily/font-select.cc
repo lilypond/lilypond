@@ -71,8 +71,12 @@ get_font_by_design_size (Output_def *layout, Real requested, SCM font_vector)
 
   if (scm_is_string (pango_description_string))
     {
-      return find_pango_font (layout, pango_description_string,
-                              requested / size);
+      PangoFontDescription *description = pango_font_description_from_string (
+        ly_scm2string (pango_description_string).c_str ());
+      Font_metric *res
+        = find_pango_font (layout, description, requested / size);
+      pango_font_description_free (description);
+      return res;
     }
   else
     {

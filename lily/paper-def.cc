@@ -74,14 +74,11 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m)
 }
 
 Font_metric *
-find_pango_font (Output_def *layout, SCM descr, Real factor)
+find_pango_font (Output_def *layout, PangoFontDescription *description,
+                 Real factor)
 {
   if (layout->parent_)
-    return find_pango_font (layout->parent_, descr, factor);
-
-  std::string font_descr = ly_scm2string (descr);
-  PangoFontDescription *description
-    = pango_font_description_from_string (font_descr.c_str ());
+    return find_pango_font (layout->parent_, description, factor);
 
   gint font_description_size = static_cast<gint> (
     std::lround (factor * pango_font_description_get_size (description)));
@@ -89,8 +86,6 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
 
   Font_metric *fm
     = all_fonts_global->find_pango_font (description, output_scale (layout));
-
-  pango_font_description_free (description);
 
   // No caching needed here since all_fonts_global does it for us, so a plain
   // list suffices, unlike music fonts.

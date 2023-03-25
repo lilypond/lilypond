@@ -24,7 +24,10 @@
 #include "output-def.hh"
 #include "real.hh"
 
-Font_metric *find_pango_font (Output_def *layout, SCM descr, Real factor);
+#include <pango/pango.h>
+
+Font_metric *find_pango_font (Output_def *layout,
+                              PangoFontDescription *description, Real factor);
 Font_metric *find_scaled_font (Output_def *od, Font_metric *f,
                                Real magnification);
 Output_def *scale_output_def (Output_def *def, Real scale);

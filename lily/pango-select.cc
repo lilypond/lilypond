@@ -73,13 +73,9 @@ select_pango_font (Output_def *layout, SCM chain)
   PangoFontDescription *pfd = properties_to_pango_description (
     chain,
     point_constant * layout->get_dimension (ly_symbol2scm ("text-font-size")));
-
-  char *str = pango_font_description_to_string (pfd);
-  SCM scm_str = scm_from_locale_string (str);
-  g_free (str);
+  Font_metric *ret = find_pango_font (layout, pfd, 1.0);
   pango_font_description_free (pfd);
-
-  return find_pango_font (layout, scm_str, 1.0);
+  return ret;
 }
 
 PangoStyle
