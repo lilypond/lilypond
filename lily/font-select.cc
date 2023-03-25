@@ -23,6 +23,7 @@
 #include "font-interface.hh"
 #include "warn.hh"
 #include "pango-font.hh"
+#include "paper-def.hh"
 #include "lily-imports.hh"
 
 Font_metric *

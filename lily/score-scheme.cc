@@ -23,6 +23,7 @@
 #include "output-def.hh"
 #include "global-context.hh"
 #include "music-output.hh"
+#include "paper-def.hh"
 
 LY_DEFINE (ly_make_score, "ly:make-score", 1, 0, 0, (SCM music),
            R"(

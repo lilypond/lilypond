@@ -24,6 +24,7 @@
 #include "libc-extension.hh"
 #include "output-def.hh"
 #include "pango-font.hh"
+#include "paper-def.hh"
 
 #include <cmath>
 

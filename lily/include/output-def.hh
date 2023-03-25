@@ -71,11 +71,4 @@ Interval line_dimension_interval (Output_def *def, vsize n);
 
 Font_metric *select_font (Output_def *layout, SCM chain);
 
-Font_metric *find_pango_font (Output_def *layout, SCM descr, Real factor);
-Font_metric *find_scaled_font (Output_def *od, Font_metric *f,
-                               Real magnification);
-Output_def *scale_output_def (Output_def *def, Real scale);
-
-Real output_scale (Output_def *);
-
 #endif /* OUTPUT_DEF_HH */

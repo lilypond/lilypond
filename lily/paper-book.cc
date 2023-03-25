@@ -27,6 +27,7 @@
 #include "output-def.hh"
 #include "page-marker.hh"
 #include "paper-column.hh"
+#include "paper-def.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
 #include "program-option.hh"

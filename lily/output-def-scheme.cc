@@ -25,6 +25,7 @@
 #include "ly-scm-list.hh"
 #include "context-def.hh"
 #include "lily-parser.hh"
+#include "paper-def.hh"
 
 LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup", 2, 1, 0,
            (SCM def, SCM sym, SCM val),
