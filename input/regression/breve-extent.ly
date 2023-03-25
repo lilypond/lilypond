@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.25.3"
 
 \header  {
   texidoc = "LilyPond knows that breves and longas are wider than whole notes
@@ -24,7 +24,7 @@
     \layout {
         \context {
             \Score
-            \override SpacingSpanner.common-shortest-duration = #(ly:make-moment 1 1 )
+            \override SpacingSpanner.common-shortest-duration = \musicLength 1
         }
     }
 }

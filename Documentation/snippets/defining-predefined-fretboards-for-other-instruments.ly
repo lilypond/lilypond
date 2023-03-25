@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.25.3"
 
 \header {
   lsrtags = "fretted-strings"
@@ -112,7 +112,7 @@ primeros = {
     \context {
       \Score
       \override SpacingSpanner.base-shortest-duration =
-        #(ly:make-moment 1 16)
+        \musicLength 16
     }
   }
   \midi { }

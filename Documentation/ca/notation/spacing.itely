@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.25.3"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -1969,7 +1969,7 @@ voleu deshabilitar les voltes de pàgina, establiu-lo a algun valor
   a4 b c d |
   R1 | % aquí es permet un salt de pàgina
   a4 b c d |
-  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
+  \set Staff.minimumPageTurnLength = \musicLength 2*5
   R1 | % aquí no es permet un salt de pàgina
   a4 b r2 |
   R1*2 | % aquí es permet un salt de pàgina
@@ -3223,7 +3223,7 @@ qual cosa @code{1 4} és una duració més gran que @code{1 16}.
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+      \override SpacingSpanner.base-shortest-duration = \musicLength 16
     }
   }
 }
@@ -3397,7 +3397,7 @@ l'ajustament @code{proportionalNotationDuration}.
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
     }
   }
 }
@@ -3444,7 +3444,7 @@ duracions de referència més llargues apliquen un espaiat més atapeït.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/8)
+      proportionalNotationDuration = \musicLength 8
     }
   }
 }
@@ -3458,7 +3458,7 @@ duracions de referència més llargues apliquen un espaiat més atapeït.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/16)
+      proportionalNotationDuration = \musicLength 16
     }
   }
 }
@@ -3472,7 +3472,7 @@ duracions de referència més llargues apliquen un espaiat més atapeït.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/32)
+      proportionalNotationDuration = \musicLength 32
     }
   }
 }
@@ -3524,7 +3524,7 @@ L'establiment de @code{proportionalNotationDuration} ho soluciona.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
     }
   }
 }
@@ -3549,7 +3549,7 @@ propietat de @code{SpacingSpanner}.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3645,12 +3645,12 @@ Compareu les dues partitures següents:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \set Score.proportionalNotationDuration = \musicLength 16
   c''8 8 8 \clef alto d'2 2
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \set Score.proportionalNotationDuration = \musicLength 16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8 8 8 \clef alto d'2 2
 }
@@ -3871,7 +3871,7 @@ augmentar aquesta duració es produeix un efecte d'@q{atapeïment}:
     \context {
       \Score
       \override SpacingSpanner.common-shortest-duration =
-        #(ly:make-moment 1/2)
+        \musicLength 2
     }
   }
 }

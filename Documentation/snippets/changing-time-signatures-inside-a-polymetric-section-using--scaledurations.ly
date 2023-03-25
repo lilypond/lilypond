@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.25.3"
 
 \header {
   lsrtags = "contemporary-notation, contexts-and-engravers, rhythms, workaround"
@@ -42,10 +42,10 @@ as the second argument of @code{\\scaleDurations}.
   \new Staff {
     \scaleDurations 8/5 {
       \time 6/8
-      \set Timing.measureLength = #(ly:make-moment 6/5)
+      \set Timing.measureLength = \musicLength 1*6/5
       b8 b b b b b
       \time 2/4
-      \set Timing.measureLength = #(ly:make-moment 4/5)
+      \set Timing.measureLength = \musicLength 1*4/5
       b4 b
     }
   }

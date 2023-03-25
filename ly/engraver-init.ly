@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.23.12"
+\version "2.25.3"
 
 %% Warning: if updating context hierarchies, don't forget ly/performer-init.ly!
 
@@ -935,7 +935,7 @@ settings like removing bar numbers."
   \accepts ChordGrid
   \remove Bar_number_engraver
   \remove System_start_delimiter_engraver
-  proportionalNotationDuration = #(ly:make-moment 1/4)
+  proportionalNotationDuration = \musicLength 4
   %% Printing repeat bar lines even at the start is apparently standard
   %% for jazz.
   printInitialRepeatBar = ##t
@@ -1582,7 +1582,7 @@ accommodated for typesetting a piece in Kievan style."
   %% Ensure consistent horizontal spacing across \rhythm snippets,
   %% which is particularly needed for the typical "Swing" indications.
   \override SpacingSpanner.common-shortest-duration =
-    #(ly:make-moment 1/10)
+    \musicLength 1*1/10
 }
 
 \context {

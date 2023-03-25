@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.13"
+@c \version "2.25.3"
 
 
 @node Repeats
@@ -314,7 +314,7 @@ music = \fixed c' {
       \volta 1 { s1_"B" }
       \volta 2,3 {
         s1_"C"
-        \once \set Score.voltaSpannerDuration = #(ly:make-moment 1)
+        \once \set Score.voltaSpannerDuration = \musicLength 1
         s1_"D"
         \alternative {
           \volta 2 { s1_"E" }

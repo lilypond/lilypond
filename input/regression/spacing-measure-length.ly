@@ -6,7 +6,7 @@ This means that the 3/8 setting does not affect the whole rest spacing."
 }
 
 
-\version "2.17.11"
+\version "2.25.3"
 
 \layout {
   ragged-right = ##t
@@ -18,7 +18,7 @@ This means that the 3/8 setting does not affect the whole rest spacing."
   } {
     \relative c' {
       \override Score.SpacingSpanner.uniform-stretching = ##t
-      \set Score.proportionalNotationDuration = #(ly:make-moment 4/25)
+      \set Score.proportionalNotationDuration = \musicLength 1*4/25
       r1
       \time 3/8 r4.
     }

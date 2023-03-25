@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.11"
+@c \version "2.25.3"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -1923,7 +1923,7 @@ divise.
   \consists Completion_heads_engraver
 } \relative {
   \time 9/8 g\breve. d''4. \bar "||"
-  \set completionUnit = #(ly:make-moment 3 8)
+  \set completionUnit = \musicLength 4.
   g\breve. d4.
 }
 @end lilypond
@@ -2282,7 +2282,7 @@ tempo viene ristabilita.
   % Disabilita beamExceptions perché è senz'altro definita
   % per il tempo 4/4
   \set Timing.beamExceptions = #'()
-  \set Timing.baseMoment = #(ly:make-moment 1/4)
+  \set Timing.baseMoment = \musicLength 4
   \set Timing.beatStructure = 1,1,1,1
   a8^"cambiato" a a a a a a a
 }
@@ -2341,7 +2341,7 @@ compatibile col nuovo valore di @code{baseMoment}.
 @lilypond[quote,verbatim,fragment]
 \time 5/8
 % Nessun bisogno di disabilitare beamExceptions perché non è definita per il tempo 5/8
-\set Timing.baseMoment = #(ly:make-moment 1/16)
+\set Timing.baseMoment = \musicLength 16
 \set Timing.beatStructure = 7,3
 \repeat unfold 10 { a16 }
 @end lilypond
@@ -2417,7 +2417,7 @@ se @code{beamExceptions} non viene annullato.
 
 @lilypond[quote,verbatim,fragment]
 \time 4/4
-\set Timing.baseMoment = #(ly:make-moment 1/8)
+\set Timing.baseMoment = \musicLength 8
 \set Timing.beatStructure = 3,3,2
 % Le travature non saranno raggruppate in (3 3 2) a causa di beamExceptions
 \repeat unfold 8 {c8} |
@@ -2561,7 +2561,7 @@ un solo rigo.
 <<
   \new Staff {
     \time 3/4
-    \set Timing.baseMoment = #(ly:make-moment 1/8)
+    \set Timing.baseMoment = \musicLength 8
     \set Timing.beatStructure = 1,5
     \set Timing.beamExceptions = #'()
     \repeat unfold 6 { a'8 }
@@ -3926,11 +3926,11 @@ Quindi la stanghetta successiva si troverà a 9/8 invece che a 5/4.
 
 @lilypond[quote,verbatim]
 \new Voice \relative {
-  \set Timing.measureLength = #(ly:make-moment 5/4)
+  \set Timing.measureLength = \musicLength 4*5
   c'1 c4 |
   c1 c4 |
   c4 c
-  \set Timing.measurePosition = #(ly:make-moment 5/8)
+  \set Timing.measurePosition = \musicLength 8*5
   b4 b b8 |
   c4 c1 |
 }

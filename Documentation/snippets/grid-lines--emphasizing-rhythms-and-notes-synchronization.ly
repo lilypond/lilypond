@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.25.3"
 
 \header {
   lsrtags = "editorial-annotations"
@@ -62,7 +62,7 @@ this snippet.
     \context {
       \Staff
       \consists "Grid_point_engraver"
-      gridInterval = #(ly:make-moment 1/8)
+      gridInterval = \musicLength 8
       % set line length and positioning:
       % two staff spaces above center line on hidden staff
       % to four spaces below center line on visible staff

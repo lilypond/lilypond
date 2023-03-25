@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.23.11"
+@c \version "2.25.3"
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
@@ -1944,7 +1944,7 @@ R1\fermata
   \consists Completion_heads_engraver
 } \relative {
   \time 9/8 g\breve. d''4. \bar "||"
-  \set completionUnit = #(ly:make-moment 3 8)
+  \set completionUnit = \musicLength 4.
   g\breve. d4.
 }
 @end lilypond
@@ -2295,7 +2295,7 @@ R1\fermata
   % beamExceptions は 4/4 に対しては明らかに定義されているため、
   % これを無効にします
   \set Timing.beamExceptions = #'()
-  \set Timing.baseMoment = #(ly:make-moment 1/4)
+  \set Timing.baseMoment = \musicLength 4
   \set Timing.beatStructure = 1,1,1,1
   a8^"changed" a a a a a a a
 }
@@ -2357,7 +2357,7 @@ R1\fermata
 \time 5/8
 % beamExceptions は 5/8 に対しては定義されていないため
 % 無効にする必要はありません
-\set Timing.baseMoment = #(ly:make-moment 1/16)
+\set Timing.baseMoment = \musicLength 16
 \set Timing.beatStructure = 7,3
 \repeat unfold 10 { a'16 }
 @end lilypond
@@ -2434,7 +2434,7 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @c KEEP LY
 @lilypond[quote,verbatim,fragment]
 \time 4/4
-\set Timing.baseMoment = #(ly:make-moment 1/8)
+\set Timing.baseMoment = \musicLength 8
 \set Timing.beatStructure = 3,3,2
 % 以下は beamExceptions のため、(3 3 2) の連桁にはなりません
 \repeat unfold 8 {c''8} |
@@ -2581,7 +2581,7 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 <<
   \new Staff {
     \time 3/4
-    \set Timing.baseMoment = #(ly:make-moment 1/8)
+    \set Timing.baseMoment = \musicLength 8
     \set Timing.beatStructure = 1,5
     \set Timing.beamExceptions = #'()
     \repeat unfold 6 { a'8 }
@@ -3937,11 +3937,11 @@ MyCadenza = \relative {
 
 @lilypond[quote,verbatim]
 \new Voice \relative {
-  \set Timing.measureLength = #(ly:make-moment 5/4)
+  \set Timing.measureLength = \musicLength 4*5
   c'1 c4 |
   c1 c4 |
   c4 c
-  \set Timing.measurePosition = #(ly:make-moment 5/8)
+  \set Timing.measurePosition = \musicLength 8*5
   b4 b b8 |
   c4 c1 |
 }

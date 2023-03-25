@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.23.6"
+@c \version "2.25.3"
 
 @c Translators: Till Paala
 
@@ -240,11 +240,11 @@ zu Beginn jeder Alternative außer der ersten.
 \alternative {
   {
     f2 d |
-    \set Timing.measureLength = #(ly:make-moment 3/4)
+    \set Timing.measureLength = \musicLength 2.
     g4 g g  % optional bar check is allowed here
   }
   {
-    \set Timing.measureLength = #(ly:make-moment 4/4)
+    \set Timing.measureLength = \musicLength 4*4
     a2 a |
   }
 }

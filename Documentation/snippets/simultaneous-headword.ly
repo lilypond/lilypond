@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.25.3"
 
 \header {
   lsrtags = "headword"
@@ -36,7 +36,7 @@ Simultaneous notes
   \context {
     \Score
     \override SpacingSpanner.base-shortest-duration =
-    #(ly:make-moment 1/18)
+    \musicLength 1*1/18
     \override NonMusicalPaperColumn.line-break-system-details =
     #'((alignment-distances . (12)))
   }

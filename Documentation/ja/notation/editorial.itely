@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.25.3"
 
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
@@ -905,7 +905,7 @@ somechords = \relative c' {
   \context {
     \Staff
     \consists Grid_point_engraver
-    gridInterval = #(ly:make-moment 1/4)
+    gridInterval = \musicLength 4
   }
   \context {
     \Score

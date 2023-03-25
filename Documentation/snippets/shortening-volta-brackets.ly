@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.25.3"
 
 \header {
   lsrtags = "repeats"
@@ -27,7 +27,7 @@ lasts one measure, which is a duration of 3/4.
 \relative c'' {
   \time 3/4
   c4 c c
-  \set Score.voltaSpannerDuration = #(ly:make-moment 3/4)
+  \set Score.voltaSpannerDuration = \musicLength 2.
   \repeat volta 5 { d4 d d }
   \alternative {
     {

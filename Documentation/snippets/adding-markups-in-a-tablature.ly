@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.25.3"
 
 \header {
   lsrtags = "editorial-annotations, fretted-strings, text, tweaks-and-overrides"
@@ -49,7 +49,7 @@ pulse = { s8^"1" s^"&" s^"2" s^"&" s^"3" s^"&" s^"4" s^"&" }
     }
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/8)
+      proportionalNotationDuration = \musicLength 8
     }
   }
 }

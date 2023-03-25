@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.25.3"
 \header{
 
   texidoc = "Fully concave beams should be horizontal. Informally spoken,
@@ -12,7 +12,7 @@
 }
 
 
-resetMeasure = \set Score.measurePosition = #(ly:make-moment 0/1)
+resetMeasure = \set Score.measurePosition = \musicLength 1*0
 
 %% examples from Ross.
 rossFourBeams =\relative {

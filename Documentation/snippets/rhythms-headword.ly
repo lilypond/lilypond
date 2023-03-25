@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.25.3"
 
 \header {
   lsrtags = "headword"
@@ -34,7 +34,7 @@ Rhythms headword
   \context {
     \Score
     \override SpacingSpanner.base-shortest-duration =
-      #(ly:make-moment 1/40)
+      \musicLength 1*1/40
       %\override SpacingSpanner.strict-grace-spacing = ##t
   }
 }

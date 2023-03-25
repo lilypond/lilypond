@@ -1,4 +1,4 @@
-\version "2.19.9"
+\version "2.25.3"
 #(set-global-staff-size 30)
 
 \header {
@@ -16,7 +16,7 @@ and when there are no notes, they should align relative to the
   \context {
     \Voice
     \consists "Grid_point_engraver"
-    gridInterval = #(ly:make-moment 1/4)
+    gridInterval = \musicLength 4
     \override GridPoint.Y-extent = #'(-1 . 3)
   }
   \context {

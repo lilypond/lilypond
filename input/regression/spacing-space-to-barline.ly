@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.25.3"
 
 \header {
   texidoc = "If @code{space-to-barline} is false, we measure the space
@@ -11,7 +11,7 @@ line."
 
 {
   \override Score.SpacingSpanner.common-shortest-duration =
-    #(ly:make-moment 1/16)
+    \musicLength 16
   c'2 \clef bass c'2 \clef treble
   \override NoteSpacing.space-to-barline = ##f
   c'2 \clef bass c'2 \clef treble

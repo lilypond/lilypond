@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.80"
+@c \version "2.25.3"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -825,7 +825,7 @@ d'especificar la duració entre les línies de reixeta.
   \context {
     \Staff
     \consists Grid_point_engraver
-    gridInterval = #(ly:make-moment 1/4)
+    gridInterval = \musicLength 4
   }
   \context {
     \Score

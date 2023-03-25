@@ -1,4 +1,4 @@
-\version "2.23.13"
+\version "2.25.3"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -32,7 +32,7 @@ piece = \new Voice \fixed c' {
         s1_"B"
       }
       \volta 2,3 {
-        \set Score.voltaSpannerDuration = #(ly:make-moment 1)
+        \set Score.voltaSpannerDuration = \musicLength 1
         s1_"C"
         s1_"D"
         \alternative {

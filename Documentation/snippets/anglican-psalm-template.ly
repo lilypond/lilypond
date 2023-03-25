@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.25.3"
 
 \header {
   lsrtags = "template, vocal-music"
@@ -91,7 +91,7 @@ tick = \markup {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
+          \override SpacingSpanner.base-shortest-duration = \musicLength 2
         }
         \context {
           \Staff

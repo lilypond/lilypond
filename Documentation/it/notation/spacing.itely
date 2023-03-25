@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.25.3"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -1901,7 +1901,7 @@ impostarla su un valore @qq{molto grande}.
   a4 b c d |
   R1 | % voltata di pagina permessa qui
   a4 b c d |
-  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
+  \set Staff.minimumPageTurnLength = \musicLength 2*5
   R1 | % voltata di pagina non permessa qui
   a4 b r2 |
   R1*2 | % voltata di pagina permessa qui
@@ -3118,7 +3118,7 @@ Nota che @code{ly:make-moment} constituisce una durata, dunque
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+      \override SpacingSpanner.base-shortest-duration = \musicLength 16
     }
   }
 }
@@ -3296,7 +3296,7 @@ proporzionale.  Per attivarla si usa l'impostazione proportionalNotationDuration
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
     }
   }
 }
@@ -3340,7 +3340,7 @@ della musica più larga; quelle più grandi causano una spaziatura più stretta.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/8)
+      proportionalNotationDuration = \musicLength 8
     }
   }
 }
@@ -3354,7 +3354,7 @@ della musica più larga; quelle più grandi causano una spaziatura più stretta.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/16)
+      proportionalNotationDuration = \musicLength 16
     }
   }
 }
@@ -3368,7 +3368,7 @@ della musica più larga; quelle più grandi causano una spaziatura più stretta.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/32)
+      proportionalNotationDuration = \musicLength 32
     }
   }
 }
@@ -3419,7 +3419,7 @@ ciò viene corretto.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
     }
   }
 }
@@ -3444,7 +3444,7 @@ attiviamo @code{uniform-stretching}, una proprietà di
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3533,12 +3533,12 @@ di @code{SpacingSpanner}.  Confrontiamo i seguenti due righi:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \set Score.proportionalNotationDuration = \musicLength 16
   c''8 8 8 \clef alto d'2 2
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \set Score.proportionalNotationDuration = \musicLength 16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8 8 8 \clef alto d'2 2
 }
@@ -3755,7 +3755,7 @@ lunga si verifica un effetto @qq{compressione}:
     \context {
       \Score
       \override SpacingSpanner.common-shortest-duration =
-        #(ly:make-moment 1/2)
+        \musicLength 2
     }
   }
 }

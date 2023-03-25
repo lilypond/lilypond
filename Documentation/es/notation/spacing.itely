@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.25.3"
 
 @ignore
 GDP TODO list
@@ -2008,7 +2008,7 @@ quiere inhabilitar las vueltas de página, fíjelo a algún valor
   a4 b c d |
   R1 | % aquí se permite un salto de página
   a4 b c d |
-  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
+  \set Staff.minimumPageTurnLength = \musicLength 2*5
   R1 | % aquí no se permite un salto de página
   a4 b r2 |
   R1*2 | % aquí se permite un salto de página
@@ -3280,7 +3280,7 @@ duración, por lo que @code{1 4} es una duración mayor que @code{1
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+      \override SpacingSpanner.base-shortest-duration = \musicLength 16
     }
   }
 }
@@ -3466,7 +3466,7 @@ ajuste @code{proportionalNotationDuration}.
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
     }
   }
 }
@@ -3516,7 +3516,7 @@ espaciado más apretado.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/8)
+      proportionalNotationDuration = \musicLength 8
     }
   }
 }
@@ -3530,7 +3530,7 @@ espaciado más apretado.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/16)
+      proportionalNotationDuration = \musicLength 16
     }
   }
 }
@@ -3544,7 +3544,7 @@ espaciado más apretado.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/32)
+      proportionalNotationDuration = \musicLength 32
     }
   }
 }
@@ -3598,7 +3598,7 @@ tipo de resultado.  El establecimiento de
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
     }
   }
 }
@@ -3623,7 +3623,7 @@ es una propiedad de @code{SpacingSpanner}.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3724,12 +3724,12 @@ opción es la propiedad @code{strict-note-spacing} de
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \set Score.proportionalNotationDuration = \musicLength 16
   c''8 8 8 \clef alto d'2 2
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \set Score.proportionalNotationDuration = \musicLength 16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8 8 8 \clef alto d'2 2
 }
@@ -3957,7 +3957,7 @@ agrandar esta duración se produce un efecto de @q{apretujamiento}:
     \context {
       \Score
       \override SpacingSpanner.common-shortest-duration =
-        #(ly:make-moment 1/2)
+        \musicLength 2
     }
   }
 }

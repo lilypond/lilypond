@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.25.3"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Jean Abou Samra
@@ -2164,7 +2164,7 @@ la manière suivante :
   a4 b c d |
   R1 | % une tourne peut se placer ici
   a4 b c d |
-  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
+  \set Staff.minimumPageTurnLength = \musicLength 2*5
   R1 | % il ne peut pas y avoir de tourne ici
   a4 b r2 |
   R1*2 | % une tourne peut se placer ici
@@ -3424,7 +3424,7 @@ resserrée.  En effet, @code{ly:make-moment} construit une durée :
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+      \override SpacingSpanner.base-shortest-duration = \musicLength 16
     }
   }
 }
@@ -3946,7 +3946,7 @@ définissant la propriété @code{proportionalNotationDuration}.
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
     }
   }
 }
@@ -3993,7 +3993,7 @@ une durée de référence élevée produira une musique resserrée.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/8)
+      proportionalNotationDuration = \musicLength 8
     }
   }
 }
@@ -4007,7 +4007,7 @@ une durée de référence élevée produira une musique resserrée.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/16)
+      proportionalNotationDuration = \musicLength 16
     }
   }
 }
@@ -4021,7 +4021,7 @@ une durée de référence élevée produira une musique resserrée.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/32)
+      proportionalNotationDuration = \musicLength 32
     }
   }
 }
@@ -4074,7 +4074,7 @@ les règles qu'elle applique peuvent amener à ce résultat.  Le recours à
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
     }
   }
 }
@@ -4099,7 +4099,7 @@ allons activer le @code{uniform-stretching}, propriété attachée au
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -4193,12 +4193,12 @@ les deux portées suivantes :
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \set Score.proportionalNotationDuration = \musicLength 16
   c''8 8 8 \clef alto d' 2
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \set Score.proportionalNotationDuration = \musicLength 16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8 8 8 \clef alto d' 2
 }
@@ -4423,7 +4423,7 @@ valeur plus longue -- donnera un effet « resserré » à la musique :
     \context {
       \Score
       \override SpacingSpanner.common-shortest-duration =
-        #(ly:make-moment 1/2)
+        \musicLength 2
     }
   }
 }

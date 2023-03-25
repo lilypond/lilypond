@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.25.3"
 
 @node Música vocal
 @section Música vocal
@@ -3383,7 +3383,7 @@ global = {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
+          \override SpacingSpanner.base-shortest-duration = \musicLength 2
         }
         \context {
           \Staff

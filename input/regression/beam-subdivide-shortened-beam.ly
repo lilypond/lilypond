@@ -1,4 +1,4 @@
-\version "2.19.34"
+\version "2.25.3"
 
 \header {
 
@@ -18,11 +18,11 @@ beam is shorter than that the beam count should be adopted accordingly."
   \omit Staff.TimeSignature
   \time 1/4
   \set subdivideBeams = ##t
-  \set baseMoment = #(ly:make-moment 1/32)
+  \set baseMoment = \musicLength 32
   c64 ^\markup "Full beam (1/32 division)" [ c c c  c c c c  c c c c  c c c c ]
   c64 ^\markup "Shortened by 1/32" [ c c c  c c c c  c c c c  c c ] r32
   c64 ^\markup "Shortened by 3/32" [ c c c  c c c c  c c  ] r16.
-  \set baseMoment = #(ly:make-moment 1/16)
+  \set baseMoment = \musicLength 16
   c32 ^\markup "Full beam (1/16 division)" [ c c c c c c c ]
   c32 ^\markup "Shortened by 1/16" [ c c c c c] r16
 }

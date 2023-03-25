@@ -1,4 +1,4 @@
-\version "2.21.0"
+\version "2.25.3"
 
 \include "swing.ly"
 
@@ -38,8 +38,8 @@
       r8
       <>^\markup \column { "smoother samba swing, start off-beat"
                            "\\applySwingWithOffset 16 #'(4 3 3 4)"
-                           "    #(ly:make-moment 1/8)" }
-      \applySwingWithOffset 16 #'(4 3 3 4) #(ly:make-moment 1/8) {
+                           "    \musicLength 8" }
+      \applySwingWithOffset 16 #'(4 3 3 4) \musicLength 8 {
         c'16 c'
         c' c' c' c'
         c' c' c' c'

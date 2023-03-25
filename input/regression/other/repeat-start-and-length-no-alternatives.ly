@@ -1,4 +1,4 @@
-\version "2.23.0"
+\version "2.25.3"
 
 \header {
   texidoc = "This tests the calculation of music start and length for

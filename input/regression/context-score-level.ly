@@ -1,4 +1,4 @@
-\version "2.23.9"
+\version "2.25.3"
 
 \header {
   texidoc = "It is possible to define contexts that, when instantiated,
@@ -13,7 +13,7 @@ note heads."
     \Score
     \name ProportionalScore
     \alias Score
-    proportionalNotationDuration = #(ly:make-moment 1/4)
+    proportionalNotationDuration = \musicLength 4
   }
   \inherit-acceptability ProportionalScore Score
 }

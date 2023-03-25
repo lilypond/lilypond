@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.25.3"
 
 \header {
   lsrtags = "rhythms"
@@ -26,7 +26,7 @@ levels:
 \relative c'' {
   \time 5/4
   % Set default beaming for all staves
-  \set Score.baseMoment = #(ly:make-moment 1/8)
+  \set Score.baseMoment = \musicLength 8
   \set Score.beatStructure = 3,4,3
   <<
     \new Staff {

@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.23.13"
+@c \version "2.25.3"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault, Jean Abou Samra
@@ -1500,7 +1500,7 @@ proportionnelle est activée (cf. @ref{Notation proportionnelle}).
     \Score
     \name ProportionalScore
     \alias Score
-    proportionalNotationDuration = #(ly:make-moment 1/4)
+    proportionalNotationDuration = \musicLength 4
   }
   \inherit-acceptability ProportionalScore Score
 }

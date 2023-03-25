@@ -1,4 +1,4 @@
-\version "2.19.40"
+\version "2.25.3"
 
 \header {
 
@@ -28,7 +28,7 @@ is changed, beams should start at the beginning of the measure.
   r8^\markup "Beam to the beat" c c c c c
   c c c r r4 \bar "||"
 
-  \set Timing.baseMoment = #(ly:make-moment 1/8)
+  \set Timing.baseMoment = \musicLength 8
   \set Timing.beatStructure = 3,3
   r8^\markup "Override to beam groups of 3 eighth notes" c c c c c
   r4. c8 c c c c c r4.

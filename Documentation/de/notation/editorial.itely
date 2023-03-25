@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.25.3"
 
 @c Translators: Till Paala
 
@@ -626,7 +626,7 @@ den Linien festgesetzt.
   \context {
     \Staff
     \consists Grid_point_engraver
-    gridInterval = #(ly:make-moment 1/4)
+    gridInterval = \musicLength 4
   }
   \context {
     \Score

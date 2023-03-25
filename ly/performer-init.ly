@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.23.3"
+\version "2.25.3"
 
 %%
 %% setup for Request->Element conversion.
@@ -256,7 +256,7 @@
   midiChannelMapping = #'staff
 
   %% quarter = 60
-  tempoWholesPerMinute = #(ly:make-moment 15/1)
+  tempoWholesPerMinute = \musicLength 1*15
 
   \accepts ChoirStaff
   \accepts ChordNames

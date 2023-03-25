@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.25.3"
 
 @ignore
 GDP TODO list
@@ -1995,7 +1995,7 @@ set it to something @q{very large}.
   a4 b c d |
   R1 | % a page turn will be allowed here
   a4 b c d |
-  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
+  \set Staff.minimumPageTurnLength = \musicLength 2*5
   R1 | % a page turn will not be allowed here
   a4 b r2 |
   R1*2 | % a page turn will be allowed here
@@ -3219,7 +3219,7 @@ than @code{1 16}.
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+      \override SpacingSpanner.base-shortest-duration = \musicLength 16
     }
   }
 }
@@ -3698,7 +3698,7 @@ setting.
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
     }
   }
 }
@@ -3742,7 +3742,7 @@ larger reference durations space music tightly.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/8)
+      proportionalNotationDuration = \musicLength 8
     }
   }
 }
@@ -3756,7 +3756,7 @@ larger reference durations space music tightly.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/16)
+      proportionalNotationDuration = \musicLength 16
     }
   }
 }
@@ -3770,7 +3770,7 @@ larger reference durations space music tightly.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/32)
+      proportionalNotationDuration = \musicLength 32
     }
   }
 }
@@ -3819,7 +3819,7 @@ result.  Setting @code{proportionalNotationDuration} fixes this.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
     }
   }
 }
@@ -3844,7 +3844,7 @@ turn on @code{uniform-stretching}, which is a property of
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = #(ly:make-moment 1/20)
+      proportionalNotationDuration = \musicLength 1*1/20
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3936,12 +3936,12 @@ property of @code{SpacingSpanner}.  Compare the two scores below:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \set Score.proportionalNotationDuration = \musicLength 16
   c''8 8 8 \clef alto d'2 2
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \set Score.proportionalNotationDuration = \musicLength 16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8 8 8 \clef alto d'2 2
 }
@@ -4158,7 +4158,7 @@ duration longer, a @q{squeezing} effect occurs:
     \context {
       \Score
       \override SpacingSpanner.common-shortest-duration =
-        #(ly:make-moment 1/2)
+        \musicLength 2
     }
   }
 }

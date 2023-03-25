@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.25.3"
 
 \header {
   texidoc = "Tuplet numbers are positioned correctly on kneed French-style beams."
@@ -19,7 +19,7 @@ music =
   \override Stem.french-beaming = ##t
   \override TupletBracket.bracket-visibility = ##f
   \set subdivideBeams = ##t
-  \set baseMoment = #(ly:make-moment 1 8)
+  \set baseMoment = \musicLength 8
   \tuplet 3/2 8 {
     g16 e''' c e g,,, c
     \bottom c,16. \top c''32 \bottom c,,16

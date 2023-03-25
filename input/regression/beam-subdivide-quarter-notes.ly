@@ -1,4 +1,4 @@
-\version "2.19.32"
+\version "2.25.3"
 
 \header {
 
@@ -11,7 +11,7 @@ longer than quarter notes, one beam should always be left."
 }
 
 \relative c' {
-    \set baseMoment = #(ly:make-moment 1/4)
+    \set baseMoment = \musicLength 4
     \set subdivideBeams = ##t
     c16 [ c c c c c c c c c c c c c c c ]
 }
