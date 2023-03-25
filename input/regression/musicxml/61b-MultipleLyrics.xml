@@ -48,7 +48,7 @@
           <syllabic>begin</syllabic>
           <text>2.tra</text>
         </lyric>
-        <lyric number="3">
+        <lyric number="iij">
           <syllabic>begin</syllabic>
           <text>3.TRA</text>
         </lyric>
@@ -69,7 +69,7 @@
           <syllabic>middle</syllabic>
           <text>la</text>
         </lyric>
-        <lyric number="3">
+        <lyric number="iij">
           <syllabic>middle</syllabic>
           <text>LA</text>
         </lyric>
@@ -90,7 +90,7 @@
           <syllabic>end</syllabic>
           <text>la,</text>
         </lyric>
-        <lyric number="3">
+        <lyric number="iij">
           <syllabic>end</syllabic>
           <text>LA,</text>
         </lyric>
@@ -113,7 +113,7 @@
           <text>ja!</text>
           <extend/>
         </lyric>
-        <lyric number="3">
+        <lyric number="iij">
           <syllabic>single</syllabic>
           <text>JA!</text>
           <extend/>
@@ -147,7 +147,7 @@
           <syllabic>begin</syllabic>
           <text>Tra</text>
         </lyric>
-        <lyric number="3">
+        <lyric number="iij">
           <syllabic>begin</syllabic>
           <text>TRA</text>
         </lyric>
@@ -177,7 +177,7 @@
           <syllabic>end</syllabic>
           <text>ra.</text>
         </lyric>
-        <lyric number="3">
+        <lyric number="iij">
           <syllabic>end</syllabic>
           <text>RA...</text>
         </lyric>
