@@ -2245,11 +2245,8 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
     def is_note_and_not_rest(elem):
         return is_note(elem) and not is_rest(elem)
 
-    def get_lyric_elements(note):
-        return note.get_typed_children(musicxml.Lyric)
-
     for idx, elem in enumerate(voice._elements):
-        lyrics = get_lyric_elements(elem)
+        lyrics = elem.get('lyric', []) # only <note> contains <lyric>
         found_matching_lyric = False
         for lyric in lyrics:
             if getattr(lyric, 'number', None) == lyric_key:

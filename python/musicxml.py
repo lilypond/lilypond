@@ -745,6 +745,7 @@ class Note(Measure_element):
         'chord': 1,
         'duration': 1,
         'grace': 1,
+        'lyric': 2,
         'notehead': 1,
         'pitch': 1,
         'rest': 1,
@@ -760,6 +761,7 @@ class Note(Measure_element):
         self.instrument_name = ''
         self._after_grace = False
         self._duration = 1
+        self._content['lyric'] = []
 
     def is_after_grace(self):
         grace = self.get('grace', False)
@@ -1189,7 +1191,7 @@ class Musicxml_voice:
             except KeyError: # no <staff>
                 pass
 
-            lyrics = e.get_typed_children(Lyric)
+            lyrics = e['lyric']
             if not self._has_lyrics:
                 self.has_lyrics = len(lyrics) > 0
 
