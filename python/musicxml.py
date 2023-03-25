@@ -967,10 +967,7 @@ class Lyric(Music_xml_node):
         @rtype: number
         @return: The value of the number attribute
         """
-        if hasattr(self, 'number'):
-            return int(self.number)
-        else:
-            return -1
+        return getattr(self, 'number', None)
 
 
 class Sound(Music_xml_node):
@@ -1249,7 +1246,7 @@ class Musicxml_voice:
 
         for l in lyrics:
             nr = l.get_number()
-            if nr > 0 and nr not in self._lyrics:
+            if (nr is not None) and nr not in self._lyrics:
                 self._lyrics.append(nr)
 
     def insert(self, idx, e):
@@ -1258,7 +1255,7 @@ class Musicxml_voice:
     def get_lyrics_numbers(self):
         if(len(self._lyrics) == 0) and self._has_lyrics:
             # only happens if none of the <lyric> tags has a number attribute
-            return [1]
+            return ['1']
         else:
             return self._lyrics
 
