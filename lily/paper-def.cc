@@ -37,6 +37,7 @@ output_scale (Output_def *od)
     od->lookup_variable (ly_symbol2scm ("output-scale")));
 }
 
+static
 SCM
 get_font_table (Output_def *def)
 {
