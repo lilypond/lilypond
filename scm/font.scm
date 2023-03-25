@@ -133,18 +133,6 @@
 (define (lookup-font node alist-chain)
   (g-lookup-font node alist-chain))
 
-;; TODO - we could actually construct this by loading all OTFs and
-;; inspecting their design size fields.
-(define-public feta-design-size-mapping
-  '((11 . 11.22)
-    (13 . 12.60)
-    (14 . 14.14)
-    (16 . 15.87)
-    (18 . 17.82)
-    (20 . 20)
-    (23 . 22.45)
-    (26 . 25.20)))
-
 ;; Each size family is a vector of fonts, loaded with a delay.  The
 ;; vector should be sorted according to ascending design size.
 (define-public (add-music-fonts node family name brace design-size-alist factor)
@@ -287,17 +275,3 @@ used.  This is used to select the proper design size for the text fonts.
    (if (eq? (ly:get-option 'backend) 'svg) "sans-serif" "LilyPond Sans Serif")
    (if (eq? (ly:get-option 'backend) 'svg) "monospace" "LilyPond Monospace")
    factor))
-
-(define-public all-text-font-encodings
-  '(latin1))
-
-(define-public all-music-font-encodings
-  '(fetaBraces
-    fetaMusic
-    fetaText))
-
-(define-public (magstep s)
-  (exp (* (/ s 6) (log 2))))
-
-(define-public (magnification->font-size m)
-  (* 6 (/ (log m) (log 2))))

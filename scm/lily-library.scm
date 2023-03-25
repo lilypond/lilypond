@@ -1640,6 +1640,32 @@ print a warning and set an optional @var{default}."
     (debugf "design:~S\n" designsize)
     scaling))
 
+(define-public all-text-font-encodings
+  '(latin1))
+
+(define-public all-music-font-encodings
+  '(fetaBraces
+    fetaMusic
+    fetaText))
+
+(define-public (magstep s)
+  (exp (* (/ s 6) (log 2))))
+
+(define-public (magnification->font-size m)
+  (* 6 (/ (log m) (log 2))))
+
+;; TODO - we could actually construct this by loading all OTFs and
+;; inspecting their design size fields.
+(define-public feta-design-size-mapping
+  '((11 . 11.22)
+    (13 . 12.60)
+    (14 . 14.14)
+    (16 . 15.87)
+    (18 . 17.82)
+    (20 . 20)
+    (23 . 22.45)
+    (26 . 25.20)))
+
 (define-public (version-not-seen-message input-file-name)
   (ly:warning-located
    (format #f "~a:1" input-file-name)
