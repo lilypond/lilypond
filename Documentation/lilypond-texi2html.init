@@ -10,8 +10,6 @@
 ###
 ### Features implemented here:
 ### -) For split manuals, the main page is index.html.
-### -) All @unnumbered* sections are placed into the same file
-###    (implemented by split_at_numbered_sections)
 ### -) Use our custom CSS file, with IE-specific fixes in another CSS file,
 ###    implemented by lilypond_css_lines
 ### -) TOC (folded, with the current page highlighted) in an overflown <div>
@@ -366,23 +364,17 @@ sub lilypond_css_lines ($$)
 ###  SPLITTING BASED ON NUMBERED SECTIONS
 #############################################################################
 
-my $lastfilename;
 my $docnr = 0;
 my $node_to_filename_map = ();
 $source_to_translationof_map = ();
-our $changes_manual;
 
 
-# This function makes sure that files are only generated for numbered sections,
-# but not for unnumbered ones. It is called after texi2html has done its own
-# splitting and simply returns the filename for the node given as first argument
-# Nodes with the same filename will be printed out to the same filename, so
-# this really all we need. Also, make sure that the file names for sections
-# are derived from the section title. We also might want to name the anchors
-# according to node titles, which works by simply overriding the id element of
-# the $element hash.
+# This function is called after texi2html has done its own splitting and simply
+# returns the filename for the node given as first argument. We also might want
+# to name the anchors according to node titles, which works by simply overriding
+# the id element of the $element hash.
 # If an external nodename<=>filename/anchor map file is found (loaded in
-# the command handler, use the externally created values, otherwise use the
+# the command handler), use the externally created values, otherwise use the
 # same logic here.
 sub lilypond_element_file_name($$$)
 {
@@ -409,19 +401,8 @@ sub lilypond_element_file_name($$$)
     # don't do lc_last here, otherwise the colors are messed up!
     $filename = lc($filename);
 
-    # unnumbered sections (except those at top-level!) always go to the same
-    # file as the previous numbered section
-    if (not ($web_manual) and not ($element->{number})
-	and not ($lastfilename eq '') and ($element->{level} > 1 or $changes_manual)) {
-      $filename = $lastfilename;
-    }
-    if (($filename eq $lastfilename)) {
-      $$element{doc_nr} = $docnr;
-    } else {
-      $docnr += 1;
-      $$element{doc_nr} = $docnr;
-      $lastfilename = $filename;
-    }
+    $docnr += 1;
+    $$element{doc_nr} = $docnr;
     #print STDERR "Output file name: $filename\n";
     $filename = lc_last($filename);
     return $filename;
@@ -431,30 +412,19 @@ sub lilypond_element_file_name($$$)
     return;
   } else {
     print STDERR "WARNING: Node '$node_name' was NOT found in the map\n"
-        unless ($node_name eq '') or ($element->{'tag'} eq 'unnumberedsec')
-               or ($node_name =~ /NOT REALLY USED/);
+        unless ($node_name eq '') or ($node_name =~ /NOT REALLY USED/);
 
-    # Numbered sections will get a filename Node_title, unnumbered sections will use
-    # the file name of the previous numbered section:
-    if (($element->{number}) or ($lastfilename eq '') or ($element->{level} == 1)) {
-      # normalize to the same file name as texinfo
-      if ($element->{translationof}) {
-        $node_name = main::remove_texi($element->{translationof});
-      }
-      my $filename = texinfo_file_name($node_name);
-      $filename .= ".$docu_ext" if (defined($docu_ext));
-      $filename = lc_last($filename);
-      $docnr += 1;
-      $$element{doc_nr} = $docnr;
-      $lastfilename = $filename;
-      print STDERR "File name: $filename\n";
-      return $filename;
-    } else {
-      $$element{doc_nr} = $docnr;
-      $filename = lc_last($lastfilename);
-      print STDERR "File name: $filename\n";
-      return $filename;
+    # normalize to the same file name as texinfo
+    if ($element->{translationof}) {
+      $node_name = main::remove_texi($element->{translationof});
     }
+    my $filename = texinfo_file_name($node_name);
+    $filename .= ".$docu_ext" if (defined($docu_ext));
+    $filename = lc_last($filename);
+    $docnr += 1;
+    $$element{doc_nr} = $docnr;
+    print STDERR "File name: $filename\n";
+    return $filename;
   }
 
   return;
@@ -556,8 +526,6 @@ sub lilypond_init_map ()
     if ($docu_name eq 'web') {
 	$web_manual = 1;
 	web_settings();
-    } elsif ($docu_name eq 'changes') {
-        $changes_manual = 1;
     }
     $node_to_filename_map = load_map_file ($map_filename);
 }
@@ -834,14 +802,7 @@ sub lilypond_print_toc_div ($)
     my $element = $Texi2HTML::THIS_ELEMENT;
     my %parentelements;
     while ($element and not $element->{'top'}) {
-        # The Snippets documentation has @unnumbered at the top level
-        # that we do want to have marked as "toc_current". The Changes
-        # document consists of only one page.
-        # The section on the web pages are special and have no numbering
-        # at all, but should still be taken into account.
-        if ($element->{'number'} or (not $changes_manual and $element->{'toc_level'} == 1) or $web_manual) {
-            $parentelements{$element->{'tocid'}} = 1;
-        }
+        $parentelements{$element->{'tocid'}} = 1;
         $element = $element->{'sectionup'};
     }
 
@@ -963,8 +924,8 @@ sub get_navigation_button
 
 sub lilypond_print_navigation
 {
-    # No navigation buttons for the Changes document and web pages.
-    if ($changes_manual or $web_manual) {
+    # No navigation buttons for web pages.
+    if ($web_manual) {
         return "\n";
     }
 

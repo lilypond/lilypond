@@ -650,8 +650,6 @@ define per_lang_dep
 
   $(outdir)/$(1)/usage.texi: $(outdir)/snippets/dep
 
-  $(outdir)/$(1)/web.xref-map: EXTRACT_TEXI_FILENAMES_FLAGS += --split=node
-
   $(outdir)/$(1)/pictures:
 	  rm -f $$@ && mkdir -p $$(dir $$@) && ln -s ../pictures $$@
 

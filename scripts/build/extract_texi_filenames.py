@@ -51,8 +51,8 @@ import re
 import os
 import getopt
 
-options_list, files = getopt.getopt(sys.argv[1:], 'o:s:hI:m:q',
-                                    ['output=', 'split=',
+options_list, files = getopt.getopt(sys.argv[1:], 'o:hI:m:q',
+                                    ['output=',
                                      'help', 'include=',
                                      'master-map-file=',
                                      'quiet'])
@@ -65,8 +65,6 @@ Options:
  -I, --include=DIRECTORY        append DIRECTORY to include search path
  -m, --master-map-file=FILE     use FILE as master map file
  -o, --output=DIRECTORY         write .xref-map files to DIRECTORY
- -s, --split=MODE               split manual according to MODE. Possible values
-                                are section and custom (default)
  -q, --quiet                    suppress most messages
 """
 
@@ -77,7 +75,6 @@ def help(text):
 
 
 outdir = '.'
-split = "custom"
 include_path = ['.', ]
 master_map_file = ''
 suppress_output = False
@@ -92,8 +89,6 @@ for opt in options_list:
             include_path.append(a)
     elif o == '-o' or o == '--output':
         outdir = a
-    elif o == '-s' or o == '--split':
-        split = a
     elif o == '-m' or o == '--master-map-file':
         if os.path.isfile(a):
             master_map_file = a
@@ -200,28 +195,6 @@ def create_texinfo_anchor(title):
     return texinfo_file_name(remove_texinfo(title))
 
 
-unnumbered_re = re.compile(r'unnumbered.+|lydoctitle')
-file_name_section_level = {
-    'top': 4,
-    'chapter': 3,
-    'unnumbered': 3,
-    'appendix': 3,
-    'section': 2,
-    'unnumberedsec': 2,
-    'appendixsec': 2,
-    'subsection': 1,
-    'unnumberedsubsec': 1,
-    'appendixsubsec': 1,
-    'subsubsection': 0,
-    'unnumberedsubsubsec': 0,
-    'appendixsubsubsec': 0
-}
-if split in file_name_section_level:
-    splitting_level = file_name_section_level[split]
-else:
-    splitting_level = -1
-
-
 def process_sections(filename, page):
     sections = section_translation_re.findall(page)
     basename = os.path.splitext(os.path.basename(filename))[0]
@@ -262,43 +235,18 @@ def process_sections(filename, page):
             # node name, which we use for the anchor and the file
             # name (if it is a numbered node)
             this_anchor = anchor
-            if not this_unnumbered:
-                this_filename = anchor
-            elif original_node in initial_map:
-                # Use the filename from the master map.
-                this_filename = initial_map[original_node][1]
+            this_filename = anchor
         elif sec[0] == "nodeprefix":
             node_prefix_title = remove_texinfo(sec[1])
             node_prefix_anchor = create_texinfo_anchor(sec[1])
         else:
-            # Some pages might not use a node for every section, so
-            # treat this case here, too: If we already had a section
-            # and encounter another one before the next @node, we
-            # write out the old one and start with the new values
-            if had_section and split != 'node' and this_title:
-                f.write(this_title + "\t" + this_filename +
-                        "\t" + this_anchor + "\n")
-                this_title = remove_texinfo(sec[1])
-                this_anchor = create_texinfo_anchor(sec[1])
             had_section = True
 
             if sec[0] == "lydoctitle" and node_prefix_title:
                 this_title = "%s: %s" % (node_prefix_title, this_title)
                 this_anchor = "%s-%s" % (node_prefix_anchor, this_anchor)
 
-            if split == 'custom':
-                # unnumbered nodes use the previously used file name,
-                # only numbered nodes get their own filename! However,
-                # top-level @unnumbered still get their own file.
-                this_unnumbered = unnumbered_re.match(sec[0])
-                if not this_unnumbered:
-                    this_filename = this_anchor
-            elif split == 'node':
-                this_filename = this_anchor
-            else:
-                if sec[0] in file_name_section_level and \
-                        file_name_section_level[sec[0]] >= splitting_level:
-                    this_filename = this_anchor
+            this_filename = this_anchor
 
     if this_title and this_title != 'Top':
         f.write(this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
