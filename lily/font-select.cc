@@ -2,6 +2,7 @@
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2003--2023 Han-Wen Nienhuys <hanwen@xs4all.nl>
+                2023--2023 Jean Abou Samra <jean@abou-samra.fr>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,100 +18,201 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "dimensions.hh"
 #include "all-font-metrics.hh"
+#include "dimensions.hh"
+#include "international.hh"
+#include "lily-imports.hh"
+#include "lily-guile.hh"
+#include "ly-scm-list.hh"
+#include "open-type-font.hh"
 #include "output-def.hh"
-#include "font-interface.hh"
-#include "warn.hh"
 #include "pango-font.hh"
 #include "paper-def.hh"
-#include "lily-imports.hh"
+#include "real.hh"
 
-Font_metric *
-get_font_by_design_size (Output_def *layout, Real requested, SCM font_vector)
+#include <cmath>  // std::pow
+#include <string> // std::to_string
+
+// The Emmentaler font and alternative music fonts come in several .otf files
+// for different design sizes. feta-design-size-mapping is an alist mapping
+// rounded sizes, namely suffixes in the font file names (like
+// emmentaler-20.otf), to the actual, precise design sizes.  This function just
+// chooses the closest to the requested size.
+vsize
+best_rounded_design_size (Real requested_size, Real &best_actual_size)
 {
-  size_t n = scm_c_vector_length (font_vector);
-  Real size = 1e6;
-  Real last_size = -1e6;
-  size_t i = 0;
+  SCM design_size_alist = Lily::feta_design_size_mapping;
 
-  SCM pango_description_string = SCM_EOL;
-  SCM last_pango_description_string = SCM_EOL;
-  for (; i < n; i++)
+  Real min_ratio = +infinity_f;
+  vsize best_rounded_size = 0; // unimportant init value
+
+  for (SCM rounded_size_actual_size_pair : as_ly_scm_list (design_size_alist))
     {
-      SCM entry = scm_c_vector_ref (font_vector, i);
+      assert (scm_is_pair (rounded_size_actual_size_pair));
 
-      if (from_scm<bool> (scm_promise_p (entry)))
-        {
-          Font_metric *fm = unsmob<Font_metric> (scm_force (entry));
-          size = fm->design_size ();
-        }
-      else if (scm_is_pair (entry) && scm_is_number (scm_car (entry))
-               && scm_is_string (scm_cdr (entry)))
-        {
-          size = from_scm<double> (scm_car (entry));
-          pango_description_string = scm_cdr (entry);
-        }
-      if (size > requested)
-        break;
-      last_size = size;
-      last_pango_description_string = pango_description_string;
-    }
+      vsize rounded_size
+        = from_scm<vsize> (scm_car (rounded_size_actual_size_pair));
+      Real this_actual_size
+        = from_scm<Real> (scm_cdr (rounded_size_actual_size_pair));
 
-  if (i == n)
-    i = n - 1;
-  else if (i > 0)
-    {
-      if ((requested / last_size) < (size / requested))
+      Real this_ratio = (requested_size > this_actual_size
+                           ? requested_size / this_actual_size
+                           : this_actual_size / requested_size);
+
+      if (this_ratio < min_ratio)
         {
-          i--;
-          size = last_size;
-          pango_description_string = last_pango_description_string;
+          min_ratio = this_ratio;
+          best_rounded_size = rounded_size;
+          best_actual_size = this_actual_size;
         }
     }
-
-  if (scm_is_string (pango_description_string))
-    {
-      PangoFontDescription *description = pango_font_description_from_string (
-        ly_scm2string (pango_description_string).c_str ());
-      Font_metric *res
-        = find_pango_font (layout, description, requested / size);
-      pango_font_description_free (description);
-      return res;
-    }
-  else
-    {
-      Font_metric *fm
-        = unsmob<Font_metric> (scm_force (scm_c_vector_ref (font_vector, i)));
-      return find_scaled_font (layout, fm, requested / size);
-    }
+  return best_rounded_size;
 }
 
 Font_metric *
 select_font (Output_def *layout, SCM chain)
 {
-  SCM name
+  SCM fonts = layout->lookup_variable (ly_symbol2scm ("fonts"));
+  // If font-name is given, it is a Pango description string (only used for the
+  // font family, shape, etc., but the size, if any, is disregarded).
+  SCM string_desc
     = ly_chain_assoc_get (ly_symbol2scm ("font-name"), chain, SCM_BOOL_F);
-
-  if (scm_is_string (name))
+  SCM encoding
+    = ly_chain_assoc_get (ly_symbol2scm ("font-encoding"), chain, SCM_BOOL_F);
+  if (scm_is_string (string_desc))
     {
-      return select_pango_font (layout, chain);
+      encoding = ly_symbol2scm ("latin1");
+    }
+  else if (!(scm_is_eq (encoding, ly_symbol2scm ("fetaMusic"))
+             || scm_is_eq (encoding, ly_symbol2scm ("fetaBraces"))
+             || scm_is_eq (encoding, ly_symbol2scm ("fetaText"))
+             || scm_is_eq (encoding, ly_symbol2scm ("latin1"))))
+    {
+      warning (
+        _f ("font-encoding is invalid, should be 'fetaMusic, 'fetaBraces, "
+            "'fetaText or 'latin1: %s",
+            ly_scm_write_string (encoding).c_str ()));
+      warning (_f ("falling back to latin1"));
+      encoding = ly_symbol2scm ("latin1");
+    }
+
+  Real base_size;
+  if (scm_is_eq (encoding, ly_symbol2scm ("fetaMusic"))
+      || scm_is_eq (encoding, ly_symbol2scm ("fetaBraces"))
+      || scm_is_eq (encoding, ly_symbol2scm ("fetaText")))
+    {
+      base_size = from_scm<Real> (
+                    layout->lookup_variable (ly_symbol2scm ("staff-height")))
+                  / point_constant;
+    }
+  else // latin1
+    {
+      base_size = from_scm<Real> (
+                    layout->lookup_variable (ly_symbol2scm ("text-font-size")))
+                  * point_constant;
+    }
+
+  Real requested_step = from_scm<double> (
+    ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F), 0.0);
+  Real requested_size = base_size * pow (2.0, requested_step / 6.0);
+
+  SCM family;
+  if (scm_is_eq (encoding, ly_symbol2scm ("fetaMusic"))
+      || scm_is_eq (encoding, ly_symbol2scm ("fetaBraces"))
+      || scm_is_eq (encoding, ly_symbol2scm ("fetaText")))
+    {
+      family
+        = ly_chain_assoc_get (ly_symbol2scm ("font-family"), chain, SCM_BOOL_F);
+      if (scm_is_false (family)
+          // This is ugly and should be improved. It happens with things like
+          // \markup \sans { più \dynamic p }
+          || scm_is_eq (family, ly_symbol2scm ("roman"))
+          || scm_is_eq (family, ly_symbol2scm ("sans"))
+          || scm_is_eq (family, ly_symbol2scm ("typewriter")))
+        {
+          if (scm_is_eq (encoding, ly_symbol2scm ("fetaBraces")))
+            family = ly_symbol2scm ("brace");
+          else // fetaMusic, fetaText
+            family = ly_symbol2scm ("feta");
+        }
+    }
+  else // latin1
+    {
+      family = ly_chain_assoc_get (ly_symbol2scm ("font-family"), chain,
+                                   ly_symbol2scm ("roman"));
+    }
+
+  SCM name_scm = ly_assoc_get (family, fonts, SCM_BOOL_F);
+  std::string name;
+  if (scm_is_false (name_scm))
+    {
+      warning (_f ("no entry for font family %s in fonts alist",
+                   ly_scm_write_string (family).c_str ()));
+      name = "LilyPond Serif";
+    }
+  else if (!scm_is_string (name_scm))
+    {
+      warning (_f ("expected string for value in fonts alist, found: %s",
+                   ly_scm_write_string (name_scm).c_str ()));
+      name = "LilyPond Serif";
     }
   else
     {
-      SCM fonts = layout->lookup_variable (ly_symbol2scm ("fonts"));
-      SCM leaf = Lily::lookup_font (fonts, chain);
-      assert (scm_is_true (scm_instance_p (leaf)));
-      SCM base_size = scm_slot_ref (leaf, ly_symbol2scm ("default-size"));
-      SCM vec = scm_slot_ref (leaf, ly_symbol2scm ("size-vector"));
+      name = ly_scm2string (name_scm);
+    }
 
-      Real requested_step = from_scm<double> (
-        ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
-        0.0);
+  vsize rounded_size = 0;
+  Real actual_size = 0; // dummy init value
+  if (scm_is_eq (encoding, ly_symbol2scm ("fetaMusic"))
+      || scm_is_eq (encoding, ly_symbol2scm ("fetaBraces"))
+      || scm_is_eq (encoding, ly_symbol2scm ("fetaText")))
+    {
+      rounded_size = best_rounded_design_size (requested_size,
+                                               /* out-parameter */ actual_size);
+      name += "-";
+      if (scm_is_eq (encoding, ly_symbol2scm ("fetaMusic"))
+          || scm_is_eq (encoding, ly_symbol2scm ("fetaText")))
+        {
+          name += std::to_string (rounded_size);
+        }
+      else // fetaBraces
+        {
+          name += "brace";
+        }
+    }
 
-      Real design_size
-        = from_scm<double> (base_size) * pow (2.0, requested_step / 6.0);
-
-      return get_font_by_design_size (layout, design_size, vec);
+  if (scm_is_eq (encoding, ly_symbol2scm ("fetaMusic"))
+      || scm_is_eq (encoding, ly_symbol2scm ("fetaBraces")))
+    {
+      // This font has the design size of the OTF file.
+      Font_metric *fm = all_fonts_global->find_otf_font (name);
+      // This font is the previous one but scaled to get the exact size we want.
+      return find_scaled_font (layout, fm, requested_size / actual_size);
+    }
+  else // latin1, fetaText
+    {
+      // Unlike music fonts, text fonts are scaled automatically by Pango.
+      PangoFontDescription *description;
+      if (scm_is_string (string_desc))
+        {
+          description = pango_font_description_from_string (
+            ly_scm2string (string_desc).c_str ());
+        }
+      else
+        {
+          description = pango_font_description_new ();
+          pango_font_description_set_family (description, name.c_str ());
+          // font-shape, etc. make no sense in fetaText
+          if (scm_is_eq (encoding, ly_symbol2scm ("latin1")))
+            tweak_pango_description (description, chain);
+        }
+      if (scm_is_eq (encoding, ly_symbol2scm ("fetaText")))
+        {
+          requested_size *= point_constant;
+        }
+      int pango_size = static_cast<int> (
+        std::lround (static_cast<Real> (requested_size) * PANGO_SCALE));
+      pango_font_description_set_size (description, pango_size);
+      return find_pango_font (layout, description);
     }
 }

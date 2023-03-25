@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.11"
+@c \version "2.25.4"
 
 @c Translators: Tomohiro Tatejima, Hiroshi Fukuhara
 @c Translation status: post-GDP
@@ -2378,10 +2378,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
 }
 
 \score {
@@ -2567,10 +2564,7 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
 }
 
 \score {

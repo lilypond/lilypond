@@ -8,10 +8,10 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.19.21"
+\version "2.25.4"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
-ignoreMelismaOff = \unset ignoreMelismata 
+ignoreMelismaOff = \unset ignoreMelismata
 
 #(set-global-staff-size 21)
 
@@ -20,22 +20,19 @@ ignoreMelismaOff = \unset ignoreMelismata
   indent = #(* mm 4)
   line-width = #(* mm 140)
   system-system-spacing.basic-distance = #10.3
-  ragged-bottom = ##t 
+  ragged-bottom = ##t
 
   % Font settings for Cyrillic and Hebrew
   % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-     #:sans "Linux Biolinum O,sans-serif"
-     #:typewriter "Linux Libertine Mono O,monospace"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
+  fonts.sans = "Linux Biolinum O,sans-serif"
+  fonts.typewriter = "Linux Libertine Mono O,monospace"
 }
 
 modernAccidentals = {
   \set Staff.extraNatural =  ##f
   \set Staff.autoAccidentals =  #'(Staff (same-octave . 1) (any-octave . 0))
-  \set Staff.autoCautionaries =  #'()  
+  \set Staff.autoCautionaries =  #'()
 }
 
 
@@ -61,24 +58,24 @@ melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
 
 firstVerse = \lyricmode {
   \set stanza = "1."
-  
+
   Sü -- ßes Licht! Aus
   \ignoreMelisma
   gol --
   \ignoreMelismaOff
 
-  de -- nen  Pfor -- ten brichst du __ | 
-  sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ 
+  de -- nen  Pfor -- ten brichst du __ |
+  sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __
 }
 
 secondVerse = \lyricmode {
   \set stanza = "2."
   いろはに כיף та та ほへど ちり  ぬるを
-  
+
   Жъл  дю ля זה
-  
+
   いろ はに כיף та та ほへ ちり ぬる
-  
+
   Жъл дю ля __
 
 }
@@ -88,8 +85,8 @@ pianoRH =  \relative c''' \repeat volta 2\new Voice {
   \voiceOne
   g16( fis a g fis g f e d c b
   \oneVoice
-  a ) | 
-  <g e>8( <es fis a> <d e bes'> <c e c'>\arpeggio) r8 r | 
+  a ) |
+  <g e>8( <es fis a> <d e bes'> <c e c'>\arpeggio) r8 r |
   r8 c'( e,) f r a |
   \once \override DynamicLineSpanner.padding =#3
   r8
@@ -115,7 +112,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 
     \change Staff = down
 	\oneVoice
-    d,) | 
+    d,) |
      g4.( b,8) r r
     \clef treble \grace s16 r8 <bes'>8-> <bes c>8->([ <a c>)] r <f c'> |
     \clef bass
@@ -123,7 +120,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
     f,4.  g8[ r8 g] |
     <c, c,>4. <e e,>4. |
     a,4. <d d,>4. |
-    g,8 r r g16 r16\fermata 
+    g,8 r r g16 r16\fermata
     }
 
   \book {
@@ -137,7 +134,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	   \melody >>
 	 \new Lyrics \lyricsto "singer" \firstVerse
 	 \new Lyrics \lyricsto "singer" \secondVerse
-	 \new PianoStaff << 
+	 \new PianoStaff <<
 	   \set PianoStaff.instrumentName = \markup {
 	     \bold
 	     \larger\larger\larger\larger
@@ -149,7 +146,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	     \pianoLH
 	   >>
 	   \context Staff = down { \clef bass \skip 1*2 }
-	 >> 
+	 >>
        >>
 
       \layout {
@@ -166,7 +163,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	  \override Slur.height-limit = #1.5
 	}
       }
-      
+
   \midi {
     \tempo 4 = 70
     }
@@ -174,4 +171,3 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 
     }
   }
-

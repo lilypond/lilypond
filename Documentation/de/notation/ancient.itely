@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.11"
+@c \version "2.25.4"
 
 @c Translators: Till Paala
 
@@ -2532,10 +2532,7 @@ richtigen Werten, sodass man sofort den Choral notieren kann:
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
 }
 
 \score {
@@ -2966,8 +2963,3 @@ In Arbeit.
 @c remember correctly, be interpreted more like a8.. a32 (in the french
 @c style).  The editor might want to show that rythmic figure above the
 @c staff as an hint to performers.  (Karl Hammer)
-
-
-
-
-

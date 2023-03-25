@@ -101,7 +101,7 @@ See if we need this again...
 * Expressive mark improvements::
 * Repeat improvements::
 * Editorial annotation improvements::
-* Text improvements::
+* Text and font improvements::
 @end menu
 
 @node Pitches improvements
@@ -192,11 +192,63 @@ None so far.
 
 None so far.
 
-@node Text improvements
-@unnumberedsec Text improvements
+@node Text and font improvements
+@unnumberedsec Text and font improvements
 
-None so far.
+@itemize
+@item
+The syntax for customizing text and music fonts has been changed.
+Instead of
 
+@quotation
+@verbatim
+\paper {
+  #(define fonts
+     (set-global-fonts
+       #:music "Name of music font"
+       #:brace "Name of music brace font"
+       #:roman "Name of roman font"
+       #:sans "Name of sans-serif font"
+       #:typewriter "Name of typewriter font"))
+}
+@end verbatim
+@end quotation
+
+or
+
+@quotation
+@verbatim
+\paper {
+  #(define fonts
+     (make-pango-font-tree
+       "Name of roman font"
+       "Name of sans-serif font"
+       "Name of typewriter font"
+       factor))
+}
+@end verbatim
+@end quotation
+
+@noindent
+the new syntax is
+
+@quotation
+@verbatim
+\paper {
+  fonts.feta = "Name of music font"
+  fonts.brace = "Name of music brace font"
+  fonts.roman = "Name of roman font"
+  fonts.sans = "Name of sans-serif font"
+  fonts.typewriter = "Name of typewriter font"
+}
+@end verbatim
+@end quotation
+
+Unlike the previous syntax, the new syntax does not interfere with
+font sizes, which should be set separately using
+@code{set-global-staff-size} or @code{layout-set-staff-size}.
+
+@end itemize
 
 @node New for specialist notation
 @unnumbered New for specialist notation

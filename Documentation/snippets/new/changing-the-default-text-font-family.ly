@@ -1,8 +1,14 @@
+\version "2.25.4"
+
 \header {
-  texidoc = "The default font families for text can be overridden."
+  lsrtags = "text, tweaks-and-overrides"
+
+  texidoc = "
+The default font families for text can be overridden."
+
+  doctitle = "Changing the default text font family"
 }
 
-\version "2.25.4"
 
 %{
 You may have to install additional fonts.
@@ -18,6 +24,11 @@ Debian GNU/Linux, Ubuntu
 %}
 
 \paper {
+  %{
+     run
+         lilypond -dshow-available-fonts
+     to show all fonts available in the process log.
+  %}
   fonts.roman = "DejaVu Serif"
   fonts.sans = "DejaVu Sans"
   fonts.typewriter = "DejaVu Sans Mono"

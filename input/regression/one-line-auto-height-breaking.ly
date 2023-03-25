@@ -1,4 +1,4 @@
-\version "2.19.36"
+\version "2.25.4"
 
 \header {
   texidoc = "The @var{ly:one-line-auto-height-breaking} algorithm puts

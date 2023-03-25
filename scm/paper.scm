@@ -44,7 +44,6 @@
                     right-margin
                     right-margin-default-scaled
                     short-indent
-                    staff-height
                     staff-space
                     top-margin)))
 
@@ -77,7 +76,6 @@
     (setm! 'text-font-size (* 11 factor))
 
     (setm! 'output-scale ss)
-    (setm! 'fonts (make-default-fonts-tree factor))
     (setm! 'staff-height staff-height)
     (setm! 'staff-space ss)
 

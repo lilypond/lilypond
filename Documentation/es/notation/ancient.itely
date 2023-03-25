@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.11"
+@c \version "2.25.4"
 
 
 @node Notación antigua
@@ -2477,10 +2477,7 @@ propio canto:
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
 }
 
 \score {
@@ -2677,10 +2674,7 @@ kievano:
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
 }
 
 \score {

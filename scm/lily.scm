@@ -578,7 +578,6 @@ determines the number of scale steps that make up an octave.  Usually the
     "layout-beam"
     "parser-clef"
     "layout-slur"
-    "font"
     "font-encodings"
 
     "bar-line"

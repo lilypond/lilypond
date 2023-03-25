@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.4"
+@c \version "2.25.4"
 @c Translators: Federico Bruni
 @c Translation checkers:
 
@@ -2616,12 +2616,9 @@ Ecco un esempio che mostra del testo cirillico, ebraico e portoghese:
 @lilypond[quote]
 % I tipi di carattere Linux Libertine contengono i glifi cirillici e ebraici.
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-     #:sans "Linux Biolinum O,sans-serif"
-     #:typewriter "Linux Libertine Mono O,monospace"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
+  fonts.sans = "Linux Biolinum O,sans-serif"
+  fonts.typewriter = "Linux Libertine Mono O,monospace"
 }
 
 % Cyrillic
@@ -2975,11 +2972,8 @@ La sintassi seguente imposta il font Gonville come font della notazione
 
 @example
 \paper @{
-  #(define fonts
-    (set-global-fonts
-     #:music "gonville"
-     #:brace "gonville"
-   ))
+  fonts.feta = "gonville"
+  fonts.brace = "gonville"
 @}
 @end example
 
@@ -3984,4 +3978,3 @@ ben congeniata. Se alcuni eventi che si vorrebbero vedere non sono
 inclusi, copiare @file{event-listener.ly} nella propria directory
 lilypond e modificare il file in modo che produca l'informazione
 desiderata.
-

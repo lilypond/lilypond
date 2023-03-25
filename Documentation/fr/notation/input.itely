@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.4"
+@c \version "2.25.4"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 @c Translation checkers: Jean Abou Samra
@@ -3208,12 +3208,9 @@ portugais.
 @lilypond[quote]
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-     #:sans "Linux Biolinum O,sans-serif"
-     #:typewriter "Linux Libertine Mono O,monospace"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
+  fonts.sans = "Linux Biolinum O,sans-serif"
+  fonts.typewriter = "Linux Libertine Mono O,monospace"
 }
 
 % Cyrillic
@@ -3633,11 +3630,8 @@ accolades) les fontes Gonville.
 
 @example
 \paper @{
-  #(define fonts
-    (set-global-fonts
-     #:music "gonville"
-     #:brace "gonville"
-   ))
+  fonts.feta = "gonville"
+  fonts.brace = "gonville"
 @}
 @end example
 

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.4"
+@c \version "2.25.4"
 
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
@@ -2649,12 +2649,9 @@ FT_Get_Glyph_Name () error: invalid argument
 @lilypond[quote]
 % Linux Libertine フォントはキリル文字やヘブライ文字を含みます
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-     #:sans "Linux Biolinum O,sans-serif"
-     #:typewriter "Linux Libertine Mono O,monospace"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
+  fonts.sans = "Linux Biolinum O,sans-serif"
+  fonts.typewriter = "Linux Libertine Mono O,monospace"
 }
 
 % キリル文字
@@ -3014,11 +3011,8 @@ Gonville フォントに変更します:
 
 @example
 \paper @{
-  #(define fonts
-    (set-global-fonts
-     #:music "gonville"
-     #:brace "gonville"
-   ))
+  fonts.feta = "gonville"
+  fonts.brace = "gonville"
 @}
 @end example
 

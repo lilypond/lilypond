@@ -4826,6 +4826,119 @@ def conv(s):
     s = re.sub(r'\\musicLength 1\*1(?!\S)', r'\\musicLength 1', s)
     return s
 
+@rule((2, 25, 4), r"""
+#(define fonts (set-global-fonts #:roman "roman" ...))
+or
+#(define fonts (make-pango-font-tree ...))
+
+->
+  fonts.roman = ...
+  fonts.sans = ...
+  (etc.)
+""")
+def conv(s):
+    # This replacement is not 100% reliable, but should do a good job.
+    # If there is the #:factor (/ staff-height pt 20) parameter in the
+    # set-global-fonts call, the user had done what it took to heed any
+    # custom font size, so we're fine. If no #:factor was passed, we
+    # assume that the user was not changing the font size, as doing that
+    # without passing #:factor was resulting in bad output anyway.
+    # Other values result in a warning.
+    set_global_fonts_factor_warning = _("""
+LilyPond now uses a different syntax for selecting fonts.  The
+set-global-fonts Scheme function has been removed.  convert-ly
+has mostly converted the call for you, but it was not able to
+convert the #:factor parameter.  Now, font selection is independent
+from setting the font size.  Please use set-global-staff-size
+or layout-set-staff-size to replace this parameter, which you
+set to:
+
+    {}
+
+""")
+    simple_sexpr_re = r'("[^"]+"|[\w/-]+)'
+    maybe_funcall_sexpr_re = (rf'(\(\s*({simple_sexpr_re}\s+)*{simple_sexpr_re}\s*\)'
+                              rf'|{simple_sexpr_re})')
+    keyval_re = rf'#:(?P<key>\w+)\s+(?P<val>{maybe_funcall_sexpr_re})\s*'
+    set_global_fonts_re = rf"(\(set-global-fonts\s+(?P<args>({keyval_re})*)\))"
+    indent_re = r"^(?P<indent>[^\S\n]*)"
+    def replace_set_global_fonts(match):
+        indent = match.group("indent")
+        call = match.group("args")
+        lines = []
+        params = {}
+        for keyval in re.finditer(keyval_re, call):
+            params[keyval.group("key")] = keyval.group("val")
+        if "factor" in params:
+            fac = params["factor"].split()
+            if (
+                fac != ["(/", "staff-height", "pt", "20)"]
+                and fac != ["(/", "staff-height", "20", "pt)"]
+            ):
+                stderr_write(NOT_SMART % "#:factor parameter to set-global-fonts")
+                stderr_write(set_global_fonts_factor_warning
+                             .format(params["factor"]))
+                stderr_write(UPDATE_MANUALLY)
+        for key, val in params.items():
+            if key == "factor":
+                continue
+            elif key == "music":
+                key = "feta"
+            if not val.startswith('"'):
+                val = "#" + val
+            lines.append(indent + f"fonts.{key} = {val}")
+        return "\n".join(lines)
+
+    define_re = rf"{indent_re}#\(define\s+fonts\s+{set_global_fonts_re}\s*\)"
+    assign_re = rf"{indent_re}fonts\s*=\s*#{set_global_fonts_re}"
+    s = re.sub(define_re, replace_set_global_fonts, s, flags=re.MULTILINE)
+    s = re.sub(assign_re, replace_set_global_fonts, s, flags=re.MULTILINE)
+
+    # Similar logic here with the factor parameter here
+    pango_warning = _("""
+LilyPond now uses a different syntax for selecting fonts.  The
+make-pango-font-tree Scheme function has been removed.  convert-ly
+has mostly converted the call for you, but it was not able to
+convert the #:factor parameter.  Now, font selection is independent
+from setting the font size.  Please use set-global-staff-size
+or layout-set-staff-size to replace this parameter, which you
+set to:
+
+    {}
+
+""")
+    pango_re = (rf"(?P<pango>\(make-pango-font-tree\s+"
+                rf"(?P<roman>{maybe_funcall_sexpr_re})\s+"
+                rf"(?P<sans>{maybe_funcall_sexpr_re})\s+"
+                rf"(?P<typewriter>{maybe_funcall_sexpr_re})\s+"
+                rf"(?P<factor>{maybe_funcall_sexpr_re})\s*"
+                rf"\))")
+    def replace_pango(match):
+        indent = match.group("indent")
+        pango = match.group("pango")
+        lines = []
+        for family in ("roman", "sans", "typewriter"):
+            font = match.group(family)
+            if not font.startswith('"'):
+                font = "#" + font
+            lines.append(f"{indent}fonts.{family} = {font}")
+        factor = match.group("factor").split()
+        if (
+            factor != ["1"]
+            and factor != ["(/", "staff-height", "pt", "20)"]
+            and factor != ["(/", "staff-height", "20", "pt)"]
+        ):
+            stderr_write(NOT_SMART % "factor parameter to make-pango-font-tree")
+            stderr_write(pango_warning.format(match.group("factor")))
+            stderr_write(UPDATE_MANUALLY)
+        return "\n".join(lines)
+
+    pango_define_re = rf"{indent_re}#\(define\s+fonts\s+{pango_re}\s*\)"
+    pango_assign_re = rf"{indent_re}fonts\s*=\s*#{pango_re}"
+    s = re.sub(pango_define_re, replace_pango, s, flags=re.MULTILINE)
+    s = re.sub(pango_assign_re, replace_pango, s, flags=re.MULTILINE)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

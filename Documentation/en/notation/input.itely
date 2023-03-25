@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.4"
+@c \version "2.25.4"
 
 @node General input and output
 @chapter General input and output
@@ -3185,12 +3185,9 @@ text:
 @lilypond[quote]
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-     #:sans "Linux Biolinum O,sans-serif"
-     #:typewriter "Linux Libertine Mono O,monospace"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
+  fonts.sans = "Linux Biolinum O,sans-serif"
+  fonts.typewriter = "Linux Libertine Mono O,monospace"
 }
 
 % Cyrillic
@@ -3585,26 +3582,15 @@ for @code{svg} backend without @code{svg-woff} option.
 for @code{svg} backend with @code{svg-woff} option.
 For more information, see @rprogram{Advanced command-line options for LilyPond}.
 
-The following syntax changes the notation font (general and brace)
-to the Gonville font.
+The following code changes the notation font to the Gonville font.
 
 @example
 \paper @{
-  #(define fonts
-    (set-global-fonts
-     #:music "gonville"
-     #:brace "gonville"
-   ))
+  fonts.feta = "gonville"
+  fonts.brace = "gonville"
 @}
 @end example
 
-Note: Each call to @code{set-global-fonts} completely resets both the main
-notation and text fonts. If any category is left unspecified, then the default
-font will be used for that category.
-Each call to @code{set-global-fonts} changes the fonts for each @code{\book}
-that follows it, whether created explicitly or implicitly. This means that each
-@code{\book} can have its own set of main fonts by calling
-@code{set-global-fonts} before it.
 For more information, see @ref{Entire document fonts}.
 
 @morerefs
@@ -3645,21 +3631,15 @@ work properly:
 For example, @file{emmentaler-11.otf}, @file{emmentaler-20.svg},
 and @file{emmentaler-brace.woff} etc.
 
-The following syntax changes the notation font (general and brace)
-to the @var{fontname} font.
+The following code changes the notation font to the
+@var{fontname} font.
 
 @example
 \paper @{
-  #(define fonts
-    (set-global-fonts
-     #:music "@var{fontname}" ; font filename without suffix and extension
-     #:brace "@var{fontname}" ; font filename without suffix and extension
-   ))
+  fonts.feta = "@var{fontname}"   % font filename without suffix and extension
+  fonts.brace = "@var{fontname}"  % font filename without suffix and extension
 @}
 @end example
-
-Note: For @code{music} and @code{brace} categories,
-specify the font filename without the suffix and extension.
 
 @node Creating MIDI output
 @section Creating MIDI output

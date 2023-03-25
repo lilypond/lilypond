@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.25.4"
 
 @c Translators: Till Paala
 
@@ -1610,11 +1610,9 @@ Schriftarten in @ref{Was sind Schriftarten}.
 @lilypond[verbatim,quote]
 \paper  {
   myStaffSize = #20
-  #(define fonts
-    (make-pango-font-tree "Linux Libertine O"
-                          "Nimbus Sans, Nimbus Sans L"
-                          "DejaVu Sans Mono"
-                          (/ myStaffSize 20)))
+  fonts.roman = "Linux Libertine O"
+  fonts.sans = "Nimbus Sans, Nimbus Sans L"
+  fonts.typewriter = "DejaVu Sans Mono"
 }
 
 \relative c'{

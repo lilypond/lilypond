@@ -8,7 +8,7 @@ Note: lilypond must be compiled with --disable-optimising for this file to work.
 
 #(ly:set-option 'profile-property-accesses #t)
 
-\version "2.16.0"
+\version "2.25.4"
 
 \include "typography-demo.ly"
 %\book { \score { {c4 } } }
@@ -29,18 +29,16 @@ Note: lilypond must be compiled with --disable-optimising for this file to work.
    )
 
   (set! alist (acons 'TOTAL total alist))
-   
+
   (ly:progress "\n\n~A properties, rounded to ~a\n\n~a"
    what rnd
    (string-join
     (map (lambda (x) (format #f "~30a: ~6@a" (car x) (cdr x)))
      (sort alist prop-stats>?))
     "\n"))))
-   
 
-				 
+
+
 #(display-stats 'prob)
 #(display-stats 'context)
 #(display-stats 'grob)
-
-  

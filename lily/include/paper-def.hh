@@ -27,7 +27,7 @@
 #include <pango/pango.h>
 
 Font_metric *find_pango_font (Output_def *layout,
-                              PangoFontDescription *description, Real factor);
+                              PangoFontDescription *description);
 Font_metric *find_scaled_font (Output_def *od, Font_metric *f,
                                Real magnification);
 Output_def *scale_output_def (Output_def *def, Real scale);

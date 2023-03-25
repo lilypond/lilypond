@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.23.4"
+@c \version "2.25.4"
 
 @c Translators: Till Paala
 
@@ -454,7 +454,7 @@ beinhaltet, wird übersetzt zu
     @}
     \layout @{ @}
   @}
-  \paper @{ @}	
+  \paper @{ @}
   \header @{ @}
 @}
 @end example
@@ -744,7 +744,7 @@ Beachten Sie:
 Die Instrumentenbezeichnung wird auf jeder Seite wiederholt.
 
 @item
-Nur @code{piece} (Stück)uand @code{opus} werden für eine Partitur 
+Nur @code{piece} (Stück)uand @code{opus} werden für eine Partitur
 (@code{\score}) gesetzt, wenn die @code{\paper}-Variable
 @code{print-all-headers} auf @code{##f} gesetzt ist (Standardeinstellung).
 
@@ -1139,7 +1139,7 @@ Das folgende Beispiel zentriert die Seitenzahlen unten auf jeder Seite.
 Zuerst werden die Standardeinstellungen von @code{oddHeaderMarkup} und
 @code{evenHeaderMarkup} entfernt, indem sie als @qq{Null}-Beschriftung
 definiert werden.  Dann wird @code{oddFooterMarkup} mit zentrierter
-Seitennummer neu definiert.  Schließlich erhält @code{evenFooterMarkup} 
+Seitennummer neu definiert.  Schließlich erhält @code{evenFooterMarkup}
 die selbe Layoutdefinition wie @code{\oddFooterMarkup}:
 
 @lilypond[papersize=a8,quote,verbatim,noragged-right]
@@ -1829,7 +1829,7 @@ Notenpassagen und/oder Anmerkungen/Textmarken miteinander auf
 verschiedene Weise zu kombinieren.  Tag-Marken dagegen werden am
 besten eingesetzt, wenn eine von mehreren kurzen alternativen
 Notenabschnitten ausgewählt werden soll und können auch eingesetzt
-werden, um Musikabschnitte an unterschiedlichen Stellen zusammenzufügen.  
+werden, um Musikabschnitte an unterschiedlichen Stellen zusammenzufügen.
 
 Egal welche Methode am
 Ende eingesetzt wird: Es erleichtert die Arbeit in jedem Fall, wenn
@@ -2199,12 +2199,9 @@ Heir ein Beispiel mit Kyrilliza, hebräischem und portugiesischem Text:
 % Font settings for Cyrillic and Hebrew
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-     #:sans "Linux Biolinum O,sans-serif"
-     #:typewriter "Linux Libertine Mono O,monospace"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
+  fonts.sans = "Linux Biolinum O,sans-serif"
+  fonts.typewriter = "Linux Libertine Mono O,monospace"
 }
 
 % Cyrillic
@@ -3262,6 +3259,6 @@ mit LilyPond machen wollen.
 Nicht alle musikalischen Ereignisse werden von
 @file{event-listener.ly} unterstützt.  Es handelt sich eher um ein
 gut gemachtes @qq{proof of concept}.  Wenn Ereignisse, die Sie
-brauchen, nicht in enthalten sind, können Sie @file{event-listener.ly} 
+brauchen, nicht in enthalten sind, können Sie @file{event-listener.ly}
 in Ihr LilyPond-Verzeichnis kopieren und die Datei verändern,
 sodass sie die benötigte Information ausgibt.

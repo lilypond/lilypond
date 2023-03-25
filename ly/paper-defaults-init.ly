@@ -160,6 +160,21 @@
   %%
   %% Fonts
   %%
+
+  %% TODO: rename 'feta' to 'music', eliminate 'brace'. Perhaps
+  %% also rename 'roman' to 'serif'?
+  fonts.feta = "emmentaler"
+  fonts.brace = "emmentaler"
+  fonts.roman = #(if (eq? 'svg (ly:get-option 'backend))
+                     "serif"
+                     "LilyPond Serif")
+  fonts.sans = #(if (eq? 'svg (ly:get-option 'backend))
+                    "sans"
+                    "LilyPond Sans Serif")
+  fonts.typewriter = #(if (eq? 'svg (ly:get-option 'backend))
+                          "monospace"
+                          "LilyPond Monospace")
+
   %% text-font-defaults is typically used as the last component of
   %% the alist chains passed around to markup commands.  When a
   %% grob interprets a markup, the alist chain consists in that

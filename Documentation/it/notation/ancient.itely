@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.11"
+@c \version "2.25.4"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -2427,10 +2427,7 @@ immediatamente all'inserimento delle note del canto:
 @lilypond[quote,ragged-right,verbatim]
 % Impostazione dei font per il cirillico
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
 }
 
 \score {
@@ -2623,10 +2620,7 @@ L'esempio seguente illustra l'uso delle legature di Kiev:
 @lilypond[quote,ragged-right,verbatim]
 % Impostazioni dei font cirillici
 \paper {
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O,serif"
-   ))
+  fonts.roman = "Linux Libertine O,serif"
 }
 
 \score {

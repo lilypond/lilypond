@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.25.4"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, John Mandereau
@@ -2271,11 +2271,9 @@ globale des portées.
 
 @lilypond[verbatim,quote]
 \paper  {
-  #(define fonts
-    (make-pango-font-tree "Linux Libertine O"
-                          "Nimbus Sans, Nimbus Sans L"
-                          "DejaVu Sans Mono"
-                          (/ staff-height pt 20)))
+  fonts.roman = "Linux Libertine O"
+  fonts.sans = "Nimbus Sans, Nimbus Sans L"
+  fonts.typewriter = "DejaVu Sans Mono"
 }
 
 \relative c'{

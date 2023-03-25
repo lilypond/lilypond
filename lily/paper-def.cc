@@ -37,8 +37,7 @@ output_scale (Output_def *od)
     od->lookup_variable (ly_symbol2scm ("output-scale")));
 }
 
-static
-SCM
+static SCM
 get_font_table (Output_def *def)
 {
   SCM font_table = def->lookup_variable (ly_symbol2scm ("scaled-fonts"));
@@ -74,15 +73,10 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m)
 }
 
 Font_metric *
-find_pango_font (Output_def *layout, PangoFontDescription *description,
-                 Real factor)
+find_pango_font (Output_def *layout, PangoFontDescription *description)
 {
   if (layout->parent_)
-    return find_pango_font (layout->parent_, description, factor);
-
-  gint font_description_size = static_cast<gint> (
-    std::lround (factor * pango_font_description_get_size (description)));
-  pango_font_description_set_size (description, font_description_size);
+    return find_pango_font (layout->parent_, description);
 
   Font_metric *fm
     = all_fonts_global->find_pango_font (description, output_scale (layout));
