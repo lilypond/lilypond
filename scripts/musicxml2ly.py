@@ -2227,25 +2227,9 @@ def music_xml_fretboards_name_to_lily_name(part_id, voicename):
     return musicxml_id_to_lily(s)
 
 
-def get_all_lyric_parts_in_voice(voice):
-    r'''
-    Collect the indexes of all lyric parts in this voice.
-    In case not all of the current lyric parts are active (a typical case would be
-    a refrain/chorus), the current implementation inserts \skip-commands in the
-    inactive parts to keep them in sync.
-    '''
-    all_lyric_parts = []
-    for elem in voice._elements:
-        lyrics = elem.get_typed_children(musicxml.Lyric)
-        if lyrics:
-            for lyric in lyrics:
-                index = lyric.get_number()
-                if not index in all_lyric_parts:
-                    all_lyric_parts.append(index)
-    return all_lyric_parts
-
-
 def extract_lyrics(voice, lyric_key, lyrics_dict):
+    assert lyric_key is not None
+
     curr_number = None
     result = []
 
@@ -2264,24 +2248,17 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
     def get_lyric_elements(note):
         return note.get_typed_children(musicxml.Lyric)
 
-    def has_lyric_belonging_to_lyric_part(note, lyric_part_id):
-        lyric_elements = get_lyric_elements(note)
-        lyric_numbers = [lyric.get_number() for lyric in lyric_elements]
-        return any([lyric_number == lyric_part_id for lyric_number in lyric_numbers])
-
     for idx, elem in enumerate(voice._elements):
         lyrics = get_lyric_elements(elem)
-        lyric_keys = [lyric.get_number() for lyric in lyrics]
-        note_has_lyric_belonging_to_lyric_part = lyric_key in lyric_keys
-        # Current note has lyric with 'number' matching 'lyric_key'.
-        if note_has_lyric_belonging_to_lyric_part:
-            for lyric in lyrics:
-                if lyric.get_number() == lyric_key:
-                    text = musicxml_lyrics_to_text(lyric, None)
-                    result.append(text)
-        # Note has any lyric.
-        elif get_lyric_elements(elem) and \
-                not note_has_lyric_belonging_to_lyric_part:
+        found_matching_lyric = False
+        for lyric in lyrics:
+            if getattr(lyric, 'number', None) == lyric_key:
+                found_matching_lyric = True
+                text = musicxml_lyrics_to_text(lyric, None)
+                result.append(text)
+        if found_matching_lyric:
+            pass
+        elif len(lyrics) > 0: # any lyric
             result.append(r'\skip1 ')
         # Note does not have any lyric attached to it.
         elif is_chord(elem):
@@ -2317,13 +2294,6 @@ def musicxml_voice_to_lily_voice(voice):
     pending_chordnames = []
     pending_fretboards = []
 
-    # Make sure that the keys in the dict don't get reordered, since
-    # we need the correct ordering of the lyrics stanzas! By default,
-    # a dict will reorder its keys
-    return_value.lyrics_order = voice.get_lyrics_numbers()
-    for k in return_value.lyrics_order:
-        lyrics[k] = []
-
     voice_builder = LilyPondVoiceBuilder()
     figured_bass_builder = LilyPondVoiceBuilder()
     chordnames_builder = LilyPondVoiceBuilder()
@@ -2332,10 +2302,14 @@ def musicxml_voice_to_lily_voice(voice):
     voice_builder.set_measure_length(current_measure_length)
     in_slur = False
 
-    all_lyric_parts = set(get_all_lyric_parts_in_voice(voice))
-    if list(lyrics.keys()):
-        for number in list(lyrics.keys()):
-            extracted_lyrics = extract_lyrics(voice, number, lyrics)
+    # Make sure that the keys in the dict don't get reordered, since
+    # we need the correct ordering of the lyrics stanzas! By default,
+    # a dict will reorder its keys
+    lyrics_numbers = voice.get_lyrics_numbers()
+    return_value.lyrics_order = lyrics_numbers
+    lyrics = {number: [] for number in lyrics_numbers}
+    for number in lyrics_numbers:
+        extract_lyrics(voice, number, lyrics)
 
     last_bar_check = -1
     for idx, n in enumerate(voice._elements):
@@ -2720,9 +2694,10 @@ def musicxml_voice_to_lily_voice(voice):
     seq_music = musicexp.SequentialMusic()
 
     seq_music.elements = ly_voice
-    for k in list(lyrics.keys()):
-        return_value.lyrics_dict[k] = musicexp.Lyrics()
-        return_value.lyrics_dict[k].lyrics_syllables = lyrics[k]
+    for k, v in lyrics.items():
+        ev = musicexp.Lyrics()
+        ev.lyrics_syllables = v
+        return_value.lyrics_dict[k] = ev
 
     if options.shift_meter:
         sd[-1].element = seq_music
