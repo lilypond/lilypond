@@ -68,6 +68,14 @@ environnements prenant en charge LilyPond sont susceptibles de fournir
 un moyen graphique de lancer @command{convert-ly}.}
 
 
+@menu
+* Modifications majeures de LilyPond::
+* Nouveautés en matière de notation musicale::
+* Nouveautés en matière de notation spécialisée::
+* Autres améliorations diverses::
+@end menu
+
+
 @node Modifications majeures de LilyPond
 @unnumbered Modifications majeures de LilyPond
 @translationof Major changes in LilyPond
@@ -108,6 +116,14 @@ PDF, l'option @code{-dembed-source-code} pour le PDF et la propriété
 @unnumbered Nouveautés en matière de notation musicale
 @translationof New for musical notation
 
+@menu
+* Améliorations de la représentation des hauteurs::
+* Améliorations en matière de rythme::
+* Améliorations en matière d'expressivité::
+* Améliorations en matière de reprises::
+* Améliorations en matière d'annotations éditoriales::
+* Améliorations en matière de mise en forme du texte::
+@end menu
 
 @node Améliorations de la représentation des hauteurs
 @unnumberedsec Améliorations de la représentation des hauteurs
