@@ -4792,6 +4792,40 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
     return s
 
+make_moment_re = (r'(?P<start>#\(\s*ly:make-moment\s+)'
+                  r'(?P<numerator>\d+)'
+                  r'(?P<separator>(/|\s+))'
+                  r'(?P<denominator>\d+)'
+                  r'(?P<end>\s*\))')
+
+def make_moment_to_music_length(match):
+    n = int(match.group('numerator'))
+    d = int(match.group('denominator'))
+    # It's tempting to use musicexp.Duration, but we want this frozen in time.
+    # We also avoid reducing fractions; for example, we turn `4/4` into `4*4`
+    # rather than `1`.
+    dlog = d.bit_length() - 1
+    if (1 << dlog) == d: # d is a power of 2
+        if n == 1:
+            return f'\\musicLength {d}'
+        elif n == 3: # e.g. 3/8 -> 4.
+            return f'\\musicLength {(1 << (dlog - 1))}.'
+        else:
+            return f'\\musicLength {d}*{n}'
+    return f'\\musicLength 1*{n}/{d}'
+
+@rule((2, 25, 3), r"""
+#(ly:make-moment) -> \musicLength
+""")
+def conv(s):
+    # #(ly:make-moment num den) or #(ly:make-moment num/den)
+    s = re.sub(make_moment_re, make_moment_to_music_length, s)
+    # #(ly:make-moment n)
+    s = re.sub(r'#\(\s*ly:make-moment\s+(\d+)\s*\)', r'\\musicLength 1*\1', s)
+    # clean up 1*1 from previous rule
+    s = re.sub(r'\\musicLength 1\*1(?!\S)', r'\\musicLength 1', s)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

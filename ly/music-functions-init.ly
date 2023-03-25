@@ -990,6 +990,11 @@ using @var{scale}.")
       (change-pitches music transposer)
       music))
 
+musicLength =
+#(define-scheme-function (music) (ly:music?)
+   (_i "Return the length of @var{music} as a moment.")
+   (ly:music-length music))
+
 musicMap =
 #(define-music-function (proc mus) (procedure? ly:music?)
    (_i "Apply @var{proc} to @var{mus} and all of the music it contains.")
