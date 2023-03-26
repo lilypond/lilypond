@@ -158,6 +158,7 @@ Volta bracket with number.
 bars
 dashed-edge
 height
+musical-length
 range-collapse-threshold
 shorten-pair
 thickness

@@ -21,6 +21,7 @@
 
 #include "axis-group-interface.hh"
 #include "context.hh"
+#include "global-context.hh"
 #include "grob-array.hh"
 #include "international.hh"
 #include "lily-imports.hh"
@@ -49,6 +50,7 @@ public:
   Stream_event *stop_prev_ev_ = nullptr;
   Stream_event *stop_curr_ev_ = nullptr; // to handle an empty bracket
   Moment start_mom_;
+  Moment stop_mom_;
   Spanner *bracket_ = nullptr;
   Spanner *end_bracket_ = nullptr;
   Spanner *spanner_ = nullptr;
@@ -88,6 +90,7 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
+  bool acknowledged_bar_line_ = false;
   bool should_close_end_ = false;
 };
 
@@ -210,13 +213,23 @@ Volta_engraver::process_music ()
       bool end = manual_end || layer.stop_prev_ev_;
       if (!end && layer.bracket_)
         {
-          auto voltaSpannerDuration = from_scm (
-            get_property (this, "voltaSpannerDuration"), Moment::infinity ());
-          end = (voltaSpannerDuration <= now_mom () - layer.start_mom_);
+          if (layer.stop_mom_ < Moment::infinity ())
+            {
+              // VoltaBracket.musical-length was specified.  Check it and
+              // disregard voltaSpannerDuration.
+              end = (now_mom () >= layer.stop_mom_);
+            }
+          else
+            {
+              auto voltaSpannerDuration
+                = from_scm (get_property (this, "voltaSpannerDuration"),
+                            Moment::infinity ());
+              end = (voltaSpannerDuration <= now_mom () - layer.start_mom_);
+            }
         }
 
-      bool start = manual_start || layer.start_ev_;
-      if (start && layer.bracket_ && !end)
+      layer.start_bracket_this_timestep_ = manual_start || layer.start_ev_;
+      if (layer.start_bracket_this_timestep_ && layer.bracket_ && !end)
         {
           if (manual_start)
             {
@@ -240,18 +253,19 @@ Volta_engraver::process_music ()
             }
         }
 
-      if (layer.stop_curr_ev_)
-        start = false;
-
-      if (start)
+      if (layer.start_bracket_this_timestep_)
         {
-          layer.start_bracket_this_timestep_ = true;
           layer.start_mom_ = now_mom ();
-          layer.bracket_ = make_spanner ("VoltaBracket", SCM_EOL);
+          layer.stop_mom_ = Moment::infinity ();
+          layer.bracket_ = make_spanner (
+            "VoltaBracket",
+            layer.start_ev_ ? to_scm (layer.start_ev_) : SCM_EOL);
 
           if (!layer.spanner_)
             {
-              layer.spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
+              layer.spanner_ = make_spanner (
+                "VoltaBracketSpanner",
+                layer.start_ev_ ? to_scm (layer.start_ev_) : SCM_EOL);
 
               // Set the vertical order of the layers by adjusting
               // outside-staff-priority.
@@ -272,6 +286,8 @@ Volta_engraver::process_music ()
 void
 Volta_engraver::acknowledge_bar_line (Grob_info_t<Item> info)
 {
+  acknowledged_bar_line_ = true;
+
   auto *const item = info.grob ();
   for (auto &layer : layers_)
     {
@@ -297,6 +313,7 @@ Volta_engraver::acknowledge_bar_line (Grob_info_t<Item> info)
 void
 Volta_engraver::start_translation_timestep ()
 {
+  acknowledged_bar_line_ = false;
   should_close_end_ = false;
 }
 
@@ -307,6 +324,40 @@ Volta_engraver::stop_translation_timestep ()
 
   for (auto &layer : layers_)
     {
+      if (layer.start_bracket_this_timestep_)
+        {
+          layer.stop_mom_
+            = layer.start_mom_
+              + from_scm (get_property (layer.bracket_, "musical-length"),
+                          Moment::infinity ());
+
+          // Cancel the bracket if it will not end during a future timestep.
+          if (layer.stop_mom_ <= layer.start_mom_)
+            {
+              // Should we warn if VoltaBracket.musical-length was negative?
+              layer.bracket_->suicide ();
+              layer.bracket_ = nullptr;
+              layer.start_bracket_this_timestep_ = false;
+            }
+          else if (layer.stop_mom_ < Moment::infinity ())
+            {
+              // VoltaBracket.musical-length is valid; use it.
+              find_global_context ()->add_moment_to_process (layer.stop_mom_);
+            }
+          else
+            {
+              // VoltaBracket.musical-length is unlimited, so the bracket
+              // continues until the end of the alternative or until
+              // voltaSpannerDuration applies.
+              if (layer.stop_curr_ev_) // the current alternative is empty
+                {
+                  layer.bracket_->suicide ();
+                  layer.bracket_ = nullptr;
+                  layer.start_bracket_this_timestep_ = false;
+                }
+            }
+        }
+
       if (layer.start_bracket_this_timestep_)
         {
           if (!scm_is_null (layer.text_)) // explicit label from repeatCommands
@@ -321,24 +372,26 @@ Volta_engraver::stop_translation_timestep ()
           layer.start_bracket_this_timestep_ = false;
         }
 
-      if (layer.end_bracket_ && !layer.end_bracket_->get_bound (RIGHT))
-        layer.end_bracket_->set_bound (RIGHT, ci);
-
-      if (layer.spanner_ && layer.end_bracket_)
-        layer.spanner_->set_bound (RIGHT,
-                                   layer.end_bracket_->get_bound (RIGHT));
-
-      if (layer.end_bracket_ && !layer.bracket_)
-        {
-          SCM staves_found = get_property (this, "stavesFound");
-          for (auto *g : as_ly_smob_list<Grob> (staves_found))
-            Side_position_interface::add_support (layer.spanner_, g);
-
-          layer.spanner_ = 0;
-        }
-
       if (layer.end_bracket_)
         {
+          if (!acknowledged_bar_line_)
+            add_bound_item (layer.end_bracket_, ci);
+
+          if (layer.spanner_)
+            {
+              layer.spanner_->set_bound (RIGHT,
+                                         layer.end_bracket_->get_bound (RIGHT));
+            }
+
+          if (!layer.bracket_)
+            {
+              SCM staves_found = get_property (this, "stavesFound");
+              for (auto *g : as_ly_smob_list<Grob> (staves_found))
+                Side_position_interface::add_support (layer.spanner_, g);
+
+              layer.spanner_ = 0;
+            }
+
           // TODO: Now that we attempt to handle nested repeats, consider
           // whether there is a case in which one layer should have an end hook
           // and the other should not, and how important it is to get it right.

@@ -32,7 +32,7 @@ piece = \new Voice \fixed c' {
         s1_"B"
       }
       \volta 2,3 {
-        \set Score.voltaSpannerDuration = \musicLength 1
+        \once \override Score.VoltaBracket.musical-length = \musicLength 1
         s1_"C"
         s1_"D"
         \alternative {

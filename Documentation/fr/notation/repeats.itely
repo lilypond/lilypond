@@ -318,8 +318,9 @@ music = \fixed c' {
     \alternative {
       \volta 1 { s1_"B" }
       \volta 2,3 {
+        \once \override Score.VoltaBracket.musical-length =
+          \musicLength 1
         s1_"C"
-        \once \set Score.voltaSpannerDuration = \musicLength 1
         s1_"D"
         \alternative {
           \volta 2 { s1_"E" }

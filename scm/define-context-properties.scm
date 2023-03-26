@@ -804,10 +804,12 @@ for repeated bass figures.")
 
 
      (vocalName ,markup? "Name of a vocal line.")
-     (voltaSpannerDuration ,ly:moment? "This specifies the maximum
-duration to use for the brackets printed for @code{\\alternative}.
-This can be used to shrink the length of brackets in the situation
-where one alternative is very large.")
+     (voltaSpannerDuration ,ly:moment? "The maximum musical length of
+a @code{VoltaBracket} when its @code{musical-@/length} property is
+not set.
+
+This property is deprecated; overriding the @code{musical-@/length}
+property of @code{VoltaBracket} is recommended.")
 
 
      (whichBar ,string? "The current bar line type, or @code{'()} if

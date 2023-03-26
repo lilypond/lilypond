@@ -712,6 +712,7 @@ should move (after padding).")
 X@tie{}dimension, measured in @code{staff-space} units.")
      (minimum-Y-extent ,number-pair? "Minimum size of an object in
 Y@tie{}dimension, measured in @code{staff-space} units.")
+     (musical-length ,ly:moment? "Musical length.")
 
 
 ;;;
