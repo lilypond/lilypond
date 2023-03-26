@@ -143,6 +143,7 @@ extern Variable ly_event_p;
 extern Variable ly_make_event_class;
 extern Variable ly_music_p;
 extern Variable make_concat_markup;
+extern Variable make_left_brace_markup;
 extern Variable make_music;
 extern Variable make_span_event;
 extern Variable make_tied_lyric_markup;

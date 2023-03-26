@@ -21,9 +21,11 @@
 #include "text-interface.hh"
 #include "all-font-metrics.hh"
 #include "axis-group-interface.hh"
+#include "dimensions.hh"
 #include "font-interface.hh"
 #include "item.hh"
 #include "line-interface.hh"
+#include "lily-imports.hh"
 #include "lookup.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
@@ -149,36 +151,14 @@ System_start_delimiter::print (SCM smob)
 Stencil
 System_start_delimiter::staff_brace (Grob *me, Real y)
 {
-  Font_metric *fm = 0;
-  /* We use the style sheet to look up the font file name.
-     This is better than using 'find_font' directly.*/
-  SCM fam
-    = scm_cons (ly_symbol2scm ("font-encoding"), ly_symbol2scm ("fetaBraces"));
-
-  SCM alist = ly_list (fam);
-  fm = select_font (me->layout (), ly_list (alist));
-
-  int lo = 0;
-  int hi = std::max (static_cast<int> (fm->count ()) - 1, 2);
-
-  /* do a binary search for each Y, not very efficient, but passable?  */
-  Box b;
-  do
-    {
-      int cmp = (lo + hi) / 2;
-      b = fm->get_indexed_char_dimensions (cmp);
-      if (b[Y_AXIS].is_empty () || b[Y_AXIS].length () > y)
-        hi = cmp;
-      else
-        lo = cmp;
-    }
-  while (hi - lo > 1);
-
-  Stencil stil (fm->find_by_name ("brace" + std::to_string (lo)));
-  stil.translate_axis (-b[X_AXIS].length () / 2, X_AXIS);
-
+  SCM props = Font_interface::text_font_alist_chain (me);
+  Real output_scale = from_scm<Real> (
+    me->layout ()->lookup_variable (ly_symbol2scm ("output-scale")));
+  SCM mkup
+    = Lily::make_left_brace_markup (to_scm (y * output_scale / point_constant));
+  Stencil stil = Text_interface::interpret_markup (me->layout (), props, mkup);
+  stil.align_to (X_AXIS, CENTER);
   stil.translate_axis (-0.2, X_AXIS);
-
   return stil;
 }
 
