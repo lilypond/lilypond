@@ -41,7 +41,6 @@ enum class BarType
 {
   // from low to high priority
   NONE = 0,
-  EMPTY,
   UNDERLYING_REPEAT,
   UNDERLYING_CAESURA,
   MEASURE,
@@ -81,7 +80,6 @@ private:
   Boolean_event_listener fine_listener_;
   Boolean_event_listener section_listener_;
   Boolean_event_listener underlying_repeat_listener_;
-  Boolean_event_listener volta_span_listener_;
 
   Observations observations_;
   SCM glyph_ = SCM_EOL;
@@ -157,15 +155,14 @@ Bar_engraver::calc_bar_type () const
   // probably not useful enough to be worth explaining, testing, and
   // maintaining.  Varying the position of a caesura/phrase bar might be a good
   // reason to do it, but that is easy enough to do with two layers (as seen).
-  constexpr std::array<BarType, 8> types_by_priority {
+  constexpr std::array<BarType, 7> types_by_priority {
     BarType::REPEAT,
     BarType::FINE,
     BarType::SECTION,
     BarType::CAESURA,
     BarType::MEASURE,
     BarType::UNDERLYING_CAESURA,
-    BarType::UNDERLYING_REPEAT,
-    BarType::EMPTY};
+    BarType::UNDERLYING_REPEAT};
 
   for (const auto layer : types_by_priority)
     {
@@ -278,20 +275,6 @@ Bar_engraver::calc_bar_type () const
             read_bar (ly_symbol2scm ("underlyingRepeatBarType"));
           break;
 
-        case BarType::EMPTY:
-          if (volta_span_listener_.heard ())
-            {
-              // Volta brackets align on bar lines, so create an empty bar
-              // line where there isn't already a bar line.
-              //
-              // TODO: This is possibly out of order: adding a bar line
-              // allows a line break, which might be unwanted.  Consider
-              // enhancing the Volta_engraver and bracket to align to
-              // something else (Paper_column?) when there is no bar line.
-              ub.clear ();
-              has_underlying_bar = true;
-            }
-
         default:
           break;
         }
@@ -375,8 +358,6 @@ Bar_engraver::pre_process_music ()
                 observations_.repeat_end = true;
               else if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
                 observations_.repeat_start = true;
-              else if (scm_is_eq (command, ly_symbol2scm ("volta")))
-                volta_span_listener_.set_heard ();
             }
         }
       else
@@ -384,7 +365,6 @@ Bar_engraver::pre_process_music ()
           observations_.repeat_end = false;
           observations_.repeat_start = false;
           underlying_repeat_listener_.reset ();
-          volta_span_listener_.reset ();
         }
 
       if (observations_.repeat_start || observations_.repeat_end
@@ -468,7 +448,6 @@ Bar_engraver::stop_translation_timestep ()
   fine_listener_.reset ();
   section_listener_.reset ();
   underlying_repeat_listener_.reset ();
-  volta_span_listener_.reset ();
 }
 
 void
@@ -495,7 +474,6 @@ Bar_engraver::boot ()
   ADD_DELEGATE_LISTENER_FOR (underlying_repeat_listener_, listen, ad_hoc_jump);
   ADD_DELEGATE_LISTENER_FOR (underlying_repeat_listener_, listen, coda_mark);
   ADD_DELEGATE_LISTENER_FOR (underlying_repeat_listener_, listen, dal_segno);
-  ADD_DELEGATE_LISTENER (volta_span);
 }
 
 ADD_TRANSLATOR (Bar_engraver,

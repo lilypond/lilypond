@@ -194,6 +194,14 @@ them to more common shapes.
 @itemize
 
 @item
+@code{\repeat volta} alternative endings no longer create
+invisible bar lines.  This may affect line breaking, horizontal
+spacing, and @code{VoltaBracket} extent where an alternative
+begins or ends without a bar line.  In the case of an undesired
+change, try adding @code{\bar ""} or another command that creates
+a @code{BarLine} at that point.
+
+@item
 Using the new @code{printInitialRepeatBar} property, it is
 possible to make a start repeat bar line automatically printed
 even at the beginning of the piece.
