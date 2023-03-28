@@ -235,7 +235,7 @@ block, and inside or outside the single music expression within a
 @code{\score} block.
 
 Remember that even in a file containing only a @code{\score} block, it
-is implicitly enclosed in a \book block.  A \book block in a source
+is implicitly enclosed in a @code{\book} block.  A @code{\book} block in a source
 file produces at least one output file, and by default the name of the
 output file produced is derived from the name of the input file, so
 @file{fandangoforelephants.ly} will produce
