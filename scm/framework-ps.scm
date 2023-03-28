@@ -99,7 +99,6 @@
    (output-entry "staff-line-thickness" 'line-thickness)
    (output-entry "line-width" 'line-width)
    (output-entry "paper-size" 'papersizename)
-   (output-entry "staff-height" 'staff-height)  ;junkme.
    "/output-scale "
    (number->string (ly:output-def-lookup layout 'output-scale)) " def\n"
    (output-entry "page-height" 'paper-height)
