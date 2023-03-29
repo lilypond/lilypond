@@ -67,6 +67,24 @@ environments with LilyPond support may provide a way to run
 Margins are now wider by default following the general layout of
 several publishers (and the recommendations of Elaine Gould).
 
+In order to switch back to the previous settings (e.g., to keep
+the same layout when upgrading an existing score to version
+@version{}), add the following code:
+
+@example
+\paper @{
+  top-margin = 5\mm
+  bottom-margin = 10\mm
+  top-system-spacing.basic-distance = 1
+  top-markup-spacing.basic-distance = 0
+  left-margin = 10\mm
+  right-margin = 10\mm
+  inner-margin = 10\mm
+  outer-margin = 20\mm
+  binding-offset = 0\mm
+@}
+@end example
+
 @item
 Instead of generating PostScript or SVG output by itself, LilyPond
 can now use the Cairo library to produce its output.  This is
