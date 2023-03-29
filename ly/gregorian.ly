@@ -1,4 +1,5 @@
 %%%% Gregorian notation functions.
+%%%%
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
 %%%% Copyright (C) 2003--2023 Han-Wen Nienhuys <hanwen@xs4all.nl>,
@@ -17,23 +18,22 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-%{
-  Shortcuts common for all styles of gregorian chant notation.
-  $Id$
-%}
+%%
+%% Shortcuts common for all styles of Gregorian chant notation.
+%%
 
 \version "2.25.3"
 
 %
-% Declare memorable shortcuts for special unicode characters
+% Declare memorable shortcuts for special Unicode characters
 % that are used in chant notation.
 %
 
-% unicode 0132 (latin capital ligature IJ)
+% U+0132 (latin capital ligature IJ)
 IJ = \lyricmode { Ĳ }
 IIJ = \lyricmode { IĲ }
 
-% unicode 0133 (latin small ligature ij)
+% U+0133 (latin small ligature ij)
 ij = \lyricmode { ĳ }
 iij = \lyricmode { iĳ }
 
@@ -54,12 +54,12 @@ iij = \lyricmode { iĳ }
                    m))))
       music)))
 
-% Add unicode 2123 (versicle) as prefix to lyrics.
+% Add U+2123 (versicle) as prefix to lyrics.
 versus =
 #(define-music-function (music) (ly:music?)
    (add-prefix-to-lyrics "℣" music))
 
-% Add unicode 211F (response) as prefix to lyrics.
+% Add U+211F (response) as prefix to lyrics.
 responsum =
 #(define-music-function (music) (ly:music?)
    (add-prefix-to-lyrics "℟" music))
@@ -122,7 +122,7 @@ semicirculus = #(make-articulation 'semicirculus)
 circulus = #(make-articulation 'circulus)
 
 %
-% \augmentum increases the dot-count value of all note heads to which
+% `\augmentum` increases the dot-count value of all note heads to which
 % it is applied by one.
 %
 augmentum =
@@ -133,134 +133,107 @@ augmentum =
 % Declare shortcut music functions for Liber Hymnarius neumes
 % table (experimental).
 %
-
 #(define (make-ligature music)
-   (make-music 'SequentialMusic
-               'elements (append
-                          (cons
-                           (make-music 'EventChord
-                                       'elements (list
-                                                  (make-span-event 'LigatureEvent START)))
-                           (ly:music-property music 'elements))
-                          (list
-                           (make-music 'EventChord
-                                       'elements (list
-                                                  (make-span-event 'LigatureEvent STOP)))))))
+   (make-music
+    'SequentialMusic
+    'elements (append
+               (cons
+                (make-music
+                 'EventChord
+                 'elements (list
+                            (make-span-event 'LigatureEvent START)))
+                (ly:music-property music 'elements))
+               (list
+                (make-music
+                 'EventChord
+                 'elements (list
+                            (make-span-event 'LigatureEvent STOP)))))))
 
-ligature = #(define-music-function
-              (location music) (ly:music?)
-              (make-ligature music))
-
-%#(define (make-script x)
-%   (make-music 'ArticulationEvent
-%               'articulation-type x))
-%
-%#(define (add-script m x)
-%   (if
-%     (equal? (ly:music-property m 'name) 'EventChord)
-%     (set! (ly:music-property m 'elements)
-%           (cons (make-script x)
-%                 (ly:music-property m 'elements))))
-%   m)
-%
-%#(define (add-staccato m)
-%   (add-script m "staccato"))
-%
-% % \applyMusic #(lambda (x) (music-map add-staccato x)) { c c }
-%
-% % \climacus { x y z ... }:
-% % \[ \virga x \inclinatum y \inclinatum z ... \]
-%
-%#(defmacro def-climacus-function (start stop)
-%  `(define-music-function (location music) (ly:music?)
-%     (make-music 'SequentialMusic
-%        'elements (list 'LigatureStartEvent
-%                       (ly:music-deep-copy ,start)
-%                        music
-%                        (ly:music-deep-copy ,stop)
-%                       'LigatureStopEvent))))
-%climacus = #(def-climacus-function startSequentialMusic stopSequentialMusic)
+ligature =
+#(define-music-function
+   (location music) (ly:music?)
+   (make-ligature music))
 
 %
 % Declare default layout; here for Vaticana style.  In case there will
-% be additional styles, we may want to create style-specific .ly files
-% for inclusion (e.g. vaticana-init.ly), move the style-dependent stuff
+% be additional styles, we may want to create style-specific `.ly` files
+% for inclusion (e.g., `vaticana-init.ly`), move the style-dependent stuff
 % over there, leave the style-independent Gregorian stuff here, and let
-% the style-specific file (vaticana-init.ly) include this file.  The
-% user then will have to include vaticana-init.ly instead of
-% gregorian.ly.
+% the style-specific file (`vaticana-init.ly`) include this file.  The
+% user then will have to include `vaticana-init.ly` instead of
+% `gregorian.ly`.
 %
 \layout {
-    indent = 0.0
+  indent = 0.0
 
-    %%% TODO: should ragged-right be the default?
-    %ragged-right = ##t
-    ragged-last = ##t
+  %%% TODO: should ragged-right be the default?
+  %ragged-right = ##t
+  ragged-last = ##t
 
-    line-thickness = #(/ (ly:output-def-lookup $defaultpaper 'staff-space) 7.0)
+  line-thickness = #(/ (ly:output-def-lookup $defaultpaper 'staff-space) 7.0)
 
-    \context {
-        \VaticanaStaff
-         \override StaffSymbol.color = #red
-         \override LedgerLineSpanner.color = #red
-    }
-    \context {
-        \Score
-        \remove Bar_number_engraver
+  \context {
+    \VaticanaStaff
+    \override StaffSymbol.color = #red
+    \override LedgerLineSpanner.color = #red
+  }
+  \context {
+    \Score
+    \remove Bar_number_engraver
 
-        %%% FIXME: Musicologically seen, timing should be set to #f.
-        %%% The question is how disruptive this change would be.
+    %%% FIXME: Musicologically seen, timing should be set to #f.
+    %%% The question is how disruptive this change would be.
 %{
-        timing = ##f
-        forbidBreakBetweenBarLines = ##f
+    timing = ##f
+    forbidBreakBetweenBarLines = ##f
 %}
 
-        \override SpacingSpanner.packed-spacing = ##t
+    \override SpacingSpanner.packed-spacing = ##t
 
-        %%%
-        %%% TODO: Play around with the following SpacingSpanner
-        %%% settings to yield better spacing between ligatures.
-        %%%
-        %%% FIXME: setting #'spacing-increment to a small value
-        %%% causes tons of "programming error: adding reverse spring,
-        %%% setting to unit" messages.
-        %%%
-        %\override SpacingSpanner.base-shortest-duration = \musicLength 4
-        %\override SpacingSpanner.shortest-duration-space = #0
-        %\override SpacingSpanner.average-spacing-wishes = ##f
-        %\override SpacingSpanner.spacing-increment = #0.0
-        %\override SpacingSpanner.uniform-stretching = ##t
-    }
+    %%%
+    %%% TODO: Play around with the following SpacingSpanner
+    %%% settings to yield better spacing between ligatures.
+    %%%
+    %%% FIXME: setting #'spacing-increment to a small value
+    %%% causes tons of "programming error: adding reverse spring,
+    %%% setting to unit" messages.
+    %%%
+    % \override SpacingSpanner.base-shortest-duration = \musicLength 4
+    % \override SpacingSpanner.shortest-duration-space = #0
+    % \override SpacingSpanner.average-spacing-wishes = ##f
+    % \override SpacingSpanner.spacing-increment = #0.0
+    % \override SpacingSpanner.uniform-stretching = ##t
+  }
 }
 
 %
-% neumeDemoLayout defines a layout block suitable for notating pure
+% `neumeDemoLayout` defines a layout block suitable for notating pure
 % Vaticana style neumes without any other notation symbols such as
 % staff lines or clefs.  This layout is useful for engraving neumes
-% tables, such as that one in the lilypond manual section on
+% tables, such as that one in the LilyPond manual section on
 % Gregorian ligatures, or for educational works.
 %
 neumeDemoLayout = \layout {
-    \context {
-        \Score
-        \remove Bar_number_engraver
-    }
-    \context {
-        \Staff
-        \remove Clef_engraver
-        \remove Key_engraver
-        \hide StaffSymbol
-        \remove Time_signature_engraver
-        \remove Bar_engraver
-        \override VerticalAxisGroup.staff-staff-spacing = #'()
-    }
-    \context {
-        \Voice
-        \remove Ligature_bracket_engraver
-        \consists Vaticana_ligature_engraver
-        \override NoteHead.style = #'vaticana.punctum
-        \remove Stem_engraver
-    }
+  \context {
+    \Score
+    \remove Bar_number_engraver
+  }
+  \context {
+    \Staff
+    \remove Clef_engraver
+    \remove Key_engraver
+    \hide StaffSymbol
+    \remove Time_signature_engraver
+    \remove Bar_engraver
+    \override VerticalAxisGroup.staff-staff-spacing = #'()
+  }
+  \context {
+    \Voice
+    \remove Ligature_bracket_engraver
+    \consists Vaticana_ligature_engraver
+    \override NoteHead.style = #'vaticana.punctum
+    \remove Stem_engraver
+  }
 }
 
 %%% Local Variables:
