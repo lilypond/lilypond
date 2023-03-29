@@ -91,7 +91,7 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
 {
   if (primitives.size () < 2)
     {
-      warning (_ ("ligature with less than 2 heads -> skipping"));
+      warning (_ ("ligature with less than 2 heads; skipping"));
       return;
     }
   int prev_pitch = 0;
@@ -117,7 +117,7 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
       if (!nr->in_event_class ("note-event"))
         {
           nr->warning (
-            _ ("cannot determine pitch of ligature primitive -> skipping"));
+            _ ("cannot determine pitch of ligature primitive; skipping"));
           at_beginning = true;
           continue;
         }
@@ -130,7 +130,7 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
           if (i == s - 1)
             {
               // we can get here after invalid input
-              nr->warning (_ ("single note ligature - skipping"));
+              nr->warning (_ ("single note ligature; skipping"));
               break;
             }
           prev_semibrevis = prev_brevis_shape = false;
@@ -140,7 +140,7 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
         {
           if (pitch == prev_pitch)
             {
-              nr->warning (_ ("prime interval within ligature -> skipping"));
+              nr->warning (_ ("prime interval within ligature; skipping"));
               at_beginning = true;
               prim = MLP_NONE;
               continue;
@@ -151,7 +151,9 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
           || duration_log > 0)
         {
           nr->warning (
-            _ ("mensural ligature: duration none of Mx, L, B, S -> skipping"));
+            _ ("mensural ligature:"
+               " duration none of maxima, longa, breve, or semibreve;"
+               " skipping"));
           prim = MLP_NONE;
           at_beginning = true;
           continue;
@@ -191,7 +193,7 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
           else
             {
               nr->warning (
-                _ ("semibrevis must not be followed by a brevis -> skipping"));
+                _ ("semibrevis must not be followed by a brevis; skipping"));
               prim = MLP_NONE;
               at_beginning = true;
               continue;
@@ -221,10 +223,11 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
                 }
               else
                 {
-                  nr->warning (_ ("invalid ligatura ending:\n"
+                  nr->warning (_ ("invalid ligature ending:\n"
                                   "when the last note is a descending brevis,\n"
                                   "the penultimate note must be another one,\n"
-                                  "or the ligatura must be LB or SSB"));
+                                  "or the ligature must be longa-brevis or\n"
+                                  "semibrevis-semibrevis-brevis"));
                   prim = MLP_NONE;
                   break;
                 }
