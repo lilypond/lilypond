@@ -161,9 +161,8 @@
   %% Fonts
   %%
 
-  %% TODO: rename 'feta' to 'music', eliminate 'brace'. Perhaps
-  %% also rename 'roman' to 'serif'?
-  fonts.feta = "emmentaler"
+  %% TODO: eliminate 'brace'. Perhaps also rename 'roman' to 'serif'?
+  fonts.music = "emmentaler"
   fonts.brace = "emmentaler"
   fonts.roman = #(if (eq? 'svg (ly:get-option 'backend))
                      "serif"
@@ -187,7 +186,7 @@
   %% of alist chains).
   #(define font-defaults
     `((alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
-      (font-family . feta)
+      (font-family . music)
       (font-encoding . fetaMusic)))
 
   % `latin1' is a dummy value for Pango fonts

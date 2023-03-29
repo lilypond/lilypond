@@ -4882,8 +4882,6 @@ set to:
         for key, val in params.items():
             if key == "factor":
                 continue
-            elif key == "music":
-                key = "feta"
             if not val.startswith('"'):
                 val = "#" + val
             lines.append(indent + f"fonts.{key} = {val}")

@@ -258,7 +258,7 @@ the new syntax is
 @quotation
 @verbatim
 \paper {
-  fonts.feta = "Name of music font"
+  fonts.music = "Name of music font"
   fonts.brace = "Name of music brace font"
   fonts.roman = "Name of roman font"
   fonts.sans = "Name of sans-serif font"

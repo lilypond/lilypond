@@ -822,8 +822,8 @@ vowelTransition = #(make-music 'VowelTransitionEvent)
 #(define (cross-style grob)
 ;; Returns the symbol 'cross to set the 'style-property for (Tab-)NoteHead.
 ;; If the current text-font doesn't contain the glyph set 'font-name to '()
-;; and 'font-family to 'feta.
-;; If 'feta is replaced by another music-font without cross-style-glyphs
+;; and 'font-family to 'music.
+;; If 'music is replaced by another music-font without cross-style-glyphs
 ;; note-head.cc throws a warning and no visual output happens.
   (let* ((layout (ly:grob-layout grob))
          (props (ly:grob-alist-chain grob))
@@ -832,7 +832,7 @@ vowelTransition = #(make-music 'VowelTransitionEvent)
     (if font-unknown?
         (begin
           (ly:grob-set-property! grob 'font-name '())
-          (ly:grob-set-property! grob 'font-family 'feta)))
+          (ly:grob-set-property! grob 'font-family 'music)))
     'cross))
 
 %% Set the default note head style to a cross-shaped style.

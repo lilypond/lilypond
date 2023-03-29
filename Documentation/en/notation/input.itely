@@ -3586,7 +3586,7 @@ The following code changes the notation font to the Gonville font.
 
 @example
 \paper @{
-  fonts.feta = "gonville"
+  fonts.music = "gonville"
   fonts.brace = "gonville"
 @}
 @end example
@@ -3636,7 +3636,7 @@ The following code changes the notation font to the
 
 @example
 \paper @{
-  fonts.feta = "@var{fontname}"   % font filename without suffix and extension
+  fonts.music = "@var{fontname}"   % font filename without suffix and extension
   fonts.brace = "@var{fontname}"  % font filename without suffix and extension
 @}
 @end example

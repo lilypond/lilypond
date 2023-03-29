@@ -133,7 +133,7 @@ select_font (Output_def *layout, SCM chain)
           if (scm_is_eq (encoding, ly_symbol2scm ("fetaBraces")))
             family = ly_symbol2scm ("brace");
           else // fetaMusic, fetaText
-            family = ly_symbol2scm ("feta");
+            family = ly_symbol2scm ("music");
         }
     }
   else // latin1

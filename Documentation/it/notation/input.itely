@@ -2972,7 +2972,7 @@ La sintassi seguente imposta il font Gonville come font della notazione
 
 @example
 \paper @{
-  fonts.feta = "gonville"
+  fonts.music = "gonville"
   fonts.brace = "gonville"
 @}
 @end example

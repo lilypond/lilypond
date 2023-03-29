@@ -3182,7 +3182,7 @@ notación (general y llaves) al tipo Gonville.
 
 @example
 \paper @{
-  fonts.feta = "gonville"
+  fonts.music = "gonville"
   fonts.brace = "gonville"
 @}
 @end example
