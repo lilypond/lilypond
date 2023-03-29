@@ -259,7 +259,6 @@ the new syntax is
 @verbatim
 \paper {
   fonts.music = "Name of music font"
-  fonts.brace = "Name of music brace font"
   fonts.roman = "Name of roman font"
   fonts.sans = "Name of sans-serif font"
   fonts.typewriter = "Name of typewriter font"
@@ -270,6 +269,34 @@ the new syntax is
 Unlike the previous syntax, the new syntax does not interfere with
 font sizes, which should be set separately using
 @code{set-global-staff-size} or @code{layout-set-staff-size}.
+
+There is no @code{brace} key in the fonts alist; braces glyphs now
+always default to the music font.  However, it is still possible to
+override this by using an extra font family, as shown in this example
+(which requires the LilyJAZZ font):
+
+@quotation
+@verbatim
+\paper {
+  fonts.music-alt = "lilyjazz"
+}
+
+\layout {
+  \context {
+    \Score
+    \override SystemStartBrace.font-family = #'music-alt
+  }
+}
+
+\new PianoStaff <<
+  \new Staff { c' }
+  \new Staff { c' }
+>>
+
+\markup \override #'(font-family . music-alt) \left-brace #20
+@end verbatim
+@end quotation
+
 
 @end itemize
 

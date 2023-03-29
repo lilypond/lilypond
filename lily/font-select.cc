@@ -130,10 +130,7 @@ select_font (Output_def *layout, SCM chain)
           || scm_is_eq (family, ly_symbol2scm ("sans"))
           || scm_is_eq (family, ly_symbol2scm ("typewriter")))
         {
-          if (scm_is_eq (encoding, ly_symbol2scm ("fetaBraces")))
-            family = ly_symbol2scm ("brace");
-          else // fetaMusic, fetaText
-            family = ly_symbol2scm ("music");
+          family = ly_symbol2scm ("music");
         }
     }
   else // latin1

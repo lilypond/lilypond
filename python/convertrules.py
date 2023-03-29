@@ -4856,6 +4856,25 @@ set to:
     {}
 
 """)
+    set_global_fonts_brace_warning = _(r"""
+LilyPond now uses a different syntax for selecting fonts.  The #:brace
+argument to set-global-fonts does not have an equivalent in the new syntax;
+braces now use the normal music font family by default.  Your code contains
+a call to set-global-fonts where the #:music and #:brace parameters have
+different values.  If you wish to set braces in a different music font than
+other music glyphs, use code such as
+
+\paper {
+  fonts.music-alt = "your-music-font"
+}
+
+\layout {
+  \context {
+    \Score
+    \override SystemStartBrace.font-family = #'music-alt
+  }
+}
+""")
     simple_sexpr_re = r'("[^"]+"|[\w/-]+)'
     maybe_funcall_sexpr_re = (rf'(\(\s*({simple_sexpr_re}\s+)*{simple_sexpr_re}\s*\)'
                               rf'|{simple_sexpr_re})')
@@ -4879,8 +4898,12 @@ set to:
                 stderr_write(set_global_fonts_factor_warning
                              .format(params["factor"]))
                 stderr_write(UPDATE_MANUALLY)
+        if params.get("music") != params.get("brace"):
+            stderr_write(NOT_SMART % "different music and brace fonts passed to set-global-fonts")
+            stderr_write(set_global_fonts_brace_warning)
+            stderr_write(UPDATE_MANUALLY)
         for key, val in params.items():
-            if key == "factor":
+            if key == "factor" or key == "brace":
                 continue
             if not val.startswith('"'):
                 val = "#" + val

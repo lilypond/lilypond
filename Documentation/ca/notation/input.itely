@@ -3004,7 +3004,6 @@ La sintaxi següent canvia el tipus de lletra de la notació
 @example
 \paper @{
   fonts.music = "gonville"
-  fonts.brace = "gonville"
 @}
 @end example
 

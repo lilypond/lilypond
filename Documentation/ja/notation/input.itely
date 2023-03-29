@@ -3012,7 +3012,6 @@ Gonville フォントに変更します:
 @example
 \paper @{
   fonts.music = "gonville"
-  fonts.brace = "gonville"
 @}
 @end example
 

@@ -3631,7 +3631,6 @@ accolades) les fontes Gonville.
 @example
 \paper @{
   fonts.music = "gonville"
-  fonts.brace = "gonville"
 @}
 @end example
 

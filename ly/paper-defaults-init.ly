@@ -161,9 +161,8 @@
   %% Fonts
   %%
 
-  %% TODO: eliminate 'brace'. Perhaps also rename 'roman' to 'serif'?
+  %% TODO: Perhaps rename 'roman' to 'serif'?
   fonts.music = "emmentaler"
-  fonts.brace = "emmentaler"
   fonts.roman = #(if (eq? 'svg (ly:get-option 'backend))
                      "serif"
                      "LilyPond Serif")
