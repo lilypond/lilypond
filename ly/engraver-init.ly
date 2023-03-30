@@ -1176,7 +1176,7 @@ of Editio Vaticana."
   \override NoteHead.style = #'vaticana.punctum
 
   %% Compensate for thinner staff lines set in `VaticanaStaff`.
-  \override Episema.thickness = #1.6
+  \override Episema.thickness = #2.5
   %% Compensate for roundedness of the line.
   \override Episema.bound-details.left.padding = #0.05
   \override Episema.bound-details.right.padding = #0.05
@@ -1203,21 +1203,21 @@ of Editio Vaticana."
 
   %% Mark bar lines a little thinner to match the divisiones.
   %% BarLine.hair-thickness = StaffSymbol.thickness * Divisio.thickness
-  \override BarLine.hair-thickness = #0.6
+  \override BarLine.hair-thickness = #0.65
   \override BarLine.thick-thickness = #1.8
 
   %% Match BreathingSign to Divisio in case someone follows old
   %% documentation or examples that use \breathe.
   \override BreathingSign.font-size = #-2
-  \override BreathingSign.thickness = #1
+  \override BreathingSign.thickness = #1.3
 
   %% Reduce the size of caesura and virgula marks.
   \override Divisio.font-size = #-2
-  %% Match the thickness of divisiones to the staff lines.
-  \override Divisio.thickness = #1
+  %% Make divisiones a little bit thicker than staff lines.
+  \override Divisio.thickness = #1.3
 
   \override StaffSymbol.line-count = #4
-  \override StaffSymbol.thickness = #0.6
+  \override StaffSymbol.thickness = #0.5
 
   \override LedgerLineSpanner.length-fraction = #0.9
   \override StaffSymbol.ledger-line-thickness = #'(1 . 0)

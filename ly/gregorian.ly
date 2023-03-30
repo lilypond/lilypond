@@ -170,10 +170,9 @@ ligature =
   %ragged-right = ##t
   ragged-last = ##t
 
-  line-thickness = #(/ (ly:output-def-lookup $defaultpaper 'staff-space) 7.0)
-
   \context {
     \VaticanaStaff
+
     \override StaffSymbol.color = #red
     \override LedgerLineSpanner.color = #red
   }
