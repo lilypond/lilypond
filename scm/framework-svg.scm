@@ -134,7 +134,7 @@ src: url('~a');
          (top-y (cdr y-extent))
          (device-width (interval-length x-extent))
          (device-height (interval-length y-extent))
-         (output-scale (* lily-unit->mm-factor unit-length))
+         (output-scale unit-length)
          (svg-width (* output-scale device-width))
          (svg-height (* output-scale device-height))
          (eval-svg (lambda (expr)

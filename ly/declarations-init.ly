@@ -139,7 +139,6 @@ repeatTie = #(make-music 'RepeatTieEvent)
 
 \layout {
   mm = #(ly:output-def-lookup $defaultpaper 'mm)
-  unit = #(ly:output-def-lookup $defaultpaper 'unit)
 
   in = #(* 25.4 mm)
   bp = #(/ in 72)

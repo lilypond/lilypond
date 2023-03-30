@@ -243,14 +243,6 @@ Return the current LilyPond version as a list, e.g., @code{(1 3 127 uu1)}.
     return ly_list (major, minor, patch, ly_symbol2scm (MY_PATCH_LEVEL));
 }
 
-LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
-           R"(
-Return the unit used for lengths as a string.
-           )")
-{
-  return scm_from_latin1_string (INTERNAL_UNIT);
-}
-
 LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
            R"(
 Is @var{d} a dimension?  Used to distinguish length variables from normal

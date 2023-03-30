@@ -27,7 +27,6 @@
   %%% If you add any new dimensions, don't forget to update
   %%% the dimension-variables variable.  See paper.scm.
 
-  unit = #(ly:unit)
   mm = 1.0
   cm = #(* 10 mm)
   in = 25.4
