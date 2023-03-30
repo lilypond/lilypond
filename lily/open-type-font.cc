@@ -20,15 +20,7 @@
 #include "open-type-font.hh"
 #include "freetype.hh"
 
-#ifdef FT_FONT_FORMATS_H
-/* FreeType 2.6+ */
 #include FT_FONT_FORMATS_H
-#else
-/* FreeType 2.5.5 and earlier */
-#include FT_XFREE86_H
-#define FT_Get_Font_Format FT_Get_X11_Font_Format
-#endif
-
 #include FT_TRUETYPE_TABLES_H
 
 #include "dimensions.hh"
