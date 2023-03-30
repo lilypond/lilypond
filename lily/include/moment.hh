@@ -116,10 +116,6 @@ to_scm<Moment> (Moment const &m)
   return m.smobbed_copy ();
 }
 
-#ifdef STREAM_SUPPORT
-ostream &operator<< (ostream &, Moment const &);
-#endif
-
 bool moment_less (SCM a, SCM b);
 
 inline std::string

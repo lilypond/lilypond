@@ -119,15 +119,6 @@ Moment::operator- () const
   return m;
 }
 
-#ifdef STREAM_SUPPORT
-ostream &
-operator<< (ostream &os, Moment const &m)
-{
-  os << m.to_string ();
-  return os;
-}
-#endif
-
 bool
 moment_less (SCM a, SCM b)
 {
