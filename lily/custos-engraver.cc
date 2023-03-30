@@ -87,7 +87,8 @@ Custos_engraver::acknowledge_note_head (Grob_info info)
         don't look at the staff-position, since we can't be sure
         whether Clef_engraver already applied a vertical shift.
       */
-      pitches_.push_back (*unsmob<Pitch> (get_property (ev, "pitch")));
+      if (Pitch *p = unsmob<Pitch> (get_property (ev, "pitch")))
+        pitches_.push_back (*p);
     }
 }
 
