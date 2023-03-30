@@ -30,13 +30,6 @@
 #include <limits>
 #include <string.h>
 
-/*
-  Hack for various MacOS incarnations.
- */
-#ifndef GUILE_ELLIPSIS
-#define GUILE_ELLIPSIS
-#endif
-
 #include "axis.hh"
 #include "memory.hh"
 #include "interval.hh"
