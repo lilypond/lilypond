@@ -1504,7 +1504,6 @@ accommodated for typesetting a piece in Kievan style."
   \override Stem.stencil = ##f
   \override Flag.stencil = ##f
   \override Rest.style = #'mensural
-  alterationGlyphs = #alteration-kievan-glyph-name-alist
   \override Dots.style = #'kievan
   \override Slur.stencil = ##f
   \override Stem.length = #0.0
@@ -1564,10 +1563,11 @@ accommodated for typesetting a piece in Kievan style."
   clefPosition = #0
   clefTransposition = #0
 
+  alterationGlyphs = #alteration-kievan-glyph-name-alist
+
   %% Accidentals are valid only once (if the following note is different)
   extraNatural = ##f
-  autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave 0)
-                             ,neo-modern-accidental-rule)
+  autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave -1))
   autoCautionaries = #'()
   printKeyCancellation = ##f
 }

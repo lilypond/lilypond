@@ -20,7 +20,7 @@
   <<
     \new KievanVoice = "melody" \transpose c c' {
       \cadenzaOn
-        c4 c8 c8[ d8] c4 c2 b,\longa
+        cis4 c8 \[ c8( d8) \] c4 c2 bes,\longa
 	\bar "k"
     }
     \new Lyrics \lyricsto "melody" {
