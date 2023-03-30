@@ -38,7 +38,6 @@
 #include <set>
 #include <vector>
 
-
 MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done,
                       "ly:dot-column::calc-positioning-done", 1);
 SCM
@@ -128,7 +127,8 @@ Dot_column::calc_positioning_done (SCM smob)
         stems.insert (stem);
     }
 
-  for (std::set<Grob *>::const_iterator i (stems.begin ()); i != stems.end (); i++)
+  for (std::set<Grob *>::const_iterator i (stems.begin ()); i != stems.end ();
+       i++)
     {
       Grob *stem = (*i);
       Grob *flag = Stem::flag (stem);

@@ -29,7 +29,6 @@
 #include "rational.hh"
 #include "lily-imports.hh"
 
-
 struct Key_signature_interface
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));

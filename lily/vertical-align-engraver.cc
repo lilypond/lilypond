@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-
 class Vertical_align_engraver : public Engraver
 {
   Spanner *valign_;

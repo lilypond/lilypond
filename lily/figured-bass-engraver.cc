@@ -33,7 +33,6 @@
 
 #include "translator.icc"
 
-
 struct Figure_group
 {
   Spanner *group_;

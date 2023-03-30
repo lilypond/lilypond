@@ -37,7 +37,6 @@
 
 #include <cctype>
 
-
 /*
   How does this work?
 

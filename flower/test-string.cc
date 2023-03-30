@@ -23,7 +23,6 @@
 
 #include "yaffut.hh"
 
-
 FUNC (string_split_join)
 {
   std::string orig = "a/bbbb/cc//d";

@@ -24,7 +24,6 @@
 
 #include "translator.icc"
 
-
 /**
 
 Make bars that span multiple "staves". Catch bars, and span a

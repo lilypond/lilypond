@@ -33,7 +33,6 @@
 #include <memory>
 #include <utility>
 
-
 std::unique_ptr<FT_Byte[]>
 load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 {
@@ -84,7 +83,8 @@ load_scheme_table (char const *tag_str, FT_Face face)
   SCM tab = SCM_EOL;
   if (buffer)
     {
-      std::string contents (reinterpret_cast<char const *> (buffer.get ()), length);
+      std::string contents (reinterpret_cast<char const *> (buffer.get ()),
+                            length);
       contents = "(quote (" + contents + "))";
 
       tab = scm_eval_string (scm_from_utf8_string (contents.c_str ()));
@@ -278,7 +278,8 @@ Open_type_font::derived_mark () const
 */
 
 std::pair<Offset, bool>
-Open_type_font::attachment_point (const std::string &glyph_name, Direction d) const
+Open_type_font::attachment_point (const std::string &glyph_name,
+                                  Direction d) const
 {
   SCM sym = ly_symbol2scm (glyph_name);
   SCM entry = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);

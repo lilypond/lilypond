@@ -35,7 +35,6 @@
 #include "stem.hh"
 #include "warn.hh"
 
-
 /*
   Adjust the ideal and minimum distance between note columns,
   based on the notehead size, skylines, and optical illusions.

@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-
 /**
    Make arpeggios that span multiple staves.  Catch arpeggios, and span a
    Span_arpeggio over them if we find more than two arpeggios.

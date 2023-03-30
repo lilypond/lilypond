@@ -41,7 +41,6 @@
 
 #include "stencil.hh"
 
-
 // RAII for loading a PangoFont from PangoContext and casting to PangoFcFont.
 class PangoFont_accessor
 {
@@ -126,8 +125,8 @@ Pango_font::~Pango_font ()
 }
 
 void
-Pango_font::register_font_file (const std::string &filename, const std::string &ps_name,
-                                int face_index)
+Pango_font::register_font_file (const std::string &filename,
+                                const std::string &ps_name, int face_index)
 {
   scm_hash_set_x (physical_font_tab_, ly_string2scm (ps_name),
                   ly_list (ly_string2scm (filename), to_scm (face_index)));
@@ -478,7 +477,8 @@ extern bool music_strings_to_paths;
 
 Stencil
 Pango_font::text_stencil (Output_def * /* state */, const std::string &str,
-                          bool music_string, const std::string &features_str) const
+                          bool music_string,
+                          const std::string &features_str) const
 {
   /*
     The text assigned to a PangoLayout is automatically divided

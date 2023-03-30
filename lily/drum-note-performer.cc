@@ -25,7 +25,6 @@
 #include "translator.icc"
 #include "warn.hh"
 
-
 class Drum_note_performer : public Performer
 {
 public:

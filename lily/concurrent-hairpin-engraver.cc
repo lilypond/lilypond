@@ -28,7 +28,6 @@
 
 #include "translator.icc"
 
-
 class Concurrent_hairpin_engraver : public Engraver
 {
 public:

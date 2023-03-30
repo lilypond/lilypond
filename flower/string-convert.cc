@@ -26,7 +26,6 @@
 #include <cstring>
 #include <string>
 
-
 /**
    A safe length for stringconversion buffers.
 

@@ -30,7 +30,6 @@
 #include <cctype>
 #include <cstdio>
 
-
 /**
    make (guitar-like) tablature note
 */

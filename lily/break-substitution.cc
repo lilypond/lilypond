@@ -43,7 +43,6 @@
   being on the same system but having the same break direction.
 */
 
-
 /*
   Perform the substitution for a single grob.
 */

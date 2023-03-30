@@ -36,7 +36,6 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-
 // This is a little bit ugly, but the replacement alist is setup in
 // the layout block so it'll be the same across invocations.
 

@@ -27,7 +27,6 @@
 
 #include "translator.icc"
 
-
 class Note_name_engraver : public Engraver
 {
 public:

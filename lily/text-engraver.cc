@@ -28,7 +28,6 @@
 
 #include "translator.icc"
 
-
 /**
    typeset directions that are  plain text.
 */

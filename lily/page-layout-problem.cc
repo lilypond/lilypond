@@ -35,7 +35,6 @@
 #include "text-interface.hh"
 #include "lily-imports.hh"
 
-
 /*
  Returns the number of footnotes associated with a given line.
 */
@@ -1018,10 +1017,10 @@ Page_layout_problem::find_system_offsets ()
 // them.
 // first_translation and last_translation are relative to the page.
 void
-Page_layout_problem::distribute_loose_lines (std::vector<Grob *> const &loose_lines,
-                                             std::vector<Real> const &min_distances,
-                                             Real first_translation,
-                                             Real last_translation)
+Page_layout_problem::distribute_loose_lines (
+  std::vector<Grob *> const &loose_lines,
+  std::vector<Real> const &min_distances, Real first_translation,
+  Real last_translation)
 {
   Simple_spacer spacer;
   for (vsize i = 0; i + 1 < loose_lines.size (); ++i)
@@ -1074,8 +1073,8 @@ Page_layout_problem::solution (bool ragged)
 // the bottom staff.
 void
 Page_layout_problem::build_system_skyline (
-  std::vector<Grob *> const &staves, std::vector<Real> const &minimum_translations,
-  Skyline *up, Skyline *down)
+  std::vector<Grob *> const &staves,
+  std::vector<Real> const &minimum_translations, Skyline *up, Skyline *down)
 {
   if (minimum_translations.empty ())
     return;

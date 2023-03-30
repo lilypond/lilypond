@@ -24,7 +24,6 @@
 
 #include "translator.icc"
 
-
 class Ledger_line_engraver : public Engraver
 {
   Spanner *span_;

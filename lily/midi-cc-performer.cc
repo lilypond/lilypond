@@ -32,7 +32,6 @@
 
 #include "translator.icc"
 
-
 /**
    MIDI control change performer.  Announces "set property" events on MIDI
    context properties.

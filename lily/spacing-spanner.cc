@@ -38,7 +38,6 @@
 #include <cmath>
 #include <cstdio>
 
-
 std::vector<Paper_column *>
 Spacing_spanner::get_columns (Spanner *me)
 {
@@ -300,7 +299,8 @@ set_column_rods (std::vector<Paper_column *> const &cols, Real padding)
 }
 
 void
-Spacing_spanner::generate_springs (Grob *me, std::vector<Paper_column *> const &cols,
+Spacing_spanner::generate_springs (Grob *me,
+                                   std::vector<Paper_column *> const &cols,
                                    Spacing_options const *options)
 {
   Paper_column *prev = cols[0];

@@ -32,7 +32,6 @@
 #include <deque>
 #include <map>
 
-
 /* Perform a staff. Individual notes should have their instrument
   (staff-wide) set, so we override play_element ()
 */
@@ -173,7 +172,8 @@ Staff_performer::get_audio_staff (const std::string &voice)
       && staff_map_.size ())
     return staff_map_.begin ()->second;
 
-  std::map<std::string, Audio_staff *>::const_iterator i = staff_map_.find (voice);
+  std::map<std::string, Audio_staff *>::const_iterator i
+    = staff_map_.find (voice);
   if (i != staff_map_.end ())
     return i->second;
   std::map<std::string, Audio_staff *>::const_iterator e = staff_map_.find ("");

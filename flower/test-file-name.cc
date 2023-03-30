@@ -21,7 +21,6 @@
 
 #include "yaffut-parameters.hh"
 
-
 std::string slashify (std::string file_name);
 
 struct CaseB : public yaffut::Test<File_name, CaseB>

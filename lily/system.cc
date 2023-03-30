@@ -47,7 +47,6 @@
 #include <limits>
 #include <vector>
 
-
 Grob_array *
 System::all_elements ()
 {

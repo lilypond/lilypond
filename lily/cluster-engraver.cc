@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-
 class Cluster_spanner_engraver : public Engraver
 {
 

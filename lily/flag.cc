@@ -33,7 +33,6 @@
 #include "stencil.hh"
 #include "warn.hh"
 
-
 class Flag
 {
 public:
@@ -109,7 +108,8 @@ Flag::glyph_name (SCM smob)
     staffline_offs = "";
 
   char dir = (d == UP) ? 'u' : 'd';
-  std::string font_char = flag_style + dir + staffline_offs + std::to_string (log);
+  std::string font_char
+    = flag_style + dir + staffline_offs + std::to_string (log);
   return ly_string2scm ("flags." + font_char);
 }
 
@@ -132,7 +132,8 @@ Flag::print (SCM smob)
 
   char dir = (d == UP) ? 'u' : 'd';
   Font_metric *fm = Font_interface::get_default_font (me);
-  std::string font_char = robust_scm2string (get_property (me, "glyph-name"), "");
+  std::string font_char
+    = robust_scm2string (get_property (me, "glyph-name"), "");
   Stencil flag = fm->find_by_name (font_char);
   if (flag.is_empty ())
     me->warning (_f ("flag `%s' not found", font_char));

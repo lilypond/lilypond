@@ -36,7 +36,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-
 void
 translator_each (SCM list, SCM method)
 {

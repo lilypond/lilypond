@@ -26,7 +26,6 @@
 
 #include "translator.icc"
 
-
 class Note_performer : public Performer
 {
 public:

@@ -35,7 +35,6 @@
 #include "warn.hh"
 #include "program-option.hh"
 
-
 Lily_parser::Lily_parser (Sources *sources)
 {
   lexer_ = 0;

@@ -46,11 +46,11 @@
 #include <sys/stat.h>
 #endif
 
-
 #define FRAMEWORKDIR ".."
 
 int
-sane_putenv (char const *key, const std::string &value, bool overwrite, bool indent)
+sane_putenv (char const *key, const std::string &value, bool overwrite,
+             bool indent)
 {
   const char *space = indent ? "  " : "";
 
@@ -115,8 +115,9 @@ prepend_env_path (char const *key, std::string value)
 }
 
 static std::string
-set_up_directory (char const *env_name, char const *id, std::string compile_default,
-                  std::string runtime_default, std::string alt_runtime_default = "")
+set_up_directory (char const *env_name, char const *id,
+                  std::string compile_default, std::string runtime_default,
+                  std::string alt_runtime_default = "")
 {
   std::string dir = "";
 
@@ -238,11 +239,11 @@ setup_paths (char const *argv0_ptr)
     "LILYPOND_LIBDIR", "libdir", PACKAGE_LIBDIR "/" TOPLEVEL_VERSION,
     prefix + "/lib/lilypond/" TOPLEVEL_VERSION,
     prefix + "/lib/lilypond/current");
-  std::string localedir = set_up_directory ("LILYPOND_LOCALEDIR", "localedir",
-                                       LOCALEDIR, prefix + "/share/locale");
+  std::string localedir = set_up_directory (
+    "LILYPOND_LOCALEDIR", "localedir", LOCALEDIR, prefix + "/share/locale");
   std::string relocdir = set_up_directory ("LILYPOND_RELOCDIR", "relocdir",
-                                      "", // no compile-time default
-                                      prefix + "/etc/relocate");
+                                           "", // no compile-time default
+                                           prefix + "/etc/relocate");
 
 #if HAVE_GETTEXT
   if (is_dir (localedir))

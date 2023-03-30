@@ -21,7 +21,6 @@
 #include "international.hh"
 #include "music.hh"
 
-
 class Relative_octave_check
 {
 public:

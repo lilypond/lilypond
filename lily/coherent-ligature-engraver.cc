@@ -27,7 +27,6 @@
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 
-
 /*
  * This abstract class serves as common superclass for all ligature
  * engravers thet produce a single connected graphical object of fixed
@@ -167,8 +166,8 @@ calc_delta_pitches (std::vector<Item *> const &primitives)
 }
 
 void
-Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
-                                              std::vector<Item *> const &primitives)
+Coherent_ligature_engraver::typeset_ligature (
+  Spanner *ligature, std::vector<Item *> const &primitives)
 {
   // compute some commonly needed context info stored as grob
   // properties

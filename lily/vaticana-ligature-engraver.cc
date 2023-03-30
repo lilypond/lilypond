@@ -35,7 +35,6 @@
 #include "pitch.hh"
 #include "translator.icc"
 
-
 /*
  * This class implements the notation specific aspects of Vaticana
  * style ligatures for Gregorian chant notation.
@@ -447,8 +446,8 @@ Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Item *primitive)
 }
 
 void
-Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
-                                             std::vector<Item *> const &primitives)
+Vaticana_ligature_engraver::transform_heads (
+  Spanner *ligature, std::vector<Item *> const &primitives)
 {
   Real flexa_width
     = from_scm<double> (get_property (ligature, "flexa-width"), 2);

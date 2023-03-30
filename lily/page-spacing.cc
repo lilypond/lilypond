@@ -26,7 +26,6 @@
 #include <algorithm>
 #include <vector>
 
-
 void
 Page_spacing::calc_force ()
 {
@@ -130,8 +129,8 @@ Page_spacing::clear ()
   has_footnotes_ = false;
 }
 
-Page_spacer::Page_spacer (std::vector<Line_details> const &lines, int first_page_num,
-                          Page_breaking const *breaker)
+Page_spacer::Page_spacer (std::vector<Line_details> const &lines,
+                          int first_page_num, Page_breaking const *breaker)
   : lines_ (lines)
 {
   first_page_num_ = first_page_num;

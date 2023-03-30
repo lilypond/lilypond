@@ -35,7 +35,6 @@
 #include <ctime>
 #include <limits>
 
-
 Performance::Performance (bool ports)
   : start_mom_ (Rational::infinity ()),
     midi_ (0),
@@ -112,7 +111,8 @@ Performance::add_element (Audio_element *p)
 }
 
 void
-Performance::write_output (std::string out, const std::string &performance_name) const
+Performance::write_output (std::string out,
+                           const std::string &performance_name) const
 {
   if (out == "-")
     out = "lelie.midi";

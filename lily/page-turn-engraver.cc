@@ -33,7 +33,6 @@
 #include <algorithm>
 #include <vector>
 
-
 class Page_turn_event
 {
 public:

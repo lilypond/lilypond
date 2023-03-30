@@ -29,7 +29,6 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
-
 Stencil
 vaticana_brew_cauda (Grob *me, int pos, int delta_pitch, Real thickness,
                      Real blotdiameter)

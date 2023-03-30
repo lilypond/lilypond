@@ -149,7 +149,6 @@
 #include <utility>
 #include <vector>
 
-
 /* for each forbidden page break, merge the systems around it into one
    system. */
 static std::vector<Line_details>
@@ -511,7 +510,8 @@ Page_breaking::page_height (int page_num, bool last) const
   // This means that we won't cache properly if page_num is negative or
   // if calc_height returns a negative number.  But that's likely to
   // be rare, so it shouldn't affect performance.
-  std::vector<Real> &cache = last ? last_page_height_cache_ : page_height_cache_;
+  std::vector<Real> &cache
+    = last ? last_page_height_cache_ : page_height_cache_;
   if ((page_num >= 0) && (cache.size () > static_cast<vsize> (page_num))
       && (cache[page_num] >= 0))
     return cache[page_num];
@@ -605,7 +605,8 @@ Page_breaking::draw_page (SCM systems, int page_num, bool last,
 }
 
 SCM
-Page_breaking::make_pages (const std::vector<vsize> &lines_per_page, SCM systems)
+Page_breaking::make_pages (const std::vector<vsize> &lines_per_page,
+                           SCM systems)
 {
   if (scm_is_null (systems))
     return SCM_EOL;
@@ -1574,10 +1575,10 @@ Page_breaking::space_systems_on_2_pages (vsize configuration,
     if (scm_is_eq (cached_line_details_[i].page_permission_,
                    ly_symbol2scm ("force")))
       {
-        std::vector<Line_details> lines1 (cached_line_details_.begin (),
-                                     cached_line_details_.begin () + i + 1);
+        std::vector<Line_details> lines1 (
+          cached_line_details_.begin (), cached_line_details_.begin () + i + 1);
         std::vector<Line_details> lines2 (cached_line_details_.begin () + i + 1,
-                                     cached_line_details_.end ());
+                                          cached_line_details_.end ());
         Page_spacing_result p1
           = space_systems_on_1_page (lines1, page1_height, ragged1);
         Page_spacing_result p2

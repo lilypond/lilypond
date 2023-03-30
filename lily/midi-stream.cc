@@ -30,7 +30,6 @@
 #include <cerrno>
 #include <fcntl.h>
 
-
 Midi_stream::Midi_stream (const std::string &file_name)
 {
   dest_file_name_ = file_name;

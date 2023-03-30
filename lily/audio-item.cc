@@ -25,7 +25,6 @@
 #include "midi-item.hh"
 #include "text-interface.hh"
 
-
 Audio_instrument::Audio_instrument (std::string instrument_string)
 {
   str_ = instrument_string;

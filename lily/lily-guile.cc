@@ -46,7 +46,6 @@
 #include <cstring> /* strdup, strchr */
 #include <functional>
 
-
 /*
   symbols/strings.
  */

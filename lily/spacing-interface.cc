@@ -30,7 +30,6 @@
 #include "skyline-pair.hh"
 #include "system.hh"
 
-
 /* return the right-pointing skyline of the left-items and the left-pointing
    skyline of the right-items (with the skyline of the left-items in
    ret[LEFT]) */

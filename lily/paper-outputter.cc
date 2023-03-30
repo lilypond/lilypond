@@ -36,7 +36,6 @@
 #include <cmath>
 #include <ctime>
 
-
 Paper_outputter::Paper_outputter (SCM port, SCM alist, SCM default_callback)
 {
   file_ = port;

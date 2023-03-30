@@ -23,7 +23,6 @@
 
 #include "translator.icc"
 
-
 class Grid_line_span_engraver : public Engraver
 {
   Item *spanline_;

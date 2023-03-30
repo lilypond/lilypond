@@ -32,7 +32,6 @@
 
 #include "translator.icc"
 
-
 /**
 
 This acknowledges repeated music with "tremolo" style.  It typesets

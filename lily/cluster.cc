@@ -29,7 +29,6 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
-
 /*
   TODO: Add support for cubic spline segments.
  */

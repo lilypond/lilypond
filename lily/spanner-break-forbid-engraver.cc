@@ -26,7 +26,6 @@
 
 #include "translator.icc"
 
-
 class Spanner_break_forbid_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Spanner_break_forbid_engraver);

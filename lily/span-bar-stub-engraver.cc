@@ -29,7 +29,6 @@
 
 #include <algorithm>
 
-
 /*
   The Span_bar_stub_engraver creates SpanBarStub grobs in the contexts
   that a grouping context contains.  For example, if a PianoStaff contains

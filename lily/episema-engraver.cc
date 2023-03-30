@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-
 class Episema_engraver : public Engraver
 {
 public:

@@ -22,7 +22,6 @@
 
 #include "international.hh"
 
-
 Skyline_pair::Skyline_pair ()
   : skylines_ (Skyline (DOWN), Skyline (UP))
 {
@@ -35,7 +34,8 @@ Skyline_pair::Skyline_pair (std::vector<Box> const &boxes, Axis a)
   // so we can save ourselves one sort step.
 }
 
-Skyline_pair::Skyline_pair (std::vector<Drul_array<Offset>> const &buildings, Axis a)
+Skyline_pair::Skyline_pair (std::vector<Drul_array<Offset>> const &buildings,
+                            Axis a)
   : skylines_ (Skyline (buildings, a, DOWN), Skyline (buildings, a, UP))
 {
 }

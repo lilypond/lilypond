@@ -25,7 +25,6 @@
 
 #include "translator.icc"
 
-
 class Collision_engraver : public Engraver
 {
   Item *col_;

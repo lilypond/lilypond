@@ -29,7 +29,6 @@
 #include <algorithm>
 #include <vector>
 
-
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent,
                       "ly:hara-kiri-group-spanner::y-extent", 1);
 SCM

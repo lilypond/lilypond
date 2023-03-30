@@ -33,7 +33,6 @@
 #include <sys/stat.h>
 #endif
 
-
 #define ROOTSEP ':'
 #define DIRSEP '/'
 

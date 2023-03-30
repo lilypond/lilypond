@@ -22,7 +22,6 @@
 #include <algorithm>
 #include <vector>
 
-
 /*
   A union of intervals in the real line.
 

@@ -36,7 +36,6 @@
 
 #include "spring.hh"
 
-
 Spring::Spring ()
 {
   ideal_distance_ = 1.0;

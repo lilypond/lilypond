@@ -33,11 +33,11 @@
 #include <tuple>
 #include <utility>
 
-
 static Stencil
 internal_print (Grob *me, std::string *font_char)
 {
-  std::string style = robust_symbol2string (get_property (me, "style"), "default");
+  std::string style
+    = robust_symbol2string (get_property (me, "style"), "default");
 
   std::string suffix = std::to_string (
     std::min (from_scm (get_property (me, "duration-log"), 2), 2));

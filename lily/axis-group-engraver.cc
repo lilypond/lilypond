@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-
 /**
    Put stuff in a Spanner with an Axis_group_interface.
    Use as last element of a context.

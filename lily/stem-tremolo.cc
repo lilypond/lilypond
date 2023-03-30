@@ -32,7 +32,6 @@
 #include "stem.hh"
 #include "warn.hh"
 
-
 MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_cross_staff,
                       "ly:stem-tremolo::calc-cross-staff", 1)
 SCM

@@ -31,7 +31,6 @@
 
 #include <unistd.h>
 
-
 LY_DEFINE (ly_parse_file, "ly:parse-file", 1, 0, 0, (SCM name),
            R"(
 Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.

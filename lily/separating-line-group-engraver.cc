@@ -33,7 +33,6 @@
 
 #include "translator.icc"
 
-
 struct Spacings
 {
   Item *staff_spacing_;

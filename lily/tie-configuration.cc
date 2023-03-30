@@ -24,7 +24,6 @@
 #include "tie-formatting-problem.hh"
 #include "bezier.hh"
 
-
 Tie_configuration::Tie_configuration ()
 {
   dir_ = CENTER;

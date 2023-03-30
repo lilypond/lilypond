@@ -30,7 +30,6 @@
 
 #include <limits>
 
-
 One_line_page_breaking::One_line_page_breaking (Paper_book *pb)
   : Page_breaking (pb, 0, 0)
 {
@@ -55,7 +54,8 @@ One_line_page_breaking::solve_and_provide_max_height (Real &max_height)
     {
       if (Paper_score *ps = system_specs_[i].pscore_)
         {
-          std::vector<Paper_column *> cols = ps->root_system ()->used_columns ();
+          std::vector<Paper_column *> cols
+            = ps->root_system ()->used_columns ();
 
           // No indent, "infinite" line width, ragged.
           Column_x_positions pos = get_line_configuration (

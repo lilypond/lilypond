@@ -24,7 +24,6 @@
 
 #include <cmath>
 
-
 #ifndef STANDALONE
 std::string
 Offset::to_string () const

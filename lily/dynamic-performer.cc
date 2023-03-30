@@ -24,7 +24,6 @@
 
 #include "translator.icc"
 
-
 class Dynamic_performer : public Performer
 {
 public:

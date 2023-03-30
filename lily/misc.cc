@@ -24,7 +24,6 @@
 
 #include <vector>
 
-
 Real
 directed_round (Real f, Direction d)
 {

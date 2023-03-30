@@ -25,7 +25,6 @@
 #include "international.hh"
 #include "warn.hh"
 
-
 /*
   Error / warning / progress / debug message output functions
 */

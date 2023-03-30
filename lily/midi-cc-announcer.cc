@@ -27,7 +27,6 @@
 
 #include <cmath>
 
-
 /*
   Context properties for setting MIDI controls.  Each MIDI control
   specification has the following components:

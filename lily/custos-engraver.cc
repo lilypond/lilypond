@@ -28,7 +28,6 @@
 
 #include "translator.icc"
 
-
 /*
  * This class implements an engraver for custos symbols.
  *

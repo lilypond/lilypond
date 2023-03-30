@@ -27,7 +27,6 @@
 
 #include "translator.icc"
 
-
 /**
    perform Piano pedals
 */

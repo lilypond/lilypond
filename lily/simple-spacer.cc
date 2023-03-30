@@ -33,7 +33,6 @@
 #include <cstdio>
 #include <vector>
 
-
 /*
   A simple spacing constraint solver. The approach:
 
@@ -378,8 +377,8 @@ next_spaceable_column (std::vector<Paper_column *> const &list, vsize starting)
 }
 
 static Column_description
-get_column_description (std::vector<Paper_column *> const &cols, vsize col_index,
-                        bool line_starter)
+get_column_description (std::vector<Paper_column *> const &cols,
+                        vsize col_index, bool line_starter)
 {
   Paper_column *col = cols[col_index];
   if (line_starter)
@@ -519,8 +518,8 @@ get_line_forces (std::vector<Paper_column *> const &columns, Real line_len,
 }
 
 Column_x_positions
-get_line_configuration (std::vector<Paper_column *> const &columns, Real line_len,
-                        Real indent, bool ragged)
+get_line_configuration (std::vector<Paper_column *> const &columns,
+                        Real line_len, Real indent, bool ragged)
 {
   std::vector<Column_description> cols;
   Simple_spacer spacer;

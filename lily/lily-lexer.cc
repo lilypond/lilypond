@@ -37,7 +37,6 @@
 #include <cctype>
 #include <sstream>
 
-
 /* for the keyword table */
 struct Keyword_ent
 {

@@ -30,7 +30,6 @@
 
 #include <map>
 
-
 typedef std::map<Grob *, std::vector<Grob *>> Grob_scripts_map;
 
 void

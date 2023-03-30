@@ -33,7 +33,6 @@
 
 #include <cstring>
 
-
 /*
   this is too complicated. Yet another version of side-positioning,
   badly implemented.

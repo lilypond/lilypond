@@ -22,7 +22,6 @@
 #include "translator-group.hh"
 #include "context.hh"
 
-
 std::vector<Context *>
 Audio_element_info::origin_contexts (Translator *end) const
 {

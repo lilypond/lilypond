@@ -19,7 +19,6 @@
 
 #include "smobs.hh"
 
-
 bool parsed_objects_should_be_dead = false;
 
 // These are not protected since the means of protecting them would be

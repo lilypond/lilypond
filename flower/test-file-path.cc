@@ -27,7 +27,6 @@
 
 #include "yaffut.hh"
 
-
 TEST (File_path, Find)
 {
   char const *extensions[] = {"ly", "", 0};

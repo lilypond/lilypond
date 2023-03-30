@@ -28,7 +28,6 @@
 #include "staff-symbol-referencer.hh"
 #include "string-convert.hh"
 
-
 Stencil
 Line_interface::make_arrow (Offset begin, Offset end, Real thick, Real length,
                             Real width)

@@ -50,7 +50,6 @@
 #include <set>
 #include <vector>
 
-
 // Compute the increase from dr.front () to dr.back ().
 static constexpr Real
 delta (const Drul_array<Real> &dr)
@@ -665,7 +664,8 @@ is_concave_single_notes (std::vector<int> const &positions, Direction beam_dir)
 }
 
 Real
-calc_positions_concaveness (std::vector<int> const &positions, Direction beam_dir)
+calc_positions_concaveness (std::vector<int> const &positions,
+                            Direction beam_dir)
 {
   Real dy = positions.back () - positions[0];
   Real slope = dy / static_cast<Real> (positions.size () - 1);
@@ -1091,7 +1091,7 @@ Beam_scoring_problem::solve () const
         }
 
       std::string card = best->score_card_
-                    + to_string (" c%d/%zu", completed, configs.size ());
+                         + to_string (" c%d/%zu", completed, configs.size ());
       set_property (beam_, "annotation", ly_string2scm (card));
     }
 

@@ -32,7 +32,6 @@
 #include <algorithm>
 #include <vector>
 
-
 ADD_INTERFACE (Semi_tie_column,
                R"(
 The interface for a column of l.v.  (laissez vibrer) ties.

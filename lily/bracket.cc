@@ -30,7 +30,6 @@
 #include "item.hh"
 #include "line-interface.hh"
 
-
 /*
   should move to lookup?
 
@@ -131,8 +130,9 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
   figured bass (BassFigureBracket).
 */
 Stencil
-Bracket::make_enclosing_bracket (Grob *me, Grob *refpoint, std::vector<Grob *> grobs,
-                                 Axis a, Direction dir)
+Bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
+                                 std::vector<Grob *> grobs, Axis a,
+                                 Direction dir)
 {
   Grob *common = common_refpoint_of_array (grobs, refpoint, a);
   Interval ext = Axis_group_interface::relative_group_extent (grobs, common, a);

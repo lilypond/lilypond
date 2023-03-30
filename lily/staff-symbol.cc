@@ -28,7 +28,6 @@
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
 
-
 MAKE_SCHEME_CALLBACK (Staff_symbol, print, "ly:staff-symbol::print", 1);
 
 SCM

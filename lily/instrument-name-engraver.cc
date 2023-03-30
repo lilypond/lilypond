@@ -28,7 +28,6 @@
 
 #include "translator.icc"
 
-
 class Instrument_name_engraver : public Engraver
 {
 public:

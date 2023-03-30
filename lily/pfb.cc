@@ -29,7 +29,6 @@
 #include <iomanip>
 #include <sstream>
 
-
 std::string
 pfb2pfa (const std::string &pfb)
 {

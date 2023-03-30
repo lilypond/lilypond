@@ -45,7 +45,6 @@
 #include <string>
 #include <vector>
 
-
 template <typename Container>
 auto &
 boundary (const Container &v, Direction dir, vsize i)
@@ -288,7 +287,8 @@ Tie_formatting_problem::set_column_chord_outline (std::vector<Item *> bounds,
 }
 
 void
-Tie_formatting_problem::set_chord_outline (std::vector<Item *> bounds, Direction dir)
+Tie_formatting_problem::set_chord_outline (std::vector<Item *> bounds,
+                                           Direction dir)
 
 {
   std::vector<int> ranks;

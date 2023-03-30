@@ -44,7 +44,6 @@
 #include "unpure-pure-container.hh"
 #include "international.hh"
 
-
 MAKE_SCHEME_CALLBACK (Slur, calc_direction, "ly:slur::calc-direction", 1)
 SCM
 Slur::calc_direction (SCM smob)
@@ -340,7 +339,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
         {
           for (const auto d : {LEFT, RIGHT})
             {
-              std::vector<Real> coords = curve.get_other_coordinates (a, exts[a][d]);
+              std::vector<Real> coords
+                = curve.get_other_coordinates (a, exts[a][d]);
               for (vsize i = 0; i < coords.size (); i++)
                 {
                   do_shift = exts[other_axis (a)].contains (coords[i]);
@@ -370,7 +370,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
  * Used by Slur_engraver:: and Phrasing_slur_engraver::
  */
 void
-Slur::auxiliary_acknowledge_extra_object (Grob *e, std::vector<Spanner *> &slurs,
+Slur::auxiliary_acknowledge_extra_object (Grob *e,
+                                          std::vector<Spanner *> &slurs,
                                           std::vector<Spanner *> &end_slurs)
 {
   if (slurs.empty () && end_slurs.empty ())

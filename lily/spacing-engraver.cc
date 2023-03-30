@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-
 struct Rhythmic_tuple
 {
   Grob_info info_;

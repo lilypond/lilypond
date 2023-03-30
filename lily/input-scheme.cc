@@ -20,7 +20,6 @@
 #include "std-string.hh"
 #include "input.hh"
 
-
 LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1,
            (SCM sip, SCM msg, SCM rest),
            R"(

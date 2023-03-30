@@ -35,7 +35,6 @@
 #include "lily-imports.hh"
 #include "duration.hh"
 
-
 bool
 Context::is_removable () const
 {
@@ -190,8 +189,8 @@ Context::core_find (FindMode mode, Direction dir, SCM n, const std::string &id,
 // This implements all the logic of find () except a final check that the found
 // context is accessible to the user.
 Context *
-Context::unchecked_find (FindMode mode, Direction dir, SCM n, const std::string &id,
-                         SCM ops)
+Context::unchecked_find (FindMode mode, Direction dir, SCM n,
+                         const std::string &id, SCM ops)
 {
   const bool allow_create = (mode != FIND_ONLY);
   const bool allow_find = (mode != CREATE_ONLY);
@@ -231,7 +230,8 @@ Context::unchecked_find (FindMode mode, Direction dir, SCM n, const std::string 
 }
 
 Context *
-Context::find (FindMode mode, Direction dir, SCM n, const std::string &id, SCM ops)
+Context::find (FindMode mode, Direction dir, SCM n, const std::string &id,
+               SCM ops)
 {
   if (Context *c = unchecked_find (mode, dir, n, id, ops))
     {

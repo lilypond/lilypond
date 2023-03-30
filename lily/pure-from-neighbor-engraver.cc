@@ -30,7 +30,6 @@
 #include <map>
 #include <vector>
 
-
 class Pure_from_neighbor_engraver : public Engraver
 {
   std::vector<Item *> pure_relevants_;

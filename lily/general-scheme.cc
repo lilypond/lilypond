@@ -50,7 +50,6 @@
 #include <set>
 #include <string>
 
-
 /* Declaration of log function(s) */
 SCM ly_progress (SCM, SCM);
 
@@ -572,7 +571,8 @@ occurs, format it with @code{format} and @var{rest}.
   if (standard_output && standard_error)
     {
       // Print out stdout and stderr only in debug mode
-      debug_output (std::string ("\n") + standard_output + standard_error, true);
+      debug_output (std::string ("\n") + standard_output + standard_error,
+                    true);
     }
 
   g_free (standard_error);

@@ -23,7 +23,6 @@
 #include "file-name.hh"
 #include "file-path.hh"
 
-
 Sources::Sources ()
 {
   path_ = 0;
@@ -62,7 +61,8 @@ Sources::get_file (std::string file_string, std::string const &current_dir)
 }
 
 std::string
-Sources::find_full_path (std::string file_string, std::string const &current_dir) const
+Sources::find_full_path (std::string file_string,
+                         std::string const &current_dir) const
 {
   // First, check for a path relative to the directory of the
   // file currently being parsed.
@@ -117,7 +117,8 @@ optionally be specified.
   Includable_lexer *lex = parser->lexer_;
 
   SCM lst = SCM_EOL;
-  for (std::vector<std::string>::const_iterator i = lex->file_name_strings_.begin ();
+  for (std::vector<std::string>::const_iterator i
+       = lex->file_name_strings_.begin ();
        i != lex->file_name_strings_.end (); ++i)
     {
       lst = scm_cons (ly_string2scm (*i), lst);

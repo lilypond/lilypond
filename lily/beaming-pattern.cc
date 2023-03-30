@@ -23,7 +23,6 @@
 
 #include <cstdint>
 
-
 /*
   Represents a stem belonging to a beam. Sometimes (for example, if the stem
   belongs to a rest and stemlets aren't used) the stem will be invisible.

@@ -24,7 +24,6 @@
 #include "item.hh"
 #include "spanner.hh"
 
-
 vsize
 Pointer_group_interface::count (Grob *me, SCM sym)
 {
@@ -125,6 +124,7 @@ internal_extract_grob_subtype_array (Grob *elt, SCM symbol)
 }
 
 // explicit instantiation
-template std::vector<Item *> internal_extract_grob_subtype_array<Item> (Grob *, SCM);
-template std::vector<Spanner *> internal_extract_grob_subtype_array<Spanner> (Grob *,
-                                                                         SCM);
+template std::vector<Item *> internal_extract_grob_subtype_array<Item> (Grob *,
+                                                                        SCM);
+template std::vector<Spanner *>
+internal_extract_grob_subtype_array<Spanner> (Grob *, SCM);

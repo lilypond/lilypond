@@ -21,7 +21,6 @@
 
 #include "yaffut.hh"
 
-
 FUNC (interval_set_union)
 {
   std::vector<Interval> ivs;

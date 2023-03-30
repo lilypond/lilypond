@@ -29,7 +29,6 @@
 #include "stencil.hh"
 #include "system.hh"
 
-
 Stencil
 parenthesize (Grob *me, Stencil m)
 {

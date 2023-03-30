@@ -33,7 +33,6 @@
 
 #include "translator.icc"
 
-
 class Auto_beam_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Auto_beam_engraver);

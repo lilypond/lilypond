@@ -31,7 +31,6 @@
 #include "translator.hh"
 #include "warn.hh"
 
-
 static bool
 is_instantiable (Context_def *c)
 {

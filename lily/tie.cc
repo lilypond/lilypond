@@ -40,7 +40,6 @@
 #include "warn.hh"
 #include "semi-tie-column.hh"
 
-
 void
 Tie::set_head (Spanner *me, Direction d, Grob *h)
 {

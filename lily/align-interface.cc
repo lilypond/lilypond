@@ -31,7 +31,6 @@
 #include "system.hh"
 #include "warn.hh"
 
-
 MAKE_SCHEME_CALLBACK (Align_interface, align_to_minimum_distances,
                       "ly:align-interface::align-to-minimum-distances", 1);
 SCM
@@ -136,9 +135,9 @@ Align_interface::get_minimum_translations (Grob *me,
 }
 
 std::vector<Real>
-Align_interface::get_pure_minimum_translations (Grob *me,
-                                                std::vector<Grob *> const &all_grobs,
-                                                Axis a, vsize start, vsize end)
+Align_interface::get_pure_minimum_translations (
+  Grob *me, std::vector<Grob *> const &all_grobs, Axis a, vsize start,
+  vsize end)
 {
   return internal_get_minimum_translations (me, all_grobs, a, true, true, start,
                                             end);
@@ -163,8 +162,8 @@ Align_interface::get_minimum_translations_without_min_dist (
 //   else centered dynamics will break when there is a fixed alignment).
 std::vector<Real>
 Align_interface::internal_get_minimum_translations (
-  Grob *me, std::vector<Grob *> const &elems, Axis a, bool include_fixed_spacing,
-  bool pure, vsize start, vsize end)
+  Grob *me, std::vector<Grob *> const &elems, Axis a,
+  bool include_fixed_spacing, bool pure, vsize start, vsize end)
 {
   if (!pure && a == Y_AXIS && dynamic_cast<Spanner *> (me)
       && !me->get_system ())

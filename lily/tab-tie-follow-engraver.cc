@@ -28,7 +28,6 @@
 #include <cctype>
 #include <cstdio>
 
-
 /*
    Change tab-note-head properties when a tie is followed by a
    slurs or glissando.

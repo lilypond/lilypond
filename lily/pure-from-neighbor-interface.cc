@@ -27,7 +27,6 @@
 #include "spanner.hh"
 #include "system.hh"
 
-
 MAKE_SCHEME_CALLBACK (
   Pure_from_neighbor_interface, calc_pure_relevant_grobs,
   "ly:pure-from-neighbor-interface::calc-pure-relevant-grobs", 1);

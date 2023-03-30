@@ -24,7 +24,6 @@
 #include "std-string.hh"
 #include "string-convert.hh"
 
-
 Midi_track::Midi_track (int number, bool port)
   : number_ (number)
 {
@@ -166,8 +165,8 @@ Midi_event::to_string () const
 Midi_header::Midi_header (int format, int tracks, int clocks_per_4)
 {
   std::string str = String_convert::be_u16 (uint16_t (format))
-               + String_convert::be_u16 (uint16_t (tracks))
-               + String_convert::be_u16 (uint16_t (clocks_per_4));
+                    + String_convert::be_u16 (uint16_t (tracks))
+                    + String_convert::be_u16 (uint16_t (clocks_per_4));
   set ("MThd", str, "");
 }
 
@@ -179,7 +178,8 @@ Midi_chunk::~Midi_chunk ()
 }
 
 void
-Midi_chunk::set (const std::string &header_string, const std::string &data_string,
+Midi_chunk::set (const std::string &header_string,
+                 const std::string &data_string,
                  const std::string &footer_string)
 {
   data_string_ = data_string;

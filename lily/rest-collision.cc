@@ -39,7 +39,6 @@
 #include <cmath> // ceil.
 #include <vector>
 
-
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (
   Rest_collision, force_shift_callback_rest,
   "ly:rest-collision::force-shift-callback-rest", 2, 1, "");

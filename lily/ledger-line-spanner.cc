@@ -28,7 +28,6 @@
 
 #include <map>
 
-
 struct Ledger_line_spanner
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
@@ -356,7 +355,8 @@ Ledger_line_spanner::print (SCM smob)
     {
       for (const auto d : {DOWN, UP})
         {
-          std::map<Real, std::vector<Interval>> &lex = i->second[d].ledger_extents_;
+          std::map<Real, std::vector<Interval>> &lex
+            = i->second[d].ledger_extents_;
           for (std::map<Real, std::vector<Interval>>::iterator k = lex.begin ();
                k != lex.end (); k++)
             {

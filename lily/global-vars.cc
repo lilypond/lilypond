@@ -19,7 +19,6 @@
 
 #include "file-path.hh"
 
-
 /*
  * Global options that can be overridden through command line.
  */

@@ -23,7 +23,6 @@
 #include "open-type-font.hh"
 #include "warn.hh"
 
-
 LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa", 1, 0, 0, (SCM type1_file_name),
            R"(
 Convert the contents of a Type@tie{}1 font in PFB format to PFA format.  If the

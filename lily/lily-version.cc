@@ -26,7 +26,6 @@
 #include "program-option.hh"
 #include "version.hh"
 
-
 std::string
 version_string ()
 {

@@ -20,7 +20,6 @@
 #include "stencil.hh"
 #include "font-interface.hh"
 
-
 // update comment --hwn
 /*
   Urg.

@@ -32,7 +32,6 @@
 #include "break-align-interface.hh"
 #include "warn.hh"
 
-
 /*
   Return whether COL is fixed to its neighbors by some kind of spacing
   constraint.
@@ -191,7 +190,8 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
   between.
 */
 void
-Spacing_spanner::prune_loose_columns (Grob *me, std::vector<Paper_column *> *cols,
+Spacing_spanner::prune_loose_columns (Grob *me,
+                                      std::vector<Paper_column *> *cols,
                                       Spacing_options *options)
 {
   // rp is a post-increment read pointer running over the *cols

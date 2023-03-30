@@ -31,7 +31,6 @@
 #include <cstdio>
 #include <sstream>
 
-
 void
 Source_file::load_stdin ()
 {

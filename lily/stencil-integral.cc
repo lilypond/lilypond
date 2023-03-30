@@ -47,7 +47,6 @@
 
 #include <cmath>
 
-
 Real QUANTIZATION_UNIT = 0.2;
 
 void add_partial_ellipse_segments (Lazy_skyline_pair *skyline,

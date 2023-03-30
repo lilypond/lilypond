@@ -23,7 +23,6 @@
 #include "open-type-font.hh"
 #include "protected-scm.hh"
 
-
 All_font_metrics *all_fonts_global = 0;
 Protected_scm all_fonts_global_scm;
 

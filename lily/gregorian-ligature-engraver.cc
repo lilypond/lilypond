@@ -31,7 +31,6 @@
 /* assign_event_once */
 #include "translator.icc"
 
-
 /*
  * This abstract class is the common superclass for all ligature
  * engravers for Gregorian chant notation.  It cares for the musical
@@ -239,8 +238,8 @@ provide_context_info (std::vector<Item *> const &primitives)
 }
 
 void
-Gregorian_ligature_engraver::build_ligature (Spanner *ligature,
-                                             std::vector<Item *> const &primitives)
+Gregorian_ligature_engraver::build_ligature (
+  Spanner *ligature, std::vector<Item *> const &primitives)
 {
   // apply style-independent checking and transformation
   check_and_fix_all_prefixes (primitives);

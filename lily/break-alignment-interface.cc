@@ -30,7 +30,6 @@
 #include "side-position-interface.hh"
 #include "warn.hh"
 
-
 /*
   This is tricky: we cannot modify 'elements, since callers are
   iterating the same list. Reordering the list in-place, or resetting

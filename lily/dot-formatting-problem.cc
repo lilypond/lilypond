@@ -20,7 +20,6 @@
 #include "dot-formatting-problem.hh"
 #include "skyline.hh"
 
-
 Dot_formatting_problem::Dot_formatting_problem (std::vector<Box> const &boxes,
                                                 Interval base_x)
   : head_skyline_ (boxes, Y_AXIS, RIGHT)

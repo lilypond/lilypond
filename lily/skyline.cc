@@ -24,7 +24,6 @@
 #include <deque>
 #include <cstdio>
 
-
 /* A skyline is a sequence of non-overlapping buildings: something like
    this:
                    _______
@@ -284,7 +283,8 @@ single_skyline (Building b, std::vector<Building> *const ret)
 /* Partition BUILDINGS into a non-overlapping set of boxes and the rest */
 static void
 non_overlapping_skyline (std::vector<Building> const &buildings,
-                         std::vector<Building> *trimmed, std::vector<Building> *result)
+                         std::vector<Building> *trimmed,
+                         std::vector<Building> *result)
 {
   trimmed->reserve (buildings.size () / 2);
   result->reserve (buildings.size () / 2);
@@ -405,7 +405,8 @@ Skyline::Skyline (Direction sky)
 
   Boxes should be non-empty on both axes.  Otherwise, they will be ignored
  */
-Skyline::Skyline (std::vector<Box> const &boxes, Axis horizon_axis, Direction sky)
+Skyline::Skyline (std::vector<Box> const &boxes, Axis horizon_axis,
+                  Direction sky)
 {
   std::vector<Building> buildings;
   buildings.reserve (boxes.size ());
@@ -424,8 +425,8 @@ Skyline::Skyline (std::vector<Box> const &boxes, Axis horizon_axis, Direction sk
   Segments can be articulated from left to right or right to left.
   In the case of the latter, they will be stored internally as left to right.
  */
-Skyline::Skyline (std::vector<Drul_array<Offset>> const &segments, Axis horizon_axis,
-                  Direction sky)
+Skyline::Skyline (std::vector<Drul_array<Offset>> const &segments,
+                  Axis horizon_axis, Direction sky)
 {
   std::vector<Building> buildings;
   buildings.reserve (segments.size ());

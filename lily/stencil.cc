@@ -26,7 +26,6 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
-
 Stencil::Stencil ()
 {
   expr_ = SCM_EOL;

@@ -163,7 +163,6 @@ static Long_option_init options_static[] = {
   {0, "warranty", 'w', _i ("show warranty and copyright")},
   {0, 0, 0, 0}};
 
-
 static void
 env_var_info (FILE *out, char const *key)
 /*
@@ -215,7 +214,7 @@ gnu_lilypond_version_string ()
     version += "." + mpl;
 
   std::string guile_version = std::to_string (SCM_MAJOR_VERSION) + "."
-                         + std::to_string (SCM_MINOR_VERSION);
+                              + std::to_string (SCM_MINOR_VERSION);
   std::string str
     = _f ("%s %s (running Guile %s)", "GNU LilyPond", version, guile_version);
   return str;

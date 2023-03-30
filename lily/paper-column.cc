@@ -41,7 +41,6 @@
 #include "text-interface.hh"
 #include "warn.hh"
 
-
 bool
 Paper_column::internal_set_as_bound_of_spanner (Spanner *s, Direction)
 {

@@ -42,7 +42,6 @@
 #include <map>
 #include <vector>
 
-
 Real Axis_group_interface::default_outside_staff_padding_ = 0.46;
 
 Real
@@ -645,12 +644,11 @@ Axis_group_interface::get_children (Grob *me, std::vector<Grob *> *found)
 // and v_skyline) so that it doesn't intersect with staff_skyline,
 // or with anything in other_h_skylines and other_v_skylines.
 void
-avoid_outside_staff_collisions (Grob *elt, Skyline_pair *v_skyline,
-                                Real padding, Real horizon_padding,
-                                std::vector<Skyline_pair> const &other_v_skylines,
-                                std::vector<Real> const &other_padding,
-                                std::vector<Real> const &other_horizon_padding,
-                                Direction const dir)
+avoid_outside_staff_collisions (
+  Grob *elt, Skyline_pair *v_skyline, Real padding, Real horizon_padding,
+  std::vector<Skyline_pair> const &other_v_skylines,
+  std::vector<Real> const &other_padding,
+  std::vector<Real> const &other_horizon_padding, Direction const dir)
 {
   assert (other_v_skylines.size () == other_padding.size ());
   assert (other_v_skylines.size () == other_horizon_padding.size ());
@@ -698,13 +696,12 @@ valid_outside_staff_placement_directive (Grob *me)
 // or anything in all_X_skylines.  Afterwards, the skylines
 // of the grobs in elements will be added to all_v_skylines.
 static void
-add_grobs_of_one_priority (Grob *me,
-                           Drul_array<std::vector<Skyline_pair>> *all_v_skylines,
-                           Drul_array<std::vector<Real>> *all_paddings,
-                           Drul_array<std::vector<Real>> *all_horizon_paddings,
-                           std::vector<Grob *> elements, Grob *x_common,
-                           Grob *y_common,
-                           std::multimap<Grob *, Grob *> const &riders)
+add_grobs_of_one_priority (
+  Grob *me, Drul_array<std::vector<Skyline_pair>> *all_v_skylines,
+  Drul_array<std::vector<Real>> *all_paddings,
+  Drul_array<std::vector<Real>> *all_horizon_paddings,
+  std::vector<Grob *> elements, Grob *x_common, Grob *y_common,
+  std::multimap<Grob *, Grob *> const &riders)
 {
 
   SCM directive = valid_outside_staff_placement_directive (me);

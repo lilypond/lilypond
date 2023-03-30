@@ -40,7 +40,6 @@
 
 #include "translator.icc"
 
-
 /*
   TODO:
 
@@ -280,7 +279,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
         m = p->event_drul_[STOP];
 
       std::string msg = _f ("expect 3 strings for piano pedals, found: %ld",
-                       scm_ilength (strings));
+                            scm_ilength (strings));
       if (m)
         m->warning (msg);
       else
@@ -344,7 +343,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
   if (!p->bracket_ && p->event_drul_[STOP])
     {
       std::string msg = _f ("cannot find start of piano pedal bracket: `%s'",
-                       p->type_->base_name_.c_str ());
+                            p->type_->base_name_.c_str ());
       p->event_drul_[STOP]->warning (msg);
       p->event_drul_[STOP] = 0;
     }

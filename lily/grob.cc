@@ -42,7 +42,6 @@
 #include <set>
 #include <unordered_set>
 
-
 Grob::Grob (SCM basicprops)
 {
 
@@ -206,7 +205,8 @@ Grob::get_print_stencil ()
       {
         for (Direction d : {LEFT, RIGHT})
           {
-            const std::vector<Offset> &points = skyp[d].to_points (other_axis (a));
+            const std::vector<Offset> &points
+              = skyp[d].to_points (other_axis (a));
             Stencil sky_stil = Lookup::points_to_line_stencil (0.1, points);
             Stencil colored_stil;
             if (a == X_AXIS && d == LEFT)

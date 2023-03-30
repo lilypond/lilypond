@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-
 class Kievan_ligature_engraver : public Coherent_ligature_engraver
 {
 
@@ -58,8 +57,8 @@ Kievan_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Kievan_ligature_engraver::fold_up_primitives (std::vector<Item *> const &primitives,
-                                              Real padding, Real &min_length)
+Kievan_ligature_engraver::fold_up_primitives (
+  std::vector<Item *> const &primitives, Real padding, Real &min_length)
 {
   Item *first = 0;
   Real accumul_acc_space = 0.0;

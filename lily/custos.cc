@@ -36,7 +36,6 @@
 #include <cmath> // rint
 #include <cstdio>
 
-
 MAKE_SCHEME_CALLBACK (Custos, print, "ly:custos::print", 1);
 SCM
 Custos::print (SCM smob)

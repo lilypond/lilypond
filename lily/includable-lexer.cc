@@ -30,7 +30,6 @@
 
 #include <sstream>
 
-
 #ifndef YY_BUF_SIZE
 #define YY_BUF_SIZE 16384
 #endif
@@ -67,7 +66,8 @@ Includable_lexer::new_input (const std::string &name, Sources *sources)
 }
 
 void
-Includable_lexer::new_input (const std::string &name, std::string data, Sources *sources)
+Includable_lexer::new_input (const std::string &name, std::string data,
+                             Sources *sources)
 {
   Source_file *file = new Source_file (name, data);
   sources->add (file);

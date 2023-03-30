@@ -24,7 +24,6 @@
 
 #include <limits>
 
-
 const char *const Scale::type_p_name_ = "ly:note-scale?";
 
 /*

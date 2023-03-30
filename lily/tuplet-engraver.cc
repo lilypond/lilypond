@@ -30,7 +30,6 @@
 
 #include "translator.icc"
 
-
 struct Tuplet_description
 {
   Stream_event *event_;

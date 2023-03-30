@@ -38,7 +38,6 @@
 #include <string>
 #include <vector>
 
-
 Bezier
 avoid_staff_line (Slur_score_state const &state, Bezier bez)
 {
@@ -135,7 +134,8 @@ fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
 
 void
 Slur_configuration::generate_curve (Slur_score_state const &state, Real r_0,
-                                    Real h_inf, std::vector<Offset> const &avoid)
+                                    Real h_inf,
+                                    std::vector<Offset> const &avoid)
 {
   Offset dz = attachment_[RIGHT] - attachment_[LEFT];
   ;

@@ -32,7 +32,6 @@
 #include <cctype>
 #include <cmath>
 
-
 Stencil
 Lookup::beam (Real slope, Real width, Real thick, Real blot)
 {

@@ -33,7 +33,6 @@
 #include <cstring>
 #include <vector>
 
-
 bool debug_skylines;
 bool debug_property_callbacks;
 bool debug_page_breaking_scoring;
@@ -139,8 +138,9 @@ get_help_string (SCM alist)
     {
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
-      std::string opt_spec = std::string (INDENT, ' ') + ly_symbol2string (sym) + " ("
-                        + ly_scm2string (Lily::scm_to_string (val)) + ")";
+      std::string opt_spec = std::string (INDENT, ' ') + ly_symbol2string (sym)
+                             + " (" + ly_scm2string (Lily::scm_to_string (val))
+                             + ")";
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)
         opt_spec += '\n' + std::string (HELP_INDENT, ' ');

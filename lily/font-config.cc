@@ -28,7 +28,6 @@
 #include <fontconfig/fontconfig.h>
 #include <sys/stat.h>
 
-
 FcConfig *font_config_global = 0;
 
 void

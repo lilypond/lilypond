@@ -38,7 +38,6 @@
 #include <memory>
 #include <vector>
 
-
 static Pitch *
 accidental_pitch (Grob *acc)
 {
@@ -389,9 +388,10 @@ build_heads_skyline (std::vector<Grob *> const &heads_and_stems, Grob **common)
   Return the total width.
 */
 static Interval
-position_apes (Grob *me,
-               std::vector<std::unique_ptr<Accidental_placement_entry>> const &apes,
-               Skyline const &heads_skyline)
+position_apes (
+  Grob *me,
+  std::vector<std::unique_ptr<Accidental_placement_entry>> const &apes,
+  Skyline const &heads_skyline)
 {
   Real padding = from_scm<double> (get_property (me, "padding"), 0.2);
   Skyline left_skyline = heads_skyline;
@@ -490,7 +490,8 @@ Accidental_placement::calc_positioning_done (SCM smob)
   if (!scm_is_pair (accs))
     return SCM_BOOL_T;
 
-  std::vector<std::unique_ptr<Accidental_placement_entry>> apes = build_apes (accs);
+  std::vector<std::unique_ptr<Accidental_placement_entry>> apes
+    = build_apes (accs);
 
   Grob *common[] = {me, 0};
 

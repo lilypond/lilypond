@@ -30,7 +30,6 @@
 #include <cstdio>
 #include <functional>
 
-
 Input
 Input::spot () const
 {

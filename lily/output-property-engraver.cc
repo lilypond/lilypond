@@ -24,7 +24,6 @@
 
 #include "translator.icc"
 
-
 class Output_property_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Output_property_engraver);

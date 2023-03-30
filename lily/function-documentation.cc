@@ -41,7 +41,6 @@
 #include <map>
 #include <type_traits>
 
-
 static Protected_scm doc_hash_table;
 
 void
@@ -66,8 +65,8 @@ ly_add_function_documentation (SCM func, const char *fname, const char *varlist,
   if (!doc_hash_table.is_bound ())
     doc_hash_table = scm_c_make_hash_table (59);
 
-  std::string s = std::string (" - ") + "LilyPond procedure: " + fname + " " + varlist
-             + "\n" + doc;
+  std::string s = std::string (" - ") + "LilyPond procedure: " + fname + " "
+                  + varlist + "\n" + doc;
 
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),
                                 ly_string2scm (s));

@@ -27,7 +27,6 @@
 #include <algorithm>
 #include <vector>
 
-
 struct Grob_pq_entry
 {
   Grob *grob_;

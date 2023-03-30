@@ -31,7 +31,6 @@
 
 #include <pango/pangofc-fontmap.h>
 
-
 Index_to_charcode_map const *
 All_font_metrics::get_index_to_charcode_map (const std::string &filename,
                                              int face_index, FT_Face face)

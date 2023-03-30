@@ -26,7 +26,6 @@
 
 #include <cmath>
 
-
 /*
   Een beter milieu begint bij uzelf. Hergebruik!
 

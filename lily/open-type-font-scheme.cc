@@ -33,7 +33,6 @@
 
 #include <cstdio>
 
-
 LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0, (SCM font),
            R"(
 Given the font metric @var{font} of an OpenType font, return the names of the

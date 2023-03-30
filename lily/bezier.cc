@@ -21,7 +21,6 @@
 
 #include "warn.hh"
 
-
 Real binomial_coefficient_3[] = {1, 3, 3, 1};
 
 void

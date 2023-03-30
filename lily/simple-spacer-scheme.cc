@@ -24,7 +24,6 @@
 
 #include <cstdio>
 
-
 LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem", 4, 0, 0,
            (SCM springs, SCM rods, SCM length, SCM ragged),
            R"(

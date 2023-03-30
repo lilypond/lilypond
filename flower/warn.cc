@@ -28,7 +28,6 @@
 #include <string>
 #include <vector>
 
-
 /** We have several different loglevels, each with its own message function(s):
       ERROR: error, non_fatal_error, programming_error
       WARN: warning
@@ -114,7 +113,7 @@ check_expected_warnings ()
     {
       /* Some expected warning was not triggered, so print out a warning. */
       std::string msg = _f ("%zu expected warning(s) not encountered: ",
-                       expected_warnings.size ());
+                            expected_warnings.size ());
       for (vsize i = 0; i < expected_warnings.size (); i++)
         msg += "\n        " + expected_warnings[i];
 
@@ -157,7 +156,8 @@ static bool message_newline = true;
    if newline is true, start the message on a new line.
 */
 void
-print_message (int level, const std::string &location, std::string s, bool newline)
+print_message (int level, const std::string &location, std::string s,
+               bool newline)
 {
   /* Only print the message if the current loglevel allows it: */
   if (!is_loglevel (level))
@@ -238,7 +238,8 @@ basic_progress (const std::string &s, const std::string &location)
 
 /* Display information about the progress.  */
 void
-progress_indication (const std::string &s, bool newline, const std::string &location)
+progress_indication (const std::string &s, bool newline,
+                     const std::string &location)
 {
   print_message (LOG_PROGRESS, location, s, newline);
 }

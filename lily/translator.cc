@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-
 Translator::~Translator ()
 {
 }

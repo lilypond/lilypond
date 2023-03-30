@@ -24,7 +24,6 @@
 #include "warn.hh"
 #include "context.hh"
 
-
 /*
   Return an articulation list given a note_events vector and an
   articulation_events vector.

@@ -23,7 +23,6 @@
 #include "misc.hh"
 #include "lily-proto.hh"
 
-
 int
 Duration::compare (Duration const &left, Duration const &right)
 {

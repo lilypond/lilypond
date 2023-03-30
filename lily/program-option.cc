@@ -20,7 +20,6 @@
 
 #include "program-option.hh"
 
-
 std::string
 get_output_backend_name ()
 {

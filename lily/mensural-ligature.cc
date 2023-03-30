@@ -30,7 +30,6 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
-
 /*
   draws one half a flexa, i.e. a portion corresponding to a single note.
   this way coloration of the two notes building up the flexa can be

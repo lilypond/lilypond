@@ -30,7 +30,6 @@
 
 #include <memory>
 
-
 struct Bracket_nesting_node
 {
 public:

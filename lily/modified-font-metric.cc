@@ -27,7 +27,6 @@
 #include <tuple>
 #include <utility>
 
-
 Preinit_Modified_font_metric::Preinit_Modified_font_metric ()
 {
   orig_ = 0;
@@ -116,7 +115,8 @@ Modified_font_metric::derived_mark () const
 
 Stencil
 Modified_font_metric::text_stencil (Output_def *state, const std::string &text,
-                                    bool feta, const std::string &features_str) const
+                                    bool feta,
+                                    const std::string &features_str) const
 {
   Box b;
   if (Pango_font *pf = dynamic_cast<Pango_font *> (orig_))

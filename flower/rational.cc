@@ -27,7 +27,6 @@
 #include <string>
 #include <utility>
 
-
 Rational::operator double () const
 {
   if (sign_ == -1 || sign_ == 1 || sign_ == 0)

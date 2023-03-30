@@ -28,7 +28,6 @@
 
 #include <unordered_map>
 
-
 /*
  * A few general helpers in degrees
  */

@@ -34,7 +34,6 @@
 
 #include "translator.icc"
 
-
 /**
    Manufacture ties.  Acknowledge note heads, and put them into a
    priority queue. If we have a TieEvent, connect the notes that finish

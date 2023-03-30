@@ -26,7 +26,6 @@
 
 #include <list>
 
-
 struct Head_audio_event_tuple
 {
   Audio_element_info head_;
@@ -46,7 +45,8 @@ class Tie_performer : public Performer
   Stream_event *event_;
   std::list<Head_audio_event_tuple> now_heads_;
   std::list<Head_audio_event_tuple> now_tied_heads_; // new tied notes
-  std::list<Head_audio_event_tuple> heads_to_tie_;   // heads waiting for closing tie
+  std::list<Head_audio_event_tuple>
+    heads_to_tie_; // heads waiting for closing tie
 
 protected:
   void stop_translation_timestep ();

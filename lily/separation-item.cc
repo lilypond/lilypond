@@ -30,7 +30,6 @@
 #include "stencil.hh"
 #include "warn.hh"
 
-
 void
 Separation_item::add_item (Grob *s, Item *i)
 {

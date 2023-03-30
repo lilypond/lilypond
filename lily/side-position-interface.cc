@@ -47,7 +47,6 @@
 #include <map>
 #include <set>
 
-
 void
 Side_position_interface::add_support (Grob *me, Grob *e)
 {

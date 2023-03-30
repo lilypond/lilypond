@@ -39,7 +39,6 @@
 
 #include <cstdint>
 
-
 class Accidental_entry
 {
 public:

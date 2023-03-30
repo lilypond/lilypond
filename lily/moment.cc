@@ -22,7 +22,6 @@
 #include "lily-guile.hh"
 #include "warn.hh"
 
-
 const char *const Moment::type_p_name_ = "ly:moment?";
 
 int

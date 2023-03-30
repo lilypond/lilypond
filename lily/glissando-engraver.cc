@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-
 class Glissando_engraver : public Engraver
 {
 public:

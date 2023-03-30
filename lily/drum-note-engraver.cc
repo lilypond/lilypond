@@ -34,7 +34,6 @@
 
 #include <cctype>
 
-
 class Drum_notes_engraver : public Engraver
 {
   std::vector<Item *> scripts_;

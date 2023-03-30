@@ -29,7 +29,6 @@
 #include "stencil.hh"
 #include "grob.hh"
 
-
 // -> offset callback
 MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, "ly:rest::y-offset-callback", 1);
 SCM
@@ -164,8 +163,8 @@ Rest::calc_cross_staff (SCM smob)
   make this function easily usable in C++
 */
 std::string
-Rest::glyph_name (Grob *me, int durlog, const std::string &style, bool try_ledgers,
-                  Real offset)
+Rest::glyph_name (Grob *me, int durlog, const std::string &style,
+                  bool try_ledgers, Real offset)
 {
   bool is_ledgered = false;
   if (try_ledgers && (durlog == -1 || durlog == 0 || durlog == 1))
@@ -235,7 +234,8 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
 
   int durlog = from_scm<int> (durlog_scm);
 
-  std::string style = robust_symbol2string (get_property (me, "style"), "default");
+  std::string style
+    = robust_symbol2string (get_property (me, "style"), "default");
 
   Font_metric *fm = Font_interface::get_default_font (me);
   std::string font_char = glyph_name (me, durlog, style, ledgered, 0.0);

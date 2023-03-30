@@ -23,7 +23,6 @@
 #include "input.hh"
 #include "profile.hh"
 
-
 const char *const Prob::type_p_name_ = "ly:prob?";
 
 SCM

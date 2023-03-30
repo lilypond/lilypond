@@ -26,7 +26,6 @@
 
 #include <fontconfig/fontconfig.h>
 
-
 std::string
 display_fontset (FcFontSet *fs)
 {

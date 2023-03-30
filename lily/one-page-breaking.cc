@@ -25,7 +25,6 @@
 #include "paper-score.hh"
 #include "system.hh"
 
-
 One_page_breaking::One_page_breaking (Paper_book *pb)
   : Page_breaking (pb, 0, 0)
 {

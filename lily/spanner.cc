@@ -32,7 +32,6 @@
 #include <cassert>
 #include <vector>
 
-
 void
 Spanner::do_break_processing ()
 {

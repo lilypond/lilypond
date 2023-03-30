@@ -29,7 +29,6 @@
 #include <cmath>
 #include <utility>
 
-
 Real
 Font_metric::design_size () const
 {

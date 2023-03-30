@@ -32,7 +32,6 @@
 #include "warn.hh"
 #include "constrained-breaking.hh"
 
-
 Paper_score::Paper_score (Output_def *layout)
 {
   layout_ = layout;

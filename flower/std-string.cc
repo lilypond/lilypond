@@ -21,7 +21,6 @@
 #include "string-convert.hh"
 #include "std-vector.hh"
 
-
 std::string
 to_string (char const *format, ...)
 {
@@ -36,7 +35,8 @@ to_string (char const *format, ...)
   TODO: this O(n^2) in #occurrences of find, due to repeated copying.
  */
 std::string &
-replace_all (std::string *str, std::string const &find, std::string const &replace)
+replace_all (std::string *str, std::string const &find,
+             std::string const &replace)
 {
   ssize len = find.length ();
   ssize replen = replace.length ();

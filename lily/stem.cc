@@ -62,7 +62,6 @@
 #include <cmath> // rint
 #include <vector>
 
-
 void
 Stem::set_beaming (Grob *me, int beam_count, Direction d)
 {

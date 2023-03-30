@@ -31,7 +31,6 @@
 
 #include "translator.icc"
 
-
 class Dynamic_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);

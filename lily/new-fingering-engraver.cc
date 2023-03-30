@@ -34,7 +34,6 @@
 #include <algorithm>
 #include <vector>
 
-
 struct Finger_tuple
 {
   Grob *head_;

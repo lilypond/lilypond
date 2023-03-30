@@ -31,7 +31,6 @@
 
 #include <set>
 
-
 class Dynamic_align_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_align_engraver);
@@ -171,7 +170,8 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
       if ((d == LEFT && !line->get_bound (LEFT))
           || (end && d == RIGHT && !line->get_bound (RIGHT)))
         {
-          std::vector<Spanner *> const &spanners = (d == LEFT) ? started_ : ended_;
+          std::vector<Spanner *> const &spanners
+            = (d == LEFT) ? started_ : ended_;
 
           Grob *bound = 0;
           if (scripts_.size ())

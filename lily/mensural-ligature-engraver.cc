@@ -35,7 +35,6 @@
 
 #include "translator.icc"
 
-
 /*
  * TODO: accidentals are aligned with the first note;
  * they must appear ahead.
@@ -69,7 +68,8 @@ private:
   void propagate_properties (Spanner *ligature,
                              std::vector<Item *> const &primitives,
                              Real &min_length);
-  void fold_up_primitives (std::vector<Item *> const &primitives, Real &min_length);
+  void fold_up_primitives (std::vector<Item *> const &primitives,
+                           Real &min_length);
 };
 
 Mensural_ligature_engraver::Mensural_ligature_engraver (Context *c)
@@ -86,7 +86,8 @@ Mensural_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Mensural_ligature_engraver::transform_heads (std::vector<Item *> const &primitives)
+Mensural_ligature_engraver::transform_heads (
+  std::vector<Item *> const &primitives)
 {
   if (primitives.size () < 2)
     {
@@ -486,8 +487,8 @@ Mensural_ligature_engraver::fold_up_primitives (
 }
 
 void
-Mensural_ligature_engraver::build_ligature (Spanner *ligature,
-                                            std::vector<Item *> const &primitives)
+Mensural_ligature_engraver::build_ligature (
+  Spanner *ligature, std::vector<Item *> const &primitives)
 {
   /*
     the X extent of the actual graphics representing the ligature;

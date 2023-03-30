@@ -30,7 +30,6 @@
 
 #include "translator.icc"
 
-
 /**
    The name says it all: make multi measure rests
 */

@@ -26,7 +26,6 @@
 #include "warn.hh"
 #include "misc.hh"
 
-
 SCM
 add_interface (char const *cxx_name, char const *descr, char const *vars)
 {

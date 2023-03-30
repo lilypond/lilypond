@@ -26,7 +26,6 @@
 #include "music-iterator.hh"
 #include "music.hh"
 
-
 /*
   This iterator is hairy.  It tracks both lyric and melody contexts,
   and has a complicated communication route, reading/writing

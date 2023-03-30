@@ -32,7 +32,6 @@
 #include <algorithm>
 #include <vector>
 
-
 template <typename T>
 static bool
 is_break (T *g)

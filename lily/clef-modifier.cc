@@ -19,7 +19,6 @@
 
 #include "item.hh"
 
-
 struct Clef_modifier
 {
   DECLARE_SCHEME_CALLBACK (calc_parent_alignment, (SCM));

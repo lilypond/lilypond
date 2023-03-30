@@ -26,7 +26,6 @@
 #include "smobs.hh"
 #include "warn.hh"
 
-
 /*
   INIT
 */

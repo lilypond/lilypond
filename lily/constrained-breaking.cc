@@ -31,7 +31,6 @@
 #include <algorithm>
 #include <vector>
 
-
 /*
   We use the following optimal substructure. Let W (A) be our weight function.
 
@@ -135,7 +134,7 @@ Constrained_breaking::space_line (vsize i, vsize j)
   // TODO: Unnecessary copy.  Could pass iterators/indices to
   // get_line_configuration().  What is the real cost?
   std::vector<Paper_column *> const line (all_.begin () + breaks_[i],
-                                     all_.begin () + breaks_[j] + 1);
+                                          all_.begin () + breaks_[j] + 1);
   Interval line_dims = line_dimension_interval (pscore_->layout (), i);
   bool last = j == breaks_.size () - 1;
   bool ragged = ragged_right || (last && ragged_last);
@@ -388,8 +387,8 @@ min_permission (SCM perm1, SCM perm2)
 /* find the forces for all possible lines and cache ragged_ and ragged_right_
  */
 void
-Constrained_breaking::initialize (Paper_score *ps,
-                                  std::vector<vsize> const &pagebreak_col_indices)
+Constrained_breaking::initialize (
+  Paper_score *ps, std::vector<vsize> const &pagebreak_col_indices)
 {
   valid_systems_ = systems_ = 0;
   pscore_ = ps;

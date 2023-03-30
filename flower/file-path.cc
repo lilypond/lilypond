@@ -49,7 +49,6 @@
 #include <memory>
 #include <unistd.h>
 
-
 std::vector<std::string>
 File_path::directories () const
 {

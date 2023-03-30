@@ -30,7 +30,6 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-
 #define PITCH_WHEEL_CENTER 0x2000
 #define PITCH_WHEEL_SEMITONE 0X1000
 
@@ -91,7 +90,7 @@ Midi_instrument::to_string () const
     warning (_f ("no such MIDI instrument: `%s'", audio_->str_.c_str ()));
 
   std::string str (1, static_cast<char> (
-                   0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
+                        0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
   str += program_byte;
   return str;
 }

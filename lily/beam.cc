@@ -66,7 +66,6 @@
 #include <map>
 #include <vector>
 
-
 // like abs(a - b) but works for both signed and unsigned
 // TODO: Move this to some header?
 template <class T>
@@ -424,7 +423,8 @@ Beam::tremolo_springs_and_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-typedef std::map<int, std::vector<Beam_stem_segment>> Position_stem_segments_map;
+typedef std::map<int, std::vector<Beam_stem_segment>>
+  Position_stem_segments_map;
 
 MAKE_SCHEME_CALLBACK (Beam, calc_beam_segments, "ly:beam::calc-beam-segments",
                       1);
@@ -860,8 +860,8 @@ Beam::get_default_dir (Grob *me)
   extract_grob_set (me, "stems", stems);
 
   Drul_array<Real> extremes;
-  for (std::vector<Grob *>::const_iterator s = stems.begin (); s != stems.end ();
-       s++)
+  for (std::vector<Grob *>::const_iterator s = stems.begin ();
+       s != stems.end (); s++)
     {
       Interval positions = Stem::head_positions (*s);
       for (const auto d : {DOWN, UP})

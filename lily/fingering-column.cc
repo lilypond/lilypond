@@ -28,7 +28,6 @@
 #include <algorithm>
 #include <vector>
 
-
 struct Fingering_and_offset
 {
   Grob *fingering_;

@@ -27,7 +27,6 @@
 #include "translator.icc"
 #include "axis-group-interface.hh"
 
-
 class Figured_bass_position_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Figured_bass_position_engraver);
