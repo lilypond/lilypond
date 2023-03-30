@@ -30,8 +30,6 @@
 #include "side-position-interface.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
 
 /*
   This is tricky: we cannot modify 'elements, since callers are
@@ -56,7 +54,7 @@ Break_alignment_interface::break_align_order (Item *me)
   return order;
 }
 
-vector<Grob *>
+std::vector<Grob *>
 Break_alignment_interface::ordered_elements (Item *me)
 {
   extract_grob_set (me, "elements", elts);
@@ -66,11 +64,11 @@ Break_alignment_interface::ordered_elements (Item *me)
   if (scm_is_false (order))
     return elts;
 
-  vector<Grob *> writable_elts (elts);
+  std::vector<Grob *> writable_elts (elts);
   /*
    Copy in order specified in BREAK-ALIGN-ORDER.
   */
-  vector<Grob *> new_elts;
+  std::vector<Grob *> new_elts;
   for (; scm_is_pair (order); order = scm_cdr (order))
     {
       SCM sym = scm_car (order);
@@ -138,9 +136,9 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 
-  vector<Grob *> const &elems = ordered_elements (me);
+  std::vector<Grob *> const &elems = ordered_elements (me);
 
-  vector<Interval> extents;
+  std::vector<Interval> extents;
   for (Grob *g : elems)
     extents.push_back (g->extent (g, X_AXIS));
 
@@ -148,7 +146,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
   while (idx < extents.size () && extents[idx].is_empty ())
     idx++;
 
-  vector<Real> offsets (elems.size (), 0.0);
+  std::vector<Real> offsets (elems.size (), 0.0);
 
   Real extra_right_space = 0.0;
   vsize edge_idx = VPOS;
@@ -215,11 +213,11 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
       bool entry_found = scm_is_pair (entry);
       if (!entry_found)
         {
-          string sym_string;
+          std::string sym_string;
           if (scm_is_symbol (rsym))
             sym_string = ly_symbol2string (rsym);
 
-          string orig_string;
+          std::string orig_string;
           if (unsmob<Grob> (get_property (l, "cause")))
             orig_string = unsmob<Grob> (get_property (l, "cause"))->name ();
 

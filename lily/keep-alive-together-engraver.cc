@@ -25,11 +25,10 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Keep_alive_together_engraver : public Engraver
 {
-  vector<Grob *> group_spanners_;
+  std::vector<Grob *> group_spanners_;
 
 public:
   TRANSLATOR_DECLARATIONS (Keep_alive_together_engraver);

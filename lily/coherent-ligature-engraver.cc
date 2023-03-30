@@ -27,7 +27,6 @@
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 
-using std::vector;
 
 /*
  * This abstract class serves as common superclass for all ligature
@@ -136,7 +135,7 @@ Coherent_ligature_engraver::move_related_items_to_column (
  */
 void
 Coherent_ligature_engraver::collect_accidentals (Spanner *,
-                                                 vector<Item *> const &)
+                                                 std::vector<Item *> const &)
 {
   /* TODO */
   /* NOTE: if implementing such a function, note that in Kievan notation,
@@ -145,7 +144,7 @@ Coherent_ligature_engraver::collect_accidentals (Spanner *,
 }
 
 void
-calc_delta_pitches (vector<Item *> const &primitives)
+calc_delta_pitches (std::vector<Item *> const &primitives)
 {
   if (primitives.empty ())
     return;
@@ -169,7 +168,7 @@ calc_delta_pitches (vector<Item *> const &primitives)
 
 void
 Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
-                                              vector<Item *> const &primitives)
+                                              std::vector<Item *> const &primitives)
 {
   // compute some commonly needed context info stored as grob
   // properties

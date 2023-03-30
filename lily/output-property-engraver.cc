@@ -24,14 +24,13 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Output_property_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Output_property_engraver);
 
 protected:
-  vector<Stream_event *> props_;
+  std::vector<Stream_event *> props_;
 
   void acknowledge_grob (Grob_info) override;
   void listen_apply_output (Stream_event *);

@@ -32,9 +32,6 @@
 #include <deque>
 #include <map>
 
-using std::deque;
-using std::map;
-using std::string;
 
 /* Perform a staff. Individual notes should have their instrument
   (staff-wide) set, so we override play_element ()
@@ -53,12 +50,12 @@ protected:
   void stop_translation_timestep ();
 
 private:
-  string new_instrument_string ();
-  void set_instrument_name (const string &voice);
-  void set_instrument (int channel, const string &voice);
-  int get_channel (const string &instrument);
-  Audio_staff *get_audio_staff (const string &voice);
-  Audio_staff *new_audio_staff (const string &voice);
+  std::string new_instrument_string ();
+  void set_instrument_name (const std::string &voice);
+  void set_instrument (int channel, const std::string &voice);
+  int get_channel (const std::string &instrument);
+  Audio_staff *get_audio_staff (const std::string &voice);
+  Audio_staff *new_audio_staff (const std::string &voice);
 
   class Midi_control_initializer : public Midi_control_change_announcer
   {
@@ -75,24 +72,24 @@ private:
     int channel_;
   };
 
-  string instrument_string_;
+  std::string instrument_string_;
   int channel_;
   Audio_instrument *instrument_;
   Audio_text *instrument_name_;
   Audio_text *name_;
   Audio_tempo *tempo_;
-  map<string, Audio_staff *> staff_map_;
-  map<string, int> channel_map_;
+  std::map<std::string, Audio_staff *> staff_map_;
+  std::map<std::string, int> channel_map_;
   // Would prefer to have the following two items be
   // members of the containing class Performance,
   // so they can be reset for each new midi file output.
-  static map<string, int> static_channel_map_;
+  static std::map<std::string, int> static_channel_map_;
   static int channel_count_;
   // For now, ask the last Staff_performer clean up during its finalize method
   static int staff_performer_count_;
 };
 
-map<string, int> Staff_performer::static_channel_map_;
+std::map<std::string, int> Staff_performer::static_channel_map_;
 int Staff_performer::channel_count_ = 0;
 int Staff_performer::staff_performer_count_ = 0;
 
@@ -145,12 +142,12 @@ Staff_performer::initialize ()
 }
 
 Audio_staff *
-Staff_performer::new_audio_staff (const string &voice)
+Staff_performer::new_audio_staff (const std::string &voice)
 {
   Audio_staff *audio_staff = new Audio_staff;
   audio_staff->merge_unisons_
     = from_scm<bool> (get_property (this, "midiMergeUnisons"));
-  string track_name = context ()->id_string () + ":" + voice;
+  std::string track_name = context ()->id_string () + ":" + voice;
   if (track_name != ":")
     {
       name_ = new Audio_text (Audio_text::TRACK_NAME,
@@ -169,17 +166,17 @@ Staff_performer::new_audio_staff (const string &voice)
 }
 
 Audio_staff *
-Staff_performer::get_audio_staff (const string &voice)
+Staff_performer::get_audio_staff (const std::string &voice)
 {
   SCM channel_mapping = get_property (this, "midiChannelMapping");
   if (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument"))
       && staff_map_.size ())
     return staff_map_.begin ()->second;
 
-  map<string, Audio_staff *>::const_iterator i = staff_map_.find (voice);
+  std::map<std::string, Audio_staff *>::const_iterator i = staff_map_.find (voice);
   if (i != staff_map_.end ())
     return i->second;
-  map<string, Audio_staff *>::const_iterator e = staff_map_.find ("");
+  std::map<std::string, Audio_staff *>::const_iterator e = staff_map_.find ("");
   if (staff_map_.size () == 1 && e != staff_map_.end ())
     {
       staff_map_[voice] = e->second;
@@ -194,7 +191,7 @@ Staff_performer::process_music ()
 }
 
 void
-Staff_performer::set_instrument (int channel, const string &voice)
+Staff_performer::set_instrument (int channel, const std::string &voice)
 {
   instrument_ = new Audio_instrument (instrument_string_);
   instrument_->channel_ = channel;
@@ -206,7 +203,7 @@ Staff_performer::set_instrument (int channel, const string &voice)
 }
 
 void
-Staff_performer::set_instrument_name (const string &voice)
+Staff_performer::set_instrument_name (const std::string &voice)
 {
   instrument_name_
     = new Audio_text (Audio_text::INSTRUMENT_NAME, instrument_string_);
@@ -228,7 +225,7 @@ Staff_performer::finalize ()
 {
   Moment end_mom
     = now_mom () + from_scm (get_property (this, "midiSkipOffset"), Moment ());
-  for (map<string, Audio_staff *>::iterator i = staff_map_.begin ();
+  for (std::map<std::string, Audio_staff *>::iterator i = staff_map_.begin ();
        i != staff_map_.end (); ++i)
     {
       i->second->end_mom_ = end_mom;
@@ -245,7 +242,7 @@ Staff_performer::finalize ()
     }
 }
 
-string
+std::string
 Staff_performer::new_instrument_string ()
 {
   // mustn't ask Score for instrument: it will return piano!
@@ -260,10 +257,10 @@ Staff_performer::new_instrument_string ()
 }
 
 int
-Staff_performer::get_channel (const string &instrument)
+Staff_performer::get_channel (const std::string &instrument)
 {
   SCM channel_mapping = get_property (this, "midiChannelMapping");
-  map<string, int> &channel_map
+  std::map<std::string, int> &channel_map
     = (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument")))
         ? channel_map_
         : static_channel_map_;
@@ -271,7 +268,7 @@ Staff_performer::get_channel (const string &instrument)
   if (scm_is_eq (channel_mapping, ly_symbol2scm ("staff")) && channel_ >= 0)
     return channel_;
 
-  map<string, int>::const_iterator i = channel_map.find (instrument);
+  std::map<std::string, int>::const_iterator i = channel_map.find (instrument);
   if (i != channel_map.end ())
     return i->second;
 
@@ -314,11 +311,11 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
 {
   /* map each context (voice) to its own track */
   Context *c = inf.origin_contexts (this)[0];
-  string voice;
+  std::string voice;
   if (c->is_alias (ly_symbol2scm ("Voice")))
     voice = c->id_string ();
   SCM channel_mapping = get_property (this, "midiChannelMapping");
-  string str = new_instrument_string ();
+  std::string str = new_instrument_string ();
   if (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument")))
     channel_ = get_channel (voice);
   else if (channel_ < 0 && str.empty ())

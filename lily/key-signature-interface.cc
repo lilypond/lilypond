@@ -29,7 +29,6 @@
 #include "rational.hh"
 #include "lily-imports.hh"
 
-using std::string;
 
 struct Key_signature_interface
 {
@@ -83,7 +82,7 @@ Key_signature_interface::print (SCM smob)
           continue;
         }
 
-      string glyph_name = ly_scm2string (glyph_name_scm);
+      std::string glyph_name = ly_scm2string (glyph_name_scm);
 
       Stencil acc (fm->find_by_name (glyph_name));
 

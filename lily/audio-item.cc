@@ -25,9 +25,8 @@
 #include "midi-item.hh"
 #include "text-interface.hh"
 
-using std::string;
 
-Audio_instrument::Audio_instrument (string instrument_string)
+Audio_instrument::Audio_instrument (std::string instrument_string)
 {
   str_ = instrument_string;
 }
@@ -81,10 +80,10 @@ Audio_note::tie_head ()
   return first;
 }
 
-string
+std::string
 Audio_note::to_string () const
 {
-  string s = "#<Audio_note pitch ";
+  std::string s = "#<Audio_note pitch ";
   s += pitch_.to_string ();
   s += " len ";
   s += length_mom_.to_string ();

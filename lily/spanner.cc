@@ -32,7 +32,6 @@
 #include <cassert>
 #include <vector>
 
-using std::vector;
 
 void
 Spanner::do_break_processing ()
@@ -72,7 +71,7 @@ Spanner::do_break_processing ()
   else
     {
       System *root = get_root_system (this);
-      vector<Item *> break_points = root->broken_col_range (left, right);
+      std::vector<Item *> break_points = root->broken_col_range (left, right);
 
       break_points.insert (break_points.begin () + 0, left);
       break_points.push_back (right);
@@ -435,7 +434,7 @@ Spanner::set_spacing_rods (SCM smob)
       if (!bounds[LEFT] || !bounds[RIGHT])
         return SCM_UNSPECIFIED;
 
-      vector<Item *> cols (root->broken_col_range (
+      std::vector<Item *> cols (root->broken_col_range (
         bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
 
       if (cols.size ())
@@ -506,12 +505,12 @@ Spanner::calc_normalized_endpoints (SCM smob)
   if (orig->is_broken ())
     {
       Real total_width = 0.0;
-      vector<Real> span_data;
+      std::vector<Real> span_data;
 
       for (vsize i = 0; i < orig->broken_intos_.size (); i++)
         span_data.push_back (orig->broken_intos_[i]->spanner_length ());
 
-      vector<Interval> unnormalized_endpoints;
+      std::vector<Interval> unnormalized_endpoints;
 
       for (vsize i = 0; i < span_data.size (); i++)
         {

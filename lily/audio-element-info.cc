@@ -22,13 +22,12 @@
 #include "translator-group.hh"
 #include "context.hh"
 
-using std::vector;
 
-vector<Context *>
+std::vector<Context *>
 Audio_element_info::origin_contexts (Translator *end) const
 {
   Context *t = origin_trans_->context ();
-  vector<Context *> r;
+  std::vector<Context *> r;
   do
     {
       r.push_back (t);

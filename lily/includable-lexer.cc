@@ -30,7 +30,6 @@
 
 #include <sstream>
 
-using std::string;
 
 #ifndef YY_BUF_SIZE
 #define YY_BUF_SIZE 16384
@@ -45,9 +44,9 @@ extern bool relative_includes;
 
 /** Set the new input file to NAME, remember old file.  */
 void
-Includable_lexer::new_input (const string &name, Sources *sources)
+Includable_lexer::new_input (const std::string &name, Sources *sources)
 {
-  string current_dir = dir_name (main_input_name_);
+  std::string current_dir = dir_name (main_input_name_);
   if (relative_includes)
     current_dir = include_stack_.size ()
                     ? dir_name (include_stack_.back ()->name_string ())
@@ -56,7 +55,7 @@ Includable_lexer::new_input (const string &name, Sources *sources)
   Source_file *file = sources->get_file (name, current_dir);
   if (!file)
     {
-      string msg = _f ("cannot find file: `%s'", name);
+      std::string msg = _f ("cannot find file: `%s'", name);
       msg += "\n";
       msg += _f ("(search path: `%s')",
                  (current_dir.length () ? (current_dir + PATHSEP) : "")
@@ -68,7 +67,7 @@ Includable_lexer::new_input (const string &name, Sources *sources)
 }
 
 void
-Includable_lexer::new_input (const string &name, string data, Sources *sources)
+Includable_lexer::new_input (const std::string &name, std::string data, Sources *sources)
 {
   Source_file *file = new Source_file (name, data);
   sources->add (file);
@@ -76,7 +75,7 @@ Includable_lexer::new_input (const string &name, string data, Sources *sources)
 }
 
 void
-Includable_lexer::new_input (const string &name, Source_file *file)
+Includable_lexer::new_input (const std::string &name, Source_file *file)
 {
   debug_output ("[" + name, false);
   file_name_strings_.push_back (name);

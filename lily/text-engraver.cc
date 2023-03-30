@@ -28,7 +28,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /**
    typeset directions that are  plain text.
@@ -36,8 +35,8 @@ using std::vector;
 
 class Text_engraver : public Engraver
 {
-  vector<Stream_event *> evs_;
-  vector<Grob *> scripts_;
+  std::vector<Stream_event *> evs_;
+  std::vector<Grob *> scripts_;
 
 public:
   TRANSLATOR_DECLARATIONS (Text_engraver);

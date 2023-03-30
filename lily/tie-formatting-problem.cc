@@ -45,9 +45,6 @@
 #include <string>
 #include <vector>
 
-using std::set;
-using std::string;
-using std::vector;
 
 template <typename Container>
 auto &
@@ -98,14 +95,14 @@ Tie_formatting_problem::Tie_formatting_problem ()
 }
 
 void
-Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
+Tie_formatting_problem::set_column_chord_outline (std::vector<Item *> bounds,
                                                   Direction dir,
                                                   int column_rank)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (bounds[0]);
 
-  vector<Box> boxes;
-  vector<Box> head_boxes;
+  std::vector<Box> boxes;
+  std::vector<Box> head_boxes;
 
   Grob *stem = 0;
   for (vsize i = 0; i < bounds.size (); i++)
@@ -291,10 +288,10 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
 }
 
 void
-Tie_formatting_problem::set_chord_outline (vector<Item *> bounds, Direction dir)
+Tie_formatting_problem::set_chord_outline (std::vector<Item *> bounds, Direction dir)
 
 {
-  vector<int> ranks;
+  std::vector<int> ranks;
   for (vsize i = 0; i < bounds.size (); i++)
     ranks.push_back (bounds[i]->get_column ()->get_rank ());
 
@@ -303,7 +300,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item *> bounds, Direction dir)
 
   for (auto it = ranks.begin (); it != last; ++it)
     {
-      vector<Item *> col_items;
+      std::vector<Item *> col_items;
       for (vsize j = 0; j < bounds.size (); j++)
         {
           if (bounds[j]->get_column ()->get_rank () == *it)
@@ -317,7 +314,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item *> bounds, Direction dir)
 void
 Tie_formatting_problem::from_tie (Spanner *tie)
 {
-  vector<Spanner *> ties;
+  std::vector<Spanner *> ties;
   ties.push_back (tie);
   from_ties (ties);
 
@@ -331,7 +328,7 @@ Tie_formatting_problem::common_x_refpoint () const
 }
 
 void
-Tie_formatting_problem::from_ties (vector<Spanner *> const &ties)
+Tie_formatting_problem::from_ties (std::vector<Spanner *> const &ties)
 {
   if (ties.empty ())
     return;
@@ -356,7 +353,7 @@ Tie_formatting_problem::from_ties (vector<Spanner *> const &ties)
 
   for (const auto d : {LEFT, RIGHT})
     {
-      vector<Item *> bounds;
+      std::vector<Item *> bounds;
 
       for (auto *const tie : ties)
         {
@@ -385,7 +382,7 @@ Tie_formatting_problem::from_ties (vector<Spanner *> const &ties)
 }
 
 void
-Tie_formatting_problem::from_semi_ties (vector<Item *> const &semi_ties,
+Tie_formatting_problem::from_semi_ties (std::vector<Item *> const &semi_ties,
                                         Direction head_dir)
 {
   if (semi_ties.empty ())
@@ -393,7 +390,7 @@ Tie_formatting_problem::from_semi_ties (vector<Item *> const &semi_ties,
 
   use_horizontal_spacing_ = false;
   details_.from_grob (semi_ties[0]);
-  vector<Item *> heads;
+  std::vector<Item *> heads;
 
   int column_rank = -1;
   for (auto *const semi_tie : semi_ties)
@@ -798,7 +795,7 @@ Tie_formatting_problem::score_configuration (Tie_configuration *conf) const
         {
           Real y = b.get_other_coordinate (X_AXIS, x);
 
-          for (set<int>::const_iterator i (dot_positions_.begin ());
+          for (std::set<int>::const_iterator i (dot_positions_.begin ());
                i != dot_positions_.end (); i++)
             {
               int dot_pos = (*i);
@@ -972,7 +969,7 @@ Tie_formatting_problem::generate_base_chord_configuration ()
 Ties_configuration
 Tie_formatting_problem::find_best_variation (
   Ties_configuration const &base,
-  vector<Tie_configuration_variation> const &vars)
+  std::vector<Tie_configuration_variation> const &vars)
 {
   Ties_configuration best = base;
 
@@ -1005,7 +1002,7 @@ Tie_formatting_problem::generate_optimal_configuration ()
   Ties_configuration base = generate_base_chord_configuration ();
   score_ties (&base);
 
-  vector<Tie_configuration_variation> vars;
+  std::vector<Tie_configuration_variation> vars;
   if (specifications_.size () > 1)
     vars = generate_collision_variations (base);
   else
@@ -1082,11 +1079,11 @@ Tie_formatting_problem::set_ties_config_standard_directions (
     }
 }
 
-vector<Tie_configuration_variation>
+std::vector<Tie_configuration_variation>
 Tie_formatting_problem::generate_extremal_tie_variations (
   Ties_configuration const &ties) const
 {
-  vector<Tie_configuration_variation> vars;
+  std::vector<Tie_configuration_variation> vars;
   for (int i = 1; i <= details_.multi_tie_region_size_; i++)
     {
       Drul_array<Tie_configuration *> configs;
@@ -1116,11 +1113,11 @@ Tie_formatting_problem::generate_extremal_tie_variations (
   return vars;
 }
 
-vector<Tie_configuration_variation>
+std::vector<Tie_configuration_variation>
 Tie_formatting_problem::generate_single_tie_variations (
   Ties_configuration const &ties) const
 {
-  vector<Tie_configuration_variation> vars;
+  std::vector<Tie_configuration_variation> vars;
 
   int sz = details_.single_tie_region_size_;
   if (specifications_[0].has_manual_position_)
@@ -1148,13 +1145,13 @@ Tie_formatting_problem::generate_single_tie_variations (
   return vars;
 }
 
-vector<Tie_configuration_variation>
+std::vector<Tie_configuration_variation>
 Tie_formatting_problem::generate_collision_variations (
   Ties_configuration const &ties) const
 {
   Real center_distance_tolerance = 0.25;
 
-  vector<Tie_configuration_variation> vars;
+  std::vector<Tie_configuration_variation> vars;
   Real last_center = 0.0;
   for (vsize i = 0; i < ties.size (); i++)
     {
@@ -1274,7 +1271,7 @@ Tie_formatting_problem::set_debug_scoring (Ties_configuration const &base)
     {
       for (vsize i = 0; i < base.size (); i++)
         {
-          string card = base.complete_tie_card (i);
+          std::string card = base.complete_tie_card (i);
           set_property (specifications_[i].tie_grob_, "annotation",
                         ly_string2scm (card));
         }

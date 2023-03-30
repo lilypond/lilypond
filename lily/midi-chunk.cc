@@ -24,8 +24,6 @@
 #include "std-string.hh"
 #include "string-convert.hh"
 
-using std::string;
-using std::vector;
 
 Midi_track::Midi_track (int number, bool port)
   : number_ (number)
@@ -54,7 +52,7 @@ Midi_track::Midi_track (int number, bool port)
     //                            "00" "ff59" "02" "ff" "00"
     ;
 
-  string data_string;
+  std::string data_string;
   // only for format 0 (currently using format 1)?
   data_string += String_convert::hex2bin (data_str0);
 
@@ -62,7 +60,7 @@ Midi_track::Midi_track (int number, bool port)
     {
       const char num = static_cast<char> (number);
       const char out[5] = {0x00, '\xff', 0x21, 0x01, num};
-      data_string += string (out, sizeof (out));
+      data_string += std::string (out, sizeof (out));
     }
 
   set ("MTrk", data_string, "");
@@ -84,7 +82,7 @@ Midi_track::add (int delta_ticks, Midi_item *midi)
   Midi_event *e = new Midi_event (delta_ticks, midi);
 
   // Insertion position for the new event in the track.
-  vector<Midi_event *>::iterator position (events_.end ());
+  std::vector<Midi_event *>::iterator position (events_.end ());
   if (delta_ticks == 0
       && (!dynamic_cast<Midi_note *> (midi)
           || dynamic_cast<Midi_note_off *> (midi)))
@@ -97,7 +95,7 @@ Midi_track::add (int delta_ticks, Midi_item *midi)
       // taken effect.
       while (position != events_.begin ())
         {
-          vector<Midi_event *>::iterator previous (position - 1);
+          std::vector<Midi_event *>::iterator previous (position - 1);
           if (!dynamic_cast<Midi_note *> ((*previous)->midi_)
               || dynamic_cast<Midi_note_off *> ((*previous)->midi_))
             {
@@ -126,12 +124,12 @@ Midi_track::add (int delta_ticks, Midi_item *midi)
   events_.insert (position, e);
 }
 
-string
+std::string
 Midi_track::data_string () const
 {
-  string str = Midi_chunk::data_string ();
+  std::string str = Midi_chunk::data_string ();
 
-  for (vector<Midi_event *>::const_iterator i (events_.begin ());
+  for (std::vector<Midi_event *>::const_iterator i (events_.begin ());
        i != events_.end (); i++)
     {
       str += (*i)->to_string ();
@@ -154,11 +152,11 @@ Midi_event::Midi_event (int delta_ticks, Midi_item *midi)
   midi_ = midi;
 }
 
-string
+std::string
 Midi_event::to_string () const
 {
-  string delta_string = int2midi_varint_string (delta_ticks_);
-  string midi_string = midi_->to_string ();
+  std::string delta_string = int2midi_varint_string (delta_ticks_);
+  std::string midi_string = midi_->to_string ();
   return delta_string + midi_string;
 }
 /****************************************************************
@@ -167,7 +165,7 @@ Midi_event::to_string () const
 
 Midi_header::Midi_header (int format, int tracks, int clocks_per_4)
 {
-  string str = String_convert::be_u16 (uint16_t (format))
+  std::string str = String_convert::be_u16 (uint16_t (format))
                + String_convert::be_u16 (uint16_t (tracks))
                + String_convert::be_u16 (uint16_t (clocks_per_4));
   set ("MThd", str, "");
@@ -181,25 +179,25 @@ Midi_chunk::~Midi_chunk ()
 }
 
 void
-Midi_chunk::set (const string &header_string, const string &data_string,
-                 const string &footer_string)
+Midi_chunk::set (const std::string &header_string, const std::string &data_string,
+                 const std::string &footer_string)
 {
   data_string_ = data_string;
   footer_string_ = footer_string;
   header_string_ = header_string;
 }
 
-string
+std::string
 Midi_chunk::data_string () const
 {
   return data_string_;
 }
 
-string
+std::string
 Midi_chunk::to_string () const
 {
-  string str = header_string_;
-  string dat = data_string ();
+  std::string str = header_string_;
+  std::string dat = data_string ();
   uint32_t total = uint32_t (dat.length () + footer_string_.length ());
   str += String_convert::be_u32 (total);
   str += dat;

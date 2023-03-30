@@ -33,7 +33,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Auto_beam_engraver : public Engraver
 {
@@ -78,7 +77,7 @@ private:
   // This engraver is designed to operate in Voice context, so we expect only
   // one stem per timestep.
   Item *current_stem_ = nullptr;
-  vector<Item *> stems_;
+  std::vector<Item *> stems_;
 
   int process_acknowledged_count_ = 0;
   Moment last_add_mom_;
@@ -409,7 +408,7 @@ Auto_beam_engraver::recheck_beam ()
     first part of the beam and reset the current beam to just
     the last part of the beam
   */
-  vector<Item *> new_stems;
+  std::vector<Item *> new_stems;
 
   for (vsize i = 0; (i + 1) < stems_.size (); /*in body*/)
     {

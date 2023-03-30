@@ -30,7 +30,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /**
    The name says it all: make multi measure rests
@@ -56,12 +55,12 @@ private:
   void set_measure_count (int n);
 
 private:
-  vector<Stream_event *> text_events_;
-  vector<Stream_event *> articulation_events_;
+  std::vector<Stream_event *> text_events_;
+  std::vector<Stream_event *> articulation_events_;
   // text_[0] is a MultiMeasureRestNumber grob
   // the rest are optional MultiMeasureRestText and MultiMeasureRestScript
   // grobs
-  vector<Spanner *> text_;
+  std::vector<Spanner *> text_;
   Stream_event *rest_ev_;
   Spanner *mmrest_;
   Moment stop_moment_;

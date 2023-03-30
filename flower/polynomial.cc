@@ -26,7 +26,6 @@
 
 #include <cmath>
 
-using std::vector;
 
 /*
   Een beter milieu begint bij uzelf. Hergebruik!
@@ -157,10 +156,10 @@ cubic_root (Real x)
   return 0.0;
 }
 
-vector<Real>
+std::vector<Real>
 Polynomial::solve_cubic () const
 {
-  vector<Real> sol;
+  std::vector<Real> sol;
 
   /* normal form: x^3 + Ax^2 + Bx + C = 0 */
   Real A = coefs_[2] / coefs_[3];
@@ -239,10 +238,10 @@ Polynomial::degree () const
 /*
   all roots of quadratic eqn.
 */
-vector<Real>
+std::vector<Real>
 Polynomial::solve_quadric () const
 {
-  vector<Real> sol;
+  std::vector<Real> sol;
   /* normal form: x^2 + px + q = 0 */
   Real p = coefs_[1] / (2 * coefs_[2]);
   Real q = coefs_[0] / coefs_[2];
@@ -260,16 +259,16 @@ Polynomial::solve_quadric () const
 }
 
 /* solve linear equation */
-vector<Real>
+std::vector<Real>
 Polynomial::solve_linear () const
 {
-  vector<Real> s;
+  std::vector<Real> s;
   if (coefs_[1] != 0)
     s.push_back (-coefs_[0] / coefs_[1]);
   return s;
 }
 
-vector<Real>
+std::vector<Real>
 Polynomial::solve () const
 {
   const_cast<Polynomial *> (this)->clean ();
@@ -283,7 +282,7 @@ Polynomial::solve () const
     case 3:
       return solve_cubic ();
     }
-  vector<Real> s;
+  std::vector<Real> s;
   return s;
 }
 

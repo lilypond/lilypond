@@ -37,7 +37,6 @@
 #include <cctype>
 #include <sstream>
 
-using std::string;
 
 /* for the keyword table */
 struct Keyword_ent
@@ -248,7 +247,7 @@ Lily_lexer::set_identifier (SCM path, SCM val)
     {
       if (lookup_keyword (sym) >= 0)
         {
-          string symstr = ly_symbol2string (sym);
+          std::string symstr = ly_symbol2string (sym);
           warning (_f ("identifier name is a keyword: `%s'", symstr.c_str ()));
         }
 

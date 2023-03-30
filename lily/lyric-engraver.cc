@@ -27,7 +27,6 @@
 
 #include "translator.icc"
 
-using std::string;
 
 /**
    Generate texts for lyric syllables.  We only do one lyric at a time.
@@ -101,7 +100,7 @@ get_voice_to_lyrics (Context *lyrics)
     }
 
   SCM voice_name = get_property (lyrics, "associatedVoice");
-  string nm = lyrics->id_string ();
+  std::string nm = lyrics->id_string ();
 
   if (scm_is_string (voice_name))
     nm = ly_scm2string (voice_name);

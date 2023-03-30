@@ -46,13 +46,11 @@
 #include <cstring> /* strdup, strchr */
 #include <functional>
 
-using std::string;
-using std::vector;
 
 /*
   symbols/strings.
  */
-string
+std::string
 ly_scm_write_string (SCM s)
 {
   SCM port
@@ -62,7 +60,7 @@ ly_scm_write_string (SCM s)
   return ly_scm2string (scm_strport_to_string (port));
 }
 
-string
+std::string
 ly_symbol2string (SCM s)
 {
   /*
@@ -71,8 +69,8 @@ ly_symbol2string (SCM s)
   return ly_scm2string (scm_symbol_to_string (s));
 }
 
-string
-robust_symbol2string (SCM sym, const string &str)
+std::string
+robust_symbol2string (SCM sym, const std::string &str)
 {
   return scm_is_symbol (sym) ? ly_symbol2string (sym) : str;
 }
@@ -90,7 +88,7 @@ extern "C"
 /*
   STRINGS
  */
-string
+std::string
 ly_scm2string (SCM str)
 {
   assert (scm_is_string (str));
@@ -99,10 +97,10 @@ ly_scm2string (SCM str)
   // NULL.
   if (scm_c_string_length (str) == 0)
     {
-      return string ();
+      return std::string ();
     }
 
-  string result;
+  std::string result;
   size_t len;
   unique_stdlib_ptr<char> c_string (scm_to_utf8_stringn (str, &len));
   if (len)
@@ -113,7 +111,7 @@ ly_scm2string (SCM str)
 }
 
 SCM
-ly_string2scm (string const &str)
+ly_string2scm (std::string const &str)
 {
   return scm_from_utf8_stringn (str.c_str (), str.length ());
 }
@@ -229,10 +227,10 @@ ly_deep_copy (SCM src)
   return src;
 }
 
-string
+std::string
 print_scm_val (SCM val)
 {
-  string realval = ly_scm_write_string (val);
+  std::string realval = ly_scm_write_string (val);
   if (realval.length () > 200)
     realval = realval.substr (0, 100) + "\n :\n :\n"
               + realval.substr (realval.length () - 100);
@@ -346,8 +344,8 @@ ly_with_fluid (SCM fluid, SCM val, std::function<SCM ()> const &fn)
   return scm_c_with_fluid (fluid, val, trampoline, const_cast<Fn *> (&fn));
 }
 
-string
-robust_scm2string (SCM k, const string &s)
+std::string
+robust_scm2string (SCM k, const std::string &s)
 {
   if (scm_is_string (k))
     return ly_scm2string (k);
@@ -485,7 +483,7 @@ ly_hash2alist (SCM tab)
   C++ interfacing.
  */
 
-string
+std::string
 mangle_cxx_identifier (const char *cxx_id)
 {
   std::string mangled_id (cxx_id);
@@ -510,12 +508,12 @@ mangle_cxx_identifier (const char *cxx_id)
 }
 
 SCM
-ly_string_array_to_scm (const vector<string> &a)
+ly_string_array_to_scm (const std::vector<std::string> &a)
 {
   SCM s = SCM_EOL;
   for (auto it = a.rbegin (); it != a.rend (); it++)
     {
-      const string &part = *it;
+      const std::string &part = *it;
       if (!part.empty ())
         s = scm_cons (ly_symbol2scm (part), s);
     }
@@ -528,7 +526,7 @@ parse_symbol_list (char const *symbols)
 {
   while (isspace (*symbols))
     symbols++;
-  string s = symbols;
+  std::string s = symbols;
   replace_all (&s, '\n', ' ');
   replace_all (&s, '\t', ' ');
   replace_all (&s, "  ", " ");

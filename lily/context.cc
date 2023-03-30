@@ -35,8 +35,6 @@
 #include "lily-imports.hh"
 #include "duration.hh"
 
-using std::string;
-using std::vector;
 
 bool
 Context::is_removable () const
@@ -122,7 +120,7 @@ Context::Context (Context_def *cdef, SCM ops)
 // True if this context has the given type and id.
 // These values function as wildcards: type=SCM_EOL, id="".
 bool
-Context::matches (SCM type, const string &id) const
+Context::matches (SCM type, const std::string &id) const
 {
   if (!id.empty () && (id_string () != id))
     return false;
@@ -142,7 +140,7 @@ Context::matches (SCM type, const string &id) const
 // n is a symbol: the name of the context to find or create.  In FIND_ONLY
 // mode, it may also be SCM_EOL to act as a wild card.
 Context *
-Context::core_find (FindMode mode, Direction dir, SCM n, const string &id,
+Context::core_find (FindMode mode, Direction dir, SCM n, const std::string &id,
                     SCM ops)
 {
   const bool allow_create = (mode != FIND_ONLY);
@@ -172,7 +170,7 @@ Context::core_find (FindMode mode, Direction dir, SCM n, const string &id,
 
   if (walk_down && allow_create)
     {
-      vector<Context_def *> path = path_to_acceptable_context (n);
+      std::vector<Context_def *> path = path_to_acceptable_context (n);
       if (!path.empty ())
         {
           // TODO: Would it be OK to use one intermediate ID for all cases?  It
@@ -192,7 +190,7 @@ Context::core_find (FindMode mode, Direction dir, SCM n, const string &id,
 // This implements all the logic of find () except a final check that the found
 // context is accessible to the user.
 Context *
-Context::unchecked_find (FindMode mode, Direction dir, SCM n, const string &id,
+Context::unchecked_find (FindMode mode, Direction dir, SCM n, const std::string &id,
                          SCM ops)
 {
   const bool allow_create = (mode != FIND_ONLY);
@@ -233,7 +231,7 @@ Context::unchecked_find (FindMode mode, Direction dir, SCM n, const string &id,
 }
 
 Context *
-Context::find (FindMode mode, Direction dir, SCM n, const string &id, SCM ops)
+Context::find (FindMode mode, Direction dir, SCM n, const std::string &id, SCM ops)
 {
   if (Context *c = unchecked_find (mode, dir, n, id, ops))
     {
@@ -245,20 +243,20 @@ Context::find (FindMode mode, Direction dir, SCM n, const string &id, SCM ops)
 }
 
 Context *
-Context::create_unique_context (Direction dir, SCM name, const string &id,
+Context::create_unique_context (Direction dir, SCM name, const std::string &id,
                                 SCM ops)
 {
   return find (CREATE_ONLY, dir, name, id, ops);
 }
 
 Context *
-Context::find_context (Direction dir, SCM name, const string &id)
+Context::find_context (Direction dir, SCM name, const std::string &id)
 {
   return find (FIND_ONLY, dir, name, id, SCM_EOL);
 }
 
 Context *
-Context::find_create_context (Direction dir, SCM name, const string &id,
+Context::find_create_context (Direction dir, SCM name, const std::string &id,
                               SCM ops)
 {
   return find (FIND_CREATE, dir, name, id, ops);
@@ -340,12 +338,12 @@ Context::create_context_from_event (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
 
-  string id = ly_scm2string (get_property (ev, "id"));
+  std::string id = ly_scm2string (get_property (ev, "id"));
   SCM ops = get_property (ev, "ops");
   SCM type_scm = get_property (ev, "type");
-  string type = ly_symbol2string (type_scm);
+  std::string type = ly_symbol2string (type_scm);
 
-  vector<Context_def *> path = path_to_acceptable_context (type_scm);
+  std::vector<Context_def *> path = path_to_acceptable_context (type_scm);
 
   if (path.size () != 1)
     {
@@ -396,7 +394,7 @@ Context::create_context_from_event (SCM sev)
                      new_context->self_scm (), ly_symbol2scm ("creator"), sev);
 }
 
-vector<Context_def *>
+std::vector<Context_def *>
 Context::path_to_acceptable_context (SCM name) const
 {
   Output_def *odef = get_output_def ();
@@ -412,7 +410,7 @@ Context::path_to_acceptable_context (SCM name) const
 }
 
 Context *
-Context::create_context (Context_def *cdef, const string &id, SCM ops)
+Context::create_context (Context_def *cdef, const std::string &id, SCM ops)
 {
   infant_event_ = 0;
   /* TODO: This is fairly misplaced. We can fix this when we have taken out all
@@ -513,7 +511,7 @@ Context::is_bottom_context () const
 }
 
 Context *
-Context::get_default_interpreter (const string &id)
+Context::get_default_interpreter (const std::string &id)
 {
   if (is_bottom_context ())
     {
@@ -766,18 +764,18 @@ Context::context_name_symbol () const
   return td->get_context_name ();
 }
 
-string
+std::string
 Context::context_name () const
 {
   return ly_symbol2string (context_name_symbol ());
 }
 
-string
-Context::diagnostic_id (SCM name, const string &id)
+std::string
+Context::diagnostic_id (SCM name, const std::string &id)
 {
   // For robustness when this static method is called directly (e.g. after a
   // failure to create a context), we do not assume that name is a symbol.
-  string result (ly_scm_write_string (name));
+  std::string result (ly_scm_write_string (name));
   if (!id.empty ())
     {
       result += " = ";

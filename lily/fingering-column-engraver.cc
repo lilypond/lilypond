@@ -26,7 +26,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /**
    Find potentially colliding scripts, and put them in a
@@ -34,8 +33,8 @@ using std::vector;
 class Fingering_column_engraver : public Engraver
 {
   Drul_array<Grob *> fingering_columns_;
-  Drul_array<vector<Grob *>> scripts_;
-  vector<Grob *> possibles_;
+  Drul_array<std::vector<Grob *>> scripts_;
+  std::vector<Grob *> possibles_;
 
 public:
   TRANSLATOR_DECLARATIONS (Fingering_column_engraver);

@@ -50,10 +50,6 @@
 #include <set>
 #include <vector>
 
-using std::set;
-using std::string;
-using std::unique_ptr;
-using std::vector;
 
 // Compute the increase from dr.front () to dr.back ().
 static constexpr Real
@@ -146,7 +142,7 @@ Beam_configuration::done () const
 }
 
 void
-Beam_configuration::add (Real demerit, const string &reason)
+Beam_configuration::add (Real demerit, const std::string &reason)
 {
   demerits += demerit;
 
@@ -154,7 +150,7 @@ Beam_configuration::add (Real demerit, const string &reason)
     score_card_ += to_string (" %s %.2f", reason.c_str (), demerit);
 }
 
-unique_ptr<Beam_configuration>
+std::unique_ptr<Beam_configuration>
 Beam_configuration::new_config (Drul_array<Real> start, Drul_array<Real> offset)
 {
   auto qs = std::make_unique<Beam_configuration> ();
@@ -242,7 +238,7 @@ Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> ys,
   // This is the least-squares DY, corrected for concave beams.
   musical_dy_ = from_scm<double> (get_property (beam_, "least-squares-dy"), 0);
 
-  vector<Spanner *> beams;
+  std::vector<Spanner *> beams;
   align_broken_intos_ = align_broken_intos;
   if (align_broken_intos_)
     {
@@ -269,7 +265,7 @@ Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> ys,
     {
       extract_grob_set (beams[i], "stems", stems);
       extract_grob_set (beams[i], "covered-grobs", fake_collisions);
-      vector<Grob *> collisions;
+      std::vector<Grob *> collisions;
 
       for (vsize j = 0; j < fake_collisions.size (); j++)
         if (fake_collisions[j]->get_system () == beams[i]->get_system ())
@@ -369,7 +365,7 @@ Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> ys,
       for (vsize j = 0; j < segments_.size (); j++)
         segments_[j].horizontal_ += (x_span_ - x_pos[LEFT]);
 
-      set<Grob *> colliding_stems;
+      std::set<Grob *> colliding_stems;
       for (vsize j = 0; j < collisions.size (); j++)
         {
           if (!collisions[j]->is_live ())
@@ -403,7 +399,7 @@ Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> ys,
             }
         }
 
-      for (set<Grob *>::const_iterator it (colliding_stems.begin ());
+      for (std::set<Grob *>::const_iterator it (colliding_stems.begin ());
            it != colliding_stems.end (); it++)
         {
           Grob *s = *it;
@@ -586,7 +582,7 @@ Beam_scoring_problem::least_squares_positions ()
     }
   else
     {
-      vector<Offset> ideals;
+      std::vector<Offset> ideals;
       for (vsize i = 0; i < stem_infos_.size (); i++)
         if (is_normal_[i])
           ideals.push_back (
@@ -622,7 +618,7 @@ Beam_scoring_problem::least_squares_positions ()
 */
 
 bool
-is_concave_single_notes (vector<int> const &positions, Direction beam_dir)
+is_concave_single_notes (std::vector<int> const &positions, Direction beam_dir)
 {
   Interval covering;
   covering.add_point (positions[0]);
@@ -669,7 +665,7 @@ is_concave_single_notes (vector<int> const &positions, Direction beam_dir)
 }
 
 Real
-calc_positions_concaveness (vector<int> const &positions, Direction beam_dir)
+calc_positions_concaveness (std::vector<int> const &positions, Direction beam_dir)
 {
   Real dy = positions.back () - positions[0];
   Real slope = dy / static_cast<Real> (positions.size () - 1);
@@ -709,8 +705,8 @@ Beam_scoring_problem::calc_concaveness ()
   if (normal_stem_count_ <= 2)
     return 0.0;
 
-  vector<int> close_positions;
-  vector<int> far_positions;
+  std::vector<int> close_positions;
+  std::vector<int> far_positions;
   for (vsize i = 0; i < is_normal_.size (); i++)
     if (is_normal_[i])
       {
@@ -811,7 +807,7 @@ Beam_scoring_problem::shift_region_to_valid ()
       feasible_left_point.intersect (flp);
     }
 
-  vector<Grob *> filtered;
+  std::vector<Grob *> filtered;
   /*
     We only update these for objects that are too large for quanting
     to find a workaround.  Typically, these are notes with
@@ -825,7 +821,7 @@ Beam_scoring_problem::shift_region_to_valid ()
   Real min_y_size = 2.0;
 
   // A list of intervals into which beams may not fall
-  vector<Interval> forbidden_intervals;
+  std::vector<Interval> forbidden_intervals;
 
   for (vsize i = 0; i < collisions_.size (); i++)
     {
@@ -895,7 +891,7 @@ Beam_scoring_problem::shift_region_to_valid ()
 
 void
 Beam_scoring_problem::generate_quants (
-  vector<unique_ptr<Beam_configuration>> *scores) const
+  std::vector<std::unique_ptr<Beam_configuration>> *scores) const
 {
   auto region_size = static_cast<int> (parameters_.REGION_SIZE);
 
@@ -924,7 +920,7 @@ Beam_scoring_problem::generate_quants (
   /*
     Asymetry ? should run to <= region_size ?
   */
-  vector<Real> unshifted_quants;
+  std::vector<Real> unshifted_quants;
   for (int i = -region_size; i < region_size; i++)
     for (int j = 0; j < num_base_quants; j++)
       {
@@ -995,7 +991,7 @@ Beam_scoring_problem::one_scorer (Beam_configuration *config) const
 Beam_configuration *
 Beam_scoring_problem::force_score (
   SCM inspect_quants,
-  const vector<unique_ptr<Beam_configuration>> &configs) const
+  const std::vector<std::unique_ptr<Beam_configuration>> &configs) const
 {
   Drul_array<Real> ins = from_scm<Drul_array<Real>> (inspect_quants);
   Real mindist = 1e6;
@@ -1022,7 +1018,7 @@ Beam_scoring_problem::force_score (
 Drul_array<Real>
 Beam_scoring_problem::solve () const
 {
-  vector<unique_ptr<Beam_configuration>> configs;
+  std::vector<std::unique_ptr<Beam_configuration>> configs;
   generate_quants (&configs);
 
   if (configs.empty ())
@@ -1094,7 +1090,7 @@ Beam_scoring_problem::solve () const
             completed++;
         }
 
-      string card = best->score_card_
+      std::string card = best->score_card_
                     + to_string (" c%d/%zu", completed, configs.size ());
       set_property (beam_, "annotation", ly_string2scm (card));
     }

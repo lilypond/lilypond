@@ -26,7 +26,6 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
-using std::vector;
 
 Stencil::Stencil ()
 {
@@ -115,7 +114,7 @@ Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
   Box shifted_box = extent_box ();
   shifted_box.translate (-absolute_off);
 
-  vector<Offset> pts;
+  std::vector<Offset> pts;
   pts.push_back (
     Offset (shifted_box.x ().at (LEFT), shifted_box.y ().at (DOWN)));
   pts.push_back (

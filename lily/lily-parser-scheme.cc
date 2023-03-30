@@ -31,7 +31,6 @@
 
 #include <unistd.h>
 
-using std::string;
 
 LY_DEFINE (ly_parse_file, "ly:parse-file", 1, 0, 0, (SCM name),
            R"(
@@ -39,10 +38,10 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
-  string file = ly_scm2string (name);
+  std::string file = ly_scm2string (name);
   char const *extensions[] = {"ly", "", 0};
 
-  string file_name = global_path.find (file, extensions);
+  std::string file_name = global_path.find (file, extensions);
 
   /* By default, use base name of input file for output file name,
      write output to cwd; do not use root and directory parts of input
@@ -57,11 +56,11 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
       out_file_name.is_absolute_ = false;
     }
 
-  string output_name = output_name_global;
+  std::string output_name = output_name_global;
   if (!output_name.empty ())
     {
       /* Interpret --output=DIR to mean --output=DIR/BASE.  */
-      string dir;
+      std::string dir;
       if (is_dir (output_name))
         {
           dir = output_name;
@@ -87,13 +86,13 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
         out_file_name = File_name (output_name);
     }
 
-  string init;
+  std::string init;
   if (!init_name_global.empty ())
     init = init_name_global;
   else
     init = "init.ly";
 
-  string out_file = out_file_name.to_string ();
+  std::string out_file = out_file_name.to_string ();
   if (init.length () && global_path.find (init).empty ())
     {
       warning (_f ("cannot find init file: `%s'", init));
@@ -142,9 +141,9 @@ Parse the init file @var{name}.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
-  string file = ly_scm2string (name);
+  std::string file = ly_scm2string (name);
 
-  string file_name = global_path.find (file);
+  std::string file_name = global_path.find (file);
 
   bool error = false;
 
@@ -251,7 +250,7 @@ indicators.
 {
   auto *const parser = LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
-  string fn;
+  std::string fn;
   if (SCM_UNBNDP (filename) || !scm_is_string (filename))
     fn = "<string>";
   else
@@ -336,7 +335,7 @@ parser, trigger an ordinary error.
   Lily_parser *p = unsmob<Lily_parser> (parser);
 
   LY_ASSERT_TYPE (scm_is_string, msg, 1);
-  string s = ly_scm2string (msg);
+  std::string s = ly_scm2string (msg);
 
   Input *i = unsmob<Input> (input);
   if (p)

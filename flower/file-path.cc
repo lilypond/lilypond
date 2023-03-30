@@ -49,17 +49,15 @@
 #include <memory>
 #include <unistd.h>
 
-using std::string;
-using std::vector;
 
-vector<string>
+std::vector<std::string>
 File_path::directories () const
 {
   return dirs_;
 }
 
 void
-File_path::parse_path (const string &p)
+File_path::parse_path (const std::string &p)
 {
   dirs_ = string_split (p, PATHSEP);
 }
@@ -102,7 +100,7 @@ workaround_wrapper_stat (const char *f, STRUCT_STAT *s)
 }
 
 bool
-is_file (const string &file_name)
+is_file (const std::string &file_name)
 {
   STRUCT_STAT sbuf;
   if (workaround_wrapper_stat (file_name.c_str (), &sbuf) != 0)
@@ -112,7 +110,7 @@ is_file (const string &file_name)
 }
 
 bool
-is_dir (string file_name)
+is_dir (std::string file_name)
 {
   /*
     canonicalize; in particular, trailing slashes should disappear.
@@ -190,8 +188,8 @@ directory, in this order.
 @return
 The file name if found, or empty string if not found. */
 
-string
-File_path::find (const string &name) const
+std::string
+File_path::find (const std::string &name) const
 {
   if (!name.length () || (name == "-"))
     return name;
@@ -242,21 +240,21 @@ File_path::find (const string &name) const
 
   where EXT is from EXTENSIONS.
 */
-string
-File_path::find (const string &name, char const *extensions[])
+std::string
+File_path::find (const std::string &name, char const *extensions[])
 {
   if (name.empty () || name == "-")
     return name;
 
   File_name file_name (name);
-  string orig_ext = file_name.ext_;
+  std::string orig_ext = file_name.ext_;
   for (int i = 0; extensions[i]; i++)
     {
       file_name.ext_ = orig_ext;
       if (*extensions[i] && !file_name.ext_.empty ())
         file_name.ext_ += ".";
       file_name.ext_ += extensions[i];
-      string found = find (file_name.to_string ());
+      std::string found = find (file_name.to_string ());
       if (!found.empty ())
         return found;
     }
@@ -266,7 +264,7 @@ File_path::find (const string &name, char const *extensions[])
 
 /** Append a directory, return false if failed.  */
 bool
-File_path::try_append (string s)
+File_path::try_append (std::string s)
 {
   if (s == "")
     s = ".";
@@ -278,10 +276,10 @@ File_path::try_append (string s)
   return false;
 }
 
-string
+std::string
 File_path::to_string () const
 {
-  string s;
+  std::string s;
   for (vsize i = 0; i < dirs_.size (); i++)
     {
       s = s + dirs_[i];
@@ -292,13 +290,13 @@ File_path::to_string () const
 }
 
 void
-File_path::append (const string &str)
+File_path::append (const std::string &str)
 {
   dirs_.push_back (str);
 }
 
 void
-File_path::prepend (const string &str)
+File_path::prepend (const std::string &str)
 {
   dirs_.insert (dirs_.begin (), str);
 }

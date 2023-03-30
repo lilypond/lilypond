@@ -23,7 +23,6 @@
 #include "stencil.hh"
 #include "warn.hh"
 
-using std::string;
 
 LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter", 2, 1, 0,
            (SCM port, SCM alist, SCM default_callback),

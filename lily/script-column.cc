@@ -30,10 +30,8 @@
 
 #include <map>
 
-using std::map;
-using std::vector;
 
-typedef map<Grob *, vector<Grob *>> Grob_scripts_map;
+typedef std::map<Grob *, std::vector<Grob *>> Grob_scripts_map;
 
 void
 Script_column::add_side_positioned (Grob *me, Grob *script)
@@ -64,11 +62,11 @@ SCM
 Script_column::row_before_line_breaking (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  vector<Grob *> horizontal_grobs;
+  std::vector<Grob *> horizontal_grobs;
   extract_grob_set (me, "scripts", scripts);
 
   Grob_scripts_map head_scripts_map;
-  vector<Grob *> affect_all_grobs;
+  std::vector<Grob *> affect_all_grobs;
   for (vsize i = 0; i < scripts.size (); i++)
     {
       Grob *sc = scripts[i];
@@ -91,7 +89,7 @@ Script_column::row_before_line_breaking (SCM smob)
   for (Grob_scripts_map::const_iterator i (head_scripts_map.begin ());
        i != head_scripts_map.end (); i++)
     {
-      vector<Grob *> grobs = (*i).second;
+      std::vector<Grob *> grobs = (*i).second;
 
       // this isn't right in all cases, but in general a safe assumption.
       grobs.insert (grobs.end (), affect_all_grobs.begin (),
@@ -108,7 +106,7 @@ SCM
 Script_column::before_line_breaking (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  vector<Grob *> staff_sided;
+  std::vector<Grob *> staff_sided;
 
   extract_grob_set (me, "scripts", scripts);
   for (auto *sc : scripts)
@@ -131,7 +129,7 @@ Script_column::before_line_breaking (SCM smob)
 }
 
 void
-Script_column::order_grobs (vector<Grob *> grobs)
+Script_column::order_grobs (std::vector<Grob *> grobs)
 {
   Drul_array<SCM> scripts_drul (SCM_EOL, SCM_EOL);
   for (vsize i = 0; i < grobs.size (); i++)

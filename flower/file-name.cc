@@ -33,8 +33,6 @@
 #include <sys/stat.h>
 #endif
 
-using std::string;
-using std::vector;
 
 #define ROOTSEP ':'
 #define DIRSEP '/'
@@ -44,18 +42,18 @@ using std::vector;
 #if 0
 static /* avoid warning */
 #endif
-string
-slashify (string file_name)
+std::string
+slashify (std::string file_name)
 {
   replace_all (&file_name, '\\', '/');
-  replace_all (&file_name, string ("//"), "/");
+  replace_all (&file_name, std::string ("//"), "/");
   return file_name;
 }
 
-string
-dir_name (const string &file_name)
+std::string
+dir_name (const std::string &file_name)
 {
-  string s = file_name;
+  std::string s = file_name;
   s = slashify (s);
   ssize n = s.length ();
   if (n && s[n - 1] == '/')
@@ -68,13 +66,13 @@ dir_name (const string &file_name)
   return s;
 }
 
-string
+std::string
 get_working_directory ()
 {
 #ifdef PATH_MAX
-  vector<char> cwd (PATH_MAX);
+  std::vector<char> cwd (PATH_MAX);
 #else
-  vector<char> cwd (1024);
+  std::vector<char> cwd (1024);
 #endif
   while (getcwd (cwd.data (), cwd.size ()) == NULL)
     {
@@ -85,14 +83,14 @@ get_working_directory ()
         }
       cwd.resize (cwd.size () * 2);
     }
-  return string (cwd.data ());
+  return std::string (cwd.data ());
 }
 
 /* Join components to full file_name. */
-string
+std::string
 File_name::dir_part () const
 {
-  string s;
+  std::string s;
 
   if (!root_.empty ())
     s = root_ + ROOTSEP;
@@ -107,10 +105,10 @@ File_name::dir_part () const
   return s;
 }
 
-string
+std::string
 File_name::file_part () const
 {
-  string s = base_;
+  std::string s = base_;
 
   if (!ext_.empty ())
     s += '.' + ext_;
@@ -118,11 +116,11 @@ File_name::file_part () const
   return s;
 }
 
-string
+std::string
 File_name::to_string () const
 {
-  string d = dir_part ();
-  string f = file_part ();
+  std::string d = dir_part ();
+  std::string f = file_part ();
 
   if (!f.empty () && !dir_.empty ())
     d += DIRSEP;
@@ -130,7 +128,7 @@ File_name::to_string () const
   return d + f;
 }
 
-File_name::File_name (string file_name)
+File_name::File_name (std::string file_name)
 {
 #ifdef __MINGW32__
   file_name = slashify (file_name);
@@ -155,7 +153,7 @@ File_name::File_name (string file_name)
     }
 
   // handle `.' and `..' specially
-  if (file_name == string (".") || file_name == string (".."))
+  if (file_name == std::string (".") || file_name == std::string (".."))
     {
       if (!dir_.empty ())
         dir_ += DIRSEP;
@@ -180,7 +178,7 @@ File_name::is_absolute () const
 }
 
 File_name
-File_name::absolute (string const &cwd) const
+File_name::absolute (std::string const &cwd) const
 {
   if (is_absolute_)
     return *this;
@@ -208,22 +206,22 @@ File_name::canonicalized () const
 {
   File_name c = *this;
 
-  replace_all (&c.dir_, string ("//"), string ("/"));
+  replace_all (&c.dir_, std::string ("//"), std::string ("/"));
 
-  vector<string> components = string_split (c.dir_, '/');
-  vector<string> new_components;
+  std::vector<std::string> components = string_split (c.dir_, '/');
+  std::vector<std::string> new_components;
 
   for (vsize i = 0; i < components.size (); i++)
     {
-      if (i && components[i] == string ("."))
+      if (i && components[i] == std::string ("."))
         continue;
-      else if (new_components.size () && components[i] == string (".."))
+      else if (new_components.size () && components[i] == std::string (".."))
         {
-          string s = new_components.back ();
+          std::string s = new_components.back ();
           new_components.pop_back ();
           if (!new_components.size ())
             {
-              if (s == string ("."))
+              if (s == std::string ("."))
                 new_components.push_back ("..");
               else
                 new_components.push_back (".");

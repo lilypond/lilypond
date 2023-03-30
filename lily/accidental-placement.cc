@@ -38,8 +38,6 @@
 #include <memory>
 #include <vector>
 
-using std::unique_ptr;
-using std::vector;
 
 static Pitch *
 accidental_pitch (Grob *acc)
@@ -88,8 +86,8 @@ Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger,
 */
 void
 Accidental_placement::split_accidentals (Grob *accs,
-                                         vector<Grob *> *break_reminder,
-                                         vector<Grob *> *real_acc)
+                                         std::vector<Grob *> *break_reminder,
+                                         std::vector<Grob *> *real_acc)
 {
   for (SCM entry : ly_scm_list (get_object (accs, "accidental-grobs")))
     for (auto *a : ly_smob_list<Grob> (scm_cdr (entry)))
@@ -102,13 +100,13 @@ Accidental_placement::split_accidentals (Grob *accs,
       }
 }
 
-vector<Grob *>
-Accidental_placement::get_relevant_accidentals (vector<Grob *> const &elts,
+std::vector<Grob *>
+Accidental_placement::get_relevant_accidentals (std::vector<Grob *> const &elts,
                                                 Grob *left)
 {
-  vector<Grob *> br;
-  vector<Grob *> ra;
-  vector<Grob *> ret;
+  std::vector<Grob *> br;
+  std::vector<Grob *> ra;
+  std::vector<Grob *> ret;
   bool right = dynamic_cast<Item *> (left)->break_status_dir () == RIGHT;
 
   for (vsize i = 0; i < elts.size (); i++)
@@ -126,7 +124,7 @@ Accidental_placement::get_relevant_accidentals (vector<Grob *> const &elts,
 struct Accidental_placement_entry
 {
   Skyline_pair horizontal_skylines_;
-  vector<Grob *> grobs_;
+  std::vector<Grob *> grobs_;
 };
 
 Real
@@ -137,8 +135,8 @@ ape_priority (Accidental_placement_entry const *a)
 }
 
 bool
-ape_less (unique_ptr<Accidental_placement_entry> const &a,
-          unique_ptr<Accidental_placement_entry> const &b)
+ape_less (std::unique_ptr<Accidental_placement_entry> const &a,
+          std::unique_ptr<Accidental_placement_entry> const &b)
 {
   vsize size_a = a->grobs_.size ();
   vsize size_b = b->grobs_.size ();
@@ -192,7 +190,7 @@ acc_less (Grob *const &a, Grob *const &b)
   placement
 */
 void
-stagger_apes (vector<unique_ptr<Accidental_placement_entry>> *apes)
+stagger_apes (std::vector<std::unique_ptr<Accidental_placement_entry>> *apes)
 {
   std::sort (apes->begin (), apes->end (), &ape_less);
   // we do the staggering below based on size
@@ -200,7 +198,7 @@ stagger_apes (vector<unique_ptr<Accidental_placement_entry>> *apes)
   // always be closer to the NoteColumn than a placement with 1
   // this allows accidentals to be on-average closer to notes
   // while still preserving octave alignment
-  vector<vector<unique_ptr<Accidental_placement_entry>>> ascs;
+  std::vector<std::vector<std::unique_ptr<Accidental_placement_entry>>> ascs;
 
   vsize sz = INT_MAX;
   for (vsize i = 0; i < apes->size (); i++)
@@ -220,7 +218,7 @@ stagger_apes (vector<unique_ptr<Accidental_placement_entry>> *apes)
       int parity = 1;
       for (vsize j = 0; j < ascs[i].size ();)
         {
-          unique_ptr<Accidental_placement_entry> a;
+          std::unique_ptr<Accidental_placement_entry> a;
           if (parity)
             {
               a = std::move (ascs[i].back ());
@@ -237,10 +235,10 @@ stagger_apes (vector<unique_ptr<Accidental_placement_entry>> *apes)
   std::reverse (apes->begin (), apes->end ());
 }
 
-static vector<unique_ptr<Accidental_placement_entry>>
+static std::vector<std::unique_ptr<Accidental_placement_entry>>
 build_apes (SCM accs)
 {
-  vector<unique_ptr<Accidental_placement_entry>> apes;
+  std::vector<std::unique_ptr<Accidental_placement_entry>> apes;
   for (SCM entry : as_ly_scm_list (accs))
     {
       auto ape = std::make_unique<Accidental_placement_entry> ();
@@ -256,7 +254,7 @@ build_apes (SCM accs)
 static void
 set_ape_skylines (Accidental_placement_entry *ape, Grob **common, Real padding)
 {
-  vector<Grob *> accs (ape->grobs_);
+  std::vector<Grob *> accs (ape->grobs_);
   std::sort (accs.begin (), accs.end (), &acc_less);
 
   /* We know that each accidental has the same note name and we assume that
@@ -303,12 +301,12 @@ set_ape_skylines (Accidental_placement_entry *ape, Grob **common, Real padding)
     }
 }
 
-static vector<Grob *>
+static std::vector<Grob *>
 extract_heads_and_stems (
-  vector<unique_ptr<Accidental_placement_entry>> const &apes)
+  std::vector<std::unique_ptr<Accidental_placement_entry>> const &apes)
 {
-  vector<Grob *> note_cols;
-  vector<Grob *> ret;
+  std::vector<Grob *> note_cols;
+  std::vector<Grob *> ret;
 
   for (vsize i = apes.size (); i--;)
     {
@@ -358,7 +356,7 @@ extract_heads_and_stems (
 
 static Grob *
 common_refpoint_of_accidentals (
-  vector<unique_ptr<Accidental_placement_entry>> const &apes, Axis a)
+  std::vector<std::unique_ptr<Accidental_placement_entry>> const &apes, Axis a)
 {
   Grob *ret = 0;
 
@@ -375,9 +373,9 @@ common_refpoint_of_accidentals (
 }
 
 static Skyline
-build_heads_skyline (vector<Grob *> const &heads_and_stems, Grob **common)
+build_heads_skyline (std::vector<Grob *> const &heads_and_stems, Grob **common)
 {
-  vector<Box> head_extents;
+  std::vector<Box> head_extents;
   for (vsize i = heads_and_stems.size (); i--;)
     head_extents.push_back (
       Box (heads_and_stems[i]->extent (common[X_AXIS], X_AXIS),
@@ -392,7 +390,7 @@ build_heads_skyline (vector<Grob *> const &heads_and_stems, Grob **common)
 */
 static Interval
 position_apes (Grob *me,
-               vector<unique_ptr<Accidental_placement_entry>> const &apes,
+               std::vector<std::unique_ptr<Accidental_placement_entry>> const &apes,
                Skyline const &heads_skyline)
 {
   Real padding = from_scm<double> (get_property (me, "padding"), 0.2);
@@ -492,11 +490,11 @@ Accidental_placement::calc_positioning_done (SCM smob)
   if (!scm_is_pair (accs))
     return SCM_BOOL_T;
 
-  vector<unique_ptr<Accidental_placement_entry>> apes = build_apes (accs);
+  std::vector<std::unique_ptr<Accidental_placement_entry>> apes = build_apes (accs);
 
   Grob *common[] = {me, 0};
 
-  vector<Grob *> heads_and_stems = extract_heads_and_stems (apes);
+  std::vector<Grob *> heads_and_stems = extract_heads_and_stems (apes);
 
   common[Y_AXIS] = common_refpoint_of_accidentals (apes, Y_AXIS);
   common[Y_AXIS]

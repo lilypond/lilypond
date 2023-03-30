@@ -41,8 +41,6 @@
 #include "text-interface.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
 
 bool
 Paper_column::internal_set_as_bound_of_spanner (Spanner *s, Direction)
@@ -304,10 +302,10 @@ Paper_column::print (SCM p)
 {
   Paper_column *me = unsmob<Paper_column> (p);
 
-  string r = std::to_string (me->get_rank ());
+  std::string r = std::to_string (me->get_rank ());
 
   Moment *mom = unsmob<Moment> (get_property (me, "when"));
-  string when = mom ? mom->to_string () : "?/?";
+  std::string when = mom ? mom->to_string () : "?/?";
 
   Font_metric *musfont = Font_interface::get_default_font (me);
   SCM properties = Font_interface::text_font_alist_chain (me);
@@ -361,7 +359,7 @@ Paper_column::print (SCM p)
       Offset num_off = Offset ((sp->ideal_distance () - num_len - head_len) / 2,
                                y + small_pad);
 
-      vector<Offset> pts;
+      std::vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
       Offset p2 (sp->ideal_distance (), y);
@@ -405,7 +403,7 @@ Paper_column::print (SCM p)
       // horizontally center number on the arrow, excluding arrowhead.
       Offset num_off = Offset ((dist - num_len - head_len) / 2, y - small_pad);
 
-      vector<Offset> pts;
+      std::vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
       Offset p2 (dist, y);

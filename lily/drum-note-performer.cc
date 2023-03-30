@@ -25,7 +25,6 @@
 #include "translator.icc"
 #include "warn.hh"
 
-using std::vector;
 
 class Drum_note_performer : public Performer
 {
@@ -41,7 +40,7 @@ protected:
   void listen_articulation (Stream_event *);
 
 private:
-  vector<Stream_event *> note_evs_, script_evs_;
+  std::vector<Stream_event *> note_evs_, script_evs_;
 };
 
 Drum_note_performer::Drum_note_performer (Context *c)

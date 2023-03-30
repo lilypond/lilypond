@@ -26,13 +26,12 @@
 
 #include "translator.icc"
 
-using std::string;
 
 class Control_track_performer : public Performer
 {
   Audio_staff *control_track_;
 
-  void add_text (Audio_text::Type, const string &);
+  void add_text (Audio_text::Type, const std::string &);
   TRANSLATOR_DECLARATIONS (Control_track_performer);
 
 protected:
@@ -67,7 +66,7 @@ Control_track_performer::acknowledge_audio_element (Audio_element_info info)
 
 void
 Control_track_performer::add_text (Audio_text::Type text_type,
-                                   const string &str)
+                                   const std::string &str)
 {
   Audio_item *text = new Audio_text (text_type, str);
   control_track_->add_audio_item (text);
@@ -81,7 +80,7 @@ Control_track_performer::initialize ()
   control_track_ = new Audio_control_track_staff;
   announce_element (Audio_element_info (control_track_, 0));
 
-  string id_string
+  std::string id_string
     = String_convert::pad_to ("LilyPond " + version_string (), 30);
 
   // The first audio element in the control track is a placeholder for the

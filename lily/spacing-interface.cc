@@ -30,7 +30,6 @@
 #include "skyline-pair.hh"
 #include "system.hh"
 
-using std::vector;
 
 /* return the right-pointing skyline of the left-items and the left-pointing
    skyline of the right-items (with the skyline of the left-items in
@@ -51,7 +50,7 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
     dynamic_cast<Item *> (right_col)->break_status_dir ());
   Drul_array<Skyline> skylines
     = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
-  Drul_array<vector<Grob *>> items (
+  Drul_array<std::vector<Grob *>> items (
     ly_scm2link_array (get_object (orig, "left-items")),
     ly_scm2link_array (get_object (orig, "right-items")));
 
@@ -149,10 +148,10 @@ Spacing_interface::left_column (Grob *me_as_grob)
   return me->get_column ();
 }
 
-static vector<Item *>
-get_note_columns (vector<Grob *> const &elts)
+static std::vector<Item *>
+get_note_columns (std::vector<Grob *> const &elts)
 {
-  vector<Item *> ret;
+  std::vector<Item *> ret;
 
   for (vsize i = 0; i < elts.size (); i++)
     {
@@ -161,7 +160,7 @@ get_note_columns (vector<Grob *> const &elts)
       else if (has_interface<Separation_item> (elts[i]))
         {
           extract_grob_set (elts[i], "elements", more_elts);
-          vector<Item *> ncs = get_note_columns (more_elts);
+          std::vector<Item *> ncs = get_note_columns (more_elts);
 
           ret.insert (ret.end (), ncs.begin (), ncs.end ());
         }
@@ -170,14 +169,14 @@ get_note_columns (vector<Grob *> const &elts)
   return ret;
 }
 
-vector<Item *>
+std::vector<Item *>
 Spacing_interface::right_note_columns (Grob *me)
 {
   extract_grob_set (me, "right-items", elts);
   return get_note_columns (elts);
 }
 
-vector<Item *>
+std::vector<Item *>
 Spacing_interface::left_note_columns (Grob *me)
 {
   extract_grob_set (me, "left-items", elts);

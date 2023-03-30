@@ -27,7 +27,6 @@
 #include "translator.icc"
 #include "axis-group-interface.hh"
 
-using std::vector;
 
 class Figured_bass_position_engraver : public Engraver
 {
@@ -35,8 +34,8 @@ class Figured_bass_position_engraver : public Engraver
 
   Spanner *bass_figure_alignment_;
   Spanner *positioner_;
-  vector<Grob *> support_;
-  vector<Grob *> span_support_;
+  std::vector<Grob *> support_;
+  std::vector<Grob *> span_support_;
 
 protected:
   void acknowledge_note_column (Grob_info_t<Item>);
@@ -104,7 +103,7 @@ Figured_bass_position_engraver::acknowledge_stem (Grob_info info)
 void
 Figured_bass_position_engraver::acknowledge_end_slur (Grob_info info)
 {
-  vector<Grob *>::iterator i
+  std::vector<Grob *>::iterator i
     = find (span_support_.begin (), span_support_.end (), info.grob ());
 
   if (i < span_support_.end ())

@@ -28,7 +28,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /*
   this engraver  glues together stems, rests and note heads into a NoteColumn
@@ -56,7 +55,7 @@ using std::vector;
 
 class Rhythmic_column_engraver : public Engraver
 {
-  vector<Grob *> rheads_;
+  std::vector<Grob *> rheads_;
   Grob *stem_;
   Grob *flag_;
   Grob *note_column_;

@@ -34,7 +34,6 @@
 
 #include "translator.icc"
 
-using std::string;
 
 Paper_column_engraver::Paper_column_engraver (Context *c)
   : Engraver (c)
@@ -72,9 +71,9 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
 {
   for (auto *const break_event : break_events_)
     {
-      string prefix;
+      std::string prefix;
       SCM name_sym = scm_car (get_property (break_event, "class"));
-      string name = ly_symbol2string (name_sym);
+      std::string name = ly_symbol2string (name_sym);
       size_t end = name.rfind ("-event");
       if (end)
         prefix = name.substr (0, end);
@@ -85,8 +84,8 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
           return;
         }
 
-      string perm_str = prefix + "-permission";
-      string pen_str = prefix + "-penalty";
+      std::string perm_str = prefix + "-permission";
+      std::string pen_str = prefix + "-penalty";
 
       SCM cur_pen = get_property (command_column_, pen_str.c_str ());
       SCM pen = get_property (break_event, "break-penalty");

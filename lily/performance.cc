@@ -35,7 +35,6 @@
 #include <ctime>
 #include <limits>
 
-using std::string;
 
 Performance::Performance (bool ports)
   : start_mom_ (Rational::infinity ()),
@@ -66,7 +65,7 @@ Performance::push_header (SCM header)
 
 void
 Performance::output (Midi_stream &midi_stream,
-                     const string &performance_name) const
+                     const std::string &performance_name) const
 {
   if (audio_staffs_.size () > std::numeric_limits<uint16_t>::max ())
     programming_error (_f ("too many MIDI tracks: %zu", audio_staffs_.size ()));
@@ -113,7 +112,7 @@ Performance::add_element (Audio_element *p)
 }
 
 void
-Performance::write_output (string out, const string &performance_name) const
+Performance::write_output (std::string out, const std::string &performance_name) const
 {
   if (out == "-")
     out = "lelie.midi";

@@ -25,7 +25,6 @@
 #include "music.hh"
 #include "warn.hh"
 
-using std::string;
 
 class Context_specced_music_iterator final : public Music_wrapper_iterator
 {
@@ -44,7 +43,7 @@ Context_specced_music_iterator::create_contexts ()
 
   SCM ct = get_property (get_music (), "context-type");
 
-  string c_id;
+  std::string c_id;
   SCM ci = get_property (get_music (), "context-id");
   if (scm_is_string (ci))
     c_id = ly_scm2string (ci);

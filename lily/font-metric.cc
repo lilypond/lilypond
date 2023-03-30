@@ -29,7 +29,6 @@
 #include <cmath>
 #include <utility>
 
-using std::string;
 
 Real
 Font_metric::design_size () const
@@ -38,7 +37,7 @@ Font_metric::design_size () const
 }
 
 Stencil
-Font_metric::find_by_name (string s) const
+Font_metric::find_by_name (std::string s) const
 {
   replace_all (&s, '-', 'M');
   size_t idx = name_to_index (s);
@@ -120,10 +119,10 @@ Font_metric::font_file_name () const
   return scm_car (description_);
 }
 
-string
+std::string
 Font_metric::font_name () const
 {
-  string s ("unknown");
+  std::string s ("unknown");
   return s;
 }
 
@@ -134,7 +133,7 @@ Font_metric::index_to_charcode (size_t i) const
 }
 
 std::pair<Offset, bool>
-Font_metric::attachment_point (const string &, Direction) const
+Font_metric::attachment_point (const std::string &, Direction) const
 {
   return std::make_pair (Offset (0, 0), false);
 }
@@ -146,8 +145,8 @@ Font_metric::sub_fonts () const
 }
 
 Stencil
-Font_metric::text_stencil (Output_def *state, const string &, bool,
-                           const string &) const
+Font_metric::text_stencil (Output_def *state, const std::string &, bool,
+                           const std::string &) const
 {
   (void) state;
 

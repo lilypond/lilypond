@@ -19,7 +19,6 @@
 
 #include "item.hh"
 
-using std::string;
 
 struct Clef_modifier
 {
@@ -33,8 +32,8 @@ Clef_modifier::calc_parent_alignment (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *clef = me->get_x_parent ();
-  string full_clef_name = ly_scm2string (get_property (clef, "glyph"));
-  string clef_name = replace_all (&full_clef_name, "clefs.", "");
+  std::string full_clef_name = ly_scm2string (get_property (clef, "glyph"));
+  std::string clef_name = replace_all (&full_clef_name, "clefs.", "");
 
   // find entry with keyname clef_type in clef-alignments
   SCM alist_entry = scm_assq (ly_symbol2scm (clef_name),

@@ -26,7 +26,6 @@
 #include <cstring>
 #include <string>
 
-using std::string;
 
 /**
    A safe length for stringconversion buffers.
@@ -51,17 +50,17 @@ nibble2hex (int byte)
     return static_cast<char> ('a' + (nibble - 10));
 }
 
-string
+std::string
 String_convert::bin2hex (Byte bin_char)
 {
-  string str;
+  std::string str;
   str += nibble2hex (bin_char >> 4);
   str += nibble2hex (bin_char);
   return str;
 }
 
 int
-String_convert::hex2bin (string hex_string, string &bin_string_r)
+String_convert::hex2bin (std::string hex_string, std::string &bin_string_r)
 {
   if (hex_string.length () % 2)
     hex_string = "0" + hex_string;
@@ -78,10 +77,10 @@ String_convert::hex2bin (string hex_string, string &bin_string_r)
   return 0;
 }
 
-string
-String_convert::hex2bin (const string &hex_string)
+std::string
+String_convert::hex2bin (const std::string &hex_string)
 {
-  string str;
+  std::string str;
 
   if (hex2bin (hex_string, str))
     assert (false);
@@ -101,7 +100,7 @@ String_convert::hex2nibble (char byte)
   return -1;
 }
 
-string
+std::string
 String_convert::form_string (char const *format, ...)
 {
   va_list args;
@@ -109,52 +108,52 @@ String_convert::form_string (char const *format, ...)
   char buffer[STRING_BUFFER_LEN];
   vsnprintf (buffer, STRING_BUFFER_LEN, format, args);
   va_end (args);
-  return string (buffer);
+  return std::string (buffer);
 }
 
-string
+std::string
 String_convert::vform_string (char const *format, va_list args)
 {
   char buffer[STRING_BUFFER_LEN];
   vsnprintf (buffer, STRING_BUFFER_LEN, format, args);
-  return string (buffer);
+  return std::string (buffer);
 }
 
-string
-String_convert::pad_to (const string &s, size_t n)
+std::string
+String_convert::pad_to (const std::string &s, size_t n)
 {
   size_t length = s.length ();
   if (n <= length)
     return s;
-  return s + string (n - length, ' ');
+  return s + std::string (n - length, ' ');
 }
 
-string
-String_convert::to_upper (string s)
+std::string
+String_convert::to_upper (std::string s)
 {
   // Implicit copy of argument, no reference.
   std::transform (s.begin (), s.end (), s.begin (), ::toupper);
   return s;
 }
 
-string
-String_convert::to_lower (string s)
+std::string
+String_convert::to_lower (std::string s)
 {
   // Implicit copy of argument, no reference.
   std::transform (s.begin (), s.end (), s.begin (), ::tolower);
   return s;
 }
 
-string
+std::string
 String_convert::be_u16 (uint16_t u)
 {
   uint8_t r[2];
   r[0] = uint8_t (u >> 8);
   r[1] = uint8_t (u);
-  return string (reinterpret_cast<char *> (r), 2);
+  return std::string (reinterpret_cast<char *> (r), 2);
 }
 
-string
+std::string
 String_convert::be_u32 (uint32_t u)
 {
   uint8_t r[4];
@@ -162,17 +161,17 @@ String_convert::be_u32 (uint32_t u)
   r[1] = uint8_t (u >> 16);
   r[2] = uint8_t (u >> 8);
   r[3] = uint8_t (u);
-  return string (reinterpret_cast<char *> (r), 4);
+  return std::string (reinterpret_cast<char *> (r), 4);
 }
 
-string
+std::string
 String_convert::be_u24 (uint32_t u)
 {
   uint8_t r[3];
   r[0] = uint8_t (u >> 16);
   r[1] = uint8_t (u >> 8);
   r[2] = uint8_t (u);
-  return string (reinterpret_cast<char *> (r), 3);
+  return std::string (reinterpret_cast<char *> (r), 3);
 }
 
 static bool
@@ -200,10 +199,10 @@ is_not_escape_character (Byte c)
   return false;
 }
 
-string
-String_convert::percent_encode (const string &orig_str)
+std::string
+String_convert::percent_encode (const std::string &orig_str)
 {
-  string new_str;
+  std::string new_str;
   vsize i = 0;
   vsize n = orig_str.size ();
 

@@ -36,12 +36,11 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-using std::string;
 
 // This is a little bit ugly, but the replacement alist is setup in
 // the layout block so it'll be the same across invocations.
 
-std::map<string, SCM> replacement_cache;
+std::map<std::string, SCM> replacement_cache;
 vsize replacement_max;
 Protected_scm replacement_cache_alist_key;
 Protected_scm replacement_alist_original_values;
@@ -63,7 +62,7 @@ populate_cache (SCM alist)
       if (!scm_is_string (k))
         continue;
 
-      string orig = ly_scm2string (k);
+      std::string orig = ly_scm2string (k);
       if (orig.empty ())
         continue;
 
@@ -133,7 +132,7 @@ from the property alist chain @var{props}.
           // their respective entire length, the longest matching key
           // will be taken, being the lexicographically largest one.
 
-          const string &key = it->first;
+          const std::string &key = it->first;
           vsize len = key.length ();
           // Make sure that entire key is present in the source string
           if (str.compare (i, len, key) != 0)
@@ -167,7 +166,7 @@ Text_interface::interpret_string (SCM layout_smob, SCM props, SCM markup)
   auto *const layout = LY_ASSERT_SMOB (Output_def, layout_smob, 1);
   LY_ASSERT_TYPE (scm_is_string, markup, 3);
 
-  string str = ly_scm2string (markup);
+  std::string str = ly_scm2string (markup);
 
   /* For now, we hardwire this and don't do it in a user-settable way via
      string-transformers, since there are errors downstream if the string
@@ -216,7 +215,7 @@ Text_interface::interpret_string (SCM layout_smob, SCM props, SCM markup)
 
   // The font-features value is stored in a scheme list. This joins the entries
   // with commas for processing with pango.
-  string features_str;
+  std::string features_str;
   if (scm_is_pair (features))
     {
       for (SCM s = features; scm_is_pair (s); s = scm_cdr (s))
@@ -324,7 +323,7 @@ Text_interface::internal_interpret_markup (Output_def *layout, SCM props,
       if (markup_depth > max_depth)
         {
           scm_dynwind_end ();
-          string name = ly_symbol2string (scm_procedure_name (func));
+          std::string name = ly_symbol2string (scm_procedure_name (func));
           // TODO: Also print the arguments of the markup!
           non_fatal_error (_f ("Markup depth exceeds maximal value of %zu; "
                                "Markup: %s",

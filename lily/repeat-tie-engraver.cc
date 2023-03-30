@@ -24,7 +24,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Repeat_tie_engraver : public Laissez_vibrer_engraver
 {

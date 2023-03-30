@@ -30,7 +30,6 @@
 
 #include <limits>
 
-using std::vector;
 
 One_line_page_breaking::One_line_page_breaking (Paper_book *pb)
   : Page_breaking (pb, 0, 0)
@@ -56,19 +55,19 @@ One_line_page_breaking::solve_and_provide_max_height (Real &max_height)
     {
       if (Paper_score *ps = system_specs_[i].pscore_)
         {
-          vector<Paper_column *> cols = ps->root_system ()->used_columns ();
+          std::vector<Paper_column *> cols = ps->root_system ()->used_columns ();
 
           // No indent, "infinite" line width, ragged.
           Column_x_positions pos = get_line_configuration (
             cols, std::numeric_limits<Real>::max (), 0, true);
-          vector<Column_x_positions> positions;
+          std::vector<Column_x_positions> positions;
           positions.push_back (pos);
 
           ps->root_system ()->break_into_pieces (positions);
           ps->root_system ()->do_break_substitution_and_fixup_refpoints ();
           Grob *system = ps->root_system ()->broken_intos_[0];
 
-          vector<vsize> lines_per_page;
+          std::vector<vsize> lines_per_page;
           lines_per_page.push_back (1);
           SCM systems = ly_list (system->self_scm ());
           SCM pages = make_pages (lines_per_page, systems);

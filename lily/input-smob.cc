@@ -21,7 +21,6 @@
 #include "source-file.hh"
 #include "std-string.hh"
 
-using std::string;
 
 /* Dummy input location for use if real one is missing.  */
 Input dummy_input_global;
@@ -40,7 +39,7 @@ Input::mark_smob () const
 int
 Input::print_smob (SCM port, scm_print_state *) const
 {
-  string str = "#<location " + location_string () + ">";
+  std::string str = "#<location " + location_string () + ">";
   scm_puts (str.c_str (), port);
   return 1;
 }

@@ -34,7 +34,6 @@
 #include <cmath>
 #include <vector>
 
-using std::vector;
 
 void
 Tie_column::add_tie (Spanner *me, Spanner *tie)

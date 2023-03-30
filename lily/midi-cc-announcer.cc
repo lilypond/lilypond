@@ -27,7 +27,6 @@
 
 #include <cmath>
 
-using std::string;
 
 /*
   Context properties for setting MIDI controls.  Each MIDI control
@@ -104,7 +103,7 @@ Midi_control_change_announcer::announce_control_changes ()
 }
 
 void
-Midi_control_change_announcer::warn (const string &message)
+Midi_control_change_announcer::warn (const std::string &message)
 {
   if (origin_)
     origin_->warning (message);

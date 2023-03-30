@@ -24,7 +24,6 @@
 
 #include <limits>
 
-using std::vector;
 
 const char *const Scale::type_p_name_ = "ly:note-scale?";
 
@@ -38,7 +37,7 @@ represents the number of 200-cent tones of a pitch above the tonic.
            )")
 {
   bool type_ok = scm_is_vector (steps);
-  vector<Rational> tones;
+  std::vector<Rational> tones;
 
   if (type_ok)
     {
@@ -103,7 +102,7 @@ Scale::normalize_step (int step) const
   return ret;
 }
 
-Scale::Scale (vector<Rational> const &tones)
+Scale::Scale (std::vector<Rational> const &tones)
 {
   assert (tones.size () <= std::numeric_limits<int>::max ());
   step_tones_ = tones;

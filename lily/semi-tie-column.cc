@@ -32,7 +32,6 @@
 #include <algorithm>
 #include <vector>
 
-using std::vector;
 
 ADD_INTERFACE (Semi_tie_column,
                R"(

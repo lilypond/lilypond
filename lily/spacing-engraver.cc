@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 struct Rhythmic_tuple
 {
@@ -67,8 +66,8 @@ Rhythmic_tuple::time_compare (Rhythmic_tuple const &h1,
 class Spacing_engraver : public Engraver
 {
   PQueue<Rhythmic_tuple> playing_durations_;
-  vector<Rhythmic_tuple> now_durations_;
-  vector<Rhythmic_tuple> stopped_durations_;
+  std::vector<Rhythmic_tuple> now_durations_;
+  std::vector<Rhythmic_tuple> stopped_durations_;
   Moment now_;
   Spanner *spacing_;
   Stream_event *start_section_;

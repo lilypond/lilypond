@@ -32,7 +32,6 @@
 #include <cctype>
 #include <cmath>
 
-using std::vector;
 
 Stencil
 Lookup::beam (Real slope, Real width, Real thick, Real blot)
@@ -76,7 +75,7 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
 Stencil
 Lookup::rotated_box (Real slope, Real width, Real thick, Real blot)
 {
-  vector<Offset> pts;
+  std::vector<Offset> pts;
   Offset rot = Offset (1, slope).direction ();
 
   pts.push_back (Offset (0, -thick / 2) * rot);
@@ -218,7 +217,7 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  * outside of the given polygon.
  */
 Stencil
-Lookup::round_polygon (vector<Offset> const &points, Real blotdiameter,
+Lookup::round_polygon (std::vector<Offset> const &points, Real blotdiameter,
                        Real extroversion, bool filled)
 {
   /* TODO: Maybe print a warning if one of the above limitations
@@ -252,7 +251,7 @@ Lookup::round_polygon (vector<Offset> const &points, Real blotdiameter,
     return Line_interface::make_line ((1.0 + extroversion) * blotdiameter,
                                       points[0], points[1]);
 
-  vector<Offset> shrunk_points;
+  std::vector<Offset> shrunk_points;
 
   if (extroversion == 0.0)
     {
@@ -559,7 +558,7 @@ Lookup::triangle (Interval iv, Real thick, Real protrude)
   b[X_AXIS] = Interval (0, iv.length ());
   b[Y_AXIS] = Interval (std::min (0., protrude), std::max (0.0, protrude));
 
-  vector<Offset> points;
+  std::vector<Offset> points;
   points.push_back (Offset (iv[LEFT], 0));
   points.push_back (Offset (iv[RIGHT], 0));
   points.push_back (Offset (iv.center (), protrude));
@@ -569,7 +568,7 @@ Lookup::triangle (Interval iv, Real thick, Real protrude)
 }
 
 Stencil
-Lookup::points_to_line_stencil (Real thick, vector<Offset> const &points)
+Lookup::points_to_line_stencil (Real thick, std::vector<Offset> const &points)
 {
   Stencil ret;
   for (vsize i = 1; i < points.size (); i++)

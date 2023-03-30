@@ -26,7 +26,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Note_performer : public Performer
 {
@@ -43,10 +42,10 @@ protected:
   void listen_articulation (Stream_event *);
 
 private:
-  vector<Stream_event *> note_evs_, script_evs_;
-  vector<Audio_note *> notes_;
+  std::vector<Stream_event *> note_evs_, script_evs_;
+  std::vector<Audio_note *> notes_;
 
-  vector<Audio_note *> last_notes_;
+  std::vector<Audio_note *> last_notes_;
   Moment last_start_;
 };
 

@@ -39,7 +39,6 @@
 #include <cmath> // ceil.
 #include <vector>
 
-using std::vector;
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (
   Rest_collision, force_shift_callback_rest,
@@ -109,8 +108,8 @@ Rest_collision::calc_positioning_done (SCM smob)
 
   extract_grob_set (me, "elements", elts);
 
-  vector<Grob *> rests;
-  vector<Grob *> notes;
+  std::vector<Grob *> rests;
+  std::vector<Grob *> notes;
 
   for (vsize i = 0; i < elts.size (); i++)
     {
@@ -148,7 +147,7 @@ Rest_collision::calc_positioning_done (SCM smob)
         This is incomplete: in case of an uneven number of rests, the
         center one should be centered on the staff.
       */
-      Drul_array<vector<Grob *>> ordered_rests;
+      Drul_array<std::vector<Grob *>> ordered_rests;
       for (vsize i = 0; i < rests.size (); i++)
         {
           Grob *r = Note_column::get_rest (rests[i]);

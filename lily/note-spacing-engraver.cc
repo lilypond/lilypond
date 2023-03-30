@@ -28,11 +28,10 @@
 
 #include "translator.icc"
 
-using std::map;
 
 class Note_spacing_engraver : public Engraver
 {
-  typedef map<Context *, Grob *> Last_spacing_map;
+  typedef std::map<Context *, Grob *> Last_spacing_map;
   Last_spacing_map last_spacings_;
   Grob *last_spacing_;
 

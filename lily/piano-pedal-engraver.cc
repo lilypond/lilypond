@@ -40,7 +40,6 @@
 
 #include "translator.icc"
 
-using std::string;
 
 /*
   TODO:
@@ -57,11 +56,11 @@ using std::string;
 */
 struct Pedal_type_info
 {
-  string base_name_;
+  std::string base_name_;
   SCM event_class_sym_ = SCM_EOL;
   SCM style_sym_ = SCM_EOL;
   SCM strings_sym_ = SCM_EOL;
-  string pedal_str_;
+  std::string pedal_str_;
 
   void protect ()
   {
@@ -161,9 +160,9 @@ init_pedal_types ()
   for (int i = 0; i < NUM_PEDAL_TYPES; i++)
     {
       /* FooBar */
-      string base_name = pedal_type_name (i);
+      std::string base_name = pedal_type_name (i);
       /* foo-bar */
-      string base_ident = pedal_type_ident (i);
+      std::string base_ident = pedal_type_ident (i);
 
       /*
         be careful, as we don't want to loose references to the _sym_ members.
@@ -280,7 +279,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       if (!m)
         m = p->event_drul_[STOP];
 
-      string msg = _f ("expect 3 strings for piano pedals, found: %ld",
+      std::string msg = _f ("expect 3 strings for piano pedals, found: %ld",
                        scm_ilength (strings));
       if (m)
         m->warning (msg);
@@ -344,7 +343,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 {
   if (!p->bracket_ && p->event_drul_[STOP])
     {
-      string msg = _f ("cannot find start of piano pedal bracket: `%s'",
+      std::string msg = _f ("cannot find start of piano pedal bracket: `%s'",
                        p->type_->base_name_.c_str ());
       p->event_drul_[STOP]->warning (msg);
       p->event_drul_[STOP] = 0;

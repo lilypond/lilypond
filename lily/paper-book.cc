@@ -36,8 +36,6 @@
 #include "text-interface.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
 
 Paper_book::Paper_book (Output_def *paper, Paper_book *parent_part)
 {
@@ -192,7 +190,7 @@ lilypond_book_output_formats (SCM sym)
 {
   std::string arg = robust_symbol2string (ly_get_option (sym), "");
   std::set<std::string> formats;
-  for (string format : string_split (arg, ','))
+  for (std::string format : string_split (arg, ','))
     if (std::find (formats.begin (), formats.end (), format) == formats.end ())
       formats.insert (format);
 
@@ -311,7 +309,7 @@ Paper_book::dump_header_fields (SCM basename, bool classic)
     scopes = scm_cons (header_, scopes);
 
   SCM fields = SCM_EOL;
-  for (string field : dump_header_fieldnames_global)
+  for (std::string field : dump_header_fieldnames_global)
     {
       fields = scm_cons (ly_symbol2scm (field), fields);
     }
@@ -336,7 +334,7 @@ Paper_book::classic_output (SCM output)
 void
 Paper_book::output_stencil (SCM out_name, SCM stencil, SCM formats)
 {
-  string mod_nm = "lily framework-" + get_output_backend_name ();
+  std::string mod_nm = "lily framework-" + get_output_backend_name ();
   SCM mod = scm_c_resolve_module (mod_nm.c_str ());
 
   SCM framework = scm_module_variable (mod, ly_symbol2scm ("output-stencil"));
@@ -387,8 +385,8 @@ Paper_book::output_stencils (SCM out_name, SCM stencils, SCM formats)
     }
   else
     {
-      string format = get_output_backend_name ();
-      string mod_nm = "lily framework-" + format;
+      std::string format = get_output_backend_name ();
+      std::string mod_nm = "lily framework-" + format;
 
       SCM mod = scm_c_resolve_module (mod_nm.c_str ());
       SCM func = scm_c_module_lookup (mod, "output-stencils");
@@ -461,7 +459,7 @@ set_page_permission (SCM sys, SCM symbol, SCM permission)
 {
   if (Paper_score *ps = unsmob<Paper_score> (sys))
     {
-      vector<Paper_column *> const &cols = ps->get_columns ();
+      std::vector<Paper_column *> const &cols = ps->get_columns ();
       if (cols.size ())
         {
           Paper_column *col = cols.back ();
@@ -504,7 +502,7 @@ set_labels (SCM sys, SCM labels)
 {
   if (Paper_score *ps = unsmob<Paper_score> (sys))
     {
-      vector<Paper_column *> const &cols = ps->get_columns ();
+      std::vector<Paper_column *> const &cols = ps->get_columns ();
       if (cols.size ())
         {
           Paper_column *col = cols[0];

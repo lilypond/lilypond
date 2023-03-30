@@ -22,7 +22,6 @@
 #include "grob.hh"
 #include "pointer-group-interface.hh"
 
-using std::vector;
 
 /*
   TODO: this could be either item or spanner. For efficiency reasons,
@@ -44,7 +43,7 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
 
   extract_grob_set (me, "stems", stems);
 
-  vector<Direction> dirs;
+  std::vector<Direction> dirs;
   for (vsize i = 0; i < stems.size (); i++)
     dirs.push_back (
       from_scm<Direction> (get_property (stems[i], "default-direction")));

@@ -35,7 +35,6 @@
 #include "stem.hh"
 #include "warn.hh"
 
-using std::vector;
 
 /*
   Adjust the ideal and minimum distance between note columns,
@@ -45,7 +44,7 @@ Spring
 Note_spacing::get_spacing (Grob *me, Item *right_col, Spring base,
                            Real increment)
 {
-  vector<Item *> note_columns = Spacing_interface::left_note_columns (me);
+  std::vector<Item *> note_columns = Spacing_interface::left_note_columns (me);
   Real left_head_end = 0;
 
   for (vsize i = 0; i < note_columns.size (); i++)
@@ -230,7 +229,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn, Real increment,
 
   for (const auto d : {LEFT, RIGHT})
     {
-      vector<Grob *> const &items (ly_scm2link_array (props[d]));
+      std::vector<Grob *> const &items (ly_scm2link_array (props[d]));
       for (vsize i = 0; i < items.size (); i++)
         {
           Item *it = dynamic_cast<Item *> (items[i]);

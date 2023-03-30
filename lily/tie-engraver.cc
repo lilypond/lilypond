@@ -34,7 +34,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /**
    Manufacture ties.  Acknowledge note heads, and put them into a
@@ -75,9 +74,9 @@ class Tie_engraver : public Engraver
   */
   bool event_processed_;
   Stream_event *event_;
-  vector<Grob *> now_heads_;
-  vector<Head_event_tuple> heads_to_tie_;
-  vector<Spanner *> ties_;
+  std::vector<Grob *> now_heads_;
+  std::vector<Head_event_tuple> heads_to_tie_;
+  std::vector<Spanner *> ties_;
 
   Spanner *tie_column_;
   bool tie_notehead (Grob *h, bool enharmonic);
@@ -265,7 +264,7 @@ Tie_engraver::process_acknowledged ()
     {
       if (!wait)
         {
-          vector<Head_event_tuple>::iterator it = heads_to_tie_.begin ();
+          std::vector<Head_event_tuple>::iterator it = heads_to_tie_.begin ();
           for (; it < heads_to_tie_.end (); it++)
             report_unterminated_tie (*it);
           heads_to_tie_.clear ();
@@ -278,7 +277,7 @@ Tie_engraver::process_acknowledged ()
       tie_column_ = 0;
     }
 
-  vector<Head_event_tuple> new_heads_to_tie;
+  std::vector<Head_event_tuple> new_heads_to_tie;
 
   for (vsize i = 0; i < now_heads_.size (); i++)
     {
@@ -333,7 +332,7 @@ Tie_engraver::process_acknowledged ()
 
   if (!wait && new_heads_to_tie.size ())
     {
-      vector<Head_event_tuple>::iterator it = heads_to_tie_.begin ();
+      std::vector<Head_event_tuple>::iterator it = heads_to_tie_.begin ();
       for (; it < heads_to_tie_.end (); it++)
         report_unterminated_tie (*it);
       heads_to_tie_.clear ();

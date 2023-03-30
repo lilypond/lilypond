@@ -32,11 +32,10 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Note_heads_engraver : public Engraver
 {
-  vector<Stream_event *> note_evs_;
+  std::vector<Stream_event *> note_evs_;
 
 public:
   TRANSLATOR_DECLARATIONS (Note_heads_engraver);

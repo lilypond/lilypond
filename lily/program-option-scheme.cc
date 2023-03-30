@@ -33,8 +33,6 @@
 #include <cstring>
 #include <vector>
 
-using std::string;
-using std::vector;
 
 bool debug_skylines;
 bool debug_property_callbacks;
@@ -55,7 +53,7 @@ static Protected_scm option_hash;
 static void
 internal_set_option (SCM var, SCM val)
 {
-  string varstr = robust_symbol2string (var, "");
+  std::string varstr = robust_symbol2string (var, "");
   bool valbool = from_scm<bool> (val);
   SCM val_scm_bool = to_scm (valbool); // could be scm_is_eq (val, SCM_BOOL_T)
   if (0)
@@ -132,33 +130,33 @@ ssize const SEPARATION = 5;
 /*
   Hmmm. should do in SCM / C++  ?
 */
-static string
+static std::string
 get_help_string (SCM alist)
 {
-  vector<string> opts;
+  std::vector<std::string> opts;
 
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
-      string opt_spec = string (INDENT, ' ') + ly_symbol2string (sym) + " ("
+      std::string opt_spec = std::string (INDENT, ' ') + ly_symbol2string (sym) + " ("
                         + ly_scm2string (Lily::scm_to_string (val)) + ")";
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)
-        opt_spec += '\n' + string (HELP_INDENT, ' ');
+        opt_spec += '\n' + std::string (HELP_INDENT, ' ');
       else
-        opt_spec += string (HELP_INDENT - opt_spec.length (), ' ');
+        opt_spec += std::string (HELP_INDENT - opt_spec.length (), ' ');
 
       SCM opt_help_scm = scm_object_property (
         sym, ly_symbol2scm ("program-option-documentation"));
-      string opt_help = ly_scm2string (opt_help_scm);
-      replace_all (&opt_help, string ("\n"),
-                   string ("\n") + string (HELP_INDENT, ' '));
+      std::string opt_help = ly_scm2string (opt_help_scm);
+      replace_all (&opt_help, std::string ("\n"),
+                   std::string ("\n") + std::string (HELP_INDENT, ' '));
 
       opts.push_back (opt_spec + opt_help + "\n");
     }
 
-  string help ("Options supported by `ly:set-option':\n\n");
+  std::string help ("Options supported by `ly:set-option':\n\n");
   std::sort (opts.begin (), opts.end ());
   for (vsize i = 0; i < opts.size (); i++)
     help += opts[i];
@@ -226,8 +224,8 @@ Set a program option.
   if (SCM_UNBNDP (val))
     val = SCM_BOOL_T;
 
-  string varstr = robust_symbol2string (var, "");
-  if (varstr.substr (0, 3) == string ("no-"))
+  std::string varstr = robust_symbol2string (var, "");
+  if (varstr.substr (0, 3) == std::string ("no-"))
     {
       var = ly_symbol2scm (varstr.substr (3, varstr.length () - 3));
       val = to_scm (!from_scm<bool> (val));

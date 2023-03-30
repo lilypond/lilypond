@@ -24,8 +24,6 @@
 #include <deque>
 #include <cstdio>
 
-using std::deque;
-using std::vector;
 
 /* A skyline is a sequence of non-overlapping buildings: something like
    this:
@@ -73,7 +71,7 @@ using std::vector;
 const char *const Skyline::type_p_name_ = "ly:skyline?";
 
 static void
-print_buildings (vector<Building> const &b)
+print_buildings (std::vector<Building> const &b)
 {
   for (auto i : b)
     i.print ();
@@ -88,7 +86,7 @@ Skyline::print () const
 void
 Skyline::print_points () const
 {
-  vector<Offset> ps (to_points (X_AXIS));
+  std::vector<Offset> ps (to_points (X_AXIS));
 
   int i = 0;
   for (Offset p : ps)
@@ -176,9 +174,9 @@ Building::above (Building const &other, Real x) const
 }
 
 void
-Skyline::internal_merge_skyline (vector<Building> const *sbp,
-                                 vector<Building> const *scp,
-                                 vector<Building> *result) const
+Skyline::internal_merge_skyline (std::vector<Building> const *sbp,
+                                 std::vector<Building> const *scp,
+                                 std::vector<Building> *result) const
 {
   if (sbp->empty () || scp->empty ())
     {
@@ -260,7 +258,7 @@ Skyline::internal_merge_skyline (vector<Building> const *sbp,
 }
 
 static void
-empty_skyline (vector<Building> *const ret)
+empty_skyline (std::vector<Building> *const ret)
 {
   assert (ret->empty ());
   ret->push_back (Building (-infinity_f, -infinity_f, -infinity_f, infinity_f));
@@ -270,7 +268,7 @@ empty_skyline (vector<Building> *const ret)
   Given Building 'b', build a skyline containing only that building.
 */
 static void
-single_skyline (Building b, vector<Building> *const ret)
+single_skyline (Building b, std::vector<Building> *const ret)
 {
   assert (b.x_[RIGHT] >= b.x_[LEFT]);
 
@@ -285,8 +283,8 @@ single_skyline (Building b, vector<Building> *const ret)
 
 /* Partition BUILDINGS into a non-overlapping set of boxes and the rest */
 static void
-non_overlapping_skyline (vector<Building> const &buildings,
-                         vector<Building> *trimmed, vector<Building> *result)
+non_overlapping_skyline (std::vector<Building> const &buildings,
+                         std::vector<Building> *trimmed, std::vector<Building> *result)
 {
   trimmed->reserve (buildings.size () / 2);
   result->reserve (buildings.size () / 2);
@@ -341,30 +339,30 @@ public:
    BUILDINGS is a list of buildings, but they could be overlapping
    and in any order.  The returned list of buildings is ordered and non-overlapping.
 */
-vector<Building>
-Skyline::internal_build_skyline (vector<Building> *buildings) const
+std::vector<Building>
+Skyline::internal_build_skyline (std::vector<Building> *buildings) const
 {
   vsize size = buildings->size ();
 
   if (size == 0)
     {
-      vector<Building> result;
+      std::vector<Building> result;
       empty_skyline (&result);
       return result;
     }
   else if (size == 1)
     {
-      vector<Building> result;
+      std::vector<Building> result;
       single_skyline (buildings->front (), &result);
       return result;
     }
 
-  deque<vector<Building>> partials;
+  std::deque<std::vector<Building>> partials;
 
   sort (buildings->begin (), buildings->end (), LessThanBuilding ());
   while (!buildings->empty ())
     {
-      vector<Building> trimmed, partial;
+      std::vector<Building> trimmed, partial;
       non_overlapping_skyline (*buildings, &trimmed, &partial);
       partials.push_back (partial);
       std::swap (*buildings, trimmed);
@@ -374,20 +372,20 @@ Skyline::internal_build_skyline (vector<Building> *buildings) const
      Instead, we exit in the middle of the loop */
   while (!partials.empty ())
     {
-      vector<Building> one = partials.front ();
+      std::vector<Building> one = partials.front ();
       partials.pop_front ();
       if (partials.empty ())
         return one;
 
-      vector<Building> two = partials.front ();
+      std::vector<Building> two = partials.front ();
       partials.pop_front ();
 
-      vector<Building> merged;
+      std::vector<Building> merged;
       internal_merge_skyline (&one, &two, &merged);
       partials.push_back (merged);
     }
   assert (0);
-  return vector<Building> ();
+  return std::vector<Building> ();
 }
 
 Skyline::Skyline ()
@@ -407,9 +405,9 @@ Skyline::Skyline (Direction sky)
 
   Boxes should be non-empty on both axes.  Otherwise, they will be ignored
  */
-Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
+Skyline::Skyline (std::vector<Box> const &boxes, Axis horizon_axis, Direction sky)
 {
-  vector<Building> buildings;
+  std::vector<Building> buildings;
   buildings.reserve (boxes.size ());
   sky_ = sky;
 
@@ -426,10 +424,10 @@ Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
   Segments can be articulated from left to right or right to left.
   In the case of the latter, they will be stored internally as left to right.
  */
-Skyline::Skyline (vector<Drul_array<Offset>> const &segments, Axis horizon_axis,
+Skyline::Skyline (std::vector<Drul_array<Offset>> const &segments, Axis horizon_axis,
                   Direction sky)
 {
-  vector<Building> buildings;
+  std::vector<Building> buildings;
   buildings.reserve (segments.size ());
   sky_ = sky;
 
@@ -453,11 +451,11 @@ Skyline::Skyline (vector<Drul_array<Offset>> const &segments, Axis horizon_axis,
   buildings_ = internal_build_skyline (&buildings);
 }
 
-Skyline::Skyline (vector<Skyline_pair> const &skypairs, Direction sky)
+Skyline::Skyline (std::vector<Skyline_pair> const &skypairs, Direction sky)
 {
   sky_ = sky;
 
-  deque<Skyline> partials;
+  std::deque<Skyline> partials;
   for (vsize i = 0; i < skypairs.size (); i++)
     partials.push_back (Skyline ((skypairs[i])[sky]));
 
@@ -502,8 +500,8 @@ Skyline::merge (Skyline const &other)
       return;
     }
 
-  vector<Building> other_bld (other.buildings_);
-  vector<Building> dest;
+  std::vector<Building> other_bld (other.buildings_);
+  std::vector<Building> dest;
   internal_merge_skyline (&other_bld, &buildings_, &dest);
   dest.swap (buildings_);
 }
@@ -563,7 +561,7 @@ Skyline::padded (Real horizon_padding) const
   if (horizon_padding <= 0.0)
     return *this;
 
-  vector<Building> pad_buildings;
+  std::vector<Building> pad_buildings;
   pad_buildings.reserve (4 * buildings_.size ());
   for (auto const &b : buildings_)
     {
@@ -605,7 +603,7 @@ Skyline::padded (Real horizon_padding) const
     }
 
   // The buildings may be overlapping, so resolve that.
-  vector<Building> pad_skyline = internal_build_skyline (&pad_buildings);
+  std::vector<Building> pad_skyline = internal_build_skyline (&pad_buildings);
 
   // Merge the padding with the original, to make a new skyline.
   Skyline padded (sky_);
@@ -724,10 +722,10 @@ Skyline::set_minimum_height (Real h)
   merge (s);
 }
 
-vector<Offset>
+std::vector<Offset>
 Skyline::to_points (Axis horizon_axis) const
 {
-  vector<Offset> out;
+  std::vector<Offset> out;
   out.reserve (2 * buildings_.size ());
 
   for (auto const &b : buildings_)

@@ -30,7 +30,6 @@
 #include "stencil.hh"
 #include "warn.hh"
 
-using std::vector;
 
 void
 Separation_item::add_item (Grob *s, Item *i)
@@ -84,7 +83,7 @@ Separation_item::is_empty (Grob *me)
 Skyline
 Separation_item::conditional_skyline (Grob *me, Grob *left)
 {
-  vector<Box> const &bs = boxes (me, left);
+  std::vector<Box> const &bs = boxes (me, left);
   return Skyline (bs, Y_AXIS, LEFT);
 }
 
@@ -94,7 +93,7 @@ SCM
 Separation_item::calc_skylines (SCM smob)
 {
   Item *me = unsmob<Item> (smob);
-  vector<Box> const &bs = boxes (me, 0);
+  std::vector<Box> const &bs = boxes (me, 0);
   Skyline_pair sp (bs, Y_AXIS);
   /*
     TODO: We need to decide if padding is 'intrinsic'
@@ -119,22 +118,22 @@ Separation_item::calc_skylines (SCM smob)
    be printed or not, so we filter using
    Accidental_placement::get_relevant_accidentals.
 */
-vector<Box>
+std::vector<Box>
 Separation_item::boxes (Grob *me, Grob *left)
 {
   Item *item = dynamic_cast<Item *> (me);
 
   int very_large = INT_MAX;
   Paper_column *pc = item->get_column ();
-  vector<Box> out;
+  std::vector<Box> out;
   extract_grob_set (me, left ? "conditional-elements" : "elements",
                     read_only_elts);
-  vector<Grob *> elts;
+  std::vector<Grob *> elts;
 
   if (left)
     {
-      vector<Grob *> accidental_elts;
-      vector<Grob *> other_elts; // for now only arpeggios
+      std::vector<Grob *> accidental_elts;
+      std::vector<Grob *> other_elts; // for now only arpeggios
       for (vsize i = 0; i < read_only_elts.size (); i++)
         {
           if (has_interface<Accidental_placement> (read_only_elts[i]))

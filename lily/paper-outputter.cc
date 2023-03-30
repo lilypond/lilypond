@@ -36,7 +36,6 @@
 #include <cmath>
 #include <ctime>
 
-using std::string;
 
 Paper_outputter::Paper_outputter (SCM port, SCM alist, SCM default_callback)
 {

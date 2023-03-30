@@ -28,7 +28,6 @@
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
 
-using std::vector;
 
 MAKE_SCHEME_CALLBACK (Staff_symbol, print, "ly:staff-symbol::print", 1);
 
@@ -109,7 +108,7 @@ Staff_symbol::calc_line_positions (SCM smob)
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   int line_count = from_scm<int> (get_property (me, "line-count"), 0);
   Real height = line_count - 1;
-  vector<Real> values (line_count);
+  std::vector<Real> values (line_count);
   for (int i = 0; i < line_count; i++)
     {
       values[i] = height - i * 2;
@@ -117,7 +116,7 @@ Staff_symbol::calc_line_positions (SCM smob)
   return to_scm_list (values);
 }
 
-vector<Real>
+std::vector<Real>
 Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
 {
   // allow override of ledger positions via note head grob...
@@ -249,7 +248,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
     }
   // remove any ledger lines that would fall on staff lines,
   // which can happen when ledger-extra > 0
-  vector<Real> final_values;
+  std::vector<Real> final_values;
   for (const Real v : values)
     {
       if (find (line_positions.begin (), line_positions.end (), v)

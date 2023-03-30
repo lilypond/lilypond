@@ -31,7 +31,6 @@
 
 #include "string-convert.hh"
 
-using std::string;
 
 Output_def::Output_def ()
 {
@@ -122,7 +121,7 @@ Output_def::lookup_variable (SCM sym) const
 }
 
 SCM
-Output_def::c_variable (const string &s) const
+Output_def::c_variable (const std::string &s) const
 {
   return lookup_variable (ly_symbol2scm (s));
 }

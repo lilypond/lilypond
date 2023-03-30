@@ -24,7 +24,6 @@
 #include "item.hh"
 #include "stencil.hh"
 
-using std::string;
 
 MAKE_SCHEME_CALLBACK (Clef, calc_glyph_name, "ly:clef::calc-glyph-name", 1);
 SCM
@@ -35,7 +34,7 @@ Clef::calc_glyph_name (SCM smob)
 
   if (scm_is_string (glyph))
     {
-      string str = ly_scm2string (glyph);
+      std::string str = ly_scm2string (glyph);
 
       if (from_scm<bool> (get_property (s, "non-default"))
           && s->break_status_dir () != RIGHT
@@ -60,7 +59,7 @@ Clef::print (SCM smob)
   if (!scm_is_string (glyph_scm))
     return SCM_EOL;
 
-  const string &glyph = ly_scm2string (glyph_scm);
+  const std::string &glyph = ly_scm2string (glyph_scm);
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil out = fm->find_by_name (glyph);
   if (out.is_empty ())

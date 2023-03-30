@@ -29,7 +29,6 @@
 
 #include <algorithm>
 
-using std::vector;
 
 /*
   The Span_bar_stub_engraver creates SpanBarStub grobs in the contexts
@@ -51,7 +50,7 @@ using std::vector;
 
 class Span_bar_stub_engraver : public Engraver
 {
-  vector<Grob *> spanbars_;
+  std::vector<Grob *> spanbars_;
   SCM axis_groups_;
 
 public:
@@ -112,16 +111,16 @@ Span_bar_stub_engraver::process_acknowledged ()
   for (vsize i = 0; i < spanbars_.size (); i++)
     {
       extract_grob_set (spanbars_[i], "elements", bars);
-      vector<vsize> bar_axis_indices;
+      std::vector<vsize> bar_axis_indices;
       for (vsize j = 0; j < bars.size (); j++)
         {
           int i = Grob::get_vertical_axis_group_index (bars[j]);
           if (i >= 0)
             bar_axis_indices.push_back (static_cast<vsize> (i));
         }
-      vector<Context *> affected_contexts;
-      vector<Grob *> y_parents;
-      vector<bool> keep_extent;
+      std::vector<Context *> affected_contexts;
+      std::vector<Grob *> y_parents;
+      std::vector<bool> keep_extent;
       for (SCM s = axis_groups_; scm_is_pair (s); s = scm_cdr (s))
         {
           Context *c = unsmob<Context> (scm_cdar (s));

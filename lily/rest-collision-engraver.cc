@@ -34,7 +34,6 @@
 
 #include <set>
 
-using std::set;
 
 class Rest_collision_engraver : public Engraver
 {
@@ -58,7 +57,7 @@ void
 Rest_collision_engraver::process_acknowledged ()
 {
   vsize rest_count = 0;
-  set<Grob *> columns;
+  std::set<Grob *> columns;
   auto now = now_mom ();
 
   for (SCM s = get_property (this, "busyGrobs"); scm_is_pair (s);
@@ -89,7 +88,7 @@ Rest_collision_engraver::process_acknowledged ()
   if (!rest_collision_ && rest_count && columns.size () > 1)
     {
       rest_collision_ = make_item ("RestCollision", SCM_EOL);
-      for (set<Grob *>::iterator i = columns.begin (); i != columns.end (); ++i)
+      for (std::set<Grob *>::iterator i = columns.begin (); i != columns.end (); ++i)
         Rest_collision::add_column (rest_collision_, *i);
     }
 }

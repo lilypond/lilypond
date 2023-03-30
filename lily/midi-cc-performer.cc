@@ -32,7 +32,6 @@
 
 #include "translator.icc"
 
-using std::string;
 
 /**
    MIDI control change performer.  Announces "set property" events on MIDI
@@ -53,7 +52,7 @@ private:
   {
   public:
     Control_change_announcer (Midi_control_change_performer *p,
-                              Stream_event *ev, const string &s);
+                              Stream_event *ev, const std::string &s);
 
     SCM get_property_value (const char *property_name) override;
     void do_announce (Audio_control_change *item) override;
@@ -61,7 +60,7 @@ private:
   private:
     Midi_control_change_performer *performer_;
     Stream_event *event_;
-    string symbol_;
+    std::string symbol_;
   };
 };
 
@@ -104,7 +103,7 @@ Midi_control_change_performer::announce_control_change (SCM sev)
 
 Midi_control_change_performer::Control_change_announcer::
   Control_change_announcer (Midi_control_change_performer *p, Stream_event *ev,
-                            const string &s)
+                            const std::string &s)
   : Midi_control_change_announcer (ev->origin ()),
     performer_ (p),
     event_ (ev),

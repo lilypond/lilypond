@@ -31,13 +31,12 @@
 
 #include <pango/pangofc-fontmap.h>
 
-using std::string;
 
 Index_to_charcode_map const *
-All_font_metrics::get_index_to_charcode_map (const string &filename,
+All_font_metrics::get_index_to_charcode_map (const std::string &filename,
                                              int face_index, FT_Face face)
 {
-  string key = filename + std::to_string (face_index);
+  std::string key = filename + std::to_string (face_index);
   if (filename_charcode_maps_map_.find (key)
       == filename_charcode_maps_map_.end ())
     filename_charcode_maps_map_[key] = make_index_to_charcode_map (face);
@@ -89,7 +88,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
   SCM val;
   if (!pango_dict_->try_retrieve (key, &val))
     {
-      debug_output ("[" + string (pango_fn), true); // start on a new line
+      debug_output ("[" + std::string (pango_fn), true); // start on a new line
 
       Pango_font *pf
         = new Pango_font (pango_ft2_fontmap_, description, output_scale);
@@ -107,13 +106,13 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
 }
 
 Open_type_font *
-All_font_metrics::find_otf_font (const string &name)
+All_font_metrics::find_otf_font (const std::string &name)
 {
   SCM sname = ly_symbol2scm (name);
   SCM val;
   if (!otf_dict_->try_retrieve (sname, &val))
     {
-      string file_name = search_path_.find (name + ".otf");
+      std::string file_name = search_path_.find (name + ".otf");
       if (file_name.empty ())
         {
           error (_f ("cannot find font '%s' (search path: %s)", name.c_str (),

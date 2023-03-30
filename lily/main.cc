@@ -163,9 +163,6 @@ static Long_option_init options_static[] = {
   {0, "warranty", 'w', _i ("show warranty and copyright")},
   {0, 0, 0, 0}};
 
-using std::map;
-using std::string;
-using std::vector;
 
 static void
 env_var_info (FILE *out, char const *key)
@@ -208,7 +205,7 @@ dir_info (FILE *out)
   fputs ("\n", out);
 }
 
-static string
+static std::string
 gnu_lilypond_version_string ()
 {
   // can't use version_string(), because GUILE hasn't started yet.
@@ -217,9 +214,9 @@ gnu_lilypond_version_string ()
   if (mpl != "")
     version += "." + mpl;
 
-  string guile_version = std::to_string (SCM_MAJOR_VERSION) + "."
+  std::string guile_version = std::to_string (SCM_MAJOR_VERSION) + "."
                          + std::to_string (SCM_MINOR_VERSION);
-  string str
+  std::string str
     = _f ("%s %s (running Guile %s)", "GNU LilyPond", version, guile_version);
   return str;
 }
@@ -329,7 +326,7 @@ warranty ()
 }
 
 static void
-prepend_scheme_list (const string &dir, const string &scmlist)
+prepend_scheme_list (const std::string &dir, const std::string &scmlist)
 /*
  *  Inserts an item at the front of a Scheme list, e.g. %load-path
  *  Parameters:
@@ -367,7 +364,7 @@ do_chroot_jail ()
     JAIL_MAX
   };
 
-  vector<string> components = string_split (jail_spec, ',');
+  std::vector<std::string> components = string_split (jail_spec, ',');
   if (components.size () != JAIL_MAX)
     {
       error (_f ("expected %d arguments with jail, found: %zu", JAIL_MAX,
@@ -449,10 +446,10 @@ main_with_guile (void *, int, char **)
       %load-path is the symbol Guile searches for .scm files
       %load-compiled-path is the symbol Guile V2 searches for .go files
    */
-  string scm_pct_load_path = "%load-path";
+  std::string scm_pct_load_path = "%load-path";
   prepend_scheme_list (lilypond_datadir + "/scm", scm_pct_load_path);
 
-  string scm_pct_load_compiled_path = "%load-compiled-path";
+  std::string scm_pct_load_compiled_path = "%load-compiled-path";
   prepend_scheme_list (lilypond_libdir + "/ccache", scm_pct_load_compiled_path);
 
   if (is_loglevel (LOG_DEBUG))
@@ -547,7 +544,7 @@ setup_localisation ()
 }
 
 static void
-add_output_format (const string &format)
+add_output_format (const std::string &format)
 {
   if (std::find (output_formats_global.begin (), output_formats_global.end (),
                  format)
@@ -571,22 +568,22 @@ parse_argv (int argc, char **argv)
         {
         case 'f':
           {
-            string arg = option_parser->optional_argument_str0_;
-            for (string a : string_split (arg, ','))
+            std::string arg = option_parser->optional_argument_str0_;
+            for (std::string a : string_split (arg, ','))
               add_output_format (a);
           }
           break;
 
         case 0:
-          if (string (opt->longname_str0_) == "pdf"
-              || string (opt->longname_str0_) == "png"
-              || string (opt->longname_str0_) == "ps")
+          if (std::string (opt->longname_str0_) == "pdf"
+              || std::string (opt->longname_str0_) == "png"
+              || std::string (opt->longname_str0_) == "ps")
             add_output_format (opt->longname_str0_);
-          else if (string (opt->longname_str0_) == "svg")
+          else if (std::string (opt->longname_str0_) == "svg")
             {
               add_output_format ("svg");
             }
-          else if (string (opt->longname_str0_) == "relocate")
+          else if (std::string (opt->longname_str0_) == "relocate")
             warning (_ ("The --relocate option is no longer relevant."));
           break;
 
@@ -597,7 +594,7 @@ parse_argv (int argc, char **argv)
 
         case 'O':
           {
-            string arg (option_parser->optional_argument_str0_);
+            std::string arg (option_parser->optional_argument_str0_);
             if (arg == "size")
               init_scheme_variables_global += "(music-font-encodings . #f)\n"
                                               "(gs-never-embed-fonts . #f)\n";
@@ -614,11 +611,11 @@ parse_argv (int argc, char **argv)
 
         case 'd':
           {
-            string arg (option_parser->optional_argument_str0_);
+            std::string arg (option_parser->optional_argument_str0_);
             ssize eq = arg.find ('=');
 
-            string key = arg;
-            string val = "#t";
+            std::string key = arg;
+            std::string val = "#t";
 
             if (eq != NPOS)
               {
@@ -636,7 +633,7 @@ parse_argv (int argc, char **argv)
           break;
         case 'o':
           {
-            string s = option_parser->optional_argument_str0_;
+            std::string s = option_parser->optional_argument_str0_;
             File_name file_name (s);
             output_name_global = file_name.to_string ();
           }
@@ -647,7 +644,7 @@ parse_argv (int argc, char **argv)
 
         case 'e':
           init_scheme_code_global
-            += option_parser->optional_argument_str0_ + string (" ");
+            += option_parser->optional_argument_str0_ + std::string (" ");
           break;
         case 'w':
           warranty ();

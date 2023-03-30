@@ -25,12 +25,11 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Collision_engraver : public Engraver
 {
   Item *col_;
-  vector<Item *> note_columns_;
+  std::vector<Item *> note_columns_;
 
 protected:
   void acknowledge_note_column (Grob_info_t<Item>);

@@ -19,7 +19,6 @@
 
 #include "smobs.hh"
 
-using std::vector;
 
 bool parsed_objects_should_be_dead = false;
 
@@ -31,7 +30,7 @@ bool parsed_objects_should_be_dead = false;
 // way in which the references would have become unprotected in the
 // mean time.
 
-vector<parsed_dead *> parsed_dead::elements;
+std::vector<parsed_dead *> parsed_dead::elements;
 
 SCM
 parsed_dead::readout ()

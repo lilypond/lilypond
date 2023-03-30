@@ -33,7 +33,6 @@
 #include <cstdio>
 #include <vector>
 
-using std::vector;
 
 /*
   A simple spacing constraint solver. The approach:
@@ -246,7 +245,7 @@ Simple_spacer::compress_line (vsize left, vsize right, Real line_len,
   cur.fits_ = true;
   Real cur_len = compressed ? neutral_length : max_block_force_len;
 
-  vector<const Spring *> sorted_springs;
+  std::vector<const Spring *> sorted_springs;
   sorted_springs.reserve (right - left);
   for (vsize i = left; i < right; i++)
     sorted_springs.push_back (&springs_[i]);
@@ -292,10 +291,10 @@ Simple_spacer::add_spring (Spring const &sp)
   springs_.push_back (sp);
 }
 
-vector<Real>
+std::vector<Real>
 Simple_spacer::spring_positions (Real force, bool ragged) const
 {
-  vector<Real> ret;
+  std::vector<Real> ret;
   ret.push_back (0.);
 
   for (vsize i = 0; i < springs_.size (); i++)
@@ -343,8 +342,8 @@ struct Rod_description
 
 struct Column_description
 {
-  vector<Rod_description> rods_;
-  vector<Rod_description>
+  std::vector<Rod_description> rods_;
+  std::vector<Rod_description>
     end_rods_; /* use these if they end at the last column of the line */
   Spring spring_;
   Spring end_spring_;
@@ -370,7 +369,7 @@ maybe_find_prebroken_piece (Paper_column *col, Direction d)
 }
 
 static Paper_column *
-next_spaceable_column (vector<Paper_column *> const &list, vsize starting)
+next_spaceable_column (std::vector<Paper_column *> const &list, vsize starting)
 {
   for (vsize i = starting + 1; i < list.size (); i++)
     if (!is_loose (list[i]))
@@ -379,7 +378,7 @@ next_spaceable_column (vector<Paper_column *> const &list, vsize starting)
 }
 
 static Column_description
-get_column_description (vector<Paper_column *> const &cols, vsize col_index,
+get_column_description (std::vector<Paper_column *> const &cols, vsize col_index,
                         bool line_starter)
 {
   Paper_column *col = cols[col_index];
@@ -440,14 +439,14 @@ get_column_description (vector<Paper_column *> const &cols, vsize col_index,
 
    If the combination doesn't fit, use infinity as force.
  */
-vector<Real>
-get_line_forces (vector<Paper_column *> const &columns, Real line_len,
+std::vector<Real>
+get_line_forces (std::vector<Paper_column *> const &columns, Real line_len,
                  Real indent, bool ragged)
 {
-  vector<vsize> breaks;
-  vector<Real> force;
-  vector<Paper_column *> non_loose;
-  vector<Column_description> cols;
+  std::vector<vsize> breaks;
+  std::vector<Real> force;
+  std::vector<Paper_column *> non_loose;
+  std::vector<Column_description> cols;
   SCM force_break = ly_symbol2scm ("force");
 
   for (vsize i = 0; i < columns.size (); i++)
@@ -520,10 +519,10 @@ get_line_forces (vector<Paper_column *> const &columns, Real line_len,
 }
 
 Column_x_positions
-get_line_configuration (vector<Paper_column *> const &columns, Real line_len,
+get_line_configuration (std::vector<Paper_column *> const &columns, Real line_len,
                         Real indent, bool ragged)
 {
-  vector<Column_description> cols;
+  std::vector<Column_description> cols;
   Simple_spacer spacer;
   Column_x_positions ret;
 

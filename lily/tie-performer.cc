@@ -26,7 +26,6 @@
 
 #include <list>
 
-using std::list;
 
 struct Head_audio_event_tuple
 {
@@ -45,9 +44,9 @@ struct Head_audio_event_tuple
 class Tie_performer : public Performer
 {
   Stream_event *event_;
-  list<Head_audio_event_tuple> now_heads_;
-  list<Head_audio_event_tuple> now_tied_heads_; // new tied notes
-  list<Head_audio_event_tuple> heads_to_tie_;   // heads waiting for closing tie
+  std::list<Head_audio_event_tuple> now_heads_;
+  std::list<Head_audio_event_tuple> now_tied_heads_; // new tied notes
+  std::list<Head_audio_event_tuple> heads_to_tie_;   // heads waiting for closing tie
 
 protected:
   void stop_translation_timestep ();
@@ -95,7 +94,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 
       // Find a previous note that ties to the current note. If it exists,
       // remove it from the heads_to_tie vector and create the tie
-      list<Head_audio_event_tuple>::iterator it;
+      std::list<Head_audio_event_tuple>::iterator it;
       Stream_event *right_mus = inf.event_;
       for (it = heads_to_tie_.begin (); it != heads_to_tie_.end (); it++)
         {

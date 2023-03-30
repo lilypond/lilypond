@@ -28,7 +28,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /*
  * This class implements an engraver for custos symbols.
@@ -48,8 +47,8 @@ public:
 
 private:
   Item *create_custos ();
-  vector<Grob *> custodes_;
-  vector<Pitch> pitches_;
+  std::vector<Grob *> custodes_;
+  std::vector<Pitch> pitches_;
 };
 
 Custos_engraver::Custos_engraver (Context *c)

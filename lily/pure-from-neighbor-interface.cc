@@ -27,7 +27,6 @@
 #include "spanner.hh"
 #include "system.hh"
 
-using std::vector;
 
 MAKE_SCHEME_CALLBACK (
   Pure_from_neighbor_interface, calc_pure_relevant_grobs,
@@ -40,7 +39,7 @@ Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
     (me->original () && me->original ()->is_live () ? me->original () : me),
     "neighbors", elts);
 
-  vector<Grob *> new_elts;
+  std::vector<Grob *> new_elts;
   new_elts.insert (new_elts.end (), elts.begin (), elts.end ());
 
   if (Grob_array *a = unsmob<Grob_array> (get_object (me, "neighbors")))

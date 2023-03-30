@@ -24,7 +24,6 @@
 #include "warn.hh"
 #include "context.hh"
 
-using std::vector;
 
 /*
   Return an articulation list given a note_events vector and an
@@ -37,8 +36,8 @@ using std::vector;
 */
 
 SCM
-articulation_list (vector<Stream_event *> note_events,
-                   vector<Stream_event *> articulation_events,
+articulation_list (std::vector<Stream_event *> note_events,
+                   std::vector<Stream_event *> articulation_events,
                    char const *articulation_name)
 {
   SCM articulations = SCM_EOL;

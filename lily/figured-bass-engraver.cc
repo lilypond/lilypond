@@ -33,7 +33,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 struct Figure_group
 {
@@ -111,13 +110,13 @@ struct Figured_bass_engraver : public Engraver
   void add_brackets ();
   void create_grobs ();
 
-  void center_continuations (vector<Spanner *> const &consecutive_lines);
+  void center_continuations (std::vector<Spanner *> const &consecutive_lines);
   void center_repeated_continuations ();
 
 protected:
-  vector<Figure_group> groups_;
+  std::vector<Figure_group> groups_;
   Spanner *alignment_;
-  vector<Stream_event *> new_events_;
+  std::vector<Stream_event *> new_events_;
   bool continuation_;
   bool new_event_found_;
 
@@ -207,9 +206,9 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 
 void
 Figured_bass_engraver::center_continuations (
-  vector<Spanner *> const &consecutive_lines)
+  std::vector<Spanner *> const &consecutive_lines)
 {
-  vector<Grob *> left_figs;
+  std::vector<Grob *> left_figs;
   for (vsize j = consecutive_lines.size (); j--;)
     left_figs.push_back (consecutive_lines[j]->get_bound (LEFT));
 
@@ -224,7 +223,7 @@ Figured_bass_engraver::center_continuations (
 void
 Figured_bass_engraver::center_repeated_continuations ()
 {
-  vector<Spanner *> consecutive_lines;
+  std::vector<Spanner *> consecutive_lines;
   for (auto &group : groups_)
     {
       auto *const cont_line = group.continuation_line_;
@@ -342,7 +341,7 @@ Figured_bass_engraver::process_music ()
 
   if (use_extenders)
     {
-      vector<vsize> junk_continuations;
+      std::vector<vsize> junk_continuations;
       for (vsize i = 0; i < groups_.size (); i++)
         {
           Figure_group &group = groups_[i];
@@ -375,7 +374,7 @@ Figured_bass_engraver::process_music ()
       /*
         Ugh, repeated code.
        */
-      vector<Spanner *> consecutive;
+      std::vector<Spanner *> consecutive;
       if (from_scm<bool> (
             get_property (this, "figuredBassCenterContinuations")))
         {
@@ -475,7 +474,7 @@ Figured_bass_engraver::create_grobs ()
 void
 Figured_bass_engraver::add_brackets ()
 {
-  vector<Grob *> encompass;
+  std::vector<Grob *> encompass;
   bool inside = false;
   for (vsize i = 0; i < groups_.size (); i++)
     {

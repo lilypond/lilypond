@@ -29,8 +29,6 @@
 #include <cstdio>
 #include <sstream>
 
-using std::string;
-using std::vector;
 
 Index_to_charcode_map
 make_index_to_charcode_map (FT_Face face)
@@ -112,7 +110,7 @@ t42_write_table (std::ostream &stream, FT_Face face,
                  unsigned char const *buffer, size_t s, bool is_glyf,
                  FT_ULong head_length, FT_ULong loca_length)
 {
-  vector<FT_UShort> chunks;
+  std::vector<FT_UShort> chunks;
   bool long_offsets = false;
   FT_Error error;
 
@@ -232,7 +230,7 @@ print_body (std::ostream &stream, FT_Face face)
   FT_UInt idx = 0;
   FT_ULong head_length = 0, loca_length = 0;
   FT_ULong tag, length;
-  vector<FT_ULong> lengths, tags;
+  std::vector<FT_ULong> lengths, tags;
 
   /*
     we must build our own TTF header -- the original font
@@ -424,7 +422,7 @@ print_trailer (std::ostream &stream, FT_Face face)
 
       if (i == 0)
         sprintf (glyph_name, ".notdef");
-      else if (glyph_name == string (".notdef"))
+      else if (glyph_name == std::string (".notdef"))
         glyph_name[0] = '\0';
 
       if (!glyph_name[0])
@@ -447,7 +445,7 @@ print_trailer (std::ostream &stream, FT_Face face)
 }
 
 static void
-create_type42_font (std::ostream &stream, const string &name, int idx)
+create_type42_font (std::ostream &stream, const std::string &name, int idx)
 {
   FT_Face face;
 
@@ -495,7 +493,7 @@ index within the TTC.  The default value of @var{idx} is@tie{}0.
         }
     }
 
-  string file_name = ly_scm2string (ttf_file_name);
+  std::string file_name = ly_scm2string (ttf_file_name);
   debug_output ("\n[" + file_name, false);
 
   FT_Face face;
@@ -544,7 +542,7 @@ The default value of @var{idx} is@tie{}0.
         }
     }
 
-  string file_name = ly_scm2string (ttf_file_name);
+  std::string file_name = ly_scm2string (ttf_file_name);
   debug_output ("[" + file_name); // Debug message should start on a new line
 
   std::ostringstream stream;

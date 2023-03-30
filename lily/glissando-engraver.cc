@@ -29,8 +29,6 @@
 
 #include "translator.icc"
 
-using std::string;
-using std::vector;
 
 class Glissando_engraver : public Engraver
 {
@@ -46,14 +44,14 @@ protected:
   void process_music ();
 
 private:
-  vector<Spanner *> lines_;
-  vector<Spanner *> kill_me_;
+  std::vector<Spanner *> lines_;
+  std::vector<Spanner *> kill_me_;
   bool start_glissandi_;
   bool stop_glissandi_;
 
   Stream_event *event_;
-  vector<vsize> note_column_1;
-  vector<vsize> note_column_2;
+  std::vector<vsize> note_column_1;
+  std::vector<vsize> note_column_2;
 };
 
 Glissando_engraver::Glissando_engraver (Context *c)
@@ -160,7 +158,7 @@ Glissando_engraver::finalize ()
 {
   if (!lines_.empty ())
     {
-      string msg = _ ("unterminated glissando");
+      std::string msg = _ ("unterminated glissando");
 
       if (event_)
         event_->warning (msg);

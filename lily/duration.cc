@@ -23,7 +23,6 @@
 #include "misc.hh"
 #include "lily-proto.hh"
 
-using std::string;
 
 int
 Duration::compare (Duration const &left, Duration const &right)
@@ -128,10 +127,10 @@ Duration::get_length () const
   return mom * factor_;
 }
 
-string
+std::string
 Duration::to_string () const
 {
-  string s;
+  std::string s;
 
   if (durlog_ < 0)
     s = "log = " + std::to_string (durlog_);
@@ -139,7 +138,7 @@ Duration::to_string () const
     s = std::to_string (1 << durlog_);
 
   if (dots_ > 0)
-    s += string (dots_, '.');
+    s += std::string (dots_, '.');
   if (factor_ != 1)
     s += "*" + factor_.to_string ();
   return s;

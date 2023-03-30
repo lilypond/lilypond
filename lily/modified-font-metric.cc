@@ -27,7 +27,6 @@
 #include <tuple>
 #include <utility>
 
-using std::string;
 
 Preinit_Modified_font_metric::Preinit_Modified_font_metric ()
 {
@@ -81,7 +80,7 @@ Modified_font_metric::count () const
 }
 
 std::pair<Offset, bool>
-Modified_font_metric::attachment_point (const string &s, Direction d) const
+Modified_font_metric::attachment_point (const std::string &s, Direction d) const
 {
   Offset o;
   bool rotate;
@@ -97,7 +96,7 @@ Modified_font_metric::get_indexed_wxwy (vsize k) const
 }
 
 size_t
-Modified_font_metric::name_to_index (string s) const
+Modified_font_metric::name_to_index (std::string s) const
 {
   return orig_->name_to_index (s);
 }
@@ -116,8 +115,8 @@ Modified_font_metric::derived_mark () const
 }
 
 Stencil
-Modified_font_metric::text_stencil (Output_def *state, const string &text,
-                                    bool feta, const string &features_str) const
+Modified_font_metric::text_stencil (Output_def *state, const std::string &text,
+                                    bool feta, const std::string &features_str) const
 {
   Box b;
   if (Pango_font *pf = dynamic_cast<Pango_font *> (orig_))
@@ -146,7 +145,7 @@ Modified_font_metric::sub_fonts () const
   return orig_->sub_fonts ();
 }
 
-string
+std::string
 Modified_font_metric::font_name () const
 {
   return original_font ()->font_name ();

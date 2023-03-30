@@ -50,8 +50,6 @@
 #include <set>
 #include <string>
 
-using std::string;
-using std::vector;
 
 /* Declaration of log function(s) */
 SCM ly_progress (SCM, SCM);
@@ -66,8 +64,8 @@ instead.
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
 
-  string nm = ly_scm2string (name);
-  string file_name = global_path.find (nm);
+  std::string nm = ly_scm2string (name);
+  std::string file_name = global_path.find (nm);
   if (file_name.empty ())
     {
       if (SCM_UNBNDP (strict) || scm_is_false (strict))
@@ -97,8 +95,8 @@ cannot be deleted.
   LY_ASSERT_TYPE (scm_is_string, oldname, 1);
   LY_ASSERT_TYPE (scm_is_string, newname, 1);
 
-  string oldname_s = ly_scm2string (oldname);
-  string newname_s = ly_scm2string (newname);
+  std::string oldname_s = ly_scm2string (oldname);
+  std::string newname_s = ly_scm2string (newname);
 
   if (!rename_file (oldname_s.c_str (), newname_s.c_str ()))
     {
@@ -156,9 +154,9 @@ Return value if @var{key} in @var{alist}, else @var{default-value} (or
 
   if (from_scm<bool> (strict_checking))
     {
-      string key_string
+      std::string key_string
         = ly_scm2string (scm_object_to_string (key, SCM_UNDEFINED));
-      string default_value_string
+      std::string default_value_string
         = ly_scm2string (scm_object_to_string (default_value, SCM_UNDEFINED));
       programming_error ("Cannot find key `" + key_string
                          + "' in alist, setting to `" + default_value_string
@@ -178,7 +176,7 @@ Replace string@tie{}@var{a} by string@tie{}@var{b} in string@tie{}@var{s}.
   LY_ASSERT_TYPE (scm_is_string, b, 2);
   LY_ASSERT_TYPE (scm_is_string, s, 3);
 
-  string ss = ly_scm2string (s);
+  std::string ss = ly_scm2string (s);
   replace_all (&ss, ly_scm2string (a), ly_scm2string (b));
 
   return ly_string2scm (ss);
@@ -194,8 +192,8 @@ characters in ranges @code{0-9}, @code{A-Z}, and @code{a-z}.
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 
-  string orig_str = ly_scm2string (str);
-  string new_str = String_convert::percent_encode (orig_str);
+  std::string orig_str = ly_scm2string (str);
+  std::string new_str = String_convert::percent_encode (orig_str);
 
   return ly_string2scm (new_str);
 }
@@ -323,9 +321,9 @@ output in such cases.
 
   if (from_scm<bool> (strict_checking))
     {
-      string key_string
+      std::string key_string
         = ly_scm2string (scm_object_to_string (key, SCM_UNDEFINED));
-      string default_value_string
+      std::string default_value_string
         = ly_scm2string (scm_object_to_string (default_value, SCM_UNDEFINED));
       programming_error ("Cannot find key `" + key_string
                          + "' in achain, setting to `" + default_value_string
@@ -357,8 +355,8 @@ first parameter is an integer, or to file @var{file-name}, opened with
 
   LY_ASSERT_TYPE (scm_is_string, fd_or_file_name, 1);
 
-  string m = "w";
-  string f = ly_scm2string (fd_or_file_name);
+  std::string m = "w";
+  std::string f = ly_scm2string (fd_or_file_name);
   FILE *stderrfile;
   if (scm_is_string (mode))
     m = ly_scm2string (mode);
@@ -391,13 +389,13 @@ Convert @code{FooBar_Bla} to @code{foo-bar-bla} style symbol.
     TODO: should use strings instead?
   */
 
-  const string in = ly_symbol2string (name_sym);
-  string result = camel_case_to_lisp_identifier (in);
+  const std::string in = ly_symbol2string (name_sym);
+  std::string result = camel_case_to_lisp_identifier (in);
 
   return ly_symbol2scm (result);
 }
 
-string
+std::string
 format_single_argument (SCM arg, int precision, bool escape = false)
 {
   if (scm_is_integer (arg) && scm_is_true (scm_exact_p (arg)))
@@ -418,7 +416,7 @@ format_single_argument (SCM arg, int precision, bool escape = false)
     }
   else if (scm_is_string (arg))
     {
-      string s = ly_scm2string (arg);
+      std::string s = ly_scm2string (arg);
       if (escape)
         {
           // Escape backslashes and double quotes, wrap it in double quotes
@@ -451,8 +449,8 @@ Basic support for @code{~s} is also provided.
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 
-  string format = ly_scm2string (str);
-  vector<string> results;
+  std::string format = ly_scm2string (str);
+  std::vector<std::string> results;
 
   vsize i = 0;
   while (i < format.size ())
@@ -473,7 +471,7 @@ Basic support for @code{~s} is also provided.
         {
           if (!scm_is_pair (rest))
             {
-              programming_error (string (__FUNCTION__)
+              programming_error (std::string (__FUNCTION__)
                                  + ": not enough arguments for format.");
               return ly_string2scm ("");
             }
@@ -501,14 +499,14 @@ Basic support for @code{~s} is also provided.
     }
 
   if (scm_is_pair (rest))
-    programming_error (string (__FUNCTION__) + ": too many arguments");
+    programming_error (std::string (__FUNCTION__) + ": too many arguments");
 
   // one wonders how much this extra walk actually saves
   vsize len = 0;
   for (const auto &r : results)
     len += r.size ();
 
-  string result;
+  std::string result;
   result.reserve (len);
   for (const auto &r : results)
     result.append (r);
@@ -574,7 +572,7 @@ occurs, format it with @code{format} and @var{rest}.
   if (standard_output && standard_error)
     {
       // Print out stdout and stderr only in debug mode
-      debug_output (string ("\n") + standard_output + standard_error, true);
+      debug_output (std::string ("\n") + standard_output + standard_error, true);
     }
 
   g_free (standard_error);
@@ -585,7 +583,7 @@ occurs, format it with @code{format} and @var{rest}.
 
 #if GS_API
 static void *gs_inst = NULL;
-static string gs_args;
+static std::string gs_args;
 
 LY_DEFINE (ly_shutdown_gs, "ly:shutdown-gs", 0, 0, 0, (),
            R"(
@@ -625,7 +623,7 @@ Use GhostScript started with @var{args}, and run @var{run_string}
     std::vector<unique_stdlib_ptr<char>> own_argv;
 
     // Ensure that the string of arguments is never empty.
-    string new_args (" ");
+    std::string new_args (" ");
     for (SCM s : as_ly_scm_list (args))
       {
         auto a (ly_scm2str0 (s));
@@ -678,7 +676,7 @@ Use GhostScript started with @var{args}, and run @var{run_string}
   }
 
   // Construct the command.
-  string command = ly_scm2string (run_string);
+  std::string command = ly_scm2string (run_string);
 
   debug_output (_f ("Running GhostScript command: %s\n", command.c_str ()));
 

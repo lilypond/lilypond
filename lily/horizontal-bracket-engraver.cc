@@ -28,15 +28,14 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Horizontal_bracket_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Horizontal_bracket_engraver);
-  vector<Spanner *> bracket_stack_;
-  vector<Spanner *> text_stack_;
-  vector<Stream_event *> events_;
+  std::vector<Spanner *> bracket_stack_;
+  std::vector<Spanner *> text_stack_;
+  std::vector<Stream_event *> events_;
   vsize pop_count_;
   vsize push_count_;
 

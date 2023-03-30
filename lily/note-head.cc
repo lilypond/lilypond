@@ -33,24 +33,23 @@
 #include <tuple>
 #include <utility>
 
-using std::string;
 
 static Stencil
-internal_print (Grob *me, string *font_char)
+internal_print (Grob *me, std::string *font_char)
 {
-  string style = robust_symbol2string (get_property (me, "style"), "default");
+  std::string style = robust_symbol2string (get_property (me, "style"), "default");
 
-  string suffix = std::to_string (
+  std::string suffix = std::to_string (
     std::min (from_scm (get_property (me, "duration-log"), 2), 2));
   if (style != "default")
     suffix = robust_scm2string (get_property (me, "glyph-name"), "");
 
   Font_metric *fm = Font_interface::get_default_font (me);
 
-  string prefix = "noteheads.";
-  string idx_symmetric;
-  string idx_directed;
-  string idx_either = idx_symmetric = prefix + "s";
+  std::string prefix = "noteheads.";
+  std::string idx_symmetric;
+  std::string idx_directed;
+  std::string idx_either = idx_symmetric = prefix + "s";
   Stencil out = fm->find_by_name (idx_either + suffix);
   if (out.is_empty ())
     {
@@ -121,7 +120,7 @@ Note_head::print (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
-  string idx;
+  std::string idx;
   return internal_print (me, &idx).smobbed_copy ();
 }
 
@@ -165,7 +164,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   the note's bounding box and 1 is the right/top edge.
 */
 Offset
-Note_head::get_stem_attachment (Font_metric *fm, const string &key,
+Note_head::get_stem_attachment (Font_metric *fm, const std::string &key,
                                 Direction dir)
 {
   Offset att;
@@ -200,7 +199,7 @@ Note_head::calc_stem_attachment (SCM smob)
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Font_metric *fm = Font_interface::get_default_font (me);
-  string key;
+  std::string key;
   internal_print (me, &key);
 
   Direction dir = get_grob_direction (stem);

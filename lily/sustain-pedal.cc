@@ -20,7 +20,6 @@
 #include "stencil.hh"
 #include "font-interface.hh"
 
-using std::string;
 
 // update comment --hwn
 /*
@@ -57,18 +56,18 @@ Sustain_pedal::print (SCM smob)
   if (!scm_is_string (glyph))
     return mol.smobbed_copy ();
 
-  string text = ly_scm2string (glyph);
+  std::string text = ly_scm2string (glyph);
 
   for (ssize i = 0; i < text.length (); i++)
     {
-      string idx ("pedal.");
+      std::string idx ("pedal.");
       if (text.substr (i, 3) == "Ped")
         {
           idx += "Ped";
           i += 2;
         }
       else
-        idx += string (&text.c_str ()[i], 1);
+        idx += std::string (&text.c_str ()[i], 1);
       Stencil m = Font_interface::get_default_font (e)->find_by_name (idx);
       if (!m.is_empty ())
         mol.add_at_edge (X_AXIS, RIGHT, m, 0);

@@ -26,7 +26,6 @@
 
 #include <cmath>
 
-using std::string;
 
 Pitch::Pitch (int o, int n, Rational a)
 {
@@ -153,16 +152,16 @@ pitch_interval (Pitch const &from, Pitch const &to)
 char const *accname[]
   = {"eses", "eseh", "es", "eh", "", "ih", "is", "isih", "isis"};
 
-string
+std::string
 Pitch::to_string () const
 {
   int n = (notename_ + 2) % scale_->step_count ();
-  string s (1, static_cast<char> (n + 'a'));
+  std::string s (1, static_cast<char> (n + 'a'));
   Rational qtones = alteration_ * Rational (4, 1);
   size_t qt = size_t (rint (static_cast<Real> (qtones) + 4.0));
   if (qt < sizeof (accname) / sizeof (accname[0]))
     {
-      s += string (accname[qt]);
+      s += std::string (accname[qt]);
     }
   else
     {

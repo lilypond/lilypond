@@ -36,7 +36,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-using std::vector;
 
 void
 translator_each (SCM list, SCM method)
@@ -267,7 +266,7 @@ void
 Translator_group::precomputed_translator_foreach (
   Translator_precompute_index idx)
 {
-  vector<Method_instance> &bindings (precomputed_method_bindings_[idx]);
+  std::vector<Method_instance> &bindings (precomputed_method_bindings_[idx]);
   for (vsize i = 0; i < bindings.size (); i++)
     bindings[i]();
 }

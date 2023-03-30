@@ -47,9 +47,6 @@
 #include <map>
 #include <set>
 
-using std::set;
-using std::string;
-using std::vector;
 
 void
 Side_position_interface::add_support (Grob *me, Grob *e)
@@ -58,14 +55,14 @@ Side_position_interface::add_support (Grob *me, Grob *e)
     me, ly_symbol2scm ("side-support-elements"), e);
 }
 
-set<Grob *>
+std::set<Grob *>
 get_support_set (Grob *me)
 {
   // Only slightly kludgy heuristic...
   // We want to make sure that all AccidentalPlacements'
   // accidentals make it into the side support
   extract_grob_set (me, "side-support-elements", proto_support);
-  set<Grob *> support;
+  std::set<Grob *> support;
 
   for (vsize i = 0; i < proto_support.size (); i++)
     {
@@ -204,7 +201,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start,
       return to_scm (current_off ? *current_off : 0.0);
     }
 
-  set<Grob *> support = get_support_set (me);
+  std::set<Grob *> support = get_support_set (me);
 
   Grob *common[NO_AXES];
   for (const auto ax : {X_AXIS, Y_AXIS})
@@ -263,9 +260,9 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start,
       my_dim = skyp[-dir];
     }
 
-  vector<Box> boxes;
-  vector<Skyline_pair> skyps;
-  set<Grob *>::iterator it;
+  std::vector<Box> boxes;
+  std::vector<Skyline_pair> skyps;
+  std::set<Grob *>::iterator it;
 
   for (it = support.begin (); it != support.end (); it++)
     {
@@ -383,7 +380,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start,
   /* FIXME: 1000 should relate to paper size.  */
   if (fabs (total_off) > 1000)
     {
-      string msg = String_convert::form_string (
+      std::string msg = String_convert::form_string (
         "Improbable offset for grob %s: %f", me->name ().c_str (), total_off);
 
       programming_error (msg);
@@ -543,8 +540,8 @@ Side_position_interface::move_to_extremal_staff (SCM smob)
     = unsmob<Grob_array> (get_object (me, "side-support-elements"));
   if (ga)
     {
-      vector<Grob *> const &elts = ga->array ();
-      vector<Grob *> new_elts;
+      std::vector<Grob *> const &elts = ga->array ();
+      std::vector<Grob *> new_elts;
       for (vsize i = 0; i < elts.size (); ++i)
         {
           if (me->common_refpoint (elts[i], Y_AXIS) == top_staff)

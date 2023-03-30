@@ -28,7 +28,6 @@
 #include <algorithm>
 #include <vector>
 
-using std::vector;
 
 struct Fingering_and_offset
 {
@@ -78,7 +77,7 @@ Fingering_column::do_y_positioning (Grob *me)
       return;
     }
 
-  vector<Grob *> fingerings;
+  std::vector<Grob *> fingerings;
   for (vsize i = 0; i < const_fingerings.size (); i++)
     fingerings.push_back (const_fingerings[i]);
 
@@ -90,7 +89,7 @@ Fingering_column::do_y_positioning (Grob *me)
   // order the fingerings from bottom to top
   std::sort (fingerings.begin (), fingerings.end (), pure_position_less);
 
-  vector<Real> shift (fingerings.size ());
+  std::vector<Real> shift (fingerings.size ());
 
   // Try stacking the fingerings top-to-bottom, and then bottom-to-top.
   // Use the average of the resulting stacked locations as the final positions
@@ -134,7 +133,7 @@ Fingering_column::do_x_positioning (Grob *me)
   Grob *common_x = common_refpoint_of_array (fingerings, me, X_AXIS);
 
   Real snap = from_scm<double> (get_property (me, "snap-radius"), 0.3);
-  vector<Fingering_and_offset> fos;
+  std::vector<Fingering_and_offset> fos;
 
   for (vsize i = 0; i < fingerings.size (); i++)
     fos.push_back (Fingering_and_offset (

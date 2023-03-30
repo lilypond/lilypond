@@ -38,15 +38,12 @@
 #include <string>
 #include <vector>
 
-using std::string;
-using std::unique_ptr;
-using std::vector;
 
 Bezier
 avoid_staff_line (Slur_score_state const &state, Bezier bez)
 {
   Offset horiz (1, 0);
-  vector<Real> ts = bez.solve_derivative (horiz);
+  std::vector<Real> ts = bez.solve_derivative (horiz);
 
   /* TODO: handle case of broken slur.  */
   if (!ts.empty ()
@@ -96,7 +93,7 @@ avoid_staff_line (Slur_score_state const &state, Bezier bez)
 
 Real
 fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
-            Bezier curve, Direction d, vector<Offset> const &avoid)
+            Bezier curve, Direction d, std::vector<Offset> const &avoid)
 {
   Real fit_factor = 0.0;
   Offset x0 = curve.control_[0];
@@ -138,7 +135,7 @@ fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
 
 void
 Slur_configuration::generate_curve (Slur_score_state const &state, Real r_0,
-                                    Real h_inf, vector<Offset> const &avoid)
+                                    Real h_inf, std::vector<Offset> const &avoid)
 {
   Offset dz = attachment_[RIGHT] - attachment_[LEFT];
   ;
@@ -215,7 +212,7 @@ Slur_configuration::Slur_configuration ()
 };
 
 void
-Slur_configuration::add_score (Real s, const string &desc)
+Slur_configuration::add_score (Real s, const std::string &desc)
 {
   if (s < 0)
     {
@@ -242,7 +239,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
     Distances for heads that are between slur and line between
     attachment points.
   */
-  vector<Real> convex_head_distances;
+  std::vector<Real> convex_head_distances;
   for (vsize j = 0; j < state.encompass_infos_.size (); j++)
     {
       Real x = state.encompass_infos_[j].x_;
@@ -352,7 +349,7 @@ void
 Slur_configuration::score_extra_encompass (Slur_score_state const &state)
 {
   // we find forbidden attachments
-  vector<Offset> forbidden_attachments;
+  std::vector<Offset> forbidden_attachments;
   for (vsize i = 0; i < state.extra_encompass_infos_.size (); i++)
     if (has_interface<Tie> (state.extra_encompass_infos_[i].grob_))
       {
@@ -482,7 +479,7 @@ Slur_configuration::score_edges (Slur_score_state const &state)
       demerit *= exp (state.dir_ * d * slope
                       * state.parameters_.edge_slope_exponent_);
 
-      string dir_str = d == LEFT ? "L" : "R";
+      std::string dir_str = d == LEFT ? "L" : "R";
       add_score (demerit, dir_str + " edge");
     }
 }
@@ -557,7 +554,7 @@ Slur_configuration::done () const
   return next_scorer_todo_ >= NUM_SCORERS;
 }
 
-unique_ptr<Slur_configuration>
+std::unique_ptr<Slur_configuration>
 Slur_configuration::new_config (Drul_array<Offset> const &offs, size_t idx)
 {
   auto conf = std::make_unique<Slur_configuration> ();

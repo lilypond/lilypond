@@ -39,7 +39,6 @@
 
 #include <cstdint>
 
-using std::vector;
 
 class Accidental_entry
 {
@@ -94,14 +93,14 @@ protected:
 public:
   SCM last_keysig_;
 
-  vector<Grob *> left_objects_;
-  vector<Grob *> right_objects_;
+  std::vector<Grob *> left_objects_;
+  std::vector<Grob *> right_objects_;
 
   Grob *accidental_placement_;
 
-  vector<Accidental_entry> accidentals_;
-  vector<Spanner *> ties_;
-  vector<Item *> note_columns_;
+  std::vector<Accidental_entry> accidentals_;
+  std::vector<Spanner *> ties_;
+  std::vector<Item *> note_columns_;
 };
 
 /*

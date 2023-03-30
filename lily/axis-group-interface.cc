@@ -42,10 +42,6 @@
 #include <map>
 #include <vector>
 
-using std::multimap;
-using std::pair;
-using std::string;
-using std::vector;
 
 Real Axis_group_interface::default_outside_staff_padding_ = 0.46;
 
@@ -87,7 +83,7 @@ Axis_group_interface::has_axis (Grob *me, Axis a)
 }
 
 Interval
-Axis_group_interface::relative_group_extent (vector<Grob *> const &elts,
+Axis_group_interface::relative_group_extent (std::vector<Grob *> const &elts,
                                              Grob *common, Axis a)
 {
   return relative_maybe_bound_group_extent (elts, common, a, false);
@@ -95,7 +91,7 @@ Axis_group_interface::relative_group_extent (vector<Grob *> const &elts,
 
 Interval
 Axis_group_interface::relative_maybe_bound_group_extent (
-  vector<Grob *> const &elts, Grob *common, Axis a, bool bound)
+  std::vector<Grob *> const &elts, Grob *common, Axis a, bool bound)
 {
   Interval r;
   for (vsize i = 0; i < elts.size (); i++)
@@ -121,7 +117,7 @@ Axis_group_interface::generic_bound_extent (Grob *me, Grob *common, Axis a)
     (void) get_property (me, "vertical-skylines");
 
   extract_grob_set (me, "elements", elts);
-  vector<Grob *> new_elts;
+  std::vector<Grob *> new_elts;
 
   SCM interfaces = get_property (me, "bound-alignment-interfaces");
 
@@ -250,7 +246,7 @@ Axis_group_interface::staff_extent (Grob *me, Grob *refp, Axis ext_a,
                                     Grob *staff, Axis parent_a)
 {
   extract_grob_set (me, "elements", elts);
-  vector<Grob *> new_elts;
+  std::vector<Grob *> new_elts;
 
   for (vsize i = 0; i < elts.size (); i++)
     if (elts[i]->has_in_ancestry (staff, parent_a))
@@ -335,11 +331,11 @@ Axis_group_interface::combine_pure_heights (Grob *me, SCM measure_extents,
                                             vsize start, vsize end)
 {
   Paper_score *ps = get_root_system (me)->paper_score ();
-  vector<vsize> const &break_ranks = ps->get_break_ranks ();
+  std::vector<vsize> const &break_ranks = ps->get_break_ranks ();
   auto it = std::lower_bound (break_ranks.begin (), break_ranks.end (), start);
   vsize break_idx = it - break_ranks.begin ();
-  vector<vsize> const &breaks = ps->get_break_indices ();
-  vector<Paper_column *> const &cols = ps->get_columns ();
+  std::vector<vsize> const &breaks = ps->get_break_indices ();
+  std::vector<Paper_column *> const &cols = ps->get_columns ();
 
   Interval ext;
   for (vsize i = break_idx; i + 1 < breaks.size (); i++)
@@ -371,12 +367,12 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
   extract_grob_set (me, "pure-relevant-grobs", elts);
 
   Paper_score *ps = get_root_system (me)->paper_score ();
-  vector<vsize> const &ranks = ps->get_break_ranks ();
+  std::vector<vsize> const &ranks = ps->get_break_ranks ();
 
-  vector<Interval> begin_line_heights;
-  vector<Interval> mid_line_heights;
-  vector<Interval> begin_line_staff_heights;
-  vector<Interval> mid_line_staff_heights;
+  std::vector<Interval> begin_line_heights;
+  std::vector<Interval> mid_line_heights;
+  std::vector<Interval> begin_line_staff_heights;
+  std::vector<Interval> mid_line_staff_heights;
   begin_line_heights.resize (ranks.size () - 1);
   mid_line_heights.resize (ranks.size () - 1);
 
@@ -543,13 +539,13 @@ operator<(const Grob_with_priority &g1, const Grob_with_priority &g2)
 
 SCM
 Axis_group_interface::internal_calc_pure_relevant_grobs (
-  Grob *me, const string &grob_set_name)
+  Grob *me, const std::string &grob_set_name)
 {
   extract_grob_set (me, grob_set_name.c_str (), elts);
 
   // It is cheaper to cache the outside-staff-priority than saving the one copy
   // to assemble the final Grob_array.
-  vector<Grob_with_priority> relevant_grobs;
+  std::vector<Grob_with_priority> relevant_grobs;
 
   for (Grob *g : elts)
     {
@@ -630,7 +626,7 @@ Axis_group_interface::calc_y_common (SCM grob)
 }
 
 void
-Axis_group_interface::get_children (Grob *me, vector<Grob *> *found)
+Axis_group_interface::get_children (Grob *me, std::vector<Grob *> *found)
 {
   found->push_back (me);
 
@@ -651,14 +647,14 @@ Axis_group_interface::get_children (Grob *me, vector<Grob *> *found)
 void
 avoid_outside_staff_collisions (Grob *elt, Skyline_pair *v_skyline,
                                 Real padding, Real horizon_padding,
-                                vector<Skyline_pair> const &other_v_skylines,
-                                vector<Real> const &other_padding,
-                                vector<Real> const &other_horizon_padding,
+                                std::vector<Skyline_pair> const &other_v_skylines,
+                                std::vector<Real> const &other_padding,
+                                std::vector<Real> const &other_horizon_padding,
                                 Direction const dir)
 {
   assert (other_v_skylines.size () == other_padding.size ());
   assert (other_v_skylines.size () == other_horizon_padding.size ());
-  vector<Interval> forbidden_intervals;
+  std::vector<Interval> forbidden_intervals;
   for (vsize j = 0; j < other_v_skylines.size (); j++)
     {
       Skyline_pair const &v_other = other_v_skylines[j];
@@ -703,12 +699,12 @@ valid_outside_staff_placement_directive (Grob *me)
 // of the grobs in elements will be added to all_v_skylines.
 static void
 add_grobs_of_one_priority (Grob *me,
-                           Drul_array<vector<Skyline_pair>> *all_v_skylines,
-                           Drul_array<vector<Real>> *all_paddings,
-                           Drul_array<vector<Real>> *all_horizon_paddings,
-                           vector<Grob *> elements, Grob *x_common,
+                           Drul_array<std::vector<Skyline_pair>> *all_v_skylines,
+                           Drul_array<std::vector<Real>> *all_paddings,
+                           Drul_array<std::vector<Real>> *all_horizon_paddings,
+                           std::vector<Grob *> elements, Grob *x_common,
                            Grob *y_common,
-                           multimap<Grob *, Grob *> const &riders)
+                           std::multimap<Grob *, Grob *> const &riders)
 {
 
   SCM directive = valid_outside_staff_placement_directive (me);
@@ -720,8 +716,8 @@ add_grobs_of_one_priority (Grob *me,
     = (scm_is_eq (directive, ly_symbol2scm ("left-to-right-polite"))
        || scm_is_eq (directive, ly_symbol2scm ("right-to-left-polite")));
 
-  vector<Box> boxes;
-  vector<Skyline_pair> skylines_to_merge;
+  std::vector<Box> boxes;
+  std::vector<Skyline_pair> skylines_to_merge;
 
   // We want to avoid situations like this:
   //           still more text
@@ -744,7 +740,7 @@ add_grobs_of_one_priority (Grob *me,
   while (!elements.empty ())
     {
       Drul_array<Real> last_end (-infinity_f, -infinity_f);
-      vector<Grob *> skipped_elements;
+      std::vector<Grob *> skipped_elements;
       for (vsize i = l2r ? 0 : elements.size ();
            l2r ? i < elements.size () : i--; l2r ? i++ : 0)
         {
@@ -780,10 +776,10 @@ add_grobs_of_one_priority (Grob *me,
             continue;
           // Find the riders associated with this grob, and merge their
           // skylines with elt's skyline.
-          typedef multimap<Grob *, Grob *>::const_iterator GrobMapIterator;
-          pair<GrobMapIterator, GrobMapIterator> range
+          typedef std::multimap<Grob *, Grob *>::const_iterator GrobMapIterator;
+          std::pair<GrobMapIterator, GrobMapIterator> range
             = riders.equal_range (elt);
-          vector<Skyline_pair> rider_v_skylines;
+          std::vector<Skyline_pair> rider_v_skylines;
           for (GrobMapIterator j = range.first; j != range.second; j++)
             {
               Grob *rider = j->second;
@@ -880,7 +876,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
       y_common = me;
     }
 
-  vector<Skyline_key> elements;
+  std::vector<Skyline_key> elements;
   elements.reserve (orig_elements.size ());
   for (Grob *g : orig_elements)
     {
@@ -913,16 +909,16 @@ Axis_group_interface::skyline_spacing (Grob *me)
 
   // A rider is a grob that is not outside-staff, but has an outside-staff
   // ancestor.  In that case, the rider gets moved along with its ancestor.
-  multimap<Grob *, Grob *> riders;
+  std::multimap<Grob *, Grob *> riders;
 
   vsize i = 0;
-  vector<Skyline_pair> inside_staff_skylines;
+  std::vector<Skyline_pair> inside_staff_skylines;
 
   for (i = 0; i < elements.size () && std::isinf (elements[i].priority_); i++)
     {
       Grob *elt = elements[i].grob_;
       if (Grob *ancestor = outside_staff_ancestor (elt))
-        riders.insert (pair<Grob *, Grob *> (ancestor, elt));
+        riders.insert (std::pair<Grob *, Grob *> (ancestor, elt));
       else if (!from_scm<bool> (get_property (elt, "cross-staff")))
         {
           SCM maybe_pair = get_property (elt, "vertical-skylines");
@@ -944,9 +940,9 @@ Axis_group_interface::skyline_spacing (Grob *me)
   // These are the skylines of all outside-staff grobs
   // that have already been processed.  We keep them around in order to
   // check them for collisions with the currently active outside-staff grob.
-  Drul_array<vector<Skyline_pair>> all_v_skylines;
-  Drul_array<vector<Real>> all_paddings;
-  Drul_array<vector<Real>> all_horizon_paddings;
+  Drul_array<std::vector<Skyline_pair>> all_v_skylines;
+  Drul_array<std::vector<Real>> all_paddings;
+  Drul_array<std::vector<Real>> all_horizon_paddings;
   for (const auto d : {UP, DOWN})
     {
       all_v_skylines[d].push_back (skylines);
@@ -960,7 +956,7 @@ Axis_group_interface::skyline_spacing (Grob *me)
         continue;
 
       // Collect all the outside-staff grobs that have a particular priority.
-      vector<Grob *> current_elts;
+      std::vector<Grob *> current_elts;
       current_elts.push_back (elements[i].grob_);
       while (i + 1 < elements.size ()
              && elements[i].priority_ == elements[i + 1].priority_)

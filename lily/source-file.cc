@@ -31,9 +31,6 @@
 #include <cstdio>
 #include <sstream>
 
-using std::istream;
-using std::istringstream;
-using std::string;
 
 void
 Source_file::load_stdin ()
@@ -47,8 +44,8 @@ Source_file::load_stdin ()
 /*
   return contents of FILENAME.
  */
-string
-gulp_file (const string &filename, size_t desired_size)
+std::string
+gulp_file (const std::string &filename, size_t desired_size)
 {
   /* "b" must ensure to open literally, avoiding text (CR/LF)
      conversions.  */
@@ -74,7 +71,7 @@ gulp_file (const string &filename, size_t desired_size)
 
   rewind (f);
 
-  string dest (read_count, 0);
+  std::string dest (read_count, 0);
   size_t bytes_read = fread (&dest[0], sizeof (char), read_count, f);
   if (bytes_read < read_count)
     {
@@ -94,7 +91,7 @@ Source_file::init ()
   smobify_self ();
 }
 
-Source_file::Source_file (const string &filename, const string &data)
+Source_file::Source_file (const std::string &filename, const std::string &data)
 {
   init ();
 
@@ -113,7 +110,7 @@ Source_file::init_newlines ()
       newline_locations_.push_back (&data_[0] + i);
 }
 
-Source_file::Source_file (const string &filename_string)
+Source_file::Source_file (const std::string &filename_string)
 {
   init ();
 
@@ -127,16 +124,16 @@ Source_file::Source_file (const string &filename_string)
   init_newlines ();
 }
 
-istream *
+std::istream *
 Source_file::get_istream ()
 {
   if (!istream_)
     {
       if (length ()) // can-t this be done without such a hack?
-        istream_ = new istringstream (c_str ());
+        istream_ = new std::istringstream (c_str ());
       else
         {
-          istream_ = new istringstream ("");
+          istream_ = new std::istringstream ("");
           istream_->setstate (std::ios::eofbit);
           //      istream_->set (std::ios::eofbit);
         }
@@ -144,7 +141,7 @@ Source_file::get_istream ()
   return istream_;
 }
 
-string
+std::string
 Source_file::file_line_column_string (char const *context_str0) const
 {
   if (!c_str ())
@@ -159,7 +156,7 @@ Source_file::file_line_column_string (char const *context_str0) const
     }
 }
 
-string
+std::string
 Source_file::quote_input (char const *pos_str0) const
 {
   if (!contains (pos_str0))
@@ -167,16 +164,16 @@ Source_file::quote_input (char const *pos_str0) const
 
   ssize_t l, ch, col, offset;
   get_counts (pos_str0, &l, &ch, &col, &offset);
-  string line = line_string (pos_str0);
-  string context = line.substr (0, offset);
+  std::string line = line_string (pos_str0);
+  std::string context = line.substr (0, offset);
   context += '\n';
   if (col > 0)
-    context += string (col, ' ');
+    context += std::string (col, ' ');
   context += line.substr (offset, line.length () - offset);
   return context;
 }
 
-string
+std::string
 Source_file::name_string () const
 {
   return name_;
@@ -217,7 +214,7 @@ Source_file::line_slice (char const *pos_str0) const
   return SourceSlice (begin_str0 - data_str0, end_str0 - data_str0);
 }
 
-string
+std::string
 Source_file::line_string (char const *pos_str0) const
 {
   if (!contains (pos_str0))
@@ -225,7 +222,7 @@ Source_file::line_string (char const *pos_str0) const
 
   SourceSlice line = line_slice (pos_str0);
   char const *data_str0 = c_str ();
-  return string (data_str0 + line[LEFT], line.length ());
+  return std::string (data_str0 + line[LEFT], line.length ());
 }
 
 void
@@ -252,7 +249,7 @@ Source_file::get_counts (char const *pos_str0, ssize_t *line_number,
   *line_byte_offset = left;
 
   // TODO: copying into line_begin looks pointless and wasteful
-  string line_begin (line_start, left);
+  std::string line_begin (line_start, left);
   char const *line_chars = line_begin.c_str ();
 
   for (; left > 0; --left, ++line_chars)

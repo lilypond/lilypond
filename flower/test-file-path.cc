@@ -27,12 +27,11 @@
 
 #include "yaffut.hh"
 
-using std::string;
 
 TEST (File_path, Find)
 {
   char const *extensions[] = {"ly", "", 0};
-  string file = "init";
+  std::string file = "init";
   if (get_working_directory ().empty ())
     {
       FAIL ("Could not get current work directory\n");
@@ -42,9 +41,9 @@ TEST (File_path, Find)
     {
       FAIL ("Could not get top source directory\n");
     }
-  string ly_dir = string (top_src_dir) + "/ly";
-  parse_path (string (1, PATHSEP) + ly_dir);
-  string file_name = find (file, extensions);
+  std::string ly_dir = std::string (top_src_dir) + "/ly";
+  parse_path (std::string (1, PATHSEP) + ly_dir);
+  std::string file_name = find (file, extensions);
   EQUAL (file_name.substr (file_name.rfind ('/')), "/init.ly");
   file = "init.ly";
   file_name = find (file, extensions);

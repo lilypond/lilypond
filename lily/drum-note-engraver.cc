@@ -34,12 +34,11 @@
 
 #include <cctype>
 
-using std::vector;
 
 class Drum_notes_engraver : public Engraver
 {
-  vector<Item *> scripts_;
-  vector<Stream_event *> events_;
+  std::vector<Item *> scripts_;
+  std::vector<Stream_event *> events_;
 
 public:
   TRANSLATOR_DECLARATIONS (Drum_notes_engraver);

@@ -28,8 +28,6 @@
 #include <string>
 #include <vector>
 
-using std::string;
-using std::vector;
 
 /** We have several different loglevels, each with its own message function(s):
       ERROR: error, non_fatal_error, programming_error
@@ -61,7 +59,7 @@ set_loglevel (int level)
 }
 
 void
-set_loglevel (string level)
+set_loglevel (std::string level)
 {
   /* Convert the loglevel string to lower-case, so we allow
      both upper- and lower-case loglevels */
@@ -102,9 +100,9 @@ set_loglevel (string level)
  * If the warning is encountered, it will be removed from the list of
  * expected warnings again.
  */
-vector<string> expected_warnings;
+std::vector<std::string> expected_warnings;
 void
-expect_warning (const string &msg)
+expect_warning (const std::string &msg)
 {
   expected_warnings.push_back (msg);
 }
@@ -115,7 +113,7 @@ check_expected_warnings ()
   if (expected_warnings.size () > 0)
     {
       /* Some expected warning was not triggered, so print out a warning. */
-      string msg = _f ("%zu expected warning(s) not encountered: ",
+      std::string msg = _f ("%zu expected warning(s) not encountered: ",
                        expected_warnings.size ());
       for (vsize i = 0; i < expected_warnings.size (); i++)
         msg += "\n        " + expected_warnings[i];
@@ -126,7 +124,7 @@ check_expected_warnings ()
 }
 
 bool
-is_expected (const string &s)
+is_expected (const std::string &s)
 {
   bool expected = false;
   for (vsize i = 0; i < expected_warnings.size (); i++)
@@ -159,7 +157,7 @@ static bool message_newline = true;
    if newline is true, start the message on a new line.
 */
 void
-print_message (int level, const string &location, string s, bool newline)
+print_message (int level, const std::string &location, std::string s, bool newline)
 {
   /* Only print the message if the current loglevel allows it: */
   if (!is_loglevel (level))
@@ -182,7 +180,7 @@ print_message (int level, const string &location, string s, bool newline)
 
 /* Display a fatal error message.  Also exits lilypond.  */
 [[noreturn]] void
-error (string s, const string &location)
+error (std::string s, const std::string &location)
 {
   print_message (LOG_ERROR, location, _f ("fatal error: %s", s) + "\n");
   exit (1);
@@ -190,7 +188,7 @@ error (string s, const string &location)
 
 /* Display a severe programming error message, but don't exit.  */
 void
-programming_error (const string &s, const string &location)
+programming_error (const std::string &s, const std::string &location)
 {
   if (is_expected (s))
     print_message (LOG_DEBUG, location,
@@ -208,7 +206,7 @@ programming_error (const string &s, const string &location)
 
 /* Display a non-fatal error message, don't exit.  */
 void
-non_fatal_error (const string &s, const string &location)
+non_fatal_error (const std::string &s, const std::string &location)
 {
   if (is_expected (s))
     print_message (LOG_DEBUG, location, _f ("suppressed error: %s", s) + "\n");
@@ -220,7 +218,7 @@ non_fatal_error (const string &s, const string &location)
 
 /* Display a warning message. */
 void
-warning (const string &s, const string &location)
+warning (const std::string &s, const std::string &location)
 {
   if (is_expected (s))
     print_message (LOG_DEBUG, location,
@@ -233,21 +231,21 @@ warning (const string &s, const string &location)
 
 /* Display a success message.  */
 void
-basic_progress (const string &s, const string &location)
+basic_progress (const std::string &s, const std::string &location)
 {
   print_message (LOG_BASIC, location, s + "\n", true);
 }
 
 /* Display information about the progress.  */
 void
-progress_indication (const string &s, bool newline, const string &location)
+progress_indication (const std::string &s, bool newline, const std::string &location)
 {
   print_message (LOG_PROGRESS, location, s, newline);
 }
 
 /* Display a single info message.  */
 void
-message (const string &s, bool newline, const string &location)
+message (const std::string &s, bool newline, const std::string &location)
 {
   // Use the progress loglevel for all normal messages (including progress msg)
   print_message (LOG_INFO, location, s, newline);
@@ -255,7 +253,7 @@ message (const string &s, bool newline, const string &location)
 
 /* Display a debug information, not necessarily on a new line.  */
 void
-debug_output (const string &s, bool newline, const string &location)
+debug_output (const std::string &s, bool newline, const std::string &location)
 {
   print_message (LOG_DEBUG, location, s, newline);
 }

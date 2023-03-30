@@ -50,9 +50,6 @@
 #include <string>
 #include <vector>
 
-using std::string;
-using std::unique_ptr;
-using std::vector;
 
 /*
   TODO:
@@ -390,7 +387,7 @@ Slur::calc_control_points (SCM smob)
 
   if (debug_slurs)
     {
-      string total = best->card ();
+      std::string total = best->card ();
       total += to_string (" TOTAL=%.2f idx=%zu", best->score (), best->index_);
       set_property (me, "annotation", ly_string2scm (total));
     }
@@ -659,11 +656,11 @@ Slur_score_state::move_away_from_staffline (Real y, Grob *on_staff) const
   return y;
 }
 
-vector<Offset>
+std::vector<Offset>
 Slur_score_state::generate_avoid_offsets () const
 {
-  vector<Offset> avoid;
-  vector<Grob *> encompasses = note_columns_;
+  std::vector<Offset> avoid;
+  std::vector<Grob *> encompasses = note_columns_;
 
   for (vsize i = 0; i < encompasses.size (); i++)
     {
@@ -715,15 +712,15 @@ Slur_score_state::generate_curves () const
   Real h_inf
     = staff_space_ * from_scm<double> (get_property (slur_, "height-limit"));
 
-  vector<Offset> avoid = generate_avoid_offsets ();
+  std::vector<Offset> avoid = generate_avoid_offsets ();
   for (vsize i = 0; i < configurations_.size (); i++)
     configurations_[i]->generate_curve (*this, r_0, h_inf, avoid);
 }
 
-vector<unique_ptr<Slur_configuration>>
+std::vector<std::unique_ptr<Slur_configuration>>
 Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 {
-  vector<unique_ptr<Slur_configuration>> scores;
+  std::vector<std::unique_ptr<Slur_configuration>> scores;
 
   Drul_array<Offset> os;
   os[LEFT] = base_attachments_[LEFT];
@@ -804,11 +801,11 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
   return scores;
 }
 
-vector<Extra_collision_info>
+std::vector<Extra_collision_info>
 Slur_score_state::get_extra_encompass_infos () const
 {
   extract_grob_set (slur_, "encompass-objects", encompasses);
-  vector<Extra_collision_info> collision_infos;
+  std::vector<Extra_collision_info> collision_infos;
   for (vsize i = encompasses.size (); i--;)
     {
       if (has_interface<Slur> (encompasses[i]))

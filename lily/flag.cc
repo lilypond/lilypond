@@ -33,7 +33,6 @@
 #include "stencil.hh"
 #include "warn.hh"
 
-using std::string;
 
 class Flag
 {
@@ -77,7 +76,7 @@ Flag::glyph_name (SCM smob)
 
   Direction d = get_grob_direction (stem);
   int log = Stem::duration_log (stem);
-  string flag_style;
+  std::string flag_style;
 
   SCM flag_style_scm = get_property (me, "style");
   if (scm_is_symbol (flag_style_scm))
@@ -85,7 +84,7 @@ Flag::glyph_name (SCM smob)
 
   bool adjust = true;
 
-  string staffline_offs;
+  std::string staffline_offs;
   if (flag_style == "mensural")
     /* Mensural notation: For notes on staff lines, use different
        flags than for notes between staff lines.  The idea is that
@@ -110,7 +109,7 @@ Flag::glyph_name (SCM smob)
     staffline_offs = "";
 
   char dir = (d == UP) ? 'u' : 'd';
-  string font_char = flag_style + dir + staffline_offs + std::to_string (log);
+  std::string font_char = flag_style + dir + staffline_offs + std::to_string (log);
   return ly_string2scm ("flags." + font_char);
 }
 
@@ -122,7 +121,7 @@ Flag::print (SCM smob)
   Grob *stem = me->get_x_parent ();
 
   Direction d = get_grob_direction (stem);
-  string flag_style;
+  std::string flag_style;
 
   SCM flag_style_scm = get_property (me, "style");
   if (scm_is_symbol (flag_style_scm))
@@ -133,7 +132,7 @@ Flag::print (SCM smob)
 
   char dir = (d == UP) ? 'u' : 'd';
   Font_metric *fm = Font_interface::get_default_font (me);
-  string font_char = robust_scm2string (get_property (me, "glyph-name"), "");
+  std::string font_char = robust_scm2string (get_property (me, "glyph-name"), "");
   Stencil flag = fm->find_by_name (font_char);
   if (flag.is_empty ())
     me->warning (_f ("flag `%s' not found", font_char));
@@ -145,10 +144,10 @@ Flag::print (SCM smob)
   SCM stroke_style_scm = get_property (me, "stroke-style");
   if (scm_is_string (stroke_style_scm))
     {
-      string stroke_style = ly_scm2string (stroke_style_scm);
+      std::string stroke_style = ly_scm2string (stroke_style_scm);
       if (!stroke_style.empty ())
         {
-          string font_char = flag_style + dir + stroke_style;
+          std::string font_char = flag_style + dir + stroke_style;
           Stencil stroke = fm->find_by_name ("flags." + font_char);
           if (stroke.is_empty ())
             {

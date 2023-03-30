@@ -33,8 +33,6 @@
 
 #include <cstdio>
 
-using std::string;
-using std::vector;
 
 /* A stem following a bar-line creates an optical illusion similar to the
    one mentioned in note-spacing.cc. We correct for it here.
@@ -83,7 +81,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
       SCM glyph = get_property (bar_grob, "glyph-name");
       Grob *staff_sym = Staff_symbol_referencer::get_staff_symbol (bar_grob);
 
-      string glyph_string = scm_is_string (glyph) ? ly_scm2string (glyph) : "";
+      std::string glyph_string = scm_is_string (glyph) ? ly_scm2string (glyph) : "";
       if (glyph_string.substr (0, 1) == "|"
           || glyph_string.substr (0, 1) == ".")
         {
@@ -100,7 +98,7 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob)
 {
   Interval bar_size = bar_y_positions (last_grob);
   Grob *orig = me->original () ? me->original () : me;
-  vector<Item *> note_columns = Spacing_interface::right_note_columns (orig);
+  std::vector<Item *> note_columns = Spacing_interface::right_note_columns (orig);
 
   Real max_optical = 0.0;
 

@@ -44,8 +44,6 @@
 #include "unpure-pure-container.hh"
 #include "international.hh"
 
-using std::string;
-using std::vector;
 
 MAKE_SCHEME_CALLBACK (Slur, calc_direction, "ly:slur::calc-direction", 1)
 SCM
@@ -171,7 +169,7 @@ Slur::print (SCM smob)
   SCM annotation = get_property (me, "annotation");
   if (scm_is_string (annotation))
     {
-      string str;
+      std::string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       if (!scm_is_number (get_property (me, "font-size")))
@@ -196,7 +194,7 @@ void
 Slur::replace_breakable_encompass_objects (Grob *me)
 {
   extract_grob_set (me, "encompass-objects", extra_objects);
-  vector<Grob *> new_encompasses;
+  std::vector<Grob *> new_encompasses;
 
   for (vsize i = 0; i < extra_objects.size (); i++)
     {
@@ -342,7 +340,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
         {
           for (const auto d : {LEFT, RIGHT})
             {
-              vector<Real> coords = curve.get_other_coordinates (a, exts[a][d]);
+              std::vector<Real> coords = curve.get_other_coordinates (a, exts[a][d]);
               for (vsize i = 0; i < coords.size (); i++)
                 {
                   do_shift = exts[other_axis (a)].contains (coords[i]);
@@ -372,8 +370,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
  * Used by Slur_engraver:: and Phrasing_slur_engraver::
  */
 void
-Slur::auxiliary_acknowledge_extra_object (Grob *e, vector<Spanner *> &slurs,
-                                          vector<Spanner *> &end_slurs)
+Slur::auxiliary_acknowledge_extra_object (Grob *e, std::vector<Spanner *> &slurs,
+                                          std::vector<Spanner *> &end_slurs)
 {
   if (slurs.empty () && end_slurs.empty ())
     return;
@@ -454,7 +452,7 @@ Slur::calc_cross_staff (SCM smob)
 
   /* the separation items are dealt with in replace_breakable_encompass_objects
      so we can ignore them here */
-  vector<Grob *> non_sep_extras;
+  std::vector<Grob *> non_sep_extras;
   for (vsize i = 0; i < extras.size (); i++)
     if (!has_interface<Separation_item> (extras[i]))
       non_sep_extras.push_back (extras[i]);

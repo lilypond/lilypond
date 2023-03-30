@@ -31,8 +31,6 @@
 
 #include <set>
 
-using std::set;
-using std::vector;
 
 class Dynamic_align_engraver : public Engraver
 {
@@ -52,12 +50,12 @@ private:
   Spanner *line_;
   Spanner *ended_line_; // Spanner manually broken, don't use it for new grobs
   Spanner *current_dynamic_spanner_;
-  vector<Spanner *> ended_;
-  vector<Spanner *> started_;
-  vector<Grob *> scripts_;
-  vector<Grob *> support_;
+  std::vector<Spanner *> ended_;
+  std::vector<Spanner *> started_;
+  std::vector<Grob *> scripts_;
+  std::vector<Grob *> support_;
 
-  set<Spanner *> running_;
+  std::set<Spanner *> running_;
 };
 
 Dynamic_align_engraver::Dynamic_align_engraver (Context *c)
@@ -173,7 +171,7 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
       if ((d == LEFT && !line->get_bound (LEFT))
           || (end && d == RIGHT && !line->get_bound (RIGHT)))
         {
-          vector<Spanner *> const &spanners = (d == LEFT) ? started_ : ended_;
+          std::vector<Spanner *> const &spanners = (d == LEFT) ? started_ : ended_;
 
           Grob *bound = 0;
           if (scripts_.size ())
@@ -202,7 +200,7 @@ Dynamic_align_engraver::stop_translation_timestep ()
     {
       Spanner *sp = ended_[i];
 
-      set<Spanner *>::iterator it = running_.find (sp);
+      std::set<Spanner *>::iterator it = running_.find (sp);
       if (it != running_.end ())
         running_.erase (it);
       else

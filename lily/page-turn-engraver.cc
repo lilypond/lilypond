@@ -33,8 +33,6 @@
 #include <algorithm>
 #include <vector>
 
-using std::string;
-using std::vector;
 
 class Page_turn_event
 {
@@ -57,11 +55,11 @@ public:
      re-penalize a region of the piece. Depending on how the events
      intersect, we may have to split it into as many as 3 pieces.
   */
-  vector<Page_turn_event> penalize (Page_turn_event const &penalty)
+  std::vector<Page_turn_event> penalize (Page_turn_event const &penalty)
   {
     Interval_t<Rational> intersect
       = intersection (duration_, penalty.duration_);
-    vector<Page_turn_event> ret;
+    std::vector<Page_turn_event> ret;
 
     if (intersect.is_empty ())
       {
@@ -95,14 +93,14 @@ class Page_turn_engraver final : public Engraver
   Rational repeat_begin_rest_length_ {0};
   bool found_special_bar_line_ {false};
 
-  vector<Page_turn_event> forced_breaks_;
-  vector<Page_turn_event> automatic_breaks_;
-  vector<Page_turn_event> repeat_penalties_;
+  std::vector<Page_turn_event> forced_breaks_;
+  std::vector<Page_turn_event> automatic_breaks_;
+  std::vector<Page_turn_event> repeat_penalties_;
 
   /* the next 3 are in sync (ie. same number of elements, etc.) */
-  vector<Rational> breakable_moments_;
-  vector<Grob *> breakable_columns_;
-  vector<bool> special_barlines_;
+  std::vector<Rational> breakable_moments_;
+  std::vector<Grob *> breakable_columns_;
+  std::vector<bool> special_barlines_;
 
   SCM max_permission (SCM perm1, SCM perm2);
   Real penalty (Rational rest_len);
@@ -160,7 +158,7 @@ Page_turn_engraver::penalty (Rational rest_len)
 }
 
 static bool
-is_bar_line_special (const string &glyph)
+is_bar_line_special (const std::string &glyph)
 {
   // TODO: This is crude.  In a number of cases (but not when the bar line
   // glyph was forced with the \bar command), there is at least one knowable
@@ -210,7 +208,7 @@ Page_turn_engraver::acknowledge_note_head (Grob_info gi)
 void
 Page_turn_engraver::listen_break (Stream_event *ev)
 {
-  string name = ly_symbol2string (scm_car (get_property (ev, "class")));
+  std::string name = ly_symbol2string (scm_car (get_property (ev, "class")));
 
   if (name == "page-turn-event")
     {
@@ -335,7 +333,7 @@ void
 Page_turn_engraver::finalize ()
 {
   vsize rep_index = 0;
-  vector<Page_turn_event> auto_breaks;
+  std::vector<Page_turn_event> auto_breaks;
 
   /* filter the automatic breaks through the repeat penalties */
   for (vsize i = 0; i < automatic_breaks_.size (); i++)
@@ -355,7 +353,7 @@ Page_turn_engraver::finalize ()
         auto_breaks.push_back (brk);
       else
         {
-          vector<Page_turn_event> split
+          std::vector<Page_turn_event> split
             = brk.penalize (repeat_penalties_[rep_index]);
 
           /* it's possible that the last of my newly-split events overlaps the next repeat_penalty,

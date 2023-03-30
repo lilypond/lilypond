@@ -47,8 +47,6 @@
 
 #include <cmath>
 
-using std::string;
-using std::vector;
 
 Real QUANTIZATION_UNIT = 0.2;
 
@@ -216,7 +214,7 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
   bool rounded = (diameter * std::max (x_scale, y_scale) > 0.5);
   bool rotated = (transform.get_yx () || transform.get_xy ());
 
-  vector<Box> boxes;
+  std::vector<Box> boxes;
   if (!rotated && !rounded)
     {
       /* simple box */
@@ -336,7 +334,7 @@ add_draw_bezier_segments (Lazy_skyline_pair *skyline,
   const auto quantization
     = static_cast<vsize> (std::max (0.0, len / QUANTIZATION_UNIT));
 
-  vector<Offset> points;
+  std::vector<Offset> points;
   points.reserve (quantization + 1);
 
   last = curve.control_[0];
@@ -539,7 +537,7 @@ add_named_glyph_segments (Lazy_skyline_pair *skyline,
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
   expr = scm_cdr (expr);
   SCM glyph = scm_car (expr);
-  string glyph_s = ly_scm2string (glyph);
+  std::string glyph_s = ly_scm2string (glyph);
 
   Open_type_font *open_fm = dynamic_cast<Open_type_font *> (
     dynamic_cast<Modified_font_metric *> (fm)->original_font ());
@@ -573,11 +571,11 @@ add_glyph_string_segments (Lazy_skyline_pair *skyline,
   expr = scm_cdr (expr); // size
   expr = scm_cdr (expr); // cid?
   SCM whxy = scm_car (expr);
-  vector<Real> widths;
-  vector<Interval> heights;
-  vector<Real> xos;
-  vector<Real> yos;
-  vector<string> char_ids;
+  std::vector<Real> widths;
+  std::vector<Interval> heights;
+  std::vector<Real> xos;
+  std::vector<Real> yos;
+  std::vector<std::string> char_ids;
 
   Pango_font *pango_fm = dynamic_cast<Pango_font *> (fm);
   SCM_ASSERT_TYPE (pango_fm, fm_scm, SCM_ARG1, __FUNCTION__, "Pango font");
@@ -771,7 +769,7 @@ Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a,
                                                         int end, bool ignore_x,
                                                         bool ignore_y)
 {
-  vector<Box> boxes;
+  std::vector<Box> boxes;
   // we don't know how far spanners stretch along the X axis before
   // line breaking. better have them take up the whole thing
   Interval xex
@@ -907,8 +905,8 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure,
                                                int beg, int end)
 {
   extract_grob_set (me, "elements", elts);
-  vector<Real> x_pos;
-  vector<Real> y_pos;
+  std::vector<Real> x_pos;
+  std::vector<Real> y_pos;
   Grob *x_common = common_refpoint_of_array (elts, me, X_AXIS);
   Grob *y_common = common_refpoint_of_array (elts, me, Y_AXIS);
   for (vsize i = 0; i < elts.size (); i++)

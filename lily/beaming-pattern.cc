@@ -23,7 +23,6 @@
 
 #include <cstdint>
 
-using std::vector;
 
 /*
   Represents a stem belonging to a beam. Sometimes (for example, if the stem
@@ -128,7 +127,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
 
   find_rhythmic_importance (options);
 
-  vector<Direction> flag_directions;
+  std::vector<Direction> flag_directions;
   // Get the initial flag directions
   for (vsize i = 0; i < infos_.size (); i++)
     flag_directions.push_back (flag_direction (options, i));

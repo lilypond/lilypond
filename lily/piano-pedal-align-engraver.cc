@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /*
   TODO:
@@ -93,7 +92,7 @@ private:
     NUM_PEDAL_TYPES
   };
   Pedal_align_info pedal_info_[NUM_PEDAL_TYPES];
-  vector<Item *> supports_;
+  std::vector<Item *> supports_;
 
   Pedal_type get_grob_pedal_type (Stream_event *cause);
   Spanner *make_line_spanner (Pedal_type t, SCM);

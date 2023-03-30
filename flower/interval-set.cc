@@ -22,7 +22,6 @@
 #include <algorithm>
 #include <vector>
 
-using std::vector;
 
 /*
   A union of intervals in the real line.
@@ -40,7 +39,7 @@ Interval_set::Interval_set ()
 }
 
 Interval_set
-Interval_set::interval_union (vector<Interval> ivs)
+Interval_set::interval_union (std::vector<Interval> ivs)
 {
   std::sort (ivs.begin (), ivs.end (), Interval::left_less);
 
@@ -71,7 +70,7 @@ Interval_set::interval_union (vector<Interval> ivs)
 
 // Returns an iterator pointing to the first interval whose left
 // endpoint is at least x.  That interval may or may not contain x.
-vector<Interval>::const_iterator
+std::vector<Interval>::const_iterator
 Interval_set::upper_bound (Real x) const
 {
   Interval xx (x, x);
@@ -85,7 +84,7 @@ Interval_set::nearest_point (Real x, Direction d) const
   Real left = -infinity_f; // The closest point to the left of x.
   Real right = infinity_f; // The closest point to the right of x.
 
-  vector<Interval>::const_iterator i = upper_bound (x);
+  std::vector<Interval>::const_iterator i = upper_bound (x);
   if (i != intervals_.end ())
     right = (*i)[LEFT];
 

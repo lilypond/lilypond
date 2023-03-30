@@ -30,7 +30,6 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
-using std::string;
 
 /*
   draws one half a flexa, i.e. a portion corresponding to a single note.
@@ -147,10 +146,10 @@ internal_brew_primitive (Grob *me)
   int const note_shape = primitive & MLP_ANY;
   int duration_log = 0;
   Font_metric *fm = Font_interface::get_default_font (me);
-  string prefix = "noteheads.";
-  string index;
-  string suffix;
-  string color = "";
+  std::string prefix = "noteheads.";
+  std::string index;
+  std::string suffix;
+  std::string color = "";
   if (black)
     color = "black";
   if (semi)

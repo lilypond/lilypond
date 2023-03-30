@@ -35,16 +35,15 @@
 #include "text-interface.hh"
 #include "lily-imports.hh"
 
-using std::vector;
 
 /*
  Returns the number of footnotes associated with a given line.
 */
 
-vector<Grob *>
+std::vector<Grob *>
 Page_layout_problem::get_footnote_grobs (SCM lines)
 {
-  vector<Grob *> footnotes;
+  std::vector<Grob *> footnotes;
   for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
     {
       if (Grob *g = unsmob<Grob> (scm_car (s)))
@@ -77,7 +76,7 @@ Page_layout_problem::get_footnote_grobs (SCM lines)
 vsize
 Page_layout_problem::get_footnote_count (SCM lines)
 {
-  vector<Grob *> notes = get_footnote_grobs (lines);
+  std::vector<Grob *> notes = get_footnote_grobs (lines);
   return notes.size ();
 }
 
@@ -155,7 +154,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter,
   Real number_raise
     = from_scm<double> (paper->c_variable ("footnote-number-raise"), 0.0);
 
-  vector<Grob *> fn_grobs = get_footnote_grobs (lines);
+  std::vector<Grob *> fn_grobs = get_footnote_grobs (lines);
   vsize fn_count = fn_grobs.size ();
 
   // now, make the footnote stencils with the numbering function
@@ -586,11 +585,11 @@ Page_layout_problem::append_system (System *sys, Spring const &spring,
   set_property (align, "positioning-done", SCM_BOOL_T);
 
   extract_grob_set (align, "elements", all_elts);
-  vector<Grob *> elts = filter_dead_elements (all_elts);
-  vector<Real> minimum_offsets
+  std::vector<Grob *> elts = filter_dead_elements (all_elts);
+  std::vector<Real> minimum_offsets
     = Align_interface::get_minimum_translations_without_min_dist (align, elts,
                                                                   Y_AXIS);
-  vector<Real> minimum_offsets_with_min_dist
+  std::vector<Real> minimum_offsets_with_min_dist
     = Align_interface::get_minimum_translations (align, elts, Y_AXIS);
 
   Skyline up_skyline (UP);
@@ -839,8 +838,8 @@ Page_layout_problem::find_system_offsets ()
 
   // spring_idx 0 is the top of the page. Interesting values start from 1.
   vsize spring_idx = 1;
-  vector<Grob *> loose_lines;
-  vector<Real> loose_line_min_distances;
+  std::vector<Grob *> loose_lines;
+  std::vector<Real> loose_line_min_distances;
   Grob *last_spaceable_line = 0;
   Real last_spaceable_line_translation = 0;
   Interval last_title_extent;
@@ -898,7 +897,7 @@ Page_layout_problem::find_system_offsets ()
             = first_staff_position + first_staff_min_translation;
 
           // Position the staves within this system.
-          vector<Real> const &min_offsets = elements_[i].min_offsets;
+          std::vector<Real> const &min_offsets = elements_[i].min_offsets;
           bool found_spaceable_staff = false;
           for (vsize staff_idx = 0; staff_idx < elements_[i].staves.size ();
                ++staff_idx)
@@ -1019,8 +1018,8 @@ Page_layout_problem::find_system_offsets ()
 // them.
 // first_translation and last_translation are relative to the page.
 void
-Page_layout_problem::distribute_loose_lines (vector<Grob *> const &loose_lines,
-                                             vector<Real> const &min_distances,
+Page_layout_problem::distribute_loose_lines (std::vector<Grob *> const &loose_lines,
+                                             std::vector<Real> const &min_distances,
                                              Real first_translation,
                                              Real last_translation)
 {
@@ -1039,7 +1038,7 @@ Page_layout_problem::distribute_loose_lines (vector<Grob *> const &loose_lines,
   Simple_spacer::Solution sol
     = spacer.solve (first_translation - last_translation, false);
 
-  vector<Real> solution = spacer.spring_positions (sol.force_, false);
+  std::vector<Real> solution = spacer.spring_positions (sol.force_, false);
   for (vsize i = 1; i + 1 < solution.size (); ++i)
     if (loose_lines[i])
       {
@@ -1075,7 +1074,7 @@ Page_layout_problem::solution (bool ragged)
 // the bottom staff.
 void
 Page_layout_problem::build_system_skyline (
-  vector<Grob *> const &staves, vector<Real> const &minimum_translations,
+  std::vector<Grob *> const &staves, std::vector<Real> const &minimum_translations,
   Skyline *up, Skyline *down)
 {
   if (minimum_translations.empty ())
@@ -1352,10 +1351,10 @@ Page_layout_problem::alter_spring_from_spacing_spec (SCM spec, Spring *spring)
     spring->set_inverse_stretch_strength (stretch);
 }
 
-vector<Grob *>
-Page_layout_problem::filter_dead_elements (vector<Grob *> const &input)
+std::vector<Grob *>
+Page_layout_problem::filter_dead_elements (std::vector<Grob *> const &input)
 {
-  vector<Grob *> output;
+  std::vector<Grob *> output;
   for (vsize i = 0; i < input.size (); ++i)
     {
       if (has_interface<Hara_kiri_group_spanner> (input[i]))

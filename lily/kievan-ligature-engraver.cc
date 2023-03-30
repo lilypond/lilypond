@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Kievan_ligature_engraver : public Coherent_ligature_engraver
 {
@@ -37,13 +36,13 @@ class Kievan_ligature_engraver : public Coherent_ligature_engraver
 protected:
   Spanner *create_ligature_spanner () override;
   void build_ligature (Spanner *ligature,
-                       vector<Item *> const &primitives) override;
+                       std::vector<Item *> const &primitives) override;
 
 public:
   TRANSLATOR_DECLARATIONS (Kievan_ligature_engraver);
 
 private:
-  void fold_up_primitives (vector<Item *> const &primitives, Real padding,
+  void fold_up_primitives (std::vector<Item *> const &primitives, Real padding,
                            Real &min_length);
 };
 
@@ -59,7 +58,7 @@ Kievan_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Kievan_ligature_engraver::fold_up_primitives (vector<Item *> const &primitives,
+Kievan_ligature_engraver::fold_up_primitives (std::vector<Item *> const &primitives,
                                               Real padding, Real &min_length)
 {
   Item *first = 0;
@@ -125,7 +124,7 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Item *> const &primitives,
 
 void
 Kievan_ligature_engraver::build_ligature (Spanner *ligature,
-                                          vector<Item *> const &primitives)
+                                          std::vector<Item *> const &primitives)
 {
   Real min_length;
 

@@ -38,22 +38,21 @@
 #include <cmath>
 #include <cstdio>
 
-using std::vector;
 
-vector<Paper_column *>
+std::vector<Paper_column *>
 Spacing_spanner::get_columns (Spanner *me)
 {
   Paper_column *l_bound = dynamic_cast<Paper_column *> (me->get_bound (LEFT));
   if (!l_bound)
     {
       programming_error ("spanner's left bound is not a paper column");
-      return vector<Paper_column *> ();
+      return std::vector<Paper_column *> ();
     }
   Paper_column *r_bound = dynamic_cast<Paper_column *> (me->get_bound (RIGHT));
   if (!r_bound)
     {
       programming_error ("spanner's right bound is not a paper column");
-      return vector<Paper_column *> ();
+      return std::vector<Paper_column *> ();
     }
   return get_root_system (me)->used_columns_in_range (l_bound->get_rank (),
                                                       r_bound->get_rank () + 1);
@@ -71,7 +70,7 @@ Spacing_spanner::set_springs (SCM smob)
   */
   Spacing_options options;
   options.init_from_grob (me);
-  vector<Paper_column *> cols = Spacing_spanner::get_columns (me);
+  std::vector<Paper_column *> cols = Spacing_spanner::get_columns (me);
   set_explicit_neighbor_columns (cols);
 
   prune_loose_columns (me, &cols, &options);
@@ -98,13 +97,13 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
 {
   Spanner *me = unsmob<Spanner> (grob);
 
-  vector<Paper_column *> cols (get_columns (me));
+  std::vector<Paper_column *> cols (get_columns (me));
 
   /*
     ascending in duration
   */
-  vector<Rational> durations;
-  vector<int> counts;
+  std::vector<Rational> durations;
+  std::vector<int> counts;
 
   auto shortest_in_measure = Rational::infinity ();
 
@@ -230,13 +229,13 @@ Spacing_spanner::generate_pair_spacing (Grob *me, Paper_column *left_col,
 }
 
 static void
-set_column_rods (vector<Paper_column *> const &cols, Real padding)
+set_column_rods (std::vector<Paper_column *> const &cols, Real padding)
 {
   /* distances[i] will be the distance betwen cols[i-1] and cols[i], and
      overhangs[j] the amount by which cols[0 thru j] extend beyond cols[j]
      when each column is placed as far to the left as possible. */
-  vector<Real> distances (cols.size ());
-  vector<Real> overhangs (cols.size ());
+  std::vector<Real> distances (cols.size ());
+  std::vector<Real> overhangs (cols.size ());
 
   for (vsize i = 0; i < cols.size (); i++)
     {
@@ -301,7 +300,7 @@ set_column_rods (vector<Paper_column *> const &cols, Real padding)
 }
 
 void
-Spacing_spanner::generate_springs (Grob *me, vector<Paper_column *> const &cols,
+Spacing_spanner::generate_springs (Grob *me, std::vector<Paper_column *> const &cols,
                                    Spacing_options const *options)
 {
   Paper_column *prev = cols[0];
@@ -336,7 +335,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Paper_column *left_col,
     }
   else
     {
-      vector<Spring> springs;
+      std::vector<Spring> springs;
       extract_grob_set (left_col, "spacing-wishes", wishes);
 
       for (vsize i = 0; i < wishes.size (); i++)
@@ -480,7 +479,7 @@ void
 Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
                                            Spacing_options const *options)
 {
-  vector<Spring> springs;
+  std::vector<Spring> springs;
   Spring spring;
 
   Real full_measure_space = 0.0;

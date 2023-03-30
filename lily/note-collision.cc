@@ -36,7 +36,6 @@
 #include <algorithm>
 #include <vector>
 
-using std::vector;
 
 Real
 check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
@@ -56,8 +55,8 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
   Interval extent_down = head_down->extent (head_down, X_AXIS);
 
   /* Staff-positions of all noteheads on each stem */
-  vector<int> ups = Stem::note_head_positions (stems[UP]);
-  vector<int> dps = Stem::note_head_positions (stems[DOWN]);
+  std::vector<int> ups = Stem::note_head_positions (stems[UP]);
+  std::vector<int> dps = Stem::note_head_positions (stems[DOWN]);
 
   int threshold = from_scm (get_property (me, "note-collision-threshold"), 1);
 
@@ -382,7 +381,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   set_property (me, "positioning-done", SCM_BOOL_T);
 
-  Drul_array<vector<Grob *>> clash_groups = get_clash_groups (me);
+  Drul_array<std::vector<Grob *>> clash_groups = get_clash_groups (me);
 
   for (const auto d : {UP, DOWN})
     {
@@ -410,10 +409,10 @@ Note_collision_interface::calc_positioning_done (SCM smob)
         }
     }
 
-  vector<Grob *> done;
+  std::vector<Grob *> done;
   Real left_most = 0.0;
 
-  vector<Real> amounts;
+  std::vector<Real> amounts;
   for (; scm_is_pair (hand); hand = scm_cdr (hand))
     {
       Grob *s = unsmob<Grob> (scm_caar (hand));
@@ -443,10 +442,10 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-Drul_array<vector<Grob *>>
+Drul_array<std::vector<Grob *>>
 Note_collision_interface::get_clash_groups (Grob *me)
 {
-  Drul_array<vector<Grob *>> clash_groups;
+  Drul_array<std::vector<Grob *>> clash_groups;
 
   extract_grob_set (me, "elements", elements);
   for (vsize i = 0; i < elements.size (); i++)
@@ -463,7 +462,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
 
   for (const auto d : {UP, DOWN})
     {
-      vector<Grob *> &clashes (clash_groups[d]);
+      std::vector<Grob *> &clashes (clash_groups[d]);
       std::sort (clashes.begin (), clashes.end (), Note_column::shift_less);
     }
 
@@ -476,13 +475,13 @@ Note_collision_interface::get_clash_groups (Grob *me)
 */
 SCM
 Note_collision_interface::automatic_shift (
-  Grob *me, Drul_array<vector<Grob *>> clash_groups)
+  Grob *me, Drul_array<std::vector<Grob *>> clash_groups)
 {
   SCM tups = SCM_EOL;
 
-  Drul_array<vector<Slice>> extents;
+  Drul_array<std::vector<Slice>> extents;
   Drul_array<Slice> extent_union;
-  Drul_array<vector<Grob *>> stems;
+  Drul_array<std::vector<Grob *>> stems;
   for (const auto d : {UP, DOWN})
     {
       for (vsize i = 0; i < clash_groups[d].size (); i++)
@@ -509,11 +508,11 @@ Note_collision_interface::automatic_shift (
    *  x||
    *   x|
   */
-  Drul_array<vector<Real>> offsets;
+  Drul_array<std::vector<Real>> offsets;
   for (const auto d : {UP, DOWN})
     {
       Real offset = inner_offset;
-      vector<int> shifts;
+      std::vector<int> shifts;
       for (vsize i = 0; i < clash_groups[d].size (); i++)
         {
           Grob *col = clash_groups[d][i];
@@ -601,15 +600,15 @@ Note_collision_interface::add_column (Grob *me, Grob *ncol)
   Axis_group_interface::add_element (me, ncol);
 }
 
-vector<int>
+std::vector<int>
 Note_collision_interface::note_head_positions (Grob *me)
 {
-  vector<int> out;
+  std::vector<int> out;
   extract_grob_set (me, "elements", elts);
   for (vsize i = 0; i < elts.size (); i++)
     if (Grob *stem = unsmob<Grob> (get_object (elts[i], "stem")))
       {
-        vector<int> nhp = Stem::note_head_positions (stem);
+        std::vector<int> nhp = Stem::note_head_positions (stem);
         out.insert (out.end (), nhp.begin (), nhp.end ());
       }
 

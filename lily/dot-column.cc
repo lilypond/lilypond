@@ -38,8 +38,6 @@
 #include <set>
 #include <vector>
 
-using std::set;
-using std::vector;
 
 MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done,
                       "ly:dot-column::calc-positioning-done", 1);
@@ -57,9 +55,9 @@ Dot_column::calc_positioning_done (SCM smob)
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 
-  vector<Grob *> dots = extract_grob_array (me, "dots");
+  std::vector<Grob *> dots = extract_grob_array (me, "dots");
 
-  vector<Grob *> parent_stems;
+  std::vector<Grob *> parent_stems;
   Real ss = 0;
 
   Grob *commonx = me;
@@ -77,8 +75,8 @@ Dot_column::calc_positioning_done (SCM smob)
         }
     }
 
-  vector<Box> boxes;
-  set<Grob *> stems;
+  std::vector<Box> boxes;
+  std::set<Grob *> stems;
 
   extract_grob_set (me, "side-support-elements", support);
 
@@ -130,7 +128,7 @@ Dot_column::calc_positioning_done (SCM smob)
         stems.insert (stem);
     }
 
-  for (set<Grob *>::const_iterator i (stems.begin ()); i != stems.end (); i++)
+  for (std::set<Grob *>::const_iterator i (stems.begin ()); i != stems.end (); i++)
     {
       Grob *stem = (*i);
       Grob *flag = Stem::flag (stem);
@@ -157,7 +155,7 @@ Dot_column::calc_positioning_done (SCM smob)
   if (scm_is_number (chord_dots_limit))
     {
       // Sort dots by stem, then check for dots above the limit for each stem
-      vector<vector<Grob *>> dots_each_stem (parent_stems.size ());
+      std::vector<std::vector<Grob *>> dots_each_stem (parent_stems.size ());
       for (vsize i = 0; i < dots.size (); i++)
         if (Grob *stem
             = unsmob<Grob> (get_object (dots[i]->get_y_parent (), "stem")))

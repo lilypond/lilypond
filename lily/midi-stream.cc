@@ -30,9 +30,8 @@
 #include <cerrno>
 #include <fcntl.h>
 
-using std::string;
 
-Midi_stream::Midi_stream (const string &file_name)
+Midi_stream::Midi_stream (const std::string &file_name)
 {
   dest_file_name_ = file_name;
   int tries = 10;
@@ -61,7 +60,7 @@ Midi_stream::~Midi_stream ()
 {
   if (close (out_file_))
     {
-      string msg (strerror (errno));
+      std::string msg (strerror (errno));
       error (_f ("error writing MIDI file: %s", msg.c_str ()));
     }
 
@@ -73,7 +72,7 @@ Midi_stream::~Midi_stream ()
 }
 
 void
-Midi_stream::write (const string &str)
+Midi_stream::write (const std::string &str)
 {
   size_t count = str.length ();
   size_t written = ::write (out_file_, str.data (), count);
@@ -86,7 +85,7 @@ Midi_stream::write (const string &str)
 void
 Midi_stream::write (Midi_chunk const &midi)
 {
-  string str = midi.to_string ();
+  std::string str = midi.to_string ();
 
   return write (str);
 }

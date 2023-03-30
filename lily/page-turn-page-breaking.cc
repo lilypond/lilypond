@@ -32,8 +32,6 @@
 #include <algorithm>
 #include <vector>
 
-using std::string;
-using std::vector;
 
 template <typename T>
 static bool
@@ -259,10 +257,10 @@ Page_turn_page_breaking::solve ()
   for (vsize i = 0; i < last_break_position (); i++)
     {
       calc_subproblem (i);
-      progress_indication (string ("[") + std::to_string (i + 1) + "]");
+      progress_indication (std::string ("[") + std::to_string (i + 1) + "]");
     }
 
-  vector<Break_node> breaking;
+  std::vector<Break_node> breaking;
   int i = static_cast<int> (state_.size ()) - 1;
   while (i >= 0)
     {
@@ -278,9 +276,9 @@ Page_turn_page_breaking::solve ()
 
 /* do the line breaking in all the scores and return a big list of systems */
 SCM
-Page_turn_page_breaking::make_lines (vector<Break_node> *psoln)
+Page_turn_page_breaking::make_lines (std::vector<Break_node> *psoln)
 {
-  vector<Break_node> &soln = *psoln;
+  std::vector<Break_node> &soln = *psoln;
   for (vsize n = 0; n < soln.size (); n++)
     {
       vsize start = n > 0 ? soln[n - 1].break_pos_ : 0;
@@ -293,13 +291,13 @@ Page_turn_page_breaking::make_lines (vector<Break_node> *psoln)
 }
 
 SCM
-Page_turn_page_breaking::make_pages (vector<Break_node> const &soln,
+Page_turn_page_breaking::make_pages (std::vector<Break_node> const &soln,
                                      SCM systems)
 {
   if (scm_is_null (systems))
     return SCM_EOL;
 
-  vector<vsize> lines_per_page;
+  std::vector<vsize> lines_per_page;
   for (vsize i = 0; i < soln.size (); i++)
     {
       for (vsize j = 0; j < soln[i].page_count_; j++)

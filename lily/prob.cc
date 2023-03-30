@@ -23,7 +23,6 @@
 #include "input.hh"
 #include "profile.hh"
 
-using std::string;
 
 const char *const Prob::type_p_name_ = "ly:prob?";
 
@@ -199,7 +198,7 @@ Prob::get_property_alist (bool m) const
   return (m) ? mutable_property_alist_ : immutable_property_alist_;
 }
 
-string
+std::string
 Prob::name () const
 {
   SCM nm = get_property (this, "name");

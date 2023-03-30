@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /**
    Make arpeggios that span multiple staves.  Catch arpeggios, and span a
@@ -48,8 +47,8 @@ protected:
 
 private:
   Item *span_arpeggio_;
-  vector<Grob *> arpeggios_;
-  vector<Grob *> note_columns_;
+  std::vector<Grob *> arpeggios_;
+  std::vector<Grob *> note_columns_;
 };
 
 Span_arpeggio_engraver::Span_arpeggio_engraver (Context *c)

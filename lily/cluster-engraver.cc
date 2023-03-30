@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Cluster_spanner_engraver : public Engraver
 {
@@ -43,7 +42,7 @@ protected:
   void finalize () override;
 
 private:
-  vector<Stream_event *> cluster_notes_;
+  std::vector<Stream_event *> cluster_notes_;
   Item *beacon_;
 
   void typeset_grobs ();

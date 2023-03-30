@@ -41,15 +41,13 @@
 #include <map>
 #include <type_traits>
 
-using std::map;
-using std::string;
 
 static Protected_scm doc_hash_table;
 
 void
 ly_check_name (const char *cxx, const char *scm_name)
 {
-  string mangle = mangle_cxx_identifier (cxx);
+  std::string mangle = mangle_cxx_identifier (cxx);
   if (mangle != scm_name)
     {
       programming_error ("wrong cxx name: " + mangle + ", " + cxx + ", "
@@ -68,7 +66,7 @@ ly_add_function_documentation (SCM func, const char *fname, const char *varlist,
   if (!doc_hash_table.is_bound ())
     doc_hash_table = scm_c_make_hash_table (59);
 
-  string s = string (" - ") + "LilyPond procedure: " + fname + " " + varlist
+  std::string s = std::string (" - ") + "LilyPond procedure: " + fname + " " + varlist
              + "\n" + doc;
 
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),
@@ -86,7 +84,7 @@ Get a hash table with all LilyPond Scheme extension functions.
   return doc_hash_table;
 }
 
-static map<const void *, string> type_names;
+static std::map<const void *, std::string> type_names;
 
 void
 ly_internal_add_type_predicate (const void *pred, const char *name)
@@ -94,7 +92,7 @@ ly_internal_add_type_predicate (const void *pred, const char *name)
   type_names[pred] = std::string (name);
 }
 
-string
+std::string
 internal_predicate_to_typename (const void *pred)
 {
   auto it = type_names.find (pred);

@@ -149,15 +149,13 @@
 #include <utility>
 #include <vector>
 
-using std::pair;
-using std::vector;
 
 /* for each forbidden page break, merge the systems around it into one
    system. */
-static vector<Line_details>
-compress_lines (const vector<Line_details> &orig)
+static std::vector<Line_details>
+compress_lines (const std::vector<Line_details> &orig)
 {
-  vector<Line_details> ret;
+  std::vector<Line_details> ret;
 
   for (vsize i = 0; i < orig.size (); i++)
     {
@@ -215,11 +213,11 @@ compress_lines (const vector<Line_details> &orig)
 /* translate the number of systems-per-page into something meaningful for
    the uncompressed lines.
 */
-static vector<vsize>
-uncompress_solution (vector<vsize> const &systems_per_page,
-                     vector<Line_details> const &compressed)
+static std::vector<vsize>
+uncompress_solution (std::vector<vsize> const &systems_per_page,
+                     std::vector<Line_details> const &compressed)
 {
-  vector<vsize> ret;
+  std::vector<vsize> ret;
   vsize start_sys = 0;
 
   for (vsize i = 0; i < systems_per_page.size (); i++)
@@ -445,7 +443,7 @@ void
 Page_breaking::break_into_pieces (vsize start_break, vsize end_break,
                                   Line_division const &div)
 {
-  vector<Break_position> chunks = chunk_list (start_break, end_break);
+  std::vector<Break_position> chunks = chunk_list (start_break, end_break);
   bool ignore_div = false;
   if (chunks.size () != div.size () + 1)
     {
@@ -462,7 +460,7 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break,
           vsize end;
           line_breaker_args (sys, chunks[i], chunks[i + 1], &start, &end);
 
-          vector<Column_x_positions> pos
+          std::vector<Column_x_positions> pos
             = ignore_div ? line_breaking_[sys].best_solution (start, end)
                          : line_breaking_[sys].solve (start, end, div[i]);
           system_specs_[sys].pscore_->root_system ()->break_into_pieces (pos);
@@ -513,7 +511,7 @@ Page_breaking::page_height (int page_num, bool last) const
   // This means that we won't cache properly if page_num is negative or
   // if calc_height returns a negative number.  But that's likely to
   // be rare, so it shouldn't affect performance.
-  vector<Real> &cache = last ? last_page_height_cache_ : page_height_cache_;
+  std::vector<Real> &cache = last ? last_page_height_cache_ : page_height_cache_;
   if ((page_num >= 0) && (cache.size () > static_cast<vsize> (page_num))
       && (cache[page_num] >= 0))
     return cache[page_num];
@@ -607,7 +605,7 @@ Page_breaking::draw_page (SCM systems, int page_num, bool last,
 }
 
 SCM
-Page_breaking::make_pages (const vector<vsize> &lines_per_page, SCM systems)
+Page_breaking::make_pages (const std::vector<vsize> &lines_per_page, SCM systems)
 {
   if (scm_is_null (systems))
     return SCM_EOL;
@@ -740,9 +738,9 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break,
     {
       if (system_specs_[i].pscore_)
         {
-          vector<Paper_column *> cols
+          std::vector<Paper_column *> cols
             = system_specs_[i].pscore_->root_system ()->used_columns ();
-          vector<Paper_column *> forced_line_break_cols;
+          std::vector<Paper_column *> forced_line_break_cols;
 
           SCM system_count
             = system_specs_[i].pscore_->layout ()->c_variable ("system-count");
@@ -752,7 +750,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break,
               // this score is fixed.  We need to ensure that chunk
               // boundaries only occur at line breaks.
               Constrained_breaking breaking (system_specs_[i].pscore_);
-              vector<Line_details> details
+              std::vector<Line_details> details
                 = breaking.line_details (0, VPOS, from_scm<int> (system_count));
 
               for (vsize j = 0; j < details.size (); j++)
@@ -761,7 +759,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break,
 
           vsize last_forced_line_break_idx = 0;
           vsize forced_line_break_idx = 0;
-          vector<vsize> line_breaker_columns;
+          std::vector<vsize> line_breaker_columns;
           line_breaker_columns.push_back (0);
 
           for (vsize j = 0; j < cols.size (); j++)
@@ -823,7 +821,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break,
     }
 }
 
-vector<Break_position>
+std::vector<Break_position>
 Page_breaking::chunk_list (vsize start_index, vsize end_index) const
 {
   Break_position start = breaks_[start_index];
@@ -834,7 +832,7 @@ Page_breaking::chunk_list (vsize start_index, vsize end_index) const
   for (; i < chunks_.size () && chunks_[i] <= start; i++)
     ;
 
-  vector<Break_position> ret;
+  std::vector<Break_position> ret;
   ret.push_back (start);
   for (; i < chunks_.size () && chunks_[i] < end; i++)
     ret.push_back (chunks_[i]);
@@ -846,7 +844,7 @@ Page_breaking::chunk_list (vsize start_index, vsize end_index) const
 vsize
 Page_breaking::min_system_count (vsize start, vsize end)
 {
-  vector<Break_position> chunks = chunk_list (start, end);
+  std::vector<Break_position> chunks = chunk_list (start, end);
   Line_division div = system_count_bounds (chunks, true);
   vsize ret = 0;
 
@@ -859,7 +857,7 @@ Page_breaking::min_system_count (vsize start, vsize end)
 vsize
 Page_breaking::max_system_count (vsize start, vsize end)
 {
-  vector<Break_position> chunks = chunk_list (start, end);
+  std::vector<Break_position> chunks = chunk_list (start, end);
   Line_division div = system_count_bounds (chunks, false);
   vsize ret = 0;
 
@@ -872,7 +870,7 @@ Page_breaking::max_system_count (vsize start, vsize end)
 // the maximum or minimum number of _non-title_ lines
 // per chunk.
 Page_breaking::Line_division
-Page_breaking::system_count_bounds (vector<Break_position> const &chunks,
+Page_breaking::system_count_bounds (std::vector<Break_position> const &chunks,
                                     bool min)
 {
   assert (chunks.size () >= 2);
@@ -929,7 +927,7 @@ Page_breaking::set_current_breakpoints (vsize start, vsize end,
      5 is somewhat arbitrary. */
   if (current_configurations_.size () > 5)
     {
-      vector<pair<Real, vsize>> dems_and_indices;
+      std::vector<std::pair<Real, vsize>> dems_and_indices;
 
       for (vsize i = 0; i < current_configurations_.size (); i++)
         {
@@ -940,11 +938,11 @@ Page_breaking::set_current_breakpoints (vsize start, vsize end,
               += cached_line_details_[j].force_ * cached_line_details_[j].force_
                  + cached_line_details_[j].break_penalty_;
 
-          dems_and_indices.push_back (pair<Real, vsize> (dem, i));
+          dems_and_indices.push_back (std::pair<Real, vsize> (dem, i));
         }
       std::sort (dems_and_indices.begin (), dems_and_indices.end ());
 
-      vector<Line_division> best_5_configurations;
+      std::vector<Line_division> best_5_configurations;
       for (vsize i = 0; i < 5; i++)
         best_5_configurations.push_back (
           current_configurations_[dems_and_indices[i].second]);
@@ -1011,7 +1009,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
               line_breaker_args (sys, current_chunks_[i],
                                  current_chunks_[i + 1], &start, &end);
 
-              vector<Line_details> details
+              std::vector<Line_details> details
                 = line_breaking_[sys].line_details (start, end, div[i]);
               uncompressed_line_details_.insert (
                 uncompressed_line_details_.end (), details.begin (),
@@ -1538,7 +1536,7 @@ Page_breaking::finalize_spacing_result (vsize configuration,
    the other space_systems functions) sometimes called on subsets of a full
    configuration. */
 Page_spacing_result
-Page_breaking::space_systems_on_1_page (vector<Line_details> const &lines,
+Page_breaking::space_systems_on_1_page (std::vector<Line_details> const &lines,
                                         Real page_height, bool ragged)
 {
   Page_spacing space (page_height, this);
@@ -1576,9 +1574,9 @@ Page_breaking::space_systems_on_2_pages (vsize configuration,
     if (scm_is_eq (cached_line_details_[i].page_permission_,
                    ly_symbol2scm ("force")))
       {
-        vector<Line_details> lines1 (cached_line_details_.begin (),
+        std::vector<Line_details> lines1 (cached_line_details_.begin (),
                                      cached_line_details_.begin () + i + 1);
-        vector<Line_details> lines2 (cached_line_details_.begin () + i + 1,
+        std::vector<Line_details> lines2 (cached_line_details_.begin () + i + 1,
                                      cached_line_details_.end ());
         Page_spacing_result p1
           = space_systems_on_1_page (lines1, page1_height, ragged1);
@@ -1592,18 +1590,18 @@ Page_breaking::space_systems_on_2_pages (vsize configuration,
         return p1;
       }
 
-  vector<Real> page1_force;
-  vector<Real> page2_force;
+  std::vector<Real> page1_force;
+  std::vector<Real> page2_force;
 
   // page1_penalty and page2_penalty store the penalties based
   // on min-systems-per-page and max-systems-per-page.
-  vector<Real> page1_penalty;
-  vector<Real> page2_penalty;
+  std::vector<Real> page1_penalty;
+  std::vector<Real> page2_penalty;
 
   // page1_status and page2_status keep track of whether the min-systems-per-page
   // and max-systems-per-page constraints are satisfied.
-  vector<int> page1_status;
-  vector<int> page2_status;
+  std::vector<int> page1_status;
+  std::vector<int> page2_status;
 
   Page_spacing page1 (page1_height, this);
   Page_spacing page2 (page2_height, this);

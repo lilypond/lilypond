@@ -33,12 +33,11 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 struct Spacings
 {
   Item *staff_spacing_;
-  vector<Item *> note_spacings_;
+  std::vector<Item *> note_spacings_;
 
   Spacings () { staff_spacing_ = 0; }
 
@@ -61,7 +60,7 @@ protected:
   void stop_translation_timestep ();
   void start_translation_timestep ();
 
-  vector<Item *> break_aligned_;
+  std::vector<Item *> break_aligned_;
 
 public:
   TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);

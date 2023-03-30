@@ -33,10 +33,6 @@
 #include <memory>
 #include <utility>
 
-using std::make_pair;
-using std::map;
-using std::pair;
-using std::string;
 
 std::unique_ptr<FT_Byte[]>
 load_table (char const *tag_str, FT_Face face, FT_ULong *length)
@@ -73,8 +69,8 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
   return 0;
 }
 
-string
-Open_type_font::get_otf_table (const string &tag) const
+std::string
+Open_type_font::get_otf_table (const std::string &tag) const
 {
   return ::get_otf_table (face_, tag);
 }
@@ -88,7 +84,7 @@ load_scheme_table (char const *tag_str, FT_Face face)
   SCM tab = SCM_EOL;
   if (buffer)
     {
-      string contents (reinterpret_cast<char const *> (buffer.get ()), length);
+      std::string contents (reinterpret_cast<char const *> (buffer.get ()), length);
       contents = "(quote (" + contents + "))";
 
       tab = scm_eval_string (scm_from_utf8_string (contents.c_str ()));
@@ -104,10 +100,10 @@ Open_type_font::~Open_type_font ()
 /*
   UGH fix naming
 */
-string
-get_otf_table (FT_Face face, const string &tag)
+std::string
+get_otf_table (FT_Face face, const std::string &tag)
 {
-  string ret;
+  std::string ret;
   FT_ULong len;
   auto tab (load_table (tag.c_str (), face, &len));
   if (tab)
@@ -118,7 +114,7 @@ get_otf_table (FT_Face face, const string &tag)
 }
 
 FT_Face
-open_ft_face (const string &str, FT_Long idx)
+open_ft_face (const std::string &str, FT_Long idx)
 {
   FT_Face face;
   FT_Error error_code
@@ -132,10 +128,10 @@ open_ft_face (const string &str, FT_Long idx)
   return face;
 }
 
-string
+std::string
 get_postscript_name (FT_Face face)
 {
-  string face_ps_name;
+  std::string face_ps_name;
   const char *psname = FT_Get_Postscript_Name (face);
   if (psname)
     face_ps_name = psname;
@@ -148,7 +144,7 @@ get_postscript_name (FT_Face face)
   const char *fmt = FT_Get_Font_Format (face);
   if (fmt)
     {
-      if (static_cast<string> (fmt) != "CFF")
+      if (static_cast<std::string> (fmt) != "CFF")
         return face_ps_name; // For non-CFF font, pass it through.
     }
   else
@@ -197,7 +193,7 @@ get_postscript_name (FT_Face face)
 std::string
 get_cff_name (FT_Face face)
 {
-  string cff_table = get_otf_table (face, "CFF ");
+  std::string cff_table = get_otf_table (face, "CFF ");
 
   FT_Open_Args args;
   args.flags = FT_OPEN_MEMORY;
@@ -218,7 +214,7 @@ get_cff_name (FT_Face face)
       return "";
     }
 
-  string ret;
+  std::string ret;
   const char *cffname = FT_Get_Postscript_Name (cff_face);
   if (cffname)
     ret = cffname;
@@ -234,7 +230,7 @@ get_cff_name (FT_Face face)
 }
 
 SCM
-Open_type_font::make_otf (const string &str)
+Open_type_font::make_otf (const std::string &str)
 {
   FT_Face face = open_ft_face (str, 0 /* index */);
   Open_type_font *otf = new Open_type_font (face);
@@ -281,15 +277,15 @@ Open_type_font::derived_mark () const
   just delegate the work to Note_head::get_stem_attachment.
 */
 
-pair<Offset, bool>
-Open_type_font::attachment_point (const string &glyph_name, Direction d) const
+std::pair<Offset, bool>
+Open_type_font::attachment_point (const std::string &glyph_name, Direction d) const
 {
   SCM sym = ly_symbol2scm (glyph_name);
   SCM entry = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
 
   Offset o;
   if (scm_is_false (entry))
-    return make_pair (o, false); // TODO: error out?
+    return std::make_pair (o, false); // TODO: error out?
 
   SCM char_alist = entry;
   SCM att_scm;
@@ -310,11 +306,11 @@ Open_type_font::attachment_point (const string &glyph_name, Direction d) const
         {
           warning (
             _f ("no stem attachment found in font for glyph %s", glyph_name));
-          return make_pair (o, false);
+          return std::make_pair (o, false);
         }
     }
 
-  return make_pair (point_constant * from_scm<Offset> (att_scm), rotate);
+  return std::make_pair (point_constant * from_scm<Offset> (att_scm), rotate);
 }
 
 Box
@@ -370,7 +366,7 @@ Open_type_font::get_units_per_EM () const
 }
 
 size_t
-Open_type_font::name_to_index (string nm) const
+Open_type_font::name_to_index (std::string nm) const
 {
   auto it = name_to_index_map_.find (nm);
   if (it != name_to_index_map_.end ())
@@ -407,7 +403,7 @@ Open_type_font::add_outline_to_skyline (Lazy_skyline_pair *lazy,
 size_t
 Open_type_font::index_to_charcode (size_t i) const
 {
-  map<FT_UInt, FT_ULong>::const_iterator iter;
+  std::map<FT_UInt, FT_ULong>::const_iterator iter;
   iter = index_to_charcode_map_.find (FT_UInt (i));
 
   if (iter != index_to_charcode_map_.end ())
@@ -464,7 +460,7 @@ Open_type_font::get_global_table () const
   return lily_global_table_;
 }
 
-string
+std::string
 Open_type_font::font_name () const
 {
   return postscript_name_;

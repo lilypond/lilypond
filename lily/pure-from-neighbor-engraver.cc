@@ -30,12 +30,11 @@
 #include <map>
 #include <vector>
 
-using std::vector;
 
 class Pure_from_neighbor_engraver : public Engraver
 {
-  vector<Item *> pure_relevants_;
-  vector<Item *> need_pure_heights_from_neighbors_;
+  std::vector<Item *> pure_relevants_;
+  std::vector<Item *> need_pure_heights_from_neighbors_;
 
 public:
   TRANSLATOR_DECLARATIONS (Pure_from_neighbor_engraver);
@@ -87,10 +86,10 @@ Pure_from_neighbor_engraver::finalize ()
   */
 
   vsize l = 0;
-  vector<vector<Grob *>> need_pure_heights_from_neighbors;
+  std::vector<std::vector<Grob *>> need_pure_heights_from_neighbors;
   do
     {
-      vector<Grob *> temp;
+      std::vector<Grob *> temp;
       temp.push_back (need_pure_heights_from_neighbors_[l]);
       for (; (l < need_pure_heights_from_neighbors_.size () - 1
               && ((need_pure_heights_from_neighbors_[l]

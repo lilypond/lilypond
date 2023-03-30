@@ -29,16 +29,13 @@
 #include <iomanip>
 #include <sstream>
 
-using std::string;
-using std::stringstream;
-using std::vector;
 
-string
-pfb2pfa (const string &pfb)
+std::string
+pfb2pfa (const std::string &pfb)
 {
-  string out;
+  std::string out;
 
-  string::const_iterator p = pfb.begin ();
+  std::string::const_iterator p = pfb.begin ();
   while (p < pfb.end ())
     {
       if (static_cast<Byte> (*p++) != 128)
@@ -68,7 +65,7 @@ pfb2pfa (const string &pfb)
         }
       else if (type == 2)
         {
-          stringstream ss;
+          std::stringstream ss;
 
           ss << std::hex << std::setfill ('0');
 
@@ -80,7 +77,7 @@ pfb2pfa (const string &pfb)
                 ss << '\n';
             }
 
-          string str = ss.str ();
+          std::string str = ss.str ();
           copy (str.begin (), str.end (), back_inserter (out));
         }
       else

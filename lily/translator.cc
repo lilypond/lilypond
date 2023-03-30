@@ -29,8 +29,6 @@
 
 #include "translator.icc"
 
-using std::string;
-using std::vector;
 
 Translator::~Translator ()
 {
@@ -151,7 +149,7 @@ SCM
 Translator::event_class_symbol (const char *ev_class)
 {
   /* ev_class is the C++ identifier name. Convert to scm symbol */
-  string name = string (ev_class);
+  std::string name = std::string (ev_class);
   name = replace_all (&name, '_', '-');
   name += "-event";
 
@@ -244,7 +242,7 @@ add_acknowledger (SCM ptr, char const *func_name, SCM &ack_hash)
   if (SCM_UNBNDP (ack_hash))
     ack_hash = Scheme_hash_table::make_smob ();
 
-  string interface_name (func_name);
+  std::string interface_name (func_name);
 
   interface_name = replace_all (&interface_name, '_', '-');
   interface_name += "-interface";

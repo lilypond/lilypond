@@ -30,7 +30,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 struct Tuplet_description
 {
@@ -60,10 +59,10 @@ public:
   TRANSLATOR_DECLARATIONS (Tuplet_engraver);
 
 protected:
-  vector<Tuplet_description> tuplets_;
-  vector<Tuplet_description> new_tuplets_;
-  vector<Tuplet_description> stopped_tuplets_;
-  vector<Spanner *> last_tuplets_;
+  std::vector<Tuplet_description> tuplets_;
+  std::vector<Tuplet_description> new_tuplets_;
+  std::vector<Tuplet_description> stopped_tuplets_;
+  std::vector<Spanner *> last_tuplets_;
 
   void acknowledge_note_column (Grob_info_t<Item>);
   void acknowledge_script (Grob_info);

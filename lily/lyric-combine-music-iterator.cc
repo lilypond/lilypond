@@ -26,7 +26,6 @@
 #include "music-iterator.hh"
 #include "music.hh"
 
-using std::string;
 
 /*
   This iterator is hairy.  It tracks both lyric and melody contexts,
@@ -341,7 +340,7 @@ Lyric_combine_music_iterator::do_quit ()
       if (!scm_is_symbol (voice_type))
         voice_type = ly_symbol2scm ("Voice");
 
-      string id
+      std::string id
         = robust_scm2string (get_property (m, "associated-context"), "");
 
       Input *origin = m->origin ();

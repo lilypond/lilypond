@@ -26,13 +26,12 @@
 #include "warn.hh"
 #include "misc.hh"
 
-using std::string;
 
 SCM
 add_interface (char const *cxx_name, char const *descr, char const *vars)
 {
-  string suffix ("-interface");
-  string lispy_name = camel_case_to_lisp_identifier (cxx_name);
+  std::string suffix ("-interface");
+  std::string lispy_name = camel_case_to_lisp_identifier (cxx_name);
   vsize end = (lispy_name.size () >= suffix.size ())
                 ? (lispy_name.size () - suffix.size ())
                 : 0;

@@ -28,7 +28,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Concurrent_hairpin_engraver : public Engraver
 {
@@ -43,9 +42,9 @@ protected:
   void finalize () override;
 
 private:
-  vector<Grob *> arriving_hairpins_;
-  vector<Grob *> departing_hairpins_;
-  vector<Grob *> hairpins_hanging_out_;
+  std::vector<Grob *> arriving_hairpins_;
+  std::vector<Grob *> departing_hairpins_;
+  std::vector<Grob *> hairpins_hanging_out_;
 };
 
 Concurrent_hairpin_engraver::Concurrent_hairpin_engraver (Context *c)

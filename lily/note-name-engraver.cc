@@ -27,15 +27,13 @@
 
 #include "translator.icc"
 
-using std::string;
-using std::vector;
 
 class Note_name_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Note_name_engraver);
 
-  vector<Stream_event *> events_;
+  std::vector<Stream_event *> events_;
   void listen_note (Stream_event *);
   void process_music ();
   void stop_translation_timestep ();

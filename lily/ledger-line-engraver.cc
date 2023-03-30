@@ -24,12 +24,11 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Ledger_line_engraver : public Engraver
 {
   Spanner *span_;
-  vector<Grob *> ledgered_grobs_;
+  std::vector<Grob *> ledgered_grobs_;
 
 public:
   TRANSLATOR_DECLARATIONS (Ledger_line_engraver);

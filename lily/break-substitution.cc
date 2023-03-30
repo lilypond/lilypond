@@ -43,7 +43,6 @@
   being on the same system but having the same break direction.
 */
 
-using std::vector;
 
 /*
   Perform the substitution for a single grob.
@@ -256,7 +255,7 @@ Spanner::fast_substitute_grob_array (SCM sym, Grob_array const *grob_array)
 
   std::stable_sort (items.begin (), items.end ());
 
-  vector<Interval_t<vsize>> item_indices (system_range.length () + 1);
+  std::vector<Interval_t<vsize>> item_indices (system_range.length () + 1);
   for (vsize i = 0; i < items.size (); i++)
     {
       for (auto j = items[i].left_; j <= items[i].right_; ++j)

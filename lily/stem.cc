@@ -62,8 +62,6 @@
 #include <cmath> // rint
 #include <vector>
 
-using std::string;
-using std::vector;
 
 void
 Stem::set_beaming (Grob *me, int beam_count, Direction d)
@@ -260,10 +258,10 @@ Stem::extremal_heads (Grob *me)
 
 /* The staff positions, in ascending order.
  * If FILTER, include the main column of noteheads only */
-vector<int>
+std::vector<int>
 Stem::note_head_positions (Grob *me, bool filter)
 {
-  vector<int> ps;
+  std::vector<int> ps;
   extract_grob_set (me, "note-heads", heads);
   Grob *xref = common_refpoint_of_array (heads, me, X_AXIS);
 
@@ -339,8 +337,8 @@ Stem::internal_pure_height (Grob *me, bool calc_beam)
       for (const auto d : {DOWN, UP})
         overshoot[d] = d == dir ? dir * infinity_f : iv[d];
 
-      vector<Interval> heights;
-      vector<Grob *> my_stems;
+      std::vector<Interval> heights;
+      std::vector<Grob *> my_stems;
       extract_grob_set (beam, "normal-stems", normal_stems);
       for (vsize i = 0; i < normal_stems.size (); i++)
         if (get_grob_direction (normal_stems[i]) == dir)
@@ -354,7 +352,7 @@ Stem::internal_pure_height (Grob *me, bool calc_beam)
           }
       //iv.unite (heights.back ());
       // look for cross staff effects
-      vector<Real> coords;
+      std::vector<Real> coords;
       Grob *common = common_refpoint_of_array (my_stems, me, Y_AXIS);
       Real min_pos = infinity_f;
       Real max_pos = -infinity_f;
@@ -432,7 +430,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
                                      0.0);
     }
 
-  vector<Real> a;
+  std::vector<Real> a;
 
   /* WARNING: IN HALF SPACES */
   SCM details = get_property (me, "details");
@@ -543,7 +541,7 @@ Stem::calc_positioning_done (SCM smob)
   set_property (me, "positioning-done", SCM_BOOL_T);
 
   extract_grob_set (me, "note-heads", ro_heads);
-  vector<Grob *> heads (ro_heads);
+  std::vector<Grob *> heads (ro_heads);
   std::sort (heads.begin (), heads.end (), position_less);
   Direction dir = get_strict_grob_direction (me);
 
@@ -987,7 +985,7 @@ Stem::offset_callback (SCM smob)
       Real r = std::isnan (real_attach) ? 0.0 : real_attach;
 
       /* If not centered: correct for stem thickness.  */
-      string style
+      std::string style
         = robust_symbol2string (get_property (f, "style"), "default");
       if (attach && style != "mensural" && style != "neomensural"
           && style != "petrucci")

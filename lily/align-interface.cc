@@ -31,7 +31,6 @@
 #include "system.hh"
 #include "warn.hh"
 
-using std::vector;
 
 MAKE_SCHEME_CALLBACK (Align_interface, align_to_minimum_distances,
                       "ly:align-interface::align-to-minimum-distances", 1);
@@ -94,7 +93,7 @@ get_skylines (Grob *g, Axis a, Grob *other_common, bool pure, vsize start,
 
   assert (a == Y_AXIS);
   Interval extent = g->pure_y_extent (g, start, end);
-  vector<Box> boxes;
+  std::vector<Box> boxes;
 
   // This is a hack to get better accuracy on the pure-height of VerticalAlignment.
   // It's quite common for a treble clef to be the highest element of one system
@@ -127,27 +126,27 @@ get_skylines (Grob *g, Axis a, Grob *other_common, bool pure, vsize start,
   return Skyline_pair (boxes, X_AXIS);
 }
 
-vector<Real>
+std::vector<Real>
 Align_interface::get_minimum_translations (Grob *me,
-                                           vector<Grob *> const &all_grobs,
+                                           std::vector<Grob *> const &all_grobs,
                                            Axis a)
 {
   return internal_get_minimum_translations (me, all_grobs, a, true, false, 0,
                                             0);
 }
 
-vector<Real>
+std::vector<Real>
 Align_interface::get_pure_minimum_translations (Grob *me,
-                                                vector<Grob *> const &all_grobs,
+                                                std::vector<Grob *> const &all_grobs,
                                                 Axis a, vsize start, vsize end)
 {
   return internal_get_minimum_translations (me, all_grobs, a, true, true, start,
                                             end);
 }
 
-vector<Real>
+std::vector<Real>
 Align_interface::get_minimum_translations_without_min_dist (
-  Grob *me, vector<Grob *> const &all_grobs, Axis a)
+  Grob *me, std::vector<Grob *> const &all_grobs, Axis a)
 {
   return internal_get_minimum_translations (me, all_grobs, a, false, false, 0,
                                             0);
@@ -162,9 +161,9 @@ Align_interface::get_minimum_translations_without_min_dist (
 // - If you want to find the minimum height of a system, include_fixed_spacing should be true.
 // - If you're going to actually lay out the page, then it should be false (or
 //   else centered dynamics will break when there is a fixed alignment).
-vector<Real>
+std::vector<Real>
 Align_interface::internal_get_minimum_translations (
-  Grob *me, vector<Grob *> const &elems, Axis a, bool include_fixed_spacing,
+  Grob *me, std::vector<Grob *> const &elems, Axis a, bool include_fixed_spacing,
   bool pure, vsize start, vsize end)
 {
   if (!pure && a == Y_AXIS && dynamic_cast<Spanner *> (me)
@@ -194,7 +193,7 @@ Align_interface::internal_get_minimum_translations (
 
   Real where = 0;
   Real default_padding = from_scm<double> (get_property (me, "padding"), 0.0);
-  vector<Real> translates;
+  std::vector<Real> translates;
   Skyline down_skyline (stacking_dir);
   Grob *last_nonempty_element = 0;
   Real last_spaceable_element_pos = 0;
@@ -316,7 +315,7 @@ Align_interface::align_elements_to_minimum_distances (Grob *me, Axis a)
 {
   extract_grob_set (me, "elements", all_grobs);
 
-  vector<Real> translates = get_minimum_translations (me, all_grobs, a);
+  std::vector<Real> translates = get_minimum_translations (me, all_grobs, a);
   if (translates.size ())
     for (vsize j = 0; j < all_grobs.size (); j++)
       all_grobs[j]->translate_axis (translates[j], a);
@@ -327,7 +326,7 @@ Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, vsize start,
                                                vsize end)
 {
   extract_grob_set (me, "elements", all_grobs);
-  vector<Real> translates
+  std::vector<Real> translates
     = get_pure_minimum_translations (me, all_grobs, Y_AXIS, start, end);
 
   if (translates.size ())

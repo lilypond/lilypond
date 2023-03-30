@@ -32,7 +32,6 @@
 #include "warn.hh"
 #include "constrained-breaking.hh"
 
-using std::vector;
 
 Paper_score::Paper_score (Output_def *layout)
 {
@@ -84,7 +83,7 @@ Paper_score::find_break_indices () const
     }
 }
 
-vector<vsize> const &
+std::vector<vsize> const &
 Paper_score::get_break_indices () const
 {
   if (break_indices_.empty ())
@@ -92,7 +91,7 @@ Paper_score::get_break_indices () const
   return break_indices_;
 }
 
-vector<Paper_column *> const &
+std::vector<Paper_column *> const &
 Paper_score::get_columns () const
 {
   if (cols_.empty ())
@@ -100,7 +99,7 @@ Paper_score::get_columns () const
   return cols_;
 }
 
-vector<vsize> const &
+std::vector<vsize> const &
 Paper_score::get_break_ranks () const
 {
   if (break_ranks_.empty ())
@@ -108,11 +107,11 @@ Paper_score::get_break_ranks () const
   return break_ranks_;
 }
 
-vector<Column_x_positions>
+std::vector<Column_x_positions>
 Paper_score::calc_breaking ()
 {
   Constrained_breaking algorithm (this);
-  vector<Column_x_positions> sol;
+  std::vector<Column_x_positions> sol;
 
   message (_ ("Calculating line breaks...") + " ");
 
@@ -151,7 +150,7 @@ Paper_score::get_paper_systems ()
 {
   if (scm_is_false (paper_systems_))
     {
-      vector<Column_x_positions> breaking = calc_breaking ();
+      std::vector<Column_x_positions> breaking = calc_breaking ();
       system_->break_into_pieces (breaking);
       message (_ ("Drawing systems...") + " ");
       system_->do_break_substitution_and_fixup_refpoints ();

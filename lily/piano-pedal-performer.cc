@@ -27,8 +27,6 @@
 
 #include "translator.icc"
 
-using std::string;
-using std::vector;
 
 /**
    perform Piano pedals
@@ -54,7 +52,7 @@ protected:
   void listen_sostenuto (Stream_event *);
 
 private:
-  vector<Audio_piano_pedal *> audios_;
+  std::vector<Audio_piano_pedal *> audios_;
   Pedal_info info_alist_[NUM_PEDAL_TYPES];
 };
 

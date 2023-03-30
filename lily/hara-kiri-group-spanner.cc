@@ -29,7 +29,6 @@
 #include <algorithm>
 #include <vector>
 
-using std::vector;
 
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent,
                       "ly:hara-kiri-group-spanner::y-extent", 1);
@@ -124,7 +123,7 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start,
   else /* build the important-columns-cache */
     {
       extract_grob_set (me, "items-worth-living", worth);
-      vector<int> ranks;
+      std::vector<int> ranks;
 
       for (vsize i = 0; i < worth.size (); i++)
         {
@@ -160,7 +159,7 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
   if (!request_suicide (me, left, right))
     return;
 
-  vector<Grob *> childs;
+  std::vector<Grob *> childs;
   Axis_group_interface::get_children (me, &childs);
   for (vsize i = 0; i < childs.size (); i++)
     childs[i]->suicide ();

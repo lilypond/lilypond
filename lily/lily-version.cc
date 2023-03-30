@@ -26,16 +26,15 @@
 #include "program-option.hh"
 #include "version.hh"
 
-using std::string;
 
-string
+std::string
 version_string ()
 {
   if (get_program_option ("deterministic"))
     return "0.0.0";
 
-  string str = MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL;
-  string mpl ("." MY_PATCH_LEVEL);
+  std::string str = MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL;
+  std::string mpl ("." MY_PATCH_LEVEL);
   if (mpl != ".")
     str += mpl;
   return str;

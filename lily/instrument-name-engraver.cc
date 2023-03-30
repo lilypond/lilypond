@@ -28,7 +28,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Instrument_name_engraver : public Engraver
 {
@@ -41,8 +40,8 @@ protected:
   SCM long_text_;
   SCM short_text_;
 
-  vector<Grob *> axis_groups_;
-  vector<Grob *> backup_axis_groups_;
+  std::vector<Grob *> axis_groups_;
+  std::vector<Grob *> backup_axis_groups_;
 
   void finalize () override;
   void acknowledge_hara_kiri_group_spanner (Grob_info);

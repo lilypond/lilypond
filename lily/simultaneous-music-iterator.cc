@@ -23,7 +23,6 @@
 #include "input.hh"
 #include "music.hh"
 
-using std::string;
 
 void
 Simultaneous_music_iterator::derived_mark () const

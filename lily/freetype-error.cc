@@ -42,9 +42,8 @@ const struct Freetype_error_message
 
 #include <string>
 
-using std::string;
 
-string
+std::string
 freetype_error_string (FT_Error code)
 {
   for (Freetype_error_message const *p = ft_errors; p->err_msg; p++)

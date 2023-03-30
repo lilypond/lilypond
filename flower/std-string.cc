@@ -21,15 +21,13 @@
 #include "string-convert.hh"
 #include "std-vector.hh"
 
-using std::string;
-using std::vector;
 
-string
+std::string
 to_string (char const *format, ...)
 {
   va_list args;
   va_start (args, format);
-  string str = String_convert::vform_string (format, args);
+  std::string str = String_convert::vform_string (format, args);
   va_end (args);
   return str;
 }
@@ -37,8 +35,8 @@ to_string (char const *format, ...)
 /*
   TODO: this O(n^2) in #occurrences of find, due to repeated copying.
  */
-string &
-replace_all (string *str, string const &find, string const &replace)
+std::string &
+replace_all (std::string *str, std::string const &find, std::string const &replace)
 {
   ssize len = find.length ();
   ssize replen = replace.length ();
@@ -47,23 +45,23 @@ replace_all (string *str, string const &find, string const &replace)
   return *str;
 }
 
-string &
-replace_all (string *str, char find, char replace)
+std::string &
+replace_all (std::string *str, char find, char replace)
 {
   for (ssize i = str->find (find); i != NPOS; i = str->find (find, i + 1))
     (*str)[i] = replace;
   return *str;
 }
 
-vector<string>
-string_split (string str, char c)
+std::vector<std::string>
+string_split (std::string str, char c)
 {
   ssize i = str.find (c);
 
-  vector<string> a;
+  std::vector<std::string> a;
   while (i != NPOS)
     {
-      string s = str.substr (0, i);
+      std::string s = str.substr (0, i);
       a.push_back (s);
       i++;
       str = str.substr (i);
@@ -74,10 +72,10 @@ string_split (string str, char c)
   return a;
 }
 
-string
-string_join (vector<string> const &strs, const string &infix)
+std::string
+string_join (std::vector<std::string> const &strs, const std::string &infix)
 {
-  string result;
+  std::string result;
   for (vsize i = 0; i < strs.size (); i++)
     {
       if (i)

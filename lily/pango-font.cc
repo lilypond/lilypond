@@ -41,7 +41,6 @@
 
 #include "stencil.hh"
 
-using std::string;
 
 // RAII for loading a PangoFont from PangoContext and casting to PangoFcFont.
 class PangoFont_accessor
@@ -127,7 +126,7 @@ Pango_font::~Pango_font ()
 }
 
 void
-Pango_font::register_font_file (const string &filename, const string &ps_name,
+Pango_font::register_font_file (const std::string &filename, const std::string &ps_name,
                                 int face_index)
 {
   scm_hash_set_x (physical_font_tab_, ly_string2scm (ps_name),
@@ -135,7 +134,7 @@ Pango_font::register_font_file (const string &filename, const string &ps_name,
 }
 
 size_t
-Pango_font::name_to_index (string nm) const
+Pango_font::name_to_index (std::string nm) const
 {
   PangoFont_accessor fcfont (context_, pango_description_);
   FTFace_accessor face (fcfont);
@@ -229,7 +228,7 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
 {
   PangoGlyph pg = pgi.glyph;
   PangoGlyphGeometry ggeo = pgi.geometry;
-  bool is_ttf = string (FT_Get_X11_Font_Format (ftface)) == "TrueType";
+  bool is_ttf = std::string (FT_Get_X11_Font_Format (ftface)) == "TrueType";
   bool has_glyph_names = ftface->face_flags & FT_FACE_FLAG_GLYPH_NAMES;
 
   const int GLYPH_NAME_LEN = 256;
@@ -283,7 +282,7 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
       return SCM_BOOL_F;
     }
 
-  if (glyph_name == string (".notdef") && is_ttf)
+  if (glyph_name == std::string (".notdef") && is_ttf)
     glyph_name[0] = '\0';
 
   if (glyph_name[0] == '\0' && is_ttf)
@@ -341,13 +340,13 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
 
   string_extent.scale (scale_);
 
-  const string ps_name_str0 = get_postscript_name (ftface);
+  const std::string ps_name_str0 = get_postscript_name (ftface);
   FcPattern *fcpat = fcfont->font_pattern;
 
   FcChar8 *file_name_as_ptr = 0;
   FcPatternGetString (fcpat, FC_FILE, 0, &file_name_as_ptr);
 
-  string file_name;
+  std::string file_name;
   if (file_name_as_ptr)
     {
       // Normalize file name.
@@ -417,12 +416,12 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
   if (ps_name_str0.empty ())
     warning (_f ("no PostScript font name for font `%s'", file_name));
 
-  string ps_name;
+  std::string ps_name;
   if (ps_name_str0.empty () && file_name != ""
       && (file_name.find (".otf") != NPOS || file_name.find (".cff") != NPOS))
     {
       // UGH: kludge a PS name for OTF/CFF fonts.
-      string name = file_name;
+      std::string name = file_name;
       ssize idx = file_name.find (".otf");
       if (idx == NPOS)
         idx = file_name.find (".cff");
@@ -436,7 +435,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
           name = name.substr (slash_idx, name.length () - slash_idx);
         }
 
-      string initial = name.substr (0, 1);
+      std::string initial = name.substr (0, 1);
       initial = String_convert::to_upper (initial);
       name = name.substr (1, name.length () - 1);
       name = String_convert::to_lower (name);
@@ -478,8 +477,8 @@ Pango_font::physical_font_tab () const
 extern bool music_strings_to_paths;
 
 Stencil
-Pango_font::text_stencil (Output_def * /* state */, const string &str,
-                          bool music_string, const string &features_str) const
+Pango_font::text_stencil (Output_def * /* state */, const std::string &str,
+                          bool music_string, const std::string &features_str) const
 {
   /*
     The text assigned to a PangoLayout is automatically divided
@@ -537,11 +536,11 @@ Pango_font::text_stencil (Output_def * /* state */, const string &str,
   return dest;
 }
 
-string
+std::string
 Pango_font::description_string () const
 {
   char *descr_string = pango_font_description_to_string (pango_description_);
-  string s (descr_string);
+  std::string s (descr_string);
   g_free (descr_string);
   return s;
 }

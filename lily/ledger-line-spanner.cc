@@ -28,8 +28,6 @@
 
 #include <map>
 
-using std::map;
-using std::vector;
 
 struct Ledger_line_spanner
 {
@@ -142,7 +140,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
 struct Head_data
 {
   int position_;
-  vector<Real> ledger_positions_;
+  std::vector<Real> ledger_positions_;
   Interval head_extent_;
   Interval ledger_extent_;
   Interval accidental_extent_;
@@ -160,10 +158,10 @@ struct Ledger_request
   Interval max_ledger_extent_;
   Interval max_head_extent_;
   int max_position_;
-  vector<Head_data> heads_;
+  std::vector<Head_data> heads_;
   // The map's keys are vertical ledger line positions. The values are
   // vectors of the x-extents of ledger lines.
-  std::map<Real, vector<Interval>> ledger_extents_;
+  std::map<Real, std::vector<Interval>> ledger_extents_;
   Ledger_request ()
   {
     max_ledger_extent_.set_empty ();
@@ -215,7 +213,7 @@ Ledger_line_spanner::print (SCM smob)
     {
       Item *h = dynamic_cast<Item *> (heads[i]);
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      vector<Real> ledger_positions
+      std::vector<Real> ledger_positions
         = Staff_symbol::ledger_positions (staff, pos, h);
 
       // We work with all notes that produce ledgers and any notes that
@@ -307,7 +305,7 @@ Ledger_line_spanner::print (SCM smob)
           Ledger_request &lr = i->second[d];
           for (vsize h = 0; h < lr.heads_.size (); h++)
             {
-              vector<Real> &ledger_posns = lr.heads_[h].ledger_positions_;
+              std::vector<Real> &ledger_posns = lr.heads_[h].ledger_positions_;
               Interval &ledger_size = lr.heads_[h].ledger_extent_;
               Interval &head_size = lr.heads_[h].head_extent_;
               Interval &acc_extent = lr.heads_[h].accidental_extent_;
@@ -358,8 +356,8 @@ Ledger_line_spanner::print (SCM smob)
     {
       for (const auto d : {DOWN, UP})
         {
-          std::map<Real, vector<Interval>> &lex = i->second[d].ledger_extents_;
-          for (std::map<Real, vector<Interval>>::iterator k = lex.begin ();
+          std::map<Real, std::vector<Interval>> &lex = i->second[d].ledger_extents_;
+          for (std::map<Real, std::vector<Interval>>::iterator k = lex.begin ();
                k != lex.end (); k++)
             {
               Real lpos = k->first;
@@ -368,7 +366,7 @@ Ledger_line_spanner::print (SCM smob)
               // them together to produce a single stencil.  In rare
               // cases they do not overlap and we do not merge them.
               Interval_set merged = Interval_set::interval_union (k->second);
-              const vector<Interval> &x_extents = merged.intervals ();
+              const std::vector<Interval> &x_extents = merged.intervals ();
 
               for (vsize n = 0; n < x_extents.size (); n++)
                 {

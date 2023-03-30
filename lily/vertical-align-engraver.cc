@@ -29,8 +29,6 @@
 
 #include "translator.icc"
 
-using std::string;
-using std::vector;
 
 class Vertical_align_engraver : public Engraver
 {
@@ -182,7 +180,7 @@ Vertical_align_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
       Grob *after_grob = unsmob<Grob> (after);
 
       Grob_array *ga = unsmob<Grob_array> (get_object (valign_, "elements"));
-      vector<Grob *> &arr = ga->array_reference ();
+      std::vector<Grob *> &arr = ga->array_reference ();
 
       Grob *added = arr.back ();
       arr.pop_back ();

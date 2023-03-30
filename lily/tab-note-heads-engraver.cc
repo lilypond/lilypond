@@ -34,16 +34,15 @@
 #include <cctype>
 #include <cstdio>
 
-using std::vector;
 
 /**
    make (guitar-like) tablature note
 */
 class Tab_note_heads_engraver : public Engraver
 {
-  vector<Stream_event *> note_events_;
-  vector<Stream_event *> tabstring_events_;
-  vector<Stream_event *> fingering_events_;
+  std::vector<Stream_event *> note_events_;
+  std::vector<Stream_event *> tabstring_events_;
+  std::vector<Stream_event *> fingering_events_;
 
 public:
   TRANSLATOR_DECLARATIONS (Tab_note_heads_engraver);

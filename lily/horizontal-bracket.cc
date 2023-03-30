@@ -26,7 +26,6 @@
 #include "spanner.hh"
 #include "item.hh"
 
-using std::vector;
 
 MAKE_SCHEME_CALLBACK (Horizontal_bracket, print, "ly:horizontal-bracket::print",
                       1);
@@ -36,7 +35,7 @@ Horizontal_bracket::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   extract_grob_set (me, "columns", gs);
 
-  vector<Grob *> enclosed = gs;
+  std::vector<Grob *> enclosed = gs;
   if (!gs.size ())
     {
       me->suicide ();

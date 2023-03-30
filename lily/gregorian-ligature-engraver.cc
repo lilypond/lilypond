@@ -31,7 +31,6 @@
 /* assign_event_once */
 #include "translator.icc"
 
-using std::vector;
 
 /*
  * This abstract class is the common superclass for all ligature
@@ -100,7 +99,7 @@ fix_prefix_set (int *current_set, int min_set, int max_set, Grob *primitive)
 }
 
 void
-check_and_fix_all_prefixes (vector<Item *> const &primitives)
+check_and_fix_all_prefixes (std::vector<Item *> const &primitives)
 {
   /* Check for invalid head modifier combinations */
   for (const auto &primitive : primitives)
@@ -191,7 +190,7 @@ check_and_fix_all_prefixes (vector<Item *> const &primitives)
  * Marks those heads that participate in a pes or flexa.
  */
 void
-provide_context_info (vector<Item *> const &primitives)
+provide_context_info (std::vector<Item *> const &primitives)
 {
   Grob *prev_primitive = 0;
   int prev_prefix_set = 0;
@@ -241,7 +240,7 @@ provide_context_info (vector<Item *> const &primitives)
 
 void
 Gregorian_ligature_engraver::build_ligature (Spanner *ligature,
-                                             vector<Item *> const &primitives)
+                                             std::vector<Item *> const &primitives)
 {
   // apply style-independent checking and transformation
   check_and_fix_all_prefixes (primitives);

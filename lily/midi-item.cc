@@ -30,7 +30,6 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-using std::string;
 
 #define PITCH_WHEEL_CENTER 0x2000
 #define PITCH_WHEEL_SEMITONE 0X1000
@@ -65,10 +64,10 @@ Midi_duration::Midi_duration (Real seconds_f)
   seconds_ = seconds_f;
 }
 
-string
+std::string
 Midi_duration::to_string () const
 {
-  return string ("<duration: ") + std::to_string (seconds_) + ">";
+  return std::string ("<duration: ") + std::to_string (seconds_) + ">";
 }
 
 Midi_instrument::Midi_instrument (Audio_instrument *a)
@@ -78,7 +77,7 @@ Midi_instrument::Midi_instrument (Audio_instrument *a)
   audio_->str_ = String_convert::to_lower (audio_->str_);
 }
 
-string
+std::string
 Midi_instrument::to_string () const
 {
   Byte program_byte = 0;
@@ -91,7 +90,7 @@ Midi_instrument::to_string () const
   else
     warning (_f ("no such MIDI instrument: `%s'", audio_->str_.c_str ()));
 
-  string str (1, static_cast<char> (
+  std::string str (1, static_cast<char> (
                    0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
   str += program_byte;
   return str;
@@ -124,7 +123,7 @@ Midi_control_change::~Midi_control_change ()
 {
 }
 
-string
+std::string
 int2midi_varint_string (int i)
 {
   int buffer = i & 0x7f;
@@ -135,7 +134,7 @@ int2midi_varint_string (int i)
       buffer += (i & 0x7f);
     }
 
-  string str;
+  std::string str;
   while (1)
     {
       str += static_cast<char> (buffer);
@@ -152,13 +151,13 @@ Midi_key::Midi_key (Audio_key *a)
 {
 }
 
-string
+std::string
 Midi_key::to_string () const
 {
   uint8_t str[] = {0xff, 0x59, 0x02, uint8_t (audio_->accidentals_),
                    uint8_t (audio_->major_ ? 0 : 1)};
 
-  return string (reinterpret_cast<char *> (str), sizeof (str));
+  return std::string (reinterpret_cast<char *> (str), sizeof (str));
 }
 
 Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
@@ -166,7 +165,7 @@ Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
 {
 }
 
-string
+std::string
 Midi_time_signature::to_string () const
 {
   int num = std::abs (audio_->beats_);
@@ -185,7 +184,7 @@ Midi_time_signature::to_string () const
                    uint8_t (intlog2 (den)),
                    uint8_t (audio_->base_moment_clocks_),
                    8};
-  return string (reinterpret_cast<char *> (out), sizeof (out));
+  return std::string (reinterpret_cast<char *> (out), sizeof (out));
 }
 
 Midi_note::Midi_note (Audio_note *a)
@@ -223,11 +222,11 @@ Midi_note::get_semitone_pitch () const
   return int (rint (tune));
 }
 
-string
+std::string
 Midi_note::to_string () const
 {
   const auto status_byte = static_cast<Byte> (0x90 + channel_);
-  string str = "";
+  std::string str = "";
 
   // print warning if fine tuning was needed, HJJ
   if (get_fine_tuning () != 0)
@@ -257,12 +256,12 @@ Midi_note_off::Midi_note_off (Midi_note *n)
   aftertouch_byte_ = 0;
 }
 
-string
+std::string
 Midi_note_off::to_string () const
 {
   const auto status_byte = static_cast<Byte> (0x90 + channel_);
 
-  string str (1, status_byte);
+  std::string str (1, status_byte);
   str += static_cast<char> (get_semitone_pitch () + Midi_note::c0_pitch_);
   str += aftertouch_byte_;
 
@@ -284,11 +283,11 @@ Midi_piano_pedal::Midi_piano_pedal (Audio_piano_pedal *a)
 {
 }
 
-string
+std::string
 Midi_piano_pedal::to_string () const
 {
   const auto status_byte = static_cast<Byte> (0xB0 + channel_);
-  string str (1, status_byte);
+  std::string str (1, status_byte);
 
   if (audio_->type_ == SOSTENUTO)
     str += static_cast<char> (0x42);
@@ -307,12 +306,12 @@ Midi_tempo::Midi_tempo (Audio_tempo *a)
 {
 }
 
-string
+std::string
 Midi_tempo::to_string () const
 {
   uint32_t useconds_per_4 = 60 * 1000000 / audio_->per_minute_4_;
   uint8_t out[] = {0xff, 0x51, 0x03};
-  return string (reinterpret_cast<char *> (out), sizeof (out))
+  return std::string (reinterpret_cast<char *> (out), sizeof (out))
          + String_convert::be_u24 (useconds_per_4);
 }
 
@@ -321,21 +320,21 @@ Midi_text::Midi_text (Audio_text *a)
 {
 }
 
-string
+std::string
 Midi_text::to_string () const
 {
   uint8_t text_code[] = {0xff, audio_->type_};
-  string str (reinterpret_cast<char *> (text_code), sizeof (text_code));
+  std::string str (reinterpret_cast<char *> (text_code), sizeof (text_code));
   str += int2midi_varint_string (int (audio_->text_string_.length ()));
   str += audio_->text_string_;
   return str;
 }
 
-string
+std::string
 Midi_control_change::to_string () const
 {
   const auto status_byte = static_cast<Byte> (0xB0 + channel_);
-  string str (1, status_byte);
+  std::string str (1, status_byte);
   str += static_cast<char> (audio_->control_);
   str += static_cast<char> (audio_->value_);
   return str;

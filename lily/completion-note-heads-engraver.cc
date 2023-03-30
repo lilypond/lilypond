@@ -37,7 +37,6 @@
 
 #include <cctype>
 
-using std::vector;
 
 /*
   How does this work?
@@ -56,11 +55,11 @@ using std::vector;
 
 class Completion_heads_engraver : public Engraver
 {
-  vector<Item *> notes_;
-  vector<Item *> prev_notes_;
+  std::vector<Item *> notes_;
+  std::vector<Item *> prev_notes_;
   // Must remember notes for explicit ties.
-  vector<Spanner *> ties_;
-  vector<Stream_event *> note_events_;
+  std::vector<Spanner *> ties_;
+  std::vector<Stream_event *> note_events_;
   Spanner *tie_column_;
   Moment note_end_mom_;
   bool is_first_;

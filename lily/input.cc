@@ -30,7 +30,6 @@
 #include <cstdio>
 #include <functional>
 
-using std::string;
 
 Input
 Input::spot () const
@@ -68,8 +67,8 @@ Input::set_location (Input const &i_start, Input const &i_end)
 
   [file:line:column:][warning:]message
 */
-string
-Input::message_string (const string &msg) const
+std::string
+Input::message_string (const std::string &msg) const
 {
   if (source_file_)
     return msg + "\n" + source_file_->quote_input (start_);
@@ -77,49 +76,49 @@ Input::message_string (const string &msg) const
     return msg;
 }
 
-string
+std::string
 Input::message_location () const
 {
   return (source_file_) ? location_string () : "";
 }
 
 [[noreturn]] void
-Input::error (const string &s) const
+Input::error (const std::string &s) const
 {
   ::error (message_string (s), message_location ());
 }
 
 void
-Input::programming_error (const string &s) const
+Input::programming_error (const std::string &s) const
 {
   ::programming_error (message_string (s), message_location ());
 }
 
 void
-Input::non_fatal_error (const string &s) const
+Input::non_fatal_error (const std::string &s) const
 {
   ::non_fatal_error (message_string (s), message_location ());
 }
 
 void
-Input::warning (const string &s) const
+Input::warning (const std::string &s) const
 {
   ::warning (message_string (s), message_location ());
 }
 
 void
-Input::message (const string &s) const
+Input::message (const std::string &s) const
 {
   ::message (message_string (s), true, message_location ());
 }
 
 void
-Input::debug_output (const string &s) const
+Input::debug_output (const std::string &s) const
 {
   ::debug_output (message_string (s), true, message_location ());
 }
 
-string
+std::string
 Input::location_string () const
 {
   if (source_file_)
@@ -127,7 +126,7 @@ Input::location_string () const
   return " (" + _ ("position unknown") + ")";
 }
 
-string
+std::string
 Input::line_number_string () const
 {
   if (source_file_)
@@ -135,7 +134,7 @@ Input::line_number_string () const
   return "?";
 }
 
-string
+std::string
 Input::file_string () const
 {
   if (source_file_)

@@ -47,7 +47,6 @@
 #include <limits>
 #include <vector>
 
-using std::vector;
 
 Grob_array *
 System::all_elements ()
@@ -106,7 +105,7 @@ is_spanner (const Grob *g)
 vsize
 System::spanner_count () const
 {
-  const vector<Grob *> &grobs = all_elements ()->array ();
+  const std::vector<Grob *> &grobs = all_elements ()->array ();
   return std::count_if (grobs.begin (), grobs.end (), is_spanner);
 }
 
@@ -227,10 +226,10 @@ System::get_paper_systems ()
   return lines;
 }
 
-vector<Grob *>
+std::vector<Grob *>
 System::get_footnote_grobs_in_range (vsize start, vsize end)
 {
-  vector<Grob *> out;
+  std::vector<Grob *> out;
   extract_grob_set (this, "footnotes-before-line-breaking", footnote_grobs);
   for (vsize i = 0; i < footnote_grobs.size (); i++)
     {
@@ -297,23 +296,23 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
   return out;
 }
 
-vector<Real>
+std::vector<Real>
 System::get_footnote_heights_in_range (vsize start, vsize end)
 {
   return internal_get_note_heights_in_range (start, end, true);
 }
 
-vector<Real>
+std::vector<Real>
 System::get_in_note_heights_in_range (vsize start, vsize end)
 {
   return internal_get_note_heights_in_range (start, end, false);
 }
 
-vector<Real>
+std::vector<Real>
 System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
 {
-  vector<Grob *> footnote_grobs = get_footnote_grobs_in_range (start, end);
-  vector<Real> out;
+  std::vector<Grob *> footnote_grobs = get_footnote_grobs_in_range (start, end);
+  std::vector<Real> out;
 
   for (vsize i = footnote_grobs.size (); i--;)
     if (foot ? !from_scm<bool> (get_property (footnote_grobs[i], "footnote"))
@@ -381,7 +380,7 @@ SCM
 System::footnotes_before_line_breaking (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  vector<Grob *> footnotes;
+  std::vector<Grob *> footnotes;
   SCM grobs_scm = Grob_array::make_array ();
   extract_grob_set (me, "all-elements", elts);
   for (vsize i = 0; i < elts.size (); i++)
@@ -400,7 +399,7 @@ System::footnotes_after_line_breaking (SCM smob)
   auto *const sys = LY_ASSERT_SMOB (System, smob, 1);
 
   Interval_t<int> sri = sys->spanned_column_rank_interval ();
-  vector<Grob *> footnote_grobs
+  std::vector<Grob *> footnote_grobs
     = sys->get_footnote_grobs_in_range (sri[LEFT], sri[RIGHT]);
   std::sort (footnote_grobs.begin (), footnote_grobs.end (), grob_2D_less);
 
@@ -416,7 +415,7 @@ System::vertical_skyline_elements (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (System, smob, 1);
 
-  vector<Grob *> vertical_skyline_grobs;
+  std::vector<Grob *> vertical_skyline_grobs;
   extract_grob_set (me, "elements", my_elts);
   for (vsize i = 0; i < my_elts.size (); i++)
     if (has_interface<System_start_delimiter> (my_elts[i]))
@@ -442,7 +441,7 @@ System::vertical_skyline_elements (SCM smob)
 }
 
 void
-System::break_into_pieces (vector<Column_x_positions> const &breaking)
+System::break_into_pieces (std::vector<Column_x_positions> const &breaking)
 {
   for (vsize i = 0; i < breaking.size (); i++)
     {
@@ -453,7 +452,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
       // set rank
       system->rank_ = broken_intos_.size ();
 
-      vector<Paper_column *> const &c (breaking[i].cols_);
+      std::vector<Paper_column *> const &c (breaking[i].cols_);
       pscore_->typeset_system (system);
 
       int st = c[0]->get_rank ();
@@ -475,7 +474,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
         Collect labels from any loose columns too: theses will be set on
         an empty bar line or a column which is otherwise unused mid-line
       */
-      vector<Paper_column *> const &loose (breaking[i].loose_cols_);
+      std::vector<Paper_column *> const &loose (breaking[i].loose_cols_);
       for (vsize j = 0; j < loose.size (); j++)
         collect_labels (loose[j], &system_labels);
 
@@ -564,7 +563,7 @@ System::post_processing ()
      This might seem inefficient, but Stencils are cached per grob
      anyway. */
 
-  vector<Grob *> all_elts_sorted (all_elements ()->array ());
+  std::vector<Grob *> all_elts_sorted (all_elements ()->array ());
   uniquify (all_elts_sorted);
   get_stencil ();
   for (Grob *g : all_elts_sorted)
@@ -596,7 +595,7 @@ System::get_paper_system ()
 
   post_processing ();
 
-  vector<Layer_entry> entries;
+  std::vector<Layer_entry> entries;
   auto &all_elts = all_elements ()->array ();
   for (Grob *g : all_elts)
     {
@@ -679,10 +678,10 @@ System::get_paper_system ()
   return pl->unprotect ();
 }
 
-vector<Item *>
+std::vector<Item *>
 System::broken_col_range (Item const *left_item, Item const *right_item)
 {
-  vector<Item *> ret;
+  std::vector<Item *> ret;
 
   Paper_column *left_col = left_item->get_column ();
   Paper_column *right_col = right_item->get_column ();
@@ -707,7 +706,7 @@ System::broken_col_range (Item const *left_item, Item const *right_item)
     Return all columns in the given right-open range, but filter out any unused
     columns, since they might disrupt the spacing problem.
 */
-vector<Paper_column *>
+std::vector<Paper_column *>
 System::used_columns_in_range (vsize start, vsize end)
 {
   extract_grob_set (this, "columns", ro_columns);
@@ -724,7 +723,7 @@ System::used_columns_in_range (vsize start, vsize end)
 
   end = std::min (end, last_breakable + 1);
 
-  vector<Paper_column *> columns;
+  std::vector<Paper_column *> columns;
   for (vsize i = start; i < end; ++i)
     {
       Paper_column *c = dynamic_cast<Paper_column *> (ro_columns[i]);
@@ -827,7 +826,7 @@ System::pure_refpoint_extent (vsize start, vsize end)
     return Interval ();
 
   extract_grob_set (alignment, "elements", staves);
-  vector<Real> offsets = Align_interface::get_pure_minimum_translations (
+  std::vector<Real> offsets = Align_interface::get_pure_minimum_translations (
     alignment, staves, Y_AXIS, start, end);
 
   for (vsize i = 0; i < offsets.size (); ++i)
@@ -855,7 +854,7 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
     return Interval ();
 
   extract_grob_set (alignment, "elements", staves);
-  vector<Real> offsets = Align_interface::get_pure_minimum_translations (
+  std::vector<Real> offsets = Align_interface::get_pure_minimum_translations (
     alignment, staves, Y_AXIS, start, end);
 
   Interval ret;
@@ -903,7 +902,7 @@ System::calc_pure_relevant_grobs (SCM smob)
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
   extract_grob_set (me, "elements", elts);
-  vector<Grob *> relevant_grobs;
+  std::vector<Grob *> relevant_grobs;
 
   for (vsize i = 0; i < elts.size (); ++i)
     {
@@ -950,12 +949,12 @@ System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
 Paper_column *
 System::get_pure_bound (Direction d, vsize start, vsize end)
 {
-  vector<vsize> const &ranks = pscore_->get_break_ranks ();
-  vector<vsize> const &indices = pscore_->get_break_indices ();
-  vector<Paper_column *> const &cols = pscore_->get_columns ();
+  std::vector<vsize> const &ranks = pscore_->get_break_ranks ();
+  std::vector<vsize> const &indices = pscore_->get_break_indices ();
+  std::vector<Paper_column *> const &cols = pscore_->get_columns ();
 
   vsize target_rank = (d == LEFT ? start : end);
-  vector<vsize>::const_iterator i = lower_bound (
+  std::vector<vsize>::const_iterator i = lower_bound (
     ranks.begin (), ranks.end (), target_rank, std::less<vsize> ());
 
   if (i != ranks.end () && (*i) == target_rank)

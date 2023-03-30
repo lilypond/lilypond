@@ -29,7 +29,6 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
-using std::string;
 
 Stencil
 vaticana_brew_cauda (Grob *me, int pos, int delta_pitch, Real thickness,
@@ -204,7 +203,7 @@ vaticana_brew_primitive (Grob *me)
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     }
 
-  string glyph_name = ly_scm2string (glyph_name_scm);
+  std::string glyph_name = ly_scm2string (glyph_name_scm);
 
   Stencil out;
   Real thickness = from_scm<double> (get_property (me, "thickness"), 1);

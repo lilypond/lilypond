@@ -30,7 +30,6 @@
 
 #include <cstdio>
 
-using std::string;
 
 Global_context::Global_context (Output_def *odef, Context_def *cdef)
   : Context (cdef, SCM_EOL)

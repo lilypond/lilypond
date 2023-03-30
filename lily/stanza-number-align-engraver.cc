@@ -26,7 +26,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Stanza_number_align_engraver : public Engraver
 {
@@ -34,8 +33,8 @@ public:
   TRANSLATOR_DECLARATIONS (Stanza_number_align_engraver);
 
 protected:
-  vector<Grob *> lyrics_;
-  vector<Grob *> stanza_numbers_;
+  std::vector<Grob *> lyrics_;
+  std::vector<Grob *> stanza_numbers_;
 
   void acknowledge_lyric_syllable (Grob_info);
   void acknowledge_stanza_number (Grob_info);

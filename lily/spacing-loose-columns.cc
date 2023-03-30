@@ -28,7 +28,6 @@
 #include "moment.hh"
 #include "spacing-options.hh"
 
-using std::vector;
 
 /* Find the loose columns in POSNS, and drape them around the columns
    specified in BETWEEN-COLS.  */
@@ -50,7 +49,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       Paper_column *left = 0;
       Paper_column *right = 0;
 
-      vector<Paper_column *> clique;
+      std::vector<Paper_column *> clique;
       while (1)
         {
           SCM between = get_object (loose, "between-cols");
@@ -127,8 +126,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
         However, other rods may widen this distance, in which case we don't want a crammed score.
         Thus, we aim for non-crammed, and fall back on crammed as needed.
       */
-      vector<Real> clique_spacing;
-      vector<Real> clique_tight_spacing;
+      std::vector<Real> clique_spacing;
+      std::vector<Real> clique_tight_spacing;
       clique_spacing.push_back (0.0);
       clique_tight_spacing.push_back (0.0);
       for (vsize j = 1; j + 1 < clique.size (); j++)

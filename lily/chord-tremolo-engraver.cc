@@ -32,7 +32,6 @@
 
 #include "translator.icc"
 
-using std::string;
 
 /**
 

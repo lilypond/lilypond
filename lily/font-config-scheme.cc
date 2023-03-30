@@ -26,12 +26,11 @@
 
 #include <fontconfig/fontconfig.h>
 
-using std::string;
 
-string
+std::string
 display_fontset (FcFontSet *fs)
 {
-  string retval;
+  std::string retval;
 
   int j;
   for (j = 0; j < fs->nfont; j++)
@@ -56,10 +55,10 @@ display_fontset (FcFontSet *fs)
   return retval;
 }
 
-string
+std::string
 display_strlist (char const *what, FcStrList *slist)
 {
-  string retval;
+  std::string retval;
   while (FcChar8 *dir = FcStrListNext (slist))
     {
       retval += String_convert::form_string ("%s: %s\n", what, dir);
@@ -67,17 +66,17 @@ display_strlist (char const *what, FcStrList *slist)
   return retval;
 }
 
-string
+std::string
 display_config (FcConfig *fcc)
 {
-  string retval;
+  std::string retval;
   retval += display_strlist ("Config files", FcConfigGetConfigFiles (fcc));
   retval += display_strlist ("Config dir", FcConfigGetConfigDirs (fcc));
   retval += display_strlist ("Font dir", FcConfigGetFontDirs (fcc));
   return retval;
 }
 
-string
+std::string
 display_list (FcConfig *fcc)
 {
   FcPattern *pat = FcPatternCreate ();
@@ -91,7 +90,7 @@ display_list (FcConfig *fcc)
   if (pat)
     FcPatternDestroy (pat);
 
-  string retval;
+  std::string retval;
   if (fs)
     {
       retval = display_fontset (fs);
@@ -138,7 +137,7 @@ LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0,
 Dump a list of all fonts visible to FontConfig.
            )")
 {
-  string str = display_list (NULL);
+  std::string str = display_list (NULL);
   str += display_config (NULL);
 
   progress_indication (str);
@@ -154,7 +153,7 @@ Add directory @var{dir} to FontConfig.
 {
   LY_ASSERT_TYPE (scm_is_string, dir, 1);
 
-  string d = ly_scm2string (dir);
+  std::string d = ly_scm2string (dir);
 
   if (!FcConfigAppFontAddDir (0,
                               reinterpret_cast<const FcChar8 *> (d.c_str ())))
@@ -175,7 +174,7 @@ Add font @var{font} to FontConfig.
 {
   LY_ASSERT_TYPE (scm_is_string, font, 1);
 
-  string f = ly_scm2string (font);
+  std::string f = ly_scm2string (font);
 
   if (!FcConfigAppFontAddFile (0,
                                reinterpret_cast<const FcChar8 *> (f.c_str ())))

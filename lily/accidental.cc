@@ -29,8 +29,6 @@
 #include "stencil.hh"
 #include "system.hh"
 
-using std::string;
-using std::vector;
 
 Stencil
 parenthesize (Grob *me, Stencil m)
@@ -63,7 +61,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
 
   SCM parenthesized = get_property (me, "parenthesized");
 
-  string glyph_name = ly_scm2string (get_property (me, "glyph-name"));
+  std::string glyph_name = ly_scm2string (get_property (me, "glyph-name"));
 
   if ((glyph_name == "accidentals.flat" || glyph_name == "accidentals.flatflat")
       && !from_scm<bool> (parenthesized))
@@ -76,7 +74,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
       // completely bizarre
       Real left = my_stencil->extent (X_AXIS)[LEFT];
       Real right = my_stencil->extent (X_AXIS)[RIGHT] * 0.375;
-      vector<Box> boxes;
+      std::vector<Box> boxes;
       boxes.push_back (
         Box (Interval (left, right), my_stencil->extent (Y_AXIS)));
       Skyline merge_with_me (boxes, Y_AXIS, RIGHT);

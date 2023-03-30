@@ -35,7 +35,6 @@
 #include "warn.hh"
 #include "program-option.hh"
 
-using std::string;
 
 Lily_parser::Lily_parser (Sources *sources)
 {
@@ -96,8 +95,8 @@ Lily_parser::print_smob (SCM port, scm_print_state *) const
 
 /* Process one .ly file, or book.  */
 void
-Lily_parser::parse_file (const string &init, const string &name,
-                         const string &out_name)
+Lily_parser::parse_file (const std::string &init, const std::string &name,
+                         const std::string &out_name)
 {
   output_basename_ = out_name;
 
@@ -124,7 +123,7 @@ Lily_parser::parse_file (const string &init, const string &name,
 }
 
 void
-Lily_parser::parse_string (const string &ly_code)
+Lily_parser::parse_string (const std::string &ly_code)
 {
   lexer_->main_input_name_ = "<string>";
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
@@ -139,8 +138,8 @@ Lily_parser::parse_string (const string &ly_code)
 }
 
 SCM
-Lily_parser::parse_string_expression (const string &ly_code,
-                                      const string &filename, int line)
+Lily_parser::parse_string_expression (const std::string &ly_code,
+                                      const std::string &filename, int line)
 {
   lexer_->main_input_name_ = filename;
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
@@ -160,7 +159,7 @@ Lily_parser::parse_string_expression (const string &ly_code,
 }
 
 void
-Lily_parser::include_string (const string &ly_code)
+Lily_parser::include_string (const std::string &ly_code)
 {
   lexer_->new_input ("<included string>", ly_code, sources_);
 }
@@ -178,14 +177,14 @@ Lily_parser::clear ()
 }
 
 void
-Lily_parser::parser_error (const string &s)
+Lily_parser::parser_error (const std::string &s)
 {
   lexer_->here_input ().non_fatal_error (_ (s.c_str ()));
   error_level_ = 1;
 }
 
 void
-Lily_parser::parser_error (Input const &i, const string &s)
+Lily_parser::parser_error (Input const &i, const std::string &s)
 {
   i.non_fatal_error (s);
   error_level_ = 1;

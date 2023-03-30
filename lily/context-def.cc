@@ -31,9 +31,6 @@
 #include "translator.hh"
 #include "warn.hh"
 
-using std::set;
-using std::string;
-using std::vector;
 
 static bool
 is_instantiable (Context_def *c)
@@ -102,7 +99,7 @@ Context_def::print_smob (SCM port, scm_print_state *) const
   scm_puts ("#<Context_def ", port);
   scm_display (context_name_, port);
   scm_puts (" ", port);
-  string loc = origin ()->location_string ();
+  std::string loc = origin ()->location_string ();
   scm_puts (loc.c_str (), port);
   scm_puts (">", port);
   return 1;
@@ -181,11 +178,11 @@ Context_def::add_context_mod (SCM mod)
   caller is a Context instantiated from this Context_def, but its acceptance
   list may have been modified from the defined default.)
 */
-vector<Context_def *>
+std::vector<Context_def *>
 Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef,
                                          SCM accepted) const
 {
-  set<const Context_def *> seen;
+  std::set<const Context_def *> seen;
   Context_def *t = unsmob<Context_def> (find_context_def (odef, type_sym));
   return internal_path_to_acceptable_context (type_sym, is_instantiable (t),
                                               odef, accepted, &seen);
@@ -204,14 +201,14 @@ doing, we allow substituting an instantiable context that aliases the requested
 context.  Example: The caller requests a Timing and the current context would
 accept a Score, for which Timing is an alias, so substitute a Score.
 */
-vector<Context_def *>
+std::vector<Context_def *>
 Context_def::internal_path_to_acceptable_context (
   SCM type_sym, bool instantiable, Output_def *odef, SCM accepted,
-  set<const Context_def *> *seen) const
+  std::set<const Context_def *> *seen) const
 {
   assert (scm_is_symbol (type_sym));
 
-  vector<Context_def *> accepteds;
+  std::vector<Context_def *> accepteds;
   for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
     {
       Context_def *t
@@ -220,7 +217,7 @@ Context_def::internal_path_to_acceptable_context (
         accepteds.push_back (t);
     }
 
-  vector<Context_def *> best_result;
+  std::vector<Context_def *> best_result;
   for (vsize i = 0; i < accepteds.size (); i++)
     {
       bool valid = instantiable
@@ -242,7 +239,7 @@ Context_def::internal_path_to_acceptable_context (
       if (!seen->count (g))
         {
           SCM acc = g->acceptance_.get_list ();
-          vector<Context_def *> result
+          std::vector<Context_def *> result
             = g->internal_path_to_acceptable_context (type_sym, instantiable,
                                                       odef, acc, seen);
           if (result.size () && result.size () < best_depth)
@@ -258,10 +255,10 @@ Context_def::internal_path_to_acceptable_context (
   return best_result;
 }
 
-vector<Context_def *>
+std::vector<Context_def *>
 Context_def::path_to_bottom_context (Output_def *odef, SCM first_child_type_sym)
 {
-  vector<Context_def *> path;
+  std::vector<Context_def *> path;
   if (!internal_path_to_bottom_context (odef, &path, first_child_type_sym))
     path.clear ();
   return path;
@@ -269,7 +266,7 @@ Context_def::path_to_bottom_context (Output_def *odef, SCM first_child_type_sym)
 
 bool
 Context_def::internal_path_to_bottom_context (Output_def *odef,
-                                              vector<Context_def *> *path,
+                                              std::vector<Context_def *> *path,
                                               SCM next_type_sym)
 {
   if (!scm_is_symbol (next_type_sym))

@@ -37,7 +37,6 @@
 
 #include <cctype>
 
-using std::vector;
 
 /*
   How does this work?
@@ -56,8 +55,8 @@ using std::vector;
 
 class Completion_rest_engraver : public Engraver
 {
-  vector<Item *> rests_;
-  vector<Stream_event *> rest_events_;
+  std::vector<Item *> rests_;
+  std::vector<Stream_event *> rest_events_;
   Moment rest_end_mom_;
   bool is_first_;
   Rational left_to_do_;

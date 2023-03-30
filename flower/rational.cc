@@ -27,7 +27,6 @@
 #include <string>
 #include <utility>
 
-using std::string;
 
 Rational::operator double () const
 {
@@ -348,20 +347,20 @@ Rational::operator-= (Rational r)
   return (*this += r);
 }
 
-string
+std::string
 Rational::to_string () const
 {
   if (isinf (*this))
     {
-      return string (sign_ > 0 ? "" : "-") + "infinity";
+      return std::string (sign_ > 0 ? "" : "-") + "infinity";
     }
 
   if (isnan (*this))
     {
-      return string (sign_ > 0 ? "" : "-") + "nan";
+      return std::string (sign_ > 0 ? "" : "-") + "nan";
     }
 
-  string s = std::to_string (num ());
+  std::string s = std::to_string (num ());
   if (den () != 1 && num ())
     s += "/" + std::to_string (den ());
   return s;

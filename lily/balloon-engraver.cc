@@ -25,7 +25,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Balloon_engraver : public Engraver
 {
@@ -33,7 +32,7 @@ class Balloon_engraver : public Engraver
 
   void listen_annotate_output (Stream_event *);
   void acknowledge_grob (Grob_info) override;
-  vector<Stream_event *> events_;
+  std::vector<Stream_event *> events_;
   void stop_translation_timestep ();
 };
 

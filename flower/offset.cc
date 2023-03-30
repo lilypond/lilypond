@@ -24,14 +24,13 @@
 
 #include <cmath>
 
-using std::string;
 
 #ifndef STANDALONE
-string
+std::string
 Offset::to_string () const
 {
-  string s;
-  s = string (" (") + std::to_string (coordinate_a_[X_AXIS]) + ", "
+  std::string s;
+  s = std::string (" (") + std::to_string (coordinate_a_[X_AXIS]) + ", "
       + std::to_string (coordinate_a_[Y_AXIS]) + ")";
   return s;
 }

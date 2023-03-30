@@ -31,7 +31,6 @@
 #include <algorithm>
 #include <vector>
 
-using std::vector;
 
 /*
   We use the following optimal substructure. Let W (A) be our weight function.
@@ -135,7 +134,7 @@ Constrained_breaking::space_line (vsize i, vsize j)
 
   // TODO: Unnecessary copy.  Could pass iterators/indices to
   // get_line_configuration().  What is the real cost?
-  vector<Paper_column *> const line (all_.begin () + breaks_[i],
+  std::vector<Paper_column *> const line (all_.begin () + breaks_[i],
                                      all_.begin () + breaks_[j] + 1);
   Interval line_dims = line_dimension_interval (pscore_->layout (), i);
   bool last = j == breaks_.size () - 1;
@@ -175,14 +174,14 @@ Constrained_breaking::resize (vsize systems)
     }
 }
 
-vector<Column_x_positions>
+std::vector<Column_x_positions>
 Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
 {
   vsize start_brk = starting_breakpoints_[start];
   vsize end_brk = prepare_solution (start, end, sys_count);
 
   Matrix<Constrained_break_node> const &st = state_[start];
-  vector<Column_x_positions> ret;
+  std::vector<Column_x_positions> ret;
 
   /* find the first solution that satisfies constraints */
   for (vsize sys = sys_count - 1; sys != VPOS; sys--)
@@ -223,13 +222,13 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
   return ret;
 }
 
-vector<Column_x_positions>
+std::vector<Column_x_positions>
 Constrained_breaking::best_solution (vsize start, vsize end)
 {
   vsize min_systems = min_system_count (start, end);
   vsize max_systems = max_system_count (start, end);
   Real best_demerits = infinity_f;
-  vector<Column_x_positions> best_so_far;
+  std::vector<Column_x_positions> best_so_far;
 
   for (vsize i = min_systems; i <= max_systems; i++)
     {
@@ -243,7 +242,7 @@ Constrained_breaking::best_solution (vsize start, vsize end)
         }
       else
         {
-          vector<Column_x_positions> cur = solve (start, end, i);
+          std::vector<Column_x_positions> cur = solve (start, end, i);
           bool too_many_lines = true;
 
           for (vsize j = 0; j < cur.size (); j++)
@@ -266,7 +265,7 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
 {
   vsize end_brk = prepare_solution (start, end, sys_count);
   Matrix<Constrained_break_node> const &st = state_[start];
-  vector<Line_details> ret;
+  std::vector<Line_details> ret;
 
   /* This loop structure is C&Ped from solve(). */
   /* find the first solution that satisfies constraints */
@@ -364,13 +363,13 @@ Constrained_breaking::prepare_solution (vsize start, vsize end, vsize sys_count)
 
 Constrained_breaking::Constrained_breaking (Paper_score *ps)
 {
-  vector<vsize> start;
+  std::vector<vsize> start;
   start.push_back (0);
   initialize (ps, start);
 }
 
 Constrained_breaking::Constrained_breaking (Paper_score *ps,
-                                            vector<vsize> const &start)
+                                            std::vector<vsize> const &start)
 {
   initialize (ps, start);
 }
@@ -390,7 +389,7 @@ min_permission (SCM perm1, SCM perm2)
  */
 void
 Constrained_breaking::initialize (Paper_score *ps,
-                                  vector<vsize> const &pagebreak_col_indices)
+                                  std::vector<vsize> const &pagebreak_col_indices)
 {
   valid_systems_ = systems_ = 0;
   pscore_ = ps;
@@ -461,7 +460,7 @@ Constrained_breaking::initialize (Paper_score *ps,
   breaks_ = pscore_->get_break_indices ();
   all_ = pscore_->root_system ()->used_columns ();
   lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
-  vector<Real> forces = get_line_forces (
+  std::vector<Real> forces = get_line_forces (
     all_, other_lines.length (), other_lines.length () - first_line.length (),
     ragged_right_);
   for (vsize i = 0; i + 1 < breaks_.size (); i++)

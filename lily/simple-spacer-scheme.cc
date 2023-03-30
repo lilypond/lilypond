@@ -24,7 +24,6 @@
 
 #include <cstdio>
 
-using std::vector;
 
 LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem", 4, 0, 0,
            (SCM springs, SCM rods, SCM length, SCM ragged),
@@ -80,7 +79,7 @@ by @var{spring-count}+1 positions of the objects.
   Simple_spacer::Solution sol
     = spacer.solve (from_scm<double> (length), is_ragged);
 
-  vector<Real> posns = spacer.spring_positions (sol.force_, is_ragged);
+  std::vector<Real> posns = spacer.spring_positions (sol.force_, is_ragged);
 
   SCM force_return = sol.fits_ ? to_scm (sol.force_) : SCM_BOOL_F;
 

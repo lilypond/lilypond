@@ -24,7 +24,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Dynamic_performer : public Performer
 {
@@ -85,7 +84,7 @@ private:
 
   struct DynamicQueue
   {
-    vector<UnfinishedSpan> spans_;
+    std::vector<UnfinishedSpan> spans_;
     // total duration of (de)crescendi (i.e. excluding fixed-volume spans)
     Real change_duration_;
     Real min_target_vol_;
@@ -116,7 +115,7 @@ private:
   };
 
 private:
-  vector<Audio_note *> notes_;
+  std::vector<Audio_note *> notes_;
   Stream_event *script_event_;
   Drul_array<Stream_event *> span_events_;
   Direction next_grow_dir_;
@@ -215,7 +214,7 @@ Dynamic_performer::DynamicQueue::set_volume (Real start_vol, Real target_vol)
   const Real gain = target_vol - start_vol;
   Real dur = 0; // duration of (de)crescendi processed so far
   Real vol = start_vol;
-  for (vector<UnfinishedSpan>::iterator it = spans_.begin ();
+  for (std::vector<UnfinishedSpan>::iterator it = spans_.begin ();
        it != spans_.end (); ++it)
     {
       const Real prev_vol = vol;
@@ -446,7 +445,7 @@ Dynamic_performer::stop_translation_timestep ()
     programming_error ("no current dynamic");
   else
     {
-      for (vector<Audio_note *>::const_iterator ni = notes_.begin ();
+      for (std::vector<Audio_note *>::const_iterator ni = notes_.begin ();
            ni != notes_.end (); ++ni)
         {
           (*ni)->dynamic_ = open_span_.dynamic_;

@@ -23,8 +23,6 @@
 #include "open-type-font.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
 
 LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa", 1, 0, 0, (SCM type1_file_name),
            R"(
@@ -34,17 +32,17 @@ file is already in PFA format, pass it through.
 {
   LY_ASSERT_TYPE (scm_is_string, type1_file_name, 1);
 
-  string file_name = ly_scm2string (type1_file_name);
+  std::string file_name = ly_scm2string (type1_file_name);
 
   debug_output ("[" + file_name); // start message on a new line
 
-  string type1_string = gulp_file (file_name, 0);
+  std::string type1_string = gulp_file (file_name, 0);
   SCM pfa_scm;
 
   if (static_cast<Byte> (type1_string[0]) == 0x80)
     {
       /* The file is in PFB format. Convert it to PFA format. */
-      string pfa = pfb2pfa (type1_string);
+      std::string pfa = pfb2pfa (type1_string);
       pfa_scm = scm_from_latin1_stringn (&pfa[0], pfa.size ());
     }
   else
@@ -81,7 +79,7 @@ only; it specifies the font index within the OTC.  The default value of
         }
     }
 
-  string file_name = ly_scm2string (otf_file_name);
+  std::string file_name = ly_scm2string (otf_file_name);
   debug_output ("[" + file_name); // start message on a new line
 
   FT_Face face;
@@ -99,7 +97,7 @@ only; it specifies the font index within the OTC.  The default value of
     }
 
   face = open_ft_face (file_name, i);
-  string table = get_otf_table (face, "CFF ");
+  std::string table = get_otf_table (face, "CFF ");
 
   SCM asscm = scm_from_latin1_stringn (table.data (), table.length ());
   FT_Done_Face (face);

@@ -24,8 +24,6 @@
 
 #include <vector>
 
-using std::string;
-using std::vector;
 
 Real
 directed_round (Real f, Direction d)
@@ -58,10 +56,10 @@ convex_amplifier (Real standard_x, Real increase_factor, Real x)
          / (exp (increase_factor) - 1.0);
 }
 
-string
-camel_case_to_lisp_identifier (const string &in)
+std::string
+camel_case_to_lisp_identifier (const std::string &in)
 {
-  vector<char> out;
+  std::vector<char> out;
 
   /* don't add '-' before first character */
   out.push_back (char (tolower (in[0])));
@@ -73,7 +71,7 @@ camel_case_to_lisp_identifier (const string &in)
       out.push_back (char (tolower (in[inpos])));
     }
 
-  string result (&out[0], out.size ());
+  std::string result (&out[0], out.size ());
   replace_all (&result, '_', '-');
 
   return result;

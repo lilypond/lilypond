@@ -25,7 +25,6 @@
 #include "paper-score.hh"
 #include "system.hh"
 
-using std::vector;
 
 One_page_breaking::One_page_breaking (Paper_book *pb)
   : Page_breaking (pb, 0, 0)
@@ -87,7 +86,7 @@ One_page_breaking::solve ()
   // GET VERTICAL POSITIONS
   // Larger values are lower on the page.  We can't just use the last
   // one, because the last does not necessarily have the lowest bound.
-  vector<Real> line_posns;
+  std::vector<Real> line_posns;
   SCM lowest_line_pos = to_scm (0);
 
   Prob *page_pb = unsmob<Prob> (scm_car (pages));
@@ -102,7 +101,7 @@ One_page_breaking::solve ()
     }
 
   // CALCULATE THE LOWEST LOWER BOUND OF ALL LINES ON THE PAGE
-  vector<Real> line_heights;
+  std::vector<Real> line_heights;
   for (vsize i = 0; i < system_specs_.size (); i++)
     {
       if (Paper_score *ps = system_specs_[i].pscore_)

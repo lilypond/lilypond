@@ -29,15 +29,13 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
 
 /*
   TODO: Add support for cubic spline segments.
  */
 Stencil
-brew_cluster_piece (Grob *me, vector<Offset> bottom_points,
-                    vector<Offset> top_points)
+brew_cluster_piece (Grob *me, std::vector<Offset> bottom_points,
+                    std::vector<Offset> top_points)
 {
   Real blotdiameter = Staff_symbol_referencer::staff_space (me) / 2;
 
@@ -48,7 +46,7 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points,
   Offset hvpadding = 0.5 * hpadding + vpadding;
 
   SCM shape_scm = get_property (me, "style");
-  string shape;
+  std::string shape;
 
   if (scm_is_symbol (shape_scm))
     shape = ly_symbol2string (shape_scm);
@@ -60,7 +58,7 @@ brew_cluster_piece (Grob *me, vector<Offset> bottom_points,
     }
 
   Stencil out;
-  vector<Offset> points;
+  std::vector<Offset> points;
   points.clear ();
   vsize size = bottom_points.size ();
   if (size <= 0)
@@ -156,7 +154,7 @@ Cluster::print (SCM smob)
 
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
 
-  vector<Grob *> const &cols = extract_grob_array (me, "columns");
+  std::vector<Grob *> const &cols = extract_grob_array (me, "columns");
   if (cols.empty ())
     {
       me->warning (_ ("junking empty cluster"));
@@ -167,8 +165,8 @@ Cluster::print (SCM smob)
 
   commonx = common_refpoint_of_array (cols, commonx, X_AXIS);
   Grob *commony = common_refpoint_of_array (cols, me, Y_AXIS);
-  vector<Offset> bottom_points;
-  vector<Offset> top_points;
+  std::vector<Offset> bottom_points;
+  std::vector<Offset> top_points;
 
   Real left_coord = left_bound->relative_coordinate (commonx, X_AXIS);
 

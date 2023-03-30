@@ -40,7 +40,6 @@
 #include "warn.hh"
 #include "semi-tie-column.hh"
 
-using std::string;
 
 void
 Tie::set_head (Spanner *me, Direction d, Grob *h)
@@ -257,7 +256,7 @@ Tie::print (SCM smob)
   SCM annotation = get_property (me, "annotation");
   if (scm_is_string (annotation))
     {
-      string str;
+      std::string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       if (!scm_is_number (get_property (me, "font-size")))

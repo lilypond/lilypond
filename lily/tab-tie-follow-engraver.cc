@@ -28,7 +28,6 @@
 #include <cctype>
 #include <cstdio>
 
-using std::vector;
 
 /*
    Change tab-note-head properties when a tie is followed by a
@@ -36,9 +35,9 @@ using std::vector;
 */
 class Tab_tie_follow_engraver : public Engraver
 {
-  vector<Spanner *> slurs_;
-  vector<Spanner *> glissandi_;
-  vector<Item *> note_heads_;
+  std::vector<Spanner *> slurs_;
+  std::vector<Spanner *> glissandi_;
+  std::vector<Item *> note_heads_;
 
 public:
   TRANSLATOR_DECLARATIONS (Tab_tie_follow_engraver);

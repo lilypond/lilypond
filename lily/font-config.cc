@@ -28,8 +28,6 @@
 #include <fontconfig/fontconfig.h>
 #include <sys/stat.h>
 
-using std::string;
-using std::vector;
 
 FcConfig *font_config_global = 0;
 
@@ -45,7 +43,7 @@ init_fontconfig ()
   font_config_global = FcConfigCreate ();
 
   /* fontconfig conf files */
-  vector<string> confs;
+  std::vector<std::string> confs;
 
   /* LilyPond local fontconfig conf file 00
      This file is loaded *before* fontconfig's default conf. */
@@ -80,7 +78,7 @@ init_fontconfig ()
 
   /* Extra trailing slash suddenly breaks fontconfig (fc-cache 2.5.0)
      on windows.  */
-  string dir (lilypond_datadir + "/fonts/otf");
+  std::string dir (lilypond_datadir + "/fonts/otf");
 
   if (!FcConfigAppFontAddDir (font_config_global,
                               reinterpret_cast<const FcChar8 *> (dir.c_str ())))

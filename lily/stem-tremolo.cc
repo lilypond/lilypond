@@ -32,7 +32,6 @@
 #include "stem.hh"
 #include "warn.hh"
 
-using std::vector;
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_cross_staff,
                       "ly:stem-tremolo::calc-cross-staff", 1)
@@ -282,7 +281,7 @@ Stem_tremolo::calc_direction (SCM smob)
 
   Direction stemdir = get_grob_direction (stem);
 
-  vector<int> nhp = Stem::note_head_positions (stem);
+  std::vector<int> nhp = Stem::note_head_positions (stem);
   /*
    * We re-decide stem-dir if there may be collisions with other
    * note heads in the staff.
@@ -292,7 +291,7 @@ Stem_tremolo::calc_direction (SCM smob)
   if (whole_note && has_interface<Note_collision_interface> (maybe_nc))
     {
       Drul_array<bool> avoid_me;
-      vector<int> all_nhps
+      std::vector<int> all_nhps
         = Note_collision_interface::note_head_positions (maybe_nc);
       if (all_nhps[0] < nhp[0])
         avoid_me[DOWN] = true;
@@ -354,7 +353,7 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
       /* we shouldn't position relative to the end of the stem since the stem
          is invisible */
       Real ss = Staff_symbol_referencer::staff_space (me);
-      vector<int> nhp = Stem::note_head_positions (stem);
+      std::vector<int> nhp = Stem::note_head_positions (stem);
       if (nhp.empty ())
         {
           me->warning (_ ("stem tremolo has no note heads"));

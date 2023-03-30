@@ -22,7 +22,6 @@
 #include "lily-guile.hh"
 #include "warn.hh"
 
-using std::string;
 
 const char *const Moment::type_p_name_ = "ly:moment?";
 
@@ -101,10 +100,10 @@ Moment::operator%= (Rational const &r)
   return *this;
 }
 
-string
+std::string
 Moment::to_string () const
 {
-  string s = main_part_.to_string ();
+  std::string s = main_part_.to_string ();
   if (grace_part_)
     s += "G" + grace_part_.to_string ();
   return s;

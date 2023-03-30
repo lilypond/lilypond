@@ -28,14 +28,13 @@
 #include "staff-symbol-referencer.hh"
 #include "string-convert.hh"
 
-using std::vector;
 
 Stencil
 Line_interface::make_arrow (Offset begin, Offset end, Real thick, Real length,
                             Real width)
 {
   Offset dir = (end - begin).direction ();
-  vector<Offset> points;
+  std::vector<Offset> points;
 
   points.push_back (Offset (0, 0));
   points.push_back (Offset (-length, width));

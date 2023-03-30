@@ -21,11 +21,10 @@
 
 #include "yaffut.hh"
 
-using std::vector;
 
 FUNC (interval_set_union)
 {
-  vector<Interval> ivs;
+  std::vector<Interval> ivs;
 
   // Overlapping intervals.
   ivs.push_back (Interval (-1, 1));
@@ -60,7 +59,7 @@ FUNC (interval_set_union)
 
 FUNC (interval_set_nearest_point)
 {
-  vector<Interval> ivs;
+  std::vector<Interval> ivs;
 
   ivs.push_back (Interval (-3, -1));
   ivs.push_back (Interval (1, 3));
@@ -86,7 +85,7 @@ FUNC (interval_set_nearest_point)
 
 FUNC (interval_set_complement)
 {
-  vector<Interval> ivs;
+  std::vector<Interval> ivs;
 
   ivs.push_back (Interval (-3, -1));
   ivs.push_back (Interval (1, 3));

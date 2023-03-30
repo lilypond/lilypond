@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Episema_engraver : public Engraver
 {
@@ -50,7 +49,7 @@ private:
   Last_span_event_listener episema_listener_;
   Spanner *span_ = nullptr;
   Spanner *finished_ = nullptr;
-  vector<Item *> note_columns_;
+  std::vector<Item *> note_columns_;
   void typeset_all ();
 };
 

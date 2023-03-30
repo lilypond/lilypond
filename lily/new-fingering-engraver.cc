@@ -34,7 +34,6 @@
 #include <algorithm>
 #include <vector>
 
-using std::vector;
 
 struct Finger_tuple
 {
@@ -62,13 +61,13 @@ operator<(Finger_tuple const &a, Finger_tuple const &b)
 
 class New_fingering_engraver : public Engraver
 {
-  vector<Finger_tuple> fingerings_;
-  vector<Finger_tuple> stroke_fingerings_;
-  vector<Finger_tuple> articulations_;
-  vector<Finger_tuple> string_numbers_;
+  std::vector<Finger_tuple> fingerings_;
+  std::vector<Finger_tuple> stroke_fingerings_;
+  std::vector<Finger_tuple> articulations_;
+  std::vector<Finger_tuple> string_numbers_;
 
-  vector<Grob *> heads_;
-  vector<Grob *> accidentals_;
+  std::vector<Grob *> heads_;
+  std::vector<Grob *> accidentals_;
   Grob *stem_;
   Item *note_column_;
 
@@ -83,10 +82,10 @@ protected:
   void acknowledge_inline_accidental (Grob_info);
   void acknowledge_stem (Grob_info);
   void acknowledge_note_column (Grob_info_t<Item>);
-  void add_fingering (Grob *, SCM, vector<Finger_tuple> *, Stream_event *,
+  void add_fingering (Grob *, SCM, std::vector<Finger_tuple> *, Stream_event *,
                       Stream_event *);
   void add_script (Grob *, Stream_event *, Stream_event *);
-  void position_scripts (SCM orientations, vector<Finger_tuple> *);
+  void position_scripts (SCM orientations, std::vector<Finger_tuple> *);
 };
 
 void
@@ -171,7 +170,7 @@ New_fingering_engraver::add_script (Grob *head, Stream_event *event,
 
 void
 New_fingering_engraver::add_fingering (Grob *head, SCM grob_sym,
-                                       vector<Finger_tuple> *tuple_vector,
+                                       std::vector<Finger_tuple> *tuple_vector,
                                        Stream_event *event,
                                        Stream_event *hevent)
 {
@@ -190,7 +189,7 @@ New_fingering_engraver::add_fingering (Grob *head, SCM grob_sym,
 
 void
 New_fingering_engraver::position_scripts (SCM orientations,
-                                          vector<Finger_tuple> *scripts)
+                                          std::vector<Finger_tuple> *scripts)
 {
   for (vsize i = 0; i < scripts->size (); i++)
     if (stem_)
@@ -217,7 +216,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     for (vsize j = heads_.size (); j--;)
       Side_position_interface::add_support ((*scripts)[i].script_, heads_[j]);
 
-  vector<Finger_tuple> up, down, horiz;
+  std::vector<Finger_tuple> up, down, horiz;
   for (vsize i = scripts->size (); i--;)
     {
       SCM d = get_property ((*scripts)[i].finger_event_, "direction");
@@ -317,7 +316,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
       set_property (f, "direction", to_scm (hordir));
     }
 
-  Drul_array<vector<Finger_tuple>> vertical (down, up);
+  Drul_array<std::vector<Finger_tuple>> vertical (down, up);
   for (const auto d : {DOWN, UP})
     {
       for (vsize i = 0; i < vertical[d].size (); i++)

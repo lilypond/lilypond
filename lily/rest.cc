@@ -29,7 +29,6 @@
 #include "stencil.hh"
 #include "grob.hh"
 
-using std::string;
 
 // -> offset callback
 MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, "ly:rest::y-offset-callback", 1);
@@ -164,8 +163,8 @@ Rest::calc_cross_staff (SCM smob)
 /*
   make this function easily usable in C++
 */
-string
-Rest::glyph_name (Grob *me, int durlog, const string &style, bool try_ledgers,
+std::string
+Rest::glyph_name (Grob *me, int durlog, const std::string &style, bool try_ledgers,
                   Real offset)
 {
   bool is_ledgered = false;
@@ -184,7 +183,7 @@ Rest::glyph_name (Grob *me, int durlog, const string &style, bool try_ledgers,
                  && Staff_symbol_referencer::on_staff_line (me, pos + 2));
     }
 
-  string actual_style (style.c_str ());
+  std::string actual_style (style.c_str ());
 
   if ((style == "mensural") || (style == "neomensural"))
     {
@@ -236,10 +235,10 @@ Rest::brew_internal_stencil (Grob *me, bool ledgered)
 
   int durlog = from_scm<int> (durlog_scm);
 
-  string style = robust_symbol2string (get_property (me, "style"), "default");
+  std::string style = robust_symbol2string (get_property (me, "style"), "default");
 
   Font_metric *fm = Font_interface::get_default_font (me);
-  string font_char = glyph_name (me, durlog, style, ledgered, 0.0);
+  std::string font_char = glyph_name (me, durlog, style, ledgered, 0.0);
   Stencil out = fm->find_by_name (font_char);
   if (out.is_empty ())
     me->warning (_f ("rest `%s' not found", font_char.c_str ()));

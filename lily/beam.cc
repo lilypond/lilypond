@@ -66,9 +66,6 @@
 #include <map>
 #include <vector>
 
-using std::map;
-using std::string;
-using std::vector;
 
 // like abs(a - b) but works for both signed and unsigned
 // TODO: Move this to some header?
@@ -357,11 +354,11 @@ operator<(Beam_stem_segment const &a, Beam_stem_segment const &b)
   return a.rank_ < b.rank_;
 }
 
-vector<Grob *>
+std::vector<Grob *>
 Beam::get_accidentals (Grob *me)
 {
   extract_grob_set (me, "stems", stems);
-  vector<Grob *> accs;
+  std::vector<Grob *> accs;
   if (!stems.empty ())
     {
       if (Grob *last_stem = stems.back ())
@@ -387,7 +384,7 @@ Beam::get_gaps (Grob *me, Grob *commonx)
 
   if ((Stem::duration_log (stems[0])) <= 0)
     {
-      vector<Grob *> accs = get_accidentals (me);
+      std::vector<Grob *> accs = get_accidentals (me);
 
       if (!accs.empty ())
         {
@@ -414,7 +411,7 @@ Beam::tremolo_springs_and_rods (SCM smob)
 
   extract_grob_set (me, "stems", stems);
 
-  vector<Grob *> accs;
+  std::vector<Grob *> accs;
 
   if (!stems.empty ())
     {
@@ -427,7 +424,7 @@ Beam::tremolo_springs_and_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-typedef map<int, vector<Beam_stem_segment>> Position_stem_segments_map;
+typedef std::map<int, std::vector<Beam_stem_segment>> Position_stem_segments_map;
 
 MAKE_SCHEME_CALLBACK (Beam, calc_beam_segments, "ly:beam::calc-beam-segments",
                       1);
@@ -511,11 +508,11 @@ Beam::calc_beam_segments (SCM smob)
   Drul_array<Real> break_overshoot = from_scm (
     get_property (me, "break-overshoot"), Drul_array<Real> (-0.5, 0.0));
 
-  vector<Beam_segment> segments;
+  std::vector<Beam_segment> segments;
   for (Position_stem_segments_map::const_iterator i (stem_segments.begin ());
        i != stem_segments.end (); i++)
     {
-      vector<Beam_stem_segment> segs = (*i).second;
+      std::vector<Beam_stem_segment> segs = (*i).second;
       std::sort (segs.begin (), segs.end ());
 
       Beam_segment current;
@@ -683,11 +680,11 @@ Beam::calc_x_positions (SCM smob)
   return to_scm (x_positions);
 }
 
-vector<Beam_segment>
+std::vector<Beam_segment>
 Beam::get_beam_segments (Grob *me)
 {
   SCM segments_scm = get_property (me, "beam-segments");
-  vector<Beam_segment> segments;
+  std::vector<Beam_segment> segments;
   for (SCM s = segments_scm; scm_is_pair (s); s = scm_cdr (s))
     {
       segments.push_back (Beam_segment ());
@@ -720,7 +717,7 @@ Beam::print (SCM grob)
   for (const auto d : {LEFT, RIGHT})
     commonx = me->get_bound (d)->common_refpoint (commonx, X_AXIS);
 
-  vector<Beam_segment> segments = get_beam_segments (me);
+  std::vector<Beam_segment> segments = get_beam_segments (me);
 
   if (!segments.size ())
     return SCM_EOL;
@@ -830,7 +827,7 @@ Beam::print (SCM grob)
         should be switchable for those who want to twiddle with the
         parameters.
       */
-      string str;
+      std::string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       properties = scm_cons (
@@ -863,7 +860,7 @@ Beam::get_default_dir (Grob *me)
   extract_grob_set (me, "stems", stems);
 
   Drul_array<Real> extremes;
-  for (vector<Grob *>::const_iterator s = stems.begin (); s != stems.end ();
+  for (std::vector<Grob *>::const_iterator s = stems.begin (); s != stems.end ();
        s++)
     {
       Interval positions = Stem::head_positions (*s);
@@ -968,7 +965,7 @@ Beam::consider_auto_knees (Grob *me)
   Grob *common = common_refpoint_of_array (stems, me, Y_AXIS);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  vector<Interval> head_extents_array;
+  std::vector<Interval> head_extents_array;
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
@@ -1000,7 +997,7 @@ Beam::consider_auto_knees (Grob *me)
   Interval max_gap;
   Real max_gap_len = 0.0;
 
-  vector<Interval> allowed_regions
+  std::vector<Interval> allowed_regions
     = Interval_set::interval_union (head_extents_array)
         .complement ()
         .intervals ();
@@ -1435,7 +1432,7 @@ Beam::pure_rest_collision_callback (SCM smob, SCM, /* start */
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   extract_grob_set (beam, "stems", stems);
-  vector<Grob *> my_stems;
+  std::vector<Grob *> my_stems;
   vsize idx = VPOS;
 
   for (vsize i = 0; i < stems.size (); i++)

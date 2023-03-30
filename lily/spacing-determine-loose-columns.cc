@@ -32,7 +32,6 @@
 #include "break-align-interface.hh"
 #include "warn.hh"
 
-using std::vector;
 
 /*
   Return whether COL is fixed to its neighbors by some kind of spacing
@@ -192,14 +191,14 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
   between.
 */
 void
-Spacing_spanner::prune_loose_columns (Grob *me, vector<Paper_column *> *cols,
+Spacing_spanner::prune_loose_columns (Grob *me, std::vector<Paper_column *> *cols,
                                       Spacing_options *options)
 {
   // rp is a post-increment read pointer running over the *cols
   // vector, wp is a post-increment write pointer.  They start in sync
   // but become different once a loose column gets pruned.
-  vector<Paper_column *>::const_iterator rp;
-  vector<Paper_column *>::iterator wp;
+  std::vector<Paper_column *>::const_iterator rp;
+  std::vector<Paper_column *>::iterator wp;
   // We keep track of the last column in a separate variable instead
   // of reading it from rp since it could already have been
   // overwritten via wp.  Very strictly speaking, this can only happen
@@ -283,7 +282,7 @@ Spacing_spanner::prune_loose_columns (Grob *me, vector<Paper_column *> *cols,
 */
 void
 Spacing_spanner::set_explicit_neighbor_columns (
-  vector<Paper_column *> const &cols)
+  std::vector<Paper_column *> const &cols)
 {
   for (vsize i = 0; i < cols.size (); i++)
     {
@@ -326,7 +325,7 @@ Spacing_spanner::set_explicit_neighbor_columns (
 */
 void
 Spacing_spanner::set_implicit_neighbor_columns (
-  vector<Paper_column *> const &cols)
+  std::vector<Paper_column *> const &cols)
 {
   for (vsize i = 0; i < cols.size (); i++)
     {

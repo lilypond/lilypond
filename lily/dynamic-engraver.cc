@@ -31,7 +31,6 @@
 
 #include "translator.icc"
 
-using std::string;
 
 class Dynamic_engraver : public Engraver
 {
@@ -48,7 +47,7 @@ protected:
 private:
   SCM get_property_setting (Stream_event const *evt, char const *evprop,
                             char const *ctxprop);
-  string get_spanner_type (Stream_event const *ev);
+  std::string get_spanner_type (Stream_event const *ev);
 
 private:
   Unique_span_event_listener span_dynamic_listener_;
@@ -114,7 +113,7 @@ Dynamic_engraver::process_music ()
 
   if (auto *const starter = span_dynamic_listener_.get_start ())
     {
-      string start_type = get_spanner_type (starter);
+      std::string start_type = get_spanner_type (starter);
       SCM cresc_type = get_property_setting (starter, "span-type",
                                              (start_type + "Spanner").c_str ());
 
@@ -140,7 +139,7 @@ Dynamic_engraver::process_music ()
         {
           if (!scm_is_eq (cresc_type, ly_symbol2scm ("hairpin")))
             {
-              string as_string = ly_scm_write_string (cresc_type);
+              std::string as_string = ly_scm_write_string (cresc_type);
               starter->warning (
                 _f ("unknown crescendo style: %s\ndefaulting to hairpin.",
                     as_string.c_str ()));
@@ -211,10 +210,10 @@ Dynamic_engraver::finalize ()
     }
 }
 
-string
+std::string
 Dynamic_engraver::get_spanner_type (Stream_event const *ev)
 {
-  string type;
+  std::string type;
   SCM start_sym = scm_car (get_property (ev, "class"));
 
   if (scm_is_eq (start_sym, ly_symbol2scm ("decrescendo-event")))

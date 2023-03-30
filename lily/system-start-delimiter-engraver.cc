@@ -30,8 +30,6 @@
 
 #include <memory>
 
-using std::unique_ptr;
-using std::vector;
 
 struct Bracket_nesting_node
 {
@@ -47,7 +45,7 @@ public:
 struct Bracket_nesting_group : public Bracket_nesting_node
 {
   Spanner *delimiter_;
-  vector<unique_ptr<Bracket_nesting_node>> children_;
+  std::vector<std::unique_ptr<Bracket_nesting_node>> children_;
   SCM symbol_;
 
   void from_list (SCM);

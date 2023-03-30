@@ -20,7 +20,6 @@
 #include "std-string.hh"
 #include "input.hh"
 
-using std::string;
 
 LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1,
            (SCM sip, SCM msg, SCM rest),
@@ -35,7 +34,7 @@ Print @var{msg} as a GNU compliant warning message, pointing to the location in
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
 
-  string m = ly_scm2string (msg);
+  std::string m = ly_scm2string (msg);
   ip->warning (m);
 
   return SCM_UNSPECIFIED;
@@ -54,7 +53,7 @@ Print @var{msg} as a GNU compliant error message, pointing to the location in
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
 
-  string m = ly_scm2string (msg);
+  std::string m = ly_scm2string (msg);
   ip->message (m);
 
   return SCM_UNSPECIFIED;

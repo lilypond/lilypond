@@ -24,7 +24,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /**
 
@@ -38,7 +37,7 @@ class Span_bar_engraver : public Engraver
 {
   Item *spanbar_;
   bool make_spanbar_;
-  vector<Item *> bars_;
+  std::vector<Item *> bars_;
 
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);

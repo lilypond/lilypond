@@ -26,7 +26,6 @@
 #include "smobs.hh"
 #include "warn.hh"
 
-using std::vector;
 
 /*
   INIT
@@ -42,13 +41,13 @@ using std::vector;
 // units.  So we need a trivial type like a pointer instead.
 
 typedef void (*Void_fptr) ();
-vector<Void_fptr> *scm_init_funcs_;
+std::vector<Void_fptr> *scm_init_funcs_;
 
 void
 add_scm_init_func (void (*f) ())
 {
   if (!scm_init_funcs_)
-    scm_init_funcs_ = new vector<Void_fptr>;
+    scm_init_funcs_ = new std::vector<Void_fptr>;
 
   scm_init_funcs_->push_back (f);
 }

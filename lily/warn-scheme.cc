@@ -25,7 +25,6 @@
 #include "international.hh"
 #include "warn.hh"
 
-using std::string;
 
 /*
   Error / warning / progress / debug message output functions
@@ -188,7 +187,7 @@ Scheme formatting.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
-  string s = _ (ly_scm2string (str).c_str ());
+  std::string s = _ (ly_scm2string (str).c_str ());
 
   /* Now replace all printf placeholders by scheme placeholders (~a).
    * Guile's format syntax is pretty similar to C's printf, only with
@@ -198,7 +197,7 @@ Scheme formatting.
    */
   //   size_t pos = 0;
   const char *pos = s.c_str ();
-  string result = "";
+  std::string result = "";
   while (*pos != '\0')
     {
       // In some cases (%%, %s) we need to do a lookahead. As the C string is

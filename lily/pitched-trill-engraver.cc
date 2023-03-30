@@ -31,7 +31,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 class Pitched_trill_engraver : public Engraver
 {
@@ -52,7 +51,7 @@ private:
   Item *trill_accidental_;
   Item *trill_parentheses_;
 
-  vector<Grob *> heads_;
+  std::vector<Grob *> heads_;
 
   void make_trill (Stream_event *);
 };

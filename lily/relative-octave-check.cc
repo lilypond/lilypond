@@ -21,7 +21,6 @@
 #include "international.hh"
 #include "music.hh"
 
-using std::string;
 
 class Relative_octave_check
 {
@@ -48,7 +47,7 @@ Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
 
       if (result != *check_p)
         {
-          string s = _ ("Failed octave check, got: ");
+          std::string s = _ ("Failed octave check, got: ");
           s += result.to_string ();
 
           m->warning (s);

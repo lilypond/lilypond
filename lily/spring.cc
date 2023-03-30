@@ -36,7 +36,6 @@
 
 #include "spring.hh"
 
-using std::vector;
 
 Spring::Spring ()
 {
@@ -103,7 +102,7 @@ Spring::operator> (Spring const &other) const
 /* merge springs, basically by averaging them, but leave a little headroom
    above the largest minimum distance so that things don't get too cramped */
 Spring
-merge_springs (vector<Spring> const &springs)
+merge_springs (std::vector<Spring> const &springs)
 {
   Real avg_distance = 0;
   Real min_distance = 0;

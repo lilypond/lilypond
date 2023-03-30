@@ -35,8 +35,6 @@
 #include "pitch.hh"
 #include "translator.icc"
 
-using std::string;
-using std::vector;
 
 /*
  * This class implements the notation specific aspects of Vaticana
@@ -68,12 +66,12 @@ private:
   static bool need_extra_horizontal_space (int prev_prefix_set, int prefix_set,
                                            int context_info, int delta_pitch);
   bool is_stacked_head (int prefix_set, int context_info);
-  Real align_heads (vector<Item *> const &primitives, Real flexa_width,
+  Real align_heads (std::vector<Item *> const &primitives, Real flexa_width,
                     Real thickness);
   void check_for_prefix_loss (Item *primitive);
   void check_for_ambiguous_dot_pitch (Item *primitive);
   void add_mora_column (Paper_column *column);
-  vector<Item *> augmented_primitives_;
+  std::vector<Item *> augmented_primitives_;
 
 public:
   TRANSLATOR_DECLARATIONS (Vaticana_ligature_engraver);
@@ -81,7 +79,7 @@ public:
 protected:
   Spanner *create_ligature_spanner () override;
   void transform_heads (Spanner *ligature,
-                        vector<Item *> const &primitives) override;
+                        std::vector<Item *> const &primitives) override;
 };
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver (Context *c)
@@ -183,7 +181,7 @@ Vaticana_ligature_engraver::need_extra_horizontal_space (int prev_prefix_set,
 }
 
 Real
-Vaticana_ligature_engraver::align_heads (vector<Item *> const &primitives,
+Vaticana_ligature_engraver::align_heads (std::vector<Item *> const &primitives,
                                          Real flexa_width, Real thickness)
 {
   if (!primitives.size ())
@@ -235,7 +233,7 @@ Vaticana_ligature_engraver::align_heads (vector<Item *> const &primitives,
                                         " ignoring grob");
           continue;
         }
-      string glyph_name = ly_scm2string (glyph_name_scm);
+      std::string glyph_name = ly_scm2string (glyph_name_scm);
 
       int delta_pitch = 0;
       if (prev_primitive) /* urgh, need prev_primitive only here */
@@ -376,7 +374,7 @@ Vaticana_ligature_engraver::check_for_prefix_loss (Item *primitive)
   int prefix_set = from_scm<int> (get_property (primitive, "prefix-set"));
   if (prefix_set & ~PES_OR_FLEXA)
     {
-      string prefs = Gregorian_ligature::prefixes_to_str (primitive);
+      std::string prefs = Gregorian_ligature::prefixes_to_str (primitive);
       primitive->warning (_f ("ignored prefix(es) `%s' of this head"
                               " according to restrictions of the selected"
                               " ligature style",
@@ -450,7 +448,7 @@ Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Item *primitive)
 
 void
 Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
-                                             vector<Item *> const &primitives)
+                                             std::vector<Item *> const &primitives)
 {
   Real flexa_width
     = from_scm<double> (get_property (ligature, "flexa-width"), 2);
@@ -461,7 +459,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   int prev_prefix_set = 0;
   int prev_context_info = 0;
   int prev_delta_pitch = 0;
-  string prev_glyph_name = "";
+  std::string prev_glyph_name = "";
   augmented_primitives_.clear ();
   for (vsize i = 0; i < primitives.size (); i++)
     {
@@ -516,7 +514,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
        * this decision must be made here in the engraver rather than in
        * the backend).
        */
-      string glyph_name;
+      std::string glyph_name;
       if (prefix_set & VIRGA)
         {
           glyph_name = "vaticana.punctum";

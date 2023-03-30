@@ -33,7 +33,6 @@
 
 #include <cstdio>
 
-using std::string;
 
 LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0, (SCM font),
            R"(
@@ -86,10 +85,10 @@ non-existent @var{tag}.
 
   char ctag[5] = "    ";
 
-  string tag_string = ly_scm2string (tag);
+  std::string tag_string = ly_scm2string (tag);
   strncpy (ctag, tag_string.c_str (), tag_string.length ());
 
-  string tab = otf->get_otf_table (string (ctag));
+  std::string tab = otf->get_otf_table (std::string (ctag));
 
   SCM ret = scm_from_latin1_stringn (tab.data (), tab.length ());
   scm_remember_upto_here_1 (font);
@@ -166,7 +165,7 @@ TTC/OTC. The default value of @var{idx} is@tie{}0.
         }
     }
 
-  string file_name = ly_scm2string (font_file_name);
+  std::string file_name = ly_scm2string (font_file_name);
 
   FT_Face face;
   /* check whether font index is valid */
@@ -212,7 +211,7 @@ default value of @var{idx} is@tie{}0.
         }
     }
 
-  string file_name = ly_scm2string (font_file_name);
+  std::string file_name = ly_scm2string (font_file_name);
 
   FT_Face face;
   /* check whether font index is valid */
@@ -258,7 +257,7 @@ default value of @var{idx} is@tie{}0.
         }
     }
 
-  string file_name = ly_scm2string (font_file_name);
+  std::string file_name = ly_scm2string (font_file_name);
 
   FILE *fp = fopen (file_name.c_str (), "rb");
   if (!fp)

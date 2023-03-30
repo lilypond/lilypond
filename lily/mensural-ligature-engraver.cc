@@ -35,7 +35,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /*
  * TODO: accidentals are aligned with the first note;
@@ -60,17 +59,17 @@ class Mensural_ligature_engraver : public Coherent_ligature_engraver
 protected:
   Spanner *create_ligature_spanner () override;
   void build_ligature (Spanner *ligature,
-                       vector<Item *> const &primitives) override;
+                       std::vector<Item *> const &primitives) override;
 
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
 
 private:
-  void transform_heads (vector<Item *> const &primitives);
+  void transform_heads (std::vector<Item *> const &primitives);
   void propagate_properties (Spanner *ligature,
-                             vector<Item *> const &primitives,
+                             std::vector<Item *> const &primitives,
                              Real &min_length);
-  void fold_up_primitives (vector<Item *> const &primitives, Real &min_length);
+  void fold_up_primitives (std::vector<Item *> const &primitives, Real &min_length);
 };
 
 Mensural_ligature_engraver::Mensural_ligature_engraver (Context *c)
@@ -87,7 +86,7 @@ Mensural_ligature_engraver::create_ligature_spanner ()
 }
 
 void
-Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
+Mensural_ligature_engraver::transform_heads (std::vector<Item *> const &primitives)
 {
   if (primitives.size () < 2)
     {
@@ -333,7 +332,7 @@ Mensural_ligature_engraver::transform_heads (vector<Item *> const &primitives)
  */
 void
 Mensural_ligature_engraver::propagate_properties (
-  Spanner *ligature, vector<Item *> const &primitives, Real &min_length)
+  Spanner *ligature, std::vector<Item *> const &primitives, Real &min_length)
 {
   Real thickness = from_scm<double> (get_property (ligature, "thickness"), 1.3);
   thickness
@@ -404,7 +403,7 @@ Mensural_ligature_engraver::propagate_properties (
 
 void
 Mensural_ligature_engraver::fold_up_primitives (
-  vector<Item *> const &primitives, Real &min_length)
+  std::vector<Item *> const &primitives, Real &min_length)
 {
   Item *first = 0;
   Real distance = 0.0;
@@ -488,7 +487,7 @@ Mensural_ligature_engraver::fold_up_primitives (
 
 void
 Mensural_ligature_engraver::build_ligature (Spanner *ligature,
-                                            vector<Item *> const &primitives)
+                                            std::vector<Item *> const &primitives)
 {
   /*
     the X extent of the actual graphics representing the ligature;

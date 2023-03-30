@@ -42,9 +42,6 @@
 #include <set>
 #include <unordered_set>
 
-using std::set;
-using std::string;
-using std::vector;
 
 Grob::Grob (SCM basicprops)
 {
@@ -209,7 +206,7 @@ Grob::get_print_stencil ()
       {
         for (Direction d : {LEFT, RIGHT})
           {
-            const vector<Offset> &points = skyp[d].to_points (other_axis (a));
+            const std::vector<Offset> &points = skyp[d].to_points (other_axis (a));
             Stencil sky_stil = Lookup::points_to_line_stencil (0.1, points);
             Stencil colored_stil;
             if (a == X_AXIS && d == LEFT)
@@ -780,7 +777,7 @@ Grob::origin () const
   return nullptr;
 }
 
-string
+std::string
 Grob::name () const
 {
   // Technically this could trigger mutation in a callback, but that
@@ -790,7 +787,7 @@ Grob::name () const
   SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
   nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
   return scm_is_symbol (nm) ? ly_symbol2string (nm)
-                            : string ("dead ").append (class_name ());
+                            : std::string ("dead ").append (class_name ());
 }
 
 ADD_INTERFACE (Grob,
@@ -951,7 +948,7 @@ common_refpoint_of_list (SCM elist, Grob *common, Axis a)
 }
 
 Grob *
-common_refpoint_of_array (vector<Grob *> const &arr, Grob *common, Axis a)
+common_refpoint_of_array (std::vector<Grob *> const &arr, Grob *common, Axis a)
 {
   for (vsize i = 0; i < arr.size (); i++)
     if (common)
@@ -963,9 +960,9 @@ common_refpoint_of_array (vector<Grob *> const &arr, Grob *common, Axis a)
 }
 
 Grob *
-common_refpoint_of_array (set<Grob *> const &arr, Grob *common, Axis a)
+common_refpoint_of_array (std::set<Grob *> const &arr, Grob *common, Axis a)
 {
-  set<Grob *>::iterator it;
+  std::set<Grob *>::iterator it;
 
   for (it = arr.begin (); it != arr.end (); it++)
     if (common)
@@ -1012,7 +1009,7 @@ Grob::check_cross_staff (Grob *commony)
 }
 
 void
-uniquify (vector<Grob *> &grobs)
+uniquify (std::vector<Grob *> &grobs)
 {
   std::unordered_set<Grob *> seen (grobs.size ());
   vsize j = 0;

@@ -36,7 +36,6 @@
 #include <cmath> // rint
 #include <cstdio>
 
-using std::string;
 
 MAKE_SCHEME_CALLBACK (Custos, print, "ly:custos::print", 1);
 SCM
@@ -45,7 +44,7 @@ Custos::print (SCM smob)
   auto *const me = unsmob<Item> (smob);
 
   SCM scm_style = get_property (me, "style");
-  string style;
+  std::string style;
   if (scm_is_symbol (scm_style))
     style = ly_symbol2string (scm_style);
   else
@@ -64,7 +63,7 @@ Custos::print (SCM smob)
 
   int pos = Staff_symbol_referencer::get_rounded_position (me);
 
-  string font_char = "custodes." + style + ".";
+  std::string font_char = "custodes." + style + ".";
   if (pos < neutral_pos)
     font_char += "u";
   else if (pos > neutral_pos)

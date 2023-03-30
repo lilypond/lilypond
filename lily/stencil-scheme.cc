@@ -28,7 +28,6 @@
 
 #include <unordered_map>
 
-using std::vector;
 
 /*
  * A few general helpers in degrees
@@ -469,7 +468,7 @@ default of@tie{}0 keeping the middle of the line just on the polygon.
       LY_ASSERT_TYPE (scm_is_bool, filled_scm, 4);
       filled = from_scm<bool> (filled_scm);
     }
-  vector<Offset> pts;
+  std::vector<Offset> pts;
   for (SCM scm_pt : as_ly_scm_list (points))
     {
       if (scm_is_pair (scm_pt))

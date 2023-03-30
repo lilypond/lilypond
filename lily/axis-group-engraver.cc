@@ -29,7 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
 
 /**
    Put stuff in a Spanner with an Axis_group_interface.
@@ -41,7 +40,7 @@ protected:
   bool active_;
   Spanner *staffline_;
   SCM interesting_;
-  vector<Grob *> elts_;
+  std::vector<Grob *> elts_;
   void process_music ();
   void initialize () override;
   void finalize () override;

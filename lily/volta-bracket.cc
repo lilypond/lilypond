@@ -33,7 +33,6 @@
 
 #include <cstring>
 
-using std::string;
 
 /*
   this is too complicated. Yet another version of side-positioning,

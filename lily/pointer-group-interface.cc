@@ -24,7 +24,6 @@
 #include "item.hh"
 #include "spanner.hh"
 
-using std::vector;
 
 vsize
 Pointer_group_interface::count (Grob *me, SCM sym)
@@ -88,16 +87,16 @@ Pointer_group_interface::add_unordered_grob (Grob *me, SCM sym, Grob *p)
   arr->set_ordered (false);
 }
 
-static vector<Grob *> empty_array;
+static std::vector<Grob *> empty_array;
 
-vector<Grob *> const &
+std::vector<Grob *> const &
 ly_scm2link_array (SCM x)
 {
   Grob_array *arr = unsmob<Grob_array> (x);
   return arr ? arr->array () : empty_array;
 }
 
-vector<Grob *> const &
+std::vector<Grob *> const &
 internal_extract_grob_array (Grob *elt, SCM symbol)
 {
   return elt ? ly_scm2link_array (elt->internal_get_object (symbol))
@@ -105,10 +104,10 @@ internal_extract_grob_array (Grob *elt, SCM symbol)
 }
 
 template <typename T>
-vector<T *>
+std::vector<T *>
 internal_extract_grob_subtype_array (Grob *elt, SCM symbol)
 {
-  vector<T *> result;
+  std::vector<T *> result;
 
   if (auto *const ga = unsmob<Grob_array> (elt->internal_get_object (symbol)))
     {
@@ -126,6 +125,6 @@ internal_extract_grob_subtype_array (Grob *elt, SCM symbol)
 }
 
 // explicit instantiation
-template vector<Item *> internal_extract_grob_subtype_array<Item> (Grob *, SCM);
-template vector<Spanner *> internal_extract_grob_subtype_array<Spanner> (Grob *,
+template std::vector<Item *> internal_extract_grob_subtype_array<Item> (Grob *, SCM);
+template std::vector<Spanner *> internal_extract_grob_subtype_array<Spanner> (Grob *,
                                                                          SCM);

@@ -46,19 +46,17 @@
 #include <sys/stat.h>
 #endif
 
-using std::string;
-using std::vector;
 
 #define FRAMEWORKDIR ".."
 
 int
-sane_putenv (char const *key, const string &value, bool overwrite, bool indent)
+sane_putenv (char const *key, const std::string &value, bool overwrite, bool indent)
 {
   const char *space = indent ? "  " : "";
 
   if (overwrite || !getenv (key))
     {
-      string combine = string (key) + "=" + value;
+      std::string combine = std::string (key) + "=" + value;
       char *s = strdup (combine.c_str ());
 
       debug_output (_f ("%sSetting %s to '%s'\n", space, key, value));
@@ -77,7 +75,7 @@ sane_putenv (char const *key, const string &value, bool overwrite, bool indent)
 }
 
 static int
-set_env_file (char const *key, const string &value, bool overwrite = false)
+set_env_file (char const *key, const std::string &value, bool overwrite = false)
 {
   if (is_file (value))
     return sane_putenv (key, value, overwrite);
@@ -87,7 +85,7 @@ set_env_file (char const *key, const string &value, bool overwrite = false)
 }
 
 static int
-set_env_dir (char const *key, const string &value)
+set_env_dir (char const *key, const std::string &value)
 {
   if (is_dir (value))
     return sane_putenv (key, value, false);
@@ -97,7 +95,7 @@ set_env_dir (char const *key, const string &value)
 }
 
 static int
-prepend_env_path (char const *key, string value)
+prepend_env_path (char const *key, std::string value)
 {
   if (is_dir (value))
     {
@@ -116,11 +114,11 @@ prepend_env_path (char const *key, string value)
   return -1;
 }
 
-static string
-set_up_directory (char const *env_name, char const *id, string compile_default,
-                  string runtime_default, string alt_runtime_default = "")
+static std::string
+set_up_directory (char const *env_name, char const *id, std::string compile_default,
+                  std::string runtime_default, std::string alt_runtime_default = "")
 {
-  string dir = "";
+  std::string dir = "";
 
   // check environment variable
   if (char const *env_value = getenv (env_name))
@@ -164,7 +162,7 @@ setup_paths (char const *argv0_ptr)
                    "Relocation\n"));
 
   // compute absolute path to LilyPond binary
-  string argv0_abs;
+  std::string argv0_abs;
   if (argv0_filename.is_absolute ())
     {
       argv0_abs = argv0_filename.to_string ();
@@ -221,9 +219,9 @@ setup_paths (char const *argv0_ptr)
     }
 #endif
 
-  string bindir
+  std::string bindir
     = File_name (dir_name (argv0_abs)).canonicalized ().to_string ();
-  string prefix = File_name (bindir + "/..").canonicalized ().to_string ();
+  std::string prefix = File_name (bindir + "/..").canonicalized ().to_string ();
 
   // set INSTALLER_PREFIX environment variable
   sane_putenv ("INSTALLER_PREFIX", prefix.c_str (), true, true);
@@ -240,9 +238,9 @@ setup_paths (char const *argv0_ptr)
     "LILYPOND_LIBDIR", "libdir", PACKAGE_LIBDIR "/" TOPLEVEL_VERSION,
     prefix + "/lib/lilypond/" TOPLEVEL_VERSION,
     prefix + "/lib/lilypond/current");
-  string localedir = set_up_directory ("LILYPOND_LOCALEDIR", "localedir",
+  std::string localedir = set_up_directory ("LILYPOND_LOCALEDIR", "localedir",
                                        LOCALEDIR, prefix + "/share/locale");
-  string relocdir = set_up_directory ("LILYPOND_RELOCDIR", "relocdir",
+  std::string relocdir = set_up_directory ("LILYPOND_RELOCDIR", "relocdir",
                                       "", // no compile-time default
                                       prefix + "/etc/relocate");
 
@@ -266,14 +264,14 @@ setup_paths (char const *argv0_ptr)
   global_path.prepend (lilypond_datadir + "/ly");
 }
 
-static string
-expand_environment_variables (const string &orig)
+static std::string
+expand_environment_variables (const std::string &orig)
 {
   char const *start_ptr = orig.c_str ();
   char const *ptr = orig.c_str ();
   size_t len = orig.length ();
 
-  string out;
+  std::string out;
   while (ptr < start_ptr + len)
     {
       char const *dollar = strchr (ptr, '$');
@@ -284,7 +282,7 @@ expand_environment_variables (const string &orig)
           char const *end_var = start_var;
           char const *start_next = end_var;
 
-          out += string (ptr, dollar - ptr);
+          out += std::string (ptr, dollar - ptr);
           ptr = dollar;
 
           if (*start_var == '{')
@@ -318,10 +316,10 @@ expand_environment_variables (const string &orig)
 
           if (start_var < end_var)
             {
-              string var_name (start_var, end_var - start_var);
+              std::string var_name (start_var, end_var - start_var);
               char const *value = getenv (var_name.c_str ());
               if (value != NULL)
-                out += string (value);
+                out += std::string (value);
 
               ptr = start_next;
             }
@@ -336,10 +334,10 @@ expand_environment_variables (const string &orig)
 }
 
 // Ugh - very inefficient, but safer than fgets.
-static string
+static std::string
 read_line (FILE *f)
 {
-  string out;
+  std::string out;
 
   int c = 0;
   while ((c = fgetc (f)) != EOF && c != '\n')
@@ -349,7 +347,7 @@ read_line (FILE *f)
 }
 
 void
-read_relocation_file (const string &filename)
+read_relocation_file (const std::string &filename)
 {
   debug_output (_f ("  Relocation file '%s'\n", filename));
   char const *cname = filename.c_str ();
@@ -359,20 +357,20 @@ read_relocation_file (const string &filename)
 
   while (!feof (f))
     {
-      string line = read_line (f);
+      std::string line = read_line (f);
       size_t idx = line.find (' ');
       if (idx == NPOS)
         continue;
 
-      string command = line.substr (0, idx);
+      std::string command = line.substr (0, idx);
       line = line.substr (idx + 1);
 
       if (idx == NPOS)
         continue;
       idx = line.find ('=');
 
-      string variable = line.substr (0, idx);
-      string value = line.substr (idx + 1);
+      std::string variable = line.substr (0, idx);
+      std::string value = line.substr (idx + 1);
 
       value = expand_environment_variables (value);
 
@@ -394,7 +392,7 @@ read_relocation_file (const string &filename)
 }
 
 void
-read_relocation_dir (const string &dirname)
+read_relocation_dir (const std::string &dirname)
 {
   if (DIR *dir = opendir (dirname.c_str ()))
     {
