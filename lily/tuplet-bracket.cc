@@ -893,6 +893,7 @@ bracket-flare
 bracket-visibility
 break-overshoot
 connect-to-neighbor
+dash-definition
 dashed-edge
 direction
 edge-height

@@ -12,9 +12,11 @@ test should print 'Test OK' twice."
   #(lambda (grob)
      (let ((rest (ly:grob-object grob 'rest #f)))
        (if rest
-           (begin
-             (ly:grob-set-property! rest 'stencil ly:text-interface::print)
-             (ly:grob-set-property! rest 'text "Test OK")))))
+           (ly:grob-set-property!
+            rest
+            'stencil
+            (lambda (grob)
+              (grob-interpret-markup grob "Test OK"))))))
   c' d' e' f'
   r4 c' r g
   c1

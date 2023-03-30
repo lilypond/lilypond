@@ -1487,6 +1487,7 @@ stacked @iref{Fingering} grobs.")))))
         (zigzag-width . 1)
         (meta . ((class . Spanner)
                  (interfaces . (finger-glide-interface
+                                font-interface ; style might be 'trill
                                 line-spanner-interface))
                  (description . "A line connecting two
 @iref{Fingering} grobs, usually indicating a gliding finger
@@ -1578,7 +1579,8 @@ number) with a pointing line attached to another grob.")))))
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (zigzag-width . 0.75)
         (meta . ((class . Spanner)
-                 (interfaces . (glissando-interface
+                 (interfaces . (font-interface ; style might be 'trill
+                                glissando-interface
                                 line-interface
                                 line-spanner-interface
                                 unbreakable-spanner-interface))
