@@ -884,7 +884,7 @@ Default: @code{#f}.
 @item @code{separate-page-formats} @var{symbol}
 Comma-separated list of formats (@code{svg}, @code{pdf},
 @code{png}, or @code{eps}) to use for the separate page
-images in @code{lilypond-book}.
+images in @code{lilypond-book}.  @xref{Other programs}.
 
 @item @code{show-available-fonts} @var{bool}
 If @var{bool} is @code{#t}, list available font names as delivered by
@@ -922,7 +922,7 @@ Default: @code{#f}.
 @item @code{tall-page-formats} @var{symbol}
 Comma-separated list of formats (@code{svg}, @code{pdf},
 @code{png}, or @code{eps}) to use for the `tall page' image in
-@code{lilypond-book}.
+@code{lilypond-book}.  @xref{Other programs}.
 
 @item @code{use-paper-size-for-page} @var{bool}
 If @var{bool} is @code{#t} (the default), each page is set to the
