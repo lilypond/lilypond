@@ -226,7 +226,7 @@ The following options are supported.
 @table @asis
 
 @item @code{-d}, @code{--define-default=}@var{var}[@code{=}@var{val}]
-See @ref{Advanced command-line options for LilyPond}.
+@xref{Advanced command-line options for LilyPond}.
 
 @cindex Scheme, expression evaluation
 @cindex expression evaluation, Scheme
@@ -275,7 +275,7 @@ SVG internally uses a specific backend, and therefore cannot be
 obtained in the same run as other formats; using @w{@code{-fsvg}} or
 @code{--svg} is actually equivalent to using the
 @code{-dbackend=svg} option.
-See @ref{Advanced command-line options for LilyPond}.
+@xref{Advanced command-line options for LilyPond}.
 
 @item @code{-h}, @code{--help}
 Show a summary of usage.
@@ -335,7 +335,7 @@ Run @command{lilypond} in a chroot jail.
 
 The @option{--jail} option can be used for security when LilyPond
 formatting is being provided via a web server, or whenever LilyPond executes
-commands sent by external sources (see @ref{Advanced command-line
+commands sent by external sources (@pxref{Advanced command-line
 options for LilyPond}).  Because LilyPond provides the ability
 to run Guile programs, it is essential in such scenarios to run it
 in a sandboxed way so that the file being compiled does not wreak
@@ -399,8 +399,8 @@ must be run with supernotation privileges (which, of course, it loses
 immediately), possibly using @command{sudo}.  It is also good practice
 to limit the number of seconds of CPU time LilyPond can use (e.g., using
 @command{ulimit@tie{}-t}), and, if your operating system supports it,
-the amount of memory that can be allocated.  Also see
-@ref{LilyPond in chroot jail}.
+the amount of memory that can be allocated.
+@xref{LilyPond in chroot jail} for more.
 @end table
 
 @cindex loglevel
@@ -831,7 +831,7 @@ larger than the width.
 
 @item @code{point-and-click} @var{bool}
 If @var{bool} is @code{#t}, add @q{point & click} links to PDF and
-SVG output.  See @ref{Point and click}.
+SVG output.  @xref{Point and click}.
 Default: @code{#t}.
 
 @item @code{preview} @var{bool}
@@ -958,8 +958,8 @@ Default: @code{#f}.
 @item LILYPOND_DATADIR
 This specifies a directory where locale messages and data files
 are looked up by default, overriding locations defined either
-at compile-time or computed dynamically at run-time (see
-@ref{Relocation}).  The directory should contain subdirectories
+at compile-time or computed dynamically at run-time
+(@pxref{Relocation}).  The directory should contain subdirectories
 called @file{ly}, @file{ps}, @file{tex}, etc.
 
 @item LILYPOND_LOCALEDIR
@@ -1136,8 +1136,8 @@ Ditto for @code{localedir} (but not for @code{relocdir}, since it
 doesn't make sense to have that).
 
 @item
-If @code{relocdir} exists, process all files in this directory as
-described in @ref{Relocation files}.
+If @code{relocdir} exists, process all files in this directory
+(@pxref{Relocation files}).
 
 @end enumerate
 
@@ -1339,7 +1339,7 @@ if the same music variable is used in multiple contexts the same message
 may appear several times.  Diagnostics produced at a @q{late} stage (i.e.,
 bar checks) might also be issued multiple times.
 
-More information about errors is given in @ref{Common errors}.
+@xref{Common errors} for more information about errors.
 
 
 @node Common errors
