@@ -32,7 +32,7 @@
 addChordShape =
 #(define-void-function (key-symbol tuning shape-definition)
    (symbol? pair? string-or-pair?)
-   (_i "Add chord shape @var{shape-definition} to the @var{chord-shape-table}
+   (_i "Add chord shape @var{shape-definition} to the @code{chord-shape-table}
 hash with the key @code{(cons @var{key-symbol} @var{tuning})}.")
    (hash-set! chord-shape-table
                (cons key-symbol tuning)

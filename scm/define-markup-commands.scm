@@ -1818,9 +1818,12 @@ words varies according to their relative lengths."
   #:properties ((text-direction RIGHT)
                 (word-space 0.6)
                 (line-width #f))
-  "Put @var{markups} in a horizontal line of width @var{line-width}.
-The markups are spaced or flushed to fill the entire line.
-If there are no arguments, return an empty stencil.
+  "Put markups @var{args} in a horizontal line.  The markups are spaced or
+flushed to fill the entire line.  If there are no arguments, return an empty
+stencil.
+
+The width of the horizontal line can be modified by overriding the
+@code{line-width} property.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
@@ -1853,9 +1856,12 @@ If there are no arguments, return an empty stencil.
   #:properties ((text-direction RIGHT)
                 (word-space 0.6)
                 (line-width #f))
-  "Put @var{markups} in a horizontal line of width @var{line-width}.
-The markups are spread to fill the entire line and separated by equal
-space.  If there are no arguments, return an empty stencil.
+  "Put markups @var{args} in a horizontal line.  The markups are spread to fill
+the entire line and separated by equal space.  If there are no arguments, return
+an empty stencil.
+
+The width of the horizontal line can be modified by overriding the
+@code{line-width} property.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
@@ -2793,7 +2799,8 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   #:as-string (string-append
                (markup->string arg1 #:layout layout #:props props)
                (markup->string arg2 #:layout layout #:props props))
-  "Put @var{arg2} next to @var{arg1}, without moving @var{arg1}."
+  "Put @var{arg2} next to @var{arg1} in @var{axis} direction to the @var{dir}
+side, without moving @var{arg1}."
   (let ((m1 (interpret-markup layout props arg1))
         (m2 (interpret-markup layout props arg2)))
     (ly:stencil-combine-at-edge m1 axis dir m2 0.0)))

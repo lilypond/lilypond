@@ -574,14 +574,14 @@ footnote =
 footnote is marked with a markup @var{mark} moved by @var{offset} with
 respect to the marked music.
 
-If @var{mark} is not given or specified as @var{\\default}, it is
+If @var{mark} is not given or specified as @code{\\default}, it is
 replaced by an automatically generated sequence number.  If @var{item}
-is a symbol list of form @samp{Grob} or @samp{Context.Grob}, then
+is a symbol list of form @samp{@var{Grob}} or @samp{@var{Context.Grob}}, then
 grobs of that type will be marked at the current time step in the
 given context (default @code{Bottom}).
 
 If @var{item} is music, the music will get a footnote attached to a
-grob immediately attached to the event, like @var{\\tweak} does.  For
+grob immediately attached to the event, like @code{\\tweak} does.  For
 attaching a footnote to an @emph{indirectly} caused grob, write
 @code{\\single\\footnote}, use @var{item} to specify the grob, and
 follow it with the music to annotate.
