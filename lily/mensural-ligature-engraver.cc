@@ -162,7 +162,7 @@ Mensural_ligature_engraver::transform_heads (
 
       // first check special cases
       // 1. initial descendens longa or brevis
-      if (at_beginning && i < s - 1 && 0 > duration_log && duration_log > -3
+      if (at_beginning && 0 > duration_log && duration_log > -3
           && (unsmob<Pitch> (
                 get_property (primitives[i + 1]->event_cause (), "pitch"))
                 ->steps ()
