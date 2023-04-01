@@ -32,6 +32,12 @@ import musicexp
 import musicxml2ly_conversion
 import utilities
 
+def minidom_demarshal_text_to_str(node):
+    text = ''.join([n.data for n in node.childNodes
+                    if (n.nodeType == node.TEXT_NODE)])
+    return text.strip()
+
+
 class Xml_node(object):
     _name = 'xml_node'
 
@@ -165,11 +171,7 @@ class Music_xml_spanner(Music_xml_node):
 class Measure_element(Music_xml_node):
 
     def get_voice_id(self):
-        voice = self.get_maybe_exist_named_child('voice')
-        if voice:
-            return voice.get_text()
-        else:
-            return self.voice_id
+        return self.get('voice', self.voice_id)
 
 
 class Work(Xml_node):
@@ -733,6 +735,9 @@ class Notehead(Music_xml_node):
 
 
 class Note(Measure_element):
+    max_occurs_by_child = {
+        'voice': 1,
+    }
 
     def __init__(self):
         Measure_element.__init__(self)
@@ -1442,17 +1447,18 @@ class Part(Music_xml_node):
         # can be assigned to the correct voices
         voice_to_staff_dict = {}
         for n in elements:
-            voice_id = n.get_maybe_exist_named_child('voice')
-            vid = None
-            if voice_id:
-                vid = voice_id.get_text()
-            elif isinstance(n, Note):
-                # TODO: Check whether we shall really use "None" here, or
-                #       rather use "1" as the default?
-                if n.get_maybe_exist_named_child('chord'):
-                    vid = last_voice
+            try:
+                vid = n['voice']
+            except KeyError:
+                if isinstance(n, Note):
+                    if n.get_maybe_exist_named_child('chord'):
+                        vid = last_voice
+                    else:
+                        vid = "1"
                 else:
-                    vid = "1"
+                    # TODO: Check whether we shall really use "None" here, or
+                    #       rather use "1" as the default?
+                    vid = None
 
             if vid is not None:
                 last_voice = vid
@@ -1488,10 +1494,9 @@ class Part(Music_xml_node):
         assign_to_next_note = []
         id = None
         for n in elements:
-            voice_id = n.get_maybe_exist_typed_child(get_class('voice'))
-            if voice_id:
-                id = voice_id.get_text()
-            else:
+            try:
+                id = n['voice']
+            except KeyError:
                 if n.get_maybe_exist_typed_child(get_class('chord')):
                     id = last_voice
                 else:
@@ -1611,7 +1616,9 @@ class DirType(Music_xml_node):
 
 
 class Direction(Measure_element):
-    pass
+    max_occurs_by_child = {
+        'voice': 1,
+    }
 
 
 class Dot(Music_xml_node):
@@ -1628,6 +1635,12 @@ class Extend(Music_xml_node):
 
 class FiguredBass(Music_xml_node):
     pass
+
+
+class Forward(Music_xml_node):
+    max_occurs_by_child = {
+        'voice': 1,
+    }
 
 
 class Glissando(Music_xml_spanner):
@@ -1696,6 +1709,10 @@ class Text(Music_xml_node):
 
 class Type(Music_xml_node):
     pass
+
+
+class Voice(Music_xml_node):
+    minidom_demarshal_to_value = minidom_demarshal_text_to_str
 
 
 class Wavy_line(Music_xml_spanner):
@@ -1776,6 +1793,7 @@ class_dict = {
     'tuplet': Tuplet,
     'type': Type,
     'unpitched': Unpitched,
+    'voice': Voice,
     'wavy-line': Wavy_line,
     'wedge': Wedge,
     'words': Words,
