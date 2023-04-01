@@ -163,16 +163,21 @@ Mensural_ligature_engraver::transform_heads (
       bool const is_brevis = duration_log == -1;
 
       // first check special cases
-      // 1. initial descendens longa or brevis
-      if (at_beginning && 0 > duration_log && duration_log > -3
-          && (unsmob<Pitch> (
-                get_property (primitives[i + 1]->event_cause (), "pitch"))
-                ->steps ()
-              < pitch))
+      // 1. initial longa or brevis
+      if (at_beginning && 0 > duration_log && duration_log > -3)
         {
-          int left_stem = is_brevis ? MLP_DOWN : 0;
-          prim = left_stem | MLP_BREVIS;
-          general_case = false;
+          // descendens
+          if (unsmob<Pitch>
+              (get_property (primitives[i + 1]->event_cause (), "pitch"))
+                  ->steps ()
+                < pitch
+              || (is_brevis && from_scm<bool>
+                  (get_property (primitive, "left-down-stem"))))
+            {
+              int left_stem = is_brevis ? MLP_DOWN : 0;
+              prim = left_stem | MLP_BREVIS;
+              general_case = false;
+            }
         }
       // 2. semibrevis must not be followed by a brevis
       //    (theoretical sources require semibrevis, but
@@ -231,10 +236,16 @@ Mensural_ligature_engraver::transform_heads (
                 }
             }
           // longa
-          else if (duration_log == -2 && !prev_semibrevis)
+          else if (duration_log == -2 && !prev_semibrevis
+                   && !from_scm<bool>
+                     (get_property (primitive, "right-down-stem")))
             {
               prim = MLP_BREVIS;
               general_case = allow_flexa = false;
+              if (from_scm<bool> (get_property (primitive, "right-up-stem")))
+                {
+                  prim |= MLP_JOIN_UP;
+                }
             }
           // else maxima (or longa-after-semibrevis);
           // fall through to regular case below
@@ -254,7 +265,7 @@ Mensural_ligature_engraver::transform_heads (
               i.e. it's not an ultimate descending breve
           */
           make_flexa = !at_beginning && prev_brevis_shape && duration_log > -2
-                       && !(prim & MLP_STEM);
+            && !(prim & MLP_STEM);
           if (make_flexa && i == s - 2)
             {
               /*
@@ -284,6 +295,14 @@ Mensural_ligature_engraver::transform_heads (
           static int const shape[3] = {MLP_MAXIMA, MLP_LONGA, MLP_BREVIS};
 
           prim = shape[duration_log + 3];
+          if (duration_log == -3)
+            {
+              if (from_scm<bool> (get_property (primitive, "right-down-stem")))
+                prim |= MLP_JOIN_DOWN;
+              else if (is_last && from_scm<bool>
+                       (get_property (primitive, "right-up-stem")))
+                prim |= MLP_JOIN_UP;
+            }
         }
 
       if (make_flexa)

@@ -33,20 +33,23 @@
 #define MLP_UP 0x01
 // downward left stem
 #define MLP_DOWN 0x02
-// upward right stem (actually a left stem of the next note)
+// upward right stem (in the middle a left stem of the next note)
 #define MLP_JOIN_UP 0x04
+// downward right stem
+#define MLP_JOIN_DOWN 0x08
 // mensural brevis head
-#define MLP_BREVIS 0x08
+#define MLP_BREVIS 0x10
 // mensural brevis head with right cauda
-#define MLP_LONGA 0x10
+#define MLP_LONGA 0x20
 // mensural maxima head without stem
-#define MLP_MAXIMA 0x20
+#define MLP_MAXIMA 0x40
 // start of obliqua
-#define MLP_FLEXA_BEGIN 0x40
+#define MLP_FLEXA_BEGIN 0x80
 // end of obliqua
-#define MLP_FLEXA_END 0x80
+#define MLP_FLEXA_END 0x100
 
 #define MLP_STEM (MLP_UP | MLP_DOWN)
+#define MLP_RIGHT_STEM (MLP_JOIN_UP | MLP_JOIN_DOWN)
 #define MLP_SINGLE_HEAD (MLP_BREVIS | MLP_LONGA | MLP_MAXIMA)
 #define MLP_FLEXA (MLP_FLEXA_BEGIN | MLP_FLEXA_END)
 #define MLP_ANY (MLP_FLEXA | MLP_SINGLE_HEAD)

@@ -219,9 +219,13 @@ internal_brew_primitive (Grob *me)
       out.add_stencil (join);
     }
 
-  if (from_scm<bool> (get_property (me, "add-join")))
+  bool const has_join = from_scm<bool> (get_property (me, "add-join"));
+  bool const has_right_stem = primitive & MLP_RIGHT_STEM;
+  if (has_join || has_right_stem)
     {
-      int join_right = from_scm<int> (get_property (me, "delta-position"));
+      int join_right = has_join
+        ? from_scm<int> (get_property (me, "delta-position"))
+        : primitive & MLP_JOIN_UP ? longa_stem_length : -longa_stem_length;
       if (join_right)
         {
           Real y_top = join_right * 0.5 * staff_space;
@@ -232,21 +236,24 @@ internal_brew_primitive (Grob *me)
               y_bottom = y_top;
               y_top = 0.0;
 
-              /*
-                if the previous note is longa-shaped,
-                the joining line may hide the stem,
-                so make join longer to serve as stem as well
-              */
-              if (primitive & MLP_LONGA)
-                y_bottom -= stem_length + 0.25 * blotdiameter;
+              if (has_join)
+                {
+                  /*
+                    if the previous note is longa-shaped,
+                    the joining line may hide the stem,
+                    so make join longer to serve as stem as well
+                  */
+                  if (primitive & (MLP_LONGA | MLP_JOIN_DOWN))
+                    y_bottom -= stem_length + 0.25 * blotdiameter;
 
-              /*
-                if next note has a left upward stem,
-                the joining line may hide that,
-                so make join longer to serve as stem as well
-              */
-              if (primitive & MLP_JOIN_UP)
-                y_top = stem_length + 0.25 * blotdiameter;
+                  /*
+                    if next note has a left upward stem,
+                    the joining line may hide that,
+                    so make join longer to serve as stem as well
+                  */
+                  if (primitive & MLP_JOIN_UP)
+                    y_top = stem_length + 0.25 * blotdiameter;
+                }
             }
 
           Interval x_extent (width - thickness, width);
@@ -298,6 +305,9 @@ A mensural ligature.
                R"(
 delta-position
 ligature-flexa
+left-down-stem
+right-down-stem
+right-up-stem
 head-width
 add-join
 flexa-interval

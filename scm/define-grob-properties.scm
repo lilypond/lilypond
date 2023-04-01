@@ -1649,6 +1649,8 @@ grob (in @code{staff-space} units).")
 flexa shape (1 is a second, 7 is an octave).")
      (flexa-width ,ly:dimension? "The width of a flexa shape in a
 ligature grob (in @code{staff-space} units).")
+     (left-down-stem ,boolean? "request a downward left stem for an
+initial breve in a ligature.")
      (ligature-flexa ,boolean? "request joining note to the previous one
 in a flexa.")
 
@@ -1667,6 +1669,11 @@ prefixes, such as @code{\\virga} or @code{\\quilisma}.")
 similar to a note head that is part of a ligature.")
 
      (quilisma ,boolean? "Is this neume a quilisma?")
+
+     (right-down-stem ,boolean? "request a downward right stem for a
+maxima in a ligature.")
+     (right-up-stem ,boolean? "request an upward right stem for a final
+longa or maxima in a ligature.")
 
      (stropha ,boolean? "Is this neume a stropha?")
 
