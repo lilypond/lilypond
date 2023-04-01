@@ -136,15 +136,12 @@ Mensural_ligature_engraver::transform_heads (
           prev_semibrevis = prev_brevis_shape = false;
           prev_primitive = NULL;
         }
-      else
+      else if (pitch == prev_pitch)
         {
-          if (pitch == prev_pitch)
-            {
-              nr->warning (_ ("prime interval within ligature; skipping"));
-              at_beginning = true;
-              prim = MLP_NONE;
-              continue;
-            }
+          nr->warning (_ ("prime interval within ligature; skipping"));
+          at_beginning = true;
+          prim = MLP_NONE;
+          continue;
         }
 
       if (duration_log < -3 // is this possible at all???
