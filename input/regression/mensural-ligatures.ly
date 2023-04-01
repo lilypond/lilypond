@@ -42,18 +42,18 @@
 % ligaturae binariae
   \textMark "ligaturae binariae"
 
-  <>^"BL " \[ b\breve g\longa \]
-  <>^"BL " \[ g\breve b\longa \]
-  <>^"LL " \[ b\longa g \]
-  <>^"LL " \[ g\longa b \]
-  <>^"BB " \[ b\breve g \]
-  <>^"BB " \[ g\breve b \]
-  <>^"LB " \[ b\longa g\breve \]
-  <>^"LB " \[ g\longa b\breve \]
-  <>^"SS " \[ b1 g \]
-  <>^"SS " \[ g1 b \]
-  <>^"SL " \[ b1 g\longa \]
-  <>^"SL " \[ g1 b\longa \]
+  <>^"BL "  \[ b\breve g\longa \]
+  <>^"BL "  \[ g\breve b\longa \]
+  <>^"LL "  \[ b\longa g \]
+  <>^"LL "  \[ g\longa b \]
+  <>^"BB "  \[ b\breve g \]
+  <>^"BB "  \[ g\breve b \]
+  <>^"LB "  \[ b\longa g\breve \]
+  <>^"LB "  \[ g\longa b\breve \]
+  <>^"SS "  \[ b1 g \]
+  <>^"SS "  \[ g1 b \]
+  <>^"SL "  \[ b1 g\longa \]
+  <>^"SL "  \[ g1 b\longa \]
   <>^"SMx " \[ b1 g\maxima \]
   <>^"SMx " \[ g1 b\maxima \]
 
@@ -119,6 +119,9 @@
                    b\longa
                    \revert NoteHead.flexa-width
                    \revert NoteHead.ligature-flexa \]
+  <>^"BBMx "    \[ g\breve b
+                   \once \override NoteHead.right-down-stem = ##t
+                   c'\maxima \]
   \bar "|" \break
 
 % some from the Requiem
@@ -126,6 +129,21 @@
 
   <>^"SSBBBBBBBL " \[ a1 d e\breve f d f e f g e\longa \]
   <>^"BBBBL "      \[ c'\breve c d c c'\longa \]
+  \bar "|" \break
+
+% rare ligatures from the Caius Choirbook
+  \textMark "Fayrfax: Missa O bone Jesu"
+
+  \clef "petrucci-f5"
+  <>^"SSSS "       \[ e1 d c b, \]
+  <>^"BB "         \[ \once \override NoteHead.left-down-stem = ##t
+                      d\breve f \]
+  <>^"SSL "        \[ d1 c
+                      \once \override NoteHead.right-up-stem = ##t
+                      b,\longa \]
+  <>^"BBL "        \[ f,\breve e,
+                      \once \override NoteHead.right-down-stem = ##t
+                      d,\longa \]
   \bar "|" \break
 }
 
@@ -140,6 +158,24 @@
   \accidentalStyle forget
   \textLengthOn
 
+  \textMark "ignored tweaks"
+  <>^"BSS "                \[ a\breve
+                              \once \override NoteHead.ligature-flexa = ##t
+                              d1 e \]
+  <>^"BSS "                \[ e\breve
+                              \once \override NoteHead.ligature-flexa = ##t
+                              f1 g \]
+  <>^"LB "                 \[ \once \override NoteHead.left-down-stem = ##t
+                              g\longa
+                              \once \override NoteHead.right-down-stem = ##t
+                              f\breve \]
+  <>^"BL "                 \[ f\breve
+                              \once \override NoteHead.right-up-stem = ##t
+                              g\longa \]
+  <>^"MxMx "               \[ \override NoteHead.right-up-stem = ##t
+                              g\maxima b \]
+  \bar "|" \break
+
 % crazy ligatures
   \textMark "crazy ligatures"
 
@@ -150,12 +186,6 @@
   % TODO: the first dot is too high to avoid a non-existent (ledger) line
   <>^"B.B. "               \[ b a \]
   <>^"BSLB "               \[ f\breve a1 g\longa a\breve \]
-  <>^"BSS "                \[ a\breve
-                              \once \override NoteHead.ligature-flexa = ##t
-                              d1 e \]
-  <>^"BSS "                \[ e\breve
-                              \once \override NoteHead.ligature-flexa = ##t
-                              f1 g \]
   <>^"BSS "                \[ d\breve a1 e \]
   <>^"BLSS "               \[ a\breve b\longa d1 e \]
   \bar "|" \break
@@ -166,7 +196,7 @@
 % <>^"SS "   \[ a1 as \]
   <>^"BBB "  \[ a\breve g as \]
 % <>^"LLB "  \[ f\longa g f\breve \]
-% <>^"BSB " \[ f\breve a1 g\breve \]
+% <>^"BSB "  \[ f\breve a1 g\breve \]
 }
 
 
