@@ -38,6 +38,16 @@ def minidom_demarshal_text_to_int(node):
     return int(text)
 
 
+def minidom_demarshal_text_to_int_or_float(node):
+    text = ''.join([n.data for n in node.childNodes
+                    if (n.nodeType == node.TEXT_NODE)])
+    try:
+        return int(text)
+    except ValueError:
+        pass
+    return float(text)
+
+
 def minidom_demarshal_text_to_str(node):
     text = ''.join([n.data for n in node.childNodes
                     if (n.nodeType == node.TEXT_NODE)])
@@ -412,26 +422,17 @@ class Hash_text(Music_xml_node):
 
 
 class Pitch(Music_xml_node):
-
-    def get_step(self):
-        ch = self.get_unique_typed_child(get_class('step'))
-        step = ch.get_text().strip()
-        return step
-
-    def get_octave(self):
-        ch = self.get_unique_typed_child(get_class('octave'))
-        octave = ch.get_text().strip()
-        return int(octave)
-
-    def get_alteration(self):
-        ch = self.get_maybe_exist_typed_child(get_class('alter'))
-        return utilities.interpret_alter_element(ch)
+    max_occurs_by_child = {
+        'alter': 1,
+        'octave': 1,
+        'step': 1,
+    }
 
     def to_lily_object(self):
         p = musicexp.Pitch()
-        p.alteration = self.get_alteration()
-        p.step = musicxml2ly_conversion.musicxml_step_to_lily(self.get_step())
-        p.octave = self.get_octave() - 4
+        p.alteration = self.get('alter', 0)
+        p.step = musicxml2ly_conversion.musicxml_step_to_lily(self['step'])
+        p.octave = self['octave'] - 4
         return p
 
 
@@ -461,6 +462,10 @@ class Unpitched(Music_xml_node):
         if octave and p:
             p.octave = octave - 4
         return p
+
+
+class Alter(Music_xml_node):
+    minidom_demarshal_to_value = minidom_demarshal_text_to_int_or_float
 
 
 class Attributes(Measure_element):
@@ -1677,6 +1682,10 @@ class KeyStep(Music_xml_node):
     pass
 
 
+class Octave(Music_xml_node):
+    minidom_demarshal_to_value = minidom_demarshal_text_to_int # 0 to 9, per the spec
+
+
 class Part_group(Music_xml_node):
     pass
 
@@ -1715,6 +1724,10 @@ class Staff(Music_xml_node):
     minidom_demarshal_to_value = minidom_demarshal_text_to_str
 
 
+class Step(Music_xml_node):
+    minidom_demarshal_to_value = minidom_demarshal_text_to_str
+
+
 class Text(Music_xml_node):
     pass
 
@@ -1746,6 +1759,7 @@ class_dict = {
     '#comment': Hash_comment,
     '#text': Hash_text,
     'accidental': Accidental,
+    'alter': Alter,
     'attributes': Attributes,
     'backup': Backup,
     'barline': Barline,
@@ -1783,6 +1797,7 @@ class_dict = {
     'notations': Notations,
     'note': Note,
     'notehead': Notehead,
+    'octave': Octave,
     'octave-shift': Octave_shift,
     'part': Part,
     'part-group': Part_group,
@@ -1799,6 +1814,7 @@ class_dict = {
     'sound': Sound,
     'staff': Staff,
     'stem': Stem,
+    'step': Step,
     'syllabic': Syllabic,
     'text': Text,
     'time-modification': Time_modification,
