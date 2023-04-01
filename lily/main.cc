@@ -63,18 +63,13 @@
 #include <cstdio>
 #include <cstring>
 
-/*
- * Global options that can be overridden through command line.
- * Most variables are defined in file `global-vars.cc'.
- */
+// Global options that can be overridden through command line.
+// Most variables are defined in file `global-vars.cc'.
 
-/* Provide URI links to the original file */
+// Provide URI links to the original file
 bool point_and_click_global = true;
 
-/*
- * File globals.
- */
-
+// File globals.
 static char const *AUTHORS = "  Han-Wen Nienhuys <hanwen@xs4all.nl>\n"
                              "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 
@@ -109,14 +104,7 @@ std::string jail_spec;
 /*  The option parser */
 static Getopt_long *option_parser = 0;
 
-/* Internationalisation kludge in two steps:
- * use _i () to get entry in POT file
- * call gettext () explicitly for actual "translation"  */
-
-/*
-  Data to be used to display when
-  -h command-line option is detected.
-*/
+// Data to be used to display when -h command-line option is detected.
 static Long_option_init options_static[] = {
   {_i ("FORMATs"), "formats", 'f',
    _i ("dump FORMAT,...  Also as separate options:")},
@@ -163,24 +151,17 @@ static Long_option_init options_static[] = {
   {0, "warranty", 'w', _i ("show warranty and copyright")},
   {0, 0, 0, 0}};
 
+// Retrieve value of an OS environment variable.
 static void
 env_var_info (FILE *out, char const *key)
-/*
- * Retrieve value of an OS environment variable.
- * Parameter:
- *  key, the name of an environment variable.
- */
 {
   if (char const *value = getenv (key))
     fprintf (out, "%s=\"%s\"\n", key, value);
 }
 
+// Print out information re directories being used by LilyPond for this session.
 static void
 dir_info (FILE *out)
-/*
- * Print out information re directories being used by LilyPond
- * for this session.
- */
 {
   fputs ("\n", out);
   env_var_info (out, "LILYPOND_DATADIR");
@@ -220,11 +201,9 @@ gnu_lilypond_version_string ()
   return str;
 }
 
+// Print out LilyPond copyright info
 static void
 copyright ()
-/*
- * Print out LilyPond copyright info.
- */
 {
   /* Do not update the copyright years here, run `make grand-replace'  */
   printf ("%s",
@@ -233,20 +212,16 @@ copyright ()
   printf ("\n");
 }
 
+// Print out LilyPond version string
 static void
 identify (FILE *out)
-/*
- * Print out LilyPond version string.
- */
 {
   fputs (gnu_lilypond_version_string ().c_str (), out);
   fputs ("\n", out);
 }
 
+// Print copyright and program name
 static void
-/*
- * Print copyright and program name
- */
 notice ()
 {
   identify (stdout);
@@ -260,11 +235,6 @@ LY_DEFINE (ly_usage, "ly:usage", 0, 0, 0, (),
            R"(
 Print usage message.
            )")
-/*
- * ly_usage: Routine to output standard information when LilyPond is run without a
- * source file to compile.
- * Also callable as ly:usage from Scheme.
- */
 {
   /* No version number or newline here.  It confuses help2man.  */
   printf ("%s", (_f ("Usage: %s [OPTION]... FILE...", PROGRAM_NAME).c_str ()));
@@ -291,11 +261,9 @@ Print usage message.
   return SCM_UNSPECIFIED;
 }
 
+// Prints out LilyPond warranty information
 static void
 warranty ()
-/*
- * Prints out LilyPond warranty information
- */
 {
   identify (stdout);
   printf ("\n");
@@ -324,21 +292,13 @@ warranty ()
 #endif
 }
 
+// Inserts an item at the front of a Scheme list, e.g. %load-path
 static void
 prepend_scheme_list (const std::string &dir, const std::string &scmlist)
-/*
- *  Inserts an item at the front of a Scheme list, e.g. %load-path
- *  Parameters:
- *    dir:     The directory to add to the front of the list
- *    scmlist: The Scheme list onto which to prepend the directory
- */
 {
   SCM var = scm_c_lookup (scmlist.c_str ());
   scm_variable_set_x (var, scm_cons (scm_from_locale_string (dir.c_str ()),
                                      scm_variable_ref (var)));
-  /*  string setcmd =
-             "(set! " + scmlist + " (cons \"" + dir + "\" " + scmlist +"))";
-             scm_c_eval_string (setcmd.c_str());*/
 }
 
 void init_global_tweak_registry ();
@@ -430,14 +390,10 @@ do_chroot_jail ()
 }
 #endif
 
+// main-with-guile is invoked as a callback via scm_boot_guile from main.
+// scm_boot_guile passes its data, argc and argv parameters to main_with_guile.
 static void
 main_with_guile (void *, int, char **)
-/*
- * main-with-guile is invoked as a callback via scm_boot_guile from
- * main.
- * scm_boot_guile will have passed its data, argc and argv parameters
- * to main_with_guile.
- */
 {
   /* Engravers use lily.scm contents, so we need to make Guile find it.
      Prepend onto GUILE %load-path.
@@ -482,18 +438,6 @@ main_with_guile (void *, int, char **)
   if (!jail_spec.empty ())
     do_chroot_jail ();
 #endif
-  /*
-    Now execute the Scheme entry-point declared in
-    lily.scm (lilypond-main)
-  */
-  // These commands moved to lily_guile_v2.scm
-  // SCM rep_mod = scm_c_resolve_module ("system repl repl");
-  // scm_c_use_module ("system repl repl");
-  // SCM err_handling_mod = scm_c_resolve_module ("system repl error-handling");
-  // SCM call_with_error_handling = scm_c_module_lookup (err_handling_mod, "call-with-error-handling");
-  // SCM result = ly_call (
-  //                       scm_variable_ref (call_with_error_handling),
-  //                       ly_call (ly_lily_module_constant ("lilypond-main"), files));
 
   Lily::lilypond_main (files);
 
@@ -501,13 +445,9 @@ main_with_guile (void *, int, char **)
   exit (0);
 }
 
+// Set up local language text locale (if available from configure)
 static void
 setup_localisation ()
-/*
- *  Set up local language text locale (if available from configure)
- *  Implicit inputs:
- *  HAVE_GETTEXT: Internationalization available for a local language.
- */
 {
 #if HAVE_GETTEXT
   /* Enable locales */
@@ -549,13 +489,11 @@ add_output_format (const std::string &format)
     output_formats_global.push_back (format);
 }
 
+// Parse command-line options
+// also, if -h (help), -v (version) or  -w (warranty) is detected,
+// output the usage information and exit.
 static void
 parse_argv (int argc, char **argv)
-/*
- *  Parse command-line options
- *  also, if -h (help), -v (version) or  -w (warranty) is detected,
- *  output the usage information and exit.
- */
 {
   bool show_help = false;
   option_parser = new Getopt_long (argc, argv, options_static);
@@ -702,10 +640,7 @@ setup_guile_env ()
   sane_putenv ("GUILE_AUTO_COMPILE", "0", false); // disable auto-compile
   sane_putenv ("GUILE_WARN_DEPRECATED", "detailed",
                true); // set Guile to info re deprecation
-  /*
-        Set root for Guile %compile-fallback to
-        Lilypond root for its data.
-      */
+  // Set root for Guile %compile-fallback to Lilypond root for its data.
   sane_putenv ("XDG_CACHE_HOME", lilypond_datadir, true);
 
   // This reduces the GC overhead during parsing and
@@ -734,12 +669,6 @@ setup_guile_env ()
 
 int
 main (int argc, char **argv)
-/*
- * Main entry-point for LilyPond executable image
- * Parameters:
- * argc:   Count of arguments on the command line
- * argv:   Vector of string arguments on command line
- */
 {
   /*
     Handle old-style environment equivalent to
@@ -764,9 +693,7 @@ main (int argc, char **argv)
   init_scheme_variables_global += "(gs-api . #f)\n";
 #endif
 
-  /*
-   * Start up Guile API using main_with_guile as a callback.
-   */
+  // Start up Guile API using main_with_guile as a callback.
   scm_boot_guile (argc, argv, main_with_guile, 0);
 
   /* Only reachable if GUILE exits.  That is an error.  */
