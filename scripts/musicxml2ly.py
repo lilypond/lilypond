@@ -2240,7 +2240,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
         return 'rest' in elem
 
     def is_chord(elem):
-        return elem.get_typed_children(musicxml.Chord)
+        return 'chord' in elem
 
     def is_note_and_not_rest(elem):
         return is_note(elem) and not is_rest(elem)
@@ -2318,7 +2318,7 @@ def musicxml_voice_to_lily_voice(voice):
             continue
         staff = n.get('staff')
         if staff:
-            if current_staff and staff != current_staff and not n.get_maybe_exist_named_child('chord'):
+            if current_staff and staff != current_staff and ('chord' not in n):
                 voice_builder.add_command(musicexp.StaffChange(staff))
             current_staff = staff
 
@@ -2331,7 +2331,7 @@ def musicxml_voice_to_lily_voice(voice):
                 fretboards_builder.add_partial(a)
             continue
 
-        is_chord = n.get_maybe_exist_named_child('chord')
+        is_chord = 'chord' in n
         is_after_grace = (isinstance(n, musicxml.Note) and n.is_after_grace())
         if not is_chord and not is_after_grace:
             try:
@@ -2473,7 +2473,7 @@ def musicxml_voice_to_lily_voice(voice):
         grace = n.get('grace')
         if grace is not None:
             is_after_grace = ev_chord.has_elements() or n.is_after_grace()
-            is_chord = n.get_maybe_exist_typed_child(musicxml.Chord)
+            is_chord = 'chord' in n
 
             grace_chord = None
 
@@ -2481,13 +2481,13 @@ def musicxml_voice_to_lily_voice(voice):
             # whether we have a chord or not, obtain either a new ChordEvent or
             # the previous one to create a chord
             if is_after_grace:
-                if ev_chord.after_grace_elements and n.get_maybe_exist_typed_child(musicxml.Chord):
+                if ev_chord.after_grace_elements and is_chord:
                     grace_chord = ev_chord.after_grace_elements.get_last_event_chord()
                 if not grace_chord:
                     grace_chord = musicexp.ChordEvent()
                     ev_chord.append_after_grace(grace_chord)
             else:
-                if ev_chord.grace_elements and n.get_maybe_exist_typed_child(musicxml.Chord):
+                if ev_chord.grace_elements and is_chord:
                     grace_chord = ev_chord.grace_elements.get_last_event_chord()
                 if not grace_chord:
                     grace_chord = musicexp.ChordEvent()

@@ -38,6 +38,10 @@ def minidom_demarshal_text_to_str(node):
     return text.strip()
 
 
+def minidom_demarshal_true(node):
+    return True
+
+
 class Xml_node(object):
     _name = 'xml_node'
 
@@ -736,6 +740,7 @@ class Notehead(Music_xml_node):
 
 class Note(Measure_element):
     max_occurs_by_child = {
+        'chord': 1,
         'grace': 1,
         'rest': 1,
         'staff': 1,
@@ -1351,8 +1356,7 @@ class Part(Music_xml_node):
 
                         rest._is_whole_measure = True
 
-                if(dur > 0
-                        and n.get_maybe_exist_typed_child(Chord)):
+                if (dur > 0) and ('chord' in n):
                     now = last_moment
                     measure_position = last_measure_position
 
@@ -1449,10 +1453,7 @@ class Part(Music_xml_node):
                 vid = n['voice']
             except KeyError:
                 if isinstance(n, Note):
-                    if n.get_maybe_exist_named_child('chord'):
-                        vid = last_voice
-                    else:
-                        vid = "1"
+                    vid = last_voice if ('chord' in n) else "1"
                 else:
                     # TODO: Check whether we shall really use "None" here, or
                     #       rather use "1" as the default?
@@ -1490,10 +1491,7 @@ class Part(Music_xml_node):
             try:
                 id = n['voice']
             except KeyError:
-                if n.get_maybe_exist_typed_child(get_class('chord')):
-                    id = last_voice
-                else:
-                    id = "1"
+                id = last_voice if ('chord' in n) else "1"
 
             if id != "None":
                 last_voice = id
@@ -1597,7 +1595,7 @@ class Bracket(Music_xml_spanner):
 
 
 class Chord(Music_xml_node):
-    pass
+    minidom_demarshal_to_value = minidom_demarshal_true
 
 
 class Dashes(Music_xml_spanner):
