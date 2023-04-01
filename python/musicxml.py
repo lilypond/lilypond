@@ -736,6 +736,7 @@ class Notehead(Music_xml_node):
 
 class Note(Measure_element):
     max_occurs_by_child = {
+        'grace': 1,
         'voice': 1,
     }
 
@@ -745,14 +746,10 @@ class Note(Measure_element):
         self._after_grace = False
         self._duration = 1
 
-    def is_grace(self):
-        return self.get_maybe_exist_named_child('grace')
-
     def is_after_grace(self):
-        if not self.is_grace():
-            return False
-        gr = self.get_maybe_exist_typed_child(Grace)
-        return self._after_grace or hasattr(gr, 'steal-time-previous')
+        grace = self.get('grace', False)
+        return grace and (self._after_grace
+                          or hasattr(grace, 'steal-time-previous'))
 
     def get_duration_log(self):
         ch = self.get_maybe_exist_named_child('type')
@@ -760,7 +757,7 @@ class Note(Measure_element):
         if ch:
             log = ch.get_text().strip()
             return utilities.musicxml_duration_to_log(log)
-        elif self.get_maybe_exist_named_child('grace'):
+        elif 'grace' in self:
             # FIXME: is it ok to default to eight note for grace notes?
             return 3
         else:
@@ -812,7 +809,7 @@ class Note(Measure_element):
             d.dots = dur[1]
             # Grace notes by specification have duration 0, so no time modification
             # factor is possible. It even messes up the output with *0/1
-            if not self.get_maybe_exist_typed_child(Grace):
+            if 'grace' not in self:
                 nominal_duration = d.get_length()
                 actual_duration = self._duration
                 if actual_duration != nominal_duration:
@@ -1200,8 +1197,7 @@ class Musicxml_voice:
             staff = e.get_maybe_exist_typed_child(Staff)
             if staff is not None:
                 name = staff.get_text()
-                if (not self._start_staff
-                    and not e.get_maybe_exist_typed_child(Grace)):
+                if not self._start_staff and ('grace' not in e):
                     self._start_staff = name
                 self._staves[name] = True
 
@@ -1343,7 +1339,7 @@ class Part(Music_xml_node):
                         # reset all graces before the backup to after-graces:
                         self.graces_to_aftergraces(pending_graces)
                         pending_graces = []
-                    if n.get_maybe_exist_typed_child(Grace):
+                    if 'grace' in n:
                         dur = 0
 
                     rest = n.get_maybe_exist_typed_child(Rest)
@@ -1363,7 +1359,7 @@ class Part(Music_xml_node):
 
                 # For all grace notes, store the previous note,  in case need
                 # to turn the grace note into an after-grace later on!
-                if isinstance(n, Note) and n.is_grace():
+                if 'grace' in n:
                     n._prev_when = last_moment
                     n._prev_measure_position = last_measure_position
                     # After-graces are placed at the same position as the
@@ -1475,7 +1471,7 @@ class Part(Music_xml_node):
                 sid = "None"
             if vid and vid not in voices:
                 voices[vid] = Musicxml_voice()
-            if vid and sid and not n.get_maybe_exist_typed_child(Grace):
+            if vid and sid and ('grace' not in n):
                 if vid not in voice_to_staff_dict:
                     voice_to_staff_dict[vid] = sid
 
@@ -1648,6 +1644,7 @@ class Glissando(Music_xml_spanner):
 
 
 class Grace(Music_xml_node):
+    """optional empty child of <note>"""
     pass
 
 

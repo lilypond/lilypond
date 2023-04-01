@@ -2471,8 +2471,8 @@ def musicxml_voice_to_lily_voice(voice):
             voice_builder.add_music(ev_chord, n._duration)
 
         # For grace notes:
-        grace = n.get_maybe_exist_typed_child(musicxml.Grace)
-        if n.is_grace():
+        grace = n.get('grace')
+        if grace is not None:
             is_after_grace = ev_chord.has_elements() or n.is_after_grace()
             is_chord = n.get_maybe_exist_typed_child(musicxml.Chord)
 
@@ -2487,7 +2487,7 @@ def musicxml_voice_to_lily_voice(voice):
                 if not grace_chord:
                     grace_chord = musicexp.ChordEvent()
                     ev_chord.append_after_grace(grace_chord)
-            elif n.is_grace():
+            else:
                 if ev_chord.grace_elements and n.get_maybe_exist_typed_child(musicxml.Chord):
                     grace_chord = ev_chord.grace_elements.get_last_event_chord()
                 if not grace_chord:
