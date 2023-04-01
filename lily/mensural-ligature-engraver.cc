@@ -201,7 +201,7 @@ Mensural_ligature_engraver::transform_heads (
       // 3. semibreves are denoted by an upward tail on the left
       //    (theoretical sources require them at the beginning, but
       //     an upward tail is not used for anything else in the middle,
-      //     and in extremely rare cases it's used to denote swmibreves,
+      //     and in extremely rare cases it's used to denote semibreves,
       //     see e.g. Fayrfax's Aeternae laudis lilium
       //     in the Lambeth Choirbook: fol. 58v, start of the fourth line)
       else if (duration_log == 0)
