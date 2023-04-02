@@ -14,7 +14,7 @@ For maintenance reasons, we don't exercise the entire markup command set.
 
 %}
 
-\layout { 
+\layout {
   ragged-right = ##t
   indent = #0
   \context {
@@ -22,8 +22,6 @@ For maintenance reasons, we don't exercise the entire markup command set.
     \remove "Time_signature_engraver"
   }
 }
-
-
 
 \version "2.21.0"
 
@@ -36,11 +34,9 @@ For maintenance reasons, we don't exercise the entire markup command set.
 
     \bracket \column { baz bazr bla }
     \hspace #2.0
-    \override #'(font-encoding . fetaMusic) {
-      \lookup "noteheads-0"
-    }
+    \lookup "brace100"
     \musicglyph "accidentals.mirroredflat"
-    \combine "X" "+"   
+    \combine "X" "+"
     \combine "o" "/"
     \box \column { \line { "string 1" } \line { "string 2" } }
     " "
@@ -52,18 +48,17 @@ For maintenance reasons, we don't exercise the entire markup command set.
     \huge { "A" \smaller "A" \smaller \smaller "A"
 	    \smaller \smaller \smaller "A" }
     \larger \sub "alike"
-  }	
+  }
   \break
-  f'1-$(markup 
+  f'1-$(markup
 	"foo"
 	#:raise 0.2 #:hbracket #:bold "bar"
-	#:override '(baseline-skip . 4) 
+	#:override '(baseline-skip . 4)
 	#:bracket #:column ( "baz" "bazr" "bla" )
 	#:hspace 2.0
-	#:override '(font-encoding . fetaMusic) #:line (#:lookup "noteheads-0" 
-						      )
+	#:lookup "brace100"
 	#:musicglyph "accidentals.mirroredflat"
-	#:combine "X" "+"   
+	#:combine "X" "+"
 	#:combine "o" "/"
 	#:box #:column ("string 1" "string 2")
 	" "
@@ -72,7 +67,7 @@ For maintenance reasons, we don't exercise the entire markup command set.
 	#:circle #:dynamic "p"
 	" "
 	#:dynamic "sfzp"
-	#:huge #:line ("A" #:smaller "A" #:smaller #:smaller "A" 
+	#:huge #:line ("A" #:smaller "A" #:smaller #:smaller "A"
 		       #:smaller #:smaller #:smaller "A")
 	#:larger #:sub "alike")
 }

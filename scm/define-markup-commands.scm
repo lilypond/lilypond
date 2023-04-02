@@ -4128,20 +4128,26 @@ Use the filled head if @var{filled} is specified.
 (define-markup-command (lookup layout props glyph-name)
   (string?)
   #:category other
-  "Lookup a glyph by name.
+  "Look up a brace glyph by name.  This is a historical command;
+@code{\\left-brace} (which looks up the glyph by absolute size
+and is independent of the font size) is recommended instead.
 
 @lilypond[verbatim,quote]
-\\markup {
-  \\override #'(font-encoding . fetaBraces) {
-    \\lookup #\"brace200\"
-    \\hspace #2
-    \\rotate #180
-    \\lookup #\"brace180\"
-  }
-}
+\\markup \\lookup #\"brace200\"
 @end lilypond"
-  (ly:font-get-glyph (ly:paper-get-font layout props)
-                     glyph-name))
+  (let ((result
+         (ly:font-get-glyph (ly:paper-get-font
+                             layout
+                             (cons '((font-encoding . fetaBraces)
+                                     (font-name . #f))
+                                   props))
+                            glyph-name)))
+    (when (ly:stencil-empty? result)
+      (ly:warning (G_ "cannot find brace glyph '~a'") glyph-name)
+      (when (not (string-startswith glyph-name "brace"))
+        (ly:warning (G_ "use \\musicglyph instead of \\lookup for non-brace \
+glyphs"))))
+    result))
 
 (define-markup-command (char layout props num)
   (integer?)
@@ -4357,7 +4363,10 @@ figured bass notation.
   #:category other
   #:as-string "{"
   "
-A feta brace in point size @var{size}.
+@cindex brace, in markup
+@cindex staff brace, in markup
+
+A brace from the music font, of height @var{size} (in points).
 
 @lilypond[verbatim,quote]
 \\markup {

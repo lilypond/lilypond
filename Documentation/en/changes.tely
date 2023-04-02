@@ -298,6 +298,11 @@ override this by using an extra font family, as shown in this example
 @end quotation
 
 
+@item
+The @code{\lookup} markup command can now only be used for braces;
+for other glyphs, use the @code{\musicglyph} command.  Instead of
+@code{\lookup}, it is also generally recommended to use @code{\left-brace}.
+
 @end itemize
 
 @node New for specialist notation

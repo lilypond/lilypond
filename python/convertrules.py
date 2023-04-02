@@ -4827,6 +4827,7 @@ def conv(s):
     return s
 
 @rule((2, 25, 4), r"""
+<<<<<<< HEAD
 #(define fonts (set-global-fonts #:roman "roman" ...))
 or
 #(define fonts (make-pango-font-tree ...))
@@ -4835,6 +4836,9 @@ or
   fonts.roman = ...
   fonts.sans = ...
   (etc.)
+
+
+\lookup "non-brace glyph" -> \musicglyph "non-brace glyph"
 """)
 def conv(s):
     # This replacement is not 100% reliable, but should do a good job.
@@ -4958,6 +4962,36 @@ set to:
     pango_assign_re = rf"{indent_re}fonts\s*=\s*#{pango_re}"
     s = re.sub(pango_define_re, replace_pango, s, flags=re.MULTILINE)
     s = re.sub(pango_assign_re, replace_pango, s, flags=re.MULTILINE)
+
+    # Convert \lookup to \musicglyph if the argument is not a brace glyph.
+    # Also strip outer \override #'(font-encoding . fetaMusic) if found;
+    # this is not necessary, but it shortens the input code.  We detect
+    # \override #'(font-encoding . fetaBraces) { \lookup ... }
+    # as well because many users put redundant braces in markup.
+    template = r'''(?x)
+       {delim1}
+       \\lookup  \s*  \#?  " (?!brace)([^"]+) "
+       {delim2}
+               '''
+    delim1_no_brace = r'''
+      \\override  \s*  \#'\(font-encoding \s+ \.  \s+ fetaMusic\)\s*
+                      '''
+    delim1_brace = delim1_no_brace + r"\{\s*"
+    delim2_brace = r"\s*\}"
+    repl = r'\\musicglyph "\1"'
+
+    s = re.sub(template.format(delim1=delim1_no_brace, delim2=""), repl, s)
+    s = re.sub(template.format(delim1=delim1_brace, delim2=delim2_brace), repl, s)
+    s = re.sub(template.format(delim1="", delim2=""), repl, s)
+
+    # Convert make-lookup-markup uses
+    s = re.sub(r'\(make-lookup-markup\s+"(?!brace)([^"]+)"\)',
+               r'(make-musicglyph-markup "\1")',
+               s)
+
+    # Convert (markup #:lookup ...) uses
+    s = re.sub(r'#:lookup\s+"(?!brace)([^"]+)"', r'#:musicglyph "\1"', s)
+
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

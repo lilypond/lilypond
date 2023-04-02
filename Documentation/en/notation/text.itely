@@ -1706,16 +1706,12 @@ list of these symbols and their names can be found in
 \relative {
   c''2
   c'^\markup { \musicglyph "eight" }
-  c,4
+  c,4_\markup { \left-brace #40 }
   c,8._\markup { \musicglyph "clefs.G_change" }
   c16
   c2^\markup { \musicglyph "timesig.neomensural94" }
 }
 @end lilypond
-
-Another way of printing non-text glyphs is described in
-@ref{Music fonts}.  This is useful for printing braces of various
-sizes.
 
 The markup mode also supports diagrams for specific
 instruments:
@@ -1767,8 +1763,7 @@ An exhaustive list of music notation related commands can be found in
 @morerefs
 Notation Reference:
 @ref{Markup for music and musical symbols},
-@ref{The Emmentaler font},
-@ref{Music fonts}.
+@ref{The Emmentaler font}.
 
 Installed Files:
 @file{scm/define-markup-commands.scm},
@@ -1809,7 +1804,6 @@ change them in scores.
 * Font features::
 * Single entry fonts::
 * Entire document fonts::
-* Music fonts::
 @end menu
 
 @node Finding fonts
@@ -2197,54 +2191,3 @@ Notation Reference:
 @ref{Font markup},
 @ref{Replacing the notation font}.
 @endmorerefs
-
-
-@node Music fonts
-@unnumberedsubsubsec Music fonts
-
-@cindex font, music notation
-@funindex font-encoding
-@funindex font-interface
-
-LilyPond neither uses FontConfig nor Pango for accessing music
-notation fonts but handles them by itself.  As a consequence, the
-interface is different.  This section describes how to insert
-music symbols into markup strings.
-
-@cindex brace, various sizes
-@cindex font, non-text in markup
-@cindex non-text font, in markup
-
-Music notation fonts are a collection of specific glyphs that can
-be accessed with several @emph{encodings}.  The following syntax
-allows LilyPond's various Emmentaler glyphs@footnote{LilyPond's
-Emmentaler fonts contain three glyph sets: @emph{Feta} (for modern
-notation), @emph{Parmesan} (for ancient notation), and braces.
-Both Feta and Parmesan are accessed with the @q{fetaMusic}
-encoding.} to be used directly in markup mode:
-
-@lilypond[quote,verbatim,fragment]
-a'1^\markup {
-  \vcenter {
-    \override #'(font-encoding . fetaBraces)
-    \lookup "brace120"
-    \override #'(font-encoding . fetaText)
-    \column { 1 3 sf }
-    \override #'(font-encoding . fetaMusic)
-    \lookup "noteheads.s0petrucci"
-  }
-}
-@end lilypond
-
-@noindent
-However, all these glyphs except the braces of various sizes are
-available using the simpler syntax described in @ref{Music
-notation inside markup}.
-
-When accessing braces with the @q{fetaBraces} encoding, the size
-of the brace is specified by the numerical part of the glyph name,
-in arbitrary units.  Any integer from 0 to 575 inclusive may be
-specified, with 0 giving the smallest brace.  The optimum value
-must be determined by trial and error.  These glyphs are all left
-braces; right braces may be obtained by rotation, @pxref{Rotating
-objects}.

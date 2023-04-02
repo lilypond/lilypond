@@ -17,9 +17,7 @@
         bla
       }
       \hspace #2.0
-      \override #'(font-encoding . fetaMusic) {
-        \lookup "noteheads-0"
-      }
+      \lookup "brace200"
       \semiflat
       { }
       \combine "X" "+"

@@ -1869,15 +1869,12 @@ Two lines of a stanza can also be grouped together, for example
 in case of a repeat with different lyrics:
 
 @lilypond[quote,ragged-right,verbatim]
-leftbrace = \markup {
-  \override #'(font-encoding . fetaBraces)
-  \lookup "brace80"
-}
-
 stanzaOneOne = \lyricmode {
   \set stanza = \markup {
-    \column { \vspace #.33 "1. "}
-    \leftbrace
+    \column {
+      \vspace #.2
+      \line { "1." \left-brace #30 }
+    }
   }
   Child, you’re mine and I love you.
   Lend thine ear to what I say.
@@ -3478,7 +3475,7 @@ it also has fermatas over the bar lines:
 @lilypond[verbatim,quote]
 \layout {
   \context {
-    \Score 
+    \Score
     caesuraType = #'((bar-line . ".")
                      (scripts . (fermata)))
     fineBarType = ".."
@@ -3493,7 +3490,7 @@ when a line is broken in mid-measure at the end of a phrase.
 @lilypond[verbatim,quote]
 \layout {
   \context {
-    \Score 
+    \Score
     caesuraType = #'((underlying-bar-line . "x-."))
     fineBarType = ".."
   }
