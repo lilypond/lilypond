@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 14e7b471ee6f365bbf550c1e0c79ea13ec96abf8
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2569,6 +2569,8 @@ produire au même instant, nous citerons :
 
 @c TODO add examples of these
 
+@cindex accord, modification de l'une des notes
+
 Dans l'exemple suivant, l'une des têtes de note de l'accord est
 colorisée, et l'aspect d'une autre est changé.
 
@@ -2597,10 +2599,8 @@ constitue qu'un conteneur pour des événements musicaux et que tous les
 objets seront créés à partir d'événements appartenant à un
 @code{EventChord} (un événement d'accord) :
 
-@lilypond[relative=2,verbatim,quote]
-\tweak color #red c4
-\tweak color #red <c e>4
-<\tweak color #red c>4
+@lilypond[verbatim,quote]
+{ <\tweak color #red c'' e''>4 }
 @end lilypond
 
 La commande @code{\tweak} simple ne saurait servir à modifier un élément

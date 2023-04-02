@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 14e7b471ee6f365bbf550c1e0c79ea13ec96abf8
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -385,6 +385,46 @@ l'ouvrage dès lors que vous y insérez un bloc @code{\header}.
   @dots{}
 @}
 @end example
+
+@cindex variable et @code{\book}
+@cindex variable et @code{\bookpart}
+@cindex @code{\book} et variables
+@cindex @code{\bookpart} et variables
+
+De par leur conception, il n'est pas possible de définir des variables
+au sein d'un bloc @code{\book} ou @code{\bookpart} -- c'est d'ailleurs
+aussi le cas pour les blocs @code{\score}. Ceci s'avère particulièrement
+important lorsque l'on veut répartir la musique dans de multiples
+fichiers à l'aide de variables « locales ». On peut toutefois adopter
+la structure suivante en pareil cas :
+
+@example
+% mouvement1.ly
+variableI = @{ ... @}
+bookpartI = \bookpart @{ \score @{ ... utilise \variableI ... @} @}
+
+% mouvement2.ly
+variableII = @{ ... @}
+bookpartII = \bookpart @{ \score @{ ... utilise \variableII ... @} @}
+
+% principal.ly
+\include "mouvement1.ly"
+\include "mouvement2.ly"
+\book @{
+  \bookpart @{ \bookpartI @}
+  \bookpart @{ \bookpartII @}
+@}
+@end example
+
+@cindex @code{\book} et @code{\layout}
+@cindex @code{\bookpart} et @code{\layout}
+@cindex @code{\layout} et @code{\book}
+@cindex @code{\layout} et @code{\bookpart}
+
+De la même manière, un bloc @code{\layout} ne peut se trouver au sein
+d'un bloc @code{\book} ou @code{\bookpart}. Il doit se trouver au sein
+d'un bloc @code{\score} qui, lui, peut être inclus dans un bloc
+@code{\book} ou @code{\bookpart}.
 
 
 @node Plusieurs éditions pour une même source
@@ -2380,8 +2420,8 @@ Les fichiers à inclure peuvent eux-mêmes contenir des instructions
 @code{\include}. Ces instructions @code{\include} de second niveau
 seront, par défaut, interprétées par rapport à leur situation dans
 l'arborescence. Tel sera, par exemple, le cas d'une biblothèque générale
-libA créée pour utiliser des sous-fichiers à l'aide d'inclusions dans un
-fichier catalogue, comme ici :
+« libA » créée pour utiliser des sous-fichiers à l'aide d'inclusions
+dans un fichier catalogue, comme ici :
 
 @example
 libA/
@@ -4537,9 +4577,9 @@ exprimant la manière dont doivent être jouées les notes régulières. Par
 exemple, @code{#'(2 1)} indique que chaque note devrait se jouer deux
 fois plus longue que la suivante -- en fait,
 @code{\tripletFeel @var{durée} @{@var{musique}@}} est un raccourci de
-@code{\applySwing @var{durée} #'(2 1) @{@var{musique}@}}
-Des croches chaloupées plus doucement s'obtiennent avec une @emph{liste
-de pondération} de @code{#'(3 2)} ou toute autre valeur selon les goûts.
+@code{\applySwing @var{durée} #'(2 1) @{@var{musique}@}} Des croches
+chaloupées plus doucement s'obtiennent avec une @emph{liste de
+pondération} de @code{#'(3 2)} ou toute autre valeur selon les goûts.
 
 @noindent
 Cette liste peut prendre plus de deux valeurs, ce qui permet d'adopter
@@ -4558,9 +4598,8 @@ une impression de samba sur des double-croches peut s'obtenir ainsi :
 @item
 @code{\applySwingWithOffset} ajoute quant à elle un autre argument entre
 la @emph{liste de pondération} et l'expression musicale : une durée de
-décallage, donnée sous forme d'expression @code{ly:make-moment}. Cette
-commande devrait s'utiliser lorsque l'expression musicale démarre à
-contre temps, avec une portion de cycle.
+décallage. Cette commande devrait s'utiliser lorsque l'expression
+musicale démarre à contre temps, avec une portion de cycle.
 @end itemize
 
 @warning{Tout comme avec le script @file{articulate}, toutes les

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 14e7b471ee6f365bbf550c1e0c79ea13ec96abf8
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -957,7 +957,7 @@ continuent de jouer.
       R1\fermata
       R1*3
     }
-    \new Staff \with { instrumentName = "Basson" } \relative c {
+    \new Staff \with { instrumentName = "Bassoon" } \relative c {
       \key c \minor
       \clef bass
       r2 r4 \tuplet 3/2 { r8 g'( b,) }
@@ -1964,7 +1964,7 @@ la propriété interne @code{skipBars}, qui se définit au sein du contexte
 {snippets/numbering-single-measure-rests.ly}
 
 @cindex silence d'église
-@cindex kirchenpause
+@cindex Kirchenpause
 @cindex multimesure, silence, style
 @cindex silence multimesure, style
 @cindex style, silence multimesure

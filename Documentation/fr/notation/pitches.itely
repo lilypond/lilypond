@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1266,14 +1266,14 @@ Lorsqu'une clef a déjà été imprimée et qu'aucune autre clef n'a depuis
 la commande @w{@code{\set Staff.forceClef = ##t}}.
 
 @lilypond[verbatim,quote,fragment]
-  \clef treble
-  c'1
-  \clef treble
-  c'1
-  \set Staff.forceClef = ##t
-  c'1
-  \clef treble
-  c'1
+\clef treble
+c'1
+\clef treble
+c'1
+\set Staff.forceClef = ##t
+c'1
+\clef treble
+c'1
 @end lilypond
 
 @noindent
@@ -1288,22 +1288,22 @@ Le symbole imprimé lors d'un changement de clef est plus petit que la
 clef initiale.  La taille peut toutefois être ajustée.
 
 @lilypond[verbatim,quote,fragment]
-  \clef "treble"
-  c'1
-  \clef "bass"
-  c'1
-  \clef "treble"
-  c'1
-  \override Staff.Clef.full-size-change = ##t
-  \clef "bass"
-  c'1
-  \clef "treble"
-  c'1
-  \revert Staff.Clef.full-size-change
-  \clef "bass"
-  c'1
-  \clef "treble"
-  c'1
+\clef "treble"
+c'1
+\clef "bass"
+c'1
+\clef "treble"
+c'1
+\override Staff.Clef.full-size-change = ##t
+\clef "bass"
+c'1
+\clef "treble"
+c'1
+\revert Staff.Clef.full-size-change
+\clef "bass"
+c'1
+\clef "treble"
+c'1
 @end lilypond
 
 @snippets

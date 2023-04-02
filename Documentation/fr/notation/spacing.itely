@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1144,7 +1144,7 @@ Le type de chiffres à utiliser pour la numérotation : @code{'arabic}
 @code{'roman-lower} (romains minuscules) ou @code{'roman-upper} (romains
 majuscules) . La valeur par défaut est @code{'arabic}.
 
-@cindex page, numérotation par @emph{bookpart}
+@cindex page, numérotation par @code{bookpart}
 @cindex page, numérotation indépendente pour l'introduction
 @item bookpart-level-page-numbering
 @funindex bookpart-level-page-numbering
@@ -2153,10 +2153,9 @@ déposera le @code{\allowPageTurn}.
 
 Le @code{Page_turn_engraver} examine la propriété de contexte
 @code{minimumPageTurnLength} pour déterminer quelle doit être la
-longueur d'un fragment sans note avant une tourne.  La valeur par
-défaut de @code{minimumPageTurnLength} est
-@code{(ly:make-moment 1 1)}, soit une ronde, et s'ajuste de
-la manière suivante :
+longueur d'un fragment sans note avant une tourne. La valeur par défaut
+de @code{minimumPageTurnLength} est @code{\musicLength 1}, soit une
+ronde, et s'ajuste de la manière suivante :
 
 @example
 \new Staff \with @{ \consists Page_turn_engraver @}
@@ -3394,13 +3393,12 @@ Référence des propriétés internes :
 @end menu
 
 Vous pouvez influencer l'espacement horizontal à l'aide de la propriété
-@code{base-shortest-duration}.  Comparons les deux partitions qui
-suivent, toutes deux montrant la même musique.  La première partition
+@code{base-shortest-duration}. Comparons les deux partitions qui
+suivent, toutes deux montrant la même musique. La première partition
 applique les réglages par défaut, alors que la seconde bénéficie d'un
-ajustement de la propriété @code{base-shortest-duration}.  Au plus la
-valeur de @code{ly:make-moment} est grande, au plus la musique sera
-resserrée.  En effet, @code{ly:make-moment} construit une durée :
-@code{1 4} est plus long que @code{1 16}.
+ajustement de la propriété @code{base-shortest-duration}. Au plus la
+valeur fournie en argument est grande, au plus la musique sera
+resserrée.
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
@@ -3968,13 +3966,9 @@ contexte.
 
 La propriété @code{proportionalNotationDuration} prend en unique
 argument la durée de référence qui servira de base pour espacer toute la
-musique.  La fonction Scheme @code{make-moment} intégrée à LilyPond
-prend deux arguments : un numérateur et un dénominateur qui
-représentent une fraction de ronde.  L'appel de
-@w{@code{(ly:make-moment 1/20)}} produit donc une durée de référence
-égale à un vingtième de ronde.  Vous pourriez tout aussi bien  utiliser
-@code{(ly:make-moment 1/16)}, @code{(ly:make-moment 1/8)} ou
-@code{(ly:make-moment 3/97)}.
+musique. L'appel de @code{\musicLength 1*1/20} produit donc une durée de
+référence égale à un vingtième de ronde. Vous pourriez tout aussi bien
+utiliser @code{\musicLength_16} ou @code{\musicLength @{2 2.@}}.
 
 Se pose alors le problème de fournir la juste durée de référence à
 @code{proportionalNotationDuration}.  Il faut en l'occurrence procéder par

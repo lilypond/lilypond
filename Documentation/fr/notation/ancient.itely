@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 14e7b471ee6f365bbf550c1e0c79ea13ec96abf8
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -22,7 +22,7 @@
 
 @cindex Vaticana, Editio
 @cindex Medicaea, Editio
-@cindex hufnagel
+@cindex Hufnagel
 @cindex Petrucci
 @cindex mensural
 
@@ -95,30 +95,32 @@ En matière de chant grégorien, LilyPond dispose de trois différents
 styles :
 
 @itemize
-@item @emph{Editio Vaticana} constitue un style à part entière dédié au
-chant grégorien, le plus approchant possible des éditions de Solesmes,
-éditeur officiel du Vatican depuis 1904. LilyPond dispose de tous les
-signes de notation propres à ce style, y compris les ligatures, custodes
-et certaines spécificités comme le quilisma et l'oriscus.
-
+@item
 @cindex Solesmes
 @cindex Vaticana, Editio
+@emph{Editio Vaticana} constitue un style à part entière dédié au chant
+grégorien, le plus approchant possible des éditions de Solesmes, éditeur
+officiel du Vatican depuis 1904. LilyPond dispose de tous les signes de
+notation propres à ce style, y compris les ligatures, custodes et
+certaines spécificités comme le quilisma et l'oriscus.
 
-@item @emph{Editio Medicaea} dispose d'un certain nombre de
-spécificités des éditions qui faisaient autorité avant Solesmes. On le
-connaît aussi sous le nom de Ratisbone. Ce qui le distingue le plus du
-style @emph{Vaticana} réside dans les clefs, en forme de barres
-obliques, et les têtes de note, plus carrées et régulières.
-
+@item
 @cindex Ratisbona, Editio
 @cindex Medicaea, Editio
+@emph{Editio Medicaea} dispose d'un certain nombre de spécificités des
+éditions qui faisaient autorité avant Solesmes. On le connaît aussi sous
+le nom de Ratisbone. Ce qui le distingue le plus du style
+@emph{Vaticana} réside dans les clefs, en forme de barres obliques, et
+les têtes de note, plus carrées et régulières.
 
-@item Le style @emph{Hufnagel} (« clou de fer à cheval ») ou
-@emph{gothique} imite le style des manuscrits médiévaux d'Allemagne et
-d'Europe centrale.  Il tire son nom de l'allure des notes (en virgule ou
+
+@item
+@cindex Hufnagel
+Le style @emph{Hufnagel} (« clou de fer à cheval ») ou @emph{gothique}
+imite le style des manuscrits médiévaux d'Allemagne et d'Europe
+centrale. Il tire son nom de l'allure des notes (en virgule ou
 @emph{virga}) qui ressemblent à des têtes de clou.
 
-@cindex hufnagel
 @end itemize
 
 LilyPond dispose de trois styles imitant les manuscrits du Bas Moyen Âge
@@ -126,27 +128,30 @@ et de la Renaissance ainsi que les premières impressions de musique
 mesurée.
 
 @itemize
-@item Le style @emph{Mensural} est celui qui se rapproche le plus des
+@item
+@cindex mensural
+Le style @emph{Mensural} est celui qui se rapproche le plus des
 manuscrits de la période allant de la fin du Moyen Âge au début de la
 Renaissance, avec ses petites têtes de note en forme de losange étroit
 et ses silences comme dessinés à main levée.
 
-@cindex mensural
 
-@item Le style @emph{Neomensural} est une version moderne et stylisée du
-style mensural : les têtes de note sont un peu plus galbées et les
-silences plus rectilignes. Ce style est tout à fait approprié à
-l'incipit d'une transcription de musique ancienne.
-
+@item
 @cindex neomensural
+Le style @emph{Neomensural} est une version moderne et stylisée du style
+mensural : les têtes de note sont un peu plus galbées et les silences
+plus rectilignes. Ce style est tout à fait approprié à l'incipit d'une
+transcription de musique ancienne.
 
-@item Le style @emph{Petrucci} tire son nom du fameux graveur vénitien
+
+@item
+@cindex Petrucci
+Le style @emph{Petrucci} tire son nom du fameux graveur vénitien
 Ottaviano Petrucci (1466-1539), premier imprimeur à utiliser des
 caractères amovibles pour la musique dans son édition du @emph{Harmonice
 musices odhecaton} en 1501. Les têtes de notes de ce style sont plus
 larges que pour les autres styles mensuraux.
 
-@cindex Petrucci
 
 @end itemize
 
@@ -337,7 +342,7 @@ suivant.
 }
 @end lilypond
 
-Le glyphe du guidon est déterminé par la propriété @code{style}.  Les
+Le glyphe du guidon est déterminé par la propriété @code{style}. Les
 styles disponibles sont @code{vaticana}, @code{medicaea},
 @code{hufnagel} et @code{mensural}.
 
@@ -440,11 +445,11 @@ Glossaire musicologique :
 @cindex Petrucci, clef
 @cindex mensurale, clef
 @cindex mensurale noire, clef
-@cindex Kievan, clef
+@cindex kiévienne, clef
 
 Les clefs dédiées à la musique ancienne sont disponibles à l'aide de la
-commande @code{\clef}.  Certaines de ces clés utilisent le même glyphe,
-attaché à l'une ou l'autre des lignes de la portée.  Le chiffre porté en
+commande @code{\clef}. Certaines de ces clés utilisent le même glyphe,
+attaché à l'une ou l'autre des lignes de la portée. Le chiffre porté en
 suffixe permet alors de les différencier, en partant de la ligne
 inférieure.
 
@@ -1533,10 +1538,10 @@ d'une hauteur par l'une des commandes suivantes :
 @code{\linea}.
 
 @item
-Une ligature, autrement dit la juxtaposition de notes,
-s'obtient en plaçant une commande de jointure @code{\pes} ou
-@code{\flexa} pour marquer une ligne mélodique respectivement ascendante
-ou descendante, entre les notes qui la composent.
+Une ligature, autrement dit la juxtaposition de notes, s'obtient en
+plaçant une commande de jointure @code{\pes} ou @code{\flexa} pour
+marquer une ligne mélodique respectivement ascendante ou descendante,
+entre les notes qui la composent.
 @end itemize
 
 Une hauteur sans qualificatif sera considérée comme un @emph{punctum}.
@@ -2538,9 +2543,9 @@ La notation kiévienne n'utilise qu'une seule clef -- la clef
 « Tse-fa-ut » -- qui indique la position du do :
 
 @lilypond[quote,fragment,notime,verbatim]
-  \clef "kievan-do"
-  \kievanOn
-  c'
+\clef "kievan-do"
+\kievanOn
+c'
 @end lilypond
 
 @morerefs
