@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -65,14 +65,15 @@ Voici quelques conseils qui vous permettront d'éviter, voire même
 résoudre, la plupart des problèmes de saisie.
 
 @itemize
-@item @strong{Ajoutez toujours le numéro de version dans chaque
-fichier}, quelle que soit sa taille.  Par expérience, il est très
-difficile de se rappeler quelle version de LilyPond a servi au moment de
-la création d'un fichier. Ceci s'avèrera d'autant plus utile lors d'une
+@item
+@strong{Ajoutez toujours le numéro de version dans chaque fichier},
+quelle que soit sa taille. Par expérience, il est très difficile de se
+rappeler quelle version de LilyPond a servi au moment de la création
+d'un fichier. Ceci s'avèrera d'autant plus utile lors d'une
 @rprogramnamed{Mise à jour avec convert-ly, mise à jour}
 (@command{convert-ly} requiert la présence d'une ligne @code{\version})
 ou si vous transmettez votre fichier à d'autres utilisateurs -- y
-compris pour demander de l'aide sur les listes de diffusion.  Vous
+compris pour demander de l'aide sur les listes de diffusion. Vous
 noterez par ailleurs que tous les fichiers modèles de LilyPond ont une
 mention @code{\version}.
 
@@ -83,15 +84,15 @@ mesure par ligne. Économiser de la place en tassant huit mesures par
 ligne, ça ne vaut pas vraiment le coup si l'on doit corriger vos
 fichiers.
 
-@item @strong{Ajoutez des contrôles
-@rnotationnamed{Vérifications d'octave,d'octaviation} et
-@rnotationnamed{Vérification des limites et numéros de mesure,de limite ou
-numéro de mesure}}.  Si vous avez ajouté des contrôles de loin en loin
-et que vous faites une erreur, vous pourrez la retrouver plus
-rapidement.  « De loin en loin », qu'est-ce à dire ?  Cela dépend
-de la complexité de la musique.  Pour de la musique très simple, à
-certains endroits stratégiques.  Pour de la musique très complexe ou
-avec une multiplicité de voix, peut-être à chaque mesure.
+@item
+@strong{Ajoutez des contrôles de limite ou numéro de mesure et
+d'octaviation} -- voir @rnotation{Vérification des limites et numéros de
+mesure} et @rnotation{Vérifications d'octave}. Si vous avez ajouté des
+contrôles de loin en loin et que vous faites une erreur, vous pourrez la
+retrouver plus rapidement. « De loin en loin », qu'est-ce à dire ? Cela
+dépend de la complexité de la musique. Pour de la musique très simple, à
+certains endroits stratégiques. Pour de la musique très complexe ou avec
+une multiplicité de voix, peut-être à chaque mesure.
 
 @item @strong{Ajoutez des commentaires}.
 Utilisez soit des numéros de mesure (assez souvent), soit des références

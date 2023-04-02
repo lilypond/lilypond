@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -60,6 +60,7 @@ Aussi, si vous ne savez de quoi il retourne, nous vous renvoyons aux
 nombreuses documentations que vous pourrez trouver sur ce sujet.
 
 @menu
+* La variable d'environnement PATH::
 * Lancement de LilyPond::
 * Options basiques de lilypond::
 * Options avancées de lilypond::
@@ -67,6 +68,52 @@ nombreuses documentations que vous pourrez trouver sur ce sujet.
 * Réadressage::
 * Exécution de LilyPond en mode protégé::
 @end menu
+
+
+@node La variable d'environnement PATH
+@unnumberedsubsec La variable d'environnement @env{PATH}
+@translationof The PATH environment variable
+
+[Vous pouvez passer cette section si vous utilisez un gestionnaire de
+paquetage tel que MacPorts pour installer LilyPond ; @env{PATH} devrait
+être réglé correctement.]
+
+Dans les différents manuels de LilyPond, les exemples font référence à
+@command{lilypond} comme étant le programme à lancer. Ceci ne fonctionne
+toutefois que dès lors que la variable d'environnement @env{PATH} est
+réglée de telle sorte qu'elle inclut le répertoire contenant les
+binaires de LilyPond.
+
+Partant du principe que vous avez déplié le paquetage de la version
+@version{} de LilyPond dans le répertoire @file{/home/moi}, le
+répertoire des binaires à ajouter à @env{PATH} est
+
+@example
+/home/moi/lilypond-@version{}/bin
+@end example
+
+@noindent
+Sur Windows, il devrait normalement s'agir de
+
+@example
+C:\Utilisateurs\moi\lilypond-@version{}\bin
+@end example
+
+Consultez la documentation pour votre système opérartoire ou faites une
+recherche sur internet pour savoir comment modifier @env{PATH}. Dans le
+cas où vous mettez à jour une ancienne version de LilyPond, assurez-vous
+que l'ancien répertoire de binaires est supprimé de @env{PATH}. Vous
+pourrez alors vérifier qu'un apppel en ligne de commande à
+@code{lilypond --version} renvoie la bonne version.
+
+Si, pour quelque raison que ce soit, vous ne parvenez pas à régler
+@env{PATH}, ou si vous avez plusieurs versions de LilyPond installées,
+il vous faudra utiliser le chemin complet d'accès au binaire, par
+exemple
+
+@example
+/home/moi/lilypond-@version{}/bin/lilypond musique.ly
+@end example
 
 
 @node Lancement de LilyPond
