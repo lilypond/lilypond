@@ -174,7 +174,7 @@ LY_DEFINE (ly_string_substitute, "ly:string-substitute", 3, 0, 0,
 Replace string@tie{}@var{a} by string@tie{}@var{b} in string@tie{}@var{s}.
            )")
 {
-  LY_ASSERT_TYPE (scm_is_string, s, 1);
+  LY_ASSERT_TYPE (scm_is_string, a, 1);
   LY_ASSERT_TYPE (scm_is_string, b, 2);
   LY_ASSERT_TYPE (scm_is_string, s, 3);
 
