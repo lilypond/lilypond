@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 2ee272f827166e92f827cdac4cb15f748ad9293f
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -985,6 +985,7 @@ Les vieilles annonces et informations de version sont rangées au
 @subheading Annonces
 
 Annonces et nouvelles, par version :
+@uref{https://lilypond.org/doc/v2.24/Documentation/web/news,v2.24},
 @uref{https://lilypond.org/doc/v2.22/Documentation/web/news,v2.22},
 @uref{https://lilypond.org/doc/v2.20/Documentation/web/news,v2.20},
 @uref{https://lilypond.org/doc/v2.18/Documentation/web/index#Lilypond-2_002e18_002e0-released_0021-December-29_002c-2013,v2.18},
@@ -1002,6 +1003,7 @@ Annonces et nouvelles, par version :
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Liste descriptive des évolutions, par version :
+@uref{https://lilypond.org/doc/v2.24/Documentation/changes/index.fr.html,v2.24},
 @uref{https://lilypond.org/doc/v2.20/Documentation/changes/index.fr.html,v2.22},
 @uref{https://lilypond.org/doc/v2.20/Documentation/changes/index.fr.html,v2.20},
 @uref{https://lilypond.org/doc/v2.18/Documentation/changes/,v2.18},
@@ -1026,7 +1028,8 @@ Liste descriptive des évolutions, par version :
 
 Tous nos remerciements aux développeurs, contributeurs, chasseurs
 de bogue et à ceux qui nous ont fait part de leurs suggestions pour
-@uref{https://lilypond.org/doc/v2.20/Documentation/web/authors,v2.22},
+@uref{https://lilypond.org/doc/v2.24/Documentation/web/authors,v2.24},
+@uref{https://lilypond.org/doc/v2.22/Documentation/web/authors,v2.22},
 @uref{https://lilypond.org/doc/v2.20/Documentation/web/authors,v2.20},
 @miscLink{THANKS-2.16,v2.18},
 @miscLink{THANKS-2.16,v2.16},
