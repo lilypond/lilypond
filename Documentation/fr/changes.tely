@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0563f39707d19dc066de3e26c14ceacbce2178cb
+    Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -125,6 +125,7 @@ PDF, l'option @code{-dembed-source-code} pour le PDF et la propriété
 * Améliorations en matière de mise en forme du texte::
 @end menu
 
+
 @node Améliorations de la représentation des hauteurs
 @unnumberedsec Améliorations de la représentation des hauteurs
 @translationof Pitches improvements
@@ -180,7 +181,6 @@ lorsqu'elle intervient en début de pièce.
   \repeat volta 2 { c2 f }
 }
 @end lilypond
-
 
 @end itemize
 
@@ -278,6 +278,12 @@ de @emph{markup} @code{\image}. Ceci vient en supplement de la commande
 La commande @code{\image} traîte aussi bien les images PNG que EPS, à
 ceci près que la commande @code{\image} insère un fond blanc,
 contrairement à @code{\epsfile}.
+
+@item
+La nouvelle commande de @emph{markup} @code{\qr-code} permet d'insérer
+un QR-code de la taille spécifiée pour l'URL correspondante. Ceci peut
+servir à fournir un lien vers le site du compositeur ou de l'éditeur, ou
+bien vers les sources LilyPond ou des enregistrements, etc.
 
 
 @end itemize
