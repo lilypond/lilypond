@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -689,8 +689,8 @@ temps. Nous avons alors besoin de deux voix.
 
 Voyons comment cela se pratique selon la grammaire de LilyPond.
 
-@funindex << \\ >>
-@funindex \\
+@funindex << ... \\ ... >>
+@funindex @sortas{@bs{}@bs{}} \\
 
 Le plus sûr moyen de saisir un fragment où plusieurs voix cohabitent sur
 la même portée, consiste à saisir chacune des voix séquentiellement

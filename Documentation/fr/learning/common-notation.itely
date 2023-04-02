@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -407,7 +407,7 @@ phrasés.
 
 @node Attention aux types de liaison
 @unnumberedsubsubsec Attention aux types de liaison
-@translationof Warnings slurs vs. ties
+@translationof Warnings slurs vs ties
 
 @cindex liaisons d'articulation et de prolongation, différences
 
@@ -1110,7 +1110,7 @@ Manuel de notation :
 
 @funindex << ... \\ ... >>
 @funindex <<
-@funindex \\
+@funindex @sortas{@bs{}@bs{}} \\
 @funindex >>
 
 Bien que LilyPond gère la musique polyphonique sans difficulté, cela

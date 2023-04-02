@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1096,8 +1096,8 @@ pour obtenir des valeurs fait l'objet de la rubrique
   @tab Toute commande @code{\markup} valide
   @tab @code{\markup @{ \italic "cresc." @}}, @code{"bagpipe"}
 @item Durée (@emph{Moment} en anglais)
-  @tab Une durée de note construite avec la fonction make-moment
-  @tab @code{(ly:make-moment 1/4)}, @code{(ly:make-moment 3/8)}
+  @tab Une durée musicale -- ce type est distinct d'une durée de note
+  @tab @code{\musicLength 4.}, @code{\musicLength @{2 2.@}}
 @item Nombre
   @tab Une valeur positive ou négative, qui peut être décimale
   @tab @code{3}, @w{@code{-2.45}}
