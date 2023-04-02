@@ -463,21 +463,21 @@ def draw_mensural_longa (expr wid, holeheight, open, full,
   fi;
   penpos22 (stem_width, 0);
 
-  t := xpart (pat_out intersectiontimes (z21l -- z22l));
+  t := xpart (pat_out intersectiontimes (z21 -- z22));
 
   if (direction = 1):
-    fill subpath (0, t) of pat_out
+    fill subpath (0, floor t) of pat_out
          -- z21l
          .. z21'
          .. z21r
-         -- subpath (floor (t + 1), length pat_out) of pat_out
+         -- subpath (ceiling t, length pat_out) of pat_out
          & cycle;
   else:
-    fill subpath (0, ceiling (t - 1)) of pat_out
+    fill subpath (0, floor t) of pat_out
          -- z21r
          .. z21'
          .. z21l
-         -- subpath (t, length pat_out) of pat_out
+         -- subpath (ceiling t, length pat_out) of pat_out
          & cycle;
   fi;
 
