@@ -75,4 +75,5 @@ font-series
 font-shape
 font-size
 font-features
+font-variant
                )");

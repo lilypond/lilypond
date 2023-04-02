@@ -3541,11 +3541,17 @@ See also the markup commands @code{\\figured-bass} and
 (define-markup-command (fontCaps layout props arg)
   (markup?)
   #:category font
-  "Set @code{font-shape} to @code{caps}
+  "Typeset text in small caps.  Unlike @code{\\smallCaps}, which merely uses
+capital letters in a smaller font size, this uses the actual variant of the font
+for small caps.  (As a consequence, if you configure a custom text font, this
+command has no effect if that font does not have a small caps variant.)
 
-Note: @code{\\fontCaps} requires the installation and selection of
-fonts which support the @code{caps} font shape."
-  (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
+@lilypond[verbatim,quote]
+\\markup \\fontCaps \"Small caps\"
+@end lilypond"
+  (interpret-markup layout
+                    (prepend-alist-chain 'font-variant 'small-caps props)
+                    arg))
 
 (define-markup-command (with-string-transformer layout props transformer arg)
   (procedure? markup?)
@@ -3772,7 +3778,8 @@ normal text font, no matter what font was used earlier.
   ;; ugh - latin1
   (interpret-markup layout
                     (cons '((font-family . roman) (font-shape . upright)
-                            (font-series . medium) (font-encoding . latin1))
+                            (font-series . medium) (font-encoding . latin1)
+                            (font-variant . normal))
                           props)
                     arg))
 

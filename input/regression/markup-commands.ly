@@ -5,7 +5,7 @@
 
 }
 \paper { ragged-right = ##T }
-\version "2.21.0"
+\version "2.25.4"
 
 \score{
   {
@@ -14,7 +14,7 @@
         \line {
           foo \magnify #2 foo
           LOWER \lower #3 LOWER
-          \large \bold { normal \normal-text normal }
+          \large \bold \fontCaps { normal \normal-text normal }
           Small-Caps \smallCaps 	Small-Caps
         }
 

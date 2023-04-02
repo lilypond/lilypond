@@ -324,6 +324,18 @@ dolceP =
 { c'\dolceP }
 @end lilypond
 
+
+@item
+Small caps are now achieved by overriding @code{font-variant} to
+@code{small-caps} instead of overriding @code{font-shape} to
+@code{caps}.  Since @code{font-shape} is primarily for achieving
+italics, this change makes it possible to use small caps and italics
+at the same time.
+
+@lilypond[quote]
+\markup \fontCaps \italic "Small caps in italics"
+@end lilypond
+
 @end itemize
 
 @node New for specialist notation

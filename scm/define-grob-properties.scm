@@ -348,6 +348,8 @@ larger.  If the context property @code{fontSize} is set, its value is
 added to this before the glyph is printed.  Fractional values are
 allowed.")
      (font-features ,list? "Opentype features.")
+     (font-variant ,symbol? "Selects the variant of a font.
+Choices include @code{normal} and @code{small-caps}.")
      (footnote ,boolean? "Should this be a footnote or in-note?")
      (footnote-music ,ly:music? "Music creating a footnote.")
      (footnote-text ,markup? "A footnote for the grob.")

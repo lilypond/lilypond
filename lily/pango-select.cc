@@ -27,15 +27,14 @@ void
 tweak_pango_description (PangoFontDescription *description, SCM chain)
 {
   SCM variant
-    = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain, SCM_BOOL_F);
+    = ly_chain_assoc_get (ly_symbol2scm ("font-variant"), chain, SCM_BOOL_F);
   PangoVariant pvariant = PANGO_VARIANT_NORMAL;
-  if (scm_is_eq (variant, ly_symbol2scm ("caps")))
+  if (scm_is_eq (variant, ly_symbol2scm ("small-caps")))
     pvariant = PANGO_VARIANT_SMALL_CAPS;
   pango_font_description_set_variant (description, pvariant);
 
   SCM style
     = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain, SCM_BOOL_F);
-
   PangoStyle pstyle = PANGO_STYLE_NORMAL;
   if (scm_is_eq (style, ly_symbol2scm ("italic")))
     pstyle = PANGO_STYLE_ITALIC;

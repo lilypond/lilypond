@@ -4827,7 +4827,6 @@ def conv(s):
     return s
 
 @rule((2, 25, 4), r"""
-<<<<<<< HEAD
 #(define fonts (set-global-fonts #:roman "roman" ...))
 or
 #(define fonts (make-pango-font-tree ...))
@@ -4839,6 +4838,8 @@ or
 
 
 \lookup "non-brace glyph" -> \musicglyph "non-brace glyph"
+
+font-shape = #'caps  ->  font-variant = #'small-caps
 """)
 def conv(s):
     # This replacement is not 100% reliable, but should do a good job.
@@ -4992,6 +4993,13 @@ set to:
     # Convert (markup #:lookup ...) uses
     s = re.sub(r'#:lookup\s+"(?!brace)([^"]+)"', r'#:musicglyph "\1"', s)
 
+
+    # For \override
+    s = re.sub(r"font-shape\s*=\s*#'caps", "font-variant = #'small-caps", s)
+    # For \tweak
+    s = re.sub(r"font-shape\s+#'caps", "font-variant #'small-caps", s)
+    # For \markup \override
+    s = re.sub(r"\(font-shape\s+\.\s+caps\)", "(font-variant . small-caps)", s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)
