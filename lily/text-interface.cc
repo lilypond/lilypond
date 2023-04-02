@@ -157,16 +157,10 @@ from the property alist chain @var{props}.
   return Lily::make_concat_markup (scm_reverse_x (acc, SCM_EOL));
 }
 
-MAKE_SCHEME_CALLBACK (Text_interface, interpret_string,
-                      "ly:text-interface::interpret-string", 3);
-SCM
-Text_interface::interpret_string (SCM layout_smob, SCM props, SCM markup)
+Stencil
+Text_interface::interpret_string (Output_def *layout, SCM props,
+                                  std::string &str /* not const */)
 {
-  auto *const layout = LY_ASSERT_SMOB (Output_def, layout_smob, 1);
-  LY_ASSERT_TYPE (scm_is_string, markup, 3);
-
-  std::string str = ly_scm2string (markup);
-
   /* For now, we hardwire this and don't do it in a user-settable way via
      string-transformers, since there are errors downstream if the string
      contains newlines.  We do it on every recursive call, so the result
@@ -190,14 +184,13 @@ Text_interface::interpret_string (SCM layout_smob, SCM props, SCM markup)
       SCM rev_transformers = scm_reverse (transformers);
       SCM outer_transformer = scm_car (rev_transformers);
       SCM inner_transformers = scm_reverse (scm_cdr (rev_transformers));
-      SCM transformed
-        = ly_call (outer_transformer, layout_smob, props, ly_string2scm (str));
+      SCM transformed = ly_call (outer_transformer, layout->self_scm (), props,
+                                 ly_string2scm (str));
       SCM props_no_outer_transform
         = scm_cons (scm_acons (ly_symbol2scm ("string-transformers"),
                                inner_transformers, SCM_EOL),
                     props);
-      return interpret_markup (layout_smob, props_no_outer_transform,
-                               transformed);
+      return interpret_markup (layout, props_no_outer_transform, transformed);
     }
 
   /*
@@ -243,7 +236,7 @@ Text_interface::interpret_string (SCM layout_smob, SCM props, SCM markup)
     }
 
   bool is_music = scm_is_true (scm_memq (encoding, music_encodings));
-  return fm->text_stencil (layout, str, is_music, features_str).smobbed_copy ();
+  return fm->text_stencil (layout, str, is_music, features_str);
 }
 
 static size_t markup_depth = 0;
@@ -259,6 +252,8 @@ markup_down_depth (void *)
   --markup_depth;
 }
 
+// This is also used for standalone markups. Does it really belong into a grob
+// interface?
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup,
                                    "ly:text-interface::interpret-markup", 3, 0,
                                    "Convert a text markup into a stencil."
@@ -279,29 +274,17 @@ SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
   auto *const layout = LY_ASSERT_SMOB (Output_def, layout_smob, 1);
-  SCM st_scm = internal_interpret_markup (layout, props, markup);
-  if (unsmob<const Stencil> (st_scm))
-    return st_scm;
-  programming_error ("markup interpretation must yield stencil");
-  return Stencil ().smobbed_copy ();
+  return interpret_markup (layout, props, markup).smobbed_copy ();
 }
 
 Stencil
 Text_interface::interpret_markup (Output_def *layout, SCM props, SCM markup)
 {
-  SCM st_scm = internal_interpret_markup (layout, props, markup);
-  if (auto *st = unsmob<const Stencil> (st_scm))
-    return *st;
-  programming_error ("markup interpretation must yield stencil");
-  return Stencil ();
-}
-
-SCM
-Text_interface::internal_interpret_markup (Output_def *layout, SCM props,
-                                           SCM markup)
-{
   if (scm_is_string (markup))
-    return interpret_string (to_scm (layout), props, markup);
+    {
+      std::string str = ly_scm2string (markup); // NB not const
+      return interpret_string (layout, props, str);
+    }
   else if (is_markup (markup))
     {
       SCM func = scm_car (markup);
@@ -327,19 +310,27 @@ Text_interface::internal_interpret_markup (Output_def *layout, SCM props,
           non_fatal_error (_f ("Markup depth exceeds maximal value of %zu; "
                                "Markup: %s",
                                max_depth, name.c_str ()));
-          return Stencil ().smobbed_copy ();
+          return Stencil ();
         }
 
-      SCM retval = scm_apply_2 (func, to_scm (layout), props, args);
+      SCM stil_scm = scm_apply_2 (func, to_scm (layout), props, args);
       scm_dynwind_end ();
-      return retval;
+      if (const Stencil *stil = unsmob<const Stencil> (stil_scm))
+        {
+          return *stil;
+        }
+      else
+        {
+          programming_error ("markup interpretation must yield stencil");
+          return Stencil ();
+        }
     }
   else
     {
       programming_error (String_convert::form_string (
         "Trying to interpret a non-markup object: %s",
         ly_scm_write_string (markup).c_str ()));
-      return Stencil ().smobbed_copy ();
+      return Stencil ();
     }
 }
 
@@ -348,26 +339,29 @@ SCM
 Text_interface::print (SCM grob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
-
-  return internal_print (me);
+  return print (me).smobbed_copy ();
 }
 
 Stencil
 Text_interface::print (Grob *me)
 {
-  Stencil result;
-  SCM st_scm = internal_print (me);
-  if (auto *st = unsmob<const Stencil> (st_scm))
-    result = *st;
-  return result;
+  return grob_interpret_markup (me, get_property (me, "stencil"));
 }
 
-SCM
-Text_interface::internal_print (Grob *me)
+Stencil
+Text_interface::grob_interpret_markup (Grob *me, SCM markup)
 {
-  SCM t = get_property (me, "text");
-  SCM chain = Font_interface::text_font_alist_chain (me);
-  return interpret_markup (me->layout ()->self_scm (), chain, t);
+  SCM props = Font_interface::text_font_alist_chain (me);
+  return interpret_markup (me->layout (), props, markup);
+}
+
+MAKE_SCHEME_CALLBACK (Text_interface, grob_interpret_markup,
+                      "ly:text-interface::grob-interpret-markup", 2);
+SCM
+Text_interface::grob_interpret_markup (SCM grob, SCM markup)
+{
+  auto *const me = LY_ASSERT_SMOB (Grob, grob, 1);
+  return grob_interpret_markup (me, markup).smobbed_copy ();
 }
 
 /* Ugh. Duplicated from Scheme.  */

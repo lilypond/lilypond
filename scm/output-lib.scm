@@ -74,12 +74,7 @@
      ((ly:grob? cause) (event-cause cause))
      (else #f))))
 
-(define-public (grob-interpret-markup grob text)
-  (let* ((layout (ly:grob-layout grob))
-         (defs (ly:output-def-lookup layout 'text-font-defaults))
-         (props (ly:grob-alist-chain grob defs)))
-
-    (ly:text-interface::interpret-markup layout props text)))
+(define-public grob-interpret-markup ly:text-interface::grob-interpret-markup)
 
 (define-public (grob::unpure-Y-extent-from-stencil pure-function)
   "The unpure height will come from a stencil whereas the pure

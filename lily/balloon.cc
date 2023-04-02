@@ -121,9 +121,8 @@ Balloon_interface::internal_balloon_print (Grob *me, Box b, Offset off)
     }
 
   SCM bt = get_property (me, "text");
-  SCM chain = Font_interface::text_font_alist_chain (me);
   // TODO: cache somehow?
-  auto text_stil = Text_interface::interpret_markup (me->layout (), chain, bt);
+  auto text_stil = Text_interface::grob_interpret_markup (me, bt);
 
   Offset z1;
 

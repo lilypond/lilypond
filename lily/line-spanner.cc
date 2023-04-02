@@ -139,12 +139,10 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
   SCM text = ly_assoc_get (ly_symbol2scm ("text"), details, SCM_BOOL_F);
   if (Text_interface::is_markup (text))
     {
-      Output_def *layout = me->layout ();
-      SCM properties = Font_interface::text_font_alist_chain (me);
-      details = scm_acons (ly_symbol2scm ("stencil"),
-                           Text_interface::interpret_markup (
-                             layout->self_scm (), properties, text),
-                           details);
+      details = scm_acons (
+        ly_symbol2scm ("stencil"),
+        Text_interface::grob_interpret_markup (me, text).smobbed_copy (),
+        details);
     }
 
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("X"), details, SCM_BOOL_F)))
@@ -478,12 +476,10 @@ Line_spanner::calc_left_bound_info_and_text (SCM smob, bool horizontal)
       && scm_is_false (
         ly_assoc_get (ly_symbol2scm ("stencil"), alist, SCM_BOOL_F)))
     {
-      Output_def *layout = me->layout ();
-      SCM properties = Font_interface::text_font_alist_chain (me);
-      alist = scm_acons (ly_symbol2scm ("stencil"),
-                         Text_interface::interpret_markup (layout->self_scm (),
-                                                           properties, text),
-                         alist);
+      alist = scm_acons (
+        ly_symbol2scm ("stencil"),
+        Text_interface::grob_interpret_markup (me, text).smobbed_copy (),
+        alist);
     }
 
   return alist;

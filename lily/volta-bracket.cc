@@ -51,8 +51,6 @@ Volta_bracket_interface::print (SCM smob)
   Spanner *orig_span = me->original ();
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0] == me);
 
-  Output_def *layout = me->layout ();
-
   Item *bound = me->get_bound (LEFT);
 
   /*
@@ -100,8 +98,7 @@ Volta_bracket_interface::print (SCM smob)
   if (!orig_span || broken_first_bracket)
     {
       SCM text = get_property (me, "text");
-      SCM properties = Font_interface::text_font_alist_chain (me);
-      auto num = Text_interface::interpret_markup (layout, properties, text);
+      auto num = Text_interface::grob_interpret_markup (me, text);
       num.align_to (Y_AXIS, UP);
       num.translate_axis (-0.5, Y_AXIS);
       total.add_at_edge (X_AXIS, LEFT, num,

@@ -315,8 +315,6 @@ Tuplet_bracket::print (SCM smob)
   for (const auto d : {LEFT, RIGHT})
     points[d] = Offset (x_span[d], positions[d]);
 
-  Output_def *pap = me->layout ();
-
   Grob *number_grob = unsmob<Grob> (get_object (me, "tuplet-number"));
 
   /*
@@ -383,14 +381,11 @@ Tuplet_bracket::print (SCM smob)
 
                   if (scm_is_pair (edge_text))
                     {
-                      SCM properties
-                        = Font_interface::text_font_alist_chain (me);
                       SCM text = index_get_cell (edge_text, d);
                       if (Text_interface::is_markup (text))
                         {
                           auto &es = edge_stencils[d];
-                          es = Text_interface::interpret_markup (
-                            pap, properties, text);
+                          es = Text_interface::grob_interpret_markup (me, text);
                           es.translate_axis (x_span[d] - x_span[LEFT], X_AXIS);
                         }
                     }

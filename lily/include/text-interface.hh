@@ -33,14 +33,15 @@ public:
   DECLARE_SCHEME_CALLBACK (interpret_markup, (SCM, SCM, SCM));
   static Stencil interpret_markup (Output_def *layout, SCM props, SCM markup);
 
-  DECLARE_SCHEME_CALLBACK (interpret_string, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (grob_interpret_markup, (SCM, SCM));
+  static Stencil grob_interpret_markup (Grob *me, SCM markup);
 
   static bool is_markup (SCM);
   static bool is_markup_list (SCM);
 
 private:
-  static SCM internal_interpret_markup (Output_def *, SCM, SCM);
-  static SCM internal_print (Grob *);
+  static Stencil interpret_string (Output_def *layout, SCM props,
+                                   std::string &str);
 };
 
 #endif /* TEXT_ITEM */

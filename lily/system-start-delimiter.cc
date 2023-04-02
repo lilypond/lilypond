@@ -151,12 +151,11 @@ System_start_delimiter::print (SCM smob)
 Stencil
 System_start_delimiter::staff_brace (Grob *me, Real y)
 {
-  SCM props = Font_interface::text_font_alist_chain (me);
   Real output_scale = from_scm<Real> (
     me->layout ()->lookup_variable (ly_symbol2scm ("output-scale")));
   SCM mkup
     = Lily::make_left_brace_markup (to_scm (y * output_scale / point_constant));
-  Stencil stil = Text_interface::interpret_markup (me->layout (), props, mkup);
+  Stencil stil = Text_interface::grob_interpret_markup (me, mkup);
   stil.align_to (X_AXIS, CENTER);
   stil.translate_axis (-0.2, X_AXIS);
   return stil;

@@ -53,7 +53,6 @@ Ottava_bracket::print (SCM smob)
 
   auto *common
     = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Output_def *layout = me->layout ();
 
   Drul_array<bool> broken;
   for (const auto d : {LEFT, RIGHT})
@@ -75,11 +74,10 @@ Ottava_bracket::print (SCM smob)
         }
     }
 
-  SCM properties = Font_interface::text_font_alist_chain (me);
   SCM markup = get_property (me, "text");
   Stencil text;
   if (Text_interface::is_markup (markup))
-    text = Text_interface::interpret_markup (layout, properties, markup);
+    text = Text_interface::grob_interpret_markup (me, markup);
 
   Drul_array<Real> shorten
     = from_scm (get_property (me, "shorten-pair"), Drul_array<Real> (0.0, 0.0));
