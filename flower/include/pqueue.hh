@@ -20,6 +20,7 @@
 #ifndef PQUEUE_HH
 #define PQUEUE_HH
 
+#include <algorithm>
 #include <cassert>
 #include <vector>
 
@@ -52,8 +53,11 @@ class PQueue
   using size_type = typename Vector::size_type;
 
   Vector heap_array_;
-  T &elt (size_type i) { return heap_array_[i - 1]; }
-  T const &elt (size_type i) const { return heap_array_[i - 1]; }
+
+  static bool greater (T const &e1, T const &e2)
+  {
+    return compare (e1, e2) > 0;
+  }
 
 public:
   /** acces an heap element.  Careful with this, as changing the
@@ -61,73 +65,26 @@ public:
 
       @param 1 <= i < size () */
   T &operator[] (size_type i) { return heap_array_[i]; }
-  T operator[] (size_type i) const { return heap_array_[i]; }
-  void OK () const
-  {
-#ifdef DEBUG
-    for (size_type i = 2; i <= size (); i++)
-      assert (compare (elt (i / 2), elt (i)) <= 0);
-#endif
-  }
-  T front () const
-  {
-    return elt (1);
-  }
-  size_type size () const
-  {
-    return heap_array_.size ();
-  }
+  T const &operator[] (size_type i) const { return heap_array_[i]; }
+  T const &front () const { return heap_array_.front (); }
+  size_type size () const { return heap_array_.size (); }
   void insert (T v)
   {
     heap_array_.push_back (v);
-    size_type i = heap_array_.size ();
-    size_type j = i / 2;
-    while (j)
-      {
-        if (compare (elt (j), v) > 0)
-          {
-            elt (i) = elt (j);
-            i = j;
-            j = i / 2;
-          }
-        else
-          break;
-      }
-    elt (i) = v;
-    OK ();
-  }
-  T max () const
-  {
-    //int first_leaf_i = size ();
-    T max_t;
-    return max_t;
+    std::push_heap (heap_array_.begin (), heap_array_.end (), greater);
   }
   void delmin ()
   {
     assert (size ());
-    T last = heap_array_.back ();
-
-    size_type mini = 2;
-    size_type lasti = 1;
-
-    while (mini < size ())
-      {
-        if (compare (elt (mini + 1), elt (mini)) < 0)
-          mini++;
-        if (compare (last, elt (mini)) < 0)
-          break;
-        elt (lasti) = elt (mini);
-        lasti = mini;
-        mini *= 2;
-      }
-    elt (lasti) = last;
+    std::pop_heap (heap_array_.begin (), heap_array_.end (), greater);
     heap_array_.pop_back ();
-    OK ();
   }
   T get ()
   {
-    T t = front ();
-    delmin ();
+    assert (size ());
+    std::pop_heap (heap_array_.begin (), heap_array_.end (), greater);
+    T t = heap_array_.back ();
+    heap_array_.pop_back ();
     return t;
   }
 };
