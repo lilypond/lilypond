@@ -317,7 +317,7 @@ function =
 @end example
 
 @noindent
-analot zu Scheme-Funktionen, siehe @ref{Definition von Scheme-Funktionen}.
+analog zu Scheme-Funktionen, siehe @ref{Definition von Scheme-Funktionen}.
 In der Mehrzahl der Fälle ist @var{body} ein LilyPond-Codeabschnitt (siehe
 @ref{LilyPond-Codeabschnitte}.
 
