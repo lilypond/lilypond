@@ -50,7 +50,7 @@ Example: @code{\\mark \"A\"}")
 
     (AlternativeEvent
      . ((description . "Create an alternative event.")
-        (types . (event alternative-event))
+        (types . (alternative-event structural-event event))
         ))
 
     (AnnotateOutputEvent
@@ -168,7 +168,7 @@ Syntax: @var{note}@code{\\caesura}")
 
     (CodaMarkEvent
      . ((description . "Add a coda mark.")
-        (types . (coda-mark-event event))
+        (types . (coda-mark-event structural-event event))
         ))
 
     (CompletizeExtenderEvent
@@ -208,7 +208,7 @@ An alternative syntax is @var{note}@code{\\cr} @dots{}
 
     (DalSegnoEvent
      . ((description . "Add a @emph{D.S.} or similar instruction.")
-        (types . (dal-segno-event event))
+        (types . (dal-segno-event structural-event event))
         ))
 
     (DecrescendoEvent
@@ -602,7 +602,7 @@ not imply a section division.")
 
     (SegnoMarkEvent
      . ((description . "Add a segno mark or bar line.")
-        (types . (segno-mark-event event))
+        (types . (segno-mark-event structural-event event))
         ))
 
     (SegnoRepeatedMusic
@@ -883,7 +883,7 @@ Syntax: @code{\\\\}")
     (VoltaRepeatEndEvent
      . ((description . "Signal the end of a volta-style repeat.  Multiple end
 events per start event can be expected when there are alternative endings.")
-        (types . (volta-repeat-end-event event))
+        (types . (volta-repeat-end-event structural-event event))
         ))
 
     (VoltaRepeatedMusic
@@ -897,7 +897,7 @@ events per start event can be expected when there are alternative endings.")
 
     (VoltaRepeatStartEvent
      . ((description . "Signal the start of a volta-style repeat.")
-        (types . (volta-repeat-start-event event))
+        (types . (volta-repeat-start-event structural-event event))
         ))
 
     (VoltaSpanEvent

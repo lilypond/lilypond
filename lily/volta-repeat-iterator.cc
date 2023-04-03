@@ -35,7 +35,9 @@ Volta_repeat_iterator::create_children ()
 {
   // Do not style repeats inside LyricCombineMusic because the way the
   // Lyric_combine_music_iterator drives the processing tends to place things
-  // at the wrong point in time.
+  // at the wrong point in time.  Instead, Lyric_combine_music_iterator
+  // forwards repeat events from the music context that it follows to the
+  // lyrics context that it guides.
   auto create_styler
     = [this] (std::unique_ptr<Repeat_styler> factory (Music_iterator *)) {
         const auto timing_is_accurate

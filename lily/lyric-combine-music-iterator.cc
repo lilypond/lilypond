@@ -61,6 +61,7 @@ protected:
 private:
   bool start_new_syllable () const;
   Context *find_voice ();
+  void forward_event (SCM);
   void set_busy (SCM);
   void check_new_context (SCM);
 
@@ -78,6 +79,19 @@ private:
 };
 
 /*
+  Forward an event to the lyrics context.
+*/
+void
+Lyric_combine_music_iterator::forward_event (SCM se)
+{
+  if (lyrics_context_)
+    {
+      if (auto *e = unsmob<Stream_event> (se))
+        lyrics_context_->event_source ()->broadcast (e);
+    }
+}
+
+/*
   It's dubious whether we can ever make this fully work.  Due to
   associatedVoice switching, this routine may be triggered for
   the wrong music_context_
@@ -93,19 +107,28 @@ void
 Lyric_combine_music_iterator::set_music_context (Context *to)
 {
   SCM melodic_event_sym = ly_symbol2scm ("melodic-event");
+  SCM struct_event_sym = ly_symbol2scm ("structural-event");
 
   if (music_context_)
     {
       auto *const d = music_context_->events_below ();
+      d->remove_listener (GET_LISTENER (this, forward_event), struct_event_sym);
       d->remove_listener (GET_LISTENER (this, set_busy), melodic_event_sym);
     }
 
   music_context_ = to;
 
+
   if (music_context_)
     {
       auto *const d = music_context_->events_below ();
       d->add_listener (GET_LISTENER (this, set_busy), melodic_event_sym);
+      // Forward structural events from the music context to the lyrics
+      // context.  The iterators for \repeat and \alternative refrain from
+      // announcing their events when they are inside LyricCombineMusic because
+      // the way Lyric_combine_music_iterator advances time for the lyrics
+      // iterator tends to place them at the wrong point in time.
+      d->add_listener (GET_LISTENER (this, forward_event), struct_event_sym);
     }
 }
 

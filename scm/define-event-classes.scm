@@ -32,8 +32,6 @@
                     bar-event
                     breathing-event
                     caesura-event
-                    coda-mark-event
-                    dal-segno-event
                     extender-event span-event rhythmic-event dynamic-event
                     break-event label-event percent-event key-change-event
                     string-number-event stroke-finger-event tie-event
@@ -45,15 +43,13 @@
                     multi-measure-text-event
                     multi-measure-articulation-event
                     note-grouping-event pes-or-flexa-event repeat-tie-event
-                    section-event section-label-event
-                    segno-mark-event
+                    section-label-event
                     spacing-section-event layout-instruction-event
+                    structural-event
                     time-signature-event
-                    completize-extender-event break-span-event alternative-event
-                    volta-repeat-end-event
-                    volta-repeat-start-event
+                    completize-extender-event break-span-event
                     vowel-transition-event
-                    duration-line-event fine-event))
+                    duration-line-event))
 
     (layout-instruction-event . (apply-output-event))
     (mark-event . (ad-hoc-mark-event rehearsal-mark-event))
@@ -81,6 +77,14 @@
                        skip-event bass-figure-event))
     (general-rest-event . (rest-event multi-measure-rest-event))
     (melodic-event . (cluster-note-event note-event))
+    (structural-event . (alternative-event
+                         coda-mark-event
+                         dal-segno-event
+                         fine-event
+                         section-event
+                         segno-mark-event
+                         volta-repeat-end-event
+                         volta-repeat-start-event))
     (() . (Announcement))
     (Announcement . (AnnounceNewContext))
     ))
