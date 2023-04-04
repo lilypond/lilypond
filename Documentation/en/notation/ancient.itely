@@ -904,6 +904,7 @@ setting the @code{ligature-flexa} property of the @emph{second} note
 head.  The length of a flexa can be set by the note head property
 @code{flexa-width}.
 
+@noindent
 For example,
 
 @lilypond[quote,ragged-right,verbatim]
@@ -932,6 +933,7 @@ For example,
 }
 @end lilypond
 
+@noindent
 Without replacing @code{Ligature_bracket_engraver} with
 @code{Mensural_ligature_engraver}, the same music looks as follows:
 
@@ -949,6 +951,74 @@ Without replacing @code{Ligature_bracket_engraver} with
      c\breve f e d \]
   \[ c\maxima d\longa \]
   \[ e1 a, g\breve \]
+}
+@end lilypond
+
+There are also cases when a stem is not required to unambiguously
+encode the note length, but is also not forbidden:
+
+@itemize
+@item
+an initial breve (when lower than the next note)
+may or may not have a downward left stem;
+@item
+a maxima may or may not have a downward right stem;
+@item
+a final longa (when lower than the previous note)
+may or may not have a right stem.
+@end itemize
+
+@noindent
+For example,
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative {
+    \set Score.timing = ##f
+    \set Score.measureBarType = #'()
+    \override NoteHead.style = #'petrucci
+    \override Staff.TimeSignature.style = #'mensural
+    \clef "petrucci-c4"
+    \[ \once \override NoteHead.left-down-stem = ##t
+       a\breve b
+       \once \override NoteHead.right-down-stem = ##t
+       g\longa \]
+    \[ \once \override NoteHead.right-down-stem = ##t
+       b\maxima
+       \once \override NoteHead.right-up-stem = ##t
+       g\longa \]
+  }
+  \layout {
+    \context {
+      \Voice
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Without tweaking the same ligatures look like
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative {
+    \set Score.timing = ##f
+    \set Score.measureBarType = #'()
+    \override NoteHead.style = #'petrucci
+    \override Staff.TimeSignature.style = #'mensural
+    \clef "petrucci-c4"
+    \[ a\breve b g\longa \]
+    \[ b\maxima g\longa \]
+  }
+  \layout {
+    \context {
+      \Voice
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
+    }
+  }
 }
 @end lilypond
 
