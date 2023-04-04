@@ -189,8 +189,7 @@ struct Parse_start
     if (!parse_protect_global)
       exit (1);
 
-    // This *unspecified* is unimportant.
-    return SCM_UNSPECIFIED;
+    return SCM_UNSPECIFIED; // unimportant
   }
 
   // The outer handler, which just specifies that any Scheme expression whose
@@ -200,8 +199,7 @@ struct Parse_start
   static SCM handle_error_after_unwinding (void * /*data*/, SCM /*tag*/,
                                            SCM /*args*/)
   {
-    // This *unspecified* is important, it's the value returned to LilyPond.
-    return SCM_UNSPECIFIED;
+    return SCM_UNDEFINED; // lexer.ll catches this to set the lexer's error_level_
   }
 };
 
