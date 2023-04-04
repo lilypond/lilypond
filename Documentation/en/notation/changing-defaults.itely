@@ -2417,7 +2417,7 @@ to apply after the input file has been converted to a music stream.
 Tweaking a whole chord tweaks all the contained notes:
 
 @lilypond[verbatim,quote]
-{ <\tweak color #red c'' e''>4 }
+{ \tweak color #red <c'' e''>4 }
 @end lilypond
 
 The simple @code{\tweak} command cannot be used to modify any object
