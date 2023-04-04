@@ -4598,7 +4598,7 @@ une impression de samba sur des double-croches peut s'obtenir ainsi :
 @item
 @code{\applySwingWithOffset} ajoute quant à elle un autre argument entre
 la @emph{liste de pondération} et l'expression musicale : une durée de
-décallage. Cette commande devrait s'utiliser lorsque l'expression
+décalage. Cette commande devrait s'utiliser lorsque l'expression
 musicale démarre à contre temps, avec une portion de cycle.
 @end itemize
 

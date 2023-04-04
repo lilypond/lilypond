@@ -139,7 +139,7 @@ régler votre système d'exploitation afin de pouvoir utiliser
 chemin d'accès.
 
 
-@subheading Réglageg supplémentaire pour Windows
+@subheading Réglage supplémentaire pour Windows
 
 Les utilisateurs non-Windowsiens peuvent sauter cette section, tout
 comme les utilisateurs de Windows disposant déjà d'un interpréteur
@@ -158,7 +158,7 @@ python C:\Utilisateurs\moi\lilypond-@version{}\bin\convert-ly.py monfichier.ly
 @end example
 
 @noindent
-ce qui devniendrait vite fastidieux.
+ce qui deviendrait vite fastidieux.
 
 Trois étapes sont nécessaires avant de pouvoir omettre l'interpréteur
 Python (@file{python.exe}) et l'extension @file{.py}.@footnote{Notez que
@@ -185,7 +185,7 @@ ftype PythonScript=C:\Utilisateurs\moi\lilypond-@version{}\bin\python.exe %1 %*
 @end example
 
 @noindent
-pour obteniri que les fichiers du type « PythonScript » soient gérés par
+pour obtenir que les fichiers du type « PythonScript » soient gérés par
 le @command{python.exe} de LilyPond. Il vous faudra régler le chemin
 d'accès sur la localisation effective, et ne pas oublier @samp{%1 %*} en
 fin de ligne !

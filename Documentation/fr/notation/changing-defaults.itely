@@ -2591,13 +2591,11 @@ liaison :
 \relative { c'-\tweak thickness #5 ( d e f) }
 @end lilypond
 
-La commande @code{\tweak} ne sera pleinement fonctionnelle que si elle
-est directement rattachée à l'objet auquel elle doit s'appliquer alors
-que le fichier source est converti en flux musical.  Vouloir modifier la
-globalité d'un accord est sans résultat dans la mesure où il ne
-constitue qu'un conteneur pour des événements musicaux et que tous les
-objets seront créés à partir d'événements appartenant à un
-@code{EventChord} (un événement d'accord) :
+La commande @code{\tweak} ne sera pleinement fonctionnelle que si
+elle est directement rattachée à l'objet auquel elle doit
+s'appliquer alors que le fichier source est converti en flux
+musical. Elle peut aussi s'appliquer à un accord, auquel cas elle
+affecte chacune de ses notes :
 
 @lilypond[verbatim,quote]
 { <\tweak color #red c'' e''>4 }
