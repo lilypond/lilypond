@@ -1,4 +1,4 @@
-\version "2.23.14"
+\version "2.25.4"
 
 \header {
   texidoc = "@code{-dcompile-scheme-code} also works with
@@ -8,6 +8,8 @@ two Scheme errors.  (However, providing error messages that
 point to the precise form that fails is not currently
 implemented for included strings of code.)"
 }
+
+expect-error = ##t
 
 #(ly:set-option 'compile-scheme-code)
 

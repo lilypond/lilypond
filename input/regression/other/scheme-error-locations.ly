@@ -1,10 +1,12 @@
-\version "2.23.14"
+\version "2.25.4"
 
 \header {
   texidoc = "When using the @code{-dcompile-scheme-code} option,
 Scheme errors point at the precise form where the error occurs
 (this is limited by the precision of the information Guile provides)."
 }
+
+expect-error = ##t
 
 % Error will point to "#(begin" line
 #(begin
