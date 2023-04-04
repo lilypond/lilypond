@@ -489,6 +489,7 @@ vertically.")))))
         (normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
         ;; only for debugging.
         (font-family . roman)
+        (font-size . -6)
 
         (gap . 0.8)
         (knee . ,ly:beam::calc-knee)
@@ -2896,6 +2897,7 @@ horizontally align stacked @iref{Script} grobs.")))))
         (cross-staff . ,ly:slur::calc-cross-staff)
         (details . ,default-slur-details)
         (direction . ,ly:slur::calc-direction)
+        (font-size . -6) ; for debug-slur-scoring
         (height-limit . 2.0)
         (line-thickness . 0.8)
         (minimum-length . 1.5)
@@ -3575,6 +3577,7 @@ followed by a (dashed) line.  See also
                     (between-length-limit . 1.0)))
 
         (direction . ,ly:tie::calc-direction)
+        (font-size . -6) ; for debug-tie-scoring
         (line-thickness . 0.8)
         (neutral-direction . ,UP)
         (springs-and-rods . ,ly:spanner::set-spacing-rods)

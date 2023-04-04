@@ -255,16 +255,7 @@ Tie::print (SCM smob)
   SCM annotation = get_property (me, "annotation");
   if (scm_is_string (annotation))
     {
-      std::string str;
-      SCM properties = Font_interface::text_font_alist_chain (me);
-
-      if (!scm_is_number (get_property (me, "font-size")))
-        properties = scm_cons (
-          scm_acons (ly_symbol2scm ("font-size"), to_scm (-6), SCM_EOL),
-          properties);
-
-      auto tm = Text_interface::interpret_markup (me->layout (), properties,
-                                                  annotation);
+      auto tm = Text_interface::grob_interpret_markup (me, annotation);
       tm.translate (
         Offset (b.control_[3][X_AXIS] + 0.5, b.control_[0][Y_AXIS] * 2));
       tm = tm.in_color (1.0, 0.0, 0.0);

@@ -345,7 +345,7 @@ Text_interface::print (SCM grob)
 Stencil
 Text_interface::print (Grob *me)
 {
-  return grob_interpret_markup (me, get_property (me, "stencil"));
+  return grob_interpret_markup (me, get_property (me, "text"));
 }
 
 Stencil
