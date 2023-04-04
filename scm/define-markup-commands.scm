@@ -989,7 +989,23 @@ thickness and padding around the markup.
   \\box
   \\line { V. S. }
 }
-@end lilypond"
+@end lilypond
+
+Note that the box does not horizontally displace its argument.  Use markup
+commands like @code{\\left-align} or @code{\\table} to make LilyPond realign
+it.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(box-padding . 1.5)
+  \\column {
+    \"text\"
+    \\box \"text\"
+    \\left-align \\box \"text\"
+  }
+}
+@end lilypond
+"
   (let* ((th (* (ly:output-def-lookup layout 'line-thickness)
                 thickness))
          (pad (* (magstep font-size) box-padding))
@@ -1037,6 +1053,7 @@ circle of diameter@tie{}0 (i.e., sharp corners).
   "
 @cindex enclosing text in box, with rounded corners
 @cindex drawing box, with rounded corners, around text
+
 Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup; the @code{corner-radius} property
@@ -1049,7 +1066,23 @@ c4^\\markup {
   }
 }
 c,8. c16 c4 r
-@end lilypond"
+@end lilypond
+
+Note that the box does not horizontally displace its argument.  Use markup
+commands like @code{\\left-align} or @code{\\table} to make LilyPond realign
+it.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(box-padding . 1.5)
+  \\column {
+    \"text\"
+    \\rounded-box \"text\"
+    \\left-align \\rounded-box \"text\"
+  }
+}
+@end lilypond
+"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (pad (* (magstep font-size) box-padding))
