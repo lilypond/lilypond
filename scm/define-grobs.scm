@@ -2422,12 +2422,16 @@ the same voice.  See also @iref{NoteCollision}.")))))
 
     (NoteName
      . (
+        (parent-alignment-X . ())
+        (self-alignment-X . ,CENTER)
         (stencil . ,ly:text-interface::print)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (accidental-switch-interface
                                 font-interface
                                 note-name-interface
+                                self-alignment-interface
                                 text-interface))
                  (description . "A textual representation of a
 note name.")))))

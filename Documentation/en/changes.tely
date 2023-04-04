@@ -205,10 +205,15 @@ them to more common shapes.
 
 None so far.
 
+
 @node Editorial annotation improvements
 @unnumberedsec Editorial annotation improvements
 
-None so far.
+@itemize
+@item @code{NoteName} grobs are now horizontally centered by default.
+
+@end itemize
+
 
 @node Text and font improvements
 @unnumberedsec Text and font improvements
