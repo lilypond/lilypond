@@ -251,31 +251,16 @@ is not used within the routine."
 
 (define (make-short-bar-line grob extent)
   "Draw a short bar line."
-  (let* ((normal-height (interval-length extent))
-         (staff-space (ly:staff-symbol-staff-space grob))
-         (normal-height-spaces (/ normal-height staff-space))
-         ;; Use half the height of the staff, rounded up to an integer
-         ;; number of staff spaces.
-         (short-height-spaces (truncate (/ (1+ normal-height-spaces) 2)))
-         (center (interval-center extent))
-         (line-thickness (layout-line-thickness grob))
+  (let* ((line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
-                       line-thickness)))
-
-    ;; If the normal bar lines are quite short, short bar lines will
-    ;; be hard to distinguish or hard to see.  Render them like
-    ;; anti-ticks.
-    (if (< normal-height-spaces 2)
-        (begin
-          (set! short-height-spaces 1)
-          (set! center (interval-start extent))))
-
-    (ly:round-filled-box
-     (cons 0 thickness) ; x
-     (coord-translate
-      (symmetric-interval (/ (* short-height-spaces staff-space) 2))
-      center) ; y
-     (bar-line::calc-blot thickness extent grob))))
+                       line-thickness))
+         (short-extent (ly:grob-property grob 'short-bar-extent extent)))
+    (bar-line::draw-filled-box
+     (cons 0 thickness)
+     short-extent
+     thickness
+     short-extent
+     grob)))
 
 (define (make-tick-bar-line grob extent)
   "Draw a tick bar line."
@@ -640,6 +625,31 @@ drawn by the procedure associated with glyph @var{glyph}."
                      (* 1/2 (ly:staff-symbol-line-thickness grob))))
                 (interval-widen staff-extent (- half-staff-line-thickness)))
               staff-extent))
+        '(0 . 0))))
+
+(define-public (ly:bar-line::calc-short-bar-extent grob)
+  (let ((staff-symbol (ly:grob-object grob 'staff-symbol)))
+    (if (ly:grob? staff-symbol)
+        (let* ((staff-extent (ly:grob-property staff-symbol 'widened-extent))
+               (normal-height (interval-length staff-extent))
+               (staff-space (ly:staff-symbol-staff-space grob))
+               (normal-height-spaces (/ normal-height staff-space))
+               ;; Use half the height of the staff, rounded up to an integer
+               ;; number of staff spaces.
+               (short-height-spaces (truncate (/ (1+ normal-height-spaces) 2)))
+               (center (interval-center staff-extent))
+               (line-thickness (layout-line-thickness grob))
+               (thickness (* (ly:grob-property grob 'hair-thickness 1)
+                             line-thickness)))
+          ;; If the normal bar lines are quite short, short bar lines will be
+          ;; hard to distinguish or hard to see.  Render them like anti-ticks.
+          (if (< normal-height-spaces 2)
+              (begin
+                (set! short-height-spaces 1)
+                (set! center (interval-start staff-extent))))
+          (coord-translate
+           (symmetric-interval (/ (* short-height-spaces staff-space) 2))
+           center))
         '(0 . 0))))
 
 ;; this function may come in handy when defining new bar line glyphs, so

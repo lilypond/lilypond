@@ -81,6 +81,7 @@ found in @file{scm/bar-line.scm}.
    kern
    rounded
    segno-kern
+   short-bar-extent
    thick-thickness))
 
 (ly:add-interface
@@ -545,6 +546,7 @@ as bar lines, but it is not a bar line."
    kern
    rounded
    segno-kern
+   short-bar-extent
    thick-thickness))
 
 (ly:add-interface

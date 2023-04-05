@@ -533,6 +533,7 @@ printing of a single line of lyrics."
   %% make sure that barlines aren't collapsed, when
   %% Bar_engraver is there.
   \override BarLine.bar-extent = #'(-0.05 . 0.05)
+  \override BarLine.short-bar-extent = #'(-0.05 . 0.05)
 
   %% The use case for LyricRepeatCount is Gregorian chant.  In other
   %% genres, a "Sing N times" instruction or a volta bracket over a
@@ -1450,6 +1451,7 @@ accommodated for typesetting a piece in Petrucci style."
   %% bar lines seem to extend about a space.  We lack the
   %% infrastructure to do both.
   \override BarLine.bar-extent = #'(-2.5 . 2.5)
+  \override BarLine.short-bar-extent = #'(-1.5 . 1.5)
   %% Because the ends will be visible, round the corners.
   \override BarLine.rounded = ##t
 
@@ -1458,6 +1460,7 @@ accommodated for typesetting a piece in Petrucci style."
   \override SignumRepetitionis.kern = #2.9
   \override SignumRepetitionis.thick-thickness = #2.9
   \override SignumRepetitionis.bar-extent = #'(-2.5 . 2.5)
+  \override SignumRepetitionis.short-bar-extent = #'(-1.5 . 1.5)
   \override SignumRepetitionis.rounded = ##t
 
   \override StaffSymbol.thickness = #1.3

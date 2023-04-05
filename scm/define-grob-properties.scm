@@ -976,6 +976,9 @@ of the staff-position at which each clef places C:
 If the list contains a single element it applies for all clefs.
 A single number in place of a pair sets accidentals within the octave
 ending at that staff-position.")
+     (short-bar-extent ,number-pair? "The Y-extent of a short bar line.  The
+default is half the normal bar extent, rounded up to an integer number of staff
+spaces.")
      (shorten-pair ,number-pair? "The lengths to shorten on both sides
 a hairpin or text-spanner such as a pedal bracket.  Positive values
 shorten the hairpin or text-spanner, while negative values lengthen
