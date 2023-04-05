@@ -396,6 +396,7 @@ to
 @unnumbered New for specialist notation
 
 @itemize
+
 @item
 For orthogonality with other ancient clefs, five new mensural
 clefs are available: @code{"mensural-f2"}, @code{"mensural-f3"},
@@ -407,6 +408,40 @@ clefs are available: @code{"mensural-f2"}, @code{"mensural-f3"},
 The default time signature and accidental style in a
 @code{PetrucciStaff} context is now the same as in
 @code{MensuralStaff}.
+
+@item
+White mensural ligatures now support some rare ligatures
+(semibreves alone or in the middle),
+and allow tweaks to show some non-necessary stems.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative {
+    \set Score.timing = ##f
+    \set Score.measureBarType = #'()
+    \override NoteHead.style = #'petrucci
+    \override Staff.TimeSignature.style = #'mensural
+    \clef "petrucci-c4"
+    \[ a1 g f e \]
+    \[ a1 g\longa \]
+    \[ \once \override NoteHead.left-down-stem = ##t
+       a\breve b
+       \once \override NoteHead.right-down-stem = ##t
+       g\longa \]
+    \[ \once \override NoteHead.right-down-stem = ##t
+       b\maxima
+       \once \override NoteHead.right-up-stem = ##t
+       g\longa \]
+  }
+  \layout {
+    \context {
+      \Voice
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
+    }
+  }
+}
+@end lilypond
 
 @end itemize
 
