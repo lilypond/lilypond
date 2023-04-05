@@ -1048,14 +1048,15 @@ Editio Vaticana style do clef
 @code{vaticana-do1}, @code{vaticana-do2},@*
 @code{vaticana-do3}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
-  \override NoteHead.style = #'vaticana.punctum
-  \clef "vaticana-do2"
-  c'
+@lilypond[inline,line-width=1.5\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  \clef "vaticana-do2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1063,16 +1064,15 @@ Editio Vaticana style fa clef
 @tab
 @code{vaticana-fa1}, @code{vaticana-fa2}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
-  \override Staff.LedgerLineSpanner.length-fraction = #0.9
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
-  \override NoteHead.style = #'vaticana.punctum
-  \clef "vaticana-fa2"
-  c'
+@lilypond[inline,line-width=1.5\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  \clef "vaticana-fa2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1081,14 +1081,16 @@ Editio Medicaea style do clef
 @code{medicaea-do1}, @code{medicaea-do2},@*
 @code{medicaea-do3}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
+@lilypond[inline,line-width=1.5\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-do2"
-  c'
+  \clef "medicaea-do2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1096,16 +1098,16 @@ Editio Medicaea style fa clef
 @tab
 @code{medicaea-fa1}, @code{medicaea-fa2}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
-  \override Staff.LedgerLineSpanner.length-fraction = #0.9
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
+@lilypond[inline,line-width=1.5\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-fa2"
-  c'
+  \clef "medicaea-fa2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1114,14 +1116,16 @@ Hufnagel style do clef
 @code{hufnagel-do1}, @code{hufnagel-do2},@*
 @code{hufnagel-do3}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
+@lilypond[inline,line-width=1.5\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-do2"
-  c'
+  \clef "hufnagel-do2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1129,15 +1133,18 @@ Hufnagel style fa clef
 @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
+@lilypond[inline,line-width=1.5\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-fa2"
-  c'
+  % This is a guess; I couldn't find a ledger-line example (wl)
+  \override VaticanaStaff.LedgerLineSpanner.length-fraction = #0.45
+  \clef "hufnagel-fa2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1145,13 +1152,17 @@ Hufnagel style combined do/fa clef
 @tab
 @code{hufnagel-do-fa}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
+@lilypond[inline,line-width=1.5\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-do-fa"
-  c'
+  \override Staff.StaffSymbol.line-count = #5
+  \clef "hufnagel-do-fa" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @end multitable
 @endIndentedBlock
