@@ -1480,7 +1480,6 @@ File installati:
 * Navigazione nella guida al programma::
 * Interfacce di formattazione::
 * Determinazione della proprietà del grob::
-* Convenzioni sui nomi::
 @end menu
 
 @node Navigazione nella guida al programma
@@ -1731,32 +1730,6 @@ scritto nella pagina sull'incisore @rinternals{Fingering_engraver}:
 Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @end quotation
 
-
-@node Convenzioni sui nomi
-@subsection Convenzioni sui nomi
-@translationof Naming conventions
-
-È importante conoscere le convenzioni sui nomi.  Ecco una panoramica:
-
-@itemize
-@item funzioni Scheme: minuscolo-con-trattini (inclusi i nomi di una-parola)
-@item funzioni Scheme specifiche di LilyPond: ly:plus-scheme-style
-@item eventi, classi e proprietà musicali:
-come-le-funzioni-scheme
-@item interfacce Grob: stile-scheme
-@item proprietà del backend: stile-scheme (ma ammette X e Y!)
-@item contesti (e EspressioniMusicali e grob): Maiuscolo o CamelCase
-@item proprietà di contesto: minuscoloSeguitoDaCamelCase
-@item incisori:
-Maiuscolo_seguito_da_minuscolo_e_con_trattini_bassi
-@end itemize
-
-Domande che aspettano una risposta:
-@itemize
-@item Quali di queste sono convenzioni e quali sono regole?
-@item Quali sono regole del linguaggio sottostante e quali sono specifiche
-di LilyPond?
-@end itemize
 
 @node Modifica delle proprietà
 @section Modifica delle proprietà
