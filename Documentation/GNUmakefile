@@ -74,14 +74,6 @@ LANG_TEXI_FILES = $(call src-wildcard,$(1)/*.texi)
 DOC_TELY_FILES = $(foreach L, $(LANGS), $(call LANG_TELY_FILES,$(L)))
 DOC_TEXI_FILES = $(foreach L, $(LANGS), $(call LANG_TEXI_FILES,$(L)))
 
-# All .xref-map files for a single language.
-LANG_XREF_FILES = \
-  $(addprefix $(outdir)/, \
-    $(patsubst %.tely,%.xref-map, \
-      $(patsubst %.texi,%.xref-map, \
-        $(call LANG_TEXI_FILES,$(1)) \
-        $(call LANG_TELY_FILES,$(1)))))
-
 DOC_BASENAMES = \
   contributor \
   changes \
@@ -435,17 +427,6 @@ $(outdir)/music-glossary.info: \
 	  "$(outdir)/music-glossary.makeinfo.log"
 	$(UPDATE_IMAGE_SYMLINKS)
 
-# xref map maps section titles <> node names for translated split HTML docs.
-$(outdir)/%.xref-map: $(outdir)/%.texi
-	$(call ly_progress,Making,$@,< texi)
-	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py \
-	  $(EXTRACT_TEXI_FILENAMES_FLAGS) \
-	  $(if $(call target_language), \
-	    --master-map-file=$(subst $(call target_language)/,en/,$@)) \
-	  $(DOCUMENTATION_INCLUDES) \
-	  -o $(dir $@) \
-	  $<
-
 $(outdir)/%.pdf: \
   $(outdir)/%.texi \
   $(outdir)/version.itexi \
@@ -615,24 +596,13 @@ $(outdir)/en/internals.texi: $(top-src-dir)/ly/generate-documentation.ly
 	       generate-documentation.log
 
 
-## Different manuals within a language link to each other.  This can only work
-## if the target document has an xref-map, too.
+## Different manuals within a language link to each other.
 define per_lang_per_doc_deps
   # `lilypond-book` automatically generates `.dep` files, but only for `.itely`
   # files.
   $(outdir)/$(1)/$(2).texi: \
     $(call src-wildcard,$(1)/$(2)/*.itexi) \
     $(outdir)/version.itexi
-
-  $(outdir)/$(1)/$(2).xref-map: $(outdir)/$(1)/$(2).texi
-
-  ifneq ($(1),en)
-    $(outdir)/$(1)/$(2).xref-map: $(outdir)/en/$(2).xref-map
-  endif
-
-  $(outdir)/$(1)/$(2)/index.html: $(call LANG_XREF_FILES,$(1))
-
-  $(outdir)/$(1)/$(2)-big-page.html: $(call LANG_XREF_FILES,$(1))
 endef
 
 
