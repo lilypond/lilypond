@@ -425,7 +425,7 @@ con esta sencilla plantilla incorporada.
 
 @node Piano con letra centrada
 @appendixsubsec Piano con letra centrada
-@translationof Piano and melody with lyrics
+@translationof Piano centered lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-centered-lyrics.ly}

@@ -423,7 +423,7 @@ complexos, amb aquesta senzilla plantilla incorporada.
 
 @node Piano amb lletra centrada
 @appendixsubsec Piano amb lletra centrada
-@translationof Piano and melody with lyrics
+@translationof Piano centered lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-centered-lyrics.ly}
