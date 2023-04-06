@@ -55,7 +55,7 @@ valors per a variables específiques.  Aquestes definicions han
 d'anar abans del fitxer inclòs amb l'ordre @code{\include}.
 
 @menu
-* Plantilla coral SATB ::
+* Plantilla coral SATB::
 * Plantilla coral SSAATTBB::
 @end menu
 

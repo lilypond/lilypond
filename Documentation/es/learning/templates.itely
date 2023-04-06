@@ -52,7 +52,7 @@ valores para variables específicas.  Estas definiciones deben ir
 antes del archivo incluido con la instrucción @code{\include}.
 
 @menu
-* Plantilla coral SATB ::
+* Plantilla coral SATB::
 * Plantilla coral SSAATTBB::
 @end menu
 
