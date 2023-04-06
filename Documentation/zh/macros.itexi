@@ -143,7 +143,7 @@ This document has been placed in the public domain.
 
 @c   ***** Title page *****
 @ifnottex
-@node 首页
+@node Top
 @top LilyPond --- \TITLE\
 @translationof Top
 
