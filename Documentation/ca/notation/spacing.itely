@@ -1205,7 +1205,7 @@ per al bloc @code{\layout}.
 
 @node El bloc layout
 @subsection El bloc @code{\layout}
-@translationof  The layout block
+@translationof The layout block
 
 @funindex \layout
 

@@ -1227,7 +1227,7 @@ para el bloque @code{\layout}.
 
 @node El bloque layout
 @subsection El bloque @code{\layout}
-@translationof  The layout block
+@translationof The layout block
 
 @funindex \layout
 

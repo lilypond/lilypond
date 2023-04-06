@@ -423,7 +423,7 @@ i després indicant sols quants sistemes voleu abans de cada fragment:
 @morerefs
 Hi ha opcions de línia d'ordres específiques de @command{lilypond-book} i
 altres detalls que s'han de conèixer per processar documents de@LaTeX{}
-vegeu @ref{Invocació de  lilypond-book}.
+vegeu @ref{Invocació de lilypond-book}.
 
 
 @node Texinfo

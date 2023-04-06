@@ -1332,7 +1332,7 @@ d'entrée ».  Aussi ne saurions-nous trop vous conseiller d'utiliser
 l'option @option{--output}.
 
 
-@node  Modèles pour lilypond-book
+@node Modèles pour lilypond-book
 @section Modèles pour lilypond-book
 @translationof lilypond-book templates
 
