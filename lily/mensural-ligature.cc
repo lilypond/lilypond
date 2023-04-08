@@ -193,11 +193,12 @@ internal_brew_primitive (Grob *me)
   */
   Real blotdiameter = thickness;
   /*
-    instead of 2.5 the length of a longa stem should be used
+    instead of 5.0 the length of a longa stem should be used:
     Font_interface::get_default_font (???)->find_by_name
-    ("noteheads.sM2ligmensural").extent (Y_AXIS).length () * 0.5
+    ("noteheads.sM2ligmensural???").extent (Y_AXIS).length ()
   */
-  Real stem_length = 2.5 * staff_space;
+  int const longa_stem_length = 5;
+  Real stem_length = longa_stem_length * 0.5 * staff_space;
 
   if (primitive & MLP_STEM)
     {
