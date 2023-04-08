@@ -70,10 +70,11 @@ Any symbol that is typeset through fixed sets of glyphs, (i.e., fonts).
 font
 font-encoding
 font-family
+font-features
 font-name
 font-series
 font-shape
 font-size
-font-features
+font-stretch
 font-variant
                )");

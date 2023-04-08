@@ -31,6 +31,9 @@ tweak_pango_description (PangoFontDescription *description, SCM chain)
   PangoVariant pvariant = PANGO_VARIANT_NORMAL;
   if (scm_is_eq (variant, ly_symbol2scm ("small-caps")))
     pvariant = PANGO_VARIANT_SMALL_CAPS;
+  // TODO: add the extra variants from Pango 1.50 when older
+  // versions are no longer supported.
+
   pango_font_description_set_variant (description, pvariant);
 
   SCM style
@@ -70,6 +73,24 @@ tweak_pango_description (PangoFontDescription *description, SCM chain)
     pw = PANGO_WEIGHT_ULTRAHEAVY;
   pango_font_description_set_weight (description, pw);
 
-  PangoStretch ps = PANGO_STRETCH_NORMAL; // TODO: configurability
-  pango_font_description_set_stretch (description, ps);
+  SCM stretch
+    = ly_chain_assoc_get (ly_symbol2scm ("font-stretch"), chain, SCM_BOOL_F);
+  PangoStretch pstretch = PANGO_STRETCH_NORMAL;
+  if (scm_is_eq (stretch, ly_symbol2scm ("ultra-condensed")))
+    pstretch = PANGO_STRETCH_ULTRA_CONDENSED;
+  else if (scm_is_eq (stretch, ly_symbol2scm ("extra-condensed")))
+    pstretch = PANGO_STRETCH_EXTRA_CONDENSED;
+  else if (scm_is_eq (stretch, ly_symbol2scm ("condensed")))
+    pstretch = PANGO_STRETCH_CONDENSED;
+  else if (scm_is_eq (stretch, ly_symbol2scm ("semi-condensed")))
+    pstretch = PANGO_STRETCH_SEMI_CONDENSED;
+  else if (scm_is_eq (stretch, ly_symbol2scm ("semi-expanded")))
+    pstretch = PANGO_STRETCH_SEMI_EXPANDED;
+  else if (scm_is_eq (stretch, ly_symbol2scm ("expanded")))
+    pstretch = PANGO_STRETCH_EXPANDED;
+  else if (scm_is_eq (stretch, ly_symbol2scm ("extra-expanded")))
+    pstretch = PANGO_STRETCH_EXTRA_EXPANDED;
+  else if (scm_is_eq (stretch, ly_symbol2scm ("ultra-expanded")))
+    pstretch = PANGO_STRETCH_ULTRA_EXPANDED;
+  pango_font_description_set_stretch (description, pstretch);
 }

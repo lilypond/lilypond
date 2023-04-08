@@ -354,6 +354,14 @@ allowed.")
      (font-features ,list? "Opentype features.")
      (font-variant ,symbol? "Selects the variant of a font.
 Choices include @code{normal} and @code{small-caps}.")
+     ;; FIXME: this can also be used in plain \markup, but right now,
+     ;; we don't have a good way to document markup properties independently
+     ;; from markup commands.
+     (font-stretch ,symbol? "Can be used to select a condensed or expanded
+font, if available in the font family. Possible values are
+@code{ultra-condensed}, @code{extra-condensed}, @code{condensed},
+@code{semi-condensed}, @code{normal}, @code{semi-expanded}, @code{expanded},
+@code{extra-expanded} and @code{ultra-expanded}.")
      (footnote ,boolean? "Should this be a footnote or in-note?")
      (footnote-music ,ly:music? "Music creating a footnote.")
      (footnote-text ,markup? "A footnote for the grob.")

@@ -358,6 +358,12 @@ The @code{medium} value is now an intermediate value between
 @code{normal}.  Accordingly, the @code{\medium} markup command has
 been renamed to @code{\normal-weight}.
 
+
+@item
+The new @code{font-stretch} property allows selecting a condensed or
+expanded font.
+
+
 @end itemize
 
 @node New for specialist notation
