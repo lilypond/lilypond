@@ -124,10 +124,11 @@ Mensural_ligature_engraver::transform_heads (
 
       int pitch = unsmob<Pitch> (get_property (nr, "pitch"))->steps ();
       int prim = 0;
+      bool const is_last = i == s - 1;
 
       if (at_beginning)
         {
-          if (i == s - 1)
+          if (is_last)
             {
               // we can get here after invalid input
               nr->warning (_ ("single note ligature; skipping"));
@@ -159,6 +160,7 @@ Mensural_ligature_engraver::transform_heads (
       bool general_case = true;
       bool make_flexa = false;
       bool allow_flexa = true;
+      bool const is_brevis = duration_log == -1;
 
       // first check special cases
       // 1. initial descendens longa or brevis
@@ -168,7 +170,7 @@ Mensural_ligature_engraver::transform_heads (
                 ->steps ()
               < pitch))
         {
-          int left_stem = duration_log == -1 ? MLP_DOWN : 0;
+          int left_stem = is_brevis ? MLP_DOWN : 0;
           prim = left_stem | MLP_BREVIS;
           general_case = false;
         }
@@ -207,10 +209,10 @@ Mensural_ligature_engraver::transform_heads (
           general_case = false;
         }
       // 4. end, descendens
-      else if (i == s - 1 && pitch < prev_pitch)
+      else if (is_last && pitch < prev_pitch)
         {
           // brevis; previous note must be turned into flexa
-          if (duration_log == -1)
+          if (is_brevis)
             {
               if (prev_brevis_shape)
                 {
