@@ -37,6 +37,7 @@
 \context {
   \name Global
   \accepts Score
+  \accepts ChordGridScore
   \defaultchild Score
   \description "Hard coded entry point for LilyPond.  Cannot be tuned."
 }
@@ -330,6 +331,19 @@
   timing = ##t
 }
 
+\context {
+  \Score
+  \name ChordGridScore
+  \alias Score
+  \accepts ChordGrid
+}
+
+\context {
+  \name ChordGrid
+  \type Performer_group
+  \alias Staff
+  \consists Staff_performer % like ChordNames
+}
 
 \context {
   \type Performer_group
