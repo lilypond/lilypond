@@ -46,16 +46,28 @@ tweak_pango_description (PangoFontDescription *description, SCM chain)
   SCM weight
     = ly_chain_assoc_get (ly_symbol2scm ("font-series"), chain, SCM_BOOL_F);
   PangoWeight pw = PANGO_WEIGHT_NORMAL;
-  if (scm_is_eq (weight, ly_symbol2scm ("bold")))
-    pw = PANGO_WEIGHT_BOLD;
-  if (scm_is_eq (weight, ly_symbol2scm ("heavy")))
-    pw = PANGO_WEIGHT_HEAVY;
-  if (scm_is_eq (weight, ly_symbol2scm ("ultrabold")))
-    pw = PANGO_WEIGHT_ULTRABOLD;
-  if (scm_is_eq (weight, ly_symbol2scm ("light")))
-    pw = PANGO_WEIGHT_LIGHT;
-  if (scm_is_eq (weight, ly_symbol2scm ("ultralight")))
+  if (scm_is_eq (weight, ly_symbol2scm ("thin")))
+    pw = PANGO_WEIGHT_THIN;
+  else if (scm_is_eq (weight, ly_symbol2scm ("ultralight")))
     pw = PANGO_WEIGHT_ULTRALIGHT;
+  else if (scm_is_eq (weight, ly_symbol2scm ("light")))
+    pw = PANGO_WEIGHT_LIGHT;
+  else if (scm_is_eq (weight, ly_symbol2scm ("semilight")))
+    pw = PANGO_WEIGHT_SEMILIGHT;
+  else if (scm_is_eq (weight, ly_symbol2scm ("book")))
+    pw = PANGO_WEIGHT_BOOK;
+  else if (scm_is_eq (weight, ly_symbol2scm ("medium")))
+    pw = PANGO_WEIGHT_MEDIUM;
+  else if (scm_is_eq (weight, ly_symbol2scm ("semibold")))
+    pw = PANGO_WEIGHT_SEMIBOLD;
+  else if (scm_is_eq (weight, ly_symbol2scm ("bold")))
+    pw = PANGO_WEIGHT_BOLD;
+  else if (scm_is_eq (weight, ly_symbol2scm ("ultrabold")))
+    pw = PANGO_WEIGHT_ULTRABOLD;
+  else if (scm_is_eq (weight, ly_symbol2scm ("heavy")))
+    pw = PANGO_WEIGHT_HEAVY;
+  else if (scm_is_eq (weight, ly_symbol2scm ("ultraheavy")))
+    pw = PANGO_WEIGHT_ULTRAHEAVY;
   pango_font_description_set_weight (description, pw);
 
   PangoStretch ps = PANGO_STRETCH_NORMAL; // TODO: configurability

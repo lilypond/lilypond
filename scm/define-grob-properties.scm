@@ -336,8 +336,12 @@ for selecting text fonts.  Options include: @code{sans},
      (font-name ,string? "Specifies a file name (without extension) of
 the font to load.  This setting overrides selection using
 @code{font-family}, @code{font-series} and @code{font-shape}.")
-     (font-series ,symbol? "Select the series of a font.  Choices
-include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
+     (font-series ,symbol? "Select the series of a font.  Common
+choices are @code{normal} and @code{bold}.  The full list of symbols
+that can be used is: @code{thin}, @code{ultralight}, @code{light},
+@code{semilight}, @code{book}, @code{normal}, @code{medium},
+@code{semibold}, @code{bold}, @code{ultrabold}, @code{heavy},
+@code{ultraheavy}.")
      (font-shape ,symbol? "Select the shape of a font.  Choices
 include @code{upright}, @code{italic}, @code{caps}.")
      (font-size ,number? "The font size, compared to the

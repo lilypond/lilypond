@@ -347,6 +347,17 @@ at the same time.
 \markup \fontCaps \italic "Small caps in italics"
 @end lilypond
 
+
+@item
+The @code{font-series} property is now more flexible and allows to specify
+values such as @code{semibold} and @code{light} instead of only @code{normal}
+and @code{bold}.
+
+The @code{medium} value is now an intermediate value between
+@code{normal} and @code{bold} rather than an equivalent of
+@code{normal}.  Accordingly, the @code{\medium} markup command has
+been renamed to @code{\normal-weight}.
+
 @end itemize
 
 @node New for specialist notation

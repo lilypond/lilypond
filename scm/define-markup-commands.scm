@@ -3337,7 +3337,14 @@ Use @code{\\fontsize} otherwise.
   \\bold
   bold
 }
-@end lilypond"
+@end lilypond
+
+The code @code{\\markup \\bold @dots{}} is a shorthand for
+@code{\\markup \\override #'(font-series . bold) @dots{}}.
+Using the more verbose form, it is possible to obtain nuances
+such as semi-bold, if the text font has such variants.
+Refer to the documentation for the @code{font-series}
+properties (@rinternals{User backend properties})."
   (interpret-markup layout (prepend-alist-chain 'font-series 'bold props) arg))
 
 (define-markup-command (sans layout props arg)
