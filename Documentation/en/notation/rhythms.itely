@@ -3809,7 +3809,6 @@ if there is one.  To solve this, the @code{padding} property of
 @cindex measure check
 @cindex measure number check
 
-@funindex barCheckSynchronize
 @funindex |
 
 Bar checks help detect errors in the entered durations.  A bar check
