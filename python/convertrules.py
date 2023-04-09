@@ -4871,6 +4871,31 @@ other music glyphs, use code such as
   }
 }
 """)
+    set_global_fonts_advanced_warning = _(r"""
+LilyPond now uses a different syntax for selecting fonts. The code equivalent
+to the previous spelling
+
+\paper {
+  #(define fonts
+     (set-global-fonts #:music "music-font"
+                       #:brace "brace-font"
+                       #:roman "roman font"
+                       #:sans "sans font"
+                       #:typewriter "typewriter font"))
+}
+
+is now
+
+\paper {
+  fonts.music = "music-font"
+  fonts.roman = "roman font"
+  fonts.sans = "sans font"
+  fonts.typewriter = "typewriter font"
+}
+
+convert-ly found an advanced use of set-global-fonts that it was not able to
+convert automatically.  Please do the update manually.
+""")
     simple_sexpr_re = r'("[^"]+"|[\w/-]+)'
     maybe_funcall_sexpr_re = (rf'(\(\s*({simple_sexpr_re}\s+)*{simple_sexpr_re}\s*\)'
                               rf'|{simple_sexpr_re})')
@@ -4910,6 +4935,11 @@ other music glyphs, use code such as
     assign_re = rf"{indent_re}fonts\s*=\s*#{set_global_fonts_re}"
     s = re.sub(define_re, replace_set_global_fonts, s, flags=re.MULTILINE)
     s = re.sub(assign_re, replace_set_global_fonts, s, flags=re.MULTILINE)
+    # Warn about remaining uses
+    if "set-global-fonts" in s:
+        stderr_write(NOT_SMART % "advanced use of set-global-fonts")
+        stderr_write(set_global_fonts_advanced_warning)
+        stderr_write(UPDATE_MANUALLY)
 
     # Similar logic here with the factor parameter here
     pango_warning = _("""
@@ -4923,6 +4953,30 @@ set to:
 
     {}
 
+""")
+    pango_advanced_warning = _(r"""
+LilyPond now uses a different syntax for selecting fonts. The code equivalent
+to the previous spelling
+
+\paper {
+  #(define fonts
+     (make-pango-font-tree
+       "roman font"
+       "sans font"
+       "typewriter font"
+       factor))
+}
+
+is now
+
+\paper {
+  fonts.roman = "roman font"
+  fonts.sans = "sans font"
+  fonts.typewriter = "typewriter font"
+}
+
+convert-ly found an advanced use of make-pango-font-tree that it was not able
+to convert automatically.  Please do the update manually.
 """)
     pango_re = (rf"(?P<pango>\(make-pango-font-tree\s+"
                 rf"(?P<roman>{maybe_funcall_sexpr_re})\s+"
@@ -4954,6 +5008,11 @@ set to:
     pango_assign_re = rf"{indent_re}fonts\s*=\s*#{pango_re}"
     s = re.sub(pango_define_re, replace_pango, s, flags=re.MULTILINE)
     s = re.sub(pango_assign_re, replace_pango, s, flags=re.MULTILINE)
+
+    if "make-pango-font-tree" in s:
+        stderr_write(NOT_SMART % "advanced use of make-pango-font-tree")
+        stderr_write(pango_advanced_warning)
+        stderr_write(UPDATE_MANUALLY)
 
     # Convert \lookup to \musicglyph if the argument is not a brace glyph.
     # Also strip outer \override #'(font-encoding . fetaMusic) if found;
