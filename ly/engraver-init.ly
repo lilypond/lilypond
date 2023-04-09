@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.3"
+\version "2.25.4"
 
 %% Warning: if updating context hierarchies, don't forget ly/performer-init.ly!
 
@@ -1263,7 +1263,7 @@ of Editio Vaticana."
   %%       documentation contains all the necessary details.
 
   \override LyricHyphen.stencil = #lyric-hyphen::vaticana-style
-  \override LyricHyphen.font-series = #'medium
+  \override LyricHyphen.font-series = #'normal
   \override LyricHyphen.font-size = #-4
 
   \description "Same as @code{Lyrics} context, except that it

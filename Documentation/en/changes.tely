@@ -327,7 +327,7 @@ dolceP =
 #(make-dynamic-script
   #{
     \markup {
-      \text \medium dolce
+      \text \normal-weight dolce
       p
     }
   #})

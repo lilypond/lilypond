@@ -5043,13 +5043,28 @@ to convert automatically.  Please do the update manually.
     # Convert (markup #:lookup ...) uses
     s = re.sub(r'#:lookup\s+"(?!brace)([^"]+)"', r'#:musicglyph "\1"', s)
 
-
     # For \override
     s = re.sub(r"font-shape\s*=\s*#'caps", "font-variant = #'small-caps", s)
     # For \tweak
     s = re.sub(r"font-shape\s+#'caps", "font-variant #'small-caps", s)
     # For \markup \override
     s = re.sub(r"\(font-shape\s+\.\s+caps\)", "(font-variant . small-caps)", s)
+
+    # Convert \medium markup command to \markup \normal-weight
+    # \markup \medium
+    s = re.sub(r"\\medium", r"\\normal-weight", s)
+    # make-medium-markup
+    s = re.sub(r"make-medium-markup", "make-normal-weight-markup", s)
+    # (markup #:medium ...)
+    s = re.sub(r"#:medium", "#:normal-weight", s)
+
+    # For \override
+    s = re.sub(r"font-series\s*=\s*#'medium", "font-series = #'normal", s)
+    # For \tweak
+    s = re.sub(r"font-series\s+#'medium", "font-series #'normal", s)
+    # For \markup \override
+    s = re.sub(r"\(font-series\s+\.\s+medium\)", "(font-series . normal)", s)
+
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

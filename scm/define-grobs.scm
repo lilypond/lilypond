@@ -2021,7 +2021,7 @@ into modern notation.  See also @iref{KievanLigature},
         ;; Recede in height for purposes of note spacing,
         ;; so notes in melismata can be freely spaced above lyrics
         (extra-spacing-height . (0.2 . -0.2))
-        (font-series . medium)
+        (font-series . normal)
         (font-shape . italic)
         (font-size . 1.0)
         (non-musical . #t)
@@ -2063,7 +2063,7 @@ into modern notation.  See also @iref{KievanLigature},
         ;; Recede in height for purposes of note spacing,
         ;; so notes in melismata can be freely spaced above lyrics
         (extra-spacing-height . (0.2 . -0.2))
-        (font-series . medium)
+        (font-series . normal)
         (font-size . 1.0)
         (parent-alignment-X . ())
         (self-alignment-X . ,CENTER)

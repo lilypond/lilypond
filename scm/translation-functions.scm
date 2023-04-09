@@ -201,10 +201,10 @@ way the transposition number is displayed."
     result))
 
 (define-public (make-lyric-repeat-count-formatter options)
-  ;; Appending 'medium to the options defeats the default 'bold of
+  ;; Appending 'normal-weight to the options defeats the default 'bold of
   ;; format-mark-generic while still allowing the user to request
   ;; bold.
-  (let ((mark-formatter (format-mark-generic (append options '(medium)))))
+  (let ((mark-formatter (format-mark-generic (append options '(normal-weight)))))
     (lambda (context repeat-count)
       (if (positive? repeat-count)
           (mark-formatter repeat-count context)))))
@@ -214,7 +214,7 @@ way the transposition number is displayed."
   ;; from options list; if none is given, default to first available.
   (let ((ab (select-option options '(alphabet-omit-i alphabet alphabet-omit-j barnumbers numbers roman roman-ij)))
         (fr (select-option options '(noframe box circle oval)))
-        (fs (select-option options '(bold medium)))
+        (fs (select-option options '(bold normal-weight)))
         (lc (select-option options '(uppercase lowercase mixedcase)))
         (dl (select-option options '(combine repeat)))
         (dot (select-option options '(nodot dot)))
@@ -255,7 +255,7 @@ way the transposition number is displayed."
                 ((noframe)                    the-flanked-string))))
         (case fs
           ((bold) (make-bold-markup the-framed-string))
-          ((medium)                 the-framed-string))))))
+          ((normal-weight)          the-framed-string))))))
 
 (define-public format-coda-mark
   (format-mark-generic '(numbers coda)))

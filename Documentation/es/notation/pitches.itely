@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.25.4"
 
 
 @node Alturas
@@ -1589,7 +1589,7 @@ de volver al comportamiento predeterminado actualmente:
   \ottava #2
   a'2 b
   \bar "||"
-  \override Staff.OttavaBracket.font-series = #'medium
+  \override Staff.OttavaBracket.font-series = #'normal
   \set Staff.ottavationMarkups = #ottavation-simple-ordinals
   \ottava #1
   a,2 b

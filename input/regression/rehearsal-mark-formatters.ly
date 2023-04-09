@@ -1,4 +1,4 @@
-\version "2.23.7"
+\version "2.25.4"
 
 \header {
   texidoc = "
@@ -44,6 +44,6 @@ xcvi, xcvj, iij., boxed A, circled B, ovalled C, medium font D."
   \mark 2 R
   \set Score.rehearsalMarkFormatter = #(format-mark-generic '(oval))
   \mark 3 R
-  \set Score.rehearsalMarkFormatter = #(format-mark-generic '(medium))
+  \set Score.rehearsalMarkFormatter = #(format-mark-generic '(normal-weight))
   \mark 4 R
 }

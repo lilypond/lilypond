@@ -3735,25 +3735,25 @@ of @code{italic}.
   (interpret-markup
    layout (prepend-alist-chain 'font-shape 'upright props) arg))
 
-(define-markup-command (medium layout props arg)
+(define-markup-command (normal-weight layout props arg)
   (markup?)
   #:category font
-  "Switch to medium font-series (in contrast to bold).
+  "Switch to normal font-series (in contrast to bold).
 
 @lilypond[verbatim,quote]
 \\markup {
   \\bold {
     some bold text
     \\hspace #2
-    \\medium {
-      medium font series
+    \\normal-weight {
+      normal font series
     }
     \\hspace #2
     bold again
   }
 }
 @end lilypond"
-  (interpret-markup layout (prepend-alist-chain 'font-series 'medium props)
+  (interpret-markup layout (prepend-alist-chain 'font-series 'normal props)
                     arg))
 
 (define-markup-command (normal-text layout props arg)
@@ -3778,7 +3778,7 @@ normal text font, no matter what font was used earlier.
   ;; ugh - latin1
   (interpret-markup layout
                     (cons '((font-family . roman) (font-shape . upright)
-                            (font-series . medium) (font-encoding . latin1)
+                            (font-series . normal) (font-encoding . latin1)
                             (font-variant . normal))
                           props)
                     arg))
