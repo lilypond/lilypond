@@ -4897,7 +4897,7 @@ convert-ly found an advanced use of set-global-fonts that it was not able to
 convert automatically.  Please do the update manually.
 """)
     simple_sexpr_re = r'("[^"]+"|[\w/-]+)'
-    maybe_funcall_sexpr_re = (rf'(\(\s*({simple_sexpr_re}\s+)*{simple_sexpr_re}\s*\)'
+    maybe_funcall_sexpr_re = (rf'(\(({lilylib.paren_matcher(10)})\)'
                               rf'|{simple_sexpr_re})')
     keyval_re = rf'#:(?P<key>\w+)\s+(?P<val>{maybe_funcall_sexpr_re})\s*'
     set_global_fonts_re = rf"(\(set-global-fonts\s+(?P<args>({keyval_re})*)\))"

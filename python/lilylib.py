@@ -158,3 +158,7 @@ def brace_matcher(n):
     # braces inside; add the outer braces yourself if needed.
     # Nongreedy.
     return r"[^{}]*?(?:{"*n+r"[^{}]*?"+r"}[^{}]*?)*?"*n
+
+def paren_matcher(n):
+    """Same as brace_matcher, for parentheses."""
+    return r"[^()]*?(?:\("*n+r"[^()]*?"+r"\)[^()]*?)*?"*n
