@@ -49,7 +49,7 @@ TexInfo_snippet_res = {
             \s*
             ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
             \s*
-            { (?P<code>''' + book_base.brace_matcher(10) + r''' ) \s* }
+            { (?P<code>''' + ly.brace_matcher(10) + r''' ) \s* }
           )''',
 
     'lilypond_block': r'''(?smx)
@@ -340,11 +340,11 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
             cmd += ' -dseparate-page-formats=png,pdf '
         if '-dtall-page-formats' not in cmd:
             # TODO: the EPS output here is useless for cairo, but the
-            # rest of lilypond-book expects it to be there. 
+            # rest of lilypond-book expects it to be there.
             formats = ['eps']
             if not self.global_options.skip_png_check:
                 formats.append('png')
-                
+
             cmd += ' -dtall-page-formats=%s ' % ','.join(formats)
         return cmd
 

@@ -3432,24 +3432,15 @@ def conv(s):
                  r"\1\\accidentalStyle", s)
     return s
 
-
-def brace_matcher(n):
-    # poor man's matched brace scanning, gives up
-    # after n+1 levels.  Matches any string with balanced
-    # braces inside; add the outer braces yourself if needed.
-    # Nongreedy.
-    return r"[^{}]*?(?:{"*n+r"[^{}]*?"+r"}[^{}]*?)*?"*n
-
-
 matchstring = r'"(?:[^"\\]|\\.)*"'
 matcharg = (r"\s+(?:[$#]['`]?\s*(?:[a-zA-Z][^ \t\n()\\]*|" + matchstring
             + r"|#?\(" + paren_matcher(20) + r"\)|"
             + r"-?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)|"
-            + r"#(?:[tf]|\\.|@?\{" + brace_matcher(10) + r"#@?\}))|"
+            + r"#(?:[tf]|\\.|@?\{" + lilylib.brace_matcher(10) + r"#@?\}))|"
             + matchstring + r"|\\[a-z_A-Z]+|[0-9]+(?:/[0-9]+)?|-[0-9]+)")
-matchfullmarkup = (r'\\markup\s*(?:@?\{' + brace_matcher(20) + r'\}|' +
+matchfullmarkup = (r'\\markup\s*(?:@?\{' + lilylib.brace_matcher(20) + r'\}|' +
                    matchstring + r'|(?:\\[a-z_A-Z][a-z_A-Z-]*(?:' + matcharg +
-                   r')*?\s*)*(?:' + matchstring + r"|@?\{" + brace_matcher(20) +
+                   r')*?\s*)*(?:' + matchstring + r"|@?\{" + lilylib.brace_matcher(20) +
                    r"\}))")
 matchmarkup = "(?:" + matchstring + "|" + matchfullmarkup + ")"
 
@@ -3708,7 +3699,7 @@ def conv(s):
                       r"\g<0>\1\\defaultchild\2",
                       m.group(0), 1)
 
-    s = re.sub(r"\\context\s*@?\{(" + brace_matcher(20) + r")\}",
+    s = re.sub(r"\\context\s*@?\{(" + lilylib.brace_matcher(20) + r")\}",
                  matchaccepts, s)
     return s
 
@@ -3780,7 +3771,7 @@ def conv(s):
                      r"\1combine \1null \1vspace\2", m.group(0))
         return s
 
-    s = re.sub(r"\\(?:left-|right-|center-|)column\s*\{" + brace_matcher(20) + r"\}",
+    s = re.sub(r"\\(?:left-|right-|center-|)column\s*\{" + lilylib.brace_matcher(20) + r"\}",
                  vspace_replace, s)
     return s
 

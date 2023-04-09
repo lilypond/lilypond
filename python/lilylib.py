@@ -151,3 +151,10 @@ def get_option_parser(*args, **kwargs):
     p.formatter = _NonDentedHeadingFormatter()
     p.formatter.set_parser(p)
     return p
+
+def brace_matcher(n):
+    # poor man's matched brace scanning, gives up
+    # after n+1 levels.  Matches any string with balanced
+    # braces inside; add the outer braces yourself if needed.
+    # Nongreedy.
+    return r"[^{}]*?(?:{"*n+r"[^{}]*?"+r"}[^{}]*?)*?"*n

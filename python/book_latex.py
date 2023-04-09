@@ -62,7 +62,7 @@ Latex_snippet_res = {
             \s*
             ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
             \s*
-            { (?P<code>''' + book_base.brace_matcher(10) + r''') \s* }
+            { (?P<code>''' + ly.brace_matcher(10) + r''') \s* }
           )''',
 
     # Accept both
