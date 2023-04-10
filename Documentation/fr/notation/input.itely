@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: 3123dcf12436526a8d8f4498e4f7d3661d156a57
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3625,8 +3625,7 @@ PostScript) ; les fichiers @file{gonville-*.svg} sont destinés au moteur
 @code{svg-woff}. Pour de plus amles informations, consultez
 @rprogram{Options avancées de lilypond}.
 
-La syntaxe suivante substitue aux fontes musicales (générale et
-accolades) les fontes Gonville.
+La syntaxe suivante substitue aux fontes musicales les fontes Gonville.
 
 @example
 \paper @{
@@ -3634,16 +3633,7 @@ accolades) les fontes Gonville.
 @}
 @end example
 
-En tout état de cause, tout appel à @code{set-global-fonts} réinitialise
-aussi bien les fontes musicales que les fontes textuelles. Dès lors que
-l'une de ces catégories n'est pas mentionnée sera utilisée la fonte par
-défaut y afférente.@*
-Par ailleurs, chaque appel à @code{set-global-fonts} modifie les fontes
-du @code{\book} qui le suit, qu'il ait été créé explicitement ou non.
-Par voie de conséquence, chaque @code{\book} peut disposer de son propre
-jeu de fontes principales s'il est précédé d'un appel à
-@code{set-global-fonts}. Pour plus d'informations, voir
-@ref{Choix des fontes par défaut}.
+Pour plus d'informations, voir @ref{Choix des fontes par défaut}.
 
 @morerefs
 Manuel d'initiation :
@@ -3684,21 +3674,14 @@ présence des suffixes suivants dans les dossiers d'instalation :
 @file{emmentaler-11.otf}, @file{emmentaler-20.svg},
 @file{emmentaler-brace.woff}, etc.
 
-La syntaxe suivante substitue aux fontes musicales (générale et
-accolades) les fontes @var{nomfonte}.
+La syntaxe suivante substitue aux fontes musicales les fontes
+@var{nomfonte}.
 
 @example
 \paper @{
-  #(define fonts
-    (set-global-fonts
-     #:music "@var{nomfonte}" ; fichier de fonte sans suffixe ni extension
-     #:brace "@var{nomfonte}" ; fichier de fonte sans suffixe ni extension
-   ))
+  fonts.music = "@var{nomfonte}" % fichier de fonte sans suffixe ni extension
 @}
 @end example
-
-Note : pour les catégories @code{music} et @code{brace}, le nom du
-fichier de fonte se spécifie sans suffixe ni extension.
 
 
 @node Génération de fichiers MIDI

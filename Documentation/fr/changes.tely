@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+    Translation of GIT committish: 3123dcf12436526a8d8f4498e4f7d3661d156a57
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -87,6 +87,24 @@ Le marges sont désormais plus larges, suivant ainsi les mises en pages
 de nombreux éditeurs, et conformément aux recommandations d'Elaine
 Gould.
 
+Pour retrouver les même réglages que précédemment, notamment dans le but
+de conserver la mise en page après mise à jour d'une partitiion à la
+version @version{}, il suffit d'ajouter le code suivant :
+
+@example
+\paper @{
+  top-margin = 5\mm
+  bottom-margin = 10\mm
+  top-system-spacing.basic-distance = 1
+  top-markup-spacing.basic-distance = 0
+  left-margin = 10\mm
+  right-margin = 10\mm
+  inner-margin = 10\mm
+  outer-margin = 20\mm
+  binding-offset = 0\mm
+@}
+@end example
+
 
 @item
 Au lieu de générer des sorties PostScript ou SVG par lui-même, LilyPond
@@ -122,7 +140,7 @@ PDF, l'option @code{-dembed-source-code} pour le PDF et la propriété
 * Améliorations en matière d'expressivité::
 * Améliorations en matière de reprises::
 * Améliorations en matière d'annotations éditoriales::
-* Améliorations en matière de mise en forme du texte::
+* Améliorations en matière de fontes et de mise en forme du texte::
 @end menu
 
 
@@ -218,14 +236,142 @@ Rien pour l'instant.
 @unnumberedsec Améliorations en matière d'annotations éditoriales
 @translationof Editorial annotation improvements
 
-Rien pour l'instant.
+@itemize
+@item
+Les objets graphiques @code{NoteName} sont désormais centrés
+horizontalement par défaut.
+
+@end itemize
 
 
-@node Améliorations en matière de mise en forme du texte
-@unnumberedsec Améliorations en matière de mise en forme du texte
-@translationof Text improvements
+@node Améliorations en matière de fontes et de mise en forme du texte
+@unnumberedsec Améliorations en matière de fontes et de mise en forme du texte
+@translationof Text and font improvements
 
-Rien pour l'instant.
+@itemize
+@item
+La syntaxe permettant de modifier les fontes musicales et textuelles a
+changé. Au lieu de
+
+@quotation
+@verbatim
+\paper {
+  #(define fonts
+     (set-global-fonts
+       #:music "Nom de la fonte musicale"
+       #:brace "Nom de la fonte musicale d'accolades"
+       #:roman "Nom de la fonte romaine"
+       #:sans "Nom de la fonte sans empattements"
+       #:typewriter "Nom de la fonte monospace"))
+}
+@end verbatim
+@end quotation
+
+@noindent
+ou
+
+@quotation
+@verbatim
+\paper {
+  #(define fonts
+     (make-pango-font-tree
+       "Nom de la fonte romaine"
+       "Nom de la fonte sans empattements"
+       "Nom de la fonte monospace"
+       factor))
+}
+@end verbatim
+@end quotation
+
+@noindent
+la syntaxe consacrée est dorénavant
+
+@quotation
+@verbatim
+\paper {
+  fonts.music = "Nom de la fonte musicale"
+  fonts.roman = "Nom de la fonte romaine"
+  fonts.sans = "Nom de la fonte sans empattement"
+  fonts.typewriter = "Nom de la fonte monospace"
+}
+@end verbatim
+@end quotation
+
+Contrairement aux anciennes pratiques, la nouvelle syntaxe n'interfère
+en rien dans la taille des fontes, qui doit se gérer séparément à l'aide
+de @code{set-global-staff-size} ou @code{layout-set-staff-size}.
+
+La liste associative ne comporte pas de clé @code{brace} ; les glyphes
+d'accolade sont désormais toujours pris dans la fonte musicale. Il est
+néanmoins possible d'y déroger en utilisant une famille de fontes
+supplémentaire, comme dans l'exemple suivant (la fonte LilyJAZZ doit
+alors être disponible) :
+
+@quotation
+@verbatim
+\paper {
+  fonts.music-alt = "lilyjazz"
+}
+
+\layout {
+  \context {
+    \Score
+    \override SystemStartBrace.font-family = #'music-alt
+  }
+}
+
+\new PianoStaff <<
+  \new Staff { c' }
+  \new Staff { c' }
+>>
+
+\markup \override #'(font-family . music-alt) \left-brace #20
+@end verbatim
+@end quotation
+
+
+@item
+La commande de @emph{markup} @code{\lookup} n'est désormais disponible
+que pour les accolades ; pour les autres glyphes, c'est la commande
+@code{\musicglyph} qu'il faut utiliser. Au lieu de @code{\lookup}, il
+vaut d'ailleurs mieux lui préférer @code{\left-brace}.
+
+
+@item
+Lorsqu'une fonte musicale est utilisée dans un @emph{markup} --
+typiquement pour une indication de nuance -- et qu'un glyphe en était
+absent, celui-ci était rendu dans une fonte textuelle normale. Ceci
+n'est plus le cas, et un avertissement est alors émis quant au glyphe
+manquant. Afin d'utiliser une fonte textuelle, il faut utiliser la
+commande de @emph{markup} @code{\text}, comme ici par exemple.
+
+@lilypond[verbatim,quote]
+dolceP =
+#(make-dynamic-script
+  #{
+    \markup {
+      \text \medium dolce
+      p
+    }
+  #})
+
+{ c'\dolceP }
+@end lilypond
+
+
+@item
+Les petites capitales s'obtiennent désormais en réglant
+@code{font-variant} sur @code{small-caps}, plutôt qu'en fixant
+@code{font-shape} à @code{caps}. Dans la mesure où la raison d'être de
+@code{font-shape} est de pouvoir accéder à l'italique, ce changement
+rend possible l'utilisation conjointe de petites capitales et de
+l'italique.
+
+@lilypond[quote]
+\markup \fontCaps \italic "Small caps in italics"
+@end lilypond
+
+@end itemize
 
 
 @node Nouveautés en matière de notation spécialisée

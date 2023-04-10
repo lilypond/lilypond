@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: 3123dcf12436526a8d8f4498e4f7d3661d156a57
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1896,15 +1896,12 @@ Deux lignes de couplet peuvent aussi être regroupées, par exemple dans
 le cas d'une reprise avec des paroles différentes.
 
 @lilypond[quote,ragged-right,verbatim]
-leftbrace = \markup {
-  \override #'(font-encoding . fetaBraces)
-  \lookup "brace80"
-}
-
 stanzaOneOne = \lyricmode {
   \set stanza = \markup {
-    \column { \vspace #.33 "1. "}
-    \leftbrace
+    \column {
+      \vspace #.2
+      \line { "1." \left-brace #30 }
+    }
   }
   Child, you’re mine and I love you.
   Lend thine ear to what I say.

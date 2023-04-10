@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: 3123dcf12436526a8d8f4498e4f7d3661d156a57
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1775,16 +1775,12 @@ symboles sont répertoriés dans l'annexe @ref{La fonte Emmentaler}.
 \relative {
   c''2
   c'^\markup { \musicglyph "eight" }
-  c,4
+  c,4_\markup { \left-brace #40 }
   c,8._\markup { \musicglyph "clefs.G_change" }
   c16
   c2^\markup { \musicglyph "timesig.neomensural94" }
 }
 @end lilypond
-
-La rubrique @ref{Fontes musicales} contient d'autres informations
-sur l'impression de glyphes non alphabétiques, tels que des
-crochets ou accolades.
 
 Le mode @emph{markup} supporte aussi les diagrammes spécifiques à
 certains instruments :
@@ -1838,8 +1834,7 @@ sont répertoriées à l'annexe @ref{Markup for music and musical symbols}.
 @morerefs
 Manuel de notation :
 @ref{La fonte Emmentaler},
-@rnotationnamed{Markup for music and musical symbols, Musique},
-@ref{Fontes musicales}.
+@rnotationnamed{Markup for music and musical symbols, Musique}.
 
 Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm},
@@ -1882,7 +1877,6 @@ de partition.
 * Fonctionnalités des fontes::
 * Attribution d'une fonte en particulier::
 * Choix des fontes par défaut::
-* Fontes musicales::
 @end menu
 
 
@@ -2247,27 +2241,16 @@ Morceaux choisis :
 @unnumberedsubsubsec Choix des fontes par défaut
 @translationof Entire document fonts
 
-On peut tout à fait modifier le jeu de polices par défaut de LilyPond
-grâce à un appel de la fonction @code{make-pango-font-tree}. Il vous
-faudra alors spécifier les différentes familles, en respectant l'ordre
-@emph{roman}, @emph{sans empattement} et @emph{monospace}, ainsi qu'un
-facteur d'échelle. Tout comme indiqué dans
-@ref{Attribution d'une fonte en particulier},
-il peut s'agir d'une liste de polices séparées par une virgule, à
-ceci près qu'il n'est pas possible de spécifier de
-style.@footnote{Ce qui a pour conséquence que, contrairement au
-cas d'une fonte particulière, aucune virgule terminale n'est
-nécessaire.}
-
-Note : @code{make-pango-font-tree} réinitialise les fontes musicales à
-leur valeur par défaut, à savoir @code{emmentaler}.
-
-Dans l'exemple suivant, les fontes seront mises à l'échelle de la taille
-globale des portées.
+On peut tout à fait modifier le jeu de polices par défaut de LilyPond.
+Tout comme indiqué dans @ref{Attribution d'une fonte en particulier}, il
+peut s'agir d'une liste de polices séparées par une virgule, à ceci près
+qu'il n'est pas possible de spécifier de style.@footnote{Ce qui a pour
+conséquence que, contrairement au cas d'une fonte particulière, aucune
+virgule terminale n'est nécessaire.}
 
 @cindex polices, choix par défaut
 @cindex fontes, choix par défaut
-@funindex make-pango-font-tree
+@funindex fonts
 
 @lilypond[verbatim,quote]
 \paper  {
@@ -2284,92 +2267,8 @@ globale des portées.
 }
 @end lilypond
 
-La syntaxe suivante permet de substituer une fonte particulière tout en
-laissant les autres à leur valeur par défaut. L'exemple ci-dessous
-produit les mêmes effets que celui utilisant
-@code{make-pango-font-tree}. De même qu'avec
-@code{make-pango-font-tree}, il est possible de fournir une liste de
-fontes séparées par une virgule pour les catégories @code{roman},
-@code{sans} et @code{typewriter}. Dès lors que la taille de portée reste
-à sa valeur par défaut de 20 pt, l'instruction @code{#:factor} n'est pas
-nécessaire.
-
-@funindex set-global-fonts
-
-@example
-\paper @{
-  #(define fonts
-    (set-global-fonts
-     #:roman "Linux Libertine O"
-     #:sans "Nimbus Sans, Nimbus Sans L"
-     #:typewriter "DejaVu Sans Mono"
-     ; inutile si taille de portée par défaut
-     #:factor (/ staff-height pt 20)
-    ))
-@}
-@end example
-
-Il est aussi posible de substituer les fontes musicales. L'exemple
-ci-dessous produit les mêmes effets que ceux qui précèdent dans la
-mesure où les fontes musicales sont fixées à leur valeur par défaut.
-Pour de plus amples informations, voir
-@ref{Changement des fontes musicales}.
-
-@example
-\paper @{
-  #(define fonts
-    (set-global-fonts
-     #:music "emmentaler"            ; défaut
-     #:brace "emmentaler"            ; défaut
-     #:roman "Linux Libertine O"
-     #:sans "Nimbus Sans, Nimbus Sans L"
-     #:typewriter "DejaVu Sans Mono"
-     ; inutile si taille de portée par défaut
-     #:factor (/ staff-height pt 20)
-    ))
-@}
-@end example
-
-En tout état de cause, tout appel à @code{set-global-fonts} réinitialise
-aussi bien les fontes musicales que les fontes textuelles.@footnote{Pour
-être plus précis, « emmentaler » (avec un « e » minuscule en argument à
-@code{#:music} et @code{#:brace}) constitue un jeu de fontes -- et non
-une famille de fonte au sens de FontConfig -- auquel LilyPond a accès et
-gère directement. Au lieu de plusieurs styles, elle est toutefois
-fournie dans différentes tailles -- @pxref{Fontes musicales} et
-@ref{Changement des fontes musicales}. Les noms de fonte, pour
-FontConfig, sont « Emmentaler-@var{taille} », où @var{taille} est un
-nombre entre 11, 13, 14, 16, 18, 20, 23 et 26.
-
-Pour ce qui est des accolades, le nom de la fonte pour FontConfig est
-« Emmentaler-Brace ».} Dès lors que l'une de ces catégories n'est pas
-mentionnée, sera utilisée la fonte par défaut y afférente.@*
-Par ailleurs, chaque appel à @code{set-global-fonts} affecte les
-fontes du bloc @code{\book} qui le suit ; chaque bloc @code{\book}
-consécutif peut donc disposer de son propre jeu de fontes grâce à
-un simple appel à @code{set-global-fonts}, comme ici :
-
-@example
-\paper @{
-  #(define fonts
-    (set-global-fonts
-     @dots{}
-    ))
-@}
-\book @{
-  @dots{}
-@}
-
-\paper @{
-  #(define fonts
-    (set-global-fonts
-     @dots{}
-    ))
-@}
-\book @{
-  @dots{}
-@}
-@end example
+Il est aussi posible de substituer les fontes musicales à l'aide de la
+même syntaxe -- voir @ref{Changement des fontes musicales}.
 
 @morerefs
 Manuel de notation :
@@ -2380,58 +2279,3 @@ Manuel de notation :
 @ref{Localisation des fontes},
 @ref{Sélection de la fonte et de la taille}.
 @endmorerefs
-
-
-@node Fontes musicales
-@unnumberedsubsubsec Fontes musicales
-@translationof Music fonts
-
-@cindex musicale, fonte
-@cindex notation, fonte
-@funindex font-encoding
-@funindex font-interface
-
-En matière de fontes musicales, LilyPond ne recourt ni à FontConfig, ni à
-Pango, mais les gère directement. Par voie de conséquence, l'interface
-est différente. Cette section décrit la manière d'insérer des symboles
-musicaux en mode @emph{markup}.
-
-@cindex accolade, tailles
-@cindex fonte non textuelle et @i{markup}
-@cindex non texte, fonte, @i{markup}
-@cindex @i{markup}, non texte, fonte
-
-Les fontes de notation musicale sont des ensembles de glyphes
-accessibles selon divers @emph{encodages}. La syntaxe suivante permet
-d'accéder aux différents glyphes Emmentaler@footnote{Les fontes
-Emmentaler de LilyPond disposent de trois jeux de glyphes : @emph{Feta}
-pour la notation moderne, @emph{Parmesan} pour la notation ancienne, et
-des accolades (@emph{braces} en anglais). Feta et Parmesan sont toutes
-deux accesssibles avec l'encodage « fetamusic ».} directement en mode
-@i{markup} :
-
-@lilypond[quote,verbatim,fragment]
-a'1^\markup {
-  \vcenter {
-    \override #'(font-encoding . fetaBraces)
-    \lookup "brace120"
-    \override #'(font-encoding . fetaText)
-    \column { 1 3 sf }
-    \override #'(font-encoding . fetaMusic)
-    \lookup "noteheads.s0petrucci"
-  }
-}
-@end lilypond
-
-@noindent
-Néanmoins, tous ces glyphes, à l'exception des accolades de différente
-taille, sont disponibles selon une syntaxe plus simple, indiquée dans
-@ref{Notation musicale dans du texte formaté}.
-
-Lorsque l'on accède aux accolades avec l'encodage « fetaBraces », la
-taille de l'accolade est spécifiée par la partie numérique du nom de
-glyphe, en unité arbitraire. Il s'agit d'un entier, de 0 à 575 inclus,
-zéro procurant la plus petite accolade. La valeur optimale s'obtient par
-tâtonnement. Ces glyphes sont tous des accolades gauche (ouvrantes) ;
-une accolade droite (fermante) s'obtient par rotation
-@pxref{Rotation des objets}.
