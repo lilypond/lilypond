@@ -5099,11 +5099,22 @@ an inverted glyph.  Note that within music, one would usually use the
 Lower @var{arg} by the distance @var{amount}.
 A negative @var{amount} indicates raising; see also @code{\\raise}.
 
+The argument to @code{\\lower} is the vertical displacement amount, measured
+in (global) staff spaces, which is independent of the markup's current font
+size.  If you need vertical movement that takes the font size into account, use
+@code{\\translate-scaled} instead.
+
+This function is usually used to move one element inside of a markup relative to
+the other elements.  When using it on the whole markup, bear in mind that
+spacing mechanisms that place the markup itself on the page could cancel this
+shift.  Consider using grob properties such as @code{padding}, @code{Y-offset},
+or @code{extra-@/offset}, or spacing variables such as
+@code{markup-@/system-@/spacing}.
+
 @lilypond[verbatim,quote]
 \\markup {
   one
-  \\lower #3
-  two
+  \\lower #3 two
   three
 }
 @end lilypond"
@@ -5118,8 +5129,15 @@ A negative @var{amount} indicates raising; see also @code{\\raise}.
 @cindex translating text
 @cindex scaling text
 
-Translate @var{arg} by @var{offset}, scaling the offset by the
-@code{font-size}.
+Translate @var{arg} by @var{offset}, scaling the offset by the @code{font-size}.
+See also @code{\\translate}.
+
+This function is usually used to move one element inside of a markup relative to
+the other elements.  When using it on the whole markup, bear in mind that
+spacing mechanisms that place the markup itself on the page could cancel this
+shift.  Consider using grob properties such as @code{padding}, @code{X-offset},
+@code{Y-offset} or @code{extra-@/offset}, or spacing variables such as
+@code{markup-@/system-@/spacing}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -5145,24 +5163,20 @@ Translate @var{arg} by @var{offset}, scaling the offset by the
 Raise @var{arg} by the distance @var{amount}.
 A negative @var{amount} indicates lowering, see also @code{\\lower}.
 
-The argument to @code{\\raise} is the vertical displacement amount,
-measured in (global) staff spaces.  @code{\\raise} and @code{\\super}
-raise objects in relation to their surrounding markups.
+The argument to @code{\\raise} is the vertical displacement amount, measured
+in (global) staff spaces, which is independent of the markup's current font
+size.  If you need vertical movement that takes the font size into account, use
+@code{\\translate-scaled} instead.
 
-If the text object itself is positioned above or below the staff, then
-@code{\\raise} cannot be used to move it, since the mechanism that
-positions it next to the staff cancels any shift made with
-@code{\\raise}.  For vertical positioning, use the @code{padding}
-and/or @code{extra-offset} properties.
+This function is usually used to move one element inside of a markup relative to
+the other elements.  When using it on the whole markup, bear in mind that
+spacing mechanisms that place the markup itself on the page could cancel this
+shift.  Consider using grob properties such as @code{padding}, @code{Y-offset},
+or @code{extra-@/offset}, or spacing variables such as
+@code{markup-@/system-@/spacing}.
 
 @lilypond[verbatim,quote]
-\\markup {
-  C
-  \\small
-  \\bold
-  \\raise #1.0
-  9/7+
-}
+\\markup { C \\small \\bold \\raise #1.0 9/7+ }
 @end lilypond"
   (ly:stencil-translate-axis (interpret-markup layout props arg) amount Y))
 
@@ -5233,17 +5247,10 @@ Set @var{arg} in superscript with a normal font size.
   "
 @cindex superscript text
 
-Set @var{arg} in superscript.
+Set @var{arg} in superscript, see also @code{\\sub}.
 
 @lilypond[verbatim,quote]
-\\markup {
-  E =
-  \\concat {
-    mc
-    \\super
-    2
-  }
-}
+\\markup { E = \\concat { mc \\super 2 } }
 @end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup
@@ -5259,8 +5266,16 @@ Set @var{arg} in superscript.
   "
 @cindex translating text
 
-Translate @var{arg} relative to its surroundings.  @var{offset}
-is a pair of numbers representing the displacement in the X and Y axis.
+Translate @var{arg} relative to its surroundings.  @var{offset} is a pair of
+numbers representing the displacement in the X and Y@tie{}axis.  See also
+@code{\\translate-scaled}.
+
+This function is usually used to move one element inside of a markup relative to
+the other elements.  When using it on the whole markup, bear in mind that
+spacing mechanisms that place the markup itself on the page could cancel this
+shift.  Consider using grob properties such as @code{padding}, @code{X-offset},
+@code{Y-offset} or @code{extra-@/offset}, or spacing variables such as
+@code{markup-@/system-@/spacing}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -5279,18 +5294,10 @@ is a pair of numbers representing the displacement in the X and Y axis.
   "
 @cindex subscript text
 
-Set @var{arg} in subscript.
+Set @var{arg} in subscript, see also @code{\\super}.
 
 @lilypond[verbatim,quote]
-\\markup {
-  \\concat {
-    H
-    \\sub {
-      2
-    }
-    O
-  }
-}
+\\markup { \\concat { H \\sub 2 O } }
 @end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup
