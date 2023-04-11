@@ -278,8 +278,6 @@ LilyPond は一つの GUI プログラムではなく、コマンドラインツ
 Web アプリケーションに LilyPond の譜刻機能を持たせることができます。@c
 LilyPond を使ったオンラインツールがいくつかあります。
 
-@c (TBD: Add a link to the new @ref{Applications} page.
-
 
 @divEnd
 

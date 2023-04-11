@@ -250,8 +250,6 @@ can be used from within other applications too. This way it is possible
 to equip tools like, e.g., web applications with LilyPond's engraving
 power. There already exist several online tools using LilyPond.
 
-@c (TBD: Add a link to the new @ref{Applications} page.
-
 
 @divEnd
 
