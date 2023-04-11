@@ -1887,99 +1887,6 @@ The @code{\set} and @code{\unset} commands are used to change values
 for context properties.  The @code{\override} and @code{\revert}
 commands are used to change values for grob properties.
 
-@ignore
-The syntax for this is
-
-@example
-\override @var{context}.@var{name} #'@var{property} = #@var{value}
-@end example
-
-Here @var{name} is the name of a graphical object, like
-@code{Stem} or @code{NoteHead}, and @var{property} is an internal
-variable of the formatting system (@q{grob property} or @q{layout
-property}).  The latter is a symbol, so it must be quoted.  The
-subsection @ref{Modifying properties} explains what to fill in
-for @var{name}, @var{property}, and @var{value}.  Here we only
-discuss the functionality of this command.
-
-The command
-
-@verbatim
-\override Staff.Stem.thickness = #4.0
-@end verbatim
-
-@noindent
-makes stems thicker (the default is 1.3, with staff line thickness as a
-unit).  Since the command specifies @code{Staff} as context, it only
-applies to the current staff.  Other staves will keep their normal
-appearance.  Here we see the command in action:
-
-@lilypond[quote,fragment,verbatim]
-c''4
-\override Staff.Stem.thickness = #4.0
-c''4
-c''4
-c''4
-@end lilypond
-
-The @code{\override} command changes the definition of the @code{Stem}
-within the current @code{Staff}.  After the command is interpreted
-all stems are thickened.
-
-Analogous to @code{\set}, the @var{context} argument may be left out,
-causing the default context @code{Voice} to be used.  Adding
-@code{\once} applies the change during one time step only.
-
-@lilypond[quote,fragment,verbatim]
-c''4
-\once \override Stem.thickness = #4.0
-c''4
-c''4
-@end lilypond
-
-The @code{\override} must be done before the object is
-started.  Therefore, when altering @emph{Spanner} objects such as slurs
-or beams, the @code{\override} command must be executed at the moment
-when the object is created.  In this example,
-
-@lilypond[quote,fragment,verbatim]
-\override Slur.thickness = #3.0
-c''8[( c''
-\override Beam.beam-thickness = #0.6
-c''8 c''])
-@end lilypond
-
-@noindent
-the slur is fatter but the beam is not.  This is because the command for
-@code{Beam} comes after the Beam is started, so it has no effect.
-
-Analogous to @code{\unset}, the @code{\revert} command for a context
-undoes an @code{\override} command; like with @code{\unset}, it only
-affects settings that were made in the same context.  In other words, the
-@code{\revert} in the next example does not do anything.
-
-@example
-\override Voice.Stem.thickness = #4.0
-\revert Staff.Stem.thickness
-@end example
-
-Some tweakable options are called @q{subproperties} and reside inside
-properties.  To tweak those, use commands of the form
-
-@c leave this as a long long
-@example
-\override @var{context}.@var{name} #'@var{property} #'@var{subproperty} = #@var{value}
-@end example
-
-@noindent
-such as
-
-@example
-\override Stem.details.beamed-lengths = #'(4 4 3)
-@end example
-
-@end ignore
-
 @morerefs
 Internals Reference:
 @rinternals{Backend},
@@ -2253,39 +2160,6 @@ to affect only the current time step:
 @end lilypond
 
 
-@ignore
-Commands which change output generally look like
-
-@example
-\override Voice.Stem.thickness = #3.0
-@end example
-
-@noindent
-To construct this tweak we must determine these bits of information:
-
-@itemize
-@item the context: here @code{Voice}.
-@item the layout object: here @code{Stem}.
-@item the layout property: here @code{thickness}.
-@item a sensible value: here @code{3.0}.
-@end itemize
-
-@cindex internal documentation
-@cindex finding graphical object
-@cindex graphical object description
-@cindex tweaking
-@funindex \override
-@cindex internal documentation
-
-For many properties, regardless of the data type of the property, setting the
-property to false (@code{#f}) will result in turning it off, causing
-LilyPond to ignore that property entirely.  This is particularly useful for
-turning off grob properties which may otherwise be causing problems.
-
-We demonstrate how to glean this information from the notation manual
-and the program reference.
-@end ignore
-
 @morerefs
 Internals Reference:
 @rinternals{Backend}.
@@ -2313,62 +2187,6 @@ syntax:
 Specifying @var{layout-object} is optional.
 The @code{\tweak} command applies to the music object that immediately
 follows @var{value} in the music stream.
-
-@ignore
-In some cases, it is possible to take a shortcut for tuning
-graphical objects.  For objects that are created directly from
-an item in the input file, you can use the @code{\tweak} command.
-For example:
-
-@lilypond[verbatim,quote]
-\relative {
-  < c''
-    \tweak color #red
-    d
-    g
-    \tweak duration-log #1
-    a
-  > 4
-  -\tweak padding #8
-  -^
-}
-@end lilypond
-
-
-
-The main use of the @code{\tweak} command is to modify just
-one of a number of notation elements which start at the same musical
-moment, like the notes of a chord, or tuplet brackets which start
-at the same time.
-
-The @code{\tweak} command sets a property in the following object
-directly, without requiring the grob name or context to be
-specified.  For this to work, it is necessary for the @code{\tweak}
-command to remain immediately adjacent to the object to which it is
-to apply after the input file has been converted to a music stream.
-This is often not the case, as many additional elements are inserted
-into the music stream implicitly.  For example, when a note which is
-not part of a chord is processed, LilyPond implicitly inserts a
-@code{ChordEvent} event before the note, so separating the tweak
-from the note.  However, if chord symbols are placed round the
-tweak and the note, the @code{\tweak} command comes after the
-@code{ChordEvent} in the music stream, so remaining adjacent to the
-note, and able to modify it.
-
-So, this works:
-
-@lilypond[verbatim,fragment,quote]
-<\tweak color #red c''>4
-@end lilypond
-
-@noindent
-but this does not:
-
-@lilypond[verbatim,fragment,quote]
-\tweak color #red c''4
-@end lilypond
-
-@end ignore
 
 For an introduction to the syntax and uses of the tweak command
 see @rlearning{Tweaking methods}.

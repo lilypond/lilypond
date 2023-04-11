@@ -1660,109 +1660,6 @@ Die @code{\set}- und @code{\unset}-Befehle werden benutzt, um die Werte
 von Kontexteigenschaften zu ändern.  Die Befehle @code{\override} und
 @code{\revert} hingegen verändern die Werte von Grob-Eigenschaften.
 
-@ignore
-Die Syntax hierzu lautet:
-
-@example
-\override @var{Kontext}.@var{Bezeichnung} #'@var{Eigenschaft} = #@var{Wert}
-@end example
-
-
-@var{Bezeichnung} ist die Bezeichnung eines graphischen Objekts,
-wie @code{Stem} (Hals) oder @code{NoteHead} (Notenkopf), und
-@var{Eigenschaft} ist eine interne Variable des Formatierungssystems
-(eine @qq{Grob-Eigenschaft} oder @qq{Layout-Eigenschaft}).  Diese
-Eigenschaft ist ein Symbol, muss also mit einem Anführungsstrich
-versehen werden.  Wie die Felder @var{Bezeichnung}, @var{Eigenschaft}
-und @var{Wert} richtig gefüllt werden, zeigt der Abschnitt
-@ref{Eigenschaften verändern}.  Hier wird nur die Funktionalität des
-Befehls betrachtet.
-
-Der Befehl
-
-@verbatim
-\override Staff.Stem.thickness = #4.0
-@end verbatim
-
-@noindent
-bewirkt, dass der Notenhals dicker gesetzt wird (Standard ist
-1.3, die Dicke der Notenlinie entspricht dem Wert 1).  Da der
-Befehl den Kontext @code{Staff} angibt, wirkt er sich nur auf
-das gerade aktuelle Notensystem aus.  Andere Systeme behalten
-ihr normales Aussehen.  Hier ein Beispiel mit diesem Befehl:
-
-@lilypond[quote,fragment,verbatim]
-c''4
-\override Staff.Stem.thickness = #4.0
-c''4
-c''4
-c''4
-@end lilypond
-
-Der @code{\override}-Befehl verändert die Definitionen von
-@code{Stem} (Hals) innerhalb des aktuellen @code{Staff}
-(Notensystems).  Nachdem der Befehl gelesen wurde, werden
-alle Hälse dicker gesetzt.
-
-Wie auch bei dem @code{\set}-Befehl kann auch hier der
-Kontext ausgelassen werden, wobei dann immer implizit der
-@code{Voice}-Kontext angenommen wird.  Mit einem zusätzlichen
-@code{\once} wirkt sich die Änderung nur einmal aus:
-
-@lilypond[quote,fragment,verbatim]
-c''4
-\once \override Stem.thickness = #4.0
-c''4
-c''4
-@end lilypond
-
-Der @code{\override}-Befehl muss geschrieben sein, bevor das Objekt
-begonnen wird.  Wenn also ein @emph{Strecker}-Objekt wie etwa
-ein Bogen verändert werden soll, muss der @code{\override}-Befehl
-schon geschrieben werden, bevor das Objekt begonnen wird.  In dem
-folgenden Beispiel
-
-@lilypond[quote,fragment,verbatim]
-\override Slur.thickness = #3.0
-c''8[( c''
-\override Beam.beam-thickness = #0.6
-c''8 c''])
-@end lilypond
-
-@noindent
-ist der Bogen dicker, der Balken aber nicht.  Das liegt daran, dass der Befehl
-zum Ändern des @code{Beam}-Objekts erst gesetzt wurde, nachdem der Balken
-schon begonnen hat.
-
-Der @code{\revert}-Befehl macht alle Änderungen rückgängig, die mit einem
-@code{\override}-Befehl vorgenommen worden sind, dabei werden allerdings
-nur Einstellungen betroffen, die sich im gleichen Kontext befinden.  Der
-@code{\revert}-Befehl des folgenden Beispiels bewirkt also gar nichts,
-weil er für den falschen Kontext gefordert wird.
-
-@example
-\override Voice.Stem.thickness = #4.0
-\revert Staff.Stem.thickness
-@end example
-
-Einige veränderbare Optionen werden als Untereigenschaften (engl.
-subproperties) bezeichnet und befinden sich innerhalb von den
-normalen Eigenschaften.  Wenn man sie verändern will, nimmt der
-Befehl folgende Form an:
-
-@c leave this as a long long
-@example
-\override @var{Kontext}.@var{Bezeichnung} #'@var{Eigenschaft} #'@var{Untereigenschaft} = #@var{Wert}
-@end example
-
-@noindent
-wie beispielsweise
-
-@example
-\override Stem.details.beamed-lengths = #'(4 4 3)
-@end example
-@end ignore
-
 @morerefs
 Referenz der Interna:
 @rinternals{OverrideProperty},
@@ -2053,26 +1950,6 @@ um nur den aktuellen Zeitwert zu verändern:
 @end lilypond
 
 
-@ignore
-@cindex Referenz der Interna
-@cindex Grafische Objekte, Finden
-@cindex Finden von graphischen Objekten
-@cindex Beschreibung von graphischen Objekten
-@cindex Grafische Objekte, Beschreibung
-@cindex Grob, Beschreibung
-@cindex Veränderungen der Einstellungen
-@cindex Einstellungen verändern
-
-@funindex \override
-
-Viele Eigenschaften können unabhängig von der Art der Daten, die
-sie enthalten, ausgeschaltet werden, indem man sie als @qq{falsch}
-(@code{#f}) definiert.  Dadurch wird diese Eigenschaft von LilyPond
-ignoriert.  Das ist insbesondere nützlich, wenn man Grob-Eigenschaften
-ausschalten will, die Probleme verursachen.
-@end ignore
-
-
 @morerefs
 
 Referenz der Interna:
@@ -2100,66 +1977,6 @@ werden, mit dem man Optimierungen vornehmen kann:
 Die Angabe von @var{Layout-Objekt} ist optional.
 Der @code{\tweak}-Befehl wirkt sich auf das musikalische Objekt aus, dass direkt
 auf @code{Wert} folgt.
-
-@ignore
-In einigen Fällen ist es möglich, mit einem abgekürzten Befehl
-graphische Objekte zu verändern.  Wenn Objekte direkt von einem
-Element des Quelltextes erstellt werden, kann der @code{\tweak}-Befehl
-eingesetzt werden:
-
-@lilypond[relative=2,verbatim]
-< c
-  \tweak color #red
-  d
-  g
-  \tweak duration-log #1
-  a
-> 4
--\tweak padding #8
--^
-@end lilypond
-
-@cindex Akkord, eine Note verändern
-
-Die hauptsächliche Benutzung von @code{\tweak} ist dann, wenn
-man nur ein Element von einer Ansammlung an Elementen verändern
-will, die alle zum gleichen musikalischen Moment beginnen.  Das
-kann eine Noten in einem Akkord sein, oder eine von mehreren
-Triolenklammern, die zur gleichen Zeit beginnen.
-
-Eine Einleitung der Syntax für den @code{\tweak}Befehl findet
-sich in @rlearning{Optimierungsmethoden}.
-
-Der @code{\tweak}-Befehl verändert die Eigenschaft des folgenden
-Objekts direkt, ohne dass die Bezeichnung des Objekts (Grobs) oder
-des Kontextes angegeben werden muss.  Damit das funktioniert, muss
-das Objekt direkt auf den @code{\tweak}-Befehl folgen, auf das
-er sich auswirken soll.  Das ist in manchen Fällen nicht gegeben,
-da viele Objekte durch LilyPond automatisch eingesetzt werden.
-Wenn etwa eine Note interpretiert wird, die nicht Teil eines
-Akkords ist, fügt LilyPond implizit einen @code{ChordEvent}
-vor die Note ein, sodass der @code{\tweak}-Befehl von der
-Note getrennt wird.  Wenn aber Akkord-Klammern um die Note
-und den @code{\tweak}-Befehl gesetzt werden, folgt der
-@code{ChordEvent} auf den @code{\tweak}-Befehl und befindet
-sich deshalb direkt vor der Note, auf die er einwirken soll,
-sodass die Veränderung funktioniert.
-
-An einem Beispiel demonstriert:  Das funktioniert:
-
-
-@lilypond[verbatim,fragment,quote]
-<\tweak color #red c''>4
-@end lilypond
-
-@noindent
-und das nicht:
-
-@lilypond[verbatim,fragment,quote]
-\tweak color #red c''4
-@end lilypond
-
-@end ignore
 
 Eine Einleitung der Syntax und Benutzungen des @code{\tweak}-(Optimierungs)-Befehls findet sich in @rlearning{Optimierungsmethoden}.
 
