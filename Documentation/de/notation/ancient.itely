@@ -2685,7 +2685,6 @@ Schlussstrich bezeichnen kann.  Es wird gesetzt mit @code{\bar "k"}.
 * Mensurstriche::
 * Gregorianischen Choral transkribieren::
 * Alte und moderne Edition aus einer Quelldatei::
-* Herausgeberische Anmerkungen::
 @end menu
 
 Wenn man mit Alter Notation zu tun hat, fallen oft Aufgaben
@@ -2938,28 +2937,3 @@ spirLyr = \lyricmode {
 @c TODO Add text
 @c Here among others the snippets about reducing note length
 In Arbeit.
-
-
-@c {{{2Editorial markings
-@node Herausgeberische Anmerkungen
-@unnumberedsubsubsec Herausgeberische Anmerkungen
-@translationof Editorial markings
-
-In Arbeit.
-
-@c {{{2Baroque rhythmic notation
-@c @node Baroque rhythmic notation
-@c @unnumberedsubsubsec Notation barocker Rhythmen
-
-@c TODO Add text
-@c try Till Rettig
-@c Add example of white noteheads:
-@c In the french baroque some composers used white noteheads in slow pieces,
-@c mainly in 3/2-time.  A quarter looks there like an eighth with a white
-@c notehead.  (Franz-Rudolf Kuhnen)
-
-@c TODO Add example of this:
-@c I was referring to e.g. notated a8. a16, which should, if I
-@c remember correctly, be interpreted more like a8.. a32 (in the french
-@c style).  The editor might want to show that rythmic figure above the
-@c staff as an hint to performers.  (Karl Hammer)

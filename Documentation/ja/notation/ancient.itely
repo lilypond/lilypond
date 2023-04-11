@@ -2601,7 +2601,6 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 * Mensurstriche レイアウト::
 * グレゴリオ聖歌を転写する::
 * 1 つのソースから古代譜と現代譜の両方を生成する::
-* 編集上のマーク::
 @end menu
 
 古代音楽の譜刻に取り組む場合、LilyPond の主なターゲットである@c
@@ -2871,35 +2870,3 @@ spirLyr = \lyricmode {
 @cindex transcription, mensural to modern (計量記譜法から現代譜への転写)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
-
-@c @morerefs
-@c ... and reference to other sections ...
-
-
-@node 編集上のマーク
-@unnumberedsubsubsec 編集上のマーク
-@translationof Editorial markings
-
-
-@c @node Baroque rhythmic notation
-@c @unnumberedsubsubsec Baroque rhythmic notation
-
-@c TODO Add text
-@c try Till Rettig
-@c Add example of white note heads:
-@c In the french baroque some composers used white note heads in slow pieces,
-@c mainly in 3/2-time.  A quarter looks there like an eighth with a white
-@c note head.  (Franz-Rudolf Kuhnen)
-
-@c TODO Add example of this:
-@c I was referring to e.g. notated a8. a16, which should, if I
-@c remember correctly, be interpreted more like a8.. a32 (in the french
-@c style).  The editor might want to show that rythmic figure above the
-@c staff as an hint to performers.  (Karl Hammer)
-
-
-@c TBC
-
-
-@c @morerefs
-@c ... and reference to other sections ...
