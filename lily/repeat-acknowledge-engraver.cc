@@ -83,12 +83,12 @@ Repeat_acknowledge_engraver::listen_volta_repeat_end (Stream_event *ev)
 {
   if (!heard_volta_repeat_end_)
     {
-      // Ignore the event if there is no repetition.
       const auto count = from_scm (get_property (ev, "return-count"), 0L);
-      if (count > 0)
+      if (count >= 0)
         {
           heard_volta_repeat_end_ = true;
-          add_repeat_command (ly_symbol2scm ("end-repeat"));
+          add_repeat_command (
+            ly_list (ly_symbol2scm ("end-repeat"), to_scm (count)));
         }
     }
 }
@@ -98,12 +98,12 @@ Repeat_acknowledge_engraver::listen_volta_repeat_start (Stream_event *ev)
 {
   if (!heard_volta_repeat_start_)
     {
-      // Ignore the event if there is no repetition.
       const auto count = from_scm (get_property (ev, "repeat-count"), 0L);
-      if (count > 1)
+      if (count >= 1)
         {
           heard_volta_repeat_start_ = true;
-          add_repeat_command (ly_symbol2scm ("start-repeat"));
+          add_repeat_command (
+            ly_list (ly_symbol2scm ("start-repeat"), to_scm (count)));
         }
     }
 }

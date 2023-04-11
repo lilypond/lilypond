@@ -51,6 +51,7 @@ Volta_specced_music_iterator::create_event (Direction d)
 
   auto *mus = get_music ();
   ev->set_spot (*mus->origin ());
+  set_property (ev, "repeat-count", get_property (this, "repeat-count"));
   set_property (ev, "volta-depth", to_scm (volta_depth_));
   set_property (ev, "volta-numbers", get_property (mus, "volta-numbers"));
   // TODO: tweaks? (see Tuplet_iterator)

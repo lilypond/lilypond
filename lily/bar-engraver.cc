@@ -351,13 +351,39 @@ Bar_engraver::pre_process_music ()
           SCM repeat_commands = get_property (this, "repeatCommands");
           for (SCM command : as_ly_scm_list (repeat_commands))
             {
+              SCM options = SCM_EOL;
               if (scm_is_pair (command)) // (command option...)
-                command = scm_car (command);
+                {
+                  options = scm_cdr (command);
+                  command = scm_car (command);
+                }
 
               if (scm_is_eq (command, ly_symbol2scm ("end-repeat")))
-                observations_.repeat_end = true;
+                {
+                  constexpr auto dflt = 1L;
+                  auto ret_count = scm_is_pair (options)
+                                     ? from_scm (scm_car (options), dflt)
+                                     : dflt;
+                  if ((ret_count >= 1)
+                      || from_scm<bool> (
+                        get_property (this, "printTrivialVoltaRepeats")))
+                    {
+                      observations_.repeat_end = true;
+                    }
+                }
               else if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
-                observations_.repeat_start = true;
+                {
+                  constexpr auto dflt = 2L;
+                  auto rep_count = scm_is_pair (options)
+                                     ? from_scm (scm_car (options), dflt)
+                                     : dflt;
+                  if ((rep_count >= 2)
+                      || from_scm<bool> (
+                        get_property (this, "printTrivialVoltaRepeats")))
+                    {
+                      observations_.repeat_start = true;
+                    }
+                }
             }
         }
       else
@@ -504,6 +530,7 @@ fineStartRepeatSegnoBarType
 forbidBreakBetweenBarLines
 measureBarType
 printInitialRepeatBar
+printTrivialVoltaRepeats
 repeatCommands
 sectionBarType
 segnoBarType

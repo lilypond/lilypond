@@ -8,6 +8,14 @@
 should appear."
 }
 
+\layout {
+  \context {
+    \Score
+    barNumberVisibility = #(every-nth-bar-number-visible 1)
+    \override BarNumber.break-visibility = #all-visible
+  }
+}
+
 piece = \fixed c' {
   \repeat volta 1 f1
   \repeat volta 1 g1
@@ -18,6 +26,6 @@ piece = \fixed c' {
   \new Staff \with { instrumentName = "volta" } { \piece }
 }
 
-\new Score \with { \omit RehearsalMark } {
+\new Score {
   \new Staff \with { instrumentName = "unfolded" } { \unfoldRepeats \piece }
 }

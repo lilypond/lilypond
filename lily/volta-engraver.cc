@@ -186,6 +186,23 @@ Volta_engraver::process_music ()
     {
       auto &layer = layers_[layer_no];
 
+      // Ignore events for trivial repeats (when configured)
+      for (auto ppev :
+           {&layer.start_ev_, &layer.stop_prev_ev_, &layer.stop_curr_ev_})
+        {
+          if (!*ppev)
+            continue;
+
+          const auto rep_count
+            = from_scm (get_property (*ppev, "repeat-count"), 1L);
+          if ((rep_count < 2)
+              && !from_scm<bool> (
+                get_property (this, "printTrivialVoltaRepeats")))
+            {
+              *ppev = nullptr;
+            }
+        }
+
       bool manual_start = false;
       bool manual_end = false;
 
@@ -446,6 +463,7 @@ VoltaBracketSpanner
                 /* read */
                 R"(
 currentCommandColumn
+printTrivialVoltaRepeats
 repeatCommands
 stavesFound
 voltaSpannerDuration

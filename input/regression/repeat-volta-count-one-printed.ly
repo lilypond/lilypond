@@ -4,8 +4,9 @@
 
 \header {
   texidoc = "This piece consists of three consecutive sections using
-@code{\\repeat segno 1}.  Because of the count, no repeat notation
-should appear."
+@code{\\repeat volta 1}.  Setting @code{printTrivialVoltaRepeats}
+notates bars and a bracket anyway, but the piece still unfolds
+according to the repeat count."
 }
 
 \layout {
@@ -17,14 +18,14 @@ should appear."
 }
 
 piece = \fixed c' {
-  \set Score.printTrivialVoltaRepeats = ##t % to prove no impact on segno style
-  \repeat segno 1 f1
-  \repeat segno 1 g1
-  \repeat segno 1 { a1 \alternative { b1 } }
+  \set Score.printTrivialVoltaRepeats = ##t
+  \repeat volta 1 f1
+  \repeat volta 1 g1
+  \repeat volta 1 { a1 \alternative { b1 } }
 }
 
 \new Score {
-  \new Staff \with { instrumentName = "segno" } { \piece }
+  \new Staff \with { instrumentName = "volta" } { \piece }
 }
 
 \new Score {

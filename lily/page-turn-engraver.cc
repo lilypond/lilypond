@@ -266,20 +266,36 @@ Page_turn_engraver::stop_translation_timestep ()
       special_barlines_.push_back (found_special_bar_line_);
     }
 
-  /* C&P from Repeat_acknowledge_engraver */
+  // very similar to Bar_engraver
   bool start = false;
   bool end = false;
 
   SCM repeat_commands = get_property (this, "repeatCommands");
   for (SCM command : as_ly_scm_list (repeat_commands))
     {
+      SCM options = SCM_EOL;
       if (scm_is_pair (command)) // (command option...)
-        command = scm_car (command);
+        {
+          options = scm_cdr (command);
+          command = scm_car (command);
+        }
 
       if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
-        start = true;
+        {
+          constexpr auto dflt = 2L;
+          auto rep_count
+            = scm_is_pair (options) ? from_scm (scm_car (options), dflt) : dflt;
+          if (rep_count >= 2) // ignore trivial repeats
+            start = true;
+        }
       else if (scm_is_eq (command, ly_symbol2scm ("end-repeat")))
-        end = true;
+        {
+          constexpr auto dflt = 1L;
+          auto ret_count
+            = scm_is_pair (options) ? from_scm (scm_car (options), dflt) : dflt;
+          if (ret_count >= 1) // ignore trivial repeats
+            end = true;
+        }
     }
 
   if (end && (repeat_begin_.main_part_ >= 0))

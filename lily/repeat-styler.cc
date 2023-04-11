@@ -244,7 +244,7 @@ public:
                                                Direction /*end*/,
                                                bool /*in_order*/) override
   {
-    if (repeat_count () < 2)
+    if (repeat_count () < 1)
       return false; // disable volta brackets
 
     return true;
@@ -254,7 +254,7 @@ public:
                                          size_t volta_depth,
                                          SCM volta_nums) override
   {
-    if (repeat_count () < 2)
+    if (repeat_count () < 1)
       return;
 
     report_alternative_event (element, (alt_num == 1) ? START : CENTER,
@@ -271,7 +271,7 @@ public:
   void derived_report_alternative_group_end (Music *element,
                                              size_t volta_depth) override
   {
-    if (repeat_count () < 2)
+    if (repeat_count () < 1)
       return;
 
     report_alternative_event (element, STOP, volta_depth, SCM_EOL);

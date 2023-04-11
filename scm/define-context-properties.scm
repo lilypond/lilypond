@@ -622,6 +622,8 @@ before a key signature change.")
 @code{NoteNames} context.")
      (printPartCombineTexts ,boolean? "Set @q{Solo} and @q{A due} texts
 in the part combiner?")
+     (printTrivialVoltaRepeats ,boolean? "Notate volta-style repeats even when
+the repeat count is@tie{}1.")
      (proportionalNotationDuration ,ly:moment? "Global override for
 shortest-playing duration.  This is used for switching on proportional
 notation.")
@@ -638,11 +640,13 @@ abbreviated to a symbol; e.g., @code{'((start-@/repeat))} may be given
 as @code{'(start-@/repeat)}.
 
 @table @code
-@item end-repeat
-End a repeated section.
+@item end-repeat @var{return-count}
+End a repeated section.  @var{return-count} is the number of times to go back
+from this point to the beginning of the section.
 
-@item start-repeat
-Start a repeated section.
+@item start-repeat @var{repeat-count}
+Start a repeated section.  @var{repeat-count} is the number of times to perform
+this section.
 
 @item volta @var{text}
 If @var{text} is markup, start a volta bracket with that label; if

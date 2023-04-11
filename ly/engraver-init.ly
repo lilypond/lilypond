@@ -152,6 +152,11 @@ multiple ancient notation schemes."
   segnoBarType = "S-||"
   startRepeatSegnoBarType = "S-||"
 
+  %% \repeat volta 1 may be used to emphasize that a section is not to
+  %% be repeated.  Divisio_engraver and Lyric_repeat_count_engraver
+  %% create grobs in that case; let Bar_engraver operate accordingly.
+  printTrivialVoltaRepeats = ##t
+
   %% Maintain these BreathingSign settings in case someone follows old
   %% documentation or examples that use \breathe rather than \caesura.
   \override BreathingSign.extra-spacing-width = #'(-1.0 . 0.0)
@@ -697,6 +702,7 @@ run."
   decrescendoSpanner = #'hairpin
 
   forbidBreakBetweenBarLines = ##t % where Bar_engraver is present
+  printTrivialVoltaRepeats = ##f
 
   measureBarType = "|"
   sectionBarType = "||"
