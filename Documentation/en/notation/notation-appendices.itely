@@ -1363,54 +1363,69 @@ Output
 @item
 @code{\clef "vaticana-do1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "vaticana-do1"
-  \override NoteHead.style = #'vaticana.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  \clef "vaticana-do1" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "vaticana-do2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "vaticana-do2"
-  \override NoteHead.style = #'vaticana.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  \clef "vaticana-do2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "vaticana-do3"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "vaticana-do3"
-  \override NoteHead.style = #'vaticana.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  \clef "vaticana-do3" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "vaticana-fa1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "vaticana-fa1"
-  \override NoteHead.style = #'vaticana.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  \clef "vaticana-fa1" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "vaticana-fa2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "vaticana-fa2"
-  \override NoteHead.style = #'vaticana.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  \clef "vaticana-fa2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @*
@@ -1418,54 +1433,74 @@ Output
 @item
 @code{\clef "medicaea-do1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "medicaea-do1"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'medicaea.punctum
-  c1
+  \clef "medicaea-do1" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "medicaea-do2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "medicaea-do2"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'medicaea.punctum
-  c1
+  \clef "medicaea-do2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "medicaea-do3"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "medicaea-do3"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'medicaea.punctum
-  c1
+  \clef "medicaea-do3" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "medicaea-fa1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "medicaea-fa1"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'medicaea.punctum
-  c1
+  \clef "medicaea-fa1" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "medicaea-fa2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "medicaea-fa2"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'medicaea.punctum
-  c1
+  \clef "medicaea-fa2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @*
@@ -1473,64 +1508,91 @@ Output
 @item
 @code{\clef "hufnagel-do1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-do1"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'hufnagel.punctum
-  c1
+  \clef "hufnagel-do1" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "hufnagel-do2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-do2"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'hufnagel.punctum
-  c1
+  \clef "hufnagel-do2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "hufnagel-do3"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-do3"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'hufnagel.punctum
-  c1
+  \clef "hufnagel-do3" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "hufnagel-fa1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-fa1"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'hufnagel.punctum
-  c1
+  \clef "hufnagel-fa1" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "hufnagel-fa2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-fa2"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'hufnagel.punctum
-  c1
+  % This is a guess; I couldn't find a ledger-line example (wl)
+  \override VaticanaStaff.LedgerLineSpanner.length-fraction = #0.45
+  \clef "hufnagel-fa2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "hufnagel-do-fa"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #5
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-do-fa"
+@lilypond[inline,line-width=2\cm]
+\include "gregorian.ly"
+\new VaticanaStaff {
   \override NoteHead.style = #'hufnagel.punctum
-  c1
+  \override Staff.StaffSymbol.line-count = #5
+  \clef "hufnagel-do-fa" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @end multitable
