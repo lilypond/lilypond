@@ -352,7 +352,15 @@ at the same time.
 @node New for specialist notation
 @unnumbered New for specialist notation
 
-None so far.
+@itemize
+@item
+For orthogonality with other ancient clefs, five new mensural
+clefs are available: @code{"mensural-f2"}, @code{"mensural-f3"},
+@code{"mensural-f4"} (same as @code{"mensural-f"}),
+@code{"mensural-f5"}, @code{"mensural-g1"}, @code{"mensural-g2"}
+(same as @code{"mensural-g"}).
+
+@end itemize
 
 
 @node Miscellaneous improvements

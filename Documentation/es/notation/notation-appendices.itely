@@ -1973,6 +1973,60 @@ Salida
   c1
 @end lilypond
 @tab
+@code{\clef "mensural-f2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-f2"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "mensural-f3"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-f3"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+@tab
+@code{\clef "mensural-f4"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-f4"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@item
+@code{\clef "mensural-f5"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-f5"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@*
+
+@item
+@code{\clef "mensural-g1"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-g1"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+@tab
+@code{\clef "mensural-g2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+  \clef "mensural-g2"
+  \override NoteHead.style = #'mensural
+  c1
+@end lilypond
+
+@item
 @code{\clef "mensural-g"}
 @tab
 @lilypond[line-width=3\cm,notime,ragged-right,relative=1]
