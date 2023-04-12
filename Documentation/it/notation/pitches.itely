@@ -3112,7 +3112,7 @@ I sistemi di notazione non occidentali e antici hanno le loro alterazioni.
 I glifi sono regolati dalla proprietà @code{alterationGlyphs} del
 contesto @code{Staff} e da tipi di contesto simili.
 I valori predefiniti di questa proprietà sono elencati in
-@ref{Accidental glyph sets}.
+@ref{Gruppi di glifi di alterazione}.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -3128,7 +3128,7 @@ I valori predefiniti di questa proprietà sono elencati in
 La proprietà può essere impostata anche su una lista associativa
 personalizzata che associa le alterazioni ai nomi dei glifi.
 Le alterazioni si specificano come frazioni in toni.
-I glifi sono elencati in @ref{Accidental glyphs}.
+I glifi sono elencati in @ref{Glifi delle alterazioni}.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -3178,8 +3178,8 @@ armature di chiave.
 
 @morerefs
 Guida alla notazione:
-@ref{Accidental glyph sets},
-@ref{Accidental glyphs}.
+@ref{Gruppi di glifi di alterazione},
+@ref{Glifi delle alterazioni}.
 
 Guida al funzionamento interno:
 @rinternals{accidental-switch-interface},

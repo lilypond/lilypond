@@ -1816,7 +1816,7 @@ cambiare nel tempo nel corso dell'interpretazione di un brano musicale;
 si modificano con @code{\set}.
 
 Per esempio, le pause multiple sono combinate in una singola battuta
-(come è spiegato in @ref{Compressing empty measures})
+(come è spiegato in @ref{Compressione delle misure vuote})
 se la proprietà di contesto @code{skipBars} viene impostata su @code{#t}:
 
 @lilypond[quote,fragment,verbatim]

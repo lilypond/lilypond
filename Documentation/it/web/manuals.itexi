@@ -373,7 +373,7 @@ Per usare LilyPond devi scrivere musica in formato testo.  Leggi cosa
 
 @subsubheading C'è un sacco di documentazione!  Devo leggerla?
 
-Devi leggere il @ref{Learning, Manuale di Apprendimento}.  Per quanto
+Devi leggere il @ref{Apprendimento, Manuale di Apprendimento}.  Per quanto
 riguarda il resto della documentazione, puoi leggere solo le sezioni
 sul tipo di notazione che vuoi creare.
 

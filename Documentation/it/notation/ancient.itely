@@ -786,7 +786,7 @@ preso dallo stile @code{vaticana}.
 }
 @end lilypond
 
-Il modo di usare questo stile è trattato in @ref{Alternate accidental glyphs}.
+Il modo di usare questo stile è trattato in @ref{Glifi di alterazione alternativi}.
 È lo stile predefinito del contesto @code{MensuralStaff}.
 
 @morerefs
@@ -800,8 +800,8 @@ Guida alla notazione:
 @ref{Altezze},
 @ref{Alterazioni},
 @ref{Alterazioni automatiche},
-@ref{Alternate accidental glyphs},
-@ref{Accidental glyph sets},
+@ref{Glifi di alterazione alternativi},
+@ref{Gruppi di glifi di alterazione},
 @ref{Armatura di chiave}.
 
 Guida al funzionamento interno:
@@ -1208,7 +1208,7 @@ stile diverso.
 @c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {ancient-accidentals.ly}
 
-Come passare da uno stile all'altro è spiegato in @ref{Alternate accidental glyphs}.
+Come passare da uno stile all'altro è spiegato in @ref{Glifi di alterazione alternativi}.
 
 @morerefs
 Glossario musicale:
@@ -1219,7 +1219,7 @@ Guida alla notazione:
 @ref{Altezze},
 @ref{Alterazioni},
 @ref{Alterazioni automatiche},
-@ref{Alternate accidental glyphs},
+@ref{Glifi di alterazione alternativi},
 @ref{Armatura di chiave}.
 
 Guida al funzionamento interno:
@@ -1243,7 +1243,7 @@ Una @emph{divisio} (plurale: @emph{divisiones}; parola latina per
 e la struttura delle sezioni della musica gregoriana.  Il significato
 musicale di @emph{divisio minima}, @emph{divisio maior} e
 @emph{divisio maxima} può essere descritto come pausa breve, media e
-lunga, un po' come per i segni di respiro (vedi @ref{Breath marks}).
+lunga, un po' come per i segni di respiro (vedi @ref{Respiri}).
 Il segno  @emph{finalis} non segna soltanto la fine di un canto, ma
 viene anche usato frequentemente all'interno di un singolo canto
 antifonale/di risposta per contrassegnare la fine di ciascuna sezione.
@@ -2560,7 +2560,7 @@ Glossario musicale:
 Guida alla notazione:
 @ref{Alterazioni},
 @ref{Alterazioni automatiche},
-@ref{Alternate accidental glyphs},
+@ref{Glifi di alterazione alternativi},
 @ref{Il font Emmentaler}.
 @endmorerefs
 

@@ -2341,7 +2341,7 @@ righi.  Questo argomento è trattato in @ref{Visualizzazione accordi}.
 
 @item
 Per stampare i diagrammi degli accordi per l'accompagnamento per chitarra o
-altri strumenti a tasti: @qq{Fret diagram markups} in @ref{Common notation for fretted strings}.
+altri strumenti a tasti: @qq{Fret diagram markups} in @ref{Notazione comune per strumenti a corde con tasti}.
 
 @end itemize
 
@@ -2434,7 +2434,7 @@ in @ref{Raggruppare i righi}.
 
 @item
 Le teste di nota a forma variabile, come quelle usate nello stile Sacred Harp e
-notazione simile, sono descritte in @ref{Shape note heads}.
+notazione simile, sono descritte in @ref{Teste di nota a forma variabile}.
 
 @item
 Quando due parti vocali si trovano su uno stesso rigo, i gambi, le
@@ -2463,7 +2463,7 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ref{Ordine di disposizione dei contesti},
 @ref{Raggruppare i righi},
-@ref{Shape note heads},
+@ref{Teste di nota a forma variabile},
 @ref{Polifonia su un solo rigo}.
 
 Frammenti:
