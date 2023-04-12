@@ -832,6 +832,7 @@ distintos del método automatizado con @command{lilypond-book}.
 
 @node LuaTeX
 @subsection Lua@TeX{}
+@translationof LuaTeX
 
 @cindex Lua@TeX{}
 @cindex lyluatex

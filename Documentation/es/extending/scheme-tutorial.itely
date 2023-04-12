@@ -1104,7 +1104,7 @@ Los procedimientos para trabajar con desplazamientos están en
 
 @node Fracciones
 @unnumberedsubsubsec Fracciones
-@subheading Fractions
+@translationof Fractions
 
 Las fracciones tal y como se utilizan por parte de LilyPond se
 almacenan, de nuevo, como @emph{parejas}, esta vez de enteros sin
