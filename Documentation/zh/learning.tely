@@ -78,6 +78,7 @@ Copyright @copyright{} 1998--2023 by the authors.
 
 @node LilyPond index
 @appendix LilyPond index
+@translationof LilyPond index
 
 @printindex cp
 
