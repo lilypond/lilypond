@@ -426,34 +426,35 @@ they are printed on.  In such cases, a trailing number in the name is
 used to enumerate these clefs, numbered from the lowest to the highest
 line.
 
-@lilypond[notime,verbatim,quote,fragment]
-\override NoteHead.style = #'vaticana.punctum
-\clef "vaticana-do1"
-c'1
+@lilypond[verbatim,quote]
+\new MensuralStaff {
+  \clef "mensural-c1" c'1
+}
 @end lilypond
 
-@lilypond[notime,verbatim,quote,fragment]
-\override NoteHead.style = #'medicaea.punctum
-\clef "medicaea-do3"
-c'1
+@lilypond[verbatim,quote]
+\new MensuralStaff {
+  \override NoteHead.style = #'blackmensural
+  \clef "blackmensural-c2" c'1
+}
 @end lilypond
 
-@lilypond[notime,verbatim,quote,fragment]
-\override NoteHead.style = #'hufnagel.punctum
-\clef "hufnagel-fa2"
-c'1
+@lilypond[verbatim,quote]
+\new MensuralStaff {
+  \override NoteHead.style = #'neomensural
+  \clef "neomensural-c3" c'1
+}
 @end lilypond
 
-@lilypond[notime,verbatim,quote,fragment]
-\override NoteHead.style = #'neomensural
-\clef "neomensural-c4"
-c'1
+@lilypond[verbatim,quote]
+\new PetrucciStaff {
+  \clef "petrucci-c4" c'1
+}
 @end lilypond
-
 
 It is possible to manually force a clef glyph to be typeset on an
-arbitrary line, as described in @ref{Clef}.  For the complete range of
-possible clefs see @ref{Clef styles}.
+arbitrary line, @pxref{Clef}.  For the complete range of possible
+clefs, @pxref{Clef styles}.
 
 @morerefs
 Music Glossary:
