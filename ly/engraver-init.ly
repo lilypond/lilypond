@@ -1472,6 +1472,10 @@ accommodated for typesetting a piece in Petrucci style."
   clefPosition = #-2
   clefTransposition = #0
 
+  %% Select mensural style font.
+  \override TimeSignature.style = #'mensural
+  %% FIXME: Create thicker Petrucci accidentals.
+  alterationGlyphs = #alteration-mensural-glyph-name-alist
   \override Custos.style = #'mensural
   \override Custos.neutral-position = #3
   \override Custos.neutral-direction = #DOWN

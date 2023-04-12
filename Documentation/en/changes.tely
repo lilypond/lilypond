@@ -360,6 +360,11 @@ clefs are available: @code{"mensural-f2"}, @code{"mensural-f3"},
 @code{"mensural-f5"}, @code{"mensural-g1"}, @code{"mensural-g2"}
 (same as @code{"mensural-g"}).
 
+@item
+The default time signature and accidental style in a
+@code{PetrucciStaff} context is now the same as in
+@code{MensuralStaff}.
+
 @end itemize
 
 
