@@ -3241,6 +3241,20 @@ Additionally, it must be put into double quotes.
                           props)
                     arg))
 
+(define-markup-command (volta-number layout props arg)
+  (markup?)
+  #:category font
+  "Set @var{arg} in a font appropriate for volta numbers.
+
+@lilypond[verbatim,quote]
+\\markup \\volta-number \"4.\"
+@end lilypond"
+  (interpret-markup layout
+                    (cons '((font-encoding . fetaText)
+                            (font-features . ("cv47" "ss01")))
+                          props)
+                    arg))
+
 (define-markup-command (abs-fontsize layout props size arg)
   (number? markup?)
   #:properties ((word-space 0.6) (baseline-skip 3))

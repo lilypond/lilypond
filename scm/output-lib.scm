@@ -1756,12 +1756,7 @@ visible, just that they exist."
          (ranges (group-into-ranges volta-numbers))
          (threshold (ly:grob-property grob 'range-collapse-threshold)))
     (define (format-num num)
-      ;; FIXME: this should use make-finger-markup, but \finger
-      ;; overrides the font size.
-      (make-override-markup
-       '((font-encoding . fetaText)
-         (font-features . ("cv47" "ss01")))
-       (string-append (number->string num) ".")))
+      (make-volta-number-markup (string-append (number->string num) ".")))
     (make-concat-markup
      (list-join
       (map (match-lambda
