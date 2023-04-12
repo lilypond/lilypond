@@ -29,6 +29,7 @@ LilyPond kann mit anderen Programmen auf verschiedene Weise interagieren.
 
 @node Point and click
 @section Point and click
+@translationof Point and click
 
 Poind and click fügt Verlinkung für bestimmte Notationselemente
 in die PDF-Dokumente ein.

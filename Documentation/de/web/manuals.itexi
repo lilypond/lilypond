@@ -619,6 +619,7 @@ LilyPond 1.6 Dokumentation} (auf englisch)
 
 @node FDL
 @unnumberedsec FDL
+@translationof FDL
 
 @divClass{column-center-top}
 @subheading Lizenz der Dokumentation
