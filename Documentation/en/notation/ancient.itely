@@ -489,54 +489,49 @@ The Mensural g clef is mapped to the Petrucci g clef.
 @cindex time signature, mensural
 @cindex time signature style
 
-There is limited support for mensuration signs (which are similar to,
-but not exactly the same as time signatures).  The glyphs are hard-wired
-to particular time fractions.  In other words, to get a particular mensuration sign with the @code{\time n/m} command, @code{n} and
-@code{m} have to be chosen according to the following table
+There is limited support for mensuration signs (which are similar
+to but not exactly the same as time signatures).  The glyphs are
+hard-wired to particular time fractions.  In other words, to get a
+particular mensuration sign with the @code{\time @var{n}/@var{m}}
+command, @var{n} and@tie{}@var{m} have to be chosen according to
+the following table.
 
-@lilypond[quote,ragged-right]
-\layout {
-  indent = 0.0
-  \context {
-    \Staff
-    \remove Staff_symbol_engraver
-    \remove Clef_engraver
-    \remove Time_signature_engraver
+@lilypond[quote]
+\markup \column {
+  \override #'(padding . 3)
+  \override #'(baseline-skip . 2)
+  \table #'(0 0 0 0) {
+    \typewriter "\\time 4/4"
+      \typewriter "\\time 2/2"
+        \typewriter "\\time 6/4"
+          \typewriter "\\time 6/8"
+    \musicglyph "timesig.neomensural44"
+      \musicglyph "timesig.neomensural22"
+        \musicglyph "timesig.neomensural64"
+          \musicglyph "timesig.neomensural68"
+
+    \null \null \null \null
+
+    \typewriter "\\time 3/2"
+      \typewriter "\\time 3/4"
+        \typewriter "\\time 9/4"
+          \typewriter "\\time 9/8"
+    \musicglyph "timesig.neomensural32"
+      \musicglyph "timesig.neomensural34"
+        \musicglyph "timesig.neomensural94"
+          \musicglyph "timesig.neomensural98"
+
+    \null \null \null \null
+
+    \typewriter "\\time 4/8"
+      \typewriter "\\time 2/4"
+        \null
+          \null
+    \musicglyph "timesig.neomensural48"
+      \musicglyph "timesig.neomensural24"
+        \null
+          \null
   }
-}
-{
-  \set Score.timing = ##f
-  \set Score.forbidBreakBetweenBarLines = ##f
-  \textLengthOn
-  s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
-"timesig.neomensural44" }
-  s
-  s^\markup { "\\time 2/2" }_\markup { "       " \musicglyph
-"timesig.neomensural22" }
-  s
-  s^\markup { "\\time 6/4" }_\markup { "       " \musicglyph
-"timesig.neomensural64" }
-  s
-  s^\markup { "\\time 6/8" }_\markup { "       " \musicglyph
-"timesig.neomensural68" }
-  \break
-  s^\markup { "\\time 3/2" }_\markup { "       " \musicglyph
-"timesig.neomensural32" }
-  s
-  s^\markup { "\\time 3/4" }_\markup { "       " \musicglyph
-"timesig.neomensural34" }
-  s
-  s^\markup { "\\time 9/4" }_\markup { "       " \musicglyph
-"timesig.neomensural94" }
-  s
-  s^\markup { "\\time 9/8" }_\markup { "       " \musicglyph
-"timesig.neomensural98" }
-  \break
-  s^\markup { "\\time 4/8" }_\markup { "       " \musicglyph
-"timesig.neomensural48" }
-  s
-  s^\markup { "\\time 2/4" }_\markup { "       " \musicglyph
-"timesig.neomensural24" }
 }
 @end lilypond
 
@@ -547,31 +542,54 @@ to select ancient time signatures.  Supported styles are
 differences in style:
 
 @lilypond[ragged-right,quote]
-\relative c' {
-  \textLengthOn
+{
+  \omit Staff.BarLine
+  \omit Staff.Clef
 
-  \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter default }
+  \override Staff.TextMark.self-alignment-X = #CENTER
+  \override Staff.TextMark.break-align-symbols = #'(time-signature)
+  \override Staff.TextMark.font-size = -1
+  \override Staff.TextMark.staff-padding = 1.5
+  \override Staff.TimeSignature.break-align-anchor-alignment = #CENTER
 
+  \once \omit Staff.TimeSignature
+  s1
+
+  \textMark \markup \typewriter default
+  \time 2/2 s1*3
+
+  \textMark \markup \typewriter numbered
   \override Staff.TimeSignature.style = #'numbered
-  \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter numbered }
+  \time 2/2 s1*3
 
+  \textMark \markup \typewriter mensural
   \override Staff.TimeSignature.style = #'mensural
-  \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter mensural }
+  \time 2/2 s1*3
 
+  \textMark \markup \typewriter neomensural
   \override Staff.TimeSignature.style = #'neomensural
-  \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter neomensural }
+  \time 2/2 s1*3
+
+  \textMark \markup \typewriter single-digit
   \override Staff.TimeSignature.style = #'single-digit
-  \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter single-digit }
+  \time 2/2 s1
+}
+
+% `TextMark` grobs in `Score` don't react to `staff-padding` (issue #342).
+\layout {
+  \context {
+    \Score
+    \remove Text_mark_engraver
+  }
+  \context {
+    \Staff
+    \consists Text_mark_engraver
+  }
 }
 @end lilypond
 
-@ref{Time signature} gives a general introduction to
-the use of time signatures.
+@xref{Time signature} for a general introduction to the use of
+time signatures.
 
 @morerefs
 Music Glossary:
