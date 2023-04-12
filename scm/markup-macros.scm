@@ -428,13 +428,9 @@ against signature, reporting MAKE-NAME as the user-invoked function.
          ;; expr === ((#:COMMAND arg1 ...) ...)
          (receive (m r) (compile-markup-expression (car expr))
            (values m (cdr expr))))
-        ((and (pair? expr)
-              (string? (car expr))) ;; expr === ("string" ...)
-         (values (car expr) (cdr expr)))
         (else
-         ;; expr === (symbol ...) or ((funcall ...) ...)
-         (values (car expr)
-                 (cdr expr)))))
+         ;; expr === (symbol ...) or ("string" ...) or ((funcall ...) ...)
+         (values (car expr) (cdr expr)))))
 
 (define (compile-all-markup-args expr)
   "Transform `expr' into markup arguments"
