@@ -64,7 +64,7 @@ init_fontconfig ()
   for (const auto &conf : confs)
     {
       auto *const fcstr = reinterpret_cast<const FcChar8 *> (conf.c_str ());
-      if (!FcConfigParseAndLoad (font_config_global, fcstr, FcFalse))
+      if (!FcConfigParseAndLoad (font_config_global, fcstr, FcTrue))
         error (_f ("failed to add fontconfig configuration file `%s'",
                    conf.c_str ()));
       else
