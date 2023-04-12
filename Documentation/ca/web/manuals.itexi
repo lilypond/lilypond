@@ -436,7 +436,7 @@ maneres d'informar de les fallades, i desenvolupament.
 @subsubheading Manual web en @versionDevel
 
 @docLinksBare{Web, web,
-  @ref{Amunt,Web},
+  @ref{Top,Web},
   @manualDevelWebSplit-ca,
   @manualDevelWebBig-ca,
   @manualDevelWebPdf}

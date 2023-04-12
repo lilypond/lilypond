@@ -183,7 +183,7 @@ i fins i tot
 
 @end ifset
 
-Admireu la nostra galeria de @ref{Examples} i inspireu-vos''
+Admireu la nostra galeria de @ref{Exemples} i inspireu-vos''
 
 @divEnd
 
@@ -373,7 +373,7 @@ a la llista, encara ho podeu fer a la
 Si coneixeu qualssevol altres \topic\ que mereixin aparèixer
 relacionats aquí, us preguem que ens ho faci saber segons
 s'explica a les instruccions que apareixen a la secció a les
-instruccions que apareixin a la secció @ref{Bug reports}.
+instruccions que apareixin a la secció @ref{Informes de fallades}.
 
 @end cartouche
 
