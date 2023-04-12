@@ -99,8 +99,7 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 {
   physical_font_tab_ = scm_c_make_hash_table (11);
   PangoDirection pango_dir = PANGO_DIRECTION_LTR;
-  context_ = pango_context_new ();
-  pango_context_set_font_map (context_, PANGO_FONT_MAP (fontmap));
+  context_ = pango_font_map_create_context (PANGO_FONT_MAP (fontmap));
 
   pango_description_ = pango_font_description_copy (description);
 
