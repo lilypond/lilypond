@@ -90,7 +90,5 @@ init_fontconfig ()
   // ly:font-config-add-{font,directory} do.
   FcConfigBuildFonts (font_config_global);
 
-  FcConfigSetCurrent (font_config_global);
-
   debug_output ("\n");
 }

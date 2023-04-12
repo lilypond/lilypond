@@ -20,6 +20,7 @@
 #include "all-font-metrics.hh"
 
 #include "file-path.hh"
+#include "font-config.hh"
 #include "string-convert.hh"
 #include "international.hh"
 #include "open-type-font.hh"
@@ -29,6 +30,7 @@
 
 #include <string>
 
+#include <fontconfig/fontconfig.h>
 #include <pango/pangofc-fontmap.h>
 
 Index_to_charcode_map const *
@@ -41,6 +43,12 @@ All_font_metrics::get_index_to_charcode_map (const std::string &filename,
     filename_charcode_maps_map_[key] = make_index_to_charcode_map (face);
 
   return &filename_charcode_maps_map_[key];
+}
+
+static void
+substitute_with_lily_config (FcPattern *pat, void * /* data, unused */)
+{
+  FcConfigSubstitute (font_config_global, pat, FcMatchPattern);
 }
 
 All_font_metrics::All_font_metrics (File_path search_path)
@@ -60,6 +68,28 @@ All_font_metrics::All_font_metrics (File_path search_path)
   pango_dpi_ = PANGO_RESOLUTION;
   pango_ft2_font_map_set_resolution (pango_ft2_fontmap_, pango_dpi_,
                                      pango_dpi_);
+
+  PangoFcFontMap *fcm = PANGO_FC_FONT_MAP (pango_ft2_fontmap_);
+  assert (fcm);
+  pango_fc_font_map_set_config (fcm, font_config_global);
+
+  // Before searching a font pattern with Fontconfig, FcConfigSubstitute should
+  // be called on the pattern with the appropriate FcConfig so that the
+  // configuration can define transformations to be applied on the pattern.
+  // LilyPond does this to define font aliases.  Unfortunately, Pango has a bug
+  // with this when using custom FcConfigs: it calls FcConfigSubstitute with the
+  // global, default FcConfig instead of the font map's FcConfig.  This is
+  // https://gitlab.gnome.org/GNOME/pango/-/issues/743 .  Work around it by
+  // adding an extra function to transform the pattern, calling
+  // FcConfigSubstitute with the right FcConfig.
+  // pango_ft2_font_map_set_default_substitute is deprecated as of Pango 1.46 in
+  // favor of pango_fc_font_map_set_default_substitute, but we still support
+  // 1.44.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+  pango_ft2_font_map_set_default_substitute (
+    pango_ft2_fontmap_, substitute_with_lily_config, nullptr, nullptr);
+#pragma GCC diagnostic pop
 }
 
 All_font_metrics::~All_font_metrics ()

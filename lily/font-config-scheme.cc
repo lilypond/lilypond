@@ -18,6 +18,7 @@
 */
 
 #include "all-font-metrics.hh"
+#include "font-config.hh"
 #include "lily-guile.hh"
 #include "international.hh"
 #include "memory.hh"
@@ -109,13 +110,13 @@ Get the file for font @var{name}, as found by FontConfig.
 
   FcPattern *pat = FcPatternCreate ();
   FcPatternAddString (pat, FC_FAMILY, reinterpret_cast<const FcChar8 *> (name_cpp.get ()));
-  FcConfigSubstitute (nullptr, pat, FcMatchPattern);
+  FcConfigSubstitute (font_config_global, pat, FcMatchPattern);
   FcDefaultSubstitute (pat);
 
   FcResult result;
   SCM scm_result = SCM_BOOL_F;
 
-  pat = FcFontMatch (nullptr, pat, &result);
+  pat = FcFontMatch (font_config_global, pat, &result);
   FcChar8 *str = nullptr;
   if (FcPatternGetString (pat, FC_FILE, 0, &str) == FcResultMatch)
     scm_result = ly_string2scm (reinterpret_cast<char const *> (str));
@@ -131,8 +132,8 @@ LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0,
 Dump a list of all fonts visible to FontConfig.
            )")
 {
-  std::string str = display_list (NULL);
-  str += display_config (NULL);
+  std::string str = display_list (font_config_global);
+  str += display_config (font_config_global);
 
   progress_indication (str);
 
@@ -149,7 +150,7 @@ Add directory @var{dir} to FontConfig.
 
   std::string d = ly_scm2string (dir);
 
-  if (!FcConfigAppFontAddDir (0,
+  if (!FcConfigAppFontAddDir (font_config_global,
                               reinterpret_cast<const FcChar8 *> (d.c_str ())))
     error (_f ("failed adding font directory: %s", d.c_str ()));
   else
@@ -170,7 +171,7 @@ Add font @var{font} to FontConfig.
 
   std::string f = ly_scm2string (font);
 
-  if (!FcConfigAppFontAddFile (0,
+  if (!FcConfigAppFontAddFile (font_config_global,
                                reinterpret_cast<const FcChar8 *> (f.c_str ())))
     error (_f ("failed adding font file: %s", f.c_str ()));
   else
