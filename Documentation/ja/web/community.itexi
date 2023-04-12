@@ -776,6 +776,7 @@ LilyPond の開発手法はかなり複雑です。@c
 
 @node Google Summer of Code
 @unnumberedsec Google Summer of Code
+@translationof Google Summer of Code
 
 @gsocCurrent
 
