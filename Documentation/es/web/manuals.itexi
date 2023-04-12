@@ -432,7 +432,7 @@ informar de los fallos, y desarrollo.
 @subsubheading Manual web en @versionDevel
 
 @docLinksBare{Web, web,
-  @ref{Arriba,Web},
+  @ref{Top,Web},
   @manualDevelWebSplit-es,
   @manualDevelWebBig-es,
   @manualDevelWebPdf-es}

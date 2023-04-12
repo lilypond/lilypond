@@ -1699,7 +1699,7 @@ compases, y sólo en dichos lugares:
 @morerefs
 Referencia de la notación:
 @ref{Variables de paper para los saltos de línea},
-@ref{The layout block}.
+@ref{El bloque layout}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -2059,7 +2059,7 @@ partitura.  Si hay más de uno, se interferirán entre sí.
 
 @morerefs
 Notation Reference:
-@ref{Vertical spacing}.
+@ref{Espaciado vertical}.
 
 Fragmentos de código:
 @rlsr{Spacing}.

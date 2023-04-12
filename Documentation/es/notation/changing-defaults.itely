@@ -1936,7 +1936,7 @@ propiedades de contexto se modifican mediante la instrucción
 @code{\set}.
 
 Por ejemplo, los silencios multicompás se combinan en un solo
-compás (como se explica en @ref{Compressing empty measures}) si el
+compás (como se explica en @ref{Compresión de los compases vacíos}) si el
 valor de la propiedad de contexto @code{skipBars} se establece a
 @code{#t} (verdadero):
 
@@ -2982,7 +2982,7 @@ renders the input into it as lyric syllables.
 
 Lyric mode is also activated with the @code{\addlyrics} command.  Esto también crea un contexto @code{Lyrics}
 nuevo y además añade una instrucción @code{\lyricsto} implícita que asocia la
-letra que viene a continuación con la música precedente, véase @ref{Automatic syllable durations}.
+letra que viene a continuación con la música precedente, véase @ref{Duración automática de las sílabas}.
 
 @subsubsubheading Modo de marcado
 
@@ -2990,7 +2990,7 @@ letra que viene a continuación con la música precedente, véase @ref{Automatic
 
 Se activa con la instrucción @code{\markup}, y hace que la entrada
 se interprete con la sintaxis del marcado, véase
-@ref{Text markup commands}.
+@ref{Instrucciones de marcado de texto}.
 
 @subsubsubheading Modo de notas
 
@@ -4640,7 +4640,7 @@ véase @ref{Graphical markup}.
 Referencia de la notación:
 @ref{Notación gráfica dentro de elementos de marcado},
 @ref{Formatear el texto},
-@ref{Text markup commands},
+@ref{Instrucciones de marcado de texto},
 @ref{La tipografía Emmentaler},
 @ref{Graphical markup}.
 

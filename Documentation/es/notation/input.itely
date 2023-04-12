@@ -1829,7 +1829,7 @@ Manual de aprendizaje:
 @rlearning{Objetos e interfaces}.
 
 Referencia de la notación:
-@ref{ASCII aliases},
+@ref{Alias de ASCII},
 @ref{Globos de ayuda},
 @ref{Lista de caracteres especiales},
 @ref{Indicaciones de texto},
@@ -3203,7 +3203,7 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{La tipografía Emmentaler},
-@ref{Entire document fonts}.
+@ref{Fuentes tipográficas del documento completo}.
 
 @knownissues
 Gonville no se puede usar para tipografiar notación de @q{Música
@@ -4102,7 +4102,7 @@ Manual de aprendizaje:
 @rlearning{Otras fuentes de información}.
 
 Referencia de la notación:
-@ref{Score layout}.
+@ref{Disposición de la partitura}.
 
 Archivos instalados:
 @file{ly/articulate.ly}.

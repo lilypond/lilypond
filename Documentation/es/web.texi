@@ -183,7 +183,7 @@ e incluso
 
 @end ifset
 
-¡Admire nuestra galería de @ref{Examples} e inspírese!
+¡Admire nuestra galería de @ref{Ejemplos} e inspírese!
 
 @divEnd
 
@@ -193,7 +193,7 @@ e incluso
 @c TODO: generate this automatically, including RSS feed.
 @include en/web/news-headlines.itexi
 
-@ref{News, More news...}
+@ref{Noticias, More news...}
 
 @divEnd
 
@@ -375,7 +375,7 @@ Si tiene conocimiento de cualesquiera otros \topic\ que merezcan
 aparecer relacionados aquí,
 le rogamos que nos lo haga saber según se explica
 en las instrucciones que aparecen en la sección
-@ref{Bug reports}.
+@ref{Informes de fallos}.
 
 @end cartouche
 
