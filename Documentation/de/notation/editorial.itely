@@ -476,7 +476,7 @@ für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar
 gemacht.
 
 Hälse können manuell gesetzt werden, um nach oben oder unten zu
-zeigen, siehe @ref{Direction and placement}.
+zeigen, siehe @ref{Richtung und Platzierung}.
 
 @predefined
 @code{\stemUp} (Hälse nach oben),

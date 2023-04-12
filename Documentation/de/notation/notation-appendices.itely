@@ -1785,13 +1785,13 @@ Ein @strong{glyph} (Glyphe) ist eine bestimmte graphische Repräsentation
 eines typographischen Charakters oder einer Kombination von
 zwei oder mehr Charakteren, die dann eine Ligatur bilden.  Eine
 Gruppe an Glyphen des gleichen Stils bilden ein Font, und
-eine Gruppe an Fonts, die mehrere Stile darstellen, bilden
+eine Gruppe an Schriftarten, die mehrere Stile darstellen, bilden
 eine Schriftfamilie (engl. typeface).
 
 
 @morerefs
 Notationsreferenz:
-@ref{Fonts},
+@ref{Schriftarten},
 @ref{Sonderzeichen}.
 
 

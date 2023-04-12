@@ -176,7 +176,7 @@ Sehen Sie sich unsere @ref{Beispiele} an und lassen sich inspirieren!
 @c TODO: generate this automatically, including RSS feed.
 @include en/web/news-headlines.itexi
 
-@ref{News, Weitere Neuigkeiten...}
+@ref{Neuigkeiten, Weitere Neuigkeiten...}
 
 @divEnd
 

@@ -336,7 +336,7 @@ Stimme mit Gesangstext notiert werden, sodass die spitzen Klammern
 benötigt werden.  Die Noten sollen erst später hinzugefügt werden,
 hier also erst mal nur ein paar Platzhalternoten und Text.  Wenn
 Sie sich nicht erinnern, wie man Gesangstext notiert, lesen
-Sie noch einmal @code{\addlyrics} in @ref{Setting simple songs}.
+Sie noch einmal @code{\addlyrics} in @ref{Einfache Lieder setzen}.
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
@@ -2638,7 +2638,7 @@ lower = \relative {
 
 @warning{Das vorliegende Layout kann sehr einfach erzeugt werden.  Am Besten
 verwenden sie dafür das vordefinierte Beispiel @code{satb.ly}, siehe auch
-@ref{Built-in templates}.  Zum Zweck der einfachen Handhabung wird der
+@ref{Eingebaute Vorlagen}.  Zum Zweck der einfachen Handhabung wird der
 verwendete Kontextaufbau bewusst versteckt und sich darauf verlassen, dass LilyPond
 alles automatisch bereit stellt.  Lassen sie uns zu Lehrzwecken probieren,
 das alles von Grund auf selbst zu entwickeln.  Irgendwann werden sie das sowieso machen

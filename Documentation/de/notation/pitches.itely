@@ -942,7 +942,7 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @knownissues
 Manuell gesetzte Bindebögen innerhalb des Krebsgangs @code{\retrograde} werden
 aufgebrochen und erzeugen Warnungen.  Einige Bindebögen können automatisch
-ersetllt werden, indem man @ref{Automatic note splitting} aktiviert.
+erstellt werden, indem man @ref{Automatische Aufteilung von Noten} aktiviert.
 
 @morerefs
 Notationsreferenz:
