@@ -13,6 +13,7 @@
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
 @chapter Eseguire @command{lilypond-book}
+@translationof lilypond-book
 
 Se si desidera aggiungere a un documento illustrazioni musicali, si può
 semplicemente fare nello stesso modo in cui si farebbe con altri tipi di
@@ -222,6 +223,7 @@ formati di output.
 
 @node LaTeX
 @subsection @LaTeX{}
+@translationof LaTeX
 
 @LaTeX{} costituisce lo standard de facto per le pubblicazioni nell'ambito
 delle scienze esatte.  Si basa sul motore tipografico @TeX{}, che produce la

@@ -1222,6 +1222,7 @@ una traiettoria lineare: glissandi, arpeggi e trilli.
 
 @node Glissando
 @unnumberedsubsubsec Glissando
+@translationof Glissando
 
 @cindex glissando
 @funindex \glissando
@@ -1328,6 +1329,7 @@ Non è supportato il testo lungo la linea del glissando (ad esempio
 
 @node Arpeggio
 @unnumberedsubsubsec Arpeggio
+@translationof Arpeggio
 
 @cindex arpeggio
 @cindex arpeggio spezzato

@@ -279,6 +279,7 @@ essere cambiato in stile @qq{postfix} @code{nota\[ @dots{} nota\]}.
 
 @node Custodes
 @unnumberedsubsubsec Custodes
+@translationof Custodes
 
 @cindex custos
 @cindex custodes
@@ -1228,6 +1229,7 @@ Guida al funzionamento interno:
 
 @node Divisiones
 @unnumberedsubsubsec Divisiones
+@translationof Divisiones
 
 @cindex divisio
 @cindex divisiones

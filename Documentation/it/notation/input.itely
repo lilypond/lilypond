@@ -2647,6 +2647,7 @@ portuguese = \lyricmode {
 
 @node Unicode
 @unnumberedsubsubsec Unicode
+@translationof Unicode
 
 @cindex Unicode
 

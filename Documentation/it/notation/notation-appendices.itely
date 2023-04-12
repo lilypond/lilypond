@@ -3437,6 +3437,7 @@ nel codice sorgente.
 
 @node alist
 @unnumberedsubsec alist
+@translationof alist
 
 @cindex alist
 @cindex lista di associazioni
@@ -3452,6 +3453,7 @@ nome del tipo di predicato atteso.
 
 @node callback
 @unnumberedsubsec callback
+@translationof callback
 
 @cindex callback
 
@@ -3467,6 +3469,7 @@ di basso livello sono eseguite.
 
 @node closure
 @unnumberedsubsec closure
+@translationof closure
 
 @cindex closure
 
@@ -3486,6 +3489,7 @@ essere mantenuto.
 
 @node glyph
 @unnumberedsubsec glyph
+@translationof glyph
 
 @cindex glyph
 @cindex glifo
@@ -3509,6 +3513,7 @@ Guida alla notazione:
 
 @node grob
 @unnumberedsubsec grob
+@translationof grob
 
 @cindex grob
 @cindex formattazione, oggetto
@@ -3537,6 +3542,7 @@ Guida al funzionamento interno:
 
 @node immutable
 @unnumberedsubsec immutable
+@translationof immutable
 
 @cindex immutable
 @cindex oggetto immutabile
@@ -3562,6 +3568,7 @@ Guida alla notazione:
 
 @node interface
 @unnumberedsubsec interface
+@translationof interface
 
 @cindex interfaccia
 @funindex grob-interface
@@ -3587,6 +3594,7 @@ Guida al funzionamento interno:
 
 @node lexer
 @unnumberedsubsec lexer
+@translationof lexer
 
 @cindex lexer
 @cindex Flex
@@ -3604,6 +3612,7 @@ binari diLilyPond.
 
 @node mutable
 @unnumberedsubsec mutable
+@translationof mutable
 
 @cindex mutable
 @cindex oggetti variabili
@@ -3627,6 +3636,7 @@ Guida alla notazione:
 
 @node output-def
 @unnumberedsubsec output-def
+@translationof output-def
 
 @funindex output-def
 
@@ -3637,6 +3647,7 @@ vengono create per i blocchi midi, layout e paper.
 
 @node parser
 @unnumberedsubsec parser
+@translationof parser
 
 @cindex parser
 @cindex analizzatore sintattico
@@ -3661,6 +3672,7 @@ del codice sorgente e non è incluso nell'installazione binaria di LilyPond.
 
 @node parser variable
 @unnumberedsubsec parser variable
+@translationof parser variable
 
 @cindex parser variable
 @cindex variabile dell'analizzatore sintattico
@@ -3708,6 +3720,7 @@ LilyPond usa le seguenti variabili dell'analizzatore sintattico:
 
 @node prob
 @unnumberedsubsec prob
+@translationof prob
 
 @cindex prob
 @cindex proprietà dell'oggetto
@@ -3723,6 +3736,7 @@ i blocchi dei titoli durante la formattazione della pagina.
 
 @node smob
 @unnumberedsubsec smob
+@translationof smob
 
 @cindex smob
 @cindex Scheme, oggetto
@@ -3739,6 +3753,7 @@ sorgenti di LilyPond e precisamente nel file @file{lily/includes/smob.hh}.
 
 @node spanner
 @unnumberedsubsec spanner
+@translationof spanner
 
 @cindex spanner
 
@@ -3774,6 +3789,7 @@ Guida al funzionamento interno:
 
 @node stencil
 @unnumberedsubsec stencil
+@translationof stencil
 
 @cindex stencil
 @cindex stampo
