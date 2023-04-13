@@ -64,7 +64,6 @@ public:
   virtual size_t index_to_charcode (size_t) const;
   virtual Real design_size () const;
   virtual Stencil find_by_name (std::string) const;
-  virtual SCM sub_fonts () const;
   virtual SCM font_file_name () const;
 
   Real magnification () const;

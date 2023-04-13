@@ -242,7 +242,6 @@ Preinit_Open_type_font::Preinit_Open_type_font ()
 {
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;
-  lily_subfonts_ = SCM_EOL;
 }
 
 Open_type_font::Open_type_font (FT_Face face)
@@ -253,7 +252,6 @@ Open_type_font::Open_type_font (FT_Face face)
     = Hash_table::alist_to_hashq_table (load_scheme_table ("LILC", face_));
   lily_global_table_
     = Hash_table::alist_to_hashq_table (load_scheme_table ("LILY", face_));
-  lily_subfonts_ = load_scheme_table ("LILF", face_);
   index_to_charcode_map_ = make_index_to_charcode_map (face_);
 
   postscript_name_ = get_postscript_name (face_);
@@ -264,7 +262,6 @@ Open_type_font::derived_mark () const
 {
   scm_gc_mark (lily_character_table_);
   scm_gc_mark (lily_global_table_);
-  scm_gc_mark (lily_subfonts_);
 }
 
 /*
@@ -438,21 +435,9 @@ Open_type_font::design_size () const
 }
 
 SCM
-Open_type_font::sub_fonts () const
-{
-  return lily_subfonts_;
-}
-
-SCM
 Open_type_font::get_char_table () const
 {
   return lily_character_table_;
-}
-
-SCM
-Open_type_font::get_subfonts () const
-{
-  return lily_subfonts_;
 }
 
 SCM

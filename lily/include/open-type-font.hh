@@ -31,7 +31,6 @@ void get_glyph_index_name (char *s, FT_ULong code);
 
 struct Preinit_Open_type_font
 {
-  SCM lily_subfonts_;
   SCM lily_character_table_;
   SCM lily_global_table_;
   Preinit_Open_type_font ();
@@ -57,7 +56,6 @@ protected:
 
 public:
   Real get_units_per_EM () const;
-  SCM get_subfonts () const;
   SCM get_global_table () const;
   SCM get_char_table () const;
   SCM glyph_list () const;
@@ -77,7 +75,6 @@ public:
   Box get_unscaled_indexed_char_dimensions (size_t) const;
   size_t name_to_index (std::string) const override;
   size_t index_to_charcode (size_t) const override;
-  SCM sub_fonts () const override;
   Real design_size () const override;
 };
 

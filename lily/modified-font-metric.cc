@@ -139,12 +139,6 @@ Modified_font_metric::original_font () const
   return orig_;
 }
 
-SCM
-Modified_font_metric::sub_fonts () const
-{
-  return orig_->sub_fonts ();
-}
-
 std::string
 Modified_font_metric::font_name () const
 {

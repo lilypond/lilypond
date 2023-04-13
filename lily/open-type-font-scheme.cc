@@ -33,19 +33,6 @@
 
 #include <cstdio>
 
-LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0, (SCM font),
-           R"(
-Given the font metric @var{font} of an OpenType font, return the names of the
-subfonts within @var{font}.
-           )")
-{
-  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
-
-  SCM ret = fm->sub_fonts ();
-  scm_remember_upto_here_1 (font);
-  return ret;
-}
-
 LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
            (SCM font, SCM glyph),
            R"(

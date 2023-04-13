@@ -52,7 +52,6 @@ protected:
 
   OVERRIDE_CLASS_NAME (Modified_font_metric);
   Modified_font_metric (Font_metric *fm, Real magnification);
-  SCM sub_fonts () const override;
   std::string font_name () const override;
   Real design_size () const override;
   void derived_mark () const override;

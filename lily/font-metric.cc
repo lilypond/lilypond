@@ -137,12 +137,6 @@ Font_metric::attachment_point (const std::string &, Direction) const
   return std::make_pair (Offset (0, 0), false);
 }
 
-SCM
-Font_metric::sub_fonts () const
-{
-  return SCM_EOL;
-}
-
 Stencil
 Font_metric::text_stencil (Output_def *state, const std::string &, bool,
                            const std::string &) const

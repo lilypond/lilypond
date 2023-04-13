@@ -129,13 +129,10 @@ add_feature_kern(font)
 
 # Include (private) SFNT tables needed by LilyPond.
 
-subfonts_str = ' '.join(subfonts)
-
 lisp = b""
 for sub in subfonts:
     lisp += open(os.path.join(indir, sub) + ".lisp", "rb").read()
 
-font.setTableData("LILF", subfonts_str.encode("ascii"))
 font.setTableData("LILC", lisp)
 font.setTableData("LILY", open(os.path.join(
     indir, "feta%(design_size)d.global-lisp" % vars()), "rb").read())

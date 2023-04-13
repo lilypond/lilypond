@@ -40,8 +40,8 @@ Forget all about previously loaded fonts.
 LY_DEFINE (ly_system_font_load, "ly:system-font-load", 1, 0, 0, (SCM name),
            R"(
 Load the OpenType system font @file{@var{name}.otf}.  Fonts loaded with this
-command must contain three additional SFNT font tables called @code{LILC},
-@code{LILF}, and @code{LILY}, needed for typesetting musical elements.
+command must contain two additional SFNT font tables called @code{LILC}
+and @code{LILY}, needed for typesetting musical elements.
 Currently, only the Emmentaler and the Emmentaler-Brace fonts fulfill these
 requirements.
 

@@ -233,8 +233,7 @@ Finally, the `*.fontforge.py` Python scripts create the 'Emmentaler' and
   `gen-emmentaler.fontforge.py`.
 
 - Embed the Lisp data verbatim into the OpenType fonts as SFNT tables 'LILY'
-  and 'LILC', respectively.  Data for an additional table called 'LILF' is
-  auto-generated.
+  and 'LILC', respectively.
 
   For music symbols, LilyPond exclusively uses the data of these three
   tables for glyph metrics information; it does not use the metrics

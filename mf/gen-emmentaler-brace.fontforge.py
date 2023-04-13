@@ -91,14 +91,10 @@ for glyph in font.glyphs():
     glyph.unicode = i + 0xE000
     i += 1
 
-subfonts_str = ' '.join(subfonts)
-
-
 lisp = b""
 for sub in subfonts:
     lisp += open(os.path.join(indir, sub) + ".lisp", "rb").read()
 
-font.setTableData("LILF", subfonts_str.encode("ascii"))
 font.setTableData("LILC", lisp)
 font.setTableData("LILY", b'(design_size . 20)')
 
