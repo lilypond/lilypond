@@ -1337,7 +1337,7 @@ No és possible barrejat arpegis connectats i no connectat a un
 
 La forma senzilla d'especificar el parèntesis als arpegis de
 parèntesis no funciona per als arpegis de pentagrama creuat;
-vegeu @rnotationnamed{Cross-staff stems,Pliques de pentagrama creuat}.
+vegeu @ref{Pliques de pentagrama creuat}.
 
 
 @node Refilets

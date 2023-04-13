@@ -633,5 +633,5 @@ copy sortida\elmeuprojecte.pdf ElMeuProjecte.pdf
 
 @morerefs
 Manual d'utilització del programa:
-@rprogram{Utilització des de la línia d'ordres},
-@rprogram{lilypond-book}
+@ref{Utilització des de la línia d'ordres},
+@ref{lilypond-book}

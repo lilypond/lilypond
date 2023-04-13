@@ -135,7 +135,7 @@ nota anterior @emph{dins del mateix acord}.
 @end lilypond
 
 Per veure més informació sobre els acords, consulteu
-@rnotationnamed{Chord notation,Notació d'acords}.
+@ref{Notació d'acords}.
 
 @morerefs
 Glossari musical:
@@ -145,7 +145,7 @@ Manual d'aprenentatge:
 @rlearning{Combinar notes per formar acords}.
 
 Referència de la notació:
-@rnotationnamed{Chord notation,Notació d'acords},
+@ref{Notació d'acords},
 @ref{Articulacions i ornaments},
 @ref{Escriptura d'octava relativa},
 @ref{Veus múltiples}.
@@ -271,7 +271,7 @@ qual totes les instàncies de @code{\relative} ja s'han processat.
 
 @morerefs
 Referència de la notació:
-@rnotationnamed{Chord notation,Notació d'acords},
+@ref{Notació d'acords},
 @ref{Articulacions i ornaments}.
 
 Fitxers d'inici:

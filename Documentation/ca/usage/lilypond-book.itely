@@ -1215,7 +1215,7 @@ que en cas contrari s'emetrà un missatge d'error com per exemple
 
 Aquestes plantilles s'usen per a @code{lilypond-book}.  Si no
 esteu familiaritzat amb aquest programa, consulteu
-@rprogram{lilypond-book}.
+@ref{lilypond-book}.
 
 @subsection LaTeX
 
@@ -1470,4 +1470,4 @@ donde @code{\includescore} està definit com:
 @translationof Alternate methods of mixing text and music
 
 Altres formes de barrejar text i música (sense
-@command{lilypond-book}) s'estudien a @rprogramnamed{Other programs,Altres programes}.
+@command{lilypond-book}) s'estudien a @ref{Other programs,Altres programes}.

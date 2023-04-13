@@ -540,8 +540,7 @@ corda i percussió.  Es poden introduir de la manera següent:
 @funindex \tieNeutral
 
 És possible fer manualment que les lligadures d'unió es corbin cap
-amunt o cap avall; vegeu @rnotationnamed{Direction and
-placement,Direcció i posició}.
+amunt o cap avall; vegeu @ref{Direcció i posició}.
 
 @cindex lligadures, aparença
 @cindex lligadures de punts

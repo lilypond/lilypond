@@ -944,7 +944,7 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 Les lligadures d'unió manuals dins de @code{\retrograde} es
 trencaran i generaran advertiments.  Es poden generar algunes
 lligadures automàticament activant
-@rnotation{Divisió automàtica de les notes}.
+@ref{Divisió automàtica de les notes}.
 
 @morerefs
 Referència de la notació:
