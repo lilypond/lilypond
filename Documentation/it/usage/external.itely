@@ -414,9 +414,7 @@ dettagli consulta il @uref{https://@/lilypond@/.org,sito web}.
 
 Si tratta di programmi separati da @command{lilypond}  e sono eseguiti
 dalla linea di comando; si veda @ref{Uso da linea di comando} per maggiori
-informazioni.  Se usi MacOS 10.3 o 10.4 e hai problemi a
-eseguire alcuni di questi script, ad esempio @code{convert-ly}, vedi
-@rweb{MacOS X}.
+informazioni.
 
 
 @knownissues

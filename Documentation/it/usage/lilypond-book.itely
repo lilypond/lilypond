@@ -28,9 +28,7 @@ dei caratteri vengono regolate per adeguarsi alla formattazione del documento.
 
 Si tratta di un programma separato da @command{lilypond} e viene lanciato
 dalla linea di comando; per maggiori informazioni, si veda
-@ref{Uso da linea di comando}.  In caso di problemi nell'eseguire
-@code{lilypond-book} da linea di comando su Windows o Mac OS X, si veda
-@rweb{Windows} o @rweb{MacOS X}.
+@ref{Uso da linea di comando}.
 
 Questo procedimento può essere applicato ai documenti @LaTeX{}, HTML, Texinfo
 o DocBook.

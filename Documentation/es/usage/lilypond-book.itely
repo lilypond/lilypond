@@ -31,10 +31,7 @@ documento.
 
 Es un programa distinto a @command{lilypond} propiamente dicho, y
 se ejecuta sobre la línea de órdenes; para ver más información,
-consulte @ref{Utilización desde la línea de órdenes}.  Si
-experimenta algún problema al ejecutar @code{lilypond-book} sobre
-Windows o Mac OS X utilizando la línea de órdenes, consulte
-@rweb{Windows} o @rweb{MacOS X}.
+consulte @ref{Utilización desde la línea de órdenes}.
 
 Este procedimiento se puede aplicar a documentos de @LaTeX{},
 HTML, Texinfo o DocBook.

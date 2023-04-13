@@ -31,10 +31,7 @@ configuració del vostre document.
 
 És un programa diferent a @command{lilypond} pròpiament dit, i
 s'executa sobre la línia d'ordre; per veure més informació,
-consulteu @ref{Utilització des de la línia d'ordres}.  Si
-experimenteu algun problema en executar @code{lilypond-book} sobre
-Windows o Mac OS X utilitzant la línia d'ordres, consulteu
-@rweb{Windows} o @rweb{MacOS X}.
+consulteu @ref{Utilització des de la línia d'ordres}.
 
 Aquest procediment es pot aplicar a documents de @LaTeX{}, HTML,
 Texinfo o DocBook.
