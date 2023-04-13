@@ -70,7 +70,7 @@ résoudre, la plupart des problèmes de saisie.
 quelle que soit sa taille. Par expérience, il est très difficile de se
 rappeler quelle version de LilyPond a servi au moment de la création
 d'un fichier. Ceci s'avèrera d'autant plus utile lors d'une
-@rprogramnamed{Mise à jour avec convert-ly, mise à jour}
+@ref{Mise à jour avec convert-ly, mise à jour}
 (@command{convert-ly} requiert la présence d'une ligne @code{\version})
 ou si vous transmettez votre fichier à d'autres utilisateurs -- y
 compris pour demander de l'aide sur les listes de diffusion. Vous

@@ -100,7 +100,7 @@ Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
 Manuel de notation :
-@rnotationnamed{Écriture des hauteurs de note,@'Ecriture des hauteurs de note},
+@ref{Écriture des hauteurs de note},
 @ref{Musique arabe},
 @ref{Musique classique perse},
 @ref{Musique classique turque},

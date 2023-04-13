@@ -1453,7 +1453,7 @@ propriétés de l'interface dépendent de @code{Voice.TextScript}.
 
 @morerefs
 Manuel de notation :
-@rnotationnamed{Instrument-specific markup,
+@ref{Instrument-specific markup,
 Markups spécifiques aux instruments (en anglais)}.
 
 Morceaux choisis :

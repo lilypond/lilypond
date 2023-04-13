@@ -1456,7 +1456,7 @@ ou @code{\unless}.
 
 @morerefs
 Manuel de notation :
-@rnotationnamed{Conditional markup,Conditions},
+@ref{Conditional markup,Conditions},
 @ref{Généralités en matière de titrages},
 @ref{Mise en forme par défaut des titrages subalternes}.
 

@@ -1261,7 +1261,7 @@ de mesure, il faut ajouter
 @cindex paroles et répétition
 
 La répétition de @i{fragments musicaux} est abordée de manière détaillée
-dans un @rnotationnamed{Répétitions et reprises,chapitre spécifique}.
+dans un @ref{Répétitions et reprises,chapitre spécifique}.
 Nous nous intéresserons ici aux moyens d'ajouter des paroles à des
 reprises.
 
@@ -2350,11 +2350,11 @@ L'affectation de paroles à une ligne mélodique est abordée au chapitre
 
 @item
 Le positionnement des paroles fait l'objet d'une
-@rnotationnamed{Positionnement vertical des paroles, rubrique dédiée}.
+@ref{Positionnement vertical des paroles, rubrique dédiée}.
 
 @item
 La gestion des couplets est abordée dans un
-@rnotationnamed{Couplets,chapitre spécifique}.
+@ref{Couplets,chapitre spécifique}.
 
 @item
 L'harmonisation d'une chanson est souvent indiquée par des noms d'accord

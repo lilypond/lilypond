@@ -972,7 +972,7 @@ paragraphes qui suivent.}
 @subheading Actualités passées
 
 Les vieilles annonces et informations de version sont rangées au
-@rwebnamed{Grenier,grenier}.
+@ref{Grenier,grenier}.
 
 @divEnd
 
