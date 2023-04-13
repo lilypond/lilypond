@@ -73,7 +73,7 @@
 (define all-markup-commands '())
 (define all-markup-list-commands '())
 
-(let ((markup-function-name-end-regex (ly:make-regex "-markup(-list)?")))
+(let ((markup-function-name-end-regex (ly:make-regex "-markup(-list)?$")))
   (for-each
    (lambda (m)
      (module-for-each (lambda (name var)
