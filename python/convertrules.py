@@ -5065,6 +5065,24 @@ to convert automatically.  Please do the update manually.
     # For \markup \override
     s = re.sub(r"\(font-series\s+\.\s+medium\)", "(font-series . normal)", s)
 
+
+    if "repeatCommands" in s and ('(volta "' in s or '(volta ,#{' in s):
+        stderr_write(NOT_SMART % "markup in repeatCommands")
+        stderr_write(r"""
+Markups inside repeatCommands are no longer automatically typeset in
+a music font. Use the \volta-number command where needed. Example
+replacements:
+
+  \set Score.repeatCommands = #'((volta "ad lib."))
+  [does not need conversion]
+
+  \set Score.repeatCommands = #'((volta "1.2."))
+  -> \set Score.repeatCommands = #`((volta ,#{ \markup \volta-number "1.2." #}))
+
+  \set Score.repeatCommands = #'((volta "1.2. ad lib."))
+  -> \set Score.repeatCommands = #`((volta ,#{ \markup { \volta-number "1.2." ad lib. } #}))
+""")
+
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)

@@ -1004,7 +1004,7 @@ which is not ended explicitly will not be printed.
 @lilypond[verbatim,quote]
 \relative {
   f''4 g a b
-  \set Score.repeatCommands = #'((volta "2"))
+  \set Score.repeatCommands = #`((volta ,#{ \markup \volta-number "2" #}))
   g4 a g a
   \set Score.repeatCommands = #'((volta #f))
   c1
@@ -1018,10 +1018,14 @@ Multiple repeat commands may occur at the same point:
 @lilypond[verbatim,quote]
 \relative {
   f''4 g a b
-  \set Score.repeatCommands = #'((volta "2, 5") end-repeat)
+  \set Score.repeatCommands =
+    #`((volta ,#{ \markup { \concat { \volta-number 2 , } \volta-number 5 } #})
+       end-repeat)
   g4 a g a
   c1
-  \set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
+  \set Score.repeatCommands = #`((volta #f)
+                                 (volta ,#{ \markup \volta-number 95 #})
+                                 end-repeat)
   b1
   \set Score.repeatCommands = #'((volta #f))
 }
@@ -1036,13 +1040,14 @@ simplest way to use markup text is to define the markup first,
 then include the markup in a Scheme list.
 
 @lilypond[verbatim,quote]
-voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
+voltaAdLib = \markup { \volta-number { 1. 2. 3... } \italic { ad lib. } }
 \relative {
   c''1
-  \set Score.repeatCommands =
-    #(list(list 'volta voltaAdLib) 'start-repeat)
+  \set Score.repeatCommands = #`((volta ,voltaAdLib) start-repeat)
   c4 b d e
-  \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
+  \set Score.repeatCommands = #`((volta #f)
+                                 (volta ,#{ \markup \volta-number "4." #})
+                                 end-repeat)
   f1
   \set Score.repeatCommands = #'((volta #f))
 }

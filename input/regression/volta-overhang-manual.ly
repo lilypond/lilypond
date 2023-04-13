@@ -1,4 +1,4 @@
-\version "2.25.3"
+\version "2.25.4"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -15,7 +15,9 @@ music = \context Voice \fixed c' {
     s1_"B"
     {
       \volta #'() { % remove when unfolded
-        \set Score.repeatCommands = #'(end-repeat start-repeat (volta "2."))
+        \set Score.repeatCommands = #`(end-repeat
+                                       start-repeat
+                                       (volta ,#{ \markup \volta-number "2." #}))
         \set Score.voltaSpannerDuration = \musicLength 1
       }
     }

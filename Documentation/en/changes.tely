@@ -364,6 +364,32 @@ The new @code{font-stretch} property allows selecting a condensed or
 expanded font.
 
 
+@item
+The text of a @code{VoltaBracket} grob, as set by @code{\override
+Score.VoltaBracket.text = @dots{}} or @code{\set
+Score.repeatCommands = @dots{}}, is no longer automatically
+typeset in a music font; use the @code{\volta-number} markup
+command on those parts that need to be.  For example, convert
+
+@quotation
+@verbatim
+\set Score.repeatCommands = #'((volta "2, 5"))
+@end verbatim
+@end quotation
+
+@noindent
+to
+
+@quotation
+@verbatim
+\set Score.repeatCommands =
+  #`((volta ,#{ \markup {
+                  \concat { \volta-number 2 , }
+                  \volta-number 5 }
+            #}))
+@end verbatim
+@end quotation
+
 @end itemize
 
 @node New for specialist notation
