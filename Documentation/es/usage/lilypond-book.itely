@@ -1244,8 +1244,7 @@ salida sobreescribirá al archivo de entrada}.
 @translationof lilypond-book templates
 
 Estas plantillas se usan para @code{lilypond-book}.  Si no está
-familiarizado con este programa, consulte
-@rprogram{lilypond-book}.
+familiarizado con este programa, consulte @ref{lilypond-book}.
 
 @subsection LaTeX
 

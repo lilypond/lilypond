@@ -692,5 +692,5 @@ copy salida\miproyecto.pdf MiProyecto.pdf
 
 @morerefs
 Manual de utilización del programa:
-@rprogram{Utilización desde la línea de órdenes},
-@rprogram{lilypond-book}
+@ref{Utilización desde la línea de órdenes},
+@ref{lilypond-book}
