@@ -2052,7 +2052,7 @@ equivalent to @code{\"fi\"}.
   #:properties ((line-width #f)
                 (word-space)
                 (text-direction RIGHT))
-  "Internal markup list command used to define @code{\\justify} and @code{\\wordwrap}."
+  #:internal? #t
   (wordwrap-stencils (interpret-markup-list layout props args)
                      justify
                      word-space
@@ -2117,8 +2117,7 @@ the line width, where @var{X} is the number of staff spaces.
   #:properties ((line-width)
                 (word-space)
                 (text-direction RIGHT))
-  "Internal markup list command that is used to define @code{\\justify-string}
-and @code{\\wordwrap-string}."
+  #:internal? #t
   (let* ((para-strings (ly:regex-split
                         para-sep-regex
                         (ly:regex-replace
@@ -5954,13 +5953,14 @@ list commands like @code{\\column}, @code{\\line}, etc.
 
 (define-markup-list-command (map-markup-commands layout props compose args)
   (procedure? markup-list?)
-  "This applies the function @var{compose} to every markup in
-@var{args} (including elements of markup list command calls) in order
-to produce a new markup list.  Since the return value from a markup
-list command call is not a markup list but rather a list of stencils,
-this requires passing those stencils off as the results of individual
-markup calls.  That way, the results should work out as long as no
-markups rely on side effects."
+  #:internal? #t
+  ;; This applies the function @var{compose} to every markup in
+  ;; args (including elements of markup list command calls) in order
+  ;; to produce a new markup list.  Since the return value from a markup
+  ;; list command call is not a markup list but rather a list of stencils,
+  ;; this requires passing those stencils off as the results of individual
+  ;; markup calls.  That way, the results should work out as long as no
+  ;; markups rely on side effects.
   (let ((key (make-symbol "key")))
     (catch
      key

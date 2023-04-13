@@ -84,10 +84,12 @@
                                                   ""))
                                (fixed-name (string->symbol fixed-str-name))
                                (val (variable-ref var)))
-                          (cond ((markup-function? val)
+                          (cond ((and (markup-function? val)
+                                      (not (markup-function-internal? val)))
                                  (set! all-markup-commands
                                        (acons fixed-name val all-markup-commands)))
-                                ((markup-list-function? val)
+                                ((and (markup-list-function? val)
+                                      (not (markup-function-internal? val)))
                                  (set! all-markup-list-commands
                                        (acons fixed-name val all-markup-list-commands))))))
                       (module-public-interface m)))

@@ -51,6 +51,9 @@ The command is now available in markup mode, e.g.
 (define-public markup-function-category (make-object-property))
 ;; markup function -> used properties
 (define-public markup-function-properties (make-object-property))
+;; markup-function -> "is internal" boolean
+(define-public markup-function-internal? (make-object-property))
+
 ;; markup function -> procedure used to convert markup into string (lossily)
 (define-public markup-function-as-string-method (make-object-property))
 
@@ -138,6 +141,11 @@ Some object properties are attached to the resulting
 the definition: @code{markup-command-signature},
 @code{markup-function-category}, @code{markup-function-properties}.
 "
+  ;; An addditional keyword argument, purposefully not mentioned in the
+  ;; docstring, is #:internal? .  If you pass #:internal? #t when defining
+  ;; a markup command in LilyPond's source code, it does not appear
+  ;; in the Notation Reference.
+
   ;; DOCME/obscure
   (let* ((command (if (pair? command-and-args)
                       (car command-and-args)
@@ -149,19 +157,21 @@ the definition: @code{markup-command-signature},
         `(define-markup-command-internal
            ',command ,@definition #f))))
 
-(define-public (markup-lambda-worker command signature properties category as-string)
+(define-public (markup-lambda-worker command signature properties category as-string internal?)
   (set! (markup-command-signature command) signature)
   ;; Register the new function, for markup documentation
   (set! (markup-function-category command) category)
   ;; Used properties, for markup documentation
   (set! (markup-function-properties command) properties)
+  ;; 'Internal' flag, for markup documentation
+  (set! (markup-function-internal? command) internal?)
   ;; For markup->string
   (set! (markup-function-as-string-method command) as-string)
   command)
 
 (defmacro*-public markup-lambda
   (args signature
-        #:key (category '()) (properties '()) (as-string #f)
+        #:key (category '()) (properties '()) (as-string #f) (internal? #f)
         #:rest body)
   "Defines and returns an anonymous markup command.  Other than not
 registering the markup command, this is identical to
@@ -209,7 +219,8 @@ registering the markup command, this is identical to
                             `(list ',(car prop-spec)))))
                    properties))
       ',category
-      ,wrapped-method)))
+      ,wrapped-method
+      ,internal?)))
 
 (defmacro-public define-markup-list-command
   (command-and-args . definition)
@@ -247,8 +258,7 @@ Markup list commands are recognizable programmatically by having the
   (set! (markup-list-function? fun) #t)
   fun)
 
-(defmacro*-public markup-list-lambda
-  (arg signature #:key (properties '()) #:rest body)
+(defmacro-public markup-list-lambda (arg signature . body)
   "Same as @code{markup-lambda} but defines a markup list command
 that, when interpreted, returns a list of stencils instead of a single
 one."
