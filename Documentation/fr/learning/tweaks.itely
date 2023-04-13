@@ -3293,8 +3293,9 @@ C'est mieux que d'utiliser, par exemple, @code{extra-offset},
 car la ligne supplémentaire au-dessus du silence est insérée
 automatiquement.
 
-Voir @rnotation{dessin à main levée de liaisons de tenue}
-pour ce qui différencie des valeurs exactes des valeurs inexactes.
+Voir le morceau choisi @q{Dessin à main levée de liaisons de tenue}
+dans la section @rnotation{Liaisons de prolongation} pour ce qui
+différencie des valeurs exactes des valeurs inexactes.
 
 
 @node La propriété extra-offset

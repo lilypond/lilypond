@@ -3245,7 +3245,7 @@ nuovo valore sarà @w{@code{-10}}.
 
 Questa soluzione è preferibile all'uso di @code{extra-offset}, perché
 il taglio addizionale sopra la pausa è inserito automaticamente.
-@c @rnotation{Engraving ties manually} is not a valid node, so I use another one - fb
+
 Vedi il frammento «Disegnare manualmente le legature di valore» in
 @rnotation{Legature di valore} per la differenza tra valori precisi
 e imprecisi.

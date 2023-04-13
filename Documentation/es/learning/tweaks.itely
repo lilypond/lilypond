@@ -3439,7 +3439,6 @@ Esto es mejor que utilizar, por ejemplo, @code{extra-offset},
 porque la línea adicional por encima del silencio se inserta
 automáticamente.
 
-@c @rnotation{Engraving ties manually} is not a valid node, so I use another one - fv
 Consulte la sección @q{Edición manual de las ligaduras} en
 @rnotation{Ligaduras de unión} para ver la diferencia entre valores
 exactos e inexactos.

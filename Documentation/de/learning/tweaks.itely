@@ -3504,8 +3504,9 @@ d.h. vier halbe Notenlinienabstände weiter nach unten:
 Das ist besser, als etwa @code{extra-offset} zu benutzen, denn
 in unserem Fall wird die Hilfslinie der Pause automatisch gesetzt.
 
-Siehe @rnotation{Bindebögen von Hand setzen} zum Unterschied zwischen
-exakten und inexakten Werten.
+Siehe das Beispiel @q{Bindebögen manuell setzen} im Abschnitt
+@rnotation{Bindebögen} zum Unterschied zwischen exakten und
+inexakten Werten.
 
 @node Die extra-offset-Eigenschaft
 @unnumberedsubsubsec Die @code{extra-offset}-Eigenschaft (Genaues Positionieren)

@@ -719,8 +719,6 @@ permet d'obtenir une meilleure lisibilité.
 @cindex tenue, gravure manuelle
 @cindex gravure manuelle, liaison de tenue
 @funindex TieColumn
-@anchor{dessin à main levée de liaisons de tenue}
-@anchor{engraving ties manually}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/engraving-ties-manually.ly}
 

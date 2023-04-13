@@ -3148,8 +3148,8 @@ to move it, say, four half-staff spaces down to @w{@code{-10}}.
 This is better than using, for example, @code{extra-offset},
 because the ledger line above the rest is inserted automatically.
 
-See @rnotation{Engraving ties manually} for the difference between
-exact and inexact values.
+See the snippet @q{Engraving ties manually} in the section on
+@rnotation{Ties} for the difference between exact and inexact values.
 
 @node The extra-offset property
 @unnumberedsubsubsec The @code{extra-offset} property
