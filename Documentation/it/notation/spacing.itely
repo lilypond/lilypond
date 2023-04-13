@@ -2969,7 +2969,7 @@ seguiti dalla metà di LTN:
 
 
 Come è spiegato nel saggio @emph{Essay on automated music engraving}, le
-direzioni del gambo influenzano la spaziatura (vedi @ressay{Optical spacing}) e
+direzioni del gambo influenzano la spaziatura (vedi @ressay{Spaziatura ottica}) e
 possono essere aggiustate usando la proprietà @code{stem-spacing-correction}
 dell'oggetto @rinternals{NoteSpacing} (che sono generati per ogni
 contesto @rinternals{Voice}.
