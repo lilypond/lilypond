@@ -684,7 +684,7 @@ allegro = \markup { \bold \large Allegro }
 @noindent
 Se puede encontrar una lista exhaustiva de las instrucciones
 específicas de @code{\markup} en @ref{Instrucciones de marcado de texto}.  The inner workings of these commands, and how to implement new ones, is
-explained in @rextend{Markup functions}.
+explained in @rextend{Funciones de marcado}.
 
 @morerefs
 Referencia de la notación:

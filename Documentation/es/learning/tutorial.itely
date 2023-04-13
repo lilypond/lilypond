@@ -776,8 +776,7 @@ de Aprendizaje.
 
 @item
 @strong{Antes de afrontar un proyecto grande}: lea la sección
-@rprogramnamed{Suggestions for writing files,Sugerencias para
-escribir archivos de entrada de LilyPond} del manual de
+@rprogram{Sugerencias para escribir archivos de entrada} del manual de
 Utilización del programa.
 
 @end itemize

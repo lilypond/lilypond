@@ -4922,4 +4922,4 @@ posición dentro del pentagrama.
 
 Se pueden encontrar ejemplos adicionales que muestran la
 utilización de estos interfaces programables, en
-@rextendnamed{Callback functions,Funciones de callback}.
+@rextend{Funciones de callback}.
