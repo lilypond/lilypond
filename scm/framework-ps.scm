@@ -501,20 +501,19 @@
            (all-font-names
             (map
              (lambda (font)
-               (cond ((string? (ly:font-file-name font))
-                      (list (list font
-                                  (ly:font-name font)
-                                  (ly:font-file-name font)
-                                  #f)))
-                     ((ly:pango-font? font)
-                      (map (lambda (psname-filename-fontindex)
-                             (list #f
-                                   (list-ref psname-filename-fontindex 0)
-                                   (list-ref psname-filename-fontindex 1)
-                                   (list-ref psname-filename-fontindex 2)))
-                           (ly:pango-font-physical-fonts font)))
-                     (else
-                      (ly:font-sub-fonts font))))
+               (if (ly:pango-font? font)
+                   (map (lambda (psname-filename-fontindex)
+                          (list #f
+                                (list-ref psname-filename-fontindex 0)
+                                (list-ref psname-filename-fontindex 1)
+                                (list-ref psname-filename-fontindex 2)))
+                        (ly:pango-font-physical-fonts font))
+                   (begin
+                     (assert (string? (ly:font-file-name font)))
+                     (list (list font
+                                 (ly:font-name font)
+                                 (ly:font-file-name font)
+                                 #f)))))
              fonts))
            (font-names (uniq-list
                         (sort (concatenate all-font-names)
