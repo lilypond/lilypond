@@ -2871,7 +2871,7 @@ Referencia de la notació:
 @ref{El bloc layout}.
 
 Manual d'utilització:
-@rprogramnamed{Command-line usage,Utilització des de la línia d'ordres}.
+@rprogram{Utilització des de la línia d'ordres}.
 
 @node Salts sobre la música corregida
 @subsection Salts sobre la música corregida
@@ -2941,8 +2941,7 @@ són el format de document portàtil (PDF) i PostScript (PS).  Els
 formats de sortida Grafics de xarxa portàtil (PNG), Grafics de
 vector escalables (SVG) i Postscript encapsulat (EPS) també hi són
 disponibles a través d'opcions de la línia d'ordres, vegeu
-@rprogramnamed{Basic command-line options for LilyPond,Opcions
-bàsiques de la línia d'ordre per al LilyPond}.
+@rprogram{Opcions bàsiques de la línia d'ordres per al LilyPond}.
 
 @node Substitució del tipus de lletra de la notació
 @subsection Substitució del tipus de lletra de la notació
@@ -2995,8 +2994,7 @@ PostScript). Els fitxers @file{gonville-*.svg} són per al
 fitxers @file{gonville-*.woff} són per al @emph{rerefons}
 @code{svg} amb l'opció @code{svg-woff}. Per a més informació,
 consulteu
-@rprogramnamed{Advanced command-line options for LilyPond,Opcions
-avançades de línia d'ordres per al LilyPond}.
+@rprogram{Opcions avançades de la línia d'ordres per al LilyPond}.
 
 La sintaxi següent canvia el tipus de lletra de la notació
 (general i claus) al tipus Gonville.

@@ -399,7 +399,7 @@ el LilyPond es poden trobar a la @ref{Introducció}.
 
 @subsubheading Quelcom no funciona!  Com ho arreglo?
 
-S'explica a @rprogramnamed{Troubleshooting,Solució de problemes}.
+S'explica a @rprogram{Solució de problemes}.
 
 
 @subsubheading Perquè canvien la sintaxi i el llenguatge?
