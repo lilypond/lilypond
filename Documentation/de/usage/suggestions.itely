@@ -633,5 +633,5 @@ copy out\myproject.pdf MyProject.pdf
 
 @morerefs
 Programmbenutzung:
-@rprogram{Benutzung auf der Kommandozeile},
-@rprogram{lilypond-book}.
+@ref{Benutzung auf der Kommandozeile},
+@ref{lilypond-book}.
