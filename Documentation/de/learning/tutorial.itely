@@ -629,7 +629,7 @@ darstellen, die an eine graphische Benutzeroberfläche gewohnt sind, weil
 ungültige Eingabedateien erstellt werden können.  Wenn das geschieht, ist
 eine logische Herangehensweise der beste Weg, das Problem zu identifizieren
 und zu Lösen.  Einige Richtlinien, wie Sie diese Problemlösung erlernen
-können, finden sich in @rprogram{Troubleshooting}.
+können, finden sich in @rprogram{Fehlersuche}.
 
 
 @node Einige häufige Fehler
@@ -641,7 +641,7 @@ können, finden sich in @rprogram{Troubleshooting}.
 
 Es gibt einige übliche Fehler, die schwierig zu lösen sind, wenn man nur die
 Fehlermeldungen der Log-Datei hat.  Sie werden näher erklärt in
-@rprogram{Common errors}.
+@rprogram{Häufige Fehlermeldungen}.
 
 
 

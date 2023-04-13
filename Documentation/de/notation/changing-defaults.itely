@@ -3529,7 +3529,7 @@ Notationshandbuch:
 @ref{Benutzung des break-alignable-interface}.
 
 Erweitern:
-@rextend{Callback functions}.
+@rextend{Callback-Funktionen}.
 
 
 @menu

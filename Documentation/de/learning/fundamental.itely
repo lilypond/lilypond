@@ -389,7 +389,7 @@ interpretiert wird, wird ihm @code{\lyricmode} voran gesetzt.  Wie
 gewechselt. Ohne diesen Befehl würde LilyPond versuchen, den Inhalt
 der Variable als Noten zu interpretieren und dabei eine Menge
 Fehler produzieren. (Einige andere Eingabemodi sind außerdem noch
-verfügbar, siehe @rnotation{Input modes}.)
+verfügbar, siehe @rnotation{Eingabe-Modi}.)
 
 Also haben wir, wenn wir ein paar Noten und einen Bassschlüssel
 für die linke Hand hinzufügen, folgendes Beispiel:

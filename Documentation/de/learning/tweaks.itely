@@ -2973,7 +2973,7 @@ Gruppen) durch die Platzierungsvariablen des @code{StaffGrouper}
 kontrolliert wird.  Wohingegen die Abstände von nicht gruppierten
 Systemen (wie @code{Lyrics} und @code{Staff}) von den Variablen der
 @code{VerticalAxisGroup} kontrolliert werden.  Siehe
-@rnotation{Flexible vertical spacing paper variables} und
+@rnotation{Vertikale paper-Variablen mit flexiblen Abständen} und
 @rnotation{Flexible vertikale Abstände in Systemgruppen} für weitere
 Details.
 

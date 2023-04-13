@@ -1813,9 +1813,9 @@ bezeichnet, was dann zu  @strong{grob} abgekürzt wird.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Objects and interfaces},
-@rlearning{Naming conventions of objects and properties},
-@rlearning{Properties of layout objects}.
+@rlearning{Objekte und Schnittstellen},
+@rlearning{Regeln zur Benennung von Objekten und Eigenschaften},
+@rlearning{Eigenschaften von Layoutobjekten}.
 
 Referenz der Interna:
 @rinternals{All layout objects}.
