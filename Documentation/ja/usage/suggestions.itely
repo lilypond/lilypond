@@ -683,5 +683,5 @@ copy out\myproject.pdf MyProject.pdf
 
 @morerefs
 アプリケーションの使用方法:
-@rprogram{コマンド ラインの使用方法},
-@rprogram{lilypond-book}
+@ref{コマンド ラインの使用方法},
+@ref{lilypond-book}
