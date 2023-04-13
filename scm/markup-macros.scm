@@ -172,8 +172,7 @@ registering the markup command, this is identical to
          (set! body (cddr body)))
   ;; define the COMMAND-markup function
   (let* ((documentation
-          (format #f "~a\n~a" (cddr args)
-                  (if (string? (car body)) (car body) "")))
+          (if (string? (car body)) (car body) ""))
          ;; We are going to wrap everything in a let.  If there
          ;; is a docstring, we have to move it out or it will not
          ;; be recognized.

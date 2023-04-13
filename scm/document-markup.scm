@@ -17,6 +17,8 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
+(use-modules (ice-9 session))
+
 (define (doc-markup-function-properties func)
   (let ((properties (markup-function-properties func))
         (prop-strings (list)))
@@ -37,20 +39,12 @@
               (or properties (list)))
     prop-strings))
 
-;; FIXME: duplication with similar code for music functions
-(define markup-command-signature-regex (ly:make-regex "^\\([^)]*\\)\n"))
 (define (doc-markup-function func-pair)
   (let* ((f-name (symbol->string (car func-pair)))
          (func (cdr func-pair))
-         (full-doc (procedure-documentation func))
-         (match-args (and full-doc (ly:regex-exec markup-command-signature-regex
-                                                  full-doc)))
-         (arg-names (if match-args
-                        (with-input-from-string full-doc read)
-                        (circular-list "arg")))
-         (doc-str (if match-args
-                      (ly:regex-match-suffix match-args)
-                      full-doc))
+         (doc-str (procedure-documentation func))
+         (all-arg-names (assq-ref (procedure-arguments func) 'required))
+         (arg-names (drop all-arg-names 2)) ;; drop "layout props"
          (sig (markup-command-signature func))
          (sig-type-names (map type-name sig))
          (signature-str
