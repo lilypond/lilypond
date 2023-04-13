@@ -1201,6 +1201,14 @@ actually fully cloned."
     ((_ start stop)
      (def-grace-function start stop ""))))
 
+;; Currently, music functions are defined in music-functions-init.ly, which is a
+;; LilyPond file. The Scheme code it contains is not byte-compiled, so Guile
+;; doesn't remember the names of a procedure's arguments. We know them, though,
+;; because we have them in the define-syntax-function invocation.  Therefore, we
+;; use this object property to store them until we can use procedure-arguments
+;; for this.
+(define-public syntax-function-procedure-arguments (make-object-property))
+
 (define-syntax-public define-syntax-function
   (lambda (syntaks)
     "Helper macro for @code{ly:make-music-function}.  Syntax:
@@ -1216,12 +1224,6 @@ actually fully cloned."
   @code{result-type?} can specify a default in the same manner as
   predicates, to be used in case of a type error in arguments or
   result."
-
-    (define (format-docstring docstring args)
-      (format #f "~a\n~a"
-              (syntax->datum args)
-              (syntax->datum docstring)))
-
     (define (take-body-docstring body)
       (syntax-case body (_i)
         ;; A string and nothing else in the function is not the docstring
@@ -1238,18 +1240,21 @@ actually fully cloned."
          (values "" body))))
 
     (define (final-lambda compatibility docstring args fixed-body)
-      (let ((fixed-docstring (format-docstring docstring args)))
-        (match compatibility
-          ((parser-arg location-arg)
-           #`(lambda #,args
-               #,fixed-docstring
-               (let ((#,parser-arg (*parser*))
-                     (#,location-arg (*location*)))
-                 . #,fixed-body)))
-          (#f
-           #`(lambda #,args
-               #,fixed-docstring
-               . #,fixed-body)))))
+      (let ((lambda-form
+             (match compatibility
+               ((parser-arg location-arg)
+                #`(lambda #,args
+                    #,docstring
+                    (let ((#,parser-arg (*parser*))
+                          (#,location-arg (*location*)))
+                      . #,fixed-body)))
+               (#f
+                #`(lambda #,args
+                    #,docstring
+                    . #,fixed-body)))))
+        #`(let ((result #,lambda-form))
+            (set! (syntax-function-procedure-arguments result) '#,args)
+            result)))
 
     (define (currying-lambda args docstring body signature-length)
       (syntax-case args ()
