@@ -74,6 +74,9 @@ Use the LSR database to regenerate LilyPond's 'snippets' directory.
                            database
                          if WHAT is 'no', don't use a dump file (this
                            implies '--no-lsr')
+  -D, --diff-version-update
+                         only update '\version' number of a snippet if
+                           it is modified
   -f, --no-snippet-list  don't update snippet list files
   -h, --help             display this help and exit
   -j, --jobs=N           use N jobs for creating snippet files in
@@ -144,6 +147,7 @@ EOT
 
 
 # Option handling.
+my $diff_version_update = 0;
 my $dump = "";
 my $help = 0;
 my $jobs = 1;
@@ -159,6 +163,7 @@ my $top_source = ".";
 my $verbose = 0;
 
 GetOptions(
+  "diff-version-update|D" => \$diff_version_update,
   "dump|d=s" => \$dump,
   "help|h" => \$help,
   "jobs|j=i" => \$jobs,
@@ -237,6 +242,8 @@ unless ($no_convert) {
   print "Using '$CONVERT_LY'\n" if $verbose;
 }
 
+my $convert_ly_options = $diff_version_update ? "--diff-version-update"
+                                              : "";
 
 # Check the actual snippet directories.
 my $snippet_dir = catdir("Documentation", "snippets");
@@ -936,7 +943,8 @@ sub convert_ly {
   my @err;
 
   eval {
-    run3 [$CONVERT_LY, "--loglevel=$loglevel", "-"],
+    run3 [$CONVERT_LY,
+          "--loglevel=$loglevel", "$convert_ly_options", "-"],
       \$in, \$out, \@err,
       {binmode_stdin => ":encoding(UTF-8)",
        binmode_stdout => ":encoding(UTF-8)"};
