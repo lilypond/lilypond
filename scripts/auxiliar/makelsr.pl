@@ -974,7 +974,7 @@ use constant DOC_PREAMBLE => <<~'EOT';
   %%
   %% This file is in the public domain.
 
-  \version "2.22.2"
+  \version "2.24.0"
 
   \header {
   EOT
