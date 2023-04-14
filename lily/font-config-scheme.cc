@@ -105,25 +105,20 @@ Get the file for font @var{name}, as found by FontConfig.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
+  unique_stdlib_ptr<char> name_cpp = ly_scm2str0 (name);
 
   FcPattern *pat = FcPatternCreate ();
-  FcValue val;
-
-  val.type = FcTypeString;
-  std::string name_cpp = ly_scm2string (name);
-  val.u.s = reinterpret_cast<const FcChar8 *> (name_cpp.c_str ());
-  FcPatternAdd (pat, FC_FAMILY, val, FcFalse);
+  FcPatternAddString (pat, FC_FAMILY, reinterpret_cast<const FcChar8 *> (name_cpp.get ()));
+  FcConfigSubstitute (nullptr, pat, FcMatchFont);
+  FcDefaultSubstitute (pat);
 
   FcResult result;
   SCM scm_result = SCM_BOOL_F;
 
-  FcConfigSubstitute (NULL, pat, FcMatchFont);
-  FcDefaultSubstitute (pat);
-
-  pat = FcFontMatch (NULL, pat, &result);
-  FcChar8 *str = 0;
+  pat = FcFontMatch (nullptr, pat, &result);
+  FcChar8 *str = nullptr;
   if (FcPatternGetString (pat, FC_FILE, 0, &str) == FcResultMatch)
-    scm_result = scm_from_utf8_string (reinterpret_cast<char const *> (str));
+    scm_result = ly_string2scm (reinterpret_cast<char const *> (str));
 
   FcPatternDestroy (pat);
 
