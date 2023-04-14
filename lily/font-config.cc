@@ -72,8 +72,6 @@ init_fontconfig ()
           _f ("Adding fontconfig configuration file: %s", conf.c_str ()));
     }
 
-  /* Extra trailing slash suddenly breaks fontconfig (fc-cache 2.5.0)
-     on windows.  */
   std::string dir (lilypond_datadir + "/fonts/otf");
 
   if (!FcConfigAppFontAddDir (font_config_global,
