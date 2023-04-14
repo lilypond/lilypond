@@ -82,7 +82,14 @@ init_fontconfig ()
 
   debug_output (_ ("Building font database..."));
 
+  // FcConfigParseAndLoad calls should be followed by FcConfigBuildFonts, which
+  // does the actual work of building the font database using all the
+  // configuration files loaded.  Note that adding extra configuration after
+  // this function is called has indeterminate effect according to its
+  // documentation, but adding application fonts is fine, and this is what
+  // ly:font-config-add-{font,directory} do.
   FcConfigBuildFonts (font_config_global);
+
   FcConfigSetCurrent (font_config_global);
 
   debug_output ("\n");
