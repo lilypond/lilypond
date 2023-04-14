@@ -109,7 +109,7 @@ Get the file for font @var{name}, as found by FontConfig.
 
   FcPattern *pat = FcPatternCreate ();
   FcPatternAddString (pat, FC_FAMILY, reinterpret_cast<const FcChar8 *> (name_cpp.get ()));
-  FcConfigSubstitute (nullptr, pat, FcMatchFont);
+  FcConfigSubstitute (nullptr, pat, FcMatchPattern);
   FcDefaultSubstitute (pat);
 
   FcResult result;
