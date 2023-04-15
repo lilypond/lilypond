@@ -99,10 +99,18 @@ def handle_globs(args):
     # On Windows, we have to expand globs by ourselves.
     if os.name == 'nt':
         from glob import glob
-        # In `cmd.exe`, only `*` and `?` are metacharacters but not `[` (and
-        # `]`).
-        return [file for arg in args
-                       for file in glob(arg.replace('[', '[[]'))]
+        files = []
+        for arg in args:
+            # In `cmd.exe`, only `*` and `?` are metacharacters but not `[`
+            # (and `]`).
+            expanded = glob(arg.replace('[', '[[]'))
+            if expanded:
+                files.extend(expanded)
+            else:
+                # If the expansion returns nothing, add the argument as-is;
+                # more handling is then to be done by the caller.
+                files.append(arg)
+        return files
     else:
         return args
 
