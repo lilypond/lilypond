@@ -8,7 +8,7 @@
 %%
 %% Note: this file works from version 2.25.0.
 
-\version "2.25.1"
+\version "2.25.0"
 
 \header {
   lsrtags = "expressive-marks, symbols-and-glyphs"

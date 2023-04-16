@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "editorial-annotations, fretted-strings, scheme-language, text, tweaks-and-overrides"
