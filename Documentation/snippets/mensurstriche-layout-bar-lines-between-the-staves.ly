@@ -8,16 +8,15 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "ancient-notation, contexts-and-engravers, staff-notation, tweaks-and-overrides"
 
   texidoc = "
-The @emph{mensurstriche} layout, where bar lines do not appear on
-staves but between staves only, can be achieved with a
-@code{StaffGroup} instead of a @code{ChoirStaff}.  The bar line on
-staves is blanked out using @code{\\hide}.
+@emph{Mensurstriche}, bar lines between but not through staves, can be
+printed by setting @code{measureBarType} to @code{\"-span|\"} and using a
+grouping context that allows span bars, such as @code{StaffGroup}.
 "
 
   doctitle = "Mensurstriche layout (bar lines between the staves)"

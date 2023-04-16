@@ -8,17 +8,17 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "staff-notation, symbols-and-glyphs, vocal-music"
 
   texidoc = "
-This snippet defines the @code{\\splitStaffBarLine},
-@code{convUpStaffBarLine} and @code{convDownStaffBarLine}
-commands.  These add arrows at a bar line, to denote that several
-voices sharing a staff will each continue on a staff of their own in
-the next system, or that voices split in this way recombine.
+This snippet defines the commands @code{\\splitStaffBarLine},
+@code{\\convUpStaffBarLine}, and @code{\\convDownStaffBarLine}.  These
+add arrows at a bar line to denote that several voices sharing a staff
+will each continue on a staff of their own in the next system, or that
+voices split in this way recombine.
 "
 
   doctitle = "Adding indicators to staves which get split after a break"
@@ -87,6 +87,8 @@ convUpStaffBarLine = {
   \break
 }
 
+
+\header { tagline = ##f }
 
 \paper {
   ragged-right = ##t

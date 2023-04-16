@@ -48,6 +48,6 @@ two--partcombine-pairs-on-one-staff.ly
 use-square-bracket-at-the-start-of-a-staff-group.ly
 using-autochange-with-more-than-one-voice.ly
 using-marklines-in-a-frenched-score.ly
-vertical-aligned-staffgroups-without-connecting-systemstartbar.ly
+vertically-aligned-staffgroups-without-connecting-systemstartbar.ly
 volta-below-chords.ly
 volta-multi-staff.ly

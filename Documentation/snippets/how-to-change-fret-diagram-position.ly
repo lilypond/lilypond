@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "fretted-strings, specific-notation, tweaks-and-overrides"
@@ -33,6 +33,8 @@ itself.
   doctitle = "How to change fret diagram position"
 } % begin verbatim
 
+
+\header { tagline = ##f }
 
 harmonies = \chordmode
 {

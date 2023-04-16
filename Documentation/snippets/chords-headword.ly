@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "headword"
@@ -20,6 +20,8 @@
   doctitle = "Chords headword"
 } % begin verbatim
 
+
+\header { tagline = ##f }
 
 theChords = \chordmode {
   \time 2/2

@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "headword"
@@ -31,7 +31,6 @@ Repeats headword
 \include "english.ly"
 
 \new PianoStaff <<
-
    \new Staff = RH {
       \clef bass
       \key df \major
@@ -137,5 +136,6 @@ Repeats headword
       \oneVoice
       r8
    }
-
 >>
+
+\paper { tagline = ##f }

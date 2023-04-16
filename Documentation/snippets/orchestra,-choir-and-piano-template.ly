@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "pitches, staff-notation, template, vocal-music"
@@ -25,10 +25,14 @@ music for transposing instruments at concert pitch.
 
 
 #(set-global-staff-size 17)
+
 \paper {
   indent = 3.0\cm  % add space for instrumentName
   short-indent = 1.5\cm  % add less space for shortInstrumentName
 }
+
+\header { tagline = ##f }
+
 
 fluteMusic = \relative c' { \key g \major g'1 b }
 

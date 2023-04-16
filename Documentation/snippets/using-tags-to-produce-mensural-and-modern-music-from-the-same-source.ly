@@ -8,32 +8,34 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "ancient-notation, vocal-music"
 
   texidoc = "
 Using tags, it is possible to produce both mensural and modern notation
-from the same music.  In this snippet, a function @code{menrest} is
+from the same music.  In this snippet, a function @code{\\menrest} is
 introduced, allowing mensural rests to be pitched as in the original,
 but with modern rests in the standard staff position. Tags can also be
 used where other differences are needed: for example using @qq{whole
 measure rests} (@code{R1}, @code{R\\breve}, etc.) in modern music, but
 normal rests (@code{r1}, @code{r\\breve}, etc.) in the mensural
 version.  Converting mensural music to its modern equivalent is usually
-referred to as @qq{transcription}.
+referred to as @emph{transcription}.
 "
 
   doctitle = "Using tags to produce mensural and modern music from the same source"
 } % begin verbatim
 
 
+\header { tagline = ##f }
+
 menrest = #(define-music-function (note)
   (ly:music?)
 #{
-    \tag #'mens $(make-music 'RestEvent note)
-    \tag #'mod $(make-music 'RestEvent note 'pitch '())
+  \tag #'mens $(make-music 'RestEvent note)
+  \tag #'mod $(make-music 'RestEvent note 'pitch '())
 #})
 
 MenStyle = {

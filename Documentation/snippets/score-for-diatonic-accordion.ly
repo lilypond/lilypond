@@ -16,16 +16,19 @@
   texidoc = "
 A template to write a score for a diatonic accordion.
 
-- There is a horizontal staff indicating if the accordion must be
-pushed (thick line) or pulled (thin line)
-
-- There is a small rhythmic staff with lyrics that describes the bass
-buttons to press. The bar lines are made from gridlines
-
-- The tabulator staff for diatonic accordions shows the geographic
+@itemize
+@item
+There is a horizontal staff indicating if the accordion must be pushed
+(thick line) or pulled (thin line).
+@item
+There is a small rhythmic staff with lyrics that describes the bass
+buttons to press. The bar lines are made from gridlines.
+@item
+The tabulator staff for diatonic accordions shows the geographic
 position of the buttons and not (as for every other instrument) the
-pitch of the notes; the keys on the melody-side of the accordion are
-placed in three columns and about 12 rows
+pitch of the notes; the keys on the melody side of the accordion are
+placed in three columns and about 12 rows.
+@end itemize
 
 In the tabulator staff notation the outermost column is described with
 notes between lines, the innermost column is described with notes
@@ -35,21 +38,24 @@ represented on the middle line in the staff.
 
 Some words to transpose piano notes to the diatonic accordion:
 
-1. Every diatonic accordion is built for some keys only (for example,
-for the keys of C major and F major), so it is important to transpose a
+@enumerate 
+@item
+Every diatonic accordion is built for some keys only (for example, for
+the keys of C major and F major), so it is important to transpose a
 piano melody to match one of these keys. Transpose the source code, not
 only the output because this code is required later on to translate it
 once more to the tabulator staff. This can be done with the command
 @code{displayLilyMusic}.
-
-2. You have to alternate the push- and pull-direction of the accordion
+@item
+You have to alternate the push- and pull-direction of the accordion
 regularly. If the player has a too long part to pull the accordion gets
 broken. On the other hand, some harmonies are only available in one
 direction. Considering this, decide which parts of the melody are the
 push-parts and which the pull-parts.
-
-3. For each pull- or push-part translate the piano notes to the
-according tabulature representation.
+@item
+For each pull- or push-part translate the piano notes to the according
+tabulature representation.
+@end enumerate
 "
 
   doctitle = "Score for diatonic accordion"
@@ -146,6 +152,7 @@ AccordionTab= { \dynamicUp
 }
 
 
+\header { tagline = ##f }
 
 \layout {
   \context {

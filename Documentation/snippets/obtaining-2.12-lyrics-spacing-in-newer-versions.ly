@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "vocal-music"
@@ -24,6 +24,8 @@ contexts to get the spacing engine to behave as it did in version 2.12.
   doctitle = "Obtaining 2.12 lyrics spacing in newer versions"
 } % begin verbatim
 
+
+\header { tagline = ##f }
 
 global = {
   \key d \major

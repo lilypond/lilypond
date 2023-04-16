@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "paper-and-layout, staff-notation, syntax-and-expressions"
@@ -19,11 +19,13 @@ with a @code{SystemStartBar} for each @code{StaffGroup}, but without
 connecting them.
 "
 
-  doctitle = "Vertical aligned StaffGroups without connecting SystemStartBar"
+  doctitle = "Vertically aligned StaffGroups without connecting SystemStartBar"
 } % begin verbatim
 
 
 #(set-global-staff-size 18)
+
+\header { tagline = ##f }
 
 \paper {
   indent = 0

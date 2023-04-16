@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "contexts-and-engravers, template, vocal-music"
@@ -24,6 +24,8 @@ score.
   doctitle = "Vocal ensemble template with verse and refrain"
 } % begin verbatim
 
+
+\header { tagline = ##f }
 
 global = {
   \key g \major

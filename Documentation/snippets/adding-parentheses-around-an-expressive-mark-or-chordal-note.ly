@@ -8,14 +8,14 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "expressive-marks, workaround"
 
   texidoc = "
 The @code{\\parenthesize} function is a special tweak that encloses
-objects in parentheses.  The associated grob is @code{Parentheses}.
+objects in parentheses.  The associated grob is @code{ParenthesesItem}.
 "
 
   doctitle = "Adding parentheses around an expressive mark or chordal note"

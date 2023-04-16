@@ -8,21 +8,27 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "specific-notation, text"
 
   texidoc = "
 This snippet lets you draw a QR-code, for example to provide a link to
-the composer's, or the music editor's website. Actually encoding the
-URL into a QR-code is not done here (this just draws the QR-code from a
-grid of \"black\" or \"white\" values), but see the code for a short Python
-snippet you can use to avoid having to fill for each small square if
-it's black or white.
+the composer's, or the music editor's website.
+
+Actually encoding the URL into a QR-code is not done here (this just
+draws the QR-code from a grid of \"black\" or \"white\" values), but see
+the code for a short Python snippet you can use to avoid having to fill
+for each small square if it's black or white.
+
+@emph{This snippet is obsolete starting from LilyPond 2.25.3, which
+adds a @code{\\qr-code} markup command that takes a URL directly
+instead of a grid of \"black\" and \"white\" values. It is used like
+@code{\\markup \\qr-code #10 \"https://lilypond.org\"}.}
 "
 
-  doctitle = "Adding a QR code"
+  doctitle = "[OBSOLETE] Adding a QR code"
 } % begin verbatim
 
 

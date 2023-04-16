@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.1"
+\version "2.24.0"
 
 \header {
   lsrtags = "paper-and-layout, vocal-music"
@@ -23,6 +23,8 @@ example.  This snippet shows how this can be done with
   doctitle = "Arranging separate lyrics on a single line"
 } % begin verbatim
 
+
+\header { tagline = ##f }
 
 \layout {
   \context {
