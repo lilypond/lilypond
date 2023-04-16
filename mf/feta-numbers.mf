@@ -1078,6 +1078,9 @@ fet_beginchar ("numeral dash", "hyphen");
 fet_endchar;
 
 
+% Other dash glyphs are at the end of this file.
+
+
 fet_beginchar ("numeral dot", "period");
   set_char_box (0, dot_diam#, 0, dot_diam#);
 
@@ -1675,3 +1678,28 @@ fet_beginchar ("figured bass stroked 9", "ninestroked");
 fet_endchar;
 
 fet_endgroup ("figbass");
+
+
+fet_beginchar ("figure dash", "figuredash");
+  save bearing;
+
+  set_char_box (0, fixed_width_advance#, 0, height#);
+
+  bearing := hround (1/20 * (b + w));
+
+  draw_rounded_block ((-b + bearing, h / 3 - thin / 2),
+                      (w - bearing, h / 3 + thin / 2), thin);
+fet_endchar;
+
+
+% The same as the figure dash.
+fet_beginchar ("en dash", "endash");
+  save bearing;
+
+  set_char_box (0, fixed_width_advance#, 0, height#);
+
+  bearing := hround (1/20 * (b + w));
+
+  draw_rounded_block ((-b + bearing, h / 3 - thin / 2),
+                      (w - bearing, h / 3 + thin / 2), thin);
+fet_endchar;

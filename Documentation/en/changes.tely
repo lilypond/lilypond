@@ -470,6 +470,10 @@ source files for the score, recordings, etc.
 \markup \qr-code #10 "https://lilypond.org"
 @end lilypond
 
+@item
+A figure-dash glyph (U+2012) and an en-dash glyph (U+2013) have
+been added to the Emmentaler fonts.
+
 @end itemize
 
 

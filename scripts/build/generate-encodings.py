@@ -747,6 +747,8 @@ emmentaler_glyphsets = [
         "hyphen",
         "period",
         "plus",
+        "figuredash",
+        "endash",
 
         # digits
         "zero",

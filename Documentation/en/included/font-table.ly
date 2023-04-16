@@ -50,7 +50,7 @@
 
   ;; define all remaining groups
   (define numbers
-    '("plus" "comma" "hyphen" "period"
+    '("plus" "comma" "hyphen" "period" "figuredash" "endash"
 
       "zero" "one" "two"   "three"     "four"  "four.alt"
       "five" "six" "seven" "seven.alt" "eight" "nine"
