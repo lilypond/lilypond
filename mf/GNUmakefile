@@ -69,14 +69,12 @@ OTF_FILES = \
   $(STAFF_SIZES:%=$(outdir)/emmentaler-%.otf) \
   $(outdir)/emmentaler-brace.otf
 SVG_FILES = $(OTF_FILES:%.otf=%.svg)
-WOFF_FILES = $(OTF_FILES:%.otf=%.woff)
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 
 ALL_GEN_FILES = \
   $(OTF_FILES) \
-  $(SVG_FILES) \
-  $(WOFF_FILES)
+  $(SVG_FILES)
 
 default: $(ALL_GEN_FILES)
 
@@ -94,9 +92,7 @@ INSTALLATION_OUT_DIR1 = $(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES1 = $(OTF_FILES)
 
 INSTALLATION_OUT_DIR2 = $(local_lilypond_datadir)/fonts/svg
-INSTALLATION_OUT_FILES2 = \
-  $(SVG_FILES) \
-  $(WOFF_FILES)
+INSTALLATION_OUT_FILES2 = $(SVG_FILES)
 
 
 $(outdir)/%.global-lisp \
@@ -105,7 +101,6 @@ $(outdir)/%.lisp: $(outdir)/%.log
 	$(PYTHON) $(buildscript-dir)/mf-to-table.py $<
 
 $(outdir)/emmentaler-%.svg \
-$(outdir)/emmentaler-%.woff \
 $(outdir)/emmentaler-%.otf: \
   gen-emmentaler.fontforge.py \
   emmentaler_codes.py \
@@ -144,9 +139,7 @@ $(outdir)/emmentaler-brace.otf: \
 	  --out=$(outdir)/emmentaler-brace.otf
 	touch \
 	  $@ \
-	  $(outdir)/emmentaler-brace.woff \
 	  $(outdir)/emmentaler-brace.svg
 
-$(outdir)/emmentaler-brace.woff \
 $(outdir)/emmentaler-brace.svg: $(outdir)/emmentaler-brace.otf
 	@true

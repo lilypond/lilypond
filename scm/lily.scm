@@ -358,8 +358,6 @@ explicitly.  This employs different drawing
 primitives, resulting in large PDF file size
 increases but often markedly better PDF
 previews.")
-    (svg-woff #f
-              "Use woff font files in SVG backend.")
     (tall-page-formats #f
                        "formats to use for
 tall-page output in lilypond-book. Format is

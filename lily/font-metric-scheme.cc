@@ -85,24 +85,6 @@ and @code{fetaBraces}, respectively.
   return to_scm (charcode);
 }
 
-LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode", 2,
-           0, 0, (SCM font, SCM name),
-           R"(
-Return the character code for glyph @var{name} in @var{font}.
-
-Note that this command can only be used to access glyphs from fonts loaded with
-@code{ly:system-font-load}; currently, this means either the Emmentaler or
-Emmentaler-Brace fonts, corresponding to the font encodings @code{fetaMusic}
-and @code{fetaBraces}, respectively.
-           )")
-{
-  auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
-  LY_ASSERT_TYPE (scm_is_string, name, 2);
-
-  return to_scm (
-    fm->index_to_charcode (fm->name_to_index (ly_scm2string (name))));
-}
-
 /*
   TODO: when are non string retvals allowed?
  */

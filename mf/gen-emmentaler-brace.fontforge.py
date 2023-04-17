@@ -102,4 +102,3 @@ font.generate(output)
 base, ext = os.path.splitext(output)
 
 font.generate(base + ".svg")
-font.generate(base + ".woff")

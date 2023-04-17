@@ -3567,20 +3567,19 @@ to directory @file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} or
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}.
 
 @item
-If you have @file{gonville-*.svg} and @file{gonville-*.woff} files,
+If you have @file{gonville-*.svg} files,
 copy them to directory @file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} or
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
 @end itemize
 
 For more information, see @rlearning{Other sources of information}.
 
-Note: @file{gonville-*.otf} files are
-for @code{ps} and @code{eps} backend (for PDF and PostScript outputs).
-@file{gonville-*.svg} files are
-for @code{svg} backend without @code{svg-woff} option.
-@file{gonville-*.woff} files are
-for @code{svg} backend with @code{svg-woff} option.
-For more information, see @rprogram{Advanced command-line options for LilyPond}.
+Note: @file{gonville-*.otf} files are for the @code{ps} and
+@code{cairo} backend (for PDF and PostScript outputs, as well as
+all output formats when using the Cairo backend).
+@file{gonville-*.svg} files are for the @code{svg} backend.  For
+more information, see @rprogram{Advanced command-line options for
+LilyPond}.
 
 The following code changes the notation font to the Gonville font.
 
@@ -3610,25 +3609,23 @@ Gonville.
 
 @subsubheading Other notation fonts
 
-If you have other notation fonts like @file{@var{fontname}-*.otf},
-@file{@var{fontname}-*.svg}, and @file{@var{fontname}-*.woff},
-you can use them in the same way as Gonville.
+If you have other notation fonts like @file{@var{fontname}-*.otf}
+and @file{@var{fontname}-*.svg}, you can use them in the same way
+as Gonville.
 
-That is, copy the
-@file{@var{fontname}-*.otf}
-files to @file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} or
-@file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}.
-If you have @file{@var{fontname}-*@/.svg} and @file{@var{fontname}-*@/.woff} files,
-copy them to @file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} or
+That is, copy the @file{@var{fontname}-*.otf} files to
+@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} or
+@file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}.  If
+you have @file{@var{fontname}-*@/.svg} files, copy them to
+@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} or
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
 
-Note: At the moment, LilyPond expects the font file names to have the following
-suffixes, all of which must be present in the above installation folder(s) to
-work properly:
-@file{-11}, @file{-13}, @file{-14}, @file{-16},
-@file{-18}, @file{-20}, @file{-23}, @file{-26}, @file{-brace}.
-For example, @file{emmentaler-11.otf}, @file{emmentaler-20.svg},
-and @file{emmentaler-brace.woff} etc.
+Note: At the moment, LilyPond expects the font file names to have
+the following suffixes, all of which must be present in the above
+installation folder(s) to work properly: @file{-11}, @file{-13},
+@file{-14}, @file{-16}, @file{-18}, @file{-20}, @file{-23},
+@file{-26}, @file{-brace}.  For example, @file{emmentaler-11.otf},
+@file{emmentaler-20.svg}, etc.
 
 The following code changes the notation font to the
 @var{fontname} font.

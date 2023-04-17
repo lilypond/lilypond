@@ -138,9 +138,8 @@ font.setTableData("LILY", open(os.path.join(
     indir, "feta%(design_size)d.global-lisp" % vars()), "rb").read())
 
 
-# Generate font in OTF, SVG, and WOFF formats.
+# Generate font in OTF and SVG formats
 
 font.generate(output)
 base, ext = os.path.splitext(output)
 font.generate(base + ".svg")
-font.generate(base + ".woff")

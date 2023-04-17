@@ -71,48 +71,11 @@ tspan { white-space: pre; }
 
 (define output-dir #f)
 
-(define svg-define-font
-  (let ((otf-regex (ly:make-regex "([.]otf)?$")))
-    (lambda (font font-name scaling)
-      (let* ((base-file-name (basename (if (list? font) (pango-pf-file-name font)
-                                           (ly:font-file-name font)) ".otf"))
-             (woff-file-name (ly:regex-replace otf-regex base-file-name ".woff"))
-             (woff-file (or (ly:find-file woff-file-name) "/no-such-file.woff"))
-             (url (string-append output-dir "/fonts/" (lilypond-version) "/"
-                                 (basename woff-file-name)))
-             (lower-name (string-downcase font-name)))
-        (if (file-exists? woff-file)
-            (begin
-              (if (not (file-exists? url))
-                  (begin
-                    (ly:message (G_ "Updating font into: ~a") url)
-                    (mkdirs (string-append output-dir "/" (dirname url)) #o700)
-                    (copy-file woff-file url)
-                    (ly:progress "\n")))
-              (format #f
-                      "@font-face {
-font-family: '~a';
-font-weight: normal;
-font-style: normal;
-src: url('~a');
-}
-"
-                      font-name url))
-            "")))))
-
 (define (style-defs-end)
   (string-append
    "]]>
 "
    (ec 'style)))
-
-(define (woff-header paper dir)
-  "TODO:
-      * add (ly:version) to font name
-      * copy woff font with version alongside svg output
-"
-  (set! output-dir dir)
-  (define-fonts paper svg-define-font svg-define-font))
 
 (define (warn-formats formats)
   (let*
@@ -141,14 +104,8 @@ src: url('~a');
                      (ly:outputter-output-scheme outputter expr))))
 
     (warn-formats formats)
-    (if (ly:get-option 'svg-woff)
-        (eval-svg `(set-paper ,paper)))
     (dump (svg-begin svg-width svg-height
                      left-x (- top-y) device-width device-height))
-    (if (ly:get-option 'svg-woff)
-        (eval-svg `(set-paper #f)))
-    (if (ly:get-option 'svg-woff)
-        (dump (woff-header paper (dirname filename))))
     (dump (style-defs-end))
     (eval-svg `(set-unit-length ,unit-length))
     (ly:outputter-dump-stencil outputter stencil)

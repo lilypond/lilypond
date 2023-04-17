@@ -625,9 +625,7 @@ are encoded as vector graphics, but text fonts are @emph{not} embedded
 in the SVG files.  Any SVG viewer will therefore need the relevant text
 fonts to be available to it for proper rendering of both text and
 lyrics.  It is recommended to not use font @q{lists} or @q{aliases}
-in case an SVG viewer is unable to handle them.  When using
-@emph{Web Open Font Format} (WOFF) files the additional
-@code{-dsvg-woff} switch is required.
+in case an SVG viewer is unable to handle them.
 
 @end table
 
@@ -906,17 +904,6 @@ tend to produce widely inconsistent stem widths at resolutions
 typical for screen display.  However, the option does not noticeably
 affect print quality and causes large file size increases in PDF
 files.
-Default: @code{#f}.
-
-@item @code{svg-woff} @var{bool}
-This option is required when using Web Open Font Format (WOFF) font
-files with the @code{svg} backend.  If @var{bool} is @code{#t}, a
-single SVG file is created for every page of output.  Apart from
-LilyPond's own music glyphs, no other font information will be
-included.  Any SVG viewer will therefore require the fonts be
-available to it for the proper rendering of both text and lyrics.  It
-is also recommended not to use any font @q{aliases} or @q{lists} in
-case the SVG viewer cannot handle them.
 Default: @code{#f}.
 
 @item @code{tall-page-formats} @var{symbol}

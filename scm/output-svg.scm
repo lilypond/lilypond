@@ -291,7 +291,7 @@
         (ly:warning (G_ "cannot find SVG font ~S") font-file))))
 
 
-(define (font-smob-to-path font glyph)
+(define (font-smob-to-text font glyph)
   (let* ((name-style (font-name-style font))
          (scaled-size (modified-font-metric-font-scaling font))
          (font-file (ly:find-file (string-append name-style ".svg"))))
@@ -299,28 +299,6 @@
     (if font-file
         (cache-font font-file scaled-size glyph)
         (ly:warning (G_ "cannot find SVG font ~S") font-file))))
-
-(define (woff-font-smob-to-text font expr)
-  (let* ((name-style (font-name-style font))
-         (scaled-size (modified-font-metric-font-scaling font))
-         (font-file (ly:find-file (string-append name-style ".woff")))
-         (charcode (ly:font-glyph-name-to-charcode font expr))
-         (char-lookup (format #f "&#~S;" charcode))
-         (glyph-by-name (eoc 'altglyph `(glyphname . ,expr)))
-         (apparently-broken
-          (comment "FIXME: how to select glyph by name, altglyph is broken?"))
-         (text (string-regexp-substitute "\n" ""
-                                         (string-append glyph-by-name apparently-broken char-lookup))))
-    (define alist '())
-    (define (set-attribute attr val)
-      (set! alist (assoc-set! alist attr val)))
-    (set-attribute 'font-family name-style)
-    (set-attribute 'font-size scaled-size)
-    (apply entity 'text text #t (reverse! alist))))
-
-(define font-smob-to-text
-  (if (not (ly:get-option 'svg-woff))
-      font-smob-to-path woff-font-smob-to-text))
 
 (define (fontify font expr)
   (if (string? font)
@@ -426,8 +404,8 @@
 (define (embedded-svg string)
   string)
 
-(define (embedded-glyph-string pango-font font size cid glyphs
-                               xfile-name face-index text clusters)
+(define (glyph-string pango-font font size cid glyphs
+                      xfile-name face-index text clusters)
   (define path "")
   (if (= 1 (length glyphs))
       (set! path (music-string-to-path font size (car glyphs)))
@@ -442,46 +420,6 @@
                              (ec 'g)))))
   (set! next-horiz-adv 0.0)
   path)
-
-(define (woff-glyph-string pango-font font-name size cid?
-                           w-h-x-y-named-glyphs file-name face-index
-                           text clusters)
-  (let* ((name-style (font-name-style font-name))
-         (family-designsize (regexp-exec (make-regexp "(.*)-([0-9]*)")
-                                         font-name))
-         (family (if (regexp-match? family-designsize)
-                     (match:substring family-designsize 1)
-                     font-name))
-         (design-size (if (regexp-match? family-designsize)
-                          (match:substring family-designsize 2)
-                          #f))
-         (scaled-size (/ size lily-unit-length))
-         (font (ly:paper-get-font paper `(((font-family . ,family)
-                                           ,(if design-size
-                                                `(design-size . design-size)))))))
-    (define (glyph-spec w h x y g) ; h not used
-      (let* ((charcode (ly:font-glyph-name-to-charcode font g))
-             (char-lookup (format #f "&#~S;" charcode))
-             (glyph-by-name (eoc 'altglyph `(glyphname . ,g)))
-             (apparently-broken
-              (comment "XFIXME: how to select glyph by name, altglyph is broken?")))
-        ;; what is W?
-        (ly:format
-         "<text~a font-family=\"~a\" font-size=\"~a\">~a</text>"
-         (if (or (> (abs x) 0.00001)
-                 (> (abs y) 0.00001))
-             (ly:format " transform=\"translate(~4f,~4f)\"" x y)
-             " ")
-         name-style scaled-size
-         (string-regexp-substitute
-          "\n" ""
-          (string-append glyph-by-name apparently-broken char-lookup)))))
-
-    (string-join (map (lambda (x) (apply glyph-spec x))
-                      (reverse w-h-x-y-named-glyphs)) "\n")))
-
-(define glyph-string
-  (if (not (ly:get-option 'svg-woff)) embedded-glyph-string woff-glyph-string))
 
 (define have-grob-cause? #f)
 
