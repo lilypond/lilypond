@@ -70,12 +70,12 @@ scm_or_str2keyword (SCM s)
    static variable per ly_{symbol,keyword}2scm() use, and the cost of C++'s
    mechanism to ensure a static variable is only initialized once.
  */
-#define ly_internal_symbol_or_keyword2scm(converter, x)                        \
-  (__builtin_constant_p (x)                                             \
-   ? [&] {                                                              \
-     static SCM cached = scm_gc_protect_object (converter (x));         \
-     return cached;                                                     \
-   } ()                                                                 \
+#define ly_internal_symbol_or_keyword2scm(converter, x)         \
+  (__builtin_constant_p (x)                                     \
+   ? [&] {                                                      \
+     static SCM cached = converter (x);                         \
+     return cached;                                             \
+   } ()                                                         \
    : converter (x))
 
 #define ly_symbol2scm(x)                                                       \

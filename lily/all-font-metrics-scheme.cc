@@ -21,10 +21,10 @@
 #include "all-font-metrics.hh"
 #include "main.hh"
 #include "open-type-font.hh"
-#include "protected-scm.hh"
 
-All_font_metrics *all_fonts_global = 0;
-Protected_scm all_fonts_global_scm;
+All_font_metrics *all_fonts_global = nullptr;
+// GC-protects the all_fonts_global object.
+SCM all_fonts_global_scm = SCM_UNDEFINED;
 
 LY_DEFINE (ly_reset_all_fonts, "ly:reset-all-fonts", 0, 0, 0, (),
            R"(

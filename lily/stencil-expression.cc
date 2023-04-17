@@ -18,9 +18,8 @@
 */
 
 #include "stencil.hh"
-#include "protected-scm.hh"
 
-static Protected_scm heads (SCM_EOL);
+static SCM heads = SCM_EOL;
 
 void
 register_stencil_head (SCM symbol)

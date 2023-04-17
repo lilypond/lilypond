@@ -90,7 +90,7 @@ static Keyword_ent the_key_tab[] = {{"accepts", ACCEPTS},
                                     {"unset", UNSET},
                                     {"with", WITH}};
 
-Protected_scm Lily_lexer::keytable_;
+SCM Lily_lexer::keytable_ = SCM_UNDEFINED;
 
 SCM
 make_keytable ()
@@ -118,7 +118,7 @@ Lily_lexer::Lily_lexer (Sources *sources, Lily_parser *parser)
   extra_tokens_ = SCM_EOL;
   smobify_self ();
 
-  if (!keytable_.is_bound ())
+  if (SCM_UNBNDP (keytable_))
     keytable_ = make_keytable ();
 
   add_scope (ly_make_module ());

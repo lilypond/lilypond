@@ -18,11 +18,10 @@
 */
 
 #include "profile.hh"
-#include "protected-scm.hh"
 
-Protected_scm context_property_lookup_table;
-Protected_scm grob_property_lookup_table;
-Protected_scm prob_property_lookup_table;
+SCM context_property_lookup_table = SCM_UNDEFINED;
+SCM grob_property_lookup_table = SCM_UNDEFINED;
+SCM prob_property_lookup_table = SCM_UNDEFINED;
 
 LY_DEFINE (ly_property_lookup_stats, "ly:property-lookup-stats", 1, 0, 0,
            (SCM sym),
@@ -31,25 +30,25 @@ Return hash table with a property access corresponding to @var{sym}.  Choices
 are @code{prob}, @code{grob}, and @code{context}.
            )")
 {
-  if (context_property_lookup_table.is_bound ()
+  if (!SCM_UNBNDP (context_property_lookup_table)
       && scm_is_eq (sym, ly_symbol2scm ("context")))
     return context_property_lookup_table;
-  if (prob_property_lookup_table.is_bound ()
+  if (!SCM_UNBNDP (prob_property_lookup_table)
       && scm_is_eq (sym, ly_symbol2scm ("prob")))
     return prob_property_lookup_table;
-  if (grob_property_lookup_table.is_bound ()
+  if (!SCM_UNBNDP (grob_property_lookup_table)
       && scm_is_eq (sym, ly_symbol2scm ("grob")))
     return grob_property_lookup_table;
   return scm_c_make_hash_table (1);
 }
 
 void
-note_property_access (Protected_scm *table, SCM sym)
+note_property_access (SCM *table, SCM sym)
 {
   /*
     Statistics: which properties are looked up?
   */
-  if (!table->is_bound ())
+  if (SCM_UNBNDP (*table))
     *table = scm_c_make_hash_table (259);
 
   SCM hashhandle = scm_hashq_get_handle (*table, sym);

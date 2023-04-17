@@ -41,8 +41,8 @@
 
 std::map<std::string, SCM> replacement_cache;
 vsize replacement_max;
-Protected_scm replacement_cache_alist_key;
-Protected_scm replacement_alist_original_values;
+SCM replacement_cache_alist_key = SCM_UNDEFINED;
+SCM replacement_alist_original_values = SCM_UNDEFINED;
 
 static void
 populate_cache (SCM alist)

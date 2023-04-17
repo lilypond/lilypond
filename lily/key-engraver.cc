@@ -23,7 +23,6 @@
 #include "international.hh"
 #include "item.hh"
 #include "pitch.hh"
-#include "protected-scm.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 

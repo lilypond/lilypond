@@ -42,11 +42,11 @@
   /* end define */
 
 #define DEFINE_TRANSLATOR_LISTENER_LIST(T)                                     \
-  Protected_scm T::listener_list_ (SCM_EOL);                                   \
+  SCM T::listener_list_ = SCM_EOL;                                             \
   /* end define */
 
 #define DEFINE_ACKNOWLEDGERS(classname)                                        \
-  Drul_array<Protected_scm> classname::acknowledge_static_array_drul_;         \
+  Drul_array<SCM> classname::acknowledge_static_array_drul_ {SCM_UNDEFINED, SCM_UNDEFINED}; \
   SCM classname::static_get_acknowledger (SCM sym, Direction start_end)        \
   {                                                                            \
     return generic_get_acknowledger (                                          \

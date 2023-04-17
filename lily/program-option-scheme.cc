@@ -26,7 +26,6 @@
 #include "string-convert.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
-#include "protected-scm.hh"
 
 #include <algorithm>
 #include <cstdio>
@@ -47,7 +46,7 @@ bool profile_property_accesses = false;
 bool do_internal_type_checking_global;
 bool strict_infinity_checking = false;
 
-static Protected_scm option_hash;
+static SCM option_hash = SCM_UNDEFINED;
 
 static void
 internal_set_option (SCM var, SCM val)
@@ -198,7 +197,7 @@ Add a program option @var{sym}.  @var{val} is the default value and
 @var{description} is a string description.
            )")
 {
-  if (!option_hash.is_bound ())
+  if (SCM_UNBNDP (option_hash))
     option_hash = scm_c_make_hash_table (11);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 1);
   LY_ASSERT_TYPE (scm_is_string, description, 3);

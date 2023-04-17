@@ -89,7 +89,6 @@ void
 init_smob_protection ()
 {
   smob_protection_list = scm_cons (SCM_BOOL_F, SCM_EOL);
-  scm_gc_protect_object (smob_protection_list);
 }
 ADD_SCM_INIT_FUNC (init_smob_protection, init_smob_protection);
 

@@ -22,12 +22,10 @@
 
 #include "lily-guile.hh"
 
-class Protected_scm;
-
-void note_property_access (Protected_scm *table, SCM sym);
-extern Protected_scm context_property_lookup_table;
-extern Protected_scm grob_property_lookup_table;
-extern Protected_scm prob_property_lookup_table;
+void note_property_access (SCM *table, SCM sym);
+extern SCM context_property_lookup_table;
+extern SCM grob_property_lookup_table;
+extern SCM prob_property_lookup_table;
 extern bool profile_property_accesses;
 
 #endif /* PROFILE_HH */
