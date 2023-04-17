@@ -47,9 +47,7 @@ def parse_logfile(fn):
     autolines = read_log_file(fn)
     charmetrics = []
 
-    global_info = {
-        'filename': os.path.splitext(os.path.basename(fn))[0]
-    }
+    global_info = {}
     group = ''
 
     for i, l in enumerate(autolines):
@@ -97,7 +95,6 @@ def character_lisp_table(global_info, charmetrics):
         f = 1.0
         s = """(%s .
 ((bbox . (%f %f %f %f))
-(subfont . "%s")
 (attachment . (%f . %f))
 (attachment-down . (%f . %f))))
 """ % (charmetric['name'],
@@ -105,7 +102,6 @@ def character_lisp_table(global_info, charmetrics):
             -charmetric['depth'] * f,
             charmetric['width'] * f,
             charmetric['height'] * f,
-            global_info['filename'],
             charmetric['wx'],
             charmetric['wy'],
             charmetric['dwx'],
