@@ -119,16 +119,12 @@ $Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Tran
     {FILENAME => "lilypond-manuals.css", TITLE => "Default style"},
     {FILENAME => "lilypond-highlighting.css"}
     );
-@Texi2HTML::Config::ALT_CSS_REFS      = (
-    );
 
 sub web_settings() {
   print STDERR "Processing web site: [" . ly_get_language () . "]\n";
   $Texi2HTML::Config::BODYTEXT = "";
   @Texi2HTML::Config::CSS_REFS      = (
       {FILENAME => "lilypond-website.css", TITLE => "Default style"}
-      );
-  @Texi2HTML::Config::ALT_CSS_REFS      = (
       );
 }
 
@@ -348,11 +344,6 @@ sub lilypond_css_lines ($$)
   {
     $Texi2HTML::THISDOC{'CSS_LINES'} .=
 	"<link rel=\"stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"css/$ref->{FILENAME}\">\n";
-  }
-  foreach my $ref (@Texi2HTML::Config::ALT_CSS_REFS)
-  {
-    $Texi2HTML::THISDOC{'CSS_LINES'} .=
-	"<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"css/$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
   }
 }
 
