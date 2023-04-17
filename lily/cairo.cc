@@ -1403,6 +1403,9 @@ Cairo_outputter::handle_outline (Output_def *paper)
     return;
 
   SCM toc_alist = paper->lookup_variable (ly_symbol2scm ("label-alist-table"));
+  if (SCM_UNBNDP (toc_alist))
+    toc_alist = SCM_EOL;
+
   SCM page_numbers
     = paper->lookup_variable (ly_symbol2scm ("label-page-table"));
   for (SCM entry : as_ly_scm_list (page_numbers))
