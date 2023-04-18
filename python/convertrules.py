@@ -762,7 +762,7 @@ def conv(s):
 
 @rule((1, 5, 67), 'automaticMelismata turned on by default')
 def conv(s):
-    if re.search(r'\addlyrics', s) \
+    if re.search(r'\\addlyrics', s) \
             and re.search('automaticMelismata', s) is None:
         stderr_write(NOT_SMART % "automaticMelismata")
         stderr_write(
@@ -2052,7 +2052,7 @@ def conv(s):
     s = re.sub(r'\\chordmode\s*\\new ChordNames', r'\\chords', s)
     s = re.sub(r'\\new ChordNames\s*\\chordmode', r'\\chords', s)
     s = re.sub(r'\\new FiguredBass\s*\\figuremode', r'\\figures', s)
-    s = re.sub(r'\\figuremode\s*\new FiguredBass', r'\\figures', s)
+    s = re.sub(r'\\figuremode\s*\\new FiguredBass', r'\\figures', s)
     s = re.sub(r'\\new DrumStaff\s*\\drummode', r'\\drums', s)
     s = re.sub(r'\\drummode\s*\\new DrumStaff', r'\\drums', s)
 
@@ -2929,7 +2929,7 @@ def conv(s):
 @rule((2, 13, 0), """keySignature property not reversed any more
 MIDI 47: orchestral strings -> orchestral harp""")
 def conv(s):
-    if re.search(r'\set Staff.keySignature', s):
+    if re.search(r'\\set Staff.keySignature', s):
         stderr_write(NOT_SMART % "Staff.keySignature")
         stderr_write(_("The alist for Staff.keySignature is no \
 longer in reversed order.\n"))
@@ -4918,12 +4918,12 @@ convert automatically.  Please do the update manually.
                 fac != ["(/", "staff-height", "pt", "20)"]
                 and fac != ["(/", "staff-height", "20", "pt)"]
             ):
-                stderr_write(NOT_SMART % "#:factor parameter to set-global-fonts")
+                stderr_write(NOT_SMART % _("#:factor parameter to set-global-fonts"))
                 stderr_write(set_global_fonts_factor_warning
                              .format(params["factor"]))
                 stderr_write(UPDATE_MANUALLY)
         if params.get("music") != params.get("brace"):
-            stderr_write(NOT_SMART % "different music and brace fonts passed to set-global-fonts")
+            stderr_write(NOT_SMART % _("different music and brace fonts passed to set-global-fonts"))
             stderr_write(set_global_fonts_brace_warning)
             stderr_write(UPDATE_MANUALLY)
         for key, val in params.items():
@@ -4940,7 +4940,7 @@ convert automatically.  Please do the update manually.
     s = re.sub(assign_re, replace_set_global_fonts, s, flags=re.MULTILINE)
     # Warn about remaining uses
     if "set-global-fonts" in s:
-        stderr_write(NOT_SMART % "advanced use of set-global-fonts")
+        stderr_write(NOT_SMART % _("advanced use of set-global-fonts"))
         stderr_write(set_global_fonts_advanced_warning)
         stderr_write(UPDATE_MANUALLY)
 
@@ -5005,7 +5005,7 @@ to convert automatically.  Please do the update manually.
             and factor != ["(/", "staff-height", "pt", "20)"]
             and factor != ["(/", "staff-height", "20", "pt)"]
         ):
-            stderr_write(NOT_SMART % "factor parameter to make-pango-font-tree")
+            stderr_write(NOT_SMART % _("factor parameter to make-pango-font-tree"))
             stderr_write(pango_warning.format(match.group("factor")))
             stderr_write(UPDATE_MANUALLY)
         return "\n".join(lines)
@@ -5016,7 +5016,7 @@ to convert automatically.  Please do the update manually.
     s = re.sub(pango_assign_re, replace_pango, s, flags=re.MULTILINE)
 
     if "make-pango-font-tree" in s:
-        stderr_write(NOT_SMART % "advanced use of make-pango-font-tree")
+        stderr_write(NOT_SMART % _("advanced use of make-pango-font-tree"))
         stderr_write(pango_advanced_warning)
         stderr_write(UPDATE_MANUALLY)
 
@@ -5072,8 +5072,8 @@ to convert automatically.  Please do the update manually.
     s = re.sub(r"\(font-series\s+\.\s+medium\)", "(font-series . normal)", s)
 
     if "repeatCommands" in s and ('(volta "' in s or '(volta ,#{' in s):
-        stderr_write(NOT_SMART % "markup in repeatCommands")
-        stderr_write(r"""
+        stderr_write(NOT_SMART % _("markup in repeatCommands"))
+        stderr_write(_(r"""
 Markups inside repeatCommands are no longer automatically typeset in
 a music font. Use the \volta-number command where needed. Example
 replacements:
@@ -5086,7 +5086,7 @@ replacements:
 
   \set Score.repeatCommands = #'((volta "1.2. ad lib."))
   -> \set Score.repeatCommands = #`((volta ,#{ \markup { \volta-number "1.2." ad lib. } #}))
-""")
+"""))
     return s
 
 @rule((2, 25, 5),
@@ -5096,11 +5096,11 @@ font-defaults, text-font-defaults -> property-defaults
 def conv(s):
     s = re.sub(r"(text-)?font-defaults(?=\s*\.\s*[\w-]+\s*=)", "property-defaults", s)
     if "font-defaults" in s:
-        stderr_write(NOT_SMART % "advanced use of (text-)font-defaults")
-        stderr_write("""
+        stderr_write(NOT_SMART % _("advanced use of (text-)font-defaults"))
+        stderr_write(_("""
 The text-font-defaults and font-defaults variables have
 been merged into a single property-defaults variable.
-""")
+"""))
         stderr_write(UPDATE_MANUALLY)
     return s
 
