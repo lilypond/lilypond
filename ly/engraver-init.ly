@@ -1168,9 +1168,8 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   \Voice
   \name VaticanaVoice
   \alias Voice
-  \description "Same as @code{Voice} context, except that it is
-accommodated for typesetting Gregorian Chant in the notational style
-of Editio Vaticana."
+  \description "A kind of @code{Voice} for typesetting Gregorian chant
+in a notational style approximating @cite{Editio Vaticana}."
 
   \remove Slur_engraver
   \remove Stem_engraver
@@ -1198,10 +1197,8 @@ of Editio Vaticana."
   \alias Staff
   \accepts VaticanaVoice
   \defaultchild VaticanaVoice
-
-  \description "Same as @code{Staff} context, except that it is
-accommodated for typesetting Gregorian Chant in the notational style
-of Editio Vaticana."
+  \description "A kind of @code{Staff} for typesetting Gregorian chant
+in a notational style approximating @cite{Editio Vaticana}."
 
   \remove Time_signature_engraver
   \consists Custos_engraver
@@ -1382,8 +1379,9 @@ accommodated for typesetting a piece in mensural style."
   \Voice
   \name PetrucciVoice
   \alias Voice
-  \description "Same as @code{Voice} context, except that it is
-accommodated for typesetting a piece in Petrucci style."
+  \description "A kind of @code{Voice} approximating the mensural
+typesetting of Ottaviano Petrucci's @cite{Harmonices Musices
+Odhecaton} (Venice, 1501)."
 
   \remove Ligature_bracket_engraver
   \consists Mensural_ligature_engraver
@@ -1407,8 +1405,9 @@ accommodated for typesetting a piece in Petrucci style."
   \denies Voice
   \defaultchild PetrucciVoice
   \accepts PetrucciVoice
-  \description "Same as @code{Staff} context, except that it is
-accommodated for typesetting a piece in Petrucci style."
+  \description "A kind of @code{Staff} approximating the mensural
+typesetting of Ottaviano Petrucci's @cite{Harmonices Musices
+Odhecaton} (Venice, 1501)."
 
   \consists Custos_engraver
   \consists Signum_repetitionis_engraver
