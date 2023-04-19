@@ -73,13 +73,14 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m)
 }
 
 Font_metric *
-find_pango_font (Output_def *layout, PangoFontDescription *description)
+find_pango_font (Output_def *layout, PangoFontDescription *description,
+                 bool is_emmentaler)
 {
   if (layout->parent_)
-    return find_pango_font (layout->parent_, description);
+    return find_pango_font (layout->parent_, description, is_emmentaler);
 
-  Font_metric *fm
-    = all_fonts_global->find_pango_font (description, output_scale (layout));
+  Font_metric *fm = all_fonts_global->find_pango_font (
+    description, is_emmentaler, output_scale (layout));
 
   // No caching needed here since all_fonts_global does it for us, so a plain
   // list suffices, unlike music fonts.

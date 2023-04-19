@@ -27,8 +27,20 @@
 
 #include <fontconfig/fontconfig.h>
 
+// This routine creates a Fontconfig configuration object that LilyPond can use
+// (through Pango) to find fonts.  LilyPond's datadir is always added as an
+// application font directory (i.e., directory for custom, non-system fonts),
+// because that is where Emmentaler is found, and also the default text fonts
+// (URW++) in the official binaries.  If emmentaler is false, system font
+// directories are searched too.  On the other hand, if emmentaler is true, the
+// datadir is the only directory; this is because some Linux distributions
+// install LilyPond's Emmentaler font in system font directories, which could
+// result in LilyPond picking its font not from its datadir, but from the distro
+// package, which might be a different version, while the Emmentaler font is
+// developed together with LilyPond and should always have the same version.
+
 unique_fcconfig_ptr
-make_font_config ()
+make_font_config (bool emmentaler)
 {
   debug_output (_ ("Creating font configuration..."));
 
@@ -38,24 +50,31 @@ make_font_config ()
   /* fontconfig conf files */
   std::vector<std::string> confs;
 
-  /* LilyPond local fontconfig conf file 00
-     This file is loaded *before* fontconfig's default conf. */
-  confs.push_back (lilypond_datadir + "/fonts/00-lilypond-fonts.conf");
+  if (emmentaler)
+    {
+      confs.push_back (lilypond_datadir + "/fonts/emmentaler-font.conf");
+    }
+  else
+    {
+      /* LilyPond local fontconfig conf file 00
+         This file is loaded *before* fontconfig's default conf. */
+      confs.push_back (lilypond_datadir + "/fonts/00-lilypond-fonts.conf");
 
-  /* fontconfig's default conf file */
-  {
-    FcChar8 *default_conf = FcConfigFilename (nullptr);
-    /* emplace_back only if default conf exists */
-    if (default_conf)
-      confs.emplace_back (reinterpret_cast<char *> (default_conf));
-    else
-      warning (_ ("cannot find fontconfig default config, skipping."));
-    FcStrFree (default_conf);
-  }
+      /* fontconfig's default conf file */
+      {
+        FcChar8 *default_conf = FcConfigFilename (nullptr);
+        /* emplace_back only if default conf exists */
+        if (default_conf)
+          confs.emplace_back (reinterpret_cast<char *> (default_conf));
+        else
+          warning (_ ("cannot find fontconfig default config, skipping."));
+        FcStrFree (default_conf);
+      }
 
-  /* LilyPond local fontconfig conf file 99
-     This file is loaded *after* fontconfig's default conf. */
-  confs.push_back (lilypond_datadir + "/fonts/99-lilypond-fonts.conf");
+      /* LilyPond local fontconfig conf file 99
+         This file is loaded *after* fontconfig's default conf. */
+      confs.push_back (lilypond_datadir + "/fonts/99-lilypond-fonts.conf");
+    }
 
   /* Load fontconfig conf files */
   for (const auto &conf_file : confs)

@@ -190,15 +190,21 @@ select_font (Output_def *layout, SCM chain)
     {
       // Unlike music fonts, text fonts are scaled automatically by Pango.
       PangoFontDescription *description;
+      bool is_emmentaler;
+      SCM emmentaler_str = ly_string2scm ("emmentaler");
       if (scm_is_string (string_desc))
         {
           description = pango_font_description_from_string (
             ly_scm2string (string_desc).c_str ());
+          is_emmentaler
+            = ly_is_equal (scm_string_downcase (string_desc), emmentaler_str);
         }
       else
         {
           description = pango_font_description_new ();
           pango_font_description_set_family (description, name.c_str ());
+          is_emmentaler
+            = ly_is_equal (scm_string_downcase (name_scm), emmentaler_str);
           // font-shape, etc. make no sense in fetaText
           if (scm_is_eq (encoding, ly_symbol2scm ("latin1")))
             tweak_pango_description (description, chain);
@@ -210,6 +216,6 @@ select_font (Output_def *layout, SCM chain)
       int pango_size = static_cast<int> (
         std::lround (static_cast<Real> (requested_size) * PANGO_SCALE));
       pango_font_description_set_size (description, pango_size);
-      return find_pango_font (layout, description);
+      return find_pango_font (layout, description, is_emmentaler);
     }
 }

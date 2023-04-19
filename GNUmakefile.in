@@ -231,7 +231,8 @@ $(tree-prefix)/lilypond-force: GNUmakefile GNUmakefile.in $(outdir)/VERSION
 	mkdir -p $(tree-lib-prefix)/ccache && \
 		ln -s ../../../../../scm/$(outconfbase)/ $(tree-lib-prefix)/ccache/lily
 	cd $(tree-share-prefix)/fonts && \
-		for i in 00-lilypond-fonts.conf 99-lilypond-fonts.conf; do \
+		for i in 00-lilypond-fonts.conf 99-lilypond-fonts.conf \
+                         emmentaler-font.conf; do \
 			ln -s $(top-src-dir)/mf/$$i .; done
 	# Just link the entire directory, even if it puts the "wrong" files into the
 	# "wrong" directory, such as *.otf into svg/.

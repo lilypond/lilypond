@@ -25,6 +25,6 @@
 #include <fontconfig/fontconfig.h>
 
 using unique_fcconfig_ptr = unique_ptr_with_freer<FcConfig, FcConfigDestroy>;
-unique_fcconfig_ptr make_font_config ();
+unique_fcconfig_ptr make_font_config (bool emmentaler);
 
 #endif

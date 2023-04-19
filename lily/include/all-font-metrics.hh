@@ -40,6 +40,7 @@ class All_font_metrics : public Smob<All_font_metrics>
   File_path search_path_;
 
   PangoFT2FontMap *pango_ft2_fontmap_;
+  static PangoFT2FontMap *emmentaler_pango_ft2_fontmap_;
   Scheme_hash_table *pango_dict_;
   int pango_dpi_;
 
@@ -47,6 +48,7 @@ class All_font_metrics : public Smob<All_font_metrics>
 
   unique_fcconfig_ptr font_config_ = nullptr;
   bool font_config_has_app_fonts_ = false;
+  static unique_fcconfig_ptr emmentaler_font_config_;
 
   void font_config_changed ();
 
@@ -61,7 +63,7 @@ public:
   ~All_font_metrics ();
 
   Pango_font *find_pango_font (PangoFontDescription const *description,
-                               Real scale);
+                               bool is_emmentaler, Real scale);
 
   Open_type_font *find_otf_font (const std::string &name);
   SCM font_descriptions () const;

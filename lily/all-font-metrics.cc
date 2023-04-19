@@ -33,6 +33,9 @@
 #include <fontconfig/fontconfig.h>
 #include <pango/pangofc-fontmap.h>
 
+unique_fcconfig_ptr All_font_metrics::emmentaler_font_config_ = nullptr;
+PangoFT2FontMap *All_font_metrics::emmentaler_pango_ft2_fontmap_ = nullptr;
+
 Index_to_charcode_map const *
 All_font_metrics::get_index_to_charcode_map (const std::string &filename,
                                              int face_index, FT_Face face)
@@ -72,35 +75,50 @@ All_font_metrics::All_font_metrics (File_path search_path,
   if (previous && !previous->font_config_has_app_fonts_)
     font_config_ = std::move (previous->font_config_);
   else
-    font_config_ = make_font_config ();
+    font_config_ = make_font_config (/* emmentaler */ false);
 
-  PangoFontMap *pfm = pango_ft2_font_map_new ();
-  pango_ft2_fontmap_ = PANGO_FT2_FONT_MAP (pfm);
+  // Unlike the general FcConfig, the Emmentaler FcConfig never needs resetting
+  // since it is never mutated.
+  if (!emmentaler_font_config_) // first initialization
+    emmentaler_font_config_ = make_font_config (/* emmentaler */ true);
+
   pango_dpi_ = PANGO_RESOLUTION;
-  pango_ft2_font_map_set_resolution (pango_ft2_fontmap_, pango_dpi_,
-                                     pango_dpi_);
-  PangoFcFontMap *fcm = PANGO_FC_FONT_MAP (pango_ft2_fontmap_);
-  assert (fcm);
-  pango_fc_font_map_set_config (fcm, font_config_.get ());
 
-  // Before searching a font pattern with Fontconfig, FcConfigSubstitute should
-  // be called on the pattern with the appropriate FcConfig so that the
-  // configuration can define transformations to be applied on the pattern.
-  // LilyPond does this to define font aliases.  Unfortunately, Pango has a bug
-  // with this when using custom FcConfigs: it calls FcConfigSubstitute with the
-  // global, default FcConfig instead of the font map's FcConfig.  This is
-  // https://gitlab.gnome.org/GNOME/pango/-/issues/743 .  Work around it by
-  // adding an extra function to transform the pattern, calling
-  // FcConfigSubstitute with the right FcConfig.
-  // pango_ft2_font_map_set_default_substitute is deprecated as of Pango 1.46 in
-  // favor of pango_fc_font_map_set_default_substitute, but we still support
-  // 1.44.
+  auto make_font_map = [&] (FcConfig *conf) {
+    PangoFontMap *pfm = pango_ft2_font_map_new ();
+    PangoFT2FontMap *res = PANGO_FT2_FONT_MAP (pfm);
+
+    pango_ft2_font_map_set_resolution (res, pango_dpi_, pango_dpi_);
+    PangoFcFontMap *fcm = PANGO_FC_FONT_MAP (res);
+    assert (fcm);
+    pango_fc_font_map_set_config (fcm, conf);
+
+    // Before searching a font pattern with Fontconfig, FcConfigSubstitute should
+    // be called on the pattern with the appropriate FcConfig so that the
+    // configuration can define transformations to be applied on the pattern.
+    // LilyPond does this to define font aliases.  Unfortunately, Pango has a bug
+    // with this when using custom FcConfigs: it calls FcConfigSubstitute with the
+    // global, default FcConfig instead of the font map's FcConfig.  This is
+    // https://gitlab.gnome.org/GNOME/pango/-/issues/743 .  Work around it by
+    // adding an extra function to transform the pattern, calling
+    // FcConfigSubstitute with the right FcConfig.
+    // pango_ft2_font_map_set_default_substitute is deprecated as of Pango 1.46 in
+    // favor of pango_fc_font_map_set_default_substitute, but we still support
+    // 1.44.
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-  pango_ft2_font_map_set_default_substitute (pango_ft2_fontmap_,
-                                             substitute_with_lily_config,
-                                             font_config_.get (), nullptr);
+    pango_ft2_font_map_set_default_substitute (res, substitute_with_lily_config,
+                                               font_config_.get (), nullptr);
 #pragma GCC diagnostic pop
+    return res;
+  };
+
+  pango_ft2_fontmap_ = make_font_map (font_config_.get ());
+  if (!emmentaler_pango_ft2_fontmap_) // first initialization
+    {
+      emmentaler_pango_ft2_fontmap_
+        = make_font_map (emmentaler_font_config_.get ());
+    }
 }
 
 All_font_metrics::~All_font_metrics ()
@@ -120,7 +138,7 @@ All_font_metrics::mark_smob () const
 
 Pango_font *
 All_font_metrics::find_pango_font (PangoFontDescription const *description,
-                                   Real output_scale)
+                                   bool is_emmentaler, Real output_scale)
 {
   gchar *pango_fn = pango_font_description_to_filename (description);
   SCM key = ly_symbol2scm (pango_fn);
@@ -130,8 +148,9 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
     {
       debug_output ("[" + std::string (pango_fn), true); // start on a new line
 
-      Pango_font *pf
-        = new Pango_font (pango_ft2_fontmap_, description, output_scale);
+      PangoFT2FontMap *map
+        = is_emmentaler ? emmentaler_pango_ft2_fontmap_ : pango_ft2_fontmap_;
+      Pango_font *pf = new Pango_font (map, description, output_scale);
 
       val = pf->self_scm ();
       pango_dict_->set (key, val);
