@@ -21,9 +21,11 @@
 #define ALL_FONTS_HH
 
 #include "file-path.hh"
+#include "font-config.hh"
 #include "font-metric.hh"
 #include "config.hh"
 
+#include <fontconfig/fontconfig.h>
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
 
@@ -43,7 +45,10 @@ class All_font_metrics : public Smob<All_font_metrics>
 
   std::map<std::string, Index_to_charcode_map> filename_charcode_maps_map_;
 
-  All_font_metrics (All_font_metrics const &);
+  unique_fcconfig_ptr font_config_ = nullptr;
+  bool font_config_has_app_fonts_ = false;
+
+  void font_config_changed ();
 
 public:
   SCM mark_smob () const;
@@ -52,7 +57,7 @@ public:
   get_index_to_charcode_map (const std::string &filename, int face_index,
                              FT_Face face);
 
-  All_font_metrics (File_path search_path);
+  All_font_metrics (File_path search_path, All_font_metrics *previous);
   ~All_font_metrics ();
 
   Pango_font *find_pango_font (PangoFontDescription const *description,
@@ -61,12 +66,12 @@ public:
   Open_type_font *find_otf_font (const std::string &name);
   SCM font_descriptions () const;
 
-  // Pango wants to be informed if the Fontconfig configuration
-  // parameters are modified.
-  void notify_fc_config_change ();
+  void display_fonts ();
+  std::string get_font_file (const std::string &name);
+  void add_font_directory (const std::string &name);
+  void add_font_file (const std::string &name);
 };
 
 extern All_font_metrics *all_fonts_global;
-SCM ly_reset_all_fonts ();
 
 #endif /* ALL_FONTS_HH */

@@ -17,18 +17,13 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "memory.hh"
+
 #include <glib.h>
 
-#include <memory>
-
-// unique_glib_ptr is like unique_stdlib_ptr from flower, but uses g_free
-// instead of free.  Use for anything GLib returns that is owned by the caller
-// (but not for objects with shared ownership, whose reference count should be
-// decremented instead, using g_xxxx_unref).
-
-struct Glib_freer
-{
-  void operator() (void *p) { g_free (p); }
-};
+// Specialize flower's unique_ptr_with_void_freer for g_free.  Use for anything
+// GLib returns that is owned by the caller (but not for objects with shared
+// ownership, whose reference count should be decremented instead, using
+// g_xxxx_unref).
 template <typename T>
-using unique_glib_ptr = std::unique_ptr<T, Glib_freer>;
+using unique_glib_ptr = unique_ptr_with_void_freer<T, g_free>;

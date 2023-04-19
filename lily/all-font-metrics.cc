@@ -46,32 +46,42 @@ All_font_metrics::get_index_to_charcode_map (const std::string &filename,
 }
 
 static void
-substitute_with_lily_config (FcPattern *pat, void * /* data, unused */)
+substitute_with_lily_config (FcPattern *pat, void *config)
 {
-  FcConfigSubstitute (font_config_global, pat, FcMatchPattern);
+  FcConfig *fcconfig = static_cast<FcConfig *> (config);
+  FcConfigSubstitute (fcconfig, pat, FcMatchPattern);
 }
 
-All_font_metrics::All_font_metrics (File_path search_path)
+All_font_metrics::All_font_metrics (File_path search_path,
+                                    All_font_metrics *previous)
   : search_path_ (search_path)
 {
-  pango_dict_ = 0;
+  pango_dict_ = nullptr;
+  otf_dict_ = nullptr;
 
-  otf_dict_ = 0;
   smobify_self ();
+
   otf_dict_ = unsmob<Scheme_hash_table> (Scheme_hash_table::make_smob ());
-
   pango_dict_ = unsmob<Scheme_hash_table> (Scheme_hash_table::make_smob ());
+
+  // We accept a previous All_font_metrics object (from the last session, i.e.,
+  // .ly file processed) in order to avoid recreating an FcConfig if no app
+  // fonts were added (the common case), as that takes a bit of time.  The
+  // previous object won't be used further, so we can take ownership of its
+  // FcConfig if we want.
+  if (previous && !previous->font_config_has_app_fonts_)
+    font_config_ = std::move (previous->font_config_);
+  else
+    font_config_ = make_font_config ();
+
   PangoFontMap *pfm = pango_ft2_font_map_new ();
-
   pango_ft2_fontmap_ = PANGO_FT2_FONT_MAP (pfm);
-
   pango_dpi_ = PANGO_RESOLUTION;
   pango_ft2_font_map_set_resolution (pango_ft2_fontmap_, pango_dpi_,
                                      pango_dpi_);
-
   PangoFcFontMap *fcm = PANGO_FC_FONT_MAP (pango_ft2_fontmap_);
   assert (fcm);
-  pango_fc_font_map_set_config (fcm, font_config_global);
+  pango_fc_font_map_set_config (fcm, font_config_.get ());
 
   // Before searching a font pattern with Fontconfig, FcConfigSubstitute should
   // be called on the pattern with the appropriate FcConfig so that the
@@ -87,8 +97,9 @@ All_font_metrics::All_font_metrics (File_path search_path)
   // 1.44.
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-  pango_ft2_font_map_set_default_substitute (
-    pango_ft2_fontmap_, substitute_with_lily_config, nullptr, nullptr);
+  pango_ft2_font_map_set_default_substitute (pango_ft2_fontmap_,
+                                             substitute_with_lily_config,
+                                             font_config_.get (), nullptr);
 #pragma GCC diagnostic pop
 }
 
@@ -165,7 +176,140 @@ All_font_metrics::find_otf_font (const std::string &name)
 }
 
 void
-All_font_metrics::notify_fc_config_change ()
+All_font_metrics::font_config_changed ()
 {
+  // Pango wants to be informed if the Fontconfig configuration parameters are
+  // modified.
   pango_fc_font_map_config_changed (PANGO_FC_FONT_MAP (pango_ft2_fontmap_));
+  // Remember that we shouldn't reuse this FcConfig in the next session, as it
+  // now contains application fonts that we don't want to bleed over the next
+  // .ly file.
+  font_config_has_app_fonts_ = true;
+}
+
+static std::string
+display_fontset (FcFontSet *fs)
+{
+  std::string retval;
+
+  int j;
+  for (j = 0; j < fs->nfont; j++)
+    {
+      unique_stdlib_ptr<FcChar8> font (FcNameUnparse (fs->fonts[j]));
+      FcChar8 *str;
+      if (FcPatternGetString (fs->fonts[j], FC_FILE, 0, &str) == FcResultMatch)
+        retval += String_convert::form_string ("FILE %s\n", str);
+      if (FcPatternGetString (fs->fonts[j], FC_INDEX, 0, &str) == FcResultMatch)
+        retval += String_convert::form_string ("INDEX %s\n", str);
+      if (FcPatternGetString (fs->fonts[j], FC_FAMILY, 0, &str)
+          == FcResultMatch)
+        retval += String_convert::form_string ("family %s\n ", str);
+      if (FcPatternGetString (fs->fonts[j], "designsize", 0, &str)
+          == FcResultMatch)
+        retval += String_convert::form_string ("designsize %s\n ", str);
+
+      retval += String_convert::form_string (
+        "%s\n", reinterpret_cast<const char *> (font.get ()));
+    }
+
+  return retval;
+}
+
+static std::string
+display_strlist (char const *what, FcStrList *slist)
+{
+  std::string retval;
+  while (FcChar8 *dir = FcStrListNext (slist))
+    {
+      retval += String_convert::form_string ("%s: %s\n", what, dir);
+    }
+  return retval;
+}
+
+static std::string
+display_config (FcConfig *fcc)
+{
+  std::string retval;
+  retval += display_strlist ("Config files", FcConfigGetConfigFiles (fcc));
+  retval += display_strlist ("Config dir", FcConfigGetConfigDirs (fcc));
+  retval += display_strlist ("Font dir", FcConfigGetFontDirs (fcc));
+  return retval;
+}
+
+static std::string
+display_list (FcConfig *fcc)
+{
+  FcPattern *pat = FcPatternCreate ();
+
+  FcObjectSet *os = 0;
+  if (!os)
+    os = FcObjectSetBuild (FC_FAMILY, FC_STYLE, nullptr);
+
+  FcFontSet *fs = FcFontList (fcc, pat, os);
+  FcObjectSetDestroy (os);
+  if (pat)
+    FcPatternDestroy (pat);
+
+  std::string retval;
+  if (fs)
+    {
+      retval = display_fontset (fs);
+      FcFontSetDestroy (fs);
+    }
+  return retval;
+}
+
+void
+All_font_metrics::display_fonts ()
+{
+  std::string str = display_list (font_config_.get ());
+  str += display_config (font_config_.get ());
+  progress_indication (str);
+}
+
+std::string
+All_font_metrics::get_font_file (const std::string &name)
+{
+  FcPattern *pat = FcPatternCreate ();
+  FcPatternAddString (pat, FC_FAMILY,
+                      reinterpret_cast<const FcChar8 *> (name.c_str ()));
+  FcConfigSubstitute (font_config_.get (), pat, FcMatchPattern);
+  FcDefaultSubstitute (pat);
+
+  FcResult result;
+  std::string file_result;
+
+  pat = FcFontMatch (font_config_.get (), pat, &result);
+
+  FcChar8 *str = nullptr;
+  if (FcPatternGetString (pat, FC_FILE, 0, &str) == FcResultMatch)
+    file_result = reinterpret_cast<char const *> (str);
+
+  FcPatternDestroy (pat);
+
+  return file_result;
+}
+
+void
+All_font_metrics::add_font_directory (const std::string &name)
+{
+  if (!FcConfigAppFontAddDir (
+        font_config_.get (), reinterpret_cast<const FcChar8 *> (name.c_str ())))
+    error (_f ("failed adding font directory: %s", name.c_str ()));
+  else
+    debug_output (_f ("Adding font directory: %s", name.c_str ()));
+
+  font_config_changed ();
+}
+
+void
+All_font_metrics::add_font_file (const std::string &name)
+{
+  if (!FcConfigAppFontAddFile (
+        font_config_.get (), reinterpret_cast<const FcChar8 *> (name.c_str ())))
+    error (_f ("failed adding font file: %s", name.c_str ()));
+  else
+    debug_output (_f ("Adding font file: %s", name.c_str ()));
+
+  font_config_changed ();
 }

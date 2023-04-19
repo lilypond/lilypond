@@ -23,14 +23,30 @@
 #include <memory>
 #include <stdlib.h>
 
-// a functor wrapping free ()
+// a functor wrapping an arbitrary free-like function
+template<typename T, void (*f) (T *)>
 struct Freer
 {
-  void operator() (void *p) { free (p); }
+  void operator() (void *p) { f (static_cast<T *> (p)); }
 };
 
-// a std::unique_ptr<T> that releases its object with free () instead of delete
+// a std::unique_ptr<T> that releases its object with f instead of delete
+template <typename T, void (*f) (T *)>
+using unique_ptr_with_freer = std::unique_ptr<T, Freer<T, f>>;
+
+
+// same as Freer, but f takes void *
+template<typename T, void (*f) (void *)>
+struct VoidFreer
+{
+  void operator() (void *p) { f (p); }
+};
+
+template <typename T, void (*f) (void *)>
+using unique_ptr_with_void_freer = std::unique_ptr<T, VoidFreer<T, f>>;
+
+// specialize for free
 template <typename T>
-using unique_stdlib_ptr = std::unique_ptr<T, Freer>;
+using unique_stdlib_ptr = unique_ptr_with_void_freer<T, free>;
 
 #endif // MEMORY_HH

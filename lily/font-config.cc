@@ -19,24 +19,21 @@
 
 #include "config.hh"
 
-#include "file-path.hh"
+#include "font-config.hh"
+
 #include "international.hh"
 #include "main.hh"
 #include "warn.hh"
 
-#include <cstdio>
 #include <fontconfig/fontconfig.h>
-#include <sys/stat.h>
 
-FcConfig *font_config_global = 0;
-
-void
-init_fontconfig ()
+unique_fcconfig_ptr
+make_font_config ()
 {
-  debug_output (_ ("Initializing FontConfig..."));
+  debug_output (_ ("Creating font configuration..."));
 
   /* Create an empty configuration */
-  font_config_global = FcConfigCreate ();
+  unique_fcconfig_ptr conf (FcConfigCreate ());
 
   /* fontconfig conf files */
   std::vector<std::string> confs;
@@ -61,34 +58,35 @@ init_fontconfig ()
   confs.push_back (lilypond_datadir + "/fonts/99-lilypond-fonts.conf");
 
   /* Load fontconfig conf files */
-  for (const auto &conf : confs)
+  for (const auto &conf_file : confs)
     {
-      auto *const fcstr = reinterpret_cast<const FcChar8 *> (conf.c_str ());
-      if (!FcConfigParseAndLoad (font_config_global, fcstr, FcTrue))
+      auto *const fcstr
+        = reinterpret_cast<const FcChar8 *> (conf_file.c_str ());
+      if (!FcConfigParseAndLoad (conf.get (), fcstr, FcTrue))
         error (_f ("failed to add fontconfig configuration file `%s'",
-                   conf.c_str ()));
+                   conf_file.c_str ()));
       else
         debug_output (
-          _f ("Adding fontconfig configuration file: %s", conf.c_str ()));
+          _f ("Adding fontconfig configuration file: %s", conf_file.c_str ()));
     }
 
   std::string dir (lilypond_datadir + "/fonts/otf");
 
-  if (!FcConfigAppFontAddDir (font_config_global,
+  if (!FcConfigAppFontAddDir (conf.get (),
                               reinterpret_cast<const FcChar8 *> (dir.c_str ())))
     error (_f ("failed adding font directory: %s", dir.c_str ()));
   else
     debug_output (_f ("Adding font directory: %s", dir.c_str ()));
 
   debug_output (_ ("Building font database..."));
-
   // FcConfigParseAndLoad calls should be followed by FcConfigBuildFonts, which
   // does the actual work of building the font database using all the
   // configuration files loaded.  Note that adding extra configuration after
   // this function is called has indeterminate effect according to its
   // documentation, but adding application fonts is fine, and this is what
   // ly:font-config-add-{font,directory} do.
-  FcConfigBuildFonts (font_config_global);
-
+  FcConfigBuildFonts (conf.get ());
   debug_output ("\n");
+
+  return conf;
 }

@@ -342,7 +342,6 @@ prepend_scheme_list (const std::string &dir, const std::string &scmlist)
 }
 
 void init_global_tweak_registry ();
-void init_fontconfig ();
 
 #if HAVE_CHROOT
 static void
@@ -458,7 +457,6 @@ main_with_guile (void *, int, char **)
   init_scheme_code_global = "(begin " + init_scheme_code_global + ")";
 
   ly_c_init_guile ();
-  init_fontconfig ();
 
   init_freetype ();
 

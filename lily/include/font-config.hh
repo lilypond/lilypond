@@ -20,8 +20,11 @@
 #ifndef FONT_CONFIG_HH
 #define FONT_CONFIG_HH
 
+#include "memory.hh"
+
 #include <fontconfig/fontconfig.h>
 
-extern FcConfig *font_config_global;
+using unique_fcconfig_ptr = unique_ptr_with_freer<FcConfig, FcConfigDestroy>;
+unique_fcconfig_ptr make_font_config ();
 
 #endif

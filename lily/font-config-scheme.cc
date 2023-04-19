@@ -18,86 +18,8 @@
 */
 
 #include "all-font-metrics.hh"
-#include "font-config.hh"
 #include "lily-guile.hh"
-#include "international.hh"
-#include "memory.hh"
-#include "string-convert.hh"
 #include "warn.hh"
-
-#include <fontconfig/fontconfig.h>
-
-std::string
-display_fontset (FcFontSet *fs)
-{
-  std::string retval;
-
-  int j;
-  for (j = 0; j < fs->nfont; j++)
-    {
-      unique_stdlib_ptr<FcChar8> font (FcNameUnparse (fs->fonts[j]));
-      FcChar8 *str;
-      if (FcPatternGetString (fs->fonts[j], FC_FILE, 0, &str) == FcResultMatch)
-        retval += String_convert::form_string ("FILE %s\n", str);
-      if (FcPatternGetString (fs->fonts[j], FC_INDEX, 0, &str) == FcResultMatch)
-        retval += String_convert::form_string ("INDEX %s\n", str);
-      if (FcPatternGetString (fs->fonts[j], FC_FAMILY, 0, &str)
-          == FcResultMatch)
-        retval += String_convert::form_string ("family %s\n ", str);
-      if (FcPatternGetString (fs->fonts[j], "designsize", 0, &str)
-          == FcResultMatch)
-        retval += String_convert::form_string ("designsize %s\n ", str);
-
-      retval += String_convert::form_string (
-        "%s\n", reinterpret_cast<const char *> (font.get ()));
-    }
-
-  return retval;
-}
-
-std::string
-display_strlist (char const *what, FcStrList *slist)
-{
-  std::string retval;
-  while (FcChar8 *dir = FcStrListNext (slist))
-    {
-      retval += String_convert::form_string ("%s: %s\n", what, dir);
-    }
-  return retval;
-}
-
-std::string
-display_config (FcConfig *fcc)
-{
-  std::string retval;
-  retval += display_strlist ("Config files", FcConfigGetConfigFiles (fcc));
-  retval += display_strlist ("Config dir", FcConfigGetConfigDirs (fcc));
-  retval += display_strlist ("Font dir", FcConfigGetFontDirs (fcc));
-  return retval;
-}
-
-std::string
-display_list (FcConfig *fcc)
-{
-  FcPattern *pat = FcPatternCreate ();
-
-  FcObjectSet *os = 0;
-  if (!os)
-    os = FcObjectSetBuild (FC_FAMILY, FC_STYLE, nullptr);
-
-  FcFontSet *fs = FcFontList (fcc, pat, os);
-  FcObjectSetDestroy (os);
-  if (pat)
-    FcPatternDestroy (pat);
-
-  std::string retval;
-  if (fs)
-    {
-      retval = display_fontset (fs);
-      FcFontSetDestroy (fs);
-    }
-  return retval;
-}
 
 LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0,
            0, (SCM name),
@@ -106,24 +28,8 @@ Get the file for font @var{name}, as found by FontConfig.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
-  unique_stdlib_ptr<char> name_cpp = ly_scm2str0 (name);
-
-  FcPattern *pat = FcPatternCreate ();
-  FcPatternAddString (pat, FC_FAMILY, reinterpret_cast<const FcChar8 *> (name_cpp.get ()));
-  FcConfigSubstitute (font_config_global, pat, FcMatchPattern);
-  FcDefaultSubstitute (pat);
-
-  FcResult result;
-  SCM scm_result = SCM_BOOL_F;
-
-  pat = FcFontMatch (font_config_global, pat, &result);
-  FcChar8 *str = nullptr;
-  if (FcPatternGetString (pat, FC_FILE, 0, &str) == FcResultMatch)
-    scm_result = ly_string2scm (reinterpret_cast<char const *> (str));
-
-  FcPatternDestroy (pat);
-
-  return scm_result;
+  std::string n = ly_scm2string (name);
+  return ly_string2scm (all_fonts_global->get_font_file (n));
 }
 
 LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0,
@@ -132,11 +38,7 @@ LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0,
 Dump a list of all fonts visible to FontConfig.
            )")
 {
-  std::string str = display_list (font_config_global);
-  str += display_config (font_config_global);
-
-  progress_indication (str);
-
+  all_fonts_global->display_fonts ();
   return SCM_UNSPECIFIED;
 }
 
@@ -147,17 +49,8 @@ Add directory @var{dir} to FontConfig.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, dir, 1);
-
   std::string d = ly_scm2string (dir);
-
-  if (!FcConfigAppFontAddDir (font_config_global,
-                              reinterpret_cast<const FcChar8 *> (d.c_str ())))
-    error (_f ("failed adding font directory: %s", d.c_str ()));
-  else
-    debug_output (_f ("Adding font directory: %s", d.c_str ()));
-
-  all_fonts_global->notify_fc_config_change ();
-
+  all_fonts_global->add_font_directory (d);
   return SCM_UNSPECIFIED;
 }
 
@@ -168,16 +61,7 @@ Add font @var{font} to FontConfig.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, font, 1);
-
   std::string f = ly_scm2string (font);
-
-  if (!FcConfigAppFontAddFile (font_config_global,
-                               reinterpret_cast<const FcChar8 *> (f.c_str ())))
-    error (_f ("failed adding font file: %s", f.c_str ()));
-  else
-    debug_output (_f ("Adding font file: %s", f.c_str ()));
-
-  all_fonts_global->notify_fc_config_change ();
-
+  all_fonts_global->add_font_file (f);
   return SCM_UNSPECIFIED;
 }
