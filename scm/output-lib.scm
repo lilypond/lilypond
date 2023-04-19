@@ -2183,9 +2183,7 @@ sub-property @code{'vertical-padding}."
   "Returns a stencil that prints the bends amount, translated to the end of
 the bends arrow head, given by @var{x} and@tie{}@var{y}.  A little vertical
 padding is added."
-  (let* ((layout (ly:grob-layout grob))
-         (props (ly:grob-alist-chain grob))
-         (staff-space (ly:staff-symbol-staff-space grob))
+  (let* ((staff-space (ly:staff-symbol-staff-space grob))
          (font-size (ly:grob-property grob 'font-size 0.0))
          (scale-factor (magstep font-size))
          (vertical-padding
@@ -2194,7 +2192,7 @@ padding is added."
            (ly:grob-property grob 'details))))
     (ly:stencil-translate
      (ly:stencil-aligned-to
-      (interpret-markup layout props text)
+      (grob-interpret-markup grob text)
       X CENTER)
      ;; double vertical-padding is my choice, harm
      ;; TODO let it rely on a separate details-property?
