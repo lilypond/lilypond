@@ -245,4 +245,12 @@ extern Variable unrelativable_music;
 extern Variable void_music;
 }; // namespace Syntax
 
-#endif
+namespace Unicode
+{
+extern Scm_module module;
+typedef Module_variable<module> Variable;
+
+extern Variable char_2_formal_name;
+}; // namespace Unicode
+
+#endif // LILY_IMPORTS_HH

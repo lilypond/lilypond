@@ -230,3 +230,10 @@ Variable tempo ("tempo");
 Variable unrelativable_music ("unrelativable-music");
 Variable void_music ("void-music");
 } // namespace Syntax
+
+namespace Unicode
+{
+Scm_module module ("ice-9 unicode");
+
+Variable char_2_formal_name ("char->formal-name");
+} // namespace Unicode
