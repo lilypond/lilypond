@@ -26,6 +26,7 @@
   \accepts Score
   \accepts ChordGridScore
   \accepts StandaloneRhythmScore
+  \accepts VaticanaScore
 
   \defaultchild Score
   \description "Hard coded entry point for LilyPond.  Usually not meant
@@ -1273,6 +1274,51 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   %% dead notes
   \override TabNoteHead.glyph-name = #tab-note-head::calc-glyph-name
   \override TabNoteHead.stencil = #tab-note-head::whiteout-if-style-set
+}
+
+%{
+  TODO: Similar to ChordGridScore, `VaticanaScore` normally gets used with
+
+    \paper {
+      indent = 0
+      ragged-last = ##t
+    }
+
+  Having a possibility to set these properties in contexts would be very
+  helpful.
+%}
+
+\context {
+  \Score
+  \name VaticanaScore
+  \alias Score
+  \description "Top-level context replacing @code{Score} for Gregorian chant
+notated in Vaticana style.  Compared to @code{Score}, it changes the staff
+line color to red, uses packed spacing, and removes bar numbers."
+  \accepts VaticanaStaff
+  \defaultchild VaticanaStaff
+
+  \remove Bar_number_engraver
+
+  timing = ##f
+
+  \override SpacingSpanner.packed-spacing = ##t
+  \override StaffSymbol.color = #red
+  \override LedgerLineSpanner.color = #red
+
+  %%%
+  %%% TODO: Play around with the following SpacingSpanner
+  %%% settings to yield better spacing between ligatures.
+  %%%
+  %%% FIXME: setting #'spacing-increment to a small value
+  %%% causes tons of "programming error: adding reverse spring,
+  %%% setting to unit" messages.
+  %%%
+  % \override SpacingSpanner.base-shortest-duration = \musicLength 4
+  % \override SpacingSpanner.shortest-duration-space = #0
+  % \override SpacingSpanner.average-spacing-wishes = ##f
+  % \override SpacingSpanner.spacing-increment = #0.0
+  % \override SpacingSpanner.uniform-stretching = ##t
 }
 
 \context {

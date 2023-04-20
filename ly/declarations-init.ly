@@ -137,6 +137,8 @@ repeatTie = #(make-music 'RepeatTieEvent)
 \include "paper-defaults-init.ly"
 \include "context-mods-init.ly"
 
+\include "ancient-init.ly"
+
 \layout {
   mm = #(ly:output-def-lookup $defaultpaper 'mm)
 
