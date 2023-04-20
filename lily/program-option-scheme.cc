@@ -21,6 +21,8 @@
 
 #include "profile.hh"
 #include "international.hh"
+#include "lily-imports.hh"
+#include "ly-scm-list.hh"
 #include "main.hh"
 #include "parse-scm.hh"
 #include "string-convert.hh"
@@ -169,6 +171,13 @@ is_internal_option (SCM sym)
     scm_object_property (sym, ly_symbol2scm ("program-option-internal?")));
 }
 
+static bool
+is_accumulative_option (SCM sym)
+{
+  return scm_is_true (
+    scm_object_property (sym, ly_symbol2scm ("program-option-accumulative?")));
+}
+
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 2, 0,
            (SCM port, SCM internal),
            R"(
@@ -190,20 +199,39 @@ for internal options.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_add_option, "ly:add-option", 4, 0, 0,
-           (SCM sym, SCM val, SCM internal, SCM description),
+LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 1,
+           (SCM sym, SCM val, SCM description, SCM rest),
            R"(
 Add a program option @var{sym}.  @var{val} is the default value and
 @var{description} is a string description.
+
+Passing @code{#internal? #t} makes the option an internal option, not
+displayed in the @command{lilypond -dhelp} output (but displayed in
+@command{lilypond -dhelp-internal}.
+
+Passing @code{#:accumulative? #t} makes the option accumulative,
+which gathers @code{-d} values in a list instead of letting the
+last @code{-d} flag overwrite the others.
            )")
 {
   if (SCM_UNBNDP (option_hash))
     option_hash = scm_c_make_hash_table (11);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 1);
   LY_ASSERT_TYPE (scm_is_string, description, 3);
+  SCM internal = SCM_BOOL_F;
+  SCM accumulative = SCM_BOOL_F;
+  scm_c_bind_keyword_arguments (
+    "ly:add-option", rest, static_cast<scm_t_keyword_arguments_flags> (0),
+    ly_keyword2scm ("internal?"), &internal, ly_keyword2scm ("accumulative?"),
+    &accumulative, SCM_UNDEFINED);
+
   if (scm_is_true (internal))
     scm_set_object_property_x (sym, ly_symbol2scm ("program-option-internal?"),
                                SCM_BOOL_T);
+
+  if (scm_is_true (accumulative))
+    scm_set_object_property_x (
+      sym, ly_symbol2scm ("program-option-accumulative?"), SCM_BOOL_T);
 
   internal_set_option (sym, val);
 
@@ -226,15 +254,48 @@ Set a program option.
   std::string varstr = robust_symbol2string (var, "");
   if (varstr.substr (0, 3) == std::string ("no-"))
     {
-      var = ly_symbol2scm (varstr.substr (3, varstr.length () - 3));
+      varstr = varstr.substr (3, varstr.length () - 3);
+      var = ly_symbol2scm (varstr);
       val = to_scm (!from_scm<bool> (val));
     }
 
+  if (is_accumulative_option (var))
+    {
+      warning (
+        _f ("option %s is accumulative; use ly:append-to-option instead of "
+            "ly:set-option",
+            varstr.c_str ()));
+      return SCM_UNSPECIFIED;
+    }
   SCM handle = scm_hashq_get_handle (option_hash, var);
   if (scm_is_false (handle))
     warning (_f ("no such internal option: %s", varstr.c_str ()));
 
   internal_set_option (var, val);
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_append_to_option, "ly:append-to-option", 2, 0, 0,
+           (SCM var, SCM val),
+           R"(
+Add a value to an accumulative program option.
+           )")
+{
+  LY_ASSERT_TYPE (ly_is_symbol, var, 1);
+  SCM handle = scm_hashq_get_handle (option_hash, var);
+  if (scm_is_false (handle))
+    {
+      warning (
+        _f ("no such program option: %s", ly_symbol2string (var).c_str ()));
+      return SCM_UNSPECIFIED;
+    }
+  if (!is_accumulative_option (var))
+    {
+      warning (_f ("option %s is not accumulative; use ly:set-option instead "
+                   "of ly:add-to-option",
+                   ly_symbol2string (var).c_str ()));
+    }
+  scm_set_cdr_x (handle, scm_cons (val, scm_cdr (handle)));
   return SCM_UNSPECIFIED;
 }
 
@@ -267,7 +328,23 @@ LY_DEFINE (ly_all_options, "ly:all-options", 0, 0, 0, (),
 Get all option settings in an alist.
            )")
 {
+  // Unlike ly:get-option, ly:all-options does not reverse accumulative options,
+  // since this is only used to restore the same set of options with
+  // ly:reset-options.
   return ly_hash2alist (option_hash);
+}
+
+LY_DEFINE (ly_reset_options, "ly:reset-options", 1, 0, 0, (SCM alist),
+           R"(
+Reset all program options to the values in @var{alist}.
+           )")
+{
+  for (SCM pair : as_ly_scm_list (alist))
+    {
+      LY_ASSERT_TYPE (scm_is_pair, pair, 0);
+      internal_set_option (scm_car (pair), scm_cdr (pair));
+    }
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
@@ -276,5 +353,10 @@ Get a global option setting.
            )")
 {
   LY_ASSERT_TYPE (ly_is_symbol, var, 1);
-  return scm_hashq_ref (option_hash, var, SCM_BOOL_F);
+  SCM ret = scm_hashq_ref (option_hash, var, SCM_BOOL_F);
+  // The values of accumulative options are internally stored in reverse (for
+  // efficiency).
+  if (is_accumulative_option (var))
+    ret = scm_reverse (ret);
+  return ret;
 }

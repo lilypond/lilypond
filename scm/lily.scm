@@ -18,6 +18,17 @@
 
 (define-module (lily))
 
+(use-modules ((ice-9 format) #:select ((format . ice9-format)))
+             (ice-9 rdelim)
+             (ice-9 optargs)
+             (oop goops)
+             (srfi srfi-1)
+             (srfi srfi-13)
+             (srfi srfi-14)
+             (lily clip-region)
+             (lily curried-definitions)
+             (ice-9 match))
+
 ;; GUILE defaults to fixed seed.
 (define-public (randomize-rand-seed)
   (ly:randomize-rand-seed)
@@ -230,6 +241,9 @@ lilypond-book")
     (backend ps
              "Select backend.  Possible values are 'ps and
 'svg.")
+    (check-internal-types #f
+                          "Check every property assignment for types."
+                          #:internal? #t)
     (clip-systems #f
                   "Generate cut-out snippets of a score.")
     (compile-scheme-code #f "Use the Guile byte-compiler to run Scheme code,
@@ -245,10 +259,32 @@ single-page output file(s) with cropped margins.")
              "LilyPond prefix for data files (read-only).")
     (debug-eval ,(ly:verbose-output?)
                 "Use the debugging Scheme evaluator.")
+    (debug-gc-assert-parsed-dead #f
+                                 "For internal use."
+                                 #:internal? #t)
+    (debug-gc-object-lifetimes #f
+                               "Sanity check object lifetimes"
+                               #:internal? #t)
+    (debug-lexer #f
+                 "Debug the flex lexer."
+                 #:internal? #t)
+    (debug-page-breaking-scoring #f
+                                 "Dump scores for many different page breaking
+configurations."
+                                 #:internal? #t)
+    (debug-parser #f
+                  "Debug the bison parser."
+                  #:internal? #t)
+    (debug-property-callbacks #f
+                              "Debug cyclic callback chains."
+                              #:internal? #t)
     (debug-skylines #f
                     "Debug skylines.")
     (delete-intermediate-files #t
                                "Delete unusable, intermediate PostScript files.")
+    (deterministic #f
+                   "Suppress version and timestamps."
+                   #:internal? #t)
     (embed-source-code #f
                        "Embed the source files inside the generated PDF
 document.")
@@ -279,11 +315,13 @@ no other font format.")
                                 "Include book titles in preview images.")
     (include-eps-fonts #t
                        "Include fonts in separate-system EPS files.")
-    (include-settings #f
+    (include-settings ()
                       "If string FOO is given as an argument, include
 file `FOO' (using LilyPond syntax) for global
 settings, included before the score is
-processed.")
+processed.  This can be passed several times
+to process several files."
+                      #:accumulative? #t)
     (job-count #f
                "Process in parallel, using the given number of
 jobs.")
@@ -324,10 +362,17 @@ images.")
              "Create preview images also.")
     (print-pages #t
                  "Print pages in the normal way.")
+    (profile-property-accesses #f
+                               "Keep statistics of get_property() calls."
+                               #:internal? #t)
     (protected-scheme-parsing #t
                               "Continue when errors in inline Scheme are
 caught in the parser.  If #f, halt on errors
 and print a stack trace.")
+    (read-file-list #f
+                    "Specify name of a file which contains a list of
+input files to be processed."
+                    #:internal? #t)
     (relative-includes #t
                        "When processing an \\include command, look for
 the included file relative to the current file\
@@ -349,6 +394,10 @@ a symbol containing as comma-separated
 formats")
     (show-available-fonts #f
                           "List available font names.")
+    (strict-infinity-checking #f
+                              "Force a crash on encountering Inf and NaN
+floating point exceptions."
+                              #:internal? #t)
     (strip-output-dir #t
                       "Don't use directories from input files while
 constructing output file names.")
@@ -375,58 +424,21 @@ messages into errors.")
     ))
 
 
-(define scheme-internal-options-definitions
-  `((check-internal-types #f
-                          "Check every property assignment for types.")
-    (debug-gc-object-lifetimes #f "Sanity check object lifetimes")
-    (debug-gc-assert-parsed-dead #f
-                                 "For internal use.")
-    (debug-lexer #f
-                 "Debug the flex lexer.")
-    (debug-page-breaking-scoring #f
-                                 "Dump scores for many different page breaking
-configurations.")
-    (debug-parser #f
-                  "Debug the bison parser.")
-    (debug-property-callbacks #f
-                              "Debug cyclic callback chains.")
-    (deterministic #f "Suppress version and timestamps.")
-    (profile-property-accesses #f
-                               "Keep statistics of get_property() calls.")
-    (read-file-list #f
-                    "Specify name of a file which contains a list of
-input files to be processed.")
-    (strict-infinity-checking #f
-                              "Force a crash on encountering Inf and NaN
-floating point exceptions.")
-    ))
-
 ;; Need to do this in the beginning.  Other parts of the Scheme
 ;; initialization depend on these options.
 
 (for-each (lambda (x)
-            (ly:add-option (car x) (cadr x) #f (caddr x)))
+            (apply ly:add-option x))
           scheme-options-definitions)
-(for-each (lambda (x)
-            (ly:add-option (car x) (cadr x) #t (caddr x)))
-          scheme-internal-options-definitions)
 
-(for-each (lambda (x)
-            (ly:set-option (car x) (cdr x)))
+(for-each (match-lambda
+            ((key . val)
+             (if (object-property key 'program-option-accumulative?)
+                 (ly:append-to-option key val)
+                 (ly:set-option key val))))
           (with-input-from-string (ly:command-line-options) read))
 
 (debug-set! stack 0)
-
-(use-modules ((ice-9 format) #:select ((format . ice9-format)))
-             (ice-9 rdelim)
-             (ice-9 optargs)
-             (oop goops)
-             (srfi srfi-1)
-             (srfi srfi-13)
-             (srfi srfi-14)
-             (lily clip-region)
-             (lily curried-definitions))
-
 
 (define format simple-format)
 
@@ -938,9 +950,7 @@ use an external tool to run LilyPond in a sandbox."))
          (lilypond-file handler x)
          (ly:check-expected-warnings)
          (session-terminate)
-         (for-each (lambda (s)
-                     (ly:set-option (car s) (cdr s)))
-                   all-settings)
+         (ly:reset-options all-settings)
          (ly:reset-all-fonts)
 
          (if debug-lifetimes-limit

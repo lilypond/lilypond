@@ -474,6 +474,10 @@ source files for the score, recordings, etc.
 A figure-dash glyph (U+2012) and an en-dash glyph (U+2013) have
 been added to the Emmentaler fonts.
 
+@item
+The @code{-dinclude-settings} option can now be given multiple times
+to include several stylesheets.
+
 @end itemize
 
 

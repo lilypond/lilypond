@@ -2761,10 +2761,11 @@ Global settings can be included from a separate file:
 lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
 @end example
 
-Groups of settings such as page size, font or type face can be stored
-in separate files. This allows different editions from the same score
-as well as standard settings to be applied to many scores, simply by
-specifying the proper settings file.
+Groups of settings such as page size, font or type face can be
+stored in separate files and loaded with several
+@code{-dinclude-settings} options.  This allows different editions
+from the same score as well as standard settings to be applied to
+many scores, simply by specifying the proper settings file.
 
 This technique also works well with the use of style sheets, as
 discussed in @rlearning{Style sheets}.

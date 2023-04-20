@@ -774,8 +774,9 @@ Default: @code{#t}.
 
 @item @code{include-settings} @var{string}
 Include file @var{string} for global settings, which is included before the
-score is processed.
-Default: @code{#f} (meaning no global settings file).
+score is processed.  This can be passed multiple times to include several
+files.
+Default: @code{'()} (meaning no global settings file).
 
 @item @code{job-count} @var{num}
 Process in parallel, using @var{num} jobs.
