@@ -205,36 +205,6 @@ ligature =
   }
 }
 
-%
-% `neumeDemoLayout` defines a layout block suitable for notating pure
-% Vaticana style neumes without any other notation symbols such as
-% staff lines or clefs.  This layout is useful for engraving neumes
-% tables, such as that one in the LilyPond manual section on
-% Gregorian ligatures, or for educational works.
-%
-neumeDemoLayout = \layout {
-  \context {
-    \Score
-    \remove Bar_number_engraver
-  }
-  \context {
-    \Staff
-    \remove Clef_engraver
-    \remove Key_engraver
-    \hide StaffSymbol
-    \remove Time_signature_engraver
-    \remove Bar_engraver
-    \override VerticalAxisGroup.staff-staff-spacing = #'()
-  }
-  \context {
-    \Voice
-    \remove Ligature_bracket_engraver
-    \consists Vaticana_ligature_engraver
-    \override NoteHead.style = #'vaticana.punctum
-    \remove Stem_engraver
-  }
-}
-
 %%% Local Variables:
 %%% coding: utf-8
 %%% End:

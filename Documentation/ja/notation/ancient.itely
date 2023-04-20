@@ -1579,6 +1579,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum
@@ -1593,6 +1594,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum
@@ -1607,6 +1609,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum
@@ -1622,6 +1625,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum Auctum Ascendens
@@ -1637,6 +1641,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum Auctum Descendens
@@ -1652,6 +1657,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum Inclinatum
@@ -1667,6 +1673,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum Inclinatum Auctum
@@ -1682,6 +1689,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum Inclinatum Parvum
@@ -1697,6 +1705,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Virga
@@ -1718,6 +1727,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Clivis vel Flexa
@@ -1734,6 +1744,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Clivis Aucta Descendens
@@ -1749,6 +1760,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Clivis Aucta Ascendens
@@ -1764,6 +1776,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Cephalicus
@@ -1779,6 +1792,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Podatus vel Pes
@@ -1794,6 +1808,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Auctus Descendens
@@ -1809,6 +1824,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Auctus Ascendens
@@ -1824,6 +1840,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Epiphonus
@@ -1839,6 +1856,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Initio Debilis
@@ -1854,6 +1872,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Auctus Descendens Initio Debilis
@@ -1876,6 +1895,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus
@@ -1891,6 +1911,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus Auctus Descendens
@@ -1906,6 +1927,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus Deminutus
@@ -1921,6 +1943,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus Initio Debilis
@@ -1936,6 +1959,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus Auctus Descendens Initio Debilis
@@ -1951,6 +1975,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus Deminutus Initio Debilis
@@ -1966,6 +1991,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Porrectus
@@ -1981,6 +2007,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Porrectus Auctus Descendens
@@ -1996,6 +2023,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Porrectus Deminutus
@@ -2011,6 +2039,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Climacus
@@ -2026,6 +2055,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Climacus Auctus
@@ -2041,6 +2071,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Climacus Deminutus
@@ -2056,6 +2087,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Scandicus
@@ -2071,6 +2103,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Scandicus Auctus Descendens
@@ -2086,6 +2119,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Scandicus Deminutus
@@ -2108,6 +2142,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Quilisma
@@ -2123,6 +2158,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Quilisma Pes Auctus Descendens
@@ -2138,6 +2174,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Oriscus
@@ -2153,6 +2190,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Quassus
@@ -2168,6 +2206,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Quassus Auctus Descendens
@@ -2183,6 +2222,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Salicus
@@ -2198,6 +2238,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Salicus Auctus Descendens
@@ -2213,6 +2254,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Stropha
@@ -2228,6 +2270,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Stropha Aucta
@@ -2243,6 +2286,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Bistropha
@@ -2258,6 +2302,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Tristropha
@@ -2273,13 +2318,13 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Trigonus
     \[ \stropha b' \stropha b \stropha a \]
   }
-  \layout { \neumeDemoLayout }
-}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @code{\[ \stropha b \stropha b \stropha a \]}

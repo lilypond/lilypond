@@ -1660,6 +1660,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum
@@ -1674,6 +1675,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum
@@ -1688,6 +1690,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum
@@ -1703,6 +1706,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum Auctum Ascendens
@@ -1718,6 +1722,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum Auctum Descendens
@@ -1733,6 +1738,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum Inclinatum
@@ -1748,6 +1754,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum Inclinatum Auctum
@@ -1763,6 +1770,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Punctum Inclinatum Parvum
@@ -1778,6 +1786,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Virga
@@ -1799,6 +1808,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Clivis vel Flexa
@@ -1815,6 +1825,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Clivis Aucta Descendens
@@ -1830,6 +1841,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Clivis Aucta Ascendens
@@ -1845,6 +1857,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Cephalicus
@@ -1860,6 +1873,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Podatus vel Pes
@@ -1875,6 +1889,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Auctus Descendens
@@ -1890,6 +1905,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Auctus Ascendens
@@ -1905,6 +1921,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Epiphonus
@@ -1920,6 +1937,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Initio Debilis
@@ -1935,6 +1953,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Auctus Descendens Initio Debilis
@@ -1957,6 +1976,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus
@@ -1972,6 +1992,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus Auctus Descendens
@@ -1987,6 +2008,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus Deminutus
@@ -2002,6 +2024,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus Initio Debilis
@@ -2017,6 +2040,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus Auctus Descendens Initio Debilis
@@ -2032,6 +2056,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Torculus Deminutus Initio Debilis
@@ -2047,6 +2072,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Porrectus
@@ -2062,6 +2088,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Porrectus Auctus Descendens
@@ -2077,6 +2104,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Porrectus Deminutus
@@ -2092,6 +2120,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Climacus
@@ -2107,6 +2136,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Climacus Auctus
@@ -2122,6 +2152,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Climacus Deminutus
@@ -2137,6 +2168,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Scandicus
@@ -2152,6 +2184,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Scandicus Auctus Descendens
@@ -2167,6 +2200,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Scandicus Deminutus
@@ -2189,6 +2223,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Quilisma
@@ -2204,6 +2239,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Quilisma Pes Auctus Descendens
@@ -2219,6 +2255,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Oriscus
@@ -2234,6 +2271,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Quassus
@@ -2249,6 +2287,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Pes Quassus Auctus Descendens
@@ -2264,6 +2303,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Salicus
@@ -2279,6 +2319,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Salicus Auctus Descendens
@@ -2294,6 +2335,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Stropha
@@ -2309,6 +2351,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Stropha Aucta
@@ -2324,6 +2367,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Bistropha
@@ -2339,6 +2383,7 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Tristropha
@@ -2354,13 +2399,13 @@ Formes @b{Bàsica} i @emph{Liquada}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
+\include "neume-demo-layout.ly"
 \score {
   \relative {
     % Trigonus
     \[ \stropha b' \stropha b \stropha a \]
   }
-  \layout { \neumeDemoLayout }
-}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @code{\[ \stropha b \stropha b \stropha a \]}
