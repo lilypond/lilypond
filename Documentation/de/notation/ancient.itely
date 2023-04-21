@@ -1362,14 +1362,8 @@ Atemzeichen aus dem Abschnitt @ref{Atemzeichen}. Das @emph{finalis}-Zeichen
 bezeichnet nicht nur das Ende eines Chorals, sondern wird auch oft innerhalb
 eines Antiphons/Responsoriums benutzt, um das Ende eines Abschnitts anzuzeigen.
 
-Divisiones können benutzt werden, indem die Datei @file{gregorian.ly}
-in die Quelldatei eingefügt wird. Hier sind die entsprechenden Definitionen
-schon abgelegt, so dass es genügt, die Befehle @code{\divisioMinima},
-@code{\divisioMaior}, @code{\divisioMaxima} und @code{\finalis} an den
-entsprechenden Stellen zu schreiben. Einige Editionen verwenden eine
-@emph{virgula} oder @emph{caesura} anstelle der divisio minima. Darum findet
-sich in der Datei @file{gregorian.ly} auch eine Definition für
-@code{\virgula} und @code{\caesura}.
+Einige Editionen verwenden eine @emph{virgula} oder @emph{caesura}
+anstelle der divisio minima.
 
 @lilypond[quote,ragged-right]
 \new VaticanaScore {
@@ -1428,9 +1422,6 @@ Glossary:
 
 Notationsreferenz:
 @ref{Atemzeichen}.
-
-Installierte Dateien:
-@file{gregorian.ly}.
 
 Referenz der Interna:
 @rinternals{BreathingSign}.
@@ -1540,12 +1531,6 @@ Ligaturen können schon gesetzt werden, aber wichtige Eigenschaften
 anspruchsvoller Typographie wie horizontale Ausrichtung von mehreren
 Ligaturen, korrekte Silbenpositionierung und richtiger Umgang mit
 Versetzungszeichen fehlen noch.
-
-Die Unterstützung für gregorianische Neumen wird aktiviert, indem
-man mit @code{\include} die Datei @file{gregorian.ly} am Anfang
-der Quelldatei aktiviert.  Damit werden zusätzliche Befehl
-zur Verfügung gestellt, mit denen man die Neumensymbole des
-Chorals produzieren kann.
 
 Notenköpfe können verändert und/bzw. verbunden werden.
 
@@ -1690,7 +1675,7 @@ mittlere Note einer aufsteigenden Ligatur und fällt
 möglich, wenn auch nicht @emph{richtig}, eine Quilisma
 bestehend aus einer Note zu notieren.
 
-Neben den Notenformen definiert die Datei @file{gregorian.ly}
+Neben den Notenformen definiert LilyPond
 auch die Befehle @code{\versus}, @code{\responsum}, @code{\ij},
 @code{\iij}, @code{\IJ} und @code{\IIJ}, mit denen die
 entsprechenden Zeichen, etwa für den Text oder als

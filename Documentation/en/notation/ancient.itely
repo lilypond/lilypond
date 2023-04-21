@@ -180,13 +180,14 @@ Music Glossary:
 @unnumberedsubsubsec Predefined contexts
 
 For Gregorian chant and mensural notation, there are predefined
-voice and staff contexts available, which set all the various
-notation signs to values suitable for these styles.  If one is
-satisfied with these defaults, one can proceed directly with note
-entry without worrying about the details on how to customize a
-context.  See one of the predefined contexts @code{VaticanaVoice},
-@code{VaticanaStaff}, @code{MensuralVoice}, @code{MensuralStaff},
-@code{KievanVoice}, and @code{KievanStaff}.
+voice, staff, and score contexts available, which set all the
+various notation signs to values suitable for these styles.  If
+one is satisfied with these defaults, one can proceed directly
+with note entry without worrying about the details on how to
+customize a context.  See one of the predefined contexts
+@code{VaticanaScore}, @code{VaticanaVoice}, @code{VaticanaStaff},
+@code{MensuralVoice}, @code{MensuralStaff}, @code{KievanVoice},
+and @code{KievanStaff}.
 
 @morerefs
 Music Glossary:
@@ -1071,14 +1072,17 @@ Notation Reference:
 @unnumberedsubsubsec Gregorian chant contexts
 
 @funindex VaticanaVoice
+@funindex VaticanaLyrics
 @funindex VaticanaStaff
+@funindex VaticanaScore
 
-The predefined contexts @code{VaticanaVoice},
-@code{VaticanaStaff}, and @code{VaticanaLyrics} can be used to
-engrave a piece of Gregorian chant in the style of the Editio
-Vaticana.  These contexts initialize all relevant context and grob
-properties to proper values; you can immediately go ahead entering
-the chant, as the following excerpt demonstrates.
+The predefined contexts @code{VaticanaScore},
+@code{VaticanaVoice}, @code{VaticanaStaff}, and
+@code{VaticanaLyrics} can be used to engrave a piece of Gregorian
+chant in the style of the Editio Vaticana.  These contexts
+initialize all relevant context and grob properties to proper
+values; you can immediately go ahead entering the chant, as the
+following excerpt demonstrates.
 
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
 \new VaticanaScore {
@@ -1345,14 +1349,9 @@ The @emph{finalis} sign not only marks the end of a chant, but is
 also frequently used within a single antiphonal/responsorial chant
 to mark the end of each section.
 
-To use divisiones, include the file @file{gregorian.ly}.  It
-contains definitions that you can apply by just inserting
-@code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima},
-and @code{\finalis} at proper places in the input.  Some editions use
-@emph{virgula} or @emph{caesura} instead of divisio minima;
-therefore, @file{gregorian.ly} also defines @code{\virgula}, and
-the predefined staff contexts for Gregorian chant configure
-@code{\caesura} to produce an ancient caesura mark.
+Some editions use @emph{virgula} or @emph{caesura} instead of
+divisio minima; the predefined staff contexts for Gregorian chant
+configure @code{\caesura} to produce an ancient caesura mark.
 
 @lilypond[quote,ragged-right,staffsize=23]
 \new VaticanaScore {
@@ -1410,9 +1409,6 @@ Music Glossary:
 
 Notation Reference:
 @ref{Breath marks}.
-
-Installed Files:
-@file{ly/gregorian.ly}.
 @endmorerefs
 
 
@@ -1537,13 +1533,6 @@ There is limited support for Gregorian square neumes notation
 already be typeset, but essential issues for serious typesetting are
 still lacking, such as (among others) horizontal alignment of multiple
 ligatures, lyrics alignment, and proper handling of accidentals.
-
-The support for Gregorian neumes is enabled by @code{\include}ing
-@file{gregorian.ly} at the beginning of the file.  This makes available
-a number of extra commands to produce the neume symbols used in
-plainchant notation.
-
-
 
 Note heads can be @emph{modified} and/or @emph{joined}.
 
@@ -1674,12 +1663,12 @@ quilisma.
 @funindex \responsum
 @funindex \versus
 
-In addition to the note signs, @file{gregorian.ly} also defines the
-commands @code{\versus}, @code{\responsum}, @code{\ij},
-@code{\iij}, @code{\IJ}, and @code{\IIJ}, that will produce the
-corresponding characters, e.g., for use in lyrics, as section
-markers, etc.  These commands use special Unicode characters and
-will only work if a font is used which supports them.
+In addition to the note signs, LilyPond also defines the commands
+@code{\versus}, @code{\responsum}, @code{\ij}, @code{\iij},
+@code{\IJ}, and @code{\IIJ}, that will produce the corresponding
+characters, e.g., for use in lyrics, as section markers, etc.
+These commands use special Unicode characters and will only work
+if a font is used which supports them.
 
 
 @c neume table
