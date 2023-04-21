@@ -1621,7 +1621,7 @@ top-margin of the page) of the system to which this staff belongs.")
 
      ;; However, such a list would consist of a couple of dozens of
      ;; entries, since head prefixes may be combined in many ways.  If
-     ;; the macros in `gregorian.ly' would directly set prefix-set,
+     ;; the macros for Gregorian chant would directly set prefix-set,
      ;; all the head prefixes could be junked; however, such macros
      ;; would be quite numerous, I guess.  --jr
 

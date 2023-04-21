@@ -49,11 +49,11 @@ for name in ['ly/toc-init.ly',
         r"\(define-markup[a-z-]+\s+\(([a-zA-Z-]+)", s)]
 
 # identifiers and keywords
-for name in ['ly/chord-modifiers-init.ly',
+for name in ['ly/ancient-init.ly',
+             'ly/chord-modifiers-init.ly',
              'ly/dynamic-scripts-init.ly',
              'ly/engraver-init.ly',
              'ly/grace-init.ly',
-             'ly/gregorian.ly',
              'ly/music-functions-init.ly',
              'ly/performer-init.ly',
              'ly/property-init.ly',

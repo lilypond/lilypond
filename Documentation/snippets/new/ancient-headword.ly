@@ -1,5 +1,15 @@
 \version "2.25.5"
-\include "example-header.ily"
+
+\header {
+  lsrtags = "headword"
+
+  texidoc = "
+Ancient headword
+"
+
+  doctitle = "Ancient headword"
+}
+
 
 #(set-global-staff-size 23)
 
@@ -116,5 +126,8 @@
 }
 
 \layout {
+  indent = 0
   ragged-last = ##t
 }
+
+\paper { tagline = ##f }

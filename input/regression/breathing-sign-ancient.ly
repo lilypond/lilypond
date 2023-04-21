@@ -1,4 +1,4 @@
-\version "2.23.13"
+\version "2.25.5"
 
 \header{
   texidoc="
@@ -7,8 +7,6 @@ smaller font size (we call it `virgula' and `caesura').  However, the
 most common breathing signs are divisio minima/@/maior/@/maxima and
 finalis, the latter three looking similar to bar glyphs.
 " }
-
-\include "gregorian.ly"
 
 \layout {
   \context {
