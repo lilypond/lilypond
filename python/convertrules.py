@@ -4852,6 +4852,7 @@ set to:
     {}
 
 """)
+
     set_global_fonts_brace_warning = _(r"""
 LilyPond now uses a different syntax for selecting fonts.  The #:brace
 argument to set-global-fonts does not have an equivalent in the new syntax;
@@ -4871,6 +4872,7 @@ other music glyphs, use code such as
   }
 }
 """)
+
     set_global_fonts_advanced_warning = _(r"""
 LilyPond now uses a different syntax for selecting fonts. The code equivalent
 to the previous spelling
@@ -4902,6 +4904,7 @@ convert automatically.  Please do the update manually.
     keyval_re = rf'#:(?P<key>\w+)\s+(?P<val>{maybe_funcall_sexpr_re})\s*'
     set_global_fonts_re = rf"(\(set-global-fonts\s+(?P<args>({keyval_re})*)\))"
     indent_re = r"^(?P<indent>[^\S\n]*)"
+
     def replace_set_global_fonts(match):
         indent = match.group("indent")
         call = match.group("args")
@@ -4954,6 +4957,7 @@ set to:
     {}
 
 """)
+
     pango_advanced_warning = _(r"""
 LilyPond now uses a different syntax for selecting fonts. The code equivalent
 to the previous spelling
@@ -4978,12 +4982,14 @@ is now
 convert-ly found an advanced use of make-pango-font-tree that it was not able
 to convert automatically.  Please do the update manually.
 """)
+
     pango_re = (rf"(?P<pango>\(make-pango-font-tree\s+"
                 rf"(?P<roman>{maybe_funcall_sexpr_re})\s+"
                 rf"(?P<sans>{maybe_funcall_sexpr_re})\s+"
                 rf"(?P<typewriter>{maybe_funcall_sexpr_re})\s+"
                 rf"(?P<factor>{maybe_funcall_sexpr_re})\s*"
                 rf"\))")
+
     def replace_pango(match):
         indent = match.group("indent")
         pango = match.group("pango")
@@ -5065,7 +5071,6 @@ to convert automatically.  Please do the update manually.
     # For \markup \override
     s = re.sub(r"\(font-series\s+\.\s+medium\)", "(font-series . normal)", s)
 
-
     if "repeatCommands" in s and ('(volta "' in s or '(volta ,#{' in s):
         stderr_write(NOT_SMART % "markup in repeatCommands")
         stderr_write(r"""
@@ -5084,6 +5089,98 @@ replacements:
 """)
 
     return s
+
+
+@rule((2, 25, 5), r"""
+Check for identifiers formerly present in 'gregorian.ly'.
+
+\include "gregorian.ly" -> GregorianScore context
+""")
+def conv(s):
+    gregorian_warning = _("""
+Identifiers formerly in file 'gregorian.ly' are now always defined.  The
+following variable or variables in your LilyPond input file have the same
+name as one of these identifiers:
+
+  {}
+
+It is recommended to rename them.
+""")
+
+    vaticana_score_warning = _(r"""
+The use of 'gregorian.ly' is deprecated.  Code like
+
+  \input "gregorian.ly"
+
+  \new VaticanaStaff { ... }
+
+should be replaced with
+
+  \new VaticanaScore {
+    \new VaticanaStaff { ... }
+  }
+
+  \layout {
+    indent = 0
+    ragged-last = ##t
+  }
+
+""")
+
+    ancient_re = r'''(?x)
+  \\
+  ( IJ |
+    IIJ |
+    ij |
+    iij |
+
+    versus |
+    responsum |
+
+    virga |
+    stropha |
+    inclinatum |
+    auctum |
+    descendens |
+    ascendens |
+    pes |
+    flexa |
+    oriscus |
+    quilisma |
+    deminutum |
+    linea |
+    cavum |
+
+    virgula |
+    divisioMinima |
+    divisioMaior |
+    divisioMaxima |
+    finalis |
+
+    accentus |
+    ictus |
+    semicirculus |
+    circulus |
+
+    augmentum |
+    ligature )
+  # This is `NAME_END_RE` in Pygments for LilyPond
+  (?= \d
+      | [^\w\-]
+      | [\-_] [\W\d] )
+'''
+
+    if re.search (r'(?xm) ^ \\include \s+ "gregorian.ly"', s):
+        stderr_write(NOT_SMART % _("gregorian.ly to VaticanaScore"))
+        stderr_write(vaticana_score_warning)
+        stderr_write(UPDATE_MANUALLY)
+    else:
+        keywords = sorted(set(re.findall(ancient_re, s)))
+        if keywords:
+            stderr_write(gregorian_warning.format(' '.join(keywords)))
+
+    return s
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

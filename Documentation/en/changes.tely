@@ -438,6 +438,38 @@ and allow tweaks to show some non-necessary stems.
 }
 @end lilypond
 
+@item
+The use of the @file{gregorian.ly} is deprecated.  While still
+working for backward compatibility, it should be replaced with a
+@code{VaticanaScore} context together with some manual
+@code{\layout} changes (if necessary): code like
+
+@quotation
+@verbatim
+\include "gregorian.ly"
+
+\score {
+  \new VaticanaStaff { ... }
+}
+@end verbatim
+@end quotation
+
+@noindent
+should become
+
+@quotation
+@verbatim
+\new VaticanaScore {
+  \new VaticanaStaff { ... }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
+}
+@end verbatim
+@end quotation
+
 @end itemize
 
 
