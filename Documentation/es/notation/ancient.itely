@@ -1052,8 +1052,7 @@ de forma que pueda inmediatamente comenzar a escribir el canto en
 sí, como lo demuestra el siguiente fragmento:
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   <<
     \new VaticanaVoice = "cantus" {
       \[ c'\melisma c' \flexa a \]
@@ -1068,6 +1067,11 @@ sí, como lo demuestra el siguiente fragmento:
       San- ctus, San- ctus, San- ctus
     }
   >>
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1312,8 +1316,7 @@ minima.  Por ello, @file{gregorian.ly} define también las
 instrucciones @code{\virgula} y @code{\caesura}.
 
 @lilypond[quote,ragged-right]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   <<
     \context VaticanaVoice {
       \override TextScript.padding = #3
@@ -1339,6 +1342,11 @@ instrucciones @code{\virgula} y @code{\caesura}.
       g a g
     }
   >>
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1409,8 +1417,7 @@ Vaticana}.
 @cindex articulación, gregoriano, semicirculus
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \override TextScript.font-family = #'typewriter
     \override TextScript.font-shape = #'upright
@@ -1421,6 +1428,11 @@ Vaticana}.
     a\accentus_"accentus " \bar "" \break
     \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1460,8 +1472,7 @@ lugar, escriba @code{\virga \augmentum c} o @code{\augmentum
 \augmentum g}.
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \[ \augmentum a \flexa \augmentum g \]
     \augmentum g

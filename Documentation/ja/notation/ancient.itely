@@ -995,8 +995,7 @@ Editio Vaticana のスタイルでグレゴリオ聖歌の楽譜を記譜する�
 すぐに音楽の内容を入力し始めることができます。以下の抜粋は一例です:
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   <<
     \new VaticanaVoice = "cantus" {
       \[ c'\melisma c' \flexa a \]
@@ -1011,6 +1010,11 @@ Editio Vaticana のスタイルでグレゴリオ聖歌の楽譜を記譜する�
       San- ctus, San- ctus, San- ctus
     }
   >>
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1247,8 +1251,7 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 @code{\caesura} も定義されています。
 
 @lilypond[quote,ragged-right]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   <<
     \context VaticanaVoice {
       \override TextScript.padding = #3
@@ -1274,6 +1277,11 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
       g a g
     }
   >>
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1324,8 +1332,7 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 @funindex \semicirculus
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \override TextScript.font-family = #'typewriter
     \override TextScript.font-shape = #'upright
@@ -1336,6 +1343,11 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
     a\accentus_"accentus " \bar "" \break
     \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1371,8 +1383,7 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 略記となります。
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \[ \augmentum a \flexa \augmentum g \]
     \augmentum g

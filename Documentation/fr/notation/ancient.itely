@@ -1061,8 +1061,7 @@ adéquates, de telle sorte que vous pouvez tout de suite vous lancer dans
 la saisie de votre chant, comme ci-dessous :
 
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   <<
     \new VaticanaVoice = "cantus" {
       \[ c'\melisma c' \flexa a \]
@@ -1077,6 +1076,11 @@ la saisie de votre chant, comme ci-dessous :
       San -- ctus, San -- ctus, San -- ctus
     }
   >>
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1323,8 +1327,7 @@ pourquoi @file{gregorian.ly} définit aussi @code{\virgula} et
 @code{\caesura}.
 
 @lilypond[quote,ragged-right,staffsize=23]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \override TextScript.padding = #3
     g a g
@@ -1348,6 +1351,11 @@ pourquoi @file{gregorian.ly} définit aussi @code{\virgula} et
     \caesura
     g a g
   }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1417,8 +1425,7 @@ spécifiquement destinées au style des éditions vaticanes.
 @funindex \semicirculus
 
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \override Script.padding = #-0.1
     a\ictus_"ictus " \break
@@ -1428,6 +1435,11 @@ spécifiquement destinées au style des éditions vaticanes.
     \[ a_"episema" \episemInitium \pes b
        \flexa a b \episemFinis \flexa a \]
   }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1466,8 +1478,7 @@ ailleurs, l'expression @code{\augmentum @{a g@}} constitue une forme
 abrégée de @code{\augmentum a \augmentum g}.
 
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \[ \augmentum a \flexa \augmentum g \]
     \augmentum g

@@ -1081,8 +1081,7 @@ properties to proper values; you can immediately go ahead entering
 the chant, as the following excerpt demonstrates.
 
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   <<
     \new VaticanaVoice = "cantus" {
       \[ c'\melisma c' \flexa a \]
@@ -1097,6 +1096,11 @@ the chant, as the following excerpt demonstrates.
       San -- ctus, San -- ctus, San -- ctus
     }
   >>
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1138,10 +1142,8 @@ Editio Vaticana style do clef
 @code{vaticana-do3}
 @tab
 @lilypond[inline,line-width=1.5\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \clef "vaticana-do2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-do2" s c' s }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1154,10 +1156,8 @@ Editio Vaticana style fa clef
 @code{vaticana-fa1}, @code{vaticana-fa2}
 @tab
 @lilypond[inline,line-width=1.5\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \clef "vaticana-fa2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-fa2" s c' s }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1171,11 +1171,11 @@ Editio Medicaea style do clef
 @code{medicaea-do3}
 @tab
 @lilypond[inline,line-width=1.5\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-do2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-do2" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1188,11 +1188,11 @@ Editio Medicaea style fa clef
 @code{medicaea-fa1}, @code{medicaea-fa2}
 @tab
 @lilypond[inline,line-width=1.5\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-fa2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-fa2" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1206,11 +1206,11 @@ Hufnagel style do clef
 @code{hufnagel-do3}
 @tab
 @lilypond[inline,line-width=1.5\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-do2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \clef "hufnagel-do2" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1223,13 +1223,13 @@ Hufnagel style fa clef
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
 @lilypond[inline,line-width=1.5\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'hufnagel.punctum
-  % This is a guess; I couldn't find a ledger-line example (wl)
-  \override VaticanaStaff.LedgerLineSpanner.length-fraction = #0.45
-  \clef "hufnagel-fa2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    % This is a guess; I couldn't find a ledger-line example (wl)
+    \override VaticanaStaff.LedgerLineSpanner.length-fraction = #0.45
+    \clef "hufnagel-fa2" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1242,12 +1242,12 @@ Hufnagel style combined do/fa clef
 @code{hufnagel-do-fa}
 @tab
 @lilypond[inline,line-width=1.5\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'hufnagel.punctum
-  \override Staff.StaffSymbol.line-count = #5
-  \clef "hufnagel-do-fa" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \override Staff.StaffSymbol.line-count = #5
+    \clef "hufnagel-do-fa" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1355,8 +1355,7 @@ the predefined staff contexts for Gregorian chant configure
 @code{\caesura} to produce an ancient caesura mark.
 
 @lilypond[quote,ragged-right,staffsize=23]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \override TextScript.padding = #3
     g a g
@@ -1380,6 +1379,11 @@ the predefined staff contexts for Gregorian chant configure
     \caesura
     g a g
   }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1449,8 +1453,7 @@ specifically designed for use with notation in
 @cindex articulation, Gregorian, semicirculus
 
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \override Script.padding = #-0.1
     a\ictus_"ictus " \break
@@ -1460,6 +1463,11 @@ specifically designed for use with notation in
     \[ a_"episema" \episemInitium \pes b
        \flexa a b \episemFinis \flexa a \]
   }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1497,8 +1505,7 @@ note that you can say @code{\augmentum @{a g@}} as a shortcut for
 @code{\augmentum a \augmentum g}.
 
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \[ \augmentum a \flexa \augmentum g \]
     \augmentum g

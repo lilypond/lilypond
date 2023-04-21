@@ -1111,8 +1111,7 @@ und die graphischen Objekte, so dass unmittelbar mit der Notation
 begonnen werden kann. Siehe das folgende Beispiel:
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   <<
     \new VaticanaVoice = "cantus" {
       \[ c'\melisma c' \flexa a \]
@@ -1127,6 +1126,11 @@ begonnen werden kann. Siehe das folgende Beispiel:
       San- ctus, San- ctus, San- ctus
     }
   >>
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1368,33 +1372,35 @@ sich in der Datei @file{gregorian.ly} auch eine Definition für
 @code{\virgula} und @code{\caesura}.
 
 @lilypond[quote,ragged-right]
-\include "gregorian.ly"
-\score {
-  <<
-    \context VaticanaVoice {
-      \override TextScript.padding = #3
-      g a g
-      s^\markup { "divisio minima" }
-      \divisioMinima
-      g a g
-      s^\markup { "divisio maior" }
-      \divisioMaior
-      g a g
-      s^\markup { "divisio maxima" }
-      \divisioMaxima
-      \break
-      g a g
-      s^\markup { "finalis" }
-      \finalis
-      g a g
-      s^\markup { "virgula" }
-      \virgula
-      g a g
-      s^\markup { "caesura" }
-      \caesura
-      g a g
-    }
-  >>
+\new VaticanaScore {
+  \context VaticanaVoice {
+    \override TextScript.padding = #3
+    g a g
+    s^\markup { "divisio minima" }
+    \divisioMinima
+    g a g
+    s^\markup { "divisio maior" }
+    \divisioMaior
+    g a g
+    s^\markup { "divisio maxima" }
+    \divisioMaxima
+    \break
+    g a g
+    s^\markup { "finalis" }
+    \finalis
+    g a g
+    s^\markup { "virgula" }
+    \virgula
+    g a g
+    s^\markup { "caesura" }
+    \caesura
+    g a g
+  }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1443,8 +1449,7 @@ auch Artikulationszeichen für die Notation des Editio
 Vaticana-Stils zur Verfügung gestellt.
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \override TextScript.font-family = #'typewriter
     \override TextScript.font-shape = #'upright
@@ -1455,6 +1460,11 @@ Vaticana-Stils zur Verfügung gestellt.
     a\accentus_"accentus " \bar "" \break
     \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1495,8 +1505,7 @@ Man kann @code{\augmentum @{a g@}} als Kurznotation für
 @code{\augmentum a \augmentum g} schreiben.
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \[ \augmentum a \flexa \augmentum g \]
     \augmentum g

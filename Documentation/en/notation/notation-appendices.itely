@@ -1364,10 +1364,8 @@ Output
 @code{\clef "vaticana-do1"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \clef "vaticana-do1" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-do1" s c' s }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1377,10 +1375,8 @@ Output
 @code{\clef "vaticana-do2"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \clef "vaticana-do2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-do2" s c' s }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1391,10 +1387,8 @@ Output
 @code{\clef "vaticana-do3"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \clef "vaticana-do3" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-do3" s c' s }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1404,10 +1398,8 @@ Output
 @code{\clef "vaticana-fa1"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \clef "vaticana-fa1" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-fa1" s c' s }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1418,10 +1410,8 @@ Output
 @code{\clef "vaticana-fa2"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \clef "vaticana-fa2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-fa2" s c' s }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1434,11 +1424,11 @@ Output
 @code{\clef "medicaea-do1"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-do1" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-do1" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1448,11 +1438,11 @@ Output
 @code{\clef "medicaea-do2"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-do2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-do2" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1463,11 +1453,11 @@ Output
 @code{\clef "medicaea-do3"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-do3" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-do3" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1477,11 +1467,11 @@ Output
 @code{\clef "medicaea-fa1"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-fa1" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-fa1" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1492,11 +1482,11 @@ Output
 @code{\clef "medicaea-fa2"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-fa2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-fa2" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1509,11 +1499,11 @@ Output
 @code{\clef "hufnagel-do1"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-do1" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \clef "hufnagel-do1" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1523,11 +1513,11 @@ Output
 @code{\clef "hufnagel-do2"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-do2" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \clef "hufnagel-do2" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1538,11 +1528,11 @@ Output
 @code{\clef "hufnagel-do3"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-do3" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \clef "hufnagel-do3" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1552,11 +1542,11 @@ Output
 @code{\clef "hufnagel-fa1"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-fa1" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \clef "hufnagel-fa1" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -1567,11 +1557,11 @@ Output
 @code{\clef "hufnagel-fa2"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'hufnagel.punctum
-  % This is a guess; I couldn't find a ledger-line example (wl)
-  \override VaticanaStaff.LedgerLineSpanner.length-fraction = #0.45
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    % This is a guess; I couldn't find a ledger-line example (wl)
+    \override VaticanaStaff.LedgerLineSpanner.length-fraction = #0.45
   \clef "hufnagel-fa2" s c' s
 }
 \layout {
@@ -1583,12 +1573,12 @@ Output
 @code{\clef "hufnagel-do-fa"}
 @tab
 @lilypond[inline,line-width=2\cm]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  \override NoteHead.style = #'hufnagel.punctum
-  \override Staff.StaffSymbol.line-count = #5
-  \clef "hufnagel-do-fa" s c' s
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \override Staff.StaffSymbol.line-count = #5
+    \clef "hufnagel-do-fa" s c' s
+  }
 \layout {
   ragged-last = ##f
   \override SpacingSpanner.packed-spacing = ##f
@@ -2498,39 +2488,39 @@ f^\varcoda e,_\varcoda b'\varcoda
 @item
 @code{\accentus}
 @lilypond[notime]
-\include "gregorian.ly"
-\new VaticanaStaff { e'^\accentus s4 f_\accentus s4 b\accentus}
+\new VaticanaScore
+  \new VaticanaStaff { e'^\accentus s4 f_\accentus s4 b\accentus }
 @end lilypond
 @tab
 @code{\circulus}
 @lilypond[notime]
-\include "gregorian.ly"
-\new VaticanaStaff { e'^\circulus s4 f_\circulus s4 b\circulus  }
+\new VaticanaScore
+  \new VaticanaStaff { e'^\circulus s4 f_\circulus s4 b\circulus }
 @end lilypond
 @tab
 @code{\ictus}
 @lilypond[notime]
-\include "gregorian.ly"
-\new VaticanaStaff { e'^\ictus s4 f_\ictus s4 b\ictus}
+\new VaticanaScore
+  \new VaticanaStaff { e'^\ictus s4 f_\ictus s4 b\ictus }
 @end lilypond
 
 @item
 @code{\semicirculus}
 @lilypond[notime]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  e'^\semicirculus s4 f_\semicirculus s4 b\semicirculus
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    e'^\semicirculus s4 f_\semicirculus s4 b\semicirculus
+  }
 @end lilypond
 @tab
 @code{\signumcongruentiae}
 @lilypond[notime]
-\include "gregorian.ly"
-\new VaticanaStaff {
-  e'^\signumcongruentiae s4
-  f_\signumcongruentiae s4
-  b\signumcongruentiae
-}
+\new VaticanaScore
+  \new VaticanaStaff {
+    e'^\signumcongruentiae s4
+    f_\signumcongruentiae s4
+    b\signumcongruentiae
+  }
 @end lilypond
 
 @end multitable

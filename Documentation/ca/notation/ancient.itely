@@ -1084,8 +1084,7 @@ podeu començar de seguida a escriure el cant mateix, com ho
 demostra el fragment següent:
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   <<
     \new VaticanaVoice = "cantus" {
       \[ c'\melisma c' \flexa a \]
@@ -1100,6 +1099,11 @@ demostra el fragment següent:
       San- ctus, San- ctus, San- ctus
     }
   >>
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1340,8 +1344,7 @@ divisio minima. Per això, @file{gregorian.ly} defineix també les
 ordres @code{\virgula} i @code{\caesura}.
 
 @lilypond[quote,ragged-right]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   <<
     \context VaticanaVoice {
       \override TextScript.padding = #3
@@ -1367,6 +1370,11 @@ ordres @code{\virgula} i @code{\caesura}.
       g a g
     }
   >>
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1410,8 +1418,7 @@ d'articulació dissenyats específicament per utilitzar-los amb la
 notació a l'estil de l'@emph{Editio Vaticana}.
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \override TextScript.font-family = #'typewriter
     \override TextScript.font-shape = #'upright
@@ -1422,6 +1429,11 @@ notació a l'estil de l'@emph{Editio Vaticana}.
     a\accentus_"accentus " \bar "" \break
     \[ a_"episema" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
 }
 @end lilypond
 
@@ -1459,8 +1471,7 @@ també que podeu escriure @code{\augmentum @{a g@}} com abreviatura
 de @code{\augmentum a \augmentum g}.
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian.ly"
-\score {
+\new VaticanaScore {
   \new VaticanaVoice {
     \[ \augmentum a \flexa \augmentum g \]
     \augmentum g
