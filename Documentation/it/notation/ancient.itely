@@ -1603,7 +1603,6 @@ Forme @b{principali} e @emph{liquescenti}
 @b{Punctum}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1618,7 +1617,6 @@ Forme @b{principali} e @emph{liquescenti}
 @item
 @tab
 @lilypond[inline,staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1633,7 +1631,6 @@ Forme @b{principali} e @emph{liquescenti}
 @item
 @tab
 @lilypond[inline,staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1649,7 +1646,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Punctum Auctum Ascendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1665,7 +1661,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Punctum Auctum Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1681,7 +1676,6 @@ Forme @b{principali} e @emph{liquescenti}
 @b{Punctum inclinatum}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1697,7 +1691,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Punctum Inclinatum Auctum}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1713,7 +1706,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Punctum Inclinatum Parvum}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1729,7 +1721,6 @@ Forme @b{principali} e @emph{liquescenti}
 @b{Virga}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1754,7 +1745,6 @@ Forme @b{principali} e @emph{liquescenti}
 @b{Clivis vel Flexa}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1771,7 +1761,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Clivis Aucta Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1787,7 +1776,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Clivis Aucta Ascendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1803,7 +1791,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Cephalicus}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1819,7 +1806,6 @@ Forme @b{principali} e @emph{liquescenti}
 @b{Podatus/Pes}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1835,7 +1821,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Pes Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1851,7 +1836,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Pes Auctus Ascendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1867,7 +1851,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Epiphonus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1883,7 +1866,6 @@ Forme @b{principali} e @emph{liquescenti}
 @emph{Pes Initio Debilis}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1900,7 +1882,6 @@ Forme @b{principali} e @emph{liquescenti}
 Initio Debilis}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1926,7 +1907,6 @@ Initio Debilis}
 @b{Torculus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1942,7 +1922,6 @@ Initio Debilis}
 @emph{Torculus Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1959,7 +1938,6 @@ Initio Debilis}
 @emph{Torculus Deminutus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1975,7 +1953,6 @@ Initio Debilis}
 @emph{Torculus Initio Debilis}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1992,7 +1969,6 @@ Initio Debilis}
 Initio Debilis}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2010,7 +1986,6 @@ Initio Debilis}
 Initio Debilis}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2027,7 +2002,6 @@ Initio Debilis}
 @b{Porrectus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2043,7 +2017,6 @@ Initio Debilis}
 @emph{Porrectus Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2060,7 +2033,6 @@ Initio Debilis}
 @emph{Porrectus Deminutus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2076,7 +2048,6 @@ Initio Debilis}
 @b{Climacus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2093,7 +2064,6 @@ Initio Debilis}
 @emph{Climacus Auctus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2110,7 +2080,6 @@ Initio Debilis}
 @emph{Climacus Deminutus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2127,7 +2096,6 @@ Initio Debilis}
 @b{Scandicus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2143,7 +2111,6 @@ Initio Debilis}
 @emph{Scandicus Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2160,7 +2127,6 @@ Initio Debilis}
 @emph{Scandicus Deminutus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2185,7 +2151,6 @@ Initio Debilis}
 @b{Quilisma}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2201,7 +2166,6 @@ Initio Debilis}
 @emph{Quilisma Pes Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2218,7 +2182,6 @@ Initio Debilis}
 @b{Oriscus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2234,7 +2197,6 @@ Initio Debilis}
 @emph{Pes Quassus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2250,7 +2212,6 @@ Initio Debilis}
 @emph{Pes Quassus Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2267,7 +2228,6 @@ Initio Debilis}
 @b{Salicus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2283,7 +2243,6 @@ Initio Debilis}
 @emph{Salicus Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2300,7 +2259,6 @@ Initio Debilis}
 @b{(Apo)stropha}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2316,7 +2274,6 @@ Initio Debilis}
 @emph{Stropha Aucta}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2332,7 +2289,6 @@ Initio Debilis}
 @b{Bistropha}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2348,7 +2304,6 @@ Initio Debilis}
 @b{Tristropha}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2365,7 +2320,6 @@ Initio Debilis}
 @emph{Trigonus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2822,7 +2776,6 @@ può essere trattato in due modi diversi: o impostato come una singola sillaba
 allineata a sinistra:
 
 @lilypond[verbatim,ragged-right]
-\include "gregorian.ly"
 chant = \relative {
   \clef "G_8"
   c'\breve c4 b4 a c2 c4  \divisioMaior
@@ -2866,7 +2819,6 @@ a un atto melodico fisso.  In questi casi, si può usare @code{\hide Stem} o
 @code{\undo \hide Stem}.
 
 @lilypond[verbatim,ragged-right]
-\include "gregorian.ly"
 chant = \relative {
   \clef "G_8"
   \set Score.timing = ##f

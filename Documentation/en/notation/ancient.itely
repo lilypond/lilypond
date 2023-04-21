@@ -1705,7 +1705,6 @@ shows the code fragment that produces this ligature, using
 @b{Punctum}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1720,7 +1719,6 @@ shows the code fragment that produces this ligature, using
 @item
 @tab
 @lilypond[inline,staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1735,7 +1733,6 @@ shows the code fragment that produces this ligature, using
 @item
 @tab
 @lilypond[inline,staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1751,7 +1748,6 @@ shows the code fragment that produces this ligature, using
 @emph{Punctum Auctum Ascendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1767,7 +1763,6 @@ shows the code fragment that produces this ligature, using
 @emph{Punctum Auctum Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1783,7 +1778,6 @@ shows the code fragment that produces this ligature, using
 @b{Punctum inclinatum}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1799,7 +1793,6 @@ shows the code fragment that produces this ligature, using
 @emph{Punctum Inclinatum Auctum}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1815,7 +1808,6 @@ shows the code fragment that produces this ligature, using
 @emph{Punctum Inclinatum Parvum}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1831,7 +1823,6 @@ shows the code fragment that produces this ligature, using
 @b{Virga}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1857,7 +1848,6 @@ shows the code fragment that produces this ligature, using
 @b{Clivis vel Flexa}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1873,7 +1863,6 @@ shows the code fragment that produces this ligature, using
 @emph{Clivis Aucta Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1889,7 +1878,6 @@ shows the code fragment that produces this ligature, using
 @emph{Clivis Aucta Ascendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1905,7 +1893,6 @@ shows the code fragment that produces this ligature, using
 @emph{Cephalicus}
 @tab
 @lilypond[inline,staffsize=26,line-width=2.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1921,7 +1908,6 @@ shows the code fragment that produces this ligature, using
 @b{Podatus/Pes}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1937,7 +1923,6 @@ shows the code fragment that produces this ligature, using
 @emph{Pes Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1953,7 +1938,6 @@ shows the code fragment that produces this ligature, using
 @emph{Pes Auctus Ascendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1969,7 +1953,6 @@ shows the code fragment that produces this ligature, using
 @emph{Epiphonus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -1985,7 +1968,6 @@ shows the code fragment that produces this ligature, using
 @emph{Pes Initio Debilis}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2002,7 +1984,6 @@ shows the code fragment that produces this ligature, using
 Initio Debilis}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2029,7 +2010,6 @@ Initio Debilis}
 @b{Torculus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2045,7 +2025,6 @@ Initio Debilis}
 @emph{Torculus Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2062,7 +2041,6 @@ Initio Debilis}
 @emph{Torculus Deminutus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2078,7 +2056,6 @@ Initio Debilis}
 @emph{Torculus Initio Debilis}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2095,7 +2072,6 @@ Initio Debilis}
 Initio Debilis}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2113,7 +2089,6 @@ Initio Debilis}
 Initio Debilis}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2130,7 +2105,6 @@ Initio Debilis}
 @b{Porrectus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2146,7 +2120,6 @@ Initio Debilis}
 @emph{Porrectus Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2163,7 +2136,6 @@ Initio Debilis}
 @emph{Porrectus Deminutus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2179,7 +2151,6 @@ Initio Debilis}
 @b{Climacus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2196,7 +2167,6 @@ Initio Debilis}
 @emph{Climacus Auctus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2213,7 +2183,6 @@ Initio Debilis}
 @emph{Climacus Deminutus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2230,7 +2199,6 @@ Initio Debilis}
 @b{Scandicus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2246,7 +2214,6 @@ Initio Debilis}
 @emph{Scandicus Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2263,7 +2230,6 @@ Initio Debilis}
 @emph{Scandicus Deminutus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2289,7 +2255,6 @@ Initio Debilis}
 @b{Quilisma}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2305,7 +2270,6 @@ Initio Debilis}
 @emph{Quilisma Pes Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2322,7 +2286,6 @@ Initio Debilis}
 @b{Oriscus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2338,7 +2301,6 @@ Initio Debilis}
 @emph{Pes Quassus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2354,7 +2316,6 @@ Initio Debilis}
 @emph{Pes Quassus Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2371,7 +2332,6 @@ Initio Debilis}
 @b{Salicus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2387,7 +2347,6 @@ Initio Debilis}
 @emph{Salicus Auctus Descendens}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2404,7 +2363,6 @@ Initio Debilis}
 @b{(Apo)stropha}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2420,7 +2378,6 @@ Initio Debilis}
 @emph{Stropha Aucta}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2436,7 +2393,6 @@ Initio Debilis}
 @b{Bistropha}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2452,7 +2408,6 @@ Initio Debilis}
 @b{Tristropha}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2469,7 +2424,6 @@ Initio Debilis}
 @emph{Trigonus}
 @tab
 @lilypond[inline,staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \relative {
@@ -2950,7 +2904,6 @@ the recitation tone can be dealt with in two different ways:
 either set as a single, left-aligned syllable:
 
 @lilypond[verbatim,ragged-right]
-\include "gregorian.ly"
 chant = \relative {
   \clef "G_8"
   c'\breve c4 b4 a c2 c4 \divisioMaior
@@ -2986,7 +2939,6 @@ to a fixed melodic gesture.  In these cases, one can use the
 @code{\undo \omit Stem}.
 
 @lilypond[verbatim,ragged-right]
-\include "gregorian.ly"
 chant = \relative {
   \clef "G_8"
   \set Score.timing = ##f

@@ -1731,7 +1731,6 @@ als Tonhöhen eingesetzt werden.
 @b{Punctum}
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1746,7 +1745,6 @@ als Tonhöhen eingesetzt werden.
 @item
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1761,7 +1759,6 @@ als Tonhöhen eingesetzt werden.
 @item
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1777,7 +1774,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Punctum Auctum Ascendens}
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1793,7 +1789,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Punctum Auctum Descendens}
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1809,7 +1804,6 @@ als Tonhöhen eingesetzt werden.
 @b{Punctum inclinatum}
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1825,7 +1819,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Punctum Inclinatum Auctum}
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1841,7 +1834,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Punctum Inclinatum Parvum}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1857,7 +1849,6 @@ als Tonhöhen eingesetzt werden.
 @b{Virga}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1879,7 +1870,6 @@ als Tonhöhen eingesetzt werden.
 @b{Clivis vel Flexa}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1896,7 +1886,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Clivis Aucta Descendens}
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1912,7 +1901,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Clivis Aucta Ascendens}
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1928,7 +1916,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Cephalicus}
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1944,7 +1931,6 @@ als Tonhöhen eingesetzt werden.
 @b{Podatus/Pes}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1960,7 +1946,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Pes Auctus Descendens}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1976,7 +1961,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Pes Auctus Ascendens}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -1992,7 +1976,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Epiphonus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2008,7 +1991,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Pes Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2024,7 +2006,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Pes Auctus Descendens Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2047,7 +2028,6 @@ als Tonhöhen eingesetzt werden.
 @b{Torculus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2063,7 +2043,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Torculus Auctus Descendens}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2079,7 +2058,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Torculus Deminutus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2095,7 +2073,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Torculus Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2111,7 +2088,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Torculus Auctus Descendens Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2127,7 +2103,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Torculus Deminutus Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2143,7 +2118,6 @@ als Tonhöhen eingesetzt werden.
 @b{Porrectus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2159,7 +2133,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Porrectus Auctus Descendens}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2175,7 +2148,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Porrectus Deminutus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2191,7 +2163,6 @@ als Tonhöhen eingesetzt werden.
 @b{Climacus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2207,7 +2178,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Climacus Auctus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2223,7 +2193,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Climacus Deminutus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2239,7 +2208,6 @@ als Tonhöhen eingesetzt werden.
 @b{Scandicus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2255,7 +2223,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Scandicus Auctus Descendens}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2271,7 +2238,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Scandicus Deminutus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2294,7 +2260,6 @@ als Tonhöhen eingesetzt werden.
 @b{Quilisma}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2310,7 +2275,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Quilisma Pes Auctus Descendens}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2326,7 +2290,6 @@ als Tonhöhen eingesetzt werden.
 @b{Oriscus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2342,7 +2305,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Pes Quassus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2358,7 +2320,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Pes Quassus Auctus Descendens}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2374,7 +2335,6 @@ als Tonhöhen eingesetzt werden.
 @b{Salicus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2390,7 +2350,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Salicus Auctus Descendens}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2406,7 +2365,6 @@ als Tonhöhen eingesetzt werden.
 @b{(Apo)stropha}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2422,7 +2380,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Stropha Aucta}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2438,7 +2395,6 @@ als Tonhöhen eingesetzt werden.
 @b{Bistropha}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2454,7 +2410,6 @@ als Tonhöhen eingesetzt werden.
 @b{Tristropha}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2470,7 +2425,6 @@ als Tonhöhen eingesetzt werden.
 @emph{Trigonus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian.ly"
 \include "neume-demo-layout.ly"
 \score {
   \transpose c c' {
@@ -2846,7 +2800,6 @@ Text für die Rezitativnote kann auf zwei Arten notiert
 werden: entweder als einzelne, links ausgerichtete Silbe:
 
 @lilypond[verbatim,ragged-right]
-\include "gregorian.ly"
 chant = \relative {
   \clef "G_8"
   c'\breve c4 b4 a c2 c4  \divisioMaior
@@ -2881,7 +2834,6 @@ Silben verstecken (hier werden auch die Hälse unsichtbar
 gemacht):
 
 @lilypond[verbatim,ragged-right]
-\include "gregorian.ly"
 chant = \relative {
   \clef "G_8"
   \set Score.timing = ##f
