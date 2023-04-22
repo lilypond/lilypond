@@ -343,11 +343,6 @@ Small caps are now achieved by overriding @code{font-variant} to
 italics, this change makes it possible to use small caps and italics
 at the same time.
 
-@lilypond[quote]
-\markup \fontCaps \italic "Small caps in italics"
-@end lilypond
-
-
 @item
 The @code{font-series} property is now more flexible and allows to specify
 values such as @code{semibold} and @code{light} instead of only @code{normal}
