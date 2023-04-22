@@ -1329,7 +1329,7 @@ accommodated for typesetting a piece in mensural style."
 }
 
 \context {
-  \InternalGregorianStaff
+  \InternalGregorianStaff % Inappropriate: see Issue #6586
   \name MensuralStaff
   \alias Staff
   \defaultchild MensuralVoice
@@ -1339,10 +1339,12 @@ accommodated for typesetting a piece in mensural style."
 
   \consists Custos_engraver
 
-  \EnableGregorianDivisiones
+  \remove Divisio_engraver % counteract \InternalGregorianStaff
+  \consists Caesura_engraver % counteract \InternalGregorianStaff
+  \unset caesuraTypeTransform % counteract \InternalGregorianStaff
+  caesuraType = #'((bar-line . "|"))
 
-  %% Mark bar lines a little thinner to match the divisiones.
-  %% BarLine.hair-thickness = StaffSymbol.thickness * Divisio.thickness
+  %% Match the thickness of bar lines to the staff lines.
   \override BarLine.hair-thickness = #0.6
   \override BarLine.thick-thickness = #1.8
 
@@ -1422,6 +1424,7 @@ accommodated for typesetting a piece in Petrucci style."
   %% thickness does vary noticeably throughout (even between lines of
   %% the same double bar) and we use that as an excuse to preserve our
   %% modern distinctions in these defaults.
+  caesuraType = #'((bar-line . "|"))
   sectionBarType = "||"
   fineBarType = "|."
 
