@@ -123,8 +123,8 @@ to be modified directly."
   \name InternalGregorianStaff
   \denies Voice % derived contexts will accept specific voices
 
-  \description "An internal @code{Staff} type with settings shared by
-multiple ancient notation schemes."
+  \description "A kind of @code{Staff} with settings shared by
+multiple variants of Gregorian chant notation."
 
   \remove Caesura_engraver
   \consists Divisio_engraver
@@ -169,6 +169,117 @@ multiple ancient notation schemes."
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave -1))
   autoCautionaries = #'()
   printKeyCancellation = ##f
+}
+
+\context {
+  \Staff
+  \name InternalMensuralStaff
+  \denies Voice % derived contexts will accept specific voices
+
+  \description "An kind of @code{Staff} with settings shared by
+multiple variants of mensural notation."
+
+  %% USEFUL RESOURCES
+  %%
+  %% Monteverdi, Claudio.  L'Orfeo.  Venice: Ricciardo Amadino, 1609.
+  %%
+  %% Morley, Thomas.  A Plaine and Easie Introdvction to Practicall
+  %% Mvsicke.  London, 1597.
+  %%
+  %% Petrucci, Ottaviano.  Harmonice Musices Odhecaton.  Venice, 1501.
+  %%
+  %% Zarlino, Gioseffo.  Le Istitvtioni Harmoniche.  Venice, 1558.
+
+  \consists Custos_engraver
+  \consists Signum_repetitionis_engraver
+
+  %% We retain modern measure bar lines and line-breaking practice.
+  %% They have been used in mensural scores; for example, in the first
+  %% edition of L'Orfeo.
+  %%
+  %% Morely and Zarlino use measure bar lines at times in their theory
+  %% books.  Morley even uses span bars (p. 34-36).  Zarlino does warn
+  %% that in a chant, one who places a full-height line anywhere but
+  %% the end of a phrase is "vna pecora, vn goffo, & vno ignorante" --
+  %% a sheep, a klutz, and an ignoramus (p. 212).
+  %%
+  %% Therefore, some derived contexts may need to keep measure bar
+  %% lines, some may need to eliminate them, and some may need to
+  %% override them with an alternative like "-span|".  All are easy.
+
+  %% We also retain our modern distinction in the default bar lines
+  %% for \section and \fine because it might be useful for non-visual
+  %% reasons.  It might even be reasonable to retain it in layout: the
+  %% line thickness in Petrucci varies noticeably throughout, even
+  %% between lines of the same double bar.  BarLine properties can be
+  %% tuned to reduce or eliminate the visual difference.  Of course,
+  %% these types can be overridden, and nobody is forced to use \fine.
+
+  %% Unlike Gregorian notation, mensural notation does not use ticks
+  %% and half bars to delimit phrases -- they would be easily confused
+  %% with measured rests -- however, it retains full-height single and
+  %% double bars.  "Pausa omnia tangens spacia: generalis est: ubi
+  %% omnes voces simul cessant in calce tantum locanda" -- rests
+  %% crossing all the spaces are general: all voices stop there
+  %% together (Ornithoparchus, Andreas.  Musicae Activae Micrologus.
+  %% 1517).
+  %%
+  %% caesuraType uses 'bar-line rather than 'underlying-bar-line so
+  %% that it will override a mensurstrich.
+  %%
+  %% Preserving articulation scripts is a conscious choice.  Mensural
+  %% notation has bar lines and it has coronas, so we let a user who
+  %% writes \caesura \fermata reap what is sown, whether or not such a
+  %% thing were done historically.
+  caesuraType = #'((bar-line . "|"))
+
+  %% Morley explains repeat notation with a full-page example (p. 68).
+  %% Zarlino shows a little example (p. 267).  Both mark the start of
+  %% a repeated section with a single bar.  Petrucci uses a double bar
+  %% and provides the following interesting examples, but Helen Hewitt
+  %% notes in her 1942 edition (p. 25) that his choices of single or
+  %% double line are inconsistent.
+  %%
+  %% See the tenor part of "Amours amours amours" (Petrucci, f. 25v)
+  %% for (maybe) a repeat back to a previous double bar line which is
+  %% at the end of a line.  That is why we leave the "|" start-repeat
+  %% bar line with the usual visibility of "|" rather than make it
+  %% visible at the beginning of the line like a modern start-repeat
+  %% bar.
+  %%
+  %% See "Le corps" (Petrucci, f. 72v-73r) for an example of the
+  %% repeat sign appearing along with the final double bar line.  That
+  %% is why we have implemented the repeat sign as its own grob.
+  doubleRepeatBarType = #'()
+  endRepeatBarType = #'()
+  startRepeatBarType = "|"
+  underlyingRepeatBarType = #'()
+
+  %% It does not seem likely that anyone will use in-staff segno, but...
+  doubleRepeatSegnoBarType = "S"
+  endRepeatSegnoBarType = "S"
+  fineSegnoBarType = "|.S"
+  fineStartRepeatSegnoBarType = "|.S"
+  segnoBarType = "S"
+  startRepeatSegnoBarType = "S"
+
+  %% Reportedly, there is great variety in the use of accidentals, so
+  %% any default is likely to require adjustment.  We choose to place
+  %% an accidental on every modified note.  This is consistent with
+  %% L'Orfeo, which has measure bar lines and yet has accidentals on
+  %% consecutive notes of the same pitch (Monteverdi, p. 1).
+  autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave -1))
+  extraNatural = ##f
+  autoCautionaries = #'()
+  printKeyCancellation = ##f
+
+  \override TimeSignature.style = #'mensural
+
+  alterationGlyphs = #alteration-mensural-glyph-name-alist
+
+  \override Custos.style = #'mensural
+  \override Custos.neutral-position = #3
+  \override Custos.neutral-direction = #DOWN
 }
 
 \context {
@@ -1326,7 +1437,7 @@ accommodated for typesetting a piece in mensural style."
 }
 
 \context {
-  \InternalGregorianStaff % Inappropriate: see Issue #6586
+  \InternalMensuralStaff
   \name MensuralStaff
   \alias Staff
   \defaultchild MensuralVoice
@@ -1334,26 +1445,13 @@ accommodated for typesetting a piece in mensural style."
   \description "Same as @code{Staff} context, except that it is
 accommodated for typesetting a piece in mensural style."
 
-  \consists Custos_engraver
-
-  \remove Divisio_engraver % counteract \InternalGregorianStaff
-  \consists Caesura_engraver % counteract \InternalGregorianStaff
-  \unset caesuraTypeTransform % counteract \InternalGregorianStaff
-  caesuraType = #'((bar-line . "|"))
+  %% Eliminate measure bar lines and allow line breaks anywhere.
+  forbidBreakBetweenBarLines = ##f
+  measureBarType = #'()
 
   %% Match the thickness of bar lines to the staff lines.
   \override BarLine.hair-thickness = #0.6
   \override BarLine.thick-thickness = #1.8
-
-  %% Match BreathingSign to Divisio in case someone follows old
-  %% documentation or examples that use \breathe.
-  \override BreathingSign.font-size = #-2
-  \override BreathingSign.thickness = #1
-
-  %% Reduce the size of caesura and virgula marks.
-  \override Divisio.font-size = #-2
-  %% Match the thickness of divisiones to the staff lines.
-  \override Divisio.thickness = #1
 
   \override StaffSymbol.thickness = #0.6
 
@@ -1366,13 +1464,6 @@ accommodated for typesetting a piece in mensural style."
   middleCPosition = #-6
   clefPosition = #-2
   clefTransposition = #0
-
-  %% Select mensural style font.
-  \override TimeSignature.style = #'mensural
-  alterationGlyphs = #alteration-mensural-glyph-name-alist
-  \override Custos.style = #'mensural
-  \override Custos.neutral-position = #3
-  \override Custos.neutral-direction = #DOWN
 }
 
 \context {
@@ -1399,7 +1490,7 @@ Odhecaton} (Venice, 1501)."
 }
 
 \context {
-  \Staff
+  \InternalMensuralStaff
   \name PetrucciStaff
   \alias Staff
   \denies Voice
@@ -1416,36 +1507,10 @@ Odhecaton} (Venice, 1501)."
   forbidBreakBetweenBarLines = ##f
   measureBarType = #'()
 
-  %% Both single and double bar lines appear at section breaks in
-  %% Harmonice Musices Odhecaton.  It is not clear that there is any
-  %% semantic difference.  Likewise, there does not seem to be any
-  %% difference between section and final double bar lines.  The line
-  %% thickness does vary noticeably throughout (even between lines of
-  %% the same double bar) and we use that as an excuse to preserve our
-  %% modern distinctions in these defaults.
-  caesuraType = #'((bar-line . "|"))
-  sectionBarType = "||"
-  fineBarType = "|."
-
-  %% Harmonice Musices Odhecaton has notation for repeated sections.
-  %%
-  %% See "Bergerette savoyene" (f. 12v-13r) for an example of a repeat
-  %% to the beginning of the piece.  As in modern notation, there is
-  %% no bar line at the beginning.
-  %%
-  %% See the tenor part of "Amours amours amours" (f. 25v) for (maybe)
-  %% a repeat back to a previous double bar line which is at the end
-  %% of a line.  That is why we leave start-repeat double bar lines
-  %% with the visibility of a modern double bar line rather than make
-  %% them visible at the beginning of the line.
-  %%
-  %% See "Le corps" (f. 72v-73r) for an example of the repeat sign
-  %% appearing along with the final double bar line.  That is why we
-  %% have implemented the repeat sign as its own grob.
-  doubleRepeatBarType = #'()
-  endRepeatBarType = #'()
+  %% It seems that Petrucci prefers a double line for start-repeat,
+  %% though Helen Hewitt notes in her 1942 edition that his use of
+  %% single or double lines is not completely consistent (p. 25).
   startRepeatBarType = "||"
-  underlyingRepeatBarType = #'()
 
   %% Match BarLine.hair-thickness to stems:
   %% BarLine.hair-thickness = Stem.thickness * StaffSymbol.thickness
@@ -1480,20 +1545,12 @@ Odhecaton} (Venice, 1501)."
   clefPosition = #-2
   clefTransposition = #0
 
-  %% Select mensural style font.
-  \override TimeSignature.style = #'mensural
   %% FIXME: Create thicker Petrucci accidentals.
-  alterationGlyphs = #alteration-mensural-glyph-name-alist
-  \override Custos.style = #'mensural
-  \override Custos.neutral-position = #3
-  \override Custos.neutral-direction = #DOWN
+  %% alterationGlyphs = #alteration-petrucci-glyph-name-alist
 
   %% Accidentals are valid only once (if the following note is different)
-  extraNatural = ##f
   autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave 0)
                              ,neo-modern-accidental-rule)
-  autoCautionaries = #'()
-  printKeyCancellation = ##f
 }
 
 \context {
