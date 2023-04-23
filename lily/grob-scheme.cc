@@ -226,7 +226,7 @@ check_refp (Grob *grob, Grob *refp, Axis a, const char *function)
         function,
         "grob ~a is an invalid refpoint for ~a on ~a axis.\n"
         "The refpoint should be an ancestor (direct or indirect) of the grob.",
-        ly_list (ly_string2scm (grob->name ()), ly_string2scm (refp->name ()),
+        ly_list (ly_string2scm (refp->name ()), ly_string2scm (grob->name ()),
                  ly_string2scm (a == X_AXIS ? "X" : "Y")));
     }
 }
