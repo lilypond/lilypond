@@ -402,7 +402,7 @@ For LilyPond version @version{}
 @macro rlearningnamed{TEXT,DISPLAY}
 @c
 @vindex \DISPLAY\
-@ref{\TEXT\,,,learning,Learning Manual}
+@ref{\TEXT\,,\DISPLAY\,learning,Learning Manual}
 @end macro
 
 @macro rnotation{TEXT}

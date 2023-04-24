@@ -366,7 +366,7 @@ LilyPond バージョン @version{} 用
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
-@ref{\TEXT\,,,learning,\DISPLAY\}
+@ref{\TEXT\,,\DISPLAY\,learning,\DISPLAY\}
 @end macro
 
 @macro rnotation{TEXT}

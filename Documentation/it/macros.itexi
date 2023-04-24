@@ -387,7 +387,7 @@ Per la versione di LilyPond @version{}
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
-@ref{\TEXT\,,,learning,Manuale di Apprendimento}
+@ref{\TEXT\,,\DISPLAY\,learning,Manuale di Apprendimento}
 @end macro
 
 @macro rnotation{TEXT}

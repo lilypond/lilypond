@@ -381,7 +381,7 @@ LilyPond 版本 @version{}
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \DISPLAY\
-@ref{\TEXT\,,,learning,Learning Manual}
+@ref{\TEXT\,,\DISPLAY\,learning,Learning Manual}
 @end macro
 
 @macro rnotation{TEXT}
