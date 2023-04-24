@@ -392,7 +392,7 @@ sont pas réalisables avec ce gabarit préprogrammé.
 
 @node Notes paroles et accords
 @appendixsubsec Notes, paroles et accords
-@translationof Notes lyrics, and chords
+@translationof Notes lyrics and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
