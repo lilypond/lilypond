@@ -28,6 +28,7 @@
 Index_to_charcode_map make_index_to_charcode_map (FT_Face face);
 void get_unicode_name (char *s, FT_ULong code);
 void get_glyph_index_name (char *s, FT_ULong code);
+std::string load_font_table (FT_Face face, const std::string &tag);
 
 struct Preinit_Open_type_font
 {
@@ -63,7 +64,10 @@ public:
   void add_outline_to_skyline (Lazy_skyline_pair *lazy, Transform const &tr,
                                size_t signed_idx) const;
   Box get_glyph_outline_bbox (size_t signed_idx) const;
-  std::string get_otf_table (const std::string &tag) const;
+  std::string load_font_table (const std::string &tag) const
+  {
+    return ::load_font_table (face_, tag);
+  }
   static SCM make_otf (const std::string &);
   std::string font_name () const override;
   ~Open_type_font ();
@@ -77,7 +81,6 @@ public:
   Real design_size () const override;
 };
 
-std::string get_otf_table (FT_Face face, const std::string &tag);
 FT_Face open_ft_face (const std::string &, FT_Long idx);
 std::string get_postscript_name (FT_Face face);
 std::string get_cff_name (FT_Face face);

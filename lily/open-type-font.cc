@@ -33,11 +33,10 @@
 #include <memory>
 #include <utility>
 
-std::unique_ptr<FT_Byte[]>
-load_table (char const *tag_str, FT_Face face, FT_ULong *length)
+std::string
+load_font_table (FT_Face face, std::string const &tag_str)
 {
-  *length = 0;
-
+  FT_ULong length = 0;
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wold-style-cast"
   // The FT_MAKE_TAG macro has C-style casts and GCC is not smart enough to
@@ -45,72 +44,40 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
   FT_ULong tag = FT_MAKE_TAG (tag_str[0], tag_str[1], tag_str[2], tag_str[3]);
 #pragma GCC diagnostic pop
 
-  FT_Error error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, length);
+  FT_Error error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, &length);
   if (!error_code)
     {
-      std::unique_ptr<FT_Byte[]> buffer (new FT_Byte[*length]);
+      std::unique_ptr<FT_Byte[]> buffer (new FT_Byte[length]);
       if (!buffer)
-        error (_f ("cannot allocate %lu bytes", *length));
+        error (_f ("cannot allocate %lu bytes", length));
 
-      error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer.get (), length);
+      error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer.get (), &length);
       if (error_code)
-        {
-          error (_f ("cannot load font table: %s", tag_str));
-          buffer.reset ();
-        }
+        error (_f ("cannot load font table: %s", tag_str));
 
-      return buffer;
+      std::string ret;
+      ret.assign (reinterpret_cast<const char *> (buffer.get ()), length);
+      return ret;
     }
   else
-    programming_error (
-      _f ("FreeType error: %s", freetype_error_string (error_code).c_str ()));
-
-  return 0;
-}
-
-std::string
-Open_type_font::get_otf_table (const std::string &tag) const
-{
-  return ::get_otf_table (face_, tag);
+    {
+      programming_error (
+        _f ("FreeType error: %s", freetype_error_string (error_code).c_str ()));
+      return "";
+    }
 }
 
 SCM
-load_scheme_table (char const *tag_str, FT_Face face)
+load_scheme_table (const char *tag_str, FT_Face face)
 {
-  FT_ULong length = 0;
-  auto buffer (load_table (tag_str, face, &length));
-
-  SCM tab = SCM_EOL;
-  if (buffer)
-    {
-      std::string contents (reinterpret_cast<char const *> (buffer.get ()),
-                            length);
-      contents = "(quote (" + contents + "))";
-
-      tab = scm_eval_string (scm_from_utf8_string (contents.c_str ()));
-    }
-  return tab;
+  std::string contents = load_font_table (face, tag_str);
+  contents = "(quote (" + contents + "))";
+  return scm_eval_string (scm_from_utf8_string (contents.c_str ()));
 }
 
 Open_type_font::~Open_type_font ()
 {
   FT_Done_Face (face_);
-}
-
-/*
-  UGH fix naming
-*/
-std::string
-get_otf_table (FT_Face face, const std::string &tag)
-{
-  std::string ret;
-  FT_ULong len;
-  auto tab (load_table (tag.c_str (), face, &len));
-  if (tab)
-    {
-      ret.assign (reinterpret_cast<char const *> (tab.get ()), len);
-    }
-  return ret;
 }
 
 FT_Face
@@ -193,7 +160,7 @@ get_postscript_name (FT_Face face)
 std::string
 get_cff_name (FT_Face face)
 {
-  std::string cff_table = get_otf_table (face, "CFF ");
+  std::string cff_table = load_font_table (face, "CFF ");
 
   FT_Open_Args args;
   args.flags = FT_OPEN_MEMORY;

@@ -79,7 +79,7 @@ non-existent @var{tag}.
   // Pad with spaces
   tag_string.insert (tag_string.length (), 4 - tag_string.length (), ' ');
 
-  std::string tab = otf->get_otf_table (tag_string);
+  std::string tab = otf->load_font_table (tag_string);
 
   SCM ret = scm_from_latin1_stringn (tab.data (), tab.length ());
   scm_remember_upto_here_1 (font);

@@ -96,7 +96,7 @@ only; it specifies the font index within the OTC.  The default value of
     }
 
   face = open_ft_face (file_name, i);
-  std::string table = get_otf_table (face, "CFF ");
+  std::string table = load_font_table (face, "CFF ");
 
   SCM asscm = scm_from_latin1_stringn (table.data (), table.length ());
   FT_Done_Face (face);
