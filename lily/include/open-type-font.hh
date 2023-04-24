@@ -41,7 +41,6 @@ class Open_type_font : Preinit_Open_type_font, public Font_metric
   /* handle to face object */
   FT_Face face_;
   std::string postscript_name_;
-  mutable std::unordered_map<std::string, size_t> name_to_index_map_;
 
   Index_to_charcode_map index_to_charcode_map_;
   mutable std::unordered_map<size_t, Box> lily_index_to_bbox_table_;
