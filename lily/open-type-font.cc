@@ -196,24 +196,16 @@ get_cff_name (FT_Face face)
   return ret;
 }
 
-SCM
-Open_type_font::make_otf (const std::string &str)
-{
-  FT_Face face = open_ft_face (str, 0 /* index */);
-  Open_type_font *otf = new Open_type_font (face);
-  otf->filename_ = str;
-  return otf->self_scm ();
-}
-
 Preinit_Open_type_font::Preinit_Open_type_font ()
 {
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;
 }
 
-Open_type_font::Open_type_font (FT_Face face)
+Open_type_font::Open_type_font (const std::string &filename)
+  : filename_ (filename)
 {
-  face_ = face;
+  face_ = open_ft_face (filename, /* index */ 0);
 
   lily_character_table_
     = Hash_table::alist_to_hashq_table (load_scheme_table ("LILC", face_));

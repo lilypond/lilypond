@@ -168,6 +168,7 @@ Open_type_font *
 All_font_metrics::find_otf_font (const std::string &name)
 {
   SCM sname = ly_symbol2scm (name);
+  Open_type_font *ret;
   SCM val;
   if (!otf_dict_->try_retrieve (sname, &val))
     {
@@ -179,18 +180,20 @@ All_font_metrics::find_otf_font (const std::string &name)
         }
 
       debug_output ("[" + file_name, true); // start on a new line
-      val = Open_type_font::make_otf (file_name);
-      Open_type_font *otf = unsmob<Open_type_font> (val);
+      ret = new Open_type_font (file_name);
 
       debug_output ("]", false);
 
       SCM name_string = ly_string2scm (name);
-      otf->description_ = scm_cons (name_string, to_scm (1.0));
-      otf_dict_->set (sname, val);
-      otf->unprotect ();
+      ret->description_ = scm_cons (name_string, to_scm (1.0));
+      otf_dict_->set (sname, ret->self_scm ());
+      ret->unprotect ();
     }
-  Open_type_font *ret = unsmob<Open_type_font> (val);
-  assert (ret);
+  else
+    {
+      ret = unsmob<Open_type_font> (val);
+      assert (ret);
+    }
   return ret;
 }
 

@@ -47,14 +47,14 @@ class Open_type_font : Preinit_Open_type_font, public Font_metric
   mutable std::unordered_map<size_t, Box> lily_index_to_bbox_table_;
   std::string filename_;
 
-  Open_type_font (FT_Face);
-
   OVERRIDE_CLASS_NAME (Open_type_font);
 
 protected:
   void derived_mark () const override;
 
 public:
+  Open_type_font (const std::string &filename);
+
   Real get_units_per_EM () const;
   SCM get_global_table () const;
   SCM get_char_table () const;
@@ -68,7 +68,6 @@ public:
   {
     return ::load_font_table (face_, tag);
   }
-  static SCM make_otf (const std::string &);
   std::string font_name () const override;
   ~Open_type_font ();
   std::pair<Offset, bool> attachment_point (const std::string &,
