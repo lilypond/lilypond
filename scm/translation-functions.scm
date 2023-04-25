@@ -1003,7 +1003,7 @@ only ~a fret labels provided")
                        an
                        (1- pow)))))
   (let* ((number-and-power (get-number-and-power 0 0))
-         (begin-measure (= 0 (ly:moment-main-numerator measure-pos)))
+         (begin-measure (ly:context-property context 'measureStartNow #f))
          (maybe-open-parenthesis (if begin-measure "" "("))
          (maybe-close-parenthesis (if begin-measure "" ")")))
     (string-append maybe-open-parenthesis
