@@ -262,8 +262,11 @@ Bar_engraver::calc_bar_type () const
           break;
 
         case BarType::MEASURE:
-          if (from_scm<bool> (get_property (this, "measureStartNow")))
-            read_bar (ly_symbol2scm ("measureBarType"));
+          if (!first_time_
+              && from_scm<bool> (get_property (this, "measureStartNow")))
+            {
+              read_bar (ly_symbol2scm ("measureBarType"));
+            }
           break;
 
         case BarType::UNDERLYING_CAESURA:
@@ -316,6 +319,18 @@ Bar_engraver::initialize ()
 {
   Engraver::initialize ();
   set_property (context (), "currentBarLine", SCM_EOL);
+
+  // For decisions about initial bar lines, what matters is the lifetime of the
+  // Timing context.  The Bar_engraver's local context could be an ossia staff
+  // or other late-created staff, in which cases we allow initial bar lines.
+  //
+  // TODO: Gould says that "most editions do not include an initial barline
+  // through the cue stave" (Behind Bars, p. 497), so we may want to make this
+  // configurable, check the usual editions, and possibly change the default.
+  if (auto *timing = find_context_above (context (), ly_symbol2scm ("Timing")))
+    {
+      first_time_ = !(timing->init_mom () < timing->now_mom ());
+    }
 }
 
 void

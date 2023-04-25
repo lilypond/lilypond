@@ -61,8 +61,10 @@ Partial_iterator::process (Moment m)
         {
           auto mp = from_scm (mp_scm, Moment (0));
           mp.main_part_ = 0;
-          set_property (timing, "measurePosition",
-                        (mp - length).smobbed_copy ());
+          mp -= length;
+          set_property (timing, "measurePosition", mp.smobbed_copy ());
+          if (mp)
+            set_property (timing, "measureStartNow", SCM_EOL);
         }
     }
   else

@@ -184,10 +184,9 @@ breathing or caesura.")))
           ;; Each measure of a count receives a new spanner, which is bounded
           ;; by the first "command column" of that measure and the following one.
           (if (or (eq? #t (ly:context-property context 'measureStartNow))
-                  ;; measureStartNow is unset at start of piece.  This
-                  ;; first-time-step criterion also applies for a Staff
-                  ;; created mid-piece; starting a measure counter
-                  ;; mid-measure is not meaningful anyway.
+                  ;; This first-time-step criterion also applies for a Staff
+                  ;; created mid-piece; starting a measure counter mid-measure
+                  ;; is not meaningful anyway.
                   first-time-step)
               (begin
                 ;; Finish the previous count-spanner if there is one.

@@ -195,6 +195,7 @@ Timing_translator::initialize ()
     const auto mp = Moment (0, now_mom ().grace_part_);
     set_property (context (), "measurePosition", mp.smobbed_copy ());
   }
+  set_property (context (), "measureStartNow", SCM_BOOL_T);
 
   SCM timeSignatureSettings = get_property (this, "timeSignatureSettings");
   if (!scm_is_pair (timeSignatureSettings))
