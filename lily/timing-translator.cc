@@ -181,7 +181,10 @@ Timing_translator::initialize ()
                         .smobbed_copy ();
     }
   set_property (context (), "measureLength", measureLength);
-  set_property (context (), "measurePosition", now_mom ().smobbed_copy ());
+  {
+    const auto mp = Moment (0, now_mom ().grace_part_);
+    set_property (context (), "measurePosition", mp.smobbed_copy ());
+  }
 
   SCM timeSignatureSettings = get_property (timing, "timeSignatureSettings");
   if (!scm_is_pair (timeSignatureSettings))
