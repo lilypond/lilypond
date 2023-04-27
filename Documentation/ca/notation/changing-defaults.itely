@@ -13,9 +13,8 @@ Translation of GIT committish: a089ca62fd9b3770a932061207262fe81063dc56
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Canvi dels valors predeterminats
+@node Changing defaults
 @chapter Canvi dels valors predeterminats
-@translationof Changing defaults
 
 L'objectiu del disseny del LilyPond és proporcionar la més alta
 qualitat dels resultats, de forma predeterminada.  Malgrat això,
@@ -24,7 +23,7 @@ disposició sobre el paper es controla a través d'un ampli nombre
 de @q{botons i interruptors} anomenats en el seu conjunt
 @q{propietats}.  Al Manual d'aprenentatge podem trobar una
 introducció en forma de tutorial a l'accés i a la modificació
-d'aquestes propietats, vegeu @rlearning{Ajustament de la
+d'aquestes propietats, vegeu @rlearningnamed{Tweaking output, Ajustament de la
 sortida}.  S'hauria de llegir aquest tutorial en primer lloc.
 Aquest capítol cobreix un terreny semblant, però amb un estil més
 adequat per a un manual de referència.
@@ -52,34 +51,33 @@ conté un breu tutorial sobre la introducció de nombres, llistes,
 cadenes i símbols en Scheme.}
 
 @menu
-* Contextos d'interpretació::
-* Explicació del Manual de referència de funcionament intern::
-* Modificació de les propietats::
-* Conceptes i propietats útils::
-* Ajustaments avançats::
-* Ús de les funcions musicals::
+* Interpretation contexts::
+* Explaining the Internals Reference::
+* Modifying properties::
+* Useful concepts and properties::
+* Advanced tweaks::
+* Using music functions::
 @end menu
 
 
-@node Contextos d'interpretació
+@node Interpretation contexts
 @section Contextos d'interpretació
-@translationof Interpretation contexts
 
 Aquesta secció explica que són els contextos i com modificar-los.
 
 @menu
-* Explicació dels contextos::
-* Creació i referenciació dels contextos::
-* Manteniment amb vida dels contextos::
-* Modificació dels connectors (plug-ins) de context::
-* Canvi dels paràmetres predeterminats dels contextos::
-* Definició de contextos nous::
-* Ordre de disposició dels contextos::
+* Contexts explained::
+* Creating and referencing contexts::
+* Keeping contexts alive::
+* Modifying context plug-ins::
+* Changing context default settings::
+* Defining new contexts::
+* Context layout order::
 @end menu
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Contextos i gravadors}.
+@rlearningnamed{Contexts and engravers, Contextos i gravadors}.
 
 Fitxers d'inici:
 @file{ly/engraver-init.ly},
@@ -93,28 +91,26 @@ Referència de funcionament intern:
 @rinternals{Engravers and Performers}.
 
 
-@node Explicació dels contextos
+@node Contexts explained
 @subsection Explicació dels contextos
-@translationof Contexts explained
 
 Els contextos es disposen de forma jeràrquica:
 
 @menu
-* Definicions de sortida - estructura dels contextos::
-* Score - el context mestre::
-* Contextos del nivell superior - contenidors de pentagrames::
-* Contextos de nivell intermedi - pentagrames::
-* Contextos del nivell més baix - veus::
+* Output definitions - blueprints for contexts::
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
 @end menu
 
-@node Definicions de sortida - estructura dels contextos
+@node Output definitions - blueprints for contexts
 @unnumberedsubsubsec Definicions de sortida - estructura dels contextos
-@translationof Output definitions - blueprints for contexts
 
 Aquesta secció explica la rellevància de les definicions de
 sortida quan es treball amb els contextos.  Més endavant oferim
 exemples de definicions de sortida reals (vegeu
-@ref{Canvi de tots els contextos del mateix tipus}).
+@ref{Changing all contexts of the same type}).
 
 @cindex sortida, definicions de
 @funindex \layout
@@ -131,8 +127,8 @@ Una definició de sortida molt més senzilla que s'usa per a la
 producció de MIDI s'especifica mitjanant @code{\midi}.
 Internament, el LilyPond utilitza diverses altres definicions de
 sortida, com quan s'usa el combinador de particel·les
-(@ref{Combinació automàtica de les parts}) o es creen fragments de
-notes guia citades (@ref{Cites a altres veus}).
+(@ref{Automatic part combining}) o es creen fragments de
+notes guia citades (@ref{Quoting other voices}).
 
 Les definicions de sortida estableixen la relació entre els
 contextos així com els seus respectius valors predeterminats.  Tot
@@ -145,7 +141,7 @@ Alguns ajustaments afecten a diverses sortides: per exemple, si es
 desactiva el barrat automàtic, @code{autoBeaming}, dins d'algun
 context, les barres compten com melismes pel que respecta a la
 correspondència entre la música i la lletra, com es descriu a
-@ref{Duració automàtica de les síl·labes}.  Aquesta
+@ref{Automatic syllable durations}.  Aquesta
 correspondència es fa tant per a la sortida impresa com per al
 MIDI.  Si els canvis fets sobre l'@code{autoBeaming} dins de la
 definició de context d'un bloc @code{\layout} no es repeteixen
@@ -157,9 +153,8 @@ Fitxers instal·lats:
 @file{ly/engraver-init.ly}.
 @file{ly/performer-init.ly}.
 
-@node Score - el context mestre
+@node Score - the master of all contexts
 @unnumberedsubsubsec Score - el context mestre
-@translationof Score - the master of all contexts
 
 Aquest és el context de notació més alt.  Cap altre context pot
 contenir un context Score.  De forma predeterminada, el context
@@ -170,9 +165,8 @@ estan sempre alineats entre els diferents pentagrames.
 Es crea implícitament una instància del context Score quan es
 processa un bloc @code{\score @{@dots{}@}}.
 
-@node Contextos del nivell superior - contenidors de pentagrames
+@node Top-level contexts - staff containers
 @unnumberedsubsubsec Contextos del nivell superior - contenidors de pentagrames
-@translationof Top-level contexts - staff containers
 
 @strong{@emph{StaffGroup}}
 
@@ -198,9 +192,8 @@ es connecten verticalment.
 Igual que @code{GrandStaff}, però dóna suport a la possibilitat
 deposar el nom de l'instrument a l'esquerra del sistema.
 
-@node Contextos de nivell intermedi - pentagrames
+@node Intermediate-level contexts - staves
 @unnumberedsubsubsec Contextos de nivell intermedi - pentagrames
-@translationof Intermediate-level contexts - staves
 
 @strong{@emph{Staff}}
 
@@ -234,9 +227,8 @@ en estil gregorià.
 Igual que @code{Staff}, excepte que est+a dissenyat per gravar
 peces en estil mensural.
 
-@node Contextos del nivell més baix - veus
+@node Bottom-level contexts - voices
 @unnumberedsubsubsec Contextos del nivell més baix - veus
-@translationof Bottom-level contexts - voices
 
 Els contextos del mateix nivell que Voice donen un valor inicial a
 certes propietats i inicien els gravadors corresponents.  Un
@@ -286,16 +278,15 @@ sol deixar que es creï implícitament.
 
 El context de veu que s'utilitza per dibuixar notes de mida
 reduïda, amb l'objectiu principal d'afegir notes guia d'un
-pentagrama a un altre, vegeu @ref{Format de les notes guia}.
+pentagrama a un altre, vegeu @ref{Formatting cue notes}.
 Normalment es deixa que creï implícitament.
 
 @strong{@emph{ChordNames}}
 
 Gravat de noms d'acords.
 
-@node Creació i referenciació dels contextos
+@node Creating and referencing contexts
 @subsection Creació i referenciació dels contextos
-@translationof Creating and referencing contexts
 
 @funindex \new
 @funindex \context
@@ -448,7 +439,7 @@ qualssevol de les dues formes següents:
 
 @noindent
 De manera alternativa, es poden utilitzar variables amb un efecte
-semblant.  Vegeu @rlearning{Organitzar les peces mitjançant variables}.
+semblant.  Vegeu @rlearningnamed{Organizing pieces with variables, Organitzar les peces mitjançant variables}.
 
 @item
 @code{\context} sense cap nom correspondrà amb el primer context
@@ -484,31 +475,30 @@ tard, per exemple quan s'associa la lletra amb la música:
 
 @noindent
 Per veure més detalls sobre l'associació de lletra i música, consulteu
-@ref{Duració automàtica de les síl·labes}.
+@ref{Automatic syllable durations}.
 
 Les propietats de tots els contextos d'un tipus particular es
 poden modificar dins d'un bloc @code{\layout} (amb una sintaxi
 diferent), vegeu
-@ref{Canvi de tots els contextos del mateix tipus}.
+@ref{Changing all contexts of the same type}.
 
 Aquesta construcció també ofereix una forma de mantenir les ordres
 de disposició separades del contingut musical.  Si es modificarà
 un sols context, s'ha d'usar un bloc
 @code{\with}, vefeu
-@ref{Canvi de sols un context determinat}.
+@ref{Changing just one specific context}.
 
 @morerefs
 Manual d'aprenentatge
-@rlearning{Organitzar les peces mitjançant variables}.
+@rlearningnamed{Organizing pieces with variables, Organitzar les peces mitjançant variables}.
 
 Referència de la notació:
-@ref{Canvi de sols un context determinat},
-@ref{Duració automàtica de les síl·labes}.
+@ref{Changing just one specific context},
+@ref{Automatic syllable durations}.
 
 
-@node Manteniment amb vida dels contextos
+@node Keeping contexts alive
 @subsection Manteniment amb vida dels contextos
-@translationof Keeping contexts alive
 
 @cindex contextos, mantenir amb vida
 @cindex contextos, temps de vida
@@ -668,9 +658,8 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 }
 @end lilypond
 
-@node Modificació dels connectors (plug-ins) de context
+@node Modifying context plug-ins
 @subsection Modificació dels connectors (plug-ins) de context
-@translationof Modifying context plug-ins
 
 @c TODO Should this be Modifying engravers or Modifying contexts?
 
@@ -742,7 +731,7 @@ Aquest és un mètode força rudimentari de fer que desapareguin els
 objectes perquè afecta a tot el pentagrama.  Aquest mètode també
 afecta l'espaiat, cosa que pot ser desitjable o no ser-ho.  Es
 mostren mètodes més sofisticats per treure objectes a
-@rlearning{Visibilitat i color dels objectes}.
+@rlearningnamed{Visibility and color of objects, Visibilitat i color dels objectes}.
 
 L'exemple següent mostra una aplicació pràctica.  Normalment les
 línies divisòries i les indicacions de compàs estan sincronitzades
@@ -815,16 +804,15 @@ Fitxers instal·lats:
 @file{ly/engraver-init.ly}.
 
 
-@node Canvi dels paràmetres predeterminats dels contextos
+@node Changing context default settings
 @subsection Canvi dels paràmetres predeterminats dels contextos
-@translationof Changing context default settings
 
 @cindex predeterminats, canvi de propietats de context
 @cindex context, canvi de propietats predeterminades de
 
 Es poden canviar les propietats de context i de grob amb les
 ordres @code{\set} i @code{\override}, tal i com es descriu a
-@ref{Modificació de les propietats}.  Aquestes ordres creen
+@ref{Modifying properties}.  Aquestes ordres creen
 esdeveniments musicals, fent que els canvis tinguin efecte en el
 punt temporal en el qual la música s'està processant.
 
@@ -836,14 +824,13 @@ contextos d'un tipus donat, i l'altre modifica els valors
 predeterminats sols a una instància concreta d'un context.
 
 @menu
-* Canvi de tots els contextos del mateix tipus::
-* Canvi de sols un context determinat::
-* Ordre de precedència::
+* Changing all contexts of the same type::
+* Changing just one specific context::
+* Order of precedence::
 @end menu
 
-@node Canvi de tots els contextos del mateix tipus
+@node Changing all contexts of the same type
 @unnumberedsubsubsec Canvi de tots els contextos del mateix tipus
-@translationof Changing all contexts of the same type
 
 @cindex \context dins d'un bloc \layout
 @funindex \context
@@ -856,7 +843,7 @@ qualsevol bloc @code{\layout}.
 
 Els ajustaments per a la sortida MIDI, al contrari que per al
 gravat, es tindran que especificar a part a blocs @code{\midi} (vegeu
-@ref{Definicions de sortida - estructura dels contextos}).
+@ref{Output definitions - blueprints for contexts}).
 
 El bloc @code{\layout} s'ha de col·locar dins del bloc
 @code{\score} al que s'aplica, després de la música.
@@ -939,7 +926,7 @@ musical com @code{\accidentalStyle dodecaphonic}
 @item
 Una variable definida per l'usuari que contingui un bloc
 @code{\with}; per veure detalls sobre el bloc @code{\with},
-consulteu @ref{Canvi de sols un context determinat}.
+consulteu @ref{Changing just one specific context}.
 
 @lilypond[quote,verbatim]
 StaffDefaults = \with {
@@ -971,7 +958,7 @@ les mateixes instruccions d'ajustament de propietats al
 començament de cadascú dels contextos del tipus especificat.  Si
 no s'especifica cap context, @emph{tots i cadascú} dels contextos
 del nivell inferior queden afectats, vegeu
-@ref{Contextos del nivell més baix - veus}.  La sintaxi d'una
+@ref{Bottom-level contexts - voices}.  La sintaxi d'una
 ordre d'ajustament de propietats dins d'un bloc @code{\layout} és
 la mateixa que si la mateixa ordre estigués escrita al propi flux musical.
 
@@ -992,9 +979,8 @@ la mateixa que si la mateixa ordre estigués escrita al propi flux musical.
 @end lilypond
 
 
-@node Canvi de sols un context determinat
+@node Changing just one specific context
 @unnumberedsubsubsec Canvi de sols un context determinat
-@translationof Changing just one specific context
 
 @cindex \with
 @funindex \with
@@ -1031,7 +1017,7 @@ el mode:
 atès que és el context implícit creat per aquestes formes breus
 el que es vol modificar.  S'aplica la mateixa consideració a les
 altres formes curtes d'especificar el mode d'entrada
-(@code{\drums}, @code{\figures}), vegeu @ref{Modes d'entrada}.
+(@code{\drums}, @code{\figures}), vegeu @ref{Input modes}.
 
 Considerant que les modificacions de context especificades en blocs
 @code{\with} estan dins de la música, afectaran a @emph{totes}
@@ -1114,11 +1100,10 @@ Una ordre predefinida tal com @code{\dynamicUp}
 
 @morerefs
 Referència de la notació:
-@ref{Modes d'entrada}
+@ref{Input modes}
 
-@node Ordre de precedència
+@node Order of precedence
 @unnumberedsubsubsec Ordre de precedència
-@translationof Order of precedence
 
 El valor d'una propietat que s'aplica en un moment determinat
 d'una propietat que s'aplica en un moment determinat es determina
@@ -1145,18 +1130,17 @@ preprogramat.
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Modificar les propietats dels contextos}.
+@rlearningnamed{Modifying context properties, Modificar les propietats dels contextos}.
 
 Referència de la notació:
-@ref{Explicació dels contextos},
-@ref{Contextos del nivell més baix - veus},
-@ref{L'ordre set},
-@ref{L'ordre override},
-@ref{El bloc layout}.
+@ref{Contexts explained},
+@ref{Bottom-level contexts - voices},
+@ref{The set command},
+@ref{The override command},
+@ref{The layout block}.
 
-@node Definició de contextos nous
+@node Defining new contexts
 @subsection Definició de contextos nous
-@translationof Defining new contexts
 
 @cindex contextos, definició de nous
 @cindex gravadors, incloure en contextos
@@ -1378,9 +1362,8 @@ Referència de funcionament intern:
 @rinternals{Rhythmic_column_engraver},
 @rinternals{Pitch_squash_engraver}.
 
-@node Ordre de disposició dels contextos
+@node Context layout order
 @subsection Ordre de disposició dels contextos
-@translationof Context layout order
 
 @cindex contextos, ordre de disposició
 @funindex \accepts
@@ -1494,40 +1477,38 @@ text de la primera estrofa.
 
 En diversos llocs poden veure's exemples que mostren aquesta
 recol·locació de contextos temporals: vegeu
-@rlearning{Niuat d'expressions musicals},
-@ref{Modificació de pentagrames separats} i
-@ref{Tècniques específiques per a les lletres}.
+@rlearningnamed{Nesting music expressions, Niuat d'expressions musicals},
+@ref{Modifying single staves} i
+@ref{Techniques specific to lyrics}.
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Niuat d'expressions musicals}.
+@rlearningnamed{Nesting music expressions, Niuat d'expressions musicals}.
 
 Referència de la notació:
-@ref{Modificació de pentagrames separats},
-@ref{Tècniques específiques per a les lletres}.
+@ref{Modifying single staves},
+@ref{Techniques specific to lyrics}.
 
 Manual d'utilització del programa:
-@rprogram{Apareix un pentagrama de més}.
+@rprogramnamed{An extra staff appears, Apareix un pentagrama de més}.
 
 Fitxers instal·lats:
 @file{ly/engraver-init.ly}.
 
 
-@node Explicació del Manual de referència de funcionament intern
+@node Explaining the Internals Reference
 @section Explicació del Manual de referència de funcionament intern
-@translationof Explaining the Internals Reference
 
 @menu
-* Navegació per la referència del programa::
-* Interfícies de la presentació::
-* Determinació de la propietat del grob::
-* Convencions de noms::
+* Navigating the program reference::
+* Layout interfaces::
+* Determining the grob property::
+* Naming conventions::
 @end menu
 
 
-@node Navegació per la referència del programa
+@node Navigating the program reference
 @subsection Navegació per la referència del programa
-@translationof Navigating the program reference
 
 Suposem que volem moure la indicació de digitació del fragment següent:
 
@@ -1536,7 +1517,7 @@ c''-2
 @end lilypond
 
 Si visiteu la documentació a la cerca d'ordres de digitació (a
-@ref{Indicacions de digitació}), trobareu:
+@ref{Fingering instructions}), trobareu:
 
 @quotation
 @strong{Vegeu també}
@@ -1596,9 +1577,8 @@ de la @rinternals{Translation}, i del @rinternals{Backend}.  Cada
 u dels capítols relaciona totes les definicions utilitzades i
 totes les propietats que es poden ajustar.
 
-@node Interfícies de la presentació
+@node Layout interfaces
 @subsection Interfícies de la presentació
-@translationof Layout interfaces
 
 @cindex interfície de la presentació
 @cindex presentació, interfície de la
@@ -1676,7 +1656,7 @@ si es poden modificar.
 
 Hem estat parlant de l'objecte @code{Fingering}, però realment no
 significa molt.  El fitxer d'inicialització
-(vegeu @rlearning{Altres fonts d'informació})
+(vegeu @rlearningnamed{Other sources of information, Altres fonts d'informació})
 @file{scm/define-grobs.scm} mostra l'ànima de l'@q{objecte},
 
 @example
@@ -1707,9 +1687,8 @@ Com podem veure, l'objecte @code{Fingering} no és més que un munt
 de valors de variables, i la pàgina web de la Referència de
 funcionament intern es genera directament a partir d'aquesta definició.
 
-@node Determinació de la propietat del grob
+@node Determining the grob property
 @subsection Determinació de la propietat del grob
-@translationof Determining the grob property
 
 Recordem que volíem canviar la posició del @b{2} a
 
@@ -1772,9 +1751,8 @@ El gravador Fingering_engraver format part dels contextos:
 @end quotation
 
 
-@node Convencions de noms
+@node Naming conventions
 @subsection Convencions de noms
-@translationof Naming conventions
 
 Cal presentar una panoràmica de les diverses convencions de nomenclatura:
 
@@ -1807,24 +1785,22 @@ Preguntes encara sense resposta
 @end ignore
 
 
-@node Modificació de les propietats
+@node Modifying properties
 @section Modificació de les propietats
-@translationof Modifying properties
 
 @menu
-* Panoràmica de la modificació de les propietats::
-* L'ordre set::
-* L'ordre override::
-* L'ordre tweak::
-* set comparat a override::
-* L'ordre offset::
-* Modificació de les llistes-A::
+* Overview of modifying properties::
+* The set command::
+* The override command::
+* The tweak command::
+* set versus override::
+* The offset command::
+* Modifying alists::
 @end menu
 
 
-@node Panoràmica de la modificació de les propietats
+@node Overview of modifying properties
 @subsection Panoràmica de la modificació de les propietats
-@translationof Overview of modifying properties
 
 Cada context és responsable de la creació de certs tipus
 d'objectes gràfics.  Els ajustaments que s'usen per imprimir
@@ -1858,9 +1834,8 @@ comprovació de tipus de les propietats d'objectes.  Les
 referències cícliques en valors Scheme de propietats poden produir
 aturades o sortides abruptes, o les dues coses.
 
-@node L'ordre set
+@node The set command
 @subsection L'ordre @code{\set}
-@translationof The set command
 
 @cindex propietats
 @funindex \set
@@ -1997,9 +1972,8 @@ Traducció @expansion{} Propietats de context modificables per l'usuari.
 Referència de funcionament intern:
 @rinternals{Tunable context properties}.
 
-@node L'ordre override
+@node The override command
 @subsection L'ordre @code{\override}
-@translationof The override command
 
 @cindex grob, propietats de
 @cindex propietats de grob
@@ -2132,9 +2106,8 @@ Referència de funcionament intern:
 @rinternals{Backend}
 
 
-@node L'ordre tweak
+@node The tweak command
 @subsection L'ordre @code{\tweak}
-@translationof The tweak command
 
 @funindex \tweak
 @cindex ajustar
@@ -2155,7 +2128,7 @@ s'aconsegueix amb l'ordre @code{\tweak}, que té la sintaxi següent:
 després de @var{valor} dins del flux musical.
 
 Per veure una introducció a la sintaxi i els usos de l'ordre
-tweak, consulteu @rlearning{Mètodes d'ajustament}.
+tweak, consulteu @rlearningnamed{Tweaking methods, Mètodes d'ajustament}.
 
 Si es col·loquen diversos elements semblants al mateix moment
 musical, l'ordre @code{\override} no es pot fer servir per
@@ -2256,7 +2229,7 @@ del que es pot modificar per mitjà d'una ordre @code{\tweak}.
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Mètodes d'ajustament}.
+@rlearningnamed{Tweaking methods, Mètodes d'ajustament}.
 
 Manual de extensió:
 @rextendnamed{Displaying music expressions,Presentació de les expressions musicals}.
@@ -2270,9 +2243,8 @@ No es pot usar l'ordre @code{\tweak} per modificar els punts de
 control d'una sola de diverses lligadures d'unió dins d'un acord,
 a part de la primera que es trobi en el codi d'entrada.
 
-@node set comparat a override
+@node set versus override
 @subsection @code{\set} comparat a @code{\override}
-@translationof set versus override
 
 @c TODO Should't a bunch of that be explained earlier?
 
@@ -2339,9 +2311,8 @@ creen, i estableixen propietats sobre ells directament amb
 o, en el cas de @code{\overrideProperty}, per a una
 sobreescriptura específica.
 
-@node L'ordre offset
+@node The offset command
 @subsection L'ordre  @code{\offset}
-@translationof The offset command
 
 @funindex \offset
 @cindex desplaçament
@@ -2620,8 +2591,7 @@ un salt o salts de línia.  En aquest cas, @var{offsets} admet una
 llista de valors del tipus de dades requerit per la propietat.
 
 L'ordre @code{\offset} usada d'aquesta forma és semblant a l'ordre
-@code{\alterBroken} (vegeu @ref{Modificació d'objectes d'extensió
-dividits}).  No obstant això, a diferència de @code{\alterBroken},
+@code{\alterBroken} (vegeu @ref{Modifying broken spanners}).  No obstant això, a diferència de @code{\alterBroken},
 els valors que se li donen a @code{\offset} són relatius, no
 absoluts.
 
@@ -2652,7 +2622,7 @@ mitjançant l'increment de la propietat @code{control-points} de
 l'objecte @code{Slur}.  Aquí, @var{increments} és una llista de
 parelles de nombres, una per cada segment de la lligadura.  Aquest
 exemple produeix un resultat idèntic a la il·lustració
-corresponent que apareix a @ref{Modificació de les formes}.
+corresponent que apareix a @ref{Modifying shapes}.
 
 @lilypond[quote,verbatim]
 {
@@ -2666,9 +2636,8 @@ corresponent que apareix a @ref{Modificació de les formes}.
 @end lilypond
 
 
-@node Modificació de les llistes-A
+@node Modifying alists
 @subsection Modificació de les llistes-A
-@translationof Modifying alists
 
 Certes propietats configurables per part de l'usuari es
 representen internament com @emph{llistes-A} (llistes
@@ -2790,26 +2759,24 @@ de propietats de context (com @code{beamExceptions},
 Aquestes propietats sols es poden modificar redefinint-les
 completament com a llistes-A.}
 
-@node Conceptes i propietats útils
+@node Useful concepts and properties
 @section Conceptes i propietats útils
-@translationof Useful concepts and properties
 
 
 @menu
-* Modes d'entrada::
-* Direcció i posició::
-* Distàncies i mesures::
+* Input modes::
+* Direction and placement::
+* Distances and measurements::
 * Dimensions::
-* Propietats del símbol del pentagrama::
-* Objectes d'extensió::
-* Visibilitat dels objectes::
-* Estils de línia::
-* Rotació d'objectes::
+* Staff symbol properties::
+* Spanners::
+* Visibility of objects::
+* Line styles::
+* Rotating objects::
 @end menu
 
-@node Modes d'entrada
+@node Input modes
 @subsection Modes d'entrada
-@translationof Input modes
 
 La forma en la qual s'interpreta la notació continguda dins d'un
 fitxer d'entrada està determinada pel mode d'entrada en curs.  En
@@ -2827,7 +2794,7 @@ context receptor.
 
 S'activa amb l'ordre @code{\chordmode} i produeix que l'entrada
 s'interpreti amb la sintaxi de la notació d'acords, vegeu
-@ref{Notació d'acords}.  La música al mode d'acords es produeix
+@ref{Chord notation}.  La música al mode d'acords es produeix
 com acords sobre un pentagrama quan s'entra a un context
 @code{Staff}, com noms d'acords quan s'entra a un context
 @code{ChordNames} o com diagrames de trastos quan s'entra a un
@@ -2837,13 +2804,13 @@ El mode d'acords s'activa també amb l'ordre @code{\chords}.  Això
 també produeix que el codi que segueix s'interpreti amb la sintaxi
 de la notació d'acords però addicionalment crea implícitament un
 nou context @code{ChordNames} i produeix noms d'acords a partir de
-l'entrada a ell, vegeu @ref{Impressió dels noms d'acord}.
+l'entrada a ell, vegeu @ref{Printing chord names}.
 
 @subsubsubheading Mode de percussió
 
 S'activa amb l'ordre @code{\drummode} i produeix que el codi
 d'entrada s'interpreti amb la sintaxi de la notació de percussió,
-vegeu @ref{Notació bàsica de percussió}. La música en mode de
+vegeu @ref{Basic percussion notation}. La música en mode de
 percussió es produeix com a notes de percussió quan s'entra a un
 context @code{DrumStaff}.
 
@@ -2851,13 +2818,12 @@ El mode de producció també s'activa amb l'ordre
 @code{\drums}.  També fa que el codi que segueix s'interpreti amb
 la sintaxi de la notació de percussió però addicionalment crea
 implícitament un nou context @code{DrumStaff} i produeix les notes
-com notes de percussió, vegeu @ref{Notació bàsica de percussió}.
+com notes de percussió, vegeu @ref{Basic percussion notation}.
 
 @subsubsubheading Mode xifrat
 
 S'activa amb l'ordre @code{\figuremode} i fa que el codi d'entrada
-s'interpreti amb sintaxi de baix xifrat, vegeu @ref{Introduir el
-baix xifrat}.  La música en mode de xifres es produeix com baix
+s'interpreti amb sintaxi de baix xifrat, vegeu @ref{Entering figured bass}.  La música en mode de xifres es produeix com baix
 xifrat quan s'entra a un context @code{FiguredBass} o a un context
 @code{Staff}.
 
@@ -2865,7 +2831,7 @@ El mode xifrat també s'activa amb l'ordre @code{\figures}.  També
 fa que el codi que ve a continuació s'interpreti amb la sintaxi
 del baix xifrat però addicionalment crea implícitament un nou
 context @code{FiguredBass} i produeix baix xifrat a partir de
-l'entrada, vegeu @ref{Introducció al baix xifrat}.
+l'entrada, vegeu @ref{Introduction to figured bass}.
 
 @subsubsubheading Modes de trast i tabulatura
 
@@ -2874,22 +2840,22 @@ trastos i de tabulatura.
 
 Per crear diagrames de trastos, escriviu les notes o acords en el
 mode de notes i imprimiu-los dins d'un context @code{TabStaff},
-vegeu @ref{Tabulatures predeterminades}.
+vegeu @ref{Default tablatures}.
 
 Per crear diagrames de trastos a sobre d'un pentagrama, entreu
 notes o acords o bé en mode de notes o bé en mode d'acords i
 produïu-les en un context @code{FretBoards} context, vegeu
-@ref{Diagrames de trast automàtics}. Alternativament, els
+@ref{Automatic fret diagrams}. Alternativament, els
 diagrames de trastos es poden introduir com elements de marcatge a
 sobre de les notes utilitzant l'ordre @code{\fret-diagram}, vegeu
-@ref{Marcatges de diagrames de trasts}.
+@ref{Fret diagram markups}.
 
 @subsubsubheading Mode de lletra
 
 S'activa amb l'ordre @code{\lyricmode}, i fa que l'entrada
 s'interpreti com a síl·labes de la lletra de la cançó amb
 duracions opcionals i modificadors de lletra associats, vegeu
-@ref{Música vocal}.  Input in
+@ref{Vocal music}.  Input in
 lyric mode is rendered as lyric syllables when entered into a
 @code{Lyrics} context.
 
@@ -2903,13 +2869,13 @@ El mode de lletra també s'activa amb l'ordre
 @code{\addlyrics}. Aixo també crea un context @code{Lyrics} nou i
 a més afegeix una ordre @code{\lyricsto} implícita que associa la
 lletra que ve a continuació amb la música precedent, vegeu
-@ref{Duració automàtica de les síl·labes}.
+@ref{Automatic syllable durations}.
 
 @subsubsubheading Modo de marcatge
 
 S'activa amb l'ordre @code{\markup}, i fa que l'entrada
 s'interpreti amb la sintaxi del marcatge, vegeu
-@ref{Ordres de marcatge de text}.
+@ref{Text markup commands}.
 
 @subsubsubheading Mode de notes
 
@@ -2923,9 +2889,8 @@ estem al mode de lletra, el mode d'acords o en un altre mode i
 volem inserir quelcom que sols es pot fer amb la sintaxi del mode
 de notes.
 
-@node Direcció i posició
+@node Direction and placement
 @subsection Direcció i posició
-@translationof Direction and placement
 
 En gravar música, la direcció i col·locació de molts elements és
 qüestió d'elecció.  Per exemple, les pliques de les notes es poden
@@ -2938,14 +2903,13 @@ certs casos pot ser desitjable forçar una direcció o col·locació
 concreta.
 
 @menu
-* Indicadors de direcció de les articulacions::
-* La propietat de direcció::
+* Articulation direction indicators::
+* The direction property::
 @end menu
 
 
-@node Indicadors de direcció de les articulacions
+@node Articulation direction indicators
 @unnumberedsubsubsec Indicadors de direcció de les articulacions
-@translationof Articulation direction indicators
 
 De forma predeterminada algunes direccions sempre són cap amunt o
 sempre cap avall (per exemple els matisos o el calderó), mentre
@@ -2984,9 +2948,8 @@ Aquestes ordres afecten sols a la nota següent.
 @end lilypond
 
 
-@node La propietat de direcció
+@node The direction property
 @unnumberedsubsubsec La propietat de direcció
-@translationof The direction property
 
 La posició o direcció de molts objectes de presentació està
 controlada per la propietat @code{direction}.
@@ -3010,7 +2973,7 @@ especificar la direcció.  Totes elles són de la forma:
 @noindent
 on @code{\xxxNeutral} significa @qq{utilitzar la direcció
 predeterminada}. Vegeu
-@rlearning{Objectes interiors al pentagrama}.
+@rlearningnamed{Within-staff objects, Objectes interiors al pentagrama}.
 
 En algunes ocasions com a l'arpegi, el valor de la propietat
 @code{direction} pot especificar si l'objecte s'ha de col·locar a
@@ -3035,19 +2998,18 @@ Aquestes indicacions afecten a totes les notes fina que són cancel·lades.
 
 A la música polifònica, en general és millor especificar una veu
 explícita que canviar la direcció d'un objecte.  Per veure més
-informació, vegeu @ref{Veus múltiples}.
+informació, vegeu @ref{Multiple voices}.
 
 @morerefs
 Manual de aprenentatge
-@rlearning{Objectes interiors al pentagrama}.
+@rlearningnamed{Within-staff objects, Objectes interiors al pentagrama}.
 
 Referència de la notació:
-@ref{Veus múltiples}.
+@ref{Multiple voices}.
 
 
-@node Distàncies i mesures
+@node Distances and measurements
 @subsection Distàncies i mesures
-@translationof Distances and measurements
 
 @cindex distancies absolutes
 @cindex distancies escalades
@@ -3070,7 +3032,7 @@ polzades).  Les distàncies de disseny de pàgina es poden
 especificar també en unitats escalables (vegeu el paràgraf
 següent) adjuntant @code{\staff-space} a la quantitat.  La
 disposició de pàgina es descriu en detall a
-@ref{Disposició de la pàgina}.
+@ref{Page layout}.
 
 Les distàncies escalades sempre s'especifiquen en unitats d'un
 espai del pentagrama o, més rarament, mig espai del pentagrama.
@@ -3086,7 +3048,7 @@ els canvis efectuats a la mida global del pentagrama.  Així, la
 mida global del pentagrama possibilita la variació fàcil de la
 mida general d'una partitura gravada.  Per veure els mètodes
 d'establiment de la mida global del pentagrama, vegeu
-@ref{Establiment de la mida del pentagrama}.
+@ref{Setting the staff size}.
 
 @funindex magstep
 
@@ -3100,19 +3062,18 @@ disponible una funció de l'Scheme, @code{magstep}, per convertir
 des d'un canvi de la mida de la lletra fins un canvi equivalent a
 @code{staff-space}.  Per veure una explicació i un exemple
 d'utilització, consulteu
-@rlearning{Longitud i gruix dels objectes}.
+@rlearningnamed{Length and thickness of objects, Longitud i gruix dels objectes}.
 
 @morerefs
 Manual d'aprenentatge;
-@rlearning{Longitud i gruix dels objectes}.
+@rlearningnamed{Length and thickness of objects, Longitud i gruix dels objectes}.
 
 Referència de la notació:
-@ref{Disposició de la pàgina},
-@ref{Establiment de la mida del pentagrama}.
+@ref{Page layout},
+@ref{Setting the staff size}.
 
 @node Dimensions
 @subsection Dimensions
-@translationof Dimensions
 
 @cindex dimensions
 @cindex caixa circumdant
@@ -3139,12 +3100,11 @@ l'objecte en unitats d'espais de pentagrama.
 
 @morerefs
 Referència de la notació:
-@ref{Distàncies i mesures}.
+@ref{Distances and measurements}.
 
 
-@node Propietats del símbol del pentagrama
+@node Staff symbol properties
 @subsection Propietats del símbol del pentagrama
-@translationof Staff symbol properties
 
 @cindex ajust del símbol del pentagrama
 @cindex dibuixar el símbol del pentagrama
@@ -3184,9 +3144,8 @@ resulta afectat per aquest ajustament.
 @end lilypond
 
 
-@node Objectes d'extensió
+@node Spanners
 @subsection Objectes d'extensió
-@translationof Spanners
 
 Molts objectes de notació musical abasten diverses notes o fins i
 tot diversos compassos.  Són exemples els crescendi, trins,
@@ -3203,13 +3162,12 @@ una línia recta entre els dos objectes, donen suport també  la
 interfície @code{line-spanner-interface}.
 
 @menu
-* Ús de la spanner-interface::
-* Ús de la line-spanner-interface::
+* Using the spanner-interface::
+* Using the line-spanner-interface::
 @end menu
 
-@node Ús de la spanner-interface
+@node Using the spanner-interface
 @unnumberedsubsubsec Ús de la @code{spanner-interface}
-@translationof Using the spanner-interface
 
 Aquesta interfície proporciona dues propietats que s'apliquen a
 diversos extensors.
@@ -3348,9 +3306,8 @@ exemple, el seu establiment a @code{#t} no té cap efecte sobre les
 lligadures d'expressió o de fraseig, o sobre altres extensors per
 als que terminar a la barra de compàs no tindria cap significat.
 
-@node Ús de la line-spanner-interface
+@node Using the line-spanner-interface
 @unnumberedsubsubsec Ús de la @code{line-spanner-interface}
-@translationof Using the line-spanner-interface
 
 Entre els objectes que donen suport a l'interfície
 @code{line-spanner-interface} es troben:
@@ -3505,9 +3462,8 @@ Referència de funcionament intern:
 @rinternals{line-spanner-interface}.
 
 
-@node Visibilitat dels objectes
+@node Visibility of objects
 @subsection Visibilitat dels objectes
-@translationof Visibility of objects
 
 @cindex objectes, visibilitat de
 @cindex grobs, visibilitat de
@@ -3520,23 +3476,22 @@ es pot sobreescriure la seva propietat @code{break-visibility}.
 Les tres primeres s'apliquen a totes els objectes de presentació;
 l'última sols a uns pocs: els objectes @emph{divisibles}.  El
 Manual d'aprenentatge introdueix aquestes quatre tècniques, vegeu
-@rlearning{Visibilitat i color dels objectes}.
+@rlearningnamed{Visibility and color of objects, Visibilitat i color dels objectes}.
 
 Hi ha també algunes altres tècniques que són específiques de certs
 objectes de presentació.  S'estudien sota Consideracions especials.
 
 @menu
-* Eliminació del segell::
-* Fer transparents els objectes::
-* Pintar els objectes de blanc::
-* Ús de break-visibility (visibilitat al salt)::
-* Consideracions especials::
+* Removing the stencil::
+* Making objects transparent::
+* Painting objects white::
+* Using break-visibility::
+* Special considerations::
 @end menu
 
 
-@node Eliminació del segell
+@node Removing the stencil
 @unnumberedsubsubsec Eliminació del segell
-@translationof Removing the stencil
 
 @cindex segell, eliminar
 @funindex \omit
@@ -3567,9 +3522,8 @@ a a a
 @end lilypond
 
 
-@node Fer transparents els objectes
+@node Making objects transparent
 @unnumberedsubsubsec Fer transparents els objectes
-@translationof Making objects transparent
 
 @cindex transparents, fer els objectes
 @funindex \hide
@@ -3594,9 +3548,8 @@ a' a'
 @end lilypond
 
 
-@node Pintar els objectes de blanc
+@node Painting objects white
 @unnumberedsubsubsec Pintar els objectes de blanc
-@translationof Painting objects white
 
 @cindex objectes, acolorit de
 @cindex acolorit d'objectes
@@ -3645,9 +3598,8 @@ a'1
 @end lilypond
 
 
-@node Ús de break-visibility (visibilitat al salt)
+@node Using break-visibility
 @unnumberedsubsubsec Ús de break-visibility (visibilitat al salt)
-@translationof Using break-visibility
 
 @c TODO Add making other objects breakable
 
@@ -3676,7 +3628,7 @@ com indicació de precaució.
 Aquest comportament es controla per mitjà de la propietat
 @code{break-visibility}, que s'explica a
 @c Leave this ref on a newline - formats incorrectly otherwise -td
-@rlearning{Visibilitat i color dels objectes}.  Aquesta propietat
+@rlearningnamed{Visibility and color of objects, Visibilitat i color dels objectes}.  Aquesta propietat
 agafa un vector de tres valors booleans que, per ordre, determinen
 si l'objecte s'imprimeix al final, a dins, o al principi de la
 línia.  O, per ser més exactes: abans del salt de línia, si no hi
@@ -3775,9 +3727,8 @@ suprimir-les.
 @end itemize
 
 
-@node Consideracions especials
+@node Special considerations
 @unnumberedsubsubsec Consideracions especials
-@translationof Special considerations
 
 @subsubsubheading Visibilitat després d'un canvi explicit
 
@@ -3937,12 +3888,11 @@ com el símbol de transposició o d'octava associat.
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Visibilitat i color dels objectes}.
+@rlearningnamed{Visibility and color of objects, Visibilitat i color dels objectes}.
 
 
-@node Estils de línia
+@node Line styles
 @subsection Estils de línia
-@translationof Line styles
 
 Certes indicacions d'execució, per exemple @i{rallentando},
 @i{accelerando} i els @i{trins} s'escriuen com a text i s'estenen
@@ -3995,24 +3945,22 @@ Si no està establert @code{Y}, el valor es computa a partir de la
 posició vertical dels punts d'ancoratge esquerre i dret de l'extensor.
 
 Altres ajustament dels extensors són possibles, per veure més
-detalls consulteu @ref{Objectes d'extensió}.
+detalls consulteu @ref{Spanners}.
 
-@node Rotació d'objectes
+@node Rotating objects
 @subsection Rotació d'objectes
-@translationof Rotating objects
 
 Tant els objectes de presentació com els elements de text de
 marcatge es poden girar qualsevol angle respecte a qualsevol punt,
 però hi ha diferents mètodes per fer-lo.
 
 @menu
-* Rotació d'objectes de presentació::
-* Rotació d'elements de marcatge::
+* Rotating layout objects::
+* Rotating markup::
 @end menu
 
-@node Rotació d'objectes de presentació
+@node Rotating layout objects
 @unnumberedsubsubsec Rotació d'objectes de presentació
-@translationof Rotating layout objects
 
 @cindex rotació d'objectes
 @cindex objectes, rotació
@@ -4042,9 +3990,8 @@ g4\< e' d'' f''\!
 @end lilypond
 
 
-@node Rotació d'elements de marcatge
+@node Rotating markup
 @unnumberedsubsubsec Rotació d'elements de marcatge
-@translationof Rotating markup
 
 Tots els textos de marcatge es poden rotar perquè es disposin en
 qualsevol angle, precedint-los de l'ordre @code{\rotate}.  L'ordre
@@ -4065,31 +4012,30 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
 
 
-@node Ajustaments avançats
+@node Advanced tweaks
 @section Ajustaments avançats
-@translationof Advanced tweaks
 
 Aquesta secció tracta sobre diferents enfocaments per a la
 realització d'ajustaments fins a l'aparença de la partitura
 impresa.
 
 @menu
-* Alineació d'objectes::
-* Agrupació vertical d'objectes gràfics::
-* Modificació dels segells::
-* Modificació de les formes::
-* Modificació d'objectes d'extensió dividits::
-* Contenidors unpure-pure::
+* Aligning objects::
+* Vertical grouping of grobs::
+* Modifying stencils::
+* Modifying shapes::
+* Modifying broken spanners::
+* Unpure-pure containers::
 @end menu
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Ajustament de la sortida},
-@rlearning{Altres fonts d'informació}.
+@rlearningnamed{Tweaking output, Ajustament de la sortida},
+@rlearningnamed{Other sources of information, Altres fonts d'informació}.
 
 Referència de la notació:
-@ref{Explicació del Manual de referència de funcionament intern},
-@ref{Modificació de les propietats}.
+@ref{Explaining the Internals Reference},
+@ref{Modifying properties}.
 
 Manual de extensió:
 @rextendnamed{Interfaces for programmers,Interfícies per a programadors}.
@@ -4104,9 +4050,8 @@ Referència de funcionament intern:
 @rinternals{All layout objects}.
 
 
-@node Alineació d'objectes
+@node Aligning objects
 @subsection Alineació d'objectes
-@translationof Aligning objects
 
 Els objectes gràfics que donen suport a la interfície
 @code{self-alignment-interface} i/o la interfície
@@ -4153,22 +4098,21 @@ d'assaig sobre aquests objectes.
 
 @morerefs
 Referència de la notació:
-@ref{Ús de la break-alignable-interface}.
+@ref{Using the break-alignable-interface}.
 
 Manual d'extensió:
 @rextendnamed{Callback functions,Funcions de callback}.
 
 @menu
-* Establiment directe de X-offset i Y-offset::
-* Ús de la side-position-interface::
-* Ús de la self-alignment-interface::
-* Ús de la break-alignable-interface::
+* Setting X-offset and Y-offset directly::
+* Using the side-position-interface::
+* Using the self-alignment-interface::
+* Using the break-alignable-interface::
 @end menu
 
 
-@node Establiment directe de X-offset i Y-offset
+@node Setting X-offset and Y-offset directly
 @unnumberedsubsubsec Establiment directede  @code{X-offset} i @code{Y-offset}
-@translationof Setting X-offset and Y-offset directly
 
 Es poden donar valors numèrics a les propietats @code{X-offset} i
 @code{Y-offset} de molts objectes.  L'exemple següent mostra tres
@@ -4190,9 +4134,8 @@ a'
 @c TODO write more
 
 
-@node Ús de la side-position-interface
+@node Using the side-position-interface
 @unnumberedsubsubsec Ús de la @code{side-position-interface}
-@translationof Using the side-position-interface
 
 Un objecte que doni suport a la @code{side-position-interface} es
 pot col·locar junt a un objecte pare de forma que els bords
@@ -4233,9 +4176,8 @@ valor de @code{direction}.
 @c TODO Add examples
 
 
-@node Ús de la self-alignment-interface
+@node Using the self-alignment-interface
 @unnumberedsubsubsec Ús de la @code{self-alignment-interface}
-@translationof Using the self-alignment-interface
 
 @subsubsubheading Auto-alineació horitzontal dels objectes
 
@@ -4338,9 +4280,8 @@ example shows the difference:
 @c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
 
-@node Ús de la break-alignable-interface
+@node Using the break-alignable-interface
 @unnumberedsubsubsec Ús de la @code{break-alignable-interface}
-@translationof Using the break-alignable-interface
 
 @cindex alineació a objectes
 @cindex break-align-symbols
@@ -4457,9 +4398,8 @@ e'1
 e'1
 @end lilypond
 
-@node Agrupació vertical d'objectes gràfics
+@node Vertical grouping of grobs
 @subsection Agrupació vertical d'objectes gràfics
-@translationof Vertical grouping of grobs
 
 @c TODO Expand this section
 
@@ -4474,9 +4414,8 @@ diferents grobs agrupats prèviament per
 @code{VerticalAxisGroup}.
 
 
-@node Modificació dels segells
+@node Modifying stencils
 @subsection Modificació dels segells
-@translationof Modifying stencils
 
 Tots els objectes de presentació tenen una propietat
 @code{stencil} que és part del @code{grob-interface}.  De forma
@@ -4499,7 +4438,7 @@ al procediment que imprimeix text
 marcatge que produeix el símbol requerit.  A causa de la
 flexibilitat del marcatge, es poden aconseguir moltes coses: en
 particular, consulteu
-@ref{Notació gràfica dins d'elements de marcatge}.
+@ref{Graphic notation inside markup}.
 
 L'exemple següent mostra això canviant el símbol del cap de la
 nota a unes aspes dins d'una circumferència:
@@ -4519,7 +4458,7 @@ XinO = {
 @end lilypond
 
 Qualssevol dels glifs de @emph{Feta} usats al tipus de lletra
-@ref{El tipus de lletra Emmentaler}.
+@ref{The Emmentaler font}.
 
 Es poden inserir en línia tant imatges en forma @file{EPS} com
 ordres de Postscrip usant les ordres de marcatge @code{\epsfile} i
@@ -4528,25 +4467,23 @@ ordres de Postscrip usant les ordres de marcatge @code{\epsfile} i
 
 @morerefs
 Referencia de la notación:
-@ref{Notació gràfica dins d'elements de marcatge},
-@ref{Donar format al text},
-@ref{Ordres de marcatge de text},
-@ref{El tipus de lletra Emmentaler},
+@ref{Graphic notation inside markup},
+@ref{Formatting text},
+@ref{Text markup commands},
+@ref{The Emmentaler font},
 @ref{Graphical markup,Grafisme}.
 
 
-@node Modificació de les formes
+@node Modifying shapes
 @subsection Modificació de les formes
-@translationof Modifying shapes
 
 @menu
-* Modificació de lligadures d'unió i d'expressió::
+* Modifying ties and slurs::
 @end menu
 
 
-@node Modificació de lligadures d'unió i d'expressió
+@node Modifying ties and slurs
 @unnumberedsubsubsec Modificació de lligadures d'unió i d'expressió
-@translationof Modifying ties and slurs
 
 @cindex lligadures d'expressió, modificar
 @cindex lligadures d'unió, modificar
@@ -4786,17 +4723,15 @@ Referència de funcionament intern:
 @rinternals{TieColumn}.
 
 
-@node Modificació d'objectes d'extensió dividits
+@node Modifying broken spanners
 @subsection Modificació d'objectes d'extensió dividits
-@translationof Modifying broken spanners
 
 @menu
-* Ús d'alterBroken::
+* Using alterBroken::
 @end menu
 
-@node Ús d'alterBroken
+@node Using alterBroken
 @unnumberedsubsubsec Ús d'@code{\alterBroken}
-@translationof Using alterBroken
 
 @cindex extensió, modificació d'objectes de
 @cindex dividits, modificació d'objectes d'extensió
@@ -4905,9 +4840,8 @@ objectes extensos accedides abans del salt de línia, com
 Extender LilyPond:
 @rextendnamed{Difficult tweaks,Ajustaments difícils}.
 
-@node Contenidors unpure-pure
+@node Unpure-pure containers
 @subsection Contenidors unpure-pure
-@translationof Unpure-pure containers
 
 @cindex Scheme, contenidors purs
 @cindex Scheme, contenidors no-purs
@@ -5023,9 +4957,8 @@ de funció.
 @warning{Si una funció està caracteritzada com a @q{pura} i
 resulta que no ho és, el resultat pot ser inesperat.}
 
-@node Ús de les funcions musicals
+@node Using music functions
 @section Ús de les funcions musicals
-@translationof Using music functions
 
 @c TODO -- add @morerefs, etc. to these subsections
 
@@ -5038,14 +4971,13 @@ d'entrada del LilyPond.  Es descriuen altres funcions més
 complexes a @rextendnamed{Music functions,Funcions musicals}.
 
 @menu
-* Sintaxi de les funcions de substitució::
-* Exemples de funcions de substitució::
+* Substitution function syntax::
+* Substitution function examples::
 @end menu
 
 
-@node Sintaxi de les funcions de substitució
+@node Substitution function syntax
 @subsection Sintaxi de les funcions de substitució
-@translationof Substitution function syntax
 
 És fàcil fer una funció que substitueixi una variable dins de codi
 del LilyPond.  La forma general d'aquestes funcions és
@@ -5097,12 +5029,12 @@ symbol?
 
 @noindent
 Per veure una llista dels predicats de tipus disponibles consulteu
-@ref{Predicats de tipus predefinits}.
+@ref{Predefined type predicates}.
 També es permeten els predicats de tipus definits per l'usuari.
 
 @morerefs
 Referència de la notació:
-@ref{Predicats de tipus predefinits}.
+@ref{Predefined type predicates}.
 
 Expansió del LilyPond:
 @rextendnamed{Music functions,Funcions musicals}.
@@ -5113,9 +5045,8 @@ Fitxers instal·lats:
 @file{scm/lily.scm}.
 
 
-@node Exemples de funcions de substitució
+@node Substitution function examples
 @subsection Exemples de funcions de substitució
-@translationof Substitution function examples
 
 Aquesta secció presenta alguns exemples de funcions de
 substitució.  No pretenen ésser exhaustives, sinó demostrar

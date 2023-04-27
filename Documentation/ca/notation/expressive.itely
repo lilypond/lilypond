@@ -13,9 +13,8 @@
 @c Translation checkers:
 
 
-@node Expressions
+@node Expressive marks
 @section Expressions
-@translationof Expressive marks
 
 @lilypondfile[quote]{snippets/expressive-headword.ly}
 
@@ -23,30 +22,28 @@ Aquesta secció relaciona diverses marques d'expressió que es poden
 crear a una partitura.
 
 @menu
-* Expressions annexades a les notes::
-* Marques expressives en forma corba::
-* Marques expressives en forma de línies::
+* Expressive marks attached to notes::
+* Expressive marks as curves::
+* Expressive marks as lines::
 @end menu
 
 
-@node Expressions annexades a les notes
+@node Expressive marks attached to notes
 @subsection Expressions annexades a les notes
-@translationof Expressive marks attached to notes
 
 Aquesta secció explica com crear marques expressives que estan
 aplicades a notes: articulacions, ornaments i matisos. També es
 tracten els mètodes per crear les marques dinàmiques.
 
 @menu
-* Articulacions i ornaments::
-* Matisos dinàmics::
-* Indicacions dinàmiques contemporànies::
+* Articulations and ornamentations::
+* Dynamics::
+* New dynamic marks::
 @end menu
 
 
-@node Articulacions i ornaments
+@node Articulations and ornamentations
 @unnumberedsubsubsec Articulacions i ornaments
-@translationof Articulations and ornamentations
 
 @cindex articulacions
 @cindex ornamentació
@@ -133,7 +130,7 @@ utilitzant la sintaxi següent:
 @end example
 
 La llista de possibles valors de @code{@var{nom}} està a
-@ref{Llista d'articulacions}.  Per exemple
+@ref{List of articulations}.  Per exemple
 
 @lilypond[verbatim,quote]
 \relative {
@@ -171,7 +168,7 @@ Les regles per a la col·locació predeterminada de les
 articulacions es troben definides al fitxer @file{scm/script.scm}.
 Les articulacions i ornaments es poden col·locar manualment per
 sobre o per sota del pentagrama; vegeu
-@ref{Direcció i posició}.
+@ref{Direction and placement}.
 
 Les articulacions són objectes @code{Script}.  Les seves
 propietats es descriuen de forma més completa a @rinternals{Script}.
@@ -196,11 +193,11 @@ R1\fermata
 @end ignore
 
 A més d'articulacions, es poden adjuntar textos i elements de
-marcatge de les notes. Vegeu @ref{Scripts de text}.
+marcatge de les notes. Vegeu @ref{Text scripts}.
 
 Per veure més informació quant a l'ordenació dels elements Script
 i TextScript que s'annexen a les notes, consulteu
-@rlearning{Col·locació dels objectes}.
+@rlearningnamed{Placement of objects, Col·locació dels objectes}.
 
 @snippets
 
@@ -221,13 +218,13 @@ Glossari musical:
 @rglos{portato}.
 
 Manual d'aprenentatge:
-@rlearning{Col·locació dels objectes}.
+@rlearningnamed{Placement of objects, Col·locació dels objectes}.
 
 Referència de la notació:
-@ref{Scripts de text},
-@ref{Direcció i posició},
-@ref{Llista d'articulacions},
-@ref{Refilets}.
+@ref{Text scripts},
+@ref{Direction and placement},
+@ref{List of articulations},
+@ref{Trills}.
 
 Fitxers instal·lats:
 @file{scm/script.scm}.
@@ -240,9 +237,8 @@ Referència de funcionament intern:
 @rinternals{TextScript}.
 
 
-@node Matisos dinàmics
+@node Dynamics
 @unnumberedsubsubsec Matisos dinàmics
-@translationof Dynamics
 
 @cindex dinàmica
 @cindex matisos absoluts
@@ -276,7 +272,7 @@ disponibles són @code{\ppppp}, @code{\pppp},
 @code{\sfz} i @code{\rfz}.  Les indicaciones dinàmiques es poden
 col·locar manulament per sobre o per sota del pentagrama; per veure
 més detalls, consulteu
-@ref{Direcció i posició}.
+@ref{Direction and placement}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -423,7 +419,7 @@ dinàmica textuals:
 
 Per crear noves indicacions de matís absolut o de text que s'han
 d'alinear amb els matisos; vegeu
-@ref{Indicacions dinàmiques contemporànies}.
+@ref{New dynamic marks}.
 
 @cindex matisos, posició vertical
 @cindex dinàmica, posició vertical
@@ -517,13 +513,13 @@ Glossari musical:
 @rglos{hairpin}.
 
 Manual d'aprenentatge:
-@rlearning{Articulacions i matisos dinàmics}.
+@rlearningnamed{Articulation and dynamics, Articulacions i matisos dinàmics}.
 
 Referència de la notació:
-@ref{Direcció i posició},
-@ref{Indicacions dinàmiques contemporànies},
-@ref{Enriquiment de la sortida MIDI},
-@ref{Control de les dinàmiques del MIDI}.
+@ref{Direction and placement},
+@ref{New dynamic marks},
+@ref{Enhancing MIDI output},
+@ref{Controlling MIDI dynamics}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.
@@ -535,9 +531,8 @@ Referència de funcionament intern:
 @rinternals{Dynamics}.
 
 
-@node Indicacions dinàmiques contemporànies
+@node New dynamic marks
 @unnumberedsubsubsec Indicacions dinàmiques contemporànies
-@translationof New dynamic marks
 
 @cindex indicacions dinàmiques noves
 @cindex dinàmiques, indicacions, noves
@@ -563,7 +558,7 @@ moltoF = \markup { molto \dynamic f }
 En el mode de marcatge es poden crear indicacions dinàmiques
 editorials (entre parèntesis o claus).  La sintaxi del mode
 de marcatge es descriu a
-@ref{Donar format al text}.
+@ref{Formatting text}.
 
 @lilypond[verbatim,quote]
 roundF = \markup {
@@ -654,14 +649,14 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 
 Els ajustos per als tipus de lletra en mode de marcatge es
 descriuen a
-@ref{Selecció del tipus de lletra i la seva mida}.
+@ref{Selecting font and font size}.
 
 @morerefs
 Referència de la notació:
-@ref{Donar format al text},
-@ref{Selecció del tipus de lletra i la seva mida},
-@ref{Enriquiment de la sortida MIDI},
-@ref{Control de les dinàmiques del MIDI}.
+@ref{Formatting text},
+@ref{Selecting font and font size},
+@ref{Enhancing MIDI output},
+@ref{Controlling MIDI dynamics}.
 
 Extensió del LilyPond:
 @rextendnamed{Markup construction in Scheme,Construcció de marcatge en Scheme}.
@@ -670,25 +665,23 @@ Fragments de codi:
 @rlsr{Expressive marks}.
 
 
-@node Marques expressives en forma corba
+@node Expressive marks as curves
 @subsection Marques expressives en forma corba
-@translationof Expressive marks as curves
 
 Aquesta secció explica com crear diverses marques expressives amb
 forma corba: lligagures d'expressió i de fraseig, respiracions,
 caigudes i elevacions de to.
 
 @menu
-* Lligadures d'expressió::
-* Lligadures de fraseig::
-* Marques de respiració::
-* Caigudes i elevacions::
+* Slurs::
+* Phrasing slurs::
+* Breath marks::
+* Falls and doits::
 @end menu
 
 
-@node Lligadures d'expressió
+@node Slurs
 @unnumberedsubsubsec Lligadures d'expressió
-@translationof Slurs
 
 @cindex lligadures d'expressió
 
@@ -714,7 +707,7 @@ d'acabar a la mateixa veu en la qual comencen.}
 
 Les lligadures d'expressió es poden col·locar manualment per sobre
 o per sota de les notes; vegeu
-@ref{Direcció i posició}.
+@ref{Direction and placement}.
 
 @cindex fraseig, lligadura de
 @cindex diverses lligadures d'expressió
@@ -727,7 +720,7 @@ S'ha de tenir cura amb les lligadures d'expressió simultànies o
 superposades.  En gairebé tots els casos, les lligadures
 d'expressió externes indiquen, certament, fraseig, i les
 lligadures de fraseig poden superposar-se amb les lligadures
-d'expressió normals, vegeu @ref{Lligadures de fraseig}.  Quan
+d'expressió normals, vegeu @ref{Phrasing slurs}.  Quan
 calen diverses lligadures d'expressió normals dins d'una sola
 veu, els començament i els finals corresponents de les lligadures
 s'han d'etiquetar precedint-los per @code{\=} seguit d'un número o
@@ -839,11 +832,11 @@ Glossari musical:
 @rglos{slur}.
 
 Manual d'aprenentatge:
-@rlearning{Quant a la impossibilitat de niuar claus i lligadures}
+@rlearningnamed{On the un-nestedness of brackets and ties, Quant a la impossibilitat de niuar claus i lligadures}
 
 Referència de la notació:
-@ref{Direcció i posició},
-@ref{Lligadures de fraseig}.
+@ref{Direction and placement},
+@ref{Phrasing slurs}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.
@@ -852,9 +845,8 @@ Referència de funcionament interno:
 @rinternals{Slur}.
 
 
-@node Lligadures de fraseig
+@node Phrasing slurs
 @unnumberedsubsubsec Lligadures de fraseig
-@translationof Phrasing slurs
 
 @cindex lligadures de fraseig
 @cindex marques de fraseig
@@ -883,7 +875,7 @@ exactament igual que una lligadura d'expressió normal.  Tanmateix,
 es tracten com a objectes diferents.  Una @code{\slurUp} no tindrà
 cap efecte sobre una lligadura de fraseig.  El fraseig es pot
 col·locar manualment per sobre o per sota de les notes; vegeu
-@ref{Direcció i posició}.
+@ref{Direction and placement}.
 
 @cindex simultànies, lligadures de fraseig
 @cindex diverses lligadures de fraseig
@@ -894,7 +886,7 @@ col·locar manualment per sobre o per sota de les notes; vegeu
 
 Les lligadures de fraseig simultànies o superposades
 s'introdueixen usant @code{\=} igual que es fa amb les lligadures
-d'expressió normals, vegeu @ref{Lligadures d'expressió}.
+d'expressió normals, vegeu @ref{Slurs}.
 
 @cindex fraseig, lligadures de, discontínues
 @cindex discontínues, lligadures de fraseig
@@ -970,7 +962,7 @@ Les definicions de patrons de discontinuïtat tenen la mateixa
 estructura que les definicions de patrons de discontinuïtat de les
 lligadures d'expressió.  Per veure més informació sobre els
 patrons de discontinuïtat complexos, consulteu els fragments de
-codi sota @ref{Lligadures d'expressió}.
+codi sota @ref{Slurs}.
 
 @predefined
 @code{\phrasingSlurUp},
@@ -986,11 +978,11 @@ codi sota @ref{Lligadures d'expressió}.
 
 @morerefs
 Manual de aprenentatge:
-@rlearning{Quant a la impossibilitat de niuar claus i lligadures}
+@rlearningnamed{On the un-nestedness of brackets and ties, Quant a la impossibilitat de niuar claus i lligadures}
 
 Referència de la notació:
-@ref{Direcció i posició},
-@ref{Lligadures d'expressió}.
+@ref{Direction and placement},
+@ref{Slurs}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.
@@ -999,9 +991,8 @@ Referència de funcionament intern:
 @rinternals{PhrasingSlur}.
 
 
-@node Marques de respiració
+@node Breath marks
 @unnumberedsubsubsec Marques de respiració
-@translationof Breath marks
 
 @cindex respiracions
 @cindex pausa, marques de
@@ -1023,7 +1014,7 @@ abans de @code{\breathe}.
 
 Les marques de respiració donen per acabades les barres
 automàtiques; per anul·lar aquest comportament, consulteu
-@ref{Barres manuals}.
+@ref{Manual beams}.
 
 @lilypond[verbatim,quote]
 \relative { c''8 \breathe d e f g2 }
@@ -1065,9 +1056,8 @@ Referència de funcionament intern:
 @rinternals{Breathing_sign_engraver}.
 
 
-@node Caigudes i elevacions
+@node Falls and doits
 @unnumberedsubsubsec Caigudes i elevacions
-@translationof Falls and doits
 
 @cindex falls (caigudess de to)
 @cindex doits (elevacions de to)
@@ -1107,23 +1097,21 @@ Fragments de codi
 @rlsr{Expressive marks}.
 
 
-@node Marques expressives en forma de línies
+@node Expressive marks as lines
 @subsection Marques expressives en forma de línies
-@translationof Expressive marks as lines
 
 Aquesta secció explica com crear diverses marques d'expressió  que
 segueixen un camí lineal: glissandi, arpegis i refilets.
 
 @menu
 * Glissando::
-* Arpegi::
-* Refilets::
+* Arpeggio::
+* Trills::
 @end menu
 
 
 @node Glissando
 @unnumberedsubsubsec Glissando
-@translationof Glissando
 
 @cindex glissando
 @funindex \glissando
@@ -1183,7 +1171,7 @@ el codi d'entrada del fitxer @file{.ly}.
 @end lilypond
 
 Es poden crear diversos tipus de glissando.  Per veure més
-detalls, consulteu @ref{Estils de línia}.
+detalls, consulteu @ref{Line styles}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1203,7 +1191,7 @@ Glossari musical:
 @rglos{glissando}.
 
 Referència de la notació:
-@ref{Estils de línia}.
+@ref{Line styles}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.
@@ -1215,9 +1203,8 @@ Referència de funcionament interno:
 La impressió de text sobre la línia (com a @notation{gliss.}), no
 està contemplada.
 
-@node Arpegi
+@node Arpeggio
 @unnumberedsubsubsec Arpegi
-@translationof Arpeggio
 
 @cindex arpegi
 @cindex acord trencat
@@ -1283,11 +1270,11 @@ Es poden crear símbols especials d'arpegi @emph{amb parèntesis}:
 
 Les propietats de discontinuïtat del parèntesi de l'arpegi es
 controlen mitjançant la propietat @code{'dash-definition}, que es
-descriu a @ref{Lligadures d'expressió}.
+descriu a @ref{Slurs}.
 
 Els acords arpegiats es poden desenvolupar explícitament
 utilitzant @notation{lligadures d'unió}.  Vegeu
-@ref{Lligadures d'unió}.
+@ref{Ties}.
 
 @predefined
 @code{\arpeggio},
@@ -1316,8 +1303,8 @@ Glossari musical:
 @rglos{arpeggio}.
 
 Referència de la notació:
-@ref{Lligadures d'expressió},
-@ref{Lligadures d'unió}.
+@ref{Slurs},
+@ref{Ties}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.
@@ -1337,12 +1324,11 @@ No és possible barrejat arpegis connectats i no connectat a un
 
 La forma senzilla d'especificar el parèntesis als arpegis de
 parèntesis no funciona per als arpegis de pentagrama creuat;
-vegeu @ref{Pliques de pentagrama creuat}.
+vegeu @ref{Cross-staff stems}.
 
 
-@node Refilets
+@node Trills
 @unnumberedsubsubsec Refilets
-@translationof Trills
 
 @cindex refilets
 @funindex \trill
@@ -1350,7 +1336,7 @@ vegeu @ref{Pliques de pentagrama creuat}.
 @funindex \stopTrillSpan
 
 Els refilets curts sense línia extensora es graven amb
-@code{\trill}; vegeu @ref{Articulacions i ornaments}.
+@code{\trill}; vegeu @ref{Articulations and ornamentations}.
 
 Els @notation{refilets} llargs mantinguts, amb línia d'extensió,
 es fan amb @code{\startTrillSpan} i @code{\stopTrillSpan}:
@@ -1394,7 +1380,7 @@ convertirà automàticament a la vora dreta del refilet anterior.
 També es poden combinar els refilets amb notes d'adorn. La sintaxi
 d'aquesta construcció i el mètode per col·locar les notes d'adorn
 amb precisió es descriuen a
-@ref{Notes d'adorn}.
+@ref{Grace notes}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1459,8 +1445,8 @@ Glossari musical:
 @rglos{trill}.
 
 Referència de la notació:
-@ref{Articulacions i ornaments},
-@ref{Notes d'adorn}.
+@ref{Articulations and ornamentations},
+@ref{Grace notes}.
 
 Fragments de codi:
 @rlsr{Expressive marks}.

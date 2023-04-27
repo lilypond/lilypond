@@ -13,9 +13,8 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Instruments de corda sense trasts
+@node Unfretted string instruments
 @section Instruments de corda sense trasts
-@translationof Unfretted string instruments
 
 @lilypondfile[quote]
 {snippets/unfretted-headword.ly}
@@ -29,12 +28,11 @@ si s'escriu música per a instruments de cords sense trasts,
 principalment instruments de corda orquestrals.
 
 @menu
-* Notació comuna per a cordes sense trasts::
+* Common notation for unfretted strings::
 @end menu
 
-@node Notació comuna per a cordes sense trasts
+@node Common notation for unfretted strings
 @subsection Notació comuna per a cordes sense trasts
-@translationof Common notation for unfretted strings
 
 Hi ha poca notació especialitzada per als instruments de cordes
 sense trasts.  La notació de la música es realitza en un sol
@@ -42,15 +40,14 @@ pentagrama, i se sol usar una sola veu.  Poden caldre dues veus
 per a alguns passatges a dobles cordes o en divisi.
 
 @menu
-* Referències per a cordes sense trasts::
-* Indicacions d'arc::
-* Harmònics::
-* Pizzicato de Bartok (Snap)::
+* References for unfretted strings::
+* Bowing indications::
+* Harmonics::
+* Snap (Bartok) pizzicato::
 @end menu
 
-@node Referències per a cordes sense trasts
+@node References for unfretted strings
 @unnumberedsubsubsec Referències per a cordes sense trasts
-@translationof References for unfretted strings
 
 La major part de la notació que resulta d'utilitat per a les
 cordes orquestrals i altres instruments d'arc s'estudia en altres
@@ -60,41 +57,40 @@ parts del manual:
 
 @item
 Les indicacions textuals com @qq{pizz.} i @qq{arco} s'afegeixen
-com text simple: vegeu @ref{Scripts de text}.
+com text simple: vegeu @ref{Text scripts}.
 
 @item
 Las digitacions, entre elles la indicació de polze, es descriuen a
-@ref{Indicacions de digitació}.
+@ref{Fingering instructions}.
 
 @item
 Les dobles cordes s'indiquen normalment escrivint un acord, vegeu
-@ref{Notes a un acord}.  Hi ha altres indicacions que es poden
-afegir per a la interpretació d'acords.  Vegeu @ref{Arpegi}.
+@ref{Chorded notes}.  Hi ha altres indicacions que es poden
+afegir per a la interpretació d'acords.  Vegeu @ref{Arpeggio}.
 
 @item
 Hi ha plantilles per a quartet de corda a
-@rlearning{Plantilles de quartet de corda}.
+@rlearningnamed{String quartet templates, Plantilles de quartet de corda}.
 D'altres plantilles es mostres a la secció de fragments de codi.
 
 @end itemize
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Plantilles de quartet de corda}.
+@rlearningnamed{String quartet templates, Plantilles de quartet de corda}.
 
 Referència de la notació:
-@ref{Scripts de text},
-@ref{Indicacions de digitació},
-@ref{Notes a un acord},
-@ref{Arpegi}.
+@ref{Text scripts},
+@ref{Fingering instructions},
+@ref{Chorded notes},
+@ref{Arpeggio}.
 
 Fragments de codi:
 @rlsr{Unfretted strings}.
 
 
-@node Indicacions d'arc
+@node Bowing indications
 @unnumberedsubsubsec Indicacions d'arc
-@translationof Bowing indications
 
 @funindex \upbow
 @funindex \downbow
@@ -111,7 +107,7 @@ Fragments de codi:
 @cindex corda, números de
 
 Les indicacions d'arc es creen com articulacions, que es descriuen
-a @ref{Articulacions i ornaments}.
+a @ref{Articulations and ornamentations}.
 
 Les ordres d'arc @code{\upbow} (arc amunt i @code{\downbow} (arc
 avall) s'usen com a lligadures d'expressió de la manera següent:
@@ -125,7 +121,7 @@ avall) s'usen com a lligadures d'expressió de la manera següent:
 Es poden afegir números romans com a números de corda (en
 substitució de l'opció predeterminada, que son xifres aràbigues
 rodejades per un cercle), tal i com s'explica a
-@ref{Indicació dels números de corda}.
+@ref{String number indications}.
 
 Com a alternativa, es poden imprimir les indicacions de corda
 mitjançant ordres de marcatge; els símbols d'articulació també
@@ -148,14 +144,13 @@ a'2^\markup { \small "sul A" }
 
 @morerefs
 Referència de la notació:
-@ref{Articulacions i ornaments},
-@ref{Indicació dels números de corda},
-@ref{Lligadures d'expressió}.
+@ref{Articulations and ornamentations},
+@ref{String number indications},
+@ref{Slurs}.
 
 
-@node Harmònics
+@node Harmonics
 @unnumberedsubsubsec Harmònics
-@translationof Harmonics
 
 @funindex \harmonic
 
@@ -195,7 +190,7 @@ d''2^\flageolet d''_\flageolet
 
 Es pot fer un cercle de mida més petita, vegeu la llista de
 fragments de codi a
-@ref{Referències per a cordes sense trasts}.
+@ref{References for unfretted strings}.
 
 @strong{@i{Harmònics artificials}}
 
@@ -226,13 +221,12 @@ Glossari musical:
 @rglos{harmonics}.
 
 Referencia de la notació:
-@ref{Caps de nota especials},
-@ref{Referències per a cordes sense trasts}.
+@ref{Special note heads},
+@ref{References for unfretted strings}.
 
 
-@node Pizzicato de Bartok (Snap)
+@node Snap (Bartok) pizzicato
 @unnumberedsubsubsec Pizzicato de Bartok (Snap)
-@translationof Snap (Bartok) pizzicato
 
 @cindex pizzicato, Bartók
 @cindex pizzicato, snap

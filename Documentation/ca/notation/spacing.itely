@@ -30,9 +30,8 @@ http://code.google.com/p/lilypond/issues/detail?id=68
 @end ignore
 
 
-@node Gestió de l'espai
+@node Spacing issues
 @chapter Gestió de l'espai
-@translationof Spacing issues
 
 La disposició global sobre el paper ve determinada per tres
 factors: el disseny de la pàgina, els salts de línia i l'espaiat.
@@ -57,41 +56,39 @@ disposició: @code{\paper @{@dots{}@}} i @code{\layout
 @{@dots{}@}}.  El bloc @code{\paper} conté ajustament de
 disposició de la pàgina que s'espera siguin els mateixos per a
 totes les partitures d'un llibre o part de llibre, etc.  Vegeu
-@ref{Disposició de la pàgina}.  El bloc @code{\layout} conté
+@ref{Page layout}.  El bloc @code{\layout} conté
 ajustaments de disposició de la partitura, com el nombre de
 sistemes a utilitzar, o la separació entre grups de pentagrama,
-etc. Vegeu @ref{Disposició de la pàgina}.
+etc. Vegeu @ref{Page layout}.
 
 @menu
-* Disposició de la pàgina::
-* Disposició de la partitura::
-* Salts::
-* Espaiat vertical::
-* Espaiat horitzontal::
-* Encaix de la música en menys pàgines::
+* Page layout::
+* Score layout::
+* Breaks::
+* Vertical spacing::
+* Horizontal spacing::
+* Fitting music onto fewer pages::
 @end menu
 
 
-@node Disposició de la pàgina
+@node Page layout
 @section Disposició de la pàgina
-@translationof Page layout
 
 Aquesta secció estudia les opcions de disposició de la pàgina per
 al bloc @code{\paper}.
 
 @menu
-* El bloc paper::
-* Mida del paper i escalat automàtic::
-* Variables fixes d'espaiat vertical de paper::
-* Variables flexibles d'espaiat vertical de paper::
-* Variables d'espaiat horitzontal de paper::
-* Altres variables de paper::
+* The paper block::
+* Paper size and automatic scaling::
+* Fixed vertical spacing paper variables::
+* Flexible vertical spacing paper variables::
+* Horizontal spacing paper variables::
+* Other paper variables::
 @end menu
 
 
-@node El bloc paper
+@node The paper block
 @subsection El bloc @code{\paper}
-@translationof The paper block
 
 Els blocs @code{\paper} poden aparèixer en tres llocs diferents
 per formar una jerarquia descendent de blocs @code{\paper}:
@@ -143,17 +140,17 @@ dels encapçalaments, peus i títols.
 @end itemize
 
 La funció @code{set-paper-size} s'estudia a la secció següent,
-@ref{Mida del paper i escalat automàtic}.  Les variables de
+@ref{Paper size and automatic scaling}.  Les variables de
 @code{\paper} que s'ocupen de la disposició de la pàgina
 s'estudien en seccions posteriors.  Les definicions d'elements de
 marcatge que s'encarreguen dels encapçalaments, peus i títols
 s'estudien a
-@ref{Títols encapçalaments i peus de pàgina personalitzats}.
+@ref{Custom titles headers and footers}.
 
 Gairebé totes les variables de @code{\paper} funcionen sols dins
 d'un bloc @code{\paper}.  Les poques que funcionen també a un bloc
 @code{\layout} s'indiquen a
-@ref{El bloc layout}.
+@ref{The layout block}.
 
 Excepte quan s'especifica el contrari, totes les variables de
 @code{\paper} que corresponen a distàncies sobre la pàgina es
@@ -194,17 +191,16 @@ l'Scheme.  L'equivalent de l'Scheme de l'exemple anterior és:
 
 @morerefs
 Referència de la notació:
-@ref{Mida del paper i escalat automàtic},
-@ref{Títols encapçalaments i peus de pàgina personalitzats},
-@ref{El bloc layout}.
+@ref{Paper size and automatic scaling},
+@ref{Custom titles headers and footers},
+@ref{The layout block}.
 
 Fitxers instal·lats:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node Mida del paper i escalat automàtic
+@node Paper size and automatic scaling
 @subsection Mida del paper i escalat automàtic
-@translationof Paper size and automatic scaling
 
 @cindex mida del paper
 @cindex mida de la pàgina
@@ -212,14 +208,13 @@ Fitxers instal·lats:
 @funindex \paper
 
 @menu
-* Establiment de la mida del paper::
-* Escalat automàtic de la mida del paper::
+* Setting paper size::
+* Automatic scaling to paper size::
 @end menu
 
 
-@node Establiment de la mida del paper
+@node Setting paper size
 @unnumberedsubsubsec Establiment de la mida del paper
-@translationof Setting paper size
 
 @q{A4} és el valor predeterminat si no s'estableix cap mida de
 pàgina explícitament.  Però hi ha dues funcions que es poden usar
@@ -258,13 +253,13 @@ aleshores la mida del paper sols s'aplica a aquest llibre.
 Quan s'usa la funció @code{set-paper-size}, s'ha de col·locar
 @emph{abans} de qualsevol altra funció que es faci servir dins del
 mateix bloc @code{\paper}.  Vegeu
-@ref{Escalat automàtic de la mida del paper}.
+@ref{Automatic scaling to paper size}.
 
 Les mides de pàgina estan definides al fitxer
 @file{scm/paper.scm}, i tot i que és possible afegir mides
 personalitzades, se sobreescriuran a les actualitzacions del
 programari posteriors.  La llista de totes les mides de paper
-disponibles estan a @ref{Mides de pàgina predefinides}.
+disponibles estan a @ref{Predefined paper sizes}.
 
 @c An appendix entry exists for paper sizes but is not auto-generated
 
@@ -314,16 +309,15 @@ disposició.
 
 @morerefs
 Referència de la notació:
-@ref{Escalat automàtic de la mida del paper},
-@ref{Mides de pàgina predefinides}.
+@ref{Automatic scaling to paper size},
+@ref{Predefined paper sizes}.
 
 Fitxers instal·lats:
 @file{scm/paper.scm}.
 
 
-@node Escalat automàtic de la mida del paper
+@node Automatic scaling to paper size
 @unnumberedsubsubsec Escalat automàtic de la mida del paper
-@translationof Automatic scaling to paper size
 
 Si es canvia la mida del paper amb una de les funcions de l'Scheme
 (@code{set-default-paper-size} o @code{set-paper-size}),
@@ -336,15 +330,14 @@ automàtica no s'activa mitjançant l'ajustament de les variables
 @code{paper-width} pot influir sobre altres valors (això és
 diferent a l'escalat i s'estudia més a baix).  Les funcions
 @code{set-default-paper-size} i @code{set-paper-size} es descriuen
-a @ref{Establiment de la mida del paper}.
+a @ref{Setting paper size}.
 
 Les dimensions verticals afectades per l'escalat automàtic són
-@code{top-margin} i @code{bottom-margin} (vegeu @ref{Variables fixes
-d'espaiat vertical de paper}).  Les dimensions horitzontals
+@code{top-margin} i @code{bottom-margin} (vegeu @ref{Fixed vertical spacing paper variables}).  Les dimensions horitzontals
 afectades per l'escalat automàtic són @code{left-margin},
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent} i @code{short-indent} (vegeu
-@ref{Variables d'espaiat horitzontal de paper}).
+@ref{Horizontal spacing paper variables}).
 
 Els valors predeterminats per a aquestes dimensions estan fixats
 al fitxer @file{ly/paper-defaults-init.ly}, usant variables
@@ -356,22 +349,21 @@ referència, amb el paper @code{a4} l'alçada  @code{paper-height}
 
 @morerefs
 Referència de la notació:
-@ref{Variables fixes d'espaiat vertical de paper},
-@ref{Variables d'espaiat horitzontal de paper}.
+@ref{Fixed vertical spacing paper variables},
+@ref{Horizontal spacing paper variables}.
 
 Fitxers d'inici:
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}.
 
 
-@node Variables fixes d'espaiat vertical de paper
+@node Fixed vertical spacing paper variables
 @subsection Variables fixes d'espaiat vertical de @code{\paper}
-@translationof Fixed vertical spacing paper variables
 
 @warning{Algunes dimensions de @code{@bs{}paper} s'escalen
 automàticament a la mida del paper cosa que pot portar a un
 comportament no esperat.  Vegeu
-@ref{Escalat automàtic de la mida del paper}.}
+@ref{Automatic scaling to paper size}.}
 
 Els valors predeterminats (previs a l'escalat) estan definits al
 fitxer @file{ly/paper-defaults-init.ly}.
@@ -416,7 +408,7 @@ que les pàgines anteriors.
 
 @morerefs
 Referència de la notació:
-@ref{Escalat automàtic de la mida del paper}.
+@ref{Automatic scaling to paper size}.
 
 Fitxers d'inici:
 @file{ly/paper-defaults-init.ly}.
@@ -433,9 +425,8 @@ i el primer sistema de la partitura.
 Les mides de paper definits explícitament sobreescriuen qualsevol
 ajustament dels marges superior i inferior definits per l'usuari.
 
-@node Variables flexibles d'espaiat vertical de paper
+@node Flexible vertical spacing paper variables
 @subsection Variables flexibles d'espaiat vertical de @code{\paper}
-@translationof Flexible vertical spacing paper variables
 
 En quasi totes els casos és preferible que les distàncies
 verticals entre certs elements (com marges, títols, sistemes i les
@@ -452,16 +443,15 @@ dins dels sistemes individual.  L'espaiat dins dels sistemes es
 controla per mitjà de propietats de grob, amb ajustaments que
 s'escriuen normalment dins d'un bloc @code{\score} o
 @code{\layout}, i no dins del bloc @code{\paper}.  Vegeu
-@ref{Espaiat vertical flexible dins dels sistemes}.
+@ref{Flexible vertical spacing within systems}.
 
 @menu
-* Estructura de les llistes-A d'espaiat vertical flexible::
-* Llista de variables d'espaiat de paper verticals flexibles::
+* Structure of flexible vertical spacing alists::
+* List of flexible vertical spacing paper variables::
 @end menu
 
-@node Estructura de les llistes-A d'espaiat vertical flexible
+@node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec Estructura de les listes-A d'espaiat vertical flexible
-@translationof Structure of flexible vertical spacing alists
 
 Cadascuna de les variables d'espaiat de @code{\paper} flexibles és
 una llista-A (llista associativa) que conté quatre @emph{claus}:
@@ -543,7 +533,7 @@ espaiat que la pàgina anterior sempre i quan hi hagi espai
 suficient per a això.
 
 Els mètodes específics per a la modificació de les llistes-A
-s'estudien a @ref{Modificació de les llistes-A}.  El següent
+s'estudien a @ref{Modifying alists}.  El següent
 exemple mostra les dues formes en les quals poden modificar-se
 aquestes llistes-A.  La primera declaració actualitza un parell
 clau-valor individualment, i la segona redefineix la variable
@@ -561,9 +551,8 @@ completament:
 @end example
 
 
-@node Llista de variables d'espaiat de paper verticals flexibles
+@node List of flexible vertical spacing paper variables
 @unnumberedsubsubsec Llista de variables d'espaiat de @code{\paper} verticals flexibles
-@translationof List of flexible vertical spacing paper variables
 
 Els noms d'aquestes variables segueixen el format
 @code{@var{superior}-@var{inferior}-spacing}, on
@@ -574,7 +563,7 @@ l'estructura de la llista-A).  Observeu que en aquests noms de
 variable, el terme @q{@code{markup}} es refereix tant a
 @emph{elements de marcatge de títol} (@code{bookTitleMarkup} o
 @code{scoreTitleMarkup}) com a @emph{elements de marcatge del
-nivell superior} (vegeu @ref{Estructura del fitxer}).  Totes les
+nivell superior} (vegeu @ref{File structure}).  Totes les
 distàncies es mesuren en espais de pentagrama.
 
 Els ajustaments predeterminats estan definits en el fitxer
@@ -639,7 +628,7 @@ quan no hi ha cap sistema entre els dos.
 
 @morerefs
 Referència de la notació:
-@ref{Espaiat vertical flexible dins dels sistemes}.
+@ref{Flexible vertical spacing within systems}.
 
 Fitxers d'inici:
 @file{ly/paper-defaults-init.ly}.
@@ -648,25 +637,23 @@ Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Variables d'espaiat horitzontal de paper
+@node Horizontal spacing paper variables
 @subsection Variables d'espaiat horitzontal de @code{\paper}
-@translationof Horizontal spacing paper variables
 
 @warning{Algunes dimensions de @code{@bs{}paper} s'escalen
 automàticament a la mida del paper, cosa que pot causar un
 comportament diferent a l'esperat. Vegeu
-@ref{Escalat automàtic de la mida del paper}.}
+@ref{Automatic scaling to paper size}.}
 
 @menu
-* Variables de paper per a l'amplada i els marges::
-* Variables de paper per al mode de doble cara::
-* Variables de paper per a desplaçaments i sagnats::
+* paper variables for widths and margins::
+* paper variables for two-sided mode::
+* paper variables for shifts and indents::
 @end menu
 
 
-@node Variables de paper per a l'amplada i els marges
+@node paper variables for widths and margins
 @unnumberedsubsubsec Variables de @code{\paper} per a l'amplada i els marges
-@translationof paper variables for widths and margins
 
 Els valors predeterminats (abans de l'escalat) que no es llisten
 aquí es poden trobar definits al fitxer
@@ -785,7 +772,7 @@ dins d'un bloc @code{\layout}.
 
 @morerefs
 Referència de la notació:
-@ref{Escalat automàtic de la mida del paper}.
+@ref{Automatic scaling to paper size}.
 
 Fitxers d'inici
 @file{ly/paper-defaults-init.ly}.
@@ -795,9 +782,8 @@ Les mides de paper definides explícitament sobreescriuen qualsevol
 ajustament dels marges esquerre o dret per l'usuari.
 
 
-@node Variables de paper per al mode de doble cara
+@node paper variables for two-sided mode
 @unnumberedsubsubsec Variables de @code{\paper} per al mode de doble cara
-@translationof paper variables for two-sided mode
 
 Els valors predeterminats (abans de l'escalat) es defineixen a
 @file{ly/paper-defaults-init.ly}.
@@ -845,15 +831,14 @@ valor vertader.
 
 @morerefs
 Referència de la notació:
-@ref{Escalat automàtic de la mida del paper}.
+@ref{Automatic scaling to paper size}.
 
 Fitxer d'inici:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node Variables de paper per a desplaçaments i sagnats
+@node paper variables for shifts and indents
 @unnumberedsubsubsec Variables de @code{\paper} per a desplaçaments i sagnats
-@translationof paper variables for shifts and indents
 
 Els valors predeterminats (abans de l'escalat) que no s'expliquen
 aquí estan definits al fitxer
@@ -897,7 +882,7 @@ partitura.
 
 @morerefs
 Referència de la notació:
-@ref{Escalat automàtic de la mida del paper}.
+@ref{Automatic scaling to paper size}.
 
 Fitxer d'inici:
 @file{ly/paper-defaults-init.ly}.
@@ -906,21 +891,19 @@ Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Altres variables de paper
+@node Other paper variables
 @subsection Altres variables de @code{\paper}
-@translationof Other paper variables
 
 @menu
-* Variables de paper per als salts de línia::
-* Variables de paper per als salts de pàgina::
-* Variables de paper per a la numeració de les pàgines::
-* Variables de paper diverses::
+* paper variables for line breaking::
+* paper variables for page breaking::
+* paper variables for page numbering::
+* Miscellaneous paper variables::
 @end menu
 
 
-@node Variables de paper per als salts de línia
+@node paper variables for line breaking
 @unnumberedsubsubsec Variables de @code{\paper} per als salts de línia
-@translationof paper variables for line breaking
 
 @table @code
 
@@ -957,12 +940,11 @@ dins d'un bloc @code{\layout}.
 
 @morerefs
 Referència de la notació:
-@ref{Salts de línia}.
+@ref{Line breaking}.
 
 
-@node Variables de paper per als salts de pàgina
+@node paper variables for page breaking
 @unnumberedsubsubsec Variables de @code{\paper} per als salts de pàgina
-@translationof paper variables for page breaking
 
 Els valors predeterminats que no estan relacionats aquí, es
 defineixen al fitxer @file{ly/paper-defaults-init.ly}.
@@ -1008,7 +990,7 @@ resultarà afavorida aquella disposició en la qual l'última pàgina
 sigui imparell.  Els llocs en els quals es prefereixen passos de
 pàgina poden indicar-se manualment interint @code{\allowPageTurn}
 o automàticament incloent el gravador @code{Page_turn_engraver}
-(véase @ref{Pas de pàgina òptim}).
+(véase @ref{Optimal page turning}).
 
 Si no hi ha un nombre suficient de possibilitat per escollir a
 l'hora d'inserir uns passos de pàgina adequats, el LilyPond pot
@@ -1059,20 +1041,19 @@ partitura.  Predeterminat: 2.
 
 @morerefs
 Referència de la notació:
-@ref{Salts de pàgina},
-@ref{Salts de pàgina òptims},
-@ref{Pas de pàgina òptim},
-@ref{Salts de pàgina mínims},
-@ref{Salts de pàgina del tipus pàgina única},
-@ref{Salts de pàgina del tipus una-línia},
-@ref{Salts de pàgina del tipus una-línia-alçada-automàtica}.
+@ref{Page breaking},
+@ref{Optimal page breaking},
+@ref{Optimal page turning},
+@ref{Minimal page breaking},
+@ref{One-page page breakingp},
+@ref{One-line page breaking},
+@ref{One-line-auto-height page breaking}.
 Fitxers d'inici:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node Variables de paper per a la numeració de les pàgines
+@node paper variables for page numbering
 @unnumberedsubsubsec Variables de @code{\paper} per a la numeració de les pàgines
-@translationof paper variables for page numbering
 
 Els valors predeterminats que no es relacionen aquí estan definits
 al fitxer @file{ly/paper-defaults-init.ly}.
@@ -1129,9 +1110,8 @@ que la música comenci a la pàgina 1, ha d'haver-hi una pàgina en
 blanc al revers de la pàgina de coberta de manera que la pàgina 1
 estigui al costat dret.
 
-@node Variables de paper diverses
+@node Miscellaneous paper variables
 @unnumberedsubsubsec Variables de @code{\paper} diverses
-@translationof Miscellaneous paper variables
 
 @table @code
 
@@ -1190,22 +1170,20 @@ L'encapçalament de pàgina predeterminat posa el número de pàgina i
 el camp @code{instrument} del bloc @code{\header} sobre la mateixa
 línia.
 
-@node Disposició de la partitura
+@node Score layout
 @section Disposició de la partitura
-@translationof Score layout
 
 Aquesta secció presenta les opcions de disposició de la partitura
 per al bloc @code{\layout}.
 
 @menu
-* El bloc layout::
-* Establiment de la mida del pentagrama::
+* The layout block::
+* Setting the staff size::
 @end menu
 
 
-@node El bloc layout
+@node The layout block
 @subsection El bloc @code{\layout}
-@translationof The layout block
 
 @funindex \layout
 
@@ -1227,10 +1205,10 @@ següents:
 @end itemize
 
 La funció @code{layout-set-staff-size} s'estudia en la secció
-següent, @ref{Establiment de la mida del pentagrama}. Les
+següent, @ref{Setting the staff size}. Les
 modificacions de context s'estudien en un capítol diferent; vegeu
-@ref{Modificació dels connectors (plug-ins) de context} i
-@ref{Canvi dels paràmetres predeterminats dels contextos}.
+@ref{Modifying context plug-ins} i
+@ref{Changing context default settings}.
 
 Les variables de @code{\paper} que poden aparèixer dins d'un bloc
 @code{\layout}, i els valors predeterminats de les quals s'agafen
@@ -1240,15 +1218,15 @@ del bloc @code{paper}, són:
 
 @item
 @code{line-width}, @code{ragged-right} i @code{ragged-last} (vegeu
-@ref{Variables de paper per a l'amplada i els marges})
+@ref{paper variables for widths and margins})
 
 @item
 @code{indent} i @code{short-indent}
-(vegeu @ref{Variables de paper per a desplaçaments i sagnats})
+(vegeu @ref{paper variables for shifts and indents})
 
 @item
 @code{system-count}
-(vegeu @ref{Variables de paper per als salts de línia})
+(vegeu @ref{paper variables for line breaking})
 
 @end itemize
 
@@ -1374,15 +1352,14 @@ de les fonts, i també per reiniciar la configuració de
 
 @morerefs
 Referència de la notació:
-@ref{Canvi dels paràmetres predeterminats dels contextos}.
+@ref{Changing context default settings}.
 
 Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Establiment de la mida del pentagrama
+@node Setting the staff size
 @subsection Establiment de la mida del pentagrama
-@translationof Setting the staff size
 
 @cindex lletra, establir la mida de
 @cindex pentagrama, establir la mida del
@@ -1492,8 +1469,8 @@ de glif recomanades es relacionen en la taula següent:
 
 @morerefs
 Referència de la notació:
-@ref{Selecció del la mida del tipus de lletra per a la notació},
-@ref{El tipus de lletra Emmentaler}
+@ref{Selecting notation font size},
+@ref{The Emmentaler font}
 
 Fragments de codi:
 @rlsr{Spacing}.
@@ -1502,19 +1479,17 @@ Fragments de codi:
 @code{layout-set-staff-size} no canvia la distància entres les línies del pentagrama.
 
 
-@node Salts
+@node Breaks
 @section Salts
-@translationof Breaks
 
 @menu
-* Salts de línia::
-* Salts de pàgina::
+* Line breaking::
+* Page breaking::
 @end menu
 
 
-@node Salts de línia
+@node Line breaking
 @subsection Salts de línia
-@translationof Line breaking
 
 @funindex \break
 @funindex \noBreak
@@ -1667,8 +1642,8 @@ compassos, i sols en aquests llocs:
 
 @morerefs
 Referència de la notació:
-@ref{Variables de paper per als salts de línia},
-@ref{El bloc layout}.
+@ref{paper variables for line breaking},
+@ref{The layout block}.
 
 Fragments de codi:
 @rlsr{Spacing}.
@@ -1683,27 +1658,25 @@ abans de qualsevol contingut musical, apareixeran missatges
 d'error.  Escriviu sempre aquestes ordres després d'una mica de
 música.
 
-@node Salts de pàgina
+@node Page breaking
 @subsection Salts de pàgina
-@translationof Page breaking
 
 Aquesta secció descriu els diferents mètodes per crear salts de
 pàgina, i com modificar-los.
 
 @menu
-* Salts de pàgina manuals::
-* Salts de pàgina òptims::
-* Salts de pàgina mínims::
-* Salts de pàgina del tipus pàgina única::
-* Salts de pàgina del tipus una-línia::
-* Salts de pàgina del tipus una-línia-alçada-automàtica::
-* Pas de pàgina òptim::
+* Manual page breaking::
+* Optimal page breaking::
+* Minimal page breaking::
+* One-page page breakingp::
+* One-line page breaking::
+* One-line-auto-height page breaking::
+* Optimal page turning::
 @end menu
 
 
-@node Salts de pàgina manuals
+@node Manual page breaking
 @unnumberedsubsubsec Salts de pàgina manuals
-@translationof Manual page breaking
 
 @funindex \pageBreak
 @funindex \noPageBreak
@@ -1736,7 +1709,7 @@ sistemes no es justifiquen verticalment.  Quan el valor de
 forma predeterminada, es permet una separació al final de l'última
 pàgina (o l'última pàgina de cada una de les parts de llibre
 @code{\bookpart}).  Vegeu
-@ref{Variables fixes d'espaiat vertical de paper}.
+@ref{Fixed vertical spacing paper variables}.
 
 Els salts de pàgina es calculen per mitjà de la funció
 @code{page-breaking}.  El LilyPond ofereix algoritmes per al
@@ -1798,7 +1771,7 @@ del llibre.
 
 @morerefs
 Referència de la notació:
-@ref{Variables de paper per als salts de pàgina}.
+@ref{paper variables for page breaking}.
 
 Fragments de codi:
 @rlsr{Spacing}.
@@ -1813,9 +1786,8 @@ alguns compassos (el nombre exacte dels quals dependrà de la
 partitura) abans de tornar-se a desactivar, perquè en cas contrari
 podria perdre's l'oportunitat que es produeixi el salt.
 
-@node Salts de pàgina òptims
+@node Optimal page breaking
 @unnumberedsubsubsec Salts de pàgina òptims
-@translationof Optimal page breaking
 
 @funindex ly:optimal-breaking
 
@@ -1831,9 +1803,8 @@ Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Salts de pàgina mínims
+@node Minimal page breaking
 @unnumberedsubsubsec Saltos de página mínimos
-@translationof Minimal page breaking
 
 @funindex ly:minimal-breaking
 
@@ -1856,9 +1827,8 @@ Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Salts de pàgina del tipus pàgina única
+@node One-page page breakingp
 @unnumberedsubsubsec Salts de pàgina del tipus pàgina única
-@translationof One-page page breakingp
 
 @funindex ly:one-page-breaking
 
@@ -1879,9 +1849,8 @@ bloc @code{paper}.
 @code{\bookpart}.
 
 
-@node Salts de pàgina del tipus una-línia
+@node One-line page breaking
 @unnumberedsubsubsec Salts de pàgina del tipus una-línia
-@translationof One-line page breaking
 
 @funindex ly:one-line-breaking
 
@@ -1897,9 +1866,8 @@ llarga càpiga en una línia.  Concretament, les variables
 @code{right-margin} encara es respecten.  L'alçada de la pàgina es
 deixa sense canvis.
 
-@node Salts de pàgina del tipus una-línia-alçada-automàtica
+@node One-line-auto-height page breaking
 @unnumberedsubsubsec Salts de pàgina del tipus una-línia-alçada-automàtica
-@translationof One-line-auto-height page breaking
 
 @funindex ly:one-line-auto-height-breaking
 
@@ -1916,9 +1884,8 @@ posició vertical de la música.  Establiu-lo al valor @code{##f}
 dins d'un bloc @code{paper} para disposar la música senzillament
 entre els marges superior i inferior.
 
-@node Pas de pàgina òptim
+@node Optimal page turning
 @unnumberedsubsubsec Pas de pàgina òptim
-@translationof Optimal page turning
 
 @funindex ly:page-turn-breaking
 
@@ -1932,7 +1899,7 @@ de pàgina als llocs especificats.
 
 Hi ha dues etapes en l'ús d'aquesta funció de divisió de pàgines.
 En primer lloc hem d'habilitar-lo en el bloc @code{\paper}, com es
-va explicar a @ref{Salts de pàgina}.  Aleshores hem de dir-li a la
+va explicar a @ref{Page breaking}.  Aleshores hem de dir-li a la
 funció on ens agradaria permetre els salts de pàgina.
 
 Hi ha dues formes d'aconseguir la segona tasca.  Primer, podem
@@ -2008,7 +1975,7 @@ superior i entre les partitures.
 
 @morerefs
 Referència de la notació:
-@ref{Variables de paper per als salts de línia}.
+@ref{paper variables for line breaking}.
 
 Fragments de codi:
 @rlsr{Spacing}.
@@ -2019,15 +1986,14 @@ partitura.  Si hi ha més d'un, s'interferiran entre sí.
 
 @morerefs
 Referència de la notació:
-@ref{Espaiat vertical}.
+@ref{Vertical spacing}.
 
 Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Espaiat vertical
+@node Vertical spacing
 @section Espaiat vertical
-@translationof Vertical spacing
 
 @cindex espaiat vertical
 @cindex vertical, espaiat
@@ -2038,15 +2004,14 @@ separació entre els sistemes, i la separació entre els pentagrames
 dins d'un sistema.
 
 @menu
-* Espaiat vertical flexible dins dels sistemes::
-* Posicionament explícit dels pentagrames i els sistemes::
-* Evitar les col·lisions verticals::
+* Flexible vertical spacing within systems::
+* Explicit staff and system positioning::
+* Vertical collision avoidance::
 @end menu
 
 
-@node Espaiat vertical flexible dins dels sistemes
+@node Flexible vertical spacing within systems
 @subsection Espaiat vertical flexible dins dels sistemes
-@translationof Flexible vertical spacing within systems
 
 @cindex distància entre pentagrames
 @cindex pentagrama, distància entre els
@@ -2084,19 +2049,18 @@ sols controlen l'espaiat vertical de les pautes i les línies que
 no són pautes dins dels sistemes individuals.  L'espaiat vertical
 entre diferents sistemes, partitures, marcatges i marges es
 controla mitjançant variables de @code{\paper} que s'estudien a
-@ref{Variables flexibles d'espaiat vertical de paper}.
+@ref{Flexible vertical spacing paper variables}.
 
 @menu
-* Propietats d'espaiat dins dels sistemes::
-* Espaiat de pautes no agrupades::
-* Espaiat de pautes agrupades::
-* Espaiat de les línies que no són pautes::
+* Within-system spacing properties::
+* Spacing of ungrouped staves::
+* Spacing of grouped staves::
+* Spacing of non-staff lines::
 @end menu
 
 
-@node Propietats d'espaiat dins dels sistemes
+@node Within-system spacing properties
 @unnumberedsubsubsec Propietats d'espaiat dins dels sistemes
-@translationof Within-system spacing properties
 
 @funindex staff-affinity
 @funindex staffgroup-staff-spacing
@@ -2218,8 +2182,8 @@ labelContext =
 Cada una de les propietats de grob de l'espaiat vertical (excepte
 @code{staff-affinity}) usa la mateixa estructura de llita-A que
 les variables d'espaiat del bloc @code{\paper} que s'han estudiat a
-@ref{Variables flexibles d'espaiat vertical de paper}.
-A @ref{Modificació de les llistes-A} s'estudien mètodes específics
+@ref{Flexible vertical spacing paper variables}.
+A @ref{Modifying alists} s'estudien mètodes específics
 per a la modificació de les llistes-A.  Les propietats dels grobs
 s'han d'ajustar amb un @code{\override} dins d'un bloc
 @code{\score} o @code{\layout}, y no dins d'un bloc @code{\paper}.
@@ -2372,8 +2336,8 @@ d'espaiat per a aquesta pauta.
 
 @morerefs
 Referencia de la notació:
-@ref{Variables flexibles d'espaiat vertical de paper},
-@ref{Modificació de les llistes-A}.
+@ref{Flexible vertical spacing paper variables},
+@ref{Modifying alists}.
 
 Fitxers d'inici:
 @file{ly/engraver-init.ly},
@@ -2386,9 +2350,8 @@ Referència de funcionament intern:
 
 
 
-@node Espaiat de pautes no agrupades
+@node Spacing of ungrouped staves
 @unnumberedsubsubsec Espaiat de pautes no agrupades
-@translationof Spacing of ungrouped staves
 
 Les @emph{pautes}, tals como els pentagrames (@code{Staff}),
 pautes de percussió (@code{DrumStaff}) o de tabulatura
@@ -2407,10 +2370,10 @@ Les següents propietats afecten a l'espaiat de les pautes
 @end itemize
 
 Aquestes propietats de grob es descriuen individualment més a
-dalt; vegeu @ref{Propietats d'espaiat dins dels sistemes}.
+dalt; vegeu @ref{Within-system spacing properties}.
 
 Estan implicades certes propietats addicionals per a les pautes
-que són part d'un grup; vegeu @ref{Espaiat de pautes agrupades}.
+que són part d'un grup; vegeu @ref{Spacing of grouped staves}.
 
 L'exemple següent mostra com la propietat
 @code{default-staff-staff-spacing} pot afectar l'espaiat de pautes
@@ -2464,9 +2427,8 @@ Fragments de codi:
 Referència de funcionament intern:
 @rinternals{VerticalAxisGroup}.
 
-@node Espaiat de pautes agrupades
+@node Spacing of grouped staves
 @unnumberedsubsubsec Espaiat de pautes agrupades
-@translationof Spacing of grouped staves
 
 En partitures grans com les orquestrals, s'acostuma a col·locar
 els pentagrames en grups.  L'espaiat entre els grups sol ser més
@@ -2491,10 +2453,10 @@ Les propietats següents afecten l'espaiat de les pautes dins dels grups:
 @end itemize
 
 Aquestes propietats de grob es descriuen individualment més a
-dalt; vegeu @ref{Propietats d'espaiat dins dels sistemes}.
+dalt; vegeu @ref{Within-system spacing properties}.
 
 Aquestes propietats de grob es descriuen individualment més a dalt;
-vegeu @ref{Propietats d'espaiat dins dels sistemes}.
+vegeu @ref{Within-system spacing properties}.
 
 L'exemple següent mostra com poden afectar les propietats del grob
 @code{StaffGrouper} a l'espaiat de les pautes agrupades:
@@ -2535,9 +2497,8 @@ Referència de funcionament intern:
 @rinternals{StaffGrouper}.
 
 
-@node Espaiat de les línies que no són pautes
+@node Spacing of non-staff lines
 @unnumberedsubsubsec Espaiat de les línies que no són pautes
-@translationof Spacing of non-staff lines
 
 Les @emph{Línies que no són pautes} (com ara @code{Lyrics},
 @code{ChordNames}, etc.) sén contextos els objectes de presentació
@@ -2560,7 +2521,7 @@ són pautes:
 @end itemize
 
 Aquestes propietats de grob es descriuen individualment més a dalt;
-vegeu @ref{Propietats d'espaiat dins dels sistemes}.
+vegeu @ref{Within-system spacing properties}.
 
 L'exemple següent mostra com la propietat
 @code{nonstaff-nonstaff-spacing} pot afectar l'espaiat de línies
@@ -2611,9 +2572,8 @@ Referència de funcionament intern:
 @rinternals{VerticalAxisGroup}.
 
 
-@node Posicionament explícit dels pentagrames i els sistemes
+@node Explicit staff and system positioning
 @subsection Posicionament explícit dels pentagrames i els sistemes
-@translationof Explicit staff and system positioning
 
 Una forma d'entendre els mecanismes de l'espaiat vertical flexible
 que s'han explicat més a dalt es com una col·lecció d'ajustaments
@@ -2709,7 +2669,7 @@ Aquesta partitura manté aïllada tant la informació dels salts de
 línia com els de pàgina d'una veu dedicada a això.  Aquesta
 tècnica de crear una veu de salts ajuda a mantenir separada de
 l'escriptura de notes conforme l'exemple es torna més complicat.
-Consulteu @ref{Salts}.
+Consulteu @ref{Breaks}.
 
 Utilitzant ordres @code{\break} explícites, la música es
 divideix en línies de cinc compassos cada una.  L'espaiat vertical
@@ -2896,9 +2856,8 @@ Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Evitar les col·lisions verticals
+@node Vertical collision avoidance
 @subsection Evitar les col·lisions verticals
-@translationof Vertical collision avoidance
 
 @funindex outside-staff-priority
 @funindex outside-staff-padding
@@ -2933,7 +2892,7 @@ al pentagrama.
 
 Hi ha un llistat complet de les prioritats
 outside-staff-priorities a
-@rlearning{La propietat outside-staff-priority (prioritat fora del pentagrama)}.
+@rlearningnamed{The outside-staff-priority property, La propietat outside-staff-priority (prioritat fora del pentagrama)}.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -2989,25 +2948,23 @@ Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Espaiat horitzontal
+@node Horizontal spacing
 @section Espaiat horitzontal
-@translationof Horizontal spacing
 
 @cindex horitzontal, espaiat
 @cindex espaiat horitzontal
 
 @menu
-* Panoràmica de l'espaiat horitzontal::
-* Secció nova d'espaiat::
-* Canvi de l'espaiat horitzontal::
-* Longitud de la línia::
-* Notació proporcional::
+* Horizontal spacing overview::
+* New spacing section::
+* Changing horizontal spacing::
+* Line width::
+* Proportional notation::
 @end menu
 
 
-@node Panoràmica de l'espaiat horitzontal
+@node Horizontal spacing overview
 @subsection Panoràmica de l'espaiat horitzontal
-@translationof Horizontal spacing overview
 
 El motor d'espaiat tradueix les diferències en les duracions a
 distàncies ampliables (@q{molls}) de diferents longituds.  Les
@@ -3102,7 +3059,7 @@ valors predeterminats i un altre amb un ajustament exagerat:
 @end lilypond
 
 També hi ha suport per a la notació proporcional; consulteu
-@ref{Notació proporcional}.
+@ref{Proportional notation}.
 
 @morerefs
 Assaig sobre gravat musical automatitzat:
@@ -3130,9 +3087,8 @@ mesura necessària.
 No hi ha cap ajustament per reduir la magnitud de la separació.
 
 
-@node Secció nova d'espaiat
+@node New spacing section
 @subsection Secció nova d'espaiat
-@translationof New spacing section
 
 @funindex \newSpacingSection
 @cindex secció nova d'espaiat
@@ -3190,9 +3146,8 @@ Referència de funcionament intern:
 @rinternals{SpacingSpanner}.
 
 
-@node Canvi de l'espaiat horitzontal
+@node Changing horizontal spacing
 @subsection Canvi de l'espaiat horitzontal
-@translationof Changing horizontal spacing
 
 Es pot alterar l'espaiat horitzontal amb la propietat
 @code{base-shortest-duration}.  Aquí comparem la mateixa música, un
@@ -3271,9 +3226,8 @@ Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Longitud de la línia
+@node Line width
 @subsection Longitud de la línia
-@translationof Line width
 
 @cindex salts de pàgina
 @cindex pàgina, salts de
@@ -3328,9 +3282,8 @@ Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Notació proporcional
+@node Proportional notation
 @subsection Notació proporcional
-@translationof Proportional notation
 
 El LilyPond dóna suport a la notació proporcional, un tipus
 d'espaiat horitzontal en el qual cada nota consumeix una mesura
@@ -3582,7 +3535,7 @@ o desactivat per a la partitura completa.  No obstant, podem
 sobreescriure aquest comportament i activar diferents
 possibilitats d'espaiat a diferents llocs de la partitura.  Ho fem
 amb l'ordre @code{\newSpacingSection}.  Consulteu
-@ref{Secció nova d'espaiat} per a més informació.
+@ref{New spacing section} per a més informació.
 
 A continuació examinem els efectes del gravador
 @code{Separating_line_group_engraver} i veurem perquè les
@@ -3685,15 +3638,14 @@ ajustaments relacionats.
 
 @morerefs
 Referència de la notació:
-@ref{Secció nova d'espaiat}.
+@ref{New spacing section}.
 
 Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Encaix de la música en menys pàgines
+@node Fitting music onto fewer pages
 @section Encaix de la música en menys pàgines
-@translationof Fitting music onto fewer pages
 
 En ocasions, podem terminar amb un o dos pentagrames en una segona
 pàgina (o tercera, o cuarta@dots{}).  Es feixuc, especialment quan
@@ -3702,17 +3654,16 @@ veiem que les pàgines anteriors semblen tenir espai de sobra.
 En investigar els problemes de disposició, una eina de valor
 incalculable és @code{annotate-spacing}.  Aquesta ordre imprimeix
 els valors d'un cert nombre de variables d'espaiat; per veure els
-detalls consulteu la secció següent, @ref{Mostrar l'espaiat}.
+detalls consulteu la secció següent, @ref{Displaying spacing}.
 
 @menu
-* Mostrar l'espaiat::
-* Canvi de l'espaiat::
+* Displaying spacing::
+* Changing spacing::
 @end menu
 
 
-@node Mostrar l'espaiat
+@node Displaying spacing
 @subsection Mostrar l'espaiat
-@translationof Displaying spacing
 
 @cindex espaiat, presentació del
 @funindex annotate-spacing
@@ -3758,20 +3709,19 @@ límit superior de l'interval.
 
 @morerefs
 Referència de la notació:
-@ref{Establiment de la mida del pentagrama}.
+@ref{Setting the staff size}.
 
 Fragments de codi:
 @rlsr{Spacing}.
 
 
-@node Canvi de l'espaiat
+@node Changing spacing
 @subsection Canvi de l'espaiat
-@translationof Changing spacing
 
 La sortida de @code{annotate-spacing} revela las dimensions
 verticals amb gran detall.  Per veure més detalls sobre la
 modificació dels marges i altres variables de disseny de la
-pàgina, consulteu @ref{Disposició de la pàgina}.
+pàgina, consulteu @ref{Page layout}.
 
 Apart dels marges, hi ha algunes altres opcions per estalviar
 espai:
@@ -3837,7 +3787,7 @@ pentagrama:
 @item
 Alterar l'espaiat horitzontal per mitjà de @code{SpacingSpanner}.
 Per veure més detalls, consulteu
-@ref{Canvi de l'espaiat horitzontal}.  L'exemple següent il·lustra
+@ref{Changing horizontal spacing}.  L'exemple següent il·lustra
 l'espaiat predeterminat:
 
 @lilypond[verbatim,quote]
@@ -3887,8 +3837,8 @@ completa.
 
 @morerefs
 Referència de la notació:
-@ref{Disposició de la pàgina},
-@ref{Canvi de l'espaiat horitzontal}.
+@ref{Page layout},
+@ref{Changing horizontal spacing}.
 
 Fragments de codi:
 @rlsr{Spacing}.

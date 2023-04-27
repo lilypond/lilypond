@@ -13,9 +13,8 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Suggeriments per escriure fitxers d'entrada
+@node Suggestions for writing files
 @chapter Suggeriments per escriure fitxers d'entrada
-@translationof Suggestions for writing files
 
 En aquest moment teniu la preparació per començar a escriure
 fitxers del LilyPond més grans -- no sols els petits exemples que
@@ -50,17 +49,16 @@ d'actualitzar.
 @end itemize
 
 @menu
-* Suggeriments de tipus general::
-* Gravació de música existent::
-* Projectes grans::
-* Solució de problemes::
-* Make i els Makefiles::
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Troubleshooting::
+* Make and Makefiles::
 @end menu
 
 
-@node Suggeriments de tipus general
+@node General suggestions
 @section Suggeriments de tipus general
-@translationof General suggestions
 
 Us presentem alguns suggeriments que us poden servir d'ajuda per
 evitar o corregir problemes:
@@ -76,8 +74,8 @@ fa uns anys.  @code{convert-ly} requereix que declareu quina
 versió del LilyPond fèieu servir.
 
 @item @strong{Incloeu comprovacions}:
-@rnotation{Comprovació de compàs i de número de compàs},
-@rnotation{Comprovació d'octava}.
+@rnotationnamed{Bar and bar number checks, Comprovació de compàs i de número de compàs},
+@rnotationnamed{Octave checks, Comprovació d'octava}.
 Si incloeu comprovacions de tant en tant, en cas que cometeu un
 error podreu localitzar-lo molt més ràpidament.  Amb quina
 freqüència és @q{de tant en tant}?  Depèn de la complexitat de la
@@ -112,14 +110,13 @@ estalviar problemes si reelaboreu la música més tard.
 
 @item @strong{Separeu els ajustaments} de les definicions
 musicals. Consulteu
-@rlearning{Estalvi de tecleig mitjançant variables i funcions} i
-@rlearning{Fulls d'estil}
+@rlearningnamed{Saving typing with variables and functions, Estalvi de tecleig mitjançant variables i funcions} i
+@rlearningnamed{Style sheets, Fulls d'estil}
 
 @end itemize
 
-@node Gravació de música existent
+@node Typesetting existing music
 @section Gravació de música existent
-@translationof Typesetting existing music
 
 Si esteu introduint música a partir d'una partitura existent (és a
 dir, gravant un full de música ja imprès),
@@ -131,7 +128,7 @@ física, per separat (però manteniu la pràctica d'escriure un
 compàs per línia de text), i comproveu cada sistema quan l'hàgiu
 acabat.  Podeu usar les propietats @code{showLastLength} o
 @code{showFirstLength} per accelerar el procés (vegeu
-@rnotation{Salts sobre la música corregida}.
+@rnotationnamed{Skipping corrected music, Salts sobre la música corregida}.
 
 @item Definiu @code{mBreak = @{ \break @}} i inseriu
 @code{\mBreak} dins del fitxer d'entrada on el manuscrit tingui un
@@ -168,9 +165,8 @@ clarinet en La bemoll, etc.
 
 @end itemize
 
-@node Projectes grans
+@node Large projects
 @section Projectes grans
-@translationof Large projects
 
 En treballar en projectes grans es fa essencial tenir una
 estructura clara als fitxers dels LilyPond:
@@ -215,9 +211,8 @@ g'4\fluegop c'8. e16
 @end itemize
 
 
-@node Solució de problemes
+@node Troubleshooting
 @section Solució de problemes
-@translationof Troubleshooting
 
 Abans o després escriureu un fitxer que el LilyPond no podrà
 compilar.  Els missatges que el LilyPond proporciona poden
@@ -268,11 +263,10 @@ Ara comenceu poc a poc traient comentaris a cada cop més fraccions
 de la part del @code{baix} fins que trobeu la línia del problema.
 
 Una altra tècnica de depuració molt útil és la construcció de
-@rweb{Exemples mínims}.
+@rwebnamed{Tiny examples, Exemples mínims}.
 
-@node Make i els Makefiles
+@node Make and Makefiles
 @section Make i els Makefiles
-@translationof Make and Makefiles
 
 @cindex make, fitxers de
 @cindex make
@@ -633,5 +627,5 @@ copy sortida\elmeuprojecte.pdf ElMeuProjecte.pdf
 
 @morerefs
 Manual d'utilització del programa:
-@ref{Utilització des de la línia d'ordres},
+@ref{Command-line usage},
 @ref{lilypond-book}

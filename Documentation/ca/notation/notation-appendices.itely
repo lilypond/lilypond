@@ -13,37 +13,35 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Taules del manual sobre notació
+@node Notation manual tables
 @appendix Taules del manual sobre notació
-@translationof Notation manual tables
 
 @menu
-* Taula de noms d'acords::
-* Modificadors d'acord més usuals::
-* Afinacions de cordes predefinides::
-* Diagrames predefinits de posicions::
-* Mides de pàgina predefinides::
-* Instruments MIDI::
-* Llista de colors::
-* El tipus de lletra Emmentaler::
-* Estils de caps de nota::
-* Estils de clau::
-* Ordres de marcatge de text::
-* Ordres de llistes de marcatge de text::
-* Llista de caràcters especials::
-* Llista d'articulacions::
-* Notes de percussió::
-* Glossari tècnic::
-* Funcions musicals disponibles::
-* Identificadors de modificació de contextos::
-* Predicats de tipus predefinits::
+* Chord name chart::
+* Common chord modifiers::
+* Predefined string tunings::
+* Predefined fretboard diagrams::
+* Predefined paper sizes::
+* MIDI instruments::
+* List of colors::
+* The Emmentaler font::
+* Note head styles::
+* Clef styles::
+* Text markup commands::
+* Text markup list commands::
+* List of special characters::
+* List of articulations::
+* Percussion notes::
+* Technical glossary::
+* Available music functions::
+* Context modification identifiers::
+* Predefined type predicates::
 @end menu
 
 
 
-@node Taula de noms d'acords
+@node Chord name chart
 @appendixsec Taula de noms d'acords
-@translationof Chord name chart
 
 La taula següent mostra dos sistemes estàndard per imprimir els
 noms dels acords, junt a les notes que representen.
@@ -51,9 +49,8 @@ noms dels acords, junt a les notes que representen.
 @c The line width is a hack to allow space for instrument names
 @lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
 
-@node Modificadors d'acord més usuals
+@node Common chord modifiers
 @appendixsec Modificadors d'acord més usuals
-@translationof Common chord modifiers
 
 La taula següent presenta els modificadors d'acord que es poden
 usar per generar les estructures d'acords estàndard.
@@ -500,46 +497,40 @@ Quinta justa, @*octava
 
 @end multitable
 
-@node Afinacions de cordes predefinides
+@node Predefined string tunings
 @appendixsec Afinacions de cordes predefinides
-@translationof Predefined string tunings
 
 La taula de sota mostra les afinacions predefinides de cordes.
 
 @lilypondfile{en/included/display-predefined-string-tunings.ly}
 
-@node Diagrames predefinits de posicions
+@node Predefined fretboard diagrams
 @appendixsec Diagrames predefinits de posicions
-@translationof Predefined fretboard diagrams
 
 @menu
-* Diagrames per a guitarra::
-* Diagrames per a ukelele::
-* Diagrames per a mandolina::
+* Diagrams for Guitar::
+* Diagrams for Ukulele::
+* Diagrams for Mandolin::
 @end menu
 
-@node Diagrames per a guitarra
+@node Diagrams for Guitar
 @unnumberedsubsec Diagrames per a guitarra
-@translationof Diagrams for Guitar
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-fretboards.ly}
 
-@node Diagrames per a ukelele
+@node Diagrams for Ukulele
 @unnumberedsubsec Diagrames per a ukelele
-@translationof Diagrams for Ukulele
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-ukulele-fretboards.ly}
 
-@node Diagrames per a mandolina
+@node Diagrams for Mandolin
 @unnumberedsubsec Diagrames per a mandolina
-@translationof Diagrams for Mandolin
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-mandolin-fretboards.ly}
 
 
-@node Mides de pàgina predefinides
+@node Predefined paper sizes
 @appendixsec Mides de pàgina predefinides
-@translationof Predefined paper sizes
 
 Les mides de pàgina es defineixen al fitxer @file{scm/paper.scm}
 
@@ -788,9 +779,8 @@ Les mides de pàgina es defineixen al fitxer @file{scm/paper.scm}
 @end table
 
 
-@node Instruments MIDI
+@node MIDI instruments
 @appendixsec Instruments MIDI
-@translationof MIDI instruments
 
 A continuació es pot trobar una llista amb els noms que es poden
 utilitar per a la propietat @code{midiInstrument} (instrument
@@ -845,14 +835,13 @@ cello                     lead 6 (voice)
 @end example
 
 
-@node Llista de colors
+@node List of colors
 @appendixsec Llista de colors
-@translationof List of colors
 
 @subsubheading Colors normals
 
 La sintaxi per a l'ús de colors es troba detallada a
-@ref{Acoloriment d'objectes}.
+@ref{Coloring objects}.
 
 @cindex llista de colors
 @cindex colors, llista de
@@ -950,9 +939,8 @@ greyN
 @noindent
 on N és un nombre entre 0 i 100.
 
-@node El tipus de lletra Emmentaler
+@node The Emmentaler font
 @appendixsec El tipus de lletra Emmentaler
-@translationof The Emmentaler font
 
 @cindex Emmentaler, tipus de lletra
 @cindex tipus de lletra, Emmentaler
@@ -982,40 +970,39 @@ or
 \markup @{\musicglyph "five"@}
 @end example
 
-Per veure més informació, consulteu @ref{Donar format al text}.
+Per veure més informació, consulteu @ref{Formatting text}.
 
 @menu
-* Glifs de clau::
-* Glifs d'indicació de compàs::
-* Glifs de xifres::
-* Glifs d'alteracions::
-* Glifs dels caps de nota predeterminats::
-* Glifs dels caps de nota especials::
-* Glifs dels caps de nota amb formes::
-* Glifs de silencis::
-* Glifs de parèntesis::
-* Glifs de puntets::
-* Glifs de matisos dinàmics::
-* Glifs de inscripcions::
-* Glifs de fletxes::
-* Glifs de puntes de parèntesis::
-* Glifs de pedal::
-* Glifs d'acordió::
-* Glifs de lligadura::
-* Glifs de vaticana::
-* Glifs de medicea::
-* Glifs de Hufnagel::
-* Glifs de mensural::
-* Glifs de neomensural::
-* Glifs de Petrucci::
-* Glifs de Solesmes::
-* Glifs de la notació del cant kievà::
+* Clef glyphs::
+* Time Signature glyphs::
+* Number glyphs::
+* Accidental glyphs::
+* Default Notehead glyphs::
+* Special Notehead glyphs::
+* Shape-note Notehead glyphs::
+* Rest glyphs::
+* Flag glyphs::
+* Dot glyphs::
+* Dynamic glyphs::
+* Script glyphs::
+* Arrowhead glyphs::
+* Bracket-tip glyphs::
+* Pedal glyphs::
+* Accordion glyphs::
+* Tie glyphs::
+* Vaticana glyphs::
+* Medicaea glyphs::
+* Hufnagel glyphs::
+* Mensural glyphs::
+* Neomensural glyphs::
+* Petrucci glyphs::
+* Solesmes glyphs::
+* Kievan Notation glyphs::
 @end menu
 
 
-@node Glifs de clau
+@node Clef glyphs
 @unnumberedsubsec Glifs de clau
-@translationof Clef glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1024,9 +1011,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs d'indicació de compàs
+@node Time Signature glyphs
 @unnumberedsubsec Glifs d'indicació de compàs
-@translationof Time Signature glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1035,9 +1021,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de xifres
+@node Number glyphs
 @unnumberedsubsec Glifs de xifres
-@translationof Number glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1046,9 +1031,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs d'alteracions
+@node Accidental glyphs
 @unnumberedsubsec Glifs d'alteracions
-@translationof Accidental glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1057,9 +1041,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs dels caps de nota predeterminats
+@node Default Notehead glyphs
 @unnumberedsubsec Glifs dels caps de nota predeterminats
-@translationof Default Notehead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1068,9 +1051,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs dels caps de nota especials
+@node Special Notehead glyphs
 @unnumberedsubsec Glifs dels caps de nota especials
-@translationof Special Notehead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1079,9 +1061,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs dels caps de nota amb formes
+@node Shape-note Notehead glyphs
 @unnumberedsubsec Glifs dels caps de nota amb formes
-@translationof Shape-note Notehead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1090,9 +1071,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de silencis
+@node Rest glyphs
 @unnumberedsubsec Glifs de silencis
-@translationof Rest glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1101,9 +1081,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de parèntesis
+@node Flag glyphs
 @unnumberedsubsec Glifs de parèntesis
-@translationof Flag glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1112,9 +1091,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de puntets
+@node Dot glyphs
 @unnumberedsubsec Glifs de puntets
-@translationof Dot glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1123,9 +1101,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de matisos dinàmics
+@node Dynamic glyphs
 @unnumberedsubsec Glifs de matisos dinàmics
-@translationof Dynamic glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1134,9 +1111,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de inscripcions
+@node Script glyphs
 @unnumberedsubsec Glifs de inscripcions
-@translationof Script glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1145,9 +1121,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de fletxes
+@node Arrowhead glyphs
 @unnumberedsubsec Glifs de fletxes
-@translationof Arrowhead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1156,9 +1131,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de puntes de parèntesis
+@node Bracket-tip glyphs
 @unnumberedsubsec Glifs de puntes de parèntesis
-@translationof Bracket-tip glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1167,9 +1141,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de pedal
+@node Pedal glyphs
 @unnumberedsubsec Glifs de pedal
-@translationof Pedal glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1178,9 +1151,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs d'acordió
+@node Accordion glyphs
 @unnumberedsubsec Glifs d'acordió
-@translationof Accordion glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1189,9 +1161,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de lligadura
+@node Tie glyphs
 @unnumberedsubsec Glifs de lligadura
-@translationof Tie glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1200,9 +1171,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de vaticana
+@node Vaticana glyphs
 @unnumberedsubsec Glifs de vaticana
-@translationof Vaticana glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1211,9 +1181,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de medicea
+@node Medicaea glyphs
 @unnumberedsubsec Glifs de medicea
-@translationof Medicaea glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1222,9 +1191,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de Hufnagel
+@node Hufnagel glyphs
 @unnumberedsubsec Glifs de Hufnagel
-@translationof Hufnagel glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1233,9 +1201,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de mensural
+@node Mensural glyphs
 @unnumberedsubsec Glifs de mensural
-@translationof Mensural glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1244,9 +1211,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de neomensural
+@node Neomensural glyphs
 @unnumberedsubsec Glifs de neomensural
-@translationof Neomensural glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1255,9 +1221,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de Petrucci
+@node Petrucci glyphs
 @unnumberedsubsec Glifs de Petrucci
-@translationof Petrucci glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1266,9 +1231,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de Solesmes
+@node Solesmes glyphs
 @unnumberedsubsec Glifs de Solesmes
-@translationof Solesmes glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1277,9 +1241,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 @end lilypond
 
 
-@node Glifs de la notació del cant kievà
+@node Kievan Notation glyphs
 @unnumberedsubsec Glifs de la notació del cant kievà
-@translationof Kievan Notation glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1287,9 +1250,8 @@ Per veure més informació, consulteu @ref{Donar format al text}.
 	     \doc-chars #kievan
 @end lilypond
 
-@node Estils de caps de nota
+@node Note head styles
 @appendixsec Estils de caps de nota
-@translationof Note head styles
 
 @cindex nota, estils de cap
 Es poden usar els següents estils per als caps de les notes.
@@ -1297,9 +1259,8 @@ Es poden usar els següents estils per als caps de les notes.
 @lilypondfile[noindent]{en/included/note-head-style.ly}
 
 
-@node Estils de clau
+@node Clef styles
 @appendixsec Estils de clau
-@translationof Clef styles
 
 La taula següent presenta tots els estils de clau possibles i el
 lloc del @emph{Do central} en cada una.
@@ -1360,15 +1321,14 @@ lloc del @emph{Do central} en cada una.
 @cindex Kievan, clau
 
 @menu
-* Claus estàndard::
-* Claus de pentagrames de percussió::
-* Claus de pautes de tabulatura::
-* Claus de la música antiga::
+* Standard clefs::
+* Percussion staff clef::
+* Tab staff clefs::
+* Ancient music clefs::
 @end menu
 
-@node Claus estàndard
+@node Standard clefs
 @unnumberedsubsec Clauss estàndard
-@translationof Standard clefs
 
 @multitable @columnfractions .30 .2 .30 .2
 
@@ -1557,9 +1517,8 @@ c1
 @end multitable
 
 
-@node Claus de pentagrames de percussió
+@node Percussion staff clef
 @unnumberedsubsec Claus de pentagrames de percussió
-@translationof Percussion staff clef
 
 @multitable @columnfractions .30 .2 .30 .2
 
@@ -1590,9 +1549,8 @@ c1
 @end multitable
 
 
-@node Claus de pautes de tabulatura
+@node Tab staff clefs
 @unnumberedsubsec Claus de pautes de tabulatura
-@translationof Tab staff clefs
 
 @multitable @columnfractions .30 .2 .30 .2
 
@@ -1637,9 +1595,8 @@ Sortida
 @end multitable
 
 
-@node Claus de la música antiga
+@node Ancient music clefs
 @unnumberedsubsec Claus de la música antiga
-@translationof Ancient music clefs
 
 @strong{Gregorià}
 
@@ -2196,9 +2153,8 @@ Sortida
 @end multitable
 
 
-@node Ordres de marcatge de text
+@node Text markup commands
 @appendixsec Ordres de marcatge de text
-@translationof Text markup commands
 
 @ignore
 All the .tely files included in this appendix are automatically
@@ -2209,21 +2165,19 @@ For translators: you cannot translate the content of these files.
 @include en/markup-commands.tely
 
 
-@node Ordres de llistes de marcatge de text
+@node Text markup list commands
 @appendixsec Ordres de llistes de marcatge de text
-@translationof Text markup list commands
 
 Es pot usar qualssevol de les següents instruccions amb
 @code{\markuplist}:
 
 @include en/markup-list-commands.tely
 
-@node Llista de caràcters especials
+@node List of special characters
 @appendixsec Llista de caràcters especials
-@translationof List of special characters
 
 Es poden usar les referències següents a caràcters especials;
-per veure més detalls, consulteu @ref{Àlies d'ASCII}.
+per veure més detalls, consulteu @ref{ASCII aliases}.
 
 S'usa la sintaxi de l'HTML i gairebé totes aquestes referències
 són les mateixes que a l'HTML.  La resta estan inspirades en @LaTeX{}.
@@ -2238,9 +2192,8 @@ llegibilitat.
 @end lilypond
 
 
-@node Llista d'articulacions
+@node List of articulations
 @appendixsec Llista d'articulacions
-@translationof List of articulations
 
 
 Les llistes següents relacionen totes els símbols del tipus de
@@ -2260,12 +2213,12 @@ respectivament.
 
 
 @menu
-* Indicacions d'articulació::
-* Indicacions d'adorns::
-* Indicacions de calderó::
-* Indicacions específiques de certs instruments::
-* Indicacions de repetició::
-* Indicacions antigues::
+* Articulation scripts::
+* Ornament scripts::
+* Fermata scripts::
+* Instrument-specific scripts::
+* Repeat sign scripts::
+* Ancient scripts::
 @end menu
 
 @ignore
@@ -2285,9 +2238,8 @@ columns - JL
 @cindex tenuto
 @cindex thumb
 
-@node Indicacions d'articulació
+@node Articulation scripts
 @unnumberedsubsec Indicacions d'articulació
-@translationof Articulation scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2345,9 +2297,8 @@ f^\tenuto e,_\tenuto b'\tenuto
 @cindex turn
 @cindex reverseturn
 
-@node Indicacions d'adorns
+@node Ornament scripts
 @unnumberedsubsec Indicacions d'adorns
-@translationof Ornament scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2432,9 +2383,8 @@ f^\reverseturn e,_\reverseturn b'\reverseturn
 @cindex longfermata
 @cindex verylongfermata
 
-@node Indicacions de calderó
+@node Fermata scripts
 @unnumberedsubsec Indicacions de calderó
-@translationof Fermata scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2473,9 +2423,8 @@ f^\verylongfermata e,_\verylongfermata b'\verylongfermata
 @cindex snappizzicato
 @cindex stopped
 
-@node Indicacions específiques de certs instruments
+@node Instrument-specific scripts
 @unnumberedsubsec Indicacions específiques de certs instruments
-@translationof Instrument-specific scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2543,9 +2492,8 @@ f^\stopped e,_\stopped b'\stopped
 @cindex coda
 @cindex varcoda
 
-@node Indicacions de repetició
+@node Repeat sign scripts
 @unnumberedsubsec Indicacions de repetició
-@translationof Repeat sign scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2573,9 +2521,8 @@ f^\varcoda e,_\varcoda b'\varcoda
 @cindex semicirculus
 @cindex signumcongruentiae
 
-@node Indicacions antigues
+@node Ancient scripts
 @unnumberedsubsec Indicacions antigues
-@translationof Ancient scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2672,9 +2619,8 @@ f^\varcoda e,_\varcoda b'\varcoda
 @cindex cuica
 @cindex triangle
 
-@node Notes de percussió
+@node Percussion notes
 @appendixsec Notes de percussió
-@translationof Percussion notes
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -3019,36 +2965,34 @@ f^\varcoda e,_\varcoda b'\varcoda
 @end multitable
 
 
-@node Glossari tècnic
+@node Technical glossary
 @appendixsec Glossari tècnic
-@translationof Technical glossary
 
 Glossari dels termes tècnics i conceptes que s'utilitzen
 internament al LilyPond.  Aquests termes poden aparèixer als
 manuals, a les llistes de distribució de correu o al codi font.
 
 @menu
-* alist (llista-A)::
+* alist::
 * callback::
-* closure (tancadura)::
-* glif::
-* grob (objecte gràfic)::
+* closure::
+* glyph::
+* grob::
 * immutable::
-* interfície::
-* lexer (analitzador lèxic)::
+* interface::
+* lexer::
 * mutable::
-* output-def (definició de sortida)::
-* parser (analitzador sintàctic)::
-* variable de l'analitzador sintàctic::
-* prob (objecte de propietats)::
-* smob (objecte de l'Scheme)::
-* stencil (segell)::
+* output-def::
+* parser::
+* parser variable::
+* prob::
+* smob::
+* stencil::
 @end menu
 
 
-@node alist (llista-A)
+@node alist
 @unnumberedsubsec alist (llista-A)
-@translationof alist
 
 @cindex llista-A
 @cindex llista d'associació
@@ -3065,7 +3009,6 @@ que inclou el nom del predicat de tipus esperat.
 
 @node callback
 @unnumberedsubsec callback
-@translationof callback
 
 @cindex callback
 
@@ -3079,9 +3022,8 @@ l'Scheme del nivell d'usuari definir quantes accions de baix
 nivell es fan.
 
 
-@node closure (tancadura)
+@node closure
 @unnumberedsubsec closure (tancadura)
-@translationof closure
 
 @cindex tancadura
 
@@ -3098,9 +3040,8 @@ de les tancadures és la retenció dels valors interns de les
 variables d'una invocació a una altra, permetent així que es pugui
 mantenir un estat.
 
-@node glif
+@node glyph
 @unnumberedsubsec glif
-@translationof glyph
 
 @cindex glif
 @cindex tipus de lletra
@@ -3114,13 +3055,12 @@ abasten diversos estils formen un tipus.
 
 @morerefs
 Referencia de la notació:
-@ref{Tipus de lletra},
-@ref{Caràcters especials}.
+@ref{Fonts},
+@ref{Special characters}.
 
 
-@node grob (objecte gràfic)
+@node grob
 @unnumberedsubsec grob (objecte gràfic)
-@translationof grob
 
 @cindex grob
 @cindex objectes de presentació
@@ -3135,9 +3075,9 @@ representen mitjançant instàncies de la classe @code{Grob}.
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Objectes i interfícies},
-@rlearning{Convencions de noms d'objectes i propietats},
-@rlearning{Propietats dels objectes de presentació}.
+@rlearningnamed{Objects and interfaces, Objectes i interfícies},
+@rlearningnamed{Naming conventions of objects and properties, Convencions de noms d'objectes i propietats},
+@rlearningnamed{Properties of layout objects, Propietats dels objectes de presentació}.
 
 Referència de funcionament intern:
 @rinternals{grob-interface},
@@ -3146,7 +3086,6 @@ Referència de funcionament intern:
 
 @node immutable
 @unnumberedsubsec immutable
-@translationof immutable
 
 @cindex objectes immutables
 @cindex propietats immutables
@@ -3168,9 +3107,8 @@ Referècia de la notació:
 @ref{mutable}.
 
 
-@node interfície
+@node interface
 @unnumberedsubsec interfície
-@translationof interface
 
 @cindex interfície
 @cindex interfície de grob
@@ -3182,20 +3120,19 @@ en un objecte denominat @code{interfície de grob
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Objectes i interfícies},
-@rlearning{Convencions de noms d'objectes i propietats},
-@rlearning{Propietats de les interfícies}.
+@rlearningnamed{Objects and interfaces, Objectes i interfícies},
+@rlearningnamed{Naming conventions of objects and properties, Convencions de noms d'objectes i propietats},
+@rlearningnamed{Properties found in interfaces, Propietats de les interfícies}.
 
 Referència de la notació:
-@ref{Interfícies de la presentació}.
+@ref{Layout interfaces}.
 
 Referècia de funcionament intern:
 @rinternals{Graphical Object Interfaces}.
 
 
-@node lexer (analitzador lèxic)
+@node lexer
 @unnumberedsubsec lexer (analitzador lèxic)
-@translationof lexer
 
 @cindex lexer
 @cindex analitzador lèxic
@@ -3207,7 +3144,7 @@ o tokens, usant un procés que s'anomena anàlisi lèxica.
 L'analitzador lèxic del LilyPond converteix el flux obtingut a
 partir d'un fitxer d'entrada @file{.ly} en un flux descompost en
 tokens més apte per a la fase següent del processat: l'anàlisi
-sintàctica, vegeu @ref{parser (analitzador sintàctic)}.
+sintàctica, vegeu @ref{parser}.
 L'analitzador lèxic del LilyPond lexer està construït amb l'eina
 Flex a partir del fitxer de lexer @file{lily/lexer.ll} que conté
 les regles lèxiques.  Aquest fiter és part del codi font i no
@@ -3216,7 +3153,6 @@ s'inclou dins de la instal·lació binària del LilyPond.
 
 @node mutable
 @unnumberedsubsec mutable
-@translationof mutable
 
 @cindex objectes mutables
 @cindex propietats mutables
@@ -3234,9 +3170,8 @@ Referència de la notació:
 @ref{immutable}.
 
 
-@node output-def (definició de sortida)
+@node output-def
 @unnumberedsubsec output-def (definició de sortida)
-@translationof output-def
 
 @cindex output-def
 @cindex definició de sortida
@@ -3245,9 +3180,8 @@ Una instància de la classe @code{Output-def} conté els mètodes i
 les estructures de dades associades amb un bloc de sortida.  Es
 creen instàncies per al blocs midi, layout i paper.
 
-@node parser (analitzador sintàctic)
+@node parser
 @unnumberedsubsec parser (analitzador sintàctic)
-@translationof parser
 
 @cindex parser
 @cindex analitzador sintàctic
@@ -3272,9 +3206,8 @@ sintàctic durant la compilació del programa per part del generador
 d'analitzadors sintàctics, Bison.  És part del codi font i no
 s'inclou dins de la instal·lació binària del LilyPond.
 
-@node variable de l'analitzador sintàctic
+@node parser variable
 @unnumberedsubsec variable de l'analitzador sintàctic
-@translationof parser variable
 
 @cindex variable de l'analitzador sintàctic
 @cindex variable de l'Scheme
@@ -3320,9 +3253,8 @@ El LilyPond utilitza les variables següents de l'analitzador sintàctic:
 @end itemize
 
 
-@node prob (objecte de propietats)
+@node prob
 @unnumberedsubsec prob (objecte de propietats)
-@translationof prob
 
 @cindex objecte de propietats
 @cindex prob
@@ -3336,9 +3268,8 @@ instàncies de la classe @code{Prob} per emmagatzemar el contingut
 formatat dels grobs del sistema i els blocs de títols durant el
 procés de disposició de la pàgina.
 
-@node smob (objecte de l'Scheme)
+@node smob
 @unnumberedsubsec smob (objecte de l'Scheme)
-@translationof smob
 
 @cindex smob
 @cindex objecte de l'Scheme
@@ -3352,9 +3283,8 @@ com nombres, i els smobs complexos, usats per a objectes amb
 identitats.  Si teniu accés a les fonts del LilyPond, trobareu més
 informació a @file{lily/includes/smob.hh}.
 
-@node stencil (segell)
+@node stencil
 @unnumberedsubsec stencil (segell)
-@translationof stencil
 
 @cindex stencil
 @cindex segell
@@ -3376,16 +3306,14 @@ Referència de funcionament intern:
 @rinternals{grob-interface}.
 
 
-@node Funcions musicals disponibles
+@node Available music functions
 @appendixsec Funcions musicals disponibles
-@translationof Available music functions
 
 @include en/identifiers.tely
 
 
-@node Identificadors de modificació de contextos
+@node Context modification identifiers
 @appendixsec Identificadors de modificació de contextos
-@translationof Context modification identifiers
 
 Es defineixen les ordres següents per al seu ús com modificacions
 de context dins d'un bloc @code{\layout} o @code{\with}.
@@ -3393,8 +3321,7 @@ de context dins d'un bloc @code{\layout} o @code{\with}.
 @include en/context-mod-identifiers.tely
 
 
-@node Predicats de tipus predefinits
+@node Predefined type predicates
 @appendixsec Predicats de tipus predefinits
-@translationof Predefined type predicates
 
 @include en/type-predicates.tely

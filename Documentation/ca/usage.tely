@@ -41,17 +41,17 @@ Copyright @copyright{} 1999--2023 pels autors.
 @c  maybe add a "Tasks" or "Specific tasks" or something like
 @c  that, after Suggestions  -gp
 @menu
-* Execució del LilyPond::          Operació.
-* Actualització de fitxers amb convert-ly:: Actualitzar els fitxers d'entrada.
+* Running LilyPond::          Operació.
+* Updating files with convert-ly:: Actualitzar els fitxers d'entrada.
 * lilypond-book::                  Integrar text i música.
 * External programs::              Barrejar el LilyPond amb altres programes.
-* Suggeriments per escriure fitxers d'entrada::  Bones pràctiques i depuració eficient d'errors.
+* Suggestions for writing files::  Bones pràctiques i depuració eficient d'errors.
 
 
 Annexos
 
 * GNU Free Documentation License:: Llicència d'aquest document.
-* Índex del LilyPond::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -73,9 +73,8 @@ Annexos
 @include en/fdl.itexi
 
 
-@node Índex del LilyPond
+@node LilyPond index
 @appendix Índex del LilyPond
-@translationof LilyPond index
 
 @printindex cp
 

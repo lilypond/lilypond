@@ -14,7 +14,6 @@
 
 @node Text
 @section Text
-@translationof Text
 
 @lilypondfile[quote]{snippets/text-headword.ly}
 
@@ -24,18 +23,17 @@ format) a les partitures.
 @noindent
 Certs elements de text dels que no ens ocupem aquí es presenten a
 d'altres secciones específiques:
-@ref{Música vocal},
-@ref{Títols i encapçalaments}.
+@ref{Vocal music},
+@ref{Titles and headers}.
 
 @menu
-* Escriptura del text::
-* Donar format al text::
-* Tipus de lletra::
+* Writing text::
+* Formatting text::
+* Fonts::
 @end menu
 
-@node Escriptura del text
+@node Writing text
 @subsection Escriptura del text
-@translationof Writing text
 
 Aquesta secció presenta les diferents formes d'afegir text a una
 partitura.
@@ -45,19 +43,18 @@ partitura.
 (com a les llengües diferents a l'anglès), senzillament inseriu
 els caràcters directament al fitxer del LilyPond.  El fitxer s'ha
 de desar com a UTF-8.  Per veure més informació, consulteu
-@ref{Codificació del text}.}
+@ref{Text encoding}.}
 
 @menu
-* Scripts de text::
-* Extensions de text::
-* Indicacions de text::
-* Text separat::
+* Text scripts::
+* Text spanners::
+* Text marks::
+* Separate text::
 @end menu
 
 
-@node Scripts de text
+@node Text scripts
 @unnumberedsubsubsec Scripts de text
-@translationof Text scripts
 
 @cindex text, inscripcions de
 @cindex text, elements no buits de
@@ -68,7 +65,7 @@ de desar com a UTF-8.  Per veure més informació, consulteu
 partitura, com es mostra a l'exemple següent.  Aquestes
 indicacions es poden col·locar manualment per sobre o per sota del
 pentagrama, utilitzant la sintaxi que es descriu a
-@ref{Direcció i posició}.
+@ref{Direction and placement}.
 
 @lilypond[quote,verbatim]
 \relative { a'8^"pizz." g f e a4-"scherz." f }
@@ -77,7 +74,7 @@ pentagrama, utilitzant la sintaxi que es descriu a
 Aquesta sintaxi és en realitat una abreviatura; es pot afegir
 explícitament a una nota un format de text més complex utilitzant
 un bloc @code{\markup}, como es descriu a
-@ref{Donar format al text}.
+@ref{Formatting text}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -100,11 +97,11 @@ afecta l'espaiat, però la segon sí afecta.
 
 Es poden adjuntar articulacions a les notes, a més d'inscripcions
 de text.  Per veure més informació, consulteu
-@ref{Articulacions i ornaments}.
+@ref{Articulations and ornamentations}.
 
 Per veure més informació sobre l'ordre relatiu de les inscripcions
 de text i les articulacions, consulteu
-@rlearning{Col·locació dels objectes}.
+@rlearningnamed{Placement of objects, Col·locació dels objectes}.
 
 @predefined
 @funindex \textLengthOn
@@ -116,12 +113,12 @@ de text i les articulacions, consulteu
 
 @morerefs
 Manual de aprenentatge:
-@rlearning{Col·locació dels objectes}.
+@rlearningnamed{Placement of objects, Col·locació dels objectes}.
 
 Referència de la notació:
-@ref{Donar format al text},
-@ref{Direcció i posició},
-@ref{Articulacions i ornaments}.
+@ref{Formatting text},
+@ref{Direction and placement},
+@ref{Articulations and ornamentations}.
 
 Fragments de codi:
 @rlsr{Text}.
@@ -146,9 +143,8 @@ lleugerament més ràpid, podeu utilitzar
 @end example
 
 
-@node Extensions de text
+@node Text spanners
 @unnumberedsubsubsec Extensions de text
-@translationof Text spanners
 
 @cindex text, elements d'extensió
 
@@ -174,7 +170,7 @@ La cadena de text que imprimeix s'estableix a través de propietats
 d'objecte.  De forma predeterminada s'imprimeix en estil cursiva,
 però es poden aconseguir diferents efectes de format utilitzant blocs
 @code{\markup}, com es descriue a
-@ref{Donar format al text}.
+@ref{Formatting text}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -187,7 +183,7 @@ però es poden aconseguir diferents efectes de format utilitzant blocs
 
 L'estil de la línia, així com la cadena de text, es definir com
 una propietat d'objecte.  Aquesta sintaxi es descriu a
-@ref{Estils de línia}.
+@ref{Line styles}.
 
 @predefined
 @funindex \textSpannerUp
@@ -212,9 +208,9 @@ cada veu.
 
 @morerefs
 Referència de la notació:
-@ref{Estils de línia},
-@ref{Matisos dinàmics},
-@ref{Donar format al text}.
+@ref{Line styles},
+@ref{Dynamics},
+@ref{Formatting text}.
 
 Fragments de codi:
 @rlsr{Text},
@@ -224,9 +220,8 @@ Referència de funcionament interno:
 @rinternals{TextSpanner}.
 
 
-@node Indicacions de text
+@node Text marks
 @unnumberedsubsubsec Indicacions de text
-@translationof Text marks
 
 @cindex text, indicacions de
 @cindex indicacions de text
@@ -240,7 +235,7 @@ Referència de funcionament interno:
 @funindex \markup
 
 Es poden afegir a la partitura diversos elements de text amb la
-sintaxi que es descriue a @ref{Marques d'assaig}.
+sintaxi que es descriue a @ref{Rehearsal marks}.
 
 @c \mark needs to be placed on a separate line (it's not
 @c attached to an object like \markup is). -vv
@@ -259,7 +254,7 @@ sintaxi que es descriue a @ref{Marques d'assaig}.
 Aquesta sintaxi possibilitat col·locar qualsevol text sobre la
 línia divisòria; es poden incorporar formats complexos per al text
 usant un bloc @code{\markup}, como està explicat a
-@ref{Donar format al text}:
+@ref{Formatting text}:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -274,7 +269,7 @@ usant un bloc @code{\markup}, como està explicat a
 Aquest sintaxi també permet imprimir símbols especials com crides,
 segno o calderons, especificant el nom del símbol corresponent com
 s'explica a
-@ref{Notació musical dins d'elements de marcatge}:
+@ref{Music notation inside markup}:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -315,10 +310,10 @@ s'imprimeixen al principi de la línia següent.
 
 @morerefs
 Referència de la notació:
-@ref{Marques d'assaig},
-@ref{Donar format al text},
-@ref{Notació musical dins d'elements de marcatge},
-@ref{El tipus de lletra Emmentaler}.
+@ref{Rehearsal marks},
+@ref{Formatting text},
+@ref{Music notation inside markup},
+@ref{The Emmentaler font}.
 
 Fragments de codi:
 @rlsr{Text}.
@@ -329,9 +324,8 @@ Referència de funcionament intern:
 @rinternals{RehearsalMark}.
 
 
-@node Text separat
+@node Separate text
 @unnumberedsubsubsec Text separat
-@translationof Separate text
 
 @cindex separat, text
 @cindex text separat
@@ -345,7 +339,7 @@ Referència de funcionament intern:
 Un bloc @code{\markup} pot existir de forma independent, fora de
 qualsevol bloc @code{\score}, como una @qq{expressió de nivell
 superior}.  Aquesta sintaxi es descriu a
-@ref{Estructura del fitxer}.
+@ref{File structure}.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -357,7 +351,7 @@ superior}.  Aquesta sintaxi es descriu a
 Això fa possible imprimir text separat de la música, cosa que és
 especialment útil quan el fitxer d'entrada conté diverses peces,
 tal i com es descriu a
-@ref{Diverses partitures a un llibre}.
+@ref{Multiple scores in a book}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -375,7 +369,7 @@ Els blocs de text independent poden abastar diverses pàgines,
 possibilitat la impressió de document o text o llibres íntegrament
 des del LilyPond.  Aquesta funcionalitat i la sintaxi que
 requereix es descriuen a
-@ref{Elements de marcatge de diverses pàgines}.
+@ref{Multi-page markup}.
 
 @predefined
 @funindex \markup
@@ -392,10 +386,10 @@ requereix es descriuen a
 
 @morerefs
 Referència de la notació:
-@ref{Donar format al text},
-@ref{Estructura del fitxer},
-@ref{Diverses partitures a un llibre},
-@ref{Elements de marcatge de diverses pàgines}.
+@ref{Formatting text},
+@ref{File structure},
+@ref{Multiple scores in a book},
+@ref{Multi-page markup}.
 
 Fragments de codi:
 @rlsr{Text}.
@@ -404,25 +398,23 @@ Referència de funcionament intern:
 @rinternals{TextScript}.
 
 
-@node Donar format al text
+@node Formatting text
 @subsection Donar format al text
-@translationof Formatting text
 
 Aquesta secció presenta els formats bàsics i avançats de text,
 usant la sintaxi específica del modo de @code{\markup}.
 
 @menu
-* Introducció al marcatge de text::
-* Selecció del tipus de lletra i la seva mida::
-* Alineació de text::
-* Notació gràfica dins d'elements de marcatge::
-* Notació musical dins d'elements de marcatge::
-* Elements de marcatge de diverses pàgines::
+* Text markup introduction::
+* Selecting font and font size::
+* Text alignment::
+* Graphic notation inside markup::
+* Music notation inside markup::
+* Multi-page markup::
 @end menu
 
-@node Introducció al marcatge de text
+@node Text markup introduction
 @unnumberedsubsubsec Introducció al marcatge de text
-@translationof Text markup introduction
 
 @cindex marcatge
 @cindex text, marcatge de
@@ -515,11 +507,11 @@ allegro = \markup { \bold \large Allegro }
 
 @noindent
 Es pot trobar una llista exhaustiva de les ordres específiques
-@code{\markup} a @ref{Ordres de marcatge de text}.
+@code{\markup} a @ref{Text markup commands}.
 
 @morerefs
 Referència de la notació:
-@ref{Ordres de marcatge de text}.
+@ref{Text markup commands}.
 
 Fragments de codi:
 @rlsr{Text}.
@@ -531,9 +523,8 @@ Fitxers d'inici:
 Els missatges d'error de sintaxi per al mode de marcatge sovint
 produeixen confusió.
 
-@node Selecció del tipus de lletra i la seva mida
+@node Selecting font and font size
 @unnumberedsubsubsec Selecció del tipus de lletra i la seva mida
-@translationof Selecting font and font size
 
 @cindex tipus de lletra, canviar
 @cindex canvi del tipus de lletra
@@ -663,8 +654,8 @@ segona paraula.
 @noindent
 Algunes d'aquestes famílies, usades per elements específics com
 números o matisos, no ofereixen tots els caràcters, com s'explica a
-@ref{Indicacions dinàmiques contemporànies} i
-@ref{Marques de repetició manual}.
+@ref{New dynamic marks} i
+@ref{Manual repeat marks}.
 
 @c \concat is actually documented in Align (it is not
 @c a font-switching command).  But we need it here. -vv
@@ -691,10 +682,10 @@ diferents elements de text:
 
 Es pot trobar una llista exhaustiva d'ordres de canvi i
 utilització personalitzada dels tipus de lletres a
-@ref{Tipus de lletra}.
+@ref{Fonts}.
 
 També es possible definir conjunts personalitzats de tipus de
-lletra, tal i com s'explica a @ref{Explicació dels tipus de lletra}.
+lletra, tal i com s'explica a @ref{Fonts explained}.
 
 @predefined
 @funindex \teeny
@@ -718,10 +709,10 @@ lletra, tal i com s'explica a @ref{Explicació dels tipus de lletra}.
 
 @morerefs
 Referència de la notació:
-@ref{Tipus de lletra},
-@ref{Indicacions dinàmiques contemporànies},
-@ref{Marques de repetició manual},
-@ref{Tipus de lletra}.
+@ref{Fonts},
+@ref{New dynamic marks},
+@ref{Manual repeat marks},
+@ref{Fonts}.
 
 Fitxers d'inici:
 @file{scm/define-markup-commands.scm}.
@@ -738,9 +729,8 @@ La utilització de les ordres de mida de text
 @code{\large} i @code{\huge} condueixen a un espaiat de les línies
 inconsistent comparat amb l'ús de  @code{\fontsize}.
 
-@node Alineació de text
+@node Text alignment
 @unnumberedsubsubsec Alineació de text
-@translationof Text alignment
 
 @cindex text, alineació de
 @cindex alinear text
@@ -752,7 +742,7 @@ inconsistent comparat amb l'ús de  @code{\fontsize}.
 Aquesta subsecció tracta sobre com col·locar text al mode de
 marcatge.  Els objecte de marcatge també es poden moure com un
 tot, usant la sintaxi que es descriu a
-@rlearning{Moviment d'objectes}.
+@rlearningnamed{Moving objects, Moviment d'objectes}.
 
 @c Padding commands should be mentioned on this page, but
 @c most of these require \box to be more clearly illustrated. -vv
@@ -802,7 +792,7 @@ valor numèric:
 Certs objectes poden posseir els seus propis procediments
 d'alineació, i per tant no resulten afectats per aquestes ordres.
 És possible moure aquests objectes de marcatge com un tot, com es
-mostra per exemple a @ref{Indicacions de text}.
+mostra per exemple a @ref{Text marks}.
 
 @cindex text, alineació vertical
 @cindex vertical, alineació de text
@@ -979,11 +969,11 @@ Hi ha una llista exhaustiva d'ordres d'alineació de text a
 
 @morerefs
 Manual d'aprenentage:
-@rlearning{Moviment d'objectes}.
+@rlearningnamed{Moving objects, Moviment d'objectes}.
 
 Referència de la notació:
 @ref{Markup for text alignment},
-@ref{Indicacions de text}.
+@ref{Text marks}.
 
 Fitxers d'inici:
 @file{scm/define-markup-commands.scm}.
@@ -995,9 +985,8 @@ Referència de funcionament intern:
 @rinternals{TextScript}.
 
 
-@node Notació gràfica dins d'elements de marcatge
+@node Graphic notation inside markup
 @unnumberedsubsubsec Notació gràfica dins d'elements de marcatge
-@translationof Graphic notation inside markup
 
 @cindex gràfics, inserir
 @cindex dibuixar objectes gràfics
@@ -1150,7 +1139,7 @@ Hi una llista exhaustiva d'ordres específiques de gràfics a
 Referència de la notació:
 @ref{Markup for text alignment},
 @ref{Dimensions},
-@ref{Anotacions editorials},
+@ref{Editorial annotations},
 @ref{Graphical markup}.
 
 Fitxers d'inici:
@@ -1164,9 +1153,8 @@ Referència de funcionament intern:
 @rinternals{TextScript}.
 
 
-@node Notació musical dins d'elements de marcatge
+@node Music notation inside markup
 @unnumberedsubsubsec Notació musical dins d'elements de marcatge
-@translationof Music notation inside markup
 
 @cindex notació dins de marcatge
 @cindex música dins de marcatge
@@ -1218,7 +1206,7 @@ De forma més general, qualsevol símbol musical disponible es pot
 incloure per separat dins d'un objecte de marcatge, com
 s'exemplifica a continuació; hi ha una llista exhaustiva d'aquests
 símbols i els seus noms a
-@ref{El tipus de lletra Emmentaler}.
+@ref{The Emmentaler font}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1232,7 +1220,7 @@ símbols i els seus noms a
 @end lilypond
 
 Una altra forma d'imprimir glifs que no són de text es troba
-descrita a @ref{Explicació dels tipus de lletra}.  Serveix per
+descrita a @ref{Fonts explained}.  Serveix per
 imprimir claus de diferents mides.
 
 El mode de marcatge també contempla diagrames per a instruments
@@ -1290,8 +1278,8 @@ musical a @ref{Markup for music and musical symbols}.
 @morerefs
 Referència de la notació:
 @ref{Markup for music and musical symbols},
-@ref{El tipus de lletra Emmentaler},
-@ref{Explicació dels tipus de lletra}.
+@ref{The Emmentaler font},
+@ref{Fonts explained}.
 
 Fitxers d'inici:
 @file{scm/define-markup-commands.scm},
@@ -1305,9 +1293,8 @@ Referència de funcionament intern:
 @rinternals{TextScript}.
 
 
-@node Elements de marcatge de diverses pàgines
+@node Multi-page markup
 @unnumberedsubsubsec Elements de marcatge de diverses pàgines
-@translationof Multi-page markup
 
 @cindex pàgines, marcatge de diverses
 @cindex marcatge de diverses pàgines
@@ -1349,11 +1336,11 @@ o una llista de llistes de marcatge.
 @end itemize
 
 Hi una llista exhaustiva de les ordres de llista de marcage a
-@ref{Ordres de llistes de marcatge de text}.
+@ref{Text markup list commands}.
 
 @morerefs
 Referència de la notació:
-@ref{Ordres de llistes de marcatge de text}.
+@ref{Text markup list commands}.
 
 Fitxers d'inici:
 @file{scm/define-markup-commands.scm}.
@@ -1374,23 +1361,21 @@ Referència de funcionament intern:
 @endpredefined
 
 
-@node Tipus de lletra
+@node Fonts
 @subsection Tipus de lletra
-@translationof Fonts
 
 Aquesta secció presenta la forma en la qual es gestionen els
 tipus de lletra, i com es poden canviar a les partitures.
 
 @menu
-* Explicació dels tipus de lletra::
-* Tipus de lletra d'un sol element::
-* Tipus de lletra del document complet::
+* Fonts explained::
+* Single entry fonts::
+* Entire document fonts::
 @end menu
 
 
-@node Explicació dels tipus de lletra
+@node Fonts explained
 @unnumberedsubsubsec Explicació dels tipus de lletra
-@translationof Fonts explained
 
 @cindex Pango
 @cindex tipus de lletra, explicació
@@ -1430,7 +1415,7 @@ a'1^\markup {
 Tanmateix, tots aquests glifs excepte les claus de diverses mides
 que estan contingudes al tipus de lletra @code{fetaBraces} estan
 disponibles utilitzant la sintaxi més senzilla que es descriu a
-@ref{Notació musical dins d'elements de marcatge}.
+@ref{Music notation inside markup}.
 
 Quan s'usen els glifs del tipus de lletra de claus
 @code{fetaBraces}, la mida de la clau s'especifica per la part
@@ -1439,7 +1424,7 @@ especificar qualsevol enter de @code{0} a @code{575} inclusiu,
 sent @code{0} el que produeix la clau més petita.  El valor òptim
 s'ha de determinar per prova i error.  Tots aquests glifs són
 claus esquerra; les claus dreta es poden obtenir mitjançant
-rotació, vegeu @ref{Rotació d'objectes}.
+rotació, vegeu @ref{Rotating objects}.
 
 Estan disponibles tres famílies de tipus de lletra per al text:
 @itemize
@@ -1474,7 +1459,7 @@ c''4^smaller
 @noindent
 Es pot usar una sintaxi semblant el mode de marcatge, tot i que en
 aquest cas és preferible usar la sintaxi senzilla que s'explica a
-@ref{Selecció del tipus de lletra i la seva mida}.
+@ref{Selecting font and font size}.
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1501,21 +1486,20 @@ aquest cas és preferible usar la sintaxi senzilla que s'explica a
 Tot i que és fàcil canviar entre els tipus de lletra
 preconfigurats, també és possible usar altres tipus de lletra, com
 s'explica a les seccions següents:
-@ref{Tipus de lletra d'un sol element} i
-@ref{Tipus de lletra del document complet}.
+@ref{Single entry fonts} i
+@ref{Entire document fonts}.
 
 @morerefs
 Referència de la notació:
-@ref{El tipus de lletra Emmentaler},
-@ref{Notació musical dins d'elements de marcatge},
-@ref{Rotació d'objectes},
-@ref{Selecció del tipus de lletra i la seva mida},
+@ref{The Emmentaler font},
+@ref{Music notation inside markup},
+@ref{Rotating objects},
+@ref{Selecting font and font size},
 @ref{Font markup}.
 
 
-@node Tipus de lletra d'un sol element
+@node Single entry fonts
 @unnumberedsubsubsec Tipus de lletra d'un sol element
-@translationof Single entry fonts
 
 Es pot usar a una partitura qualsevol tipus de lletra que estigui
 instal·lada al sistema operatiu i reconeguda per part de
@@ -1555,8 +1539,8 @@ lilypond -dshow-available-fonts
 
 @morerefs
 Referència de la notació:
-@ref{Explicació dels tipus de lletra},
-@ref{Tipus de lletra del document complet}.
+@ref{Fonts explained},
+@ref{Entire document fonts}.
 
 Fragments de codi:
 @rlsr{Text}.
@@ -1566,9 +1550,8 @@ Fragments de codi:
 @c @file{lily/font-config-scheme.cc}.
 
 
-@node Tipus de lletra del document complet
+@node Entire document fonts
 @unnumberedsubsubsec Tipus de lletra del document complet
-@translationof Entire document fonts
 
 Es poden canviar els tipus de lletra que s'usen com tipus de
 lletra predeterminats a les famílies @emph{romana},
@@ -1576,11 +1559,11 @@ lletra predeterminats a les famílies @emph{romana},
 aquest ordre com es veu a l'exemple de sota, que escala els tipus
 de lletra automàticament amb el valor fixat per a la mida global
 del pentagrama.  De forma semblant a
-@ref{Tipus de lletra d'un sol element}, Es pot descriure usant una
+@ref{Single entry fonts}, Es pot descriure usant una
 llista de @q{Tipus de lletra} separats per comes.  Tanmateix, els
 @q{estils} de tipus de lletra no es poden descriure.  Per llegir
 més explicacions sobre els tipus de lletra, consulteu
-@ref{Explicació dels tipus de lletra}.
+@ref{Fonts explained}.
 
 @cindex tipus de lletra, establir la família de
 @cindex tipus de lletra, canviar per a tot el document
@@ -1607,7 +1590,7 @@ més explicacions sobre els tipus de lletra, consulteu
 
 @morerefs
 Referència de la notació:
-@ref{Explicació dels tipus de lletra},
-@ref{Tipus de lletra d'un sol element},
-@ref{Selecció del tipus de lletra i la seva mida},
+@ref{Fonts explained},
+@ref{Single entry fonts},
+@ref{Selecting font and font size},
 @ref{Font markup}.

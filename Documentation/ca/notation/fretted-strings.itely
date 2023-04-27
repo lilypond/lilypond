@@ -13,9 +13,8 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Instruments de corda amb trasts
+@node Fretted string instruments
 @section Instruments de corda amb trasts
-@translationof Fretted string instruments
 
 @lilypondfile[quote]{snippets/fretted-headword.ly}
 
@@ -28,35 +27,33 @@ que són exclusius dels instruments de corda amb trasts.
 @cindex banjo, tabulatura de
 
 @menu
-* Notació comuna per a cordes amb trasts::
-* Guitarra::
+* Common notation for fretted strings::
+* Guitar::
 * Banjo::
-* Laud::
+* Lute::
 @end menu
 
 
-@node Notació comuna per a cordes amb trasts
+@node Common notation for fretted strings
 @subsection Notació comuna per a cordes amb trasts
-@translationof Common notation for fretted strings
 
 Aquesta secció s'ocupa de la notació comuna exclusiva dels
 instruments de corda amb trasts.
 
 @menu
-* Referències per a cordes amb trasts::
-* Indicació dels números de corda::
-* Tabulatures predeterminades::
-* Tabulatures personalitzades::
-* Marcatges de diagrames de trasts::
-* Diagrames predefinits de trasts::
-* Diagrames de trast automàtics::
-* Digitacions de la mà dreta::
+* References for fretted strings::
+* String number indications::
+* Default tablatures::
+* Custom tablatures::
+* Fret diagram markups::
+* Predefined fret diagrams::
+* Automatic fret diagrams::
+* Right-hand fingerings::
 @end menu
 
 
-@node Referències per a cordes amb trasts
+@node References for fretted strings
 @unnumberedsubsubsec Referències per a cordes amb trasts
-@translationof References for fretted strings
 
 La notació musical per a instruments de corda amb trasts es
 realitza normalment a una sola pauta, ja sigui en notació musical
@@ -72,40 +69,38 @@ s'estudien a d'altres parts del manual:
 
 @itemize
 @item
-Les digitacions s'indiquen com s'explica a @ref{Indicacions de
-digitació}.
+Les digitacions s'indiquen com s'explica a @ref{Fingering instructions}.
 
 @item
 Les instruccions per a lligadures @notation{Laissez vibrer} així
 com lligadures d'unió sobre arpegis i trèmols estan a
-@ref{Lligadures d'unió}.
+@ref{Ties}.
 
 @item
 Les ordres per a la gestió de diverses veus es troben a
-@ref{Resolució de les col·lisions}.
+@ref{Collision resolution}.
 
 @item
 Les ordres per a la indicació de harmònics està a
-@ref{Harmònics}.
+@ref{Harmonics}.
 
 @end itemize
 
 @morerefs
 Referència de la notació:
-@ref{Indicacions de digitació},
-@ref{Lligadures d'unió},
-@ref{Resolució de les col·lisions},
-@ref{Noms d'instruments},
-@ref{Escriptura de música en paral·lel},
-@ref{Arpegi},
-@ref{Llista d'articulacions},
-@ref{Clau},
-@ref{Transposició dels instruments}.
+@ref{Fingering instructions},
+@ref{Ties},
+@ref{Collision resolution},
+@ref{Instrument names},
+@ref{Writing music in parallel},
+@ref{Arpeggio},
+@ref{List of articulations},
+@ref{Clef},
+@ref{Instrument transpositions}.
 
 
-@node Indicació dels números de corda
+@node String number indications
 @unnumberedsubsubsec Indicació dels números de corda
-@translationof String number indications
 
 @cindex corda, número de la
 @cindex números de corda comparat amb digitacions
@@ -166,7 +161,7 @@ g1\4
 
 @morerefs
 Referència de la notació:
-@ref{Indicacions de digitació}.
+@ref{Fingering instructions}.
 
 Fragments de codi:
 @rlsr{Fretted strings}.
@@ -176,9 +171,8 @@ Referència de funcionament intern:
 @rinternals{Fingering}.
 
 
-@node Tabulatures predeterminades
+@node Default tablatures
 @unnumberedsubsubsec Tabulatures predeterminades
-@translationof Default tablatures
 
 @cindex tabulatura, principis bàsics
 @cindex tabulatura predeterminada
@@ -312,7 +306,7 @@ executar
 \chordRepeats #'(string-number-event fingering-event)
 @end example
 explícitament sobre expressions musicals en les tabulatures que
-utilitzin @ref{Repetició d'acords}.  Aquesta ordre particular
+utilitzin @ref{Chord repetition}.  Aquesta ordre particular
 és tan comuna que estigui disponible com particular es tan comuna
 que estigui disponible @code{\tabChordRepeats}.
 
@@ -523,10 +517,10 @@ ratioHarmonics = {
 
 @morerefs
 Referencia de la notació:
-@ref{Repetició d'acords},
-@ref{Repeticions explícites},
-@ref{Pliques},
-@ref{Harmònics},
+@ref{Chord repetition},
+@ref{Written-out repeats},
+@ref{Stems},
+@ref{Harmonics},
 @ref{Glissando}.
 
 Fragments de codi:
@@ -562,9 +556,8 @@ melodia = \partCombine { e4 g g g } { e4 e e e }
 els efectes especials de guitarra es limiten a harmònics i
 @emph{arrosegaments}.
 
-@node Tabulatures personalitzades
+@node Custom tablatures
 @unnumberedsubsubsec Tabulatures personalitzades
-@translationof Custom tablatures
 
 @cindex tabulatures personalitzades
 @cindex tabulatura de banjo
@@ -635,7 +628,7 @@ de cordes i que pot usar-se per establir-la com el valor de
 El seu argument és una construcció d'acord que defineix l'alçada
 de les notes de cada corda a l'aire a aquesta afinació.  La
 construcció d'acord ha d'estar en el mode d'octava absolut, vegeu
-@ref{Escriptura d'octava absoluta}.  La corda amb el número més
+@ref{Absolute octave entry}.  La corda amb el número més
 alt (generalment la més greu) ha d'anar primer a l'acord.  Per
 exemple, podem definir una afinació per a un instrument de quatre
 cordes amb les alçades @code{a''}, @code{d''}, @code{g'} i
@@ -665,7 +658,7 @@ La propietat @code{stringTunings} també s'utilitza per part de
 
 Les afinacions de cordes s'utilitzen com a part de la clau
 d'associació per als diagrames de posició predefinits (vegeu
-@ref{Diagrames predefinits de trasts}).
+@ref{Predefined fret diagrams}).
 
 L'exemple anterior també es podria haver escrit com segueix:
 
@@ -783,8 +776,8 @@ mus = \relative {
 
 @morerefs
 Referència de la notació:
-@ref{Escriptura d'octava absoluta},
-@ref{Diagrames predefinits de trasts}.
+@ref{Absolute octave entry},
+@ref{Predefined fret diagrams}.
 
 Fitxers instal·lats:
 @file{ly/string-tunings-init.ly},
@@ -804,9 +797,8 @@ cordes no varia de forma monòtona amb el número de corda, com ara
 l'ukelele.
 
 
-@node Marcatges de diagrames de trasts
+@node Fret diagram markups
 @unnumberedsubsubsec Marcatges de diagrames de trasts
-@translationof Fret diagram markups
 
 @cindex trasts, diagrames de
 @cindex acords, diagrames de
@@ -1256,9 +1248,8 @@ Referència de funcionament intern:
 @rinternals{fret-diagram-interface}.
 
 
-@node Diagrames predefinits de trasts
+@node Predefined fret diagrams
 @unnumberedsubsubsec Diagrames predefinits de trasts
-@translationof Predefined fret diagrams
 
 @cindex diagrames de posicions
 @cindex diagrames de posicions d'ukelele
@@ -1331,7 +1322,7 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 
 Les notes dels acords es poden introduir com a música simultània o
 bé usant el mode d'acords (vegeu
-@ref{Panoràmica del mode d'acords}).
+@ref{Chord mode overview}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1403,11 +1394,10 @@ tonalitats diferents.  La taula de diagrames predefinits per a
 l'ukelele conté aquests acords i a més altres tres (sexta major,
 segona suspesa i quarta suspesa).  Es pot veure una llista
 completa dels diagrames de trast predefinits a
-@ref{Diagrames predefinits de trasts}.  Si no
+@ref{Predefined fret diagrams}.  Si no
 hi ha una entrada a la taula per a un acord, el gravador
 FretBoards calcula una cadena de diagrama fret-diagram usant la
-funcionalitat de diagrames automàtics que es descriu @ref{Diagrames de
-trast automàtics}.
+funcionalitat de diagrames automàtics que es descriu @ref{Automatic fret diagrams}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1560,10 +1550,10 @@ predefinit, les propietats d'interfície pertanyen a
 
 @morerefs
 Referència de la notació:
-@ref{Tabulatures personalitzades},
-@ref{Diagrames de trast automàtics},
-@ref{Panoràmica del mode d'acords},
-@ref{Diagrames predefinits de trasts}.
+@ref{Custom tablatures},
+@ref{Automatic fret diagrams},
+@ref{Chord mode overview},
+@ref{Predefined fret diagrams}.
 
 Fitxers d'inici:
 @file{ly/predefined-guitar-fretboards.ly}, @*
@@ -1578,9 +1568,8 @@ Referència de funcionament intern:
 @rinternals {fret-diagram-interface}.
 
 
-@node Diagrames de trast automàtics
+@node Automatic fret diagrams
 @unnumberedsubsubsec Diagrames de trast automàtics
-@translationof Automatic fret diagrams
 
 @cindex trasts, diagrames automàtics de
 @cindex acords, diagrames automàtics de
@@ -1711,7 +1700,7 @@ context FretBoard es pot fixar amb la propietat
 Les cordes i els trasts per al context @code{FretBoards} depenen
 de la propietat @code{stringTunings}, que tenen el mateix
 significat que en el context de tabulatura TabStaff.  Consulteu
-@ref{Tabulatures personalitzades} per veure més informació sobre
+@ref{Custom tablatures} per veure més informació sobre
 la propietat @code{stringTunings}.
 
 L'aspecte gràfic d'un diagrama de trasts es pot personalitzar
@@ -1728,7 +1717,7 @@ pertanyen a @code{FretBoards.FretBoard}.
 
 @morerefs
 Referència de la notació:
-@ref{Tabulatures personalitzades}.
+@ref{Custom tablatures}.
 
 Fragments de codi:
 @rlsr{Fretted strings}.
@@ -1741,9 +1730,8 @@ Els càlculs de tabulatura automàtics no funcionen bé per a
 instruments amb afinacions no monòtones.
 
 
-@node Digitacions de la mà dreta
+@node Right-hand fingerings
 @unnumberedsubsubsec Digitacions de la mà dreta
-@translationof Right-hand fingerings
 
 @cindex trasts, instruments de, digitacions de la dreta
 @cindex digitacions de la mà dreta per a instruments de trasts
@@ -1792,9 +1780,8 @@ Referència de funcionament intern:
 @rinternals{StrokeFinger}.
 
 
-@node Guitarra
+@node Guitar
 @subsection Guitarra
-@translationof Guitar
 
 Gairebé tots els temes de notació relacionats amb la música per a
 guitarra estan suficientment coberts a la secció general sobre
@@ -1808,15 +1795,14 @@ alternativa millor és un processador de text, editor de text o,
 per usuaris amb experiència, un gravador com ara GuitarTeX.
 
 @menu
-* Indicació de la posició i la celleta::
-* Indicació d'harmònics i notes tapades::
-* Indicació d'acords de potència o de cinquena buida::
+* Indicating position and barring::
+* Indicating harmonics and dampened notes::
+* Indicating power chords::
 @end menu
 
 
-@node Indicació de la posició i la celleta
+@node Indicating position and barring
 @unnumberedsubsubsec Indicació de la posició i la celleta
-@translationof Indicating position and barring
 
 @cindex posició i celleta, indicació per a instruments de trasts
 @cindex trasts, instruments de, indicació de la posició i celleta
@@ -1838,16 +1824,15 @@ celleta de guitarra:
 
 @morerefs
 Referència de la notació:
-@ref{Extensions de text}.
+@ref{Text spanners}.
 
 Fragments de codi:
 @rlsr{Fretted strings},
 @rlsr{Expressive marks}.
 
 
-@node Indicació d'harmònics i notes tapades
+@node Indicating harmonics and dampened notes
 @unnumberedsubsubsec Indicació d'harmònics i notes tapades
-@translationof Indicating harmonics and dampened notes
 
 @cindex trasts, notes tapades en instruments de
 @cindex trasts, harmònics en instruments de
@@ -1920,12 +1905,11 @@ Fragments de codi:
 @rlsr{Fretted strings}.
 
 Referència de la notació:
-@ref{Caps de nota especials},
-@ref{Estils de caps de nota}.
+@ref{Special note heads},
+@ref{Note head styles}.
 
-@node Indicació d'acords de potència o de cinquena buida
+@node Indicating power chords
 @unnumberedsubsubsec Indicació d'acords de potència o de cinquena buida
-@translationof Indicating power chords
 
 @cindex potència, acords de
 @cindex acords de potència
@@ -1999,8 +1983,8 @@ Glossari musical:
 @rglos{power chord}.
 
 Referència de la notació:
-@ref{Acords estesos i alterats},
-@ref{Impressió dels noms d'acord}.
+@ref{Extended and altered chords},
+@ref{Printing chord names}.
 
 Fragments de codi:
 @rlsr{Fretted strings}.
@@ -2008,16 +1992,14 @@ Fragments de codi:
 
 @node Banjo
 @subsection Banjo
-@translationof Banjo
 
 @menu
-* Tabulatures de banjo::
+* Banjo tablatures::
 @end menu
 
 
-@node Tabulatures de banjo
+@node Banjo tablatures
 @unnumberedsubsubsec Tabulatures de banjo
-@translationof Banjo tablatures
 
 @cindex banjo, tabulatures de
 @cindex tabulatura de banjo
@@ -2078,17 +2060,15 @@ Fragments de codi:
 @rlsr{Fretted strings}.
 
 
-@node Laud
+@node Lute
 @subsection Laud
-@translationof Lute
 
 @menu
-* Tabulatures de laud::
+* Lute tablatures::
 @end menu
 
-@node Tabulatures de laud
+@node Lute tablatures
 @unnumberedsubsubsec Tabulatures de laud
-@translationof Lute tablatures
 
 @cindex laud, tablatures de
 @cindex tabulatura, laud

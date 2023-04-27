@@ -13,9 +13,8 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Anotacions editorials
+@node Editorial annotations
 @section Anotacions editorials
-@translationof Editorial annotations
 
 @lilypondfile[quote]{snippets/editorial-headword.ly}
 
@@ -23,30 +22,28 @@ Aquesta secció tracta de les diverses maneres de modificar
 l'aspecte de les notes i d'aplicar èmfasi analític o educatiu.
 
 @menu
-* Dins del pentagrama::
-* Fora del pentagrama::
+* Inside the staff::
+* Outside the staff::
 @end menu
 
 
-@node Dins del pentagrama
+@node Inside the staff
 @subsection Dins del pentagrama
-@translationof Inside the staff
 
 Aquesta secció tracta sobre com aplicar èmfasi als elements
 situats dins del pentagrama.
 
 @menu
-* Selecció del la mida del tipus de lletra per a la notació::
-* Indicacions de digitació::
-* Notes ocultes::
-* Acoloriment d'objectes::
-* Parèntesis::
-* Pliques::
+* Selecting notation font size::
+* Fingering instructions::
+* Hidden notes::
+* Coloring objects::
+* Parentheses::
+* Stems::
 @end menu
 
-@node Selecció del la mida del tipus de lletra per a la notació
+@node Selecting notation font size
 @unnumberedsubsubsec Selecció del la mida del tipus de lletra per a la notació
-@translationof Selecting notation font size
 
 @cindex tipus de lletra (de notació), mida
 @cindex selecció de la mida del tipus de lletra (de notació)
@@ -74,11 +71,11 @@ situats dins del pentagrama.
 
 @warning{@*
 Per a la mida del tipus de lletra del text consulteu
-@ref{Selecció del tipus de lletra i la seva mida}.@*
+@ref{Selecting font and font size}.@*
 Per a la mida del pentagrama, consulteu
-@ref{Establiment de la mida del pentagrama}.@*
-Per a les notes guia, consulteu @ref{Format de les notes guia}.@*
-Per als pentagrames d'Ossia, consulteu @ref{Pentagrames d'Ossia}.}
+@ref{Setting the staff size}.@*
+Per a les notes guia, consulteu @ref{Formatting cue notes}.@*
+Per als pentagrames d'Ossia, consulteu @ref{Ossia staves}.}
 
 Per modificar la mida de la notació sense canviar la mida del
 pentagrama, especifiqueu un factor d'ampliació amb l'ordre
@@ -146,7 +143,7 @@ com els dels exemples anteriors. Establir el valor de
 
 @warning{L'ordre @code{@bs{}magnifyMusic} @i{no} ha d'utilitzar-se
 si s'està canviant la mida del pentagrama al mateix temps.  Consulteu
-@ref{Establiment de la mida del pentagrama}.}
+@ref{Setting the staff size}.}
 
 
 @subsubsubheading Canviar la mida dels objectes individuals
@@ -224,7 +221,7 @@ les pliques, barres i l'espaiat horitzontal junt amb la mida de la
 notació (sense canviar la mida de la pauta), useu l'ordre
 @code{\magnifyMusic} que s'ha explicat anteriorment.  Per canviar
 l'escala de la mida de tot, fins i tot la pauta, vegeu
-@ref{Establiment de la mida del pentagrama}.
+@ref{Setting the staff size}.
 
 Sempre que s'estableix el valor de la @i{propietat de context}
 @code{fontSize}, el seu valor s'afegeix al valor de la
@@ -303,10 +300,10 @@ tipus de lletra de 11 punts.
 
 @morerefs
 Referència de la notació:
-@ref{Selecció del tipus de lletra i la seva mida},
-@ref{Establiment de la mida del pentagrama},
-@ref{Format de les notes guia},
-@ref{Pentagrames d'Ossia}.
+@ref{Selecting font and font size},
+@ref{Setting the staff size},
+@ref{Formatting cue notes},
+@ref{Ossia staves}.
 
 Fitxers instal·lats:
 @file{ly/music-functions-init.ly},
@@ -342,9 +339,8 @@ preferit.  També podeu intentar treure una o ambdues ordres
 @end example
 
 
-@node Indicacions de digitació
+@node Fingering instructions
 @unnumberedsubsubsec Indicacions de digitació
-@translationof Fingering instructions
 
 @cindex digitació
 @cindex canvi de dit
@@ -393,7 +389,7 @@ individuals escrivint-les després de les altures.
 
 Les indicacions de digitació es poden situar manualment a sobre o
 a sota del pentagrama, vegeu
-@ref{Direcció i posició}.
+@ref{Direction and placement}.
 
 @snippets
 
@@ -408,7 +404,7 @@ a sota del pentagrama, vegeu
 
 @morerefs
 Referència de la notació:
-@ref{Direcció i posició}.
+@ref{Direction and placement}.
 
 Fragments de codi:
 @rlsr{Editorial annotations}.
@@ -421,9 +417,8 @@ Referència de funcionament intern:
 @rinternals{Fingering}.
 
 
-@node Notes ocultes
+@node Hidden notes
 @unnumberedsubsubsec Notes ocultes
-@translationof Hidden notes
 
 @cindex ocultes, notes
 @cindex invisibles, notes
@@ -473,12 +468,12 @@ invisibles, són, malgrat això, visibles.
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Visibilitat i color dels objectes}
+@rlearningnamed{Visibility and color of objects, Visibilitat i color dels objectes}
 
 Referència de la notació:
-@ref{Silencis invisibles},
-@ref{Visibilitat dels objectes},
-@ref{Ocultament de pentagrames}.
+@ref{Invisible rests},
+@ref{Visibility of objects},
+@ref{Hiding staves}.
 
 Fragments de codi:
 @rlsr{Editorial annotations}.
@@ -488,9 +483,8 @@ Referència de funcionament intern:
 @rinternals{NoteSpacing}.
 
 
-@node Acoloriment d'objectes
+@node Coloring objects
 @unnumberedsubsubsec Acoloriment d'objectes
-@translationof Coloring objects
 
 @cindex acolorits, objectes
 @cindex colors
@@ -510,7 +504,7 @@ Referència de funcionament intern:
 
 Es poden assignar colors als objectes individuals.  Els noms de
 color vàlids es relacionen a la
-@ref{Llista de colors}.
+@ref{List of colors}.
 
 @lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
@@ -582,8 +576,8 @@ l'Scheme @code{rgb-color}.
 
 @morerefs
 Referència de la notació:
-@ref{Llista de colors},
-@ref{L'ordre tweak}.
+@ref{List of colors},
+@ref{The tweak command}.
 
 Fragments de codi:
 @rlsr{Editorial annotations}.
@@ -608,12 +602,11 @@ bosc). Per a la web es recomanen els colors normals (o sigui:
 Les notes d'un acord no es poden acolorir individualment amb
 @code{\override}; en el seu lloc useu @code{\tweak} o el seu
 equivalent @code{\single\override} abans de la nota respectiva.
-Consulteu @ref{L'ordre tweak} per veure
+Consulteu @ref{The tweak command} per veure
 més detalls.
 
-@node Parèntesis
+@node Parentheses
 @unnumberedsubsubsec Parèntesis
-@translationof Parentheses
 
 @cindex fantasma, notes
 @cindex notes fantasma
@@ -661,9 +654,8 @@ En posar un acord entre parèntesis, s'envolta cada una de les
 notes individuals entre parèntesis, en comptes d'un sols
 parèntesis gran envoltant l'acord complet.
 
-@node Pliques
+@node Stems
 @unnumberedsubsubsec Pliques
-@translationof Stems
 
 @cindex plica
 @cindex plica invisible
@@ -682,7 +674,7 @@ Quan es troba amb una nota, es crea automàticament un objecte
 creen però es fan invisibles.
 
 Es pot fer manualment que les pliques apuntin cap amunt o cap
-avall; vegeu @ref{Direcció i posició}.
+avall; vegeu @ref{Direction and placement}.
 
 @predefined
 @code{\stemUp},
@@ -701,7 +693,7 @@ avall; vegeu @ref{Direcció i posició}.
 
 @morerefs
 Referència de la notació:
-@ref{Direcció i posició}.
+@ref{Direction and placement}.
 
 Fragments de codi:
 @rlsr{Editorial annotations}.
@@ -712,22 +704,20 @@ Referència de funcionament intern:
 @rinternals{stem-interface}.
 
 
-@node Fora del pentagrama
+@node Outside the staff
 @subsection Fora del pentagrama
-@translationof Outside the staff
 
 Aquest secció tracta sobre com emfatitzar element que estan dins
 del pentagrama, des de fora del pentagrama.
 
 @menu
-* Globus d'ajuda::
-* Línies de reixeta::
-* Claus d'anàlisi::
+* Balloon help::
+* Grid lines::
+* Analysis brackets::
 @end menu
 
-@node Globus d'ajuda
+@node Balloon help
 @unnumberedsubsubsec Globus d'ajuda
-@translationof Balloon help
 
 @cindex globus
 @cindex notació, explicació de
@@ -795,9 +785,8 @@ Referència de funcionament intern:
 @rinternals{balloon-interface}.
 
 
-@node Línies de reixeta
+@node Grid lines
 @unnumberedsubsubsec Línies de reixeta
-@translationof Grid lines
 
 @cindex reixeta, línies de
 @cindex línies de reixeta
@@ -866,9 +855,8 @@ Referència de funcionament interno:
 @rinternals{grid-point-interface}.
 
 
-@node Claus d'anàlisi
+@node Analysis brackets
 @unnumberedsubsubsec Claus d'anàlisi
-@translationof Analysis brackets
 
 @cindex claus
 @cindex fraseig, claus de

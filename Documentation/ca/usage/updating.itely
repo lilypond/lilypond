@@ -14,9 +14,8 @@
 @c Translation checkers:
 
 
-@node Actualització de fitxers amb convert-ly
+@node Updating files with convert-ly
 @chapter Actualització de fitxers amb @command{convert-ly}
-@translationof Updating files with convert-ly
 
 @cindex actualització d'un fitxer del LilyPond
 @cindex convert-ly
@@ -29,17 +28,16 @@ remei a això es pot utilitzar el programa @command{convert-ly} per
 actualitzar fitxers a versions més noves del LilyPond.
 
 @menu
-* Perquè canvia la sintaxi?::
-* Invocació de convert-ly::
-* Opcions de la línia d'ordres per a convert-ly::
-* Problemes amb convert-ly::
-* Conversions manuals::
+* Why does the syntax change?::
+* Invoking convert-ly::
+* Command line options for convert-ly::
+* Problems running convert-ly::
+* Manual conversions::
 @end menu
 
 
-@node Perquè canvia la sintaxi?
+@node Why does the syntax change?
 @section Perquè canvia la sintaxi?
-@translationof Why does the syntax change?
 
 @cindex convert-ly
 @cindex actualització de fitxers d'entrada antics
@@ -103,9 +101,8 @@ indolores, especialment perquè els propis manuals s'actualitzen
 usant @command{convert-ly}.
 @end itemize
 
-@node Invocació de convert-ly
+@node Invoking convert-ly
 @section Invocació de @command{convert-ly}
-@translationof Invoking convert-ly
 
 @command{convert-ly} utilitza el enunciats @code{\version} dels
 fitxers d'entrada per detectar el número de versió antic.  En
@@ -154,9 +151,8 @@ Els usuaris del Windows han d'introduir aquesta instrucció a una
 nova ventana del terminal del sistema, que es troba en general sota
 @code{Inici > Accessoris > Símbol del sistema}.
 
-@node Opcions de la línia d'ordres per a convert-ly
+@node Command line options for convert-ly
 @section Opcions de la línia d'ordres per a @command{convert-ly}
-@translationof Command line options for convert-ly
 
 En general, el programa s'invoca de la manera següent:
 
@@ -234,9 +230,8 @@ convert-ly --from=@dots{} --to=@dots{} -s
 @end example
 
 
-@node Problemes amb convert-ly
+@node Problems running convert-ly
 @section Problemes amb @code{convert-ly}
-@translationof Problems running convert-ly
 
 En executar convert-ly a una finestra del Símbol de Sistema sota
 el Windows sobre un fitxer que té espais al nom o la ruta, és
@@ -269,9 +264,8 @@ especificar una opció de sortida.   L'actualització automàtica del
 Scheme i les interfícies Scheme del LilyPond és força improbable;
 prepareu-vos per manipular el codi del Scheme a mà.
 
-@node Conversions manuals
+@node Manual conversions
 @section Conversions manuals
-@translationof Manual conversions
 
 En teoria, un programa com @command{convert-ly} hauria de poder
 tractar qualsevol canvi de sintaxi.  Després de tot, un programa

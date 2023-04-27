@@ -13,9 +13,8 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Instruments de vent
+@node Wind instruments
 @section Instruments de vent
-@translationof Wind instruments
 
 @lilypondfile[quote]{snippets/wind-headword.ly}
 
@@ -23,26 +22,24 @@ Aquesta secció inclou elements de notació musical que es plantegen
 en escriure per a instruments de vent.
 
 @menu
-* Notació comuna per a instruments de vent::
-* Gaita::
-* Instruments de vent fusta::
+* Common notation for wind instruments::
+* Bagpipes::
+* Woodwinds::
 @end menu
 
-@node Notació comuna per a instruments de vent
+@node Common notation for wind instruments
 @subsection Notació comuna per a instruments de vent
-@translationof Common notation for wind instruments
 
 Aquesta secció presenta la notació comuna per gairebé tots els
 instruments de vent.
 
 @menu
-* Referències per a instruments de vent::
-* Digitacions::
+* References for wind instruments::
+* Fingerings::
 @end menu
 
-@node Referències per a instruments de vent
+@node References for wind instruments
 @unnumberedsubsubsec Referències per a instruments de vent
-@translationof References for wind instruments
 
 @cindex vent, instruments
 
@@ -52,21 +49,21 @@ veure amb les respiracions i els cops de llengua:
 @itemize
 @item
 Les respiracions es poden especificar mitjançant silencis o
-marques de respiració, vegeu @ref{Marques de respiració}.
+marques de respiració, vegeu @ref{Breath marks}.
 
 @item
 L'execució lligada s'indica mitjançant lligadures d'expressió,
-vegeu @ref{Lligadures d'expressió}.
+vegeu @ref{Slurs}.
 @item
 Els diferents cops de llengua, des del legato fins al staccato
 passant pel non legato, es presenten en general mitjançant
 articulacions, a vegades combinades amb lligadures d'expressió,
-vegeu @ref{Articulacions i ornaments} i
-@ref{Llista d'articulacions}.
+vegeu @ref{Articulations and ornamentations} i
+@ref{List of articulations}.
 @item
 El frullato s'indica generalment mitjançant una indicació de
 trèmol i una marca textual sobre la nota.  Vegeu
-@ref{Repeticions de trèmol}.
+@ref{Tremolo repeats}.
 @end itemize
 
 També hi ha d'altres aspectes de la notació musical que són
@@ -75,7 +72,7 @@ d'aplicació als instruments de vent:
 @itemize
 @item
 Molts instruments de vent són transpositors, vegeu
-@ref{Transposició dels instruments}.
+@ref{Instrument transpositions}.
 @item
 El portament és característic del trombó, però altres instruments
 de vent poden realitzar glissandos amb claus o vàlvules.  Vegeu
@@ -83,51 +80,50 @@ de vent poden realitzar glissandos amb claus o vàlvules.  Vegeu
 @item
 Els glissandos de sèrie harmònica, que són possible a tots els
 metalls però força específics de les trompes, s'escriuen en
-general com notes d'adorn, vegeu @ref{Notes d'adorn}.
+general com notes d'adorn, vegeu @ref{Grace notes}.
 
 @item
 Les inflexions de to al final d'una nota es presenten a
-@ref{Caigudes i elevacions}.
+@ref{Falls and doits}.
 @item
 Els cops de clau o de vàlvula se solen indicar amb l'estil
 @code{cross} (aspes) de caps de nota, vegeu
-@ref{Caps de nota especials}.
+@ref{Special note heads}.
 @item
 Els instruments de vent-fusta poden sobreinflar les notes greus
 per produir harmònics.  Es mostren per mitjà de l'articulació
 @code{flageolet}.  Vegeu
-@ref{Llista d'articulacions}.
+@ref{List of articulations}.
 @item
 L'ús de sordines per als metalls se sol sindicar mitjançant
 marques de text, però quan es produeixen molts canvis ràpids és
 millor utilitzar les articulacions @code{stopped} (tapat) i
-@code{open} (obert).  Vegeu @ref{Articulacions i ornaments} i
-@ref{Llista d'articulacions}.
+@code{open} (obert).  Vegeu @ref{Articulations and ornamentations} i
+@ref{List of articulations}.
 @item
 Las trompes tapades s'indiquen per mitjà de l'articulació
-@code{stopped}.  Vegeu @ref{Articulacions i ornaments}.
+@code{stopped}.  Vegeu @ref{Articulations and ornamentations}.
 @end itemize
 
 @morerefs
 Referència de la notació:
-@ref{Marques de respiració},
-@ref{Lligadures d'expressió},
-@ref{Articulacions i ornaments},
-@ref{Llista d'articulacions},
-@ref{Repeticions de trèmol},
-@ref{Transposició dels instruments},
+@ref{Breath marks},
+@ref{Slurs},
+@ref{Articulations and ornamentations},
+@ref{List of articulations},
+@ref{Tremolo repeats},
+@ref{Instrument transpositions},
 @ref{Glissando},
-@ref{Notes d'adorn},
-@ref{Caigudes i elevacions},
-@ref{Caps de nota especials}.
+@ref{Grace notes},
+@ref{Falls and doits},
+@ref{Special note heads}.
 
 Fragments de codi:
 @rlsr{Winds}.
 
 
-@node Digitacions
+@node Fingerings
 @unnumberedsubsubsec Digitacions
-@translationof Fingerings
 
 Tots els instruments de vent a part del trombó requereixen l'ús de
 diferents dits per produir cada nota.  Als fragments de codi que
@@ -135,7 +131,7 @@ apareixen a continuació poden veure's alguns exemples de digitació.
 
 Es poden produir diagrames de posicions per a instruments de vent
 fusta, com es descriu a
-@ref{Diagrames de posicions per a vent fusta}.
+@ref{Woodwind diagrams}.
 
 @snippets
 
@@ -147,26 +143,24 @@ fusta, com es descriu a
 
 @morerefs
 Referència de la notació:
-@ref{Diagrames de posicions per a vent fusta}.
+@ref{Woodwind diagrams}.
 
 Fragments de codi:
 @rlsr{Winds}.
 
 
-@node Gaita
+@node Bagpipes
 @subsection Gaita
-@translationof Bagpipes
 
 Aquesta secció tracta de la notació comuna per a gaita.
 
 @menu
-* Definicions per a la gaita::
-* Exemple de música de gaita::
+* Bagpipe definitions::
+* Bagpipe example::
 @end menu
 
-@node Definicions per a la gaita
+@node Bagpipe definitions
 @unnumberedsubsubsec  Definicions per a la gaita
-@translationof Bagpipe definitions
 
 @cindex gaita
 @cindex gaita escocesa de las terres altes
@@ -222,9 +216,8 @@ Fragments de codi:
 @rlsr{Winds}.
 
 
-@node Exemple de música de gaita
+@node Bagpipe example
 @unnumberedsubsubsec Exemple de música de gaita
-@translationof Bagpipe example
 
 @cindex gaita, exemple de
 @cindex Amazing Grace, exemple de gaita
@@ -273,20 +266,18 @@ gaita.
 Fragments de codi:
 @rlsr{Winds}.
 
-@node Instruments de vent fusta
+@node Woodwinds
 @subsection Instruments de vent fusta
-@translationof Woodwinds
 
 Aquesta secció estudia la notació específica per a instruments de
 vent fusta.
 
 @menu
-* Diagrames de posicions per a vent fusta::
+* Woodwind diagrams::
 @end menu
 
-@node Diagrames de posicions per a vent fusta
+@node Woodwind diagrams
 @subsubsection Diagrames de posicions per a vent fusta
-@translationof Woodwind diagrams
 
 Es poden utilitzar diagrames de posicions per als instruments de
 vent fusta per indicar la digitació a usar en tocar certes notes,

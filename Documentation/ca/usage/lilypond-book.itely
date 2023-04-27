@@ -13,7 +13,6 @@
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
 @chapter Execució de @command{lilypond-book}
-@translationof lilypond-book
 
 Si voleu afegir imatges de música a un document, ho podeu fer
 simplement de la mateixa manera que ho faríeu amb altres tipus
@@ -31,7 +30,7 @@ configuració del vostre document.
 
 És un programa diferent a @command{lilypond} pròpiament dit, i
 s'executa sobre la línia d'ordre; per veure més informació,
-consulteu @ref{Utilització des de la línia d'ordres}.
+consulteu @ref{Command-line usage}.
 
 Aquest procediment es pot aplicar a documents de @LaTeX{}, HTML,
 Texinfo o DocBook.
@@ -49,20 +48,19 @@ Texinfo o DocBook.
 @cindex LaTeX, inserir música en
 
 @menu
-* Un exemple de document musicològic::
-* Integració de música i text::
-* Opcions de fragments de música::
-* Invocació de lilypond-book::
-* Extensions de noms de fitxer::
-* Plantilles de lilypond-book::
-* Compartir l'índex general::
-* Mètodes alternatius per barrejar text i música::
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* lilypond-book templates::
+* Sharing the table of contents::
+* Alternate methods of mixing text and music::
 @end menu
 
 
-@node Un exemple de document musicològic
+@node An example of a musicological document
 @section Un exemple de document musicològic
-@translationof An example of a musicological document
 
 @cindex musicologia
 Certs texts contenen exemples musicals.  Per exemple els tractats
@@ -186,9 +184,8 @@ construcció @code{\book @{ @}}.
 
 @page
 
-@node Integració de música i text
+@node Integrating music and text
 @section Integració de música i text
-@translationof Integrating music and text
 
 Aquí explicarem com integrar el LilyPond amb alguns altres formats de
 sortida.
@@ -202,7 +199,6 @@ sortida.
 
 @node LaTeX
 @subsection @LaTeX{}
-@translationof LaTeX
 
 El @LaTeX{} és l'estàndard de facto per a la publicació al món de les
 ciències exactes.  Està construït a sobre del motor de composició
@@ -420,12 +416,11 @@ i després indicant sols quants sistemes voleu abans de cada fragment:
 @morerefs
 Hi ha opcions de línia d'ordres específiques de @command{lilypond-book} i
 altres detalls que s'han de conèixer per processar documents de@LaTeX{}
-vegeu @ref{Invocació de lilypond-book}.
+vegeu @ref{Invoking lilypond-book}.
 
 
 @node Texinfo
 @subsection Texinfo
-@translationof Texinfo
 
 Texinfo és el format estàndard per a la documentació del projecte GNU.
 Aquest mateix manual és un exemple de document Texinfo.  Les versions
@@ -513,7 +508,6 @@ imatge en línia.  Sempre consisteix en un paràgraf per a ella sola.
 
 @node HTML
 @subsection HTML
-@translationof HTML
 
 @code{lilypond-book} aporta les següents ordres i entorns per incloure
 música dins de fitxers HTML:
@@ -589,8 +583,7 @@ Per incloure fitxers externs, escriviu
 en comptes d'un fitxer del LilyPond.
 
 Per veure una llista de les opcions que utilitzeu amb les etiquetes
-@code{lilypond} o @code{lilypondfile}, vegeu @ref{Opcions de
-fragments de música}.
+@code{lilypond} o @code{lilypondfile}, vegeu @ref{Music fragment options}.
 
 @cindex títols en  HTML
 @cindex vista prèvia, imatge
@@ -598,7 +591,6 @@ fragments de música}.
 
 @node DocBook
 @subsection DocBook
-@translationof DocBook
 
 Per inserir fragments del LilyPond convé intentar mantenir la
 conformitat del document del DocBook, permetent d'aquesta manera
@@ -669,9 +661,8 @@ generació d'HTML (HTML Help, JavaHelp, etc.) podeu usar les fulles
 d'estil oicial de DocBook, tot i que és possible que haureu
 d'aplicar-les algun tipus de personalització.
 
-@node Opcions de fragments de música
+@node Music fragment options
 @section Opcions de fragments de música
-@translationof Music fragment options
 
 Durant els pròxims paràgrafs, una @q{ordre del LilyPond} es
 refereix a qualsevol ordre descrita en les seccions anteriors que
@@ -904,9 +895,8 @@ s'elimina la part del directori de la ruta del fitxer.
 @end table
 
 
-@node Invocació de lilypond-book
+@node Invoking lilypond-book
 @section Invocació @command{lilypond-book}
-@translationof Invoking lilypond-book
 
 @command{lilypond-book} produeix un fitxer amb una de les
 extensions següents: @file{.tex}, @file{.texi}, @file{.html} o
@@ -1027,7 +1017,7 @@ Especificació del tipus de document que es processarà:
 @code{html}, @code{latex}, @code{texi} (predeterminat) o
 @code{docbook}.  Si falta aquesta opció, @command{lilypond-book}
 intentarà detectar el format automàticament, vegeu
-@ref{Extensions de noms de fitxer}. Per ara,
+@ref{Filename extensions}. Per ara,
 @code{texi} és el mateix que @code{texi-html}.
 
 @c This complicated detail is not implemented, comment it out -jm
@@ -1171,15 +1161,14 @@ marges i amplades de línia després del preàmbul.
 
 Sols es processa el primer @code{\score} d'un bloc Lilypond.
 
-@node Extensions de noms de fitxer
+@node Filename extensions
 @section Extensions de noms de fitxer
-@translationof Filename extensions
 
 Podeu fer servir qualsevol extensió per al nom del fitxer
 d'entrada, però si no useu l'extensió recomanada per a un format
 en particular, haureu d'especificar manualment el format de
 sortida; per veure més detalls, consulteu 
-@ref{Invocació de lilypond-book}.  En cas contrari, @command{lilypond-book}
+@ref{Invoking lilypond-book}.  En cas contrari, @command{lilypond-book}
 selecciona automàticament el format de sortida basant-se en
 l'extensió del nom del fitxer d'entrada.
 
@@ -1209,9 +1198,8 @@ treball de @command{lilypond-book}, heu d'usar l'opció
 que en cas contrari s'emetrà un missatge d'error com per exemple
 @qq{La sortida sobreescriurà el fitxer d'entrada}.
 
-@node Plantilles de lilypond-book
+@node lilypond-book templates
 @section Plantilles de lilypond-book
-@translationof lilypond-book templates
 
 Aquestes plantilles s'usen per a @code{lilypond-book}.  Si no
 esteu familiaritzat amb aquest programa, consulteu
@@ -1357,9 +1345,8 @@ unterst__tzt werden.
 @end verbatim
 
 
-@node Compartir l'índex general
+@node Sharing the table of contents
 @section Compartir l'índex general
-@translationof Sharing the table of contents
 
 Aquestes funcions ja existeixen al paquet OrchestralLily:
 
@@ -1465,9 +1452,8 @@ donde @code{\includescore} està definit com:
 @}
 @end smallexample
 
-@node Mètodes alternatius per barrejar text i música
+@node Alternate methods of mixing text and music
 @section Mètodes alternatius per barrejar text i música
-@translationof Alternate methods of mixing text and music
 
 Altres formes de barrejar text i música (sense
 @command{lilypond-book}) s'estudien a @ref{Other programs,Altres programes}.

@@ -13,32 +13,29 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Execució del LilyPond
+@node Running LilyPond
 @chapter Execució del LilyPond
-@translationof Running LilyPond
 
 Aquest capítol detalla els aspectes tècnics de l'execució del
 LilyPond.
 
 @menu
-* Utilització normal::
-* Utilització des de la línia d'ordres::
-* Missatges d'error::
-* Errors comuns::
+* Normal usage::
+* Command-line usage::
+* Error messages::
+* Common errors::
 @end menu
 
 
-@node Utilització normal
+@node Normal usage
 @section Utilització normal
-@translationof Normal usage
 
 Gairebé tots els usuaris executen el LilyPond per mitjà d'una
 interfície gràfica; consulteu @rlearning{Tutorial} si encara
 no l'heu llegit.
 
-@node Utilització des de la línia d'ordres
+@node Command-line usage
 @section Utilització des de la línia d'ordres
-@translationof Command-line usage
 
 Aquesta secció conté informació addicional sobre l'ús del
 LilyPond a la línia d'ordres.  Aquesta forma pot ser preferible
@@ -59,16 +56,15 @@ documents sobre aquest tema si no us resulta familiar la línia
 d'ordres.
 
 @menu
-* Invocació del LilyPond::
-* Opcions bàsiques de la línia d'ordres per al LilyPond::
-* Opcions avançades de la línia d'ordres per al LilyPond::
-* Variables d'entorn::
-* El LilyPond a una gàbia de chroot::
+* Invoking lilypond::
+* Basic command-line options for LilyPond::
+* Advanced command-line options for LilyPond::
+* Environment variables::
+* LilyPond in chroot jail::
 @end menu
 
-@node Invocació del LilyPond
+@node Invoking lilypond
 @unnumberedsubsec Invocació del @command{lilypond}
-@translationof Invoking lilypond
 
 L'executable @command{lilypond} es pot cridar des d'una línia
 d'ordres de la manera següent:
@@ -131,9 +127,8 @@ si contempla aquestes opcions, o si la sintaxi és diferent.
 Observeu que són instruccions de l'intèrpret d'ordres i que no
 tenen res a veure amb el LilyPond.
 
-@node Opcions bàsiques de la línia d'ordres per al LilyPond
+@node Basic command-line options for LilyPond
 @unnumberedsubsec Opcions bàsiques de la línia d'ordres per al LilyPond
-@translationof Basic command-line options for LilyPond
 
 @cindex invocació de @command{lilypond}
 @cindex opcions de la línia d'ordres per a @command{lilypond}
@@ -145,7 +140,7 @@ Estan contemplades les opcions següents:
 @table @code
 
 @item -d, --define-default=@var{variable}=@var{valor}
-Vegeu @ref{Opcions avançades de la línia d'ordres per al LilyPond}.
+Vegeu @ref{Advanced command-line options for LilyPond}.
 
 @cindex Scheme, avaluació d'expressions
 @cindex expressions del Scheme, avaluació
@@ -214,7 +209,7 @@ L'opció @option{--jail} (gàbia) proporciona una alternativa més
 flexible a l'opció @option{-dsafe} quan el procés de tipografia
 del LilyPond està disponible a un servidor web o quan el LilyPond
 executa instruccions enviades per fonts externes
-(vegeu @ref{Opcions avançades de la línia d'ordres per al LilyPond}).
+(vegeu @ref{Advanced command-line options for LilyPond}).
 
 L'opció @option{--jail} funciona canviant l'arrel de
 @command{lilypond} a @var{gàbia} just o abans de començar el
@@ -272,7 +267,7 @@ suposat perdrà immediatament), possiblement usant @command{sudo}.
 També de CPU que el LilyPond pot usar (per exemple usant
 @command{ulimit@tie{}-t}), i, si el vostre sistema operatiu ho
 contempla, la mida de la memòria que es pot reservar.  Vegeu també
-@ref{El LilyPond a una gàbia de chroot}.
+@ref{LilyPond in chroot jail}.
 
 @end table
 
@@ -358,9 +353,8 @@ Mostra la garantia del GNU LilyPond (no ve amb
 @end table
 
 
-@node Opcions avançades de la línia d'ordres per al LilyPond
+@node Advanced command-line options for LilyPond
 @unnumberedsubsec Opcions avançades de la línia d'ordres per al LilyPond
-@translationof Advanced command-line options for LilyPond
 
 @table @code
 
@@ -605,7 +599,7 @@ El mode segur evita que es puguin compilar molts fragments de codi
 
 L'opció @option{--jail} és una alternativa encara més segura, però
 requereix més feina per a la seva configuració.  Vegeu
-@ref{Opcions bàsiques de la línia d'ordres per al LilyPond}.
+@ref{Basic command-line options for LilyPond}.
 
 @multitable @columnfractions .33 .16 .51
 @item @code{separate-log-files}
@@ -653,9 +647,8 @@ programació} a errors.
 @end multitable
 
 
-@node Variables d'entorn
+@node Environment variables
 @unnumberedsubsec Variables d'entorn
-@translationof Environment variables
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
@@ -685,9 +678,8 @@ valor predeterminat és @code{70}.
 @end table
 
 
-@node El LilyPond a una gàbia de chroot
+@node LilyPond in chroot jail
 @unnumberedsubsec El LilyPond a una gàbia de chroot
-@translationof LilyPond in chroot jail
 
 La preparació del servidor perquè executi el LilyPond a una gàbia
 de chroot és una tasca molt complicada.  Els passos estan
@@ -807,9 +799,8 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
 
 @c " keep quote signs balanced for context-sensitive editors
 
-@node Missatges d'error
+@node Error messages
 @section Missatges d'error
-@translationof Error messages
 
 @cindex error, missatges d'error
 @cindex missatges d'error
@@ -890,29 +881,26 @@ quelcom inesperat.  Si no veieu un error a la línia que s'indica
 del fitxer d'entrada, intenteu comprovar una o dues línies per
 sobre de la posició indicada.
 
-S'ofereix més informació sobre els errors a la secció @ref{Errors
-comuns}.
+S'ofereix més informació sobre els errors a la secció @ref{Common errors}.
 
-@node Errors comuns
+@node Common errors
 @section Errors comuns
-@translationof Common errors
 
 Les condicions d'error que es descriuen més a sota es produeixen
 amb freqüència, tot i que la causa no és òbvia o fàcil de trobar.
 Un cop se han vist i comprès, es gestionen sense problema.
 
 @menu
-* La música se surt de la pàgina::
-* Apareix un pentagrama de més::
-* Missatge d'error Unbound variable %::
-* Missatge d'error FT_Get_Glyph_Name::
-* Advertiment sobre que les afinitats del pentagrama sols han de decrèixer::
-* Missatge d'error Unexpected new::
+* Music runs off the page::
+* An extra staff appears::
+* Error message Unbound variable %::
+* Error message FT_Get_Glyph_Name::
+* Warning staff affinities should only decrease::
+* Error message unexpected new::
 @end menu
 
-@node La música se surt de la pàgina
+@node Music runs off the page
 @unnumberedsubsec La música se surt de la pàgina
-@translationof Music runs off the page
 
 La música que se surt de la pàgina pel marge dret o que apareix
 exageradament comprimida està causada gairebé sempre per haver
@@ -934,17 +922,16 @@ comprimida o que se surti de la pàgina.}
 
 La duració incorrecta es pot trobar fàcilment si s'utilitzen
 comprovacions de compàs, vegeu
-@rnotation{Comprovació de compàs i de número de compàs}.
+@rnotationnamed{Bar and bar number checks, Comprovació de compàs i de número de compàs}.
 
 Si realment volem tenir una sèrie d'aquests compassos amb notes
 solapades, hem d'inserir una línia divisòria invisible on volem
 el salt de línia.  Per veure més detalls, consulteu
-@rnotation{Barres de compàs}.
+@rnotationnamed{Bar lines, Barres de compàs}.
 
 
-@node Apareix un pentagrama de més
+@node An extra staff appears
 @unnumberedsubsec Apareix un pentagrama de més
-@translationof An extra staff appears
 
 Si no es creen els contextos explícitament amb @code{\new} o amb
 @code{\context}, es crearan discretament tan aviat com es trobi
@@ -1002,9 +989,8 @@ explícitament:
 @end lilypond
 
 
-@node Missatge d'error Unbound variable %
+@node Error message Unbound variable %
 @unnumberedsubsec Missatge d'error Unbound variable %
-@translationof Error message Unbound variable %
 
 Aquest missatge d'error apareix al final dels missatges de la
 consola o del fitxer de registre junt a un missatge @qq{GUILE
@@ -1017,19 +1003,17 @@ percentatge, (@code{%}), i no s'han d'utilitzar dins de les
 rutines del Scheme.  Els comentaris del Scheme comencen amb punt i
 coma, (@code{;}).
 
-@node Missatge d'error FT_Get_Glyph_Name
+@node Error message FT_Get_Glyph_Name
 @unnumberedsubsec Missatge d'error FT_Get_Glyph_Name
-@translationof Error message FT_Get_Glyph_Name
 
 Aquest missatge d'error apareix a la sortida de la consola o al
 fitxer log de registre si un fitxer d'entrada conté un caràcter que
 no és ASCII i no s'ha desat en la codificació de caràcters
 UTF-8.  Per veure més detalls, consulteu
-@rnotation{Codificació del text}.
+@rnotationnamed{Text encoding, Codificació del text}.
 
-@node Advertiment sobre que les afinitats del pentagrama sols han de decrèixer
+@node Warning staff affinities should only decrease
 @unnumberedsubsec Advertiment sobre que les afinitats del pentagrama sols han de decrèixer
-@translationof Warning staff affinities should only decrease
 
 Aquest advertiment pot aparèixer si no hi ha cap pentagrama a la
 sortida impresa, per exemple si sols hi ha un context
@@ -1044,11 +1028,10 @@ dels contextos es comporti com un pentagrama, inserint
 @noindent
 al començament.  Per veure més detalls, consulteu @qq{Espaiat de
 les línies que no són pautes} a
-@rnotation{Espaiat vertical flexible dins dels sistemes}.
+@rnotationnamed{Flexible vertical spacing within systems, Espaiat vertical flexible dins dels sistemes}.
 
-@node Missatge d'error Unexpected new
+@node Error message unexpected new
 @unnumberedsubsec Missatge d'error Unexpected new @code{\new}
-@translationof Error message unexpected new
 
 Un bloc @code{\score} ha de contenir una @emph{única} expressió
 musical.  Si en comptes d'això conté diverses instruccions

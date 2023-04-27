@@ -18,20 +18,18 @@
 
 @node Tutorial
 @chapter Tutorial
-@translationof Tutorial
 
 Aquest capítol ofereix una introducció bàsica al treball amb el Lilypond.
 
 @menu
-* Compilació d'un fitxer::
-* Com escriure fitxers d'entrada::
-* Gestió dels errors::
-* Com llegir els manuals::
+* Compiling a file::
+* How to write input files::
+* Dealing with errors::
+* How to read the manuals::
 @end menu
 
-@node Compilació d'un fitxer
+@node Compiling a file
 @section Compilació d'un fitxer
-@translationof Compiling a file
 
 @cindex compilació
 @cindex exemple inicial
@@ -70,7 +68,7 @@ ambigüitats.  És possible que s'ometin en alguns exemples del
 manual actual, però eviteu d'ometre-les a la vostra pròpia música!
 Per veure més informació sobre la presentació dels exemples del
 manual, consulteu
-@ref{Com llegir els manuals}.}
+@ref{How to read the manuals}.}
 
 A més, l'entrada del Lilypond és @strong{sensible a les majúscules}.
 @w{@samp{ @{ c d e @}}} és una entrada vàlida; @w{@samp{@{ C D E @}}} produeix
@@ -78,34 +76,32 @@ un missatge d'error.
 
 
 
-@node Com escriure fitxers d'entrada
+@node How to write input files
 @section Com escriure fitxers d'entrada
-@translationof How to write input files
 
 Aquesta secció presenta una part de la sintaxi bàsica del LilyPond
 com ajuda perquè us inicieu a l'escriptura de fitxers d'entrada.
 
 @menu
-* Notació senzilla::
-* Treball sobre els fitxers d'entrada::
+* Simple notation::
+* Working on input files::
 @end menu
 
 
-@node Notació senzilla
+@node Simple notation
 @subsection Notació senzilla
-@translationof Simple notation
 
 @cindex senzilla, notació
 @cindex notació senzilla
 
 @menu
-* Altures::
-* Duracions (valors rítmics)::
-* Silencis::
-* Indicació de compàs::
-* Indicacions de tempo::
-* Clau::
-* Tot a l'hora::
+* Pitches::
+* Durations (rhythms)::
+* Rests::
+* Time signature::
+* Tempo marks::
+* Clef::
+* All together::
 @end menu
 
 El LilyPond afegirà certs elements de notació de manera
@@ -123,9 +119,8 @@ duracions.
 Aquest comportament es pot modificar, però en general aquests
 valors automàtics són adequats.
 
-@node Altures
+@node Pitches
 @unnumberedsubsubsec Altures
-@translationof Pitches
 
 @cindex altures
 @cindex notes
@@ -243,9 +238,8 @@ diverses @code{''} o @code{,,} (però teniu cura d'utilitzar dos
 cometes simples @code{''} i no una cometa doble @code{"}@tie{}!)
 @c " - keeps quotes in order for context-sensitive editor -td
 
-@node Duracions (valors rítmics)
+@node Durations (rhythms)
 @unnumberedsubsubsec Duracions (valors rítmics)
-@translationof Durations (rhythms)
 
 @cindex duracions de les notes
 @cindex notes, duracions de
@@ -294,9 +288,8 @@ d'especificar de forma explícita (és a dir: mitjançant un número).
 }
 @end lilypond
 
-@node Silencis
+@node Rests
 @unnumberedsubsubsec Silencis
-@translationof Rests
 
 @cindex silenci
 @cindex notació dels silencis
@@ -315,9 +308,8 @@ el nom @code{r}@tie{}:
 @end lilypond
 
 
-@node Indicació de compàs
+@node Time signature
 @unnumberedsubsubsec Indicació de compàs
-@translationof Time signature
 
 @cindex compàs, indicació de
 
@@ -340,9 +332,8 @@ La @notation{indicació de compàs} es pot establir amb l'ordre
 }
 @end lilypond
 
-@node Indicacions de tempo
+@node Tempo marks
 @unnumberedsubsubsec Indicacions de tempo
-@translationof Tempo marks
 
 @cindex tempo, indicacions de
 @cindex metrònom, indicacions
@@ -371,9 +362,8 @@ de metrònom} poden establir-se amb l'ordre @code{\tempo}:
 @end lilypond
 
 
-@node Clau
+@node Clef
 @unnumberedsubsubsec Clau
-@translationof Clef
 
 @cindex clau
 @cindex sol, clau de
@@ -407,9 +397,8 @@ La @notation{clau} es pot establir utilitzant l'ordre
 @end lilypond
 
 
-@node Tot a l'hora
+@node All together
 @unnumberedsubsubsec Tot a l'hora
-@translationof All together
 
 Aquí teniu un petit exemple que mostra tots els elements anteriors
 a l'hora:
@@ -429,15 +418,14 @@ a l'hora:
 
 @morerefs
 Referència de la notació:
-@rnotation{Escriptura de notes},
-@rnotation{Escriptura de les duracions (valors rítmics)},
-@rnotation{Escriptura dels silencis},
-@rnotation{Indicació de compàs},
-@rnotation{Clau}.
+@rnotationnamed{Writing pitches, Escriptura de notes},
+@rnotationnamed{Writing rhythms, Escriptura de les duracions (valors rítmics)},
+@rnotationnamed{Writing rests, Escriptura dels silencis},
+@rnotationnamed{Time signature, Indicació de compàs},
+@rnotationnamed{Clef, Clau}.
 
-@node Treball sobre els fitxers d'entrada
+@node Working on input files
 @subsection Treball sobre els fitxers d'entrada
-@translationof Working on input files
 
 @cindex claus
 @cindex comentaris
@@ -583,9 +571,8 @@ mostra alguns possibles usos per als comentaris:
 @end itemize
 
 
-@node Gestió dels errors
+@node Dealing with errors
 @section Gestió dels errors
-@translationof Dealing with errors
 
 @cindex depuració d'errors
 
@@ -594,50 +581,46 @@ secció aporta alguns enllaços per ajudar-vos a resoldre els
 problemes que pugueu trobar.
 
 @menu
-* Consells generals de solució de problemes::
-* Alguns errors comuns::
+* General troubleshooting tips::
+* Some common errors::
 @end menu
 
-@node Consells generals de solució de problemes
+@node General troubleshooting tips
 @subsection Consells generals de solució de problemes
-@translationof General troubleshooting tips
 
 La solució de problemes al LilyPond pot ser un desafiament per a
 les persones acostumades als interfícies gràfics, perquè és
 possible crear fitxers d'entrada invàlids.  Quan passa això, la
 millor manera d'identificar i resoldre el problema és aplicar un
-enfocament lògic.  A @rprogram{Solució de problemes} es donen
+enfocament lògic.  A @rprogramnamed{Troubleshooting, Solució de problemes} es donen
 algunes guies per ajudar-vos a aprendre a fer-lo.
 
-@node Alguns errors comuns
+@node Some common errors
 @subsection Alguns errors comuns
-@translationof Some common errors
 
 @cindex comuns, errors
 @cindex errors comuns
 
 Hi ha alguns errors comuns que són difícils de solucionar si ens
 basem solament als missatges d'errors que se'ns presenten.
-Aquests errors es descriuen a @rprogram{Errors comuns}.
+Aquests errors es descriuen a @rprogramnamed{Common errors, Errors comuns}.
 
-@node Com llegir els manuals
+@node How to read the manuals
 @section Com llegir els manuals
-@translationof How to read the manuals
 
 Aquesta secció mostra com llegir la documentació de forma
 eficient, i presenta algunes funcionalitats interactives de la
 versió en línia.
 
 @menu
-* Material omès::
-* Exemples amb enllaç::
-* Panoràmica dels manuals::
+* Omitted material::
+* Clickable examples::
+* Overview of manuals::
 @end menu
 
 
-@node Material omès
+@node Omitted material
 @subsection Material omès
-@translationof Omitted material
 
 
 @cindex com llegir el manual
@@ -650,7 +633,7 @@ versió en línia.
 @cindex construir fitxers, consells
 @cindex fitxers, consells per construir
 
-Com ja hem vist a @ref{Treball sobre els fitxers d'entrada}
+Com ja hem vist a @ref{Working on input files}
 codi d'entrada del LilyPond ha d'estar rodejat de claus
 @code{@{ @}} o de
 @q{@w{@code{\relative c'' @{ @dots{} @}}}}.  Durant la resta
@@ -684,9 +667,8 @@ manuals són fragments de codi i no fitxers complets, l'enunciat
 @code{\version} s'omet.  Tot i així, ens hem d'acostumar a
 incloure'ls als nostres documents.
 
-@node Exemples amb enllaç
+@node Clickable examples
 @subsection Exemples amb enllaç
-@translationof Clickable examples
 
 @warning{Aquesta funcionalitat sols està disponible al manuals en HTML.}
 
@@ -726,9 +708,8 @@ HTML.}
 Estem treballant per proveir aquesta funcionalitat.
 @end ignore
 
-@node Panoràmica dels manuals
+@node Overview of manuals
 @subsection Panoràmica dels manuals
-@translationof Overview of manuals
 
 Hi ha molt abundant documentació sobre el LilyPond.  Els nous
 usuaris es troben desorientats amb freqüència en quant a quina
@@ -744,23 +725,23 @@ seccions subsegüents.}
 @item
 @strong{Abans d'intentar fer @emph{qualsevol cosa}}: llegiu el
 @ref{Tutorial} del manual d'Aprenentatge, i la secció
-@ref{Notació corrent}.  Si trobeu termes musicals que no
+@ref{Common notation}.  Si trobeu termes musicals que no
 reconeixeu, busqueu-los al @rglosnamed{Top, Glossari}.
 
 @item
 @strong{Abans d'intentar escriure una peça completa de música}:
-llegiu la secció @ref{Conceptes fonamentals} del manual
+llegiu la secció @ref{Fundamental concepts} del manual
 d'Aprenentatge . Després us vindrà bé consultar les seccions
 corresponents de la @rnotationnamed{Top, Referència de la notació}.
 
 @item
 @strong{Abans d'intentar de modificar els resultats predeterminats}:
-llegiu la secció @ref{Ajustament de la sortida}
+llegiu la secció @ref{Tweaking output}
 del manual d'Aprenentatge.
 
 @item
 @strong{Abans d'afrontar un projecte gran}: llegiu la secció
-@rprogram{Suggeriments per escriure fitxers d'entrada}
+@rprogramnamed{Suggestions for writing files, Suggeriments per escriure fitxers d'entrada}
 del manual d'utilització del programa.
 
 @end itemize

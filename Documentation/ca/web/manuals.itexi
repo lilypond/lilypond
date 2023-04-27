@@ -13,11 +13,10 @@
 
 @node Manuals
 @unnumbered Manuals
-@translationof Manuals
 
-@macro details{reference}
+@macro details{node, label}
 @spanClass{detail}
-(@ref{\reference\, detalls de \reference\})
+(@ref{\node\, detalls de \label\})
 @spanEnd
 @end macro
 
@@ -39,24 +38,24 @@
 @itemize
 
 @item
-@ref{Entrada de text}:
+@ref{Text input}:
 El LilyPond és un sistema de gravat musical @strong{basat en text}.
 Llegiu això primer!
 
 @item
 @ifWebLinks{@manualStableLearningSplitNoName-ca,@rlearningnamed{Top,Aprenentatge}}
 una introducció al LilyPond amable i @qq{imprescindible}.
-@details{Aprenentatge}
+@details{Learning, Aprenentatge}
 
 @item
 @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossari}}
 @emph{(lectura opcional)} termes musicals i traduccions.
-@details{Glossari}
+@details{Glossary, Glossari}
 
 @item
 @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
 @emph{(lectura opcional)} la informació de rerefons sobre gravat musical
-@details{Essay}
+@details{Essay, Essay}
 
 
 @end itemize
@@ -71,17 +70,17 @@ una introducció al LilyPond amable i @qq{imprescindible}.
 @item
 @ifWebLinks{@manualStableNotationSplitNoName-ca,@rnotationnamed{Top,Notació}}
 referència de la sintaxi.
-@details{Notació}
+@details{Notation, Notació}
 
 @item
 @ifWebLinks{@manualStableUsageSplitNoName-ca,@rprogramnamed{Top,Utilizació}}
 com executar els programes.
-@details{Utilització}
+@details{Usage, Utilització}
 
 @item
 @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Fragments}}
 trucs i consells curts.
-@details{Fragments}
+@details{Snippets, Fragments}
 
 @end itemize
 
@@ -100,22 +99,22 @@ Preguntes  més freqüents (Frequently Asked Questions).
 @item
 @ref{Top,Web}:
 aquest document.
-@details{Web}
+@details{Web, Web}
 
 @item
 @ifWebLinks{@manualStableChangesSplitNoName-ca,@rchangesnamed{Top,Canvis}}
 que hi ha de nou?
-@details{Canvis}
+@details{Changes, Canvis}
 
 @item
 @ifWebLinks{@manualStableExtendingSplitNoName-ca,@rextendnamed{Top,Extensió}}
 trucs interessants.
-@details{Extensió}
+@details{Extending, Extensió}
 
 @item
 @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funcionament intern}}
 referències sobre com fer trucs.
-@details{Funcionament intern}
+@details{Internals, Funcionament intern}
 
 @end itemize
 
@@ -128,7 +127,7 @@ referències sobre com fer trucs.
 @itemize
 
 @item
-@ref{Tots}:
+@ref{All}:
 Versions estables anteriors i versió actual com un fitxer comprimit.
 
 @item
@@ -142,7 +141,7 @@ cert nombre de tutorials de vídeo al seu blog que són adequats per
 a usuaris nous.
 
 @item
-@ref{Desenvolupament}:
+@ref{Development}:
 manuals per a la versió de desenvolupament.
 
 @item
@@ -173,18 +172,18 @@ el nom del manual.
 
 @divClass{hide}
 @menu
-* Aprenentatge::           Aprenentatge.
-* Glossari::               Glossari.
-* Monografia::             Monografia.
-* Notació::                Referència.
-* Utilització::            Utilització.
-* Fragments::              Fragments de codi.
+* Learning::           Aprenentatge.
+* Glossary::               Glossari.
+* Essay::             Monografia.
+* Notation::                Referència.
+* Usage::            Utilització.
+* Snippets::              Fragments de codi.
 * FAQ::                    Preguntes freqüents.
 * Web::                    Web.
-* Canvis::                 Notícies.
-* Extensió::               Programació.
-* Funcionament intern::    Funcionament intern.
-* Tots::                   Tots els manuals.
+* Changes::                 Notícies.
+* Extending::               Programació.
+* Internals::    Funcionament intern.
+* All::                   Tots els manuals.
 * FDL::                    Llicència.
 @end menu
 
@@ -195,9 +194,8 @@ el nom del manual.
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
 
-@node Aprenentatge
+@node Learning
 @unnumberedsec Aprenentage
-@translationof Learning
 
 @divClass{column-left-top}
 @subheading Manual d'aprenentatge
@@ -225,9 +223,8 @@ creuades per obtenir més informació.
 @divEnd
 
 
-@node Glossari
+@node Glossary
 @unnumberedsec Glossari
-@translationof Glossary
 
 @divClass{column-left-top}
 @subheading Glossari
@@ -250,9 +247,8 @@ l'anglès), es recomana ferventment que consulteu el glossari.
 @divEnd
 
 
-@node Monografia
+@node Essay
 @unnumberedsec Monografia
-@translationof Essay
 
 @divClass{column-left-top}
 @subheading Monografia
@@ -278,9 +274,8 @@ la versió en format PDF a causa de la seva major resolució.}
 @divEnd
 
 
-@node Notació
+@node Notation
 @unnumberedsec Notació
-@translationof Notation
 
 @divClass{column-left-top}
 @subheading Referència de la notació
@@ -306,9 +301,8 @@ Glossari Musical.}
 @divEnd
 
 
-@node Utilització
+@node Usage
 @unnumberedsec Utilització
-@translationof Usage
 
 @divClass{column-left-top}
 @subheading Manual d'utilització del programa
@@ -331,9 +325,8 @@ seva lectura abans d'afrontar projectes grans.
 @divEnd
 
 
-@node Fragments
+@node Snippets
 @unnumberedsec Fragments
-@translationof Snippets
 
 @divClass{column-left-top}
 @subheading Fragments
@@ -370,7 +363,6 @@ també}.
 
 @node FAQ
 @unnumberedsec FAQ
-@translationof FAQ
 
 @divClass{column-center-top}
 @subheading Preguntes preliminars
@@ -378,11 +370,11 @@ també}.
 @subsubheading On és la interfície gràfica, els menús i les barres d'eines?
 
 El LilyPond requereix que escrivim la música coma
-text. Informeu-vos d'això llegint la nostra @ref{Entrada de text}.
+text. Informeu-vos d'això llegint la nostra @ref{Text input}.
 
 @subsubheading Hi ha un munt de documentació!  He de llegir-la?
 
-Heu de llegir el manual de @ref{Aprenentatge}.  Respecte a la
+Heu de llegir el manual de @ref{Learning}.  Respecte a la
 resta de la documentació, sols heu de llegir les seccions que
 tracten de la notació que vulgueu crear.
 
@@ -390,7 +382,7 @@ tracten de la notació que vulgueu crear.
 @subsubheading Això és encara molta cosa a llegir! Paga la pena?
 
 Decidiu per vos mateix; les raons per les quals voldríeu utilitzar
-el LilyPond es poden trobar a la @ref{Introducció}.
+el LilyPond es poden trobar a la @ref{Introduction}.
 
 @divEnd
 
@@ -399,19 +391,18 @@ el LilyPond es poden trobar a la @ref{Introducció}.
 
 @subsubheading Quelcom no funciona!  Com ho arreglo?
 
-S'explica a @rprogram{Solució de problemes}.
+S'explica a @rprogramnamed{Troubleshooting, Solució de problemes}.
 
 
 @subsubheading Perquè canvien la sintaxi i el llenguatge?
 
-S'explica a @rprogram{Perquè canvia la sintaxi?}.
+S'explica a @rprogramnamed{Why does the syntax change?, Perquè canvia la sintaxi?}.
 
 @divEnd
 
 
 @node Web
 @unnumberedsec Web
-@translationof Web
 
 @divClass{column-left-top}
 @subheading Web
@@ -444,9 +435,8 @@ maneres d'informar de les fallades, i desenvolupament.
 @divEnd
 
 
-@node Canvis
+@node Changes
 @unnumberedsec Canvis
-@translationof Changes
 
 @divClass{column-left-top}
 @subheading Canvis
@@ -467,9 +457,8 @@ produïdes al LilyPond a partir de la versió estable anterior.
 @divEnd
 
 
-@node Extensió
+@node Extending
 @unnumberedsec Extensió
-@translationof Extending
 
 @divClass{column-left-top}
 @subheading Extensió del LilyPond
@@ -488,9 +477,8 @@ Aquest manual explica com escriure extensions del LilyPond.
 
 @divEnd
 
-@node Funcionament intern
+@node Internals
 @unnumberedsec Funcionament intern
-@translationof Internals
 
 @divClass{column-left-top}
 @subheading Referència del funcionament intern
@@ -522,9 +510,8 @@ documentació generada.
 @divEnd
 
 
-@node Tots
+@node All
 @unnumberedsec Tots
-@translationof All
 
 @divClass{column-left-top}
 @subheading Versions per descarregar
@@ -594,7 +581,6 @@ Documentación de LilyPond 1.6}
 
 @node FDL
 @unnumberedsec FDL
-@translationof FDL
 
 @divClass{column-center-top}
 @subheading Llicència de la documentació
@@ -602,7 +588,7 @@ Documentación de LilyPond 1.6}
 La documentació del GNU LilyPond està publicada sota la Llicència
 de Documentació Lliure de GNU.  Hi ha una introducció a aquesta
 llicència i a els nostres motius per haver-la escollit, a
-@ref{Llibertat}.
+@ref{Freedom}.
 
 @divEnd
 

@@ -13,9 +13,8 @@
 @c Translation checkers:
 
 
-@node Duracions
+@node Rhythms
 @section Duracions
-@translationof Rhythms
 
 @lilypondfile[quote]{snippets/rhythms-headword.ly}
 
@@ -23,29 +22,27 @@ Aquesta secció tracta dels ritmes, els silencis, les duracions, les barres
 i els compassos.
 
 @menu
-* Escriptura de les duracions (valors rítmics)::
-* Escriptura dels silencis::
-* Impressió de les duracions::
-* Barres::
-* Compassos::
-* Temes especials de ritme::
+* Writing rhythms::
+* Writing rests::
+* Displaying rhythms::
+* Beams::
+* Bars::
+* Special rhythmic concerns::
 @end menu
 
 
-@node Escriptura de les duracions (valors rítmics)
+@node Writing rhythms
 @subsection Escriptura de les duracions (valors rítmics)
-@translationof Writing rhythms
 
 @menu
-* Duració de les notes::
-* Grups especials::
-* Escalat de les duracions::
-* Lligadures d'unió::
+* Durations::
+* Tuplets::
+* Scaling durations::
+* Ties::
 @end menu
 
-@node Duració de les notes
+@node Durations
 @unnumberedsubsubsec Duració de les notes
-@translationof Durations
 
 @cindex duració de les notes
 @cindex notes, duració de
@@ -92,7 +89,7 @@ desactivat.
 Es pot escriure una nota amb la duració d'una quàdruple breu
 mitjançant @code{\maxima}, però això es permet sols dins de la
 notació musical antiga.  Per veure més detalls, consulteu
-@ref{Notació antiga}.
+@ref{Ancient notation}.
 
 @cindex duració predeterminada
 @cindex predeterminada, duració de la nota
@@ -134,17 +131,16 @@ s'especifiquen escrivint dos punts, i així successivament.
 
 Certes duracions no es poden representar sols amb duracions
 binaries i puntets; l'única forma de representar-les és lligat dos
-o més notes.  Per veure més detalls, consulteu @ref{Lligadures
-d'unió}.
+o més notes.  Per veure més detalls, consulteu @ref{Ties}.
 
 Per veure de quina manera es poden especificar les duracions de
 les síl·labes de la lletra i com alinear la lletra a les notes,
-consulteu @ref{Música vocal}.
+consulteu @ref{Vocal music}.
 
 De forma opcional es poden espaiar les notes de forma estrictament
 proporcional a les seves duracions.  Per veure més detalls sobre
 aquest ajust i altres ajustos que controlen la notació
-proporciona, consulteu @ref{Notació proporcional}.
+proporciona, consulteu @ref{Proportional notation}.
 
 @funindex \dotsUp
 @funindex \dotsDown
@@ -153,7 +149,7 @@ proporciona, consulteu @ref{Notació proporcional}.
 Normalment els puntets es desplacen cap amunt per evitar les
 línies del pentagrama, excepte en situacions de polifonia.  Es
 poden situar els puntets manualment a sobre o a sota de les línies
-de la pauta; vegeu @ref{Direcció i posició}.
+de la pauta; vegeu @ref{Direction and placement}.
 
 @predefined
 @code{\autoBeamOn},
@@ -181,14 +177,14 @@ Glossari musical:
 @rglos{Duration names notes and rests}.
 
 Referència de la notació:
-@ref{Barres automàtiques},
-@ref{Lligadures d'unió},
-@ref{Pliques},
-@ref{Escriptura de les duracions (valors rítmics)},
-@ref{Escriptura dels silencis},
-@ref{Música vocal},
-@ref{Notació antiga},
-@ref{Notació proporcional}.
+@ref{Automatic beams},
+@ref{Ties},
+@ref{Stems},
+@ref{Writing rhythms},
+@ref{Writing rests},
+@ref{Vocal music},
+@ref{Ancient notation},
+@ref{Proportional notation}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -204,9 +200,8 @@ No hi ha un límit fonamental per a les duracions dels silencis
 glifs és limitat; sols es poden imprimir des del silenci de
 garrapatea (128) fins el de màxima (8 rodones).
 
-@node Grups especials
+@node Tuplets
 @unnumberedsubsubsec Grups especials
-@translationof Tuplets
 
 @cindex grups especials
 @cindex tresets
@@ -320,14 +315,14 @@ Glossari musical:
 @rglos{polymetric}.
 
 Manual de aprenentatge:
-@rlearning{Mètodes d'ajustament}.
+@rlearningnamed{Tweaking methods, Mètodes d'ajustament}.
 
 Referència de la notació:
-@ref{Direcció i posició},
-@ref{Gestió del temps},
-@ref{Escalat de les duracions},
-@ref{L'ordre tweak},
-@ref{Notació polimètrica}.
+@ref{Direction and placement},
+@ref{Time administration},
+@ref{Scaling durations},
+@ref{The tweak command},
+@ref{Polymetric notation}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -338,9 +333,8 @@ Referència de funcionament intern:
 @rinternals{TimeScaledMusic}.
 
 
-@node Escalat de les duracions
+@node Scaling durations
 @unnumberedsubsubsec Escalat de les duracions
-@translationof Scaling durations
 
 @cindex escalat de les duracions
 @cindex duracions, escalat de
@@ -407,13 +401,13 @@ mostra com es pot comprimir i expandir la música:
 @end lilypond
 
 Una aplicació d'aquesta ordre es troba a la notació polimètrica,
-vegeu @ref{Notació polimètrica}.
+vegeu @ref{Polymetric notation}.
 
 @morerefs
 Referència de la notació:
-@ref{Grups especials},
-@ref{Silencis invisibles},
-@ref{Notació polimètrica}.
+@ref{Tuplets},
+@ref{Invisible rests},
+@ref{Polymetric notation}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -427,9 +421,8 @@ racionals.  Si un numerador o denominador intermedi en aquest
 procés de càlcul sobrepassa la quantitat de 2^30, la execució i el
 gravat es detindran a aquest punt sense indicar cap error.
 
-@node Lligadures d'unió
+@node Ties
 @unnumberedsubsubsec Lligadures d'unió
-@translationof Ties
 
 @cindex lligadura d'unió
 
@@ -476,7 +469,7 @@ subdivisions del compàs de major duració:
 Si ens calen lligar moltes notes a través de les línies
 divisòries, ens podria resultar més fàcil utilitzar la divisió
 automàtica de les notes, vegeu
-@ref{Divisió automàtica de les notes}.
+@ref{Automatic note splitting}.
 Aquest mecanisme divideix automàticament les notes
 llargues i les lliga a través de les barres de compàs.
 
@@ -540,7 +533,7 @@ corda i percussió.  Es poden introduir de la manera següent:
 @funindex \tieNeutral
 
 És possible fer manualment que les lligadures d'unió es corbin cap
-amunt o cap avall; vegeu @ref{Direcció i posició}.
+amunt o cap avall; vegeu @ref{Direction and placement}.
 
 @cindex lligadures, aparença
 @cindex lligadures de punts
@@ -587,7 +580,7 @@ Les definicions de patrons de discontinuïtat per a les lligadures
 d'unió tenen la mateixa estructura que les definicions de patrons
 de discontinuïtat per a les lligadures d'expressió.  Per veure més
 informació sobre els patrons de discontinuïtat complexos,
-consulteu els fragments de codi sota @ref{Lligadures d'expressió}.
+consulteu els fragments de codi sota @ref{Slurs}.
 
 Sobreescriviu les propietats de disposició @var{whiteout} i
 @var{layer} dels objectes que poden causar una discontinuïtat en
@@ -633,8 +626,8 @@ Glossari musical:
 @rglos{laissez vibrer}.
 
 Referència de la notació:
-@ref{Lligadures d'expressió},
-@ref{Divisió automàtica de les notes}.
+@ref{Slurs},
+@ref{Automatic note splitting}.
 
 Fragments de codi:
 @rlsr{slurs},
@@ -654,22 +647,20 @@ Els canvis de clau o d'octava durant una lligadura d'unió no estan
 ben definits realment.  En aquests casos pot ser preferible una
 lligadura d'expressió.
 
-@node Escriptura dels silencis
+@node Writing rests
 @subsection Escriptura dels silencis
-@translationof Writing rests
 
 Els silencis s'escriuen com a part de la música dins de les
 expressions musicals.
 
 @menu
-* Silencis::
-* Silencis invisibles::
-* Silencis de compàs complet::
+* Rests::
+* Invisible rests::
+* Full measure rests::
 @end menu
 
-@node Silencis
+@node Rests
 @unnumberedsubsubsec Silencis
-@translationof Rests
 
 @cindex silenci
 @cindex silencis, indicació de les duracions
@@ -710,7 +701,7 @@ predefinides que es mostren aquí:
 Els silencis d'un compàs, centrats en mig del compàs, s'han de fer
 amb silencis multicompàs.  Es poden usar per un sol compàs així
 com per a molts compassos, i s'estudien a
-@ref{Silencis de compàs complet}.
+@ref{Full measure rests}.
 
 @cindex silenci, especificació de la posició vertical
 
@@ -737,7 +728,7 @@ Glossari musical:
 @rglos{maxima}.
 
 Referència de la notació:
-@ref{Silencis de compàs complet}.
+@ref{Full measure rests}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -752,9 +743,8 @@ silencis (tant per al més curt com per al més llarg), però el
 nombre de glifs és limitat: hi ha silencis des de la garrapatea
 (128) fins la màxima (8 rodones).
 
-@node Silencis invisibles
+@node Invisible rests
 @unnumberedsubsubsec Silencis invisibles
-@translationof Invisible rests
 
 @cindex desplaçament
 @cindex silenci invisible
@@ -832,11 +822,11 @@ sortida, de cap classe.
 
 @morerefs
 Manual de aprenentatge:
-@rlearning{Visibilitat i color dels objectes}.
+@rlearningnamed{Visibility and color of objects, Visibilitat i color dels objectes}.
 
 Referència de la notació:
-@ref{Notes ocultes},
-@ref{Visibilitat dels objectes}.
+@ref{Hidden notes},
+@ref{Visibility of objects}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -845,9 +835,8 @@ Referència de funcionament intern:
 @rinternals{SkipMusic}.
 
 
-@node Silencis de compàs complet
+@node Full measure rests
 @unnumberedsubsubsec Silencis de compas complet
-@translationof Full measure rests
 
 @cindex multicompàs, silencis
 @cindex compàs complet, silencis de
@@ -1010,10 +999,10 @@ Glossari musical:
 @rglos{multi-measure rest}.
 
 Referència de la notació:
-@ref{Duracions},
+@ref{Rhythms},
 @ref{Text},
-@ref{Donar format al text},
-@ref{Scripts de text}.
+@ref{Formatting text},
+@ref{Text scripts}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -1043,23 +1032,21 @@ un sols silenci multicompàs.
 Els silencis multicompàs no estan involucrats en les col·lisiones
 de silencis.
 
-@node Impressió de les duracions
+@node Displaying rhythms
 @subsection Impressió de les duracions
-@translationof Displaying rhythms
 
 @menu
-* Indicació de compàs::
-* Indicacions metronòmiques::
-* Anacrusis::
-* Música sense compassos::
-* Notació polimètrica::
-* Divisió automàtica de les notes::
-* Mostrar els ritmes de la melodia::
+* Time signature::
+* Metronome marks::
+* Upbeats::
+* Unmetered music::
+* Polymetric notation::
+* Automatic note splitting::
+* Showing melody rhythms::
 @end menu
 
-@node Indicació de compàs
+@node Time signature
 @unnumberedsubsubsec Indicació de compàs
-@translationof Time signature
 
 @cindex Indicació de compàs
 @cindex compàs
@@ -1074,7 +1061,7 @@ La indicació de compàs s'estableix como segueix:
 @end lilypond
 
 Se estudien els canvis d'indicació de compàs al mig d'un compàs a
-@ref{Anacrusis}.
+@ref{Upbeats}.
 
 @cindex compàs, visibilitat de la indicació de
 
@@ -1082,7 +1069,7 @@ La indicació de compàs s'imprimeix al començament d'una peça i
 sempre que hi hagi un canvi de compàs.  Si es produeix un canvi al
 final d'una línia, s'imprimeix una indicació d'advertiment a
 aquest lloc.  Es pot modificar aquest comportament predeterminat, vegeu
-@ref{Visibilitat dels objectes}.
+@ref{Visibility of objects}.
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -1122,7 +1109,7 @@ numèric:
 @end lilypond
 
 Les indicacions de compàs de la música mensural s'estudien a
-@ref{Indicacions de compàs de la música mensural}.
+@ref{Mensural time signatures}.
 
 @cindex compàs, indicació de, ajustos predeterminats
 @cindex autobarrat, propietats per a indicacions de compàs
@@ -1198,8 +1185,7 @@ base.
 @item
 @code{@var{beamExceptions}}, una llista-A que conté qualssevol
 regles de barrat per al tipus de compàs que vagin més enllà
-d'acabar de cada pulsació, com es descriu a @ref{Establir el
-comportament de les barres automàtiques}.
+d'acabar de cada pulsació, com es descriu a @ref{Setting automatic beam behavior}.
 @end enumerate
 
 @cindex compàs, propietats, restaurar els valors predeterminats
@@ -1271,7 +1257,7 @@ context @code{Staff}.
 Un altre mètode per a canviar aquestes variables relacionades amb
 el tipus de compàs, que impedeix la reimpressió de la indicació de
 compàs en el moment del canvi, es mostra a
-@ref{Establir el comportament de les barres automàtiques}.
+@ref{Setting automatic beam behavior}.
 
 @predefined
 @code{\numericTimeSignature},
@@ -1288,9 +1274,9 @@ Glossari musical:
 @rglos{time signature}
 
 Referència de la notació:
-@ref{Indicacions de compàs de la música mensural},
-@ref{Establir el comportament de les barres automàtiques},
-@ref{Gestió del temps}.
+@ref{Mensural time signatures},
+@ref{Setting automatic beam behavior},
+@ref{Time administration}.
 
 Fitxers instal·lats
 @file{scm/time-signature-settings.scm}.
@@ -1303,9 +1289,8 @@ Referència de funcionament intern:
 @rinternals{Timing_translator}.
 
 
-@node Indicacions metronòmiques
+@node Metronome marks
 @unnumberedsubsubsec  Indicacions metronòmiques
-@translationof Metronome marks
 
 @cindex tempo
 @cindex pulsacions por minut
@@ -1411,7 +1396,7 @@ d'ignorar les indicacions de tempo per a l'espaiat horitzontal.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/creating-metronome-marks-in-markup-mode.ly}
 
-Para veure més detalls, consulteu @ref{Donar format al text}.
+Para veure més detalls, consulteu @ref{Formatting text}.
 
 @morerefs
 Glossari musical:
@@ -1421,8 +1406,8 @@ Glossari musical:
 @rglos{metronome mark}.
 
 Referència de la notació:
-@ref{Donar format al text},
-@ref{Creació de sortida MIDI}.
+@ref{Formatting text},
+@ref{Creating MIDI output}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -1431,9 +1416,8 @@ Referència de funcionament intern::
 @rinternals{MetronomeMark}.
 
 
-@node Anacrusis
+@node Upbeats
 @unnumberedsubsubsec Anacrusis
-@translationof Upbeats
 
 @cindex anacrusis
 @cindex part en començar
@@ -1510,7 +1494,7 @@ Glossari musical:
 @rglos{anacrusis}.
 
 Referència de la notació:
-@ref{Notes d'adorn}.
+@ref{Grace notes}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -1519,9 +1503,8 @@ Referència de funcionament intern:
 @rinternals{Timing_translator}.
 
 
-@node Música sense compassos
+@node Unmetered music
 @unnumberedsubsubsec Música sense compassos
-@translationof Unmetered music
 
 @cindex cadència
 @cindex cadència, barres
@@ -1583,7 +1566,7 @@ suposa que roman fins al final del compàs) seran vàlides encara
 després de la línia divisòria que s'imprimeix per part de
 @code{\bar}.  Si es volen imprimir alteracions accidentals
 posteriors tindran que inserir-se manualment alteracions forçades
-o de cortesia, vegeu @ref{Alteracions accidentals}.
+o de cortesia, vegeu @ref{Accidentals}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -1600,7 +1583,7 @@ o de cortesia, vegeu @ref{Alteracions accidentals}.
 
 El barat automàtic es desactiva mitjançant @code{\cadenzaOn}.
 Per tant, tot el barrat en les cadències s'ha d'introduir
-manualment.  Vegeu @ref{Barres manuals}.
+manualment.  Vegeu @ref{Manual beams}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1618,7 +1601,7 @@ Aquestes ordres predefinides afecten a totes les pautes de la
 partitura, tot i que apareguin en un sol context @code{Voice}.
 Per canviar això, traslladeu el @code{Timing_translator} del
 context @code{Score} al context @code{Staff}, Vegeu
-@ref{Notació polimètrica}.
+@ref{Polymetric notation}.
 
 @predefined
 @code{\cadenzaOn},
@@ -1630,10 +1613,10 @@ Glossari musical:
 @rglos{cadenza}.
 
 Referència de la notació:
-@ref{Visibilitat dels objectes},
-@ref{Notació polimètrica},
-@ref{Barres manuals},
-@ref{Alteracions accidentals}.
+@ref{Visibility of objects},
+@ref{Polymetric notation},
+@ref{Manual beams},
+@ref{Accidentals}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -1659,9 +1642,8 @@ mesurar per permetre els salts:
 @end example
 
 
-@node Notació polimètrica
+@node Polymetric notation
 @unnumberedsubsubsec Notació polimètrica
-@translationof Polymetric notation
 
 @c This section necessarily uses \set
 @c This is acceptable  -td
@@ -1813,10 +1795,10 @@ Glossari musical:
 @rglos{meter}.
 
 Referència de la notació:
-@ref{Barres automàtiques},
-@ref{Barres manuals},
-@ref{Indicació de compàs},
-@ref{Escalat de les duracions}.
+@ref{Automatic beams},
+@ref{Manual beams},
+@ref{Time signature},
+@ref{Scaling durations}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -1835,9 +1817,8 @@ cada pentagrama individual del que seria normal sense les
 diferents indicacions de compàs.
 
 
-@node Divisió automàtica de les notes
+@node Automatic note splitting
 @unnumberedsubsubsec Divisió automàtica de les notes
-@translationof Automatic note splitting
 
 @cindex notes, divisió de
 @cindex divisió de notes
@@ -1913,8 +1894,8 @@ Glossari musical:
 @rglos{tie}
 
 Manual d'aprenentatge:
-@rlearning{Explicació dels gravadors},
-@rlearning{Afegir i eliminar gravadors}
+@rlearningnamed{Engravers explained, Explicació dels gravadors},
+@rlearningnamed{Adding and removing engravers, Afegir i eliminar gravadors}
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -1935,9 +1916,8 @@ aquest comportament, i en donar-li el valor @code{#f} podem fer
 que les notes i silencis dividits tinguin el mateix factor
 d'escala que les duracions de les notes originals de l'entrada.
 
-@node Mostrar els ritmes de la melodia
+@node Showing melody rhythms
 @unnumberedsubsubsec Mostrar els ritmes de la melodia
-@translationof Showing melody rhythms
 
 @cindex melodia, mostrar las duracions
 @cindex duracions de la melodia, mostrar
@@ -2018,20 +1998,18 @@ Referència de funcionament intern:
 @rinternals{Pitch_squash_engraver}.
 
 
-@node Barres
+@node Beams
 @subsection Barres
-@translationof Beams
 
 @menu
-* Barres automàtiques::
-* Establir el comportament de les barres automàtiques::
-* Barres manuals::
-* Barres progressives::
+* Automatic beams::
+* Setting automatic beam behavior::
+* Manual beams::
+* Feathered beams::
 @end menu
 
-@node Barres automàtiques
+@node Automatic beams
 @unnumberedsubsubsec Barres automàtiques
-@translationof Automatic beams
 
 De manera predeterminada, las barres de corxera s'insereixen automàticament:
 
@@ -2051,7 +2029,7 @@ De manera predeterminada, las barres de corxera s'insereixen automàticament:
 
 Quan aquestes decisions automàtiques no són prou bones, es poden
 escriure els barrats de forma explícita; vegeu
-@ref{Barres manuals}.  Les barres @emph{s'han} d'introduir
+@ref{Manual beams}.  Les barres @emph{s'han} d'introduir
 manualment si es volen estendre per sobre els silencis.
 
 Si no cal el barrat automàtic, es pot desactivar amb
@@ -2079,7 +2057,7 @@ per a més informació.}
 
 Es poden crear patrons de barrat que difereixin dels valors
 automàtics predeterminats; vegeu
-@ref{Establir el comportament de les barres automàtiques}.
+@ref{Setting automatic beam behavior}.
 
 @predefined
 @code{\autoBeamOff},
@@ -2107,8 +2085,8 @@ automàtics predeterminats; vegeu
 
 @morerefs
 Referència de la notació:
-@ref{Barres manuals},
-@ref{Establir el comportament de les barres automàtiques}.
+@ref{Manual beams},
+@ref{Setting automatic beam behavior}.
 
 Fitxers instal·lats:
 @file{scm/auto-beam.scm}.
@@ -2133,9 +2111,8 @@ que la barra s'hagi completat no tindrà efecte fins que inicieu la
 @emph{següent} barra nova.
 
 
-@node Establir el comportament de les barres automàtiques
+@node Setting automatic beam behavior
 @unnumberedsubsubsec Establir el comportament de les barres automàtiques
-@translationof Setting automatic beam behavior
 
 @cindex barres i lletra
 @cindex lletra i barres
@@ -2154,7 +2131,7 @@ barres automàtiques ve determinada per tres propietats de context:
 Els valores predeterminats d'aquestes variables es poden
 sobreescriure com es descriu més a baix, o de forma alternativa
 els propis valors predeterminats es poden canviar com s'explica a
-@ref{Indicació de compàs}.
+@ref{Time signature}.
 
 Si hi ha definida una regla de @code{beamExceptions} per al compàs
 en curs, s'usa aquesta regla per determinar la col·locació de les
@@ -2289,7 +2266,7 @@ compatible amb el nou valor de @code{baseMoment}.
 musical.  Es crea una quantitat del tipus @i{moment} per mitjà de
 la funció d'Scheme @code{ly:make-moment}.  Per veure més
 informació sobre aquest funció, consulteu
-@ref{Gestió del temps}.
+@ref{Time administration}.
 
 De forma predeterminada @code{baseMoment} està fixat a una unitat
 més que el denominador del compàs.  Totes les excepcions a aquest
@@ -2352,7 +2329,7 @@ Els ajustament de barrat automàtic predeterminat per a un tipus de
 compàs estan determinats en el fitxer
 @file{scm/time-signature-settings.scm}.  La forma de canviar els
 ajustament predeterminats de barrat automàtic per a un tipus de
-compas es descriu a @ref{Indicació de compàs}.
+compas es descriu a @ref{Time signature}.
 
 Molts ajustaments de barrat automàtics per a un tipus de compàs
 contenen una entrada per a @code{beamExceptions}.  Per exemple, el
@@ -2470,7 +2447,7 @@ Les regles de barrat predefinides estan al fitxer
 
 @morerefs
 Referència de la notació:
-@ref{Indicació de compàs}.
+@ref{Time signature}.
 
 Fitxer d'inici:
 @file{scm/time-signature-settings.scm}.
@@ -2521,7 +2498,7 @@ Els ajustos de barrat predeterminat per a aquest compàs també es
 poden canviar, de forma que sempre s'utilitzi el barrat desitjat.
 La menara d'efectuar canvis als ajustos de barrat automàtic per a
 una indicació de compàs es descriu a
-@ref{Indicació de compàs}.
+@ref{Time signature}.
 
 @lilypond[quote,verbatim]
 <<
@@ -2542,9 +2519,8 @@ una indicació de compàs es descriu a
 @end lilypond
 
 
-@node Barres manuals
+@node Manual beams
 @unnumberedsubsubsec Barres manuals
-@translationof Manual beams
 
 @cindex barres manuals
 @cindex manuals, barres
@@ -2636,8 +2612,8 @@ grup com un tot.
 
 @morerefs
 Referència de la notació:
-@ref{Direcció i posició},
-@ref{Notes d'adorn}.
+@ref{Direction and placement},
+@ref{Grace notes}.
 
 Fragments de codi:
 @rlsr{Rhythms}.
@@ -2650,9 +2626,8 @@ Referència de funcionament intern:
 @rinternals{Stem_engraver}.
 
 
-@node Barres progressives
+@node Feathered beams
 @unnumberedsubsubsec Barres progressives
-@translationof Feathered beams
 
 @cindex barres progressives
 @cindex progressives, barres
@@ -2715,21 +2690,19 @@ Fragments de codi:
 L'ordre @code{\featherDurations} sols funciona amb fragments
 musicals molt breus, i quan els nombres de la fracció són petits.
 
-@node Compassos
+@node Bars
 @subsection Compassos
-@translationof Bars
 
 @menu
-* Barres de compàs::
-* Numeració de compassos::
-* Comprovació de compàs i de número de compàs::
-* Marques d'assaig::
+* Bar lines::
+* Bar numbers::
+* Bar and bar number checks::
+* Rehearsal marks::
 @end menu
 
 
-@node Barres de compàs
+@node Bar lines
 @unnumberedsubsubsec Barres de compàs
-@translationof Bar lines
 
 @cindex barres de compàs
 @cindex línies divisòries
@@ -2785,7 +2758,7 @@ Utilitzeu el següent:
 D'aquesta manera s'inserira una barra invisible de compàs i es
 farà possible el salt de línia a aquest punt, sense forçar-lo. No
 s'incrementa el comptador dels números de compàs.  Per forçar un
-salt de línia, consulteu @ref{Salts de línia}.
+salt de línia, consulteu @ref{Line breaking}.
 
 @cindex manuals, línies divisòries
 @cindex manuals, barres de compàs
@@ -2871,7 +2844,7 @@ f'1 \bar "k"
 @end lilypond
 
 Poden veure's detalls d'aquest notació explicats a
-@ref{Gravat del cant kievà en notació quadrada}.
+@ref{Typesetting Kievan square notation}.
 
 @cindex segno
 
@@ -2907,7 +2880,7 @@ Tot i que es poden inserir manualment barres de compàs amb
 significat de repeticions, no es reconeixen com repeticions per
 part del LilyPond.  Les seccions repetides s'introdueixen millor
 utilitzant les diverses ordres de repetició (vegeu
-@ref{Repeticions}), que imprimeixen automàticament
+@ref{Repeats}), que imprimeixen automàticament
 les barres corresponents.
 
 A més es pot especificar @code{".|:-||"}, que equival a
@@ -2981,7 +2954,7 @@ sis variants diferents:
 A més, hi ha una ordre @code{\inStaffSegno} que crea una barra de
 compàs amb símbol de segno, situada en conjunció amb una línia de
 repetició adequada si s'utilitza amb una ordre @code{\repeat
-volta}, vegeu @ref{Repeticions normals}.
+volta}, vegeu @ref{Normal repeats}.
 
 @funindex \defineBarLine
 @cindex compàs, definir línies de
@@ -3119,9 +3092,9 @@ en qualsevol moment amb @samp{\set Timing.measureBarType
 
 @morerefs
 Referència de la notació:
-@ref{Salts de línia},
-@ref{Repeticions},
-@ref{Agrupament de pentagrames}.
+@ref{Line breaking},
+@ref{Repeats},
+@ref{Grouping staves}.
 
 Fitxers instal·lats:
 @file{scm/bar-line.scm}.
@@ -3135,9 +3108,8 @@ Referència de funcionament interno:
 @rinternals{Timing_translator} (per a les propietats del comptador de temps Timing).
 
 
-@node Numeració de compassos
+@node Bar numbers
 @unnumberedsubsubsec Numeració de compassos
-@translationof Bar numbers
 
 @cindex compàs, números de
 @cindex números de compàs
@@ -3238,9 +3210,8 @@ Consulteu @rinternals{StaffGroup} i @rinternals{BarNumber} para
 veure més informació.
 
 
-@node Comprovació de compàs i de número de compàs
+@node Bar and bar number checks
 @unnumberedsubsubsec Comprovació de compàs i de número de compàs
-@translationof Bar and bar number checks
 
 @cindex compàs, comprovació de
 @cindex número de compàs, comprovació de
@@ -3333,9 +3304,8 @@ compàs actual) no és el 123 en el moment de la compilació.
 Fragments de codi:
 @rlsr{Rhythms}.
 
-@node Marques d'assaig
+@node Rehearsal marks
 @unnumberedsubsubsec Marques d'assaig
-@translationof Rehearsal marks
 
 @cindex assaig, lletres de
 @cindex lletres d'assaig
@@ -3477,15 +3447,15 @@ element @code{\mark}
 @end lilypond
 
 @noindent
-Consulteu @ref{El tipus de lletra Emmentaler}
+Consulteu @ref{The Emmentaler font}
 per veure una llista dels símbols que es poden imprimir amb
 @code{\musicglyph}.
 
 Per veure formes comuns d'ajustar la col·locació de les lletres
-d'assaig, consulteu @ref{Donar format al text}.
+d'assaig, consulteu @ref{Formatting text}.
 Per a un control més precís, consulteu
 @code{break-alignable-interface} a la secció
-@ref{Alineació d'objectes}.
+@ref{Aligning objects}.
 
 El fitxer @file{scm/translation-functions.scm} conté les
 definicions de @code{format-mark-numbers} i de
@@ -3494,9 +3464,9 @@ per escriure altres funcions per donar format.
 
 @morerefs
 Referència de la notació:
-@ref{El tipus de lletra Emmentaler},
-@ref{Donar format al text},
-@ref{Alineació d'objectes}.
+@ref{The Emmentaler font},
+@ref{Formatting text},
+@ref{Aligning objects}.
 
 Fitxers d'inici:
 @file{scm/translation-functions.scm}.
@@ -3510,19 +3480,17 @@ Referència de funcionament intern:
 @rinternals{RehearsalMark}.
 
 
-@node Temes especials de ritme
+@node Special rhythmic concerns
 @subsection Temes especials de ritme
-@translationof Special rhythmic concerns
 
 @menu
-* Notes d'adorn::
-* Alinear amb una cadenza::
-* Gestió del temps::
+* Grace notes::
+* Aligning to cadenzas::
+* Time administration::
 @end menu
 
-@node Notes d'adorn
+@node Grace notes
 @unnumberedsubsubsec Notes d'adorn
-@translationof Grace notes
 
 @cindex ornaments
 @cindex mordents
@@ -3670,8 +3638,8 @@ Glossari musical:
 @rglos{appoggiatura}.
 
 Referència de la notació:
-@ref{Escalat de les duracions},
-@ref{Barres manuals}.
+@ref{Scaling durations},
+@ref{Manual beams}.
 
 Fitxers d'inici:
 @file{ly/grace-init.ly}.
@@ -3755,11 +3723,10 @@ Una altra opció és canviar explícitament la duració musical:
 c'8 \acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
-Vegeu @ref{Escalat de les duracions}.
+Vegeu @ref{Scaling durations}.
 
-@node Alinear amb una cadenza
+@node Aligning to cadenzas
 @unnumberedsubsubsec Alinear amb una cadenza
-@translationof Aligning to cadenzas
 
 @cindex cadenza (cadència)
 @cindex cadenza (cadència), alinear a
@@ -3805,9 +3772,8 @@ Fragments de codi:
 @rlsr{Rhythms}.
 
 
-@node Gestió del temps
+@node Time administration
 @unnumberedsubsubsec Gestió del temps
-@translationof Time administration
 
 @cindex temps, administració
 @cindex temps, control del (dins de la partitura)
@@ -3835,7 +3801,7 @@ pista del temps dins de la partitura.
 @table @code
 @item currentBarNumber
 El número de compàs en curs.  Per veure un exemple que mostra l'sú
-d'aquesta propietat, consulteu @ref{Numeració de compassos}.
+d'aquesta propietat, consulteu @ref{Bar numbers}.
 
 @item measureLength
 La longitud dels compassos dins de la indicació actual de compàs.
@@ -3884,8 +3850,8 @@ una duració de la fracció d'una rodona.  Per exemple,
 
 @morerefs
 Referència de la notació:
-@ref{Numeració de compassos},
-@ref{Música sense compassos}.
+@ref{Bar numbers},
+@ref{Unmetered music}.
 
 Fragments de codi:
 @rlsr{Rhythms}.

@@ -12,24 +12,23 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Notació especialitzada
+@node Specialist notation
 @chapter Notació especialitzada
-@translationof Specialist notation
 
 Aquest capítol explica com crear notació musical per a instruments
 d'un tipus específic o dins d'estils específics.
 
 @menu
-* Música vocal::
-* Teclats i altres instruments de pentagrames múltiples::
-* Instruments de corda sense trasts::
-* Instruments de corda amb trasts::
-* Percussió::
-* Instruments de vent::
-* Notació d'acords::
-* Música contemporània::
-* Notació antiga::
-* Músiques del món::
+* Vocal music::
+* Keyboard and other multi-staff instruments::
+* Unfretted string instruments::
+* Fretted string instruments::
+* Percussion::
+* Wind instruments::
+* Chord notation::
+* Contemporary music::
+* Ancient notation::
+* World music::
 @end menu
 
 @include ca/notation/vocal.itely

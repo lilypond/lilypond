@@ -14,9 +14,8 @@
 @include en/included/authors.itexi
 @include en/included/helpus.itexi
 
-@node Comunitat
+@node Community
 @unnumbered Comunitat
-@translationof Community
 
 @divClass{link-headings}
 
@@ -26,13 +25,13 @@
 @itemize
 
 @item
-@ref{Contacte}: obtenir ajuda, xatejar i, mantenir-se en contacte!
+@ref{Contact}: obtenir ajuda, xatejar i, mantenir-se en contacte!
 
 @item
-@ref{Exemples mínims}: són @emph{molt} recomanables quan es parla del LilyPond.
+@ref{Tiny examples}: són @emph{molt} recomanables quan es parla del LilyPond.
 
 @item
-@ref{Informes de fallades}: alguna cosa ha anat malament.
+@ref{Bug reports}: alguna cosa ha anat malament.
 
 @end itemize
 @divEnd
@@ -43,21 +42,21 @@
 @itemize
 
 @item
-@ref{Presteu la vostra ajuda}: se sol·licita la vostra col·laboració.
+@ref{Help us}: se sol·licita la vostra col·laboració.
 
 
 @item
-@ref{Patrocini}: contribucions financeres.
+@ref{Sponsoring}: contribucions financeres.
 
 @item
-@ref{Desenvolupament}: per a col·laboradors i pilots de prova.
+@ref{Development}: per a col·laboradors i pilots de prova.
 
 @item
 @ref{GSoC 2012}: les nostres idees per a l'edició 2012 del «Google
 Summer of Code» (Estiu de Codi del Google).
 
 @item
-@ref{Autors}: les persones que han fet el LilyPond el que és.
+@ref{Authors}: les persones que han fet el LilyPond el que és.
 
 @end itemize
 @divEnd
@@ -68,13 +67,13 @@ Summer of Code» (Estiu de Codi del Google).
 @itemize
 
 @item
-@ref{Publicacions}: què hem escrit, i que han escrit sobre nosaltres.
+@ref{Publications}: què hem escrit, i que han escrit sobre nosaltres.
 
 @item
-@ref{Notícies antigues}: l'arxiu.
+@ref{News}: l'arxiu.
 
 @item
-@ref{Golfes}: anuncis i registres de canvis de versions antigues.
+@ref{Attic}: anuncis i registres de canvis de versions antigues.
 
 @end itemize
 @divEnd
@@ -83,24 +82,23 @@ Summer of Code» (Estiu de Codi del Google).
 
 @divClass{hide}
 @menu
-* Contacte::
-* Exemples mínims::
-* Informes de fallades::
-* Presteu la vostra ajuda::
-* Patrocini::
-* Desenvolupament::
+* Contact::
+* Tiny examples::
+* Bug reports::
+* Help us::
+* Sponsoring::
+* Development::
 * GSoC 2012::
-* Autors::
-* Publicacions::
-* Notícies antigues::
-* Golfes::
+* Authors::
+* Publications::
+* News::
+* Attic::
 @end menu
 @divEnd
 
 
-@node Contacte
+@node Contact
 @unnumberedsec Contacte
-@translationof Contact
 
 @divClass{column-left-bottom}
 @subheading Discussió i ajuda entre persones usuàries
@@ -119,7 +117,7 @@ arxiu 1 de la llista de usuaris}
 arxiu 2}
 @end quotation
 
-@warning{En formular preguntes, si us plau, utilitzeu @ref{Exemples mínims}!}
+@warning{En formular preguntes, si us plau, utilitzeu @ref{Tiny examples}!}
 
 @subsubheading El dipòsit de fragments de codi del LilyPond
 
@@ -133,7 +131,7 @@ han escrit els altres, i afegiu les vostres pròpies!
 @end example
 
 Els exemples del LSR que són especialment instructius s'inclouen a
-la nostra documentació oficial, a @ref{Fragments}.
+la nostra documentació oficial, a @ref{Snippets}.
 
 @subsubheading IRC
 
@@ -257,7 +255,7 @@ arxiu 2}
 @end quotation
 
 @warning{Abans d'enviar un missatge a la llista de fallades,
-llegiu les nostres indicacions per elaborar @ref{Informes de fallades}.}
+llegiu les nostres indicacions per elaborar @ref{Bug reports}.}
 
 @divEnd
 
@@ -269,9 +267,8 @@ projecte), que els discutirà amb les persones pertinents.
 
 @divEnd
 
-@node Exemples mínims
+@node Tiny examples
 @unnumberedsec Exemples mínims
-@translationof Tiny examples
 
 @divClass{column-center-top}
 @subheading ¿Qué són els @qq{exemples mínims}?
@@ -387,9 +384,8 @@ corrent és que hi hagi prou amb 4 línies per mostrar el problema!
 @divEnd
 
 
-@node Informes de fallades
+@node Bug reports
 @unnumberedsec Informes de fallades
-@translationof Bug reports
 
 @divClass{heading-center}
 Si té un codi d'entrada que produeix una terminació abrupta o una
@@ -419,7 +415,7 @@ aquest informe.}
 Si heu descobert una fallada que no estigui a la llista,
 ajudeu-nos elaborant un informe de fallada.
 
-@warning{Sols acceptem informes en forma de @ref{Exemples mínims}.
+@warning{Sols acceptem informes en forma de @ref{Tiny examples}.
 Disposem de recursos molt limitats, per la qual cosa qualsevol
 exemple que no sigui mínim serà rebutjats.  Gairebé totes les
 fallades es poden demostrar amb quatre notes o menys!}
@@ -485,9 +481,8 @@ amb altres eines) que mostrin l'aspecte que creieu que ha de tenir!
 @divEnd
 
 
-@node Presteu la vostra ajuda
+@node Help us
 @unnumberedsec Presteu la vostra ajuda
-@translationof Help us
 
 @divClass{column-center-top}
 @helpusNeed
@@ -507,9 +502,8 @@ amb altres eines) que mostrin l'aspecte que creieu que ha de tenir!
 @divEnd
 
 
-@node Patrocini
+@node Sponsoring
 @unnumberedsec Patrocini
-@translationof Sponsoring
 
 @divClass{keep-bullets}
 @divClass{column-left-top}
@@ -551,9 +545,8 @@ tipus de qüestions es resolguin abans que comenci qualsevol feina.
 @divEnd
 @divEnd
 
-@node Desenvolupament
+@node Development
 @unnumberedsec Desenvolupament
-@translationof Development
 
 @divClass{heading-center}
 @heading Materials de desenvolupament per al LilyPond @versionDevel
@@ -788,7 +781,6 @@ manuals més recents estan a @url{https://lilypond.org}}
 
 @node GSoC 2012
 @unnumberedsec GSoC 2012
-@translationof GSoC 2012
 
 @divClass{column-center-top}
 @subheading Què és el Google Summer of Code (Estiu del Codi del Google)?
@@ -959,9 +951,8 @@ que introduís més advertiments dels que hi ha actualment.
 @divEnd
 
 
-@node Autors
+@node Authors
 @unnumberedsec Autors
-@translationof Authors
 
 @divClass{column-left-top}
 @subheading Equip de desenvolupament actual
@@ -1035,9 +1026,8 @@ que introduís més advertiments dels que hi ha actualment.
 @divEnd
 @divEnd
 
-@node Publicacions
+@node Publications
 @unnumberedsec Publicacions
-@translationof Publications
 
 @divClass{column-center-top}
 @subheading El que nosaltres hem escrit sobre el LilyPond
@@ -1062,21 +1052,19 @@ que introduís més advertiments dels que hi ha actualment.
 @contactUsAbout{articles acadèmics}
 
 
-@node Notícies antigues
+@node News
 @unnumberedsec Notícies antigues
-@translationof News
 
 @divClass{heading-center}
 @warning{Hi ha molts anuncis i registres de canvi antics a les
-@ref{Golfes}}
+@ref{Attic}}
 @divEnd
 
 @include en/web/news-new.itexi
 
 
-@node Golfes
+@node Attic
 @unnumberedsec Golfes
-@translationof Attic
 
 @divClass{column-center-top}
 @subheading Anuncis

@@ -13,9 +13,8 @@
 @c Translation checkers:
 
 
-@node Repeticions
+@node Repeats
 @section Repeticions
-@translationof Repeats
 
 @lilypondfile[quote]{snippets/repeats-headword.ly}
 
@@ -51,13 +50,12 @@ Fer barres de trèmol.
 
 
 @menu
-* Repeticions llargues::
-* Repeticions curtes::
+* Long repeats::
+* Short repeats::
 @end menu
 
-@node Repeticions llargues
+@node Long repeats
 @subsection Repeticions llargues
-@translationof Long repeats
 
 Aquesta secció tracta sobre la forma d'introduir repeticions
 llargues, normalment de diversos compassos.  Les repeticions
@@ -67,9 +65,9 @@ música repetitiva.  També es poden controlar manualment els signes
 de repetició.
 
 @menu
-* Repeticions normals::
-* Marques de repetició manual::
-* Repeticions explícites::
+* Normal repeats::
+* Manual repeat marks::
+* Written-out repeats::
 @end menu
 
 @cindex repeticions normals
@@ -85,9 +83,8 @@ de repetició.
 @funindex \alternative
 @funindex \partial
 
-@node Repeticions normals
+@node Normal repeats
 @unnumberedsubsubsec Repeticions normals
-@translationof Normal repeats
 
 La sintaxi d'una repetició normal és
 
@@ -185,7 +182,7 @@ no obtindrem el nombre de finals esperat.}
 @warning{Si incloem @code{@bs{}relative} dins d'un
 @code{@bs{}repeat} sense instancia el context @code{Voice}
 explícitament, apareixeran pentagrames addicionals no desitjats.
-Vegeu @rprogram{Apareix un pentagrama de més}.}
+Vegeu @rprogramnamed{An extra staff appears, Apareix un pentagrama de més}.}
 
 @cindex repetició con anacrusa
 @cindex anacrusa en repeticions
@@ -322,7 +319,7 @@ l'establiment (en el context Score) de les propietats
 de línia requerit.  Els tipus de línia divisòria alternatius s'han
 de seleccionar a partir dels tipus predefinits o de tipus definits
 anteriorment amb la instrucció @code{\defineBarLine}
-(vegeu @ref{Barres de compàs}).
+(vegeu @ref{Bar lines}).
 
 @lilypond[verbatim,quote]
 \defineBarLine ":|.S[" #'(":|." "S[" "")
@@ -361,10 +358,10 @@ Glossari musical:
 @rglos{volta}.
 
 Referència de la notació:
-@ref{Barres de compàs},
-@ref{Modificació dels connectors (plug-ins) de context},
-@ref{Modificació de lligadures d'unió i d'expressió},
-@ref{Gestió del temps}.
+@ref{Bar lines},
+@ref{Modifying context plug-ins},
+@ref{Modifying ties and slurs},
+@ref{Time administration}.
 
 Fitxers instal·lats:
 @file{ly/engraver-init.ly}.
@@ -403,7 +400,7 @@ D'altres mètodes que poden servir per indicar lligadures que es
 continuen per sobre de diverses notes a les celes de repetició,
 i que també funcionen en contextos de tabulatura @code{TabStaff},
 s'expliquen a
-@ref{Modificació de lligadures d'unió i d'expressió}.
+@ref{Modifying ties and slurs}.
 
 Així mateix, no és possible fer que les lligadures d'expressió es
 repleguin des del final d'una alternativa fins el començament de
@@ -439,9 +436,8 @@ Una repetició niuada com
 interna.  Per més claredat, es recomana usar claus en aquestes
 situacions.
 
-@node Marques de repetició manual
+@node Manual repeat marks
 @unnumberedsubsubsec Marques de repetició manual
-@translationof Manual repeat marks
 
 
 @cindex manual, marca de repetició
@@ -461,7 +457,7 @@ construccions de repetició poc usuals.  A gairebé totes les
 situacions s'han de crear les repeticions utilitzant l'ordre
 estàndard @code{@bs{}repeat} o imprimint les barres de compàs
 corresponents.  Per veure més informació, consulteu
-@ref{Barres de compàs}.}
+@ref{Bar lines}.}
 
 Es pot usar la propietat @code{repeatCommands} per controlar la
 disposició de les repeticions.  El seu valor és una llista de
@@ -531,7 +527,7 @@ Es poden produir diverses ordres de repetició amb el mateix punt:
 
 Es pot incloure text dins de la cela de primera i segona vegada.
 El text pot ser un número o números, o un element de marcatge,
-vegeu @ref{Donar format al text}.  La forma
+vegeu @ref{Formatting text}.  La forma
 més fàcil d'usar text de marcatge és definir el marcatge
 prèviament, i després incloure'l dins d'una llista de l'Scheme.
 
@@ -551,8 +547,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 @morerefs
 Referència de la notació:
-@ref{Barres de compàs},
-@ref{Donar format al text}.
+@ref{Bar lines},
+@ref{Formatting text}.
 
 Fragments de codi:
 @rlsr{Repeats}.
@@ -563,9 +559,8 @@ Referència de funcionament intern:
 @rinternals{VoltaRepeatedMusic}.
 
 
-@node Repeticions explícites
+@node Written-out repeats
 @unnumberedsubsubsec Repeticions explícites
-@translationof Written-out repeats
 
 @cindex explícites, repeticions
 @cindex repeticions explícites
@@ -677,16 +672,16 @@ finals alternatius o sense ells).
 
 Les construccions d'acord es poden repetir mitjançant el símbol de
 repetició d'acords @code{q}.  Vegeu
-@ref{Repetició d'acords}.
+@ref{Chord repetition}.
 
 @warning{Si poseu @code{@bs{}relative} dins d'un bloc
 @code{@bs{}repeat} sense instanciar explícitament el context
 @code{Voice}, apareixeran pentagrames no desitjats.  Vegeu
-@rprogram{Apareix un pentagrama de més}.}
+@rprogramnamed{An extra staff appears, Apareix un pentagrama de més}.}
 
 @morerefs
 Referència de la notació:
-@ref{Repetició d'acords}.
+@ref{Chord repetition}.
 
 Fragments de codi:
 @rlsr{Repeats}.
@@ -696,9 +691,8 @@ Referència de funcionament intern:
 @rinternals{UnfoldedRepeatedMusic}.
 
 
-@node Repeticions curtes
+@node Short repeats
 @subsection Repeticions curtes
-@translationof Short repeats
 
 Aquesta secció tracta de com introduir repeticions curtes.  Les
 repeticions curtes poden adoptar dues formes: barres inclinades o
@@ -706,13 +700,12 @@ signes de percentatge si estem representant repeticions d'una sola
 nota, un compàs o dos compassos, i trèmols en cas contrari.
 
 @menu
-* Repeticions de compàs o part d'ells::
-* Repeticions de trèmol::
+* Percent repeats::
+* Tremolo repeats::
 @end menu
 
-@node Repeticions de compàs o part d'ells
+@node Percent repeats
 @unnumberedsubsubsec Repeticions de compàs o part d'ells
-@translationof Percent repeats
 
 @cindex percentatge, repetició de
 @cindex compàs, repetició de
@@ -832,9 +825,8 @@ compàs.
 @end lilypond
 
 
-@node Repeticions de trèmol
+@node Tremolo repeats
 @unnumberedsubsubsec Repeticions de trèmol
-@translationof Tremolo repeats
 
 @cindex trèmol
 @cindex barres de trèmol

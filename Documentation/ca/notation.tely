@@ -50,19 +50,19 @@ Copyright @copyright{} 1999--2023 pels autors.
 @ifnottex
 
 @menu
-* Notació musical::            Notació que es fa servir a gairebé tots els projectes.
-* Notació especialitzada::     Notació que sols s'usa per a fins específics.
-* Entrada i sortida generals:: Informació general sobre l'entrada i la sortida del LilyPond.
-* Gestió de l'espai::             Presentació del resultat en paper.
-* Canvi dels valors predeterminats::   Ajust fi del resultat
+* Musical notation::            Notació que es fa servir a gairebé tots els projectes.
+* Specialist notation::     Notació que sols s'usa per a fins específics.
+* General input and output:: Informació general sobre l'entrada i la sortida del LilyPond.
+* Spacing issues::             Presentació del resultat en paper.
+* Changing defaults::   Ajust fi del resultat
 
 Annexos
 
-* Taules del manual sobre notació:: Taules i quadres
-* Full de referència ràpida::       Resum de la sintaxi del LilyPond
+* Notation manual tables:: Taules i quadres
+* Cheat sheet::       Resum de la sintaxi del LilyPond
 * GNU Free Documentation License::  Llicència d'aquest document
-* Índex d'ordres del LilyPond::
-* Índex del LilyPond::
+* LilyPond command index::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -90,9 +90,8 @@ Annexos
 @include en/fdl.itexi
 
 
-@node Índex d'ordres del LilyPond
+@node LilyPond command index
 @appendix Índex d'ordres del LilyPond
-@translationof LilyPond command index
 
 Aquest índex fa una relació de totes les ordres i paraules clau
 del LilyPond, amb enllaços a aquelles seccions del manual que
@@ -104,9 +103,8 @@ la qual apareix l'ordre o paraula clau.
 
 @printindex ky
 
-@node Índex del LilyPond
+@node LilyPond index
 @appendix Índex del LilyPond
-@translationof LilyPond index
 
 A més de totes les ordres i paraules clau del LilyPond, aquest
 índex és una llista de termes musicals i les paraules que tenen

@@ -13,37 +13,34 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Percussió
+@node Percussion
 @section Percussió
-@translationof Percussion
 
 @menu
-* Notació comuna per a percussió::
+* Common notation for percussion::
 @end menu
 
 
-@node Notació comuna per a percussió
+@node Common notation for percussion
 @subsection Notació comuna per a percussió
-@translationof Common notation for percussion
 
 La notació rítmica es fa servir principalment per a la percussió i
 la bateria, però també es pot utilitzar per mostrar els valors
 rítmics d'una melodia.
 
 @menu
-* Referències per a percussió::
-* Notació bàsica de percussió::
-* Redoblaments::
-* Percussió afinada::
-* Pautes de percussió::
-* Pautes de percussió personalitzades::
-* Notes fantasma::
+* References for percussion::
+* Basic percussion notation::
+* Drum rolls::
+* Pitched percussion::
+* Percussion staves::
+* Custom percussion staves::
+* Ghost notes::
 @end menu
 
 
-@node Referències per a percussió
+@node References for percussion
 @unnumberedsubsubsec Referències per a percussió
-@translationof References for percussion
 
 @c TODO add more references.
 
@@ -52,28 +49,27 @@ rítmics d'una melodia.
 @item
 La notació d'algunes percussions es pot fer sobre una pauta de
 ritme; això s'estudia a
-@ref{Mostrar els ritmes de la melodia} i
-@ref{Creació d'instàncies de pentagrames nous}.
+@ref{Showing melody rhythms} i
+@ref{Instantiating new staves}.
 
 @item
 La sortida MIDI es tracta a una secció a part; vegeu
-@ref{Instruments MIDI}.
+@ref{MIDI instruments}.
 
 @end itemize
 
 @morerefs
 Referència de la notació:
-@ref{Mostrar els ritmes de la melodia},
-@ref{Creació d'instàncies de pentagrames nous},
-@ref{Instruments MIDI}.
+@ref{Showing melody rhythms},
+@ref{Instantiating new staves},
+@ref{MIDI instruments}.
 
 Fragments de codi:
 @rlsr{Percussion}.
 
 
-@node Notació bàsica de percussió
+@node Basic percussion notation
 @unnumberedsubsubsec Notació bàsica de percussió
-@translationof Basic percussion notation
 
 @cindex percussió
 @cindex bateria
@@ -101,7 +97,7 @@ Això és una abreviatura de
 Cada element d'un conjunt de percussió porta un nom complet i un
 nom abreujat, i les dues es poden usar a l'entrada.  La llista
 completa de noms d'instruments de percussió es troben a
-@ref{Notes de percussió}.
+@ref{Percussion notes}.
 
 @cindex clau de percussió
 @cindex percussió, clau
@@ -123,12 +119,12 @@ establir explícitament o utilitzar altres claus.
 
 Hi ha certs detalls respecte a com s'incorpora el MIDI per als
 instruments de percussió; per veure els detalls, consulteu
-@ref{Instruments MIDI}.
+@ref{MIDI instruments}.
 
 @morerefs
 Referència de la notació:
-@ref{Instruments MIDI},
-@ref{Notes de percussió}.
+@ref{MIDI instruments},
+@ref{Percussion notes}.
 
 Fitxers d'inici:
 @file{ly/drumpitch-init.ly}.
@@ -137,9 +133,8 @@ Fragments de codi:
 @rlsr{Percussion}.
 
 
-@node Redoblaments
+@node Drum rolls
 @unnumberedsubsubsec Redoblaments
-@translationof Drum rolls
 
 Els redoblaments s'indiquen mitjançant tres barres creuades a la
 plica.  Per a les negres o notes més llargues, les tres barres es
@@ -147,7 +142,7 @@ mostren explícitament, les corxeres es presenten amb dues barres
 creuades (sent la barra de corxera la tercera), i els redoblament
 més breus que les corxeres tenen una barra creuada per
 complementar les barres normals.  Això s'aconsegueix mitjançant la
-notació de trèmol, vegeu @ref{Repeticions de trèmol}.
+notació de trèmol, vegeu @ref{Tremolo repeats}.
 
 @lilypond[quote,verbatim]
 \drums {
@@ -162,7 +157,7 @@ notació de trèmol, vegeu @ref{Repeticions de trèmol}.
 Els cops de baqueta es poden indicar mitjançant la col·locació
 dels elements de marcatge @code{"R"} o @code{"L"} a sobre o a sota
 de les notes, com s'estudia a
-@ref{Direcció i posició}.  La
+@ref{Direction and placement}.  La
 propietat @code{staff-padding} es pot sobreescriure, per
 aconseguir una línia de base satisfactòria.
 
@@ -178,15 +173,14 @@ aconseguir una línia de base satisfactòria.
 
 @morerefs
 Referència de la notació:
-@ref{Repeticions de trèmol}.
+@ref{Tremolo repeats}.
 
 Fragments de codi:
 @rlsr{Percussion}.
 
 
-@node Percussió afinada
+@node Pitched percussion
 @unnumberedsubsubsec Percussió afinada
-@translationof Pitched percussion
 
 Certs instruments de percussió d'alçada determinada (per exemple:
 el xilòfon, el vibràfon i els timbals) s'escriuen usant
@@ -195,15 +189,14 @@ manual.
 
 @morerefs
 Referència de la notació:
-@ref{Instruments MIDI}.
+@ref{MIDI instruments}.
 
 Fragments de codi:
 @rlsr{Percussion}.
 
 
-@node Pautes de percussió
+@node Percussion staves
 @unnumberedsubsubsec Pautes de percussió
-@translationof Percussion staves
 
 @cindex percussió
 @cindex bateria
@@ -228,7 +221,7 @@ down = \drummode {
 @end lilypond
 
 L'exemple anterior mostra una notació polifònica completa.  La
-notació polifònica abreujada, descrita a @rlearning{Sento veus},
+notació polifònica abreujada, descrita a @rlearningnamed{I'm hearing Voices, Sento veus},
 també es pot fer servir.  Per exemple,
 
 @lilypond[quote,verbatim]
@@ -421,9 +414,8 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end table
 
 
-@node Pautes de percussió personalitzades
+@node Custom percussion staves
 @unnumberedsubsubsec Pautes de percussió personalitzades
-@translationof Custom percussion staves
 
 Si no us agrada cap de les llistes predefinides, podeu definir la
 vostra pròpia llista al principi del vostre fitxer.
@@ -491,7 +483,7 @@ la línia divisòria amb @code{\override Staff.BarLine.bar-extent
 #'(de . a)}.  En cas contrari resulta massa curta.  També heu de
 definir les posicions de les dues línies del pentagrama.  Per a
 més informació sobre aquests temes delicats, consulteu
-@ref{El símbol del pentagrama}.
+@ref{Staff symbol}.
 
 Una pandereta, escrita mitjaç+ant @q{tamb} (@emph{tambourine}):
 
@@ -622,13 +614,12 @@ Referència de funcionament intern:
 
 
 @c FIXME: check name -gp
-@node Notes fantasma
+@node Ghost notes
 @unnumberedsubsubsec Notes fantasma
-@translationof Ghost notes
 
 Les notes fantasma per a la bateria i instruments de percussió es
 poden crear utilitzant l'ordre @code{\parenthesize} detallada a
-@ref{Parèntesis}.
+@ref{Parentheses}.
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff

@@ -13,9 +13,8 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Notació d'acords
+@node Chord notation
 @section Notació d'acords
-@translationof Chord notation
 
 @lilypondfile[quote]{snippets/chords-headword.ly}
 
@@ -25,15 +24,14 @@ d'acords.  També es poden imprimir els noms dels acords.  A més a
 més es pot imprimir notació de baix xifrat.
 
 @menu
-* Mode d'acords::
-* Impressió dels acords::
-* Baix xifrat::
+* Chord mode::
+* Displaying chords::
+* Figured bass::
 @end menu
 
 
-@node Mode d'acords
+@node Chord mode
 @subsection Mode d'acords
-@translationof Chord mode
 
 @cindex mode d'acords
 
@@ -42,15 +40,14 @@ indicador de l'estructura de l'acord enlloc de l'alçada de les
 seves notes.
 
 @menu
-* Panoràmica del mode d'acords::
-* Acords més usuals::
-* Acords estesos i alterats::
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
 @end menu
 
 
-@node Panoràmica del mode d'acords
+@node Chord mode overview
 @unnumberedsubsubsec Panoràmica del mode d'acords
-@translationof Chord mode overview
 
 @cindex acords, noms de
 @cindex acords, mode de
@@ -59,7 +56,7 @@ seves notes.
 @cindex jazz, acords de
 
 Els acords es poden escriure com a música simultània, com
-s'explica a @ref{Notes a un acord}.
+s'explica a @ref{Chorded notes}.
 
 També es poden escriure els acords al @qq{mode d'acords}, que és
 un mode d'entrada que se centra en les estructures dels acords
@@ -67,7 +64,7 @@ dins de la música europea tradicional (on es coneix com «xifrat
 americà») més que en les notes concretes.  Això és molt pràctic
 per als que estan familiaritzats amb la utilització de noms per
 descriure els acords.  Hi ha més informació sobre els diferents
-modes d'entrada a @ref{Modes d'entrada}.
+modes d'entrada a @ref{Input modes}.
 
 @lilypond[verbatim,quote,ragged-right]
 \chordmode { c1 g a g c }
@@ -97,8 +94,8 @@ Glossari musical:
 @rglos{chord}.
 
 Referència de la notació:
-@ref{Notes a un acord},
-@ref{Modes d'entrada}.
+@ref{Chorded notes},
+@ref{Input modes}.
 
 Fragments de codi:
 @rlsr{Chords}.
@@ -106,12 +103,11 @@ Fragments de codi:
 @knownissues
 No es poden usar les abreviatures predefinides d'articulacions i
 adorns sobre notes dins del mode d'acords; vegeu
-@ref{Articulacions i ornaments}.
+@ref{Articulations and ornamentations}.
 
 
-@node Acords més usuals
+@node Common chords
 @unnumberedsubsubsec Acords més usuals
-@translationof Common chords
 
 @cindex triades
 @cindex sèptima, acords de
@@ -152,7 +148,7 @@ de l'acord de sèptima dominant l'acord bàsic de sèptima.  Totes
 les alteracions es consideren en relació amb la sèptima
 dominant. Hi ha una taula més completa on apareixen els usos dels
 modificadors a
-@ref{Modificadors d'acord més usuals}.
+@ref{Common chord modifiers}.
 
 @c @table @code
 @multitable @columnfractions .2 .4 .3
@@ -232,8 +228,8 @@ utilitzeu aquest modificador per crear una triada major.
 
 @morerefs
 Referència de la notació:
-@ref{Modificadors d'acord més usuals},
-@ref{Acords estesos i alterats}.
+@ref{Common chord modifiers},
+@ref{Extended and altered chords}.
 
 Fragments de codi:
 @rlsr{Chords}.
@@ -244,11 +240,10 @@ la nota més aguda de l'acord.  Els acords amb més d'un modificador
 es processen sense produir errors ni advertiments, però el
 resultat és imprescindible.  Els acords que no es poden aconseguir
 amb un sols modificador s'han d'alterar en les seves notes
-individuals com es descriu a @ref{Acords estesos i alterats}.
+individuals com es descriu a @ref{Extended and altered chords}.
 
-@node Acords estesos i alterats
+@node Extended and altered chords
 @unnumberedsubsubsec Acords estesos i alterats
-@translationof Extended and altered chords
 
 @cindex acords estesos
 @cindex acords alterats
@@ -384,11 +379,11 @@ moure-la per efecte d'una inversió, mitjançant l'ús de
 
 Els modificadors d'acord que es poden fer servir per produir una
 àmplia varietat d'acords estàndard es mostren a
-@ref{Modificadors d'acord més usuals}.
+@ref{Common chord modifiers}.
 
 @morerefs
 Referencia de la notación:
-@ref{Modificadors d'acord més usuals}.
+@ref{Common chord modifiers}.
 
 Fragments de codi:
 @rlsr{Chords}.
@@ -403,22 +398,20 @@ s'interpreta en últim lloc.
 @end lilypond
 
 
-@node Impressió dels acords
+@node Displaying chords
 @subsection Impressió dels acords
-@translationof Displaying chords
 
 Els acords es poden imprimir pel seu nom, a més de la impressió
 estàndard com a notes sobre un pentagrama.
 
 @menu
-* Impressió dels noms d'acord::
-* Noms d'acord personalitzats::
+* Printing chord names::
+* Customizing chord names::
 @end menu
 
 
-@node Impressió dels noms d'acord
+@node Printing chord names
 @unnumberedsubsubsec Impressió dels noms d'acord
-@translationof Printing chord names
 
 @cindex impressió dels noms d'acord
 @cindex acords, noms de
@@ -522,7 +515,7 @@ Glossari musical:
 @rglos{chord}.
 
 Referència de la notació:
-@ref{Escriptura de música en paral·lel}.
+@ref{Writing music in parallel}.
 
 Fragments de codi:
 @rlsr{Chords}.
@@ -539,9 +532,8 @@ Els acords que contenen inversions o baixos alterats no reben un
 nom adequat si s'escriuen usant música simultània.
 
 
-@node Noms d'acord personalitzats
+@node Customizing chord names
 @unnumberedsubsubsec Noms d'acord personalitzats
-@translationof Customizing chord names
 
 @cindex personalització dels noms d'acord
 
@@ -562,7 +554,7 @@ També funcionen d'altres dos esquemes de nomenclatura d'acords:
 una notació d'acords de Jazz alternativa i un esquema sistemàtic
 anomenat Acords de Banter.  La notació de Jazz alternativa també
 es pot veure al
-@ref{Taula de noms d'acords}.
+@ref{Chord name chart}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
@@ -765,8 +757,8 @@ l'acord està alterat.
 
 @morerefs
 Referència de la notació:
-@ref{Taula de noms d'acords},
-@ref{Modificadors d'acord més usuals}.
+@ref{Chord name chart},
+@ref{Common chord modifiers}.
 
 L'assaig sobre gravat musical automatitzat:
 @ressaynamed{Literature list,Llista de referències bibligràfiques}.
@@ -799,9 +791,8 @@ myChords = \relative c' {
 @end lilypond
 
 
-@node Baix xifrat
+@node Figured bass
 @subsection Baix xifrat
-@translationof Figured bass
 
 @c Line width hack because of instrument names
 @lilypondfile[quote,staffsize=18,line-width=14.5\cm]{snippets/figured-bass-headword.ly}
@@ -809,15 +800,14 @@ myChords = \relative c' {
 Es pot imprimir notació de baix xifrat.
 
 @menu
-* Introducció al baix xifrat::
-* Introduir el baix xifrat::
-* Impressió del baix xifrat::
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
 @end menu
 
 
-@node Introducció al baix xifrat
+@node Introduction to figured bass
 @unnumberedsubsubsec Introducció al baix xifrat
-@translationof Introduction to figured bass
 
 @cindex Basso continuo
 @cindex Baix xifrat
@@ -873,13 +863,12 @@ Fragments de codi:
 @rlsr{Chords}.
 
 
-@node Introduir el baix xifrat
+@node Entering figured bass
 @unnumberedsubsubsec Introduir el baix xifrat
-@translationof Entering figured bass
 
 S'usa @code{\figuremode} per canviar el mode d'entrada al mode de
 xifres.  Hi ha més informació sobre els diferents modes d'entrada
-a @ref{Modes d'entrada}.
+a @ref{Input modes}.
 
 En el mode de xifres, un grup de xifres del baix està delimitat
 mitjançant angles simples, @code{<} y @code{>}.  La duració
@@ -1069,9 +1058,8 @@ Referència de funcionament intern:
 @rinternals{FiguredBass}.
 
 
-@node Impressió del baix xifrat
+@node Displaying figured bass
 @unnumberedsubsubsec Impressió del baix xifrat
-@translationof Displaying figured bass
 
 El baix xifrat es pot imprimir usant el context
 @code{FiguredBass}, o dins de la majoria dels contextos de

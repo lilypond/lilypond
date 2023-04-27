@@ -12,9 +12,8 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Música contemporània
+@node Contemporary music
 @section Música contemporània
-@translationof Contemporary music
 
 A partir de començament del segle XX s'ha produït una expansió
 massiva dels estils i tècniques composicionals.  Els nous
@@ -26,49 +25,46 @@ secció es proporcionar referències i informació rellevant per al
 treball amb aquestes noves tècniques de notació.
 
 @menu
-* Tonalitat i harmonia en la música contemporània::
-* Enfocaments contemporanis del ritme::
-* Notació gràfica::
-* Tècniques de partitura contemporània::
-* Noves tècniques instrumentals::
-* Lectures addicionals i partitures d'interès::
+* Pitch and harmony in contemporary music::
+* Contemporary approaches to rhythm::
+* Graphical notation::
+* Contemporary scoring techniques::
+* New instrumental techniques::
+* Further reading and scores of interest::
 @end menu
 
 
-@node Tonalitat i harmonia en la música contemporània
+@node Pitch and harmony in contemporary music
 @subsection Alçada i harmonia en la música contemporània
-@translationof Pitch and harmony in contemporary music
 
 Aquesta secció destaca els problemes de la notació de les
 tonalitats i l'harmonia en la música contemporània.
 
 @menu
-* Referències per a tonalitats i harmonia en música contemporània::
-* Notació microtonal::
-* Harmonia i armadures de tonalitat contemporània::
+* References for pitch and harmony in contemporary music::
+* Microtonal notation::
+* Contemporary key signatures and harmony::
 @end menu
 
 
-@node Referències per a tonalitats i harmonia en música contemporània
+@node References for pitch and harmony in contemporary music
 @unnumberedsubsubsec Referències per a tonalitats i harmonia en música contemporània
-@translationof References for pitch and harmony in contemporary music
 
 @itemize
 @item La notació estàndard de quarts de to s'estudia a
-@ref{Noms de les notes en altres llengües}.
+@ref{Note names in other languages}.
 
 @item Les armadures de tonalitat no estàndard s'estudien a
-@ref{Armadura de la tonalitat}.
+@ref{Key signature}.
 
 @item Les pràctiques contemporànies en la presentació de les alteracions
-accidentals s'estudien a @ref{Alteracions accidentals automàtiques}.
+accidentals s'estudien a @ref{Automatic accidentals}.
 
 @end itemize
 
 
-@node Notació microtonal
+@node Microtonal notation
 @unnumberedsubsubsec Notació microtonal
-@translationof Microtonal notation
 
 @ignore
     Discussion of microtones other than quarter-tones, alternative
@@ -76,9 +72,8 @@ notations (arrows, slash-flats), etc.
 @end ignore
 
 
-@node Harmonia i armadures de tonalitat contemporània
+@node Contemporary key signatures and harmony
 @unnumberedsubsubsec Harmonia i armadures de tonalitat contemporània
-@translationof Contemporary key signatures and harmony
 
 @ignore
     Discussion of contemporary key signatures:
@@ -86,47 +81,44 @@ notations (arrows, slash-flats), etc.
 @end ignore
 
 
-@node Enfocaments contemporanis del ritme
+@node Contemporary approaches to rhythm
 @subsection Enfocaments contemporanis del ritme
-@translationof Contemporary approaches to rhythm
 
 Aquesta secció tracta dels problemes de la notació de les
 duracions a la música contemporània.
 
 @menu
-* Referències per a enfocaments contemporanis del ritme::
-* Grups de valoració especial a la música contemporània::
-* Compassos contemporanis::
-* Notació polimètrica estesa::
-* Barrat en música contemporània::
-* Línies divisòries a la música contemporània::
+* References for contemporary approaches to rhythm::
+* Tuplets in contemporary music::
+* Contemporary time signatures::
+* Extended polymetric notation::
+* Beams in contemporary music::
+* Bar lines in contemporary music::
 @end menu
 
 
-@node Referències per a enfocaments contemporanis del ritme
+@node References for contemporary approaches to rhythm
 @unnumberedsubsubsec  Referències per a enfocaments contemporanis del ritme
-@translationof References for contemporary approaches to rhythm
 
 @itemize
 @item Els tipus de compàs d'amalgama s'estudien a
-@ref{Indicació de compàs}.
+@ref{Time signature}.
 
 @item La notació polimètrica bàsica s'estudia en
-@ref{Notació polimètrica}.
+@ref{Polymetric notation}.
 
 @item Las barres en angles progressives s'estudien a
-@ref{Barres progressives}.
+@ref{Feathered beams}.
 
 @item Les línies divisòries d'estil Mensurstriche (línies que
 estan sols entre els pentagrames) s'estudien a
-@ref{Agrupament de pentagrames}.
+@ref{Grouping staves}.
 
 @end itemize
 
 
-@node Grups de valoració especial a la música contemporània
+@node Tuplets in contemporary music
 @unnumberedsubsubsec Grups de valoració especial a la música contemporània
-@translationof Tuplets in contemporary music
 
 @ignore
     Extended discussion of modern tuplets, including
@@ -137,9 +129,8 @@ estan sols entre els pentagrames) s'estudien a
 @end ignore
 
 
-@node Compassos contemporanis
+@node Contemporary time signatures
 @unnumberedsubsubsec Compassos contemporanis
-@translationof Contemporary time signatures
 
 @ignore
     Extended discussion of compound time signatures
@@ -152,9 +143,8 @@ estan sols entre els pentagrames) s'estudien a
 @end ignore
 
 
-@node Notació polimètrica estesa
+@node Extended polymetric notation
 @unnumberedsubsubsec Notació polimètrica estesa
-@translationof Extended polymetric notation
 
 @ignore
     Extended examples e.g. different instruments
@@ -162,9 +152,8 @@ estan sols entre els pentagrames) s'estudien a
 @end ignore
 
 
-@node Barrat en música contemporània
+@node Beams in contemporary music
 @unnumberedsubsubsec Barrat en música contemporània
-@translationof Beams in contemporary music
 
 @ignore
     Beaming practises, stemlets, Boulez-esque displaying
@@ -172,9 +161,8 @@ estan sols entre els pentagrames) s'estudien a
 @end ignore
 
 
-@node Línies divisòries a la música contemporània
+@node Bar lines in contemporary music
 @unnumberedsubsubsec Línies divisòries a la música contemporània
-@translationof Bar lines in contemporary music
 
 
 @ignore
@@ -182,37 +170,32 @@ estan sols entre els pentagrames) s'estudien a
 @end ignore
 
 
-@node Notació gràfica
+@node Graphical notation
 @subsection Notació gràfica
-@translationof Graphical notation
 
 
-@node Tècniques de partitura contemporània
+@node Contemporary scoring techniques
 @subsection Tècniques de partitura contemporània
-@translationof Contemporary scoring techniques
 
 
-@node Noves tècniques instrumentals
+@node New instrumental techniques
 @subsection Noves tècniques instrumentals
-@translationof New instrumental techniques
 
 
-@node Lectures addicionals i partitures d'interès
+@node Further reading and scores of interest
 @subsection Lectures addicionals i partitures d'interès
-@translationof Further reading and scores of interest
 
 Aquesta secció suggereix llibres, exemples musicals i altres
 recursos d'utilitat a l'estudi de la notació musical contemporània.
 
 @menu
-* Llibres i articles sobre notació musical contemporània::
-* Partitures i exemples musicals::
+* Books and articles on contemporary musical notation::
+* Scores and musical examples::
 @end menu
 
 
-@node Llibres i articles sobre notació musical contemporània
+@node Books and articles on contemporary musical notation
 @unnumberedsubsubsec Llibres i articles sobre notació musical contemporània
-@translationof Books and articles on contemporary musical notation
 
 @itemize
 @item
@@ -230,9 +213,8 @@ de Kurt Stone [W. W. Norton, 1980]
 @end itemize
 
 
-@node Partitures i exemples musicals
+@node Scores and musical examples
 @unnumberedsubsubsec Partitures i exemples musicals
-@translationof Scores and musical examples
 
 @ignore
     Rough list of composers whose work could be included

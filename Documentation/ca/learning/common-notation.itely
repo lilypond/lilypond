@@ -26,67 +26,62 @@ Tutorial guidelines:  (different from policy.txt!)
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Notació corrent
+@node Common notation
 @chapter Notació corrent
-@translationof Common notation
 
 Aquest capítol explica com crear boniques partitures que
 continguin notació musical comú, com a continuació al material que
 està al @ref{Tutorial}.
 
 @menu
-* Notació en un sol pentagrama::
-* Diverses notes a l'hora::
-* Cançons::
-* Retocs finals::
+* Single staff notation::
+* Multiple notes at once::
+* Songs::
+* Final touches::
 @end menu
 
 
-@node Notació en un sol pentagrama
+@node Single staff notation
 @section Notació en un sol pentagrama
-@translationof Single staff notation
 
 Aquesta secció presenta la notació comú que s'utilitza per a
 música a una veu sobre un pentagrama únic.
 
 @menu
-* Línies divisòries i comprovacions de compàs::
-* Alteracions accidentals i armadures::
-* Lligadures d'unió i d'expressió::
-* Articulacions i matisos dinàmics::
-* Addició de text::
-* Barres automàtiques i manuals::
-* Instruccions rítmiques avançades::
+* Bar lines and bar checks::
+* Pitches and key signatures::
+* Ties and slurs::
+* Articulation and dynamics::
+* Adding text::
+* Automatic and manual beams::
+* Advanced rhythmic commands::
 @end menu
 
 
-@node Línies divisòries i comprovacions de compàs
+@node Bar lines and bar checks
 @subsection Línies divisòries i comprovacions de compàs
-@translationof Bar lines and bar checks
 
 @menu
-* Línies divisòries::
-* Comprovacions de compàs::
+* Bar lines::
+* Bar checks::
 @end menu
 
-@node Línies divisòries
+@node Bar lines
 @unnumberedsubsubsec Línies divisòries
-@translationof Bar lines
 
 Les línies de compàs senzilles es dibuixen automàticament a la
 música, per la qual cosa no s'han d'afegir de forma manual.
 Altres tipus de barres de compàs s'afegeixen usant @code{\bar}, per
 exemple @code{\bar "||"} per a una doble barra, o @code{\bar "|."}
 per a la doble barra final.  Per veure una llista completa de les
-línies divisòries, consulteu @rnotation{Barres de compàs}.
+línies divisòries, consulteu @rnotationnamed{Bar lines, Barres de compàs}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
 @end lilypond
 
-@node Comprovacions de compàs
+@node Bar checks
 @unnumberedsubsubsec Comprovacions de compàs
-@translationof Bar checks
 
 Tot i que no es estrictament necessari, és convenient utilitzar
 @emph{comprovacions de compàs} dins del codi d'entrada per a
@@ -121,16 +116,15 @@ que falta al compàs 3.
 
 @morerefs
 Referència de la notació:
-@rnotation{Comprovació de compàs i de número de compàs}.
+@rnotationnamed{Bar and bar number checks, Comprovació de compàs i de número de compàs}.
 
-@node Alteracions accidentals i armadures
+@node Pitches and key signatures
 @subsection Alteracions accidentals i armadures
-@translationof Pitches and key signatures
 
 @menu
-* Alteracions accidentals::
-* Armadures::
-* Advertiment armadures i altures::
+* Accidentals::
+* Key signatures::
+* Warning key signatures and pitches::
 @end menu
 
 @warning{Freqüentment els nous usuaris es confonen amb les
@@ -138,9 +132,8 @@ alteracions accidentals: us preguem que llegeixi l'advertiment que
 apareix al final d'aquesta secció, especialment si no teniu
 familiaritat amb la teoria musical!}
 
-@node Alteracions accidentals
+@node Accidentals
 @unnumberedsubsubsec Alteracions accidentals
-@translationof Accidentals
 
 @cindex accidentals, alteracions
 @cindex alteracions
@@ -175,7 +168,7 @@ bemol} es fa afegint @code{isis} o @code{eses}.  Aquesta sintaxi
 deriva de les convencions de nomenclatura de les notes en les
 llengües nòrdiques i germàniques com l'alemany i l'holandès.  Per
 utilitzar altres noms per a les @notation{alteracions
-accidentals}, vegeu @rnotation{Noms de les notes en altres llengües}.
+accidentals}, vegeu @rnotationnamed{Note names in other languages, Noms de les notes en altres llengües}.
 
 @lilypond[verbatim,quote]
 \relative { cis''4 ees fisis, aeses }
@@ -183,9 +176,8 @@ accidentals}, vegeu @rnotation{Noms de les notes en altres llengües}.
 
 @cindex tonalitat, armadura de la, establir
 
-@node Armadures
+@node Key signatures
 @unnumberedsubsubsec Armadures
-@translationof Key signatures
 
 @cindex tonalitat, armadura de
 @cindex armadura
@@ -217,9 +209,8 @@ a1 |
 
 @smallspace
 
-@node Advertiment armadures i altures
+@node Warning key signatures and pitches
 @unnumberedsubsubsec Advertiment: armadures i altures
-@translationof Warning key signatures and pitches
 
 Glossari musical:
 @rglos{accidental},
@@ -278,19 +269,18 @@ Posar totes les alteracions de forma explícita pot requerir
 quelcom més de feina en teclejar, però l'avantatge és que la
 @notation{transposició} és més fàcil, i les alteracions es poden
 imprimir seguint diverses convencions diferents.  Consulteu
-@rnotation{Alteracions accidentals automàtiques} per veure exemple de
+@rnotationnamed{Automatic accidentals, Alteracions accidentals automàtiques} per veure exemple de
 com es poden imprimir les alteracions d'acord amb regles diferents.
 
 @morerefs
 Referència de la notació:
-@rnotation{Noms de les notes en altres llengües},
-@rnotation{Alteracions accidentals},
-@rnotation{Alteracions accidentals automàtiques},
-@rnotation{Armadura de la tonalitat}.
+@rnotationnamed{Note names in other languages, Noms de les notes en altres llengües},
+@rnotationnamed{Accidentals, Alteracions accidentals},
+@rnotationnamed{Automatic accidentals, Alteracions accidentals automàtiques},
+@rnotationnamed{Key signature, Armadura de la tonalitat}.
 
-@node Lligadures d'unió i d'expressió
+@node Ties and slurs
 @subsection Lligadures d'unió i d'expressió
-@translationof Ties and slurs
 
 @cindex lligadura d'unió
 @cindex lligadura d'expressió
@@ -302,15 +292,14 @@ Referència de la notació:
 @funindex \( ... \)
 
 @menu
-* Lligadures d'unió::
-* Lligadures d'expressió::
-* Lligadures de fraseig::
-* Advertiments lligadures d'expressió en front a lligadures d'unió::
+* Ties::
+* Slurs::
+* Phrasing slurs::
+* Warnings slurs vs ties::
 @end menu
 
-@node Lligadures d'unió
+@node Ties
 @unnumberedsubsubsec Lligadures d'unió
-@translationof Ties
 
 Glossari musical:
 @rglos{tie}.
@@ -322,9 +311,8 @@ d'accent @code{~} a la primera nota lligada:
 \relative { g'4~ 4 c2~ | 4~ 8 a~ 2 | }
 @end lilypond
 
-@node Lligadures d'expressió
+@node Slurs
 @unnumberedsubsubsec Lligadures d'expressió
-@translationof Slurs
 
 Glossari musical:
 @rglos{slur}.
@@ -337,9 +325,8 @@ mitjançant @code{(} y @code{)} respectivament.
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
 @end lilypond
 
-@node Lligadures de fraseig
+@node Phrasing slurs
 @unnumberedsubsubsec Lligadures de fraseig
-@translationof Phrasing slurs
 
 Glossari musical:
 @rglos{slur},
@@ -359,9 +346,8 @@ d'expressió simultànies.
 
 @cindex lligadures d'expressió en front a lligadures d'unió
 
-@node Advertiments lligadures d'expressió en front a lligadures d'unió
+@node Warnings slurs vs ties
 @unnumberedsubsubsec Advertiments: lligadures d'expressió en front a lligadures d'unió
-@translationof Warnings slurs vs ties
 
 Glossari musical:
 @rglos{articulation},
@@ -384,23 +370,21 @@ altres.
 
 @morerefs
 Referència de la notació:
-@rnotation{Lligadures d'unió},
-@rnotation{Lligadures d'expressió},
-@rnotation{Lligadures de fraseig}.
+@rnotationnamed{Ties, Lligadures d'unió},
+@rnotationnamed{Slurs, Lligadures d'expressió},
+@rnotationnamed{Phrasing slurs, Lligadures de fraseig}.
 
-@node Articulacions i matisos dinàmics
+@node Articulation and dynamics
 @subsection Articulacions i matisos dinàmics
-@translationof Articulation and dynamics
 
 @menu
-* Articulacions::
-* Indicacions de digitació::
-* Matisos dinàmics::
+* Articulations::
+* Fingerings::
+* Dynamics::
 @end menu
 
-@node Articulacions
+@node Articulations
 @unnumberedsubsubsec Articulacions
-@translationof Articulations
 
 @cindex articulació
 @cindex accent
@@ -419,9 +403,8 @@ notes utilitzant un guió @code{-} seguit d'un caràcter únic:
 }
 @end lilypond
 
-@node Indicacions de digitació
+@node Fingerings
 @unnumberedsubsubsec Indicacions de digitació
-@translationof Fingerings
 
 @cindex digitacions
 
@@ -449,9 +432,8 @@ articulacions.
 \relative { c''4_-^1 d^. f^4_2-> e^-_+ }
 @end lilypond
 
-@node Matisos dinàmics
+@node Dynamics
 @unnumberedsubsubsec Matisos dinàmics
-@translationof Dynamics
 
 @cindex dinàmica, indicacions de
 @cindex matisos
@@ -492,13 +474,12 @@ la instrucció @code{\!}:
 
 @morerefs
 Referència de la notació:
-@rnotation{Articulacions i ornaments},
-@rnotation{Indicacions de digitació},
-@rnotation{Matisos dinàmics}.
+@rnotationnamed{Articulations and ornamentations, Articulacions i ornaments},
+@rnotationnamed{Fingering instructions, Indicacions de digitació},
+@rnotationnamed{Dynamics, Matisos dinàmics}.
 
-@node Addició de text
+@node Adding text
 @subsection Addició de  text
-@translationof Adding text
 
 @cindex text, addició
 @cindex addició de text
@@ -525,12 +506,11 @@ a'2_\markup {
 
 @morerefs
 Referència de la notació:
-@rnotation{Escriptura del text}.
+@rnotationnamed{Writing text, Escriptura del text}.
 
 
-@node Barres automàtiques i manuals
+@node Automatic and manual beams
 @subsection Barres automàtiques i manuals
-@translationof Automatic and manual beams
 
 @cindex barres de corxera
 @cindex barrat
@@ -580,22 +560,20 @@ cop.
 
 @morerefs
 Referència de la notació:
-@rnotation{Barres automàtiques},
-@rnotation{Barres manuals}.
+@rnotationnamed{Automatic beams, Barres automàtiques},
+@rnotationnamed{Manual beams, Barres manuals}.
 
-@node Instruccions rítmiques avançades
+@node Advanced rhythmic commands
 @subsection Instruccions rítmiques avançades
-@translationof Advanced rhythmic commands
 
 @menu
-* Compàs parcial::
-* Grups especials::
-* Notes d'adorn::
+* Partial measure::
+* Tuplets::
+* Grace notes::
 @end menu
 
-@node Compàs parcial
+@node Partial measure
 @unnumberedsubsubsec Compàs parcial
-@translationof Partial measure
 
 @cindex anacrusi
 @cindex compàs parcial
@@ -616,9 +594,8 @@ una anacrusi de negra i @code{\partial 8} de corxera.
 }
 @end lilypond
 
-@node Grups especials
+@node Tuplets
 @unnumberedsubsubsec Grups especials
-@translationof Tuplets
 
 @cindex grups especials
 @cindex tresets
@@ -645,9 +622,8 @@ manera que els @notation{tresets} es fan amb una fracció de 3/2.
 }
 @end lilypond
 
-@node Notes d'adorn
+@node Grace notes
 @unnumberedsubsubsec Notes d'adorn
-@translationof Grace notes
 
 @cindex notes d'adorn
 @cindex acciaccatura
@@ -679,13 +655,12 @@ expressió musical amb la paraula clau @code{\appoggiatura} o
 
 @morerefs
 Referència de la notació:
-@rnotation{Notes d'adorn},
-@rnotation{Grups especials},
-@rnotation{Anacrusis}.
+@rnotationnamed{Grace notes, Notes d'adorn},
+@rnotationnamed{Tuplets, Grups especials},
+@rnotationnamed{Upbeats, Anacrusis}.
 
-@node Diverses notes a l'hora
+@node Multiple notes at once
 @section Diverses notes a l'hora
-@translationof Multiple notes at once
 
 Aquesta secció és una introducció a les notes simultànies:
 diversos instruments, diversos pentagrames per a un sol instrument
@@ -697,17 +672,16 @@ paraula @qq{polifonia} al LilyPond es refereix al fet de tenir més
 d'una veu al mateix pentagrama.
 
 @menu
-* Explicació de les expressions musicals::
-* Diversos pentagrames::
-* Grups de pentagrames::
-* Combinar notes per formar acords::
-* Polifonia a un sol pentagrama::
+* Music expressions explained::
+* Multiple staves::
+* Staff groups::
+* Combining notes into chords::
+* Single staff polyphony::
 @end menu
 
 
-@node Explicació de les expressions musicals
+@node Music expressions explained
 @subsection Explicació de les expressions musicals
-@translationof Music expressions explained
 
 @cindex musical, expressió
 @cindex expressió musical
@@ -715,9 +689,9 @@ d'una veu al mateix pentagrama.
 @cindex musical, expressió, composta
 
 @menu
-* Analogia expressions matemàtiques::
-* Expressions musicals simultànies diversos pentagrames::
-* Expressions musicals simultànies un sol pentagrama::
+* Analogy mathematical expressions::
+* Simultaneous music expressions multiple staves::
+* Simultaneous music expressions single staff::
 @end menu
 
 Als fitxers d'entrada del LilyPond,  la música es representa
@@ -745,9 +719,8 @@ expressió musical:
 \relative { { a'4 g } f4 g }
 @end lilypond
 
-@node Analogia expressions matemàtiques
+@node Analogy mathematical expressions
 @unnumberedsubsubsec Analogia: expressions matemàtiques
-@translationof Analogy mathematical expressions
 
 Aquest mecanisme és semblant a les fórmules matemàtiques: una
 fórmula gran es construeix combinant fórmules petites.  Aquestes
@@ -773,9 +746,8 @@ parèntesis. De la mateixa manera es pot niuar a una profunditat
 arbitrària, el que es fa necessari per a músiques complexes com ara
 les partitures polifòniques.
 
-@node Expressions musicals simultànies diversos pentagrames
+@node Simultaneous music expressions multiple staves
 @unnumberedsubsubsec Expressions musicals simultànies: diversos pentagrames
-@translationof Simultaneous music expressions multiple staves
 
 @cindex diversos pentagrames
 @cindex pentagrames, diversos
@@ -824,9 +796,8 @@ els éssers humans.
 l'entrada, solament la primera és relativa a la @code{c''} dins de
 la instrucció inicial @code{@bs{}relative}.}
 
-@node Expressions musicals simultànies un sol pentagrama
+@node Simultaneous music expressions single staff
 @unnumberedsubsubsec Expressions musicals simultànies: un sol pentagrama
-@translationof Simultaneous music expressions single staff
 
 Per determinar el nombre de pentagrames a una peça, el LilyPond
 examina el començament de la primera expressió.  Si hi ha una sola
@@ -842,9 +813,8 @@ disposa sobre un sols pentagrama.
 }
 @end lilypond
 
-@node Diversos pentagrames
+@node Multiple staves
 @subsection Diversos pentagrames
-@translationof Multiple staves
 
 @cindex diversos pentagrames
 @cindex pentagrames, diversos
@@ -860,7 +830,7 @@ disposa sobre un sols pentagrama.
 @funindex Lyrics
 @funindex ChordNames
 
-Com ja hem vist a @ref{Explicació de les expressions musicals},
+Com ja hem vist a @ref{Music expressions explained},
 els fitxers d'entrada per al LilyPond es construeixen a base
 d'expressions musicals.  Si la partitura comença amb expressions
 musicals simultànies, el LilyPond crea diversos pentagrames.  És
@@ -911,9 +881,8 @@ comunes que les partitures polirítmiques.
 @end lilypond
 
 
-@node Grups de pentagrames
+@node Staff groups
 @subsection Grups de pentagrames
-@translationof Staff groups
 
 @cindex sistema de piano
 @cindex piano, sistema de
@@ -934,7 +903,7 @@ Glossari musical:
 La música per a piano es composa tipogràficament en forma de dos
 pentagrames units mitjançant una @notation{clau}. L'aspecte
 imprès d'aquest sistema de pentagrames se sembla a l'exemple
-polifònic que apareix a @ref{Diversos pentagrames}, però en aquest
+polifònic que apareix a @ref{Multiple staves}, però en aquest
 cas l'expressió completa es col·loca dins d'un @code{PianoStaff}:
 
 @example
@@ -962,12 +931,11 @@ també controla l'abast de les línies divisòries.
 
 @morerefs
 Referència de la notació:
-@rnotation{Teclats i altres instruments de pentagrames múltiples},
-@rnotation{Visualització dels pentagrames}.
+@rnotationnamed{Keyboard and other multi-staff instruments, Teclats i altres instruments de pentagrames múltiples},
+@rnotationnamed{Displaying staves, Visualització dels pentagrames}.
 
-@node Combinar notes per formar acords
+@node Combining notes into chords
 @subsection Combinar notes per formar acords
-@translationof Combining notes into chords
 
 Glossari musical:
 @rglos{chord}.
@@ -1008,12 +976,11 @@ per fora dels angles.
 
 @morerefs
 Referència de la notació:
-@rnotation{Notes a un acord}.
+@rnotationnamed{Chorded notes, Notes a un acord}.
 
 
-@node Polifonia a un sol pentagrama
+@node Single staff polyphony
 @subsection Polifonia a un sol pentagrama
-@translationof Single staff polyphony
 
 @cindex polifonia
 @cindex diverses veus
@@ -1035,29 +1002,27 @@ profunditat.
 
 @morerefs
 Manual d'aprenentatge:
-@ref{Les veus contenen música}.
+@ref{Voices contain music}.
 
 Referència de la notació:
-@rnotation{Notes simultànies}.
+@rnotationnamed{Simultaneous notes, Notes simultànies}.
 
 
-@node Cançons
+@node Songs
 @section Cançons
-@translationof Songs
 
 En aquesta secció presentem com elaborar música vocal i fulls
 senzilles de cançó.
 
 @menu
-* Elaborar cançons senzilles::
-* Alineació de la lletra a una melodia::
-* Lletra en diversos pentagrames::
+* Setting simple songs::
+* Aligning lyrics to a melody::
+* Lyrics to multiple staves::
 @end menu
 
 
-@node Elaborar cançons senzilles
+@node Setting simple songs
 @subsection Elaborar cançons senzilles
-@translationof Setting simple songs
 
 @cindex lletra
 @cindex cançons
@@ -1099,9 +1064,8 @@ Observeu els angles dobles @w{@code{<<@dots{}>>}} al voltant del
 fragment sencer per expressar que la música i la lletra han de
 succeir al mateix temps.
 
-@node Alineació de la lletra a una melodia
+@node Aligning lyrics to a melody
 @subsection Alineació de la lletra a una melodia
-@translationof Aligning lyrics to a melody
 
 @cindex melisma
 @cindex línia de extensió
@@ -1153,7 +1117,7 @@ addicional no s'alinea correctament amb les notes.  La paraula
 com @notation{melisma}, una síl·laba única que es canta sobre més
 d'una nota.  Existeixen diverses formes de fer que una síl·laba
 recaigui sobre diverses notes, sent la més senzilla escriure una
-lligadura d'expressió sobre elles (vegeu @ref{Lligadures d'unió i d'expressió}):
+lligadura d'expressió sobre elles (vegeu @ref{Ties and slurs}):
 
 @lilypond[verbatim,quote]
 <<
@@ -1174,7 +1138,7 @@ Ara la lletra s'alinea correctament amb les notes, però el barrat
 automàtic de les notes que corresponen a @notation{shine as} no
 sembla correcte.  Podem remeiar-lo inserint instruccions de
 barrat manual per sobreescriure el barrat automàtic; per veure més
-detalls consulteu @ref{Barres automàtiques i manuals}.
+detalls consulteu @ref{Automatic and manual beams}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1290,12 +1254,11 @@ del @notation{Barber de Sevilla} de Rossini, on la síl·laba
 
 @morerefs
 Referència de la notació:
-@rnotation{Música vocal}.
+@rnotationnamed{Vocal music, Música vocal}.
 
 
-@node Lletra en diversos pentagrames
+@node Lyrics to multiple staves
 @subsection Lletra en diversos pentagrames
-@translationof Lyrics to multiple staves
 
 @cindex lletra i diversos pentagrames
 @cindex diversos pentagrames i lletra
@@ -1330,33 +1293,30 @@ del @notation{Judas Macabeu} de Haendel:
 Qualsevol partitura d'una complexitat més gran que la d'aquest
 senzill exemple es fa millor separant la lletra de l'estructura de
 pentagrames mitjançant variables (expressions amb nom).  Les
-variables es tracten a @ref{Organitzar les peces mitjançant
-variables}.
+variables es tracten a @ref{Organizing pieces with variables}.
 
 @morerefs
 Referència de la notació:
-@rnotation{Música vocal}.
+@rnotationnamed{Vocal music, Música vocal}.
 
 
-@node Retocs finals
+@node Final touches
 @section Retocs finals
-@translationof Final touches
 
 Aquest és l'últim apartat del tutorial; mostra la forma de donar
 els retocs finals a peces senzilles, i ofereix una introducció a
 la resta del manual.
 
 @menu
-* Organitzar les peces mitjançant variables::
-* Afegir títols::
-* Noms de nota absoluts::
-* Més enllà del tutorial::
+* Organizing pieces with variables::
+* Adding titles::
+* Absolute note names::
+* After the tutorial::
 @end menu
 
 
-@node Organitzar les peces mitjançant variables
+@node Organizing pieces with variables
 @subsection Organitzar les peces mitjançant variables
-@translationof Organizing pieces with variables
 
 @cindex variables
 @cindex variables, definir
@@ -1453,9 +1413,8 @@ llocs.  El següent exemple utilitza les variables anteriors:
 @end example
 
 
-@node Afegir títols
+@node Adding titles
 @subsection Afegir títols
-@translationof Adding titles
 
 @cindex títol
 @cindex encapçalaments
@@ -1484,12 +1443,11 @@ es troba fora de l'expressió musical principal: el bloc
 
 Quan es processa el fitxer, el títol i l'autor s'imprimeixen a
 sobre de la música.  Podeu obtenir més informació sobre els títols
-a @rnotation{Creació de títols encapçalaments i peus de pàgina}.
+a @rnotationnamed{Creating titles headers and footers, Creació de títols encapçalaments i peus de pàgina}.
 
 
-@node Noms de nota absoluts
+@node Absolute note names
 @subsection Noms de nota absoluts
-@translationof Absolute note names
 
 @cindex notes, noms de
 @cindex notes, noms absoluts de
@@ -1590,18 +1548,17 @@ relativa:
 \relative { c'4 \absolute { f'' g'' } c }
 @end lilypond
 
-@node Més enllà del tutorial
+@node After the tutorial
 @subsection Més enllà del tutorial
-@translationof After the tutorial
 
 Després d'acabar el tutorial, potser hauríeu de provar a escriure
 una o dues peces.  Comenceu amb una de les plantilles que
-apareixen a @ref{Plantilles} i afegiu algunes
+apareixen a @ref{Templates} i afegiu algunes
 notes.  Si necessiteu un tipus de notació que no ha estat tractat
 en aquest tutorial, doneu una ullada a la Referència de Notació,
-començant per @rnotation{Notació musical}.  Si voleu escriure música
+començant per @rnotationnamed{Musical notation, Notació musical}.  Si voleu escriure música
 per a un conjunt instrumental que no estigui cobert per cap
-plantilla, consulteu @ref{Extensió de les plantilles}.
+plantilla, consulteu @ref{Extending the templates}.
 
 Un cop que heu escrit algunes peces curtes, llegiu la resta del
 Manual d'aprenentatge (capítols 3 al 5).  Per suposat no passa res
@@ -1618,8 +1575,7 @@ llegit el Manual d'Aprenentatge complet, potser desitgeu rellegir
 certes seccions i seguir les referències creuades per obtenir més
 informació.
 
-Si no ho heu fet ja, us @emph{preguem} que llegiu @ref{Panoràmica
-dels manuals}.  Hi ha una gran quantitat d'informació sobre el
+Si no ho heu fet ja, us @emph{preguem} que llegiu @ref{Overview of manuals}.  Hi ha una gran quantitat d'informació sobre el
 LilyPond, de manera que els nouvinguts amb freqüència no saben
 exactament on han de buscar l'ajuda.  Si dediqueu cinc minuts a
 llegir curosament aquesta secció us estalviareu hores de

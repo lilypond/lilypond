@@ -9,9 +9,8 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Introducció
+@node Introduction
 @unnumbered Introducció
-@translationof Introduction
 
 @divClass{column-center-top}
 @subheading Les nostres metes
@@ -45,16 +44,16 @@ de sols @emph{llegir-la}.
 @itemize
 
 @item
-@ref{Possibilitats}: ¿Què pot fer el LilyPond?
+@ref{Features}: ¿Què pot fer el LilyPond?
 
 @item
-@ref{Exemples}: Vull veure alguna música!
+@ref{Examples}: Vull veure alguna música!
 
 @item
-@ref{Llibertat}: El LilyPond és programari lliure.
+@ref{Freedom}: El LilyPond és programari lliure.
 
 @item
-@ref{Rerefons}: La nostra estètica computacional.
+@ref{Background}: La nostra estètica computacional.
 
 @end itemize
 @divEnd
@@ -65,10 +64,10 @@ de sols @emph{llegir-la}.
 @itemize
 
 @item
-@ref{Produccions}: Usos del LilyPond a la vida real.
+@ref{Productions}: Usos del LilyPond a la vida real.
 
 @item
-@ref{Ressenyes}: Què diu la gent?
+@ref{Reviews}: Què diu la gent?
 
 @end itemize
 @divEnd
@@ -78,10 +77,10 @@ de sols @emph{llegir-la}.
 @itemize
 
 @item
-@ref{Entrada de text}: Escriviu música com si fos @emph{text}?!
+@ref{Text input}: Escriviu música com si fos @emph{text}?!
 
 @item
-@ref{Entorns millorats}: Altres formes de treballar amb el LilyPond.
+@ref{Easier editing}: Altres formes de treballar amb el LilyPond.
 
 @end itemize
 @divEnd
@@ -93,22 +92,21 @@ de sols @emph{llegir-la}.
 @c menu. -JM
 @divClass{hide}
 @menu
-* Possibilitats::
-* Exemples::
-* Llibertat::                   La llibertat i la GPL.
-* Rerefons::                    Estètica computacional.
-* Produccions::                 Ús del LilyPond a la vida real.
-* Ressenyes::
-* Entrada de text::
-* Entorns millorats::           Altres formes de treballar amb el Lilypond.
+* Features::
+* Examples::
+* Freedom::                   La llibertat i la GPL.
+* Background::                    Estètica computacional.
+* Productions::                 Ús del LilyPond a la vida real.
+* Reviews::
+* Text input::
+* Easier editing::           Altres formes de treballar amb el Lilypond.
 @end menu
 @divEnd
 
 
 
-@node Possibilitats
+@node Features
 @unnumberedsec Possibilitats
-@translationof Features
 @divClass{column-center-top}
 
 
@@ -139,7 +137,7 @@ llegir-se fàcilment per un humà o per un altre programa.  No hi ha
 cap ajust estrany ocult a darrera de complicats menús o de fitxers
 de document binaris.
 
-Llegiu més sobre aquest concepte a @ref{Entrada de text}.
+Llegiu més sobre aquest concepte a @ref{Text input}.
 
 
 @subsubheading Els ajustaments són robustos i transparents
@@ -217,7 +215,7 @@ hi ha lligadures a una sola interfície d'usuari sinó que podeu
 usar diferents eines per a diferents tasques.  Fins i tot podeu
 usar un editor complet a casa i usar l'aplicació de notes del
 vostre telèfon mòbil per editar els fitxers mentre esteu de
-viatge.  Per veure alguns exemples, consulteu @ref{Entorns millorats}.
+viatge.  Per veure alguns exemples, consulteu @ref{Easier editing}.
 @c TODO: Change this when the new pages have been written and pushed
 
 
@@ -294,7 +292,7 @@ de resposta ser molt curt, i freqüentment s'ofereixen solucions
 brillants als problemes que es plantegen a ella. Gràcies a
 l'estreta interacció amb l'equip de desenvolupament, aquests
 solucions s'inclouen al mateix programa LilyPond de forma
-regular.  Seguiu llegint a @ref{Comunitat}.
+regular.  Seguiu llegint a @ref{Community}.
 
 @subsubheading Programari lliure
 
@@ -306,22 +304,21 @@ d'expressió. S'ofereix amb el codi font amb el permís de
 modificar-lo i copiar-lo. Així doncs, esteu fart d'alguna fallada
 o demaneu alguna funcionalitat determinada? Tan sols afegiu-la
 personalment, o pagueu a algú que ho faci. Seguiu llegint a
-@ref{Llibertat}.
+@ref{Freedom}.
 
 @divEnd
 @divClass{column-center-bottom}
 @subheading Ara què?
 
 Encara no us convenç el LilyPond? Doneu una ullada a alguns
-@ref{Exemples} concrets. Si ja heu decidit provar el LilyPond, en
-primer lloc informeu-vos de la nostra @ref{Entrada de text}.
+@ref{Examples} concrets. Si ja heu decidit provar el LilyPond, en
+primer lloc informeu-vos de la nostra @ref{Text input}.
 @divEnd
 
 
 
-@node Exemples
+@node Examples
 @unnumberedsec Exemples
-@translationof Examples
 
 @divClass{column-center-top}
 
@@ -476,15 +473,14 @@ ha estat aportat per Hu Haipeng, un compositor cec).
 @subheading Ara què?
 
 Encara no us convenç el LilyPond? El LilyPond és programari
-lliure, us concedeix, com a usuari, la @ref{Llibertat}. Si ja voleu
+lliure, us concedeix, com a usuari, la @ref{Freedom}. Si ja voleu
 provar el LilyPond, llegiu primer el que tenim a dir-vos sobre la
-@ref{Entrada de text}.
+@ref{Text input}.
 @divEnd
 
 
-@node Llibertat
+@node Freedom
 @unnumberedsec Llibertat
-@translationof Freedom
 
 @divClass{column-center-top}
 @subheading Software lliure
@@ -593,15 +589,14 @@ trobar feina a empreses o a universitats.
 @subheading I ara què?
 
 Encara no us convenç el LilyPond? Llegiu el nostre estens assaig
-sobre la nostra filosofia de gravar a @ref{Rerefons}. Si ja voleu
+sobre la nostra filosofia de gravar a @ref{Background}. Si ja voleu
 provar el LilyPond, en primer lloc llegiu el que hem escrit sobre
-la @ref{Entrada de text}.
+la @ref{Text input}.
 @divEnd
 
 
-@node Rerefons
+@node Background
 @unnumberedsec Rerefons
-@translationof Background
 
 @divClass{column-center-top}
 @subheading Monografia sobre el rerefons
@@ -619,15 +614,14 @@ llegir-lo ara, continueu cap a @ressaynamed{Essay,Monografia}.
 @subheading I ara què?
 
 Encara no us convenç el LilyPond? Llegiu quelcom sobre les
-@ref{Produccions} i partitures d'alguns dels nostres usuaris. Si
+@ref{Productions} i partitures d'alguns dels nostres usuaris. Si
 ja voleu provar el LilyPond, en primer lloc llegiu alguna cosa
-sobre la nostra @ref{Entrada de text}.
+sobre la nostra @ref{Text input}.
 @divEnd
 
 
-@node Produccions
+@node Productions
 @unnumberedsec Produccions
-@translationof Productions
 
 @divClass{column-center-top}
 
@@ -809,15 +803,13 @@ la música.
 @subheading I ara què?
 
 Encara no us convenç el LilyPond? Llegiu algunes de les
-@ref{Ressenyes} dels nostres usuaris. Si ja voleu provar el
-LilyPond, en primer lloc informeu-vos sobre la nostra @ref{Entrada
-de text}.
+@ref{Reviews} dels nostres usuaris. Si ja voleu provar el
+LilyPond, en primer lloc informeu-vos sobre la nostra @ref{Text input}.
 @divEnd
 
 
-@node Ressenyes
+@node Reviews
 @unnumberedsec Ressenyes
-@translationof Reviews
 
 @divClass{column-center-top}
 @subheading Que diu la gent sobre el LilyPond?
@@ -1140,14 +1132,13 @@ sobre la pàgina, especialment quan no es tracta de la pràctica
 @divClass{column-center-bottom}
 @subheading Y ara ¿què?
 
-Llegiu el que tenim que dir-vos sobre la nostra @ref{Entrada de text}.
+Llegiu el que tenim que dir-vos sobre la nostra @ref{Text input}.
 @divEnd
 
 
 
-@node Entrada de text
+@node Text input
 @unnumberedsec Entrada de text
-@translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
 @c https://lilypond.org/web/switch/howto
@@ -1235,7 +1226,7 @@ de concert):
 Ens adonem que molts usuaris veuen una mica estranya aquesta forma
 d'introduir la música.  Per aquest motiu, hem escrit una àmplia
 documentació d'ajuda als nous usuaris, començant amb
-@ref{Aprenentatge}.  El manual d'aprenentatge és el millor per
+@ref{Learning}.  El manual d'aprenentatge és el millor per
 començar, perquè allí es responen moltes preguntes abans que es
 formulin.
 
@@ -1267,7 +1258,7 @@ Alguns entorns d'edició inclouen el acolorit sintàctic, compleció
 automàtica d'instruccions i plantilles pre-elaborades. D'altres
 programes ofereixen realment un GUI que permet la manipulació
 directa d'una partitura gràfica.  Per veure més informació, consulteu
-@ref{Entorns millorats}.
+@ref{Easier editing}.
 
 
 @divClass{column-center-bottom}
@@ -1276,14 +1267,13 @@ directa d'una partitura gràfica.  Per veure més informació, consulteu
 Ja teniu la preparació per @ref{Download, Descarregar el LilyPond}.
 Encara no esteu convençut? Llegiu quelcom sobre els entorns
 d'edició a
-@ref{Entorns millorats}.
+@ref{Easier editing}.
 
 @divEnd
 
 
-@node Entorns millorats
+@node Easier editing
 @unnumberedsec Entorns millorats
-@translationof Easier editing
 
 @ignore
 GNU policy forbids us from linking to non-Free software, so don't
@@ -1566,11 +1556,11 @@ d'orquestra han après a escriure música en el nostre format
 d'entrada.  Els usuaris amb experiència fins i tot que poden
 introduir una partitura completa al LilyPond més ràpid que amb un
 teclat de piano o amb el ratolí i un GUI! Possiblement us agradi
-donar una ullada a les @ref{Possibilitats}, @ref{Exemples} o a la
-@ref{Llibertat} i @ref{Ressenyes} dels nostres usuaris. A més a
+donar una ullada a les @ref{Features}, @ref{Examples} o a la
+@ref{Freedom} i @ref{Reviews} dels nostres usuaris. A més a
 més, el nostre enfoc de l'estètica computacional del gravat
 musical clàssic ve explicat en el nostre tractat sobre el
-@ref{Rerefons}.
+@ref{Background}.
 
 @divEnd
 

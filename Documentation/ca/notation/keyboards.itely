@@ -13,9 +13,8 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Teclats i altres instruments de pentagrames múltiples
+@node Keyboard and other multi-staff instruments
 @section Teclats i altres instruments de pentagrames múltiples
-@translationof Keyboard and other multi-staff instruments
 
 @lilypondfile[quote]{snippets/keyboard-headword.ly}
 
@@ -28,32 +27,30 @@ nomenclatura, en aquesta secció s'anomenen abreujadament
 pentagrames, tot i que alguns no tenen teclat.
 
 @menu
-* Notació comuna per a instruments de teclat::
+* Common notation for keyboards::
 * Piano::
-* Acordió::
-* Arpa::
+* Accordion::
+* Harp::
 @end menu
 
 
-@node Notació comuna per a instruments de teclat
+@node Common notation for keyboards
 @subsection Notació comuna per a instruments de teclat
-@translationof Common notation for keyboards
 
 Aquesta secció tracta aspectes de notació que poden aparèixer a
 gairebé tots els instruments de teclat.
 
 @menu
-* Referències per a teclats::
-* Canvi manual de pentagrama::
-* Canvi automàtic de pentagrama::
-* Línies de canvi de pentagrama::
-* Pliques de pentagrama creuat::
+* References for keyboards::
+* Changing staff manually::
+* Changing staff automatically::
+* Staff-change lines::
+* Cross-staff stems::
 @end menu
 
 
-@node Referències per a teclats
+@node References for keyboards
 @unnumberedsubsubsec Referències per a teclats
-@translationof References for keyboards
 
 @cindex piano, pentagrames de
 @cindex pentagrames de piano
@@ -86,61 +83,61 @@ de teclat:
 
 @item La música per a teclat sol contenir diverses veus i el
 nombre d'aquestes veus pot variar àmpliament; això es descriu a
-@ref{Resolució de les col·lisions}.
+@ref{Collision resolution}.
 
 @item La música per a teclat es pot escriure en paral·lel, com es
-descriu a @ref{Escriptura de música en paral·lel}.
+descriu a @ref{Writing music in parallel}.
 
 @item Els matisos dinàmics es poden col·locar en un context
 @code{Dynamics}, entre els dos contextos @code{Staff} per alinear
 les indicacions de matís sobre una línia horitzontal equidistant
-dels dos pentagrames; vegeu @ref{Matisos dinàmics}.
+dels dos pentagrames; vegeu @ref{Dynamics}.
 
 @item Les digitacions s'indiquen com pot veure's a
-@ref{Indicacions de digitació}.
+@ref{Fingering instructions}.
 
 @item Les indicacions de pedal d'orgue s'insereixen com
 articulacions, vegeu
-@ref{Llista d'articulacions}.
+@ref{List of articulations}.
 
 @item Les línies verticals de reixeta es poden mostrar com es
-descriu a @ref{Línies de reixeta}.
+descriu a @ref{Grid lines}.
 
 @item La música per a teclat inclou sovint lligadures
 @notation{Laissez vibrer}, aixi com lligadures sobre arpegis i
-trèmols, descrits a @ref{Lligadures d'unió}.
+trèmols, descrits a @ref{Ties}.
 
 @item La col·locació d'arpegis a través de diverses veus i
-pentagrames es presenta a @ref{Arpegi}.
+pentagrames es presenta a @ref{Arpeggio}.
 
 @item Les indicacions de trèmol es descriuen a
-@ref{Repeticions de trèmol}.
+@ref{Tremolo repeats}.
 
 @item Es mostren diversos ajustament que poden caldre a la música
-per a teclat a @rlearning{Exemple real de música}.
+per a teclat a @rlearningnamed{Real music example, Exemple real de música}.
 
 @item Es poden usar les notes ocultes per produir lligadures
 d'unió que es creuen entre veus, com s'explica a
-@rlearning{Altres aplicacions dels ajustaments}.
+@rlearningnamed{Other uses for tweaks, Altres aplicacions dels ajustaments}.
 
 @end itemize
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Exemple real de música},
-@rlearning{Altres aplicacions dels ajustaments}.
+@rlearningnamed{Real music example, Exemple real de música},
+@rlearningnamed{Other uses for tweaks, Altres aplicacions dels ajustaments}.
 
 Referència de la notació:
-@ref{Agrupament de pentagrames},
-@ref{Noms d'instruments},
-@ref{Resolució de les col·lisions},
-@ref{Escriptura de música en paral·lel},
-@ref{Indicacions de digitació},
-@ref{Llista d'articulacions},
-@ref{Línies de reixeta},
-@ref{Lligadures d'unió},
-@ref{Arpegi},
-@ref{Repeticions de trèmol}.
+@ref{Grouping staves},
+@ref{Instrument names},
+@ref{Collision resolution},
+@ref{Writing music in parallel},
+@ref{Fingering instructions},
+@ref{List of articulations},
+@ref{Grid lines},
+@ref{Ties},
+@ref{Arpeggio},
+@ref{Tremolo repeats}.
 
 Referència de funcionament intern:
 @rinternals{PianoStaff}.
@@ -149,9 +146,8 @@ Fragments de codi:
 @rlsr{Keyboards}.
 
 
-@node Canvi manual de pentagrama
+@node Changing staff manually
 @unnumberedsubsubsec Canvi manual de pentagrama
-@translationof Changing staff manually
 
 @cindex manual, canvi de pentagrama
 @cindex pentagrama, canvis manuals de
@@ -179,7 +175,7 @@ nom @var{nom_del_pentagrama}.  Els valors més corrents per a
 El pentagrama al qual salta la veu ha d'existir en el moment del
 salt.  Si cal, els pentagrames s'han de
 @qq{mantenir amb vida}, vegeu
-@ref{Manteniment amb vida dels contextos}.
+@ref{Keeping contexts alive}.
 
 Les notes de pentagrama creuat reben la barra automàticament:
 
@@ -208,7 +204,7 @@ canvis en les adreces de les pliques.  Les posicions de les barres
 es mesuren posteriorment a partir del centre del pentagrama que
 està més a prop de la barra.  Per veure un exemple senzill
 d'ajustament de les barres, consulteu
-@rlearning{Ajustament de la notació amb superposicions}.
+@rlearningnamed{Fixing overlapping notation, Ajustament de la notació amb superposicions}.
 
 @cindex col·lisions de pentagrama creuat
 @cindex col·lisions, veus de pentagrama creuat
@@ -248,16 +244,16 @@ les pliques i articulacions si la seva col·locació està afectada
 per un objecte d'extensió de pentagrama creuat.  Les col·lisions
 resultants es poden resoldre manualment on calgui, utilitzant els
 mètodes descrits a la secció
-@rlearning{Ajustament de la notació amb superposicions}.
+@rlearningnamed{Fixing overlapping notation, Ajustament de la notació amb superposicions}.
 
 @morerefs
 Manual de aprenentatge:
-@rlearning{Ajustament de la notació amb superposicions}.
+@rlearningnamed{Fixing overlapping notation, Ajustament de la notació amb superposicions}.
 
 Referència de la notació:
-@ref{Pliques},
-@ref{Barres automàtiques},
-@ref{Manteniment amb vida dels contextos}.
+@ref{Stems},
+@ref{Automatic beams},
+@ref{Keeping contexts alive}.
 
 Fragments de codi:
 @rlsr{Keyboards}.
@@ -272,9 +268,8 @@ funciona per a les barres automàtiques que finalitzen just abans
 d'un canvi de pauta.  En aquest cas, feu servir barres manuals.
 
 
-@node Canvi automàtic de pentagrama
+@node Changing staff automatically
 @unnumberedsubsubsec Canvi automàtic de pentagrama
-@translationof Changing staff automatically
 
 @cindex canvi automàtic de pentagrama
 @cindex automàtic, canvi de pentagrama
@@ -366,7 +361,7 @@ tonalitat al pentagrama inferior:
 
 @morerefs
 Referència de la notació:
-@ref{Canvi manual de pentagrama}.
+@ref{Changing staff manually}.
 
 Fragments de codi:
 @rlsr{Keyboards}.
@@ -385,9 +380,8 @@ Els acords no es divideixen entre els pentagrames; s'assignen a un
 pentagrama en funció de la primera nota anomenada dins de la
 construcció de l'acord.
 
-@node Línies de canvi de pentagrama
+@node Staff-change lines
 @unnumberedsubsubsec Línies de canvi de pentagrama
-@translationof Staff-change lines
 
 @cindex seguiment de veu
 @cindex pentagrama, canvi
@@ -438,9 +432,8 @@ Referència de funcionament intern:
 @rinternals{VoiceFollower}.
 
 
-@node Pliques de pentagrama creuat
+@node Cross-staff stems
 @unnumberedsubsubsec Pliques de pentagrama creuat
-@translationof Cross-staff stems
 
 @cindex plica de pentagrama creuat
 @cindex pentagrama creuat, plica de
@@ -484,19 +477,17 @@ Referencia de funcionament intern:
 
 @node Piano
 @subsection Piano
-@translationof Piano
 
 Aquesta secció tracta d'aspectes de la notació directament
 relacionats amb el piano.
 
 @menu
-* Pedals de piano::
+* Piano pedals::
 @end menu
 
 
-@node Pedals de piano
+@node Piano pedals
 @unnumberedsubsubsec Pedals de piano
-@translationof Piano pedals
 
 @cindex piano, pedals de
 @cindex pedals de piano
@@ -576,7 +567,7 @@ Les indicacions de pedal es poden posar dins d'un context
 
 @morerefs
 Referència de la notació:
-@ref{Lligadures d'unió}.
+@ref{Ties}.
 
 Fragments de codi:
 @rlsr{Keyboards}.
@@ -595,22 +586,20 @@ Referència de funcionament intern:
 @rinternals{Piano_pedal_engraver}.
 
 
-@node Acordió
+@node Accordion
 @subsection Acordió
-@translationof Accordion
 
 @cindex acordió
 
 Aquesta secció s'ocupa de la notació que és exclusiva de l'acordió.
 
 @menu
-* Símbols de Discant::
+* Discant symbols::
 @end menu
 
 
-@node Símbols de Discant
+@node Discant symbols
 @unnumberedsubsubsec Símbols de Discant
-@translationof Discant symbols
 
 @cindex acordió, signes de discant
 @cindex discant, signes de, del acordió
@@ -636,21 +625,19 @@ Fragments de codi:
 @rlsr{Keyboards}.
 
 
-@node Arpa
+@node Harp
 @subsection Arpa
-@translationof Harp
 
 Aquesta secció tracta sobre temes de notació específics de l'arpa.
 
 @menu
-* Referències per a notació d'arpa::
-* Pedals d'arpa::
+* References for harps::
+* Harp pedals::
 @end menu
 
 
-@node Referències per a notació d'arpa
+@node References for harps
 @unnumberedsubsubsec Referències per a notació d'arpa
-@translationof References for harps
 @cindex harps
 @cindex bisbiglando
 
@@ -663,27 +650,26 @@ altres parts de la documentació:
 @ref{Glissando}.
 
 @item El @notation{bisbiglando} s'escriu com un trèmol,
-@ref{Repeticions de trèmol}.
+@ref{Tremolo repeats}.
 
 @item Els harmònics naturals s'estudien sota l'epígraf
-@ref{Harmònics}.
+@ref{Harmonics}.
 
 @item Per als arpegis dirigits i els no arpegis, vegeu
-@ref{Arpegi}.
+@ref{Arpeggio}.
 
 @end itemize
 
 @morerefs
 Referència de la notació:
-@ref{Repeticions de trèmol},
+@ref{Tremolo repeats},
 @ref{Glissando},
-@ref{Arpegi},
-@ref{Harmònics}.
+@ref{Arpeggio},
+@ref{Harmonics}.
 
 
-@node Pedals d'arpa
+@node Harp pedals
 @unnumberedsubsubsec Pedals d'arpa
-@translationof Harp pedals
 
 @cindex arpa, pedals
 @cindex arpa, diagrames de pedal
@@ -724,5 +710,5 @@ rodeja per una el·lipsi.
 
 @morerefs
 Referència de la notació:
-@ref{Scripts de text},
+@ref{Text scripts},
 @ref{Instrument-specific markup}.

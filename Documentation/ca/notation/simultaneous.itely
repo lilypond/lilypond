@@ -13,9 +13,8 @@
 @c Translation checkers:
 @c Translation status: post-GDP
 
-@node Notes simultànies
+@node Simultaneous notes
 @section Notes simultànies
-@translationof Simultaneous notes
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
@@ -24,28 +23,26 @@ veu en una peça qualsevol de música.  Al LilyPond la polifonia fa
 referència a tenir més d'una veu al mateix pentagrama.
 
 @menu
-* Una veu única::
-* Veus múltiples::
+* Single voice::
+* Multiple voices::
 @end menu
 
 
-@node Una veu única
+@node Single voice
 @subsection Una veu única
-@translationof Single voice
 
 Aquesta secció tracta de les notes simultànies dins de la mateixa veu.
 
 @menu
-* Notes a un acord::
-* Repetició d'acords::
-* Expressions simultànies::
-* Clústers::
+* Chorded notes::
+* Chord repetition::
+* Simultaneous expressions::
+* Clusters::
 @end menu
 
 
-@node Notes a un acord
+@node Chorded notes
 @unnumberedsubsubsec Notes a un acord
-@translationof Chorded notes
 
 @cindex acords
 @cindex parèntesis en angle
@@ -108,7 +105,7 @@ interior no té realment cap duració.  Qualsevol articulació annexa
 es produirà en el mateix moment musical que la nota o acord
 següent i es pot combinar amb ells (per veure possibilitats més
 complexes de combinacions d'aquests elements, consulteu
-@ref{Expressions simultànies}):
+@ref{Simultaneous expressions}):
 
 @lilypond[verbatim,quote]
 \relative {
@@ -135,20 +132,20 @@ nota anterior @emph{dins del mateix acord}.
 @end lilypond
 
 Per veure més informació sobre els acords, consulteu
-@ref{Notació d'acords}.
+@ref{Chord notation}.
 
 @morerefs
 Glossari musical:
 @rglos{chord}.
 
 Manual d'aprenentatge:
-@rlearning{Combinar notes per formar acords}.
+@rlearningnamed{Combining notes into chords, Combinar notes per formar acords}.
 
 Referència de la notació:
-@ref{Notació d'acords},
-@ref{Articulacions i ornaments},
-@ref{Escriptura d'octava relativa},
-@ref{Veus múltiples}.
+@ref{Chord notation},
+@ref{Articulations and ornamentations},
+@ref{Relative octave entry},
+@ref{Multiple voices}.
 
 Fragments de codi:
 @rlsr{Simultaneous notes}.
@@ -162,7 +159,7 @@ representació millor pot requerir:
 @itemize
 
 @item
-l'ús temporal de diverses veus, vegeu @ref{Veus múltiples},
+l'ús temporal de diverses veus, vegeu @ref{Multiple voices},
 @samp{<< f! \\ <e fis!> >>},
 
 @item
@@ -170,14 +167,13 @@ la transcripció enharmònica d'una o més notes,
 @samp{<e f ges>}, o
 
 @item
-Clústers; vegeu @ref{Clústers}.
+Clústers; vegeu @ref{Clusters}.
 
 @end itemize
 
 
-@node Repetició d'acords
+@node Chord repetition
 @unnumberedsubsubsec Repetició d'acords
-@translationof Chord repetition
 
 @cindex acords, repetició de
 @cindex repetició, amb @code{q}
@@ -271,16 +267,15 @@ qual totes les instàncies de @code{\relative} ja s'han processat.
 
 @morerefs
 Referència de la notació:
-@ref{Notació d'acords},
-@ref{Articulacions i ornaments}.
+@ref{Chord notation},
+@ref{Articulations and ornamentations}.
 
 Fitxers d'inici:
 @file{ly/chord-repetition-init.ly}.
 
 
-@node Expressions simultànies
+@node Simultaneous expressions
 @unnumberedsubsubsec Expressions simultànies
-@translationof Simultaneous expressions
 
 Una o més expressions musicals envoltades entre angles dobles
 s'entenen com a simultànies.  Si la primera expressió comença amb
@@ -356,12 +351,11 @@ durant la compilació.  Aquest missatge es pot suprimir mitjançant
 Tanmateix, això no sols suprimeix l'advertiment sinó que pot
 evitar qualsevol resolució de col·lisions i pot tenir altres
 efectes no desitjats (consulteu també
-@emph{Problemes coneguts} a @ref{Resolució de les col·lisions}).
+@emph{Problemes coneguts} a @ref{Collision resolution}).
 
 
-@node Clústers
+@node Clusters
 @unnumberedsubsubsec Clústers
-@translationof Clusters
 
 @cindex clúster
 @cindex raïm (clúster)
@@ -404,25 +398,23 @@ clústers separats els calen silencis de separació entre ells.
 
 Els clústers no produeixen cap sortida MIDI.
 
-@node Veus múltiples
+@node Multiple voices
 @subsection Veus múltiples
-@translationof Multiple voices
 
 Aquesta secció tracta de les notes simultànies en diverses veus o
 diversos pentagrames.
 
 @menu
-* Polifonia en un sol pentagrama::
-* Estils de veu::
-* Resolució de les col·lisions::
-* Combinació automàtica de les parts::
-* Escriptura de música en paral·lel::
+* Single-staff polyphony::
+* Voice styles::
+* Collision resolution::
+* Automatic part combining::
+* Writing music in parallel::
 @end menu
 
 
-@node Polifonia en un sol pentagrama
+@node Single-staff polyphony
 @unnumberedsubsubsec Polifonia en un sol pentagrama
-@translationof Single-staff polyphony
 
 @cindex pentagrama únic, polifonia de
 @cindex polifonia en un sol pentagrama
@@ -549,7 +541,7 @@ silencis de separació per evitar l'aparició de silencis duplicats.
 
 A totes les partitures excepte les més simples, es recomana crear
 contextos @code{Voice} explícits com apareix explicat a
-@rlearning{Contextos i gravadors} i a  @rlearning{Veus explícites}.
+@rlearningnamed{Contexts and engravers, Contextos i gravadors} i a  @rlearningnamed{Explicitly instantiating voices, Veus explícites}.
 
 @subsubsubheading Ordre de les veus
 
@@ -618,21 +610,20 @@ fragments de música no tenen les mateixes duracions exactes.
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Les veus contenen música},
-@rlearning{Veus explícites}.
+@rlearningnamed{Voices contain music, Les veus contenen música},
+@rlearningnamed{Explicitly instantiating voices, Veus explícites}.
 
 Referència de la notació:
-@ref{Pautes de percussió},
-@ref{Silencis invisibles},
-@ref{Pliques}.
+@ref{Percussion staves},
+@ref{Invisible rests},
+@ref{Stems}.
 
 Fragments de codi:
 @rlsr{Simultaneous notes}.
 
 
-@node Estils de veu
+@node Voice styles
 @unnumberedsubsubsec Estils de veu
-@translationof Voice styles
 
 @cindex estils de veu
 @cindex estils, veu
@@ -671,16 +662,15 @@ Per recuperar la presentació normal s'utilitza l'ordre
 
 @morerefs
 Manual d'aprenentatge
-@rlearning{Sento veus},
-@rlearning{Altres fonts d'informació}
+@rlearningnamed{I'm hearing Voices, Sento veus},
+@rlearningnamed{Other sources of information, Altres fonts d'informació}
 
 Fragments de codi:
 @rlsr{Simultaneous notes}.
 
 
-@node Resolució de les col·lisions
+@node Collision resolution
 @unnumberedsubsubsec Resolució de les col·lisions
-@translationof Collision resolution
 
 @cindex barrejar notes
 @cindex notes, col·lisions de
@@ -857,7 +847,7 @@ vertical de les veus al pentagrama.}
 Dues ordres addicionals, @code{\shiftOnn} i
 @code{\shiftOnnn}, ofereixen nivells de desplaçament majors que es
 poden especificar temporalment per resoldre col·lisions en
-situacions complexes; vegeu @rlearning{Exemple real de música}.
+situacions complexes; vegeu @rlearningnamed{Real music example, Exemple real de música}.
 
 Sols es combinen les notes si tenen les pliques en direccions
 oposades (com la tenen, per exemple, a les veus u i dos de forma
@@ -888,9 +878,9 @@ Glossari musical:
 @rglos{polyphony}.
 
 Manual d'aprenentatge:
-@rlearning{Diverses notes a l'hora},
-@rlearning{Les veus contenen música},
-@rlearning{Exemple real de música}.
+@rlearningnamed{Multiple notes at once, Diverses notes a l'hora},
+@rlearningnamed{Voices contain music, Les veus contenen música},
+@rlearningnamed{Real music example, Exemple real de música}.
 
 Fragments de codi:
 @rlsr{Simultaneous notes}.
@@ -921,9 +911,8 @@ diferents que tenen també diferent puntet.
 @end ignore
 
 
-@node Combinació automàtica de les parts
+@node Automatic part combining
 @unnumberedsubsubsec Combinació automàtica de les parts
-@translationof Automatic part combining
 
 @cindex automàtica, combinació de parts
 @cindex parts, combinació automàtica
@@ -1120,7 +1109,7 @@ la lletra de les cançons; si una de les veus rep un nom explícit
 per poder adjuntar una lletra, el combinador de parts no
 funciona.  Tanmateix, es pot aconseguir aquest efecte usant un
 context @code{NullVoice}.  Vegeu
-@ref{Polifonia amb lletres compartides}.
+@ref{Polyphony with shared lyrics}.
 
 @snippets
 
@@ -1136,7 +1125,7 @@ Glossari musical:
 @rglos{part}.
 
 Referència de la notació:
-@ref{Escriptura de les particel·les}.
+@ref{Writing parts}.
 
 Fragments de codi:
 @rlsr{Simultaneous notes}.
@@ -1180,13 +1169,12 @@ diferent, s'ignoraran els esdeveniments dins del context
 
 Consulteu també l'apartat
 @emph{Advertiments i problemes coneguts} a la sessió
-@ref{Tabulatures predeterminades}
+@ref{Default tablatures}
 en utilitzar@code{\partCombine} amb tabulatures, i la @emph{Nota}
-de @ref{Barres automàtiques} en utilitzar el barrat automàtic.
+de @ref{Automatic beams} en utilitzar el barrat automàtic.
 
-@node Escriptura de música en paral·lel
+@node Writing music in parallel
 @unnumberedsubsubsec Escriptura de música en paral·lel
-@translationof Writing music in parallel
 
 @cindex escriptura de música en paral·lel
 @cindex música intercalada
@@ -1298,7 +1286,7 @@ global = {
 
 @morerefs
 Manual d'aprenentatge:
-@rlearning{Organitzar les peces mitjançant variables}
+@rlearningnamed{Organizing pieces with variables, Organitzar les peces mitjançant variables}
 
 Fragments de codi:
 @rlsr{Simultaneous notes}.

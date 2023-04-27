@@ -12,9 +12,8 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Notació dels pentagrames
+@node Staff notation
 @section Notació dels pentagrames
-@translationof Staff notation
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
@@ -25,30 +24,28 @@ pentagrames, com imprimir partitures amb més d'un pentagrama i com
 afegir indicacions de temps i notes guia als pentagrames.
 
 @menu
-* Visualització dels pentagrames::
-* Modificació de pentagrames separats::
-* Escriptura de les particel·les::
+* Displaying staves::
+* Modifying single staves::
+* Writing parts::
 @end menu
 
 
-@node Visualització dels pentagrames
+@node Displaying staves
 @subsection Visualització dels pentagrames
-@translationof Displaying staves
 
 Aquesta secció descriu els diferents mètodes de creació de
 pentagrames i grups de pentagrames.
 
 @menu
-* Creació d'instàncies de pentagrames nous::
-* Agrupament de pentagrames::
-* Grups de pentagrames niuats::
-* Separació de sistemes::
+* Instantiating new staves::
+* Grouping staves::
+* Nested staff groups::
+* Separating systems::
 @end menu
 
 
-@node Creació d'instàncies de pentagrames nous
+@node Instantiating new staves
 @unnumberedsubsubsec Creació d'instàncies de pentagrames nous
-@translationof Instantiating new staves
 
 @cindex nou pentagrama
 @cindex pauta
@@ -73,7 +70,7 @@ pentagrames i grups de pentagrames.
 Les @notation{pautes} i els @notation{pentagrames} o pautes de
 cinc línies es creen amb les ordres @code{\new} o
 @code{\context}.  Per veure més detalls, consulteu
-@ref{Creació i referenciació dels contextos}.
+@ref{Creating and referencing contexts}.
 
 El context bàsic de pentagrama és @code{Staff}:
 
@@ -86,7 +83,7 @@ preparada per a un conjunt de bateria típic.  Cada instrument es
 presenta amb un símbol diferent.  Els instruments s'escriuen en el
 mode de percussió que segueix a una ordre @code{\drummode}, amb
 cada instrument identificat per un nom.  Per veure més detalls,
-consulteu @ref{Pautes de percussió}.
+consulteu @ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
@@ -97,7 +94,7 @@ consulteu @ref{Pautes de percussió}.
 @code{RhythmicStaff} crea una pauta d'una sola línia que sols
 mostra les duracions de l'entrada.  Es preserven les duracions
 reals.  Per veure més detalls, consulteu
-@ref{Mostrar els ritmes de la melodia}.
+@ref{Showing melody rhythms}.
 
 @lilypond[verbatim,quote]
 \new RhythmicStaff { c4 d e f }
@@ -105,7 +102,7 @@ reals.  Per veure més detalls, consulteu
 
 @code{TabStaff} crea una tabulatura amb sis cordes en l'afinació
 estàndard de la guitarra.  Per veure més detalls, consulteu
-@ref{Tabulatures predeterminades}.
+@ref{Default tablatures}.
 
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
@@ -113,7 +110,7 @@ estàndard de la guitarra.  Per veure més detalls, consulteu
 
 Hi ha dos contextos de pauta específics per a la notació de música
 antiga: @code{MensuralStaff} i @code{VaticanaStaff}.  es descriuen
-a @ref{Contextos predefinits}.
+a @ref{Pre-defined contexts}.
 
 @code{GregorianTranscriptionStaff} crea una pauta per a la notació
 moderna de cant gregorià.  No mostra línies divisòries.
@@ -122,7 +119,7 @@ moderna de cant gregorià.  No mostra línies divisòries.
 @end lilypond
 
 Es poden definir contextos nous de pentagrama únic.  Per veure més
-detalls, consulteu @ref{Definició de contextos nous}.
+detalls, consulteu @ref{Defining new contexts}.
 
 @morerefs
 Glossari musical:
@@ -130,15 +127,15 @@ Glossari musical:
 @rglos{staves}.
 
 Referència de la notació:
-@ref{Creació i referenciació dels contextos},
-@ref{Pautes de percussió},
-@ref{Mostrar els ritmes de la melodia},
-@ref{Tabulatures predeterminades},
-@ref{Contextos predefinits},
-@ref{El símbol del pentagrama},
-@ref{Contextos del cant gregorià},
-@ref{Contextos de la música mensural},
-@ref{Definició de contextos nous}.
+@ref{Creating and referencing contexts},
+@ref{Percussion staves},
+@ref{Showing melody rhythms},
+@ref{Default tablatures},
+@ref{Pre-defined contexts},
+@ref{Staff symbol},
+@ref{Gregorian chant contexts},
+@ref{Mensural contexts},
+@ref{Defining new contexts}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -154,9 +151,8 @@ Referència de funcionament intern:
 @rinternals{StaffSymbol}.
 
 
-@node Agrupament de pentagrames
+@node Grouping staves
 @unnumberedsubsubsec Agrupament de pentagrames
-@translationof Grouping staves
 
 @cindex començament del sistema
 @cindex pentagrames, diversos
@@ -222,7 +218,7 @@ una clau i les barres de compàs es connecten entre els pentagrames.
 El @code{PianoStaff} (sistema de piano) es idèntic a
 @code{GrandStaff}, excepte que contempla directament la impressió
 del nom de l'instrument.  Per veure més detalls, consulteu
-@ref{Noms d'instruments}.
+@ref{Instrument names}.
 
 @lilypond[verbatim,quote]
 \new PianoStaff <<
@@ -241,7 +237,7 @@ següents: @code{SystemStartBar} (línia),
 d'especificar explícitament.
 
 Es poden definir contextos nous de grup de pentagrames.  Per veure
-més detalls, consulteu @ref{Definició de contextos nous}.
+més detalls, consulteu @ref{Defining new contexts}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -266,8 +262,8 @@ Glossari musical:
 @rglos{grand staff}.
 
 Referència de la notació:
-@ref{Noms d'instruments},
-@ref{Definició de contextos nous}.
+@ref{Instrument names},
+@ref{Defining new contexts}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -284,9 +280,8 @@ Referència de funcionament intern:
 @rinternals{SystemStartSquare}.
 
 
-@node Grups de pentagrames niuats
+@node Nested staff groups
 @unnumberedsubsubsec Grups de pentagrames niuats
-@translationof Nested staff groups
 
 @cindex pentagrames niuats
 @cindex niuat de pentagrames
@@ -317,7 +312,7 @@ crea una clau nova adjacent a la clau del seu grup pare.
 
 Es poden definir nous contextos de grups de pentagrames niuats.
 Per veure més detalls, consulteu
-@ref{Definició de contextos nous}.
+@ref{Defining new contexts}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -325,9 +320,9 @@ Per veure més detalls, consulteu
 
 @morerefs
 Referència de la notació:
-@ref{Agrupament de pentagrames},
-@ref{Noms d'instruments},
-@ref{Definició de contextos nous}.
+@ref{Grouping staves},
+@ref{Instrument names},
+@ref{Defining new contexts}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -341,9 +336,8 @@ Referència de funcionament intern:
 @rinternals{SystemStartSquare}.
 
 
-@node Separació de sistemes
+@node Separating systems
 @unnumberedsubsubsec Separació de sistemes
-@translationof Separating systems
 
 @cindex separació de sistemes, marca de
 
@@ -387,14 +381,13 @@ sistemes està inhabilitat, però es pot activar amb una opció de
 
 @morerefs
 Referència de la notació:
-@ref{Disposició de la pàgina}.
+@ref{Page layout}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
 
-@node Modificació de pentagrames separats
+@node Modifying single staves
 @subsection Modificació de pentagrames separats
-@translationof Modifying single staves
 
 Aquesta secció explica com canviar els atributs específics d'un
 pentagrama: per exemple, canviar el nombre de línies o la mida de
@@ -402,15 +395,14 @@ la pauta.  També es descriuen els mètodes per començar i acabar
 els pentagrames, i establir seccions d'ossia.
 
 @menu
-* El símbol del pentagrama::
-* Pentagrames d'Ossia::
-* Ocultament de pentagrames::
+* Staff symbol::
+* Ossia staves::
+* Hiding staves::
 @end menu
 
 
-@node El símbol del pentagrama
+@node Staff symbol
 @unnumberedsubsubsec El símbol del pentagrama
-@translationof Staff symbol
 
 @cindex pentagrama, símbol del
 @cindex pentagrama, aturar i iniciar línies del
@@ -486,7 +478,7 @@ meitat superior), ham d'alinear la línia (o espai) central de la
 pauta personalitzada amb la posició de la línia central normal
 (0).  Pot caldre un ajust de la posició de la clau i del
 Do@tie{}central perquè es corresponguin a les línies noves.
-Vegeu @ref{Clau}.
+Vegeu @ref{Clef}.
 
 Pot canviar-se el gruix de les línies de la pauta.  També resulten
 afectades, de forma predeterminada, les línies addicionals i no la
@@ -583,7 +575,7 @@ Glossari musical:
 @rglos{staff}.
 
 Referència de la notació:
-@ref{Clau}.
+@ref{Clef}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -593,9 +585,8 @@ Referència de funcionament intern:
 @rinternals{staff-symbol-interface}.
 
 
-@node Pentagrames d'Ossia
+@node Ossia staves
 @unnumberedsubsubsec Pentagrames d'Ossia
-@translationof Ossia staves
 
 @cindex pentagrama a la francesa
 @cindex ossia
@@ -627,7 +618,7 @@ original, que no tinguin ni compàs ni clau, i que tinguin una mida
 menor de tipus de lletra, es poden fer servir diversos
 ajustaments.  El Manual d'Aprenentatge descriu una tècnica
 específica per assolir aquest objectiu, començant per
-@rlearning{Niuat d'expressions musicals}.
+@rlearningnamed{Nesting music expressions, Niuat d'expressions musicals}.
 
 L'exemple següent fa servir la propietat @code{alignAboveContext}
 per alinear el pentagrama d'ossia.  Aquest mètode és molt
@@ -694,7 +685,7 @@ Com a alternativa, es pot usar l'ordre
 mètode és molt convenient quan els pentagrames d'ossia apareixen
 immediatament després d'un salt de línia.  Per veure més
 informació sobre @code{\RemoveAllEmptyStaves}, consulteu
-@ref{Ocultament de pentagrames}.
+@ref{Hiding staves}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -731,12 +722,12 @@ Glossari musical:
 @rglos{Frenched staff}.
 
 Manual d'aprenentatge:
-@rlearning{Niuat d'expressions musicals},
-@rlearning{Mida dels objectes},
-@rlearning{Longitud i gruix dels objectes}.
+@rlearningnamed{Nesting music expressions, Niuat d'expressions musicals},
+@rlearningnamed{Size of objects, Mida dels objectes},
+@rlearningnamed{Length and thickness of objects, Longitud i gruix dels objectes}.
 
 Referència de la notació:
-@ref{Ocultament de pentagrames}.
+@ref{Hiding staves}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -745,9 +736,8 @@ Referència de funcionament intern:
 @rinternals{StaffSymbol}.
 
 
-@node Ocultament de pentagrames
+@node Hiding staves
 @unnumberedsubsubsec Ocultament de pentagrames
-@translationof Hiding staves
 
 @cindex francesa, partitures a la
 @cindex ocultament de pentagrames
@@ -816,7 +806,7 @@ combinació d'aquests elements.}
 @noindent
 També es pot fer ser servir @code{\RemoveAllEmptyStaves} per crear
 seccions d'ossia per a un pentagrama.  Per veure més detalls, consulteu
-@ref{Pentagrames d'Ossia}.
+@ref{Ossia staves}.
 
 
 @predefined
@@ -829,15 +819,15 @@ Glossari musical:
 @rglos{Frenched staff}.
 
 Manual d'aprenentatge:
-@rlearning{Visibilitat i color dels objectes}.
+@rlearningnamed{Visibility and color of objects, Visibilitat i color dels objectes}.
 
 Referència de la notació:
-@ref{Canvi dels paràmetres predeterminats dels contextos},
-@ref{El símbol del pentagrama},
-@ref{Pentagrames d'Ossia},
-@ref{Notes ocultes},
-@ref{Silencis invisibles},
-@ref{Visibilitat dels objectes}.
+@ref{Changing context default settings},
+@ref{Staff symbol},
+@ref{Ossia staves},
+@ref{Hidden notes},
+@ref{Invisible rests},
+@ref{Visibility of objects}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -864,26 +854,24 @@ de treure el gravador:
 
 Per veure els errors i problemes coneguts, així com els
 advertiments associats amb @code{\RemoveEmptyStaves}, consulteu
-@ref{Canvi dels paràmetres predeterminats dels contextos}.
+@ref{Changing context default settings}.
 
-@node Escriptura de les particel·les
+@node Writing parts
 @subsection Escriptura de les particel·les
-@translationof Writing parts
 
 Aquesta secció explica com inserir indicacions de temps i noms
 d'instruments a una partitura.  També es descriuen mètodes per
 citar altres veus i donar format a les notes guia.
 
 @menu
-* Noms d'instruments::
-* Cites a altres veus::
-* Format de les notes guia::
+* Instrument names::
+* Quoting other voices::
+* Formatting cue notes::
 @end menu
 
 
-@node Noms d'instruments
+@node Instrument names
 @unnumberedsubsubsec Noms d'instruments
-@translationof Instrument names
 
 @cindex instrument, nom del
 @cindex instrument, nom abreujat
@@ -953,9 +941,9 @@ centren per a un grup de pentagrames a no ser que s'augmentin els
 valors del sagnat, @code{indent}, i del sagnat curt,
 @code{short-indent}.  Per veure més detalls sobre aquests
 ajustaments, consulteu
-@ref{Variables de paper per a desplaçaments i sagnats}.
+@ref{paper variables for shifts and indents}.
 @c Quan es tradueixi fer servir
-@c @ref{Variables de paper per a desplaçaments i sagnats}.
+@c @ref{paper variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -987,7 +975,7 @@ Per afegir noms d'instrument a d'altres contextos (com ara
 @code{ChordNames} o @code{FiguredBass}), hem d'afegir el gravador
 @code{Instrument_name_engraver} a aquest context.  Per veure més
 detalls, consulteu
-@ref{Modificació dels connectors (plug-ins) de context}.
+@ref{Modifying context plug-ins}.
 
 
 @cindex noms d'instrument, canviar
@@ -1037,10 +1025,10 @@ setFlute = {
 
 @morerefs
 Referència de la notació:
-@ref{Variables de paper per a desplaçaments i sagnats},
-@ref{Modificació dels connectors (plug-ins) de context}.
+@ref{paper variables for shifts and indents},
+@ref{Modifying context plug-ins}.
 @c Quan es tradueixi fer servir
-@c @ref{Variables de paper per a desplaçaments i sagnats}.
+@c @ref{paper variables for shifts and indents}.
 
 Fragments de codi:
 @rlsr{Staff notation}.
@@ -1051,9 +1039,8 @@ Referència de funcionament intern:
 @rinternals{Staff}.
 
 
-@node Cites a altres veus
+@node Quoting other voices
 @unnumberedsubsubsec Cites a altres veus
-@translationof Quoting other voices
 
 @cindex guia, veus
 @cindex citar altres veus
@@ -1225,12 +1212,12 @@ oboeNotes = \relative {
 @end lilypond
 
 Las cites també es poden etiquetar, vegeu
-@ref{Ús d'etiquetes}.
+@ref{Using tags}.
 
 @morerefs
 Referència de la notació:
-@ref{Transposició dels instruments},
-@ref{Ús d'etiquetes}.
+@ref{Instrument transpositions},
+@ref{Using tags}.
 
 Fitxers d'inici:
 @file{scm/define-event-classes.scm}.
@@ -1252,9 +1239,8 @@ cita de notes d'adorn no està contemplada i pot fer que el
 LilyPond acabi de forma abrupta; la cita d'uns tresets dins d'uns
 altres pot donar com a resultat una notació de qualitat pobre.
 
-@node Format de les notes guia
+@node Formatting cue notes
 @unnumberedsubsubsec Format de les notes guia
-@translationof Formatting cue notes
 
 @cindex guia, format de les notes
 @cindex notes guia
@@ -1328,7 +1314,7 @@ En casos de col·locació més complexa de notes guia, per exemple
 amb transposició o inserint notes guia, per més d'una font, poden
 usar-se les ordres @code{\cueDuring} o @code{\cueDuringWithClef}.
 Són una forma més especialitzada de @code{\quoteDuring},
-vegeu @ref{Cites a altres veus} a la secció anterior.
+vegeu @ref{Quoting other voices} a la secció anterior.
 
 La sintaxi és:
 
@@ -1508,7 +1494,7 @@ solament les notes i esdeveniments que s'han citat mitjançant
 guies, com els canvis de clau o una etiqueta identificativa de
 l'instrument font, poden marcar-se per a la seva inclusió
 selectiva dins de la partitura, vegeu
-@ref{Ús d'etiquetes}.
+@ref{Using tags}.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1547,16 +1533,16 @@ Com a alternativa, els canvis de clau i les etiquetes d'instrument
 es poden recol·lectar dins d'una definició d'instrument per al seu
 ús repetit, utilitzant
 @code{\addInstrumentDefinition} que es descriu a
-@ref{Noms d'instruments}.
+@ref{Instrument names}.
 
 @morerefs
 Referència de la notació:
-@ref{Cites a altres veus},
-@ref{Transposició dels instruments},
-@ref{Noms d'instruments},
-@ref{Clau},
-@ref{Guies musicals},
-@ref{Ús d'etiquetes}.
+@ref{Quoting other voices},
+@ref{Instrument transpositions},
+@ref{Instrument names},
+@ref{Clef},
+@ref{Musical cues},
+@ref{Using tags}.
 
 
 Fragments de codi:

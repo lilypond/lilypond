@@ -14,9 +14,8 @@
 
 
 
-@node Altures
+@node Pitches
 @section Altures
-@translationof Pitches
 
 @lilypondfile[quote]{snippets/pitches-headword.ly}
 
@@ -25,16 +24,15 @@ notes. Aquest procés es composa de tres fases: entrada,
 modificació i sortida.
 
 @menu
-* Escriptura de notes::
-* Modificació de diverses notes a l'hora::
-* Impressió de les altures::
-* Cap de les notes::
+* Writing pitches::
+* Changing multiple pitches::
+* Displaying pitches::
+* Note heads::
 @end menu
 
 
-@node Escriptura de notes
+@node Writing pitches
 @subsection Escriptura de notes
-@translationof Writing pitches
 
 A aquesta secció es descriu la manera d'introduir l'altura de les
 notes.  Hi ha dues formes diferents de col·locar les notes a la
@@ -42,16 +40,15 @@ seva octava corresponent: el mode absolut i el relatiu.  A gairebé
 totes les ocasions, serà més pràctic el mode relatiu.
 
 @menu
-* Escriptura d'octava absoluta::
-* Escriptura d'octava relativa::
-* Alteracions accidentals::
-* Noms de les notes en altres llengües::
+* Absolute octave entry::
+* Relative octave entry::
+* Accidentals::
+* Note names in other languages::
 @end menu
 
 
-@node Escriptura d'octava absoluta
+@node Absolute octave entry
 @unnumberedsubsubsec Escriptura d'octava absoluta
-@translationof Absolute octave entry
 
 @cindex noms de les notes
 @cindex altures
@@ -131,9 +128,8 @@ Fragments de codi:
 @rlsr{Pitches}.
 
 
-@node Escriptura d'octava relativa
+@node Relative octave entry
 @unnumberedsubsubsec Escriptura d'octava relativa
-@translationof Relative octave entry
 
 @cindex relatiu
 @cindex relatives, especificació d'octaves
@@ -320,7 +316,7 @@ Glossari musical:
 @rglos{Pitch names}.
 
 Referència de la notació:
-@ref{Comprovació d'octava}.
+@ref{Octave checks}.
 
 Fragments de codi:
 @rlsr{Pitches}.
@@ -336,9 +332,8 @@ Referència de funcionament intern:
 @funindex \relative
 
 
-@node Alteracions accidentals
+@node Accidentals
 @unnumberedsubsubsec Alteracions accidentals
-@translationof Accidentals
 
 @cindex accidental
 @cindex key signature
@@ -351,7 +346,7 @@ noms de les notes específiques les altures; l'armadura i la clau
 determinen de quin forma es presenten aquestes altures.  Una nota
 sense alteració com@tie{}@code{c} significa @q{Do natural}, i sí que
 l'afecten l'armadura ni la clau.  Per veure més informació, consulteu
-@rlearning{Alteracions accidentals i armadures}.}
+@rlearningnamed{Pitches and key signatures, Alteracions accidentals i armadures}.}
 
 @cindex notes, noms holandesos de
 @cindex notes, noms predeterminats
@@ -371,7 +366,7 @@ Com és d'esperar, un @notation{doble sostingut} i un
 @notation{doble bemoll} s'obté afegint @code{isis} o
 @code{eses}.  Aquesta sintaxi deriva dels noms de les notes en
 holandès.  Per utilitzar altres noms per a les alteracions,
-consulteu @ref{Noms de les notes en altres llengües}.
+consulteu @ref{Note names in other languages}.
 
 @lilypond[verbatim,quote,fragment]
 \relative c'' { ais1 aes aisis aeses }
@@ -451,12 +446,12 @@ Glossari musical:
 @rglos{quarter tone}.
 
 Manual d'aprenentatge:
-@rlearning{Alteracions accidentals i armadures}.
+@rlearningnamed{Pitches and key signatures, Alteracions accidentals i armadures}.
 
 Referència de la notació:
-@ref{Alteracions accidentals automàtiques},
-@ref{Alteracions d'anotació (musica ficta)},
-@ref{Noms de les notes en altres llengües}.
+@ref{Automatic accidentals},
+@ref{Annotational accidentals (musica ficta)},
+@ref{Note names in other languages}.
 
 Fragments de codi:
 @rlsr{Pitches}.
@@ -475,9 +470,8 @@ No hi ha estàndards reconeguts àmpliament per denotar els bemolls
 de tres quarts, de manera que els símbols del LilyPond no
 s'ajusten a cap estàndard.
 
-@node Noms de les notes en altres llengües
+@node Note names in other languages
 @unnumberedsubsubsec Noms de les notes en altres llengües
-@translationof Note names in other languages
 
 @cindex notes, noms de, en altres llengües
 @cindex altures, noms de, altres llengües
@@ -633,7 +627,7 @@ comunament amb la música clàssica occidental, també coneguda com
 @notation{Període de la pràctica comuna}.  Malgrat això, també
 estan contemplades les altures i els sistemes d'afinació
 alternatius: vegeu
-@ref{Notació comuna per a músiques no occidentals}.
+@ref{Common notation for non-Western music}.
 
 @morerefs
 Glossari musical:
@@ -641,7 +635,7 @@ Glossari musical:
 @rglos{Common Practice Period}.
 
 Referència de la notació:
-@ref{Notació comuna per a músiques no occidentals}.
+@ref{Common notation for non-Western music}.
 
 Fitxers instal·lats:
 @file{scm/define-note-names.scm}.
@@ -650,24 +644,22 @@ Fragments de codi:
 @rlsr{Pitches}.
 
 
-@node Modificació de diverses notes a l'hora
+@node Changing multiple pitches
 @subsection Modificació de diverses notes a l'hora
-@translationof Changing multiple pitches
 
 Aquesta secció tracta de la manera de modificar les altures.
 
 @menu
-* Comprovació d'octava::
-* Transposició::
-* Inversió::
-* Retrogradació::
-* Transformacions modals::
+* Octave checks::
+* Transpose::
+* Inversion::
+* Retrograde::
+* Modal transformations::
 @end menu
 
 
-@node Comprovació d'octava
+@node Octave checks
 @unnumberedsubsubsec Comprovació d'octava
-@translationof Octave checks
 
 @cindex octava, comprovació de
 @cindex octava, correcció de
@@ -738,9 +730,8 @@ Referència de funcionament interno:
 @rinternals{RelativeOctaveCheck}.
 
 
-@node Transposició
+@node Transpose
 @unnumberedsubsubsec Transposició
-@translationof Transpose
 
 @cindex transport
 @cindex transposició
@@ -843,7 +834,7 @@ musicaEnSiBemol = @{ e4 @dots{} @}
 
 @noindent
 Per veure més informació sobre instruments transpositors, consulteu
-@ref{Transposició dels instruments}.
+@ref{Instrument transpositions}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -851,11 +842,11 @@ Per veure més informació sobre instruments transpositors, consulteu
 
 @morerefs
 Referència de la notació:
-@ref{Transposició dels instruments},
-@ref{Inversió},
-@ref{Transformacions modals},
-@ref{Escriptura d'octava relativa},
-@ref{Retrogradació}.
+@ref{Instrument transpositions},
+@ref{Inversion},
+@ref{Modal transformations},
+@ref{Relative octave entry},
+@ref{Retrograde}.
 
 Fragments de codi:
 @rlsr{Pitches}.
@@ -880,9 +871,8 @@ No s'imprimeixen alteracions accidentals triples quan s'usa
 triple bemoll).
 
 
-@node Inversió
+@node Inversion
 @unnumberedsubsubsec Inversió
-@translationof Inversion
 
 @cindex inversió
 @cindex operació de inversió
@@ -915,14 +905,13 @@ envoltant-los en un bloc @code{@bs{}relative}.}
 
 @morerefs
 Referència de la notació:
-@ref{Transformacions modals},
-@ref{Retrogradació},
-@ref{Transposició}.
+@ref{Modal transformations},
+@ref{Retrograde},
+@ref{Transpose}.
 
 
-@node Retrogradació
+@node Retrograde
 @unnumberedsubsubsec Retrogradació
-@translationof Retrograde
 
 @cindex retrogradació, transformació de
 @cindex transformació de retrogradació
@@ -944,18 +933,17 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 Les lligadures d'unió manuals dins de @code{\retrograde} es
 trencaran i generaran advertiments.  Es poden generar algunes
 lligadures automàticament activant
-@ref{Divisió automàtica de les notes}.
+@ref{Automatic note splitting}.
 
 @morerefs
 Referència de la notació:
-@ref{Inversió},
-@ref{Transformacions modals},
-@ref{Transposició}.
+@ref{Inversion},
+@ref{Modal transformations},
+@ref{Transpose}.
 
 
-@node Transformacions modals
+@node Modal transformations
 @unnumberedsubsubsec Transformacions modals
-@translationof Modal transformations
 
 @cindex transformacions modals
 @cindex modals, transformacions
@@ -966,7 +954,7 @@ freqüència es transformen els motius de diverses formes.  Un motiu
 es pot @notation{transportar} perquè comenci en diferents llocs de
 l'escala o pot @notation{invertir-se} al voltant d'una nota pivot
 de l'escala.  També es pot revertir per produir una
-@notation{retrogradació}, vegeu @ref{Retrogradació}.
+@notation{retrogradació}, vegeu @ref{Retrograde}.
 
 @warning{Qualsevol nota que no entri a la escala donada, es
 deixarà sense transformar.}
@@ -1096,30 +1084,28 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 
 @morerefs
 Referència de la notació:
-@ref{Inversió},
-@ref{Retrogradació},
-@ref{Transposició}.
+@ref{Inversion},
+@ref{Retrograde},
+@ref{Transpose}.
 
 
-@node Impressió de les altures
+@node Displaying pitches
 @subsection Impressió de les altures
-@translationof Displaying pitches
 
 Aquesta secció tracta de com alterar la presentació de l'altura de
 les notes.
 
 @menu
-* Clau::
-* Armadura de la tonalitat::
-* Indicadors d'octava::
-* Transposició dels instruments::
-* Alteracions accidentals automàtiques::
-* Tessitura::
+* Clef::
+* Key signature::
+* Ottava brackets::
+* Instrument transpositions::
+* Automatic accidentals::
+* Ambitus::
 @end menu
 
-@node Clau
+@node Clef
 @unnumberedsubsubsec Clau
-@translationof Clef
 
 @cindex Sol, clau de
 @cindex Do, clau de
@@ -1174,22 +1160,22 @@ c'2 c'
 @end lilypond
 
 Per veure el repertori complet dels possibles noms per a les
-claus, consulteu @ref{Estils de clau}.
+claus, consulteu @ref{Clef styles}.
 
 Les claus especials, com les utilitzades a la música
 @emph{antiga}, es descriuen a
-@ref{Claus de la música mensural} i a
-@ref{Claus de cant gregorià}. La música
+@ref{Mensural clefs} i a
+@ref{Gregorian clefs}. La música
 que requereix claus de tabulatura s'estudia a
-@ref{Tabulatures predeterminades} i a
-@ref{Tabulatures personalitzades}.
+@ref{Default tablatures} i a
+@ref{Custom tablatures}.
 
 @cindex Claus de guia
 @cindex Claus amb notes guia
 
 Per fer servir claus a les notes guia, vegeu les ordres
 @code{\cueClef} i @code{\cueDuringWithClef} a
-@ref{Format de les notes guia}.
+@ref{Formatting cue notes}.
 
 @cindex transpositores, claus
 @cindex clau transpositora
@@ -1295,11 +1281,11 @@ Quan hi ha un canvi de clau manual, el glif de la clau modificada
 
 @morerefs
 Referencia de la notación:
-@ref{Claus de la música mensural},
-@ref{Claus de cant gregorià},
-@ref{Tabulatures predeterminades},
-@ref{Tabulatures personalitzades},
-@ref{Format de les notes guia}.
+@ref{Mensural clefs},
+@ref{Gregorian clefs},
+@ref{Default tablatures},
+@ref{Custom tablatures},
+@ref{Formatting cue notes}.
 
 Fitxers instal·lats:
 @file{scm/parser-clef.scm}.
@@ -1330,9 +1316,8 @@ diferent.
 @end lilypond
 
 
-@node Armadura de la tonalitat
+@node Key signature
 @unnumberedsubsubsec Armadura de la tonalitat
-@translationof Key signature
 
 @cindex Armadura de la tonalitat
 
@@ -1345,7 +1330,7 @@ les notes són el codi d'entrada en brut; l'armadura i la clau
 determinen de quina forma es presenta aquest codi en brut.  Una
 nota sense alteració com@tie{}@code{c} significa @q{Do natural},
 sense que l'afectin l'armadura o la clau.  Per veure més
-informació, consulteu @rlearning{Alteracions accidentals i armadures}.}
+informació, consulteu @rlearningnamed{Pitches and key signatures, Alteracions accidentals i armadures}.}
 
 L'armadura indica la tonalitat en la qual es toca una peça.  Està
 denotada per un conjunt d'alteracions (bemolls o sostinguts) al
@@ -1444,7 +1429,7 @@ Glossari musical:
 @rglos{scordatura}.
 
 Manual de aprenentatge:
-@rlearning{Alteracions accidentals i armadures}.
+@rlearningnamed{Pitches and key signatures, Alteracions accidentals i armadures}.
 
 Fragments de codi:
 @rlsr{Pitches}.
@@ -1458,9 +1443,8 @@ Referència de funcionament interno:
 @rinternals{key-signature-interface}.
 
 
-@node Indicadors d'octava
+@node Ottava brackets
 @unnumberedsubsubsec Indicadors d'octava
-@translationof Ottava brackets
 
 @cindex ottava
 @cindex 15ma
@@ -1513,9 +1497,8 @@ Referència de funcionament interno:
 @rinternals{ottava-bracket-interface}.
 
 
-@node Transposició dels instruments
+@node Instrument transpositions
 @unnumberedsubsubsec Transposició dels instruments
-@translationof Instrument transpositions
 
 @cindex transposició de MIDI
 @cindex transposició instrumental
@@ -1531,7 +1514,7 @@ certes partes es poden gravar en un to diferent del
 tonalitat del @notation{instrumento transpositor}; si no es fa
 així, la sortida MIDI i les notes guia a altres parts produiran
 altures incorrectes.  Per veure més informació sobre parts citades
-com a guia, consulteu @ref{Cites a altres veus}.
+com a guia, consulteu @ref{Quoting other voices}.
 
 @example
 \transposition @var{pitch}
@@ -1614,16 +1597,15 @@ Glossari musical:
 @rglos{transposing instrument}.
 
 Referència de la notació:
-@ref{Cites a altres veus},
-@ref{Transposició}.
+@ref{Quoting other voices},
+@ref{Transpose}.
 
 Fragments de codi:
 @rlsr{Pitches}.
 
 
-@node Alteracions accidentals automàtiques
+@node Automatic accidentals
 @unnumberedsubsubsec Alteracions accidentals automàtiques
-@translationof Automatic accidentals
 
 @cindex automàtiques, alteracions
 @cindex alteracions automàtiques
@@ -2911,9 +2893,8 @@ forget = #(define-music-function (music) (ly:music?) #{
 }
 @end lilypond
 
-@node Tessitura
+@node Ambitus
 @unnumberedsubsubsec Tessitura
-@translationof Ambitus
 
 @cindex ambitus
 @cindex rang de altures
@@ -2977,22 +2958,20 @@ Referència de funcionament interno:
 No s'efectua un tractament de les possibles col·lisions en cas de
 diverses indicacions d'àmbit simultànies a veus diferents.
 
-@node Cap de les notes
+@node Note heads
 @subsection Cap de les notes
-@translationof Note heads
 
 Aquesta secció proposa formes d'alterar els caps de les figures.
 
 @menu
-* Caps de nota especials::
-* Caps de notes de Notació Fàcil::
-* Caps de notes amb formes diverses::
-* Improvisació::
+* Special note heads::
+* Easy notation note heads::
+* Shape note heads::
+* Improvisation::
 @end menu
 
-@node Caps de nota especials
+@node Special note heads
 @unnumberedsubsubsec Caps de nota especials
-@translationof Special note heads
 
 @cindex figura, cap de la
 @cindex nota, cap especial de
@@ -3029,7 +3008,7 @@ Es pot modificar l'aparença del cap de les notes:
 @end lilypond
 
 Per veure totes els estils de caps de les notes, consulteu
-@ref{Estils de caps de nota}.
+@ref{Note head styles}.
 
 L'estil @code{cross} (aspes) es fa servir per representar una
 àmplia varietat d'intencions musicals.  Les següent ordres
@@ -3085,9 +3064,9 @@ Fragments de codi:
 @rlsr{Pitches}.
 
 Referència de la notació:
-@ref{Estils de caps de nota},
-@ref{Notes a un acord},
-@ref{Indicació d'harmònics i notes tapades}.
+@ref{Note head styles},
+@ref{Chorded notes},
+@ref{Indicating harmonics and dampened notes}.
 
 Referència de funcionament interno:
 @rinternals{note-event},
@@ -3099,9 +3078,8 @@ Referència de funcionament interno:
 @rinternals{ledger-line-spanner-interface}.
 
 
-@node Caps de notes de Notació Fàcil
+@node Easy notation note heads
 @unnumberedsubsubsec Caps de notes de Notació Fàcil
-@translationof Easy notation note heads
 
 @cindex Hal Leonard
 @cindex principiants, música per a
@@ -3120,7 +3098,7 @@ nota (en angles) dins del cap.  S'usen a la música per a
 principiants.  Perquè que les lletres siguin llegibles, s'han
 d'imprimir en una mida gran de tipus de lletra.  Per imprimir amb
 un tipus de lletra més gran, vegeu
-@ref{Establiment de la mida del pentagrama}.
+@ref{Setting the staff size}.
 
 @lilypond[verbatim,quote]
 #(set-global-staff-size 26)
@@ -3144,7 +3122,7 @@ un tipus de lletra més gran, vegeu
 
 @morerefs
 Referència de la notació:
-@ref{Establiment de la mida del pentagrama}.
+@ref{Setting the staff size}.
 
 Fragments de codi:
 @rlsr{Pitches}.
@@ -3156,9 +3134,8 @@ Referència de funcionament interno:
 @rinternals{note-head-interface}.
 
 
-@node Caps de notes amb formes diverses
+@node Shape note heads
 @unnumberedsubsubsec Caps de notes amb formes diverses
-@translationof Shape note heads
 
 @cindex notes, caps de, con formes
 @cindex formes, notes con
@@ -3255,14 +3232,14 @@ relatiu major:
 {snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 Per veure tots els estils de formes de cap de nota, consulteu
-@ref{Estils de caps de nota}.
+@ref{Note head styles}.
 
 @morerefs
 Fragments de codi:
 @rlsr{Pitches}.
 
 Referència de la notació:
-@ref{Estils de caps de nota}.
+@ref{Note head styles}.
 
 
 Referencia de funcionament interno:
@@ -3272,9 +3249,8 @@ Referencia de funcionament interno:
 @rinternals{note-head-interface}.
 
 
-@node Improvisació
+@node Improvisation
 @unnumberedsubsubsec Improvisació
-@translationof Improvisation
 
 @cindex improvisació
 @cindex barrades, capss de nota

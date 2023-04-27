@@ -14,9 +14,8 @@
 @c Translation checkers:
 
 
-@node Ajustament de la sortida
+@node Tweaking output
 @chapter Ajustament de la sortida
-@translationof Tweaking output
 
 Aquest capítol tracta de com modificar la sortida.  El LilyPond és
 extremadament configurable; pràcticament tots els fragments de la
@@ -24,29 +23,27 @@ sortida es poden canviar.
 
 
 @menu
-* Elements d'ajustament::
-* Manual de referència de funcionament intern::
-* Aparença dels objectes::
-* Col·locació dels objectes::
-* Espaiat vertical::
-* Col·lisions d'objectes::
-* Ajustaments addicionals::
+* Tweaking basics::
+* The Internals Reference manual::
+* Appearance of objects::
+* Placement of objects::
+* Vertical spacing::
+* Col·lisions of objects::
+* Further tweaking::
 @end menu
 
-@node Elements d'ajustament
+@node Tweaking basics
 @section Elements d'ajustament
-@translationof Tweaking basics
 
 @menu
-* Introducció a l'ajustament::
-* Objectes i interfícies::
-* Convencions de noms d'objectes i propietats::
-* Mètodes d'ajustament::
+* Introduction to tweaks::
+* Objects and interfaces::
+* Naming conventions of objects and properties::
+* Tweaking methods::
 @end menu
 
-@node Introducció a l'ajustament
+@node Introduction to tweaks
 @subsection Introducció a l'ajustament
-@translationof Introduction to tweaks
 
 L'@q{ajustament} és un terme del LilyPond que s'usa pels diversos
 mètodes que l'usuari té a la seva disposició per modificar el
@@ -64,13 +61,12 @@ mostrarem la forma de construir aquestes ordres perquè pugueu
 aprendre com desenvolupar els vostres propis ajustaments.
 
 Abans de començar aquest capítol, potser vulgueu donar una ullada
-a la secció @ref{Contextos i gravadors}, atès que els contextos,
+a la secció @ref{Contexts and engravers}, atès que els contextos,
 els gravadors i les propietats que es contenen en aquests elements
 són fonamentals per comprendre i construir els ajustaments.
 
-@node Objectes i interfícies
+@node Objects and interfaces
 @subsection Objectes i interfícies
-@translationof Objects and interfaces
 
 @cindex objecte
 @cindex grob (objecte gràfic)
@@ -150,9 +146,8 @@ ha més de 100 interfícies d'aquestes.  Veurem més endavant perquè
 Aquests són, en definitiva, els termes principals relatius als
 objectes que utilitzarem a aquest capítol.
 
-@node Convencions de noms d'objectes i propietats
+@node Naming conventions of objects and properties
 @subsection Convencions de noms d'objectes i propietats
-@translationof Naming conventions of objects and properties
 
 @cindex nomenclatura, convencions de, per a objectes
 @cindex nomenclatura, convencions de, per a propietats
@@ -160,7 +155,7 @@ objectes que utilitzarem a aquest capítol.
 @cindex propietats, convencions de nomenclatura
 
 Ja hem vist certes convencions de nomenclatura d'objectes, a la
-secció @ref{Contextos i gravadors}.  Aquí, per a una referència
+secció @ref{Contexts and engravers}.  Aquí, per a una referència
 més fàcil, presentem una llista dels tipus d'objectes i propietats
 més comuns, junt amb les convencions segons les quals reben el seu
 nom, i un parell d'exemples de noms reals.  Hem fet servir una
@@ -199,28 +194,26 @@ propietats a partir dels seus noms.
 
 @morerefs
 Referencia de la notació:
-@rnotation{Modificació de les propietats}
+@rnotationnamed{Modifying properties, Modificació de les propietats}
 
-@node Mètodes d'ajustament
+@node Tweaking methods
 @subsection Mètodes d'ajustament
-@translationof Tweaking methods
 
 @cindex ajustament, mètodes de
 
 @strong{L'ordre \override}
 
 @menu
-* L'ordre override::
-* L'ordre revert::
-* El prefix once::
-* L'ordre overrideProperty::
-* L'ordre tweak::
-* El prefix single::
+* The override command::
+* The revert command::
+* The once prefix::
+* The overrideProperty command::
+* The tweak command::
+* The single prefix::
 @end menu
 
-@node L'ordre override
+@node The override command
 @unnumberedsubsubsec L'ordre @code{\override}
-@translationof The override command
 
 @cindex override, instrucció
 @cindex override (sobreescriptura), sintaxi de
@@ -229,8 +222,7 @@ Referencia de la notació:
 
 Ja hem vist les ordres @code{\set} i @code{\with}, que s'usen per
 canviar les propietats dels @strong{contextos} i per treure i
-posar @strong{gravadors}, a @ref{Modificar les propietats dels
-contextos} i @ref{Afegir i eliminar gravadors}.  Ara hem
+posar @strong{gravadors}, a @ref{Modifying context properties} i @ref{Adding and removing engravers}.  Ara hem
 d'examinar algunes altres ordres importants.
 
 L'ordre que canvia les propietats dels @strong{objectes
@@ -262,7 +254,7 @@ contextos del nivell més baix, és a dir: @code{Voice},
 exemples següents.  Més endavant veurem quan cal especificar-lo
 
 Les últimes seccions tracten de forma exhaustiva les propietats i
-els seus valors, vegeu @ref{Tipus de propietats}.  Però en aquesta
+els seus valors, vegeu @ref{Types of properties}.  Però en aquesta
 secció usarem sols unes quantes propietats i valors senzills que
 siguin fàcils d'entendre, per il·lustrar el format i la
 utilització d'aquestes instruccions.
@@ -297,9 +289,8 @@ per canviar el color d'un cap:
 @end lilypond
 
 
-@node L'ordre revert
+@node The revert command
 @unnumberedsubsubsec L'ordre @code{\revert}
-@translationof The revert command
 
 @cindex revert, instrucción
 
@@ -337,9 +328,8 @@ dues notes:
 @end lilypond
 
 
-@node El prefix once
+@node The once prefix
 @unnumberedsubsubsec El prefix @code{\once}
-@translationof The once prefix
 
 @funindex \once
 
@@ -383,9 +373,8 @@ predefinides per limitar el seu efecte a un sol moment musical:
 }
 @end lilypond
 
-@node L'ordre overrideProperty
+@node The overrideProperty command
 @unnumberedsubsubsec L'ordre @code{\overrideProperty}
-@translationof The overrideProperty command
 
 @cindex overrideProperty, ordre
 
@@ -398,9 +387,8 @@ detalls consulteu @rextendnamed{Difficult tweaks,Ajustaments difícils}.
 @c Maybe explain in a later iteration  -td
 
 
-@node L'ordre tweak
+@node The tweak command
 @unnumberedsubsubsec L'ordre @code{\tweak}
-@translationof The tweak command
 
 @cindex tweak, ordre
 
@@ -571,11 +559,10 @@ es pot modificar de la forma usual mitjançant ordres @code{\override}:
 
 @morerefs
 Referència de la notació:
-@rnotation{L'ordre tweak}.
+@rnotationnamed{The tweak command, L'ordre tweak}.
 
-@node El prefix single
+@node The single prefix
 @unnumberedsubsubsec El prefix @code{\single}
-@translationof The single prefix
 
 @funindex \single
 @cindex ajustament, generat a partir d'una sobreescriptura
@@ -598,7 +585,7 @@ El @code{\once} previ funciona perfectament per emfatitzar notes
 úniques o acords complets, però no es pot usar per emfatitzar una
 sola nota @emph{dins} d'un acord.  Anteriorment vam veure com es
 pot usar l'ordre @code{\tweak} per fer-lo, vegeu
-@ref{L'ordre tweak}.  Però
+@ref{The tweak command}.  Però
 @code{\tweak} no es pot fer servir amb una funció; aquí és on
 entra l'ordre @code{\single}:
 
@@ -628,24 +615,22 @@ individuals d'un acord. Malgrat això, @code{\single} no converteix
 
 @morerefs
 Manual de aprenentatge:
-@ref{L'ordre tweak},
-@ref{Ús de variables per als ajustaments de disposició}.
+@ref{The tweak command},
+@ref{Using variables for layout adjustments}.
 
-@node Manual de referència de funcionament intern
+@node The Internals Reference manual
 @section Manual de referència de funcionament intern
-@translationof The Internals Reference manual
 
 @cindex Referència de funcionament intern
 
 @menu
-* Propietats dels objectes de presentació::
-* Propietats de les interfícies::
-* Tipus de propietats::
+* Properties of layout objects::
+* Properties found in interfaces::
+* Types of properties::
 @end menu
 
-@node Propietats dels objectes de presentació
+@node Properties of layout objects
 @subsection Propietats dels objectes de presentació
-@translationof Properties of layout objects
 
 @cindex propietats dels objectes presentació
 @cindex propietats dels grobs
@@ -956,9 +941,8 @@ manual RFI, i en part per proporcionar-vos més pràctica sobre com
 extraure informació d'ell.  Aquests exemples aniran contenint cada
 cop menys paraules de guia i explicació.
 
-@node Propietats de les interfícies
+@node Properties found in interfaces
 @subsection Propietats de les interfícies
-@translationof Properties found in interfaces
 
 @cindex interface
 @cindex propietats de les interfícies
@@ -1068,9 +1052,8 @@ Manual de Extensió:
 @rextendnamed{Scheme tutorial,Tutorial de l'Scheme}.
 
 
-@node Tipus de propietats
+@node Types of properties
 @subsection Tipus de propietats
-@translationof Types of properties
 
 @cindex propietats, tipus de
 
@@ -1144,23 +1127,21 @@ Manual de Extensió:
 @rextendnamed{Scheme tutorial,Tutorial de l'Scheme}.
 
 
-@node Aparença dels objectes
+@node Appearance of objects
 @section Aparença dels objectes
-@translationof Appearance of objects
 
 Ara posarem en practica el que hem après amb uns quants exemples
 que mostren com es poden usar els ajustament per canviar l'aspecte
 de la música impresa.
 
 @menu
-* Visibilitat i color dels objectes::
-* Mida dels objectes::
-* Longitud i gruix dels objectes::
+* Visibility and color of objects::
+* Size of objects::
+* Length and thickness of objects::
 @end menu
 
-@node Visibilitat i color dels objectes
+@node Visibility and color of objects
 @subsection Visibilitat i color dels objectes
-@translationof Visibility and color of objects
 
 Dins d'una ús educatiu de la música, podríem desitjar imprimir una
 partitura amb certs elements omesos com a exercici per a l'alumne,
@@ -1171,7 +1152,7 @@ s'insereixen automàticament, com fem perquè no s'imprimeixin?
 
 Abans d'embolicar-nos amb això, recordem que les propietats dels
 objectes s'agrupen en el que hem anomenat @emph{interfaces} (vegeu
-@ref{Propietats de les interfícies}).  Això implica simplement
+@ref{Properties found in interfaces}).  Això implica simplement
 agrupar les propietats que es poden usar juntes per ajustar un
 objecte gràfic: si una d'elles es necessita per a un objecte,
 també les altres.  Així, certs objectes usen les propietats
@@ -1182,7 +1163,7 @@ pàgina que descriu aquest grob, i aquestes propietats es poden
 veure mirant aquestes interfícies.
 
 Hem explicat com trobar informació sobre els grobs a
-@ref{Propietats dels objectes de presentació}.  Usant el mateix
+@ref{Properties of layout objects}.  Usant el mateix
 enfocament, anem al RFI per buscar l'objecte de presentació que
 imprimeix les línies divisòries.  Mitjançant l'enllaç
 @emph{Backend} i @emph{All layout objects} trobem que hi ha un
@@ -1197,15 +1178,14 @@ també la de molts altres objectes de presentació).  Considerarem
 cada un d'ells per ordre.
 
 @menu
-* La propietat stencil (segell)::
-* La propietat break-visibility (visibilitat del salt)::
-* La propietat transparent (transparent)::
-* La propietat color::
+* The stencil property::
+* The break-visibility property::
+* The transparent property::
+* The color property::
 @end menu
 
-@node La propietat stencil (segell)
+@node The stencil property
 @unnumberedsubsubsec La propietat @code{stencil} (segell)
-@translationof The stencil property
 
 @cindex stencil (segell), propietat
 
@@ -1289,9 +1269,8 @@ amb mida nul·la:
 }
 @end lilypond
 
-@node La propietat break-visibility (visibilitat del salt)
+@node The break-visibility property
 @unnumberedsubsubsec La propietat @code{break-visibility} (visibilitat del salt)
-@translationof The break-visibility property
 
 @cindex break-visibility, propietat
 
@@ -1325,9 +1304,8 @@ mateix dins de l'ordre @code{\override}.
 
 I podem veure que això també treu totes les línies divisòries.
 
-@node La propietat transparent (transparent)
+@node The transparent property
 @unnumberedsubsubsec La propietat @code{transparent} (transparent)
-@translationof The transparent property
 
 @cindex transparent, propietat
 @cindex transparència
@@ -1403,9 +1381,8 @@ i la diferència és òbvia: en establir el segell al valor
 per complet; en fer l'objecte @code{transparent} (cosa que es pot
 fer utilitzant @code{\hide}) el deixen on és, però el fem invisible.
 
-@node La propietat color
+@node The color property
 @unnumberedsubsubsec La propietat @code{color}
-@translationof The color property
 
 @cindex color, propietat
 
@@ -1416,7 +1393,7 @@ les línies del pentagrama amb les quals es creua.  Podreu observar
 en alguns dels exemples que apareixen a continuació, que això
 succeeix de forma impredictible.  Els detalls sobre perquè això passa
 així, i com controlar-lo, s'estudien a
-@rnotation{Pintar els objectes de blanc};
+@rnotationnamed{Painting objects white, Pintar els objectes de blanc};
 de moment estem estudiant el color, per la qual cosa us preguem
 que accepteu aquesta limitació per ara).
 
@@ -1427,7 +1404,7 @@ una llista de valors en unitats internes, però per evitar haver de
 saber quines són, s'ofereixen diverses vies per a l'especificació
 dels colors.  La primera forma és utilitzar un dels colors
 @q{normals} dels quals es fa una relació a la primera taula de la
-@rnotation{Llista de colors}.  Per posar les
+@rnotationnamed{List of colors, Llista de colors}.  Per posar les
 línies divisòries de color blanc, escrivim:
 
 @cindex BarLine, exemple de sobreescriptura
@@ -1459,7 +1436,7 @@ voleu canviar el color a una de les altres variables de la llista.
 
 La segona forma de canviar el color és utilitzar la llista de noms
 de colores d'X11 que apareix a la segona llista de
-@rnotation{Llista de colors}.  De totes maneres,
+@rnotationnamed{List of colors, Llista de colors}.  De totes maneres,
 es fan correspondre als valors real per mitjà de la funció
 @code{x11-color} que converteix els símbols de color d'X11 a la
 llista de valors interns d'aquests colors:
@@ -1548,9 +1525,8 @@ l'objecte de presentació, d'aquí al gravador que el produeix, i a
 la pàgina del gravador del RFI apareix en quin context es pot
 trobar normalment el gravador.
 
-@node Mida dels objectes
+@node Size of objects
 @subsection Mida dels objectes
-@translationof Size of objects
 
 @cindex canvi de la mida dels objectes
 @cindex mida dels objectes
@@ -1558,7 +1534,7 @@ trobar normalment el gravador.
 @cindex objectes, canvi de la mida de
 
 Començarem examinant un altre cop un exemple anterior (vegeu
-@ref{Niuat d'expressions musicals}) que ens mostrava com introduir
+@ref{Nesting music expressions}) que ens mostrava com introduir
 un pentagrama temporal, com a un @rglos{ossia}.
 
 @cindex alignAboveContext, propietat, exemple
@@ -1776,9 +1752,8 @@ i les línies del pentagrama estan massa separades entre sí.  S'ha
 de reduir la seva escala en proporció a la reducció del tipus de
 lletra.  El següents apartat tracta sobre com es fa això.
 
-@node Longitud i gruix dels objectes
+@node Length and thickness of objects
 @subsection Longitud i gruix dels objectes
-@translationof Length and thickness of objects
 
 @cindex distàncies
 @cindex gruix
@@ -1864,25 +1839,22 @@ cap ajust global.  Si cal ajustar el gruix de qualsevol objecte de
 presentació en particular, es pot fer millor mitjançant la
 sobreescriptura de la seva propietat
 @code{thickness}. Anteriorment vam mostrar un exemple de canvi de
-gruix en les lligadures, a @ref{Propietats dels objectes de
-presentació}. El gruix de tots els objectes dibuixats (és a dir,
+gruix en les lligadures, a @ref{Properties of layout objects}. El gruix de tots els objectes dibuixats (és a dir,
 aquells que no es produeixen a partir d'un tipus de lletra) es
 poden canviar de la mateixa forma.
 
-@node Col·locació dels objectes
+@node Placement of objects
 @section Col·locació dels objectes
-@translationof Placement of objects
 
 @menu
-* Comportament automàtic::
-* Objectes interiors al pentagrama::
-* Objectes fora del pentagrama::
+* Automatic behavior::
+* Within-staff objects::
+* Outside-staff objects::
 @end menu
 
 
-@node Comportament automàtic
+@node Automatic behavior
 @subsection Comportament automàtic
-@translationof Automatic behavior
 
 @cindex dins del pentagrama, objectes
 @cindex fora del pentagrama, objectes
@@ -1960,14 +1932,13 @@ de la notació.  L'exemple següent mostra aquesta acomodació
 @end lilypond
 
 
-@node Objectes interiors al pentagrama
+@node Within-staff objects
 @subsection Objectes interiors al pentagrama
-@translationof Within-staff objects
 
 Ja hem vist com les instruccions @code{\voiceXXX} afecten a la
 direcció de les lligadures d'expressió i d'unió, digitacions i
 tots els altres elements que depenen de la direcció de les pliques
-(vegeu @ref{Veus explícites}).  Quan s'escriu música polifònica,
+(vegeu @ref{Explicitly instantiating voices}).  Quan s'escriu música polifònica,
 aquestes ordres són essencials perquè puguin distingir-se diverses
 línies melòdiques entrellaçades.  Però ocasionalment pot caldre
 sobreescriure aquest comportament automàtic.  Es pot fer seccions
@@ -1985,13 +1956,12 @@ avall.  Això es controla automàticament quan està establerta la
 propietat @code{direction}.
 
 @menu
-* La propietat direction (direcció)::
-* Digitacions::
+* The direction property::
+* Fingering::
 @end menu
 
-@node La propietat direction (direcció)
+@node The direction property
 @unnumberedsubsubsec La propietat @code{direction} (direcció)
-@translationof The direction property
 
 @cindex amunt
 @cindex avall
@@ -2097,9 +2067,8 @@ a'4( g') c''( a') |
 a'4^( g') c''_( a') |
 @end lilypond
 
-@node Digitacions
+@node Fingering
 @unnumberedsubsubsec Digitacions
-@translationof Fingering
 
 @cindex digitació, col·locació
 @cindex digitació d'acords
@@ -2263,25 +2232,23 @@ provarem @w{@code{-7}}:
 @end lilypond
 
 
-@node Objectes fora del pentagrama
+@node Outside-staff objects
 @subsection Objectes fora del pentagrama
-@translationof Outside-staff objects
 
 Els objectes fora del pentagrama se situen automàticament per
 evitar les col·lisions.  Hi ha diverses formes de sobreescriure la
 col·locació automàtica si el posicionat no resulta òptim.
 
 @menu
-* La propietat outside-staff-priority (prioritat fora del pentagrama)::
-* L'ordre textLengthOn::
-* Posicionament dels matisos dinàmics::
-* Escalat d'un «Grob»::
+* The outside-staff-priority property::
+* The textLengthOn command::
+* Dynamics placement::
+* Grob sizing::
 @end menu
 
 
-@node La propietat outside-staff-priority (prioritat fora del pentagrama)
+@node The outside-staff-priority property
 @unnumberedsubsubsec La propietat @code{outside-staff-priority} (prioritat fora del pentagrama)
-@translationof The outside-staff-priority property
 
 Els objectes fora-del-pentagrama es col·loquen automàticament per
 evitar les col·lisions.  Els objectes que tenen el valor més bais
@@ -2388,7 +2355,7 @@ música.  L'extensor abasta des de l'ordre@code{\startTextSpan}
 fins l'ordre @code{\stopTextSpan}, i el format del text es
 defineix per mitjà de l'ordre @code{\override TextSpanner}.  Per
 veure més detalls, consulteu
-@rnotation{Extensions de text}.
+@rnotationnamed{Text spanners, Extensions de text}.
 
 També mostra la manera de crear indicadors d'octava alta i baixa.
 
@@ -2480,7 +2447,7 @@ controlar la ubicació vertical dels objectes individuals, tot i
 que els resultats poden no ser sempre desitjables.  Suposeu que
 voleu que @qq{Text3} se situï per sobre de @qq{Text4} a l'exemple
 sota l'epígraf Comportament Automàtic de més a dalt (vegeu
-@ref{Comportament automàtic}).  Tot el que estem fer és localitzar
+@ref{Automatic behavior}).  Tot el que estem fer és localitzar
 la prioritat de @code{TextScript} en el RFI o en les taules de
 dalt, i augmentar la prioritat de @qq{Text3} fins un valor superior:
 
@@ -2503,9 +2470,8 @@ sobre del pentagrama?  Per fer-lo, ens caldrà clarament espaiar
 les notes en sentit horitzontal per fer lloc per al text  Això es
 fa usant l'ordre @code{textLengthOn}.
 
-@node L'ordre textLengthOn
+@node The textLengthOn command
 @unnumberedsubsubsec L'ordre @code{\textLengthOn}
-@translationof The textLengthOn command
 
 @cindex notes, espaiar amb el text
 
@@ -2568,9 +2534,8 @@ que mostra com el text de marcatge interactua amb aquestes notes.
 }
 @end lilypond
 
-@node Posicionament dels matisos dinàmics
+@node Dynamics placement
 @unnumberedsubsubsec Posicionament dels matisos dinàmics
-@translationof Dynamics placement
 
 @cindex ajustament de la col·locació dels matisos
 @cindex dinàmica, ajustament de la col·locació de les indicacions de
@@ -2616,9 +2581,8 @@ això per al text de marcatge utilitzant l'ordre
 les indicacions de matís dinàmic.  Per tant, hem d'esbrinar com
 fer-ho utilitzant ordres @code{\override}.
 
-@node Escalat d'un «Grob»
+@node Grob sizing
 @unnumberedsubsubsec Escalat d'un «Grob»
-@translationof Grob sizing
 
 @cindex grob, canvi de mida d'un
 @cindex escala dels grobs
@@ -2673,11 +2637,10 @@ indicacions de dinàmica estiguessin alineades sobre la mateixa
 línia de base en lloc d'anar cap amunt i cap avall amb les notes.
 La propietat que ho fa és @code{staff-padding} (farciment de
 pentagrama) que s'estudia a la secció dedicada a les col·lisions
-(vegeu @ref{Col·lisions d'objectes}).
+(vegeu @ref{Col·lisions of objects}).
 
-@node Espaiat vertical
+@node Vertical spacing
 @section Espaiat vertical
-@translationof Vertical spacing
 
 En general, l'espaiat vertical dels objectes musicals que fa el
 LilyPond és força bo.  Vejam com es comporta amb una cançó
@@ -2722,7 +2685,7 @@ Començarem amb la lletra.
 
 La lletra es troba a l'interior d'un sistema, i per tant les
 ordres per aplicar-li l'espaiat estaran en
-@rnotation{Espaiat vertical flexible dins dels sistemes}.
+@rnotationnamed{Flexible vertical spacing within systems, Espaiat vertical flexible dins dels sistemes}.
 Aquí es diu que el text són línies del tipus @qq{no-pauta} i per
 tant l'ordre per canviar el seu espaiat farà referència a la propietat
 @code{nonstaff}.  Per separar-les del pentagrama al que pertanyen
@@ -2876,23 +2839,21 @@ que hem de recordar és que l'espaiat entre objectes dins d'un
 @code{StaffGrouper}. L'espaiat dels pentagrames no agrupats (com
 @code{Lyrics} i @code{Staff}) es controla amb les variables
 del @code{VerticalAxisGroup}.  Per veure més detalls, consulteu
-@rnotation{Variables flexibles d'espaiat vertical de paper} i
-@rnotation{Espaiat vertical flexible dins dels sistemes}.
+@rnotationnamed{Flexible vertical spacing paper variables, Variables flexibles d'espaiat vertical de paper} i
+@rnotationnamed{Flexible vertical spacing within systems, Espaiat vertical flexible dins dels sistemes}.
 
 
-@node Col·lisions d'objectes
+@node Col·lisions of objects
 @section Col·lisions d'objectes
-@translationof Col·lisions of objects
 
 @menu
-* Moviment d'objectes::
-* Ajustament de la notació amb superposicions::
-* Exemple real de música::
+* Moving objects::
+* Fixing overlapping notation::
+* Real music example::
 @end menu
 
-@node Moviment d'objectes
+@node Moving objects
 @subsection Moviment d'objectes
-@translationof Moving objects
 
 @cindex moviment d'objectes superposats
 @cindex moviments d'objectes superposats
@@ -2915,7 +2876,7 @@ superposicions en la notació.  S'han de considerar a l'ordre següent:
 La @strong{direcció} d'un dels objectes que se superposen es pot
 canviar usant les ordres predefinides que es relacionen a dalt per
 als objectes dins-del-pentagrama (vegeu
-@ref{Objectes interiors al pentagrama}).  Es poden recol·locar
+@ref{Within-staff objects}).  Es poden recol·locar
 fàcilment les pliques, lligadures d'expressió i d'unió, barres de
 corxera, indicacions dinàmiques, text i grups de valoració
 especial d'aquesta forma.  La limitació és que sols teniu la
@@ -2937,7 +2898,7 @@ propietats es troben:
 @item
 @code{direction} (direcció)
 
-Ja s'ha estudiat amb cert detall: vegeu @ref{Objectes interiors al pentagrama}.
+Ja s'ha estudiat amb cert detall: vegeu @ref{Within-staff objects}.
 
 @item
 @code{padding} (farciment),
@@ -3061,8 +3022,7 @@ diferents.
 Dins d'una veu, totes les notes que es produeixen al mateix moment
 s'agrupen a una columna de notes, i es crea un objecte
 @code{NoteColumn} per controlar el posicionament horitzontal
-d'aquest grup de notes (vegeu @qq{Columnes de nota} a @ref{Veus
-explícites}).  Si @emph{i sols si} dos o més columnes de nota dins
+d'aquest grup de notes (vegeu @qq{Columnes de nota} a @ref{Explicitly instantiating voices}).  Si @emph{i sols si} dos o més columnes de nota dins
 d'un sol context de pauta, les dues amb pliques en la mateixa
 direcció, apareixen al mateix moment musical, els valors de les
 seves propietats @code{horizontal-shift} s'usen per assignar-los
@@ -3093,7 +3053,7 @@ superposen.  Observeu que no té efecte sobre les columnes de nota
 que no se superposen.  S'especifica en unitats adequades a una
 columna de notes, per exemple l'amplitud del cap de la nota de la
 primera veu.  S'ha d'usar en situacions complexes on les ordres
-@code{\shiftOn} normals (véase @ref{Veus explícites}) no resolen
+@code{\shiftOn} normals (véase @ref{Explicitly instantiating voices}) no resolen
 el conflicte entre les notes de forma satisfactòria.  És
 preferible a la propietat @code{extra-offset} per a aquest
 propòsit, perquè no cal esbrinar la distància en espais de
@@ -3175,27 +3135,25 @@ d'usar per a moure'ls.
 @end multitable
 
 
-@node Ajustament de la notació amb superposicions
+@node Fixing overlapping notation
 @subsection Ajustament de la notació amb superposicions
-@translationof Fixing overlapping notation
 
 Vejam ara com poden ser d'ajuda les propietats que hem vist a la
 secció anterior, per resoldre problemes de notació que se superposa.
 
 @menu
-* La propietat padding (farciment)::
-* La propietat right-padding (farciment per la dreta)::
-* La propietat staff-padding (farciment de pentagrama)::
-* La propietat self-alignment-X (auto-alineació en X)::
-* La propietat staff-position (posició al pentagrama)::
-* La propietat extra-offset (desplaçament addicional)::
-* La propietat positions (posicions)::
-* La propietat force-hshift (forçar desplaçament horitzontal)::
+* The padding property::
+* The right-padding property::
+* The staff-padding property::
+* The self-alignment-X property::
+* The staff-position property::
+* The extra-offset property::
+* The positions property::
+* The force-hshift property::
 @end menu
 
-@node La propietat padding (farciment)
+@node The padding property
 @unnumberedsubsubsec La propietat @code{padding} (farciment))
-@translationof The padding property
 
 @cindex farciment
 @cindex ajustar notació que se superposa
@@ -3233,7 +3191,7 @@ context respecta un determinat objecte.  Atès que l'objecte
 @code{MetronomeMark} respecta el context @code{Score}, els canvis
 de propietats al context @code{Voice} passaran inadvertits. Per
 veure més detalls consulteu
-@rnotation{Modificació de les propietats}.
+@rnotationnamed{Modifying properties, Modificació de les propietats}.
 
 Si la propietat de farciment @code{padding} d'un objecte
 s'incrementa quan aquest objecte es troba a una pila d'objectes
@@ -3241,9 +3199,8 @@ que s'estan col·locant d'acord a la seva prioritat
 @code{outside-staff-priority}, llavors aquest objecte es mourà, i
 també tots els que estan per fora d'ell.
 
-@node La propietat right-padding (farciment per la dreta)
+@node The right-padding property
 @unnumberedsubsubsec La propietat @code{right-padding} (farciment per la dreta)
-@translationof The right-padding property
 
 @cindex right-padding, propietat
 
@@ -3289,9 +3246,8 @@ la nota sobreescrivint @code{right-padding}.
 
 @noindent
 
-@node La propietat staff-padding (farciment de pentagrama)
+@node The staff-padding property
 @unnumberedsubsubsec La propietat @code{staff-padding} (farciment de pentagrama)
-@translationof The staff-padding property
 
 @cindex alineació d'objectes sobre la línia base
 @cindex objectes, alineació sobre la línia base
@@ -3317,9 +3273,8 @@ les indicacions de matís a l'exemple de la secció anterior:
 @end lilypond
 
 
-@node La propietat self-alignment-X (auto-alineació en X)
+@node The self-alignment-X property
 @unnumberedsubsubsec La propietat @code{self-alignment-X} (auto-alineació en X)
-@translationof The self-alignment-X property
 
 L'exemple següent mostra com ajustar la posició d'un objecte de
 digitació de corda en relació a la plica d'una nota mitjançant
@@ -3336,9 +3291,8 @@ l'alineament del límit dret amb el punt de referència de la nota
 <a''\2>
 @end lilypond
 
-@node La propietat staff-position (posició al pentagrama)
+@node The staff-position property
 @unnumberedsubsubsec La propietat @code{staff-position} (posició al pentagrama)
-@translationof The staff-position property
 
 @cindex objecte, col·lisió dins del pentagrama
 
@@ -3378,9 +3332,8 @@ Això és millor que utilitzar, per exemple, @code{extra-offset},
 perquè la línia addicional per sobre del silenci s'insereix
 automàticament.
 
-@node La propietat extra-offset (desplaçament addicional)
+@node The extra-offset property
 @unnumberedsubsubsec La propietat @code{extra-offset} (desplaçament addicional)
-@translationof The extra-offset property
 
 @cindex posicionar objectes
 @cindex posicionar grobs
@@ -3403,9 +3356,8 @@ f'4-5
 @end lilypond
 
 
-@node La propietat positions (posicions)
+@node The positions property
 @unnumberedsubsubsec La propietat @code{positions} (posicions)
-@translationof The positions property
 
 @cindex controlar manualment grups especials, lligadures i barres
 @cindex manual, control, de grups especials, lligadures i barres
@@ -3449,7 +3401,7 @@ seleccionat, i en aquest cas la propietat @code{positions} no té
 cap efecte.  Malgrat això, les lligadures d'unió, expressió i
 fraseig @emph{es poden} col·locar i ajustar de manera molt exacta
 quan cal. Per aprendre la manera de fer-lo, consulteu
-@rnotation{Modificació de lligadures d'unió i d'expressió}.
+@rnotationnamed{Modifying ties and slurs, Modificació de lligadures d'unió i d'expressió}.
 
 Presentem un altre exemple.  Veiem que la barra xoca amb les lligadures:
 
@@ -3519,12 +3471,11 @@ la primera veu, ni tan sols a les que estan al segon compàs, que
 és posterior.  Tan aviat com la sobreescriptura no pugui tenir cap
 efecte, hauria de ser revertida com es mostra.
 
-@node La propietat force-hshift (forçar desplaçament horitzontal)
+@node The force-hshift property
 @unnumberedsubsubsec La propietat @code{force-hshift} (forçar desplaçament horitzontal)
-@translationof The force-hshift property
 
 Ara podem veure com aplicar les correccions finals a l'exemple de
-Chopin que vam present al final de @ref{Sento veus}, que deixem
+Chopin que vam present al final de @ref{I'm hearing Voices}, que deixem
 amb aquest aspecte:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3579,9 +3530,8 @@ Presentem a continuació el resultat final:
 @end lilypond
 
 
-@node Exemple real de música
+@node Real music example
 @subsection Exemple real de música
-@translationof Real music example
 
 Finalitzarem aquesta secció sobre els ajustaments mostrant els
 passos que s'han de prendre per tractar amb un exemple complicat
@@ -3675,7 +3625,7 @@ fusionada amb la corxera de la seva mateixa alçada.  Tota la resta
 està en una sola veu, així que el més fàcil és introduir aquestes
 tres veus addicionals, en el moment que facin falta i de forma
 temporal.  Si us heu oblidat de com fer-ho, llegiu les seccions
-@ref{Sento veus} i @ref{Veus explícites}.  Aquí prenem la decisió
+@ref{I'm hearing Voices} i @ref{Explicitly instantiating voices}.  Aquí prenem la decisió
 d'utilitzar veus instanciades explícitament per al passatge
 polifònic, atès que el LilyPond és més probable que pugui evitar
 les col·lisions si totes les veus s'instancien explícitament
@@ -3803,7 +3753,7 @@ doble barra es produeix per mitjà de la instrucció
 @code{\bar "||"}.  Això ho podem fer fàcilment.  A continuació hem
 de corregir la col·lisió entre la lligadura d'unió i la indicació
 de compàs.  Això es fa millor movent la lligadura cap amunt.  Vam
-estudiar com moure objectes anteriorment a @ref{Moviment d'objectes},
+estudiar com moure objectes anteriorment a @ref{Moving objects},
 on diu que els objectes estan situats de forma relativa al
 pentagrama es poden moure verticalment sobreescrivint la seva
 propietat @code{staff-position}, que s'especifica en unitats de
@@ -3877,7 +3827,7 @@ de Referència de la notació.  En cuscar la paraula @qq{merge}
 (fusiona) a l'índex de la Referència de la notació arribem
 ràpidament a les ordres per barrejar notes amb diferent cap i amb
 o sense puntet, a
-@rnotation{Resolució de les col·lisions}.
+@rnotationnamed{Collision resolution, Resolució de les col·lisions}.
 Al nostre exemple hem de fusionar ambdós tipus de notes al
 transcurs de la secció polifònica del compàs 3; per tant, gràcies
 a la informació que apareix a la Referència de la Notació, escrivim
@@ -4112,33 +4062,30 @@ lhMusic = \relative {
 @end lilypond
 
 
-@node Ajustaments addicionals
+@node Further tweaking
 @section Ajustaments addicionals
-@translationof Further tweaking
 
 @menu
-* Altres aplicacions dels ajustaments::
-* Ús de variables per als ajustaments de disposició::
-* Fulls d'estil::
-* Altres fonts d'informació::
-* Ajustaments avançats amb l'Scheme::
+* Other uses for tweaks::
+* Using variables for layout adjustments::
+* Style sheets::
+* Other sources of information::
+* Advanced tweaks with Scheme::
 @end menu
 
-@node Altres aplicacions dels ajustaments
+@node Other uses for tweaks
 @subsection Altres aplicacions dels ajustaments
-@translationof Other uses for tweaks
 
 @menu
-* Unió de notes entre veus diferents::
-* Simulació de un calderó al MIDI::
+* Tying notes across voices::
+* Simulating a fermata in MIDI::
 @end menu
 
 @cindex eliminar objectes
 @cindex objectes, eliminar
 
-@node Unió de notes entre veus diferents
+@node Tying notes across voices
 @unnumberedsubsubsec Unió de notes entre veus diferents
-@translationof Tying notes across voices
 
 @cindex lligar notes entre veus diferents
 
@@ -4177,13 +4124,12 @@ les veus:
 
 @morerefs
 Manual de aprenentatge:
-@ref{El prefix once},
-@ref{La propietat stencil (segell)}.
+@ref{The once prefix},
+@ref{The stencil property}.
 
 
-@node Simulació de un calderó al MIDI
+@node Simulating a fermata in MIDI
 @unnumberedsubsubsec Simulació de un calderó al MIDI
-@translationof Simulating a fermata in MIDI
 
 @cindex segell, ús de la propietat
 @cindex fermata, realització a MIDI
@@ -4262,9 +4208,8 @@ segell suprimit) no ho fa.
 Glossari musical:
 @rglos{system}.
 
-@node Ús de variables per als ajustaments de disposició
+@node Using variables for layout adjustments
 @subsection Ús de variables per als ajustaments de disposició
-@translationof Using variables for layout adjustments
 
 @cindex variables, usar per a sobreescriptures
 @cindex sobreescriptures, usar variables per a
@@ -4363,12 +4308,11 @@ VerseFour = \lyricmode {
 @end lilypond
 
 
-@node Fulls d'estil
+@node Style sheets
 @subsection Fulls d'estil
-@translationof Style sheets
 
 La sortida que produeix el LilyPond es pot modificar profundament;
-consulteu @ref{Ajustament de la sortida} per llegir detalls sobre
+consulteu @ref{Tweaking output} per llegir detalls sobre
 aquest tema.  Però, que passa si teniu molts fitxers als quals
 voleu aplicar els vostres propis ajustaments? O què passa si,
 senzillament, voleu separar els ajustaments de la pròpia música?
@@ -4376,7 +4320,7 @@ Tot això és força fàcil d'aconseguir.
 
 Vejam un exemple.  No us preocupeu si no enteneu les parts que
 tenen tots els @code{#()}.  Això s'explicarà a
-@ref{Ajustaments avançats amb l'Scheme}.
+@ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =
@@ -4665,9 +4609,8 @@ fitxers de música amb un @code{\include "../global.ily"}, que conté
 @end example
 
 
-@node Altres fonts d'informació
+@node Other sources of information
 @subsection Altres fonts d'informació
-@translationof Other sources of information
 
 La documentació del manual de Referència de Funcionament Intern
 conté muntanyes d'informació sobre el LilyPond, però es pot
@@ -4802,9 +4745,8 @@ poden interessar-vos són:
 @end multitable
 
 
-@node Ajustaments avançats amb l'Scheme
+@node Advanced tweaks with Scheme
 @subsection Ajustaments avançats amb l'Scheme
-@translationof Advanced tweaks with Scheme
 
 Tot i que és possible fer moltes coses amb les ordres
 @code{\override} i @code{\tweak} , tenim una forma encara més

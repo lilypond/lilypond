@@ -13,20 +13,19 @@
 @c Translation checkers:
 
 
-@node Notació musical
+@node Musical notation
 @chapter Notació musical
-@translationof Musical notation
 
 Aquest capítol explica com crear notació musical.
 
 @menu
-* Altures::                 Escriptura i presentació de les duracions de les notes.
-* Duracions::               Escriptura i presentació de les duracions de les notes.
-* Expressions::             Addició d'expressió a les notes.
-* Repeticions::             Repeticions de música.
-* Notes simultànies::       Més d'una nota a l'hora.
-* Notació dels pentagrames:: Impressió dels pentagrames.
-* Anotacions editorials::   Notació especial per augmentar la llegibilitat.
+* Pitches::                 Escriptura i presentació de les duracions de les notes.
+* Rhythms::               Escriptura i presentació de les duracions de les notes.
+* Expressive marks::             Addició d'expressió a les notes.
+* Repeats::             Repeticions de música.
+* Simultaneous notes::       Més d'una nota a l'hora.
+* Staff notation:: Impressió dels pentagrames.
+* Editorial annotations::   Notació especial per augmentar la llegibilitat.
 * Text::                    Addició de text a les partitures.
 @end menu
 
