@@ -45,19 +45,19 @@ Copyright @copyright{} 1998--2023 por los autores.
 @ifnottex
 
 @menu
-* Notación musical::                Notación que se utiliza en casi todos los proyectos.
-* Notación especializada::          Notación que sólo se usa para cometidos específicos.
-* Entrada y salida generales::      Información general sobre la entrada y la salida de LilyPond.
-* Problemas de espaciado::          Presentación del resultado en papel.
-* Cambiar los valores por omisión:: Ajuste fino del resultado.
+* Musical notation::                Notación que se utiliza en casi todos los proyectos.
+* Specialist notation::          Notación que sólo se usa para cometidos específicos.
+* General input and output::      Información general sobre la entrada y la salida de LilyPond.
+* Spacing issues::          Presentación del resultado en papel.
+* Changing defaults:: Ajuste fino del resultado.
 
 Apéndices
 
-* Tablas del manual sobre notación:: Tablas y cuadros.
-* Hoja de referencia rápida::        Resumen de la sintaxis de LilyPond.
+* Notation manual tables:: Tablas y cuadros.
+* Cheat sheet::        Resumen de la sintaxis de LilyPond.
 * GNU Free Documentation License:: Licencia de este documento.
-* Índice de instrucciones de LilyPond::
-* Índice de LilyPond::
+* LilyPond command index::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -85,9 +85,8 @@ Apéndices
 @include en/fdl.itexi
 
 
-@node Índice de instrucciones de LilyPond
+@node LilyPond command index
 @appendix Índice de instrucciones de LilyPond
-@translationof LilyPond command index
 
 Este índice relaciona todas las instrucciones y palabras clave de
 LilyPond, con enlaces a aquellas secciones del manual que
@@ -102,9 +101,8 @@ en la que aparece la instrucción o palabra clave.
 
 @printindex ky
 
-@node Índice de LilyPond
+@node LilyPond index
 @appendix Índice de LilyPond
-@translationof LilyPond index
 
 Además de todas las instrucciones y palabras clave de LilyPond,
 este índice es una lista de términos musicales y las palabras que

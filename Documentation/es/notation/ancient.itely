@@ -11,9 +11,8 @@
 @c \version "2.25.4"
 
 
-@node Notación antigua
+@node Ancient notation
 @section Notación antigua
-@translationof Ancient notation
 
 @lilypondfile[quote]{snippets/ancient-headword.ly}
 
@@ -25,12 +24,12 @@
 
 
 @menu
-* Panorámica de los estilos contemplados::
-* Notación antigua - funcionalidades comunes::
-* Tipografiar música mensural::
-* Tipografiado del canto gregoriano::
-* Tipografiado del canto kievano en notación cuadrada::
-* Trabajar con música antigua - escenarios y soluciones::
+* Overview of the supported styles::
+* Ancient notation---common features::
+* Typesetting mensural music::
+* Typesetting Gregorian chant::
+* Typesetting Kievan square notation::
+* Working with ancient music---scenarios and solutions::
 @end menu
 
 Entre las formas en que está contemplada la notación antigua se
@@ -47,22 +46,22 @@ ofrecen una propiedad @code{style} (estilo), que se puede cambiar
 para emular varios estilos diferentes de notación antigua.  Véase
 
 @itemize
-@item @ref{Cabezas de nota de la música mensural},
-@item @ref{Alteraciones y armaduras de la música mensural},
-@item @ref{Silencios de la música mensural},
-@item @ref{Claves de la música mensural},
-@item @ref{Claves de canto gregoriano},
-@item @ref{Corchetes de la música mensural},
-@item @ref{Indicaciones de compás de la música mensural}.
+@item @ref{Mensural note heads},
+@item @ref{Mensural accidentals and key signatures},
+@item @ref{Mensural rests},
+@item @ref{Mensural clefs},
+@item @ref{Gregorian clefs},
+@item @ref{Mensural flags},
+@item @ref{Mensural time signatures}.
 @end itemize
 
 Ciertos conceptos de notación se incluyen específicamente para la
 notación antigua:
 
 @itemize
-@item @ref{Custos},
+@item @ref{Custodes},
 @item @ref{Divisiones},
-@item @ref{Ligaduras}.
+@item @ref{Ligatures}.
 @end itemize
 
 @morerefs
@@ -72,20 +71,19 @@ Glosario musical:
 @rglos{mensural notation}.
 
 Referencia de la notación:
-@ref{Cabezas de nota de la música mensural},
-@ref{Alteraciones y armaduras de la música mensural},
-@ref{Silencios de la música mensural},
-@ref{Claves de canto gregoriano},
-@ref{Corchetes de la música mensural},
-@ref{Indicaciones de compás de la música mensural},
-@ref{Custos},
+@ref{Mensural note heads},
+@ref{Mensural accidentals and key signatures},
+@ref{Mensural rests},
+@ref{Gregorian clefs},
+@ref{Mensural flags},
+@ref{Mensural time signatures},
+@ref{Custodes},
 @ref{Divisiones},
-@ref{Ligaduras}.
+@ref{Ligatures}.
 
 
-@node Panorámica de los estilos contemplados
+@node Overview of the supported styles
 @subsection Panorámica de los estilos contemplados
-@translationof Overview of the supported styles
 
 Están disponibles tres estilos para la composición tipográfica del
 canto gregoriano:
@@ -174,20 +172,18 @@ Glosario musical:
 @rglos{flag}.
 
 
-@node Notación antigua - funcionalidades comunes
+@node Ancient notation---common features
 @subsection Notación antigua - funcionalidades comunes
-@translationof Ancient notation---common features
 
 @menu
-* Contextos predefinidos::
-* Ligaduras::
-* Custos::
+* Pre-defined contexts::
+* Ligatures::
+* Custodes::
 @end menu
 
 
-@node Contextos predefinidos
+@node Pre-defined contexts
 @unnumberedsubsubsec Contextos predefinidos
-@translationof Pre-defined contexts
 
 Para el canto gregoriano y la notación mensural, están a nuestra
 disposición contextos predefinidos de voz y de pauta, que
@@ -200,8 +196,8 @@ predefinidos @code{VaticanaVoice}, @code{VaticanaStaff},
 @code{MensuralVoice} y @code{MensuralStaff}.
 
 @itemize
-@item @ref{Contextos del canto gregoriano},
-@item @ref{Contextos de la música mensural}.
+@item @ref{Gregorian chant contexts},
+@item @ref{Mensural contexts}.
 @end itemize
 
 @morerefs
@@ -209,13 +205,12 @@ Glosario musical:
 @rglos{mensural notation}.
 
 Referencia de la notación:
-@ref{Contextos del canto gregoriano},
-@ref{Contextos de la música mensural}.
+@ref{Gregorian chant contexts},
+@ref{Mensural contexts}.
 
 
-@node Ligaduras
+@node Ligatures
 @unnumberedsubsubsec Ligaduras
-@translationof Ligatures
 
 @cindex ligadura
 
@@ -253,16 +248,16 @@ mensural, y con ciertas limitaciones).  Para usar cualquiera de
 estos estilos, se debe sustituir el grabador predeterminado
 @code{Ligature_bracket_engraver} por uno de los grabadores
 especializados en ligaduras del contexto @code{Voice}, como se
-explica en @ref{Ligaduras mensurales blancas} y
-@ref{Ligaduras de neumas cuadrados gregorianos}.
+explica en @ref{White mensural ligatures} y
+@ref{Gregorian square neume ligatures}.
 
 @morerefs
 Glosario musical:
 @rglos{ligature}.
 
 Referencia de la notación:
-@ref{Ligaduras mensurales blancas},
-@ref{Ligaduras de neumas cuadrados gregorianos}.
+@ref{White mensural ligatures},
+@ref{Gregorian square neume ligatures}.
 
 @knownissues
 El espacio que las ligaduras necesitan no está implementado
@@ -293,9 +288,8 @@ nota\]}.
 @c -- eo
 
 
-@node Custos
+@node Custodes
 @unnumberedsubsubsec Custos
-@translationof Custodes
 
 @cindex custos
 @cindex custodes
@@ -372,26 +366,24 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Custos}.
 
-@node Tipografiar música mensural
+@node Typesetting mensural music
 @subsection Tipografiar música mensural
-@translationof Typesetting mensural music
 
 @menu
-* Contextos de la música mensural::
-* Claves de la música mensural::
-* Indicaciones de compás de la música mensural::
-* Cabezas de nota de la música mensural::
-* Corchetes de la música mensural::
-* Silencios de la música mensural::
-* Alteraciones y armaduras de la música mensural::
-* Alteraciones de anotación (musica ficta)::
-* Ligaduras mensurales blancas::
+* Mensural contexts::
+* Mensural clefs::
+* Mensural time signatures::
+* Mensural note heads::
+* Mensural flags::
+* Mensural rests::
+* Mensural accidentals and key signatures::
+* Annotational accidentals (musica ficta)::
+* White mensural ligatures::
 @end menu
 
 
-@node Contextos de la música mensural
+@node Mensural contexts
 @unnumberedsubsubsec Contextos de la música mensural
-@translationof Mensural contexts
 
 @funindex MensuralVoice
 @funindex MensuralStaff
@@ -429,9 +421,8 @@ Glosario musical:
 @rglos{mensural notation}.
 
 
-@node Claves de la música mensural
+@node Mensural clefs
 @unnumberedsubsubsec Claves de la música mensural
-@translationof Mensural clefs
 
 @cindex clave, estilos
 @cindex música antigua, claves
@@ -479,8 +470,8 @@ c'1
 
 Se puede forzar manualmente la composición tipográfica de un glifo
 de clave sobre cualquier línea seleccionada arbitrariamente, según
-se describe en @ref{Clave}.  Para ver el abanico completo de las
-claves posibles, consulte @ref{Estilos de clave}.
+se describe en @ref{Clef}.  Para ver el abanico completo de las
+claves posibles, consulte @ref{Clef styles}.
 
 @morerefs
 Glosario musical:
@@ -488,8 +479,8 @@ Glosario musical:
 @rglos{clef}.
 
 Referencia de la notación:
-@ref{Claves de canto gregoriano},
-@ref{Clave}.
+@ref{Gregorian clefs},
+@ref{Clef}.
 
 Archivos instalados:
 @file{scm/parser-clef.scm}.
@@ -508,9 +499,8 @@ La clave de Sol Mensural está asignada a la clave de Sol de
 Petrucci.
 
 
-@node Indicaciones de compás de la música mensural
+@node Mensural time signatures
 @unnumberedsubsubsec Indicaciones de compás de la música mensural
-@translationof Mensural time signatures
 
 @cindex mensuración, símbolo de
 @cindex compás, indicación de, mensural
@@ -601,7 +591,7 @@ las diferencias que existen entre los estilos:
 }
 @end lilypond
 
-@ref{Indicación de compás} ofrece una introducción general al uso
+@ref{Time signature} ofrece una introducción general al uso
 de las indicaciones de compás.
 
 @morerefs
@@ -609,7 +599,7 @@ Glosario musical:
 @rglos{mensural notation}.
 
 Referencia de la notación:
-@ref{Indicación de compás}.
+@ref{Time signature}.
 
 @knownissues
 Las relaciones de duración de las notas no pueden cambiar con la
@@ -633,9 +623,8 @@ directamente con @code{\time}.  En su lugar, utilice @code{\markup
 @{\musicglyph "timesig.mensural68alt" @}}.
 
 
-@node Cabezas de nota de la música mensural
+@node Mensural note heads
 @unnumberedsubsubsec Cabezas de nota de la música mensural
-@translationof Mensural note heads
 
 @cindex cabezas de nota antiguas
 
@@ -693,7 +682,7 @@ a'\longa
 @end lilypond
 
 
-@ref{Estilos de cabezas de nota} ofrece una visión de conjunto
+@ref{Note head styles} ofrece una visión de conjunto
 sobre la totalidad de los estilos de cabeza disponibles.
 
 @morerefs
@@ -702,12 +691,11 @@ Glosario musical:
 @rglos{note head}.
 
 Referencia de la notación:
-@ref{Estilos de cabezas de nota}.
+@ref{Note head styles}.
 
 
-@node Corchetes de la música mensural
+@node Mensural flags
 @unnumberedsubsubsec Corchetes de la música mensural
-@translationof Mensural flags
 
 @cindex corchete mensural
 @cindex mensural, corchete
@@ -750,9 +738,8 @@ posibilidades de disposición avanzadas de la notación clásica
 de la notación mensural).
 
 
-@node Silencios de la música mensural
+@node Mensural rests
 @unnumberedsubsubsec Silencios de la música mensural
-@translationof Mensural rests
 
 @cindex silencio antiguo
 
@@ -780,7 +767,7 @@ Glosario musical:
 @rglos{mensural notation}.
 
 Referencia de la notación:
-@ref{Silencios}.
+@ref{Rests}.
 
 Fragmentos de código:
 @rlsr{Ancient notation}.
@@ -793,9 +780,8 @@ longa no se agrupan automáticamente, por lo que debe hacerse
 manualmente utilizando silencios con altura determinada.
 
 
-@node Alteraciones y armaduras de la música mensural
+@node Mensural accidentals and key signatures
 @unnumberedsubsubsec Alteraciones y armaduras de la música mensural
-@translationof Mensural accidentals and key signatures
 
 @cindex alteración mensural
 @cindex armadura mensural
@@ -836,18 +822,17 @@ Glosario musical:
 @rglos{key signature}.
 
 Referencia de la notación:
-@ref{Alturas},
-@ref{Alteraciones accidentales},
-@ref{Alteraciones accidentales automáticas},
-@ref{Armadura de la tonalidad}.
+@ref{Pitches},
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{Key signature}.
 
 Referencia de funcionamiento interno:
 @rinternals{KeySignature}.
 
 
-@node Alteraciones de anotación (musica ficta)
+@node Annotational accidentals (musica ficta)
 @unnumberedsubsubsec Alteraciones de anotación (@emph{musica ficta})
-@translationof Annotational accidentals (musica ficta)
 
 En la música europea de hasta aprox. 1600, se esperaba de los
 cantantes que alterasen cromáticamente ciertas notas según su
@@ -895,9 +880,8 @@ Referencia de funcionamiento interno:
 @rinternals{AccidentalSuggestion}.
 
 
-@node Ligaduras mensurales blancas
+@node White mensural ligatures
 @unnumberedsubsubsec Ligaduras mensurales blancas
-@translationof White mensural ligatures
 
 @cindex mensural, ligadura
 @cindex ligadura mensural
@@ -993,8 +977,8 @@ Glosario musical:
 @rglos{ligature}.
 
 Referencia de la notación:
-@ref{Ligaduras de neumas cuadrados gregorianos},
-@ref{Ligaduras}.
+@ref{Gregorian square neume ligatures},
+@ref{Ligatures}.
 
 @knownissues
 El espaciado horizontal de las ligaduras puede ser algo pobre.
@@ -1002,18 +986,17 @@ Las alteraciones accidentales pueden colisionar con las notas
 previas.
 
 
-@node Tipografiado del canto gregoriano
+@node Typesetting Gregorian chant
 @subsection Tipografiado del canto gregoriano
-@translationof Typesetting Gregorian chant
 
 @menu
-* Contextos del canto gregoriano::
-* Claves de canto gregoriano::
-* Alteraciones y armaduras de canto gregoriano::
+* Gregorian chant contexts::
+* Gregorian clefs::
+* Gregorian accidentals and key signatures::
 * Divisiones::
-* Articulaciones del canto gregoriano::
-* Puntos de aumentación (morae)::
-* Ligaduras de neumas cuadrados gregorianos::
+* Gregorian articulation signs::
+* Augmentum dots (morae)::
+* Gregorian square neume ligatures::
 @end menu
 
 Al componer tipográficamente una pieza en notación de canto
@@ -1024,7 +1007,7 @@ las cabezas.  A pesar de ello se puede establecer el estilo de las
 cabezas, p.ej.: a @code{vaticana.punctum} para producir neumas de
 punctum.  De forma similar, el grabador
 @code{Mensural_ligature_engraver} construye ligaduras mensurales
-automáticamente.  Consulte @ref{Ligaduras} para ver cómo funcionan
+automáticamente.  Consulte @ref{Ligatures} para ver cómo funcionan
 los grabadores de ligaduras.
 
 @morerefs
@@ -1032,13 +1015,12 @@ Glosario musical:
 @rglos{ligature}.
 
 Referencia de la notación:
-@ref{Ligaduras mensurales blancas},
-@ref{Ligaduras}.
+@ref{White mensural ligatures},
+@ref{Ligatures}.
 
 
-@node Contextos del canto gregoriano
+@node Gregorian chant contexts
 @unnumberedsubsubsec Contextos del canto gregoriano
-@translationof Gregorian chant contexts
 
 @funindex VaticanaVoice
 @funindex VaticanaStaff
@@ -1080,9 +1062,8 @@ sí, como lo demuestra el siguiente fragmento:
 @c TODO: nothing here yet ...
 
 
-@node Claves de canto gregoriano
+@node Gregorian clefs
 @unnumberedsubsubsec Claves de canto gregoriano
-@translationof Gregorian clefs
 
 @cindex clave
 
@@ -1093,7 +1074,7 @@ la línea en que se imprimen.  En estos casos, para enumerar estas
 claves se usa un número a continuación del nombre de la clave,
 contando desde la línea inferior.  Aún se puede forzar manualmente
 la composición tipográfica de un glifo de clave sobre una línea
-arbitraria, como se describe en @ref{Clave}.  La nota que se
+arbitraria, como se describe en @ref{Clef}.  La nota que se
 imprime a la derecha junto a cada una de las claves en la columna
 de los ejemplos, denota el Do central (@code{c'}) respecto a dicha
 clave.
@@ -1219,12 +1200,11 @@ Glosario musical:
 @rglos{clef}.
 
 Referencia de la notación:
-@ref{Clave}.
+@ref{Clef}.
 
 
-@node Alteraciones y armaduras de canto gregoriano
+@node Gregorian accidentals and key signatures
 @unnumberedsubsubsec Alteraciones y armaduras de canto gregoriano
-@translationof Gregorian accidentals and key signatures
 
 @cindex alteraciones gregorianas
 @cindex armadura gregoriana
@@ -1275,10 +1255,10 @@ Glosario musical:
 @rglos{key signature}.
 
 Referencia de la notación:
-@ref{Alturas},
-@ref{Alteraciones accidentales},
-@ref{Alteraciones accidentales automáticas},
-@ref{Armadura de la tonalidad}.
+@ref{Pitches},
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{Key signature}.
 
 Referencia de funcionamiento interno:
 @rinternals{KeySignature}.
@@ -1286,7 +1266,6 @@ Referencia de funcionamiento interno:
 
 @node Divisiones
 @unnumberedsubsubsec Divisiones
-@translationof Divisiones
 
 @cindex divisio
 @cindex divisiones
@@ -1302,7 +1281,7 @@ secciones.  El significado musical de @emph{divisio minima},
 @emph{divisio maior} y @emph{divisio maxima} se podrían
 caracterizar como una pausa corta, media y larga
 (respectivamente), algo así como las marcas de respiración de
-@ref{Marcas de respiración}.  El signo de @emph{finalis} no sólo
+@ref{Breath marks}.  El signo de @emph{finalis} no sólo
 marca el final de un canto, sino que se usa también con frecuencia
 dentro de un único canto antifonal o responsorial para marcar el
 final de cada una de las secciones.
@@ -1372,21 +1351,20 @@ Glosario musical:
 @rglos{divisio}.
 
 Referencia de la notación:
-@ref{Marcas de respiración}.
+@ref{Breath marks}.
 
 Archivos de inicio:
 @file{ly/gregorian.ly}.
 
 
-@node Articulaciones del canto gregoriano
+@node Gregorian articulation signs
 @unnumberedsubsubsec Articulaciones del canto gregoriano
-@translationof Gregorian articulation signs
 
 @cindex articulaciones gregorianas
 @cindex gregoriano, articulación
 
 Además de los signos de articulación estándar que se hallan
-descritos en la sección @ref{Articulaciones y ornamentos}, se
+descritos en la sección @ref{Articulations and ornamentations}, se
 proveen signos de articulación diseñados específicamente para
 utilizarlos con la notación en el estilo de la @emph{Editio
 Vaticana}.
@@ -1438,7 +1416,7 @@ Vaticana}.
 
 @morerefs
 Referencia de la notación:
-@ref{Articulaciones y ornamentos}.
+@ref{Articulations and ornamentations}.
 
 Fragmentos de código:
 @rlsr{Ancient notation}.
@@ -1456,9 +1434,8 @@ Ciertas articulaciones se colocan demasiado cerca verticalmente de
 las cabezas de nota correspondientes.
 
 
-@node Puntos de aumentación (morae)
+@node Augmentum dots (morae)
 @unnumberedsubsubsec Puntos de aumentación (@emph{morae})
-@translationof Augmentum dots (morae)
 
 Los puntos de aumentación, llamados también @emph{morae}, se
 escriben con la función musical @code{\augmentum}.  Observe que
@@ -1482,7 +1459,7 @@ lugar, escriba @code{\virga \augmentum c} o @code{\augmentum
 
 @morerefs
 Referencia de la notación:
-@ref{Marcas de respiración}.
+@ref{Breath marks}.
 
 Referencia de funcionamiento interno:
 @rinternals{BreathingSign}.
@@ -1491,9 +1468,8 @@ Fragmentos de código:
 @rlsr{Ancient notation}.
 
 
-@node Ligaduras de neumas cuadrados gregorianos
+@node Gregorian square neume ligatures
 @unnumberedsubsubsec Ligaduras de neumas cuadrados gregorianos
-@translationof Gregorian square neume ligatures
 
 @cindex ligadura, neumas cuadrados
 @cindex cuadrado, ligadura de neuma
@@ -2441,9 +2417,9 @@ Glosario musical:
 @rglos{ligature}.
 
 Referencia de la notación:
-@ref{Ligaduras de neumas cuadrados gregorianos},
-@ref{Ligaduras mensurales blancas},
-@ref{Ligaduras}.
+@ref{Gregorian square neume ligatures},
+@ref{White mensural ligatures},
+@ref{Ligatures}.
 
 @knownissues
 Cuando aparece un punto de @code{\augmentum} al final de la última
@@ -2456,22 +2432,20 @@ cabeza en vez de una función musical unaria, de forma que
 @code{\augmentum} se pudiera entremezclar con los prefijos de
 cabeza en un orden arbitrario.
 
-@node Tipografiado del canto kievano en notación cuadrada
+@node Typesetting Kievan square notation
 @subsection Tipografiado del canto kievano en notación cuadrada
-@translationof Typesetting Kievan square notation
 
 @menu
-* Contextos del canto kievano::
-* Claves del canto kievano::
-* Notas del canto kievano::
-* Alteraciones accidentales del canto kievano::
-* Líneas divisorias del canto kievano::
-* Melismas del canto kievano::
+* Kievan contexts::
+* Kievan clefs::
+* Kievan notes::
+* Kievan accidentals::
+* Kievan bar line::
+* Kievan melismata::
 @end menu
 
-@node Contextos del canto kievano
+@node Kievan contexts
 @unnumberedsubsubsec Contextos del canto kievano
-@translationof Kievan contexts
 
 @funindex KievanVoice
 @funindex KievanStaff
@@ -2517,9 +2491,8 @@ contempla las formas anteriores (menos corrientes) de notación
 kievana que se usaban en Galitzia para la notación del canto llano
 ruteno.
 
-@node Claves del canto kievano
+@node Kievan clefs
 @unnumberedsubsubsec Claves del canto kievano
-@translationof Kievan clefs
 
 @cindex clave
 
@@ -2538,11 +2511,10 @@ Glosario musical:
 @rglos{clef}.
 
 Referencia de la notación:
-@ref{Clave}.
+@ref{Clef}.
 
-@node Notas del canto kievano
+@node Kievan notes
 @unnumberedsubsubsec Notas del canto kievano
-@translationof Kievan notes
 
 @cindex cabezas de nota antiguas
 
@@ -2581,7 +2553,7 @@ Glosario musical:
 @rglos{note head}.
 
 Referencia de la notación:
-@ref{Estilos de cabezas de nota}.
+@ref{Note head styles}.
 
 @knownissues
 LilyPond determina de forma automática si debe trazarse la forma
@@ -2591,9 +2563,8 @@ preceptivo que las plicas estén orientadas en la misma dirección
 dentro de un melisma.  Esto puede hacerse manualmente fijando la
 propiedad @code{direction} del objeto @code{Stem}.
 
-@node Alteraciones accidentales del canto kievano
+@node Kievan accidentals
 @unnumberedsubsubsec Alteraciones accidentales del canto kievano
-@translationof Kievan accidentals
 
 @cindex alteraciones kievanas
 @cindex kievano, alteraciones de
@@ -2620,13 +2591,12 @@ Glosario musical:
 @rglos{accidental}.
 
 Referencia de la notación:
-@ref{Alteraciones accidentales},
-@ref{Alteraciones accidentales automáticas},
-@ref{La tipografía Emmentaler}.
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{The Emmentaler font}.
 
-@node Líneas divisorias del canto kievano
+@node Kievan bar line
 @unnumberedsubsubsec Líneas divisorias del canto kievano
-@translationof Kievan bar line
 
 Normalmente se coloca una figura decorativa al final de una pieza
 de notación kievana, que puede denominarse como «doble barra final
@@ -2639,12 +2609,11 @@ del canto kievano».  Se puede invocar como @code{\bar "k"}.
 @end lilypond
 
 @morerefs
-@ref{Barras de compás},
-@ref{La tipografía Emmentaler}.
+@ref{Bar lines},
+@ref{The Emmentaler font}.
 
-@node Melismas del canto kievano
+@node Kievan melismata
 @unnumberedsubsubsec Melismas del canto kievano
-@translationof Kievan melismata
 
 @cindex ligaduras kievanas
 @cindex kievano, ligaduras de
@@ -2705,22 +2674,21 @@ Glosario musical:
 @rglos{ligature}.
 
 Referencia de la notación:
-@ref{Ligaduras mensurales blancas},
-@ref{Ligaduras de neumas cuadrados gregorianos},
-@ref{Ligaduras}.
+@ref{White mensural ligatures},
+@ref{Gregorian square neume ligatures},
+@ref{Ligatures}.
 
 @knownissues
 El espaciado horizontal de las ligaduras es mediocre.
 
-@node Trabajar con música antigua - escenarios y soluciones
+@node Working with ancient music---scenarios and solutions
 @subsection Trabajar con música antigua - escenarios y soluciones
-@translationof Working with ancient music---scenarios and solutions
 
 @menu
 * Incipits::
-* Disposición tipo «Mensurstriche»::
-* Transcripción de canto gregoriano::
-* Antigua y moderna desde la misma fuente::
+* Mensurstriche layout::
+* Transcribing Gregorian chant::
+* Ancient and modern from one source::
 @end menu
 
 El trabajo con música antigua implica con frecuencia tareas
@@ -2743,7 +2711,6 @@ polifónica;
 
 @node Incipits
 @unnumberedsubsubsec Incipits
-@translationof Incipits
 @funindex \incipit
 @cindex incipit, añadir
 
@@ -2788,9 +2755,8 @@ instrumento, utilice @code{\set Staff.instrumentName = ""}.
 @c ... and reference to other sections ...
 
 
-@node Disposición tipo «Mensurstriche»
+@node Mensurstriche layout
 @unnumberedsubsubsec Disposición tipo «Mensurstriche»
-@translationof Mensurstriche layout
 
 @cindex Mensurstriche
 
@@ -2812,9 +2778,8 @@ compás.
 @c ... and reference to other sections ...
 
 
-@node Transcripción de canto gregoriano
+@node Transcribing Gregorian chant
 @unnumberedsubsubsec Transcripción de canto gregoriano
-@translationof Transcribing Gregorian chant
 
 El canto gregoriano se puede transcribir a notación moderna con
 ciertos trucos sencillos.
@@ -2994,9 +2959,8 @@ spirLyr = \lyricmode {
 @c ... and reference to other sections ...
 
 
-@node Antigua y moderna desde la misma fuente
+@node Ancient and modern from one source
 @unnumberedsubsubsec Antigua y moderna desde la misma fuente
-@translationof Ancient and modern from one source
 
 @cindex transcripción de mensural a moderno
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]

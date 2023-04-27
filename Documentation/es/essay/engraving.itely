@@ -10,9 +10,8 @@
 
 @c \version "2.23.8"
 
-@node Grabado musical
+@node Music engraving
 @chapter Grabado musical
-@translationof Music engraving
 
 Este ensayo describe porqué se creó LilyPond
 y cómo puede producir partituras musicales tan bellas.
@@ -23,17 +22,16 @@ y cómo puede producir partituras musicales tan bellas.
 @c check formatting of HTML output
 
 @menu
-* Historia de LilyPond::
-* Detalles del grabado::
-* Grabado automatizado::
-* Construcción del software::
-* Poner a LilyPond a trabajar::
-* Ejemplos de partituras (BWV 861)::
+* The LilyPond story::
+* Engraving details::
+* Automated engraving::
+* Building software::
+* Putting LilyPond to work::
+* Engraved examples (BWV 861)::
 @end menu
 
-@node Historia de LilyPond
+@node The LilyPond story
 @section Historia de LilyPond
-@translationof The LilyPond story
 
 Mucho antes de que LilyPond se hubiese utilizado para editar preciosas
 partituras de trabajo, antes de que pudiese crear apuntes de cursos
@@ -146,9 +144,8 @@ Henle núm. 666, @copyright{}2000:
 @page
 @end iftex
 
-@node Detalles del grabado
+@node Engraving details
 @section Detalles del grabado
-@translationof Engraving details
 
 @cindex grabado
 @cindex tipografía musical
@@ -207,16 +204,15 @@ los aspectos de ella que queríamos tratar de imitar en LilyPond.
 @c mechanical look, which makes them unpleasant to play from.
 
 @menu
-* Fuentes tipográficas de música::
-* Espaciado óptico::
-* Líneas adicionales::
-* Escalado óptico::
-* ¿Para qué tanto esfuerzo?::
+* Music fonts::
+* Optical spacing::
+* Ledger lines::
+* Optical sizing::
+* Why work so hard?::
 @end menu
 
-@node Fuentes tipográficas de música
+@node Music fonts
 @unnumberedsubsec Fuentes tipográficas de música
-@translationof Music fonts
 
 Las imágenes de abajo ilustran algunas de las diferencias entre el
 grabado musical tradicional y la típica impresión por ordenador.  La
@@ -310,9 +306,8 @@ superior.  El sostenido y el becuadro son más fáciles de distinguir
 desde una cierta distancia porque sus ángulos tienen distinta
 inclinación y los trazos verticales son más pesados.
 
-@node Espaciado óptico
+@node Optical spacing
 @unnumberedsubsec Espaciado óptico
-@translationof Optical spacing
 
 En el espaciado, la distribución del espacio debe reflejar las
 duraciones de las figuras.  Sin embargo, como vimos en la suite de
@@ -400,9 +395,8 @@ hacia arriba en el ejemplo bien espaciado ha recibido un poco más de
 espacio antes de la línea divisoria para evitar que tenga un aspecto
 aglomerado.  Una plica hacia abajo no necesitaría este ajuste.
 
-@node Líneas adicionales
+@node Ledger lines
 @unnumberedsubsec Líneas adicionales
-@translationof Ledger lines
 
 @cindex líneas adicionales
 @cindex colisiones
@@ -438,9 +432,8 @@ posibilidad en el grabado que hace LilyPond.
 @end multitable
 
 
-@node Escalado óptico
+@node Optical sizing
 @unnumberedsubsec Escalado óptico
-@translationof Optical sizing
 
 Puede ser necesario imprimir la música en distintos tamaños.
 Originalmente esto se conseguía mediante la creación de punzones de
@@ -534,9 +527,8 @@ global = {
 }
 @end lilypond
 
-@node ¿Para qué tanto esfuerzo?
+@node Why work so hard?
 @unnumberedsubsec ¿Para qué tanto esfuerzo?
-@translationof Why work so hard?
 
 Los músicos están normalmente más absortos en su interpretación que en
 el estudio del aspecto gráfico de una partitura impresa, por lo que
@@ -574,9 +566,8 @@ ediciones que tanto nos gusta ver y a partir de las que tanto nos
 gusta tocar.
 
 
-@node Grabado automatizado
+@node Automated engraving
 @section Grabado automatizado
-@translationof Automated engraving
 
 @cindex grabado automatizado
 @cindex automatizado, grabado
@@ -587,14 +578,13 @@ explicar las buenas disposiciones al ordenador, y gran cantidad de
 comparaciones detalladas con grabados de música reales.
 
 @menu
-* Concursos de belleza::
-* Mejoras por medio de pruebas::
-* Hacer las cosas bien::
+* Beauty contests::
+* Improvement by benchmarking::
+* Getting things right::
 @end menu
 
-@node Concursos de belleza
+@node Beauty contests
 @unnumberedsubsec Concursos de belleza
-@translationof Beauty contests
 
 ¿Cómo realizamos las decisiones de formateo?  En otras palabras, ¿cuál
 de las tres configuraciones elegiríamos para la siguiente ligadura?
@@ -681,9 +671,8 @@ Esta técnica es bastante general, y se utiliza para tomar decisiones
 los acordes, saltos de línea y saltos de página.  El resultado de
 estas decisiones se puede juzgar por comparación con grabados reales.
 
-@node Mejoras por medio de pruebas
+@node Improvement by benchmarking
 @unnumberedsubsec Mejoras por medio de pruebas
-@translationof Improvement by benchmarking
 
 La salida de LilyPond ha mejorado paulatinamente con el tiempo, y
 continúa mejorando mediante su comparación con partituras grabadas a
@@ -778,9 +767,8 @@ La salida actual no es un clon de la edición de referencia, pero está
 mucho más cerca de la calidad de publicación que la salida más
 antigua.
 
-@node Hacer las cosas bien
+@node Getting things right
 @unnumberedsubsec Hacer las cosas bien
-@translationof Getting things right
 
 También podemos medir la capacidad de LilyPond para tomar decisiones
 de grabado musical automáticamente comparando su salida con la de un
@@ -980,23 +968,21 @@ necesarios.  Donde se necesitan ajustes manuales, la estructura de
 LilyPond está diseñada teniendo en mente esa flexibilidad.
 
 
-@node Construcción del software
+@node Building software
 @section Construcción del software
-@translationof Building software
 
 Esta sección describe algunas de las decisiones de programación que
 hicimos cuando diseñamos el programa LilyPond.
 
 @menu
-* Representación musical::
-* ¿Qué símbolos grabar?::
-* Arquitectura flexible::
+* Music representation::
+* What symbols to engrave?::
+* Flexible architecture::
 @end menu
 
 
-@node Representación musical
+@node Music representation
 @unnumberedsubsec Representación musical
-@translationof Music representation
 
 @cindex sintaxis
 @cindex recursivas, estructuras
@@ -1186,9 +1172,8 @@ la estructura de las cajas anidadas.  Con LilyPond, por el contrario,
 hemos tratado de conservar el formato del código de entrada y la
 estructura lo más flexibles posible.
 
-@node ¿Qué símbolos grabar?
+@node What symbols to engrave?
 @unnumberedsubsec ¿Qué símbolos grabar?
-@translationof What symbols to engrave?
 
 @cindex grabado
 @cindex tipografía
@@ -1400,9 +1385,8 @@ de notación del nivel más alto que hay.
 Referencia de funcionamiento interno:
 @rinternals{Contexts}.
 
-@node Arquitectura flexible
+@node Flexible architecture
 @unnumberedsubsec Arquitectura flexible
-@translationof Flexible architecture
 
 Al principio escribimos el programa LilyPond completamente en el
 lenguaje de programación C++; la funcionalidad del programa estaba
@@ -1547,9 +1531,8 @@ a lo largo del fragmento musical.
 
 
 
-@node Poner a LilyPond a trabajar
+@node Putting LilyPond to work
 @section Poner a LilyPond a trabajar
-@translationof Putting LilyPond to work
 
 @cindex simple, ejemplos
 @cindex ejemplos simples
@@ -1680,9 +1663,8 @@ completa, y el programa propiamente dicho, visite nuestra página
 principal: www.lilypond.org.
 
 @page
-@node Ejemplos de partituras (BWV 861)
+@node Engraved examples (BWV 861)
 @section Ejemplos de partituras (BWV 861)
-@translationof Engraved examples (BWV 861)
 
 Esta sección contiene cuatro grabados musicales de referencia y dos
 versiones grabadas por ordenador de la fuga en Sol menor del libro I

@@ -9,9 +9,8 @@
 
 @c \version "2.25.3"
 
-@node Duraciones
+@node Rhythms
 @section Duraciones
-@translationof Rhythms
 
 @lilypondfile[quote]{snippets/rhythms-headword.ly}
 
@@ -19,29 +18,27 @@ Esta sección trata de los ritmos, los silencios, las duraciones,
 las barras y los compases.
 
 @menu
-* Escritura de las duraciones (valores rítmicos)::
-* Escritura de silencios::
-* Impresión de las duraciones::
-* Barras::
-* Compases::
-* Asuntos rítmicos especiales::
+* Writing rhythms::
+* Writing rests::
+* Displaying rhythms::
+* Beams::
+* Bars::
+* Special rhythmic concerns::
 @end menu
 
 
-@node Escritura de las duraciones (valores rítmicos)
+@node Writing rhythms
 @subsection Escritura de las duraciones (valores rítmicos)
-@translationof Writing rhythms
 
 @menu
-* Duración de las notas::
-* Grupos especiales::
-* Escalar las duraciones::
-* Ligaduras de unión::
+* Durations::
+* Tuplets::
+* Scaling durations::
+* Ties::
 @end menu
 
-@node Duración de las notas
+@node Durations
 @unnumberedsubsubsec Duración de las notas
-@translationof Durations
 
 @cindex duración, de las notas
 @cindex nota, duración de
@@ -62,14 +59,14 @@ ser 1/2 de redonda), una corchea se escribe como @code{8} y así
 sucesivamente.  Se pueden especificar duraciones tan cortas como
 1/1024 de redonda (sin nombre en español) pero cualquier valor más
 corto, aunque sea posible, solo se puede introducir como grupos de
-notas unidas por una barra.  Véase también @ref{Barras}.
+notas unidas por una barra.  Véase también @ref{Beams}.
 
 Para notas mayores de la redonda se deben usar las instrucciones
 @code{\longa} (que es una breve doble) y @code{\breve}. Se puede
 escribir una nota con la duración de una cuádruple breve mediante
 @code{\maxima}, pero esto está contemplado solamente dentro de la
 notación musical antigua.  Para ver más detalles, consulte
-@ref{Notación antigua}.
+@ref{Ancient notation}.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,verbatim]
@@ -151,17 +148,17 @@ especifican escribiendo dos puntos, y así sucesivamente.
 Para evitar la superposición con las líneas del pentagrama, los
 puntillos se desplazan normalmente hacia arriba.  Sin embargo, en
 situaciones de polifonía, se pueden colocar manualmente por encima
-o por debajo según sea necesario.  Véase @ref{Dirección y posición}.
+o por debajo según sea necesario.  Véase @ref{Direction and placement}.
 
 Ciertas duraciones no se pueden representar solamente mediante
 números y puntillos; puede ser necesario emplear dos o más notas
-ligadas entre sí.  Véase @ref{Ligaduras de unión}.
+ligadas entre sí.  Véase @ref{Ties}.
 
 Para especificat duraciones que puedan alinear las notas con las
-sílabas de la letra, véase @ref{Música vocal}.
+sílabas de la letra, véase @ref{Vocal music}.
 
 Las notas también se pueden espaciar proporcionalmente a su
-duración, véase @ref{Notación proporcional}.
+duración, véase @ref{Proportional notation}.
 
 @predefined
 @code{\autoBeamOn},
@@ -195,14 +192,14 @@ Glosario musical:
 @rglos{Duration names notes and rests}.
 
 Referencia de la notación:
-@ref{Barras},
-@ref{Ligaduras de unión},
-@ref{Plicas},
-@ref{Escritura de las duraciones (valores rítmicos)},
-@ref{Escritura de silencios},
-@ref{Música vocal},
-@ref{Notación antigua},
-@ref{Notación proporcional}.
+@ref{Beams},
+@ref{Ties},
+@ref{Stems},
+@ref{Writing rhythms},
+@ref{Writing rests},
+@ref{Vocal music},
+@ref{Ancient notation},
+@ref{Proportional notation}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -220,9 +217,8 @@ silencio de 1/1024 de redonda (sin nombre en español) hasta el de
 @code{\maxima} (8 redondas).
 
 
-@node Grupos especiales
+@node Tuplets
 @unnumberedsubsubsec Grupos especiales
-@translationof Tuplets
 
 @cindex grupo especial
 @cindex tresillo
@@ -294,7 +290,7 @@ Los grupos pueden anidarse unos dentro de otros:
 @noindent
 La modificación de los grupos especiales anidados que comienzan en
 el mismo instante musical se debe hacer con @code{\tweak}; véase
-@ref{La instrucción tweak}.
+@ref{The tweak command}.
 
 @cindex ligadura de grupo especial
 @cindex grupo especial, ligadura
@@ -329,10 +325,10 @@ detalla en uno de los siguientes fragmentos de código.
 
 De manera más general se pueden mostrar u ocultar los objetos
 @code{TupletBracket} o @code{TupletNumber}, o ambos, como se
-explica en @ref{Visibilidad de los objetos}; sin embargo, una
+explica en @ref{Visibility of objects}; sin embargo, una
 forma más flexible de modificar la duración de las notas sin
 imprimir un grupo especial (ni un corchete) se explica también en
-@ref{Escalar las duraciones}.
+@ref{Scaling durations}.
 
 @predefined
 @code{\tupletUp},
@@ -381,15 +377,15 @@ Glosario musical:
 @rglos{polymetric}.
 
 Manual de aprendizaje:
-@rlearning{Métodos de trucaje}.
+@rlearningnamed{Tweaking methods, Métodos de trucaje}.
 
 Referencia de la notación:
-@ref{Dirección y posición},
-@ref{Visibilidad de los objetos},
-@ref{Gestión del tiempo},
-@ref{Escalar las duraciones},
-@ref{La instrucción tweak},
-@ref{Notación polimétrica}.
+@ref{Direction and placement},
+@ref{Visibility of objects},
+@ref{Time administration},
+@ref{Scaling durations},
+@ref{The tweak command},
+@ref{Polymetric notation}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -400,9 +396,8 @@ Referencia de funcionamiento interno:
 @rinternals{TimeScaledMusic}.
 
 
-@node Escalar las duraciones
+@node Scaling durations
 @unnumberedsubsubsec Escalar las duraciones
-@translationof Scaling durations
 
 @cindex escala, duración
 @cindex duración, escalado de
@@ -476,13 +471,13 @@ muestra cómo se puede comprimir y expandir la música:
 @end lilypond
 
 Una aplicación de esta instrucción se encuentra en la notación
-polimétrica, véase @ref{Notación polimétrica}.
+polimétrica, véase @ref{Polymetric notation}.
 
 @morerefs
 Referencia de la notación:
-@ref{Grupos especiales},
-@ref{Silencios invisibles},
-@ref{Notación polimétrica}.
+@ref{Tuplets},
+@ref{Invisible rests},
+@ref{Polymetric notation}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -497,9 +492,8 @@ dicho proceso de cálculo sobrepasa la cantidad de 2^30, la
 ejecución y el tipografiado se detendrán en ese punto sin indicar
 ningún error.
 
-@node Ligaduras de unión
+@node Ties
 @unnumberedsubsubsec Ligaduras de unión
-@translationof Ties
 
 @cindex ligadura de unión
 
@@ -545,8 +539,7 @@ subdivisiones del compás de mayor duración:
 
 Si necesitamos ligar muchas notas a través de las líneas
 divisorias, nos podría resultar más fácil utilizar la división
-automática de las notas, véase @ref{División automática de las
-notas}.  Este mecanismo divide automáticamente las notas largas y
+automática de las notas, véase @ref{Automatic note splitting}.  Este mecanismo divide automáticamente las notas largas y
 las liga a través de las barras de compás.
 
 @cindex ligadura, y acordes
@@ -609,7 +602,7 @@ cuerda y percusión.  Se pueden introducir de la siguiente manera:
 @funindex \tieNeutral
 
 Es posible hacer manualmente que las ligaduras de unión se curven
-hacia arriba o hacia abajo; véase @ref{Dirección y posición}.
+hacia arriba o hacia abajo; véase @ref{Direction and placement}.
 
 @cindex ligadura, apariencia
 @cindex ligadura, de puntos
@@ -661,7 +654,7 @@ de unión tienen la misma estructura que las definiciones de
 patrones de discontinuidad para las ligaduras de expresión.  Para
 ver más información acerca de los patrones de discontinuidad
 complejos, consulte los fragmentos de código bajo
-@ref{Ligaduras de expresión}.
+@ref{Slurs}.
 
 Sobreescriba las propiedades de disposición @var{whiteout} y
 @var{layer} de los objetos que puedan causar una discontinuidad en
@@ -716,8 +709,8 @@ Glosario musical:
 @rglos{laissez vibrer}.
 
 Referencia de la notación:
-@ref{Ligaduras de expresión},
-@ref{División automática de las notas}.
+@ref{Slurs},
+@ref{Automatic note splitting}.
 
 Fragmentos de código:
 @rlsr{slurs},
@@ -738,22 +731,20 @@ están bien definidos realmente.  En estos casos puede ser
 preferible una ligadura de expresión.
 
 
-@node Escritura de silencios
+@node Writing rests
 @subsection Escritura de silencios
-@translationof Writing rests
 
 Los silencios se escriben como parte de la música dentro de las
 expresiones musicales.
 
 @menu
-* Silencios::
-* Silencios invisibles::
-* Silencios de compás completo::
+* Rests::
+* Invisible rests::
+* Full measure rests::
 @end menu
 
-@node Silencios
+@node Rests
 @unnumberedsubsubsec Silencios
-@translationof Rests
 
 @cindex silencio
 @cindex silencios, indicar duraciones
@@ -794,7 +785,7 @@ predefinidas que se muestran aquí:
 Los silencios de un compás, centrados en medio del compás, se
 deben hacer con silencios multicompás.  Se pueden usar para un
 solo compás así como para muchos compases, y se tratan en
-@ref{Silencios de compás completo}.
+@ref{Full measure rests}.
 
 @cindex silencio, especificar la posición vertical
 
@@ -825,7 +816,7 @@ Glosario musical:
 @rglos{maxima}.
 
 Referencia de la notación:
-@ref{Silencios de compás completo}.
+@ref{Full measure rests}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -841,9 +832,8 @@ el número de glifos es limitado: hay silencios desde 1/1024 de
 redonda (sin nombre en español) hasta la máxima (8 redondas).
 
 
-@node Silencios invisibles
+@node Invisible rests
 @unnumberedsubsubsec Silencios invisibles
-@translationof Invisible rests
 
 @cindex desplazamiento
 @cindex silencio invisible
@@ -923,11 +913,11 @@ ninguna salida, de ninguna clase.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Visibilidad y color de los objetos}.
+@rlearningnamed{Visibility and color of objects, Visibilidad y color de los objetos}.
 
 Referencia de la notación:
-@ref{Notas ocultas},
-@ref{Visibilidad de los objetos}.
+@ref{Hidden notes},
+@ref{Visibility of objects}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -936,9 +926,8 @@ Referencia de funcionamiento interno:
 @rinternals{SkipMusic}.
 
 
-@node Silencios de compás completo
+@node Full measure rests
 @unnumberedsubsubsec Silencios de compás completo
-@translationof Full measure rests
 
 @cindex multicompás, silencios
 @cindex compás, completo, silencios de
@@ -954,7 +943,7 @@ Los silencios de uno o más compases completos se introducen como
 notas con el nombre @code{R} en mayúscula.  Su duración se escribe
 de forma idéntica a la que se utiliza para las notas, incluso con
 la capacidad de utilizar factores multiplicadores de la duración,
-como se explica en @ref{Escalar las duraciones}:
+como se explica en @ref{Scaling durations}:
 
 @lilypond[quote,verbatim]
 % Rest measures contracted to single measure
@@ -968,7 +957,7 @@ como se explica en @ref{Escalar las duraciones}:
 
 El ejemplo anterior también muestra cómo comprimir varios compases
 vacíos seguidos, como se explica en
-@ref{Compresión de los compases vacíos}.
+@ref{Compressing empty measures}.
 
 La duración de un silencio multicompás siempre debe ser igual a la
 longitud de uno o varios compases.  Por tanto, algunas
@@ -1084,12 +1073,12 @@ Glosario musical:
 @rglos{multi-measure rest}.
 
 Referencia de la notación:
-@ref{Duraciones},
-@ref{Escalar las duraciones},
-@ref{Compresión de los compases vacíos},
-@ref{Texto},
-@ref{Formatear el texto},
-@ref{Guiones de texto}.
+@ref{Rhythms},
+@ref{Scaling durations},
+@ref{Compressing empty measures},
+@ref{Text},
+@ref{Formatting text},
+@ref{Text scripts}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -1120,23 +1109,21 @@ Los silencios multicompás no toman parte en las colisiones de
 silencios.
 
 
-@node Impresión de las duraciones
+@node Displaying rhythms
 @subsection Impresión de las duraciones
-@translationof Displaying rhythms
 
 @menu
-* Indicación de compás::
-* Indicaciones metronómicas::
-* Anacrusas::
-* Música sin compasear::
-* Notación polimétrica::
-* División automática de las notas::
-* Mostrar los ritmos de la melodía::
+* Time signature::
+* Metronome marks::
+* Upbeats::
+* Unmetered music::
+* Polymetric notation::
+* Automatic note splitting::
+* Showing melody rhythms::
 @end menu
 
-@node Indicación de compás
+@node Time signature
 @unnumberedsubsubsec Indicación de compás
-@translationof Time signature
 
 @cindex Indicación de compás
 @cindex medida
@@ -1151,7 +1138,7 @@ La indicación de compás se establece como sigue:
 @end lilypond
 
 Se estudian los cambios de indicación de compás en el medio de un
-compás en @ref{Anacrusas}.
+compás en @ref{Upbeats}.
 
 @cindex compás, visibilidad de la indicación de
 
@@ -1159,7 +1146,7 @@ La indicación de compás se imprime al comienzo de una pieza y
 siempre que hay un cambio de compás.  Si se produce un cambio al
 final de una línea, se imprime una indicación de advertencia en
 dicho lugar.  Se puede modificar este comportamiento
-predeterminado, véase @ref{Visibilidad de los objetos}.
+predeterminado, véase @ref{Visibility of objects}.
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -1200,7 +1187,7 @@ estilo numérico:
 
 
 Las indicaciones de compás de la música mensural se tratan en
-@ref{Indicaciones de compás de la música mensural}.
+@ref{Mensural time signatures}.
 
 @cindex compás, indicación de, ajustes predeterminados
 @cindex autobarrado, propiedades para indicaciones de compás
@@ -1275,8 +1262,7 @@ estructura de los pulsos del compás, en unidades del momento base.
 @item
 @code{@var{beamExceptions}}, una lista-A que contiene cualesquiera
 reglas de barrado para el tipo de compás que vayan más allá de
-terminar en cada pulso, como se describe en @ref{Establecer el
-comportamiento de las barras automáticas}.
+terminar en cada pulso, como se describe en @ref{Setting automatic beam behavior}.
 @end enumerate
 
 
@@ -1349,8 +1335,7 @@ contexto @code{Staff}.
 
 Otro método para cambiar estas variables relacionadas con el tipo
 de compás, que evita la reimpresión de la indicación de compás en
-el momento del cambio, se muestra en @ref{Establecer el
-comportamiento de las barras automáticas}.
+el momento del cambio, se muestra en @ref{Setting automatic beam behavior}.
 
 @predefined
 @code{\numericTimeSignature},
@@ -1370,9 +1355,9 @@ Glosario musical:
 @rglos{time signature}
 
 Referencia de la notación:
-@ref{Indicaciones de compás de la música mensural},
-@ref{Establecer el comportamiento de las barras automáticas},
-@ref{Gestión del tiempo}.
+@ref{Mensural time signatures},
+@ref{Setting automatic beam behavior},
+@ref{Time administration}.
 
 Archivos instalados:
 @file{scm/time-signature-settings.scm}.
@@ -1385,9 +1370,8 @@ Referencia de funcionamiento interno:
 @rinternals{Timing_translator}.
 
 
-@node Indicaciones metronómicas
+@node Metronome marks
 @unnumberedsubsubsec Indicaciones metronómicas
-@translationof Metronome marks
 
 @cindex tempo
 @cindex pulsos por minuto
@@ -1462,7 +1446,7 @@ entrada:
 @funindex \markLengthOff
 
 En una particella de un instrumento con períodos de silencio
-largos (véase @ref{Silencios de compás completo}), en ocasiones se
+largos (véase @ref{Full measure rests}), en ocasiones se
 suceden muy cerca distintas indicaciones de tempo.  La instrucción
 @code{\markLengthOn} aporta un espacio horizontal adicional para
 evitar que las indicaciones de tempo se superpongan, y
@@ -1503,7 +1487,7 @@ de ignorar las indicaciones de tempo para el espaciado horizontal.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/creating-metronome-marks-in-markup-mode.ly}
 
-Para ver más detalles, consulte @ref{Formatear el texto}.
+Para ver más detalles, consulte @ref{Formatting text}.
 
 @morerefs
 Glosario musical:
@@ -1513,9 +1497,9 @@ Glosario musical:
 @rglos{metronome mark}.
 
 Referencia de la notación:
-@ref{Formatear el texto},
-@ref{Creación de salida MIDI},
-@ref{Silencios de compás completo}.
+@ref{Formatting text},
+@ref{Creating MIDI output},
+@ref{Full measure rests}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -1524,9 +1508,8 @@ Referencia de funcionamiento interno::
 @rinternals{MetronomeMark}.
 
 
-@node Anacrusas
+@node Upbeats
 @unnumberedsubsubsec Anacrusas
-@translationof Upbeats
 
 @cindex anacrusa
 @cindex parte al alzar
@@ -1603,7 +1586,7 @@ Glosario musical:
 @rglos{anacrusis}.
 
 Referencia de la notación:
-@ref{Notas de adorno}.
+@ref{Grace notes}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -1612,9 +1595,8 @@ Referencia de funcionamiento interno:
 @rinternals{Timing_translator}.
 
 
-@node Música sin compasear
+@node Unmetered music
 @unnumberedsubsubsec Música sin compasear
-@translationof Unmetered music
 
 @cindex cadencia
 @cindex cadencia, barras
@@ -1676,7 +1658,7 @@ se suele suponer que permanece hasta el final del compás) serán
 válidas aún después de la línea divisoria que se imprime por parte
 de @code{\bar}.  Si se quieren imprimir alteraciones accidentales
 posteriores tendrán que insertarse manualmente alteraciones
-forzadas o de cortesía, véase @ref{Alteraciones accidentales}.
+forzadas o de cortesía, véase @ref{Accidentals}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -1693,7 +1675,7 @@ forzadas o de cortesía, véase @ref{Alteraciones accidentales}.
 
 El barrado automático se desactiva mediante @code{\cadenzaOn}.
 Por tanto, todo el barrado en las cadencias se debe introducir
-manualmente.  Véase @ref{Barras manuales}.
+manualmente.  Véase @ref{Manual beams}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1711,7 +1693,7 @@ Estas instrucciones predefinidas afectan a todas las pautas de la
 partitura, aunque aparezcan en un solo contexto @code{Voice}.
 Para cambiar esto, traslade el @code{Timing_translator} del
 contexto @code{Score} al contexto @code{Staff}, véase
-@ref{Notación polimétrica}.
+@ref{Polymetric notation}.
 
 @predefined
 @code{\cadenzaOn},
@@ -1723,10 +1705,10 @@ Glosario musical:
 @rglos{cadenza}.
 
 Referencia de la notación:
-@ref{Visibilidad de los objetos},
-@ref{Notación polimétrica},
-@ref{Barras manuales},
-@ref{Alteraciones accidentales}.
+@ref{Visibility of objects},
+@ref{Polymetric notation},
+@ref{Manual beams},
+@ref{Accidentals}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -1752,9 +1734,8 @@ de música sin medir para permitir los saltos:
 @end example
 
 
-@node Notación polimétrica
+@node Polymetric notation
 @unnumberedsubsubsec Notación polimétrica
-@translationof Polymetric notation
 
 @c This section necessarily uses \set
 @c This is acceptable  -td
@@ -1906,10 +1887,10 @@ Glosario musical:
 @rglos{meter}.
 
 Referencia de la notación:
-@ref{Barras automáticas},
-@ref{Barras manuales},
-@ref{Indicación de compás},
-@ref{Escalar las duraciones}.
+@ref{Automatic beams},
+@ref{Manual beams},
+@ref{Time signature},
+@ref{Scaling durations}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -1944,9 +1925,8 @@ bloque @code{midi}.
 }
 @end lilypond
 
-@node División automática de las notas
+@node Automatic note splitting
 @unnumberedsubsubsec División automática de las notas
-@translationof Automatic note splitting
 
 @cindex nota, división de
 @cindex división, de notas
@@ -2022,8 +2002,8 @@ Glosario musical:
 @rglos{tie}
 
 Manual de aprendizaje:
-@rlearning{Explicación de los grabadores},
-@rlearning{Añadir y eliminar grabadores}.
+@rlearningnamed{Engravers explained, Explicación de los grabadores},
+@rlearningnamed{Adding and removing engravers, Añadir y eliminar grabadores}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -2045,9 +2025,8 @@ que las notas y silencios divididos tengan el mismo factor de
 escala que las duraciones de las notas originales de la entrada.
 
 
-@node Mostrar los ritmos de la melodía
+@node Showing melody rhythms
 @unnumberedsubsubsec Mostrar los ritmos de la melodía
-@translationof Showing melody rhythms
 
 @cindex melodía, mostrar el ritmo
 @cindex ritmo, de la melodía, mostrar
@@ -2151,20 +2130,18 @@ Referencia de funcionamiento interno:
 @rinternals{Pitch_squash_engraver}.
 
 
-@node Barras
+@node Beams
 @subsection Barras
-@translationof Beams
 
 @menu
-* Barras automáticas::
-* Establecer el comportamiento de las barras automáticas::
-* Barras manuales::
-* Barras progresivas::
+* Automatic beams::
+* Setting automatic beam behavior::
+* Manual beams::
+* Feathered beams::
 @end menu
 
-@node Barras automáticas
+@node Automatic beams
 @unnumberedsubsubsec Barras automáticas
-@translationof Automatic beams
 
 De manera predeterminada, las barras de corchea se insertan
 automáticamente:
@@ -2185,7 +2162,7 @@ automáticamente:
 
 Cuando estas decisiones automáticas no son lo bastante buenas, se
 pueden escribir los barrados de forma explícita; véase
-@ref{Barras manuales}.  Las barras @emph{se deben} introducir
+@ref{Manual beams}.  Las barras @emph{se deben} introducir
 manualmente si se quieren extender por encima de los silencios.
 
 Si no se necesita el barrado automático, se puede desactivar con
@@ -2213,7 +2190,7 @@ código para mayor información.}
 
 Se pueden crear patrones de barrado que difieran de los valores
 automáticos predeterminados; véase
-@ref{Establecer el comportamiento de las barras automáticas}.
+@ref{Setting automatic beam behavior}.
 
 @predefined
 @code{\autoBeamOff},
@@ -2247,8 +2224,8 @@ automáticos predeterminados; véase
 
 @morerefs
 Referencia de la notación:
-@ref{Barras manuales},
-@ref{Establecer el comportamiento de las barras automáticas}.
+@ref{Manual beams},
+@ref{Setting automatic beam behavior}.
 
 Archivos instalados:
 @file{scm/auto-beam.scm}.
@@ -2273,9 +2250,8 @@ se ha completado no tendrá efecto hasta que inicie la
 @emph{siguiente} barra nueva.
 
 
-@node Establecer el comportamiento de las barras automáticas
+@node Setting automatic beam behavior
 @unnumberedsubsubsec Establecer el comportamiento de las barras automáticas
-@translationof Setting automatic beam behavior
 
 @cindex barra, y letra
 @cindex letra, y barras
@@ -2294,7 +2270,7 @@ contexto: @code{baseMoment}, @code{beatStructure} y
 @code{beamExceptions}.  Los valores predeterminados de estas
 variables se pueden sobreescribir como se describe más abajo, o de
 forma alternativa los propios valores predeterminados se pueden
-cambiar como se explica en @ref{Indicación de compás}.
+cambiar como se explica en @ref{Time signature}.
 
 Si hay definida una regla de @code{beamExceptions} para el compás
 en curso, se usa dicha regla para determinar la colocación de las
@@ -2431,8 +2407,7 @@ compatible con el nuevo valor de @code{baseMoment}.
 @code{baseMoment} es un @i{momento}, una unidad de duración
 musical.  Se crea una cantidad del tipo @i{momento} por medio de
 la función de Scheme @code{ly:make-moment}.  Para ver más
-información acerca de esta función, consulte @ref{Gestión del
-tiempo}.
+información acerca de esta función, consulte @ref{Time administration}.
 
 De forma predeterminada @code{baseMoment} está fijado a una unidad
 más que el denominador del compás.  Todas las excepciones a este
@@ -2495,7 +2470,7 @@ Los ajustes de barrado automático predeterminados para un tipo de
 compás están determinados en el archivo
 @file{scm/time-signature-settings.scm}.  La forma de cambiar los
 ajustes predeterminados de barrado automático para un tipo de
-compás se describe en @ref{Indicación de compás}.
+compás se describe en @ref{Time signature}.
 
 Muchos ajustes de barrado automáticos para un tipo de compás
 contienen una entrada para @code{beamExceptions}.  Por ejemplo, el
@@ -2624,7 +2599,7 @@ Las reglas de barrado predefinidas están en el archivo
 
 @morerefs
 Referencia de la notación:
-@ref{Indicación de compás}.
+@ref{Time signature}.
 
 Archivos de inicio:
 @file{scm/time-signature-settings.scm}.
@@ -2675,7 +2650,7 @@ Los ajustes de barrado predeterminados para dicho compás también
 se pueden cambiar, de forma que siempre se utilice siempre el
 barrado deseado. La manera de efectuar cambios en los ajustes de
 barrado automático para una indicación de compás se describe en
-@ref{Indicación de compás}.
+@ref{Time signature}.
 
 @lilypond[quote,verbatim]
 <<
@@ -2696,9 +2671,8 @@ barrado automático para una indicación de compás se describe en
 @end lilypond
 
 
-@node Barras manuales
+@node Manual beams
 @unnumberedsubsubsec Barras manuales
-@translationof Manual beams
 
 @cindex barra, manual
 @cindex manual, barra
@@ -2797,8 +2771,8 @@ grupo como un todo.
 
 @morerefs
 Referencia de la notación:
-@ref{Dirección y posición},
-@ref{Notas de adorno}.
+@ref{Direction and placement},
+@ref{Grace notes}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -2811,9 +2785,8 @@ Referencia de funcionamiento interno:
 @rinternals{Stem_engraver}.
 
 
-@node Barras progresivas
+@node Feathered beams
 @unnumberedsubsubsec Barras progresivas
-@translationof Feathered beams
 
 @cindex barra, progresiva
 @cindex progresiva, barras
@@ -2881,21 +2854,19 @@ fragmentos musicales muy breves, y cuando los números de la
 fracción son pequeños.
 
 
-@node Compases
+@node Bars
 @subsection Compases
-@translationof Bars
 
 @menu
-* Barras de compás::
-* Numeración de compases::
-* Comprobación de compás y de número de compás::
-* Llamadas de ensayo::
+* Bar lines::
+* Bar numbers::
+* Bar and bar number checks::
+* Rehearsal marks::
 @end menu
 
 
-@node Barras de compás
+@node Bar lines
 @unnumberedsubsubsec Barras de compás
-@translationof Bar lines
 
 @cindex barra, de compás
 @cindex línea, divisorias
@@ -2952,7 +2923,7 @@ utilice lo siguiente:
 De esta manera se insertará una barra invisible de compás y se
 hará posible el salto de línea en este punto, sin forzarlo. No se
 incrementa el contador de los números de compás.  Para forzar un
-salto de línea, consulte @ref{Saltos de línea}.
+salto de línea, consulte @ref{Line breaking}.
 
 @cindex manuales, líneas divisorias
 @cindex manuales, barras de compás
@@ -3038,7 +3009,7 @@ f'1 \bar "k"
 @end lilypond
 
 Pueden verse más detalles de esta notación explicados en
-@ref{Tipografiado del canto kievano en notación cuadrada}.
+@ref{Typesetting Kievan square notation}.
 
 @cindex @q{segno}, signo de
 @cindex signo, @q{segno}
@@ -3075,7 +3046,7 @@ Aunque se pueden insertar manualmente barras de compás con
 significado de repeticiones, no se reconocen como repeticiones por
 parte de LilyPond.  Las secciones repetidas se introducen mejor
 utilizando las diversas instrucciones de repetición (véase
-@ref{Repeticiones}), que imprimen automáticamente las barras
+@ref{Repeats}), que imprimen automáticamente las barras
 correspondientes.
 
 Además se puede especificar @code{".|:-||"}, que equivale a
@@ -3149,7 +3120,7 @@ existen seis variantes diferentes:
 Además, existe una instrucción @code{\inStaffSegno} que crea una
 barra de compás con símbolo de segno, situada en conjunción con
 una línea de repetición adecuada si se utiliza con una instrucción
-@code{\repeat volta}, véase @ref{Repeticiones normales}.
+@code{\repeat volta}, véase @ref{Normal repeats}.
 
 @funindex \defineBarLine
 @cindex compás, definir línea de
@@ -3172,7 +3143,7 @@ divisoria cuando se produce en el salto de línea, en cuyo caso los
 glifos dados primero y segundo se imprimen respectivamente al
 @var{final} del sistema y al @var{principio} del siguiente.  El
 tercer glifo proporcionado solamente es de relevancia en sistemas
-de más de un pentagrama (véase @ref{Agrupar pentagramas}), donde
+de más de un pentagrama (véase @ref{Grouping staves}), donde
 se usa como una barra de extensión, que se imprime entre los
 pentagramas.
 
@@ -3327,9 +3298,9 @@ cambiar en cualquier momento con @samp{\set Timing.measureBarType
 
 @morerefs
 Referencia de la notación:
-@ref{Saltos de línea},
-@ref{Repeticiones},
-@ref{Agrupar pentagramas}.
+@ref{Line breaking},
+@ref{Repeats},
+@ref{Grouping staves}.
 
 Archivos instalados:
 @file{scm/bar-line.scm}.
@@ -3343,9 +3314,8 @@ Referencia de funcionamiento interno:
 @rinternals{Timing_translator} (para las propiedades del contador de tiempo Timing).
 
 
-@node Numeración de compases
+@node Bar numbers
 @unnumberedsubsubsec Numeración de compases
-@translationof Bar numbers
 
 @cindex compás, números de
 @cindex número, de compás
@@ -3451,9 +3421,8 @@ Consulte @rinternals{StaffGroup} y @rinternals{BarNumber} para ver
 más información.
 
 
-@node Comprobación de compás y de número de compás
+@node Bar and bar number checks
 @unnumberedsubsubsec Comprobación de compás y de número de compás
-@translationof Bar and bar number checks
 
 @cindex compás, comprobación de
 @cindex número de compás, comprobación de
@@ -3550,9 +3519,8 @@ Fragmentos de código:
 @rlsr{Rhythms}.
 
 
-@node Llamadas de ensayo
+@node Rehearsal marks
 @unnumberedsubsubsec Llamadas de ensayo
-@translationof Rehearsal marks
 
 @cindex ensayo, letras de
 @cindex letras de ensayo
@@ -3700,13 +3668,13 @@ un elemento @code{\mark}
 @end lilypond
 
 @noindent
-Consulte @ref{La tipografía Emmentaler} para ver una lista de los
+Consulte @ref{The Emmentaler font} para ver una lista de los
 símbolos que se pueden imprimir con @code{\musicglyph}.
 
 Para ver formas comunes de trucar la colocación de las letras de
-ensayo, consulte @ref{Formatear el texto}.  Para un control más
+ensayo, consulte @ref{Formatting text}.  Para un control más
 preciso, consulte @code{break-alignable-interface} en la sección
-@ref{Alineación de objetos}.
+@ref{Aligning objects}.
 
 El archivo @file{scm/translation-functions.scm} contiene las
 definiciones de @code{format-mark-numbers} y de
@@ -3715,9 +3683,9 @@ para escribir otras funciones de formateo.
 
 @morerefs
 Referencia de la notación:
-@ref{La tipografía Emmentaler},
-@ref{Formatear el texto},
-@ref{Alineación de objetos}.
+@ref{The Emmentaler font},
+@ref{Formatting text},
+@ref{Aligning objects}.
 
 Archivos de inicio:
 @file{scm/translation-functions.scm}.
@@ -3731,19 +3699,17 @@ Referencia de funcionamiento interno:
 @rinternals{RehearsalMark}.
 
 
-@node Asuntos rítmicos especiales
+@node Special rhythmic concerns
 @subsection Asuntos rítmicos especiales
-@translationof Special rhythmic concerns
 
 @menu
-* Notas de adorno::
-* Alinear con una cadenza::
-* Gestión del tiempo::
+* Grace notes::
+* Aligning to cadenzas::
+* Time administration::
 @end menu
 
-@node Notas de adorno
+@node Grace notes
 @unnumberedsubsubsec Notas de adorno
-@translationof Grace notes
 
 @cindex ornamento
 @cindex mordente
@@ -3922,8 +3888,8 @@ Glosario musical:
 @rglos{appoggiatura}.
 
 Referencia de la notación:
-@ref{Escalar las duraciones},
-@ref{Barras manuales}.
+@ref{Scaling durations},
+@ref{Manual beams}.
 
 Archivos de inicio:
 @file{ly/grace-init.ly}.
@@ -4007,12 +3973,11 @@ Otra opción es cambiar explícitamente la duración musical:
 c'8 \acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @end example
 
-Véase @ref{Escalar las duraciones}.
+Véase @ref{Scaling durations}.
 
 
-@node Alinear con una cadenza
+@node Aligning to cadenzas
 @unnumberedsubsubsec Alinear con una cadenza
-@translationof Aligning to cadenzas
 
 @cindex cadenza (cadencia)
 @cindex cadenza (cadencia), alinear a
@@ -4058,9 +4023,8 @@ Fragmentos de código:
 @rlsr{Rhythms}.
 
 
-@node Gestión del tiempo
+@node Time administration
 @unnumberedsubsubsec Gestión del tiempo
-@translationof Time administration
 
 @cindex tiempo, administración
 @cindex tiempo, control del (dentro de la partitura)
@@ -4088,7 +4052,7 @@ pista del tiempo dentro de la partitura.
 @table @code
 @item currentBarNumber
 El número de compás en curso.  Para ver un ejemplo que muestra el
-uso de esta propiedad, consulte @ref{Numeración de compases}.
+uso de esta propiedad, consulte @ref{Bar numbers}.
 
 @item measureLength
 La longitud de los compases dentro de la indicación actual de
@@ -4137,8 +4101,8 @@ una duración de la fracción n/m de una redonda.  Por ejemplo,
 
 @morerefs
 Referencia de la notación:
-@ref{Numeración de compases},
-@ref{Música sin compasear}.
+@ref{Bar numbers},
+@ref{Unmetered music}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.

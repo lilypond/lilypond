@@ -9,9 +9,8 @@
 
 @c \version "2.19.21"
 
-@node Notación de los pentagramas
+@node Staff notation
 @section Notación de los pentagramas
-@translationof Staff notation
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
@@ -22,30 +21,28 @@ pentagramas, cómo imprimir partituras con más de un pentagrama y
 cómo añadir indicaciones de tempo y notas guía a los pentagramas.
 
 @menu
-* Impresión de los pentagramas::
-* Modificación de pentagramas sueltos::
-* Escritura de las particellas::
+* Displaying staves::
+* Modifying single staves::
+* Writing parts::
 @end menu
 
 
-@node Impresión de los pentagramas
+@node Displaying staves
 @subsection Impresión de los pentagramas
-@translationof Displaying staves
 
 Esta sección describe los distintos métodos de creación de
 pentagramas y grupos de ellos.
 
 @menu
-* Crear instancias de pentagramas nuevos::
-* Agrupar pentagramas::
-* Grupos de pentagramas anidados::
-* Separación de sistemas::
+* Instantiating new staves::
+* Grouping staves::
+* Nested staff groups::
+* Separating systems::
 @end menu
 
 
-@node Crear instancias de pentagramas nuevos
+@node Instantiating new staves
 @unnumberedsubsubsec Crear instancias de pentagramas nuevos
-@translationof Instantiating new staves
 
 @cindex nuevo pentagrama
 @cindex pauta
@@ -70,8 +67,7 @@ pentagramas y grupos de ellos.
 
 Las @notation{pautas} y los @notation{pentagramas} o pautas de
 cinco líneas se crean con las instrucciones @code{\new} o
-@code{\context}.  Para ver más detalles, consulte @ref{Crear y
-referenciar contextos}.
+@code{\context}.  Para ver más detalles, consulte @ref{Creating and referencing contexts}.
 
 El contexto básico de pentagrama es @code{Staff}:
 
@@ -84,7 +80,7 @@ preparada para un conjunto de batería típico.  Cada instrumento se
 presenta con un símbolo distinto.  Los instrumentos se escriben en
 el modo de percusión que sigue a una instrucción @code{\drummode},
 con cada instrumento identificado por un nombre.  Para ver más
-detalles, consulte @ref{Pautas de percusión}.
+detalles, consulte @ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
@@ -95,7 +91,7 @@ detalles, consulte @ref{Pautas de percusión}.
 @code{RhythmicStaff} crea una pauta de una sola línea que sólo
 muestra las duraciones de la entrada.  Se preservan las duraciones
 reales.  Para ver más detalles, consulte
-@ref{Mostrar los ritmos de la melodía}.
+@ref{Showing melody rhythms}.
 
 @lilypond[verbatim,quote]
 \new RhythmicStaff { c4 d e f }
@@ -103,7 +99,7 @@ reales.  Para ver más detalles, consulte
 
 @code{TabStaff} crea una tablatura con seis cuerdas en la
 afinación estándar de guitarra.  Para ver más detalles, consulte
-@ref{Tablaturas predeterminadas}.
+@ref{Default tablatures}.
 
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
@@ -111,7 +107,7 @@ afinación estándar de guitarra.  Para ver más detalles, consulte
 
 Existen dos contextos de pauta específicos para la notación de
 música antigua: @code{MensuralStaff} y @code{VaticanaStaff}.  Se
-describen en @ref{Contextos predefinidos}.
+describen en @ref{Pre-defined contexts}.
 
 @code{GregorianTranscriptionStaff} crea una pauta para la notación
 moderna de canto gregoriano.  No muestra líneas divisorias.
@@ -121,7 +117,7 @@ moderna de canto gregoriano.  No muestra líneas divisorias.
 @end lilypond
 
 Se pueden definir contextos nuevos de pentagrama único.  Para ver
-más detalles, consulte @ref{Definir contextos nuevos}.
+más detalles, consulte @ref{Defining new contexts}.
 
 @morerefs
 Glosario musical:
@@ -129,15 +125,15 @@ Glosario musical:
 @rglos{staves}.
 
 Referencia de la notación:
-@ref{Crear y referenciar contextos},
-@ref{Pautas de percusión},
-@ref{Mostrar los ritmos de la melodía},
-@ref{Tablaturas predeterminadas},
-@ref{Contextos predefinidos},
-@ref{El símbolo del pentagrama},
-@ref{Contextos del canto gregoriano},
-@ref{Contextos de la música mensural},
-@ref{Definir contextos nuevos}.
+@ref{Creating and referencing contexts},
+@ref{Percussion staves},
+@ref{Showing melody rhythms},
+@ref{Default tablatures},
+@ref{Pre-defined contexts},
+@ref{Staff symbol},
+@ref{Gregorian chant contexts},
+@ref{Mensural contexts},
+@ref{Defining new contexts}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -153,9 +149,8 @@ Referencia de funcionamiento interno:
 @rinternals{StaffSymbol}.
 
 
-@node Agrupar pentagramas
+@node Grouping staves
 @unnumberedsubsubsec Agrupar pentagramas
-@translationof Grouping staves
 
 @cindex comienzo del sistema
 @cindex pentagramas, varios
@@ -223,7 +218,7 @@ pentagramas.
 El @code{PianoStaff} (sistema de piano) es idéntico a
 @code{GrandStaff}, excepto que contempla directamente la impresión
 del nombre del instrumento.  Para ver más detalles, consulte
-@ref{Nombres de instrumentos}.
+@ref{Instrument names}.
 
 @lilypond[verbatim,quote]
 \new PianoStaff \with { instrumentName = "Piano" }
@@ -242,7 +237,7 @@ siguientes valores: @code{SystemStartBar} (línea),
 especificar explícitamente.
 
 Se pueden definir contextos nuevos de grupo de pentagramas.  Para
-ver más detalles, consulte @ref{Definir contextos nuevos}.
+ver más detalles, consulte @ref{Defining new contexts}.
 
 @snippets
 
@@ -275,8 +270,8 @@ Glosario musical:
 @rglos{grand staff}.
 
 Referencia de la notación:
-@ref{Nombres de instrumentos},
-@ref{Definir contextos nuevos}.
+@ref{Instrument names},
+@ref{Defining new contexts}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -293,9 +288,8 @@ Referencia de funcionamiento interno:
 @rinternals{SystemStartSquare}.
 
 
-@node Grupos de pentagramas anidados
+@node Nested staff groups
 @unnumberedsubsubsec Grupos de pentagramas anidados
-@translationof Nested staff groups
 
 @cindex pentagramas, anidados
 @cindex anidamiento, de pentagramas
@@ -326,7 +320,7 @@ crea un corchete nuevo adyacente al corchete de su grupo padre.
 
 Se pueden definir nuevos contextos de grupos de pentagramas
 anidados.  Para ver más detalles, consulte
-@ref{Definir contextos nuevos}.
+@ref{Defining new contexts}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -334,9 +328,9 @@ anidados.  Para ver más detalles, consulte
 
 @morerefs
 Referencia de la notación:
-@ref{Agrupar pentagramas},
-@ref{Nombres de instrumentos},
-@ref{Definir contextos nuevos}.
+@ref{Grouping staves},
+@ref{Instrument names},
+@ref{Defining new contexts}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -350,9 +344,8 @@ Referencia de funcionamiento interno:
 @rinternals{SystemStartSquare}.
 
 
-@node Separación de sistemas
+@node Separating systems
 @unnumberedsubsubsec Separación de sistemas
-@translationof Separating systems
 
 @cindex separación de sistemas, marca de
 
@@ -395,15 +388,14 @@ nulo, pero se puede activar con una opción de @code{\paper}.
 
 @morerefs
 Referencia de la notación:
-@ref{Disposición de la página}.
+@ref{Page layout}.
 
 Fragmentos de código:
 @rlsr{Notación de los pentagramas}.
 
 
-@node Modificación de pentagramas sueltos
+@node Modifying single staves
 @subsection Modificación de pentagramas sueltos
-@translationof Modifying single staves
 
 Esta sección explica cómo cambiar los atributos específicos de un
 pentagrama: por ejemplo, cambiar el número de líneas o el tamaño
@@ -411,15 +403,14 @@ de la pauta.  También se describen los métodos para comenzar y
 terminar los pentagramas, y establecer secciones de ossia.
 
 @menu
-* El símbolo del pentagrama::
-* Pentagramas de Ossia::
-* Ocultar pentagramas::
+* Staff symbol::
+* Ossia staves::
+* Hiding staves::
 @end menu
 
 
-@node El símbolo del pentagrama
+@node Staff symbol
 @unnumberedsubsubsec El símbolo del pentagrama
-@translationof Staff symbol
 
 @cindex pentagrama, símbolo del
 @cindex pentagrama, detener e iniciar líneas del
@@ -496,7 +487,7 @@ superior), debemos alinear la línea (o espacio) central de la
 pauta personalizada con la posición de la línea central normal
 (0).  Puede ser necesario un ajuste de la posición de la clave y
 del Do@tie{}central para que se correspondan a las líneas nuevas.
-Véase @ref{Clave}.
+Véase @ref{Clef}.
 
 Puede cambiarse el grosor de las líneas de la pauta.  También
 resultan afectadas, de forma predeterminada, las líneas
@@ -593,7 +584,7 @@ Glosario musical:
 @rglos{staff}.
 
 Referencia de la notación:
-@ref{Clave}.
+@ref{Clef}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -603,9 +594,8 @@ Referencia de funcionamiento interno:
 @rinternals{staff-symbol-interface}.
 
 
-@node Pentagramas de Ossia
+@node Ossia staves
 @unnumberedsubsubsec Pentagramas de Ossia
-@translationof Ossia staves
 
 @cindex pentagrama a la francesa
 @cindex ossia
@@ -637,7 +627,7 @@ desea.  Para crear pentagramas de ossia que estén encima del
 pentagrama original, que no tengan compás ni clave, y que tengan
 un tamaño menor de tipografía se deben usar varios trucos.  El
 Manual de aprendizaje describe una técnica específica para llegar
-a este objetivo, empezando por @rlearning{Anidado de expresiones
+a este objetivo, empezando por @rlearningnamed{Nesting music expressions, Anidado de expresiones
 musicales}.
 
 El ejemplo siguiente utiliza la propiedad @code{alignAboveContext}
@@ -705,7 +695,7 @@ Como alternativa, se puede usar la instrucción
 Este método es muy conveniente cuando los pentagramas de ossia
 aparecen inmediatamente después de un salto de línea. Para ver más
 información sobre @code{\RemoveAllEmptyStaves}, consulte
-@ref{Ocultar pentagramas}.
+@ref{Hiding staves}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -748,12 +738,12 @@ Glosario musical:
 @rglos{Frenched staff}.
 
 Manual de aprendizaje:
-@rlearning{Anidado de expresiones musicales},
-@rlearning{Tamaño de los objetos},
-@rlearning{Longitud y grosor de los objetos}.
+@rlearningnamed{Nesting music expressions, Anidado de expresiones musicales},
+@rlearningnamed{Size of objects, Tamaño de los objetos},
+@rlearningnamed{Length and thickness of objects, Longitud y grosor de los objetos}.
 
 Referencia de la notación:
-@ref{Ocultar pentagramas}.
+@ref{Hiding staves}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -762,9 +752,8 @@ Referencia de funcionamiento interno:
 @rinternals{StaffSymbol}.
 
 
-@node Ocultar pentagramas
+@node Hiding staves
 @unnumberedsubsubsec Ocultar pentagramas
-@translationof Hiding staves
 
 @cindex francesa, partituras a la
 @cindex francesa, pentagrama a la
@@ -839,7 +828,7 @@ Tanto @code{\RemoveEmptyStaves} como @code{\RemoveAllEmptyStaves}
 son atajos predefinidos que establecen propiedades tales como
 @code{remove-empty} y @code{remove-first} para el objeto
 @code{VerticalAxisGroup}, como aparece explicado en
-@ref{Identificadores de modificación de contextos}.
+@ref{Context modification identifiers}.
 
 El grabador @code{Keep_alive_together_engraver} solo permite que
 grupos de pentagramas se puedan eliminar juntos y no
@@ -851,8 +840,8 @@ grupos de pentagramas vacíos en lugar de pautas individuales; esto
 es posible conseguirlo añadiendo el grabador
 @code{Keep_alive_together_engraver} al contexto de agrupamiento de
 pentagramas adecuado, como aparece explicado en
-@ref{Modificar los complementos (plug-ins) de contexto} (consulte
-@ref{Agrupar pentagramas} para ver los nombres de los contextos).
+@ref{Modifying context plug-ins} (consulte
+@ref{Grouping staves} para ver los nombres de los contextos).
 
 @example
 \layout @{
@@ -995,7 +984,7 @@ más bajo.
 
 Esto es especialmente útil para los pentagramas en @q{divisi},
 donde ciertas partes individuales (véase
-@ref{Escritura de las particellas}) a veces tienen que expandirse
+@ref{Writing parts}) a veces tienen que expandirse
 a más de un pentagrama.  En el ejemplo siguiente, dos partes
 resultan dirigidas a un total de @emph{tres} pentagramas; sin
 embargo, los tres pentagramas nunca se imprimen todos al mismo
@@ -1074,7 +1063,7 @@ violII = {
 
 También se puede usar @code{\RemoveAllEmptyStaves} para crear
 secciones de ossia para un pentagrama.  Para ver más detalles,
-consulte @ref{Pentagramas de Ossia}.
+consulte @ref{Ossia staves}.
 
 
 @predefined
@@ -1087,18 +1076,18 @@ Glosario musical:
 @rglos{Frenched staff}.
 
 Manual de aprendizaje:
-@rlearning{Visibilidad y color de los objetos}.
+@rlearningnamed{Visibility and color of objects, Visibilidad y color de los objetos}.
 
 Referencia de la notación:
-@ref{Cambiar los valores por omisión de los contextos},
-@ref{El símbolo del pentagrama},
-@ref{Pentagramas de Ossia},
-@ref{Notas ocultas},
-@ref{Silencios invisibles},
-@ref{Visibilidad de los objetos},
-@ref{Identificadores de modificación de contextos},
-@ref{Agrupar pentagramas},
-@ref{Modificar los complementos (plug-ins) de contexto}.
+@ref{Changing context default settings},
+@ref{Staff symbol},
+@ref{Ossia staves},
+@ref{Hidden notes},
+@ref{Invisible rests},
+@ref{Visibility of objects},
+@ref{Context modification identifiers},
+@ref{Grouping staves},
+@ref{Modifying context plug-ins}.
 
 Archivos instalados:
 @file{ly/engraver-init.ly}.
@@ -1130,12 +1119,11 @@ vez de quitar el grabador:
 
 Para ver los fallos y problemas conocidos, así como las
 advertencias asociadas con @code{\RemoveEmptyStaves}, consulte
-@ref{Cambiar los valores por omisión de los contextos}.
+@ref{Changing context default settings}.
 
 
-@node Escritura de las particellas
+@node Writing parts
 @subsection Escritura de las particellas
-@translationof Writing parts
 
 @cindex partes individuales
 @cindex particellas
@@ -1154,19 +1142,18 @@ individuales.
 
 Además, puede verse un método para la impresión de los pentagramas
 de @emph{divisi}, que se usan a veces en las particellas, en
-@ref{Ocultar pentagramas}.
+@ref{Hiding staves}.
 
 @menu
-* Nombres de instrumentos::
-* Citar otras voces::
-* Formateo de las notas guía::
-* Compresión de los compases vacíos::
+* Instrument names::
+* Quoting other voices::
+* Formatting cue notes::
+* Compressing empty measures::
 @end menu
 
 
-@node Nombres de instrumentos
+@node Instrument names
 @unnumberedsubsubsec Nombres de instrumentos
-@translationof Instrument names
 
 @cindex instrumento, nombre del
 @cindex instrumento, nombre abreviado
@@ -1236,7 +1223,7 @@ no se centran para un grupo de pentagramas a no ser que se
 aumenten los valores del sangrado, @code{indent}, y del sangrado
 corto, @code{short-indent}.  Para ver más detalles sobre estos
 ajustes, consulte
-@ref{Variables de paper para desplazamientos y sangrados}.
+@ref{paper variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1268,7 +1255,7 @@ Para añadir nombres de instrumento a otros contextos (como
 @code{ChordNames} o @code{FiguredBass}), debemos añadir el
 grabador @code{Instrument_name_engraver} a dicho contexto. Para
 ver más detalles, consulte
-@ref{Modificar los complementos (plug-ins) de contexto}.
+@ref{Modifying context plug-ins}.
 
 @cindex nombre, de instrumento, cambiar
 @cindex cambiar, nombre de instrumento
@@ -1316,8 +1303,8 @@ setFlute = {
 
 @morerefs
 Referencia de la notación:
-@ref{Variables de paper para desplazamientos y sangrados},
-@ref{Modificar los complementos (plug-ins) de contexto}.
+@ref{paper variables for shifts and indents},
+@ref{Modifying context plug-ins}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -1328,9 +1315,8 @@ Referencia de funcionamiento interno:
 @rinternals{Staff}.
 
 
-@node Citar otras voces
+@node Quoting other voices
 @unnumberedsubsubsec Citar otras voces
-@translationof Quoting other voices
 
 @cindex guía, voces
 @cindex citar otras voces
@@ -1501,12 +1487,12 @@ oboeNotes = \relative {
  }
 @end lilypond
 
-Las citas también se pueden etiquetar, véase @ref{Uso de etiquetas}.
+Las citas también se pueden etiquetar, véase @ref{Using tags}.
 
 @morerefs
 Referencia de la notación:
-@ref{Transposición de los instrumentos},
-@ref{Uso de etiquetas}.
+@ref{Instrument transpositions},
+@ref{Using tags}.
 
 Archivos de inicio:
 @file{scm/define-event-classes.scm}.
@@ -1529,9 +1515,8 @@ termine de forma abrupta; la cita de unos tresillos dentro de
 otros puede dar como resultado una notación de pobre calidad.
 
 
-@node Formateo de las notas guía
+@node Formatting cue notes
 @unnumberedsubsubsec Formateo de las notas guía
-@translationof Formatting cue notes
 
 @cindex guía, formateo de las notas
 @cindex nota, guía
@@ -1607,7 +1592,7 @@ En casos de colocación más compleja de notas guía, por ejemplo con
 transposición o insertando notas guía procedentes de más de una
 fuente, pueden usarse las instrucciones @code{\cueDuring} o
 @code{\cueDuringWithClef}.  Son una forma más especializada de
-@code{\quoteDuring}, véase @ref{Citar otras voces} en la sección
+@code{\quoteDuring}, véase @ref{Quoting other voices} en la sección
 anterior.
 
 La sintaxis es:
@@ -1790,7 +1775,7 @@ elimina solamente las notas y eventos que se han citado mediante
 @code{\cueDuring}.  Otros elementos de marcado asociados con las
 guías, como los cambios de clave o una etiqueta identificativa del
 instrumento fuente, pueden marcarse para su inclusión selectiva
-dentro de la partitura; véase @ref{Uso de etiquetas}.
+dentro de la partitura; véase @ref{Using tags}.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1827,12 +1812,12 @@ bassoonNotes = \relative c {
 
 @morerefs
 Referencia de la notación:
-@ref{Citar otras voces},
-@ref{Transposición de los instrumentos},
-@ref{Nombres de instrumentos},
-@ref{Clave},
-@ref{Guías musicales},
-@ref{Uso de etiquetas}.
+@ref{Quoting other voices},
+@ref{Instrument transpositions},
+@ref{Instrument names},
+@ref{Clef},
+@ref{Musical cues},
+@ref{Using tags}.
 
 Fragmentos de código:
 @rlsr{Staff notation}.
@@ -1848,9 +1833,8 @@ Pueden ocurrir colisiones con los silencios si se usa
 @code{\transposedCueDuring} el argumento adicional requerido para
 cada caso debe ir después de la cita y de la dirección.
 
-@node Compresión de los compases vacíos
+@node Compressing empty measures
 @unnumberedsubsubsec Compresión de los compases vacíos
-@translationof Compressing empty measures
 
 @cindex multicompás, notas, expandir
 @cindex multicompás, notas, comtraer
@@ -1881,14 +1865,14 @@ a confusión desde el punto de vista musical, como queda ilustrado
 en el ejemplo anterior; de ahí la necesidad de imprimir
 explícitamente los números de compás, usando la sintaxis que se
 describe en
-@ref{Uso de break-visibility (visibilidad en el salto)}.
+@ref{Using break-visibility}.
 
 @cindex multicompás, silencios, expandir
 @cindex multicompás, silencios, contraer
 @funindex \compressMMRests
 
 Donde esta notación puede ser más útil es cuando se aplica a los
-@ref{Silencios de compás completo}.  Un silencio multicompás se
+@ref{Full measure rests}.  Un silencio multicompás se
 imprimirá entonces como un solo compás que contiene un símbolo de
 silencio multicompás, con el número de compases de duración de
 este silencio impreso encima del compás:
@@ -1927,7 +1911,7 @@ ligeramente en que debe ir seguida de una expresión musical:
 Todas las instrucciones descritas en esta sección, descansan en
 realidad en la propiedad interna @code{skipBars}, que se establece
 dentro del contexto de @code{Score} como se explica en
-@ref{La instrucción set}.
+@ref{The set command}.
 
 @predefined
 @code{\compressEmptyMeasures},
@@ -1951,9 +1935,9 @@ dentro del contexto de @code{Score} como se explica en
 
 @morerefs
 Referencia de la notación:
-@ref{Uso de break-visibility (visibilidad en el salto)},
-@ref{Silencios de compás completo},
-@ref{La instrucción set}.
+@ref{Using break-visibility},
+@ref{Full measure rests},
+@ref{The set command}.
 
 Referencia de funcionamiento interno:
 @rinternals{MultiMeasureRest},

@@ -9,9 +9,8 @@
 
 @c \version "2.16.0"
 
-@node Notación especializada
+@node Specialist notation
 @chapter Notación especializada
-@translationof Specialist notation
 
 Este capítulo explica cómo crear notación musical para instrumentos de
 un tipo específico o dentro de estilos específicos.
@@ -19,19 +18,19 @@ un tipo específico o dentro de estilos específicos.
 La música orquestal y la de grupos menores no se estudian en
 ningún apartado distinto; sin embargo, varias nociones que son con
 frecuencia útiles en las partituras orquestales pueden verse en
-@ref{Referencias para ópera y musicales}.
+@ref{References for opera and stage musicals}.
 
 @menu
-* Música vocal::
-* Teclados y otros instrumentos de varios pentagramas::
-* Instrumentos de cuerda sin trastes::
-* Instrumentos de cuerda con trastes::
-* Percusión::
-* Instrumentos de viento::
-* Notación de acordes::
-* Música contemporánea::
-* Notación antigua::
-* Músicas del mundo::
+* Vocal music::
+* Keyboard and other multi-staff instruments::
+* Unfretted string instruments::
+* Fretted string instruments::
+* Percussion::
+* Wind instruments::
+* Chord notation::
+* Contemporary music::
+* Ancient notation::
+* World music::
 @end menu
 
 @include es/notation/vocal.itely

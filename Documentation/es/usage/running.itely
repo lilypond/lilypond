@@ -11,24 +11,22 @@
 @c \version "2.19.21"
 
 
-@node Ejecutar LilyPond
+@node Running LilyPond
 @chapter Ejecutar LilyPond
-@translationof Running LilyPond
 
 Este capítulo detalla los aspectos técnicos de la ejecución de
 LilyPond.
 
 @menu
-* Utilización normal::
-* Utilización desde la línea de órdenes::
-* Mensajes de error::
-* Errores comunes::
+* Normal usage::
+* Command-line usage::
+* Error messages::
+* Common errors::
 @end menu
 
 
-@node Utilización normal
+@node Normal usage
 @section Utilización normal
-@translationof Normal usage
 
 Casi todos los usuarios ejecutan LilyPond por medio de un interfaz
 gráfico; consulte @rlearningnamed{Tutorial,Primeros pasos} si no
@@ -37,9 +35,8 @@ los archivos de LilyPond, consulte la documentación de dicho
 programa.
 
 
-@node Utilización desde la línea de órdenes
+@node Command-line usage
 @section Utilización desde la línea de órdenes
-@translationof Command-line usage
 
 Esta sección contiene información adicional sobre el uso de
 LilyPond en la línea de órdenes.  Esta forma puede ser preferible
@@ -60,17 +57,16 @@ documentos sobre este tema si no le resulta familiar la línea de
 órdenes.
 
 @menu
-* Invocar a LilyPond::
-* Opciones básicas de la línea de órdenes para LilyPond::
-* Opciones avanzadas de línea de órdenes para LilyPond::
-* Variables de entorno::
-* Reubicación del programa::
-* LilyPond en una jaula de chroot::
+* Invoking lilypond::
+* Basic command-line options for LilyPond::
+* Advanced command-line options for LilyPond::
+* Environment variables::
+* Relocation::
+* LilyPond in chroot jail::
 @end menu
 
-@node Invocar a LilyPond
+@node Invoking lilypond
 @unnumberedsubsec Invocar @command{lilypond}
-@translationof Invoking lilypond
 
 El ejecutable @command{lilypond} se puede llamar desde la línea de
 órdenes de la siguiente manera:
@@ -189,9 +185,8 @@ forfiles /s /p "C:\Documentos\Mis Partituras" /M *.ly /c "cmd /c lilypond @@file
 @end example
 
 
-@node Opciones básicas de la línea de órdenes para LilyPond
+@node Basic command-line options for LilyPond
 @unnumberedsubsec Opciones básicas de la línea de órdenes para LilyPond
-@translationof Basic command-line options for LilyPond
 
 @cindex Invoca a @command{lilypond}
 @cindex opciones de la línea de órdenes para @command{lilypond}
@@ -203,7 +198,7 @@ Están contempladas las siguientes opciones:
 @table @asis
 
 @item @code{-d}, @code{--define-default=}@var{variable}[@code{=}@var{valor}]
-Véase @ref{Opciones avanzadas de línea de órdenes para LilyPond}.
+Véase @ref{Advanced command-line options for LilyPond}.
 
 @cindex Scheme, evaluación de expresiones
 @cindex expresiones de Scheme, evaluación
@@ -255,7 +250,7 @@ El SVG usa internamente un backend específico, y por tanto no se
 puede obtener dentro de la misma ejecución que otros formatos; el
 uso de @w{@code{-fsvg}} o de @code{--svg} son en realidad
 equivalentes al empleo de la opción @code{-dbackend=svg}.  Véase
-@ref{Opciones avanzadas de línea de órdenes para LilyPond}.
+@ref{Advanced command-line options for LilyPond}.
 
 @item @code{-h}, @code{--help}
 Mostrar un resumen de las formas de utilización.
@@ -318,8 +313,7 @@ La opción @option{--jail} (jaula) proporciona una alternativa más
 flexible a la opción @option{-dsafe} cuando el proceso de
 tipografía de LilyPond está disponible a través de un servidor web
 o cuando LilyPond ejecuta instrucciones enviadas por fuentes
-externas (véase @ref{Opciones avanzadas de línea de órdenes para
-LilyPond}).
+externas (véase @ref{Advanced command-line options for LilyPond}).
 
 La opción @option{--jail} funciona cambiando la raíz de
 @command{lilypond} a @var{jaula} justo antes de comenzar el
@@ -378,8 +372,7 @@ posiblemente usando @command{sudo}.  También es una práctica
 recomendable limitar el número de segundos de tiempo de CPU que
 LilyPond puede usar (p.ej., usando @command{ulimit@tie{}-t}), y,
 si su sistema operativo lo contempla, el tamaño de la memoria que
-se puede reservar.  Véase también @ref{LilyPond en una jaula de
-chroot}.
+se puede reservar.  Véase también @ref{LilyPond in chroot jail}.
 
 @end table
 
@@ -520,9 +513,8 @@ Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 @end table
 
 
-@node Opciones avanzadas de línea de órdenes para LilyPond
+@node Advanced command-line options for LilyPond
 @unnumberedsubsec Opciones avanzadas de línea de órdenes para LilyPond
-@translationof Advanced command-line options for LilyPond
 
 La opción @option{-d} es la interfaz de la línea de órdenes a la
 función de Scheme de LilyPond @code{ly:set-option}.  Esto
@@ -626,7 +618,7 @@ opción @code{-dsvg-woff}
 Si @var{bool} es @code{#t}, extraer fragmentos de música de la
 partitura.  Requiere que la función @code{clip-regions} esté
 definida dentro del bloque @code{\layout}.  Véase
-@rnotation{Extracción de fragmentos de música}.  No se extrae ningún
+@rnotationnamed{Extracting fragments of music, Extracción de fragmentos de música}.  No se extrae ningún
 fragmento si se usa con la opción @option{-dno-print-pages}.
 Predetermiadno: @code{#f}.
 
@@ -798,7 +790,7 @@ de matriz de puntos a @var{symbol}.  Predeterminado:
 
 @item @code{point-and-click} @var{bool}
 Si @var{bool} es @code{#t}, añadir enlaces de @q{apuntar y pulsar}
-links a las salidas de PDF y SVG.  Véase @ref{Apuntar y pulsar}.
+links a las salidas de PDF y SVG.  Véase @ref{Point and click}.
 Predeterminado: @code{#t}.
 
 @item @code{preview} @var{bool}
@@ -884,8 +876,7 @@ El modo seguro evita que se puedan compilar muchos fragmentos de
 código útiles.
 
 La opción @option{--jail} es una alternativa más segura aún, pero
-requiere más trabajo para su configuración.  Véase @ref{Opciones
-básicas de la línea de órdenes para LilyPond}.
+requiere más trabajo para su configuración.  Véase @ref{Basic command-line options for LilyPond}.
 
 @item @code{separate-log-files} @var{bool}
 Para los archivos de entrada @file{archivo1.ly},
@@ -941,9 +932,8 @@ Predeterminado: @code{#f}.
 
 @end table
 
-@node Variables de entorno
+@node Environment variables
 @unnumberedsubsec Variables de entorno
-@translationof Environment variables
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
@@ -959,7 +949,7 @@ Especifica un directorio en el que los mensajes de localización y
 de datos se buscan de forma predeterminada, sobreescribiendo las
 ubicaciones definidas en tiempo de compilación o computadas
 dinámicamente en tiempo de ejecución (véase
-@ref{Reubicación del programa}).  El directorio debe contener
+@ref{Relocation}).  El directorio debe contener
 subdirectorios llamados @file{ly}, @file{ps}, @file{tex}, etc.
 
 @item LILYPOND_LOCALEDIR
@@ -999,9 +989,8 @@ predeteminado.  Ejemplo: @code{TMPDIR=~/foo}.
 @end table
 
 
-@node Reubicación del programa
+@node Relocation
 @unnumberedsubsec Reubicación del programa
-@translationof Relocation
 @cindex reubicación
 
 Casi todos los programas dentro del mundo Unix utilizan
@@ -1030,14 +1019,13 @@ ejecuta}.
 
 
 @menu
-* Archivos de reubicación::
-* Algoritmo de la reubicación::
+* Relocation files::
+* Relocation algorithm::
 @end menu
 
 
-@node Archivos de reubicación
+@node Relocation files
 @unnumberedsubsubsec Archivos de reubicación
-@translationof Relocation files
 
 En realidad existe un segundo mecanismo para la configuración en
 tiempo de ejecución: LilyPond se apoya fuertemente en bibliotecas
@@ -1108,9 +1096,8 @@ ya que el orden de la exploración de los archivos en el directorio
 @file{relocate} es arbitrario.
 
 
-@node Algoritmo de la reubicación
+@node Relocation algorithm
 @unnumberedsubsubsec Algoritmo de la reubicación
-@translationof Relocation algorithm
 
 LilyPond usa el siguiente algoritmo para buscar los archivos de
 datos.
@@ -1151,14 +1138,13 @@ para @code{relocdir}, puesto que no tiene razón de ser).
 
 @item
 Si @code{relocdir} existe, procesar todos los archivos de este
-directorio como se describe en @ref{Archivos de reubicación}.
+directorio como se describe en @ref{Relocation files}.
 
 @end enumerate
 
 
-@node LilyPond en una jaula de chroot
+@node LilyPond in chroot jail
 @unnumberedsubsec LilyPond en una jaula de chroot
-@translationof LilyPond in chroot jail
 
 La preparación del servidor para que ejecute LilyPond en una jaula
 de chroot es una tarea muy complicada.  Los pasos están
@@ -1278,9 +1264,8 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
 
 @c " keep quote signs balanced for context-sensitive editors
 
-@node Mensajes de error
+@node Error messages
 @section Mensajes de error
-@translationof Error messages
 
 @cindex error, mensajes de
 @cindex mensajes de error
@@ -1370,13 +1355,11 @@ mensaje varias veces.  Los diagnósticos producidos en un estado
 @q{tardío} (como las comprobaciones de compás) también podrían
 emitirse más de una vez.
 
-Se ofrece más información sobre los errores en la sección @ref{Errores
-comunes}.
+Se ofrece más información sobre los errores en la sección @ref{Common errors}.
 
 
-@node Errores comunes
+@node Common errors
 @section Errores comunes
-@translationof Common errors
 
 Las condiciones de error que se describen más abajo se producen
 con frecuencia, aunque su causa no es obvia o fácil de encontrar.
@@ -1384,18 +1367,17 @@ Una vez se han visto y comprendido, se manejan sin problema.
 
 
 @menu
-* La música se sale de la página::
-* Aparece un pentagrama de más::
-* Mensaje de error Unbound variable %::
-* Mensaje de error FT_Get_Glyph_Name::
-* Advertencia sobre que las afinidades del pentagrama sólo deben decrecer::
-* Mensaje de error Unexpected new::
-* Advertencia de que una voz requiere ajustes voiceXx o shiftXx::
+* Music runs off the page::
+* An extra staff appears::
+* Error message Unbound variable %::
+* Error message FT_Get_Glyph_Name::
+* Warning staff affinities should only decrease::
+* Error message unexpected new::
+* Warning this voice needs a voiceXx or shiftXx setting::
 @end menu
 
-@node La música se sale de la página
+@node Music runs off the page
 @unnumberedsubsec La música se sale de la página
-@translationof Music runs off the page
 
 La música que se sale de la página por el margen derecho o que
 aparece exageradamente comprimida está causada casi siempre por
@@ -1416,18 +1398,17 @@ saltos de línea, lo que llevaría a una sola línea de música muy
 comprimida o que se salga de la página.}
 
 La duración incorrecta se puede encontrar fácilmente si se utilizan
-comprobaciones de compás, véase @rnotation{Comprobación de compás y de
+comprobaciones de compás, véase @rnotationnamed{Bar and bar number checks, Comprobación de compás y de
 número de compás}.
 
 Si realmente queremos tener una serie de estos compases con notas
 solapadas, debemos insertar una línea divisoria invisible donde
 queramos el salto de línea.  Para ver más detalles, consulte
-@rnotation{Barras de compás}.
+@rnotationnamed{Bar lines, Barras de compás}.
 
 
-@node Aparece un pentagrama de más
+@node An extra staff appears
 @unnumberedsubsec Aparece un pentagrama de más
-@translationof An extra staff appears
 
 Si no se crean los contextos explícitamente con @code{\new} o con
 @code{\context}, se crearán discretamente tan pronto como se
@@ -1462,9 +1443,8 @@ las notas de rojo es
 }
 @end lilypond
 
-@node Mensaje de error Unbound variable %
+@node Error message Unbound variable %
 @unnumberedsubsec Mensaje de error Unbound variable %
-@translationof Error message Unbound variable %
 
 Este mensaje de error aparece al final de los mensajes de la
 consola o del archivo de registro junto a un mensaje @qq{GUILE
@@ -1477,20 +1457,18 @@ porcentaje, (@code{%}), y no se deben utilizar dentro de las
 rutinas de Scheme.  Los comentarios de Scheme comienzan con punto
 y coma, (@code{;}).
 
-@node Mensaje de error FT_Get_Glyph_Name
+@node Error message FT_Get_Glyph_Name
 @unnumberedsubsec Mensaje de error FT_Get_Glyph_Name
-@translationof Error message FT_Get_Glyph_Name
 
 Este mensaje de error aparece en la salida de la consola o en el
 archivo log de registro si un archivo de entrada contiene un
 carácter que no es ASCII y no se ha guardado en la codificación de
 caracteres UTF-8.  Para ver más detalles, consulte
-@rnotation{Codificación del texto}.
+@rnotationnamed{Text encoding, Codificación del texto}.
 
 
-@node Advertencia sobre que las afinidades del pentagrama sólo deben decrecer
+@node Warning staff affinities should only decrease
 @unnumberedsubsec Advertencia sobre que las afinidades del pentagrama sólo deben decrecer
-@translationof Warning staff affinities should only decrease
 
 Esta advertencia puede aparecer si no hay ningún pentagrama en la
 salida impresa, por ejemplo si sólo hay un contexto
@@ -1505,13 +1483,12 @@ insertando
 
 @noindent
 al comienzo.  Para ver más detalles, consulte @qq{Espaciado de las
-líneas que no son pautas} en @rnotation{Espaciado vertical flexible
+líneas que no son pautas} en @rnotationnamed{Flexible vertical spacing within systems, Espaciado vertical flexible
 dentro de los sistemas}.
 
 
-@node Mensaje de error Unexpected new
+@node Error message unexpected new
 @unnumberedsubsec Mensaje de error Unexpected @code{\new}
-@translationof Error message unexpected new
 
 Un bloque @code{\score} debe contener una @emph{única} expresión
 musical.  Si en vez de ello contiene varias instrucciones @code{\new
@@ -1560,9 +1537,8 @@ simultáneamente:
 }
 @end lilypond
 
-@node Advertencia de que una voz requiere ajustes voiceXx o shiftXx
+@node Warning this voice needs a voiceXx or shiftXx setting
 @unnumberedsubsec Advertencia de que una voz requiere ajustes @code{\voiceXx} o @code{\shiftXx}
-@translationof Warning this voice needs a voiceXx or shiftXx setting
 
 Si acontecen dos notas de distintas voces son plicas en la misma
 dirección y en el mismo momento musical, pero las voces no tienen
@@ -1595,7 +1571,7 @@ orden natural (cuando una voz con @code{\voiceThree} es más aguda
 que otra con @code{\voiceOne}, y casos semejantes).
 
 @morerefs
-@rlearning{Voces explícitas},
-@rlearning{Ejemplos reales de música},
-@rnotation{Polifonía en un solo pentagrama},
-@rnotation{Resolución de las colisiones}.
+@rlearningnamed{Explicitly instantiating voices, Voces explícitas},
+@rlearningnamed{Real music example, Ejemplos reales de música},
+@rnotationnamed{Single-staff polyphony, Polifonía en un solo pentagrama},
+@rnotationnamed{Collision resolution, Resolución de las colisiones}.

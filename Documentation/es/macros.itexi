@@ -96,7 +96,7 @@ See MACRO DEFINITION GUIDELINES in common-macros.itexi
 @cartouche
 Para mayor información sobre la forma en que este manual se relaciona
 con el resto de la documentación, o para leer este manual en otros
-formatos, consulte @rweb{Manuales}.
+formatos, consulte @rwebnamed{Manuals,Manuales}.
 
 Si le falta algún manual, encontrará toda la documentación en
 @w{@uref{https://@/lilypond@/.org/}}.

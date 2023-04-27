@@ -11,9 +11,8 @@
 
 @c Translation status: post-GDP
 
-@node Notas simultáneas
+@node Simultaneous notes
 @section Notas simultáneas
-@translationof Simultaneous notes
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
@@ -23,28 +22,26 @@ polifonía hace referencia a tener más de una voz en el mismo
 pentagrama.
 
 @menu
-* Una voz única::
-* Varias voces::
+* Single voice::
+* Multiple voices::
 @end menu
 
 
-@node Una voz única
+@node Single voice
 @subsection Una voz única
-@translationof Single voice
 
 Esta sección trata de la notas simultáneas dentro de la misma voz.
 
 @menu
-* Notas en acorde::
-* Repetición de acordes::
-* Expresiones simultáneas::
-* Racimos (clusters)::
+* Chorded notes::
+* Chord repetition::
+* Simultaneous expressions::
+* Clusters::
 @end menu
 
 
-@node Notas en acorde
+@node Chorded notes
 @unnumberedsubsubsec Notas en acorde
-@translationof Chorded notes
 
 @cindex acorde
 @cindex paréntesis en ángulo
@@ -109,7 +106,7 @@ realmente ninguna duración.  Cualqier articulación adjunta se
 producirá en el mismo momento musical que la nota o acorde
 siguiente y se puede combinar con ellos (para ver posibilidades
 más complejas de combinaciones de estos elementos, consulte
-@ref{Expresiones simultáneas}):
+@ref{Simultaneous expressions}):
 
 @lilypond[verbatim,quote]
 \relative {
@@ -136,20 +133,20 @@ a la nota anterior @emph{dentro del mismo acorde}.
 @end lilypond
 
 Para ver más información sobre los acordes, consulte
-@ref{Notación de acordes}.
+@ref{Chord notation}.
 
 @morerefs
 Glosario musical:
 @rglos{chord}.
 
 Manual de aprendizaje:
-@rlearning{Combinar notas para formar acordes}.
+@rlearningnamed{Combining notes into chords, Combinar notas para formar acordes}.
 
 Referencia de la notación:
-@ref{Notación de acordes},
-@ref{Articulaciones y ornamentos},
-@ref{Escritura de octava relativa},
-@ref{Varias voces}.
+@ref{Chord notation},
+@ref{Articulations and ornamentations},
+@ref{Relative octave entry},
+@ref{Multiple voices}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
@@ -163,7 +160,7 @@ representación puede requerir:
 @itemize
 
 @item
-el uso temporal de varias voces, véase @ref{Varias voces},
+el uso temporal de varias voces, véase @ref{Multiple voices},
 @samp{<< f! \\ <e fis!> >>},
 
 @item
@@ -171,14 +168,13 @@ la transcripción enarmónica de una o más notas,
 @samp{<e f ges>}, or
 
 @item
-Culsters o racimos; véase @ref{Racimos (clusters)}.
+Culsters o racimos; véase @ref{Clusters}.
 
 @end itemize
 
 
-@node Repetición de acordes
+@node Chord repetition
 @unnumberedsubsubsec Repetición de acordes
-@translationof Chord repetition
 
 @cindex acordes, repetición de
 @cindex repetición, con @code{q}
@@ -273,16 +269,15 @@ procesado.
 
 @morerefs
 Referencia de la notación:
-@ref{Notación de acordes},
-@ref{Articulaciones y ornamentos}.
+@ref{Chord notation},
+@ref{Articulations and ornamentations}.
 
 Archivos de inicio:
 @file{ly/chord-repetition-init.ly}.
 
 
-@node Expresiones simultáneas
+@node Simultaneous expressions
 @unnumberedsubsubsec Expresiones simultáneas
-@translationof Simultaneous expressions
 
 Una o más expresiones musicales encerradas entre ángulos dobles se
 entienden como simultáneas.  Si la primera expresión comienza con
@@ -358,12 +353,11 @@ durante la compilación.  Este mensaje se puede suprimir mediante
 Sin embargo, esto no solamente suprime la advertencia sino que
 puede evitar cualquier resolución de colisiones y puede tener
 otros efectos no deseados (consulte también
-@emph{Problemas conocidos} en @ref{Resolución de las colisiones}).
+@emph{Problemas conocidos} en @ref{Collision resolution}).
 
 
-@node Racimos (clusters)
+@node Clusters
 @unnumberedsubsubsec Racimos (clusters)
-@translationof Clusters
 
 @cindex cluster
 @cindex racimo (cluster)
@@ -408,26 +402,24 @@ racimos separados necesitan silencios de separación entre ellos.
 Los clusters no producen ninguna salida MIDI.
 
 
-@node Varias voces
+@node Multiple voices
 @subsection Varias voces
-@translationof Multiple voices
 
 Esta sección trata las notas simultáneas en varias voces o varios
 pentagramas.
 
 @menu
-* Polifonía en un solo pentagrama::
-* Estilos de voz::
-* Resolución de las colisiones::
-* Combinación de silencios::
-* Combinación automática de las partes::
-* Escribir música en paralelo::
+* Single-staff polyphony::
+* Voice styles::
+* Collision resolution::
+* Merging rests::
+* Automatic part combining::
+* Writing music in parallel::
 @end menu
 
 
-@node Polifonía en un solo pentagrama
+@node Single-staff polyphony
 @unnumberedsubsubsec Polifonía en un solo pentagrama
-@translationof Single-staff polyphony
 
 @cindex pentagrama único, polifonía de
 @cindex polifonía, en un solo pentagrama
@@ -560,7 +552,7 @@ aparición de silencios duplicados.
 
 En todas las partituras excepto las más simples, se recomienda
 crear contextos @code{Voice} explícitos como aparece explicado en
-@rlearning{Contextos y grabadores} y en @rlearning{Voces
+@rlearningnamed{Contexts and engravers, Contextos y grabadores} y en @rlearningnamed{Explicitly instantiating voices, Voces
 explícitas}.
 
 @subsubsubheading Orden de las voces
@@ -653,21 +645,20 @@ fragmentos de música no tienen las mismas duraciones exactas.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Las voces contienen música},
-@rlearning{Voces explícitas}.
+@rlearningnamed{Voices contain music, Las voces contienen música},
+@rlearningnamed{Explicitly instantiating voices, Voces explícitas}.
 
 Referencia de la notación:
-@ref{Pautas de percusión},
-@ref{Silencios invisibles},
-@ref{Plicas}.
+@ref{Percussion staves},
+@ref{Invisible rests},
+@ref{Stems}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
 
-@node Estilos de voz
+@node Voice styles
 @unnumberedsubsubsec Estilos de voz
-@translationof Voice styles
 
 @cindex voz, estilo
 @cindex estilo, voz
@@ -706,16 +697,15 @@ Para recuperar la presentación normal se utiliza la instrucción
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Oigo voces},
-@rlearning{Otras fuentes de información}.
+@rlearningnamed{I'm hearing Voices, Oigo voces},
+@rlearningnamed{Other sources of information, Otras fuentes de información}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
 
-@node Resolución de las colisiones
+@node Collision resolution
 @unnumberedsubsubsec Resolución de las colisiones
-@translationof Collision resolution
 
 @cindex mezclar notas
 @cindex nota, colisiones de
@@ -894,7 +884,7 @@ el orden vertical de las voces en el pentagrama!}
 Dos instrucciones adicionales, @code{\shiftOnn} y
 @code{\shiftOnnn}, ofrecen niveles de desplazamiento mayores que
 se pueden especificar temporalmente para resolver colisiones en
-situaciones complejas; véase @rlearning{Ejemplos reales de
+situaciones complejas; véase @rlearningnamed{Real music example, Ejemplos reales de
 música}.
 
 Sólo se combinan las notas si tienen la plica en direcciones
@@ -940,9 +930,9 @@ Glosario musical:
 @rglos{polyphony}.
 
 Manual de aprendizaje:
-@rlearning{Varias notas a la vez},
-@rlearning{Las voces contienen música},
-@rlearning{Ejemplos reales de música}.
+@rlearningnamed{Multiple notes at once, Varias notas a la vez},
+@rlearningnamed{Voices contain music, Las voces contienen música},
+@rlearningnamed{Real music example, Ejemplos reales de música}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
@@ -974,9 +964,8 @@ tienen también distinto puntillo, no están claros.
 @end ignore
 
 
-@node Combinación de silencios
+@node Merging rests
 @unnumberedsubsubsec Combinación de silencios
-@translationof Merging rests
 
 Al usar más de una voz, es frecuente combinar los silencios que
 aparecen en las dos partes.  Esto puede hacerse mediante el uso
@@ -1010,9 +999,8 @@ Al establecer el valor de la propiedad de contexto
 @code{suspendRestMerging} a @code{##t} podemos desactivar
 temporalmente la combinación de silencios.
 
-@node Combinación automática de las partes
+@node Automatic part combining
 @unnumberedsubsubsec Combinación automática de las partes
-@translationof Automatic part combining
 
 @cindex automática, combinación de partes
 @cindex partes, combinación automática
@@ -1209,8 +1197,7 @@ La instrucción @code{\partCombine} no está diseñada para funcionar
 con la letra de las canciones; si una de las voces recibe un
 nombre explícito para poder adjuntar una letra, el combinador de
 partes no funciona.  Sin embargo, se puede conseguir este efecto
-usando un contexto @code{NullVoice}.  Véase @ref{Polifonía con
-letras compartidas}.
+usando un contexto @code{NullVoice}.  Véase @ref{Polyphony with shared lyrics}.
 
 
 @snippets
@@ -1230,7 +1217,7 @@ Glosario musical:
 @rglos{part}.
 
 Referencia de la notación:
-@ref{Escritura de las particellas}.
+@ref{Writing parts}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
@@ -1275,14 +1262,13 @@ contexto @code{Voice} que tiene el nombre distinto.
 
 Consulte también el apartado
 @emph{Advertencias y problemas conocidos} en la sección
-@ref{Tablaturas predeterminadas} al utilizar @code{\partCombine}
-con tablaturas, y la @emph{Nota} de @ref{Barras automáticas} al
+@ref{Default tablatures} al utilizar @code{\partCombine}
+con tablaturas, y la @emph{Nota} de @ref{Automatic beams} al
 utilizar barrado automático.
 
 
-@node Escribir música en paralelo
+@node Writing music in parallel
 @unnumberedsubsubsec Escribir música en paralelo
-@translationof Writing music in parallel
 
 @cindex escribir música en paralelo
 @cindex música intercalada
@@ -1395,7 +1381,7 @@ global = {
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Organizar las piezas mediante variables}
+@rlearningnamed{Organizing pieces with variables, Organizar las piezas mediante variables}
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.

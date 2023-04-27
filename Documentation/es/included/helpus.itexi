@@ -49,7 +49,7 @@ versión, tales como
 @code{/stable/}}, que se redireccionan automáticamente).
 
 @item
-Informar de fallos: ayude a los usuarios a crear @ref{Informes de
+Informar de fallos: ayude a los usuarios a crear @ref{Bug reports,Informes de
 fallos} adecuados, y/o apúntese al Escuadrón de Fallos para
 la organización de los @rcontribnamed{Issues,Problemas}.
 

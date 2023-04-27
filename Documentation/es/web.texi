@@ -128,7 +128,7 @@ LilyPond es software libre y forma parte del
 
 
 @divClass{align-right}
-¡Puede leer más en nuestra @ref{Introducción}!
+¡Puede leer más en nuestra @ref{Introduction}!
 
 @divEnd
 @divEnd
@@ -183,7 +183,7 @@ e incluso
 
 @end ifset
 
-¡Admire nuestra galería de @ref{Ejemplos} e inspírese!
+¡Admire nuestra galería de @ref{Examples} e inspírese!
 
 @divEnd
 
@@ -193,7 +193,7 @@ e incluso
 @c TODO: generate this automatically, including RSS feed.
 @include en/web/news-headlines.itexi
 
-@ref{Noticias, More news...}
+@ref{News, More news...}
 
 @divEnd
 
@@ -212,13 +212,13 @@ e incluso
 
 @ref{Download, Descarga de @versionStable}
 
-@ref{Manuales, Manuales de @versionStable}
+@ref{Manuals, Manuales de @versionStable}
 
 @subheading Versión de desarrollo
 
-@ref{Desarrollo, Descarga de @versionDevel}
+@ref{Development, Descarga de @versionDevel}
 
-@ref{Desarrollo, Manuales de @versionDevel}
+@ref{Development, Manuales de @versionDevel}
 
 @subheading Novedades
 @divId{pondingsText}
@@ -262,10 +262,10 @@ e incluso
 
 @divClass{hide}
 @menu
-* Introducción::     Empiece aquí a crear partituras musicales.
+* Introduction::     Empiece aquí a crear partituras musicales.
 * Download::         Obtener LilyPond.
-* Manuales::         Léase los dichosos manuales (RTFM).
-* Comunidad::        Póngase en contacto con otros usuarios.
+* Manuals::         Léase los dichosos manuales (RTFM).
+* Community::        Póngase en contacto con otros usuarios.
 @end menu
 @divEnd
 
@@ -375,7 +375,7 @@ Si tiene conocimiento de cualesquiera otros \topic\ que merezcan
 aparecer relacionados aquí,
 le rogamos que nos lo haga saber según se explica
 en las instrucciones que aparecen en la sección
-@ref{Informes de fallos}.
+@ref{Bug reports}.
 
 @end cartouche
 

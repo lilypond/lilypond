@@ -10,9 +10,8 @@
 
 @c \version "2.25.3"
 
-@node Anotaciones editoriales
+@node Editorial annotations
 @section Anotaciones editoriales
-@translationof Editorial annotations
 
 @lilypondfile[quote]{snippets/editorial-headword.ly}
 
@@ -20,30 +19,28 @@ Esta sección trata de las diversas maneras de modificar el aspecto
 de las notas y de aplicar énfasis analítico o educativo.
 
 @menu
-* Dentro del pentagrama::
-* Fuera del pentagrama::
+* Inside the staff::
+* Outside the staff::
 @end menu
 
 
-@node Dentro del pentagrama
+@node Inside the staff
 @subsection Dentro del pentagrama
-@translationof Inside the staff
 
 Esta sección trata sobre cómo aplicar énfasis a los elementos
 situados dentro del pentagrama.
 
 @menu
-* Seleccionar el tamaño de la tipografía para la notación::
-* Indicaciones de digitación::
-* Notas ocultas::
-* Colorear objetos::
-* Paréntesis::
-* Plicas::
+* Selecting notation font size::
+* Fingering instructions::
+* Hidden notes::
+* Coloring objects::
+* Parentheses::
+* Stems::
 @end menu
 
-@node Seleccionar el tamaño de la tipografía para la notación
+@node Selecting notation font size
 @unnumberedsubsubsec Seleccionar el tamaño de la tipografía para la notación
-@translationof Selecting notation font size
 
 @cindex fuente tipográfica (de notación), tamaño
 @cindex selección del tamaño de la fuente tipográfica (de notación)
@@ -63,10 +60,10 @@ situados dentro del pentagrama.
 @funindex \huge
 
 @warning{@*
-Para el tamaño de la tipografía del texto, consulte @ref{Seleccionar la tipografía y su tamaño}.@*
-Para el tamaño del pentagrama, consulte @ref{Establecer el tamaño del pentagrama}.@*
-Para las notas guía, consulte @ref{Formateo de las notas guía}.@*
-Para los pentagramas de Ossia, consulte @ref{Pentagramas de Ossia}.}
+Para el tamaño de la tipografía del texto, consulte @ref{Selecting font and font size}.@*
+Para el tamaño del pentagrama, consulte @ref{Setting the staff size}.@*
+Para las notas guía, consulte @ref{Formatting cue notes}.@*
+Para los pentagramas de Ossia, consulte @ref{Ossia staves}.}
 
 Para modificar el tamaño de la notación sin cambiar el tamaño del
 pentagrama, especifique un factor de ampliación con la instrucción
@@ -134,7 +131,7 @@ dimensiones del contexto @code{CueVoice}.
 
 @warning{La instrucción @code{@bs{}magnifyMusic} @i{no} debe
 utilizarse si se está cambiando el tamaño del pentagrama al mismo
-tiempo.  Consulte @ref{Establecer el tamaño del pentagrama}.}
+tiempo.  Consulte @ref{Setting the staff size}.}
 
 
 @subsubsubheading Cambiar el temaño de los objetos individuales
@@ -214,7 +211,7 @@ junto con el tamaño de la notación (sin cambiar el tamaño de la
 pauta), use la instrucción @code{\magnifyMusic} que se ha
 explicado anteriormente.  Para cambiar la escala del tamaño de
 todo, incluida la pauta, véase
-@ref{Establecer el tamaño del pentagrama}.
+@ref{Setting the staff size}.
 
 Siempre que se establece el valor de la @i{propiedad de contexto}
 @code{fontSize}, su valor se añade al valor de la @i{propiedad de
@@ -295,10 +292,10 @@ fuente de 11 puntos.
 
 @morerefs
 Notation Reference:
-@ref{Seleccionar la tipografía y su tamaño},
-@ref{Establecer el tamaño del pentagrama},
-@ref{Formateo de las notas guía},
-@ref{Pentagramas de Ossia}.
+@ref{Selecting font and font size},
+@ref{Setting the staff size},
+@ref{Formatting cue notes},
+@ref{Ossia staves}.
 
 Installed Files:
 @file{ly/music-functions-init.ly},
@@ -334,9 +331,8 @@ instrucciones @code{\newSpacingSection}, y/o las instrucciones
 @end example
 
 
-@node Indicaciones de digitación
+@node Fingering instructions
 @unnumberedsubsubsec Indicaciones de digitación
-@translationof Fingering instructions
 
 @cindex digitación
 @cindex cambio de dedo
@@ -385,7 +381,7 @@ notas individuales escribiéndolas después de las alturas.
 @end lilypond
 
 Las indicaciones de digitación se pueden situar manualmente encima
-o debajo del pentagrama, véase @ref{Dirección y posición}.
+o debajo del pentagrama, véase @ref{Direction and placement}.
 
 @snippets
 
@@ -410,7 +406,7 @@ o debajo del pentagrama, véase @ref{Dirección y posición}.
 
 @morerefs
 Referencia de la notación:
-@ref{Dirección y posición}.
+@ref{Direction and placement}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -423,9 +419,8 @@ Referencia de funcionamiento interno:
 @rinternals{Fingering}.
 
 
-@node Notas ocultas
+@node Hidden notes
 @unnumberedsubsubsec Notas ocultas
-@translationof Hidden notes
 
 @cindex oculta, nota
 @cindex invisible, nota
@@ -476,12 +471,12 @@ notas invisibles, son a pesar de ello visibles.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Visibilidad y color de los objetos}.
+@rlearningnamed{Visibility and color of objects, Visibilidad y color de los objetos}.
 
 Notation Reference:
-@ref{Silencios invisibles},
-@ref{Visibilidad de los objetos},
-@ref{Ocultar pentagramas}.
+@ref{Invisible rests},
+@ref{Visibility of objects},
+@ref{Hiding staves}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -491,9 +486,8 @@ Referencia de funcionamiento interno:
 @rinternals{NoteSpacing}.
 
 
-@node Colorear objetos
+@node Coloring objects
 @unnumberedsubsubsec Colorear objetos
-@translationof Coloring objects
 
 @cindex coloreado, objeto
 @cindex color
@@ -508,8 +502,7 @@ Referencia de funcionamiento interno:
 @funindex \with-color
 
 Se pueden asignar colores a los objetos individuales.  Los nombres
-de color válidos se encuentran relacionados en la @ref{Lista de
-colores}.
+de color válidos se encuentran relacionados en la @ref{List of colors}.
 
 @lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
@@ -525,7 +518,7 @@ e''
 
 Además de un conjunto limitado de colores sencillos que están
 disponibles como variables predefinidas (véase @q{Colores
-normales} dentro de @ref{Lista de colores}), se puede introducir
+normales} dentro de @ref{List of colors}), se puede introducir
 cualquier color como una cadena de caracteres.  Dicha cadena puede
 ser un nombre predefinido de color al estilo de
 @uref{https://www.w3.org/Style/CSS/, CSS}, o un código de color
@@ -551,7 +544,7 @@ mediante el uso de un código de ocho caracteres del tipo
 la salida de SVG pero no en la salida de PostScript/PDF.  En el
 ejemplo anterior, el silencio es semitransparente solo si el
 código se compila con el backend de SVG, como se explica en
-@ref{Formatos de salida alternativos}.
+@ref{Alternative output formats}.
 
 @cindex color de x11
 @funindex x11-color
@@ -625,8 +618,8 @@ semitransparente cuando se produce un documento SVG.
 
 @morerefs
 Referencia de la notación:
-@ref{Lista de colores},
-@ref{La instrucción tweak}.
+@ref{List of colors},
+@ref{The tweak command}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -646,18 +639,17 @@ No todos los colores de X11 se distinguen entre sí en un navegador
 web, es decir, un navegador de web podría no mostrar ninguna
 diferencia entre @code{LimeGreen} (verde lima) y
 @code{ForestGreen} (verde bosque).  Para la web se recomiendan los
-colores de CSS, como aparece detallado en @ref{Lista de colores}.
+colores de CSS, como aparece detallado en @ref{List of colors}.
 
 
 Las notas de un acorde no se pueden colorear individualmente con
 @code{\override}; en su lugar utilice @code{\tweak} o su
 equivalente @code{\single\override} antes de la nota respectiva.
-Consulte @ref{La instrucción tweak} para ver más detalles.
+Consulte @ref{The tweak command} para ver más detalles.
 
 
-@node Paréntesis
+@node Parentheses
 @unnumberedsubsubsec Paréntesis
-@translationof Parentheses
 
 @cindex fantasma, nota
 @cindex nota fantasma
@@ -706,9 +698,8 @@ notas individuales entre paréntesis, en vez de un solo paréntesis
 grande rodeando al acorde completo.
 
 
-@node Plicas
+@node Stems
 @unnumberedsubsubsec Plicas
-@translationof Stems
 
 @cindex plica
 @cindex plica invisible
@@ -727,7 +718,7 @@ objeto @code{Stem} (plica).  Para las redondas y los silencios,
 también se crean pero se hacen invisibles.
 
 Se puede hacer manualmente que las plicas apunten hacia arriba o
-hacia abajo; véase @ref{Dirección y posición}.
+hacia abajo; véase @ref{Direction and placement}.
 
 @predefined
 @code{\stemUp},
@@ -750,7 +741,7 @@ hacia abajo; véase @ref{Dirección y posición}.
 
 @morerefs
 Referencia de la notación:
-@ref{Dirección y posición}.
+@ref{Direction and placement}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -761,23 +752,21 @@ Referencia de funcionamiento interno:
 @rinternals{stem-interface}.
 
 
-@node Fuera del pentagrama
+@node Outside the staff
 @subsection Fuera del pentagrama
-@translationof Outside the staff
 
 Esta sección trata sobre cómo enfatizar elementos que están dentro
 del pentagrama, desde fuera del pentagrama.
 
 @menu
-* Nombre de las notas::
-* Globos de ayuda::
-* Líneas de rejilla::
-* Corchetes de análisis::
+* Note names::
+* Balloon help::
+* Grid lines::
+* Analysis brackets::
 @end menu
 
-@node Nombre de las notas
+@node Note names
 @unnumberedsubsubsec Nombre de las notas
-@translationof Note names
 
 @cindex notas, nombre, imprimir
 
@@ -814,8 +803,7 @@ melody = \relative do'' {
 De manera predeterminada, los nombres de nota se imprimen en el
 mismo idioma que se ha usado para la entrada de la música; sin
 embargo, la propiedad @code{printNotesLanguage} permite
-seleccionar cualquier otro idioma disponible (véase @ref{Nombres
-de las notas en otros idiomas}).  A través de la propiedad
+seleccionar cualquier otro idioma disponible (véase @ref{Note names in other languages}).  A través de la propiedad
 @code{printAccidentalNames} se determina si las alteraciones se
 imprimen o no.
 
@@ -874,7 +862,7 @@ somechords = \relative c' {
 @morerefs
 
 Referencia de la notación:
-@ref{Nombres de las notas en otros idiomas}.
+@ref{Note names in other languages}.
 
 Referencia de funcionamiento interno:
 @rinternals{NoteName},
@@ -882,9 +870,8 @@ Referencia de funcionamiento interno:
 @rinternals{Note_name_engraver}.
 
 
-@node Globos de ayuda
+@node Balloon help
 @unnumberedsubsubsec Globos de ayuda
-@translationof Balloon help
 
 @cindex globo
 @cindex notación, explicación de
@@ -950,9 +937,8 @@ Referencia de funcionamiento interno:
 @rinternals{balloon-interface}.
 
 
-@node Líneas de rejilla
+@node Grid lines
 @unnumberedsubsubsec Líneas de rejilla
-@translationof Grid lines
 
 @cindex rejilla, líneas de
 @cindex línea de rejilla
@@ -1023,9 +1009,8 @@ Referencia de funcionamiento interno:
 @rinternals{grid-point-interface}.
 
 
-@node Corchetes de análisis
+@node Analysis brackets
 @unnumberedsubsubsec Corchetes de análisis
-@translationof Analysis brackets
 
 @cindex corchete
 @cindex fraseo, corchetes de

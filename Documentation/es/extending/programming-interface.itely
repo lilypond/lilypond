@@ -9,29 +9,27 @@
 
 @c \version "2.19.24"
 
-@node Interfaces para programadores
+@node Interfaces for programmers
 @chapter Interfaces para programadores
-@translationof Interfaces for programmers
 
 Se pueden realizar trucos avanzados mediante el uso de Scheme.
 Si no está familiarizado con Scheme, le conviene leer nuestro
-tutorial de Scheme, @ref{Tutorial de Scheme}.
+tutorial de Scheme, @ref{Scheme tutorial}.
 
 
 @menu
-* Bloques de código de LilyPond::
-* Funciones de Scheme::
-* Funciones musicales::
-* Funciones de eventos::
-* Funciones de marcado::
-* Contextos para programadores::
-* Funciones de callback::
-* Trucos difíciles::
+* LilyPond code blocks::
+* Scheme functions::
+* Music functions::
+* Event functions::
+* Markup functions::
+* Contexts for programmers::
+* Callback functions::
+* Difficult tweaks::
 @end menu
 
-@node Bloques de código de LilyPond
+@node LilyPond code blocks
 @section Bloques de código de LilyPond
-@translationof LilyPond code blocks
 
 @cindex Bloques de código de LilyPond
 @cindex LilyPond, bloques de código de
@@ -92,9 +90,8 @@ musical vacía, y un bloque de LilyPond que contiene varios
 eventos musicales se convierte en una expresión de música
 secuencial.
 
-@node Funciones de Scheme
+@node Scheme functions
 @section Funciones de Scheme
-@translationof Scheme functions
 @cindex Scheme, funciones de (sintaxis de LilyPond)
 
 Las @emph{funciones de Scheme} son procedimientos de Scheme que
@@ -107,14 +104,13 @@ capítulo se ocupa de las funciones @emph{sintácticas}, funciones
 que reciben argumentos especificados en la sintaxis de LilyPond.
 
 @menu
-* Definición de funciones de Scheme::
-* Uso de las funciones de Scheme::
-* Funciones de Scheme vacías::
+* Scheme function definitions::
+* Scheme function usage::
+* Void scheme functions::
 @end menu
 
-@node Definición de funciones de Scheme
+@node Scheme function definitions
 @subsection Definición de funciones de Scheme
-@translationof Scheme function definitions
 @funindex define-scheme-function
 
 La forma general de la definición de una función de Scheme es:
@@ -160,7 +156,7 @@ cursor de entrada.
 la función de Scheme. Puede contener bloques de código de
 LilyPond encerrados entre llaves con almohadillas
 (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), como se describe en
-@ref{Bloques de código de LilyPond}.  Dentro de los bloques de
+@ref{LilyPond code blocks}.  Dentro de los bloques de
 código de LilyPond, use el símbolo @code{#} para hacer referencia
 a argumentos de función (p.ej. @samp{#arg1}) o para iniciar una
 expresión en línea de Scheme que contenga argumentos de función
@@ -206,12 +202,12 @@ evitar los predicados excesivamente permisivos como
 más específicos.
 
 Para ver una lista de los predicados de tipo disponibles,
-consulte @rnotation{Predicados de tipo predefinidos}.
+consulte @rnotationnamed{Predefined type predicates, Predicados de tipo predefinidos}.
 
 @morerefs
 
 Referencia de la notación:
-@rnotation{Predicados de tipo predefinidos}.
+@rnotationnamed{Predefined type predicates, Predicados de tipo predefinidos}.
 
 Archivos instalados:
 @file{lily/music-scheme.cc},
@@ -219,9 +215,8 @@ Archivos instalados:
 @file{scm/lily.scm}.
 
 
-@node Uso de las funciones de Scheme
+@node Scheme function usage
 @subsection Uso de las funciones de Scheme
-@translationof Scheme function usage
 
 Las funciones de Scheme se pueden llamar casi desde cualquier
 lugar en que puede escribirse una expresión de Scheme que
@@ -255,8 +250,7 @@ sería aceptable colocar una asignación.
 Dado que no es buena idea devolver valores que puedan
 malinterpretarse en algún contexto, debería usar funciones de
 Scheme normales solo para los casos en que siempre se devuelve un
-valor útil, y usar funciones de Scheme vacías (@pxref{Funciones
-de Scheme vacías}) en caso contrario.
+valor útil, y usar funciones de Scheme vacías (@pxref{Void scheme functions}) en caso contrario.
 
 Por conveniencia, las funciones de Scheme también se pueden
 llamar directamente desde Scheme, puenteando al analizador
@@ -268,9 +262,8 @@ tomando el valor de Scheme @code{*unspecified*} el papel de la
 palabra reservada @code{\default} para saltar explícitamente
 argumentos opcionales.
 
-@node Funciones de Scheme vacías
+@node Void scheme functions
 @subsection Funciones de Scheme vacías
-@translationof Void scheme functions
 @funindex define-void-function
 @funindex \void
 
@@ -317,9 +310,8 @@ significado al valor devuelto, independientemente de dónde lo
 encuentre.  También funciona para funciones musicales como
 @code{\displayMusic}.
 
-@node Funciones musicales
+@node Music functions
 @section Funciones musicales
-@translationof Music functions
 
 @cindex funciones musicales
 
@@ -328,19 +320,18 @@ pueden crear automáticamente expresiones musicales, y se pueden
 usar para simplificar enormemente el archivo de entrada.
 
 @menu
-* Definiciones de funciones musicales::
-* Uso de las funciones musicales::
-* Funciones de sustitución sencillas::
-* Funciones de sustitución intermedias::
-* Matemáticas dentro de las funciones::
-* Funciones sin argumentos::
-* Funciones musicales vacías::
+* Music function definitions::
+* Music function usage::
+* Simple substitution functions::
+* Intermediate substitution functions::
+* Mathematics in functions::
+* Functions without arguments::
+* Void music functions::
 @end menu
 
 
-@node Definiciones de funciones musicales
+@node Music function definitions
 @subsection Definiciones de funciones musicales
-@translationof Music function definitions
 @cindex definición de funciones musicales
 @funindex define-music-function
 
@@ -356,17 +347,17 @@ funcion =
 
 @noindent
 de forma bastante análoga a
-@ref{Definición de funciones de Scheme}.  Lo más probable es que
+@ref{Scheme function definitions}.  Lo más probable es que
 el @var{cuerpo} sea un
-@ref{Bloques de código de LilyPond,bloque de código de LilyPond}.
+@ref{LilyPond code blocks,bloque de código de LilyPond}.
 
 Para ver una lista de los predicados de tipo disponibles,
-consulte @rnotation{Predicados de tipo predefinidos}.
+consulte @rnotationnamed{Predefined type predicates, Predicados de tipo predefinidos}.
 
 @morerefs
 
 Referencia de la notación:
-@rnotation{Predicados de tipo predefinidos}.
+@rnotationnamed{Predefined type predicates, Predicados de tipo predefinidos}.
 
 Archivos de inicio:
 @file{lily/music-scheme.cc},
@@ -374,9 +365,8 @@ Archivos de inicio:
 @file{scm/lily.scm}.
 
 
-@node Uso de las funciones musicales
+@node Music function usage
 @subsection Uso de las funciones musicales
-@translationof Music function usage
 
 Una @q{función musical} debe devolver una expresión que se
 corresponda con el predicado @code{ly:music?}.  Esto hace que las
@@ -411,19 +401,17 @@ Se pueden aplicar funciones @q{polimórficas}, como @code{\tweak},
 a los post-eventos, componentes de acordes y expresiones
 musicales del nivel superior.
 
-@node Funciones de sustitución sencillas
+@node Simple substitution functions
 @subsection Funciones de sustitución sencillas
-@translationof Simple substitution functions
 
 Una función de sustitución sencilla es una función musical cuya
 expresión musical de salida está escrita en código de LilyPond y
 contiene argumentos de la función en la expresión de salida.
-Están descritas en @rnotation{Ejemplos de funciones de sustitución}.
+Están descritas en @rnotationnamed{Substitution function examples, Ejemplos de funciones de sustitución}.
 
 
-@node Funciones de sustitución intermedias
+@node Intermediate substitution functions
 @subsection Funciones de sustitución intermedias
-@translationof Intermediate substitution functions
 
 Las funciones de sustitución intermedias contienen una mezcla de
 código de Scheme y de LilyPond dentro de la expresión musical que
@@ -525,9 +513,8 @@ crossStaff =
 @end example
 
 
-@node Matemáticas dentro de las funciones
+@node Mathematics in functions
 @subsection Matemáticas dentro de las funciones
-@translationof Mathematics in functions
 
 Las funciones musicales pueden contar con programación de Scheme
 además de la simple sustitución:
@@ -579,9 +566,8 @@ withAlt =
 @end lilypond
 
 
-@node Funciones sin argumentos
+@node Functions without arguments
 @subsection Funciones sin argumentos
-@translationof Functions without arguments
 
 En casi todos los casos, una función sin argumentos se debe
 escribir con una variable:
@@ -611,9 +597,8 @@ lilypond -d display-bar-numbers ARCHIVO.ly
 @end example
 
 
-@node Funciones musicales vacías
+@node Void music functions
 @subsection Funciones musicales vacías
-@translationof Void music functions
 
 Una función musical debe devolver una expresión musical.  Si
 quiere ejecutar una función exclusivamente por sus efectos
@@ -624,9 +609,8 @@ Devolver una expresión musical @code{void} (vacía) por medio de
 @code{#@{ #@}} lo hace posible.
 
 
-@node Funciones de eventos
+@node Event functions
 @section Funciones de eventos
-@translationof Event functions
 @funindex define-event-function
 @cindex event functions
 
@@ -650,9 +634,8 @@ entonces tendríamos que escribir siempre un indicador de
 dirección antes de llamarla, como @code{@w{c-\dyn pfsss}}.
 
 
-@node Funciones de marcado
+@node Markup functions
 @section Funciones de marcado
-@translationof Markup functions
 
 Los elementos de marcado están implementados como funciones de
 Scheme especiales que producen un objeto @code{Stencil} dada una
@@ -660,15 +643,14 @@ serie de argumentos.
 
 
 @menu
-* Construcción de elementos de marcado en Scheme::
-* Cómo funcionan internamente los elementos de marcado::
-* Definición de una instrucción de marcado nueva::
-* Definición de nuevas instrucciones de lista de marcado::
+* Markup construction in Scheme::
+* How markups work internally::
+* New markup command definition::
+* New markup list command definition::
 @end menu
 
-@node Construcción de elementos de marcado en Scheme
+@node Markup construction in Scheme
 @subsection Construcción de elementos de marcado en Scheme
-@translationof Markup construction in Scheme
 
 @cindex marcado, definir instrucciones de
 @funindex \displayScheme
@@ -711,7 +693,7 @@ Para evitar que el marcado se imprima en la página, use
 @w{@samp{\void \displayScheme @var{marcado}}}.  Asimismo, como
 ocurre con la instrucción @code{\displayMusic}, la salida de
 @code{\displayScheme} se puede guardar en un archivo externo.
-Véase @ref{Presentación de las expresiones musicales}.
+Véase @ref{Displaying music expressions}.
 
 @noindent
 Este ejemplo muestra las principales reglas de traducción entre
@@ -740,8 +722,7 @@ Todo el lenguaje Scheme está accesible dentro del macro
 @code{markup}.  Por ejemplo, podemos usar llamadas a funciones
 dentro de @code{markup} para así manipular cadenas de caracteres.
 Esto es útil si se están definiendo instrucciones de marcado
-nuevas (véase @ref{Definición de una instrucción de marcado
-nueva}).
+nuevas (véase @ref{New markup command definition}).
 
 
 @knownissues
@@ -764,9 +745,8 @@ no es válido.  Hay que usar las funciones
 @end lisp
 
 
-@node Cómo funcionan internamente los elementos de marcado
+@node How markups work internally
 @subsection Cómo funcionan internamente los elementos de marcado
-@translationof How markups work internally
 
 En un elemento de marcado como
 
@@ -800,24 +780,22 @@ simple; en el resto de la sección podrán verse ejemplos más
 complejos, así como en @file{scm/define-markup-commands.scm}.
 
 
-@node Definición de una instrucción de marcado nueva
+@node New markup command definition
 @subsection Definición de una instrucción de marcado nueva
-@translationof New markup command definition
 
 Esta sección trata sobre la definición de nuevas instrucciones de
 marcado.
 
 
 @menu
-* Sintaxis de la definición de instrucciones de marcado::
-* Acerca de las propiedades::
-* Un ejemplo completo::
-* Adaptación de instrucciones incorporadas::
+* Markup command definition syntax::
+* On properties::
+* A complete example::
+* Adapting builtin commands::
 @end menu
 
-@node Sintaxis de la definición de instrucciones de marcado
+@node Markup command definition syntax
 @unnumberedsubsubsec Sintaxis de la definición de instrucciones de marcado
-@translationof Markup command definition syntax
 
 Se pueden definir instrucciones de marcado nuevas usando el macro
 de Scheme @code{define-markup-command}, en el nivel sintáctico
@@ -902,9 +880,8 @@ de sello mediante la ejecución de los cuerpos de función de
 marcado solo tienen lugar cuando se llama a
 @code{interpret-markup} sobre una expresión de marcado.
 
-@node Acerca de las propiedades
+@node On properties
 @unnumberedsubsubsec Acerca de las propiedades
-@translationof On properties
 
 Los argumentos @code{layout} y @code{props} de las instrucciones
 de marcado traen a escena un contexto para la interpretación del
@@ -939,15 +916,14 @@ El ejemplo de la sección siguiente ilustra cómo acceder y
 sobreescribir las propiedades de una instrucción de marcado.
 
 
-@node Un ejemplo completo
+@node A complete example
 @unnumberedsubsubsec Un ejemplo completo
-@translationof A complete example
 
 El ejemplo siguiente define una instrucción de marcado para
 trazar un rectángulo doble alrededor de un fragmento de texto.
 
 En primer lugar, necesitamos construir un resultado aproximado
-utilizando marcados.  Una consulta a @rnotation{Instrucciones de
+utilizando marcados.  Una consulta a @rnotationnamed{Text markup commands, Instrucciones de
 marcado de texto} nos muestra que es útil la instrucción
 @code{\box}:
 
@@ -1003,8 +979,7 @@ marcado.  La función @code{interpret-markup} se usa en casi todas
 las instrucciones de marcado: construye un sello, usando
 @code{layout}, @code{props}, y un elemento de marcado.  En el
 segundo caso, la marca se construye usando el macro de Scheme
-@code{markup}, véase @ref{Construcción de elementos de marcado en
-Scheme}.  La transformación de una expresión @code{\markup} en
+@code{markup}, véase @ref{Markup construction in Scheme}.  La transformación de una expresión @code{\markup} en
 una expresión de marcado de Scheme es directa.
 
 La instrucción nueva se puede usar como sigue:
@@ -1078,9 +1053,8 @@ marcado, y el relleno de los rectángulos se puede personalizar:
 @end lilypond
 
 
-@node Adaptación de instrucciones incorporadas
+@node Adapting builtin commands
 @unnumberedsubsubsec Adaptación de instrucciones incorporadas
-@translationof Adapting builtin commands
 
 Una buena manera de comenzar a escribir una instrucción de
 marcado nueva, es seguir el ejemplo de otra instrucción ya
@@ -1169,17 +1143,15 @@ líneas, y los sellos resultantes se combinan usando
 @end lilypond
 
 
-@node Definición de nuevas instrucciones de lista de marcado
+@node New markup list command definition
 @subsection Definición de nuevas instrucciones de lista de marcado
-@translationof New markup list command definition
 
 @funindex define-markup-list-command
 @funindex interpret-markup-list
 
 Las instrucciones de listas de marcado se definen con el macro de
 Scheme @code{define-markup-list-command}, que es similar al macro
-@code{define-markup-command} descrito en @ref{Definición de una
-instrucción de marcado nueva}, excepto que donde éste devuelve un
+@code{define-markup-command} descrito en @ref{New markup command definition}, excepto que donde éste devuelve un
 sello único, aquél devuelve una lista de sellos.
 
 En el siguiente ejemplo se define una instrucción de lista de
@@ -1242,18 +1214,16 @@ sigue:
 @end example
 
 
-@node Contextos para programadores
+@node Contexts for programmers
 @section Contextos para programadores
-@translationof Contexts for programmers
 
 @menu
-* Evaluación de contextos::
-* Ejecutar una función sobre todos los objetos de la presentación::
+* Context evaluation::
+* Running a function on all layout objects::
 @end menu
 
-@node Evaluación de contextos
+@node Context evaluation
 @subsection Evaluación de contextos
-@translationof Context evaluation
 
 @cindex código, llamadas durante la interpretación
 @funindex \applyContext
@@ -1393,9 +1363,8 @@ desaturate =
 @end lilypond
 
 
-@node Ejecutar una función sobre todos los objetos de la presentación
+@node Running a function on all layout objects
 @subsection Ejecutar una función sobre todos los objetos de la presentación
-@translationof Running a function on all layout objects
 
 @cindex código, llamar sobre objetos de presentación
 @funindex \applyOutput
@@ -1460,9 +1429,8 @@ Para que @var{función} se interprete en los niveles de
 @end example
 
 
-@node Funciones de callback
+@node Callback functions
 @section Funciones de callback
-@translationof Callback functions
 
 Las propiedades (como @code{thickness} (grosor), @code{direction}
 (dirección), etc.) se pueden establecer a valores fijos con
@@ -1563,8 +1531,7 @@ F = \tweak font-size #-3 -\flageolet
 
 @noindent
 Usando Scheme, se puede dar un rodeo a este problema.  La ruta hacia
-el resultado se da en @ref{Añadir articulaciones a las notas
-(ejemplo)}, especialmente cómo usar @code{\displayMusic} como guía de
+el resultado se da en @ref{Adding articulation to notes (example)}, especialmente cómo usar @code{\displayMusic} como guía de
 ayuda.
 
 @example
@@ -1592,9 +1559,8 @@ el valor de retorno, el propio @code{m}.
 @end ignore
 
 
-@node Trucos difíciles
+@node Difficult tweaks
 @section Trucos difíciles
-@translationof Difficult tweaks
 
 Hay un cierto número de tipos de ajustes difíciles.
 
@@ -1691,9 +1657,8 @@ como se espera dentro de los bloques @code{\context}.
 @end itemize
 
 
-@node Interfaces de Scheme de LilyPond
+@node LilyPond Scheme interfaces
 @chapter Interfaces de Scheme de LilyPond
-@translationof LilyPond Scheme interfaces
 
 Este capítulo cubre las diversas herramientas proporcionadas por
 LilyPond como ayuda a los programadores de Scheme a extraer e

@@ -14,21 +14,19 @@
 
 @node Tutorial
 @chapter Tutorial
-@translationof Tutorial
 
 Este capítulo ofrece una introducción básica al trabajo con
 LilyPond.
 
 @menu
-* Compilación del archivo::
-* Cómo escribir archivos de entrada::
-* Tratar con los errores::
-* Cómo leer los manuales::
+* Compiling a file::
+* How to write input files::
+* Dealing with errors::
+* How to read the manuals::
 @end menu
 
-@node Compilación del archivo
+@node Compiling a file
 @section Compilación del archivo
-@translationof Compiling a file
 
 Esta sección presenta el concepto de @qq{compilación}: el
 procesamiento de los documentos de entrada de LilyPond (escritos
@@ -70,7 +68,7 @@ que se encuentren al principio o al final de una línea, para
 evitar ambigüedades.  Es posible que se omitan en algunos ejemplos
 del presente manual ¡pero no las omita en su propia música!  Para
 ver más información sobre la presentación de los ejemplos del
-manual, consulte @ref{Cómo leer los manuales}.}
+manual, consulte @ref{How to read the manuals}.}
 
 Además, la entrada de LilyPond es @strong{sensible a las
 mayúsculas}.  @w{@samp{ @{ c d e @}}} es una entrada válida;
@@ -78,35 +76,33 @@ mayúsculas}.  @w{@samp{ @{ c d e @}}} es una entrada válida;
 
 
 
-@node Cómo escribir archivos de entrada
+@node How to write input files
 @section Cómo escribir archivos de entrada
-@translationof How to write input files
 
 Esta sección presenta una parte de la sintaxis básica de LilyPond
 como ayuda para que se inicie en la escritura de archivos de
 entrada.
 
 @menu
-* Notación sencilla::
-* Trabajar sobre los archivos de entrada::
+* Simple notation::
+* Working on input files::
 @end menu
 
 
-@node Notación sencilla
+@node Simple notation
 @subsection Notación sencilla
-@translationof Simple notation
 
 @cindex sencilla, notación
 @cindex notación sencilla
 
 @menu
-* Alturas::
-* Duraciones (valores rítmicos)::
-* Silencios::
-* Indicación de compás::
-* Indicaciones de tempo::
-* Clave::
-* Todo junto::
+* Pitches::
+* Durations (rhythms)::
+* Rests::
+* Time signature::
+* Tempo marks::
+* Clef::
+* All together::
 @end menu
 
 LilyPond añadirá ciertos elementos de notación de manera
@@ -125,9 +121,8 @@ Este comportamiento se puede modificar, pero en general estos
 valores automáticos son adecuados.
 
 
-@node Alturas
+@node Pitches
 @unnumberedsubsubsec Alturas
-@translationof Pitches
 
 @cindex alturas
 @cindex notas
@@ -155,7 +150,7 @@ de nota en todos los ejemplos de esta sección usan la nomenclatura
 holandesa, en que las teclas blancas del piano van desde la c (Do)
 hasta la b (Si).  Sin embargo, LilyPond contempla muchos otros
 sistemas para los nombres de las notas, como el inglés o el @q{Do
-fijo} (do-re-mi-...).  Véase @rnotation{Nombres de las notas en otros
+fijo} (do-re-mi-...).  Véase @rnotationnamed{Note names in other languages, Nombres de las notas en otros
 idiomas}.  Las letras desde @code{c} hasta@tie{}@code{b} denotan
 las alturas de las notas de la @q{octava corta} por debajo del
 @notation{Do central}.  Los sufijos @code{'} (apóstrofo)
@@ -261,9 +256,8 @@ comillas simples @code{''} ¡y no una comilla doble
 @code{"}@tie{}!)
 @c " - keeps quotes in order for context-sensitive editor -td
 
-@node Duraciones (valores rítmicos)
+@node Durations (rhythms)
 @unnumberedsubsubsec Duraciones (valores rítmicos)
-@translationof Durations (rhythms)
 
 @cindex duraciones de las notas
 @cindex notas, duraciones de
@@ -313,9 +307,8 @@ número).
 }
 @end lilypond
 
-@node Silencios
+@node Rests
 @unnumberedsubsubsec Silencios
-@translationof Rests
 
 @cindex silencio
 @cindex notación de los silencios
@@ -334,9 +327,8 @@ con el nombre @code{r}@tie{}:
 @end lilypond
 
 
-@node Indicación de compás
+@node Time signature
 @unnumberedsubsubsec Indicación de compás
-@translationof Time signature
 
 @cindex compás, indicación de
 
@@ -359,9 +351,8 @@ orden @code{\time} :
 }
 @end lilypond
 
-@node Indicaciones de tempo
+@node Tempo marks
 @unnumberedsubsubsec Indicaciones de tempo
-@translationof Tempo marks
 
 @cindex tempo, indicaciones de
 @cindex metronómicas, indicaciones
@@ -390,9 +381,8 @@ metronómica} pueden establecerse con la instrucción @code{\tempo}:
 @end lilypond
 
 
-@node Clave
+@node Clef
 @unnumberedsubsubsec Clave
-@translationof Clef
 
 @cindex clave
 @cindex sol, clave de
@@ -426,9 +416,8 @@ La @notation{clave} se puede establecer utilizando la orden
 @end lilypond
 
 
-@node Todo junto
+@node All together
 @unnumberedsubsubsec Todo junto
-@translationof All together
 
 He aquí un pequeño ejemplo que muestra todos los elementos
 anteriores juntos:
@@ -448,16 +437,15 @@ anteriores juntos:
 
 @morerefs
 Referencia de la notación:
-@rnotation{Escritura de notas},
-@rnotation{Escritura de las duraciones (valores rítmicos)},
-@rnotation{Escritura de silencios},
-@rnotation{Indicación de compás},
-@rnotation{Clave}.
+@rnotationnamed{Writing pitches, Escritura de notas},
+@rnotationnamed{Writing rhythms, Escritura de las duraciones (valores rítmicos)},
+@rnotationnamed{Writing rests, Escritura de silencios},
+@rnotationnamed{Time signature, Indicación de compás},
+@rnotationnamed{Clef, Clave}.
 
 
-@node Trabajar sobre los archivos de entrada
+@node Working on input files
 @subsection Trabajar sobre los archivos de entrada
-@translationof Working on input files
 
 @cindex llaves
 @cindex comentarios
@@ -608,9 +596,8 @@ los comentarios:
 @end itemize
 
 
-@node Tratar con los errores
+@node Dealing with errors
 @section Tratar con los errores
-@translationof Dealing with errors
 
 @cindex depuración de errores
 
@@ -619,52 +606,48 @@ aporta algunos enlaces para ayudarle a resolver los problemas que
 pudiera encontrar.
 
 @menu
-* Consejos generales de solución de problemas::
-* Algunos errores comunes::
+* General troubleshooting tips::
+* Some common errors::
 @end menu
 
-@node Consejos generales de solución de problemas
+@node General troubleshooting tips
 @subsection Consejos generales de solución de problemas
-@translationof General troubleshooting tips
 
 La solución de problemas en LilyPond puede ser un desafío para las
 personas acostumbradas a los interfaces gráficos, porque es
 posible crear archivos de entrada inválidos.  Cuando esto ocurre,
 la mejor forma de identificar y resolver el problema es aplicar un
 enfoque lógico.  Se dan algunas guías para ayudarle a aprender a
-hacerlo, en @rprogram{Solución de problemas}.
+hacerlo, en @rprogramnamed{Troubleshooting, Solución de problemas}.
 
 
-@node Algunos errores comunes
+@node Some common errors
 @subsection Algunos errores comunes
-@translationof Some common errors
 
 @cindex comunes, errores
 @cindex errores comunes
 
 Existen algunos errores comunes que son difíciles de solucionar si
 nos basamos solamente en los mensajes de error que se nos
-presentan.  Éstos se describen en @rprogram{Errores comunes}.
+presentan.  Éstos se describen en @rprogramnamed{Common errors, Errores comunes}.
 
 
-@node Cómo leer los manuales
+@node How to read the manuals
 @section Cómo leer los manuales
-@translationof How to read the manuals
 
 Esta sección muestra cómo leer la documentación de forma
 eficiente, y presenta algunas interesantes funcionalidades
 interactivas de la versión en línea.
 
 @menu
-* Material omitido::
-* Ejemplos con enlace::
-* Panorámica de los manuales::
+* Omitted material::
+* Clickable examples::
+* Overview of manuals::
 @end menu
 
 
-@node Material omitido
+@node Omitted material
 @subsection Material omitido
-@translationof Omitted material
 
 
 @cindex cómo leer el manual
@@ -677,7 +660,7 @@ interactivas de la versión en línea.
 @cindex construir archivos, consejos
 @cindex archivos, consejos para construir
 
-Como ya vimos en @ref{Trabajar sobre los archivos de entrada}, el
+Como ya vimos en @ref{Working on input files}, el
 código de entrada de LilyPond debe estar rodeado de llaves
 @code{@{ @}} o de @q{@w{@code{\relative @{ @dots{} @}}}}.
 Durante el resto del presente manual, ciertos ejemplos breves
@@ -697,9 +680,8 @@ son fragmentos de código y no archivos completos, el enunciado
 @code{\version} se omite.  De todas formas, debemos acostumbrarnos
 a incluirlo en nuestros documentos.
 
-@node Ejemplos con enlace
+@node Clickable examples
 @subsection Ejemplos con enlace
-@translationof Clickable examples
 
 @warning{Esta funcionalidad sólo está disponible en los manuales
 en HTML.}
@@ -741,9 +723,8 @@ HTML.}
 Estamos trabajando sobre esta funcionalidad.
 @end ignore
 
-@node Panorámica de los manuales
+@node Overview of manuals
 @subsection Panorámica de los manuales
-@translationof Overview of manuals
 
 Existe abundantísima documentación sobre LilyPond.  Con
 frecuencia, los nuevos usuarios se encuentran desorientados
@@ -759,24 +740,24 @@ secciones subsiguientes.}
 @item
 @strong{Antes de intentar hacer @emph{cualquier cosa}}: lea el
 @ref{Tutorial} del manual de Aprendizaje, y la sección
-@ref{Notación corriente}.  Si encuentra términos musicales que no
+@ref{Common notation}.  Si encuentra términos musicales que no
 reconoce, búsquelos en el @rglosnamed{Top, Glosario}.
 
 @item
 @strong{Antes de tratar de escribir una pieza completa de música}:
-lea la sección @ref{Conceptos fundamentales} del manual de
+lea la sección @ref{Fundamental concepts} del manual de
 Aprendizaje.  Después, le vendrá bien consultar las secciones
 correspondientes de la @rnotationnamed{Top, Referencia de la
 notación}.
 
 @item
 @strong{Antes de tratar de modificar los resultados
-predeterminados}: lea la sección @ref{Trucar la salida} del manual
+predeterminados}: lea la sección @ref{Tweaking output} del manual
 de Aprendizaje.
 
 @item
 @strong{Antes de afrontar un proyecto grande}: lea la sección
-@rprogram{Sugerencias para escribir archivos de entrada} del manual de
+@rprogramnamed{Suggestions for writing files, Sugerencias para escribir archivos de entrada} del manual de
 Utilización del programa.
 
 @end itemize

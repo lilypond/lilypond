@@ -10,9 +10,8 @@
 
 @c \version "2.25.3"
 
-@node Música vocal
+@node Vocal music
 @section Música vocal
-@translationof Vocal music
 
 @lilypondfile[quote]{snippets/vocal-headword.ly}
 
@@ -21,40 +20,38 @@ asegurarse de que la letra se alinea con las notas de su melodía
 correspondiente.
 
 @menu
-* Notación común para música vocal::
-* Técnicas específicas para la letra::
-* Versos::
-* Canciones::
-* Música coral::
-* Ópera y musicales::
-* Cánticos salmos e himnos::
-* Música vocal antigua::
+* Common notation for vocal music::
+* Techniques specific to lyrics::
+* Stanzas::
+* Songs::
+* Choral::
+* Opera and stage musicals::
+* Chants psalms and hymns::
+* Ancient vocal music::
 @end menu
 
 
-@node Notación común para música vocal
+@node Common notation for vocal music
 @subsection Notación común para música vocal
-@translationof Common notation for vocal music
 
 Esta sección se ocupa de las cuestiones comunes a la mayoría de
 los tipos de música vocal.
 
 @menu
-* Referencias para música vocal::
-* Introducir la letra::
-* Alineación de la letra a una melodía::
-* Duración automática de las sílabas::
-* Duración manual de las sílabas::
-* Varias sílabas sobre una nota::
-* Varias notas sobre una sílaba::
-* Líneas de extensión y guiones::
-* Cambios de vocal graduales::
+* References for vocal music::
+* Entering lyrics::
+* Aligning lyrics to a melody::
+* Automatic syllable durations::
+* Manual syllable durations::
+* Multiple syllables to one note::
+* Multiple notes to one syllable::
+* Extenders and hyphens::
+* Gradual changes of vowel::
 @end menu
 
 
-@node Referencias para música vocal
+@node References for vocal music
 @unnumberedsubsubsec Referencias para música vocal
-@translationof References for vocal music
 
 Esta sección indica dónde encontrar los detalles de las cuestiones
 de notación que pueden surgir en cualquier tipo de música vocal.
@@ -64,25 +61,25 @@ de notación que pueden surgir en cualquier tipo de música vocal.
 @item
 Casi todos los estilos de música vocal utilizan texto escrito como
 letra.  Hay una introducción a esta notación en
-@rlearning{Elaborar canciones sencillas}.
+@rlearningnamed{Setting simple songs, Elaborar canciones sencillas}.
 
 @item
 La música vocal probablemente requiere el uso del modo de marcado
 o @code{markup}, ya sea para la letra o para otros elementos de
 texto (nombres de los personajes, etc.).  Esta sintaxis está
-descrita en @ref{Introducción al marcado de texto}.
+descrita en @ref{Text markup introduction}.
 
 
 @item
 Los @notation{ambitus} o indicaciones de tesitura vocal se pueden
 añadir al principio de los pentagramas vocales, como se explica en
-@ref{Tesitura}.
+@ref{Ambitus}.
 
 @item
 De forma predeterminada, las indicaciones dinámicas se sitúan
 debajo del pentagrama, pero en la música coral se suelen disponer
 por encima del pentagrama para evitar la letra, como se explica en
-@ref{Disposiciones de la partitura para música coral}.
+@ref{Score layouts for choral}.
 
 @end itemize
 
@@ -91,19 +88,18 @@ Glosario musical:
 @rglos{ambitus}.
 
 Manual de aprendizaje:
-@rlearning{Elaborar canciones sencillas}.
+@rlearningnamed{Setting simple songs, Elaborar canciones sencillas}.
 
 Referencia de la notación:
-@ref{Introducción al marcado de texto},
-@ref{Tesitura},
-@ref{Disposiciones de la partitura para música coral}.
+@ref{Text markup introduction},
+@ref{Ambitus},
+@ref{Score layouts for choral}.
 
 Fragmentos de código:
 @rlsr{Vocal music}.
 
-@node Introducir la letra
+@node Entering lyrics
 @unnumberedsubsubsec Introducir la letra
-@translationof Entering lyrics
 
 @cindex letra
 @cindex letra, introducir
@@ -141,8 +137,8 @@ de cada sílaba explícitamente, como en el ejemplo anterior, o
 dejando que la letra se alinee automáticamente con una melodía u
 otra voz de música, utilizando @code{\addlyrics} o
 @code{\lyricsto}.  El primer método se describe a continuación
-bajo el epígrafe @ref{Duración manual de las sílabas}.  El segundo
-método se describe en @ref{Duración automática de las sílabas}.
+bajo el epígrafe @ref{Manual syllable durations}.  El segundo
+método se describe en @ref{Automatic syllable durations}.
 
 Una palabra o sílaba de la letra comienza con un carácter
 alfabético (y algunos otros caracteres, véase más abajo) y termina
@@ -173,7 +169,7 @@ de cualquier idioma distinto del inglés, o los caracteres
 especiales (como el símbolo del corazón o las comillas
 inclinadas), se pueden insertar directamente en el archivo de
 entrada, siempre que éste se grabe con la codificación UTF-8.
-Para más información, consulte @ref{Caracteres especiales}.
+Para más información, consulte @ref{Special characters}.
 
 @lilypond[quote,verbatim]
 \relative { d''8 c16 a bes8 f ees' d c4 }
@@ -205,7 +201,7 @@ consistente en la combinación de una barra invertida seguida por
 Un enorme control sobre la apariencia de la letra proviene del uso
 de elementos de marcado @code{\markup} dentro de la propia letra.
 Para ver una explicación de muchas de las opciones, consulte
-@ref{Formatear el texto}.
+@ref{Formatting text}.
 
 @snippets
 
@@ -217,15 +213,15 @@ Para ver una explicación de muchas de las opciones, consulte
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Canciones}.
+@rlearningnamed{Songs, Canciones}.
 
 Referencia de la notación:
-@ref{Duración automática de las sílabas},
-@ref{Tipografías},
-@ref{Formatear el texto},
-@ref{Modos de entrada},
-@ref{Duración manual de las sílabas},
-@ref{Caracteres especiales}.
+@ref{Automatic syllable durations},
+@ref{Fonts},
+@ref{Formatting text},
+@ref{Input modes},
+@ref{Manual syllable durations},
+@ref{Special characters}.
 
 Referencia de funcionamiento interno:
 @rinternals{LyricText}.
@@ -234,9 +230,8 @@ Fragmentos de código:
 @rlsr{Text}.
 
 
-@node Alineación de la letra a una melodía
+@node Aligning lyrics to a melody
 @unnumberedsubsubsec Alineación de la letra a una melodía
-@translationof Aligning lyrics to a melody
 
 @cindex letra, alineación a una melodía
 @funindex associatedVoice
@@ -246,7 +241,7 @@ Fragmentos de código:
 
 La letra se interpreta en el modo @code{\lyricmode} y se imprime
 dentro del contexto llamado @code{Lyrics},
-véase @ref{Explicación de los contextos}.
+véase @ref{Contexts explained}.
 
 @example
 \new Lyrics \lyricmode @{ @dots{} @}
@@ -260,7 +255,7 @@ se debe sincronizar, creando implícitamente un contexto Lyrics
 completo.  @code{\lyricsto} es más versátil y requiere tanto que
 se especifique el contexto Voice asociado por su nombre, como que
 se cree explícitamente un contexto contenedor Lyrics.  Para ver
-más detalles, consulte @ref{Duración automática de las sílabas}.
+más detalles, consulte @ref{Automatic syllable durations}.
 
 La letra se puede alinear con la melodía de dos maneras
 principales:
@@ -273,7 +268,7 @@ duraciones de las sílabas de otra voz de música, o (en
 circunstancias especiales) una melodía asociada, usando
 @code{\addlyrics}, @code{\lyricsto}, o estableciendo el valor de
 la propiedad @code{associatedVoice}.  Para ver más detalles,
-consulte @ref{Duración automática de las sílabas}.
+consulte @ref{Automatic syllable durations}.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -312,7 +307,7 @@ la que se toman las duraciones para las sílabas.  Esto es útil si
 el texto de las distintas estrofas corresponde a las mismas notas
 de formas diferentes, y todas las duraciones están disponibles
 dentro de contextos de voz.  Para ver más detalles, consulte
-@ref{Versos}.
+@ref{Stanzas}.
 
 @item
 El texto se puede alinear independientemente de la duración de
@@ -347,32 +342,31 @@ forma independiente de las notas.  Esto es útil si el texto de los
 distintos versos se corresponde con las notas de maneras
 diferentes, pero las duraciones requeridas no están disponibles en
 un contexto de música.  Para ver más detalles, consulte
-@ref{Duración manual de las sílabas}.  Esta técnica también es
+@ref{Manual syllable durations}.  Esta técnica también es
 útil cuando se quiere preparar un diálogo encima de la música;
 para ver ejemplos que lo muestran, consulte
-@ref{Diálogos encima de la música}.
+@ref{Dialogue over music}.
 
 @end itemize
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Alineación de la letra a una melodía}.
+@rlearningnamed{Aligning lyrics to a melody, Alineación de la letra a una melodía}.
 
 Referencia de la notación:
-@ref{Explicación de los contextos},
-@ref{Duración automática de las sílabas},
-@ref{Versos},
-@ref{Duración manual de las sílabas},
-@ref{Diálogos encima de la música},
-@ref{Duración manual de las sílabas}.
+@ref{Contexts explained},
+@ref{Automatic syllable durations},
+@ref{Stanzas},
+@ref{Manual syllable durations},
+@ref{Dialogue over music},
+@ref{Manual syllable durations}.
 
 Referencia de funcionamiento interno:
 @rinternals{Lyrics}.
 
 
-@node Duración automática de las sílabas
+@node Automatic syllable durations
 @unnumberedsubsubsec Duración automática de las sílabas
-@translationof Automatic syllable durations
 
 @cindex sílaba, duración automática de
 @cindex letra, y melodías
@@ -405,14 +399,14 @@ musical.
 En los tres métodos se pueden trazar guiones de separación entre
 las sílabas de una palabra y líneas extensoras después del final
 de una palabra.  Para ver más detalles, véase
-@ref{Líneas de extensión y guiones}.
+@ref{Extenders and hyphens}.
 
 El contexto @code{Voice} que contiene la melodía con que se está
 alineando la letra, no debe haber @qq{muerto}, o se perderá la
 letra a partir de este punto.  Esto puede ocurrir si existen
 períodos en que dicha voz no tiene nada que hacer.  Para ver
 métodos para mantener vivos los contextos, consulte
-@ref{Mantener vivos los contextos}.
+@ref{Keeping contexts alive}.
 
 @subheading Uso de @code{\lyricsto}
 
@@ -441,7 +435,7 @@ especifica primero el contexto @code{Voice} seguido del contexto
 @code{\lyricsto}.  La instrucción @code{\lyricsto} invoca
 automáticamente el modo de letra.  De forma predeterminada, la
 letra se coloca por debajo de las notas.  Para otras colocaciones,
-consulte @ref{Posicionamiento vertical de la letra}.
+consulte @ref{Placing lyrics vertically}.
 
 @subheading Uso de @code{\addlyrics}
 
@@ -535,14 +529,13 @@ He aquí un ejemplo que muestra su uso:
 
 @morerefs
 Referencia de la notación:
-@ref{Líneas de extensión y guiones},
-@ref{Mantener vivos los contextos},
-@ref{Posicionamiento vertical de la letra}.
+@ref{Extenders and hyphens},
+@ref{Keeping contexts alive},
+@ref{Placing lyrics vertically}.
 
 
-@node Duración manual de las sílabas
+@node Manual syllable durations
 @unnumberedsubsubsec Duración manual de las sílabas
-@translationof Manual syllable durations
 
 En ciertas músicas vocales complejas puede ser deseable colocar la
 letra de forma completamente independiente de las notas.  En este
@@ -593,7 +586,7 @@ He aquí dos ejemplos:
 @end lilypond
 
 Esta técnica es muy útil cuando se escriben diálogos encima de la
-música, véase @ref{Diálogos encima de la música}.
+música, véase @ref{Dialogue over music}.
 
 Para cambiar la alineación de las sílabas, simplemente
 sobreescriba la propiedad @code{self-alignment-X}:
@@ -613,16 +606,15 @@ sobreescriba la propiedad @code{self-alignment-X}:
 
 @morerefs
 Referencia de la notación:
-@ref{Mantener vivos los contextos}.
+@ref{Keeping contexts alive}.
 
 Referencia de funcionamiento interno:
 @rinternals{Lyrics},
 @rinternals{Voice}.
 
 
-@node Varias sílabas sobre una nota
+@node Multiple syllables to one note
 @unnumberedsubsubsec Varias sílabas sobre una nota
-@translationof Multiple syllables to one note
 
 @funindex _
 @cindex ligadura, en la letra
@@ -656,9 +648,8 @@ Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic}.
 
 
-@node Varias notas sobre una sílaba
+@node Multiple notes to one syllable
 @unnumberedsubsubsec Varias notas sobre una sílaba
-@translationof Multiple notes to one syllable
 
 @cindex melisma
 @cindex melismata
@@ -732,7 +723,7 @@ melismas.
 Se considera que las notas forman un melisma cuando se unen
 manualmente mediante barra, siempre y cuando el barrado automático
 esté desactivado.  Véase
-@ref{Establecer el comportamiento de las barras automáticas}.
+@ref{Setting automatic beam behavior}.
 
 @lilypond[quote,verbatim]
 <<
@@ -818,7 +809,7 @@ melismas; véase @code{melismaBusyProperties} en el apartado
 
 Como alternativa, si todas las indicaciones de melismas se van a
 ignorar, se puede establecer @code{ignoreMelismata} al valor
-verdadero; véase @ref{Versos con ritmos distintos}.
+verdadero; véase @ref{Stanzas with different rhythms}.
 
 Si se requiere un melisma en el transcurso de un pasaje en el que
 @code{melismaBusyProperties} está activo, puede indicarse
@@ -852,13 +843,13 @@ Glosario musical:
 @rglos{melisma}.
 
 Manual de aprendizaje:
-@rlearning{Alineación de la letra a una melodía}.
+@rlearningnamed{Aligning lyrics to a melody, Alineación de la letra a una melodía}.
 
 Referencia de la notación:
-@ref{Alineación de la letra a una melodía},
-@ref{Duración automática de las sílabas},
-@ref{Establecer el comportamiento de las barras automáticas},
-@ref{Versos con ritmos distintos}.
+@ref{Aligning lyrics to a melody},
+@ref{Automatic syllable durations},
+@ref{Setting automatic beam behavior},
+@ref{Stanzas with different rhythms}.
 
 Referencia de funcionamiento interno:
 @rinternals{Tunable context properties}.
@@ -868,9 +859,8 @@ No se crean automáticamente líneas extensoras bajo los melismas;
 se deben insertar manualmente con un doble guión bajo.
 
 
-@node Líneas de extensión y guiones
+@node Extenders and hyphens
 @unnumberedsubsubsec Líneas de extensión y guiones
-@translationof Extenders and hyphens
 
 @cindex melisma
 @cindex extensora, línea
@@ -918,9 +908,8 @@ Referencia de funcionamiento interno:
 @rinternals{LyricHyphen}.
 
 
-@node Cambios de vocal graduales
+@node Gradual changes of vowel
 @unnumberedsubsubsec Cambios de vocal graduales
-@translationof Gradual changes of vowel
 
 @cindex vocal, transición de
 
@@ -961,26 +950,24 @@ Referencia de funcionamiento interno:
 @rinternals{VowelTransition}.
 
 
-@node Técnicas específicas para la letra
+@node Techniques specific to lyrics
 @subsection Técnicas específicas para la letra
-@translationof Techniques specific to lyrics
 
 @c TODO this whole section is to be reorganised
 
 @menu
-* Trabajar con letra y variables::
-* Posicionamiento vertical de la letra::
-* Colocación horizontal de las sílabas::
-* Letra y repeticiones::
-* Letras en divisi::
-* Polifonía con letras compartidas::
+* Working with lyrics and variables::
+* Placing lyrics vertically::
+* Placing syllables horizontally::
+* Lyrics and repeats::
+* Divisi lyrics::
+* Polyphony with shared lyrics::
 @end menu
 
 
 
-@node Trabajar con letra y variables
+@node Working with lyrics and variables
 @unnumberedsubsubsec Trabajar con letra y variables
-@translationof Working with lyrics and variables
 
 @cindex lyrics, using variables
 
@@ -1054,16 +1041,15 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 @morerefs
 Referencia de la notación:
-@ref{Posicionamiento vertical de la letra}.
+@ref{Placing lyrics vertically}.
 
 Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
 
 
-@node Posicionamiento vertical de la letra
+@node Placing lyrics vertically
 @unnumberedsubsubsec Posicionamiento vertical de la letra
-@translationof Placing lyrics vertically
 
 @cindex posicionamiento, de la letra
 @cindex letra, posicionamiento
@@ -1180,7 +1166,7 @@ aquí un ejemplo del segundo método:
 Es posible generar otras combinaciones de letra y pautas mediante
 la elaboración de los ejemplos anteriores, o examinando las
 plantillas del Manual de Aprendizaje, véase
-@rlearning{Plantillas de conjuntos vocales}.
+@rlearningnamed{Vocal ensembles templates, Plantillas de conjuntos vocales}.
 
 @snippets
 
@@ -1191,16 +1177,15 @@ plantillas del Manual de Aprendizaje, véase
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Plantillas de conjuntos vocales}.
+@rlearningnamed{Vocal ensembles templates, Plantillas de conjuntos vocales}.
 
 Referencia de la notación:
-@ref{Orden de disposición de los contextos},
-@ref{Crear y referenciar contextos}.
+@ref{Context layout order},
+@ref{Creating and referencing contexts}.
 
 
-@node Colocación horizontal de las sílabas
+@node Placing syllables horizontally
 @unnumberedsubsubsec Colocación horizontal de las sílabas
-@translationof Placing syllables horizontally
 
 @cindex espaciado, de la letra
 @cindex letra, aumentar la separación
@@ -1280,9 +1265,8 @@ Para hacer que el texto evite también las líneas divisorias, use
 @}
 @end example
 
-@node Letra y repeticiones
+@node Lyrics and repeats
 @unnumberedsubsubsec Letra y repeticiones
-@translationof Lyrics and repeats
 
 @cindex repetición, y letra
 @cindex letra, repetición
@@ -1290,7 +1274,7 @@ Para hacer que el texto evite también las líneas divisorias, use
 @subheading Repeticiones sencillas
 
 Las repeticiones @emph{en la música} se describen extensamente en
-alguna otra parte de este manual; véase @ref{Repeticiones}.  Esta
+alguna otra parte de este manual; véase @ref{Repeats}.  Esta
 sección explica cómo añadir letra a secciones de música que se
 repiten.
 
@@ -1700,13 +1684,12 @@ insertarlos manualmente.
 
 @morerefs
 Referencia de la notación:
-@ref{Mantener vivos los contextos},
-@ref{Repeticiones}.
+@ref{Keeping contexts alive},
+@ref{Repeats}.
 
 
-@node Letras en divisi
+@node Divisi lyrics
 @unnumberedsubsubsec Letras en divisi
-@translationof Divisi lyrics
 
 @cindex dividida, letra
 @cindex letra dividida
@@ -1787,12 +1770,11 @@ porque la letra se asigna al contexto de voz original, que no es
 lo que pretendemos, en general.  La construcción correcta que
 debemos usar es el pasaje polifónico temporal, véase la sección
 @emph{Pasajes polifónicos temporales} dentro de
-@ref{Polifonía en un solo pentagrama}.
+@ref{Single-staff polyphony}.
 
 
-@node Polifonía con letras compartidas
+@node Polyphony with shared lyrics
 @unnumberedsubsubsec Polifonía con letras compartidas
-@translationof Polyphony with shared lyrics
 
 @funindex NullVoice
 @cindex polifonía, letra compartida
@@ -1860,7 +1842,7 @@ La función @code{\addlyrics} solo funciona con letras de
 
 @noindent
 La función @code{\partCombine} se describe en
-@ref{Combinación automática de las partes}.
+@ref{Automatic part combining}.
 
 Por último, este método se puede usar incluso si las voces están
 en distintos pentagramas, y no se limita a dos voces únicamente:
@@ -1880,23 +1862,21 @@ words = \lyricmode { la __ la __ }
 >>
 @end lilypond
 
-@node Versos
+@node Stanzas
 @subsection Versos
-@translationof Stanzas
 
 @menu
-* Añadir números de verso::
-* Añadir expresiones dinámicas a los versos::
-* Añadir el nombre de los cantantes a los versos::
-* Versos con ritmos distintos::
-* Imprimir los versos al final::
-* Imprimir los versos al final en varias columnas::
+* Adding stanza numbers::
+* Adding dynamics marks to stanzas::
+* Adding singers' names to stanzas::
+* Stanzas with different rhythms::
+* Printing stanzas at the end::
+* Printing stanzas at the end in multiple columns::
 @end menu
 
 
-@node Añadir números de verso
+@node Adding stanza numbers
 @unnumberedsubsubsec Añadir números de verso
-@translationof Adding stanza numbers
 
 @cindex verso, número de
 
@@ -1953,9 +1933,8 @@ stanzaOneThree = \lyricmode {
 
 @end lilypond
 
-@node Añadir expresiones dinámicas a los versos
+@node Adding dynamics marks to stanzas
 @unnumberedsubsubsec Añadir expresiones dinámicas a los versos
-@translationof Adding dynamics marks to stanzas
 
 Los versos que difieren en su sonoridad se pueden especificar
 escribiendo una indicación dinámica antes de cada verso.  En
@@ -1981,9 +1960,8 @@ text = {
 >>
 @end lilypond
 
-@node Añadir el nombre de los cantantes a los versos
+@node Adding singers' names to stanzas
 @unnumberedsubsubsec Añadir el nombre de los cantantes a los versos
-@translationof Adding singers' names to stanzas
 
 @cindex cantante, nombre del
 @cindex nombre del cantante
@@ -2006,9 +1984,8 @@ definir una versión abreviada como @code{shortVocalName}.
 @end lilypond
 
 
-@node Versos con ritmos distintos
+@node Stanzas with different rhythms
 @unnumberedsubsubsec Versos con ritmos distintos
-@translationof Stanzas with different rhythms
 
 Con frecuencia, los distintos versos de una canción encajan de
 formas ligeramente diferentes con la misma melodía.  Estas
@@ -2180,9 +2157,8 @@ cambio de la voz asociada se produce una sílaba más tarde de lo
 esperado.  Esto es por razones técnicas, y no es un fallo.}
 
 
-@node Imprimir los versos al final
+@node Printing stanzas at the end
 @unnumberedsubsubsec Imprimir los versos al final
-@translationof Printing stanzas at the end
 
 En ocasiones es conveniente tener un verso ajustado a la música, y
 el resto añadido en forma de estrofa al final de la pieza.  Esto
@@ -2227,9 +2203,8 @@ its fleece was white as snow.
 @end lilypond
 
 
-@node Imprimir los versos al final en varias columnas
+@node Printing stanzas at the end in multiple columns
 @unnumberedsubsubsec Imprimir los versos al final en varias columnas
-@translationof Printing stanzas at the end in multiple columns
 
 Cuando una pieza tiene muchos versos, a menudo se imprimen en
 varias columnas a lo largo de toda la página. Con frecuencia un
@@ -2302,18 +2277,16 @@ Referencia de funcionamiento interno:
 @rinternals{StanzaNumber}.
 
 
-@node Canciones
+@node Songs
 @subsection Canciones
-@translationof Songs
 
 @menu
-* Referencias para canciones::
-* Hojas guía de acordes::
+* References for songs::
+* Lead sheets::
 @end menu
 
-@node Referencias para canciones
+@node References for songs
 @unnumberedsubsubsec Referencias para canciones
-@translationof References for songs
 
 Por lo general, las canciones se escriben sobre tres pentagramas
 con la melodía del cantante en el pentagrama superior y dos
@@ -2333,59 +2306,58 @@ documentación:
 
 @item
 Para montar la disposición de las pautas, véase
-@ref{Impresión de los pentagramas}.
+@ref{Displaying staves}.
 
 @item
 Para escribir música para piano, véase
-@ref{Teclados y otros instrumentos de varios pentagramas}.
+@ref{Keyboard and other multi-staff instruments}.
 
 @item
 Para imprimir la letra de una línea melódica, véase
-@ref{Notación común para música vocal}.
+@ref{Common notation for vocal music}.
 
 @item
 Para colocar la letra, véase
-@ref{Posicionamiento vertical de la letra}.
+@ref{Placing lyrics vertically}.
 
 @item
-Para escribir versos véase @ref{Versos}.
+Para escribir versos véase @ref{Stanzas}.
 
 @item
 Las canciones se imprimen frecuentemente con los acordes indicados
 mediante cifrado americano (los nombres de los acordes en letras
 mayúsculas) sobre las pautas.  Esto se describe en
-@ref{Imprimir los acordes}.
+@ref{Displaying chords}.
 
 @item
 Para imprimir diagramas de posiciones de los acordes para el
 acompañamiento de guitarra o para otros instrumentos con trastes
 en el mástil, consulte @qq{Marcados de diagramas de posiciones de
-acorde} dentro de @ref{Notación común para cuerdas con trastes}.
+acorde} dentro de @ref{Common notation for fretted strings}.
 
 @end itemize
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Canciones}.
+@rlearningnamed{Songs, Canciones}.
 
 Referencia de la notación:
-@ref{Notación común para música vocal},
-@ref{Imprimir los acordes},
-@ref{Impresión de los pentagramas},
-@ref{Teclados y otros instrumentos de varios pentagramas},
-@ref{Posicionamiento vertical de la letra},
-@ref{Versos}.
+@ref{Common notation for vocal music},
+@ref{Displaying chords},
+@ref{Displaying staves},
+@ref{Keyboard and other multi-staff instruments},
+@ref{Placing lyrics vertically},
+@ref{Stanzas}.
 
 Fragmentos de código:
 @rlsr{Vocal music}.
 
-@node Hojas guía de acordes
+@node Lead sheets
 @unnumberedsubsubsec Hojas guía de acordes
-@translationof Lead sheets
 
 Se pueden imprimir hojas guía de acordes combinando partes vocales
 y el @q{modo de acordes}; esta sintaxis se explica en
-@ref{Notación de acordes}.
+@ref{Chord notation}.
 
 @snippets
 
@@ -2395,12 +2367,11 @@ y el @q{modo de acordes}; esta sintaxis se explica en
 
 @morerefs
 Referencia de la notación:
-@ref{Notación de acordes}.
+@ref{Chord notation}.
 
 
-@node Música coral
+@node Choral
 @subsection Música coral
-@translationof Choral
 
 @cindex anthem
 @cindex canción, a varias voces
@@ -2412,13 +2383,12 @@ relacionados con la música coral.  Esto incluye los anthems, las
 canciones por partes, los oratorios, etc.
 
 @menu
-* Referencias para música coral::
-* Disposiciones de la partitura para música coral::
+* References for choral::
+* Score layouts for choral::
 @end menu
 
-@node Referencias para música coral
+@node References for choral
 @unnumberedsubsubsec Referencias para música coral
-@translationof References for choral
 
 La notación de música coral se realiza normalmente sobre dos, tres
 o cuatro pentagramas dentro de un grupo de pautas
@@ -2443,36 +2413,36 @@ otros temas sobre música coral:
 @item
 Hay una introducción a la creación de partituras vocales SATB en
 el Manual de aprendizaje, véase
-@rlearning{Partitura vocal a cuatro voces SATB}.  También existe
+@rlearningnamed{Four-part SATB vocal score, Partitura vocal a cuatro voces SATB}.  También existe
 una plantilla incorporada que simplifica la introducción de música
-vocal SATB, véase see @rlearning{Plantillas incorporadas}.
+vocal SATB, véase see @rlearningnamed{Built-in templates, Plantillas incorporadas}.
 
 
 @item
 También en el Manual de aprendizaje hay varias plantillas
 adecuadas para diversos estilos de música coral, véase
-@rlearning{Plantillas de conjuntos vocales}.
+@rlearningnamed{Vocal ensembles templates, Plantillas de conjuntos vocales}.
 
 @item
 Para ver más información acerca de @code{ChoirStaff} y
-@code{PianoStaff}, consulte @ref{Agrupar pentagramas}.
+@code{PianoStaff}, consulte @ref{Grouping staves}.
 
 @item
 Las figuras con cabezas de formas, como las que se usan en la
 notación del estilo Arpa Sacra y otros similares, se describen en
-@ref{Cabezas de notas con formas diversas}.
+@ref{Shape note heads}.
 
 @item
 Cuando dos partes vocales comparten un pentagrama, las plicas,
 ligaduras, etc. de la parte aguda se orientan hacia arriba, y los
 de la parte grave hacia abajo.  Para hacerlo, utilice
 @code{\voiceOne} y @code{\voiceTwo}.  Véase
-@ref{Polifonía en un solo pentagrama}.
+@ref{Single-staff polyphony}.
 
 @item
 Cuando una parte vocal se divide temporalmente, debemos usar
 @emph{Pasajes polifónicos temporales} (véase
-@ref{Polifonía en un solo pentagrama}).
+@ref{Single-staff polyphony}).
 
 @end itemize
 
@@ -2484,14 +2454,14 @@ Cuando una parte vocal se divide temporalmente, debemos usar
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Partitura vocal a cuatro voces SATB},
-@rlearning{Plantillas de conjuntos vocales}.
+@rlearningnamed{Four-part SATB vocal score, Partitura vocal a cuatro voces SATB},
+@rlearningnamed{Vocal ensembles templates, Plantillas de conjuntos vocales}.
 
 Referencia de la notación:
-@ref{Orden de disposición de los contextos},
-@ref{Agrupar pentagramas},
-@ref{Cabezas de notas con formas diversas},
-@ref{Polifonía en un solo pentagrama}.
+@ref{Context layout order},
+@ref{Grouping staves},
+@ref{Shape note heads},
+@ref{Single-staff polyphony}.
 
 Fragmentos de código:
 @rlsr{Vocal music}.
@@ -2501,9 +2471,8 @@ Referencia de funcionamiento interno:
 @rinternals{Lyrics},
 @rinternals{PianoStaff}.
 
-@node Disposiciones de la partitura para música coral
+@node Score layouts for choral
 @unnumberedsubsubsec Disposiciones de la partitura para música coral
-@translationof Score layouts for choral
 
 La música coral que contiene cuatro pentagramas, con o sin
 acompañamiento de piano, se suele disponer con dos sistemas por
@@ -2516,28 +2485,28 @@ tener en cuenta los siguientes ajustes:
 @item
 Se puede modificar el tamaño global de pentagrama para alterar el
 tamaño general de los elementos de la partitura.  Véase
-@ref{Establecer el tamaño del pentagrama}.
+@ref{Setting the staff size}.
 
 @item
 Las diferentes distancias entre sistemas, pentagramas y líneas de
 texto se pueden ajustar de manera independiente.  Véase
-@ref{Espaciado vertical}.
+@ref{Vertical spacing}.
 
 @item
 Se pueden imprimir las dimensiones de las variables de disposición
 verticales como ayuda para el ajuste del espaciado vertical.  Esta
 y otras posibilidades para hacer encajar la música en un número de
 páginas menor, se describen en
-@ref{Encajar la música en menos páginas}.
+@ref{Fitting music onto fewer pages}.
 
 @item
 Si el número de sistemas por página cambia de uno a dos, es
 costumbre indicarlo mediante una marca separadora de sistemas
-entre los dos sistemas.  Véase @ref{Separación de sistemas}.
+entre los dos sistemas.  Véase @ref{Separating systems}.
 
 @item
 Para ver más detalles sobre otras propiedades de formateo de las
-páginas, consulte @ref{Disposición de la página}.
+páginas, consulte @ref{Page layout}.
 
 @end itemize
 
@@ -2585,15 +2554,15 @@ aquí:
 
 @morerefs
 Referencia de la notación:
-@ref{Cambiar el espaciado},
-@ref{Mostrar el espaciado},
-@ref{Encajar la música en menos páginas},
-@ref{Disposición de la página},
-@ref{Disposición de la partitura},
-@ref{Separación de sistemas},
-@ref{Establecer el tamaño del pentagrama},
-@ref{Saltos},
-@ref{Espaciado vertical}.
+@ref{Changing spacing},
+@ref{Displaying spacing},
+@ref{Fitting music onto fewer pages},
+@ref{Page layout},
+@ref{Score layout},
+@ref{Separating systems},
+@ref{Setting the staff size},
+@ref{Breaks},
+@ref{Vertical spacing}.
 
 Referencia de funcionamiento interno:
 @rinternals{VerticalAxisGroup},
@@ -2612,12 +2581,11 @@ Referencia de funcionamiento interno:
 
 @morerefs
 Referencia de la notación:
-@ref{Expresiones como líneas}.
+@ref{Expressive marks as lines}.
 
 
-@node Ópera y musicales
+@node Opera and stage musicals
 @subsection Ópera y musicales
-@translationof Opera and stage musicals
 
 
 @cindex @'opera
@@ -2669,16 +2637,15 @@ secciones que cubren las técnicas peculiares de la tipografía
 musical de las partituras de ópera y de musicales.
 
 @menu
-* Referencias para ópera y musicales::
-* Nombres de los personajes::
-* Guías musicales::
-* Música hablada::
-* Diálogos encima de la música::
+* References for opera and stage musicals::
+* Character names::
+* Musical cues::
+* Spoken music::
+* Dialogue over music::
 @end menu
 
-@node Referencias para ópera y musicales
+@node References for opera and stage musicals
 @unnumberedsubsubsec Referencias para ópera y musicales
-@translationof References for opera and stage musicals
 
 @cindex orquestal, música
 @cindex ensemble, música de
@@ -2693,38 +2660,38 @@ conjunto, además de a la música vocal y de escena:
 
 @item
 Una partitura de director contiene muchos pentagramas y legras
-agrupados.  En @ref{Agrupar pentagramas} se explican maneras de
+agrupados.  En @ref{Grouping staves} se explican maneras de
 agrupar pentagramas.  Para anidar unos grupos dentro de otros,
-consulte @ref{Grupos de pentagramas anidados}.
+consulte @ref{Nested staff groups}.
 
 @item
 La impresión de pentagramas vacíos en las partituras del director
 y vocales se suele inhibir.  Para crear estas partituras,
 conocidas como @qq{Partituras francesas} consulte
-@ref{Ocultar pentagramas}.
+@ref{Hiding staves}.
 
 @item
 La escritura de partituras orquestales se estudia en
-@ref{Escritura de las particellas}.  Pueden ser de relevancia
+@ref{Writing parts}.  Pueden ser de relevancia
 otras secciones del capítulo de Notación especializada,
 dependiendo de la orquestación utilizada.  Muchos instrumentos son
-transpositores, consulte @ref{Transposición de los instrumentos}.
+transpositores, consulte @ref{Instrument transpositions}.
 
 @item
 Si el número de sistemas por página varía de una a otra página, es
 costumbre separar los sistemas con una marca separadora de
-sistemas.  Véase See @ref{Separación de sistemas}.
+sistemas.  Véase See @ref{Separating systems}.
 
 @item
 Para ver detalles acerca de otras propiedades de formateo de las
-páginas, consulte @ref{Disposición de la página}.
+páginas, consulte @ref{Page layout}.
 
 @item
 Se pueden insertar notas guía de diálogos, instrucciones de escena
-y notas al pie, véase @ref{Crear notas al pie} y @ref{Texto}.
+y notas al pie, véase @ref{Creating footnotes} y @ref{Text}.
 También se pueden añadir indicaciones de escena extensas con una
 sección de elementos de marcado independientes entre dos bloques
-@code{\score}, véase @ref{Texto separado}.
+@code{\score}, véase @ref{Separate text}.
 
 @end itemize
 
@@ -2735,24 +2702,23 @@ Glosario musical:
 @rglos{transposing instrument}.
 
 Referencia de la notación:
-@ref{Crear notas al pie},
-@ref{Agrupar pentagramas},
-@ref{Ocultar pentagramas},
-@ref{Transposición de los instrumentos},
-@ref{Grupos de pentagramas anidados},
-@ref{Disposición de la página},
-@ref{Separación de sistemas},
-@ref{Transposición},
-@ref{Escritura de las particellas},
-@ref{Escritura del texto}.
+@ref{Creating footnotes},
+@ref{Grouping staves},
+@ref{Hiding staves},
+@ref{Instrument transpositions},
+@ref{Nested staff groups},
+@ref{Page layout},
+@ref{Separating systems},
+@ref{Transpose},
+@ref{Writing parts},
+@ref{Writing text}.
 
 Snippets:
 @rlsr{Vocal music}.
 
 
-@node Nombres de los personajes
+@node Character names
 @unnumberedsubsubsec Nombres de los personajes
-@translationof Character names
 
 @cindex personaje, nombre
 @cindex nombres, de personaje
@@ -2838,15 +2804,14 @@ melchior = {
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Organizar las piezas mediante variables}.
+@rlearningnamed{Organizing pieces with variables, Organizar las piezas mediante variables}.
 
 Referencia de la notación:
-@ref{Texto},
-@ref{Instrucciones de marcado de texto}.
+@ref{Text},
+@ref{Text markup commands}.
 
-@node Guías musicales
+@node Musical cues
 @unnumberedsubsubsec Guías musicales
-@translationof Musical cues
 
 @cindex guía, musicales
 @cindex musical, guía
@@ -2860,8 +2825,8 @@ orquestas.  Esto sirve de ayuda al director cuando no está
 disponible una partitura del director.
 
 El mecanismo básico para insertar guías se explica de forma
-exhaustiva en el texto principal, véase @ref{Citar otras voces} y
-@ref{Formateo de las notas guía}.  Pero cuando se deben insertar
+exhaustiva en el texto principal, véase @ref{Quoting other voices} y
+@ref{Formatting cue notes}.  Pero cuando se deben insertar
 muchas guías, por ejemplo, como ayuda para el director en una
 partitura vocal, el nombre del instrumento se debe colocar
 cuidadosamente justo antes del comienzo de las notas guía, y cerca
@@ -2959,11 +2924,11 @@ Glosario musical:
 @rglos{cue-notes}.
 
 Referencia de la notación:
-@ref{Alineación de objetos},
-@ref{Dirección y posición},
-@ref{Formateo de las notas guía},
-@ref{Citar otras voces},
-@ref{Uso de las funciones musicales}.
+@ref{Aligning objects},
+@ref{Direction and placement},
+@ref{Formatting cue notes},
+@ref{Quoting other voices},
+@ref{Using music functions}.
 
 Fragmentos de código:
 @rlsr{Vocal music}.
@@ -2981,9 +2946,8 @@ contextos @code{CueVoice} separados y usando @code{\quoteDuring}
 para extraer e insertar las notas citadas.
 
 
-@node Música hablada
+@node Spoken music
 @unnumberedsubsubsec Música hablada
-@translationof Spoken music
 
 @cindex parlato
 @cindex Sprechgesang
@@ -2992,7 +2956,7 @@ Efectos tales como el @q{parlato} o el @q{Sprechgesang} requieren
 que los intérpretes hablen sin altura definida pero con el ritmo
 adecuado; la notación de estos estilos se realiza mediante figuras
 con la cabeza en forma de cruz, como se muestra en
-@ref{Cabezas de nota especiales}.
+@ref{Special note heads}.
 
 @c TODO add "marking-notes-on-spoken-parts" snippet -vv
 @c add "showing the rhythm of a melody" snip
@@ -3000,9 +2964,8 @@ con la cabeza en forma de cruz, como se muestra en
 @c add "improvisation" ref
 @c add "lyrics independents of notes" ref
 
-@node Diálogos encima de la música
+@node Dialogue over music
 @unnumberedsubsubsec Diálogos encima de la música
-@translationof Dialogue over music
 
 Los diálogos sobre la música se imprimen normalmente por encima de
 los pentagramas en un estilo inclinado, con el comienzo de cada
@@ -3077,16 +3040,15 @@ dialogue = \lyricmode {
 
 @morerefs
 Referencia de la notación:
-@ref{Duración manual de las sílabas},
-@ref{Texto}.
+@ref{Manual syllable durations},
+@ref{Text}.
 
 Referencia de funcionamiento interno:
 @rinternals{LyricText}.
 
 
-@node Cánticos salmos e himnos
+@node Chants psalms and hymns
 @subsection Cánticos salmos e himnos
-@translationof Chants psalms and hymns
 
 @cindex cántico
 @cindex salmo
@@ -3100,30 +3062,28 @@ otra, los problemas de tipografiado que surgen son bastante
 similares, y se estudian en esta sección.
 
 @menu
-* Referencias para cánticos y salmos::
-* Preparar un cántico::
-* Puntuación de un salmo::
-* Compases parciales en melodías de himno::
+* References for chants and psalms::
+* Setting a chant::
+* Pointing a psalm::
+* Partial measures in hymn tunes::
 @end menu
 
-@node Referencias para cánticos y salmos
+@node References for chants and psalms
 @unnumberedsubsubsec Referencias para cánticos y salmos
-@translationof References for chants and psalms
 
 El tipografiado del canto gregoriano en distintos estilos de
-notación antigua se describe en @ref{Notación antigua}.
+notación antigua se describe en @ref{Ancient notation}.
 
 @morerefs
 Referencia de la notación:
-@ref{Notación antigua}.
+@ref{Ancient notation}.
 
 Snippets:
 @rlsr{Vocal music}.
 
 
-@node Preparar un cántico
+@node Setting a chant
 @unnumberedsubsubsec Preparar un cántico
-@translationof Setting a chant
 
 La preparación moderna de los cánticos utiliza notación moderna
 con un número variable de elementos tomados de la notación
@@ -3423,21 +3383,20 @@ con las duraciones de las notas.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Visibilidad y color de los objetos},
-@rlearning{Plantillas de conjuntos vocales}.
+@rlearningnamed{Visibility and color of objects, Visibilidad y color de los objetos},
+@rlearningnamed{Vocal ensembles templates, Plantillas de conjuntos vocales}.
 
 Referencia de la notación:
-@ref{Notación antigua},
-@ref{Barras de compás},
-@ref{Modificar los complementos (plug-ins) de contexto},
-@ref{Tipografiado del canto gregoriano},
-@ref{Música sin compasear},
-@ref{Visibilidad de los objetos}.
+@ref{Ancient notation},
+@ref{Bar lines},
+@ref{Modifying context plug-ins},
+@ref{Typesetting Gregorian chant},
+@ref{Unmetered music},
+@ref{Visibility of objects}.
 
 
-@node Puntuación de un salmo
+@node Pointing a psalm
 @unnumberedsubsubsec Puntuación de un salmo
-@translationof Pointing a psalm
 
 El texto de un salmo anglicano se suele imprimir en versos
 separados debajo del canto.
@@ -3474,7 +3433,7 @@ símbolo de comprobación de compás, la barra vertical, @code{|}.
 
 Otros símbolos pueden requerir glifos de las fuentes tipográficas
 @code{fetaMusic}.  Para ver más detalles, consulte
-@ref{Tipografías}.
+@ref{Fonts}.
 
 @lilypond[verbatim,quote]
 tick = \markup {
@@ -3585,24 +3544,23 @@ tick = \markup {
 @end lilypond
 
 El uso del marcado para centrar texto y para disponer las líneas
-en columnas se describe en @ref{Formatear el texto}.
+en columnas se describe en @ref{Formatting text}.
 
 Casi todos estos elementos se muestran en uno u otro de los dos
-versos en la plantilla, véase @rlearning{Salmos}.
+versos en la plantilla, véase @rlearningnamed{Psalms, Salmos}.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Salmos},
-@rlearning{Plantillas de conjuntos vocales}.
+@rlearningnamed{Psalms, Salmos},
+@rlearningnamed{Vocal ensembles templates, Plantillas de conjuntos vocales}.
 
 Referencia de la notación:
-@ref{Tipografías},
-@ref{Formatear el texto}.
+@ref{Fonts},
+@ref{Formatting text}.
 
 
-@node Compases parciales en melodías de himno
+@node Partial measures in hymn tunes
 @unnumberedsubsubsec Compases parciales en melodías de himno
-@translationof Partial measures in hymn tunes
 
 Con frecuencia las melodías de himno comienzan y terminan cada
 línea de música con compases parciales de forma que cada línea de
@@ -3618,12 +3576,11 @@ cada línea.
 {snippets/hymn-template.ly}
 
 
-@node Música vocal antigua
+@node Ancient vocal music
 @subsection Música vocal antigua
-@translationof Ancient vocal music
 
 Está contemplada la música vocal en estilo de tipografía antiguo,
-como se explica en @ref{Notación antigua}.
+como se explica en @ref{Ancient notation}.
 
 @c TODO
 
@@ -3632,4 +3589,4 @@ como se explica en @ref{Notación antigua}.
 
 @morerefs
 Referencia de la notación:
-@ref{Notación antigua}.
+@ref{Ancient notation}.

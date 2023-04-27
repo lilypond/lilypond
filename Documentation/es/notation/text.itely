@@ -9,9 +9,8 @@
 
 @c \version "2.25.4"
 
-@node Texto
+@node Text
 @section Texto
-@translationof Text
 
 @lilypondfile[quote]{snippets/text-headword.ly}
 
@@ -19,14 +18,13 @@ Esta sección explica cómo incluir texto (con diversos estilos de
 formateo) en las partituras.
 
 @menu
-* Escritura del texto::
-* Formatear el texto::
-* Tipografías::
+* Writing text::
+* Formatting text::
+* Fonts::
 @end menu
 
-@node Escritura del texto
+@node Writing text
 @subsection Escritura del texto
-@translationof Writing text
 
 Esta sección presenta las distintas formas de añadir texto a una
 partitura.
@@ -36,21 +34,20 @@ partitura.
 especiales (como los de idiomas distintos del inglés),
 sencillamente inserte los caracteres directamente en el archivo de
 LilyPond.  El archivo se debe guardar como UTF-8.  Para ver más
-información, consulte @ref{Codificación del texto}.}
+información, consulte @ref{Text encoding}.}
 
 
 @menu
-* Panorámica de los objetos de texto::
-* Guiones de texto::
-* Extensiones de texto::
-* Indicaciones de texto::
-* Texto separado::
+* Text objects overview::
+* Text scripts::
+* Text spanners::
+* Text marks::
+* Separate text::
 @end menu
 
 
-@node Panorámica de los objetos de texto
+@node Text objects overview
 @unnumberedsubsubsec Panorámica de los objetos de texto
-@translationof Text objects overview
 
 @funindex \markup
 @cindex texto, objeto
@@ -60,40 +57,40 @@ información, consulte @ref{Codificación del texto}.}
 Los objetos de texto se introducen ya sea como simples cadenas
 entrecomilladas, o como bloques de @code{\markup} que pueden
 aceptar una variedad de posibilidades avanzadas de formato y
-gráficas, como se detalla en la sección @ref{Formatear el texto}.
+gráficas, como se detalla en la sección @ref{Formatting text}.
 
 Así, los bloques de marcado se pueden utilizar:
 @itemize
 @item
 dentro de cualquier objeto del tipo @code{TextScript} (aplicado a
 una nota con @code{-}, @code{^} o@tie{}@code{_}); véase
-@ref{Guiones de texto};
+@ref{Text scripts};
 
 @item
 como @q{spanners} u objetos extensos, cuando ciertas indicaciones
 se prolongan sobre varios pulsos o compases.
-Véase @ref{Extensiones de texto};
+Véase @ref{Text spanners};
 
 @item
 dentro de cualquier marca impresa por encima de los pentagramas,
 tales como obletos @code{RehearsalMark} (letras de ensayo) o
 @code{MetronomeMark} (indicaciones de tempo) introducidos
 respectivamente con las palabras clave @code{\mark} y
-@code{\tempo}; véase @ref{Indicaciones de texto};
+@code{\tempo}; véase @ref{Text marks};
 
 @item
 como bloques de marcado autosuficientes, que se introducen en el
 nivel jerárquico superior fuera de cualquier bloque @code{\score}
 (en este caso es obligatoria la instrucción
 @code{\markup@tie{}@{...@}}, y no se puede omitir en favor de una
-simple cadena de texto entrecomillada); véase @ref{Texto separado};
+simple cadena de texto entrecomillada); véase @ref{Separate text};
 
 @item
 en cualquier definición dentro del bloque @code{\header} (como
 @code{title}, @code{subtitle}, @code{composer}), o en elementos
 específicos definidos dentro del bloque @code{\paper} tales como
 @code{evenHeaderMarkup} para los números de página.  Esto se
-explica en la sección @ref{Títulos y encabezamientos}.
+explica en la sección @ref{Titles and headers}.
 @end itemize
 
 Muchos otros objetos basados en texto se pueden escribir como
@@ -102,30 +99,29 @@ bloques de marcado, incluso cuando este no sea su uso principal.
 @item
 Las digitaciones se pueden sustituir fácilmente con bloques de
 marcado, si se escriben con la instrucción @code{\finger}; véase
-@ref{Indicaciones de digitación}.
+@ref{Fingering instructions}.
 
 @item
 Las sílabas de la letra de una cación se pueden formatear por
-medio de la instrucción @code{\markup}; véase @ref{Notación común
-para música vocal}.
+medio de la instrucción @code{\markup}; véase @ref{Common notation for vocal music}.
 
 @item
 Los nombres de acordes están, de hecho, definidos como bloques de
 marcado, y por tanto se pueden redefinir de la misma forma para
 personalizar los modificadores o las excepciones de acorde; véase
-@ref{Imprimir los acordes}.
+@ref{Displaying chords}.
 
 @item
 Los matices dinámicos se escriben habitualmente de una forma
 sencilla; sin embargo, es posible definir
-@ref{Indicaciones dinámicas nuevas} como objetos de marcado.
+@ref{New dynamic marks} como objetos de marcado.
 Ciertas dinámicas como @emph{crescendo} se imprimen como objetos
 extensos y se pueden redefinir a través de propiedades como
-@code{crescendoText}; véase @ref{Matices dinámicos}.
+@code{crescendoText}; véase @ref{Dynamics}.
 
 @item
 Otros objetos menos frecuentes también están hechos con bloques de
-marcado, como las indicaciones del tipo @ref{Globos de ayuda}.
+marcado, como las indicaciones del tipo @ref{Balloon help}.
 @end itemize
 
 De hecho es posible usar la instrucción @code{\markup} para
@@ -133,7 +129,7 @@ personalizar la apariencia de prácticamente cualquier objeto
 gráfico (o @q{grob}), bien sea sobreescribiendo su propiedad
 @code{text}, si la tiene, o bien su propiedad @code{stencil}.  Una
 parte de la lógica que hace posible todo esto, está explicada en
-@ressay{Arquitectura flexible}.
+@ressaynamed{Flexible architecture, Arquitectura flexible}.
 
 El ejemplo que aparece a continuación ilustra la omnipresencia de
 los bloques de marcado, no solo como algunos de los objetos
@@ -185,28 +181,27 @@ dyn =
 
 @morerefs
 Referencia de la notación:
-@ref{Formatear el texto},
-@ref{Guiones de texto},
-@ref{Extensiones de texto},
-@ref{Indicaciones de texto},
-@ref{Texto separado},
-@ref{Indicaciones de digitación},
-@ref{Notación común para música vocal},
-@ref{Imprimir los acordes},
-@ref{Indicaciones dinámicas nuevas},
-@ref{Matices dinámicos},
-@ref{Globos de ayuda}.
+@ref{Formatting text},
+@ref{Text scripts},
+@ref{Text spanners},
+@ref{Text marks},
+@ref{Separate text},
+@ref{Fingering instructions},
+@ref{Common notation for vocal music},
+@ref{Displaying chords},
+@ref{New dynamic marks},
+@ref{Dynamics},
+@ref{Balloon help}.
 
 Ensayo sobre grabado musical automatizado:
-@ressay{Arquitectura flexible}.
+@ressaynamed{Flexible architecture, Arquitectura flexible}.
 
 Fragmentos de código:
 @rlsr{Text}.
 
 
-@node Guiones de texto
+@node Text scripts
 @unnumberedsubsubsec Guiones de texto
-@translationof Text scripts
 
 @cindex texto, inscripciones de
 @cindex texto, elementos no vacíos de
@@ -217,7 +212,7 @@ Es posible añadir indicaciones de @qq{texto entre comillas} a una
 partitura, como se muestra en el ejemplo siguiente.  Estas
 indicaciones se pueden colocar manualmente por encima o por debajo
 del pentagrama, utilizando la sintaxis que se describe en
-@ref{Dirección y posición}.
+@ref{Direction and placement}.
 
 @lilypond[quote,verbatim]
 \relative { a'8^"pizz." g f e a4-"scherz." f }
@@ -226,7 +221,7 @@ del pentagrama, utilizando la sintaxis que se describe en
 Esta sintaxis es en realidad una abreviatura; se puede añadir
 explícitamente a una nota un formateado de texto más complejo
 utilizando un bloque @code{\markup}, como se describe bajo
-@ref{Formatear el texto}.
+@ref{Formatting text}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -249,11 +244,11 @@ afecta al espaciado, pero la segunda sí afecta.
 
 Se pueden adjuntar articulaciones a las notas, además de
 inscripciones de texto.  Para ver más información, consulte
-@ref{Articulaciones y ornamentos}.
+@ref{Articulations and ornamentations}.
 
 Para ver más información sobre el orden relativo de las
 inscripciones de texto y las articulaciones, consulte
-@rlearning{Colocación de los objetos}.
+@rlearningnamed{Placement of objects, Colocación de los objetos}.
 
 @predefined
 @funindex \textLengthOn
@@ -265,12 +260,12 @@ inscripciones de texto y las articulaciones, consulte
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Colocación de los objetos}.
+@rlearningnamed{Placement of objects, Colocación de los objetos}.
 
 Referencia de la notación:
-@ref{Formatear el texto},
-@ref{Dirección y posición},
-@ref{Articulaciones y ornamentos}.
+@ref{Formatting text},
+@ref{Direction and placement},
+@ref{Articulations and ornamentations}.
 
 Fragmentos de código:
 @rlsr{Text}.
@@ -295,9 +290,8 @@ proceso ligeramente más rápido, puede utilizar
 @end example
 
 
-@node Extensiones de texto
+@node Text spanners
 @unnumberedsubsubsec Extensiones de texto
-@translationof Text spanners
 
 @cindex texto, elemento de extensión de
 
@@ -324,7 +318,7 @@ La cadena de texto que imprimir se establece a través de
 propiedades de objeto.  De forma predeterminada se imprime en
 estilo cursiva, pero se pueden conseguir distintos efectos de
 formato utilizando bloques @code{\markup}, como se describe en
-@ref{Formatear el texto}.
+@ref{Formatting text}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -337,7 +331,7 @@ formato utilizando bloques @code{\markup}, como se describe en
 
 El estilo de la línea, así como la cadena de texto, se pueden
 definir como una propiedad de objeto.  Esta sintaxis se describe
-en @ref{Estilos de línea}.
+en @ref{Line styles}.
 
 @predefined
 @funindex \textSpannerUp
@@ -366,9 +360,9 @@ cada voz.
 
 @morerefs
 Referencia de la notación:
-@ref{Estilos de línea},
-@ref{Matices dinámicos},
-@ref{Formatear el texto}.
+@ref{Line styles},
+@ref{Dynamics},
+@ref{Formatting text}.
 
 Fragmentos de código:
 @rlsr{Text},
@@ -378,9 +372,8 @@ Referencia de funcionamiento interno:
 @rinternals{TextSpanner}.
 
 
-@node Indicaciones de texto
+@node Text marks
 @unnumberedsubsubsec Indicaciones de texto
-@translationof Text marks
 
 @cindex texto, indicaciones de
 @cindex indicación, de texto
@@ -394,7 +387,7 @@ Referencia de funcionamiento interno:
 @funindex \markup
 
 Se pueden añadir a la partitura varios elementos de texto con la
-sintaxis que se describe en @ref{Llamadas de ensayo}:
+sintaxis que se describe en @ref{Rehearsal marks}:
 
 @c \mark needs to be placed on a separate line (it's not
 @c attached to an object like \markup is). -vv
@@ -413,7 +406,7 @@ sintaxis que se describe en @ref{Llamadas de ensayo}:
 Esta sintaxis posibilita colocar cualquier texto sobre la línea
 divisoria; se pueden incorporar formatos más complejos para el
 texto usando un bloque @code{\markup}, como está explicado en
-@ref{Formatear el texto}:
+@ref{Formatting text}:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -428,7 +421,7 @@ texto usando un bloque @code{\markup}, como está explicado en
 Esta sintaxis también permite imprimir símbolos especiales como
 llamadas, segno o calderones, especificando el nombre del símbolo
 correspondiente como se explica en
-@ref{Notación musical dentro de elementos de marcado}:
+@ref{Music notation inside markup}:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -475,10 +468,10 @@ siguiente.
 
 @morerefs
 Referencia de la notación:
-@ref{Llamadas de ensayo},
-@ref{Formatear el texto},
-@ref{Notación musical dentro de elementos de marcado},
-@ref{La tipografía Emmentaler}.
+@ref{Rehearsal marks},
+@ref{Formatting text},
+@ref{Music notation inside markup},
+@ref{The Emmentaler font}.
 
 Fragmentos de código:
 @rlsr{Text}.
@@ -489,9 +482,8 @@ Referencia de funcionamiento interno:
 @rinternals{RehearsalMark}.
 
 
-@node Texto separado
+@node Separate text
 @unnumberedsubsubsec Texto separado
-@translationof Separate text
 
 @cindex separado, texto
 @cindex texto separado
@@ -505,7 +497,7 @@ Referencia de funcionamiento interno:
 Un bloque @code{\markup} puede existir de forma independiente,
 fuera de cualquier bloque @code{\score}, como una @qq{expresión de
 nivel superior}.  Esta sintaxis se describe en
-@ref{Estructura del archivo}.
+@ref{File structure}.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -517,7 +509,7 @@ nivel superior}.  Esta sintaxis se describe en
 Esto hace posible imprimir texto separado de la música, lo que es
 especialmente útil cuando el archivo de entrada contiene varias
 piezas, tal y como se describe en
-@ref{Varias partituras en un libro}.
+@ref{Multiple scores in a book}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -535,7 +527,7 @@ Los bloques de texto independientes pueden abarcar varias páginas,
 posibilitando la impresión de documentos de texto o libros
 íntegramente desde LilyPond.  Esta funcionalidad y la sintaxis que
 requiere se describen en
-@ref{Elementos de marcado de varias páginas}.
+@ref{Multi-page markup}.
 
 @predefined
 @funindex \markup
@@ -557,10 +549,10 @@ requiere se describen en
 
 @morerefs
 Referencia de la notación:
-@ref{Formatear el texto},
-@ref{Estructura del archivo},
-@ref{Varias partituras en un libro},
-@ref{Elementos de marcado de varias páginas}.
+@ref{Formatting text},
+@ref{File structure},
+@ref{Multiple scores in a book},
+@ref{Multi-page markup}.
 
 Fragmentos de código:
 @rlsr{Text}.
@@ -569,25 +561,23 @@ Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
 
-@node Formatear el texto
+@node Formatting text
 @subsection Formatear el texto
-@translationof Formatting text
 
 Esta sección presenta los formateados básico y avanzado de texto,
 usando la sintaxis específica del modo de @code{\markup}.
 
 @menu
-* Introducción al marcado de texto::
-* Seleccionar la tipografía y su tamaño::
-* Alineación de texto::
-* Notación gráfica dentro de elementos de marcado::
-* Notación musical dentro de elementos de marcado::
-* Elementos de marcado de varias páginas::
+* Text markup introduction::
+* Selecting font and font size::
+* Text alignment::
+* Graphic notation inside markup::
+* Music notation inside markup::
+* Multi-page markup::
 @end menu
 
-@node Introducción al marcado de texto
+@node Text markup introduction
 @unnumberedsubsubsec Introducción al marcado de texto
-@translationof Text markup introduction
 
 @cindex marcado
 @cindex texto, marcado de
@@ -599,7 +589,7 @@ usando la sintaxis específica del modo de @code{\markup}.
 Se usa un bloque @code{\markup} para tipografiar texto con una
 sintaxis ampliable que se denomina @qq{modo de marcado}.  Tales
 bloques se pueden emplear en cualquier parte, como se explica en
-@ref{Panorámica de los objetos de texto}.
+@ref{Text objects overview}.
 
 @cindex marcado, expresión de
 @cindex expresión, de marcado
@@ -683,16 +673,16 @@ allegro = \markup { \bold \large Allegro }
 
 @noindent
 Se puede encontrar una lista exhaustiva de las instrucciones
-específicas de @code{\markup} en @ref{Instrucciones de marcado de texto}.  The inner workings of these commands, and how to implement new ones, is
-explained in @rextend{Funciones de marcado}.
+específicas de @code{\markup} en @ref{Text markup commands}.  The inner workings of these commands, and how to implement new ones, is
+explained in @rextendnamed{Markup functions, Funciones de marcado}.
 
 @morerefs
 Referencia de la notación:
-@ref{Panorámica de los objetos de texto},
-@ref{Instrucciones de marcado de texto}.
+@ref{Text objects overview},
+@ref{Text markup commands}.
 
 Manual de extensión:
-@rextend{Funciones de marcado}.
+@rextendnamed{Markup functions, Funciones de marcado}.
 
 Fragmentos de código:
 @rlsr{Text}.
@@ -705,9 +695,8 @@ Los mensajes de error de sintaxis para el modo de marcado a menudo producen
 confusión.
 
 
-@node Seleccionar la tipografía y su tamaño
+@node Selecting font and font size
 @unnumberedsubsubsec Seleccionar la tipografía y su tamaño
-@translationof Selecting font and font size
 
 @cindex fuente tipográfica, cambiar
 @cindex cambio de la fuente tipográfica
@@ -838,8 +827,8 @@ no hay diferencia entre la primera y la segunda palabra.
 @noindent
 Algunas de estas familias, usadas para elementos específicos como
 números o matices, no ofrecen todos los caracteres, como se explica en
-@ref{Indicaciones dinámicas nuevas} y
-@ref{Marcas de repetición manual}.
+@ref{New dynamic marks} y
+@ref{Manual repeat marks}.
 
 @c \concat is actually documented in Align (it is not
 @c a font-switching command).  But we need it here. -vv
@@ -866,10 +855,10 @@ distintos elementos de texto:
 
 Se puede encontrar una lista exhaustiva de instrucciones de cambio
 y utilización personalizada de las fuentes tipográficas en
-@ref{Tipografías}.
+@ref{Fonts}.
 
 También es posible definir conjuntos personalizados de fuentes,
-tal y como se explica en @ref{Tipografías}.
+tal y como se explica en @ref{Fonts}.
 
 @predefined
 @funindex \teeny
@@ -893,10 +882,10 @@ tal y como se explica en @ref{Tipografías}.
 
 @morerefs
 Referencia de la notación:
-@ref{Tipografías},
-@ref{Indicaciones dinámicas nuevas},
-@ref{Marcas de repetición manual},
-@ref{Tipografías}.
+@ref{Fonts},
+@ref{New dynamic marks},
+@ref{Manual repeat marks},
+@ref{Fonts}.
 
 Archivos de inicio:
 @file{scm/define-markup-commands.scm}.
@@ -914,9 +903,8 @@ La utilización de las instrucciones de tamaño de texto
 inconsistente comparado con el uso de @code{\fontsize}.
 
 
-@node Alineación de texto
+@node Text alignment
 @unnumberedsubsubsec Alineación de texto
-@translationof Text alignment
 
 @cindex texto, alineación de
 @cindex alinear, texto
@@ -928,7 +916,7 @@ inconsistente comparado con el uso de @code{\fontsize}.
 Esta subsección trata sobre cómo colocar texto en el modo de
 marcado.  Los objetos de marcado también se pueden mover como un
 todo, usando la sintaxis que se describe en
-@rlearning{Mover objetos}.
+@rlearningnamed{Moving objects, Mover objetos}.
 
 @cindex texto, alineación horizontal
 @cindex horizontal, alineación de texto
@@ -1000,7 +988,7 @@ con más claridad:
 Ciertos objetos pueden poseer sus propios procedimientos de
 alineación, y por tanto no resultan afectados por estas
 instrucciones.  Es posible mover estos objetos de marcado como un
-todo, como se muestra por ejemplo en @ref{Indicaciones de texto}.
+todo, como se muestra por ejemplo en @ref{Text marks}.
 
 @cindex texto, alineación vertical
 @cindex vertical, alineación de texto
@@ -1222,11 +1210,11 @@ en @ref{Markup for text alignment}.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Mover objetos}.
+@rlearningnamed{Moving objects, Mover objetos}.
 
 Referencia de la notación:
 @ref{Markup for text alignment},
-@ref{Indicaciones de texto}.
+@ref{Text marks}.
 
 Archivos de inicio:
 @file{scm/define-markup-commands.scm}.
@@ -1238,9 +1226,8 @@ Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
 
-@node Notación gráfica dentro de elementos de marcado
+@node Graphic notation inside markup
 @unnumberedsubsubsec Notación gráfica dentro de elementos de marcado
-@translationof Graphic notation inside markup
 
 @cindex gráfico, insertar
 @cindex dibujar, objeto gráfico
@@ -1395,8 +1382,8 @@ en @ref{Graphical markup}.
 @morerefs
 Referencia de la notación:
 @ref{Markup for text alignment},
-@ref{Dimensiones},
-@ref{Anotaciones editoriales},
+@ref{Dimensions},
+@ref{Editorial annotations},
 @ref{Graphical markup}.
 
 Archivos de inicio:
@@ -1410,9 +1397,8 @@ Referencia de funcionamiento interno:
 @rinternals{TextScript}.
 
 
-@node Notación musical dentro de elementos de marcado
+@node Music notation inside markup
 @unnumberedsubsubsec Notación musical dentro de elementos de marcado
-@translationof Music notation inside markup
 
 @cindex notación, dentro de marcado
 @cindex música, dentro de marcado
@@ -1464,7 +1450,7 @@ marcado:
 De forma más general, cualquier símbolo musical disponible se
 puede incluir por separado dentro de un objeto de marcado, como se
 ejemplifica a continuación; hay una lista exhaustiva de estos
-símbolos y sus nombres en @ref{La tipografía Emmentaler}.
+símbolos y sus nombres en @ref{The Emmentaler font}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1478,7 +1464,7 @@ símbolos y sus nombres en @ref{La tipografía Emmentaler}.
 @end lilypond
 
 Otra forma de imprimir glifos que no son de texto se encuentra
-descrita en @ref{Explicación de las fuentes tipográficas}.  Tiene
+descrita en @ref{Fonts explained}.  Tiene
 la utilidad de imprimir llaves de distintos tamaños.
 
 El modo de marcado también contempla diagramas para instrumentos
@@ -1533,8 +1519,8 @@ notación musical en @ref{Markup for music and musical symbols}.
 @morerefs
 Referencia de la notación:
 @ref{Markup for music and musical symbols},
-@ref{La tipografía Emmentaler},
-@ref{Explicación de las fuentes tipográficas}.
+@ref{The Emmentaler font},
+@ref{Fonts explained}.
 
 Archivos de inicio:
 @file{scm/define-markup-commands.scm},
@@ -1553,9 +1539,8 @@ marcado está controlado por @code{baseline-skip}.  Todo ajuste del
 bloque @code{\paper} se ignora.
 
 
-@node Elementos de marcado de varias páginas
+@node Multi-page markup
 @unnumberedsubsubsec Elementos de marcado de varias páginas
-@translationof Multi-page markup
 
 @cindex página, marcado de varias
 @cindex marcado, de varias páginas
@@ -1596,17 +1581,17 @@ o una lista de listas de marcado.
 @end itemize
 
 Hay una lista exhaustiva de las instrucciones de lista de marcado
-en @ref{Instrucciones de listas de marcado de texto}.
+en @ref{Text markup list commands}.
 
 @morerefs
 Referencia de la notación:
-@ref{Instrucciones de listas de marcado de texto}.
+@ref{Text markup list commands}.
 
 Archivos de inicio:
 @file{scm/define-markup-commands.scm}.
 
 Manual de extensión:
-@rextend{Definición de nuevas instrucciones de lista de marcado}.
+@rextendnamed{New markup list command definition, Definición de nuevas instrucciones de lista de marcado}.
 
 Fragmentos de código:
 @rlsr{Text}.
@@ -1621,23 +1606,21 @@ Referencia de funcionamiento interno:
 @endpredefined
 
 
-@node Tipografías
+@node Fonts
 @subsection Tipografías
-@translationof Fonts
 
 Esta sección presenta la forma en que se manejan las fuentes
 tipográficas, y cómo se pueden cambiar en las partituras.
 
 @menu
-* Explicación de las fuentes tipográficas::
-* Fuentes de un solo elemento::
-* Fuentes tipográficas del documento completo::
+* Fonts explained::
+* Single entry fonts::
+* Entire document fonts::
 @end menu
 
 
-@node Explicación de las fuentes tipográficas
+@node Fonts explained
 @unnumberedsubsubsec Explicación de las fuentes tipográficas
-@translationof Fonts explained
 
 @cindex Pango
 @cindex fuente tipográfica, explicación
@@ -1675,8 +1658,8 @@ de la partitura.
 
 Cuando las fuentes han sido instaladas y detectadas, se pueden
 seleccionar usando los métodos que se describen en
-@ref{Fuentes de un solo elemento} y en
-@ref{Fuentes tipográficas del documento completo}.  Dado que
+@ref{Single entry fonts} y en
+@ref{Entire document fonts}.  Dado que
 imprime la lista completa de las fuentes tipográficas disponibles
 en el archivo de registro de la consola, puede ser de utilidad la
 instrucción @code{#(ly:font-config-display-fonts)} para verificar
@@ -1711,7 +1694,7 @@ Sin embargo, todos estos glifos excepto las llaves de varios
 tamaños que están contenidas en la fuente tipográfica
 @code{fetaBraces} están disponibles utilizando la sintaxis más
 sencilla que se describe en
-@ref{Notación musical dentro de elementos de marcado}.
+@ref{Music notation inside markup}.
 
 Cuando se usan los glifos de la fuente de llaves
 @code{fetaBraces}, el tamaño de la llave se especifica por la
@@ -1720,7 +1703,7 @@ puede especificar cualquier entero de @code{0} a @code{575}
 inclusive, siendo @code{0} el que produce la llave más pequeña.
 El valor óptimo se debe determinar por ensayo y error.  Todos
 estos glifos son llaves izquierdas; las llaves derechas se pueden
-obtener mediante rotación, véase @ref{Rotación de objetos}.
+obtener mediante rotación, véase @ref{Rotating objects}.
 
 Están disponibles tres familias de fuentes tipográficas para el
 texto: la fuente @emph{roman} (romana, serif o con remates), la
@@ -1793,7 +1776,7 @@ c''4^smaller
 @noindent
 Se puede usar una sintaxis similar en el modo de marcado, aunque
 en este caso es preferible usar la sintaxis sencilla que se
-explica en @ref{Seleccionar la tipografía y su tamaño}:
+explica en @ref{Selecting font and font size}:
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1856,21 +1839,20 @@ seleccionada, la funcionalidad sencillamente se ignora.
 Aunque es fácil cambiar entre las fuentes tipográficas
 preconfiguradas, también es posible usar otras fuentes, como se
 explica en las siguientes secciones:
-@ref{Fuentes de un solo elemento} y
-@ref{Fuentes tipográficas del documento completo}.
+@ref{Single entry fonts} y
+@ref{Entire document fonts}.
 
 @morerefs
 Referencia de la notación:
-@ref{La tipografía Emmentaler},
-@ref{Notación musical dentro de elementos de marcado},
-@ref{Rotación de objetos},
-@ref{Seleccionar la tipografía y su tamaño},
-@ref{Tipografías}.
+@ref{The Emmentaler font},
+@ref{Music notation inside markup},
+@ref{Rotating objects},
+@ref{Selecting font and font size},
+@ref{Fonts}.
 
 
-@node Fuentes de un solo elemento
+@node Single entry fonts
 @unnumberedsubsubsec Fuentes de un solo elemento
-@translationof Single entry fonts
 
 Se puede usar en una partitura cualquier fuente tipográfica que
 esté instalada en el sistema operativo y reconocida por parte de
@@ -1911,8 +1893,8 @@ lilypond -dshow-available-fonts
 
 @morerefs
 Referencia de la notación:
-@ref{Explicación de las fuentes tipográficas},
-@ref{Fuentes tipográficas del documento completo}.
+@ref{Fonts explained},
+@ref{Entire document fonts}.
 
 Fragmentos de código:
 @rlsr{Text}.
@@ -1922,9 +1904,8 @@ Fragmentos de código:
 @c @file{lily/font-config-scheme.cc}.
 
 
-@node Fuentes tipográficas del documento completo
+@node Entire document fonts
 @unnumberedsubsubsec Fuentes tipográficas del documento completo
-@translationof Entire document fonts
 
 Se pueden cambiar las fuentes tipográficas que se usan como
 tipografías predeterminadas en las familias @emph{romana},
@@ -1932,11 +1913,11 @@ tipografías predeterminadas en las familias @emph{romana},
 orden como se ve en el ejemplo de abajo, que escala las
 tipografías automáticamente con el valor fijado para el tamaño
 global del pentagrama.  De forma parecida a
-@ref{Fuentes de un solo elemento}, se puede describir usando una
+@ref{Single entry fonts}, se puede describir usando una
 lista de @q{fuentes tipográficas} separadas por comas.  Sin
 embargo, los @q{estilos} de fuente no se pueden describir.  Para
 leer más explicaciones sobre las fuentes tipográficas, consulte
-@ref{Explicación de las fuentes tipográficas}.
+@ref{Fonts explained}.
 
 @cindex fuente, establecer la familia de
 @cindex fuente tipográfica, cambiar para todo el documento
@@ -1993,7 +1974,7 @@ También se pueden especificar las fuentes de la notación.  El
 ejemplo siguiente también tiene el mismo efecto que en los casos
 anteriores, porque establece las fuentes para la notación como las
 predeterminadas.  Para más información, véase
-@ref{Sustituir la tipografía de la notación}.
+@ref{Replacing the notation font}.
 
 @example
 \paper @{
@@ -2043,8 +2024,8 @@ nuevo a @code{set-global-fonts}, así:
 
 @morerefs
 Referencia de la notación:
-@ref{Explicación de las fuentes tipográficas},
-@ref{Fuentes de un solo elemento},
-@ref{Seleccionar la tipografía y su tamaño},
-@ref{Tipografías},
-@ref{Sustituir la tipografía de la notación}.
+@ref{Fonts explained},
+@ref{Single entry fonts},
+@ref{Selecting font and font size},
+@ref{Fonts},
+@ref{Replacing the notation font}.

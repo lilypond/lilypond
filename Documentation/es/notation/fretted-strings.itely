@@ -11,9 +11,8 @@
 
 @c \version "2.23.1"
 
-@node Instrumentos de cuerda con trastes
+@node Fretted string instruments
 @section Instrumentos de cuerda con trastes
-@translationof Fretted string instruments
 
 @lilypondfile[quote]{snippets/fretted-headword.ly}
 
@@ -26,35 +25,33 @@ exclusivos de los instrumentos de cuerda con trastes.
 @cindex banjo, tablatura de
 
 @menu
-* Notación común para cuerdas con trastes::
-* Guitarra::
+* Common notation for fretted strings::
+* Guitar::
 * Banjo::
-* Laúd::
+* Lute::
 @end menu
 
 
-@node Notación común para cuerdas con trastes
+@node Common notation for fretted strings
 @subsection Notación común para cuerdas con trastes
-@translationof Common notation for fretted strings
 
 Esta sección se ocupa de la notación común exclusiva de los
 instrumentos de cuerda con trastes.
 
 @menu
-* Referencias para cuerdas con trastes::
-* Indicación de los números de cuerda::
-* Tablaturas predeterminadas::
-* Tablaturas personalizadas::
-* Marcas de diagramas de trastes::
-* Diagramas predefinidos de trastes::
-* Diagramas de traste automáticos::
-* Digitaciones de la mano derecha::
+* References for fretted strings::
+* String number indications::
+* Default tablatures::
+* Custom tablatures::
+* Fret diagram markups::
+* Predefined fret diagrams::
+* Automatic fret diagrams::
+* Right-hand fingerings::
 @end menu
 
 
-@node Referencias para cuerdas con trastes
+@node References for fretted strings
 @unnumberedsubsubsec Referencias para cuerdas con trastes
-@translationof References for fretted strings
 
 La notación musical para instrumentos de cuerda con trastes se
 realiza normalmente en una sola pauta, ya sea en notación musical
@@ -70,40 +67,38 @@ se estudian en otras partes de manual:
 
 @itemize
 @item
-Las digitaciones se indican como se explica en @ref{Indicaciones de
-digitación}.
+Las digitaciones se indican como se explica en @ref{Fingering instructions}.
 
 @item
 Las instrucciones para ligaduras @notation{Laissez vibrer} así
 como ligaduras de unión sobre arpegios y trémolos están en
-@ref{Ligaduras de unión}.
+@ref{Ties}.
 
 @item
 Las instrucciones para el manejo de varias voces se encuentran en
-@ref{Resolución de las colisiones}.
+@ref{Collision resolution}.
 
 @item
 Las instrucciones para la indicación de armónicos está en
-@ref{Armónicos}.
+@ref{Harmonics}.
 
 @end itemize
 
 @morerefs
 Referencia de la notación:
-@ref{Indicaciones de digitación},
-@ref{Ligaduras de unión},
-@ref{Resolución de las colisiones},
-@ref{Nombres de instrumentos},
-@ref{Escribir música en paralelo},
-@ref{Arpegio},
-@ref{Lista de articulaciones},
-@ref{Clave},
-@ref{Transposición de los instrumentos}.
+@ref{Fingering instructions},
+@ref{Ties},
+@ref{Collision resolution},
+@ref{Instrument names},
+@ref{Writing music in parallel},
+@ref{Arpeggio},
+@ref{List of articulations},
+@ref{Clef},
+@ref{Instrument transpositions}.
 
 
-@node Indicación de los números de cuerda
+@node String number indications
 @unnumberedsubsubsec Indicación de los números de cuerda
-@translationof String number indications
 
 @cindex cuerda, número de la
 @cindex número de cuerda frente a digitaciones
@@ -171,7 +166,7 @@ g1\4
 
 @morerefs
 Referencia de la notación:
-@ref{Indicaciones de digitación}.
+@ref{Fingering instructions}.
 
 Fragmentos de código:
 @rlsr{Fretted strings}.
@@ -181,9 +176,8 @@ Referencia de funcionamiento interno:
 @rinternals{Fingering}.
 
 
-@node Tablaturas predeterminadas
+@node Default tablatures
 @unnumberedsubsubsec Tablaturas predeterminadas
-@translationof Default tablatures
 
 @cindex tablatura, principios básicos
 @cindex tablatura predeterminada
@@ -320,7 +314,7 @@ ejecutar
 \chordRepeats #'(string-number-event fingering-event)
 @end example
 explícitamente sobre expresiones musicales en las tablaturas que
-utilicen @ref{Repetición de acordes}.  Esta instrucción en
+utilicen @ref{Chord repetition}.  Esta instrucción en
 particular es tan común que está disponible como
 @code{\tabChordRepeats}.
 
@@ -545,10 +539,10 @@ ratioHarmonics = {
 
 @morerefs
 Referencia de la notación:
-@ref{Repetición de acordes},
-@ref{Repeticiones explícitas},
-@ref{Plicas},
-@ref{Armónicos},
+@ref{Chord repetition},
+@ref{Written-out repeats},
+@ref{Stems},
+@ref{Harmonics},
 @ref{Glissando}.
 
 Fragmentos de código:
@@ -584,9 +578,8 @@ melodia = \partCombine { e4 g g g } { e4 e e e }
 Los efectos especiales de guitarra se limitan a armónicos y
 @emph{slides}.
 
-@node Tablaturas personalizadas
+@node Custom tablatures
 @unnumberedsubsubsec Tablaturas personalizadas
-@translationof Custom tablatures
 
 @cindex tablatura, personalizada
 @cindex tablatura, de banjo
@@ -657,7 +650,7 @@ valor de @code{stringTunings} para el contexto actual.
 Su argumento es una construcción de acorde que define la altura de
 las notas de cada cuerda al aire en dicha afinación.  La
 construcción de acorde debe estar en el modo de octava absoluto,
-véase @ref{Escritura de octava absoluta}.  La cuerda con el número
+véase @ref{Absolute octave entry}.  La cuerda con el número
 más alto (generalmente la más grave) debe ir primero en el acorde.
 Por ejemplo, podemos definir una afinación para un instrumento de
 cuatro cuerdas con las alturas @code{a''}, @code{d''}, @code{g'} y
@@ -688,7 +681,7 @@ automáticos.
 
 Las afinaciones de cuerdas se utilizan como parte de la clave de
 asociación para los diagramas de posición predefinidos (véase
-@ref{Diagramas predefinidos de trastes}).
+@ref{Predefined fret diagrams}).
 
 El ejemplo anterior también se podría haber escrito
 como sigue:
@@ -808,8 +801,8 @@ mus = \relative {
 
 @morerefs
 Referencia de la notación:
-@ref{Escritura de octava absoluta},
-@ref{Diagramas predefinidos de trastes}.
+@ref{Absolute octave entry},
+@ref{Predefined fret diagrams}.
 
 Archivos instalados:
 @file{ly/string-tunings-init.ly},
@@ -829,9 +822,8 @@ cuerdas no varía de forma monótona con el número de cuerda, como
 el ukelele.
 
 
-@node Marcas de diagramas de trastes
+@node Fret diagram markups
 @unnumberedsubsubsec Marcas de diagramas de trastes
-@translationof Fret diagram markups
 
 @cindex trastes, diagramas de
 @cindex acordes, diagramas de
@@ -1297,9 +1289,8 @@ Referencia de funcionamiento interno:
 @rinternals{fret-diagram-interface}.
 
 
-@node Diagramas predefinidos de trastes
+@node Predefined fret diagrams
 @unnumberedsubsubsec Diagramas predefinidos de trastes
-@translationof Predefined fret diagrams
 
 @cindex diagrama de posiciones
 @cindex diagrama de posiciones, de ukelele
@@ -1372,7 +1363,7 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 
 Las notas de los acordes se pueden introducir como música
 simultánea o bien usando el modo de acordes (véase
-@ref{Panorámica del modo de acordes}).
+@ref{Chord mode overview}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1446,11 +1437,10 @@ domniante) para 17 tonalidades distintas.  La tabla de diagramas
 predefinidos para el ukelele contiene estos acordes y además otros
 tres (sexta mayor, segunda suspendida y cuarta suspendida).  Se
 puede ver una lista completa de los diagramas de traste
-predefinidos en @ref{Diagramas predefinidos de trastes}.  Si no
+predefinidos en @ref{Predefined fret diagrams}.  Si no
 hay una entrada en la tabla para un acorde, el grabador FretBoards
 calcula un cadena de diagrama fret-diagram usando la funcionalidad
-de diagramas automáticos que se describe en @ref{Diagramas de
-traste automáticos}.
+de diagramas automáticos que se describe en @ref{Automatic fret diagrams}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1616,10 +1606,10 @@ predefinido, las propiedades de interface pertenecen a
 
 @morerefs
 Referencia de la notación:
-@ref{Tablaturas personalizadas},
-@ref{Diagramas de traste automáticos},
-@ref{Panorámica del modo de acordes},
-@ref{Diagramas predefinidos de trastes}.
+@ref{Custom tablatures},
+@ref{Automatic fret diagrams},
+@ref{Chord mode overview},
+@ref{Predefined fret diagrams}.
 
 Archivos de inicio:
 @file{ly/predefined-guitar-fretboards.ly}, @*
@@ -1634,9 +1624,8 @@ Referencia de funcionamiento interno:
 @rinternals {fret-diagram-interface}.
 
 
-@node Diagramas de traste automáticos
+@node Automatic fret diagrams
 @unnumberedsubsubsec Diagramas de traste automáticos
-@translationof Automatic fret diagrams
 
 @cindex trastes, diagrama automático de
 @cindex acorde, diagrama automático de
@@ -1769,7 +1758,7 @@ el contexto FretBoard se puede fijar con la propiedad
 Las cuerdas y los trastes para el contexto @code{FretBoards}
 dependen de la propiedad @code{stringTunings}, que tiene el mismo
 significado que en el contexto de tablatura TabStaff.  Consulte
-@ref{Tablaturas personalizadas} para ver más información sobre la
+@ref{Custom tablatures} para ver más información sobre la
 propiedad @code{stringTunings}.
 
 El aspecto gráfico de un diagrama de trastes se puede personalizar
@@ -1787,7 +1776,7 @@ pertenecen a @code{FretBoards.FretBoard}.
 
 @morerefs
 Referencia de la notación:
-@ref{Tablaturas personalizadas}.
+@ref{Custom tablatures}.
 
 Fragmentos de código:
 @rlsr{Fretted strings}.
@@ -1800,9 +1789,8 @@ Los cálculos de tablatura automáticos no funcionan bien para
 instrumentos con afinaciones no monótonas.
 
 
-@node Digitaciones de la mano derecha
+@node Right-hand fingerings
 @unnumberedsubsubsec Digitaciones de la mano derecha
-@translationof Right-hand fingerings
 
 @cindex trastes, instrumentos de, digitaciones de la mano derecha
 @cindex digitación, de la mano derecha para instrumentos de trastes
@@ -1855,9 +1843,8 @@ Referencia de funcionamiento interno:
 @rinternals{StrokeFinger}.
 
 
-@node Guitarra
+@node Guitar
 @subsection Guitarra
-@translationof Guitar
 
 Casi todos los asuntos de notación relacionados con la música para
 guitarra están suficientemente cubiertos en la sección general
@@ -1871,15 +1858,14 @@ alternativa mejor es un procesador de texto, editor de texto o,
 para usuarios con experiencia, un tipografiador como GuitarTeX.
 
 @menu
-* Indicar la posición y la cejilla::
-* Indicar armónicos y notas tapadas::
-* Indicación de acordes de potencia o de quinta vacía::
+* Indicating position and barring::
+* Indicating harmonics and dampened notes::
+* Indicating power chords::
 @end menu
 
 
-@node Indicar la posición y la cejilla
+@node Indicating position and barring
 @unnumberedsubsubsec Indicar la posición y la cejilla
-@translationof Indicating position and barring
 
 @cindex posición y cejilla, indicación para instrumentos de trastes
 @cindex trastes, instrumentos de, indicación de la posición y cejilla
@@ -1901,16 +1887,15 @@ cejilla de guitarra:
 
 @morerefs
 Referencia de la notación:
-@ref{Extensiones de texto}.
+@ref{Text spanners}.
 
 Fragmentos de código:
 @rlsr{Fretted strings},
 @rlsr{Expressive marks}.
 
 
-@node Indicar armónicos y notas tapadas
+@node Indicating harmonics and dampened notes
 @unnumberedsubsubsec Indicar armónicos y notas tapadas
-@translationof Indicating harmonics and dampened notes
 
 @cindex trastes, notas tapadas en instrumento de
 @cindex trastes, armónicos en instrumento de
@@ -1984,13 +1969,12 @@ Fragmentos de código:
 @rlsr{Fretted strings}.
 
 Referencia de la notación:
-@ref{Cabezas de nota especiales},
-@ref{Estilos de cabezas de nota}.
+@ref{Special note heads},
+@ref{Note head styles}.
 
 
-@node Indicación de acordes de potencia o de quinta vacía
+@node Indicating power chords
 @unnumberedsubsubsec Indicación de acordes de potencia o de quinta vacía
-@translationof Indicating power chords
 
 @cindex potencia, acorde de
 @cindex acorde, de potencia
@@ -2041,8 +2025,8 @@ Glosario musical:
 @rglos{power chord}.
 
 Referencia de la notación:
-@ref{Acordes extendidos y alterados},
-@ref{Impresión de los nombres de acorde}.
+@ref{Extended and altered chords},
+@ref{Printing chord names}.
 
 Fragmentos de código:
 @rlsr{Fretted strings}.
@@ -2050,16 +2034,14 @@ Fragmentos de código:
 
 @node Banjo
 @subsection Banjo
-@translationof Banjo
 
 @menu
-* Tablaturas de banjo::
+* Banjo tablatures::
 @end menu
 
 
-@node Tablaturas de banjo
+@node Banjo tablatures
 @unnumberedsubsubsec Tablaturas de banjo
-@translationof Banjo tablatures
 
 @cindex banjo, tablatura de
 @cindex tablatura de banjo
@@ -2120,17 +2102,15 @@ Fragmentos de código:
 @rlsr{Fretted strings}.
 
 
-@node Laúd
+@node Lute
 @subsection Laúd
-@translationof Lute
 
 @menu
-* Tablaturas de laúd::
+* Lute tablatures::
 @end menu
 
-@node Tablaturas de laúd
+@node Lute tablatures
 @unnumberedsubsubsec Tablaturas de laúd
-@translationof Lute tablatures
 
 @cindex laúd, tablaturas de
 @cindex tablatura, laúd

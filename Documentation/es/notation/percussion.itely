@@ -10,37 +10,34 @@
 
 @c \version "2.19.2"
 
-@node Percusión
+@node Percussion
 @section Percusión
-@translationof Percussion
 
 @menu
-* Notación común para percusión::
+* Common notation for percussion::
 @end menu
 
 
-@node Notación común para percusión
+@node Common notation for percussion
 @subsection Notación común para percusión
-@translationof Common notation for percussion
 
 La notación rítmica se emplea primordialmente para la percusión y
 la batería, pero también se puede utilizar para mostrar los
 valores rítmicos una melodía.
 
 @menu
-* Referencias para percusión::
-* Notación básica de percusión::
-* Redobles::
-* Percusión afinada::
-* Pautas de percusión::
-* Pautas de percusión personalizadas::
-* Notas fantasma::
+* References for percussion::
+* Basic percussion notation::
+* Drum rolls::
+* Pitched percussion::
+* Percussion staves::
+* Custom percussion staves::
+* Ghost notes::
 @end menu
 
 
-@node Referencias para percusión
+@node References for percussion
 @unnumberedsubsubsec Referencias para percusión
-@translationof References for percussion
 
 @c TODO add more references.
 
@@ -49,28 +46,27 @@ valores rítmicos una melodía.
 @item
 La notación de algunas percusiones se puede hacer sobre una pauta
 de ritmo; esto se estudia en
-@ref{Mostrar los ritmos de la melodía} y
-@ref{Crear instancias de pentagramas nuevos}.
+@ref{Showing melody rhythms} y
+@ref{Instantiating new staves}.
 
 @item
 La salida MIDI se trata en una sección aparte; véase
-@ref{Creación de salida MIDI}.
+@ref{Creating MIDI output}.
 
 @end itemize
 
 @morerefs
 Referencia de la notación:
-@ref{Mostrar los ritmos de la melodía},
-@ref{Crear instancias de pentagramas nuevos},
-@ref{Creación de salida MIDI}.
+@ref{Showing melody rhythms},
+@ref{Instantiating new staves},
+@ref{Creating MIDI output}.
 
 Fragmentos de código:
 @rlsr{Percussion}.
 
 
-@node Notación básica de percusión
+@node Basic percussion notation
 @unnumberedsubsubsec Notación básica de percusión
-@translationof Basic percussion notation
 
 @cindex percusión
 @cindex batería
@@ -101,7 +97,7 @@ Esto es una abreviatura de
 Cada elemento de un set de percusión lleva un nombre completo y un
 nombre abreviado, y los dos se pueden usar en la entrada.  La
 lista completa de nombre de instrumentos de percusión se encuentra
-en @ref{Notas de percusión}.
+en @ref{Percussion notes}.
 
 @cindex clave de percusión
 @cindex percusión, clave
@@ -124,12 +120,12 @@ pueden establecer explícitamente o utilizar otras claves.
 
 Hay ciertos detalles respecto a cómo está contemplado el MIDI para
 los instrumentos de percusión; para ver los detalles consulte
-@ref{Creación de salida MIDI}.
+@ref{Creating MIDI output}.
 
 @morerefs
 Referencia de la notación:
-@ref{Creación de salida MIDI},
-@ref{Notas de percusión}.
+@ref{Creating MIDI output},
+@ref{Percussion notes}.
 
 Archivos de inicio:
 @file{ly/drumpitch-init.ly}.
@@ -138,9 +134,8 @@ Fragmentos de código:
 @rlsr{Percussion}.
 
 
-@node Redobles
+@node Drum rolls
 @unnumberedsubsubsec Redobles
-@translationof Drum rolls
 
 Los redobles se indican mediante tres barras cruzadas en la plica.
 Para las negras o notas más largas, las tres barras se muestran
@@ -148,7 +143,7 @@ explícitamente, las corcheas se presentan con dos barras cruzadas
 (siendo la barra de corchea la tercera), y los redobles más breves
 que las corcheas tienen una barra cruzada para complementar las
 barras normales.  Esto se consigue mediante la notación de
-trémolo, véase @ref{Repeticiones de trémolo}.
+trémolo, véase @ref{Tremolo repeats}.
 
 @lilypond[quote,verbatim]
 \drums {
@@ -162,7 +157,7 @@ trémolo, véase @ref{Repeticiones de trémolo}.
 
 Los golpes de baqueta se pueden indicar mediante la colocación de
 los elementos de marcado @code{"R"} o @code{"L"} encima o debajo
-de las notas, como se estudia en @ref{Dirección y posición}. La
+de las notas, como se estudia en @ref{Direction and placement}. La
 propiedad @code{staff-padding} se puede sobreescribir para
 conseguir una línea de base satisfactoria.
 
@@ -178,15 +173,14 @@ conseguir una línea de base satisfactoria.
 
 @morerefs
 Referencia de la notación:
-@ref{Repeticiones de trémolo}.
+@ref{Tremolo repeats}.
 
 Fragmentos de código:
 @rlsr{Percussion}.
 
 
-@node Percusión afinada
+@node Pitched percussion
 @unnumberedsubsubsec Percusión afinada
-@translationof Pitched percussion
 
 Ciertos instrumentos de percusión de altura determinada (p.ej.: el
 xilófono, el vibráfono y los timbales) se escriben usando
@@ -195,15 +189,14 @@ manual.
 
 @morerefs
 Referencia de la notación:
-@ref{Instrumentos MIDI}.
+@ref{MIDI instruments}.
 
 Fragmentos de código:
 @rlsr{Percussion}.
 
 
-@node Pautas de percusión
+@node Percussion staves
 @unnumberedsubsubsec Pautas de percusión
-@translationof Percussion staves
 
 @cindex percusión
 @cindex batería
@@ -228,7 +221,7 @@ down = \drummode {
 @end lilypond
 
 El ejemplo anterior muestra una notación polifónica prolija.  La
-notación polifónica abreviada, descrita en @rlearning{Oigo voces},
+notación polifónica abreviada, descrita en @rlearningnamed{I'm hearing Voices, Oigo voces},
 también se puede usar.  Por ejemplo,
 
 @lilypond[quote,verbatim]
@@ -422,14 +415,14 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 
 También se pueden definir estilos de percusión
 personalizados como se explica en
-@ref{Pautas de percusión personalizadas}.
+@ref{Custom percussion staves}.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Oigo voces}.
+@rlearningnamed{I'm hearing Voices, Oigo voces}.
 
 Referencia de la notación:
-@ref{Pautas de percusión personalizadas}.
+@ref{Custom percussion staves}.
 
 Archivos instalados:
 @file{ly/drumpitch-init.ly}.
@@ -438,9 +431,8 @@ Fragmentos de código:
 @rlsr{Percussion}.
 
 
-@node Pautas de percusión personalizadas
+@node Custom percussion staves
 @unnumberedsubsubsec Pautas de percusión personalizadas
-@translationof Custom percussion staves
 
 @cindex percusión, personalizada
 @funindex drumStyleTable
@@ -577,9 +569,8 @@ Referencia de funcionamiento interno:
 @rinternals{DrumVoice}.
 
 
-@node Notas fantasma
+@node Ghost notes
 @unnumberedsubsubsec Notas fantasma
-@translationof Ghost notes
 
 @cindex percusión, nota fantasma
 @cindex percusión, nota muerta
@@ -595,7 +586,7 @@ Referencia de funcionamiento interno:
 Las notas fantasma para la batería e instrumentos de percusión,
 también conocidas como notas muertas, tapadas, silenciadas o
 falsas, se pueden crear utilizando la instrucción
-@code{\parenthesize}, véase @ref{Paréntesis}.
+@code{\parenthesize}, véase @ref{Parentheses}.
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff <<
@@ -618,7 +609,7 @@ falsas, se pueden crear utilizando la instrucción
 
 @morerefs
 Referencia de la notación:
-@ref{Paréntesis}.
+@ref{Parentheses}.
 
 Fragmentos de código:
 @rlsr{Percussion}.

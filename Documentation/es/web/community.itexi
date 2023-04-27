@@ -11,9 +11,8 @@
 @include en/included/gsoc.itexi
 @include es/included/helpus.itexi
 
-@node Comunidad
+@node Community
 @unnumbered Comunidad
-@translationof Community
 
 @divClass{link-headings}
 
@@ -23,14 +22,14 @@
 @itemize
 
 @item
-@ref{Contacto}: obtener ayuda, charlar y ¡mantenerse en contacto!
+@ref{Contact}: obtener ayuda, charlar y ¡mantenerse en contacto!
 
 @item
-@ref{Ejemplos mínimos}: son @emph{muy} recomendables cuando se
+@ref{Tiny examples}: son @emph{muy} recomendables cuando se
 habla de LilyPond.
 
 @item
-@ref{Informes de fallos}: algo ha ido mal.
+@ref{Bug reports}: algo ha ido mal.
 
 @end itemize
 @divEnd
@@ -41,20 +40,20 @@ habla de LilyPond.
 @itemize
 
 @item
-@ref{Preste su ayuda}: se solicita su colaboración.
+@ref{Help us}: se solicita su colaboración.
 
 @item
-@ref{Patrocinio}: contribuciones financieras.
+@ref{Sponsoring}: contribuciones financieras.
 
 @item
-@ref{Desarrollo}: para colaboradores y pilotos de prueba.
+@ref{Development}: para colaboradores y pilotos de prueba.
 
 @item
 @ref{Google Summer of Code}: ideas para el «Google Summer of Code»
 (Verano del Código de Google).
 
 @item
-@ref{Autores}: las personas que han hecho a LilyPond lo que hoy
+@ref{Authors}: las personas que han hecho a LilyPond lo que hoy
 es.
 
 @end itemize
@@ -66,14 +65,14 @@ es.
 @itemize
 
 @item
-@ref{Publicaciones}: qué hemos escrito, y qué han escrito sobre
+@ref{Publications}: qué hemos escrito, y qué han escrito sobre
 nosotros.
 
 @item
-@ref{Noticias}: noticias procedentes del proyecto LilyPond.
+@ref{News}: noticias procedentes del proyecto LilyPond.
 
 @item
-@ref{Desván}: anuncios y registros de cambios en versiones
+@ref{Attic}: anuncios y registros de cambios en versiones
 anteriores, noticias antiguas, etc.
 
 @end itemize
@@ -83,24 +82,23 @@ anteriores, noticias antiguas, etc.
 
 @divClass{hide}
 @menu
-* Contacto::
-* Ejemplos mínimos::
-* Informes de fallos::
-* Preste su ayuda::
-* Patrocinio::
-* Desarrollo::
+* Contact::
+* Tiny examples::
+* Bug reports::
+* Help us::
+* Sponsoring::
+* Development::
 * Google Summer of Code::
-* Autores::
-* Publicaciones::
-* Noticias::
-* Desván::
+* Authors::
+* Publications::
+* News::
+* Attic::
 @end menu
 @divEnd
 
 
-@node Contacto
+@node Contact
 @unnumberedsec Contacto
-@translationof Contact
 
 @divClass{column-left-bottom}
 @subheading Discusión y ayuda entre usuarios
@@ -122,7 +120,7 @@ Archivo 2}
 @end quotation
 
 @warning{Al formular preguntas, por favor, ¡utilice
-@ref{Ejemplos mínimos}!}
+@ref{Tiny examples}!}
 
 @subsubheading El Repositorio de Fragmentos de Código de LilyPond
 
@@ -136,7 +134,7 @@ otros han escrito, y añada las suyas propias!
 @end example
 
 Los ejemplos del LSR que son especialmente instructivos se
-incluyen en nuestra documentación oficial, en @ref{Fragmentos}.
+incluyen en nuestra documentación oficial, en @ref{Snippets}.
 
 @subsubheading IRC
 
@@ -254,7 +252,7 @@ Archivo 2}
 @end quotation
 
 @warning{Antes de enviar un mensaje a la lista de fallos, lea
-nuestras indicaciones para elaborar @ref{Informes de fallos}.}
+nuestras indicaciones para elaborar @ref{Bug reports}.}
 
 
 @subsubheading Lista de correo de traducciones: @code{translations@@lilynet.org}
@@ -269,9 +267,8 @@ Archivo de la lista de correo de traducción}
 
 @divEnd
 
-@node Ejemplos mínimos
+@node Tiny examples
 @unnumberedsec Ejemplos mínimos
-@translationof Tiny examples
 
 @divClass{column-center-top}
 @subheading ¿Qué son los @qq{ejemplos mínimos}?
@@ -389,9 +386,8 @@ más corriente es que basten 4 líneas para mostrar el problema!
 @divEnd
 
 
-@node Informes de fallos
+@node Bug reports
 @unnumberedsec Informes de fallos
-@translationof Bug reports
 
 @divClass{heading-center}
 Si tiene un código de entrada que produce una terminación abrupta
@@ -421,8 +417,7 @@ información a ese informe.}
 Si ha descubierto un fallo que no está en la lista, ayúdenos
 elaborando un informe de fallo.
 
-@warning{Sólo aceptamos informes en forma de @ref{Ejemplos
-mínimos}.  Disponemos de recursos muy limitados, por lo que
+@warning{Sólo aceptamos informes en forma de @ref{Tiny examples}.  Disponemos de recursos muy limitados, por lo que
 cualquier ejemplo que no sea mínimo va a ser rechazado.  ¡Casi
 todos los bugs se pueden demostrar con cuatro notas o menos!}
 
@@ -484,9 +479,8 @@ usted cree que debe tener!
 @divEnd
 
 
-@node Preste su ayuda
+@node Help us
 @unnumberedsec Preste su ayuda
-@translationof Help us
 
 @divClass{column-center-top}
 @helpusNeed
@@ -506,9 +500,8 @@ usted cree que debe tener!
 @divEnd
 
 
-@node Patrocinio
+@node Sponsoring
 @unnumberedsec Patrocinio
-@translationof Sponsoring
 
 @divClass{keep-bullets}
 @divClass{column-left-top}
@@ -551,9 +544,8 @@ cualquier trabajo.
 @divEnd
 @divEnd
 
-@node Desarrollo
+@node Development
 @unnumberedsec Desarrollo
-@translationof Development
 
 @divClass{heading-center}
 @heading Materiales de desarrollo para LilyPond @versionDevel
@@ -565,7 +557,7 @@ cualquier trabajo.
 Si tiene la más ligera duda acerca de cómo usar o instalar
 LilyPond, le pedimos encarecidamente que utilice la
 @ref{Download, descarga estable}, y lea los
-@ref{Manuales, manuales estables}.}
+@ref{Manuals, manuales estables}.}
 
 @divEnd
 
@@ -788,14 +780,12 @@ más recientes están en @url{https://lilypond.org}}
 
 @node Google Summer of Code
 @unnumberedsec Google Summer of Code
-@translationof Google Summer of Code
 
 @gsocCurrent
 
 
-@node Autores
+@node Authors
 @unnumberedsec Autores
-@translationof Authors
 
 @divClass{column-left-top}
 @subheading Equipo de desarrollo actual
@@ -869,9 +859,8 @@ más recientes están en @url{https://lilypond.org}}
 @divEnd
 @divEnd
 
-@node Publicaciones
+@node Publications
 @unnumberedsec Publicaciones
-@translationof Publications
 
 @divClass{column-center-top}
 @subheading Lo que nosotros hemos escrito sobre LilyPond
@@ -896,21 +885,19 @@ más recientes están en @url{https://lilypond.org}}
 @contactUsAbout{artículos académicos}
 
 
-@node Noticias
+@node News
 @unnumberedsec Noticias
-@translationof News
 
 @include en/web/news-new.itexi
 
 @divClass{column-center-bottom}
 @subheading Noticias antiguas
-Las noticias anteriores están en el @ref{Desván} junto a muchos
+Las noticias anteriores están en el @ref{Attic} junto a muchos
 anuncios y registros de cambio antiguos.
 @divEnd
 
-@node Desván
+@node Attic
 @unnumberedsec Desván
-@translationof Attic
 
 @divClass{column-center-top}
 @subheading Anuncios
@@ -993,7 +980,7 @@ Registros de cambios de los desarrolladores, por versión:
 @subheading Noticias antiguas
 
 Las noticias más antiguas datan de julio de 2003.  Las noticias
-más actuales están en la página de @ref{Noticias}.
+más actuales están en la página de @ref{News}.
 @divEnd
 
 @include en/web/news-old.itexi

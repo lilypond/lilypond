@@ -10,9 +10,8 @@
 
 @c \version "2.19.21"
 
-@node Sugerencias para escribir archivos de entrada
+@node Suggestions for writing files
 @chapter Sugerencias para escribir archivos de entrada
-@translationof Suggestions for writing files
 
 En este momento está preparado para comenzar a escribir archivos
 de LilyPond más grandes -- no sólo los pequeños ejemplos que
@@ -48,17 +47,16 @@ de actualizar.
 @end itemize
 
 @menu
-* Sugerencias de tipo general::
-* Tipografiar música existente::
-* Proyectos grandes::
-* Solución de problemas::
-* Make y los Makefiles::
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Troubleshooting::
+* Make and Makefiles::
 @end menu
 
 
-@node Sugerencias de tipo general
+@node General suggestions
 @section Sugerencias de tipo general
-@translationof General suggestions
 
 Presentamos algunas sugerencias que le pueden servir de ayuda para
 evitar o corregir los problemas más comunes al realizar trabajos
@@ -70,7 +68,7 @@ de tipografía musical:
 archivos de entrada}, aun en los más pequeños.  Ello evita tener
 que recordar para qué versión de LilyPond se creó el archivo y es
 especialmente relevante al
-@ref{Actualizar ficheros con convert-ly} (una instrucción que
+@ref{Updating files with convert-ly} (una instrucción que
 requiere que el enunciado @code{\version} esté presente); o si
 está enviando código de entrada a otros usuarios (p.ej. si está
 pidiendo ayuda en una de las listas de distribución de correo).
@@ -84,8 +82,8 @@ archivos de entrada sea mucho más sencilla.
 
 @item
 @strong{Inserte barras de
-@rnotation{Comprobación de compás y de número de compás} así como
-códigos de @rnotation{Comprobación de octava}}.  La inclusión de
+@rnotationnamed{Bar and bar number checks, Comprobación de compás y de número de compás} así como
+códigos de @rnotationnamed{Octave checks, Comprobación de octava}}.  La inclusión de
 códigos de comprobación de estos tipos será de ayuda para
 localizar los errores mucho más rápidamente.  La frecuencia con
 que añadir las comprobaciones dependerá de la complejidad de la
@@ -160,15 +158,14 @@ sobreescrituras dentro del bloque @code{\layout}:
 @end example
 
 Esto no crea un contexto nuevo, sino que se aplicará en el momento
-de crear uno.  Véase también @rlearning{Ahorrar tecleo mediante
-variables y funciones} y @rlearning{Hojas de estilo}.
+de crear uno.  Véase también @rlearningnamed{Saving typing with variables and functions, Ahorrar tecleo mediante
+variables y funciones} y @rlearningnamed{Style sheets, Hojas de estilo}.
 
 @end itemize
 
 
-@node Tipografiar música existente
+@node Typesetting existing music
 @section Tipografiar música existente
-@translationof Typesetting existing music
 
 Si está introduciendo música a partir de una partitura existente
 (es decir, tipografiando una hoja de música ya impresa),
@@ -180,7 +177,7 @@ de cada vez (pero mantenga la práctica de escribir un compás por
 línea de texto), y compruebe cada sistema cuando lo haya
 terminado.  Puede usar las propiedades @code{showLastLength} o
 @code{showFirstLength} para acelerar el proceso (véase
-@rnotation{Saltar la música corregida}).
+@rnotationnamed{Skipping corrected music, Saltar la música corregida}).
 
 @item Defina @code{mBreak = @{ \break @}} e inserte @code{\mBreak}
 dentro del archivo de entrada donde el manuscrito tenga un saldo
@@ -219,9 +216,8 @@ clarinete en La bemol, etc.
 
 
 
-@node Proyectos grandes
+@node Large projects
 @section Proyectos grandes
-@translationof Large projects
 
 Al trabajar en proyectos grandes se hace esencial tener una
 estructura clara en los archivos de LilyPond:
@@ -265,9 +261,8 @@ g'4\fluegop c'8. e16
 @end itemize
 
 
-@node Solución de problemas
+@node Troubleshooting
 @section Solución de problemas
-@translationof Troubleshooting
 
 Antes o después escribirá un archivo que LilyPond no podrá
 compilar.  Los mensajes que LilyPond proporciona pueden ayudarle a
@@ -321,12 +316,11 @@ la parte del @code{bajo} hasta que encuentre la línea del
 problema.
 
 Otra técnica de depuración muy útil es la construcción de
-@rweb{Ejemplos mínimos}.
+@rwebnamed{Tiny examples, Ejemplos mínimos}.
 
 
-@node Make y los Makefiles
+@node Make and Makefiles
 @section Make y los Makefiles
-@translationof Make and Makefiles
 
 @cindex make, archivos de
 @cindex make
@@ -692,5 +686,5 @@ copy salida\miproyecto.pdf MiProyecto.pdf
 
 @morerefs
 Manual de utilización del programa:
-@ref{Utilización desde la línea de órdenes},
+@ref{Command-line usage},
 @ref{lilypond-book}

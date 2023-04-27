@@ -10,21 +10,19 @@
 
 @c \version "2.16.0"
 
-@node Lista de referencias bibliográficas
+@node Literature list
 @chapter Lista de referencias bibliográficas
-@translationof Literature list
 
 A continuación presentamos algunas listas de referencias que se
 utilizan en LilyPond.
 
 @menu
-* Lista bibliográfica resumida::
-* Lista bibliográfica ampliada::
+* Short literature list::
+* Long literature list::
 @end menu
 
-@node Lista bibliográfica resumida
+@node Short literature list
 @section Lista bibliográfica resumida
-@translationof Short literature list
 
 Si tiene necesidad de aprender más acerca de la notación musical, le
 presentamos a continuación algunos títulos interesantes que puede
@@ -92,9 +90,8 @@ tradicional.
 @end table
 
 
-@node Lista bibliográfica ampliada
+@node Long literature list
 @section Lista bibliográfica ampliada
-@translationof Long literature list
 
 @subheading Bibliografía sobre edición de música de la Universidad de Colorado
 

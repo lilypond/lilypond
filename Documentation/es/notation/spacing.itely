@@ -27,9 +27,8 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 @end ignore
 
 
-@node Problemas de espaciado
+@node Spacing issues
 @chapter Problemas de espaciado
-@translationof Spacing issues
 
 La disposición global sobre el papel viene determinada por tres
 factores: el diseño de página, los saltos de línea y el espaciado.
@@ -55,41 +54,39 @@ disposición: @code{\paper @{@dots{}@}} y @code{\layout
 disposición de la página que se espera sean los mismos para todas
 las partituras de un libro o parte de libro, como la altura de la
 hoja o si se imprimen los números de página, etc.  Véase
-@ref{Disposición de la página}.  El bloque @code{\layout} contiene
+@ref{Page layout}.  El bloque @code{\layout} contiene
 ajustes de disposición de la partitura, como el número de sistemas
 que utilizar, o la separación entre grupos de pentagramas, etc.
-Véase @ref{Disposición de la partitura}.
+Véase @ref{Score layout}.
 
 @menu
-* Disposición de la página::
-* Disposición de la partitura::
-* Saltos::
-* Espaciado vertical::
-* Espaciado horizontal::
-* Encajar la música en menos páginas::
+* Page layout::
+* Score layout::
+* Breaks::
+* Vertical spacing::
+* Horizontal spacing::
+* Fitting music onto fewer pages::
 @end menu
 
 
-@node Disposición de la página
+@node Page layout
 @section Disposición de la página
-@translationof Page layout
 
 Esta sección estudia las opciones de disposición de la página para
 el bloque @code{\paper}.
 
 @menu
-* El bloque paper::
-* Tamaño del papel y escalado automático::
-* Variables de espaciado de paper verticales fijas::
-* Variables de espaciado de paper verticales flexibles::
-* Variables de espaciado de paper horizontales::
-* Otras variables de paper::
+* The paper block::
+* Paper size and automatic scaling::
+* Fixed vertical spacing paper variables::
+* Flexible vertical spacing paper variables::
+* Horizontal spacing paper variables::
+* Other paper variables::
 @end menu
 
 
-@node El bloque paper
+@node The paper block
 @subsection El bloque @code{\paper}
-@translationof The paper block
 
 Los bloques @code{\paper} pueden aparecer en tres lugares
 diferentes para formar una jerarquía descendente de bloques
@@ -144,17 +141,16 @@ disposición de los encabezamientos, pies y títulos.
 @end itemize
 
 La función @code{set-paper-size} se estudia en la sección
-siguiente, @ref{Tamaño del papel y escalado automático}.  Las
+siguiente, @ref{Paper size and automatic scaling}.  Las
 variables de @code{\paper} que se ocupan de la disposición de la
 página se estudian en secciones posteriores.  Las definiciones de
 elementos de marcado que se encargan de los encabezamientos, pies
 y títulos se estudian en
-@ref{Títulos encabezamientos y pies de página personalizados}.
+@ref{Custom titles headers and footers}.
 
 Casi todas las variables de @code{\paper} funcionan solamente
 dentro de un bloque @code{\paper}.  Las pocas que funcionan
-también en un bloque @code{\layout} están relacionadas en @ref{El
-bloque layout}.
+también en un bloque @code{\layout} están relacionadas en @ref{The layout block}.
 
 Excepto cuando se especifica lo contrario, todas las variables de
 @code{\paper} que corresponden a distancias sobre la página se
@@ -195,17 +191,16 @@ Scheme.  El equivalente de Scheme del ejemplo anterior es:
 
 @morerefs
 Referencia de la notación:
-@ref{Tamaño del papel y escalado automático},
-@ref{Títulos encabezamientos y pies de página personalizados},
-@ref{El bloque layout}.
+@ref{Paper size and automatic scaling},
+@ref{Custom titles headers and footers},
+@ref{The layout block}.
 
 Archivos instalados:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node Tamaño del papel y escalado automático
+@node Paper size and automatic scaling
 @subsection Tamaño del papel y escalado automático
-@translationof Paper size and automatic scaling
 
 @cindex tamaño del papel
 @cindex tamaño de la página
@@ -213,14 +208,13 @@ Archivos instalados:
 @funindex \paper
 
 @menu
-* Fijar el tamaño del papel::
-* Escalado automático al tamaño del papel::
+* Setting paper size::
+* Automatic scaling to paper size::
 @end menu
 
 
-@node Fijar el tamaño del papel
+@node Setting paper size
 @unnumberedsubsubsec Fijar el tamaño del papel
-@translationof Setting paper size
 
 @q{A4} es el valor predeterminado si no se establece ningún tamaño
 de página explícitamente.  Sin embargo, existen dos funciones que
@@ -260,13 +254,13 @@ libro.
 Cuando se usa la función @code{set-paper-size}, se debe colocar
 @emph{antes} de cualquier otra función que se utilice dentro del
 mismo bloque @code{\paper}.  Véase
-@ref{Escalado automático al tamaño del papel}.
+@ref{Automatic scaling to paper size}.
 
 Los tamaños de página están definidos en el archivo
 @file{scm/paper.scm}, y aunque es posible añadir tamaños
 personalizados, se sobreescribirán en las actualizaciones del
 software posteriores.  La lista de todos los tamaños de papel
-disponibles está en @ref{Tamaños de página predefinidos}.
+disponibles está en @ref{Predefined paper sizes}.
 
 @c An appendix entry exists for paper sizes but is not auto-generated
 
@@ -316,16 +310,15 @@ disposición.
 
 @morerefs
 Referencia de la notación:
-@ref{Escalado automático al tamaño del papel},
-@ref{Tamaños de página predefinidos}.
+@ref{Automatic scaling to paper size},
+@ref{Predefined paper sizes}.
 
 Archivos instalados:
 @file{scm/paper.scm}.
 
 
-@node Escalado automático al tamaño del papel
+@node Automatic scaling to paper size
 @unnumberedsubsubsec Escalado automático al tamaño del papel
-@translationof Automatic scaling to paper size
 
 Si se cambia el tamaño del papel con una de las funciones de
 Scheme (@code{set-default-paper-size} o @code{set-paper-size}),
@@ -338,16 +331,14 @@ variables @code{paper-height} o de @code{paper-width}, incluso
 aunque @code{paper-width} puede influir sobre otros valores (esto
 es distinto al escalado y se estudia más abajo).  Las funciones
 @code{set-default-paper-size} y @code{set-paper-size} se describen
-en @ref{Fijar el tamaño del papel}.
+en @ref{Setting paper size}.
 
 Las dimensiones verticales afectadas por el escalado automático
-son @code{top-margin} y @code{bottom-margin} (véase @ref{Variables
-de espaciado de paper verticales fijas}).  Las dimensiones
+son @code{top-margin} y @code{bottom-margin} (véase @ref{Fixed vertical spacing paper variables}).  Las dimensiones
 horizontales afectadas por el escalado automático son
 @code{left-margin}, @code{right-margin}, @code{inner-margin},
 @code{outer-margin}, @code{binding-offset}, @code{indent} y
-@code{short-indent} (véase @ref{Variables de espaciado de paper
-horizontales}).
+@code{short-indent} (véase @ref{Horizontal spacing paper variables}).
 
 Los valores predeterminados para estas dimensiones están fijados
 en el archivo @file{ly/paper-defaults-init.ly}, usando variables
@@ -359,22 +350,21 @@ es @code{297\mm} y la anchura @code{paper-width} es @code{210\mm}.
 
 @morerefs
 Referencia de la notación:
-@ref{Variables de espaciado de paper verticales fijas},
-@ref{Variables de espaciado de paper horizontales}.
+@ref{Fixed vertical spacing paper variables},
+@ref{Horizontal spacing paper variables}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}.
 
 
-@node Variables de espaciado de paper verticales fijas
+@node Fixed vertical spacing paper variables
 @subsection Variables de espaciado de @code{\paper} verticales fijas
-@translationof Fixed vertical spacing paper variables
 
 @warning{Algunas dimensiones de @code{@bs{}paper} se escalan
 automáticamente al tamaño del papel, lo que puede llevar a un
 comportamiento no esperado.  Véase
-@ref{Escalado automático al tamaño del papel}.}
+@ref{Automatic scaling to paper size}.}
 
 Los valores predeterminados (previos al escalado) están definidos
 en el archivo @file{ly/paper-defaults-init.ly}.
@@ -421,7 +411,7 @@ forma que las páginas anteriores.
 
 @morerefs
 Referencia de la notación:
-@ref{Escalado automático al tamaño del papel}.
+@ref{Automatic scaling to paper size}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
@@ -440,9 +430,8 @@ cualquier ajuste de los márgenes superior o inferior definidos por
 el usuario.
 
 
-@node Variables de espaciado de paper verticales flexibles
+@node Flexible vertical spacing paper variables
 @subsection Variables de espaciado de @code{\paper} verticales flexibles
-@translationof Flexible vertical spacing paper variables
 
 En casi todos los casos es preferible que las distancias
 verticales entre ciertos elementos (como márgenes, títulos,
@@ -459,17 +448,16 @@ dentro de los sistemas individuales.  El espaciado dentro de los
 sistemas se controla por medio de propiedades de grob, con ajustes
 que se escriben normalmente dentro de un bloque @code{\score} o
 @code{\layout}, y no dentro del bloque @code{\paper}.  Véase
-@ref{Espaciado vertical flexible dentro de los sistemas}.
+@ref{Flexible vertical spacing within systems}.
 
 @menu
-* Estructura de las listas-A de espaciado vertical flexible::
-* Lista de variables de espaciado de paper verticales flexibles::
+* Structure of flexible vertical spacing alists::
+* List of flexible vertical spacing paper variables::
 @end menu
 
 
-@node Estructura de las listas-A de espaciado vertical flexible
+@node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec Estructura de las listas-A de espaciado vertical flexible
-@translationof Structure of flexible vertical spacing alists
 
 Cada una de las variables de espaciado de @code{\paper} flexibles
 es una lista-A (lista asociativa) que contiene cuatro
@@ -552,7 +540,7 @@ la página anterior siempre y cuando haya espacio suficiente para
 ello.
 
 Los métodos específicos para la modificación de las listas-A se
-estudian en @ref{Modificación de las listas-A}.  El siguiente
+estudian en @ref{Modifying alists}.  El siguiente
 ejemplo muestra las dos formas en que pueden modificarse estas
 listas-A.  La primera declaración actualiza un par clave-valor
 individualmente, y la segunda redefine la variable completamente:
@@ -569,9 +557,8 @@ individualmente, y la segunda redefine la variable completamente:
 @end example
 
 
-@node Lista de variables de espaciado de paper verticales flexibles
+@node List of flexible vertical spacing paper variables
 @unnumberedsubsubsec Lista de variables de espaciado de @code{\paper} verticales flexibles
-@translationof List of flexible vertical spacing paper variables
 
 Los nombres de estas variables siguen el formato
 @code{@var{superior}-@var{inferior}-spacing}, donde
@@ -582,7 +569,7 @@ descripción de la estructura de la lista-A).  Observe que en estos
 nombres de variable, el término @q{@code{markup}} se refiere tanto
 a @emph{elementos de marcado de título} (@code{bookTitleMarkup} o
 @code{scoreTitleMarkup}) como a @emph{elementos de marcado del
-nivel superior} (véase @ref{Estructura del archivo}).  Todas las
+nivel superior} (véase @ref{File structure}).  Todas las
 distancias se miden en espacios de pentagrama.
 
 Los ajustes predeterminados están definidos en el archivo
@@ -647,7 +634,7 @@ página, cuando no hay ningún sistema entre los dos.
 
 @morerefs
 Referencia de la notación:
-@ref{Espaciado vertical flexible dentro de los sistemas}.
+@ref{Flexible vertical spacing within systems}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
@@ -656,25 +643,23 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Variables de espaciado de paper horizontales
+@node Horizontal spacing paper variables
 @subsection Variables de espaciado de @code{\paper} horizontales
-@translationof Horizontal spacing paper variables
 
 @warning{Algunas dimensiones de @code{@bs{}paper} se escalan
 automáticamente al tamaño del papel, lo que puede dar lugar a un
 comportamiento distinto al esperado.  Véase
-@ref{Escalado automático al tamaño del papel}.}
+@ref{Automatic scaling to paper size}.}
 
 @menu
-* Variables de paper para la anchura y los márgenes::
-* Variables de paper para el modo de doble cara::
-* Variables de paper para desplazamientos y sangrados::
+* paper variables for widths and margins::
+* paper variables for two-sided mode::
+* paper variables for shifts and indents::
 @end menu
 
 
-@node Variables de paper para la anchura y los márgenes
+@node paper variables for widths and margins
 @unnumberedsubsubsec Variables de @code{\paper} para la anchura y los márgenes
-@translationof paper variables for widths and margins
 
 Los valores predeterminados (antes del escalado) que no están
 relacionados aquí se encuentran definidos en el archivo
@@ -794,7 +779,7 @@ ajustarse dentro de un bloque @code{\layout}.
 
 @morerefs
 Referencia de la notación:
-@ref{Escalado automático al tamaño del papel}.
+@ref{Automatic scaling to paper size}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
@@ -805,9 +790,8 @@ cualquier ajuste de los márgenes izquierdo o derecho definidos por
 el usuario.
 
 
-@node Variables de paper para el modo de doble cara
+@node paper variables for two-sided mode
 @unnumberedsubsubsec Variables de @code{\paper} para el modo de doble cara
-@translationof paper variables for two-sided mode
 
 Los valores predeterminados (antes del escalado) se definen en
 @file{ly/paper-defaults-init.ly}.
@@ -854,15 +838,14 @@ escala de acuerdo con ello.  Solamente funciona con
 
 @morerefs
 Referencia de la notación:
-@ref{Escalado automático al tamaño del papel}.
+@ref{Automatic scaling to paper size}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node Variables de paper para desplazamientos y sangrados
+@node paper variables for shifts and indents
 @unnumberedsubsubsec Variables de @code{\paper} para desplazamientos y sangrados
-@translationof paper variables for shifts and indents
 
 Los valores predeterminados (antes del escalado) que no se
 relacionan aquí están definidos en el archivo
@@ -906,7 +889,7 @@ partitura a partitura.
 
 @morerefs
 Referencia de la notación:
-@ref{Escalado automático al tamaño del papel}.
+@ref{Automatic scaling to paper size}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
@@ -915,21 +898,19 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Otras variables de paper
+@node Other paper variables
 @subsection Otras variables de @code{\paper}
-@translationof Other paper variables
 
 @menu
-* Variables de paper para los saltos de línea::
-* Variables de paper para los saltos de página::
-* Variables de paper para la numeración de las páginas::
-* Variables de paper diversas::
+* paper variables for line breaking::
+* paper variables for page breaking::
+* paper variables for page numbering::
+* Miscellaneous paper variables::
 @end menu
 
 
-@node Variables de paper para los saltos de línea
+@node paper variables for line breaking
 @unnumberedsubsubsec Variables de @code{\paper} para los saltos de línea
-@translationof paper variables for line breaking
 
 @table @code
 
@@ -967,12 +948,11 @@ ajustar dentro de un bloque @code{\layout}.
 
 @morerefs
 Referencia de la notación:
-@ref{Saltos de línea}.
+@ref{Line breaking}.
 
 
-@node Variables de paper para los saltos de página
+@node paper variables for page breaking
 @unnumberedsubsubsec Variables de @code{\paper} para los saltos de página
-@translationof paper variables for page breaking
 
 Los valores predeterminados que no están relacionados aquí, se
 definen en el archivo @file{ly/paper-defaults-init.ly}
@@ -1017,7 +997,7 @@ página par, normalmente resultará favorecida aquella disposición
 en que la última página sea impar.  Los lugares en que se
 prefieran pasos de página pueden indicarse manualmente insertando
 @code{\allowPageTurn} o automáticamente incluyendo el grabador
-@code{Page_turn_engraver} (véase @ref{Paso de página óptimo}).
+@code{Page_turn_engraver} (véase @ref{Optimal page turning}).
 
 Si no hay un número suficiente de posibilidades para escoger a la
 hora de insertar unos pasos de página adecuados, LilyPond puede
@@ -1068,21 +1048,20 @@ una partitura.  Predeterminado: 2.
 
 @morerefs
 Referencia de la notación:
-@ref{Saltos de página},
-@ref{Saltos de página óptimos},
-@ref{Paso de página óptimo},
-@ref{Saltos de página mínimos},
-@ref{Saltos de página del tipo página única},
-@ref{Saltos de página del tipo una-línea},
-@ref{Saltos de página del tipo una-línea-altura-automática}.
+@ref{Page breaking},
+@ref{Optimal page breaking},
+@ref{Optimal page turning},
+@ref{Minimal page breaking},
+@ref{One-page page breaking},
+@ref{One-line page breaking},
+@ref{One-line-auto-height page breaking}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node Variables de paper para la numeración de las páginas
+@node paper variables for page numbering
 @unnumberedsubsubsec Variables de @code{\paper} para la numeración de las páginas
-@translationof paper variables for page numbering
 
 Los valores predeterminados que no se relacionan aquí están
 definidos en el archivo @file{ly/paper-defaults-init.ly}
@@ -1140,9 +1119,8 @@ en blanco en el reverso de la página de cubierta de manera que la
 página 1 esté en el lado derecho.
 
 
-@node Variables de paper diversas
+@node Miscellaneous paper variables
 @unnumberedsubsubsec Variables de @code{\paper} diversas
-@translationof Miscellaneous paper variables
 
 @table @code
 
@@ -1212,22 +1190,20 @@ página y el campo @code{instrument} del bloque @code{\header}
 sobre la misma línea.
 
 
-@node Disposición de la partitura
+@node Score layout
 @section Disposición de la partitura
-@translationof Score layout
 
 Esta sección trata de las opciones de disposición de la partitura
 para el bloque @code{\layout}.
 
 @menu
-* El bloque layout::
-* Establecer el tamaño del pentagrama::
+* The layout block::
+* Setting the staff size::
 @end menu
 
 
-@node El bloque layout
+@node The layout block
 @subsection El bloque @code{\layout}
-@translationof The layout block
 
 @funindex \layout
 
@@ -1249,10 +1225,10 @@ música.  Entre los ajustes que pueden aparecer en un bloque
 @end itemize
 
 La función @code{layout-set-staff-size} se estudia en la sección
-siguiente, @ref{Establecer el tamaño del pentagrama}. Las
+siguiente, @ref{Setting the staff size}. Las
 modificaciones de contexto se estudian en un capítulo distinto;
-véase @ref{Modificar los complementos (plug-ins) de contexto} y
-@ref{Cambiar los valores por omisión de los contextos}.
+véase @ref{Modifying context plug-ins} y
+@ref{Changing context default settings}.
 
 Las variables de @code{\paper} que pueden aparecer dentro de un
 bloque @code{\layout}, y cuyos valores predeterminados se toman
@@ -1262,15 +1238,15 @@ del bloque @code{paper}, son:
 
 @item
 @code{line-width}, @code{ragged-right} y @code{ragged-last} (véase
-@ref{Variables de paper para la anchura y los márgenes})
+@ref{paper variables for widths and margins})
 
 @item
 @code{indent} y @code{short-indent}
-(véase @ref{Variables de paper para desplazamientos y sangrados})
+(véase @ref{paper variables for shifts and indents})
 
 @item
 @code{system-count}
-(véase @ref{Variables de paper para los saltos de línea})
+(véase @ref{paper variables for line breaking})
 
 @end itemize
 
@@ -1398,15 +1374,14 @@ configuración de @code{\layout} a un estado conocido.
 
 @morerefs
 Referencia de la notación:
-@ref{Cambiar los valores por omisión de los contextos}.
+@ref{Changing context default settings}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Establecer el tamaño del pentagrama
+@node Setting the staff size
 @subsection Establecer el tamaño del pentagrama
-@translationof Setting the staff size
 
 @cindex tipografía, fijar el tamaño de
 @cindex pentagrama, fijar el tamaño de
@@ -1518,26 +1493,24 @@ tabla siguiente:
 
 @morerefs
 Referencia de la notación:
-@ref{Seleccionar el tamaño de la tipografía para la notación},
-@ref{La tipografía Emmentaler}.
+@ref{Selecting notation font size},
+@ref{The Emmentaler font}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Saltos
+@node Breaks
 @section Saltos
-@translationof Breaks
 
 @menu
-* Saltos de línea::
-* Saltos de página::
+* Line breaking::
+* Page breaking::
 @end menu
 
 
-@node Saltos de línea
+@node Line breaking
 @subsection Saltos de línea
-@translationof Line breaking
 
 @funindex \break
 @funindex \noBreak
@@ -1698,8 +1671,8 @@ compases, y sólo en dichos lugares:
 
 @morerefs
 Referencia de la notación:
-@ref{Variables de paper para los saltos de línea},
-@ref{El bloque layout}.
+@ref{paper variables for line breaking},
+@ref{The layout block}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -1715,27 +1688,25 @@ error.  Escriba siempre estas instrucciones después de algo de
 música.
 
 
-@node Saltos de página
+@node Page breaking
 @subsection Saltos de página
-@translationof Page breaking
 
 Esta sección describe los distintos métodos para crear saltos de
 página, y cómo modificarlos.
 
 @menu
-* Saltos de página manuales::
-* Saltos de página óptimos::
-* Saltos de página mínimos::
-* Saltos de página del tipo página única::
-* Saltos de página del tipo una-línea::
-* Saltos de página del tipo una-línea-altura-automática::
-* Paso de página óptimo::
+* Manual page breaking::
+* Optimal page breaking::
+* Minimal page breaking::
+* One-page page breaking::
+* One-line page breaking::
+* One-line-auto-height page breaking::
+* Optimal page turning::
 @end menu
 
 
-@node Saltos de página manuales
+@node Manual page breaking
 @unnumberedsubsubsec Saltos de página manuales
-@translationof Manual page breaking
 
 @funindex \pageBreak
 @funindex \noPageBreak
@@ -1770,7 +1741,7 @@ justifican verticalmente.  Cuando el valor de
 forma predeterminada, se permite una separación al final de la
 última página (o la última página de cada uno de las partes de
 libro @code{\bookpart}).  Véase
-@ref{Variables de espaciado de paper verticales fijas}.
+@ref{Fixed vertical spacing paper variables}.
 
 Los saltos de página se calculan por medio de la función
 @code{page-breaking}.  LilyPond ofrece varios algoritmos para el
@@ -1832,7 +1803,7 @@ páginas para las distintas partes del libro.
 
 @morerefs
 Referencia de la notación:
-@ref{Variables de paper para los saltos de página}.
+@ref{paper variables for page breaking}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -1847,9 +1818,8 @@ algunos compases (cuyo número exacto dependerá de la partitura)
 antes de volverse a desactivar, pues en caso contrario podría
 perderse la oportunidad de que el salto se produzca.
 
-@node Saltos de página óptimos
+@node Optimal page breaking
 @unnumberedsubsubsec Saltos de página óptimos
-@translationof Optimal page breaking
 
 @funindex ly:optimal-breaking
 
@@ -1865,9 +1835,8 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Saltos de página mínimos
+@node Minimal page breaking
 @unnumberedsubsubsec Saltos de página mínimos
-@translationof Minimal page breaking
 
 @funindex ly:minimal-breaking
 
@@ -1890,9 +1859,8 @@ Snippets:
 @rlsr{Spacing}.
 
 
-@node Saltos de página del tipo página única
+@node One-page page breaking
 @unnumberedsubsubsec Saltos de página del tipo página única
-@translationof One-page page breaking
 
 @funindex ly:one-page-breaking
 
@@ -1913,9 +1881,8 @@ sin alterar por omisión, pero se puede fijar con la variable
 @code{\bookpart}.
 
 
-@node Saltos de página del tipo una-línea
+@node One-line page breaking
 @unnumberedsubsubsec Saltos de página del tipo una-línea
-@translationof One-line page breaking
 
 @funindex ly:one-line-breaking
 
@@ -1932,9 +1899,8 @@ larga quepa en una línea.  Concretamente, las variables
 deja sin cambios.
 
 
-@node Saltos de página del tipo una-línea-altura-automática
+@node One-line-auto-height page breaking
 @unnumberedsubsubsec Saltos de página del tipo una-línea-altura-automática
-@translationof One-line-auto-height page breaking
 
 @funindex ly:one-line-auto-height-breaking
 
@@ -1953,9 +1919,8 @@ de un bloque @code{paper} para disponer la música sencillamente
 entre los márgenes superior e inferior.
 
 
-@node Paso de página óptimo
+@node Optimal page turning
 @unnumberedsubsubsec Paso de página óptimo
-@translationof Optimal page turning
 
 @funindex ly:page-turn-breaking
 
@@ -1970,7 +1935,7 @@ especificados.
 
 Hay dos etapas en el uso de esta función de división de páginas.
 En primer lugar debemos habilitarlo en el bloque @code{\paper},
-como se explicó en @ref{Saltos de página}.  Entonces debemos
+como se explicó en @ref{Page breaking}.  Entonces debemos
 decirle a la función dónde nos gustaría permitir los saltos de
 página.
 
@@ -2047,7 +2012,7 @@ del nivel superior y entre las partituras.
 
 @morerefs
 Referencia de la notación:
-@ref{Variables de paper para los saltos de línea}.
+@ref{paper variables for line breaking}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -2059,15 +2024,14 @@ partitura.  Si hay más de uno, se interferirán entre sí.
 
 @morerefs
 Notation Reference:
-@ref{Espaciado vertical}.
+@ref{Vertical spacing}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Espaciado vertical
+@node Vertical spacing
 @section Espaciado vertical
-@translationof Vertical spacing
 
 @cindex espaciado vertical
 @cindex vertical, espaciado
@@ -2078,15 +2042,14 @@ los márgenes), la separación entre los sistemas, y la separación
 entre los pentagramas dentro de un sistema.
 
 @menu
-* Espaciado vertical flexible dentro de los sistemas::
-* Posicionamiento explícito de los pentagramas y los sistemas::
-* Evitar las colisiones verticales::
+* Flexible vertical spacing within systems::
+* Explicit staff and system positioning::
+* Vertical collision avoidance::
 @end menu
 
 
-@node Espaciado vertical flexible dentro de los sistemas
+@node Flexible vertical spacing within systems
 @subsection Espaciado vertical flexible dentro de los sistemas
-@translationof Flexible vertical spacing within systems
 
 @cindex distancia, entre pentagramas
 @cindex pentagrama, distancia entre los
@@ -2126,19 +2089,18 @@ que no son pautas dentro de los sistemas individuales.  El
 espaciado vertical entre distintos sistemas, partituras, marcados
 y márgenes se controla mediante variables de @code{\paper} que se
 estudian en
-@ref{Variables de espaciado de paper verticales flexibles}.
+@ref{Flexible vertical spacing paper variables}.
 
 @menu
-* Propiedades de espaciado dentro de los sistemas::
-* Espaciado de pautas no agrupadas::
-* Espaciado de pautas agrupadas::
-* Espaciado de las líneas que no son pautas::
+* Within-system spacing properties::
+* Spacing of ungrouped staves::
+* Spacing of grouped staves::
+* Spacing of non-staff lines::
 @end menu
 
 
-@node Propiedades de espaciado dentro de los sistemas
+@node Within-system spacing properties
 @unnumberedsubsubsec Propiedades de espaciado dentro de los sistemas
-@translationof Within-system spacing properties
 
 @funindex staff-affinity
 @funindex staffgroup-staff-spacing
@@ -2262,8 +2224,8 @@ Cada una de las propiedades de grob del espaciado vertical
 (excepto @code{staff-affinity}) usa la misma estructura de lista-A
 que las variables de espaciado del bloque @code{\paper} que se han
 estudiado en
-@ref{Variables de espaciado de paper verticales flexibles}.
-En @ref{Modificación de las listas-A} se estudian métodos
+@ref{Flexible vertical spacing paper variables}.
+En @ref{Modifying alists} se estudian métodos
 específicos para la modificación de las listas-A.  Las propiedades
 de los grobs deben ajustarse con un @code{\override} dentro de un
 bloque @code{\score} o @code{\layout}, y no dentro de un bloque
@@ -2421,8 +2383,8 @@ de espaciado para dicha pauta.
 
 @morerefs
 Referencia de la notación:
-@ref{Variables de espaciado de paper verticales flexibles},
-@ref{Modificación de las listas-A}.
+@ref{Flexible vertical spacing paper variables},
+@ref{Modifying alists}.
 
 Archivos de inicio:
 @file{ly/engraver-init.ly},
@@ -2435,9 +2397,8 @@ Referencia de funcionamiento interno:
 
 
 
-@node Espaciado de pautas no agrupadas
+@node Spacing of ungrouped staves
 @unnumberedsubsubsec Espaciado de pautas no agrupadas
-@translationof Spacing of ungrouped staves
 
 Las @emph{pautas}, tales como los pentagramas (@code{Staff}),
 pautas de percusión (@code{DrumStaff}) o de tablatura
@@ -2456,11 +2417,11 @@ Las siguientes propiedades afectan al espaciado de las pautas
 @end itemize
 
 Estas propiedades de grob se describen individualmente más arriba;
-véase @ref{Propiedades de espaciado dentro de los sistemas}.
+véase @ref{Within-system spacing properties}.
 
 Están implicadas ciertas propiedades adicionales para las pautas
 que son parte de un grupo; véase
-@ref{Espaciado de pautas agrupadas}.
+@ref{Spacing of grouped staves}.
 
 El ejemplo siguiente muestra cómo la propiedad
 @code{default-staff-staff-spacing} puede afectar al espaciado de
@@ -2514,9 +2475,8 @@ Referencia de funcionamiento interno:
 @rinternals{VerticalAxisGroup}.
 
 
-@node Espaciado de pautas agrupadas
+@node Spacing of grouped staves
 @unnumberedsubsubsec Espaciado de pautas agrupadas
-@translationof Spacing of grouped staves
 
 En partituras grandes como las orquestales, es común colocar los
 pentagramas en grupos.  El espacio entre los grupos suele ser
@@ -2543,7 +2503,7 @@ dentro de los grupos:
 @end itemize
 
 Estas propiedades de grob se describen individualmente más arriba;
-véase @ref{Propiedades de espaciado dentro de los sistemas}.
+véase @ref{Within-system spacing properties}.
 
 El ejemplo siguiente muestra cómo pueden afectar las propiedades
 del grob @code{StaffGrouper} al espaciado de las pautas agrupadas:
@@ -2584,9 +2544,8 @@ Referencia de funcionamiento interno:
 @rinternals{StaffGrouper}.
 
 
-@node Espaciado de las líneas que no son pautas
+@node Spacing of non-staff lines
 @unnumberedsubsubsec Espaciado de las líneas que no son pautas
-@translationof Spacing of non-staff lines
 
 Las @emph{Líneas que no son pautas} (tales como @code{Lyrics},
 @code{ChordNames}, etc.) son contextos cuyos objetos de
@@ -2609,7 +2568,7 @@ no son pautas:
 @end itemize
 
 Estas propiedades de grob se describen individualmente más arriba;
-véase @ref{Propiedades de espaciado dentro de los sistemas}.
+véase @ref{Within-system spacing properties}.
 
 El ejemplo siguiente muestra cómo la propiedad
 @code{nonstaff-nonstaff-spacing} puede afectar el espaciado de
@@ -2660,9 +2619,8 @@ Referencia de funcionamiento interno:
 @rinternals{VerticalAxisGroup}.
 
 
-@node Posicionamiento explícito de los pentagramas y los sistemas
+@node Explicit staff and system positioning
 @subsection Posicionamiento explícito de los pentagramas y los sistemas
-@translationof Explicit staff and system positioning
 
 Una forma de entender los mecanismos del espaciado vertical
 flexible que se han explicado más arriba es como una colección de
@@ -2758,7 +2716,7 @@ Esta partitura mantiene aislada tanto la información de los saltos
 de línea como los de página en una voz dedicada a ello.  Esta
 técnica de crear una voz de saltos ayuda a mantener separada de la
 escritura de notas conforme el ejemplo se vuelve más complicado.
-Consulte @ref{Saltos}.
+Consulte @ref{Breaks}.
 
 Utilizando instrucciones @code{\break} explícitas, la música se
 divide líneas de cinco compases cada una.  El espaciado vertical
@@ -2946,9 +2904,8 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Evitar las colisiones verticales
+@node Vertical collision avoidance
 @subsection Evitar las colisiones verticales
-@translationof Vertical collision avoidance
 
 @funindex outside-staff-priority
 @funindex outside-staff-padding
@@ -2982,7 +2939,7 @@ más baja se colocará más próximo al pentagrama.
 
 Hay un listado completo de las prioridades
 outside-staff-priorities en
-@rlearning{La propiedad outside-staff-priority (prioridad fuera del pentagrama)}.
+@rlearningnamed{The outside-staff-priority property, La propiedad outside-staff-priority (prioridad fuera del pentagrama)}.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -3038,25 +2995,23 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Espaciado horizontal
+@node Horizontal spacing
 @section Espaciado horizontal
-@translationof Horizontal spacing
 
 @cindex horizontal, espaciado
 @cindex espaciado horizontal
 
 @menu
-* Panorámica del espaciado horizontal::
-* Sección de espaciado nueva::
-* Cambiar el espaciado horizontal::
-* Longitud de la línea::
-* Notación proporcional::
+* Horizontal spacing overview::
+* New spacing section::
+* Changing horizontal spacing::
+* Line width::
+* Proportional notation::
 @end menu
 
 
-@node Panorámica del espaciado horizontal
+@node Horizontal spacing overview
 @subsection Panorámica del espaciado horizontal
-@translationof Horizontal spacing overview
 
 El motor de espaciado traduce las diferencias en las duraciones a
 distancias ampliables (@q{muelles}) de distintas longitudes.  Las
@@ -3128,7 +3083,7 @@ ACB:
 
 Como se explicó en el @emph{Ensayo sobre grabado musical
 automatizado}, las direcciones de las plicas influyen en el
-espaciado (véase @ressay{Espaciado óptico}) y se puede ajustar con
+espaciado (véase @ressaynamed{Optical spacing, Espaciado óptico}) y se puede ajustar con
 la propiedad @code{stem-spacing-correction} del objeto
 @rinternals{NoteSpacing}.  Estos se generan para cada uno de los
 contextos de @rinternals{Voice}.
@@ -3152,11 +3107,11 @@ valores predeterminados y otra con un ajuste exagerado:
 @end lilypond
 
 Está contemplada la notación proporcional; consulte
-@ref{Notación proporcional}.
+@ref{Proportional notation}.
 
 @morerefs
 Ensayo sobre grabado musical automatizado:
-@ressay{Espaciado óptico}.
+@ressaynamed{Optical spacing, Espaciado óptico}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -3181,9 +3136,8 @@ No existe ningún rodeo para disminuir la magnitud de la
 separación.
 
 
-@node Sección de espaciado nueva
+@node New spacing section
 @subsection Sección de espaciado nueva
-@translationof New spacing section
 
 @funindex \newSpacingSection
 @cindex sección de espaciado nueva
@@ -3241,13 +3195,12 @@ Referencia de funcionamiento interno:
 @rinternals{SpacingSpanner}.
 
 
-@node Cambiar el espaciado horizontal
+@node Changing horizontal spacing
 @subsection Cambiar el espaciado horizontal
-@translationof Changing horizontal spacing
 
 @menu
-* Estiramiento uniforme de los grupos especiales::
-* Espaciado estricto de las notas::
+* Uniform stretching of tuplets::
+* Strict note spacing::
 @end menu
 
 Se puede alterar el espaciado horizontal con la propiedad
@@ -3287,9 +3240,8 @@ duración, por lo que @code{1 4} es una duración mayor que @code{1
 @end lilypond
 
 
-@node Estiramiento uniforme de los grupos especiales
+@node Uniform stretching of tuplets
 @unnumberedsubsubsec Estiramiento uniforme de los grupos especiales
-@translationof Uniform stretching of tuplets
 
 De forma predeterminada, el espaciado en los grupos de valoración
 especial depende de varios factores ajenos a la duración (como
@@ -3318,9 +3270,8 @@ sólo puede cambiarse al principio de la partitura:
 @end lilypond
 
 
-@node Espaciado estricto de las notas
+@node Strict note spacing
 @unnumberedsubsubsec Espaciado estricto de las notas
-@translationof Strict note spacing
 
 Cuando se establece @code{strict-note-spacing}, las notas se
 separan sin tener en cuenta las claves, líneas divisorias ni notas
@@ -3337,9 +3288,8 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Longitud de la línea
+@node Line width
 @subsection Longitud de la línea
-@translationof Line width
 
 @cindex salto, de página
 @cindex página, saltos de
@@ -3395,9 +3345,8 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Notación proporcional
+@node Proportional notation
 @subsection Notación proporcional
-@translationof Proportional notation
 
 LilyPond contempla la notación proporcional, un tipo de espaciado
 horizontal en el que cada nota consume una medida horizontal que
@@ -3659,7 +3608,7 @@ o desactivado para la partitura completa.  Sin embargo, podemos
 sobreescribir este comportamiento y activar distintas
 posibilidades de espaciado en distintos lugares de la partitura.
 Lo hacemos con la instrucción @code{\newSpacingSection}.  Consulte
-@ref{Sección de espaciado nueva} para más información.
+@ref{New spacing section} para más información.
 
 A continuación examinamos los efectos del grabador
 @code{Separating_line_group_engraver} y veremos por qué las
@@ -3764,15 +3713,14 @@ relacionados.
 
 @morerefs
 Referencia de la notación:
-@ref{Sección de espaciado nueva}.
+@ref{New spacing section}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Encajar la música en menos páginas
+@node Fitting music onto fewer pages
 @section Encajar la música en menos páginas
-@translationof Fitting music onto fewer pages
 
 En ocasiones, podemos terminar con uno o dos pentagramas en una
 segunda página (o tercera, o cuarta@dots{}).  Es fastidioso,
@@ -3783,17 +3731,16 @@ Al investigar los problemas de disposición, una herramienta de
 valor incalculable es @code{annotate-spacing}.  Esta instrucción
 imprime los valores de un cierto número de variables de espaciado;
 para ver más detalles consulte la sección siguiente,
-@ref{Mostrar el espaciado}.
+@ref{Displaying spacing}.
 
 @menu
-* Mostrar el espaciado::
-* Cambiar el espaciado::
+* Displaying spacing::
+* Changing spacing::
 @end menu
 
 
-@node Mostrar el espaciado
+@node Displaying spacing
 @subsection Mostrar el espaciado
-@translationof Displaying spacing
 
 @cindex espaciado, presentación del
 @funindex annotate-spacing
@@ -3841,20 +3788,19 @@ inferior y @var{b} es el límite superior del intervalo.
 
 @morerefs
 Referencia de la notación:
-@ref{Establecer el tamaño del pentagrama}.
+@ref{Setting the staff size}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 
-@node Cambiar el espaciado
+@node Changing spacing
 @subsection Cambiar el espaciado
-@translationof Changing spacing
 
 La salida de @code{annotate-spacing} revela las dimensiones
 verticales con gran detalle.  Para ver más detalles acerca de la
 modificación de los márgenes y otras variables de diseño de la
-página, consulte @ref{Disposición de la página}.
+página, consulte @ref{Page layout}.
 
 Aparte de los márgenes, hay algunas otras opciones para ahorrar
 espacio:
@@ -3923,7 +3869,7 @@ acercar al pentagrama:
 @item
 Alterar el espaciado horizontal por medio de
 @code{SpacingSpanner}.  Para ver más detalles, consulte
-@ref{Cambiar el espaciado horizontal}.  El ejemplo siguiente
+@ref{Changing horizontal spacing}.  El ejemplo siguiente
 ilustra el espaciado predeterminado:
 
 @lilypond[verbatim,quote]
@@ -3973,8 +3919,8 @@ completa.
 
 @morerefs
 Referencia de la notación:
-@ref{Disposición de la página},
-@ref{Cambiar el espaciado horizontal}.
+@ref{Page layout},
+@ref{Changing horizontal spacing}.
 
 Fragmentos de código:
 @rlsr{Spacing}.

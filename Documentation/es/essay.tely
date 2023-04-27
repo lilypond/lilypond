@@ -40,10 +40,10 @@ Copyright @copyright{} 2002--2023 por los autores.
 @ifnottex
 
 @menu
-* Grabado musical::
-* Lista de referencias bibliográficas::
+* Music engraving::
+* Literature list::
 * GNU Free Documentation License:: Licencia de este documento.
-* Índice de LilyPond::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -61,9 +61,8 @@ Copyright @copyright{} 2002--2023 por los autores.
 
 @include en/fdl.itexi
 
-@node Índice de LilyPond
+@node LilyPond index
 @appendix Índice de LilyPond
-@translationof LilyPond index
 
 @printindex cp
 

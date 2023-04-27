@@ -7,13 +7,12 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@node Manuales
+@node Manuals
 @unnumbered Manuales
-@translationof Manuals
 
-@macro details{reference}
+@macro details{node, label}
 @spanClass{detail}
-(@ref{\reference\, detalles de \reference\})
+(@ref{\node\, detalles de \label\})
 @spanEnd
 @end macro
 
@@ -35,24 +34,24 @@
 @itemize
 
 @item
-@ref{Entrada de texto}:
+@ref{Text input}:
 LilyPond es un sistema de grabado musical @strong{basado en texto}.
 ¡Lea esto primero!
 
 @item
 @ifWebLinks{@manualStableLearningSplitNoName-es,@rlearningnamed{Top,Aprendizaje}}
 una introducción a LilyPond amable e @qq{imprescindible}.
-@details{Aprendizaje}
+@details{Learning, Aprendizaje}
 
 @item
 @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glosario}}
 @emph{(lectura opcional)} términos musicales y traducciones.
-@details{Glosario}
+@details{Glossary, Glosario}
 
 @item
 @ifWebLinks{@manualStableEssaySplitNoName-es,@ressaynamed{Top,Ensayo}}
 @emph{(lectura opcional)} la información de trasfondo sobre grabado musical.
-@details{Ensayo}
+@details{Essay, Ensayo}
 
 
 @end itemize
@@ -67,17 +66,17 @@ una introducción a LilyPond amable e @qq{imprescindible}.
 @item
 @ifWebLinks{@manualStableNotationSplitNoName-es,@rnotationnamed{Top,Notación}}
 referencia de la sintaxis.
-@details{Notación}
+@details{Notation, Notación}
 
 @item
 @ifWebLinks{@manualStableUsageSplitNoName-es,@rprogramnamed{Top,Utilización}}
 cómo ejecutar los programas.
-@details{Utilización}
+@details{Usage, Utilización}
 
 @item
 @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Fragmentos}}
 trucos y consejos cortos.
-@details{Fragmentos}
+@details{Snippets, Fragmentos}
 
 @end itemize
 
@@ -96,22 +95,22 @@ Preguntas más frecuentes (Frequently Asked Questions).
 @item
 @ref{Top,Web}:
 este documento.
-@details{Web}
+@details{Web, Web}
 
 @item
 @ifWebLinks{@manualStableChangesSplitNoName-es,@rchangesnamed{Top,Cambios}}
 ¿qué hay de nuevo?
-@details{Cambios}
+@details{Changes, Cambios}
 
 @item
 @ifWebLinks{@manualStableExtendingSplitNoName-es,@rextendnamed{Top,Extender}}
 trucos interesantes.
-@details{Extender}
+@details{Extending, Extender}
 
 @item
 @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funcionamiento interno}}
 referencia sobre el trucaje.
-@details{Funcionamiento interno}
+@details{Internals, Funcionamiento interno}
 
 @end itemize
 
@@ -124,7 +123,7 @@ referencia sobre el trucaje.
 @itemize
 
 @item
-@ref{Todos}:
+@ref{All}:
 Versiones estables anteriores y versión actual como un archivo comprimido.
 
 @item
@@ -138,7 +137,7 @@ número de tutoriales de vídeo en su blog que están indicados para
 nuevos usuarios.
 
 @item
-@ref{Desarrollo}:
+@ref{Development}:
 manuales para la versión de desarrollo.
 
 @item
@@ -169,18 +168,18 @@ de} y a continuación el nombre del manual.
 
 @divClass{hide}
 @menu
-* Aprendizaje::            Aprendizaje.
-* Glosario::               Glosario.
-* Ensayo::                 Ensayo.
-* Notación::               Referencia.
-* Utilización::            Utilización.
-* Fragmentos::             Fragmentos de código.
+* Learning::            Aprendizaje.
+* Glossary::               Glosario.
+* Essay::                 Ensayo.
+* Notation::               Referencia.
+* Usage::            Utilización.
+* Snippets::             Fragmentos de código.
 * FAQ::                    Preguntas frecuentes.
 * Web::                    Web.
-* Cambios::                Noticias.
-* Extender::               Programación.
-* Funcionamiento interno:: Interioridades.
-* Todos::                  Todos los manuales.
+* Changes::                Noticias.
+* Extending::               Programación.
+* Internals:: Interioridades.
+* All::                  Todos los manuales.
 * FDL::                    Licencia.
 @end menu
 
@@ -191,9 +190,8 @@ de} y a continuación el nombre del manual.
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
 
-@node Aprendizaje
+@node Learning
 @unnumberedsec Aprendizaje
-@translationof Learning
 
 @divClass{column-left-top}
 @subheading Manual de aprendizaje
@@ -221,9 +219,8 @@ información.
 @divEnd
 
 
-@node Glosario
+@node Glossary
 @unnumberedsec Glosario
-@translationof Glossary
 
 @divClass{column-left-top}
 @subheading Glosario
@@ -246,9 +243,8 @@ recomienda fervientemente que consulte el glosario.
 @divEnd
 
 
-@node Ensayo
+@node Essay
 @unnumberedsec Ensayo
-@translationof Essay
 
 @divClass{column-left-top}
 @subheading Ensayo
@@ -273,9 +269,8 @@ versión en formato PDF a causa de su mayor resolución.}
 @divEnd
 
 
-@node Notación
+@node Notation
 @unnumberedsec Notación
-@translationof Notation
 
 @divClass{column-left-top}
 @subheading Referencia de la notación
@@ -301,9 +296,8 @@ presentan en el Glosario Musical.}
 @divEnd
 
 
-@node Utilización
+@node Usage
 @unnumberedsec Utilización
-@translationof Usage
 
 @divClass{column-left-top}
 @subheading Manual de utilización del programa
@@ -326,9 +320,8 @@ su lectura antes de afrontar proyectos grandes.
 @divEnd
 
 
-@node Fragmentos
+@node Snippets
 @unnumberedsec Fragmentos
-@translationof Snippets
 
 @divClass{column-left-top}
 @subheading Fragmentos
@@ -364,7 +357,6 @@ también}.
 
 @node FAQ
 @unnumberedsec FAQ
-@translationof FAQ
 
 @divClass{column-center-top}
 @subheading Preguntas preliminares
@@ -372,12 +364,12 @@ también}.
 @subsubheading ¿Dónde están el lienzo gráfico, los menús y las barras de herramientas?
 
 LilyPond requiere que escribamos la música como texto. Infórmese de
-ello leyendo nuestra @ref{Entrada de texto}.
+ello leyendo nuestra @ref{Text input}.
 
 
 @subsubheading ¡Hay un montón de documentación!  ¿Tengo que leerla?
 
-Debe leer el manual de @ref{Aprendizaje}.  Respecto al resto
+Debe leer el manual de @ref{Learning}.  Respecto al resto
 de la documentación, sólo tiene que leer las secciones que tratan de
 la notación que quiera crear.
 
@@ -385,7 +377,7 @@ la notación que quiera crear.
 @subsubheading ¡Eso es aún mucho leer! ¿Merece la pena?
 
 Decida por sí mismo; las razones por las que querría utilizar LilyPond
-se dan en la @ref{Introducción}.
+se dan en la @ref{Introduction}.
 
 @divEnd
 
@@ -394,20 +386,18 @@ se dan en la @ref{Introducción}.
 
 @subsubheading ¡Algo no funciona!  ¿Cómo lo arreglo?
 
-Se explica en @rprogram{Solución de problemas}.
+Se explica en @rprogramnamed{Troubleshooting, Solución de problemas}.
 
 
 @subsubheading ¿Por qué cambian la sintaxis del lenguaje?
 
-Se explica en @rprogramnamed{¿Por qué cambia la
-sintaxis?,@questiondown{}Por qué cambia la sintaxis?}.
+Se explica en @rprogramnamed{Why does the syntax change?,@questiondown{}Por qué cambia la sintaxis?}.
 
 @divEnd
 
 
 @node Web
 @unnumberedsec Web
-@translationof Web
 
 @divClass{column-left-top}
 @subheading Web
@@ -440,9 +430,8 @@ informar de los fallos, y desarrollo.
 @divEnd
 
 
-@node Cambios
+@node Changes
 @unnumberedsec Cambios
-@translationof Changes
 
 @divClass{column-left-top}
 @subheading Cambios
@@ -463,9 +452,8 @@ producidas en LilyPond a partir de la version estable anterior.
 @divEnd
 
 
-@node Extender
+@node Extending
 @unnumberedsec Extender
-@translationof Extending
 
 @divClass{column-left-top}
 @subheading Expansión de LilyPond
@@ -484,9 +472,8 @@ Este manual explica cómo escribir extensiones de LilyPond.
 
 @divEnd
 
-@node Funcionamiento interno
+@node Internals
 @unnumberedsec Funcionamiento interno
-@translationof Internals
 
 @divClass{column-left-top}
 @subheading Referencia de funcionamiento interno
@@ -518,9 +505,8 @@ se refiere a la documentación generada.
 @divEnd
 
 
-@node Todos
+@node All
 @unnumberedsec Todos
-@translationof All
 
 @divClass{column-left-top}
 @subheading Versiones para descargar
@@ -593,14 +579,13 @@ Documentación de LilyPond 1.6}
 
 @node FDL
 @unnumberedsec FDL
-@translationof FDL
 
 @divClass{column-center-top}
 @subheading Licencia de la documentación
 
 La documentación de GNU LilyPond está publicada bajo la Licencia de
 Documentación Libre de GNU.  Hay una introducción a esta licencia y a
-nuestros motivos para haberla elegido, en @ref{Libertad}.
+nuestros motivos para haberla elegido, en @ref{Freedom}.
 
 @divEnd
 

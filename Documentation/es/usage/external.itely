@@ -10,25 +10,23 @@
 
 @c \version "2.19.21"
 
-@node Programas externos
+@node External programs
 @chapter Programas externos
-@translationof External programs
 
 LilyPond es capaz de interactuar con otros programas de diversas
 maneras.
 
 @menu
-* Apuntar y pulsar::
-* Apoyo respecto de los editores de texto::
-* Conversión desde otros formatos::
-* Salida de LilyPond dentro de otros programas::
-* Archivos de inclusión independientes::
+* Point and click::
+* Text editor support::
+* Converting from other formats::
+* LilyPond output in other programs::
+* Independent includes::
 @end menu
 
 
-@node Apuntar y pulsar
+@node Point and click
 @section Apuntar y pulsar
-@translationof Point and click
 
 @cindex point and click (apuntar y pulsar)
 @cindex apuntar y pulsar
@@ -40,15 +38,14 @@ fragmentos de la entrada que producen algún tipo de error en la
 partitura.
 
 @menu
-* Configurar el sistema para Apuntar y pulsar::
-* Habilitar la opción de apuntar y pulsar::
-* Apuntar y pulsar selectivo::
+* Configuring the system for point and click::
+* Enabling point and click::
+* Selective point-and-click::
 @end menu
 
 
-@node Configurar el sistema para Apuntar y pulsar
+@node Configuring the system for point and click
 @subsection Configuración del sistema
-@translationof Configuring the system for point and click
 
 Cuando esta funcionalidad está activada, LilyPond añade enlaces a
 los archivos PDF y SVG.  Estos enlaces se envían al navegador de
@@ -105,15 +102,14 @@ Debe añadir la línea @code{(server-start)} a su archivo
 objeto del PDF abrirá una nueva ventana de Emacs.}
 
 @menu
-* Uso de Xpdf para Apuntar y pulsar::
-* Uso de GNOME 2 para Apuntar y pulsar::
-* Uso de GNOME 3 para Apuntar y pulsar::
-* Configuración adicional para Evince::
+* Using Xpdf for point and click::
+* Using GNOME 2 for point and click::
+* Using GNOME 3 for point and click::
+* Extra configuration for Evince::
 @end menu
 
-@node Uso de Xpdf para Apuntar y pulsar
+@node Using Xpdf for point and click
 @unnumberedsubsubsec Uso de Xpdf
-@translationof Using Xpdf for point and click
 @cindex Xpdf
 
 Para Xpdf sobre Unix, lo siguiente debe estar presente en
@@ -142,9 +138,8 @@ con el objeto de evitar que Ubuntu lo sobreescriba con la
 siguiente @q{actualización} de su paquete defectuoso.
 
 
-@node Uso de GNOME 2 para Apuntar y pulsar
+@node Using GNOME 2 for point and click
 @unnumberedsubsubsec Uso de GNOME 2
-@translationof Using GNOME 2 for point and click
 
 Para usar GNOME 2 (y los visores de documentos PDF integrados en
 él), el conjuro para informar al sistema acerca de la URI
@@ -166,9 +161,8 @@ gnome-open textedit:///etc/issue:1:0:0
 debería llamar a @file{lilypond-invoke-editor} para abrir
 archivos.
 
-@node Uso de GNOME 3 para Apuntar y pulsar
+@node Using GNOME 3 for point and click
 @unnumberedsubsubsec Uso de GNOME 3
-@translationof Using GNOME 3 for point and click
 
 En GNOME 3, las URIs se manejan por parte de la capa @q{gvfs} en
 vez de por @q{gconf}.  Debe crear un archivo en un directorio
@@ -205,9 +199,8 @@ debería llamar a @file{lilypond-invoke-editor} para abrir
 archivos.
 
 
-@node Configuración adicional para Evince
+@node Extra configuration for Evince
 @unnumberedsubsubsec Configuración adicional para Evince
-@translationof Extra configuration for Evince
 @cindex Evince
 
 Si @code{gnome-open} funciona, pero Evince aún rehúsa abrir
@@ -237,9 +230,8 @@ Para otros visores, es probable que funcionen configuraciones
 similares.
 
 
-@node Habilitar la opción de apuntar y pulsar
+@node Enabling point and click
 @unnumberedsubsec Habilitar la opción de apuntar y pulsar
-@translationof Enabling point and click
 @cindex archivo de salida, tamaño del
 
 En LilyPond, la funcionalidad de Apuntar y pulsar está habilitada
@@ -277,9 +269,8 @@ relativas a su equipo dentro del archivo PDF, lo que puede
 plantear un problema de seguridad.}
 
 
-@node Apuntar y pulsar selectivo
+@node Selective point-and-click
 @unnumberedsubsec Apuntar y pulsar selectivo
-@translationof Selective point-and-click
 
 Para ciertas aplicaciones interactivas podría ser deseable incluir
 solamente ciertos elementos dentro de la función de apuntar y
@@ -355,9 +346,8 @@ lilypond \
 @end itemize
 
 
-@node Apoyo respecto de los editores de texto
+@node Text editor support
 @section Apoyo respecto de los editores de texto
-@translationof Text editor support
 
 @cindex editores
 @cindex vim
@@ -369,15 +359,14 @@ lilypond \
 Existe apoyo por parte de varios editores de texto para LilyPond.
 
 @menu
-* Modo de Emacs::
-* Modo de Vim::
-* Otros editores::
+* Emacs mode::
+* Vim mode::
+* Other editors::
 @end menu
 
 
-@node Modo de Emacs
+@node Emacs mode
 @unnumberedsubsec Modo de Emacs
-@translationof Emacs mode
 
 Emacs tiene un @file{lilypond-mode}, que proporciona
 autocompleción de teclado, sangrado, compensación de paréntesis
@@ -403,9 +392,8 @@ siguiente línea (modificada) a su @file{~/.emacs}
 @end example
 
 
-@node Modo de Vim
+@node Vim mode
 @unnumberedsubsec Modo de Vim
-@translationof Vim mode
 
 Para @uref{https://@/www@/.vim@/.org,Vim}, se proporcionan para su
 uso con LilyPond un plug-in o complemento para el tipo de archivo,
@@ -423,23 +411,21 @@ syntax on
 
 Si LilyPond no está instalado en el directorio @file{/usr/local/},
 cambie esta ruta de una forma adecuada.  Este asunto se trata en
-@rlearning{Otras fuentes de información}.
+@rlearningnamed{Other sources of information, Otras fuentes de información}.
 
 
-@node Otros editores
+@node Other editors
 @unnumberedsubsec Otros editores
-@translationof Other editors
 
 Otros editores (de texto así como gráficos) tienen apoyo para
 LilyPond, pero sus archivos de configuración especiales no se
 distribuyen con LilyPond.  Debe consultar la documentación de
 estos programas para obtener más información.  Estos editores se
-encuentran relacionaddos en @rweb{Entornos mejorados}.
+encuentran relacionaddos en @rwebnamed{Easier editing, Entornos mejorados}.
 
 
-@node Conversión desde otros formatos
+@node Converting from other formats
 @section Conversión desde otros formatos
-@translationof Converting from other formats
 
 También se puede escribir la música a través de su importación
 desde otros formatos.  Este capítulo trata de documentar las
@@ -451,7 +437,7 @@ convertidores de XML.  Consulte el
 
 Son programas distintos a @command{lilypond} propiamente dicho, y
 se ejecutan desde la línea de órdenes; consulte
-@ref{Utilización desde la línea de órdenes} para ver más
+@ref{Command-line usage} para ver más
 información.
 
 
@@ -462,17 +448,16 @@ están}.  Se agradecerá el envío de parches correctores, pero los
 informes de fallo casi con certeza no se resolverán a medio plazo.
 
 @menu
-* Invocar midi2ly::             Importar archivos MIDI.
-* Invocar musicxml2ly::         Importar archivos MusicXML.
-* Invocar abc2ly::              Importar archivos ABC.
-* Invocar etf2ly::              Importar archivos de Finale.
-* Otros formatos::
+* Invoking midi2ly::             Importar archivos MIDI.
+* Invoking musicxml2ly::         Importar archivos MusicXML.
+* Invoking abc2ly::              Importar archivos ABC.
+* Invoking etf2ly::              Importar archivos de Finale.
+* Other formats::
 @end menu
 
 
-@node Invocar midi2ly
+@node Invoking midi2ly
 @subsection Invocar @command{midi2ly}
-@translationof Invoking midi2ly
 
 @cindex MIDI
 
@@ -509,7 +494,7 @@ midi2ly [@var{opción}]@dots{} @var{archivo_midi}
 
 Observe que al decir @q{línea de órdenes}, queremos decir la línea
 de órdenes del sistema operativo.  Consulte
-@ref{Conversión desde otros formatos} para ver más información
+@ref{Converting from other formats} para ver más información
 sobre esto.
 
 @command{midi2ly} contempla las siguientes opciones:
@@ -562,9 +547,8 @@ Aplique la misma duración a todas las notas y añada marcas de
 fraseo o indicaciones de pedal.
 
 
-@node Invocar musicxml2ly
+@node Invoking musicxml2ly
 @subsection Invocar @command{musicxml2ly}
-@translationof Invoking musicxml2ly
 
 @cindex MusicXML
 
@@ -581,8 +565,7 @@ musicxml2ly [@var{opción}]@dots{} @var{archivo.xml}
 @end example
 
 Observe que por @q{línea de órdenes}, nos referimos a la línea de
-órdenes del sistema operativo.  Consulte @ref{Conversión desde
-otros formatos}, para obtener más información acerca de esto.
+órdenes del sistema operativo.  Consulte @ref{Converting from other formats}, para obtener más información acerca de esto.
 
 Si el nombre de archivo proporcionado es @file{-} en lugar de
 @var{archivo.xml}, @command{musicxml2ly} lee toda la entrada
@@ -686,9 +669,8 @@ el archivo de entrada es un archivo MusicXML comprimido en zip.
 @end table
 
 
-@node Invocar abc2ly
+@node Invoking abc2ly
 @subsection Invocar @code{abc2ly}
-@translationof Invoking abc2ly
 
 @warning{Este programa ya no está soportado, y podría desaparecer
 de versiones posteriores de LilyPond.}
@@ -757,9 +739,8 @@ ABC sincroniza las letras y las notas al principio de una línea;
 @command{abc2ly} ignora el barrado de ABC.
 
 
-@node Invocar etf2ly
+@node Invoking etf2ly
 @subsection Invocar @command{etf2ly}
-@translationof Invoking etf2ly
 
 @warning{Este programa ya no está soportado y podría desaparecer
 de versiones posteriores de LilyPond.}
@@ -782,7 +763,7 @@ etf2ly [@var{opción}]@dots{} @var{archivo_etf}
 
 Observe que por @q{línea de órdenes}, nos referimos a la línea de
 órdenes del sistema operativo.  Consulte
-@ref{Conversión desde otros formatos}, para obtener más
+@ref{Converting from other formats}, para obtener más
 información acerca de esto.
 
 @command{etf2ly} contempla las siguientes opciones:
@@ -802,35 +783,32 @@ Los compases vacíos confunden a @command{etf2ly}.  Las secuencias
 de notas de adorno no se dan por finalizadas satisfactoriamente.
 
 
-@node Otros formatos
+@node Other formats
 @subsection Otros formatos
-@translationof Other formats
 
 @cindex programas externos, generación de archivos de LilyPond
 
 El propio LilyPond no contempla la utilización de ningún otro
 formato, pero existen algunas herramientas externas que también
 generan archivos de LilyPond.  Se encuentran relacionados en la
-sección @rweb{Entornos mejorados}.
+sección @rwebnamed{Easier editing, Entornos mejorados}.
 
 
-@node Salida de LilyPond dentro de otros programas
+@node LilyPond output in other programs
 @section Salida de LilyPond dentro de otros programas
-@translationof LilyPond output in other programs
 
 Esta sección presenta métodos para integrar texto y música
 distintos del método automatizado con @command{lilypond-book}.
 
 @menu
 * LuaTeX::
-* OpenOffice y LibreOffice::
-* Otros programas::
+* OpenOffice and LibreOffice::
+* Other programs::
 @end menu
 
 
 @node LuaTeX
 @subsection Lua@TeX{}
-@translationof LuaTeX
 
 @cindex Lua@TeX{}
 @cindex lyluatex
@@ -840,9 +818,8 @@ LilyPond, existe un programa alternativo que puede utilizarse si
 se emplea Lua@TeX{}, llamado
 @uref{https://github.com/jperon/lyluatex/blob/master/README.en.md,lyluatex}.
 
-@node OpenOffice y LibreOffice
+@node OpenOffice and LibreOffice
 @subsection OpenOffice y LibreOffice
-@translationof OpenOffice and LibreOffice
 
 @cindex OpenOffice.org
 @cindex LibreOffice.org
@@ -859,9 +836,8 @@ antiguas. Incluso se ha comprobado que funciona con OpenOffice 2.4
 sin ningún problema.
 
 
-@node Otros programas
+@node Other programs
 @subsection Otros programas
-@translationof Other programs
 
 Otros programas capaces de manejra los formatos @file{PNG},
 @file{EPS} o @file{PDF} deberían usar @code{lilypond} en vez de
@@ -913,28 +889,26 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 
 Si necesita citar muchos fragmentos de una partitura grande,
 también puede usar la funcionalidad clip-systems de recorte de
-sistemas, véase @rnotation{Extracción de fragmentos de música}.
+sistemas, véase @rnotationnamed{Extracting fragments of music, Extracción de fragmentos de música}.
 
 
-@node Archivos de inclusión independientes
+@node Independent includes
 @section Archivos de inclusión independientes
-@translationof Independent includes
 
 Algunos usuarios han producido archivos que se pueden incluir con
 la instrucción @code{\include} en LilyPond para producir ciertos
 efectos, y aquellos que se relacionan más abajo forman parte de la
 distribución de LilyPond.  Véase también
-@rnotation{Trabajar sobre los archivos de entrada}.
+@rnotationnamed{Working with input files, Trabajar sobre los archivos de entrada}.
 
 
 @menu
-* Articulación MIDI::
+* MIDI articulation::
 @end menu
 
 
-@node Articulación MIDI
+@node MIDI articulation
 @subsection Articulación MIDI
-@translationof MIDI articulation
 
 @cindex MIDI
 @cindex Articulate project
@@ -945,4 +919,4 @@ ajustando la duración de las notas (que no estén bajo ligaduras de
 expresión) de acuerdo con las articulaciones que lleve cada una.
 Por ejemplo, un @q{staccato} reduce la duración a la mitad,
 @q{tenuto} da a una nota la duración completa, etcétera.  Véase
-@rnotation{Enriquecimiento de la salida MIDI}.
+@rnotationnamed{Enhancing MIDI output, Enriquecimiento de la salida MIDI}.

@@ -10,29 +10,27 @@
 
 @c \version "2.19.25"
 
-@node Plantillas
+@node Templates
 @appendix Plantillas
-@translationof Templates
 
 Esta sección del manual contiene plantillas con la partitura de
 LilyPond ya preparada.  Sólo tiene que escribir las notas, lanzar
 LilyPond y ¡disfrutar de unas hermosas partituras impresas!
 
 @menu
-* Plantillas incorporadas::
-* Plantillas de pentagrama único::
-* Plantillas de piano::
-* Plantillas de cuarteto de cuerda::
-* Plantillas de conjuntos vocales::
-* Plantillas orquestales::
-* Plantillas para notación antigua::
-* Otras plantillas::
+* Built-in templates::
+* Single staff templates::
+* Piano templates::
+* String quartet templates::
+* Vocal ensembles templates::
+* Orchestral templates::
+* Ancient notation templates::
+* Other templates::
 @end menu
 
 
-@node Plantillas incorporadas
+@node Built-in templates
 @appendixsec Plantillas incorporadas
-@translationof Built-in templates
 
 Algunas plantillas que son adecuadas para un abanico de
 posibilidades en música coral, se encuentran incorporadas dentro
@@ -52,13 +50,12 @@ valores para variables específicas.  Estas definiciones deben ir
 antes del archivo incluido con la instrucción @code{\include}.
 
 @menu
-* Plantilla coral SATB::
-* Plantilla coral SSAATTBB::
+* SATB template::
+* SSAATTBB template::
 @end menu
 
-@node Plantilla coral SATB
+@node SATB template
 @appendixsubsec Plantilla coral SATB
-@translationof SATB template
 
 La música se puede disponer con una o dos voces por pentagrama
 fijando el valor de @code{TwoVoicesPerStaff} a @code{##f} o
@@ -195,7 +192,7 @@ se pueden modificar también:
 @end lilypond
 
 aunque en su lugar podría resultar más fácil usar la plantilla
-@code{ssaattbb.ly}, véase @ref{Plantilla coral SSAATTBB}.
+@code{ssaattbb.ly}, véase @ref{SSAATTBB template}.
 
 Se puede añadir un discanto definiendo el valor de la variable
 @code{DescantMusic} y se puede añadir una letra para el discanto
@@ -218,15 +215,14 @@ Layout = \layout @{ ... @}
 @end example
 
 El conjunto completo de variables que pueden modificarse se pueden
-consultar en el archivo @file{ly/satb.ly}, véase @ref{Otras
-fuentes de información}.
+consultar en el archivo @file{ly/satb.ly}, véase @ref{Other sources of information}.
 
 @morerefs
 Manual de aprendizaje:
-@ref{Organizar las piezas mediante variables},
-@ref{Plantillas de conjuntos vocales},
-@ref{Extender las plantillas},
-@ref{Otras fuentes de información}.
+@ref{Organizing pieces with variables},
+@ref{Vocal ensembles templates},
+@ref{Extending the templates},
+@ref{Other sources of information}.
 
 @knownissues
 El establecimiento de la variable @code{TwoVoicesPerStaff} tiene
@@ -237,14 +233,12 @@ No son posibles arreglos más complejos de música coral SATB con
 esta sencilla plantilla incorporada.
 
 
-@node Plantilla coral SSAATTBB
+@node SSAATTBB template
 @appendixsubsec Plantilla coral SSAATTBB
-@translationof SSAATTBB template
 
 Todas las variables definidas para la plantilla SATB, con la
 excepción de las variables @code{VerseXxx} están asimismo
-disponibles para la plantilla SSAATTBB, véase @ref{Plantilla coral
-SATB}.  Además, la música y la letra de las voces primera y
+disponibles para la plantilla SSAATTBB, véase @ref{SATB template}.  Además, la música y la letra de las voces primera y
 segunda en una cualquiera o en las cuatro partes se puede
 especificar dando valores a las variables @code{SopranoOneMusic},
 @code{SopranoTwoMusic}, etc., con las letras en
@@ -341,14 +335,14 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 
 Es posible ver el conjunto completo de variables que se pueden
 cambiar examinando el archivo @file{ly/ssaattbb.ly}, véase
-@ref{Otras fuentes de información}.
+@ref{Other sources of information}.
 
 @morerefs
 Manual de aprendizaje:
-@ref{Organizar las piezas mediante variables},
-@ref{Plantillas de conjuntos vocales},
-@ref{Extender las plantillas},
-@ref{Otras fuentes de información}.
+@ref{Organizing pieces with variables},
+@ref{Vocal ensembles templates},
+@ref{Extending the templates},
+@ref{Other sources of information}.
 
 @knownissues
 El valor de las distintas variables @code{...TwoVoicesPerStaff} se
@@ -359,224 +353,196 @@ No son posibles arreglos de música coral a 8 partes más complejos,
 con esta sencilla plantilla incorporada.
 
 
-@node Plantillas de pentagrama único
+@node Single staff templates
 @appendixsec Plantillas de pentagrama único
-@translationof Single staff templates
 
 @menu
-* Sólo notas::
-* Notas y letra::
-* Notas y acordes::
-* Notas letra y acordes::
+* Notes only::
+* Notes and lyrics::
+* Notes and chords::
+* Notes lyrics and chords::
 @end menu
 
-@node Sólo notas
+@node Notes only
 @appendixsubsec Sólo notas
-@translationof Notes only
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-only-notes.ly}
 
-@node Notas y letra
+@node Notes and lyrics
 @appendixsubsec Notas y letra
-@translationof Notes and lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes-and-lyrics.ly}
 
-@node Notas y acordes
+@node Notes and chords
 @appendixsubsec Notas y acordes
-@translationof Notes and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes-and-chords.ly}
 
-@node Notas letra y acordes
+@node Notes lyrics and chords
 @appendixsubsec Notas, letra y acordes
-@translationof Notes lyrics and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
-@node Plantillas de piano
+@node Piano templates
 @appendixsec Plantillas de piano
-@translationof Piano templates
 
 @menu
-* Piano solo::
-* Piano y melodía con letra::
-* Piano con letra centrada::
+* Solo piano::
+* Piano and melody with lyrics::
+* Piano centered lyrics::
 @end menu
 
-@node Piano solo
+@node Solo piano
 @appendixsubsec Piano solo
-@translationof Solo piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-simple.ly}
 
-@node Piano y melodía con letra
+@node Piano and melody with lyrics
 @appendixsubsec Piano y melodía con letra
-@translationof Piano and melody with lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-melody-and-lyrics.ly}
 
-@node Piano con letra centrada
+@node Piano centered lyrics
 @appendixsubsec Piano con letra centrada
-@translationof Piano centered lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-centered-lyrics.ly}
 
 
-@node Plantillas de cuarteto de cuerda
+@node String quartet templates
 @appendixsec Plantillas de cuarteto de cuerda
-@translationof String quartet templates
 
 @menu
-* Cuarteto de cuerda simple::
-* Particellas de cuarteto de cuerda::
+* String quartet::
+* String quartet parts::
 @end menu
 
-@node Cuarteto de cuerda simple
+@node String quartet
 @appendixsubsec Cuarteto de cuerda simple
-@translationof String quartet
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/string-quartet-template-simple.ly}
 
-@node Particellas de cuarteto de cuerda
+@node String quartet parts
 @appendixsubsec Particellas de cuarteto de cuerda
-@translationof String quartet parts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/string-quartet-template-with-separate-parts.ly}
 
 
-@node Plantillas de conjuntos vocales
+@node Vocal ensembles templates
 @appendixsec Plantillas de conjuntos vocales
-@translationof Vocal ensembles templates
 
 Debemos copiar en nuestra partitura el texto de las plantillas que
 se muestran más abajo, y editarlas alllí.  Si tiene una
 disposición coral SATB relativamente sencilla, quizá prefiera
 utilizar las plantillas incorporadas, que solo necesitan incluirse
-con la instrucción @code{\include}, véase @ref{Plantillas
-incorporadas}.
+con la instrucción @code{\include}, véase @ref{Built-in templates}.
 
 @menu
-* Partitura vocal SATB::
-* Partitura vocal SATB y reducción para piano automática::
-* SATB con contextos alineados::
-* SATB sobre cuatro pentagramas::
-* Estrofas a solo y estribillo a dos voces::
-* Melodías de himnos::
-* Salmos::
+* SATB vocal score::
+* SATB vocal score and automatic piano reduction::
+* SATB with aligned contexts::
+* SATB on four staves::
+* Solo verse and two-part refrain::
+* Hymn tunes::
+* Psalms::
 @end menu
 
-@node Partitura vocal SATB
+@node SATB vocal score
 @appendixsubsec Partitura vocal SATB
-@translationof SATB vocal score
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template.ly}
 
-@node Partitura vocal SATB y reducción para piano automática
+@node SATB vocal score and automatic piano reduction
 @appendixsubsec Partitura vocal SATB y reducción para piano automática
-@translationof SATB vocal score and automatic piano reduction
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
-@node SATB con contextos alineados
+@node SATB with aligned contexts
 @appendixsubsec SATB con contextos alineados
-@translationof SATB with aligned contexts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
-@node SATB sobre cuatro pentagramas
+@node SATB on four staves
 @appendixsubsec SATB sobre cuatro pentagramas
-@translationof SATB on four staves
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/satb-choir-template---four-staves.ly}
 
-@node Estrofas a solo y estribillo a dos voces
+@node Solo verse and two-part refrain
 @appendixsubsec Estrofas a solo y estribillo a dos voces
-@translationof Solo verse and two-part refrain
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template-with-verse-and-refrain.ly}
 
-@node Melodías de himnos
+@node Hymn tunes
 @appendixsubsec Melodías de himnos
-@translationof Hymn tunes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/hymn-template.ly}
 
-@node Salmos
+@node Psalms
 @appendixsubsec Salmos
-@translationof Psalms
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/anglican-psalm-template.ly}
 
 
-@node Plantillas orquestales
+@node Orchestral templates
 @appendixsec Plantillas orquestales
-@translationof Orchestral templates
 
 @menu
-* Orquesta coro y piano::
+* Orchestra choir and piano::
 @end menu
 
-@node Orquesta coro y piano
+@node Orchestra choir and piano
 @appendixsubsec Orquesta, coro y piano
-@translationof Orchestra choir and piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
-@node Plantillas para notación antigua
+@node Ancient notation templates
 @appendixsec Plantillas para notación antigua
-@translationof Ancient notation templates
 
 @menu
-* Transcripción de música mensural::
-* Plantilla para transcripción de canto gregoriano::
+* Transcription of mensural music::
+* Gregorian transcription template::
 @end menu
 
-@node Transcripción de música mensural
+@node Transcription of mensural music
 @appendixsubsec Transcripción de música mensural
-@translationof Transcription of mensural music
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/incipit.ly}
 
-@node Plantilla para transcripción de canto gregoriano
+@node Gregorian transcription template
 @appendixsubsec Plantilla para transcripción de canto gregoriano
-@translationof Gregorian transcription template
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
-@node Otras plantillas
+@node Other templates
 @appendixsec Otras plantillas
-@translationof Other templates
 
 @menu
-* Combo de jazz::
+* Jazz combo::
 @end menu
 
-@node Combo de jazz
+@node Jazz combo
 @appendixsubsec Combo de jazz
-@translationof Jazz combo
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/jazz-combo-template.ly}

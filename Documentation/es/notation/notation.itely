@@ -9,21 +9,20 @@
 
 @c \version "2.16.0"
 
-@node Notación musical
+@node Musical notation
 @chapter Notación musical
-@translationof Musical notation
 
 Este capítulo explica cómo crear notación musical.
 
 @menu
-* Alturas::                 Escritura y presentación de la altura de las notas.
-* Duraciones::              Escritura y presentación de las duraciones de las notas.
-* Expresiones::             Añadir expresión a las notas.
-* Repeticiones::            Repetir música.
-* Notas simultáneas::       Más de una nota a la vez.
-* Notación de los pentagramas:: Imprimir pentagramas.
-* Anotaciones editoriales:: Notación especial para aumentar la legibilidad.
-* Texto::                   Añadir texto a las partituras.
+* Pitches::                 Escritura y presentación de la altura de las notas.
+* Rhythms::              Escritura y presentación de las duraciones de las notas.
+* Expressive marks::             Añadir expresión a las notas.
+* Repeats::            Repetir música.
+* Simultaneous notes::       Más de una nota a la vez.
+* Staff notation:: Imprimir pentagramas.
+* Editorial annotations:: Notación especial para aumentar la legibilidad.
+* Text::                   Añadir texto a las partituras.
 @end menu
 
 @include es/notation/pitches.itely

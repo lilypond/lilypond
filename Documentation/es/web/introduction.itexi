@@ -7,9 +7,8 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@node Introducción
+@node Introduction
 @unnumbered Introducción
-@translationof Introduction
 
 @divClass{column-center-top}
 @subheading Nuestras metas
@@ -43,16 +42,16 @@ la música en vez de solo @emph{leerla}.
 @itemize
 
 @item
-@ref{Posibilidades}: ¿Qué puede hacer LilyPond?
+@ref{Features}: ¿Qué puede hacer LilyPond?
 
 @item
-@ref{Ejemplos}: ¡Quiero ver música!
+@ref{Examples}: ¡Quiero ver música!
 
 @item
-@ref{Libertad}: LilyPond es Software Libre.
+@ref{Freedom}: LilyPond es Software Libre.
 
 @item
-@ref{Trasfondo}: Nociones de nuestra estética computacional.
+@ref{Background}: Nociones de nuestra estética computacional.
 
 @end itemize
 @divEnd
@@ -63,10 +62,10 @@ la música en vez de solo @emph{leerla}.
 @itemize
 
 @item
-@ref{Producciones}: Usos de LilyPond en el mundo real.
+@ref{Productions}: Usos de LilyPond en el mundo real.
 
 @item
-@ref{Reseñas}: ¿Qué dice la gente?
+@ref{Reviews}: ¿Qué dice la gente?
 
 @end itemize
 @divEnd
@@ -76,10 +75,10 @@ la música en vez de solo @emph{leerla}.
 @itemize
 
 @item
-@ref{Entrada de texto}: ¡¿Escriben música como @emph{texto}?!
+@ref{Text input}: ¡¿Escriben música como @emph{texto}?!
 
 @item
-@ref{Entornos mejorados}: Otras formas de trabajar con LilyPond.
+@ref{Easier editing}: Otras formas de trabajar con LilyPond.
 
 @end itemize
 @divEnd
@@ -91,22 +90,21 @@ la música en vez de solo @emph{leerla}.
 @c menu. -JM
 @divClass{hide}
 @menu
-* Posibilidades::
-* Ejemplos::
-* Libertad::                    La libertad y la GPL.
-* Trasfondo::                   Estética computacional.
-* Producciones::                Uso de LilyPond en el mundo real.
-* Reseñas::
-* Entrada de texto::
-* Entornos mejorados::          Otras formas de trabajar con LilyPond.
+* Features::
+* Examples::
+* Freedom::                    La libertad y la GPL.
+* Background::                   Estética computacional.
+* Productions::                Uso de LilyPond en el mundo real.
+* Reviews::
+* Text input::
+* Easier editing::          Otras formas de trabajar con LilyPond.
 @end menu
 @divEnd
 
 
 
-@node Posibilidades
+@node Features
 @unnumberedsec Posibilidades
-@translationof Features
 @divClass{column-center-top}
 
 
@@ -122,7 +120,7 @@ ajustes de estilo de LilyPond, el diseño de las fuentes y los
 algoritmos se han inspirado en la mejor música grabada a mano.  La
 salida de LilyPond tiene el mismo aspecto robusto, equilibrado y
 elegante que las partituras clásicas mejor grabadas.  Todo esto se
-explica con detalle en nuestro @ref{Ensayo}.
+explica con detalle en nuestro @ref{Essay}.
 
 @divEnd
 
@@ -137,7 +135,7 @@ leerse fácilmente por un humano o por otro programa.  No existe
 ningún ajuste extraño oculto detrás de enrevesados menús o de
 archivos de documento binarios.
 
-Lea más acerca de este concepto en @ref{Entrada de texto}.
+Lea más acerca de este concepto en @ref{Text input}.
 
 
 @subsubheading Los trucos son robustos y transparentes
@@ -218,7 +216,7 @@ a una sola interfaz de usuario sino que puede usar distintas
 herramientas para distintas tareas.  Incluso puede usar un
 completo editor en casa y emplear la aplicación de notas de su
 teléfono móvil para editar los archivos mientras está de viaje.
-Para ver algunos ejemplos, consulte @ref{Entornos mejorados}.
+Para ver algunos ejemplos, consulte @ref{Easier editing}.
 @c TODO: Change this when the new pages have been written and pushed
 
 
@@ -291,7 +289,7 @@ de respuesta suele ser muy corto, y con frecuencia se ofrecen
 brillantes soluciones a los problemas que se plantean en ella.
 Gracias a la estrecha interacción con el equipo de desarrollo,
 estas soluciones se incluyen en el propio programa LilyPond de
-forma regular.  Siga leyendo en @ref{Comunidad}.
+forma regular.  Siga leyendo en @ref{Community}.
 
 
 @subsubheading Software libre
@@ -303,22 +301,21 @@ También es software libre, como la libertad de expresión.  Se
 ofrece con el código fuente con el permiso para modificarlo y
 copiarlo.  Así pues, ¿está cansado de algún fallo o suplica una
 determinada funcionalidad?  Tan sólo añádala por sí mismo, o pague
-a alguien para que lo haga.  Siga leyendo en @ref{Libertad}.
+a alguien para que lo haga.  Siga leyendo en @ref{Freedom}.
 
 @divEnd
 @divClass{column-center-bottom}
 @subheading ¿Ahora qué?
 
-¿Aún no está convencido?  Eche un vistazo a algunos @ref{Ejemplos}
+¿Aún no está convencido?  Eche un vistazo a algunos @ref{Examples}
 concretos.  Si ya está decidido a probar LilyPond, en primer lugar
-infórmese de nuestra @ref{Entrada de texto}.
+infórmese de nuestra @ref{Text input}.
 @divEnd
 
 
 
-@node Ejemplos
+@node Examples
 @unnumberedsec Ejemplos
-@translationof Examples
 
 @divClass{column-center-top}
 @subheading Bellos ejemplos
@@ -484,15 +481,14 @@ Se han añadido algunos colores para mejorar la visibilidad.
 @subheading ¿Ahora qué?
 
 ¿Aún no está convencido? LilyPond es software libre, le concede a
-usted, el usuario, la @ref{Libertad}.  Si ya está decidido a
+usted, el usuario, la @ref{Freedom}.  Si ya está decidido a
 probar LilyPond, lea en primer lugar lo que tenemos que decirle
-sobre la @ref{Entrada de texto}.
+sobre la @ref{Text input}.
 @divEnd
 
 
-@node Libertad
+@node Freedom
 @unnumberedsec Libertad
-@translationof Freedom
 
 @divClass{column-center-top}
 @subheading Software libre
@@ -601,15 +597,14 @@ encontrar trabajo en empresas o en universidades.
 @subheading Y ahora ¿qué?
 
 ¿Aún no está convencido?  Lea nuestro extenso ensayo sobre nuestra
-filosofía del grabado en @ref{Trasfondo}.  Si ya está decidido a
+filosofía del grabado en @ref{Background}.  Si ya está decidido a
 probar LilyPond, en primer lugar lea lo que hemos escrito sobre la
-@ref{Entrada de texto}.
+@ref{Text input}.
 @divEnd
 
 
-@node Trasfondo
+@node Background
 @unnumberedsec Trasfondo
-@translationof Background
 
 @divClass{column-center-top}
 @subheading Ensayo sobre el trasfondo
@@ -620,7 +615,7 @@ el arte de crear belleza con un ordenador.
 Esto es una interesante lectura si quiere profundizar en la
 discusión de nuestras ideas fundamentales.  Debido a su volumen,
 el ensayo se ofrece como un "manual".  Si quiere leerlo ahora,
-continúe hacia @ref{Ensayo}.  Si, por el contrario, solo quiere
+continúe hacia @ref{Essay}.  Si, por el contrario, solo quiere
 leer una rápida introducción a LilyPond, sáltela por ahora.
 @divEnd
 
@@ -628,15 +623,14 @@ leer una rápida introducción a LilyPond, sáltela por ahora.
 @subheading Y ahora ¿qué?
 
 ¿Aún no está convencido?  Lea algo acerca de las
-@ref{Producciones} y partituras de algunos de nuestros usuarios.
+@ref{Productions} y partituras de algunos de nuestros usuarios.
 Si ya se ha decidido a probar LilyPond, en primer lugar lea algo
-sobre nuestra @ref{Entrada de texto}.
+sobre nuestra @ref{Text input}.
 @divEnd
 
 
-@node Producciones
+@node Productions
 @unnumberedsec Producciones
-@translationof Productions
 
 @divClass{column-center-top}
 
@@ -836,7 +830,7 @@ las piezas de la biblioteca Mutopia.
 Los
 @uref{https://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples,
 ejemplos de la página de LilyPond}: archivos de código fuente de
-la galería de ejemplo que se muestra en la sección @ref{Ejemplos}.
+la galería de ejemplo que se muestra en la sección @ref{Examples}.
 
 @item
 @uref{https://github.com/nsceaux/nenuvar, Nicolas Sceaux}:
@@ -853,17 +847,16 @@ sus desarrolladores.
 @divClass{column-center-bottom}
 @subheading Y ahora ¿qué?
 
-¿Aún no está convencido?  Lea algunas de las @ref{Reseñas} de
+¿Aún no está convencido?  Lea algunas de las @ref{Reviews} de
 nuestros usuarios.  Si ya tiene decidido probar LilyPond, en
-primer lugar infórmese sobre nuestra @ref{Entrada de texto}.
+primer lugar infórmese sobre nuestra @ref{Text input}.
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
 @c https://lilypond.org/productions.html
 
-@node Reseñas
+@node Reviews
 @unnumberedsec Reseñas
-@translationof Reviews
 
 @divClass{column-center-top}
 @subheading ¿Qué dice la gente sobre LilyPond?
@@ -1189,14 +1182,13 @@ de la práctica "estándar".}
 @subheading Y ahora ¿qué?
 
 Lea lo que tenemos que decirle sobre nuestra
-@ref{Entrada de texto}.
+@ref{Text input}.
 @divEnd
 
 
 
-@node Entrada de texto
+@node Text input
 @unnumberedsec Entrada de texto
-@translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
 @c https://lilypond.org/web/switch/howto
@@ -1287,7 +1279,7 @@ de concierto):
 Nos damos cuenta de que muchos usuarios ven un poco extraña esta
 forma de introducir la música.  Por este motivo, hemos escrito una
 amplia documentación de ayuda a los nuevos usuarios, comenzando
-con @ref{Aprendizaje}.  El Manual de aprendizaje es el mejor sitio
+con @ref{Learning}.  El Manual de aprendizaje es el mejor sitio
 para empezar, porque allí se responden muchas preguntas antes de
 que se formulen.
 
@@ -1297,7 +1289,7 @@ Le rogamos que lea este manual antes de poner en duda si LilyPond
 está funcionando correctamente.
 
 Tiene a su disposición una documentación mucho más profunda en la
-sección @ref{Manuales}.
+sección @ref{Manuals}.
 
 Ben Lemon, usuario de LilyPond, ha creado y publicado una
 colección de
@@ -1319,7 +1311,7 @@ Ciertos entornos de edición incluyen el coloreado sintáctico,
 compleción automática de instrucciones y plantillas preelaboradas.
 Otros programas ofrecen realmente un GUI que permite la
 manipulación directa de una partitura gráfica.  Para ver más
-información, consulte @ref{Entornos mejorados}.
+información, consulte @ref{Easier editing}.
 
 @divEnd
 
@@ -1328,14 +1320,13 @@ información, consulte @ref{Entornos mejorados}.
 
 Ya está preparado para @ref{Download, Descargar LilyPond}.  ¿Aún
 no está convencido?  Lea algo sobre los entornos de edición en
-@ref{Entornos mejorados}.
+@ref{Easier editing}.
 
 @divEnd
 
 
-@node Entornos mejorados
+@node Easier editing
 @unnumberedsec Entornos mejorados
-@translationof Easier editing
 
 @ignore
 GNU policy forbids us from linking to non-Free software, so don't
@@ -1480,7 +1471,7 @@ usar un editor diferente para la escritura de archivos de
 LilyPond.
 
 Hay más información sobre la configuración de Emacs en
-@rprogram{Apoyo respecto de los editores de texto}.
+@rprogramnamed{Text editor support, Apoyo respecto de los editores de texto}.
 
 @subsubheading Vim
 @uref{https://www.vim.org} Vim es un editor de texto minimalista
@@ -1492,7 +1483,7 @@ prefiera utilizar un editor distinto para escribir archivos de
 entrada de LilyPond.
 
 Hay más información sobre la configuración de Vim en
-@rprogram{Apoyo respecto de los editores de texto}.
+@rprogramnamed{Text editor support, Apoyo respecto de los editores de texto}.
 
 @sourceimage{logo-macosx,,}
 @subsubheading TeXShop
@@ -1664,12 +1655,12 @@ de orquesta han aprendido a escribir música en nuestro formato de
 entrada.  Los usuarios con experiencia incluso informan de que
 pueden introducir una partitura completa en LilyPond ¡más rápido
 que con un teclado de piano o con el ratón y un GUI!  Posiblemente
-le apetezca echar un vistazo a las @ref{Posibilidades},
-@ref{Ejemplos} o a la @ref{Libertad} que LilyPond ofrece, o leer
-algo sobre las @ref{Producciones} y @ref{Reseñas} de nuestros
+le apetezca echar un vistazo a las @ref{Features},
+@ref{Examples} o a la @ref{Freedom} que LilyPond ofrece, o leer
+algo sobre las @ref{Productions} y @ref{Reviews} de nuestros
 usuarios.  Además, nuestro enfoque de la estética computacional
 del grabado musical clásico viene explicado en nuestro tratado
-sobre el @ref{Trasfondo}.
+sobre el @ref{Background}.
 
 @divEnd
 

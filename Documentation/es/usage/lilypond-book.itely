@@ -13,7 +13,6 @@
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
 @chapter Ejecución de @command{lilypond-book}
-@translationof lilypond-book
 
 Si quiere añadir imágenes de música a un documento, puede hacerlo
 simplemente de la forma en que lo haría con otros tipos de
@@ -31,7 +30,7 @@ documento.
 
 Es un programa distinto a @command{lilypond} propiamente dicho, y
 se ejecuta sobre la línea de órdenes; para ver más información,
-consulte @ref{Utilización desde la línea de órdenes}.
+consulte @ref{Command-line usage}.
 
 Este procedimiento se puede aplicar a documentos de @LaTeX{},
 HTML, Texinfo o DocBook.
@@ -49,20 +48,19 @@ HTML, Texinfo o DocBook.
 @cindex LaTeX, insertar música en
 
 @menu
-* Un ejemplo de documento musicológico::
-* Integrar música y texto::
-* Opciones de fragmentos de música::
-* Invocar lilypond-book::
-* Extensiones de nombres de archivo::
-* Plantillas de lilypond-book::
-* Compartir el índice general::
-* Métodos alternativos para mezclar texto y música::
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* lilypond-book templates::
+* Sharing the table of contents::
+* Alternate methods of mixing text and music::
 @end menu
 
 
-@node Un ejemplo de documento musicológico
+@node An example of a musicological document
 @section Un ejemplo de documento musicológico
-@translationof An example of a musicological document
 
 @cindex musicología
 Ciertos textos contienen ejemplos musicales.  Son tratados
@@ -188,9 +186,8 @@ dentro de una construcción @code{\book @{ @}}.
 
 @page
 
-@node Integrar música y texto
+@node Integrating music and text
 @section Integrar música y texto
-@translationof Integrating music and text
 
 Aquí vamos a explicar cómo integrar LilyPond con algunos otros
 formatos de salida.
@@ -204,7 +201,6 @@ formatos de salida.
 
 @node LaTeX
 @subsection @LaTeX{}
-@translationof LaTeX
 
 @LaTeX{} es el estándar de facto para la publicación en el mundo
 de las ciencias exactas.  Está construido encima del motor de
@@ -432,12 +428,11 @@ fragmento:
 @morerefs
 Hay opciones de línea de órdenes específicas de
 @command{lilypond-book} y otros detalles que conocer para procesar
-documentos de@LaTeX{} véase @ref{Invocar lilypond-book}.
+documentos de@LaTeX{} véase @ref{Invoking lilypond-book}.
 
 
 @node Texinfo
 @subsection Texinfo
-@translationof Texinfo
 
 Texinfo es el formato estándar para la documentación del proyecto
 GNU.  Este mismo manual es un ejemplo de documento Texinfo.  Las
@@ -527,7 +522,6 @@ sola.
 
 @node HTML
 @subsection HTML
-@translationof HTML
 
 @code{lilypond-book} aporta las siguientes instrucciones y
 entornos para incluir música dentro de archivos HTML:
@@ -603,8 +597,7 @@ Para incluir archivos externos, escriba
 MusicXML en lugar de un archivo de LilyPond.
 
 Para ver una lista de las opciones que utilizar con las etiquetas
-@code{lilypond} o @code{lilypondfile}, véase @ref{Opciones de
-fragmentos de música}.
+@code{lilypond} o @code{lilypondfile}, véase @ref{Music fragment options}.
 
 De forma adicional, @code{<lilypondversion/>} imprime la versión
 actual de lilypond.
@@ -615,7 +608,6 @@ actual de lilypond.
 
 @node DocBook
 @subsection DocBook
-@translationof DocBook
 
 Para insertar fragmentos de LilyPond es bueno tratar de mantener
 la conformidad del documento de DocBook, permitiendo así el uso de
@@ -688,9 +680,8 @@ hojas de estilo oficiales XSL de DocBook, aunque es posible que
 tenga que aplicarles algún tipo de personalización.
 
 
-@node Opciones de fragmentos de música
+@node Music fragment options
 @section Opciones de fragmentos de música
-@translationof Music fragment options
 
 Durante los próximos párrafos, una @q{instrucción de LilyPond} se
 refiere a cualquier instrucción descrita en las secciones
@@ -933,9 +924,8 @@ decir, se elimina la parte del directorio de la ruta del archivo.
 @end table
 
 
-@node Invocar lilypond-book
+@node Invoking lilypond-book
 @section Invocar @command{lilypond-book}
-@translationof Invoking lilypond-book
 
 @command{lilypond-book} produce un archivo con una de las
 siguientes extensiones: @file{.tex}, @file{.texi}, @file{.html} o
@@ -1052,7 +1042,7 @@ Especificar el tipo del documento que se va a procesar:
 @code{html}, @code{latex}, @code{texi} (predeterminado) o
 @code{docbook}.  Si falta esta opción, @command{lilypond-book}
 tratará de detectar el formato automáticamente, véase
-@ref{Extensiones de nombres de archivo}. Por el momento,
+@ref{Filename extensions}. Por el momento,
 @code{texi} es lo mismo que @code{texi-html}.
 
 @c This complicated detail is not implemented, comment it out -jm
@@ -1200,15 +1190,13 @@ márgenes y anchos de línea después del preámbulo se ignoran.
 Sólo se procesa el primer @code{\score} de un bloque LilyPond.
 
 
-@node Extensiones de nombres de archivo
+@node Filename extensions
 @section Extensiones de nombres de archivo
-@translationof Filename extensions
 
 Puede usar cualquier extensión para el nombre del archivo de
 entrada, pero si no usa la extensión recomendada para un formato
 en particular tendrá que especificar manualmente el formato de
-salida; para ver más detalles, consulte @ref{Invocar
-lilypond-book}.  En caso contrario, @command{lilypond-book}
+salida; para ver más detalles, consulte @ref{Invoking lilypond-book}.  En caso contrario, @command{lilypond-book}
 selecciona automáticamente el formato de salida basándose en la
 extensión del nombre del archivo de entrada.
 
@@ -1239,9 +1227,8 @@ en caso contrario saldrá con un mensaje de error como @qq{La
 salida sobreescribirá al archivo de entrada}.
 
 
-@node Plantillas de lilypond-book
+@node lilypond-book templates
 @section Plantillas de lilypond-book
-@translationof lilypond-book templates
 
 Estas plantillas se usan para @code{lilypond-book}.  Si no está
 familiarizado con este programa, consulte @ref{lilypond-book}.
@@ -1387,9 +1374,8 @@ unterst__tzt werden.
 @end verbatim
 
 
-@node Compartir el índice general
+@node Sharing the table of contents
 @section Compartir el índice general
-@translationof Sharing the table of contents
 
 Estas funciones ya existen en el paquete OrchestralLily:
 
@@ -1496,9 +1482,8 @@ donde @code{\includescore} está definido como:
 @end smallexample
 
 
-@node Métodos alternativos para mezclar texto y música
+@node Alternate methods of mixing text and music
 @section Métodos alternativos para mezclar texto y música
-@translationof Alternate methods of mixing text and music
 
 Otras formas de mezclar texto y música (sin
-@command{lilypond-book}) se estudian en @ref{Otros programas}.
+@command{lilypond-book}) se estudian en @ref{Other programs}.

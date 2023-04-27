@@ -10,9 +10,8 @@
 
 @c \version "2.19.22"
 
-@node Tutorial de Scheme
+@node Scheme tutorial
 @appendix Tutorial de Scheme
-@translationof Scheme tutorial
 
 @cindex Scheme
 @cindex GUILE
@@ -38,14 +37,13 @@ diferente).  Hay información sobre Guile en
 @uref{https://www.schemers.org/Documents/Standards/R5RS/}.
 
 @menu
-* Introducción a Scheme::
-* Scheme dentro de LilyPond::
-* Construir funciones complicadas::
+* Introduction to Scheme::
+* Scheme in LilyPond::
+* Building complicated functions::
 @end menu
 
-@node Introducción a Scheme
+@node Introduction to Scheme
 @section Introducción a Scheme
-@translationof Introduction to Scheme
 
 Comenzaremos con una introducción a Scheme.  Para esta breve
 introducción utilizaremos el intérprete GUILE para explorar la
@@ -55,18 +53,17 @@ lenguaje en los archivos de LilyPond.
 
 
 @menu
-* Cajón de arena de Scheme::
-* Variables de Scheme::
-* Tipos de datos simples de Scheme::
-* Tipos de datos compuestos de Scheme::
-* Cálculos en Scheme::
-* Procedimientos de Scheme::
-* Condicionales de Scheme::
+* Scheme sandbox::
+* Scheme variables::
+* Scheme simple data types::
+* Scheme compound data types::
+* Calculations in Scheme::
+* Scheme procedures::
+* Scheme conditionals::
 @end menu
 
-@node Cajón de arena de Scheme
+@node Scheme sandbox
 @subsection Cajón de arena de Scheme
-@translationof Scheme sandbox
 
 La instalación de LilyPond incluye también la de la implementación
 Guile de Scheme.  Sobre casi todos los sistemas puede experimentar
@@ -75,7 +72,7 @@ terminal y tecleando @q{guile}.  En algunos sistemas, sobre todo
 en Windows, podría necesitar ajustar la variable de entorno
 @code{GUILE_LOAD_PATH} a la carpeta @code{../usr/share/guile/1.8}
 dentro de la instalación de LilyPond (para conocer la ruta
-completa a esta carpeta, consulte @rlearning{Otras fuentes de
+completa a esta carpeta, consulte @rlearningnamed{Other sources of information, Otras fuentes de
 información}).  Como alternativa, los usuarios de Windows pueden
 seleccionar simplemente @q{Ejecutar} del menú Inicio e introducir
 @q{guile}.
@@ -103,9 +100,8 @@ información.  Si ya ha activado la biblioteca readline para las
 sesiones de Guile interactivas fuera de LilyPond, debería
 funcionar también en el cajón de arena.
 
-@node Variables de Scheme
+@node Scheme variables
 @subsection Variables de Scheme
-@translationof Scheme variables
 
 Las variables de Scheme pueden tener cualquier valor válido de
 Scheme, incluso un procedimiento de Scheme.
@@ -158,9 +154,8 @@ guile> a
 guile>
 @end lisp
 
-@node Tipos de datos simples de Scheme
+@node Scheme simple data types
 @subsection Tipos de datos simples de Scheme
-@translationof Scheme simple data types
 
 El concepto más básico de un lenguaje son sus tipos de datos:
 números, cadenas de caracteres, listas, etc.  He aquí una lista de
@@ -221,24 +216,22 @@ Para ver un listado completo, consulte la guía de referencia de
 Guile,
 @uref{https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
 
-@node Tipos de datos compuestos de Scheme
+@node Scheme compound data types
 @subsection Tipos de datos compuestos de Scheme
-@translationof Scheme compound data types
 
 También existen tipos de datos compuestos en Scheme.  Entre los
 tipos más usados en la programación de LilyPond se encuentran las
 parejas, las listas, las listas-A y las tablas de hash.
 
 @menu
-* Parejas::
-* Listas::
-* Listas asociativas (listas-A)::
-* Tablas de hash::
+* Pairs::
+* Lists::
+* Association lists (alists)::
+* Hash tables::
 @end menu
 
-@node Parejas
+@node Pairs
 @unnumberedsubsubsec Parejas
-@translationof Pairs
 
 El tipo fundacional de datos compuestos de Scheme es la
 @code{pareja}.  Como se espera por su nombre, una pareja son dos
@@ -296,9 +289,8 @@ Nota: @code{cdr} se pronuncia "could-er", según Sussman y Abelson,
 véase
 @uref{https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
-@node Listas
+@node Lists
 @unnumberedsubsubsec Listas
-@translationof Lists
 
 Una estructura de datos muy común en Scheme es la
 @emph{lista}. Formalmente, una lista @q{bien hecha} se define como
@@ -340,9 +332,8 @@ abreviatura de @q{List Processing} (proceso de listas).  Todas las
 expresiones de Scheme son listas.
 
 
-@node Listas asociativas (listas-A)
+@node Association lists (alists)
 @unnumberedsubsubsec Listas asociativas (listas-A)
-@translationof Association lists (alists)
 
 Un tipo especial de listas son las @emph{listas asociativas} o
 @emph{listas-A}.  Se puede usar una lista-A para almacenar datos
@@ -369,9 +360,8 @@ Las listas-A se usan mucho en LilyPond para almacenar propiedades
 y otros datos.
 
 
-@node Tablas de hash
+@node Hash tables
 @unnumberedsubsubsec Tablas de hash
-@translationof Hash tables
 
 Estructuras de datos que se utilizan en LilyPond de forma
 ocasional.  Una tabla de hash es similar a una matriz, pero los
@@ -420,9 +410,8 @@ guile> (hashq-get-handle h 'frob)
 guile>
 @end lisp
 
-@node Cálculos en Scheme
+@node Calculations in Scheme
 @subsection Cálculos en Scheme
-@translationof Calculations in Scheme
 
 @ignore
 Todo el tiempo hemos estado usando listas.  Un cálculo, como @code{(+
@@ -542,23 +531,21 @@ nombre @code{veintiCuatro}.
 @end ignore
 
 
-@node Procedimientos de Scheme
+@node Scheme procedures
 @subsection Procedimientos de Scheme
-@translationof Scheme procedures
 
 Los procedimientos de Scheme son expresiones de Scheme ejecutables
 que devuelven un valor resultante de su ejecución.  También pueden
 manipular variables definidas fuera del procedimiento.
 
 @menu
-* Definir procedimientos::
-* Predicados::
-* Valores de retorno::
+* Defining procedures::
+* Predicates::
+* Return values::
 @end menu
 
-@node Definir procedimientos
+@node Defining procedures
 @unnumberedsubsubsec Definir procedimientos
-@translationof Defining procedures
 
 Los procedimientos se definen en Scheme con @code{define}:
 
@@ -586,9 +573,8 @@ guile> (media 3 12)
 @end lisp
 
 
-@node Predicados
+@node Predicates
 @unnumberedsubsubsec Predicados
-@translationof Predicates
 
 Los procedimientos de Scheme que devuelven valores booleanos se
 suelen llamar @emph{predicados}.  Por convenio (pero no por
@@ -604,9 +590,8 @@ guile> (menor-que-diez? 15)
 @end lisp
 
 
-@node Valores de retorno
+@node Return values
 @unnumberedsubsubsec Valores de retorno
-@translationof Return values
 
 Los procedimientos de Scheme siempre devuelven un valor de
 retorno, que es el valor de la última expresión ejecutada en el
@@ -639,9 +624,8 @@ guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 @end lisp
 
 
-@node Condicionales de Scheme
+@node Scheme conditionals
 @subsection Condicionales de Scheme
-@translationof Scheme conditionals
 
 @menu
 * if::
@@ -650,7 +634,6 @@ guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 
 @node if
 @unnumberedsubsubsec if
-@translationof if
 
 Scheme tiene un procedimiento @code{if}:
 
@@ -674,7 +657,6 @@ guile> (if (> a b) "a es mayor que b" "a no es mayor que b")
 
 @node cond
 @unnumberedsubsubsec cond
-@translationof cond
 
 Otro procedimiento condicional en Scheme es @code{cond}:
 
@@ -696,23 +678,21 @@ guile> (cond ((< a b) "a es menor que b")
 "a es menor que b"
 @end lisp
 
-@node Scheme dentro de LilyPond
+@node Scheme in LilyPond
 @section Scheme dentro de LilyPond
-@translationof Scheme in LilyPond
 
 @menu
-* Sintaxis del Scheme de LilyPond::
-* Variables de LilyPond::
-* Variables de entrada y Scheme::
-* Importación de Scheme dentro de LilyPond::
-* Propiedades de los objetos::
-* Variables de LilyPond compuestas::
-* Representación interna de la música::
+* LilyPond Scheme syntax::
+* LilyPond variables::
+* Input variables and Scheme::
+* Importing Scheme in LilyPond::
+* Object properties::
+* LilyPond compound variables::
+* Internal music representation::
 @end menu
 
-@node Sintaxis del Scheme de LilyPond
+@node LilyPond Scheme syntax
 @subsection Sintaxis del Scheme de LilyPond
-@translationof LilyPond Scheme syntax
 @funindex $
 @funindex #
 
@@ -773,7 +753,7 @@ consultar al lector de Scheme, y así solamente se aceptan los
 nombres de variable consistentes con el modo actual de LilyPond.
 
 La acción inmediata de @code{$} puede llevar a alguna que otra
-sorpresa, véase @ref{Importación de Scheme dentro de LilyPond}.
+sorpresa, véase @ref{Importing Scheme in LilyPond}.
 La utilización de @code{#} donde el analizador sintáctico lo
 contempla es normalmente preferible.  Dentro de las expresiones
 musicales, aquellas que se crean utilizando @code{#} @emph{se
@@ -830,9 +810,8 @@ una sola expresión de Scheme mediante la utilización del operador
 @end example
 
 
-@node Variables de LilyPond
+@node LilyPond variables
 @subsection Variables de LilyPond
-@translationof LilyPond variables
 
 Las variables de LilyPond se almacenan internamente en la forma de
 variables de Scheme.  Así,
@@ -880,11 +859,10 @@ música directamente.
 
 @morerefs
 Manual de extensión:
-@ref{Sintaxis del Scheme de LilyPond}.
+@ref{LilyPond Scheme syntax}.
 
-@node Variables de entrada y Scheme
+@node Input variables and Scheme
 @subsection Variables de entrada y Scheme
-@translationof Input variables and Scheme
 
 El formato de entrada contempla la noción de variables: en el
 siguiente ejemplo, se asigna una expresión musical a una variable
@@ -955,9 +933,8 @@ siguiente @emph{sin} evaluarla, de forma que puede proceder a la
 asignación, y @emph{posteriormente} ejecutar el código de Scheme
 sin problema.
 
-@node Importación de Scheme dentro de LilyPond
+@node Importing Scheme in LilyPond
 @subsection Importación de Scheme dentro de LilyPond
-@translationof Importing Scheme in LilyPond
 @funindex $
 @funindex #
 
@@ -984,8 +961,7 @@ Si hubiésemos estado usando @code{$} en vez de @code{#} para
 definir @code{newLa} en el ejemplo anterior, la siguiente
 definición de Scheme habría fracasado porque @code{traLaLa} no
 habría sido definida aún.  Para ver una explicación de este
-problema de momento temporal, véase @ref{Sintaxis del Scheme de
-LilyPond}.
+problema de momento temporal, véase @ref{LilyPond Scheme syntax}.
 
 @funindex $@@
 @funindex #@@
@@ -1012,7 +988,7 @@ Ahora bien, en todas esas formas, el código de Scheme se evalúa en
 el momento en que el código de entrada aún se está procesando, ya
 sea en el analizador léxico o en el analizador sintáctico.  Si
 necesitamos que se ejecute en un momento posterior, debemos
-consultar @ref{Funciones de Scheme vacías}, o almacenarlo dentro
+consultar @ref{Void scheme functions}, o almacenarlo dentro
 de un procedimiento:
 
 @example
@@ -1030,9 +1006,8 @@ No es posible mezclar variables de Scheme y de LilyPond con la
 opción @option{--safe}.
 
 
-@node Propiedades de los objetos
+@node Object properties
 @subsection Propiedades de los objetos
-@translationof Object properties
 
 Las propiedades de los objetos se almacenan en LilyPond en forma
 de cadenas de listas-A, que son listas de listas-A.  Las
@@ -1068,22 +1043,20 @@ mientras que @code{veintiCuatro} es una variable.
 @c  LilyPond variable types.  I think this deserves a section all
 @c  its own
 
-@node Variables de LilyPond compuestas
+@node LilyPond compound variables
 @subsection Variables de LilyPond compuestas
-@translationof LilyPond compound variables
 
 @menu
-* Desplazamientos::
-* Fracciones::
-* Dimensiones::
-* Listas-A de propiedades::
-* Cadenas de listas-A::
+* Offsets::
+* Fractions::
+* Extents::
+* Property alists::
+* Alist chains::
 @end menu
 
 
-@node Desplazamientos
+@node Offsets
 @unnumberedsubsubsec Desplazamientos
-@translationof Offsets
 
 Los desplazamientos bidimensionales (coordenadas X e Y) se
 almacenan como @emph{parejas}.  El @code{car} del desplazamiento
@@ -1102,9 +1075,8 @@ arriba.
 Los procedimientos para trabajar con desplazamientos están en
 @file{scm/lily-library.scm}.
 
-@node Fracciones
+@node Fractions
 @unnumberedsubsubsec Fracciones
-@translationof Fractions
 
 Las fracciones tal y como se utilizan por parte de LilyPond se
 almacenan, de nuevo, como @emph{parejas}, esta vez de enteros sin
@@ -1117,9 +1089,8 @@ negativas en LilyPond.  Así pues, @code{2/4} en LilyPond significa
 @code{1/2} en Scheme.
 
 
-@node Dimensiones
+@node Extents
 @unnumberedsubsubsec Dimensiones
-@translationof Extents
 
 Las parejas se usan también para almacenar intervalos, que
 representan un rango de números desde el mínimo (el @code{car})
@@ -1135,9 +1106,8 @@ Los procedimientos para trabajar con intervalos están en
 siempre que sea posible, para asegurar la consistencia del código.
 
 
-@node Listas-A de propiedades
+@node Property alists
 @unnumberedsubsubsec Listas-A de propiedades
-@translationof Property alists
 
 Una lista-A de propiedades es una estructura de datos de LilyPond
 que es una lista-A cuyas claves son propiedades y cuyos valores
@@ -1148,9 +1118,8 @@ Las propiedades de LilyPond son símbolos de Scheme, como por
 ejemplo @code{'thickness}.
 
 
-@node Cadenas de listas-A
+@node Alist chains
 @unnumberedsubsubsec Cadenas de listas-A
-@translationof Alist chains
 
 Una cadena de listas-A es una lista que contiene listas-A de
 propiedades.
@@ -1166,9 +1135,8 @@ encuentre, y el valor es el valor de la propiedad.
 El procedimiento de Scheme @code{chain-assoc-get} se usa
 normalmente para obtener los valores de propiedades.
 
-@node Representación interna de la música
+@node Internal music representation
 @subsection Representación interna de la música
-@translationof Internal music representation
 
 Internamente, la música se representa como una lista de Scheme.
 La lista contiene varios elementos que afectan a la salida
@@ -1225,24 +1193,22 @@ almacena dentro de la propiedad @code{element} de
 @rinternals{RepeatedMusic}, y las alternativas dentro de
 @code{elements}.
 
-@node Construir funciones complicadas
+@node Building complicated functions
 @section Construir funciones complicadas
-@translationof Building complicated functions
 
 Esta sección explica cómo reunir la información necesaria para
 crear funciones musicales complicadas.
 
 @menu
-* Presentación de las expresiones musicales::
-* Propiedades musicales::
-* Duplicar una nota con ligaduras (ejemplo)::
-* Añadir articulaciones a las notas (ejemplo)::
+* Displaying music expressions::
+* Music properties::
+* Doubling a note with slurs (example)::
+* Adding articulation to notes (example)::
 @end menu
 
 
-@node Presentación de las expresiones musicales
+@node Displaying music expressions
 @subsection Presentación de las expresiones musicales
-@translationof Displaying music expressions
 
 @cindex almacenamiento interno
 @cindex imprimir expresiones musicales
@@ -1340,9 +1306,8 @@ y por ello se interpretará al tiempo que se imprime en la consola.
 Para evitar la interpretación, escriba @code{\void} antes de
 @code{\displayMusic}.
 
-@node Propiedades musicales
+@node Music properties
 @subsection Propiedades musicales
-@translationof Music properties
 
 @ignore
 TODO -- make sure we delineate between @emph{music} properties,
@@ -1427,9 +1392,8 @@ d'4
 @end example
 
 
-@node Duplicar una nota con ligaduras (ejemplo)
+@node Doubling a note with slurs (example)
 @subsection Duplicar una nota con ligaduras (ejemplo)
-@translationof Doubling a note with slurs (example)
 
 Supongamos que queremos crear una función que convierte una
 entrada como @code{a} en @code{@{ a( a) @}}.  Comenzamos
@@ -1509,9 +1473,8 @@ doubleSlur = #(define-music-function (note) (ly:music?)
 @end example
 
 
-@node Añadir articulaciones a las notas (ejemplo)
+@node Adding articulation to notes (example)
 @subsection Añadir articulaciones a las notas (ejemplo)
-@translationof Adding articulation to notes (example)
 
 La manera fácil de añadir articulación a las notas es juxtaponer dos
 expresiones musicales.  Sin embargo,

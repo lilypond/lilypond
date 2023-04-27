@@ -10,9 +10,8 @@
 @c \version "2.16.0"
 
 
-@node Música contemporánea
+@node Contemporary music
 @section Música contemporánea
-@translationof Contemporary music
 
 A partir de comienzos del s.XX se ha producido una expansión masiva de
 los estilos y técnicas composicionales.  Los nuevos desarrollos
@@ -24,49 +23,46 @@ referencias e información relevante para el trabajo con estas nuevas
 técnicas notacionales.
 
 @menu
-* Altura y armonía en la música contemporánea::
-* Enfoques contemporáneos del ritmo::
-* Notación gráfica::
-* Técnicas de partitura contemporáneas::
-* Nuevas técnicas instrumentales::
-* Lecturas adicionales y partituras de interés::
+* Pitch and harmony in contemporary music::
+* Contemporary approaches to rhythm::
+* Graphical notation::
+* Contemporary scoring techniques::
+* New instrumental techniques::
+* Further reading and scores of interest::
 @end menu
 
 
-@node Altura y armonía en la música contemporánea
+@node Pitch and harmony in contemporary music
 @subsection Altura y armonía en la música contemporánea
-@translationof Pitch and harmony in contemporary music
 
 Esta sección destaca los problemas de la notación de las alturas y la
 armonía en la música contemporánea.
 
 @menu
-* Referencias para alturas y armonía en música contemporánea::
-* Notación microtonal::
-* Armonía y armaduras de tonalidad contemporáneas::
+* References for pitch and harmony in contemporary music::
+* Microtonal notation::
+* Contemporary key signatures and harmony::
 @end menu
 
 
-@node Referencias para alturas y armonía en música contemporánea
+@node References for pitch and harmony in contemporary music
 @unnumberedsubsubsec Referencias para alturas y armonía en música contemporánea
-@translationof References for pitch and harmony in contemporary music
 
 @itemize
 @item La notación estándar de cuartos de tono se estudia en
-@ref{Nombres de las notas en otros idiomas}.
+@ref{Note names in other languages}.
 
 @item Las armaduras de tonalidad no estándar se estudian en
-@ref{Armadura de la tonalidad}.
+@ref{Key signature}.
 
 @item Las prácticas contemporáneas en la presentación de las alteraciones
-accidentales se estudian en @ref{Alteraciones accidentales automáticas}.
+accidentales se estudian en @ref{Automatic accidentals}.
 
 @end itemize
 
 
-@node Notación microtonal
+@node Microtonal notation
 @unnumberedsubsubsec Notación microtonal
-@translationof Microtonal notation
 
 @ignore
     Discussion of microtones other than quarter-tones, alternative
@@ -74,9 +70,8 @@ notations (arrows, slash-flats), etc.
 @end ignore
 
 
-@node Armonía y armaduras de tonalidad contemporáneas
+@node Contemporary key signatures and harmony
 @unnumberedsubsubsec Armonía y armaduras de tonalidad contemporáneas
-@translationof Contemporary key signatures and harmony
 
 @ignore
     Discussion of contemporary key signatures:
@@ -84,45 +79,41 @@ notations (arrows, slash-flats), etc.
 @end ignore
 
 
-@node Enfoques contemporáneos del ritmo
+@node Contemporary approaches to rhythm
 @subsection Enfoques contemporáneos del ritmo
-@translationof Contemporary approaches to rhythm
 
 Esta sección destaca los problemas de la notación de las duraciones en
 la música contemporánea.
 
 @menu
-* Referencias para enfoque contemporáneos del ritmo::
-* Grupos de valoración especial en música contemporánea::
-* Compases contemporáneos::
-* Notación polimétrica extendida::
-* Barrado en música contemporánea::
-* Líneas divisorias en música contemporánea::
+* References for contemporary approaches to rhythm::
+* Tuplets in contemporary music::
+* Contemporary time signatures::
+* Extended polymetric notation::
+* Beams in contemporary music::
+* Bar lines in contemporary music::
 @end menu
 
 
-@node Referencias para enfoque contemporáneos del ritmo
+@node References for contemporary approaches to rhythm
 @unnumberedsubsubsec Referencias para enfoque contemporáneos del ritmo
-@translationof References for contemporary approaches to rhythm
 
 @itemize
-@item Los tipos de compás de amalgama se estudian en @ref{Indicación de compás}.
+@item Los tipos de compás de amalgama se estudian en @ref{Time signature}.
 
 @item La notación polimétrica básica se estudia en
-@ref{Notación polimétrica}.
+@ref{Polymetric notation}.
 
-@item Las barras en ángulo progresivas se estudian en @ref{Barras progresivas}.
+@item Las barras en ángulo progresivas se estudian en @ref{Feathered beams}.
 
 @item Las líneas divisorias de estilo Mensurstriche (líneas que están
-solamente entre los pentagramas) se estudian en @ref{Agrupar
-pentagramas}.
+solamente entre los pentagramas) se estudian en @ref{Grouping staves}.
 
 @end itemize
 
 
-@node Grupos de valoración especial en música contemporánea
+@node Tuplets in contemporary music
 @unnumberedsubsubsec Grupos de valoración especial en música contemporánea
-@translationof Tuplets in contemporary music
 
 @ignore
     Extended discussion of modern tuplets, including
@@ -133,9 +124,8 @@ pentagramas}.
 @end ignore
 
 
-@node Compases contemporáneos
+@node Contemporary time signatures
 @unnumberedsubsubsec Compases contemporáneos
-@translationof Contemporary time signatures
 
 @ignore
     Extended discussion of compound time signatures
@@ -148,9 +138,8 @@ pentagramas}.
 @end ignore
 
 
-@node Notación polimétrica extendida
+@node Extended polymetric notation
 @unnumberedsubsubsec Notación polimétrica extendida
-@translationof Extended polymetric notation
 
 @ignore
     Extended examples e.g. different instruments
@@ -158,9 +147,8 @@ pentagramas}.
 @end ignore
 
 
-@node Barrado en música contemporánea
+@node Beams in contemporary music
 @unnumberedsubsubsec Barrado en música contemporánea
-@translationof Beams in contemporary music
 
 @ignore
     Beaming practises, stemlets, Boulez-esque displaying
@@ -168,9 +156,8 @@ pentagramas}.
 @end ignore
 
 
-@node Líneas divisorias en música contemporánea
+@node Bar lines in contemporary music
 @unnumberedsubsubsec Líneas divisorias en música contemporánea
-@translationof Bar lines in contemporary music
 
 
 @ignore
@@ -178,37 +165,32 @@ pentagramas}.
 @end ignore
 
 
-@node Notación gráfica
+@node Graphical notation
 @subsection Notación gráfica
-@translationof Graphical notation
 
 
-@node Técnicas de partitura contemporáneas
+@node Contemporary scoring techniques
 @subsection Técnicas de partitura contemporáneas
-@translationof Contemporary scoring techniques
 
 
-@node Nuevas técnicas instrumentales
+@node New instrumental techniques
 @subsection Nuevas técnicas instrumentales
-@translationof New instrumental techniques
 
 
-@node Lecturas adicionales y partituras de interés
+@node Further reading and scores of interest
 @subsection Lecturas adicionales y partituras de interés
-@translationof Further reading and scores of interest
 
 Esta sección sugiere libros, ejemplos musicales y otros recursos de
 utilidad en el estudio de la notación musical contemporánea.
 
 @menu
-* Libros y artículos sobre notación musical contemporánea::
-* Partituras y ejemplos musicales::
+* Books and articles on contemporary musical notation::
+* Scores and musical examples::
 @end menu
 
 
-@node Libros y artículos sobre notación musical contemporánea
+@node Books and articles on contemporary musical notation
 @unnumberedsubsubsec Libros y artículos sobre notación musical contemporánea
-@translationof Books and articles on contemporary musical notation
 
 @itemize
 @item
@@ -226,9 +208,8 @@ de Kurt Stone [W. W. Norton, 1980]
 @end itemize
 
 
-@node Partituras y ejemplos musicales
+@node Scores and musical examples
 @unnumberedsubsubsec Partituras y ejemplos musicales
-@translationof Scores and musical examples
 
 @ignore
     Rough list of composers whose work could be included

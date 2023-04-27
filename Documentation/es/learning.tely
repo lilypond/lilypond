@@ -42,15 +42,15 @@ Copyright @copyright{} 1999--2023 por los autores.
 @menu
 * Installing::                     Installing LilyPond
 * Tutorial::                       Fundamentos de la tipografía musical con LilyPond.
-* Notación corriente::             Escribir notación muy común.
-* Conceptos fundamentales::        Conceptos básicos necesarios para leer el resto de los manuales.
-* Trucar la salida::               Introducción a la modificación de la salida.
+* Common notation::             Escribir notación muy común.
+* Fundamental concepts::        Conceptos básicos necesarios para leer el resto de los manuales.
+* Tweaking output::               Introducción a la modificación de la salida.
 
 Apéndices
 
-* Plantillas::                     Plantillas listas para usar.
+* Templates::                     Plantillas listas para usar.
 * GNU Free Documentation License:: Licencia de este documento.
-* Índice de LilyPond::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -75,9 +75,8 @@ Apéndices
 @include es/learning/templates.itely
 @include en/fdl.itexi
 
-@node Índice de LilyPond
+@node LilyPond index
 @appendix Índice de LilyPond
-@translationof LilyPond index
 
 @printindex cp
 

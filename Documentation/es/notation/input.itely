@@ -10,43 +10,40 @@
 
 @c \version "2.25.4"
 
-@node Entrada y salida generales
+@node General input and output
 @chapter Entrada y salida generales
-@translationof General input and output
 
 Esta sección trata de asuntos relacionados con la entrada y
 salida generales de LilyPond, más que con la notación específica.
 
 @menu
-* Estructura del código de entrada::
-* Títulos y encabezamientos::
-* Trabajar sobre los archivos de entrada::
-* Controlar la salida::
-* Creación de salida MIDI::
-* Extraer información musical::
+* Input structure::
+* Titles and headers::
+* Working with input files::
+* Controlling output::
+* Creating MIDI output::
+* Extracting musical information::
 @end menu
 
 
-@node Estructura del código de entrada
+@node Input structure
 @section Estructura del código de entrada
-@translationof Input structure
 
 El formato principal de entrada para LilyPond son archivos de
 texto.  Por convenio, el nombre de estos archivos termina en
 @file{.ly}.
 
 @menu
-* Estructura de una partitura::
-* Varias partituras en un libro::
-* Varios archivos de salida a partir de uno de entrada::
-* Nombres de los archivos de salida::
-* Estructura del archivo::
+* Structure of a score::
+* Multiple scores in a book::
+* Multiple output files from one input file::
+* Output file names::
+* File structure::
 @end menu
 
 
-@node Estructura de una partitura
+@node Structure of a score
 @subsection Estructura de una partitura
-@translationof Structure of a score
 
 @funindex \score
 
@@ -109,7 +106,7 @@ musicales:
 @cindex comentario de bloque
 @cindex comentario de varias líneas
 Los comentarios son una excepción a esta regla general (para ver
-otras excepciones, consulte @ref{Estructura del archivo}).  Tanto
+otras excepciones, consulte @ref{File structure}).  Tanto
 los comentarios de una línea como los que están delimitados por
 @code{%@{ @dots{} %@}} se pueden escribir en cualquier lugar
 dentro del archivo de entrada.  Se pueden escribir dentro o fuera
@@ -126,20 +123,19 @@ archivo de entrada, de forma que @file{fandangoforelephants.ly}
 da como resultado @file{fandangoforelephants.pdf}.
 
 (Para ver más detalles acerca de los bloques @code{\book},
-consulte @ref{Varias partituras en un libro},
-@ref{Varios archivos de salida a partir de uno de entrada} y
-@ref{Estructura del archivo}.)
+consulte @ref{Multiple scores in a book},
+@ref{Multiple output files from one input file} y
+@ref{File structure}.)
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Trabajar sobre los archivos de entrada},
-@rlearning{Explicación de las expresiones musicales},
-@rlearning{La partitura es una (única) expresión musical compuesta}.
+@rlearningnamed{Working on input files, Trabajar sobre los archivos de entrada},
+@rlearningnamed{Music expressions explained, Explicación de las expresiones musicales},
+@rlearningnamed{Score is a (single) compound musical expression, La partitura es una (única) expresión musical compuesta}.
 
 
-@node Varias partituras en un libro
+@node Multiple scores in a book
 @subsection Varias partituras en un libro
-@translationof Multiple scores in a book
 
 @funindex \book
 @cindex movimientos, varios
@@ -241,17 +237,15 @@ especificación del bloque @code{\header}.
 @end example
 
 
-@node Varios archivos de salida a partir de uno de entrada
+@node Multiple output files from one input file
 @subsection Varios archivos de salida a partir de uno de entrada
-@translationof Multiple output files from one input file
 
 Si queremos varios archivos de salida a partir del mismo archivo
 @file{.ly}, podemos escribir varios bloques @code{\book}, donde
 cada uno de estos bloques @code{\book} dará como resultado un
 archivo de salida distinto.  Si no especificamos ningún bloque
 @code{\book} en el archivo, LilyPond trata implícitamente todo el
-archivo como un solo bloque @code{\book}, véase @ref{Estructura
-del archivo}.
+archivo como un solo bloque @code{\book}, véase @ref{File structure}.
 
 Al producir varios archivos a partir de un solo archivo fuente,
 LilyPond se asegura de que ninguno de los archivos de salida de
@@ -293,9 +287,8 @@ en el archivo fuente @file{eightminiatures.ly}, produce
 @end itemize
 
 
-@node Nombres de los archivos de salida
+@node Output file names
 @subsection Nombres de los archivos de salida
-@translationof Output file names
 
 @funindex \bookOutputSuffix
 @funindex \bookOutputName
@@ -366,9 +359,8 @@ El código anterior produce los siguientes archivos de salida:
 @end itemize
 
 
-@node Estructura del archivo
+@node File structure
 @subsection Estructura del archivo
-@translationof File structure
 
 @funindex \paper
 @funindex \midi
@@ -391,7 +383,7 @@ de una de estas definiciones del mismo tipo en el nivel más alto,
 las definiciones se combinan, pero en situaciones de conflicto
 las definiciones más tardías tienen preferencia.  Para ver los
 detalles sobre cómo afecta al bloque @code{\layout}, consulte
-@ref{El bloque layout}.
+@ref{The layout block}.
 
 @item
 Una expresión directa de Scheme, como
@@ -404,7 +396,7 @@ encabezamiento global (es decir, al principio del archivo).  Es
 el bloque que contiene los ajustes predeterminados de los campos
 de encabezamientos como el compositor, título, etc. para todos
 los libros que están dentro del archivo (véase
-@ref{Explicación de los títulos}).
+@ref{Titles explained}).
 
 @item
 Un bloque @code{\score}.  Esta partitura se reúne con otras
@@ -573,16 +565,15 @@ por un signo@tie{}@code{#}.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Cómo funcionan los archivos de entrada de LilyPond}.
+@rlearningnamed{How LilyPond input files work, Cómo funcionan los archivos de entrada de LilyPond}.
 
 Referencia de la notación:
-@ref{Explicación de los títulos},
-@ref{El bloque layout}.
+@ref{Titles explained},
+@ref{The layout block}.
 
 
-@node Títulos y encabezamientos
+@node Titles and headers
 @section Títulos y encabezamientos
-@translationof Titles and headers
 
 @cindex título
 @cindex encabezamiento
@@ -592,32 +583,30 @@ Casi toda la música impresa tiene un título y el nombre del
 compositor; ciertas piezas tienen mucha más información.
 
 @menu
-* Crear títulos encabezamientos y pies de página::
-* Títulos encabezamientos y pies de página personalizados::
-* Crear metadatos en los archivos de salida::
-* Crear notas al pie::
-* Referencia a números de página::
-* Índice general::
+* Creating titles headers and footers::
+* Custom titles headers and footers::
+* Creating output file metadata::
+* Creating footnotes::
+* Reference to page numbers::
+* Table of contents::
 @end menu
 
 
-@node Crear títulos encabezamientos y pies de página
+@node Creating titles headers and footers
 @subsection Crear títulos, encabezamientos y pies de página
-@translationof Creating titles headers and footers
 
 @menu
-* Explicación de los títulos::
-* Presentación predeterminada de los títulos de partes de libro y partitura::
-* Disposición predeterminada de las cabeceras y pies de página::
+* Titles explained::
+* Default layout of bookpart and score titles::
+* Default layout of headers and footers::
 @end menu
 
 
-@node Explicación de los títulos
+@node Titles explained
 @unnumberedsubsubsec Explicación de los títulos
-@translationof Titles explained
 
 Cada bloque @code{\book} de un solo archivo de entrada produce un
-archivo de salida distinto, véase @ref{Estructura del archivo}.
+archivo de salida distinto, véase @ref{File structure}.
 Dentro de cada archivo de salida están disponibles tres tipos de
 zonas para títulos: @emph{Títulos de libro} al principio de cada
 libro, @emph{Títulos de parte de libro} al principio de cada
@@ -628,8 +617,7 @@ Los valores de los campos para encabezamientos tales como
 @code{title} (para el título) y @code{composer} (para el autor)
 se establecen en bloques @code{\header} (para ver la sintaxis de
 los bloques @code{\header} y una lista completa de los campos
-disponibles de forma predeterminada, consulte @ref{Presentación
-predeterminada de los títulos de partes de libro y partitura}).
+disponibles de forma predeterminada, consulte @ref{Default layout of bookpart and score titles}).
 Tanto los títulos de libro como los títulos de parte de libro y
 los títulos de partitura pueden contener los mismos campos,
 aunque de forma predeterminada los campos de los títulos de
@@ -797,14 +785,13 @@ campos sobreescritos y otros suprimidos manualmente:
 
 @morerefs
 Referencia de la notación:
-@ref{Estructura del archivo},
-@ref{Presentación predeterminada de los títulos de partes de libro y partitura},
-@ref{Personalización de los títulos}.
+@ref{File structure},
+@ref{Default layout of bookpart and score titles},
+@ref{Custom layout for titles}.
 
 
-@node Presentación predeterminada de los títulos de partes de libro y partitura
+@node Default layout of bookpart and score titles
 @unnumberedsubsubsec Presentación predeterminada de los títulos de partes de libro y partitura
-@translationof Default layout of bookpart and score titles
 
 Este ejemplo muestra todas las variables impresas de @code{\header}:
 
@@ -884,7 +871,7 @@ opuestos de la misma línea.
 @end itemize
 
 Para cambiar la disposición predeterminada, véase
-@ref{Personalización de los títulos}.
+@ref{Custom layout for titles}.
 
 @funindex breakbefore
 
@@ -921,19 +908,18 @@ primera página, empezando la música (definida en el bloque
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Cómo funcionan los archivos de entrada de LilyPond}
+@rlearningnamed{How LilyPond input files work, Cómo funcionan los archivos de entrada de LilyPond}
 
 Referencia de la notación:
-@ref{Personalización de los títulos},
-@ref{Estructura del archivo}.
+@ref{Custom layout for titles},
+@ref{File structure}.
 
 Archivos de inicio:
 @file{ly/titling-init.ly}.
 
 
-@node Disposición predeterminada de las cabeceras y pies de página
+@node Default layout of headers and footers
 @unnumberedsubsubsec Disposición predeterminada de las cabeceras y pies de página
-@translationof Default layout of headers and footers
 
 Las @emph{cabeceras} y los @emph{pies} de página son líneas de
 texto que aparecen en la parte más alta y en la más baja de las
@@ -994,23 +980,21 @@ Para eliminar la línea de pie de página predeterminada de
 LilyPond, establezca el valor de @code{tagline} a @code{##f}.
 
 
-@node Títulos encabezamientos y pies de página personalizados
+@node Custom titles headers and footers
 @subsection Títulos, encabezamientos y pies de página personalizados
-@translationof Custom titles headers and footers
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
 
 @menu
-* Formateo personalizado del texto de los títulos::
-* Personalización de los títulos::
-* Disposición personalizada de cabeceras y pies de página::
+* Custom text formatting for titles::
+* Custom layout for titles::
+* Custom layout for headers and footers::
 @end menu
 
 
-@node Formateo personalizado del texto de los títulos
+@node Custom text formatting for titles
 @unnumberedsubsubsec Formateo personalizado del texto de los bloques de título
-@translationof Custom text formatting for titles
 
 Se pueden usar instrucciones @code{\markup} estándar para
 personalizar el texto de cualquier cabecera, pie o título dentro
@@ -1028,12 +1012,11 @@ del bloque @code{\header}.
 
 @morerefs
 Referencia de la notación:
-@ref{Formatear el texto}.
+@ref{Formatting text}.
 
 
-@node Personalización de los títulos
+@node Custom layout for titles
 @unnumberedsubsubsec Personalización de los títulos
-@translationof Custom layout for titles
 
 @funindex bookTitleMarkup
 @funindex scoreTitleMarkup
@@ -1052,7 +1035,7 @@ las dos variables de @code{\paper} siguientes:
 La colocación de los títulos cuando se utilizan los valores
 predeterminados de estas variables de @code{\markup} se muestra
 en los ejemplos de
-@ref{Presentación predeterminada de los títulos de partes de libro y partitura}.
+@ref{Default layout of bookpart and score titles}.
 
 Los ajustes predeterminados para @code{scoreTitleMarkup} tal y
 como están definidos en el archivo @file{ly/titling-init.ly} son:
@@ -1115,8 +1098,7 @@ la zona del Título de la partitura si se coloca
 desventaja de la utilización de este método es que los campos de
 texto que están orientados específicamente para la zona del
 título de parte de libro han de suprimirse manualmente en cada
-uno de los bloques @code{\score}.  Véase @ref{Explicación de los
-títulos}.
+uno de los bloques @code{\score}.  Véase @ref{Titles explained}.
 
 Para evitarlo, añada el campo de texto deseado a la definición de
 @code{scoreTitleMarkup}.  En el ejemplo siguiente, el campo de
@@ -1190,12 +1172,11 @@ elemento de marcado.
 
 @morerefs
 Referencia de la notación:
-@ref{Explicación de los títulos}.
+@ref{Titles explained}.
 
 
-@node Disposición personalizada de cabeceras y pies de página
+@node Custom layout for headers and footers
 @unnumberedsubsubsec Disposición personalizada de cabeceras y pies de página
-@translationof Custom layout for headers and footers
 
 @c can make-header and make-footer be removed from
 @c paper-defaults-init.ly? -mp
@@ -1302,15 +1283,14 @@ determina si la salida es una sola página.
 
 @morerefs
 Referencia de la notación:
-@ref{Explicación de los títulos},
-@ref{Presentación predeterminada de los títulos de partes de libro y partitura}.
+@ref{Titles explained},
+@ref{Default layout of bookpart and score titles}.
 
 Archivos instalados:
 @file{../ly/titling-init.ly}.
 
-@node Crear metadatos en los archivos de salida
+@node Creating output file metadata
 @subsection Crear metadatos en los archivos de salida
-@translationof Creating output file metadata
 
 @cindex metadatos de PDF
 @cindex MIDI, metadatos de
@@ -1372,22 +1352,20 @@ secuencia para el archivo MIDI.  Se puede usar la variable
 @code{midititle} para fijar el nombre de la secuencia
 independientemente del valor usado para la salida impresa.
 
-@node Crear notas al pie
+@node Creating footnotes
 @subsection Crear notas al pie
-@translationof Creating footnotes
 
 @cindex nota al pie
 
 Se pueden crear dos tipos de notas al pie: automáticas y manuales.
 
 @menu
-* Notas al pie dentro de expresiones musicales::
-* Notas al pie en texto independiente::
+* Footnotes in music expressions::
+* Footnotes in stand-alone text::
 @end menu
 
-@node Notas al pie dentro de expresiones musicales
+@node Footnotes in music expressions
 @unnumberedsubsubsec Notas al pie dentro de expresiones musicales
-@translationof Footnotes in music expressions
 
 @cindex nota al pie dentro de expresiones musicales
 @funindex \footnote
@@ -1690,12 +1668,11 @@ une el objeto marcado con su marca:
 @end lilypond
 
 Se muestran más ejemplos de marcas personalizadas en
-@ref{Notas al pie en texto independiente}.
+@ref{Footnotes in stand-alone text}.
 
 
-@node Notas al pie en texto independiente
+@node Footnotes in stand-alone text
 @unnumberedsubsubsec Notas al pie en texto independiente
-@translationof Footnotes in stand-alone text
 
 @cindex nota al pie en texto independiente
 
@@ -1778,9 +1755,9 @@ precedida por la @var{marca} especificada.
 @end table
 
 Se puede usar como marca un carácter fácil de teclear, como * ó +,
-según se muestra en @ref{Notas al pie dentro de expresiones musicales}.
+según se muestra en @ref{Footnotes in music expressions}.
 De forma alternativa, se pueden usar alias en ASCII (véase
-@ref{Alias de ASCII}):
+@ref{ASCII aliases}):
 
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
@@ -1826,14 +1803,14 @@ especificar las marcas (véase @ref{Unicode}):
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Objetos e interfaces}.
+@rlearningnamed{Objects and interfaces, Objetos e interfaces}.
 
 Referencia de la notación:
-@ref{Alias de ASCII},
-@ref{Globos de ayuda},
-@ref{Lista de caracteres especiales},
-@ref{Indicaciones de texto},
-@ref{Guiones de texto},
+@ref{ASCII aliases},
+@ref{Balloon help},
+@ref{List of special characters},
+@ref{Text marks},
+@ref{Text scripts},
 @ref{Unicode}.
 
 Referencia de funcionamiento interno:
@@ -1854,9 +1831,8 @@ Las notas al pie pueden colisionar con las pautas, objetos
 anotación.
 
 
-@node Referencia a números de página
+@node Reference to page numbers
 @subsection Referencia a números de página
-@translationof Reference to page numbers
 
 @cindex marcadores
 @cindex página, referenciar números de
@@ -1911,9 +1887,8 @@ puede ser "00", es decir, un número de dos dígitos.
 @endpredefined
 
 
-@node Índice general
+@node Table of contents
 @subsection Índice general
-@translationof Table of contents
 
 @cindex @'indice general
 @cindex tabla de contenidos
@@ -1999,7 +1974,7 @@ tocItemMarkup = \markup \fill-line {
 Cómo se formatean las entradas del nivel superior de la tabla (si
 existen varios niveles jerárquicos).  Esto es un procedimiento en
 realidad, como se explica en
-@rextend{Construcción de elementos de marcado en Scheme}.
+@rextendnamed{Markup construction in Scheme, Construcción de elementos de marcado en Scheme}.
 
 @verbatim
 tocFormatMarkup = #make-bold-markup
@@ -2171,20 +2146,18 @@ Archivos de inicio:
 @endpredefined
 
 
-@node Trabajar sobre los archivos de entrada
+@node Working with input files
 @section Trabajar sobre los archivos de entrada
-@translationof Working with input files
 
 @menu
-* Inclusión de archivos de LilyPond::
-* Distintas ediciones a partir de una misma fuente::
-* Caracteres especiales::
+* Including LilyPond files::
+* Different editions from one source::
+* Special characters::
 @end menu
 
 
-@node Inclusión de archivos de LilyPond
+@node Including LilyPond files
 @subsection Inclusión de archivos de LilyPond
-@translationof Including LilyPond files
 
 @funindex \include
 @cindex including files
@@ -2207,8 +2180,7 @@ variables que a partir de entonces quedan disponibles para
 poderlas utilizar en el archivo de la partitura completa.  En los
 archivos incluidos se pueden marcar las secciones etiquetadas
 para ayudar a hacerlas utilizables en distintos lugares de la
-partitura, véase @ref{Distintas ediciones a partir de una misma
-fuente}.
+partitura, véase @ref{Different editions from one source}.
 
 Los archivos que están en el directorio de trabajo actual se
 pueden referenciar simplemente especificando el nombre después de
@@ -2304,7 +2276,7 @@ y en @file{principal.ly} escriba
 
 Los archivos que se incluyen en muchas partituras se pueden poner
 en el directorio de LilyPond @file{../ly} (la localización de
-este directorio depende de la instalación: véase @rlearning{Otras
+este directorio depende de la instalación: véase @rlearningnamed{Other sources of information, Otras
 fuentes de información}).  Estos archivos se pueden incluir
 sencillamente por su nombre en un enunciado @code{\include}.  De
 esta forma se incluyen los archivos dependientes del idioma como
@@ -2317,17 +2289,17 @@ usuario, pero los archivos se pueden identificar ejecutando
 presentará una lista de rutas y archivos que utiliza LilyPond,
 junto a muchas otras indicaciones.  De forma alternativa, pueden
 verse explicaciones sobre los archivos más importantes de este
-conjunto en @rlearning{Otras fuentes de información}.  Estos
+conjunto en @rlearningnamed{Other sources of information, Otras fuentes de información}.  Estos
 archivos se pueden editar, pero los cambios realizados sobre
 ellos se perderán al instalar una nueva versión de LilyPond.
 
 Pueden verse ejemplos sencillos sobre el uso de @code{\include}
-en @rlearning{Partituras y particellas}.
+en @rlearningnamed{Scores and parts, Partituras y particellas}.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Otras fuentes de información},
-@rlearning{Partituras y particellas}.
+@rlearningnamed{Other sources of information, Otras fuentes de información},
+@rlearningnamed{Scores and parts, Partituras y particellas}.
 
 @knownissues
 Si un archivo incluido recibe un nombre igual al de uno de los
@@ -2335,9 +2307,8 @@ archivos de instalación de LilyPond, el archivo que tiene
 prioridad es el de los archivos de instalación de LilyPond.
 
 
-@node Distintas ediciones a partir de una misma fuente
+@node Different editions from one source
 @subsection Distintas ediciones a partir de una misma fuente
-@translationof Different editions from one source
 
 Se pueden usar varios métodos para generar la producción de
 distintas versiones de una partitura a partir de la misma fuente
@@ -2352,26 +2323,24 @@ notación de la estructura de la partitura hará que sea más fácil
 cambiar la estructura dejando intacta la notación.
 
 @menu
-* Uso de las variables::
-* Uso de etiquetas::
-* Uso de ajustes globales::
+* Using variables::
+* Using tags::
+* Using global settings::
 @end menu
 
-@node Uso de las variables
+@node Using variables
 @unnumberedsubsubsec Uso de las variables
-@translationof Using variables
 
 @cindex variables, uso de las
 
 Si las secciones de la música se definen dentro de variables, se
 pueden reutilizar en distintas partes de la partitura, véase
-@rlearning{Organizar las piezas mediante variables}.  Por
+@rlearningnamed{Organizing pieces with variables, Organizar las piezas mediante variables}.  Por
 ejemplo, una partitura vocal @notation{a cappella} con frecuencia
 incluye una reducción de piano de las partes para ensayar que es
 idéntica a la música vocal, por lo que ésta sólo se tiene que
 escribir una vez.  Se puede combinar sobre un solo pentagrama la
-música de dos variables, véase @ref{Combinación automática de las
-partes}.  He aquí un ejemplo:
+música de dos variables, véase @ref{Automatic part combining}.  He aquí un ejemplo:
 
 @lilypond[verbatim,quote]
 sopranoMusic = \relative { a'4 b c b8( a) }
@@ -2412,12 +2381,11 @@ enunciados estructurales, sin modificar la notación musical.
 
 Para partituras extensas, las definiciones de variable se pueden
 poner en archivos separados que se incluyen más tarde, véase
-@ref{Inclusión de archivos de LilyPond}.
+@ref{Including LilyPond files}.
 
 
-@node Uso de etiquetas
+@node Using tags
 @unnumberedsubsubsec Uso de etiquetas
-@translationof Using tags
 
 @funindex \tag
 @funindex \keepWithTag
@@ -2667,11 +2635,11 @@ etiquetada.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Organizar las piezas mediante variables}.
+@rlearningnamed{Organizing pieces with variables, Organizar las piezas mediante variables}.
 
 Referencia de la notación:
-@ref{Combinación automática de las partes},
-@ref{Inclusión de archivos de LilyPond}.
+@ref{Automatic part combining},
+@ref{Including LilyPond files}.
 
 @knownissues
 Al llamar a @code{\relative} sobre una expresión musical obtenida
@@ -2686,9 +2654,8 @@ primer lugar, antes de @code{\keepWithTag} o de
 introducen.
 
 
-@node Uso de ajustes globales
+@node Using global settings
 @unnumberedsubsubsec Uso de ajustes globales
-@translationof Using global settings
 
 @cindex include settings
 
@@ -2706,34 +2673,32 @@ ajustes estándar a muchas partituras, simplemente por medio de la
 especificación del archivo de ajustes adecuado.
 
 Esta técnica también funciona bien con el uso de hojas de estilo,
-como se estudia en @rlearning{Hojas de estilo}.
+como se estudia en @rlearningnamed{Style sheets, Hojas de estilo}.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Organizar las piezas mediante variables},
-@rlearning{Hojas de estilo}.
+@rlearningnamed{Organizing pieces with variables, Organizar las piezas mediante variables},
+@rlearningnamed{Style sheets, Hojas de estilo}.
 
 Referencia de la notación:
-@ref{Inclusión de archivos de LilyPond}.
+@ref{Including LilyPond files}.
 
 
-@node Caracteres especiales
+@node Special characters
 @subsection Caracteres especiales
-@translationof Special characters
 
 @cindex caracteres especiales
 @cindex caracteres no ASCII
 
 @menu
-* Codificación del texto::
+* Text encoding::
 * Unicode::
-* Alias de ASCII::
+* ASCII aliases::
 @end menu
 
 
-@node Codificación del texto
+@node Text encoding
 @unnumberedsubsubsec Codificación del texto
-@translationof Text encoding
 
 @cindex UTF-8
 
@@ -2817,7 +2782,6 @@ portuguese = \lyricmode {
 
 @node Unicode
 @unnumberedsubsubsec Unicode
-@translationof Unicode
 
 @cindex Unicode
 
@@ -2874,9 +2838,8 @@ Para escribir el símbolo de copyright en la nota de créditos, utilice:
 @end example
 
 
-@node Alias de ASCII
+@node ASCII aliases
 @unnumberedsubsubsec Alias de ASCII
-@translationof ASCII aliases
 
 Se puede incluir una lista de alias de ASCII para caracteres
 especiales:
@@ -2922,30 +2885,28 @@ o local:
 
 @morerefs
 Referencia de la notación:
-@ref{Lista de caracteres especiales}.
+@ref{List of special characters}.
 
 Archivos instalados:
 @file{ly/text-replacements.ly}.
 
 
-@node Controlar la salida
+@node Controlling output
 @section Controlar la salida
-@translationof Controlling output
 
 @menu
-* Extracción de fragmentos de música::
-* Saltar la música corregida::
-* Formatos de salida alternativos::
-* Sustituir la tipografía de la notación::
+* Extracting fragments of music::
+* Skipping corrected music::
+* Alternative output formats::
+* Replacing the notation font::
 @end menu
 
 @funindex clip-regions
 @cindex fragmento de música
 @cindex música, fragmento
 
-@node Extracción de fragmentos de música
+@node Extracting fragments of music
 @subsection Extracción de fragmentos de música
-@translationof Extracting fragments of music
 
 Es posible producir en la salida uno o más fragmentos de una
 partitura mediante la definición de la situación explícita de la
@@ -2985,16 +2946,15 @@ generada.
 
 @morerefs
 Referencia de la notación:
-@ref{El bloque layout}.
+@ref{The layout block}.
 
 Manual de utilización:
-@rprogram{Utilización desde la línea de órdenes}.
+@rprogramnamed{Command-line usage, Utilización desde la línea de órdenes}.
 
 
 
-@node Saltar la música corregida
+@node Skipping corrected music
 @subsection Saltar la música corregida
-@translationof Skipping corrected music
 
 @funindex skipTypesetting
 @funindex showFirstLength
@@ -3030,7 +2990,7 @@ controlar con un grano más fino mediante la propiedad
 @code{Score.skipTypesetting}.  Cuando su valor está establecido,
 no se lleva a cabo ningún tipografiado en absoluto. Como propiedad
 del contexto @code{Score}, afecta a todas las voces y pentagramas;
-véase @ref{Score. El contexto maestro}.
+véase @ref{Score - the master of all contexts}.
 
 Esta propiedad se usa también para controlar la salida hacia el
 archivo MIDI. Si algún evento dentro de la sección que se salta
@@ -3058,16 +3018,15 @@ tendrá efecto solamente en el punto temporal en que
 
 @morerefs
 Referencia de la notación:
-@ref{Contextos de interpretación},
-@ref{Score. El contexto maestro}.
+@ref{Interpretation contexts},
+@ref{Score - the master of all contexts}.
 
 Referencia de funcionamiento interno:
 @rinternals{Todas las propiedades de contexto}.
 
 
-@node Formatos de salida alternativos
+@node Alternative output formats
 @subsection Formatos de salida alternativos
-@translationof Alternative output formats
 
 @cindex salida de gráficos de vector escalables
 @cindex SVG, salida
@@ -3081,15 +3040,14 @@ formatos de salida Gráficos de red portátiles (PNG), Gráficos de
 vector escalables (SVG) y PostScript encapsulado (EPS) también
 están disponibles a través de opciones de la línea de órdenes,
 véase
-@rprogram{Opciones básicas de la línea de órdenes para LilyPond}.
+@rprogramnamed{Basic command-line options for LilyPond, Opciones básicas de la línea de órdenes para LilyPond}.
 
 @menu
-* Salida de SVG::
+* SVG Output::
 @end menu
 
-@node Salida de SVG
+@node SVG Output
 @unnumberedsubsubsec Salida de SVG
-@translationof SVG Output
 
 La salida de SVG puede contener, opcionalmente, metadatos para
 objetos gráficos (grobs) como cabezas de nota, silencios, etc.
@@ -3126,9 +3084,8 @@ grob dado (ciertos grobs generan más de un elemento del SVG).  En
 la sintaxis del SVG el prfijo @code{data-} se usa para atributos
 de medios personalizados no estándar.
 
-@node Sustituir la tipografía de la notación
+@node Replacing the notation font
 @subsection Sustituir la tipografía de la notación
-@translationof Replacing the notation font
 
 Gonville es un conjunto de glifos alternativo a la tipografía Feta
 (que es parte de la tipografía Emmentaler que se usa en LilyPond).
@@ -3167,7 +3124,7 @@ en la carpeta @file{@dots{}/share/lilypond/current/fonts/otf} o
 Si tiene los archivos @file{gonville-*.svg} y @file{gonville-*.woff},
 cópielos a @file{@dots{}/share/lilypond/current/fonts/svg} o a
 @file{@dots{}/share/lilypond/@var{X.Y.Z}/fonts/svg}.
-Para más información consulte @rlearning{Otras fuentes de información}.
+Para más información consulte @rlearningnamed{Other sources of information, Otras fuentes de información}.
 
 Nota: los archivos @file{gonville-*.otf} son para los @emph{backends}
 @code{ps} y @code{eps} (para las salidas en formato PDF y PostScript).
@@ -3175,7 +3132,7 @@ Los archivos @file{gonville-*.svg} son para el @emph{backend}
 @code{svg} sin la opción @code{svg-woff}.
 Los archivos @file{gonville-*.woff} son para el @emph{backend}
 @code{svg} con la opción @code{svg-woff}.
-Para más información, consulte @rprogram{Opciones avanzadas de línea de órdenes para LilyPond}.
+Para más información, consulte @rprogramnamed{Advanced command-line options for LilyPond, Opciones avanzadas de línea de órdenes para LilyPond}.
 
 La sintaxis siguiente cambia la fuente tipográfica de la
 notación (general y llaves) al tipo Gonville.
@@ -3195,15 +3152,15 @@ fuentes para cada @code{\book} que le sigue, tanto si se ha creado
 explícitamente como implícitamente.  Esto significa que cada
 @code{\book} puede tener su propio conjunto de fuentes principales
 llamando a @code{set-global-fonts} previamente.  Para más
-información, véase @ref{Fuentes tipográficas del documento completo}.
+información, véase @ref{Entire document fonts}.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Otras fuentes de información}.
+@rlearningnamed{Other sources of information, Otras fuentes de información}.
 
 Referencia de la notación:
-@ref{La tipografía Emmentaler},
-@ref{Fuentes tipográficas del documento completo}.
+@ref{The Emmentaler font},
+@ref{Entire document fonts}.
 
 @knownissues
 Gonville no se puede usar para tipografiar notación de @q{Música
@@ -3253,9 +3210,8 @@ La sintaxis siguiente cambia la fuente tipográfica de la notación
 Nota: para las categorías @code{music} y @code{brace}, especifique
 el nombre del archivo de fuente sin el sufijo ni la extensión.
 
-@node Creación de salida MIDI
+@node Creating MIDI output
 @section Creación de salida MIDI
-@translationof Creating MIDI output
 
 @cindex sonido
 @cindex MIDI
@@ -3274,23 +3230,22 @@ o Vorbis) pero requieren software adicional para producir el
 sonido a partir de ellos.
 
 @menu
-* Notación contemplada por el MIDI::
-* Notación no contemplada en el MIDI::
-* El bloque MIDI::
-* Control de las dinámicas del MIDI::
-* Uso de los instrumentos MIDI::
-* Uso de las repeticiones con el MIDI::
-* Asignación de canales MIDI::
-* Propiedades de contexto para efectos MIDI::
-* Enriquecimiento de la salida MIDI::
-* El script Articulate::
+* Supported notation for MIDI::
+* Unsupported notation for MIDI::
+* The MIDI block::
+* Controlling MIDI dynamics::
+* Using MIDI instruments::
+* Using repeats with MIDI::
+* MIDI channel mapping::
+* Context properties for MIDI effects::
+* Enhancing MIDI output::
+* The Articulate script::
 @end menu
 
 @cindex MIDI, notación contemplada
 
-@node Notación contemplada por el MIDI
+@node Supported notation for MIDI
 @subsection Notación contemplada por el MIDI
-@translationof Supported notation for MIDI
 
 Se puede usar la notación musical siguiente con las posibilidades
 predeterminadas de LilyPond para producir salida MIDI:
@@ -3313,7 +3268,7 @@ predeterminadas de LilyPond para producir salida MIDI:
 También se pueden controlar el panorama, el balance, la expresión
 y los efectos de reverberación y chorus mediante el
 establecimiento de propiedades de contexto, véase
-@ref{Propiedades de contexto para efectos MIDI}.
+@ref{Context properties for MIDI effects}.
 
 Si se combina con el script @file{articulate}, es posible
 producir la salida por el MIDI de los siguientes elementos
@@ -3336,13 +3291,12 @@ El Do toma la duración de una negra.
 @end itemize
 
 @noindent
-Véase @ref{Enriquecimiento de la salida MIDI}.
+Véase @ref{Enhancing MIDI output}.
 
 @cindex MIDI, notación no contemplada
 
-@node Notación no contemplada en el MIDI
+@node Unsupported notation for MIDI
 @subsection Notación no contemplada en el MIDI
-@translationof Unsupported notation for MIDI
 
 Los siguientes elementos de notación musical no se pueden hacer
 salir por el MIDI:
@@ -3361,9 +3315,8 @@ salir por el MIDI:
 @end itemize
 
 
-@node El bloque MIDI
+@node The MIDI block
 @subsection El bloque MIDI
-@translationof The MIDI block
 
 @cindex MIDI, bloque
 
@@ -3394,7 +3347,7 @@ lilypond -dmidi-extension=mid Archivo.ly
 
 Como alternativa, puede añadirse la siguiente expresión de Scheme
 antes del comienzo de uno de los bloques @code{\book},
-@code{\bookpart} o @code{\score}.  Véase @ref{Estructura del archivo}.
+@code{\bookpart} o @code{\score}.  Véase @ref{File structure}.
 
 @example
 #(ly:set-option 'midi-extension "mid")
@@ -3402,8 +3355,8 @@ antes del comienzo de uno de los bloques @code{\book},
 
 @morerefs
 Referencia de la notación:
-@ref{Estructura del archivo},
-@ref{Crear metadatos en los archivos de salida}.
+@ref{File structure},
+@ref{Creating output file metadata}.
 
 Archivos instalados:
 @file{scm/midi.scm}.
@@ -3437,9 +3390,8 @@ the @code{Score} context to the @code{Staff} context within the
 @end lilypond
 
 
-@node Control de las dinámicas del MIDI
+@node Controlling MIDI dynamics
 @subsection Control de las dinámicas del MIDI
-@translationof Controlling MIDI dynamics
 
 Es posible controlar el volumen MIDI general, el volumen relativo
 de las indicaciones de matiz dinámico y el volumen relativo de
@@ -3453,9 +3405,9 @@ volumen relativo de las indicaciones de matiz dinámico, y el
 volumen general de los diferentes instrumentos.
 
 @menu
-* Indicaciones de matiz dinámico en el MIDI::
-* Establecimiento del volumen MIDI::
-* Establecimiento de las propiedades del bloque MIDI::
+* Dynamic marks in MIDI::
+* Setting MIDI volume::
+* Setting MIDI block properties::
 @end menu
 
 @cindex MIDI, volumen
@@ -3464,9 +3416,8 @@ volumen general de los diferentes instrumentos.
 @cindex dinámica del MIDI
 
 
-@node Indicaciones de matiz dinámico en el MIDI
+@node Dynamic marks in MIDI
 @unnumberedsubsubsec Indicaciones de matiz dinámico en el MIDI
-@translationof Dynamic marks in MIDI
 
 Solo las marcas de dinámica desde @code{ppppp} hasta
 @code{fffff}, incluidos @code{mp}, @code{mf} y @code{sf} tienen
@@ -3497,9 +3448,8 @@ Referencia de funcionamiento interno:
 @rinternals{Dynamic_performer}.
 
 
-@node Establecimiento del volumen MIDI
+@node Setting MIDI volume
 @unnumberedsubsubsec Establecimiento del volumen MIDI
-@translationof Setting MIDI volume
 
 Los volúmenes generales mínimo y máximo de las indicaciones de
 matiz dinámico MIDI se controlan estableciendo las propiedades
@@ -3590,7 +3540,7 @@ Archivos instalados:
 
 @morerefs
 Referencia de la notación:
-@ref{Disposición de la partitura}.
+@ref{Score layout}.
 
 Referencia de funcionamiento interno:
 @rinternals{Dynamic_performer}.
@@ -3608,9 +3558,8 @@ Los cambios en el volumen del MIDI solamente tienen lugar en el
 comienzo de una nota, por lo que los crescendos y decrescendos no
 afectan al volumen de una sola nota.
 
-@node Establecimiento de las propiedades del bloque MIDI
+@node Setting MIDI block properties
 @unnumberedsubsubsec Establecimiento de las propiedades del bloque MIDI
-@translationof Setting MIDI block properties
 
 El bloque @code{\midi} puede contener distintas disposiciones de
 los contextos, definiciones de contexto nuevas o código que fija
@@ -3660,11 +3609,11 @@ LilyPond usados para el sonido se llaman @q{performers}.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Otras fuentes de información}.
+@rlearningnamed{Other sources of information, Otras fuentes de información}.
 
 Referencia de la notación:
-@ref{Expresiones},
-@ref{Disposición de la partitura}.
+@ref{Expressive marks},
+@ref{Score layout}.
 
 Archivos instalados:
 @file{ly/performer-init.ly}.
@@ -3685,9 +3634,8 @@ aparecer dos veces en la salida MIDI.
 
 
 
-@node Uso de los instrumentos MIDI
+@node Using MIDI instruments
 @subsection Uso de los instrumentos MIDI
-@translationof Using MIDI instruments
 
 Los instrumentos MIDI se establecen usando la propiedad
 @code{midiInstrument} dentro de un contexto @code{Staff}.
@@ -3716,15 +3664,15 @@ o
 Si el instrumento elegido no coincide exactamente con uno de los
 instrumentos de la lista de la sección @q{instrumentos MIDI}, se
 usará el instrumento Piano de Cola (@code{"acoustic grand"}).
-Véase @ref{Instrumentos MIDI}.
+Véase @ref{MIDI instruments}.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Otras fuentes de información}.
+@rlearningnamed{Other sources of information, Otras fuentes de información}.
 
 Referencia de la notación:
-@ref{Instrumentos MIDI},
-@ref{Disposición de la partitura}.
+@ref{MIDI instruments},
+@ref{Score layout}.
 
 Archivos instalados:
 @file{scm/midi.scm}.
@@ -3739,12 +3687,11 @@ de éstos se debe introducir en un contexto @code{Staff} (no
 @code{DrumStaff}) para obtener una salida MIDI correcta.  Hay una
 lista completa de entradas de los @code{sets de percusión del
 canal 10} en el archivo @file{scm/midi.scm}.  Véase
-@rlearning{Otras fuentes de información}.
+@rlearningnamed{Other sources of information, Otras fuentes de información}.
 
 
-@node Uso de las repeticiones con el MIDI
+@node Using repeats with MIDI
 @subsection Uso de las repeticiones con el MIDI
-@translationof Using repeats with MIDI
 
 @cindex repeticiones en MIDI
 @cindex MIDI con repeticiones
@@ -3794,12 +3741,11 @@ salida MIDI correcta.
 
 @morerefs
 Referencia de la notación:
-@ref{Repeticiones}.
+@ref{Repeats}.
 
 
-@node Asignación de canales MIDI
+@node MIDI channel mapping
 @subsection Asignación de canales MIDI
-@translationof MIDI channel mapping
 
 @cindex MIDI, canales
 @cindex MIDI, pistas
@@ -3910,9 +3856,8 @@ muestra a continuación:
 {snippets/changing-midi-output-to-one-channel-per-voice.ly}
 
 
-@node Propiedades de contexto para efectos MIDI
+@node Context properties for MIDI effects
 @subsection Propiedades de contexto para efectos MIDI
-@translationof Context properties for MIDI effects
 
 @cindex efectos en MIDI
 @cindex panorama en MIDI
@@ -3939,8 +3884,7 @@ aplicar diversos efectos MIDI a las notas que se reproducen sobre
 el canal MIDI asociado con el pentagrama, instrumento MIDI o voz
 actual (dependiendo del valor de la propiedad de contexto
 @code{Score.midiChannelMapping} y del contexto en que está
-situado el @code{Staff_performer}; véase @ref{Asignación de
-canales MIDI}).
+situado el @code{Staff_performer}; véase @ref{MIDI channel mapping}).
 
 Los cambios en estas propiedades de contexto afectan a todas las
 notas que se reproducen sobre el canal después del cambio, aunque
@@ -4041,12 +3985,11 @@ documentación de su dispositivo MIDI para ver información acerca
 de cómo interpreta estos valores.
 
 
-@node Enriquecimiento de la salida MIDI
+@node Enhancing MIDI output
 @subsection Enriquecimiento de la salida MIDI
-@translationof Enhancing MIDI output
 
 @menu
-* El script Articulate::
+* The Articulate script::
 @end menu
 
 La salida MIDI predeterminada es muy básica, pero se puede
@@ -4061,9 +4004,8 @@ propiedades del bloque @code{\midi} y/o usando el script
 @funindex Staff.midiInstrument
 
 
-@node El script Articulate
+@node The Articulate script
 @subsection El script Articulate
-@translationof The Articulate script
 
 @cindex articulate script
 @cindex articulate.ly
@@ -4099,10 +4041,10 @@ están previstos.  Véase @file{ly/articulate.ly}.
 
 @morerefs
 Manual de aprendizaje:
-@rlearning{Otras fuentes de información}.
+@rlearningnamed{Other sources of information, Otras fuentes de información}.
 
 Referencia de la notación:
-@ref{Disposición de la partitura}.
+@ref{Score layout}.
 
 Archivos instalados:
 @file{ly/articulate.ly}.
@@ -4119,23 +4061,21 @@ para compensar el efecto de acortamiento de las notas.}
 
 
 
-@node Extraer información musical
+@node Extracting musical information
 @section Extraer información musical
-@translationof Extracting musical information
 
 Además de crear un resultado visual y MIDI, LilyPond es capaz de
 presentar información musical en forma de texto.
 
 @menu
-* Impresión del código de notación de LilyPond::
-* Impresión de las expresiones musicales de Scheme::
-* Guardar los eventos musicales en un archivo::
+* Displaying LilyPond notation::
+* Displaying scheme music expressions::
+* Saving music events to a file::
 @end menu
 
 
-@node Impresión del código de notación de LilyPond
+@node Displaying LilyPond notation
 @subsection Displaying LilyPond notation
-@translationof Displaying LilyPond notation
 
 @funindex \displayLilyMusic
 La impresión textual de una expresión musical en notación de
@@ -4185,16 +4125,14 @@ use la instrucción @code{\void}.
 @end example
 
 
-@node Impresión de las expresiones musicales de Scheme
+@node Displaying scheme music expressions
 @subsection Impresión de las expresiones musicales de Scheme
-@translationof Displaying scheme music expressions
 
-Véase @rextend{Presentación de las expresiones musicales}.
+Véase @rextendnamed{Displaying music expressions, Presentación de las expresiones musicales}.
 
 
-@node Guardar los eventos musicales en un archivo
+@node Saving music events to a file
 @subsection Guardar los eventos musicales en un archivo
-@translationof Saving music events to a file
 
 Los eventos musicales se pueden guardar en un archivo pentagrama
 a pentagrama mediante la inclusión de un archivo en nuestra

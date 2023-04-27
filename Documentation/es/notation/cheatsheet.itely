@@ -13,9 +13,8 @@
 
 @c TODO: add tablature.
 
-@node Hoja de referencia rápida
+@node Cheat sheet
 @appendix Hoja de referencia rápida
-@translationof Cheat sheet
 
 
 @multitable @columnfractions .35 .3 .35
