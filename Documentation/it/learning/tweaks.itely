@@ -10,38 +10,35 @@
 
 @c \version "2.19.22"
 
-@node Modifica dell'output
+@node Tweaking output
 @chapter Modifica dell'output
-@translationof Tweaking output
 
 Questo capitolo spiega come modificare l'output.  LilyPond è estremamente
 configurabile; praticamente si può modificare qualsiasi elemento dell'output.
 
 
 @menu
-* Modifiche di base::
-* Manuale del Funzionamento interno::
-* Aspetto degli oggetti::
-* Posizionamento degli oggetti::
-* Spaziatura verticale::
-* Collisioni tra oggetti::
-* Altre modifiche::
+* Tweaking basics::
+* The Internals Reference manual::
+* Appearance of objects::
+* Placement of objects::
+* Vertical spacing::
+* Collisions of objects::
+* Further tweaking::
 @end menu
 
-@node Modifiche di base
+@node Tweaking basics
 @section Modifiche di base
-@translationof Tweaking basics
 
 @menu
-* Introduzione alle modifiche::
-* Oggetti e interfacce::
-* Convenzioni per i nomi di oggetti e proprietà::
-* Metodi di modifica::
+* Introduction to tweaks::
+* Objects and interfaces::
+* Naming conventions of objects and properties::
+* Tweaking methods::
 @end menu
 
-@node Introduzione alle modifiche
+@node Introduction to tweaks
 @subsection Introduzione alle modifiche
-@translationof Introduction to tweaks
 
 Nella terminologia di LilyPond un @emph{tweak} (modifica, ritocco) si
 riferisce ai vari metodi che l'utente ha a disposizione per modificare
@@ -58,13 +55,12 @@ costruire questi comandi così da rendere possibile imparare a scrivere
 le proprie modifiche personali.
 
 Prima di iniziare questo capitolo si consiglia di rileggere la sezione
-@ref{Contesti e incisori}, perché i contesti, gli incisori e le proprietà
+@ref{Contexts and engravers}, perché i contesti, gli incisori e le proprietà
 contenute al loro interno sono fondamentali per comprendere e
 costruire le modifiche.
 
-@node Oggetti e interfacce
+@node Objects and interfaces
 @subsection Oggetti e interfacce
-@translationof Objects and interfaces
 
 @cindex oggetto
 @cindex oggetto grafico (grob)
@@ -135,16 +131,15 @@ e di utilità per l'utente.
 Questi sono dunque i termini principali riguardanti gli oggetti che useremo
 in questo capitolo.
 
-@node Convenzioni per i nomi di oggetti e proprietà
+@node Naming conventions of objects and properties
 @subsection Convenzioni per i nomi di oggetti e proprietà
-@translationof Naming conventions of objects and properties
 
 @cindex convenzioni per i nomi di oggetti
 @cindex convenzioni per i nomi di proprietà
 @cindex oggetti, convenzioni per i nomi di
 @cindex proprietà, convenzioni per i nomi di
 
-Abbiamo già visto, in @ref{Contesti e incisori}, le convenzioni per i
+Abbiamo già visto, in @ref{Contexts and engravers}, le convenzioni per i
 nomi di oggetti.  Ecco una lista dei più comuni tipi di oggetti e
 proprietà insieme alle convenzioni usate per nominarli e alcuni
 esempi di nomi reali.  Abbiamo usato @q{A} per indicare un
@@ -182,29 +177,27 @@ di oggetti e proprietà dai loro nomi.
 
 @morerefs
 Guida alla notazione:
-@rnotation{Convenzioni per i nomi},
-@rnotation{Modifica delle proprietà}.
+@rnotationnamed{Naming conventions, Convenzioni per i nomi},
+@rnotationnamed{Modifying properties, Modifica delle proprietà}.
 @endmorerefs
 
 
-@node Metodi di modifica
+@node Tweaking methods
 @subsection Metodi di modifica
-@translationof Tweaking methods
 
 @cindex metodi di modifica
 @cindex modifica, metodi
 
 @menu
-* Il comando override::
-* Il comando revert::
-* Il prefisso once::
-* Il comando di ritocco tweak::
-* Il prefisso single::
+* The override command::
+* The revert command::
+* The once prefix::
+* The tweak command::
+* The single prefix::
 @end menu
 
-@node Il comando override
+@node The override command
 @unnumberedsubsubsec Il comando @code{\override}
-@translationof The override command
 
 @cindex override, comando
 @cindex override, sintassi
@@ -213,8 +206,8 @@ Guida alla notazione:
 
 Abbiamo già incontrato i comandi @code{\set} e @code{\with}, che servono
 a modificare le proprietà dei @strong{contesti} e a togliere o aggiungere
-gli @strong{incisori}, nei paragrafi @ref{Modificare le proprietà di contesto} e
-@ref{Aggiungere e togliere gli incisori}.  Ora dobbiamo introdurre alcuni
+gli @strong{incisori}, nei paragrafi @ref{Modifying context properties} e
+@ref{Adding and removing engravers}.  Ora dobbiamo introdurre alcuni
 comandi più importanti.
 
 Il comando che cambia le proprietà degli @strong{oggetti di formattazione} è
@@ -243,7 +236,7 @@ bassi dei contesti, come ad esempio @code{Voice}, @code{ChordNames} o
 poi quando deve essere specificato.
 
 Le sezioni successive tratteranno in modo dettagliato le proprietà e
-i loro valori, si veda @ref{Tipi di proprietà}; in questa sezione, invece,
+i loro valori, si veda @ref{Types of properties}; in questa sezione, invece,
 useremo soltanto alcune proprietà e valori di facile comprensione,
 in modo da spiegare il formato e l'uso di questo comando.
 
@@ -272,9 +265,8 @@ il colore della testa di nota:
 }
 @end lilypond
 
-@node Il comando revert
+@node The revert command
 @unnumberedsubsubsec Il comando @code{\revert}
-@translationof The revert command
 
 @cindex revert, comando
 @cindex ripristino, comando \revert
@@ -312,9 +304,8 @@ note al valore predefinito:
 }
 @end lilypond
 
-@node Il prefisso once
+@node The once prefix
 @unnumberedsubsubsec Il prefisso @code{\once}
-@translationof The once prefix
 
 @funindex \once
 
@@ -359,9 +350,8 @@ comandi predefiniti per limitare il loro effetto a un momento musicale:
 @c http://lists.gnu.org/archive/html/bug-lilypond/2014-12/msg00041.html
 @c Duplicate node names across LM and NR causes problems to translated manuals (see issue 2266).
 @c As a workaround, I'll slightly change the node name.
-@node Il comando di ritocco tweak
+@node The tweak command
 @unnumberedsubsubsec Il comando di ritocco @code{\tweak}
-@translationof The tweak command
 
 @cindex tweak, comando
 
@@ -533,13 +523,12 @@ aspetto può essere modificato come di consueto con i comandi @code{\override}:
 
 @morerefs
 Guida alla Notazione:
-@rnotation{Il comando tweak}.
+@rnotationnamed{The tweak command, Il comando tweak}.
 @endmorerefs
 
 
-@node Il prefisso single
+@node The single prefix
 @unnumberedsubsubsec Il prefisso @code{\single}
-@translationof The single prefix
 
 @funindex \single
 @cindex tweak, generato da override
@@ -561,7 +550,7 @@ emphNoteHead = {
 Il prefisso @code{\once} funziona bene se si desidera enfatizzare note
 singole o interi accordi, ma non permette di enfatizzare una singola
 nota @emph{dentro} un accordo.  Prima abbiamo visto come si possa usare
-@code{\tweak} per fare ciò, vedi @ref{Il comando di ritocco tweak}.
+@code{\tweak} per fare ciò, vedi @ref{The tweak command}.
 Ma non è possibile usare @code{\tweak} in una funzione; è in questo caso che
 torna utile il comando @code{\single}:
 
@@ -590,26 +579,24 @@ proprietà di @code{\tweak}.
 
 @morerefs
 Manuale di apprendimento:
-@ref{Il comando di ritocco tweak},
-@ref{Uso delle variabili per modificare la formattazione}.
+@ref{The tweak command},
+@ref{Using variables for layout adjustments}.
 @endmorerefs
 
 
-@node Manuale del Funzionamento interno
+@node The Internals Reference manual
 @section Manuale del Funzionamento interno
-@translationof The Internals Reference manual
 
 @cindex Guida al Funzionamento interno
 
 @menu
-* Proprietà degli oggetti di formattazione::
-* Proprietà presenti nelle interfacce::
-* Tipi di proprietà::
+* Properties of layout objects::
+* Properties found in interfaces::
+* Types of properties::
 @end menu
 
-@node Proprietà degli oggetti di formattazione
+@node Properties of layout objects
 @subsection Proprietà degli oggetti di formattazione
-@translationof Properties of layout objects
 
 @cindex proprietà degli oggetti di formattazione
 @cindex proprietà degli oggetti grafici (grob)
@@ -901,9 +888,8 @@ nell'estrarre informazioni da esso.  Questi esempi conterranno sempre meno
 consigli e spiegazioni.
 
 
-@node Proprietà presenti nelle interfacce
+@node Properties found in interfaces
 @subsection Proprietà presenti nelle interfacce
-@translationof Properties found in interfaces
 
 @cindex interfaccia
 @cindex proprietà dell'interfaccia
@@ -1004,9 +990,8 @@ Estendere: @rextend{Scheme tutorial}.
 @endmorerefs
 
 
-@node Tipi di proprietà
+@node Types of properties
 @subsection Tipi di proprietà
-@translationof Types of properties
 
 @cindex tipi di proprietà
 @cindex proprietà, tipi di
@@ -1081,23 +1066,21 @@ Estendere: @rextend{Scheme tutorial}.
 @endmorerefs
 
 
-@node Aspetto degli oggetti
+@node Appearance of objects
 @section Aspetto degli oggetti
-@translationof Appearance of objects
 
 Mettiamo in pratica quello che abbiamo imparato con un po' di
 esempi che mostrano come modificare l'aspetto degli elementi
 di una partitura.
 
 @menu
-* Visibilità e colore degli oggetti::
-* Dimensione degli oggetti::
-* Lunghezza e spessore degli oggetti::
+* Visibility and color of objects::
+* Size of objects::
+* Length and thickness of objects::
 @end menu
 
-@node Visibilità e colore degli oggetti
+@node Visibility and color of objects
 @subsection Visibilità e colore degli oggetti
-@translationof Visibility and color of objects
 
 Potremmo voler creare una partitura priva di alcuni elementi a
 scopo didattico, perché lo studente possa esercitarsi
@@ -1108,7 +1091,7 @@ automaticamente: come lo possiamo impedire?
 
 Prima di iniziare, occorre ricordare che le proprietà degli oggetti sono
 raggruppate nelle cosiddette @emph{interfacce} -- si veda
-@ref{Proprietà presenti nelle interfacce}.  Queste servono semplicemente a raggruppare
+@ref{Properties found in interfaces}.  Queste servono semplicemente a raggruppare
 quelle proprietà che possono essere usate insieme per modificare un oggetto
 grafico -- se una di queste è ammessa per un oggetto, lo sono anche le
 altre.  Alcuni oggetti usano le proprietà di alcune interfacce, altri
@@ -1117,7 +1100,7 @@ usate da un particolare grob (oggetto grafico) sono elencate nella guida al
 Funzionamento interno in fondo alla pagina che descrive il grob; queste
 proprietà possono essere individuate consultando quelle interfacce.
 
-In @ref{Proprietà degli oggetti di formattazione} abbiamo spiegato come trovare le
+In @ref{Properties of layout objects} abbiamo spiegato come trovare le
 informazioni sui grob.  Usando lo stesso approccio, andiamo nella guida
 al Funzionamento interno per trovare l'oggetto grafico relativo alla
 stanghetta (@emph{bar line}).  Passando da @emph{Backend} e @emph{All layout objects}
@@ -1130,15 +1113,14 @@ ovviamente, anche di molti altri oggetti grafici).  Vediamole una per
 volta.
 
 @menu
-* La proprietà stencil::
-* La proprietà break-visibility::
-* La proprietà transparent::
-* La proprietà color::
+* The stencil property::
+* The break-visibility property::
+* The transparent property::
+* The color property::
 @end menu
 
-@node La proprietà stencil
+@node The stencil property
 @unnumberedsubsubsec La proprietà @code{stencil}
-@translationof The stencil property
 
 @cindex proprietà stencil
 @cindex stencil, proprietà
@@ -1220,9 +1202,8 @@ zero:
 }
 @end lilypond
 
-@node La proprietà break-visibility
+@node The break-visibility property
 @unnumberedsubsubsec La proprietà @code{break-visibility}
-@translationof The break-visibility property
 
 @cindex proprietà break-visibility
 @cindex break-visibility, proprietà
@@ -1255,9 +1236,8 @@ sempre, il valore del comando @code{\override}.
 
 E vediamo che anche questo comando elimina tutte le stanghette.
 
-@node La proprietà transparent
+@node The transparent property
 @unnumberedsubsubsec La proprietà @code{transparent}
-@translationof The transparent property
 
 @cindex proprietà transparent
 @cindex transparent, proprietà
@@ -1330,9 +1310,8 @@ la differenza è ovvia: se si imposta lo stencil su @code{#f} (possibilmente
 con @code{\omit}) l'oggetto scompare del tutto; se si rende l'oggetto
 @code{trasparente} questo resta dove è, anche se invisibile.
 
-@node La proprietà color
+@node The color property
 @unnumberedsubsubsec La proprietà @code{color}
-@translationof The color property
 
 @cindex proprietà color
 @cindex color, proprietà
@@ -1342,7 +1321,7 @@ di bianco.  (Si tratta di un metodo problematico perché la
 stanghetta bianca può imbiancare o meno le linee del rigo che
 incrocia.  Puoi vedere in alcuni degli esempi successivi che questo
 accade in modo imprevedibile.  I motivi per cui questo accade e il
-modo in cui è possibile controllarlo sono esposti in @rnotation{Dipingere gli oggetti di bianco}.
+modo in cui è possibile controllarlo sono esposti in @rnotationnamed{Painting objects white, Dipingere gli oggetti di bianco}.
 Ma per il momento stiamo imparando la proprietà color, quindi accettiamo questa limitazione.)
 
 L'interfaccia @code{grob-interface} stabilisce che il valore della
@@ -1351,7 +1330,7 @@ lista.  La lista di cui ha bisogno è in realtà una lista di valori
 in unità interne, ma per evitare di dover imparare quali siano queste
 unità vengono forniti vari modi di specificare un colore.  Il primo
 modo consiste nell'usare uno dei colori @q{CSS} predefiniti elencati
-in @rnotation{Elenco dei colori}.  Per rendere bianche le
+in @rnotationnamed{List of colors, Elenco dei colori}.  Per rendere bianche le
 stanghette scriviamo:
 
 @cindex BarLine, esempio di sovrascrittura
@@ -1454,7 +1433,7 @@ che abbiamo appena saltato.
 
 @code{x11-color} associa i nomi di colore predefiniti a valori interni -- ma
 offre molte più scelta dei nomi CSS, come si può vedere in
-@rnotation{Elenco dei colori}.  Per esempio, l'insieme di colori X11 include
+@rnotationnamed{List of colors, Elenco dei colori}.  Per esempio, l'insieme di colori X11 include
 un'ampia scala di grigi, i cui nomi vanno dal nero, @code{'grey0},
 al bianco, @code{'grey100}, con cadenza di@tie{}1.  Ecco un
 esempio in cui tutti gli oggetti di formattazione sono
@@ -1496,9 +1475,8 @@ guida al Funzionamento interno riporterà a quale contesto
 appartenga di norma l'incisore.
 
 
-@node Dimensione degli oggetti
+@node Size of objects
 @subsection Dimensione degli oggetti
-@translationof Size of objects
 
 @cindex modificare la dimensione degli oggetti
 @cindex dimensione degli oggetti
@@ -1506,7 +1484,7 @@ appartenga di norma l'incisore.
 @cindex oggetti, modificare la dimensione degli
 
 Iniziamo rivedendo l'esempio precedente (vedi
-@ref{Annidare le espressioni musicali}) che mostrava come
+@ref{Nesting music expressions}) che mostrava come
 inserire un nuovo rigo temporaneo, come in un @rglos{ossia}.
 
 @cindex proprietà alignAboveContext, esempio
@@ -1717,9 +1695,8 @@ del rigo sono troppo separate.  Dovrebbero essere scalati in proporzione
 alla riduzione del tipo di carattere.  La prossima sezione spiega come
 farlo.
 
-@node Lunghezza e spessore degli oggetti
+@node Length and thickness of objects
 @subsection Lunghezza e spessore degli oggetti
-@translationof Length and thickness of objects
 
 @cindex distanze
 @cindex thickness, proprietà
@@ -1808,25 +1785,23 @@ varie linee disegnate (come stanghette, travature, forcine, legature di
 portamento, etc.).  Se si deve aggiustare lo spessore di un
 particolare oggetto di formattazione, è meglio sovrascrivere la sua
 proprietà @code{thickness}.  Un esempio di come modificare lo spessore
-delle legature di portamento è stato mostrato prima in @ref{Proprietà degli oggetti di formattazione}.
+delle legature di portamento è stato mostrato prima in @ref{Properties of layout objects}.
 Lo spessore di tutti gli oggetti disegnati (ovvero quelli non prodotti
 da un tipo di carattere) può essere cambiato nello stesso modo.
 
 
-@node Posizionamento degli oggetti
+@node Placement of objects
 @section Posizionamento degli oggetti
-@translationof Placement of objects
 
 @menu
-* Comportamento automatico::
-* Oggetti interni al rigo::
-* Oggetti esterni al rigo::
+* Automatic behavior::
+* Within-staff objects::
+* Outside-staff objects::
 @end menu
 
 
-@node Comportamento automatico
+@node Automatic behavior
 @subsection Comportamento automatico
-@translationof Automatic behavior
 
 @cindex within-staff, oggetti
 @cindex outside-staff, oggetti
@@ -1899,14 +1874,13 @@ seguente mostra questo @q{annidamento} delle note su righi adiacenti:
 @end lilypond
 
 
-@node Oggetti interni al rigo
+@node Within-staff objects
 @subsection Oggetti interni al rigo
-@translationof Within-staff objects
 
 Abbiamo già visto come i comandi @code{\voiceXXX} influenzino
 la direzione di legature di portamento e di valore, delle diteggiature e
 di qualsiasi altro elemento che dipenda dalla direzione dei gambi (vedi
-@ref{Definire esplicitamente le voci}).
+@ref{Explicitly instantiating voices}).
 Questi comandi sono fondamentali quando si scrive musica polifonica,
 perché permettono di distinguere le linee melodiche che si intrecciano.
 Talvolta, però, capita di voler modificare questo comportamento
@@ -1924,13 +1898,12 @@ destra o sulla sinistra.  Tutto questo viene controllato automaticamente
 quando si imposta la proprietà @code{direction}.
 
 @menu
-* La proprietà direction::
-* Diteggiatura::
+* The direction property::
+* Fingering::
 @end menu
 
-@node La proprietà direction
+@node The direction property
 @unnumberedsubsubsec La proprietà @code{direction}
-@translationof The direction property
 
 @cindex down
 @cindex direzione, giù
@@ -2035,9 +2008,8 @@ a'4^( g') c''_( a') |
 @end lilypond
 
 
-@node Diteggiatura
+@node Fingering
 @unnumberedsubsubsec Diteggiatura
-@translationof Fingering
 
 @cindex diteggiatura, posizionamento
 @cindex diteggiatura, accordi
@@ -2194,25 +2166,23 @@ con @w{@code{-7}}:
 }
 @end lilypond
 
-@node Oggetti esterni al rigo
+@node Outside-staff objects
 @subsection Oggetti esterni al rigo
-@translationof Outside-staff objects
 
 Gli oggetti esterni al rigo sono disposti automaticamente in modo da evitare
 collisioni.  Ci sono vari modi per modificare la disposizione automatica
 se questa non è ottimale.
 
 @menu
-* La proprietà outside-staff-priority::
-* Il comando textLengthOn::
-* Posizionamento delle dinamiche::
-* Dimensione dei grob::
+* The outside-staff-priority property::
+* The textLengthOn command::
+* Dynamics placement::
+* Grob sizing::
 @end menu
 
 
-@node La proprietà outside-staff-priority
+@node The outside-staff-priority property
 @unnumberedsubsubsec La proprietà @code{outside-staff-priority}
-@translationof The outside-staff-priority property
 
 Gli oggetti dai valori più bassi per la proprietà
 @code{outside-staff-priority} vengono posizionati più vicino al rigo,
@@ -2278,7 +2248,7 @@ Questo esempio mostra anche come creare gli estensori (spanner) del testo,
 ovvero testo con delle linee che si estendono sopra una sezione musicale.
 L'estensore si allunga dal comando @code{\startTextSpan} fino al comando
 @code{\stopTextSpan} e il formato del testo è definito dal comando
-@code{\override TextSpanner}.  Per maggiori dettagli si veda @rnotation{Estensori del testo}.
+@code{\override TextSpanner}.  Per maggiori dettagli si veda @rnotationnamed{Text spanners, Estensori del testo}.
 
 Mostra anche come si creano le estensioni del segno d'ottava.
 
@@ -2294,7 +2264,7 @@ il posizionamento desiderato, è possibile sovrascrivere la priorità di
 qualsiasi oggetto.  Immaginiamo di voler posizionare l'estensione del segno d'ottava
 sotto l'estensore del testo nell'esempio precedente.  Basta controllare la
 priorità dell'oggetto @code{OttavaBracket} nella tabella in
-@rnotation{Valori predefiniti di outside-staff-priority} o nella Guida al
+@rnotationnamed{Default values for @code{outside-staff-priority}, Valori predefiniti di outside-staff-priority} o nella Guida al
 funzionamento interno e ridurla a un valore inferiore a quello di un
 oggetto @code{TextSpanner}, ricordando che @code{OttavaBracket} è creato
 nel contesto @code{Staff}:
@@ -2363,7 +2333,7 @@ Attraverso la proprietà @code{outside-staff-priority} si può
 regolare anche la disposizone verticale di singoli oggetti;
 i risultati potrebbero tuttavia risultare non sempre ottimali.  Supponiamo
 di voler posizionare @qq{Testo3} sopra @qq{Testo4} nell'esempio
-precedente (si veda @ref{Comportamento automatico}).
+precedente (si veda @ref{Automatic behavior}).
 Basta andare a cercare la priorità di @code{TextScript} nella
 guida al Funzionamento interno o nelle tabelle precedenti e
 aumentare la priorità di @qq{Testo3} assegnando un valore più alto:
@@ -2388,9 +2358,8 @@ naturalmente, dobbiamo creare più spazio orizzontale tra le note per
 far posto al testo.  Lo si può ottenere con il comando
 @code{textLengthOn}.
 
-@node Il comando textLengthOn
+@node The textLengthOn command
 @unnumberedsubsubsec Il comando @code{\textLengthOn}
-@translationof The textLengthOn command
 
 @cindex note, distanziarle insieme al testo
 
@@ -2454,9 +2423,8 @@ che mostra come il testo a margine interagisce con tali note.
 @end lilypond
 
 
-@node Posizionamento delle dinamiche
+@node Dynamics placement
 @unnumberedsubsubsec Posizionamento delle dinamiche
-@translationof Dynamics placement
 
 @cindex modificare il posizionamento delle dinamiche
 @cindex dinamiche, modificare il posizionamento
@@ -2499,9 +2467,8 @@ potuto farlo per il testo a margine usando il comando @code{\textLengthOn},
 ma non esiste un comando equivalente per i segni di dinamica.  Dunque
 dovremo scoprire come farlo usando i comandi @code{\override}.
 
-@node Dimensione dei grob
+@node Grob sizing
 @unnumberedsubsubsec Dimensione dei grob
-@translationof Grob sizing
 
 @subheading Estensione dei grob
 
@@ -2556,12 +2523,11 @@ L'aspetto è migliore, ma sarebbe preferibile avere i segni di dinamica
 allineati alla stessa linea di base invece di spostarsi su e giù seguendo
 la posizione delle note.  La proprietà che permette di ottenere tale
 risultato è @code{staff-padding} ed è trattata nella sezione relativa
-alle collisioni (vedi @ref{Collisioni tra oggetti}).
+alle collisioni (vedi @ref{Collisions of objects}).
 
 
-@node Spaziatura verticale
+@node Vertical spacing
 @section Spaziatura verticale
-@translationof Vertical spacing
 
 Di norma, la spaziatura verticale degli oggetti musicali decisa da
 LilyPond è molto buona.  Vediamo come si comporta con una semplice
@@ -2603,7 +2569,7 @@ tra testo e note, e tra l'accompagnamento del pianoforte e la linea vocale, e
 minor spazio tra i righi del pianoforte.  Iniziamo dal testo.
 
 Il testo vocale si trova all'interno di un sistema, dunque i comandi per
-modificarne la spaziatura sono descritti in @rnotation{Spaziatura verticale flessibile all'interno dei sistemi}.
+modificarne la spaziatura sono descritti in @rnotationnamed{Flexible vertical spacing within systems, Spaziatura verticale flessibile all'interno dei sistemi}.
 Quel paragrafo ci dice che il testo è costituito da linee che non appartengono
 al rigo (@code{non-staff lines}), quindi il comando per cambiarne la spaziatura
 sarà riferito alla proprietà @code{nonstaff}.  Per allontanarlo dal rigo a cui
@@ -2748,23 +2714,21 @@ da ricordare è che la spaziatura degli oggetti in un contesto @code{StaffGroup}
 variabili spaziali di @code{StaffGrouper}.  La spaziatura relativa ai righi
 non raggruppati (come @code{Lyrics} e @code{Staff}) è regolata dalle variabili
 del @code{VerticalAxisGroup}.  Ulteriori dettagli in
-@rnotation{Variabili paper della spaziatura verticale flessibile} e
-@rnotation{Spaziatura verticale flessibile all'interno dei sistemi}.
+@rnotationnamed{Flexible vertical spacing paper variables, Variabili paper della spaziatura verticale flessibile} e
+@rnotationnamed{Flexible vertical spacing within systems, Spaziatura verticale flessibile all'interno dei sistemi}.
 
 
-@node Collisioni tra oggetti
+@node Collisions of objects
 @section Collisioni tra oggetti
-@translationof Collisions of objects
 
 @menu
-* Spostare gli oggetti::
-* Correggere elementi della notazione sovrapposti::
-* Esempio musicale::
+* Moving objects::
+* Fixing overlapping notation::
+* Real music example::
 @end menu
 
-@node Spostare gli oggetti
+@node Moving objects
 @subsection Spostare gli oggetti
-@translationof Moving objects
 
 @cindex spostare gli oggetti che si sovrappongono
 @cindex spostare gli oggetti che collidono
@@ -2786,7 +2750,7 @@ degli elementi della notazione.  Vediamoli nel seguente ordine:
 @item
 Si può cambiare la @strong{direzione} di uno degli oggetti che si
 sovrappongono usando i comandi predefiniti elencati prima, in riferimento agli
-oggetti interni al rigo (vedi @ref{Oggetti interni al rigo}).
+oggetti interni al rigo (vedi @ref{Within-staff objects}).
 In questo modo si possono riposizionare facilmente gambi, legature di
 portamento e di valore, travature, segni di dinamica, testo e gruppi
 irregolari.  La limitazione è che si tratta di una scelta circoscritta a due sole
@@ -2806,7 +2770,7 @@ di oggetti dello stesso tipo.  Tali proprietà sono:
 @code{direction}
 
 Questa è già stata trattata in dettaglio (vedi
-@ref{Oggetti interni al rigo}).
+@ref{Within-staff objects}).
 
 @item
 @code{padding}, @code{right-padding}, @code{staff-padding}
@@ -2928,7 +2892,7 @@ note in voci diverse.
 All'interno di una voce, tutte le note che si trovano nello stesso momento
 musicale sono raggruppate in una colonna di note, e viene creato un oggetto
 @code{NoteColumn} per controllare il posizionamento orizzontale di quel
-gruppo di note (vedi @qq{Colonne di note} in @ref{Definire esplicitamente le voci}).  Se
+gruppo di note (vedi @qq{Colonne di note} in @ref{Explicitly instantiating voices}).  Se
 @emph{e solo se} due o più colonne di note in un solo contesto Staff, entrambe
 con i gambi nella stessa direzione, si trovano sullo stesso momento musicale,
 i valori delle loro proprietà @code{horizontal-shift} sono usati per attribuire
@@ -2957,7 +2921,7 @@ note sono sovrapposte.  Non ha effetto su colonne di note non sovrapposte.
 Viene specificata in unità appropriate per una colonna di note,  ovvero la
 larghezza della testa della nota nella prima voce.  Si usa
 in situazioni complesse in cui i normali comandi @code{\shiftOn} (vedi
-@ref{Definire esplicitamente le voci}) non risolvono adeguatamente le collisioni tra le
+@ref{Explicitly instantiating voices}) non risolvono adeguatamente le collisioni tra le
 note.  Per questo scopo, è preferibile alla proprietà @code{extra-offset}
 perché non c'è bisogno di trovare la giusta distanza in spazi di rigo e
 lo spostamento delle note dentro o fuori da una @code{NoteColumn}
@@ -3037,27 +3001,25 @@ poter sapere quali proprietà si possono usare per spostarlo.
 @end multitable
 
 
-@node Correggere elementi della notazione sovrapposti
+@node Fixing overlapping notation
 @subsection Correggere elementi della notazione sovrapposti
-@translationof Fixing overlapping notation
 
 Vediamo ora come le proprietà presentate nella sezione precedente possano
 aiutare a risolvere la sovrapposizione degli elementi della notazione.
 
 @menu
-* La proprietà padding::
-* La proprietà right-padding::
-* La proprietà staff-padding::
-* La proprietà self-alignment-X::
-* La proprietà staff-position::
-* La proprietà extra-offset::
-* La proprietà positions::
-* La proprietà force-hshift::
+* The padding property::
+* The right-padding property::
+* The staff-padding property::
+* The self-alignment-X property::
+* The staff-position property::
+* The extra-offset property::
+* The positions property::
+* The force-hshift property::
 @end menu
 
-@node La proprietà padding
+@node The padding property
 @unnumberedsubsubsec La proprietà @code{padding}
-@translationof The padding property
 
 @cindex padding
 @cindex spaziatura
@@ -3097,7 +3059,7 @@ Nota nel secondo esempio come è importante sapere quale contesto
 gestisce un certo oggetto.  Dato che l'oggetto @code{MetronomeMark}
 è regolato dal contesto @code{Score}, le modifiche della proprietà
 nel contesto @code{Voice} non vengono prese in considerazione.  Per
-approfondire l'argomento si veda @rnotation{Modifica delle proprietà}.
+approfondire l'argomento si veda @rnotationnamed{Modifying properties, Modifica delle proprietà}.
 
 Se la proprietà @code{padding} di un oggetto viene aumentata quando
 quell'oggetto si trova insieme ad altri oggetti disposti secondo la
@@ -3105,9 +3067,8 @@ loro proprietà @code{outside-staff-priority}, allora si sposteranno
 quell'oggetto e tutti gli oggetti esterni a esso.
 
 
-@node La proprietà right-padding
+@node The right-padding property
 @unnumberedsubsubsec La proprietà @code{right-padding}
-@translationof The right-padding property
 
 @cindex proprietà right-padding
 @cindex right-padding, proprietà
@@ -3156,9 +3117,8 @@ di @code{right-padding}.
 
 @noindent
 
-@node La proprietà staff-padding
+@node The staff-padding property
 @unnumberedsubsubsec La proprietà @code{staff-padding}
-@translationof The staff-padding property
 
 @cindex allineare gli oggetti a una base
 @cindex oggetti, allinearli a una base
@@ -3185,9 +3145,8 @@ preso dalla sezione precedente:
 @end lilypond
 
 
-@node La proprietà self-alignment-X
+@node The self-alignment-X property
 @unnumberedsubsubsec La proprietà @code{self-alignment-X}
-@translationof The self-alignment-X property
 
 L'esempio successivo mostra come aggiustare la posizione di un numero
 di corda rispetto a un gambo allineando il bordo destro del numero
@@ -3205,9 +3164,8 @@ al punto di riferimento della nota a cui si riferisce:
 @end lilypond
 
 
-@node La proprietà staff-position
+@node The staff-position property
 @unnumberedsubsubsec La proprietà @code{staff-position}
-@translationof The staff-position property
 
 @cindex collisione tra oggetti all'interno del rigo
 
@@ -3247,12 +3205,11 @@ Questa soluzione è preferibile all'uso di @code{extra-offset}, perché
 il taglio addizionale sopra la pausa è inserito automaticamente.
 
 Vedi il frammento «Disegnare manualmente le legature di valore» in
-@rnotation{Legature di valore} per la differenza tra valori precisi
+@rnotationnamed{Ties, Legature di valore} per la differenza tra valori precisi
 e imprecisi.
 
-@node La proprietà extra-offset
+@node The extra-offset property
 @unnumberedsubsubsec La proprietà @code{extra-offset}
-@translationof The extra-offset property
 
 @cindex posizionare gli oggetti
 @cindex posizionare i grob
@@ -3277,9 +3234,8 @@ f4-5
 @end lilypond
 
 
-@node La proprietà positions
+@node The positions property
 @unnumberedsubsubsec La proprietà @code{positions}
-@translationof The positions property
 
 @cindex controllo manuale di graffette dei gruppi irregolari, travature, legature di portamento e di frase
 @cindex travature dei gruppi irregolari, controllo manuale
@@ -3320,7 +3276,7 @@ portamento candidate più basse di quella già selezionata, quindi
 in questo caso la proprietà @code{positions} non può produrre
 effetti.  Tuttavia, legature di valore, di portamento e di frase
 @emph{possono} essere posizionate e disegnate in modo molto preciso
-se necessario.  Per sapere come fare si veda @rnotation{Modifica di legature di valore e di portamento}.
+se necessario.  Per sapere come fare si veda @rnotationnamed{Modifying ties and slurs, Modifica di legature di valore e di portamento}.
 
 Ecco un altro esempio.  Vediamo che le travature collidono
 con le legature di valore:
@@ -3375,12 +3331,11 @@ misura di otto note, ma a nessuna delle travature nella prima voce, nemmeno
 in quelle della seconda misura. Appena la sovrascrittura non è più attiva,
 deve essere ripristinato, come si vede.
 
-@node La proprietà force-hshift
+@node The force-hshift property
 @unnumberedsubsubsec La proprietà @code{force-hshift}
-@translationof The force-hshift property
 
 Possiamo vedere ora come applicare le correzioni finali all'esempio di Chopin
-introdotto alla fine del paragrafo @ref{Sento le Voci}, che avevamo
+introdotto alla fine del paragrafo @ref{I'm hearing Voices}, che avevamo
 lasciato così:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3435,9 +3390,8 @@ Ecco il risultato finale:
 @end lilypond
 
 
-@node Esempio musicale
+@node Real music example
 @subsection Esempio musicale
-@translationof Real music example
 
 Completiamo questa sezione delle modifiche (@emph{tweak}) mostrando passo passo
 come affrontare un esempio complesso che necessita varie modifiche per
@@ -3528,8 +3482,8 @@ Re, e la semiminima puntata del Fa diesis, anch'essa unita
 alla croma della stessa altezza.  Tutto il resto è su una
 voce singola, quindi il sistema più semplice è introdurre queste
 ulteriori voci temporaneamente, quando sono richieste.  Se ti
-sei dimenticato come fare, rileggi i paragrafi @ref{Sento le Voci} e
-@ref{Definire esplicitamente le voci}.  In questo caso scegliamo di
+sei dimenticato come fare, rileggi i paragrafi @ref{I'm hearing Voices} e
+@ref{Explicitly instantiating voices}.  In questo caso scegliamo di
 usare per il passaggio polifonico le voci definite esplicitamente, dato
 che LilyPond riesce a evitare meglio le collisioni se tutte le voci
 sono definite esplicitamente in questo modo.
@@ -3655,7 +3609,7 @@ viene prodotto posponendo @code{\arpeggio} a un accordo e che la stanghetta
 doppia si ottiene col comando @code{\bar "||"}.  Questo è stato facile.  Ora
 dobbiamo correggere la collisione della legatura di valore con l'indicazione di tempo.
 Il modo migliore è spostare la legatura verso l'alto.  Lo spostamento degli oggetti
-è stato trattato prima in @ref{Spostare gli oggetti}, dove si dice che gli oggetti
+è stato trattato prima in @ref{Moving objects}, dove si dice che gli oggetti
 posizionati relativamente al rigo possono essere spostati verticalmente
 sovrascrivendo la proprietà @code{staff-position}, specificata in metà spazi-rigo
 rispetto alla linea centrale del rigo.  Dunque la seguente sovrascrittura
@@ -3724,7 +3678,7 @@ tutorial abbiamo visto come aggiungere un'indicazione di tempo col comando
 ad accorpare le note appartenenti a voci diverse?  Ancora una volta
 dobbiamo rivolgerci alla guida alla Notazione per un aiuto.  Una ricerca
 del termine @qq{accorpare} (in inglese @emph{merge}) nell'indice della guida
-ci porta rapidamente al paragrafo @rnotation{Risoluzione delle collisioni}, dove
+ci porta rapidamente al paragrafo @rnotationnamed{Collision resolution, Risoluzione delle collisioni}, dove
 troviamo i comandi per allineare le note con teste e punti diversi.  Nel
 nostro esempio abbiamo bisogno di accorpare entrambi i tipi di note per la
 durata della sezione polifonica della terza battuta.  Dunque, usando le
@@ -3961,33 +3915,30 @@ lhMusic = \relative {
 @end lilypond
 
 
-@node Altre modifiche
+@node Further tweaking
 @section Altre modifiche
-@translationof Further tweaking
 
 @menu
-* Altri usi delle modifiche con tweak::
-* Uso delle variabili per modificare la formattazione::
-* Fogli di stile::
-* Altre fonti di informazione::
-* Modifiche avanzate con Scheme::
+* Other uses for tweaks::
+* Using variables for layout adjustments::
+* Style sheets::
+* Other sources of information::
+* Advanced tweaks with Scheme::
 @end menu
 
-@node Altri usi delle modifiche con tweak
+@node Other uses for tweaks
 @subsection Altri usi delle modifiche con @code{\tweak}
-@translationof Other uses for tweaks
 
 @menu
-* Legature di valore tra note di voci diverse::
-* Simulare una corona nel MIDI::
+* Tying notes across voices::
+* Simulating a fermata in MIDI::
 @end menu
 
 @cindex rimuovere gli oggetti
 @cindex oggetti, rimuoverli
 
-@node Legature di valore tra note di voci diverse
+@node Tying notes across voices
 @unnumberedsubsubsec Legature di valore tra note di voci diverse
-@translationof Tying notes across voices
 
 @cindex legature di valore tra note di voci diverse
 
@@ -4022,14 +3973,13 @@ attraversare le voci:
 
 @morerefs
 Manuale di apprendimento:
-@ref{Il prefisso once},
-@ref{La proprietà stencil}.
+@ref{The once prefix},
+@ref{The stencil property}.
 @endmorerefs
 
 
-@node Simulare una corona nel MIDI
+@node Simulating a fermata in MIDI
 @unnumberedsubsubsec Simulare una corona nel MIDI
-@translationof Simulating a fermata in MIDI
 
 @cindex proprietà stencil, uso della
 @cindex corona, usarla nel MIDI
@@ -4107,9 +4057,8 @@ Glossario musicale:
 @endmorerefs
 
 
-@node Uso delle variabili per modificare la formattazione
+@node Using variables for layout adjustments
 @subsection Uso delle variabili per modificare la formattazione
-@translationof Using variables for layout adjustments
 
 @cindex variabili, usarle per le sovrascritture
 @cindex sovrascritture, usare le variabili per
@@ -4207,19 +4156,18 @@ VerseFour = \lyricmode {
 @end lilypond
 
 
-@node Fogli di stile
+@node Style sheets
 @subsection Fogli di stile
-@translationof Style sheets
 
 L'output prodotto da LilyPond può essere ampiamente modificato, come
-abbiamo visto nel capitolo @ref{Modifica dell'output}.  Ma se avessi molti
+abbiamo visto nel capitolo @ref{Tweaking output}.  Ma se avessi molti
 file di input a cui voler applicare delle modifiche?  O se volessi
 semplicemente separare le modifiche dalla musica vera e propria?
 È molto semplice.
 
 Prendiamo un esempio.  Non ti preoccupare se non capisci le
 parti che hanno @code{#()}; verranno spiegate nel capitolo
-@ref{Modifiche avanzate con Scheme}.
+@ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =
@@ -4497,9 +4445,8 @@ ogni file musicale con @code{\include "../global.ily"}, che contiene
 @end example
 
 
-@node Altre fonti di informazione
+@node Other sources of information
 @subsection Altre fonti di informazione
-@translationof Other sources of information
 
 La guida al Funzionamento interno contiene molte informazioni su
 LilyPond, ma si possono trovare ancora più informazioni nei file
@@ -4627,9 +4574,8 @@ Nel caso tu conosca Scheme, i file che potrebbero essere di interesse sono:
 @end multitable
 
 
-@node Modifiche avanzate con Scheme
+@node Advanced tweaks with Scheme
 @subsection Modifiche avanzate con Scheme
-@translationof Advanced tweaks with Scheme
 
 Anche se molte cose sono possibili con i comandi @code{\override} e
 @code{\tweak}, un modo ancor più potente di modificare l'azione

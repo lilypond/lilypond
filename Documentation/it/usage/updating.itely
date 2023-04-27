@@ -11,9 +11,8 @@
 @c \version "2.21.0"
 
 
-@node Aggiornare i file con convert-ly
+@node Updating files with convert-ly
 @chapter Aggiornare i file con @command{convert-ly}
-@translationof Updating files with convert-ly
 
 @cindex aggiornare un file di LilyPond
 @cindex convert-ly
@@ -27,18 +26,17 @@ Per superare questo problema, si può usare il comando @command{convert-ly} per
 aggiornare questi file di input più vecchi alla nuova sintassi.
 
 @menu
-* Perché la sintassi cambia?::
-* Utilizzo di convert-ly::
-* Opzioni da linea di comando per convert-ly::
-* Problemi nell'eseguire convert-ly::
-* Conversioni manuali::
-* Scrivere codice che funzioni su molteplici versioni::
+* Why does the syntax change?::
+* Invoking convert-ly::
+* Command line options for convert-ly::
+* Problems running convert-ly::
+* Manual conversions::
+* Writing code to support multiple versions::
 @end menu
 
 
-@node Perché la sintassi cambia?
+@node Why does the syntax change?
 @section Perché la sintassi cambia?
-@translationof Why does the syntax change?
 
 @cindex convert-ly
 @cindex aggiornare i vecchi file di input
@@ -101,9 +99,8 @@ comando @command{convert-ly}.
 @end itemize
 
 
-@node Utilizzo di convert-ly
+@node Invoking convert-ly
 @section Utilizzo di @command{convert-ly}
-@translationof Invoking convert-ly
 
 Il comando @command{convert-ly} usa il numero specificato da @code{\version} nel
 file di input per determinare versioni precedenti.  Nella maggior parte dei casi
@@ -189,9 +186,8 @@ forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c convert-ly.py -e @@fi
 
 
 
-@node Opzioni da linea di comando per convert-ly
+@node Command line options for convert-ly
 @section Opzioni da linea di comando per @command{convert-ly}
-@translationof Command line options for convert-ly
 
 Il programma viene lanciato in questo modo:
 
@@ -277,9 +273,8 @@ convert-ly --from=@dots{} --to=@dots{} -s
 @end example
 
 
-@node Problemi nell'eseguire convert-ly
+@node Problems running convert-ly
 @section Problemi nell'eseguire @code{convert-ly}
-@translationof Problems running convert-ly
 
 Quando si esegue convert-ly in una finestra del Prompt dei comandi in Windows
 su un file il cui nome o percorso contengano degli spazi,
@@ -311,9 +306,8 @@ il codice scheme e le interfacce di Scheme di LilyPond; tieniti pronto a
 correggere a mano il codice Scheme.
 
 
-@node Conversioni manuali
+@node Manual conversions
 @section Conversioni manuali
-@translationof Manual conversions
 
 In teoria, un programma come @command{convert-ly} potrebbe gestire qualsiasi
 cambiamento di sintassi.  Dopo tutto, un programma per computer interpreta
@@ -376,9 +370,8 @@ converted.
  (particularly \header{}) must come after the music.
 @end verbatim
 
-@node Scrivere codice che funzioni su molteplici versioni
+@node Writing code to support multiple versions
 @section Scrivere codice che funzioni su molteplici versioni
-@translationof Writing code to support multiple versions
 
 In alcuni casi, in particolare quando si scrive codice destinato a funzionare
 come @emph{libreria}, è opportuno far sì che supporti molteplici versioni di

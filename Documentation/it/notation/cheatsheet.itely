@@ -11,9 +11,8 @@
 @c \version "2.19.16"
 
 
-@node Schema riassuntivo
+@node Cheat sheet
 @appendix Schema riassuntivo
-@translationof Cheat sheet
 
 
 @multitable @columnfractions .35 .3 .35

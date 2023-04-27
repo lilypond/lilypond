@@ -12,9 +12,8 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
-@node Strumenti aerofoni
+@node Wind instruments
 @section Strumenti aerofoni
-@translationof Wind instruments
 
 @lilypondfile[quote]{snippets/wind-headword.ly}
 
@@ -22,26 +21,24 @@ Questa sezione tratta gli elementi della notazione musicale specifici degli
 strumenti aerofoni (o strumenti a fiato).
 
 @menu
-* Notazione comune per gli strumenti aerofoni::
-* Cornamusa::
-* Legni::
+* Common notation for wind instruments::
+* Bagpipes::
+* Woodwinds::
 @end menu
 
-@node Notazione comune per gli strumenti aerofoni
+@node Common notation for wind instruments
 @subsection Notazione comune per gli strumenti aerofoni
-@translationof Common notation for wind instruments
 
 Questa sezione tratta la notazione comune alla maggior parte degli strumenti
 aerofoni.
 
 @menu
-* Riferimenti per strumenti aerofoni::
-* Diteggiature::
+* References for wind instruments::
+* Fingerings::
 @end menu
 
-@node Riferimenti per strumenti aerofoni
+@node References for wind instruments
 @unnumberedsubsubsec Riferimenti per strumenti aerofoni
-@translationof References for wind instruments
 
 @cindex strumento aerofono
 @cindex aerofono, strumento
@@ -52,14 +49,14 @@ Molte delle questioni di notazione degli strumenti aerofoni (o strumenti a
 fiato) riguardano la respirazione e l'uso della lingua:
 
 @itemize
-@item La respirazione può essere indicata con pause o @ref{Respiri}.
-@item Un'esecuzione in legato è indicata con @ref{Legature di portamento}.
+@item La respirazione può essere indicata con pause o @ref{Breath marks}.
+@item Un'esecuzione in legato è indicata con @ref{Slurs}.
 @item Diversi tipi di uso della lingua, dal legato al non legato allo
 staccato, sono rappresentati solitamente da segni di articolazione, talvolta
-insieme a legature di portamento, vedi @ref{Articolazioni e abbellimenti} e
-@ref{Elenco delle articolazioni}.
+insieme a legature di portamento, vedi @ref{Articulations and ornamentations} e
+@ref{List of articulations}.
 @item Il frullato si indica solitamente ponendo un segno di tremolo e del testo
-vicino alla nota.  Vedi @ref{Ripetizioni con tremolo}.
+vicino alla nota.  Vedi @ref{Tremolo repeats}.
 @end itemize
 
 Altri aspetti della notazione musicale che si possono applicare agli strumenti
@@ -67,54 +64,53 @@ aerofoni:
 
 @itemize
 @item Molti aerofoni sono strumenti traspositori, vedi
-@ref{Trasporto strumentale}.
+@ref{Instrument transpositions}.
 @item I glissati sono caratteristici del trombone, ma altri aerofoni sono in
 grado di eseguire dei glissati agendo sulle chiavi o sui pistoni.  Vedi @ref{Glissando}.
 @item I glissati ottenuti con una serie di armonici, possibili su tutti gli
 ottoni ma comuni nel corno francese, vengono scritti solitamente come
-@ref{Abbellimenti}.
+@ref{Grace notes}.
 @item Le intonazioni dell'altezza al termine di una nota sono trattate in
-@ref{Portamenti indeterminati discendenti (cadute) e ascendenti}.
+@ref{Falls and doits}.
 @item Le chiavi o i pistoni sbattuti si mostrano spesso con lo stile @code{cross}
-(barrato) delle @ref{Teste di nota speciali}.
+(barrato) delle @ref{Special note heads}.
 @item I legni possono produrre armonici soffiando forte sulle note basse.  Gli
 armonici sono illustrati dall'articolazione @code{flageolet}.
-Vedi @ref{Elenco delle articolazioni}.
+Vedi @ref{List of articulations}.
 @item L'uso di sordine per gli ottoni viene indicato solitamente con del testo,
 ma se ci sono molti cambi rapidi è meglio usare le articolazioni @code{stopped}
-e @code{open}.  Vedi @ref{Articolazioni e abbellimenti} e
-@ref{Elenco delle articolazioni}.
+e @code{open}.  Vedi @ref{Articulations and ornamentations} e
+@ref{List of articulations}.
 @item I corni @qq{smorzati} si indicano con l'articolazione @code{stopped}.
-Vedi @ref{Articolazioni e abbellimenti}.
+Vedi @ref{Articulations and ornamentations}.
 @end itemize
 
 @morerefs
 Guida alla notazione:
-@ref{Respiri},
-@ref{Legature di portamento},
-@ref{Articolazioni e abbellimenti},
-@ref{Elenco delle articolazioni},
-@ref{Ripetizioni con tremolo},
-@ref{Trasporto strumentale},
+@ref{Breath marks},
+@ref{Slurs},
+@ref{Articulations and ornamentations},
+@ref{List of articulations},
+@ref{Tremolo repeats},
+@ref{Instrument transpositions},
 @ref{Glissando},
-@ref{Abbellimenti},
-@ref{Portamenti indeterminati discendenti (cadute) e ascendenti},
-@ref{Teste di nota speciali},
+@ref{Grace notes},
+@ref{Falls and doits},
+@ref{Special note heads},
 
 Frammenti:
 @rlsr{Winds}.
 @endmorerefs
 
 
-@node Diteggiature
+@node Fingerings
 @unnumberedsubsubsec Diteggiature
-@translationof Fingerings
 
 Tutti gli aerofoni eccetto il trombone richiedono l'uso di varie dita per
 produrre ciascuna altezza.  Alcuni esempi di diteggiatura sono illustrati
 nei prossimi frammenti.
 
-Si possono creare diagrammi per i legni, descritti in @ref{Diagrammi per legni}.
+Si possono creare diagrammi per i legni, descritti in @ref{Woodwind diagrams}.
 
 @snippets
 
@@ -136,27 +132,25 @@ Si possono creare diagrammi per i legni, descritti in @ref{Diagrammi per legni}.
 
 @morerefs
 Guida alla notazione:
-@ref{Diagrammi per legni}.
+@ref{Woodwind diagrams}.
 
 Frammenti:
 @rlsr{Winds}.
 @endmorerefs
 
 
-@node Cornamusa
+@node Bagpipes
 @subsection Cornamusa
-@translationof Bagpipes
 
 Questa sezione tratta la notazione comune per la cornamusa.
 
 @menu
-* Definizioni per cornamusa::
-* Esempio per cornamusa::
+* Bagpipe definitions::
+* Bagpipe example::
 @end menu
 
-@node Definizioni per cornamusa
+@node Bagpipe definitions
 @unnumberedsubsubsec Definizioni per cornamusa
-@translationof Bagpipe definitions
 
 @cindex cornamusa
 @cindex cornamusa scozzese
@@ -208,9 +202,8 @@ Frammenti:
 @endmorerefs
 
 
-@node Esempio per cornamusa
+@node Bagpipe example
 @unnumberedsubsubsec Esempio per cornamusa
-@translationof Bagpipe example
 
 @cindex cornamusa, esempio
 @cindex esempio per cornamusa
@@ -262,19 +255,17 @@ Frammenti:
 @endmorerefs
 
 
-@node Legni
+@node Woodwinds
 @subsection Legni
-@translationof Woodwinds
 
 Questa sezione tratta la notazione specifica per i legni.
 
 @menu
-* Diagrammi per legni::
+* Woodwind diagrams::
 @end menu
 
-@node Diagrammi per legni
+@node Woodwind diagrams
 @subsubsection Diagrammi per legni
-@translationof Woodwind diagrams
 
 I diagrammi dei legni permettono di indicare la diteggiatura da usare per
 certe note e sono disponibili per i seguenti strumenti:

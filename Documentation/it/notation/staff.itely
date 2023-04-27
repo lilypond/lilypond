@@ -12,9 +12,8 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
-@node Notazione del rigo
+@node Staff notation
 @section Notazione del rigo
-@translationof Staff notation
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
@@ -25,29 +24,27 @@ partiture multirigo e come aggiungere indicazioni di tempo e citazioni
 in corpo più piccolo nel rigo.
 
 @menu
-* Aspetto del rigo::
-* Modificare singoli righi::
-* Scrittura delle parti::
+* Displaying staves::
+* Modifying single staves::
+* Writing parts::
 @end menu
 
 
-@node Aspetto del rigo
+@node Displaying staves
 @subsection Aspetto del rigo
-@translationof Displaying staves
 
 Questa sezione presenta i diversi metodi per creare e raggruppare i righi.
 
 @menu
-* Istanziare nuovi righi::
-* Raggruppare i righi::
-* Gruppi di righi annidati::
-* Separare i sistemi::
+* Instantiating new staves::
+* Grouping staves::
+* Nested staff groups::
+* Separating systems::
 @end menu
 
 
-@node Istanziare nuovi righi
+@node Instantiating new staves
 @unnumberedsubsubsec Istanziare nuovi righi
-@translationof Instantiating new staves
 
 @cindex nuovo rigo
 @cindex inizializzazione del rigo
@@ -72,7 +69,7 @@ Questa sezione presenta i diversi metodi per creare e raggruppare i righi.
 @funindex GregorianTranscriptionStaff
 
 Il @notation{rigo musicale} si crea con i comandi @code{\new} o
-@code{\context}.  Ulteriori dettagli in @ref{Creazione e citazione di un contesto}.
+@code{\context}.  Ulteriori dettagli in @ref{Creating and referencing contexts}.
 
 Il contesto di base del rigo è @code{Staff}:
 
@@ -84,7 +81,7 @@ Il contesto @code{DrumStaff} crea un rigo di cinque linee impostato
 per una tipica batteria.  Ogni strumento viene mostrato con un
 simbolo diverso.  Gli strumenti si inseriscono nella modalità percussioni,
 che si attiva col comando @code{\drummode}: ogni strumento viene indicato
-con un nome.  Ulteriori dettagli in @ref{Righi delle percussioni}.
+con un nome.  Ulteriori dettagli in @ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
@@ -94,7 +91,7 @@ con un nome.  Ulteriori dettagli in @ref{Righi delle percussioni}.
 
 @code{RhythmicStaff} crea un rigo con una sola linea che mostra
 soltanto i valori ritmici dell'input.  Le durate reali vengono
-mantenute.  Ulteriori dettagli in @ref{Mostrare i ritmi della melodia}.
+mantenute.  Ulteriori dettagli in @ref{Showing melody rhythms}.
 
 @lilypond[verbatim,quote]
 \new RhythmicStaff { c4 d e f }
@@ -102,7 +99,7 @@ mantenute.  Ulteriori dettagli in @ref{Mostrare i ritmi della melodia}.
 
 @code{TabStaff} crea un'intavolatura (o tablatura) con sei corde
 nell'accordatura standard per chitarra.  Ulteriori dettagli
-in @ref{Intavolature predefinite}.
+in @ref{Default tablatures}.
 
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
@@ -110,7 +107,7 @@ in @ref{Intavolature predefinite}.
 
 Ci sono due contesti del rigo specifici per la notazione di musica
 antica, @code{MensuralStaff} e @code{VaticanaStaff}, descritti
-in @ref{Contesti predefiniti}.
+in @ref{Pre-defined contexts}.
 
 Il contesto @code{GregorianTranscriptionStaff} crea un rigo per
 il canto gregoriano moderno.  Non mostra le stanghette delle battute.
@@ -120,22 +117,22 @@ il canto gregoriano moderno.  Non mostra le stanghette delle battute.
 @end lilypond
 
 Si possono creare nuovi contesti per un singolo rigo, come è spiegato
-dettagliatamente in @ref{Definizione di nuovi contesti}.
+dettagliatamente in @ref{Defining new contexts}.
 
 @morerefs
 Glossario musicale:
 @rglosnamed{staff,rigo},
 
 Guida alla notazione:
-@ref{Creazione e citazione di un contesto},
-@ref{Righi delle percussioni},
-@ref{Mostrare i ritmi della melodia},
-@ref{Intavolature predefinite},
-@ref{Contesti predefiniti},
-@ref{Simbolo del rigo},
-@ref{Contesti del canto gregoriano},
-@ref{Contesti mensurali},
-@ref{Definizione di nuovi contesti}.
+@ref{Creating and referencing contexts},
+@ref{Percussion staves},
+@ref{Showing melody rhythms},
+@ref{Default tablatures},
+@ref{Pre-defined contexts},
+@ref{Staff symbol},
+@ref{Gregorian chant contexts},
+@ref{Mensural contexts},
+@ref{Defining new contexts}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -152,9 +149,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Raggruppare i righi
+@node Grouping staves
 @unnumberedsubsubsec Raggruppare i righi
-@translationof Grouping staves
 
 @cindex inizio del sistema
 @cindex rigo multiplo
@@ -217,7 +213,7 @@ le stanghette sono collegate da rigo a rigo.
 
 Il contesto @code{PianoStaff} è identico a @code{GrandStaff}, con l'unica
 differenza che permette di mostrare il nome dello strumento direttamente.  Ulteriori
-dettagli in @ref{Nomi degli strumenti}.
+dettagli in @ref{Instrument names}.
 
 @lilypond[verbatim,quote]
 \new PianoStaff \with { instrumentName = "Piano" }
@@ -234,7 +230,7 @@ Ogni contesto per il gruppo di righi imposta la proprietà
 @code{SystemStartSquare}, ma deve essere indicato esplicitamente.
 
 Si possono definire nuovi contesti di gruppi di rigo.  I dettagli sono
-spiegati in @ref{Definizione di nuovi contesti}.
+spiegati in @ref{Defining new contexts}.
 
 
 @snippets
@@ -266,8 +262,8 @@ Glossario musicale:
 @rglosnamed{grand staff,accollatura}.
 
 Guida alla notazione:
-@ref{Nomi degli strumenti},
-@ref{Definizione di nuovi contesti}.
+@ref{Instrument names},
+@ref{Defining new contexts}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -285,9 +281,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Gruppi di righi annidati
+@node Nested staff groups
 @unnumberedsubsubsec Gruppi di righi annidati
-@translationof Nested staff groups
 
 @cindex rigo, annidato
 @cindex annidamento dei righi
@@ -317,7 +312,7 @@ accanto alla parentesi del gruppo superiore.
 @end lilypond
 
 Si possono definire nuovi gruppi di righi annidati.  Ulteriori dettagli
-in @ref{Definizione di nuovi contesti}.
+in @ref{Defining new contexts}.
 
 
 @snippets
@@ -327,9 +322,9 @@ in @ref{Definizione di nuovi contesti}.
 
 @morerefs
 Guida alla notazione:
-@ref{Raggruppare i righi},
-@ref{Nomi degli strumenti},
-@ref{Definizione di nuovi contesti}.
+@ref{Grouping staves},
+@ref{Instrument names},
+@ref{Defining new contexts}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -344,9 +339,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Separare i sistemi
+@node Separating systems
 @unnumberedsubsubsec Separare i sistemi
-@translationof Separating systems
 
 @cindex segno separatore del sistema
 @cindex sistema, segno separatore
@@ -390,16 +384,15 @@ in @code{\paper}.
 
 @morerefs
 Guida alla notazione:
-@ref{Formattazione della pagina}.
+@ref{Page layout}.
 
 Frammenti:
 @rlsr{Staff notation}.
 @endmorerefs
 
 
-@node Modificare singoli righi
+@node Modifying single staves
 @subsection Modificare singoli righi
-@translationof Modifying single staves
 
 Questa sezione spiega come modificare gli attributi specifici di un
 rigo, per esempio il numero di linee o la dimensione del rigo.  Vengono
@@ -407,15 +400,14 @@ descritti anche i metodi per iniziare e finire un rigo e per impostare
 le sezioni ossia.
 
 @menu
-* Simbolo del rigo::
-* Righi ossia::
-* Nascondere i righi::
+* Staff symbol::
+* Ossia staves::
+* Hiding staves::
 @end menu
 
 
-@node Simbolo del rigo
+@node Staff symbol
 @unnumberedsubsubsec Simbolo del rigo
-@translationof Staff symbol
 
 @cindex simbolo del rigo
 @cindex rigo, simbolo del
@@ -488,7 +480,7 @@ rigo i gambi puntano in su, mentre in quella superiore sono rivolti in giù),
 occorre allineare la linea centrale (o lo spazio) del rigo personalizzato
 alla posizione della linea centrale normale (0).  Potrà essere necessario
 regolare la posizione della chiave e del Do@tie{}centrale per adattarsi
-alle nuove linee.  Si veda @ref{Chiave}.
+alle nuove linee.  Si veda @ref{Clef}.
 
 Si può modificare lo spessore della linea del rigo.  Per impostazione predefinita,
 questa modifica ha effetto anche sui tagli addizionali e sui gambi.
@@ -579,7 +571,7 @@ Glossario musicale:
 @rglosnamed{staff,rigo (o pentagramma)}.
 
 Guida alla notazione:
-@ref{Chiave}.
+@ref{Clef}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -590,9 +582,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Righi ossia
+@node Ossia staves
 @unnumberedsubsubsec Righi ossia
-@translationof Ossia staves
 
 @cindex ossia
 @cindex rigo temporaneo
@@ -622,7 +613,7 @@ creare righi ossia che siano sopra il rigo originale, non abbiano indicazione
 di tempo né chiave e abbiano un tipo di carattere più piccolo, sono necessarie
 delle modifiche manuali.  Il Manuale d'apprendimento descrive una tecnica
 specifica per ottenere questo risultato, a partire da
-@rlearning{Annidare le espressioni musicali}.
+@rlearningnamed{Nesting music expressions, Annidare le espressioni musicali}.
 
 L'esempio seguente usa la proprietà @code{alignAboveContext} per allineare
 il rigo ossia.  Questo metodo conviene quando sono necessari solo pochi
@@ -687,7 +678,7 @@ esempio.
 Altrimenti si può usare il comando @code{\RemoveAllEmptyStaves}
 per creare i righi ossia.  Questo metodo conviene quando i righi ossia
 si trovano subito dopo un'interruzione di linea.  Ulteriori informazioni
-su @code{\RemoveAllEmptyStaves} si trovano in @ref{Nascondere i righi}.
+su @code{\RemoveAllEmptyStaves} si trovano in @ref{Hiding staves}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -731,12 +722,12 @@ Glossario musicale:
 @rglosnamed{Frenched staff,rigo temporaneo}.
 
 Manuale d'apprendimento:
-@rlearning{Annidare le espressioni musicali},
-@rlearning{Dimensione degli oggetti},
-@rlearning{Lunghezza e spessore degli oggetti}.
+@rlearningnamed{Nesting music expressions, Annidare le espressioni musicali},
+@rlearningnamed{Size of objects, Dimensione degli oggetti},
+@rlearningnamed{Length and thickness of objects, Lunghezza e spessore degli oggetti}.
 
 Guida alla notazione:
-@ref{Nascondere i righi}.
+@ref{Hiding staves}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -746,9 +737,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Nascondere i righi
+@node Hiding staves
 @unnumberedsubsubsec Nascondere i righi
-@translationof Hiding staves
 
 @cindex partitura senza i righi vuoti
 @cindex rigo temporaneo
@@ -815,7 +805,7 @@ elementi.}
 
 @noindent
 @code{\RemoveAllEmptyStaves} si può usare anche per creare sezioni ossia
-per un rigo.  I dettagli si trovano in @ref{Righi ossia}.
+per un rigo.  I dettagli si trovano in @ref{Ossia staves}.
 
 @predefined
 @code{\RemoveEmptyStaves},
@@ -827,15 +817,15 @@ Glossario musicale:
 @rglosnamed{Frenched staff,rigo temporaneo}.
 
 Manuale d'apprendimento:
-@rlearning{Visibilità e colore degli oggetti}.
+@rlearningnamed{Visibility and color of objects, Visibilità e colore degli oggetti}.
 
 Guida alla notazione:
-@ref{Modifica delle impostazioni predefinite di un contesto},
-@ref{Simbolo del rigo},
-@ref{Righi ossia},
-@ref{Note nascoste},
-@ref{Pause invisibili},
-@ref{Visibilità degli oggetti}.
+@ref{Changing context default settings},
+@ref{Staff symbol},
+@ref{Ossia staves},
+@ref{Hidden notes},
+@ref{Invisible rests},
+@ref{Visibility of objects}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -862,27 +852,25 @@ conviene usare i seguenti comandi invece di togliere l'incisore:
 
 Per i problemi noti e gli avvertimenti relativi a
 @code{\Staff \RemoveEmptyStaves} si veda
-@ref{Modifica delle impostazioni predefinite di un contesto}.
+@ref{Changing context default settings}.
 
 
-@node Scrittura delle parti
+@node Writing parts
 @subsection Scrittura delle parti
-@translationof Writing parts
 
 Questa sezione spiega come inserire in una partitura le indicazioni di
 tempo e i nomi degli strumenti.  Mostra anche come citare altre voci
 e come formattare le citazioni in corpo più piccolo.
 
 @menu
-* Nomi degli strumenti::
-* Citare altre voci::
-* Formattazione delle notine::
-* Compressione delle misure vuote::
+* Instrument names::
+* Quoting other voices::
+* Formatting cue notes::
+* Compressing empty measures::
 @end menu
 
-@node Nomi degli strumenti
+@node Instrument names
 @unnumberedsubsubsec Nomi degli strumenti
-@translationof Instrument names
 
 @cindex nome strumento
 @cindex strumento, nome
@@ -949,7 +937,7 @@ usare @code{\center-column}:
 Tuttavia, se i nomi degli strumenti sono lunghi, potranno essere centrati
 solo aumentando i valori di @code{indent} e @code{short-indent}.
 Ulteriori dettagli su queste impostazioni si trovano in
-@ref{Variabili paper per spostamenti e indentazioni}.
+@ref{paper variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -979,7 +967,7 @@ Ulteriori dettagli su queste impostazioni si trovano in
 
 Per impostare i nomi degli strumenti in altri contesti (come @code{ChordNames} o
 @code{FiguredBass}), si deve aggiungere l'incisore @code{Instrument_name_engraver}
-a quel contesto.  Ulteriori dettagli in @ref{Modifica dei componenti aggiuntivi di un contesto}.
+a quel contesto.  Ulteriori dettagli in @ref{Modifying context plug-ins}.
 
 @cindex nome strumento, modifica
 @cindex modificare il nome di uno strumento
@@ -1025,8 +1013,8 @@ setFlute = {
 
 @morerefs
 Guida alla notazione:
-@ref{Variabili paper per spostamenti e indentazioni},
-@ref{Modifica dei componenti aggiuntivi di un contesto}.
+@ref{paper variables for shifts and indents},
+@ref{Modifying context plug-ins}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -1038,9 +1026,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Citare altre voci
+@node Quoting other voices
 @unnumberedsubsubsec Citare altre voci
-@translationof Quoting other voices
 
 @cindex citare le voci
 @cindex voce, citare
@@ -1207,12 +1194,12 @@ oboeNotes = \relative {
  }
 @end lilypond
 
-Le citazioni possono anche essere contrassegnate; si veda @ref{Uso delle etichette}.
+Le citazioni possono anche essere contrassegnate; si veda @ref{Using tags}.
 
 @morerefs
 Guida alla notazione:
-@ref{Trasporto strumentale},
-@ref{Uso delle etichette}.
+@ref{Instrument transpositions},
+@ref{Using tags}.
 
 File installati:
 @file{scm/define-event-classes.scm}.
@@ -1235,9 +1222,8 @@ supportata e potrebbe causare il crash di LilyPond; la citazione di
 terzine annidate potrebbe produrre una notazione mediocre.
 
 
-@node Formattazione delle notine
+@node Formatting cue notes
 @unnumberedsubsubsec Formattazione delle notine
-@translationof Formatting cue notes
 
 @cindex notina
 @cindex nota in corpo più piccolo
@@ -1308,7 +1294,7 @@ senza un esplicito contesto @code{CueVoice}.
 Per posizionamenti complessi delle notine, per esempio includere la
 trasposizione o inserire delle notine da varie sorgenti musicali, si
 possono usare i comandi @code{\cueDuring} o @code{\cueDuringWithClef}.  Questi
-sono delle varianti più specializzate di @code{\quoteDuring}, introdotto in @ref{Citare altre voci}
+sono delle varianti più specializzate di @code{\quoteDuring}, introdotto in @ref{Quoting other voices}
 nella sezione precedente.
 
 La sintassi è:
@@ -1482,7 +1468,7 @@ partitura.  Il comando @code{\killCues} toglie soltanto le note e gli
 eventi citati da @code{\cueDuring}.  Altre annotazioni relative alle citazioni in corpo più piccolo,
 come i cambi di chiave e il nome che identifica lo strumento sorgente,
 possono essere contrassegnate per includerle in modo selettivo nella
-partitura; si veda @ref{Uso delle etichette}.
+partitura; si veda @ref{Using tags}.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1520,12 +1506,12 @@ bassoonNotes = \relative c {
 
 @morerefs
 Guida alla notazione:
-@ref{Citare altre voci},
-@ref{Trasporto strumentale},
-@ref{Nomi degli strumenti},
-@ref{Chiave},
-@ref{Suggerimenti musicali},
-@ref{Uso delle etichette}.
+@ref{Quoting other voices},
+@ref{Instrument transpositions},
+@ref{Instrument names},
+@ref{Clef},
+@ref{Musical cues},
+@ref{Using tags}.
 
 Frammenti:
 @rlsr{Staff notation}.
@@ -1542,9 +1528,8 @@ le pause nel contesto @code{Voice} e quelle in @code{CueVoice}.  Quando si usa
 richiesto da entrambi deve venire dopo la citazione e la direzione.
 
 
-@node Compressione delle misure vuote
+@node Compressing empty measures
 @unnumberedsubsubsec Compressione delle misure vuote
-@translationof Compressing empty measures
 
 @c empty on purpose: I added this node only to get a successful build - fb
 

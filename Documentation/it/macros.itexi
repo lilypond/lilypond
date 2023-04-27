@@ -93,7 +93,7 @@ MACRO DEFINITIONS GUIDELINES in common-macros.itexi
 @macro docMain
 @cartouche
 Questo manuale è disponibile in altri formati ed è integrato col resto
-della documentazione.  Maggiori informazioni in @rweb{Manuali}.
+della documentazione.  Maggiori informazioni in @rwebnamed{Manuals,Manuali}.
 
 La documentazione completa si trova all'indirizzo
 @w{@uref{https://@/lilypond@/.org/}}.

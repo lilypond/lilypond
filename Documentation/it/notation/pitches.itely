@@ -12,9 +12,8 @@
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
 
-@node Altezze
+@node Pitches
 @section Altezze
-@translationof Pitches
 
 @lilypondfile[quote]{snippets/pitches-headword.ly}
 
@@ -22,32 +21,30 @@ Questa sezione tratta il modo in cui si determina l'altezza delle note.  Occorre
 considerare tre aspetti: input, modifica e output.
 
 @menu
-* Inserimento delle altezze::
-* Modifica di più altezze::
-* Aspetto delle altezze::
-* Teste di nota::
+* Writing pitches::
+* Changing multiple pitches::
+* Displaying pitches::
+* Note heads::
 @end menu
 
 
-@node Inserimento delle altezze
+@node Writing pitches
 @subsection Inserimento delle altezze
-@translationof Writing pitches
 
 Questa sezione spiega come indicare l'altezza delle note.  Ci sono due
 modi di collocare le note in una determinata ottava: il modo assoluto e il
 modo relativo.  Nella maggioranza dei casi il modo relativo è più funzionale.
 
 @menu
-* Ottava assoluta::
-* Ottava relativa::
-* Alterazioni::
-* Nomi delle note in altre lingue::
+* Absolute octave entry::
+* Relative octave entry::
+* Accidentals::
+* Note names in other languages::
 @end menu
 
 
-@node Ottava assoluta
+@node Absolute octave entry
 @unnumberedsubsubsec Ottava assoluta
-@translationof Absolute octave entry
 
 @cindex nome di un'altezza
 @cindex altezza
@@ -124,9 +121,8 @@ Frammenti di codice:
 @endmorerefs
 
 
-@node Ottava relativa
+@node Relative octave entry
 @unnumberedsubsubsec Ottava relativa
-@translationof Relative octave entry
 
 @cindex relativo
 @cindex ottava relativa
@@ -329,7 +325,7 @@ Glossario musicale:
 @rglosnamed{Pitch names,Nomi delle altezze}.
 
 Guida alla notazione:
-@ref{Controlli di ottava}.
+@ref{Octave checks}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -347,9 +343,8 @@ Guida al funzionamento interno:
 
 
 
-@node Alterazioni
+@node Accidentals
 @unnumberedsubsubsec Alterazioni
-@translationof Accidentals
 
 @cindex alterazione
 @cindex armatura di chiave
@@ -362,7 +357,7 @@ note specificano le altezze; le armature e le chiavi determinano
 come queste altezze debbano essere rappresentate.
 Una nota non alterata come@tie{}@code{c} significa @q{Do naturale},
 indipendentemente dall'armatura o dalla chiave.  Per maggiori informazioni
-si veda @rlearning{Altezze e armature di chiave}.}
+si veda @rlearningnamed{Pitches and key signatures, Altezze e armature di chiave}.}
 
 @cindex nome nota, olandese
 @cindex nome nota, predefinito
@@ -381,7 +376,7 @@ al nome della nota, un @notation{bemolle} aggiungendo @code{es}.  Come potete
 immaginare, un @notation{doppio diesis} o @notation{doppio bemolle}
 si ottengono aggiungendo @code{isis} o @code{eses}.  Questa sintassi è
 desunta dalla notazione olandese.  Per usare altri nomi
-per le alterazioni, si veda @ref{Nomi delle note in altre lingue}.
+per le alterazioni, si veda @ref{Note names in other languages}.
 
 @lilypond[verbatim,quote,fragment]
 \relative c'' { ais1 aes aisis aeses }
@@ -467,12 +462,12 @@ Glossario musicale:
 @rglosnamed{quarter tone,quarto di tono}.
 
 Manuale di apprendimento:
-@rlearning{Altezze e armature di chiave}.
+@rlearningnamed{Pitches and key signatures, Altezze e armature di chiave}.
 
 Guida alla notazione:
-@ref{Alterazioni automatiche},
-@ref{Alterazioni suggerite (musica ficta)},
-@ref{Nomi delle note in altre lingue}.
+@ref{Automatic accidentals},
+@ref{Annotational accidentals (musica ficta)},
+@ref{Note names in other languages}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -493,9 +488,8 @@ le alterazioni di quarto di tono, i simboli impiegati da LilyPond
 non si riferiscono ad alcuno standard.
 
 
-@node Nomi delle note in altre lingue
+@node Note names in other languages
 @unnumberedsubsubsec Nomi delle note in altre lingue
-@translationof Note names in other languages
 
 @cindex nome nota, altre lingue
 @cindex nome altezza, altre lingue
@@ -656,7 +650,7 @@ Gran parte delle lingue presentate qui sono comunemente associate
 alla musica classica occidentale, nota anche come
 @notation{Common Practice Period}.  Sono tuttavia supportati
 anche altezze e sistemi di accordatura alternativi: si veda
-@ref{Notazione comune per la musica non occidentale}.
+@ref{Common notation for non-Western music}.
 
 @morerefs
 Glossario musicale:
@@ -664,7 +658,7 @@ Glossario musicale:
 @rglosnamed{Common Practice Period,Periodo di pratica comune}.
 
 Guida alla notazione:
-@ref{Notazione comune per la musica non occidentale}.
+@ref{Common notation for non-Western music}.
 
 File installati:
 @file{scm/define-note-names.scm}.
@@ -674,23 +668,21 @@ Frammenti di codice:
 @endmorerefs
 
 
-@node Modifica di più altezze
+@node Changing multiple pitches
 @subsection Modifica di più altezze
-@translationof Changing multiple pitches
 
 Questa sezione tratta il modo di modificare le altezze delle note.
 
 @menu
-* Controlli di ottava::
-* Trasposizione::
-* Inversione::
-* Retrogradazione::
-* Trasposizioni modali::
+* Octave checks::
+* Transpose::
+* Inversion::
+* Retrograde::
+* Modal transformations::
 @end menu
 
-@node Controlli di ottava
+@node Octave checks
 @unnumberedsubsubsec Controlli di ottava
-@translationof Octave checks
 
 @cindex correzione dell'ottava
 @cindex controllo dell'ottava
@@ -762,9 +754,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Trasposizione
+@node Transpose
 @unnumberedsubsubsec Trasposizione
-@translationof Transpose
 
 @cindex trasporre
 @cindex trasposizione
@@ -869,7 +860,7 @@ musicInBflat = @{ e4 @dots{} @}
 
 @noindent
 Per maggiori informazioni sugli strumenti traspositori,
-si veda @ref{Trasporto strumentale}.
+si veda @ref{Instrument transpositions}.
 
 
 @snippets
@@ -881,11 +872,11 @@ si veda @ref{Trasporto strumentale}.
 
 @morerefs
 Guida alla notazione:
-@ref{Trasporto strumentale},
-@ref{Inversione},
-@ref{Trasposizioni modali},
-@ref{Ottava relativa},
-@ref{Retrogradazione}.
+@ref{Instrument transpositions},
+@ref{Inversion},
+@ref{Modal transformations},
+@ref{Relative octave entry},
+@ref{Retrograde}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -910,9 +901,8 @@ sostituisce con un'altezza @q{enarmonicamente equivalente} (per esempio,
 Re bemolle al posto di Mi triplo bemolle).
 
 
-@node Inversione
+@node Inversion
 @unnumberedsubsubsec Inversione
-@translationof Inversion
 
 @cindex inversione
 @cindex operazione, inversione
@@ -945,15 +935,14 @@ in un blocco @code{@bs{}relative}.}
 
 @morerefs
 Guida alla notazione:
-@ref{Trasposizioni modali},
-@ref{Retrogradazione},
-@ref{Trasposizione}.
+@ref{Modal transformations},
+@ref{Retrograde},
+@ref{Transpose}.
 @endmorerefs
 
 
-@node Retrogradazione
+@node Retrograde
 @unnumberedsubsubsec Retrogradazione
-@translationof Retrograde
 
 @cindex trasformazione retrograda
 @cindex retrogradazione, trasformazione
@@ -984,15 +973,14 @@ duraturo causeranno facilmente delle sorprese.
 
 @morerefs
 Guida alla notazione:
-@ref{Inversione},
-@ref{Trasposizioni modali},
-@ref{Trasposizione}.
+@ref{Inversion},
+@ref{Modal transformations},
+@ref{Transpose}.
 @endmorerefs
 
 
-@node Trasposizioni modali
+@node Modal transformations
 @unnumberedsubsubsec Trasposizioni modali
-@translationof Modal transformations
 
 @cindex trasposizione modale
 @cindex modale, trasposizione
@@ -1003,7 +991,7 @@ frequentemente trasportato in differenti modi.  Può essere
 @notation{trasposto} per iniziare in punti diversi della scala o
 può essere @notation{invertito} rispetto a un punto cardine della scala.
 Può anche essere rovesciato per produrre il @notation{retrogrado}, si veda
-@ref{Retrogradazione}.
+@ref{Retrograde}.
 
 @warning{Le note che non si trovano all'interno della scala definita non
 vengono trasformate.}
@@ -1126,32 +1114,30 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 
 @morerefs
 Guida alla notazione:
-@ref{Inversione},
-@ref{Retrogradazione},
-@ref{Trasposizione}.
+@ref{Inversion},
+@ref{Retrograde},
+@ref{Transpose}.
 @endmorerefs
 
 
-@node Aspetto delle altezze
+@node Displaying pitches
 @subsection Aspetto delle altezze
-@translationof Displaying pitches
 
 Questa sezione tratta il modo di modificare l'aspetto delle altezze delle note.
 
 @menu
-* Chiave::
-* Armatura di chiave::
-* Segni di ottavazione::
-* Trasporto strumentale::
-* Alterazioni automatiche::
-* Glifi di alterazione alternativi::
+* Clef::
+* Key signature::
+* Ottava brackets::
+* Instrument transpositions::
+* Automatic accidentals::
+* Alternate accidental glyphs::
 * Ambitus::
 @end menu
 
 
-@node Chiave
+@node Clef
 @unnumberedsubsubsec Chiave
-@translationof Clef
 
 @cindex chiave di Sol
 @cindex chiave di Do
@@ -1207,11 +1193,11 @@ c'2 c'
 c'2 c'
 @end lilypond
 
-L'elenco completo di tutti i nomi di chiave possibili si trova in @ref{Stili della chiave}.
+L'elenco completo di tutti i nomi di chiave possibili si trova in @ref{Clef styles}.
 Chiavi speciali, come quelle usate nella musica @emph{antica}, sono descritte
-in @ref{Chiavi mensurali} e @ref{Chiavi gregoriane}.  La musica che utilizza le
-chiavi dell'intavolatura è discussa in @ref{Intavolature predefinite} e
-@ref{Intavolature personalizzate}.
+in @ref{Mensural clefs} e @ref{Gregorian clefs}.  La musica che utilizza le
+chiavi dell'intavolatura è discussa in @ref{Default tablatures} e
+@ref{Custom tablatures}.
 
 @cindex notina, chiave
 @cindex citazione in corpo piccolo, chiave
@@ -1219,7 +1205,7 @@ chiavi dell'intavolatura è discussa in @ref{Intavolature predefinite} e
 
 Per mischiare le chiavi quando si usano le notine, leggere come si usano i
 comandi @code{\cueClef} e @code{\cueDuringWithClef} descritti in
-@ref{Formattazione delle notine}.
+@ref{Formatting cue notes}.
 
 @cindex chiave traspositrice
 @cindex trasposizione, chiave
@@ -1329,11 +1315,11 @@ più piccolo del normale.  Tale comportamento può essere modificato.
 
 @morerefs
 Guida alla notazione:
-@ref{Chiavi mensurali},
-@ref{Chiavi gregoriane},
-@ref{Intavolature predefinite},
-@ref{Intavolature personalizzate},
-@ref{Formattazione delle notine}.
+@ref{Mensural clefs},
+@ref{Gregorian clefs},
+@ref{Default tablatures},
+@ref{Custom tablatures},
+@ref{Formatting cue notes}.
 
 File installati:
 @file{scm/parser-clef.scm}.
@@ -1363,9 +1349,8 @@ applicato, con un altro @code{\override}, all'oggetto @var{ClefModifier}.
 @end lilypond
 
 
-@node Armatura di chiave
+@node Key signature
 @unnumberedsubsubsec Armatura di chiave
-@translationof Key signature
 
 @cindex armatura di chiave
 
@@ -1377,7 +1362,7 @@ alterazioni e delle armature di chiave.  In LilyPond i nomi delle
 note costituiscono l'input grezzo; le armature e le chiavi determinano
 come questo venga mostrato.  Una nota non alterata come@tie{}@code{c}
 significa @q{Do naturale}, indipendentemente dall'armatura o dalla
-chiave.  Per maggiori informazioni si veda @rlearning{Altezze e armature di chiave}.}
+chiave.  Per maggiori informazioni si veda @rlearningnamed{Pitches and key signatures, Altezze e armature di chiave}.}
 
 L'armatura di chiave indica la tonalità di un brano.  È costituita da un
 insieme di alterazioni (bemolle o diesis) all'inizio del rigo.  L'armatura
@@ -1477,7 +1462,7 @@ Glossario musicale:
 @rglos{scordatura}.
 
 Manuale di apprendimento:
-@rlearning{Altezze e armature di chiave}.
+@rlearningnamed{Pitches and key signatures, Altezze e armature di chiave}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -1492,9 +1477,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Segni di ottavazione
+@node Ottava brackets
 @unnumberedsubsubsec Segni di ottavazione
-@translationof Ottava brackets
 
 @cindex ottava
 @cindex 15ma
@@ -1534,7 +1518,7 @@ parentesi.  Questa impostazione può essere cambiata in modo che includa un
 numero ordinale abbreviato, come apice o come lettere normali (le ultime
 venivano un tempo usate come predefinite); si può cambiare anche il peso
 del font grassetto predefinito, come è spiegato in
-@ref{Scelta del tipo di carattere e della dimensione}.
+@ref{Selecting font and font size}.
 
 L'esempio seguente mostra varie opzioni, e anche come ritornare al
 comportamento predefinito corrente:
@@ -1592,7 +1576,7 @@ Glossario musicale:
 @rglosnamed{octavation,ottavazione}.
 
 Guida alla notazione:
-@ref{Scelta del tipo di carattere e della dimensione}.
+@ref{Selecting font and font size}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -1604,9 +1588,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Trasporto strumentale
+@node Instrument transpositions
 @unnumberedsubsubsec Trasporto strumentale
-@translationof Instrument transpositions
 
 @cindex trasposizione, MIDI
 @cindex trasposizione, strumento
@@ -1621,7 +1604,7 @@ parti possono essere scritte a un'altezza diversa dall'@notation{intonazione rea
 In questi casi, è necessario specificare la chiave dello @notation{strumento traspositore},
 altrimenti l'output MIDI e le citazioni in altre parti produrranno
 altezze errate.  Per maggiori informazioni sulle citazioni, si veda
-@ref{Citare altre voci}.
+@ref{Quoting other voices}.
 
 @example
 \transposition @var{altezza}
@@ -1701,17 +1684,16 @@ Glossario musicale:
 @rglosnamed{transposing instrument,strumento traspositore}.
 
 Guida alla notazione:
-@ref{Citare altre voci},
-@ref{Trasposizione}.
+@ref{Quoting other voices},
+@ref{Transpose}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
 @endmorerefs
 
 
-@node Alterazioni automatiche
+@node Automatic accidentals
 @unnumberedsubsubsec Alterazioni automatiche
-@translationof Automatic accidentals
 
 @cindex stile di alterazione
 @cindex stile di alterazione predefinito
@@ -3101,9 +3083,8 @@ forget = #(define-music-function (music) (ly:music?) #{
 @end lilypond
 
 
-@node Glifi di alterazione alternativi
+@node Alternate accidental glyphs
 @unnumberedsubsubsec Glifi di alterazione alternativi
-@translationof Alternate accidental glyphs
 
 @cindex alterazioni, glifi alternativi
 @cindex glifi di alterazione alternativi
@@ -3112,7 +3093,7 @@ I sistemi di notazione non occidentali e antici hanno le loro alterazioni.
 I glifi sono regolati dalla proprietà @code{alterationGlyphs} del
 contesto @code{Staff} e da tipi di contesto simili.
 I valori predefiniti di questa proprietà sono elencati in
-@ref{Gruppi di glifi di alterazione}.
+@ref{Accidental glyph sets}.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -3128,7 +3109,7 @@ I valori predefiniti di questa proprietà sono elencati in
 La proprietà può essere impostata anche su una lista associativa
 personalizzata che associa le alterazioni ai nomi dei glifi.
 Le alterazioni si specificano come frazioni in toni.
-I glifi sono elencati in @ref{Glifi delle alterazioni}.
+I glifi sono elencati in @ref{Accidental glyphs}.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -3178,8 +3159,8 @@ armature di chiave.
 
 @morerefs
 Guida alla notazione:
-@ref{Gruppi di glifi di alterazione},
-@ref{Glifi delle alterazioni}.
+@ref{Accidental glyph sets},
+@ref{Accidental glyphs}.
 
 Guida al funzionamento interno:
 @rinternals{accidental-switch-interface},
@@ -3190,7 +3171,6 @@ Guida al funzionamento interno:
 
 @node Ambitus
 @unnumberedsubsubsec Ambitus
-@translationof Ambitus
 
 @cindex ambitus
 @cindex ambito delle altezze
@@ -3268,22 +3248,20 @@ Le collisioni non vengono gestite in presenza di un ambitus multiplo su
 più di una voce.
 
 
-@node Teste di nota
+@node Note heads
 @subsection Teste di nota
-@translationof Note heads
 
 Questa sezione suggerisce i modi in cui modificare la testa di una nota.
 
 @menu
-* Teste di nota speciali::
-* Testa di nota con nome della nota::
-* Teste di nota a forma variabile::
-* Improvvisazione::
+* Special note heads::
+* Easy notation note heads::
+* Shape note heads::
+* Improvisation::
 @end menu
 
-@node Teste di nota speciali
+@node Special note heads
 @unnumberedsubsubsec Teste di nota speciali
-@translationof Special note heads
 
 @cindex testa di nota, speciale
 @cindex testa di nota, barrata
@@ -3317,7 +3295,7 @@ L'aspetto delle teste delle note può essere modificato:
 }
 @end lilypond
 
-L'elenco di tutti gli stili per le teste di nota è in @ref{Stili delle teste di nota}.
+L'elenco di tutti gli stili per le teste di nota è in @ref{Note head styles}.
 
 @funindex \xNote
 @funindex \xNotesOn
@@ -3381,9 +3359,9 @@ Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
 
 Guida alla notazione:
-@ref{Stili delle teste di nota},
-@ref{Note in un accordo},
-@ref{Indicazione di armonici e note smorzate}.
+@ref{Note head styles},
+@ref{Chorded notes},
+@ref{Indicating harmonics and dampened notes}.
 
 Guida al funzionamento interno:
 @rinternals{note-event},
@@ -3396,9 +3374,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Testa di nota con nome della nota
+@node Easy notation note heads
 @unnumberedsubsubsec Testa di nota con nome della nota
-@translationof Easy notation note heads
 
 @cindex testa di nota, esercizio
 @cindex testa di nota, notazione semplificata
@@ -3413,7 +3390,7 @@ Guida al funzionamento interno:
 La nota @q{easy play} inserisce il nome della nota dentro la testa.
 Viene usata nella musica per principianti.  Per rendere le lettere
 leggibili, occorrerebbe usare un carattere più grande.  A questo
-proposito si veda @ref{Impostare la dimensione del rigo}.
+proposito si veda @ref{Setting the staff size}.
 
 @lilypond[verbatim,quote]
 #(set-global-staff-size 26)
@@ -3443,7 +3420,7 @@ proposito si veda @ref{Impostare la dimensione del rigo}.
 
 @morerefs
 Guida alla notazione:
-@ref{Impostare la dimensione del rigo}.
+@ref{Setting the staff size}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -3456,9 +3433,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Teste di nota a forma variabile
+@node Shape note heads
 @unnumberedsubsubsec Teste di nota a forma variabile
-@translationof Shape note heads
 
 @cindex note a forma variabile
 @cindex testa di nota, forma
@@ -3567,14 +3543,14 @@ in base alla relativa maggiore:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
-La lista completa di tutti gli stili delle teste si trova in @ref{Stili delle teste di nota}.
+La lista completa di tutti gli stili delle teste si trova in @ref{Note head styles}.
 
 @morerefs
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
 
 Guida alla notazione:
-@ref{Stili delle teste di nota}.
+@ref{Note head styles}.
 
 Guida al funzionamento interno:
 @rinternals{note-event},
@@ -3584,9 +3560,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Improvvisazione
+@node Improvisation
 @unnumberedsubsubsec Improvvisazione
-@translationof Improvisation
 
 @cindex improvvisazione
 @cindex testa di nota, tagliata

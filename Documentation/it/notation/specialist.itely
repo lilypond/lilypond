@@ -9,27 +9,26 @@
 
 @c \version "2.16.0"
 
-@node Notazione specialistica
+@node Specialist notation
 @chapter Notazione specialistica
-@translationof Specialist notation
 
 Questo capitolo spiega come creare la notazione musicale per particolari
 tipi di strumento o per stili specifici.
 
 La musica d'orchestra e di insieme non è trattata in una sezione separata,
 ma si possono trovare varie nozioni usate comunemente nelle partiture
-orchestrali in @ref{Riferimenti per opera e musical}.
+orchestrali in @ref{References for opera and stage musicals}.
 
 @menu
-* Musica vocale::
-* Tastiera e altri strumenti multirigo::
-* Strumenti a corde senza tasti::
-* Strumenti a corde con tasti::
-* Percussioni::
-* Strumenti aerofoni::
-* Notazione per accordi::
-* Musica contemporanea::
-* Notazione antica::
+* Vocal music::
+* Keyboard and other multi-staff instruments::
+* Unfretted string instruments::
+* Fretted string instruments::
+* Percussion::
+* Wind instruments::
+* Chord notation::
+* Contemporary music::
+* Ancient notation::
 * World music::
 @end menu
 

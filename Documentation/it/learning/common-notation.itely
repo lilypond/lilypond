@@ -11,65 +11,60 @@
 
 @c \version "2.19.21"
 
-@node Notazione comunemente utilizzata
+@node Common notation
 @chapter Notazione comunemente utilizzata
-@translationof Common notation
 
 Questo capitolo spiega come creare dei belli spartiti che
 facciano uso della notazione musicale comunemente utilizzata.
 Per le operazioni di base, @pxref{Tutorial}.
 
 @menu
-* Notazione su un solo pentagramma::
-* Note simultanee::
-* Canzoni::
-* Ritocchi finali::
+* Single staff notation::
+* Multiple notes at once::
+* Songs::
+* Final touches::
 @end menu
 
 
-@node Notazione su un solo pentagramma
+@node Single staff notation
 @section Notazione su un solo pentagramma
-@translationof Single staff notation
 
 Questa sezione presenta la notazione comunemente usata per una singola voce su
 un solo pentagramma.
 
 @menu
-* Stanghette e controlli di battuta::
-* Altezze e armature di chiave::
-* Legature di valore e di portamento::
-* Articolazioni e dinamiche::
-* Aggiungere il testo::
-* Code automatiche e manuali::
-* Comandi di tempo avanzati::
+* Bar lines and bar checks::
+* Pitches and key signatures::
+* Ties and slurs::
+* Articulations and dynamics::
+* Adding text::
+* Automatic and manual beams::
+* Advanced rhythmic commands::
 @end menu
 
-@node Stanghette e controlli di battuta
+@node Bar lines and bar checks
 @subsection Stanghette e controlli di battuta
-@translationof Bar lines and bar checks
 
 @menu
-* Stanghette::
-* Controlli di battuta::
+* Bar lines::
+* Bar checks::
 @end menu
 
-@node Stanghette
+@node Bar lines
 @unnumberedsubsubsec Stanghette
-@translationof Bar lines
 
 Le stanghette singole vengono aggiunte automaticamente, quindi non occorre
 aggiungerle manualmente.  Si possono inserire altri tipi di stanghette
 col comando @code{\bar}, per esempio @code{\bar "||"} per una stanghetta
 doppia, o @code{\bar "|."} per una stanghetta finale.  La lista completa
-delle stanghette si trova in @rnotation{Stanghette}.
+delle stanghette si trova in @rnotationnamed{Bar lines, Stanghette}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
 @end lilypond
 
-@node Controlli di battuta
+@node Bar checks
 @unnumberedsubsubsec Controlli di battuta
-@translationof Bar checks
 
 I @emph{controlli di battuta}, pur se non strettamente necessari, dovrebbero
 essere usati nel codice di input per mostrare dove si vuole che cadano le
@@ -102,25 +97,23 @@ nel guidare l'attenzione al @samp{4} mancante nella terza battuta.
 
 @morerefs
 Guida alla notazione:
-@rnotation{Controlli di battuta e del numero di battuta}.
+@rnotationnamed{Bar and bar number checks, Controlli di battuta e del numero di battuta}.
 @endmorerefs
 
-@node Altezze e armature di chiave
+@node Pitches and key signatures
 @subsection Altezze e armature di chiave
-@translationof Pitches and key signatures
 
 @menu
-* Alterazioni dell'altezza::
-* Armature di chiave::
-* Attenzione armature di chiave e altezze::
+* Pitch alterations::
+* Key signatures::
+* Warning key signatures and pitches::
 @end menu
 
 @warning{I nuovi utenti sono spesso confusi riguardo a questi concetti -- leggi
 il messaggio di avviso alla fine di questa sezione.}
 
-@node Alterazioni dell'altezza
+@node Pitch alterations
 @unnumberedsubsubsec Alterazioni dell'altezza
-@translationof Pitch alterations
 
 @cindex alterazioni, accidenti
 @cindex naturale
@@ -155,16 +148,15 @@ si ottengono aggiungendo @samp{isis} o @samp{eses}.  Questa sintassi
 deriva dalle convenzioni per i nomi delle note presenti nelle lingue
 nordiche e germaniche, come il tedesco e l'olandese.  Per usare altri
 schemi di denominazione per i nomi delle note, si veda
-@rnotation{Nomi delle note in altre lingue}.
+@rnotationnamed{Note names in other languages, Nomi delle note in altre lingue}.
 
 @lilypond[verbatim,quote]
 \relative { cis''4 ees fisis, aeses }
 @end lilypond
 
 
-@node Armature di chiave
+@node Key signatures
 @unnumberedsubsubsec Armature di chiave
-@translationof Key signatures
 
 @cindex armatura di chiave
 @cindex maggiore
@@ -194,9 +186,8 @@ seguito da un'altezza e da @code{\major} o @code{\minor}.
 
 @smallspace
 
-@node Attenzione armature di chiave e altezze
+@node Warning key signatures and pitches
 @unnumberedsubsubsec Attenzione: armature di chiave e altezze
-@translationof Warning key signatures and pitches
 
 Glossario musicale: @rglosnamed{accidental,alterazione},
 @rglosnamed{key signature,armatura di chiave}, @rglosnamed{pitch,altezza},
@@ -249,21 +240,20 @@ di lavoro in fase di scrittura, ma il vantaggio è che la
 @notation{trasposizione} è più semplice, e le alterazioni possono essere
 prodotte usando diverse convenzioni.  Per alcuni esempi che mostrano come
 sia possibile produrre delle alterazioni in base a regole diverse, si veda
-@rnotation{Alterazioni automatiche}.
+@rnotationnamed{Automatic accidentals, Alterazioni automatiche}.
 
 
 @morerefs
 Guida alla notazione:
-@rnotation{Nomi delle note in altre lingue},
-@rnotation{Alterazioni},
-@rnotation{Alterazioni automatiche},
-@rnotation{Armatura di chiave}.
+@rnotationnamed{Note names in other languages, Nomi delle note in altre lingue},
+@rnotationnamed{Accidentals, Alterazioni},
+@rnotationnamed{Automatic accidentals, Alterazioni automatiche},
+@rnotationnamed{Key signature, Armatura di chiave}.
 @endmorerefs
 
 
-@node Legature di valore e di portamento
+@node Ties and slurs
 @subsection Legature di valore e di portamento
-@translationof Ties and slurs
 
 @cindex legatura di valore
 @cindex legatura di portamento
@@ -275,15 +265,14 @@ Guida alla notazione:
 @funindex \( ... \)
 
 @menu
-* Legature di valore::
-* Legature di portamento::
-* Legature di frase::
-* Attenzione legature di portamento vs legature di valore::
+* Ties::
+* Slurs::
+* Phrasing slurs::
+* Warnings slurs vs ties::
 @end menu
 
-@node Legature di valore
+@node Ties
 @unnumberedsubsubsec Legature di valore
-@translationof Ties
 
 Glossario musicale: @rglosnamed{tie,legatura di valore}.
 
@@ -312,9 +301,8 @@ In altre parole, @samp{c4 a 8 8} verrebbe interpretato come @samp{c4 a8 a8},
 non come @samp{c4 a4 a8 a8}.  Scrivere invece @samp{c4 a4 8 8 }.
 
 
-@node Legature di portamento
+@node Slurs
 @unnumberedsubsubsec Legature di portamento
-@translationof Slurs
 
 Glossario musicale: @rglosnamed{slur,legatura di portamento}.
 
@@ -327,9 +315,8 @@ segue la prima nota della legatura.
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
 @end lilypond
 
-@node Legature di frase
+@node Phrasing slurs
 @unnumberedsubsubsec Legature di frase
-@translationof Phrasing slurs
 
 Glossario musicale: @rglosnamed{slur,legatura di portamento},
 @rglosnamed{phrasing,legatura di frase}.
@@ -345,9 +332,8 @@ stesso tempo sia le legature di portamento sia le legature di frase.
 @smallspace
 
 
-@node Attenzione legature di portamento vs legature di valore
+@node Warnings slurs vs ties
 @unnumberedsubsubsec Attenzione: legature di portamento vs.@: legature di valore
-@translationof Warnings slurs vs ties
 
 @cindex legature di portamento vs. legature di valore
 
@@ -369,28 +355,26 @@ possono essere annidate le une dentro le altre.
 
 @morerefs
 Guida alla notazione:
-@rnotation{Legature di valore},
-@rnotation{Legature di portamento},
-@rnotation{Legature di frase}.
+@rnotationnamed{Ties, Legature di valore},
+@rnotationnamed{Slurs, Legature di portamento},
+@rnotationnamed{Phrasing slurs, Legature di frase}.
 @endmorerefs
 
 
-@node Articolazioni e dinamiche
+@node Articulations and dynamics
 @subsection Articolazioni e dinamiche
-@translationof Articulations and dynamics
 
 Le articolazioni e le dinamiche si indicano aggiungendo dei segni speciali
 dopo le note alle quali si applicano.
 
 @menu
-* Articolazioni::
-* Diteggiature::
-* Dinamiche::
+* Articulations::
+* Fingerings::
+* Dynamics::
 @end menu
 
-@node Articolazioni
+@node Articulations
 @unnumberedsubsubsec Articolazioni
-@translationof Articulations
 
 @cindex articolazione
 @cindex accento
@@ -408,9 +392,8 @@ con una lineetta @samp{-} e un singolo carattere:
 }
 @end lilypond
 
-@node Diteggiature
+@node Fingerings
 @unnumberedsubsubsec Diteggiature
-@translationof Fingerings
 
 @cindex diteggiatura
 
@@ -437,9 +420,8 @@ meglio lasciare che sia LilyPond a determinare le direzioni delle articolazioni.
 \relative { c''4_-^1 d^. f^4_2-> e^-_+ }
 @end lilypond
 
-@node Dinamiche
+@node Dynamics
 @unnumberedsubsubsec Dinamiche
-@translationof Dynamics
 
 @cindex dinamiche
 @cindex decrescendo
@@ -478,15 +460,14 @@ il comando @code{\!}:
 
 @morerefs
 Guida alla notazione:
-@rnotation{Articolazioni e abbellimenti},
-@rnotation{Indicazioni di diteggiatura},
-@rnotation{Dinamiche}.
+@rnotationnamed{Articulations and ornamentations, Articolazioni e abbellimenti},
+@rnotationnamed{Fingering instructions, Indicazioni di diteggiatura},
+@rnotationnamed{Dynamics, Dinamiche}.
 @endmorerefs
 
 
-@node Aggiungere il testo
+@node Adding text
 @subsection Aggiungere il testo
-@translationof Adding text
 
 @cindex testo, aggiungere
 @cindex aggiungere testo
@@ -512,13 +493,12 @@ Per aggiungere delle formattazioni puoi usare il comando @code{\markup}:
 
 @morerefs
 Guida alla notazione:
-@rnotation{Inserimento del testo}.
+@rnotationnamed{Writing text, Inserimento del testo}.
 @endmorerefs
 
 
-@node Code automatiche e manuali
+@node Automatic and manual beams
 @subsection Code automatiche e manuali
-@translationof Automatic and manual beams
 
 @cindex raggruppamento
 @cindex code automatiche
@@ -569,24 +549,22 @@ riattivarlo.
 
 @morerefs
 Guida alla notazione:
-@rnotation{Travature automatiche},
-@rnotation{Travature manuali}.
+@rnotationnamed{Automatic beams, Travature automatiche},
+@rnotationnamed{Manual beams, Travature manuali}.
 @endmorerefs
 
 
-@node Comandi di tempo avanzati
+@node Advanced rhythmic commands
 @subsection Comandi di tempo avanzati
-@translationof Advanced rhythmic commands
 
 @menu
-* Battuta parziale::
-* Gruppi irregolari::
-* Abbellimenti::
+* Partial measure::
+* Tuplets::
+* Grace notes::
 @end menu
 
-@node Battuta parziale
+@node Partial measure
 @unnumberedsubsubsec Battuta parziale
-@translationof Partial measure
 
 @cindex anacrusi
 @cindex battuta parziale
@@ -606,9 +584,8 @@ Un' @notation{anacrusi} può essere inserita con la parola chiave
 }
 @end lilypond
 
-@node Gruppi irregolari
+@node Tuplets
 @unnumberedsubsubsec Gruppi irregolari
-@translationof Tuplets
 
 @cindex gruppi irregolari
 @cindex terzine
@@ -634,9 +611,8 @@ due, quindi una @notation{terzina} ha 3/2 come frazione:
 }
 @end lilypond
 
-@node Abbellimenti
+@node Grace notes
 @unnumberedsubsubsec Abbellimenti
-@translationof Grace notes
 
 @cindex abbellimenti
 @cindex acciaccatura
@@ -665,15 +641,14 @@ musicale le parole chiave @code{\appoggiatura} o @code{\acciaccatura}:
 
 @morerefs
 Guida alla notazione:
-@rnotation{Abbellimenti},
-@rnotation{Gruppi irregolari},
-@rnotation{Anacrusi}.
+@rnotationnamed{Grace notes, Abbellimenti},
+@rnotationnamed{Tuplets, Gruppi irregolari},
+@rnotationnamed{Upbeats, Anacrusi}.
 @endmorerefs
 
 
-@node Note simultanee
+@node Multiple notes at once
 @section Note simultanee
-@translationof Multiple notes at once
 
 Questa sezione spiega come inserire più note simultanee: molteplici
 strumenti, molteplici righi di pentagramma per un singolo strumento
@@ -684,17 +659,16 @@ in un brano.  In LilyPond per polifonia si intende la presenza di
 più di una voce sullo stesso pentagramma.
 
 @menu
-* Espressioni musicali::
-* Righi multipli::
-* Gruppi di pentagrammi::
-* Combinare le note negli accordi::
-* Polifonia su un singolo rigo::
+* Music expressions explained::
+* Multiple staves::
+* Staff groups::
+* Combining notes into chords::
+* Single staff polyphony::
 @end menu
 
 
-@node Espressioni musicali
+@node Music expressions explained
 @subsection Espressioni musicali
-@translationof Music expressions explained
 
 @cindex espressione musicale
 @cindex espressione musicale composta
@@ -724,14 +698,13 @@ precedente). Il risultato è un'altra espressione musicale:
 @end lilypond
 
 @menu
-* Analogia espressioni matematiche::
-* Espressioni musicali simultanee righi multipli::
-* Espressioni musicali simultanee rigo singolo::
+* Analogy mathematic expressions::
+* Simultaneous music expressions multiple staves::
+* Simultaneous music expressions single staff::
 @end menu
 
-@node Analogia espressioni matematiche
+@node Analogy mathematic expressions
 @unnumberedsubsubsec Analogia: le espressioni matematiche
-@translationof Analogy mathematic expressions
 
 Questo meccanismo è analogo a quello delle formule matematiche: una grande formula
 può essere creata creando piccole formule.  Tali formule sono chiamate
@@ -756,9 +729,8 @@ annidate a qualsivoglia grado di profondità, e questo è indispensabile per
 musica complessa come le partiture polifoniche.
 
 
-@node Espressioni musicali simultanee righi multipli
+@node Simultaneous music expressions multiple staves
 @unnumberedsubsubsec Espressioni musicali simultanee: righi multipli
-@translationof Simultaneous music expressions multiple staves
 
 @cindex righi multipli
 @cindex multipli, righi
@@ -805,9 +777,8 @@ in un blocco @code{@bs{}relative} è relativa al @samp{c} (un'ottava sotto
 il Do@tie{}centrale).}
 
 
-@node Espressioni musicali simultanee rigo singolo
+@node Simultaneous music expressions single staff
 @unnumberedsubsubsec Espressioni musicali simultanee: rigo singolo
-@translationof Simultaneous music expressions single staff
 
 Per determinare il numero di pentagrammi in un brano, LilyPond guarda
 l'inizio della prima espressione.  Se c'è una nota singola, ci sarà
@@ -823,9 +794,8 @@ su un singolo rigo.
 }
 @end lilypond
 
-@node Righi multipli
+@node Multiple staves
 @subsection Righi multipli
-@translationof Multiple staves
 
 @cindex righi multipli
 @cindex multipli, righi
@@ -842,7 +812,7 @@ su un singolo rigo.
 @funindex ChordNames
 
 I file di input di LilyPond si costruiscono in base alle espressioni musicali
-(@pxref{Espressioni musicali}).  Se la partitura inizia con espressioni
+(@pxref{Music expressions explained}).  Se la partitura inizia con espressioni
 musicali simultanee, LilyPond crea più di un rigo musicale.  Tuttavia, è
 più facile vedere quel che accade se creiamo ogni rigo musicale esplicitamente.
 
@@ -889,9 +859,8 @@ frequenti delle partiture poliritmiche.
 
 
 
-@node Gruppi di pentagrammi
+@node Staff groups
 @subsection Gruppi di pentagrammi
-@translationof Staff groups
 
 @cindex pentagramma per piano
 @cindex piano, pentagramma per
@@ -912,7 +881,7 @@ Glossario musicale:
 La musica per pianoforte viene stampata su due righi musicali collegati
 con una @notation{graffa}.
 Produrre un pentagramma di questo tipo è simile alla musica polifonica
-su righi multipli (@pxref{Righi multipli}).  In questo caso, però, l'intera espressione
+su righi multipli (@pxref{Multiple staves}).  In questo caso, però, l'intera espressione
 è inserita in un rigo @code{PianoStaff}:
 
 @example
@@ -941,14 +910,13 @@ delle linee della battuta.
 
 @morerefs
 Guida alla notazione:
-@rnotation{Tastiera e altri strumenti multirigo},
-@rnotation{Aspetto del rigo}.
+@rnotationnamed{Keyboard and other multi-staff instruments, Tastiera e altri strumenti multirigo},
+@rnotationnamed{Displaying staves, Aspetto del rigo}.
 @endmorerefs
 
 
-@node Combinare le note negli accordi
+@node Combining notes into chords
 @subsection Combinare le note negli accordi
-@translationof Combining notes into chords
 
 Glossario musicale: @rglosnamed{chord,accordo}.
 
@@ -1000,13 +968,12 @@ da note singole.
 
 @morerefs
 Guida alla notazione:
-@rnotation{Note in un accordo}.
+@rnotationnamed{Chorded notes, Note in un accordo}.
 @endmorerefs
 
 
-@node Polifonia su un singolo rigo
+@node Single staff polyphony
 @subsection Polifonia su un singolo rigo
-@translationof Single staff polyphony
 
 @cindex polifonia
 @cindex voci multiple
@@ -1027,29 +994,27 @@ le basi di questi concetti e a spiegarli via via.
 
 @morerefs
 Manuale di Apprendimento:
-@ref{Le voci contengono la musica}.
+@ref{Voices contain music}.
 
 Guida alla notazione:
-@rnotation{Note simultanee}.
+@rnotationnamed{Simultaneous notes, Note simultanee}.
 @endmorerefs
 
 
-@node Canzoni
+@node Songs
 @section Canzoni
-@translationof Songs
 
 Questa sezione presenta la musica vocale e gli spartiti di semplici canzoni.
 
 @menu
-* Impostare canzoni semplici::
-* Allineare il testo alla melodia::
-* Testo su più righi::
+* Setting simple songs::
+* Aligning lyrics to a melody::
+* Lyrics to multiple staves::
 @end menu
 
 
-@node Impostare canzoni semplici
+@node Setting simple songs
 @subsection Impostare canzoni semplici
-@translationof Setting simple songs
 
 @cindex testi
 @cindex canzoni
@@ -1091,9 +1056,8 @@ Si notino le doppie parentesi ad angolo @code{<<@tie{}@dots{}@tie{}>>} che circo
 l'intero brano per indicare che la musica e il testo devono trovarsi
 in simultanea.
 
-@node Allineare il testo alla melodia
+@node Aligning lyrics to a melody
 @subsection Allineare il testo alla melodia
-@translationof Aligning lyrics to a melody
 
 @cindex melisma
 @cindex linea di estensione
@@ -1129,7 +1093,7 @@ alle note.  La parola @emph{shine} dovrebbe essere cantata su due note, non
 una.  Questo si chiama @notation{melisma}, una singola sillaba che viene
 cantata per più di una nota.  Ci sono molti modi per estendere una sillaba
 su molteplici note, e il più semplice è aggiungere una legatura di portamento
-che le colleghi. Per maggiori informazioni, @xref{Legature di valore e di portamento}.
+che le colleghi. Per maggiori informazioni, @xref{Ties and slurs}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1150,7 +1114,7 @@ Adesso le parole sono allineate correttamente con le note, ma il raggruppamento
 automatico per le note che si trovano sopra @emph{shine as} non ha un
 aspetto corretto.  Possiamo correggerlo inserendo i comandi per il raggruppamento
 manuale così da scavalcare, in questo caso, il raggruppamento automatico. Per
-maggiori informazioni, @xref{Code automatiche e manuali}.
+maggiori informazioni, @xref{Automatic and manual beams}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1267,13 +1231,12 @@ Ecco un esempio tratto dall'opera @notation{Il barbiere di Siviglia} di Rossini,
 
 @morerefs
 Guida alla notazione:
-@rnotation{Musica vocale}.
+@rnotationnamed{Vocal music, Musica vocale}.
 @endmorerefs
 
 
-@node Testo su più righi
+@node Lyrics to multiple staves
 @subsection Testo su più righi
-@translationof Lyrics to multiple staves
 
 @cindex testo e righi multipli
 @cindex righi multipli e testo
@@ -1309,34 +1272,32 @@ più semplice, ovvero @code{\addlyrics}.  Ecco un esempio tratto dall'oratorio
 Per scrivere partiture un po' più complesse di questi semplici esempi,
 è meglio separare la struttura dello spartito dalle note e dai testi
 mediante l'uso di variabili. Per un'introduzione,
-@xref{Organizzare i brani con le variabili}.
+@xref{Organizing pieces with variables}.
 
 
 @morerefs
 Guida alla notazione:
-@rnotation{Musica vocale}.
+@rnotationnamed{Vocal music, Musica vocale}.
 @endmorerefs
 
 
-@node Ritocchi finali
+@node Final touches
 @section Ritocchi finali
-@translationof Final touches
 
 Questa è la sezione finale della guida; spiega come dare gli ultimi
 ritocchi a semplici pezzi, e fornisce un'introduzione
 al resto del manuale.
 
 @menu
-* Organizzare i brani con le variabili::
-* Aggiungere i titoli::
-* Nomi assoluti delle note::
-* Dopo il tutorial::
+* Organizing pieces with variables::
+* Adding titles::
+* Absolute note names::
+* After the tutorial::
 @end menu
 
 
-@node Organizzare i brani con le variabili
+@node Organizing pieces with variables
 @subsection Organizzare i brani con le variabili
-@translationof Organizing pieces with variables
 
 @cindex variabili
 @cindex variabili, definire
@@ -1388,7 +1349,7 @@ cello = \new Staff {
 @end lilypond
 
 Per convenzione, il nome di una variabile è composto soltanto da caratteri
-alfabetici.  Informazioni più dettagliate in @rnotation{Struttura del file}.
+alfabetici.  Informazioni più dettagliate in @rnotationnamed{File structure, Struttura del file}.
 
 Le variabili devono essere definite @emph{prima} della principale espressione
 musicale, ma possono poi essere usate quante volte si vuole e ovunque, una
@@ -1429,9 +1390,8 @@ differenti.  L'esempio seguente usa le variabili mostrate sopra:
 @end example
 
 
-@node Aggiungere i titoli
+@node Adding titles
 @subsection Aggiungere i titoli
-@translationof Adding titles
 
 @cindex titolo
 @cindex intestazioni
@@ -1460,12 +1420,11 @@ posto sotto il numero di versione.
 @noindent
 Quando il file viene elaborato, sopra la musica vengono visualizzati
 il titolo e il compositore.  Si possono trovare  maggiori informazioni
-sui titoli in @rnotation{Creazione di titoli intestazioni e piè di pagina}.
+sui titoli in @rnotationnamed{Creating titles headers and footers, Creazione di titoli intestazioni e piè di pagina}.
 
 
-@node Nomi assoluti delle note
+@node Absolute note names
 @subsection Nomi assoluti delle note
-@translationof Absolute note names
 
 @cindex nomi delle note
 @cindex nomi delle note, assoluti
@@ -1564,17 +1523,16 @@ modalità relativa:
 @end lilypond
 
 
-@node Dopo il tutorial
+@node After the tutorial
 @subsection Dopo il tutorial
-@translationof After the tutorial
 
 Dopo aver finito di leggere la guida, probabilmente dovresti cercare
 di scrivere uno o due brani.  Puoi iniziare aggiungendo delle note a uno
-dei modelli (@pxref{Modelli}).  Se necessiti di una qualche notazione che non è
+dei modelli (@pxref{Templates}).  Se necessiti di una qualche notazione che non è
 stata coperta nel tutorial, dai un'occhiata alla Guida alla notazione,
-a cominciare da @rnotation{Notazione musicale}.  Se vuoi scrivere per un gruppo
+a cominciare da @rnotationnamed{Musical notation, Notazione musicale}.  Se vuoi scrivere per un gruppo
 di strumenti che non è incluso nei modelli, dai un'occhiata a
-@pxref{Estendere i modelli}.
+@pxref{Extending the templates}.
 
 Una volta che hai scritto alcuni brevi pezzi, puoi proseguire la lettura
 del Manuale di Apprendimento (capitoli 3--5).  Ovviamente non c'è niente
@@ -1591,7 +1549,7 @@ la lettura di tutto il Manuale di Apprendimento, potrai rileggere alcune
 sezioni e seguire i riferimenti incrociati per letture di approfondimento.
 
 Se non lo hai già fatto, @emph{ti consigliamo} di leggere
-@ref{Panoramica dei manuali}.  Contiene molte informazioni su LilyPond,
+@ref{Overview of manuals}.  Contiene molte informazioni su LilyPond,
 ed è quindi utile per i nuovi utenti, che spesso non sanno dove cercare
 aiuto.  Se dedichi cinque  minuti all'attenta lettura di quella sezione,
 potresti risparmiarti ore di frustrazione sprecate a guardare in posti sbagliati!

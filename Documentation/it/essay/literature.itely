@@ -13,20 +13,18 @@
 @c Translators: Tommaso Gordini
 @c Translation checkers: Federico Bruni
 
-@node Bibliografia
+@node Literature list
 @chapter Bibliografia
-@translationof Literature list
 
 Di seguito elenchiamo i riferimenti usati per LilyPond.
 
 @menu
-* Bibliografia breve::
-* Bibliografia lunga::
+* Short literature list::
+* Long literature list::
 @end menu
 
-@node Bibliografia breve
+@node Short literature list
 @section Bibliografia breve
-@translationof Short literature list
 
 Se avete bisogno di saperne di più sulla notazione musicale, qui ci sono
 alcuni titoli interessanti da leggere.
@@ -95,9 +93,8 @@ notazionali tradizionali esistenti.
 @end table
 
 
-@node Bibliografia lunga
+@node Long literature list
 @section Bibliografia lunga
-@translationof Long literature list
 
 @subheading University of Colorado Engraving music bibliography
 

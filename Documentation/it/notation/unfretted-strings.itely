@@ -12,9 +12,8 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
-@node Strumenti a corde senza tasti
+@node Unfretted string instruments
 @section Strumenti a corde senza tasti
-@translationof Unfretted string instruments
 
 @lilypondfile[quote]
 {snippets/unfretted-headword.ly}
@@ -28,12 +27,11 @@ musica per strumenti a corde senza tasti, principalmente archi da
 orchestra.
 
 @menu
-* Notazione comune per strumenti a corde senza tasti::
+* Common notation for unfretted strings::
 @end menu
 
-@node Notazione comune per strumenti a corde senza tasti
+@node Common notation for unfretted strings
 @subsection Notazione comune per strumenti a corde senza tasti
-@translationof Common notation for unfretted strings
 
 La notazione specialistica per strumenti a corde senza tasti è esigua.
 La musica viene scritta su un solo rigo e di solito è richiesta una
@@ -41,15 +39,14 @@ sola voce.  Due voci potrebbero essere necessarie solo per alcuni
 passaggi a doppia corda o i divisi.
 
 @menu
-* Riferimenti per archi senza tasti::
-* Indicazioni di arcata::
-* Armonici::
-* Pizzicato alla Bartok::
+* References for unfretted strings::
+* Bowing indications::
+* Harmonics::
+* Snap (Bartok) pizzicato::
 @end menu
 
-@node Riferimenti per archi senza tasti
+@node References for unfretted strings
 @unnumberedsubsubsec Riferimenti per archi senza tasti
-@translationof References for unfretted strings
 
 La maggior parte della notazione utile per gli archi da orchestra e
 altri strumenti ad arco è trattata altrove:
@@ -57,31 +54,31 @@ altri strumenti ad arco è trattata altrove:
 @itemize
 
 @item Le indicazioni testuali come @qq{pizz.} e @qq{arco} sono inserite
-come testo semplice, vedi @ref{Scritte}.
+come testo semplice, vedi @ref{Text scripts}.
 
 @item Le diteggiature, incluse le indicazioni per il pollice, sono descritte
-in @ref{Indicazioni di diteggiatura}.
+in @ref{Fingering instructions}.
 
 @item I numeri di corda si inseriscono (generalmente in numeri romani per gli
-strumenti ad arco) come è spiegato in @ref{Indicazioni di numero di corda}.
+strumenti ad arco) come è spiegato in @ref{String number indications}.
 
 @item La doppia corda viene normalmente indicata scrivendo un accordo,
-vedi @ref{Note in un accordo}.  Si possono inserire delle direttive su
+vedi @ref{Chorded notes}.  Si possono inserire delle direttive su
 come eseguire gli accordi, vedi @ref{Arpeggio}.
 
 @item I modelli per i quartetti d'archi si trovano in
-@rlearning{Modelli per quartetto d'archi}.  Altri sono illustrati nei frammenti.
+@rlearningnamed{String quartet templates, Modelli per quartetto d'archi}.  Altri sono illustrati nei frammenti.
 
 @end itemize
 
 @morerefs
 Manuale di apprendimento:
-@rlearning{Modelli per quartetto d'archi}.
+@rlearningnamed{String quartet templates, Modelli per quartetto d'archi}.
 
 Guida alla notazione:
-@ref{Scritte},
-@ref{Indicazioni di diteggiatura},
-@ref{Note in un accordo},
+@ref{Text scripts},
+@ref{Fingering instructions},
+@ref{Chorded notes},
 @ref{Arpeggio}.
 
 Frammenti:
@@ -89,9 +86,8 @@ Frammenti:
 @endmorerefs
 
 
-@node Indicazioni di arcata
+@node Bowing indications
 @unnumberedsubsubsec Indicazioni di arcata
-@translationof Bowing indications
 
 @funindex \upbow
 @funindex \downbow
@@ -107,7 +103,7 @@ Frammenti:
 @cindex numero di corda
 
 Le indicazioni di arcata vengono create come articolazioni, descritte
-in @ref{Articolazioni e abbellimenti}.
+in @ref{Articulations and ornamentations}.
 
 I comandi di arcata, @code{\upbow} (su) e @code{\downbow} (giù), vengono usati
 con le legature di portamento nel seguente modo:
@@ -120,7 +116,7 @@ con le legature di portamento nel seguente modo:
 
 Si possono usare i numeri romani come numeri di corda (al posto dei
 numeri arabi racchiusi in un cerchio), come è spiegato in
-@ref{Indicazioni di numero di corda}.
+@ref{String number indications}.
 
 Altrimenti, le indicazioni di corda possono essere mostrate anche tramite
 comandi markup; le articolazioni possono indicare anche corde vuote.
@@ -142,15 +138,14 @@ a'2^\markup { \small "sul A" }
 
 @morerefs
 Guida alla notazione:
-@ref{Articolazioni e abbellimenti},
-@ref{Indicazioni di numero di corda},
-@ref{Legature di portamento}.
+@ref{Articulations and ornamentations},
+@ref{String number indications},
+@ref{Slurs}.
 @endmorerefs
 
 
-@node Armonici
+@node Harmonics
 @unnumberedsubsubsec Armonici
-@translationof Harmonics
 
 @funindex \harmonic
 
@@ -186,7 +181,7 @@ d''2^\flageolet d''_\flageolet
 @end lilypond
 
 Si può creare anche un cerchio più piccolo, vedi l'elenco di frammenti in
-@ref{Riferimenti per archi senza tasti}.
+@ref{References for unfretted strings}.
 
 @strong{@i{Armonici artificiali}}
 
@@ -215,14 +210,13 @@ Glossario musicale:
 @rglosnamed{harmonics,armonici}.
 
 Guida alla notazione:
-@ref{Teste di nota speciali},
-@ref{Riferimenti per archi senza tasti}.
+@ref{Special note heads},
+@ref{References for unfretted strings}.
 @endmorerefs
 
 
-@node Pizzicato alla Bartok
+@node Snap (Bartok) pizzicato
 @unnumberedsubsubsec Pizzicato alla Bartók
-@translationof Snap (Bartok) pizzicato
 
 @cindex pizzicato alla Bartók
 @cindex pizzicato a schiocco

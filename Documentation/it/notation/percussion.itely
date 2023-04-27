@@ -12,62 +12,58 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
-@node Percussioni
+@node Percussion
 @section Percussioni
-@translationof Percussion
 
 @menu
-* Notazione comune per le percussioni::
+* Common notation for percussion::
 @end menu
 
-@node Notazione comune per le percussioni
+@node Common notation for percussion
 @subsection Notazione comune per le percussioni
-@translationof Common notation for percussion
 
 La musica ritmica viene usata principalmente per la notazione di strumenti
 percussivi, ma può essere usata anche per mostrare i ritmi delle melodie.
 
 @menu
-* Riferimenti per percussioni::
-* Notazione di base per percussioni::
-* Rulli di tamburo::
-* Percussioni a suono determinato::
-* Righi delle percussioni::
-* Righi delle percussioni personalizzati::
-* Ghost note::
+* References for percussion::
+* Basic percussion notation::
+* Drum rolls::
+* Pitched percussion::
+* Percussion staves::
+* Custom percussion staves::
+* Ghost notes::
 @end menu
 
-@node Riferimenti per percussioni
+@node References for percussion
 @unnumberedsubsubsec Riferimenti per percussioni
-@translationof References for percussion
 
 @c TODO add more references.
 
 @itemize
 
 @item Alcune percussioni possono essere scritte su un rigo ritmico; questo
-argomento è trattato in @ref{Mostrare i ritmi della melodia} e
-@ref{Istanziare nuovi righi}.
+argomento è trattato in @ref{Showing melody rhythms} e
+@ref{Instantiating new staves}.
 
 @item l'output MIDI è trattato in un'altra sezione, vedi
-@ref{Creazione dell'output MIDI}.
+@ref{Creating MIDI output}.
 
 @end itemize
 
 @morerefs
 Guida alla notazione:
-@ref{Mostrare i ritmi della melodia},
-@ref{Istanziare nuovi righi},
-@ref{Creazione dell'output MIDI}.
+@ref{Showing melody rhythms},
+@ref{Instantiating new staves},
+@ref{Creating MIDI output}.
 
 Frammenti:
 @rlsr{Percussion}.
 @endmorerefs
 
 
-@node Notazione di base per percussioni
+@node Basic percussion notation
 @unnumberedsubsubsec Notazione di base per percussioni
-@translationof Basic percussion notation
 
 @cindex percussioni
 @cindex batteria
@@ -96,7 +92,7 @@ Si tratta di una scorciatoia per:
 
 Ogni elemento di uno strumento a percussione ha un nome completo e un nome
 abbreviato, entrambi utilizzabili nei file di input.  L'elenco completo dei nomi
-delle note percussive si trova in @ref{Note percussive}.
+delle note percussive si trova in @ref{Percussion notes}.
 
 @cindex chiave delle percussioni
 @cindex percussioni, chiave
@@ -118,12 +114,12 @@ chiavi.
 
 
 Ci sono alcuni problemi relativi al supporto del MIDI per gli strumenti
-percussivi; maggiori dettagli in @ref{Creazione dell'output MIDI}.
+percussivi; maggiori dettagli in @ref{Creating MIDI output}.
 
 @morerefs
 Guida alla notazione:
-@ref{Creazione dell'output MIDI},
-@ref{Note percussive}.
+@ref{Creating MIDI output},
+@ref{Percussion notes}.
 
 File installati:
 @file{ly/drumpitch-init.ly}.
@@ -133,15 +129,14 @@ Frammenti:
 @endmorerefs
 
 
-@node Rulli di tamburo
+@node Drum rolls
 @unnumberedsubsubsec Rulli di tamburo
-@translationof Drum rolls
 
 I rulli di tamburo si indicano con tre slash sul gambo.  Le note di un quarto o
 più lunghe vengono mostrate con tre slash, quelle da un ottavo con due slash (la
 travatura rappresenta la terza), mentre le note più brevi di un'ottavo hanno uno
 slash sul gambo per integrare le travature.  Ciò si ottiene con la notazione per
-tremolo, come è descritto in @ref{Ripetizioni con tremolo}.
+tremolo, come è descritto in @ref{Tremolo repeats}.
 
 @lilypond[quote,verbatim]
 \drums {
@@ -155,7 +150,7 @@ tremolo, come è descritto in @ref{Ripetizioni con tremolo}.
 
 La scelta di quale bacchetta usare può essere indicata tramite il testo
 @code{"R"} (right, destra) o @code{"L"} (left, sinistra) da porre sopra o sotto
-le note, come spiegato in @ref{Direzione e posizionamento}.  Conviene modificare la
+le note, come spiegato in @ref{Direction and placement}.  Conviene modificare la
 proprietà @code{staff-padding} per ottenere un allineamento soddisfacente.
 
 @lilypond[quote,verbatim]
@@ -170,16 +165,15 @@ proprietà @code{staff-padding} per ottenere un allineamento soddisfacente.
 
 @morerefs
 Guida alla notazione:
-@ref{Ripetizioni con tremolo}.
+@ref{Tremolo repeats}.
 
 Frammenti:
 @rlsr{Percussion}.
 @endmorerefs
 
 
-@node Percussioni a suono determinato
+@node Pitched percussion
 @unnumberedsubsubsec Percussioni a suono determinato
-@translationof Pitched percussion
 
 Alcuni strumenti percussivi a suono determinato (per esempio xilofono, vibrafono
 e timpani) si scrivono usando i righi normali, come è spiegato in altre sezioni
@@ -187,16 +181,15 @@ del manuale.
 
 @morerefs
 Guida alla notazione:
-@ref{Creazione dell'output MIDI}.
+@ref{Creating MIDI output}.
 
 Frammenti:
 @rlsr{Percussion}.
 @endmorerefs
 
 
-@node Righi delle percussioni
+@node Percussion staves
 @unnumberedsubsubsec Righi delle percussioni
-@translationof Percussion staves
 
 @cindex percussioni
 @cindex batteria
@@ -220,7 +213,7 @@ down = \drummode {
 @end lilypond
 
 L'esempio precedente mostra la notazione polifonica in forma estesa.  Ma si può
-usare anche quella in forma breve, descritta in @rlearning{Sento le Voci}.
+usare anche quella in forma breve, descritta in @rlearningnamed{I'm hearing Voices, Sento le Voci}.
 Per esempio,
 
 @lilypond[quote,verbatim]
@@ -462,14 +455,14 @@ musII = \drummode { cb4 cl tamb cab mar hc s16 }
 @end table
 
 Si possono anche definite stili percussivi personalizzati, come è
-spiegato in @ref{Righi delle percussioni personalizzati}.
+spiegato in @ref{Custom percussion staves}.
 
 @morerefs
 Manuale di apprendimento:
-@rlearning{Sento le Voci}.
+@rlearningnamed{I'm hearing Voices, Sento le Voci}.
 
 Guida alla notazione:
-@ref{Righi delle percussioni personalizzati}.
+@ref{Custom percussion staves}.
 
 File installati:
 @file{ly/drumpitch-init.ly}.
@@ -479,9 +472,8 @@ Frammenti:
 @endmorerefs
 
 
-@node Righi delle percussioni personalizzati
+@node Custom percussion staves
 @unnumberedsubsubsec Righi delle percussioni personalizzati
-@translationof Custom percussion staves
 
 @cindex percussioni personalizzate
 @funindex drumStyleTable
@@ -619,9 +611,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Ghost note
+@node Ghost notes
 @unnumberedsubsubsec Ghost note
-@translationof Ghost notes
 
 @cindex ghost note, percussioni
 @cindex dead note, percussioni
@@ -635,7 +626,7 @@ Guida al funzionamento interno:
 @cindex percussioni, nota non suonata
 
 Le ghost note (note fantasma), note anche come note morte, mute o non suonate,
-possono essere create col comando @code{\parenthesize}, spiegato in @ref{Parentesi}.
+possono essere create col comando @code{\parenthesize}, spiegato in @ref{Parentheses}.
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff
@@ -659,7 +650,7 @@ possono essere create col comando @code{\parenthesize}, spiegato in @ref{Parente
 
 @morerefs
 Guida alla Notazione:
-@ref{Parentesi}.
+@ref{Parentheses}.
 
 Frammenti:
 @rlsr{Percussion}.

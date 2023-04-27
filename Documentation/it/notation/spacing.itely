@@ -30,9 +30,8 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 @end ignore
 
 
-@node Gestione dello spazio
+@node Spacing issues
 @chapter Gestione dello spazio
-@translationof Spacing issues
 
 La formattazione globale del foglio è determinata da tre fattori: la
 formattazione della pagina, le interruzioni di linea e la spaziatura.
@@ -55,40 +54,38 @@ Due tipi di blocchi possono contenere le impostazioni di formattazione:
 @code{\paper} contiene le impostazioni di formattazione della pagina
 da applicare a tutte le partiture di un libro o di una parte,
 come l'altezza del foglio o se stampare o meno i numeri di pagina, etc.
-(vedi @ref{Formattazione della pagina}).  Il blocco @code{\layout} contiene le impostazioni
+(vedi @ref{Page layout}).  Il blocco @code{\layout} contiene le impostazioni
 di formattazione della partitura, come il numero di sistemi da usare o lo
-spazio tra i gruppi di righi, etc. (vedi @ref{Formattazione della partitura}).
+spazio tra i gruppi di righi, etc. (vedi @ref{Score layout}).
 
 @menu
-* Formattazione della pagina::
-* Formattazione della partitura::
-* Interruzioni::
-* Spaziatura verticale::
-* Spaziatura orizzontale::
-* Riduzione del numero di pagine di una partitura::
+* Page layout::
+* Score layout::
+* Breaks::
+* Vertical spacing::
+* Horizontal spacing::
+* Fitting music onto fewer pages::
 @end menu
 
 
-@node Formattazione della pagina
+@node Page layout
 @section Formattazione della pagina
-@translationof Page layout
 
 Questa sezione tratta le opzioni di formattazione della pagina per il
 blocco @code{\paper}.
 
 @menu
-* Il blocco paper::
-* Formato carta e ridimensionamento automatico::
-* Variabili paper della spaziatura verticale fissa::
-* Variabili paper della spaziatura verticale flessibile::
-* Variabili paper della spaziatura orizzontale::
-* Altre variabili di paper::
+* The paper block::
+* Paper size and automatic scaling::
+* Fixed vertical spacing paper variables::
+* Flexible vertical spacing paper variables::
+* Horizontal spacing paper variables::
+* Other paper variables::
 @end menu
 
 
-@node Il blocco paper
+@node The paper block
 @subsection Il blocco @code{\paper}
-@translationof The paper block
 
 I blocchi @code{\paper} possono essere posizionati in tre punti diversi, in
 modo da formare una gerarchia discendente di blocchi @code{\paper}:
@@ -138,16 +135,16 @@ piè di pagina e titoli.
 @end itemize
 
 La funzione @code{set-paper-size} è trattata nella prossima
-sezione, @ref{Formato carta e ridimensionamento automatico}.  Le variabili
+sezione, @ref{Paper size and automatic scaling}.  Le variabili
 @code{\paper} che si occupano della formattazione della pagina sono
 trattate in sezioni successive.  Le definizioni di markup relative a
 intestazioni, piè di pagina e titoli sono trattate in
-@ref{Titoli intestazioni e piè di pagina personalizzati}.
+@ref{Custom titles headers and footers}.
 
 La maggior parte delle variabili @code{\paper} funzionano soltanto in
 un blocco @code{\paper}.  Le poche che funzionano anche in un blocco
 @code{\layout} sono elencate in
-@ref{Il blocco layout}.
+@ref{The layout block}.
 
 Se non indicato diversamente, tutte le variabili @code{\paper} che
 corrispondono a distanze sulla pagina sono misurate in millimetri,
@@ -188,18 +185,17 @@ L'equivalente Scheme dell'esempio precedente è:
 
 @morerefs
 Guida alla notazione:
-@ref{Formato carta e ridimensionamento automatico},
-@ref{Titoli intestazioni e piè di pagina personalizzati},
-@ref{Il blocco layout}.
+@ref{Paper size and automatic scaling},
+@ref{Custom titles headers and footers},
+@ref{The layout block}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
 @endmorerefs
 
 
-@node Formato carta e ridimensionamento automatico
+@node Paper size and automatic scaling
 @subsection Formato carta e ridimensionamento automatico
-@translationof Paper size and automatic scaling
 
 @cindex formato carta
 @cindex formato pagina
@@ -209,14 +205,13 @@ File installati:
 @funindex \paper
 
 @menu
-* Impostare il formato carta::
-* Ridimensionamento automatico al formato carta::
+* Setting the paper size::
+* Automatic scaling to paper size::
 @end menu
 
 
-@node Impostare il formato carta
+@node Setting the paper size
 @unnumberedsubsubsec Impostare il formato carta
-@translationof Setting the paper size
 
 @q{A4} è il valore predefinito quando non viene impostato esplicitamente
 alcun formato carta. Esistono due funzioni che permettono di cambiare
@@ -253,12 +248,12 @@ a tutte le pagine.  Se il blocco @code{\paper} si trova dentro un blocco
 
 Quando si usa la funzione @code{set-paper-size}, questa deve essere
 posta @emph{prima} di qualsiasi altra funzione usata nello stesso blocco
-@code{\paper}.  Vedi @ref{Ridimensionamento automatico al formato carta}.
+@code{\paper}.  Vedi @ref{Automatic scaling to paper size}.
 
 I formati carta sono definiti in @file{scm/paper.scm}, e sebbene sia
 possibile aggiungere formati personalizzati in questo file, tali aggiunte
 verrebbero sovrascritte da successivi aggiornamenti del software. I formati
-disponibili sono elencati in @ref{Formati carta predefiniti}.
+disponibili sono elencati in @ref{Predefined paper sizes}.
 
 @c An appendix entry exists for paper sizes but is not auto-generated
 
@@ -304,17 +299,16 @@ usato per la formattazione.
 
 @morerefs
 Guida alla notazione:
-@ref{Ridimensionamento automatico al formato carta},
-@ref{Formati carta predefiniti}.
+@ref{Automatic scaling to paper size},
+@ref{Predefined paper sizes}.
 
 File installati:
 @file{scm/paper.scm}.
 @endmorerefs
 
 
-@node Ridimensionamento automatico al formato carta
+@node Automatic scaling to paper size
 @unnumberedsubsubsec Ridimensionamento automatico al formato carta
-@translationof Automatic scaling to paper size
 
 Se il formato viene cambiato con una delle funzioni Scheme
 (@code{set-default-paper-size} o @code{set-paper-size}), i
@@ -327,15 +321,15 @@ automatico non viene attivato se si impostano le variabili
 @code{paper-width} può influenzare altri valori (ma questo
 è un argomento diverso dal ridimensionamento ed è trattato in seguito).  Le
 funzioni @code{set-default-paper-size} e @code{set-paper-size} sono
-descritte in @ref{Impostare il formato carta}.
+descritte in @ref{Setting the paper size}.
 
 Le dimensioni verticali interessate dal ridimensionamento automatico
 sono @code{top-margin} e @code{bottom-margin} (vedi
-@ref{Variabili paper della spaziatura verticale fissa}).
+@ref{Fixed vertical spacing paper variables}).
 Le dimensioni orizzontali interessate dal ridimensionamento automatico
 sono @code{left-margin}, @code{right-margin}, @code{inner-margin},
 @code{outer-margin}, @code{binding-offset}, @code{indent} e @code{short-indent} (vedi
-@ref{Variabili paper della spaziatura orizzontale}).
+@ref{Horizontal spacing paper variables}).
 
 I valori predefiniti di queste dimensioni sono impostati in
 @file{ly/paper-defaults-init.ly} e salvati in variabili interne
@@ -346,8 +340,8 @@ Per riferimento, nel formato @code{a4} il valore di @code{paper-height} è
 
 @morerefs
 Guida alla notazione:
-@ref{Variabili paper della spaziatura verticale fissa},
-@ref{Variabili paper della spaziatura orizzontale}.
+@ref{Fixed vertical spacing paper variables},
+@ref{Horizontal spacing paper variables}.
 
 File installati:
 @file{ly/paper-defaults-init.ly},
@@ -355,14 +349,13 @@ File installati:
 @endmorerefs
 
 
-@node Variabili paper della spaziatura verticale fissa
+@node Fixed vertical spacing paper variables
 @subsection Variabili @code{\paper} della spaziatura verticale fissa
-@translationof Fixed vertical spacing paper variables
 
 @warning{Alcune dimensioni definite nel blocco @code{@bs{}paper} sono
 ridimensionate automaticamente in base al formato carta, portando a
 possibili risultati imprevisti. Vedi
-@ref{Ridimensionamento automatico al formato carta}.}
+@ref{Automatic scaling to paper size}.}
 
 I valori predefiniti (prima del ridimensionamento) sono definiti in
 @file{ly/paper-defaults-init.ly}.
@@ -406,7 +399,7 @@ giustificate verticalmente come nelle pagine precedenti.
 
 @morerefs
 Guida alla notazione:
-@ref{Ridimensionamento automatico al formato carta}.
+@ref{Automatic scaling to paper size}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -424,9 +417,8 @@ Formati carta definiti esplicitamente sovrascriveranno qualsiasi
 impostazione di margine superiore o inferiore definito dall'utente.
 
 
-@node Variabili paper della spaziatura verticale flessibile
+@node Flexible vertical spacing paper variables
 @subsection Variabili @code{\paper} della spaziatura verticale flessibile
-@translationof Flexible vertical spacing paper variables
 
 Nella maggior parte dei casi è preferibile che le distanze verticali
 tra certi elementi (come margini, titoli, sistemi e partiture
@@ -440,17 +432,16 @@ non regolano la spaziatura dei righi dei singoli sistemi.
 La spaziatura interna ai sistemi è controllata dalle proprietà
 del grob, solitamente inserite in un blocco @code{\score} o
 @code{\layout} e non in un blocco @code{\paper}.  Vedi
-@ref{Spaziatura verticale flessibile all'interno dei sistemi}.
+@ref{Flexible vertical spacing within systems}.
 
 @menu
-* Struttura delle liste associative flessibili della spaziatura verticale::
-* Elenco delle variabili paper flessibili della spaziatura verticale::
+* Structure of flexible vertical spacing alists::
+* List of flexible vertical spacing paper variables::
 @end menu
 
 
-@node Struttura delle liste associative flessibili della spaziatura verticale
+@node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec Struttura delle liste associative flessibili della spaziatura verticale
-@translationof Structure of flexible vertical spacing alists
 
 Ognuna delle variabili @code{\paper} flessibili della spaziatura verticale
 è una lista associativa (alist) composta da quattro @emph{elementi}:
@@ -530,7 +521,7 @@ l'ultima pagina usa la stessa spaziatura della pagina precedente,
 purché ci sia abbastanza spazio.
 
 I metodi specifici per modificare le liste associative (alist) sono
-trattati in @ref{Modifica delle liste associative}.  L'esempio seguente illustra i
+trattati in @ref{Modifying alists}.  L'esempio seguente illustra i
 due modi in cui queste possono essere modificate.  La prima dichiarazione
 aggiorna un elemento-valore individualmente, mentre la seconda ridefinisce
 completamente la variabile:
@@ -547,9 +538,8 @@ completamente la variabile:
 @end example
 
 
-@node Elenco delle variabili paper flessibili della spaziatura verticale
+@node List of flexible vertical spacing paper variables
 @unnumberedsubsubsec Elenco delle variabili @code{\paper} flessibili della spaziatura verticale
-@translationof List of flexible vertical spacing paper variables
 
 I nomi di queste variabili hanno il formato
 @code{@var{superiore}-@var{inferiore}-spacing}, dove @code{@var{superiore}}
@@ -559,7 +549,7 @@ dei due elementi (vedi la descrizione precedente della struttura della
 lista associativa). Nei nomi di queste variabili il termine @q{@code{markup}}
 si riferisce sia ai @emph{titoli} (@code{bookTitleMarkup} o
 @code{scoreTitleMarkup}) sia ai @emph{markup di livello superiore} (vedi
-@ref{Struttura del file}).  Tutte le distanze sono misurate in spazi rigo.
+@ref{File structure}).  Tutte le distanze sono misurate in spazi rigo.
 
 Le impostazioni predefinite sono definite in @file{ly/paper-defaults-init.ly}.
 
@@ -619,7 +609,7 @@ livello superiore) di una pagina, quando non c'è alcun sistema tra i due.
 
 @morerefs
 Guida alla notazione:
-@ref{Spaziatura verticale flessibile all'interno dei sistemi}.
+@ref{Flexible vertical spacing within systems}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -629,24 +619,22 @@ Frammenti:
 @endmorerefs
 
 
-@node Variabili paper della spaziatura orizzontale
+@node Horizontal spacing paper variables
 @subsection Variabili @code{\paper} della spaziatura orizzontale
-@translationof Horizontal spacing paper variables
 
 @warning{Alcune dimensioni in @code{@bs{}paper} sono ridimensionate
 automaticamente in base al formato carta, producendo talvolta un
-risultato inatteso. Vedi @ref{Ridimensionamento automatico al formato carta}.}
+risultato inatteso. Vedi @ref{Automatic scaling to paper size}.}
 
 @menu
-* Variabili paper per larghezze e margini::
-* Variabili paper per la modalità due pagine per foglio::
-* Variabili paper per spostamenti e indentazioni::
+* paper variables for widths and margins::
+* paper variables for two-sided mode::
+* paper variables for shifts and indents::
 @end menu
 
 
-@node Variabili paper per larghezze e margini
+@node paper variables for widths and margins
 @unnumberedsubsubsec Variabili @code{\paper} per larghezze e margini
-@translationof paper variables for widths and margins
 
 I valori predefiniti (prima del ridimensionamento) non elencati qui si
 trovano in @file{ly/paper-defaults-init.ly}.
@@ -750,7 +738,7 @@ Questa variabile può essere impostata anche in un blocco @code{\layout}.
 
 @morerefs
 Guida alla notazione:
-@ref{Ridimensionamento automatico al formato carta}.
+@ref{Automatic scaling to paper size}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -761,9 +749,8 @@ Formati carta definiti esplicitamente sovrascriveranno qualsiasi margine
 destro o sinistro definito dall'utente.
 
 
-@node Variabili paper per la modalità due pagine per foglio
+@node paper variables for two-sided mode
 @unnumberedsubsubsec Variabili @code{\paper} per la modalità due pagine per foglio
-@translationof paper variables for two-sided mode
 
 I valori predefiniti (prima del ridimensionamento) sono definiti in
 @file{ly/paper-defaults-init.ly}.
@@ -809,16 +796,15 @@ Funziona soltanto con @code{two-sided} impostato su vero.
 
 @morerefs
 Guida alla notazione:
-@ref{Ridimensionamento automatico al formato carta}.
+@ref{Automatic scaling to paper size}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
 @endmorerefs
 
 
-@node Variabili paper per spostamenti e indentazioni
+@node paper variables for shifts and indents
 @unnumberedsubsubsec Variabili @code{\paper} per spostamenti e indentazioni
-@translationof paper variables for shifts and indents
 
 I valori predefiniti (prima del ridimensionamento) non elencati qui sono
 visibili in @file{ly/paper-defaults-init.ly}.
@@ -857,7 +843,7 @@ anche in blocchi @code{\layout} per impostare le brevi indentazioni brano per br
 
 @morerefs
 Guida alla notazione:
-@ref{Ridimensionamento automatico al formato carta}.
+@ref{Automatic scaling to paper size}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
@@ -867,21 +853,19 @@ Frammenti:
 @endmorerefs
 
 
-@node Altre variabili di paper
+@node Other paper variables
 @subsection Altre variabili di @code{\paper}
-@translationof Other paper variables
 
 @menu
-* Variabili di paper per l'interruzione di linea::
-* Variabili di paper per l'interruzione di pagina::
-* Variabili di paper per la numerazione delle pagine::
-* Svariate variabili di paper::
+* paper variables for line breaking::
+* paper variables for page breaking::
+* paper variables for page numbering::
+* Miscellaneous paper variables::
 @end menu
 
 
-@node Variabili di paper per l'interruzione di linea
+@node paper variables for line breaking
 @unnumberedsubsubsec Variabili di @code{\paper} per l'interruzione di linea
-@translationof paper variables for line breaking
 
 @table @code
 
@@ -917,13 +901,12 @@ Questa variabile può essere impostata anche in un blocco @code{\layout}.
 
 @morerefs
 Guida alla notazione:
-@ref{Interruzioni di linea}.
+@ref{Line breaking}.
 @endmorerefs
 
 
-@node Variabili di paper per l'interruzione di pagina
+@node paper variables for page breaking
 @unnumberedsubsubsec Variabili di @code{\paper} per l'interruzione di pagina
-@translationof paper variables for page breaking
 
 I valori predefiniti non elencati qui sono visibili in
 @file{ly/paper-defaults-init.ly}
@@ -965,7 +948,7 @@ una pagina con numero dispari a una con numero pari, verrà solitamente
 favorita una formattazione in cui l'ultima pagina abbia un numero dispari.
 I punti preferiti per le voltate di pagina possono essere indicati
 manualmente col comando @code{\allowPageTurn} o automaticamente
-includendo l'incisore @code{Page_turn_engraver} (vedi @ref{Voltata di pagina ottimale}).
+includendo l'incisore @code{Page_turn_engraver} (vedi @ref{Optimal page turning}).
 
 Se le scelte disponibili per avere voltate di pagina adeguate sono
 insufficienti, LilyPond potrebbe inserire una pagina vuota all'interno
@@ -1013,22 +996,21 @@ Valore predefinito: 2.
 
 @morerefs
 Guida alla notazione:
-@ref{Interruzioni di pagina},
-@ref{Interruzione di pagina ottimale},
-@ref{Voltata di pagina ottimale},
-@ref{Interruzione di pagina minimale},
-@ref{Interruzione di pagina di una pagina},
-@ref{Interruzione di pagina su una linea},
-@ref{Interruzione di pagina su una linea con altezza automatica}.
+@ref{Page breaking},
+@ref{Optimal page breaking},
+@ref{Optimal page turning},
+@ref{Minimal page breaking},
+@ref{One-page page breaking},
+@ref{One-line page breaking},
+@ref{One-line-auto-height page breaking}.
 
 File installati:
 @file{ly/paper-defaults-init.ly}.
 @endmorerefs
 
 
-@node Variabili di paper per la numerazione delle pagine
+@node paper variables for page numbering
 @unnumberedsubsubsec Variabili di @code{\paper} per la numerazione delle pagine
-@translationof paper variables for page numbering
 
 I valori predefiniti non elencati qui sono visibili in
 @file{ly/paper-defaults-init.ly}
@@ -1084,9 +1066,8 @@ deve iniziare a pagina 1, ci deve essere una pagina vuota sulla
 seconda di copertina in modo che pagina 1 sia sul lato destro.
 
 
-@node Svariate variabili di paper
+@node Miscellaneous paper variables
 @unnumberedsubsubsec Svariate variabili di @code{\paper}
-@translationof Miscellaneous paper variables
 
 @table @code
 
@@ -1146,22 +1127,20 @@ L'intestazione di pagina predefinita pone sulla stessa linea il numero di
 pagina e il campo @code{instrument} del blocco @code{\header}.
 
 
-@node Formattazione della partitura
+@node Score layout
 @section Formattazione della partitura
-@translationof Score layout
 
 Questa sezione tratta le opzioni di formattazione della partitura disponibili
 nel blocco @code{\layout}.
 
 @menu
-* Il blocco layout::
-* Impostare la dimensione del rigo::
+* The layout block::
+* Setting the staff size::
 @end menu
 
 
-@node Il blocco layout
+@node The layout block
 @subsection Il blocco @code{\layout}
-@translationof The layout block
 
 @funindex \layout
 
@@ -1182,9 +1161,9 @@ musica.  Le impostazioni che possono apparire in un blocco
 @end itemize
 
 La funzione @code{layout-set-staff-size} è spiegata nella prossima
-sezione, @ref{Impostare la dimensione del rigo}.  Le modifiche di contesto sono
-trattate in un capitolo separato; vedi @ref{Modifica dei componenti aggiuntivi di un contesto} e
-@ref{Modifica delle impostazioni predefinite di un contesto}.
+sezione, @ref{Setting the staff size}.  Le modifiche di contesto sono
+trattate in un capitolo separato; vedi @ref{Modifying context plug-ins} e
+@ref{Changing context default settings}.
 
 Le variabili @code{\paper} che possono apparire in un blocco @code{\layout},
 con valori predefiniti presi dal blocco @code{\paper}, sono:
@@ -1193,15 +1172,15 @@ con valori predefiniti presi dal blocco @code{\paper}, sono:
 
 @item
 @code{line-width}, @code{ragged-right} e @code{ragged-last}
-(vedi @ref{Variabili paper per larghezze e margini})
+(vedi @ref{paper variables for widths and margins})
 
 @item
 @code{indent} e @code{short-indent}
-(vedi @ref{Variabili paper per spostamenti e indentazioni})
+(vedi @ref{paper variables for shifts and indents})
 
 @item
 @code{system-count}
-(vedi @ref{Variabili di paper per l'interruzione di linea})
+(vedi @ref{paper variables for line breaking})
 
 @end itemize
 
@@ -1321,16 +1300,15 @@ per ripristinare la configurazione di @code{\layout} a uno stato conosciuto.
 
 @morerefs
 Guida alla notazione:
-@ref{Modifica delle impostazioni predefinite di un contesto}.
+@ref{Changing context default settings}.
 
 Frammenti:
 @rlsr{Spacing}.
 @endmorerefs
 
 
-@node Impostare la dimensione del rigo
+@node Setting the staff size
 @subsection Impostare la dimensione del rigo
-@translationof Setting the staff size
 
 @cindex tipo di carattere, impostare la dimensione
 @cindex font, impostare la dimensione
@@ -1435,27 +1413,25 @@ consigliate sono elencate nella seguente tabella:
 
 @morerefs
 Guida alla notazione:
-@ref{Impostare la dimensione del rigo},
-@ref{Il font Emmentaler}.
+@ref{Setting the staff size},
+@ref{The Emmentaler font}.
 
 Frammenti:
 @rlsr{Spacing}.
 @endmorerefs
 
 
-@node Interruzioni
+@node Breaks
 @section Interruzioni
-@translationof Breaks
 
 @menu
-* Interruzioni di linea::
-* Interruzioni di pagina::
+* Line breaking::
+* Page breaking::
 @end menu
 
 
-@node Interruzioni di linea
+@node Line breaking
 @subsection Interruzioni di linea
-@translationof Line breaking
 
 @funindex \break
 @funindex \noBreak
@@ -1606,8 +1582,8 @@ ogni 4 misure, usare:
 
 @morerefs
 Guida alla notazione:
-@ref{Variabili di paper per l'interruzione di linea},
-@ref{Il blocco layout}.
+@ref{paper variables for line breaking},
+@ref{The layout block}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -1623,27 +1599,25 @@ prima della musica produrrà dei messaggi di errore.  Inserire sempre questi
 comandi dopo la musica.
 
 
-@node Interruzioni di pagina
+@node Page breaking
 @subsection Interruzioni di pagina
-@translationof Page breaking
 
 Questa sezione descrive i diversi metodi di interruzione di pagina e
 spiega come modificarli.
 
 @menu
-* Interruzione di pagina manuale::
-* Interruzione di pagina ottimale::
-* Interruzione di pagina minimale::
-* Interruzione di pagina di una pagina::
-* Interruzione di pagina su una linea::
-* Interruzione di pagina su una linea con altezza automatica::
-* Voltata di pagina ottimale::
+* Manual page breaking::
+* Optimal page breaking::
+* Minimal page breaking::
+* One-page page breaking::
+* One-line page breaking::
+* One-line-auto-height page breaking::
+* Optimal page turning::
 @end menu
 
 
-@node Interruzione di pagina manuale
+@node Manual page breaking
 @unnumberedsubsubsec Interruzione di pagina manuale
-@translationof Manual page breaking
 
 @funindex \pageBreak
 @funindex \noPageBreak
@@ -1675,7 +1649,7 @@ sistemi non saranno giustificati verticalmente.  Quando
 predefinito), è permesso dello spazio vuoto in fondo all'ultima
 pagina (o in fondo all'ultima pagina di ciascun
 @code{\bookpart}).  Vedi
-@ref{Variabili paper della spaziatura verticale fissa}.
+@ref{Fixed vertical spacing paper variables}.
 
 Le interruzioni di pagina sono calcolate dalla funzione @code{page-breaking}.
 LilyPond fornisce vari algoritmi per calcolare le interruzioni di pagina, tra
@@ -1734,7 +1708,7 @@ pagina diversi per le diverse parti del libro.
 
 @morerefs
 Guida alla notazione:
-@ref{Variabili di paper per l'interruzione di pagina}.
+@ref{paper variables for page breaking}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -1750,9 +1724,8 @@ battute dipende dalla partitura) prima di essere disattivata, altrimenti
 la possibilità di interrompere la pagina non verrà considerata.
 
 
-@node Interruzione di pagina ottimale
+@node Optimal page breaking
 @unnumberedsubsubsec Interruzione di pagina ottimale
-@translationof Optimal page breaking
 
 @funindex ly:optimal-breaking
 
@@ -1768,9 +1741,8 @@ Frammenti:
 @endmorerefs
 
 
-@node Interruzione di pagina minimale
+@node Minimal page breaking
 @unnumberedsubsubsec Interruzione di pagina minimale
-@translationof Minimal page breaking
 
 @funindex ly:minimal-breaking
 
@@ -1794,9 +1766,8 @@ Frammenti:
 @endmorerefs
 
 
-@node Interruzione di pagina di una pagina
+@node One-page page breaking
 @unnumberedsubsubsec Interruzione di pagina di una pagina
-@translationof One-page page breaking
 
 @funindex ly:one-page-breaking
 
@@ -1815,9 +1786,8 @@ La larghezza della pagina non viene modificata ma può essere impostata con
 @code{\bookpart}.
 
 
-@node Interruzione di pagina su una linea
+@node One-line page breaking
 @unnumberedsubsubsec Interruzione di pagina su una linea
-@translationof One-line page breaking
 
 @funindex ly:one-line-breaking
 
@@ -1833,9 +1803,8 @@ ignorate, sebbene @code{left-margin} e @code{right-margin} siano
 comunque considerate.  L'altezza della pagina resta invariata.
 
 
-@node Interruzione di pagina su una linea con altezza automatica
+@node One-line-auto-height page breaking
 @unnumberedsubsubsec Interruzione di pagina su una linea con altezza automatica
-@translationof One-line-auto-height page breaking
 
 @funindex ly:one-line-auto-height-breaking
 
@@ -1852,9 +1821,8 @@ un blocco @code{\paper} per posizionare la musica tra i margini superiore e
 inferiore.
 
 
-@node Voltata di pagina ottimale
+@node Optimal page turning
 @unnumberedsubsubsec Voltata di pagina ottimale
-@translationof Optimal page turning
 
 @funindex ly:page-turn-breaking
 
@@ -1868,7 +1836,7 @@ solo in punti specifici.
 
 Ci sono due passi da seguire per usare questa funzione.  Prima
 occorre abilitarla nel blocco @code{\paper}, come è spiegato in
-@ref{Interruzioni di pagina}.  Poi bisogna indicare alla funzione dove
+@ref{Page breaking}.  Poi bisogna indicare alla funzione dove
 sono permesse le interruzioni di pagina.
 
 Ci sono due modi per fare il secondo passo.  Si può specificare
@@ -1935,7 +1903,7 @@ nei blocchi markup di livello superiore e tra una partitura e l'altra.
 
 @morerefs
 Guida alla notazione:
-@ref{Variabili di paper per l'interruzione di linea}.
+@ref{paper variables for line breaking}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -1948,16 +1916,15 @@ n'è più d'uno, interferiranno uno con l'altro.
 
 @morerefs
 Guida alla notazione:
-@ref{Spaziatura verticale}.
+@ref{Vertical spacing}.
 
 Frammenti:
 @rlsr{Spacing}.
 @endmorerefs
 
 
-@node Spaziatura verticale
+@node Vertical spacing
 @section Spaziatura verticale
-@translationof Vertical spacing
 
 @cindex spaziatura verticale
 @cindex verticale, spaziatura
@@ -1968,15 +1935,14 @@ spazio tra i sistemi e la quantità di spazio tra i righi di un
 sistema.
 
 @menu
-* Spaziatura verticale flessibile all'interno dei sistemi::
-* Posizionamento esplicito di righi e sistemi::
-* Elusione delle collisioni verticali::
+* Flexible vertical spacing within systems::
+* Explicit staff and system positioning::
+* Vertical collision avoidance::
 @end menu
 
 
-@node Spaziatura verticale flessibile all'interno dei sistemi
+@node Flexible vertical spacing within systems
 @subsection Spaziatura verticale flessibile all'interno dei sistemi
-@translationof Flexible vertical spacing within systems
 
 @cindex distanza, tra i righi
 @cindex rigo, distanza
@@ -2013,19 +1979,18 @@ soltanto la spaziatura verticale dei righi e delle linee (che non sono
 righi) all'interno di singoli sistemi.  La spaziatura verticale tra
 sistemi, partiture, testi e margini separati è regolata dalle variabili
 @code{\paper} trattate in
-@ref{Variabili paper della spaziatura verticale flessibile}.
+@ref{Flexible vertical spacing paper variables}.
 
 @menu
-* Proprietà della spaziatura dentro un sistema::
-* Spaziatura dei righi non raggruppati::
-* Spaziatura dei righi raggruppati::
-* Spaziatura delle linee che non sono righi::
+* Within-system spacing properties::
+* Spacing of ungrouped staves::
+* Spacing of grouped staves::
+* Spacing of non-staff lines::
 @end menu
 
 
-@node Proprietà della spaziatura dentro un sistema
+@node Within-system spacing properties
 @unnumberedsubsubsec Proprietà della spaziatura dentro un sistema
-@translationof Within-system spacing properties
 
 @funindex staff-affinity
 @funindex staffgroup-staff-spacing
@@ -2146,9 +2111,9 @@ Tutte le proprietà di spaziatura verticale del grob (eccetto
 @code{staff-affinity}) usano la stessa struttura della lista
 associativa usata dalle variabili di spaziatura di @code{\paper}
 trattate in
-@ref{Variabili paper della spaziatura verticale flessibile}.
+@ref{Flexible vertical spacing paper variables}.
 Metodi specifici per modificare queste liste sono spiegati in
-@ref{Modifica delle liste associative}.  Le proprietà dei grob devono essere
+@ref{Modifying alists}.  Le proprietà dei grob devono essere
 modificate con un comando @code{\override} dentro un blocco
 @code{\score} o @code{\layout} e non in un blocco
 @code{\paper}.
@@ -2293,8 +2258,8 @@ spaziatura per quel rigo.
 
 @morerefs
 Guida alla notazione:
-@ref{Variabili paper della spaziatura verticale flessibile},
-@ref{Modifica delle liste associative}.
+@ref{Flexible vertical spacing paper variables},
+@ref{Modifying alists}.
 
 File installati:
 @file{ly/engraver-init.ly},
@@ -2307,9 +2272,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Spaziatura dei righi non raggruppati
+@node Spacing of ungrouped staves
 @unnumberedsubsubsec Spaziatura dei righi non raggruppati
-@translationof Spacing of ungrouped staves
 
 I @emph{righi} (come @code{Staff}, @code{DrumStaff},
 @code{TabStaff}, etc.) sono contesti che possono contenere uno o
@@ -2326,10 +2290,10 @@ Le seguenti proprietà influenzano la spaziatura di righi @emph{non raggruppati}
 @end itemize
 
 Queste proprietà del grob sono state descritte una a una in precedenza; vedi
-@ref{Proprietà della spaziatura dentro un sistema}.
+@ref{Within-system spacing properties}.
 
 Altre proprietà entrano in gioco per i righi che sono parte di un gruppo;
-vedi @ref{Spaziatura dei righi raggruppati}.
+vedi @ref{Spacing of grouped staves}.
 
 L'esempio seguente mostra come la proprietà @code{default-staff-staff-spacing}
 possa influenzare la spaziatura di righi non raggruppati.  Le stesse
@@ -2384,9 +2348,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Spaziatura dei righi raggruppati
+@node Spacing of grouped staves
 @unnumberedsubsubsec Spaziatura dei righi raggruppati
-@translationof Spacing of grouped staves
 
 Nelle partiture orchestrali e in alte grosse partiture, di norma i righi
 vengono raggruppati.  Lo spazio tra i gruppi è più ampio dello spazio
@@ -2411,7 +2374,7 @@ Le seguenti proprietà influenzano la spaziatura dei righi nei gruppi:
 @end itemize
 
 Queste proprietà dei grob sono descritte una a una in una sezione precedente; vedi
-@ref{Proprietà della spaziatura dentro un sistema}.
+@ref{Within-system spacing properties}.
 
 L'esempio seguente mostra come le proprietà del grob
 @code{StaffGrouper} possano influenzare la spaziatura dei righi raggruppati:
@@ -2453,9 +2416,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Spaziatura delle linee che non sono righi
+@node Spacing of non-staff lines
 @unnumberedsubsubsec Spaziatura delle linee che non sono righi
-@translationof Spacing of non-staff lines
 
 Le @emph{linee che non sono righi} (come @code{Lyrics}, @code{ChordNames},
 etc.) sono contesti i cui oggetti della formattazione sono disposti come se
@@ -2476,7 +2438,7 @@ Le seguenti proprietà influenzano la spaziatura delle linee che non sono righi:
 @end itemize
 
 Queste proprietà del grob sono descritte una a una in una sezione
-precedente, vedi @ref{Proprietà della spaziatura dentro un sistema}.
+precedente, vedi @ref{Within-system spacing properties}.
 
 L'esempio seguente mostra come la proprietà
 @code{nonstaff-nonstaff-spacing} influenza la spaziatura di linee
@@ -2527,9 +2489,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Posizionamento esplicito di righi e sistemi
+@node Explicit staff and system positioning
 @subsection Posizionamento esplicito di righi e sistemi
-@translationof Explicit staff and system positioning
 
 Un modo per comprendere i meccanismi di spaziatura verticale
 appena spiegati è di considerarli come un insieme di impostazioni
@@ -2621,7 +2582,7 @@ vedendo un esempio che non contiene alcuna modifica.
 Questa partitura isola l'informazione sulle interruzioni di linea e di pagina
 in una voce apposita.  Questa tecnica di creare una voce per le interruzioni
 permette di tenere la formattazione separata dalla musica via via che il
-nostro esempio diventa più complicato.  Vedi anche @ref{Interruzioni}.
+nostro esempio diventa più complicato.  Vedi anche @ref{Breaks}.
 
 Usando comandi @code{\break} espliciti, la musica viene divisa proporzionalmente
 in cinque misure per linea.  La spaziatura verticale è quella predefinita di
@@ -2799,9 +2760,8 @@ Frammenti:
 @endmorerefs
 
 
-@node Elusione delle collisioni verticali
+@node Vertical collision avoidance
 @subsection Elusione delle collisioni verticali
-@translationof Vertical collision avoidance
 
 @funindex outside-staff-priority
 @funindex outside-staff-padding
@@ -2830,7 +2790,7 @@ grob esterni al rigo si contendono lo stesso spazio, quello col valore
 di @code{outside-staff-priority} più basso sarà posto più vicino al rigo.
 
 Un elenco delle proprietà esterne al rigo si trova in
-@rlearning{La proprietà outside-staff-priority}.
+@rlearningnamed{The outside-staff-priority property, La proprietà outside-staff-priority}.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -2886,25 +2846,23 @@ Frammenti:
 @endmorerefs
 
 
-@node Spaziatura orizzontale
+@node Horizontal spacing
 @section Spaziatura orizzontale
-@translationof Horizontal spacing
 
 @cindex spaziatura orizzontale
 @cindex orizzontale, spaziatura
 
 @menu
-* Panoramica sulla spaziatura orizzontale::
-* Nuova spaziatura nel corso di un brano::
-* Modifica della spaziatura orizzontale::
-* Larghezza della linea::
-* Notazione proporzionale::
+* Horizontal spacing overview::
+* New spacing section::
+* Changing horizontal spacing::
+* Line width::
+* Proportional notation::
 @end menu
 
 
-@node Panoramica sulla spaziatura orizzontale
+@node Horizontal spacing overview
 @subsection Panoramica sulla spaziatura orizzontale
-@translationof Horizontal spacing overview
 
 Il motore della spaziatura traduce le differenze delle durate delle
 note in distanze allungabili (@q{springs}) di diversa lunghezza.  Durate
@@ -2969,7 +2927,7 @@ seguiti dalla metà di LTN:
 
 
 Come è spiegato nel saggio @emph{Essay on automated music engraving}, le
-direzioni del gambo influenzano la spaziatura (vedi @ressay{Spaziatura ottica}) e
+direzioni del gambo influenzano la spaziatura (vedi @ressaynamed{Optical spacing, Spaziatura ottica}) e
 possono essere aggiustate usando la proprietà @code{stem-spacing-correction}
 dell'oggetto @rinternals{NoteSpacing} (che sono generati per ogni
 contesto @rinternals{Voice}.
@@ -2991,11 +2949,11 @@ predefinite e una volta con un aggiustamento esagerato:
 }
 @end lilypond
 
-LilyPond supporta la notazione proporzionale, vedi @ref{Notazione proporzionale}.
+LilyPond supporta la notazione proporzionale, vedi @ref{Proportional notation}.
 
 @morerefs
 Essay on automated music engraving:
-@ressay{Spaziatura ottica}.
+@ressaynamed{Optical spacing, Spaziatura ottica}.
 
 Frammenti:
 @rlsr{Spacing}.
@@ -3020,9 +2978,8 @@ Non esiste alcun trucco per diminuire la quantità di spazio.
 
 
 @c traduzione del titolo non letterale ma più chiara
-@node Nuova spaziatura nel corso di un brano
+@node New spacing section
 @subsection Nuova spaziatura nel corso di un brano
-@translationof New spacing section
 
 @funindex \newSpacingSection
 @cindex nuova spaziatura nel corso di un brano
@@ -3080,13 +3037,12 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Modifica della spaziatura orizzontale
+@node Changing horizontal spacing
 @subsection Modifica della spaziatura orizzontale
-@translationof Changing horizontal spacing
 
 @menu
-* Allungamento uniforme dei gruppi irregolari::
-* Spaziatura rigorosa della nota::
+* Uniform stretching of tuplets::
+* Strict note spacing::
 @end menu
 
 La spaziatura orizzontale può essere modificata tramite la proprietà
@@ -3125,9 +3081,8 @@ Nota che @code{ly:make-moment} constituisce una durata, dunque
 @end lilypond
 
 
-@node Allungamento uniforme dei gruppi irregolari
+@node Uniform stretching of tuplets
 @unnumberedsubsubsec Allungamento uniforme dei gruppi irregolari
-@translationof Uniform stretching of tuplets
 
 L'impostazione predefinita prevede che la spaziatura nei gruppi irregolari
 dipenda da vari fattori diversi dalla durata (come alterazioni, cambi di
@@ -3155,9 +3110,8 @@ proprietà può essere modificata soltanto all'inizio di una partitura:
 @end lilypond
 
 
-@node Spaziatura rigorosa della nota
+@node Strict note spacing
 @unnumberedsubsubsec Spaziatura rigorosa della nota
-@translationof Strict note spacing
 
 Se si imposta @code{strict-note-spacing}, la spaziatura tra le note non tiene
 conto di chiavi, stanghette e abbellimenti:
@@ -3174,9 +3128,8 @@ Frammenti:
 @endmorerefs
 
 
-@node Larghezza della linea
+@node Line width
 @subsection Larghezza della linea
-@translationof Line width
 
 @cindex interruzione di pagina
 @cindex pagina, interruzione
@@ -3229,9 +3182,8 @@ Frammenti:
 @endmorerefs
 
 
-@node Notazione proporzionale
+@node Proportional notation
 @subsection Notazione proporzionale
-@translationof Proportional notation
 
 LilyPond supporta la notazione proporzionale, un tipo di spaziatura orizzontale
 in cui ogni nota occupa una quantità di spazio orizzontale esattamente
@@ -3473,7 +3425,7 @@ Per impostazione predefinita, esiste un solo @code{SpacingSpanner} per
 disattivato per l'intera partitura.  Possiamo tuttavia modificare tale
 comportamento e attivare diverse funzionalità di spaziatura in punti
 diversi del brano.  Per farlo si usa il comando @code{\newSpacingSection}.
-Maggiori informazioni in @ref{Nuova spaziatura nel corso di un brano}.
+Maggiori informazioni in @ref{New spacing section}.
 
 Ora esaminiamo gli effetti dell'incisore @code{Separating_line_group_engraver} e
 vediamo perché le partiture proporzionali solitamente tolgano questo incisore.
@@ -3571,16 +3523,15 @@ per queste impostazioni.
 
 @morerefs
 Guida alla notazione:
-@ref{Nuova spaziatura nel corso di un brano}.
+@ref{New spacing section}.
 
 Frammenti:
 @rlsr{Spacing}.
 @endmorerefs
 
 
-@node Riduzione del numero di pagine di una partitura
+@node Fitting music onto fewer pages
 @section Riduzione del numero di pagine di una partitura
-@translationof Fitting music onto fewer pages
 
 Talvolta può capitare di avere uno o due righi su una seconda
 (o terza, o quarta@dots{}) pagina.  Ciò è fastidioso, specialmente
@@ -3589,17 +3540,16 @@ se c'è molto spazio nelle pagine precedenti.
 Quando si studiano i problemi di formattazione, uno strumento irrinunciabile
 è @code{annotate-spacing}, un comando che mostra i valori delle diverse
 variabili di spaziatura.  Maggiori dettagli nella prossima sezione,
-@ref{Visualizzare la spaziatura}.
+@ref{Displaying spacing}.
 
 @menu
-* Visualizzare la spaziatura::
-* Modificare la spaziatura::
+* Displaying spacing::
+* Changing spacing::
 @end menu
 
 
-@node Visualizzare la spaziatura
+@node Displaying spacing
 @subsection Visualizzare la spaziatura
-@translationof Displaying spacing
 
 @funindex annotate-spacing
 @cindex spaziatura, visualizzazione della formattazione
@@ -3646,20 +3596,19 @@ superiore dell'intervallo.
 
 @morerefs
 Guida alla notazione:
-@ref{Impostare la dimensione del rigo}.
+@ref{Setting the staff size}.
 
 Frammenti:
 @rlsr{Spacing}.
 @endmorerefs
 
 
-@node Modificare la spaziatura
+@node Changing spacing
 @subsection Modificare la spaziatura
-@translationof Changing spacing
 
 L'output di @code{annotate-spacing} svela le dimensioni verticali molto
 dettagliatamente.  Maggiori informazioni su come modificare i margini e
-altre variabili di formattazione si trovano in @ref{Formattazione della pagina}.
+altre variabili di formattazione si trovano in @ref{Page layout}.
 
 Oltre ai margini, ci sono altre opzioni utili per salvare spazio:
 
@@ -3721,7 +3670,7 @@ rigo:
 
 @item
 Modificare la spaziatura orizzontale tramite @code{SpacingSpanner}.  Maggiori
-informazioni in @ref{Modifica della spaziatura orizzontale}.  L'esempio seguente mostra
+informazioni in @ref{Changing horizontal spacing}.  L'esempio seguente mostra
 la spaziatura predefinita:
 
 @lilypond[verbatim,quote]
@@ -3770,8 +3719,8 @@ così che sia applicata all'intera partitura.
 
 @morerefs
 Guida alla notazione:
-@ref{Formattazione della pagina},
-@ref{Modifica della spaziatura orizzontale}.
+@ref{Page layout},
+@ref{Changing horizontal spacing}.
 
 Frammenti:
 @rlsr{Spacing}.

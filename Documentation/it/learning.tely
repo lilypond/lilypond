@@ -40,17 +40,17 @@ Copyright @copyright{} 1999--2023 by the authors.
 @ifnottex
 
 @menu
-* Installazione::                     Installazione di LilyPond.
+* Installing::                     Installazione di LilyPond.
 * Tutorial::                          Le basi della composizione tipografica in LilyPond.
-* Notazione comunemente utilizzata::  Come si scrive la notazione più comunemente utilizzata.
-* Concetti fondamentali::             Concetti di base necessari per leggere gli altri manuali.
-* Modifica dell'output::              Introduzione alla modifica dell'output.
+* Common notation::  Come si scrive la notazione più comunemente utilizzata.
+* Fundamental concepts::             Concetti di base necessari per leggere gli altri manuali.
+* Tweaking output::              Introduzione alla modifica dell'output.
 
 Appendici
 
-* Modelli::                           Modelli già pronti.
+* Templates::                           Modelli già pronti.
 * GNU Free Documentation License::    Licenza di questo documento.
-* Indice di LilyPond::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -75,9 +75,8 @@ Appendici
 @include it/learning/templates.itely
 @include en/fdl.itexi
 
-@node Indice di LilyPond
+@node LilyPond index
 @appendix Indice di LilyPond
-@translationof LilyPond index
 
 @printindex cp
 

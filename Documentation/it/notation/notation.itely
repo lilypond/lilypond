@@ -9,21 +9,20 @@
 
 @c \version "2.16.0"
 
-@node Notazione musicale
+@node Musical notation
 @chapter Notazione musicale
-@translationof Musical notation
 
 Questo capitolo spiega come creare la notazione musicale.
 
 @menu
-* Altezze::                 Scrittura e aspetto delle altezze delle note.
-* Ritmi::                   Scrittura e aspetto delle durate delle note.
-* Segni di espressione::    Aggiungere espressione alle note.
-* Ripetizioni::             Ripetere la musica.
-* Note simultanee::         Più di una nota in contemporanea.
-* Notazione del rigo::      Aspetto del rigo.
-* Note editoriali::         Notazione speciale per aumentare la leggibilità.
-* Testo::                   Aggiungere testo alle partiture.
+* Pitches::                 Scrittura e aspetto delle altezze delle note.
+* Rhythms::                   Scrittura e aspetto delle durate delle note.
+* Expressive marks::    Aggiungere espressione alle note.
+* Repeats::             Ripetere la musica.
+* Simultaneous notes::         Più di una nota in contemporanea.
+* Staff notation::      Aspetto del rigo.
+* Editorial annotations::         Notazione speciale per aumentare la leggibilità.
+* Text::                   Aggiungere testo alle partiture.
 @end menu
 
 @include it/notation/pitches.itely

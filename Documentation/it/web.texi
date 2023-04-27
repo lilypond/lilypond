@@ -114,7 +114,7 @@ computer l'estetica della musica incisa secondo i metodi tradizionali.  LilyPond
 software libero e parte del @uref{https://gnu.org,Progetto GNU}.
 
 @divClass{align-right}
-Maggiori informazioni nella nostra @ref{Introduzione}!
+Maggiori informazioni nella nostra @ref{Introduction}!
 
 @divEnd
 @divEnd
@@ -166,7 +166,7 @@ e perfino
 
 @end ifset
 
-Guarda la galleria di @ref{Esempi} e lasciati ispirare!
+Guarda la galleria di @ref{Examples} e lasciati ispirare!
 
 @divEnd
 
@@ -177,7 +177,7 @@ Guarda la galleria di @ref{Esempi} e lasciati ispirare!
 @c TODO: generate this automatically, including RSS feed.
 @include en/web/news-headlines.itexi
 
-(@ref{Notizie, Altre notizie...})
+(@ref{News, Altre notizie...})
 @divEnd
 
 @divEnd
@@ -191,13 +191,13 @@ Guarda la galleria di @ref{Esempi} e lasciati ispirare!
 
 @ref{Download, Download @versionStable}
 
-@ref{Manuali, Manuali @versionStable}
+@ref{Manuals, Manuali @versionStable}
 
 @subheading Instabile
 
-@ref{Sviluppo, Download @versionDevel}
+@ref{Development, Download @versionDevel}
 
-@ref{Sviluppo, Manuali @versionDevel}
+@ref{Development, Manuali @versionDevel}
 
 
 @subheading Pondings
@@ -241,10 +241,10 @@ Guarda la galleria di @ref{Esempi} e lasciati ispirare!
 
 @divClass{hide}
 @menu
-* Introduzione::     Inizia da qui se vuoi creare spartiti musicali.
+* Introduction::     Inizia da qui se vuoi creare spartiti musicali.
 * Download::         Scarica LilyPond.
-* Manuali::          Leggi i manuali (RTFM).
-* Comunità::         Contatta altri utenti.
+* Manuals::          Leggi i manuali (RTFM).
+* Community::         Contatta altri utenti.
 @end menu
 @divEnd
 
@@ -350,7 +350,7 @@ bug-lilypond.  Se non sei iscritto puoi farlo sulla
 @cartouche
 Se sei a conoscenza di un qualsiasi altro \topic\ che possa essere elencato qui,
 sei pregato di farcelo sapere seguendo le istruzioni indicate in
-@ref{Segnalazione bug}.
+@ref{Bug reports}.
 
 @end cartouche
 

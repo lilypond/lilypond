@@ -10,9 +10,8 @@
 
 @c \version "2.19.21"
 
-@node Consigli su come scrivere i file
+@node Suggestions for writing files
 @chapter Consigli su come scrivere i file
-@translationof Suggestions for writing files
 
 Ora puoi iniziare a scrivere file di input di LilyPond più grandi --
 non più i piccoli esempi del tutorial, ma pezzi completi.
@@ -42,17 +41,16 @@ in moda da essere poi aggiornati in modo più semplice (o più difficile).
 @end itemize
 
 @menu
-* Consigli generali::
-* Scrivere musica esistente::
-* Grandi progetti::
-* Risoluzione dei problemi::
-* Make e Makefile::
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Troubleshooting::
+* Make and Makefiles::
 @end menu
 
 
-@node Consigli generali
+@node General suggestions
 @section Consigli generali
-@translationof General suggestions
 
 Ecco alcuni consigli che possono aiutare a evitare (e risolvere) i
 problemi più comuni in fase di scrittura:
@@ -61,7 +59,7 @@ problemi più comuni in fase di scrittura:
 @item @strong{Includere sempre il numero di @code{\version} in ogni file di input},
 non importa quanto piccolo possa essere il file.  Ciò impedisce di dover
 ricordare con quale versione di LilyPond è stato creato il file ed è
-importante soprattutto per @ref{Aggiornare i file con convert-ly} (che ha
+importante soprattutto per @ref{Updating files with convert-ly} (che ha
 bisogno della dichiarazione @code{\version}); o quando si inviano i file
 di input a altri utenti (per esempio, quando si chiede aiuto nelle mailing
 list).  Nota che tutti i modelli contengono l'informazione su @code{\version}.
@@ -71,8 +69,8 @@ list).  Nota che tutti i modelli contengono l'informazione su @code{\version}.
 semplifica molto l'analisi dei problemi del file di input.
 
 @item
-@strong{Inserire i @rnotation{Controlli di battuta e del numero di battuta} e
-i @rnotation{Controlli di ottava}}.  Inserendo @q{controlli} di questo tipo nei
+@strong{Inserire i @rnotationnamed{Bar and bar number checks, Controlli di battuta e del numero di battuta} e
+i @rnotationnamed{Octave checks, Controlli di ottava}}.  Inserendo @q{controlli} di questo tipo nei
 file di input, si può individuare un errore più rapidamente.  Quanto spesso
 aggiungere i controlli dipende dalla complessità della musica da scrivere.  Per
 composizioni semplici, aggiungere controlli in pochi punti strategici può essere
@@ -137,15 +135,14 @@ chiaramente le parentesi di @q{apertura} e di @q{chiusura} (o gli indicatori
 @end example
 
 Ciò non creerà un nuovo contesto ma sarà applicato quando ne viene creato
-uno.  Vedi anche @rlearning{Ridurre l'input grazie a variabili e funzioni} e
-@rlearning{Fogli di stile}.
+uno.  Vedi anche @rlearningnamed{Saving typing with variables and functions, Ridurre l'input grazie a variabili e funzioni} e
+@rlearningnamed{Style sheets, Fogli di stile}.
 
 @end itemize
 
 
-@node Scrivere musica esistente
+@node Typesetting existing music
 @section Scrivere musica esistente
-@translationof Typesetting existing music
 
 Se stai riportando della musica da una partitura esistente (ovvero il brano
 contenuto in uno spartito già scritto),
@@ -156,7 +153,7 @@ contenuto in uno spartito già scritto),
 musica) un sistema alla volta (ma sempre una battuta per linea di testo),
 e controlla ogni sistema completato.  Puoi usare le proprietà
 @code{showLastLength} o @code{showFirstLength} per velocizzare
-l'elaborazione -- vedi @rnotation{Saltare la musica già corretta}.
+l'elaborazione -- vedi @rnotationnamed{Skipping corrected music, Saltare la musica già corretta}.
 
 @item Definisci @code{mBreak = @{ \break @}} e inserisci @code{\mBreak}
 nel file di input ogni volta che nel manoscritto c'è un a capo.  In questo
@@ -190,9 +187,8 @@ per una tromba in Si bemolle, aes per un clarinetto in La bemolle, etc.
 @end itemize
 
 
-@node Grandi progetti
+@node Large projects
 @section Grandi progetti
-@translationof Large projects
 
 Quando si lavora a un grande progetto, definire una struttura chiara nel
 file di input diventa vitale.
@@ -236,9 +232,8 @@ g'4\fthenp c'8. e16
 @end itemize
 
 
-@node Risoluzione dei problemi
+@node Troubleshooting
 @section Risoluzione dei problemi
-@translationof Troubleshooting
 
 Prima o poi ti capiterà di scrivere un file che LilyPond non
 riesce a compilare.  I messaggi inviati da LilyPond potrebbero aiutarti
@@ -288,12 +283,11 @@ Ora inizia a decommentare mano a mano la parte di
 @code{bass} finché non trovi la linea che causa il problema.
 
 Un'altra tecnica di debug molto utile consiste nel creare
-@rweb{Esempi minimi}.
+@rwebnamed{Tiny examples, Esempi minimi}.
 
 
-@node Make e Makefile
+@node Make and Makefiles
 @section Make e Makefile
-@translationof Make and Makefiles
 
 @cindex makefile
 @cindex make
@@ -658,7 +652,7 @@ copy out\myproject.pdf MyProject.pdf
 
 @morerefs
 Questo manuale:
-@ref{Uso da linea di comando},
+@ref{Command-line usage},
 @ref{lilypond-book}.
 @endmorerefs
 

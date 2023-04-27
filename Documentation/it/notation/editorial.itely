@@ -12,9 +12,8 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
-@node Note editoriali
+@node Editorial annotations
 @section Note editoriali
-@translationof Editorial annotations
 
 @lilypondfile[quote]{snippets/editorial-headword.ly}
 
@@ -22,30 +21,28 @@ Questa sezione tratta dei vari modi con cui cambiare l'aspetto delle note e
 aggiungere un'analisi o un accento didattico.
 
 @menu
-* Interne al rigo::
-* Esterne al rigo::
+* Inside the staff::
+* Outside the staff::
 @end menu
 
 
-@node Interne al rigo
+@node Inside the staff
 @subsection Interne al rigo
-@translationof Inside the staff
 
 Questa sezione spiega come aggiungere enfasi agli elementi interni al rigo.
 
 @menu
-* Scelta della dimensione del tipo di carattere::
-* Indicazioni di diteggiatura::
-* Dita che scivolano::
-* Note nascoste::
-* Colorare gli oggetti::
-* Parentesi::
-* Gambi::
+* Selecting notation font size::
+* Fingering instructions::
+* Gliding fingers::
+* Hidden notes::
+* Coloring objects::
+* Parentheses::
+* Stems::
 @end menu
 
-@node Scelta della dimensione del tipo di carattere
+@node Selecting notation font size
 @unnumberedsubsubsec Scelta della dimensione del tipo di carattere
-@translationof Selecting notation font size
 
 @cindex tipo di carattere, ridimensionamento
 @cindex font, ridimensionamento
@@ -68,10 +65,10 @@ Questa sezione spiega come aggiungere enfasi agli elementi interni al rigo.
 @funindex \huge
 
 @warning{@*
-Per le dimensioni del testo, leggere @ref{Scelta del tipo di carattere e della dimensione}.@*
-Per la dimensione del rigo, leggere @ref{Impostare la dimensione del rigo}.@*
-Per le citazioni in corpo piccolo, leggere @ref{Formattazione delle notine}.@*
-Per i righi ossia, leggere @ref{Righi ossia}.}
+Per le dimensioni del testo, leggere @ref{Selecting font and font size}.@*
+Per la dimensione del rigo, leggere @ref{Setting the staff size}.@*
+Per le citazioni in corpo piccolo, leggere @ref{Formatting cue notes}.@*
+Per i righi ossia, leggere @ref{Ossia staves}.}
 
 Per modificare la dimensione di un elemento della notazione senza cambiare
 anche la dimensione del rigo, si può specificare un fattore di ingrandimento
@@ -136,7 +133,7 @@ si duplicano le dimensioni del contesto @code{CueVoice}.
 
 @warning{Il comando @code{@bs{}magnifyMusic} @i{non} deve essere
 usato quando si ridimensiona anche il rigo.  Maggiori informazioni
- in @ref{Impostare la dimensione del rigo}.}
+ in @ref{Setting the staff size}.}
 
 @subsubsubheading Ridimensionare oggetti della formattazione individualmente
 
@@ -208,7 +205,7 @@ o la spaziatura orizzontale.   Per ridimensionare gambi, travature
 e spaziatura orizzontale insieme alla dimensione degli elementi della
 notazione (senza cambiare la dimensione del rigo), si usa il comando
 @code{\magnifyMusic} presentato prima.  Per ridimensionare tutto,
-compreso il rigo, leggere @ref{Impostare la dimensione del rigo}.
+compreso il rigo, leggere @ref{Setting the staff size}.
 
 Ogni volta che la @i{proprietà di contesto} @code{fontSize} è impostata, il
 suo valore viene aggiunto al valore della @i{proprietà del grob} @code{font-size}
@@ -286,10 +283,10 @@ di 11pt.
 
 @morerefs
 Guida alla notazione:
-@ref{Scelta del tipo di carattere e della dimensione},
-@ref{Impostare la dimensione del rigo},
-@ref{Formattazione delle notine},
-@ref{Righi ossia}.
+@ref{Selecting font and font size},
+@ref{Setting the staff size},
+@ref{Formatting cue notes},
+@ref{Ossia staves}.
 
 File installati:
 @file{ly/music-functions-init.ly},
@@ -325,9 +322,8 @@ e @code{\revert}:
 @end example
 
 
-@node Indicazioni di diteggiatura
+@node Fingering instructions
 @unnumberedsubsubsec Indicazioni di diteggiatura
-@translationof Fingering instructions
 
 @cindex diteggiatura
 @cindex dita, cambio
@@ -376,7 +372,7 @@ accordo specificandola dopo ciascuna altezza.
 @end lilypond
 
 Le indicazioni di diteggiatura possono essere poste sopra o sotto il
-rigo, come è spiegato in @ref{Direzione e posizionamento}.
+rigo, come è spiegato in @ref{Direction and placement}.
 
 @snippets
 
@@ -401,7 +397,7 @@ rigo, come è spiegato in @ref{Direzione e posizionamento}.
 
 @morerefs
 Guida alla notazione:
-@ref{Direzione e posizionamento}.
+@ref{Direction and placement}.
 
 Frammenti:
 @rlsr{Editorial annotations}.
@@ -415,9 +411,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Dita che scivolano
+@node Gliding fingers
 @unnumberedsubsubsec Dita che scivolano
-@translationof Gliding fingers
 
 @cindex diteggiatura, scivolare
 @cindex scivolare, diteggiatura
@@ -534,7 +529,7 @@ possono essere connessi.
 
 @morerefs
 Guida alla notazione:
-@ref{Direzione e posizionamento}.
+@ref{Direction and placement}.
 
 Guida al funzionamento interno:
 @rinternals{FingeringGlideEvent},
@@ -558,9 +553,8 @@ Un espediente consiste nell'usare dita diverse e @code{\tweak text}.
 @end lilypond
 
 
-@node Note nascoste
+@node Hidden notes
 @unnumberedsubsubsec Note nascoste
-@translationof Hidden notes
 
 @cindex nota nascosta
 @cindex nota invisibile
@@ -609,12 +603,12 @@ nascosta.  Mentre gli oggetti attaccati a note invisibili sono comunque visibili
 
 @morerefs
 Manuale d'apprendimento:
-@rlearning{Visibilità e colore degli oggetti}.
+@rlearningnamed{Visibility and color of objects, Visibilità e colore degli oggetti}.
 
 Guida alla notazione:
-@ref{Pause invisibili},
-@ref{Visibilità degli oggetti},
-@ref{Nascondere i righi}.
+@ref{Invisible rests},
+@ref{Visibility of objects},
+@ref{Hiding staves}.
 
 Frammenti:
 @rlsr{Editorial annotations}.
@@ -625,9 +619,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Colorare gli oggetti
+@node Coloring objects
 @unnumberedsubsubsec Colorare gli oggetti
-@translationof Coloring objects
 
 @cindex oggetto colorato
 @cindex colorato, oggetto
@@ -641,7 +634,7 @@ Guida al funzionamento interno:
 @funindex \with-color
 
 Si possono assegnare dei colori a ciascun oggetto.  I nomi dei colori validi
-sono elencati nell'@ref{Elenco dei colori}.
+sono elencati nell'@ref{List of colors}.
 
 @lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
@@ -656,7 +649,7 @@ e''
 @cindex colore, codici simili a css
 
 Oltre a un insieme limitato di colori semplici disponibili come variabili
-predefinite (vedi @qq{Colori normali} in @ref{Elenco dei colori}), si può
+predefinite (vedi @qq{Colori normali} in @ref{List of colors}), si può
 inserire qualsiasi colore come una stringa.
 Questa stringa può essere un nome colore definito in stile
 @uref{https://www.w3.org/Style/CSS/, CSS} oppure un codice colore
@@ -753,7 +746,7 @@ se elaborato secondo le condizioni menzionate sopra.
 
 @morerefs
 Guida alla notazione:
-@ref{Elenco dei colori}, @ref{Il comando tweak}.
+@ref{List of colors}, @ref{The tweak command}.
 
 Frammenti:
 @rlsr{Editorial annotations}.
@@ -772,16 +765,15 @@ normale colore dal nome simile.
 Non tutti i colori X11 sono distinguibili in un browser web.  Per esempio,
 un browser potrebbe non mostrare alcuna differenza tra @code{LimeGreen}
 e @code{ForestGreen}.  Per il web si consiglia di usare i colori CSS,
-come è spiegato in @ref{Elenco dei colori}.
+come è spiegato in @ref{List of colors}.
 
 Le note in un accordo non possono essere colorate separatamente con un
 @code{\override}; al suo posto si usa @code{\tweak} o l'equivalente
-@code{\single\override}, vedi @ref{Il comando tweak}.
+@code{\single\override}, vedi @ref{The tweak command}.
 
 
-@node Parentesi
+@node Parentheses
 @unnumberedsubsubsec Parentesi
-@translationof Parentheses
 
 @cindex ghost note
 @cindex nota fantasma
@@ -876,9 +868,8 @@ essere modificata manualmente per ottenere parentesi dalle dimensioni corrette
 per gli accordi e alcuni altri oggetti.
 
 
-@node Gambi
+@node Stems
 @unnumberedsubsubsec Gambi
-@translationof Stems
 
 @cindex gambo
 @cindex gambo invisibile
@@ -897,7 +888,7 @@ Vale anche per le semibrevi e le pause, anche se i loro gambi sono resi
 invisibili.
 
 I gambi si possono posizionare sopra o sotto, vedi
-@ref{Direzione e posizionamento}.
+@ref{Direction and placement}.
 
 
 @predefined
@@ -921,7 +912,7 @@ I gambi si possono posizionare sopra o sotto, vedi
 
 @morerefs
 Guida alla notazione:
-@ref{Direzione e posizionamento}.
+@ref{Direction and placement}.
 
 Frammenti:
 @rlsr{Editorial annotations}.
@@ -933,23 +924,21 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Esterne al rigo
+@node Outside the staff
 @subsection Esterne al rigo
-@translationof Outside the staff
 
 Questa sezione spiega come dare risalto agli elementi nel rigo attraverso
 delle note esterne al rigo.
 
 @menu
-* Nomi delle note::
-* Nuvoletta di aiuto::
-* Linee della griglia::
-* Parentesi analitiche::
+* Note names::
+* Balloon help::
+* Grid lines::
+* Analysis brackets::
 @end menu
 
-@node Nomi delle note
+@node Note names
 @unnumberedsubsubsec Nomi delle note
-@translationof Note names
 
 @cindex nomi delle note, mostrare
 @cindex note, nomi, mostrare
@@ -986,7 +975,7 @@ melody = \relative do'' {
 
 I nomi delle note appaiono nella stessa lingua usata per inserirle, ma la
 proprietà @code{printNotesLanguage} permette di selezionare qualsiasi altra
-lingua disponibile (vedi @ref{Nomi delle note in altre lingue}).  Le
+lingua disponibile (vedi @ref{Note names in other languages}).  Le
 alterazioni possono essere mostrate oppure no attraverso la
 proprietà @code{printAccidentalNames}.
 
@@ -1043,7 +1032,7 @@ somechords = \relative c' {
 
 @morerefs
 Guida alla notazione:
-@ref{Nomi delle note in altre lingue}.
+@ref{Note names in other languages}.
 
 Guida al funzionamento interno:
 @rinternals{NoteName},
@@ -1052,9 +1041,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Nuvoletta di aiuto
+@node Balloon help
 @unnumberedsubsubsec Nuvoletta di aiuto
-@translationof Balloon help
 
 @cindex nuvoletta
 @cindex notazione, spiegare la
@@ -1123,9 +1111,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Linee della griglia
+@node Grid lines
 @unnumberedsubsubsec Linee della griglia
-@translationof Grid lines
 
 @cindex griglia
 @cindex linea verticale tra i righi
@@ -1192,9 +1179,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Parentesi analitiche
+@node Analysis brackets
 @unnumberedsubsubsec Parentesi analitiche
-@translationof Analysis brackets
 
 @cindex parentesi
 @cindex parentesi, fraseggio

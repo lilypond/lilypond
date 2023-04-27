@@ -11,9 +11,8 @@
 @include en/included/gsoc.itexi
 @include it/included/helpus.itexi
 
-@node Comunità
+@node Community
 @unnumbered Comunità
-@translationof Community
 
 @divClass{link-headings}
 
@@ -23,14 +22,14 @@
 @itemize
 
 @item
-@ref{Contatti}: chiedi aiuto, discuti e resta in contatto!
+@ref{Contact}: chiedi aiuto, discuti e resta in contatto!
 
 @item
-@ref{Esempi minimi}: questi esempi sono @emph{altamente} raccomandati
+@ref{Tiny examples}: questi esempi sono @emph{altamente} raccomandati
 quando si discute di LilyPond.
 
 @item
-@ref{Segnalazione bug}: qualcosa non ha funzionato.
+@ref{Bug reports}: qualcosa non ha funzionato.
 
 @end itemize
 @divEnd
@@ -41,19 +40,19 @@ quando si discute di LilyPond.
 @itemize
 
 @item
-@ref{Aiutaci}: è richiesto il tuo aiuto.
+@ref{Help us}: è richiesto il tuo aiuto.
 
 @item
-@ref{Sponsor}: contributi finanziari.
+@ref{Sponsoring}: contributi finanziari.
 
 @item
-@ref{Sviluppo}: per i collaboratori e i tester.
+@ref{Development}: per i collaboratori e i tester.
 
 @item
 @ref{Google Summer of Code}: idee per il Google Summer of Code (GSoC).
 
 @item
-@ref{Autori}: le persone che hanno reso LilyPond quello che è oggi.
+@ref{Authors}: le persone che hanno reso LilyPond quello che è oggi.
 
 @end itemize
 @divEnd
@@ -64,13 +63,13 @@ quando si discute di LilyPond.
 @itemize
 
 @item
-@ref{Pubblicazioni}: cosa abbiamo scritto, e cosa è stato scritto su di noi.
+@ref{Publications}: cosa abbiamo scritto, e cosa è stato scritto su di noi.
 
 @item
-@ref{Notizie}: notizie sul progetto LilyPond.
+@ref{News}: notizie sul progetto LilyPond.
 
 @item
-@ref{Soffitta}: annunci e changelog delle versioni precedenti.
+@ref{Attic}: annunci e changelog delle versioni precedenti.
 
 @end itemize
 @divEnd
@@ -79,24 +78,23 @@ quando si discute di LilyPond.
 
 @divClass{hide}
 @menu
-* Contatti::
-* Esempi minimi::
-* Segnalazione bug::
-* Aiutaci::
-* Sponsor::
-* Sviluppo::
+* Contact::
+* Tiny examples::
+* Bug reports::
+* Help us::
+* Sponsoring::
+* Development::
 * Google Summer of Code::
-* Autori::
-* Pubblicazioni::
-* Notizie::
-* Soffitta::
+* Authors::
+* Publications::
+* News::
+* Attic::
 @end menu
 @divEnd
 
 
-@node Contatti
+@node Contact
 @unnumberedsec Contatti
-@translationof Contact
 
 
 @divClass{column-left-top}
@@ -117,7 +115,7 @@ archivio@tie{}1 della lista degli utenti}
 archivio@tie{}2}
 @end quotation
 
-@warning{Quando poni domande, usa gli @ref{Esempi minimi}!}
+@warning{Quando poni domande, usa gli @ref{Tiny examples}!}
 
 @subsubheading Altre lingue
 
@@ -154,7 +152,7 @@ e aggiungi i tuoi esempi!
 @end example
 
 Esempi particolarmente istruttivi provenienti dal LSR sono inclusi nella
-nostra documentazione ufficiale, in @ref{Frammenti}.
+nostra documentazione ufficiale, in @ref{Snippets}.
 @divEnd
 
 
@@ -193,7 +191,7 @@ archivio 2}
 @end quotation
 
 @warning{Prima di inviare un messaggio alla lista bug, leggi le nostre
-linee guida per la @ref{Segnalazione bug}.}
+linee guida per la @ref{Bug reports}.}
 @divEnd
 
 
@@ -270,9 +268,8 @@ Leggi il blog gestito dalla comunità, @q{Scores of Beauty}:
 @end ignore
 
 
-@node Esempi minimi
+@node Tiny examples
 @unnumberedsec Esempi minimi
-@translationof Tiny examples
 
 @divClass{column-center-top}
 @subheading Cosa sono gli @qq{Esempi minimi}?
@@ -383,9 +380,8 @@ spesso 4 righe sono sufficienti per illustrare il problema!
 @divEnd
 
 
-@node Segnalazione bug
+@node Bug reports
 @unnumberedsec Segnalazione bug
-@translationof Bug reports
 
 @divClass{heading-center}
 Se hai un codice di input che produce un crash o un output sbagliato,
@@ -414,8 +410,7 @@ pure maggiori informazioni nella segnalazione.}
 Se hai scoperto un bug che non è ancora stato riportato, puoi aiutarci creando
 una segnalazione bug.
 
-@warning{Accettiamo segnalazioni bug esclusivamente nella forma di @ref{Esempi
-minimi}.  Abbiamo risorse molto limitate, quindi qualsiasi esempio non minimo
+@warning{Accettiamo segnalazioni bug esclusivamente nella forma di @ref{Tiny examples}.  Abbiamo risorse molto limitate, quindi qualsiasi esempio non minimo
 sarà scartato.  Quasi ogni bug può essere dimostrato con quattro note o meno!}
 
 Ecco un esempio di una valida segnalazione bug:
@@ -476,9 +471,8 @@ mostrino come dovrebbe apparire secondo te!
 
 
 
-@node Aiutaci
+@node Help us
 @unnumberedsec Aiutaci
-@translationof Help us
 
 @divClass{column-center-top}
 @helpusNeed
@@ -498,9 +492,8 @@ mostrino come dovrebbe apparire secondo te!
 @divEnd
 
 
-@node Sponsor
+@node Sponsoring
 @unnumberedsec Sponsor
-@translationof Sponsoring
 
 @divClass{keep-bullets}
 @divClass{column-left-top}
@@ -543,9 +536,8 @@ su tali questioni prima che il lavoro inizi.
 @divEnd
 
 
-@node Sviluppo
+@node Development
 @unnumberedsec Sviluppo
-@translationof Development
 
 @divClass{heading-center}
 @heading Sviluppo di LilyPond @versionDevel
@@ -555,7 +547,7 @@ su tali questioni prima che il lavoro inizi.
 @warning{Queste sono le versioni @emph{instabili e di sviluppo}.  Se hai
 un minimo dubbio su come usare o installare LilyPond, ti raccomandiamo
 di usare il @ref{Download, download per la versione stabile}, e leggere i
-@ref{Manuali, manuali stabili}.}
+@ref{Manuals, manuali stabili}.}
 
 @divEnd
 
@@ -788,15 +780,13 @@ manuali sono reperibili su @url{https://lilypond.org}}
 
 @node Google Summer of Code
 @unnumberedsec Google Summer of Code
-@translationof Google Summer of Code
 
 @gsocCurrent
 
 
 
-@node Autori
+@node Authors
 @unnumberedsec Autori
-@translationof Authors
 
 @divClass{column-left-top}
 @subheading Team di Sviluppo attuale
@@ -871,9 +861,8 @@ manuali sono reperibili su @url{https://lilypond.org}}
 @divEnd
 
 
-@node Pubblicazioni
+@node Publications
 @unnumberedsec Pubblicazioni
-@translationof Publications
 
 @divClass{column-center-top}
 @subheading Cosa abbiamo scritto su LilyPond
@@ -898,27 +887,25 @@ manuali sono reperibili su @url{https://lilypond.org}}
 
 @contactUsAbout{articoli accademici}
 
-@node Notizie
+@node News
 @unnumberedsec Notizie
-@translationof News
 
 @divClass{heading-center}
 @warning{Molti dei vecchi annunci e changelog si possono trovare
-in @ref{Soffitta}}
+in @ref{Attic}}
 @divEnd
 
 @include en/web/news-new.itexi
 
 @divClass{column-center-bottom}
 @subheading Vecchie notizie
-Le vecchie notizie si trovano in @ref{Soffitta}, insieme a vecchi annunci
+Le vecchie notizie si trovano in @ref{Attic}, insieme a vecchi annunci
 e registri di modifiche (changelog).
 @divEnd
 
 
-@node Soffitta
+@node Attic
 @unnumberedsec Soffitta
-@translationof Attic
 
 @divClass{column-center-top}
 @subheading Annunci
@@ -1008,7 +995,7 @@ Lista dei cambiamenti apportati da ciascun sviluppatore in ogni versione:
 @subheading Vecchie notizie
 
 Le vecchie notizie che risalgono fino al luglio 2003.  Le notizie più recenti
-si trovano alla pagina @ref{Notizie}.
+si trovano alla pagina @ref{News}.
 @divEnd
 
 @include en/web/news-old.itexi

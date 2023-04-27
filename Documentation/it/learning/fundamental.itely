@@ -10,9 +10,8 @@
 
 @c \version "2.19.22"
 
-@node Concetti fondamentali
+@node Fundamental concepts
 @chapter Concetti fondamentali
-@translationof Fundamental concepts
 
 Nel Tutorial abbiamo visto come produrre dei belli spartiti da un
 semplice file di testo.  Questa sezione presenta i concetti e le
@@ -20,35 +19,33 @@ tecniche richiesti per produrre partiture ugualmente belle, ma
 più complesse.
 
 @menu
-* Come funzionano i file di input di LilyPond::
-* Le voci contengono la musica::
-* Contesti e incisori::
-* Estendere i modelli::
+* How LilyPond input files work::
+* Voices contain music::
+* Contexts and engravers::
+* Extending the templates::
 @end menu
 
 
-@node Come funzionano i file di input di LilyPond
+@node How LilyPond input files work
 @section Come funzionano i file di input di LilyPond
-@translationof How LilyPond input files work
 
 Il formato di input di LilyPond ha una struttura piuttosto libera, che dà
 agli utenti esperti una grande flessibilità nell'organizzare i file come
 preferiscono.  Ma questa flessibilità può creare confusione nei nuovi
 utenti.  Questa sezione spiegherà in parte questa struttura, ma
 sorvolerà su alcuni dettagli in favore della semplicità.  Per una
-descrizione completa del formato di input, si veda @rnotation{Struttura del file}.
+descrizione completa del formato di input, si veda @rnotationnamed{File structure, Struttura del file}.
 
 @menu
-* Introduzione alla struttura di un file di LilyPond::
-* La partitura è una (singola) espressione musicale composta::
-* Annidare le espressioni musicali::
-* Struttura dell'inserimento note::
-* Sul non annidamento di parentesi e legature di valore::
+* Introduction to the LilyPond file structure::
+* Score is a (single) compound musical expression::
+* Nesting music expressions::
+* Structure of a note entry::
+* On the un-nestedness of brackets and ties::
 @end menu
 
-@node Introduzione alla struttura di un file di LilyPond
+@node Introduction to the LilyPond file structure
 @subsection Introduzione alla struttura di un file di LilyPond
-@translationof Introduction to the LilyPond file structure
 
 @cindex formato di input
 @cindex struttura del file
@@ -121,7 +118,7 @@ semplici questo metodo funziona bene, ma per quelli più complessi, soprattutto
 quando vengono usati ulteriori comandi, la creazione implicita dei contesti
 può dare risultati inattesi, ad esempio creando dei righi non voluti.
 Il modo per creare i contesti esplicitamente è spiegato in
-@ref{Contesti e incisori}.
+@ref{Contexts and engravers}.
 
 @warning{Quando si inseriscono più di poche linee di musica, si consiglia
 di creare sempre esplicitamente i righi e le voci.}
@@ -178,8 +175,8 @@ Altri due comandi che non hai incontrato finora sono
 @code{\layout @{ @}} e @code{\midi @{@}}.  Se questi appaiono come
 in figura, LilyPond creerà rispettivamente un output per la stampa
 e uno per il MIDI.  Sono descritti dettagliatamente nella
-Guida alla notazione, in @rnotation{Formattazione della partitura}, e
-@rnotation{Creazione dell'output MIDI}.
+Guida alla notazione, in @rnotationnamed{Score layout, Formattazione della partitura}, e
+@rnotationnamed{Creating MIDI output, Creazione dell'output MIDI}.
 
 @cindex partiture, multiple
 @cindex libro, blocco implicito
@@ -212,12 +209,12 @@ che si trova dentro un blocco @code{\score} riguarda solo quel blocco
 blocco @code{\score} (e quindi in un blocco @code{\book}, esplicitamente
 o implicitamente) riguarderà ogni @code{\score} in quel @code{\book}.
 
-Per maggiori dettagli si veda @rnotation{Molteplici partiture in un libro}.
+Per maggiori dettagli si veda @rnotationnamed{Multiple scores in a book, Molteplici partiture in un libro}.
 
 @cindex variabili
 
 Un'altra grande scorciatoia è la possibilità di definire variabili, come è
-spiegato in @ref{Organizzare i brani con le variabili}).  Tutti
+spiegato in @ref{Organizing pieces with variables}).  Tutti
 i modelli usano questa forma
 
 @example
@@ -237,18 +234,17 @@ ciò che si trova dopo il segno di uguale) e lo inserisce ovunque si trovi
 altro nome.  Ricordati che puoi usare quasi ogni nome che vuoi, purché esso
 contenga solo caratteri alfabetici e sia diverso dai nomi dei comandi di
 LilyPond.  Le esatte limitazioni relative ai nomi delle variabili sono spiegate
-dettagliatamente in @rnotation{Struttura del file}.
+dettagliatamente in @rnotationnamed{File structure, Struttura del file}.
 
 
 @morerefs
 Per una definizione completa del formato di input, si veda
-@rnotation{Struttura del file}.
+@rnotationnamed{File structure, Struttura del file}.
 @endmorerefs
 
 
-@node La partitura è una (singola) espressione musicale composta
+@node Score is a (single) compound musical expression
 @subsection La partitura è una (singola) espressione musicale composta
-@translationof Score is a (single) compound musical expression
 
 @funindex \score
 @cindex partitura
@@ -259,7 +255,7 @@ Per una definizione completa del formato di input, si veda
 @cindex composta, espressione musicale
 
 Abbiamo visto l'organizzazione generale dei file di input di LilyPond nella
-sezione precedente, @ref{Introduzione alla struttura di un file di LilyPond}.
+sezione precedente, @ref{Introduction to the LilyPond file structure}.
 Ma sembra che abbiamo saltato la parte più importante: cosa dobbiamo
 scrivere dopo @code{\score}?
 
@@ -272,7 +268,7 @@ semplicemente, che @emph{non c'è} alcun mistero.  La seguente frase spiega tutt
 
 @noindent
 Per capire cosa si intende per espressione musicale, potrebbe esserti utile
-ripassare il tutorial, @ref{Espressioni musicali}.  In quella sezione, abbiamo
+ripassare il tutorial, @ref{Music expressions explained}.  In quella sezione, abbiamo
 visto come costruire grandi espressioni musicali a partire da piccoli brani --
 abbiamo iniziato con le note, poi gli accordi, etc.  Adesso inizieremo da una
 grande espressione musicale e proseguiremo poi a spiegarne i dettagli. Per
@@ -308,7 +304,7 @@ simultanee, ad esempio due voci simultanee, o una voce con del testo.  Vogliamo
 avere una voce con del testo, dunque ci servono le parentesi ad angolo.  Aggiungeremo
 la musica vera e propria in seguito; per adesso mettiamo soltanto delle semplici
 note e del testo.  Se hai dimenticato come aggiungere del testo, potresti voler
-ripassare @code{\addlyrics} in @ref{Impostare canzoni semplici}.
+ripassare @code{\addlyrics} in @ref{Setting simple songs}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -351,7 +347,7 @@ interpretati come testo, li facciamo precedere da @code{\lyricmode}.  Come in
 @code{\addlyrics}, questo comando trasforma la modalità di input in modalità
 testo.  Senza di esso, LilyPond cercherebbe di interpretare i contenuti come
 se fossero note, e questo produrrebbe degli errori.  (Sono disponibili molte
-altre modalità di input, si veda @rnotation{Modalità di inserimento}.)
+altre modalità di input, si veda @rnotationnamed{Input modes, Modalità di inserimento}.)
 
 Dunque se aggiungiamo un po' di note e una chiave di basso per la mano
 sinistra, otteniamo un brano musicale vero e proprio:
@@ -388,13 +384,12 @@ di testo si trovi nella stessa posizione orizzontale.
 
 
 @morerefs
-Guida alla notazione: @rnotation{Struttura di una partitura}.
+Guida alla notazione: @rnotationnamed{Structure of a score, Struttura di una partitura}.
 @endmorerefs
 
 
-@node Annidare le espressioni musicali
+@node Nesting music expressions
 @subsection Annidare le espressioni musicali
-@translationof Nesting music expressions
 
 @cindex righi temporanei
 @cindex temporanei, righi
@@ -459,14 +454,13 @@ predefinita, che è in basso.
 @morerefs
 Gli ossia vengono spesso scritti senza armatura di chiave e senza
 tempo, e solitamente hanno un font più piccolo.  Richiedono ulteriori
-comandi che non sono stati ancora presentati.  Si veda @ref{Dimensione degli oggetti},
-e @rnotation{Righi ossia}.
+comandi che non sono stati ancora presentati.  Si veda @ref{Size of objects},
+e @rnotationnamed{Ossia staves, Righi ossia}.
 @endmorerefs
 
 
-@node Struttura dell'inserimento note
+@node Structure of a note entry
 @subsection Struttura dell'inserimento note
-@translationof Structure of a note entry
 
 @cindex post-eventi
 
@@ -476,16 +470,16 @@ di LilyPond aggiungono elementi quali le articolazioni, le diteggiature, i
 numeri di corda, le legature di portamento e di valore e il testo esplicativo.
 
 L'altezza può essere definita esplicitamente usando il linguaggio di input
-corrente di LilyPond, come è descritto in @rnotation{Nomi delle note in altre lingue}.
+corrente di LilyPond, come è descritto in @rnotationnamed{Note names in other languages, Nomi delle note in altre lingue}.
 L'altezza può essere omessa.  Quando viene omessa, l'altezza di una nota
 corrente sarà identica all'altezza della nota precedente nel file di
-input, vedi @rnotation{Durata}.  Attenzione, né @code{r} né @code{s}
+input, vedi @rnotationnamed{Durations, Durata}.  Attenzione, né @code{r} né @code{s}
 sono un'altezza.
 
 La durata è composta da un numero e eventualmente da uno o più punti.  Se una
 durata non è definita esplicitamente, la durata di una nota corrente sarà
 identica alla durata della nota, accordo, pausa o pausa spaziatrice precedenti,
-vedi @rnotation{Durata}.
+vedi @rnotationnamed{Durations, Durata}.
 
 I post-eventi seguono la nota alla quale sono collegati.  Supponiamo di voler
 scrivere un Do di un ottavo con diteggiatura 1, articolazione tenuto, una
@@ -498,20 +492,19 @@ un'annotazione testuale.  Ciò si può ottenere nel modo seguente:
 
 @morerefs
 Manuale di apprendimento:
-@ref{Legature di valore e di portamento},
-@ref{Articolazioni e dinamiche},
-@ref{Aggiungere il testo}.
+@ref{Ties and slurs},
+@ref{Articulations and dynamics},
+@ref{Adding text}.
 
 Guida alla notazione:
-@rnotation{Altezze},
-@rnotation{Ritmi},
-@rnotation{Segni di espressione}.
+@rnotationnamed{Pitches, Altezze},
+@rnotationnamed{Rhythms, Ritmi},
+@rnotationnamed{Expressive marks, Segni di espressione}.
 @endmorerefs
 
 
-@node Sul non annidamento di parentesi e legature di valore
+@node On the un-nestedness of brackets and ties
 @subsection Sul non annidamento di parentesi e legature di valore
-@translationof On the un-nestedness of brackets and ties
 
 @cindex parentesi, annidare
 @cindex tipi di parentesi
@@ -585,23 +578,21 @@ irregolare (linee 3 e 4).
 @end lilypond
 
 
-@node Le voci contengono la musica
+@node Voices contain music
 @section Le voci contengono la musica
-@translationof Voices contain music
 
 Un cantante ha bisogno della voce per cantare, e lo stesso vale per LilyPond.
 La musica vera e propria per tutti gli strumenti di una partitura è
 contenuta nelle Voci -- il più importante concetto di LilyPond.
 
 @menu
-* Sento le Voci::
-* Definire esplicitamente le voci::
-* Voci e musica vocale::
+* I'm hearing Voices::
+* Explicitly instantiating voices::
+* Voices and vocals::
 @end menu
 
-@node Sento le Voci
+@node I'm hearing Voices
 @subsection Sento le Voci
-@translationof I'm hearing Voices
 
 @cindex polifonia
 @cindex livelli
@@ -817,8 +808,8 @@ la voce tre su cerchi barrati verdi, e la voce quattro (non impiegata
 nell'esempio) su croci magenta;  @code{\voiceNeutralStyle} (anch'esso
 non usato qui) riporta lo stile all'impostazione predefinita.
 Vedremo in seguito come l'utente possa creare comandi simili.
-Si veda @ref{Visibilità e colore degli oggetti} e
-@ref{Uso delle variabili per modificare la formattazione}.
+Si veda @ref{Visibility and color of objects} e
+@ref{Using variables for layout adjustments}.
 
 @cindex polifonia e modo relativo
 @cindex modo relativo e polifonia
@@ -986,20 +977,19 @@ a evitare le collisioni.  LilyPond fornisce molti modi per aggiustare la colloca
 orizzontale delle note.  Per ora, non siamo ancora pronti a cercare di
 correggere questo problema, dunque dovremo aspettare fino a una
 prossima sezione -- si veda la proprietà @code{force-hshift} in
-@ref{Correggere elementi della notazione sovrapposti}.
+@ref{Fixing overlapping notation}.
 
 @warning{Il testo e gli estensori, @emph{spanner} nella terminologia di LilyPond,
 (come le legature di portamento e di valore, le forcelle, etc.@:) non possono
 essere creati @q{attraverso} le voci.}
 
 @morerefs
-Guida alla notazione: @rnotation{Più voci}.
+Guida alla notazione: @rnotationnamed{Multiple voices, Più voci}.
 @endmorerefs
 
 
-@node Definire esplicitamente le voci
+@node Explicitly instantiating voices
 @subsection Definire esplicitamente le voci
-@translationof Explicitly instantiating voices
 
 @funindex \voiceOne
 @funindex \voiceTwo
@@ -1247,7 +1237,7 @@ le voci una e tre vengono spostate a destra e le voci due e quattro a sinistra.
 
 @code{\shiftOnn} e @code{\shiftOnnn} definiscono ulteriori livelli di
 scarto che possono essere temporaneamente specificati per risolvere
-le collisioni in situazioni complesse -- si veda @ref{Esempio musicale}.
+le collisioni in situazioni complesse -- si veda @ref{Real music example}.
 
 Una colonna di note può contenere soltanto una nota (o accordo) di una
 voce con gambi in su e una nota (o accordo) di una voce con gambi in
@@ -1260,15 +1250,14 @@ produrrà il messaggio di errore
 
 @morerefs
 Manuale di apprendimento:
-@ref{Spostare gli oggetti}.
+@ref{Moving objects}.
 
-Guida alla notazione: @rnotation{Più voci}.
+Guida alla notazione: @rnotationnamed{Multiple voices, Più voci}.
 @endmorerefs
 
 
-@node Voci e musica vocale
+@node Voices and vocals
 @subsection Voci e musica vocale
-@translationof Voices and vocals
 
 La musica vocale presenta una difficoltà in più: occorre combinare due
 espressioni -- note e testo.
@@ -1427,13 +1416,12 @@ VerseFour  =
 @end lilypond
 
 @morerefs
-Guida alla notazione: @rnotation{Musica vocale}.
+Guida alla notazione: @rnotationnamed{Vocal music, Musica vocale}.
 @endmorerefs
 
 
-@node Contesti e incisori
+@node Contexts and engravers
 @section Contesti e incisori
-@translationof Contexts and engravers
 
 I contesti e gli incisori sono stati menzionati in modo informale
 nelle sezioni precedenti; ora dobbiamo approfondire
@@ -1442,16 +1430,15 @@ dell'output di LilyPond.
 
 
 @menu
-* I contesti::
-* Creare i contesti::
-* Gli incisori::
-* Modificare le proprietà di contesto::
-* Aggiungere e togliere gli incisori::
+* Contexts explained::
+* Creating contexts::
+* Engravers explained::
+* Modifying context properties::
+* Adding and removing engravers::
 @end menu
 
-@node I contesti
+@node Contexts explained
 @subsection I contesti
-@translationof Contexts explained
 
 @cindex contesti, spiegazione dei
 
@@ -1519,13 +1506,12 @@ maiuscola: ad esempio, @code{GregorianTranscriptionStaff}.
 
 
 @morerefs
-Guida alla notazione: @rnotation{Tutto sui contesti}.
+Guida alla notazione: @rnotationnamed{Contexts explained, Tutto sui contesti}.
 @endmorerefs
 
 
-@node Creare i contesti
+@node Creating contexts
 @subsection Creare i contesti
-@translationof Creating contexts
 
 @funindex \new
 @cindex nuovi contesti
@@ -1563,7 +1549,7 @@ esplicitamente con @code{\new Score} è di inserire un blocco
 di contesto, predefiniti per tutto lo spartito..  Le informazioni su come
 usare i blocchi @code{\with} si trovano sotto il titolo
 @qq{Impostare le proprietà di contesto con @code{\\with}} in
-@ref{Modificare le proprietà di contesto}.)
+@ref{Modifying context properties}.)
 
 Nelle sezioni precedenti hai già visto molti esempi pratici della creazione
 di nuovi contesti @code{Staff} e @code{Voice}, ma per ricordarti
@@ -1637,17 +1623,16 @@ anche numeri e spazi, ma in questo caso deve essere compreso tra virgolette,
 ovvero @code{\new Staff = "MioPentagramma 1" @var{espressione-musicale}}.
 Il nome identificativo viene utilizzato per riportare a quel
 particolare esempio di un contesto.  Abbiamo visto questo utilizzo
-nella sezione sul testo, si veda @ref{Voci e musica vocale}.
+nella sezione sul testo, si veda @ref{Voices and vocals}.
 
 
 @morerefs
-Guida alla notazione: @rnotation{Creazione e citazione di un contesto}.
+Guida alla notazione: @rnotationnamed{Creating and referencing contexts, Creazione e citazione di un contesto}.
 @endmorerefs
 
 
-@node Gli incisori
+@node Engravers explained
 @subsection Gli incisori
-@translationof Engravers explained
 
 @cindex incisori
 
@@ -1731,9 +1716,8 @@ Guida al funzionamento interno: @rinternals{Engravers and Performers}.
 @endmorerefs
 
 
-@node Modificare le proprietà di contesto
+@node Modifying context properties
 @subsection Modificare le proprietà di contesto
-@translationof Modifying context properties
 
 @cindex contesto, proprietà del
 @cindex contesto, proprietà del, modificare
@@ -2030,8 +2014,8 @@ comandi @code{\set} incorporati nelle asserzioni musicali.
 
 @morerefs
 Guida alla notazione:
-@rnotation{Modifica delle impostazioni predefinite di un contesto},
-@rnotation{Il comando set}.
+@rnotationnamed{Changing context default settings, Modifica delle impostazioni predefinite di un contesto},
+@rnotationnamed{The set command, Il comando set}.
 
 Guida al funzionamento interno:
 @rinternals{Contexts},
@@ -2039,9 +2023,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Aggiungere e togliere gli incisori
+@node Adding and removing engravers
 @subsection Aggiungere e togliere gli incisori
-@translationof Adding and removing engravers
 
 @cindex incisori, aggiungere
 @cindex aggiungere gli incisori
@@ -2193,8 +2176,8 @@ per tutti i contesti di un particolare tipo includendo il comando
 @code{\set} in un blocco @code{\context} nello stesso modo.
 
 @morerefs
-Guida alla notazione: @rnotation{Modifica dei componenti aggiuntivi di un contesto},
-@rnotation{Modifica delle impostazioni predefinite di un contesto}.
+Guida alla notazione: @rnotationnamed{Modifying context plug-ins, Modifica dei componenti aggiuntivi di un contesto},
+@rnotationnamed{Changing context default settings, Modifica delle impostazioni predefinite di un contesto}.
 @endmorerefs
 
 @knownissues
@@ -2204,27 +2187,25 @@ le teste delle note non vengono prodotte e di conseguenza non vengono creati
 nemmeno i gambi né le travature.
 
 
-@node Estendere i modelli
+@node Extending the templates
 @section Estendere i modelli
-@translationof Extending the templates
 
 Hai letto il tutorial, sai come scrivere la musica, comprendi
 i concetti fondamentali.  Ma come puoi ottenere i
 pentagrammi che desideri?  Puoi trovare molti
-modelli (vedi @ref{Modelli}) da cui partire.
+modelli (vedi @ref{Templates}) da cui partire.
 Ma se ti serve qualcosa che non è presente lì?  Continua a leggere.
 
 @menu
-* Soprano e violoncello::
-* Partitura vocale a quattro parti SATB::
-* Scrivere una partitura da zero::
-* Ridurre l'input grazie a variabili e funzioni::
-* Partiture e parti::
+* Soprano and cello::
+* Four-part SATB vocal score::
+* Building a score from scratch::
+* Saving typing with variables and functions::
+* Scores and parts::
 @end menu
 
-@node Soprano e violoncello
+@node Soprano and cello
 @subsection Soprano e violoncello
-@translationof Soprano and cello
 
 @cindex modello, modificare
 @cindex modificare i modelli
@@ -2411,13 +2392,12 @@ musicaVioloncello = \relative {
 
 @morerefs
 I modelli da cui partire si trovano nell'appendice @q{Modelli},
-si veda @ref{Modelli per rigo singolo}.
+si veda @ref{Single staff templates}.
 @endmorerefs
 
 
-@node Partitura vocale a quattro parti SATB
+@node Four-part SATB vocal score
 @subsection Partitura vocale a quattro parti SATB
-@translationof Four-part SATB vocal score
 
 @cindex modelli, SATB
 @cindex SATB, modelli
@@ -2530,7 +2510,7 @@ lower = \relative {
 @end lilypond
 
 @warning{Questa struttura può essere ottenuta facilmente usando il modello
-integrato @code{satb.ly}, descritto in @ref{Modelli integrati}.  Ma per
+integrato @code{satb.ly}, descritto in @ref{Built-in templates}.  Ma per
 facilità d'uso tale modello nasconde deliberatamente la necessaria struttura
 dei contesti, dato che la fornisce automaticamente.  Dunque a scopo di
 apprendimento vediamo come costruire questa struttura da zero.  Potresti
@@ -2538,7 +2518,7 @@ aver bisogno di far ciò se il modello integrato non soddisfa le tue
 necessità.}
 
 Il modello @qq{copia e modifica} più simile a questa struttura
-è @ref{Partitura vocale SATB e automatica riduzione per pianoforte}, ma
+è @ref{SATB vocal score and automatic piano reduction}, ma
 abbiamo bisogno di modificare l'assetto e aggiungere
 un accompagnamento per pianoforte che non sia derivato automaticamente dalle
 parti vocali.  Le variabili che si riferiscono alla musica e alle parole per
@@ -2780,9 +2760,8 @@ lower = \relative {
 @end lilypond
 
 
-@node Scrivere una partitura da zero
+@node Building a score from scratch
 @subsection Scrivere una partitura da zero
-@translationof Building a score from scratch
 
 @cindex modello, scrivere il tuo
 @cindex esempio di scrittura di una partitura
@@ -2961,7 +2940,7 @@ L'allungabilità dei righi può essere controllata con la proprietà
 (gli oggetti grafici vengono comunemente chiamati @q{grob} nella documentazione
 di LilyPond)    -- non preoccuparti dei dettagli in questo momento; in seguito
 verrà fornita una spiegazione approfondita.  I curiosi possono dare
-un'occhiata a @rnotation{Panoramica sulla modifica delle proprietà}.
+un'occhiata a @rnotationnamed{Overview of modifying properties, Panoramica sulla modifica delle proprietà}.
 In questo caso, vogliamo modificare soltanto la sottoproprietà
 @code{stretchability}.  Se i valori non vengono cambiati si useranno quelli
 predefiniti.  Di nuovo, chi è curioso può trovare i valori predefiniti
@@ -3078,9 +3057,8 @@ Glossario musicale:
 @endmorerefs
 
 
-@node Ridurre l'input grazie a variabili e funzioni
+@node Saving typing with variables and functions
 @subsection Ridurre l'input grazie a variabili e funzioni
-@translationof Saving typing with variables and functions
 
 @cindex variabili
 @cindex variabili contenenti modifiche
@@ -3167,7 +3145,7 @@ violin = \relative @{
 
 Ricordi i @q{post-eventi}?  Articolazioni, diteggiature, qualsiasi cosa
 che deve essere aggiunta @emph{dopo} una nota (vedi
-@ref{Struttura dell'inserimento note}), spesso preceduta da un trattino o
+@ref{Structure of a note entry}), spesso preceduta da un trattino o
 da un modificatore della direzione.  In realtà anche questi eventi possono
 essere salvati in una variabile -- e in questo caso non c'è bisogno delle
 abituali parentesi graffe, dato che non si usano tra una nota e le sue
@@ -3221,16 +3199,15 @@ padText =
 
 L'uso di variabili è anche un buon modo per ridurre il lavoro quando
 la sintassi di input di LilyPond cambia (vedi
-@rprogram{Aggiornare i file con convert-ly}).  Se si ha un'unica
+@rprogramnamed{Updating files with convert-ly, Aggiornare i file con convert-ly}).  Se si ha un'unica
 definizione (come @code{\dolce}) per tutti i file di input
-(vedi @ref{Fogli di stile}), allora se la sintassi cambia bisogna
+(vedi @ref{Style sheets}), allora se la sintassi cambia bisogna
 aggiornare soltanto la singola definizione @code{\dolce},
 invece di dover modificare tutti i file @file{.ly}.
 
 
-@node Partiture e parti
+@node Scores and parts
 @subsection Partiture e parti
-@translationof Scores and parts
 
 Nella musica orchestrale, tutte le note vengono stampate due volte.  Una
 volta nella parte per i musicisti e una volta nella partitura completa
@@ -3353,11 +3330,11 @@ ovvero
 
 @morerefs
 Manuale di apprendimento:
-@ref{Organizzare i brani con le variabili}.
+@ref{Organizing pieces with variables}.
 
 Guida alla notazione:
-@rnotation{Trasposizione},
-@rnotation{Scrittura delle parti},
-@rnotation{Pause d'intero},
-@rnotation{Inclusione di file LilyPond}.
+@rnotationnamed{Transpose, Trasposizione},
+@rnotationnamed{Writing parts, Scrittura delle parti},
+@rnotationnamed{Full measure rests, Pause d'intero},
+@rnotationnamed{Including LilyPond files, Inclusione di file LilyPond}.
 @endmorerefs

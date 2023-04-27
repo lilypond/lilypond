@@ -45,19 +45,19 @@ Copyright @copyright{} 1999--2023 degli autori.
 
 @c Keep english titles of file not yet translated -- fb
 @menu
-* Notazione musicale::                      Notazione usata in quasi tutti i progetti.
-* Notazione specialistica::                 Notazione usata solo in contesti specifici.
-* Input e output::                          Informazioni generali su input e output.
-* Gestione dello spazio::                   Impaginazione della musica sul foglio.
-* Modifica delle impostazioni predefinite:: Aggiustamento dell'output.
+* Musical notation::                      Notazione usata in quasi tutti i progetti.
+* Specialist notation::                 Notazione usata solo in contesti specifici.
+* General input and output::                          Informazioni generali su input e output.
+* Spacing issues::                   Impaginazione della musica sul foglio.
+* Changing defaults:: Aggiustamento dell'output.
 
 Appendici
 
-* Tabelle del manuale della notazione::     Tabelle e diagrammi.
-* Schema riassuntivo::                      Sommario della sintassi di LilyPond.
+* Notation manual tables::     Tabelle e diagrammi.
+* Cheat sheet::                      Sommario della sintassi di LilyPond.
 * GNU Free Documentation License::          Licenza di questo documento.
-* Indice dei comandi di LilyPond::
-* Indice di LilyPond::
+* LilyPond command index::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -86,9 +86,8 @@ Appendici
 @include en/fdl.itexi
 
 
-@node Indice dei comandi di LilyPond
+@node LilyPond command index
 @appendix Indice dei comandi di LilyPond
-@translationof LilyPond command index
 
 Questo indice elenca tutti i comandi e le parole chiave di LilyPond
 con dei collegamenti alle sezioni del manuale che descrivono il
@@ -103,9 +102,8 @@ manuale in cui compaiono il comando o la parola.
 
 @printindex ky
 
-@node Indice di LilyPond
+@node LilyPond index
 @appendix Indice di LilyPond
-@translationof LilyPond index
 
 Oltre a tutti i comandi e le parole chiave di LilyPond, questo indice
 elenca i termini musicali e le espressioni che si riferiscono a ognuno di

@@ -12,9 +12,8 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
-@node Notazione per accordi
+@node Chord notation
 @section Notazione per accordi
-@translationof Chord notation
 
 @lilypondfile[quote]{snippets/chords-headword.ly}
 
@@ -24,15 +23,14 @@ Possono essere visualizzati anche i nomi degli accordi e la notazione del
 basso continuo.
 
 @menu
-* Modalità accordo::
-* Visualizzazione accordi::
-* Basso continuo::
+* Chord mode::
+* Displaying chords::
+* Figured bass::
 @end menu
 
 
-@node Modalità accordo
+@node Chord mode
 @subsection Modalità accordo
-@translationof Chord mode
 
 @cindex accordo
 
@@ -40,15 +38,14 @@ La modalità accordo serve a inserire accordi usando un indicatore della
 struttura dell'accordo invece delle altezze dell'accordo.
 
 @menu
-* Panoramica sulla modalità accordo::
-* Accordi comuni::
-* Accordi estesi e alterati::
-* Inversioni di accordo e voicing::
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
+* Chord inversions and specific voicings::
 @end menu
 
-@node Panoramica sulla modalità accordo
+@node Chord mode overview
 @unnumberedsubsubsec Panoramica sulla modalità accordo
-@translationof Chord mode overview
 
 @cindex nome di un accordo
 @cindex accordo, nome
@@ -56,13 +53,13 @@ struttura dell'accordo invece delle altezze dell'accordo.
 @cindex accordo, modalità per
 
 Gli accordi possono essere inseriti come musica simultanea, come è
-spiegato in @ref{Note in un accordo}.
+spiegato in @ref{Chorded notes}.
 
 Possono essere inseriti anche in @qq{modalità accordo}, ovvero una modalità
 di input che utilizza le strutture degli accordi nella tradizione musicale
 europea invece di altezze specifiche.  Ciò è più comodo per chi è abituato
 a utilizzare i nomi degli accordi per descriverli.  Maggiori informazioni
-sulle diverse modalità di input si trovano in @ref{Modalità di inserimento}.
+sulle diverse modalità di input si trovano in @ref{Input modes}.
 
 @lilypond[verbatim,quote,ragged-right]
 \chordmode { c1 g a g c }
@@ -92,8 +89,8 @@ Glossario musicale:
 @rglosnamed{chord,accordo}.
 
 Guida alla notazione:
-@ref{Note in un accordo},
-@ref{Modalità di inserimento}.
+@ref{Chorded notes},
+@ref{Input modes}.
 
 Frammenti:
 @rlsr{Chords}.
@@ -101,12 +98,11 @@ Frammenti:
 
 @knownissues
 Le scorciatoie predefinite per le articolazioni e gli ornamenti non possono
-essere usate sulle note in modalità accordo, vedi @ref{Articolazioni e abbellimenti}.
+essere usate sulle note in modalità accordo, vedi @ref{Articulations and ornamentations}.
 
 
-@node Accordi comuni
+@node Common chords
 @unnumberedsubsubsec Accordi comuni
-@translationof Common chords
 
 @cindex triade
 @cindex accordo di settima
@@ -145,7 +141,7 @@ triadi e accordi di settima.  Il settimo grado predefinito aggiunto agli
 accordi è una settima minore, che rende la settima dominante l'accordo di
 settima fondamentale.  Tutte le alterazioni sono relative alla settima
 dominante.  Una tabella più completa dell'uso dei modificatori si trova
-in @ref{Modificatori degli accordi comuni}.
+in @ref{Common chord modifiers}.
 
 @c @table @code
 @multitable @columnfractions .2 .4 .3
@@ -225,8 +221,8 @@ per creare una triade maggiore.
 
 @morerefs
 Guida alla notazione:
-@ref{Modificatori degli accordi comuni},
-@ref{Accordi estesi e alterati}.
+@ref{Common chord modifiers},
+@ref{Extended and altered chords}.
 
 Frammenti:
 @rlsr{Chords}.
@@ -238,12 +234,11 @@ sul grado più alto presente nell'accordo.  Gli accordi con più di un
 modificatore verranno analizzati senza produrre errori o avvisi, ma producono
 risultati imprevedibili.  Gli accordi che non si possono ottenere
 con un singolo modificatore devono essere alterati per altezze individuali,
-come è spiegato in @ref{Accordi estesi e alterati}.
+come è spiegato in @ref{Extended and altered chords}.
 
 
-@node Accordi estesi e alterati
+@node Extended and altered chords
 @unnumberedsubsubsec Accordi estesi e alterati
-@translationof Extended and altered chords
 
 @cindex accordo esteso
 @cindex accordo alterato
@@ -374,15 +369,15 @@ apparire due volte) usando la sintassi @code{/+}@var{altezza}.
 @end lilypond
 
 Le inversioni degli accordi automatiche e le voicing sono spiegate in
-@ref{Inversioni di accordo e voicing}.
+@ref{Chord inversions and specific voicings}.
 
 I modificatori degli accordi che possono essere usati per produrre i vari
-accordi standard sono elencati in @ref{Modificatori degli accordi comuni}.
+accordi standard sono elencati in @ref{Common chord modifiers}.
 
 @morerefs
 Guida alla notazione:
-@ref{Inversioni di accordo e voicing},
-@ref{Modificatori degli accordi comuni}.
+@ref{Chord inversions and specific voicings},
+@ref{Common chord modifiers}.
 
 Frammenti:
 @rlsr{Chords}.
@@ -397,9 +392,8 @@ per ultimo.
 \chordmode { c1:3.5.5-.5+ }
 @end lilypond
 
-@node Inversioni di accordo e voicing
+@node Chord inversions and specific voicings
 @unnumberedsubsubsec Inversioni di accordo e voicing
-@translationof Chord inversions and specific voicings
 
 @cindex accordo, inversione
 @cindex inversione di accordo
@@ -423,37 +417,35 @@ nella musica jazz.
 }
 @end lilypond
 
-Diversamente dalle note di basso aggiunte mostrate in @ref{Accordi estesi e alterati},
+Diversamente dalle note di basso aggiunte mostrate in @ref{Extended and altered chords},
 questo ha effetto solo sul modo in cui gli accordi appaiono sul rigo,
 e non sui nomi degli accordi scritti in lettere.  Inoltre queste funzioni
 possono essere usate non solo in modalità accordo ma anche coi costrutti
-per accordo @code{<...>} spiegati in @ref{Note in un accordo}.
+per accordo @code{<...>} spiegati in @ref{Chorded notes}.
 
 @morerefs
 Guida alla notazione:
-@ref{Accordi estesi e alterati},
-@ref{Note in un accordo}.
+@ref{Extended and altered chords},
+@ref{Chorded notes}.
 
 Frammenti:
 @rlsr{Chords}.
 @endmorerefs
 
 
-@node Visualizzazione accordi
+@node Displaying chords
 @subsection Visualizzazione accordi
-@translationof Displaying chords
 
 Gli accordi possono essere visualizzati per nome, oltre alla visualizzazione
 standard come note di un rigo.
 
 @menu
-* Stampa dei nomi degli accordi::
-* Personalizzazione dei nomi degli accordi::
+* Printing chord names::
+* Customizing chord names::
 @end menu
 
-@node Stampa dei nomi degli accordi
+@node Printing chord names
 @unnumberedsubsubsec Stampa dei nomi degli accordi
-@translationof Printing chord names
 
 @cindex stampa del nome di un accordo
 @cindex nome di un accordo
@@ -558,7 +550,7 @@ Glossario musicale:
 @rglosnamed{chord,accordo}.
 
 Guida alla notazione:
-@ref{Scrivere la musica in parallelo}.
+@ref{Writing music in parallel}.
 
 Frammenti:
 @rlsr{Chords}.
@@ -576,9 +568,8 @@ Gli accordi che contengono inversioni o note di basso alterate non avranno
 un nome corretto se inseriti usando la musica simultanea.
 
 
-@node Personalizzazione dei nomi degli accordi
+@node Customizing chord names
 @unnumberedsubsubsec Personalizzazione dei nomi degli accordi
-@translationof Customizing chord names
 
 @cindex personalizzazione del nome di un accordo
 @cindex accordo, nome, personalizzazione
@@ -594,11 +585,11 @@ accordi sono personalizzabili.
 @cindex nome alternativo di un accordo
 
 Il formato fondamentale dei nomi degli accordi è un sistema per la musica
-Jazz, proposto da Klaus Ignatzek (vedi @ressay{Bibliografia}).  (Si possono
+Jazz, proposto da Klaus Ignatzek (vedi @ressaynamed{Literature list, Bibliografia}).  (Si possono
 implementare altri sistemi per i nomi degli accordi attraverso funzioni
 Scheme, come illustrato nel frammento @qq{Chord names alternative} in
 @rlsr{Chords}.)
-Un elenco dei comuni accordi jazz si trova nel @ref{Grafico dei nomi degli accordi}.
+Un elenco dei comuni accordi jazz si trova nel @ref{Chord name chart}.
 
 @funindex \germanChords
 @funindex \semiGermanChords
@@ -806,11 +797,11 @@ porre uno spazio tra la fondamentale e il modificatore impostando
 
 @morerefs
 Guida alla notazione:
-@ref{Grafico dei nomi degli accordi},
-@ref{Modificatori degli accordi comuni}.
+@ref{Chord name chart},
+@ref{Common chord modifiers}.
 
 Saggio sull'incisione musicale automatizzata:
-@ressay{Bibliografia}.
+@ressaynamed{Literature list, Bibliografia}.
 
 File installati:
 @file{scm/chords-ignatzek-names.scm},
@@ -840,9 +831,8 @@ myChords = \relative c' {
 @end lilypond
 
 
-@node Basso continuo
+@node Figured bass
 @subsection Basso continuo
-@translationof Figured bass
 
 @c Indent hack because of instrument names
 @lilypondfile[quote,staffsize=18,indent=2\cm]{snippets/figured-bass-headword.ly}
@@ -850,14 +840,13 @@ myChords = \relative c' {
 La notazione del basso continuo è supportata.
 
 @menu
-* Introduzione al basso continuo::
-* Inserimento del basso continuo::
-* Visualizzazione del basso continuo::
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
 @end menu
 
-@node Introduzione al basso continuo
+@node Introduction to figured bass
 @unnumberedsubsubsec Introduzione al basso continuo
-@translationof Introduction to figured bass
 
 @cindex basso continuo
 @cindex basso numerato
@@ -913,13 +902,12 @@ Frammenti:
 @endmorerefs
 
 
-@node Inserimento del basso continuo
+@node Entering figured bass
 @unnumberedsubsubsec Inserimento del basso continuo
-@translationof Entering figured bass
 
 @code{\figuremode} permette di passare alla modalità di input per il basso
 continuo.  Maggiori informazioni sulle diverse modalità di input si trovano
-in @ref{Modalità di inserimento}.
+in @ref{Input modes}.
 
 In modalità basso continuo, un gruppo di numeri di basso è delimitato da
 @code{<} e @code{>}.  La durata si inserisce dopo il @code{>}.
@@ -1117,9 +1105,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Visualizzazione del basso continuo
+@node Displaying figured bass
 @unnumberedsubsubsec Visualizzazione del basso continuo
-@translationof Displaying figured bass
 
 Il basso continuo può essere visualizzato usando il contesto @code{FiguredBass}
 o la maggior parte dei contesti del rigo.

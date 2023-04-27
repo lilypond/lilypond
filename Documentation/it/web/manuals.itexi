@@ -7,13 +7,12 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@node Manuali
+@node Manuals
 @unnumbered Manuali
-@translationof Manuals
 
-@macro details{reference}
+@macro details{node, label}
 @spanClass{detail}
-(@ref{\reference\, dettagli di \reference\})
+(@ref{\node\, dettagli di \label\})
 @spanEnd
 @end macro
 
@@ -36,26 +35,26 @@
 @itemize
 
 @item
-@ref{Input testuale}:
+@ref{Text input}:
 LilyPond è un compositore tipografico musicale @strong{basato su testo}.  Leggi
 prima questo!
 
 @item
 @ifWebLinks{@manualStableLearningSplitNoName-it,@rlearningnamed{Top,Apprendimento}}
 un'introduzione a LilyPond leggera e @qq{imprescindibile}.
-@details{Apprendimento}
+@details{Learning, Apprendimento}
 
 @item
 @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossario}}
 @emph{(lettura opzionale)}
 termini musicali e traduzioni.
-@details{Glossario}
+@details{Glossary, Glossario}
 
 @item
 @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Saggio}}
 @emph{(lettura opzionale)}
 informazioni sull'incisione realizzata dal computer.
-@details{Saggio}
+@details{Essay, Saggio}
 
 
 @end itemize
@@ -69,15 +68,15 @@ informazioni sull'incisione realizzata dal computer.
 
 @item @ifWebLinks{@manualStableNotationSplitNoName-it,@rnotationnamed{Top,Notazione}}
 guida alla sintassi.
-@details{Notazione}
+@details{Notation, Notazione}
 
 @item @ifWebLinks{@manualStableUsageSplitNoName-it,@rprogramnamed{Top,Uso}}
 eseguire i programmi.
-@details{Uso}
+@details{Usage, Uso}
 
 @item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Frammenti}}
 brevi trucchi e consigli.
-@details{Frammenti}
+@details{Snippets, Frammenti}
 
 @end itemize
 
@@ -94,19 +93,19 @@ Domande frequenti (Frequently Asked Questions).
 
 @item @ref{Top, Web}:
 questo documento.
-@details{Web}
+@details{Web, Web}
 
 @item @ifWebLinks{@manualStableChangesSplitNoName-it,@rchangesnamed{Top,Cambiamenti}}
 cosa c'è di nuovo?
-@details{Cambiamenti}
+@details{Changes, Cambiamenti}
 
 @item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Estendere}}
 tweak interessanti.
-@details{Estendere}
+@details{Extending, Estendere}
 
 @item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funzionamento interno}}
 guida ai tweak.
-@details{Funzionamento interno}
+@details{Internals, Funzionamento interno}
 
 @end itemize
 
@@ -119,7 +118,7 @@ guida ai tweak.
 @itemize
 
 @item
-@ref{Tutti}:
+@ref{All}:
 versioni stabili precedenti e quella attuale in un archivio compresso.
 
 @item
@@ -141,7 +140,7 @@ linguaggio usato per programmare LilyPond.
 una risorsa esterna di documentazione su come estendere LilyPond in
 Scheme.
 
-@item @ref{Sviluppo}:
+@item @ref{Development}:
 manuali per la versione non stabile.
 
 @item @ref{FDL}:
@@ -171,18 +170,18 @@ Per vedere questi tre formati segui i collegamenti
 
 @divClass{hide}
 @menu
-* Apprendimento::             Apprendimento.
-* Glossario::                 Glossario.
-* Saggio::                    Saggio.
-* Notazione::                 Riferimento.
-* Uso::                       Utilizzo.
-* Frammenti::                 Frammenti di codice.
+* Learning::             Apprendimento.
+* Glossary::                 Glossario.
+* Essay::                    Saggio.
+* Notation::                 Riferimento.
+* Usage::                       Utilizzo.
+* Snippets::                 Frammenti di codice.
 * FAQ::                       FAQ.
 * Web::                       Web.
-* Cambiamenti::               Novità.
-* Estendere::                 Programmazione.
-* Funzionamento interno::     Funzionamento interno.
-* Tutti::                     Tutti i manuali.
+* Changes::               Novità.
+* Extending::                 Programmazione.
+* Internals::     Funzionamento interno.
+* All::                     Tutti i manuali.
 * FDL::                       Licenza.
 @end menu
 
@@ -193,9 +192,8 @@ Per vedere questi tre formati segui i collegamenti
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
 
-@node Apprendimento
+@node Learning
 @unnumberedsec Apprendimento
-@translationof Learning
 
 @divClass{column-left-top}
 @subheading Manuale di apprendimento
@@ -222,9 +220,8 @@ e seguire questi riferimenti incrociati per maggiori informazioni.
 @divEnd
 
 
-@node Glossario
+@node Glossary
 @unnumberedsec Glossario
-@translationof Glossary
 
 @divClass{column-left-top}
 @subheading Glossario
@@ -247,9 +244,8 @@ si raccomanda vivamente di consultare il glossario.
 @divEnd
 
 
-@node Saggio
+@node Essay
 @unnumberedsec Saggio
-@translationof Essay
 
 @divClass{column-left-top}
 @subheading Saggio
@@ -274,9 +270,8 @@ nella versione PDF a causa della sua maggiore risoluzione.}
 @divEnd
 
 
-@node Notazione
+@node Notation
 @unnumberedsec Notazione
-@translationof Notation
 
 @divClass{column-left-top}
 @subheading Guida alla Notazione
@@ -301,9 +296,8 @@ musicali inglesi presentati nel Glossario.}
 @divEnd
 
 
-@node Uso
+@node Usage
 @unnumberedsec Uso
-@translationof Usage
 
 @divClass{column-left-top}
 @subheading Manuale d'uso
@@ -326,9 +320,8 @@ intraprendere un progetto impegnativo.
 @divEnd
 
 
-@node Frammenti
+@node Snippets
 @unnumberedsec Frammenti
-@translationof Snippets
 
 @divClass{column-left-top}
 @subheading Frammenti
@@ -360,7 +353,6 @@ ha un collegamento alla lista dei relativi frammenti di codice.
 
 @node FAQ
 @unnumberedsec FAQ
-@translationof FAQ
 
 @divClass{column-center-top}
 @subheading Domande iniziali
@@ -368,12 +360,12 @@ ha un collegamento alla lista dei relativi frammenti di codice.
 @subsubheading Dove sono l'area di lavoro, i menu e la barra degli strumenti?
 
 Per usare LilyPond devi scrivere musica in formato testo.  Leggi cosa
-è il nostro @ref{Input testuale}.
+è il nostro @ref{Text input}.
 
 
 @subsubheading C'è un sacco di documentazione!  Devo leggerla?
 
-Devi leggere il @ref{Apprendimento, Manuale di Apprendimento}.  Per quanto
+Devi leggere il @ref{Learning, Manuale di Apprendimento}.  Per quanto
 riguarda il resto della documentazione, puoi leggere solo le sezioni
 sul tipo di notazione che vuoi creare.
 
@@ -381,7 +373,7 @@ sul tipo di notazione che vuoi creare.
 @subsubheading C'è ancora molto da leggere!  Ne vale la pena?
 
 Tocca a te decidere; le ragioni per cui potresti voler usare
-LilyPond sono esposte nell'@ref{Introduzione}.
+LilyPond sono esposte nell'@ref{Introduction}.
 
 @divEnd
 
@@ -390,19 +382,18 @@ LilyPond sono esposte nell'@ref{Introduzione}.
 
 @subsubheading Qualcosa non funziona!  Come posso risolvere?
 
-Questo viene spiegato in @rprogram{Risoluzione dei problemi}.
+Questo viene spiegato in @rprogramnamed{Troubleshooting, Risoluzione dei problemi}.
 
 
 @subsubheading Perché cambiate la sintassi?
 
-Questo viene spiegato in @rprogram{Perché la sintassi cambia?}.
+Questo viene spiegato in @rprogramnamed{Why does the syntax change?, Perché la sintassi cambia?}.
 
 @divEnd
 
 
 @node Web
 @unnumberedsec Web
-@translationof Web
 
 @divClass{column-left-top}
 @subheading Web
@@ -435,9 +426,8 @@ di bug e lo sviluppo.
 @divEnd
 
 
-@node Cambiamenti
+@node Changes
 @unnumberedsec Cambiamenti
-@translationof Changes
 
 @divClass{column-left-top}
 @subheading Cambiamenti
@@ -458,9 +448,8 @@ funzionalità di LilyPond rispetto alla versione stabile precedente.
 @divEnd
 
 
-@node Estendere
+@node Extending
 @unnumberedsec Estendere
-@translationof Extending
 
 @divClass{column-left-top}
 @subheading Estendere LilyPond
@@ -481,9 +470,8 @@ funzionalità di LilyPond.
 @divEnd
 
 
-@node Funzionamento interno
+@node Internals
 @unnumberedsec Funzionamento interno
-@translationof Internals
 
 @divClass{column-left-top}
 @subheading Guida al Funzionamento interno
@@ -514,9 +502,8 @@ che si riferisce alla documentazione generata.
 @divEnd
 
 
-@node Tutti
+@node All
 @unnumberedsec Tutti
-@translationof All
 
 @divClass{column-left-top}
 @subheading Versioni scaricabili
@@ -591,14 +578,13 @@ Documentazione di LilyPond 1.6}
 
 @node FDL
 @unnumberedsec FDL
-@translationof FDL
 
 @divClass{column-center-top}
 @subheading Licenza della Documentazione
 
 La documentazione per GNU LilyPond è pubblicata secondo la GNU Free
 Documentation License.  Un'introduzione a questa licenza, e le ragioni
-per cui l'abbiamo scelta, è disponibile in @ref{Libertà}.
+per cui l'abbiamo scelta, è disponibile in @ref{Freedom}.
 
 @divEnd
 

@@ -10,9 +10,8 @@
 
 @c \version "2.23.10"
 
-@node Installazione
+@node Installing
 @chapter Installazione
-@translationof Installing
 
 Questo amichevole tutorial ti guida passo dopo passo all'installazione
 di LilyPond e alla creazione di una prima partitura musicale.
@@ -24,26 +23,25 @@ pensati specificamente per LilyPond, rendendo il lavoro di editing
 molto comodo.  Dovendo fare una scelta, in questo tutorial si userà
 @uref{https://frescobaldi.org,Frescobaldi}, che al momento è l'editor
 più utilizzato.  Sono tuttavia disponibili molte altre opzioni,
-elencate in @rweb{Editing facilitato}.
+elencate in @rwebnamed{Easier editing, Editing facilitato}.
 
 Scegli il tutorial che rispecchia i tuoi bisogni.  (Se non sai
 cos'è la @qq{linea di comando}, scegli l'installazione grafica!)
 
 @menu
-* Installazione grafica in GNU/Linux::
-* Installazione grafica in Windows::
-* Installazione grafica in macOS::
-* Installazione da linea di comando::
+* Graphical setup under GNU/Linux::
+* Graphical setup under Windows::
+* Graphical setup under macOS::
+* Command line setup::
 @end menu
 
-@node Installazione grafica in GNU/Linux
+@node Graphical setup under GNU/Linux
 @section Installazione grafica in GNU/Linux
-@translationof Graphical setup under GNU/Linux
 
 Queste istruzioni funzionano nell'ambiente desktop GNOME, ad esempio
 nelle versioni predefinite di Ubuntu e Fedora.  In altri ambienti
 desktop possono essere facilmente adattate.  Per distribuzioni
-GNU/Linux più minimaliste, @pxref{Installazione da linea di comando}.
+GNU/Linux più minimaliste, @pxref{Command line setup}.
 
 Per prima cosa, trova l'applicazione GNOME Software.
 
@@ -115,9 +113,8 @@ LilyPond installate.
 Ora passa a @ref{Tutorial} per saperne di più sulla sintassi di LilyPond.
 
 
-@node Installazione grafica in Windows
+@node Graphical setup under Windows
 @section Installazione grafica in Windows
-@translationof Graphical setup under Windows
 
 Scarica LilyPond per Windows da @rweb{Download}.  Il file è un
 archivio ZIP chiamato
@@ -191,9 +188,8 @@ LilyPond!  Ora prosegui col @ref{Tutorial} per saperne di più
 sulla sintassi di LilyPond.
 
 
-@node Installazione grafica in macOS
+@node Graphical setup under macOS
 @section Installazione grafica in macOS
-@translationof Graphical setup under macOS
 
 Scarica LilyPond per macOS da @rweb{Download}.  Il file sarà
 un archivio chiamato
@@ -286,9 +282,8 @@ sulla sintassi di LilyPond.
 
 
 
-@node Installazione da linea di comando
+@node Command line setup
 @section Installazione da linea di comando
-@translationof Command line setup
 
 Su molte distribuzioni GNU/Linux, LilyPond può essere installato
 dal gestore pacchetti.  È anche il caso di macOS se si usa
@@ -322,5 +317,5 @@ Produrrà questo output in @file{file.pdf}:
 @end lilypond
 
 Ora prosegui col @ref{Tutorial} per saperne di più sulla sintassi
-di LilyPond oppure leggi @rprogram{Uso da linea di comando} per
+di LilyPond oppure leggi @rprogramnamed{Command-line usage, Uso da linea di comando} per
 maggiori informazioni sull'esecuzione di LilyPond da linea di comando.

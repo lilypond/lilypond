@@ -12,9 +12,8 @@
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
 
-@node Ripetizioni
+@node Repeats
 @section Ripetizioni
-@translationof Repeats
 
 @lilypondfile[quote]{snippets/repeats-headword.ly}
 
@@ -47,13 +46,12 @@ Si usa per scrivere travature a tremolo.
 
 
 @menu
-* Ripetizioni lunghe::
-* Ripetizioni brevi::
+* Long repeats::
+* Short repeats::
 @end menu
 
-@node Ripetizioni lunghe
+@node Long repeats
 @subsection Ripetizioni lunghe
-@translationof Long repeats
 
 Questa sezione spiega come inserire ripetizioni lunghe (solitamente
 di più battute).  Tali ripetizioni possono essere in due forme: racchiuse
@@ -62,9 +60,9 @@ a scrivere musica ripetitiva).  Si possono anche controllare
 manualmente i segni di ripetizione.
 
 @menu
-* Ripetizioni normali::
-* Indicazioni di ripetizione manuali::
-* Ripetizioni ricopiate::
+* Normal repeats::
+* Manual repeat marks::
+* Written-out repeats::
 @end menu
 
 @cindex volta
@@ -79,9 +77,8 @@ manualmente i segni di ripetizione.
 @funindex \alternative
 @funindex \partial
 
-@node Ripetizioni normali
+@node Normal repeats
 @unnumberedsubsubsec Ripetizioni normali
-@translationof Normal repeats
 
 La sintassi per una normale ripetizione è
 
@@ -178,7 +175,7 @@ altrimenti non si otterrà il numero atteso di finali.}
 @warning{Se si usa @code{@bs{}relative} dentro a un blocco
 @code{@bs{}repeat} senza istanziare esplicitamente il
 contesto @code{Voice}, appare un rigo in più (non desiderato).  Vedi
-@rprogram{Appare un rigo in più}.}
+@rprogramnamed{An extra staff appears, Appare un rigo in più}.}
 
 @cindex ripetizione, con anacrusi
 @cindex anacrusi, in una ripetizione
@@ -314,7 +311,7 @@ contesto Score le proprietà @code{segnoBarType}, @code{startRepeatSegnoBarType}
 @code{endRepeatSegnoBarType} o @code{doubleRepeatSegnoBarType} per il tipo di
 stanghetta richiesto.  I tipi di stanghetta alternativi devono essere
 selezionati dai tipi predefiniti o dai tipi precedentemente definiti col
-comando @code{\defineBarLine} (vedi @ref{Stanghette}).
+comando @code{\defineBarLine} (vedi @ref{Bar lines}).
 
 @lilypond[verbatim,quote]
 \defineBarLine ":|.S[" #'(":|." "S[" "")
@@ -362,10 +359,10 @@ Glossario Musicale:
 @rglos{volta}.
 
 Guida alla notazione:
-@ref{Stanghette},
-@ref{Modifica dei componenti aggiuntivi di un contesto},
-@ref{Modifica di legature di valore e di portamento},
-@ref{Gestione del tempo}.
+@ref{Bar lines},
+@ref{Modifying context plug-ins},
+@ref{Modifying ties and slurs},
+@ref{Time administration}.
 
 File installati:
 @file{ly/engraver-init.ly}.
@@ -402,7 +399,7 @@ del blocco dell'alternativa, sebbene questo metodo non funzioni
 in @code{TabStaff}.  Altri metodi che si possono adattare per indicare
 legature di portamento che continuano su varie note dei blocchi di
 alternativa, e che funzionano anche nei contesti @code{TabStaff},
-sono presentati in @ref{Modifica di legature di valore e di portamento}.
+sono presentati in @ref{Modifying ties and slurs}.
 
 Inoltre le legature di portamento non possono ricollegarsi dalla fine di
 un'alternativa all'inizio della ripetizione.
@@ -437,9 +434,8 @@ interno.  Per chiarezza, si consiglia di usare le parentesi in queste
 situazioni.
 
 
-@node Indicazioni di ripetizione manuali
+@node Manual repeat marks
 @unnumberedsubsubsec Indicazioni di ripetizione manuali
-@translationof Manual repeat marks
 
 @cindex indicazione manuale di ripetizione
 @cindex ripetizione, manuale
@@ -458,7 +454,7 @@ situazioni.
 inusuali, e potrebbero causare un comportamento inaspettato.  Nella
 maggior parte dei casi, le ripetizioni devono essere create col
 comando standard @code{@bs{}repeat} oppure stampando le stanghette
-opportune.  Maggiori informazioni in @ref{Stanghette}.}
+opportune.  Maggiori informazioni in @ref{Bar lines}.}
 
 La proprietà @code{repeatCommands} permette di controllare la formattazione
 delle ripetizioni.  Il suo valore è una lista Scheme dei comandi di ripetizione.
@@ -525,7 +521,7 @@ Comandi di ripetizione multipli possono trovarsi nello stesso punto:
 @cindex testo, nella parentesi della volta
 
 Si può includere del testo nella parentesi della volta.  Il testo può consistere di
-un numero, di più numeri o di un'indicazione testuale, si veda @ref{Formattazione del testo}.  Il
+un numero, di più numeri o di un'indicazione testuale, si veda @ref{Formatting text}.  Il
 modo più  semplice per usare del testo è definirlo prima e poi includerlo
 nella lista Scheme,
 
@@ -545,8 +541,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 @morerefs
 Guida alla notazione:
-@ref{Stanghette},
-@ref{Formattazione del testo}.
+@ref{Bar lines},
+@ref{Formatting text}.
 
 Frammenti:
 @rlsr{Repeats}.
@@ -558,9 +554,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Ripetizioni ricopiate
+@node Written-out repeats
 @unnumberedsubsubsec Ripetizioni ricopiate
-@translationof Written-out repeats
 
 @cindex ripetizione ricopiata
 @cindex ricopiate, ripetizioni
@@ -667,15 +662,15 @@ senza finali alternativi).
 @end lilypond
 
 Gli accordi si ripetono col simbolo di ripetizione dell'accordo
-@code{q}.  Vedi @ref{Ripetizione di un accordo}.
+@code{q}.  Vedi @ref{Chord repetition}.
 
 @warning{Se si usa @code{@bs{}relative} dentro a un blocco @code{@bs{}repeat}
 senza istanziare esplicitamente il contesto @code{Voice}, appare un rigo
-in  più (non desiderato).  Vedi @rprogram{Appare un rigo in più}.}
+in  più (non desiderato).  Vedi @rprogramnamed{An extra staff appears, Appare un rigo in più}.}
 
 @morerefs
 Guida alla notazione:
-@ref{Ripetizione di un accordo}.
+@ref{Chord repetition}.
 
 Frammenti:
 @rlsr{Repeats}.
@@ -686,9 +681,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Ripetizioni brevi
+@node Short repeats
 @subsection Ripetizioni brevi
-@translationof Short repeats
 
 Questa sezione tratta il modo in cui inserire brevi ripetizioni.  Le ripetizioni
 brevi possono avere due forme: segni di tratto obliquo o percentuale per rappresentare le
@@ -696,13 +690,12 @@ ripetizioni di una singola nota, di una singola misura o di due misure; tremolo
 negli altri casi.
 
 @menu
-* Ripetizioni con percentuale::
-* Ripetizioni con tremolo::
+* Percent repeats::
+* Tremolo repeats::
 @end menu
 
-@node Ripetizioni con percentuale
+@node Percent repeats
 @unnumberedsubsubsec Ripetizioni con percentuale
-@translationof Percent repeats
 
 @cindex ripetizione con percentuale
 @cindex percentuale, ripetizione
@@ -827,9 +820,8 @@ per esempio su una traccia di tempo separata.
 @end lilypond
 
 
-@node Ripetizioni con tremolo
+@node Tremolo repeats
 @unnumberedsubsubsec Ripetizioni con tremolo
-@translationof Tremolo repeats
 
 @cindex travatura del tremolo
 @cindex tremolo

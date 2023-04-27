@@ -12,9 +12,8 @@
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
 
-@node Note simultanee
+@node Simultaneous notes
 @section Note simultanee
-@translationof Simultaneous notes
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
@@ -23,29 +22,27 @@ brano musicale. In LilyPond la polifonia si riferisce alla coesistenza di
 più voci sullo stesso rigo.
 
 @menu
-* Una voce::
-* Più voci::
+* Single voice::
+* Multiple voices::
 @end menu
 
 
-@node Una voce
+@node Single voice
 @subsection Una voce
-@translationof Single voice
 
 In questa sezione vengono spiegate le note simultanee che fanno parte di
 un'unica voce.
 
 @menu
-* Note in un accordo::
-* Ripetizione di un accordo::
-* Espressioni simultanee::
-* Cluster::
+* Chorded notes::
+* Chord repetition::
+* Simultaneous expressions::
+* Clusters::
 @end menu
 
 
-@node Note in un accordo
+@node Chorded notes
 @unnumberedsubsubsec Note in un accordo
-@translationof Chorded notes
 
 @cindex accordo
 @cindex parentesi uncinata (o angolare)
@@ -107,7 +104,7 @@ e altri elementi.  Di conseguenza, un accordo privo di note non ha una
 durata.  Qualsiasi articolazione attaccata a un accordo vuoto si troverà
 nel momento musicale della nota o accordo seguenti e si combinerà con
 questi (possibilità più complesse di combinazione sono spiegate in
-@ref{Espressioni simultanee}):
+@ref{Simultaneous expressions}):
 
 @lilypond[verbatim,quote]
 \relative {
@@ -132,20 +129,20 @@ dell'accordo sono relative alla nota che le precede @emph{all'interno dell'accor
 }
 @end lilypond
 
-Maggiori informazioni sugli accordi si trovano in @ref{Notazione per accordi}.
+Maggiori informazioni sugli accordi si trovano in @ref{Chord notation}.
 
 @morerefs
 Glossario Musicale:
 @rglosnamed{chord,accordo}.
 
 Manuale d'apprendimento:
-@rlearning{Combinare le note negli accordi}.
+@rlearningnamed{Combining notes into chords, Combinare le note negli accordi}.
 
 Guida alla notazione:
-@ref{Notazione per accordi},
-@ref{Articolazioni e abbellimenti},
-@ref{Ottava relativa},
-@ref{Più voci}.
+@ref{Chord notation},
+@ref{Articulations and ornamentations},
+@ref{Relative octave entry},
+@ref{Multiple voices}.
 
 Frammenti:
 @rlsr{Simultaneous notes}.
@@ -159,7 +156,7 @@ A seconda della situazione, si può migliorare l'aspetto con
 @itemize
 
 @item
-l'uso temporaneo di @ref{Più voci},
+l'uso temporaneo di @ref{Multiple voices},
 @samp{<< f! \\ <e fis!> >>},
 
 @item
@@ -167,14 +164,13 @@ la trascrizione enarmonica di una o più altezze,
 @samp{<e f ges>}, oppure
 
 @item
-i @ref{Cluster}.
+i @ref{Clusters}.
 
 @end itemize
 
 
-@node Ripetizione di un accordo
+@node Chord repetition
 @unnumberedsubsubsec Ripetizione di un accordo
-@translationof Chord repetition
 
 @cindex accordo, ripetizione
 @cindex ripetizione, uso di @code{q}
@@ -265,17 +261,16 @@ stati già elaborati.
 
 @morerefs
 Guida alla notazione:
-@ref{Notazione per accordi},
-@ref{Articolazioni e abbellimenti}.
+@ref{Chord notation},
+@ref{Articulations and ornamentations}.
 
 File installati:
 @file{ly/chord-repetition-init.ly}.
 @endmorerefs
 
 
-@node Espressioni simultanee
+@node Simultaneous expressions
 @unnumberedsubsubsec Espressioni simultanee
-@translationof Simultaneous expressions
 
 Una o più espressioni musicali racchiuse tra due coppie di parentesi uncinate sono
 considerate simultanee.  Se la prima espressione inizia con una nota
@@ -346,12 +341,11 @@ apparirà durante la compilazione del file.  Si può evitare con:
 
 Tuttavia, questo comando non si limita a eliminare l'avvertimento, ma impedisce qualsiasi
 risoluzione delle collisioni, e potrebbe comportare altri effetti indesiderati
-(vedi anche i @emph{Problemi noti} in @ref{Risoluzione delle collisioni}).
+(vedi anche i @emph{Problemi noti} in @ref{Collision resolution}).
 
 
-@node Cluster
+@node Clusters
 @unnumberedsubsubsec Cluster
-@translationof Clusters
 
 @cindex cluster
 @cindex cluster di note
@@ -395,25 +389,23 @@ definiscono.  Più cluster distinti devono essere separati da una pausa.
 I cluster non generano output MIDI.
 
 
-@node Più voci
+@node Multiple voices
 @subsection Più voci
-@translationof Multiple voices
 
 Questa sezione presenta le note simultanee in più voci o più righi.
 
 @menu
-* Polifonia su un solo rigo::
-* Stili di voce::
-* Risoluzione delle collisioni::
-* Accorpare le pause::
-* Combinazione automatica delle parti::
-* Scrivere la musica in parallelo::
+* Single-staff polyphony::
+* Voice styles::
+* Collision resolution::
+* Merging rests::
+* Automatic part combining::
+* Writing music in parallel::
 @end menu
 
 
-@node Polifonia su un solo rigo
+@node Single-staff polyphony
 @unnumberedsubsubsec Polifonia su un solo rigo
-@translationof Single-staff polyphony
 
 @cindex polifonia su un rigo singolo
 @cindex voce
@@ -537,8 +529,8 @@ i gambi in su.  Si usano le pause spaziatrici per evitare il raddoppio delle pau
 @end lilypond
 
 In tutti i brani, a eccezione di quelli più semplici, è consigliabile creare contesti
-@code{Voice} espliciti come è spiegato in @rlearning{Contesti e incisori} e
-@rlearning{Definire esplicitamente le voci}.
+@code{Voice} espliciti come è spiegato in @rlearningnamed{Contexts and engravers, Contesti e incisori} e
+@rlearningnamed{Explicitly instantiating voices, Definire esplicitamente le voci}.
 
 @subsubsubheading Ordine delle voci
 
@@ -631,22 +623,21 @@ non hanno lo stesso ritmo.
 
 @morerefs
 Manuale d'apprendimento:
-@rlearning{Le voci contengono la musica},
-@rlearning{Definire esplicitamente le voci}.
+@rlearningnamed{Voices contain music, Le voci contengono la musica},
+@rlearningnamed{Explicitly instantiating voices, Definire esplicitamente le voci}.
 
 Guida alla notazione:
-@ref{Righi delle percussioni},
-@ref{Pause invisibili},
-@ref{Gambi}.
+@ref{Percussion staves},
+@ref{Invisible rests},
+@ref{Stems}.
 
 Frammenti:
 @rlsr{Simultaneous notes}.
 @endmorerefs
 
 
-@node Stili di voce
+@node Voice styles
 @unnumberedsubsubsec Stili di voce
-@translationof Voice styles
 
 @cindex stile di voce
 @cindex voce, stile di
@@ -686,17 +677,16 @@ predefinito.
 
 @morerefs
 Manuale d'apprendimento:
-@rlearning{Sento le Voci},
-@rlearning{Altre fonti di informazione}.
+@rlearningnamed{I'm hearing Voices, Sento le Voci},
+@rlearningnamed{Other sources of information, Altre fonti di informazione}.
 
 Frammenti:
 @rlsr{Simultaneous notes}.
 @endmorerefs
 
 
-@node Risoluzione delle collisioni
+@node Collision resolution
 @unnumberedsubsubsec Risoluzione delle collisioni
-@translationof Collision resolution
 
 @cindex unire le note
 @cindex collisione di note
@@ -871,7 +861,7 @@ voci del rigo!}
 Due ulteriori comandi, @code{\shiftOnn} e @code{\shiftOnnn},
 mettono a disposizione altri livelli di spostamento che possono
 essere specificati in modo temporaneo per risolvere delle collisioni
-in situazioni complesse --  vedi @rlearning{Esempio musicale}.
+in situazioni complesse --  vedi @rlearningnamed{Real music example, Esempio musicale}.
 
 Le note vengono unite solo se presentano opposta direzione dei gambi (come
 accade, ad esempio, nella prima o seconda voce o quando i gambi sono
@@ -912,9 +902,9 @@ Glossario Musicale:
 @rglosnamed{polyphony,polifonia}.
 
 Manuale d'apprendimento:
-@rlearning{Note simultanee},
-@rlearning{Le voci contengono la musica},
-@rlearning{Esempio musicale}.
+@rlearningnamed{Multiple notes at once, Note simultanee},
+@rlearningnamed{Voices contain music, Le voci contengono la musica},
+@rlearningnamed{Real music example, Esempio musicale}.
 
 Frammenti:
 @rlsr{Simultaneous notes}.
@@ -947,9 +937,8 @@ are at the same time differently dotted are not clear.
 @end ignore
 
 
-@node Accorpare le pause
+@node Merging rests
 @unnumberedsubsubsec Accorpare le pause
-@translationof Merging rests
 
 In caso di voci multiple, di solito si accorpano le pause che capitano in
 entrambe. Per farlo si usa l'incisore @code{Merge_rests_engraver}.
@@ -982,9 +971,8 @@ Impostando la proprietà di contesto @code{suspendRestMerging} su @code{##t} è
 possibile disattivare temporaneamente l'accorpamento delle pause.
 
 
-@node Combinazione automatica delle parti
+@node Automatic part combining
 @unnumberedsubsubsec Combinazione automatica delle parti
-@translationof Automatic part combining
 
 @cindex combinazione automatica delle parti
 @cindex combinatore delle parti
@@ -1170,7 +1158,7 @@ Il comando @code{\partCombine} non è progettato per funzionare col
 testo vocale; al punto che se una delle voci è nominata in modo
 esplicito per poterle assegnare del testo, l'unione delle parti
 smette di funzionare.  Tuttavia, questo risultato si può ottenere
-usando un contesto @code{NullVoice}.  Vedi @ref{Polifonia con testo in comune}.
+usando un contesto @code{NullVoice}.  Vedi @ref{Polyphony with shared lyrics}.
 
 
 @snippets
@@ -1189,7 +1177,7 @@ Glossario Musicale:
 @rglosnamed{part,parte}.
 
 Guida alla notazione:
-@ref{Scrittura delle parti}.
+@ref{Writing parts}.
 
 Frammenti:
 @rlsr{Simultaneous notes}.
@@ -1228,14 +1216,13 @@ voci, internamente, nomi personalizzati: rispettivamente @code{one} e
 @code{Voice} nominato diversamente, gli eventi in quel contesto verranno
 ignorati.
 
-Consultare i @emph{Problemi noti e avvertimenti} in @ref{Intavolature predefinite}
+Consultare i @emph{Problemi noti e avvertimenti} in @ref{Default tablatures}
 se si usa @code{\partCombine} con l'intavolatura, e la @emph{Nota} in
-@ref{Travature automatiche} se si usa la disposizione automatica delle travature.
+@ref{Automatic beams} se si usa la disposizione automatica delle travature.
 
 
-@node Scrivere la musica in parallelo
+@node Writing music in parallel
 @unnumberedsubsubsec Scrivere la musica in parallelo
-@translationof Writing music in parallel
 
 @cindex scrivere la musica in parallelo
 @cindex musica parallela
@@ -1344,7 +1331,7 @@ global = {
 
 @morerefs
 Manuale d'apprendimento:
-@rlearning{Organizzare i brani con le variabili}.
+@rlearningnamed{Organizing pieces with variables, Organizzare i brani con le variabili}.
 
 Frammenti:
 @rlsr{Simultaneous notes}.

@@ -46,10 +46,10 @@ Copyright @copyright{} 2002--2023 degli autori.
 @ifnottex
 
 @menu
-* Incisione musicale::
-* Bibliografia::
+* Music engraving::
+* Literature list::
 * GNU Free Documentation License:: Licenza di questo documento.
-* Indice di LilyPond::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -67,9 +67,8 @@ Copyright @copyright{} 2002--2023 degli autori.
 
 @include en/fdl.itexi
 
-@node Indice di LilyPond
+@node LilyPond index
 @appendix Indice di LilyPond
-@translationof LilyPond index
 
 @printindex cp
 

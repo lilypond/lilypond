@@ -13,9 +13,8 @@
 @c Translators: Tommaso Gordini
 @c Translation checkers: Federico Bruni
 
-@node Incisione musicale
+@node Music engraving
 @chapter Incisione musicale
-@translationof Music engraving
 
 In questo saggio spieghiamo le ragioni per cui LilyPond è stato creato e
 come fa a produrre spartiti così belli.
@@ -26,17 +25,16 @@ come fa a produrre spartiti così belli.
 @c check formatting of HTML output
 
 @menu
-* Storia di LilyPond::
-* Incisione in dettaglio::
-* Incisione automatizzata::
-* Costruzione del software::
-* Mettere LilyPond al lavoro::
-* Esempi di incisione (BWV 861)::
+* The LilyPond story::
+* Engraving details::
+* Automated engraving::
+* Building software::
+* Putting LilyPond to work::
+* Engraved examples (BWV 861)::
 @end menu
 
-@node Storia di LilyPond
+@node The LilyPond story
 @section Storia di LilyPond
-@translationof The LilyPond story
 
 Molto tempo prima che LilyPond venisse adoperato per incidere gradevoli
 spartiti da leggere nelle esecuzioni, prima che ci si potessero creare
@@ -143,9 +141,8 @@ Henle no. 666, @copyright{}2000:
 @page
 @end iftex
 
-@node Incisione in dettaglio
+@node Engraving details
 @section Incisione in dettaglio
-@translationof Engraving details
 
 @cindex incisione
 @cindex tipografia, musica
@@ -205,16 +202,15 @@ da imitare con LilyPond.
 @c appaiono blandi, meccanici, il che li rende sgradevoli da usare.
 
 @menu
-* Font musicali::
-* Spaziatura ottica::
-* Tagli addizionali::
-* Dimensionamento ottico::
-* Perché lavorare così duramente?::
+* Music fonts::
+* Optical spacing::
+* Ledger lines::
+* Optical sizing::
+* Why work so hard?::
 @end menu
 
-@node Font musicali
+@node Music fonts
 @unnumberedsubsec Font musicali
-@translationof Music fonts
 
 Le immagini qui sotto mostrano alcune differenze tra un'incisione
 tradizionale e un tipico spartito prodotto dal computer.  L'immagine a
@@ -305,9 +301,8 @@ diesis e bequadro si distinguono meglio da lontano perché le loro linee
 angolate presentano una pendenza diversa e i tratti verticali sono più
 grossi.
 
-@node Spaziatura ottica
+@node Optical spacing
 @unnumberedsubsec Spaziatura ottica
-@translationof Optical spacing
 
 Nella spaziatura della musica, la distribuzione dello spazio dovrebbe
 rispecchiare le durate fra le note.  Tuttavia, come abbiamo visto prima nella
@@ -395,9 +390,8 @@ correttamente spaziato è stato allontanato ulteriormente dalla
 stanghetta finale per evitare troppe linee verticali vicine nella parte finale della
 misura.  Un gambo in giù, invece, non avrebbe richiesto quest'accortezza.
 
-@node Tagli addizionali
+@node Ledger lines
 @unnumberedsubsec Tagli addizionali
-@translationof Ledger lines
 
 @cindex tagli addizionali
 @cindex collisioni
@@ -433,9 +427,8 @@ incluso anche questa funzionalità.
 @end multitable
 
 
-@node Dimensionamento ottico
+@node Optical sizing
 @unnumberedsubsec Dimensionamento ottico
-@translationof Optical sizing
 
 Potrebbe essere necessario stampare la musica in una varietà di
 formati diversi.  All'inizio, questo si poteva ottenere creando punzoni
@@ -528,9 +521,8 @@ global = {
 @end lilypond
 
 
-@node Perché lavorare così duramente?
+@node Why work so hard?
 @unnumberedsubsec Perché lavorare così duramente?
-@translationof Why work so hard?
 
 Di solito, i musicisti sono presi più dall'eseguire la musica
 che dall'esaminarla così come appare sulla pagina, perciò i dettagli
@@ -565,9 +557,8 @@ sintonizzato i nostri algoritmi, i disegni dei font e le
 impostazioni del programma per produrre stampe corrispondenti alla
 qualità delle vecchie edizioni che amiamo osservare e suonare.
 
-@node Incisione automatizzata
+@node Automated engraving
 @section Incisione automatizzata
-@translationof Automated engraving
 
 @cindex incisione, automatizzata
 @cindex incisione automatizzata
@@ -578,14 +569,13 @@ buona formattazione al computer e numerosi confronti dettagliati con
 incisioni effettivamente esistenti.
 
 @menu
-* Concorsi di bellezza::
-* Miglioramento per analisi comparativa::
-* Mettere le cose a posto::
+* Beauty contests::
+* Improvement by benchmarking::
+* Getting things right::
 @end menu
 
-@node Concorsi di bellezza
+@node Beauty contests
 @unnumberedsubsec Concorsi di bellezza
-@translationof Beauty contests
 
 In che modo noi decidiamo veramente sulla formattazione?  In
 altre parole: quale delle tre configurazioni seguenti dovremmo
@@ -671,9 +661,8 @@ delle legature di valore e dei punti negli accordi, nelle interruzioni
 di rigo e di pagina.  Si può giudicare la bontà di queste decisioni
 confrontandole con incisioni effettivamente esistenti.
 
-@node Miglioramento per analisi comparativa
+@node Improvement by benchmarking
 @unnumberedsubsec Miglioramento per analisi comparativa
-@translationof Improvement by benchmarking
 
 Gli spartiti generati da LilyPond sono migliorati gradualmente nel tempo e
 continuano a migliorare grazie al confronto con quelli incisi a mano.
@@ -764,9 +753,8 @@ riferimento e quello prodotto con la versione corrente di LilyPond
 Non è certo un clone dell'edizione di riferimento, ma è comunque molto
 più vicino a una qualità editoriale rispetto alla versione precedente.
 
-@node Mettere le cose a posto
+@node Getting things right
 @unnumberedsubsec Mettere le cose a posto
-@translationof Getting things right
 
 Siamo in grado di misurare l'abilità di LilyPond nel prendere decisioni
 sull'incisione della musica anche confrontando il suo prodotto con
@@ -960,23 +948,21 @@ di operazioni, così da rendere le sovrascritture manuali sempre meno
 indispensabili.  Dove queste si rivelassero indispensabili, la struttura di
 LilyPond è stata progettata avendo in mente la flessibilità.
 
-@node Costruzione del software
+@node Building software
 @section Costruzione del software
-@translationof Building software
 
 Questa sezione descrive alcune decisioni di programmazione prese
 durante la progettazione di LilyPond.
 
 @menu
-* Rappresentazione della musica::
-* Quali simboli incidere?::
-* Architettura flessibile::
+* Music representation::
+* What symbols to engrave?::
+* Flexible architecture::
 @end menu
 
 
-@node Rappresentazione della musica
+@node Music representation
 @unnumberedsubsec Rappresentazione della musica
-@translationof Music representation
 
 @cindex sintassi
 @cindex strutture ricorsive
@@ -1158,9 +1144,8 @@ riprodurlo, proprio perché costruiti con una struttura a scatole
 annidate.  Con LilyPond, d'altronde, abbiamo cercato di mantenere
 formato di input e struttura il più possibile flessibili.
 
-@node Quali simboli incidere?
+@node What symbols to engrave?
 @unnumberedsubsec Quali simboli incidere?
-@translationof What symbols to engrave?
 
 @cindex incisione
 @cindex tipografia
@@ -1367,9 +1352,8 @@ Internals Reference:
 @rinternalsnamed{Contexts, Contesti}.
 @endmorerefs
 
-@node Architettura flessibile
+@node Flexible architecture
 @unnumberedsubsec Architettura flessibile
-@translationof Flexible architecture
 
 Quando abbiamo cominciato, abbiamo scritto LilyPond
 interamente nel linguaggio di programmazione C++, scolpendo nella pietra
@@ -1508,9 +1492,8 @@ simbolo della testa di nota è cambiata nel corso del frammento.
 }
 @end lilypond
 
-@node Mettere LilyPond al lavoro
+@node Putting LilyPond to work
 @section Mettere LilyPond al lavoro
-@translationof Putting LilyPond to work
 
 @cindex esempi semplici
 @cindex esempi, semplice
@@ -1637,9 +1620,8 @@ completa e per il programma in sé, visitate il nostro sito Internet
 ufficiale: www.lilypond.org.
 
 @page
-@node Esempi di incisione (BWV 861)
+@node Engraved examples (BWV 861)
 @section Esempi di incisione (BWV 861)
-@translationof Engraved examples (BWV 861)
 
 Questa sezione contiene quattro incisioni di riferimento e due versioni
 generate al computer delle ultime sette misure della Fuga in Sol minore

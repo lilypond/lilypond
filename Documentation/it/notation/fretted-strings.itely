@@ -12,9 +12,8 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
-@node Strumenti a corde con tasti
+@node Fretted string instruments
 @section Strumenti a corde con tasti
-@translationof Fretted string instruments
 
 @lilypondfile[quote]{snippets/fretted-headword.ly}
 
@@ -33,33 +32,31 @@ esclusivamente gli strumenti a corde con tasti.
 @cindex banjo, intavolatura
 
 @menu
-* Notazione comune per strumenti a corde con tasti::
-* Chitarra::
+* Common notation for fretted strings::
+* Guitar::
 * Banjo::
-* Liuto::
+* Lute::
 @end menu
 
-@node Notazione comune per strumenti a corde con tasti
+@node Common notation for fretted strings
 @subsection Notazione comune per strumenti a corde con tasti
-@translationof Common notation for fretted strings
 
 Questa sezione presenta la notazione comune che riguarda esclusivamente gli
 strumenti a corde con tasti.
 
 @menu
-* Riferimenti per strumenti a corde con tasti::
-* Indicazioni di numero di corda::
-* Intavolature predefinite::
-* Intavolature personalizzate::
-* Diagrammi dei tasti::
-* Diagrammi dei tasti predefiniti::
-* Diagrammi dei tasti automatici::
-* Diteggiature della mano destra::
+* References for fretted strings::
+* String number indications::
+* Default tablatures::
+* Custom tablatures::
+* Fret diagram markups::
+* Predefined fret diagrams::
+* Automatic fret diagrams::
+* Right-hand fingerings::
 @end menu
 
-@node Riferimenti per strumenti a corde con tasti
+@node References for fretted strings
 @unnumberedsubsubsec Riferimenti per strumenti a corde con tasti
-@translationof References for fretted strings
 
 La musica per strumenti a corde con tasti viene normalmente scritta
 su un rigo singolo, o nella notazione musicale tradizionale o in
@@ -75,37 +72,36 @@ trattati altrove:
 
 @itemize
 @item Le diteggiature vengono indicate come spiegato in
-@ref{Indicazioni di diteggiatura}.
+@ref{Fingering instructions}.
 
 @item Istruzioni per le legature di valore @notation{Laissez vibrer}
 così come per le legature di valore su arpeggi e tremoli si trovano
-in @ref{Legature di valore}.
+in @ref{Ties}.
 
 @item Istruzioni su come gestire voci multiple si trovano
-in @ref{Risoluzione delle collisioni}.
+in @ref{Collision resolution}.
 
 @item Istruzioni per indicare gli armonici si trovano in
-@ref{Armonici}.
+@ref{Harmonics}.
 
 @end itemize
 
 @morerefs
 Guida alla notazione:
-@ref{Indicazioni di diteggiatura},
-@ref{Legature di valore},
-@ref{Risoluzione delle collisioni},
-@ref{Nomi degli strumenti},
-@ref{Scrivere la musica in parallelo},
+@ref{Fingering instructions},
+@ref{Ties},
+@ref{Collision resolution},
+@ref{Instrument names},
+@ref{Writing music in parallel},
 @ref{Arpeggio},
-@ref{Elenco delle articolazioni},
-@ref{Chiave},
-@ref{Trasporto strumentale}.
+@ref{List of articulations},
+@ref{Clef},
+@ref{Instrument transpositions}.
 @endmorerefs
 
 
-@node Indicazioni di numero di corda
+@node String number indications
 @unnumberedsubsubsec Indicazioni di numero di corda
-@translationof String number indications
 
 @cindex numero di corda
 @cindex corda, numero di
@@ -159,7 +155,7 @@ g1\4
 La maggior parte dei comportamenti relativi alle indicazioni di numero
 di corda (oggetto @code{StringNumber}), incluso il loro posizionamento,
 possono essere impostati nello stesso modo valido per le diteggiature:
-vedi @ref{Indicazioni di diteggiatura}.
+vedi @ref{Fingering instructions}.
 
 @predefined
 @code{\arabicStringNumbers},
@@ -168,7 +164,7 @@ vedi @ref{Indicazioni di diteggiatura}.
 
 @morerefs
 Guida alla notazione:
-@ref{Indicazioni di diteggiatura}.
+@ref{Fingering instructions}.
 
 Frammenti:
 @rlsr{Fretted strings}.
@@ -179,9 +175,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Intavolature predefinite
+@node Default tablatures
 @unnumberedsubsubsec Intavolature predefinite
-@translationof Default tablatures
 
 @cindex tablatura, base
 @cindex tablatura, predefinita
@@ -316,7 +311,7 @@ problemi.  Converrà quindi eseguire il comando
 \chordRepeats #'(string-number-event fingering-event)
 @end example
 esplicitamente sulle espressioni musicali dell'intavolatura che usano
-la @ref{Ripetizione di un accordo}.  Questo comando è così comune che è
+la @ref{Chord repetition}.  Questo comando è così comune che è
 disponibile come @code{\tabChordRepeats}.
 
 @lilypond[quote,verbatim]
@@ -751,11 +746,11 @@ bends-with-ties-and-skips = {
 
 @morerefs
 Guida alla notazione:
-@ref{Ripetizione di un accordo},
+@ref{Chord repetition},
 @ref{Glissando},
-@ref{Armonici},
-@ref{Gambi},
-@ref{Ripetizioni ricopiate}.
+@ref{Harmonics},
+@ref{Stems},
+@ref{Written-out repeats}.
 
 Frammenti:
 @rlsr{Fretted strings}.
@@ -792,9 +787,8 @@ Gli effetti speciali per chitarra sono limitati ad armonici e
 slide (glissati).
 
 
-@node Intavolature personalizzate
+@node Custom tablatures
 @unnumberedsubsubsec Intavolature personalizzate
-@translationof Custom tablatures
 
 @cindex intavolatura personalizzata
 @cindex tablatura personalizzata
@@ -874,7 +868,7 @@ Si può definire qualsiasi accordatura tramite la funzione
 Prende come argomento un accordo che definisce le altezze
 di ciascuna corda dell'accordatura.  Le note dell'accordo
 sono in modalità di ottava assoluta, vedi
-@ref{Ottava assoluta}.  La corda col numero più
+@ref{Absolute octave entry}.  La corda col numero più
 alto (generalmente la corda più grave) deve apparire
 per prima nell'accordo.  Per esempio, possiamo definire
 un'accordatura per uno strumento a quattro corde con
@@ -903,7 +897,7 @@ La proprietà @code{stringTunings} viene utilizzata anche da
 @code{FretBoards} per calcolare i diagrammi automatici dei tasti.
 
 Le accordature vengono usate per calcolare i diagrammi dei tasti
-predefiniti (vedi @ref{Diagrammi dei tasti predefiniti}).
+predefiniti (vedi @ref{Predefined fret diagrams}).
 
 L'esempio precedente può essere scritto anche così:
 
@@ -1022,8 +1016,8 @@ mus = \relative {
 
 @morerefs
 Guida alla notazione:
-@ref{Ottava assoluta},
-@ref{Diagrammi dei tasti predefiniti}.
+@ref{Absolute octave entry},
+@ref{Predefined fret diagrams}.
 
 File installati:
 @file{ly/string-tunings-init.ly},
@@ -1043,9 +1037,8 @@ nella maggior parte dei casi per strumenti (come l'ukulele) in cui
 le altezze delle corde non variano in modo uniforme col numero di corda.
 
 
-@node Diagrammi dei tasti
+@node Fret diagram markups
 @unnumberedsubsubsec Diagrammi dei tasti
-@translationof Fret diagram markups
 
 @cindex diagramma dei tasti
 @cindex diagramma degli accordi
@@ -1476,9 +1469,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Diagrammi dei tasti predefiniti
+@node Predefined fret diagrams
 @unnumberedsubsubsec Diagrammi dei tasti predefiniti
-@translationof Predefined fret diagrams
 
 @cindex diagramma dei tasti
 @cindex diagramma dei tasti, ukulele
@@ -1546,7 +1538,7 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 @end lilypond
 
 Le altezze degli accordi possono essere inserite sia come musica simultanea
-sia usando la modalità per accordi (vedi @ref{Panoramica sulla modalità accordo}).
+sia usando la modalità per accordi (vedi @ref{Chord mode overview}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1616,9 +1608,9 @@ maggiore, settima minore, nona dominante) per ognuna delle 17 tonalità.
 La tabella dei diagrammi dei tasti per ukulele contiene questi accordi più
 ulteriori tre accordi (sesta maggiore, seconda sospesa e quarta sospesa).
 Un elenco completo dei diagrammi dei tasti predefiniti si trova in
-@ref{Diagrammi degli accordi predefiniti}.  Se nella tabella non esiste una voce
+@ref{Predefined fretboard diagrams}.  Se nella tabella non esiste una voce
 per un accordo, l'incisore FretBoards calcolerà un diagramma usando la
-funzionalità automatica descritta in @ref{Diagrammi dei tasti automatici}.
+funzionalità automatica descritta in @ref{Automatic fret diagrams}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1775,10 +1767,10 @@ le proprietà dell'interfaccia appartengono a @code{FretBoards.FretBoard}.
 
 @morerefs
 Guida alla notazione:
-@ref{Intavolature personalizzate},
-@ref{Diagrammi dei tasti automatici},
-@ref{Panoramica sulla modalità accordo},
-@ref{Diagrammi degli accordi predefiniti}.
+@ref{Custom tablatures},
+@ref{Automatic fret diagrams},
+@ref{Chord mode overview},
+@ref{Predefined fretboard diagrams}.
 
 File installati:
 @file{ly/predefined-guitar-fretboards.ly}, @*
@@ -1794,9 +1786,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Diagrammi dei tasti automatici
+@node Automatic fret diagrams
 @unnumberedsubsubsec Diagrammi dei tasti automatici
-@translationof Automatic fret diagrams
 
 @cindex diagramma dei tasti, automatico
 @cindex diagramma degli accordi, automatico
@@ -1924,7 +1915,7 @@ FretBoard si può impostare con la proprietà @code{minimumFret}.
 
 Le corde e i tasti per il contesto @code{FretBoards} dipendono dalla proprietà
 @code{stringTunings}, che funziona proprio come nel contesto TabStaff.
-Si rimanda a @ref{Intavolature personalizzate} per informazioni sulla
+Si rimanda a @ref{Custom tablatures} per informazioni sulla
 proprietà @code{stringTunings}.
 
 L'aspetto grafico di un diagramma dei tasti può essere personalizzato secondo
@@ -1942,7 +1933,7 @@ le proprie preferenze tramite le proprietà dell'interfaccia
 
 @morerefs
 Guida alla notazione:
-@ref{Intavolature personalizzate}.
+@ref{Custom tablatures}.
 
 Frammenti:
 @rlsr{Fretted strings}.
@@ -1956,9 +1947,8 @@ I calcoli automatici dei tasti non funzionano correttamente per gli strumenti
 con accordature non monotoniche.
 
 
-@node Diteggiature della mano destra
+@node Right-hand fingerings
 @unnumberedsubsubsec Diteggiature della mano destra
-@translationof Right-hand fingerings
 
 @cindex strumento a tasti, diteggiatura della mano destra
 @cindex diteggiatura, mano destra, per strumento a tasti
@@ -1992,7 +1982,7 @@ RH = \rightHandFinger \etc
 
 La maggior parte dei comportamenti delle diteggiature della mano destra (oggetto
 @code{StrokeFinger}) si impostano nello stesso modo delle normali diteggiature:
-vedi @ref{Indicazioni di diteggiatura}.
+vedi @ref{Fingering instructions}.
 
 @snippets
 
@@ -2008,7 +1998,7 @@ vedi @ref{Indicazioni di diteggiatura}.
 
 @morerefs
 Guida alla notazione:
-@ref{Indicazioni di diteggiatura}.
+@ref{Fingering instructions}.
 
 Frammenti:
 @rlsr{Fretted strings}.
@@ -2018,9 +2008,8 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Chitarra
+@node Guitar
 @subsection Chitarra
-@translationof Guitar
 
 La maggior parte delle questioni relative alla musica per chitarra sono
 trattate nella sezione generale sugli strumenti a corde con tasti, ma
@@ -2033,14 +2022,13 @@ sono un programma di videoscrittura, un editor di testo oppure, per
 utenti esperti, un compositore tipografico come GuitarTeX.
 
 @menu
-* Indicazione di posizione e barre::
-* Indicazione di armonici e note smorzate::
-* Indicazione di power chord::
+* Indicating position and barring::
+* Indicating harmonics and dampened notes::
+* Indicating power chords::
 @end menu
 
-@node Indicazione di posizione e barre
+@node Indicating position and barring
 @unnumberedsubsubsec Indicazione di posizione e barré
-@translationof Indicating position and barring
 
 @cindex indicare la posizione e il barré per uno strumento con tasti
 @cindex strumento con tasti, indicare la posizione e il barré
@@ -2062,7 +2050,7 @@ indicazioni di barré.
 
 @morerefs
 Guida alla notazione:
-@ref{Estensori del testo}.
+@ref{Text spanners}.
 
 Frammenti:
 @rlsr{Fretted strings},
@@ -2070,9 +2058,8 @@ Frammenti:
 @endmorerefs
 
 
-@node Indicazione di armonici e note smorzate
+@node Indicating harmonics and dampened notes
 @unnumberedsubsubsec Indicazione di armonici e note smorzate
-@translationof Indicating harmonics and dampened notes
 
 @cindex tasto, strumento con, nota smorzata
 @cindex tasto, strumento con, armonici
@@ -2145,14 +2132,13 @@ Frammenti:
 @rlsr{Fretted strings}.
 
 Guida alla notazione:
-@ref{Teste di nota speciali},
-@ref{Stili delle teste di nota}.
+@ref{Special note heads},
+@ref{Note head styles}.
 @endmorerefs
 
 
-@node Indicazione di power chord
+@node Indicating power chords
 @unnumberedsubsubsec Indicazione di power chord
-@translationof Indicating power chords
 
 @cindex power chord
 @cindex accordo, power chord
@@ -2198,8 +2184,8 @@ Glossario musicale:
 @rglos{power chord}.
 
 Guida alla notazione:
-@ref{Accordi estesi e alterati},
-@ref{Stampa dei nomi degli accordi}.
+@ref{Extended and altered chords},
+@ref{Printing chord names}.
 
 Frammenti:
 @rlsr{Fretted strings}.
@@ -2208,15 +2194,13 @@ Frammenti:
 
 @node Banjo
 @subsection Banjo
-@translationof Banjo
 
 @menu
-* Intavolature per banjo::
+* Banjo tablatures::
 @end menu
 
-@node Intavolature per banjo
+@node Banjo tablatures
 @unnumberedsubsubsec Intavolature per banjo
-@translationof Banjo tablatures
 
 @cindex tablatura per banjo
 @cindex intavolatura per banjo
@@ -2280,17 +2264,15 @@ Frammenti:
 @endmorerefs
 
 
-@node Liuto
+@node Lute
 @subsection Liuto
-@translationof Lute
 
 @menu
-* Intavolature per liuto::
+* Lute tablatures::
 @end menu
 
-@node Intavolature per liuto
+@node Lute tablatures
 @unnumberedsubsubsec Intavolature per liuto
-@translationof Lute tablatures
 
 @cindex intavolatura per liuto
 @cindex tablatura per liuto

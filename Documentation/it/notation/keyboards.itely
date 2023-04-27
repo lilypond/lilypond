@@ -12,9 +12,8 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
-@node Tastiera e altri strumenti multirigo
+@node Keyboard and other multi-staff instruments
 @section Tastiera e altri strumenti multirigo
-@translationof Keyboard and other multi-staff instruments
 
 @lilypondfile[quote]{snippets/keyboard-headword.ly}
 
@@ -25,29 +24,27 @@ sezione, questo gruppo di strumenti multirigo viene chiamato @qq{tastiere}
 per brevità, anche se alcuni di questi strumenti non hanno una tastiera.
 
 @menu
-* Notazione comune per tastiere::
-* Pianoforte::
-* Fisarmonica::
-* Arpa::
+* Common notation for keyboards::
+* Piano::
+* Accordion::
+* Harp::
 @end menu
 
-@node Notazione comune per tastiere
+@node Common notation for keyboards
 @subsection Notazione comune per tastiere
-@translationof Common notation for keyboards
 
 Questa sezione tratta le questioni di notazione che riguardano la maggior
 parte degli strumenti a tastiera.
 
 @menu
-* Riferimenti per tastiere::
-* Modifica manuale del rigo::
-* Modifica automatica del rigo::
-* Linee del cambio rigo::
+* References for keyboards::
+* Changing staff manually::
+* Changing staff automatically::
+* Staff-change lines::
 @end menu
 
-@node Riferimenti per tastiere
+@node References for keyboards
 @unnumberedsubsubsec Riferimenti per tastiere
-@translationof References for keyboards
 
 @cindex rigo del pianoforte
 @cindex pianoforte, rigo
@@ -79,55 +76,55 @@ Varie questioni comuni della musica per tastiera sono discusse altrove:
 
 @item La musica per tastiera contiene solitamente varie voci, il cui
 numero può cambiare regolarmente, come è descritto in
-@ref{Risoluzione delle collisioni}.
+@ref{Collision resolution}.
 
 @item La musica per tastiera può essere scritta in parallelo, come è
-descritto in @ref{Scrivere la musica in parallelo}.
+descritto in @ref{Writing music in parallel}.
 
 @item Le dinamiche possono essere poste in un contesto @code{Dynamics},
 tra i due contesti @code{Staff}, per allineare le indicazioni dinamiche
-su una linea orizzontale centrata tra i righi; vedi @ref{Dinamiche}.
+su una linea orizzontale centrata tra i righi; vedi @ref{Dynamics}.
 
-@item Le diteggiature sono indicate con @ref{Indicazioni di diteggiatura}.
+@item Le diteggiature sono indicate con @ref{Fingering instructions}.
 
 @item Le indicazioni per i pedali dell'organo sono inserite come
-articolazioni, vedi @ref{Elenco delle articolazioni}.
+articolazioni, vedi @ref{List of articulations}.
 
-@item Le linee della griglia verticali possono essere mostrate con  le @ref{Linee della griglia}.
+@item Le linee della griglia verticali possono essere mostrate con  le @ref{Grid lines}.
 
 @item La musica per tastiera contiene spesso legature di valore
 @notation{Laissez vibrer} così come legature di valore su arpeggi
-e tremoli, descritti in @ref{Legature di valore}.
+e tremoli, descritti in @ref{Ties}.
 
 @item Il posizionamento di arpeggi attraverso molteplici voci e righi è
 trattato in @ref{Arpeggio}.
 
-@item I segni di tremolo sono descritti in @ref{Ripetizioni con tremolo}.
+@item I segni di tremolo sono descritti in @ref{Tremolo repeats}.
 
 @item Varie modifiche manuali che possono rendersi necessarie nella musica
-per tastiera sono illustrati in @rlearning{Esempio musicale}.
+per tastiera sono illustrati in @rlearningnamed{Real music example, Esempio musicale}.
 
 @item Si possono usare le note nascoste per produrre delle legature di valore
-che attraversano le voci, come mostrato in @rlearning{Altri usi delle modifiche con tweak}.
+che attraversano le voci, come mostrato in @rlearningnamed{Other uses for tweaks, Altri usi delle modifiche con tweak}.
 
 @end itemize
 
 @morerefs
 Manuale di apprendimento:
-@rlearning{Esempio musicale},
-@rlearning{Altri usi delle modifiche con tweak}.
+@rlearningnamed{Real music example, Esempio musicale},
+@rlearningnamed{Other uses for tweaks, Altri usi delle modifiche con tweak}.
 
 Guida alla notazione:
-@ref{Raggruppare i righi},
-@ref{Nomi degli strumenti},
-@ref{Risoluzione delle collisioni},
-@ref{Scrivere la musica in parallelo},
-@ref{Indicazioni di diteggiatura},
-@ref{Elenco delle articolazioni},
-@ref{Linee della griglia},
-@ref{Legature di valore},
+@ref{Grouping staves},
+@ref{Instrument names},
+@ref{Collision resolution},
+@ref{Writing music in parallel},
+@ref{Fingering instructions},
+@ref{List of articulations},
+@ref{Grid lines},
+@ref{Ties},
 @ref{Arpeggio},
-@ref{Ripetizioni con tremolo}.
+@ref{Tremolo repeats}.
 
 Guida al funzionamento interno:
 @rinternals{PianoStaff}.
@@ -137,9 +134,8 @@ Frammenti:
 @endmorerefs
 
 
-@node Modifica manuale del rigo
+@node Changing staff manually
 @unnumberedsubsubsec Modifica manuale del rigo
-@translationof Changing staff manually
 
 @cindex cambiare manualmente il rigo
 @cindex modifica manuale del rigo
@@ -169,9 +165,9 @@ e @code{"MS"} (mano sinistra).
 
 Il rigo a cui viene passata la voce deve esistere nel momento dello
 scambio.  Se necessario, i righi devono essere @qq{conservati},
-vedi @ref{Conservazione di un contesto}, o istanziati esplicitamente,
+vedi @ref{Keeping contexts alive}, o istanziati esplicitamente,
 per esempio usando l'accordo vuoto, @code{<>}, vedi
-@ref{Note in un accordo}.
+@ref{Chorded notes}.
 
 @lilypond[verbatim, quote]
 \new PianoStaff <<
@@ -215,7 +211,7 @@ Se la disposizione delle travature deve essere modificata, modificare prima
 le direzioni dei gambi.  Le posizioni delle travature vengono quindi misurate
 dal centro del rigo che è più vicino alla travatura.  Un semplice esempio
 di modifica manuale della travatura è descritto in
-@rlearning{Correggere elementi della notazione sovrapposti}.
+@rlearningnamed{Fixing overlapping notation, Correggere elementi della notazione sovrapposti}.
 
 @cindex collisione trasversale ai righi
 @cindex collisione, voci trasversali ai righi
@@ -253,16 +249,16 @@ per travature, legature di portamento e altri estensori che collegano note
 di righi diversi, così come per gambi e articolazioni se il loro posizionamento
 è influenzato da un estensore trasversale ai righi.
 Le collisioni risultanti devono essere risolte manualmente, laddove necessario,
-usando i metodi descritti in @rlearning{Correggere elementi della notazione sovrapposti}.
+usando i metodi descritti in @rlearningnamed{Fixing overlapping notation, Correggere elementi della notazione sovrapposti}.
 
 @morerefs
 Manuale di apprendimento:
-@rlearning{Correggere elementi della notazione sovrapposti}.
+@rlearningnamed{Fixing overlapping notation, Correggere elementi della notazione sovrapposti}.
 
 Guida alla notazione:
-@ref{Gambi},
-@ref{Travature automatiche},
-@ref{Conservazione di un contesto}.
+@ref{Stems},
+@ref{Automatic beams},
+@ref{Keeping contexts alive}.
 
 Frammenti:
 @rlsr{Keyboards}.
@@ -278,9 +274,8 @@ automatiche che terminano appena prima di un cambio di rigo.  In questo
 caso occorre usare le travature manuali.
 
 
-@node Modifica automatica del rigo
+@node Changing staff automatically
 @unnumberedsubsubsec Modifica automatica del rigo
-@translationof Changing staff automatically
 
 @cindex modifica automatica del rigo
 @cindex cambio automatico di rigo
@@ -367,7 +362,7 @@ un'armatura di chiave nel rigo inferiore:
 
 @morerefs
 Guida alla notazione:
-@ref{Modifica manuale del rigo}.
+@ref{Changing staff manually}.
 
 Frammenti:
 @rlsr{Keyboards}.
@@ -388,9 +383,8 @@ Gli accordi non vengono divisi tra i righi; vengono assegnati a un
 rigo in base alla prima nota nominata nel costrutto dell'accordo.
 
 
-@node Linee del cambio rigo
+@node Staff-change lines
 @unnumberedsubsubsec Linee del cambio rigo
-@translationof Staff-change lines
 
 @cindex linea del cambio rigo
 @cindex linea trasversale ai righi
@@ -498,20 +492,18 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Pianoforte
+@node Piano
 @subsection Pianoforte
-@translationof Piano
 
 Questa sezione tratta le questioni di notazione che hanno a che fare
 più direttamente col pianoforte.
 
 @menu
-* Pedali del pianoforte::
+* Piano pedals::
 @end menu
 
-@node Pedali del pianoforte
+@node Piano pedals
 @unnumberedsubsubsec Pedali del pianoforte
-@translationof Piano pedals
 
 @cindex pedale del pianoforte
 @cindex pianoforte, pedale
@@ -590,7 +582,7 @@ che le allinea su una linea orizzontale.
 
 @morerefs
 Guida alla notazione:
-@ref{Legature di valore}.
+@ref{Ties}.
 
 Frammenti:
 @rlsr{Keyboards}.
@@ -610,21 +602,19 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
-@node Fisarmonica
+@node Accordion
 @subsection Fisarmonica
-@translationof Accordion
 
 @cindex fisarmonica
 
 Questa sezione tratta la notazione specifica della fisarmonica.
 
 @menu
-* Simboli di discanto::
+* Discant symbols::
 @end menu
 
-@node Simboli di discanto
+@node Discant symbols
 @unnumberedsubsubsec Simboli di discanto
-@translationof Discant symbols
 
 @cindex fisarmonica, simbolo di discanto
 @cindex discanto, simbolo, fisarmonica
@@ -653,20 +643,18 @@ Frammenti:
 @endmorerefs
 
 
-@node Arpa
+@node Harp
 @subsection Arpa
-@translationof Harp
 
 Questa sezione tratta le questioni di notazione specifiche dell'arpa.
 
 @menu
-* Riferimenti per arpe::
-* Pedali dell'arpa::
+* References for harps::
+* Harp pedals::
 @end menu
 
-@node Riferimenti per arpe
+@node References for harps
 @unnumberedsubsubsec Riferimenti per arpe
-@translationof References for harps
 
 @cindex arpa
 @cindex bisbiglando
@@ -680,9 +668,9 @@ trattate altrove:
 @ref{Glissando}.
 
 @item Un @notation{bisbigliando} è scritto come un tremolo, vedi
-@ref{Ripetizioni con tremolo}.
+@ref{Tremolo repeats}.
 
-@item Gli armonici naturali sono trattati in @ref{Armonici}.
+@item Gli armonici naturali sono trattati in @ref{Harmonics}.
 
 @item Per arpeggi direzionali e non-arpeggi, vedere @ref{Arpeggio}.
 
@@ -690,16 +678,15 @@ trattate altrove:
 
 @morerefs
 Guida alla notazione:
-@ref{Ripetizioni con tremolo},
+@ref{Tremolo repeats},
 @ref{Glissando},
 @ref{Arpeggio},
-@ref{Armonici}.
+@ref{Harmonics}.
 @endmorerefs
 
 
-@node Pedali dell'arpa
+@node Harp pedals
 @unnumberedsubsubsec Pedali dell'arpa
-@translationof Harp pedals
 
 @cindex pedale dell'arpa
 @cindex diagramma del pedale dell'arpa
@@ -739,7 +726,7 @@ pedale.
 
 @morerefs
 Guida alla notazione:
-@ref{Scritte},
+@ref{Text scripts},
 @c Questo nodo porta a una sezione dell'appendice che è generata dai
 @c sorgenti durante la compilazione, dunque non può essere tradotto.
 @ref{Instrument-specific markup}.
