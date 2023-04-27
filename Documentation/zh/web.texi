@@ -121,7 +121,7 @@ LilyPond (荷花池) 是一个音乐雕版软件，致力产生最高质量的�
 
 
 @divClass{align-right}
-更多内容，请见@ref{简介}！
+更多内容，请见@ref{Introduction}！
 
 @divEnd
 @divEnd
@@ -209,10 +209,10 @@ LilyPond (荷花池) 是一个音乐雕版软件，致力产生最高质量的�
 
 @divClass{hide}
 @menu
-* 简介::        从这开始创建乐谱。
+* Introduction::        从这开始创建乐谱。
 * Download::        获得 LilyPond。
-* 手册::        阅读完整的手册（RTFM）。
-* 社区::        和其他用户联络。
+* Manuals::        阅读完整的手册（RTFM）。
+* Community::        和其他用户联络。
 @end menu
 @divEnd
 
@@ -303,7 +303,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @divClass{heading-center}
 @divClass{contactBox}
-如果您知道有其他可以在这里列出的\topic\，请按照@ref{错误报告}页面上的指示，让我们知道。谢谢！
+如果您知道有其他可以在这里列出的\topic\，请按照@ref{Bug reports}页面上的指示，让我们知道。谢谢！
 
 @divEnd
 @divEnd
@@ -315,7 +315,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @macro contactUsAbout{topic}
 @cartouche
 如果您知道有其他可以在这里列出的\topic\，
-请按照@ref{错误报告}页面上的指示，让我们知道。谢谢！
+请按照@ref{Bug reports}页面上的指示，让我们知道。谢谢！
 
 @end cartouche
 

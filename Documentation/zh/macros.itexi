@@ -145,7 +145,6 @@ This document has been placed in the public domain.
 @ifnottex
 @node Top
 @top LilyPond --- \TITLE\
-@translationof Top
 
 @cartouche
 @manualIntro{}

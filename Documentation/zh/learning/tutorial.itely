@@ -14,22 +14,20 @@
 
 @c \version "2.19.21"
 
-@node 教程
+@node Tutorial
 @chapter 教程
-@translationof Tutorial
 
 这一章是使用 LilyPond 的基本介绍.
 
 @menu
-* 编译文件::
-* 如何写输入文件::
-* 处理报错::
-* 如何阅读教程::
+* Compiling a file::
+* How to write input files::
+* Dealing with errors::
+* How to read the manuals::
 @end menu
 
-@node 编译文件
+@node Compiling a file
 @section 编译文件
-@translationof Compiling a file
 
 这一节介绍了 @qq{编译}---处理你写的
 LilyPond 输入文件从而生成输出文件.
@@ -60,7 +58,7 @@ LilyPond 输入文件从而生成输出文件.
 }
 @end lilypond
 
-@warning{ LilyPond 中的注释和歌词总是要用 @w{@strong{@{ 大括号 @}}} 括起来。大括号两侧也要加入空格以避免产生歧义，除非它处于行首或行末。在本教程的某些例子中它们可能被忽略了，但是你打谱的时候不要忘了用大括号！关于本教程中例子展示的更多信息，见 @ref{如何写输入文件}.}
+@warning{ LilyPond 中的注释和歌词总是要用 @w{@strong{@{ 大括号 @}}} 括起来。大括号两侧也要加入空格以避免产生歧义，除非它处于行首或行末。在本教程的某些例子中它们可能被忽略了，但是你打谱的时候不要忘了用大括号！关于本教程中例子展示的更多信息，见 @ref{How to write input files}.}
 
 此外，LilyPond 的输入是 @strong{大小写敏感的}。
 @w{@samp{@{ c d e @}}} is 有效输入；@w{@samp{@{ C D E @}}} 会报错。
@@ -68,33 +66,31 @@ LilyPond 输入文件从而生成输出文件.
 
 
 
-@node 如何写输入文件
+@node How to write input files
 @section 如何写输入文件
-@translationof How to write input files
 
 本节将会介绍介绍一些 LilyPond 的基本语法，帮助你开始写输入文件。
 
 @menu
-* 简单记谱法::
-* 处理输入文件::
+* Simple notation::
+* Working on input files::
 @end menu
 
 
-@node 简单记谱法
+@node Simple notation
 @subsection 简单记谱法
-@translationof Simple notation
 
 @cindex simple notation (简单记谱法)
 @cindex notation, simple (简单记谱法)
 
 @menu
-* 音高::
-* 时值 (节奏)::
-* 休止符::
-* 拍子记号::
-* 速度记号::
-* 谱号（音部记号）::
-* 所有的都放在一起::
+* Pitches::
+* Durations (rhythms)::
+* Rests::
+* Time signature::
+* Tempo marks::
+* Clef::
+* All together::
 @end menu
 
 LilyPond 会自动添加一些记谱元素。下面的例子中，我们只指定了四个音高，但是 LilyPond 已经为我们加上了谱号，拍子记号和节奏。
@@ -109,9 +105,8 @@ LilyPond 会自动添加一些记谱元素。下面的例子中，我们只指�
 这些东西都是可以手动更改的，但是大多数情况下这些自动生成的东西十分有用。
 
 
-@node 音高
+@node Pitches
 @unnumberedsubsubsec 音高
-@translationof Pitches
 
 @cindex pitches (音高)
 @cindex relative mode (相对模式)
@@ -207,9 +202,8 @@ See @rnotation{Note names in other languages}.
 要改变两个或（或更多!）八度，可以用多个 @code{''} 或 @code{,,} -- 但要注意这里是两个单引号 @code{''} 而不是一个双引号 @code{"}@tie{}!
 @c " - keeps quotes in order for context-sensitive editor -td
 
-@node 时值 (节奏)
+@node Durations (rhythms)
 @unnumberedsubsubsec 时值 (节奏)
-@translationof Durations (rhythms)
 
 @cindex note durations (音符时值)
 @cindex durations (时值)
@@ -248,9 +242,8 @@ See @rnotation{Note names in other languages}.
 }
 @end lilypond
 
-@node 休止符
+@node Rests
 @unnumberedsubsubsec 休止符
-@translationof Rests
 
 @cindex rest (休止符)
 @cindex notating rests (休止符记法)
@@ -268,9 +261,8 @@ See @rnotation{Note names in other languages}.
 @end lilypond
 
 
-@node 拍子记号
+@node Time signature
 @unnumberedsubsubsec 拍子记号
-@translationof Time signature
 
 @cindex time signature (拍子记号)
 
@@ -292,9 +284,8 @@ See @rnotation{Note names in other languages}.
 }
 @end lilypond
 
-@node 速度记号
+@node Tempo marks
 @unnumberedsubsubsec 速度记号
-@translationof Tempo marks
 
 @cindex tempo marks (速度记号)
 @cindex metronome marks (节拍器记号)
@@ -321,9 +312,8 @@ See @rnotation{Note names in other languages}.
 @end lilypond
 
 
-@node 谱号（音部记号）
+@node Clef
 @unnumberedsubsubsec 谱号（音部记号）
-@translationof Clef
 
 @cindex clef (谱号)
 @cindex treble (高音谱号)
@@ -352,9 +342,8 @@ See @rnotation{Note names in other languages}.
 @end lilypond
 
 
-@node 所有的都放在一起
+@node All together
 @unnumberedsubsubsec 所有的都放在一起
-@translationof All together
 
 下面这个例子把我们现在学过的元素都用上了：
 
@@ -377,9 +366,8 @@ See @rnotation{Note names in other languages}.
 @rnotation{Time signature}, @rnotation{Clef}.
 
 
-@node 处理输入文件
+@node Working on input files
 @subsection 处理输入文件
-@translationof Working on input files
 
 @cindex curly braces
 @cindex braces, curly
@@ -485,9 +473,8 @@ b2 b
 @end itemize
 
 
-@node 处理报错
+@node Dealing with errors
 @section 处理报错
-@translationof Dealing with errors
 
 @cindex troubleshooting (解决问题)
 
@@ -495,20 +482,18 @@ b2 b
 
 
 @menu
-* 一般解决问题的方法::
-* 常见的错误::
+* General troubleshooting tips::
+* Some common errors::
 @end menu
 
-@node 一般解决问题的方法
+@node General troubleshooting tips
 @subsection 一般解决问题的方法
-@translationof General troubleshooting tips
 
 解决 LilyPond 的问题对于熟悉使用图形化交互界面的人来说可能很具有挑战性，因为无效的输入文件可能会被创建。当这种情况发生时，一个符合逻辑的方法就是最好的确定并解决问题的方法。@rprogram{Troubleshooting} 中提供了一些指导，可以帮你学会这些方法。
 
 
-@node 常见的错误
+@node Some common errors
 @subsection 常见的错误
-@translationof Some common errors
 
 @cindex common errors (常见的错误)
 @cindex errors, common (常见的错误)
@@ -517,22 +502,20 @@ b2 b
 
 
 
-@node 如何阅读教程
+@node How to read the manuals
 @section 如何阅读教程
-@translationof How to read the manuals
 
 这一节展示了如何高效阅读文档，并介绍了一些在线版本中有用的交互性特征。
 
 @menu
-* 忽略掉的内容::
-* 可以点开的例子::
-* 手册概览::
+* Omitted material::
+* Clickable examples::
+* Overview of manuals::
 @end menu
 
 
-@node 忽略掉的内容
+@node Omitted material
 @subsection 忽略掉的内容
-@translationof Omitted material
 
 
 @cindex how to read the manual (如何阅读手册)
@@ -555,9 +538,8 @@ LilyPond 必须写在 @code{@{ @}} 或 @q{@w{@code{\relative @{ @dots{} @}}}} �
 
 当然，要记住每一个 LilyPond 文件都需要有 @code{\version} 声明。由于教程中的例子都是片段而非文件， @code{\version} 声明也忽略掉了。但你需要在实际使用中加上这个版本声明。
 
-@node 可以点开的例子
+@node Clickable examples
 @subsection 可以点开的例子
-@translationof Clickable examples
 
 @warning{这一特征只在 HTML 教程中有。}
 
@@ -586,9 +568,8 @@ This is item 825
 We are currently working on this feature.
 @end ignore
 
-@node 手册概览
+@node Overview of manuals
 @subsection 手册概览
-@translationof Overview of manuals
 
 LilyPond 有很多文档。新用户可能有时候不知道应该阅读哪一部分，并且有时候会跳过重要的部分。
 
@@ -598,7 +579,7 @@ LilyPond 有很多文档。新用户可能有时候不知道应该阅读哪一�
 
 @item
 @strong{在做 @emph{任何事} 之前}：请阅读 Learning
-manual's @ref{教程} 和 @ref{Common notation}。如果你遇到了你不认识的音乐术语，请看 @rglosnamed{Top, Glossary}.
+manual's @ref{Tutorial} 和 @ref{Common notation}。如果你遇到了你不认识的音乐术语，请看 @rglosnamed{Top, Glossary}.
 
 @item
 @strong{在写一段完整音乐之前}：阅读学习教程的 @ref{Fundamental concepts}。之后，你可能会想去看 @rnotationnamed{Top, Notation reference} 部分的相关章节。

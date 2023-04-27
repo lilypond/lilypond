@@ -9,9 +9,8 @@
 
 @c Translators: Ben Luo, Anthony Fok
 
-@node 简介
+@node Introduction
 @unnumbered 简介
-@translationof Introduction
 
 @divClass{column-center-top}
 @subheading 我们的目标
@@ -34,16 +33,16 @@ LilyPond 是怎么来的呢？从前，有两位音乐家，对于那种用电�
 @itemize
 
 @item
-@ref{特色}: LilyPond 都有些什么本领？
+@ref{Features}: LilyPond 都有些什么本领？
 
 @item
-@ref{例子}: 让我看看实际的打谱效果！
+@ref{Examples}: 让我看看实际的打谱效果！
 
 @item
-@ref{自由}: LilyPond 是免费的自由软件。
+@ref{Freedom}: LilyPond 是免费的自由软件。
 
 @item
-@ref{背景}: 我们的计算美学。
+@ref{Background}: 我们的计算美学。
 
 @end itemize
 @divEnd
@@ -53,10 +52,10 @@ LilyPond 是怎么来的呢？从前，有两位音乐家，对于那种用电�
 @itemize
 
 @item
-@ref{制作}: 现实生活中 LilyPond 的应用。
+@ref{Productions}: 现实生活中 LilyPond 的应用。
 
 @item
-@ref{评价}: What do people say?
+@ref{Reviews}: What do people say?
 
 @end itemize
 @divEnd
@@ -66,10 +65,10 @@ LilyPond 是怎么来的呢？从前，有两位音乐家，对于那种用电�
 @itemize
 
 @item
-@ref{文本输入}: You write music as @emph{text}?!
+@ref{Text input}: You write music as @emph{text}?!
 
 @item
-@ref{编辑更简单}: Other ways of working with LilyPond.
+@ref{Easier editing}: Other ways of working with LilyPond.
 
 @end itemize
 @divEnd
@@ -81,22 +80,21 @@ LilyPond 是怎么来的呢？从前，有两位音乐家，对于那种用电�
 @c menu. -JM
 @divClass{hide}
 @menu
-* 特色::                        What can LilyPond do?
-* 例子::                        I want to see some music!
-* 自由::                        Freedom and the GPL.
-* 背景::                        Computational aesthetics.
-* 制作::                        Real-life use of LilyPond.
-* 评价::                        What do people say about it?
-* 文本输入::                    You write music as text?!
-* 编辑更简单::                  Other ways of working with LilyPond.
+* Features::                        What can LilyPond do?
+* Examples::                        I want to see some music!
+* Freedom::                        Freedom and the GPL.
+* Background::                        Computational aesthetics.
+* Productions::                        Real-life use of LilyPond.
+* Reviews::                        What do people say about it?
+* Text input::                    You write music as text?!
+* Easier editing::                  Other ways of working with LilyPond.
 @end menu
 @divEnd
 
 
 
-@node 特色
+@node Features
 @unnumberedsec 特色
-@translationof Features
 @divClass{column-center-top}
 
 
@@ -211,9 +209,8 @@ already decided to try LilyPond, first read about our
 
 
 
-@node 例子
+@node Examples
 @unnumberedsec 例子
-@translationof Examples
 
 LilyPond is a powerful and flexible tool for engraving tasks of
 all kinds.  Please browse our gallery of examples and be inspired!
@@ -351,9 +348,8 @@ read about our @ref{Text input}.
 @divEnd
 
 
-@node 自由
+@node Freedom
 @unnumberedsec 自由
-@translationof Freedom
 
 @divClass{column-center-top}
 @subheading 自由软件
@@ -462,9 +458,8 @@ LilyPond, first read about our @ref{Text input}.
 @divEnd
 
 
-@node 背景
+@node Background
 @unnumberedsec 背景
-@translationof Background
 
 @divClass{column-center-top}
 @subheading 背景文章
@@ -486,9 +481,8 @@ try LilyPond, first read about our @ref{Text input}.
 @divEnd
 
 
-@node 制作
+@node Productions
 @unnumberedsec 制作
-@translationof Productions
 
 @divClass{column-left-top}
 @subheading 音乐会
@@ -611,9 +605,8 @@ If you've already decided to try LilyPond, first read about our
 @c TRANSLATORS, so far it's mostly from
 @c https://lilypond.org/productions.html
 
-@node 评价
+@node Reviews
 @unnumberedsec 评价
-@translationof Reviews
 
 @divClass{column-left-top}
 @subheading 出版的文章
@@ -923,9 +916,8 @@ I want on the page, especially when it isn't "standard" practice.}
 
 
 
-@node 文本输入
+@node Text input
 @unnumberedsec 文本输入
-@translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
 @c https://lilypond.org/web/switch/howto
@@ -1045,9 +1037,8 @@ graphical score.  For more information, see @ref{Easier editing}.
 @divEnd
 
 
-@node 编辑更简单
+@node Easier editing
 @unnumberedsec 编辑更简单
-@translationof Easier editing
 
 
 @divClass{column-center-top}

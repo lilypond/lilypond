@@ -10,9 +10,8 @@
 @c Translators: Ben Luo
 @c Translation checkers: Anthony Fok
 
-@node 手册
+@node Manuals
 @unnumbered 手册
-@translationof Manuals
 
 @macro details{reference}
 @spanClass{detail}
@@ -149,18 +148,18 @@ LilyPond 是 @strong{基于文本} 的音乐雕版印刷程序。请您先阅读
 
 @divClass{hide}
 @menu
-* 学习::        学习。
-* 术语表::      术语表。
-* 文章::        文章。
-* 记谱法::      参考手册。
-* 使用::        使用。
-* 片断::        片断。
-* 常见问题::    常见问题。
+* Learning::        学习。
+* Glossary::      术语表。
+* Essay::        文章。
+* Notation::      参考手册。
+* Usage::        使用。
+* Snippets::        片断。
+* FAQ::    常见问题。
 * Web::         Web.
-* 变化::        新闻。
-* 扩展::        编程。
-* 内部机制::    内部机制。
-* 所有::        所有手册。
+* Changes::        新闻。
+* Extending::        编程。
+* Internals::    内部机制。
+* All::        所有手册。
 * FDL::         许可证。
 @end menu
 
@@ -171,9 +170,8 @@ LilyPond 是 @strong{基于文本} 的音乐雕版印刷程序。请您先阅读
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
 
-@node 学习
+@node Learning
 @unnumberedsec 学习
-@translationof Learning
 
 @divClass{column-left-top}
 @subheading 学习手册 Learning manual
@@ -196,9 +194,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @divEnd
 
 
-@node 术语表
+@node Glossary
 @unnumberedsec 术语表
-@translationof Glossary
 
 @divClass{column-left-top}
 @subheading 术语表 Glossary
@@ -218,9 +215,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @divEnd
 
 
-@node 文章
+@node Essay
 @unnumberedsec 文章
-@translationof Essay
 
 @divClass{column-left-top}
 @subheading 文章 Essay
@@ -243,9 +239,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @divEnd
 
 
-@node 记谱法
+@node Notation
 @unnumberedsec 记谱法
-@translationof Notation
 
 @divClass{column-left-top}
 @subheading 记谱法参考手册 Notation reference
@@ -267,9 +262,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @divEnd
 
 
-@node 使用
+@node Usage
 @unnumberedsec 使用
-@translationof Usage
 
 @divClass{column-left-top}
 @subheading 使用手册 Usage manual
@@ -291,9 +285,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 @divEnd
 
 
-@node 片断
+@node Snippets
 @unnumberedsec 片断
-@translationof Snippets
 
 @divClass{column-left-top}
 @subheading 片断 Snippets
@@ -322,9 +315,8 @@ linked from the @strong{See also (参见)} portion.
 @divEnd
 
 
-@node 常见问题
+@node FAQ
 @unnumberedsec 常见问题
-@translationof FAQ
 
 @divClass{column-center-top}
 @subheading 入门问题
@@ -362,7 +354,6 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divEnd
 @node Web
 @unnumberedsec Web
-@translationof Web
 
 @divClass{column-left-top}
 @subheading Web
@@ -394,9 +385,8 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divEnd
 
 
-@node 变化
+@node Changes
 @unnumberedsec 变化
-@translationof Changes
 
 @divClass{column-left-top}
 @subheading 变化
@@ -416,9 +406,8 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divEnd
 
 
-@node 扩展
+@node Extending
 @unnumberedsec 扩展
-@translationof Extending
 
 @divClass{column-left-top}
 @subheading 扩展 LilyPond
@@ -438,9 +427,8 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divEnd
 
 
-@node 内部机制
+@node Internals
 @unnumberedsec 内部机制
-@translationof Internals
 
 @divClass{column-left-top}
 @subheading 内部机制参考手册 Internals reference
@@ -464,9 +452,8 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divEnd
 
 
-@node 所有
+@node All
 @unnumberedsec 所有
-@translationof All
 
 @divClass{column-left-top}
 @subheading 可下载的版本
@@ -531,7 +518,6 @@ LilyPond 1.6 Documentation}
 
 @node FDL
 @unnumberedsec FDL
-@translationof FDL
 
 @divClass{column-center-top}
 @subheading 文档许可证
