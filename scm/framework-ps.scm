@@ -386,61 +386,15 @@
               (set! never-embed-font-list
                     (append never-embed-font-list (list name))))
           (cons name
-                (if (mac-font? bare-file-name)
-                    (handle-mac-font name bare-file-name)
-                    (cond
-                     ((and font (cff-font? font))
-                      (ps-load-file (ly:find-file
-                                     (format #f "~a.otf" file-name)) name))
-                     ((string? bare-file-name)
-                      (ps-load-file file-name name))
-                     (else
-                      (ly:warning (G_ "cannot embed ~S=~S") name file-name)
-                      "")))))))))
-
-  (define (dir-join a b)
-    (if (equal? a "")
-        b
-        (string-append a "/" b)))
-
-  (define (dir-listing dir-name)
-    (define (dir-helper dir lst)
-      (let ((e (readdir dir)))
-        (if (eof-object? e)
-            lst
-            (dir-helper dir (cons e lst)))))
-    (reverse (dir-helper (opendir dir-name) '())))
-
-  (define (handle-mac-font name file-name)
-    (let* ((dir-name (tmpnam))
-           (files '())
-           (status 0)
-           (embed #f)
-           (cwd (getcwd)))
-      (mkdir dir-name #o700)
-      (chdir dir-name)
-      (set! status (ly:system (list "fondu" "-force" file-name)))
-      (chdir cwd)
-      (set! files (dir-listing dir-name))
-      (for-each
-       (lambda (f)
-         (let* ((full-name (dir-join dir-name f)))
-           (if (and (not embed)
-                    (equal? 'regular (stat:type (stat full-name)))
-                    (equal? name (ly:ttf-ps-name full-name)))
-               (set! embed (font-file-as-ps-string name full-name 0)))
-           (if (or (equal? "." f)
-                   (equal? ".." f))
-               #t
-               (delete-file full-name))))
-       files)
-      (rmdir dir-name)
-      (if (not embed)
-          (begin
-            (set! embed "% failed\n")
-            (ly:warning (G_ "cannot extract file matching ~a from ~a")
-                        name file-name)))
-      embed))
+                (cond
+                 ((and font (cff-font? font))
+                  (ps-load-file (ly:find-file
+                                 (format #f "~a.otf" file-name)) name))
+                 ((string? bare-file-name)
+                  (ps-load-file file-name name))
+                 (else
+                  (ly:warning (G_ "cannot embed ~S=~S") name file-name)
+                  ""))))))))
 
   (define (font-file-as-ps-string name file-name font-index)
     (let ((font-format (ly:get-font-format file-name font-index)))
@@ -462,12 +416,6 @@
         (ly:warning (G_ "do not know how to embed ~S=~S") name file-name)
         ""))))
 
-  (define (mac-font? bare-file-name)
-    (and (eq? PLATFORM 'darwin)
-         bare-file-name
-         (or (string-endswith bare-file-name ".dfont")
-             (= (stat:size (stat bare-file-name)) 0))))
-
   (define (load-font font-psname-filename-fontindex)
     (let* ((font (list-ref font-psname-filename-fontindex 0))
            (name (list-ref font-psname-filename-fontindex 1))
@@ -475,9 +423,7 @@
            (font-index (list-ref font-psname-filename-fontindex 3))
            (bare-file-name (ly:find-file file-name)))
       (cons name
-            (cond ((mac-font? bare-file-name)
-                   (handle-mac-font name bare-file-name))
-                  ((and font (cff-font? font))
+            (cond ((and font (cff-font? font))
                    (begin
                      (if (ly:get-option 'font-ps-resdir)
                          (link-ps-resdir-font
