@@ -12,9 +12,8 @@
 
 @c \version "2.19.21"
 
-@node Weltmusik
+@node World music
 @section Weltmusik
-@translationof World music
 
 Dieser Abschnitt soll Besonderheiten der Notation aufzeigen, die
 insbesondere relevant sind, um Musik nicht-westlicher Tradition
@@ -22,33 +21,31 @@ zu notieren.
 
 
 @menu
-* Übliche Notation für nichteuropäische Musik::
-* Arabische Musik::
-* Türkische klassische Musik::
+* Common notation for non-Western music::
+* Arabic music::
+* Turkish classical music::
 @end menu
 
 
-@node Übliche Notation für nichteuropäische Musik
+@node Common notation for non-Western music
 @subsection Übliche Notation für nichteuropäische Musik
-@translationof Common notation for non-Western music
 
 Dieser Abschnitt zeigt, wie man Partituren erstellt, die nicht
 der europäischen klassischen Musiktradition angehören.
 
 @menu
-* Erweiterung von Notation und Stimmungssystemen::
+* Extending notation and tuning systems::
 @end menu
 
-@node Erweiterung von Notation und Stimmungssystemen
+@node Extending notation and tuning systems
 @unnumberedsubsubsec Erweiterung von Notation und Stimmungssystemen
-@translationof Extending notation and tuning systems
 
 Die klassische Standardnotation wird üblicherweise zur Notation
 verschiedenster Musikarten benutzt und ist nicht auf die @qq{klassische
 Musik} beschränkt.  Diese Notation wird behandelt in
-@ref{Tonhöhen setzen}, und die unterschiedlichen Notenbezeichnungen,
+@ref{Writing pitches}, und die unterschiedlichen Notenbezeichnungen,
 die eingesetzt werden können, finden sich in
-@ref{Notenbezeichnungen in anderen Sprachen}.
+@ref{Note names in other languages}.
 
 Viele nicht-europäische Musik (und auch manche europäische Volksmusik)
 benutzt jedoch alternative oder erweiterte Skalen (Tonleitern), die man
@@ -61,7 +58,7 @@ notiert und die exakte Tonhöhe (die etwas von der notierten abeweichen
 kann) dann aus dem Kontext erschlossen.  Italienische Notenbezeichnungen
 werden normalerweise benutzt, und die Init-Datei @file{arabic.ly} stellt
 eine Anzahl an Makros zur Verfügung, die die Standardnoation erweitern.
-Siehe auch @ref{Arabische Musik}.
+Siehe auch @ref{Arabic music}.
 
 Andere Musik brauchen erweiterte oder ganz einzigartige Notation.
 Die klassische Musik der Türkei, oder ottomanische Musik, benutzt
@@ -72,10 +69,10 @@ auf dem System mit normalen Noten benutzt mit speziellen
 türkischen Versetzungszeichen.  Diese Versetzungszeichen
 sind in der Datei @file{makam.ly} definiert. Zu weiterer Information
 über die klassische türkische Musik und Makamlar, siehe
-@ref{Türkische klassische Musik}.
+@ref{Turkish classical music}.
 
 Um Dateien wie @file{arabic.ly} oder @file{makam.ly} zu finden, siehe
-@rlearning{Mehr Information}.
+@rlearningnamed{Other sources of information, Mehr Information}.
 
 @snippets
 
@@ -88,35 +85,33 @@ Glossar:
 @rglos{makamlar}.
 
 Handbuch zum Lernen:
-@rlearning{Mehr Information}.
+@rlearningnamed{Other sources of information, Mehr Information}.
 
 Notationsreferenz:
-@ref{Tonhöhen setzen},
-@ref{Notenbezeichnungen in anderen Sprachen},
-@ref{Arabische Musik},
-@ref{Türkische klassische Musik}.
+@ref{Writing pitches},
+@ref{Note names in other languages},
+@ref{Arabic music},
+@ref{Turkish classical music}.
 
 
-@node Arabische Musik
+@node Arabic music
 @subsection Arabische Musik
-@translationof Arabic music
 
 Dieser Abschnitt zeigt Möglichkeiten, wie arabische Musik notiert
 werden kann.
 
 
 @menu
-* Referenz für arabische Musik::
-* Arabische Notenbezeichnungen::
-* Arabische Tonarten::
-* Arabische Taktarten::
-* Arabische Notenbeispiele::
-* Weitere Literatur zur arabischen Musik::
+* References for Arabic music::
+* Arabic note names::
+* Arabic key signatures::
+* Arabic time signatures::
+* Arabic music example::
+* Further reading for Arabic music::
 @end menu
 
-@node Referenz für arabische Musik
+@node References for Arabic music
 @unnumberedsubsubsec Referenz für arabische Musik
-@translationof References for Arabic music
 
 @cindex arabische Musik
 @cindex Maqam
@@ -146,35 +141,34 @@ an anderer Stelle behandelt:
 @itemize
 @item Notenbezeichnungen und Versetzungszeichen (inklusive Vierteltöne)
 können angepasst werden, wie behandelt in
-@ref{Übliche Notation für nichteuropäische Musik}.
+@ref{Common notation for non-Western music}.
 
 @item Zusätzliche Taktarten können erstellt werden, siehe
-@ref{Tonartbezeichnung}.
+@ref{Key signature}.
 
 @item Komplexe Taktarten erfordern evtl., dass Noten manuell gruppiert
 werden, wie gezeigt in
-@ref{Manuelle Balken}.
+@ref{Manual beams}.
 
 @item @notation{Takasim}, rhythmisch freie Improvisationen,
 können ohne Taktlinien notiert werden, siehe hierzu
-@ref{Musik ohne Metrum}.
+@ref{Unmetered music}.
 
 @end itemize
 
 
 @morerefs
 Notationsreferenz:
-@ref{Übliche Notation für nichteuropäische Musik},
-@ref{Tonartbezeichnung},
-@ref{Manuelle Balken}.
+@ref{Common notation for non-Western music},
+@ref{Key signature},
+@ref{Manual beams}.
 
 Schnipsel:
 @rlsr{World music}.
 
 
-@node Arabische Notenbezeichnungen
+@node Arabic note names
 @unnumberedsubsubsec Arabische Notenbezeichnungen
-@translationof Arabic note names
 
 @cindex arabische Notenbezeichnungen
 @cindex Notenbezeichnungen, arabisch
@@ -186,9 +180,9 @@ in der arabischen Musikerziehung recht unbekannt, weshalb italienische
 Notenbezeichnungen (@code{do, re, mi, fa, sol, la, si}) eingesetzt
 werden.  Modifikatoren (Versetzungszeichen) können auch benutzt werden.
 Italienische Notenbezeichnungen finden sich erklärt in
-@ref{Notenbezeichnungen in anderen Sprachen}, die Benutzung der normalen
+@ref{Note names in other languages}, die Benutzung der normalen
 europäischen Notation für nichteuropäische Musik findet sich erklärt
-in @ref{Übliche Notation für nichteuropäische Musik}.
+in @ref{Common notation for non-Western music}.
 
 Hier ein Beispiel der arabischen @notation{rast}-Tonleiter:
 
@@ -220,16 +214,15 @@ werden.
 
 @morerefs
 Notationsreferenz:
-@ref{Notenbezeichnungen in anderen Sprachen},
-@ref{Übliche Notation für nichteuropäische Musik}.
+@ref{Note names in other languages},
+@ref{Common notation for non-Western music}.
 
 Schnipsel:
 @rlsr{World music}.
 
 
-@node Arabische Tonarten
+@node Arabic key signatures
 @unnumberedsubsubsec Arabische Tonarten
-@translationof Arabic key signatures
 
 @cindex arabische Tonarten
 @cindex arabische Vorzeichen
@@ -341,10 +334,10 @@ Glossar:
 @rglos{kurd}.
 
 Notationsreferenz:
-@ref{Tonartbezeichnung}.
+@ref{Key signature}.
 
 Handbuch zum Lernen:
-@rlearning{Tonhöhen und Tonartbezeichnungen (Vorzeichen)}.
+@rlearningnamed{Pitches and key signatures, Tonhöhen und Tonartbezeichnungen (Vorzeichen)}.
 
 Referenz der Interna:
 @rinternals{KeySignature}.
@@ -354,9 +347,8 @@ Schnipsel:
 @rlsr{Pitches}.
 
 
-@node Arabische Taktarten
+@node Arabic time signatures
 @unnumberedsubsubsec Arabische Taktarten
-@translationof Arabic time signatures
 
 @cindex Arabische Taktarten
 @cindex Taktarten, arabisch
@@ -389,20 +381,19 @@ Glossar:
 @rglos{taqasim}.
 
 Notationsreferenz:
-@ref{Manuelle Balken},
-@ref{Automatische Balken},
-@ref{Musik ohne Metrum},
-@ref{Automatische Versetzungszeichen},
-@ref{Einstellung von automatischen Balken},
-@ref{Taktangabe}.
+@ref{Manual beams},
+@ref{Automatic beams},
+@ref{Unmetered music},
+@ref{Automatic accidentals},
+@ref{Setting automatic beam behavior},
+@ref{Time signature}.
 
 Schnipsel:
 @rlsr{World music}.
 
 
-@node Arabische Notenbeispiele
+@node Arabic music example
 @unnumberedsubsubsec Arabische Notenbeispiele
-@translationof Arabic music example
 
 @cindex Beispiel der arabischen Musik
 @cindex arabische Musik, Beispiel
@@ -440,9 +431,8 @@ Schnipsel:
 @rlsr{World music}.
 
 
-@node Weitere Literatur zur arabischen Musik
+@node Further reading for Arabic music
 @unnumberedsubsubsec Weitere Literatur zur arabischen Musik
-@translationof Further reading for Arabic music
 
 @enumerate
 
@@ -485,22 +475,20 @@ Ibrahim Ali Darwish Al-masri
 @end enumerate
 
 
-@node Türkische klassische Musik
+@node Turkish classical music
 @subsection Türkische klassische Musik
-@translationof Turkish classical music
 
 Dieser Abschnitt zeigt Probleme, die bei der Notation von klassischer
 türkischer Musik auftreten können.
 
 @menu
-* Verweise für türkische klassische Musik::
-* Türkische Notenbezeichnungen::
+* References for Turkish classical music::
+* Turkish note names::
 @end menu
 
 
-@node Verweise für türkische klassische Musik
+@node References for Turkish classical music
 @unnumberedsubsubsec Verweise für türkische klassische Musik
-@translationof References for Turkish classical music
 
 @cindex Türkische Musik
 @cindex Osmanische Musik
@@ -522,14 +510,13 @@ Einige Probleme der Notation türkischer klassischer Musik sind woanders behande
 @itemize
 @item
 Notenbezeichnungen und Versetzungszeichen finden sich in
-@ref{Übliche Notation für nichteuropäische Musik}.
+@ref{Common notation for non-Western music}.
 
 @end itemize
 
 
-@node Türkische Notenbezeichnungen
+@node Turkish note names
 @unnumberedsubsubsec Türkische Notenbezeichnungen
-@translationof Turkish note names
 
 @cindex türkische Notenbezeichnungen
 @cindex makam
@@ -590,7 +577,7 @@ die Tonhöhenveränderung als Bruch eines Ganztones.
 @end quotation
 
 Eine weitergehende Erklärung der Notation nichteuropäischer Musik findet
-sich in @ref{Übliche Notation für nichteuropäische Musik}.
+sich in @ref{Common notation for non-Western music}.
 
 @morerefs
 Glossar:
@@ -598,4 +585,4 @@ Glossar:
 @rglos{makamlar}.
 
 Notationsreferenz:
-@ref{Übliche Notation für nichteuropäische Musik}.
+@ref{Common notation for non-Western music}.

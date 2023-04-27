@@ -12,9 +12,8 @@
 
 @c Translators: Till Paala
 
-@node Blasinstrumente
+@node Wind instruments
 @section Blasinstrumente
-@translationof Wind instruments
 
 @lilypondfile[quote]{snippets/wind-headword.ly}
 
@@ -22,27 +21,25 @@ Dieser Abschnitt beinhaltet einige Notationselemente, die
 bei der Notation von Blasinstrumenten auftreten.
 
 @menu
-* Übliche Notation für Bläser::
-* Dudelsack::
-* Holzbläser::
+* Common notation for wind instruments::
+* Bagpipes::
+* Woodwinds::
 @end menu
 
 
-@node Übliche Notation für Bläser
+@node Common notation for wind instruments
 @subsection Übliche Notation für Bläser
-@translationof Common notation for wind instruments
 
 Dieser Abschnitt erklärt Notation, die für die meisten
 Blasinstrumente gültig sind.
 
 @menu
-* Referenz für Blasinstrumente::
-* Fingersatz::
+* References for wind instruments::
+* Fingerings::
 @end menu
 
-@node Referenz für Blasinstrumente
+@node References for wind instruments
 @unnumberedsubsubsec Referenz für Blasinstrumente
-@translationof References for wind instruments
 
 @cindex Blasinstrumente
 
@@ -52,19 +49,19 @@ Atmung und Spielart zu tun:
 @itemize
 
 @item Atmung kann durch Pausen oder mit Atemzeichen angezeigt werden,,
-siehe @ref{Atemzeichen}.
+siehe @ref{Breath marks}.
 
 @item Legato kann durch Legatobögen angezeigt werden, siehe
-@ref{Legatobögen}.
+@ref{Slurs}.
 
 @item Unterschiedliche Artikulationen, Legato, Portato, Staccato,
 werden normalerweise mit Artikulationszeichen angemerkt, teilweise
 auch in Verbindung mit Legatobögen, siehe
-@ref{Artikulationszeichen und Verzierungen} und
-@ref{Liste der Artikulationszeichen}.
+@ref{Articulations and ornamentations} und
+@ref{List of articulations}.
 
 @item Flatterzunge wird angezeigt, indem ein Tremolozeichen und eine
-Anmerkung für die entsprechende Note gesetzt wird. Siehe @ref{Tremolo-Wiederholung}.
+Anmerkung für die entsprechende Note gesetzt wird. Siehe @ref{Tremolo repeats}.
 @end itemize
 
 Es gibt auch noch weitere Aspekte der Notation, die für Blasinstrumente
@@ -72,7 +69,7 @@ relevant sein können:
 
 @itemize
 @item Viele Instrumente sind transponierend, siehe
-@ref{Transposition von Instrumenten}.
+@ref{Instrument transpositions}.
 
 @item Das Zug-Glissando ist charakteristisch für die Posaune, aber
 auch andere Instrumente können Glissandos ausführen. Siehe
@@ -81,59 +78,58 @@ auch andere Instrumente können Glissandos ausführen. Siehe
 @item Obertonreihenglissandi, die auf allen Blechblasinstrumenten möglich,
 aber besonders üblich für das Waldhorn sind, werden üblicherweise mit
 Verzierungsnoten geschrieben. Siehe
-@ref{Verzierungen}.
+@ref{Grace notes}.
 
 @item Tonhöhenschwankungen am Ende eines Tons werden gezeigt in
-@ref{Glissando zu unbestimmter Tonhöhe}.
+@ref{Falls and doits}.
 
 @item Ventil- oder Klappenschläge werden oft als Kreuznoten
 dargestellt, siehe
-@ref{Besondere Notenköpfe}.
+@ref{Special note heads}.
 
 @item Holzbläser können tiefe Noten überblasen.  Derartige Noten
 werden als @code{flageolet}-Artikulation notiert. Siehe
-@ref{Liste der Artikulationszeichen}.
+@ref{List of articulations}.
 
 @item Die Benutzung von Dämpfern für Blechblasinstrumente wird meistens
 durch Text gefordert, aber bei schnellem Wechsel bietet es sich an,
 die Artikulationszeichen @code{stopped} und @code{open} zu benutzen.
 Siehe
-@ref{Artikulationszeichen und Verzierungen} und
-@ref{Liste der Artikulationszeichen}.
+@ref{Articulations and ornamentations} und
+@ref{List of articulations}.
 
 @item Gestopfte Hörner werden mit dem @code{stopped}-Artikulationszeichen
 notiert. Siehe
-@ref{Artikulationszeichen und Verzierungen}.
+@ref{Articulations and ornamentations}.
 
 @end itemize
 
 @morerefs
 Notationsreferenz:
-@ref{Atemzeichen},
-@ref{Legatobögen},
-@ref{Artikulationszeichen und Verzierungen},
-@ref{Liste der Artikulationszeichen},
-@ref{Tremolo-Wiederholung},
-@ref{Transposition von Instrumenten},
+@ref{Breath marks},
+@ref{Slurs},
+@ref{Articulations and ornamentations},
+@ref{List of articulations},
+@ref{Tremolo repeats},
+@ref{Instrument transpositions},
 @ref{Glissando},
-@ref{Verzierungen},
-@ref{Glissando zu unbestimmter Tonhöhe},
-@ref{Besondere Notenköpfe},
+@ref{Grace notes},
+@ref{Falls and doits},
+@ref{Special note heads},
 
 Schnipsel:
 @rlsr{Winds}.
 
 
-@node Fingersatz
+@node Fingerings
 @unnumberedsubsubsec Fingersatz
-@translationof Fingerings
 
 Alle Blasinstrumente außer der Posaune benötigen mehrere Finger, um
 verschiedene Tonhöhen zu produzieren.  Einige Fingersatzbeispiele
 zeigen die Schnipsel unten.
 
 Diagramme für Holzbläser können erstellt werden nach den Anweisungen in
-@ref{Holzbläserdiagramme}.
+@ref{Woodwind diagrams}.
 
 @snippets
 
@@ -146,27 +142,25 @@ Diagramme für Holzbläser können erstellt werden nach den Anweisungen in
 @morerefs
 
 Notationsreferenz:
-@ref{Holzbläserdiagramme}.
+@ref{Woodwind diagrams}.
 
 Snippets:
 @rlsr{Winds}.
 
 
-@node Dudelsack
+@node Bagpipes
 @subsection Dudelsack
-@translationof Bagpipes
 
 Dieser Abschnitt beinhaltet die Notation von Dudelsackmusik.
 
 @menu
-* Dudelsack-Definitionen::
-* Dudelsack-Beispiele::
+* Bagpipe definitions::
+* Bagpipe example::
 @end menu
 
 
-@node Dudelsack-Definitionen
+@node Bagpipe definitions
 @unnumberedsubsubsec Dudelsack-Definitionen
-@translationof Bagpipe definitions
 
 @cindex Dudelsack
 @cindex Sackpfeife
@@ -222,9 +216,8 @@ Schnipsel:
 @rlsr{Winds}.
 
 
-@node Dudelsack-Beispiele
+@node Bagpipe example
 @unnumberedsubsubsec Dudelsack-Beispiele
-@translationof Bagpipe example
 
 So sieht die bekannte Melodie Amazing Grace aus, wenn man sie für
 Dudelsack notiert.
@@ -271,19 +264,17 @@ Schnipsel:
 @rlsr{Winds}.
 
 
-@node Holzbläser
+@node Woodwinds
 @subsection Holzbläser
-@translationof Woodwinds
 
 Dieser Abschnitt zeigt Notation, die spezifisch für Holzbläser ist.
 
 @menu
-* Holzbläserdiagramme::
+* Woodwind diagrams::
 @end menu
 
-@node Holzbläserdiagramme
+@node Woodwind diagrams
 @subsubsection Holzbläserdiagramme
-@translationof Woodwind diagrams
 
 Holzbläserdiagramme können benutzt werden, um die Griffe für eine bestimmte
 Note darzustellen.  Diagramme gibt es für folgende Instrumente:

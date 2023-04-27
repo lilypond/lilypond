@@ -28,68 +28,63 @@ Tutorial guidelines:  (different from policy.txt!)
 @end ignore
 
 
-@node Übliche Notation
+@node Common notation
 @chapter Übliche Notation
-@translationof Common notation
 
 Dieser Abschnitt erklärt, wie wunderschöner Notensatz erstellt
 werden kann, der die am häufigsten vorkommenden Notationssymbole
-enthält.  Der Abschnitt baut auf dem @ref{Tutorium} auf.
+enthält.  Der Abschnitt baut auf dem @ref{Tutorial} auf.
 
 
 @menu
-* Notation auf einem System::
-* Mehrere Noten auf einmal::
-* Lieder::
-* Letzter Schliff::
+* Single staff notation::
+* Multiple notes at once::
+* Songs::
+* Final touches::
 @end menu
 
 
-@node Notation auf einem System
+@node Single staff notation
 @section Notation auf einem System
-@translationof Single staff notation
 
 Dieses Kapitel lehrt grundlegende Bestandteile der Notation,
 die für eine Stimme auf einem System gebraucht werden.
 
 @menu
-* Taktstriche und Taktüberprüfung::
-* Tonhöhen und Tonartbezeichnungen (Vorzeichen)::
-* Bindebögen und Legatobögen::
-* Artikulationszeichen und Lautstärke::
-* Text hinzufügen::
-* Automatische und manuelle Balken::
-* Zusätzliche rhythmische Befehle::
+* Bar lines and bar checks::
+* Pitches and key signatures::
+* Ties and slurs::
+* Articulation and dynamics::
+* Adding text::
+* Automatic and manual beams::
+* Advanced rhythmic commands::
 @end menu
 
 
-@node Taktstriche und Taktüberprüfung
+@node Bar lines and bar checks
 @subsection Taktstriche und Taktüberprüfung
-@translationof Bar lines and bar checks
 
 @menu
-* Taktstriche::
-* Taktüberprüfungen::
+* Bar lines::
+* Bar checks::
 @end menu
 
-@node Taktstriche
+@node Bar lines
 @unnumberedsubsubsec Taktstriche
-@translationof Bar lines
 
 
 Normale (einfache) Taktstriche werden von LilyPond automatisch eingefügt und
 müssen daher nicht extra angegeben werden.  Andere Arten von Taktstrichen können
 mittels @code{\bar} eingeben werden, z.B. @code{\bar "||"} für einen doppelten Taktstrich,
 oder @code{\bar "|."} für einen Schlusstaktstrich.  Eine vollständige Liste aller
-möglichen Taktstriche findet sich unter @rnotation{Taktstriche}.
+möglichen Taktstriche findet sich unter @rnotationnamed{Bar lines, Taktstriche}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
 @end lilypond
 
-@node Taktüberprüfungen
+@node Bar checks
 @unnumberedsubsubsec Taktüberprüfungen
-@translationof Bar checks
 
 
 Wenn sie auch nicht zwingend vorgeschrieben sind, so sollten Taktüberprüfungen
@@ -123,25 +118,23 @@ ein noch direkter Hinweis auf das fehlende @samp{4} in Takt@tie{}3.
 
 @morerefs
 Notationsreferenz:
-@rnotation{Takt- und Taktzahlüberprüfung}.
+@rnotationnamed{Bar and bar number checks, Takt- und Taktzahlüberprüfung}.
 
 
-@node Tonhöhen und Tonartbezeichnungen (Vorzeichen)
+@node Pitches and key signatures
 @subsection Tonhöhen und Tonartbezeichnungen (Vorzeichen)
-@translationof Pitches and key signatures
 
 @menu
-* Tonhöhenveränderungen::
-* Tonartbezeichnungen (Vorzeichen)::
-* Warnung bzgl. Tonartbezeichnungen und Tonhöhen::
+* Pitch alterations::
+* Key signatures::
+* Warning key signatures and pitches::
 @end menu
 
 @warning{Neue Anwender missverstehen meist, wie LilyPond Tonartbezeichnungen
 verwendet -- bitte lesen sie die entsprechende Warnung am Ende dieses Abschnitts.}
 
-@node Tonhöhenveränderungen
+@node Pitch alterations
 @unnumberedsubsubsec Tonhöhenveränderungen
-@translationof Pitch alterations
 
 
 @cindex Versetzungszeichen
@@ -180,15 +173,14 @@ von @samp{isis} oder @samp{eses} geschrieben. Diese Syntax
 stammt aus der Tradition der germanischen Sprachen und ist also für
 deutsche Benutzer kein Problem. Es ist aber möglich, die Namen für die
 @notation{Versetzungszeichen} in anderen
-Sprachen zu benutzen, siehe @rnotation{Notenbezeichnungen in anderen Sprachen}.
+Sprachen zu benutzen, siehe @rnotationnamed{Note names in other languages, Notenbezeichnungen in anderen Sprachen}.
 
 @lilypond[verbatim,quote]
 \relative { cis''4 ees fisis, aeses }
 @end lilypond
 
-@node Tonartbezeichnungen (Vorzeichen)
+@node Key signatures
 @unnumberedsubsubsec Tonartbezeichnungen (Vorzeichen)
-@translationof Key signatures
 
 
 @cindex Vorzeichen
@@ -220,9 +212,8 @@ Die @notation{Tonart} eines Stückes wird mit dem Befehl
 
 @smallspace
 
-@node Warnung bzgl. Tonartbezeichnungen und Tonhöhen
+@node Warning key signatures and pitches
 @unnumberedsubsubsec Warnung bzgl. Tonartbezeichnungen und Tonhöhen
-@translationof Warning key signatures and pitches
 
 Glossar: @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
@@ -276,21 +267,20 @@ Alle diese Versetzungszeichen ausdrücklich zu schreiben, bedeutet vielleicht
 etwas mehr Schreibarbeit, hat aber den großen Vorteil, dass
 @notation{Transpositionen} sehr viel einfacher sind und der Ausdruck
 von Versetzungszeichen nach unterschiedlichen Regeln erfolgen kann. Siehe
-@rnotation{Automatische Versetzungszeichen} für einige Beispiele, wie Vorzeichen
+@rnotationnamed{Automatic accidentals, Automatische Versetzungszeichen} für einige Beispiele, wie Vorzeichen
 anhand von unterschiedlichen Regeln ausgegeben werden können.
 
 
 @morerefs
 Notationsreferenz:
-@rnotation{Notenbezeichnungen in anderen Sprachen},
-@rnotation{Versetzungszeichen},
-@rnotation{Automatische Versetzungszeichen},
-@rnotation{Tonartbezeichnung}.
+@rnotationnamed{Note names in other languages, Notenbezeichnungen in anderen Sprachen},
+@rnotationnamed{Accidentals, Versetzungszeichen},
+@rnotationnamed{Automatic accidentals, Automatische Versetzungszeichen},
+@rnotationnamed{Key signature, Tonartbezeichnung}.
 
 
-@node Bindebögen und Legatobögen
+@node Ties and slurs
 @subsection Bindebögen und Legatobögen
-@translationof Ties and slurs
 
 @cindex Legatobögen
 @cindex Bögen, Legato
@@ -304,15 +294,14 @@ Notationsreferenz:
 
 
 @menu
-* Bindebögen::
-* Legatobögen::
-* Phrasierungsbögen::
-* Achtung Bindebögen sind nicht Legatobögen::
+* Ties::
+* Slurs::
+* Phrasing slurs::
+* Warnings slurs vs ties::
 @end menu
 
-@node Bindebögen
+@node Ties
 @unnumberedsubsubsec Bindebögen
-@translationof Ties
 
 Glossar: @rglos{tie}.
 
@@ -342,9 +331,8 @@ als eine einzige Note interpretiert wird. Mit anderen Worten, @samp{c4 a 8 8}
 würde als @samp{c4 a8 a8} und nicht als @samp{c4 a4 a8 a8} verstanden werden.
 Schreiben sie stattdessen @samp{c4 a4 8 8 }.
 
-@node Legatobögen
+@node Slurs
 @unnumberedsubsubsec Legatobögen
-@translationof Slurs
 
 
 Glossar: @rglos{slur}.
@@ -358,9 +346,8 @@ dass @samp{(} nach der ersten Noten des Bogens kommt.
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
 @end lilypond
 
-@node Phrasierungsbögen
+@node Phrasing slurs
 @unnumberedsubsubsec Phrasierungsbögen
-@translationof Phrasing slurs
 
 Glossar: @rglos{slur}, @rglos{phrasing}.
 
@@ -375,9 +362,8 @@ Phrasierungsbögen gleichzeitig vorkommen.
 
 @smallspace
 
-@node Achtung Bindebögen sind nicht Legatobögen
+@node Warnings slurs vs ties
 @unnumberedsubsubsec Achtung Bindebögen sind nicht Legatobögen
-@translationof Warnings slurs vs ties
 
 @cindex Binde- versus Legatobogen
 
@@ -397,27 +383,25 @@ geschachtelt werden.
 
 @morerefs
 Notationsreferenz:
-@rnotation{Bindebögen},
-@rnotation{Legatobögen},
-@rnotation{Phrasierungsbögen}.
+@rnotationnamed{Ties, Bindebögen},
+@rnotationnamed{Slurs, Legatobögen},
+@rnotationnamed{Phrasing slurs, Phrasierungsbögen}.
 
 
-@node Artikulationszeichen und Lautstärke
+@node Articulation and dynamics
 @subsection Artikulationszeichen und Lautstärke
-@translationof Articulation and dynamics
 
 Artikulationszeichen und Lautstärke werden durch spezielle Zeichen
 nach den Noten angezeigt, auf die sie sich beziehen.
 
 @menu
-* Artikulationszeichen::
-* Fingersätze::
-* Dynamik::
+* Articulations::
+* Fingerings::
+* Dynamics::
 @end menu
 
-@node Artikulationszeichen
+@node Articulations
 @unnumberedsubsubsec Artikulationszeichen
-@translationof Articulations
 
 
 @cindex Artikulation
@@ -437,9 +421,8 @@ Glossar:
 }
 @end lilypond
 
-@node Fingersätze
+@node Fingerings
 @unnumberedsubsubsec Fingersätze
-@translationof Fingerings
 
 
 @cindex Fingersatz
@@ -468,9 +451,8 @@ Möglichkeit, wie die Artikulationen platziert werden sollen.
 \relative { c''4_-^1 d^. f^4_2-> e^-_+ }
 @end lilypond
 
-@node Dynamik
+@node Dynamics
 @unnumberedsubsubsec Dynamik
-@translationof Dynamics
 
 
 @cindex Dynamik
@@ -514,14 +496,13 @@ Mit dem Befehl @code{\!} kann es explizit beendet werden.
 
 @morerefs
 Notationsreferenz:
-@rnotation{Artikulationszeichen und Verzierungen},
-@rnotation{Fingersatzanweisungen},
-@rnotation{Dynamik}.
+@rnotationnamed{Articulations and ornamentations, Artikulationszeichen und Verzierungen},
+@rnotationnamed{Fingering instructions, Fingersatzanweisungen},
+@rnotationnamed{Dynamics, Dynamik}.
 
 
-@node Text hinzufügen
+@node Adding text
 @subsection Text hinzufügen
-@translationof Adding text
 
 @cindex Text, einfügen
 @cindex Einfügen von Text
@@ -552,12 +533,11 @@ Zusätzliche Formatierung kann eingesetzt werden, wenn Sie den
 
 @morerefs
 Notationsreferenz:
-@rnotation{Text eingeben}.
+@rnotationnamed{Writing text, Text eingeben}.
 
 
-@node Automatische und manuelle Balken
+@node Automatic and manual beams
 @subsection Automatische und manuelle Balken
-@translationof Automatic and manual beams
 
 @cindex Balken, manuell
 @cindex automatische Balken
@@ -604,23 +584,21 @@ und @code{\autoBeamOn}, um sie wieder einzuschalten.
 
 @morerefs
 Notationsreferenz:
-@rnotation{Automatische Balken},
-@rnotation{Manuelle Balken}.
+@rnotationnamed{Automatic beams, Automatische Balken},
+@rnotationnamed{Manual beams, Manuelle Balken}.
 
 
-@node Zusätzliche rhythmische Befehle
+@node Advanced rhythmic commands
 @subsection Zusätzliche rhythmische Befehle
-@translationof Advanced rhythmic commands
 
 @menu
-* Auftakt::
-* N-tolen::
-* Verzierungen::
+* Partial measure::
+* Tuplets::
+* Grace notes::
 @end menu
 
-@node Auftakt
+@node Partial measure
 @unnumberedsubsubsec Auftakt
-@translationof Partial measure
 
 
 @cindex Auftakt
@@ -638,9 +616,8 @@ heißt eine Viertelnote Auftakt und @samp{\partial 8} eine Achtelnote.
 }
 @end lilypond
 
-@node N-tolen
+@node Tuplets
 @unnumberedsubsubsec N-tolen
-@translationof Tuplets
 
 
 @cindex N-tolen
@@ -668,9 +645,8 @@ Für eine Triole wären das drei Noten statt zwei, also bekommen
 }
 @end lilypond
 
-@node Verzierungen
+@node Grace notes
 @unnumberedsubsubsec Verzierungen
-@translationof Grace notes
 
 
 @cindex Verzierungen
@@ -700,14 +676,13 @@ und Vorschläge mit @code{\acciaccatura}.
 
 @morerefs
 Notationsreferenz:
-@rnotation{Verzierungen},
-@rnotation{Andere rhythmische Aufteilungen},
-@rnotation{Auftakte}.
+@rnotationnamed{Grace notes, Verzierungen},
+@rnotationnamed{Tuplets, Andere rhythmische Aufteilungen},
+@rnotationnamed{Upbeats, Auftakte}.
 
 
-@node Mehrere Noten auf einmal
+@node Multiple notes at once
 @section Mehrere Noten auf einmal
-@translationof Multiple notes at once
 
 In diesem Kapitel wird gezeigt, wie mehr als eine Note zur
 gleichen Zeit gesetzt werden kann: auf unterschiedlichen Systemen
@@ -719,26 +694,25 @@ Stimme in einem Stück. Polyphonie bzw. Mehrstimmigkeit heißt für
 LilyPond allerdings das Vorkommen von mehr als einer Stimme pro System.
 
 @menu
-* Musikalische Ausdrücke erklärt::
-* Mehrere Notensysteme::
-* Notensysteme gruppieren::
-* Noten zu Akkorden verbinden::
-* Mehrstimmigkeit in einem System::
+* Music expressions explained::
+* Multiple staves::
+* Staff groups::
+* Combining notes into chords::
+* Single staff polyphony::
 @end menu
 
 
-@node Musikalische Ausdrücke erklärt
+@node Music expressions explained
 @subsection Musikalische Ausdrücke erklärt
-@translationof Music expressions explained
 
 @cindex Musikalischer Ausdruck
 @cindex Ausdruck, musikalischer
 @cindex zusammengesetzter musikalischer Ausdruck
 
 @menu
-* Analogie mathematische Ausdrücke::
-* Gleichzeitige musikalische Ausdrücke mehrere Notensysteme::
-* Gleichzeitige musikalische Ausdrücke ein Notensystem::
+* Analogy mathematical expressions::
+* Simultaneous music expressions multiple staves::
+* Simultaneous music expressions single staff::
 @end menu
 
 In LilyPond-Quelldateien wird Musik durch @emph{musikalische
@@ -768,9 +742,8 @@ musikalischer Ausdruck.
 @end lilypond
 
 
-@node Analogie mathematische Ausdrücke
+@node Analogy mathematical expressions
 @unnumberedsubsubsec Analogie mathematische Ausdrücke
-@translationof Analogy mathematical expressions
 
 
 Die Anordnung von Ausrücken funktioniert ähnlich wie mathematische
@@ -796,9 +769,8 @@ Ausdrücke können auch musikalische Ausdrücke beliebig tief verschachtelt
 werden. Das wird benötigt für komplexe Musik mit vielen Stimmen.
 
 
-@node Gleichzeitige musikalische Ausdrücke mehrere Notensysteme
+@node Simultaneous music expressions multiple staves
 @unnumberedsubsubsec Gleichzeitige musikalische Ausdrücke mehrere Notensysteme
-@translationof Simultaneous music expressions multiple staves
 
 @cindex mehrere Systeme
 @cindex Notensysteme, mehrere
@@ -848,9 +820,8 @@ die erste Note in einem @code{@bs{}relative} Block ist relativ zu
 @samp{c} (eine Oktave unter dem eingestrichenen@tie{}C).}
 
 
-@node Gleichzeitige musikalische Ausdrücke ein Notensystem
+@node Simultaneous music expressions single staff
 @unnumberedsubsubsec Gleichzeitige musikalische Ausdrücke ein Notensystem
-@translationof Simultaneous music expressions single staff
 
 
 Um die Anzahl der Notensysteme zu bestimmen, analysiert
@@ -868,9 +839,8 @@ folgende Beispiel beginnt mit einer Note:
 }
 @end lilypond
 
-@node Mehrere Notensysteme
+@node Multiple staves
 @subsection Mehrere Notensysteme
-@translationof Multiple staves
 
 @cindex mehrere Systeme
 @cindex Systeme, mehrere
@@ -885,7 +855,7 @@ folgende Beispiel beginnt mit einer Note:
 @funindex Lyrics
 @funindex ChordNames
 
-Wie wir in @ref{Musikalische Ausdrücke erklärt} gesehen haben, sind
+Wie wir in @ref{Music expressions explained} gesehen haben, sind
 LilyPond-Quelldateien aus musikalischen Ausdrücken konstruiert.
 Wenn die Noteneingabe mit parallelen Ausdrücken beginnt, werden
 mehrere Notensysteme erstellt. Es ist aber sicherer und einfacherer
@@ -940,9 +910,8 @@ als Partituren mit unterschiedlichen Taktarten.
 >>
 @end lilypond
 
-@node Notensysteme gruppieren
+@node Staff groups
 @subsection Notensysteme gruppieren
-@translationof Staff groups
 
 @cindex Akkolade
 @cindex System für Klavier
@@ -969,7 +938,7 @@ Musik für das Klavier wird üblicherweise auf zwei Systemen notiert,
 die durch eine @notation{geschweifte Klammer} verbunden sind
 (Akkolade). Um ein derartiges
 Notensystem zu erstellen, geht man ähnlich vor wie in dem Beispiel
-aus @ref{Mehrere Notensysteme}, nur dass der gesamte Ausdruck jetzt in
+aus @ref{Multiple staves}, nur dass der gesamte Ausdruck jetzt in
 eine @code{PianoStaff}-Umgebung eingefügt wird.
 
 @example
@@ -1000,13 +969,12 @@ oder auch zwischen System gesetzt werden.
 
 @morerefs
 Notationsreferenz:
-@rnotation{Tasteninstrumente und andere Instrumente mit mehreren Systemen},
-@rnotation{Systeme anzeigen lassen}.
+@rnotationnamed{Keyboard and other multi-staff instruments, Tasteninstrumente und andere Instrumente mit mehreren Systemen},
+@rnotationnamed{Displaying staves, Systeme anzeigen lassen}.
 
 
-@node Noten zu Akkorden verbinden
+@node Combining notes into chords
 @subsection Noten zu Akkorden verbinden
-@translationof Combining notes into chords
 
 Glossar: @rglos{chord}.
 
@@ -1060,12 +1028,11 @@ funktioniert sogar mit eingestreuten einzelnen Noten.
 
 @morerefs
 Notationsreferenz:
-@rnotation{Noten mit Akkorden}.
+@rnotationnamed{Chorded notes, Noten mit Akkorden}.
 
 
-@node Mehrstimmigkeit in einem System
+@node Single staff polyphony
 @subsection Mehrstimmigkeit in einem System
-@translationof Single staff polyphony
 
 @cindex Mehrstimmigkeit
 @cindex mehrere Stimmen
@@ -1087,30 +1054,28 @@ Abschnitte in diese Konzepte ein und erklären sie ausführlich.
 
 @morerefs
 Handbuch zum Lernen:
-@ref{Voice enthält Noten}.
+@ref{Voices contain music}.
 
 Notationsreferenz:
-@rnotation{Gleichzeitig erscheinende Noten}.
+@rnotationnamed{Simultaneous notes, Gleichzeitig erscheinende Noten}.
 
 
-@node Lieder
+@node Songs
 @section Lieder
-@translationof Songs
 
 In diesem Kapitel wird in die Kombination von Musik mit
 Text eingeführt und die Erstellung einfacher Song-Blätter
 gezeigt.
 
 @menu
-* Einfache Lieder setzen::
-* Text an einer Melodie ausrichten::
-* Text zu mehreren Systemen::
+* Setting simple songs::
+* Aligning lyrics to a melody::
+* Lyrics to multiple staves::
 @end menu
 
 
-@node Einfache Lieder setzen
+@node Setting simple songs
 @subsection Einfache Lieder setzen
-@translationof Setting simple songs
 
 @cindex Text
 @cindex Lieder
@@ -1155,9 +1120,8 @@ Klammern eingefasst, und der gesamte Ausdruck ist zwischen
 @code{<<@tie{}@dots{}@tie{}>>} positioniert. Damit wird garantiert,
 dass Text und Noten gleichzeitig gesetzt werden.
 
-@node Text an einer Melodie ausrichten
+@node Aligning lyrics to a melody
 @subsection Text an einer Melodie ausrichten
-@translationof Aligning lyrics to a melody
 
 @cindex Gesangstext, Ausrichten
 @cindex Ausrichten von Gesangstext
@@ -1195,7 +1159,7 @@ Textzeile nicht korrekt an den Noten ausgerichtet ist.  Das Wort
 Das nennt man ein @notation{Melisma}, eine Silbe Text zu mehreren Noten.
 Es gibt mehrere Möglichkeiten, eine Silbe über mehrere Noten zu verlängern.
 Die einfachste ist es, einen Legatobogen um die betroffenen Noten zu setzen,
-zu Einzelheiten siehe @ref{Bindebögen und Legatobögen}.
+zu Einzelheiten siehe @ref{Ties and slurs}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1218,7 +1182,7 @@ aber der automatische Balken für die Noten zu
 Wir können das korrigieren, indem wir die Balkenlänge
 manuell eingrenzen, damit sie der üblichen Notationsweise
 für Gesang entspricht. Für Einzelheiten siehe
-@ref{Automatische und manuelle Balken}.
+@ref{Automatic and manual beams}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1340,12 +1304,11 @@ in Figaros Arie @notation{Largo al factotum} gesungen werden muss.
 
 @morerefs
 Notationsreferenz:
-@rnotation{Notation von Gesang}.
+@rnotationnamed{Vocal music, Notation von Gesang}.
 
 
-@node Text zu mehreren Systemen
+@node Lyrics to multiple staves
 @subsection Text zu mehreren Systemen
-@translationof Lyrics to multiple staves
 
 @cindex Gesangstext auf mehreren Systemen
 @cindex Mehrere Systeme und Gesangstext
@@ -1381,33 +1344,31 @@ aus Händels @emph{Judas Maccabäus}:
 Aber Partituren, die komplizierter als dieses Beispiel sind,
 werden besser notiert, indem man die Systemstruktur von den
 Noten und dem Gesangstext durch Variablen trennt. Die Benutzung
-von Variablen wird erklärt im Abschnitt @ref{Stücke durch Variablen organisieren}.
+von Variablen wird erklärt im Abschnitt @ref{Organizing pieces with variables}.
 
 
 @morerefs
 Notationsreferenz:
-@rnotation{Notation von Gesang}.
+@rnotationnamed{Vocal music, Notation von Gesang}.
 
 
-@node Letzter Schliff
+@node Final touches
 @section Letzter Schliff
-@translationof Final touches
 
 Das ist das letzte Kapitel des Tutoriums. Hier soll demonstriert werden,
 wie man den letzten Schliff an einfachen Stücken anbringen kann.
 Gleichzeitig dient es als Einleitung zum Rest des Handbuches.
 
 @menu
-* Stücke durch Variablen organisieren::
-* Titel hinzufügen::
-* Absolute Notenbezeichnungen::
-* Nach dem Tutorium::
+* Organizing pieces with variables::
+* Adding titles::
+* Absolute note names::
+* After the tutorial::
 @end menu
 
 
-@node Stücke durch Variablen organisieren
+@node Organizing pieces with variables
 @subsection Stücke durch Variablen organisieren
-@translationof Organizing pieces with variables
 
 @cindex Variable
 @cindex Bezeichner
@@ -1501,9 +1462,8 @@ Benutzung der eben definierten Bezeichner:
 @end example
 
 
-@node Titel hinzufügen
+@node Adding titles
 @subsection Titel hinzufügen
-@translationof Adding titles
 
 @cindex Titel
 @cindex header
@@ -1533,12 +1493,11 @@ außerhalb der musikalischen Ausdrücke, meistens wird die
 @noindent
 Wenn die Datei übersetzt wird, werden Titel- und Komponisteneinträge
 über der Musik ausgegeben. Mehr Information über die Titelei findet
-sich im Abschnitt @rnotation{Titel Kopf und Fußzeilen erstellen}.
+sich im Abschnitt @rnotationnamed{Creating titles headers and footers, Titel Kopf und Fußzeilen erstellen}.
 
 
-@node Absolute Notenbezeichnungen
+@node Absolute note names
 @subsection Absolute Notenbezeichnungen
-@translationof Absolute note names
 
 @cindex Notenbezeichnungen
 @cindex absoluter Modus
@@ -1632,19 +1591,18 @@ relativen Musik:
 @end lilypond
 
 
-@node Nach dem Tutorium
+@node After the tutorial
 @subsection Nach dem Tutorium
-@translationof After the tutorial
 
 Wenn Sie dieses Tutorium absolviert haben, sollten Sie am
 besten ein paar Stücke selber notieren. Beginnen Sie mit
-den @ref{Vorlagen} und fügen Sie einfach Ihre Noten
+den @ref{Templates} und fügen Sie einfach Ihre Noten
 dazu. Wenn Sie irgendetwas brauchen, das nicht im
 Tutorium besprochen wurde, schauen Sie sich den Abschnitt Alles
-über die Notation an, angefangen mit @rnotation{Musikalische Notation}.
+über die Notation an, angefangen mit @rnotationnamed{Musical notation, Musikalische Notation}.
 Wenn Sie für ein Instrument oder Ensemble Noten schreiben
 wollen, für das es keine Vorlage gibt, schauen Sie
-sich @ref{Erweiterung der Vorlagen} an.
+sich @ref{Extending the templates} an.
 
 Wenn Sie ein paar kurze Stücke notiert haben, lesen Sie
 den Rest des Handbuchs zum Lernen (Kapitel 3--5). Natürlich können
@@ -1663,7 +1621,7 @@ haben, können Sie bei Bedarf diesen Verweisen folgen, um ein
 Thema zu vertiefen.
 
 Bitte lesen Sie jetzt
-@ref{Überblick über die Handbücher}, wenn Sie
+@ref{Overview of manuals}, wenn Sie
 es bisher noch nicht getan haben. Es gibt ungeheuer viel
 Information über LilyPond, so dass Neulinge sich nicht sofort
 zurecht finden. Wenn Sie auch nur ein paar Minuten in diesem

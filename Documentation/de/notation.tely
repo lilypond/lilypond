@@ -42,21 +42,21 @@ Copyright @copyright{} 1999--2023 bei den Autoren.
 
 
 @menu
-* Musikalische Notation::               Allgemeine Notation, die fast immer vorkommt.
-* Spezielle Notation::            Notation, die nur für spezielle Zwecke eingesetzt wird.
-* Allgemeine Eingabe und Ausgabe::       Allgemeine Information über die Quelldateien von LilyPond.
-* Abstände::                 Anzeige der Ausgabe auf dem Papier.
-* Standardeinstellungen verändern::              Das Notenbild verfeinern.
+* Musical notation::               Allgemeine Notation, die fast immer vorkommt.
+* Specialist notation::            Notation, die nur für spezielle Zwecke eingesetzt wird.
+* General input and output::       Allgemeine Information über die Quelldateien von LilyPond.
+* Spacing issues::                 Anzeige der Ausgabe auf dem Papier.
+* Changing defaults::              Das Notenbild verfeinern.
 @c * Schnittstellen für Programmierer::     Benutzung für Experten.
 
 Anhänge
 
 @c * Literatur::                Wichtige Literatur über die Notation.
-* Notationsübersicht::         Tabellen und Grafiken.
-* Befehlsübersicht::                    Überblick über die LilyPond-Syntax.
+* Notation manual tables::         Tabellen und Grafiken.
+* Cheat sheet::                    Überblick über die LilyPond-Syntax.
 * GNU Free Documentation License:: Die Lizenz dieses Handbuchs.
-* Index der LilyPond-Befehle::
-* LilyPond-Index::
+* LilyPond command index::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -85,9 +85,8 @@ Anhänge
 @include en/fdl.itexi
 
 
-@node Index der LilyPond-Befehle
+@node LilyPond command index
 @appendix Index der LilyPond-Befehle
-@translationof LilyPond command index
 
 Dieser Index listet alle LilyPond Befehle und Schlüsselwörter auf,
 versehen mit Verweisen zu den Abschnitten im Handbuch, die den Befehl
@@ -98,9 +97,8 @@ erscheint, der zweite Teil zeigt auf den entsprechenden Abschnitt.
 @printindex ky
 
 
-@node LilyPond-Index
+@node LilyPond index
 @appendix LilyPond-Index
-@translationof LilyPond index
 
 Zusätzlich zu allen LilyPond Befehlen und Schlüsselwörtern listet
 dieser Index alle relevanten Begriffe auf und verlinkt sie mit den

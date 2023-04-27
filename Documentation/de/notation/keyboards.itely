@@ -12,9 +12,8 @@
 
 @c \version "2.21.0"
 
-@node Tasteninstrumente und andere Instrumente mit mehreren Systemen
+@node Keyboard and other multi-staff instruments
 @section Tasteninstrumente und andere Instrumente mit mehreren Systemen
-@translationof Keyboard and other multi-staff instruments
 
 @lilypondfile[quote]{snippets/keyboard-headword.ly}
 
@@ -27,31 +26,29 @@ Instrumenten, die auf mehreren Systemen notiert werden, als
 keine Tasten aufweisen.
 
 @menu
-* Übliche Notation für Tasteninstrumente::
-* Klavier::
-* Akkordeon::
-* Harfe::
+* Common notation for keyboards::
+* Piano::
+* Accordion::
+* Harp::
 @end menu
 
-@node Übliche Notation für Tasteninstrumente
+@node Common notation for keyboards
 @subsection Übliche Notation für Tasteninstrumente
-@translationof Common notation for keyboards
 
 Dieser Abschnitt zeigt allgemeine Eigenschaften des Notensatzes, die
 für die meisten Instrumente mit mehreren Systemen benötigt werden.
 
 @menu
-* Referenz für Tasteninstrumente::
-* Notensysteme manuell verändern::
-* Automatischer Systemwechsel::
-* Stimmführungslinien::
-* Hälse über beide Systeme::
+* References for keyboards::
+* Changing staff manually::
+* Changing staff automatically::
+* Staff-change lines::
+* Cross-staff stems::
 @end menu
 
 
-@node Referenz für Tasteninstrumente
+@node References for keyboards
 @unnumberedsubsubsec Referenz für Tasteninstrumente
-@translationof References for keyboards
 
 @cindex Klaviersystem
 @cindex Piano-System
@@ -84,45 +81,45 @@ wird an anderen Stellen besprochen:
 @item Noten für Tasteninstrumente haben oft mehrere Stimmen und
 die Anzahl der Stimmen kann sich häufig ändern.  Das ist
 beschrieben in
-@ref{Auflösung von Zusammenstößen}.
+@ref{Collision resolution}.
 
 @item Noten für Tasteninstrumente kann auch parallel, Takt für
 Takt notiert werden, wie gezeigt in
-@ref{Musik parallel notieren}.
+@ref{Writing music in parallel}.
 
 @item Dynamikbezeichnung kann in einem @code{Dynamics}-Kontext notiert
 werden, der zwischen zwei @code{Staff}-Kontexten steht und dann
-horizontal zwischen diesen beiden zentriert wird; siehe @ref{Dynamik}.
+horizontal zwischen diesen beiden zentriert wird; siehe @ref{Dynamics}.
 
 @item Fingersatz wird erklärt in
-@ref{Fingersatzanweisungen}.
+@ref{Fingering instructions}.
 
 @item Orgelpedal-Zeichen werden als Artikulationszeichen notiert,
 siehe
-@ref{Liste der Artikulationszeichen}.
+@ref{List of articulations}.
 
 @item Vertikale Rasterlinien können erstellt werden, siehe
-@ref{Gitternetzlinien}.
+@ref{Grid lines}.
 
 @item Noten für Tasteninstrumente beinhalten oft
 @notation{Laissez vibrer}-Bögen und Bindebögen mit Arpeggio
 oder Tremolo, siehe hierzu
-@ref{Bindebögen}.
+@ref{Ties}.
 
 @item Arpeggios können auch zwischen den Systemen verbunden
 werden, siehe hierzu
 @ref{Arpeggio}.
 
 @item Tremolo-Zeichen finden sich in
-@ref{Tremolo-Wiederholung}.
+@ref{Tremolo repeats}.
 
 @item Viele der Optimierungen, die für Tastenmusik nötig sein
 können, sind demonstriert in
-@rlearning{Beispiel aus dem Leben}.
+@rlearningnamed{Real music example, Beispiel aus dem Leben}.
 
 @item Unsichtbare Noten können eingesetzt werden, um
 Überbindungen zwischen Stimmen zu setzen, siehe
-@rlearning{Andere Benutzung von Optimierungen}.
+@rlearningnamed{Other uses for tweaks, Andere Benutzung von Optimierungen}.
 
 @end itemize
 
@@ -135,20 +132,20 @@ können, sind demonstriert in
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Beispiel aus dem Leben},
-@rlearning{Andere Benutzung von Optimierungen}.
+@rlearningnamed{Real music example, Beispiel aus dem Leben},
+@rlearningnamed{Other uses for tweaks, Andere Benutzung von Optimierungen}.
 
 Notationsreferenz:
-@ref{Systeme gruppieren},
-@ref{Instrumentenbezeichnungen},
-@ref{Auflösung von Zusammenstößen},
-@ref{Musik parallel notieren},
-@ref{Fingersatzanweisungen},
-@ref{Liste der Artikulationszeichen},
-@ref{Gitternetzlinien},
-@ref{Bindebögen},
+@ref{Grouping staves},
+@ref{Instrument names},
+@ref{Collision resolution},
+@ref{Writing music in parallel},
+@ref{Fingering instructions},
+@ref{List of articulations},
+@ref{Grid lines},
+@ref{Ties},
 @ref{Arpeggio},
-@ref{Tremolo-Wiederholung}.
+@ref{Tremolo repeats}.
 
 Schnipsel:
 @rlsr{Keyboards}.
@@ -157,9 +154,8 @@ Referenz der Interna:
 @rinternals{PianoStaff}.
 
 
-@node Notensysteme manuell verändern
+@node Changing staff manually
 @unnumberedsubsubsec Notensysteme manuell verändern
-@translationof Changing staff manually
 
 @cindex manuelle Systemwechsel
 @cindex Systemwechsel, manuell
@@ -186,7 +182,7 @@ oder @code{"down"}, @code{"RH"} oder @code{"LH"}.
 Das System, zu dem die Stimme wechseln soll, muss zum
 Zeitpunkt des Wechsels existieren.  Wenn notwendig, müssen
 Systeme @qq{künstlich am Leben gehalten werden}, siehe
-@ref{Kontexte am Leben halten}.
+@ref{Keeping contexts alive}.
 
 Balken zwischen den Systemen werden automatisch erstellt:
 
@@ -214,8 +210,7 @@ Balken zwischen den Systemen werden automatisch erstellt:
 Wenn die Balken verändert werden müssen, sollte zuerst die
 Richtung des Balkens beeinflusst werden.  Die Balkenposition wird
 dann von der Mitte des Systems gemessen, dass näher am Balken ist.
-Ein einfaches Beispiel ist gezeigt in @rlearningnamed{Überlappende
-Notation in Ordnung bringen,@"Uberlappende Notation in Ordnung
+Ein einfaches Beispiel ist gezeigt in @rlearningnamed{Fixing overlapping notation,@"Uberlappende Notation in Ordnung
 bringen}.
 
 @cindex Zusammenstöße zwischen Systemen
@@ -256,20 +251,18 @@ auch für Hälse und Artikulationszeichen, wenn ihre Positionierung
 durch einen Strecker zwischen Systemen verändert wird.  Die
 resultierenden Zusammenstöße müssen manuell aufgelöst werden, wo
 es nötig ist, dabei kann man die Methoden anwenden, die in
-@rlearningnamed{Überlappende Notation in Ordnung
-bringen,@"Uberlappende Notation in Ordnung bringen} gezeigt
+@rlearningnamed{Fixing overlapping notation,@"Uberlappende Notation in Ordnung bringen} gezeigt
 werden.
 
 
 @morerefs
 Handbuch zum Lernen:
-@rlearningnamed{Überlappende Notation in Ordnung
-bringen,@"Uberlappende Notation in Ordnung bringen}.
+@rlearningnamed{Fixing overlapping notation,@"Uberlappende Notation in Ordnung bringen}.
 
 Notationsreferenz:
-@ref{Hälse},
-@ref{Automatische Balken},
-@ref{Kontexte am Leben halten}.
+@ref{Stems},
+@ref{Automatic beams},
+@ref{Keeping contexts alive}.
 
 Schnipsel:
 @rlsr{Keyboards}.
@@ -284,9 +277,8 @@ direkt am Ende eines Systems enden.  In diesem Fall muss man manuelle
 Balken einsetzen.
 
 
-@node Automatischer Systemwechsel
+@node Changing staff automatically
 @unnumberedsubsubsec Automatischer Systemwechsel
-@translationof Changing staff automatically
 
 @cindex Automatischer Systemwechsel
 @cindex Systemwechsel, automatisch
@@ -363,7 +355,7 @@ System gesetzt werden kann:
 
 @morerefs
 Notationsreferenz:
-@ref{Notensysteme manuell verändern}.
+@ref{Changing staff manually}.
 
 Schnipsel:
 @rlsr{Keyboards}.
@@ -383,9 +375,8 @@ Akkorde werde nicht über die Systeme verteilt, sie werden dem
 System zugewiesen, auf dem sich ihre erste Note befinden würde.
 
 
-@node Stimmführungslinien
+@node Staff-change lines
 @unnumberedsubsubsec Stimmführungslinien
-@translationof Staff-change lines
 
 @cindex Stimmkreuzung
 @cindex Systemwechsel von Stimmen
@@ -435,9 +426,8 @@ Referenz der Interna:
 @rinternals{VoiceFollower}.
 
 
-@node Hälse über beide Systeme
+@node Cross-staff stems
 @unnumberedsubsubsec Hälse über beide Systeme
-@translationof Cross-staff stems
 
 @cindex Hälse über zwei Systeme
 @cindex System querende Hälse
@@ -470,19 +460,17 @@ Referenz der Interna:
 @rinternals{Stem}.
 
 
-@node Klavier
+@node Piano
 @subsection Klavier
-@translationof Piano
 
 Dieser Abschnitt zeigt Eigenheiten der Notation von Klavermusik
 
 @menu
-* Klavierpedal::
+* Piano pedals::
 @end menu
 
-@node Klavierpedal
+@node Piano pedals
 @unnumberedsubsubsec Klavierpedal
-@translationof Piano pedals
 
 @cindex Pedalbezeichnung
 @cindex Klavier, Pedalbezeichnung
@@ -554,7 +542,7 @@ notiert werden, sodass sie an einer horizontalen Linie ausgerichtet werden.
 
 @morerefs
 Notationsreferenz:
-@ref{Bindebögen}.
+@ref{Ties}.
 
 Schnipsel:
 @rlsr{Keyboards}.
@@ -573,9 +561,8 @@ Referenz der Interna:
 @rinternals{Piano_pedal_engraver}.
 
 
-@node Akkordeon
+@node Accordion
 @subsection Akkordeon
-@translationof Accordion
 
 @cindex Akkordeon
 
@@ -583,12 +570,11 @@ Dieser Abschnitt behandelt Notation, die nur für Akkordeonmusik
 benötigt wird.
 
 @menu
-* Diskant-Symbole::
+* Discant symbols::
 @end menu
 
-@node Diskant-Symbole
+@node Discant symbols
 @unnumberedsubsubsec Diskant-Symbole
-@translationof Discant symbols
 
 @cindex Akkordeon, Diskant-Symbole
 @cindex Diskantsymbole, Akkordeon
@@ -612,21 +598,19 @@ Schnipsel:
 
 
 
-@node Harfe
+@node Harp
 @subsection Harfe
-@translationof Harp
 
 Dieser Abschnitt zeigt Eigenheiten der Notation für Harfe.
 
 @menu
-* Referenzen für Harfe::
-* Harfenpedal::
+* References for harps::
+* Harp pedals::
 @end menu
 
 
-@node Referenzen für Harfe
+@node References for harps
 @unnumberedsubsubsec Referenzen für Harfe
-@translationof References for harps
 
 @cindex Harfe
 
@@ -637,9 +621,9 @@ Einige übliche Notationseigenheiten für Harfe sind woanders behandelt:
 @item Glissando ist die üblichste Harfentechnik, siehe
 @ref{Glissando}.
 
-@item Ein @notation{Bisbigliando} wird als ein Tremolo notiert, siehe @ref{Tremolo-Wiederholung}.
+@item Ein @notation{Bisbigliando} wird als ein Tremolo notiert, siehe @ref{Tremolo repeats}.
 
-@item Flageolettöne werden hier beschrieben: @ref{Flageolett}.
+@item Flageolettöne werden hier beschrieben: @ref{Harmonics}.
 
 @item Für Arpeggio und non-arpeggio, siehe @ref{Arpeggio}.
 
@@ -647,16 +631,15 @@ Einige übliche Notationseigenheiten für Harfe sind woanders behandelt:
 
 @morerefs
 Notationsreferenz:
-@ref{Tremolo-Wiederholung},
+@ref{Tremolo repeats},
 @ref{Glissando},
 @ref{Arpeggio},
-@ref{Flageolett}.
+@ref{Harmonics}.
 
 
 
-@node Harfenpedal
+@node Harp pedals
 @unnumberedsubsubsec Harfenpedal
-@translationof Harp pedals
 
 @cindex Harfenpedal
 @cindex Pedal, Harfe
@@ -695,5 +678,5 @@ Trenner.  Ein @code{o} vor der Definition umrandet das Symbol.
 
 @morerefs
 Notationsreferenz:
-@ref{Textarten},
+@ref{Text scripts},
 @ref{Instrument-specific markup}.

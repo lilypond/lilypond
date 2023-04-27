@@ -12,31 +12,29 @@
 
 @c Translators: Till Paala
 
-@node Schnittstellen für Programmierer
+@node Interfaces for programmers
 @chapter Schnittstellen für Programmierer
-@translationof Interfaces for programmers
 
 Fortgeschrittene Anpassungen können mithilfe der Programmiersprache
 Scheme vorgenommen werden.  Wenn Sie Scheme nicht kennen, gibt
 es eine grundlegende Einleitung in LilyPonds
-@ref{Scheme-Tutorium}.
+@ref{Scheme tutorial}.
 
 @menu
-* LilyPond-Codeabschnitte::
-* Scheme-Funktionen::
-* Musikalische Funktionen::
-* Ereignisfunktionen::
-* Textbeschriftungsfunktionen::
-* Kontexte für Programmierer::
-* Callback-Funktionen::
-* Scheme-Code innerhalb LilyPonds::
-* Schwierige Korrekturen::
+* Lilypond code blocks::
+* Scheme functions::
+* Music functions::
+* Event functions::
+* Markup functions::
+* Contexts for programmers::
+* Callback functions::
+* Inline Scheme code::
+* Difficult tweaks::
 @end menu
 
 
-@node LilyPond-Codeabschnitte
+@node Lilypond code blocks
 @section LilyPond-Codeabschnitte
-@translationof Lilypond code blocks
 
 Codeabschnitte in LilyPond sehen etwa so aus:
 
@@ -64,9 +62,8 @@ und ein LilyPond-Abschnitt, der mehrere musikalische Ereignisse enthält,
 wird in einen sequenziellen musikalischen Ausdruck umgewandelt.
 
 
-@node Scheme-Funktionen
+@node Scheme functions
 @section Scheme-Funktionen
-@translationof Scheme functions
 
 @cindex Scheme-Funktionen (LilyPond syntax)
 
@@ -79,14 +76,13 @@ einzusetzen.  Während Scheme auch eigene Funktionen besitzt, handelt
 Argumente in LilyPond-Syntax annehmen.
 
 @menu
-* Definition von Scheme-Funktionen::
-* Benutzung von Scheme-Funktionen::
-* Leere Scheme-Funktionen::
+* Scheme function definitions::
+* Scheme function usage::
+* Void scheme functions::
 @end menu
 
-@node Definition von Scheme-Funktionen
+@node Scheme function definitions
 @subsection Definition von Scheme-Funktionen
-@translationof Scheme function definitions
 
 @funindex define-scheme-function
 
@@ -135,7 +131,7 @@ auf den Parameter @code{location} gesetzt.
 werden, wobei die letzte als Ausgabewert der Scheme-Funktion eingesetzt
 wird.  Sie kann LilyPond-Codeabschnitte enthalten, eingeschlossen mit
 Raute-Klammern (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), wie beschrieben
-in @ref{LilyPond-Codeabschnitte}.  Innerhalb von LilyPond-Codeabschnitten
+in @ref{Lilypond code blocks}.  Innerhalb von LilyPond-Codeabschnitten
 wird mit @code{#} auf Funktionsargumente (etwa @samp{#Arg1}) verwiesen
 oder ein neuer Scheme-Ausdruck mit Funktionsargumenten begonnen
 (etwa @w{@samp{#(cons Arg1 Arg2)}}).  Wo normale Scheme-Ausdrücke mit
@@ -183,12 +179,12 @@ vermeiden sollte, wenn man eine bestimmmte Verwendung beabsichtigt
 und nicht nur eine Funktion für die allgemeine Verwendung schreibt.
 
 Eine Liste der möglichen vordefinierten Typenprädikte findet sich in
-@rnotation{Vordefinierte Typprädikate}.
+@rnotationnamed{Predefined type predicates, Vordefinierte Typprädikate}.
 
 @morerefs
 
 Notationsreferenz
-@rnotation{Vordefinierte Typprädikate}.
+@rnotationnamed{Predefined type predicates, Vordefinierte Typprädikate}.
 
 Installierte Dateien:
 @file{lily/music-scheme.cc},
@@ -196,9 +192,8 @@ Installierte Dateien:
 @file{scm/lily.scm}.
 
 
-@node Benutzung von Scheme-Funktionen
+@node Scheme function usage
 @subsection Benutzung von Scheme-Funktionen
-@translationof Scheme function usage
 
 Scheme-Funktionen können überall aufgerufen werden, wo ein
 Scheme-Ausdruck beginnend mit @code{#} geschrieben werden kann.
@@ -230,12 +225,11 @@ Weil es eine schlechte Idee ist, einen Wert auszugeben, der in einigen
 Kontexten misinterpretiert werden könnte, sollte man Scheme-Funktionen
 nur in den Fällen benutzen, in welchen sie immer einen sinnvollen
 Wert ausgeben, und leere Scheme-Funktionen an anderen stellen
-einsetzen.  Siehe auch @pxref{Leere Scheme-Funktionen}.
+einsetzen.  Siehe auch @pxref{Void scheme functions}.
 
 
-@node Leere Scheme-Funktionen
+@node Void scheme functions
 @subsection Leere Scheme-Funktionen
-@translationof Void scheme functions
 
 @funindex define-void-function
 @funindex \void
@@ -281,9 +275,8 @@ Wert keine Bedeutung zuweist, unabhängig davon, wo er angetroffen wird.
 Das funktioniert auch für musikalische Funktionen wie @code{\displayMusic}.
 
 
-@node Musikalische Funktionen
+@node Music functions
 @section Musikalische Funktionen
-@translationof Music functions
 
 @cindex musikalische Funktionen
 
@@ -292,19 +285,18 @@ die musikalische Ausdrücke automatisch erstellen können und dadurch die
 Eingabedatei maßgeblich vereinfachen können.
 
 @menu
-* Definition der musikalischen Funktionen::
-* Benutzung von musikalischen Funktionen::
-* Einfache Ersetzungsfunktionen::
-* Mittlere Ersetzungsfunktionen::
-* Mathematik in Funktionen::
-* Funktionen ohne Argumente::
-* Leere musikalische Funktionen::
+* Music function definitions::
+* Music function usage::
+* Simple substitution functions::
+* Intermediate substitution functions::
+* Mathematics in functions::
+* Functions without arguments::
+* Void music functions::
 @end menu
 
 
-@node Definition der musikalischen Funktionen
+@node Music function definitions
 @subsection Definition der musikalischen Funktionen
-@translationof Music function definitions
 
 Die allgemeine Form zur Definition musikalischer Funktionen ist:
 
@@ -317,17 +309,17 @@ function =
 @end example
 
 @noindent
-analot zu Scheme-Funktionen, siehe @ref{Definition von Scheme-Funktionen}.
+analot zu Scheme-Funktionen, siehe @ref{Scheme function definitions}.
 In der Mehrzahl der Fälle ist @var{body} ein LilyPond-Codeabschnitt (siehe
-@ref{LilyPond-Codeabschnitte}.
+@ref{Lilypond code blocks}.
 
 Eine Liste der möglichen Typenprädikate findet sich in
-@rnotation{Vordefinierte Typprädikate}.
+@rnotationnamed{Predefined type predicates, Vordefinierte Typprädikate}.
 
 @morerefs
 
 Notationsreferenz:
-@rnotation{Vordefinierte Typprädikate}.
+@rnotationnamed{Predefined type predicates, Vordefinierte Typprädikate}.
 
 Installierte Dateien:
 @file{lily/music-scheme.cc},
@@ -335,9 +327,8 @@ Installierte Dateien:
 @file{scm/lily.scm}.
 
 
-@node Benutzung von musikalischen Funktionen
+@node Music function usage
 @subsection Benutzung von musikalischen Funktionen
-@translationof Music function usage
 
 Musikalische Funktionen können zur Zeit an verschiedenen Stellen benützt
 werden.  Abhängig davon, wo sie eingesetzt werden, gibt es Begrenzungen,
@@ -376,19 +367,17 @@ möglich, polymorphe Funktionen wie @code{\tweak} zu schreiben,
 die auf unterschiedliche Konstruktionen angewendet werden können.
 
 
-@node Einfache Ersetzungsfunktionen
+@node Simple substitution functions
 @subsection Einfache Ersetzungsfunktionen
-@translationof Simple substitution functions
 
 Einfache Ersetzungsfunktionen sind musikalische Funktionen, deren
 musikalische Ausgabe-Funktion im LilyPond-Format geschrieben ist
 und Funktionsargumente in der Ausgabefunktion enthält.  Sie werden
-beschrieben in @rnotation{Beispiele der Ersetzungsfunktionen}
+beschrieben in @rnotationnamed{Substitution function examples, Beispiele der Ersetzungsfunktionen}
 
 
-@node Mittlere Ersetzungsfunktionen
+@node Intermediate substitution functions
 @subsection Mittlere Ersetzungsfunktionen
-@translationof Intermediate substitution functions
 
 Mittlere Ersetzungsfunktionen setzen sich aus einer Mischung von
 Scheme-Code und LilyPond-Code in der musikalischen Ausgabe-Funktion
@@ -434,9 +423,8 @@ manualBeam =
 @end lilypond
 
 
-@node Mathematik in Funktionen
+@node Mathematics in functions
 @subsection Mathematik in Funktionen
-@translationof Mathematics in functions
 
 Musikalische Funktionen können neben einfachen Ersetzungen
 auch Scheme-Programmcode enthalten:
@@ -488,9 +476,8 @@ withAlt =
 @end lilypond
 
 
-@node Funktionen ohne Argumente
+@node Functions without arguments
 @subsection Funktionen ohne Argumente
-@translationof Functions without arguments
 
 In den meisten Fällen sollten Funktionen ohne Argumente mit einer
 Variable notiert werden:
@@ -524,9 +511,8 @@ lilypond -d display-bar-numbers Dateiname.ly
 aufgerufen werden.
 
 
-@node Leere musikalische Funktionen
+@node Void music functions
 @subsection Leere musikalische Funktionen
-@translationof Void music functions
 
 Eine musikalische Funktion muss einen musikalischen Ausdruck
 ausgeben.  Wenn man eine Funktion nur für ihre Nebeneffekte
@@ -537,9 +523,8 @@ musikalische Funktion erstellen will, teilweise aber nicht
 Funktion mit  @code{#@{ #@}} ausgibt, wird das erreicht.
 
 
-@node Ereignisfunktionen
+@node Event functions
 @section Ereignisfunktionen
-@translationof Event functions
 
 @funindex define-event-function
 @cindex Ereignisfunktionen
@@ -561,25 +546,23 @@ Man kann das Gleiche auch mit einer musikalischen Funktion erreichen, aber dann
 muss man immer einen Richtungsindikator voranstellen, wie @code{@w{c-\dyn pfsss}}.
 
 
-@node Textbeschriftungsfunktionen
+@node Markup functions
 @section Textbeschriftungsfunktionen
-@translationof Markup functions
 
 Textbeschriftungselemente sind als besondere Scheme-Funktionen
 definiert, die ein @code{Stencil}-Objekt erstellen, dem eine Anzahl
 an Argumenten übergeben wird.
 
 @menu
-* Beschriftungskonstruktionen in Scheme::
-* Wie Beschriftungen intern funktionieren::
-* Neue Definitionen von Beschriftungsbefehlen::
-* Neue Definitionen von Beschriftungslistenbefehlen::
+* Markup construction in Scheme::
+* How markups work internally::
+* New markup command definition::
+* New markup list command definition::
 @end menu
 
 
-@node Beschriftungskonstruktionen in Scheme
+@node Markup construction in Scheme
 @subsection Beschriftungskonstruktionen in Scheme
-@translationof Markup construction in Scheme
 
 @cindex Textbeschriftungsbefehle, definieren
 @cindex Textbeschriftung, eigene Befehle
@@ -631,7 +614,7 @@ zugänglich.  Man kann also beispielsweise Funktionen innerhalb
 eines @code{markup} aufrufen, um Zeichenketten zu manipulieren.
 Das ist nützlich, wenn neue Beschriftungsbefehle definiert werden
 sollen (siehe auch
-@ref{Neue Definitionen von Beschriftungsbefehlen}).
+@ref{New markup command definition}).
 
 
 @knownissues
@@ -654,9 +637,8 @@ ist ungültig.  Man sollte anstatt dessen die Funktionen
 @end lisp
 
 
-@node Wie Beschriftungen intern funktionieren
+@node How markups work internally
 @subsection Wie Beschriftungen intern funktionieren
-@translationof How markups work internally
 
 In einer Textbeschriftung wie
 
@@ -691,22 +673,20 @@ in diesem Abschnitt und in der Datei
 @file{scm/define-markup-commands.scm}.
 
 
-@node Neue Definitionen von Beschriftungsbefehlen
+@node New markup command definition
 @subsection Neue Definitionen von Beschriftungsbefehlen
-@translationof New markup command definition
 
 Dieser Abschnitt behandelt die Definition von neuen Textbeschriftungsbefehlen.
 
 @menu
-* Syntax der Definition von Textbeschriftungsbefehlen::
-* Über Eigenschaften::
-* Ein vollständiges Bespiel::
-* Eingebaute Befehle anpassen::
+* Markup command definition syntax::
+* On properties::
+* A complete example::
+* Adapting builtin commands::
 @end menu
 
-@node Syntax der Definition von Textbeschriftungsbefehlen
+@node Markup command definition syntax
 @unnumberedsubsubsec Syntax der Definition von Textbeschriftungsbefehlen
-@translationof Markup command definition syntax
 
 Neue Textbeschriftungsbefehle können mit dem
 @code{define-markup-command}-Scheme-Makro definiert werden.
@@ -770,9 +750,8 @@ wenn es sich um Textbeschriftungsfunktionen handelt, die eine Textbeschriftung
 als letztes Argument haben.
 
 
-@node Über Eigenschaften
+@node On properties
 @unnumberedsubsubsec Über Eigenschaften
-@translationof On properties
 
 Die @code{layout}- und @code{props}-Argumente der Textbeschriftungsbefehle
 bringen einen Kontext für die Interpretation der Beschriftung:
@@ -806,15 +785,14 @@ Das Beispiel im nächsten Abschnitt illustriert, wie man auf Eigenschaften
 in einem Beschriftungsbefehl zugreifen und sie verändern kann.
 
 
-@node Ein vollständiges Bespiel
+@node A complete example
 @unnumberedsubsubsec Ein vollständiges Bespiel
-@translationof A complete example
 
 Das folgende Beispiel definiert einen Beschriftungsbefehl, der einen
 doppelten Kasten um einen Text zeichnet.
 
 Zuerst wollen wir ein annäherndes Ergebnis mit Textbeschriftungen definieren.
-Nach Stöbern in @rnotation{Textbeschriftungsbefehle} finden wir den Befehl
+Nach Stöbern in @rnotationnamed{Text markup commands, Textbeschriftungsbefehle} finden wir den Befehl
 @code{\box}:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -868,7 +846,7 @@ wird in den meisten Beschriftungsbefehlen benutzt: sie erstellt einen
 Stencil, wobei @code{layout}, @code{props} und eine Beschriftung benutzt
 werden.  Im zweiten Fall wird diese Beschriftung durch das
 @code{markup}-Scheme-Makro erstellt, siehe auche
-@ref{Beschriftungskonstruktionen in Scheme}.
+@ref{Markup construction in Scheme}.
 Die Transformation des @code{\markup}-Ausdrucks in einen
 Scheme-Beschriftungsausdruck geschieht durch Umschreiben des LilyPond-Codes
 in Scheme-Code.
@@ -940,9 +918,8 @@ der Kästen kann angepasst werden:
 \markup \override #'(box-padding . 1.0) \double-box A
 @end lilypond
 
-@node Eingebaute Befehle anpassen
+@node Adapting builtin commands
 @unnumberedsubsubsec Eingebaute Befehle anpassen
-@translationof Adapting builtin commands
 
 Ein guter Weg, einen neuen Beschriftungsbefehl zu schreiben, ist es, als Vorbild
 einen existierenden zu nehmen.  Die meisten Beschriftungsbefehle, die
@@ -1029,15 +1006,14 @@ zu zeichnen, und die beiden sich daraus ergebenden Stencils werden mit
 
 
 
-@node Neue Definitionen von Beschriftungslistenbefehlen
+@node New markup list command definition
 @subsection Neue Definitionen von Beschriftungslistenbefehlen
-@translationof New markup list command definition
 
 Beschriftungslistenbefehle können mit dem Scheme-Makro
 @code{define-markup-list-command} definiert werden, welches
 sich ähnlich verhält wie das
 @code{define-markup-command}-Makro, das schon beschrieben
-wurde in @ref{Neue Definitionen von Beschriftungsbefehlen}.  Ein Unterschied
+wurde in @ref{New markup command definition}.  Ein Unterschied
 ist, dass bei diesem Listen-Makro eine ganze Liste an
 Stencils ausgegeben wird.
 
@@ -1099,18 +1075,16 @@ Dieser neue Beschriftungslistenbefehl kann wie folgt benutzt werden:
 @end example
 
 
-@node Kontexte für Programmierer
+@node Contexts for programmers
 @section Kontexte für Programmierer
-@translationof Contexts for programmers
 
 @menu
-* Kontextauswertung::
-* Eine Funktion auf alle Layout-Objekte anwenden::
+* Context evaluation::
+* Running a function on all layout objects::
 @end menu
 
-@node Kontextauswertung
+@node Context evaluation
 @subsection Kontextauswertung
-@translationof Context evaluation
 
 @cindex Aufrufen von Code während der Interpretation
 @cindex On-the-fly Code ausführen
@@ -1139,9 +1113,8 @@ während der Kompilation.
 
 
 
-@node Eine Funktion auf alle Layout-Objekte anwenden
+@node Running a function on all layout objects
 @subsection Eine Funktion auf alle Layout-Objekte anwenden
-@translationof Running a function on all layout objects
 
 
 @cindex Aufruf von Code für Layoutobjekte
@@ -1193,9 +1166,8 @@ werden kann; sie macht Notenköpfe auf und neben der Mittellinie unsichtbar:
 @end lilypond
 
 
-@node Callback-Funktionen
+@node Callback functions
 @section Callback-Funktionen
-@translationof Callback functions
 
 Eigenschaften (wie Dicke (@code{thickness}), Richtung (@code{direction})
 usw.) können mit @code{\override} auf feste Werte gesetzt werden, etwa:
@@ -1279,9 +1251,8 @@ mein-callback = #(lambda (grob)
 @end example
 
 
-@node Scheme-Code innerhalb LilyPonds
+@node Inline Scheme code
 @section Scheme-Code innerhalb LilyPonds
-@translationof Inline Scheme code
 
 TODO: das Beispiel für diesen Abschnitt ist nicht gut gewähtl:
 
@@ -1308,7 +1279,7 @@ F = \tweak font-size #-3 -\flageolet
 @noindent
 Durch die Verwendung von Scheme kann dieses Problem umgangen werden.
 Der Weg zum Resultat wird gezeigt in
-@ref{Artikulationszeichen zu Noten hinzufügen (Beispiel)}, insbesondere
+@ref{Adding articulation to notes (example)}, insbesondere
 wie @code{\displayMusic} benutzt wird, hilft hier weiter.
 
 @example
@@ -1336,9 +1307,8 @@ vorangestellt, und das Resultat wird schließlich mit
 
 
 
-@node Schwierige Korrekturen
+@node Difficult tweaks
 @section Schwierige Korrekturen
-@translationof Difficult tweaks
 
 Hier finden sich einige Klassen an schwierigeren Anpassungen.
 
@@ -1433,9 +1403,8 @@ innerhalb der @code{\context}-Umgebung funktioniert.
 
 
 
-@node LilyPond Scheme-Schnittstellen
+@node LilyPond Scheme interfaces
 @chapter LilyPond Scheme-Schnittstellen
-@translationof LilyPond Scheme interfaces
 
 Dieses Kapitel behandelt die verschiedenen Werkzeuge, die LilyPond als
 Hilfe für Scheme-Programmierer zur Verfügung stellt, um Information in

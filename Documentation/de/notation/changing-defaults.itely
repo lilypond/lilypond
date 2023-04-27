@@ -12,9 +12,8 @@
 
 @c Translators: Till Paala
 
-@node Standardeinstellungen verändern
+@node Changing defaults
 @chapter Standardeinstellungen verändern
-@translationof Changing defaults
 
 Das Ziel von LilyPonds Design ist es, von sich aus gut gesetzte Noten
 zu produzieren.  Es kann aber trotzdem vorkommen, dass Sie diesen
@@ -23,7 +22,7 @@ großen Anzahl von @qq{Schaltern und Knöpfen} kontrolliert werden.
 Sie werden als @qq{Eigenschaften} (engl. properties)  bezeichnet.
 Eine kurze Einführung und Übung, wie man auf diese Eigenschaften
 zugreifen kann und sie verändern kann, findet sich im Handbuch
-zum Lernen, siehe @rlearning{Die Ausgabe verbessern}.  Das Kapitel
+zum Lernen, siehe @rlearningnamed{Tweaking output, Die Ausgabe verbessern}.  Das Kapitel
 sollte zuerst gelesen werden.  In diesem Kapitel werden die gleichen
 Themen behandelt, aber der Schwerpunkt liegt eher auf einer technischen
 Darstellung.
@@ -44,41 +43,40 @@ Intern benutzt LilyPond Scheme (ein LISP-Dialekt), um eine Infrastruktur
 zur Verfügung zu stellen.  Wenn Layoutentscheidungen verändert werden
 sollen, müssen auf die programminternen Prozesse zugegriffen werden,
 wozu Scheme-Code benötigt wird.  Scheme-Abschnitte werden in einer
-LilyPond-Quelldatei mit einer Raute@tie{}@code{#} begonnen.@footnote{@rextend{Scheme-Tutorium} enthält eine kurze Übung, wie
+LilyPond-Quelldatei mit einer Raute@tie{}@code{#} begonnen.@footnote{@rextendnamed{Scheme tutorial, Scheme-Tutorium} enthält eine kurze Übung, wie
 man Zahlen, Listen, Zeichenketten und Symbole in Scheme notiert.}
 
 
 @menu
-* Interpretationskontexte::
-* Die Referenz der Programminterna erklärt::
-* Eigenschaften verändern::
-* Nützliche Konzepte und Eigenschaften::
-* Fortgeschrittene Optimierungen::
-* Musikfunktionen benutzen::
+* Interpretation contexts::
+* Explaining the Internals Reference::
+* Modifying properties::
+* Useful concepts and properties::
+* Advanced tweaks::
+* Using music functions::
 @end menu
 
 
-@node Interpretationskontexte
+@node Interpretation contexts
 @section Interpretationskontexte
-@translationof Interpretation contexts
 
 Dieser Abschnitt erklärt, was Kontexte sind und wie man sie
 verändern kann.
 
 @menu
-* Was sind Kontexte?::
-* Kontexte erstellen und referenzieren::
-* Kontexte am Leben halten::
-* Umgebungs-Plugins verändern::
-* Die Standardeinstellungen von Kontexten ändern::
-* Neue Kontexte definieren::
-* Reihenfolge des Kontextlayouts::
+* Contexts explained::
+* Creating and referencing contexts::
+* Keeping contexts alive::
+* Modifying context plug-ins::
+* Changing context default settings::
+* Defining new contexts::
+* Context layout order::
 @end menu
 
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Kontexte und Engraver}.
+@rlearningnamed{Contexts and engravers, Kontexte und Engraver}.
 
 Installierte Dateien:
 @file{ly/engraver-init.ly},
@@ -92,22 +90,20 @@ Referenz der Interna:
 @rinternals{Engravers and Performers}.
 
 
-@node Was sind Kontexte?
+@node Contexts explained
 @subsection Was sind Kontexte?
-@translationof Contexts explained
 
 Kontexte sind hierarchisch geordnet:
 
 @menu
-* Score -- der Vater aller Kontexte::
-* Oberste Kontexte -- Container für Systeme::
-* Mittlere Kontexte -- Systeme::
-* Unterste Kontexte -- Stimmen::
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
 @end menu
 
-@node Score -- der Vater aller Kontexte
+@node Score - the master of all contexts
 @unnumberedsubsubsec Score -- der Vater aller Kontexte
-@translationof Score - the master of all contexts
 
 @code{Score} (Partitur) ist der höchste Notationskontext.  Kein anderer Kontext
 kann einen @code{Score}-Kontext enthalten.  Im Normalfall kümmert
@@ -119,9 +115,8 @@ Ein @code{Score}-Kontext wird eingerichtet, wenn eine
 @code{\score @{@dots{}@}} oder @code{\layout @{@dots{}@}}-Umgebung
 interpretiert wird.
 
-@node Oberste Kontexte -- Container für Systeme
+@node Top-level contexts - staff containers
 @unnumberedsubsubsec Oberste Kontexte -- Container für Systeme
-@translationof Top-level contexts - staff containers
 
 @c Remark for German translation
 Diese Kontexte fassen Systeme zu Gruppen zusammen und werden darum hier
@@ -151,9 +146,8 @@ Entspricht @code{GrandStaff}, hat aber zusätzlich Unterstützung für
 Instrumentenbezeichnungen zu Beginn jeder Systemgruppe.
 
 
-@node Mittlere Kontexte -- Systeme
+@node Intermediate-level contexts - staves
 @unnumberedsubsubsec Mittlere Kontexte -- Systeme
-@translationof Intermediate-level contexts - staves
 
 Diese Kontexte stellen verschiedene Arten einzelner Notationssysteme
 (engl. staff) dar.
@@ -189,9 +183,8 @@ Entspricht @code{Staff}, aber eignet sich zum Notensatz von Noten in
 der Mensuralnotation.
 
 
-@node Unterste Kontexte -- Stimmen
+@node Bottom-level contexts - voices
 @unnumberedsubsubsec Unterste Kontexte -- Stimmen
-@translationof Bottom-level contexts - voices
 
 Stimmen-(@code{Voice}-Kontexte initialisieren bestimmte Eigenschaften
 und laden bestimmte Engraver.  Weil es sich bei Stimmen um die
@@ -238,7 +231,7 @@ benutzt.  Er wird normalerweise implizit erstellt.
 
 Ein Stimmenkontext, der Noten in reduzierter Größe ausgibt und
 vor allem dazu da ist, Stichnoten zu setzen.  Siehe auch
-@ref{Stichnoten formatieren}.  Wird normalerweise implizit erstellt,
+@ref{Formatting cue notes}.  Wird normalerweise implizit erstellt,
 wenn Stichnoten gesetzt werden.
 
 
@@ -247,9 +240,8 @@ wenn Stichnoten gesetzt werden.
 Ausgabe von Akkordsymbolen.
 
 
-@node Kontexte erstellen und referenzieren
+@node Creating and referencing contexts
 @subsection Kontexte erstellen und referenzieren
-@translationof Creating and referencing contexts
 
 In Partituren mit einer Stimme und einem System werden die Kontexte
 normalerweise automatisch erstellt.  In komplizierteren Partituren
@@ -384,7 +376,7 @@ die dem Kontext gegeben wurde.
 Diese Variante wird bei musikalischen Ausdrücken benutzt, die auf
 verschiedenen Ebenen interpretiert werden können.  Beispielsweise
 der @code{\applyOutput}-Befehl (siehe
-@rextend{Eine Funktion auf alle Layout-Objekte anwenden}).  Ohne einen
+@rextendnamed{Running a function on all layout objects, Eine Funktion auf alle Layout-Objekte anwenden}).  Ohne einen
 expliziten @code{\context} wird die Ausgabe normalerweise einem
 @code{Voice}-Kontext zugewiesen:
 
@@ -404,9 +396,8 @@ interpretiert wird, muss folgende Form benutzt werden:
 
 
 
-@node Kontexte am Leben halten
+@node Keeping contexts alive
 @subsection Kontexte am Leben halten
-@translationof Keeping contexts alive
 
 @cindex Kontexte, am Leben erhalten
 @cindex Kontexte, Lebensdauer
@@ -561,9 +552,8 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 
 
 
-@node Umgebungs-Plugins verändern
+@node Modifying context plug-ins
 @subsection Umgebungs-Plugins verändern
-@translationof Modifying context plug-ins
 
 Notationskontexte (wie @code{Score} oder @code{Staff}) speichern
 nicht nur Eigenschaften, sie enthalten auch Plugins (@qq{engraver}
@@ -635,7 +625,7 @@ Das ist eine recht brutale Methode, Objekte zu verstecken, weil es sich
 auf das gesamte System auswirkt.  Diese Methode beeinflusst auch die
 Platzaufteilung, was erwünscht sein kann.  Vielfältigere Methoden,
 mit denen Objekte unsichtbar gemacht werden können, finden sich in
-@rlearning{Sichtbarkeit und Farbe von Objekten}.
+@rlearningnamed{Visibility and color of objects, Sichtbarkeit und Farbe von Objekten}.
 
 Das nächste Beispiel zeigt eine Anwendung in der Praxis.  Taktstriche
 und Taktart werden normalerweise in einer Partitur synchronisiert.  Das
@@ -707,16 +697,15 @@ Installlierte Dateien:
 @file{ly/engraver-init.ly}.
 
 
-@node Die Standardeinstellungen von Kontexten ändern
+@node Changing context default settings
 @subsection Die Standardeinstellungen von Kontexten ändern
-@translationof Changing context default settings
 
 @cindex Standardkontexteigenschaften, ändern
 @cindex Kontexteigenschaften, Einstellungen ändern
 
 Kontext- und Grob-Eigenschaften können mit den Befehlen @code{\set}
 und @code{\override} verändert werden, wie beschrieben in
-@ref{Eigenschaften verändern}.  Diese Befehle erstellen musikalische
+@ref{Modifying properties}.  Diese Befehle erstellen musikalische
 Ereignisse, damit die Veränderungen zum Zeitpunkt der Verarbeitung
 in den Noten erscheinen.
 
@@ -727,14 +716,13 @@ die Standardeinstellungen aller Kontexte eines bestimmten Typs, die andere
 verändert die Standardwerte nur eines bestimmten Kontextes.
 
 @menu
-* Alle Kontexte des gleichen Typs verändern::
-* Nur einen bestimmten Kontext verändern::
-* Rangfolge von Kontextwerten::
+* Changing all contexts of the same type::
+* Changing just one specific context::
+* Order of precedence::
 @end menu
 
-@node Alle Kontexte des gleichen Typs verändern
+@node Changing all contexts of the same type
 @unnumberedsubsubsec Alle Kontexte des gleichen Typs verändern
-@translationof Changing all contexts of the same type
 
 @cindex \context in \layout-Umgebung
 @funindex \context
@@ -824,7 +812,7 @@ musikalischer Ausdruck wie @code{\accidentalStyle dodecaphonic}:
 @item
 Eine vom Benutzer definierte Variable, die eine @code{\with}-Umgebung enthält;
 zu Details der @code{\with}-Umgebung, siehe
-@ref{Nur einen bestimmten Kontext verändern}.
+@ref{Changing just one specific context}.
 
 @lilypond[quote,verbatim]
 StaffDefaults = \with {
@@ -854,7 +842,7 @@ platziert werden, ohne von einer @code{\context}-Umgebung eingeschlossen zu werd
 Derartige Einstellungen verhalten sich äquivalet wie Eigenschaftsveränderungen,
 die zu jedem Beginn eines bestimmten Kontextes angegeben werden.  Wenn kein
 Kontext angegeben wird, wird @emph{jeder} Kontext auf der untersten Ebene
-beeinflusst, siehe auch @ref{Unterste Kontexte -- Stimmen}.  Die Syntax eines
+beeinflusst, siehe auch @ref{Bottom-level contexts - voices}.  Die Syntax eines
 Befehls zu Einstellung von Eigenschaftseinstellungen in einer @code{\layout}-Umgebung
 ist die gleiche wie für den Befehl direkt zwischen den Noten geschrieben.
 
@@ -875,9 +863,8 @@ ist die gleiche wie für den Befehl direkt zwischen den Noten geschrieben.
 @end lilypond
 
 
-@node Nur einen bestimmten Kontext verändern
+@node Changing just one specific context
 @unnumberedsubsubsec Nur einen bestimmten Kontext verändern
-@translationof Changing just one specific context
 
 @cindex \with
 @funindex \with
@@ -979,9 +966,8 @@ Ein vordefinierter Befehl wie etwa @code{\dynamicUp}
 @end itemize
 
 
-@node Rangfolge von Kontextwerten
+@node Order of precedence
 @unnumberedsubsubsec Rangfolge von Kontextwerten
-@translationof Order of precedence
 
 Der Wert einer Eigenschaft, die zu einer bestimmten Zeit aktiv ist, wird
 wie folgend bestimmt:
@@ -1005,19 +991,18 @@ ansonsten wird der Standardwert von LilyPond eingesetzt.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Kontexteigenschaften verändern}.
+@rlearningnamed{Modifying context properties, Kontexteigenschaften verändern}.
 
 Notationsreferenz:
-@ref{Was sind Kontexte?},
-@ref{Unterste Kontexte -- Stimmen},
-@ref{Der set-Befehl},
-@ref{Der override-Befehl},
-@ref{Die layout-Umgebung}.
+@ref{Contexts explained},
+@ref{Bottom-level contexts - voices},
+@ref{The set command},
+@ref{The override command},
+@ref{The layout block}.
 
 
-@node Neue Kontexte definieren
+@node Defining new contexts
 @subsection Neue Kontexte definieren
-@translationof Defining new contexts
 
 @cindex Kontexte, neue definieren
 @cindex Engraver, in Kontexte einfügen
@@ -1199,9 +1184,8 @@ notiert werden:
 @end example
 
 
-@node Reihenfolge des Kontextlayouts
+@node Context layout order
 @subsection Reihenfolge des Kontextlayouts
-@translationof Context layout order
 
 @cindex Kontext, Layoutreihenfolge
 @funindex \accepts
@@ -1289,39 +1273,37 @@ dem untersten System angelegt.  Wenn der Gesangstext mit der Eigenschaft
 enthält.
 
 Beispiele, die diese Neuordnung von temporären Kontexten zeigen, finden sich
-an anderen Stellen; siehe @rlearning{Musikalische Ausdrücke ineinander verschachteln},
-@ref{Einzelne Systeme verändern} und @ref{Techniken für die Gesangstextnotation}.
+an anderen Stellen; siehe @rlearningnamed{Nesting music expressions, Musikalische Ausdrücke ineinander verschachteln},
+@ref{Modifying single staves} und @ref{Techniques specific to lyrics}.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Musikalische Ausdrücke ineinander verschachteln}.
+@rlearningnamed{Nesting music expressions, Musikalische Ausdrücke ineinander verschachteln}.
 
 Notationsreferenz:
-@ref{Einzelne Systeme verändern},
-@ref{Techniken für die Gesangstextnotation}.
+@ref{Modifying single staves},
+@ref{Techniques specific to lyrics}.
 
 Handbuch zur Benutzung:
-@rprogram{Ein zusätzliches System erscheint}.
+@rprogramnamed{An extra staff appears, Ein zusätzliches System erscheint}.
 
 Installierte Dateien:
 @file{ly/engraver-init.ly}.
 
 
-@node Die Referenz der Programminterna erklärt
+@node Explaining the Internals Reference
 @section Die Referenz der Programminterna erklärt
-@translationof Explaining the Internals Reference
 
 @menu
-* Zurechtfinden in der Programmreferenz::
-* Layout-Schnittstellen::
-* Die Grob-Eigenschaften::
-* Benennungskonventionen::
+* Navigating the program reference::
+* Layout interfaces::
+* Determining the grob property::
+* Naming conventions::
 @end menu
 
 
-@node Zurechtfinden in der Programmreferenz
+@node Navigating the program reference
 @subsection Zurechtfinden in der Programmreferenz
-@translationof Navigating the program reference
 
 Arbeit mit der Referenz der Interna soll hier an
 einigen Beispiel illustriert werden.  Die Referenz
@@ -1339,7 +1321,7 @@ f
 @end lilypond
 
 In der Dokumentation über Fingersatz (in
-@ref{Fingersatzanweisungen}) gibt es folgenden Abschnitt:
+@ref{Fingering instructions}) gibt es folgenden Abschnitt:
 
 @quotation
 @strong{Siehe auch:}
@@ -1409,9 +1391,8 @@ Kapitel listet alle die Definitionen und Eigenschaften auf,
 die benutzt und verändert werden können.
 
 
-@node Layout-Schnittstellen
+@node Layout interfaces
 @subsection Layout-Schnittstellen
-@translationof Layout interfaces
 
 @cindex Layout-Schnittstelle
 @cindex Schnittstelle, Layout-
@@ -1492,7 +1473,7 @@ Es wurde immer von einem @code{Fingering}-Objekt gesprochen, aber
 eigentlich handelt es sich nicht um sehr viel.  Die Initialisierungsdatei
 @file{scm/define-grobs.scm} zeigt den Inhalt dieses @qq{Objekts}
 (zu Information, wo diese Dateien sich finden siehe
-@rlearning{Mehr Information}):
+@rlearningnamed{Other sources of information, Mehr Information}):
 
 @example
 (Fingering
@@ -1523,9 +1504,8 @@ eine Ansammlung von Variablen, und die Internetseite der
 Referenz der Interna ist direkt aus diesen Anweisungen generiert.
 
 
-@node Die Grob-Eigenschaften
+@node Determining the grob property
 @subsection Die Grob-Eigenschaften
-@translationof Determining the grob property
 
 Die Position der @b{2} aus dem Beispiel unten soll also geändert werden:
 
@@ -1589,9 +1569,8 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @end quotation
 
 
-@node Benennungskonventionen
+@node Naming conventions
 @subsection Benennungskonventionen
-@translationof Naming conventions
 
 Die Bezeichnungen für Funktionen, Variablen, Engraver und Objekte
 folgen bestimmten Regeln:
@@ -1626,23 +1605,21 @@ folgen bestimmten Regeln:
 @c todos left out
 
 
-@node Eigenschaften verändern
+@node Modifying properties
 @section Eigenschaften verändern
-@translationof Modifying properties
 
 @menu
-* Grundlagen zum Verändern von Eigenschaften::
-* Der set-Befehl::
-* Der override-Befehl::
-* Der tweak-Befehl::
+* Overview of modifying properties::
+* The set command::
+* The override command::
+* The tweak command::
 * set versus override::
-* Alisten verändern::
+* Modifying alists::
 @end menu
 
 
-@node Grundlagen zum Verändern von Eigenschaften
+@node Overview of modifying properties
 @subsection Grundlagen zum Verändern von Eigenschaften
-@translationof Overview of modifying properties
 
 Jeder Kontext ist verantwortlich für die Erstellung bestimmter
 graphischer Objekte.  Die Einstellungen für diese Objekte werden
@@ -1678,9 +1655,8 @@ oder einen Absturz des Programms hervorrufen.
 
 
 
-@node Der set-Befehl
+@node The set command
 @subsection Der @code{\set}-Befehl
-@translationof The set command
 
 @cindex Eigenschaften
 @cindex Verändern von Eigenschaften
@@ -1824,9 +1800,8 @@ Internals Reference:
 
 
 
-@node Der override-Befehl
+@node The override command
 @subsection Der @code{\\override}-Befehl
-@translationof The override command
 
 @cindex Grob-Eigenschaften
 @cindex Eigenschaften von Grob
@@ -1956,9 +1931,8 @@ Referenz der Interna:
 @rinternals{Backend}.
 
 
-@node Der tweak-Befehl
+@node The tweak command
 @subsection Der @code{\tweak}-Befehl
-@translationof The tweak command
 
 @funindex \tweak
 
@@ -1978,7 +1952,7 @@ Die Angabe von @var{Layout-Objekt} ist optional.
 Der @code{\tweak}-Befehl wirkt sich auf das musikalische Objekt aus, dass direkt
 auf @code{Wert} folgt.
 
-Eine Einleitung der Syntax und Benutzungen des @code{\tweak}-(Optimierungs)-Befehls findet sich in @rlearning{Optimierungsmethoden}.
+Eine Einleitung der Syntax und Benutzungen des @code{\tweak}-(Optimierungs)-Befehls findet sich in @rlearningnamed{Tweaking methods, Optimierungsmethoden}.
 
 Wenn mehrere gleichartige Elemente zum gleichen musikalischen
 Moment auftreten, kann der @code{\override}-Befehl nicht
@@ -2065,16 +2039,16 @@ f''
 Der Strom der musikalischen Ereignisse (engl. music stream), der aus
 dem Quelltext erstellt wird, und zu dem auch die automatisch eingefügten
 Elemente gehören, kann betrachtet werden, siehe
-@rextend{Musikalische Funktionen darstellen}.  Das kann nützlich sein,
+@rextendnamed{Displaying music expressions, Musikalische Funktionen darstellen}.  Das kann nützlich sein,
 wenn man herausfinden will, was mit dem @code{\tweak}-Befehl
 verändert werden kann.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Optimierungsmethoden}.
+@rlearningnamed{Tweaking methods, Optimierungsmethoden}.
 
 Erweitern:
-@rextend{Musikalische Funktionen darstellen}.
+@rextendnamed{Displaying music expressions, Musikalische Funktionen darstellen}.
 
 @knownissues
 
@@ -2088,7 +2062,6 @@ wird der erste Bogen verändert, der in der Eingabedatei auftritt.
 
 @node set versus override
 @subsection @code{\\set} versus @code{\\override}
-@translationof set versus override
 
 @c TODO: überflüssig?
 
@@ -2148,9 +2121,8 @@ die spezielle Form (die mit @code{\set} verändert wird) erstellt.
 @end ignore
 
 
-@node Alisten verändern
+@node Modifying alists
 @subsection Alisten verändern
-@translationof Modifying alists
 
 Einige vom Benutzer einstellbare Eigenschaften sind intern als
 @emph{alists} (Assoziative Listen) dargestellt, die Paare von
@@ -2267,25 +2239,23 @@ Kontexteigenschaften (wie etwa @code{beamExceptions}, @code{keyAlterations},
 nur verändert werden, indem man sie vollständig als Alisten umdefiniert.}
 
 
-@node Nützliche Konzepte und Eigenschaften
+@node Useful concepts and properties
 @section Nützliche Konzepte und Eigenschaften
-@translationof Useful concepts and properties
 
 @menu
-* Eingabe-Modi::
-* Richtung und Platzierung::
-* Abstände und Maße::
-* Eigenschaften des Staff-Symbols::
-* Strecker::
-* Sichtbarkeit von Objekten::
-* Linienstile::
-* Drehen von Objekten::
+* Input modes::
+* Direction and placement::
+* Distances and measurements::
+* Staff symbol properties::
+* Spanners::
+* Visibility of objects::
+* Line styles::
+* Rotating objects::
 @end menu
 
 
-@node Eingabe-Modi
+@node Input modes
 @subsection Eingabe-Modi
-@translationof Input modes
 
 Die Art, wie die Notation einer Eingabedatei interpretiert
 wird, hängt vom aktuellen Eingabemodus ab.
@@ -2294,38 +2264,38 @@ wird, hängt vom aktuellen Eingabemodus ab.
 
 Man erreicht ihn durch den Befehl @code{\chordmode}.  Hierdurch
 wird die Eingabe entsprechend der Syntax der Akkordnotation
-interpretiert, siehe @ref{Notation von Akkorden}.  Akkorde werden als
+interpretiert, siehe @ref{Chord notation}.  Akkorde werden als
 Noten auf einem System dargestellt.
 
 Der Akkordmodus wird auch mit dem Befehl @code{\chords} initiiert.
 Dadurch wird gleichzeitig ein neuer @code{ChordNames}-Kontext
 erstellt, die Eingabe entsprechend der Syntax der Akkordnotation
 interpretiert und als Akkordbezeichnungen in einem
-@code{ChordNames}-Kontext dargestellt. Siehe @ref{Akkordbezeichnungen drucken}.
+@code{ChordNames}-Kontext dargestellt. Siehe @ref{Printing chord names}.
 
 @strong{Drum (Schlagzeugmodus)}
 
 Man erreicht ihn mit dem Befehl @code{\drummode}.  Die Eingabe
 wird entsprechend der Syntax der Schlagzeugnotation interpretiert,
-siehe @ref{Grundlagen der Schlagzeugnotation}.
+siehe @ref{Basic percussion notation}.
 
 Der Schlagzeugmodus wird auch mit dem Befehl @code{\drums} aktiviert.
 Dadurch wird gleichzeitig ein neuer @code{DrumStaff}-Kontext
 erstellt, die Eingabe entsprechend der Syntax der Schlagzeugnotation
 interpretiert und als Schlagzeugsymbole auf einem Schlagzeugsystem
-dargestellt.  Siehe @ref{Grundlagen der Schlagzeugnotation}.
+dargestellt.  Siehe @ref{Basic percussion notation}.
 
 @strong{Figure (Ziffernmodus)}
 
 Man erreicht ihn mit dem Befehl @code{\figuremode}.  Die Eingabe
 wird entsprechend der Syntax für Generalbass interpretiert, siehe
-@ref{Eingabe des Generalbass'}.
+@ref{Entering figured bass}.
 
 Der Ziffernmodus wird auch mit dem Befehl @code{\figures} aktiviert.
 Dadurch wird gleichzeitig ein neuer @code{FiguredBass}-Kontext
 erstellt, die Eingabe entsprechend der Syntax für Generalbass
 interpretiert und als Generalbassziffern im @code{FiguredBass}-Kontext
-dargestellt.  Siehe @ref{Grundlagen des Bezifferten Basses}.
+dargestellt.  Siehe @ref{Introduction to figured bass}.
 
 @strong{Fret/tab (Griffsymbol-/Tabulaturmodus)}
 
@@ -2335,21 +2305,21 @@ Tabulaturen.
 Um Tabulaturen zu erstellen, werden Noten oder Akkorde im
 Notenmodus notiert und dann in einem @code{TabStaff}-Kontext
 interpretiert, siehe
-@ref{Standardtabulaturen}.
+@ref{Default tablatures}.
 
 Um Griffsymbole oberhalb eines Notensystems zu erstellen, gibt
 es zwei Möglichkeiten.  Man kann den @code{FretBoards}-Kontext
-einsetzen (siehe @ref{Automatische Bund-Diagramme}) oder sie können
+einsetzen (siehe @ref{Automatic fret diagrams}) oder sie können
 als Beschriftung über den Noten eingefügt werden, indem man
 den @code{\fret-diagram}-Befehl einsetzt (siehe
-@ref{Bund-Diagramm-Beschriftung}).
+@ref{Fret diagram markups}).
 
 @strong{Lyrics (Gesangstextmodus)}
 
 Man erreicht ihn mit dem Befehl @code{\lyricmode}.  Die Eingabe
 wird entsprechend der Syntax für Silben eines Gesangstextes
 interpretiert, wobei optional Dauern und verknüpfte
-Gesangstextveränderer möglich  sind, siehe @ref{Notation von Gesang}.
+Gesangstextveränderer möglich  sind, siehe @ref{Vocal music}.
 
 Der Gesangstextmodus wird auch durch den Befehl @code{\addlyrics}
 aktiviert.  Dadurch wird auch ein neuer @code{Lyrics}-Kontext
@@ -2360,7 +2330,7 @@ nachfolgenden Gesangstext mit der vorhergehenden Musik verknüpft.
 
 Man erreicht ihn mit dem Befehl @code{\markup}.  Die Eingabe wird
 entsprechend der Syntax für Textbeschriftung interpretiert, siehe
-@ref{Textbeschriftungsbefehle}.
+@ref{Text markup commands}.
 
 @c silly work-around for texinfo broken-ness
 @c (@strong{Note...} causes a spurious cross-reference in Info)
@@ -2393,9 +2363,8 @@ Strophen zu setzen, muss man den Notenmodus betreten:
 @end lilypond
 
 
-@node Richtung und Platzierung
+@node Direction and placement
 @subsection Richtung und Platzierung
-@translationof Direction and placement
 
 Die Platzierung und Richtung von Objekten ist im Notensatz oft durch eine
 enge Auswahl begrenzt: Notenhälse beispielsweise können entweder nach
@@ -2464,7 +2433,7 @@ bestimmt werden kann.  Sie haben die Form
 @noindent
 wobei @code{xxxNeutral} bedeutet: @qq{Benutze die
 Standardausrichtung}.  Siehe auch
-@rlearning{within-staff (Objekte innerhalb des Notensystems)}.
+@rlearningnamed{Within-staff objects, within-staff (Objekte innerhalb des Notensystems)}.
 
 In wenigen Fällen, von denen Arpeggio das einzige häufiger
 vorkommende Beispiel darstellt, entscheidet der Wert von
@@ -2491,19 +2460,18 @@ rückgängig gemacht werden:
 
 In polyphoner Musik ist es normalerweise besser, eine explizite
 Stimme (@code{voice} zu erstellen, als die Richtung eines Objektes zu
-ändern.  Zu mehr Information siehe @ref{Mehrere Stimmen}.
+ändern.  Zu mehr Information siehe @ref{Multiple voices}.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{within-staff (Objekte innerhalb des Notensystems)}.
+@rlearningnamed{Within-staff objects, within-staff (Objekte innerhalb des Notensystems)}.
 
 Notationsreferenz:
-@ref{Mehrere Stimmen}.
+@ref{Multiple voices}.
 
 
-@node Abstände und Maße
+@node Distances and measurements
 @subsection Abstände und Maße
-@translationof Distances and measurements
 
 @cindex Abstände, absolut
 @cindex Abstände, skaliert
@@ -2526,7 +2494,7 @@ eines Zolls).  Abstände des Seitenlayouts können auch in
 skalierbaren Einheiten (siehe folgenden Absatz) definiert
 werden, indem man den Befehl @code{\staff-space} an die
 Zahl hängt.  Das Seitenlayout ist genauer beschrieben in
-@ref{Seitenlayout}.
+@ref{Page layout}.
 
 Skalierbare Abstände werden immer in Einheiten von
 Notenlinienabständen angegeben, oder seltener in halben
@@ -2544,7 +2512,7 @@ global verändert wird.  Mit dem globalen Notenlinienabstand
 kann man also auf einfach Art und Weise die gesamte Größe
 einer Partitur verändern.  Zu Methoden, wie der globale
 Notenlinienabstand verändert werden kann, siehe
-@ref{Die Notensystemgröße einstellen}.
+@ref{Setting the staff size}.
 
 @funindex magstep
 
@@ -2559,21 +2527,20 @@ die Größe der Schriftarten verändert.  Eine Scheme-Funktion,
 @code{magstep}, kann von einer Schriftartveränderung zu der
 entsprechenden Veränderung in @code{staff-space} (Notenlinienabständen)
 konvertieren.  Zu einer Erklärung und Beispielen zu ihrer
-Verwendung siehe @rlearning{Länge und Dicke von Objekten}.
+Verwendung siehe @rlearningnamed{Length and thickness of objects, Länge und Dicke von Objekten}.
 
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Länge und Dicke von Objekten}.
+@rlearningnamed{Length and thickness of objects, Länge und Dicke von Objekten}.
 
 Notationsreferenz:
-@ref{Seitenlayout},
-@ref{Die Notensystemgröße einstellen}.
+@ref{Page layout},
+@ref{Setting the staff size}.
 
 
-@node Eigenschaften des Staff-Symbols
+@node Staff symbol properties
 @subsection Eigenschaften des Staff-Symbols
-@translationof Staff symbol properties
 
 @cindex Anpassen von staff symbol
 @cindex Notensystem, anpassen
@@ -2610,9 +2577,8 @@ beeinflusst.
 @end lilypond
 
 
-@node Strecker
+@node Spanners
 @subsection Strecker
-@translationof Spanners
 
 Viele Objekte der Musiknotation erstrecken sich über mehrere
 Objekte oder gar mehrere Takte.  Beispiele hierfür sind etwa
@@ -2915,9 +2881,8 @@ Referenz der Interna:
 @rinternals{line-spanner-interface}.
 
 
-@node Sichtbarkeit von Objekten
+@node Visibility of objects
 @subsection Sichtbarkeit von Objekten
-@translationof Visibility of objects
 
 @cindex Objekte, Sichtbarkeit
 @cindex Grobs, Sichtbarkeit
@@ -2932,24 +2897,23 @@ Die ersten drei Möglichkeiten beziehen sich auf alle
 Layout-Objekte, die letzte nur auf einige wenige, nämlich
 die @emph{zerteilbaren} Objekte.  Das Handbuch zum Lernen
 führt in alle vier Möglichkeiten ein, siehe
-@rlearning{Sichtbarkeit und Farbe von Objekten}.
+@rlearningnamed{Visibility and color of objects, Sichtbarkeit und Farbe von Objekten}.
 
 Es gibt auch einige weitere Techniken, die sich nur auf
 bestimmte Layout-Objekte beziehen.  Sie werden im letzten
 Abschnitt behandelt.
 
 @menu
-* Einen stencil entfernen::
-* Objekten unsichtbar machen::
-* Objekte weiß malen::
-* break-visibility (unsichtbar machen) benutzen::
-* Besonderheiten::
+* Removing the stencil::
+* Making objects transparent::
+* Painting objects white::
+* Using break-visibility::
+* Special considerations::
 @end menu
 
 
-@node Einen stencil entfernen
+@node Removing the stencil
 @unnumberedsubsubsec Einen @code{stencil} entfernen
-@translationof Removing the stencil
 
 @cindex stencil, entfernen
 @cindex Matrize, entfernen
@@ -2973,9 +2937,8 @@ a a a
 @end lilypond
 
 
-@node Objekten unsichtbar machen
+@node Making objects transparent
 @unnumberedsubsubsec Objekten unsichtbar machen
-@translationof Making objects transparent
 
 @cindex transparent, Objekte
 @cindex unsichtbar, Objekte
@@ -2994,9 +2957,8 @@ a' a'
 @end lilypond
 
 
-@node Objekte weiß malen
+@node Painting objects white
 @unnumberedsubsubsec Objekte weiß malen
-@translationof Painting objects white
 
 @cindex Objekte, einfärben
 @cindex Färben von Objekten
@@ -3049,9 +3011,8 @@ a'1
 @end lilypond
 
 
-@node break-visibility (unsichtbar machen) benutzen
+@node Using break-visibility
 @unnumberedsubsubsec @code{break-visibility} (unsichtbar machen) benutzen
-@translationof Using break-visibility
 
 @funindex break-visibility
 
@@ -3078,7 +3039,7 @@ zu Beginn des nächsten Systems gesetzt.
 Dieses Verhalten wird von der @code{break-visibility}-Eigenschaft
 kontrolliert, die erklärt wird in
 @c Leave this ref on a newline - formats incorrectly otherwise -td
-@rlearning{Sichtbarkeit und Farbe von Objekten}.  Die Eigenschaft
+@rlearningnamed{Visibility and color of objects, Sichtbarkeit und Farbe von Objekten}.  Die Eigenschaft
 braucht einen Vektor von drei Booleschen Werten, die in ihrer
 Reihenfolge bestimmte, ob das Objekt a) zu Ende der Zeile,
 b) innerhalb einer Zeile oder c) zu Beginn einer Zeile gesetzt
@@ -3179,9 +3140,8 @@ Oktavierungs-Acht -- siehe unten.
 @end itemize
 
 
-@node Besonderheiten
+@node Special considerations
 @unnumberedsubsubsec Besonderheiten
-@translationof Special considerations
 
 @strong{@emph{Sichtbarkeit nach expliziten Änderungen}}
 
@@ -3304,12 +3264,11 @@ Schlüsselsymbol als auch das damit verknüpfte Oktavierungssymbol.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Sichtbarkeit und Farbe von Objekten}.
+@rlearningnamed{Visibility and color of objects, Sichtbarkeit und Farbe von Objekten}.
 
 
-@node Linienstile
+@node Line styles
 @subsection Linienstile
-@translationof Line styles
 
 Einige Aufführungsanweisungen (z. B. @i{rallentando} und
 @i{accelerando} oder Triller werden als Text gesetzt und
@@ -3364,12 +3323,11 @@ der vertikalen Position der linken und rechten Anbindepunkte
 des Streckers errechnet.
 
 Andere Anpassungen der Strecker sind auch möglich, für Einzelheiten
-siehe @ref{Strecker}.
+siehe @ref{Spanners}.
 
 
-@node Drehen von Objekten
+@node Rotating objects
 @subsection Drehen von Objekten
-@translationof Rotating objects
 
 Layout-Objekte und Textbeschriftungselemente können zu einem
 beliebigen Winkel um einen beliebigen Punkt herum gedreht
@@ -3377,13 +3335,12 @@ werden, aber die Methode, mit der die Änderung vorgenommen
 werden muss, unterscheidet sich je nach Objekt.
 
 @menu
-* Drehen von Layout-Objekten::
-* Textbeschriftung drehen::
+* Rotating layout objects::
+* Rotating markup::
 @end menu
 
-@node Drehen von Layout-Objekten
+@node Rotating layout objects
 @unnumberedsubsubsec Drehen von Layout-Objekten
-@translationof Rotating layout objects
 
 @cindex Drehen von Objekten
 @cindex Objekte, Drehen
@@ -3416,9 +3373,8 @@ g4\< e' d'' f''\!
 @end lilypond
 
 
-@node Textbeschriftung drehen
+@node Rotating markup
 @unnumberedsubsubsec Textbeschriftung drehen
-@translationof Rotating markup
 
 Jede Textbeschriftung kann gedreht werden, indem vor die Anweisung
 der Befehl @code{\rotate} gesetzt wird.  Der Befehl hat zwei
@@ -3440,33 +3396,32 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
 
 
-@node Fortgeschrittene Optimierungen
+@node Advanced tweaks
 @section Fortgeschrittene Optimierungen
-@translationof Advanced tweaks
 
 Dieser Abschnitt behandelt verschiedene Möglichkeiten, das
 Aussehen des Notenbildes zu polieren.
 
 @menu
-* Objekte ausrichten::
-* Vertikale Gruppierung der grafischen Objekte („grob“s)::
-* stencils verändern::
-* Formen verändern::
-* Reine und unreine Container::
+* Aligning objects::
+* Vertical grouping of grobs::
+* Modifying stencils::
+* Modifying shapes::
+* Unpure-pure containers::
 @end menu
 
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Die Ausgabe verbessern},
-@rlearning{Mehr Information}.
+@rlearningnamed{Tweaking output, Die Ausgabe verbessern},
+@rlearningnamed{Other sources of information, Mehr Information}.
 
 Notationsreferenz:
-@ref{Die Referenz der Programminterna erklärt},
-@ref{Eigenschaften verändern}.
+@ref{Explaining the Internals Reference},
+@ref{Modifying properties}.
 
 Erweitern:
-@rextend{Schnittstellen für Programmierer}.
+@rextendnamed{Interfaces for programmers, Schnittstellen für Programmierer}.
 
 Installierte Dateien:
 @file{scm/define-grobs.scm}.
@@ -3478,9 +3433,8 @@ Referenz der Interna:
 @rinternals{All layout objects}.
 
 
-@node Objekte ausrichten
+@node Aligning objects
 @subsection Objekte ausrichten
-@translationof Aligning objects
 
 Graphische Objekte, die das @code{self-alignment-interface} und/obder
 das @code{side-position-interface} unterstützen, können an einem
@@ -3526,22 +3480,21 @@ mit denen Übungszeichen an derartigen Objekten ausgerichtet werden können.
 @morerefs
 
 Notationshandbuch:
-@ref{Benutzung des break-alignable-interface}.
+@ref{Using the break-alignable-interface}.
 
 Erweitern:
-@rextend{Callback-Funktionen}.
+@rextendnamed{Callback functions, Callback-Funktionen}.
 
 
 @menu
-* X-offset und Y-offset direkt setzen::
-* Das side-position-interface benutzen::
-* Das self-alignment-interface benutzen::
-* Benutzung des break-alignable-interface::
+* Setting X-offset and Y-offset directly::
+* Using the side-position-interface::
+* Using the self-alignment-interface::
+* Using the break-alignable-interface::
 @end menu
 
-@node X-offset und Y-offset direkt setzen
+@node Setting X-offset and Y-offset directly
 @unnumberedsubsubsec @code{X-offset} und @code{Y-offset} direkt setzen
-@translationof Setting X-offset and Y-offset directly
 
 Numerische Werte können den @code{X-offset}- und @code{Y-offset}-Eigenschaften
 vieler Objekte zugewiesen werden.  Das folgende Beispiel zeigt
@@ -3563,9 +3516,8 @@ a'
 
 
 
-@node Das side-position-interface benutzen
+@node Using the side-position-interface
 @unnumberedsubsubsec Das @code{side-position-interface} benutzen
-@translationof Using the side-position-interface
 
 Ein Objekt, das die @code{side-position-interface}-Schnittstelle
 unterstützt, kann neben sein Elternobjekt gesetzt werden,
@@ -3609,9 +3561,8 @@ angeordnet wird, entsprechend dem Wert der @code{direction}-Eigenschaft.
 
 
 
-@node Das self-alignment-interface benutzen
+@node Using the self-alignment-interface
 @unnumberedsubsubsec Das @code{self-alignment-interface} benutzen
-@translationof Using the self-alignment-interface
 
 @emph{Selbstausrichtende Objekte horizontal}
 
@@ -3691,9 +3642,8 @@ a'
 
 
 
-@node Benutzung des break-alignable-interface
+@node Using the break-alignable-interface
 @unnumberedsubsubsec Benutzung des @code{break-alignable-interface}
-@translationof Using the break-alignable-interface
 
 @cindex Ausrichtung an Objekten
 
@@ -3813,9 +3763,8 @@ e1
 
 
 
-@node Vertikale Gruppierung der grafischen Objekte („grob“s)
+@node Vertical grouping of grobs
 @subsection Vertikale Gruppierung der grafischen Objekte („grob“s)
-@translationof Vertical grouping of grobs
 
 Die graphischen Objekte @code{VerticalAlignment} und
 @code{VerticalAxisGroup} funktionieren zusammen.
@@ -3828,9 +3777,8 @@ jedes Notensystem, Gesangstext usw. hat eine eigene
 @code{VerticalAxisGroup}.
 
 
-@node stencils verändern
+@node Modifying stencils
 @subsection stencils verändern
-@translationof Modifying stencils
 
 Alle Layout-Objekte haben eine @code{stencil}-(Stempel-)Eigenschaft,
 die ein Teil von @code{grob-interface} ist.  Diese Eigenschaft
@@ -3854,7 +3802,7 @@ in welcher dann die Textbeschriftung definiert wird, mit der
 das entsprechende Symbol dargestellt wird.  Aufgrund der
 Flexibilität der Textbeschriftung ist hier sehr viel möglich.
 Siehe zu Details insbesondere
-@ref{Graphische Notation innerhalb einer Textbeschriftung}.
+@ref{Graphic notation inside markup}.
 
 Das folgende Beispiel zeigt diese Methode, indem das Symbol
 der Notenköpfe in ein Kreuz innerhalb eines Kreises umgewandelt
@@ -3876,28 +3824,26 @@ XinO = {
 
 Alle Schriftzeichen in der Feta-Glyphe können
 mit dem @code{\musicglyph}-Befehl erreicht werden.
-Siehe auch @ref{Die Emmentaler-Schriftart}.
+Siehe auch @ref{The Emmentaler font}.
 
 @morerefs
 Notationsreferenz:
-@ref{Graphische Notation innerhalb einer Textbeschriftung},
-@ref{Text formatieren},
-@ref{Textbeschriftungsbefehle},
-@ref{Die Emmentaler-Schriftart}.
+@ref{Graphic notation inside markup},
+@ref{Formatting text},
+@ref{Text markup commands},
+@ref{The Emmentaler font}.
 
 
 
-@node Formen verändern
+@node Modifying shapes
 @subsection Formen verändern
-@translationof Modifying shapes
 
 @menu
-* Bögen verändern::
+* Modifying ties and slurs::
 @end menu
 
-@node Bögen verändern
+@node Modifying ties and slurs
 @unnumberedsubsubsec Bögen verändern
-@translationof Modifying ties and slurs
 
 @cindex Bögen, verändern
 @cindex Bindebögen, verändern
@@ -3992,9 +3938,8 @@ Referenz der Interna:
 @cindex unreine Container, Scheme
 @cindex horizontale Platzierung, verändern
 
-@node Reine und unreine Container
+@node Unpure-pure containers
 @subsection Reine und unreine Container
-@translationof Unpure-pure containers
 
 Unreine und reine Container (engl. unpure/pure containers) sind
 nützlich, wenn man die Berechnungen der Platzierungen für die
@@ -4099,9 +4044,8 @@ Funktion verändert wird.
 nicht ist, können unerwartete Ergebnisse auftreten.}
 
 
-@node Musikfunktionen benutzen
+@node Using music functions
 @section Musikfunktionen benutzen
-@translationof Using music functions
 
 @c TODO -- add @morerefs, etc. to these subsections
 
@@ -4111,16 +4055,15 @@ wiederverwendet werden sollen, bietet es sich oft an, den
 erstellen.  In diesem Abschnitt sollen nur @emph{Ersetzungen}
 erklärt werden, wo es darum geht, eine Variable mit einem Stück
 LilyPond-Code zu ersetzen.  Andere komplexere Funktionen werden
-beschrieben in @rextend{Musikalische Funktionen}.
+beschrieben in @rextendnamed{Music functions, Musikalische Funktionen}.
 
 @menu
-* Syntax der Ersetzungsfunktion::
-* Beispiele der Ersetzungsfunktionen::
+* Substitution function syntax::
+* Substitution function examples::
 @end menu
 
-@node Syntax der Ersetzungsfunktion
+@node Substitution function syntax
 @subsection Syntax der Ersetzungsfunktion
-@translationof Substitution function syntax
 
 Es ist einfach eine Funktion zu erstellen, die eine Variable
 in LilyPond-Code umwandelt.  Die generelle Form dieser
@@ -4157,7 +4100,7 @@ Argumente zu referenzieren (etwa @samp{$Arg1}).
 Die @code{parser} und @code{location}-Argumente sind zwingend und
 werden in einigen fortgeschrittenen Situationen benutzt, wie sie
 im @qq{Erweitern}-Handbuch beschrieben werden (siehe
-@rextend{Musikalische Funktionen}).  In Ersetzungsfunktionen
+@rextendnamed{Music functions, Musikalische Funktionen}).  In Ersetzungsfunktionen
 gehen Sie einfach sicher, dass sie die beiden Wörter auch mit
 aufnehmen.
 
@@ -4180,17 +4123,17 @@ symbol?
 
 @noindent
 Eine Liste aller Typprädikate findet sich unter
-@ref{Vordefinierte Typprädikate}.  Eigene Typprädikate
+@ref{Predefined type predicates}.  Eigene Typprädikate
 sind auch erlaubt.
 
 
 @morerefs
 
 Notationsreferenz:
-@ref{Vordefinierte Typprädikate}.
+@ref{Predefined type predicates}.
 
 Erweitern:
-@rextend{Musikalische Funktionen}.
+@rextendnamed{Music functions, Musikalische Funktionen}.
 
 Installierte Dateien:
 @file{lily/music-scheme.cc},
@@ -4198,9 +4141,8 @@ Installierte Dateien:
 @file{scm/lily.scm}.
 
 
-@node Beispiele der Ersetzungsfunktionen
+@node Substitution function examples
 @subsection Beispiele der Ersetzungsfunktionen
-@translationof Substitution function examples
 
 Dieser Abschnitt zeigt einige Beispiele von Ersetzungsfunktionen.
 Sie sind nicht vollständig, sondern sollen einige der

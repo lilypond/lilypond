@@ -92,7 +92,7 @@
 @cartouche
 Zu mehr Information, wie dieses Handbuch unter den anderen Handbüchern
 positioniert, oder um dieses Handbuch in einem anderen Format
-zu lesen, besuchen Sie bitte @rweb{Manuals}.
+zu lesen, besuchen Sie bitte @rwebnamed{Manuals,Handbücher}.
 
 Wenn Ihnen Handbücher fehlen, finden Sie die gesamte Dokumentation
 unter @w{@uref{https://@/lilypond@/.org/}}.

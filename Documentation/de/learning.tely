@@ -42,17 +42,17 @@ Copyright @copyright{} 1999--2023 bei den Autoren.
 @ifnottex
 @menu
 * Installing::                 LilyPond installieren.
-* Tutorium::                   Eine Übung zur Einführung.
-* Übliche Notation::        Die häufigsten Notationsfälle.
-* Grundbegriffe::           Grundlegende Konzepte, die benötigt werden, um den Rest dieses Handbuchs zu lesen.
-* Die Ausgabe verbessern::                Einleitung in die Beeinflussung des Notenbilds.
+* Tutorial::                   Eine Übung zur Einführung.
+* Common notation::        Die häufigsten Notationsfälle.
+* Fundamental concepts::           Grundlegende Konzepte, die benötigt werden, um den Rest dieses Handbuchs zu lesen.
+* Tweaking output::                Einleitung in die Beeinflussung des Notenbilds.
 
 
 Anhänge
 
-* Vorlagen::                      Funktionierende Vorlagen.
+* Templates::                      Funktionierende Vorlagen.
 * GNU Free Documentation License:: Lizenz dieses Handbuchs.
-* LilyPond-Index::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -80,9 +80,8 @@ Anhänge
 @c moved to extending.tely
 @include en/fdl.itexi
 
-@node LilyPond-Index
+@node LilyPond index
 @appendix LilyPond-Index
-@translationof LilyPond index
 
 @printindex cp
 

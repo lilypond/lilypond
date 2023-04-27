@@ -13,26 +13,24 @@
 
 @c Translators: Till Paala
 
-@node Notensatz
+@node Music engraving
 @chapter Notensatz
-@translationof Music engraving
 
 Dieser Aufsatz beschreibt, wie LilyPond entstand und wie es
 benutzt werden kann, um schönen Notensatz zu erstellen.
 
 @menu
-* Die Geschichte von LilyPond::
-* Details des Notensetzens::
-* Automatisierter Notensatz::
-* Ein Programm bauen::
-* LilyPond die Arbeit überlassen::
-* Notensatzbeispiele (BWV 861)::
+* The LilyPond story::
+* Engraving details::
+* Automated engraving::
+* Building software::
+* Putting LilyPond to work::
+* Engraved examples (BWV 861)::
 @end menu
 
 
-@node Die Geschichte von LilyPond
+@node The LilyPond story
 @section Die Geschichte von LilyPond
-@translationof The LilyPond story
 
 Lange bevor LilyPond benutzt werden konnte, um wunderschöne
 Aufführungspartituren zu setzen, bevor es in der Lage war, Noten
@@ -138,9 +136,8 @@ Henle no. 666, @copyright{}2000:
 @end iftex
 
 
-@node Details des Notensetzens
+@node Engraving details
 @section Details des Notensetzens
-@translationof Engraving details
 
 @cindex Notensatz
 @cindex Typographie
@@ -200,16 +197,15 @@ imitieren wollten.
 @c langweilig und mechanisch aus, was es erschwert, von ihnen zu spielen.
 
 @menu
-* Notenschriftarten::
-* Optischer Ausgleich::
-* Hilfslinien::
-* Optische Größen::
-* Warum der große Aufwand?::
+* Music fonts::
+* Optical spacing::
+* Ledger lines::
+* Optical sizing::
+* Why work so hard?::
  @end menu
 
-@node Notenschriftarten
+@node Music fonts
 @unnumberedsubsec Notenschriftarten
-@translationof Music fonts
 
 Die Abbildung unten illustriert den Unterschied zwischen
 traditionellem Notensatz und einem typischen Computersatz.
@@ -300,9 +296,8 @@ Auflösungszeichen sind einfacher aus der Entfernung zu unterscheiden,
 weil ihre schrägen Linien eine andere Neigung haben und die vertikalen
 Linien dicker sind.
 
-@node Optischer Ausgleich
+@node Optical spacing
 @unnumberedsubsec Optischer Ausgleich
-@translationof Optical spacing
 
 Die Aufteilung der Noten in der Horizontalen sollte die Dauer der
 jeweiligen Note widerspiegeln.  Wie wir jedoch im Beispiel der
@@ -392,9 +387,8 @@ richtig platzierten Beispiel etwas mehr Platz vor dem Taktstrich
 erhält, damit sie nicht gedrängt wirkt. Ein Hals nach unten würde diesen Ausgleich nicht benötigen.
 
 
-@node Hilfslinien
+@node Ledger lines
 @unnumberedsubsec Hilfslinien
-@translationof Ledger lines
 
 @cindex Hilfslinien
 @cindex Zusammenstöße
@@ -430,9 +424,8 @@ Eigenschaft in den Notensatz von LilyPond eingebaut.
 @end multitable
 
 
-@node Optische Größen
+@node Optical sizing
 @unnumberedsubsec Optische Größen
-@translationof Optical sizing
 
 Noten werden in verschiedenen Größen gedruckt.  Ursprünglich hatte
 man hierzu Stempel in verschiedenen Größen, was gleichzeitig heißt,
@@ -533,9 +526,8 @@ global = {
 @end ignore
 
 
-@node Warum der große Aufwand?
+@node Why work so hard?
 @unnumberedsubsec Warum der große Aufwand?
-@translationof Why work so hard?
 
 Musiker sind üblicherweise zu sehr damit beschäftigt, die Musik aufzuführen,
 als dass sie das Aussehen der Noten studieren könnten; darum mag diese
@@ -574,9 +566,8 @@ und aus denen wir gerne spielen.
 
 
 
-@node Automatisierter Notensatz
+@node Automated engraving
 @section Automatisierter Notensatz
-@translationof Automated engraving
 
 @cindex Notensatz, automatisch
 @cindex automatischer Notensatz
@@ -587,14 +578,13 @@ eine Methode, dem Computer gute Layouts zu erklären und detailliertes
 Vergleichen mit echten Notendrucken.
 
 @menu
-* Schönheitswettbewerb::
-* Verbessern durch Benchmarking::
-* Alles richtig machen::
+* Beauty contests::
+* Improvement by benchmarking::
+* Getting things right::
 @end menu
 
-@node Schönheitswettbewerb
+@node Beauty contests
 @unnumberedsubsec Schönheitswettbewerb
-@translationof Beauty contests
 
 Wie sollen wir also jetzt die Typographie anwenden?
 Anders gesagt: welcher von den drei Konfigurationen sollte für
@@ -683,9 +673,8 @@ Ergebnisse dieser Entscheidungen können durch einen Vergleich mit
 handgestochenen Noten eingeschätzt werden.
 
 
-@node Verbessern durch Benchmarking
+@node Improvement by benchmarking
 @unnumberedsubsec Verbessern durch Benchmarking
-@translationof Improvement by benchmarking
 
 Die Ausgabe von LilyPond hat sich schrittweise mit der Zeit
 verbessert, und sie verbessert sich weiter, indem sie immer wieder
@@ -779,9 +768,8 @@ Die jetzige Ausgabe ist kein Klon der Referenzedition, aber sie ist
 sehr viel näher an einer Publikationsqualität.
 
 
-@node Alles richtig machen
+@node Getting things right
 @unnumberedsubsec Alles richtig machen
-@translationof Getting things right
 
 Wir können auch die Fähigkeiten von LilyPond, Notensatzentscheidungen
 alleine zu fällen, messen, indem wir die Ausgabe von LilyPond mit
@@ -986,23 +974,21 @@ wurde die Struktur von LilyPond mit Flexibilität im Hinterkopf
 geplant.
 
 
-@node Ein Programm bauen
+@node Building software
 @section Ein Programm bauen
-@translationof Building software
 
 Dieser Abschnitt beschreibt einige der Entscheidungen,
 die wir während des Programmierens für das Design von LilyPond
 getroffen haben.
 
 @menu
-* Die Darstellung der Musik::
-* Welche Symbole?::
-* Flexible Architektur::
+* Music representation::
+* What symbols to engrave?::
+* Flexible architecture::
 @end menu
 
-@node Die Darstellung der Musik
+@node Music representation
 @unnumberedsubsec Die Darstellung der Musik
-@translationof Music representation
 
 @cindex Syntax
 @cindex rekursive Strukturen
@@ -1186,9 +1172,8 @@ haben wir versucht, die Struktur und das Eingabeformat so flexibel wie
 möglich zu gestalten.
 
 
-@node Welche Symbole?
+@node What symbols to engrave?
 @unnumberedsubsec Welche Symbole?
-@translationof What symbols to engrave?
 
 @cindex Notensatz
 @cindex Typographie
@@ -1401,9 +1386,8 @@ Der Score-Kontext ist auf der höchsten Ebene der Kontexte.
 Referenz der Interna: @rinternals{Contexts}.
 
 
-@node Flexible Architektur
+@node Flexible architecture
 @unnumberedsubsec Flexible Architektur
-@translationof Flexible architecture
 
 Als wir anfingen, haben wir LilyPond vollständig in der Programmiersprache C++
 geschrieben. Das hieß, dass der Funktionsumfang des Programms vollständig durch
@@ -1541,9 +1525,8 @@ die Notenköpfe gezeichnet werden, während des Ausschnitts verändert.
 @end lilypond
 
 
-@node LilyPond die Arbeit überlassen
+@node Putting LilyPond to work
 @section LilyPond die Arbeit überlassen
-@translationof Putting LilyPond to work
 
 @cindex einfaches Beispiel
 @cindex Beispiel, einfach
@@ -1671,9 +1654,8 @@ Webseite: www.lilypond.org.
 
 
 @page
-@node Notensatzbeispiele (BWV 861)
+@node Engraved examples (BWV 861)
 @section Notensatzbeispiele (BWV 861)
-@translationof Engraved examples (BWV 861)
 
 Dieser Abschnitt enthält vier Referenz-Notenstiche und zwei
 computergesetzte Versionen der Fuge G-Moll aus dem Wohltemperierten

@@ -11,9 +11,8 @@
 @c \version "2.19.22"
 @c Translators: Till Paala, Reinhold Kainhofer, Michael Gerdau
 
-@node Grundbegriffe
+@node Fundamental concepts
 @chapter Grundbegriffe
-@translationof Fundamental concepts
 
 Nachdem im Tutorium gezeigt wurde, wie aus einfachen Text-Dateien
 wunderschön formatierte Musiknoten erzeugt werden können, stellt
@@ -21,15 +20,14 @@ dieses Kapitel die Konzepte und Techniken vor, wie auch komplexere
 Partituren erstellt werden können.
 
 @menu
-* Wie eine LilyPond-Eingabe-Datei funktioniert::
-* Voice enthält Noten::
-* Kontexte und Engraver::
-* Erweiterung der Vorlagen::
+* How LilyPond input files work::
+* Voices contain music::
+* Contexts and engravers::
+* Extending the templates::
 @end menu
 
-@node Wie eine LilyPond-Eingabe-Datei funktioniert
+@node How LilyPond input files work
 @section Wie eine LilyPond-Eingabe-Datei funktioniert
-@translationof How LilyPond input files work
 
 Das LilyPond Eingabeformat hat eine ziemlich freie Form, so dass
 für erfahrene Benutzer viel Freiheit besteht, die Struktur ihrer
@@ -37,18 +35,17 @@ Quelldateien anzulegen.  Für Neulinge kann diese Flexibilität aber
 erst einmal verwirrend sein.  In diesem Kapitel soll darum ein Teil
 dieser Strukturen dargestellt werden, vieles aber zur Vereinfachung
 auch weggelassen werden.  Für eine komplette Beschreibung des Eingabeformats
-siehe @rnotation{Die Dateistruktur}.
+siehe @rnotationnamed{File structure, Die Dateistruktur}.
 
 @menu
-* Einführung in die Dateistruktur von LilyPond::
-* Score ist ein (einziger) zusammengesetzter musikalischer Ausdruck::
-* Musikalische Ausdrücke ineinander verschachteln::
-* Über die Nicht-Schachtelung von Klammern und Bindebögen::
+* Introduction to the LilyPond file structure::
+* Score is a (single) compound musical expression::
+* Nesting music expressions::
+* On the un-nestedness of brackets and ties::
 @end menu
 
-@node Einführung in die Dateistruktur von LilyPond
+@node Introduction to the LilyPond file structure
 @subsection Einführung in die Dateistruktur von LilyPond
-@translationof Introduction to the LilyPond file structure
 
 @cindex Eingabeformat
 @cindex Dateistruktur
@@ -127,7 +124,7 @@ Für einfache Dokumente funktioniert das im Allgemeinen sehr gut, für
 komplexere Partituren können dadurch aber unerwartete Ergebnisse
 entstehen, teilweise sogar unerwartete leere Notenzeilen.  Um
 die entsprechenden Kontexte in diesem Fall explizit zu erzeugen,
-siehe @ref{Kontexte und Engraver}.
+siehe @ref{Contexts and engravers}.
 
 @warning{Wenn mehr als ein paar Zeilen an Musik eingegeben werden,
 empfiehlt es sich, die Notenzeilen und die Stimmen immer explizit
@@ -191,8 +188,8 @@ Zwei bisher noch nicht aufgetauchte Befehle sind
 @code{\layout @{ @}} und @code{\midi @{@}}.  Wenn sie in einer
 Datei vorkommen, führt dies dazu, dass LilyPond eine druckfähige PDF-Datei
 bzw. eine MIDI-Ausgabe erzeugt.  Genauer beschrieben werden sie im
-Benutzerhandbuch -- @rnotation{Partiturlayout} und
-@rnotation{MIDI-Dateien erstellen}.
+Benutzerhandbuch -- @rnotationnamed{Score layout, Partiturlayout} und
+@rnotationnamed{Creating MIDI files, MIDI-Dateien erstellen}.
 
 @cindex Partituren, mehrfache
 @cindex book-Abschnitte, implizit
@@ -230,13 +227,13 @@ außerhalb eines @code{\score}-Blocks (und daher innerhalb des implizit
 erzeugten oder explizit angegebenen @code{\book}-Blocks) jedoch auf
 alle @code{\score}-Blocks innerhalb dieses @code{\book}-Blocks.
 
-Nähere Details finden sich im Abschnitt @rnotation{Mehrere Partituren in einem Buch}.
+Nähere Details finden sich im Abschnitt @rnotationnamed{Multiple scores in a book, Mehrere Partituren in einem Buch}.
 
 @cindex Variablen
 @cindex Bezeichner
 
 Eine gute Möglichkeit zur Vereinfachung sind selbst definierte Variablen, wie
-auch in @ref{Stücke durch Variablen organisieren} gezeigt.
+auch in @ref{Organizing pieces with variables} gezeigt.
 Alle Vorlagen verwenden diese Möglichkeit:
 
 @example
@@ -259,18 +256,17 @@ Als Variablenname kann fast jeder beliebige Name benutzt werden,
 allerdings dürfen nur Buchstaben vorkommen (also keine Zahlen, Unterstriche,
 Sonderzeichen, etc.) und er darf nicht wie ein LilyPond-Befehl
 lauten.  Für mehr Information siehe
-@ref{Tipparbeit durch Variablen und Funktionen einsparen}.  Die genauen
-Einschränkungen sind beschrieben in @rnotation{Die Dateistruktur}.
+@ref{Saving typing with variables and functions}.  Die genauen
+Einschränkungen sind beschrieben in @rnotationnamed{File structure, Die Dateistruktur}.
 
 
 @morerefs
 Eine vollständige Definition des Eingabeformats findet sich in
-@rnotation{Die Dateistruktur}.
+@rnotationnamed{File structure, Die Dateistruktur}.
 
 
-@node Score ist ein (einziger) zusammengesetzter musikalischer Ausdruck
+@node Score is a (single) compound musical expression
 @subsection Score ist ein (einziger) zusammengesetzter musikalischer Ausdruck
-@translationof Score is a (single) compound musical expression
 
 @funindex \score
 @cindex score
@@ -280,7 +276,7 @@ Eine vollständige Definition des Eingabeformats findet sich in
 @cindex Musikausdruck, zusammengesetzter
 
 
-Im vorigen Kapitel, @ref{Einführung in die Dateistruktur von LilyPond},
+Im vorigen Kapitel, @ref{Introduction to the LilyPond file structure},
 wurde die allgemeine Struktur einer LilyPond-Quelldatei
 beschrieben.  Aber anscheinend haben wir die wichtigste
 Frage ausgelassen, nämlich wie man herausfindet, was nach
@@ -295,7 +291,7 @@ Zeile ist die Antwort:
 
 @noindent
 Vielleicht wollen Sie noch einmal
-@ref{Musikalische Ausdrücke erklärt} überfliegen.  In diesem
+@ref{Music expressions explained} überfliegen.  In diesem
 Kapitel wurde gezeigt, wie sich große musikalische Ausdrücke
 aus kleinen Teilen zusammensetzen.  Noten können zu Akkorden
 verbunden werden usw. Jetzt gehen wir aber in die andere Richtung
@@ -336,7 +332,7 @@ Stimme mit Gesangstext notiert werden, sodass die spitzen Klammern
 benötigt werden.  Die Noten sollen erst später hinzugefügt werden,
 hier also erst mal nur ein paar Platzhalternoten und Text.  Wenn
 Sie sich nicht erinnern, wie man Gesangstext notiert, lesen
-Sie noch einmal @code{\addlyrics} in @ref{Einfache Lieder setzen}.
+Sie noch einmal @code{\addlyrics} in @ref{Setting simple songs}.
 
 @c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
@@ -389,7 +385,7 @@ interpretiert wird, wird ihm @code{\lyricmode} voran gesetzt.  Wie
 gewechselt. Ohne diesen Befehl würde LilyPond versuchen, den Inhalt
 der Variable als Noten zu interpretieren und dabei eine Menge
 Fehler produzieren. (Einige andere Eingabemodi sind außerdem noch
-verfügbar, siehe @rnotation{Eingabe-Modi}.)
+verfügbar, siehe @rnotationnamed{Input modes, Eingabe-Modi}.)
 
 Also haben wir, wenn wir ein paar Noten und einen Bassschlüssel
 für die linke Hand hinzufügen, folgendes Beispiel:
@@ -429,12 +425,11 @@ gleichen Stelle beginnt.
 
 
 @morerefs
-Benutzerhandbuch: @rnotation{Struktur einer Partitur}.
+Benutzerhandbuch: @rnotationnamed{Structure of a score, Struktur einer Partitur}.
 
 
-@node Musikalische Ausdrücke ineinander verschachteln
+@node Nesting music expressions
 @subsection Musikalische Ausdrücke ineinander verschachteln
-@translationof Nesting music expressions
 
 @cindex Notenzeilen, temporäre
 @cindex Ossia
@@ -504,13 +499,12 @@ standardmäßig unterhalb.
 Ossia werden oft ohne Notenschlüssel und Taktangabe gedruckt, meist
 auch etwas kleiner als die anderen Notenzeilen.  Dies ist natürlich
 auch in LilyPond möglich, benötigt aber Befehle, die bisher noch
-nicht vorgestellt wurden.  Siehe @ref{Größe von Objekten}
-und @rnotation{Ossia-Systeme}.
+nicht vorgestellt wurden.  Siehe @ref{Size of objects}
+und @rnotationnamed{Ossia staves, Ossia-Systeme}.
 
 
-@node Über die Nicht-Schachtelung von Klammern und Bindebögen
+@node On the un-nestedness of brackets and ties
 @subsection Über die Nicht-Schachtelung von Klammern und Bindebögen
-@translationof On the un-nestedness of brackets and ties
 
 @cindex Klammern, geschachtelt
 @cindex Schachtelung von Klammern
@@ -593,9 +587,8 @@ Phrasierungsbogen, der in einer Triole beginnt (Zeilen 3 und 4).
 @end lilypond
 
 
-@node Voice enthält Noten
+@node Voices contain music
 @section Voice enthält Noten
-@translationof Voices contain music
 
 Sänger brauchen Stimmen zum Singen, und LilyPond braucht sie auch:
 in der Tat sind alle Noten für alle Instrumente in einer Partitur
@@ -603,14 +596,13 @@ innerhalb von Stimmen gesetzt.  Die Stimme ist das grundlegende Prinzip
 von LilyPond.
 
 @menu
-* Ich höre Stimmen::
-* Stimmen explizit beginnen::
-* Stimmen und Text::
+* I'm hearing Voices::
+* Explicitly instantiating voices::
+* Voices and vocals::
 @end menu
 
-@node Ich höre Stimmen
+@node I'm hearing Voices
 @subsection Ich höre Stimmen
-@translationof I'm hearing Voices
 
 @cindex Polyphonie
 @cindex Ebenen
@@ -815,8 +807,8 @@ Stimme als grüne Kreise mit Kreuz und die vierte Stimme (die hier nicht
 benutzt wird) hat dunkelrote Kreuze.  @code{\voiceNeutralStyle} (hier auch
 nicht benutzt) macht diese Änderungen rückgängig.  Später soll gezeigt
 werden, wie Befehle wie diese vom Benutzer selber erstellt werden
-können.  Siehe auch @ref{Sichtbarkeit und Farbe von Objekten} und
-@ref{Variablen für Layout Anpassungen einsetzen}.
+können.  Siehe auch @ref{Visibility and color of objects} und
+@ref{Using variables for layout adjustments}.
 
 @cindex Polyphonie und relativer Notationsmodus
 @cindex relativer Notationsmodus und Polyphonie
@@ -993,19 +985,18 @@ Möglichkeiten zur Verfügung, um die horizontale Ausrichtung von Noten
 zu beeinflussen.  Wir sind aber noch nicht so weit, dass wir diese Funktionen
 anwenden könnten.  Darum heben wir uns das Problem für einen späteren Abschnitt
 auf; siehe @code{force-hshift}-Eigenschaft in
-@ref{Überlappende Notation in Ordnung bringen}.
+@ref{Fixing overlapping notation}.
 
 @warning{Gesangstext und Strecker (wie etwa Bögen, Crescendo-Klammern usw.) können
 nicht von einer Stimme zur anderen erstellt werden.}
 
 
 @morerefs
-Notationsreferenz: @rnotation{Mehrere Stimmen}.
+Notationsreferenz: @rnotationnamed{Multiple voices, Mehrere Stimmen}.
 
 
-@node Stimmen explizit beginnen
+@node Explicitly instantiating voices
 @subsection Stimmen explizit beginnen
-@translationof Explicitly instantiating voices
 
 @funindex \voiceOne
 @funindex \voiceTwo
@@ -1241,7 +1232,7 @@ nach links verschoben.
 @code{\shiftOnn} und @code{\shiftOnnn} definieren weitere
 Verschiebungsebenen, die man kurzzeitig anwählen kann, um
 Zusammenstöße in komplexen Situationen aufzulösen, siehe auch
-@ref{Beispiel aus dem Leben}.
+@ref{Real music example}.
 
 Eine Notenkolumne kann nur eine Note (oder einen Akkord) von
 einer Stimme mit Hälsen nach oben und eine Note (oder einen
@@ -1257,15 +1248,14 @@ ausgegeben.
 
 @morerefs
 Handbuch zum Lernen:
-@ref{Verschieben von Objekten}.
+@ref{Moving objects}.
 
 Notationsreferenz:
-@rnotation{Mehrere Stimmen}.
+@rnotationnamed{Multiple voices, Mehrere Stimmen}.
 
 
-@node Stimmen und Text
+@node Voices and vocals
 @subsection Stimmen und Text
-@translationof Voices and vocals
 
 Die Notation von Vokalmusik ihre eigene Schwierigkeit, nämlich
 die Kombination von zwei Ausdrücken: den Noten und dem Text.
@@ -1438,12 +1428,11 @@ VerseFour  =
 
 
 @morerefs
-Notationsreferenz: @rnotation{Notation von Gesang}.
+Notationsreferenz: @rnotationnamed{Vocal music, Notation von Gesang}.
 
 
-@node Kontexte und Engraver
+@node Contexts and engravers
 @section Kontexte und Engraver
-@translationof Contexts and engravers
 
 Kontexte und Engraver (@qq{Stempel}) sind in den vorherigen
 Abschnitten schon aufgetaucht; hier wollen wir uns ihnen
@@ -1452,16 +1441,15 @@ wichtig, um Feineinstellungen in der LilyPond-Notenausgabe
 vornehmen zu können.
 
 @menu
-* Was sind Kontexte?::
-* Kontexte erstellen::
-* Was sind Engraver?::
-* Kontexteigenschaften verändern::
-* Engraver hinzufügen und entfernen::
+* Contexts explained::
+* Creating contexts::
+* Engravers explained::
+* Modifying context properties::
+* Adding and removing engravers::
 @end menu
 
-@node Was sind Kontexte?
+@node Contexts explained
 @subsection Was sind Kontexte?
-@translationof Contexts explained
 
 @cindex Kontexte erklärt
 
@@ -1545,12 +1533,11 @@ angeschlossen, etwa
 
 
 @morerefs
-Notationsreferenz: @rnotation{Was sind Kontexte?}.
+Notationsreferenz: @rnotationnamed{Contexts explained, Was sind Kontexte?}.
 
 
-@node Kontexte erstellen
+@node Creating contexts
 @subsection Kontexte erstellen
-@translationof Creating contexts
 
 @funindex \new
 @cindex Neue Kontexte
@@ -1589,7 +1576,7 @@ normalerweise automatisch erstellt wird, wenn der musikalische Ausdruck
 innerhalb der @code{@bs{}score}-Umgebung interpretiert wird.  Standard-Werte
 von Kontexteigenschaften, die für einen bestimmten @code{Score} gelten
 sollen, können innerhalb der @code{@bs{}layout}-Umgebung definiert werden.
-Siehe @ref{Kontexteigenschaften verändern}.}
+Siehe @ref{Modifying context properties}.}
 
 Wir haben schon viele explizite Beispiel gesehen, in denen
 neue @code{Staff}- und @code{Voice}-Kontexte erstellt wurden, aber
@@ -1671,16 +1658,15 @@ umgeben werden, also etwa
 Der Name wird
 benutzt, um später auf genau diesen spezifischen Kontext
 zu verweisen.  Dieses Vorgehen wurde schon in dem Abschnitt
-zu Gesangstexten angewandt, siehe @ref{Stimmen und Text}.
+zu Gesangstexten angewandt, siehe @ref{Voices and vocals}.
 
 
 @morerefs
-Notationsreferenz: @rnotation{Kontexte erstellen und referenzieren}.
+Notationsreferenz: @rnotationnamed{Creating and referencing contexts, Kontexte erstellen und referenzieren}.
 
 
-@node Was sind Engraver?
+@node Engravers explained
 @subsection Was sind Engraver?
-@translationof Engravers explained
 
 @cindex Engraver
 @cindex Stempel (Engraver)
@@ -1772,9 +1758,8 @@ Engraver beeinflusst wird.
 Referenz der Interna: @rinternals{Engravers and Performers}.
 
 
-@node Kontexteigenschaften verändern
+@node Modifying context properties
 @subsection Kontexteigenschaften verändern
-@translationof Modifying context properties
 
 @cindex Kontext-Eigenschaften, Verändern
 @cindex Eigenschaften von Kontexten
@@ -2110,17 +2095,16 @@ innerhalb der aktuellen Noten.
 
 @morerefs
 Notationsreferenz:
-@rnotation{Die Standardeinstellungen von Kontexten ändern},
-@rnotation{Der set-Befehl}.
+@rnotationnamed{Changing context default settings, Die Standardeinstellungen von Kontexten ändern},
+@rnotationnamed{The set command, Der set-Befehl}.
 
 Referenz der Interna:
 @rinternals{Contexts},
 @rinternals{Tunable context properties}.
 
 
-@node Engraver hinzufügen und entfernen
+@node Adding and removing engravers
 @subsection Engraver hinzufügen und entfernen
-@translationof Adding and removing engravers
 
 @cindex Engraver, Hinzufügen von
 @cindex Engraver, Entfernen von
@@ -2288,8 +2272,8 @@ einer @code{\context}-Umgebung angewendet wird.
 
 
 @morerefs
-Notationsreferenz: @rnotation{Umgebungs-Plugins verändern},
-@rnotation{Die Standardeinstellungen von Kontexten ändern}.
+Notationsreferenz: @rnotationnamed{Modifying context plug-ins, Umgebungs-Plugins verändern},
+@rnotationnamed{Changing context default settings, Die Standardeinstellungen von Kontexten ändern}.
 
 @knownissues
 Die @code{Stem_engraver} und @code{Beam_engraver} fügen ihre
@@ -2298,31 +2282,29 @@ entfernt wird, werden keine Notenköpfe erstellt und demzufolge auch keine
 Hälse oder Bögen dargestellt.
 
 
-@node Erweiterung der Vorlagen
+@node Extending the templates
 @section Erweiterung der Vorlagen
-@translationof Extending the templates
 
 Sie haben sich durch das Tutorium gearbeitet, Sie
 wissen jetzt, wie Sie Notensatz produzieren, und Sie
 haben die grundlegenden Konzepte verstanden.  Aber wie
 erhalten Sie genau die Systeme, die Sie brauchen? Es
 gibt eine ganze Anzahl an fertigen Vorlagen
-(siehe @ref{Vorlagen}), mit denen Sie beginnen
+(siehe @ref{Templates}), mit denen Sie beginnen
 können.  Aber was, wenn Sie nicht genau das finden,
 was Sie brauchen? Lesen Sie weiter.
 
 @menu
-* Sopran und Cello::
-* Vierstimmige SATB-Partitur::
-* Eine Partitur von Grund auf erstellen::
-* Tipparbeit durch Variablen und Funktionen einsparen::
-* Partituren und Stimmen::
+* Soprano and cello::
+* Four-part SATB vocal score::
+* Building a score from scratch::
+* Saving typing with variables and functions::
+* Scores and parts::
 @end menu
 
 
-@node Sopran und Cello
+@node Soprano and cello
 @subsection Sopran und Cello
-@translationof Soprano and cello
 
 @cindex Template, Verändern von
 @cindex Vorlage, Verändern von
@@ -2522,12 +2504,11 @@ celloMusic = \relative {
 @morerefs
 Die Vorlagen, mit denen wir begonnen haben, können im
 Anhang @qq{Vorlagen} gefunden werden, siehe
-@ref{Vorlagen für ein einzelnes System}.
+@ref{Single staff templates}.
 
 
-@node Vierstimmige SATB-Partitur
+@node Four-part SATB vocal score
 @subsection Vierstimmige SATB-Partitur
-@translationof Four-part SATB vocal score
 
 @cindex Vorlage, SATB
 @cindex Vorlage, Chorpartitur
@@ -2638,7 +2619,7 @@ lower = \relative {
 
 @warning{Das vorliegende Layout kann sehr einfach erzeugt werden.  Am Besten
 verwenden sie dafür das vordefinierte Beispiel @code{satb.ly}, siehe auch
-@ref{Eingebaute Vorlagen}.  Zum Zweck der einfachen Handhabung wird der
+@ref{Built-in templates}.  Zum Zweck der einfachen Handhabung wird der
 verwendete Kontextaufbau bewusst versteckt und sich darauf verlassen, dass LilyPond
 alles automatisch bereit stellt.  Lassen sie uns zu Lehrzwecken probieren,
 das alles von Grund auf selbst zu entwickeln.  Irgendwann werden sie das sowieso machen
@@ -2646,7 +2627,7 @@ müssen, nämlich genau dann, wenn ein vorgegebenes Beispiel ihre
 Anforderungen nicht angemessen erfüllt.}
 
 Dem gewünschten Ergebnis am nächsten kommt sicher das
-@ref{SATB-Partitur und automatischer Klavierauszug} -- wir müssen diese
+@ref{SATB vocal score and automatic piano reduction} -- wir müssen diese
 Vorlage aber so anpassen, dass die Noten für das Klavier nicht
 automatisch aus dem Chorsatz generiert werden.  Die Variablen
 für die Noten und den Text des Chores sind in Ordnung, wir
@@ -2880,9 +2861,8 @@ lower = \relative {
 @end lilypond
 
 
-@node Eine Partitur von Grund auf erstellen
+@node Building a score from scratch
 @subsection Eine Partitur von Grund auf erstellen
-@translationof Building a score from scratch
 
 @cindex Template, eigene schreiben
 @cindex Vorlagen, eigene schreiben
@@ -3084,7 +3064,7 @@ des @code{VerticalAxisGroup}-@qq{graphischen Objekts} (üblicherweise als
 @qq{Grob} innerhalb der LilyPond-Dokumentation bezeichnet) kontrolliert
 werden.  An dieser Stelle brauchen Sie sich um die Details nicht zu
 sorgen, sie werden später erklärt.  Sehr Neugierige können sich den
-Abschnitt @rnotation{Grundlagen zum Verändern von Eigenschaften} anschauen.  Im Moment
+Abschnitt @rnotationnamed{Overview of modifying properties, Grundlagen zum Verändern von Eigenschaften} anschauen.  Im Moment
 kann man nicht nur die @code{strechability} (Spreizbarkeit)-Untereigenschaft verändern,
 darum müssen hier auch die anderen Untereigenschaften kopiert werden.  Die
 Standardeinstellungen dieser Untereigenschaften finden sich in der Datei
@@ -3200,9 +3180,8 @@ Glossar:
 @rglos{system}.
 
 
-@node Tipparbeit durch Variablen und Funktionen einsparen
+@node Saving typing with variables and functions
 @subsection Tipparbeit durch Variablen und Funktionen einsparen
-@translationof Saving typing with variables and functions
 
 @cindex Variablen
 
@@ -3315,16 +3294,15 @@ padText =
 
 Die Benutzung von Variablen ist auch eine gute Möglichkeit,
 Arbeit zu vermeiden, wenn sich einmal die Syntax von LilyPond
-ändern sollte (siehe auch @rprogram{Dateien mit convert-ly aktualisieren}).
+ändern sollte (siehe auch @rprogramnamed{Updating files with convert-ly, Dateien mit convert-ly aktualisieren}).
 Wenn man eine einzige Definition hat (wie etwa @code{\dolce}),
 die für alle Vorkommen in der Notation eingesetzt wird, muss
 man auch nur einmal diese Definition aktualisieren, anstatt
 dass man sie in jeder @file{.ly}-Datei einzeln ändern müsste.
 
 
-@node Partituren und Stimmen
+@node Scores and parts
 @subsection Partituren und Stimmen
-@translationof Scores and parts
 
 In Orchestermusik werden alle Noten zweimal gedruckt.  Einmal
 in einer Stimme für die Spieler, und einmal ein der Partitur
@@ -3447,10 +3425,10 @@ woraus sich ergibt:
 
 @morerefs
 Handbuch zum Lernen:
-@ref{Stücke durch Variablen organisieren}.
+@ref{Organizing pieces with variables}.
 
 Notationsreferenz:
-@rnotation{Transponieren},
-@rnotation{Orchesterstimmen erstellen},
-@rnotation{Ganztaktpausen},
-@rnotation{LilyPond-Dateien einfügen}.
+@rnotationnamed{Transpose, Transponieren},
+@rnotationnamed{Writing parts, Orchesterstimmen erstellen},
+@rnotationnamed{Full measure rests, Ganztaktpausen},
+@rnotationnamed{Including LilyPond files, LilyPond-Dateien einfügen}.

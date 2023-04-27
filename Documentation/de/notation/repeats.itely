@@ -11,9 +11,8 @@
 
 @c Translators: Till Paala
 
-@node Wiederholungszeichen
+@node Repeats
 @section Wiederholungszeichen
-@translationof Repeats
 
 @lilypondfile[quote]{snippets/repeats-headword.ly}
 
@@ -46,18 +45,17 @@ Das wird benutzt, um Tremolo-Wiederholungen am Notenhals zu notieren.
 
 
 @menu
-* Lange Wiederholungen::
-* Kurze Wiederholungen::
+* Long repeats::
+* Short repeats::
 @end menu
 
-@node Lange Wiederholungen
+@node Long repeats
 @subsection Lange Wiederholungen
-@translationof Long repeats
 
 @menu
-* Normale Wiederholungen::
-* Manuelle Wiederholungszeichen::
-* Ausgeschriebene Wiederholungen::
+* Normal repeats::
+* Manual repeat marks::
+* Written-out repeats::
 @end menu
 
 
@@ -76,9 +74,8 @@ Das wird benutzt, um Tremolo-Wiederholungen am Notenhals zu notieren.
 @funindex \alternative
 @funindex \partial
 
-@node Normale Wiederholungen
+@node Normal repeats
 @unnumberedsubsubsec Normale Wiederholungen
-@translationof Normal repeats
 
 Die Syntax für normale Wiederholungen ist
 
@@ -166,7 +163,7 @@ produziert wird.}
 @warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
 notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
 zusätzliche (ungewollte) Systeme.
-Siehe auch @rprogram{Ein zusätzliches System erscheint}.}
+Siehe auch @rprogramnamed{An extra staff appears, Ein zusätzliches System erscheint}.}
 
 
 @cindex Wiederholung mit Auftakt
@@ -252,7 +249,7 @@ g1 |
 @end lilypond
 
 Die @code{measureLength}-Eigenschaft ist beschrieben in
-@ref{Verwaltung der Zeiteinheiten}.
+@ref{Time administration}.
 
 @funindex \inStaffSegno
 
@@ -316,9 +313,9 @@ Glossar:
 @rglos{volta}.
 
 Notationsreferenz:
-@ref{Taktstriche},
-@ref{Umgebungs-Plugins verändern},
-@ref{Verwaltung der Zeiteinheiten}.
+@ref{Bar lines},
+@ref{Modifying context plug-ins},
+@ref{Time administration}.
 
 Schnipsel:
 @rlsr{Repeats}.
@@ -367,9 +364,8 @@ Wiederholung gehört.  Um Klarheit zu schaffen, bietet es sich an, in solchen
 Situationen Klammern zu benutzen.
 
 
-@node Manuelle Wiederholungszeichen
+@node Manual repeat marks
 @unnumberedsubsubsec Manuelle Wiederholungszeichen
-@translationof Manual repeat marks
 
 @cindex manuelle Wiederholungszeichen
 @cindex Wiederholung, manuell
@@ -391,7 +387,7 @@ Situationen Klammern zu benutzen.
 Wiederholungskonstruktionen darzustellen und können sich unerwünscht
 verhalten.  In den meisten Fällen sollten Wiederholungen mit dem
 Befehl @code{@bs{}repeat} erstellt werden oder indem die entsprechenden
-Taktstriche eingegeben werden.  Mehr Information in @ref{Taktstriche}.}
+Taktstriche eingegeben werden.  Mehr Information in @ref{Bar lines}.}
 
 Die Eigenschaft @code{repeatCommands} kann verwendet werden, um das
 Aussehen der Wiederholungen zu beeinflussen. Ihr Argument ist eine
@@ -463,7 +459,7 @@ Mehrfache Wiederholungszeichen können an der selben Stelle vorkommen:
 
 Text kann auch in der Volta-Klammer gesetzt werden.  Der Text kann
 aus Zahlen oder einer Zahl oder einer Textbeschriftung bestehen,
-siehe @ref{Text formatieren}.  Die einfachste Art Text zu benutzen
+siehe @ref{Formatting text}.  Die einfachste Art Text zu benutzen
 ist, die Beschriftung zuerst zu definieren und dann die Beschriftung
 in einer Scheme-Liste einzufügen.
 
@@ -483,8 +479,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 @morerefs
 Notationsreferenz:
-@ref{Taktstriche},
-@ref{Text formatieren}.
+@ref{Bar lines},
+@ref{Formatting text}.
 
 Schnipsel:
 @rlsr{Repeats}.
@@ -495,9 +491,8 @@ Referenz der Interna:
 @rinternals{VoltaRepeatedMusic}.
 
 
-@node Ausgeschriebene Wiederholungen
+@node Written-out repeats
 @unnumberedsubsubsec Ausgeschriebene Wiederholungen
-@translationof Written-out repeats
 
 @cindex ausgeschriebene Wiederholungen
 @cindex wiederholte Musik
@@ -607,19 +602,19 @@ ohne Alternativen) ineinander zu verschachteln:
 @end lilypond
 
 Akkordkonstruktionen können mit dem Akkordwiederholungssymbol @code{q}
-wiederholt werden.  Siehe @ref{Akkord-Wiederholungen}.
+wiederholt werden.  Siehe @ref{Chord repetition}.
 
 @warning{Wenn man @code{@bs{}relative} innerhalb von @code{@bs{}repeat}
 notiert, ohne den @code{Voice}-Kontext explizit zu beginnen, erscheinen
 zusätzliche (ungewollte) Systeme.
-Siehe auch @rprogram{Ein zusätzliches System erscheint}.}
+Siehe auch @rprogramnamed{An extra staff appears, Ein zusätzliches System erscheint}.}
 
 @morerefs
 Notationsreferenz:
-@ref{Akkord-Wiederholungen}.
+@ref{Chord repetition}.
 
 Handbuch zur Benutzung:
-@rprogram{Ein zusätzliches System erscheint}.
+@rprogramnamed{An extra staff appears, Ein zusätzliches System erscheint}.
 
 Schnipsel:
 @rlsr{Repeats}.
@@ -629,9 +624,8 @@ Referenz der Interna:
 @rinternals{UnfoldedRepeatedMusic}.
 
 
-@node Kurze Wiederholungen
+@node Short repeats
 @subsection Kurze Wiederholungen
-@translationof Short repeats
 
 Dieser Abschnitt zeigt, wie man kurze Wiederholungen notiert.
 Kurze Wiederholungen haben zwei Formen: Wiederholungen
@@ -639,13 +633,12 @@ von einer Note bis zu zwei Takten, die mit Schrägstrichen oder
 Prozentzeichen dargestellt werden, und Tremolos.
 
 @menu
-* Prozent-Wiederholungen::
-* Tremolo-Wiederholung::
+* Percent repeats::
+* Tremolo repeats::
 @end menu
 
-@node Prozent-Wiederholungen
+@node Percent repeats
 @unnumberedsubsubsec Prozent-Wiederholungen
-@translationof Percent repeats
 
 @cindex Prozent-Wiederholungen
 @cindex Taktweise Wiederholungen
@@ -743,9 +736,8 @@ Referenz der Interna:
 @rinternals{Slash_repeat_engraver}.
 
 
-@node Tremolo-Wiederholung
+@node Tremolo repeats
 @unnumberedsubsubsec Tremolo-Wiederholung
-@translationof Tremolo repeats
 
 @cindex Tremolobalken
 @cindex Tremolo

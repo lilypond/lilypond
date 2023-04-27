@@ -13,9 +13,8 @@
 @include en/included/gsoc.itexi
 @include de/included/helpus.itexi
 
-@node Gemeinschaft
+@node Community
 @unnumbered Gemeinschaft
-@translationof Community
 
 @divClass{link-headings}
 
@@ -25,15 +24,15 @@
 @itemize
 
 @item
-@ref{Kontakt}: hier erhalten Sie Hilfe, können diskutieren und
+@ref{Contact}: hier erhalten Sie Hilfe, können diskutieren und
 in Kontakt mit der Gemeinschaft bleiben.
 
 @item
-@ref{Minimalbeispiele}: sie werden @emph{dringend} empfohlen,
+@ref{Tiny examples}: sie werden @emph{dringend} empfohlen,
 wenn man über LilyPond diskutieren will.
 
 @item
-@ref{Fehlerberichte}: wenn etwas schief gelaufen ist.
+@ref{Bug reports}: wenn etwas schief gelaufen ist.
 
 @end itemize
 @divEnd
@@ -44,19 +43,19 @@ wenn man über LilyPond diskutieren will.
 @itemize
 
 @item
-@ref{Helfen Sie uns}: Ihre Mitarbeit wird benötigt.
+@ref{Help us}: Ihre Mitarbeit wird benötigt.
 
 @item
-@ref{Sponsoren}: finanzielle Unterstützung.
+@ref{Sponsoring}: finanzielle Unterstützung.
 
 @item
-@ref{Entwicklung}: für Mitarbeiter und Tester.
+@ref{Development}: für Mitarbeiter und Tester.
 
 @item
 @ref{Google Summer of Code}: Projektideen für den Google Summer of Code (GSoC).
 
 @item
-@ref{Autoren}: die Menschen, die LilyPond zu dem gemacht haben,
+@ref{Authors}: die Menschen, die LilyPond zu dem gemacht haben,
 was es heute ist.
 
 @end itemize
@@ -68,14 +67,14 @@ was es heute ist.
 @itemize
 
 @item
-@ref{Veröffentlichungen}: was wir geschrieben haben oder was über
+@ref{Publications}: was wir geschrieben haben oder was über
 uns geschrieben wurde.
 
 @item
-@ref{Neuigkeiten}: Neuigkeiten vom LilyPond-Projekt.
+@ref{News}: Neuigkeiten vom LilyPond-Projekt.
 
 @item
-@ref{Abstellkammer}: Ankündigungen und Listen der Veränderungn von vorherigen
+@ref{Attic}: Ankündigungen und Listen der Veränderungn von vorherigen
 Versionen, alte Neuigkeiten, etc.
 
 @end itemize
@@ -85,24 +84,23 @@ Versionen, alte Neuigkeiten, etc.
 
 @divClass{hide}
 @menu
-* Kontakt::
-* Minimalbeispiele::
-* Fehlerberichte::
-* Helfen Sie uns::
-* Sponsoren::
-* Entwicklung::
+* Contact::
+* Tiny examples::
+* Bug reports::
+* Help us::
+* Sponsoring::
+* Development::
 * Google Summer of Code::
-* Autoren::
-* Veröffentlichungen::
-* Neuigkeiten::
-* Abstellkammer::
+* Authors::
+* Publications::
+* News::
+* Attic::
 @end menu
 @divEnd
 
 
-@node Kontakt
+@node Contact
 @unnumberedsec Kontakt
-@translationof Contact
 
 
 @divClass{column-left-top}
@@ -124,7 +122,7 @@ Archiv@tie{}2}
 @end quotation
 
 @warning{Wenn Sie Fragen stellen (immer auf Englisch) benutzen
-Sie bitte @ref{Minimalbeispiele}!}
+Sie bitte @ref{Tiny examples}!}
 
 @subsubheading Andere Sprachen
 
@@ -161,7 +159,7 @@ eigene Schnipsel hinzu!
 @end example
 
 Besonders lehrreiche Beispiele aus dem LSR werden in unsere offizielle
-Dokumentation eingefügt, in @ref{Schnipsel}.
+Dokumentation eingefügt, in @ref{Snippets}.
 @divEnd
 
 
@@ -200,7 +198,7 @@ Archiv@tie{}2}
 @end quotation
 
 @warning{Bevor Sie eine Nachricht an die Fehler-Liste schreiben,
-lesen Sie bitte unsere Richtlinien für @ref{Fehlerberichte}.}
+lesen Sie bitte unsere Richtlinien für @ref{Bug reports}.}
 @divEnd
 
 
@@ -261,9 +259,8 @@ Mailingliste gestellt wird.
 @divEnd
 
 
-@node Minimalbeispiele
+@node Tiny examples
 @unnumberedsec Minimalbeispiele
-@translationof Tiny examples
 
 @divClass{column-center-top}
 @subheading Was sind @qq{Minimalbeispiele}?
@@ -386,9 +383,8 @@ meistens kann das Problem mit vier Zeilen gezeigt werden!
 
 
 
-@node Fehlerberichte
+@node Bug reports
 @unnumberedsec Fehlerberichte
-@translationof Bug reports
 
 @divClass{heading-center}
 Wenn Ihre Datei zu einem Programmabsturz oder falschem Notensatz führt,
@@ -419,7 +415,7 @@ helfen Sie uns bitte, indem Sie einen Fehlerbericht (bug report)
 erstellen.
 
 @warning{Wir akzeptieren Fehlerberichte nur als
-@ref{Minimalbeispiele}.  Wir haben sehr begrenzte Ressourcen,
+@ref{Tiny examples}.  Wir haben sehr begrenzte Ressourcen,
 weshalb jedes nicht-Minimalbeispiel
 zurückgewiesen wird.  Fast jeder Fehler kann mit vier oder sogar
 weniger Noten demonstriert werden!}
@@ -481,9 +477,8 @@ demonstrieren.
 @divEnd
 
 
-@node Helfen Sie uns
+@node Help us
 @unnumberedsec Helfen Sie uns
-@translationof Help us
 
 @divClass{column-center-top}
 @helpusNeed
@@ -503,9 +498,8 @@ demonstrieren.
 @divEnd
 
 
-@node Sponsoren
+@node Sponsoring
 @unnumberedsec Sponsoren
-@translationof Sponsoring
 
 @divClass{keep-bullets}
 @divClass{column-left-top}
@@ -550,9 +544,8 @@ dieser Punkte geklärt werden sollten, bevor die Arbeit beginng.
 @divEnd
 
 
-@node Entwicklung
+@node Development
 @unnumberedsec Entwicklung
-@translationof Development
 
 @divClass{heading-center}
 @heading Entwicklung für LilyPond @versionDevel
@@ -563,7 +556,7 @@ dieser Punkte geklärt werden sollten, bevor die Arbeit beginng.
 @warning{Hier handelt es sich um @emph{möglicherweise instabile} Entwicklerversionen.
 Wenn Sie nicht genau wissen, wie man LilyPond installiert und
 benutzt, empfehlen wir ausdrücklich, die @ref{Download, stabile Download}-Version
-zu benutzen und die @ref{Handbücher, stabilen Handbücher} zu lesen.}
+zu benutzen und die @ref{Manuals, stabilen Handbücher} zu lesen.}
 
 @divEnd
 
@@ -800,14 +793,12 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 
 @node Google Summer of Code
 @unnumberedsec Google Summer of Code
-@translationof Google Summer of Code
 
 @gsocCurrent
 
 
-@node Autoren
+@node Authors
 @unnumberedsec Autoren
-@translationof Authors
 
 @divClass{column-left-top}
 @subheading Aktuelles Entwicklungsteam
@@ -882,9 +873,8 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 @divEnd
 
 
-@node Veröffentlichungen
+@node Publications
 @unnumberedsec Veröffentlichungen
-@translationof Publications
 
 @divClass{column-center-top}
 @subheading Was wir über LilyPond geschrieben haben
@@ -910,23 +900,21 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 @contactUsAbout{wissenschaftliche Aufsätze}
 
 
-@node Neuigkeiten
+@node News
 @unnumberedsec Neuigkeiten
-@translationof News
 
 @include en/web/news-new.itexi
 
 @divClass{column-center-bottom}
 @subheading Vergangene Neuigkeiten
-Ältere Neuigkeiten sind in der @ref{Abstellkammer} zu finden, zusammen mit alten
+Ältere Neuigkeiten sind in der @ref{Attic} zu finden, zusammen mit alten
 Ankündigungen und Listen der Änderungen.
 @divEnd
 
 
 
-@node Abstellkammer
+@node Attic
 @unnumberedsec Abstellkammer
-@translationof Attic
 
 @divClass{column-center-top}
 @subheading Ankündigungen
@@ -1015,7 +1003,7 @@ Dank an die Entwickler, Beitragenden, Bug-Jäger und Vorschläge für
 @subheading Vergangene Neuigkeiten
 
 Vergangene Neuigkeiten bis zum Juli 2003.  Aktuellere Neuigkeiten sind auf der
-Seite @ref{Neuigkeiten}.
+Seite @ref{News}.
 @divEnd
 
 @include en/web/news-old.itexi

@@ -41,16 +41,16 @@ Copyright @copyright{} 1999--2023 bei den Autoren.
 @c  maybe add a "Tasks" or "Specific tasks" or something like
 @c  that, after Suggestions  -gp
 @menu
-* lilypond starten::               Benutzung.
-* Dateien mit convert-ly aktualisieren:: Eingabedateien aktualisieren.
+* Running lilypond::               Benutzung.
+* Updating files with convert-ly:: Eingabedateien aktualisieren.
 * lilypond-book::                  Text und Noten integrieren.
-* Externe Programme::              LilyPond mit anderen Programmen verbinden.
-* Vorschläge zum Schreiben von LilyPond-Eingabe-Dateien::  Hinweise zur effizienten Benutzung und effektiven Fehlerbeseitigung.
+* External programs::              LilyPond mit anderen Programmen verbinden.
+* Suggestions for writing files::  Hinweise zur effizienten Benutzung und effektiven Fehlerbeseitigung.
 
 Anhänge
 
 * GNU Free Documentation License:: Lizenz dieses Dokuments.
-* LilyPond-Index::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -71,9 +71,8 @@ Anhänge
 
 @include en/fdl.itexi
 
-@node LilyPond-Index
+@node LilyPond index
 @appendix LilyPond-Index
-@translationof LilyPond index
 
 @printindex cp
 

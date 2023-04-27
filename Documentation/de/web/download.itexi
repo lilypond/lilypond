@@ -9,7 +9,6 @@
 
 @node Download
 @unnumbered Download
-@translationof Download
 
 @divClass{heading-center}
 @heading Downloads für LilyPond @versionStable
@@ -25,7 +24,7 @@
 
 @subsubheading Für neue Nutzer
 
-@ref{Texteingabe}:  LilyPond ist ein @strong{textbasiertes}
+@ref{Text input}:  LilyPond ist ein @strong{textbasiertes}
 Notationsprogramm, es ähnelt eher einer Programmiersprache als einem
 graphischen Programm zum Notensatz.  Lesen Sie diesen Abschnitt,
 um den grundlegenden Bearbeitungsablauf mit LilyPond zu verstehen.
@@ -129,13 +128,13 @@ Formel für LilyPond}.
 @divClass{column-right-bottom}
 @subheading Für Entwickler
 
-@ref{Quellen}:
+@ref{Source}:
 für Paketersteller
 
-@ref{Alte Downloads}:
+@ref{Old downloads}:
 alte Versionen
 
-@ref{Entwicklung}:
+@ref{Development}:
 die aktuelle instabile Version
 
 @divEnd
@@ -175,17 +174,16 @@ Anerkennug des Copyright und Trademark der Rechteinhaber verwendet.
 
 @divClass{hide}
 @menu
-* Quellen::
-* Alte Downloads::
+* Source::
+* Old downloads::
 * GPL::
 @end menu
 @divEnd
 
 
 
-@node Quellen
+@node Source
 @unnumberedsec Quellen
-@translationof Source
 
 @warning{Wir empfehlen @strong{nicht}, dass Sie versuchen,
 LilyPond selber aus den Quellen zu kompilieren.  Fast alle
@@ -206,9 +204,8 @@ aufgeführt.
 
 
 
-@node Alte Downloads
+@node Old downloads
 @unnumberedsec Alte Downloads
-@translationof Old downloads
 
 @divClass{column-center-top}
 @subheading Alle Versionen
@@ -227,14 +224,13 @@ frühere Versionen.
 
 @node GPL
 @unnumberedsec GPL
-@translationof GPL
 
 @divClass{column-center-top}
 @subheading Software license
 
 GNU LilyPond wird unter der GNU General Public License publiziert.
 Eine Einführung zu der Lizenz und unsere Gründe für diese Wahl
-finden Sie in @ref{Freiheit}.
+finden Sie in @ref{Freedom}.
 
 @divEnd
 

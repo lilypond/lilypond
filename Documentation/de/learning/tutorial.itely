@@ -12,23 +12,21 @@
 @c Translators: Till Paala, Reinhold Kainhofer, Michael Gerdau
 @c Translation checkers: Hajo Bäß
 
-@node Tutorium
+@node Tutorial
 @chapter Tutorium
-@translationof Tutorial
 
 Dieses Kapitel stellt dem Leser das grundlegende Arbeiten mit LilyPond
 vor.
 
 @menu
-* Eine Quelldatei übersetzen::
-* Wie werden Eingabe-Dateien geschrieben::
-* Fehlerbehandlung::
-* Wie die Handbücher gelesen werden sollten::
+* Compiling a file::
+* How to write input files::
+* Dealing with errors::
+* How to read the manuals::
 @end menu
 
-@node Eine Quelldatei übersetzen
+@node Compiling a file
 @section Eine Quelldatei übersetzen
-@translationof Compiling a file
 
 @cindex Kompilation
 @cindex Kompilieren
@@ -77,41 +75,39 @@ weggelassen werden. Es kann sein, dass in diesem Handbuch
 die Klammern in manchen Beispielen fehlen, aber man sollte
 immer daran denken, sie in den eigenen Dateien zu benutzen!
 Mehr Informationen zu der Darstellung der Beispiele in diesem
-Handbuch gibt der Abschnitt @ref{Wie die Handbücher gelesen werden sollten}.}
+Handbuch gibt der Abschnitt @ref{How to read the manuals}.}
 
 Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 @w{@samp{ @{ c d e @}}} ist zulässiger Code,
 @w{@samp{ @{ C D E @}}} dagegen resultiert in einer Fehlermeldung.
 
 
-@node Wie werden Eingabe-Dateien geschrieben
+@node How to write input files
 @section Wie werden Eingabe-Dateien geschrieben
-@translationof How to write input files
 
 Dieser Abschnitt erklärt die grundlegende LilyPond-Syntax und hilft
 bei den ersten Anfängen, eine LilyPond-Eingabedatei zu schreiben.
 
 @menu
-* Einfache Notation::
-* Arbeiten an Eingabe-Dateien::
+* Simple notation::
+* Working on input files::
 @end menu
 
 
-@node Einfache Notation
+@node Simple notation
 @subsection Einfache Notation
-@translationof Simple notation
 
 @cindex einfache Notation
 @cindex Notation, einfach
 
 @menu
-* Tonhöhen::
-* Tondauern (Rhythmen)::
-* Pausen::
-* Taktartangabe::
-* Tempobezeichnung::
-* Notenschlüssel::
-* Alles zusammen::
+* Pitches::
+* Durations (rhythms)::
+* Rests::
+* Time signature::
+* Tempo marks::
+* Clef::
+* All together::
 @end menu
 
 LilyPond fügt einige Bestandteile des Notenbildes automatisch hinzu. Im
@@ -129,9 +125,8 @@ Diese Einstellungen können verändert werden, aber in den meisten Fällen
 sind die automatischen Werte durchaus brauchbar.
 
 
-@node Tonhöhen
+@node Pitches
 @unnumberedsubsubsec Tonhöhen
-@translationof Pitches
 
 @cindex Tonhöhen
 @cindex relativer Modus
@@ -264,9 +259,8 @@ werden mehrfache @code{''} oder @code{,,} benutzt -- es muss
 sich dabei wirklich um zwei einzelne Apostrophen und nicht um das
 Anführungszeichen @samp{"}@tie{} (Taste Shift+2) handeln!
 
-@node Tondauern (Rhythmen)
+@node Durations (rhythms)
 @unnumberedsubsubsec Tondauern (Rhythmen)
-@translationof Durations (rhythms)
 
 @cindex Tondauer
 @cindex Notendauer
@@ -311,9 +305,8 @@ angegeben werden.
 }
 @end lilypond
 
-@node Pausen
+@node Rests
 @unnumberedsubsubsec Pausen
-@translationof Rests
 
 @cindex Pausen
 @cindex schreiben von Pausen
@@ -330,9 +323,8 @@ Bezeichnung ist @samp{r}.
 @end lilypond
 
 
-@node Taktartangabe
+@node Time signature
 @unnumberedsubsubsec Taktartangabe
-@translationof Time signature
 
 @cindex Taktart
 
@@ -354,9 +346,8 @@ Die @notation{Taktart} wird mit dem
 }
 @end lilypond
 
-@node Tempobezeichnung
+@node Tempo marks
 @unnumberedsubsubsec Tempobezeichnung
-@translationof Tempo marks
 
 @cindex Tempobezeichnung
 @cindex Metronom-Angabe
@@ -383,9 +374,8 @@ mit dem @code{\tempo}-Befehl gesetzt:
 @end lilypond
 
 
-@node Notenschlüssel
+@node Clef
 @unnumberedsubsubsec Notenschlüssel
-@translationof Clef
 
 @cindex Schlüssel
 @cindex Alt
@@ -414,9 +404,8 @@ gesetzt:
 @end lilypond
 
 
-@node Alles zusammen
+@node All together
 @unnumberedsubsubsec Alles zusammen
-@translationof All together
 
 Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 
@@ -434,14 +423,13 @@ Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 
 
 @morerefs
-Notationsreferenz: @rnotation{Tonhöhen setzen},
-@rnotation{Rhythmen eingeben}, @rnotation{Pausen eingeben},
-@rnotation{Taktangabe}, @rnotation{Notenschlüssel}.
+Notationsreferenz: @rnotationnamed{Writing pitches, Tonhöhen setzen},
+@rnotationnamed{Writing rhythms, Rhythmen eingeben}, @rnotationnamed{Writing rests, Pausen eingeben},
+@rnotationnamed{Time signature, Taktangabe}, @rnotationnamed{Clef, Notenschlüssel}.
 
 
-@node Arbeiten an Eingabe-Dateien
+@node Working on input files
 @subsection Arbeiten an Eingabe-Dateien
-@translationof Working on input files
 
 @cindex geschweifte Klammern
 @cindex Klammern, geschweift
@@ -604,9 +592,8 @@ mögliche Anwendung von Kommentaren.
 @end itemize
 
 
-@node Fehlerbehandlung
+@node Dealing with errors
 @section Fehlerbehandlung
-@translationof Dealing with errors
 
 @cindex Fehlerbehandlung
 
@@ -616,53 +603,49 @@ möglicher Schwierigkeiten zu helfen.
 
 
 @menu
-* Allgemeine Fehlerbehandlungstipps::
-* Einige häufige Fehler::
+* General troubleshooting tips::
+* Some common errors::
 @end menu
 
-@node Allgemeine Fehlerbehandlungstipps
+@node General troubleshooting tips
 @subsection Allgemeine Fehlerbehandlungstipps
-@translationof General troubleshooting tips
 
 Fehlerbehandlung für LilyPond-Probleme kann eine große Herausforderung für Menschen
 darstellen, die an eine graphische Benutzeroberfläche gewohnt sind, weil
 ungültige Eingabedateien erstellt werden können.  Wenn das geschieht, ist
 eine logische Herangehensweise der beste Weg, das Problem zu identifizieren
 und zu Lösen.  Einige Richtlinien, wie Sie diese Problemlösung erlernen
-können, finden sich in @rprogram{Fehlersuche}.
+können, finden sich in @rprogramnamed{Troubleshooting, Fehlersuche}.
 
 
-@node Einige häufige Fehler
+@node Some common errors
 @subsection Einige häufige Fehler
-@translationof Some common errors
 
 @cindex häufige Fehler
 @cindex Fehler, häufige
 
 Es gibt einige übliche Fehler, die schwierig zu lösen sind, wenn man nur die
 Fehlermeldungen der Log-Datei hat.  Sie werden näher erklärt in
-@rprogram{Häufige Fehlermeldungen}.
+@rprogramnamed{Common errors, Häufige Fehlermeldungen}.
 
 
 
-@node Wie die Handbücher gelesen werden sollten
+@node How to read the manuals
 @section Wie die Handbücher gelesen werden sollten
-@translationof How to read the manuals
 
 Dieser Abschnitt erklärt, wie die Dokumentation effizient gelesen
 werden kann und behandelt auch einige nützliche Interaktionseigenschaften
 der Online-Version.
 
 @menu
-* Ausgelassenes Material::
-* Anklickbare Beispiele::
-* Überblick über die Handbücher::
+* Omitted material::
+* Clickable examples::
+* Overview of manuals::
 @end menu
 
 
-@node Ausgelassenes Material
+@node Omitted material
 @subsection Ausgelassenes Material
-@translationof Omitted material
 
 
 @cindex Handbuch, Lesen
@@ -678,7 +661,7 @@ der Online-Version.
 
 LilyPond-Code muss immer von @code{@{@tie{}@}} Zeichen oder einem
 @q{@code{\relative @{ @dots{}@tie{}@}}} umgeben sein, wie
-in @ref{Arbeiten an Eingabe-Dateien} gezeigt.
+in @ref{Working on input files} gezeigt.
 Im Rest dieses Handbuchs werden die meisten Beispiel allerdings darauf
 verzichten. Um sie zu reproduzieren, können Sie den entsprechenden
 Quellcode kopieren und in eine Textdatei zwischen @samp{@{}
@@ -697,9 +680,8 @@ die Versionsbezeichnung.  Sie sollten sie aber immer in Ihre eigenen
 Dateien einfügen.
 
 
-@node Anklickbare Beispiele
+@node Clickable examples
 @subsection Anklickbare Beispiele
-@translationof Clickable examples
 
 @warning{Diese Eigenschaft gibt es nur in der HTML-Dokumentation.}
 
@@ -742,9 +724,8 @@ Es wird gegenwärtig an dieser Funktion gearbeitet.
 @end ignore
 
 
-@node Überblick über die Handbücher
+@node Overview of manuals
 @subsection Überblick über die Handbücher
-@translationof Overview of manuals
 
 
 Es gibt sehr viele Dokumentation für LilyPond. Neue Benutzer sind
@@ -759,19 +740,19 @@ fallen, spätere Abschnitte zu verstehen.}
 
 @item
 @strong{Bevor Sie @emph{irgendetwas} ausprobieren}: Lesen Sie die
-Abschnitte @ref{Tutorium} und @ref{Übliche Notation} in diesem
+Abschnitte @ref{Tutorial} und @ref{Common notation} in diesem
 Handbuch.  Wenn Sie auf musikalische Fachbegriffen stoßen, die
 Sie nicht kennen, schauen Sie diese im @rglos{Top} nach.
 
 @item
 @strong{Bevor Sie ein vollständiges Stück notieren}:  Lesen
-Sie den Abschnitt @ref{Grundbegriffe} in diesem Handbuch. Danach
+Sie den Abschnitt @ref{Fundamental concepts} in diesem Handbuch. Danach
 können Sie sich die für Ihr Projekt wichtigen Abschnitte in der
 @rnotationnamed{Top, Notationsreferenz} anschauen.
 
 @item
 @strong{Bevor Sie versuchen, die Standardnotation zu verändern}:
-Lesen Sie @ref{Die Ausgabe verbessern} in diesem Handbuch.
+Lesen Sie @ref{Tweaking output} in diesem Handbuch.
 
 @item
 @strong{Bevor Sie sich an ein größeres Projekt machen}: Lesen

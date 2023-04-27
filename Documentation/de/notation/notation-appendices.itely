@@ -12,35 +12,33 @@
 
 @c \version "2.21.0"
 
-@node Notationsübersicht
+@node Notation manual tables
 @appendix Notationsübersicht
-@translationof Notation manual tables
 
 @menu
-* Liste der Akkordbezeichnungen::
-* Übliche Akkord-Variablen::
-* Vordefinierte Saitenstimmungen::
-* Die vordefinierten Bund-Diagramme::
-* Vordefinierte Papierformate::
-* MIDI-Instrumente::
-* Liste der Farben::
-* Die Emmentaler-Schriftart::
-* Notenkopfstile::
-* Textbeschriftungsbefehle::
-* Textbeschriftungslistenbefehle::
-* Liste der Sonderzeichen::
-* Liste der Artikulationszeichen::
-* Schlagzeugnoten::
-* Technisches Glossar::
-* Erhältliche Musikfunktionen::
-* Bezeichner zur Kontextveränderung::
-* Vordefinierte Typprädikate::
+* Chord name chart::
+* Common chord modifiers::
+* Predefined string tunings::
+* Predefined fretboard diagrams::
+* Predefined paper sizes::
+* MIDI instruments::
+* List of colors::
+* The Emmentaler font::
+* Note head styles::
+* Text markup commands::
+* Text markup list commands::
+* List of special characters::
+* List of articulations::
+* Percussion notes::
+* Technical glossary::
+* Available music functions::
+* Context modification identifiers::
+* Predefined type predicates::
 @end menu
 @c TODO: If adding "Default values for outside-staff-priority", put links into LM
 
-@node Liste der Akkordbezeichnungen
+@node Chord name chart
 @appendixsec Liste der Akkordbezeichnungen
-@translationof Chord name chart
 
 Die Tabelle zeigt die zwei üblichen Möglichkeiten, wie Akkordbezeichnungen
 ausgegeben werden. Es wird auch die entsprechende Note ausgegeben.
@@ -49,9 +47,8 @@ ausgegeben werden. Es wird auch die entsprechende Note ausgegeben.
 @lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
 
 
-@node Übliche Akkord-Variablen
+@node Common chord modifiers
 @appendixsec Übliche Akkord-Variablen
-@translationof Common chord modifiers
 
 Die Tabelle zeigt Modifikatoren für Akkorde, die im @code{\chordmode}-Modus
 benutzt werden können, um übliche Akkordkonstrukte zu notieren.
@@ -422,18 +419,16 @@ Perfekte Quinte, Oktave
 
 @end multitable
 
-@node Vordefinierte Saitenstimmungen
+@node Predefined string tunings
 @appendixsec Vordefinierte Saitenstimmungen
-@translationof Predefined string tunings
 
 Die folgende Tabelle zeigt die vordefinierten Saitenstimmungen:
 
 @lilypondfile{en/included/display-predefined-string-tunings.ly}
 
 
-@node Die vordefinierten Bund-Diagramme
+@node Predefined fretboard diagrams
 @appendixsec Die vordefinierten Bund-Diagramme
-@translationof Predefined fretboard diagrams
 
 Die Tabelle zeigt alle vordefinierten Bunddiagramme für Gitarre.
 
@@ -448,9 +443,8 @@ Die folgende Tabelle zeigt die vordefinierten Bunddiagramme für Mandoline.
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-mandolin-fretboards.ly}
 
 
-@node Vordefinierte Papierformate
+@node Predefined paper sizes
 @appendixsec Vordefinierte Papierformate
-@translationof Predefined paper sizes
 
 Papierformate sind definiert in @file{scm/paper.scm}
 
@@ -700,9 +694,8 @@ Dokumentation, basierend auf A8 quer}
 @end table
 
 
-@node MIDI-Instrumente
+@node MIDI instruments
 @appendixsec MIDI-Instrumente
-@translationof MIDI instruments
 
 Hier eine Liste von Musikinstrumentenbezeichnungen, die als Name für
 @code{midiInstrument} benutzt werden können.  Die Anordnung der
@@ -758,13 +751,12 @@ cello                     lead 6 (voice)
 @end example
 
 
-@node Liste der Farben
+@node List of colors
 @appendixsec Liste der Farben
-@translationof List of colors
 
 @subsubheading Normale Farben
 
-Die Syntax zur Benutzung findet sich im Abschnitt @ref{Farbige Objekte}.
+Die Syntax zur Benutzung findet sich im Abschnitt @ref{Coloring objects}.
 
 @cindex Liste der Farben
 @cindex Farben, Liste
@@ -864,9 +856,8 @@ greyN
 erstellt werden, wobei N eine Zahl von 0--100 darstellt.
 
 
-@node Die Emmentaler-Schriftart
+@node The Emmentaler font
 @appendixsec Die Emmentaler-Schriftart
-@translationof The Emmentaler font
 
 @cindex Emmentaler font
 @cindex Font, Emmentaler
@@ -891,40 +882,39 @@ or
 \markup @{\musicglyph "five"@}.
 @end example
 
-Siehe auch @ref{Text formatieren}.
+Siehe auch @ref{Formatting text}.
 
 @menu
-* Notenschlüssel-Glyphen::
-* Taktart-Glyphen::
-* Zahlen-Glyphen::
-* Versetzungszeichen-Glyphen::
-* Standard-Notenkopf-Glyphen::
-* Spezielle Notenkopf-Glyphen::
-* Geformte Notenkopf-Glyphen::
-* Pausen-Glyphen::
-* Fähnchen-Glyphen::
-* Punkt-Glyphen::
-* Dynamik-Glyphen::
-* Schrift-Glyphen::
-* Pfeilkopf-Glyphen::
-* Klammerspitzen-Glyphen::
-* Pedal-Glyphen::
-* Akkordeon-Glyphen::
-* Bogen-Glyphen::
-* Vaticana-Glyphen::
-* Medicaea-Glyphen::
-* Hufnagel-Glyphen::
-* Mensural-Glyphen::
-* Neomensural-Glyphen::
-* Petrucci-Glyphen::
-* Solesmes-Glyphen::
-* Glyphen der Kiever Notation::
+* Clef glyphs::
+* Time Signature glyphs::
+* Number glyphs::
+* Accidental glyphs::
+* Default Notehead glyphs::
+* Special Notehead glyphs::
+* Shape-note Notehead glyphs::
+* Rest glyphs::
+* Flag glyphs::
+* Dot glyphs::
+* Dynamic glyphs::
+* Script glyphs::
+* Arrowhead glyphs::
+* Bracket-tip glyphs::
+* Pedal glyphs::
+* Accordion glyphs::
+* Tie glyphs::
+* Vaticana glyphs::
+* Medicaea glyphs::
+* Hufnagel glyphs::
+* Mensural glyphs::
+* Neomensural glyphs::
+* Petrucci glyphs::
+* Solesmes glyphs::
+* Kievan Notation glyphs::
 @end menu
 
 
-@node Notenschlüssel-Glyphen
+@node Clef glyphs
 @unnumberedsubsec Notenschlüssel-Glyphen
-@translationof Clef glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -933,9 +923,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Taktart-Glyphen
+@node Time Signature glyphs
 @unnumberedsubsec Taktart-Glyphen
-@translationof Time Signature glyphs
 
 
 @lilypond[quote]
@@ -945,9 +934,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Zahlen-Glyphen
+@node Number glyphs
 @unnumberedsubsec Zahlen-Glyphen
-@translationof Number glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -956,9 +944,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Versetzungszeichen-Glyphen
+@node Accidental glyphs
 @unnumberedsubsec Versetzungszeichen-Glyphen
-@translationof Accidental glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -967,9 +954,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Standard-Notenkopf-Glyphen
+@node Default Notehead glyphs
 @unnumberedsubsec Standard-Notenkopf-Glyphen
-@translationof Default Notehead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -978,9 +964,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Spezielle Notenkopf-Glyphen
+@node Special Notehead glyphs
 @unnumberedsubsec Spezielle Notenkopf-Glyphen
-@translationof Special Notehead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -989,9 +974,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Geformte Notenkopf-Glyphen
+@node Shape-note Notehead glyphs
 @unnumberedsubsec Geformte Notenkopf-Glyphen
-@translationof Shape-note Notehead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1000,9 +984,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Pausen-Glyphen
+@node Rest glyphs
 @unnumberedsubsec Pausen-Glyphen
-@translationof Rest glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1011,9 +994,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Fähnchen-Glyphen
+@node Flag glyphs
 @unnumberedsubsec Fähnchen-Glyphen
-@translationof Flag glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1022,9 +1004,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Punkt-Glyphen
+@node Dot glyphs
 @unnumberedsubsec Punkt-Glyphen
-@translationof Dot glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1033,9 +1014,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Dynamik-Glyphen
+@node Dynamic glyphs
 @unnumberedsubsec Dynamik-Glyphen
-@translationof Dynamic glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1044,9 +1024,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Schrift-Glyphen
+@node Script glyphs
 @unnumberedsubsec Schrift-Glyphen
-@translationof Script glyphs
 @lilypond[quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
@@ -1054,9 +1033,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Pfeilkopf-Glyphen
+@node Arrowhead glyphs
 @unnumberedsubsec Pfeilkopf-Glyphen
-@translationof Arrowhead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1065,9 +1043,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Klammerspitzen-Glyphen
+@node Bracket-tip glyphs
 @unnumberedsubsec Klammerspitzen-Glyphen
-@translationof Bracket-tip glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1076,9 +1053,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Pedal-Glyphen
+@node Pedal glyphs
 @unnumberedsubsec Pedal-Glyphen
-@translationof Pedal glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1087,9 +1063,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Akkordeon-Glyphen
+@node Accordion glyphs
 @unnumberedsubsec Akkordeon-Glyphen
-@translationof Accordion glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1098,9 +1073,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Bogen-Glyphen
+@node Tie glyphs
 @unnumberedsubsec Bogen-Glyphen
-@translationof Tie glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1110,9 +1084,8 @@ Siehe auch @ref{Text formatieren}.
 
 
 
-@node Vaticana-Glyphen
+@node Vaticana glyphs
 @unnumberedsubsec Vaticana-Glyphen
-@translationof Vaticana glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1121,9 +1094,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Medicaea-Glyphen
+@node Medicaea glyphs
 @unnumberedsubsec Medicaea-Glyphen
-@translationof Medicaea glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1132,9 +1104,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Hufnagel-Glyphen
+@node Hufnagel glyphs
 @unnumberedsubsec Hufnagel-Glyphen
-@translationof Hufnagel glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1143,9 +1114,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Mensural-Glyphen
+@node Mensural glyphs
 @unnumberedsubsec Mensural-Glyphen
-@translationof Mensural glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1154,9 +1124,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Neomensural-Glyphen
+@node Neomensural glyphs
 @unnumberedsubsec Neomensural-Glyphen
-@translationof Neomensural glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1165,9 +1134,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Petrucci-Glyphen
+@node Petrucci glyphs
 @unnumberedsubsec Petrucci-Glyphen
-@translationof Petrucci glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1176,9 +1144,8 @@ Siehe auch @ref{Text formatieren}.
 @end lilypond
 
 
-@node Solesmes-Glyphen
+@node Solesmes glyphs
 @unnumberedsubsec Solesmes-Glyphen
-@translationof Solesmes glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1188,9 +1155,8 @@ Siehe auch @ref{Text formatieren}.
 
 
 
-@node Glyphen der Kiever Notation
+@node Kievan Notation glyphs
 @unnumberedsubsec Glyphen der Kiever Notation
-@translationof Kievan Notation glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1200,9 +1166,8 @@ Siehe auch @ref{Text formatieren}.
 
 
 
-@node Notenkopfstile
+@node Note head styles
 @appendixsec Notenkopfstile
-@translationof Note head styles
 
 @cindex Notenkopfarten
 @cindex Arten von Notenköpfen
@@ -1214,16 +1179,14 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 
 
 
-@node Textbeschriftungsbefehle
+@node Text markup commands
 @appendixsec Textbeschriftungsbefehle
-@translationof Text markup commands
 
 @include en/markup-commands.tely
 
 
-@node Textbeschriftungslistenbefehle
+@node Text markup list commands
 @appendixsec Textbeschriftungslistenbefehle
-@translationof Text markup list commands
 
 Folgende Befehle können mit dem Befehl @code{\markuplist} zusammen
 benutzt werden:
@@ -1231,12 +1194,11 @@ benutzt werden:
 @include en/markup-list-commands.tely
 
 
-@node Liste der Sonderzeichen
+@node List of special characters
 @appendixsec Liste der Sonderzeichen
-@translationof List of special characters
 
 Folgende Sonderezeichen-Bezeichnungen können benutzt werden,
-zu mehr Details siehe @ref{ASCII-Aliase}.
+zu mehr Details siehe @ref{ASCII aliases}.
 
 die HTML-Synatx wird benutzt und die meisten der Bezeichnungen sind
 die gleichen wie für HTML.  Der Rest ist durch @LaTeX{} inspiriert.
@@ -1250,9 +1212,8 @@ Lesbarkeit eingefügt.
 @end lilypond
 
 
-@node Liste der Artikulationszeichen
+@node List of articulations
 @appendixsec Liste der Artikulationszeichen
-@translationof List of articulations
 
 @cindex Akzent
 @cindex Marcato
@@ -1289,12 +1250,12 @@ Die Skripte unten sind in der Feta-Glyphe definiert und können
 an Noten angehängt werden (etwa @samp{c\accent}).
 
 @menu
-* Artikulationsskripte::
-* Ornamentale Skripte::
-* Fermatenskripte::
-* Instrumentenspezifische Skripte::
-* Wiederholungszeichenskripte::
-* Skripte der alten Notation::
+* Articulation scripts::
+* Ornament scripts::
+* Fermata scripts::
+* Instrument-specific scripts::
+* Repeat sign scripts::
+* Ancient scripts::
 @end menu
 
 @cindex accent
@@ -1306,9 +1267,8 @@ an Noten angehängt werden (etwa @samp{c\accent}).
 @cindex tenuto
 @cindex thumb
 
-@node Artikulationsskripte
+@node Articulation scripts
 @unnumberedsubsec Artikulationsskripte
-@translationof Articulation scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1368,9 +1328,8 @@ f^\tenuto e,_\tenuto b'\tenuto
 @funindex \slashturn
 @funindex \haydnturn
 
-@node Ornamentale Skripte
+@node Ornament scripts
 @unnumberedsubsec Ornamentale Skripte
-@translationof Ornament scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1468,9 +1427,8 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @funindex \henzeshortfermata
 @funindex \henzelongfermata
 
-@node Fermatenskripte
+@node Fermata scripts
 @unnumberedsubsec Fermatenskripte
-@translationof Fermata scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1526,9 +1484,8 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @funindex \stopped
 @funindex -+
 
-@node Instrumentenspezifische Skripte
+@node Instrument-specific scripts
 @unnumberedsubsec Instrumentenspezifische Skripte
-@translationof Instrument-specific scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1596,9 +1553,8 @@ f^\stopped e,_\stopped b'\stopped
 @funindex \coda
 @funindex \varcoda
 
-@node Wiederholungszeichenskripte
+@node Repeat sign scripts
 @unnumberedsubsec Wiederholungszeichenskripte
-@translationof Repeat sign scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1626,9 +1582,8 @@ f^\varcoda e,_\varcoda b'\varcoda
 @funindex \semicirculus
 @funindex \signumcongruentiae
 
-@node Skripte der alten Notation
+@node Ancient scripts
 @unnumberedsubsec Skripte der alten Notation
-@translationof Ancient scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1674,16 +1629,14 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 
 
-@node Schlagzeugnoten
+@node Percussion notes
 @appendixsec Schlagzeugnoten
-@translationof Percussion notes
 
 @lilypondfile[quote]{en/included/percussion-chart.ly}
 
 
-@node Technisches Glossar
+@node Technical glossary
 @appendixsec Technisches Glossar
-@translationof Technical glossary
 
 Ein Glossar der technischen Ausdrücke und Konzepte, die von
 LilyPond intern benutzt werden.  Die Ausdrücke kommen in den
@@ -1710,7 +1663,6 @@ Handbüchern, auf den Mailinglisten oder im Quellcode vor.
 
 @node alist
 @unnumberedsubsec alist
-@translationof alist
 
 @cindex alist
 @cindex assoziative Liste
@@ -1727,7 +1679,6 @@ mitteilt.
 
 @node callback
 @unnumberedsubsec callback
-@translationof callback
 
 @cindex callback
 
@@ -1743,7 +1694,6 @@ Funktionen der niedrigeren Ebene ausgeführt werden sollen.
 
 @node closure
 @unnumberedsubsec closure
-@translationof closure
 
 @cindex closure
 @cindex einfache closure
@@ -1773,7 +1723,6 @@ Liste von Argumenten angewendet werden soll, enthält.
 
 @node glyph
 @unnumberedsubsec glyph
-@translationof glyph
 
 @cindex glyph
 @cindex Glyphe
@@ -1791,13 +1740,12 @@ eine Schriftfamilie (engl. typeface).
 
 @morerefs
 Notationsreferenz:
-@ref{Schriftarten},
-@ref{Sonderzeichen}.
+@ref{Fonts},
+@ref{Special characters}.
 
 
 @node grob
 @unnumberedsubsec grob
-@translationof grob
 
 @cindex grob
 @cindex layout objects
@@ -1813,9 +1761,9 @@ bezeichnet, was dann zu  @strong{grob} abgekürzt wird.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Objekte und Schnittstellen},
-@rlearning{Regeln zur Benennung von Objekten und Eigenschaften},
-@rlearning{Eigenschaften von Layoutobjekten}.
+@rlearningnamed{Objects and interfaces, Objekte und Schnittstellen},
+@rlearningnamed{Naming conventions of objects and properties, Regeln zur Benennung von Objekten und Eigenschaften},
+@rlearningnamed{Properties of layout objects, Eigenschaften von Layoutobjekten}.
 
 Referenz der Interna:
 @rinternals{All layout objects}.
@@ -1823,7 +1771,6 @@ Referenz der Interna:
 
 @node immutable
 @unnumberedsubsec immutable
-@translationof immutable
 
 @cindex immutable-Objekte
 @cindex immutable-Eigenschaften
@@ -1845,7 +1792,6 @@ Notationsreferenz:
 
 @node interface
 @unnumberedsubsec interface
-@translationof interface
 
 @cindex interface
 @cindex grob-interface
@@ -1859,12 +1805,12 @@ oder auch @qq{Schnittstelle} (engl. interface) bezeichnet wird.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Objekte und Schnittstellen},
-@rlearning{Regeln zur Benennung von Objekten und Eigenschaften},
+@rlearningnamed{Objects and interfaces, Objekte und Schnittstellen},
+@rlearningnamed{Naming conventions of objects and properties, Regeln zur Benennung von Objekten und Eigenschaften},
 @rlearning{Eigenschaften, die Schnittstellen besitzen können}.
 
 Notationsreferenz:
-@ref{Layout-Schnittstellen}.
+@ref{Layout interfaces}.
 
 Referenz der Interna:
 @rinternals{Graphical Object Interfaces}.
@@ -1872,7 +1818,6 @@ Referenz der Interna:
 
 @node lexer
 @unnumberedsubsec lexer
-@translationof lexer
 
 @cindex lexer
 
@@ -1886,7 +1831,6 @@ Parsen, eignet.  Siehe @ref{parser}.
 
 @node mutable
 @unnumberedsubsec mutable
-@translationof mutable
 
 @cindex mutable-Objekte
 @cindex veränderbare (mutable) Objekte
@@ -1907,7 +1851,6 @@ Notationsreferenz:
 
 @node output-def
 @unnumberedsubsec output-def
-@translationof output-def
 
 @cindex output-def
 
@@ -1919,7 +1862,6 @@ erstellt.
 
 @node parser
 @unnumberedsubsec parser
-@translationof parser
 
 @cindex parser
 @cindex Grammatik von LilyPond
@@ -1946,7 +1888,6 @@ integriert.
 
 @node parser variable
 @unnumberedsubsec parser variable
-@translationof parser variable
 
 Diese Variablen werden direkt in Scheme definiert.  Von ihrer direkten
 Benutzung durch den Benutzer wird streng abgeraten, weil ihre
@@ -1981,7 +1922,6 @@ LilyPond benutzt folgende Parser-Variablen:
 
 @node prob
 @unnumberedsubsec prob
-@translationof prob
 
 Property OBjects, also Eigenschaftsobjekte, oder kurz @strong{Prob},
 sind Mitglieder der @code{Prob}-Klasse, eine einfache Basisklasse für
@@ -1994,13 +1934,11 @@ speichern.
 
 @node simple closure
 @unnumberedsubsec simple closure
-@translationof simple closure
 
 Siehe @ref{closure}.
 
 @node smob
 @unnumberedsubsec smob
-@translationof smob
 
 @cindex smob
 @cindex Scheme objekt
@@ -2015,7 +1953,6 @@ können, findet sich mehr Information hierzu in @file{lily/includes/smob.hh}.
 
 @node stencil
 @unnumberedsubsec stencil
-@translationof stencil
 
 @cindex stencil
 @cindex Matrize (stencil)
@@ -2037,16 +1974,14 @@ Referenz der Interna:
 @rinternals{grob-interface}.
 
 
-@node Erhältliche Musikfunktionen
+@node Available music functions
 @appendixsec Erhältliche Musikfunktionen
-@translationof Available music functions
 
 @include en/identifiers.tely
 
 
-@node Bezeichner zur Kontextveränderung
+@node Context modification identifiers
 @appendixsec Bezeichner zur Kontextveränderung
-@translationof Context modification identifiers
 
 Folgende Befehle sind definiert, umd Kontextveränderungen innerhalb
 von @code{\layout} oder @code{\with} vorzunehmen:
@@ -2054,8 +1989,7 @@ von @code{\layout} oder @code{\with} vorzunehmen:
 @include en/context-mod-identifiers.tely
 
 
-@node Vordefinierte Typprädikate
+@node Predefined type predicates
 @appendixsec Vordefinierte Typprädikate
-@translationof Predefined type predicates
 
 @include en/type-predicates.tely

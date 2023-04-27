@@ -12,9 +12,8 @@
 @c Translators: Till Paala
 
 
-@node Zeitgenössische Musik
+@node Contemporary music
 @section Zeitgenössische Musik
-@translationof Contemporary music
 
 Seit Anfang des 20. Jahrhunderts wurden die kompositorischen Stile
 und Kompositionstechniken sehr stark erweitert.  Neue harmonische
@@ -26,51 +25,48 @@ ist es, Informationen und Hintergrundwissen zu bieten, der zur
 Notation zeitgenössischer Musik benötigt wird.
 
 @menu
-* Tonhöhe und Harmonie in zeitgenössischer Musik::
-* Zeitgenössische Notation von Rhythmen::
-* Graphische Notation::
-* Zeitgenössische Partiturtechniken::
-* Neue Instrumententechniken::
-* Leseliste und interessante Referenzpartituren::
+* Pitch and harmony in contemporary music::
+* Contemporary approaches to rhythm::
+* Graphical notation::
+* Contemporary scoring techniques::
+* New instrumental techniques::
+* Further reading and scores of interest::
 @end menu
 
 
-@node Tonhöhe und Harmonie in zeitgenössischer Musik
+@node Pitch and harmony in contemporary music
 @subsection Tonhöhe und Harmonie in zeitgenössischer Musik
-@translationof Pitch and harmony in contemporary music
 
 Dieser Abschnitt zeigt Lösungen zur Notation von zeitgenössischen
 Tonhöhen und Harmonien.
 
 @menu
-* Verweise zu Tonhöhe und Harmonie in zeitgenössischer Musik::
-* Mikrotonale Notation::
-* Zeitgenössische Tonartvorzeichnung und Harmonie::
+* References for pitch and harmony in contemporary music::
+* Microtonal notation::
+* Contemporary key signatures and harmony::
 @end menu
 
 
-@node Verweise zu Tonhöhe und Harmonie in zeitgenössischer Musik
+@node References for pitch and harmony in contemporary music
 @unnumberedsubsubsec Verweise zu Tonhöhe und Harmonie in zeitgenössischer Musik
-@translationof References for pitch and harmony in contemporary music
 
 @itemize
 @item
 Normale Vierteltonmusik wird behandelt in
-@ref{Notenbezeichnungen in anderen Sprachen}.
+@ref{Note names in other languages}.
 
 @item
 Nicht-Standardvorzeichen werden behandelt in
-@ref{Tonartbezeichnung}.
+@ref{Key signature}.
 
 @item Contemporary practises in displaying accidentals are
-addressed in @ref{Automatische Versetzungszeichen}.
+addressed in @ref{Automatic accidentals}.
 
 @end itemize
 
 
-@node Mikrotonale Notation
+@node Microtonal notation
 @unnumberedsubsubsec Mikrotonale Notation
-@translationof Microtonal notation
 
 @ignore
     Discussion of microtones other than quarter-tones,
@@ -78,9 +74,8 @@ addressed in @ref{Automatische Versetzungszeichen}.
 @end ignore
 
 
-@node Zeitgenössische Tonartvorzeichnung und Harmonie
+@node Contemporary key signatures and harmony
 @unnumberedsubsubsec Zeitgenössische Tonartvorzeichnung und Harmonie
-@translationof Contemporary key signatures and harmony
 
 @ignore
     Discussion of contemporary key signatures:
@@ -88,50 +83,47 @@ addressed in @ref{Automatische Versetzungszeichen}.
 @end ignore
 
 
-@node Zeitgenössische Notation von Rhythmen
+@node Contemporary approaches to rhythm
 @subsection Zeitgenössische Notation von Rhythmen
-@translationof Contemporary approaches to rhythm
 
 Dieser Abschnitt erklärt Besonderheiten, die wichtig für
 die Notation von Rhythmus in zeitgenössischer Musik sind.
 
 @menu
-* Verweise für zeitgenössische Benutzung von Rhythmus::
-* N-tolen in zeitgenössischer Musik::
-* Zeitgenössische Taktarten::
-* Erweiterte polymetrische Notation::
-* Balken in zeitgenössischer Musik::
-* Taktstriche in zeitgenössischer Musik::
+* References for contemporary approaches to rhythm::
+* Tuplets in contemporary music::
+* Contemporary time signatures::
+* Extended polymetric notation::
+* Beams in contemporary music::
+* Bar lines in contemporary music::
 @end menu
 
 
-@node Verweise für zeitgenössische Benutzung von Rhythmus
+@node References for contemporary approaches to rhythm
 @unnumberedsubsubsec Verweise für zeitgenössische Benutzung von Rhythmus
-@translationof References for contemporary approaches to rhythm
 
 @itemize
 @item
 Zusammengesetzte Taktarten werden erklärt in
-#@ref{Taktangabe}.
+#@ref{Time signature}.
 
 @item
 Grundlegende polymetrische Notation ist erklärt in
-@ref{Polymetrische Notation}.
+@ref{Polymetric notation}.
 
 @item
 Gespreizte Balken sind erklärt in
-@ref{Gespreizte Balken}.
+@ref{Feathered beams}.
 
 @item
 Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
-@ref{Systeme gruppieren}.
+@ref{Grouping staves}.
 
 @end itemize
 
 
-@node N-tolen in zeitgenössischer Musik
+@node Tuplets in contemporary music
 @unnumberedsubsubsec N-tolen in zeitgenössischer Musik
-@translationof Tuplets in contemporary music
 
 @ignore
     Extended discussion of modern tuplets, including
@@ -142,9 +134,8 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 @end ignore
 
 
-@node Zeitgenössische Taktarten
+@node Contemporary time signatures
 @unnumberedsubsubsec Zeitgenössische Taktarten
-@translationof Contemporary time signatures
 
 @ignore
     Extended discussion of compound time signatures
@@ -157,9 +148,8 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 @end ignore
 
 
-@node Erweiterte polymetrische Notation
+@node Extended polymetric notation
 @unnumberedsubsubsec Erweiterte polymetrische Notation
-@translationof Extended polymetric notation
 
 @ignore
     Extended examples e.g. different instruments
@@ -167,9 +157,8 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 @end ignore
 
 
-@node Balken in zeitgenössischer Musik
+@node Beams in contemporary music
 @unnumberedsubsubsec Balken in zeitgenössischer Musik
-@translationof Beams in contemporary music
 
 @ignore
     Beaming practises, stemlets, Boulez-esque displaying
@@ -177,47 +166,41 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 @end ignore
 
 
-@node Taktstriche in zeitgenössischer Musik
+@node Bar lines in contemporary music
 @unnumberedsubsubsec Taktstriche in zeitgenössischer Musik
-@translationof Bar lines in contemporary music
 
 @ignore
     Mensurstriche barlines, tick barlines, etc.
 @end ignore
 
 
-@node Graphische Notation
+@node Graphical notation
 @subsection Graphische Notation
-@translationof Graphical notation
 
 
-@node Zeitgenössische Partiturtechniken
+@node Contemporary scoring techniques
 @subsection Zeitgenössische Partiturtechniken
-@translationof Contemporary scoring techniques
 
 
-@node Neue Instrumententechniken
+@node New instrumental techniques
 @subsection Neue Instrumententechniken
-@translationof New instrumental techniques
 
 
-@node Leseliste und interessante Referenzpartituren
+@node Further reading and scores of interest
 @subsection Leseliste und interessante Referenzpartituren
-@translationof Further reading and scores of interest
 
 Dieser Abschnitt weist auf einige Bücher, Musikbeispiele und
 andere Resourcen hin, die relevant für die Notation
 zeitgenössischer Musik sind.
 
 @menu
-* Bücher und Artikel über zeitgenössische Notation::
-* Partituren und Musikbeispiele::
+* Books and articles on contemporary musical notation::
+* Scores and musical examples::
 @end menu
 
 
-@node Bücher und Artikel über zeitgenössische Notation
+@node Books and articles on contemporary musical notation
 @unnumberedsubsubsec Bücher und Artikel über zeitgenössische Notation
-@translationof Books and articles on contemporary musical notation
 
 @itemize
 @item
@@ -235,9 +218,8 @@ von Kurt Stone [W. W. Norton, 1980]
 @end itemize
 
 
-@node Partituren und Musikbeispiele
+@node Scores and musical examples
 @unnumberedsubsubsec Partituren und Musikbeispiele
-@translationof Scores and musical examples
 
 @ignore
     Rough list of composers whose work could be included

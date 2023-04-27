@@ -13,33 +13,30 @@
 @c Translators: Reinhold Kainhofer, Till Paala
 @c Translation checkers: Till Paala
 
-@node lilypond starten
+@node Running lilypond
 @chapter @command{lilypond} starten
-@translationof Running lilypond
 
 Dieses Kapitel behandelt die technischen Details, wie LilyPond ausgeführt werden kann.
 
 
 @menu
-* Übliche Programmbenutzung::
-* Benutzung auf der Kommandozeile::
-* Fehlermeldungen::
-* Häufige Fehlermeldungen::
+* Normal usage::
+* Command-line usage::
+* Error messages::
+* Common errors::
 @end menu
 
-@node Übliche Programmbenutzung
+@node Normal usage
 @section Übliche Programmbenutzung
-@translationof Normal usage
 
 Die meisten Benutzer führen LilyPond von einer graphischen Benutzeroberfläche
-aus. Siehe @rlearning{Tutorium}, falls Sie dies nicht bereits getan haben.  Wenn
+aus. Siehe @rlearningnamed{Tutorial, Tutorium}, falls Sie dies nicht bereits getan haben.  Wenn
 Sie einen alternativen Editor für Ihre LilyPond-Dateien verwenden, lesen Sie
 bitte die Dokumentation dieses Editors.
 
 
-@node Benutzung auf der Kommandozeile
+@node Command-line usage
 @section Benutzung auf der Kommandozeile
-@translationof Command-line usage
 
 Dieser Abschnitt enthält zusätzliche Informationen, wie Sie LilyPond
 von der Kommandozeile ausführen können.  Dies kann erforderlich sein,
@@ -59,16 +56,15 @@ Internet, wenn Sie mit der Kommandozeile nicht vertraut sind.
 
 
 @menu
-* lilypond aufrufen::
-* Grundlegende Optionen auf der Kommandozeile für LilyPond::
-* Fortgeschrittene Optionen auf der Kommandozeile für LilyPond::
-* Umgebungsvariablen::
-* LilyPond in chroot-Kerker::
+* Invoking lilypond::
+* Basic command-line options for LilyPond::
+* Advanced command-line options for LilyPond::
+* Environment variables::
+* LilyPond in chroot jail::
 @end menu
 
-@node lilypond aufrufen
+@node Invoking lilypond
 @unnumberedsubsec @command{lilypond} aufrufen
-@translationof Invoking lilypond
 
 @cindex @command{lilypond} aufrufen
 @cindex Kommandozeilen-Optionen für @command{lilypond}
@@ -139,9 +135,8 @@ reine Verwaltungsprogramme handelt, die nichts mit LilyPond zu tun
 haben.
 
 
-@node Grundlegende Optionen auf der Kommandozeile für LilyPond
+@node Basic command-line options for LilyPond
 @unnumberedsubsec Grundlegende Optionen auf der Kommandozeile für LilyPond
-@translationof Basic command-line options for LilyPond
 
 Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 
@@ -153,7 +148,7 @@ Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 @table @code
 
 @item -d, --define-default=@var{Variable}=@var{Wert}
-Siehe @ref{Fortgeschrittene Optionen auf der Kommandozeile für LilyPond}.
+Siehe @ref{Advanced command-line options for LilyPond}.
 
 @cindex Scheme, Auswertung von Ausdrücken
 @cindex Auswertung von Ausdrücken, Scheme
@@ -222,7 +217,7 @@ Führt @command{lilypond} in einem chroot-Jail aus.
 
 Die @option{--jail} Option ist eine flexiblere Alternative zu @option{-dsafe}, wenn
 LilyPond über das Internet verfügbar gemacht wird oder LilyPond Befehle ausführt,
-die aus externe Quellen stammen (siehe @ref{Fortgeschrittene Optionen auf der Kommandozeile für LilyPond}).
+die aus externe Quellen stammen (siehe @ref{Advanced command-line options for LilyPond}).
 
 Sie funktioniert dergestalt, dass das Wurzelverzeichnis von
 @command{lilypond} auf @var{Jail-Verzeichnis} gesetzt wird, bevor die
@@ -277,7 +272,7 @@ sofort wieder abgibt), beispielsweise mittels @command{sudo}. Außerdem
 ist es eine gute Idee, die LilyPond zur Verfügung stehende CPU-Zeit zu
 limitieren (z. B. mit @command{ulimit -t}) und -- falls das Betriebssystem
 dies unterstützt -- auch den zur Verfügung stehenden Hauptspeicher.  Siehe
-auch @ref{LilyPond in chroot-Kerker}
+auch @ref{LilyPond in chroot jail}
 
 @end table
 
@@ -378,9 +373,8 @@ Zeigt die Garantiebedingungen an, unter denen GNU LilyPond steht. (Es besteht
 
 
 
-@node Fortgeschrittene Optionen auf der Kommandozeile für LilyPond
+@node Advanced command-line options for LilyPond
 @unnumberedsubsec Fortgeschrittene Optionen auf der Kommandozeile für LilyPond
-@translationof Advanced command-line options for LilyPond
 
 @table @code
 
@@ -614,7 +608,7 @@ Der sichere Modus verhindert die Kompilierung von vielen nützlichen
 LilyPond-Schnipseln.
 
 die Option @option{--jail} ist noch sicherer, erfordert aber mehr Arbeit
-beim Setup.  Siehe auch @ref{Grundlegende Optionen auf der Kommandozeile für LilyPond}.
+beim Setup.  Siehe auch @ref{Basic command-line options for LilyPond}.
 
 @multitable @columnfractions .33 .16 .51
 @item @code{separate-log-files}
@@ -646,9 +640,8 @@ Ausgabedateinamen einbeziehen.
 
 
 
-@node Umgebungsvariablen
+@node Environment variables
 @unnumberedsubsec Umgebungsvariablen
-@translationof Environment variables
 
 @cindex LANG
 @cindex LILYPOND_LOGLEVEL
@@ -680,9 +673,8 @@ benötigt.  Voreinstellung ist ein Wert von @code{70}.
 
 
 
-@node LilyPond in chroot-Kerker
+@node LilyPond in chroot jail
 @unnumberedsubsec LilyPond in chroot-Kerker
-@translationof LilyPond in chroot jail
 
 Einen Server einzurichten, der LilyPond in einem chroot-Kerker bedient, ist
 recht kompliziert.  Die einzelnen Schritten finden sich unten aufgeliestet.
@@ -799,9 +791,8 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
 @end example
 
 
-@node Fehlermeldungen
+@node Error messages
 @section Fehlermeldungen
-@translationof Error messages
 
 @cindex error messages
 @cindex Fehlermeldungen
@@ -883,13 +874,12 @@ sich der Fehler aber dann doch noch aus.  In solchen Fällen, wo Sie in
 der angegebenen Zeile keinen Fehler erkennen, sollten Sie auch die Zeilen
 oberhalb der angegebenen Stelle genauer unter die Lupe nehmen.
 
-Mehr Information darüber findet sich in @ref{Häufige Fehlermeldungen}.
+Mehr Information darüber findet sich in @ref{Common errors}.
 
 
 
-@node Häufige Fehlermeldungen
+@node Common errors
 @section Häufige Fehlermeldungen
-@translationof Common errors
 
 Die Fehlermeldungen, die unten beschrieben werden, treten of auf,
 es ist jedoch nicht immer einfach, die Urache zu finden.  Wenn
@@ -897,17 +887,16 @@ der Fehler einmal verstanden ist, kann er einfach behoben werden.
 
 
 @menu
-* Noten laufen aus der Seite heraus::
-* Ein zusätzliches System erscheint::
-* Offensichtlicher Fehler in ../ly/init.ly::
-* Fehlermeldung Ungebundene Variable %::
-* Fehlermeldung FT_Get_Glyph_Name::
-* Warnung über absteigende staff affinities::
+* Music runs off the page::
+* An extra staff appears::
+* Apparent error in @code{../ly/init.ly}::
+* Error message Unbound variable %::
+* Error message FT_Get_Glyph_Name::
+* Warning staff affinities should only decrease::
 @end menu
 
-@node Noten laufen aus der Seite heraus
+@node Music runs off the page
 @unnumberedsubsec Noten laufen aus der Seite heraus
-@translationof Music runs off the page
 
 Noten, die rechts aus der Seite herauslaufen oder sehr komprimiert
 aussehen, liegen in fast allen Fällen an einer falschen Notendauer
@@ -926,16 +915,15 @@ nicht möglich sein und die Zeile entweder sehr gedrängt dargestllt
 wird oder über den Seitenrand fließt.}
 
 Die falsche Dauer kann einfach gefunden werden, wenn Taktstrichüberprüfung
-eingesetzt wird, siehe @rnotation{Takt- und Taktzahlüberprüfung}.
+eingesetzt wird, siehe @rnotationnamed{Bar and bar number checks, Takt- und Taktzahlüberprüfung}.
 
 If you actually intend to have a series of such carry-over measures
 you will need to insert an invisible bar line where you want the
-line to break.  For details, see @rnotation{Taktstriche}.
+line to break.  For details, see @rnotationnamed{Bar lines, Taktstriche}.
 
 
-@node Ein zusätzliches System erscheint
+@node An extra staff appears
 @unnumberedsubsec Ein zusätzliches System erscheint
-@translationof An extra staff appears
 
 Wenn Kontext nicht explizit mit @code{\new} oder
 @code{\context} erstellt werden, werden sie vom Programm erstellt,
@@ -991,9 +979,8 @@ umgangen werden.
 @end lilypond
 
 
-@node Offensichtlicher Fehler in ../ly/init.ly
+@node Apparent error in @code{../ly/init.ly}
 @unnumberedsubsec Offensichtlicher Fehler in ../ly/init.ly
-@translationof Apparent error in @code{../ly/init.ly}
 
 Verschiedene seltsame Fehlermeldungen können über Syntax-Fehler in
 @file{../ly/init.ly} auftauchen, wenn die Eingabedatei nicht richtig
@@ -1004,7 +991,7 @@ Der üblichste Fehler ist das Fehlen einer geschweiften Klammer
 (@code{@}}) am Ende der @code{score}-Umbgebung.  Die Lösung ist hier
 klar: überprüfen Sie, ob die @code{score}-Umgebung richtig beendet
 wurde.  Die richtige Struktur einer Eingabedatei wird beschrieben
-in @rlearning{Wie eine LilyPond-Eingabe-Datei funktioniert}.
+in @rlearningnamed{How LilyPond input files work, Wie eine LilyPond-Eingabe-Datei funktioniert}.
 Ein Editor, der die Klammerpaare automatisch anzeigt, ist sehr
 hilfreich, um derartige Fehler zu vermeiden.
 
@@ -1013,7 +1000,7 @@ letzten Silbe einer @code{lyrics}-Umgebung und der schließenden
 Klammer (@code{@}}).  Ohne diese Trennung wird die Klammer als
 Teil der Silbe gewertet.  Es bietet sich immer an, Leerzeichen vor
 und hinter @emph{jede} Klammer zu setzen.  Wie wichtig das ist, wenn
-Gesangstext eingesetzt wird, siehe @rnotation{Eingabe von Text}.
+Gesangstext eingesetzt wird, siehe @rnotationnamed{Entering lyrics, Eingabe von Text}.
 
 Diese Fehlermeldung kann auch mit einem fehlenden schließenden Anführungszeichen
 (@code{"}) auftreten.  In diesem Fall sollte die begleitende Fehlermeldung
@@ -1021,9 +1008,8 @@ eine Zeilenzahl angeben, die dicht am Fehler liegt.  Die nicht paarigen
 Anführungszeichen sind meistens ein oder zwei Zeilen darüber.
 
 
-@node Fehlermeldung Ungebundene Variable %
+@node Error message Unbound variable %
 @unnumberedsubsec Fehlermeldung Ungebundene Variable %
-@translationof Error message Unbound variable %
 
 Diese Fehlermeldung erscheint am Ende der Kommandozeilenausgabe oder in der
 Log-Datei mit einer Meldung @qq{GUILE signalled an error ...}
@@ -1035,18 +1021,16 @@ LilyPond-Kommentare befginnen mit dem Prozent-Zeichen (@code{%}) und
 dürfen nicht in Scheme-Routinen benutzt werden.  Scheme-Kommentare beginnen
 mit einem Semikolon (@code{;}).
 
-@node Fehlermeldung FT_Get_Glyph_Name
+@node Error message FT_Get_Glyph_Name
 @unnumberedsubsec Fehlermeldung FT_Get_Glyph_Name
-@translationof Error message FT_Get_Glyph_Name
 
 Diese Fehlermeldung erscheint in der Kommandozeilenausgabe, wenn die
 Datei ein Zeichen enthält, das nicht zu ASCII gehört und die Datei
-nicht in UTF-8-Kodierung gespeichert wurd.  Siehe auch @rnotation{Zeichenkodierung}.
+nicht in UTF-8-Kodierung gespeichert wurd.  Siehe auch @rnotationnamed{Text encoding, Zeichenkodierung}.
 
 
-@node Warnung über absteigende staff affinities
+@node Warning staff affinities should only decrease
 @unnumberedsubsec Warnung über absteigende staff affinities
-@translationof Warning staff affinities should only decrease
 
 Diese Warnung erscheint, wenn keine Notensysteme in der Ausgabe vorhanden
 sind, wenn etwa nur @code{ChordName}-Kontext und @code{Lyrics}-Kontext
@@ -1059,4 +1043,4 @@ zu Beginn hinzufügt:
 @end example
 
 Zu Einzelheiten siehe @qq{Abstand von Nicht-Notensystemzeilen} in
-@rnotation{Flexible vertikale Abstände in Systemgruppen}.
+@rnotationnamed{Flexible vertical spacing within systems, Flexible vertikale Abstände in Systemgruppen}.

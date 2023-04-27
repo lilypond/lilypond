@@ -11,9 +11,8 @@
 
 @c Translators: Till Paala
 
-@node Notation auf Systemen
+@node Staff notation
 @section Notation auf Systemen
-@translationof Staff notation
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
@@ -24,29 +23,27 @@ wird, wie Partituren mit mehr als einem System gesetzt werden und wie
 man Aufführungsanweisungen und Stichnoten zu einzelnen Systemen hinzufügt.
 
 @menu
-* Systeme anzeigen lassen::
-* Einzelne Systeme verändern::
-* Orchesterstimmen erstellen::
+* Displaying staves::
+* Modifying single staves::
+* Writing parts::
 @end menu
 
 
-@node Systeme anzeigen lassen
+@node Displaying staves
 @subsection Systeme anzeigen lassen
-@translationof Displaying staves
 
 Dieser Abschnitt zeigt unterschiedliche Methoden, Notensysteme und
 Gruppen von Systemen zu erstellen.
 
 @menu
-* Neue Notensysteme erstellen::
-* Systeme gruppieren::
-* Verschachtelte Notensysteme::
-* Systeme trennen::
+* Instantiating new staves::
+* Grouping staves::
+* Nested staff groups::
+* Separating systems::
 @end menu
 
-@node Neue Notensysteme erstellen
+@node Instantiating new staves
 @unnumberedsubsubsec Neue Notensysteme erstellen
-@translationof Instantiating new staves
 
 @cindex Beginn eines Notensystems
 @cindex Notensystem, neu
@@ -70,7 +67,7 @@ Gruppen von Systemen zu erstellen.
 @notation{Notensysteme} (engl. @notation{staff}, Pl. @notation{staves})
 werden mit dem @code{\new} oder @code{\context}-Befehl erstellt.  Zu
 Einzelheiten siehe
-@ref{Kontexte erstellen und referenzieren}.
+@ref{Creating and referencing contexts}.
 
 Der einfachste Notensystem-Kontext ist @code{Staff}:
 
@@ -84,7 +81,7 @@ Für jedes Instrument werden unterschiedliche Symbole dargestellt.
 Die Instrumente werden innerhalb der
 @code{drummode}-Umgebung gesetzt, wo jedes Instrument seine eigene
 Bezeichnung hat.  Zu Einzelheiten siehe
-@ref{Schlagzeugsysteme}.
+@ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
@@ -96,7 +93,7 @@ Bezeichnung hat.  Zu Einzelheiten siehe
 nur einer Notenlinie, auf welcher nur die rhythmischen Werte der
 eingegebenen Noten dargestellt werden.  Die wirklichen Längen bleiben
 erhalten.  Zu Einzelheiten, siehe
-@ref{Melodierhythmus anzeigen}.
+@ref{Showing melody rhythms}.
 
 @lilypond[verbatim,quote]
 \new RhythmicStaff { c4 d e f }
@@ -104,7 +101,7 @@ erhalten.  Zu Einzelheiten, siehe
 
 @code{TabStaff} (Tabulatursystem) erstellt eine Tabulatur mit sechs
 Saiten in der üblichen Gitarrenstimmung.  Zu Einzelheiten siehe
-@ref{Standardtabulaturen}.
+@ref{Default tablatures}.
 
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
@@ -113,7 +110,7 @@ Saiten in der üblichen Gitarrenstimmung.  Zu Einzelheiten siehe
 Es gibt zwei Notensysteme, die zur Notation von Alter Musik eingesetzt
 werden: @code{MensuralStaff} and @code{VaticanaStaff}.  Sie sind
 erklärt in
-@ref{Vordefinierte Umgebungen}.
+@ref{Pre-defined contexts}.
 
 Das @code{GregorianTranscriptionStaff} (System zur Transkription des
 Gregorianischen Chorals) erstellt ein Notensystem, um modernen
@@ -126,7 +123,7 @@ Gregorianischen Choral zu notieren.  Es hat keine Taktstriche.
 
 Neue Notensystem-Kontexte können selber definiert werden.  Zu Einzelheiten,
 siehe
-@ref{Neue Kontexte definieren}.
+@ref{Defining new contexts}.
 
 
 @morerefs
@@ -135,15 +132,15 @@ Glossar:
 @rglos{staves}.
 
 Notationsreferenz:
-@ref{Kontexte erstellen und referenzieren},
-@ref{Schlagzeugsysteme},
-@ref{Melodierhythmus anzeigen},
-@ref{Standardtabulaturen},
-@ref{Vordefinierte Umgebungen},
-@ref{Das Notensystem},
-@ref{Gregorianische Gesangs-Kontexte},
-@ref{Mensural-Kontexte},
-@ref{Neue Kontexte definieren}.
+@ref{Creating and referencing contexts},
+@ref{Percussion staves},
+@ref{Showing melody rhythms},
+@ref{Default tablatures},
+@ref{Pre-defined contexts},
+@ref{Staff symbol},
+@ref{Gregorian chant contexts},
+@ref{Mensural contexts},
+@ref{Defining new contexts}.
 
 Schnipsel:
 @rlsr{Staff notation}.
@@ -159,9 +156,8 @@ Referenz der Interna:
 @rinternals{StaffSymbol}.
 
 
-@node Systeme gruppieren
+@node Grouping staves
 @unnumberedsubsubsec Systeme gruppieren
-@translationof Grouping staves
 
 @cindex Systeme, mehrere
 @cindex Notensysteme, mehrere
@@ -227,7 +223,7 @@ geschweiften Klammer und die Taktlinien sind durchgezogen.
 Der @code{PianoStaff}-(Klaviersystem)-Kontext ist identisch mit dem
 @code{GrandStaff}-Kontext, aber es ermöglicht zusätzlich direkt
 die Angabe einer Instrumentbezeichnung.  Zu Einzelheiten siehe
-@ref{Instrumentenbezeichnungen}.
+@ref{Instrument names}.
 
 @lilypond[verbatim,quote]
 \new PianoStaff <<
@@ -246,7 +242,7 @@ folgenden Werte:
 explizit einstellen.
 
 Neue Systemgruppen können definiert werden.  Zu Einzelheiten siehe
-@ref{Neue Kontexte definieren}.
+@ref{Defining new contexts}.
 
 
 @snippets
@@ -273,8 +269,8 @@ Glossar:
 @rglos{grand staff}.
 
 Notationsreferenz:
-@ref{Instrumentenbezeichnungen},
-@ref{Neue Kontexte definieren}.
+@ref{Instrument names},
+@ref{Defining new contexts}.
 
 Schnipsel:
 @rlsr{Staff notation}.
@@ -295,9 +291,8 @@ Referenz der Interna:
 auf.
 
 
-@node Verschachtelte Notensysteme
+@node Nested staff groups
 @unnumberedsubsubsec Verschachtelte Notensysteme
-@translationof Nested staff groups
 
 @cindex System, geschachtelt
 @cindex Schachtelung von Systemen
@@ -330,7 +325,7 @@ befindet.
 @end lilypond
 
 Neue geschachtelte Systemgruppen können definiert werden.  Zu Einzelheiten siehe
-@ref{Neue Kontexte definieren}.
+@ref{Defining new contexts}.
 
 
 @snippets
@@ -341,9 +336,9 @@ Neue geschachtelte Systemgruppen können definiert werden.  Zu Einzelheiten sieh
 
 @morerefs
 Notationsreferenz:
-@ref{Systeme gruppieren},
-@ref{Instrumentenbezeichnungen},
-@ref{Neue Kontexte definieren}.
+@ref{Grouping staves},
+@ref{Instrument names},
+@ref{Defining new contexts}.
 
 Schnipsel:
 @rlsr{Staff notation}.
@@ -357,9 +352,8 @@ Referenz der Interna:
 @rinternals{SystemStartSquare}.
 
 
-@node Systeme trennen
+@node Separating systems
 @unnumberedsubsubsec Systeme trennen
-@translationof Separating systems
 
 @cindex Trennzeichen
 @cindex System-Trennzeichen
@@ -403,16 +397,15 @@ mit einer Option in der @code{\paper}-Umgebung angeschalten.
 
 @morerefs
 Notationsreferenz:
-@ref{Seitenlayout}.
+@ref{Page layout}.
 
 Schnipsel:
 @rlsr{Staff notation}.
 
 
 
-@node Einzelne Systeme verändern
+@node Modifying single staves
 @subsection Einzelne Systeme verändern
-@translationof Modifying single staves
 
 Dieser Abschnitt zeigt, wie man bestimmte Eigenschaften eines Systems
 ändert -- etwa die Anzahl der Notenlinien oder die Größe des Systems.
@@ -420,15 +413,14 @@ Es werden auch Methoden dargestellt, ein System zu beginnen und zu
 beenden sowie eine Methode, Ossia-Systeme zu erstellen.
 
 @menu
-* Das Notensystem::
-* Ossia-Systeme::
-* Systeme verstecken::
+* Staff symbol::
+* Ossia staves::
+* Hiding staves::
 @end menu
 
 
-@node Das Notensystem
+@node Staff symbol
 @unnumberedsubsubsec Das Notensystem
-@translationof Staff symbol
 
 @cindex Justierung von Notensystemen
 @cindex Notensysteme, Modifikation
@@ -519,7 +511,7 @@ einem Befehl geändert werden können.
 
 die Position des Notenschlüssels und die Position von c' können geändert
 werden, um dem neuen System zu entsprechen.  Siehe auch
-@ref{Notenschlüssel}.
+@ref{Clef}.
 
 Die Liniendicke der Notenlinien kann verändert werden.  Die Dicke
 der Hilfslinien und Notenhälse wird auch beeinflusst, weil sie
@@ -596,7 +588,7 @@ Glossar:
 @rglos{staff}.
 
 Notationsreferenz:
-@ref{Notenschlüssel}.
+@ref{Clef}.
 
 Schnipsel:
 @rlsr{Staff notation}.
@@ -606,9 +598,8 @@ Referenz der Interna:
 @rinternals{staff-symbol-interface}.
 
 
-@node Ossia-Systeme
+@node Ossia staves
 @unnumberedsubsubsec Ossia-Systeme
-@translationof Ossia staves
 
 @cindex Ossia-Systeme
 @cindex Ossia
@@ -644,7 +635,7 @@ System befinden, keine Takt- und Schlüsselangaben haben und kleiner
 gesetzt sind, müssen einige Optimierungen angewendet werden.  Im
 Handbuch zum Lernen wird eine Technik vorgestellt, mit der das
 gewünschte Ergebnis erreicht werden kann, beginnend in
-@rlearning{Musikalische Ausdrücke ineinander verschachteln}.
+@rlearningnamed{Nesting music expressions, Musikalische Ausdrücke ineinander verschachteln}.
 
 Das Beispiel unten setzt die
 @code{alignAboveContext}-(oberhalbAusrichtenKontext)-Eigenschaft
@@ -716,7 +707,7 @@ Man kann auch den @code{\Staff \RemoveEmptyStaves}-Befehl einsetzen,
 um Ossia-Systeme zu erstellen.  Diese Methode eignet sich am
 besten, wenn nach dem Ossia sofort ein Zeilenumbruch erfolgt.
 Mehr Information zu @code{\Staff \RemoveEmptyStaves} findet sich in
-@ref{Systeme verstecken}.
+@ref{Hiding staves}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -762,12 +753,12 @@ Glossar:
 @rglos{Frenched staff}.
 
 Handbuch zum Lernen:
-@rlearning{Musikalische Ausdrücke ineinander verschachteln},
-@rlearning{Größe von Objekten},
-@rlearning{Länge und Dicke von Objekten}.
+@rlearningnamed{Nesting music expressions, Musikalische Ausdrücke ineinander verschachteln},
+@rlearningnamed{Size of objects, Größe von Objekten},
+@rlearningnamed{Length and thickness of objects, Länge und Dicke von Objekten}.
 
 Notationsreferenz:
-@ref{Systeme verstecken}.
+@ref{Hiding staves}.
 
 Schnipsel:
 @rlsr{Staff notation}.
@@ -776,9 +767,8 @@ Referenz der Interna:
 @rinternals{StaffSymbol}.
 
 
-@node Systeme verstecken
+@node Hiding staves
 @unnumberedsubsubsec Systeme verstecken
-@translationof Hiding staves
 
 @cindex Systeme verstecken
 @cindex leere Systeme verstecken
@@ -839,7 +829,7 @@ der drei enthält.}
 @noindent
 @code{\Staff \RemoveEmptyStaves} kann auch eingesetzt werden,
 um Ossiaabschnitte zu erstellen.  Zu Einzelheiten, siehe
-@ref{Ossia-Systeme}.
+@ref{Ossia staves}.
 
 @cindex Verstecken von Systemen der Alten Musik
 @cindex Verstecken von Rhythmus-Systemen
@@ -868,14 +858,14 @@ Glossar:
 @rglos{Frenched staff}.
 
 Handbuch zum Lernen:
-@rlearning{Sichtbarkeit und Farbe von Objekten}.
+@rlearningnamed{Visibility and color of objects, Sichtbarkeit und Farbe von Objekten}.
 
 Notationsreferenz:
-@ref{Die Standardeinstellungen von Kontexten ändern},
-@ref{Das Notensystem},
-@ref{Ossia-Systeme},
-@ref{Unsichtbare Noten},
-@ref{Sichtbarkeit von Objekten}.
+@ref{Changing context default settings},
+@ref{Staff symbol},
+@ref{Ossia staves},
+@ref{Hidden notes},
+@ref{Visibility of objects}.
 
 Schnipsel:
 @rlsr{Staff notation}.
@@ -901,12 +891,11 @@ den Engraver zu entfernen:
 @end example
 
 Zu den bekannten Fehlern und Warnungen, die mit @code{\Staff \RemoveEmptyStaves}
-zusammenhängen, siehe @ref{Die Standardeinstellungen von Kontexten ändern}.
+zusammenhängen, siehe @ref{Changing context default settings}.
 
 
-@node Orchesterstimmen erstellen
+@node Writing parts
 @subsection Orchesterstimmen erstellen
-@translationof Writing parts
 
 Dieser Abschnitt zeigt, wie man Tempo-Anweisungen und
 Instrumentenbezeichnungen einfügt.  Es werden auch Möglichkeiten
@@ -914,15 +903,14 @@ vorgestellt, andere Stimmen zu zitieren und Stichnoten zu
 formatieren.
 
 @menu
-* Instrumentenbezeichnungen::
-* Andere Stimmen zitieren::
-* Stichnoten formatieren::
+* Instrument names::
+* Quoting other voices::
+* Formatting cue notes::
 @end menu
 
 
-@node Instrumentenbezeichnungen
+@node Instrument names
 @unnumberedsubsubsec Instrumentenbezeichnungen
-@translationof Instrument names
 
 @cindex Instrumentenbezeichnungen
 @cindex kurze Instrumentenbezeichnungen
@@ -992,7 +980,7 @@ Wenn die Instrumentenbezeichnung zu lang ist, kann es vorkommen,
 dass die Bezeichnungen in einer Gruppe nicht zentriert werden.
 Um dennoch eine Zentrierung zu erhalten, müssen die Werte des
 Einzugs (@code{indent} und @code{short-indent}) vergrößert werden.
-Zu Einzelheiten siehe @ref{paper-Variablen für Verschiebungen und Einrückungen}.
+Zu Einzelheiten siehe @ref{paper variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1024,7 +1012,7 @@ Um Instrumentenbezeichnungen zu anderen Kontexten (wie etwa
 @code{ChordNames} or @code{FiguredBass})
 hinzuzufügen, muss der @code{Instrument_name_engraver} dem
 entsprechenden Kontext hinzugefügt werden.  Zu Einzelheiten
-siehe @ref{Umgebungs-Plugins verändern}.
+siehe @ref{Modifying context plug-ins}.
 
 @cindex @"Andern von Instrumentenbezeichnungen
 @cindex Instrumentenbezeichnungen, wechseln
@@ -1094,8 +1082,8 @@ wird dann benutzt, um den Wechsel vorzunehmen:
 
 @morerefs
 Notationsreferenz:
-@ref{paper-Variablen für Verschiebungen und Einrückungen},
-@ref{Umgebungs-Plugins verändern}.
+@ref{paper variables for shifts and indents},
+@ref{Modifying context plug-ins}.
 
 Schnipsel:
 @rlsr{Staff notation}.
@@ -1106,9 +1094,8 @@ Referenz der Interna:
 @rinternals{Staff}.
 
 
-@node Andere Stimmen zitieren
+@node Quoting other voices
 @unnumberedsubsubsec Andere Stimmen zitieren
-@translationof Quoting other voices
 
 @cindex Stichnoten
 @cindex Zitieren von anderen Stimmen
@@ -1244,12 +1231,12 @@ oboeNotes = \relative {
 @end lilypond
 
 Zitate können auch mit Marken (engl. tag) versehen werden. Siehe auch
-@ref{Marken benutzen}.
+@ref{Using tags}.
 
 @morerefs
 Notationsreferenz:
-@ref{Transposition von Instrumenten},
-@ref{Marken benutzen}.
+@ref{Instrument transpositions},
+@ref{Using tags}.
 
 Installierte Dateien:
 @file{scm/define-event-classes.scm}.
@@ -1272,9 +1259,8 @@ dazu führen, dass LilyPond abstürzt.  Wenn geschachtelte Triolen zitiert
 werden, ist das Notenbild unter Umständen sehr schlecht.
 
 
-@node Stichnoten formatieren
+@node Formatting cue notes
 @unnumberedsubsubsec Stichnoten formatieren
-@translationof Formatting cue notes
 
 @cindex Stichnoten
 @cindex Noten, Stichnoten
@@ -1347,7 +1333,7 @@ Für kompliziertere Stichnotenbehandlung, etwa mit Transposition,
 oder um Stichnoten aus unterschiedlichen Stimmen einzufügen,
 können die Befehle @code{\cueDuring} oder @code{\cueDuringWithClef}
 eingesetzt werden.  Sie stellen eine spezielle Form von @code{\quoteDuring}
-dar, siehe auch @ref{Andere Stimmen zitieren}.
+dar, siehe auch @ref{Quoting other voices}.
 
 Die Syntax lautet:
 
@@ -1420,7 +1406,7 @@ Die Bezeichnung des gerade spielenden Instruments in den Stichnoten
 kann gesetzt werden, indem man die @code{instrumentCueName}-Eigenschaft
 in einen temporären @code{CueVoice}-Kontext setzt.  Die Platzierung und
 der Stil von @code{instrumentCueName} wird durch das @code{\instrumentSwitch}-Objekt
-kontrolliert, siehe @ref{Instrumentenbezeichnungen}.  Wenn die Stichnoten
+kontrolliert, siehe @ref{Instrument names}.  Wenn die Stichnoten
 einen Schlüsselwechsel erfordern, kann dieser manuell hervorgerufen werden,
 aber der originale Schlüssel muss auch manuell am Ende der Stichnoten
 wieder hergestellt werden.
@@ -1527,7 +1513,7 @@ und Ereignisse, die durch @code{\cueDuring} zitiert wurden.
 Andere Beschriftungen in Verbindung mit Stichnoten, wie etwa
 Schlüsselwechsel und Marken, die das Ursprungsinstrument anzeigen,
 können mit Marken versehen werden, um sie selektiv einzufügen,
-siehe @ref{Marken benutzen}.
+siehe @ref{Using tags}.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1565,16 +1551,16 @@ bassoonNotes = \relative c {
 Alternativ können Schlüsselwechsel und Instrumentenbezeichnungen
 auch in eine Instrument-Definition unter Einsatz des Befehls
 @code{\addInstrumentDefinition} zusammengefasst werden, siehe
-@ref{Instrumentenbezeichnungen}.
+@ref{Instrument names}.
 
 @morerefs
 Notationsreferenz:
-@ref{Andere Stimmen zitieren},
-@ref{Transposition von Instrumenten},
-@ref{Instrumentenbezeichnungen},
-@ref{Marken benutzen},
-@ref{Notenschlüssel},
-@ref{Musikalische Stichnoten}.
+@ref{Quoting other voices},
+@ref{Instrument transpositions},
+@ref{Instrument names},
+@ref{Using tags},
+@ref{Clef},
+@ref{Musical cues}.
 
 Schnipsel:
 @rlsr{Staff notation}.

@@ -13,20 +13,18 @@
 @c Translators: Till Paala
 
 
-@node Literatur
+@node Literature list
 @chapter Literatur
-@translationof Literature list
 
 Hier eine Liste der Literatur, die in LilyPond benutzt wurde:
 
 @menu
-* Kurze Literaturliste::
-* Lange Literaturliste::
+* Short literature list::
+* Long literature list::
 @end menu
 
-@node Kurze Literaturliste
+@node Short literature list
 @section Kurze Literaturliste
-@translationof Short literature list
 
 Wenn Sie mehr über Notation und den Notenstich erfahren wollen, sind
 hier einige interessante Titel gesammelt.
@@ -84,9 +82,8 @@ beginnt aber mit einem Überblick über bereits existente Praktiken.
 @end table
 
 
-@node Lange Literaturliste
+@node Long literature list
 @section Lange Literaturliste
-@translationof Long literature list
 
 @subheading Notensatzliteraturliste der University of Colorado
 

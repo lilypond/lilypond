@@ -11,9 +11,8 @@
 
 @c Translators: Till Paala
 
-@node Ausdrucksbezeichnungen
+@node Expressive marks
 @section Ausdrucksbezeichnungen
-@translationof Expressive marks
 
 @lilypondfile[quote]{snippets/expressive-headword.ly}
 
@@ -21,15 +20,14 @@ Dieser Abschnitt zeigt verschiedene Ausdrucksbezeichnungen,
 die zur Partitur hinzugefügt werden können.
 
 @menu
-* Ausdrucksbezeichnungen an Noten angehängt::
-* Ausdrucksbezeichnungen als Bögen::
-* Ausdrucksbezeichnungen als Linien::
+* Expressive marks attached to notes::
+* Expressive marks as curves::
+* Expressive marks as lines::
 @end menu
 
 
-@node Ausdrucksbezeichnungen an Noten angehängt
+@node Expressive marks attached to notes
 @subsection Ausdrucksbezeichnungen an Noten angehängt
-@translationof Expressive marks attached to notes
 
 Dieser Abschnitt erklärt, wie man Ausdrucksbezeichnungen erstellt,
 die an Noten gebunden sind: Artikulationszeichen, Ornamente und
@@ -38,14 +36,13 @@ Ausdrucksbezeichnungen zu erstellen.
 
 
 @menu
-* Artikulationszeichen und Verzierungen::
-* Dynamik::
-* Neue Lautstärkezeichen::
+* Articulations and ornamentations::
+* Dynamics::
+* New dynamic marks::
 @end menu
 
-@node Artikulationszeichen und Verzierungen
+@node Articulations and ornamentations
 @unnumberedsubsubsec Artikulationszeichen und Verzierungen
-@translationof Articulations and ornamentations
 
 @cindex Artikulationszeichen
 @cindex Beschriftung
@@ -124,7 +121,7 @@ Hierzu wird folgende Syntax benutzt:
 @end example
 
 Die möglichen Werte für @var{Bezeichnung} sind aufgelistet in
-@ref{Liste der Artikulationszeichen}.  Ein Beispiel:
+@ref{List of articulations}.  Ein Beispiel:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -163,7 +160,7 @@ Die Regeln für die standardmäßige Platzierung von
 Artikulationszeichen werden in der Datei @file{scm/script.scm}
 definiert.  Artikulationszeichen und Ornamente können manuell
 über oder unter dem System gesetzt werden, siehe
-@ref{Richtung und Platzierung}.
+@ref{Direction and placement}.
 
 Artikulationszeichen sind @code{Script}-Objekte.  Ihre Eigenschaften
 werden ausführlich in @rinternals{Script} beschrieben.
@@ -180,11 +177,11 @@ R1\fermata
 @end lilypond
 
 Zusätzlich zu den Artikulationszeichen können auch Text und Beschriftung
-an Noten angehängt werden.  Siehe auch @ref{Textarten}.
+an Noten angehängt werden.  Siehe auch @ref{Text scripts}.
 
 Zu weiterer Information über die Reihenfolge von Scripten und
 TextScripten, die an Noten angehängt werden, siehe 
-@rlearning{Positionierung von Objekten}.
+@rlearningnamed{Placement of objects, Positionierung von Objekten}.
 
 @snippets
 
@@ -206,13 +203,13 @@ Glossar:
 @rglos{portato}.
 
 Handbuch zum Lernen:
-@rlearning{Positionierung von Objekten}.
+@rlearningnamed{Placement of objects, Positionierung von Objekten}.
 
 Notationsreferenz:
-@ref{Textarten},
-@ref{Richtung und Platzierung},
-@ref{Liste der Artikulationszeichen},
-@ref{Triller}.
+@ref{Text scripts},
+@ref{Direction and placement},
+@ref{List of articulations},
+@ref{Trills}.
 
 Installierte Dateien:
 @file{scm/script.scm}.
@@ -225,9 +222,8 @@ Referenz der Interna:
 @rinternals{TextScript}.
 
 
-@node Dynamik
+@node Dynamics
 @unnumberedsubsubsec Dynamik
-@translationof Dynamics
 
 @cindex Lautstärke
 @cindex Dynamik
@@ -260,7 +256,7 @@ angezeigt, etwa @code{c4\ff}.  Die vordefinierten Befehle lauten:
 @code{\fff}, @code{\ffff}, @code{fffff}, @code{\fp}, @code{\sf}, @code{\sff},
 @code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.  Die
 Dynamikzeichen können manuell unter- oder oberhalb des Systems
-platziert werden, siehe @ref{Richtung und Platzierung}.
+platziert werden, siehe @ref{Direction and placement}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -392,7 +388,7 @@ ersetzen:
 @end lilypond
 
 Um neue absolute Dynamikzeichen oder Text, der mit ihnen
-angeordnet wird, zu erstellen, siehe @ref{Neue Lautstärkezeichen}.
+angeordnet wird, zu erstellen, siehe @ref{New dynamic marks}.
 
 @cindex Dynamik, vertikale Position
 @cindex vertikale Position von Dynamik
@@ -470,13 +466,13 @@ Glossar:
 @rglos{decrescendo},
 @rglos{hairpin}.
 Handbuch zum Lernen:
-@rlearning{Artikulationszeichen und Lautstärke}.
+@rlearningnamed{Articulation and dynamics, Artikulationszeichen und Lautstärke}.
 
 Notationsreferenz:
-@ref{Richtung und Platzierung},
-@ref{Neue Lautstärkezeichen},
-@ref{Was geht in die MIDI-Ausgabe},
-@ref{MIDI-Lautstärke kontrollieren}.
+@ref{Direction and placement},
+@ref{New dynamic marks},
+@ref{What goes into the MIDI output?},
+@ref{Controlling MIDI dynamics}.
 
 Schnipsel:
 @rlsr{Expressive marks}.
@@ -488,9 +484,8 @@ Referenz der Interna:
 @rinternals{Dynamics}.
 
 
-@node Neue Lautstärkezeichen
+@node New dynamic marks
 @unnumberedsubsubsec Neue Lautstärkezeichen
-@translationof New dynamic marks
 
 @cindex neue Dynamikzeichen
 @cindex eigene Dynamikzeichen
@@ -517,7 +512,7 @@ moltoF = \markup { molto \dynamic f }
 Mit einer Textbeschriftung können editorische Dynamikzeichen
 (in runden oder eckigen Klammern) erstellt werden.  Die Syntax
 für den Textbeschriftungsmodus wird erklärt in
-@ref{Text formatieren}.
+@ref{Formatting text}.
 
 @lilypond[verbatim,quote]
 roundF = \markup {
@@ -578,7 +573,7 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
 
 Anstelle dessen kann auch die Scheme-Form des Beschriftungs-Modus
 verwendet werden.  Seine Syntax ist erklärt in
-@rextend{Beschriftungskonstruktionen in Scheme}.
+@rextendnamed{Markup construction in Scheme, Beschriftungskonstruktionen in Scheme}.
 
 @lilypond[verbatim,quote]
 moltoF = #(make-dynamic-script
@@ -591,41 +586,39 @@ moltoF = #(make-dynamic-script
 @end lilypond
 
 Die Auswahl von Schriftarten in Textbeschriftungen ist erklärt in
-@ref{Überblick über die wichtigsten Textbeschriftungsbefehle}.
+@ref{Selecting font and font size}.
 
 
 @morerefs
 Notationsreferenz:
-@ref{Text formatieren},
-@ref{Überblick über die wichtigsten Textbeschriftungsbefehle},
-@ref{Was geht in die MIDI-Ausgabe},
-@ref{MIDI-Lautstärke kontrollieren}.
+@ref{Formatting text},
+@ref{Selecting font and font size},
+@ref{What goes into the MIDI output?},
+@ref{Controlling MIDI dynamics}.
 
 Erweitern:
-@rextend{Beschriftungskonstruktionen in Scheme}.
+@rextendnamed{Markup construction in Scheme, Beschriftungskonstruktionen in Scheme}.
 
 Schnipsel:
 @rlsr{Expressive marks}.
 
 
-@node Ausdrucksbezeichnungen als Bögen
+@node Expressive marks as curves
 @subsection Ausdrucksbezeichnungen als Bögen
-@translationof Expressive marks as curves
 
 Dieser Abschnitt erklärt, wie man verschiedene gebogene
 Ausdrucksbezeichnungen erstellt: Legato- und Phrasierungsbögen,
 Atemzeichen und Glissandos zu unbestimmten Tonhöhen.
 
 @menu
-* Legatobögen::
-* Phrasierungsbögen::
-* Atemzeichen::
-* Glissando zu unbestimmter Tonhöhe::
+* Slurs::
+* Phrasing slurs::
+* Breath marks::
+* Falls and doits::
 @end menu
 
-@node Legatobögen
+@node Slurs
 @unnumberedsubsubsec Legatobögen
-@translationof Slurs
 
 @cindex Legatobögen
 
@@ -654,7 +647,7 @@ Stimme beendet werden, in der er begonnen wurde.}
 
 Legatobögen können manuell ober- oder unterhalb des Notensystems
 besetzt werden, siehe
-@ref{Richtung und Platzierung}.
+@ref{Direction and placement}.
 
 @cindex Phrasierungsbögen
 @cindex mehrfache Bögen
@@ -666,7 +659,7 @@ besetzt werden, siehe
 Gleichzeitige, überlappende Legatobögen sind nicht erlaubt, aber
 ein Phrasierungsbogen kann einen Legatobogen überlappen.  Damit
 können zwei Bögen gleichzeitig ausgegeben werden.  Siehe auch
-@ref{Phrasierungsbögen}.
+@ref{Phrasing slurs}.
 
 @cindex Legatobogen-Stil
 @cindex durchgehender Legatobogen
@@ -765,13 +758,12 @@ Glossar:
 @rglos{slur}.
 
 Handbuch zum Lernen:
-@rlearningnamed{Über die Nicht-Schachtelung von Klammern und
-Bindebögen,@"Uber die Nicht-Schachtelung von Klammern und
+@rlearningnamed{On the un-nestedness of brackets and ties,@"Uber die Nicht-Schachtelung von Klammern und
 Bindebögen}.
 
 Notationsreferenz:
-@ref{Richtung und Platzierung},
-@ref{Phrasierungsbögen}.
+@ref{Direction and placement},
+@ref{Phrasing slurs}.
 
 Schnipsel:
 @rlsr{Expressive marks}.
@@ -781,9 +773,8 @@ Referenz der Interna:
 
 
 
-@node Phrasierungsbögen
+@node Phrasing slurs
 @unnumberedsubsubsec Phrasierungsbögen
-@translationof Phrasing slurs
 
 @cindex Phrasierungsbögen
 @cindex Phrasierungszeichen
@@ -812,7 +803,7 @@ Legatobögen. Sie werden aber als eigene Objekte behandelt. Ein
 @code{\slurUp} hat also keine Auswirkung auf die Phrasierungsbögen.
 Phrasierungsbögen können manuell oberhalb oder unterhalb des
 Notensystems gesetzt werden, siehe
-@ref{Richtung und Platzierung}.
+@ref{Direction and placement}.
 
 @cindex gleichzeitige Phrasierungsbögen
 @cindex mehrere Phrasierungsbögen
@@ -890,7 +881,7 @@ Eigene Strichelmuster für Phrasierungsbögen können definiert werden:
 Strichelmusterdefinitionen für Phrasierungsbögen haben die
 gleiche Struktur wie die Definitionen für Legatobögen.  Zu
 mehr Information über komplizierte Strichelmuster, siehe
-die Schnipsel im Abschnitt @ref{Legatobögen}.
+die Schnipsel im Abschnitt @ref{Slurs}.
 
 
 @predefined
@@ -907,12 +898,11 @@ die Schnipsel im Abschnitt @ref{Legatobögen}.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearningnamed{Über die Nicht-Schachtelung von Klammern und
-Bindebögen,@"Uber die Nicht-Schachtelung von Klammern und
+@rlearningnamed{On the un-nestedness of brackets and ties,@"Uber die Nicht-Schachtelung von Klammern und
 Bindebögen}.
 
 Notationsreferenz:
-@ref{Richtung und Platzierung}.
+@ref{Direction and placement}.
 
 Schnipsel:
 @rlsr{Expressive marks}.
@@ -922,9 +912,8 @@ Referenz der Interna:
 
 
 
-@node Atemzeichen
+@node Breath marks
 @unnumberedsubsubsec Atemzeichen
-@translationof Breath marks
 
 @cindex Atemzeichen
 @cindex Pausenzeichen
@@ -937,7 +926,7 @@ Atemzeichen werden mit dem Befehl @code{\breathe} eingegeben.
 @end lilypond
 
 Ein Atemzeichen bezeichnet gleichzeitig das Ende eines automatischen
-Balkens.  Um das Verhalten zu verändern siehe @ref{Manuelle Balken}.
+Balkens.  Um das Verhalten zu verändern siehe @ref{Manual beams}.
 
 @lilypond[verbatim,quote]
 \relative { c''8 \breathe d e f g2 }
@@ -975,9 +964,8 @@ Referenz der Interna:
 @rinternals{Breathing_sign_engraver}.
 
 
-@node Glissando zu unbestimmter Tonhöhe
+@node Falls and doits
 @unnumberedsubsubsec Glissando zu unbestimmter Tonhöhe
-@translationof Falls and doits
 
 @cindex falls
 @cindex doits
@@ -1019,9 +1007,8 @@ Schnipsel:
 @rlsr{Expressive marks}.
 
 
-@node Ausdrucksbezeichnungen als Linien
+@node Expressive marks as lines
 @subsection Ausdrucksbezeichnungen als Linien
-@translationof Expressive marks as lines
 
 Dieser Abschnitt zeigt, wie man verschiedene Ausdrucksbezeichnungen
 erstellt, die sich linear erstrecken: Glissando, Arpeggio und
@@ -1030,12 +1017,11 @@ Triller.
 @menu
 * Glissando::
 * Arpeggio::
-* Triller::
+* Trills::
 @end menu
 
 @node Glissando
 @unnumberedsubsubsec Glissando
-@translationof Glissando
 
 @cindex Glissando
 @funindex \glissando
@@ -1049,7 +1035,7 @@ c2\glissando c,
 @end lilypond
 
 Verschiedene Glissando-Stile sind möglich.  Für Einzelheiten siehe
-@ref{Linienstile}.
+@ref{Line styles}.
 
 @snippets
 
@@ -1064,7 +1050,7 @@ Glossar:
 @rglos{glissando}.
 
 Notationsreferenz:
-@ref{Linienstile}.
+@ref{Line styles}.
 
 Schnipsel:
 @rlsr{Expressive marks}.
@@ -1079,7 +1065,6 @@ supported.
 
 @node Arpeggio
 @unnumberedsubsubsec Arpeggio
-@translationof Arpeggio
 
 @cindex Arpeggio
 @cindex Gebrochene Akkorde
@@ -1145,11 +1130,11 @@ Besondere Arpeggios mit Klammern können erstellt werden:
 
 Die @code{dash}-Eigenschaft der Arpeggioklammern werden von
 der @code{'dash-definition}-Eigenschaft kontrolliert, die
-beschrieben ist in @ref{Legatobögen}.
+beschrieben ist in @ref{Slurs}.
 
 Ein Arpeggio kann auch explizit ausgeschrieben werden, indem
 Überbindungsbögen benutzt werden.  Für mehr Information siehe
-@ref{Bindebögen}.
+@ref{Ties}.
 
 @predefined
 @code{\arpeggio},
@@ -1177,8 +1162,8 @@ Glossar:
 @rglos{arpeggio}.
 
 Notationsreferenz:
-@ref{Legatobögen},
-@ref{Bindebögen}.
+@ref{Slurs},
+@ref{Ties}.
 
 Schnipsel:
 @rlsr{Expressive marks}.
@@ -1201,9 +1186,8 @@ Die Arpeggios im Klammer-Stil funktionieren nicht über
 mehrere Notensysteme.
 
 
-@node Triller
+@node Trills
 @unnumberedsubsubsec Triller
-@translationof Trills
 
 @cindex Triller
 
@@ -1213,7 +1197,7 @@ mehrere Notensysteme.
 
 Kurze Triller ohne eine Dauer werden mit dem Befehl
 @code{\trill} notiert, siehe auch
-@ref{Artikulationszeichen und Verzierungen}.
+@ref{Articulations and ornamentations}.
 
 Längere Triller mit einer Dauer werden mit den Befehlen
 @code{\startTrillSpan} zu
@@ -1255,7 +1239,7 @@ r2
 
 Triller können auch mit Vorschlägen kombiniert werden.  Die Syntax
 für diese Konstruktion und die Methode, um die Position der Vorschläge
-präzise zu positionieren, wird gezeigt in @ref{Verzierungen}.
+präzise zu positionieren, wird gezeigt in @ref{Grace notes}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1318,8 +1302,8 @@ Glossar:
 @rglos{trill}.
 
 Notationsreferenz:
-@ref{Artikulationszeichen und Verzierungen},
-@ref{Verzierungen}.
+@ref{Articulations and ornamentations},
+@ref{Grace notes}.
 
 Schnipsel:
 @rlsr{Expressive marks}.

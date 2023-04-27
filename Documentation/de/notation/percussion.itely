@@ -12,63 +12,59 @@
 
 @c Translators: Till Paala
 
-@node Schlagzeug
+@node Percussion
 @section Schlagzeug
-@translationof Percussion
 
 @menu
-* Übliche Notation für Schlagzeug::
+* Common notation for percussion::
 @end menu
 
 
-@node Übliche Notation für Schlagzeug
+@node Common notation for percussion
 @subsection Übliche Notation für Schlagzeug
-@translationof Common notation for percussion
 
 Rhythmusnotation wird vor allem für Schlaginstrumente eingesetzt,
 aber hiermit kann auch der Rhythmus einer Melodie dargestellt werden.
 
 
 @menu
-* Referenz für Schlagzeug::
-* Grundlagen der Schlagzeugnotation::
-* Trommelwirbel::
-* Schlagzeug mit Tonhöhe::
-* Schlagzeugsysteme::
-* Eigene Schlagzeugsysteme::
-* Geisternoten::
+* References for percussion::
+* Basic percussion notation::
+* Drum rolls::
+* Pitched percussion::
+* Percussion staves::
+* Custom percussion staves::
+* Ghost notes::
 @end menu
 
 
-@node Referenz für Schlagzeug
+@node References for percussion
 @unnumberedsubsubsec Referenz für Schlagzeug
-@translationof References for percussion
 
 @itemize
 
 @item Viele Schlagzeugmusik kann auf einem rhythmischen System notiert
 werden.  Das wird gezeigt in
-@ref{Melodierhythmus anzeigen} und @ref{Neue Notensysteme erstellen}.
+@ref{Showing melody rhythms} und @ref{Instantiating new staves}.
 
 @item MIDI-Ausgabe wird behandelt in
-@ref{Schlagzeug in MIDI}.
+@ref{Percussion in MIDI}.
 
 @end itemize
 
 
 @morerefs
 Notationsreferenz:
-@ref{Melodierhythmus anzeigen},
-@ref{Neue Notensysteme erstellen},
-@ref{Schlagzeug in MIDI}.
+@ref{Showing melody rhythms},
+@ref{Instantiating new staves},
+@ref{Percussion in MIDI}.
 
 Schnipsel:
 @rlsr{Percussion}.
 
 
-@node Grundlagen der Schlagzeugnotation
+@node Basic percussion notation
 @unnumberedsubsubsec Grundlagen der Schlagzeugnotation
-@translationof Basic percussion notation
 
 @cindex Perkussion
 @cindex Drums
@@ -98,7 +94,7 @@ Das ist die Kurzschreibweise für:
 
 Jedes Schlagzeuginstrument hat einen langen Namen und eine Abkürzung,
 und beide können nebeneinander benutzt werden.  Eine Liste der
-Notenbezeichnungen für Schlagzeug findet sich in @ref{Schlagzeugnoten}.
+Notenbezeichnungen für Schlagzeug findet sich in @ref{Percussion notes}.
 
 Beachten Sie, dass normale Tonhöhen (wie @code{cis4}) in einem
 @code{DrumStaff}-Kontext eine Fehlernachricht erzielen.  Schlüssel für
@@ -115,12 +111,12 @@ gesetzt Werden.  Auch andere Schlüssel können benutzt werden.
 @end lilypond
 
 Es gibt einige Probleme mit der MIDI-Unterstützung für Schlagzeuginstrumente.
-Details finden sich in @ref{Schlagzeug in MIDI}.
+Details finden sich in @ref{Percussion in MIDI}.
 
 @morerefs
 Notationsreferenz:
-@ref{Schlagzeug in MIDI},
-@ref{Schlagzeugnoten}.
+@ref{Percussion in MIDI},
+@ref{Percussion notes}.
 
 Installierte Dateien:
 @file{ly/drumpitch-init.ly}.
@@ -129,9 +125,8 @@ Schnipsel:
 @rlsr{Percussion}.
 
 
-@node Trommelwirbel
+@node Drum rolls
 @unnumberedsubsubsec Trommelwirbel
-@translationof Drum rolls
 
 Trommelwirbel werden mit drei Balken durch den Notenhals notiert. Für
 Viertelnoten oder längere Noten werden die drei Balken explizit notiert,
@@ -139,7 +134,7 @@ Achtel werden mit zwei Balken gezeigt (und der dritte ist der eigentliche
 Balken), und Trommelwirbel mit kürzeren Werten als Achtelnoten
 haben einen Balken zusätzlich zu den eigentlichen Balken der Noten.
 Dieses Verhalten wird mit der Tremolonotation erreicht, wie in
-@ref{Tremolo-Wiederholung} gezeigt.
+@ref{Tremolo repeats} gezeigt.
 
 @lilypond[quote,verbatim]
 \drums {
@@ -153,7 +148,7 @@ Dieses Verhalten wird mit der Tremolonotation erreicht, wie in
 
 Benutzung der Stöcke kann angezeigt werden, indem eine Beschriftung
 durch @code{"R"} oder @code{"L"} über oder unter der Note angefügt wird,
-Näheres in @ref{Richtung und Platzierung}.  Die @code{staff-padding}-Eigenschaft
+Näheres in @ref{Direction and placement}.  Die @code{staff-padding}-Eigenschaft
 kann verändert werden, um eine Orientierung an einer gemeinsamen
 Linie zu ermöglichen.
 
@@ -171,15 +166,14 @@ Linie zu ermöglichen.
 @morerefs
 
 Notationsreferenz:
-@ref{Tremolo-Wiederholung}.
+@ref{Tremolo repeats}.
 
 Schnipsel:
 @rlsr{Percussion}.
 
 
-@node Schlagzeug mit Tonhöhe
+@node Pitched percussion
 @unnumberedsubsubsec Schlagzeug mit Tonhöhe
-@translationof Pitched percussion
 
 Bestimmte Schlagzeuginstrumente mit Tonhöhe (z. B. Xylophone,
 vibraphone und Pauken) werden auf normalen Systemen geschrieben.  Das
@@ -191,15 +185,14 @@ wird in anderen Abschnitten des Handbuchs behandelt.
 @c "percussion in MIDI" gets a separate subsubsection for
 @c pitched percussion sounds.  -gp
 Notationsreferenz:
-@ref{Schlagzeug in MIDI}.
+@ref{Percussion in MIDI}.
 
 Schnipsel:
 @rlsr{Percussion}.
 
 
-@node Schlagzeugsysteme
+@node Percussion staves
 @unnumberedsubsubsec Schlagzeugsysteme
-@translationof Percussion staves
 
 @cindex Perkussion
 @cindex Schlagzeug
@@ -225,7 +218,7 @@ down = \drummode {
 
 Das Beispiel zeigt ausdrücklich definierte mehrstimmige Notation. Die
 Kurznotation für mehrstimmige Musik, wie sie im Abschnitt
-@rlearning{Ich höre Stimmen} beschrieben wird, kann auch verwendet werden.
+@rlearningnamed{I'm hearing Voices, Ich höre Stimmen} beschrieben wird, kann auch verwendet werden.
 
 @lilypond[quote,verbatim]
 \new DrumStaff <<
@@ -384,9 +377,8 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end table
 
 
-@node Eigene Schlagzeugsysteme
+@node Custom percussion staves
 @unnumberedsubsubsec Eigene Schlagzeugsysteme
-@translationof Custom percussion staves
 
 Wenn ihnen keine der vordefinierten Stile gefällt, können Sie auch eine
 eigene Liste der Positionen und Notenköpfe am Anfang ihrer Datei erstellen.
@@ -593,12 +585,11 @@ Referenz der Interna:
 @rinternals{DrumVoice}.
 
 
-@node Geisternoten
+@node Ghost notes
 @unnumberedsubsubsec Geisternoten
-@translationof Ghost notes
 
 Geisternoten für Schlagzeug und Perkussion können mit dem
-Klammer- (@code{\parenthesize})-Befehl, beschrieben in @ref{Klammern},
+Klammer- (@code{\parenthesize})-Befehl, beschrieben in @ref{Parentheses},
 erstellt werden. Im Standard-@code{\drummode}-Modus ist aber
 das @code{Parenthesis_engraver}-Plugin nicht automatisch enthalten.
 

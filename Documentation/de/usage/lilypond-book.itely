@@ -16,7 +16,6 @@
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
 @chapter @command{lilypond-book} aufrufen
-@translationof lilypond-book
 
 Wenn Sie in ein Dokument Grafiken Ihres Musiksatzes einfügen möchten, so
 können Sie genauso vorgehen, wie Sie andere Grafiken einfügen würden: Die
@@ -31,7 +30,7 @@ werden dabei Ihrem Dokument angepasst.
 
 @command{lilypond-book} ist ein eigenständiges Programm und wird
 üblicherweise von der Kommandozeile aufgerufen. Nähere Informationen
-hierzu finden sich in @ref{Benutzung auf der Kommandozeile}.
+hierzu finden sich in @ref{Command-line usage}.
 
 Dieses Vorgehen kann bei @LaTeX{}, HTML, Texinfo oder DocBook Dokumenten
 angewendet werden.
@@ -50,19 +49,18 @@ angewendet werden.
 
 
 @menu
-* Ein musikwissenschaftlicher Text als Beispiel::
-* Noten in Text integrieren::
-* Die Musikfragment-Optionen::
-* lilypond-book aufrufen::
-* Dateiendungen::
-* lilypond-book-Vorlagen::
-* Das Inhaltsverzeichnis flexibel einsetzen::
-* Alternative Methoden Text und Musik zu kombinieren::
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* lilypond-book templates::
+* Sharing the table of contents::
+* Alternate methods of mixing text and music::
 @end menu
 
-@node Ein musikwissenschaftlicher Text als Beispiel
+@node An example of a musicological document
 @section Ein musikwissenschaftlicher Text als Beispiel
-@translationof An example of a musicological document
 
 
 @cindex Musikwissenschaft
@@ -190,9 +188,8 @@ Wenn man eine @code{tagline} (die Zeile unten auf der Seite) braucht
 
 
 
-@node Noten in Text integrieren
+@node Integrating music and text
 @section Noten in Text integrieren
-@translationof Integrating music and text
 
 In diesem Abschnitt soll die Integration von LilyPond mit den
 verschiedenen Dateiformaten detailliert erläutert werden.
@@ -206,7 +203,6 @@ verschiedenen Dateiformaten detailliert erläutert werden.
 
 @node LaTeX
 @subsection @LaTeX{}
-@translationof LaTeX
 
 
 @LaTeX{} ist der de-facto Standard zur Publikation von wissenschaftlichen Texten
@@ -418,12 +414,11 @@ gewünschten Systeme übergeben wird:
 @morerefs
 @command{lilypond-book} stellt auch zahlreiche Kommandozeilen-Optionen zur
 Verfügung. Für eine Liste dieser Optionen und andere hilfreiche Details zur
-Verarbeitung von @LaTeX{}-Dokumenten, siehe @ref{lilypond-book aufrufen}.
+Verarbeitung von @LaTeX{}-Dokumenten, siehe @ref{Invoking lilypond-book}.
 
 
 @node Texinfo
 @subsection Texinfo
-@translationof Texinfo
 
 Texinfo ist das Standard-Dokumentationsformat des GNU Projekts. Ein Beispiel
 für ein Dokument im Texinfo Format ist dieses Handbuch, wobei die HTML-, PDF- und
@@ -510,7 +505,6 @@ im Fließtext, sondern setzt sie immer in einen eigenen Absatz.
 
 @node HTML
 @subsection HTML
-@translationof HTML
 
 @code{lilypond-book} stellt folgende Befehle und Umgebungen zur Noteneingabe
 in HTML-Dateien zur Verfügung:
@@ -584,7 +578,7 @@ Um Dateien mit Musik einzubinden, kann folgendermaßen vorgegangen werden:
 aber fügt anstelle der LilyPond-Datei eine MusicXML-Datei ein.
 
 Eine Liste der Optionen, die man mit @code{lilypond} oder @code{lilypondfile}
-benutzen kann, siehe @ref{Die Musikfragment-Optionen}
+benutzen kann, siehe @ref{Music fragment options}
 
 Zusätzlich gibt @code{<lilypondversion/>} die aktuelle Versionsnummer
 von LilyPond aus.
@@ -592,7 +586,6 @@ von LilyPond aus.
 
 @node DocBook
 @subsection DocBook
-@translationof DocBook
 
 
 Bei der Einbindung von Musik im LilyPond-Format in DocBook soll die
@@ -665,9 +658,8 @@ benutzt werden. Eventuell müssen dafür allerdings kleinere Anpassungen
 vorgenommen werden.
 
 
-@node Die Musikfragment-Optionen
+@node Music fragment options
 @section Die Musikfragment-Optionen
-@translationof Music fragment options
 
 Im Folgenden meint @q{LilyPond-Befehl} einen beliebigen in den vorgehenden
 Abschnitten beschriebenen Befehl, der ein LilyPond-Fragment in eine Datei
@@ -895,9 +887,8 @@ ausgegeben, der Pfad wird also nicht mit angezeigt.
 @end table
 
 
-@node lilypond-book aufrufen
+@node Invoking lilypond-book
 @section @command{lilypond-book} aufrufen
-@translationof Invoking lilypond-book
 
 @command{lilypond-book} erzeugt abhängig vom Ausgabeformat eine Datei mit
 einer der folgenden Dateierweiterungen: @file{.tex}, @file{.texi},
@@ -1137,14 +1128,13 @@ nach der Dokumentpräambel verändern.
 Nur der erste @code{\score}-Block eines LilyPond-Fragments wird verarbeitet.
 
 
-@node Dateiendungen
+@node Filename extensions
 @section Dateiendungen
-@translationof Filename extensions
 
 Für die Eingabedatei kann zwar jede beliebige Dateinamenserweiterung benutzt
 werden, allerdings muss bei Verwendung einer nicht bekannten Erweiterung
 das Ausgabeformat explizit an @command{lilypond-book} angegeben werden.
-Details dazu finden sich im Abschnitt @ref{lilypond-book aufrufen}.
+Details dazu finden sich im Abschnitt @ref{Invoking lilypond-book}.
 Wird eine bekannte Erweiterung benutzt, wählt @command{lilypond-book}
 automatisch das richtige Ausgabeformat basierend auf der Erweiterung der
 Eingabedatei:
@@ -1175,9 +1165,8 @@ Programm in diesem Fall mit einer Fehlermeldung wie @qq{Fehler: Ausgabe
 würde Eingabedatei überschreiben; verwenden Sie --output.} abbricht.
 
 
-@node lilypond-book-Vorlagen
+@node lilypond-book templates
 @section @command{lilypond-book}-Vorlagen
-@translationof lilypond-book templates
 
 Diese Vorlagen sollen mit @code{lilypond-book} benutzt werden.  Wenn Sie sich
 mit dem Programm nicht auskennen, lesen Sie bitte
@@ -1316,9 +1305,8 @@ lilypond-book.
 @end verbatim
 
 
-@node Das Inhaltsverzeichnis flexibel einsetzen
+@node Sharing the table of contents
 @section Das Inhaltsverzeichnis flexibel einsetzen
-@translationof Sharing the table of contents
 
 Diese Funktionen existieren schon im OrchestralLily-Paket:
 
@@ -1423,10 +1411,9 @@ wobei @code{\includescore} wiefolgt definiert ist:
 @end smallexample
 
 
-@node Alternative Methoden Text und Musik zu kombinieren
+@node Alternate methods of mixing text and music
 @section Alternative Methoden Text und Musik zu kombinieren
-@translationof Alternate methods of mixing text and music
 
 Andere Methoden, Text und Noten miteinander zu kombinieren (ohne
 @command{lilypond-book} zu benutzen) werden beschrieben in
-@ref{LilyPond-Ausgabe in anderen Programmen}.
+@ref{LilyPond output in other programs}.

@@ -10,9 +10,8 @@
 
 @c \version "2.19.21"
 
-@node Vorschläge zum Schreiben von LilyPond-Eingabe-Dateien
+@node Suggestions for writing files
 @chapter Vorschläge zum Schreiben von LilyPond-Eingabe-Dateien
-@translationof Suggestions for writing files
 
 Jetzt sind Sie so weit, größere Stücke mit LilyPond zu schreiben --
 nicht nur die kleinen Beispiele aus der Übung, sondern ganze Stücke.
@@ -42,17 +41,16 @@ strukturiert werden, damit sie einfacher aktualisierbar sind.
 @end itemize
 
 @menu
-* Allgemeine Vorschläge::
-* Das Kopieren von bereits vorhandener Musik::
-* Große Projekte::
-* Fehlersuche::
-* Make und Makefiles::
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Troubleshooting::
+* Make and Makefiles::
 @end menu
 
 
-@node Allgemeine Vorschläge
+@node General suggestions
 @section Allgemeine Vorschläge
-@translationof General suggestions
 
 Hier einige Vorschläge, wie Sie Probleme vermeiden oder lösen können:
 
@@ -67,8 +65,8 @@ frustrierend sein kann zu erinnern, welche Programmversion man etwa
 vor einem Jahr verwendet hat.  Auch @code{convert-ly} benötigt die
 Versionsnummer.
 
-@item @strong{Benutzen Sie Überprüfungen}: @rnotation{Oktavenüberprüfung}, und
-@rnotation{Takt- und Taktzahlüberprüfung}.  Wenn Sie hier und da diese
+@item @strong{Benutzen Sie Überprüfungen}: @rnotationnamed{Octave checks, Oktavenüberprüfung}, und
+@rnotationnamed{Bar and bar number checks, Takt- und Taktzahlüberprüfung}.  Wenn Sie hier und da diese
 Überprüfungen einfügen, finden Sie einen möglichen Fehler weit
 schneller.  Wie oft aber ist @qq{hier und da}?  Das hängt von der
 Komplexität der Musik ab.  ei einfachen Stücken reicht es vielleicht
@@ -103,16 +101,15 @@ ersparen Sie sich viele Probleme, wenn Sie ihre Musik
 eines Tages umarrangieren wollen.
 
 @item @strong{Trennen Sie Einstellungen} von den eigentlichen
-Noten.  Siehe auch @rlearning{Tipparbeit durch Variablen und Funktionen einsparen}
+Noten.  Siehe auch @rlearningnamed{Saving typing with variables and functions, Tipparbeit durch Variablen und Funktionen einsparen}
 und
-@rlearning{Formatvorlagen}.
+@rlearningnamed{Style sheets, Formatvorlagen}.
 
 @end itemize
 
 
-@node Das Kopieren von bereits vorhandener Musik
+@node Typesetting existing music
 @section Das Kopieren von bereits vorhandener Musik
-@translationof Typesetting existing music
 
 Wenn Sie Musik aus einer fertigen Partitur kopieren (z. B. die
 LilyPond-Eingabe einer gedruckten Partitur):
@@ -125,7 +122,7 @@ Schreiben Sie ein System ihrer Quelle nach dem anderen
 Sie jedes System, nachdem Sie es fertig kopiert haben.  Mit dem
 @code{showLastLength}- oder @code{showFirstLength}-Befehl können Sie den Übersetzungsprozess
 beschleunigen. Siehe auch
-@rnotation{Korrigierte Musik überspringen}.
+@rnotationnamed{Skipping corrected music, Korrigierte Musik überspringen}.
 
 @item
 Definieren Sie @code{mBreak = @{ \break @}} und schreiben Sie
@@ -160,9 +157,8 @@ eine B-Trompete oder @code{aes} für eine As-Klarinette usw.
 @end itemize
 
 
-@node Große Projekte
+@node Large projects
 @section Große Projekte
-@translationof Large projects
 
 Besonders wenn Sie an größeren Projekten arbeiten, ist es
 unumgänglich, dass Sie ihre LilyPond-Dateien klar strukturieren.
@@ -208,9 +204,8 @@ g'4\fdannp c'8. e16
 
 
 
-@node Fehlersuche
+@node Troubleshooting
 @section Fehlersuche
-@translationof Troubleshooting
 
 Früher oder später werden Sie in die Lage kommen,
 dass LilyPond Ihre Datei nicht kompilieren will.  Die
@@ -267,13 +262,12 @@ Bassstimme wieder hineinzunehmen, bis Sie die problematische
 Zeile finden.
 
 Eine andere nützliche Technik zur Problemlösung ist es,
-@rweb{Minimalbeispiele} zu konstruieren.
+@rwebnamed{Tiny examples, Minimalbeispiele} zu konstruieren.
 
 
 
-@node Make und Makefiles
+@node Make and Makefiles
 @section Make und Makefiles
-@translationof Make and Makefiles
 
 @cindex Makefile
 @cindex Make-Dateien
@@ -633,5 +627,5 @@ copy out\myproject.pdf MyProject.pdf
 
 @morerefs
 Programmbenutzung:
-@ref{Benutzung auf der Kommandozeile},
+@ref{Command-line usage},
 @ref{lilypond-book}.

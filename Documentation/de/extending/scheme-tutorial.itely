@@ -10,9 +10,8 @@
 
 @c \version "2.19.22"
 
-@node Scheme-Tutorium
+@node Scheme tutorial
 @chapter Scheme-Tutorium
-@translationof Scheme tutorial
 
 
 @cindex Scheme
@@ -38,14 +37,13 @@ unter @uref{https://www.gnu.org/software/guile/}.  Der
 
 
 @menu
-* Einleitung in Scheme::
+* Introduction to Scheme::
 * Scheme in LilyPond::
-* Komplizierte Funktionen erstellen::
+* Building complicated functions::
 @end menu
 
-@node Einleitung in Scheme
+@node Introduction to Scheme
 @section Einleitung in Scheme
-@translationof Introduction to Scheme
 
 Wir wollen mit einer Einführung in Scheme beginnen.  Für diese kurze Einführung
 soll der GUILE-Interpreter genommen werden, um zu erforschen, wie die Sprache
@@ -53,18 +51,17 @@ funktioniert.  Nach besserer Bekanntschaft mit Scheme soll gezeigt werden, wie
 die Sprache in LilyPond-Dateien eingefügt werden kann.
 
 @menu
-* Scheme-Sandkasten::
-* Scheme-Variablen::
-* Einfache Scheme-Datentypen::
-* Zusammengesetzte Scheme-Datentypen::
-* Berechnungen in Scheme::
-* Scheme-Prozeduren::
-* Scheme-Konditionale::
+* Scheme sandbox::
+* Scheme variables::
+* Scheme simple data types::
+* Scheme compound data types::
+* Calculations in Scheme::
+* Scheme procedures::
+* Scheme conditionals::
 @end menu
 
-@node Scheme-Sandkasten
+@node Scheme sandbox
 @subsection Scheme-Sandkasten
-@translationof Scheme sandbox
 
 Die LilyPond-Installation enthält gleichzeitig auch die
 Guile-Implementation von Scheme.  Auf den meisten Systemen kann
@@ -73,7 +70,7 @@ Kommandozeilen-Fenster öffnet und @code{guile} aufruft.  Unter
 einigen Systemen, insbesondere unter Windows, muss man evtl.
 die Umgebungsvariable @code{GUILE_LOAD_PATH} auf das Verzeichnis
 @code{../usr/share/guile/1.8} innerhalb des LilyPond-Installationsverzeichnisses
-setzen (der vollständige Pfad ist erklärt in @rlearning{Mehr Information}).
+setzen (der vollständige Pfad ist erklärt in @rlearningnamed{Other sources of information, Mehr Information}).
 Alternativ können Windows-Benutzer auch einfach @qq{Ausführen} im
 Startmenü wählen und @code{guile} schreiben.
 
@@ -99,9 +96,8 @@ Guile-Sitzungen außerhalb von LilyPond schon aktiviert ist, sollte es auch
 in der Sandbox funktionieren.
 
 
-@node Scheme-Variablen
+@node Scheme variables
 @subsection Scheme-Variablen
-@translationof Scheme variables
 
 Scheme-Variablen können jeglichen gültigen Scheme-Wert erhalten, auch
 Scheme-Prozeduren.
@@ -153,9 +149,8 @@ guile> a
 guile>
 @end lisp
 
-@node Einfache Scheme-Datentypen
+@node Scheme simple data types
 @subsection Einfache Scheme-Datentypen
-@translationof Scheme simple data types
 
 Das Grundlegendste an einer Sprache sind Daten: Zahlen, Zeichen,
 Zeichenketten, Listen usw.  Hier ist eine Liste der Datentypen, die für
@@ -215,9 +210,8 @@ Guile-Referenzanleitung:
 @uref{http://www.gnu.org/software/guile/manual/html_node/Simple-Data-Types.html}.
 
 
-@node Zusammengesetzte Scheme-Datentypen
+@node Scheme compound data types
 @subsection Zusammengesetzte Scheme-Datentypen
-@translationof Scheme compound data types
 
 Es gibt auch zusammengesetzte Datentypen in Scheme.  Die Datentypen, die in
 LilyPond häufig benutzt werden, beinhalten Paare, Listen, assoziative Listen
@@ -381,9 +375,8 @@ guile>
 @end lisp
 
 
-@node Berechnungen in Scheme
+@node Calculations in Scheme
 @subsection Berechnungen in Scheme
-@translationof Calculations in Scheme
 
 @ignore
 We have been using lists all along.  A calculation, like @code{(+ 1 2)}
@@ -501,9 +494,8 @@ The quote mark @code{'} prevents the Scheme interpreter from substituting
 @end ignore
 
 
-@node Scheme-Prozeduren
+@node Scheme procedures
 @subsection Scheme-Prozeduren
-@translationof Scheme procedures
 
 Scheme-Prozeduren sind ausführbare Scheme-Ausdrücke, die einen
 Wert ausgeben, der das Resultat ihrer Ausführung darstellt.  Sie können
@@ -580,9 +572,8 @@ guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 @end lisp
 
 
-@node Scheme-Konditionale
+@node Scheme conditionals
 @subsection Scheme-Konditionale
-@translationof Scheme conditionals
 
 @subheading if
 
@@ -631,21 +622,19 @@ guile> (cond ((< a b) "a is less than b")
 
 @node Scheme in LilyPond
 @section Scheme in LilyPond
-@translationof Scheme in LilyPond
 
 @menu
-* LilyPond Scheme-Syntax::
-* LilyPond-Variablen::
-* Eingabe-Variablen und Scheme::
-* Scheme in LilyPond importieren::
-* Objekteigenschaften::
-* Zusammengesetzte LilyPond-Variablen::
-* Interne musikalische Repräsentation::
+* LilyPond Scheme syntax::
+* LilyPond variables::
+* Input variables and Scheme::
+* Importing Scheme in LilyPond::
+* Object properties::
+* LilyPond compound variables::
+* Internal music representation::
 @end menu
 
-@node LilyPond Scheme-Syntax
+@node LilyPond Scheme syntax
 @subsection LilyPond Scheme-Syntax
-@translationof LilyPond Scheme syntax
 
 @funindex $
 @funindex #
@@ -691,7 +680,7 @@ LilyPond-Lexer bestimmt wird, ohne den Scheme-reader einzubeziehen, und also
 nur Variablen akzeptiert werden, die im aktuellen LilyPond-Modus gültig sind.
 
 Die direkte Auswirkung von @code{$} kann zu Überraschungen führen, siehe
-@ref{Eingabe-Variablen und Scheme}.  Es bietet sich daher an, @code{#} immer
+@ref{Input variables and Scheme}.  Es bietet sich daher an, @code{#} immer
 zu benützen, wenn der Parser es unterstützt.  Innerhalb von musikalischen
 Ausdrücken werden Ausdrücke, die mit @code{#} erstellt werden, @emph{tatsächlich}
 als Noten interpretiert.  Sie werden jedoch @emph{nicht} vor der Benutzung
@@ -743,9 +732,8 @@ können in einen einzigen Scheme-Ausdruck zusammengefasst werden mit
 @end example
 
 
-@node LilyPond-Variablen
+@node LilyPond variables
 @subsection LilyPond-Variablen
-@translationof LilyPond variables
 
 LilyPond-Variablen werden intern als Scheme-Variablen gespeichert. Darum
 ist
@@ -773,7 +761,7 @@ was zur Folge hätte, dass die Zahl 24 in der LilyPond (und Scheme-)Variablen
 @code{Vierundzwanzig} gespeichert wird.
 
 Üblicherweise greift man auf LilyPond-Variablen zu, indem man ihnen einen
-Backslash voranstellt. Siehe auch @ref{LilyPond Scheme-Syntax}, also etwa
+Backslash voranstellt. Siehe auch @ref{LilyPond Scheme syntax}, also etwa
 @code{\Vierundzwanzig}.  Weil dadurch eine Kopie des Wertes für die meisten
 von LilyPonds internen Typen erstellt wird (insbesondere musikalische Funktionen),
 erstellen musikalische Funktionen normalerweise Kopien von Material, das sie
@@ -783,9 +771,8 @@ erstellt wird oder explizit kopiert wird, sondern besser direkt auf das relevant
 Material verweisen.
 
 
-@node Eingabe-Variablen und Scheme
+@node Input variables and Scheme
 @subsection Eingabe-Variablen und Scheme
-@translationof Input variables and Scheme
 
 Das Eingabeformat unterstützt die Notation von Variablen: Im folgenden
 Beispiel wird ein musikalischer Ausdruck einer Variablen mit der
@@ -852,9 +839,8 @@ auszuwerten, so dass er weiterlesen und erst @emph{danach}
 wird der Scheme-Code ohne Probleme ausführen kann.
 
 
-@node Scheme in LilyPond importieren
+@node Importing Scheme in LilyPond
 @subsection Scheme in LilyPond importieren
-@translationof Importing Scheme in LilyPond
 
 @funindex $
 @funindex #
@@ -879,7 +865,7 @@ Ein negativer Effekt ist aber das Timing.  Wenn man @code{$} anstelle von
 @code{#} für die Definition von @code{newLa} im obigen Beispiel eingesetzt
 hätte, würde der folgende Scheme-Ausdruck fehlschlagen, weil @code{traLaLa}
 noch nicht definiert worden wäre.  Zu einer Erklärung dieses Timingproblems
-siehe @ref{LilyPond Scheme-Syntax}.
+siehe @ref{LilyPond Scheme syntax}.
 
 @funindex $@@
 @funindex #@@
@@ -905,7 +891,7 @@ geschrieben hätte:
 In allen diesen Formen findet die Auswertung des Scheme-Codes statt,
 während die Eingabe noch gelesen wird, entweder im Lexer oder im Parser.
 Wenn man es später ausgeführt haben möchte, muss man
-@ref{Leere Scheme-Funktionen} benutzen oder es in einem Makro speichern:
+@ref{Void scheme functions} benutzen oder es in einem Makro speichern:
 
 @example
 #(define (nopc)
@@ -922,9 +908,8 @@ Scheme- und LilyPond-Variablen können nicht gemischt werden, wenn man die
 @option{--safe}-Option benutzt.
 
 
-@node Objekteigenschaften
+@node Object properties
 @subsection Objekteigenschaften
-@translationof Object properties
 
 Objekteigenschaften werden in LilyPond in Form von Alisten-Ketten
 gespeichert, also als Listen von Alisten.  Eigenschaften werden
@@ -957,9 +942,8 @@ Das Hals-Objekt hat also eine @code{thickness}-Eigenschaft, während
 @cindex Bezeichner versus Eigenschaften
 
 
-@node Zusammengesetzte LilyPond-Variablen
+@node LilyPond compound variables
 @subsection Zusammengesetzte LilyPond-Variablen
-@translationof LilyPond compound variables
 
 @subheading Abstände (offset)
 
@@ -1027,9 +1011,8 @@ Die Scheme-Prozedur @code{chain-assoc-get} wird normalerweise benutzt,
 um Grob-Eigenschaftenwerte zu erhalten.
 
 
-@node Interne musikalische Repräsentation
+@node Internal music representation
 @subsection Interne musikalische Repräsentation
-@translationof Internal music representation
 
 Intern werden Noten als Scheme-Liste dargestellt.  Die Liste enthält
 verschiedene Elemente, die die Druckausgabe beeinflussen.  Parsen
@@ -1083,24 +1066,22 @@ von @rinternals{RepeatedMusic} gespeichert, und die alternativen Endungen
 in @code{elements}.
 
 
-@node Komplizierte Funktionen erstellen
+@node Building complicated functions
 @section Komplizierte Funktionen erstellen
-@translationof Building complicated functions
 
 Dieser Abschnitt zeigt, wie man Information zusammensucht,
 um komplizierte musikalische Funktionen  zu erstellen.
 
 @menu
-* Musikalische Funktionen darstellen::
-* Eigenschaften von Musikobjekten::
-* Verdoppelung einer Note mit Bindebögen (Beispiel)::
-* Artikulationszeichen zu Noten hinzufügen (Beispiel)::
+* Displaying music expressions::
+* Music properties::
+* Doubling a note with slurs (example)::
+* Adding articulation to notes (example)::
 @end menu
 
 
-@node Musikalische Funktionen darstellen
+@node Displaying music expressions
 @subsection Musikalische Funktionen darstellen
-@translationof Displaying music expressions
 
 @cindex interne Speicherung
 @cindex Musikausdrücke anzeigen
@@ -1188,9 +1169,8 @@ sie sowohl angezeigt als auch ausgewertet werden.  Um die Auswertung zu
 vermeiden, kann @code{\void} vor @code{\displayMusic} geschrieben werden.
 
 
-@node Eigenschaften von Musikobjekten
+@node Music properties
 @subsection Eigenschaften von Musikobjekten
-@translationof Music properties
 
 TODO -- make sure we delineate between @emph{music} properties,
 @emph{context} properties, and @emph{layout} properties.  These
@@ -1272,9 +1252,8 @@ d'
 @end example
 
 
-@node Verdoppelung einer Note mit Bindebögen (Beispiel)
+@node Doubling a note with slurs (example)
 @subsection Verdoppelung einer Note mit Bindebögen (Beispiel)
-@translationof Doubling a note with slurs (example)
 
 In diesem Abschnitt soll gezeigt, werden, wie man eine
 Funktion erstellt, die eine Eingabe wie @code{a}
@@ -1355,14 +1334,13 @@ doubleSlur = #(define-music-function (note) (ly:music?)
 @end example
 
 
-@node Artikulationszeichen zu Noten hinzufügen (Beispiel)
+@node Adding articulation to notes (example)
 @subsection Artikulationszeichen zu Noten hinzufügen (Beispiel)
-@translationof Adding articulation to notes (example)
 
 Am einfachsten können Artikulationszeichen zu Noten
 hinzugefügt werden, indem man zwei musikalische Funktionen
 in einen Kontext einfügt, wie erklärt in
-@rnotation{Kontexte erstellen und referenzieren}.  Hier soll jetzt eine musikalische
+@rnotationnamed{Creating and referencing contexts, Kontexte erstellen und referenzieren}.  Hier soll jetzt eine musikalische
 Funktion entwickelt werden, die das vornimmt.  Daraus ergibt sich
 der zusätzliche Vorteil, dass diese musikalische Funktion eingesetzt
 werden kann, um eine Artikulation (wie etwa eine Fingersatzanweisung)

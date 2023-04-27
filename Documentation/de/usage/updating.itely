@@ -13,9 +13,8 @@
 @c Translators: Till Paala
 
 
-@node Dateien mit convert-ly aktualisieren
+@node Updating files with convert-ly
 @chapter Dateien mit @command{convert-ly} aktualisieren
-@translationof Updating files with convert-ly
 
 @cindex Aktualisierung von LilyPond-Datei
 @cindex convert-ly
@@ -28,17 +27,16 @@ das Programm @command{convert-ly} benutzt werden, welches die meisten
 Syntaxveränderungen zwischen unterschiedlichen LilyPond-Versionen beherrscht.
 
 @menu
-* Warum verändert sich die Syntax?::
-* convert-ly aufrufen::
-* Optionen auf der Kommandozeile für convert-ly::
-* Probleme mit convert-ly::
-* Manuelle Konversion::
+* Why does the syntax change?::
+* Invoking convert-ly::
+* Command line options for convert-ly::
+* Problems running convert-ly::
+* Manual conversions::
 @end menu
 
 
-@node Warum verändert sich die Syntax?
+@node Why does the syntax change?
 @section Warum verändert sich die Syntax?
-@translationof Why does the syntax change?
 
 @cindex convert-ly
 @cindex Aktualisierung von alten Eingabedateien
@@ -71,9 +69,8 @@ kann nicht alle LaTeX-Zeichen umwandeln, sodass man das manuell übernehmen
 muss.
 
 
-@node convert-ly aufrufen
+@node Invoking convert-ly
 @section @command{convert-ly} aufrufen
-@translationof Invoking convert-ly
 
 @command{convert-ly} benutzt den Befehl @code{\version} mit Angabe der
 Versionsnummer der ursprünglichen LilyPond-Version.  In den meisten Fällen
@@ -118,9 +115,8 @@ Windows-Benutzer sollten diese Befehle auf der Kommandozeile (Eingabeaufforderun
 die sich normalerweise unter @code{Start > Zubehör > Eingabeaufforderung} findet.
 
 
-@node Optionen auf der Kommandozeile für convert-ly
+@node Command line options for convert-ly
 @section Optionen auf der Kommandozeile für @command{convert-ly}
-@translationof Command line options for convert-ly
 
 Das Programm wird folgendermaßen aufgerufen:
 
@@ -178,9 +174,8 @@ convert-ly --from=... --to=... -s
 @end example
 
 
-@node Probleme mit convert-ly
+@node Problems running convert-ly
 @section Probleme mit @code{convert-ly}
-@translationof Problems running convert-ly
 
 Wenn man @command{convert-ly} auf einer Eingabeaufforderung unter Windows
 mit einer Datei benutzt, die Leerzeichen im Dateinamen oder Pfad hat,
@@ -213,9 +208,8 @@ Scheme-Code ist eher unwahrscheinlich, sehr wahrscheinlich muss hier manuell
 aktualisiert werden.
 
 
-@node Manuelle Konversion
+@node Manual conversions
 @section Manuelle Konversion
-@translationof Manual conversions
 
 Theoretisch könnte ein Programm wie @command{convert-ly} alle möglichen
 Syntax-Änderungen berücksichtigen.  Schließlich ist es auch ein Computerprogramm,

@@ -11,24 +11,23 @@
 
 @c Translators: Till Paala
 
-@node Spezielle Notation
+@node Specialist notation
 @chapter Spezielle Notation
-@translationof Specialist notation
 
 Dieser Abschnitt erklärt, wie Notation erstellt wird, die nur für ein
 bestimmtes Instrument oder einen Stil eingesetzt wird.
 
 @menu
-* Notation von Gesang::
-* Tasteninstrumente und andere Instrumente mit mehreren Systemen::
-* Bundlose Saiteninstrumente::
-* Saiteninstrumente mit Bünden::
-* Schlagzeug::
-* Blasinstrumente::
-* Notation von Akkorden::
-* Zeitgenössische Musik::
-* Notation von alter Musik::
-* Weltmusik::
+* Vocal music::
+* Keyboard and other multi-staff instruments::
+* Unfretted string instruments::
+* Fretted string instruments::
+* Percussion::
+* Wind instruments::
+* Chord notation::
+* Contemporary music::
+* Ancient notation::
+* World music::
 @end menu
 
 @include de/notation/vocal.itely

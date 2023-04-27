@@ -12,36 +12,33 @@
 
 @c Translators: Till Paala, Reinhold Kainhofer
 
-@node Externe Programme
+@node External programs
 @chapter Externe Programme
-@translationof External programs
 
 LilyPond kann mit anderen Programmen auf verschiedene Weise interagieren.
 
 @menu
 * Point and click::
-* Unterstützung von Texteditoren::
-* Von anderen Formaten konvertieren::
-* LilyPond-Ausgabe in anderen Programmen::
-* Unabhängige include-Abschnitte::
+* Text editor support::
+* Converting from other formats::
+* LilyPond output in other programs::
+* independent includes::
 @end menu
 
 
 @node Point and click
 @section Point and click
-@translationof Point and click
 
 Poind and click fügt Verlinkung für bestimmte Notationselemente
 in die PDF-Dokumente ein.
 
 @menu
-* Point and click aktivieren::
-* Selektives point-and-click::
+* Enabling point and click::
+* Selective point-and-click::
 @end menu
 
-@node Point and click aktivieren
+@node Enabling point and click
 @unnumberedsubsec Point and click aktivieren
-@translationof Enabling point and click
 
 @cindex point and click
 
@@ -132,9 +129,8 @@ verteilen wollen, damit keine Informationen über Ihre Dateistrukturen in den
 Dateien gespeichert werden, was ein Sicherheitsrisiko darstellen könnte.}
 
 
-@node Selektives point-and-click
+@node Selective point-and-click
 @unnumberedsubsec Selektives point-and-click
-@translationof Selective point-and-click
 
 Für einige interaktive Anwendungen kann es von Vorteil sein, nur
 einige Elemente mit Point and click zu aktivieren.  Wenn man
@@ -210,9 +206,8 @@ lilypond \
 @end itemize
 
 
-@node Unterstützung von Texteditoren
+@node Text editor support
 @section Unterstützung von Texteditoren
-@translationof Text editor support
 
 @cindex Editoren
 @cindex vim
@@ -225,14 +220,13 @@ lilypond \
 Verschiedene Editoren unterstützen LilyPond
 
 @menu
-* Emacs-Modus::
-* Vim-Modus::
-* Andere Editoren::
+* Emacs mode::
+* Vim mode::
+* Other editors::
 @end menu
 
-@node Emacs-Modus
+@node Emacs mode
 @unnumberedsubsec Emacs-Modus
-@translationof Emacs mode
 
 Emacs hat einen @file{lilypond-mode}-Modus, der Ergänzung von Befehlen,
 Einrückung, Syntaxhervorhebung, die Paarung von LilyPond-Klammern,
@@ -256,9 +250,8 @@ Zeile in Ihr @file{~/.emacs} kopieren:
 @end example
 
 
-@node Vim-Modus
+@node Vim mode
 @unnumberedsubsec Vim-Modus
-@translationof Vim mode
 
 Für @uref{https://@/www@/.vim@/.org,Vim} gibt es ein Dateiartplugin, einen
 Einzugsmodus und einen Syntaxhervorhebungsmodus für LilyPond.  Um alle diese
@@ -274,22 +267,20 @@ filetype on
 @noindent
 Wenn LilyPond nicht in @file{/usr/local/} installiert ist, müssen Sie
 den Pfad anpassen.  Das wird besprochen in
-@rlearning{Mehr Information}.
+@rlearningnamed{Other sources of information, Mehr Information}.
 
 
-@node Andere Editoren
+@node Other editors
 @unnumberedsubsec Andere Editoren
-@translationof Other editors
 
 Andere Editoren (sowohl Texteditoren als auch graphische Editoren) haben
 Unterstützung für LilyPond, aber ihre besonderen Konfigurationsdateien werden
 nicht mit LilyPond zusammen verteilt.  Lesen Sie die entsprechende Dokumenation
-zu näheren Fragen.  Derartige Editoren finden sich unter @rweb{Leichteres Editieren}.
+zu näheren Fragen.  Derartige Editoren finden sich unter @rwebnamed{Easier editing, Leichteres Editieren}.
 
 
-@node Von anderen Formaten konvertieren
+@node Converting from other formats
 @section Von anderen Formaten konvertieren
-@translationof Converting from other formats
 
 LilyPond kann auch Musik aus diversen anderen Formaten importieren.
 Dieses Kapitel beschreibt die dazu mit LilyPond mitgelieferten
@@ -300,7 +291,7 @@ findet sich auf der @uref{https://@/lilypond@/.org,Homepage} von LilyPond.
 
 Die im Folgenden beschriebenen Programme sind eigenständige Hilfsprogramme
 und werden üblicherweise von der Kommandozeile aufgerufen. Siehe
-@ref{Benutzung auf der Kommandozeile} für weitere Informationen.
+@ref{Command-line usage} für weitere Informationen.
 
 @knownissues
 Leider haben wir nicht ausreichend viele Entwickler, um all die folgenden
@@ -310,16 +301,15 @@ Selbstverständlich sind Patches von Ihnen sehr willkommen!
 
 
 @menu
-* midi2ly aufrufen::          Import von MIDI.
-* musicxml2ly aufrufen::       Import von MusicXML.
-* abc2ly aufrufen::           Import von ABC.
-* etf2ly aufrufen::           Import von (alten) Finale-Dateien.
-* Andere Formate::
+* Invoking midi2ly::          Import von MIDI.
+* Invoking musicxml2ly::       Import von MusicXML.
+* Invoking abc2ly::           Import von ABC.
+* Invoking etf2ly::           Import von (alten) Finale-Dateien.
+* Other formats::
 @end menu
 
-@node midi2ly aufrufen
+@node Invoking midi2ly
 @subsection @command{midi2ly} aufrufen
-@translationof Invoking midi2ly
 
 @cindex MIDI
 
@@ -357,7 +347,7 @@ midi2ly [@var{Optionen}]@dots{} @var{MIDI-Datei}
 
 Unter @q{Kommandozeile} verstehen wir dabei die Kommandozeile des
 jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe
-@ref{Von anderen Formaten konvertieren}.
+@ref{Converting from other formats}.
 
 Die folgenden Kommandozeilenoptionen werden von @command{midi2ly}
 unterstützt:
@@ -412,9 +402,8 @@ Tonlänge setzen und Phrasierungszeichen oder Pedalindikatoren
 hinzufügen.
 
 
-@node musicxml2ly aufrufen
+@node Invoking musicxml2ly
 @subsection @command{musicxml2ly} aufrufen
-@translationof Invoking musicxml2ly
 
 @cindex MusicXML
 
@@ -433,7 +422,7 @@ musicxml2ly [@var{Optionen}]@dots{} @var{XML-Datei}
 
 Unter @q{Kommandozeile} verstehen wir dabei die Kommandozeile des
 jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe
-@ref{Von anderen Formaten konvertieren}.
+@ref{Converting from other formats}.
 
 Wenn als Dateiname @file{-} angegeben wird, liest @command{musicxml2ly}
 Daten direkt von der Kommandozeile ein.
@@ -493,9 +482,8 @@ Dies ist die Standardeinstellung für Dateien mit der Erweiterung
 @end table
 
 
-@node abc2ly aufrufen
+@node Invoking abc2ly
 @subsection @command{abc2ly} aufrufen
-@translationof Invoking abc2ly
 
 @warning{Dieses Programm ist nicht unterstützt und kann aus kommenden
 LilyPond-Versionen entfernt werden.}
@@ -577,9 +565,8 @@ ABC synchronisiert den Liedtext am Anfang jeder Zeile mit den Noten,
 @command{abc2ly} ignoriert die Balkensetzung in der ABC-Datei.
 
 
-@node etf2ly aufrufen
+@node Invoking etf2ly
 @subsection @command{etf2ly} aufrufen
-@translationof Invoking etf2ly
 
 @warning{Dieses Programm ist nicht unterstützt und kann in kommenden
 LilyPond-Versionen entfernt werden.}
@@ -601,7 +588,7 @@ etf2ly [@var{Optionen}]@dots{} @var{ETF-Datei}
 
 Unter @q{Kommandozeile} verstehen wir dabei die Kommandozeile des
 jeweiligen Betriebssystems. Für nähere Informationen hierzu siehe
-@ref{Von anderen Formaten konvertieren}.
+@ref{Converting from other formats}.
 
 Die folgenden Kommandozeilenoptionen werden von @command{etf2ly}
 unterstützt:
@@ -623,21 +610,19 @@ verwirren @command{etf2ly}. Mehrfache Vorschlagnoten werden falsch
 beendet.
 
 
-@node Andere Formate
+@node Other formats
 @subsection Andere Formate
-@translationof Other formats
 
 @cindex Externe Programme, LilyPond-Dateien erstellen
 
 LilyPond kommt nicht mit der Unterstützung für andere Formate, aber einige
 externe Programme können auch LilyPond-Dateien erstellen.  Diese finden
-sich unter @rweb{Leichteres Editieren}.
+sich unter @rwebnamed{Easier editing, Leichteres Editieren}.
 
 
 
-@node LilyPond-Ausgabe in anderen Programmen
+@node LilyPond output in other programs
 @section LilyPond-Ausgabe in anderen Programmen
-@translationof LilyPond output in other programs
 
 Dieser Abschnitt stellt Methoden vor, wie Text und Musik auf andere
 Weise kombiniert werden können als dies durch @command{lilypond-book}
@@ -645,23 +630,21 @@ automatisiert geschieht.
 
 
 @menu
-* Viele Zitate aus einer langen Partitur::
-* LilyPond-Noten in OpenOffice.org integrieren::
-* LilyPond-Noten in andere Programme integrieren::
+* Many quotes from a large score::
+* Inserting LilyPond output into OpenOffice.org::
+* Inserting LilyPond output into other programs::
 @end menu
 
-@node Viele Zitate aus einer langen Partitur
+@node Many quotes from a large score
 @unnumberedsubsec Viele Zitate aus einer langen Partitur
-@translationof Many quotes from a large score
 
 Wenn aus einer großen Partitur viele kleine Fragmente eingefügt
 werden sollen, kann dazu das @q{clip systems} Feature benutzt werden.
-Siehe @rnotation{Notationsfragmente extrahieren}.
+Siehe @rnotationnamed{Extracting fragments of music, Notationsfragmente extrahieren}.
 
 
-@node LilyPond-Noten in OpenOffice.org integrieren
+@node Inserting LilyPond output into OpenOffice.org
 @unnumberedsubsec LilyPond-Noten in OpenOffice.org integrieren
-@translationof Inserting LilyPond output into OpenOffice.org
 
 @cindex OpenOffice.org
 
@@ -669,9 +652,8 @@ Musik im LilyPond-Format kann in OpenOffice.org eingefügt werden mittels
 @uref{https://github.com/openlilylib/LO-ly,OOoLilyPond}.
 
 
-@node LilyPond-Noten in andere Programme integrieren
+@node Inserting LilyPond output into other programs
 @unnumberedsubsec LilyPond-Noten in andere Programme integrieren
-@translationof Inserting LilyPond output into other programs
 
 Um die Ausgabe von LilyPond in anderen Programmen einzufügen,
 sollte @code{lilypond} anstelle von @code{lilypond-book}
@@ -716,9 +698,8 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
 @end example
 
 
-@node Unabhängige include-Abschnitte
+@node independent includes
 @section Unabhängige @code{include}-Abschnitte
-@translationof independent includes
 
 Einige Leute haben große (und nützliche!) Code-Abschnitte geshrieben,
 die man in vielen Projekten verwenden kann.  Dieser Code wird möglicherweise
@@ -728,13 +709,12 @@ einfügen.
 
 
 @menu
-* MIDI-Artikulation::
+* MIDI articulation::
 @end menu
 
 
-@node MIDI-Artikulation
+@node MIDI articulation
 @subsection MIDI-Artikulation
-@translationof MIDI articulation
 
 LilyPond kann benutzt werden, um MIDI-Ausgabe zu erzeugen, etwa
 um hörend zu korrigieren, was man notiert hat.  Jedoch werden nur

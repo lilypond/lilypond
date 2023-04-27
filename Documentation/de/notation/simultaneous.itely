@@ -11,9 +11,8 @@
 
 @c Translators: Till Paala
 
-@node Gleichzeitig erscheinende Noten
+@node Simultaneous notes
 @section Gleichzeitig erscheinende Noten
-@translationof Simultaneous notes
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
@@ -23,29 +22,27 @@ in einem Stück. Für LilyPond bedeutet es aber das Vorhandensein
 von mehr als einer Stimme pro System.
 
 @menu
-* Eine einzelne Stimme::
-* Mehrere Stimmen::
+* Single voice::
+* Multiple voices::
 @end menu
 
 
-@node Eine einzelne Stimme
+@node Single voice
 @subsection Eine einzelne Stimme
-@translationof Single voice
 
 Dieser Abschnitt behandelt gleichzeitige Noten innerhalb
 derselben Stimme.
 
 @menu
-* Noten mit Akkorden::
-* Akkord-Wiederholungen::
-* Gleichzeitige Ausdrücke::
-* Cluster::
+* Chorded notes::
+* Chord repetition::
+* Simultaneous expressions::
+* Clusters::
 @end menu
 
 
-@node Noten mit Akkorden
+@node Chorded notes
 @unnumberedsubsubsec Noten mit Akkorden
-@translationof Chorded notes
 
 @cindex Akkorde
 @cindex Klammern, spitze
@@ -101,7 +98,7 @@ wirkliche Noten innerhalb der Klammern keine Dauer.  Alle angehängten
 Artikulationen geschehen zur selben musikalischen Zeit wie die folgende
 Note oder der folgende Akkord und werden damit kombiniert (für
 komplexere Möglichkeiten, derartige Elemente zu kombinieren, siehe
-@ref{Gleichzeitige Ausdrücke}.
+@ref{Simultaneous expressions}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -126,20 +123,20 @@ des Akkordes sind relativ zu der Note vorher innerhalb des selben Akkordes.
 }
 @end lilypond
 
-Mehr Information über Akkorden findet sich in @ref{Notation von Akkorden}.
+Mehr Information über Akkorden findet sich in @ref{Chord notation}.
 
 @morerefs
 Musikglossar:
 @rglos{chord}.
 
 Handbuch zum Lernen:
-@rlearning{Noten zu Akkorden verbinden}.
+@rlearningnamed{Combining notes into chords, Noten zu Akkorden verbinden}.
 
 Notationsreferenz:
-@ref{Notation von Akkorden},
-@ref{Artikulationszeichen und Verzierungen},
-@ref{Relative Oktavenbezeichnung},
-@ref{Mehrere Stimmen}.
+@ref{Chord notation},
+@ref{Articulations and ornamentations},
+@ref{Relative octave entry},
+@ref{Multiple voices}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
@@ -152,7 +149,7 @@ der Situation kann eines der folgenden Dinge helfen, die Darstellung zu verbesse
 @itemize
 
 @item
-Kurzzeitig mehrere Stimmen benutzen, siehe @ref{Mehrere Stimmen}:
+Kurzzeitig mehrere Stimmen benutzen, siehe @ref{Multiple voices}:
 @samp{<y f! \\ <e fis!> >>},
 
 @item
@@ -160,14 +157,13 @@ enharmonische Transkription für einen oder mehrere Tonhöhen vornehmen:
 @samp{<e f ges>} oder
 
 @item
-Cluster, siehe @ref{Cluster}.
+Cluster, siehe @ref{Clusters}.
 
 @end itemize
 
 
-@node Akkord-Wiederholungen
+@node Chord repetition
 @unnumberedsubsubsec Akkord-Wiederholungen
-@translationof Chord repetition
 
 @cindex Akkorde, Wiederholung
 @cindex Wiederholung mit @code{q}
@@ -258,16 +254,15 @@ sind.
 
 @morerefs
 Notationsreferenz:
-@ref{Notation von Akkorden},
-@ref{Artikulationszeichen und Verzierungen}.
+@ref{Chord notation},
+@ref{Articulations and ornamentations}.
 
 Installierte Dateien:
 @file{ly/chord-repetition-init.ly}.
 
 
-@node Gleichzeitige Ausdrücke
+@node Simultaneous expressions
 @unnumberedsubsubsec Gleichzeitige Ausdrücke
-@translationof Simultaneous expressions
 
 Eine oder mehrere musikalische Ausdrücke, die in doppelte spitze
 Klammern eingeschlossen werden, werden gleichzeitig gesetzt.  Wenn
@@ -346,11 +341,10 @@ während der Kompilation.  Diese Nachricht kann unterdrückt werden durch
 
 Das unterdrückt jedoch nicht nur die Warnungen, sondern schaltet auch
 die Auflösung von Zusammenstößen ab und kann also zu unbeabsichtigten
-Resultaten führen. (Siehe auch @ref{Auflösung von Zusammenstößen}.)
+Resultaten führen. (Siehe auch @ref{Collision resolution}.)
 
-@node Cluster
+@node Clusters
 @unnumberedsubsubsec Cluster
-@translationof Clusters
 
 @cindex Cluster
 @cindex Notencluster
@@ -397,24 +391,22 @@ Cluster brauchen eine unsichtbare Pause zwischen sich.
 Cluster produzieren kein MIDI.
 
 
-@node Mehrere Stimmen
+@node Multiple voices
 @subsection Mehrere Stimmen
-@translationof Multiple voices
 
 Dieser Abschnitt behandelt gleichzeitige Noten in mehreren Stimmen
 oder mehreren Systemen.
 
 @menu
-* Mehrstimmigkeit in einem System::
-* Stimmenstile::
-* Auflösung von Zusammenstößen::
-* Automatische Kombination von Stimmen::
-* Musik parallel notieren::
+* Single-staff polyphony::
+* Voice styles::
+* Collision resolution::
+* Automatic part combining::
+* Writing music in parallel::
 @end menu
 
-@node Mehrstimmigkeit in einem System
+@node Single-staff polyphony
 @unnumberedsubsubsec Mehrstimmigkeit in einem System
-@translationof Single-staff polyphony
 
 @cindex Mehrstimmigkeit, ein System
 @cindex ein System, Mehrstimmigkeit
@@ -549,8 +541,8 @@ keine doppelten Pausen ausgegeben werden.
 @end lilypond
 
 Es wird sehr empfohlen, in allen außer den allereinfachsten
-Stücken explizite Stimmenkontexte zu erstellen, wie erklärt in@rlearning{Kontexte und Engraver} und
-@rlearning{Stimmen explizit beginnen}.
+Stücken explizite Stimmenkontexte zu erstellen, wie erklärt in@rlearningnamed{Contexts and engravers, Kontexte und Engraver} und
+@rlearningnamed{Explicitly instantiating voices, Stimmen explizit beginnen}.
 
 @strong{@i{Stimmen-Anordnung}}
 
@@ -620,21 +612,20 @@ ergeben, wenn die Musikausdrücke nicht den gleichen Rhythmus haben.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Voice enthält Noten},
-@rlearning{Stimmen explizit beginnen}.
+@rlearningnamed{Voices contain music, Voice enthält Noten},
+@rlearningnamed{Explicitly instantiating voices, Stimmen explizit beginnen}.
 
 Notationsreferenz:
-@ref{Schlagzeugsysteme},
-@ref{Unsichtbare Pausen},
-@ref{Hälse}.
+@ref{Percussion staves},
+@ref{Invisible rests},
+@ref{Stems}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
 
 
-@node Stimmenstile
+@node Voice styles
 @unnumberedsubsubsec Stimmenstile
-@translationof Voice styles
 
 @cindex Voice-Stile
 @cindex Stile, Stimmen
@@ -676,17 +667,16 @@ die Standardausgabe einzuschalten.
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Ich höre Stimmen},
-@rlearning{Mehr Information}.
+@rlearningnamed{I'm hearing Voices, Ich höre Stimmen},
+@rlearningnamed{Other sources of information, Mehr Information}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
 
 
 
-@node Auflösung von Zusammenstößen
+@node Collision resolution
 @unnumberedsubsubsec Auflösung von Zusammenstößen
-@translationof Collision resolution
 
 @cindex Noten verschmelzen
 @cindex Verschmelzen von Noten
@@ -865,7 +855,7 @@ Anordnung der Stimmen im Notensystem!}
 Zwei zusätzliche Befehle, @code{shiftOnn} und @code{shiftOnnn} stellen
 weitere Verschiebungsebenen zu verfügung, die vorübergehend eingesetzt
 werden können um Zusammenstöße in komplizierten Situationen aufzulösen.
-Siehe auch @rlearning{Beispiel aus dem Leben}.
+Siehe auch @rlearningnamed{Real music example, Beispiel aus dem Leben}.
 
 Noten werden nur verschmolzen, wenn ihre Hälse in entgegengesetzte
 Richtungen zeigen (also etwa wie @code{Voice} 1 und 2 in den
@@ -897,9 +887,9 @@ Musikglossar:
 @rglos{polyphony}.
 
 Handbuch zum Lernen:
-@rlearning{Mehrere Noten auf einmal},
-@rlearning{Voice enthält Noten},
-@rlearning{Beispiel aus dem Leben}.
+@rlearningnamed{Multiple notes at once, Mehrere Noten auf einmal},
+@rlearningnamed{Voices contain music, Voice enthält Noten},
+@rlearningnamed{Real music example, Beispiel aus dem Leben}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
@@ -930,9 +920,8 @@ are at the same time differently dotted are not clear.
 @end ignore
 
 
-@node Automatische Kombination von Stimmen
+@node Automatic part combining
 @unnumberedsubsubsec Automatische Kombination von Stimmen
-@translationof Automatic part combining
 
 @cindex automatische Kombination von Stimmen
 @cindex Stimmen kombinieren
@@ -1098,7 +1087,7 @@ Musikglossar:
 @rglos{part}.
 
 Notationsreferenz:
-@ref{Orchesterstimmen erstellen}.
+@ref{Writing parts}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
@@ -1142,11 +1131,10 @@ mit anderer Bezeichnung ignoriert wird.
 
 Lesen Sie auch den Abschnitt @emph{Bekannte Probleme und Warnungen},
 wenn Sie @code{\partCombine} in Tabulaturen benutzen
-(siehe @ref{Standardtabulaturen}).
+(siehe @ref{Default tablatures}).
 
-@node Musik parallel notieren
+@node Writing music in parallel
 @unnumberedsubsubsec Musik parallel notieren
-@translationof Writing music in parallel
 
 @cindex Parallele Notation, Eingabe
 @cindex Eingabe von Noten parallel
@@ -1258,7 +1246,7 @@ global = {
 
 @morerefs
 Handbuch zum Lernen:
-@rlearning{Stücke durch Variablen organisieren}.
+@rlearningnamed{Organizing pieces with variables, Stücke durch Variablen organisieren}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.

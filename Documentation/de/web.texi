@@ -112,7 +112,7 @@ erreichen.  LilyPond ist Freie Software und Teil des
 @uref{https://gnu.org,GNU-Projekts}.
 
 @divClass{align-right}
-Lesen Sie mehr in der @ref{Einleitung}!
+Lesen Sie mehr in der @ref{Introduction}!
 
 @divEnd
 @divEnd
@@ -166,7 +166,7 @@ und sogar
 
 @end ifset
 
-Sehen Sie sich unsere @ref{Beispiele} an und lassen sich inspirieren!
+Sehen Sie sich unsere @ref{Examples} an und lassen sich inspirieren!
 
 @divEnd
 
@@ -176,7 +176,7 @@ Sehen Sie sich unsere @ref{Beispiele} an und lassen sich inspirieren!
 @c TODO: generate this automatically, including RSS feed.
 @include en/web/news-headlines.itexi
 
-@ref{Neuigkeiten, Weitere Neuigkeiten...}
+@ref{News, Weitere Neuigkeiten...}
 
 @divEnd
 
@@ -195,13 +195,13 @@ Sehen Sie sich unsere @ref{Beispiele} an und lassen sich inspirieren!
 
 @ref{Download, Download @versionStable}
 
-@ref{Handbücher, Handbücher @versionStable}
+@ref{Manuals, Handbücher @versionStable}
 
 @subheading Entwickler Version
 
-@ref{Entwicklung, Download @versionDevel}
+@ref{Development, Download @versionDevel}
 
-@ref{Entwicklung, Handbücher @versionDevel}
+@ref{Development, Handbücher @versionDevel}
 
 @subheading Pondings
 @divId{pondingsText}
@@ -245,10 +245,10 @@ Sehen Sie sich unsere @ref{Beispiele} an und lassen sich inspirieren!
 
 @divClass{hide}
 @menu
-* Einleitung::     Hier beginnen, um Noten zu setzen.
+* Introduction::     Hier beginnen, um Noten zu setzen.
 * Download::       LilyPond Herunterladen.
-* Handbücher::     Lesen der Handbücher.
-* Gemeinschaft::   Kontakt mit anderen Benutzern aufnehmen.
+* Manuals::     Lesen der Handbücher.
+* Community::   Kontakt mit anderen Benutzern aufnehmen.
 @end menu
 @divEnd
 
@@ -356,7 +356,7 @@ dieser Seite ändern:
 @cartouche
 Sollten Sie hier die Erwähnung von \topic\ vermissen, dann teilen Sie uns
 dies bitte mit. Die Anleitung dazu finden Sie unter
-@ref{Fehlerberichte}.
+@ref{Bug reports}.
 
 @end cartouche
 

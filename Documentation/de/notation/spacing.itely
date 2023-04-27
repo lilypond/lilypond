@@ -13,9 +13,8 @@
 @c Translators: Till Paala
 
 
-@node Abstände
+@node Spacing issues
 @chapter Abstände
-@translationof Spacing issues
 
 Das finale Layout der Seite wird von drei Faktoren bestimmt: dem Layout
 der Seite, den Zeilenumbrüchen und der Platzverteilung.  Jeder Faktor
@@ -38,39 +37,37 @@ gesetzt werden: in der @code{\paper @{...@}}- und der @code{\layout @{...@}}-Umg
 Die @code{\paper}-Umgebung enthält Einstellungen des Seitenlayouts, die für
 alle Partituren innerhalb eines @code{\book} die gleichen sein sollen, wie
 etwa Papierhöhe oder ob Seitenzahlen ausgegeben werden sollen.  Siehe
-@ref{Seitenlayout}.  Die @code{\layout}-Umbegung enthält Layouteinstellungen
+@ref{Page layout}.  Die @code{\layout}-Umbegung enthält Layouteinstellungen
 der Partitur selber, wie etwa die Zahl der Systeme oder den Platz zwischen
-Systemgruppen usw.  Siehe @ref{Partiturlayout}.
+Systemgruppen usw.  Siehe @ref{Score layout}.
 
 @menu
-* Seitenlayout::
-* Partiturlayout::
-* Umbrüche::
-* Vertikale Abstände::
-* Horizontale Abstände::
-* Die Musik auf weniger Seiten zwingen::
+* Page layout::
+* Score layout::
+* Breaks::
+* Vertical spacing::
+* Horizontal spacing::
+* Fitting music onto fewer pages::
 @end menu
 
 
-@node Seitenlayout
+@node Page layout
 @section Seitenlayout
-@translationof Page layout
 
 Dieser Abschnitt behandelt Seitenlayout-Optionen innerhalb der @code{\paper}-Umgebung.
 
 @menu
-* Die paper-Umgebung::
-* Papierformat und automatische Skalierung::
-* Vertikale paper-Variablen mit festen Abständen::
-* Vertikale paper-Variablen mit flexiblen Abständen::
-* paper-Variablen für horizontale Abstände::
-* Andere paper-Variablen::
+* The paper block::
+* Paper size and automatic scaling::
+* Fixed vertical spacing paper variables::
+* Flexible vertical spacing paper variables::
+* Horizontal spacing paper variables::
+* Other paper variables::
 @end menu
 
 
-@node Die paper-Umgebung
+@node The paper block
 @subsection Die @code{\paper}-Umgebung
-@translationof The paper block
 
 @cindex Papiergröße
 @cindex Größe, Papier
@@ -98,14 +95,14 @@ Titeln beeinflusst wird.
 @end itemize
 
 Die @code{set-paper-size}-Funktion wird im nächsten Abschnitt behandelt:
-@ref{Papierformat und automatische Skalierung}.  Die @code{\paper}-Variablen,
+@ref{Paper size and automatic scaling}.  Die @code{\paper}-Variablen,
 die das Seitenlayout beeinflussen, werden in späteren Abschnitten behandelt.
 Die Beschriftungsdefinitionen für Kopf- und Fußzeilen sowie Titeln werden behandelt
-in @ref{Eigene Kopf und Fußzeilen sowie Titel}.
+in @ref{Custom headers footers and titles}.
 
 Die meisten @code{\paper}-Variablen funktionieren nur innerhalb der
 @code{\paper}-Umgebung.  Die wenigen, die auch in der @code{\layout}-Umgebung
-funktionieren, finden sich in @ref{Die layout-Umgebung}.
+funktionieren, finden sich in @ref{The layout block}.
 
 Außer wenn anders angegeben, werden alle @code{\paper}-Variablen, die
 Abständen auf der Seite antsprechen, in Millimetern gemessen, es sei denn,
@@ -143,17 +140,16 @@ der obigen Definition ist:
 
 @morerefs
 Notationsreferenz
-@ref{Papierformat und automatische Skalierung},
-@ref{Eigene Kopf und Fußzeilen sowie Titel},
-@ref{Die layout-Umgebung}.
+@ref{Paper size and automatic scaling},
+@ref{Custom headers footers and titles},
+@ref{The layout block}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node Papierformat und automatische Skalierung
+@node Paper size and automatic scaling
 @subsection Papierformat und automatische Skalierung
-@translationof Paper size and automatic scaling
 
 @cindex Papierformat
 @cindex Seitenformat
@@ -161,14 +157,13 @@ Installierte Dateien:
 @funindex \paper
 
 @menu
-* Das Papierformat einstellen::
-* Automatische Skalierung auf ein Papierformat::
+* Setting the paper size::
+* Automatic scaling to paper size::
 @end menu
 
 
-@node Das Papierformat einstellen
+@node Setting the paper size
 @unnumberedsubsubsec Das Papierformat einstellen
-@translationof Setting the paper size
 
 @q{A4} ist der Standardwert, wenn keine ausdrückliches Papierformat
 eingestellt ist.  Es gibt jedoch zwei Funktionen, mit denen man
@@ -204,12 +199,12 @@ Buch.
 
 Wenn die @code{set-paper-size}-Funktion eingesetzt wird, muss sie @emph{vor}
 allen anderen Funktionen stehen, die in derselben @code{\paper}-Umgebung
-benützt werden. Siehe @ref{Automatische Skalierung auf ein Papierformat}.
+benützt werden. Siehe @ref{Automatic scaling to paper size}.
 
 Die Papierformate finden sich in der Datei @file{scm/paper.scm} definiert.
 Hierhin kann man eigene Formate definieren, sie werden jedoch bei einer
 Aktualisierung von LilyPond überschrieben.  Die vorhandenen Papierformate
-finden sich in @ref{Vordefinierte Papierformate}.
+finden sich in @ref{Predefined paper sizes}.
 
 @c An appendix entry exists for paper sizes but is not auto-generated
  
@@ -248,16 +243,15 @@ Die Notenausgabe wird @emph{nicht} gedreht, nur das Papierformat.
 
 @morerefs
 Notationsreferenz:
-@ref{Automatische Skalierung auf ein Papierformat},
-@ref{Vordefinierte Papierformate}.
+@ref{Automatic scaling to paper size},
+@ref{Predefined paper sizes}.
 
 Installierte Dateien:
 @file{scm/paper.scm}.
 
 
-@node Automatische Skalierung auf ein Papierformat
+@node Automatic scaling to paper size
 @unnumberedsubsubsec Automatische Skalierung auf ein Papierformat
-@translationof Automatic scaling to paper size
 
 Wenn das Papierformat mit einer der Scheme-Funktionen
 (@code{set-default-paper-size} oder @code{set-paper-size}) geändert wird,
@@ -270,15 +264,15 @@ automatische Anpassung nicht ausgelöst wird, wenn man nur die
 @code{paper-width} andere Werte beeinflussen kann (das muss von der automatischen
 Skalierung unterschieden werden und wird unten behandelt).  Die Funktionen
 @code{set-default-paper-size} und @code{set-paper-size} werden behandelt
-in @ref{Das Papierformat einstellen}.
+in @ref{Setting the paper size}.
 
 Die vertikalen Dimensionen, die durch die automatische Skalierung verändert
 werden sind: @code{top-margin} und @code{bottom-margin} (siehe
-@ref{Vertikale paper-Variablen mit festen Abständen}).  Die horizontalen
+@ref{Fixed vertical spacing paper variables}).  Die horizontalen
 Dimensionen, die durch die automatische Skalierung verändert werden, sind
 @code{left-margin}, @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent} und @code{short-indent} (siehe
-@ref{paper-Variablen für horizontale Abstände}).
+@ref{Horizontal spacing paper variables}).
 
 Die Standardwerte für diese Dimensionen sind in
 @file{ly/paper-defaults-init.ly} definiert, wobei interne Variablen mit den
@@ -289,8 +283,8 @@ benutzt werden.  Das sind die Werte für die Standardpapiergröße
 
 @morerefs
 Notationsreferenz:
-@ref{Vertikale paper-Variablen mit festen Abständen},
-@ref{paper-Variablen für horizontale Abstände}.
+@ref{Fixed vertical spacing paper variables},
+@ref{Horizontal spacing paper variables}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly},
@@ -298,13 +292,12 @@ Installierte Dateien:
 
 
 
-@node Vertikale paper-Variablen mit festen Abständen
+@node Fixed vertical spacing paper variables
 @subsection Vertikale @code{\paper}-Variablen mit festen Abständen
-@translationof Fixed vertical spacing paper variables
 
 @warning{Einige @code{@bs{}paper}-Dimensionen werden automatisch nach
 Papierformat skaliert, was zu ungewolltem Verhalten führen kann.  Siehe
-@ref{Automatische Skalierung auf ein Papierformat}.}
+@ref{Automatic scaling to paper size}.}
 
 Standardwerte (vor der Skalierung) sind definiert in
 @file{ly/paper-defaults-init.ly}.
@@ -349,7 +342,7 @@ falsch (@code{false}) gesetzt werden.  Hiermit wird auch die letzte Seite von Te
 
 @morerefs
 Notationsreferenz:
-@ref{Automatische Skalierung auf ein Papierformat}.
+@ref{Automatic scaling to paper size}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
@@ -368,9 +361,8 @@ Explizit definierte Papierformate überschreiben alle vom Benutzer erstellte
 Randeinstellung für die Ränder oben und unten.
 
 
-@node Vertikale paper-Variablen mit flexiblen Abständen
+@node Flexible vertical spacing paper variables
 @subsection Vertikale @code{\paper}-Variablen mit flexiblen Abständen
-@translationof Flexible vertical spacing paper variables
 
 In den meisten Fällen bietet es sich an, dass die vertikalen
 Abstände zwischen bestimmten Objekten (wie Ränder, Titel,
@@ -387,17 +379,16 @@ Systemgruppen behandelt.  Die Dehnung zwischen Notensystemen
 wird mit Grob-Eigenschaften kontrolliert, deren Einstellungen
 normalerweise innerhalb der @code{\score}-Umgebung vorgenommen
 werden, und nicht innerhalb der @code{\paper}-Umgebung.  Siehe auch
-@ref{Flexible vertikale Abstände in Systemgruppen}.
+@ref{Flexible vertical spacing within systems}.
 
 @menu
-* Struktur der Alisten für flexible vertikale Abstände::
-* Liste der flexiblen vertikalen Abstandsvariablen in paper::
+* Structure of flexible vertical spacing alists::
+* List of flexible vertical spacing paper variables::
 @end menu
 
 
-@node Struktur der Alisten für flexible vertikale Abstände
+@node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec Struktur der Alisten für flexible vertikale Abstände
-@translationof Structure of flexible vertical spacing alists
 
 Jede der flexiblen vertikalen Abstandsvariablen ist eine Aliste (eine assoziative Liste), die
 vier @emph{Schlüssel} (engl. key) enthält:
@@ -471,7 +462,7 @@ greift die letzte Seite auf die gleiche Positionierung zurück wie die
 vorhergehende Seite, vorausgesetzt, dafür ist genügend Platz vorhanden.
 
 Spezifische Methoden, um Alisten zu verändern, werden behandelt in
-@ref{Alisten verändern}.  Das folgende Beispiel demonstriert beide Arten,
+@ref{Modifying alists}.  Das folgende Beispiel demonstriert beide Arten,
 wie diese Alisten verändert werden können.  Der erste Aufruf verändert
 nur einen Schlüsselwert einzeln, während der zweite die Variable
 vollständig neu definiert:
@@ -488,9 +479,8 @@ vollständig neu definiert:
 @end example
 
 
-@node Liste der flexiblen vertikalen Abstandsvariablen in paper
+@node List of flexible vertical spacing paper variables
 @unnumberedsubsubsec Liste der flexiblen vertikalen Abstandsvariablen in @code{\paper}
-@translationof List of flexible vertical spacing paper variables
 
 Die Bezeichnungen dieser Variablen entsprechen dem Format
 @code{@var{obere}-@var{untere}-platzierung}, wobei @code{@var{obere}}
@@ -500,7 +490,7 @@ Abstand wird zwischen den Referenzpunkten der beiden Elemente gemessen
 bedeutet @q{@code{markup}} (Beschriftung) sowohl
 @emph{Titelbeschriftungen} (@code{bookTitleMarkup} oder
 @code{scoreTitleMarkup}) als auch @emph{Beschriftungen auf höchster Ebene}
-(siehe @ref{Die Dateistruktur}).  Alle Entfernungen werden in Systemzwischenräumen
+(siehe @ref{File structure}).  Alle Entfernungen werden in Systemzwischenräumen
 gemessen.
 
 Standardwerte sind in @file{ly/paper-defaults-init.ly} definiert.
@@ -561,7 +551,7 @@ einer Seite, wenn keine Systemgruppe dazwischen kommt.
 
 @morerefs
 Notationsreferenz:
-@ref{Flexible vertikale Abstände in Systemgruppen}.
+@ref{Flexible vertical spacing within systems}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
@@ -571,24 +561,22 @@ Schnipsel:
 
 
 
-@node paper-Variablen für horizontale Abstände
+@node Horizontal spacing paper variables
 @subsection @code{\paper}-Variablen für horizontale Abstände
-@translationof Horizontal spacing paper variables
 
 @warning{Einige @code{@bs{}paper}-Dimensionen werden automatische
 entsprechend dem Papierformat skaliert und können deshalb ungewollte
-Resultate haben.  Siehe @ref{Automatische Skalierung auf ein Papierformat}.}
+Resultate haben.  Siehe @ref{Automatic scaling to paper size}.}
 
 @menu
-* paper-Variablen für Breite und Ränder::
-* paper-Variablen für zweiseitigen Satz::
-* paper-Variablen für Verschiebungen und Einrückungen::
+* paper variables for widths and margins::
+* paper variables for two-sided mode::
+* paper variables for shifts and indents::
 @end menu
 
 
-@node paper-Variablen für Breite und Ränder
+@node paper variables for widths and margins
 @unnumberedsubsubsec @code{\paper}-Variablen für Breite und Ränder
-@translationof paper variables for widths and margins
 
 Standardwerte (vor der Skalierung), die hier nicht aufgelistet
 sind, finden sich in @file{ly/paper-defaults-init.ly}.
@@ -682,7 +670,7 @@ kann auch in der @code{\layout}-Umgebung definiert werden.
 
 @morerefs
 Notationsreferenz:
-@ref{Automatische Skalierung auf ein Papierformat}.
+@ref{Automatic scaling to paper size}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
@@ -692,9 +680,8 @@ Explizit definierte Papierformate überschreiben alle vom Benutzer erstellte
 Randeinstellung für die Ränder oben und unten.
 
 
-@node paper-Variablen für zweiseitigen Satz
+@node paper variables for two-sided mode
 @unnumberedsubsubsec @code{\paper}-Variablen für zweiseitigen Satz
-@translationof paper variables for two-sided mode
 
 Standardwerte (vor der Skalierung) sind definiert in
 @file{ly/paper-defaults-init.ly}.
@@ -741,15 +728,14 @@ wenn @code{two-sided} wahr ist.
 
 @morerefs
 Notationsreferenz:
-@ref{Automatische Skalierung auf ein Papierformat}.
+@ref{Automatic scaling to paper size}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node paper-Variablen für Verschiebungen und Einrückungen
+@node paper variables for shifts and indents
 @unnumberedsubsubsec @code{\paper}-Variablen für Verschiebungen und Einrückungen
-@translationof paper variables for shifts and indents
 
 
 Standardwerte (vor der Skalierung), die hier nicht aufgeführt sind,
@@ -784,7 +770,7 @@ Diese Variable kann auch in der @code{\layout}-Umgebung definiert werden.
 
 @morerefs
 Notationsreferenz:
-@ref{Automatische Skalierung auf ein Papierformat}.
+@ref{Automatic scaling to paper size}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
@@ -793,21 +779,19 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Andere paper-Variablen
+@node Other paper variables
 @subsection Andere @code{\paper}-Variablen
-@translationof Other paper variables
 
 @menu
-* paper-Variablen für den Zeilenumbruch::
-* paper-Variablen für den Seitenumbruch::
-* paper-Variablen für Seitenzahlen::
-* Verschiedene paper-Variablen::
+* paper variables for line breaking::
+* paper variables for page breaking::
+* paper variables for page numbering::
+* Miscellaneous paper variables::
 @end menu
 
 
-@node paper-Variablen für den Zeilenumbruch
+@node paper variables for line breaking
 @unnumberedsubsubsec @code{\paper}-Variablen für den Zeilenumbruch
-@translationof paper variables for line breaking
 @c TODO: Mention that ly:optimal-breaking is on by default? -mp
 
 @table @code
@@ -845,12 +829,11 @@ Standard: nicht gesetzt.  Diese Variablen kann auch in der
 
 @morerefs
 Notationsreferenz:
-@ref{Zeilenumbrüche}.
+@ref{Line breaking}.
 
 
-@node paper-Variablen für den Seitenumbruch
+@node paper variables for page breaking
 @unnumberedsubsubsec @code{\paper}-Variablen für den Seitenumbruch
-@translationof paper variables for page breaking
 
 Standardwerte, die hier nicht aufgelistet sind, finden sich in
 @file{ly/paper-defaults-init.ly}
@@ -908,19 +891,18 @@ Standard: nicht gesetzt.
 
 @morerefs
 Notationsreferenz:
-@ref{Seitenumbrüche},
-@ref{Optimale Seitenumbrüche},
-@ref{Optimale Umbrüche zum Blättern},
-@ref{Minimale Seitenumbrüche},
-@ref{Eine-Seite-Seitenumbrüche}.
+@ref{Page breaking},
+@ref{Optimal page breaking},
+@ref{Optimal page turning},
+@ref{Minimal page breaking},
+@ref{One-line page breaking}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
 
 
-@node paper-Variablen für Seitenzahlen
+@node paper variables for page numbering
 @unnumberedsubsubsec @code{\paper}-Variablen für Seitenzahlen
-@translationof paper variables for page numbering
 
 Standardwerte, die hier nicht aufgelistet sind, finden sich in
 @file{ly/paper-defaults-init.ly}
@@ -969,9 +951,8 @@ eine leere Seite nach dem Deckblatt einfügen, damit die Noten
 auf der rechten Seite mit Seite 1 beginnen.
 
 
-@node Verschiedene paper-Variablen
+@node Miscellaneous paper variables
 @unnumberedsubsubsec Verschiedene @code{\paper}-Variablen
-@translationof Miscellaneous paper variables
 @table @code
 
 @item page-spacing-weight
@@ -1033,19 +1014,17 @@ Zeile.
 
 
 
-@node Partiturlayout
+@node Score layout
 @section Partiturlayout
-@translationof Score layout
 
 @menu
-* Die layout-Umgebung::
-* Die Notensystemgröße einstellen::
+* The layout block::
+* Setting the staff size::
 @end menu
 
 
-@node Die layout-Umgebung
+@node The layout block
 @subsection Die @code{\layout}-Umgebung
-@translationof The layout block
 
 @cindex Partitur, Layout
 @cindex Layout, Partitur
@@ -1068,24 +1047,24 @@ vorkommen können, beinhalten:
 @end itemize
 
 Die @code{layout-set-staff-size}-Funktion wird im nächsten Abschnitt behandelt,
-@ref{Die Notensystemgröße einstellen}.  Kontextveränderungen werden in einem
-eigenen Kapitel behandelt, siehe @ref{Umgebungs-Plugins verändern} and
-@ref{Die Standardeinstellungen von Kontexten ändern}.  Die @code{\paper}-Variablen,
+@ref{Setting the staff size}.  Kontextveränderungen werden in einem
+eigenen Kapitel behandelt, siehe @ref{Modifying context plug-ins} and
+@ref{Changing context default settings}.  Die @code{\paper}-Variablen,
 die innerhalb der @code{\layout}-Umgebungen erlaubt sind, sind:
 
 @itemize
 
 @item
 @code{line-width}, @code{ragged-right} und @code{ragged-last}
-(siehe @ref{paper-Variablen für Breite und Ränder})
+(siehe @ref{paper variables for widths and margins})
 
 @item
 @code{indent} und @code{short-indent}
-(siehe @ref{paper-Variablen für Verschiebungen und Einrückungen})
+(siehe @ref{paper variables for shifts and indents})
 
 @item
 @code{system-count}
-(siehe @ref{paper-Variablen für den Zeilenumbruch})
+(siehe @ref{paper variables for line breaking})
 
 @end itemize
 
@@ -1209,18 +1188,17 @@ wieder zurückzusetzen.
 
 @morerefs
 Notationsreferenz:
-@ref{Die Standardeinstellungen von Kontexten ändern},
-@ref{Die Notensystemgröße einstellen},
-@ref{Umgebungs-Plugins verändern}.
+@ref{Changing context default settings},
+@ref{Setting the staff size},
+@ref{Modifying context plug-ins}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
 
-@node Die Notensystemgröße einstellen
+@node Setting the staff size
 @subsection Die Notensystemgröße einstellen
-@translationof Setting the staff size
 
 @cindex Schriftgröße, Einstellung
 @cindex Systemgröße, Einstellung
@@ -1327,31 +1305,29 @@ ist relativ zur globalen Systemgröße.
 
 @morerefs
 Notationsreferenz:
-@ref{Auswahl der Notations-Schriftgröße}.
+@ref{Selecting notation font size}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Umbrüche
+@node Breaks
 @section Umbrüche
-@translationof Breaks
 
 @menu
-* Zeilenumbrüche::
-* Seitenumbrüche::
-* Optimale Seitenumbrüche::
-* Optimale Umbrüche zum Blättern::
-* Minimale Seitenumbrüche::
-* Eine-Seite-Seitenumbrüche::
-* Ausdrückliche Umbrüche::
-* Eine zusätzliche Stimme für Umbrüche benutzen::
+* Line breaking::
+* Page breaking::
+* Optimal page breaking::
+* Optimal page turning::
+* Minimal page breaking::
+* One-line page breaking::
+* Explicit breaks::
+* Using an extra voice for breaks::
 @end menu
 
 
-@node Zeilenumbrüche
+@node Line breaking
 @subsection Zeilenumbrüche
-@translationof Line breaking
 
 @cindex Zeilenumbrüche
 @cindex Umbrüche von Zeilen
@@ -1482,7 +1458,7 @@ kompliziert.  Mehr Einzelheiten finden sich in
 
 @morerefs
 Notationsreferenz:
-@ref{paper-Variablen für den Zeilenumbruch}.
+@ref{paper variables for line breaking}.
 
 Schnipsel:
 @rlsr{Spacing}.
@@ -1491,9 +1467,8 @@ Referenz der Interna:
 @rinternals{LineBreakEvent}.
 
 
-@node Seitenumbrüche
+@node Page breaking
 @subsection Seitenumbrüche
-@translationof Page breaking
 
 @cindex Seitenumbrüche
 @cindex Umbrüche, Seite
@@ -1517,7 +1492,7 @@ Variablen auf @code{#t} (wahr) gesetzt werden, werden im ersten
 Fall die Notensysteme auf allen Seiten eng nach oben orientiert
 gesetzt werden.  Im zweiten Fall bezieht sich dies nur auf die
 letzte Seite.
-Zu Einzelheiten siehe @ref{Vertikale paper-Variablen mit festen Abständen}.
+Zu Einzelheiten siehe @ref{Fixed vertical spacing paper variables}.
 
 Seitenumbrüche werden von der @code{page-breaking}-Funktion errechnet.
 LilyPond kennt drei Algorithmen um Seitenumbrüche zu errechnen:
@@ -1575,15 +1550,14 @@ Buchteilen benutzt werden.
 
 @morerefs
 Notationsreferenz:
-@ref{paper-Variablen für den Seitenumbruch}.
+@ref{paper variables for page breaking}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Optimale Seitenumbrüche
+@node Optimal page breaking
 @subsection Optimale Seitenumbrüche
-@translationof Optimal page breaking
 
 @funindex ly:optimal-breaking
 
@@ -1599,9 +1573,8 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Optimale Umbrüche zum Blättern
+@node Optimal page turning
 @subsection Optimale Umbrüche zum Blättern
-@translationof Optimal page turning
 
 @funindex ly:page-turn-breaking
 
@@ -1615,7 +1588,7 @@ den Vorrang zu geben.
 
 Die Funktion wird in zwei Schritten eingesetzt.  Zunächst muss sie
 in der @code{\paper}-Umgebung aktiviert werden, wie gezeigt in
-@ref{Seitenumbrüche}.  Dann muss noch angegeben werden, welche Stellen
+@ref{Page breaking}.  Dann muss noch angegeben werden, welche Stellen
 bevorzugt für Seitenumbrüche benutzt werden sollen.
 
 Für diesen zweiten Schritt gibt es zwei Methoden.  Am Einfachsten ist
@@ -1691,9 +1664,8 @@ In einer Partitur sollte nur ein @code{Page_turn_engraver} vorkommen.  Wenn
 mehr als einer definiert werden, stören sie sich gegenseitig.
 
 
-@node Minimale Seitenumbrüche
+@node Minimal page breaking
 @subsection Minimale Seitenumbrüche
-@translationof Minimal page breaking
 
 @funindex ly:minimal-breaking
 
@@ -1716,9 +1688,8 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Eine-Seite-Seitenumbrüche
+@node One-line page breaking
 @subsection Eine-Seite-Seitenumbrüche
-@translationof One-line page breaking
 
 @funindex ly:one-line-breaking
 
@@ -1735,9 +1706,8 @@ wenn auch @code{left-margin} und @code{right-margin} noch beachtet
 werden.  Die Höhe der Seite wird nicht verändert.
 
 
-@node Ausdrückliche Umbrüche
+@node Explicit breaks
 @subsection Ausdrückliche Umbrüche
-@translationof Explicit breaks
 
 Es kann vorkommen, dass LilyPond direkte @code{\break} oder
 @code{\pageBreak}-Befehl nicht beachtet.  Mit folgenden
@@ -1791,9 +1761,8 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Eine zusätzliche Stimme für Umbrüche benutzen
+@node Using an extra voice for breaks
 @subsection Eine zusätzliche Stimme für Umbrüche benutzen
-@translationof Using an extra voice for breaks
 
 Zeilen- und Seitenumbruchbefehle werden normalerweise direkt
 zusammen mit den Noten eingegeben.
@@ -1843,7 +1812,7 @@ dann klarer notiert werden, wenn man Einstellungen der
 @code{line-break-system-details}-Eigenschaft oder
 anderer Eigenschaften von
 @code{NonMusicalPaperColumnGrob} vornimmt (hierzu auch
-@ref{Vertikale Abstände}).
+@ref{Vertical spacing}).
 
 @lilypond[quote,verbatim]
 music = \relative { c''4 c c c }
@@ -1876,15 +1845,14 @@ music = \relative { c''4 c c c }
 
 @morerefs
 Notationsreferenz:
-@ref{Vertikale Abstände}.
+@ref{Vertical spacing}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Vertikale Abstände
+@node Vertical spacing
 @section Vertikale Abstände
-@translationof Vertical spacing
 
 @cindex vertikale Positionierung
 @cindex Positionierung, vertikal
@@ -1898,15 +1866,14 @@ Platz zwischen Notensystemen (engl. staff, Pl. staves)
 innerhalb von Gruppen gesetzt wird.
 
 @menu
-* Flexible vertikale Abstände in Systemgruppen::
-* Explizite Positionierung von Systemen::
-* Vermeidung von vertikalen Zusammenstößen::
+* Flexible vertical spacing within systems::
+* Explicit staff and system positioning::
+* Vertical collision avoidance::
 @end menu
 
 
-@node Flexible vertikale Abstände in Systemgruppen
+@node Flexible vertical spacing within systems
 @subsection Flexible vertikale Abstände in Systemgruppen
-@translationof Flexible vertical spacing within systems
 
 @cindex Abstand zwischen Notensystemen
 @cindex Notensystemabstand
@@ -1942,19 +1909,18 @@ Abschnitt behandelt wird, nur die vertikale Platzierung von Systemen und
 nicht-Systemzeilen in einzelnen Systemgruppen behandelt.  Die vertikale
 Platzierung zwischen einzelnen Systemgruppen, Partituren, Beschriftungen
 usw. und den Rändern wird durch @code{\paper}-Variablen kontrolliert, die
-@ref{Vertikale paper-Variablen mit flexiblen Abständen}.
+@ref{Flexible vertical spacing paper variables}.
 
 @menu
-* Eigenschaften für Abstände innerhalb von Systemgruppen::
-* Abstände von nicht gruppierten Notensystemen::
-* Abstände von gruppierten Notensystemen::
-* Abstände von nicht-Notensystemzeilen::
+* Within-system spacing properties::
+* Spacing of ungrouped staves::
+* Spacing of grouped staves::
+* Spacing of non-staff lines::
 @end menu
 
 
-@node Eigenschaften für Abstände innerhalb von Systemgruppen
+@node Within-system spacing properties
 @unnumberedsubsubsec Eigenschaften für Abstände innerhalb von Systemgruppen
-@translationof Within-system spacing properties
 
 @funindex staff-affinity
 @funindex staffgroup-staff-spacing
@@ -2094,9 +2060,9 @@ labelContext =
 Jeder der vertikalen Platzierungs-Grobeigenschaften (außer
 @code{staff-affinity}) benutzt die gleiche Alistenstruktur
 wie die @code{\paper}-Variablen, behandelt in
-@ref{Vertikale paper-Variablen mit flexiblen Abständen}.  Besondere
+@ref{Flexible vertical spacing paper variables}.  Besondere
 Methoden um Alisten zu verändern finden sich in
-@ref{Alisten verändern}.  Grob-Eigenschaften sollten mit
+@ref{Modifying alists}.  Grob-Eigenschaften sollten mit
 dem @code{\override}-Befehle innerhalb einer @code{\score}-
 oder @code{\layout}-Umgebung angepasst werden, nicht innerhalb einer
 @code{\paper}-Umgebung.
@@ -2259,8 +2225,8 @@ für dieses Notensystem geändert werden.
 
 @morerefs
 Notationsreferenz:
-@ref{Vertikale paper-Variablen mit flexiblen Abständen},
-@ref{Alisten verändern}.
+@ref{Flexible vertical spacing paper variables},
+@ref{Modifying alists}.
 
 Installierte Dateien:
 @file{ly/engraver-init.ly},
@@ -2272,9 +2238,8 @@ Referenz der Interna:
 @rinternals{StaffGrouper}.
 
 
-@node Abstände von nicht gruppierten Notensystemen
+@node Spacing of ungrouped staves
 @unnumberedsubsubsec Abstände von nicht gruppierten Notensystemen
-@translationof Spacing of ungrouped staves
 
 @emph{Notensysteme} (wie etwa @code{Staff}, @code{DrumStaff},
 @code{TabStaff} usw.) sind Kontexte, die eine oder mehrere Stimmen-Kontexte
@@ -2292,11 +2257,11 @@ Notensystemen:
 @end itemize
 
 Diese Eigenschaften sind einzlen oben behandelt worden, siehe
-@ref{Eigenschaften für Abstände innerhalb von Systemgruppen}.
+@ref{Within-system spacing properties}.
 
 Zusätzliche Eigenschaften kommen hinzu für Notensysteme, die Teil
 einer Gruppieren (@code{StaffGroup}) werden, siehe
-@ref{Abstände von gruppierten Notensystemen}.
+@ref{Spacing of grouped staves}.
 
 Folgendes Beispiel zeigt, wie die @code{default-staff-staff-spacing}-Eigenschaft
 sich auf die Platzierung von nicht-gruppierten Notensystemen auswirken kann.
@@ -2349,9 +2314,8 @@ Referenz der Interna:
 @rinternals{VerticalAxisGroup}.
 
 
-@node Abstände von gruppierten Notensystemen
+@node Spacing of grouped staves
 @unnumberedsubsubsec Abstände von gruppierten Notensystemen
-@translationof Spacing of grouped staves
 
 In Orchesterpartituren und anderen großen Partituren werden Notensysteme
 normalerweise in Gruppen zusammengefasst.  Der Platz zwischen Gruppen
@@ -2378,7 +2342,7 @@ innerhalb von Gruppen:
 @end itemize
 
 Diese Grob-Eigenschaften sind weiter oben einzeln beschrieben, siehe
-@ref{Eigenschaften für Abstände innerhalb von Systemgruppen}.
+@ref{Within-system spacing properties}.
 
 Das folgende Beispiel zeigt, wie Eigenscchaften des
 @code{StaffGrouper}-Grobs die Platzierung von gruppierten Notensystemen
@@ -2420,9 +2384,8 @@ Referenz der Interna:
 @rinternals{StaffGrouper}.
 
 
-@node Abstände von nicht-Notensystemzeilen
+@node Spacing of non-staff lines
 @unnumberedsubsubsec Abstände von nicht-Notensystemzeilen
-@translationof Spacing of non-staff lines
 
 @emph{Nicht-Notensystemzeilen} (wie @code{Lyrics}, @code{ChordNames}
 usw.) sind Kontexte, deren Layoutobjekte wie Notensysteme gesetzt
@@ -2443,7 +2406,7 @@ Folgende Eigenschaften beeinflussen die Abstände von Nicht-Notensystemzeilen:
 @end itemize
 
 Diese Grob-Eigenschaften sind weiter oben einzlen beschrieben; siehe
-@ref{Eigenschaften für Abstände innerhalb von Systemgruppen}.
+@ref{Within-system spacing properties}.
 
 Das folgende Beispiel zeigt, wie die @code{nonstaff-nonstaff-spacing}-Eigenschaft
 die Platzierung von aufeinanderfolgenden Nicht-Notensystemzeilen beeinflussen
@@ -2495,9 +2458,8 @@ Referenz der Interna:
 
 
 
-@node Explizite Positionierung von Systemen
+@node Explicit staff and system positioning
 @subsection Explizite Positionierung von Systemen
-@translationof Explicit staff and system positioning
 
 Man kann die flexiblen Einstellungen der vertikalen Abstände, wie sie im
 vorigen Abschnitt
@@ -2588,7 +2550,7 @@ Diese Partitur nimmt Zeilen- und Seitenumbruchinformationen in einer
 eigenen Stimme vor.  Mit dieser Methode kann die Layout-Information
 einfach von den Noten getrennt werden, was sehr hilfreich ist, wenn
 das Beispiel komplizierter wird.  Siehe auch
-@ref{Eine zusätzliche Stimme für Umbrüche benutzen}.
+@ref{Using an extra voice for breaks}.
 
 Ausdrückliche @code{\break}-Befehle teilen die Noten in sechs Takte
 lange Zeilen.  Die vertikale Platzverteilung wird von LilyPond
@@ -2727,9 +2689,8 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Vermeidung von vertikalen Zusammenstößen
+@node Vertical collision avoidance
 @subsection Vermeidung von vertikalen Zusammenstößen
-@translationof Vertical collision avoidance
 
 @cindex Vermeidung von vertikalen Zusammenstößen
 @cindex Zusammenstöße, vertikal, vermeiden
@@ -2823,26 +2784,24 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Horizontale Abstände
+@node Horizontal spacing
 @section Horizontale Abstände
-@translationof Horizontal spacing
 
 @cindex horizontale Platzierung
 @cindex horizontale Anordnung
 @cindex Anordnung, horizontal
 
 @menu
-* Überblick über horizontale Abstände::
-* Eine neuer Bereich mit anderen Abständen::
-* Horizontale Abstände verändern::
-* Zeilenlänge::
-* Proportionale Notation::
+* Horizontal spacing overview::
+* New spacing section::
+* Changing horizontal spacing::
+* Line length::
+* Proportional notation::
 @end menu
 
 
-@node Überblick über horizontale Abstände
+@node Horizontal spacing overview
 @subsection Überblick über horizontale Abstände
-@translationof Horizontal spacing overview
 
 Die Setzmaschine interpretiert unterschiedliche Notendauern als
 dehnbare Abstände (engl. spring) unterschiedlicher Länge.  Längere
@@ -2911,7 +2870,7 @@ c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 
 In dem @emph{Aufsatz zum automatisierten Notensatz} wurde erklärt, dass die
 Richtung der Notenhälse die Platzverteilung beeinflusst (siehe
-@ressay{Optischer Ausgleich}).  Das wird
+@ressaynamed{Optical spacing, Optischer Ausgleich}).  Das wird
 kontrolliert durch die @code{stem-spacing-correction}-Eigenschaft
 in dem @code{NoteSpacing}-Objekt.  Dieses Objekt wird für jeden
 @code{Voice}-Kontext erstellt.  Das @code{StaffSpacing}-Objekt (in
@@ -2932,11 +2891,11 @@ besser sieht:
 }
 @end lilypond
 
-Proportionale Notation ist unterstützt, siehe @ref{Proportionale Notation}.
+Proportionale Notation ist unterstützt, siehe @ref{Proportional notation}.
 
 @morerefs
 Aufsatz über den automatischen Notensatz:
-@ressay{Optischer Ausgleich}.
+@ressaynamed{Optical spacing, Optischer Ausgleich}.
 
 Schnipsel:
 @rlsr{Spacing}.
@@ -2961,9 +2920,8 @@ werden, um zusätzlichen Platz in eine Partitur einzufügen.
 Es gibt derzeit keine Möglichkeit, den Platz zu verringern.
 
 
-@node Eine neuer Bereich mit anderen Abständen
+@node New spacing section
 @subsection Eine neuer Bereich mit anderen Abständen
-@translationof New spacing section
 
 @cindex horizontale Notenabstände, Abschnitte definierten
 @cindex Notenabstände, Abschnitte definieren
@@ -3001,9 +2959,8 @@ Referenz der Interna:
 @rinternals{SpacingSpanner}.
 
 
-@node Horizontale Abstände verändern
+@node Changing horizontal spacing
 @subsection Horizontale Abstände verändern
-@translationof Changing horizontal spacing
 
 @cindex Notenabstände, horizontal
 @cindex horizontale Abstände
@@ -3101,9 +3058,8 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Zeilenlänge
+@node Line length
 @subsection Zeilenlänge
-@translationof Line length
 
 @cindex Seitenumbrüche
 @cindex Umbrechen von Seiten
@@ -3159,9 +3115,8 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Proportionale Notation
+@node Proportional notation
 @subsection Proportionale Notation
-@translationof Proportional notation
 
 LilyPond hat Unterstützung für proportionale Notation.  Dabei handelt
 es sich um eine horizontale Platzverteilung, die jeder Note einen
@@ -3441,7 +3396,7 @@ Das heißt, dass @code{uniform-stretching} für die gesamte Partitur
 (d.h. für die Reichweite von @code{Score}) entweder an- oder
 ausgeschaltet ist.  Man kann allerdings in einer Partitur unterschiedliche
 Abschnitte mit verschiedenem Platzierungsverhalten definieren.
-Hierzu ist der Befehl @code{\newSpacingSection} da.  Siehe auch @ref{Eine neuer Bereich mit anderen Abständen}.
+Hierzu ist der Befehl @code{\newSpacingSection} da.  Siehe auch @ref{New spacing section}.
 
 Im Folgenden soll gezeigt werden, wie sich der
 @code{Separating_line_group_engraver}
@@ -3551,15 +3506,14 @@ Objekte wie Balken und Glissandi auch über Taktstriche hinweg zu.
 
 @morerefs
 Notationsreferenz:
-@ref{Eine neuer Bereich mit anderen Abständen}.
+@ref{New spacing section}.
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Die Musik auf weniger Seiten zwingen
+@node Fitting music onto fewer pages
 @section Die Musik auf weniger Seiten zwingen
-@translationof Fitting music onto fewer pages
 
 Manchmal kommt es vor, dass nur ein oder zwei Systeme auf die
 nächste Seite geraten, obwohl es so aussieht, als ob auf der
@@ -3570,17 +3524,16 @@ Wenn man derartige Platzierungsprobleme untersucht, ist die
 Funktion @code{annotate-spacing} von sehr großer Hilfe.  Hiermit
 wird in den Musiksatz zusätzlich Information darüber ausgegeben,
 wieviel Platz bestimmten Parametern zugewiesen wird.  Genaueres
-hierzu in @ref{Abstände anzeigen lassen}.
+hierzu in @ref{Displaying spacing}.
 
 @menu
-* Abstände anzeigen lassen::
-* Abstände verändern::
+* Displaying spacing::
+* Changing spacing::
 @end menu
 
 
-@node Abstände anzeigen lassen
+@node Displaying spacing
 @subsection Abstände anzeigen lassen
-@translationof Displaying spacing
 
 @cindex Platzierung, Layouteinstellungen
 
@@ -3630,20 +3583,19 @@ obere Rand des Intervalls.
 @morerefs
 
 Notationsreferenz:
-@ref{Die Notensystemgröße einstellen}
+@ref{Setting the staff size}
 
 Schnipsel:
 @rlsr{Spacing}.
 
 
-@node Abstände verändern
+@node Changing spacing
 @subsection Abstände verändern
-@translationof Changing spacing
 
 Die Ausgabe von @code{annotate-spacing} bietet sehr viele
 Details zu den vertikalen Dimensionen einer Partitur.  Zu Information,
 wie Seitenränder und andere Layout-Variablen geändert werden
-können, siehe @ref{Seitenlayout}.
+können, siehe @ref{Page layout}.
 
 Neben Rändern gibt es einige weitere Optionen, Platz zu sparen:
 
@@ -3709,7 +3661,7 @@ e4 c g-\tweak X-offset #-2.7 -\tweak Y-offset #2.5 \f c
 @item
 Die horizontalen Abstände können mit der
 @code{SpacingSpanner}-Eigenschaft verändert werden.  Siehe
-@ref{Horizontale Abstände verändern} für Einzelheiten.  Dieses
+@ref{Changing horizontal spacing} für Einzelheiten.  Dieses
 Beispiel zeigt die normalen Abstände:
 
 @lilypond[verbatim,quote]
@@ -3759,8 +3711,8 @@ auf eine ganze @code{\score}-Umgebung aus.
 
 @morerefs
 Notationsreferenz:
-@ref{Seitenlayout},
-@ref{Horizontale Abstände verändern}.
+@ref{Page layout},
+@ref{Changing horizontal spacing}.
 
 Schnipsel:
 @rlsr{Spacing}.

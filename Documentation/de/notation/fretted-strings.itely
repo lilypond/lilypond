@@ -12,9 +12,8 @@
 
 @c Translators: Till Paala
 
-@node Saiteninstrumente mit Bünden
+@node Fretted string instruments
 @section Saiteninstrumente mit Bünden
-@translationof Fretted string instruments
 
 @lilypondfile[quote]{snippets/fretted-headword.ly}
 
@@ -26,32 +25,30 @@ Saiteninstrumente mit Bünden.
 @cindex Banjo-Tabulatur
 
 @menu
-* Übliche Notation für Saiteninstrumente mit Bünden::
-* Gitarre::
+* Common notation for fretted strings::
+* Guitar::
 * Banjo::
 @end menu
 
-@node Übliche Notation für Saiteninstrumente mit Bünden
+@node Common notation for fretted strings
 @subsection Übliche Notation für Saiteninstrumente mit Bünden
-@translationof Common notation for fretted strings
 
 Dieser Abschnitt zeigt Besonderheiten der Notation, die allen
 Bundinstrumenten eigen ist.
 
 @menu
-* Referenz für Saiteninstrumente mit Bünden::
-* Seitennummerbezeichnung::
-* Standardtabulaturen::
-* Angepasste Tabulaturen::
-* Bund-Diagramm-Beschriftung::
-* Vordefinierte Bund-Diagramme::
-* Automatische Bund-Diagramme::
-* Fingersatz der rechten Hand::
+* References for fretted strings::
+* String number indications::
+* Default tablatures::
+* Custom tablatures::
+* Fret diagram markups::
+* Predefined fret diagrams::
+* Automatic fret diagrams::
+* Right-hand fingerings::
 @end menu
 
-@node Referenz für Saiteninstrumente mit Bünden
+@node References for fretted strings
 @unnumberedsubsubsec Referenz für Saiteninstrumente mit Bünden
-@translationof References for fretted strings
 
 Noten für Bundinstrumente wird normalerweise auf
 einem einzelnen System notiert, entweder als traditionelles
@@ -67,36 +64,35 @@ Instrumente mit Bünden sind an anderer Stelle erklärt:
 
 @itemize
 @item Fingersatz kann notiert werden, siehe
-@ref{Fingersatzanweisungen}.
+@ref{Fingering instructions}.
 
 @item Anweisungen für @notation{Laissez vibrer}-Bögen und
 Bögen zwischen Arpeggios und Tremolos sind beschrieben in
-@ref{Bindebögen}.
+@ref{Ties}.
 
 @item Hinweise, wie mehrere Stimmen gesetzt werden können, finden sich in
-@ref{Auflösung von Zusammenstößen}.
+@ref{Collision resolution}.
 
 @item Instructions for indicating harmonics can be found in
-@ref{Flageolett}.
+@ref{Harmonics}.
 
 @end itemize
 
 @morerefs
 Notationsreferenz:
-@ref{Fingersatzanweisungen},
-@ref{Bindebögen},
-@ref{Auflösung von Zusammenstößen},
-@ref{Instrumentenbezeichnungen},
-@ref{Musik parallel notieren},
+@ref{Fingering instructions},
+@ref{Ties},
+@ref{Collision resolution},
+@ref{Instrument names},
+@ref{Writing music in parallel},
 @ref{Arpeggio},
-@ref{Liste der Artikulationszeichen},
-@ref{Notenschlüssel},
-@ref{Transposition von Instrumenten}.
+@ref{List of articulations},
+@ref{Clef},
+@ref{Instrument transpositions}.
 
 
-@node Seitennummerbezeichnung
+@node String number indications
 @unnumberedsubsubsec Seitennummerbezeichnung
-@translationof String number indications
 
 @cindex Saitenzahl
 @cindex Zahl von Saiten
@@ -139,7 +135,7 @@ g-0\3
 
 @morerefs
 Notationsreferenz:
-@ref{Fingersatzanweisungen}.
+@ref{Fingering instructions}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -149,9 +145,8 @@ Referenz der Interna:
 @rinternals{Fingering}.
 
 
-@node Standardtabulaturen
+@node Default tablatures
 @unnumberedsubsubsec Standardtabulaturen
-@translationof Default tablatures
 
 @cindex Tabulatur, Grundlegendes
 
@@ -479,10 +474,10 @@ ratioHarmonics = {
 
 @morerefs
 Notationsreferenz:
-@ref{Hälse},
-@ref{Akkord-Wiederholungen},
-@ref{Ausgeschriebene Wiederholungen},
-@ref{Flageolett},
+@ref{Stems},
+@ref{Chord repetition},
+@ref{Written-out repeats},
+@ref{Harmonics},
 @ref{Glissando}.
 
 Schnipsel:
@@ -519,9 +514,8 @@ Spezialeffekte für Gitarre beschränken sich auf Flageolett und
 Slide.
 
 
-@node Angepasste Tabulaturen
+@node Custom tablatures
 @unnumberedsubsubsec Angepasste Tabulaturen
-@translationof Custom tablatures
 
 @cindex Tabulaturen, eigen
 @cindex eigene Tabulaturen
@@ -592,7 +586,7 @@ Kontext zu bestimmen.
 Als Argument braucht die Funktion eine
 Akkordkonstruktion, die die Tonhöhen jeder Saite der Stimmung angibt.
 Die Akkordkonstruktion muss im absoluten Oktavenmodus angegeben werden,
-siehe @ref{Absolute Oktavenbezeichnung}.  Die Saite mit der höchsten
+siehe @ref{Absolute octave entry}.  Die Saite mit der höchsten
 Zahl (normalerweise die tiefste Seite) muss im Akkord zuerst geschrieben
 werden.  Eine Stimmung für ein viersaitiges Instrument mit den Tonhöhen
 @code{a''},  @code{d''},  @code{g'} und @code{c'} kann folgenderweise
@@ -622,7 +616,7 @@ benutzt, um automatische Bunddiagramme zu errechnen.
 
 Saitensitmmungen werden als Teil des Hash-Schlüsselwertes für
 vordefinierte Bunddiagramme eingesetzt (siehe auch
-@ref{Vordefinierte Bund-Diagramme}.
+@ref{Predefined fret diagrams}.
 
 Das vorherige Beispiel könnte auch folgenderweise geschrieben werden:
 
@@ -698,8 +692,8 @@ Der moderne Tabulatur-Schlüssel unterstützt Tabulaturen von 4 bis 7 Saiten.
 
 @morerefs
 Notationsreferenz:
-@ref{Absolute Oktavenbezeichnung},
-@ref{Vordefinierte Bund-Diagramme}.
+@ref{Absolute octave entry},
+@ref{Predefined fret diagrams}.
 
 Installierte Dateien:
 @file{ly/string-tunings-init.ly}
@@ -718,9 +712,8 @@ korrekt bei Instrumenten, deren Saitenstimmung nicht monotonisch
 fortschreitet, wie etwa Ukulele.
 
 
-@node Bund-Diagramm-Beschriftung
+@node Fret diagram markups
 @unnumberedsubsubsec Bund-Diagramm-Beschriftung
-@translationof Fret diagram markups
 
 @cindex Fret (Bunddiagramme)
 @cindex Griffsymbole, bundierte Saiteninstrumente
@@ -1121,9 +1114,8 @@ Referenz der Interna:
 
 
 
-@node Vordefinierte Bund-Diagramme
+@node Predefined fret diagrams
 @unnumberedsubsubsec Vordefinierte Bund-Diagramme
-@translationof Predefined fret diagrams
 
 
 @cindex Bunddiagramme
@@ -1194,7 +1186,7 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 
 Tonhöhen von Akkorden können entweder als Akkordkonstrukte
 oder im Akkordmodus notiert werden (siehe auch
-@ref{Überblick über den Akkord-Modus}).
+@ref{Chord mode overview}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1266,11 +1258,11 @@ Tonarten.  Die Tabelle der vordefinierten Bunddiagramme für
 Ukulele enthält neben diesen Akkorden noch zusätzlich drei
 weitere (große Sext, Sekundakkord und Quartakkort).  Eine
 vollständige Liste der vordefinierten Bunddiagramme findet sich
-in @ref{Die vordefinierten Bund-Diagramme}.  Wenn in der Tabelle für
+in @ref{Predefined fretboard diagrams}.  Wenn in der Tabelle für
 einen Akkord kein Wert steht, wird ein Bunddiagramm vom
 @code{FretBoards}-Engraver errechnet, wobei die automatische
 Bunddiagrammfunktion zu Anwendung kommt. Siehe hierzu
-@ref{Automatische Bund-Diagramme}.
+@ref{Automatic fret diagrams}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1424,10 +1416,10 @@ gehören dem @code{FretBoards.FretBoard}-Kontext an.
 
 @morerefs
 Notationsreferenz:
-@ref{Angepasste Tabulaturen},
-@ref{Automatische Bund-Diagramme},
-@ref{Überblick über den Akkord-Modus},
-@ref{Die vordefinierten Bund-Diagramme}.
+@ref{Custom tablatures},
+@ref{Automatic fret diagrams},
+@ref{Chord mode overview},
+@ref{Predefined fretboard diagrams}.
 
 Installierte Dateien:
 @file{ly/predefined-guitar-fretboards.ly}, @*
@@ -1442,9 +1434,8 @@ Referenz der Interna:
 @rinternals {fret-diagram-interface}.
 
 
-@node Automatische Bund-Diagramme
+@node Automatic fret diagrams
 @unnumberedsubsubsec Automatische Bund-Diagramme
-@translationof Automatic fret diagrams
 
 @cindex Bunddiagramme, automatisch
 @cindex Akkorddiagramme, automatisch
@@ -1572,7 +1563,7 @@ FretBoard-Kontext zu errechnen, kann mit der
 
 Die Saiten und Bünde des @code{FretBoards}-Kontextes hängen von
 der @code{stringTunings}-Eigenschaft ab, die die gleiche Bedeutung
-wie im TabStaff-Kontext hat.  Siehe auch @ref{Angepasste Tabulaturen}
+wie im TabStaff-Kontext hat.  Siehe auch @ref{Custom tablatures}
 zu Information über die @code{stringTunings}Eigenschaft.
 
 Die graphische Erscheinung eines Bunddiagrammes kann den
@@ -1591,7 +1582,7 @@ gehören dem @code{FretBoards.FretBoard}-Kontext an.
 
 @morerefs
 Notationsreferenz:
-@ref{Angepasste Tabulaturen}.
+@ref{Custom tablatures}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -1604,9 +1595,8 @@ Automatische Bundberechnung funktioniert nicht richtig für Instrumente
 mit nicht-monotonischer Stimmung.
 
 
-@node Fingersatz der rechten Hand
+@node Right-hand fingerings
 @unnumberedsubsubsec Fingersatz der rechten Hand
-@translationof Right-hand fingerings
 
 @cindex bundierte Saiteninstrumente, Fingersatz der rechten Hand
 @cindex Bundinstrumente, Fingersatz der rechten Hand
@@ -1656,9 +1646,8 @@ Referenz der Interna:
 @rinternals{StrokeFinger}.
 
 
-@node Gitarre
+@node Guitar
 @subsection Gitarre
-@translationof Guitar
 
 Die meisten der Besonderheiten von Gitarrennotation wurden im
 allgemeinen Abschnitt behandelt, aber es gibt noch einige, die
@@ -1671,14 +1660,13 @@ Satzprogramm wie GuitarTeX (für erfahrende Benutzer) eingesetzt
 werden.
 
 @menu
-* Position und Barré anzeigen::
-* Flageolett und gedämpfte Noten::
-* Powerakkorde anzeigen::
+* Indicating position and barring::
+* Indicating harmonics and dampened notes::
+* Indicating power chords::
 @end menu
 
-@node Position und Barré anzeigen
+@node Indicating position and barring
 @unnumberedsubsubsec Position und Barré anzeigen
-@translationof Indicating position and barring
 
 @cindex Position und Barré für bundierte Saiteninstrumente
 @cindex Position und Barré für Bundinstrumente
@@ -1705,16 +1693,15 @@ notieren kann.
 
 @morerefs
 Notationsreferenz:
-@ref{Text mit Verbindungslinien}.
+@ref{Text spanners}.
 
 Schnipsel:
 @rlsr{Fretted strings},
 @rlsr{Expressive marks}.
 
 
-@node Flageolett und gedämpfte Noten
+@node Indicating harmonics and dampened notes
 @unnumberedsubsubsec Flageolett und gedämpfte Noten
-@translationof Indicating harmonics and dampened notes
 
 @cindex bundierte Saiteninstrumente, gedämpfte Noten
 @cindex Bundinstrumente, gedämpfte Noten
@@ -1789,16 +1776,15 @@ so gedämpften Noten durch Dreiecke ersetzt werden.
 
 @morerefs
 Notationsreferenz:
-@ref{Besondere Notenköpfe},
-@ref{Notenkopfstile}.
+@ref{Special note heads},
+@ref{Note head styles}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
 
 
-@node Powerakkorde anzeigen
+@node Indicating power chords
 @unnumberedsubsubsec Powerakkorde anzeigen
-@translationof Indicating power chords
 
 @cindex Powerakkorde
 @cindex Powerchords
@@ -1842,8 +1828,8 @@ Glossar:
 @rglos{power chord}.
 
 Notationsreferenz:
-@ref{Erweiterte und modifizierte Akkorde},
-@ref{Akkordbezeichnungen drucken}.
+@ref{Extended and altered chords},
+@ref{Printing chord names}.
 
 Schnipsel:
 @rlsr{Fretted strings}.
@@ -1853,15 +1839,13 @@ Schnipsel:
 
 @node Banjo
 @subsection Banjo
-@translationof Banjo
 
 @menu
-* Banjo-Tabulaturen::
+* Banjo tablatures::
 @end menu
 
-@node Banjo-Tabulaturen
+@node Banjo tablatures
 @unnumberedsubsubsec Banjo-Tabulaturen
-@translationof Banjo tablatures
 
 @cindex Banjo-Tabulaturen
 @cindex Tabulatur, Banjo
