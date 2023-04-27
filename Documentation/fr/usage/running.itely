@@ -14,33 +14,30 @@
 @c Translation checkers:
 
 
-@node Exécution de lilypond
+@node Running lilypond
 @chapter Exécution de @command{lilypond}
-@translationof Running lilypond
 
 Ce chapitre passe en revue ce qui se passe lorsque vous lancez LilyPond.
 
 @menu
-* Utilisation habituelle::
-* Utilisation en ligne de commande::
-* Messages d'erreur::
-* Quelques erreurs des plus courantes::
+* Normal usage::
+* Command-line usage::
+* Error messages::
+* Common errors::
 @end menu
 
-@node Utilisation habituelle
+@node Normal usage
 @section Utilisation habituelle
-@translationof Normal usage
 
 La plupart des utilisateurs de LilyPond le font au travers d'une
 interface graphique (@emph{GUI} pour @emph{graphical user interface}).
-Si vous ne l'avez pas encore parcouru, lisez le @rlearning{Tutoriel}.
+Si vous ne l'avez pas encore parcouru, lisez le @rlearningnamed{Tutorial, Tutoriel}.
 Si vous utilisez un éditeur alternatif pour rédiger vos fichiers
 LilyPond, référez-vous à la documentation de celui-ci.
 
 
-@node Utilisation en ligne de commande
+@node Command-line usage
 @section Utilisation en ligne de commande
-@translationof Command-line usage
 
 Nous nous intéresserons ici aux spécificités de LilyPond employé en
 ligne de commande.  La ligne de commande permet de faire appel à
@@ -60,19 +57,18 @@ Aussi, si vous ne savez de quoi il retourne, nous vous renvoyons aux
 nombreuses documentations que vous pourrez trouver sur ce sujet.
 
 @menu
-* La variable d'environnement PATH::
-* Lancement de LilyPond::
-* Options basiques de lilypond::
-* Options avancées de lilypond::
-* Variables d'environnement::
-* Réadressage::
-* Exécution de LilyPond en mode protégé::
+* The PATH environment variable::
+* Invoking LilyPond::
+* Basic command-line options for LilyPond::
+* Advanced command-line options for LilyPond::
+* Environment variables::
+* Relocation::
+* LilyPond in chroot jail::
 @end menu
 
 
-@node La variable d'environnement PATH
+@node The PATH environment variable
 @unnumberedsubsec La variable d'environnement @env{PATH}
-@translationof The PATH environment variable
 
 [Vous pouvez passer cette section si vous utilisez un gestionnaire de
 paquetage tel que MacPorts pour installer LilyPond ; @env{PATH} devrait
@@ -116,9 +112,8 @@ exemple
 @end example
 
 
-@node Lancement de LilyPond
+@node Invoking LilyPond
 @unnumberedsubsec Lancement de LilyPond
-@translationof Invoking LilyPond
 
 L'exécutable @command{lilypond} en ligne de commande se lance ainsi :
 
@@ -233,9 +228,8 @@ forfiles /s /p "C:\Documents\Mes Partitions" /M *.ly /c "cmd /c lilypond @@file"
 @end example
 
 
-@node Options basiques de lilypond
+@node Basic command-line options for LilyPond
 @unnumberedsubsec Options basiques de @command{lilypond}
-@translationof Basic command-line options for LilyPond
 
 @cindex lancement de @command{lilypond}
 @cindex ligne de commande, options pour @command{lilypond}
@@ -248,7 +242,7 @@ Différentes options sont disponibles en ligne de commande :
 @table @asis
 
 @item @code{-d}, @code{--define-default=}@var{var}[@code{=}@var{val}]
-Voir @ref{Options avancées de lilypond}.
+Voir @ref{Advanced command-line options for LilyPond}.
 
 @cindex Scheme, évaluation d'expression
 @cindex expression Scheme, évaluation
@@ -297,7 +291,7 @@ Exemple : @code{lilypond -fpng monfichier.ly}
 SVG utilisant en interne un moteur spécifique, il ne peut donc
 s'obtenir de la même manière que les autres formats ; l'utilisation de
 @w{@code{-fsvg}} ou @code{--svg} revient en fait à utiliser l'option
-@code{-dbackend=svg} -- voir @ref{Options avancées de lilypond}.
+@code{-dbackend=svg} -- voir @ref{Advanced command-line options for LilyPond}.
 
 @item @code{-h}, @code{--help}
 Affiche un résumé des commandes.
@@ -354,7 +348,7 @@ Lance @command{lilypond} dans un environnement protégé.
 
 L'option @option{--jail} peut s'utiliser pour des raisons de sécurité
 lorsque LilyPond est installé sur un serveur web ou traite des fichiers
-externes -- voir @ref{Options avancées de lilypond}. Dans la mesure où
+externes -- voir @ref{Advanced command-line options for LilyPond}. Dans la mesure où
 LilyPond procure de quoi faire tourner des programmes Guile, il est
 primordial, en pareil cas, que ce soit dans un environnement contraint
 de telle sorte que les fichiers alors compilés ne mettent pas en péril
@@ -425,7 +419,7 @@ aussitôt --, ce qui peut nécessiter le recours à la commande
 @code{sudo}.  Il est par ailleurs judicieux de limiter le temps
 processeur alloué à LilyPond -- grâce à @command{ulimit -t} par
 exemple -- ainsi que, si votre système le permet, la taille de la
-mémoire.  Voir aussi @ref{Exécution de LilyPond en mode protégé}.
+mémoire.  Voir aussi @ref{LilyPond in chroot jail}.
 @end table
 
 @cindex loglevel
@@ -558,9 +552,8 @@ est livré @strong{SANS GARANTIE} !
 @end table
 
 
-@node Options avancées de lilypond
+@node Advanced command-line options for LilyPond
 @unnumberedsubsec Options avancées de @command{lilypond}
-@translationof Advanced command-line options for LilyPond
 
 L'option @option{-d} est l'interface de la ligne de commande à la
 fonction Scheme de LilyPond @code{ly:set-option}. Par voie de
@@ -666,14 +659,14 @@ Format}) avec le moteur @code{svg}.
 Si @var{bool} est déterminé à @code{#t}, extrait des fragments musicaux
 d'une partition.  Ceci requiert que la fonction @code{clip-regions} a
 été définie au sein du bloc @code{\layout} -- voir
-@rnotation{Extraction de fragments musicaux}.  Bien entendu, aucun fragment
+@rnotationnamed{Extracting fragments of music, Extraction de fragments musicaux}.  Bien entendu, aucun fragment
 ne sera extrait si l'on utilise l'option @option{-dno-print-pages}. La
 valeur par défaut est  @code{#f}.
 
 @item @code{compile-scheme-code} @var{bool}
 Utilise le compilateur de Guile pour traiter du code Scheme, au lieu de
 l'évaluateur. Pour de plus amples informations, voir
-@rextend{Débogage de code Scheme}.
+@rextendnamed{Debugging Scheme code, Débogage de code Scheme}.
 
 @item @code{crop} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, un second fichier PDF sera créé
@@ -873,7 +866,7 @@ vide dès lors que la hauteur est supérieure à la largeur.
 
 @item @code{point-and-click} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, ajoute les liens « point &
-click » à la sortie PDF ou SVG -- voir @ref{Pointer-cliquer}. La valeur
+click » à la sortie PDF ou SVG -- voir @ref{Point and click}. La valeur
 par défaut est @code{#t}.
 
 @cindex format de sortie, définition
@@ -992,9 +985,8 @@ erreurs. La valeur par défaut est @code{#f}.
 @end table
 
 
-@node Variables d'environnement
+@node Environment variables
 @unnumberedsubsec Variables d'environnement
-@translationof Environment variables
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
@@ -1011,7 +1003,7 @@ Cette variable spécifie le répertoire où sont recherchés par défaut
 les différentes versions des messages ainsi qu'un certain nombre de
 fichiers nécessaires au traitement, dérogeant ainsi aux endroits définis
 soit lors de la compilation, soit calculés dynamiquement lors de
-l'exécution -- voir @ref{Réadressage}. Il devrait contenir les
+l'exécution -- voir @ref{Relocation}. Il devrait contenir les
 sous-répertoires @file{ly/}, @file{ps/}, @file{tex/}, etc.
 
 @item LILYPOND_LOCALEDIR
@@ -1056,9 +1048,8 @@ l'utilisateur qui lance @command{lilypond} n'a pas les droits en
 @end table
 
 
-@node Réadressage
+@node Relocation
 @unnumberedsubsec Réadressage
-@translationof Relocation
 
 @cindex relocation
 @cindex réadressage
@@ -1086,14 +1077,13 @@ fichiers de données, la localisation des fichiers de support nécéssaires
 est calculée lors de l'exécution @emph{relativement au binaire lancé}.
 
 @menu
-* Fichiers de réadressage::
-* Algorithme de réadressage::
+* Relocation files::
+* Relocation algorithm::
 @end menu
 
 
-@node Fichiers de réadressage
+@node Relocation files
 @unnumberedsubsubsec Fichiers de réadressage
-@translationof Relocation files
 
 Un deuxième mécanisme intervient en fait pour la configuration de
 l'exécution : LilyPond dépend fortement de programme ou bibloithèques
@@ -1163,9 +1153,8 @@ même variable d'environnement à de multiples lignes des fichiers de
 réadressage.
 
 
-@node Algorithme de réadressage
+@node Relocation algorithm
 @unnumberedsubsubsec Algorithme de réadressage
-@translationof Relocation algorithm
 
 Afin de trouver ses fichiers de données, LilyPond utilise l'algorithme
 suivant.
@@ -1207,14 +1196,13 @@ fil de la compilation. Idem pour @code{localedir}, mais pas pour
 
 @item
 Si @code{relocdir} existe, traiter tous les fichiers dans ce
-répertoire, comme indiqué dans @ref{Fichiers de réadressage}.
+répertoire, comme indiqué dans @ref{Relocation files}.
 
 @end enumerate
 
 
-@node Exécution de LilyPond en mode protégé
+@node LilyPond in chroot jail
 @unnumberedsubsec Exécution de LilyPond en mode protégé
-@translationof LilyPond in chroot jail
 
 Paramétrer un serveur afin qu'il puisse faire fonctionner LilyPond en
 mode protégé sur un pseudo-périphérique est une tâche sensible.  Les
@@ -1336,9 +1324,8 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
 @end example
 
 
-@node Messages d'erreur
+@node Error messages
 @section Messages d'erreur
-@translationof Error messages
 
 @cindex erreur, messages
 
@@ -1428,12 +1415,11 @@ traitement, tels que les contrôles de mesure, sont aussi susceptibles
 d'apparaître plusieurs fois.
 
 Vous trouverez d'autres informations sur les erreurs au chapitre
-@ref{Quelques erreurs des plus courantes}.
+@ref{Common errors}.
 
 
-@node Quelques erreurs des plus courantes
+@node Common errors
 @section Quelques erreurs des plus courantes
-@translationof Common errors
 
 Les conditions amenant aux erreurs qui suivent sont fréquentes, bien
 qu'elles ne soient pas évidentes ni facilement localisables.  Nous
@@ -1441,19 +1427,18 @@ espérons que ces explications vous aideront à les résoudre plus
 facilement.
 
 @menu
-* La musique déborde de la page::
-* Apparition d'une portée supplémentaire::
-* Message d'erreur Unbound variable %::
-* Message d'erreur FT_Get_Glyph_Name::
-* staff-affinities devraient aller en ordre décroissant::
-* Message d'erreur unexpected new::
-* Cette voix requiert un voiceXx ou un réglage shiftXx::
+* Music runs off the page::
+* An extra staff appears::
+* Error message Unbound variable %::
+* Error message FT_Get_Glyph_Name::
+* Warning staff affinities should only decrease::
+* Error message unexpected new::
+* Warning this voice needs a voiceXx or shiftXx setting::
 @end menu
 
 
-@node La musique déborde de la page
+@node Music runs off the page
 @unnumberedsubsec La musique déborde de la page
-@translationof Music runs off the page
 
 Lorsque la musique s'épanche au delà de la marge droite ou bien semble
 anormalement comprimée, la raison en est le plus souvent une note à la
@@ -1472,17 +1457,16 @@ conduit à une musique compressée, voire à un débordement de la page.}
 
 Une erreur de durée sera bien plus facilement localisable si vous
 positionnez régulièrement des contrôles de barre de mesure -- voir
-@rnotation{Vérification des limites et numéros de mesure}.
+@rnotationnamed{Bar and bar number checks, Vérification des limites et numéros de mesure}.
 
 Si vous tenez absolument à enchaîner de tels débordements, vous devrez
 insérer des barres de mesure invisibles là où vous souhaitez positionner
-un saut de ligne.  Consultez le chapitre @rnotation{Barres de mesure} pour
+un saut de ligne.  Consultez le chapitre @rnotationnamed{Bar lines, Barres de mesure} pour
 plus de détails.
 
 
-@node Apparition d'une portée supplémentaire
+@node An extra staff appears
 @unnumberedsubsec Apparition d'une portée supplémentaire
-@translationof An extra staff appears
 
 Lorsque les contextes ne sont pas créés explicitement par la commande
 @code{\new}, ils le seront si la commande à exécuter n'est pas censée
@@ -1515,9 +1499,8 @@ ces notes en rouge :
 @end lilypond
 
 
-@node Message d'erreur Unbound variable %
+@node Error message Unbound variable %
 @unnumberedsubsec Message d'erreur @code{Unbound variable %}
-@translationof Error message Unbound variable %
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
 fichier journal, est associé à un message du type « GUILE a signalé
@@ -1529,20 +1512,18 @@ et ne doit en aucun cas se trouver dans une routine Scheme.  En Scheme,
 les commentaires s'introduisent par un point-virgule (@code{;}).
 
 
-@node Message d'erreur FT_Get_Glyph_Name
+@node Error message FT_Get_Glyph_Name
 @unnumberedsubsec Message d'erreur @code{FT_Get_Glyph_Name}
-@translationof Error message FT_Get_Glyph_Name
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
 fichier journal, survient lorsqu'un fichier source contient des
 caractères non ASCII et qu'il n'a pas été enregistré avec un encodage
 UTF-8.  Pour plus de détails, reportez-vous au chapitre
-@rnotation{Caractères spéciaux}.
+@rnotationnamed{Special characters, Caractères spéciaux}.
 
 
-@node staff-affinities devraient aller en ordre décroissant
+@node Warning staff affinities should only decrease
 @unnumberedsubsec @emph{staff-affinities} devraient aller en ordre décroissant
-@translationof Warning staff affinities should only decrease
 
 Cet avertissement est émis lorsque la partition ne comporte pas de
 portée, comme par exemple une feuille de chant avec un contexte
@@ -1557,12 +1538,11 @@ une portée, à l'aide de l'instruction
 @noindent
 que vous insérerez dès sa création.  Pour plus d'information,
 reportez-vous à la rubrique
-@rnotation{Espacement des lignes rattachées à des portées}.
+@rnotationnamed{Spacing of non-staff lines, Espacement des lignes rattachées à des portées}.
 
 
-@node Message d'erreur unexpected new
+@node Error message unexpected new
 @unnumberedsubsec Message d'erreur @code{unexpected \new}
-@translationof Error message unexpected new
 
 Un bloc @code{\score} ne peut contenir qu'@strong{une seule} expression
 musicale. Si, par contre, il comporte plusieurs @code{\new Staff},
@@ -1611,9 +1591,8 @@ dit, LilyPond les traitera simultanément :
 @end lilypond
 
 
-@node Cette voix requiert un voiceXx ou un réglage shiftXx
+@node Warning this voice needs a voiceXx or shiftXx setting
 @unnumberedsubsec Cette voix requiert un @code{\voiceXx} ou un réglage @code{\shiftXx}
-@translationof Warning this voice needs a voiceXx or shiftXx setting
 
 Lorsque des notes affectées à des voix différentes et ayant la même
 orientation de hampe interviennent au même instant musical et qu'aucun
@@ -1644,10 +1623,10 @@ ces voix se croisent (@code{\voiceThree} au dessus de@code{\voiceOne}).
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Instanciation explicite des voix},
-@rlearning{Exemple concret}.
+@rlearningnamed{Explicitly instantiating voices, Instanciation explicite des voix},
+@rlearningnamed{Real music example, Exemple concret}.
 
 Manuel de notation :
-@rnotation{Polyphonie sur une portée},
-@rnotation{Résolution des collisions}.
+@rnotationnamed{Single-staff polyphony, Polyphonie sur une portée},
+@rnotationnamed{Collision resolution, Résolution des collisions}.
 @endmorerefs

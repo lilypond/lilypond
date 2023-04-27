@@ -14,9 +14,8 @@
 @c Translation checkers: Jean-Jacques Gerbaud
 
 
-@node Musique vocale
+@node Vocal music
 @section Musique vocale
-@translationof Vocal music
 
 @lilypondfile[quote]{snippets/vocal-headword.ly}
 
@@ -25,40 +24,38 @@ s'assurer que les paroles s'alignent avec les notes de la mélodie
 correspondante.
 
 @menu
-* Vue d'ensemble de la musique vocale::
-* Situations particulières en matière de paroles::
-* Couplets::
-* Chansons::
-* Chorale::
-* Opéras et musiques de scène::
-* Chants liturgiques::
-* Musique vocale ancienne::
+* Common notation for vocal music::
+* Techniques specific to lyrics::
+* Stanzas::
+* Songs::
+* Choral::
+* Opera and stage musicals::
+* Chants psalms and hymns::
+* Ancient vocal music::
 @end menu
 
 
-@node Vue d'ensemble de la musique vocale
+@node Common notation for vocal music
 @subsection Vue d'ensemble de la musique vocale
-@translationof Common notation for vocal music
 
 En complément de généralités, ce sous-chapitre aborde quelques styles
 particuliers en terme de musique vocale.
 
 @menu
-* Références en matière de musique vocale::
-* Saisie des paroles::
-* Alignement des paroles sur la mélodie::
-* Durée automatique des syllabes::
-* Durée explicite des syllabes::
-* Plusieurs syllabes sur une note::
-* Plusieurs notes pour une même syllabe::
-* Traits d'union et de prolongation::
-* Changement graduel de voyelle::
+* References for vocal music and lyrics::
+* Entering lyrics::
+* Aligning lyrics to a melody::
+* Automatic syllable durations::
+* Manual syllable durations::
+* Multiple syllables to one note::
+* Multiple notes to one syllable::
+* Extenders and hyphens::
+* Gradual changes of vowel::
 @end menu
 
 
-@node Références en matière de musique vocale
+@node References for vocal music and lyrics
 @unnumberedsubsubsec Références en matière de musique vocale
-@translationof References for vocal music and lyrics
 
 Graver de la musique vocale soulève plusieurs problèmes ; ils
 sont abordés soit dans ce chapitre, soit dans d'autres parties de la
@@ -68,13 +65,13 @@ documentation de LilyPond.
 @item
 La plupart du temps, les paroles ne sont constituées que de texte
 simple.  Cette forme de notation est abordée dans
-@rlearningnamed{Écriture de chants simples,@'Ecriture de chants simples}.
+@rlearningnamed{Setting simple songs,@'Ecriture de chants simples}.
 
 @item
 La musique vocale nécessite souvent de recourir au mode @code{markup},
 aussi bien pour des paroles que pour d'autres éléments textuels comme le
 nom des personnages.  Cette syntaxe est expliquée dans
-@ref{Introduction au formatage de texte}.
+@ref{Text markup introduction}.
 
 @item
 L'impression d'un @emph{ambitus} -- ou tessiture -- que l'on trouve en
@@ -84,7 +81,7 @@ tête de certaines partitions, est abordée dans @ref{Ambitus}.
 Les indications de nuance viennent, par défaut, se placer sous la
 portée. Il en va différemment pour la musique vocale, de telle sorte
 qu'elles ne soient pas mélangées avec les paroles.  Ceci fait l'objet de
-la rubrique @ref{Mise en forme d'une partition chorale}.
+la rubrique @ref{Score layouts for choral}.
 
 @end itemize
 
@@ -93,21 +90,20 @@ Glossaire musicologique :
 @rglos{ambitus}.
 
 Manuel d'initiation :
-@rlearningnamed{Écriture de chants simples,@'Ecriture de chants simples}.
+@rlearningnamed{Setting simple songs,@'Ecriture de chants simples}.
 
 Manuel de notation :
 @ref{Ambitus},
-@ref{Introduction au formatage de texte},
-@ref{Mise en forme d'une partition chorale}.
+@ref{Text markup introduction},
+@ref{Score layouts for choral}.
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
 @endmorerefs
 
 
-@node Saisie des paroles
+@node Entering lyrics
 @unnumberedsubsubsec Saisie des paroles
-@translationof Entering lyrics
 
 @cindex paroles
 @cindex ponctuation
@@ -138,8 +134,8 @@ syllabe -- comme dans l'exemple ci-dessus -- soit en alignant
 automatiquement les paroles sur les notes d'une mélodie ou d'une voix en
 utilisant @code{\addlyrics} ou @code{\lyricsto}.  La première méthode
 est abordée plus en détail à la rubrique
-@ref{Durée explicite des syllabes}, la deuxième à la rubrique
-@ref{Durée automatique des syllabes}.
+@ref{Manual syllable durations}, la deuxième à la rubrique
+@ref{Automatic syllable durations}.
 
 Dans les paroles, un mot ou une syllabe commence par une lettre de
 l'alphabet, et se termine par une espace.  Toute syllabe doit donc être
@@ -164,7 +160,7 @@ d'espaces une accolade :
 Pour utiliser des lettres accentuées ou des caractères spéciaux
 -- cœurs ou guillemets inversés par exemple -- il suffit de les insérer
 dans le fichier et de veiller à le sauvegarder avec le codage UTF-8.
-Voir à ce sujet @ref{Caractères spéciaux} pour plus de détails.
+Voir à ce sujet @ref{Special characters} pour plus de détails.
 
 @lilypond[quote,verbatim]
 \relative { d''8 c16 a bes8 f ees' d c4 }
@@ -194,7 +190,7 @@ ou @code{^}, s'il est précédé d'une barre oblique inverse.
 LilyPond permet de contrôler très finement le rendu des paroles grâce au
 mode @code{\markup}, utilisable y compris au sein du mode
 @code{\lyricmode}.  Des explications complètes sont disponibles au
-chapitre @ref{Mise en forme du texte}.
+chapitre @ref{Formatting text}.
 
 @snippets
 
@@ -205,24 +201,23 @@ chapitre @ref{Mise en forme du texte}.
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Chansons}
+@rlearningnamed{Songs, Chansons}
 
 Manuel de notation :
-@ref{Caractères spéciaux},
-@ref{Durée automatique des syllabes},
-@ref{Durée explicite des syllabes},
-@ref{Fontes},
-@ref{Mise en forme du texte},
-@ref{Modes de saisie}.
+@ref{Special characters},
+@ref{Automatic syllable durations},
+@ref{Manual syllable durations},
+@ref{Fonts},
+@ref{Formatting text},
+@ref{Input modes}.
 
 Référence des propriétés internes :
 @rinternals{LyricText}.
 @endmorerefs
 
 
-@node Alignement des paroles sur la mélodie
+@node Aligning lyrics to a melody
 @unnumberedsubsubsec Alignement des paroles sur la mélodie
-@translationof Aligning lyrics to a melody
 
 @cindex paroles, alignement sur la mélodie
 @funindex associatedVoice
@@ -232,7 +227,7 @@ Référence des propriétés internes :
 
 Les paroles sont interprétées à partir à partir du mode
 @code{\lyricmode} et imprimées dans un contexte @code{Lyrics} -- voir
-@ref{Tout savoir sur les contextes}.
+@ref{Contexts explained}.
 
 @example
 \new Lyrics \lyricmode @{ @dots{} @}
@@ -247,7 +242,7 @@ créé.  L'instruction @code{\lyricsto} est plus versatile en ceci
 qu'elle requiert de spécifier à la fois le contexte @code{Voice}
 associé et de créer explicitement un contexte @code{Lyrics} pour
 contenir les paroles.  Pour de plus amples détails, voir
-@ref{Durée automatique des syllabes}.
+@ref{Automatic syllable durations}.
 
 Vous disposez de deux méthodes pour aligner des paroles sur une
 mélodie :
@@ -260,7 +255,7 @@ Les paroles peuvent s'aligner automatiquement, la durée des syllabes
 circonstances, une mélodie associée, grâce aux commandes
 @code{\addlyrics} et @code{\lyricsto} ou en définissant la propriété
 @code{associatedVoice}.  Ceci est détaillé à la rubrique
-@ref{Durée automatique des syllabes}.
+@ref{Automatic syllable durations}.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -298,7 +293,7 @@ s'alignent selon les durées d'une voix différente.  Ceci est
 particulièrement utile lorsque le texte s'agence différemment selon les
 couplets et que les durées sont accessibles grâce à des contextes
 @code{Voice} particuliers.  Pour de plus amples détails, rendez-vous à
-la rubrique @ref{Couplets}.
+la rubrique @ref{Stanzas}.
 
 @item
 Les paroles s'aligneront indépendamment de la valeur des notes dès lors
@@ -332,24 +327,23 @@ La deuxième ligne illustre la manière d'aligner des paroles sans tenir
 compte de la durée des notes.  Cette façon de procéder permet de traiter
 un alignement différent selon les couplets lorsqu'il n'y a pas moyen de
 déduire les durées à partir d'un contexte musical ; la rubrique
-@ref{Durée explicite des syllabes} aborde ceci plus en détails.  Cette
+@ref{Manual syllable durations} aborde ceci plus en détails.  Cette
 technique permet aussi d'ajouter des dialogues, comme indiqué à la rubrique
-@ref{Dialogue et musique}.
+@ref{Dialogue over music}.
 
 @end itemize
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Alignement des paroles sur une mélodie}.
+@rlearningnamed{Aligning lyrics to a melody, Alignement des paroles sur une mélodie}.
 
 Référence des propriétés internes :
 @rinternals{Lyrics}.
 @endmorerefs
 
 
-@node Durée automatique des syllabes
+@node Automatic syllable durations
 @unnumberedsubsubsec Durée automatique des syllabes
-@translationof Automatic syllable durations
 
 @cindex syllabe, durée automatique
 @cindex paroles et mélodies
@@ -379,12 +373,12 @@ paroles avec un autre contexte de voix, ce à n'importe quel moment.
 Ces trois méthodes permettent d'ajouter les traits d'union séparant les
 syllabes d'un même mot ainsi que d'indiquer la tenue de la dernière
 syllabe.  Ceci fait l'objet de la rubrique
-@ref{Traits d'union et de prolongation}.
+@ref{Extenders and hyphens}.
 
 Le contexte @code{Voice} contenant la mélodie sur laquelle les paroles
 vont s'aligner doit rester actif, au risque de voir la suite du texte
 disparaître.  Ceci peut se produire lorsqu'il y a des moments où l'on ne
-chante pas.  La rubrique @ref{Conservation d'un contexte} vous indiquera
+chante pas.  La rubrique @ref{Keeping contexts alive} vous indiquera
 comment maintenir un contexte actif.
 
 
@@ -416,7 +410,7 @@ Cette commande adapte les paroles aux notes de la voix (contexte
 @code{\lyricsto}.  La commande @code{\lyricsto} introduit
 automatiquement le mode @code{\lyricmode}. Les paroles viendront par
 défaut se placer en dessous des notes. Pour un autre positionnement,
-voir @ref{Positionnement vertical des paroles}.
+voir @ref{Placing lyrics vertically}.
 
 
 @subheading Utilisation de @code{\addlyrics}
@@ -511,14 +505,13 @@ Voici un exemple de cette manière de procéder :
 
 @morerefs
 Manuel de notation :
-@ref{Conservation d'un contexte},
-@ref{Traits d'union et de prolongation}.
+@ref{Keeping contexts alive},
+@ref{Extenders and hyphens}.
 @endmorerefs
 
 
-@node Durée explicite des syllabes
+@node Manual syllable durations
 @unnumberedsubsubsec Durée explicite des syllabes
-@translationof Manual syllable durations
 
 On peut aussi se passer de @code{\addlyrics}, @code{\lyricsto} et
 @code{associatedVoice} pour saisir des paroles.  Dans ce cas, les
@@ -566,7 +559,7 @@ Voici deux illustrations de cette technique :
 @end lilypond
 
 Cette manière de procéder est tout à fait adaptée lorsqu'un fond musical
-accompagne des dialogues -- voir @ref{Dialogue et musique}.
+accompagne des dialogues -- voir @ref{Dialogue over music}.
 
 Les syllabes seront alignées selon la dérogation apportée à la propriété
 @code{self-alignment-X} :
@@ -586,7 +579,7 @@ Les syllabes seront alignées selon la dérogation apportée à la propriété
 
 @morerefs
 Manuel de notation :
-@ref{Dialogue et musique}.
+@ref{Dialogue over music}.
 
 Référence des propriétés internes :
 @rinternals{Lyrics},
@@ -594,9 +587,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Plusieurs syllabes sur une note
+@node Multiple syllables to one note
 @unnumberedsubsubsec Plusieurs syllabes sur une note
-@translationof Multiple syllables to one note
 
 @cindex liaison, dans les paroles
 @cindex espace dans les paroles
@@ -631,9 +623,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Plusieurs notes pour une même syllabe
+@node Multiple notes to one syllable
 @unnumberedsubsubsec Plusieurs notes pour une même syllabe
-@translationof Multiple notes to one syllable
 
 @cindex mélisme
 @cindex vocalise
@@ -701,7 +692,7 @@ Notez bien qu'une liaison de phrasé -- indiquée par @code{\(@dots{}\)}
 @item
 LilyPond considère des notes regroupées par une ligature manuelle comme
 un mélisme, si tant est que la procédure de ligature automatique a été
-désactivée -- voir @ref{Définition des règles de ligature automatique}.
+désactivée -- voir @ref{Setting automatic beam behavior}.
 
 @lilypond[quote,verbatim]
 <<
@@ -789,7 +780,7 @@ propriétés de contexte ajustables (en anglais)}.
 
 Dans le cas où les indications de mélisme doivent être totalement
 ignorées, il vous faudra alors activer @code{ignoreMelismata} -- voir
-@ref{Rythme différent selon le couplet}.
+@ref{Stanzas with different rhythms}.
 
 Lorsque, dans un passage où la propriété @code{melismaBusyProperties}
 est active, survient un mélisme, vous pouvez l'indiquer dans les paroles
@@ -821,13 +812,13 @@ Glossaire musicologique :
 @rglos{melisma}.
 
 Manuel d'initiation :
-@rlearning{Alignement des paroles sur une mélodie}.
+@rlearningnamed{Aligning lyrics to a melody, Alignement des paroles sur une mélodie}.
 
 Manuel de notation :
-@ref{Alignement des paroles sur la mélodie},
-@ref{Définition des règles de ligature automatique},
-@ref{Durée automatique des syllabes},
-@ref{Rythme différent selon le couplet}.
+@ref{Aligning lyrics to a melody},
+@ref{Setting automatic beam behavior},
+@ref{Automatic syllable durations},
+@ref{Stanzas with different rhythms}.
 
 Référence des propriétés internes :
 @rinternals{Tunable context properties}.
@@ -839,9 +830,8 @@ alors prolonger vous-même les syllabes concernées à l'aide d'un double
 caractère souligné.
 
 
-@node Traits d'union et de prolongation
+@node Extenders and hyphens
 @unnumberedsubsubsec Traits d'union et de prolongation
-@translationof Extenders and hyphens
 
 @cindex mélisme
 @cindex extenseur
@@ -886,9 +876,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Changement graduel de voyelle
+@node Gradual changes of vowel
 @unnumberedsubsubsec Changement graduel de voyelle
-@translationof Gradual changes of vowel
 
 
 @cindex voyelle, transition
@@ -931,25 +920,23 @@ Référence des propriétés internes :
 
 
 
-@node Situations particulières en matière de paroles
+@node Techniques specific to lyrics
 @subsection Situations particulières en matière de paroles
-@translationof Techniques specific to lyrics
 
 @c FIXME This whole section is to be reorganized
 
 @menu
-* Travail avec des paroles et variables::
-* Positionnement vertical des paroles::
-* Positionnement horizontal des syllabes::
-* Paroles et reprises::
-* Paroles alternatives::
-* Polyphonie et paroles communes::
+* Working with lyrics and variables::
+* Placing lyrics vertically::
+* Placing syllables horizontally::
+* Lyrics and repeats::
+* Divisi lyrics::
+* Polyphony with shared lyrics::
 @end menu
 
 
-@node Travail avec des paroles et variables
+@node Working with lyrics and variables
 @unnumberedsubsubsec Travail avec des paroles et variables
-@translationof Working with lyrics and variables
 
 @cindex paroles, variables
 @cindex paroles, identificateur
@@ -1026,7 +1013,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 @morerefs
 Manuel de notation :
-@ref{Positionnement vertical des paroles}.
+@ref{Placing lyrics vertically}.
 
 Référence des propriétés internes :
 @rinternals{LyricCombineMusic},
@@ -1034,9 +1021,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Positionnement vertical des paroles
+@node Placing lyrics vertically
 @unnumberedsubsubsec Positionnement vertical des paroles
-@translationof Placing lyrics vertically
 
 @cindex positionnement des paroles
 @cindex paroles, positionnement
@@ -1153,7 +1139,7 @@ deuxième méthode :
 
 Vous pouvez générer d'autres combinaisons de paroles et portées à partir
 de ces exemples, ou en examinant ce qui figure à la rubrique
-@rlearning{Modèles pour ensemble vocal} du manuel d'initiation.
+@rlearningnamed{Vocal ensembles templates, Modèles pour ensemble vocal} du manuel d'initiation.
 
 @snippets
 
@@ -1163,17 +1149,16 @@ de ces exemples, ou en examinant ce qui figure à la rubrique
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Modèles pour ensemble vocal}.
+@rlearningnamed{Vocal ensembles templates, Modèles pour ensemble vocal}.
 
 Manuel de notation :
-@ref{Création et référencement d'un contexte},
-@ref{Ordonnancement des contextes}.
+@ref{Creating and referencing contexts},
+@ref{Context layout order}.
 @endmorerefs
 
 
-@node Positionnement horizontal des syllabes
+@node Placing syllables horizontally
 @unnumberedsubsubsec Positionnement horizontal des syllabes
-@translationof Placing syllables horizontally
 
 @cindex espacement des paroles
 @cindex paroles, gestion de l'espacement
@@ -1253,15 +1238,14 @@ de mesure, il faut ajouter
 @end example
 
 
-@node Paroles et reprises
+@node Lyrics and repeats
 @unnumberedsubsubsec Paroles et reprises
-@translationof Lyrics and repeats
 
 @cindex reprise et paroles
 @cindex paroles et répétition
 
 La répétition de @i{fragments musicaux} est abordée de manière détaillée
-dans un @ref{Répétitions et reprises,chapitre spécifique}.
+dans un @ref{Repeats,chapitre spécifique}.
 Nous nous intéresserons ici aux moyens d'ajouter des paroles à des
 reprises.
 
@@ -1674,14 +1658,13 @@ doivent être insérées manuellement :
 
 @morerefs
 Manuel de notation :
-@ref{Conservation d'un contexte},
-@ref{Répétitions et reprises}.
+@ref{Keeping contexts alive},
+@ref{Repeats}.
 @endmorerefs
 
 
-@node Paroles alternatives
+@node Divisi lyrics
 @unnumberedsubsubsec Paroles alternatives
-@translationof Divisi lyrics
 
 @cindex division et paroles
 @cindex paroles divisées (reprises)
@@ -1758,12 +1741,11 @@ expressions qu'elle contient seront assignées à de @strong{nouveaux
 contextes de voix}, ce qui aura pour effet qu'aucune parole ne leur sera
 affectée -- les paroles sont attachées au contexte de voix initial. Il
 vaut mieux construire ce passage comme une polyphonie temporaire -- voir
-@ref{Polyphonie sur une portée}.
+@ref{Single-staff polyphony}.
 
 
-@node Polyphonie et paroles communes
+@node Polyphony with shared lyrics
 @unnumberedsubsubsec Polyphonie et paroles communes
-@translationof Polyphony with shared lyrics
 
 @cindex polyphonie, mêmes paroles
 @cindex paroles communes à plusieurs voix
@@ -1833,7 +1815,7 @@ La commande @code{\addlyrics} ne peut traiter que des paroles attachées
 
 @noindent
 La fonction @code{\partCombine} est abordée en détails dans
-@ref{Regroupement automatique de parties}.
+@ref{Automatic part combining}.
 
 Pour finir, cette méthode est aussi utilisable lorsque les voix sont
 sur des portées différentes, et ne se limite pas à deux voix :
@@ -1854,23 +1836,21 @@ words = \lyricmode { la __ la __ }
 @end lilypond
 
 
-@node Couplets
+@node Stanzas
 @subsection Couplets
-@translationof Stanzas
 
 @menu
-* Numérotation des couplets::
-* Indication de nuance dans les couplets::
-* Indication du personnage et couplets::
-* Rythme différent selon le couplet::
-* Paroles en fin de partition::
-* Paroles sur plusieurs colonnes en fin de partition::
+* Adding stanza numbers::
+* Adding dynamics marks to stanzas::
+* Adding singers' names to stanzas::
+* Stanzas with different rhythms::
+* Printing stanzas at the end::
+* Printing stanzas at the end in multiple columns::
 @end menu
 
 
-@node Numérotation des couplets
+@node Adding stanza numbers
 @unnumberedsubsubsec Numérotation des couplets
-@translationof Adding stanza numbers
 
 @cindex numéro de couplet
 @cindex couplet, numéro
@@ -1924,9 +1904,8 @@ stanzaOneThree = \lyricmode {
 @end lilypond
 
 
-@node Indication de nuance dans les couplets
+@node Adding dynamics marks to stanzas
 @unnumberedsubsubsec Indication de nuance dans les couplets
-@translationof Adding dynamics marks to stanzas
 
 Lorsque des couplets ont des nuances différentes, vous pouvez ajouter
 une nuance en regard de chacun d'eux.  L'objet @code{StanzaNumber}
@@ -1952,9 +1931,8 @@ text = {
 @end lilypond
 
 
-@node Indication du personnage et couplets
+@node Adding singers' names to stanzas
 @unnumberedsubsubsec Indication du personnage et couplets
-@translationof Adding singers' names to stanzas
 
 @cindex nom de personnage
 @cindex nom du chanteur
@@ -1978,9 +1956,8 @@ abrégée.
 @end lilypond
 
 
-@node Rythme différent selon le couplet
+@node Stanzas with different rhythms
 @unnumberedsubsubsec Rythme différent selon le couplet
-@translationof Stanzas with different rhythms
 
 Il arrive assez souvent que le paroles de différents couplets, bien
 qu'attachées à une même mélodie, ne s'articulent pas de la même manière.
@@ -2166,9 +2143,8 @@ syllabe plus tard que prévu.  Il ne s'agit en aucun cas d'une bogue, la
 raison en est purement technique.}
 
 
-@node Paroles en fin de partition
+@node Printing stanzas at the end
 @unnumberedsubsubsec Paroles en fin de partition
-@translationof Printing stanzas at the end
 
 Il peut parfois s'avérer opportun d'aligner un seul couplet sur la
 mélodie et de présenter tous les autres en bloc à la fin du morceau.
@@ -2226,9 +2202,8 @@ text = \lyricmode {
 @end lilypond
 
 
-@node Paroles sur plusieurs colonnes en fin de partition
+@node Printing stanzas at the end in multiple columns
 @unnumberedsubsubsec Paroles sur plusieurs colonnes en fin de partition
-@translationof Printing stanzas at the end in multiple columns
 
 Si les couplets sont vraiment nombreux, il est possible de les imprimer
 sur plusieurs colonnes.  L'exemple suivant vous montre comment procéder
@@ -2308,19 +2283,17 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Chansons
+@node Songs
 @subsection Chansons
-@translationof Songs
 
 @menu
-* Références en matière de chanson::
-* Feuille de chant::
+* References for songs::
+* Lead sheets::
 @end menu
 
 
-@node Références en matière de chanson
+@node References for songs
 @unnumberedsubsubsec Références en matière de chanson
-@translationof References for songs
 
 Une chanson se présente la plupart du temps sous la forme de trois
 portées : une pour la mélodie surmontant un système pianistique
@@ -2338,60 +2311,59 @@ différents endroits de la documentation de LilyPond :
 
 @item
 L'agencement des portées est abordé au chapitre
-@ref{Gravure des portées}.
+@ref{Displaying staves}.
 
 @item
 Les spécificités du piano sont abordées au chapitre
-@ref{Instruments utilisant des portées multiples}.
+@ref{Keyboard and other multi-staff instruments}.
 
 @item
 L'affectation de paroles à une ligne mélodique est abordée au chapitre
-@ref{Vue d'ensemble de la musique vocale}.
+@ref{Common notation for vocal music}.
 
 @item
 Le positionnement des paroles fait l'objet d'une
-@ref{Positionnement vertical des paroles, rubrique dédiée}.
+@ref{Placing lyrics vertically, rubrique dédiée}.
 
 @item
 La gestion des couplets est abordée dans un
-@ref{Couplets,chapitre spécifique}.
+@ref{Stanzas,chapitre spécifique}.
 
 @item
 L'harmonisation d'une chanson est souvent indiquée par des noms d'accord
 en surplomb de la mélodie.  Ceci est abordé au chapitre
-@ref{Gravure des accords}.
+@ref{Displaying chords}.
 
 @item
 L'impression de diagrammes d'accord, lorsque l'accompagnement est fait à
 la guitare, est expliqué à la rubrique « Tablatures sous forme
-d’étiquette », au chapitre @ref{Vue d'ensemble des cordes frettées}.
+d’étiquette », au chapitre @ref{Common notation for fretted strings}.
 
 @end itemize
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Chansons}.
+@rlearningnamed{Songs, Chansons}.
 
 Manuel de notation :
-@ref{Couplets},
-@ref{Gravure des accords},
-@ref{Gravure des portées},
-@ref{Instruments utilisant des portées multiples},
-@ref{Positionnement vertical des paroles},
-@ref{Vue d'ensemble de la musique vocale}.
+@ref{Stanzas},
+@ref{Displaying chords},
+@ref{Displaying staves},
+@ref{Keyboard and other multi-staff instruments},
+@ref{Placing lyrics vertically},
+@ref{Common notation for vocal music}.
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
 @endmorerefs
 
 
-@node Feuille de chant
+@node Lead sheets
 @unnumberedsubsubsec Feuille de chant
-@translationof Lead sheets
 
 Une simple feuille de chant s'obtient en combinant une partie vocale et
 son harmonisation.  La syntaxe appropriée est expliquée en détails au
-chapitre @ref{Notation des accords}.
+chapitre @ref{Chord notation}.
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2399,13 +2371,12 @@ chapitre @ref{Notation des accords}.
 
 @morerefs
 Manuel de notation :
-@ref{Notation des accords}.
+@ref{Chord notation}.
 @endmorerefs
 
 
-@node Chorale
+@node Choral
 @subsection Chorale
-@translationof Choral
 
 @cindex motet
 @cindex partie vocale
@@ -2418,14 +2389,13 @@ la musique chorale, qu'il s'agisse de motet, d'oratorio ou de simple
 partie de chœur.
 
 @menu
-* Références en matière de chorale::
-* Mise en forme d'une partition chorale::
+* References for choral::
+* Score layouts for choral::
 @end menu
 
 
-@node Références en matière de chorale
+@node References for choral
 @unnumberedsubsubsec Références en matière de chorale
-@translationof References for choral
 
 Une partition pour chœur comporte habituellement de deux à quatre
 portées regroupées dans un @code{ChoirStaff}.  L'accompagnement, s'il y
@@ -2447,36 +2417,36 @@ différents endroits de la documentation de LilyPond :
 @item
 La création pas à pas d'une partition pour chœur se trouve dans le
 manuel d'initiation, à la rubrique
-@rlearning{Partition pour chœur à quatre voix mixtes}.
+@rlearningnamed{Four-part SATB vocal score, Partition pour chœur à quatre voix mixtes}.
 LilyPond dispose aussi d'un canevas automatisé qui simplifie grandement
 la saisie d'une partition pour chœur SATB disponible à la rubrique
-@rlearning{Gabarits préprogrammés}.
+@rlearningnamed{Built-in templates, Gabarits préprogrammés}.
 
 @item
 Plusieurs exemples et canevas sont regroupés dans le manuel
-d'initiation, à la rubrique @rlearning{Modèles pour ensemble vocal}.
+d'initiation, à la rubrique @rlearningnamed{Vocal ensembles templates, Modèles pour ensemble vocal}.
 
 @item
 Des informations détaillées sur les contextes @code{ChoirStaff} et
 @code{PianoStaff} sont disponibles au chapitre
-@ref{Regroupement de portées}.
+@ref{Grouping staves}.
 
 @item
 Les formes de notation particulière, telle que celle utilisée en
 @emph{Sacred Harp} et assimilées, sont abordées au chapitre
-@ref{Têtes de note à forme variable}.
+@ref{Shape note heads}.
 
 @item
 Lorsque plusieurs pupitres sont regroupés sur la même portée, les
 hampes, liaisons, etc. de la voix supérieure sont orientées vers le
 haut, et inversement pour la voix inférieure.  L'utilisation de
 @code{\voiceOne} et @code{\voiceTwo} est expliquée au chapitre
-@ref{Polyphonie sur une portée}.
+@ref{Single-staff polyphony}.
 
 @item
 La division temporaire d'un pupitre, ce qui correspond à un
 passage polyphonique temporaire, est expliquée à la section
-@ref{Polyphonie sur une portée}.
+@ref{Single-staff polyphony}.
 
 @end itemize
 
@@ -2488,14 +2458,14 @@ passage polyphonique temporaire, est expliquée à la section
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Modèles pour ensemble vocal},
-@rlearning{Partition pour chœur à quatre voix mixtes}.
+@rlearningnamed{Vocal ensembles templates, Modèles pour ensemble vocal},
+@rlearningnamed{Four-part SATB vocal score, Partition pour chœur à quatre voix mixtes}.
 
 Manuel de notation :
-@ref{Ordonnancement des contextes},
-@ref{Polyphonie sur une portée},
-@ref{Regroupement de portées},
-@ref{Têtes de note à forme variable}.
+@ref{Context layout order},
+@ref{Single-staff polyphony},
+@ref{Grouping staves},
+@ref{Shape note heads}.
 
 Morceaux choisis…:
 @rlsrnamed{Vocal music,Musique vocale}.
@@ -2507,9 +2477,8 @@ Référence des propriétés internes…:
 @endmorerefs
 
 
-@node Mise en forme d'une partition chorale
+@node Score layouts for choral
 @unnumberedsubsubsec Mise en forme d'une partition chorale
-@translationof Score layouts for choral
 
 Une partition pour chœur sur quatre portées, avec ou sans
 accompagnement, présente traditionnellement deux systèmes par page.
@@ -2521,27 +2490,27 @@ suivants :
 
 @item
 La taille des portées a des répercussions sur l'ensemble des éléments de
-la partition.  Voir @ref{Définition de la taille de portée}.
+la partition.  Voir @ref{Setting the staff size}.
 
 @item
 La distance séparant les systèmes, les portées et les paroles peut
 s'ajuster de manière séparée, comme expliqué au chapitre
-@ref{Espacement vertical}.
+@ref{Vertical spacing}.
 
 @item
 La mise en évidence des différentes dimensions permet d'appréhender avec
 finesse le réglage des variables d'espacement vertical et, pourquoi pas,
 de faire tenir la partition sur moins de pages, comme l'explique la
-rubrique @ref{Réduction du nombre de pages de la partition}.
+rubrique @ref{Fitting music onto fewer pages}.
 
 @item
 Lorsque le nombre de systèmes varie d'une page à l'autre, il est
 judicieux de l'indiquer visuellement, en suivant les instructions de la
-rubrique @ref{Séparation des systèmes}.
+rubrique @ref{Separating systems}.
 
 @item
 Pour de plus amples détails quant aux propriétés liées au formatage,
-consultez le chapitre @ref{Mise en forme de la page}.
+consultez le chapitre @ref{Page layout}.
 
 @end itemize
 
@@ -2589,15 +2558,15 @@ du chœur.
 
 @morerefs
 Manuel de notation :
-@ref{Définition de la taille de portée},
-@ref{Espacement vertical},
-@ref{Mise en évidence de l'espacement},
-@ref{Mise en forme de la page},
-@ref{Mise en forme de la partition},
-@ref{Modification de l'espacement},
-@ref{Réduction du nombre de pages de la partition},
-@ref{Sauts},
-@ref{Séparation des systèmes}.
+@ref{Setting the staff size},
+@ref{Vertical spacing},
+@ref{Displaying spacing},
+@ref{Page layout},
+@ref{Score layout},
+@ref{Changing spacing},
+@ref{Fitting music onto fewer pages},
+@ref{Breaks},
+@ref{Separating systems}.
 
 Référence des propriétés internes :
 @rinternals{VerticalAxisGroup},
@@ -2613,13 +2582,12 @@ Référence des propriétés internes :
 
 @morerefs
 Manuel de notation :
-@ref{Signes d'interprétation sous forme de ligne}.
+@ref{Expressive marks as lines}.
 @endmorerefs
 
 
-@node Opéras et musiques de scène
+@node Opera and stage musicals
 @subsection Opéras et musiques de scène
-@translationof Opera and stage musicals
 
 @cindex conducteur
 @cindex vocale, partition
@@ -2668,17 +2636,16 @@ que d'en examiner certaines particularités adaptées aux styles
 opératique et scénique.
 
 @menu
-* Références en matière d'opéra et musique de scène::
-* Indication du rôle::
-* Citation-repère::
-* Musique parlée::
-* Dialogue et musique::
+* References for opera and stage musicals::
+* Character names::
+* Musical cues::
+* Spoken music::
+* Dialogue over music::
 @end menu
 
 
-@node Références en matière d'opéra et musique de scène
+@node References for opera and stage musicals
 @unnumberedsubsubsec Références en matière d'opéra et musique de scène
-@translationof References for opera and stage musicals
 
 @cindex orchestrale, musique
 @cindex ensemble, musique d'
@@ -2695,39 +2662,39 @@ d'ensemble.
 @item
 Un conducteur contient un certain nombre de portées et de nombreuses
 paroles.  Les manières d'agencer les portées sont indiquées à la
-rubrique @ref{Regroupement de portées}, et les façons de les combiner à
-la rubrique @ref{Imbrication de regroupements de portées}.
+rubrique @ref{Grouping staves}, et les façons de les combiner à
+la rubrique @ref{Nested staff groups}.
 
 @item
 Les portées vides sont la plupart du temps éliminées d'un conducteur ou
 d'une partition de chœur.  La réalisation d'une telle partition --  les
 anglophones la disent « à la française » -- est expliquée à la rubrique
-@ref{Masquage de portées}.
+@ref{Hiding staves}.
 
 @item
 La génération d'un matériel d'orchestre fait l'objet de la rubrique
-@ref{Écriture de parties séparées}.  D'autres parties du chapitre
+@ref{Writing parts}.  D'autres parties du chapitre
 consacré à la notation spécialisée vous seront utiles selon
 l'orchestration de la pièce.  Tous les instruments ne sont pas accordés
 pareil ; vous trouverez des informations à ce sujet à la rubrique
-@ref{Instruments transpositeurs}.
+@ref{Instrument transpositions}.
 
 @item
 Lorsque le nombre de systèmes varie d'une page à l'autre, il peut être
 judicieux de les mettre en évidence, en suivant les indications de la
-rubrique @ref{Séparation des systèmes}.
+rubrique @ref{Separating systems}.
 
 @item
 Les différentes propriétés impliquées dans la mise en page sont
-répertoriées au chapitre @ref{Mise en forme de la page}.
+répertoriées au chapitre @ref{Page layout}.
 
 @item
 L'insertion de dialogues et d'indications de mise en scène peuvent se
 réaliser à l'aide de @emph{markups}, en suivant les directives fournies
-aux chapitres @ref{Notes de bas de page} et @ref{Texte}.  Les
+aux chapitres @ref{Creating footnotes} et @ref{Text}.  Les
 indications de mise en scène peuvent s'intercaler entre deux blocs
 @code{\score} selon les préceptes de la rubrique
-@ref{Texte indépendant}.
+@ref{Separate text}.
 
 @end itemize
 
@@ -2738,25 +2705,24 @@ Glossaire musicologique :
 @rglosnamed{transposing instrument,instrument transpositeur}.
 
 Manuel de notation :
-@ref{Ajout de texte},
-@ref{Écriture de parties séparées},
-@ref{Imbrication de regroupements de portées},
-@ref{Instruments transpositeurs},
-@ref{Masquage de portées},
-@ref{Mise en forme de la page},
-@ref{Notes de bas de page},
-@ref{Regroupement de portées},
-@ref{Séparation des systèmes},
-@ref{Transposition}.
+@ref{Writing text},
+@ref{Writing parts},
+@ref{Nested staff groups},
+@ref{Instrument transpositions},
+@ref{Hiding staves},
+@ref{Page layout},
+@ref{Creating footnotes},
+@ref{Grouping staves},
+@ref{Separating systems},
+@ref{Transpose}.
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
 @endmorerefs
 
 
-@node Indication du rôle
+@node Character names
 @unnumberedsubsubsec Indication du rôle
-@translationof Character names
 
 @cindex rôle, indication
 @cindex personnage, indication
@@ -2841,17 +2807,16 @@ melchior = {
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Organisation du code source avec des variables}.
+@rlearningnamed{Organizing pieces with variables, Organisation du code source avec des variables}.
 
 Manuel de notation :
-@ref{Commandes pour markup},
-@ref{Texte}.
+@ref{Text markup commands},
+@ref{Text}.
 @endmorerefs
 
 
-@node Citation-repère
+@node Musical cues
 @unnumberedsubsubsec Citation-repère
-@translationof Musical cues
 
 @cindex musicale, citation
 @cindex instrument, citation
@@ -2865,8 +2830,8 @@ de précieuses indications sur qui joue quoi, lorsqu'il ne dispose pas
 d'un conducteur en bonne et due forme.
 
 Les mécanismes de base permettant d'insérer des citations sont expliqués
-en détail aux rubriques @ref{Citation d'autres voix} et
-@ref{Mise en forme d'une citation}.  Dans le cas où les citations
+en détail aux rubriques @ref{Quoting other voices} et
+@ref{Formatting cue notes}.  Dans le cas où les citations
 concernent différents instruments, faire mention de celui qui intervient
 devient une nécessité ; voici une illustration de la manière de
 procéder en pareil cas :
@@ -2960,11 +2925,11 @@ Glossaire musicologique :
 @rglos{cue-notes}.
 
 Manuel de notation :
-@ref{Alignement des objets},
-@ref{Citation d'autres voix},
-@ref{Direction et positionnement},
-@ref{Mise en forme d'une citation},
-@ref{Utilisation de fonctions musicales}.
+@ref{Aligning objects},
+@ref{Quoting other voices},
+@ref{Direction and placement},
+@ref{Formatting cue notes},
+@ref{Using music functions}.
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
@@ -2983,9 +2948,8 @@ explicitement déclarés, ainsi que l'utilisation de la commande
 @code{\quoteDuring} pour extraire et insérer les notes répliquées.
 
 
-@node Musique parlée
+@node Spoken music
 @unnumberedsubsubsec Musique parlée
-@translationof Spoken music
 
 @cindex parlato
 @cindex Sprechgesang
@@ -2993,7 +2957,7 @@ explicitement déclarés, ainsi que l'utilisation de la commande
 Le @emph{parlato} -- ou @emph{Sprechgesang} pour les germanistes -- est
 du texte scandé en rythme, mais sans hauteurs définies ; il est
 indiqué par des notes en croix, à l'instar des percussions -- voir
-@ref{Têtes de note spécifiques}.
+@ref{Special note heads}.
 
 @c TODO add "marking-notes-on-spoken-parts" snippet -vv
 @c add "showing the rhythm of a melody" snip
@@ -3002,9 +2966,8 @@ indiqué par des notes en croix, à l'instar des percussions -- voir
 @c add "lyrics independents of notes" ref
 
 
-@node Dialogue et musique
+@node Dialogue over music
 @unnumberedsubsubsec Dialogue et musique
-@translationof Dialogue over music
 
 Les dialogues que l'on ajoute à la musique sont traditionnellement
 imprimés en italique au-dessus des portées, au moment même où ils
@@ -3078,17 +3041,16 @@ dialogue = \lyricmode {
 
 @morerefs
 Manuel de notation :
-@ref{Durée explicite des syllabes},
-@ref{Texte}.
+@ref{Manual syllable durations},
+@ref{Text}.
 
 Référence des propriétés internes :
 @rinternals{LyricText}.
 @endmorerefs
 
 
-@node Chants liturgiques
+@node Chants psalms and hymns
 @subsection Chants liturgiques
-@translationof Chants psalms and hymns
 
 @cindex cantique
 @cindex psalmodie
@@ -3103,33 +3065,31 @@ surviennent en matière de typographie se ressemblent, quelle que soit
 l'obédience.
 
 @menu
-* Références en matière de chant liturgique::
-* Cantiques et hymnes::
-* Psalmodie::
-* Barre de phrase en musique liturgique::
-* Mesure incomplète et musique liturgique::
+* References for chants and psalms::
+* Setting a chant::
+* Pointing a psalm::
+* Phrase bar lines in hymn tunes::
+* Partial measures in hymn tunes::
 @end menu
 
 
-@node Références en matière de chant liturgique
+@node References for chants and psalms
 @unnumberedsubsubsec Références en matière de chant liturgique
-@translationof References for chants and psalms
 
 La présentation du plain chant et du grégorien selon différents styles
-est abordée au chapitre @ref{Notations anciennes}.
+est abordée au chapitre @ref{Ancient notation}.
 
 @morerefs
 Manuel de notation :
-@ref{Notations anciennes}.
+@ref{Ancient notation}.
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
 @endmorerefs
 
 
-@node Cantiques et hymnes
+@node Setting a chant
 @unnumberedsubsubsec Cantiques et hymnes
-@translationof Setting a chant
 
 La mise en forme contemporaine de cantiques utilise à la fois la
 notation moderne et un certain nombre d'éléments propres aux notations
@@ -3152,11 +3112,11 @@ stemOff = { \hide Staff.Stem }
 Les barres de mesure sont absentes dans la plupart des cas ; celles
 que vous rencontrerez seront raccourcies ou en pointillé, dans le but
 d'indiquer une « respiration ». Pour obtenir un chant non mesuré, voir
-@ref{Musique sans métrique}. Pour préseerver tous les effets d'une
+@ref{Unmetered music}. Pour préseerver tous les effets d'une
 métrique tout en désactivant les barres de mesure automatiques, il
 faudra régler @code{measureBarType} à @code{'()}. Sans barre de mesure à
 intervalle régulier, vous devrez gérer manuellement l'espacement
-horizontal -- voir @ref{Sauts de ligne}.
+horizontal -- voir @ref{Line breaking}.
 
 @lilypond[verbatim,quote]
 \score {
@@ -3188,7 +3148,7 @@ horizontal -- voir @ref{Sauts de ligne}.
 
 @noindent
 L'absence de barre de mesure peut ne concerner que certaines portées --
-voir @ref{Modification des greffons de contexte}.
+voir @ref{Modifying context plug-ins}.
 
 Dans la mélodie d'un cantique, les silences ou pauses s'indiquent à
 l'aide de barres de mesure spécifiques :
@@ -3376,22 +3336,21 @@ syllabes et non leur durée.
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Visibilité et couleur des objets},
-@rlearning{Modèles pour ensemble vocal}.
+@rlearningnamed{Visibility and color of objects, Visibilité et couleur des objets},
+@rlearningnamed{Vocal ensembles templates, Modèles pour ensemble vocal}.
 
 Manuel de notation :
-@ref{Barres de mesure},
-@ref{Modification des greffons de contexte},
-@ref{Musique sans métrique},
-@ref{Notations anciennes},
-@ref{Typographie du chant grégorien},
-@ref{Visibilité des objets}.
+@ref{Bar lines},
+@ref{Modifying context plug-ins},
+@ref{Unmetered music},
+@ref{Ancient notation},
+@ref{Typesetting Gregorian chant},
+@ref{Visibility of objects}.
 @endmorerefs
 
 
-@node Psalmodie
+@node Pointing a psalm
 @unnumberedsubsubsec Psalmodie
-@translationof Pointing a psalm
 
 Les versets d'un psaume anglican sont habituellement centrées sous la
 mélodie.
@@ -3428,7 +3387,7 @@ mesure.
 
 Vous pourriez tout à fait utiliser d'autres symboles disponibles au
 travers des glyphes de la fonte @code{fetaMusic} -- voir le chapitre
-@ref{Fontes} pour plus de détails.
+@ref{Fonts} pour plus de détails.
 
 @lilypond[verbatim,quote]
 tick = \markup {
@@ -3538,25 +3497,24 @@ tick = \markup {
 @end lilypond
 
 L'utilisation du mode @emph{markup} pour centrer le texte et agencer les
-lignes est abordée en détails au chapitre @ref{Mise en forme du texte}.
+lignes est abordée en détails au chapitre @ref{Formatting text}.
 
 La plupart de ces éléments sont regroupés dans l'un des versets du modèle
-présenté à la rubrique @rlearning{Psalmodie}.
+présenté à la rubrique @rlearningnamed{Psalms, Psalmodie}.
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Modèles pour ensemble vocal},
-@rlearning{Psalmodie}.
+@rlearningnamed{Vocal ensembles templates, Modèles pour ensemble vocal},
+@rlearningnamed{Psalms, Psalmodie}.
 
 Manuel de notation :
-@ref{Fontes},
-@ref{Mise en forme du texte}.
+@ref{Fonts},
+@ref{Formatting text}.
 @endmorerefs
 
 
-@node Barre de phrase en musique liturgique
+@node Phrase bar lines in hymn tunes
 @unnumberedsubsubsec Barre de phrase en musique liturgique
-@translationof Phrase bar lines in hymn tunes
 
 @funindex \caesura
 @cindex barre de mesure, hymnes
@@ -3565,7 +3523,7 @@ Manuel de notation :
 
 La commande @code{\caesura} peut être configurée de sorte à créer des
 barres de phrase qui interagissent correctement avec les autres barres
-automatiques -- voir @ref{Barres de mesure automatiques}.
+automatiques -- voir @ref{Automatic bar lines}.
 
 Dans les exemples suivants, le code source de la mélodie dans
 @file{old-hundredth-example.ly} utilise @code{\caesura} pour séparer les
@@ -3606,9 +3564,8 @@ d'une phrase.
 @end lilypond
 
 
-@node Mesure incomplète et musique liturgique
+@node Partial measures in hymn tunes
 @unnumberedsubsubsec Mesure incomplète et musique liturgique
-@translationof Partial measures in hymn tunes
 
 Il arrive fréquemment que les chants liturgiques comportent des mesures
 incomplètes aussi bien en début qu'en fin de ligne, de telle sorte qu'à
@@ -3622,12 +3579,11 @@ d'une barre de mesure à la fin de chaque ligne.
 {snippets/hymn-template.ly}
 
 
-@node Musique vocale ancienne
+@node Ancient vocal music
 @subsection Musique vocale ancienne
-@translationof Ancient vocal music
 
 LilyPond prend en charge la musique vocale ancienne.  Elle est abordée
-en détails au chapitre @ref{Notations anciennes}.
+en détails au chapitre @ref{Ancient notation}.
 
 @c TODO
 
@@ -3636,5 +3592,5 @@ en détails au chapitre @ref{Notations anciennes}.
 
 @morerefs
 Manuel de notation :
-@ref{Notations anciennes}.
+@ref{Ancient notation}.
 @endmorerefs

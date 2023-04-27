@@ -14,9 +14,8 @@
 @c Translation checkers: J.-C. Malahieude, John Mandereau, Jean Abou Samra
 
 
-@node Signes d'interprétation
+@node Expressive marks
 @section Signes d'interprétation
-@translationof Expressive marks
 
 @lilypondfile[quote]{snippets/expressive-headword.ly}
 
@@ -24,30 +23,28 @@ Ce chapitre traite des différentes indications d'interprétation que l'on
 peut trouver sur les partitions.
 
 @menu
-* Signes d'interprétation attachés à des notes::
-* Signes d'interprétation sous forme de courbe::
-* Signes d'interprétation sous forme de ligne::
+* Expressive marks attached to notes::
+* Expressive marks as curves::
+* Expressive marks as lines::
 @end menu
 
 
-@node Signes d'interprétation attachés à des notes
+@node Expressive marks attached to notes
 @subsection Signes d'interprétation attachés à des notes
-@translationof Expressive marks attached to notes
 
 Nous allons voir au cours de ces lignes comment ajouter aux notes des
 indications d'interprétation -- articulation, ornementation, nuance --
 et aborderons la manière de générer vos propres signes.
 
 @menu
-* Articulations et ornements::
-* Nuances::
-* Personnalisation des indications de nuance::
+* Articulations and ornamentations::
+* Dynamics::
+* New dynamic marks::
 @end menu
 
 
-@node Articulations et ornements
+@node Articulations and ornamentations
 @unnumberedsubsubsec Articulations et ornements
-@translationof Articulations and ornamentations
 
 @cindex @qq{accent}, articulation
 @cindex articulation, @qq{accent}
@@ -172,7 +169,7 @@ jeu différents s'ajoutent aux notes de la manière suivante :
 @end example
 
 Les valeurs de @var{nom} sont répertoriées dans l'annexe
-@ref{Liste des signes d'articulation}. En voici un exemple :
+@ref{List of articulations}. En voici un exemple :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -205,7 +202,7 @@ l'articulation désirée.  C'est entre autres le cas pour
 Même si LilyPond place automatiquement ces symboles, selon les règles
 contenues dans le fichier @file{scm/script.scm}, il est possible de
 l'obliger à les positionner au-dessus ou en dessous de la note, comme
-indiqué au chapitre @ref{Direction et positionnement}.
+indiqué au chapitre @ref{Direction and placement}.
 
 Le type d'objet graphique créé par une articulation dépend de ce à quoi
 il est attaché.
@@ -231,11 +228,11 @@ g'2 \caesura \fermata f'2
 
 En dehors des articulations habituelles, vous pouvez adjoindre du texte
 -- avec ou sans mise en forme -- à n'importe quelle note.  Voir à ce
-propos @ref{Commentaires textuels}.
+propos @ref{Text scripts}.
 
 Pour plus d'information sur la manière d'ordonner @code{Scripts} et
 @code{TextScripts}, consultez le chapitre
-@rlearning{Positionnement des objets}.
+@rlearningnamed{Placement of objects, Positionnement des objets}.
 
 @snippets
 
@@ -270,13 +267,13 @@ Glossaire musicologique :
 @rglos{tenuto}.
 
 Manuel d'initiation :
-@rlearning{Positionnement des objets}.
+@rlearningnamed{Placement of objects, Positionnement des objets}.
 
 Manuel de notation :
-@ref{Commentaires textuels},
-@ref{Direction et positionnement},
-@ref{Liste des signes d'articulation},
-@ref{Trilles}.
+@ref{Text scripts},
+@ref{Direction and placement},
+@ref{List of articulations},
+@ref{Trills}.
 
 Fichiers d'initialisation :
 @file{scm/script.scm}.
@@ -292,9 +289,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Nuances
+@node Dynamics
 @unnumberedsubsubsec Nuances
-@translationof Dynamics
 
 @cindex nuances
 
@@ -326,7 +322,7 @@ disponibles sont @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp},
 @code{\ffff}, @code{\fffff}, @code{\fp}, @code{\sf}, @code{\sff},
 @code{\sp}, @code{\spp}, @code{\sfz}, @code{\rfz}et @code{\n}. Les
 nuances se placent aussi bien en dessous qu'au-dessus de la portée ;
-pour plus d'information, consultez @ref{Direction et positionnement}.
+pour plus d'information, consultez @ref{Direction and placement}.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -511,7 +507,7 @@ changement de nuance :
 
 Pour créer des indications de nuance qui restent alignées avec les
 nuances habituelles, reportez-vous au chapitre
-@ref{Personnalisation des indications de nuance}.
+@ref{New dynamic marks}.
 
 @cindex nuances, positionnement vertical
 @cindex vertical, positionnement des nuances
@@ -638,13 +634,13 @@ Glossaire musicologique :
 @rglosnamed{hairpin,soufflet}.
 
 Manuel d'initiation :
-@rlearning{Articulations et nuances}.
+@rlearningnamed{Articulation and dynamics, Articulations et nuances}.
 
 Manuel de notation :
-@ref{Amélioration du rendu MIDI},
-@ref{Direction et positionnement},
-@ref{Gestion des nuances en MIDI},
-@ref{Personnalisation des indications de nuance}.
+@ref{Enhancing MIDI output},
+@ref{Direction and placement},
+@ref{Controlling MIDI dynamics},
+@ref{New dynamic marks}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
@@ -657,9 +653,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Personnalisation des indications de nuance
+@node New dynamic marks
 @unnumberedsubsubsec Personnalisation des indications de nuance
-@translationof New dynamic marks
 
 @cindex indication de nuance, personnalisation
 @cindex nuance personnalisée
@@ -685,7 +680,7 @@ moltoF = \markup { molto \dynamic f }
 
 Vous pouvez créer des indications de nuance éditoriales (entre
 parenthèses ou crochets) grâce aux étiquettes (@emph{mode markup}) ; la
-syntaxe en est abordée au chapitre @ref{Mise en forme du texte}.
+syntaxe en est abordée au chapitre @ref{Formatting text}.
 
 @lilypond[verbatim,quote]
 roundF = \markup {
@@ -746,7 +741,7 @@ mfEspressDynamic = #(make-dynamic-script mfEspress)
 
 La construction d'une indication de nuance personnalisée peut aussi se
 faire en langage Scheme ; voir
-@rextend{Construction d'un markup en Scheme} pour en connaître les
+@rextendnamed{Markup construction in Scheme, Construction d'un markup en Scheme} pour en connaître les
 modalités.
 
 @lilypond[verbatim,quote]
@@ -774,26 +769,25 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @end lilypond
 
 L'utilisation des fontes en mode @emph{markup} est abordée au chapitre
-@ref{Sélection de la fonte et de la taille}.
+@ref{Selecting font and font size}.
 
 @morerefs
 Manuel de notation :
-@ref{Amélioration du rendu MIDI},
-@ref{Gestion des nuances en MIDI},
-@ref{Mise en forme du texte},
-@ref{Sélection de la fonte et de la taille}.
+@ref{Enhancing MIDI output},
+@ref{Controlling MIDI dynamics},
+@ref{Formatting text},
+@ref{Selecting font and font size}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
 
 Manuel d'extension :
-@rextend{Construction d'un markup en Scheme}.
+@rextendnamed{Markup construction in Scheme, Construction d'un markup en Scheme}.
 @endmorerefs
 
 
-@node Signes d'interprétation sous forme de courbe
+@node Expressive marks as curves
 @subsection Signes d'interprétation sous forme de courbe
-@translationof Expressive marks as curves
 
 @cindex courbes
 
@@ -802,16 +796,15 @@ courbe : liaisons d'articulation ou de phrasé, respirations, chutes
 et sauts.
 
 @menu
-* Liaisons d'articulation::
-* Liaisons de phrasé::
-* Signes de respiration::
-* Chutes et sauts::
+* Slurs::
+* Phrasing slurs::
+* Breath marks::
+* Falls and doits::
 @end menu
 
 
-@node Liaisons d'articulation
+@node Slurs
 @unnumberedsubsubsec Liaisons d'articulation
-@translationof Slurs
 
 @cindex legato
 @cindex liaison d'articulation
@@ -842,7 +835,7 @@ terminer dans la voix où elle a été entamée.}
 @funindex \=
 
 Vous pouvez décider de l'orientation des liaisons par rapport à la
-portée, comme indiqué au chapitre @ref{Direction et positionnement}.
+portée, comme indiqué au chapitre @ref{Direction and placement}.
 
 @cindex articulation, liaison
 @cindex liaisons d'articulation multiples
@@ -856,7 +849,7 @@ portée, comme indiqué au chapitre @ref{Direction et positionnement}.
 Plusieurs liaisons peuvent intervenir simultanément ou concurremment, ce
 qui requiert une attention spéciale.  Dans la majorité des cas, la
 liaison externe indique un phrasé, et un phrasé peut recouvrir plusieurs
-liaisons d'articulation -- voir @ref{Liaisons de phrasé}.  Dans le cas
+liaisons d'articulation -- voir @ref{Phrasing slurs}.  Dans le cas
 où plusieurs liaisons d'articulation interviennent au sein d'un même
 contexte @code{Voice}, leurs début et fin doivent être labellisés par un
 @code{\=} suivi d'un identifiant (symbole ou entier positif).
@@ -979,11 +972,11 @@ Glossaire musicologique :
 @rglosnamed{slur,liaison}.
 
 Manuel d'initiation :
-@rlearning{Non-imbrication des crochets et liaisons}.
+@rlearningnamed{On the un-nestedness of brackets and ties, Non-imbrication des crochets et liaisons}.
 
 Manuel de notation :
-@ref{Direction et positionnement},
-@ref{Liaisons de phrasé}.
+@ref{Direction and placement},
+@ref{Phrasing slurs}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
@@ -993,9 +986,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Liaisons de phrasé
+@node Phrasing slurs
 @unnumberedsubsubsec Liaisons de phrasé
-@translationof Phrasing slurs
 
 @cindex liaison de phrasé
 @cindex phrasé, liaison de
@@ -1023,7 +1015,7 @@ d'une liaison d'articulation.  Cependant, LilyPond les considère comme
 des objets différents.  Une commande @code{\slurUp} n'affectera donc pas
 une liaison de phrasé.  Vous pouvez décider de l'orientation des
 liaisons de phrasé par rapport à la portée, comme indiqué au chapitre
-@ref{Direction et positionnement}.
+@ref{Direction and placement}.
 
 @cindex liaisons de phrasé multiples
 @cindex liaisons de phrasé simultanées
@@ -1032,7 +1024,7 @@ liaisons de phrasé par rapport à la portée, comme indiqué au chapitre
 
 Plusieurs liaisons de phrasé peuvent intervenir en même temps, dès lors
 qu'elles sont labellisées, comme des liaisons normales -- voir
-@ref{Liaisons d'articulation}.
+@ref{Slurs}.
 
 @cindex liaison, style de trait
 @cindex liaison, trait plein
@@ -1104,7 +1096,7 @@ Vous pouvez même personnaliser la densité des tirets d'une liaison :
 La personnalisation des lignes discontinues est identique pour les
 liaisons de phrasé et les liaisons d'articulation.  Pour plus de
 détails, référez-vous aux morceaux choisis de la section
-@ref{Liaisons d'articulation}.
+@ref{Slurs}.
 
 @predefined
 @code{\phrasingSlurUp},
@@ -1120,11 +1112,11 @@ détails, référez-vous aux morceaux choisis de la section
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Non-imbrication des crochets et liaisons}.
+@rlearningnamed{On the un-nestedness of brackets and ties, Non-imbrication des crochets et liaisons}.
 
 Manuel de notation :
-@ref{Direction et positionnement},
-@ref{Liaisons d'articulation}.
+@ref{Direction and placement},
+@ref{Slurs}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
@@ -1134,9 +1126,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Signes de respiration
+@node Breath marks
 @unnumberedsubsubsec Signes de respiration
-@translationof Breath marks
 
 @cindex respiration, indication
 @cindex point d'arrêt
@@ -1152,7 +1143,7 @@ qui précède pour prendre une respiration..
 
 @noindent
 Pour une courte interruption du son qui ne soit pas prise sur la note
-précédente, voir @ref{Césures}.
+précédente, voir @ref{Caesuras}.
 
 Contrairement aux autres signes d'interprétation, une respiration
 constitue un événement musical à part entière. Par voie de conséquence,
@@ -1160,11 +1151,11 @@ toute autre marque attachée à la note précédente, telle un crochet
 indiquant une ligature manuelle ou une parenthèse indiquant une liaison,
 doit impérativement se placer avant l'instruction @code{\breathe}.
 L'instruction @code{\breathe} ne tolère pas d'articulation en soi --
-voir @ref{Césures}.
+voir @ref{Caesuras}.
 
 Un signe de respiration interrompt obligatoirement les ligatures
 automatiques.  Pour passer outre ce fonctionnement, voir
-@ref{Barres de ligature manuelles}.
+@ref{Manual beams}.
 
 @lilypond[verbatim,quote]
 \fixed c'' { c8 \breathe d e f g2 }
@@ -1178,7 +1169,7 @@ automatiques.  Pour passer outre ce fonctionnement, voir
 La propriété de contexte @code{breathMarkType} permet de contrôler
 laquelle des différentes indications de respiration la commande
 @code{\breathe} se chargera de créer -- voir
-@ref{Liste des marques de respiration}.
+@ref{List of breath marks}.
 
 @lilypond[verbatim,quote]
 \fixed c'' {
@@ -1192,8 +1183,8 @@ Glossaire musicologique :
 @rglosnamed{breath mark, respiration}.
 
 Manuel de notation :
-@ref{Césures},
-@ref{Divisions}.
+@ref{Caesuras},
+@ref{Divisiones}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
@@ -1205,9 +1196,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Chutes et sauts
+@node Falls and doits
 @unnumberedsubsubsec Chutes et sauts
-@translationof Falls and doits
 
 @cindex chute
 @cindex saut
@@ -1244,9 +1234,8 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Signes d'interprétation sous forme de ligne
+@node Expressive marks as lines
 @subsection Signes d'interprétation sous forme de ligne
-@translationof Expressive marks as lines
 
 @cindex lignes
 
@@ -1255,14 +1244,13 @@ d'aspect linéaire, tels les glissandos, arpèges et trilles.
 
 @menu
 * Glissando::
-* Arpèges::
-* Trilles::
+* Arpeggio::
+* Trills::
 @end menu
 
 
 @node Glissando
 @unnumberedsubsubsec Glissando
-@translationof Glissando
 
 @cindex glissando
 @funindex \glissando
@@ -1323,7 +1311,7 @@ pas forcément partie d'un glissando.
 @end lilypond
 
 Un glissando est indiqué graphiquement, par une ligne ou des
-vaguelettes -- voir @ref{Styles de ligne}.
+vaguelettes -- voir @ref{Line styles}.
 
 @snippets
 
@@ -1353,7 +1341,7 @@ Glossaire musicologique :
 @rglos{glissando}.
 
 Manuel de notation :
-@ref{Styles de ligne}.
+@ref{Line styles}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
@@ -1367,9 +1355,8 @@ Il n'est pas possible d'imprimer un texte (tel que @notation{gliss.})
 le long de la ligne de glissando.
 
 
-@node Arpèges
+@node Arpeggio
 @unnumberedsubsubsec Arpèges
-@translationof Arpeggio
 
 @cindex arpège
 @cindex accord arpégé
@@ -1443,11 +1430,11 @@ qu'il n'entre pas en collision avec d'autres objets).
 
 Les indications d'arpeggio peuvent se présenter sous la forme de ligne
 discontinue à l'aide de la propriété  @code{dash-definition}.  Pour
-plus de détails à ce propos, consultez @ref{Liaisons d'articulation}.
+plus de détails à ce propos, consultez @ref{Slurs}.
 
 Un arpège peut parfois s'écrire de manière explicite, à l'aide de
 liaisons de tenue.  Pour plus d'information, voir
-@ref{Liaisons de prolongation}.
+@ref{Ties}.
 
 @predefined
 @code{\arpeggio},
@@ -1480,8 +1467,8 @@ Glossaire musicologique :
 @rglos{arpeggio}.
 
 Manuel de notation :
-@ref{Liaisons d'articulation},
-@ref{Liaisons de prolongation}.
+@ref{Slurs},
+@ref{Ties}.
 
 Fichiers d'initialisation :
 @file{ly/property-init.ly}.
@@ -1501,7 +1488,7 @@ uniquement au contexte en cours ; elles n'affecteront donc pas un arpège
 s'étendant sur d'autres voix ou portées. En pareil cas, ces commandes
 demandent à être utilisées au sein d'une section @code{\context} dans le
 bloc @code{\layout} ou bien avec une clause @code{\with} comme indiqué
-dans @ref{Modification des réglages par défaut d'un contexte}. Il peut
+dans @ref{Changing context default settings}. Il peut
 être judicieux, au lieu d'utiliser ces raccourcis prédéfinis,
 d'introduire une dérogation aux propriétés concernées de l'objet
 @code{Arpeggio} directement dans le contexte approprié, comme par exemple
@@ -1533,9 +1520,8 @@ n'est pas opérationnelle pour des arpèges inter-portées ; voir
 @ref{Hampes et changements de portée}.
 
 
-@node Trilles
+@node Trills
 @unnumberedsubsubsec Trilles
-@translationof Trills
 
 @cindex trille
 
@@ -1544,7 +1530,7 @@ n'est pas opérationnelle pour des arpèges inter-portées ; voir
 @funindex \stopTrillSpan
 
 Les trilles brefs s'indiquent comme n'importe quelle ponctuation, avec
-un simple @code{\trill} ; voir @ref{Articulations et ornements}.
+un simple @code{\trill} ; voir @ref{Articulations and ornamentations}.
 
 Les trilles plus longs sont délimités par @code{\startTrillSpan} et
 @code{\stopTrillSpan} :
@@ -1587,7 +1573,7 @@ interrompt de fait celui qui le précédait :
 Dans l'exemple suivant, un trille se combine avec des notes d'ornement.
 La syntaxe d'une telle construction ainsi que le moyen de positionner
 les notes d'ornement avec précision est expliquée au chapitre
-@ref{Notes d'ornement}.
+@ref{Grace notes}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1664,8 +1650,8 @@ Glossaire musicologique :
 @rglosnamed{trill,trille}.
 
 Manuel de notation :
-@ref{Articulations et ornements},
-@ref{Notes d'ornement}.
+@ref{Articulations and ornamentations},
+@ref{Grace notes}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.

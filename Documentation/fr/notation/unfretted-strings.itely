@@ -14,9 +14,8 @@
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 
-@node Cordes non frettées
+@node Unfretted string instruments
 @section Cordes non frettées
-@translationof Unfretted string instruments
 
 @lilypondfile[quote]
 {snippets/unfretted-headword.ly}
@@ -30,13 +29,12 @@ l'écriture pour les cordes non frettées, et tout spécialement pour les
 cordes d'orchestre.
 
 @menu
-* Vue d'ensemble de la notation pour cordes non frettées::
+* Common notation for unfretted strings::
 @end menu
 
 
-@node Vue d'ensemble de la notation pour cordes non frettées
+@node Common notation for unfretted strings
 @subsection Vue d'ensemble de la notation pour cordes non frettées
-@translationof Common notation for unfretted strings
 
 Il existe peu d'éléments spécifiques à l'écriture pour instruments à
 cordes non frettées.  La musique est notée sur une portée et ne
@@ -45,16 +43,15 @@ distinctes peut cependant permettre de traiter efficacement des doubles
 notes ou des divisions.
 
 @menu
-* Références en matière de cordes non frettées::
-* Indications d'archet::
-* Harmoniques::
+* References for unfretted strings::
+* Bowing indications::
+* Harmonics::
 * Snap (Bartók) pizzicato::
 @end menu
 
 
-@node Références en matière de cordes non frettées
+@node References for unfretted strings
 @unnumberedsubsubsec Références en matière de cordes non frettées
-@translationof References for unfretted strings
 
 La majorité des éléments de notation nécessaires en matière de
 cordes d'orchestre et autres instruments à archet est abordée dans
@@ -64,43 +61,42 @@ d'autres chapitres de la documentation :
 
 @item Les indications textuelles telles que « pizz. » ou « arco » sont
 ajoutées comme du texte simple -- voir à ce sujet
-@ref{Commentaires textuels}.
+@ref{Text scripts}.
 
 @item Les indications de doigtés, incluant les indications du pouce,
-sont décrites dans @ref{Doigtés}.
+sont décrites dans @ref{Fingering instructions}.
 
 @item Des numéros de corde peuvent être ajoutés (généralement en chiffre
 romain pour les instruments à archet) -- voir à ce sujet
-@ref{Indications du numéro de corde}.
+@ref{String number indications}.
 
 @item Les doubles notes sont généralement indiquées en écrivant un
-accord, voir @ref{Notes en accords}. Les précisions pour jouer des
-accords peuvent être ajoutées, comme l'indique @ref{Arpèges}.
+accord, voir @ref{Chorded notes}. Les précisions pour jouer des
+accords peuvent être ajoutées, comme l'indique @ref{Arpeggio}.
 
 @item Un squelette de partition est disponible à l'annexe
-@rlearning{Modèles pour quatuor à cordes}.  D'autres informations
+@rlearningnamed{String quartet templates, Modèles pour quatuor à cordes}.  D'autres informations
 se trouvent dans les exemples de code.
 
 @end itemize
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Modèles pour quatuor à cordes}.
+@rlearningnamed{String quartet templates, Modèles pour quatuor à cordes}.
 
 Manuel de notation :
-@ref{Arpèges},
-@ref{Commentaires textuels},
-@ref{Doigtés},
-@ref{Notes en accords}.
+@ref{Arpeggio},
+@ref{Text scripts},
+@ref{Fingering instructions},
+@ref{Chorded notes}.
 
 Morceaux choisis :
 @rlsrnamed{Unfretted strings, Cordes non frettées}.
 @endmorerefs
 
 
-@node Indications d'archet
+@node Bowing indications
 @unnumberedsubsubsec Indications d'archet
-@translationof Bowing indications
 
 @funindex \upbow
 @funindex \downbow
@@ -115,7 +111,7 @@ Morceaux choisis :
 @cindex corde, numéro
 
 Les indications d'archet se créent comme des articulations, elles sont
-décrites dans @ref{Articulations et ornements}.
+décrites dans @ref{Articulations and ornamentations}.
 
 Les indications d'archet, poussé (@code{\upbow}) et tiré
 (@code{\downbow}), peuvent se combiner à des liaisons comme ici :
@@ -127,7 +123,7 @@ Les indications d'archet, poussé (@code{\upbow}) et tiré
 @noindent
 Des chiffres romains peuvent s'ajouter pour indiquer les numéros de
 corde (en lieu et place de chiffres arabes cerclés), comme expliqué
-dans @ref{Indications du numéro de corde}.
+dans @ref{String number indications}.
 
 Alternativement, les indications de corde peuvent se traiter sous forme
 de @emph{markup}, et un script indiquer une corde à vide.
@@ -148,15 +144,14 @@ a'2^\markup { \small "sul A" }
 
 @morerefs
 Manuel de notation :
-@ref{Articulations et ornements},
-@ref{Indications du numéro de corde},
-@ref{Liaisons d'articulation}.
+@ref{Articulations and ornamentations},
+@ref{String number indications},
+@ref{Slurs}.
 @endmorerefs
 
 
-@node Harmoniques
+@node Harmonics
 @unnumberedsubsubsec Harmoniques
-@translationof Harmonics
 
 @funindex \harmonic
 
@@ -220,14 +215,13 @@ Glossaire musicologique :
 @rglos{harmonics}.
 
 Manuel de notation :
-@ref{Références en matière de cordes non frettées},
-@ref{Têtes de note spécifiques}.
+@ref{References for unfretted strings},
+@ref{Special note heads}.
 @endmorerefs
 
 
 @node Snap (Bartók) pizzicato
 @unnumberedsubsubsec Snap (Bartók) pizzicato
-@translationof Snap (Bartók) pizzicato
 
 @cindex pizzicato, Bartók
 @cindex pizzicato, @emph{snap}

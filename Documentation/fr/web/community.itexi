@@ -16,9 +16,8 @@
 @include en/included/gsoc.itexi
 @include fr/included/helpus.itexi
 
-@node Communauté
+@node Community
 @unnumbered Communauté
-@translationof Community
 
 @divClass{link-headings}
 
@@ -32,11 +31,11 @@
 @ref{Contact} : obtenir de l'aide, discuter et rester en contact.
 
 @item
-@ref{Exemples minimalistes} : une nécessité lorsque l'on discute de
+@ref{Tiny examples} : une nécessité lorsque l'on discute de
 LilyPond.
 
 @item
-@ref{Signalement de bogue} : dysfonctionnement du programme.
+@ref{Bug reports} : dysfonctionnement du programme.
 
 @end itemize
 @divEnd
@@ -48,21 +47,21 @@ LilyPond.
 @itemize
 
 @item
-@ref{Participation} : pour les bonnes volontés qui se sentent
+@ref{Help us} : pour les bonnes volontés qui se sentent
 concernées.
 
 @item
-@ref{Mécénat} : pour ceux qui veulent contribuer financièrement.
+@ref{Sponsoring} : pour ceux qui veulent contribuer financièrement.
 
 @item
-@ref{Développement} : pour ceux qui veulent contribuer et tester.
+@ref{Development} : pour ceux qui veulent contribuer et tester.
 
 @item
 @ref{Google Summer of Code} : liste des projets pour le Google Summer of
 Code.
 
 @item
-@ref{Auteurs} : ceux qui ont permis à LilyPond d'être ce qu'il est
+@ref{Authors} : ceux qui ont permis à LilyPond d'être ce qu'il est
 aujourd'hui.
 
 @end itemize
@@ -78,10 +77,10 @@ aujourd'hui.
 nous.
 
 @item
-@ref{Actualités} : archives des dépêches.
+@ref{News} : archives des dépêches.
 
 @item
-@ref{Grenier} : annonces et recensement des modifications intervenues
+@ref{Attic} : annonces et recensement des modifications intervenues
 aux cours des versions précédentes, actualités passée, etc.
 
 @end itemize
@@ -92,23 +91,22 @@ aux cours des versions précédentes, actualités passée, etc.
 @divClass{hide}
 @menu
 * Contact::
-* Exemples minimalistes::
-* Signalement de bogue::
-* Participation::
-* Mécénat::
-* Développement::
+* Tiny examples::
+* Bug reports::
+* Help us::
+* Sponsoring::
+* Development::
 * Google Summer of Code::
-* Auteurs::
+* Authors::
 * Publications::
-* Actualités::
-* Grenier::
+* News::
+* Attic::
 @end menu
 @divEnd
 
 
 @node Contact
 @unnumberedsec Contact
-@translationof Contact
 
 
 @divClass{column-left-top}
@@ -131,7 +129,7 @@ archive@tie{}2},
 @end quotation
 
 @warning{Lorsque vous posez une question, merci de fournir des
-@ref{Exemples minimalistes} !}
+@ref{Tiny examples} !}
 
 
 @subsubheading Autres langues
@@ -173,7 +171,7 @@ pas à apporter votre concours à cette banque de trucs et astuces !
 
 Un certain nombre d'exemples issus du LSR et particulièrement pertinents
 sont directement inclus dans la documentation, volume
-@ref{Morceaux choisis}.
+@ref{Snippets}.
 @divEnd
 
 
@@ -215,7 +213,7 @@ archive2},
 @end quotation
 
 @warning{Les directives à suivre pour poster un message sur cette
-liste sont répertoriées dans @ref{Signalement de bogue}.}
+liste sont répertoriées dans @ref{Bug reports}.}
 @divEnd
 
 
@@ -294,9 +292,8 @@ Beauty », est une ressource de grande valeur.
 @end ignore
 
 
-@node Exemples minimalistes
+@node Tiny examples
 @unnumberedsec Exemples minimalistes
-@translationof Tiny examples
 
 @divClass{column-center-top}
 @subheading Exemple minimaliste@dots{} mais qu'est-ce donc que cela ?
@@ -417,9 +414,8 @@ légion -- quatre lignes suffisent bien souvent à indiquer le problème.
 @divEnd
 
 
-@node Signalement de bogue
+@node Bug reports
 @unnumberedsec Signalement de bogue
-@translationof Bug reports
 
 @divClass{heading-center}
 Si votre saisie entraîne un crash ou une sortie erronée, c'est un bogue.
@@ -451,7 +447,7 @@ Lorsque le dysfonctionnement que vous avez repéré n'est pas répertorié,
 faites-le nous savoir en créant un signalement de bogue.
 
 @warning{Nous n'acceptons les signalements de bogue que s'ils sont
-rédigés sous la forme d'@ref{Exemples minimalistes}.  Nous ne disposons
+rédigés sous la forme d'@ref{Tiny examples}.  Nous ne disposons
 pas de suffisamment de ressources pour traiter les rapports de bogue,
 aussi tout exemple non minimaliste sera rejeté.  Dans la plupart des
 cas, seules quelques notes suffisent à démontrer le dysfonctionnement.}
@@ -516,9 +512,8 @@ aide à voir ce que vous désirez obtenir.
 @divEnd
 
 
-@node Participation
+@node Help us
 @unnumberedsec Participation
-@translationof Help us
 
 @divClass{column-center-top}
 @helpusNeed
@@ -538,9 +533,8 @@ aide à voir ce que vous désirez obtenir.
 @divEnd
 
 
-@node Mécénat
+@node Sponsoring
 @unnumberedsec Mécénat
-@translationof Sponsoring
 
 @divClass{keep-bullets}
 @divClass{column-left-top}
@@ -584,9 +578,8 @@ ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 @divEnd
 
 
-@node Développement
+@node Development
 @unnumberedsec Développement
-@translationof Development
 
 @divClass{heading-center}
 @heading Développement pour LilyPond @versionDevel
@@ -597,8 +590,8 @@ ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 @warning{Il s'agit des versions @emph{instables et de développement}.
 Si vous avez le moindre doute quant à l'utilisation ou l'installation de
 LilyPond, nous vous enjoignons à utiliser le
-@ref{Téléchargement, téléchargement de la version stable} et la
-lecture des @ref{Manuels, manuels pour la version stable}.}
+@ref{Download, téléchargement de la version stable} et la
+lecture des @ref{Manuals, manuels pour la version stable}.}
 
 @divEnd
 
@@ -847,7 +840,6 @@ dernière mouture est consultable sur @url{https://lilypond.org}}
 
 @node Google Summer of Code
 @unnumberedsec Google Summer of Code
-@translationof Google Summer of Code
 
 @warning{Dans la mesure où les développeurs de LilyPond sont disséminés
 sur la planète et que la participation au programme estival de Google
@@ -857,9 +849,8 @@ paragraphes qui suivent.}
 @gsocCurrent
 
 
-@node Auteurs
+@node Authors
 @unnumberedsec Auteurs
-@translationof Authors
 
 @divClass{column-left-top}
 @subheading Équipe actuelle de développement
@@ -936,7 +927,6 @@ paragraphes qui suivent.}
 
 @node Publications
 @unnumberedsec Publications
-@translationof Publications
 
 @divClass{column-center-top}
 @subheading Ce que nous avons écrit
@@ -962,9 +952,8 @@ paragraphes qui suivent.}
 @contactUsAbout{publications universitaires}
 
 
-@node Actualités
+@node News
 @unnumberedsec Actualités
-@translationof News
 
 @include en/web/news-new.itexi
 
@@ -972,14 +961,13 @@ paragraphes qui suivent.}
 @subheading Actualités passées
 
 Les vieilles annonces et informations de version sont rangées au
-@ref{Grenier,grenier}.
+@ref{Attic,grenier}.
 
 @divEnd
 
 
-@node Grenier
+@node Attic
 @unnumberedsec Grenier
-@translationof Attic
 
 @divClass{column-center-top}
 @subheading Annonces
@@ -1078,7 +1066,7 @@ Notes des développeurs, par version :
 @c VO Old News
 
 Actualités jusqu'à juillet 2003. Les actualités plus récentes se
-trouvent à la page @ref{Actualités}.
+trouvent à la page @ref{News}.
 
 @divEnd
 

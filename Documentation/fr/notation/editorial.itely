@@ -14,9 +14,8 @@
 @c Translation checkers:
 
 
-@node Annotations éditoriales
+@node Editorial annotations
 @section Annotations éditoriales
-@translationof Editorial annotations
 
 @lilypondfile[quote]{snippets/editorial-headword.ly}
 
@@ -24,33 +23,31 @@ Ce chapitre traite de la manière de modifier l'apparence des notes dans
 un but pédagogique ou d'analyse.
 
 @menu
-* Dans la portée::
-* Hors de la portée::
+* Inside the staff::
+* Outside the staff::
 @end menu
 
 
-@node Dans la portée
+@node Inside the staff
 @subsection Dans la portée
-@translationof Inside the staff
 
 Nous allons voir ici comment mettre en exergue certains éléments à
 l'intérieur même de la portée.
 
 @menu
-* Indication de la taille de fonte musicale::
-* Doigtés::
-* Glissement de doigt::
-* Dictée à trous::
-* Coloration d'objets::
-* Surlignage de portées::
-* Parenthèses::
-* Hampes::
+* Selecting notation font size::
+* Fingering instructions::
+* Gliding fingers::
+* Hidden notes::
+* Coloring objects::
+* Staff highlights::
+* Parentheses::
+* Stems::
 @end menu
 
 
-@node Indication de la taille de fonte musicale
+@node Selecting notation font size
 @unnumberedsubsubsec Indication de la taille de fonte musicale
-@translationof Selecting notation font size
 
 @cindex sélection de la taille (notation)
 @cindex notation, taille
@@ -71,12 +68,12 @@ l'intérieur même de la portée.
 
 @warning{@*
 Pour les tailles de police textuelle, voir
-@ref{Sélection de la fonte et de la taille}.@*
+@ref{Selecting font and font size}.@*
 Pour la taille des portées, voir
-@ref{Définition de la taille de portée}.@*
+@ref{Setting the staff size}.@*
 Pour les petites notes, voir
-@ref{Mise en forme d'une citation}.@*
-Pour les variantes, voir @ref{Portées d'ossia}.}
+@ref{Formatting cue notes}.@*
+Pour les variantes, voir @ref{Ossia staves}.}
 
 Le plus sûr moyen de régler la taille des éléments de notation sans
 modifier la taille de la portée consiste à utiliser la commande
@@ -148,7 +145,7 @@ contexte @code{CueVoice}.
 
 @warning{La commande @code{@bs{}magnifyMusic} n'est pas censée
 intervenir en complément d'une modification de la taille de portée --
-voir @ref{Définition de la taille de portée}.}
+voir @ref{Setting the staff size}.}
 
 
 @subsubsubheading Redimmensionnement individuel d'objets de rendu
@@ -229,7 +226,7 @@ ligature et espacement horizontal, couplé à la taille de la
 notation (sans modification de la taille de la portée), s'obtient
 à l'aide de la commande @code{\magnifyMusic} comme nous venons de
 le voir.  La modification de l'ensemble, y compris la taille de
-portée, est abordé dans @ref{Définition de la taille de portée}.
+portée, est abordé dans @ref{Setting the staff size}.
 
 Dès lors que la @strong{propriété de contexte} @code{fontSize} est
 définie, sa valeur est ajoutée individuellement à la valeur de la
@@ -307,10 +304,10 @@ de la portée.  À une portée de 20 points correspond une police de
 
 @morerefs
 Manuel de notation :
-@ref{Définition de la taille de portée},
-@ref{Mise en forme d'une citation},
-@ref{Portées d'ossia},
-@ref{Sélection de la fonte et de la taille}.
+@ref{Setting the staff size},
+@ref{Formatting cue notes},
+@ref{Ossia staves},
+@ref{Selecting font and font size}.
 
 Fichiers d'initialisation :
 @file{ly/music-functions-init.ly},
@@ -346,9 +343,8 @@ et @code{\revert} :
 @end example
 
 
-@node Doigtés
+@node Fingering instructions
 @unnumberedsubsubsec Doigtés
-@translationof Fingering instructions
 
 @cindex doigté
 @cindex substitution de doigt
@@ -396,7 +392,7 @@ indiquant après chaque hauteur de note.
 @end lilypond
 
 Les indications de doigtés peuvent se placer au-dessus ou en dessous de
-la portée -- voir @ref{Direction et positionnement} à ce sujet.
+la portée -- voir @ref{Direction and placement} à ce sujet.
 
 @snippets
 
@@ -421,7 +417,7 @@ la portée -- voir @ref{Direction et positionnement} à ce sujet.
 
 @morerefs
 Manuel de notation :
-@ref{Direction et positionnement}.
+@ref{Direction and placement}.
 
 Morceaux choisis :
 @rlsrnamed{Editorial annotations, Annotations éditoriales}.
@@ -435,9 +431,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Glissement de doigt
+@node Gliding fingers
 @unnumberedsubsubsec Glissement de doigt
-@translationof Gliding fingers
 
 @cindex doigte, glissé
 @cindex glissé, doigté
@@ -554,7 +549,7 @@ contextes @code{Voice} pourront être reliés.
 
 @morerefs
 Manuel de notation :
-@ref{Direction et positionnement}.
+@ref{Direction and placement}.
 
 Manuel des références internes :
 @rinternals{FingeringGlideEvent},
@@ -579,9 +574,8 @@ des doigts différents alliés à l'instruction @code{\tweak text}.
 @end lilypond
 
 
-@node Dictée à trous
+@node Hidden notes
 @unnumberedsubsubsec Dictée à trous
-@translationof Hidden notes
 
 @cindex masquée, note
 @cindex invisible, note
@@ -629,12 +623,12 @@ masqués pour autant.
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Visibilité et couleur des objets}.
+@rlearningnamed{Visibility and color of objects, Visibilité et couleur des objets}.
 
 Manuel de notation :
-@ref{Masquage de portées},
-@ref{Silences invisibles},
-@ref{Visibilité des objets}.
+@ref{Hiding staves},
+@ref{Invisible rests},
+@ref{Visibility of objects}.
 
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
@@ -645,9 +639,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Coloration d'objets
+@node Coloring objects
 @unnumberedsubsubsec Coloration d'objets
-@translationof Coloring objects
 
 @cindex objet en couleur
 @cindex couleur
@@ -661,7 +654,7 @@ Référence des propriétés internes :
 @funindex \with-color
 
 Des objets peuvent être colorisés individuellement. Une liste des noms
-des couleurs disponibles se trouve à l'annexe @ref{Liste des couleurs}.
+des couleurs disponibles se trouve à l'annexe @ref{List of colors}.
 
 @lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
@@ -676,7 +669,7 @@ e''
 @cindex couleur, code CSS
 
 En plus du jeu limité de couleurs de base prédéfini sous forme de
-variable -- voir les « couleurs normales » dans @ref{Liste des couleurs}
+variable -- voir les « couleurs normales » dans @ref{List of colors}
 -- n'importe quelle couleur peut être spécifiée sous forme de chaîne,
 qu'il s'agisse d'un nom de couleur prédéfini dans le style
 @uref{https://www.w3.org/Style/CSS/, CSS} ou d'un code hexadécimal
@@ -700,7 +693,7 @@ spécifier un code sur huit caractères @var{"#RRGGBBAA"}, ou sa
 forme abrégée @var{"#RGBA"}, produira ses effets pour une sortie SVG,
 mais pas pour du PostScript ni du PDF. Dans l'exemple  précédent, on
 peut voir à travers le silence dès lors qu'il est compilé avec le moteur
-SVG, comme expliqué dans @ref{Formats de sortie alternatifs}.
+SVG, comme expliqué dans @ref{Alternative output formats}.
 
 @cindex x11, couleur
 @funindex x11-color
@@ -788,8 +781,8 @@ de l'extrait ci-dessous sera affectée.
 
 @morerefs
 Manuel de notation :
-@ref{La commande d'affinage (tweak)},
-@ref{Liste des couleurs}.
+@ref{The tweak command},
+@ref{List of colors}.
 
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
@@ -813,12 +806,11 @@ présentation multimédia, d'utiliser des couleurs CSS.
 Vous ne pouvez pas coloriser individuellement des notes à l'intérieur
 d'un accord avec @code{\override}.  Si besoin est, utilisez
 @code{\tweak} ou @code{\single\override} devant la note en question.
-Pour plus de détails, consultez @ref{La commande d'affinage (tweak)}.
+Pour plus de détails, consultez @ref{The tweak command}.
 
 
-@node Surlignage de portées
+@node Staff highlights
 @unnumberedsubsubsec Surlignage de portées
-@translationof Staff highlights
 
 @cindex portée, surlignage
 @cindex colorisation de portées
@@ -829,7 +821,7 @@ Pour des besoins pédagogiques ou d'analyse, il peut être utile de mettre
 en évidence un fragment musical comme, par exemple, pour indiquer une
 modulation. Ceci peut se réaliser à l'aide de la commande
 @code{\staffHighlight} complétée d'une couleur -- pour les manières de
-saisir des couleurs, voir @ref{Coloration d'objets}. Le surlignage
+saisir des couleurs, voir @ref{Coloring objects}. Le surlignage
 s'interrompt par la commande @code{\stopStaffHighlight}.
 
 @lilypond[verbatim,quote]
@@ -884,7 +876,7 @@ Plusieurs portées peuvent toutefois être surlignées de concert dès lors
 que le @code{Staff_highlight_engraver} aura été déplacé dans un contexte
 supérieur à @code{Staff} (ou bien @code{RhythmicStaff} ou similaire). Il
 suffit en pareil cas d'utiliser les commandes @code{\consists} et
-@code{\remove} -- voir @ref{Modification des greffons de contexte} pour
+@code{\remove} -- voir @ref{Modifying context plug-ins} pour
 de plus amples informations. Le surlignage de toutes les portées
 s'obtient donc en déplaçant le graveur dans le contexte @code{Score}.
 
@@ -958,8 +950,8 @@ points de début et de fin de l'étendue du surlignage.
 
 @morerefs
 Manuel de notation :
-@ref{Coloration d'objets},
-@ref{Modification des greffons de contexte}.
+@ref{Coloring objects},
+@ref{Modifying context plug-ins}.
 
 Référence des propriétés internes :
 @rinternals{StaffHighlight},
@@ -985,9 +977,8 @@ ci-dessus permet alors de contourner le problème.
 @end lilypond
 
 
-@node Parenthèses
+@node Parentheses
 @unnumberedsubsubsec Parenthèses
-@translationof Parentheses
 
 @cindex fantôme, note
 @cindex note fantôme
@@ -1086,9 +1077,8 @@ doit, à ce jour, être ajustée manuellement afin d'obtenir une taille de
 parenthèses correcte dans le cas des accords entre autres.
 
 
-@node Hampes
+@node Stems
 @unnumberedsubsubsec Hampes
-@translationof Stems
 
 @cindex hampe
 @cindex hampe invisible
@@ -1108,7 +1098,7 @@ automatiquement.  Pour les rondes et les silences, ils sont aussi
 créés, mais en mode invisible.
 
 L'orientation des hampes peut être définie manuellement -- voir
-@ref{Direction et positionnement} à ce sujet.
+@ref{Direction and placement} à ce sujet.
 
 @predefined
 @code{\stemUp},
@@ -1128,7 +1118,7 @@ L'orientation des hampes peut être définie manuellement -- voir
 
 @morerefs
 Manuel de notation :
-@ref{Direction et positionnement}.
+@ref{Direction and placement}.
 
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
@@ -1140,24 +1130,22 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Hors de la portée
+@node Outside the staff
 @subsection Hors de la portée
-@translationof Outside the staff
 
 Nous allons nous intéresser ici à souligner des éléments inscrits dans
 la portée par des éléments qui lui seront externes.
 
 @menu
-* Nom des notes::
-* Info-bulle::
-* Quadrillage temporel::
-* Crochets d'analyse::
+* Note names::
+* Balloon help::
+* Grid lines::
+* Analysis brackets::
 @end menu
 
 
-@node Nom des notes
+@node Note names
 @unnumberedsubsubsec Nom des notes
-@translationof Note names
 
 @cindex note, impression du nom
 @cindex solfège
@@ -1195,7 +1183,7 @@ melody = \relative do'' {
 Le nom des notes est imprimé par défaut dans la langue utilisée pour la
 saisie ; la propriété @code{printNotesLanguage} permet cependant de
 sélectionner l'une des autres langues disponibles -- voir
-@ref{Nom des notes dans d'autres langues}. La présentation des
+@ref{Note names in other languages}. La présentation des
 altérations se gère à l'aide de la propriété
 @code{printAccidentalNames}.
 
@@ -1252,7 +1240,7 @@ somechords = \relative c' {
 
 @morerefs
 Manuel de notation :
-@ref{Nom des notes dans d'autres langues}.
+@ref{Note names in other languages}.
 
 Référence des propriété internes :
 @rinternals{NoteName},
@@ -1261,9 +1249,8 @@ Référence des propriété internes :
 @endmorerefs
 
 
-@node Info-bulle
+@node Balloon help
 @unnumberedsubsubsec Info-bulle
-@translationof Balloon help
 
 @cindex bulle
 @cindex notation, explication
@@ -1370,9 +1357,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Quadrillage temporel
+@node Grid lines
 @unnumberedsubsubsec Quadrillage temporel
-@translationof Grid lines
 
 @cindex quadrillage temporel
 @cindex temporel, quadrillage
@@ -1443,9 +1429,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Crochets d'analyse
+@node Analysis brackets
 @unnumberedsubsubsec Crochets d'analyse
-@translationof Analysis brackets
 
 @cindex crochet
 @cindex crochet de phrasé

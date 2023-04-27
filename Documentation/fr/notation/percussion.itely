@@ -14,37 +14,34 @@
 @c Translation checkers: John Mandereau
 
 
-@node Percussions
+@node Percussion
 @section Percussions
-@translationof Percussion
 
 @menu
-* Vue d'ensemble des percussions::
+* Common notation for percussion::
 @end menu
 
 
-@node Vue d'ensemble des percussions
+@node Common notation for percussion
 @subsection Vue d'ensemble des percussions
-@translationof Common notation for percussion
 
 La notation rythmique sert avant tout aux parties de percussions ou de
 batterie, mais on peut aussi s'en servir à des fins pédagogiques, pour
 montrer le rythme d'une mélodie.
 
 @menu
-* Références en matière de notation pour percussions::
-* Notation de base pour percussions::
-* Roulements de tambour::
-* Hauteurs en percussions::
-* Portées de percussion::
-* Personnalisation de portées de percussion::
-* Notes fantômes::
+* References for percussion::
+* Basic percussion notation::
+* Drum rolls::
+* Pitched percussion::
+* Percussion staves::
+* Custom percussion staves::
+* Ghost notes::
 @end menu
 
 
-@node Références en matière de notation pour percussions
+@node References for percussion
 @unnumberedsubsubsec Références en matière de notation pour percussions
-@translationof References for percussion
 
 @c TODO add more references.
 
@@ -52,28 +49,27 @@ montrer le rythme d'une mélodie.
 
 @item Certains instruments à percussion se notent sur une portée
 rythmique.  Vous trouverez des informations détaillées à ce sujet aux
-rubriques @ref{Gravure de lignes rythmiques} et
-@ref{Initialisation de nouvelles portées}.
+rubriques @ref{Showing melody rhythms} et
+@ref{Instantiating new staves}.
 
 @item Le rendu MIDI des percussions fait l'objet d'une rubrique
-dédiée : @ref{Génération de fichiers MIDI}.
+dédiée : @ref{Creating MIDI output}.
 
 @end itemize
 
 @morerefs
 Manuel de notation :
-@ref{Génération de fichiers MIDI},
-@ref{Gravure de lignes rythmiques},
-@ref{Initialisation de nouvelles portées}.
+@ref{Creating MIDI output},
+@ref{Showing melody rhythms},
+@ref{Instantiating new staves}.
 
 Morceaux choisis :
 @rlsr{Percussion}.
 @endmorerefs
 
 
-@node Notation de base pour percussions
+@node Basic percussion notation
 @unnumberedsubsubsec Notation de base pour percussions
-@translationof Basic percussion notation
 
 @cindex percussions
 @cindex batterie
@@ -103,7 +99,7 @@ Il s'agit en fait d'un raccourci pour
 
 Chaque instrument de percussion peut avoir, dans le fichier LilyPond, un
 nom complet et un nom raccourci.  Ces noms sont inventoriés à l'annexe
-@ref{Génération de fichiers MIDI}.
+@ref{Creating MIDI output}.
 
 @cindex clef, percussion
 @cindex percussion, clef
@@ -126,12 +122,12 @@ autre clef.
 Certains instruments à percussion connaissent quelques problèmes quant à
 leur prise en charge au niveau de la génération de fichiers MIDI ;
 de plus amples informations sont disponibles à la rubrique
-@ref{Génération de fichiers MIDI}.
+@ref{Creating MIDI output}.
 
 @morerefs
 Manuel de notation :
-@ref{Génération de fichiers MIDI},
-@ref{Notes utilisées en percussion}.
+@ref{Creating MIDI output},
+@ref{Percussion notes}.
 
 Fichiers d'initialisation :
 @file{ly/drumpitch-init.ly}
@@ -141,9 +137,8 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Roulements de tambour
+@node Drum rolls
 @unnumberedsubsubsec Roulements de tambour
-@translationof Drum rolls
 
 Les roulements de tambour s'indiquent par une triple barre en travers
 des hampes.  Qu'il s'agisse d'une noire ou d'une durée plus longue,
@@ -153,7 +148,7 @@ ligature).  Si ce roulement s'applique à des notes plus courtes que la
 croche, LilyPond fait apparaître une seule barre en travers des hampes
 en supplément du nombre de barres de ligature.  Ces différents
 graphismes s'obtiennent à l'aide d'une notation de trémolo, en suivant
-les préceptes mentionnés à la rubrique @ref{Répétitions en trémolo}.
+les préceptes mentionnés à la rubrique @ref{Tremolo repeats}.
 
 @lilypond[quote,verbatim]
 \drums {
@@ -167,7 +162,7 @@ les préceptes mentionnés à la rubrique @ref{Répétitions en trémolo}.
 
 Les coups de baguette peuvent s'indiquer à l'aide de @emph{markups}
 @code{"D"} et @code{"G"} au-dessus ou en dessous des notes comme indiqué
-à la rubrique @ref{Direction et positionnement}.  Vous devrez peut-être
+à la rubrique @ref{Direction and placement}.  Vous devrez peut-être
 jouer sur la propriété @code{staff-padding} pour obtenir une ligne de
 base satisfaisante.
 
@@ -184,17 +179,16 @@ base satisfaisante.
 
 @morerefs
 Manuel de notation :
-@ref{Direction et positionnement},
-@ref{Répétitions en trémolo}.
+@ref{Direction and placement},
+@ref{Tremolo repeats}.
 
 Morceaux choisis :
 @rlsr{Percussion}.
 @endmorerefs
 
 
-@node Hauteurs en percussions
+@node Pitched percussion
 @unnumberedsubsubsec Hauteurs en percussions
-@translationof Pitched percussion
 
 Certains instruments à percussion émettent des hauteurs, comme le
 xylophone, le vibraphone ou les timbales ; ils utilisent donc des
@@ -203,16 +197,15 @@ du manuel.
 
 @morerefs
 Manuel de notation :
-@ref{Gestion des instruments MIDI}.
+@ref{Using MIDI Instruments}.
 
 Morceaux choisis :
 @rlsr{Percussion}.
 @endmorerefs
 
 
-@node Portées de percussion
+@node Percussion staves
 @unnumberedsubsubsec Portées de percussion
-@translationof Percussion staves
 
 @cindex percussions
 @cindex batterie
@@ -238,7 +231,7 @@ down = \drummode {
 
 L'exemple ci-dessus montre une notation polyphonique détaillée.  La
 notation polyphonique abrégée peut être employée -- voir la rubrique
-@rlearning{J'entends des voix} -- comme ici :
+@rlearningnamed{I'm hearing voices, J'entends des voix} -- comme ici :
 
 @lilypond[quote,verbatim]
 \new DrumStaff <<
@@ -481,14 +474,14 @@ musII = \drummode { cb4 cl tamb cab mar hc s16 }
 @end table
 
 Il est par ailleurs possible de définir son propre style, comme indiqué
-dans @ref{Personnalisation de portées de percussion}.
+dans @ref{Custom percussion staves}.
 
 @morerefs
 Manuel d'initiation :
-@rlearning{J'entends des voix}.
+@rlearningnamed{I'm hearing voices, J'entends des voix}.
 
 Manuel de notation :
-@ref{Personnalisation de portées de percussion}.
+@ref{Custom percussion staves}.
 
 Fichiers d'initialisation :
 @file{ly/drumpitch-init.ly}.
@@ -498,9 +491,8 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Personnalisation de portées de percussion
+@node Custom percussion staves
 @unnumberedsubsubsec Personnalisation de portées de percussion
-@translationof Custom percussion staves
 
 @cindex percussions, personnalisation
 @funindex \halfopen
@@ -634,9 +626,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Notes fantômes
+@node Ghost notes
 @unnumberedsubsubsec Notes fantômes
-@translationof Ghost notes
 
 @cindex fantôme, note, percussion
 @cindex silencieuse, note, percussion
@@ -648,7 +639,7 @@ Référence des propriétés internes :
 Des notes fantômes, qu'on appelle aussi en anglais @emph{dead, muted,
 silenced ou false} notes, peuvent être créées pour les parties de
 percussion, grâce à la commande @code{\parenthesize} décrite à la
-rubrique @ref{Parenthèses}.
+rubrique @ref{Parentheses}.
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff
@@ -672,7 +663,7 @@ rubrique @ref{Parenthèses}.
 
 @morerefs
 Manuel de notation :
-@ref{Parenthèses}.
+@ref{Parentheses}.
 
 Morceaux choisis :
 @rlsr{Percussion}.

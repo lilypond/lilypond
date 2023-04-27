@@ -13,9 +13,8 @@
 
 @c \version "2.23.10"
 
-@node Installation
+@node Installing
 @chapter Installation
-@translationof Installing
 
 Ce tutoriel vous guidera pas à pas dans l'installation et la création
 d'une première partition musicale.
@@ -28,28 +27,27 @@ plus de confort dans votre travail d'édition. Nous avons opté, dans les
 paragraphes qui suivent, pour
 @uref{https://frescobaldi.org,Frescobaldi}, l'un des éditeurs les plus
 en vogue à ce jour. D'autres possibilités sont indiquées à la rubrique
-@rweb{Facilités d'édition}.
+@rwebnamed{Easier editing, Facilités d'édition}.
 
 Plusieurs options s'offrent à vous ; choisissez celle qui convient le
 mieux à vos besoins. Si vous ne savez pas ce qu'est la « ligne de
 commande », il vous faut une installation graphique.
 
 @menu
-* Installation en mode graphique sous GNU/Linux::
-* Installation en mode graphique sous Windows::
-* Installation en mode graphique sous macOS::
-* Installation en ligne de commande::
+* Graphical setup under GNU/Linux::
+* Graphical setup under Windows::
+* Graphical setup under macOS::
+* Command line setup::
 @end menu
 
-@node Installation en mode graphique sous GNU/Linux
+@node Graphical setup under GNU/Linux
 @section Installation en mode graphique sous GNU/Linux
-@translationof Graphical setup under GNU/Linux
 
 Les instructions qui suivent sont opérationnelles dans un environnement
 GNOME, installé par défaut chez Ubuntu et Fedora entre autres. Pour les
 autres environnements de bureau, elles peuvent bien sur s'adapter. Pour
 les distributions minimalistes de GNU/Linux, voir
-@ref{Installation en ligne de commande}.
+@ref{Command line setup}.
 
 Commencez par lancer le programme GNOME Software -- francisé en
 « Logiciels ».
@@ -89,7 +87,7 @@ installée soit différente de celle sur laquelle se base cette
 documentation. Si vous voulez une autre version de LilyPond, vous pouvez
 l'indiquer dans Frescobaldi, sans pour autant perdre celle d'origine.
 Pour ce faire, commencez par en récupérer l'archive à partir de la
-@rwebnamed{Téléchargement, page de téléchargement}, puis faites un
+@rwebnamed{Download, page de téléchargement}, puis faites un
 double clic pour la déplier. Si l'image ci-dessous présente la version
 2.23.10, ce n'est que pour les besoins de cette documentation ; vous
 devrez télécharger l'archive de la version @version{}.
@@ -124,16 +122,15 @@ versions de LilyPond installées.
 
 @center @sourceimage{linux-11-frescobaldi-new-version-added,10cm,}
 
-Passez maintenant au @ref{Tutoriel} pour en apprendre plus sur la
+Passez maintenant au @ref{Tutorial} pour en apprendre plus sur la
 syntaxe de LilyPond.
 
 
-@node Installation en mode graphique sous Windows
+@node Graphical setup under Windows
 @section Installation en mode graphique sous Windows
-@translationof Graphical setup under Windows
 
 Récupérez LilyPond pour Windows à partir de la
-@rwebnamed{Téléchargement, page de téléchargement}. Le fichier est une
+@rwebnamed{Download, page de téléchargement}. Le fichier est une
 archive ZIP nommée
 @file{lilypond-@/@var{x}@.@var{y}.@var{z}-@/mingw-@/x86_64.zip} (où
 « mingw » signifie que c'est pour Windows) qu'il faut dézipper dans
@@ -204,16 +201,15 @@ Apparaît alors une partition minimale.
 @center @sourceimage{windows-10-frescobaldi-done,10cm,}
 
 Félicitations, vous venez de créer votre première partition avec
-LilyPond. Passez maintenant au @ref{Tutoriel} pour en apprendre plus sur
+LilyPond. Passez maintenant au @ref{Tutorial} pour en apprendre plus sur
 la syntaxe de LilyPond.
 
 
-@node Installation en mode graphique sous macOS
+@node Graphical setup under macOS
 @section Installation en mode graphique sous macOS
-@translationof Graphical setup under macOS
 
 Récupérez LilyPond pour Windows à partir de la
-@rwebnamed{Téléchargement, page de téléchargement}. Le fichier est une
+@rwebnamed{Download, page de téléchargement}. Le fichier est une
 archive nommée
 @file{lilypond-@/@var{x}.@var{y}.@var{z}-@/darwin-@/x86_64.tar.gz} (où
 « darwin » signifie que c'est pour macOS) qu'il faut déplier dans
@@ -302,13 +298,12 @@ minimale.
 @center @sourceimage{macos-10-minimal-score,11cm,}
 
 Félicitations, vous venez de créer votre première partition avec
-LilyPond. Passez maintenant au @ref{Tutoriel} pour en apprendre plus sur
+LilyPond. Passez maintenant au @ref{Tutorial} pour en apprendre plus sur
 la syntaxe de LilyPond.
 
 
-@node Installation en ligne de commande
+@node Command line setup
 @section Installation en ligne de commande
-@translationof Command line setup
 
 Sur de nombreuses distributions GNU/Linux, on peut installer LilyPond à
 partir du gestionnaire de paquetages. C'est aussi le cas avec macOS à
@@ -317,7 +312,7 @@ partir de @uref{https://www.macports.org,MacPorts} ou
 
 Dans tous les cas, on peut installer LilyPond en dépliant l'archive
 récupérée à partir de la
-@rwebnamed{Téléchargement, page de téléchargement}. Les binaires sont
+@rwebnamed{Download, page de téléchargement}. Les binaires sont
 utilisables dès leur expansion. Vous pouvez lancer
 
 @example
@@ -343,7 +338,7 @@ Ceci produira un résultat dans @file{fichier.pdf} :
 { c' }
 @end lilypond
 
-Passez maintenant au @ref{Tutoriel} pour en apprendre plus sur
+Passez maintenant au @ref{Tutorial} pour en apprendre plus sur
 la syntaxe de LilyPond, ou consultez
-@rprogram{Utilisation en ligne de commande} pour de plus amples
+@rprogramnamed{Command-line usage, Utilisation en ligne de commande} pour de plus amples
 informations sur l'utilisation de LilyPond en ligne de commande.

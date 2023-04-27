@@ -14,9 +14,8 @@
 @c Translation checkers: Valentin Villenave, John Mandereau
 
 
-@node Texte
+@node Text
 @section Texte
-@translationof Text
 
 @lilypondfile[quote]{snippets/text-headword.ly}
 
@@ -24,15 +23,14 @@ Nous allons voir ici comment insérer du texte dans une partition, ainsi
 que différentes manières de le mettre en forme.
 
 @menu
-* Ajout de texte::
-* Mise en forme du texte::
-* Fontes::
+* Writing text::
+* Formatting text::
+* Fonts::
 @end menu
 
 
-@node Ajout de texte
+@node Writing text
 @subsection Ajout de texte
-@translationof Writing text
 
 Cette partie constitue une introduction aux différentes manières
 d'ajouter du texte à une partition.
@@ -41,21 +39,20 @@ d'ajouter du texte à une partition.
 @warning{Pour écrire des accents et autres caractères spéciaux, il
 suffit de les insérer directement dans votre fichier LilyPond.  Ce
 fichier devra être sauvegardé avec l'encodage UTF-8.  Pour plus
-d'informations, voir @ref{Codage du texte}.}
+d'informations, voir @ref{Text encoding}.}
 
 @menu
-* Vue d'ensemble des objets textuels::
-* Commentaires textuels::
-* Indication textuelle avec extension::
-* Marque de section::
-* Indications textuelles::
-* Texte indépendant::
+* Text objects overview::
+* Text scripts::
+* Text spanners::
+* Section labels::
+* Text marks::
+* Separate text::
 @end menu
 
 
-@node Vue d'ensemble des objets textuels
+@node Text objects overview
 @unnumberedsubsubsec Vue d'ensemble des objets textuels
-@translationof Text objects overview
 
 @funindex \markup
 @cindex objet texte
@@ -67,38 +64,38 @@ Les objets textuels se saisissent soit comme de simples chaînes de
 caractères entre guillemets informatiques (optionnels pour un mot
 unique). Le mode @emph{markup}, ou étiquette, accepte quant à lui une
 mise en forme fine du texte et des enrichissements graphiques comme
-indiqué dans @ref{Mise en forme du texte}.
+indiqué dans @ref{Formatting text}.
 
 En tant que tels, les blocs @emph{markup} peuvent s'utiliser :
 @itemize
 @item
 dans tout objet @code{TextScript} attaché à des notes par @code{-},
-@code{^} ou@tie{}@code{_} ; voir @ref{Commentaires textuels} ;
+@code{^} ou@tie{}@code{_} ; voir @ref{Text scripts} ;
 
 @item
 en tant que bandeau (@emph{spanner}) lorsqu'une indication se prolongge
 sur plusieurs temps ou mesures ; voir
-@ref{Indication textuelle avec extension} ;
+@ref{Text spanners} ;
 
 @item
 dans toute marque affichée au-dessus de la partition, tels les objets
 @code{RehearsalMark} ou @code{MetronomeMark} introduits respectivement
 par les mots-clé @code{\mark} ou @code{\tempo} ; voir
-@ref{Indications textuelles} ;
+@ref{Text marks} ;
 
 @item
 en tant que bloc de texte indépendant, saisi en dehors de tout bloc
 @code{\score} -- dans ce cas précis les commandes @code{\markup} ou
 @code{\markuplist}  sont obligatoires et ne sauraient être remplacées
 par du simple texte borné par des guillemets informatiques ; voir
-@ref{Texte indépendant} ;
+@ref{Separate text} ;
 
 @item
 dans toute définition au sein d'un bloc @code{\header} (par ex.
 @code{title}, @code{subtitle}, @code{composer}), ou dans des éléments
 spécifiques au bloc @code{\paper} tel que @code{evenHeaderMarkup} pour
 les numéros de page. Ceci est abordé dans
-@ref{Titres et entêtes}.
+@ref{Titles and headers}.
 @end itemize
 
 De nombreux autres objets basés sur du texte peuvent se saisir sous
@@ -107,31 +104,31 @@ forme de bloc @emph{markup} même si ce n'est pas leur usage premier.
 @item
 Les doigtés peuvent se remplacer par des blocs de @emph{markup} dès lors
 qu'ils sont introduits par la commande @code{\finger} ; voir
-@ref{Doigtés}.
+@ref{Fingering instructions}.
 
 @item
 Les syllabes des paroles peuvent être formatées avec une commande
 @code{\markup} ; voir
-@ref{Vue d'ensemble de la musique vocale}.
+@ref{Common notation for vocal music}.
 
 @item
 Les noms des accords sont en fait définis sous forme de blocs de
 @emph{markup} et peuvent donc être redéfinis de la même manière pour
 adapter les modificateurs d'accord ou les exceptions ; voir
-@ref{Gravure des accords}.
+@ref{Displaying chords}.
 
 @item
 Les nuances se saisissent de la manière la plus simple. Il est néanmoins
 possible de définir sa
-@ref{Personnalisation des indications de nuance, propre indication}
+@ref{New dynamic marks, propre indication}
 sous forme d'objet @emph{markup}. Certaines nuances, comme
 un crescendo, sont affichées sous forme de bandeau et peuvent être
 redéfinies au travers de certaines propriétés telle que
-@code{crescendoText} ; voir @ref{Nuances}.
+@code{crescendoText} ; voir @ref{Dynamics}.
 
 @item
 Des objets moins courants sont constitués de blocs @emph{markup}, tels
-les indications en @ref{Info-bulle}.
+les indications en @ref{Balloon help}.
 @end itemize
 
 Il est en fait possible d'utiliser @code{\markup} pour personnaliser
@@ -139,7 +136,7 @@ l'apparence de pratiquement n'importe quel objet graphique (@emph{grob})
 en appliquant une dérogation soit à sa propriété @code{text} s'il en
 dispose ou de sa propriété @code{stencil}. Une partie de la logique qui
 rend ceci possible est expliquée dans
-@ressay{Flexibilité architecturale}.
+@ressaynamed{Flexible architecture, Flexibilité architecturale}.
 
 L'exemple qui suit illustre l'ubiquité des blocs @emph{markup} non
 seulement comme les objets ci-dessus présentés, mais aussi en remplaçant
@@ -190,29 +187,28 @@ dyn =
 
 @morerefs
 Manuel de notation :
-@ref{Commentaires textuels},
-@ref{Doigtés},
-@ref{Gravure des accords},
-@ref{Indication textuelle avec extension},
-@ref{Indications textuelles},
-@ref{Info-bulle},
-@ref{Mise en forme du texte},
-@ref{Nuances},
-@ref{Personnalisation des indications de nuance},
-@ref{Texte indépendant},
-@ref{Vue d'ensemble de la musique vocale}.
+@ref{Text scripts},
+@ref{Fingering instructions},
+@ref{Displaying chords},
+@ref{Text spanners},
+@ref{Text marks},
+@ref{Balloon help},
+@ref{Formatting text},
+@ref{Dynamics},
+@ref{New dynamic marks},
+@ref{Separate text},
+@ref{Common notation for vocal music}.
 
 Essai sur la gravure musicale automatisée :
-@ressay{Flexibilité architecturale}.
+@ressaynamed{Flexible architecture, Flexibilité architecturale}.
 
 Morceaux choisis :
 @rlsrnamed{Text, Texte}.
 @endmorerefs
 
 
-@node Commentaires textuels
+@node Text scripts
 @unnumberedsubsubsec Commentaires textuels
-@translationof Text scripts
 
 @cindex @'etiquette de texte
 @cindex bloc de texte
@@ -221,7 +217,7 @@ Morceaux choisis :
 Vous pouvez ajouter à une partition des indications sous forme textuelle,
 comme dans l'exemple suivant.  Ces indications se placeront manuellement
 au-dessus ou au-dessous de la portée selon la syntaxe utilisée -- cf.
-@ref{Direction et positionnement}.
+@ref{Direction and placement}.
 
 @lilypond[quote,verbatim]
 \relative { a'8^"pizz." g f e a4-"scherz." f }
@@ -230,7 +226,7 @@ au-dessus ou au-dessous de la portée selon la syntaxe utilisée -- cf.
 Cette syntaxe est en fait un raccourci.  Des constructions plus
 élaborées d'annotation peuvent être obtenues en ayant recours à un bloc
 @code{\markup} et selon les préceptes énoncés dans
-@ref{Mise en forme du texte}.
+@ref{Formatting text}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -253,11 +249,11 @@ l'espacement, à l'inverse du second.
 
 En plus d'indications textuelles, les notes peuvent se voir attacher des
 articulations, comme indiqué au chapitre
-@ref{Articulations et ornements}.
+@ref{Articulations and ornamentations}.
 
 Pour de plus amples détails sur la manière de combiner indications
 textuelles et articulations, reportez-vous au chapitre
-@rlearning{Positionnement des objets}.
+@rlearningnamed{Placement of objects, Positionnement des objets}.
 
 @predefined
 @funindex \textLengthOn
@@ -269,12 +265,12 @@ textuelles et articulations, reportez-vous au chapitre
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Positionnement des objets}.
+@rlearningnamed{Placement of objects, Positionnement des objets}.
 
 Manuel de notation :
-@ref{Articulations et ornements},
-@ref{Direction et positionnement},
-@ref{Mise en forme du texte}.
+@ref{Articulations and ornamentations},
+@ref{Direction and placement},
+@ref{Formatting text}.
 
 Morceaux choisis :
 @rlsrnamed{Text, Texte}.
@@ -297,9 +293,8 @@ vous pouvez toutefois vous en affranchir en ajoutant
 @end example
 
 
-@node Indication textuelle avec extension
+@node Text spanners
 @unnumberedsubsubsec Indication textuelle avec extension
-@translationof Text spanners
 
 @cindex texte et extenseur
 @cindex prolongation de texte
@@ -329,7 +324,7 @@ Le texte à imprimer est spécifié en tant que propriété de l'objet
 @code{TextSpanner}.  Il apparaîtra par défaut en italique ;
 cependant, rien ne s'oppose à un autre graphisme dès lors que vous
 faites appel à un bloc @code{\markup} --
-voir @ref{Mise en forme du texte}.
+voir @ref{Formatting text}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -342,7 +337,7 @@ voir @ref{Mise en forme du texte}.
 
 Le style de ligne se définit lui aussi comme une propriété de l'objet.
 Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
-@ref{Styles de ligne}.
+@ref{Line styles}.
 
 @predefined
 @funindex \textSpannerUp
@@ -366,9 +361,9 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 
 @morerefs
 Manuel de notation :
-@ref{Mise en forme du texte},
-@ref{Nuances},
-@ref{Styles de ligne}.
+@ref{Formatting text},
+@ref{Dynamics},
+@ref{Line styles}.
 
 Morceaux choisis :
 @rlsrnamed{Text, Texte},
@@ -393,12 +388,11 @@ chevaucher.
 @end lilypond
 
 Un moyen de contournement est disponible à la rubrique
-@ref{Espacement horizontal}.
+@ref{Horizontal spacing}.
 
 
-@node Marque de section
+@node Section labels
 @unnumberedsubsubsec Marque de section
-@translationof Section labels
 
 @cindex section, marque
 @cindex texte, sur barre de mesure
@@ -422,9 +416,9 @@ créées par @code{\section} et peut s'utiliser de manière indépendante.
 
 @morerefs
 Manuel de notation :
-@ref{Division en sections},
-@ref{Indications de repère},
-@ref{Mise en forme du texte}.
+@ref{Section divisions},
+@ref{Rehearsal marks},
+@ref{Formatting text}.
 
 Morceaux choisis :
 @rlsrnamed{Text, Texte}.
@@ -435,9 +429,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Indications textuelles
+@node Text marks
 @unnumberedsubsubsec Indications textuelles
-@translationof Text marks
 
 @cindex indication textuelle
 @cindex repère textuel
@@ -452,7 +445,7 @@ Référence des propriétés internes :
 @funindex \markup
 
 Les indications textuelles sont des objets qui, contrairement aux
-scripts (voir @ref{Commentaires textuels}), ne s'impriment pas en regard
+scripts (voir @ref{Text scripts}), ne s'impriment pas en regard
 des notes, mais entre elles, et souvent alignées sur une barre de mesure.
 
 @funindex \mark
@@ -460,7 +453,7 @@ des notes, mais entre elles, et souvent alignées sur une barre de mesure.
 @warning{Les versions précédentes de LilyPond utilisaient l'instruction
 @code{@bs{}mark} pour les indications textuelles, bien quelle ait été
 initialement conçue pour les repères de répétition (voir
-@ref{Indications de repère}). Les commandes @code{@bs{}textMark} et
+@ref{Rehearsal marks}). Les commandes @code{@bs{}textMark} et
 @code{@bs{}textEndMark} sont plus appropriées en matière d'indications
 textuelles de par leurs réglages par défaut et la capacité qu'elles
 offrent de présenter plusieurs indications en un même endroit. Il est
@@ -473,9 +466,9 @@ devraient être modifiées en @code{TextMark}.}
 Avant d'insérer une indication textuelle, il peut être judicieux de
 chercher une commande qui serait plus appropriée. Lorsque le texte
 identifie une section, utilisez @code{\sectionLabel} (voir
-@ref{Marque de section}). Pour un saut ou un renvoi arbitraire, il vaut
+@ref{Section labels}). Pour un saut ou un renvoi arbitraire, il vaut
 mieux utiliser @code{\jump} (voir
-@ref{Indications de reprise manuelles}). Ces instructions disposent de
+@ref{Manual repeat marks}). Ces instructions disposent de
 mises en forme par défaut différentes et créent d'autres objets qui
 peuvent être personnalisés indépendamment des indications textuelles
 génériques à l'aide de feuilles de style.
@@ -525,7 +518,7 @@ l'indication apparaîtra en fin du système précédent.
 
 Le texte peut être mis en forme de différentes manières dès lors qu'est
 utilisé un bloc @code{\markup}, comme indiqué à la rubrique
-@ref{Mise en forme du texte}.
+@ref{Formatting text}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -540,7 +533,7 @@ utilisé un bloc @code{\markup}, comme indiqué à la rubrique
 @funindex \markLengthOff
 
 Les commandes @code{\markLengthOn} et @code{\markLengthOff} -- voir
-@ref{Indication métronomique} --  sont opérationnelles dans le cadre des
+@ref{Metronome marks} --  sont opérationnelles dans le cadre des
 indications textuelles.
 
 @lilypond[verbatim,quote]
@@ -577,7 +570,7 @@ Les indications textuelles peuvent se présenter en dessous de la portée.
 Plusieurs indications peuvent intervenir en un même moment. L'ordre dans
 lequel elles s'empileront peut se gérer à l'aide de la propriété
 @code{outside-staff-priority} (voir
-@ref{Résolution des collisions verticales}). Une autre façon de procéder
+@ref{Vertical collision avoidance}). Une autre façon de procéder
 pourrait consister à utiliser une seule indication sous la forme
 @code{\markup \column @{ @dots{} @} }.
 
@@ -643,12 +636,12 @@ L'alignement d'une indication textuelle peut se modifier.
 
 @morerefs
 Manuel de notation :
-@ref{Indications de repère},
-@ref{Indication métronomique},
-@ref{La fonte Emmentaler},
-@ref{Marque de section},
-@ref{Mise en forme du texte},
-@ref{Notation musicale dans du texte formaté}.
+@ref{Rehearsal marks},
+@ref{Metronome marks},
+@ref{The Emmentaler font},
+@ref{Section labels},
+@ref{Formatting text},
+@ref{Music notation inside markup}.
 
 Morceaux choisis :
 @rlsrnamed{Text, Texte}.
@@ -660,9 +653,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Texte indépendant
+@node Separate text
 @unnumberedsubsubsec Texte indépendant
-@translationof Separate text
 
 @cindex texte indépendant
 @cindex texte isolé
@@ -675,7 +667,7 @@ Référence des propriétés internes :
 
 Un bloc @code{\markup} ou @code{\markuplist} peut exister en lui-même,
 indépendamment de tout bloc @code{\score}, et venir en préambule par
-exemple -- voir le chapitre @ref{Structure de fichier} à ce propos.
+exemple -- voir le chapitre @ref{File structure} à ce propos.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -687,7 +679,7 @@ exemple -- voir le chapitre @ref{Structure de fichier} à ce propos.
 De cette manière, vous pouvez insérer du texte en dehors de la musique.
 Ceci devient particulièrement utile lorsque le fichier source contient
 plusieurs morceaux.  Pour plus d'informations à ce propos, reportez-vous
-au chapitre @ref{Plusieurs partitions dans un même ouvrage}.
+au chapitre @ref{Multiple scores in a book}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -705,7 +697,7 @@ Les blocs de textes peuvent s'étendre sur plusieurs pages à l'aide
 de la commande @code{\markuplist}. Ceci permet
 de générer des ouvrages complets uniquement grâce à LilyPond.  Cette
 fonctionnalité, ainsi que la syntaxe appropriée, est abordée plus en
-détail au chapitre @ref{Introduction au formatage de texte}.
+détail au chapitre @ref{Text markup introduction}.
 
 @predefined
 @funindex \markup
@@ -724,9 +716,9 @@ détail au chapitre @ref{Introduction au formatage de texte}.
 
 @morerefs
 Manuel de notation :
-@ref{Mise en forme du texte},
-@ref{Plusieurs partitions dans un même ouvrage},
-@ref{Structure de fichier}.
+@ref{Formatting text},
+@ref{Multiple scores in a book},
+@ref{File structure}.
 
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
@@ -736,25 +728,23 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Mise en forme du texte
+@node Formatting text
 @subsection Mise en forme du texte
-@translationof Formatting text
 
 Nous allons voir dans les lignes qui suivent la manière de mettre en
 forme du texte à l'aide de la syntaxe propre au mode @emph{markup}.
 
 @menu
-* Introduction au formatage de texte::
-* Sélection de la fonte et de la taille::
-* Alignement du texte::
-* Éléments graphiques dans du texte formaté::
-* Notation musicale dans du texte formaté::
+* Text markup introduction::
+* Selecting font and font size::
+* Text alignment::
+* Graphic notation inside markup::
+* Music notation inside markup::
 @end menu
 
 
-@node Introduction au formatage de texte
+@node Text markup introduction
 @unnumberedsubsubsec Introduction au formatage de texte
-@translationof Text markup introduction
 
 @cindex @'etiquette
 @cindex commentaire textuel
@@ -768,7 +758,7 @@ forme du texte à l'aide de la syntaxe propre au mode @emph{markup}.
 Un bloc @code{\markup} ou @code{\markuplist} permet d'ajouter du texte
 et dispose de sa propre syntaxe que nous appellerons le « mode
 @emph{markup} ». De tels blocs peuvent s'utiliser partout, comme indiqué
-dans @ref{Vue d'ensemble des objets textuels}.
+dans @ref{Text objects overview}.
 
 @cindex @emph{markup}, expression
 @cindex expression @emph{markup}
@@ -819,7 +809,7 @@ La mise en forme s'obtient à l'aide de commandes dédiées dont le nom est
 précédé d'une oblique inverse. Elles prennent un certain nombre
 d'arguments spécifiques à la commande. Une liste exhaustive des
 commandes spécifiques au mode @emph{markup} est fournie dans l'annexe
-@ref{Commandes pour markup} (en anglais).
+@ref{Text markup commands} (en anglais).
 
 @lilypond[verbatim,quote]
 \markup \italic "string. assai"
@@ -860,7 +850,7 @@ liste de @emph{markups}, ce qui permet des présentations plus
 De plus, certaines commandes ne renvoient pas un @emph{markup}, mais
 une liste de @emph{markups}. Leur résultat peut alors s'utiliser là où
 on attendait une liste de @emph{markup}. Une liste de ces commandes est
-fournie à l'annexe @ref{Commandes pour liste de markups} (en anglais).
+fournie à l'annexe @ref{Text markup list commands} (en anglais).
 
 @lilypond[verbatim,quote]
 \markup \string-lines
@@ -983,16 +973,16 @@ personnalisés utilisables dans le cadre des commandes @code{\markup}.
 @end lilypond
 
 Le fonctionnement interne de ces commandes et la façon d'en implémenter
-de nouveaux est abordée dans @rextend{Fonctions pour markups}.
+de nouveaux est abordée dans @rextendnamed{Markup functions, Fonctions pour markups}.
 
 @morerefs
 Manuel de notation :
-@ref{Commandes pour liste de markups},
-@ref{Commandes pour markup},
-@ref{Vue d'ensemble des objets textuels}.
+@ref{Text markup list commands},
+@ref{Text markup commands},
+@ref{Text objects overview}.
 
 Manuel d'extension des fonctionnalités :
-@rextend{Fonctions pour markups}
+@rextendnamed{Markup functions, Fonctions pour markups}
 
 Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm},
@@ -1010,9 +1000,8 @@ Les messages d'erreur de syntaxe en mode @emph{markup} sont peu
 explicites.
 
 
-@node Sélection de la fonte et de la taille
+@node Selecting font and font size
 @unnumberedsubsubsec Sélection de la fonte et de la taille
-@translationof Selecting font and font size
 
 @cindex fonte, changement
 @cindex changement de fonte
@@ -1145,8 +1134,8 @@ entre les premier et deuxième mots.
 @noindent
 Certaines familles de police spécifiques aux nombres ou aux nuances par
 exemple, ne disposent pas de tous les caractères, comme nous l'avons vu
-dans les chapitres @ref{Personnalisation des indications de nuance} et
-@ref{Indications de reprise manuelles}.
+dans les chapitres @ref{New dynamic marks} et
+@ref{Manual repeat marks}.
 
 @c \concat is actually documented in Align (it is not
 @c a font-switching command). But we need it here. -vv
@@ -1175,7 +1164,7 @@ d'utiliser des fontes personnalisées est disponible à l'annexe
 @ref{Font markup}.
 
 Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
-@ref{Fontes}.
+@ref{Fonts}.
 
 @predefined
 @funindex \teeny
@@ -1200,9 +1189,9 @@ Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 @morerefs
 Manuel de notation :
 @ref{Font markup,Fonte},
-@ref{Fontes},
-@ref{Indications de reprise manuelles},
-@ref{Personnalisation des indications de nuance}.
+@ref{Fonts},
+@ref{Manual repeat marks},
+@ref{New dynamic marks}.
 
 Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm}.
@@ -1221,9 +1210,8 @@ espacements nettement moins réguliers que si vous utilisez
 @code{\fontsize}.
 
 
-@node Alignement du texte
+@node Text alignment
 @unnumberedsubsubsec Alignement du texte
-@translationof Text alignment
 
 @cindex texte, alignement
 @cindex alignement du texte
@@ -1233,7 +1221,7 @@ espacements nettement moins réguliers que si vous utilisez
 Cette partie traite de la manière de positionner du texte en mode
 @emph{markup}.  On déplace l'intégralité d'un objet @emph{markup} en
 utilisant la syntaxe décrite au chapitre
-@rlearning{Déplacement d'objets}.
+@rlearningnamed{Moving objects, Déplacement d'objets}.
 
 @cindex texte, alignement horizontal
 @cindex alignement horizontal du texte
@@ -1305,7 +1293,7 @@ Certains objets possèdent leurs propres procédures d'alignement, qui
 annuleront toute spécification d'alignement que vous pourriez leur
 affecter.  La solution consiste alors à déplacer l'intégralité de ces
 objets @emph{markup}, comme indiqué par exemple au chapitre
-@ref{Indications textuelles}.
+@ref{Text marks}.
 
 @cindex texte, alignement vertical
 @cindex alignement vertical du texte
@@ -1528,11 +1516,11 @@ mode @emph{markup} est disponible à l'annexe
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Déplacement d'objets}.
+@rlearningnamed{Moving objects, Déplacement d'objets}.
 
 Manuel de notation :
 @ref{Markup for text alignment,Alignement},
-@ref{Indications textuelles}.
+@ref{Text marks}.
 
 Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm}.
@@ -1545,9 +1533,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Éléments graphiques dans du texte formaté
+@node Graphic notation inside markup
 @unnumberedsubsubsec Éléments graphiques dans du texte formaté
-@translationof Graphic notation inside markup
 
 @cindex graphisme, tracé
 @cindex tracé d'objet graphique
@@ -1700,7 +1687,7 @@ matière de graphisme.
 @morerefs
 Manuel de notation :
 @ref{Markup for text alignment,Alignement},
-@ref{Annotations éditoriales},
+@ref{Editorial annotations},
 @ref{Dimensions},
 @ref{Graphical markup,Graphique}.
 
@@ -1716,9 +1703,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Notation musicale dans du texte formaté
+@node Music notation inside markup
 @unnumberedsubsubsec Notation musicale dans du texte formaté
-@translationof Music notation inside markup
 
 @cindex notation dans un @emph{markup}
 @cindex musique dans un @emph{markup}
@@ -1769,7 +1755,7 @@ notation :
 
 En règle générale, tout symbole musical peut être inclus dans un
 @emph{markup}, comme le montre l'exemple qui suit.  Ces différents
-symboles sont répertoriés dans l'annexe @ref{La fonte Emmentaler}.
+symboles sont répertoriés dans l'annexe @ref{The Emmentaler font}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1833,7 +1819,7 @@ sont répertoriées à l'annexe @ref{Markup for music and musical symbols}.
 
 @morerefs
 Manuel de notation :
-@ref{La fonte Emmentaler},
+@ref{The Emmentaler font},
 @ref{Markup for music and musical symbols, Musique}.
 
 Fichiers d'initialisation :
@@ -1854,9 +1840,8 @@ L'espacement vertical d'un @code{\score} contenu dans un objet
 réglage au sein d'un bloc @code{\paper} est ignoré.
 
 
-@node Fontes
+@node Fonts
 @subsection Fontes
-@translationof Fonts
 
 @cindex Pango
 @cindex FontConfig
@@ -1872,17 +1857,16 @@ dans LilyPond. Vous y apprendrez aussi comment changer de fonte en cours
 de partition.
 
 @menu
-* Localisation des fontes::
-* Familles de fontes::
-* Fonctionnalités des fontes::
-* Attribution d'une fonte en particulier::
-* Choix des fontes par défaut::
+* Finding fonts::
+* Font families::
+* Font features::
+* Single entry fonts::
+* Entire document fonts::
 @end menu
 
 
-@node Localisation des fontes
+@node Finding fonts
 @unnumberedsubsubsec Localisation des fontes
-@translationof Finding fonts
 
 @cindex fonte, généralités
 @cindex fonte, localisation
@@ -1910,13 +1894,12 @@ le nom exact qu'il faudra transmettre à LilyPond ; ce nom peut être
 différent du nom du fichier.
 
 Les fontes se sélectionnent selon les méthodes indiquées dans
-@ref{Attribution d'une fonte en particulier} et
-@ref{Choix des fontes par défaut}.
+@ref{Single entry fonts} et
+@ref{Entire document fonts}.
 
 
-@node Familles de fontes
+@node Font families
 @unnumberedsubsubsec Familles de fontes
-@translationof Font families
 
 
 Vous disposez de trois familles de fontes@footnote{Dans sa forme la plus
@@ -2025,7 +2008,7 @@ c''4^smaller
 @noindent
 Cette syntaxe s'applique aussi en mode @emph{markup}, bien que celui-ci
 dispose d'une syntaxe allégée comme nous l'avons vu dans
-@ref{Sélection de la fonte et de la taille} :
+@ref{Selecting font and font size} :
 
 @lilypond[quote,verbatim]
 \markup {
@@ -2046,9 +2029,8 @@ dispose d'une syntaxe allégée comme nous l'avons vu dans
 @end lilypond
 
 
-@node Fonctionnalités des fontes
+@node Font features
 @unnumberedsubsubsec Fonctionnalités des fontes
-@translationof Font features
 
 @cindex OpenType, fonctionnalités
 @cindex fonctionnalités OpenType
@@ -2099,22 +2081,21 @@ sont recensés dans le message
 En plus de pouvoir jongler entre les différentes fontes prédéfinies,
 LilyPond vous permet d'en utiliser d'autres, ce qui fait l'objet des
 deux prochaines parties :
-@ref{Attribution d'une fonte en particulier}
-et @ref{Choix des fontes par défaut}.
+@ref{Single entry fonts}
+et @ref{Entire document fonts}.
 
 @morerefs
 Manuel de notation :
-@ref{La fonte Emmentaler},
-@ref{Notation musicale dans du texte formaté},
-@ref{Rotation des objets},
-@ref{Sélection de la fonte et de la taille},
+@ref{The Emmentaler font},
+@ref{Music notation inside markup},
+@ref{Rotating objects},
+@ref{Selecting font and font size},
 @ref{Font markup,Fonte}.
 @endmorerefs
 
 
-@node Attribution d'une fonte en particulier
+@node Single entry fonts
 @unnumberedsubsubsec Attribution d'une fonte en particulier
-@translationof Single entry fonts
 
 La plupart des fontes installées sur le système et reconnues par
 FontConfig peuvent s'utiliser dans une partition, à l'exception des
@@ -2176,7 +2157,7 @@ chaîne de @emph{markup} sont demandées les familles « Bitstream Vera
 Sans » et « sans-serif », ce qui indique à FontConfig de rechercher en
 premier « Bitstream Vera Sans » et, si elle n'est pas disponible, de se
 reporter sur une famille « sans-serif » générique comme indiqué dans
-@ref{Familles de fontes}. Le style du @emph{markup} est défini à
+@ref{Font families}. Le style du @emph{markup} est défini à
 « Oblique Bold » ; FontConfig tentera donc de trouver une fonte qui soit
 à la fois penchée et grasse. Si elle échoue, elle tentera de trouver
 soit une fonte penchée, soit une fonte grasse. Si elle échoue à nouveau,
@@ -2224,9 +2205,9 @@ lilypond -dshow-available-fonts
 
 @morerefs
 Manuel de notation :
-@ref{Choix des fontes par défaut},
-@ref{Localisation des fontes},
-@ref{Familles de fontes}.
+@ref{Entire document fonts},
+@ref{Finding fonts},
+@ref{Font families}.
 
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
@@ -2237,12 +2218,11 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Choix des fontes par défaut
+@node Entire document fonts
 @unnumberedsubsubsec Choix des fontes par défaut
-@translationof Entire document fonts
 
 On peut tout à fait modifier le jeu de polices par défaut de LilyPond.
-Tout comme indiqué dans @ref{Attribution d'une fonte en particulier}, il
+Tout comme indiqué dans @ref{Single entry fonts}, il
 peut s'agir d'une liste de polices séparées par une virgule, à ceci près
 qu'il n'est pas possible de spécifier de style.@footnote{Ce qui a pour
 conséquence que, contrairement au cas d'une fonte particulière, aucune
@@ -2268,14 +2248,14 @@ virgule terminale n'est nécessaire.}
 @end lilypond
 
 Il est aussi posible de substituer les fontes musicales à l'aide de la
-même syntaxe -- voir @ref{Changement des fontes musicales}.
+même syntaxe -- voir @ref{Replacing the notation font}.
 
 @morerefs
 Manuel de notation :
-@ref{Attribution d'une fonte en particulier},
+@ref{Single entry fonts},
 @ref{Font markup,Fonte},
-@ref{Changement des fontes musicales},
-@ref{Familles de fontes},
-@ref{Localisation des fontes},
-@ref{Sélection de la fonte et de la taille}.
+@ref{Replacing the notation font},
+@ref{Font families},
+@ref{Finding fonts},
+@ref{Selecting font and font size}.
 @endmorerefs

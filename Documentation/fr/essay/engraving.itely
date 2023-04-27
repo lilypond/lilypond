@@ -12,9 +12,8 @@
 
 @c Translators: Jean-Charles Malahieude, John Mandereau, Gauvain Pocentek
 
-@node La gravure musicale
+@node Music engraving
 @chapter La gravure musicale
-@translationof Music engraving
 
 Ce chapitre traite des objectifs et de l'architecture de LilyPond.
 
@@ -25,18 +24,17 @@ Ce chapitre traite des objectifs et de l'architecture de LilyPond.
 @c
 
 @menu
-* L'histoire de LilyPond::      ce qui ne va pas avec les logiciels
-* La gravure en détails::       de l'homme à la machine
-* La gravure automatisée::      de la machine à l'homme
-* De la théorie à la pratique:: qui fait quoi
-* Démonstration par l'exemple:: LilyPond à l'œuvre
-* Comparatif (BWV 861)::
+* The LilyPond story::      ce qui ne va pas avec les logiciels
+* Engraving details::       de l'homme à la machine
+* Automated engraving::      de la machine à l'homme
+* Building software:: qui fait quoi
+* Putting LilyPond to work:: LilyPond à l'œuvre
+* Engraved examples (BWV 861)::
 @end menu
 
 
-@node L'histoire de LilyPond
+@node The LilyPond story
 @section L'histoire de LilyPond
-@translationof The LilyPond story
 
 Bien avant que LilyPond soit à l'origine de tout un matériel d'orchestre
 d'excellente facture ou qu'il participe à la création d'ouvrages
@@ -151,9 +149,8 @@ Henle no 666, @copyright{}2000 :
 @end iftex
 
 
-@node La gravure en détails
+@node Engraving details
 @section La gravure en détails
-@translationof Engraving details
 
 @cindex gravure
 @cindex typographie musicale
@@ -219,17 +216,16 @@ quoi LilyPond devait porter ses efforts.
 @c mechanical look, which makes them unpleasant to play from.
 
 @menu
-* Fontes et polices::             De la création des polices musicales
-* Espacement::                    Considérations sur les espacements
-* Lignes supplémentaires::        Cas particulier en matière de notation
-* Tailles::                       Considérations sur la taille des portées
-* La raison de tous ces efforts:: Pourquoi s'attacher aux détails
+* Music fonts::             De la création des polices musicales
+* Optical spacing::                    Considérations sur les espacements
+* Ledger lines::        Cas particulier en matière de notation
+* Optical sizing::                       Considérations sur la taille des portées
+* Why work so hard?:: Pourquoi s'attacher aux détails
 @end menu
 
 
-@node Fontes et polices
+@node Music fonts
 @unnumberedsubsec Fontes et polices
-@translationof Music fonts
 
 Les images ci-dessous mettent en évidence certaines différences entre
 l'art du graveur traditionnel et le résultat habituel sorti d'un
@@ -319,9 +315,8 @@ forme de losange.  La barre de notre bémol est comme brossée, le haut
 n'ont pas la même pente et que les verticales sont plus épaisses.
 
 
-@node Espacement
+@node Optical spacing
 @unnumberedsubsec Espacement
-@translationof Optical spacing
 
 Si l'on considère l'espacement, sa répartition devrait refléter la durée
 des notes.  Néanmoins, et comme nous l'avons vu plus haut avec la suite
@@ -411,9 +406,8 @@ qui les sépare pour éviter cette sensation de tassement.  Une note dont
 la hampe va vers le bas ne nécessite pas un tel ajustement.
 
 
-@node Lignes supplémentaires
+@node Ledger lines
 @unnumberedsubsec Lignes supplémentaires
-@translationof Ledger lines
 
 @cindex lignes supplémentaires
 @cindex collisions
@@ -448,9 +442,8 @@ LilyPond, dans sa recherche d'efficacité, adopte ces pratiques.
 @end multitable
 
 
-@node Tailles
+@node Optical sizing
 @unnumberedsubsec Tailles
-@translationof Optical sizing
 
 Une même œuvre peut être imprimée dans différents formats -- d'une
 partie instrumentale au conducteur format de poche.  Les graveurs
@@ -543,9 +536,8 @@ global = {
 @end lilypond
 
 
-@node La raison de tous ces efforts
+@node Why work so hard?
 @unnumberedsubsec La raison de tous ces efforts
-@translationof Why work so hard?
 
 Les musiciens sont normalement plus concentrés sur la manière dont ils
 jouent la musique que sur son apparence, aussi ces pinailleries sur des
@@ -583,9 +575,8 @@ produire des partitions d'une qualité comparable aux bonnes vieilles
 interpréter.
 
 
-@node La gravure automatisée
+@node Automated engraving
 @section La gravure automatisée
-@translationof Automated engraving
 
 @cindex gravure automatisée
 @cindex automatisée, gravure
@@ -600,15 +591,14 @@ pour être en mesure de gérer les différents cas de figure particuliers à
 la notation.
 
 @menu
-* Concours de beauté::           l'option du moindre mal
-* Modélisation et banc d'essai:: l'évaluation des performances
-* Règles de formatage::          l'architecture flexible
+* Beauty contests::           l'option du moindre mal
+* Improvement by benchmarking:: l'évaluation des performances
+* Getting things right::          l'architecture flexible
 @end menu
 
 
-@node Concours de beauté
+@node Beauty contests
 @unnumberedsubsec Concours de beauté
-@translationof Beauty contests
 
 Quels sont en réalité nos critères de formatage ?  Considérant
 l'image suivante, laquelle de ces trois configurations devrions-nous
@@ -706,9 +696,8 @@ chandelle, puisque le résultat final est bien meilleur et nous rapproche
 des éditions traditionnelles.
 
 
-@node Modélisation et banc d'essai
+@node Improvement by benchmarking
 @unnumberedsubsec Modélisation et banc d'essai
-@translationof Improvement by benchmarking
 
 Au fil du temps, le rendu de LilyPond a évolué, et continue de
 s'améliorer lorsqu'on le compare aux partitions gravées à la main.
@@ -800,9 +789,8 @@ Sans être un clone de l'édition de référence, cette sortie est plus
 proche d'une qualité de publication que les précédentes.
 
 
-@node Règles de formatage
+@node Getting things right
 @unnumberedsubsec Règles de formatage
-@translationof Getting things right
 
 Nous pouvons aussi évaluer les capacités de LilyPond dans ses choix, en
 comparant ses résultats avec ce que génèrent d'autres logiciels du
@@ -998,24 +986,22 @@ particuliers peuvent être traités manuellement, notamment grâce à
 l'architecture flexible de LilyPond.
 
 
-@node De la théorie à la pratique
+@node Building software
 @section De la théorie à la pratique
-@translationof Building software
 
 Nous allons nous intéresser, dans les paragraphes qui suivent, aux
 arbitrages en terme de programmation qui ont participé à l'élaboration
 de LilyPond.
 
 @menu
-* Représentation de la musique::   le format de saisie
-* Les constituants de la gravure:: quels symboles graver
-* Flexibilité architecturale::
+* Music representation::   le format de saisie
+* What symbols to engrave?:: quels symboles graver
+* Flexible architecture::
 @end menu
 
 
-@node Représentation de la musique
+@node Music representation
 @unnumberedsubsec Représentation de la musique
-@translationof Music representation
 
 @cindex syntaxe
 @cindex structures récursives
@@ -1198,9 +1184,8 @@ dichotomie entre le format de saisie et une structure aussi flexible que
 possible.
 
 
-@node Les constituants de la gravure
+@node What symbols to engrave?
 @unnumberedsubsec Les constituants de la gravure
-@translationof What symbols to engrave?
 
 @cindex gravure
 @cindex typographie
@@ -1412,9 +1397,8 @@ Référence des propriétés internes :
 @rinternals{Contexts}.
 @endmorerefs
 
-@node Flexibilité architecturale
+@node Flexible architecture
 @unnumberedsubsec Flexibilité architecturale
-@translationof Flexible architecture
 
 Pour ses premiers pas, LilyPond était totalement écrit en langage
 C++ ; les programmeurs gravaient les fonctionnalités du programme
@@ -1554,9 +1538,8 @@ musical :
 @end lilypond
 
 
-@node Démonstration par l'exemple
+@node Putting LilyPond to work
 @section Démonstration par l'exemple
-@translationof Putting LilyPond to work
 
 @cindex simples exemples
 @cindex exemples simples
@@ -1686,9 +1669,8 @@ accéder directement au logiciel, rendez-vous sur www.lilypond.org.
 
 
 @page
-@node Comparatif (BWV 861)
+@node Engraved examples (BWV 861)
 @section Comparatif (BWV 861)
-@translationof Engraved examples (BWV 861)
 
 Cette annexe présente quatre éditions de référence et deux éditions
 informatisées des sept dernières mesures de la fugue en sol mineur

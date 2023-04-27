@@ -44,14 +44,14 @@ Copyright @copyright{} 2004--2023 by par les auteurs.
 @ifnottex
 
 @menu
-* Tutoriel Scheme::              Programmation dans LilyPond.
-* Interfaces pour programmeurs:: Comment dialoguer avec scheme.
-* Interfaces LilyPond Scheme::   Obtention d'information dans la musique et autour
+* Scheme tutorial::              Programmation dans LilyPond.
+* Interfaces for programmers:: Comment dialoguer avec scheme.
+* LilyPond Scheme interfaces::   Obtention d'information dans la musique et autour
 
 Appendices
 
 * GNU Free Documentation License:: Licence de ce document.
-* Index de LilyPond::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -65,9 +65,8 @@ Appendices
 
 @include en/fdl.itexi
 
-@node Index de LilyPond
+@node LilyPond index
 @appendix Index de LilyPond
-@translationof LilyPond index
 
 @printindex cp
 

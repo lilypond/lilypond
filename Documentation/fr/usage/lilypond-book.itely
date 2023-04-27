@@ -18,7 +18,6 @@
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
 @chapter Association musique-texte avec @command{lilypond-book}
-@translationof lilypond-book
 
 Vous pouvez inclure des partitions dans un document tout comme vous
 feriez pour n'importe quelle image.  Ces images sont générées séparément
@@ -33,7 +32,7 @@ pour correspondre à la mise en forme de votre document.
 
 @command{lilypond-book} est un script indépendant de @command{lilypond}
 et se lance en ligne de commande -- pour plus de précisions, consultez
-@ref{Utilisation en ligne de commande}.
+@ref{Command-line usage}.
 
 @command{lilypond-book} s'applique aux documents @LaTeX{}, HTML, Texinfo
 et DocBook.
@@ -51,20 +50,19 @@ et DocBook.
 @cindex LaTeX, musique et
 
 @menu
-* Exemple de document musicologique::
-* Association musique-texte::
-* Options applicables aux fragments de musique::
-* Utilisation de lilypond-book::
-* Extensions de nom de fichier::
-* Modèles pour lilypond-book::
-* Gestion de la table des matières::
-* Autres méthodes d'association texte-musique::
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* lilypond-book templates::
+* Sharing the table of contents::
+* Alternate methods of mixing text and music::
 @end menu
 
 
-@node Exemple de document musicologique
+@node An example of a musicological document
 @section Exemple de document musicologique
-@translationof An example of a musicological document
 
 @cindex musicologie
 
@@ -223,9 +221,8 @@ type @code{\book @{ @}}.
 
 @page
 
-@node Association musique-texte
+@node Integrating music and text
 @section Association musique-texte
-@translationof Integrating music and text
 
 Nous allons nous intéresser, dans les lignes qui suivent, à la manière
 d'intégrer LilyPond selon différents types de format.
@@ -240,7 +237,6 @@ d'intégrer LilyPond selon différents types de format.
 
 @node LaTeX
 @subsection @LaTeX{}
-@translationof LaTeX
 
 @LaTeX{} peut être considéré comme le standard de publication dans le
 domaine des sciences exactes.  Il repose sur le moteur typographique
@@ -457,13 +453,12 @@ nombre de systèmes requis :
 @command{lilypond-book} dispose d'options en ligne de commande
 particulières.  Elles sont consultables, ainsi que d'autres détails
 spécifiques au traitement de documents @LaTeX{}, au chapitre
-@ref{Utilisation de lilypond-book}.
+@ref{Invoking lilypond-book}.
 @endmorerefs
 
 
 @node Texinfo
 @subsection Texinfo
-@translationof Texinfo
 
 Texinfo est le format standard pour toute la documentation du projet
 GNU.  À titre d'exemple, toute la documentation de LilyPond -- qu'il
@@ -549,13 +544,12 @@ produit
 @morerefs
 Certaines options de la ligne de commande spécifiques à
 @command{lilypond-book} et d'autres détails utiles aux documents Texinfo
-sont mentionnés dans @ref{Utilisation de lilypond-book}.
+sont mentionnés dans @ref{Invoking lilypond-book}.
 @endmorerefs
 
 
 @node HTML
 @subsection HTML
-@translationof HTML
 
 Afin d'insérer de la musique dans vos fichiers HTML,
 @code{lilypond-book} dispose des environnements et commandes
@@ -631,7 +625,7 @@ produit
 @morerefs
 Certaines options de la ligne de commande spécifiques à
 @command{lilypond-book} et d'autres détails utiles aux documents HTML
-sont mentionnés dans @ref{Utilisation de lilypond-book}.
+sont mentionnés dans @ref{Invoking lilypond-book}.
 @endmorerefs
 
 @cindex titrage et HTML
@@ -641,7 +635,6 @@ sont mentionnés dans @ref{Utilisation de lilypond-book}.
 
 @node DocBook
 @subsection DocBook
-@translationof DocBook
 
 L'inclusion de documents LilyPond ne doit nuire en rien à la conformité
 du document DocBook ; l'utilisation d'éditeurs spécialisés ainsi
@@ -720,9 +713,8 @@ JavaHelp, etc.) ; vous pourriez néanmoins devoir y apporter quelques
 adaptations.
 
 
-@node Options applicables aux fragments de musique
+@node Music fragment options
 @section Options applicables aux fragments de musique
-@translationof Music fragment options
 
 Dans les lignes qui suivent, l'appellation « commande LilyPond » fait
 référence à toutes celles vues plus haut et qui font appel à
@@ -773,7 +765,7 @@ pour les cas où les environnements @code{lilypond} ne font pas appel à
 @item papersize=@var{chaîne}
 Détermine le format du papier à @var{chaîne} (par exemple @code{a5} ou
 @code{letter}) pour les fragments utilisant @code{\book}. Voir
-@rnotation{Formats de papier prédéfinis} pour une liste des différentes
+@rnotationnamed{Predefined paper sizes, Formats de papier prédéfinis} pour une liste des différentes
 tailles disponibles.
 
 Cette option affecte le résultat de LilyPond -- les dimensions de la
@@ -1024,9 +1016,8 @@ chemin d'accès au fichier est tronqué.
 @end table
 
 
-@node Utilisation de lilypond-book
+@node Invoking lilypond-book
 @section Utilisation de @command{lilypond-book}
-@translationof Invoking lilypond-book
 
 @command{lilypond-book} produit un fichier qui aura, selon le format de
 sortie spécifié, l'extension @file{.tex}, @file{.texi}, @file{.html} ou
@@ -1144,7 +1135,7 @@ Spécifie le type de document à traiter : @code{html}, @code{latex},
 @code{texi} (valeur par défaut), @code{texi-html} ou @code{docbook}.
 Lorsque cette option n'est pas mentionnée, @command{lilypond-book} tente
 de déterminer automatiquement le format -- voir
-@ref{Extensions de nom de fichier}. À l'heure actuelle, @code{texi-html}
+@ref{Filename extensions}. À l'heure actuelle, @code{texi-html}
 est équivalant à @code{texi}.
 
 @item -F @var{filtre}
@@ -1295,13 +1286,12 @@ Lorsqu'une section LilyPond contient plusieurs @code{\score}, seul le
 premier sera traité.
 
 
-@node Extensions de nom de fichier
+@node Filename extensions
 @section Extensions de nom de fichier
-@translationof Filename extensions
 
 Vous pouvez affecter à votre fichier source n'importe quelle extension.
 Nous vous recommandons cependant un certain nombre d'extensions selon le
-format de sortie désiré -- voir @ref{Utilisation de lilypond-book}.  Une
+format de sortie désiré -- voir @ref{Invoking lilypond-book}.  Une
 extension hors du commun vous obligera à spécifier le format de sortie,
 alors que @code{lilpond-book} est en mesure de déterminer le format de
 sortie en fonction de l'extension du fichier source.
@@ -1332,9 +1322,8 @@ d'entrée ».  Aussi ne saurions-nous trop vous conseiller d'utiliser
 l'option @option{--output}.
 
 
-@node Modèles pour lilypond-book
+@node lilypond-book templates
 @section Modèles pour lilypond-book
-@translationof lilypond-book templates
 
 Voici quelques canevas dédiés à @code{lilypond-book}.  Si vous ne savez
 pas de quoi il retourne, lisez le chapitre @ref{lilypond-book}.
@@ -1486,9 +1475,8 @@ werden.
 @end verbatim
 
 
-@node Gestion de la table des matières
+@node Sharing the table of contents
 @section Gestion de la table des matières
-@translationof Sharing the table of contents
 
 Les fonctions ici mentionnées sont incluses dans le paquetage
 OrchestralLily, disponible sur
@@ -1596,10 +1584,9 @@ où @code{\includescore} est défini ainsi :
 @end smallexample
 
 
-@node Autres méthodes d'association texte-musique
+@node Alternate methods of mixing text and music
 @section Autres méthodes d'association texte-musique
-@translationof Alternate methods of mixing text and music
 
 D'autres moyens de mélanger musique et texte sans recourir à
 @command{lilypond-book} sont abordés au chapitre
-@ref{Inclusion de partition LilyPond dans d'autres programmes}.
+@ref{LilyPond output in other programs}.

@@ -10,9 +10,8 @@
 @c Translators: Jean-Charles Malahieude, John Mandereau, Jean Abou Samra
 @c Translation checkers: Jean-Charles Malahieude
 
-@node Téléchargement
+@node Download
 @unnumbered Téléchargement
-@translationof Download
 
 @divClass{heading-center}
 @heading Téléchargement de LilyPond @versionStable
@@ -30,7 +29,7 @@
 @subsubheading Pour les nouveaux utilisateurs
 @c VO For new users
 
-@ref{Entrée sous forme de texte} : LilyPond travaille sur des
+@ref{Text input} : LilyPond travaille sur des
 @strong{fichiers textuels}.  Il s'apparente davantage à un langage
 de programmation qu'à un éditeur de partitions en mode graphique.
 Lisez cette page pour comprendre les bases du fonctionnement
@@ -140,13 +139,13 @@ formule LilyPond}.
 @subheading Pour les développeurs
 @c VO For developers
 
-@ref{Sources} :
+@ref{Source} :
 pour les empaqueteurs
 
-@ref{Anciennes versions} :
+@ref{Old downloads} :
 versions antérieures
 
-@ref{Développement} :
+@ref{Development} :
 version instable la plus récente
 
 @divEnd
@@ -185,17 +184,16 @@ protégés par le droit d’auteur.
 
 @divClass{hide}
 @menu
-* Sources::
-* Anciennes versions::
+* Source::
+* Old downloads::
 * GPL::
 @end menu
 @divEnd
 
 
 
-@node Sources
+@node Source
 @unnumberedsec Sources
-@translationof Source
 
 @warning{Nous vous @strong{déconseillons} de compiler LilyPond par
 vous-même ; les versions précompilées contiennent tout ce dont un
@@ -216,9 +214,8 @@ Les instructions permettant de compiler LilyPond sont répertoriées dans
 
 
 
-@node Anciennes versions
+@node Old downloads
 @unnumberedsec Anciennes versions
-@translationof Old downloads
 
 @divClass{column-center-top}
 @subheading Toutes les versions
@@ -238,7 +235,6 @@ pour les versions antérieures.
 
 @node GPL
 @unnumberedsec GPL
-@translationof GPL
 
 @divClass{column-center-top}
 @subheading Licence logicielle
@@ -247,7 +243,7 @@ pour les versions antérieures.
 GNU LilyPond est distribué selon la
 @ref{GPL,Licence Publique Générale GNU GPL}.  Pour une introduction à
 cette licence, et les raisons qui nous ont fait l'adopter, lisez
-@ref{Liberté}.
+@ref{Freedom}.
 
 @divEnd
 

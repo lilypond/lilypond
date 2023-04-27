@@ -14,9 +14,8 @@
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 
-@node Répétitions et reprises
+@node Repeats
 @section Répétitions et reprises
-@translationof Repeats
 
 @lilypondfile[quote]{snippets/repeats-headword.ly}
 
@@ -58,29 +57,28 @@ Ce type permet de réaliser des trémolos sous forme de liens de croches.
 @end table
 
 Les constructions d'accord peuvent se répéter à l'aide du symbole
-spécifique @code{q} -- voir @ref{Répétition d'accords}.
+spécifique @code{q} -- voir @ref{Chord repetition}.
 
 @menu
-* Répétition d'un long passage::
-* Autres types de répétition::
+* Long repeats::
+* Short repeats::
 @end menu
 
 
-@node Répétition d'un long passage
+@node Long repeats
 @subsection Répétition d'un long passage
-@translationof Long repeats
 
 Cette section présente la syntaxe des répétitions longues.
 
 @menu
-* Répétitions explicites::
-* Répétitions simples::
-* Fins alternatives::
-* Autres aspects des fragments répétés::
-* Reprises Al-fine::
-* Structure d'une reprise Segno::
-* Apparence d'une reprise Segno::
-* Indications de reprise manuelles::
+* Written-out repeats::
+* Simple repeats::
+* Alternative endings::
+* Other variation in repeated sections::
+* Al-fine repeats::
+* Segno repeat structure::
+* Segno repeat appearance::
+* Manual repeat marks::
 @end menu
 
 @cindex reprise avec alternative
@@ -91,9 +89,8 @@ Cette section présente la syntaxe des répétitions longues.
 @funindex \alternative
 
 
-@node Répétitions explicites
+@node Written-out repeats
 @unnumberedsubsubsec Répétitions explicites
-@translationof Written-out repeats
 
 @cindex musique répétitive
 @cindex reprise, expansion
@@ -113,7 +110,7 @@ fonctionnalités de la commande @code{\unfoldRepeats} qui permet de
 convertir les formes @code{volta} ou @code{segno} en une forme
 @code{unfold}. Un autre sujet d'intérêt de la commande
 @code{unfoldRepeats} est abordé dans
-@ref{Gestion des répétitions en MIDI}.
+@ref{Using repeats with MIDI}.
 
 Dans certains cas, et tout particulièrement dans un contexte
 @code{\relative}, la fonction @code{\repeat unfold} ne revient pas à
@@ -139,7 +136,7 @@ unfold}, ce qui n'est pas aussi simple avec @code{\repeat volta} ou
 @warning{L'insertion d'un @code{@bs{}relative} dans une section
 @code{@bs{}repeat} sans déclaration explicite du contexte @code{Voice}
 génèrera une portée supplémentaire -- voir
-@rprogram{Apparition d'une portée supplémentaire}.}
+@rprogramnamed{An extra staff appears, Apparition d'une portée supplémentaire}.}
 
 @morerefs
 Morceaux choisis :
@@ -151,9 +148,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Répétitions simples
+@node Simple repeats
 @unnumberedsubsubsec Répétitions simples
-@translationof Simple repeats
 
 @cindex volta
 @cindex fois, première
@@ -225,9 +221,8 @@ d'une pièce commençant par une levée afin de respecter cette entame.
 @end lilypond
 
 
-@node Fins alternatives
+@node Alternative endings
 @unnumberedsubsubsec Fins alternatives
-@translationof Alternative endings
 
 @cindex volta
 @cindex prima volta
@@ -344,19 +339,18 @@ résultats inattendus.}
 @warning{Une clause @code{@bs{}relative} ne doit jamais se trouver à
 l'intérieur d'une section @code{@bs{}repeat} : vous aurez
 immanquablement des portées parasites.  Voir
-@rprogram{Apparition d'une portée supplémentaire}.}
+@rprogramnamed{An extra staff appears, Apparition d'une portée supplémentaire}.}
 
 @warning{Lorsque la numérotation des mesures est activée au sein des
 alternatives, elle s'applique sur l'ensemble de ces alternatives.}
 
 
-@node Autres aspects des fragments répétés
+@node Other variation in repeated sections
 @unnumberedsubsubsec Autres aspects des fragments répétés
-@translationof Other variation in repeated sections
 
 Un bloc @code{\alternative} peut prendre place à l'intérieur d'un bloc
 @code{\repeat} afin de produire une notation comparable à des
-alternatives -- voir @ref{Fins alternatives}.
+alternatives -- voir @ref{Alternative endings}.
 
 @lilypond[verbatim,quote]
 \fixed c'' {
@@ -424,9 +418,8 @@ music = \fixed c' {
 respectant la répétition la plus imbriquée qui les entoure.}
 
 
-@node Reprises Al-fine
+@node Al-fine repeats
 @unnumberedsubsubsec Reprises @emph{Al-fine}
-@translationof Al-fine repeats
 
 @funindex \fine
 
@@ -436,7 +429,7 @@ Lorsqu'une reprise contenant @code{\fine} est expansée, la commande
 @code{\fine} est déroulée avec le reste de la musique et interviendra là
 où elle doit se produire dans la musique expansée. Il est donc
 nécessaire de bien spécifier à quelle occurence le @emph{Fine} doit se
-réaliser -- voir @ref{Autres aspects des fragments répétés}.
+réaliser -- voir @ref{Other variation in repeated sections}.
 
 @lilypond[quote,verbatim]
 music = \fixed c' {
@@ -480,16 +473,16 @@ la propriété de contexte @code{fineText}.
 
 Pour de plus amples détails concernant les interactions avec les autres
 barres de mesure et les options pour modifier leur apparence, voir
-@ref{Barres de mesure automatiques}.
+@ref{Automatic bar lines}.
 
 @morerefs
 Glossaire musicologique :
 @rglos{fine}.
 
 Manuel de notation :
-@ref{Autres aspects des fragments répétés},
-@ref{Barres de mesure automatiques},
-@ref{Division en sections}.
+@ref{Other variation in repeated sections},
+@ref{Automatic bar lines},
+@ref{Section divisions}.
 
 Morceaux choisis :
 @rlsr{Repeats, Reprises}.
@@ -501,9 +494,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Structure d'une reprise Segno
+@node Segno repeat structure
 @unnumberedsubsubsec Structure d'une reprise @emph{Segno}
-@translationof Segno repeat structure
 
 @cindex @emph{Coda} et reprise
 @cindex @emph{Segno} et reprise
@@ -544,7 +536,7 @@ Les cas habituels d'utilisation sont les suivants.
 @funindex \fine
 @item al fine
 Les instructions de reprise comportent un @emph{al Fine} si la commande
-@code{\fine} a déjà été libellée -- voir @ref{Reprises Al-fine}.
+@code{\fine} a déjà été libellée -- voir @ref{Al-fine repeats}.
 
 @lilypond[quote,verbatim]
 music = \fixed c' {
@@ -599,7 +591,7 @@ music = \fixed c' {
 @end lilypond
 
 L'instruction de retour peut s'abréger par la définition d'une procédure
-de mise en forme alternative -- voir @ref{Apparence d'une reprise Segno}.
+de mise en forme alternative -- voir @ref{Segno repeat appearance}.
 
 @cindex D.C.
 @cindex da capo
@@ -651,7 +643,7 @@ music = \fixed c' {
 
 @noindent
 Il est possible de forcer une reprise @emph{dal-segno} en début de
-partition -- voir @ref{Apparence d'une reprise Segno}.
+partition -- voir @ref{Segno repeat appearance}.
 
 @item retour multiple
 L'instruction pour une reprise qui doît être exécutée plus d'une fois
@@ -679,13 +671,13 @@ Glossaire musicologique :
 @rglos{fine}.
 
 Manuel de notation :
-@ref{Autres aspects des fragments répétés},
-@ref{Barres de mesure automatiques},
-@ref{Division en sections},
-@ref{Fins alternatives},
-@ref{Marque de section},
-@ref{Répétitions simples},
-@ref{Reprises Al-fine}.
+@ref{Other variation in repeated sections},
+@ref{Automatic bar lines},
+@ref{Section divisions},
+@ref{Alternative endings},
+@ref{Section labels},
+@ref{Simple repeats},
+@ref{Al-fine repeats}.
 
 Morceaux choisis :
 @rlsrnamed{Repeats, Répétitions et reprises}.
@@ -698,9 +690,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Apparence d'une reprise Segno
+@node Segno repeat appearance
 @unnumberedsubsubsec Apparence d'une reprise @emph{Segno}
-@translationof Segno repeat appearance
 
 @funindex \codaMark
 @funindex \segnoMark
@@ -744,7 +735,7 @@ prédéfini permet d'obtenir des instructions raccourcies.
 Les numéros de séquence des marques en début de fragment répété et en
 tête de première alternative peuvent être définis explicitement sans
 pour autant interférer avec les instructions automatiques de retour --
-voir @ref{Indications de reprise manuelles}.
+voir @ref{Manual repeat marks}.
 
 @lilypond[quote,verbatim]
 \fixed c' {
@@ -794,12 +785,12 @@ Lorsqu'une barre de segno coïncide avec une autre barre spéciale, sera
 automatiquement choisie une combinaison de barres parmi un jeu
 prédéfini. Pour chaque combinaison prise en compte, la barre de mesure
 peut être personnalisée à l'aide de propriétés de contexte -- voir
-@ref{Barres de mesure automatiques}.
+@ref{Automatic bar lines}.
 
 Les marques de segno et de coda sont formatées par des procédures
 spécifiées dans les propriétés @code{segnoMarkFormatter} et
 @code{codaMarkFormatter}. Elles sont comparables aux procédures chargées
-de formater les repères -- voir @ref{Indications de repère}.
+de formater les repères -- voir @ref{Rehearsal marks}.
 
 @lilypond[verbatim,quote]
 \fixed c' {
@@ -870,11 +861,11 @@ Glossaire musicologique :
 @rglos{volta}.
 
 Manuel de notation :
-@ref{Barres de mesure},
-@ref{Barres de mesure automatiques},
-@ref{Gestion du temps},
-@ref{Modification des greffons de contexte},
-@ref{Modification des liaisons}.
+@ref{Bar lines},
+@ref{Automatic bar lines},
+@ref{Time administration},
+@ref{Modifying context plug-ins},
+@ref{Modifying ties and slurs}.
 
 Fichiers d'initialisation :
 @file{ly/engraver-init.ly}.
@@ -910,7 +901,7 @@ lorsqu'elle s'arrête sur sa première note -- méthode qui cependant ne
 fonctionne pas pour un @code{TabStaff} ; @pxref{Tenue et reprise}.
 D'autres moyens existent pour indiquer la prolongation d'une liaison sur
 des alternatives, y compris dans un @code{TabStaff}, en suivant les
-préceptes donnés à la rubrique @ref{Modification des liaisons}.
+préceptes donnés à la rubrique @ref{Modifying ties and slurs}.
 
 L'aspect visuel d'un glissando se continuant dans les autres
 alternatives peut être simulé à l'aide d'un glissando partant d'une note
@@ -940,9 +931,8 @@ préférable, dans une telle situation, d'utiliser des accolades pour plus
 de clarté.
 
 
-@node Indications de reprise manuelles
+@node Manual repeat marks
 @unnumberedsubsubsec Indications de reprise manuelles
-@translationof Manual repeat marks
 
 @cindex reprise manuelle
 
@@ -954,7 +944,7 @@ devraient servir à indiquer que des constructions de répétition
 inhabituelles. En règle générale, il vaut mieux recourir à la fonction
 @code{@bs{}repeat} pour créer une reprise ou bien insérer la barre de mesure
 adéquate. Pour plus d'information, voir le chapitre
-@ref{Barres de mesure}.}
+@ref{Bar lines}.}
 
 La propriété @code{repeatCommands} sert à contrôler la mise en forme des
 reprises du style « volta ». On la définit par une liste de commandes en
@@ -1030,7 +1020,7 @@ Plusieurs commandes de reprise peuvent intervenir au même moment :
 
 Le crochet indiquant une alternative peut contenir aussi du texte. Il
 peut s'agir d'un ou plusieurs nombres ou bien d'une indication textuelle
-(@emph{markup}) -- voir @ref{Mise en forme du texte}. Le plus simple,
+(@emph{markup}) -- voir @ref{Formatting text}. Le plus simple,
 dans le cas d'une indication textuelle, est de tout d'abord définir ce
 @emph{markup}, puis de l'inclure dans une liste Scheme.
 
@@ -1113,7 +1103,7 @@ tant que barre de mesure.
 
 Pour de plus amples informations sur la manière d'affecter l'affichage
 des repères de segno ou de coda, voir
-@ref{Apparence d'une reprise Segno}.
+@ref{Segno repeat appearance}.
 
 @cindex D.C., manuel
 @cindex D.S., manuel
@@ -1141,10 +1131,10 @@ commande @code{\jump}.
 
 @morerefs
 Manuel de notation :
-@ref{Apparence d'une reprise Segno},
-@ref{Barres de mesure},
-@ref{Indications de repère},
-@ref{Mise en forme du texte}.
+@ref{Segno repeat appearance},
+@ref{Bar lines},
+@ref{Rehearsal marks},
+@ref{Formatting text}.
 
 Morceaux choisis_:
 @rlsrnamed{Repeats, Répétitions et reprises}.
@@ -1161,9 +1151,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Autres types de répétition
+@node Short repeats
 @subsection Autres types de répétition
-@translationof Short repeats
 
 Nous abordons ici les reprises de courte durée. Il en existe deux
 formes, à savoir la répétition d'une même note sur quelques mesures --
@@ -1171,14 +1160,13 @@ représentée par une barre oblique ou le signe pourcent -- et les
 trémolos.
 
 @menu
-* Répétitions de mesure::
-* Répétitions en trémolo::
+* Percent repeats::
+* Tremolo repeats::
 @end menu
 
 
-@node Répétitions de mesure
+@node Percent repeats
 @unnumberedsubsubsec Répétitions de mesure
-@translationof Percent repeats
 
 @cindex pourcent, répétition
 @cindex mesure, répétition de
@@ -1320,9 +1308,8 @@ devra impérativement se traîter sous forme de construction parallèle,
 @end lilypond
 
 
-@node Répétitions en trémolo
+@node Tremolo repeats
 @unnumberedsubsubsec Répétitions en trémolo
-@translationof Tremolo repeats
 
 @cindex trémolo
 @cindex trémolo, ligature de

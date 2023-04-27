@@ -14,9 +14,8 @@
 @c Translation checkers: J.-C. Malahieude, John Mandereau, Jean Abou Samra
 
 
-@node Notation des accords
+@node Chord notation
 @section Notation des accords
-@translationof Chord notation
 
 @lilypondfile[quote]{snippets/chords-headword.ly}
 
@@ -26,15 +25,14 @@ nomenclatures occidentales. Les accords peuvent aussi se présenter sous
 forme nominale, ou bien en basse figurée.
 
 @menu
-* Mode accords::
-* Gravure des accords::
-* Basse chiffrée::
+* Chord mode::
+* Displaying chords::
+* Figured bass::
 @end menu
 
 
-@node Mode accords
+@node Chord mode
 @subsection Mode accords
-@translationof Chord mode
 
 @cindex chordmode
 @cindex accord, mode
@@ -43,29 +41,28 @@ Le mode accords permet de saisir des accords en indiquant leur structure
 plutôt que les notes qui les composent.
 
 @menu
-* Généralités sur le mode accords::
-* Accords courants::
-* Extension et altération d'accords::
-* Renversement d'accord et vocification spécifique::
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
+* Chord inversions and specific voicings::
 @end menu
 
 
-@node Généralités sur le mode accords
+@node Chord mode overview
 @unnumberedsubsubsec Généralités sur le mode accords
-@translationof Chord mode overview
 
 @cindex accord, nom
 @cindex accord, chiffrage
 
 Un accord peut se saisir en tant que musique simultanée, comme nous
-l'avons vu à la rubrique @ref{Notes en accords}.
+l'avons vu à la rubrique @ref{Chorded notes}.
 
 LilyPond dispose aussi d'un « mode accords » au sein duquel sera
 considérée la structure des accords, tels qu'ils se présentent dans les
 traditions occidentales, plutôt que les différentes hauteurs qui les
 composent.  Ce mode est tout à fait adapté pour ceux qui sont plus
 habitués aux accords nommés.  Pour plus d'information quant aux
-différentes façons de libeller votre code, voir @ref{Modes de saisie}.
+différentes façons de libeller votre code, voir @ref{Input modes}.
 
 @lilypond[verbatim,quote,ragged-right]
 \chordmode { c1 g a g c }
@@ -96,8 +93,8 @@ Glossaire musicologique :
 @rglosnamed{chord,Accord}.
 
 Manuel de notation :
-@ref{Modes de saisie},
-@ref{Notes en accords}.
+@ref{Input modes},
+@ref{Chorded notes}.
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
@@ -105,12 +102,11 @@ Morceaux choisis :
 
 @knownissues
 Les raccourcis d'articulation ou d'ornementation ne sont pas disponibles
-en mode accord -- voir @ref{Articulations et ornements}.
+en mode accord -- voir @ref{Articulations and ornamentations}.
 
 
-@node Accords courants
+@node Common chords
 @unnumberedsubsubsec Accords courants
-@translationof Common chords
 
 @cindex triade
 @cindex septième
@@ -149,7 +145,7 @@ septième.  Par défaut, la septième ajoutée sera mineure ; la
 septième de dominante est donc l'accord de septième de base.  Toutes les
 altérations sont relatives à la septième de dominante.  Une table
 étendue des modificateurs et de leur utilisation est à l'annexe
-@ref{Modificateurs d'accord usuels}.
+@ref{Common chord modifiers}.
 
 @c @table @code
 @multitable @columnfractions .2 .4 .3
@@ -229,8 +225,8 @@ sert pas à créer une triade majeure.
 
 @morerefs
 Manuel de notation :
-@ref{Extension et altération d'accords},
-@ref{Modificateurs d'accord usuels}.
+@ref{Extended and altered chords},
+@ref{Common chord modifiers}.
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
@@ -242,12 +238,11 @@ présence de plusieurs modificateurs ne déclenchera ni avertissement, ni
 erreur, mais le résultat pourrait être surprenant.  Un accord qui n'est
 pas constructible à l'aide d'un unique modificateur devra faire l'objet
 d'une altération de ses composantes, comme indiqué à la rubrique
-@ref{Extension et altération d'accords}.
+@ref{Extended and altered chords}.
 
 
-@node Extension et altération d'accords
+@node Extended and altered chords
 @unnumberedsubsubsec Extension et altération d'accords
-@translationof Extended and altered chords
 
 Le mode accords permet d'élaborer des accords complexes.  Ainsi, on peut
 enrichir l'accord par des notes ajoutées, enlever certaines notes,
@@ -377,15 +372,15 @@ utilisez la syntaxe @code{/+}@var{hauteur}.
 @end lilypond
 
 L'automatisation des renversements et la vocification sont abordées dans
-@ref{Renversement d'accord et vocification spécifique}.
+@ref{Chord inversions and specific voicings}.
 
 Une table étendue des modificateurs et de leur utilisation est à
-l'annexe @ref{Modificateurs d'accord usuels}.
+l'annexe @ref{Common chord modifiers}.
 
 @morerefs
 Manuel de notation :
-@ref{Modificateurs d'accord usuels},
-@ref{Renversement d'accord et vocification spécifique}.
+@ref{Common chord modifiers},
+@ref{Chord inversions and specific voicings}.
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
@@ -401,9 +396,8 @@ parce qu'elle est indiquée en dernier :
 @end lilypond
 
 
-@node Renversement d'accord et vocification spécifique
+@node Chord inversions and specific voicings
 @unnumberedsubsubsec Renversement d'accord et vocification spécifique
-@translationof Chord inversions and specific voicings
 
 @cindex accord, renversement
 @cindex accord, vocification
@@ -426,40 +420,38 @@ renversements ou des vocifications particulières, à l'instar du
 @end lilypond
 
 Contrairement à l'ajout de basses comme indiqué dans
-@ref{Extension et altération d'accords}, ceci n'interfère que sur la
+@ref{Extended and altered chords}, ceci n'interfère que sur la
 façon dont les accords seront imprimés sur une portée, et aucunement sur
 leur représentation lettrée. Par ailleurs, l'utilisation de ces
 fonctions ne se limite pas seulement au mode accords ; elles sont aussi
 disponibles dans une construction d'accord avec @code{<...>} comme
-indiqué dans @ref{Notes en accords}.
+indiqué dans @ref{Chorded notes}.
 
 @morerefs
 Manuel de notation :
-@ref{Extension et altération d'accords},
-@ref{Notes en accords}.
+@ref{Extended and altered chords},
+@ref{Chorded notes}.
 
 Morceaux choisis :
 @rlsr{Accords}.
 @endmorerefs
 
 
-@node Gravure des accords
+@node Displaying chords
 @subsection Gravure des accords
-@translationof Displaying chords
 
 Les accords peuvent se présenter aussi bien sous forme nominative que
 comme un empilement de notes sur une portée.
 
 @menu
-* Impression des noms d'accord::
-* Personnalisation des noms d'accord::
-* Grilles harmoniques::
+* Printing chord names::
+* Customizing chord names::
+* Chord grids::
 @end menu
 
 
-@node Impression des noms d'accord
+@node Printing chord names
 @unnumberedsubsubsec Impression des noms d'accord
-@translationof Printing chord names
 
 @cindex chiffrage d'accord
 @cindex accord, chiffrage
@@ -568,7 +560,7 @@ Glossaire musicologique :
 @rglosnamed{chord,Accord}.
 
 Manuel de notation :
-@ref{Saisie de musique en parallèle}.
+@ref{Writing music in parallel}.
 
 Morceaux choisis :
 @rlsrnamed{Chords,Accords}.
@@ -586,9 +578,8 @@ Un accord contenant un renversement ou dont la basse est changée ne sera
 pas chiffré correctement s'il est saisi en tant que musique simultanée.
 
 
-@node Personnalisation des noms d'accord
+@node Customizing chord names
 @unnumberedsubsubsec Personnalisation des noms d'accord
-@translationof Customizing chord names
 
 @cindex accord, personnalisation du chiffrage
 @cindex chiffrage d'accord, personnalisation
@@ -604,12 +595,12 @@ représenteront.
 @cindex accord, nom alternatif
 
 Le modèle par défaut des chiffrages d'accord est celui de Klaus Ignatzek
-pour le jazz (cf. @ressay{Références bibliographiques}). Il est possible
+pour le jazz (cf. @ressaynamed{Literature list, Références bibliographiques}). Il est possible
 de créer son propre modèle de chiffrages à l'aide des différentes
 propriétés mentionnées ci-dessous.  LilyPond dispose d'un système
 alternatif de chiffrage jazz qui a été élaboré grâce à ces même
 propriétés.  Les deux notations, Ignatzek et alternative, sont illustrés
-à l'annexe @ref{Table des noms d'accord}.
+à l'annexe @ref{Chord name chart}.
 
 @c FIXME: move the chord-names-alternative snippet to a new section. -vv
 @c bizarre, mais c'est paas dans snippets. JCM
@@ -806,11 +797,11 @@ réduit à néant si la fondamentale est altérée.
 
 @morerefs
 Manuel de notation :
-@ref{Modificateurs d'accord usuels},
-@ref{Table des noms d'accord}.
+@ref{Common chord modifiers},
+@ref{Chord name chart}.
 
 Essai sur la gravure musicale automatisée :
-@ressay{Références bibliographiques}.
+@ressaynamed{Literature list, Références bibliographiques}.
 
 Fichiers d'initialisation :
 @file{scm/chords-ignatzek-names.scm},
@@ -840,9 +831,8 @@ myChords = \relative c' {
 @end lilypond
 
 
-@node Grilles harmoniques
+@node Chord grids
 @unnumberedsubsubsec Grilles harmoniques
-@translationof Chord grids
 
 @cindex harmoniques, grilles
 @cindex accords, grille
@@ -875,9 +865,9 @@ recommandés pour l'impression de grilles harmoniques :
 @end example
 
 @code{indent = 0} donne l'assurance que la première ligne ne sera pas
-indentée -- voir @ref{Variables d'indentation et de décalage}. La clause
+indentée -- voir @ref{paper variables for shifts and indents}. La clause
 @code{ragged-right = ##f} permet d'étaler en pleine largeur les grilles
-sur une ligne -- voir @ref{Variables de marge et de largeur}.
+sur une ligne -- voir @ref{paper variables for widths and margins}.
 
 La création d'une grille harmonique demande l'instanciation d'un contexte
 @code{ChordGrid}.
@@ -966,7 +956,7 @@ d'emploi}.
 
 Dans une grille harmonique, les silences déclenchent l'impression du
 symbole @code{noChordSymbol} comme dans un contexte @code{ChordNames} --
-voir @ref{Impression des noms d'accord}.
+voir @ref{Printing chord names}.
 
 @lilypond[verbatim,quote,indent=0\cm,noragged-right]
 \new ChordGrid \chordmode { c1 r2 c2 R1 }
@@ -998,9 +988,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Basse chiffrée
+@node Figured bass
 @subsection Basse chiffrée
-@translationof Figured bass
 
 @c Indent hack because of instrument names
 @lilypondfile[quote,staffsize=18,indent=2\cm]
@@ -1009,15 +998,14 @@ Référence des propriétés internes :
 LilyPond permet de générer des parties de continuo.
 
 @menu
-* Introduction à la basse chiffrée::
-* Saisie de la basse chiffrée::
-* Gravure de la basse chiffrée::
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
 @end menu
 
 
-@node Introduction à la basse chiffrée
+@node Introduction to figured bass
 @unnumberedsubsubsec Introduction à la basse chiffrée
-@translationof Introduction to figured bass
 
 @cindex basse continue
 @cindex basse chiffrée
@@ -1097,13 +1085,12 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Saisie de la basse chiffrée
+@node Entering figured bass
 @unnumberedsubsubsec Saisie de la basse chiffrée
-@translationof Entering figured bass
 
 @code{\figuremode} permet de faire la relation entre ce qui est saisi et
 le mode de chiffrage.  De plus amples informations quant aux différents
-modes sont regroupées à la rubrique @ref{Modes de saisie}.
+modes sont regroupées à la rubrique @ref{Input modes}.
 
 En mode de saisie, un chiffrage est délimité par @samp{<} et @samp{>}.
 La durée est indiquée après le @samp{>} :
@@ -1179,7 +1166,7 @@ groupes de chiffrages consécutifs :
 @end lilypond
 
 Vous pouvez aussi ajouter des chaînes de caractères ou des étiquettes --
-cf. @ref{Commandes pour markup}.
+cf. @ref{Text markup commands}.
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -1335,9 +1322,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Gravure de la basse chiffrée
+@node Displaying figured bass
 @unnumberedsubsubsec Gravure de la basse chiffrée
-@translationof Displaying figured bass
 
 Une ligne de basse chiffrée s'imprime soit dans un contexte
 @code{FiguredBass}, soit dans la plupart des autres contextes du niveau

@@ -16,25 +16,23 @@
 @c Translation checkers: J.-C. Malahieude, Valentin Villenave, John Mandereau
 @c Translation status: post-GDP
 
-@node Tutoriel
+@node Tutorial
 @chapter Tutoriel
-@translationof Tutorial
 
 Ce tutoriel est une introduction au langage musical utilisé
 par LilyPond, qui vous permettra de faire fonctionner le logiciel pour
 produire une partition.
 
 @menu
-* Compilation d'un fichier::
-* Composition d'un fichier source::
-* Gestion des erreurs::
-* Bien lire le manuel::
+* Compiling a file::
+* How to write input files::
+* Dealing with errors::
+* How to read the manuals::
 @end menu
 
 
-@node Compilation d'un fichier
+@node Compiling a file
 @section Compilation d'un fichier
-@translationof Compiling a file
 
 Nous allons ici parler de la « compilation », ou comment LilyPond
 traite le fichier source que vous avez écrit, pour en faire quelque
@@ -84,7 +82,7 @@ ambiguïté, il est préférable d'entourer les accolades par des espaces
 ou retours à la ligne.  Bien que certains exemples de ce manuel ne
 comportent pas d'accolades, ne les oubliez pas dans vos partitions !
 Pour plus d'informations sur l'affichage des exemples de cette
-documentation, consultez @ref{Bien lire le manuel}.}
+documentation, consultez @ref{How to read the manuals}.}
 
 @cindex casse, prise en compte de la
 @cindex prise en compte de la casse
@@ -97,34 +95,32 @@ produit un message d'erreur.
 
 
 
-@node Composition d'un fichier source
+@node How to write input files
 @section Composition d'un fichier source
-@translationof How to write input files
 
 Cette partie présente les bases de la syntaxe de LilyPond, dans le
 but de vous aider à rédiger vos premiers fichiers sources.
 
 @menu
-* Notation simple::
-* Travail sur les fichiers d'entrée::
+* Simple notation::
+* Working on input files::
 @end menu
 
 
-@node Notation simple
+@node Simple notation
 @subsection Notation simple
-@translationof Simple notation
 
 @cindex simple, notation
 @cindex notation simple
 
 @menu
-* Hauteurs::
-* Durées et rythme::
-* Silences::
-* Métrique::
-* Indication de tempo::
-* Clefs::
-* Tout ensemble::
+* Pitches::
+* Durations (rhythms)::
+* Rests::
+* Time signature::
+* Tempo marks::
+* Clef::
+* All together::
 @end menu
 
 Il y a certains éléments graphiques de notation que LilyPond ajoute
@@ -144,9 +140,8 @@ bien des cas ; nous verrons plus loin comment les indiquer
 explicitement.
 
 
-@node Hauteurs
+@node Pitches
 @unnumberedsubsubsec Hauteurs
-@translationof Pitches
 
 @cindex hauteurs
 @cindex mode relatif
@@ -170,7 +165,7 @@ Glossaire musicologique :
 LilyPond utilise des lettres minuscules pour indiquer les hauteurs.
 Dans les exemples des manuels de LilyPond est utilisée la nomenclature
 batave. Néanmoins, LilyPond prend en charge d'autres dénominations des
-hauteurs -- voir @rnotation{Nom des notes dans d'autres langues}.
+hauteurs -- voir @rnotationnamed{Note names in other languages, Nom des notes dans d'autres langues}.
 Les lettres @code{c} à @code{b} indiquent des hauteurs dans l'octave
 basse -- celle sous le @notation{do medium}.  Leur adjoindre un @samp{'}
 ou un @samp{,} indique une octave supérieure ou inférieure.  Voici une
@@ -270,9 +265,8 @@ peut modifier la valeur de départ de @w{@code{\relative c'}}.
 @c " - keeps quotes in order for context-sensitive editor -td
 
 
-@node Durées et rythme
+@node Durations (rhythms)
 @unnumberedsubsubsec Durées et rythme
-@translationof Durations (rhythms)
 
 @cindex note, durée
 @cindex durées
@@ -321,9 +315,8 @@ la durée de base.
 @end lilypond
 
 
-@node Silences
+@node Rests
 @unnumberedsubsubsec Silences
-@translationof Rests
 
 @cindex silences
 @cindex notation des silences
@@ -342,9 +335,8 @@ lettre @samp{r} (pour @emph{rest}).
 @end lilypond
 
 
-@node Métrique
+@node Time signature
 @unnumberedsubsubsec Métrique
-@translationof Time signature
 
 @cindex métrique
 @cindex chiffre de mesure
@@ -368,9 +360,8 @@ peut être définie à l'aide de la commande @code{\time} :
 @end lilypond
 
 
-@node Indication de tempo
+@node Tempo marks
 @unnumberedsubsubsec Indication de tempo
-@translationof Tempo marks
 
 @cindex tempo, indication
 @cindex indication du tempo
@@ -401,9 +392,8 @@ que le métronome :
 @end lilypond
 
 
-@node Clefs
+@node Clef
 @unnumberedsubsubsec Clefs
-@translationof Clef
 
 @cindex clef
 @cindex clé
@@ -433,9 +423,8 @@ La @notation{clef} peut être définie à l'aide de la commande
 @end lilypond
 
 
-@node Tout ensemble
+@node All together
 @unnumberedsubsubsec Tout ensemble
-@translationof All together
 
 Voici un bref exemple qui rassemble tous les éléments que nous avons
 déjà vus :
@@ -453,17 +442,16 @@ déjà vus :
 
 @morerefs
 Manuel de notation :
-@rnotationnamed{Écriture des hauteurs de note,@'Ecriture des hauteurs de note},
-@rnotationnamed{Écriture du rythme,@'Ecriture du rythme},
-@rnotationnamed{Écriture des silences,@'Ecriture des silences},
-@rnotation{Gravure du rythme},
-@rnotation{Gravure des hauteurs}.
+@rnotationnamed{Writing pitches,@'Ecriture des hauteurs de note},
+@rnotationnamed{Writing rhythms,@'Ecriture du rythme},
+@rnotationnamed{Writing rests,@'Ecriture des silences},
+@rnotationnamed{Displaying rhythms, Gravure du rythme},
+@rnotationnamed{Displaying pitches, Gravure des hauteurs}.
 @endmorerefs
 
 
-@node Travail sur les fichiers d'entrée
+@node Working on input files
 @subsection Travail sur les fichiers d'entrée
-@translationof Working on input files
 
 @cindex accolades
 @cindex commentaires
@@ -622,9 +610,8 @@ c4 c g' g a a g2
 @end itemize
 
 
-@node Gestion des erreurs
+@node Dealing with errors
 @section Gestion des erreurs
-@translationof Dealing with errors
 
 @cindex dépannage
 
@@ -632,26 +619,24 @@ Parfois, LilyPond ne produit pas le résultat escompté.  Voici quelques
 pistes à suivre pour vous aider à éviter de telles déconvenues.
 
 @menu
-* Quand ça ne fonctionne pas::
-* Erreurs courantes::
+* General troubleshooting tips::
+* Some common errors::
 @end menu
 
 
-@node Quand ça ne fonctionne pas
+@node General troubleshooting tips
 @subsection Quand ça ne fonctionne pas
-@translationof General troubleshooting tips
 
 Résoudre les problèmes rencontrés avec LilyPond est une gageure pour
 ceux qui ne connaissent que des interfaces graphiques puisque rien
 n'empèche de créer du code erroné.  En pareil cas, il suffit souvent d'un
 peu de logique pour être en mesure d'identifier les causes du problème
 et le résoudre simplement.  Le chapitre
-@rprogram{Résolution de problèmes} liste quelques directives à ce propos.
+@rprogramnamed{Troubleshooting, Résolution de problèmes} liste quelques directives à ce propos.
 
 
-@node Erreurs courantes
+@node Some common errors
 @subsection Erreurs courantes
-@translationof Some common errors
 
 @cindex erreurs courantes
 @cindex courantes, erreurs
@@ -659,27 +644,25 @@ et le résoudre simplement.  Le chapitre
 Il peut arriver qu'un message d'erreur ne soit pas suffisamment
 explicite pour solutionner le problème.  Quelques cas des plus courants
 sont répertoriés au chapitre
-@rprogram{Quelques erreurs des plus courantes}.
+@rprogramnamed{Common errors, Quelques erreurs des plus courantes}.
 
 
-@node Bien lire le manuel
+@node How to read the manuals
 @section Bien lire le manuel
-@translationof How to read the manuals
 
 Nous allons voir ici comment consulter la documentation le plus
 efficacement possible.  Nous en profiterons pour vous présenter quelques
 particularités de la documentation en ligne.
 
 @menu
-* Matériel incomplet::
-* Exemples cliquables::
-* Vue d'ensemble des manuels::
+* Omitted material::
+* Clickable examples::
+* Overview of manuals::
 @end menu
 
 
-@node Matériel incomplet
+@node Omitted material
 @subsection Matériel incomplet
-@translationof Omitted material
 
 @cindex bien lire le manuel
 @cindex manuel, lecture
@@ -691,7 +674,7 @@ particularités de la documentation en ligne.
 @cindex construction des fichiers, conseils
 @cindex fichiers, conseils de construction
 
-Comme nous l'avons vu dans @ref{Travail sur les fichiers d'entrée}, un
+Comme nous l'avons vu dans @ref{Working on input files}, un
 code LilyPond doit être encadré par des accolades @{ @} ou bien par
 @w{@code{\relative @{ @dots{} @}}}.  Cependant, dans la suite de ce
 manuel, certains exemples courts ne feront pas apparaître ces signes.
@@ -713,9 +696,8 @@ ligne @code{\version}.  C'est cependant une bonne habitude que de
 toujours inclure cette mention de version dans vos fichiers.
 
 
-@node Exemples cliquables
+@node Clickable examples
 @subsection Exemples cliquables
-@translationof Clickable examples
 
 Beaucoup de gens apprennent à utiliser les programmes en les essayant
 et en bidouillant avec.  C'est également possible avec LilyPond.  Si
@@ -741,14 +723,13 @@ code à partir de « Start cut-&-pastable section ».
 @c remove this? --jm
 @ignore
 Si vous apprenez de cette façon, vous aurez probablement envie
-d'imprimer ou de garder un lien vers @rnotation{Aide-mémoire}, tableau
+d'imprimer ou de garder un lien vers @rnotationnamed{Cheat sheet, Aide-mémoire}, tableau
 qui répertorie les commandes usuelles pour une consultation rapide.
 @end ignore
 
 
-@node Vue d'ensemble des manuels
+@node Overview of manuals
 @subsection Vue d'ensemble des manuels
-@translationof Overview of manuals
 
 La documentation de LilyPond est relativement abondante.  Ceci peut
 dérouter les nouveaux utilisateurs qui ne savent pas par quoi commencer
@@ -762,24 +743,24 @@ complètement perdu lorsque vous aborderez d'autres parties.}
 
 @item
 @strong{Avant de vous lancer dans @emph{quoi que ce soit}}, lisez le
-@ref{Tutoriel} contenu dans le manuel d'initiation ainsi que les
-@ref{Bases de notation musicale}.  Si vous y trouvez des termes que vous
+@ref{Tutorial} contenu dans le manuel d'initiation ainsi que les
+@ref{Common notation}.  Si vous y trouvez des termes que vous
 ne connaissez pas, n'hésitez pas à consulter le
 @rglosnamed{Top, Glossaire}.
 
 @item
 @strong{Avant de vous lancer dans la réalisation d'une partition
-complète}, lisez le chapitre @ref{Concepts fondamentaux} du manuel
+complète}, lisez le chapitre @ref{Fundamental concepts} du manuel
 d'initiation.  Vous pourrez alors vous reporter aux parties qui vous
 intéresseront dans le @rnotationnamed{Top, Manuel de notation}.
 
 @item
 @strong{Avant de modifier les réglages par défaut}, consultez le
-chapitre @ref{Retouche de partition} du manuel d'initiation.
+chapitre @ref{Tweaking output} du manuel d'initiation.
 
 @item
 @strong{Avant de vous lancer dans un projet d'envergure}, lisez le
-chapitre @rprogram{Suggestions pour la saisie de fichiers LilyPond} du
+chapitre @rprogramnamed{Suggestions for writing files, Suggestions pour la saisie de fichiers LilyPond} du
 manuel d'utilisation.
 
 @end itemize

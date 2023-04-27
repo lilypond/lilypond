@@ -14,9 +14,8 @@
 @c Translators: Jean-Charles Malahieude
 
 
-@node Notations anciennes
+@node Ancient notation
 @section Notations anciennes
-@translationof Ancient notation
 
 @lilypondfile[quote]{snippets/ancient-headword.ly}
 
@@ -27,12 +26,12 @@
 @cindex mensural
 
 @menu
-* Formes de notation ancienne prises en charge::
-* Considérations communes aux musiques anciennes::
-* Typographie de musique ancienne::
-* Typographie du chant grégorien::
-* Typographie de notation kiévienne::
-* Réédition de musique ancienne::
+* Overview of the supported styles::
+* Ancient notation -- common features::
+* Typesetting mensural music::
+* Typesetting Gregorian chant::
+* Typesetting Kievan square notation::
+* Working with ancient music -- scenarios and solutions::
 @end menu
 
 La gestion par LilyPond des formes de notation ancienne inclut des
@@ -48,13 +47,13 @@ notation particulière, ce qui évite la création de nouveaux concepts de
 notation.  Voir à ce sujet
 
 @itemize
-@item @ref{Têtes de note anciennes},
-@item @ref{Altérations et armures anciennes},
-@item @ref{Silences anciens},
-@item @ref{Clefs anciennes},
-@item @ref{Clefs grégoriennes},
-@item @ref{Crochets anciens},
-@item @ref{Métriques anciennes}.
+@item @ref{Mensural note heads},
+@item @ref{Mensural accidentals and key signatures},
+@item @ref{Mensural rests},
+@item @ref{Mensural clefs},
+@item @ref{Gregorian clefs},
+@item @ref{Mensural flags},
+@item @ref{Mensural time signatures}.
 @end itemize
 
 D'autres aspects de la notation ancienne ne peuvent pas être gérés
@@ -63,8 +62,8 @@ un objet graphique ou en lui ajoutant des articulations.  Certains
 concepts sont spécifiques à la notation ancienne :
 
 @itemize
-@item @ref{Guidons},
-@item @ref{Divisions},
+@item @ref{Custodes},
+@item @ref{Divisiones},
 @item @ref{Ligatures}.
 @end itemize
 
@@ -75,21 +74,20 @@ Glossaire musicologique :
 @rglos{mensural notation}.
 
 Manuel de notation :
-@ref{Altérations et armures anciennes},
-@ref{Clefs grégoriennes},
-@ref{Crochets anciens},
-@ref{Divisions},
-@ref{Guidons},
+@ref{Mensural accidentals and key signatures},
+@ref{Gregorian clefs},
+@ref{Mensural flags},
+@ref{Divisiones},
+@ref{Custodes},
 @ref{Ligatures},
-@ref{Métriques anciennes},
-@ref{Silences anciens},
-@ref{Têtes de note anciennes}.
+@ref{Mensural time signatures},
+@ref{Mensural rests},
+@ref{Mensural note heads}.
 @endmorerefs
 
 
-@node Formes de notation ancienne prises en charge
+@node Overview of the supported styles
 @subsection Formes de notation ancienne prises en charge
-@translationof Overview of the supported styles
 
 En matière de chant grégorien, LilyPond dispose de trois différents
 styles :
@@ -178,20 +176,18 @@ Glossaire musicologique :
 @endmorerefs
 
 
-@node Considérations communes aux musiques anciennes
+@node Ancient notation -- common features
 @subsection Considérations communes aux musiques anciennes
-@translationof Ancient notation -- common features
 
 @menu
-* Contextes prédéfinis::
+* Predefined contexts::
 * Ligatures::
-* Guidons::
+* Custodes::
 @end menu
 
 
-@node Contextes prédéfinis
+@node Predefined contexts
 @unnumberedsubsubsec Contextes prédéfinis
-@translationof Predefined contexts
 
 LilyPond dispose, en matière de musique ancienne et de grégorien, de
 contextes prédéfinis. Ceux-ci contiennent tout ce qui est nécessaire à
@@ -209,15 +205,14 @@ Glossaire musicologique :
 @rglos{mensural notation}.
 
 Manuel de notation :
-@ref{Contextes du chant grégorien},
-@ref{Contextes de musique mensurale},
-@ref{Contextes de notation kiévienne}.
+@ref{Gregorian chant contexts},
+@ref{Mensural contexts},
+@ref{Kievan contexts}.
 @endmorerefs
 
 
 @node Ligatures
 @unnumberedsubsubsec Ligatures
-@translationof Ligatures
 
 @cindex ligature
 
@@ -251,8 +246,8 @@ les ligatures mensurales blanches, avec quelques limitations) et
 kiévienne. Selon le style de ligature désiré, il faut remplacer, dans le
 contexte @code{Voice} approprié, le graveur
 @code{Ligature_@/bracket_@/engraver} par le graveur de ligature qui
-convient -- voir les rubriques @ref{Ligatures mensurales},
-@ref{Neumes et ligatures grégoriennes} et @ref{Mélismes kiéviens} à ce
+convient -- voir les rubriques @ref{White mensural ligatures},
+@ref{Gregorian square neume ligatures} et @ref{Kievan melismata} à ce
 sujet.
 
 @morerefs
@@ -260,8 +255,8 @@ Glossaire musicologique :
 @rglos{ligature}.
 
 Manuel de notation :
-@ref{Ligatures mensurales},
-@ref{Neumes et ligatures grégoriennes}.
+@ref{White mensural ligatures},
+@ref{Gregorian square neume ligatures}.
 @endmorerefs
 
 @knownissues
@@ -293,9 +288,8 @@ qui produit le même résultat, et dont la pérennité est assurée.
 @end ignore
 
 
-@node Guidons
+@node Custodes
 @unnumberedsubsubsec Guidons
-@translationof Custodes
 
 @cindex guidon
 @cindex custos
@@ -379,26 +373,24 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Typographie de musique ancienne
+@node Typesetting mensural music
 @subsection Typographie de musique ancienne
-@translationof Typesetting mensural music
 
 @menu
-* Contextes de musique mensurale::
-* Clefs anciennes::
-* Métriques anciennes::
-* Têtes de note anciennes::
-* Crochets anciens::
-* Silences anciens::
-* Altérations et armures anciennes::
-* Altérations suggérées (musica ficta)::
-* Ligatures mensurales::
+* Mensural contexts::
+* Mensural clefs::
+* Mensural time signatures::
+* Mensural note heads::
+* Mensural flags::
+* Mensural rests::
+* Mensural accidentals and key signatures::
+* Annotational accidentals (musica ficta)::
+* White mensural ligatures::
 @end menu
 
 
-@node Contextes de musique mensurale
+@node Mensural contexts
 @unnumberedsubsubsec Contextes de musique mensurale
-@translationof Mensural contexts
 
 @funindex MensuralVoice
 @funindex MensuralStaff
@@ -435,9 +427,8 @@ Glossaire musicologique :
 @endmorerefs
 
 
-@node Clefs anciennes
+@node Mensural clefs
 @unnumberedsubsubsec Clefs anciennes
-@translationof Mensural clefs
 
 @cindex clef
 @cindex clé
@@ -478,9 +469,9 @@ c'1
 @end lilypond
 
 Un glyphe de clef peut tout à fait arbitrairement être positionné sur
-une ligne particulière, comme indiqué à la rubrique @ref{Clefs}. Une
+une ligne particulière, comme indiqué à la rubrique @ref{Clef}. Une
 liste exhaustive des différentes clefs est disponible à l’annexe
-@ref{Styles de clef}.
+@ref{Clef styles}.
 
 @morerefs
 Glossaire musicologique :
@@ -488,8 +479,8 @@ Glossaire musicologique :
 @rglos{mensural notation}.
 
 Manuel de notation :
-@ref{Clefs},
-@ref{Clefs grégoriennes}.
+@ref{Clef},
+@ref{Gregorian clefs}.
 
 Fichiers d'initialisation :
 @file{scm/parser-clef.scm}.
@@ -508,9 +499,8 @@ Référence des propriétés internes :
 La clef de sol mensurale est calquée sur celle de Petrucci.
 
 
-@node Métriques anciennes
+@node Mensural time signatures
 @unnumberedsubsubsec Métriques anciennes
-@translationof Mensural time signatures
 
 @cindex signe de mensuration
 @cindex mensuration, signe
@@ -611,7 +601,7 @@ Voici les différences entre les styles :
 }
 @end lilypond
 
-La rubrique @ref{Métrique} expose les principes généraux sur
+La rubrique @ref{Time signature} expose les principes généraux sur
 l'utilisation des indications de métrique.
 
 @morerefs
@@ -619,7 +609,7 @@ Glossaire musicologique :
 @rglos{mensural notation}.
 
 Manuel de notation :
-@ref{Métrique}.
+@ref{Time signature}.
 @endmorerefs
 
 @knownissues
@@ -643,9 +633,8 @@ commande @code{\time}. Utilisez alors un
 @code{\markup @{\musicglyph "timesig.mensural68alt" @}}.
 
 
-@node Têtes de note anciennes
+@node Mensural note heads
 @unnumberedsubsubsec Têtes de note anciennes
-@translationof Mensural note heads
 
 @cindex note, tête ancienne
 @cindex ancienne tête de note
@@ -700,7 +689,7 @@ a'8*4/3 a'
 a'\longa
 @end lilypond
 
-La rubrique @ref{Têtes de note} présente tous les styles de notes
+La rubrique @ref{Note heads} présente tous les styles de notes
 disponibles.
 
 @morerefs
@@ -709,13 +698,12 @@ Glossaire musicologique :
 @rglos{note head}.
 
 Manuel de notation :
-@ref{Têtes de note}.
+@ref{Note heads}.
 @endmorerefs
 
 
-@node Crochets anciens
+@node Mensural flags
 @unnumberedsubsubsec Crochets anciens
-@translationof Mensural flags
 
 @cindex crochet
 @cindex ancien, crochet
@@ -757,9 +745,8 @@ de présentation de la notation classique qui, par définition, ne sont
 pas prévues pour être appliquées à la notation mensurale.
 
 
-@node Silences anciens
+@node Mensural rests
 @unnumberedsubsubsec Silences anciens
-@translationof Mensural rests
 
 @cindex ancien silence
 @cindex silence ancien
@@ -787,7 +774,7 @@ Glossaire musicologique :
 @rglos{mensural notation}.
 
 Manuel de notation :
-@ref{Silences}.
+@ref{Rests}.
 
 Morceaux choisis :
 @rlsrnamed{Ancient notation,Notations anciennes}.
@@ -801,9 +788,8 @@ correspondant à une @emph{longa} ne sont pas groupés automatiquement ;
 utilisez en pareil cas des « notes silencieuses ».
 
 
-@node Altérations et armures anciennes
+@node Mensural accidentals and key signatures
 @unnumberedsubsubsec Altérations et armures anciennes
-@translationof Mensural accidentals and key signatures
 
 @cindex altération
 @cindex armure
@@ -827,7 +813,7 @@ toutefois il était requis, le bécarre sera emprunté au style
 @end lilypond
 
 La manière d'utiliser ce style est abordée dans
-@ref{Glyphes d'altération alternatifs}. Il est activé par défaut
+@ref{Alternate accidental glyphs}. Il est activé par défaut
 dans un contexte @code{MensuralStaff}.
 
 @morerefs
@@ -838,21 +824,20 @@ Glossaire musicologique :
 @rglos{Pitch names}.
 
 Manuel de notation :
-@ref{Altérations},
-@ref{Altérations accidentelles automatiques},
-@ref{Armure},
-@ref{Glyphes d'altération alternatifs},
-@ref{Hauteurs},
-@ref{Jeux de glyphes d'altération}.
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{Key signature},
+@ref{Alternate accidental glyphs},
+@ref{Pitches},
+@ref{Accidental glyph sets}.
 
 Référence des propriétés internes :
 @rinternals{KeySignature}.
 @endmorerefs
 
 
-@node Altérations suggérées (musica ficta)
+@node Annotational accidentals (musica ficta)
 @unnumberedsubsubsec Altérations suggérées (@emph{musica ficta})
-@translationof Annotational accidentals (musica ficta)
 
 Dans la pratique ancienne, avant le
 @ifnothtml
@@ -911,9 +896,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Ligatures mensurales
+@node White mensural ligatures
 @unnumberedsubsubsec Ligatures mensurales
-@translationof White mensural ligatures
 
 @cindex ligature ancienne
 @cindex ligature blanche
@@ -1006,7 +990,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Ligatures},
-@ref{Neumes et ligatures grégoriennes}.
+@ref{Gregorian square neume ligatures}.
 @endmorerefs
 
 @knownissues
@@ -1014,18 +998,17 @@ L'espacement horizontal peut laisser à désirer.
 Les altérations peuvent se chevaucher avec les notes précédentes.
 
 
-@node Typographie du chant grégorien
+@node Typesetting Gregorian chant
 @subsection Typographie du chant grégorien
-@translationof Typesetting Gregorian chant
 
 @menu
-* Contextes du chant grégorien::
-* Clefs grégoriennes::
-* Altérations et armures grégoriennes::
-* Divisions::
-* Articulations grégoriennes::
-* Points d'augmentation (morae)::
-* Neumes et ligatures grégoriennes::
+* Gregorian chant contexts::
+* Gregorian clefs::
+* Gregorian accidentals and key signatures::
+* Divisiones::
+* Gregorian articulation signs::
+* Augmentum dots (morae)::
+* Gregorian square neume ligatures::
 @end menu
 
 Si vous écrivez en notation grégorienne, le
@@ -1042,13 +1025,12 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Ligatures},
-@ref{Ligatures mensurales}.
+@ref{White mensural ligatures}.
 @endmorerefs
 
 
-@node Contextes du chant grégorien
+@node Gregorian chant contexts
 @unnumberedsubsubsec Contextes du chant grégorien
-@translationof Gregorian chant contexts
 
 @funindex VaticanaVoice
 @funindex VaticanaStaff
@@ -1089,9 +1071,8 @@ la saisie de votre chant, comme ci-dessous :
 @c @endmorerefs
 
 
-@node Clefs grégoriennes
+@node Gregorian clefs
 @unnumberedsubsubsec Clefs grégoriennes
-@translationof Gregorian clefs
 
 @cindex clef
 @cindex grégorien, clef
@@ -1102,7 +1083,7 @@ clefs utilisent le même glyphe, attaché à l'une ou l'autre des lignes de
 la portée. Le chiffre porté en suffixe permet alors de les
 différencier ; la numérotation des lignes va de bas en haut. Vous pouvez
 néanmoins forcer le positionnement du glyphe sur une ligne, comme
-expliqué à la section @ref{Clefs}. Dans la colonne exemple, la note
+expliqué à la section @ref{Clef}. Dans la colonne exemple, la note
 suivant la clef est un do médium.
 
 @need 1000
@@ -1235,13 +1216,12 @@ Glossaire musicologique :
 @rglos{clef}.
 
 Manuel de notation :
-@ref{Clefs}.
+@ref{Clef}.
 @endmorerefs
 
 
-@node Altérations et armures grégoriennes
+@node Gregorian accidentals and key signatures
 @unnumberedsubsubsec Altérations et armures grégoriennes
-@translationof Gregorian accidentals and key signatures
 
 @cindex altération, grégorien
 @cindex armure, grégorien
@@ -1276,7 +1256,7 @@ indisponible dans le style utilisé.
 @c {ancient-accidentals.ly}
 
 La manière de basculer entre les différentes formes est abordée
-dans @ref{Glyphes d'altération alternatifs}.
+dans @ref{Alternate accidental glyphs}.
 
 @morerefs
 Glossaire musicologique :
@@ -1284,20 +1264,19 @@ Glossaire musicologique :
 @rglos{key signature}.
 
 Manuel de notation :
-@ref{Altérations},
-@ref{Altérations accidentelles automatiques},
-@ref{Armure},
-@ref{Glyphes d'altération alternatifs},
-@ref{Hauteurs}.
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{Key signature},
+@ref{Alternate accidental glyphs},
+@ref{Pitches}.
 
 Référence des propriétés internes :
 @rinternals{KeySignature}.
 @endmorerefs
 
 
-@node Divisions
+@node Divisiones
 @unnumberedsubsubsec Divisions
-@translationof Divisiones
 
 @cindex barre de mesure, grégorien
 @cindex grégorien, barre de mesure
@@ -1314,7 +1293,7 @@ est un symbole ajouté à la portée et utilisé en chant grégorien pour
 séparer les phrases ou parties. @emph{Divisio minima}, @emph{divisio
 maior} et @emph{divisio maxima} peuvent respectivement s'interpréter
 comme une pause courte, moyenne ou longue, à l'image des marques de
-respiration --- cf. @ref{Signes de respiration}. Le signe @emph{finalis}
+respiration --- cf. @ref{Breath marks}. Le signe @emph{finalis}
 n'est pas uniquement une marque de fin de chant ; il sert aussi à
 indiquer la fin de chaque partie dans une structure verset/répons.
 
@@ -1381,21 +1360,20 @@ Glossaire musicologique :
 @rglos{divisio}.
 
 Manuel de notation :
-@ref{Signes de respiration}.
+@ref{Breath marks}.
 
 Fichiers d'initialisation :
 @file{gregorian.ly}.
 @endmorerefs
 
 
-@node Articulations grégoriennes
+@node Gregorian articulation signs
 @unnumberedsubsubsec Articulations grégoriennes
-@translationof Gregorian articulation signs
 
 @cindex grégorien, articulations
 
 En plus des signes d'articulation standards décrits à la section
-@ref{Articulations et ornements}, LilyPond fournit des articulations
+@ref{Articulations and ornamentations}, LilyPond fournit des articulations
 spécifiquement destinées au style des éditions vaticanes.
 
 @cindex @emph{accentus}, grégorien, articulation
@@ -1445,7 +1423,7 @@ spécifiquement destinées au style des éditions vaticanes.
 
 @morerefs
 Manuel de notation :
-@ref{Articulations et ornements}.
+@ref{Articulations and ornamentations}.
 
 Morceaux choisis :
 @rlsrnamed{Ancient notation,Musiques anciennes}.
@@ -1464,9 +1442,8 @@ Certaines articulations sont verticalement trop proches de leurs têtes
 de note.
 
 
-@node Points d'augmentation (morae)
+@node Augmentum dots (morae)
 @unnumberedsubsubsec Points d'augmentation (@emph{morae})
-@translationof Augmentum dots (morae)
 
 Les points d'@emph{augmentum}, ou @emph{morae}, s'obtiennent avec la
 fonction @code{\augmentum}. Notez que cette fonction @code{\augmentum}
@@ -1488,7 +1465,7 @@ abrégée de @code{\augmentum a \augmentum g}.
 
 @morerefs
 Manuel de notation :
-@ref{Signes de respiration}.
+@ref{Breath marks}.
 
 Référence des propriétés internes :
 @rinternals{Divisio}.
@@ -1498,9 +1475,8 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Neumes et ligatures grégoriennes
+@node Gregorian square neume ligatures
 @unnumberedsubsubsec Neumes et ligatures grégoriennes
-@translationof Gregorian square neume ligatures
 
 @cindex neume carré et ligature
 @cindex grégorien, ligature de neumes carrés
@@ -2459,7 +2435,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Ligatures},
-@ref{Ligatures mensurales}.
+@ref{White mensural ligatures}.
 @endmorerefs
 
 @knownissues
@@ -2473,27 +2449,25 @@ qu'en tant que fonction unaire, afin qu'@code{\augmentum} puisse
 s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 
 
-@node Typographie de notation kiévienne
+@node Typesetting Kievan square notation
 @subsection Typographie de notation kiévienne
-@translationof Typesetting Kievan square notation
 
 @cindex kiévien
 @cindex Kievan
 @cindex Kiev
 
 @menu
-* Contextes de notation kiévienne::
-* Clefs kiéviennes::
-* Notes kiéviennes::
-* Altérations kiéviennes::
-* Barres de mesure kiéviennes::
-* Mélismes kiéviens::
+* Kievan contexts::
+* Kievan clefs::
+* Kievan notes::
+* Kievan accidentals::
+* Kievan bar lines::
+* Kievan melismata::
 @end menu
 
 
-@node Contextes de notation kiévienne
+@node Kievan contexts
 @unnumberedsubsubsec Contextes de notation kiévienne
-@translationof Kievan contexts
 
 @funindex KievanVoice
 @funindex KievanStaff
@@ -2539,9 +2513,8 @@ kiévienne que l'on trouvait en Galicie pour noter le plain-chant
 ruthène.
 
 
-@node Clefs kiéviennes
+@node Kievan clefs
 @unnumberedsubsubsec Clefs kiéviennes
-@translationof Kievan clefs
 
 @cindex kiévienne, clef
 @cindex clef
@@ -2561,13 +2534,12 @@ Glossaire musicologique :
 @rglosnamed{Kievan notation, notation kiévienne}.
 
 Manuel de notation :
-@ref{Clefs}.
+@ref{Clef}.
 @endmorerefs
 
 
-@node Notes kiéviennes
+@node Kievan notes
 @unnumberedsubsubsec Notes kiéviennes
-@translationof Kievan notes
 
 @cindex kiéviennne, tête de note
 
@@ -2601,7 +2573,7 @@ Glossaire musicologique :
 @rglosnamed{note head, tête de note}.
 
 Manuel de notation :
-@ref{Styles de tête de note}.
+@ref{Note head styles}.
 @endmorerefs
 
 @knownissues
@@ -2612,9 +2584,8 @@ donc en pareil cas définir manuellement la propriété @code{direction} de
 l'objet @code{Stem}.
 
 
-@node Altérations kiéviennes
+@node Kievan accidentals
 @unnumberedsubsubsec Altérations kiéviennes
-@translationof Kievan accidentals
 
 @cindex kiévienne, altération
 @cindex altération
@@ -2637,16 +2608,15 @@ Glossaire musicologique :
 @rglosnamed{Kievan notation, notation kiévienne}.
 
 Manuel de notation :
-@ref{Altérations},
-@ref{Altérations accidentelles automatiques},
-@ref{Glyphes d'altération alternatifs},
-@ref{La fonte Emmentaler}.
+@ref{Accidentals},
+@ref{Automatic accidentals},
+@ref{Alternate accidental glyphs},
+@ref{The Emmentaler font}.
 @endmorerefs
 
 
-@node Barres de mesure kiéviennes
+@node Kievan bar lines
 @unnumberedsubsubsec Barres de mesure kiéviennes
-@translationof Kievan bar lines
 
 @funindex \caesura
 @funindex \fine
@@ -2669,14 +2639,13 @@ section ou finale.
 
 @morerefs
 Manuel de notation :
-@ref{Barres de mesure},
-@ref{La fonte Emmentaler}.
+@ref{Bar lines},
+@ref{The Emmentaler font}.
 @endmorerefs
 
 
-@node Mélismes kiéviens
+@node Kievan melismata
 @unnumberedsubsubsec Mélismes kiéviens
-@translationof Kievan melismata
 
 @cindex ligature
 @cindex kiévienne, ligature
@@ -2733,23 +2702,22 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Ligatures},
-@ref{Ligatures mensurales},
-@ref{Neumes et ligatures grégoriennes}.
+@ref{White mensural ligatures},
+@ref{Gregorian square neume ligatures}.
 @endmorerefs
 
 @knownissues
 L'espacement des ligatures n'est pas des meilleurs.
 
 
-@node Réédition de musique ancienne
+@node Working with ancient music -- scenarios and solutions
 @subsection Réédition de musique ancienne
-@translationof Working with ancient music -- scenarios and solutions
 
 @menu
-* Des incipits::
-* Mise en forme de la musique mensurale::
-* Transcription de chant grégorien::
-* Éditions ancienne et moderne à partir d'une même source::
+* Incipits::
+* Mensurstriche layout::
+* Transcribing Gregorian chant::
+* Ancient and modern from one source::
 @end menu
 
 Travailler sur de la musique ancienne requiert bien souvent des tâches
@@ -2772,9 +2740,8 @@ une édition en notation moderne à partir d'une même source.
 @end itemize
 
 
-@node Des incipits
+@node Incipits
 @unnumberedsubsubsec Des incipits
-@translationof Incipits
 
 @cindex incipit
 @cindex ajout d'incipit
@@ -2823,9 +2790,8 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Mise en forme de la musique mensurale
+@node Mensurstriche layout
 @unnumberedsubsubsec Mise en forme de la musique mensurale
-@translationof Mensurstriche layout
 
 @cindex Mensurstriche
 
@@ -2850,9 +2816,8 @@ constituer les barres de mesure.
 @c @endmorerefs
 
 
-@node Transcription de chant grégorien
+@node Transcribing Gregorian chant
 @unnumberedsubsubsec Transcription de chant grégorien
-@translationof Transcribing Gregorian chant
 
 @cindex grégorien, transcription
 @cindex transcription, grégorien
@@ -3037,9 +3002,8 @@ spirLyr = \lyricmode {
 @c @endmorerefs
 
 
-@node Éditions ancienne et moderne à partir d'une même source
+@node Ancient and modern from one source
 @unnumberedsubsubsec Éditions ancienne et moderne à partir d'une même source
-@translationof Ancient and modern from one source
 
 @cindex mensural, transcription
 @cindex musique ancienne, transcription

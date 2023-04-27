@@ -14,21 +14,19 @@
 @c Translation checkers: Jean-Charles Malahieude
 
 
-@node Références bibliographiques
+@node Literature list
 @chapter Références bibliographiques
-@translationof Literature list
 
 Voici des listes de références utilisées dans LilyPond.
 
 @menu
-* Bibliographie succincte::
-* Bibliographie développée::
+* Short literature list::
+* Long literature list::
 @end menu
 
 
-@node Bibliographie succincte
+@node Short literature list
 @section Bibliographie succincte
-@translationof Short literature list
 
 Voici quelques titres intéressants pour en savoir plus
 sur la notation de la musique.
@@ -105,9 +103,8 @@ de notation.
 @end table
 
 
-@node Bibliographie développée
+@node Long literature list
 @section Bibliographie développée
-@translationof Long literature list
 
 @c Better left untranslated -vv
 

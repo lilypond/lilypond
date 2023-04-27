@@ -14,9 +14,8 @@
 @c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau
 
 
-@node Suggestions pour la saisie de fichiers LilyPond
+@node Suggestions for writing files
 @chapter Suggestions pour la saisie de fichiers LilyPond
-@translationof Suggestions for writing files
 
 Maintenant vous êtes prêt à travailler sur de plus gros fichiers
 LilyPond -- des pièces entières, et plus seulement les petits
@@ -49,17 +48,16 @@ jour.
 @end itemize
 
 @menu
-* Suggestions générales::
-* Gravure de musique existante::
-* Projets d'envergure::
-* Résolution de problèmes::
-* De la commande make et des fichiers Makefile::
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Troubleshooting::
+* Make and Makefiles::
 @end menu
 
 
-@node Suggestions générales
+@node General suggestions
 @section Suggestions générales
-@translationof General suggestions
 
 Voici quelques conseils qui vous permettront d'éviter, voire même
 résoudre, la plupart des problèmes de saisie.
@@ -70,7 +68,7 @@ résoudre, la plupart des problèmes de saisie.
 quelle que soit sa taille. Par expérience, il est très difficile de se
 rappeler quelle version de LilyPond a servi au moment de la création
 d'un fichier. Ceci s'avèrera d'autant plus utile lors d'une
-@ref{Mise à jour avec convert-ly, mise à jour}
+@ref{Updating files with convert-ly, mise à jour}
 (@command{convert-ly} requiert la présence d'une ligne @code{\version})
 ou si vous transmettez votre fichier à d'autres utilisateurs -- y
 compris pour demander de l'aide sur les listes de diffusion. Vous
@@ -86,8 +84,8 @@ fichiers.
 
 @item
 @strong{Ajoutez des contrôles de limite ou numéro de mesure et
-d'octaviation} -- voir @rnotation{Vérification des limites et numéros de
-mesure} et @rnotation{Vérifications d'octave}. Si vous avez ajouté des
+d'octaviation} -- voir @rnotationnamed{Bar and bar number checks, Vérification des limites et numéros de
+mesure} et @rnotationnamed{Octave checks, Vérifications d'octave}. Si vous avez ajouté des
 contrôles de loin en loin et que vous faites une erreur, vous pourrez la
 retrouver plus rapidement. « De loin en loin », qu'est-ce à dire ? Cela
 dépend de la complexité de la musique. Pour de la musique très simple, à
@@ -154,17 +152,15 @@ au sein du bloc @code{\layout} :
 @end example
 
 Ceci n'aura par pour effet de générer un contexte supplémentaire,
-mais s'appliquera dès sa création.  Voyez @rlearningnamed{Économie
-de saisie grâce aux identificateurs et fonctions,@'Economie de
+mais s'appliquera dès sa création.  Voyez @rlearningnamed{Saving typing with variables and functions,@'Economie de
 saisie grâce aux identificateurs et fonctions} et
-@rlearning{Feuilles de style}.
+@rlearningnamed{Style sheets, Feuilles de style}.
 
 @end itemize
 
 
-@node Gravure de musique existante
+@node Typesetting existing music
 @section Gravure de musique existante
-@translationof Typesetting existing music
 
 Si vous saisissez de la musique à partir d'une partition existante,
 c'est-à-dire de la musique déjà écrite,
@@ -177,7 +173,7 @@ n'entrez qu'un seul système de la partition originale
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
 utiliser les commandes @code{showLastLength} et @code{showFirstLength}
 pour accélérer la compilation -- voir
-@rnotation{Ignorer des passages de la partition} ;
+@rnotationnamed{Skipping corrected music, Ignorer des passages de la partition} ;
 
 @item
 définissez @code{mBreak = @{ \break @}} et insérez @code{\mBreak} dans
@@ -211,9 +207,8 @@ sib pour une trompette en si bémol, ou lab pour une clarinette en la bémol.
 @end itemize
 
 
-@node Projets d'envergure
+@node Large projects
 @section Projets d'envergure
-@translationof Large projects
 
 Lorsque l'on travaille sur un gros projet, il devient vital de
 structurer clairement ses fichiers LilyPond.
@@ -259,9 +254,8 @@ g'4\fpuisp c'8. e16
 @end itemize
 
 
-@node Résolution de problèmes
+@node Troubleshooting
 @section Résolution de problèmes
-@translationof Troubleshooting
 
 Tôt ou tard, vous écrirez un fichier que LilyPond ne peut pas
 compiler.  Les messages que LilyPond affiche peuvent vous aider à
@@ -313,12 +307,11 @@ Maintenant commencez à décommenter petit à petit la partie de
 problème.
 
 Une autre technique de débogage très utile est la construction
-d'un @rwebnamed{Exemples minimalistes,exemple minimaliste}.
+d'un @rwebnamed{Tiny examples,exemple minimaliste}.
 
 
-@node De la commande make et des fichiers Makefile
+@node Make and Makefiles
 @section De la commande make et des fichiers Makefile
-@translationof Make and Makefiles
 
 @cindex makefiles
 @cindex make
@@ -698,6 +691,6 @@ copy out\monprojet.pdf MonProjet.pdf
 
 @morerefs
 Manuel d'utilisation :
-@ref{Utilisation en ligne de commande},
+@ref{Command-line usage},
 @ref{lilypond-book}.
 @endmorerefs

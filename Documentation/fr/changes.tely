@@ -59,7 +59,7 @@ vous avez écrits avec des vesrions précédentes, de telle sorte qu'ils
 restent fonctionnels avec les nouvelles versions. Afin de mettre à jour
 vos fichiers, il est @strong{fortement conseillé} d'utiliser
 l'utilitaire @command{convert-ly} distribué avec LilyPond et qui est
-abordé dans @rprogram{Mise à jour avec convert-ly}. @command{convert-ly}
+abordé dans @rprogramnamed{Updating files with convert-ly, Mise à jour avec convert-ly}. @command{convert-ly}
 est capable de réaliser la plupart des modifications de syntaxe
 automatiquement. Les utilisateurs de Frescobaldi peuvent lancer
 @command{convert-ly} directement à partir du menu de Frescobaldi en
@@ -69,16 +69,15 @@ un moyen graphique de lancer @command{convert-ly}.}
 
 
 @menu
-* Modifications majeures de LilyPond::
-* Nouveautés en matière de notation musicale::
-* Nouveautés en matière de notation spécialisée::
-* Autres améliorations diverses::
+* Major changes in LilyPond::
+* New for musical notation::
+* New for specialist notation::
+* Miscellaneous improvements::
 @end menu
 
 
-@node Modifications majeures de LilyPond
+@node Major changes in LilyPond
 @unnumbered Modifications majeures de LilyPond
-@translationof Major changes in LilyPond
 
 @itemize
 
@@ -123,37 +122,33 @@ PDF, l'option @code{-dembed-source-code} pour le PDF et la propriété
 
 @ignore
 
-@node Notes à propos de la compilation des sources et à l'attention des empaqueteurs
+@node Notes for source compilation and packagers
 @unnumberedsec Notes à propos de la compilation des sources et à l'attention des empaqueteurs
-@translationof Notes for source compilation and packagers
 
 @end ignore
 
 
-@node Nouveautés en matière de notation musicale
+@node New for musical notation
 @unnumbered Nouveautés en matière de notation musicale
-@translationof New for musical notation
 
 @menu
-* Améliorations de la représentation des hauteurs::
-* Améliorations en matière de rythme::
-* Améliorations en matière d'expressivité::
-* Améliorations en matière de reprises::
-* Améliorations en matière d'annotations éditoriales::
-* Améliorations en matière de fontes et de mise en forme du texte::
+* Pitches improvements::
+* Rhythm improvements::
+* Expressive mark improvements::
+* Repeat improvements::
+* Editorial annotation improvements::
+* Text and font improvements::
 @end menu
 
 
-@node Améliorations de la représentation des hauteurs
+@node Pitches improvements
 @unnumberedsec Améliorations de la représentation des hauteurs
-@translationof Pitches improvements
 
 Rien pour l'instant.
 
 
-@node Améliorations en matière de rythme
+@node Rhythm improvements
 @unnumberedsec Améliorations en matière de rythme
-@translationof Rhythm improvements
 
 @itemize
 @item
@@ -203,9 +198,8 @@ lorsqu'elle intervient en début de pièce.
 @end itemize
 
 
-@node Améliorations en matière d'expressivité
+@node Expressive mark improvements
 @unnumberedsec Améliorations en matière d'expressivité
-@translationof Expressive mark improvements
 
 @itemize
 @item
@@ -225,16 +219,14 @@ galbe plus courant.
 @end itemize
 
 
-@node Améliorations en matière de reprises
+@node Repeat improvements
 @unnumberedsec Améliorations en matière de reprises
-@translationof Repeat improvements
 
 Rien pour l'instant.
 
 
-@node Améliorations en matière d'annotations éditoriales
+@node Editorial annotation improvements
 @unnumberedsec Améliorations en matière d'annotations éditoriales
-@translationof Editorial annotation improvements
 
 @itemize
 @item
@@ -244,9 +236,8 @@ horizontalement par défaut.
 @end itemize
 
 
-@node Améliorations en matière de fontes et de mise en forme du texte
+@node Text and font improvements
 @unnumberedsec Améliorations en matière de fontes et de mise en forme du texte
-@translationof Text and font improvements
 
 @itemize
 @item
@@ -374,36 +365,30 @@ l'italique.
 @end itemize
 
 
-@node Nouveautés en matière de notation spécialisée
+@node New for specialist notation
 @unnumbered Nouveautés en matière de notation spécialisée
-@translationof New for specialist notation
 
 
 @ignore
-@node Améliorations pour les cordes frettées
+@node Fretted string instrument improvements
 @unnumberedsec Améliorations pour les cordes frettées
-@translationof Fretted string instrument improvements
 
 
-@node Améliorations pour la notation des percussions
+@node Percussion improvements
 @unnumberedsec Améliorations pour la notation des percussions
-@translationof Percussion improvements
 
 
-@node Améliorations pour la notation des instruments à vent
+@node Wind instrument improvements
 @unnumberedsec Améliorations pour la notation des instruments à vent
-@translationof Wind instrument improvements
 
 
-@node Améliorations pour la notation des accords
+@node Chord notation improvements
 @unnumberedsec Améliorations pour la notation des accords
-@translationof Chord notation improvements
 
 
 
-@node Améliorations pour les notations anciennes
+@node Ancient notation improvements
 @unnumberedsec Améliorations pour les notations anciennes
-@translationof Ancient notation improvements
 
 
 
@@ -411,9 +396,8 @@ l'italique.
 
 @end ignore
 
-@node Autres améliorations diverses
+@node Miscellaneous improvements
 @unnumbered Autres améliorations diverses
-@translationof Miscellaneous improvements
 
 @itemize
 @item

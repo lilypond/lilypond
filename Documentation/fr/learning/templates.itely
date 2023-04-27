@@ -12,29 +12,27 @@
 
 @c Translators: Jean-Charles Malahieude
 
-@node Modèles
+@node Templates
 @appendix Modèles
-@translationof Templates
 
 Cette annexe du manuel d'initiation propose des patrons de partition
 LilyPond, prets à l'emploi.  Il vous suffira d'y ajouter quelques notes,
 de lancer LilyPond, et d'aprécier le résultat.
 
 @menu
-* Gabarits préprogrammés::
-* Modèles pour portée unique::
-* Modèles pour piano::
-* Modèles pour quatuor à cordes::
-* Modèles pour ensemble vocal::
-* Orchestre::
-* Exemples de notation ancienne::
-* Autres modèles::
+* Built-in templates::
+* Single staff templates::
+* Piano templates::
+* String quartet templates::
+* Vocal ensembles templates::
+* Orchestral templates::
+* Ancient notation templates::
+* Other templates::
 @end menu
 
 
-@node Gabarits préprogrammés
+@node Built-in templates
 @appendixsec Gabarits préprogrammés
-@translationof Built-in templates
 
 LilyPond est livré avec plusieurs gabarits convenant à différentes
 configurations chorales. Ils permettent de gérer de la musique chorale
@@ -57,14 +55,13 @@ commutateur @code{TwoVoicesPerStaff} (@emph{DeuxVoixParPortée}) --
 valorisé à @code{##f} ou @code{##t} selon le cas.
 
 @menu
-* Gabarit pour chœur à quatre voix mixtes::
-* Gabarit pour double chœur à quatre voix mixtes::
+* SATB template::
+* SSAATTBB template::
 @end menu
 
 
-@node Gabarit pour chœur à quatre voix mixtes
+@node SATB template
 @appendixsubsec Gabarit pour chœur à quatre voix mixtes
-@translationof SATB template
 
 @cindex Choeur SATB
 
@@ -197,7 +194,7 @@ modifiables :
 @noindent
 bien que, dans ce cas particulier, il est plus simple d'utiliser le
 gabarit @code{ssaattbb.ly} -- voir
-@ref{Gabarit pour double chœur à quatre voix mixtes}.
+@ref{SSAATTBB template}.
 
 Une partie de soliste s'ajoute à l'aide de la variable
 @code{DescantMusic}, à laquelle s'appliqueront les paroles contenues
@@ -217,14 +214,14 @@ Layout = \layout @{ ... @}
 @end example
 
 Le jeu complet des variables modifiables disponibles est contenu dans le
-fichier @file{ly/satb.ly} -- voir @ref{Autres sources de documentation}.
+fichier @file{ly/satb.ly} -- voir @ref{Other sources of information}.
 
 @morerefs
 Manuel d'initiation :
-@ref{Autres sources de documentation},
-@ref{Extension des modèles},
-@ref{Modèles pour ensemble vocal},
-@ref{Organisation du code source avec des variables}.
+@ref{Other sources of information},
+@ref{Extending the templates},
+@ref{Vocal ensembles templates},
+@ref{Organizing pieces with variables}.
 @endmorerefs
 
 @knownissues
@@ -236,15 +233,14 @@ Des arrangements plus complexes de partition pour chœur mixte à quatre
 voix ne sont pas réalisables avec ce gabarit préprogrammé.
 
 
-@node Gabarit pour double chœur à quatre voix mixtes
+@node SSAATTBB template
 @appendixsubsec Gabarit pour double chœur à quatre voix mixtes
-@translationof SSAATTBB template
 
 @cindex chœur SSAATTBB
 
 Ce gabarit préprogrammé dispose, à l'exception des variables
 @code{VerseXxx}, des mêmes variable que le gabarit SATB -- voir
-@ref{Gabarit pour chœur à quatre voix mixtes}.  Pour chacune des quatre
+@ref{SATB template}.  Pour chacune des quatre
 parties, paroles et musique peuvent être dédoublées en alimentant les
 variables @code{SopranoOneMusic} et @code{SopranoTwoMusic}, etc. ainsi
 que leurs paroles associées dans @code{SopranoOneLyrics} et
@@ -335,14 +331,14 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 
 Le jeu complet des variables modifiables disponibles est contenu dans le
 fichier @file{ly/ssaattbb.ly} -- voir
-@ref{Autres sources de documentation}.
+@ref{Other sources of information}.
 
 @morerefs
 Manuel d'initiation :
-@ref{Autres sources de documentation},
-@ref{Extension des modèles},
-@ref{Modèles pour ensemble vocal},
-@ref{Organisation du code source avec des variables}.
+@ref{Other sources of information},
+@ref{Extending the templates},
+@ref{Vocal ensembles templates},
+@ref{Organizing pieces with variables}.
 @endmorerefs
 
 @knownissues
@@ -354,242 +350,215 @@ Des arrangements plus complexes de partition pour chœur à huit voix ne
 sont pas réalisables avec ce gabarit préprogrammé.
 
 
-@node Modèles pour portée unique
+@node Single staff templates
 @appendixsec Modèles pour portée unique
-@translationof Single staff templates
 
 @menu
-* Notes seules::
-* Notes et paroles::
-* Notes et accords::
-* Notes paroles et accords::
+* Notes only::
+* Notes and lyrics::
+* Notes and chords::
+* Notes lyrics and chords::
 @end menu
 
 
-@node Notes seules
+@node Notes only
 @appendixsubsec Notes seules
-@translationof Notes only
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-only-notes.ly}
 
 
-@node Notes et paroles
+@node Notes and lyrics
 @appendixsubsec Notes et paroles
-@translationof Notes and lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes-and-lyrics.ly}
 
 
-@node Notes et accords
+@node Notes and chords
 @appendixsubsec Notes et accords
-@translationof Notes and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes-and-chords.ly}
 
 
-@node Notes paroles et accords
+@node Notes lyrics and chords
 @appendixsubsec Notes, paroles et accords
-@translationof Notes lyrics and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
-@node Modèles pour piano
+@node Piano templates
 @appendixsec Modèles pour piano
-@translationof Piano templates
 
 @menu
-* Piano seul::
-* Chant et accompagnement::
-* Piano et paroles entre les portées::
+* Solo piano::
+* Piano and melody with lyrics::
+* Piano centered lyrics::
 @end menu
 
 
-@node Piano seul
+@node Solo piano
 @appendixsubsec Piano seul
-@translationof Solo piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-simple.ly}
 
 
-@node Chant et accompagnement
+@node Piano and melody with lyrics
 @appendixsubsec Chant et accompagnement
-@translationof Piano and melody with lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-melody-and-lyrics.ly}
 
 
-@node Piano et paroles entre les portées
+@node Piano centered lyrics
 @appendixsubsec Piano et paroles entre les portées
-@translationof Piano centered lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-centered-lyrics.ly}
 
 
-@node Modèles pour quatuor à cordes
+@node String quartet templates
 @appendixsec Modèles pour quatuor à cordes
-@translationof String quartet templates
 
 @menu
-* Quatuor à cordes simple::
-* Parties pour quatuor à cordes::
+* String quartet::
+* String quartet parts::
 @end menu
 
 
-@node Quatuor à cordes simple
+@node String quartet
 @appendixsubsec Quatuor à cordes simple
-@translationof String quartet
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/string-quartet-template-simple.ly}
 
 
-@node Parties pour quatuor à cordes
+@node String quartet parts
 @appendixsubsec Parties pour quatuor à cordes
-@translationof String quartet parts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/string-quartet-template-with-separate-parts.ly}
 
 
-@node Modèles pour ensemble vocal
+@node Vocal ensembles templates
 @appendixsec Modèles pour ensemble vocal
-@translationof Vocal ensembles templates
 
 Les exemples ci-après demandent à être recopiés et édités dans vos
 propres fichiers.  Pour des constructions simples, vous pouvez
 adopter une construction préprogrammée appelée par une instruction
-@code{\include} -- voir @ref{Gabarits préprogrammés}.
+@code{\include} -- voir @ref{Built-in templates}.
 
 @menu
-* Partition pour chœur SATB::
-* Partition pour chœur SATB avec réduction pour piano::
-* Partition pour chœur SATB avec alignement des contextes::
-* Chœur à quatre voix mixtes sur quatre portées::
-* Couplet pour solo et refrain à deux voix::
-* Hymnes et cantiques::
-* Psalmodie::
+* SATB vocal score::
+* SATB vocal score and automatic piano reduction::
+* SATB with aligned contexts::
+* SATB on four staves::
+* Solo verse and two-part refrain::
+* Hymn tunes::
+* Psalms::
 @end menu
 
 
-@node Partition pour chœur SATB
+@node SATB vocal score
 @appendixsubsec Partition pour chœur SATB
-@translationof SATB vocal score
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template.ly}
 
 
-@node Partition pour chœur SATB avec réduction pour piano
+@node SATB vocal score and automatic piano reduction
 @appendixsubsec Partition pour chœur SATB avec réduction pour piano
-@translationof SATB vocal score and automatic piano reduction
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
 
-@node Partition pour chœur SATB avec alignement des contextes
+@node SATB with aligned contexts
 @appendixsubsec Partition pour chœur SATB avec alignement des contextes
-@translationof SATB with aligned contexts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 
-@node Chœur à quatre voix mixtes sur quatre portées
+@node SATB on four staves
 @appendixsubsec Chœur à quatre voix mixtes sur quatre portées
-@translationof SATB on four staves
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/satb-choir-template---four-staves.ly}
 
 
-@node Couplet pour solo et refrain à deux voix
+@node Solo verse and two-part refrain
 @appendixsubsec Couplet pour solo et refrain à deux voix
-@translationof Solo verse and two-part refrain
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template-with-verse-and-refrain.ly}
 
 
-@node Hymnes et cantiques
+@node Hymn tunes
 @appendixsubsec Hymnes et cantiques
-@translationof Hymn tunes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/hymn-template.ly}
 
 
-@node Psalmodie
+@node Psalms
 @appendixsubsec Psalmodie
-@translationof Psalms
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/anglican-psalm-template.ly}
 
 
-@node Orchestre
+@node Orchestral templates
 @appendixsec Orchestre
-@translationof Orchestral templates
 
 @menu
-* Orchestre chœur et piano::
+* Orchestra choir and piano::
 @end menu
 
 
-@node Orchestre chœur et piano
+@node Orchestra choir and piano
 @appendixsubsec Orchestre, chœur et piano
-@translationof Orchestra choir and piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
-@node Exemples de notation ancienne
+@node Ancient notation templates
 @appendixsec Exemples de notation ancienne
-@translationof Ancient notation templates
 
 @menu
-* Transcription de musique mensurale::
-* Transcription du grégorien::
+* Transcription of mensural music::
+* Gregorian transcription template::
 @end menu
 
 
-@node Transcription de musique mensurale
+@node Transcription of mensural music
 @appendixsubsec Transcription de musique mensurale
-@translationof Transcription of mensural music
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/incipit.ly}
 
 
-@node Transcription du grégorien
+@node Gregorian transcription template
 @appendixsubsec Transcription du grégorien
-@translationof Gregorian transcription template
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
-@node Autres modèles
+@node Other templates
 @appendixsec Autres modèles
-@translationof Other templates
 
 @menu
-* Symboles de jazz::
+* Jazz combo::
 @end menu
 
 
-@node Symboles de jazz
+@node Jazz combo
 @appendixsubsec Symboles de jazz
-@translationof Jazz combo
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/jazz-combo-template.ly}

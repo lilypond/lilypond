@@ -17,9 +17,8 @@
 @c the URL in the warning printed when the file fails and the
 @c \version statement is outdated.
 
-@node Mise à jour avec convert-ly
+@node Updating files with convert-ly
 @chapter Mise à jour avec @command{convert-ly}
-@translationof Updating files with convert-ly
 
 @cindex mise à jour de fichiers LilyPond
 @cindex convert-ly
@@ -36,19 +35,18 @@ conformité au fur et à mesure que de nouvelles versions de LilyPond sont
 disponibles.
 
 @menu
-* LilyPond est une langue vivante::
-* Considérations sur la ligne de commande::
-* Exécution de convert-ly::
-* Options en ligne de commande pour convert-ly::
-* Problèmes d'exécution de convert-ly::
-* Conversions manuelles::
-* Écriture de code supportant différentes versions::
+* Why does the syntax change?::
+* Command-line preliminaries::
+* Invoking convert-ly::
+* Command-line options for convert-ly::
+* Problems running convert-ly::
+* Manual conversions::
+* Writing code to support multiple versions::
 @end menu
 
 
-@node LilyPond est une langue vivante
+@node Why does the syntax change?
 @section LilyPond est une langue vivante
-@translationof Why does the syntax change?
 
 @cindex convert-ly
 @cindex mise à jour d'anciens fichiers
@@ -113,9 +111,8 @@ jour avec @command{convert-ly}.
 @end itemize
 
 
-@node Considérations sur la ligne de commande
+@node Command-line preliminaries
 @section Considérations sur la ligne de commande
-@translationof Command-line preliminaries
 
 Ceci et les sections suivantes couvrent uniquement l'utilisation de
 @command{convert-ly} en ligne de commande. Les applications graphiques
@@ -133,7 +130,7 @@ pour un système informatique ni comment elle fonctionne. Aussi, si vous
 ne savez de quoi il retourne, nous vous renvoyons aux nombreuses
 documentations que vous pourrez trouver sur ce sujet.
 
-Consultez @ref{La variable d'environnement PATH} pour savoir comment
+Consultez @ref{The PATH environment variable} pour savoir comment
 régler votre système d'exploitation afin de pouvoir utiliser
 @command{convert-ly} en ligne de commande sans avoir à en spécifier le
 chemin d'accès.
@@ -201,9 +198,8 @@ Quittez alors l'invite de commande puis relancez la pour tester que
 @code{convert-ly --version} est opérationnel.
 
 
-@node Exécution de convert-ly
+@node Invoking convert-ly
 @section Exécution de @command{convert-ly}
-@translationof Invoking convert-ly
 
 La commande @command{convert-ly} utilise les mentions de @code{\version}
 -- que vous n'avez sûrement pas oublié de porter dans vos fichiers --
@@ -266,9 +262,8 @@ forfiles /s /p "C:\Documents\Mes Partitions" /M *.ly /c "cmd /c convert-ly.py -e
 @end smallexample
 
 
-@node Options en ligne de commande pour convert-ly
+@node Command-line options for convert-ly
 @section Options en ligne de commande pour @command{convert-ly}
-@translationof Command-line options for convert-ly
 
 L'utilitaire @command{convert-ly} se lance de la manière suivante :
 
@@ -379,9 +374,8 @@ convert-ly --from=@var{ancienne} --to=@var{récente} -s
 @end example
 
 
-@node Problèmes d'exécution de convert-ly
+@node Problems running convert-ly
 @section Problèmes d'exécution de @code{convert-ly}
-@translationof Problems running convert-ly
 
 Lorsque le nom du fichier original ou le chemin qui y mène comporte des
 espaces, il est indispensable de le borner par des guillemets comme
@@ -413,9 +407,8 @@ LilyPond est plus qu'hasardeuse ; attendez-vous à devoir mettre les
 mains dans le cambouis.
 
 
-@node Conversions manuelles
+@node Manual conversions
 @section Conversions manuelles
-@translationof Manual conversions
 
 En théorie, un programme tel que @command{convert-ly} devrait pouvoir
 traiter n'importe quel changement de syntaxe. En effet, si un programme
@@ -443,9 +436,8 @@ Please refer to the manual for details, and update manually.
 @end example
 
 
-@node Écriture de code supportant différentes versions
+@node Writing code to support multiple versions
 @section Écriture de code supportant différentes versions
-@translationof Writing code to support multiple versions
 
 Dans certains cas, et tout particulièrement lorsque l'on se contitue une
 @emph{bibliothèque} de code, il est souhaitable de pouvoir supporter

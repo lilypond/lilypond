@@ -14,9 +14,8 @@
 @c Translation checkers: J.-C. Malahieude, John Mandereau
 
 
-@node Notes simultanées
+@node Simultaneous notes
 @section Notes simultanées
-@translationof Simultaneous notes
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]
 {snippets/simultaneous-headword.ly}
@@ -27,29 +26,27 @@ polyphonie fait référence au fait d'avoir plus d'une voix sur la même
 portée.
 
 @menu
-* Monophonie::
-* Plusieurs voix::
+* Single voice::
+* Multiple voices::
 @end menu
 
 
-@node Monophonie
+@node Single voice
 @subsection Monophonie
-@translationof Single voice
 
 Nous allons voir ici comment gérer plusieurs notes simultanées dans une
 même voix.
 
 @menu
-* Notes en accords::
-* Répétition d'accords::
-* Expressions simultanées::
+* Chorded notes::
+* Chord repetition::
+* Simultaneous expressions::
 * Clusters::
 @end menu
 
 
-@node Notes en accords
+@node Chorded notes
 @unnumberedsubsubsec Notes en accords
-@translationof Chorded notes
 
 @cindex accord
 @cindex chevrons
@@ -111,7 +108,7 @@ autres éléments rattachés.  Par voie de conséquence, un accord dépourvu
 de note n'a pas de durée ; toute articulation qui lui serait attachée
 interviendra au même moment que la note ou l'accord qui le suit et lui
 sera donc combiné -- pour des combinaisons plus complexes, voir
-@ref{Expressions simultanées}.
+@ref{Simultaneous expressions}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -138,20 +135,20 @@ positionnent relativement à la précédente @emph{dans cet accord}.
 @end lilypond
 
 Pour plus d'information à propos des accords, voir
-@ref{Notation des accords}.
+@ref{Chord notation}.
 
 @morerefs
 Glossaire musicologique :
 @rglosnamed{chord,accord}.
 
 Manuel d'initiation :
-@rlearning{Combinaison de notes en accords}.
+@rlearningnamed{Combining notes into chords, Combinaison de notes en accords}.
 
 Manuel de notation :
-@ref{Articulations et ornements},
-@ref{Notation des accords},
-@ref{Octaves relatives},
-@ref{Plusieurs voix}.
+@ref{Articulations and ornamentations},
+@ref{Chord notation},
+@ref{Relative octave entry},
+@ref{Multiple voices}.
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notes simultanées}.
@@ -166,7 +163,7 @@ nécessiter de recourir à
 @itemize
 
 @item
-l'utilisation temporaire de @ref{Plusieurs voix},
+l'utilisation temporaire de @ref{Multiple voices},
 @samp{<< f! \\ <e fis!> >>},
 
 @item
@@ -179,9 +176,8 @@ des @ref{Clusters}.
 @end itemize
 
 
-@node Répétition d'accords
+@node Chord repetition
 @unnumberedsubsubsec Répétition d'accords
-@translationof Chord repetition
 
 @cindex accord, répétition
 @cindex répétition, utilisation de @code{q}
@@ -275,17 +271,16 @@ début de saisie intervient à un moment où toutes les instances de
 
 @morerefs
 Manuel de notation :
-@ref{Articulations et ornements},
-@ref{Notation des accords}.
+@ref{Articulations and ornamentations},
+@ref{Chord notation}.
 
 Fichiers d'initialisation :
 @file{ly/chord-repetition-init.ly}.
 @endmorerefs
 
 
-@node Expressions simultanées
+@node Simultaneous expressions
 @unnumberedsubsubsec Expressions simultanées
-@translationof Simultaneous expressions
 
 Lorsqu'une ou plusieurs expressions musicales sont encadrées par des
 doubles chevrons, elles sont considérées comme étant simultanées.  Si la
@@ -365,12 +360,11 @@ Ceci n'aura pas pour seule conséquence que ce message ne sera plus
 émis ; les procédures d'évitement de collision de quelqu'ordre que
 ce soit seront désactivées, ce qui peut conduire à quelques effets
 inattendus (voir aussi @emph{Problèmes connus et avertissements} à la
-rubrique @ref{Résolution des collisions}).
+rubrique @ref{Collision resolution}).
 
 
 @node Clusters
 @unnumberedsubsubsec Clusters
-@translationof Clusters
 
 @cindex cluster
 
@@ -416,27 +410,25 @@ Seul un silence peut séparer deux clusters.
 Les clusters ne sont pas reproduits en MIDI.
 
 
-@node Plusieurs voix
+@node Multiple voices
 @subsection Plusieurs voix
-@translationof Multiple voices
 
 Nous allons nous intéresser, dans les paragraphes qui suivent, à la
 gestion de notes simultanées réparties sur plusieurs voix ou plusieurs
 portées.
 
 @menu
-* Polyphonie sur une portée::
-* Styles de voix::
-* Résolution des collisions::
-* Fusion de silences::
-* Regroupement automatique de parties::
-* Saisie de musique en parallèle::
+* Single-staff polyphony::
+* Voice styles::
+* Collision resolution::
+* Merging rests::
+* Automatic part combining::
+* Writing music in parallel::
 @end menu
 
 
-@node Polyphonie sur une portée
+@node Single-staff polyphony
 @unnumberedsubsubsec Polyphonie sur une portée
-@translationof Single-staff polyphony
 
 @cindex polyphonie, portée simple
 @cindex portée simple et polyphonie
@@ -475,7 +467,7 @@ collisions.  La commande @code{\oneVoice} permet de retrouver les
 réglages par défaut.
 
 N'oubliez pas que @code{Voice} est un contexte de bas niveau --
-voir @ref{Contextes de bas niveau -- les voix}. Dans le cadre d'un
+voir @ref{Bottom-level contexts -- voices}. Dans le cadre d'un
 @code{TabStaff}, il faudrait donc utiliser un @code{TabVoice}.
 
 
@@ -532,7 +524,7 @@ Dans un @code{TabStaff} doit être utilisé un @code{TabVoice}.
 Lorsque la même musique doit apparaître à la fois dans un
 @code{Staff} @b{et} dans un @code{TabStaff}, il est possible de
 recourir au contexte générique @code{Bottom} -- voir
-@ref{Contextes de bas niveau -- les voix}.
+@ref{Bottom-level contexts -- voices}.
 
 @lilypond[quote,verbatim]
 mus =
@@ -618,8 +610,8 @@ surcharger la portée avec des demis soupirs.
 
 En dehors des cas les plus simples, nous vous invitons à toujours créer
 les contextes de voix de manière explicite.  Voir à ce sujet
-@rlearning{Contextes et graveurs} et
-@rlearning{Instanciation explicite des voix}.
+@rlearningnamed{Contexts and engravers, Contextes et graveurs} et
+@rlearningnamed{Explicitly instantiating voices, Instanciation explicite des voix}.
 
 
 @subsubsubheading Ordre des voix
@@ -711,22 +703,21 @@ messages d'avertissement.
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Instanciation explicite des voix},
-@rlearning{Les voix contiennent la musique}.
+@rlearningnamed{Explicitly instantiating voices, Instanciation explicite des voix},
+@rlearningnamed{Voices contain music, Les voix contiennent la musique}.
 
 Manuel de notation :
-@ref{Hampes},
-@ref{Portées de percussion},
-@ref{Silences invisibles}.
+@ref{Stems},
+@ref{Percussion staves},
+@ref{Invisible rests}.
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
 @endmorerefs
 
 
-@node Styles de voix
+@node Voice styles
 @unnumberedsubsubsec Styles de voix
-@translationof Voice styles
 
 @cindex voix, style
 @cindex style de voix
@@ -766,17 +757,16 @@ présentation normale.
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Autres sources de documentation},
-@rlearning{J'entends des voix}.
+@rlearningnamed{Other sources of information, Autres sources de documentation},
+@rlearningnamed{I'm hearing voices, J'entends des voix}.
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
 @endmorerefs
 
 
-@node Résolution des collisions
+@node Collision resolution
 @unnumberedsubsubsec Résolution des collisions
-@translationof Collision resolution
 
 @cindex fusion de notes
 @cindex collision de notes
@@ -946,7 +936,7 @@ l'ordre vertical des voix tel qu'il apparaîtra sur la portée.}
 
 Les commandes @code{\shiftOnn} et @code{\shiftOnnn} sont des niveaux
 supplémentaires de décalage qui peuvent s'adopter temporairement dans
-certaines situations complexes -- voir @rlearning{Exemple concret}.
+certaines situations complexes -- voir @rlearningnamed{Real music example, Exemple concret}.
 
 Les têtes de notes ne fusionneront que dans la mesure où leur hampe sont
 opposées -- implicitement parce qu'appartenant aux voix une ou deux, ou
@@ -986,9 +976,9 @@ Glossaire musicologique :
 @rglosnamed{polyphony,polyphonie}.
 
 Manuel d'initiation :
-@rlearning{Exemple concret},
-@rlearning{Les voix contiennent la musique},
-@rlearning{Notes simultanées}.
+@rlearningnamed{Real music example, Exemple concret},
+@rlearningnamed{Voices contain music, Les voix contiennent la musique},
+@rlearningnamed{Multiple notes at once, Notes simultanées}.
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
@@ -1020,9 +1010,8 @@ are at the same time differently dotted are not clear.
 @end ignore
 
 
-@node Fusion de silences
+@node Merging rests
 @unnumberedsubsubsec Fusion de silences
-@translationof Merging rests
 
 @cindex silences, fusion
 
@@ -1059,9 +1048,8 @@ un @code{#t}, permet de suspendre temporairement la fusion des
 silences.
 
 
-@node Regroupement automatique de parties
+@node Automatic part combining
 @unnumberedsubsubsec Regroupement automatique de parties
-@translationof Automatic part combining
 
 @cindex combinateur de parties
 @cindex parties, combiner des
@@ -1252,7 +1240,7 @@ La commande @code{\partCombine} n'est pas conçue pour traiter des
 paroles ; si l'une des voix est explicitement nommée, afin de lui
 adjoindre des paroles, le combinateur de parties cessera de fonctionner.
 Toutefois, le recours à un contexte @code{NullVoice} permet d'obtenir
-les effets escomptés -- voir @ref{Polyphonie et paroles communes}.
+les effets escomptés -- voir @ref{Polyphony with shared lyrics}.
 
 
 @snippets
@@ -1270,7 +1258,7 @@ Glossaire musicologique :
 @rglosnamed{part,partie}.
 
 Manuel de notation :
-@ref{Écriture de parties séparées}.
+@ref{Writing parts}.
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
@@ -1310,12 +1298,11 @@ changent pour d'autres noms de contexte @code{Voice}, les
 événements qu'ils contiendraient seront ignorés.
 
 Certaines considérations apparaissent aussi dans les chapitres
-@ref{Tablatures par défaut} et @ref{Barres de ligature automatiques}.
+@ref{Default tablatures} et @ref{Automatic beams}.
 
 
-@node Saisie de musique en parallèle
+@node Writing music in parallel
 @unnumberedsubsubsec Saisie de musique en parallèle
-@translationof Writing music in parallel
 
 @cindex @'ecrire la musique en parallèle
 @cindex musique en parallèle
@@ -1425,7 +1412,7 @@ global = {
 
 @morerefs
 Manuel d'initiation :
-@rlearning{Organisation du code source avec des variables}.
+@rlearningnamed{Organizing pieces with variables, Organisation du code source avec des variables}.
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes,Notation simultanée}.

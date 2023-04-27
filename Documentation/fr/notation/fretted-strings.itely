@@ -14,9 +14,8 @@
 @c Translation checkers: Jean-Charles Malahieude
 
 
-@node Instruments à cordes frettées
+@node Fretted string instruments
 @section Instruments à cordes frettées
-@translationof Fretted string instruments
 
 @lilypondfile[quote]{snippets/fretted-headword.ly}
 
@@ -30,35 +29,33 @@ instruments à cordes frettées.
 @cindex tablature pour banjo
 
 @menu
-* Vue d'ensemble des cordes frettées::
-* Guitare::
+* Common notation for fretted strings::
+* Guitar::
 * Banjo::
-* Luth::
+* Lute::
 @end menu
 
 
-@node Vue d'ensemble des cordes frettées
+@node Common notation for fretted strings
 @subsection Vue d'ensemble des cordes frettées
-@translationof Common notation for fretted strings
 
 Nous allons aborder, dans les paragraphes qui suivent, les
 particularités communes aux différents instruments à cordes frettées.
 
 @menu
-* Références en matière de cordes frettées::
-* Indications du numéro de corde::
-* Tablatures par défaut::
-* Tablatures personnalisées::
-* Tablatures sous forme d'étiquettes::
-* Tablatures prédéfinies::
-* Tablatures automatiques::
-* Doigtés pour la main droite::
+* References for fretted strings::
+* String number indications::
+* Default tablatures::
+* Custom tablatures::
+* Fret diagram markups::
+* Predefined fret diagrams::
+* Automatic fret diagrams::
+* Right-hand fingerings::
 @end menu
 
 
-@node Références en matière de cordes frettées
+@node References for fretted strings
 @unnumberedsubsubsec Références en matière de cordes frettées
-@translationof References for fretted strings
 
 La musique pour instruments à cordes frettées est généralement notée sur
 une seule portée, en notation traditionnelle ou en tablature, les deux
@@ -74,37 +71,36 @@ cordes frettées :
 
 @itemize
 @item Les doigtés s'obtiennent comme indiqué au chapitre
-@ref{Doigtés}.
+@ref{Fingering instructions}.
 
 @item En plus des @notation{Laissez vibrer}, les liaisons peuvent
 intervenir sur des accords arpégés ou des trémolos.  Reportez-vous au
-chapitre @ref{Liaisons de prolongation}.
+chapitre @ref{Ties}.
 
 @item Des indications quant à la prise en charge de la polyphonie se
-trouvent au chapitre @ref{Résolution des collisions}.
+trouvent au chapitre @ref{Collision resolution}.
 
 @item La notation des sons harmoniques se trouve à la section
-@ref{Harmoniques}.
+@ref{Harmonics}.
 
 @end itemize
 
 @morerefs
 Manuel de notation :
-@ref{Arpèges},
-@ref{Clefs},
-@ref{Doigtés},
-@ref{Instruments transpositeurs},
-@ref{Liaisons de prolongation},
-@ref{Liste des signes d'articulation},
-@ref{Noms d'instrument},
-@ref{Résolution des collisions},
-@ref{Saisie de musique en parallèle}.
+@ref{Arpeggio},
+@ref{Clef},
+@ref{Fingering instructions},
+@ref{Instrument transpositions},
+@ref{Ties},
+@ref{List of articulations},
+@ref{Instrument names},
+@ref{Collision resolution},
+@ref{Writing music in parallel}.
 @endmorerefs
 
 
-@node Indications du numéro de corde
+@node String number indications
 @unnumberedsubsubsec Indications du numéro de corde
-@translationof String number indications
 
 @cindex corde numérotée
 @cindex numéro de corde
@@ -157,7 +153,7 @@ g1\4
 
 Le traitement des numéros de corde, objets @code{StringNumber},
 et notamment leur positionnement, est comparable à celui des
-doigtés -- voir @ref{Doigtés}.
+doigtés -- voir @ref{Fingering instructions}.
 
 @predefined
 @code{\arabicStringNumbers},
@@ -166,7 +162,7 @@ doigtés -- voir @ref{Doigtés}.
 
 @morerefs
 Manuel de notation :
-@ref{Doigtés}.
+@ref{Fingering instructions}.
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings,Cordes frettées}.
@@ -177,9 +173,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Tablatures par défaut
+@node Default tablatures
 @unnumberedsubsubsec Tablatures par défaut
-@translationof Default tablatures
 
 @cindex tablature, base
 @cindex tablature par défaut
@@ -300,7 +295,7 @@ l'activation de @code{restrainOpenStrings}.
 @cindex @code{q}, répétition d'accord
 
 La répétition d'une construction en accord s'indique par un @code{q} --
-voir @ref{Répétition d'accords}.  Cette fonctionnalité, bien
+voir @ref{Chord repetition}.  Cette fonctionnalité, bien
 qu'opérationnelle en mode tablature, supprime entre autres les numéros
 de corde et doigtés.  Il vous faudra donc préalablement recourir
 explicitement à l'instruction
@@ -730,10 +725,10 @@ bends-with-ties-and-skips = {
 @morerefs
 Manuel de notation :
 @ref{Glissando},
-@ref{Hampes},
-@ref{Harmoniques},
-@ref{Répétition d'accords},
-@ref{Répétitions explicites}.
+@ref{Stems},
+@ref{Harmonics},
+@ref{Chord repetition},
+@ref{Written-out repeats}.
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings,Cordes frettées}.
@@ -770,9 +765,8 @@ Le support des modes de jeu propres à la guitare se limite aux sons
 harmoniques et aux glissandos.
 
 
-@node Tablatures personnalisées
+@node Custom tablatures
 @unnumberedsubsubsec Tablatures personnalisées
-@translationof Custom tablatures
 
 @cindex personnalisation de tablature
 @cindex banjo, tablature
@@ -833,7 +827,7 @@ contexte en cours se détermine à l'aide de la fonction
 représentation symbolique qui gardera l'accordage en mémoire, et une
 construction d'accord définissant la hauteur des différentes cordes.
 Les hauteurs fournies s'expriment impérativement en mode absolu -- voir
-@ref{Hauteurs avec octave absolue}.  La corde ayant le numéro le plus
+@ref{Absolute octave entry}.  La corde ayant le numéro le plus
 élevé (généralement la note la plus basse) est mentionnée en premier.
 
 Nous pouvons ainsi définir par exemple l'accordage d'un instrument à
@@ -863,7 +857,7 @@ La propriété @code{stringTunings} permet aussi au @code{FretBoards} de
 calculer automatiquement les diagrammes de frets.
 
 L'accordage fait partie de la clé permettant d'identifier les
-diagrammes prédéfinis -- voir @ref{Tablatures prédéfinies}.
+diagrammes prédéfinis -- voir @ref{Predefined fret diagrams}.
 
 Nous pourrions donc écrire l'exemple précédent ainsi :
 
@@ -977,8 +971,8 @@ mus = \relative {
 
 @morerefs
 Manuel de notation :
-@ref{Hauteurs avec octave absolue},
-@ref{Tablatures prédéfinies}.
+@ref{Absolute octave entry},
+@ref{Predefined fret diagrams}.
 
 Fichiers d'initialisation :
 @file{ly/string-tunings-init.ly},
@@ -998,9 +992,8 @@ instruments dont l'ordre des cordes ne correspond pas à l'ordre des
 hauteurs, comme le ukulele.
 
 
-@node Tablatures sous forme d'étiquettes
+@node Fret diagram markups
 @unnumberedsubsubsec Tablatures sous forme d'étiquettes
-@translationof Fret diagram markups
 
 @cindex fret, diagramme
 @cindex accord, diagramme
@@ -1464,9 +1457,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Tablatures prédéfinies
+@node Predefined fret diagrams
 @unnumberedsubsubsec Tablatures prédéfinies
-@translationof Predefined fret diagrams
 
 @cindex fret, diagramme
 @cindex accord, diagramme
@@ -1536,7 +1528,7 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 
 Les notes des accords peuvent être entrées aussi bien comme musique
 simultanée qu'en utilisant le mode accord (voir
-@ref{Généralités sur le mode accords}).
+@ref{Chord mode overview}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1610,10 +1602,10 @@ La table des diagrammes pour ukulele contient trois types d'accord
 supplémentaires : sixte majeure, seconde suspendue et quarte suspendue.
 
 Une liste complète des diagrammes d'accords prédéfinis se trouve à
-l'annexe @ref{Tablatures prédéfinies}. S'il n'y a pas d'entrée dans la
+l'annexe @ref{Predefined fret diagrams}. S'il n'y a pas d'entrée dans la
 table pour un accord donné, le graveur @code{Fretboard_engraver}
 calculera le diagramme d'accord en utilisant la fonctionnalité
-automatique décrite dans @ref{Tablatures automatiques}.
+automatique décrite dans @ref{Automatic fret diagrams}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1774,10 +1766,10 @@ d'accord donné, les propriétés de l'interface dépendent de
 
 @morerefs
 Manuel de notation :
-@ref{Généralités sur le mode accords},
-@ref{Tablatures automatiques},
-@ref{Tablatures personnalisées},
-@ref{Tablatures prédéfinies}.
+@ref{Chord mode overview},
+@ref{Automatic fret diagrams},
+@ref{Custom tablatures},
+@ref{Predefined fret diagrams}.
 
 Fichiers d'initialisation :
 @file{ly/predefined-guitar-fretboards.ly}, @*
@@ -1793,9 +1785,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Tablatures automatiques
+@node Automatic fret diagrams
 @unnumberedsubsubsec Tablatures automatiques
-@translationof Automatic fret diagrams
 
 @cindex fret, diagramme automatique
 @cindex accord, diagramme automatique
@@ -1922,7 +1913,7 @@ servira à calculer les cordes et les cases du contexte @code{FretBoard}.
 
 Les cordes et les cases du contexte @code{FretBoards} sont liées à la
 propriété @code{stringTunings}, qui a là même signification que dans le
-contexte @code{TabStaff}.  Voir @ref{Tablatures personnalisées} pour
+contexte @code{TabStaff}.  Voir @ref{Custom tablatures} pour
 plus d'information sur la propriété @code{stringTunings}.
 
 La disposition graphique d'un diagramme d'accord peut être modifiée
@@ -1938,7 +1929,7 @@ dépendent de @code{FretBoards.FretBoard}.
 
 @morerefs
 Manuel de notation :
-@ref{Tablatures personnalisées}.
+@ref{Custom tablatures}.
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
@@ -1953,9 +1944,8 @@ les instruments dont l'ordre des cordes ne correspond pas à l'ordre des
 hauteurs.
 
 
-@node Doigtés pour la main droite
+@node Right-hand fingerings
 @unnumberedsubsubsec Doigtés pour la main droite
-@translationof Right-hand fingerings
 
 @cindex cordes frettées, doigtés main droite
 @cindex doigtés main droite et cordes frettées
@@ -1990,7 +1980,7 @@ MD = #rightHandFinger \etc
 
 La plupart des comportements en matière de doigtés pour la main droite,
 à savoir l'objet @code{StrokeFinger}, est comparable aux doigtés
-ordinaires -- voir @ref{Doigtés}.
+ordinaires -- voir @ref{Fingering instructions}.
 
 @snippets
 
@@ -2013,9 +2003,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Guitare
+@node Guitar
 @subsection Guitare
-@translationof Guitar
 
 La plupart des aspects en matière de notation pour guitare sont traités
 dans la partie commune aux instruments frettés.  Il subsiste cependant
@@ -2030,15 +2019,14 @@ pour les utilisateurs expérimentés, un logiciel typographique tel que
 GuitarTeX.
 
 @menu
-* Indication de la position et du barré::
-* Indication des harmoniques et notes étouffées::
-* Indication de power chord::
+* Indicating position and barring::
+* Indicating harmonics and dampened notes::
+* Indicating power chords::
 @end menu
 
 
-@node Indication de la position et du barré
+@node Indicating position and barring
 @unnumberedsubsubsec Indication de la position et du barré
-@translationof Indicating position and barring
 
 @cindex barré, indication de la position
 @cindex cordes frettées, indication de la position et du barré
@@ -2059,7 +2047,7 @@ Cet exemple montre comment indiquer les positions et les barrés :
 
 @morerefs
 Manuel de notation :
-@ref{Indication textuelle avec extension}.
+@ref{Text spanners}.
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées},
@@ -2067,9 +2055,8 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Indication des harmoniques et notes étouffées
+@node Indicating harmonics and dampened notes
 @unnumberedsubsubsec Indication des harmoniques et notes étouffées
-@translationof Indicating harmonics and dampened notes
 
 @cindex cordes frettées, note étouffée
 @cindex cordes frettées, harmonique
@@ -2139,17 +2126,16 @@ ce style de jeu en affectant un profil spécifique aux têtes de note.
 
 @morerefs
 Manuel de notation :
-@ref{Têtes de note spécifiques},
-@ref{Têtes de note}.
+@ref{Special note heads},
+@ref{Note heads}.
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
 @endmorerefs
 
 
-@node Indication de power chord
+@node Indicating power chords
 @unnumberedsubsubsec Indication de @emph{power chord}
-@translationof Indicating power chords
 
 @cindex power chords
 @cindex chord, power
@@ -2196,8 +2182,8 @@ Glossaire musicologique :
 @rglos{power chord}.
 
 Manuel de notation :
-@ref{Extension et altération d'accords},
-@ref{Impression des noms d'accord}.
+@ref{Extended and altered chords},
+@ref{Printing chord names}.
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
@@ -2206,16 +2192,14 @@ Morceaux choisis :
 
 @node Banjo
 @subsection Banjo
-@translationof Banjo
 
 @menu
-* Tablatures pour banjo::
+* Banjo tablatures::
 @end menu
 
 
-@node Tablatures pour banjo
+@node Banjo tablatures
 @unnumberedsubsubsec Tablatures pour banjo
-@translationof Banjo tablatures
 
 @cindex banjo, tablature
 @cindex tablature pour banjo
@@ -2280,17 +2264,15 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Luth
+@node Lute
 @subsection Luth
-@translationof Lute
 
 @menu
-* Tablatures pour luth::
+* Lute tablatures::
 @end menu
 
-@node Tablatures pour luth
+@node Lute tablatures
 @unnumberedsubsubsec Tablatures pour luth
-@translationof Lute tablatures
 
 @cindex luth, tablature
 @cindex tablature, luth

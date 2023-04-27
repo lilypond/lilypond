@@ -14,9 +14,8 @@
 @c Translation checkers: J.-C. Malahieude, John Mandereau
 
 
-@node Instruments à vent
+@node Wind instruments
 @section Instruments à vent
-@translationof Wind instruments
 
 @lilypondfile[quote]{snippets/wind-headword.ly}
 
@@ -24,28 +23,26 @@ Ce chapitre traite de certains aspects particuliers en matière de
 notation pour instruments à vent.
 
 @menu
-* Vue d'ensemble des instruments à vent::
-* Cornemuse::
-* Bois::
+* Common notation for wind instruments::
+* Bagpipes::
+* Woodwinds::
 @end menu
 
 
-@node Vue d'ensemble des instruments à vent
+@node Common notation for wind instruments
 @subsection Vue d'ensemble des instruments à vent
-@translationof Common notation for wind instruments
 
 Nous allons aborder ici quelques aspects communs à la plupart des
 instruments à vent.
 
 @menu
-* Références en matière d'instruments à vent::
-* Doigtés pour vents::
+* References for wind instruments::
+* Fingerings::
 @end menu
 
 
-@node Références en matière d'instruments à vent
+@node References for wind instruments
 @unnumberedsubsubsec Références en matière d'instruments à vent
-@translationof References for wind instruments
 
 @cindex instrument à vent
 @cindex vents
@@ -55,21 +52,21 @@ principalement à la respiration et à l'attaque :
 
 @itemize
 @item Les respirations s'indiquent par des silences ou des
-@ref{Signes de respiration}.
+@ref{Breath marks}.
 
 @item Un jeu @emph{legato} s'indique par des
-@ref{Liaisons d'articulation}.
+@ref{Slurs}.
 
 @item Les différents types d'attaque -- @emph{legato}, détaché ou piqué
 -- s'indiquent en principe par des signes d'articulation, parfois
 agrémentés de liaisons.  Voir à ce sujet
-@ref{Articulations et ornements} et
-@ref{Liste des signes d'articulation}.
+@ref{Articulations and ornamentations} et
+@ref{List of articulations}.
 
 @item Un @emph{Flatterzunge} (trémolo dental ou trémolo en roulant
 les r) s'indique par une marque de trémolo et une étiquette textuelle
 attachée à la note concernée.  Voir à ce sujet
-@ref{Répétitions en trémolo}.
+@ref{Tremolo repeats}.
 @end itemize
 
 D'autres aspects de la notation s'appliquent aussi aux instruments à
@@ -77,64 +74,63 @@ vent :
 
 @itemize
 @item De nombreux instruments à vent sont transpositeurs ; voir
-@ref{Instruments transpositeurs}.
+@ref{Instrument transpositions}.
 
 @item Les glissandos sont l'une des caractéristiques du trombone à
 coulisse, bien que d'autres instruments puissent y parvenir en jouant
 sur les pistons ou des clés ; consulter @ref{Glissando}.
 
 @item Des glissandos harmoniques sont réalisables par les cuivres.  Ils
-sont traditionnellement indiqués par des @ref{Notes d'ornement}.
+sont traditionnellement indiqués par des @ref{Grace notes}.
 
 @item Les inflexions en fin de note sont abordées au chapitre
-@ref{Chutes et sauts}.
+@ref{Falls and doits}.
 
 @item Les « bruitage » de clé ou de piston s'indiquent souvent par le
-style @code{cross} ou des @ref{Têtes de note spécifiques}.
+style @code{cross} ou des @ref{Special note heads}.
 
 @item Les bois peuvent émettre des harmoniques dans le bas de leur
 registre.  On les indique avec un @code{flageolet} -- voir
-@ref{Liste des signes d'articulation}.
+@ref{List of articulations}.
 
 @item En ce qui concerne les cuivres, la sourdine s'indique en principe
 par une étiquette textuelle.  Cependant, lorsque les changements sont
 nombreux et rapides, il est d'usage de recourir aux articulations
 @code{stopped} et @code{open}. Pour de plus amples détails, voir
-@ref{Articulations et ornements} et
-@ref{Liste des signes d'articulation}.
+@ref{Articulations and ornamentations} et
+@ref{List of articulations}.
 
 @item La sourdine du cor d'harmonie s'indique par un @code{stopped}.
-Voir le chapitre @ref{Articulations et ornements}.
+Voir le chapitre @ref{Articulations and ornamentations}.
 @end itemize
 
 @morerefs
 Manuel de notation :
-@ref{Articulations et ornements},
-@ref{Chutes et sauts},
+@ref{Articulations and ornamentations},
+@ref{Falls and doits},
 @ref{Glissando},
-@ref{Instruments transpositeurs},
-@ref{Liaisons d'articulation},
-@ref{Liste des signes d'articulation},
-@ref{Notes d'ornement},
-@ref{Répétitions en trémolo},
-@ref{Signes de respiration},
-@ref{Têtes de note spécifiques}.
+@ref{Instrument transpositions},
+@ref{Slurs},
+@ref{List of articulations},
+@ref{Grace notes},
+@ref{Tremolo repeats},
+@ref{Breath marks},
+@ref{Special note heads}.
 
 Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
 @endmorerefs
 
 
-@node Doigtés pour vents
+@node Fingerings
 @unnumberedsubsubsec Doigtés pour vents
-@translationof Fingerings
 
 Tout instrument à vent, hormis le trombone à coulisse, fait appel à
 plusieurs doigts pour produire un son.  Les exemples ci-dessous vous
 donnent un aperçu de différentes manières d'indiquer des doigtés.
 
 La gestion des diagrammes de doigté spécifiques aux bois est abordée
-plus en profondeur au chapitre @ref{Diagrammes pour bois}.
+plus en profondeur au chapitre @ref{Woodwind diagrams}.
 
 @snippets
 
@@ -154,28 +150,26 @@ plus en profondeur au chapitre @ref{Diagrammes pour bois}.
 
 @morerefs
 Manuel de notation :
-@ref{Diagrammes pour bois}.
+@ref{Woodwind diagrams}.
 
 Morceaux choisis :
 @rlsrnamed{Winds,Vents}.
 @endmorerefs
 
 
-@node Cornemuse
+@node Bagpipes
 @subsection Cornemuse
-@translationof Bagpipes
 
 Voici quelques informations spécifiques à la cornemuse.
 
 @menu
-* Définitions pour la cornemuse::
-* Exemple pour la cornemuse::
+* Bagpipe definitions::
+* Bagpipe example::
 @end menu
 
 
-@node Définitions pour la cornemuse
+@node Bagpipe definitions
 @unnumberedsubsubsec Définitions pour la cornemuse
-@translationof Bagpipe definitions
 
 @cindex bagpipe
 @cindex cornemuse
@@ -232,9 +226,8 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Exemple pour la cornemuse
+@node Bagpipe example
 @unnumberedsubsubsec Exemple pour la cornemuse
-@translationof Bagpipe example
 
 @cindex cornemuse : exemple
 @cindex Amazing Grace : exemple pour cornemuse
@@ -285,20 +278,18 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Bois
+@node Woodwinds
 @subsection Bois
-@translationof Woodwinds
 
 Nous allons ici nous intéresser aux spécificités de la section des bois.
 
 @menu
-* Diagrammes pour bois::
+* Woodwind diagrams::
 @end menu
 
 
-@node Diagrammes pour bois
+@node Woodwind diagrams
 @subsubsection Diagrammes pour bois
-@translationof Woodwind diagrams
 
 Les doigtés pour obtenir une note particulière peuvent s'afficher sous
 forme graphique.  LilyPond dispose de diagrammes pour la plupart des

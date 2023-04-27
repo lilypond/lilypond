@@ -49,17 +49,17 @@ Copyright @copyright{} 1998--2023 par les auteurs.
 @ifnottex
 
 @menu
-* Installation::                   installation de LilyPond
-* Tutoriel::                       introduction pratique à la gravure avec LilyPond.
-* Bases de notation musicale::     débuter avec la notation musicale courante.
-* Concepts fondamentaux::          concepts de base de LilyPond.
-* Retouche de partition::          introduction aux retouches de mise en forme.
+* Installing::                   installation de LilyPond
+* Tutorial::                       introduction pratique à la gravure avec LilyPond.
+* Common notation::     débuter avec la notation musicale courante.
+* Fundamental concepts::          concepts de base de LilyPond.
+* Tweaking output::          introduction aux retouches de mise en forme.
 
 Annexes
 
-* Modèles::                      modèles prêts à l'emploi.
+* Templates::                      modèles prêts à l'emploi.
 * GNU Free Documentation License:: licence de ce document.
-* Index de LilyPond::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -78,9 +78,8 @@ Annexes
 @include fr/learning/templates.itely
 @include en/fdl.itexi
 
-@node Index de LilyPond
+@node LilyPond index
 @appendix Index de LilyPond
-@translationof LilyPond index
 
 @printindex cp
 

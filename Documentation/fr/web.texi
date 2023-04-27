@@ -166,7 +166,7 @@ ainsi que des
 @end ifset
 
 Venez puiser l'inspiration dans notre galerie
-@ref{Exemples, d'exemples !}
+@ref{Examples, d'exemples !}
 
 @divEnd
 
@@ -176,7 +176,7 @@ Venez puiser l'inspiration dans notre galerie
 @c TODO: generate this automatically, including RSS feed.
 @include en/web/news-headlines.itexi
 
-@ref{Actualités, Actualités suivantes…}
+@ref{News, Actualités suivantes…}
 
 @divEnd
 
@@ -193,15 +193,15 @@ Venez puiser l'inspiration dans notre galerie
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Téléchargement, Téléchargemement de @versionStable}
+@ref{Download, Téléchargemement de @versionStable}
 
-@ref{Manuels, Manuels de @versionStable}
+@ref{Manuals, Manuels de @versionStable}
 
 @subheading Branche de développement
 
-@ref{Développement, Téléchargement de @versionDevel}
+@ref{Development, Téléchargement de @versionDevel}
 
-@ref{Développement, Manuels de @versionDevel}
+@ref{Development, Manuels de @versionDevel}
 
 @subheading Dépêches
 @c VO Pondings
@@ -246,9 +246,9 @@ Venez puiser l'inspiration dans notre galerie
 @divClass{hide}
 @menu
 * Introduction::        Comment créer des partitions
-* Téléchargement::      Télécharger LilyPond
-* Manuels::             Bibliothèque de LilyPond
-* Communauté::          Comment contacter d'autres utilisateurs
+* Download::      Télécharger LilyPond
+* Manuals::             Bibliothèque de LilyPond
+* Community::          Comment contacter d'autres utilisateurs
 @end menu
 @divEnd
 
@@ -356,7 +356,7 @@ page d'information}.
 @cartouche
 Si vous avez connaissance d'autres \topic\ qui mériteraient de figurer
 ici, faites le nous savoir, en suivant les instructions de la rubrique
-@ref{Signalement de bogue}.
+@ref{Bug reports}.
 
 @end cartouche
 

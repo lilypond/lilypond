@@ -13,25 +13,23 @@
 @c Translators: Jean-Charles Malahieude
 
 
-@node Programmes externes
+@node External programs
 @chapter Programmes externes
-@translationof External programs
 
 LilyPond peut interagir avec d'autres programmes, selon différentes
 manières.
 
 @menu
-* Pointer-cliquer::
-* LilyPond et les éditeurs de texte::
-* Conversion à partir d'autres formats::
-* Inclusion de partition LilyPond dans d'autres programmes::
-* Inclusion du travail des autres::
+* Point and click::
+* Text editor support::
+* Converting from other formats::
+* LilyPond output in other programs::
+* Independent includes::
 @end menu
 
 
-@node Pointer-cliquer
+@node Point and click
 @section Pointer-cliquer
-@translationof Point and click
 
 @cindex pointer-cliquer
 @cindex point and click
@@ -42,15 +40,14 @@ visionneur de PDF.  Ceci facilite grandement le repérage des erreurs à
 partir du fichier imprimable.
 
 @menu
-* Configuration du système pour le pointer-cliquer::
-* Activation du pointer-cliquer::
-* Pointer-cliquer sélectif::
+* Configuring the system for point and click::
+* Enabling point and click::
+* Selective point-and-click::
 @end menu
 
 
-@node Configuration du système pour le pointer-cliquer
+@node Configuring the system for point and click
 @subsection Configuration du système
-@translationof Configuring the system for point and click
 
 Lorsque cette fonctionnalité est active, LilyPond ajoute des hyperliens
 au fichier PDF ou SVG.  Ces liens sont transmis à un « URI helper » ou
@@ -107,14 +104,13 @@ fichier @file{~/.emacs} afin d'éviter qu'une instance supplémentaire
 d'Emacs ne s'ouvre à chaque clic sur un objet du PDF.}
 
 @menu
-* Utilisation du pointer-cliquer avec GNOME::
-* Configuration spécifique à Evince::
+* Using GNOME for point and click::
+* Extra configuration for Evince::
 @end menu
 
 
-@node Utilisation du pointer-cliquer avec GNOME
+@node Using GNOME for point and click
 @unnumberedsubsubsec Utilisation avec GNOME
-@translationof Using GNOME for point and click
 
 En ce qui concerne l'environnement GNOME, les URI sont gérés par des
 fichers « .desktop ». Il faut donc créer un fichier dans un répertoire
@@ -151,9 +147,8 @@ xdg-open textedit:///etc/issue:1:0:0
 devrait appeler @file{lilypond-invoke-editor} pour ouvrir les fichiers.
 
 
-@node Configuration spécifique à Evince
+@node Extra configuration for Evince
 @unnumberedsubsubsec Configuration spécifique à Evince
-@translationof Extra configuration for Evince
 
 @cindex Evince
 
@@ -185,9 +180,8 @@ Une telle configuration devrait être fonctionnelle pour d'autres
 visionneurs.
 
 
-@node Activation du pointer-cliquer
+@node Enabling point and click
 @unnumberedsubsec Activation du pointer-cliquer
-@translationof Enabling point and click
 
 @cindex ficher de sortie, taille
 @cindex taille du ficher de sortie
@@ -225,9 +219,8 @@ d'accès et autres informations propres à votre système ne se retrouvent
 pas inclus dans le fichier PDF.}
 
 
-@node Pointer-cliquer sélectif
+@node Selective point-and-click
 @unnumberedsubsec Pointer-cliquer sélectif
-@translationof Selective point-and-click
 
 Pour certaines applications interactives, il est parfois préférable de
 limiter la fonctionnalité du pointer-cliquer à quelques éléments
@@ -304,9 +297,8 @@ lilypond \
 @end itemize
 
 
-@node LilyPond et les éditeurs de texte
+@node Text editor support
 @section LilyPond et les éditeurs de texte
-@translationof Text editor support
 
 @cindex @'editeurs
 @cindex vim
@@ -318,15 +310,14 @@ lilypond \
 Certains éditeurs de texte prennent en charge LilyPond.
 
 @menu
-* Mode Emacs::
-* Mode Vim::
-* Autres éditeurs::
+* Emacs mode::
+* Vim mode::
+* Other editors::
 @end menu
 
 
-@node Mode Emacs
+@node Emacs mode
 @unnumberedsubsec Mode Emacs
-@translationof Emacs mode
 
 Emacs dispose d'un @file{lilypond-mode} qui fournit l'autocomplétion
 des mots-clés, l'indentation, les appariements spécifiques à LilyPond,
@@ -353,9 +344,8 @@ propre répertoire (par exemple @file{~/site-lisp/}) à votre
 @end example
 
 
-@node Mode Vim
+@node Vim mode
 @unnumberedsubsec Mode Vim
-@translationof Vim mode
 
 En ce qui concerne @uref{https://@/www@/.vim@/.org,Vim}, LilyPond
 fournit tout le nécessaire pour gérer la coloration syntaxique et
@@ -373,23 +363,21 @@ syntax on
 @noindent
 Si LilyPond est installé dans un autre répertoire que
 @file{/usr/local/}, modifiez ce chemin en conséquence.  Pour de plus
-amples détails, consultez @rlearning{Autres sources de documentation}.
+amples détails, consultez @rlearningnamed{Other sources of information, Autres sources de documentation}.
 
 
-@node Autres éditeurs
+@node Other editors
 @unnumberedsubsec Autres éditeurs
-@translationof Other editors
 
 LilyPond est pris en charge par d'autres éditeurs, aussi bien en mode
 texte qu'avec une interface graphique.  Dans la mesure où leurs fichiers
 de configuration ne sont pas fournis avec LilyPond, nous vous invitons à
 consulter leur documentation pour plus d'information.  Certains de ces
-éditeurs sont mentionnés à la page @rweb{Facilités d'édition}.
+éditeurs sont mentionnés à la page @rwebnamed{Easier editing, Facilités d'édition}.
 
 
-@node Conversion à partir d'autres formats
+@node Converting from other formats
 @section Conversion à partir d'autres formats
-@translationof Converting from other formats
 
 La musique peut aussi être récupérée par importation d'un autre
 format.  Ce chapitre passe en revue les différents outils prévus à cet
@@ -400,7 +388,7 @@ de détails, rendez-vous sur le @uref{https://@/lilypond@/.org,site}.
 
 Il s'agit de programmes distincts de @command{lilypond} qui se lancent
 en ligne de commande.  Pour plus de précisions, reportez-vous au
-chapitre @ref{Utilisation en ligne de commande}.
+chapitre @ref{Command-line usage}.
 
 
 @knownissues
@@ -411,17 +399,16 @@ peu de chance pour que nous soyons en mesure de résoudre les bogues de
 ces programmes.
 
 @menu
-* Utilisation de midi2ly::      importation de musique au format MIDI.
-* Utilisation de musicxml2ly::  importation de partitions au format MusicXML.
-* Utilisation d'abc2ly::        importation de partitions au format ABC.
-* Utilisation d'etf2ly::        importation de partitions Finale.
-* Autres formats::
+* Invoking midi2ly::      importation de musique au format MIDI.
+* Invoking musicxml2ly::  importation de partitions au format MusicXML.
+* Invoking abc2ly::        importation de partitions au format ABC.
+* Invoking etf2ly::        importation de partitions Finale.
+* Other formats::
 @end menu
 
 
-@node Utilisation de midi2ly
+@node Invoking midi2ly
 @subsection Utilisation de @code{midi2ly}
-@translationof Invoking midi2ly
 
 @cindex MIDI
 
@@ -458,7 +445,7 @@ midi2ly [@var{option}]@dots{} @var{fichier-midi}
 
 Notez bien que, par « ligne de commande », nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
-@ref{Conversion à partir d'autres formats}.
+@ref{Converting from other formats}.
 
 @command{midi2ly} accepte les options suivantes :
 
@@ -508,9 +495,8 @@ sera lue et les suivantes ignorées.  Affectez-leur une durée unique et
 ajoutez une indication de phrasé ou de pédale.
 
 
-@node Utilisation de musicxml2ly
+@node Invoking musicxml2ly
 @subsection Utilisation de @code{musicxml2ly}
-@translationof Invoking musicxml2ly
 
 @cindex MusicXML
 
@@ -528,7 +514,7 @@ musicxml2ly [@var{option}]@dots{} @var{fichier-xml}
 
 Notez bien que, par « ligne de commande », nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
-@ref{Conversion à partir d'autres formats}.
+@ref{Converting from other formats}.
 
 Si @var{fichier.xml} est remlacé par @file{-}, @command{musicxml2ly}
 lira directement à partir de la ligne de commande.
@@ -621,9 +607,8 @@ Le fichier d'entrée est un fichier MusicXML zippé.
 @end table
 
 
-@node Utilisation d'abc2ly
+@node Invoking abc2ly
 @subsection Utilisation de @code{abc2ly}
-@translationof Invoking abc2ly
 
 @warning{Ce programme ne bénéficie d'aucune maintenance.  Il est
 susceptible d'être supprimé des futures versions de LilyPond.}
@@ -695,9 +680,8 @@ ne le fait pas.
 @command{abc2ly} ignore les ligatures ABC.
 
 
-@node Utilisation d'etf2ly
+@node Invoking etf2ly
 @subsection Utilisation de @code{etf2ly}
-@translationof Invoking etf2ly
 
 @warning{Ce programme ne bénéficie d'aucune maintenance.  Il est
 susceptible d'être supprimé des futures versions de LilyPond.}
@@ -720,7 +704,7 @@ etf2ly [@var{option}]@dots{} @var{fichier-etf}
 
 Notez bien que, par « ligne de commande », nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
-@ref{Conversion à partir d'autres formats}.
+@ref{Converting from other formats}.
 
 @command{etf2ly} accepte les options suivantes :
 
@@ -741,20 +725,18 @@ perturbent @command{etf2ly}.  Les séquences de notes d'ornement ne se
 terminent pas de manière satisfaisante.
 
 
-@node Autres formats
+@node Other formats
 @subsection Autres formats
-@translationof Other formats
 
 @cindex programmes externes générant des fichiers LilyPond
 
 LilyPond ne prend pas en charge d'autre format.  Cependant, certains
 outils indépendants permettent de générer des fichiers LilyPond, comme
-indiqué à la page @rweb{Facilités d'édition}.
+indiqué à la page @rwebnamed{Easier editing, Facilités d'édition}.
 
 
-@node Inclusion de partition LilyPond dans d'autres programmes
+@node LilyPond output in other programs
 @section Inclusion de partition LilyPond dans d'autres programmes
-@translationof LilyPond output in other programs
 
 Nous allons nous intéresser ici à différents moyens d'associer texte
 et musique, en laissant de côté l'automatisation grâce à
@@ -762,14 +744,13 @@ et musique, en laissant de côté l'automatisation grâce à
 
 @menu
 * LuaTeX::
-* OpenOffice et LibreOffice::
-* Autres programmes::
+* OpenOffice and LibreOffice::
+* Other programs::
 @end menu
 
 
 @node LuaTeX
 @subsection Lua@TeX{}
-@translationof LuaTeX
 
 @cindex Lua@TeX{}
 @cindex lyluatex
@@ -780,9 +761,8 @@ l'extension
 @uref{https://github.com/jperon/lyluatex/blob/master/README.md,lyluatex}.
 
 
-@node OpenOffice et LibreOffice
+@node OpenOffice and LibreOffice
 @unnumberedsubsec OpenOffice et LibreOffice
-@translationof OpenOffice and LibreOffice
 
 @cindex OpenOffice.org
 @cindex LibreOffice.org
@@ -796,9 +776,8 @@ d'anciennes versions. Il a même été testé avec OpenOffice 2.4 sans
 problème.
 
 
-@node Autres programmes
+@node Other programs
 @unnumberedsubsec Autres programmes
-@translationof Other programs
 
 L'intégration de partitions LilyPond dans d'autre logiciels requiert que
 @command{lilypond} travaille comme @command{lilypond-book}.
@@ -891,26 +870,24 @@ sous formes de lignes de musique au lieu de pages.
 Si d'aventure vous deviez recopier un certain nombre d'extraits d'une
 même partition, vous pouvez recourir à « l'emporte pièce » -- la
 fonction @emph{clip systems} -- comme indiqué au chapitre
-@rnotation{Extraction de fragments musicaux}.
+@rnotationnamed{Extracting fragments of music, Extraction de fragments musicaux}.
 
 
-@node Inclusion du travail des autres
+@node Independent includes
 @section Inclusion du travail des autres
-@translationof Independent includes
 
 Certains utilisateurs ont, pour obtenir des effets particuliers, écrit
 des fichiers qu'il est toujours possible d'intégrer à LilyPond avec
 l'instruction @code{\include}.  Plusieurs sont même désormais inclus
-dans le programme.  Voir aussi @rnotation{Travail sur des fichiers texte}.
+dans le programme.  Voir aussi @rnotationnamed{Working with input files, Travail sur des fichiers texte}.
 
 @menu
-* MIDI et articulations::
+* MIDI articulation::
 @end menu
 
 
-@node MIDI et articulations
+@node MIDI articulation
 @subsection MIDI et articulations
-@translationof MIDI articulation
 
 @cindex MIDI
 @cindex le projet @emph{Articulate}
@@ -921,4 +898,4 @@ d'améliorer la sortie MIDI de LilyPond.  Les notes qui ne sont pas liées
 sont ainsi raccourcies dans le but « d'articuler ».  Ce raccourcissement
 dépend de l'articulation appliquée à la note : un @emph{staccato}
 raccourcira la note de moitié, un @emph{tenuto} lui gardera sa durée
-entière…  Voir @rnotation{Amélioration du rendu MIDI}.
+entière…  Voir @rnotationnamed{Enhancing MIDI output, Amélioration du rendu MIDI}.

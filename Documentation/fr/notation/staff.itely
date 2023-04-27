@@ -14,9 +14,8 @@
 @c Translation checkers: John Mandereau
 
 
-@node Notation sur la portée
+@node Staff notation
 @section Notation sur la portée
-@translationof Staff notation
 
 @c The line width is a bit of a hack to allow space for the
 @c instrument names.
@@ -29,29 +28,27 @@ d'indications globales d'exécution, présentes sur certaines portées
 seulement.
 
 @menu
-* Gravure des portées::
-* Modification de portées individuelles::
-* Écriture de parties séparées::
+* Displaying staves::
+* Modifying single staves::
+* Writing parts::
 @end menu
 
 
-@node Gravure des portées
+@node Displaying staves
 @subsection Gravure des portées
-@translationof Displaying staves
 
 Nous allons voir ici comment créer des portées et comment les regrouper.
 
 @menu
-* Initialisation de nouvelles portées::
-* Regroupement de portées::
-* Imbrication de regroupements de portées::
-* Séparation des systèmes::
+* Instantiating new staves::
+* Grouping staves::
+* Nested staff groups::
+* Separating systems::
 @end menu
 
 
-@node Initialisation de nouvelles portées
+@node Instantiating new staves
 @unnumberedsubsubsec Initialisation de nouvelles portées
-@translationof Instantiating new staves
 
 @cindex nouvelle portée
 @cindex portée, initialisation
@@ -77,7 +74,7 @@ Nous allons voir ici comment créer des portées et comment les regrouper.
 Les @notation{portées} -- en anglais @emph{staff} (@emph{staves}
 au pluriel) -- sont créées à l'aide des commandes @code{\new} ou
 @code{\context}.  Pour de plus amples détails, consultez
-@ref{Création et référencement d'un contexte}.
+@ref{Creating and referencing contexts}.
 
 Le contexte de portée standard s'appelle @code{Staff} :
 
@@ -90,7 +87,7 @@ Le contexte @code{DrumStaff} crée une portée à cinq lignes correspondant
 par un symbole spécifique.  Les éléments sont saisis en mode batterie,
 initialisé par la commande @code{\drummode}, chaque composante étant
 spécifiée par son nom.  Pour de plus amples détails, consultez
-@ref{Portées de percussion}.
+@ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
 \new DrumStaff {
@@ -101,7 +98,7 @@ spécifiée par son nom.  Pour de plus amples détails, consultez
 Un @code{RhythmicStaff} est composé d'une portée à ligne unique chargée
 de présenter les valeurs rythmiques saisies.  Seules sont imprimées les
 durées.  Pour de plus amples détails, consultez
-@ref{Gravure de lignes rythmiques}.
+@ref{Showing melody rhythms}.
 
 @lilypond[verbatim,quote]
 \new RhythmicStaff { c4 d e f }
@@ -109,7 +106,7 @@ durées.  Pour de plus amples détails, consultez
 
 Un @code{TabStaff} crée une portée de tablature correspondant aux six
 cordes d'une guitare standard.  Pour de plus amples détails, consultez
-@ref{Tablatures par défaut}.
+@ref{Default tablatures}.
 
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
@@ -117,7 +114,7 @@ cordes d'une guitare standard.  Pour de plus amples détails, consultez
 
 LilyPond dispose aussi de deux contextes dédiés à la musique
 ancienne : @code{MensuralStaff} et @code{VaticanaStaff}.  Ils sont
-abordés plus en détails au chapitre @ref{Contextes prédéfinis}.
+abordés plus en détails au chapitre @ref{Predefined contexts}.
 
 Le contexte @code{GregorianTranscriptionStaff} permet d'obtenir des
 éditions modernes du grégorien. Les @notation{divisions} apparaîtront,
@@ -129,7 +126,7 @@ mais pas les barres de mesure.
 
 Vous pourrez toujours définir d'autres contextes de portée selon vos
 besoins, en suivant les indications fournies au chapitre
-@ref{Définition de nouveaux contextes}.
+@ref{Defining new contexts}.
 
 @morerefs
 Glossaire musicologique :
@@ -137,15 +134,15 @@ Glossaire musicologique :
 @rglosnamed{staves,portées}.
 
 Manuel de notation :
-@ref{Contextes de musique mensurale},
-@ref{Contextes du chant grégorien},
-@ref{Contextes prédéfinis},
-@ref{Création et référencement d'un contexte},
-@ref{Définition de nouveaux contextes},
-@ref{Gravure de lignes rythmiques},
-@ref{Portées de percussion},
-@ref{Symbole de la portée},
-@ref{Tablatures par défaut}.
+@ref{Mensural contexts},
+@ref{Gregorian chant contexts},
+@ref{Predefined contexts},
+@ref{Creating and referencing contexts},
+@ref{Defining new contexts},
+@ref{Showing melody rhythms},
+@ref{Percussion staves},
+@ref{Staff symbol},
+@ref{Default tablatures}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
@@ -162,9 +159,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Regroupement de portées
+@node Grouping staves
 @unnumberedsubsubsec Regroupement de portées
-@translationof Grouping staves
 
 @cindex système, début de
 @cindex crochet vertical
@@ -229,7 +225,7 @@ accolade sur la gauche, et les barres de mesure sont d'un seul tenant.
 
 Le contexte @code{PianoStaff} est identique au @code{GrandStaff}, sauf
 qu'il gère automatiquement l'affichage du nom d'instrument -- voir
-@ref{Noms d'instrument} pour plus de détails.
+@ref{Instrument names} pour plus de détails.
 
 @lilypond[verbatim,quote]
 \new PianoStaff \with { instrumentName = "Piano" }
@@ -286,7 +282,7 @@ qui détermine lequel.  Un quatrième style, @code{SystemStartSquare},
 doit quant à lui être spécifié de manière explicite.
 
 Vous pouvez aussi créer vos propres contextes de regroupement, comme
-l'explique @ref{Définition de nouveaux contextes}.
+l'explique @ref{Defining new contexts}.
 
 @snippets
 
@@ -316,8 +312,8 @@ Glossaire musicologique :
 @rglosnamed{grand staff,système}.
 
 Manuel de notation :
-@ref{Définition de nouveaux contextes},
-@ref{Noms d'instrument}.
+@ref{Defining new contexts},
+@ref{Instrument names}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
@@ -335,9 +331,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Imbrication de regroupements de portées
+@node Nested staff groups
 @unnumberedsubsubsec Imbrication de regroupements de portées
-@translationof Nested staff groups
 
 @cindex portées, regroupement et imbrication
 @cindex systèmes imbriqués
@@ -366,7 +361,7 @@ délimiteur, en plus de celui du niveau supérieur.
 @end lilypond
 
 Vous pouvez aussi créer vos propres contextes d'imbrication, comme
-l'explique @ref{Définition de nouveaux contextes}.
+l'explique @ref{Defining new contexts}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -374,9 +369,9 @@ l'explique @ref{Définition de nouveaux contextes}.
 
 @morerefs
 Manuel de notation :
-@ref{Définition de nouveaux contextes},
-@ref{Noms d'instrument},
-@ref{Regroupement de portées}.
+@ref{Defining new contexts},
+@ref{Instrument names},
+@ref{Grouping staves}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
@@ -391,9 +386,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Séparation des systèmes
+@node Separating systems
 @unnumberedsubsubsec Séparation des systèmes
-@translationof Separating systems
 
 @cindex système, indicateur de séparation
 
@@ -434,16 +428,15 @@ défaut, mais vous pouvez l'activer par une option au sein du bloc
 
 @morerefs
 Manuel de notation :
-@ref{Mise en forme de la page}.
+@ref{Page layout}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
 @endmorerefs
 
 
-@node Modification de portées individuelles
+@node Modifying single staves
 @subsection Modification de portées individuelles
-@translationof Modifying single staves
 
 Cette section explique le réglage de la gravure de chaque portée,
 comme la taille de portée ou le nombre de lignes ; sont aussi
@@ -451,15 +444,14 @@ décrits la suspension et la reprise de portées, ainsi que les portées
 d'@emph{ossia}.
 
 @menu
-* Symbole de la portée::
-* Portées d'ossia::
-* Masquage de portées::
+* Staff symbol::
+* Ossia staves::
+* Hiding staves::
 @end menu
 
 
-@node Symbole de la portée
+@node Staff symbol
 @unnumberedsubsubsec Symbole de la portée
-@translationof Staff symbol
 
 @cindex symbole de portée
 @cindex portée, lignes de
@@ -540,7 +532,7 @@ personnalisée devra être en phase avec avec la ligne médiane d'une
 portée classique (0).  La position de la clef et celle du do médium
 demanderont parfois un ajustement afin d'être en phase avec cette
 nouvelle portée.  Pour plus d'explications, reportez-vous aux exemples
-du chapitre @ref{Clefs}.
+du chapitre @ref{Clef}.
 
 Lorsque vous modifierez l'épaisseur des lignes, gardez à l'esprit que
 les lignes supplémentaires et les hampes seront aussi modifiées.
@@ -642,7 +634,7 @@ Glossaire musicologique :
 @rglosnamed{staff,portée}.
 
 Manuel de notation :
-@ref{Clefs}.
+@ref{Clef}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
@@ -653,9 +645,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Portées d'ossia
+@node Ossia staves
 @unnumberedsubsubsec Portées d'ossia
-@translationof Ossia staves
 
 @cindex portée à la française
 @cindex ossia
@@ -687,7 +678,7 @@ elle se réfère, étant par ailleurs dépourvue de métrique et de clef, et
 d'une taille légèrement inférieure, vous devrez avoir recours à quelques
 retouches.  Le manuel d'initiation aborde une technique particulière
 pour obtenir ce résultat, au chapitre
-@rlearning{Expressions musicales imbriquées}.
+@rlearningnamed{Nesting music expressions, Expressions musicales imbriquées}.
 
 L'exemple qui suit utilise, pour aligner la portée d'ossia, la propriété
 @code{alignAboveContext}.  Cette méthode est tout à fait appropriée
@@ -753,7 +744,7 @@ Vous pourriez aussi recourir à la commande @code{\RemoveAllEmptyStaves}
 pour créer votre portée d'ossia.  Cependant, cette méthode reste limitée
 à l'apparition de ces ossias en début de ligne.  Pour plus d'information
 au sujet de la commande @code{\RemoveAllEmptyStaves}, reportez-vous au
-chapitre @ref{Masquage de portées}.
+chapitre @ref{Hiding staves}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -795,12 +786,12 @@ Glossaire musicologique :
 @rglos{Frenched staff}.
 
 Manuel d'initiation :
-@rlearning{Expressions musicales imbriquées},
-@rlearning{Longueur et épaisseur des objets},
-@rlearning{Taille des objets}.
+@rlearningnamed{Nesting music expressions, Expressions musicales imbriquées},
+@rlearningnamed{Length and thickness of objects, Longueur et épaisseur des objets},
+@rlearningnamed{Size of objects, Taille des objets}.
 
 Manuel de notation :
-@ref{Masquage de portées}.
+@ref{Hiding staves}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
@@ -810,9 +801,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Masquage de portées
+@node Hiding staves
 @unnumberedsubsubsec Masquage de portées
-@translationof Hiding staves
 
 @cindex Frenched scores
 @cindex masquage de portée
@@ -886,7 +876,7 @@ de contexte @code{keepAliveInterfaces} telle que définie dans le fichier
 des racourcis prédéfinis qui déterminent les propriétés telles que
 @code{remove-empty} et @code{remove-first}, attachées à l'objet
 @code{VerticalAxisGroup}, comme indiqué dans
-@ref{Identificateurs de modification de contexte}.
+@ref{Context modification identifiers}.
 
 
 Le @code{Keep_alive_together_engraver} permet de masquer l'intégralité
@@ -898,8 +888,8 @@ conducteur d'orchestre de masquer les regroupements de portées plutôt
 que de manière individuelle. Ceci s'obtient en ajoutant le
 @code{Keep_alive_together_engraver} au regroupement de portées
 considéré, comme indiqué dans
-@ref{Modification des greffons de contexte} -- voir
-@ref{Regroupement de portées} pour leur dénomination.
+@ref{Modifying context plug-ins} -- voir
+@ref{Grouping staves} pour leur dénomination.
 
 @example
 \layout @{
@@ -1041,7 +1031,7 @@ masquer d'abord les portées dont le @code{remove-layer} est plus grand.
 
 Ceci se révèle tout particulièrement utile pour une « division » de
 portée, lorsque plusieurs parties indépendantes -- voir
-@ref{Écriture de parties séparées} -- doivent momentanément se répartir
+@ref{Writing parts} -- doivent momentanément se répartir
 sur plusieurs portées. Dans l'exemple qui suit, deux parties sont
 réparties sur @emph{trois} portées ; ces trois portées n'apparaissent
 toutefois jamais simultanément :
@@ -1117,7 +1107,7 @@ violII = {
 @cindex ossia
 
 @code{\RemoveAllEmptyStaves} permet aussi de gérer des fragments d'ossia
-attachés à une portée. Pour plus de détails, voir @ref{Portées d'ossia}.
+attachés à une portée. Pour plus de détails, voir @ref{Ossia staves}.
 
 @predefined
 @code{\RemoveEmptyStaves},
@@ -1129,18 +1119,18 @@ Glossaire musicologique :
 @rglos{Frenched staff}.
 
 Manuel d'initiation :
-@rlearning{Visibilité et couleur des objets}.
+@rlearningnamed{Visibility and color of objects, Visibilité et couleur des objets}.
 
 Manuel de notation :
-@ref{Dictée à trous},
-@ref{Identificateurs de modification de contexte},
-@ref{Modification des greffons de contexte},
-@ref{Modification des réglages par défaut d'un contexte},
-@ref{Portées d'ossia},
-@ref{Regroupement de portées},
-@ref{Silences invisibles},
-@ref{Symbole de la portée},
-@ref{Visibilité des objets}.
+@ref{Hidden notes},
+@ref{Context modification identifiers},
+@ref{Modifying context plug-ins},
+@ref{Changing context default settings},
+@ref{Ossia staves},
+@ref{Grouping staves},
+@ref{Invisible rests},
+@ref{Staff symbol},
+@ref{Visibility of objects}.
 
 Fichiers d'initialisation :
 @file{ly/engraver-init.ly}.
@@ -1172,12 +1162,11 @@ graveur, recourir aux dérogations suivantes :
 
 En ce qui concerne les désagréments et messages liés à l'utilisation de
 l'instruction @code{\RemoveEmptyStaves}, consultez
-@ref{Modification des réglages par défaut d'un contexte}.
+@ref{Changing context default settings}.
 
 
-@node Écriture de parties séparées
+@node Writing parts
 @subsection Écriture de parties séparées
-@translationof Writing parts
 
 @cindex pupitre, partition de
 @cindex individuelle, partition
@@ -1192,19 +1181,18 @@ que le moyen de contracter une succession de mesures vides dans une
 partition de pupitre.
 
 Par ailleurs, une méthode pour gérer la division d'un pupitre est
-abordée à la rubrique @ref{Masquage de portées}.
+abordée à la rubrique @ref{Hiding staves}.
 
 @menu
-* Noms d'instrument::
-* Citation d'autres voix::
-* Mise en forme d'une citation::
-* Compression de mesures vides::
+* Instrument names::
+* Quoting other voices::
+* Formatting cue notes::
+* Compressing empty measures::
 @end menu
 
 
-@node Noms d'instrument
+@node Instrument names
 @unnumberedsubsubsec Noms d'instrument
-@translationof Instrument names
 
 @cindex instrument, nom
 @cindex nom d'instrument
@@ -1276,7 +1264,7 @@ Lorsque le nom d'un instrument est relativement long, il est judicieux
 d'augmenter les retraits -- @emph{indent} -- au sein du bloc
 @code{\layout} à l'aide des commandes @code{indent} et
 @code{short-indent}.  Pour plus de plus amples détails sur ces réglages,
-reportez-vous au chapitre @ref{Variables d'indentation et de décalage}.
+reportez-vous au chapitre @ref{paper variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1308,7 +1296,7 @@ Des noms d'instrument peuvent s'utiliser dans d'autres contextes, tels
 que @code{ChordNames} ou @code{FiguredBass}, dès lors qu'on leur adjoint
 le graveur @code{Instrument_name_engraver}.  Pour de plus amples
 informations sur la manière d'activer ou désactiver un graveur, voir
-@ref{Modification des greffons de contexte}.
+@ref{Modifying context plug-ins}.
 
 @cindex instrument, changement de nom
 @cindex changement de nom d'instrument
@@ -1354,8 +1342,8 @@ setFlute = {
 
 @morerefs
 Manuel de notation :
-@ref{Modification des greffons de contexte},
-@ref{Variables d'indentation et de décalage}.
+@ref{Modifying context plug-ins},
+@ref{paper variables for shifts and indents}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
@@ -1367,9 +1355,8 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Citation d'autres voix
+@node Quoting other voices
 @unnumberedsubsubsec Citation d'autres voix
-@translationof Quoting other voices
 
 @cindex réplique
 @cindex citation
@@ -1537,12 +1524,12 @@ oboeNotes = \relative {
 
 Les citations peuvent être « balisées » par un nom particulier afin de
 les utiliser de différentes manières.  Pour de plus amples détails à ce
-propos, consultez le chapitre @ref{Utilisation de balises}.
+propos, consultez le chapitre @ref{Using tags}.
 
 @morerefs
 Manuel de notation :
-@ref{Instruments transpositeurs},
-@ref{Utilisation de balises}.
+@ref{Instrument transpositions},
+@ref{Using tags}.
 
 Fichiers d'initialisation :
 @file{scm/define-event-classes.scm}.
@@ -1570,9 +1557,8 @@ Citer des triolets imbriqués peut entraîner un résultat de piètre
 qualité.
 
 
-@node Mise en forme d'une citation
+@node Formatting cue notes
 @unnumberedsubsubsec Mise en forme d'une citation
-@translationof Formatting cue notes
 
 @cindex petites notes, formater des
 @cindex réplique, formatage
@@ -1639,7 +1625,7 @@ Lorsque la situation est plus complexe, instrument transpositeur ou
 citations de plusieurs sources, vous disposez des instructions
 @code{\cueDuring} et @code{\cueDuringWithClef}, versions spécifiques de
 la commande @code{\quoteDuring} -- voir la rubrique précédente
-(@ref{Citation d'autres voix}).
+(@ref{Quoting other voices}).
 
 Leur syntaxe est :
 
@@ -1809,7 +1795,7 @@ citation.  Ceci est utile lorsque cette citation n'est pas imprimée dans
 le conducteur entre autres.  @code{killCues} supprimera les notes et
 autres événements pris en charge par @code{\cueDuring}.  Pour les
 autres annotations telles que changement de clef ou instrument concerné,
-faites appel à des balises -- voir @ref{Utilisation de balises} à ce
+faites appel à des balises -- voir @ref{Using tags} à ce
 sujet.
 
 @lilypond[verbatim,quote]
@@ -1847,12 +1833,12 @@ bassoonNotes = \relative c {
 
 @morerefs
 Manuel de notation :
-@ref{Citation d'autres voix},
-@ref{Citation-repère},
-@ref{Clefs},
-@ref{Instruments transpositeurs},
-@ref{Noms d'instrument},
-@ref{Utilisation de balises}.
+@ref{Quoting other voices},
+@ref{Musical cues},
+@ref{Clef},
+@ref{Instrument transpositions},
+@ref{Instrument names},
+@ref{Using tags}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
@@ -1871,9 +1857,8 @@ Dans le cadre d'un @code{\cueDuringWithClef} ou d'un
 après l'origine et la position.
 
 
-@node Compression de mesures vides
+@node Compressing empty measures
 @unnumberedsubsubsec Compression de mesures vides
-@translationof Compressing empty measures
 
 @cindex multimesure, note, expansion
 @cindex multimesure, note, contraction
@@ -1903,14 +1888,14 @@ Bien que la syntaxe de cette notation soit correcte, elle peut être
 déroutante d'un point de vue musical, ce qu'illustre l'exemple
 ci-dessus. C'est pourquoi l'impression des numéros de mesure devient
 nécessaire, en suivant la syntaxe indiquée dans
-@ref{Utilisation de break-visibility}.
+@ref{Using break-visibility}.
 
 @cindex multimesure, silence, expansion
 @cindex multimesure, silence, contraction
 @funindex \compressMMRests
 
 Une telle notation peut toutefois s'avérer utile lorsqu'elle
-s'applique à des @ref{Silences valant une mesure,
+s'applique à des @ref{Full measure rests,
 silences valant une mesure}. Un silence de plusieurs mesures sera alors
 affiché sous la forme d'une seule mesure contenant un symbole de silence
 multimesure surplombé du nombre de mesures de silence :
@@ -1948,7 +1933,7 @@ qu'elle doit être suivie d'une expression musicale :
 @funindex skipBars
 Toutes les commandes décrites dans ces paragraphes reposent en fait sur
 la propriété interne @code{skipBars}, qui se définit au sein du contexte
-@code{Score} comme indiqué dans @ref{La commande de fixation (set)}.
+@code{Score} comme indiqué dans @ref{The set command}.
 
 @predefined
 @code{\compressEmptyMeasures},
@@ -1973,9 +1958,9 @@ la propriété interne @code{skipBars}, qui se définit au sein du contexte
 
 @morerefs
 Manuel de notation :
-@ref{La commande de fixation (set)},
-@ref{Silences valant une mesure},
-@ref{Utilisation de break-visibility}.
+@ref{The set command},
+@ref{Full measure rests},
+@ref{Using break-visibility}.
 
 Référence des propriétés internes :
 @rinternals{MultiMeasureRest},
