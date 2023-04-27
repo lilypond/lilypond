@@ -307,10 +307,9 @@
      ((eq? font-format 'TrueType)
       ;; TrueType fonts (TTF) and TrueType Collection (TTC)
       (ly:debug (G_ "Font ~a is TrueType font, skipping...") name))
-     ((or (eq? font-format (string->symbol "Type 1"))
-          (and (eq? font-format 'CFF)
-               (ly:has-glyph-names? file-name 0)))
-      ;; Type 1 (PFA and PFB) fonts and non-CID OpenType/CFF fonts (OTF)
+     ((and (eq? font-format 'CFF)
+           (ly:has-glyph-names? file-name 0))
+      ;; Non-CID OpenType/CFF fonts (OTF)
       (let ((newpath (format #f "~a/Font/~a"
                              (ly:get-option 'font-ps-resdir) name)))
         (if (not (symlink-or-copy-if-not-exist file-name newpath))
@@ -401,11 +400,6 @@
       (if (ly:get-option 'font-ps-resdir)
           (link-ps-resdir-font name file-name font-index))
       (cond
-       ((eq? font-format (string->symbol "Type 1"))
-        ;; Type 1 (PFA and PFB) fonts
-        (begin (set! never-embed-font-list
-                     (append never-embed-font-list (list name)))
-               (ly:type1->pfa file-name)))
        ((eq? font-format 'TrueType)
         ;; TrueType fonts (TTF) and TrueType Collection (TTC)
         (ly:ttf->pfa file-name font-index))

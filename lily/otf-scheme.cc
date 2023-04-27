@@ -23,39 +23,6 @@
 #include "open-type-font.hh"
 #include "warn.hh"
 
-LY_DEFINE (ly_type1_2_pfa, "ly:type1->pfa", 1, 0, 0, (SCM type1_file_name),
-           R"(
-Convert the contents of a Type@tie{}1 font in PFB format to PFA format.  If the
-file is already in PFA format, pass it through.
-           )")
-{
-  LY_ASSERT_TYPE (scm_is_string, type1_file_name, 1);
-
-  std::string file_name = ly_scm2string (type1_file_name);
-
-  debug_output ("[" + file_name); // start message on a new line
-
-  std::string type1_string = gulp_file (file_name, 0);
-  SCM pfa_scm;
-
-  if (static_cast<Byte> (type1_string[0]) == 0x80)
-    {
-      /* The file is in PFB format. Convert it to PFA format. */
-      std::string pfa = pfb2pfa (type1_string);
-      pfa_scm = scm_from_latin1_stringn (&pfa[0], pfa.size ());
-    }
-  else
-    {
-      /* The file is in PFA format. Pass it through. */
-      pfa_scm
-        = scm_from_latin1_stringn (&type1_string[0], type1_string.size ());
-    }
-
-  debug_output ("]", false);
-
-  return pfa_scm;
-}
-
 LY_DEFINE (ly_otf_2_cff, "ly:otf->cff", 1, 1, 0, (SCM otf_file_name, SCM idx),
            R"(
 Convert the contents of an OTF file to a CFF file, returning it as a string.
