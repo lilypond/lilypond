@@ -13,9 +13,8 @@
 @c Translation status: post-GDP
 
 
-@node 譜の記譜法
+@node Staff notation
 @section 譜の記譜法
-@translationof Staff notation
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
@@ -25,30 +24,28 @@
 それに、テンポ指示と演奏指示楽節の音符を譜に付け加える方法について説明します。
 
 @menu
-* 譜を表示する::
-* 個々の譜を変更する::
-* パートを記述する::
+* Displaying staves::
+* Modifying single staves::
+* Writing parts::
 @end menu
 
 
-@node 譜を表示する
+@node Displaying staves
 @subsection 譜を表示する
-@translationof Displaying staves
 
 このセクションでは、譜を作成する方法と、@c
 譜をグループ化する方法をいくつか説明します。
 
 @menu
-* 新たに譜をインスタンス化する::
-* 譜をグループ化する::
-* ネストされた譜グループ::
-* システムを分割する::
+* Instantiating new staves::
+* Grouping staves::
+* Nested staff groups::
+* Separating systems::
 @end menu
 
 
-@node 新たに譜をインスタンス化する
+@node Instantiating new staves
 @unnumberedsubsubsec 新たに譜をインスタンス化する
-@translationof Instantiating new staves
 
 @cindex new staff (新しい譜)
 @cindex staff initiation (譜の開始)
@@ -154,9 +151,8 @@
 @rinternals{StaffSymbol}
 
 
-@node 譜をグループ化する
+@node Grouping staves
 @unnumberedsubsubsec 譜をグループ化する
-@translationof Grouping staves
 
 @cindex start of system (システムの開始)
 @cindex staff, multiple (複数の譜)
@@ -286,9 +282,8 @@
 @rinternals{SystemStartSquare}
 
 
-@node ネストされた譜グループ
+@node Nested staff groups
 @unnumberedsubsubsec ネストされた譜グループ
-@translationof Nested staff groups
 
 @cindex staff, nested (ネストされた譜)
 @cindex nesting of staves (譜をネストする)
@@ -344,9 +339,8 @@
 @rinternals{SystemStartSquare}
 
 
-@node システムを分割する
+@node Separating systems
 @unnumberedsubsubsec システムを分割する
-@translationof Separating systems
 
 @cindex system separator mark (システム分割記号)
 
@@ -396,24 +390,22 @@
 @rlsr{Staff notation}
 
 
-@node 個々の譜を変更する
+@node Modifying single staves
 @subsection 個々の譜を変更する
-@translationof Modifying single staves
 
 このセクションでは、譜の属性を変更する方法について説明します:
 例えば、譜線の本数や譜サイズを変更します。@c
 譜を開始/終了する方法とオッシア セクションをセットする方法についても記述します。
 
 @menu
-* 譜シンボル::
-* オッシア譜::
-* 譜を隠す::
+* Staff symbol::
+* Ossia staves::
+* Hiding staves::
 @end menu
 
 
-@node 譜シンボル
+@node Staff symbol
 @unnumberedsubsubsec 譜シンボル
-@translationof Staff symbol
 
 @cindex staff symbol (譜シンボル)
 @cindex staff line, stopping and starting (譜線を停止、開始する)
@@ -581,9 +573,8 @@
 @rinternals{staff-symbol-interface}
 
 
-@node オッシア譜
+@node Ossia staves
 @unnumberedsubsubsec オッシア譜
-@translationof Ossia staves
 
 @cindex staff, Frenched (隠された譜)
 @cindex ossia (オッシア)
@@ -739,9 +730,8 @@
 @rinternals{StaffSymbol}
 
 
-@node 譜を隠す
+@node Hiding staves
 @unnumberedsubsubsec 譜を隠す
-@translationof Hiding staves
 
 @cindex Frenched score (譜が隠された楽譜)
 @cindex Frenched staff (隠された譜)
@@ -861,9 +851,8 @@
 @ref{Changing context default settings} を参照してください。
 
 
-@node パートを記述する
+@node Writing parts
 @subsection パートを記述する
-@translationof Writing parts
 
 このセクションでは、楽譜に楽器名を挿入するためにしばしば必要となる、@c
 オーケストラまたはアンサンブル音楽用のパートを作成する方法について説明します。@c
@@ -871,16 +860,15 @@
 個々のパートで複数の連続する空の小節をまとめる方法についても記述します。
 
 @menu
-* 楽器名::
-* 他のボイスを引用する::
-* 合図音符をフォーマットする::
-* 空の小節を圧縮する::
+* Instrument names::
+* Quoting other voices::
+* Formatting cue notes::
+* Compressing empty measures::
 @end menu
 
 
-@node 楽器名
+@node Instrument names
 @unnumberedsubsubsec 楽器名
-@translationof Instrument names
 
 @cindex instrument name (楽器名)
 @cindex instrument name, short (短縮楽器名)
@@ -946,7 +934,7 @@
 
 しかしながら、楽器名が長い場合、@code{indent} 設定と @code{short-indent}
 設定の値を増やさない限り、譜グループの中にある楽器名は中央揃えされません。@c
-これらの設定についての詳細は @ref{シフトとインデントのための paper 変数}
+これらの設定についての詳細は @ref{\paper variables for shifts and indents}
 を参照してください。
 
 @lilypond[verbatim,quote,ragged-right]
@@ -1025,7 +1013,7 @@ setFlute = {
 
 @morerefs
 記譜法リファレンス:
-@ref{シフトとインデントのための paper 変数},
+@ref{\paper variables for shifts and indents},
 @ref{Modifying context plug-ins}
 
 コード断片集:
@@ -1037,9 +1025,8 @@ setFlute = {
 @rinternals{Staff}
 
 
-@node 他のボイスを引用する
+@node Quoting other voices
 @unnumberedsubsubsec 他のボイスを引用する
-@translationof Quoting other voices
 
 @cindex quote, voices (ボイスの引用)
 @cindex voice, quoting (ボイスを引用する)
@@ -1234,9 +1221,8 @@ LilyPond がクラッシュする可能性さえあります。
 ネストされた連符を引用しようとしてもうまくいきません。
 
 
-@node 合図音符をフォーマットする
+@node Formatting cue notes
 @unnumberedsubsubsec 合図音符をフォーマットする
-@translationof Formatting cue notes
 
 @cindex cue note (合図音符)
 @cindex fragment (楽曲の断片)
@@ -1539,9 +1525,8 @@ bassoonNotes = \relative c {
 追加で必要となる引数は引用と向きの後に配置する必要があります。
 
 
-@node 空の小節を圧縮する
+@node Compressing empty measures
 @unnumberedsubsubsec 空の小節を圧縮する
-@translationof Compressing empty measures
 
 @cindex multi-measure notes, expanding (複数小節にまたがる音符を展開する)
 @cindex multi-measure notes, contracting (複数小節にまたがる音符をまとめる)

@@ -15,7 +15,6 @@
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
 @chapter @command{lilypond-book} を実行する
-@translationof lilypond-book
 
 ドキュメントに楽譜の画像を追加したければ、他のタイプの画像を追加する@c
 のと同じ方法で追加することができます。@c
@@ -52,20 +51,19 @@ Windows や Mac OS X のコマンド ラインを用いて @code{lilypond-book} 
 @cindex LaTeX, adding music (LaTeX に楽譜を追加する)
 
 @menu
-* 音楽学のドキュメントの例::
-* 楽譜とテキストを統合する::
-* 楽譜断片オプション::
-* lilypond-book を呼び出す::
-* ファイル拡張子::
-* lilypond-book テンプレート::
-* 目次を共有する::
-* テキストと楽譜を組み合わせる他の方法::
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* lilypond-book templates::
+* Sharing the table of contents::
+* Alternative methods of mixing text and music::
 @end menu
 
 
-@node 音楽学のドキュメントの例
+@node An example of a musicological document
 @section 音楽学のドキュメントの例
-@translationof An example of a musicological document
 
 @cindex musicology (音楽学)
 テキストのなかには楽譜の例を保持しているものがあります。@c
@@ -190,9 +188,8 @@ c'4 f16
 @page
 
 
-@node 楽譜とテキストを統合する
+@node Integrating music and text
 @section 楽譜とテキストを統合する
-@translationof Integrating music and text
 
 LilyPond をさまざまな出力フォーマットと統合する方法を説明します。
 
@@ -205,7 +202,6 @@ LilyPond をさまざまな出力フォーマットと統合する方法を説�
 
 @node LaTeX
 @subsection @LaTeX{}
-@translationof LaTeX
 
 @LaTeX{} は物理学や化学等の出版のデファクト スタンダードです。@c
 @LaTeX{} は @TeX{} 植字エンジン上に構築され、最高品位の活版印刷術を@c
@@ -426,7 +422,6 @@ kpsewhich feta20.tex
 
 @node Texinfo
 @subsection Texinfo
-@translationof Texinfo
 
 Texinfo は GNU プロジェクトのドキュメントのデフォルト フォーマットです。@c
 Texinfo ドキュメントの例の 1 つはこのマニュアルです。@c
@@ -512,7 +507,6 @@ c' d' e' f' g'2 g'
 
 @node HTML
 @subsection HTML
-@translationof HTML
 
 @code{lilypond-book} は楽譜を HTML ファイルに組み込むために以下の@c
 コマンドと環境を提供します:
@@ -596,7 +590,6 @@ LilyPond ファイルではなく MusicXML ファイルを参照します。
 
 @node DocBook
 @subsection DocBook
-@translationof DocBook
 
 LilyPond 断片を組み込む場合、DocBook ドキュメントとの適合を保つべきです。@c
 そうすることで、DocBook のエディタや検証機能等を使うことができます。@c
@@ -665,9 +658,8 @@ LilyPond 断片を組み込む場合、DocBook ドキュメントとの適合を
 を生成することが可能ですが、カスタマイズが必要かもしれません。
 
 
-@node 楽譜断片オプション
+@node Music fragment options
 @section 楽譜断片オプション
-@translationof Music fragment options
 
 以下では、@q{LilyPond コマンド} は、これまでのセクションで説明した@c
 楽譜断片を作り出すために @command{lilypond-book} によって処理される@c
@@ -884,9 +876,8 @@ HTML 出力では、これはリンクになります。@c
 @end table
 
 
-@node lilypond-book を呼び出す
+@node Invoking lilypond-book
 @section @command{lilypond-book} を呼び出す
-@translationof Invoking lilypond-book
 
 @command{lilypond-book} は出力形式に応じて以下の拡張子の 1 つを持つ@c
 ファイルを生成します: @file{.tex}, @file{.texi}, @file{.html}, あるいは
@@ -1137,9 +1128,8 @@ Texinfo コマンド @code{@@pagesizes} は解釈されません。@c
 LilyPond ブロックの最初の @code{\score} だけが処理されます。
 
 
-@node ファイル拡張子
+@node Filename extensions
 @section ファイル拡張子
-@translationof Filename extensions
 
 入力ファイルに対して任意のファイル拡張子を使うことができます。@c
 しかしながら、ある形式のファイルに対して推奨する拡張子を使わなかった場合、@c
@@ -1174,9 +1164,8 @@ LilyPond ブロックの最初の @code{\score} だけが処理されます。
 メッセージが表示されて、終了します。
 
 
-@node lilypond-book テンプレート
+@node lilypond-book templates
 @section lilypond-book テンプレート
-@translationof lilypond-book templates
 
 以下に示すテンプレートは @code{lilypond-book} で使います。@c
 @code{lilypond-book} に馴染みが無いのであれば、@ref{lilypond-book} を@c
@@ -1322,9 +1311,8 @@ unterst__tzt werden.
 @end verbatim
 
 
-@node 目次を共有する
+@node Sharing the table of contents
 @section 目次を共有する
-@translationof Sharing the table of contents
 
 この機能はすでに OrchestralLily パッケージで用意されています:
 
@@ -1427,9 +1415,8 @@ LaTeX ファイルのヘッダ中に以下を記述します:
 @end smallexample
 
 
-@node テキストと楽譜を組み合わせる他の方法
+@node Alternative methods of mixing text and music
 @section テキストと楽譜を組み合わせる他の方法
-@translationof Alternative methods of mixing text and music
 
 @command{lilypond-book} を使わずにテキストと楽譜を組み合わせる方法を
 @ref{LilyPond output in other programs} で説明しています。

@@ -9,9 +9,8 @@
 
 @c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada, Yoshinobu Ishizaki
 
-@node 導入部
+@node Introduction
 @unnumbered 導入部
-@translationof Introduction
 
 @divClass{column-center-top}
 @subheading 我々のゴール
@@ -44,16 +43,16 @@ LilyPond のきっかけは2人の音楽仲間がコンピュータで印刷し�
 @itemize
 
 @item
-@ref{特徴}: LilyPond で何ができるのか？
+@ref{Features}: LilyPond で何ができるのか？
 
 @item
-@ref{例}: 実際に楽譜を見てみたい！
+@ref{Examples}: 実際に楽譜を見てみたい！
 
 @item
-@ref{自由}: LilyPond はフリー ソフトウェアです。
+@ref{Freedom}: LilyPond はフリー ソフトウェアです。
 
 @item
-@ref{バックグラウンド}: 我々のコンピュータ審美学。
+@ref{Background}: 我々のコンピュータ審美学。
 
 @end itemize
 @divEnd
@@ -64,10 +63,10 @@ LilyPond のきっかけは2人の音楽仲間がコンピュータで印刷し�
 @itemize
 
 @item
-@ref{成果物}: LilyPond の実際の使用例。
+@ref{Productions}: LilyPond の実際の使用例。
 
 @item
-@ref{人々の評価}: 人々は何と言っている？
+@ref{Reviews}: 人々は何と言っている？
 
 @end itemize
 @divEnd
@@ -78,10 +77,10 @@ LilyPond のきっかけは2人の音楽仲間がコンピュータで印刷し�
 @itemize
 
 @item
-@ref{テキスト入力}: 楽譜を @emph{テキスト} で記述する？！
+@ref{Text input}: 楽譜を @emph{テキスト} で記述する？！
 
 @item
-@ref{より簡単な編集手段}: LilyPond に取り組むための他の方法。
+@ref{Easier editing}: LilyPond に取り組むための他の方法。
 
 @end itemize
 @divEnd
@@ -93,22 +92,21 @@ LilyPond のきっかけは2人の音楽仲間がコンピュータで印刷し�
 @c menu. -JM
 @divClass{hide}
 @menu
-* 特徴::                    LilyPond は何ができるの?
-* 例::                      楽譜を見てみたい！
-* 自由::                    自由と GPL。
-* バックグラウンド::        コンピュータ審美学。
-* 成果物::                  LilyPond の実際の使用例。
-* 人々の評価::              人々は何と言っている？
-* テキスト入力::            楽譜をテキストで記述する？！
-* より簡単な編集手段::      LilyPond に取り組むための他の方法。
+* Features::                    LilyPond は何ができるの?
+* Examples::                      楽譜を見てみたい！
+* Freedom::                    自由と GPL。
+* Background::        コンピュータ審美学。
+* Productions::                  LilyPond の実際の使用例。
+* Reviews::              人々は何と言っている？
+* Text input::            楽譜をテキストで記述する？！
+* Easier editing::      LilyPond に取り組むための他の方法。
 @end menu
 @divEnd
 
 
 
-@node 特徴
+@node Features
 @unnumberedsec 特徴
-@translationof Features
 @divClass{column-center-top}
 
 
@@ -125,7 +123,7 @@ LilyPond の書式設定、フォント デザイン、それにアルゴリズ�
 手で譜刻された最高品質の楽譜を参考にしています。@c
 LilyPond の出力は、最高の職人によって作られた伝統的な楽譜と同じくらい、@c
 力強く、バランスがとれていて、美しい見栄えがします。@c
-これらのことについて、@ref{エッセー} でさらに説明しています。
+これらのことについて、@ref{Essay} でさらに説明しています。
 
 
 @divEnd
@@ -142,7 +140,7 @@ LilyPond は楽譜 @emph{コンテンツ} に関するすべての情報を含�
 テキスト入力を処理します。@c
 メニューやバイナリファイルに隠された不明瞭な設定はありません。
 
-@ref{テキスト入力} のコンセプトをもっと読む。
+@ref{Text input} のコンセプトをもっと読む。
 
 
 @subsubheading 堅牢で追跡可能な微調整
@@ -214,7 +212,7 @@ LilyPond のコードを様々なブログ、Wiki で使用可能にする@c
 盲目のユーザでさえも、読み上げソフトウェアを使って、@c
 LilyPond ファイルを記述することができます
 -- これは、グラフィカル ベースの楽譜作成プログラムでは不可能なことです。@c
-壮観な楽譜の @ref{例} を見てください。
+壮観な楽譜の @ref{Examples} を見てください。
 
 @subsubheading 多様な編集方法
 @c Editor diversity
@@ -226,7 +224,7 @@ LilyPond ファイルの編集プロセスをより早く、より効率的に�
 異なるタスクのために様々なツールを使うことができます。@c
 自宅では本格的な LilyPond エディタを使い、@c
 外出先では携帯電話のメモ帳アプリを使ってファイルを編集することができます。@c
-@ref{より簡単な編集手段} で例を挙げます。
+@ref{Easier editing} で例を挙げます。
 @c TODO: Change this when the new pages have been written and pushed
 
 
@@ -303,7 +301,7 @@ LilyPond ユーザー メーリング リストで質問に答えてくれる@c
 鮮やかな解決策が開発されます。@c
 開発チームの密接な対応のおかげで、そのような解決策はきちんと LilyPond へ@c
 取り込まれます。@c
-@ref{コミュニティ} についてもっと読む。
+@ref{Community} についてもっと読む。
 
 
 @subsubheading フリー ソフトウェア
@@ -317,7 +315,7 @@ LilyPond は (口語的な意味でも) フリーなソフトウェアです。@
 ソース コードが公開されており、変更もコピーも認められています。@c
 ですから、バグにいらいらしていたり、仕様面で不満があるのなら、@c
 自分でそれを追加したり、他の人にそれを注文することが出来ます。
-@ref{自由} についてもっと読む。
+@ref{Freedom} についてもっと読む。
 
 @divEnd
 @divClass{column-center-bottom}
@@ -325,16 +323,15 @@ LilyPond は (口語的な意味でも) フリーなソフトウェアです。@
 @c Where now?
 
 まだ迷っていますか？@c
-ちょっとした @ref{例} をいくつか見てください。@c
+ちょっとした @ref{Examples} をいくつか見てください。@c
 LilyPond を試してみる決心がついたのなら、@c
-まず @ref{テキスト入力} を読んでください。
+まず @ref{Text input} を読んでください。
 @divEnd
 
 
 
-@node 例
+@node Examples
 @unnumberedsec 例
-@translationof Examples
 
 @divClass{column-center-top}
 
@@ -508,15 +505,14 @@ Stockhausen の Klavierstück II からの短い抜粋です。
 @c Where now?
 
 まだ迷っていますか？@c
-LilyPond は @ref{自由} をもたらすフリー ソフトウェアです。@c
+LilyPond は @ref{Freedom} をもたらすフリー ソフトウェアです。@c
 LilyPond を試してみる決心がついたのなら、@c
-まず @ref{テキスト入力} を読んでください。
+まず @ref{Text input} を読んでください。
 @divEnd
 
 
-@node 自由
+@node Freedom
 @unnumberedsec 自由
-@translationof Freedom
 
 @divClass{column-center-top}
 @subheading フリー ソフトウェア
@@ -624,16 +620,15 @@ LilyPond にはこういったこととは無縁です。@c
 @c Where now?
 
 まだ迷っていますか？@c
-@ref{バックグラウンド} で我々の譜刻哲学についての広範囲な@c
+@ref{Background} で我々の譜刻哲学についての広範囲な@c
 エッセーを読んでください。
 LilyPond を試してみる決心がついたのなら、@c
-まず @ref{テキスト入力} を読んでください。
+まず @ref{Text input} を読んでください。
 @divEnd
 
 
-@node バックグラウンド
+@node Background
 @unnumberedsec バックグラウンド
-@translationof Background
 
 @divClass{column-center-top}
 @subheading バックグラウンド エッセー
@@ -644,7 +639,7 @@ LilyPond を試してみる決心がついたのなら、@c
 これは、私たちの基本的なアイディアの深い議論に興味があるならば、@c
 面白い読み物です。@c
 分量があるので「マニュアル」で読むことができます。@c
-今、このエッセーを読もうと思うのならば、@ref{エッセー} に進んでください。@c
+今、このエッセーを読もうと思うのならば、@ref{Essay} に進んでください。@c
 LilyPond についての簡単な紹介を望むのであれば、@c
 今は飛ばしてください。
 @divEnd
@@ -654,15 +649,14 @@ LilyPond についての簡単な紹介を望むのであれば、@c
 @c Where now?
 
 まだ迷っていますか？@c
-ユーザの @ref{成果物} と楽譜について読んでみてください。
+ユーザの @ref{Productions} と楽譜について読んでみてください。
 LilyPond を試してみる決心がついたのなら、@c
-まず @ref{テキスト入力} を読んでください。
+まず @ref{Text input} を読んでください。
 @divEnd
 
 
-@node 成果物
+@node Productions
 @unnumberedsec 成果物
-@translationof Productions
 
 @divClass{column-center-top}
 
@@ -854,7 +848,7 @@ Mutopia ライブラリ全作品のソースファイル。
 
 @item
 @uref{https://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples, LilyPond Web サイトの例}:
-@ref{例}で示した楽譜ギャラリーのソースファイル。
+@ref{Examples}で示した楽譜ギャラリーのソースファイル。
 
 @item
 @uref{https://github.com/nsceaux/nenuvar, Nicolas Sceaux}:
@@ -872,17 +866,16 @@ LilyPond 開発者の一人が組版したバロック音楽の楽譜。
 @c Where now?
 
 まだ迷っていますか？@c
-ユーザの @ref{人々の評価} を読んでみてください。
+ユーザの @ref{Reviews} を読んでみてください。
 LilyPond を試してみる決心がついたのなら、@c
-まず @ref{テキスト入力} を読んでください。
+まず @ref{Text input} を読んでください。
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
 @c https://lilypond.org/productions.html
 
-@node 人々の評価
+@node Reviews
 @unnumberedsec 人々の評価
-@translationof Reviews
 
 @divClass{column-center-top}
 @subheading 人々は LilyPond についてなんといっているか？
@@ -1189,14 +1182,13 @@ LilyPond は、特に「標準」的でない場合に、最終的に望み通�
 @subheading どうですか？
 @c Where now?
 
-@ref{テキスト入力} を読んでください。
+@ref{Text input} を読んでください。
 @divEnd
 
 
 
-@node テキスト入力
+@node Text input
 @unnumberedsec テキスト入力
-@translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
 @c https://lilypond.org/web/switch/howto
@@ -1284,14 +1276,14 @@ LilyPondがどこに臨時記号を付けるかを判断します。
 
 多くのユーザがこのような方法で楽譜を入力することに違和感を覚えます。@c
 そのため、新しいユーザを援助するために、@c
-@ref{学習} から始まる広範囲なドキュメントを用意してあります。@c
+@ref{Learning} から始まる広範囲なドキュメントを用意してあります。@c
 学習マニュアルは LilyPond を始めるのにぴったりです。@c
 ユーザが感じるであろう疑問に対する答えをたくさん含んでいます。
 
 時には新しいユーザが LilyPond の挙動の様子に混乱させられることがあります。@c
 LilyPond が正しく動作しているか疑う前に、学習マニュアルを読んでください。@c
 
-もっと掘り下げた情報が @ref{マニュアル} にあります。
+もっと掘り下げた情報が @ref{Manuals} にあります。
 
 LilyPond ユーザの Ben Lemon は、ブログに新規ユーザのための
 @uref{https://benl.xyz/lilypond/operation-lilypond,ビデオチュートリアル}
@@ -1314,7 +1306,7 @@ LilyPond は元来、最高品質の楽譜を作り出すことを目的とし�
 それに作成済みのテンプレートを用意しています。
 また、他のプログラムでは、グラフィカルな楽譜を直接操作することができる
 GUI を提供しているものもあります。@c
-更なる情報は、@ref{より簡単な編集手段} を読んでください。
+更なる情報は、@ref{Easier editing} を読んでください。
 
 
 @divEnd
@@ -1325,14 +1317,13 @@ GUI を提供しているものもあります。@c
 
 @ref{Download, LilyPond をダウンロードする} ところまで来ました。@c
 まだ迷っていますか？@c
-@ref{より簡単な編集手段} を読んでください。
+@ref{Easier editing} を読んでください。
 
 @divEnd
 
 
-@node より簡単な編集手段
+@node Easier editing
 @unnumberedsec より簡単な編集手段
-@translationof Easier editing
 
 @ignore
 GNU policy forbids us from linking to non-Free software, so don't
@@ -1476,7 +1467,7 @@ Emacs に慣れていない場合、LilyPond 入力ファイルを書くため�
 別のエディタを使うこともできます。
 
 Emacs をセットアップするための更なる情報が
-@rprogram{テキスト エディタ サポート} にあります。
+@rprogramnamed{Text editor support, テキスト エディタ サポート} にあります。
 
 @subsubheading Vim
 @uref{https://www.vim.org}
@@ -1488,7 +1479,7 @@ Vi に慣れていない場合、LilyPond 入力ファイルを書くために�
 別のエディタを使うこともできます。
 
 Vim をセットアップするための更なる情報が
-@rprogram{テキスト エディタ サポート} にあります。
+@rprogramnamed{Text editor support, テキスト エディタ サポート} にあります。
 
 @sourceimage{logo-macosx,,}
 @subsubheading TeXShop
@@ -1653,11 +1644,11 @@ LilyPond コードのエクスポートが可能です。
 経験を積んだユーザは、LilyPond を使うことで、@c
 ピアノやマウス＆GUI を使うよりも短時間で総譜を入力できると@c
 レポートしてさえいます！@c
-LilyPond が提供する @ref{特徴}, @ref{例}, あるいは @ref{自由} を@c
+LilyPond が提供する @ref{Features}, @ref{Examples}, あるいは @ref{Freedom} を@c
 読み返してみてください。@c
-また、ユーザの @ref{成果物} と @ref{人々の評価} を読んでみてください。@c
+また、ユーザの @ref{Productions} と @ref{Reviews} を読んでみてください。@c
 さらに、伝統的な譜刻の審美性をコンピュータで実現するための@c
-我々のアプローチが @ref{バックグラウンド} で説明されています。
+我々のアプローチが @ref{Background} で説明されています。
 
 @divEnd
 

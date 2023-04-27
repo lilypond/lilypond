@@ -13,9 +13,8 @@
 @c Translation status: post-GDP
 
 
-@node キーボードと他の複数譜の楽器
+@node Keyboard and other multi-staff instruments
 @section キーボードと他の複数譜の楽器
-@translationof Keyboard and other multi-staff instruments
 
 @lilypondfile[quote]{snippets/keyboard-headword.ly}
 
@@ -26,28 +25,26 @@
 @qq{キーボード} と呼びます。
 
 @menu
-* キーボードで共通の記譜法::
-* ピアノ::
-* アコーディオン::
-* ハープ::
+* Common notation for keyboards::
+* Piano::
+* Accordion::
+* Harp::
 @end menu
 
-@node キーボードで共通の記譜法
+@node Common notation for keyboards
 @subsection キーボードで共通の記譜法
-@translationof Common notation for keyboards
 
 このセクションでは多くのキーボードで生じる記譜の問題について説明します。
 
 @menu
-* キーボードのためのリファレンス::
-* 譜を手動で変更する::
-* 譜を自動で変更する::
-* 譜変更線::
+* References for keyboards::
+* Changing staff manually::
+* Changing staff automatically::
+* Staff-change lines::
 @end menu
 
-@node キーボードのためのリファレンス
+@node References for keyboards
 @unnumberedsubsubsec キーボードのためのリファレンス
-@translationof References for keyboards
 
 @cindex piano staff (ピアノ譜)
 @cindex staff, piano (ピアノ譜)
@@ -78,37 +75,37 @@
 
 @item 通常、キーボードは複数のボイスを持ち、@c
 ボイスの数はしょっちゅう変わります。@c
-このことは @ref{衝突の解決} で説明しています。
+このことは @ref{Collision resolution} で説明しています。
 
-@item @ref{音楽を並列に記述する} で説明しているように、@c
+@item @ref{Writing music in parallel} で説明しているように、@c
 キーボードは並列に記述することができます。
 
 @item 強弱指示を 2 つの @code{Staff} コンテキストの間にある
 @code{Dynamics} コンテキストの中に配置して、@c
 強弱記号を 2 つの譜の間に配置することができます。@c
-@ref{強弱記号} を参照してください。
+@ref{Dynamics} を参照してください。
 
-@item 運指は @ref{運指の指示} で説明しています。
+@item 運指は @ref{Fingering instructions} で説明しています。
 
 @item オルガン ペダルの指示はアーティキュレーションとして挿入します。@c
 @ref{List of articulations} を参照してください。
 
-@item @ref{グリッド ライン} で垂直のグリッド ラインを表示させることができます。
+@item @ref{Grid lines} で垂直のグリッド ラインを表示させることができます。
 
 @item キーボードはしばしばアルペジオでのタイや、@c
 @notation{レセ ヴィブレ} タイを持ちます。@c
-@ref{タイ} で説明しています。
+@ref{Ties} で説明しています。
 
 @item 複数のボイスや譜を跨ぐアルペジオの配置は、@c
-@ref{アルペジオ} でカバーしています。
+@ref{Arpeggio} でカバーしています。
 
-@item トレモロ記号は @ref{トレモロの繰り返し} で説明しています。
+@item トレモロ記号は @ref{Tremolo repeats} で説明しています。
 
 @item キーボードで必要となる可能性がある調整のいくつかを
-@rlearning{実際の音楽からの例} で示しています。
+@rlearningnamed{Real music example, 実際の音楽からの例} で示しています。
 
 @item ボイスを跨ぐタイを作り出すために隠れた音符を使うことがあります。@c
-@rlearning{調整のその他の使用方法} で示しています。
+@rlearningnamed{Other uses for tweaks, 調整のその他の使用方法} で示しています。
 
 @end itemize
 
@@ -136,9 +133,8 @@
 @rlsr{Keyboards}
 
 
-@node 譜を手動で変更する
+@node Changing staff manually
 @unnumberedsubsubsec 譜を手動で変更する
-@translationof Changing staff manually
 
 @cindex changing staff manually (譜を手動で変更する)
 @cindex manual staff change (手動の譜の変更)
@@ -213,7 +209,7 @@
 
 連桁を調整する必要がある場合、符幹の向きの変更を最初に行ってください。@c
 連桁の位置は最も近い譜の中央から算出します。@c
-連桁の調整の簡単な例が @rlearning{表記の重なりを修正する} にあります。
+連桁の調整の簡単な例が @rlearningnamed{Fixing overlapping notation, 表記の重なりを修正する} にあります。
 
 @cindex cross-staff collision (譜を跨ぐボイスによる衝突)
 @cindex collision, cross-staff voices (譜を跨ぐボイスによる衝突)
@@ -253,7 +249,7 @@
 符幹やアーティキュレーションに対しても、@c
 自動衝突解決は抑制されます。@c
 そのような場合、必要に応じて、手動で衝突を解決する必要があります
--- 解決手段は @rlearning{表記の重なりを修正する} を参照してください。
+-- 解決手段は @rlearningnamed{Fixing overlapping notation, 表記の重なりを修正する} を参照してください。
 
 @morerefs
 学習マニュアル:
@@ -277,9 +273,8 @@
 衝突回避を行うには、手動連桁を使用してください。
 
 
-@node 譜を自動で変更する
+@node Changing staff automatically
 @unnumberedsubsubsec 譜を自動で変更する
-@translationof Changing staff automatically
 
 @cindex changing staff automatically (譜を自動で変更する)
 @cindex automatic staff change (譜の自動変更)
@@ -386,9 +381,8 @@ music = {
 和音構造の中にある最初の音符に基づく譜に割り当てられます。
 
 
-@node 譜変更線
+@node Staff-change lines
 @unnumberedsubsubsec 譜変更線
-@translationof Staff-change lines
 
 @cindex staff-change line (譜変更線)
 @cindex cross-staff line (譜跨ぎ線)
@@ -491,19 +485,17 @@ music = {
 @rinternals{Stem}
 
 
-@node ピアノ
+@node Piano
 @subsection ピアノ
-@translationof Piano
 
 このセクションでは、ピアノに関係する記譜法を説明します。
 
 @menu
-* ピアノ ペダル::
+* Piano pedals::
 @end menu
 
-@node ピアノ ペダル
+@node Piano pedals
 @unnumberedsubsubsec ピアノ ペダル
-@translationof Piano pedals
 
 @cindex piano pedal (ピアノ ペダル)
 @cindex pedal, piano (ピアノ ペダル)
@@ -598,21 +590,19 @@ music = {
 @rinternals{Piano_pedal_engraver}
 
 
-@node アコーディオン
+@node Accordion
 @subsection アコーディオン
-@translationof Accordion
 
 @cindex accordion (アコーディオン)
 
 このセクションでは、アコーディオンに特有の記譜法について説明します。
 
 @menu
-* ディスカント記号::
+* Discant symbols::
 @end menu
 
-@node ディスカント記号
+@node Discant symbols
 @unnumberedsubsubsec ディスカント記号
-@translationof Discant symbols
 
 @cindex accordion discant symbol (アコーディオンのディスカント記号)
 @cindex discant symbol, accordion (アコーディオンのディスカント記号)
@@ -643,20 +633,18 @@ music = {
 @rlsr{Keyboards}
 
 
-@node ハープ
+@node Harp
 @subsection ハープ
-@translationof Harp
 
 このセクションでは、ハープに特有の記譜法について説明します。
 
 @menu
-* ハープのためのリファレンス::
-* ハープ ペダル::
+* References for harps::
+* Harp pedals::
 @end menu
 
-@node ハープのためのリファレンス
+@node References for harps
 @unnumberedsubsubsec ハープのためのリファレンス
-@translationof References for harps
 
 @cindex harp (ハープ)
 @cindex bisbigliando (ビズビッリャンド)
@@ -666,16 +654,16 @@ music = {
 @itemize
 
 @item グリッサンドは最も特徴的なハープのテクニックです
--- @ref{グリッサンド}。
+-- @ref{Glissando}。
 
 @item @notation{ビズビッリャンド} (@notation{bisbigliando}) は@c
 トレモロとして記述されます
--- @ref{トレモロの繰り返し}。
+-- @ref{Tremolo repeats}。
 
-@item ナチュラル ハーモニクスは @ref{ハーモニクス} でカバーされています。
+@item ナチュラル ハーモニクスは @ref{Harmonics} でカバーされています。
 
 @item アルペジオの向きと非アルペジオについては、@c
-@ref{アルペジオ} を参照してください。
+@ref{Arpeggio} を参照してください。
 
 @end itemize
 
@@ -687,9 +675,8 @@ music = {
 @ref{Harmonics}
 
 
-@node ハープ ペダル
+@node Harp pedals
 @unnumberedsubsubsec ハープ ペダル
-@translationof Harp pedals
 
 @cindex harp pedal (ハープ ペダル)
 @cindex harp pedal diagram (ハープ ペダル ダイアグラム)
@@ -730,5 +717,5 @@ c''!1_\markup { \harp-pedal "^o--|vv-^" }
 
 @morerefs
 記譜法リファレンス:
-@ref{テキスト スクリプト},
+@ref{Text scripts},
 @ref{Instrument-specific markup}

@@ -12,9 +12,8 @@
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
-@node フレットのある弦楽器
+@node Fretted string instruments
 @section フレットのある弦楽器
-@translationof Fretted string instruments
 
 @lilypondfile[quote]{snippets/fretted-headword.ly}
 
@@ -28,32 +27,30 @@
 @cindex banjo tablature (バンジョー タブ譜)
 
 @menu
-* フレットのある弦楽器で共通の記譜法::
-* ギター::
-* バンジョー::
-* リュート::
+* Common notation for fretted strings::
+* Guitar::
+* Banjo::
+* Lute::
 @end menu
 
-@node フレットのある弦楽器で共通の記譜法
+@node Common notation for fretted strings
 @subsection フレットのある弦楽器で共通の記譜法
-@translationof Common notation for fretted strings
 
 このセクションでは、フレットのある弦楽器で共通する記譜法について説明します。
 
 @menu
-* フレットのある弦楽器のためのリファレンス::
-* 弦番号の指示::
-* デフォルトのタブ譜::
-* カスタム タブ譜::
-* フレット ダイアグラム マークアップ::
-* あらかじめ定義されたフレット ダイアグラム::
-* 自動フレット ダイアグラム::
-* 右手の運指::
+* References for fretted strings::
+* String number indications::
+* Default tablatures::
+* Custom tablatures::
+* Fret diagram markups::
+* Predefined fret diagrams::
+* Automatic fret diagrams::
+* Right-hand fingerings::
 @end menu
 
-@node フレットのある弦楽器のためのリファレンス
+@node References for fretted strings
 @unnumberedsubsubsec フレットのある弦楽器のためのリファレンス
-@translationof References for fretted strings
 
 フレットのある弦楽器の演奏は通常、単一の譜で、@c
 伝統的な音楽記譜法あるいはタブ譜で記譜されます。@c
@@ -92,9 +89,8 @@
 @ref{Instrument transpositions}
 
 
-@node 弦番号の指示
+@node String number indications
 @unnumberedsubsubsec 弦番号の指示
-@translationof String number indications
 
 @cindex string number (弦番号)
 @cindex string vs. fingering number (弦 vs. 指番号)
@@ -168,9 +164,8 @@ g1\4
 @rinternals{Fingering}
 
 
-@node デフォルトのタブ譜
+@node Default tablatures
 @unnumberedsubsubsec デフォルトのタブ譜
-@translationof Default tablatures
 
 @cindex tablature, basic (基本的なタブ譜)
 @cindex tablature, default (デフォルトのタブ譜)
@@ -561,9 +556,8 @@ melodia = \partCombine { e4 g g g } { e4 e e e }
 ギターの特殊効果はハーモニクスとスライドに制限されています。
 
 
-@node カスタム タブ譜
+@node Custom tablatures
 @unnumberedsubsubsec カスタム タブ譜
-@translationof Custom tablatures
 
 @cindex tablature, custom (カスタム タブ譜)
 @cindex tablature, banjo (バンジョー タブ譜)
@@ -798,9 +792,8 @@ mus = \relative {
 タブ譜の自動算出は正しく機能しません。
 
 
-@node フレット ダイアグラム マークアップ
+@node Fret diagram markups
 @unnumberedsubsubsec フレット ダイアグラム マークアップ
-@translationof Fret diagram markups
 
 @cindex fret diagram (フレット ダイアグラム)
 @cindex chord diagram (コード ダイアグラム)
@@ -1255,9 +1248,8 @@ and color of dots.
 @rinternals{fret-diagram-interface}
 
 
-@node あらかじめ定義されたフレット ダイアグラム
+@node Predefined fret diagrams
 @unnumberedsubsubsec あらかじめ定義されたフレット ダイアグラム
-@translationof Predefined fret diagrams
 
 @cindex fret diagram (フレット ダイアグラム)
 @cindex fret diagram, ukulele (ウクレレのフレット ダイアグラム)
@@ -1598,9 +1590,8 @@ mychords = \chordmode {
 @rinternals {fret-diagram-interface}
 
 
-@node 自動フレット ダイアグラム
+@node Automatic fret diagrams
 @unnumberedsubsubsec 自動フレット ダイアグラム
-@translationof Automatic fret diagrams
 
 @cindex fret diagram, automatic (自動フレット ダイアグラム)
 @cindex chord diagram, automatic (自動コード ダイアグラム)
@@ -1758,9 +1749,8 @@ property.
 モノトーン チューニングではない楽器では適切に機能しません。
 
 
-@node 右手の運指
+@node Right-hand fingerings
 @unnumberedsubsubsec 右手の運指
-@translationof Right-hand fingerings
 
 @cindex fretted instrument, right-hand fingering (フレットのある楽器での右手の運指)
 @cindex fingerings, right-hand, for fretted instrument (フレットのある楽器での右手の運指)
@@ -1812,9 +1802,8 @@ RH=#rightHandFinger
 @rinternals{StrokeFinger}
 
 
-@node ギター
+@node Guitar
 @subsection ギター
-@translationof Guitar
 
 ギターに関する記譜の問題の大部分は、@c
 フレットのある楽器全般のセクションで十分にカバーされています。@c
@@ -1827,14 +1816,13 @@ LilyPond は楽譜譜刻プログラムなので、@c
 経験のあるユーザであれば GuitarTeX のような譜刻プログラムの方が適しています。
 
 @menu
-* ポジションとバレーの指示::
-* ハーモニクスとデッド ノートの指示::
-* パワー コードの指示::
+* Indicating position and barring::
+* Indicating harmonics and dampened notes::
+* Indicating power chords::
 @end menu
 
-@node ポジションとバレーの指示
+@node Indicating position and barring
 @unnumberedsubsubsec ポジションとバレーの指示
-@translationof Indicating position and barring
 
 @cindex indicating position and barring for fretted instrument (フレットのある楽器でのポジションとバレーの指示)
 @cindex fretted instrument, indicating position and barring (フレットのある楽器でのポジションとバレーの指示)
@@ -1862,9 +1850,8 @@ LilyPond は楽譜譜刻プログラムなので、@c
 @rlsr{Expressive marks}
 
 
-@node ハーモニクスとデッド ノートの指示
+@node Indicating harmonics and dampened notes
 @unnumberedsubsubsec ハーモニクスとデッド ノートの指示
-@translationof Indicating harmonics and dampened notes
 
 @cindex fretted instrument, dampened note (フレットのある楽器のデッド ノート)
 @cindex fretted instrument, harmonics (フレットのある楽器のハーモニクス)
@@ -1939,9 +1926,8 @@ LilyPond は、符頭を三角形に変更することで、@c
 @ref{Note head styles}
 
 
-@node パワー コードの指示
+@node Indicating power chords
 @unnumberedsubsubsec パワー コードの指示
-@translationof Indicating power chords
 
 @cindex power chord (パワー コード)
 @cindex chord, power (パワー コード)
@@ -1994,17 +1980,15 @@ ChordsAndSymbols = {
 @rlsr{Fretted strings}
 
 
-@node バンジョー
+@node Banjo
 @subsection バンジョー
-@translationof Banjo
 
 @menu
-* バンジョーのタブ譜::
+* Banjo tablatures::
 @end menu
 
-@node バンジョーのタブ譜
+@node Banjo tablatures
 @unnumberedsubsubsec バンジョーのタブ譜
-@translationof Banjo tablatures
 
 @cindex banjo tablature (バンジョーのタブ譜)
 @cindex tablature, banjo (バンジョーのタブ譜)
@@ -2063,17 +2047,15 @@ music = {
 @rlsr{Fretted strings}
 
 
-@node リュート
+@node Lute
 @subsection リュート
-@translationof Lute
 
 @menu
-* リュートのタブ譜::
+* Lute tablatures::
 @end menu
 
-@node リュートのタブ譜
+@node Lute tablatures
 @unnumberedsubsubsec リュートのタブ譜
-@translationof Lute tablatures
 
 @cindex lute tablature (リュートのタブ譜)
 @cindex tablature, lute (リュートのタブ譜)

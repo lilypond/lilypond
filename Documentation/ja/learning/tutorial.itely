@@ -16,22 +16,20 @@
 @c Translation status: post-GDP
 
 
-@node チュートリアル
+@node Tutorial
 @chapter チュートリアル
-@translationof Tutorial
 
 この章は LilyPond に取り組むための基本的な入門書です。
 
 @menu
-* ファイルをコンパイルする::
-* 入力ファイルの書き方::
-* エラーに対処する::
-* このマニュアルの読み方::
+* Compiling a file::
+* How to write input files::
+* Dealing with errors::
+* How to read the manuals::
 @end menu
 
-@node ファイルをコンパイルする
+@node Compiling a file
 @section ファイルをコンパイルする
-@translationof Compiling a file
 
 
 このセクションでは @qq{コンパイル}---出力ファイルを作り出すために
@@ -74,7 +72,7 @@ LilyPond 入力ファイルはシンプルなテキストファイルです。@c
 波括弧はこのマニュアルのいくつかの例では省略されているかもしれませんが、@c
 あなた自身が作成する楽譜では忘れないでください！@c
 マニュアルの中にある例を表示する方法についての更なる情報については、@c
-@ref{このマニュアルの読み方} を参照してください。}
+@ref{How to read the manuals} を参照してください。}
 
 さらに、LilyPond 入力は@strong{大文字/小文字}の区別 があります。@c
 @w{@code{@{ c d e @}}} は有効な入力ですが、@c
@@ -82,34 +80,32 @@ LilyPond 入力ファイルはシンプルなテキストファイルです。@c
 
 
 
-@node 入力ファイルの書き方
+@node How to write input files
 @section 入力ファイルの書き方
-@translationof How to write input files
 
 このセクションでは、あなたが入力ファイルを書き始めるのを手助けするために
 LilyPond の基本的な構文をいくつか紹介します。
 
 @menu
-* 簡単な記譜法::
-* 入力ファイルに取り組む::
+* Simple notation::
+* Working on input files::
 @end menu
 
 
-@node 簡単な記譜法
+@node Simple notation
 @subsection 簡単な記譜法
-@translationof Simple notation
 
 @cindex simple notation (簡単な記譜法)
 @cindex notation, simple (簡単な記譜法)
 
 @menu
-* ピッチ::
-* 演奏時間 (リズム)::
-* 休符::
-* 拍子記号::
-* テンポ記号::
-* 音部記号::
-* すべてをまとめて::
+* Pitches::
+* Durations (rhythms)::
+* Rests::
+* Time signature::
+* Tempo marks::
+* Clef::
+* All together::
 @end menu
 
 LilyPond はいくつかの記譜要素を自動的に追加します。@c
@@ -127,9 +123,8 @@ LilyPond はいくつかの記譜要素を自動的に追加します。@c
 役に立ちます。
 
 
-@node ピッチ
+@node Pitches
 @unnumberedsubsubsec ピッチ
-@translationof Pitches
 
 @cindex pitches (ピッチ)
 @cindex relative mode (相対モード)
@@ -151,7 +146,7 @@ LilyPondではピッチを指定するために小文字を使います。@c
 (ピアノの白鍵は c-b です) を用います。しかしながら、LilyPond は英語や
 @q{固定ド} (do-re-mi-...) のような、@c
 多くの異なる命名スキームをサポートしています。@c
-@rnotation{他の言語での音符名} を参照してください。文字
+@rnotationnamed{Note names in other languages, 他の言語での音符名} を参照してください。文字
 @code{c} から@tie{}@code{b} は@notation{ミドル C}の@c
 下の@q{スモール・オクターブ}を示します。@c
 @code{'} や@tie{}@code{,} を後ろにつけると上か下のオクターブになります。@c
@@ -251,9 +246,8 @@ A, G, F である場合は B の下に置かれます。
 @c " - keeps quotes in order for context-sensitive editor -td
 
 
-@node 演奏時間 (リズム)
+@node Durations (rhythms)
 @unnumberedsubsubsec 演奏時間 (リズム)
-@translationof Durations (rhythms)
 
 @cindex note durations (音符の演奏時間)
 @cindex durations (演奏時間)
@@ -301,9 +295,8 @@ A, G, F である場合は B の下に置かれます。
 @end lilypond
 
 
-@node 休符
+@node Rests
 @unnumberedsubsubsec 休符
-@translationof Rests
 
 @cindex rest (休符)
 @cindex notating rests (休符を記譜する)
@@ -321,9 +314,8 @@ A, G, F である場合は B の下に置かれます。
 @end lilypond
 
 
-@node 拍子記号
+@node Time signature
 @unnumberedsubsubsec 拍子記号
-@translationof Time signature
 
 @cindex time signature (拍子記号)
 
@@ -346,9 +338,8 @@ A, G, F である場合は B の下に置かれます。
 @end lilypond
 
 
-@node テンポ記号
+@node Tempo marks
 @unnumberedsubsubsec テンポ記号
-@translationof Tempo marks
 
 @cindex tempo marks (テンポ記号)
 @cindex metronome marks (メトロノーム記号)
@@ -375,9 +366,8 @@ A, G, F である場合は B の下に置かれます。
 @end lilypond
 
 
-@node 音部記号
+@node Clef
 @unnumberedsubsubsec 音部記号
-@translationof Clef
 
 @cindex clef (音部記号)
 @cindex treble (ト音記号、高音部記号)
@@ -406,9 +396,8 @@ A, G, F である場合は B の下に置かれます。
 @end lilypond
 
 
-@node すべてをまとめて
+@node All together
 @unnumberedsubsubsec すべてをまとめて
-@translationof All together
 
 以上の要素をすべて集めたちょっとした例をお見せします:
 
@@ -427,16 +416,15 @@ A, G, F である場合は B の下に置かれます。
 
 @morerefs
 記譜法リファレンス:
-@rnotation{ピッチを記述する},
-@rnotation{リズムを記述する},
-@rnotation{休符を記述する},
-@rnotation{拍子},
-@rnotation{音部記号}
+@rnotationnamed{Writing pitches, ピッチを記述する},
+@rnotationnamed{Writing rhythms, リズムを記述する},
+@rnotationnamed{Writing rests, 休符を記述する},
+@rnotationnamed{Time signature, 拍子},
+@rnotationnamed{Clef, 音部記号}
 
 
-@node 入力ファイルに取り組む
+@node Working on input files
 @subsection 入力ファイルに取り組む
-@translationof Working on input files
 
 @cindex curly braces (波括弧)
 @cindex braces, curly (波括弧)
@@ -582,9 +570,8 @@ b2 b
 @end itemize
 
 
-@node エラーに対処する
+@node Dealing with errors
 @section エラーに対処する
-@translationof Dealing with errors
 
 @cindex troubleshooting (トラブルシュート)
 
@@ -593,14 +580,13 @@ b2 b
 役立つリンクをいくつか提供します。
 
 @menu
-* 一般的なトラブルシュート Tips::
-* いくつかの一般的なエラー::
+* General troubleshooting tips::
+* Some common errors::
 @end menu
 
 
-@node 一般的なトラブルシュート Tips
+@node General troubleshooting tips
 @subsection 一般的なトラブルシュート Tips
-@translationof General troubleshooting tips
 
 LilyPond で発生する問題をトラブルシュートすることは、@c
 グラフィカルインターフェイスに慣れ親しんだ人々にとっては@c
@@ -608,37 +594,34 @@ LilyPond で発生する問題をトラブルシュートすることは、@c
 なぜなら無効な入力ファイルが生成される可能性があるからです。@c
 問題が発生した時は、論理的なアプローチが問題を特定して解決する最善の方法です。@c
 トラブルシュートの仕方を学ぶのに役立つガイドラインが
-@rprogram{トラブルシュート} で提供されています。
+@rprogramnamed{Troubleshooting, トラブルシュート} で提供されています。
 
 
-@node いくつかの一般的なエラー
+@node Some common errors
 @subsection いくつかの一般的なエラー
-@translationof Some common errors
 
 @cindex common errors (一般的なエラー)
 @cindex errors, common (一般的なエラー)
 
 表示されるエラーメッセージだけでは解決が難しい一般的なエラーがいくつかあります。@c
-それらのエラーについて @rprogram{一般的なエラー} で記述されています。
+それらのエラーについて @rprogramnamed{Common errors, 一般的なエラー} で記述されています。
 
 
-@node このマニュアルの読み方
+@node How to read the manuals
 @section このマニュアルの読み方
-@translationof How to read the manuals
 
 このセクションではドキュメントを効率的に読む方法を示し、@c
 さらに、オンライン版で利用できる有用な対話的機能をいくつか紹介します。
 
 @menu
-* 省略された構成要素::
-* クリック可能な例::
-* マニュアルの概要::
+* Omitted material::
+* Clickable examples::
+* Overview of manuals::
 @end menu
 
 
-@node 省略された構成要素
+@node Omitted material
 @subsection 省略された構成要素
-@translationof Omitted material
 
 
 @cindex how to read the manual (このマニュアルの読み方)
@@ -652,7 +635,7 @@ LilyPond で発生する問題をトラブルシュートすることは、@c
 @cindex files, tips for constructing (ファイルを構築するための Tips)
 
 @c @ref{Working on input files}
-@ref{入力ファイルに取り組む} で見てきたように、LilyPond 入力は @{ @} マークか
+@ref{Working on input files} で見てきたように、LilyPond 入力は @{ @} マークか
 @q{@w{@code{\relative @{ @dots{} @}}}}
 で囲まれていなければなりません。@c
 このマニュアルの残りの部分では、いくつかの短い例はこのことを省略しています。@c
@@ -673,9 +656,8 @@ LilyPond で発生する問題をトラブルシュートすることは、@c
 しかしながら、あなたは入力ファイルの中にバージョン宣言を記述すべきです。
 
 
-@node クリック可能な例
+@node Clickable examples
 @subsection クリック可能な例
-@translationof Clickable examples
 
 @warning{この機能は HTML マニュアルでのみ利用可能です。}
 
@@ -706,9 +688,8 @@ LilyPond で発生する問題をトラブルシュートすることは、@c
 @end ignore
 
 
-@node マニュアルの概要
+@node Overview of manuals
 @subsection マニュアルの概要
-@translationof Overview of manuals
 
 LilyPond にはたくさんのドキュメントがあります。@c
 新しいユーザは時々ドキュメントのどこを読むべきなのか混乱し、@c
@@ -720,22 +701,22 @@ LilyPond にはたくさんのドキュメントがあります。@c
 @itemize
 
 @item
-@strong{LilyPond に取り組もうとする前}: 学習マニュアルの @ref{チュートリアル}
-と @ref{一般的な記譜法} を読んでください。@c
+@strong{LilyPond に取り組もうとする前}: 学習マニュアルの @ref{Tutorial}
+と @ref{Common notation} を読んでください。@c
 理解できない音楽用語に遭遇した場合は、@rglosnamed{Top, 音楽用語集} で調べてください。
 
 @item
 @strong{楽譜全体を記述しようとする前}: 学習マニュアルの
-@ref{基礎となるコンセプト} を読んでください。@c
+@ref{Fundamental concepts} を読んでください。@c
 読み終わった時、@rnotationnamed{Top, 記譜法リファレンス} の関係のあるセクションを@c
 読もうと思うかもしれません。
 
 @item
 @strong{デフォルトの出力を変更しようとする前}: 学習マニュアルの
-@ref{出力を調整する} を読んでください。
+@ref{Tweaking output} を読んでください。
 
 @item
 @strong{大きなプロジェクトに取りかかる前}: 使用方法の
-@rprogram{LilyPond 入力ファイルの記述に対する提案} を読んでください。
+@rprogramnamed{Suggestions for writing files, LilyPond 入力ファイルの記述に対する提案} を読んでください。
 
 @end itemize

@@ -46,19 +46,19 @@ Copyright @copyright{} 1999--2023 by 著作者一同
 @ifnottex
 
 @menu
-* 音楽記譜法::              ほとんどすべての楽譜作成で使用される記譜法
-* 専門的な記譜法::          特別な目的でのみ使用される記譜法
-* 入出力全般::              LilyPond 入力についての一般的な情報
-* スペースの問題::          出力の表示
-* デフォルトを変更する::    出力の調整
+* Musical notation::              ほとんどすべての楽譜作成で使用される記譜法
+* Specialist notation::          特別な目的でのみ使用される記譜法
+* General input and output::              LilyPond 入力についての一般的な情報
+* Spacing issues::          出力の表示
+* Changing defaults::    出力の調整
 
 付録
 
-* 付表::      表と図
-* カンニング ペーパー::     LilyPond 構文についての要約
+* Notation manual tables::      表と図
+* Cheat sheet::     LilyPond 構文についての要約
 * GNU Free Documentation License:: このドキュメントの使用許諾書
-* LilyPond コマンド インデックス::
-* LilyPond インデックス::
+* LilyPond command index::
+* LilyPond index::
 @end menu
 
 @ignore
@@ -67,10 +67,10 @@ Copyright @copyright{} 1999--2023 by 著作者一同
 付録
 
 * 記譜法マニュアル表::      表と図
-* カンニング ペーパー::     LilyPond 構文についての要約
+* Cheat sheet::     LilyPond 構文についての要約
 * GNU Free Documentation License:: このドキュメントの使用許諾書
-* LilyPond コマンド インデックス::
-* LilyPond インデックス::
+* LilyPond command index::
+* LilyPond index::
 @end menu
 @end ignore
 @docMain
@@ -94,9 +94,8 @@ Copyright @copyright{} 1999--2023 by 著作者一同
 @include en/fdl.itexi
 
 
-@node LilyPond コマンド インデックス
+@node LilyPond command index
 @appendix LilyPond コマンド インデックス
-@translationof LilyPond command index
 
 このインデックスは、すべての LilyPond コマンドとキーワードをリストアップしていて、@c
 それらの使い方について説明しているマニュアルのセクションへのリンクがあります。@c
@@ -117,9 +116,8 @@ Copyright @copyright{} 1999--2023 by 著作者一同
 
 @printindex ky
 
-@node LilyPond インデックス
+@node LilyPond index
 @appendix LilyPond インデックス
-@translationof LilyPond index
 
 すべての LilyPond コマンドとキーワードに加えて、@c
 このインデックスは、それらに関連する音楽用語や単語をリストアップしていて、@c

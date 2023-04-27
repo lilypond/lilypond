@@ -15,29 +15,27 @@
 @c Translation status: post-GDP
 
 
-@node テンプレート
+@node Templates
 @appendix テンプレート
-@translationof Templates
 
 このセクションにはセットアップ済みの LilyPond 楽譜テンプレートがあります。@c
 音符を付け加えて、LilyPond を実行してください。@c
 あとは美しく譜刻された楽譜をお楽しみください！
 
 @menu
-* 組み込まれているテンプレート::
-* 単一譜テンプレート::
-* ピアノ テンプレート::
-* 弦楽四重奏テンプレート::
-* 合唱テンプレート::
-* オーケストラ テンプレート::
-* 古代の記譜法テンプレート::
-* その他のテンプレート::
+* Built-in templates::
+* Single staff templates::
+* Piano templates::
+* String quartet templates::
+* Vocal ensembles templates::
+* Orchestral templates::
+* Ancient notation templates::
+* Other templates::
 @end menu
 
 
-@node 組み込まれているテンプレート
+@node Built-in templates
 @appendixsec 組み込まれているテンプレート
-@translationof Built-in templates
 
 いくつかの、合唱音楽に適したテンプレートが LilyPond に組み込まれています。@c
 これらは 2 段、4 段、8 段の単純な合唱譜を作るのに使うことができ、@c
@@ -52,13 +50,12 @@
 @code{\include} の前に入力されていなければなりません。
 
 @menu
-* SATB テンプレート::
-* SSAATTBB テンプレート::
+* SATB template::
+* SSAATTBB template::
 @end menu
 
-@node SATB テンプレート
+@node SATB template
 @appendixsubsec SATB テンプレート
-@translationof SATB template
 
 1 つの譜表にボイスを 1 つ含むか 2 つ含むかは、@c
 それぞれ @code{TwoVoicesPerStaff} を @code{##f} か @code{##t} にすることで@c
@@ -185,7 +182,7 @@
 @end lilypond
 
 この例では、このようにするより @code{ssaattbb.ly} のテンプレートを用いる方が@c
-簡単でしょう。 @ref{SSAATTBB テンプレート} を参照してください。
+簡単でしょう。 @ref{SSAATTBB template} を参照してください。
 
 デスカントは変数 @code{DescantMusic} を定義することで追加でき、@c
 デスカントの歌詞は @code{DescantLyrics} を定義することで追加できます。@c
@@ -203,15 +200,15 @@ Layout = \layout @{ ... @}
 @end example
 
 変更することのできる全ての変数の一覧は @file{ly/satb.ly} から@c
-見ることができます。 @ref{その他の情報源} を参照してください。
+見ることができます。 @ref{Other sources of information} を参照してください。
 
 
 @morerefs
 学習マニュアル:
-@ref{変数を用いて楽曲を編成する},
-@ref{合唱テンプレート},
-@ref{テンプレートを拡張する},
-@ref{その他の情報源}
+@ref{Organizing pieces with variables},
+@ref{Vocal ensembles templates},
+@ref{Extending the templates},
+@ref{Other sources of information}
 
 @knownissues
 @code{TwoVoicesPerStaff} の設定は楽譜全体に適用されます。途中で他の値を@c
@@ -220,9 +217,8 @@ Layout = \layout @{ ... @}
 さらに複雑な SATB 合唱譜はこの単純なテンプレートでは作ることができません。
 
 
-@node SSAATTBB テンプレート
+@node SSAATTBB template
 @appendixsubsec SSAATTBB テンプレート
-@translationof SSAATTBB template
 
 @code{VerseXxx} を除く全ての SATB テンプレートに定義された変数は、
 SSAATTBB テンプレートでも使用できます。
@@ -316,14 +312,14 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @end lilypond
 
 変更することのできる全ての変数の一覧は @file{ly/ssaattbb.ly} から@c
-見ることができます。 @ref{その他の情報源} を参照してください。
+見ることができます。 @ref{Other sources of information} を参照してください。
 
 @morerefs
 学習マニュアル:
-@ref{変数を用いて楽曲を編成する},
-@ref{合唱テンプレート},
-@ref{テンプレートを拡張する},
-@ref{その他の情報源}
+@ref{Organizing pieces with variables},
+@ref{Vocal ensembles templates},
+@ref{Extending the templates},
+@ref{Other sources of information}
 
 @knownissues
 @code{TwoVoicesPerStaff} などの設定は楽譜全体に適用されます。途中で他の値を@c
@@ -332,222 +328,195 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 さらに複雑な 8 パート合唱譜はこの単純なテンプレートでは作ることができません。
 
 
-@node 単一譜テンプレート
+@node Single staff templates
 @appendixsec 単一譜テンプレート
-@translationof Single staff templates
 
 @menu
-* 音符のみ::
-* 音符と歌詞::
-* 音符とコード::
-* 音符、歌詞それにコード::
+* Notes only::
+* Notes and lyrics::
+* Notes and chords::
+* Notes lyrics and chords::
 @end menu
 
-@node 音符のみ
+@node Notes only
 @appendixsubsec 音符のみ
-@translationof Notes only
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-only-notes.ly}
 
-@node 音符と歌詞
+@node Notes and lyrics
 @appendixsubsec 音符と歌詞
-@translationof Notes and lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes-and-lyrics.ly}
 
-@node 音符とコード
+@node Notes and chords
 @appendixsubsec 音符とコード
-@translationof Notes and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes-and-chords.ly}
 
-@node 音符、歌詞それにコード
+@node Notes lyrics and chords
 @appendixsubsec 音符、歌詞それにコード
-@translationof Notes lyrics and chords
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
-@node ピアノ テンプレート
+@node Piano templates
 @appendixsec ピアノ テンプレート
-@translationof Piano templates
 
 @menu
-* ソロ ピアノ::
-* ピアノと歌詞を持つ旋律::
-* 歌詞が中央に配置されたピアノ譜::
+* Solo piano::
+* Piano and melody with lyrics::
+* Piano centered lyrics::
 @end menu
 
-@node ソロ ピアノ
+@node Solo piano
 @appendixsubsec ソロ ピアノ
-@translationof Solo piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-simple.ly}
 
-@node ピアノと歌詞を持つ旋律
+@node Piano and melody with lyrics
 @appendixsubsec ピアノと歌詞を持つ旋律
-@translationof Piano and melody with lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-melody-and-lyrics.ly}
 
-@node 歌詞が中央に配置されたピアノ譜
+@node Piano centered lyrics
 @appendixsubsec 歌詞が中央に配置されたピアノ譜
-@translationof Piano centered lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-centered-lyrics.ly}
 
 
-@node 弦楽四重奏テンプレート
+@node String quartet templates
 @appendixsec 弦楽四重奏テンプレート
-@translationof String quartet templates
 
 @menu
-* 弦楽四重奏::
-* 弦楽四重奏パート::
+* String quartet::
+* String quartet parts::
 @end menu
 
-@node 弦楽四重奏
+@node String quartet
 @appendixsubsec 弦楽四重奏
-@translationof String quartet
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/string-quartet-template-simple.ly}
 
-@node 弦楽四重奏パート
+@node String quartet parts
 @appendixsubsec 弦楽四重奏パート
-@translationof String quartet parts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/string-quartet-template-with-separate-parts.ly}
 
 
-@node 合唱テンプレート
+@node Vocal ensembles templates
 @appendixsec 合唱テンプレート
-@translationof Vocal ensembles templates
 
 以下のテンプレートは入力ファイルにコピーされてそこで編集されるべきです。@c
 比較的単純な SATB 譜の場合、単純に @code{\include} を挿入するだけで利用できる@c
 組み込みのテンプレートを使う方が好まれるかもしれません。@c
-@ref{組み込まれているテンプレート} を参照してください。
+@ref{Built-in templates} を参照してください。
 
 @menu
-* SATB ボーカル譜::
-* SATB ボーカル譜と自動ピアノ譜::
-* 整列されたコンテキストを持つ SATB::
-* 4 つの譜に配置された SATB::
-* ソロと 2 パートのリフレイン::
-* 賛美歌::
-* 聖歌::
+* SATB vocal score::
+* SATB vocal score and automatic piano reduction::
+* SATB with aligned contexts::
+* SATB on four staves::
+* Solo verse and two-part refrain::
+* Hymn tunes::
+* Psalms::
 @end menu
 
-@node SATB ボーカル譜
+@node SATB vocal score
 @appendixsubsec SATB ボーカル譜
-@translationof SATB vocal score
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template.ly}
 
-@node SATB ボーカル譜と自動ピアノ譜
+@node SATB vocal score and automatic piano reduction
 @appendixsubsec SATB ボーカル譜と自動ピアノ譜
-@translationof SATB vocal score and automatic piano reduction
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
-@node 整列されたコンテキストを持つ SATB
+@node SATB with aligned contexts
 @appendixsubsec 整列されたコンテキストを持つ SATB
-@translationof SATB with aligned contexts
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
-@node 4 つの譜に配置された SATB
+@node SATB on four staves
 @appendixsubsec 4 つの譜に配置された SATB
-@translationof SATB on four staves
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/satb-choir-template---four-staves.ly}
 
-@node ソロと 2 パートのリフレイン
+@node Solo verse and two-part refrain
 @appendixsubsec ソロと 2 パートのリフレイン
-@translationof Solo verse and two-part refrain
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/vocal-ensemble-template-with-verse-and-refrain.ly}
 
-@node 賛美歌
+@node Hymn tunes
 @appendixsubsec 賛美歌
-@translationof Hymn tunes
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/hymn-template.ly}
 
-@node 聖歌
+@node Psalms
 @appendixsubsec 聖歌
-@translationof Psalms
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/anglican-psalm-template.ly}
 
 
-@node オーケストラ テンプレート
+@node Orchestral templates
 @appendixsec オーケストラ テンプレート
-@translationof Orchestral templates
 
 @menu
-* オーケストラ、合唱それにピアノ::
+* Orchestra choir and piano::
 @end menu
 
-@node オーケストラ、合唱それにピアノ
+@node Orchestra choir and piano
 @appendixsubsec オーケストラ、合唱それにピアノ
-@translationof Orchestra choir and piano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
-@node 古代の記譜法テンプレート
+@node Ancient notation templates
 @appendixsec 古代の記譜法テンプレート
-@translationof Ancient notation templates
 
 @menu
-* 計量記譜法のテンプレート::
-* グレゴリア聖歌のテンプレート::
+* Transcription of mensural music::
+* Gregorian transcription template::
 @end menu
 
-@node 計量記譜法のテンプレート
+@node Transcription of mensural music
 @appendixsubsec 計量記譜法のテンプレート
-@translationof Transcription of mensural music
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/incipit.ly}
 
-@node グレゴリア聖歌のテンプレート
+@node Gregorian transcription template
 @appendixsubsec グレゴリア聖歌のテンプレート
-@translationof Gregorian transcription template
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
-@node その他のテンプレート
+@node Other templates
 @appendixsec その他のテンプレート
-@translationof Other templates
 
 @menu
-* ジャズ バンド::
+* Jazz combo::
 @end menu
 
-@node ジャズ バンド
+@node Jazz combo
 @appendixsubsec ジャズ バンド
-@translationof Jazz combo
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/jazz-combo-template.ly}

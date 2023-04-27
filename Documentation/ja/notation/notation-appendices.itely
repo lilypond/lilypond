@@ -13,37 +13,35 @@
 @c Translators: Tomohiro Tatejima, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
-@node 付表
+@node Notation manual tables
 @appendix 付表
-@translationof Notation manual tables
 
 @menu
-* コード ネーム表::
-* 一般的な和音修飾子::
-* 定義された弦チューニング::
-* 定義されたフレット図::
-* 定義された用紙サイズ::
-* MIDI 楽器::
-* 色の一覧::
-* Emmentaler フォント::
-* 符頭のスタイル::
-* 音部記号のスタイル::
-* \markup コマンドの一覧::
-* \markuplist コマンドの一覧::
-* 特殊文字の一覧::
-* アーティキュレーションの一覧::
-* 打楽器の音符::
-* 技術用語集::
-* 音楽関数の一覧::
-* コンテキストを変更する識別子::
-* 定義された型述語::
+* Chord name chart::
+* Common chord modifiers::
+* Predefined string tunings::
+* Predefined fretboard diagrams::
+* Predefined paper sizes::
+* MIDI instruments::
+* List of colors::
+* The Emmentaler font::
+* Note head styles::
+* Clef styles::
+* Text markup commands::
+* Text markup list commands::
+* List of special characters::
+* List of articulations::
+* Percussion notes::
+* Technical glossary::
+* Available music functions::
+* Context modification identifiers::
+* Predefined type predicates::
 @end menu
 
 
 
-@node コード ネーム表
+@node Chord name chart
 @appendixsec コード ネーム表
-@translationof Chord name chart
 
 次の図は、コード ネームを表示する LilyPond の一般的な方式を、@c
 ピッチと共に示しています。初期の LilyPond リリース (バージョン 1.7 まで) で@c
@@ -54,9 +52,8 @@
 @c The line width is a hack to allow space for instrument names
 @lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
 
-@node 一般的な和音修飾子
+@node Common chord modifiers
 @appendixsec 一般的な和音修飾子
-@translationof Common chord modifiers
 
 次の表は、一般的な和音を作るために使われる修飾子を示しています:
 
@@ -502,46 +499,40 @@
 
 @end multitable
 
-@node 定義された弦チューニング
+@node Predefined string tunings
 @appendixsec 定義された弦チューニング
-@translationof Predefined string tunings
 
 下の図は、予め定義された弦チューニングの一覧を示しています。
 
 @lilypondfile{en/included/display-predefined-string-tunings.ly}
 
-@node 定義されたフレット図
+@node Predefined fretboard diagrams
 @appendixsec 定義されたフレット図
-@translationof Predefined fretboard diagrams
 
 @menu
-* ギターのフレット図::
-* ウクレレのフレット図::
-* マンドリンのフレット図::
+* Diagrams for Guitar::
+* Diagrams for Ukulele::
+* Diagrams for Mandolin::
 @end menu
 
-@node ギターのフレット図
+@node Diagrams for Guitar
 @unnumberedsubsec ギターのフレット図
-@translationof Diagrams for Guitar
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-fretboards.ly}
 
-@node ウクレレのフレット図
+@node Diagrams for Ukulele
 @unnumberedsubsec ウクレレのフレット図
-@translationof Diagrams for Ukulele
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-ukulele-fretboards.ly}
 
-@node マンドリンのフレット図
+@node Diagrams for Mandolin
 @unnumberedsubsec マンドリンのフレット図
-@translationof Diagrams for Mandolin
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-mandolin-fretboards.ly}
 
 
-@node 定義された用紙サイズ
+@node Predefined paper sizes
 @appendixsec 定義された用紙サイズ
-@translationof Predefined paper sizes
 
 用紙サイズは、@file{scm/paper.scm} に定義されています。
 
@@ -790,9 +781,8 @@
 @end table
 
 
-@node MIDI 楽器
+@node MIDI instruments
 @appendixsec MIDI 楽器
-@translationof MIDI instruments
 
 次のリストは、@code{midiInstrument} プロパティに使用することのできる@c
 名前です。General MIDI 規格の 128 個のプログラム順に@c
@@ -845,9 +835,8 @@ cello                     lead 6 (voice)
 @end example
 
 
-@node 色の一覧
+@node List of colors
 @appendixsec 色の一覧
-@translationof List of colors
 
 @subsubheading 通常の色
 
@@ -952,9 +941,8 @@ greyN
 @end example
 
 
-@node Emmentaler フォント
+@node The Emmentaler font
 @appendixsec Emmentaler フォント
-@translationof The Emmentaler font
 
 
 @cindex Emmentaler font (Emmentaler フォント)
@@ -986,37 +974,36 @@ g^\markup @{\musicglyph "scripts.segno" @}
 詳しくは @ref{Formatting text} を参照してください。
 
 @menu
-* 音部記号グリフ::
-* 拍子記号グリフ::
-* 数字グリフ::
-* 臨時記号グリフ::
-* デフォルトの符頭グリフ::
-* 特殊な符頭グリフ::
-* シェイプ ノートの符頭グリフ::
-* 休符グリフ::
-* 符尾グリフ::
-* 付点グリフ::
-* 強弱記号グリフ::
-* スクリプト グリフ::
-* 矢印グリフ::
-* 括弧の端部分のグリフ::
-* ペダル グリフ::
-* アコーディオン グリフ::
-* タイ グリフ::
-* Vaticana グリフ::
-* Medicaea グリフ::
-* Hufnagel グリフ::
-* 計量音楽グリフ::
-* Neomensural グリフ::
-* Petrucci グリフ::
-* Solesmes グリフ::
-* キエフ記譜法グリフ::
+* Clef glyphs::
+* Time Signature glyphs::
+* Number glyphs::
+* Accidental glyphs::
+* Default Notehead glyphs::
+* Special Notehead glyphs::
+* Shape-note Notehead glyphs::
+* Rest glyphs::
+* Flag glyphs::
+* Dot glyphs::
+* Dynamic glyphs::
+* Script glyphs::
+* Arrowhead glyphs::
+* Bracket-tip glyphs::
+* Pedal glyphs::
+* Accordion glyphs::
+* Tie glyphs::
+* Vaticana glyphs::
+* Medicaea glyphs::
+* Hufnagel glyphs::
+* Mensural glyphs::
+* Neomensural glyphs::
+* Petrucci glyphs::
+* Solesmes glyphs::
+* Kievan Notation glyphs::
 @end menu
 
 
-@node 音部記号グリフ
+@node Clef glyphs
 @unnumberedsubsec 音部記号グリフ
-@translationof Clef glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1025,9 +1012,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 拍子記号グリフ
+@node Time Signature glyphs
 @unnumberedsubsec 拍子記号グリフ
-@translationof Time Signature glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1036,9 +1022,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 数字グリフ
+@node Number glyphs
 @unnumberedsubsec 数字グリフ
-@translationof Number glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1047,9 +1032,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 臨時記号グリフ
+@node Accidental glyphs
 @unnumberedsubsec 臨時記号グリフ
-@translationof Accidental glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1058,9 +1042,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node デフォルトの符頭グリフ
+@node Default Notehead glyphs
 @unnumberedsubsec デフォルトの符頭グリフ
-@translationof Default Notehead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1069,9 +1052,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 特殊な符頭グリフ
+@node Special Notehead glyphs
 @unnumberedsubsec 特殊な符頭グリフ
-@translationof Special Notehead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1080,9 +1062,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node シェイプ ノートの符頭グリフ
+@node Shape-note Notehead glyphs
 @unnumberedsubsec シェイプ ノートの符頭グリフ
-@translationof Shape-note Notehead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1091,9 +1072,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 休符グリフ
+@node Rest glyphs
 @unnumberedsubsec 休符グリフ
-@translationof Rest glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1102,9 +1082,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 符尾グリフ
+@node Flag glyphs
 @unnumberedsubsec 符尾グリフ
-@translationof Flag glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1113,9 +1092,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 付点グリフ
+@node Dot glyphs
 @unnumberedsubsec 付点グリフ
-@translationof Dot glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1124,9 +1102,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 強弱記号グリフ
+@node Dynamic glyphs
 @unnumberedsubsec 強弱記号グリフ
-@translationof Dynamic glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1135,9 +1112,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node スクリプト グリフ
+@node Script glyphs
 @unnumberedsubsec スクリプト グリフ
-@translationof Script glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1146,9 +1122,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 矢印グリフ
+@node Arrowhead glyphs
 @unnumberedsubsec 矢印グリフ
-@translationof Arrowhead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1157,9 +1132,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 括弧の端部分のグリフ
+@node Bracket-tip glyphs
 @unnumberedsubsec 括弧の端部分のグリフ
-@translationof Bracket-tip glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1168,9 +1142,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node ペダル グリフ
+@node Pedal glyphs
 @unnumberedsubsec ペダル グリフ
-@translationof Pedal glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1179,9 +1152,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node アコーディオン グリフ
+@node Accordion glyphs
 @unnumberedsubsec アコーディオン グリフ
-@translationof Accordion glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1190,9 +1162,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node タイ グリフ
+@node Tie glyphs
 @unnumberedsubsec タイ グリフ
-@translationof Tie glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1201,9 +1172,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node Vaticana グリフ
+@node Vaticana glyphs
 @unnumberedsubsec Vaticana グリフ
-@translationof Vaticana glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1212,9 +1182,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node Medicaea グリフ
+@node Medicaea glyphs
 @unnumberedsubsec Medicaea グリフ
-@translationof Medicaea glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1223,9 +1192,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node Hufnagel グリフ
+@node Hufnagel glyphs
 @unnumberedsubsec Hufnagel グリフ
-@translationof Hufnagel glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1234,9 +1202,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 計量音楽グリフ
+@node Mensural glyphs
 @unnumberedsubsec 計量音楽グリフ
-@translationof Mensural glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1245,9 +1212,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node Neomensural グリフ
+@node Neomensural glyphs
 @unnumberedsubsec Neomensural グリフ
-@translationof Neomensural glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1256,9 +1222,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node Petrucci グリフ
+@node Petrucci glyphs
 @unnumberedsubsec Petrucci グリフ
-@translationof Petrucci glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1267,9 +1232,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node Solesmes グリフ
+@node Solesmes glyphs
 @unnumberedsubsec Solesmes グリフ
-@translationof Solesmes glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1277,9 +1241,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
             \doc-chars #solesmes
 @end lilypond
 
-@node キエフ記譜法グリフ
+@node Kievan Notation glyphs
 @unnumberedsubsec キエフ記譜法グリフ
-@translationof Kievan Notation glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1288,9 +1251,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @end lilypond
 
 
-@node 符頭のスタイル
+@node Note head styles
 @appendixsec 符頭のスタイル
-@translationof Note head styles
 
 @cindex note head style (符頭のスタイル)
 以下は、符頭のスタイルの一覧です。
@@ -1298,9 +1260,8 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @lilypondfile[noindent]{en/included/note-head-style.ly}
 
 
-@node 音部記号のスタイル
+@node Clef styles
 @appendixsec 音部記号のスタイル
-@translationof Clef styles
 
 以下の表は、使用できる音部記号のスタイルの一覧です (@emph{ミドル C} が@c
 どこに位置するかも表示してあります)。
@@ -1361,15 +1322,14 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @cindex Kievan clef (キエフ記譜法の音部記号)
 
 @menu
-* 通常の音部記号::
-* 打楽器譜の音部記号::
-* タブ譜の音部記号::
-* 古代音楽の音部記号::
+* Standard clefs::
+* Percussion staff clef::
+* Tab staff clefs::
+* Ancient music clefs::
 @end menu
 
-@node 通常の音部記号
+@node Standard clefs
 @unnumberedsubsec 通常の音部記号
-@translationof Standard clefs
 
 @multitable @columnfractions .30 .2 .30 .2
 
@@ -1558,9 +1518,8 @@ c1
 @end multitable
 
 
-@node 打楽器譜の音部記号
+@node Percussion staff clef
 @unnumberedsubsec 打楽器譜の音部記号
-@translationof Percussion staff clef
 
 @multitable @columnfractions .30 .2 .30 .2
 
@@ -1591,9 +1550,8 @@ c1
 @end multitable
 
 
-@node タブ譜の音部記号
+@node Tab staff clefs
 @unnumberedsubsec タブ譜の音部記号
-@translationof Tab staff clefs
 
 @multitable @columnfractions .30 .2 .30 .2
 
@@ -1638,9 +1596,8 @@ c1
 @end multitable
 
 
-@node 古代音楽の音部記号
+@node Ancient music clefs
 @unnumberedsubsec 古代音楽の音部記号
-@translationof Ancient music clefs
 
 @strong{グレゴリオ聖歌}
 
@@ -2197,9 +2154,8 @@ c1
 @end multitable
 
 
-@node \markup コマンドの一覧
+@node Text markup commands
 @appendixsec \markup コマンドの一覧
-@translationof Text markup commands
 
 @ignore
 All the .tely files included in this appendix are automatically
@@ -2214,9 +2170,8 @@ For translators: you cannot translate the content of these files.
 @include en/markup-commands.tely
 
 
-@node \markuplist コマンドの一覧
+@node Text markup list commands
 @appendixsec \markuplist コマンドの一覧
-@translationof Text markup list commands
 
 以下に挙げるコマンドは、@code{\markuplist}の内部で用いることができます。
 
@@ -2225,9 +2180,8 @@ For translators: you cannot translate the content of these files.
 @include en/markup-list-commands.tely
 
 
-@node 特殊文字の一覧
+@node List of special characters
 @appendixsec 特殊文字の一覧
-@translationof List of special characters
 
 以下の特殊文字参照を用いることができます。@c
 詳しくは @ref{ASCII aliases} を参照してください。
@@ -2243,9 +2197,8 @@ For translators: you cannot translate the content of these files.
 @end lilypond
 
 
-@node アーティキュレーションの一覧
+@node List of articulations
 @appendixsec アーティキュレーションの一覧
-@translationof List of articulations
 
 
 以下のリストは、音符に付加することのできる Feta フォントのスクリプト
@@ -2264,12 +2217,12 @@ For translators: you cannot translate the content of these files.
 
 
 @menu
-* アーティキュレーション スクリプト::
-* 装飾音スクリプト::
-* フェルマータ スクリプト::
-* 楽器に固有のスクリプト::
-* 繰り返し記号のスクリプト::
-* 古代音楽のスクリプト::
+* Articulation scripts::
+* Ornament scripts::
+* Fermata scripts::
+* Instrument-specific scripts::
+* Repeat sign scripts::
+* Ancient scripts::
 @end menu
 
 @ignore
@@ -2295,9 +2248,8 @@ columns - JL
 @funindex --
 @cindex thumb (親指記号)
 
-@node アーティキュレーション スクリプト
+@node Articulation scripts
 @unnumberedsubsec アーティキュレーション スクリプト
-@translationof Articulation scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2357,9 +2309,8 @@ f^\tenuto e,_\tenuto b'\tenuto
 @funindex \slashturn
 @funindex \haydnturn
 
-@node 装飾音スクリプト
+@node Ornament scripts
 @unnumberedsubsec 装飾音スクリプト
-@translationof Ornament scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2457,9 +2408,8 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @funindex \henzeshortfermata
 @funindex \henzelongfermata
 
-@node フェルマータ スクリプト
+@node Fermata scripts
 @unnumberedsubsec フェルマータ スクリプト
-@translationof Fermata scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2515,9 +2465,8 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @funindex \stopped
 @funindex -+
 
-@node 楽器に固有のスクリプト
+@node Instrument-specific scripts
 @unnumberedsubsec 楽器に固有のスクリプト
-@translationof Instrument-specific scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2585,9 +2534,8 @@ f^\stopped e,_\stopped b'\stopped
 @funindex \coda
 @funindex \varcoda
 
-@node 繰り返し記号のスクリプト
+@node Repeat sign scripts
 @unnumberedsubsec 繰り返し記号のスクリプト
-@translationof Repeat sign scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2615,9 +2563,8 @@ f^\varcoda e,_\varcoda b'\varcoda
 @funindex \semicirculus
 @funindex \signumcongruentiae
 
-@node 古代音楽のスクリプト
+@node Ancient scripts
 @unnumberedsubsec 古代音楽のスクリプト
-@translationof Ancient scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2714,9 +2661,8 @@ f^\varcoda e,_\varcoda b'\varcoda
 @cindex cuica (クイーカ)
 @cindex triangle (トライアングル)
 
-@node 打楽器の音符
+@node Percussion notes
 @appendixsec 打楽器の音符
-@translationof Percussion notes
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -3061,34 +3007,32 @@ f^\varcoda e,_\varcoda b'\varcoda
 @end multitable
 
 
-@node 技術用語集
+@node Technical glossary
 @appendixsec 技術用語集
-@translationof Technical glossary
 
 LilyPond の内部で用いられる技術的な用語やコンセプトの一覧です。@c
 これらはマニュアル、メーリング リスト、ソースコードなどに現れます。
 
 @menu
-* alist (連想配列)::
-* callback (コールバック)::
-* closure (クロージャ)::
-* glyph (グリフ)::
-* grob (グラフィカル オブジェクト)::
-* immutable (イミュータブル)::
-* interface (インターフェイス)::
-* lexer (字句解析器)::
-* mutable (ミュータブル)::
-* output-def (出力定義クラス)::
-* parser (構文解析器、パーサ)::
-* parser variable (パーサ変数)::
-* prob (プロパティ オブジェクト)::
-* smob (Scheme オブジェクト)::
-* stencil (ステンシル)::
+* alist::
+* callback::
+* closure::
+* glyph::
+* grob::
+* immutable::
+* interface::
+* lexer::
+* mutable::
+* output-def::
+* parser::
+* parser variable::
+* prob::
+* smob::
+* stencil::
 @end menu
 
-@node alist (連想配列)
+@node alist
 @unnumberedsubsec alist (連想配列)
-@translationof alist
 
 @cindex alist (連想配列)
 @cindex association list (連想配列)
@@ -3100,9 +3044,8 @@ LilyPond の内部で用いられる技術的な用語やコンセプトの一�
 を結びつけています。そのため、型チェックに失敗した場合には、@c
 型述語に結びついた名前がエラー メッセージに表示されます。
 
-@node callback (コールバック)
+@node callback
 @unnumberedsubsec callback (コールバック)
-@translationof callback
 
 @cindex callback (コールバック)
 
@@ -3117,9 +3060,8 @@ LilyPond では、コールバックは、@c
 広く使われています。
 
 
-@node closure (クロージャ)
+@node closure
 @unnumberedsubsec closure (クロージャ)
-@translationof closure
 
 @cindex closure (クロージャ)
 
@@ -3135,9 +3077,8 @@ Scheme では、@strong{クロージャ} (@strong{closure}) は@c
 これにより、状態を保存することができます。
 
 
-@node glyph (グリフ)
+@node glyph
 @unnumberedsubsec glyph (グリフ)
-@translationof glyph
 
 @cindex glyph (グリフ)
 @cindex font (フォント)
@@ -3154,9 +3095,8 @@ Scheme では、@strong{クロージャ} (@strong{closure}) は@c
 @ref{Special characters}
 
 
-@node grob (グラフィカル オブジェクト)
+@node grob
 @unnumberedsubsec grob (グラフィカル オブジェクト)
-@translationof grob
 
 @cindex grob (グラフィカル オブジェクト)
 @cindex layout object (レイアウト オブジェクト)
@@ -3180,9 +3120,8 @@ LilyPond のオブジェクトの内、
 @rinternals{All layout objects}
 
 
-@node immutable (イミュータブル)
+@node immutable
 @unnumberedsubsec immutable (イミュータブル)
-@translationof immutable
 
 @cindex immutable object (イミュータブル オブジェクト)
 @cindex immutable property (イミュータブル プロパティ)
@@ -3202,9 +3141,8 @@ LilyPond では、イミュータブル プロパティまたは共有プロパ�
 @ref{mutable}
 
 
-@node interface (インターフェイス)
+@node interface
 @unnumberedsubsec interface (インターフェイス)
-@translationof interface
 
 @cindex interface (インターフェイス)
 @funindex grob-interface
@@ -3227,9 +3165,8 @@ LilyPond では、イミュータブル プロパティまたは共有プロパ�
 @rinternals{Graphical Object Interfaces}
 
 
-@node lexer (字句解析器)
+@node lexer
 @unnumberedsubsec lexer (字句解析器)
-@translationof lexer
 
 @cindex lexer (字句解析器)
 @cindex Flex
@@ -3244,9 +3181,8 @@ LilyPond の字句解析器は Flex を用いて、字句に関する規則を�
 ソース コードの一部であり、LilyPond のバイナリには含まれていません。
 
 
-@node mutable (ミュータブル)
+@node mutable
 @unnumberedsubsec mutable (ミュータブル)
-@translationof mutable
 
 @cindex mutable object (ミュータブル オブジェクト)
 @cindex mutable property (ミュータブル プロパティ)
@@ -3264,9 +3200,8 @@ LilyPond では、ミュータブル プロパティは Grob ごとに固有の�
 @ref{immutable}
 
 
-@node output-def (出力定義クラス)
+@node output-def
 @unnumberedsubsec output-def (出力定義クラス)
-@translationof output-def
 
 @funindex output-def
 
@@ -3275,9 +3210,8 @@ LilyPond では、ミュータブル プロパティは Grob ごとに固有の�
 ブロックに対して作られます。
 
 
-@node parser (構文解析器、パーサ)
+@node parser
 @unnumberedsubsec parser (構文解析器、パーサ)
-@translationof parser
 
 @cindex parser
 @cindex Bison
@@ -3300,9 +3234,8 @@ LilyPond では、ミュータブル プロパティは Grob ごとに固有の�
 ソース コードの一部であり、LilyPond のバイナリには含まれていません。
 
 
-@node parser variable (パーサ変数)
+@node parser variable
 @unnumberedsubsec parser variable (パーサ変数)
-@translationof parser variable
 
 @cindex parser variable (パーサ変数)
 @cindex Scheme variable (Scheme 変数)
@@ -3346,9 +3279,8 @@ LilyPond は以下のパーサ変数を使用します:
 @end itemize
 
 
-@node prob (プロパティ オブジェクト)
+@node prob
 @unnumberedsubsec prob (プロパティ オブジェクト)
-@translationof prob
 
 @cindex prob (プロパティ オブジェクト)
 @cindex property object (プロパティ オブジェクト)
@@ -3362,9 +3294,8 @@ LilyPond は以下のパーサ変数を使用します:
 生成されます。
 
 
-@node smob (Scheme オブジェクト)
+@node smob
 @unnumberedsubsec smob (Scheme オブジェクト)
-@translationof smob
 
 @cindex smob (Scheme オブジェクト)
 @cindex Scheme object (Scheme オブジェクト)
@@ -3378,9 +3309,8 @@ C++ オブジェクトから生成されます。Scheme オブジェクトには
 アクセスできる場合、より詳しい情報は @file{lily/includes/smobs.hh} にあります。
 
 
-@node stencil (ステンシル)
+@node stencil
 @unnumberedsubsec stencil (ステンシル)
-@translationof stencil
 
 @cindex stencil (ステンシル)
 
@@ -3400,17 +3330,15 @@ grob とステンシルを繋ぐ役目を果たします。
 @rinternals{grob-interface}
 
 
-@node 音楽関数の一覧
+@node Available music functions
 @appendixsec 音楽関数の一覧
-@translationof Available music functions
 
 システムの制約により、以下の一覧は英語での提供となります。
 
 @include en/identifiers.tely
 
-@node コンテキストを変更する識別子
+@node Context modification identifiers
 @appendixsec コンテキストを変更する識別子
-@translationof Context modification identifiers
 
 @code{\layout} や @code{\with} ブロック内で@c
 コンテキストを変更するのに使用できるコマンドの一覧です。
@@ -3419,9 +3347,8 @@ grob とステンシルを繋ぐ役目を果たします。
 
 @include en/context-mod-identifiers.tely
 
-@node 定義された型述語
+@node Predefined type predicates
 @appendixsec 定義された型述語
-@translationof Predefined type predicates
 
 システムの制約により、以下の一覧は英語での提供となります。
 

@@ -138,7 +138,7 @@ LilyPond はフリーソフトウェアであり、@uref{https://gnu.org,GNU プ
 
 
 @divClass{align-right}
-@ref{導入部} を読んで、LilyPond をもっと知ってください！
+@ref{Introduction} を読んで、LilyPond をもっと知ってください！
 
 @divEnd
 @divEnd
@@ -191,7 +191,7 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 
 @end ifset
 
-楽譜の @ref{例} を見て、刺激を受けてください！
+楽譜の @ref{Examples} を見て、刺激を受けてください！
 
 @divEnd
 
@@ -220,13 +220,13 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 
 @ref{Download, ダウンロード @versionStable}
 
-@ref{マニュアル, マニュアル @versionStable}
+@ref{Manuals, マニュアル @versionStable}
 
 @subheading 開発版
 
-@ref{開発, ダウンロード @versionDevel}
+@ref{Development, ダウンロード @versionDevel}
 
-@ref{開発, マニュアル @versionDevel}
+@ref{Development, マニュアル @versionDevel}
 
 @subheading Pondings
 @divId{pondingsText}
@@ -270,10 +270,10 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 
 @divClass{hide}
 @menu
-* 導入部::               ここから始めて、楽譜を作ってください。
+* Introduction::               ここから始めて、楽譜を作ってください。
 * Download::         LilyPond の入手方法。
-* マニュアル::           マニュアルを読んでください。
-* コミュニティ::         他のユーザとの交流。
+* Manuals::           マニュアルを読んでください。
+* Community::         他のユーザとの交流。
 @end menu
 @divEnd
 

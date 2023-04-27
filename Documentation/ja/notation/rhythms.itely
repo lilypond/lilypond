@@ -12,38 +12,35 @@
 @c Translation status: post-GDP
 
 
-@node リズム
+@node Rhythms
 @section リズム
-@translationof Rhythms
 
 @lilypondfile[quote]{snippets/rhythms-headword.ly}
 
 このセクションではリズム、休符、演奏時間、連桁、小節について議論します。
 
 @menu
-* リズムを記述する::
-* 休符を記述する::
-* リズムを表示する::
-* 連桁::
-* 小節::
-* 特殊なリズム関連事項::
+* Writing rhythms::
+* Writing rests::
+* Displaying rhythms::
+* Beams::
+* Bars::
+* Special rhythmic concerns::
 @end menu
 
 
-@node リズムを記述する
+@node Writing rhythms
 @subsection リズムを記述する
-@translationof Writing rhythms
 
 @menu
-* 演奏時間::
-* 連符::
-* 演奏時間を変更する::
-* タイ::
+* Durations::
+* Tuplets::
+* Scaling durations::
+* Ties::
 @end menu
 
-@node 演奏時間
+@node Durations
 @unnumberedsubsubsec 演奏時間
-@translationof Durations
 
 @cindex duration, of notes (音符の演奏時間)
 @cindex note duration (音符の演奏時間)
@@ -151,7 +148,7 @@
 
 演奏時間の中には数字とドットだけでは表せず、@c
 2 つ以上の音符をタイでつなげるしかない場合があります。@c
-詳細は @ref{タイ} を参照してください。
+詳細は @ref{Ties} を参照してください。
 
 歌詞音節と音符を揃えるために演奏時間を指定する方法については
 @ref{Vocal music} を参照してください。
@@ -214,9 +211,8 @@
 @code{1024} から @code{\maxima} までの休符を譜刻することができます。
 
 
-@node 連符
+@node Tuplets
 @unnumberedsubsubsec 連符
-@translationof Tuplets
 
 @cindex tuplet (連符)
 @cindex triplet (3 連符)
@@ -392,9 +388,8 @@
 @rinternals{TimeScaledMusic}.
 
 
-@node 演奏時間を変更する
+@node Scaling durations
 @unnumberedsubsubsec 演奏時間を変更する
-@translationof Scaling durations
 
 @cindex scaling duration (演奏時間を伸縮する)
 @cindex duration, scaling (演奏時間を伸縮する)
@@ -464,7 +459,7 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
 @end lilypond
 
 このコマンドの応用例の 1 つは多拍子記譜法での使用です。@c
-@ref{多拍子記譜法} を参照してください。
+@ref{Polymetric notation} を参照してください。
 
 @morerefs
 記譜法リファレンス:
@@ -486,9 +481,8 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
 2^30 を超えてしまい譜刻が途中で止まってしまうということです。)
 
 
-@node タイ
+@node Ties
 @unnumberedsubsubsec タイ
-@translationof Ties
 
 @cindex tie (タイ)
 
@@ -533,7 +527,7 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
 
 小節線をまたいで多くの音符をタイで結び付ける必要がある場合、@c
 自動音符分割を使用したほうが簡単かもしれません
--- @ref{自動音符分割} を参照してください。@c
+-- @ref{Automatic note splitting} を参照してください。@c
 これは長い音符を自動的に分割して、小節線をまたがる音符をタイで結び付けます。
 
 @cindex tie, in chords (和音内のタイ)
@@ -715,22 +709,20 @@ L.v. タイは以下のように入力します:
 そのような場合には、スラーを用いる方が好ましいです。
 
 
-@node 休符を記述する
+@node Writing rests
 @subsection 休符を記述する
-@translationof Writing rests
 
 休符は音楽表記の中の音楽の一部として入力されます。
 
 @menu
-* 休符::
-* 不可視の休符::
-* 小節単位の休符::
+* Rests::
+* Invisible rests::
+* Full measure rests::
 @end menu
 
 
-@node 休符
+@node Rests
 @unnumberedsubsubsec 休符
-@translationof Rests
 
 @cindex rest (休符)
 @cindex rest, entering durations (休符の演奏時間を入力する)
@@ -772,7 +764,7 @@ L.v. タイは以下のように入力します:
 入力する必要があります。@c
 複数小節の休符は多くの小節に対してと同様に単一の小節に対しても@c
 使用することができます。@c
-詳細は @ref{小節単位の休符} を参照してください。
+詳細は @ref{Full measure rests} を参照してください。
 
 @cindex rest, specifying vertical position (休符の垂直方向の位置を指定する)
 
@@ -815,9 +807,8 @@ L.v. タイは以下のように入力します:
 休符を譜刻することができます。
 
 
-@node 不可視の休符
+@node Invisible rests
 @unnumberedsubsubsec 不可視の休符
-@translationof Invisible rests
 
 @cindex skip (スキップ)
 @cindex invisible rest (不可視の休符)
@@ -907,9 +898,8 @@ L.v. タイは以下のように入力します:
 @rinternals{SkipMusic}
 
 
-@node 小節単位の休符
+@node Full measure rests
 @unnumberedsubsubsec 小節単位の休符
-@translationof Full measure rests
 
 @cindex multi-measure rest (複数小節にまたがる休符)
 @cindex full-measure rest (小節単位の休符)
@@ -1091,23 +1081,21 @@ R1\fermata
 複数小節にまたがる休符が休符の衝突を引き起こすことはありません。
 
 
-@node リズムを表示する
+@node Displaying rhythms
 @subsection リズムを表示する
-@translationof Displaying rhythms
 
 @menu
-* 拍子::
-* メトロノーム記号::
-* 上拍::
-* 無韻律の音楽::
-* 多拍子記譜法::
-* 自動音符分割::
-* 旋律のリズムを示す::
+* Time signature::
+* Metronome marks::
+* Upbeats::
+* Unmetered music::
+* Polymetric notation::
+* Automatic note splitting::
+* Showing melody rhythms::
 @end menu
 
-@node 拍子
+@node Time signature
 @unnumberedsubsubsec 拍子
-@translationof Time signature
 
 @cindex time signature (拍子)
 @cindex meter (拍)
@@ -1121,7 +1109,7 @@ R1\fermata
 \time 3/4 c''2.
 @end lilypond
 
-小節の途中で拍子記号を変更することについては、@ref{上拍}で扱っています。
+小節の途中で拍子記号を変更することについては、@ref{Upbeats}で扱っています。
 
 @cindex time signature, visibility (拍子の可視性)
 
@@ -1237,7 +1225,7 @@ R1\fermata
 @item
 @code{@var{beamExceptions}}, 指定された拍子でそれぞれの拍で終了しない@c
 連桁の規則を保持する配列リスト。@c
-@ref{自動連桁の振る舞いを設定する} に説明があります。
+@ref{Setting automatic beam behavior} に説明があります。
 @end enumerate
 
 @cindex time signature, properties, restoring default values (拍子プロパティをデフォルト値に戻す)
@@ -1339,9 +1327,8 @@ R1\fermata
 @rinternals{Timing_translator}
 
 
-@node メトロノーム記号
+@node Metronome marks
 @unnumberedsubsubsec メトロノーム記号
-@translationof Metronome marks
 
 @cindex tempo (テンポ)
 @cindex beats per minute (1 分毎の拍数)
@@ -1473,9 +1460,8 @@ R1\fermata
 @rinternals{MetronomeMark}
 
 
-@node 上拍
+@node Upbeats
 @unnumberedsubsubsec 上拍
-@translationof Upbeats
 
 @cindex anacrusis (弱拍)
 @cindex upbeat (上拍)
@@ -1558,9 +1544,8 @@ R1\fermata
 @rinternals{Timing_translator}
 
 
-@node 無韻律の音楽
+@node Unmetered music
 @unnumberedsubsubsec 無韻律の音楽
-@translationof Unmetered music
 
 @cindex cadenza (カデンツァ)
 @cindex cadenza, beams (カデンツァでの連桁)
@@ -1640,7 +1625,7 @@ R1\fermata
 
 自動連桁は @code{\cadenzaOn} で無効になります。@c
 このため、カデンツァ内の連桁はすべて手動で入力する必要があります
-(@ref{手動連桁})。
+(@ref{Manual beams})。
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1698,9 +1683,8 @@ R1\fermata
 @end example
 
 
-@node 多拍子記譜法
+@node Polymetric notation
 @unnumberedsubsubsec 多拍子記譜法
-@translationof Polymetric notation
 
 @c This section necessarily uses \set
 @c This is acceptable  -td
@@ -1896,9 +1880,8 @@ R1\fermata
 @end lilypond
 
 
-@node 自動音符分割
+@node Automatic note splitting
 @unnumberedsubsubsec 自動音符分割
-@translationof Automatic note splitting
 
 @cindex note, splitting (音符を分割する)
 @cindex splitting notes (音符を分割する)
@@ -1990,9 +1973,8 @@ R1\fermata
 セットすることで音符や休符を伸縮することができます。
 
 
-@node 旋律のリズムを示す
+@node Showing melody rhythms
 @unnumberedsubsubsec 旋律のリズムを示す
-@translationof Showing melody rhythms
 
 @cindex melody rhythm, showing (旋律のリズムを示す)
 @cindex rhythm, showing melody (旋律のリズムを示す)
@@ -2096,21 +2078,19 @@ R1\fermata
 @rinternals{Pitch_squash_engraver}
 
 
-@node 連桁
+@node Beams
 @subsection 連桁
-@translationof Beams
 
 @menu
-* 自動連桁::
-* 自動連桁の振る舞いを設定する::
-* 手動連桁::
-* 羽状の連桁::
+* Automatic beams::
+* Setting automatic beam behavior::
+* Manual beams::
+* Feathered beams::
 @end menu
 
 
-@node 自動連桁
+@node Automatic beams
 @unnumberedsubsubsec 自動連桁
-@translationof Automatic beams
 
 デフォルトでは、連桁は自動的に挿入されます:
 
@@ -2130,7 +2110,7 @@ R1\fermata
 
 自動的に決定される連桁が満足いかないものである場合、@c
 明示的に連桁を挿入することが可能です
--- @ref{手動連桁} を参照してください。@c
+-- @ref{Manual beams} を参照してください。@c
 連桁を休符の上まで伸ばそうと意図しているのなら、@c
 連桁を手動で挿入する @emph{必要があります}。
 
@@ -2159,7 +2139,7 @@ R1\fermata
 
 自動的に挿入されるデフォルトの連桁とは異なるパターンの連桁を@c
 作成することができます
--- @ref{自動連桁の振る舞いを設定する} を参照してください。
+-- @ref{Setting automatic beam behavior} を参照してください。
 
 @predefined
 @code{\autoBeamOff},
@@ -2216,9 +2196,8 @@ R1\fermata
 @emph{次の} 連桁から影響を与えます。
 
 
-@node 自動連桁の振る舞いを設定する
+@node Setting automatic beam behavior
 @unnumberedsubsubsec 自動連桁の振る舞いを設定する
-@translationof Setting automatic beam behavior
 
 @cindex beam, with lyrics (連桁と歌詞)
 @cindex lyrics, with beam (歌詞と連桁)
@@ -2235,7 +2214,7 @@ R1\fermata
 決定されます:
 @code{baseMoment}, @code{beatStructure}, @code{beamExceptions}。@c
 これらの値は以下で示すようにオーバライドすることができますが、@c
-@ref{拍子} で説明しているように、デフォルトの値そのものを変更することも@c
+@ref{Time signature} で説明しているように、デフォルトの値そのものを変更することも@c
 できます。
 
 @code{beamExceptions} が現在の拍子記号に対して定義されている時、@c
@@ -2546,7 +2525,7 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 
 @morerefs
 記譜法リファレンス:
-@ref{拍子}
+@ref{Time signature}
 
 インストールされているファイル:
 @file{scm/time-signature-settings.scm}
@@ -2594,7 +2573,7 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 
 拍子に対するデフォルトの連桁設定を変更することで、@c
 常にお望みの連桁を使うこともできます。@c
-ある拍子に対する自動連桁設定を変更する方法は @ref{拍子} で説明しています。
+ある拍子に対する自動連桁設定を変更する方法は @ref{Time signature} で説明しています。
 
 @lilypond[quote,verbatim]
 <<
@@ -2615,9 +2594,8 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @end lilypond
 
 
-@node 手動連桁
+@node Manual beams
 @unnumberedsubsubsec 手動連桁
-@translationof Manual beams
 
 @cindex beam, manual (手動連桁)
 @cindex manual beam (手動連桁)
@@ -2724,9 +2702,8 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @rinternals{Stem_engraver}
 
 
-@node 羽状の連桁
+@node Feathered beams
 @unnumberedsubsubsec 羽状の連桁
-@translationof Feathered beams
 
 @cindex beam, feathered (羽状の連桁)
 @cindex feathered beam (羽状の連桁)
@@ -2791,21 +2768,19 @@ MIDI 出力での演奏時間は正確です。
 そして分数の数が小さいときにだけ機能します。
 
 
-@node 小節
+@node Bars
 @subsection 小節
-@translationof Bars
 
 @menu
-* 小節線::
-* 小節番号::
-* 小節と小節番号のチェック::
-* リハーサル記号::
+* Bar lines::
+* Bar numbers::
+* Bar and bar number checks::
+* Rehearsal marks::
 @end menu
 
 
-@node 小節線
+@node Bar lines
 @unnumberedsubsubsec 小節線
-@translationof Bar lines
 
 @cindex bar line (小節線)
 @cindex measure line (小節線)
@@ -3047,7 +3022,7 @@ f'1 \bar "k"
 さらに、@code{\inStaffSegno} コマンドがあります。@c
 これは、@code{\repeat volta} コマンドと@c
 用いられた際に、繰り返しの小節線と結合したセーニョ小節線を作り出します。@c
-@ref{通常の繰り返し} を参照してください。
+@ref{Normal repeats} を参照してください。
 
 @funindex \defineBarLine
 @cindex bar line, defining (小節線を定義する)
@@ -3194,9 +3169,8 @@ f'1 \bar "k"
 @rinternals{Timing_translator} (@code{Timing} プロパティ用です)
 
 
-@node 小節番号
+@node Bar numbers
 @unnumberedsubsubsec 小節番号
-@translationof Bar numbers
 
 @cindex bar number (小節番号)
 @cindex measure number (小節番号)
@@ -3303,9 +3277,8 @@ f'1 \bar "k"
 詳細は @rinternals{StaffGroup} と @rinternals{BarNumber} を参照してください。
 
 
-@node 小節と小節番号のチェック
+@node Bar and bar number checks
 @unnumberedsubsubsec 小節と小節番号のチェック
-@translationof Bar and bar number checks
 
 @cindex bar check (小節チェック)
 @cindex bar number check (小節番号チェック)
@@ -3390,9 +3363,8 @@ f'1 \bar "k"
 @rlsr{Rhythms}
 
 
-@node リハーサル記号
+@node Rehearsal marks
 @unnumberedsubsubsec リハーサル記号
-@translationof Rehearsal marks
 
 @cindex rehearsal mark (リハーサル記号)
 @cindex mark, rehearsal (リハーサル記号)
@@ -3557,20 +3529,18 @@ f'1 \bar "k"
 @rinternals{RehearsalMark}
 
 
-@node 特殊なリズム関連事項
+@node Special rhythmic concerns
 @subsection 特殊なリズム関連事項
-@translationof Special rhythmic concerns
 
 
 @menu
-* 装飾小音符::
-* カデンツァに揃える::
-* 時間管理::
+* Grace notes::
+* Aligning to cadenzas::
+* Time administration::
 @end menu
 
-@node 装飾小音符
+@node Grace notes
 @unnumberedsubsubsec 装飾小音符
-@translationof Grace notes
 
 @cindex ornament (装飾音)
 @cindex grace note (装飾小音符)
@@ -3829,9 +3799,8 @@ c'8 \acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
 @ref{Scaling durations} を参照してください。
 
 
-@node カデンツァに揃える
+@node Aligning to cadenzas
 @unnumberedsubsubsec カデンツァに揃える
-@translationof Aligning to cadenzas
 
 @cindex cadenza (カデンツァ)
 @cindex cadenza, aligning to (カデンツァに揃える)
@@ -3877,9 +3846,8 @@ MyCadenza = \relative {
 @rlsr{Rhythms}
 
 
-@node 時間管理
+@node Time administration
 @unnumberedsubsubsec 時間管理
-@translationof Time administration
 
 @cindex time administration (時間管理)
 @cindex timing, within score (楽譜内でのタイミング)
@@ -3908,7 +3876,7 @@ MyCadenza = \relative {
 @table @code
 @item currentBarNumber
 カレントの小節番号。@c
-このプロパティの使用例は、@ref{小節番号} を参照してください。
+このプロパティの使用例は、@ref{Bar numbers} を参照してください。
 
 @item measureLength
 カレントの拍子での小節の長さ。@c

@@ -14,9 +14,8 @@
 @c Translation status: post-GDP
 
 
-@node 編集者の注釈
+@node Editorial annotations
 @section 編集者の注釈
-@translationof Editorial annotations
 
 @lilypondfile[quote]{snippets/editorial-headword.ly}
 
@@ -24,29 +23,27 @@
 分析や教育的な強調を付け加える方法について議論します。
 
 @menu
-* 譜の内部::
-* 譜の外部::
+* Inside the staff::
+* Outside the staff::
 @end menu
 
 
-@node 譜の内部
+@node Inside the staff
 @subsection 譜の内部
-@translationof Inside the staff
 
 このセクションでは、譜の内部にある要素に強調を付け加える方法について説明します。
 
 @menu
-* 記譜フォント サイズを選択する::
-* 運指の指示::
-* 隠された音符::
-* オブジェクトに色を付ける::
-* 括弧::
-* 符幹::
+* Selecting notation font size::
+* Fingering instructions::
+* Hidden notes::
+* Coloring objects::
+* Parentheses::
+* Stems::
 @end menu
 
-@node 記譜フォント サイズを選択する
+@node Selecting notation font size
 @unnumberedsubsubsec 記譜フォント サイズを選択する
-@translationof Selecting notation font size
 
 @cindex font size (notation), scaling (フォント サイズ (記譜法) の調整)
 @cindex font size (notation) (フォント サイズ (記譜法))
@@ -68,10 +65,10 @@
 
 @warning{@*
 テキストのフォント サイズに関しては、@c
-@ref{フォントとフォント サイズを選択する}を参照してください。@*
-譜のサイズに関しては、@ref{譜サイズを設定する}を参照してください。@*
-合図音符に関しては、@ref{合図音符をフォーマットする}を参照してください。@*
-オッシア譜に関しては、@ref{オッシア譜}を参照してください。}
+@ref{Selecting font and font size}を参照してください。@*
+譜のサイズに関しては、@ref{Setting the staff size}を参照してください。@*
+合図音符に関しては、@ref{Formatting cue notes}を参照してください。@*
+オッシア譜に関しては、@ref{Ossia staves}を参照してください。}
 
 譜のサイズを変えずに記譜のサイズを変更するには、@code{\magnifyMusic}
 コマンドに拡大縮小の割合を指定します:
@@ -133,7 +130,7 @@
 大きさになります。
 
 @warning{@code{@bs{}magnifyMusic} コマンドは譜のサイズを変更する時にも@c
-使うべきでは@i{ありません。}@ref{譜サイズを設定する}を参照してください。}
+使うべきでは@i{ありません。}@ref{Setting the staff size}を参照してください。}
 
 
 @subsubsubheading 個々のレイアウト オブジェクトのサイズを変更する
@@ -203,7 +200,7 @@ Scheme 関数 @code{magstep} は逆のことをします: @code{font-size} の�
 (譜のサイズを変更せずに) 符幹、連桁のサイズや、水平方向のスペースを@c
 変更するには、上記の @code{\magnifyMusic} を使用してください。@c
 譜のサイズを含めて、全てのサイズを変更する場合は、@c
-@ref{譜サイズを設定する}を参照してください。
+@ref{Setting the staff size}を参照してください。
 
 @code{fontSize} @i{コンテキスト プロパティ} が設定されると、@c
 個々のレイアウト オブジェクトのグリフが出力される前に、@c
@@ -319,9 +316,8 @@ c''4-3
 @}
 @end example
 
-@node 運指の指示
+@node Fingering instructions
 @unnumberedsubsubsec 運指の指示
-@translationof Fingering instructions
 
 @cindex fingering (運指法)
 @cindex finger change (指を変える)
@@ -399,9 +395,8 @@ c''4-3
 @rinternals{Fingering}
 
 
-@node 隠された音符
+@node Hidden notes
 @unnumberedsubsubsec 隠された音符
-@translationof Hidden notes
 
 @cindex hidden note (隠された音符)
 @cindex invisible note (不可視の音符)
@@ -450,10 +445,10 @@ c''4-3
 
 @morerefs
 学習マニュアル:
-@rlearning{オブジェクトの可視性と色}
+@rlearningnamed{Visibility and color of objects, オブジェクトの可視性と色}
 
 Notation Reference:
-@ref{不可視の休符},
+@ref{Invisible rests},
 @ref{Visibility of objects},
 @ref{Hiding staves}
 
@@ -465,9 +460,8 @@ Notation Reference:
 @rinternals{NoteSpacing}
 
 
-@node オブジェクトに色を付ける
+@node Coloring objects
 @unnumberedsubsubsec オブジェクトに色を付ける
-@translationof Coloring objects
 
 @cindex colored object (色付きのオブジェクト)
 @cindex object, colored (色付きのオブジェクト)
@@ -585,9 +579,8 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 -- @ref{The tweak command} を参照してください。
 
 
-@node 括弧
+@node Parentheses
 @unnumberedsubsubsec 括弧
-@translationof Parentheses
 
 @cindex ghost note (ゴースト ノート)
 @cindex note, ghost (ゴースト ノート)
@@ -636,9 +629,8 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 それぞれの音符に個別に括弧が付きます。
 
 
-@node 符幹
+@node Stems
 @unnumberedsubsubsec 符幹
-@translationof Stems
 
 @cindex stem (符幹)
 @cindex stem, invisible (不可視の符幹)
@@ -693,23 +685,21 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 @rinternals{stem-interface}
 
 
-@node 譜の外部
+@node Outside the staff
 @subsection 譜の外部
-@translationof Outside the staff
 
 このセクションでは、@c
 譜の外側から譜の中にある要素を強調するための方法について説明します。
 
 @menu
-* 音符名::
-* バルーン ヘルプ::
-* グリッド ライン::
-* 分析の囲み::
+* Note names::
+* Balloon help::
+* Grid lines::
+* Analysis brackets::
 @end menu
 
-@node 音符名
+@node Note names
 @unnumberedsubsubsec 音符名
-@translationof Note names
 
 @cindex note name, printing (音符名の譜刻)
 
@@ -811,9 +801,8 @@ somechords = \relative c' {
 @rinternals{Note_name_engraver}
 
 
-@node バルーン ヘルプ
+@node Balloon help
 @unnumberedsubsubsec バルーン ヘルプ
-@translationof Balloon help
 
 @cindex balloon (バルーン)
 @cindex notation, explaining (記譜法を説明する)
@@ -878,9 +867,8 @@ somechords = \relative c' {
 @rinternals{balloon-interface}
 
 
-@node グリッド ライン
+@node Grid lines
 @unnumberedsubsubsec グリッド ライン
-@translationof Grid lines
 
 @cindex grid line (グリッド ライン)
 @cindex line, grid (グリッド ライン)
@@ -947,9 +935,8 @@ somechords = \relative c' {
 @rinternals{grid-point-interface}.
 
 
-@node 分析の囲み
+@node Analysis brackets
 @unnumberedsubsubsec 分析の囲み
-@translationof Analysis brackets
 
 @cindex bracket (囲み、角括弧)
 @cindex bracket, phrasing (フレーズの囲み)

@@ -9,13 +9,12 @@
 
 @c Translators: Masamichi Hosoda, Yoshiki Sawada
 
-@node マニュアル
+@node Manuals
 @unnumbered マニュアル
-@translationof Manuals
 
-@macro details{reference}
+@macro details{node, label}
 @spanClass{detail}
-(@ref{\reference\, \reference\ の詳細})
+(@ref{\node\, \label\ の詳細})
 @spanEnd
 @end macro
 
@@ -37,27 +36,27 @@
 @itemize
 
 @item
-@ref{テキスト入力}:
+@ref{Text input}:
 LilyPond は @strong{テキスト ベース} の楽譜作成プログラムです。@c
 まず最初にこのドキュメントを読んでください！
 
 @item
 @ifWebLinks{@manualStableLearningSplitNoName-ja,@rlearningnamed{Top,学習}}
 @qq{必読} のやさしい LilyPond 入門書です。
-@details{学習}
+@details{Learning, 学習}
 
 @item
 @ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,用語集}}
 @emph{(副読本)}
 音楽用語についての説明と、
 英語の音楽用語に馴染みの無いユーザのための訳語を提供します。
-@details{用語集}
+@details{Glossary, 用語集}
 
 @item
 @ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
 @emph{(副読本)}
 コンピュータによる譜刻についての背景。
-@details{エッセー}
+@details{Essay, エッセー}
 
 @end itemize
 
@@ -71,17 +70,17 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 @item
 @ifWebLinks{@manualStableNotationSplitNoName-ja,@rnotationnamed{Top,記譜法}}
 構文リファレンス。
-@details{記譜法}
+@details{Notation, 記譜法}
 
 @item
 @ifWebLinks{@manualStableUsageSplitNoName-ja,@rprogramnamed{Top,使用方法}}
 このプログラムの実行方法。
-@details{使用方法}
+@details{Usage, 使用方法}
 
 @item
 @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
 ちょっとしたトリック、秘訣。
-@details{コード断片集}
+@details{Snippets, コード断片集}
 
 @end itemize
 
@@ -100,22 +99,22 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 @item
 @ref{Top, Web}:
 このドキュメント。
-@details{Web}
+@details{Web, Web}
 
 @item
 @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
 変更点。
-@details{変更点}
+@details{Changes, 変更点}
 
 @item
 @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
 変則的な調整。
-@details{拡張}
+@details{Extending, 拡張}
 
 @item
 @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
 調整のためのリファレンス。
-@details{内部リファレンス}
+@details{Internals, 内部リファレンス}
 
 @end itemize
 
@@ -128,7 +127,7 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 @itemize
 
 @item
-@ref{すべて}:
+@ref{All}:
 圧縮したアーカイブとして提供する以前と現在の安定バージョンの@c
 ドキュメント。
 
@@ -172,18 +171,18 @@ PDF はダウンロードしてオフラインで利用することができま�
 
 @divClass{hide}
 @menu
-* 学習::            学習
-* 用語集::          用語集
-* エッセー::        エッセー
-* 記譜法::          リファレンス
-* 使用方法::        使用方法
-* コード断片集::    コード断片集
+* Learning::            学習
+* Glossary::          用語集
+* Essay::        エッセー
+* Notation::          リファレンス
+* Usage::        使用方法
+* Snippets::    コード断片集
 * FAQ::             FAQ
 * Web::             Web
-* 変更点::          ニュース
-* 拡張::           プログラミング
-* 内部リファレンス::内部リファレンス
-* すべて::          すべてのマニュアル
+* Changes::          ニュース
+* Extending::           プログラミング
+* Internals::内部リファレンス
+* All::          すべてのマニュアル
 * FDL::             ライセンス
 @end menu
 
@@ -194,9 +193,8 @@ PDF はダウンロードしてオフラインで利用することができま�
 @c LM 1.1 About the documentation  (before this section was
 @c removed in July 2009).
 
-@node 学習
+@node Learning
 @unnumberedsec 学習
-@translationof Learning
 
 @divClass{column-left-top}
 @subheading 学習マニュアル
@@ -223,9 +221,8 @@ PDF はダウンロードしてオフラインで利用することができま�
 @divEnd
 
 
-@node 用語集
+@node Glossary
 @unnumberedsec 用語集
-@translationof Glossary
 
 @divClass{column-left-top}
 @subheading 用語集
@@ -248,9 +245,8 @@ PDF はダウンロードしてオフラインで利用することができま�
 @divEnd
 
 
-@node エッセー
+@node Essay
 @unnumberedsec エッセー
-@translationof Essay
 
 @divClass{column-left-top}
 @subheading エッセー
@@ -275,9 +271,8 @@ LilyPond の譜刻テクニックの例を挙げます。@c
 @divEnd
 
 
-@node 記譜法
+@node Notation
 @unnumberedsec 記譜法
-@translationof Notation
 
 @divClass{column-left-top}
 @subheading 記譜法リファレンス
@@ -303,9 +298,8 @@ LilyPond の譜刻テクニックの例を挙げます。@c
 @divEnd
 
 
-@node 使用方法
+@node Usage
 @unnumberedsec 使用方法
-@translationof Usage
 
 @divClass{column-left-top}
 @subheading 使用法マニュアル
@@ -327,9 +321,8 @@ LilyPond 記譜法を他のプログラムと統合する方法について説�
 @divEnd
 
 
-@node コード断片集
+@node Snippets
 @unnumberedsec コード断片集
-@translationof Snippets
 
 @divClass{column-left-top}
 @subheading コード断片集
@@ -362,7 +355,6 @@ LSR は LilyPond の安定版で実行することを前提としているため
 
 @node FAQ
 @unnumberedsec FAQ
-@translationof FAQ
 
 @divClass{column-center-top}
 @subheading 使い始めの質問
@@ -371,12 +363,12 @@ LSR は LilyPond の安定版で実行することを前提としているため
 あるのですか？
 
 LilyPond は、ユーザが音楽をテキストで書くソフトウェアです。@c
-@ref{テキスト入力} を読んでください。
+@ref{Text input} を読んでください。
 
 
 @subsubheading ドキュメントがたくさんあります！すべて読む必要があるのですか！？
 
-読む必要があるのは @ref{学習, 学習マニュアル} です。@c
+読む必要があるのは @ref{Learning, 学習マニュアル} です。@c
 他のドキュメントで読む必要があるのは、@c
 作成したい記譜について議論しているセクションだけです。
 
@@ -384,7 +376,7 @@ LilyPond は、ユーザが音楽をテキストで書くソフトウェアで�
 @subsubheading それでもまだ、読むものがたくさんあります！そこまでする価値のあるソフトウェアなのですか？
 
 あなた自身で決めてください。@c
-LilyPond を使う理由については、@ref{導入部} に書かれています。
+LilyPond を使う理由については、@ref{Introduction} に書かれています。
 
 @divEnd
 
@@ -394,19 +386,18 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 
 @subsubheading 何かがうまくいっていません！どうやって直せば良いのですか？
 
-修正方法については、@rprogram{トラブルシュート} で説明されています。
+修正方法については、@rprogramnamed{Troubleshooting, トラブルシュート} で説明されています。
 
 
 @subsubheading 何故、構文が変更されるのですか？
 
-そのことについては、@rprogram{何故構文は変更されるのか？} で説明されています。
+そのことについては、@rprogramnamed{Why does the syntax change?, 何故構文は変更されるのか？} で説明されています。
 
 @divEnd
 
 
 @node Web
 @unnumberedsec Web
-@translationof Web
 
 @divClass{column-left-top}
 @subheading Web
@@ -439,9 +430,8 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 @divEnd
 
 
-@node 変更点
+@node Changes
 @unnumberedsec 変更点
-@translationof Changes
 
 @divClass{column-left-top}
 @subheading 変更点
@@ -462,9 +452,8 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 @divEnd
 
 
-@node 拡張
+@node Extending
 @unnumberedsec 拡張
-@translationof Extending
 
 @divClass{column-left-top}
 @subheading LilyPond の拡張
@@ -484,9 +473,8 @@ LilyPond を使う理由については、@ref{導入部} に書かれていま�
 @divEnd
 
 
-@node 内部リファレンス
+@node Internals
 @unnumberedsec 内部リファレンス
-@translationof Internals
 
 @divClass{column-left-top}
 @subheading 内部リファレンス
@@ -519,9 +507,8 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 @divEnd
 
 
-@node すべて
+@node All
 @unnumberedsec すべて
-@translationof All
 
 @divClass{column-left-top}
 @subheading ダウンロード可能なバージョン
@@ -593,7 +580,6 @@ LilyPond 1.6 ドキュメント}
 
 @node FDL
 @unnumberedsec FDL
-@translationof FDL
 
 @divClass{column-center-top}
 @subheading ドキュメント ライセンス
@@ -601,7 +587,7 @@ LilyPond 1.6 ドキュメント}
 GNU LilyPond のドキュメントは、@c
 GNU Free Documentation License に基づいて公開されています。@c
 このライセンスの紹介と、このライセンスを選択した理由については、@c
-@ref{自由} に記述されています。@c
+@ref{Freedom} に記述されています。@c
 (訳者) GNU GPL, GNU FDL の日本語訳は
 @uref{https://www.opensource.jp/,Open Source Group Japan}
 を参照してください。

@@ -12,9 +12,8 @@
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
-@node 現代音楽
+@node Contemporary music
 @section 現代音楽
-@translationof Contemporary music
 
 20 世紀の始めから、作曲のスタイルとテクニックは大幅に拡張されました。@c
 新しい調和音とリズムの開発、ピッチ スペクトルの拡張、@c
@@ -24,46 +23,43 @@
 これらの新しい記譜テクニックに関するリファレンスと情報を提供することです。
 
 @menu
-* 現代音楽でのピッチと調和音::
-* 現代音楽のリズムへのアプローチ::
-* グラフィカル記譜法::
-* 現代音楽の楽譜作成技術::
-* 新しい楽器技術::
-* 現代音楽に関する本と楽譜::
+* Pitch and harmony in contemporary music::
+* Contemporary approaches to rhythm::
+* Graphical notation::
+* Contemporary scoring techniques::
+* New instrumental techniques::
+* Further reading and scores of interest::
 @end menu
 
 
-@node 現代音楽でのピッチと調和音
+@node Pitch and harmony in contemporary music
 @subsection 現代音楽でのピッチと調和音
-@translationof Pitch and harmony in contemporary music
 
 このセクションでは、@c
 現代音楽でのピッチと調和音の記譜に関係する問題をハイライトします。
 
 @menu
-* 現代音楽でのピッチと調和音のためのリファレンス::
-* 微分音記譜法::
-* 現代音楽の調号と和声::
+* References for pitch and harmony in contemporary music::
+* Microtonal notation::
+* Contemporary key signatures and harmony::
 @end menu
 
 
-@node 現代音楽でのピッチと調和音のためのリファレンス
+@node References for pitch and harmony in contemporary music
 @unnumberedsubsubsec 現代音楽でのピッチと調和音のためのリファレンス
-@translationof References for pitch and harmony in contemporary music
 
 @itemize
-@item 標準の 4 分音記譜法は @ref{他の言語での音符名} を参照してください。
+@item 標準の 4 分音記譜法は @ref{Note names in other languages} を参照してください。
 
-@item 非標準の調号は @ref{調号} を参照してください。
+@item 非標準の調号は @ref{Key signature} を参照してください。
 
-@item 現代音楽での臨時記号の表示は @ref{自動臨時記号} を参照してください。
+@item 現代音楽での臨時記号の表示は @ref{Automatic accidentals} を参照してください。
 
 @end itemize
 
 
-@node 微分音記譜法
+@node Microtonal notation
 @unnumberedsubsubsec 微分音記譜法
-@translationof Microtonal notation
 
 @ignore
     Discussion of microtones other than quarter-tones,
@@ -71,9 +67,8 @@
 @end ignore
 
 
-@node 現代音楽の調号と和声
+@node Contemporary key signatures and harmony
 @unnumberedsubsubsec 現代音楽の調号と和声
-@translationof Contemporary key signatures and harmony
 
 @ignore
     Discussion of contemporary key signatures:
@@ -81,43 +76,40 @@
 @end ignore
 
 
-@node 現代音楽のリズムへのアプローチ
+@node Contemporary approaches to rhythm
 @subsection 現代音楽のリズムへのアプローチ
-@translationof Contemporary approaches to rhythm
 
 このセクションでは、@c
 現代音楽のリズムの記譜法に関係する問題をハイライトします。
 
 @menu
-* 現代音楽のリズムへのアプローチのためのリファレンス::
-* 現代音楽の連符::
-* 現代音楽の拍子::
-* 多拍子記譜法の拡張::
-* 多拍子記譜法の連桁::
-* 多拍子記譜法の小節線::
+* References for contemporary approaches to rhythm::
+* Tuplets in contemporary music::
+* Contemporary time signatures::
+* Extended polymetric notation::
+* Beams in contemporary music::
+* Bar lines in contemporary music::
 @end menu
 
 
-@node 現代音楽のリズムへのアプローチのためのリファレンス
+@node References for contemporary approaches to rhythm
 @unnumberedsubsubsec 現代音楽のリズムへのアプローチのためのリファレンス
-@translationof References for contemporary approaches to rhythm
 
 @itemize
-@item 複合拍子は @ref{拍子} を参照してください。
+@item 複合拍子は @ref{Time signature} を参照してください。
 
-@item 基本的な多拍子記譜法 @ref{多拍子記譜法} を参照してください。
+@item 基本的な多拍子記譜法 @ref{Polymetric notation} を参照してください。
 
-@item 羽状の連桁は @ref{羽状の連桁} を参照してください。
+@item 羽状の連桁は @ref{Feathered beams} を参照してください。
 
-@item Mensurstriche 小節線 (譜の間だけの小節線) は @ref{譜をグループ化する}
+@item Mensurstriche 小節線 (譜の間だけの小節線) は @ref{Grouping staves}
 を参照してください。
 
 @end itemize
 
 
-@node 現代音楽の連符
+@node Tuplets in contemporary music
 @unnumberedsubsubsec 現代音楽の連符
-@translationof Tuplets in contemporary music
 
 @ignore
     Extended discussion of modern tuplets, including
@@ -128,9 +120,8 @@
 @end ignore
 
 
-@node 現代音楽の拍子
+@node Contemporary time signatures
 @unnumberedsubsubsec 現代音楽の拍子
-@translationof Contemporary time signatures
 
 @ignore
     Extended discussion of compound time signatures
@@ -143,9 +134,8 @@
 @end ignore
 
 
-@node 多拍子記譜法の拡張
+@node Extended polymetric notation
 @unnumberedsubsubsec 多拍子記譜法の拡張
-@translationof Extended polymetric notation
 
 @ignore
     Extended examples e.g. different instruments
@@ -153,9 +143,8 @@
 @end ignore
 
 
-@node 多拍子記譜法の連桁
+@node Beams in contemporary music
 @unnumberedsubsubsec 多拍子記譜法の連桁
-@translationof Beams in contemporary music
 
 @ignore
     Beaming practises, stemlets, Boulez-esque displaying
@@ -163,46 +152,40 @@
 @end ignore
 
 
-@node 多拍子記譜法の小節線
+@node Bar lines in contemporary music
 @unnumberedsubsubsec 多拍子記譜法の小節線
-@translationof Bar lines in contemporary music
 
 @ignore
     Mensurstriche barlines, tick barlines, etc.
 @end ignore
 
 
-@node グラフィカル記譜法
+@node Graphical notation
 @subsection グラフィカル記譜法
-@translationof Graphical notation
 
 
-@node 現代音楽の楽譜作成技術
+@node Contemporary scoring techniques
 @subsection 現代音楽の楽譜作成技術
-@translationof Contemporary scoring techniques
 
 
-@node 新しい楽器技術
+@node New instrumental techniques
 @subsection 新しい楽器技術
-@translationof New instrumental techniques
 
 
-@node 現代音楽に関する本と楽譜
+@node Further reading and scores of interest
 @subsection 現代音楽に関する本と楽譜
-@translationof Further reading and scores of interest
 
 このセクションでは現代音楽記譜法を学ぶ際に有用な本、楽譜例、その他の情報源を@c
 提示します。
 
 @menu
-* 現代音楽記譜法についての本と記事::
-* 楽譜例::
+* Books and articles on contemporary musical notation::
+* Scores and musical examples::
 @end menu
 
 
-@node 現代音楽記譜法についての本と記事
+@node Books and articles on contemporary musical notation
 @unnumberedsubsubsec 現代音楽記譜法についての本と記事
-@translationof Books and articles on contemporary musical notation
 
 @itemize
 @item
@@ -220,9 +203,8 @@ by Kurt Stone [W. W. Norton, 1980]
 @end itemize
 
 
-@node 楽譜例
+@node Scores and musical examples
 @unnumberedsubsubsec 楽譜例
-@translationof Scores and musical examples
 
 @ignore
     Rough list of composers whose work could be included

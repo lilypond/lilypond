@@ -14,24 +14,22 @@
 @c Translation status: post-GDP
 
 
-@node 発想記号
+@node Expressive marks
 @section 発想記号
-@translationof Expressive marks
 
 @lilypondfile[quote]{snippets/expressive-headword.ly}
 
 このセクションでは楽譜の中で作成可能なさまざまな発想記号をリストアップします。
 
 @menu
-* 音符に付けられる発想記号::
-* 曲線の発想記号::
-* 直線の発想記号::
+* Expressive marks attached to notes::
+* Expressive marks as curves::
+* Expressive marks as lines::
 @end menu
 
 
-@node 音符に付けられる発想記号
+@node Expressive marks attached to notes
 @subsection 音符に付けられる発想記号
-@translationof Expressive marks attached to notes
 
 このセクションでは、音符に添付される発想記号を作成する方法について説明します。@c
 音符に添付される発想記号には以下のものがあります:
@@ -40,15 +38,14 @@
 
 
 @menu
-* アーティキュレーションと装飾::
-* 強弱記号::
-* 新たな強弱記号::
+* Articulations and ornamentations::
+* Dynamics::
+* New dynamic marks::
 @end menu
 
 
-@node アーティキュレーションと装飾
+@node Articulations and ornamentations
 @unnumberedsubsubsec アーティキュレーションと装飾
-@translationof Articulations and ornamentations
 
 @cindex articulation (アーティキュレーション)
 @cindex ornamentation (装飾)
@@ -204,7 +201,7 @@ R1\fermata
 @ref{Text scripts} を参照してください。
 
 音符につけられる Script と TextScript の配置順序についての更なる情報は、@c
-@rlearning{オブジェクトの配置} を参照してください。
+@rlearningnamed{Placement of objects, オブジェクトの配置} を参照してください。
 
 @snippets
 
@@ -247,7 +244,7 @@ R1\fermata
 @ref{Text scripts},
 @ref{Direction and placement},
 @ref{List of articulations},
-@ref{トリル}
+@ref{Trills}
 
 インストールされているファイル:
 @file{scm/script.scm}
@@ -260,9 +257,8 @@ R1\fermata
 @rinternals{TextScript}
 
 
-@node 強弱記号
+@node Dynamics
 @unnumberedsubsubsec 強弱記号
-@translationof Dynamics
 
 @cindex absolute dynamics (絶対強弱記号)
 @cindex dynamics (強弱記号)
@@ -443,7 +439,7 @@ R1\fermata
 @end lilypond
 
 新たに絶対強弱記号や強弱に対応させるテキストを作成するには、@c
-@ref{新たな強弱記号} を参照してください。
+@ref{New dynamic marks} を参照してください。
 
 @cindex dynamics, vertical positioning (強弱記号の垂直方向の位置)
 @cindex vertical positioning of dynamics (強弱記号の垂直方向の位置)
@@ -560,11 +556,11 @@ R1\fermata
 @rglos{hairpin}
 
 学習マニュアル:
-@rlearning{アーティキュレーションと強弱記号}
+@rlearningnamed{Articulations and dynamics, アーティキュレーションと強弱記号}
 
 記譜法リファレンス:
 @ref{Direction and placement},
-@ref{新たな強弱記号},
+@ref{New dynamic marks},
 @ref{Enhancing MIDI output},
 @ref{Controlling MIDI dynamics}
 
@@ -578,9 +574,8 @@ R1\fermata
 @rinternals{Dynamics}
 
 
-@node 新たな強弱記号
+@node New dynamic marks
 @unnumberedsubsubsec 新たな強弱記号
-@translationof New dynamic marks
 
 @cindex new dynamic mark (新たな強弱記号)
 @cindex dynamic mark, new (新たな強弱記号)
@@ -706,24 +701,22 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @rlsrnamed{Expressive marks,発想記号}
 
 
-@node 曲線の発想記号
+@node Expressive marks as curves
 @subsection 曲線の発想記号
-@translationof Expressive marks as curves
 
 このセクションでは曲線を持つさまざまな発想記号
 -- 通常のスラー、フレージング スラー、ブレス記号、Fall それに Doit --
 を作成する方法について説明します。
 
 @menu
-* スラー::
-* フレージング スラー::
-* ブレス記号::
-* Fall と Doit::
+* Slurs::
+* Phrasing slurs::
+* Breath marks::
+* Falls and doits::
 @end menu
 
-@node スラー
+@node Slurs
 @unnumberedsubsubsec スラー
-@translationof Slurs
 
 @cindex slur (スラー)
 
@@ -763,7 +756,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 
 同時進行する、あるいは重なるスラーは特別な注意を必要とします。@c
 通常、外側のスラーはフレージングを表し、フレージング スラーは通常のスラーと@c
-重複します。@ref{フレージング スラー}を参照してください。@c
+重複します。@ref{Phrasing slurs}を参照してください。@c
 一つの @code{Voice} に通常のスラーが複数必要な場合、スラーの前に
 @code{\=} と識別子 (シンボルか非負の整数) を入力することによって、@c
 対応するスラーの始点と終点にラベルを付ける必要があります。
@@ -877,11 +870,11 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @rglos{slur}
 
 学習マニュアル:
-@rlearning{ネストされない括弧とタイ}
+@rlearningnamed{On the un-nestedness of brackets and ties, ネストされない括弧とタイ}
 
 記譜法リファレンス:
 @ref{Direction and placement},
-@ref{フレージング スラー}
+@ref{Phrasing slurs}
 
 コード断片集:
 @rlsrnamed{Expressive marks,発想記号}
@@ -890,9 +883,8 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @rinternals{Slur}
 
 
-@node フレージング スラー
+@node Phrasing slurs
 @unnumberedsubsubsec フレージング スラー
-@translationof Phrasing slurs
 
 @cindex phrasing slur (フレージング スラー)
 @cindex phrasing mark (フレーズ記号)
@@ -930,7 +922,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 
 同時進行あるいは重なり合うフレージング スラーは、@c
 通常のスラーと同様に @code{\=} を用いて入力する必要があります。@c
-@ref{スラー} を参照してください。
+@ref{Slurs} を参照してください。
 
 @funindex \phrasingSlurDashed
 @funindex \phrasingSlurDotted
@@ -999,7 +991,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 フレージング スラーに対する破線パターンの定義は、@c
 スラーに対する破線パターンの定義と同じ構造をとります。@c
 複雑な破線パターンについての更なる情報は、@c
-@ref{スラー} のコード断片集を参照してください。
+@ref{Slurs} のコード断片集を参照してください。
 
 @predefined
 @code{\phrasingSlurUp},
@@ -1015,11 +1007,11 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 
 @morerefs
 学習マニュアル:
-@rlearning{ネストされない括弧とタイ}
+@rlearningnamed{On the un-nestedness of brackets and ties, ネストされない括弧とタイ}
 
 記譜法リファレンス:
 @ref{Direction and placement},
-@ref{スラー}
+@ref{Slurs}
 
 コード断片集:
 @rlsrnamed{Expressive marks,発想記号}
@@ -1028,9 +1020,8 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 @rinternals{PhrasingSlur}
 
 
-@node ブレス記号
+@node Breath marks
 @unnumberedsubsubsec ブレス記号
-@translationof Breath marks
 
 @cindex breath mark (ブレス記号)
 @cindex pause mark (休止記号)
@@ -1048,7 +1039,7 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 配置されなければなりません。
 
 ブレス記号は自動連桁を終わらせます。@c
-この振る舞いをオーバライドする方法は、@ref{手動連桁} を参照してください。
+この振る舞いをオーバライドする方法は、@ref{Manual beams} を参照してください。
 
 @lilypond[verbatim,quote]
 \relative { c''8 \breathe d e f g2 }
@@ -1095,9 +1086,8 @@ divisio (ディビジオ: 区切り記号) がサポートされています。@
 @rinternals{Breathing_sign_engraver}
 
 
-@node Fall と Doit
+@node Falls and doits
 @unnumberedsubsubsec Fall と Doit
-@translationof Falls and doits
 
 @cindex fall
 @cindex doit
@@ -1133,22 +1123,20 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @rlsrnamed{Expressive marks,発想記号}
 
 
-@node 直線の発想記号
+@node Expressive marks as lines
 @subsection 直線の発想記号
-@translationof Expressive marks as lines
 
 このセクションでは直線的な軌道をとるさまざまな発想記号 --
 グリッサンド、アルペジオそれにトリル -- を作成する方法について説明します。
 
 @menu
-* グリッサンド::
-* アルペジオ::
-* トリル::
+* Glissando::
+* Arpeggio::
+* Trills::
 @end menu
 
-@node グリッサンド
+@node Glissando
 @unnumberedsubsubsec グリッサンド
-@translationof Glissando
 
 @cindex glissando (グリッサンド)
 @funindex \glissando
@@ -1251,9 +1239,8 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 サポートされていません。
 
 
-@node アルペジオ
+@node Arpeggio
 @unnumberedsubsubsec アルペジオ
-@translationof Arpeggio
 
 @cindex arpeggio (アルペジオ)
 @cindex broken chord (変則和音)
@@ -1318,10 +1305,10 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 
 括弧スタイルのアルペジオの破線プロパティは @code{'dash-definition} プロパティで@c
 制御します。@c
-@code{'dash-definition} プロパティについては @ref{スラー} で説明しています。
+@code{'dash-definition} プロパティについては @ref{Slurs} で説明しています。
 
 アルペジオをタイを用いて明示的に描き出すことができます。@c
-詳細は @ref{タイ} を参照してください。
+詳細は @ref{Ties} を参照してください。
 
 
 @predefined
@@ -1355,8 +1342,8 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @rglos{arpeggio}
 
 記譜法リファレンス:
-@ref{スラー},
-@ref{タイ}
+@ref{Slurs},
+@ref{Ties}
 
 コード断片集:
 @rlsrnamed{Expressive marks,発想記号}
@@ -1377,9 +1364,8 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 できません。@ref{譜を跨ぐ符幹}を参照してください。
 
 
-@node トリル
+@node Trills
 @unnumberedsubsubsec トリル
-@translationof Trills
 
 @cindex trill (トリル)
 
@@ -1388,7 +1374,7 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @funindex \stopTrillSpan
 
 延長線を持たない短い @notation{トリル} は @code{\trill} で譜刻されます。@c
-@ref{アーティキュレーションと装飾} を参照してください。
+@ref{Articulations and ornamentations} を参照してください。
 
 延長線を持つ長いトリルは @code{\startTrillSpan} と @code{\stopTrillSpan} で@c
 作成されます:
@@ -1429,7 +1415,7 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 
 トリルを装飾小音符と組み合わせることもできます。@c
 この組み合わせの構文と装飾小音符を正確に配置する方法については、@c
-@ref{装飾小音符} で説明しています。
+@ref{Grace notes} で説明しています。
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1507,8 +1493,8 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 @rglos{trill}
 
 記譜法リファレンス:
-@ref{アーティキュレーションと装飾},
-@ref{装飾小音符}
+@ref{Articulations and ornamentations},
+@ref{Grace notes}
 
 コード断片集:
 @rlsrnamed{Expressive marks,発想記号}

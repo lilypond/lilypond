@@ -46,16 +46,16 @@ Copyright @copyright{} 1999--2023 by the authors.
 @c  maybe add a "Tasks" or "Specific tasks" or something like
 @c  that, after Suggestions  -gp
 @menu
-* lilypond を実行する::               操作方法
-* convert-ly を使ってファイルを更新する:: 入力ファイルをアップデートする
+* Running lilypond::               操作方法
+* Updating files with convert-ly:: 入力ファイルをアップデートする
 * lilypond-book::                     文章と楽譜を統合する
-* 外部プログラム::                    LilyPond と他のプログラムを混合する。
-* LilyPond 入力ファイルの記述に対する提案::  効率的な使用方法とバグ対処方法
+* External programs::                    LilyPond と他のプログラムを混合する。
+* Suggestions for writing files::  効率的な使用方法とバグ対処方法
 
 付録
 
 * GNU Free Documentation License:: このドキュメントの使用許諾書
-* LilyPond インデックス::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -76,9 +76,8 @@ Copyright @copyright{} 1999--2023 by the authors.
 
 @include en/fdl.itexi
 
-@node LilyPond インデックス
+@node LilyPond index
 @appendix LilyPond インデックス
-@translationof LilyPond index
 
 @printindex cp
 

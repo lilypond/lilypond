@@ -14,42 +14,39 @@
 @c Translation status: post-GDP
 
 
-@node 世界の音楽
+@node World music
 @section 世界の音楽
-@translationof World music
 
 このセクションの目的は、@c
 西洋音楽の慣習とは異なる音楽に関する記譜の問題をハイライトすることです。
 
 @menu
-* 非西洋音楽の一般的な記譜法::
-* アラブ音楽::
-* トルコの伝統音楽::
+* Common notation for non-Western music::
+* Arabic music::
+* Turkish classical music::
 @end menu
 
 
-@node 非西洋音楽の一般的な記譜法
+@node Common notation for non-Western music
 @subsection 非西洋音楽の一般的な記譜法
-@translationof Common notation for non-Western music
 
 このセクションでは、西洋のクラシック音楽の様式には属さない楽譜を入力し、@c
 譜刻する方法を説明します。
 
 @menu
-* 記譜法とチューニング システムを拡張する::
+* Extending notation and tuning systems::
 @end menu
 
 
-@node 記譜法とチューニング システムを拡張する
+@node Extending notation and tuning systems
 @unnumberedsubsubsec 記譜法とチューニング システムを拡張する
-@translationof Extending notation and tuning systems
 
 標準的なクラシック音楽の記譜法
 (@notation{Common Practice Period} -- 16-19世紀のヨーロッパ音楽 -- の記譜法)
 は全ての種類の音楽で使われるもので、@c
 西洋の @q{クラシック} 音楽に限定されるものではありません。@c
-この記譜法は @ref{ピッチを記述する} で説明されていて、@c
-様々な音符名が @ref{他の言語での音符名} で説明されています。
+この記譜法は @ref{Writing pitches} で説明されていて、@c
+様々な音符名が @ref{Note names in other languages} で説明されています。
 
 非西洋音楽のいくつかとフォーク ミュージック、伝統音楽は@c
 しばしば異なるあるいは拡張されたチューニングシステムを採用していて、@c
@@ -61,7 +58,7 @@
 を用いますが、精密なピッチの変化はコンテキストによって決定されます。@c
 @notation{アラブ音楽} に関しては、初期ファイル @file{arabic.ly} が@c
 標準の記譜法を拡張するアラブ音楽に適したマクロと定義のセットを提供します。@c
-詳細は、@ref{アラブ音楽} を参照してください。
+詳細は、@ref{Arabic music} を参照してください。
 
 @cindex tuning, non-Western (非西洋音楽のチューニング)
 @cindex makam (マカーム)
@@ -82,13 +79,13 @@
 ファイル @file{turkish-makam.ly} で独自に定義されている@c
 特殊な臨時記号が用いられます。@c
 トルコの伝統音楽とマカームについての詳細は
-@ref{トルコの伝統音楽} を参照してください。
+@ref{Turkish classical music} を参照してください。
 
 他にも、関連する初期ファイル @file{hel-arabic.ly} や @file{makam.ly}
 が利用可能です。
 
 これらの初期ファイルの保存場所については、@c
-@rlearning{その他の情報源} を参照してください。
+@rlearningnamed{Other sources of information, その他の情報源} を参照してください。
 
 @morerefs
 音楽用語集:
@@ -96,34 +93,32 @@
 @rglos{makamlar}
 
 学習マニュアル:
-@rlearning{その他の情報源}
+@rlearningnamed{Other sources of information, その他の情報源}
 
 記譜法リファレンス:
-@ref{ピッチを記述する},
-@ref{他の言語での音符名},
-@ref{アラブ音楽},
-@ref{トルコの伝統音楽}
+@ref{Writing pitches},
+@ref{Note names in other languages},
+@ref{Arabic music},
+@ref{Turkish classical music}
 
 
-@node アラブ音楽
+@node Arabic music
 @subsection アラブ音楽
-@translationof Arabic music
 
 このセクションでは、アラブ音楽の記譜に関する問題をハイライトします。
 
 @menu
-* アラブ音楽のためのリファレンス::
-* アラブ音楽での音符名::
-* アラブ音楽での調号::
-* アラブ音楽での拍子::
-* アラブ音楽の例::
-* アラブ音楽のための更なる知識::
+* References for Arabic music::
+* Arabic note names::
+* Arabic key signatures::
+* Arabic time signatures::
+* Arabic music example::
+* Further reading for Arabic music::
 @end menu
 
 
-@node アラブ音楽のためのリファレンス
+@node References for Arabic music
 @unnumberedsubsubsec アラブ音楽のためのリファレンス
-@translationof References for Arabic music
 
 @cindex Arabic music (アラブ音楽)
 @cindex medium interval (中間音程)
@@ -150,32 +145,31 @@
 
 @itemize
 @item 音符名と臨時記号 (四分音を含む) を用意する方法は、@c
-@ref{非西洋音楽の一般的な記譜法} で説明しています。
+@ref{Common notation for non-Western music} で説明しています。
 
-@item 追加の調号を用意する方法は、@ref{調号} で説明しています。
+@item 追加の調号を用意する方法は、@ref{Key signature} で説明しています。
 
-@item 複雑な拍子は、@ref{手動連桁} で説明されているように、@c
+@item 複雑な拍子は、@ref{Manual beams} で説明されているように、@c
 音符を手動でグループ化することを必要とするかもしれません。
 
 @item 自由なリズムの即興 -- @notation{タクシーム} -- は、@c
-@ref{無韻律の音楽} で説明されているように小節線を省略します。
+@ref{Unmetered music} で説明されているように小節線を省略します。
 
 @end itemize
 
 
 @morerefs
 記譜法リファレンス:
-@ref{非西洋音楽の一般的な記譜法},
-@ref{調号},
-@ref{手動連桁}
+@ref{Common notation for non-Western music},
+@ref{Key signature},
+@ref{Manual beams}
 
 コード断片集:
 @rlsr{World music}
 
 
-@node アラブ音楽での音符名
+@node Arabic note names
 @unnumberedsubsubsec アラブ音楽での音符名
-@translationof Arabic note names
 
 @cindex Arabic note name (アラブ音楽での音符名)
 @cindex Hel-arabic note name (アラブ音楽での音符名)
@@ -242,8 +236,8 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 
 @morerefs
 記譜法リファレンス:
-@ref{他の言語での音符名},
-@ref{非西洋音楽の一般的な記譜法},
+@ref{Note names in other languages},
+@ref{Common notation for non-Western music},
 @ref{Including LilyPond files}
 
 インストールされているファイル:
@@ -254,9 +248,8 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 @rlsr{World music}
 
 
-@node アラブ音楽での調号
+@node Arabic key signatures
 @unnumberedsubsubsec アラブ音楽での調号
-@translationof Arabic key signatures
 
 @cindex Arabic key signatures (アラブ音楽での調号)
 
@@ -369,7 +362,7 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 @ref{Key signature}
 
 学習マニュアル:
-@rlearning{ピッチと調号}
+@rlearningnamed{Pitches and key signatures, ピッチと調号}
 
 内部リファレンス:
 @rinternals{KeySignature}
@@ -383,9 +376,8 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 @rlsr{Pitches}
 
 
-@node アラブ音楽での拍子
+@node Arabic time signatures
 @unnumberedsubsubsec アラブ音楽での拍子
-@translationof Arabic time signatures
 
 @cindex Arabic time signatures (アラブ音楽での拍子記号)
 @cindex semai form (セマーイー形式)
@@ -416,12 +408,12 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 @rglos{taqasim}
 
 記譜法リファレンス:
-@ref{手動連桁},
-@ref{自動連桁},
-@ref{無韻律の音楽},
-@ref{自動臨時記号},
-@ref{自動連桁の振る舞いを設定する},
-@ref{拍子}
+@ref{Manual beams},
+@ref{Automatic beams},
+@ref{Unmetered music},
+@ref{Automatic accidentals},
+@ref{Setting automatic beam behavior},
+@ref{Time signature}
 
 インストールされているファイル:
 @file{ly/arabic.ly},
@@ -431,9 +423,8 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 @rlsr{World music}
 
 
-@node アラブ音楽の例
+@node Arabic music example
 @unnumberedsubsubsec アラブ音楽の例
-@translationof Arabic music example
 
 @cindex Arabic music example (アラブ音楽の例)
 @cindex Arabic music template (アラブ音楽のテンプレート)
@@ -477,9 +468,8 @@ LilyPond に含まれている @file{hel-arabic.ly} や @file{arabic.ly} ファ�
 @rlsr{World music}
 
 
-@node アラブ音楽のための更なる知識
+@node Further reading for Arabic music
 @unnumberedsubsubsec アラブ音楽のための更なる知識
-@translationof Further reading for Arabic music
 
 下方のテトラ コードの共通性または移調によって@c
 関連するマカームをグループ化するように取り決められているにもかかわらず、@c
@@ -525,23 +515,21 @@ Ibrahim Ali Darwish Al-masri
 @end itemize
 
 
-@node トルコの伝統音楽
+@node Turkish classical music
 @subsection トルコの伝統音楽
-@translationof Turkish classical music
 
 このセクションではトルコの伝統音楽記譜に関係する問題をハイライトします。
 
 @menu
-* トルコの伝統音楽のためのリファレンス::
-* トルコ音楽の音符名::
-* トルコ音楽の調号::
-* トルコ音楽のための更なる知識::
+* References for Turkish classical music::
+* Turkish note names::
+* Turkish key signatures::
+* Further reading for Turkish music::
 @end menu
 
 
-@node トルコの伝統音楽のためのリファレンス
+@node References for Turkish classical music
 @unnumberedsubsubsec トルコの伝統音楽のためのリファレンス
-@translationof References for Turkish classical music
 
 @cindex Turkish music (トルコ音楽)
 @cindex Ottoman music (オスマン音楽)
@@ -563,12 +551,11 @@ Ibrahim Ali Darwish Al-masri
 
 トルコの伝統音楽に関する問題のいくつかは他の場所でカバーされています。@c
 特殊な音符名と臨時記号について、@c
-@ref{非西洋音楽の一般的な記譜法} で説明しています。
+@ref{Common notation for non-Western music} で説明しています。
 
 
-@node トルコ音楽の音符名
+@node Turkish note names
 @unnumberedsubsubsec トルコ音楽の音符名
-@translationof Turkish note names
 
 @cindex Turkish note name (トルコ音楽の音符名)
 @cindex makam (マカーム)
@@ -586,7 +573,7 @@ Ibrahim Ali Darwish Al-masri
 
 @c ここから
 非西洋音楽の記譜法についてのもっと一般的な説明は、@c
-@ref{非西洋音楽の一般的な記譜法} を参照してください。
+@ref{Common notation for non-Western music} を参照してください。
 
 @morerefs
 音楽用語集:
@@ -594,12 +581,11 @@ Ibrahim Ali Darwish Al-masri
 @rglos{makamlar}
 
 記譜法リファレンス:
-@ref{非西洋音楽の一般的な記譜法}
+@ref{Common notation for non-Western music}
 
 
-@node トルコ音楽の調号
+@node Turkish key signatures
 @unnumberedsubsubsec トルコ音楽の調号
-@translationof Turkish key signatures
 
 LilyPond は 200 以上のマカームの調号の定義をサポートしています --
 トルコのクラシック音楽で使用されているものをはるかに超えています --
@@ -626,9 +612,8 @@ LilyPond は 200 以上のマカームの調号の定義をサポートしてい
 {snippets/turkish-makam-example.ly}
 
 
-@node トルコ音楽のための更なる知識
+@node Further reading for Turkish music
 @unnumberedsubsubsec トルコ音楽のための更なる知識
-@translationof Further reading for Turkish music
 
 @itemize
 

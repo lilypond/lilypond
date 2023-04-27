@@ -14,42 +14,39 @@
 @c Translation status: post-GDP
 
 
-@node 入出力全般
+@node General input and output
 @chapter 入出力全般
-@translationof General input and output
 
 このセクションでは、特定の記譜法ではなく、@c
 LilyPond の一般的な入出力の問題について扱います。
 
 @menu
-* 入力の構造::
-* タイトルとヘッダ::
-* 入力ファイルに取り組む::
-* 出力を制御する::
-* MIDI 出力を作り出す::
-* 音楽情報を抽出する::
+* Input structure::
+* Titles and headers::
+* Working with input files::
+* Controlling output::
+* Creating MIDI output::
+* Extracting musical information::
 @end menu
 
 
-@node 入力の構造
+@node Input structure
 @section 入力の構造
-@translationof Input structure
 
 LilyPond の入力の主となるフォーマットはテキスト ファイルです。@c
 習慣として、それらのファイルの最後には @file{.ly} を付けます。
 
 @menu
-* スコアの構造::
-* ブックの中にある複数のスコア::
-* 1 つの入力ファイルから複数の出力ファイルを生成する::
-* 出力ファイル名::
-* ファイル構造::
+* Structure of a score::
+* Multiple scores in a book::
+* Multiple output files from one input file::
+* Output file names::
+* File structure::
 @end menu
 
 
-@node スコアの構造
+@node Structure of a score
 @subsection スコアの構造
-@translationof Structure of a score
 
 @funindex \score
 
@@ -139,9 +136,8 @@ LilyPond の入力の主となるフォーマットはテキスト ファイル�
 @rlearning{Score is a (single) compound musical expression}
 
 
-@node ブックの中にある複数のスコア
+@node Multiple scores in a book
 @subsection ブックの中にある複数のスコア
-@translationof Multiple scores in a book
 
 @funindex \book
 @cindex movements, multiple (複数の楽章)
@@ -242,9 +238,8 @@ lilypond-book ドキュメントでは、明示的に @code{\book} ブロック�
 @end example
 
 
-@node 1 つの入力ファイルから複数の出力ファイルを生成する
+@node Multiple output files from one input file
 @subsection 1 つの入力ファイルから複数の出力ファイルを生成する
-@translationof Multiple output files from one input file
 
 1 つの @file{.ly} ファイルから複数の出力ファイルを得たいのであれば、@c
 @file{.ly} ファイルに複数の @code{\book} ブロックを記述します。@c
@@ -292,9 +287,8 @@ LilyPond は、@code{\book} ブロックが作り出す出力ファイルが@c
 @end itemize
 
 
-@node 出力ファイル名
+@node Output file names
 @subsection 出力ファイル名
-@translationof Output file names
 
 @funindex \bookOutputSuffix
 @funindex \bookOutputName
@@ -365,9 +359,8 @@ LilyPond がどのように単一のソース ファイルから作り出され�
 @end itemize
 
 
-@node ファイル構造
+@node File structure
 @subsection ファイル構造
-@translationof File structure
 
 @funindex \paper
 @funindex \midi
@@ -387,7 +380,7 @@ LilyPond がどのように単一のソース ファイルから作り出され�
 最上位に同じタイプの出力定義が複数ある場合は組み合わされますが、@c
 衝突した場合は後ろの方にある出力定義が優先されます。@c
 出力定義が @code{\layout} ブロックにどのような影響を与えるかの詳細は
-@ref{layout ブロック} を参照してください。
+@ref{The layout block} を参照してください。
 
 
 @item
@@ -571,12 +564,11 @@ foo = @{ c4 d e d @}
 
 記譜法リファレンス:
 @ref{Titles explained},
-@ref{layout ブロック}
+@ref{The layout block}
 
 
-@node タイトルとヘッダ
+@node Titles and headers
 @section タイトルとヘッダ
-@translationof Titles and headers
 
 @cindex title (タイトル)
 @cindex header (ヘッダ)
@@ -586,28 +578,26 @@ foo = @{ c4 d e d @}
 楽譜の中にはさらに多くの情報を含むものもあります。
 
 @menu
-* タイトル、ヘッダ、フッタを作成する::
-* カスタム タイトル、ヘッダ、フッタ::
-* 出力ファイルのメタデータを作成する::
-* 脚注を作成する::
-* ページ番号の参照::
-* 目次::
+* Creating titles headers and footers::
+* Custom titles headers and footers::
+* Creating output file metadata::
+* Creating footnotes::
+* Reference to page numbers::
+* Table of contents::
 @end menu
 
 
-@node タイトル、ヘッダ、フッタを作成する
+@node Creating titles headers and footers
 @subsection タイトル、ヘッダ、フッタを作成する
-@translationof Creating titles headers and footers
 
 @menu
-* タイトルの説明::
-* ブック パートとスコアのタイトルのデフォルト レイアウト::
-* ヘッダとフッタのデフォルト レイアウト::
+* Titles explained::
+* Default layout of bookpart and score titles::
+* Default layout of headers and footers::
 @end menu
 
-@node タイトルの説明
+@node Titles explained
 @unnumberedsubsubsec タイトルの説明
-@translationof Titles explained
 
 1 つの入力ファイルにある各 @code{\book} ブロックは、別々の出力ファイルを@c
 作り出します。@ref{File structure} を参照してください。出力ファイルごとに
@@ -777,12 +767,11 @@ foo = @{ c4 d e d @}
 記譜法リファレンス:
 @ref{File structure},
 @ref{Default layout of bookpart and score titles},
-@ref{タイトルのカスタム レイアウト}
+@ref{Custom layout for titles}
 
 
-@node ブック パートとスコアのタイトルのデフォルト レイアウト
+@node Default layout of bookpart and score titles
 @unnumberedsubsubsec ブック パートとスコアのタイトルのデフォルト レイアウト
-@translationof Default layout of bookpart and score titles
 
 以下の例は表示に反映される @code{\header} のすべての変数の使用例です:
 
@@ -860,7 +849,7 @@ foo = @{ c4 d e d @}
 
 @end itemize
 
-デフォルトのレイアウトを変更するには @ref{タイトルのカスタム レイアウト}
+デフォルトのレイアウトを変更するには @ref{Custom layout for titles}
 を参照してください。
 
 @funindex breakbefore
@@ -898,16 +887,15 @@ foo = @{ c4 d e d @}
 @rlearning{How LilyPond input files work}
 
 記譜法リファレンス:
-@ref{タイトルのカスタム レイアウト},
+@ref{Custom layout for titles},
 @ref{File structure}
 
 インストールされているファイル:
 @file{ly/titling-init.ly}
 
 
-@node ヘッダとフッタのデフォルト レイアウト
+@node Default layout of headers and footers
 @unnumberedsubsubsec ヘッダとフッタのデフォルト レイアウト
-@translationof Default layout of headers and footers
 
 @cindex page header (ページ ヘッダ)
 @cindex page footer (ページ フッタ)
@@ -970,22 +958,20 @@ foo = @{ c4 d e d @}
 @code{##f} をセットします。
 
 
-@node カスタム タイトル、ヘッダ、フッタ
+@node Custom titles headers and footers
 @subsection カスタム タイトル、ヘッダ、フッタ
-@translationof Custom titles headers and footers
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
 
 @menu
-* タイトルのカスタム テキスト フォーマット::
-* タイトルのカスタム レイアウト::
-* ヘッダとフッタのカスタム レイアウト::
+* Custom text formatting for titles::
+* Custom layout for titles::
+* Custom layout for headers and footers::
 @end menu
 
-@node タイトルのカスタム テキスト フォーマット
+@node Custom text formatting for titles
 @unnumberedsubsubsec タイトルのカスタム テキスト フォーマット
-@translationof Custom text formatting for titles
 
 標準の @code{\markup} コマンドを使って @code{\header} ブロックの中にある@c
 ヘッダ、フッタ、それにタイトル テキストをカスタマイズすることができます。
@@ -1005,9 +991,8 @@ foo = @{ c4 d e d @}
 @ref{Formatting text}
 
 
-@node タイトルのカスタム レイアウト
+@node Custom layout for titles
 @unnumberedsubsubsec タイトルのカスタム レイアウト
-@translationof Custom layout for titles
 
 @funindex bookTitleMarkup
 @funindex scoreTitleMarkup
@@ -1168,9 +1153,8 @@ scoreTitleMarkup = \markup @{ \column @{
 @ref{Titles explained}
 
 
-@node ヘッダとフッタのカスタム レイアウト
+@node Custom layout for headers and footers
 @unnumberedsubsubsec ヘッダとフッタのカスタム レイアウト
-@translationof Custom layout for headers and footers
 
 @c can make-header and make-footer be removed from
 @c paper-defaults-init.ly? -mp
@@ -1278,9 +1262,8 @@ variable = \markup @{
 インストールされているファイル:
 @file{../ly/titling-init.ly}
 
-@node 出力ファイルのメタデータを作成する
+@node Creating output file metadata
 @subsection 出力ファイルのメタデータを作成する
-@translationof Creating output file metadata
 
 @cindex PDF metadata (PDF メタデータ)
 @cindex MIDI, metadata (MIDI メタデータ)
@@ -1333,9 +1316,8 @@ PDF の @code{Creator} プロパティは自動的に、@q{LilyPond} と現在�
 @code{midititle} 変数を使うことで、楽譜上の出力と独立してシーケンス名を@c
 指定することができます。
 
-@node 脚注を作成する
+@node Creating footnotes
 @subsection 脚注を作成する
-@translationof Creating footnotes
 
 @cindex footnote (脚注)
 
@@ -1350,13 +1332,12 @@ PDF の @code{Creator} プロパティは自動的に、@q{LilyPond} と現在�
 作り方が異なります。
 
 @menu
-* 音楽表記の中にある脚注::
-* 独立したテキストの中にある脚注::
+* Footnotes in music expressions::
+* Footnotes in stand-alone text::
 @end menu
 
-@node 音楽表記の中にある脚注
+@node Footnotes in music expressions
 @unnumberedsubsubsec 音楽表記の中にある脚注
-@translationof Footnotes in music expressions
 
 @cindex footnote, in music expressions (音楽表記の中にある脚注)
 @funindex \footnote
@@ -1633,9 +1614,8 @@ X, Y@tie{}オフセットを、@c
 @ref{Footnotes in stand-alone text} にあります。
 
 
-@node 独立したテキストの中にある脚注
+@node Footnotes in stand-alone text
 @unnumberedsubsubsec 独立したテキストの中にある脚注
-@translationof Footnotes in stand-alone text
 
 @cindex footnote, in stand-alone text (独立したテキストの中にある脚注)
 
@@ -1783,9 +1763,8 @@ Unicode 文字をマークに使うこともできます
 脚注は譜や @code{\markup} オブジェクト、他の脚注マークや線と@c
 衝突する可能性があります。
 
-@node ページ番号の参照
+@node Reference to page numbers
 @subsection ページ番号の参照
-@translationof Reference to page numbers
 
 @code{\label} コマンドを用いて、楽譜のある特定の場所
 -- 楽譜の最上位あるいは内部 --
@@ -1839,9 +1818,8 @@ Unicode 文字をマークに使うこともできます
 @endpredefined
 
 
-@node 目次
+@node Table of contents
 @subsection 目次
-@translationof Table of contents
 
 目次は @code{\markuplist \table-of-contents} コマンドを用いて挿入します。@c
 目次に表示すべき要素は @code{\tocItem} コマンドで挿入されます
@@ -2028,20 +2006,18 @@ tocAct =
 @endpredefined
 
 
-@node 入力ファイルに取り組む
+@node Working with input files
 @section 入力ファイルに取り組む
-@translationof Working with input files
 
 @menu
-* LilyPond ファイルをインクルードする::
-* 1 つのソースから異なる版を生成する::
-* 特殊文字::
+* Including LilyPond files::
+* Different editions from one source::
+* Special characters::
 @end menu
 
 
-@node LilyPond ファイルをインクルードする
+@node Including LilyPond files
 @subsection LilyPond ファイルをインクルードする
-@translationof Including LilyPond files
 
 @funindex \include
 @cindex including files (ファイルをインクルードする)
@@ -2211,9 +2187,8 @@ LilyPond が使用するパスとファイルのリストを表示します。@c
 
 
 
-@node 1 つのソースから異なる版を生成する
+@node Different editions from one source
 @subsection 1 つのソースから異なる版を生成する
-@translationof Different editions from one source
 
 同じ音楽ソースから異なるバージョンの楽譜を容易に生成できるようにするために、@c
 いくつかの方法が用意されています。@c
@@ -2226,14 +2201,13 @@ LilyPond が使用するパスとファイルのリストを表示します。@c
 音楽表記に手を触れずに楽譜構造を変更することが簡単に行えます。
 
 @menu
-* 変数を使用する::
-* タグを使用する::
-* グローバル設定を使用する::
+* Using variables::
+* Using tags::
+* Using global settings::
 @end menu
 
-@node 変数を使用する
+@node Using variables
 @unnumberedsubsubsec 変数を使用する
-@translationof Using variables
 
 @cindex variables, use of (変数を使用する)
 
@@ -2288,9 +2262,8 @@ allLyrics = \lyricmode { King of glo -- ry }
 それらのファイルをインクルードすることになるかもしれません
 -- @ref{Including LilyPond files} を参照してください。
 
-@node タグを使用する
+@node Using tags
 @unnumberedsubsubsec タグを使用する
-@translationof Using tags
 
 @funindex \tag
 @funindex \keepWithTag
@@ -2551,9 +2524,8 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 危険を回避することができます。
 
 
-@node グローバル設定を使用する
+@node Using global settings
 @unnumberedsubsubsec グローバル設定を使用する
-@translationof Using global settings
 
 @cindex include settings (インクルード設定)
 
@@ -2580,23 +2552,21 @@ lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
 @ref{Including LilyPond files}
 
 
-@node 特殊文字
+@node Special characters
 @subsection 特殊文字
-@translationof Special characters
 
 @cindex special character (特殊文字)
 @cindex non-ASCII character (非 ASCII 文字)
 
 @menu
-* テキスト エンコーディング::
+* Text encoding::
 * Unicode::
-* ASCII エイリアス::
+* ASCII aliases::
 @end menu
 
 
-@node テキスト エンコーディング
+@node Text encoding
 @unnumberedsubsubsec テキスト エンコーディング
-@translationof Text encoding
 
 @cindex UTF-8
 
@@ -2680,7 +2650,6 @@ portuguese = \lyricmode {
 
 @node Unicode
 @unnumberedsubsubsec Unicode
-@translationof Unicode
 
 @cindex Unicode (ユニコード)
 
@@ -2738,9 +2707,8 @@ Unicode U+03BE の文字を入力します
 @end example
 
 
-@node ASCII エイリアス
+@node ASCII aliases
 @unnumberedsubsubsec ASCII エイリアス
-@translationof ASCII aliases
 
 特殊文字の ASCII エイリアスのリストを含めることができます:
 
@@ -2793,24 +2761,22 @@ Unicode U+03BE の文字を入力します
 @file{ly/text-replacements.ly}
 
 
-@node 出力を制御する
+@node Controlling output
 @section 出力を制御する
-@translationof Controlling output
 
 @menu
-* 音楽の断片を抽出する::
-* 校正済みの音楽をスキップする::
-* 他の出力フォーマット::
-* 記譜フォントを置換する::
+* Extracting fragments of music::
+* Skipping corrected music::
+* Alternative output formats::
+* Replacing the notation font::
 @end menu
 
 @funindex clip-regions
 @cindex fragment, music (音楽の断片)
 @cindex music fragment (音楽の断片)
 
-@node 音楽の断片を抽出する
+@node Extracting fragments of music
 @subsection 音楽の断片を抽出する
-@translationof Extracting fragments of music
 
 1 つあるいは複数の楽譜の断片を出力することができます。@c
 そのためには、@code{\layout} ブロックに抽出する部分を @code{clip-regions}
@@ -2843,14 +2809,13 @@ Unicode U+03BE の文字を入力します
 
 @morerefs
 記譜法リファレンス:
-@ref{layout ブロック}
+@ref{The layout block}
 
 アプリケーション使用方法:
 @rprogram{Command-line usage}
 
-@node 校正済みの音楽をスキップする
+@node Skipping corrected music
 @subsection 校正済みの音楽をスキップする
-@translationof Skipping corrected music
 
 @funindex skipTypesetting
 @funindex showFirstLength
@@ -2900,9 +2865,8 @@ showLastLength = R1*5
 影響を与えて、より多くの時間を節約します。
 
 
-@node 他の出力フォーマット
+@node Alternative output formats
 @subsection 他の出力フォーマット
-@translationof Alternative output formats
 
 @cindex scalable vector graphics output (SVG 出力)
 @cindex SVG output (SVG 出力)
@@ -2917,12 +2881,11 @@ Encapsulated PostScript (EPS) フォーマットによる出力が利用可能�
 @rprogram{Basic command-line options for LilyPond} を参照してください。
 
 @menu
-* SVG 出力::
+* SVG Output::
 @end menu
 
-@node SVG 出力
+@node SVG Output
 @unnumberedsubsubsec SVG 出力
-@translationof SVG Output
 
 SVG 出力では、符頭や休符などのグラフィカル オブジェクト (Grob) に対して@c
 メタデータを付加させることができます。このメタデータは @code{id} や @code{class}
@@ -2957,9 +2920,8 @@ SVG のシンタックスでは、非標準のカスタム メタデータ属性
 @code{data-} 接頭辞を使用します。
 
 
-@node 記譜フォントを置換する
+@node Replacing the notation font
 @subsection 記譜フォントを置換する
-@translationof Replacing the notation font
 
 Gonville は、LilyPond で使われるグリフ セットで、@emph{Feta}
 -- Emmentaler フォントの一部 -- の代わりとなります。@c
@@ -3080,9 +3042,8 @@ Gonville と同じように使用することができます。
 接尾や拡張子を除いたフォントのファイル名を指定してください。
 
 
-@node MIDI 出力を作り出す
+@node Creating MIDI output
 @section MIDI 出力を作り出す
-@translationof Creating MIDI output
 
 @cindex sound (サウンド)
 @cindex MIDI
@@ -3097,22 +3058,21 @@ MIDI ファイルは (AAC, MP3, Vorbis ファイルのような) 音を含みま
 これらから音を作り出すためには、追加のソフトウェアが必要です。
 
 @menu
-* MIDI でサポートされている記法::
-* MIDI でサポートされていない記法::
-* MIDI ブロック::
-* MIDI での音の強弱を制御する::
-* MIDI の楽器を用いる::
-* MIDI で繰り返しを用いる::
-* MIDI のチャンネル マッピング::
-* MIDI エフェクトのためのコンテキスト プロパティ::
-* MIDI 出力をより良くする::
+* Supported notation for MIDI::
+* Unsupported notation for MIDI::
+* The MIDI block::
+* Controlling MIDI dynamics::
+* Using MIDI instruments::
+* Using repeats with MIDI::
+* MIDI channel mapping::
+* Context properties for MIDI effects::
+* Enhancing MIDI output::
 @end menu
 
 @cindex MIDI, supported notation (MIDI でサポートされている記法)
 
-@node MIDI でサポートされている記法
+@node Supported notation for MIDI
 @subsection MIDI でサポートされている記法
-@translationof Supported notation for MIDI
 
 次に挙げる記法は、LilyPond の標準 MIDI 出力機能で使うことができます:
 
@@ -3164,9 +3124,8 @@ MIDI に出力することができます:
 
 @cindex MIDI, unsupported notation (MIDI でサポートされていない記法)
 
-@node MIDI でサポートされていない記法
+@node Unsupported notation for MIDI
 @subsection MIDI でサポートされていない記法
-@translationof Unsupported notation for MIDI
 
 次の記法は、MIDI に出力することはできません:
 
@@ -3185,9 +3144,8 @@ MIDI に出力することができます:
 @end itemize
 
 
-@node MIDI ブロック
+@node The MIDI block
 @subsection MIDI ブロック
-@translationof The MIDI block
 
 @cindex MIDI, block (MIDI ブロック)
 
@@ -3257,9 +3215,8 @@ MIDI チャンネルは 15 個が利用可能で、さらにドラムのため�
 }
 @end lilypond
 
-@node MIDI での音の強弱を制御する
+@node Controlling MIDI dynamics
 @subsection MIDI での音の強弱を制御する
-@translationof Controlling MIDI dynamics
 
 MIDI 全体の音量や、強弱記号による相対的な音量、楽器ごとの相対的な音量を@c
 設定することができます。
@@ -3269,9 +3226,9 @@ MIDI 全体の音量や、強弱記号による相対的な音量、楽器ごと
 強弱記号の相対的な音量や、楽器ごとの全体的な音量を設定することができます。
 
 @menu
-* MIDI での強弱記号::
-* MIDI の音量を設定する::
-* MIDI ブロック プロパティを設定する::
+* Dynamic marks in MIDI::
+* Setting MIDI volume::
+* Setting MIDI block properties::
 @end menu
 
 @cindex MIDI, volume (MIDI での音量)
@@ -3280,9 +3237,8 @@ MIDI 全体の音量や、強弱記号による相対的な音量、楽器ごと
 @cindex dynamics in MIDI (MIDI での強弱記号)
 
 
-@node MIDI での強弱記号
+@node Dynamic marks in MIDI
 @unnumberedsubsubsec MIDI での強弱記号
-@translationof Dynamic marks in MIDI
 
 @code{mp}, @code{mf}, @code{sf} を含む、@code{ppppp} から @code{fffff} までの@c
 強弱記号のみが音量値を設定されています。@c
@@ -3312,9 +3268,8 @@ MIDI 出力において、指定された強弱記号に対応した最終的な
 @rinternals{Dynamic_performer}
 
 
-@node MIDI の音量を設定する
+@node Setting MIDI volume
 @unnumberedsubsubsec MIDI の音量を設定する
-@translationof Setting MIDI volume
 
 全体の MIDI 音量の最小値と最大値は、@code{midiMinimumVolume} と
 @code{midiMaximumVolume} を @code{Score} レベルでセットすることで@c
@@ -3416,9 +3371,8 @@ MIDI での音量変化は音符の開始時にのみ適用されます。その
 デクレッシェンドが単一の音符に適用された場合、音量は変化しません。
 
 
-@node MIDI ブロック プロパティを設定する
+@node Setting MIDI block properties
 @unnumberedsubsubsec MIDI ブロック プロパティを設定する
-@translationof Setting MIDI block properties
 
 @code{\midi} ブロックでは、コンテキストを再構成したり、新たなコンテキストを@c
 定義したり、特定のプロパティに値をセットしたりすることができます。
@@ -3485,9 +3439,8 @@ MIDI プレイヤの中には，出力のテンポ変化を正しく処理しな
 譜の@emph{始め}に行った場合、MIDI 出力ファイル内でその変更が二重に@c
 記述されている場合があります。
 
-@node MIDI の楽器を用いる
+@node Using MIDI instruments
 @subsection MIDI の楽器を用いる
-@translationof Using MIDI instruments
 
 MIDI の楽器は、@code{Staff} コンテキストで @code{midiInstrument} プロパティを@c
 セットすることで指定することができます:
@@ -3539,9 +3492,8 @@ MIDI の楽器は、@code{Staff} コンテキストで @code{midiInstrument} プ
 リストは、@file{scm/midi.scm} にあります。@c
 @rlearning{Other sources of information} を参照してください。
 
-@node MIDI で繰り返しを用いる
+@node Using repeats with MIDI
 @subsection MIDI で繰り返しを用いる
-@translationof Using repeats with MIDI
 
 @cindex repeats in MIDI (MIDI での繰り返し)
 @cindex MIDI, using repeats (MIDI で繰り返しを用いる)
@@ -3590,9 +3542,8 @@ MIDI の楽器は、@code{Staff} コンテキストで @code{midiInstrument} プ
 記譜法リファレンス:
 @ref{Repeats}
 
-@node MIDI のチャンネル マッピング
+@node MIDI channel mapping
 @subsection MIDI のチャンネル マッピング
-@translationof MIDI channel mapping
 
 @cindex MIDI, channels (MIDI チャンネル)
 @cindex MIDI, tracks (MIDI トラック)
@@ -3685,9 +3636,8 @@ MIDI の歌詞は MIDI チャンネルを占有しませんが、@c
 {snippets/changing-midi-output-to-one-channel-per-voice.ly}
 
 
-@node MIDI エフェクトのためのコンテキスト プロパティ
+@node Context properties for MIDI effects
 @subsection MIDI エフェクトのためのコンテキスト プロパティ
-@translationof Context properties for MIDI effects
 
 @cindex effects in MIDI (MIDI でのエフェクト)
 @cindex MIDI, effects (MIDI でのエフェクト)
@@ -3797,13 +3747,12 @@ MIDI ファイルを生成する際、LilyPond は範囲内にある割合の数
 デバイスのドキュメントを参照してください。
 
 
-@node MIDI 出力をより良くする
+@node Enhancing MIDI output
 @subsection MIDI 出力をより良くする
-@translationof Enhancing MIDI output
 
 @menu
-* 奏法スクリプト::
-* スウィング スクリプト::
+* The articulate script::
+* The swing script::
 @end menu
 
 MIDI の楽器や、@code{\midi} ブロックのプロパティを設定することで@c
@@ -3818,9 +3767,8 @@ MIDI に書き出す方法を微調整することができます: @file{articul
 @funindex Staff.midiInstrument
 
 
-@node 奏法スクリプト
+@node The articulate script
 @unnumberedsubsubsec 奏法スクリプト
-@translationof The articulate script
 
 @cindex articulate script (奏法スクリプト)
 @cindex articulate.ly
@@ -3853,10 +3801,10 @@ MIDI 出力の音符を正しく@q{タイム スケール}します。@c
 
 @morerefs
 学習マニュアル:
-@rlearning{その他の情報源}
+@rlearningnamed{Other sources of information, その他の情報源}
 
 記譜法リファレンス:
-@ref{楽譜レイアウト}
+@ref{Score layout}
 
 インストールされているファイル:
 @file{ly/articulate.ly}
@@ -3869,9 +3817,8 @@ MIDI 出力の音符を正しく@q{タイム スケール}します。@c
 長さが短くなる挙動を抑えることができます。}
 
 
-@node スウィング スクリプト
+@node The swing script
 @unnumberedsubsubsec スウィング スクリプト
-@translationof The swing script
 
 @cindex swing script (スウィング スクリプト)
 @cindex swing.ly
@@ -3967,22 +3914,20 @@ MIDI 出力の音符を正しく@q{タイム スケール}します。@c
 連符もそうです。
 @end itemize
 
-@node 音楽情報を抽出する
+@node Extracting musical information
 @section 音楽情報を抽出する
-@translationof Extracting musical information
 
 グラフィカルな出力と MIDI を作り出すことに加えて、@c
 LilyPond は音楽情報をテキストとして表示することができます。
 
 @menu
-* LilyPond 記譜法を表示する::
-* Scheme 音楽表記を表示する::
-* 音楽イベントをファイルに保存する::
+* Displaying LilyPond notation::
+* Displaying scheme music expressions::
+* Saving music events to a file::
 @end menu
 
-@node LilyPond 記譜法を表示する
+@node Displaying LilyPond notation
 @subsection LilyPond 記譜法を表示する
-@translationof Displaying LilyPond notation
 
 @funindex \displayLilyMusic
 
@@ -4031,16 +3976,14 @@ LilyPond は音楽表記を表示するだけでなく、それを解釈しま�
 @end example
 
 
-@node Scheme 音楽表記を表示する
+@node Displaying scheme music expressions
 @subsection Scheme 音楽表記を表示する
-@translationof Displaying scheme music expressions
 
 @rextend{Displaying music expressions} を参照してください。
 
 
-@node 音楽イベントをファイルに保存する
+@node Saving music events to a file
 @subsection 音楽イベントをファイルに保存する
-@translationof Saving music events to a file
 
 以下のファイルをインクルードすることにより、@c
 音楽イベントをファイルに保存することができます。

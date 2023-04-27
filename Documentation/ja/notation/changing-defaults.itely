@@ -13,9 +13,8 @@
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
-@node デフォルトを変更する
+@node Changing defaults
 @chapter デフォルトを変更する
-@translationof Changing defaults
 
 LilyPond はデフォルトで最高品質の出力を提供できるよう設計されています。@c
 それにもかかわらず、@c
@@ -23,7 +22,7 @@ LilyPond はデフォルトで最高品質の出力を提供できるよう設�
 レイアウトは、@q{プロパティ} と呼ばれる多数の @q{つまみとスイッチ} によって@c
 制御されています。@c
 これらのプロパティにアクセスし、変更するための手引は学習マニュアルの中にあります
--- @rlearning{出力を調整する} を参照してください。@c
+-- @rlearningnamed{Tweaking output, 出力を調整する} を参照してください。@c
 まずはこれを読むべきです。@c
 本章は同様の内容をカバーしていますが、@c
 よりリファレンス マニュアルに適したスタイルで提供します。
@@ -50,35 +49,34 @@ Scheme の要素は、@code{.ly} の中で、@c
 
 
 @menu
-* コンテキストを理解する::
-* 内部リファレンスの説明::
-* プロパティを変更する::
-* 役に立つコンセプトとプロパティ::
-* 高度な調整::
-* 音楽関数を使用する::
+* Interpretation contexts::
+* Explaining the Internals Reference::
+* Modifying properties::
+* Useful concepts and properties::
+* Advanced tweaks::
+* Using music functions::
 @end menu
 
 
-@node コンテキストを理解する
+@node Interpretation contexts
 @section コンテキストを理解する
-@translationof Interpretation contexts
 
 このセクションでは、コンテキストとは何なのか、@c
 それをどのように変更するのかについて説明します。
 
 @menu
-* コンテキストの説明::
-* コンテキストを作成して参照する::
-* コンテキストを残しておく::
-* コンテキストのプラグインを変更する::
-* コンテキストのデフォルト設定を変更する::
-* 新しいコンテキストを定義する::
-* コンテキストの配置順序::
+* Contexts explained::
+* Creating and referencing contexts::
+* Keeping contexts alive::
+* Modifying context plug-ins::
+* Changing context default settings::
+* Defining new contexts::
+* Context layout order::
 @end menu
 
 @morerefs
 学習マニュアル:
-@rlearning{コンテキストとエングラーバ}
+@rlearningnamed{Contexts and engravers, コンテキストとエングラーバ}
 
 インストールされているファイル:
 @file{ly/engraver-init.ly},
@@ -92,9 +90,8 @@ Scheme の要素は、@code{.ly} の中で、@c
 @rinternals{Engravers and Performers}
 
 
-@node コンテキストの説明
+@node Contexts explained
 @subsection コンテキストの説明
-@translationof Contexts explained
 
 @ignore
 @c TODO Rethink and rewrite
@@ -124,16 +121,15 @@ further explanation and with links to the IR.
 コンテキストは階層的に配置されます:
 
 @menu
-* 出力定義 - コンテキストの青写真::
-* Score - すべてのコンテキストのマスタ::
-* 上位コンテキスト - 譜コンテナ::
-* 中位コンテキスト - 譜::
-* 下位コンテキスト - ボイス::
+* Output definitions - blueprints for contexts::
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
 @end menu
 
-@node 出力定義 - コンテキストの青写真
+@node Output definitions - blueprints for contexts
 @unnumberedsubsubsec 出力定義 - コンテキストの青写真
-@translationof Output definitions - blueprints for contexts
 
 このセクションでは、コンテキストを扱う際の出力定義との関連について説明します。@c
 実際の出力定義の例については、後で提示します
@@ -172,9 +168,8 @@ MIDI 出力を作り出すのに使われる出力定義はもっと単純で、
 @file{ly/engraver-init.ly},
 @file{ly/performer-init.ly}
 
-@node Score - すべてのコンテキストのマスタ
+@node Score - the master of all contexts
 @unnumberedsubsubsec Score - すべてのコンテキストのマスタ
-@translationof Score - the master of all contexts
 
 これは最上位の記譜コンテキストです。@c
 他のコンテキストが Score コンテキストを保持することはできません。@c
@@ -184,9 +179,8 @@ MIDI 出力を作り出すのに使われる出力定義はもっと単純で、
 Score コンテキストは、@code{\score @{@dots{}@}}
 ブロックが処理されたときに暗黙的にインスタンス化されます。@c
 
-@node 上位コンテキスト - 譜コンテナ
+@node Top-level contexts - staff containers
 @unnumberedsubsubsec 上位コンテキスト - 譜コンテナ
-@translationof Top-level contexts - staff containers
 
 @strong{@emph{StaffGroup}}
 
@@ -211,9 +205,8 @@ Score コンテキストは、@code{\score @{@dots{}@}}
 各システムの左端に楽器名を付けることができます。
 
 
-@node 中位コンテキスト - 譜
+@node Intermediate-level contexts - staves
 @unnumberedsubsubsec 中位コンテキスト - 譜
-@translationof Intermediate-level contexts - staves
 
 @strong{@emph{Staff}}
 
@@ -246,9 +239,8 @@ Score コンテキストは、@code{\score @{@dots{}@}}
 @code{Staff} と同じですが、@c
 計量形式の楽曲を譜刻するためにデザインされている点が異なります。
 
-@node 下位コンテキスト - ボイス
+@node Bottom-level contexts - voices
 @unnumberedsubsubsec 下位コンテキスト - ボイス
-@translationof Bottom-level contexts - voices
 
 Voice レベルのコンテキストはある特定のプロパティを初期化し、@c
 適切なエングラーバを開始させます。@c
@@ -297,7 +289,7 @@ Voice レベルのコンテキストはある特定のプロパティを初期�
 
 小さなサイズの音符を描画するために使用されるボイス コンテキストです。@c
 主に合図音符を譜に付け加えることを目的としています。@c
-@ref{合図音符をフォーマットする} を参照してください。@c
+@ref{Formatting cue notes} を参照してください。@c
 通常、暗黙的に作成されます。
 
 @strong{@emph{ChordNames}}
@@ -329,9 +321,8 @@ context.
 @end ignore
 
 
-@node コンテキストを作成して参照する
+@node Creating and referencing contexts
 @subsection コンテキストを作成して参照する
-@translationof Creating and referencing contexts
 
 @funindex \new
 @funindex \context
@@ -545,9 +536,8 @@ score を作成するのに用いられます:
 @ref{Automatic syllable durations}
 
 
-@node コンテキストを残しておく
+@node Keeping contexts alive
 @subsection コンテキストを残しておく
-@translationof Keeping contexts alive
 
 @cindex context, keeping alive (コンテキストを残しておく)
 @cindex context, lifetime (コンテキストのライフタイム)
@@ -732,9 +722,8 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 @end lilypond
 
 
-@node コンテキストのプラグインを変更する
+@node Modifying context plug-ins
 @subsection コンテキストのプラグインを変更する
-@translationof Modifying context plug-ins
 
 @c TODO Should this be Modifying engravers or Modifying contexts?
 
@@ -807,7 +796,7 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 なぜなら、譜全体に影響を与えるからです。@c
 さらに、望む望まないに係わらず、この方法はスペースにも影響を与えます。@c
 オブジェクトを消すもっと洗練された方法については、@c
-@rlearning{オブジェクトの可視性と色} を参照してください。
+@rlearningnamed{Visibility and color of objects, オブジェクトの可視性と色} を参照してください。
 
 次の例は、ある実用的な応用です。@c
 通常、小節線と拍子記号は楽譜全体で同期されます。@c
@@ -879,9 +868,8 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 @file{ly/engraver-init.ly}
 
 
-@node コンテキストのデフォルト設定を変更する
+@node Changing context default settings
 @subsection コンテキストのデフォルト設定を変更する
-@translationof Changing context default settings
 
 @cindex default context property, changing (デフォルトのコンテキスト プロパティを変更する)
 @cindex context property, changing default (デフォルトのコンテキスト プロパティを変更する)
@@ -901,14 +889,13 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 方法です。
 
 @menu
-* 同じタイプの全コンテキストを変更する::
-* 指定したコンテキストだけを変更する::
-* 適用順序::
+* Changing all contexts of the same type::
+* Changing just one specific context::
+* Order of precedence::
 @end menu
 
-@node 同じタイプの全コンテキストを変更する
+@node Changing all contexts of the same type
 @unnumberedsubsubsec 同じタイプの全コンテキストを変更する
-@translationof Changing all contexts of the same type
 
 @cindex @code{\context} in @code{\layout} block (@code{\layout} ブロックの中の @code{\context})
 @funindex \context
@@ -1053,9 +1040,8 @@ StaffDefaults = \with {
 @end lilypond
 
 
-@node 指定したコンテキストだけを変更する
+@node Changing just one specific context
 @unnumberedsubsubsec 指定したコンテキストだけを変更する
-@translationof Changing just one specific context
 
 @funindex \with
 
@@ -1175,9 +1161,8 @@ StaffDefaults = \with {
 記譜法リファレンス:
 @ref{Input modes}
 
-@node 適用順序
+@node Order of precedence
 @unnumberedsubsubsec 適用順序
-@translationof Order of precedence
 
 ある特定のタイミングで適用されるプロパティの値は以下のように決定されます:
 
@@ -1207,12 +1192,11 @@ StaffDefaults = \with {
 @ref{Bottom-level contexts - voices},
 @ref{The set command},
 @ref{The override command},
-@ref{layout ブロック}
+@ref{The layout block}
 
 
-@node 新しいコンテキストを定義する
+@node Defining new contexts
 @subsection 新しいコンテキストを定義する
-@translationof Defining new contexts
 
 @cindex context, defining new (新しいコンテキストを定義する)
 @cindex engraver, including in context (エングラーバをコンテキストに含める)
@@ -1433,9 +1417,8 @@ squashedPosition = #0
 @rinternals{Pitch_squash_engraver}
 
 
-@node コンテキストの配置順序
+@node Context layout order
 @subsection コンテキストの配置順序
-@translationof Context layout order
 
 @cindex context, layout order (コンテキストの配置順序)
 @funindex \accepts
@@ -1558,21 +1541,19 @@ squashedPosition = #0
 @file{ly/engraver-init.ly}
 
 
-@node 内部リファレンスの説明
+@node Explaining the Internals Reference
 @section 内部リファレンスの説明
-@translationof Explaining the Internals Reference
 
 
 @menu
-* 内部リファレンスを使いこなす::
-* レイアウト インターフェイス::
-* グラフィカル オブジェクト プロパティを決定する::
-* 命名規約::
+* Navigating the program reference::
+* Layout interfaces::
+* Determining the grob property::
+* Naming conventions::
 @end menu
 
-@node 内部リファレンスを使いこなす
+@node Navigating the program reference
 @subsection 内部リファレンスを使いこなす
-@translationof Navigating the program reference
 
 @c TODO remove this (it's in the LM)
 @c Replace with more factual directions
@@ -1583,7 +1564,7 @@ squashedPosition = #0
 c''-2
 @end lilypond
 
-運指指示のドキュメント (@ref{運指の指示}) を見ると、@c
+運指指示のドキュメント (@ref{Fingering instructions}) を見ると、@c
 以下のようなセクションがあることに気付くはずです:
 
 @quotation
@@ -1696,9 +1677,8 @@ Music expressions named @rinternals{FingeringEvent}
 リストアップしています。
 
 
-@node レイアウト インターフェイス
+@node Layout interfaces
 @subsection レイアウト インターフェイス
-@translationof Layout interfaces
 
 @cindex interface, layout (レイアウト インターフェイス)
 @cindex layout interface (レイアウト インターフェイス)
@@ -1793,7 +1773,7 @@ This object supports the following interfaces:
 
 これまで @code{Fingering} オブジェクトについて話してきましたが、@c
 これは実際にはそれほど多くのことをしているわけではありません。@c
-初期化ファイル (@rlearning{その他の情報源} を参照してください)
+初期化ファイル (@rlearningnamed{Other sources of information, その他の情報源} を参照してください)
 @file{scm/define-grobs.scm} がこの @q{オブジェクト} の本質を示しています:
 
 @example
@@ -1826,9 +1806,8 @@ This object supports the following interfaces:
 この定義から直接生成されたに過ぎません。
 
 
-@node グラフィカル オブジェクト プロパティを決定する
+@node Determining the grob property
 @subsection グラフィカル オブジェクト プロパティを決定する
-@translationof Determining the grob property
 
 @c TODO remove this (it's in the LM)
 @c Replace with more factual directions
@@ -1901,9 +1880,8 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @end quotation
 
 
-@node 命名規約
+@node Naming conventions
 @subsection 命名規約
-@translationof Naming conventions
 
 内部リファレンスについて他に説明しておくべき事柄として、@c
 さまざまな命名規約についての概要があります:
@@ -1936,9 +1914,8 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @end itemize
 
 
-@node プロパティを変更する
+@node Modifying properties
 @section プロパティを変更する
-@translationof Modifying properties
 
 @c TODO change the menu and subsection node names to use
 @c backslash once the new macro to handle the refs
@@ -1946,19 +1923,18 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @c the same time. -td
 
 @menu
-* プロパティ変更の概要::
-* set コマンド::
-* override コマンド::
-* tweak コマンド::
-* set 対 override::
-* offset コマンド::
-* 連想配列を変更する::
+* Overview of modifying properties::
+* The set command::
+* The override command::
+* The tweak command::
+* set versus override::
+* The offset command::
+* Modifying alists::
 @end menu
 
 
-@node プロパティ変更の概要
+@node Overview of modifying properties
 @subsection プロパティ変更の概要
-@translationof Overview of modifying properties
 
 各コンテキストは、ある特定のタイプのグラフィカル オブジェクトを作成することに@c
 ついて責任を持ちます。@c
@@ -1996,9 +1972,8 @@ Scheme 値の循環参照は、ハング アップまたはクラッシュ、@c
 
 
 
-@node set コマンド
+@node The set command
 @subsection @code{\set} コマンド
-@translationof The set command
 
 @cindex property (プロパティ)
 @funindex \set
@@ -2140,9 +2115,8 @@ Translation @expansion{} Tunable context properties.
 @rinternals{Tunable context properties}
 
 
-@node override コマンド
+@node The override command
 @subsection @code{\override} コマンド
-@translationof The override command
 
 @cindex grob property (グラフィカル オブジェクト プロパティ)
 @cindex property, grob (グラフィカル オブジェクト プロパティ)
@@ -2274,9 +2248,8 @@ c''4 c''
 @rinternals{Backend}
 
 
-@node tweak コマンド
+@node The tweak command
 @subsection @code{\tweak} コマンド
-@translationof The tweak command
 
 @funindex \tweak
 @cindex tweaking (調整)
@@ -2298,7 +2271,7 @@ c''4 c''
 @code{value} のすぐ後に現れる音楽オブジェクトに変更を適用します。
 
 調整コマンドの構文と使用方法についての紹介は、@c
-@rlearning{調整手段} を参照してください。
+@rlearningnamed{Tweaking methods, 調整手段} を参照してください。
 
 同じようなオブジェクトがいくつか、同じ音楽タイミングで配置されている場合、@c
 @code{\override} コマンドでそれらの 1 つだけを変更することはできません
@@ -2398,7 +2371,7 @@ f''
 
 @morerefs
 学習マニュアル:
-@rlearning{調整手段}
+@rlearningnamed{Tweaking methods, 調整手段}
 
 拡張:
 @rextend{Displaying music expressions}
@@ -2411,9 +2384,8 @@ f''
 変更することはできません。@c
 入力ファイルの中で最初に遭遇したタイの位置を変更してしまいます。
 
-@node set 対 override
+@node set versus override
 @subsection @code{\set} 対 @code{\override}
-@translationof set versus override
 
 @c TODO Should't a bunch of that be explained earlier?
 
@@ -2473,9 +2445,8 @@ Grob のプロパティが変更されます。@code{\overrideProperty} は特�
 オーバライドに対して使用します。
 
 
-@node offset コマンド
+@node The offset command
 @subsection @code{\offset} コマンド
-@translationof The offset command
 
 @funindex \offset
 @cindex offsetting (オフセット)
@@ -2779,9 +2750,8 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 @end lilypond
 
 
-@node 連想配列を変更する
+@node Modifying alists
 @subsection 連想配列を変更する
-@translationof Modifying alists
 
 ユーザが変更可能なプロパティの中には、@c
 内部的には @emph{連想配列} として存在しているものがあります
@@ -2901,26 +2871,24 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 連想配列として丸ごと再定義するしかありません。}
 
 
-@node 役に立つコンセプトとプロパティ
+@node Useful concepts and properties
 @section 役に立つコンセプトとプロパティ
-@translationof Useful concepts and properties
 
 @menu
-* 入力モード::
-* 向きと配置::
-* 距離と距離の単位::
-* 寸法::
-* 譜記号プロパティ::
-* スパナ::
-* オブジェクトの可視性::
-* ライン スタイル::
-* オブジェクトを回転させる::
+* Input modes::
+* Direction and placement::
+* Distances and measurements::
+* Dimensions::
+* Staff symbol properties::
+* Spanners::
+* Visibility of objects::
+* Line styles::
+* Rotating objects::
 @end menu
 
 
-@node 入力モード
+@node Input modes
 @subsection 入力モード
-@translationof Input modes
 
 入力ファイルの中に保持されている記譜を解釈する方法は、@c
 現在の入力モードによって決定されます。@c
@@ -3043,9 +3011,8 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 では、音符モードを明示的に指定することが有用な場合があります。
 
 
-@node 向きと配置
+@node Direction and placement
 @subsection 向きと配置
-@translationof Direction and placement
 
 楽譜を写植しているとき、多くの要素の向きと配置には選択の余地があります。@c
 例えば、音符の符幹は上向きあるいは下向きにすることができ、@c
@@ -3055,13 +3022,12 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 強制的に向きや配置を指定することが望ましい場合もあります。
 
 @menu
-* アーティキュレーションの方向指示子::
-* 方向プロパティ::
+* Articulation direction indicators::
+* The direction property::
 @end menu
 
-@node アーティキュレーションの方向指示子
+@node Articulation direction indicators
 @unnumberedsubsubsec アーティキュレーションの方向指示子
-@translationof Articulation direction indicators
 
 デフォルトでは、アーティキュレーションのいくつかの向きは常に上または下に@c
 なっています (例えば、強弱記号やフェルマータ)。@c
@@ -3098,9 +3064,8 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 }
 @end lilypond
 
-@node 方向プロパティ
+@node The direction property
 @unnumberedsubsubsec 方向プロパティ
-@translationof The direction property
 
 多くのレイアウト オブジェクトの位置や向きは、@c
 @code{direction} プロパティによって制御されます。
@@ -3124,7 +3089,7 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 @noindent
 ここで、@code{\@var{xxx}Neutral} は @qq{デフォルトの向きを使用する}
 ことを意味します。@c
-@rlearning{譜内部オブジェクト} を参照してください。
+@rlearningnamed{Within-staff objects, 譜内部オブジェクト} を参照してください。
 
 いくつかのケースでは
 -- 一般的な例としてはアルペジオしかありません --
@@ -3168,9 +3133,8 @@ TrillPitchGroup - not tried
 @ref{Multiple voices}
 
 
-@node 距離と距離の単位
+@node Distances and measurements
 @subsection 距離と距離の単位
-@translationof Distances and measurements
 
 @cindex distance, absolute (絶対距離)
 @cindex distance, scaled (相対距離)
@@ -3208,7 +3172,7 @@ LilyPond における距離には 2 つのタイプがあります: 絶対距離
 そのため、グローバル譜サイズは@c
 容易に描画される楽譜全体のサイズを変更することができます。@c
 グローバル譜サイズを設定するための手段については、@c
-@ref{譜サイズを設定する} を参照してください。
+@ref{Setting the staff size} を参照してください。
 
 @funindex magstep
 
@@ -3221,20 +3185,19 @@ LilyPond における距離には 2 つのタイプがあります: 絶対距離
 フォント サイズの変更を @code{staff-space} 単位の変更に変換するには、@c
 Scheme 関数 @code{magstep} を使用することができます。@c
 この関数の説明と使用例については、@c
-@rlearning{オブジェクトの長さと太さ} を参照してください。
+@rlearningnamed{Length and thickness of objects, オブジェクトの長さと太さ} を参照してください。
 
 @morerefs
 学習マニュアル:
-@rlearning{オブジェクトの長さと太さ}
+@rlearningnamed{Length and thickness of objects, オブジェクトの長さと太さ}
 
 記譜法リファレンス:
 @ref{Page layout},
-@ref{譜サイズを設定する}
+@ref{Setting the staff size}
 
 
-@node 寸法
+@node Dimensions
 @subsection 寸法
-@translationof Dimensions
 
 @cindex dimension (寸法)
 @cindex bounding box (バウンディング ボックス)
@@ -3257,12 +3220,11 @@ Scheme ペアです:
 
 @morerefs
 記譜法リファレンス:
-@ref{距離と距離の単位}
+@ref{Distances and measurements}
 
 
-@node 譜記号プロパティ
+@node Staff symbol properties
 @subsection 譜記号プロパティ
-@translationof Staff symbol properties
 
 @cindex adjusting staff symbol (譜記号を調節する)
 @cindex drawing staff symbol (譜記号を描画する)
@@ -3300,9 +3262,8 @@ Scheme ペアです:
 @end lilypond
 
 
-@node スパナ
+@node Spanners
 @subsection スパナ
-@translationof Spanners
 
 多くの音楽記譜オブジェクトは、複数の音符あるいは複数の小節にまたがって、@c
 広がりを持ちます。@c
@@ -3318,13 +3279,12 @@ Scheme ペアです:
 @code{line-spanner-interface} をサポートします。
 
 @menu
-* spanner-interface を使用する::
-* line-spanner-interface を使用する::
+* Using the spanner-interface::
+* Using the line-spanner-interface::
 @end menu
 
-@node spanner-interface を使用する
+@node Using the spanner-interface
 @unnumberedsubsubsec @code{spanner-interface} を使用する
-@translationof Using the spanner-interface
 
 このインターフェイスは、@c
 いくつかのスパナに適用される 2 つのプロパティを提供します。
@@ -3468,9 +3428,8 @@ e'8 e' e' e'
 あるいは小節線で終了させることに意味が無い他のスパナに対して、@c
 このプロパティを @code{#t} に設定しても効果がありません。
 
-@node line-spanner-interface を使用する
+@node Using the line-spanner-interface
 @unnumberedsubsubsec @code{line-spanner-interface} を使用する
-@translationof Using the line-spanner-interface
 
 @code{line-spanner-interface} をサポートするオブジェクトには@c
 以下のものがあります:
@@ -3624,9 +3583,8 @@ f''1
 @rinternals{line-spanner-interface}
 
 
-@node オブジェクトの可視性
+@node Visibility of objects
 @subsection オブジェクトの可視性
-@translationof Visibility of objects
 
 @cindex object, visibility of (オブジェクトの可視性)
 @cindex grob, visibility of (グラフィカル オブジェクトの可視性)
@@ -3640,23 +3598,22 @@ f''1
 最後の方法はいくつかの -- @emph{改行可能な} オブジェクト --
 だけに適用されます。@c
 学習マニュアルでは、これら 4 つのテクニックについて紹介しています。@c
-@rlearning{オブジェクトの可視性と色} を参照してください。
+@rlearningnamed{Visibility and color of objects, オブジェクトの可視性と色} を参照してください。
 
 さらに、特定のレイアウト オブジェクト特有のテクニックがいくつかあります。@c
 それらについては、特別な考慮でカバーされています。
 
 @menu
-* ステンシルを削除する::
-* オブジェクトを透明にする::
-* オブジェクトを白で描く::
-* break-visibility を用いる::
-* 特別な考慮を必要とするもの::
+* Removing the stencil::
+* Making objects transparent::
+* Painting objects white::
+* Using break-visibility::
+* Special considerations::
 @end menu
 
 
-@node ステンシルを削除する
+@node Removing the stencil
 @unnumberedsubsubsec ステンシルを削除する
-@translationof Removing the stencil
 
 @cindex stencil, removing (ステンシルを削除する)
 @funindex \omit
@@ -3686,9 +3643,8 @@ a a
 a a a
 @end lilypond
 
-@node オブジェクトを透明にする
+@node Making objects transparent
 @unnumberedsubsubsec オブジェクトを透明にする
-@translationof Making objects transparent
 
 @cindex transparent, making objects (オブジェクトを透明にする)
 @funindex \hide
@@ -3712,9 +3668,8 @@ a'4 a'
 a' a'
 @end lilypond
 
-@node オブジェクトを白で描く
+@node Painting objects white
 @unnumberedsubsubsec オブジェクトを白で描く
-@translationof Painting objects white
 
 @cindex object, coloring (オブジェクトに色を付ける)
 @cindex coloring object (オブジェクトに色を付ける)
@@ -3768,9 +3723,8 @@ a'1
 a'1
 @end lilypond
 
-@node break-visibility を用いる
+@node Using break-visibility
 @unnumberedsubsubsec break-visibility を用いる
-@translationof Using break-visibility
 
 @c TODO Add making other objects breakable
 
@@ -3795,7 +3749,7 @@ a'1
 この振る舞いは @code{break-visibility} プロパティによって制御されます。@c
 このプロパティについての説明は
 @c Leave this ref on a newline - formats incorrectly otherwise -td
-@rlearning{オブジェクトの可視性と色}
+@rlearningnamed{Visibility and color of objects, オブジェクトの可視性と色}
 を参照してください。@c
 このプロパティは 3 つのブール値からなるベクトルをとり、@c
 順に、そのオブジェクトが行の最後で描画されるかどうか、@c
@@ -3885,9 +3839,8 @@ a'1
 @item ClefModifier -- 次のセクションを参照してください
 @end itemize
 
-@node 特別な考慮を必要とするもの
+@node Special considerations
 @unnumberedsubsubsec 特別な考慮を必要とするもの
-@translationof Special considerations
 
 @subsubsubheading 明示的な変更の後の可視性
 
@@ -4045,12 +3998,11 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 
 @morerefs
 学習マニュアル:
-@rlearning{オブジェクトの可視性と色}
+@rlearningnamed{Visibility and color of objects, オブジェクトの可視性と色}
 
 
-@node ライン スタイル
+@node Line styles
 @subsection ライン スタイル
-@translationof Line styles
 
 いくつかの演奏指示子
 -- 例えば、@i{rallentando}, @i{accelerando} それに @i{trills} など --
@@ -4101,25 +4053,23 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 その値はスパナが取り付けられるポイントの垂直位置から算出されます。
 
 スパナに他の調整を行うことも可能です。@c
-詳細は @ref{スパナ} を参照してください。
+詳細は @ref{Spanners} を参照してください。
 
 
-@node オブジェクトを回転させる
+@node Rotating objects
 @subsection オブジェクトを回転させる
-@translationof Rotating objects
 
 レイアウト オブジェクトとマークアップ テキストの要素はどちらも@c
 任意のポイントを中心にして任意の角度で回転させることができます。@c
 しかしながら、回転させる方法はまったく異なります。
 
 @menu
-* レイアウト オブジェクトを回転させる::
-* マークアップを回転させる::
+* Rotating layout objects::
+* Rotating markup::
 @end menu
 
-@node レイアウト オブジェクトを回転させる
+@node Rotating layout objects
 @unnumberedsubsubsec レイアウト オブジェクトを回転させる
-@translationof Rotating layout objects
 
 @cindex rotating object (オブジェクトを回転させる)
 @cindex object, rotating (オブジェクトを回転させる)
@@ -4146,9 +4096,8 @@ g4\< e' d'' f''\!
 g4\< e' d'' f''\!
 @end lilypond
 
-@node マークアップを回転させる
+@node Rotating markup
 @unnumberedsubsubsec マークアップを回転させる
-@translationof Rotating markup
 
 すべてのマークアップ テキストは、@code{\rotate} コマンドを前に置くことにより、@c
 任意の角度に回転させることができます。@c
@@ -4170,30 +4119,29 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
 
 
-@node 高度な調整
+@node Advanced tweaks
 @section 高度な調整
-@translationof Advanced tweaks
 
 このセクションでは、@c
 楽譜の見た目を細かく調節するためのさまざまなアプローチについて議論します。
 
 @menu
-* オブジェクトを揃える::
-* グラフィカル オブジェクトを垂直方向にグループ化する::
-* ステンシルを変更する::
-* 形状を変更する::
-* 改行するスパナを変更する::
-* unpure-pure コンテナ::
+* Aligning objects::
+* Vertical grouping of grobs::
+* Modifying stencils::
+* Modifying shapes::
+* Modifying broken spanners::
+* Unpure-pure containers::
 @end menu
 
 @morerefs
 学習マニュアル:
-@rlearning{出力を調整する},
-@rlearning{その他の情報源}
+@rlearningnamed{Tweaking output, 出力を調整する},
+@rlearningnamed{Other sources of information, その他の情報源}
 
 記譜法リファレンス:
-@ref{内部リファレンスの説明},
-@ref{プロパティを変更する}
+@ref{Explaining the Internals Reference},
+@ref{Modifying properties}
 
 拡張:
 @rextend{Interfaces for programmers}
@@ -4208,9 +4156,8 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 @rinternals{All layout objects}
 
 
-@node オブジェクトを揃える
+@node Aligning objects
 @subsection オブジェクトを揃える
-@translationof Aligning objects
 
 @code{self-alignment-interface} と/あるいは @code{side-position-interface} を@c
 サポートするグラフィカル オブジェクトは、@c
@@ -4253,21 +4200,20 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 
 @morerefs
 記譜法リファレンス:
-@ref{break-alignable-interface を使用する},
+@ref{Using the @code{break-alignable-interface}},
 
 拡張:
 @rextend{Callback functions}
 
 @menu
-* X-offset と Y-offset を直接設定する::
-* side-position-interface を使用する::
-* self-alignment-interface を使用する::
-* break-alignable-interface を使用する::
+* Setting X-offset and Y-offset directly::
+* Using the @code{side-position-interface}::
+* Using the @code{self-alignment-interface}::
+* Using the @code{break-alignable-interface}::
 @end menu
 
-@node X-offset と Y-offset を直接設定する
+@node Setting X-offset and Y-offset directly
 @unnumberedsubsubsec @code{X-offset} と @code{Y-offset} を直接設定する
-@translationof Setting X-offset and Y-offset directly
 
 多くのオブジェクトの @code{X-offset} プロパティと @code{Y-offset} プロパティに@c
 数値を与えることができます。@c
@@ -4288,9 +4234,8 @@ a'
 
 @c TODO write more
 
-@node side-position-interface を使用する
+@node Using the @code{side-position-interface}
 @unnumberedsubsubsec @code{side-position-interface} を使用する
-@translationof Using the @code{side-position-interface}
 
 @code{side-position-interface} をサポートするオブジェクトは、@c
 その親オブジェクトの隣に配置することができ、@c
@@ -4334,9 +4279,8 @@ a'
 
 @c TODO Add examples
 
-@node self-alignment-interface を使用する
+@node Using the @code{self-alignment-interface}
 @unnumberedsubsubsec @code{self-alignment-interface} を使用する
-@translationof Using the @code{self-alignment-interface}
 
 @subsubsubheading オブジェクトを自動的に水平方向に揃える
 
@@ -4439,9 +4383,8 @@ example shows the difference:
 
 @c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
-@node break-alignable-interface を使用する
+@node Using the @code{break-alignable-interface}
 @unnumberedsubsubsec @code{break-alignable-interface} を使用する
-@translationof Using the @code{break-alignable-interface}
 
 @cindex align to object (オブジェクトに揃える)
 @funindex break-align-symbols
@@ -4562,9 +4505,8 @@ e'1
 @end lilypond
 
 
-@node グラフィカル オブジェクトを垂直方向にグループ化する
+@node Vertical grouping of grobs
 @subsection グラフィカル オブジェクトを垂直方向にグループ化する
-@translationof Vertical grouping of grobs
 
 @c FIXME Expand this section
 
@@ -4579,9 +4521,8 @@ VerticalAxisGroup によってグループ化されたグラフィカル オブ�
 Staff, Lyrics 等はそれ自体でそれぞれに VerticalAxisGroup を持ちます。
 
 
-@node ステンシルを変更する
+@node Modifying stencils
 @subsection ステンシルを変更する
-@translationof Modifying stencils
 
 すべてのレイアウト オブジェクトは、@c
 @code{grob-interface} の一部である @code{stencil} プロパティを持ちます。@c
@@ -4601,7 +4542,7 @@ Staff, Lyrics 等はそれ自体でそれぞれに VerticalAxisGroup を持ち�
 必要な記号を生み出すマークアップ テキストを保持するよう設定された
  @code{text} プロパティ与えます。@c
 マークアップの自由度の高さにより、多くのことを達成できます。@c
-詳細は、@ref{マークアップ内部でのグラフィック記譜法} を参照してください。
+詳細は、@ref{Graphic notation inside markup} を参照してください。
 
 以下の例では、この方法を用いて符頭記号を内部に×を持つ円に変更しています。
 
@@ -4631,24 +4572,22 @@ Emmentaler フォントに含まれる任意の @emph{Feta}
 
 @morerefs
 記譜法リファレンス:
-@ref{マークアップ内部でのグラフィック記譜法},
-@ref{テキストをフォーマットする},
+@ref{Graphic notation inside markup},
+@ref{Formatting text},
 @ref{Text markup commands},
 @ref{The Emmentaler font},
 @ref{Graphical markup}
 
 
-@node 形状を変更する
+@node Modifying shapes
 @subsection 形状を変更する
-@translationof Modifying shapes
 
 @menu
-* タイとスラーの形状を変更する::
+* Modifying ties and slurs::
 @end menu
 
-@node タイとスラーの形状を変更する
+@node Modifying ties and slurs
 @unnumberedsubsubsec タイとスラーの形状を変更する
-@translationof Modifying ties and slurs
 
 @cindex slur, modifying (スラーの形状を変更する)
 @cindex tie, modifying (タイの形状を変更する)
@@ -4867,17 +4806,15 @@ X@tie{}座標はタイあるいはスラーを取り付ける音符の参照ポ�
 @rinternals{TieColumn}
 
 
-@node 改行するスパナを変更する
+@node Modifying broken spanners
 @subsection 改行するスパナを変更する
-@translationof Modifying broken spanners
 
 @menu
-* alterBroken を使用する::
+* Using alterBroken::
 @end menu
 
-@node alterBroken を使用する
+@node Using alterBroken
 @unnumberedsubsubsec @code{\alterBroken} を使用する
-@translationof Using alterBroken
 
 @cindex spanner, modifying (スパナを変更する)
 @cindex broken spanner, modifying (改行するスパナを変更する)
@@ -4978,9 +4915,8 @@ Grob の名前である場合、結果はその Grob の @code{\override} とな
 @rextend{Difficult tweaks}
 
 
-@node unpure-pure コンテナ
+@node Unpure-pure containers
 @subsection unpure-pure コンテナ
-@translationof Unpure-pure containers
 
 @cindex Scheme, pure container (Scheme pure コンテナ)
 @cindex Scheme, unpure container (Scheme unpure コンテナ)
@@ -5083,9 +5019,8 @@ smartSquareLineCircleSpace = {
 ことがあります。}
 
 
-@node 音楽関数を使用する
+@node Using music functions
 @section 音楽関数を使用する
-@translationof Using music functions
 
 @c TODO -- add @morerefs, etc. to these subsections
 
@@ -5096,13 +5031,12 @@ smartSquareLineCircleSpace = {
 他のもっと複雑な関数については、@rextend{Music functions} で記述されています。
 
 @menu
-* 置換関数の構文::
-* 置換関数の例::
+* Substitution function syntax::
+* Substitution function examples::
 @end menu
 
-@node 置換関数の構文
+@node Substitution function syntax
 @subsection 置換関数の構文
-@translationof Substitution function syntax
 
 変数を LilyPond コードに置換する関数を作成することは簡単にできます。@c
 置換関数の一般的な形式は以下のようなものです:
@@ -5170,9 +5104,8 @@ symbol?
 @file{scm/lily.scm}
 
 
-@node 置換関数の例
+@node Substitution function examples
 @subsection 置換関数の例
-@translationof Substitution function examples
 
 このセクションでは、置換関数の例をいくつか紹介します。@c
 高度なことはしていませんが、シンプルな置換関数を実現する方法を示しています。

@@ -13,9 +13,8 @@
 @c Translation status: post-GDP
 
 
-@node 古代の記譜法
+@node Ancient notation
 @section 古代の記譜法
-@translationof Ancient notation
 
 @lilypondfile[quote]{snippets/ancient-headword.ly}
 
@@ -27,12 +26,12 @@
 
 
 @menu
-* サポートされているスタイルの概要::
-* 古代音楽で共通の記譜法::
-* 計量音楽の記譜::
-* グレゴリオ聖歌の記譜::
-* キエフ記譜法で譜刻する::
-* 古代音楽に取り組む---事例とその解決法::
+* Overview of the supported styles::
+* Ancient notation---common features::
+* Typesetting mensural music::
+* Typesetting Gregorian chant::
+* Typesetting Kievan square notation::
+* Working with ancient music---scenarios and solutions::
 @end menu
 
 
@@ -83,9 +82,8 @@
 @ref{Ligatures}
 
 
-@node サポートされているスタイルの概要
+@node Overview of the supported styles
 @subsection サポートされているスタイルの概要
-@translationof Overview of the supported styles
 
 グレゴリオ聖歌を譜刻するのに適したスタイルが 3 つあります:
 
@@ -158,20 +156,18 @@ Petrucci スタイルには符尾や臨時記号がありません。
 @rglos{flag}
 
 
-@node 古代音楽で共通の記譜法
+@node Ancient notation---common features
 @subsection 古代音楽で共通の記譜法
-@translationof Ancient notation---common features
 
 @menu
-* 定義されているコンテキスト::
-* リガトゥーラ::
-* クストス::
+* Pre-defined contexts::
+* Ligatures::
+* Custodes::
 @end menu
 
 
-@node 定義されているコンテキスト
+@node Pre-defined contexts
 @unnumberedsubsubsec 定義されているコンテキスト
-@translationof Pre-defined contexts
 
 グレゴリオ聖歌や計量音楽の記譜では、デフォルトで専用の
 Voice および Staff コンテキストが定義されています。これらのコンテキストは@c
@@ -201,9 +197,8 @@ Voice および Staff コンテキストが定義されています。これら�
 @ref{Mensural contexts}
 
 
-@node リガトゥーラ
+@node Ligatures
 @unnumberedsubsubsec リガトゥーラ
-@translationof Ligatures
 
 @cindex ligature (リガトゥーラ)
 
@@ -273,9 +268,8 @@ Vaticana スタイルと、計量音楽のための Mensural スタイルです
 @c -- eo
 
 
-@node クストス
+@node Custodes
 @unnumberedsubsubsec クストス
-@translationof Custodes
 
 @cindex custos (クストス)
 @cindex custodes (クストス)
@@ -347,26 +341,24 @@ Vaticana スタイルと、計量音楽のための Mensural スタイルです
 内部リファレンス:
 @rinternals{Custos}
 
-@node 計量音楽の記譜
+@node Typesetting mensural music
 @subsection 計量音楽の記譜
-@translationof Typesetting mensural music
 
 @menu
-* 計量記譜法のコンテキスト::
-* 計量記譜法の音部記号::
-* 計量記譜法の拍子記号::
-* 計量記譜法の符頭::
-* 計量記譜法の符尾::
-* 計量記譜法の休符::
-* 計量記譜法の臨時記号と調号::
-* 注釈的な臨時記号 (ムジカ・フィクタ)::
-* 白色計量記譜法のリガトゥーラ::
+* Mensural contexts::
+* Mensural clefs::
+* Mensural time signatures::
+* Mensural note heads::
+* Mensural flags::
+* Mensural rests::
+* Mensural accidentals and key signatures::
+* Annotational accidentals (musica ficta)::
+* White mensural ligatures::
 @end menu
 
 
-@node 計量記譜法のコンテキスト
+@node Mensural contexts
 @unnumberedsubsubsec 計量記譜法のコンテキスト
-@translationof Mensural contexts
 
 @funindex MensuralVoice
 @funindex MensuralStaff
@@ -403,9 +395,8 @@ Vaticana スタイルと、計量音楽のための Mensural スタイルです
 @rglos{mensural notation}
 
 
-@node 計量記譜法の音部記号
+@node Mensural clefs
 @unnumberedsubsubsec 計量記譜法の音部記号
-@translationof Mensural clefs
 
 @cindex clef styles (音部記号のスタイル)
 @cindex ancient music clef (古代音楽の音部記号)
@@ -477,9 +468,8 @@ c'1
 @code{mensural-g} は @code{petrucci-g} にマッピングされています。
 
 
-@node 計量記譜法の拍子記号
+@node Mensural time signatures
 @unnumberedsubsubsec 計量記譜法の拍子記号
-@translationof Mensural time signatures
 
 @cindex mensuration sign (メンスーラ記号)
 @cindex time signature, mensural (計量記譜法の拍子記号)
@@ -595,9 +585,8 @@ breveTP = #(ly:make-duration -1 0 3/2)
 を使ってください。
 
 
-@node 計量記譜法の符頭
+@node Mensural note heads
 @unnumberedsubsubsec 計量記譜法の符頭
-@translationof Mensural note heads
 
 @cindex note head, ancient (古代の符頭)
 
@@ -666,9 +655,8 @@ tseealso
 @ref{Note head styles}
 
 
-@node 計量記譜法の符尾
+@node Mensural flags
 @unnumberedsubsubsec 計量記譜法の符尾
-@translationof Mensural flags
 
 @cindex flag, mensural (計量記譜法の符尾)
 @cindex mensural flag (計量記譜法の符尾)
@@ -710,9 +698,8 @@ neo-mensural や Petrucci スタイル専用の符尾はありません。@c
 用いるものではありません)。
 
 
-@node 計量記譜法の休符
+@node Mensural rests
 @unnumberedsubsubsec 計量記譜法の休符
-@translationof Mensural rests
 
 @cindex rest, ancient (古代の休符)
 
@@ -753,9 +740,8 @@ mensural スタイルにおけるマキシマ休符の形は、実際には完�
 ピッチ付きの休符を使って手動で配置する必要があります。
 
 
-@node 計量記譜法の臨時記号と調号
+@node Mensural accidentals and key signatures
 @unnumberedsubsubsec 計量記譜法の臨時記号と調号
-@translationof Mensural accidentals and key signatures
 
 @cindex accidental, mensural (計量記譜法の臨時記号)
 @cindex key signature, mensural (計量記譜法の調号)
@@ -803,9 +789,8 @@ mensural スタイルにおけるマキシマ休符の形は、実際には完�
 @rinternals{KeySignature}
 
 
-@node 注釈的な臨時記号 (ムジカ・フィクタ)
+@node Annotational accidentals (musica ficta)
 @unnumberedsubsubsec 注釈的な臨時記号 (@emph{ムジカ・フィクタ})
-@translationof Annotational accidentals (musica ficta)
 
 1600 年ごろより前のヨーロッパ音楽では、歌唱者は一定のルールに従って@c
 自分の判断で音程を変化させることが求められました。これがムジカ・フィクタ
@@ -850,9 +835,8 @@ ficta = { \once \set suggestAccidentals = ##t }
 @rinternals{AccidentalSuggestion}
 
 
-@node 白色計量記譜法のリガトゥーラ
+@node White mensural ligatures
 @unnumberedsubsubsec 白色計量記譜法のリガトゥーラ
-@translationof White mensural ligatures
 
 @cindex ligature, mensural (計量記譜法のリガトゥーラ)
 @cindex mensural ligature (計量記譜法のリガトゥーラ)
@@ -950,18 +934,17 @@ ficta = { \once \set suggestAccidentals = ##t }
 臨時記号は前の音符と衝突するかもしれません。
 
 
-@node グレゴリオ聖歌の記譜
+@node Typesetting Gregorian chant
 @subsection グレゴリオ聖歌の記譜
-@translationof Typesetting Gregorian chant
 
 @menu
-* グレゴリオ聖歌のコンテキスト::
-* グレゴリオ聖歌の音部記号::
-* グレゴリオ聖歌の臨時記号と調号::
-* ディビジオ::
-* グレゴリオ聖歌のアーティキュレーション::
-* 付点 (モラ)::
-* グレゴリオ聖歌の四角形ネウマのリガトゥーラ::
+* Gregorian chant contexts::
+* Gregorian clefs::
+* Gregorian accidentals and key signatures::
+* Divisiones::
+* Gregorian articulation signs::
+* Augmentum dots (morae)::
+* Gregorian square neume ligatures::
 @end menu
 
 グレゴリオ聖歌の楽譜を記譜する時、@c
@@ -981,9 +964,8 @@ ficta = { \once \set suggestAccidentals = ##t }
 @ref{Ligatures}
 
 
-@node グレゴリオ聖歌のコンテキスト
+@node Gregorian chant contexts
 @unnumberedsubsubsec グレゴリオ聖歌のコンテキスト
-@translationof Gregorian chant contexts
 
 @funindex VaticanaVoice
 @funindex VaticanaStaff
@@ -1023,9 +1005,8 @@ Editio Vaticana のスタイルでグレゴリオ聖歌の楽譜を記譜する�
 @c TODO: nothing here yet ...
 
 
-@node グレゴリオ聖歌の音部記号
+@node Gregorian clefs
 @unnumberedsubsubsec グレゴリオ聖歌の音部記号
-@translationof Gregorian clefs
 
 @cindex clef (音部記号)
 
@@ -1162,9 +1143,8 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 @ref{Clef}
 
 
-@node グレゴリオ聖歌の臨時記号と調号
+@node Gregorian accidentals and key signatures
 @unnumberedsubsubsec グレゴリオ聖歌の臨時記号と調号
-@translationof Gregorian accidentals and key signatures
 
 @cindex accidental, Gregorian (グレゴリオ聖歌の臨時記号)
 @cindex key signature, Gregorian (グレゴリオ聖歌の調号)
@@ -1222,9 +1202,8 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 @rinternals{KeySignature}
 
 
-@node ディビジオ
+@node Divisiones
 @unnumberedsubsubsec ディビジオ
-@translationof Divisiones
 
 @cindex divisio (ディビジオ)
 @cindex divisiones (ディビジオ)
@@ -1313,9 +1292,8 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 @file{ly/gregorian.ly}
 
 
-@node グレゴリオ聖歌のアーティキュレーション
+@node Gregorian articulation signs
 @unnumberedsubsubsec グレゴリオ聖歌のアーティキュレーション
-@translationof Gregorian articulation signs
 
 @cindex articulation, Gregorian (グレゴリオ聖歌のアーティキュレーション)
 @cindex Gregorian articulation (グレゴリオ聖歌のアーティキュレーション)
@@ -1370,9 +1348,8 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 いくつかのアーティキュレーションは、符頭と縦方向に近づきすぎます。
 
 
-@node 付点 (モラ)
+@node Augmentum dots (morae)
 @unnumberedsubsubsec 付点 (@emph{モラ})
-@translationof Augmentum dots (morae)
 
 @emph{モラ}は @code{\augmentum} 音楽関数で追加します。@c
 @code{\augmentum} は変数を 1 つだけ取る音楽関数として定義されており、@c
@@ -1402,9 +1379,8 @@ hufnagel style のハ音記号とヘ音記号を組み合わせたもの
 @rlsr{Ancient notation}
 
 
-@node グレゴリオ聖歌の四角形ネウマのリガトゥーラ
+@node Gregorian square neume ligatures
 @unnumberedsubsubsec グレゴリオ聖歌の四角形ネウマのリガトゥーラ
-@translationof Gregorian square neume ligatures
 
 @cindex ligature, square neumes (四角形ネウマのリガトゥーラ)
 @cindex square naumes ligature (四角形ネウマのリガトゥーラ)
@@ -2355,25 +2331,23 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 実装されるべきです。そうすることで、@code{\augmentum} を他の前置コマンドと@c
 任意の順番で混合させることができます。
 
-@node キエフ記譜法で譜刻する
+@node Typesetting Kievan square notation
 @subsection キエフ記譜法で譜刻する
-@translationof Typesetting Kievan square notation
 
 (訳注: キエフ記譜法 (Kievan square notation) は、ロシア正教会を中心に@c
 使われている聖歌の記譜法です。符頭が四角形 (square) であることが特徴です。)
 
 @menu
-* キエフ記譜法のコンテキスト::
-* キエフ記譜法の音部記号::
-* キエフ記譜法の音符::
-* キエフ記譜法の臨時記号::
-* キエフ記譜法の小節線::
-* キエフ記譜法のメリスマ::
+* Kievan contexts::
+* Kievan clefs::
+* Kievan notes::
+* Kievan accidentals::
+* Kievan bar line::
+* Kievan melismata::
 @end menu
 
-@node キエフ記譜法のコンテキスト
+@node Kievan contexts
 @unnumberedsubsubsec キエフ記譜法のコンテキスト
-@translationof Kievan contexts
 
 @funindex KievanVoice
 @funindex KievanStaff
@@ -2416,9 +2390,8 @@ LilyPond は Synodal スタイルのキエフ記譜法をサポートしてい�
 LilyPond はガリツィアでルシン語の単旋律聖歌に使われた、@c
 古い (より一般的でない) スタイルのキエフ記譜法をサポートしていません。
 
-@node キエフ記譜法の音部記号
+@node Kievan clefs
 @unnumberedsubsubsec キエフ記譜法の音部記号
-@translationof Kievan clefs
 
 @cindex clef (音部記号)
 
@@ -2439,9 +2412,8 @@ LilyPond はガリツィアでルシン語の単旋律聖歌に使われた、@c
 記譜法リファレンス:
 @ref{Clef}
 
-@node キエフ記譜法の音符
+@node Kievan notes
 @unnumberedsubsubsec キエフ記譜法の音符
-@translationof Kievan notes
 
 @cindex note head, ancient (古代の符頭)
 
@@ -2484,9 +2456,8 @@ LilyPond は音符を描画する際に、符幹の向きが上か下かを自�
 @code{Stem} オブジェクトの @code{direction} プロパティを手動でセットすることで@c
 行うことができます。
 
-@node キエフ記譜法の臨時記号
+@node Kievan accidentals
 @unnumberedsubsubsec キエフ記譜法の臨時記号
-@translationof Kievan accidentals
 
 @cindex accidental, Kievan (キエフ記譜法の臨時記号)
 @cindex Kievan accidental (キエフ記譜法の臨時記号)
@@ -2516,9 +2487,8 @@ bes' dis'
 @ref{Automatic accidentals},
 @ref{The Emmentaler font}
 
-@node キエフ記譜法の小節線
+@node Kievan bar line
 @unnumberedsubsubsec キエフ記譜法の小節線
-@translationof Kievan bar line
 
 キエフ記譜法では、曲の終わりに装飾的な記号が置かれるのが一般的です。@c
 これは最終小節線と呼ばれることがあります。@c
@@ -2536,9 +2506,8 @@ bes' dis'
 @ref{The Emmentaler font}
 
 
-@node キエフ記譜法のメリスマ
+@node Kievan melismata
 @unnumberedsubsubsec キエフ記譜法のメリスマ
-@translationof Kievan melismata
 
 @cindex ligature, Kievan (キエフ記譜法のリガトゥーラ)
 @cindex Kievan ligature (キエフ記譜法のリガトゥーラ)
@@ -2602,15 +2571,14 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 @knownissues
 リガトゥーラの水平方向のスペーシングは非常に悪いです。
 
-@node 古代音楽に取り組む---事例とその解決法
+@node Working with ancient music---scenarios and solutions
 @subsection 古代音楽に取り組む---事例とその解決法
-@translationof Working with ancient music---scenarios and solutions
 
 @menu
-* インキピット::
-* Mensurstriche レイアウト::
-* グレゴリオ聖歌を転写する::
-* 1 つのソースから古代譜と現代譜の両方を生成する::
+* Incipits::
+* Mensurstriche layout::
+* Transcribing Gregorian chant::
+* Ancient and modern from one source::
 @end menu
 
 古代音楽の譜刻に取り組む場合、LilyPond の主なターゲットである@c
@@ -2628,9 +2596,8 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 @end itemize
 
 
-@node インキピット
+@node Incipits
 @unnumberedsubsubsec インキピット
-@translationof Incipits
 @funindex \incipit
 @cindex incipit, adding (インキピットを追加する)
 
@@ -2673,9 +2640,8 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 @c ... and reference to other sections ...
 
 
-@node Mensurstriche レイアウト
+@node Mensurstriche layout
 @unnumberedsubsubsec Mensurstriche レイアウト
-@translationof Mensurstriche layout
 
 @cindex Mensurstriche
 
@@ -2700,9 +2666,8 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 @c ... and reference to other sections ...
 
 
-@node グレゴリオ聖歌を転写する
+@node Transcribing Gregorian chant
 @unnumberedsubsubsec グレゴリオ聖歌を転写する
-@translationof Transcribing Gregorian chant
 
 グレゴリオ聖歌は、いくつかのシンプルな調整によって@c
 現代譜に転写することができます。
@@ -2871,9 +2836,8 @@ spirLyr = \lyricmode {
 @c ... and reference to other sections ...
 
 
-@node 1 つのソースから古代譜と現代譜の両方を生成する
+@node Ancient and modern from one source
 @unnumberedsubsubsec 1 つのソースから古代譜と現代譜の両方を生成する
-@translationof Ancient and modern from one source
 
 @cindex transcription, mensural to modern (計量記譜法から現代譜への転写)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]

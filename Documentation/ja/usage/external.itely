@@ -14,23 +14,21 @@
 @c Translation status: post-GDP
 
 
-@node 外部プログラム
+@node External programs
 @chapter 外部プログラム
-@translationof External programs
 
 LilyPond は様々な方法で他のプログラムと連携することができます。
 
 @menu
-* ポイント＆クリック::
-* テキスト エディタ サポート::
-* 他のフォーマットから変換する::
-* LilyPond 出力を他のプログラムで使用する::
-* 独立した include::
+* Point and click::
+* Text editor support::
+* Converting from other formats::
+* LilyPond output in other programs::
+* Independent @code{include}s::
 @end menu
 
-@node ポイント＆クリック
+@node Point and click
 @section ポイント＆クリック
-@translationof Point and click
 
 @cindex point and click (ポイント＆クリック)
 
@@ -39,15 +37,14 @@ LilyPond は様々な方法で他のプログラムと連携することがで�
 これは楽譜の中でエラーを引き起こす入力を見つけ出すことをより容易にします。
 
 @menu
-* ポイント＆クリックのためにシステムを設定する::
-* ポイント＆クリックを有効にする::
-* 選択的なポイント＆クリック::
+* Configuring the system for point and click::
+* Enabling point and click::
+* Selective point-and-click::
 @end menu
 
 
-@node ポイント＆クリックのためにシステムを設定する
+@node Configuring the system for point and click
 @subsection システムを設定する
-@translationof Configuring the system for point and click
 
 この機能がアクティブな場合、@c
 LilyPond は PDF ファイルや SVG ファイルにハイパーリンクを付け加えます。@c
@@ -100,16 +97,15 @@ export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
 新しい Emacs ウィンドウが開いてしまいます。}
 
 @menu
-* ポイント＆クリックに Xpdf を使用する::
-* ポイント＆クリックに GNOME 2 を使用する::
-* ポイント＆クリックに GNOME 3 を使用する::
-* Evince のための追加の設定::
+* Using Xpdf for point and click::
+* Using GNOME 2 for point and click::
+* Using GNOME 3 for point and click::
+* Extra configuration for Evince::
 @end menu
 
 
-@node ポイント＆クリックに Xpdf を使用する
+@node Using Xpdf for point and click
 @unnumberedsubsubsec Xpdf を使用する
-@translationof Using Xpdf for point and click
 
 @cindex Xpdf
 
@@ -136,9 +132,8 @@ sudo apt-mark hold xpdf
 を実行すると良いかもしれません。
 
 
-@node ポイント＆クリックに GNOME 2 を使用する
+@node Using GNOME 2 for point and click
 @unnumberedsubsubsec GNOME 2 を使用する
-@translationof Using GNOME 2 for point and click
 
 (PDF ビューアが統合されている) GNOME 2 を使用するには、@samp{textedit:} URI
 をシステムに登録するために、以下のコマンドを実行します:
@@ -160,9 +155,8 @@ gnome-open textedit:///etc/issue:1:0:0
 はずです。
 
 
-@node ポイント＆クリックに GNOME 3 を使用する
+@node Using GNOME 3 for point and click
 @unnumberedsubsubsec GNOME 3 を使用する
-@translationof Using GNOME 3 for point and click
 
 GNOME 3 では、URI は @q{gconf} ではなく @q{gvfs} レイヤによって処理されます。
 @file{/tmp} などのローカル ディレクトリに、@file{lilypond-invoke-editor.desktop}
@@ -197,9 +191,8 @@ gnome-open textedit:///etc/issue:1:0:0
 はずです。
 
 
-@node Evince のための追加の設定
+@node Extra configuration for Evince
 @unnumberedsubsubsec Evince のための追加の設定
-@translationof Extra configuration for Evince
 
 @cindex Evince
 
@@ -226,9 +219,8 @@ sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.bin.evince
 を実行することで、Evince がポイント＆クリックのリンクを開くことができるように@c
 なるはずです。他のビューアでも同じような設定が有効であるかもしれません。
 
-@node ポイント＆クリックを有効にする
+@node Enabling point and click
 @unnumberedsubsec ポイント＆クリックを有効にする
-@translationof Enabling point and click
 
 @cindex file size, output (出力のファイル サイズ)
 
@@ -262,9 +254,8 @@ PDF ファイルにあなたのコンピュータの Path 情報が含まれな�
 配布する .pdf ファイルに Path 情報が含まれていると@c
 セキュリティ リスクとなります。}
 
-@node 選択的なポイント＆クリック
+@node Selective point-and-click
 @unnumberedsubsec 選択的なポイント＆クリック
-@translationof Selective point-and-click
 
 インタラクティブなアプリケーションでは、@c
 ある特定のポイント＆クリック要素だけを含むことが望ましい場合もあります。@c
@@ -338,9 +329,8 @@ lilypond \
 @end itemize
 
 
-@node テキスト エディタ サポート
+@node Text editor support
 @section テキスト エディタ サポート
-@translationof Text editor support
 
 @cindex editors (エディタ)
 @cindex vim
@@ -352,15 +342,14 @@ lilypond \
 いくつかのテキスト エディタの LilyPond サポート機能があります。
 
 @menu
-* Emacs モード::
-* Vim モード::
-* その他のエディタ::
+* Emacs mode::
+* Vim mode::
+* Other editors::
 @end menu
 
 
-@node Emacs モード
+@node Emacs mode
 @unnumberedsubsec Emacs モード
-@translationof Emacs mode
 
 Emacs は @file{lilypond-mode} を持ちます。@c
 これはキーワード自動補完、インデント挿入、LilyPond 特有の括弧一致、@c
@@ -386,9 +375,8 @@ Emacs は @file{lilypond-mode} を持ちます。@c
 @end example
 
 
-@node Vim モード
+@node Vim mode
 @unnumberedsubsec Vim モード
-@translationof Vim mode
 
 @uref{https://@/www@/.vim@/.org,Vim} のために
 LilyPond 用のファイルタイプ プラグイン、インデント モード、@c
@@ -407,24 +395,22 @@ syntax on
 @noindent
 LilyPond が @file{/usr/local} にインストールされていない場合は@c
 パスを適切に変更してください。@c
-このトピックは @rlearning{その他の情報源} で議論されています。
+このトピックは @rlearningnamed{Other sources of information, その他の情報源} で議論されています。
 
 
-@node その他のエディタ
+@node Other editors
 @unnumberedsubsec その他のエディタ
-@translationof Other editors
 
 他にも LilyPond をサポートするエディタ
 (テキスト ベースとグラフィカル ベースの両方) がありますが、@c
 それらの特殊な設定ファイルは LilyPond では配布されません。@c
 更なる情報はそれらのエディタのドキュメントを参照してください。@c
 LilyPond をサポートするエディタは
-@rweb{より簡単な編集手段} でリストアップされています。
+@rwebnamed{Easier editing, より簡単な編集手段} でリストアップされています。
 
 
-@node 他のフォーマットから変換する
+@node Converting from other formats
 @section 他のフォーマットから変換する
-@translationof Converting from other formats
 
 楽譜の記述を他のフォーマットからインポートするもできます。@c
 この章では、配布プログラムに含まれるインポート ツールについて説明します。
@@ -434,7 +420,7 @@ LilyPond 入力を作り出すツールは他にもあります。@c
 
 上で述べたツールは @command{lilypond} とは別のプログラムであり、@c
 コマンド ラインで実行します。@c
-詳細は @ref{コマンド ラインの使用方法} を参照してください。@c
+詳細は @ref{Command-line usage} を参照してください。@c
 あなたが MacOS 10.3 や 10.4 を使っていて、@c
 これらのスクリプト (例えば @code{convert-ly}) を実行する際に問題が@c
 発生した場合は、@rweb{MacOS X} を参照してください。
@@ -445,17 +431,16 @@ LilyPond 入力を作り出すツールは他にもあります。@c
 パッチは適用されていますが、バグ レポートはほとんど解決されていません。
 
 @menu
-* midi2ly を呼び出す::            MIDI をインポートする
-* musicxml2ly を呼び出す::        MusicXML をインポートする
-* abc2ly を呼び出す::             ABC をインポートする
-* etf2ly を呼び出す::             Finale をインポートする
-* その他のフォーマット::
+* Invoking @command{midi2ly}::            MIDI をインポートする
+* Invoking @code{musicxml2ly}::        MusicXML をインポートする
+* Invoking @code{abc2ly}::             ABC をインポートする
+* Invoking @command{etf2ly}::             Finale をインポートする
+* Other formats::
 @end menu
 
 
-@node midi2ly を呼び出す
+@node Invoking @command{midi2ly}
 @subsection @command{midi2ly} を呼び出す
-@translationof Invoking @command{midi2ly}
 
 @cindex MIDI
 
@@ -492,7 +477,7 @@ midi2ly [@var{option}]@dots{} @var{midi-file}
 
 @q{コマンド ライン} とは、OS のコマンド ラインを意味しているということに@c
 注意してください。@c
-このことについての更なる情報は @ref{他のフォーマットから変換する}
+このことについての更なる情報は @ref{Converting from other formats}
 を参照してください。
 
 @command{midi2ly} には以下のオプションがあります。
@@ -545,9 +530,8 @@ Verbose モード (ログ等が詳細) で実行します。
 フレーズ記号かペダル指示記号を追加してください。
 
 
-@node musicxml2ly を呼び出す
+@node Invoking @code{musicxml2ly}
 @subsection @code{musicxml2ly} を呼び出す
-@translationof Invoking @code{musicxml2ly}
 
 @cindex MusicXML
 
@@ -566,7 +550,7 @@ musicxml2ly [@var{option}]@dots{} @var{file.xml}
 
 @q{コマンド ライン} とは、OS のコマンド ラインを意味しているということに@c
 注意してください。@c
-このことについての更なる情報は @ref{他のフォーマットから変換する}
+このことについての更なる情報は @ref{Converting from other formats}
 を参照してください。
 
 ファイル名に @var{file.xml} ではなく @file{-} を指定すると、@c
@@ -663,9 +647,8 @@ Verbose モード (ログ等が詳細) で実行します。
 @end table
 
 
-@node abc2ly を呼び出す
+@node Invoking @code{abc2ly}
 @subsection @code{abc2ly} を呼び出す
-@translationof Invoking @code{abc2ly}
 
 @warning{このプログラムは現在サポートされていません。@c
 LilyPond 将来のバージョンからは削除される可能性があります。}
@@ -737,9 +720,8 @@ ABC は行の先頭で単語と音符との同期をとりますが、@c
 @command{abc2ly} は ABC の連桁を無視します。
 
 
-@node etf2ly を呼び出す
+@node Invoking @command{etf2ly}
 @subsection @command{etf2ly} を呼び出す
-@translationof Invoking @command{etf2ly}
 
 @warning{このプログラムはサポートされていません。@c
 LilyPond 将来のバージョンからは削除される可能性があります。}
@@ -762,7 +744,7 @@ etf2ly [@var{option}]@dots{} @var{etf-file}
 
 @q{コマンド ライン} とは、OS のコマンド ラインを意味しているということに@c
 注意してください。@c
-このことについての更なる情報は @ref{他のフォーマットから変換する}
+このことについての更なる情報は @ref{Converting from other formats}
 を参照してください。
 
 @command{etf2ly} には以下のオプションがあります。
@@ -781,34 +763,31 @@ etf2ly [@var{option}]@dots{} @var{etf-file}
 混乱させます。連続する装飾音符は正しく終了しません。
 
 
-@node その他のフォーマット
+@node Other formats
 @subsection その他のフォーマット
-@translationof Other formats
 
 @cindex External programs, generating LilyPond files (LilyPond ファイルを生成する外部プログラム)
 
 LilyPond 自体は他のフォーマットを一切サポートしませんが、@c
 外部ツールで LilyPond ファイルを生成することができます。@c
-それらのツールは @rweb{より簡単な編集手段} でリストアップされています。
+それらのツールは @rwebnamed{Easier editing, より簡単な編集手段} でリストアップされています。
 
 
-@node LilyPond 出力を他のプログラムで使用する
+@node LilyPond output in other programs
 @section LilyPond 出力を他のプログラムで使用する
-@translationof LilyPond output in other programs
 
 このセクションでは、@command{lilypond-book} を用いた自動手法ではない、@c
 テキストと楽譜を統合する手法を示します。
 
 @menu
 * LuaTeX::
-* OpenOffice と LibreOffice::
-* 他のプログラム::
+* OpenOffice and LibreOffice::
+* Other programs::
 @end menu
 
 
 @node LuaTeX
 @subsection Lua@TeX{}
-@translationof LuaTeX
 
 @cindex Lua@TeX{}
 @cindex lyluatex
@@ -819,9 +798,8 @@ Lua@TeX{} を使用する場合、@c
 と呼ばれる代替プログラムがあります。
 
 
-@node OpenOffice と LibreOffice
+@node OpenOffice and LibreOffice
 @subsection OpenOffice と LibreOffice
-@translationof OpenOffice and LibreOffice
 
 @cindex OpenOffice.org
 @cindex LibreOffice.org
@@ -835,9 +813,8 @@ OoLilyPond (OLy) は、LibreOffice および OpenOffice の最新バージョン
 古いバージョンでも動作するはずです。OpenOffice 2.4 でも問題なくテストされています。
 
 
-@node 他のプログラム
+@node Other programs
 @subsection 他のプログラム
-@translationof Other programs
 
 @file{PNG}, @file{EPS}, @file{PDF} を扱うことができる他のプログラムでは、@c
 @code{lilypond-book} ではなく、@code{lilypond} を使用します。@c
@@ -886,25 +863,23 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 @cindex music fragments, quoting (楽曲の断片を引用する)
 
 大きなスコアから多くの断片を引用したい場合、クリップ機能を用いることが@c
-できます。@rnotation{音楽の断片を抽出する} を参照してください。
+できます。@rnotationnamed{Extracting fragments of music, 音楽の断片を抽出する} を参照してください。
 
 
-@node 独立した include
+@node Independent @code{include}s
 @section 独立した @code{include}
-@translationof Independent @code{include}s
 
 出力にある効果を生み出すために、LilyPond に @code{\include} することのできる@c
 ファイルを作っているユーザがいます。以下にあるものは LilyPond に@c
-付属しているものです。@rnotation{入力ファイルに取り組む} も参照してください。
+付属しているものです。@rnotationnamed{Working with input files, 入力ファイルに取り組む} も参照してください。
 
 @menu
-* MIDI アーティキュレーション::
+* MIDI articulation::
 @end menu
 
 
-@node MIDI アーティキュレーション
+@node MIDI articulation
 @subsection MIDI アーティキュレーション
-@translationof MIDI articulation
 
 @cindex MIDI
 @cindex Articulate project (Articulate プロジェクト)

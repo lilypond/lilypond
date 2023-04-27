@@ -12,9 +12,8 @@
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
-@node フレットの無い弦楽器
+@node Unfretted string instruments
 @section フレットの無い弦楽器
-@translationof Unfretted string instruments
 
 
 @lilypondfile[quote]
@@ -29,12 +28,11 @@
 のための楽譜を記述する際に有用な情報とリファレンスを提供します。
 
 @menu
-* フレットの無い弦楽器で共通の記譜法::
+* Common notation for unfretted strings::
 @end menu
 
-@node フレットの無い弦楽器で共通の記譜法
+@node Common notation for unfretted strings
 @subsection フレットの無い弦楽器で共通の記譜法
-@translationof Common notation for unfretted strings
 
 フレットの無い弦楽器のための特殊な記譜法は少ししかありません。@c
 フレットの無い弦楽器の演奏は単一の譜で記譜され、@c
@@ -43,15 +41,14 @@
 2 つのボイスが必要となる場合もあります。
 
 @menu
-* フレットの無い弦楽器のためのリファレンス::
-* ボーイング指示::
-* ハーモニクス::
-* スナップ (バルトーク) ピッツィカート::
+* References for unfretted strings::
+* Bowing indications::
+* Harmonics::
+* Snap (Bartok) pizzicato::
 @end menu
 
-@node フレットの無い弦楽器のためのリファレンス
+@node References for unfretted strings
 @unnumberedsubsubsec フレットの無い弦楽器のためのリファレンス
-@translationof References for unfretted strings
 
 オーケストラの弦楽器や他の弓を使う楽器で用いられる記譜法のほとんどは@c
 他の場所でカバーされています。
@@ -88,9 +85,8 @@
 @rlsr{Unfretted strings}
 
 
-@node ボーイング指示
+@node Bowing indications
 @unnumberedsubsubsec ボーイング指示
-@translationof Bowing indications
 
 @funindex \upbow
 @funindex \downbow
@@ -146,9 +142,8 @@ a'2^\markup { \small "sul A" }
 @ref{Slurs}
 
 
-@node ハーモニクス
+@node Harmonics
 @unnumberedsubsubsec ハーモニクス
-@translationof Harmonics
 
 @funindex \harmonic
 
@@ -218,9 +213,8 @@ d''2^\flageolet d''_\flageolet
 @ref{References for unfretted strings}
 
 
-@node スナップ (バルトーク) ピッツィカート
+@node Snap (Bartok) pizzicato
 @unnumberedsubsubsec スナップ (バルトーク) ピッツィカート
-@translationof Snap (Bartok) pizzicato
 
 @cindex pizzicato, Bartók (バルトーク ピッツィカート)
 @cindex pizzicato, snap (スナップ ピッツィカート)

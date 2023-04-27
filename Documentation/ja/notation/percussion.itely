@@ -12,34 +12,31 @@
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
-@node 打楽器
+@node Percussion
 @section 打楽器
-@translationof Percussion
 
 @menu
-* 打楽器で共通の記譜法::
+* Common notation for percussion::
 @end menu
 
-@node 打楽器で共通の記譜法
+@node Common notation for percussion
 @subsection 打楽器で共通の記譜法
-@translationof Common notation for percussion
 
 リズム音楽は主に打楽器とドラム記譜法で使用されますが、@c
 旋律のリズムを示すために使うこともできます。
 
 @menu
-* 打楽器のためのリファレンス::
-* 基本的な打楽器の記譜法::
-* ドラム ロール::
-* ピッチを持つ打楽器::
-* 打楽器の譜::
-* カスタム打楽器譜::
-* ゴースト ノート::
+* References for percussion::
+* Basic percussion notation::
+* Drum rolls::
+* Pitched percussion::
+* Percussion staves::
+* Custom percussion staves::
+* Ghost notes::
 @end menu
 
-@node 打楽器のためのリファレンス
+@node References for percussion
 @unnumberedsubsubsec 打楽器のためのリファレンス
-@translationof References for percussion
 
 @c TODO add more references.
 
@@ -64,9 +61,8 @@
 @rlsr{Percussion}
 
 
-@node 基本的な打楽器の記譜法
+@node Basic percussion notation
 @unnumberedsubsubsec 基本的な打楽器の記譜法
-@translationof Basic percussion notation
 
 @cindex percussion (打楽器)
 @cindex drum (ドラム)
@@ -129,9 +125,8 @@
 @rlsr{Percussion}
 
 
-@node ドラム ロール
+@node Drum rolls
 @unnumberedsubsubsec ドラム ロール
-@translationof Drum rolls
 
 ドラム ロールは符幹に 3 本のスラッシュを付けて示します。@c
 4 分音符以上の長さの音符には 3 本のスラッシュが明示的に示され、@c
@@ -139,7 +134,7 @@
 (連桁が 3 本目のスラッシュになります)、@c
 8 分音符よりも短い音符には連桁に 1 本のスラッシュが付け加えられます。@c
 これは、トレモロ記譜法によって実現されます
--- @ref{トレモロの繰り返し} を参照してください。
+-- @ref{Tremolo repeats} を参照してください。
 
 @lilypond[quote,verbatim]
 \drums {
@@ -176,9 +171,8 @@
 @rlsr{Percussion}
 
 
-@node ピッチを持つ打楽器
+@node Pitched percussion
 @unnumberedsubsubsec ピッチを持つ打楽器
-@translationof Pitched percussion
 
 ピッチを持つ打楽器 (シロフォン、ビブラフォン、それにティンパニー)
 は通常の譜を用いて記述します。@c
@@ -192,9 +186,8 @@
 @rlsr{Percussion}
 
 
-@node 打楽器の譜
+@node Percussion staves
 @unnumberedsubsubsec 打楽器の譜
-@translationof Percussion staves
 
 @cindex percussion (打楽器)
 @cindex drums (ドラム)
@@ -219,7 +212,7 @@ down = \drummode {
 @end lilypond
 
 上記の例は冗長な多声記譜法です。@c
-@rlearning{私はボイスを聴いている} で説明した短い多声記譜法を使うことも@c
+@rlearningnamed{I'm hearing Voices, 私はボイスを聴いている} で説明した短い多声記譜法を使うことも@c
 できます。@c
 例えば、以下のようになります:
 
@@ -426,9 +419,8 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 コード断片集:
 @rlsr{Percussion}
 
-@node カスタム打楽器譜
+@node Custom percussion staves
 @unnumberedsubsubsec カスタム打楽器譜
-@translationof Custom percussion staves
 
 @cindex percussion, custom (カスタム打楽器)
 @funindex drumStyleTable
@@ -559,9 +551,8 @@ test = \drummode { dba4 do ds dbm dom dsm }
 @rinternals{DrumVoice}
 
 
-@node ゴースト ノート
+@node Ghost notes
 @unnumberedsubsubsec ゴースト ノート
-@translationof Ghost notes
 
 @cindex ghost note, percussion (打楽器でのゴースト ノート)
 @cindex dead note, percussion (打楽器での dead note)
@@ -578,7 +569,7 @@ test = \drummode { dba4 do ds dbm dom dsm }
 (dead note, muted note, silenced note, false note とも呼ばれます)
 は @code{\parenthesize} コマンドを用いて@c
 作ることができます。@c
-詳細は @ref{括弧} を参照してください。
+詳細は @ref{Parentheses} を参照してください。
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff

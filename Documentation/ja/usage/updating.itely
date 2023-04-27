@@ -14,9 +14,8 @@
 @c Translation status: post-GDP
 
 
-@node convert-ly を使ってファイルを更新する
+@node Updating files with convert-ly
 @chapter @command{convert-ly} を使ってファイルを更新する
-@translationof Updating files with convert-ly
 
 @cindex Updating a LilyPond file (LilyPond ファイルを更新する)
 @cindex convert-ly
@@ -30,17 +29,16 @@ LilyPond が改善していくにつれ、いくつかのコマンドや関数�
 @command{convert-ly} コマンドを使うことができます。
 
 @menu
-* 何故構文は変更されるのか？::
-* convert-ly を呼び出す::
-* convert-ly のコマンド ライン オプション::
-* convert-ly の問題点::
-* 手動変換::
-* 複数のバージョンに対応するコードを書く::
+* Why does the syntax change?::
+* Invoking convert-ly::
+* Command line options for convert-ly::
+* Problems running convert-ly::
+* Manual conversions::
+* Writing code to support multiple versions::
 @end menu
 
-@node 何故構文は変更されるのか？
+@node Why does the syntax change?
 @section 何故構文は変更されるのか？
-@translationof Why does the syntax change?
 
 @cindex convert-ly
 @cindex updating old input files (古い入力ファイルを更新する)
@@ -105,9 +103,8 @@ LilyPond は処理の際、余計に配置された、あるいは省略され�
 @end itemize
 
 
-@node convert-ly を呼び出す
+@node Invoking convert-ly
 @section @command{convert-ly} を呼び出す
-@translationof Invoking convert-ly
 
 @command{convert-ly} コマンドは古いバージョンを検出するために@c
 入力ファイルの @code{version} 番号を使用します。@c
@@ -192,9 +189,8 @@ forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c convert-ly.py -e @@fi
 @end example
 
 
-@node convert-ly のコマンド ライン オプション
+@node Command line options for convert-ly
 @section @command{convert-ly} のコマンド ライン オプション
-@translationof Command line options for convert-ly
 
 一般に、このプログラムは以下のように呼び出されます:
 
@@ -287,9 +283,8 @@ convert-ly --from=@dots{} --to=@dots{} -s
 @end example
 
 
-@node convert-ly の問題点
+@node Problems running convert-ly
 @section @code{convert-ly} の問題点
-@translationof Problems running convert-ly
 
 Windows の @q{コマンド プロンプト} ウィンドウから@c
 スペースを含むファイル名やパスを持つファイルに対して@c
@@ -325,9 +320,8 @@ LilyPond の Scheme インタフェイスを更新することはまったく異
 Scheme コードの調整は手動で行う覚悟でいてください。
 
 
-@node 手動変換
+@node Manual conversions
 @section 手動変換
-@translationof Manual conversions
 
 @c not yet
 理論的には、@c
@@ -392,9 +386,8 @@ converted.
 @end verbatim
 
 
-@node 複数のバージョンに対応するコードを書く
+@node Writing code to support multiple versions
 @section 複数のバージョンに対応するコードを書く
-@translationof Writing code to support multiple versions
 
 いくつかの場面で、特に@emph{ライブラリの}コードを書く場合、破壊的な構文変更を@c
 含んだ複数の LilyPond バージョンをサポートすることは望ましいでしょう。@c

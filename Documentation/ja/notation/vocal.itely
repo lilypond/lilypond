@@ -13,49 +13,46 @@
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
-@node 声楽
+@node Vocal music
 @section 声楽
-@translationof Vocal music
 
 @lilypondfile[quote]{snippets/vocal-headword.ly}
 
 このセクションでは声楽を譜刻し、歌詞を旋律の音符に揃える方法について説明します。
 
 @menu
-* 声楽で共通の記譜法::
-* 歌詞に特有のテクニック::
-* 歌詞の節::
-* 歌曲::
-* 合唱::
-* オペラと舞台ミュージカル::
-* 聖歌と賛美歌::
-* 古代の声楽::
+* Common notation for vocal music::
+* Techniques specific to lyrics::
+* Stanzas::
+* Songs::
+* Choral::
+* Opera and stage musicals::
+* Chants psalms and hymns::
+* Ancient vocal music::
 
 @end menu
 
 
-@node 声楽で共通の記譜法
+@node Common notation for vocal music
 @subsection 声楽で共通の記譜法
-@translationof Common notation for vocal music
 
 このセクションでは声楽の譜刻に共通する問題について説明します。
 
 @menu
-* 声楽のためのリファレンス::
-* 歌詞を入力する::
-* 歌詞を旋律に揃える::
-* 歌詞音節の自動演奏時間::
-* 歌詞音節の手動演奏時間::
-* 複数の歌詞音節を 1 つの音符に割り当てる::
-* 複数の音符を 1 つの歌詞音節に割り当てる::
-* 延長線とハイフン::
-* 母音の段階的な変化::
+* References for vocal music::
+* Entering lyrics::
+* Aligning lyrics to a melody::
+* Automatic syllable durations::
+* Manual syllable durations::
+* Multiple syllables to one note::
+* Multiple notes to one syllable::
+* Extenders and hyphens::
+* Gradual changes of vowel::
 @end menu
 
 
-@node 声楽のためのリファレンス
+@node References for vocal music
 @unnumberedsubsubsec 声楽のためのリファレンス
-@translationof References for vocal music
 
 このセクションでは声楽を譜刻する際に発生する記譜法の問題についての@c
 詳細について記述している場所を示します。
@@ -100,9 +97,8 @@
 @rlsr{Vocal music}
 
 
-@node 歌詞を入力する
+@node Entering lyrics
 @unnumberedsubsubsec 歌詞を入力する
-@translationof Entering lyrics
 
 @cindex lyrics, entering (歌詞を入力する)
 @cindex entering lyrics (歌詞を入力する)
@@ -221,9 +217,8 @@
 @rlsr{Text}
 
 
-@node 歌詞を旋律に揃える
+@node Aligning lyrics to a melody
 @unnumberedsubsubsec 歌詞を旋律に揃える
-@translationof Aligning lyrics to a melody
 
 @cindex lyrics, aligning to a melody (歌詞を旋律に揃える)
 @funindex associatedVoice
@@ -347,9 +342,8 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @rinternals{Lyrics}
 
 
-@node 歌詞音節の自動演奏時間
+@node Automatic syllable durations
 @unnumberedsubsubsec 歌詞音節の自動演奏時間
-@translationof Automatic syllable durations
 
 @cindex syllable duration, automatic (歌詞音節の自動演奏時間)
 @cindex lyrics, and melodies (歌詞と旋律)
@@ -510,9 +504,8 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @ref{Placing lyrics vertically}
 
 
-@node 歌詞音節の手動演奏時間
+@node Manual syllable durations
 @unnumberedsubsubsec 歌詞音節の手動演奏時間
-@translationof Manual syllable durations
 
 複雑な声楽では、@c
 歌詞を音符とは完全に独立させて配置する方が望ましい場合があります。@c
@@ -589,9 +582,8 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @rinternals{Voice}
 
 
-@node 複数の歌詞音節を 1 つの音符に割り当てる
+@node Multiple syllables to one note
 @unnumberedsubsubsec 複数の歌詞音節を 1 つの音符に割り当てる
-@translationof Multiple syllables to one note
 
 @funindex _
 @cindex space, in lyrics (歌詞の中での空白)
@@ -624,9 +616,8 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @rinternals{LyricCombineMusic}
 
 
-@node 複数の音符を 1 つの歌詞音節に割り当てる
+@node Multiple notes to one syllable
 @unnumberedsubsubsec 複数の音符を 1 つの歌詞音節に割り当てる
-@translationof Multiple notes to one syllable
 
 @cindex melisma (メリスマ)
 @cindex melismata (メリスマ)
@@ -824,9 +815,8 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 手動で 2 重アンダースコアを記述する必要があります。
 
 
-@node 延長線とハイフン
+@node Extenders and hyphens
 @unnumberedsubsubsec 延長線とハイフン
-@translationof Extenders and hyphens
 
 @cindex melisma (メリスマ)
 @cindex extender (延長線)
@@ -869,9 +859,8 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @rinternals{LyricHyphen}
 
 
-@node 母音の段階的な変化
+@node Gradual changes of vowel
 @unnumberedsubsubsec 母音の段階的な変化
-@translationof Gradual changes of vowel
 
 @cindex vowel transition (母音の遷移)
 
@@ -911,26 +900,24 @@ Voice コンテキストの音楽のすぐ後に記述することで、@c
 @rinternals{VowelTransition}
 
 
-@node 歌詞に特有のテクニック
+@node Techniques specific to lyrics
 @subsection 歌詞に特有のテクニック
-@translationof Techniques specific to lyrics
 
 @c TODO this whole section is to be reorganised
 
 @menu
-* 歌詞と変数に取り組む::
-* 歌詞の垂直方向の配置::
-* 歌詞の水平方向の配置::
-* 歌詞と繰り返し::
-* 歌詞のディヴィージ::
-* 歌詞を共有する多声::
+* Working with lyrics and variables::
+* Placing lyrics vertically::
+* Placing syllables horizontally::
+* Lyrics and repeats::
+* Divisi lyrics::
+* Polyphony with shared lyrics::
 @end menu
 
 
 
-@node 歌詞と変数に取り組む
+@node Working with lyrics and variables
 @unnumberedsubsubsec 歌詞と変数に取り組む
-@translationof Working with lyrics and variables
 
 @cindex lyrics, using variables (歌詞に変数を用いる)
 
@@ -1011,9 +998,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @rinternals{Lyrics}
 
 
-@node 歌詞の垂直方向の配置
+@node Placing lyrics vertically
 @unnumberedsubsubsec 歌詞の垂直方向の配置
-@translationof Placing lyrics vertically
 
 @cindex placement, lyrics (歌詞の配置)
 @cindex lyrics, positioning (歌詞を配置する)
@@ -1147,9 +1133,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @ref{Creating and referencing contexts}
 
 
-@node 歌詞の水平方向の配置
+@node Placing syllables horizontally
 @unnumberedsubsubsec 歌詞の水平方向の配置
-@translationof Placing syllables horizontally
 
 @cindex spacing lyrics (歌詞の間隔)
 @cindex lyrics, increasing space between (歌詞の間隔を広げる)
@@ -1227,9 +1212,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @end example
 
 
-@node 歌詞と繰り返し
+@node Lyrics and repeats
 @unnumberedsubsubsec 歌詞と繰り返し
-@translationof Lyrics and repeats
 
 @cindex repeat, and lyrics (繰り返しと歌詞)
 @cindex lyrics, repeating (歌詞を繰り返す)
@@ -1637,9 +1621,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @ref{Repeats}
 
 
-@node 歌詞のディヴィージ
+@node Divisi lyrics
 @unnumberedsubsubsec 歌詞のディヴィージ
-@translationof Divisi lyrics
 
 @cindex divided lyrics (ディヴィージされた歌詞)
 @cindex lyrics, divided (ディヴィージされた歌詞)
@@ -1716,9 +1699,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 @ref{Single-staff polyphony} の
 @emph{一時的に多声となる楽節 (パッセージ)} 節を参照してください。
 
-@node 歌詞を共有する多声
+@node Polyphony with shared lyrics
 @unnumberedsubsubsec 歌詞を共有する多声
-@translationof Polyphony with shared lyrics
 
 @funindex NullVoice
 @cindex polyphony, shared lyrics (歌詞を共有する多声)
@@ -1783,7 +1765,7 @@ words = \lyricmode { la __ la __ }
 @code{NullVoice} と一緒に用いることはできません。
 
 @noindent
-@code{\partCombine} 関数については、@ref{自動パート結合}に説明があります。
+@code{\partCombine} 関数については、@ref{Automatic part combining}に説明があります。
 
 最後に、この方法はボイスが異なる譜にある場合にも用いることができ、@c
 2 つよりも多くのボイスにも適用することができます:
@@ -1804,23 +1786,21 @@ words = \lyricmode { la __ la __ }
 @end lilypond
 
 
-@node 歌詞の節
+@node Stanzas
 @subsection 歌詞の節
-@translationof Stanzas
 
 @menu
-* 歌詞の節番号を追加する::
-* 歌詞の節に強弱記号を追加する::
-* 歌詞の節に歌手の名前を追加する::
-* リズムが異なる歌詞の節::
-* 歌詞の節を楽譜の終わりに譜刻する::
-* 歌詞の節を楽譜の終わりに複数の列で譜刻する::
+* Adding stanza numbers::
+* Adding dynamics marks to stanzas::
+* Adding singers' names to stanzas::
+* Stanzas with different rhythms::
+* Printing stanzas at the end::
+* Printing stanzas at the end in multiple columns::
 @end menu
 
 
-@node 歌詞の節番号を追加する
+@node Adding stanza numbers
 @unnumberedsubsubsec 歌詞の節番号を追加する
-@translationof Adding stanza numbers
 
 @cindex stanza number (歌詞番号)
 
@@ -1876,9 +1856,8 @@ stanzaOneThree = \lyricmode {
 
 @end lilypond
 
-@node 歌詞の節に強弱記号を追加する
+@node Adding dynamics marks to stanzas
 @unnumberedsubsubsec 歌詞の節に強弱記号を追加する
-@translationof Adding dynamics marks to stanzas
 
 歌詞の前に強弱記号を配置することによって、@c
 歌詞の音の大きさの違いを示すことができます。@c
@@ -1904,9 +1883,8 @@ text = {
 >>
 @end lilypond
 
-@node 歌詞の節に歌手の名前を追加する
+@node Adding singers' names to stanzas
 @unnumberedsubsubsec 歌詞の節に歌手の名前を追加する
-@translationof Adding singers' names to stanzas
 
 @cindex singer name (歌手名)
 @cindex name of singer (歌手の名前)
@@ -1928,9 +1906,8 @@ text = {
 }
 @end lilypond
 
-@node リズムが異なる歌詞の節
+@node Stanzas with different rhythms
 @unnumberedsubsubsec リズムが異なる歌詞の節
-@translationof Stanzas with different rhythms
 
 しばしば、@c
 1 つの歌で歌詞の節によって歌詞を旋律に配置する仕方が若干異なる場合があります。@c
@@ -2099,9 +2076,8 @@ sau -- rus Rex
 }
 
 
-@node 歌詞の節を楽譜の終わりに譜刻する
+@node Printing stanzas at the end
 @unnumberedsubsubsec 歌詞の節を楽譜の終わりに譜刻する
-@translationof Printing stanzas at the end
 
 しばしば、歌詞の 1 番を音楽にセットして、@c
 残りを詩の形式で楽譜の終わりに追加する方が適切な場合があります。@c
@@ -2144,9 +2120,8 @@ its fleece was white as snow.
 @end lilypond
 
 
-@node 歌詞の節を楽譜の終わりに複数の列で譜刻する
+@node Printing stanzas at the end in multiple columns
 @unnumberedsubsubsec 歌詞の節を楽譜の終わりに複数の列で譜刻する
-@translationof Printing stanzas at the end in multiple columns
 
 歌詞の節が多い場合、ページを複数の列に分けて歌詞を譜刻することがあります。@c
 しばしば、歌詞番号を列の外側に置くこともあります。@c
@@ -2218,18 +2193,16 @@ text = \lyricmode {
 @rinternals{StanzaNumber}
 
 
-@node 歌曲
+@node Songs
 @subsection 歌曲
-@translationof Songs
 
 @menu
-* 歌曲のためのリファレンス::
-* リード譜::
+* References for songs::
+* Lead sheets::
 @end menu
 
-@node 歌曲のためのリファレンス
+@node References for songs
 @unnumberedsubsubsec 歌曲のためのリファレンス
-@translationof References for songs
 
 通常、歌曲は 3 つの譜に記譜され、@c
 上の譜を歌の旋律、下の 2 つの譜をピアノ伴奏とします。@c
@@ -2286,9 +2259,8 @@ text = \lyricmode {
 @rlsr{Vocal music}
 
 
-@node リード譜
+@node Lead sheets
 @unnumberedsubsubsec リード譜
-@translationof Lead sheets
 
 ボーカル パートと @q{和音モード} を組み合わせることによって、@c
 リード譜を譜刻することができます。@c
@@ -2304,9 +2276,8 @@ text = \lyricmode {
 @ref{Chord notation}
 
 
-@node 合唱
+@node Choral
 @subsection 合唱
-@translationof Choral
 
 @cindex anthem (賛美歌)
 @cindex part song (パート ソング)
@@ -2317,13 +2288,12 @@ text = \lyricmode {
 合唱には、賛美歌、パート ソング、聖譚曲等が含まれます。
 
 @menu
-* 合唱のためのリファレンス::
-* 合唱のための楽譜レイアウト::
+* References for choral::
+* Score layouts for choral::
 @end menu
 
-@node 合唱のためのリファレンス
+@node References for choral
 @unnumberedsubsubsec 合唱のためのリファレンス
-@translationof References for choral
 
 通常、合唱は @code{ChoirStaff} グループ内の 2, 3,
 あるいは 4 つの譜に記譜します。@c
@@ -2402,9 +2372,8 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @rinternals{PianoStaff}
 
 
-@node 合唱のための楽譜レイアウト
+@node Score layouts for choral
 @unnumberedsubsubsec 合唱のための楽譜レイアウト
-@translationof Score layouts for choral
 
 通常、4 つの譜を保持している合唱のシステムは、@c
 ピアノ伴奏があっても無くても、@c
@@ -2517,9 +2486,8 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @ref{Expressive marks as lines}
 
 
-@node オペラと舞台ミュージカル
+@node Opera and stage musicals
 @subsection オペラと舞台ミュージカル
-@translationof Opera and stage musicals
 
 通常、オペラや舞台ミュージカルの音楽、歌詞、それに会話は、@c
 以下の形式の 1 つまたは複数により構築されます:
@@ -2560,16 +2528,15 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
 テクニックをカバーします。
 
 @menu
-* オペラや舞台ミュージカルのためのリファレンス::
-* 役名::
-* 合図::
-* 語り音楽::
-* 音楽の中での会話::
+* References for opera and stage musicals::
+* Character names::
+* Musical cues::
+* Spoken music::
+* Dialogue over music::
 @end menu
 
-@node オペラや舞台ミュージカルのためのリファレンス
+@node References for opera and stage musicals
 @unnumberedsubsubsec オペラや舞台ミュージカルのためのリファレンス
-@translationof References for opera and stage musicals
 
 @itemize
 
@@ -2630,9 +2597,8 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
 @rlsr{Vocal music}
 
 
-@node 役名
+@node Character names
 @unnumberedsubsubsec 役名
-@translationof Character names
 
 @cindex character name (役名)
 @cindex name, character (役名)
@@ -2722,9 +2688,8 @@ melchior = {
 @ref{Text markup commands}
 
 
-@node 合図
+@node Musical cues
 @unnumberedsubsubsec 合図
-@translationof Musical cues
 
 @cindex musical cue (合図)
 @cindex cue, musical (合図)
@@ -2853,9 +2818,8 @@ pianoLH = \relative { c4 <c' e> e, <g c> }
 別々の @code{CueVoice} コンテキストを明示的に宣言して、@c
 合図音符の抽出と挿入に @code{\quoteDuring} を用います。
 
-@node 語り音楽
+@node Spoken music
 @unnumberedsubsubsec 語り音楽
-@translationof Spoken music
 
 @cindex parlato
 @cindex Sprechgesang
@@ -2870,9 +2834,8 @@ pianoLH = \relative { c4 <c' e> e, <g c> }
 @c add "improvisation" ref
 @c add "lyrics independents of notes" ref
 
-@node 音楽の中での会話
+@node Dialogue over music
 @unnumberedsubsubsec 音楽の中での会話
-@translationof Dialogue over music
 
 通常、音楽の中での会話は譜の上にイタリック体で譜刻され、@c
 各フレーズの開始は特定の音楽イベントに紐付けられます。
@@ -2950,9 +2913,8 @@ dialogue = \lyricmode {
 @rinternals{LyricText}
 
 
-@node 聖歌と賛美歌
+@node Chants psalms and hymns
 @subsection 聖歌と賛美歌
-@translationof Chants psalms and hymns
 
 @cindex chant (詠唱)
 @cindex psalm (聖歌)
@@ -2966,15 +2928,14 @@ dialogue = \lyricmode {
 発生する譜刻の問題は概して共通していて、このセクションでカバーします。
 
 @menu
-* 聖歌と賛美歌のためのリファレンス::
-* 聖歌を設定する::
-* 賛美歌を配置する::
-* 賛美歌での部分小節::
+* References for chants and psalms::
+* Setting a chant::
+* Pointing a psalm::
+* Partial measures in hymn tunes::
 @end menu
 
-@node 聖歌と賛美歌のためのリファレンス
+@node References for chants and psalms
 @unnumberedsubsubsec 聖歌と賛美歌のためのリファレンス
-@translationof References for chants and psalms
 
 グレゴリオ聖歌を様々なスタイルの古代記譜法で譜刻する方法を
 @ref{Ancient notation} で説明しています。
@@ -2987,9 +2948,8 @@ dialogue = \lyricmode {
 @rlsr{Vocal music}
 
 
-@node 聖歌を設定する
+@node Setting a chant
 @unnumberedsubsubsec 聖歌を設定する
-@translationof Setting a chant
 
 現代の聖歌のための設定では、@c
 種々の古代記譜法の要素を加えた現代の記譜法を用います。@c
@@ -3289,9 +3249,8 @@ global = {
 @ref{Unmetered music},
 @ref{Visibility of objects}
 
-@node 賛美歌を配置する
+@node Pointing a psalm
 @unnumberedsubsubsec 賛美歌を配置する
-@translationof Pointing a psalm
 
 通常、英国教会の聖歌の歌詞は曲とは別に楽譜の下の中央に譜刻されます。
 
@@ -3450,9 +3409,8 @@ tick = \markup {
 @ref{Formatting text}
 
 
-@node 賛美歌での部分小節
+@node Partial measures in hymn tunes
 @unnumberedsubsubsec 賛美歌での部分小節
-@translationof Partial measures in hymn tunes
 
 しばしば、賛美歌は各行の始めと終わりを部分小節として、@c
 楽譜の各行がテキストの各行にうまく対応させます。@c
@@ -3467,9 +3425,8 @@ tick = \markup {
 {snippets/hymn-template.ly}
 
 
-@node 古代の声楽
+@node Ancient vocal music
 @subsection 古代の声楽
-@translationof Ancient vocal music
 
 古代の声楽がサポートされます。@c
 @ref{Ancient notation} で説明しています。

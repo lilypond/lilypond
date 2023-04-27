@@ -31,9 +31,8 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 @end ignore
 
 
-@node スペースの問題
+@node Spacing issues
 @chapter スペースの問題
-@translationof Spacing issues
 
 紙面全体のレイアウトは 3 つの要素によって決定されます:
 ページ レイアウト、改行、そしてスペースです。@c
@@ -60,40 +59,38 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 @code{\paper} ブロックはブックやブック パートのすべてのスコアで共通の@c
 ページ レイアウト設定を保持します
 -- ページの高さやページ番号を表示するか等です。@c
-@ref{ページ レイアウト} を参照してください。@c
+@ref{Page layout} を参照してください。@c
 @code{\layout} ブロックはスコアのレイアウトを保持します
 -- システム数や譜グループ間の間隔等です。@c
-@ref{ページ レイアウト} を参照してください。@c
+@ref{Page layout} を参照してください。@c
 
 @menu
-* ページ レイアウト::
-* 楽譜レイアウト::
-* 改行/改ページ::
-* 垂直方向のスペース::
-* 水平方向のスペース::
-* 音楽を少ないページに収める::
+* Page layout::
+* Score layout::
+* Breaks::
+* Vertical spacing::
+* Horizontal spacing::
+* Fitting music onto fewer pages::
 @end menu
 
-@node ページ レイアウト
+@node Page layout
 @section ページ レイアウト
-@translationof Page layout
 
 このセクションでは @code{\paper} ブロックで使用するページ レイアウト
 オプションについて説明します。
 
 @menu
-* paper ブロック::
-* 紙面サイズと自動拡縮::
-* 固定された垂直方向の paper スペース変数::
-* 可変な垂直方向の paper スペース変数::
-* 水平方向の paper スペース変数::
-* 他の paper 変数::
+* The paper block::
+* Paper size and automatic scaling::
+* Fixed vertical spacing \paper variables::
+* Flexible vertical spacing paper variables::
+* Horizontal spacing paper variables::
+* Other paper variables::
 @end menu
 
 
-@node paper ブロック
+@node The paper block
 @subsection @code{\paper} ブロック
-@translationof The paper block
 
 @code{\paper} ブロック 3 つの異なる場所に配置することができ、@c
 以下の順番でブロックの階層構造を作り出します:
@@ -141,15 +138,15 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 @end itemize
 
 @code{set-paper-size} 関数は次のセクション
-@ref{紙面サイズと自動拡縮}
+@ref{Paper size and automatic scaling}
 で説明します。@c
 ページ レイアウトを扱う @code{\paper} 変数は後のセクションで説明します。@c
 ヘッダ、フッタ、それにタイトルを扱うマークアップ定義は
-@ref{カスタム タイトル、ヘッダ、フッタ} で説明します。
+@ref{Custom titles headers and footers} で説明します。
 
 たいていの @code{\paper} 変数は @code{\paper} ブロック内でのみ機能します。@c
 @code{\layout} ブロック内でも機能するいくつかの @code{\paper} 変数を@c
-@ref{layout ブロック} でリスト アップしています。
+@ref{The layout block} でリスト アップしています。
 
 ページの長さに関係する @code{\paper} 変数の単位は、@c
 ユーザによって他の単位が指定されていなければ、@c
@@ -189,17 +186,16 @@ Scheme を用いて @code{\paper} の値を定義することも可能です。@
 
 @morerefs
 記譜法リファレンス:
-@ref{紙面サイズと自動拡縮},
-@ref{カスタム タイトル、ヘッダ、フッタ},
-@ref{layout ブロック}
+@ref{Paper size and automatic scaling},
+@ref{Custom titles headers and footers},
+@ref{The layout block}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
 
 
-@node 紙面サイズと自動拡縮
+@node Paper size and automatic scaling
 @subsection 紙面サイズと自動拡縮
-@translationof Paper size and automatic scaling
 
 @cindex paper size (紙面サイズ)
 @cindex page size (ページ サイズ)
@@ -207,14 +203,13 @@ Scheme を用いて @code{\paper} の値を定義することも可能です。@
 @funindex \paper
 
 @menu
-* 紙面サイズを設定する::
-* 紙面サイズに応じた自動拡縮::
+* Setting the paper size::
+* Automatic scaling to paper size::
 @end menu
 
 
-@node 紙面サイズを設定する
+@node Setting the paper size
 @unnumberedsubsubsec 紙面サイズを設定する
-@translationof Setting the paper size
 
 @q{A4} が紙面サイズを明示的に設定しなかった場合のデフォルト値です。@c
 しかしながら、デフォルト値を変更するために使うことができる関数が 2 つあります:
@@ -307,9 +302,8 @@ Scheme を用いて @code{\paper} の値を定義することも可能です。@
 @file{scm/paper.scm}
 
 
-@node 紙面サイズに応じた自動拡縮
+@node Automatic scaling to paper size
 @unnumberedsubsubsec 紙面サイズに応じた自動拡縮
-@translationof Automatic scaling to paper size
 
 Scheme 関数
 (@code{set-default-paper-size} または @code{set-paper-size})
@@ -326,11 +320,11 @@ Scheme 関数
 
 自動拡縮によって影響を受ける垂直方向の長さは
 @code{top-margin} と @code{bottom-margin} です
-(@ref{固定された垂直方向の paper スペース変数} を参照してください)。@c
+(@ref{Fixed vertical spacing \paper variables} を参照してください)。@c
 自動拡縮によって影響を受ける水平方向の長さは
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent}, それに @code{short-indent} です
-(@ref{水平方向の paper スペース変数} を参照してください)。
+(@ref{Horizontal spacing paper variables} を参照してください)。
 
 これらの長さに対するデフォルト値は
 @code{top-margin-default}, @code{bottom-margin-default} 等の内部変数を@c
@@ -342,21 +336,20 @@ Scheme 関数
 
 @morerefs
 記譜法リファレンス:
-@ref{固定された垂直方向の paper スペース変数},
-@ref{水平方向の paper スペース変数}
+@ref{Fixed vertical spacing \paper variables},
+@ref{Horizontal spacing paper variables}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly},
 @file{scm/paper.scm}
 
 
-@node 固定された垂直方向の paper スペース変数
+@node Fixed vertical spacing \paper variables
 @subsection 固定された垂直方向の @code{\paper} スペース変数
-@translationof Fixed vertical spacing \paper variables
 
 @warning{いくつかの @code{@bs{}paper} 変数は紙面サイズに応じて@c
 自動的に拡縮され、結果として予期せぬ振る舞いを引き起こすことがあります。@c
-@ref{紙面サイズに応じた自動拡縮} を参照してください。}
+@ref{Automatic scaling to paper size} を参照してください。}
 
 (拡縮する前の) デフォルト値は
 @file{ly/paper-defaults-init.ly} で定義されています。
@@ -396,7 +389,7 @@ Scheme 関数
 
 @morerefs
 記譜法リファレンス:
-@ref{紙面サイズに応じた自動拡縮}
+@ref{Automatic scaling to paper size}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
@@ -413,9 +406,8 @@ Scheme 関数
 明示的に定義された紙面サイズは、ユーザ定義の上または下のマージン設定を上書きします。
 
 
-@node 可変な垂直方向の paper スペース変数
+@node Flexible vertical spacing paper variables
 @subsection 可変な垂直方向の @code{\paper} スペース変数
-@translationof Flexible vertical spacing paper variables
 
 たいていの場合、ある要素間
 (マージン、タイトル、システム、score 等の間)
@@ -430,17 +422,16 @@ Scheme 関数
 普通は @code{\score} ブロックや @code{\score} ブロックの中に配置される設定を@c
 通じて、@c
 グラフィカル オブジェクトのプロパティによって制御されます。@c
-@ref{システム内部の可変な垂直方向のスペース} を参照してください。
+@ref{Flexible vertical spacing within systems} を参照してください。
 
 @menu
-* 可変な垂直方向スペース連想リストの構造::
-* 可変な垂直方向の paper スペース変数のリスト::
+* Structure of flexible vertical spacing alists::
+* List of flexible vertical spacing paper variables::
 @end menu
 
 
-@node 可変な垂直方向スペース連想リストの構造
+@node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec 可変な垂直方向スペース連想リストの構造
-@translationof Structure of flexible vertical spacing alists
 
 可変な垂直方向の @code{\paper} スペース変数は、@c
 それぞれが 4 つの @emph{キー} を保持する連想配列 (association list) です:
@@ -526,9 +517,8 @@ Scheme 関数
 @end example
 
 
-@node 可変な垂直方向の paper スペース変数のリスト
+@node List of flexible vertical spacing paper variables
 @unnumberedsubsubsec 可変な垂直方向の @code{\paper} スペース変数のリスト
-@translationof List of flexible vertical spacing paper variables
 
 以下の変数の名前は @code{@var{upper}-@var{lower}-spacing} という形式で、@c
 @code{@var{upper}} 要素と @code{@var{lower}} 要素との間隔です。@c
@@ -536,7 +526,7 @@ Scheme 関数
 (上記の連想配列構造の説明を参照してください)。@c
 変数名の中の @q{@code{markup}} は @emph{タイトル マークアップ}
 (@code{bookTitleMarkup} や @code{scoreTitleMarkup}) と
-@emph{最上位のマークアップ} (@ref{ファイル構造}) の両方を指します。@c
+@emph{最上位のマークアップ} (@ref{File structure}) の両方を指します。@c
 すべての間隔の距離の単位は譜スペースです。
 
 デフォルト設定は @file{ly/paper-defaults-init.ly} で定義しています。
@@ -594,7 +584,7 @@ score の最後のシステムと、その後に score の最初のシステム�
 
 @morerefs
 記譜法リファレンス:
-@ref{システム内部の可変な垂直方向のスペース}
+@ref{Flexible vertical spacing within systems}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
@@ -603,24 +593,22 @@ score の最後のシステムと、その後に score の最初のシステム�
 @rlsr{Spacing}
 
 
-@node 水平方向の paper スペース変数
+@node Horizontal spacing paper variables
 @subsection 水平方向の @code{\paper} スペース変数
-@translationof Horizontal spacing paper variables
 
 @warning{いくつかの @code{@bs{}paper} の間隔は紙面サイズに応じて自動的に@c
 拡縮され、それにより予期せぬ結果となることがあります。@c
-@ref{紙面サイズに応じた自動拡縮} を参照してください。}
+@ref{Automatic scaling to paper size} を参照してください。}
 
 @menu
-* 幅とマージンの paper 変数::
-* 両面モードのための paper 変数::
-* シフトとインデントのための paper 変数::
+* \paper variables for widths and margins::
+* \paper variables for two-sided mode::
+* \paper variables for shifts and indents::
 @end menu
 
 
-@node 幅とマージンの paper 変数
+@node \paper variables for widths and margins
 @unnumberedsubsubsec 幅とマージンの @code{\paper} 変数
-@translationof \paper variables for widths and margins
 
 ここでリスト アップされていない (拡縮する前の) デフォルト値は、@c
 @file{ly/paper-defaults-init.ly} で定義されています。
@@ -730,7 +718,7 @@ score の最後のシステムと、その後に score の最初のシステム�
 
 @morerefs
 記譜法リファレンス:
-@ref{紙面サイズに応じた自動拡縮}
+@ref{Automatic scaling to paper size}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
@@ -739,9 +727,8 @@ score の最後のシステムと、その後に score の最初のシステム�
 明示的に定義された紙面サイズは、ユーザ定義の左または右のマージン設定を上書きします。
 
 
-@node 両面モードのための paper 変数
+@node \paper variables for two-sided mode
 @unnumberedsubsubsec 両面モードのための @code{\paper} 変数
-@translationof \paper variables for two-sided mode
 
 (拡縮される前の) デフォルト値は
 @file{ly/paper-defaults-init.ly} で定義されています。
@@ -787,15 +774,14 @@ book の一部であるページすべてが見開きページの外側に持つ
 
 @morerefs
 記譜法リファレンス:
-@ref{紙面サイズに応じた自動拡縮}
+@ref{Automatic scaling to paper size}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
 
 
-@node シフトとインデントのための paper 変数
+@node \paper variables for shifts and indents
 @unnumberedsubsubsec シフトとインデントのための @code{\paper} 変数
-@translationof \paper variables for shifts and indents
 
 このにリスト アップされていない (拡縮される前の) デフォルト値は
 @file{ly/paper-defaults-init.ly} で定義されています。
@@ -833,7 +819,7 @@ score の最初のシステムに対するインデントのレベルです。@c
 
 @morerefs
 記譜法リファレンス:
-@ref{紙面サイズに応じた自動拡縮}
+@ref{Automatic scaling to paper size}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
@@ -842,21 +828,19 @@ score の最初のシステムに対するインデントのレベルです。@c
 @rlsr{Spacing}
 
 
-@node 他の paper 変数
+@node Other paper variables
 @subsection 他の @code{\paper} 変数
-@translationof Other paper variables
 
 @menu
-* 改行のための paper 変数::
-* 改ページのための paper 変数::
-* ページ番号のための paper 変数::
-* その他の paper 変数::
+* paper variables for line breaking::
+* paper variables for page breaking::
+* paper variables for page numbering::
+* Miscellaneous paper variables::
 @end menu
 
 
-@node 改行のための paper 変数
+@node paper variables for line breaking
 @unnumberedsubsubsec 改行のための @code{\paper} 変数
-@translationof paper variables for line breaking
 
 @table @code
 
@@ -893,12 +877,11 @@ score で使用すべきシステム数です。@c
 
 @morerefs
 記譜法リファレンス:
-@ref{改行}
+@ref{Line breaking}
 
 
-@node 改ページのための paper 変数
+@node paper variables for page breaking
 @unnumberedsubsubsec 改ページのための @code{\paper} 変数
-@translationof paper variables for page breaking
 
 ここでリスト アップされていないデフォルト値は
 @file{ly/paper-defaults-init.ly} で定義されています。
@@ -983,21 +966,20 @@ score で使用すべきページ数です。@c
 
 @morerefs
 記譜法リファレンス:
-@ref{改ページ},
-@ref{最適改ページ},
-@ref{最適ページめくり},
-@ref{最小改ページ},
+@ref{Page breaking},
+@ref{Optimal page breaking},
+@ref{Optimal page turning},
+@ref{Minimal page breaking},
 @ref{One-page page breaking},
-@ref{1 行の改ページ},
+@ref{One-line page breaking},
 @ref{One-line-auto-height page breaking}
 
 インストールされているファイル:
 @file{ly/paper-defaults-init.ly}
 
 
-@node ページ番号のための paper 変数
+@node paper variables for page numbering
 @unnumberedsubsubsec ページ番号のための @code{\paper} 変数
-@translationof paper variables for page numbering
 
 ここでリスト アップされていないデフォルト値は
 @file{ly/paper-defaults-init.ly} で定義されています。
@@ -1052,9 +1034,8 @@ score で使用すべきページ数です。@c
 ページ 1 が右側にくるようにする必要があります。
 
 
-@node その他の paper 変数
+@node Miscellaneous paper variables
 @unnumberedsubsubsec その他の @code{\paper} 変数
-@translationof Miscellaneous paper variables
 
 @table @code
 
@@ -1123,22 +1104,20 @@ score で使用すべきページ数です。@c
 同一の行に配置します。
 
 
-@node 楽譜レイアウト
+@node Score layout
 @section 楽譜レイアウト
-@translationof Score layout
 
 このセクションでは、@code{\layout} ブロックで使用する@c
 楽譜レイアウト オプションについて説明します。
 
 @menu
-* layout ブロック::
-* 譜サイズを設定する::
+* The layout block::
+* Setting the staff size::
 @end menu
 
 
-@node layout ブロック
+@node The layout block
 @subsection @code{\layout} ブロック
-@translationof The layout block
 
 @funindex \layout
 
@@ -1158,7 +1137,7 @@ score で使用すべきページ数です。@c
 @item 楽譜レイアウトに影響を与える @code{\paper} 変数
 @end itemize
 
-@code{layout-set-staff-size} 関数は次のセクション @ref{譜サイズを設定する}
+@code{layout-set-staff-size} 関数は次のセクション @ref{Setting the staff size}
 で説明します。@c
 コンテキスト変更は @ref{Modifying context plug-ins} と
 @ref{Changing context default settings} で説明します。@c
@@ -1170,15 +1149,15 @@ score で使用すべきページ数です。@c
 
 @item
 @code{line-width}, @code{ragged-right} それに @code{ragged-last}
-(@ref{幅とマージンの paper 変数} を参照してください)
+(@ref{\paper variables for widths and margins} を参照してください)
 
 @item
 @code{indent} と @code{short-indent}
-(@ref{シフトとインデントのための paper 変数} を参照してください)
+(@ref{\paper variables for shifts and indents} を参照してください)
 
 @item
 @code{system-count}
-(@ref{改行のための paper 変数} を参照してください)
+(@ref{paper variables for line breaking} を参照してください)
 
 @end itemize
 
@@ -1302,9 +1281,8 @@ layoutVariable = \layout @{
 @rlsr{Spacing}
 
 
-@node 譜サイズを設定する
+@node Setting the staff size
 @subsection 譜サイズを設定する
-@translationof Setting the staff size
 
 @cindex font size, setting (フォント サイズを設定する)
 @cindex staff size, setting (譜サイズを設定する)
@@ -1408,25 +1386,23 @@ Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの
 
 @morerefs
 記譜法リファレンス:
-@ref{記譜フォント サイズを選択する},
+@ref{Selecting notation font size},
 @ref{The Emmentaler font}
 
 コード断片集:
 @rlsr{Spacing}
 
 
-@node 改行/改ページ
+@node Breaks
 @section 改行/改ページ
-@translationof Breaks
 
 @menu
-* 改行::
-* 改ページ::
+* Line breaking::
+* Page breaking::
 @end menu
 
-@node 改行
+@node Line breaking
 @subsection 改行
-@translationof Line breaking
 
 @funindex \break
 @funindex \noBreak
@@ -1577,7 +1553,7 @@ Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの
 
 @morerefs
 記譜法リファレンス:
-@ref{改行のための paper 変数},
+@ref{paper variables for line breaking},
 @ref{The layout block}
 
 コード断片集:
@@ -1593,27 +1569,25 @@ Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの
 配置するようにしてください。
 
 
-@node 改ページ
+@node Page breaking
 @subsection 改ページ
-@translationof Page breaking
 
 このセクションでは、改ページについてのいくつかの方法や、それらをどのように@c
 カスタマイズするかを示します。
 
 @menu
-* 手動改ページ::
-* 最適改ページ::
-* 最小改ページ::
-* 1 ページの改ページ::
-* 1 行の改ページ::
-* 高さが自動の 1 行の改ページ::
-* 最適ページめくり::
+* Manual page breaking::
+* Optimal page breaking::
+* Minimal page breaking::
+* One-page page breaking::
+* One-line page breaking::
+* One-line-auto-height page breaking::
+* Optimal page turning::
 @end menu
 
 
-@node 手動改ページ
+@node Manual page breaking
 @unnumberedsubsubsec 手動改ページ
-@translationof Manual page breaking
 
 @funindex \pageBreak
 @funindex \noPageBreak
@@ -1646,7 +1620,7 @@ score や最上位レベルのマークアップの間に挿入することが�
 (これがデフォルトです)、@c
 最後のページ (あるいは各 @code{\bookpart} の最後のページ) の下部に@c
 空きスペースが挿入することが許可されます。@c
-@ref{固定された垂直方向の paper スペース変数} を参照してください。
+@ref{Fixed vertical spacing \paper variables} を参照してください。
 
 改ページは @code{page-breaking} 関数によって算出されます。@c
 LilyPond は改ページを算出するためにいくつかのアルゴリズムを提供します:
@@ -1706,7 +1680,7 @@ LilyPond は改ページを算出するためにいくつかのアルゴリズ�
 
 @morerefs
 記譜法リファレンス:
-@ref{改行のための paper 変数}
+@ref{paper variables for line breaking}
 
 コード断片集:
 @rlsr{Spacing}
@@ -1721,9 +1695,8 @@ LilyPond は改ページを算出するためにいくつかのアルゴリズ�
 そうしなければ、改ページの機会が失われてしまいます。
 
 
-@node 最適改ページ
+@node Optimal page breaking
 @unnumberedsubsubsec 最適改ページ
-@translationof Optimal page breaking
 
 @funindex ly:optimal-breaking
 
@@ -1740,9 +1713,8 @@ LilyPond が改ページを決定するためのデフォルトの手法です�
 @rlsr{Spacing}
 
 
-@node 最小改ページ
+@node Minimal page breaking
 @unnumberedsubsubsec 最小改ページ
-@translationof Minimal page breaking
 
 @funindex ly:minimal-breaking
 
@@ -1765,9 +1737,8 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 @rlsr{Spacing}
 
 
-@node 1 ページの改ページ
+@node One-page page breaking
 @unnumberedsubsubsec 1 ページの改ページ
-@translationof One-page page breaking
 
 @funindex ly:one-page-breaking
 
@@ -1785,9 +1756,8 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 @code{\bookpart} と互換性がありません。
 
 
-@node 1 行の改ページ
+@node One-line page breaking
 @unnumberedsubsubsec 1 行の改ページ
-@translationof One-line page breaking
 
 @funindex ly:one-line-breaking
 
@@ -1802,9 +1772,8 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 ページの高さは変更されません。
 
 
-@node 高さが自動の 1 行の改ページ
+@node One-line-auto-height page breaking
 @unnumberedsubsubsec 高さが自動の 1 行の改ページ
-@translationof One-line-auto-height page breaking
 
 @funindex ly:one-line-auto-height-breaking
 
@@ -1820,9 +1789,8 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 単純に音楽を上部マージンと下部マージンの間に配置することができます。
 
 
-@node 最適ページめくり
+@node Optimal page turning
 @unnumberedsubsubsec 最適ページめくり
-@translationof Optimal page turning
 
 @funindex ly:page-turn-breaking
 
@@ -1836,7 +1804,7 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 ページめくりを特定の場所だけに置くための制約を受けます。
 
 この改ページ関数を使うには、2 つのステップがあります。@c
-最初に、@ref{改ページ} で説明されているように、@c
+最初に、@ref{Page breaking} で説明されているように、@c
 @code{\paper} ブロックの中でこの関数を有効にする必要があります。@c
 次に、この関数に改ページを許可したい場所を教える必要があります。
 
@@ -1930,9 +1898,8 @@ score の中に配置する @code{Page_turn_engraver} は 1 つだけにする�
 @rlsr{Spacing}
 
 
-@node 垂直方向のスペース
+@node Vertical spacing
 @section 垂直方向のスペース
-@translationof Vertical spacing
 
 @cindex vertical spacing (垂直方向のスペース)
 @cindex spacing, vertical (垂直方向のスペース)
@@ -1942,15 +1909,14 @@ score の中に配置する @code{Page_turn_engraver} は 1 つだけにする�
 システムの間隔、それにシステム内部での譜の間隔です。
 
 @menu
-* システム内部の可変な垂直方向のスペース::
-* 譜とシステムを明示的に配置する::
-* 垂直方向の衝突回避::
+* Flexible vertical spacing within systems::
+* Explicit staff and system positioning::
+* Vertical collision avoidance::
 @end menu
 
 
-@node システム内部の可変な垂直方向のスペース
+@node Flexible vertical spacing within systems
 @subsection システム内部の可変な垂直方向のスペース
-@translationof Flexible vertical spacing within systems
 
 @cindex distance, between staves (譜の間隔)
 @cindex staff distance (譜の間隔)
@@ -1987,19 +1953,18 @@ score の中に配置する @code{Page_turn_engraver} は 1 つだけにする�
 仕組みだけを説明しているということに注意してください。@c
 システム、score、マークアップ、それにマージン間の垂直方向のスペースは、@c
 @code{\paper} 変数によって制御されます
--- @ref{可変な垂直方向の paper スペース変数} で説明しています。
+-- @ref{Flexible vertical spacing paper variables} で説明しています。
 
 @menu
-* システム内部のスペース プロパティ::
-* グループ化されていない譜のスペース::
-* グループ化されている譜のスペース::
-* 譜ではない行のスペース::
+* Within-system spacing properties::
+* Spacing of ungrouped staves::
+* Spacing of grouped staves::
+* Spacing of non-staff lines::
 @end menu
 
 
-@node システム内部のスペース プロパティ
+@node Within-system spacing properties
 @unnumberedsubsubsec システム内部のスペース プロパティ
-@translationof Within-system spacing properties
 
 @funindex staff-affinity
 @funindex staffgroup-staff-spacing
@@ -2120,7 +2085,7 @@ labelContext =
 
 垂直方向のスペースのグラフィカル オブジェクト プロパティは
 (@code{staff-affinity} を除いて)、@c
-@ref{可変な垂直方向の paper スペース変数} で説明した
+@ref{Flexible vertical spacing paper variables} で説明した
 @code{\paper} スペース変数と同じ連想配列構造を使用します。
 連想配列を変更する方法は、@ref{Modifying alists} で説明します。@c
 グラフィカル オブジェクト プロパティの調節は、@c
@@ -2271,7 +2236,7 @@ labelContext =
 
 @morerefs
 記譜法リファレンス:
-@ref{可変な垂直方向の paper スペース変数},
+@ref{Flexible vertical spacing paper variables},
 @ref{Modifying alists}
 
 インストールされているファイル:
@@ -2284,9 +2249,8 @@ labelContext =
 @rinternals{StaffGrouper}
 
 
-@node グループ化されていない譜のスペース
+@node Spacing of ungrouped staves
 @unnumberedsubsubsec グループ化されていない譜のスペース
-@translationof Spacing of ungrouped staves
 
 @emph{譜} (@code{Staff}, @code{DrumStaff}, @code{TabStaff} 等) は、@c
 1 つ以上のボイス コンテキストを保持することができ、@c
@@ -2303,10 +2267,10 @@ labelContext =
 @end itemize
 
 これらのグラフィカル オブジェクト プロパティは、それぞれ上で説明しています。@c
-@ref{システム内部のスペース プロパティ} を参照してください。
+@ref{Within-system spacing properties} を参照してください。
 
 譜グループの一部である譜には、他にもプロパティがあります。@c
-@ref{グループ化されている譜のスペース} を参照してください。
+@ref{Spacing of grouped staves} を参照してください。
 
 以下の例は、@code{default-staff-staff-spacing} プロパティがどのように@c
 グループ化されていない譜のスペースに影響を与えるかを示しています。@c
@@ -2360,9 +2324,8 @@ labelContext =
 @rinternals{VerticalAxisGroup}
 
 
-@node グループ化されている譜のスペース
+@node Spacing of grouped staves
 @unnumberedsubsubsec グループ化されている譜のスペース
-@translationof Spacing of grouped staves
 
 オーケストラ譜や他の大きな楽譜では、@c
 譜を譜ループ化することが一般的です。@c
@@ -2387,7 +2350,7 @@ labelContext =
 @end itemize
 
 これらのグラフィカル オブジェクト プロパティは、上で個々に説明しています。@c
-@ref{システム内部のスペース プロパティ} を参照してください。
+@ref{Within-system spacing properties} を参照してください。
 
 以下の例は、@code{StaffGrouper} グラフィカル オブジェクトのプロパティが@c
 どのようにグループ化された譜のスペースに影響を与えるかを示しています:
@@ -2428,9 +2391,8 @@ labelContext =
 @rinternals{StaffGrouper}
 
 
-@node 譜ではない行のスペース
+@node Spacing of non-staff lines
 @unnumberedsubsubsec 譜ではない行のスペース
-@translationof Spacing of non-staff lines
 
 @emph{譜ではない行} (@code{Lyrics}, @code{ChordNames} 等) は、@c
 それが保持するレイアウト オブジェクトが譜のように譜刻される
@@ -2452,7 +2414,7 @@ labelContext =
 @end itemize
 
 これらのグラフィカル オブジェクト プロパティは、上で個々に説明しています。@c
-@ref{システム内部のスペース プロパティ} を参照してください。
+@ref{Within-system spacing properties} を参照してください。
 
 以下の例は、@code{nonstaff-nonstaff-spacing} プロパティが@c
 どのように隣接する譜ではない行のスペースに影響を与えるかを示しています。@c
@@ -2502,9 +2464,8 @@ labelContext =
 @rinternals{VerticalAxisGroup}
 
 
-@node 譜とシステムを明示的に配置する
+@node Explicit staff and system positioning
 @subsection 譜とシステムを明示的に配置する
-@translationof Explicit staff and system positioning
 
 上で説明した可変な垂直方向のスペースの仕組みを理解する方法の 1 つに、@c
 譜とシステムの間の垂直方向のパティングの大きさを制御する設定を@c
@@ -2779,9 +2740,8 @@ labelContext =
 @rlsr{Spacing}
 
 
-@node 垂直方向の衝突回避
+@node Vertical collision avoidance
 @subsection 垂直方向の衝突回避
-@translationof Vertical collision avoidance
 
 @funindex outside-staff-priority
 @funindex outside-staff-padding
@@ -2868,25 +2828,23 @@ LilyPond は譜外部オブジェクトを、既に配置済みのオブジェ�
 @rlsr{Spacing}
 
 
-@node 水平方向のスペース
+@node Horizontal spacing
 @section 水平方向のスペース
-@translationof Horizontal spacing
 
 @cindex horizontal spacing (水平方向のスペース)
 @cindex spacing, horizontal (水平方向のスペース)
 
 @menu
-* 水平方向のスペースの概要::
-* 新しいスペース セクション::
-* 水平方向のスペースを変更する::
-* 行の幅::
-* プロポーショナル ノーテーション::
+* Horizontal spacing overview::
+* New spacing section::
+* Changing horizontal spacing::
+* Line width::
+* Proportional notation::
 @end menu
 
 
-@node 水平方向のスペースの概要
+@node Horizontal spacing overview
 @subsection 水平方向のスペースの概要
-@translationof Horizontal spacing overview
 
 スペース エンジンは異なる演奏時間を異なる長さの可変距離 (@q{スプリング}) に@c
 翻訳します。@c
@@ -2983,7 +2941,7 @@ LilyPond は譜外部オブジェクトを、既に配置済みのオブジェ�
 @end lilypond
 
 プロポーショナル ノーテーション (proportional notation) がサポートされます。@c
-@ref{プロポーショナル ノーテーション} を参照してください。
+@ref{Proportional notation} を参照してください。
 
 @morerefs
 Essay on automated music engraving:
@@ -3010,9 +2968,8 @@ Essay on automated music engraving:
 スペースを減らすための手段はありません。
 
 
-@node 新しいスペース セクション
+@node New spacing section
 @subsection 新しいスペース セクション
-@translationof New spacing section
 
 @funindex \newSpacingSection
 @cindex new spacing section (新しいスペース セクション)
@@ -3068,13 +3025,12 @@ Essay on automated music engraving:
 @rinternals{SpacingSpanner}
 
 
-@node 水平方向のスペースを変更する
+@node Changing horizontal spacing
 @subsection 水平方向のスペースを変更する
-@translationof Changing horizontal spacing
 
 @menu
-* 連符を均等に割り付ける::
-* 厳密な音符のスペーシング::
+* Uniform stretching of tuplets::
+* Strict note spacing::
 @end menu
 
 水平方向のスペースを、@code{base-shortest-duration} で@c
@@ -3115,9 +3071,8 @@ Essay on automated music engraving:
 }
 @end lilypond
 
-@node 連符を均等に割り付ける
+@node Uniform stretching of tuplets
 @unnumberedsubsubsec 連符を均等に割り付ける
-@translationof Uniform stretching of tuplets
 
 デフォルトでは、連符のスペースは演奏時間とは関係の無い要素
 (臨時記号、音部記号の変化など)
@@ -3145,9 +3100,8 @@ Essay on automated music engraving:
 }
 @end lilypond
 
-@node 厳密な音符のスペーシング
+@node Strict note spacing
 @unnumberedsubsubsec 厳密な音符のスペーシング
-@translationof Strict note spacing
 
 @code{strict-note-spacing} がセットされている場合、@c
 音部記号、小節線、それに装飾小音符を考慮せずに、@c
@@ -3164,9 +3118,8 @@ Essay on automated music engraving:
 @rlsr{Spacing}
 
 
-@node 行の幅
+@node Line width
 @subsection 行の幅
-@translationof Line width
 
 @cindex page break (改ページ)
 @cindex breaking pages (改ページ)
@@ -3222,9 +3175,8 @@ Essay on automated music engraving:
 @rlsr{Spacing}
 
 
-@node プロポーショナル ノーテーション
+@node Proportional notation
 @subsection プロポーショナル ノーテーション
-@translationof Proportional notation
 
 LilyPond はプロポーショナル ノーテーションをサポートします。@c
 この記譜法では、各音符は演奏時間に相当する水平方向のスペースをとります。@c
@@ -3478,7 +3430,7 @@ OFF であるかのどちらかであるということです。@c
 しかしながら、この振る舞いをオーバライドして、@c
 楽譜内の異なる場所で異なるスペース機能を設定することができます。@c
 これを実現するには、コマンド @code{\newSpacingSection} を用います。@c
-更なる情報は、@ref{新しいスペース セクション} を参照してください。
+更なる情報は、@ref{New spacing section} を参照してください。
 
 次に、@code{Separating_line_group_engraver} の効果を検証し、@c
 なぜプロポーショナルな楽譜は頻繁に@c
@@ -3581,15 +3533,14 @@ OFF であるかのどちらかであるということです。@c
 
 @morerefs
 記譜法リファレンス:
-@ref{新しいスペース セクション}
+@ref{New spacing section}
 
 コード断片集:
 @rlsr{Spacing}
 
 
-@node 音楽を少ないページに収める
+@node Fitting music onto fewer pages
 @section 音楽を少ないページに収める
-@translationof Fitting music onto fewer pages
 
 ときどき、譜の 1 つ、2 つが 2 番目 (あるいは、3 番目、4 番目@dots{})
 のページに配置されてしまうことがあります。@c
@@ -3599,17 +3550,16 @@ OFF であるかのどちらかであるということです。@c
 レイアウトの問題を解決しようとしている時、@c
 @code{annotate-spacing} は何にも代え難いツールです。@c
 このコマンドはさまざまなレイアウト スペース変数の値を表示します。@c
-詳細は以下のセクション @ref{スペースを表示する} を参照してください。
+詳細は以下のセクション @ref{Displaying spacing} を参照してください。
 
 @menu
-* スペースを表示する::
-* スペースを変更する::
+* Displaying spacing::
+* Changing spacing::
 @end menu
 
 
-@node スペースを表示する
+@node Displaying spacing
 @subsection スペースを表示する
-@translationof Displaying spacing
 
 @funindex annotate-spacing
 @cindex spacing, display of layout (レイアウト スペースの表示)
@@ -3655,20 +3605,19 @@ OFF であるかのどちらかであるということです。@c
 
 @morerefs
 記譜法リファレンス:
-@ref{譜サイズを設定する}
+@ref{Setting the staff size}
 
 コード断片集:
 @rlsr{Spacing}
 
 
-@node スペースを変更する
+@node Changing spacing
 @subsection スペースを変更する
-@translationof Changing spacing
 
 @code{annotate-spacing} の出力は、@c
 垂直方向のレイアウト変数の値を詳細に取得します。@c
 マージンや他のレイアウト変数を変更することについての詳細は、@c
-@ref{ページ レイアウト} を参照してください。
+@ref{Page layout} を参照してください。
 
 マージン以外にも、スペースを節約するための選択肢がいくつかあります:
 
@@ -3732,7 +3681,7 @@ OFF であるかのどちらかであるということです。@c
 
 @item
 @code{SpacingSpanner} 経由で水平方向のスペースを変更する。@c
-詳細は、@ref{水平方向のスペースを変更する} を参照してください。@c
+詳細は、@ref{Changing horizontal spacing} を参照してください。@c
 以下の例は、デフォルトをスペースを示しています:
 
 @lilypond[verbatim,quote]
@@ -3782,8 +3731,8 @@ OFF であるかのどちらかであるということです。@c
 
 @morerefs
 記譜法リファレンス:
-@ref{ページ レイアウト},
-@ref{水平方向のスペースを変更する}
+@ref{Page layout},
+@ref{Changing horizontal spacing}
 
 コード断片集:
 @rlsr{Spacing}

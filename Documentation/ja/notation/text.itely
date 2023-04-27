@@ -15,9 +15,8 @@
 @c Translation status: post-GDP
 
 
-@node テキスト
+@node Text
 @section テキスト
-@translationof Text
 
 @lilypondfile[quote]{snippets/text-headword.ly}
 
@@ -25,15 +24,14 @@
 楽譜に (さまざまなフォーマットの) テキストを含める方法について説明します。
 
 @menu
-* テキスト オブジェクトの概要::
-* テキストを記述する::
-* テキストをフォーマットする::
-* フォント::
+* Text objects overview::
+* Writing text::
+* Formatting text::
+* Fonts::
 @end menu
 
-@node テキスト オブジェクトの概要
+@node Text objects overview
 @unnumberedsubsubsec テキスト オブジェクトの概要
-@translationof Text objects overview
 
 @funindex \markup
 @cindex text object (テキスト オブジェクト)
@@ -175,9 +173,8 @@ Essay on automated music engraving:
 @rlsr{Text}
 
 
-@node テキストを記述する
+@node Writing text
 @subsection テキストを記述する
-@translationof Writing text
 
 このセクションでは、楽譜にテキストを付け加えるいくつかの方法を紹介します。
 
@@ -189,16 +186,15 @@ Essay on automated music engraving:
 更なる情報は @ref{Text encoding} を参照してください。}
 
 @menu
-* テキスト スクリプト::
-* テキスト スパナ::
-* テキスト マーク::
-* 独立したテキスト::
+* Text scripts::
+* Text spanners::
+* Text marks::
+* Separate text::
 @end menu
 
 
-@node テキスト スクリプト
+@node Text scripts
 @unnumberedsubsubsec テキスト スクリプト
-@translationof Text scripts
 
 @cindex text script (テキスト スクリプト)
 @cindex text item, non-empty (空ではないテキスト アイテム)
@@ -216,7 +212,7 @@ Essay on automated music engraving:
 @end lilypond
 
 この構文は実際には短縮記法です。@c
-@ref{テキストをフォーマットする} で記述されているように、@c
+@ref{Formatting text} で記述されているように、@c
 @code{\markup} ブロックを用いて明示的に、@c
 より複雑なテキスト フォーマットを音符に付け加えることができます。
 
@@ -241,10 +237,10 @@ Essay on automated music engraving:
 
 テキスト スクリプトだけでなく、@c
 アーティキュレーションを音符に付けることもできます。@c
-更なる情報は @ref{アーティキュレーションと装飾} を参照してください。
+更なる情報は @ref{Articulations and ornamentations} を参照してください。
 
 テキスト スクリプトとアーティキュレーションの順序についての更なる情報は
-@rlearning{オブジェクトの配置} を参照してください。
+@rlearningnamed{Placement of objects, オブジェクトの配置} を参照してください。
 
 @predefined
 @funindex \textLengthOn
@@ -256,12 +252,12 @@ Essay on automated music engraving:
 
 @morerefs
 学習マニュアル:
-@rlearning{オブジェクトの配置}
+@rlearningnamed{Placement of objects, オブジェクトの配置}
 
 記譜法リファレンス:
-@ref{テキストをフォーマットする},
+@ref{Formatting text},
 @ref{Direction and placement},
-@ref{アーティキュレーションと装飾}
+@ref{Articulations and ornamentations}
 
 コード断片集:
 @rlsr{Text}
@@ -284,9 +280,8 @@ Essay on automated music engraving:
 @end example
 
 
-@node テキスト スパナ
+@node Text spanners
 @unnumberedsubsubsec テキスト スパナ
-@translationof Text spanners
 
 @cindex text spanner (テキスト スパナ)
 
@@ -312,7 +307,7 @@ Essay on automated music engraving:
 @noindent
 譜刻される文字列はオブジェクト プロパティを通じてセットされます。@c
 デフォルトでは文字列はイタリック体で譜刻されます。@c
-しかしながら、@ref{テキストをフォーマットする} で記述されているように、@c
+しかしながら、@ref{Formatting text} で記述されているように、@c
 @code{\markup} ブロックを用いることで他の書体にすることができます。
 
 @lilypond[quote,verbatim]
@@ -354,8 +349,8 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @morerefs
 記譜法リファレンス:
 @ref{Line styles},
-@ref{強弱記号},
-@ref{テキストをフォーマットする}
+@ref{Dynamics},
+@ref{Formatting text}
 
 コード断片集:
 @rlsr{Text},
@@ -365,9 +360,8 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @rinternals{TextSpanner}
 
 
-@node テキスト マーク
+@node Text marks
 @unnumberedsubsubsec テキスト マーク
-@translationof Text marks
 
 
 @cindex text mark (テキスト マーク)
@@ -381,7 +375,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @funindex \mark
 @funindex \markup
 
-@ref{リハーサル記号} で記述されている構文を用いて、@c
+@ref{Rehearsal marks} で記述されている構文を用いて、@c
 さまざまなテキスト要素を楽譜に付け加えることができます:
 
 @c \mark needs to be placed on a separate line (it's not
@@ -400,7 +394,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 この構文を用いることで、@c
 任意のテキストを小節線上に配置することが可能です。@c
-@ref{テキストをフォーマットする} で記述されているように、@c
+@ref{Formatting text} で記述されているように、@c
 @code{\markup} ブロックを用いてより複雑なテキスト フォーマットを@c
 付け加えることもできます:
 
@@ -414,7 +408,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @end lilypond
 
 @noindent
-さらに、@ref{マークアップ内部での音楽記譜法} で説明されているように、@c
+さらに、@ref{Music notation inside markup} で説明されているように、@c
 この構文で適切なシンボル名を指定することによって、@c
 特殊な記号 -- コーダ、セーニョ、フェルマータなど -- を譜刻することが可能です:
 
@@ -460,9 +454,9 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 @morerefs
 記譜法リファレンス:
-@ref{リハーサル記号},
-@ref{テキストをフォーマットする},
-@ref{マークアップ内部での音楽記譜法},
+@ref{Rehearsal marks},
+@ref{Formatting text},
+@ref{Music notation inside markup},
 @ref{The Emmentaler font}.
 
 コード断片集:
@@ -474,9 +468,8 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @rinternals{RehearsalMark}
 
 
-@node 独立したテキスト
+@node Separate text
 @unnumberedsubsubsec 独立したテキスト
-@translationof Separate text
 
 @cindex separate text (独立したテキスト)
 @cindex text, separate (独立したテキスト)
@@ -520,7 +513,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 テキスト ドキュメントやブック全体を LilyPond の中に譜刻することが@c
 可能になります。@c
 この機能と、この機能の構文は
-@ref{複数ページにわたるマークアップ} で記述されています。
+@ref{Multi-page markup} で記述されています。
 
 
 @predefined
@@ -542,10 +535,10 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 @morerefs
 記譜法リファレンス:
-@ref{テキストをフォーマットする},
+@ref{Formatting text},
 @ref{File structure},
 @ref{Multiple scores in a book},
-@ref{複数ページにわたるマークアップ}
+@ref{Multi-page markup}
 
 コード断片集:
 @rlsr{Text}
@@ -554,25 +547,23 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @rinternals{TextScript}
 
 
-@node テキストをフォーマットする
+@node Formatting text
 @subsection テキストをフォーマットする
-@translationof Formatting text
 
 このセクションでは、@code{\markup} モード特有の構文を用いた@c
 基本的かつ高度なテキスト フォーマットについて説明します。
 
 @menu
-* テキスト マークアップの導入部::
-* フォントとフォント サイズを選択する::
-* テキスト揃え::
-* マークアップ内部でのグラフィック記譜法::
-* マークアップ内部での音楽記譜法::
-* 複数ページにわたるマークアップ::
+* Text markup introduction::
+* Selecting font and font size::
+* Text alignment::
+* Graphic notation inside markup::
+* Music notation inside markup::
+* Multi-page markup::
 @end menu
 
-@node テキスト マークアップの導入部
+@node Text markup introduction
 @unnumberedsubsubsec テキスト マークアップの導入部
-@translationof Text markup introduction
 
 @cindex markup (マークアップ)
 @cindex text markup (テキスト マークアップ)
@@ -694,9 +685,8 @@ allegro = \markup { \bold \large Allegro }
 マークアップ モードの構文エラー メッセージは混乱しやすいです。
 
 
-@node フォントとフォント サイズを選択する
+@node Selecting font and font size
 @unnumberedsubsubsec フォントとフォント サイズを選択する
-@translationof Selecting font and font size
 
 @cindex font switching (フォントの切り換え)
 @cindex changing font (フォントを変更する)
@@ -823,7 +813,7 @@ allegro = \markup { \bold \large Allegro }
 @end lilypond
 
 @noindent
-@ref{新たな強弱記号} や @ref{手動の繰り返し記号} で言及されているように、@c
+@ref{New dynamic marks} や @ref{Manual repeat marks} で言及されているように、@c
 番号や強弱記号など特定の項目に用いられるフォント ファミリの中には@c
 すべての文字を提供しないものもあります。
 
@@ -850,10 +840,10 @@ allegro = \markup { \bold \large Allegro }
 }
 @end lilypond
 
-@ref{フォント} に フォント切り換えとフォントのカスタム コマンドの@c
+@ref{Fonts} に フォント切り換えとフォントのカスタム コマンドの@c
 徹底したリストがあります。
 
-@ref{フォント} で説明されているように、@c
+@ref{Fonts} で説明されているように、@c
 カスタム フォント セットを定義することも可能です。
 
 @predefined
@@ -878,10 +868,10 @@ allegro = \markup { \bold \large Allegro }
 
 @morerefs
 記譜法リファレンス:
-@ref{フォント},
-@ref{新たな強弱記号},
-@ref{手動の繰り返し記号},
-@ref{フォント}
+@ref{Fonts},
+@ref{New dynamic marks},
+@ref{Manual repeat marks},
+@ref{Fonts}
 
 インストールされているファイル:
 @file{scm/define-markup-commands.scm}
@@ -898,9 +888,8 @@ allegro = \markup { \bold \large Allegro }
 @code{\fontsize} を用いた場合と比較して、つじつまの合わない行間になります。
 
 
-@node テキスト揃え
+@node Text alignment
 @unnumberedsubsubsec テキスト揃え
-@translationof Text alignment
 
 @cindex text, aligning (テキストを揃える)
 @cindex aligning text (テキストを揃える)
@@ -911,7 +900,7 @@ allegro = \markup { \bold \large Allegro }
 
 このサブセクションでは、@c
 マークアップ モードのテキストを配置する方法について説明します。@c
-@rlearning{オブジェクトを移動させる} で記述されている構文を用いて、@c
+@rlearningnamed{Moving objects, オブジェクトを移動させる} で記述されている構文を用いて、@c
 マークアップ オブジェクト全体を移動させることも可能です。
 
 @c Padding commands should be mentioned on this page, but
@@ -960,7 +949,7 @@ allegro = \markup { \bold \large Allegro }
 @noindent
 オブジェクトの中には揃えるための機能をそれ自身で持っているものがあり、@c
 それらは上記のコマンドでは影響を受けません。@c
-@ref{テキスト マーク} の中の例で示されているように、@c
+@ref{Text marks} の中の例で示されているように、@c
 そのようなマークアップ オブジェクト全体を移動させることが可能です。
 
 @cindex text, vertical alignment (テキストを垂直方向に揃える)
@@ -1156,11 +1145,11 @@ allegro = \markup { \bold \large Allegro }
 
 @morerefs
 学習マニュアル:
-@rlearning{オブジェクトを移動させる}
+@rlearningnamed{Moving objects, オブジェクトを移動させる}
 
 記譜法リファレンス:
 @ref{Markup for text alignment},
-@ref{テキスト マーク}
+@ref{Text marks}
 
 インストールされているファイル:
 @file{scm/define-markup-commands.scm}.
@@ -1172,9 +1161,8 @@ allegro = \markup { \bold \large Allegro }
 @rinternals{TextScript}
 
 
-@node マークアップ内部でのグラフィック記譜法
+@node Graphic notation inside markup
 @unnumberedsubsubsec マークアップ内部でのグラフィック記譜法
-@translationof Graphic notation inside markup
 
 @cindex graphics, embedding (グラフィックを埋め込む)
 @cindex drawing graphic object (グラフィック オブジェクトを描く)
@@ -1329,7 +1317,7 @@ c'
 記譜法リファレンス:
 @ref{Markup for text alignment},
 @ref{Dimensions},
-@ref{編集者の注釈},
+@ref{Editorial annotations},
 @ref{Graphical markup}
 
 インストールされているファイル:
@@ -1343,9 +1331,8 @@ c'
 @rinternals{TextScript}
 
 
-@node マークアップ内部での音楽記譜法
+@node Music notation inside markup
 @unnumberedsubsubsec マークアップ内部での音楽記譜法
-@translationof Music notation inside markup
 
 @cindex notation, inside markup (マークアップ内部の記譜法)
 @cindex music, inside markup (マークアップ内部の音楽)
@@ -1410,7 +1397,7 @@ a'1_\markup {
 @end lilypond
 
 テキストではない図柄を譜刻するもう 1 つの方法が
-@ref{フォントの説明} で記述されています。@c
+@ref{Fonts explained} で記述されています。@c
 この方法はさまざまなサイズの波括弧を譜刻する場合に有用です。
 
 さらに、マークアップ モードは特定の楽器のためのダイアグラムをサポートします:
@@ -1463,7 +1450,7 @@ a'1_\markup {
 記譜法リファレンス:
 @ref{Markup for music and musical symbols},
 @ref{The Emmentaler font},
-@ref{フォントの説明}
+@ref{Fonts explained}
 
 インストールされているファイル:
 @file{scm/define-markup-commands.scm},
@@ -1482,9 +1469,8 @@ a'1_\markup {
 全て無視されます。
 
 
-@node 複数ページにわたるマークアップ
+@node Multi-page markup
 @unnumberedsubsubsec 複数ページにわたるマークアップ
-@translationof Multi-page markup
 
 @cindex multi-page markup (複数ページにわたるマークアップ)
 @cindex markup, multi-page (複数ページにわたるマークアップ)
@@ -1550,22 +1536,20 @@ a'1_\markup {
 @code{\markuplist}
 @endpredefined
 
-@node フォント
+@node Fonts
 @subsection フォント
-@translationof Fonts
 
 このセクションでは、@c
 フォントを扱う方法と、楽譜の中でフォントを変更する方法について説明します。
 
 @menu
-* フォントの説明::
-* 個々に登録するフォント::
-* ドキュメント全体のフォント::
+* Fonts explained::
+* Single entry fonts::
+* Entire document fonts::
 @end menu
 
-@node フォントの説明
+@node Fonts explained
 @unnumberedsubsubsec フォントの説明
-@translationof Fonts explained
 
 @cindex Pango
 @cindex font, explained (フォントの説明)
@@ -1629,7 +1613,7 @@ a'1^\markup {
 @noindent
 しかしながら、これらの図柄はすべて
 -- @code{fetaBraces} で保持されているさまざまサイズの波括弧を除いて --
-は、@ref{マークアップ内部での音楽記譜法} で記述されている、@c
+は、@ref{Music notation inside markup} で記述されている、@c
 もっと簡単な構文を用いて利用することができます。
 
 @code{fetaBraces} に保持されている図柄を使う場合、@c
@@ -1721,7 +1705,7 @@ c''4^smaller
 @noindent
 同様の構文をマークアップ モードの中で使用することができます。@c
 しかしながら、マークアップ モードの中では、@c
-@ref{フォントとフォント サイズを選択する} で説明されている、@c
+@ref{Selecting font and font size} で説明されている、@c
 もっと簡単な構文を使用するほうが良いでしょう:
 
 @lilypond[quote,verbatim]
@@ -1785,20 +1769,19 @@ OpenType フォントの script と language は指定できません。@c
 あらかじめ構成されているフォント間で切り替えを行う方が簡単ですが、@c
 他のフォントを使用することも可能です。@c
 他のフォントを使用する方法は以下のセクションで説明されています:
-@ref{個々に登録するフォント} と @ref{ドキュメント全体のフォント}。
+@ref{Single entry fonts} と @ref{Entire document fonts}。
 
 @morerefs
 記譜法リファレンス:
 @ref{The Emmentaler font},
-@ref{マークアップ内部での音楽記譜法},
+@ref{Music notation inside markup},
 @ref{Rotating objects},
-@ref{フォントとフォント サイズを選択する},
-@ref{フォント}
+@ref{Selecting font and font size},
+@ref{Fonts}
 
 
-@node 個々に登録するフォント
+@node Single entry fonts
 @unnumberedsubsubsec 個々に登録するフォント
-@translationof Single entry fonts
 
 以下の構文を用いることで、@c
 オペレーティング システムにインストールされていて、@c
@@ -1839,8 +1822,8 @@ lilypond -dshow-available-fonts
 
 @morerefs
 記譜法リファレンス:
-@ref{フォントの説明},
-@ref{ドキュメント全体のフォント}
+@ref{Fonts explained},
+@ref{Entire document fonts}
 
 コード断片集:
 @rlsr{Text}
@@ -1850,19 +1833,18 @@ lilypond -dshow-available-fonts
 @c @file{lily/font-config-scheme.cc}.
 
 
-@node ドキュメント全体のフォント
+@node Entire document fonts
 @unnumberedsubsubsec ドキュメント全体のフォント
-@translationof Entire document fonts
 
 以下の例で示す方法に従ってフォント ファミリを指定することにより、@c
 @emph{roman}, @emph{sans} それに @emph{typewriter} フォント ファミリ@c
 として使用されるデフォルト フォントを変更することができます。@c
 この例ではグローバル譜サイズにセットされた値で自動的にフォントのサイズを@c
 伸縮しています。@c
-@ref{個々に登録するフォント} のように、@c
+@ref{Single entry fonts} のように、@c
 カンマ区切りの @q{フォント} のリストを記述できます。@c
 しかし、フォント @q{スタイル} は記述できません。@c
-フォントについての説明は、@ref{フォントの説明} を参照してください。
+フォントについての説明は、@ref{Fonts explained} を参照してください。
 
 @cindex font family, setting (フォント ファミリを設定する)
 @cindex font, changing for entire document (ドキュメント全体のフォントを変更する)
@@ -1962,8 +1944,8 @@ lilypond -dshow-available-fonts
 
 @morerefs
 記譜法リファレンス:
-@ref{フォントの説明},
-@ref{個々に登録するフォント},
-@ref{フォントとフォント サイズを選択する},
-@ref{フォント},
+@ref{Fonts explained},
+@ref{Single entry fonts},
+@ref{Selecting font and font size},
+@ref{Fonts},
 @ref{Replacing the notation font}

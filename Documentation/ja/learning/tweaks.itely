@@ -13,39 +13,36 @@
 @c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
-@node 出力を調整する
+@node Tweaking output
 @chapter 出力を調整する
-@translationof Tweaking output
 
 この章では出力を変更する方法について議論します。@c
 LilyPond は本当にさまざまな設定が可能です。@c
 もしかすると出力のすべての部分が変更されるかもしれません。
 
 @menu
-* 調整の基本::
-* 内部リファレンス マニュアル::
-* オブジェクトの見た目::
-* オブジェクトの配置::
-* 垂直方向のスペース::
-* オブジェクトの衝突::
-* 更なる調整::
+* Tweaking basics::
+* The Internals Reference manual::
+* Appearance of objects::
+* Placement of objects::
+* Vertical spacing::
+* Collisions of objects::
+* Further tweaking::
 @end menu
 
-@node 調整の基本
+@node Tweaking basics
 @section 調整の基本
-@translationof Tweaking basics
 
 @menu
-* 調整の紹介::
-* オブジェクトとインタフェイス::
-* オブジェクトとプロパティの命名規則::
-* 調整手段::
+* Introduction to tweaks::
+* Objects and interfaces::
+* Naming conventions of objects and properties::
+* Tweaking methods::
 @end menu
 
 
-@node 調整の紹介
+@node Introduction to tweaks
 @subsection 調整の紹介
-@translationof Introduction to tweaks
 
 @q{調整} は入力ファイルの解釈中にとられるアクションを変更し、@c
 譜刻される楽譜の見た目を変更するためにユーザが利用可能なさまざまな手段を指す
@@ -62,14 +59,13 @@ LilyPond の用語です。@c
 同時に、あなたがあなた自身の調整を開発する方法を学べるように@c
 それらのコマンドがどのように構築されるのかを示します。
 
-この章を読み始める前に、あなたは @ref{コンテキストとエングラーバ} を@c
+この章を読み始める前に、あなたは @ref{Contexts and engravers} を@c
 再読することを望むかもしれません。@c
 なぜなら、コンテキスト、エングラーバとそれらの中に含まれるプロパティは@c
 調整について理解し、調整を構成するための基礎だからです。
 
-@node オブジェクトとインタフェイス
+@node Objects and interfaces
 @subsection オブジェクトとインタフェイス
-@translationof Objects and interfaces
 
 @cindex object (オブジェクト)
 @cindex grob (グラフィカル オブジェクト)
@@ -143,16 +139,15 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 
 これらは、我々がこの章で使用するオブジェクトと関係する主要な用語です。
 
-@node オブジェクトとプロパティの命名規則
+@node Naming conventions of objects and properties
 @subsection オブジェクトとプロパティの命名規則
-@translationof Naming conventions of objects and properties
 
 @cindex naming conventions for objects (オブジェクトの命名規則)
 @cindex naming conventions for properties (プロパティの命名規則)
 @cindex objects, naming conventions (オブジェクトの命名規則)
 @cindex properties, naming conventions (プロパティの命名規則)
 
-我々は以前にも @ref{コンテキストとエングラーバ} で@c
+我々は以前にも @ref{Contexts and engravers} で@c
 いくつかのオブジェクト命名規則を見てきました。@c
 ここで参照のために、最も一般的なオブジェクトとプロパティをリストアップし、@c
 それに加えてそれらの命名規則と実際の名前の例を挙げます。@c
@@ -191,35 +186,33 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 
 @morerefs
 記譜法リファレンス:
-@rnotation{プロパティを変更する}
+@rnotationnamed{Modifying properties, プロパティを変更する}
 
 
-@node 調整手段
+@node Tweaking methods
 @subsection 調整手段
-@translationof Tweaking methods
 
 @cindex tweaking methods (調整手段)
 
 @menu
-* override コマンド::
-* revert コマンド::
-* once 接頭辞::
-* overrideProperty コマンド::
-* tweak コマンド::
-* single 接頭辞::
+* The override command::
+* The revert command::
+* The once prefix::
+* The overrideProperty command::
+* The tweak command::
+* The single prefix::
 @end menu
 
-@node override コマンド
+@node The override command
 @unnumberedsubsubsec @code{\override} コマンド
-@translationof The override command
 
 @cindex override command (override コマンド)
 @cindex override syntax (override 構文)
 
 @funindex \override
 
-我々はすでに @ref{コンテキスト プロパティを変更する} と
-@ref{エングラーバを追加 / 削除する} で @strong{コンテキスト} のプロパティを@c
+我々はすでに @ref{Modifying context properties} と
+@ref{Adding and removing engravers} で @strong{コンテキスト} のプロパティを@c
 変更したり、@strong{エングラーバ} を追加/削除したりするために使用するコマンド
 @code{\set} と @code{\with} を見てきました。@c
 ここでは更に重要ないくつかのコマンドについて見ていきます。
@@ -282,9 +275,8 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 @end lilypond
 
 
-@node revert コマンド
+@node The revert command
 @unnumberedsubsubsec @code{\revert} コマンド
-@translationof The revert command
 
 @cindex revert command (revert コマンド)
 
@@ -322,9 +314,8 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 @end lilypond
 
 
-@node once 接頭辞
+@node The once prefix
 @unnumberedsubsubsec @code{\once} 接頭辞
-@translationof The once prefix
 
 @funindex \once
 
@@ -365,9 +356,8 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 }
 @end lilypond
 
-@node overrideProperty コマンド
+@node The overrideProperty command
 @unnumberedsubsubsec @code{\overrideProperty} コマンド
-@translationof The overrideProperty command
 
 @cindex overrideProperty command (overrideProperty コマンド)
 
@@ -379,9 +369,8 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 詳細は @rextend{Difficult tweaks} を参照してください。
 @c Maybe explain in a later iteration  -td
 
-@node tweak コマンド
+@node The tweak command
 @unnumberedsubsubsec @code{\tweak} コマンド
-@translationof The tweak command
 
 @cindex tweak command (tweak コマンド)
 
@@ -555,9 +544,8 @@ a'4^"Black"
 記譜法リファレンス:
 @rnotation{The tweak command}
 
-@node single 接頭辞
+@node The single prefix
 @unnumberedsubsubsec @code{\single} 接頭辞
-@translationof The single prefix
 
 @funindex \single
 @cindex tweak, generated from override (override から生成される tweak)
@@ -578,7 +566,7 @@ emphNoteHead = {
 @code{\once} 接頭辞は単音や和音全体には動作しますが、和音@emph{内}の@c
 一つの音符に対しては使うことができません。さっき、@code{\tweak} は@c
 このような場面で使うということを学びました。
-@ref{tweak コマンド} を参照してください。@c
+@ref{The tweak command} を参照してください。@c
 しかし、@code{\tweak} は関数と一緒に使うことができません。そこで
 @code{\single} の登場です:
 
@@ -604,25 +592,23 @@ emphNoteHead = {
 
 @morerefs
 学習マニュアル:
-@ref{tweak コマンド},
-@ref{レイアウトの調整のために変数を使用する}
+@ref{The tweak command},
+@ref{Using variables for layout adjustments}
 
 
-@node 内部リファレンス マニュアル
+@node The Internals Reference manual
 @section 内部リファレンス マニュアル
-@translationof The Internals Reference manual
 
 @cindex Internals Reference (内部リファレンス)
 
 @menu
-* レイアウト オブジェクトのプロパティ::
-* インタフェイスの中で見つかるプロパティ::
-* プロパティのタイプ::
+* Properties of layout objects::
+* Properties found in interfaces::
+* Types of properties::
 @end menu
 
-@node レイアウト オブジェクトのプロパティ
+@node Properties of layout objects
 @subsection レイアウト オブジェクトのプロパティ
-@translationof Properties of layout objects
 
 @cindex properties of layout objects (レイアウト オブジェクトのプロパティ)
 @cindex properties of grobs (グラフィカル オブジェクトのプロパティ)
@@ -926,9 +912,8 @@ thickness (number)
 それらの例ではガイダンスや説明のための言葉はずっと少ないでしょう。
 
 
-@node インタフェイスの中で見つかるプロパティ
+@node Properties found in interfaces
 @subsection インタフェイスの中で見つかるプロパティ
-@translationof Properties found in interfaces
 
 @cindex interface (インタフェイス)
 @cindex interface properties (インタフェイス プロパティ)
@@ -1041,9 +1026,8 @@ LilyPond に読み込まれます。@c
 拡張: @rextend{Scheme tutorial}
 
 
-@node プロパティのタイプ
+@node Types of properties
 @subsection プロパティのタイプ
-@translationof Types of properties
 
 @cindex property types (プロパティ タイプ)
 
@@ -1117,23 +1101,21 @@ LilyPond に読み込まれます。@c
 拡張: @rextend{Scheme tutorial}
 
 
-@node オブジェクトの見た目
+@node Appearance of objects
 @section オブジェクトの見た目
-@translationof Appearance of objects
 
 いくつかの例を使ってこれまでに学んだことを練習して、譜刻される楽譜の見た目を@c
 変更するためにどのように調整が使われるのかを見ていきましょう。
 
 @menu
-* オブジェクトの可視性と色::
-* オブジェクトのサイズ::
-* オブジェクトの長さと太さ::
+* Visibility and color of objects::
+* Size of objects::
+* Length and thickness of objects::
 @end menu
 
 
-@node オブジェクトの可視性と色
+@node Visibility and color of objects
 @subsection オブジェクトの可視性と色
-@translationof Visibility and color of objects
 
 教育目的の楽譜では、ある要素を省略した楽譜を譜刻して、@c
 学生にそれを付け足させるという訓練にしたいと思うかもしれません。@c
@@ -1143,7 +1125,7 @@ LilyPond に読み込まれます。@c
 
 このことに挑戦する前に、オブジェクト プロパティは @emph{インタフェイス} と@c
 呼ばれるものにグループ化されているということを思い出してください
--- @ref{インタフェイスの中で見つかるプロパティ} を参照してください。@c
+-- @ref{Properties found in interfaces} を参照してください。@c
 これはあるグラフィカル オブジェクトを調整するために一緒に@c
 使用されるかもしれないプロパティをグループ化したものです
 -- あるオブジェクトに対してインタフェイス内のプロパティの 1 つを使うことが@c
@@ -1156,7 +1138,7 @@ LilyPond に読み込まれます。@c
 それらのプロパティはそれらのインタフェイスを参照することによって閲覧できます。
 
 グラフィカル オブジェクトについての情報を見つけ出す方法を
-@ref{レイアウト オブジェクトのプロパティ} で説明しました。@c
+@ref{Properties of layout objects} で説明しました。@c
 同じアプローチを使って、内部リファレンスで小節線を@c
 譜刻するレイアウト オブジェクトを見つけ出します。@c
 @emph{Backend} を経由して @emph{All layout objects} に行くと、@c
@@ -1174,16 +1156,15 @@ LilyPond に読み込まれます。@c
 次はこれらのプロパティをそれぞれ見ていきましょう。
 
 @menu
-* stencil プロパティ::
-* break-visibility プロパティ::
-* transparent プロパティ::
-* color プロパティ::
+* The stencil property::
+* The break-visibility property::
+* The transparent property::
+* The color property::
 @end menu
 
 
-@node stencil プロパティ
+@node The stencil property
 @unnumberedsubsubsec @code{stencil} プロパティ
-@translationof The stencil property
 
 @cindex stencil property (stencil プロパティ)
 
@@ -1272,9 +1253,8 @@ LilyPond に読み込まれます。@c
 @end lilypond
 
 
-@node break-visibility プロパティ
+@node The break-visibility property
 @unnumberedsubsubsec @code{break-visibility} property
-@translationof The break-visibility property
 
 @cindex break-visibility property (break-visibility プロパティ)
 
@@ -1310,9 +1290,8 @@ LilyPond に読み込まれます。@c
 今度もすべての小節線が消えました。
 
 
-@node transparent プロパティ
+@node The transparent property
 @unnumberedsubsubsec @code{transparent} プロパティ
-@translationof The transparent property
 
 @cindex transparent property (transparent プロパティ)
 @cindex transparency (透明性)
@@ -1391,9 +1370,8 @@ LilyPond に読み込まれます。@c
 
 @subheading 色 (color)
 
-@node color プロパティ
+@node The color property
 @unnumberedsubsubsec @code{color} プロパティ
-@translationof The color property
 
 最後に、小節線の色を白にすることによって小節線を不可視にしてみましょう。@c
 (これには白い小節線が譜線と交差したところで@c
@@ -1536,9 +1514,8 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 通常はどのコンテキストにそのエングラーバが含まれているのかが記述されています。
 
 
-@node オブジェクトのサイズ
+@node Size of objects
 @subsection オブジェクトのサイズ
-@translationof Size of objects
 
 @cindex changing size of objects (オブジェクトのサイズを変更する)
 @cindex size of objects (オブジェクトのサイズ)
@@ -1762,9 +1739,8 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 これらをフォント サイズの減少に比例してスケール ダウンさせる必要があります。@c
 次のサブ セクションでそれを行う方法について議論します。
 
-@node オブジェクトの長さと太さ
+@node Length and thickness of objects
 @subsection オブジェクトの長さと太さ
-@translationof Length and thickness of objects
 
 @cindex distances (距離)
 @cindex thickness (太さ)
@@ -1844,26 +1820,24 @@ LilyPond では距離と長さは一般に譜スペース -- 譜の中の隣り�
 ある特定のレイアウト オブジェクトの太さを調節する必要がある場合、@c
 それを達成する最良の方法はそのオブジェクトの @code{thickness} プロパティを@c
 オーバライドすることです。@c
-スラーの太さを変更する例は @ref{レイアウト オブジェクトのプロパティ} で@c
+スラーの太さを変更する例は @ref{Properties of layout objects} で@c
 示されています。@c
 すべての描画オブジェクト (つまり、フォントから作り出される@c
 オブジェクトではないもの) の太さが同様の方法で変更されるかもしれません。
 
 
-@node オブジェクトの配置
+@node Placement of objects
 @section オブジェクトの配置
-@translationof Placement of objects
 
 @menu
-* 自動配置::
-* 譜内部オブジェクト::
-* 譜外部オブジェクト::
+* Automatic behavior::
+* Within-staff objects::
+* Outside-staff objects::
 @end menu
 
 
-@node 自動配置
+@node Automatic behavior
 @subsection 自動配置
-@translationof Automatic behavior
 
 @cindex within-staff objects (譜内部オブジェクト)
 @cindex outside-staff objects (譜内部オブジェクト)
@@ -1935,9 +1909,8 @@ c''2^"Text4" |
 @end lilypond
 
 
-@node 譜内部オブジェクト
+@node Within-staff objects
 @subsection 譜内部オブジェクト
-@translationof Within-staff objects
 
 これまでにコマンド @code{\voiceXXX} がスラー、タイ、運指法記号、@c
 符幹の向きに依存する他のすべてに対してどのように影響を与えるかを見てきました
@@ -1959,13 +1932,12 @@ c''2^"Text4" |
 @code{direction} がセットされているときは、これは自動的に制御されます。
 
 @menu
-* direction プロパティ::
-* 運指::
+* The direction property::
+* Fingering::
 @end menu
 
-@node direction プロパティ
+@node The direction property
 @unnumberedsubsubsec @code{direction} プロパティ
-@translationof The direction property
 
 @cindex down (下)
 @cindex up (上)
@@ -2063,9 +2035,8 @@ a'4( g') c''( a') |
 a'4^( g') c''_( a') |
 @end lilypond
 
-@node 運指
+@node Fingering
 @unnumberedsubsubsec 運指
-@translationof Fingering
 
 @cindex fingering, placement (運指法記号の配置)
 @cindex fingering, chords (和音の運指法記号)
@@ -2222,24 +2193,22 @@ LilyPond はこれらの制約を受け取り、
 @end lilypond
 
 
-@node 譜外部オブジェクト
+@node Outside-staff objects
 @subsection 譜外部オブジェクト
-@translationof Outside-staff objects
 
 譜外部オブジェクトは自動的に衝突を回避するよう配置されます。@c
 配置が最適でない場合に自動配置をオーバライドする方法がいくつかあります。
 
 @menu
-* outside-staff-priority プロパティ::
-* textLengthOn コマンド::
-* 強弱記号の配置::
-* グラフィカル オブジェクトのサイズ::
+* The outside-staff-priority property::
+* The textLengthOn command::
+* Dynamics placement::
+* Grob sizing::
 @end menu
 
 
-@node outside-staff-priority プロパティ
+@node The outside-staff-priority property
 @unnumberedsubsubsec @code{outside-staff-priority} プロパティ
-@translationof The outside-staff-priority property
 
 小さな値の @code{outside-staff-priority} プロパティを持つオブジェクトは@c
 譜の近くに配置され、他の譜外部オブジェクトは衝突を避けるのに必要な分だけ@c
@@ -2348,7 +2317,7 @@ c'4 c' c' c' |
 スパナは @code{\startTextSpan} コマンドから
 @code{\stopTextSpan} コマンドまで延び、テキストのフォーマットは
 @code{\override TextSpanner} コマンドによって定義されます。@c
-詳細は @rnotation{テキスト スパナ} を参照してください。
+詳細は @rnotationnamed{Text spanners, テキスト スパナ} を参照してください。
 
 この例はさらにオッターバ囲みを作成する方法についても示しています。
 
@@ -2437,7 +2406,7 @@ c'4 c' c' c' |
 @code{outside-staff-priority} は、個々のオブジェクトの垂直方向の配置を@c
 制御するために使用することもできます。@c
 しかしながら、その結果は常に望み通りになるわけではありません。@c
-@ref{自動配置} にある例で @qq{Text3} を @qq{Text4} の上に@c
+@ref{Automatic behavior} にある例で @qq{Text3} を @qq{Text4} の上に@c
 配置したいとします。@c
 すべきことは @code{TextScript} の優先度を内部リファレンスか上記の表で調べて、@c
 @qq{Text3} の優先度を大きくすることです:
@@ -2463,9 +2432,8 @@ c''2^"Text4" |
 音符を水平方向に広げる必要があります。@c
 これは @code{\textLengthOn} コマンドを用いることで達成できます。
 
-@node textLengthOn コマンド
+@node The textLengthOn command
 @unnumberedsubsubsec @code{\textLengthOn} コマンド
-@translationof The textLengthOn command
 
 @cindex notes, spreading out with text (テキストに合わせて音符の間隔を広げる)
 
@@ -2526,9 +2494,8 @@ c''2^"Text4" |
 @end lilypond
 
 
-@node 強弱記号の配置
+@node Dynamics placement
 @unnumberedsubsubsec 強弱記号の配置
-@translationof Dynamics placement
 
 @cindex tweaking dynamics placement (強弱記号の配置を調整する)
 @cindex dynamics, tweaking placement (強弱記号の配置を調整する)
@@ -2573,9 +2540,8 @@ c''2^"Text4" |
 そのため、@code{\override} コマンドを用いてそれを達成する方法を@c
 見出す必要があります。
 
-@node グラフィカル オブジェクトのサイズ
+@node Grob sizing
 @unnumberedsubsubsec グラフィカル オブジェクトのサイズ
-@translationof Grob sizing
 
 @cindex grob sizing (グラフィカル オブジェクトのサイズを決定する)
 @cindex sizing grobs (グラフィカル オブジェクトのサイズを決定する)
@@ -2628,12 +2594,11 @@ c''2^"Text4" |
 同じベースラインで揃っている方が望ましいでしょう。@c
 それを行うためのプロパティは @code{staff-padding} であり、@c
 衝突に関するセクションでカバーされています
-(@ref{オブジェクトの衝突} を参照してください)。
+(@ref{Collisions of objects} を参照してください)。
 
 
-@node 垂直方向のスペース
+@node Vertical spacing
 @section 垂直方向のスペース
-@translationof Vertical spacing
 
 基本的に、LilyPond のオブジェクトにおける垂直方向のスペーシングは非常に@c
 良いです。2 声とピアノ伴奏からなる単純な曲でどのようになるかを見てみましょう:
@@ -2675,7 +2640,7 @@ c''2^"Text4" |
 
 歌詞はシステム (訳注: 1 行分の譜のまとまり) 内に配置されています。@c
 そのため、歌詞のスペースを調整するコマンドは@c
-@rnotation{システム内部の可変な垂直方向のスペース} にあります。@c
+@rnotationnamed{Flexible vertical spacing within systems, システム内部の可変な垂直方向のスペース} にあります。@c
 これによると、歌詞は @code{non-staff lines} (譜ではない行) であるため、@c
 このスペースを変更するコマンドは @code{nonstaff} プロパティと関連する@c
 ということが分かります。歌詞と関連している (上の段の) 譜とのスペースを@c
@@ -2823,20 +2788,18 @@ c''2^"Text4" |
 詳しくは、@rnotation{Flexible vertical spacing paper variables} と
 @rnotation{Flexible vertical spacing within systems} を参照してください。
 
-@node オブジェクトの衝突
+@node Collisions of objects
 @section オブジェクトの衝突
-@translationof Collisions of objects
 
 @menu
-* オブジェクトを移動させる::
-* 表記の重なりを修正する::
-* 実際の音楽からの例::
+* Moving objects::
+* Fixing overlapping notation::
+* Real music example::
 @end menu
 
 
-@node オブジェクトを移動させる
+@node Moving objects
 @subsection オブジェクトを移動させる
-@translationof Moving objects
 
 @cindex moving overlapping objects (重なり合っているオブジェクトを移動させる)
 @cindex moving colliding objects (衝突しているオブジェクトを移動させる)
@@ -2857,7 +2820,7 @@ c''2^"Text4" |
 @enumerate
 @item
 重なり合っているオブジェクトの 1 つの @strong{direction} を
-@ref{譜内部オブジェクト} でリストアップした内部オブジェクトのための@c
+@ref{Within-staff objects} でリストアップした内部オブジェクトのための@c
 定義済みコマンドを用いて変更することになるかもしれません。@c
 符幹、スラー、連桁、タイ、強弱記号、テキスト、@c
 連符はこの方法で容易に再配置できるかもしれません。@c
@@ -2881,7 +2844,7 @@ LilyPond がレイアウト オブジェクトを配置するときに使用す�
 @code{direction}
 
 これはすでに詳しくカバーされています --
-@ref{譜内部オブジェクト} を参照してください。
+@ref{Within-staff objects} を参照してください。
 
 @item
 @code{padding}, @code{left-padding},
@@ -3034,7 +2997,7 @@ LilyPond がレイアウト オブジェクトを配置するときに使用す�
 中にある音符の符頭の幅で指定されます。
 このプロパティは、通常の
 @code{\shiftOn} コマンド
-(@ref{ボイスを明示的にインスタンス化する} を参照してください)
+(@ref{Explicitly instantiating voices} を参照してください)
 が音符の衝突を十分に解決できないような複雑な状況で使用されるべきです。@c
 この目的のためには、@code{extra-offset} プロパティを用いるよりも
 @code{force-hshift} プロパティを用いる方が好ましいです。@c
@@ -3115,28 +3078,26 @@ LilyPond はまずスラーが取り得る位置のリストを生成し、そ�
 @end multitable
 
 
-@node 表記の重なりを修正する
+@node Fixing overlapping notation
 @subsection 表記の重なりを修正する
-@translationof Fixing overlapping notation
 
 今度は、前のセクションで扱ったプロパティが記譜の重なりを解決する手助けを@c
 どのようにできるかを見ていきましょう。
 
 @menu
-* padding プロパティ::
-* right-padding プロパティ::
-* staff-padding プロパティ::
-* self-alignment-X プロパティ::
-* staff-position プロパティ::
-* extra-offset プロパティ::
-* positions プロパティ::
-* force-hshift プロパティ::
+* The padding property::
+* The right-padding property::
+* The staff-padding property::
+* The self-alignment-X property::
+* The staff-position property::
+* The extra-offset property::
+* The positions property::
+* The force-hshift property::
 @end menu
 
 
-@node padding プロパティ
+@node The padding property
 @unnumberedsubsubsec @code{padding} プロパティ
-@translationof The padding property
 
 @cindex padding (パディング)
 @cindex fixing overlapping notation (記譜要素の重なりを修正する)
@@ -3180,9 +3141,8 @@ d'1 |
 そのオブジェクトとそれよりも外側にあるすべてオブジェクトが移動させられます。
 
 
-@node right-padding プロパティ
+@node The right-padding property
 @unnumberedsubsubsec @code{right-padding} プロパティ
-@translationof The right-padding property
 
 @cindex right-padding property (right-padding プロパティ)
 
@@ -3229,9 +3189,8 @@ sesquisharp = \markup { \sesquisharp }
 @noindent
 
 
-@node staff-padding プロパティ
+@node The staff-padding property
 @unnumberedsubsubsec @code{staff-padding} プロパティ
-@translationof The staff-padding property
 
 @cindex aligning objects on a baseline (オブジェクトをベースラインに揃える)
 @cindex objects, aligning on a baseline (オブジェクトをベースラインに揃える)
@@ -3257,9 +3216,8 @@ sesquisharp = \markup { \sesquisharp }
 @end lilypond
 
 
-@node self-alignment-X プロパティ
+@node The self-alignment-X property
 @unnumberedsubsubsec @code{self-alignment-X} プロパティ
-@translationof The self-alignment-X property
 
 以下の例はこのプロパティが、運指法記号オブジェクトの右端を親の音符の@c
 参照ポイントに揃えることによって、@c
@@ -3277,9 +3235,8 @@ sesquisharp = \markup { \sesquisharp }
 @end lilypond
 
 
-@node staff-position プロパティ
+@node The staff-position property
 @unnumberedsubsubsec @code{staff-position} プロパティ
-@translationof The staff-position property
 
 @cindex object collision within a staff (譜内部でのオブジェクトの衝突)
 
@@ -3323,9 +3280,8 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 @rnotation{タイを手動で譜刻する} を参照してください。
 
 
-@node extra-offset プロパティ
+@node The extra-offset property
 @unnumberedsubsubsec @code{extra-offset} プロパティ
-@translationof The extra-offset property
 
 @cindex positioning objects (オブジェクトの位置を決定する)
 @cindex positioning grobs (グラフィカル オブジェクトの位置を決定する)
@@ -3348,9 +3304,8 @@ f'4-5
 @end lilypond
 
 
-@node positions プロパティ
+@node The positions property
 @unnumberedsubsubsec @code{positions} プロパティ
-@translationof The positions property
 
 @cindex controlling tuplets, slurs, phrasing slurs, and beams manually (連符、スラー、フレージング スラーそれに連桁を手動で制御する)
 @cindex manually controlling tuplets, slurs, phrasing slurs, and beams (連符、スラー、フレージング スラーそれに連桁を手動で制御する)
@@ -3459,11 +3414,10 @@ a'8 \( ( a''16 ) a'' \)
 例に示したように、オーバライドがもう適用されるべきでないところでは@c
 オーバライドをリバートするべきです。
 
-@node force-hshift プロパティ
+@node The force-hshift property
 @unnumberedsubsubsec @code{force-hshift} プロパティ
-@translationof The force-hshift property
 
-今や、@ref{私はボイスを聴いている} の最後で挙げた Chopin の例に@c
+今や、@ref{I'm hearing Voices} の最後で挙げた Chopin の例に@c
 どのように修正を加えるべきかを知っています。@c
 この例は以下のような状態でした:
 
@@ -3518,9 +3472,8 @@ a'8 \( ( a''16 ) a'' \)
 @end lilypond
 
 
-@node 実際の音楽からの例
+@node Real music example
 @subsection 実際の音楽からの例
-@translationof Real music example
 
 調整についてのセクションを、望みの出力を作り出すためにいくつかの調整を@c
 必要とするトリッキーな例を処理するときにとられるステップを示すことで@c
@@ -3612,7 +3565,7 @@ lhMusic = \relative {
 他の部分はすべて単一のボイスなので、最も容易な方法は
 4 つのボイスを必要になったときに一時的に導入する方法です。@c
 一時的に多声にする方法を忘れてしまったのならば、@c
-@ref{私はボイスを聴いている} と @ref{ボイスを明示的にインスタンス化する}
+@ref{I'm hearing Voices} と @ref{Explicitly instantiating voices}
 を参照してください。@
 ここでは、多声パッセージに明示的にインスタンス化されたボイスを使うことにします。@c
 なぜなら、すべてのボイスが明示的にインスタンス化されている方が、@c
@@ -3744,7 +3697,7 @@ lhMusic = \relative {
 それは簡単にできます。@c
 次に、タイと拍子記号の衝突を修正する必要があります。@c
 これはタイを上に移動させる方法が最善です。@c
-オブジェクトの移動については以前に @ref{オブジェクトを移動させる} でカバーしました。@c
+オブジェクトの移動については以前に @ref{Moving objects} でカバーしました。@c
 そこでは、譜との相対位置で配置されるオブジェクトは、@c
 そのオブジェクトの @code{staff-position} プロパティを@c
 オーバライドすることによって、移動させることができると述べられています。@c
@@ -4055,33 +4008,30 @@ lhMusic = \relative {
 @end lilypond
 
 
-@node 更なる調整
+@node Further tweaking
 @section 更なる調整
-@translationof Further tweaking
 
 @menu
-* 調整のその他の使用方法::
-* レイアウトの調整のために変数を使用する::
-* スタイル シート::
-* その他の情報源::
-* Scheme を用いた高度な調整::
+* Other uses for tweaks::
+* Using variables for layout adjustments::
+* Style sheets::
+* Other sources of information::
+* Advanced tweaks with Scheme::
 @end menu
 
-@node 調整のその他の使用方法
+@node Other uses for tweaks
 @subsection 調整のその他の使用方法
-@translationof Other uses for tweaks
 
 @menu
-* 異なるボイスの中にある音符をタイで結ぶ::
-* MIDI でフェルマータをシミュレートする::
+* Tying notes across voices::
+* Simulating a fermata in MIDI::
 @end menu
 
 @cindex removing objects (オブジェクトを削除する)
 @cindex objects, removing (オブジェクトを削除する)
 
-@node 異なるボイスの中にある音符をタイで結ぶ
+@node Tying notes across voices
 @unnumberedsubsubsec 異なるボイスの中にある音符をタイで結ぶ
-@translationof Tying notes across voices
 
 @cindex tying notes across voices (異なるボイスの中にある音符をタイで結ぶ)
 
@@ -4117,13 +4067,12 @@ lhMusic = \relative {
 
 @morerefs
 Learning Manual:
-@ref{once 接頭辞},
-@ref{stencil プロパティ}.
+@ref{The once prefix},
+@ref{The stencil property}.
 
 
-@node MIDI でフェルマータをシミュレートする
+@node Simulating a fermata in MIDI
 @unnumberedsubsubsec MIDI でフェルマータをシミュレートする
-@translationof Simulating a fermata in MIDI
 
 @cindex stencil property, use of (stencil プロパティの使用方法)
 @cindex fermata, implementing in MIDI (MIDI でフェルマータ を実装する)
@@ -4203,9 +4152,8 @@ Learning Manual:
 @rglos{system}
 
 
-@node レイアウトの調整のために変数を使用する
+@node Using variables for layout adjustments
 @subsection レイアウトの調整のために変数を使用する
-@translationof Using variables for layout adjustments
 
 @cindex variables, using for overrides (オーバライドのために変数を使用する)
 @cindex overrides, using variables for (オーバライドのために変数を使用する)
@@ -4306,19 +4254,18 @@ VerseFour = \lyricmode {
 @end lilypond
 
 
-@node スタイル シート
+@node Style sheets
 @subsection スタイル シート
-@translationof Style sheets
 
 LilyPond が作り出す出力にはさまざまな変更を加えることができます
-(詳細は @ref{出力を調整する} を参照してください)。@c
+(詳細は @ref{Tweaking output} を参照してください)。@c
 しかしながら、調整を加えたい入力ファイルがたくさんあるとしたらどうでしょう？@c
 また、単に調整を実際の音楽表記から分離したいとしたらどうでしょう？@c
 これはとても簡単なことです。
 
 以下の例を見てみましょう。@c
 @code{#()} を持つ部分を理解できなくても心配しないでください。@c
-@ref{Scheme を用いた高度な調整} で説明されています。
+@ref{Advanced tweaks with Scheme} で説明されています。
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =
@@ -4606,9 +4553,8 @@ inst =
 @end example
 
 
-@node その他の情報源
+@node Other sources of information
 @subsection その他の情報源
-@translationof Other sources of information
 
 内部リファレンスは LilyPond についての多くの情報を持っていますが、@c
 LilyPond の内部ファイルを調べることによって@c
@@ -4738,9 +4684,8 @@ Scheme 言語とこれらのファイルを理解するには、十分な知識�
 @end multitable
 
 
-@node Scheme を用いた高度な調整
+@node Advanced tweaks with Scheme
 @subsection Scheme を用いた高度な調整
-@translationof Advanced tweaks with Scheme
 
 @code{\override} と @code{\tweak} コマンドを用いることで@c
 多くのことが可能になりますが、LilyPond のアクションを変更するもっと強力な手段が

@@ -12,9 +12,8 @@
 @c Translation status: post-GDP
 
 
-@node ピッチ
+@node Pitches
 @section ピッチ
-@translationof Pitches
 
 @lilypondfile[quote]{snippets/pitches-headword.ly}
 
@@ -22,16 +21,15 @@
 このプロセスには 3 つのステップがあります: 入力、変更、出力です。
 
 @menu
-* ピッチを記述する::
-* 複数のピッチを変更する::
-* ピッチを表示する::
-* 符頭::
+* Writing pitches::
+* Changing multiple pitches::
+* Displaying pitches::
+* Note heads::
 @end menu
 
 
-@node ピッチを記述する
+@node Writing pitches
 @subsection ピッチを記述する
-@translationof Writing pitches
 
 このセクションではピッチを入力する方法について議論します。@c
 音符をオクターブの中に置くには 2 つの方法があります:
@@ -39,16 +37,15 @@
 たいていの場合、相対モードの方が便利です。
 
 @menu
-* 絶対オクターブ入力::
-* 相対オクターブ入力::
-* 臨時記号::
-* 他の言語での音符名::
+* Absolute octave entry::
+* Relative octave entry::
+* Accidentals::
+* Note names in other languages::
 @end menu
 
 
-@node 絶対オクターブ入力
+@node Absolute octave entry
 @unnumberedsubsubsec 絶対オクターブ入力
-@translationof Absolute octave entry
 
 @cindex pitch name (ピッチ名)
 @cindex pitch (ピッチ)
@@ -124,9 +121,8 @@
 @rlsrnamed{Pitches,ピッチ}
 
 
-@node 相対オクターブ入力
+@node Relative octave entry
 @unnumberedsubsubsec 相対オクターブ入力
-@translationof Relative octave entry
 
 @cindex relative (相対)
 @cindex relative octave entry (相対オクターブ入力)
@@ -343,9 +339,8 @@ B の後の F ダブル フラットは B よりも下に配置されます。@c
 @funindex \relative
 
 
-@node 臨時記号
+@node Accidentals
 @unnumberedsubsubsec 臨時記号
-@translationof Accidentals
 
 @cindex accidental (臨時記号)
 @cindex key signature (調号)
@@ -358,7 +353,7 @@ LilyPond では、音符名はピッチを指定します
 -- 調号と音部記号がこれらのピッチをどのように表示するかを決定します。@c
 @code{c} のような変更を加えられていない音符は、調号や音部記号とは無関係に、@c
 @q{C ナチュラル} を意味します。@c
-更なる情報は、@rlearning{ピッチと調号} を参照してください。}
+更なる情報は、@rlearningnamed{Pitches and key signatures, ピッチと調号} を参照してください。}
 
 @cindex note name, Dutch (オランダ語での音符名)
 @cindex note name, default (デフォルトの音符名)
@@ -466,7 +461,7 @@ LilyPond では、音符名はピッチを指定します
 @rglos{quarter tone}
 
 学習マニュアル:
-@rlearning{ピッチと調号}
+@rlearningnamed{Pitches and key signatures, ピッチと調号}
 
 記譜法リファレンス:
 @ref{Automatic accidentals},
@@ -490,9 +485,8 @@ LilyPond では、音符名はピッチを指定します
 LilyPond の記号はいかなる標準にも準拠しません。
 
 
-@node 他の言語での音符名
+@node Note names in other languages
 @unnumberedsubsubsec 他の言語での音符名
-@translationof Note names in other languages
 
 @cindex note name, other languages (他の言語での音符名)
 @cindex pitch name, other languages (他の言語でのピッチ名)
@@ -673,24 +667,22 @@ LilyPond の記号はいかなる標準にも準拠しません。
 @rlsrnamed{Pitches,ピッチ}
 
 
-@node 複数のピッチを変更する
+@node Changing multiple pitches
 @subsection 複数のピッチを変更する
-@translationof Changing multiple pitches
 
 このセクションではピッチを変更する方法について議論します。
 
 @menu
-* オクターブ チェック::
-* 移調::
-* 反転::
-* 逆行::
-* 様式的な変形::
+* Octave checks::
+* Transpose::
+* Inversion::
+* Retrograde::
+* Modal transformations::
 @end menu
 
 
-@node オクターブ チェック
+@node Octave checks
 @unnumberedsubsubsec オクターブ チェック
-@translationof Octave checks
 
 @cindex octave correction (オクターブ修正)
 @cindex octave check (オクターブ チェック)
@@ -763,9 +755,8 @@ LilyPond の記号はいかなる標準にも準拠しません。
 @rinternals{RelativeOctaveCheck}.
 
 
-@node 移調
+@node Transpose
 @unnumberedsubsubsec 移調
-@translationof Transpose
 
 @cindex transpose (移調)
 @cindex transposing (移調)
@@ -910,9 +901,8 @@ musicInBflat = @{ e4 @dots{} @}
 (例えば e の 3 重フラットの代わりに d フラットが表示されます)。
 
 
-@node 反転
+@node Inversion
 @unnumberedsubsubsec 反転
-@translationof Inversion
 
 @cindex inversion (反転)
 @cindex operation, inversion (反転操作)
@@ -948,9 +938,8 @@ music = \relative { c' d e f }
 @ref{Transpose}
 
 
-@node 逆行
+@node Retrograde
 @unnumberedsubsubsec 逆行
-@translationof Retrograde
 
 @cindex retrograde transformation (逆行変換)
 @cindex transformation, retrograde (逆行変換)
@@ -984,9 +973,8 @@ music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @ref{Transpose}
 
 
-@node 様式的な変形
+@node Modal transformations
 @unnumberedsubsubsec 様式的な変形
-@translationof Modal transformations
 
 @cindex modal transformation (様式的な変形)
 @cindex transformation, modal (様式的な変形)
@@ -1119,25 +1107,23 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 @ref{Transpose}
 
 
-@node ピッチを表示する
+@node Displaying pitches
 @subsection ピッチを表示する
-@translationof Displaying pitches
 
 このセクションではピッチの出力を変更する方法について議論します。
 
 @menu
-* 音部記号::
-* 調号::
-* オッターバ囲み::
-* 楽器の移調::
-* 自動臨時記号::
-* 音域::
+* Clef::
+* Key signature::
+* Ottava brackets::
+* Instrument transpositions::
+* Automatic accidentals::
+* Ambitus::
 @end menu
 
 
-@node 音部記号
+@node Clef
 @unnumberedsubsubsec 音部記号
-@translationof Clef
 
 @cindex G clef (G 音部記号)
 @cindex C clef (C 音部記号)
@@ -1349,9 +1335,8 @@ c'2 c'
 @end lilypond
 
 
-@node 調号
+@node Key signature
 @unnumberedsubsubsec 調号
-@translationof Key signature
 
 @cindex key signature (調号)
 
@@ -1364,7 +1349,7 @@ LilyPond では、音符名は未加工の入力です。@c
 調号と音部記号がこの未加工の入力をどのように表示するかを決定します。@c
 @code{c} のような変更を加えられていない音符は、調号や音部記号とは無関係に、@c
 @q{C ナチュラル} を意味します。@c
-更なる情報は、@rlearning{ピッチと調号} を参照してください。}
+更なる情報は、@rlearningnamed{Pitches and key signatures, ピッチと調号} を参照してください。}
 
 調号は楽曲を演奏すべき調性を示します。@c
 調号は譜の先頭で変更記号 (フラットやシャープ) のセットによって示されます。@c
@@ -1464,7 +1449,7 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 @rglos{scordatura}
 
 学習マニュアル:
-@rlearning{ピッチと調号}
+@rlearningnamed{Pitches and key signatures, ピッチと調号}
 
 コード断片集:
 @rlsrnamed{Pitches,ピッチ}
@@ -1478,9 +1463,8 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 @rinternals{key-signature-interface}
 
 
-@node オッターバ囲み
+@node Ottava brackets
 @unnumberedsubsubsec オッターバ囲み
-@translationof Ottava brackets
 
 @cindex ottava (オッターバ)
 @cindex 15ma
@@ -1541,9 +1525,8 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 @rinternals{ottava-bracket-interface}
 
 
-@node 楽器の移調
+@node Instrument transpositions
 @unnumberedsubsubsec 楽器の移調
-@translationof Instrument transpositions
 
 @cindex transposition, MIDI (MIDI の移調)
 @cindex transposition, instrument (楽器の移調)
@@ -1645,9 +1628,8 @@ clarinet = \relative c'' {
 @rlsrnamed{Pitches,ピッチ}
 
 
-@node 自動臨時記号
+@node Automatic accidentals
 @unnumberedsubsubsec 自動臨時記号
-@translationof Automatic accidentals
 
 @cindex accidental style (臨時記号スタイル)
 @cindex accidental style, default (デフォルトの臨時記号スタイル)
@@ -3052,9 +3034,8 @@ forget = #(define-music-function (music) (ly:music?) #{
 @end lilypond
 
 
-@node 音域
+@node Ambitus
 @unnumberedsubsubsec 音域
-@translationof Ambitus
 
 @cindex ambitus (音域)
 @cindex range of pitches (ピッチの範囲)
@@ -3127,22 +3108,20 @@ forget = #(define-music-function (music) (ly:music?) #{
 音域の衝突を処理するシステムはありません。
 
 
-@node 符頭
+@node Note heads
 @subsection 符頭
-@translationof Note heads
 
 このセクションでは符頭を変更する方法について説明します。
 
 @menu
-* 特殊な符頭::
-* 演奏を容易にする記譜法の符頭::
-* シェイプ ノートの符頭::
-* 即興::
+* Special note heads::
+* Easy notation note heads::
+* Shape note heads::
+* Improvisation::
 @end menu
 
-@node 特殊な符頭
+@node Special note heads
 @unnumberedsubsubsec 特殊な符頭
-@translationof Special note heads
 
 @cindex note head, special (特別な符頭)
 @cindex note head, cross (×の符頭)
@@ -3253,9 +3232,8 @@ forget = #(define-music-function (music) (ly:music?) #{
 @rinternals{ledger-line-spanner-interface}
 
 
-@node 演奏を容易にする記譜法の符頭
+@node Easy notation note heads
 @unnumberedsubsubsec 演奏を容易にする記譜法の符頭
-@translationof Easy notation note heads
 
 @cindex note head, practice (練習のための符頭)
 @cindex practice note head (練習のための符頭)
@@ -3316,9 +3294,8 @@ forget = #(define-music-function (music) (ly:music?) #{
 @rinternals{note-head-interface}
 
 
-@node シェイプ ノートの符頭
+@node Shape note heads
 @unnumberedsubsubsec シェイプ ノートの符頭
-@translationof Shape note heads
 
 @cindex note head, shape (シェイプ ノートの符頭)
 @cindex note head, Aiken (Aiken の符頭)
@@ -3442,9 +3419,8 @@ Funk (Harmonia Sacra)、Walker、それに Aiken (Christian Harmony) スタイ�
 @rinternals{note-head-interface}
 
 
-@node 即興
+@node Improvisation
 @unnumberedsubsubsec 即興
-@translationof Improvisation
 
 @cindex improvisation (即興)
 @cindex slashed note head (スラッシュ形の符頭)

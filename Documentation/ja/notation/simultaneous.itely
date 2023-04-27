@@ -13,9 +13,8 @@
 @c Translation status: post-GDP
 
 
-@node 同時進行する音符
+@node Simultaneous notes
 @section 同時進行する音符
-@translationof Simultaneous notes
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
@@ -23,28 +22,26 @@
 LilyPond の中で多声部は同じ譜にある複数のボイスを参照します。
 
 @menu
-* 単一のボイス::
-* 複数のボイス::
+* Single voice::
+* Multiple voices::
 @end menu
 
 
-@node 単一のボイス
+@node Single voice
 @subsection 単一のボイス
-@translationof Single voice
 
 このセクションでは同じボイスの中にある同時進行する音符について議論します。
 
 @menu
-* 和音の音符::
-* 和音の繰り返し::
-* 同時進行表記::
-* クラスタ::
+* Chorded notes::
+* Chord repetition::
+* Simultaneous expressions::
+* Clusters::
 @end menu
 
 
-@node 和音の音符
+@node Chorded notes
 @unnumberedsubsubsec 和音の音符
-@translationof Chorded notes
 
 @cindex chord (和音)
 @cindex bracket, angle (山括弧)
@@ -156,7 +153,7 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 @itemize
 
 @item
-一時的に @ref{複数のボイス} を使用する -- @samp{<< f! \\ <e fis!> >>},
+一時的に @ref{Multiple voices} を使用する -- @samp{<< f! \\ <e fis!> >>},
 
 @item
 いくつかのピッチを異名同音に書き換える -- @samp{<e f ges>},
@@ -167,9 +164,8 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 @end itemize
 
 
-@node 和音の繰り返し
+@node Chord repetition
 @unnumberedsubsubsec 和音の繰り返し
-@translationof Chord repetition
 
 @cindex chord, repetition (和音の繰り返し)
 @cindex repetition, using @code{q} (@code{q} を用いた繰り返し)
@@ -266,9 +262,8 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 @file{ly/chord-repetition-init.ly}
 
 
-@node 同時進行表記
+@node Simultaneous expressions
 @unnumberedsubsubsec 同時進行表記
-@translationof Simultaneous expressions
 
 2 重山括弧で囲まれた 1 つあるいは複数の音楽表記は同時進行します。@c
 最初の表記が単一の音符で始まる場合、@c
@@ -344,12 +339,11 @@ warning: This voice needs a \voiceXx or \shiftXx setting
 しかしながら、これは警告を非表示にするだけでなく、@c
 衝突解決に関するすべてのメッセージを非表示にして、@c
 他にも意図しない影響を与える可能性があります
-(@ref{衝突の解決} の @emph{既知の問題} も参照してください)。
+(@ref{Collision resolution} の @emph{既知の問題} も参照してください)。
 
 
-@node クラスタ
+@node Clusters
 @unnumberedsubsubsec クラスタ
-@translationof Clusters
 
 @cindex cluster (クラスタ)
 @cindex note cluster (音符のクラスタ)
@@ -395,26 +389,24 @@ warning: This voice needs a \voiceXx or \shiftXx setting
 クラスタは MIDI 出力を作り出しません。
 
 
-@node 複数のボイス
+@node Multiple voices
 @subsection 複数のボイス
-@translationof Multiple voices
 
 このセクションでは複数のボイスあるいは複数の譜の中にある同時進行する音符に@c
 ついて議論します。
 
 @menu
-* 単一譜の多声::
-* ボイス スタイル::
-* 衝突の解決::
-* 休符のマージ::
-* 自動パート結合::
-* 音楽を並列に記述する::
+* Single-staff polyphony::
+* Voice styles::
+* Collision resolution::
+* Merging rests::
+* Automatic part combining::
+* Writing music in parallel::
 @end menu
 
 
-@node 単一譜の多声
+@node Single-staff polyphony
 @unnumberedsubsubsec 単一譜の多声
-@translationof Single-staff polyphony
 
 @cindex single-staff polyphony (単一譜の多声)
 @cindex polyphony, single-staff (単一譜の多声)
@@ -539,8 +531,8 @@ warning: This voice needs a \voiceXx or \shiftXx setting
 >>
 @end lilypond
 
-簡単なことですが、@rlearning{コンテキストとエングラーバ} と
-@rlearning{ボイスを明示的にインスタンス化する} で説明されているように、@c
+簡単なことですが、@rlearningnamed{Contexts and engravers, コンテキストとエングラーバ} と
+@rlearningnamed{Explicitly instantiating voices, ボイスを明示的にインスタンス化する} で説明されているように、@c
 明示的に @code{Voice} コンテキストを作成しておくと賢明です。
 
 @subsubsubheading Voice の順序
@@ -646,9 +638,8 @@ etc.
 @rlsr{Simultaneous notes}
 
 
-@node ボイス スタイル
+@node Voice styles
 @unnumberedsubsubsec ボイス スタイル
-@translationof Voice styles
 
 @cindex voice style (ボイス スタイル)
 @cindex style, voice (ボイス スタイル)
@@ -693,9 +684,8 @@ etc.
 @rlsr{Simultaneous notes}
 
 
-@node 衝突の解決
+@node Collision resolution
 @unnumberedsubsubsec 衝突の解決
-@translationof Collision resolution
 
 @cindex merging notes (音符に余白を設ける)
 @cindex note collision (音符の衝突)
@@ -865,7 +855,7 @@ etc.
 
 さらに 2 つのコマンド -- @code{\shiftOnn} と @code{\shiftOnnn} -- は、@c
 複雑な状況で衝突を解決するために一時的に指定されるさらに大きなずれを提供します。@c
-@rlearning{実際の音楽からの例} を参照してください。
+@rlearningnamed{Real music example, 実際の音楽からの例} を参照してください。
 
 音符は符幹の向きが反対である場合
 (例えば、デフォルトのボイス 1 と 2 である場合や、@c
@@ -942,9 +932,8 @@ are at the same time differently dotted are not clear.
 @end ignore
 
 
-@node 休符のマージ
+@node Merging rests
 @unnumberedsubsubsec 休符のマージ
-@translationof Merging rests
 
 複数のボイスを用いる場合、両方のパートに出現する休符はマージされるのが@c
 一般的です。これは @code{Merge_rests_engraver} を用いることで達成できます。
@@ -976,9 +965,8 @@ voiceB = \relative { fis'4 r g2 | R1 | }
 @code{suspendRestMerging} コンテキスト プロパティを @code{##t} に@c
 セットすることで、休符のマージを一時的に無効にすることができます。
 
-@node 自動パート結合
+@node Automatic part combining
 @unnumberedsubsubsec 自動パート結合
-@translationof Automatic part combining
 
 @cindex automatic part combining (自動パート結合)
 @cindex part combiner (パート結合)
@@ -1228,9 +1216,8 @@ instrumentTwo = \relative {
 それぞれの @emph{既知の問題と警告} も参照してください。
 
 
-@node 音楽を並列に記述する
+@node Writing music in parallel
 @unnumberedsubsubsec 音楽を並列に記述する
-@translationof Writing music in parallel
 
 @cindex writing music in parallel (音楽を並列に記述する)
 @cindex interleaved music (間奏)

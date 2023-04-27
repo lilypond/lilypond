@@ -13,33 +13,30 @@
 @c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
-@node lilypond を実行する
+@node Running lilypond
 @chapter @command{lilypond} を実行する
-@translationof Running lilypond
 
 この章では LilyPond を実行するための細かな規定について詳述します。
 
 @menu
-* 通常の使用方法::
-* コマンド ラインの使用方法::
-* エラー メッセージ::
-* 一般的なエラー::
+* Normal usage::
+* Command-line usage::
+* Error messages::
+* Common errors::
 @end menu
 
 
-@node 通常の使用方法
+@node Normal usage
 @section 通常の使用方法
-@translationof Normal usage
 
 たいていのユーザは GUI から LilyPond を実行します。@c
-まだ実行したことがないのであれば @rlearning{チュートリアル} を読んでください。
+まだ実行したことがないのであれば @rlearningnamed{Tutorial, チュートリアル} を読んでください。
 Lilypond ファイルを書くのに代替のエディタを使用するのであれば、@c
 そのエディタのドキュメントを読んでください。
 
 
-@node コマンド ラインの使用方法
+@node Command-line usage
 @section コマンド ラインの使用方法
-@translationof Command-line usage
 
 この節にはコマンド ラインで LilyPond を使用するための追加情報が含まれます。@c
 これにはプログラムに追加オプションを渡す必要があるかもしれません。@c
@@ -60,17 +57,16 @@ OS のコマンド ラインの使用方法についての説明は@c
 その内容を扱っている他のドキュメントをあたってください。
 
 @menu
-* LilyPond を呼び出す::
-* LilyPond の基本的なコマンド ライン オプション::
-* LilyPond の高度なコマンド ライン オプション::
-* 環境変数::
-* 再配置::
-* chroot jail 環境で LilyPond を実行する::
+* Invoking lilypond::
+* Basic command-line options for LilyPond::
+* Advanced command-line options for LilyPond::
+* Environment variables::
+* Relocation::
+* LilyPond in chroot jail::
 @end menu
 
-@node LilyPond を呼び出す
+@node Invoking lilypond
 @unnumberedsubsec @command{lilypond} を呼び出す
-@translationof Invoking lilypond
 
 @command{lilypond} 実行可能形式ファイルは@c
 コマンド ラインから以下のように呼び出されます。
@@ -181,9 +177,8 @@ forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c lilypond @@file"
 @end example
 
 
-@node LilyPond の基本的なコマンド ライン オプション
+@node Basic command-line options for LilyPond
 @unnumberedsubsec LilyPond の基本的なコマンド ライン オプション
-@translationof Basic command-line options for LilyPond
 
 @cindex Invoking @command{lilypond} (@command{lilypond} を呼び出す)
 @cindex command-line options for @command{lilypond} (@command{lilypond} のためのコマンド ライン オプション)
@@ -195,7 +190,7 @@ forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c lilypond @@file"
 @table @asis
 
 @item @code{-d}, @code{--define-default=}@var{var}[@code{=}@var{val}]
-@ref{LilyPond の高度なコマンド ライン オプション} を参照してください。
+@ref{Advanced command-line options for LilyPond} を参照してください。
 
 @cindex Scheme, expression evaluation (Scheme 表記の評価)
 @cindex expression evaluation, Scheme (Scheme 表記の評価)
@@ -241,7 +236,7 @@ EPS ファイルを生成します。
 
 @code{svg} フォーマットや @code{eps} フォーマットを出力するには
 @code{-dbackend} オプションを用います。
-@ref{LilyPond の高度なコマンド ライン オプション} を参照してください。
+@ref{Advanced command-line options for LilyPond} を参照してください。
 
 @item @code{-h}, @code{--help}
 使用方法の要約を表示します。
@@ -303,7 +298,7 @@ Windows ユーザは、ディレクトリのパスの最後にスラッシュを
 Web サーバ経由で LilyPond 譜刻を提供する時や
 LilyPond が外部ソースから送られてきたコマンドを実行する時に、@c
 @code{--dsafe} よりも自由度の高い代替手段を提供します。
-（@ref{LilyPond の高度なコマンド ライン オプション} を参照してください。）
+（@ref{Advanced command-line options for LilyPond} を参照してください。）
 
 @code{--jail} オプションはコンパイル プロセスの開始直前に
 @command{lilypond} のルート ディレクトリを @var{jail} に変更します。@c
@@ -499,9 +494,8 @@ GNU LilyPond の保証責任を表示します。@c
 @end table
 
 
-@node LilyPond の高度なコマンド ライン オプション
+@node Advanced command-line options for LilyPond
 @unnumberedsubsec LilyPond の高度なコマンド ライン オプション
-@translationof Advanced command-line options for LilyPond
 
 オプション @option{-d} は LilyPond の Scheme 関数 @code{ly:set-option}
 のコマンドラインインタフェースです。@c
@@ -610,7 +604,7 @@ SVG ビュアーが対応していないことがあるので、@c
 @var{bool} が @code{#t} なら、@c
 楽譜から断片を取り出します。これを使用するには、
 @code{\layout} ブロックに @code{clip-regions} 関数が定義されている必要が@c
-あります。@rnotation{音楽の断片を抽出する}を参照してください。
+あります。@rnotationnamed{Extracting fragments of music, 音楽の断片を抽出する}を参照してください。
 @option{-dno-print-pages} と一緒に用いられた場合、断片は全く出力されません。@c
 デフォルト: @code{#f}。
 
@@ -927,9 +921,8 @@ SVG ビュアーが対応していないことがあるので、@c
 @end table
 
 
-@node 環境変数
+@node Environment variables
 @unnumberedsubsec 環境変数
-@translationof Environment variables
 
 @cindex LANG
 @cindex LILYPOND_DATADIR
@@ -981,9 +974,8 @@ SVG ビュアーが対応していないことがあるので、@c
 @end table
 
 
-@node 再配置
+@node Relocation
 @unnumberedsubsec 再配置
-@translationof Relocation
 
 @cindex relocation (再配置)
 
@@ -1011,14 +1003,13 @@ LilyPond も例外ではありません。@c
 
 
 @menu
-* 再配置ファイル::
-* 再配置アルゴリズム::
+* Relocation files::
+* Relocation algorithm::
 @end menu
 
 
-@node 再配置ファイル
+@node Relocation files
 @unnumberedsubsubsec 再配置ファイル
-@translationof Relocation files
 
 実行時の構成には、実際には別のメカニズムがあります。
 LilyPond は、外部プログラムとライブラリ、@c
@@ -1085,9 +1076,8 @@ prependdir GUILE_LOAD_PATH=$INSTALLER_PREFIX/share/guile/1.8
 再配置ファイルでは、複数の行で同じ環境変数を設定することを避ける必要があります。
 
 
-@node 再配置アルゴリズム
+@node Relocation algorithm
 @unnumberedsubsubsec 再配置アルゴリズム
-@translationof Relocation algorithm
 
 LilyPond は、次のアルゴリズムを使用してデータファイルを検索します。
 
@@ -1131,9 +1121,8 @@ LilyPond は、次のアルゴリズムを使用してデータファイルを�
 @end enumerate
 
 
-@node chroot jail 環境で LilyPond を実行する
+@node LilyPond in chroot jail
 @unnumberedsubsec chroot jail 環境で LilyPond を実行する
-@translationof LilyPond in chroot jail
 
 LilyPond を chroot jail 環境で実行させるようサーバをセットアップすることは@c
 複雑な作業です。@c
@@ -1253,9 +1242,8 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
 @c " keep quote signs balanced for context-sensitive editors
 
 
-@node エラー メッセージ
+@node Error messages
 @section エラー メッセージ
-@translationof Error messages
 
 @cindex error messages (エラー メッセージ)
 ファイルのコンパイルの最中にはさまざまなエラー メッセージが@c
@@ -1338,12 +1326,11 @@ test.ly:2:19: error: not a duration: 5
 または同じ音楽変数がコンテキストで使われると、@c
 同じメッセージが何回か現れることがあります。
 
-エラーについての更なる情報が @ref{一般的なエラー} で提供されています。
+エラーについての更なる情報が @ref{Common errors} で提供されています。
 
 
-@node 一般的なエラー
+@node Common errors
 @section 一般的なエラー
-@translationof Common errors
 
 以下で説明するエラーがしばしば発生しますが、@c
 その原因は明白でなかったり、見つけにくかったりします。@c
@@ -1351,18 +1338,17 @@ test.ly:2:19: error: not a duration: 5
 
 
 @menu
-* 楽譜がページからはみ出る::
-* 余計な譜が表示される::
-* エラー メッセージ Unbound variable %::
-* エラー メッセージ FT_Get_Glyph_Name::
-* 警告 staff affinities should only decrease::
-* エラー メッセージ unexpected new::
-* 警告 this voice needs a voiceXx or shiftXx setting::
+* Music runs off the page::
+* An extra staff appears::
+* Error message Unbound variable %::
+* Error message FT_Get_Glyph_Name::
+* Warning staff affinities should only decrease::
+* Error message unexpected new::
+* Warning this voice needs a voiceXx or shiftXx setting::
 @end menu
 
-@node 楽譜がページからはみ出る
+@node Music runs off the page
 @unnumberedsubsec 楽譜がページからはみ出る
-@translationof Music runs off the page
 
 楽譜がページの右マージンを越えてはみ出る、あるいは過度に密集するのは、@c
 ほぼ間違いなく音符の演奏時間に誤りがあり、@c
@@ -1381,17 +1367,16 @@ test.ly:2:19: error: not a duration: 5
 ページからはみ出たりする可能性が生じます。}
 
 小節チェックを使用していれば、誤った演奏時間を簡単に見つけることができます。@c
-@rnotation{小節と小節番号のチェック} を参照してください。
+@rnotationnamed{Bar and bar number checks, 小節と小節番号のチェック} を参照してください。
 
 あなたがそのような音符が持ち越される小節を続けることを意図しているのであれば、@c
 改行させたい場所に不可視の小節線を挿入する必要があります。@c
 詳細は
-@rnotation{小節線} を参照してください。
+@rnotationnamed{Bar lines, 小節線} を参照してください。
 
 
-@node 余計な譜が表示される
+@node An extra staff appears
 @unnumberedsubsec 余計な譜が表示される
-@translationof An extra staff appears
 
 コンテキストが @code{\new} や @code{\context} で明示的に作成されていない場合、@c
 既存のコンテキストには適用できないコマンドに遭遇した時点で@c
@@ -1425,9 +1410,8 @@ LilyPond マニュアルのほとんどの例はこの手法を用いていま�
 }
 @end lilypond
 
-@node エラー メッセージ Unbound variable %
+@node Error message Unbound variable %
 @unnumberedsubsec エラー メッセージ Unbound variable %
-@translationof Error message Unbound variable %
 
 このエラー メッセージは、@emph{Scheme} 形式ではなく @emph{LilyPond} 形式の@c
 コメントを含む Scheme ルーチンが呼び出されるたびに、@c
@@ -1437,20 +1421,18 @@ LilyPond 形式のコメントはパーセント記号 (@code{%}) で始まり�
 Scheme ルーチンの中で使うことはできません。@c
 Scheme 形式のコメントはセミコロン (@code{;}) で始まります。
 
-@node エラー メッセージ FT_Get_Glyph_Name
+@node Error message FT_Get_Glyph_Name
 @unnumberedsubsec エラー メッセージ FT_Get_Glyph_Name
-@translationof Error message FT_Get_Glyph_Name
 
 入力ファイルが非 ASCII キャラクタを保持していて、@c
 UTF-8 エンコードで保存されていない場合、@c
 このエラー メッセージがコンソール出力やログ ファイルに表示されます。@c
 詳細は、
-@rnotation{テキスト エンコーディング} を参照してください。
+@rnotationnamed{Text encoding, テキスト エンコーディング} を参照してください。
 
 
-@node 警告 staff affinities should only decrease
+@node Warning staff affinities should only decrease
 @unnumberedsubsec 警告 staff affinities should only decrease
-@translationof Warning staff affinities should only decrease
 
 この警告は、譜刻された出力の中に譜が無い場合に表示されます。@c
 例えば、リード譜に @code{ChordName} コンテキストと @code{Lyrics} コンテキスト@c
@@ -1463,13 +1445,12 @@ UTF-8 エンコードで保存されていない場合、@c
 @end example
 
 @noindent
-詳細は @rnotation{システム内部の可変な垂直方向のスペース} の
+詳細は @rnotationnamed{Flexible vertical spacing within systems, システム内部の可変な垂直方向のスペース} の
 @qq{譜ではない行のスペース} を参照してください。
 
 
-@node エラー メッセージ unexpected new
+@node Error message unexpected new
 @unnumberedsubsec エラー メッセージ unexpected @code{\new}
-@translationof Error message unexpected new
 
 @code{\score} ブロックは @emph{1 つの} 音楽表記を含む必要があります。
 @code{\new Staff} や @code{\new StaffGroup}、その他 @code{\new} で生成される@c
@@ -1512,9 +1493,8 @@ UTF-8 エンコードで保存されていない場合、@c
 }
 @end lilypond
 
-@node 警告 this voice needs a voiceXx or shiftXx setting
+@node Warning this voice needs a voiceXx or shiftXx setting
 @unnumberedsubsec 警告 this voice needs a @code{\voiceXx} or @code{\shiftXx} setting
-@translationof Warning this voice needs a voiceXx or shiftXx setting
 
 2 つの異なるボイスが同じ向きの符幹を持ち、それらが同じタイミングで出現する@c
 時、ボイスにシフトが指定されていない場合に
@@ -1539,7 +1519,7 @@ UTF-8 エンコードで保存されていない場合、@c
 移動しているように見えません。
 
 @morerefs
-@rlearning{ボイスを明示的にインスタンス化する},
-@rlearning{実際の音楽からの例},
-@rnotation{単一譜の多声},
-@rnotation{衝突の解決}
+@rlearningnamed{Explicitly instantiating voices, ボイスを明示的にインスタンス化する},
+@rlearningnamed{Real music example, 実際の音楽からの例},
+@rnotationnamed{Single-staff polyphony, 単一譜の多声},
+@rnotationnamed{Collision resolution, 衝突の解決}

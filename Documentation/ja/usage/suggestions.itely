@@ -14,9 +14,8 @@
 @c Translation status: post-GDP
 
 
-@node LilyPond 入力ファイルの記述に対する提案
+@node Suggestions for writing files
 @chapter LilyPond 入力ファイルの記述に対する提案
-@translationof Suggestions for writing files
 
 今やあなたはもっと大きな LilyPond 入力ファイル -- チュートリアルにあるような@c
 小さな例ではなく、楽曲全体 -- を書き始める準備が整っています。@c
@@ -50,17 +49,16 @@ LilyPond 入力ファイルはより容易に (あるいはより困難に)
 @end itemize
 
 @menu
-* 一般的な提案::
-* 既存の音楽を譜刻する::
-* 大きなプロジェクト::
-* トラブルシュート::
-* Make と Makefile::
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Troubleshooting::
+* Make and Makefiles::
 @end menu
 
 
-@node 一般的な提案
+@node General suggestions
 @section 一般的な提案
-@translationof General suggestions
 
 ここで、譜刻の際に起こる、最もよくある問題を回避 (あるいは修正) する@c
 手助けになりうる提案をいくつか挙げます:
@@ -70,7 +68,7 @@ LilyPond 入力ファイルはより容易に (あるいはより困難に)
 どんなに小さいファイルでも、@strong{すべての入力ファイルに必ず
 @code{\version} 番号を含めるべきです}。@c
 これは、LilyPond のどのバージョンでファイルが作られたかを覚えておかなくて@c
-良くなりますし、@ref{convert-ly を使ってファイルを更新する} の際に特に@c
+良くなりますし、@ref{Updating files with convert-ly} の際に特に@c
 関わってきます (convert-ly は @code{\version} が含まれている必要があります)。@c
 あるいは他のユーザに入力ファイルを送る際 (例えばメーリング リストで助けを@c
 得るとき) にも重要です。@c
@@ -82,7 +80,7 @@ LilyPond 入力ファイルはより容易に (あるいはより困難に)
 入力ファイルに関するあらゆる問題のデバッグを簡単にします。
 
 @item
-@strong{@rnotation{小節と小節番号のチェック}と@rnotation{オクターブ チェック}を含めます。}@c
+@strong{@rnotationnamed{Bar and bar number checks, 小節と小節番号のチェック}と@rnotationnamed{Octave checks, オクターブ チェック}を含めます。}@c
 入力ファイルにこのような@q{チェック}を含めておくことで、@c
 ミスを特定するのが早くなります。@c
 チェックをどのぐらいの頻度で追加するかは、その音楽の複雑さ次第です。@c
@@ -150,15 +148,14 @@ LilyPond 入力ファイルはより容易に (あるいはより困難に)
 
 このオーバライドは新しいコンテキストを生成しませんが、@c
 コンテキストが生成された際に適用されます。@c
-@rlearning{変数と関数を用いて入力の手間を省く}や@c
-@rlearning{スタイル シート}も参照してください。
+@rlearningnamed{Saving typing with variables and functions, 変数と関数を用いて入力の手間を省く}や@c
+@rlearningnamed{Style sheets, スタイル シート}も参照してください。
 
 @end itemize
 
 
-@node 既存の音楽を譜刻する
+@node Typesetting existing music
 @section 既存の音楽を譜刻する
-@translationof Typesetting existing music
 
 既存の楽譜からの音楽を入力している
 (つまり、既存の楽譜の楽曲を譜刻している) のなら、
@@ -208,9 +205,8 @@ A-フラット クラリネットなら aes --
 @end itemize
 
 
-@node 大きなプロジェクト
+@node Large projects
 @section 大きなプロジェクト
-@translationof Large projects
 
 大きなプロジェクトに取り組んでいるとき、@c
 LilyPond 入力ファイルの構造をすっきりさせておくことが不可欠です。
@@ -253,9 +249,8 @@ g'4\fthenp c'8. e16
 @end itemize
 
 
-@node トラブルシュート
+@node Troubleshooting
 @section トラブルシュート
-@translationof Troubleshooting
 
 遅かれ早かれ、あなたは LilyPond がコンパイルできないファイルを@c
 書くことになります。@c
@@ -311,9 +306,8 @@ bass = \relative @{
 @rweb{Tiny examples} を構築することです。
 
 
-@node Make と Makefile
+@node Make and Makefiles
 @section Make と Makefile
-@translationof Make and Makefiles
 
 @cindex makefiles
 @cindex make
@@ -683,5 +677,5 @@ copy out\myproject.pdf MyProject.pdf
 
 @morerefs
 アプリケーションの使用方法:
-@ref{コマンド ラインの使用方法},
+@ref{Command-line usage},
 @ref{lilypond-book}

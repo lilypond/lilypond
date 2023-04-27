@@ -13,9 +13,8 @@
 @include en/included/gsoc.itexi
 @include en/included/helpus.itexi
 
-@node コミュニティ
+@node Community
 @unnumbered コミュニティ
-@translationof Community
 
 @divClass{link-headings}
 
@@ -25,14 +24,14 @@
 @itemize
 
 @item
-@ref{コンタクト}: 援助を求める、議論する、そして交流する！
+@ref{Contact}: 援助を求める、議論する、そして交流する！
 
 @item
-@ref{最小化例}: LilyPond について議論する際に、@c
+@ref{Tiny examples}: LilyPond について議論する際に、@c
 @emph{強く} 推奨することがあります。
 
 @item
-@ref{バグ報告}: 何かうまくいかない。
+@ref{Bug reports}: 何かうまくいかない。
 
 @end itemize
 @divEnd
@@ -43,19 +42,19 @@
 @itemize
 
 @item
-@ref{援助が必要です}: あなたの手助けが必要です。
+@ref{Help us}: あなたの手助けが必要です。
 
 @item
-@ref{スポンサー}: financial contributions.
+@ref{Sponsoring}: financial contributions.
 
 @item
-@ref{開発}: 貢献者とテスター向けです。
+@ref{Development}: 貢献者とテスター向けです。
 
 @item
 @ref{Google Summer of Code}: ideas for Google Summer of Code (GSoC).
 
 @item
-@ref{著者}: 現在の LilyPond を作った人々。
+@ref{Authors}: 現在の LilyPond を作った人々。
 
 @end itemize
 @divEnd
@@ -66,13 +65,13 @@
 @itemize
 
 @item
-@ref{出版物}: 我々が書いたもの、我々についてかかれたもの。
+@ref{Publications}: 我々が書いたもの、我々についてかかれたもの。
 
 @item
-@ref{ニュース}: LilyPond プロジェクトからのニュース。
+@ref{News}: LilyPond プロジェクトからのニュース。
 
 @item
-@ref{物置}: 過去のバージョンのアナウンスと変更ログ、過去のニュースなど。
+@ref{Attic}: 過去のバージョンのアナウンスと変更ログ、過去のニュースなど。
 
 @end itemize
 @divEnd
@@ -81,24 +80,23 @@
 
 @divClass{hide}
 @menu
-* コンタクト::
-* 最小化例::
-* バグ報告::
-* 援助が必要です::
-* スポンサー::
-* 開発::
+* Contact::
+* Tiny examples::
+* Bug reports::
+* Help us::
+* Sponsoring::
+* Development::
 * Google Summer of Code::
-* 著者::
-* 出版物::
-* ニュース::
-* 物置::
+* Authors::
+* Publications::
+* News::
+* Attic::
 @end menu
 @divEnd
 
 
-@node コンタクト
+@node Contact
 @unnumberedsec コンタクト
-@translationof Contact
 
 
 @divClass{column-left-bottom}
@@ -118,7 +116,7 @@ lilypond-user への登録と情報}
 アーカイブ 2}
 @end quotation
 
-@warning{質問がある場合、@ref{最小化例} を使ってください！}
+@warning{質問がある場合、@ref{Tiny examples} を使ってください！}
 
 @subsubheading LilyPond コード断片リポジトリ
 
@@ -131,7 +129,7 @@ LilyPond コード断片リポジトリ (LSR) はユーザが投稿した例の@
 @end example
 
 LSR から、@c
-ためになる例を公式ドキュメントの @ref{コード断片集} に含めています。
+ためになる例を公式ドキュメントの @ref{Snippets} に含めています。
 
 
 @subsubheading IRC
@@ -252,7 +250,7 @@ bug-lilypond への登録と情報}
 アーカイブ 2}
 @end quotation
 
-@warning{バグ リストにメールを送る前に @ref{バグ報告} の@c
+@warning{バグ リストにメールを送る前に @ref{Bug reports} の@c
 ガイドラインを読んで下さい。}
 
 
@@ -269,9 +267,8 @@ LilyPond マニュアルの翻訳に関するすべての議論がここで行�
 @divEnd
 
 
-@node 最小化例
+@node Tiny examples
 @unnumberedsec 最小化例
-@translationof Tiny examples
 
 @divClass{column-center-top}
 @subheading @qq{最小化例} とは？
@@ -380,9 +377,8 @@ LilyPond への理解不足である可能性が高いです！
 @divEnd
 
 
-@node バグ報告
+@node Bug reports
 @unnumberedsec バグ報告
-@translationof Bug reports
 
 
 @divClass{heading-center}
@@ -411,7 +407,7 @@ LilyPond への理解不足である可能性が高いです！
 リスト アップされていないバグを発見した場合、@c
 我々がバグを無くすることができるよう、バグ報告を作ってください。
 
-@warning{我々が受け付ける報告は、@ref{最小化例} になっているものだけです。@c
+@warning{我々が受け付ける報告は、@ref{Tiny examples} になっているものだけです。@c
 我々がバグ報告を扱うために使える資源は非常に限られています。@c
 そのため、最小化されていない例は受け付けられません。@c
 ほとんどのバグは 4 つ以下の音符で表すことができます！}
@@ -475,9 +471,8 @@ LilyPond への理解不足である可能性が高いです！
 @divEnd
 
 
-@node 援助が必要です
+@node Help us
 @unnumberedsec 援助が必要です
-@translationof Help us
 
 @divClass{column-center-top}
 @helpusNeed
@@ -497,9 +492,8 @@ LilyPond への理解不足である可能性が高いです！
 @divEnd
 
 
-@node スポンサー
+@node Sponsoring
 @unnumberedsec スポンサー
-@translationof Sponsoring
 
 @divClass{keep-bullets}
 @divClass{column-left-top}
@@ -541,9 +535,8 @@ LilyPond 開発者は時々、彼らが行ったサービスを lilypond email �
 @divEnd
 
 
-@node 開発
+@node Development
 @unnumberedsec 開発
-@translationof Development
 
 @divClass{heading-center}
 @heading LilyPond @versionDevel の開発
@@ -776,14 +769,12 @@ LilyPond の開発手法はかなり複雑です。@c
 
 @node Google Summer of Code
 @unnumberedsec Google Summer of Code
-@translationof Google Summer of Code
 
 @gsocCurrent
 
 
-@node 著者
+@node Authors
 @unnumberedsec 著者
-@translationof Authors
 
 @divClass{column-left-top}
 @subheading 現在の開発チーム
@@ -857,9 +848,8 @@ LilyPond の開発手法はかなり複雑です。@c
 @divEnd
 @divEnd
 
-@node 出版物
+@node Publications
 @unnumberedsec 出版物
-@translationof Publications
 
 @divClass{column-center-top}
 @subheading 我々が LilyPond について書いたもの
@@ -884,20 +874,18 @@ LilyPond の開発手法はかなり複雑です。@c
 @contactUsAbout{論文}
 
 
-@node ニュース
+@node News
 @unnumberedsec ニュース
-@translationof News
 
 @include en/web/news-new.itexi
 
 @divClass{column-center-bottom}
 @subheading 古いニュース
-@warning{多くの古いアナウンスと変更履歴が @ref{物置} で見つかります。}
+@warning{多くの古いアナウンスと変更履歴が @ref{Attic} で見つかります。}
 @divEnd
 
-@node 物置
+@node Attic
 @unnumberedsec 物置
-@translationof Attic
 
 @divClass{column-center-top}
 @subheading アナウンス

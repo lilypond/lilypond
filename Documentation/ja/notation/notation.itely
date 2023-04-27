@@ -12,21 +12,20 @@
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
 
-@node 音楽記譜法
+@node Musical notation
 @chapter 音楽記譜法
-@translationof Musical notation
 
 この章では音楽表記を作成する方法について説明します。
 
 @menu
-* ピッチ::             音符のピッチを記述、表示する
-* リズム::             音符の演奏時間を記述、表示する
-* 発想記号::           音符に表現を付け加える
-* 繰り返し::           音楽の繰り返し
-* 同時進行する音符::   同時に複数の音符を演奏する
-* 譜の記譜法::         譜を表示する
-* 編集者の注釈::       可読性を良くするための特別な表記
-* テキスト::           楽譜にテキストを追加する
+* Pitches::             音符のピッチを記述、表示する
+* Rhythms::             音符の演奏時間を記述、表示する
+* Expressive marks::           音符に表現を付け加える
+* Repeats::           音楽の繰り返し
+* Simultaneous notes::   同時に複数の音符を演奏する
+* Staff notation::         譜を表示する
+* Editorial annotations::       可読性を良くするための特別な表記
+* Text::           楽譜にテキストを追加する
 @end menu
 
 @include ja/notation/pitches.itely

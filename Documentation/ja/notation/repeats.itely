@@ -14,9 +14,8 @@
 @c Translation status: post-GDP
 
 
-@node 繰り返し
+@node Repeats
 @section 繰り返し
-@translationof Repeats
 
 @lilypondfile[quote]{snippets/repeats-headword.ly}
 
@@ -50,13 +49,12 @@ LilyPond は以下の種類の繰り返しをサポートします:
 
 
 @menu
-* 長い繰り返し::
-* 短い繰り返し::
+* Long repeats::
+* Short repeats::
 @end menu
 
-@node 長い繰り返し
+@node Long repeats
 @subsection 長い繰り返し
-@translationof Long repeats
 
 このセクションでは長い (通常は複数の小節) 繰り返しを入力する方法について@c
 議論します。@c
@@ -66,9 +64,9 @@ LilyPond は以下の種類の繰り返しをサポートします:
 繰り返し記号を手動で制御することもできます。
 
 @menu
-* 通常の繰り返し::
-* 手動の繰り返し記号::
-* 繰り返しを描き出す::
+* Normal repeats::
+* Manual repeat marks::
+* Written-out repeats::
 @end menu
 
 @cindex volta
@@ -84,9 +82,8 @@ LilyPond は以下の種類の繰り返しをサポートします:
 @funindex \alternative
 @funindex \partial
 
-@node 通常の繰り返し
+@node Normal repeats
 @unnumberedsubsubsec 通常の繰り返し
-@translationof Normal repeats
 
 通常の繰り返しの構文は以下の通りです。
 
@@ -184,7 +181,7 @@ LilyPond は以下の種類の繰り返しをサポートします:
 @warning{@code{Voice} コンテキストを明示的にインスタンス化せずに@c
 @code{@bs{}relative} を @code{@bs{}repeat} の中に配置すると、@c
 余計な譜が表示されます。@c
-@rprogram{余計な譜が表示される} を参照してください。}
+@rprogramnamed{An extra staff appears, 余計な譜が表示される} を参照してください。}
 
 @cindex repeat, with upbeat (上拍を持つ繰り返し)
 @cindex upbeat, in a repeat (繰り返しの中にある上拍)
@@ -316,7 +313,7 @@ c'4 e g
 @code{segnoBarType}, @code{startRepeatSegnoBarType}, @code{endRepeatSegnoBarType},
 @code{doubleRepeatSegnoBarType} を好みの値を設定します。小節線の種類は@c
 あらかじめ定義されているものか、前に @code{\defineBarLine} コマンドで定義@c
-されているものから選択する必要があります (@ref{小節線}を参照してください)。
+されているものから選択する必要があります (@ref{Bar lines}を参照してください)。
 
 @lilypond[verbatim,quote]
 \defineBarLine ":|.S[" #'(":|." "S[" "")
@@ -435,9 +432,8 @@ c'4 e g
 はっきりとさせるために、そのような状況では波括弧を使用すると賢明です。
 
 
-@node 手動の繰り返し記号
+@node Manual repeat marks
 @unnumberedsubsubsec 手動の繰り返し記号
-@translationof Manual repeat marks
 
 @cindex manual repeat mark (手動の繰り返し記号)
 @cindex repeat, manual (手動の繰り返し)
@@ -557,9 +553,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 @rinternals{VoltaRepeatedMusic}
 
 
-@node 繰り返しを描き出す
+@node Written-out repeats
 @unnumberedsubsubsec 繰り返しを描き出す
-@translationof Written-out repeats
 
 @cindex written-out repeat (繰り返しを描き出す)
 @cindex repeat, written-out (繰り返しを描き出す)
@@ -668,7 +663,7 @@ a'4 b c | a'4 b c
 @warning{@code{Voice} コンテキストを明示的にインスタンス化せずに@c
 @code{@bs{}relative} を @code{@bs{}repeat} の中に配置すると、@c
 余計な譜が表示されます。@c
-@rprogram{余計な譜が表示される} を参照してください。}
+@rprogramnamed{An extra staff appears, 余計な譜が表示される} を参照してください。}
 
 
 @morerefs
@@ -683,9 +678,8 @@ a'4 b c | a'4 b c
 @rinternals{UnfoldedRepeatedMusic}
 
 
-@node 短い繰り返し
+@node Short repeats
 @subsection 短い繰り返し
-@translationof Short repeats
 
 このセクションでは、短い繰り返しを入力する方法について議論します。@c
 短い繰り返しには 2 つの形式があります:
@@ -693,13 +687,12 @@ a'4 b c | a'4 b c
 スラッシュまたはパーセント記号と、トレモロです。
 
 @menu
-* パーセント繰り返し::
-* トレモロの繰り返し::
+* Percent repeats::
+* Tremolo repeats::
 @end menu
 
-@node パーセント繰り返し
+@node Percent repeats
 @unnumberedsubsubsec パーセント繰り返し
-@translationof Percent repeats
 
 @cindex percent repeat (パーセント繰り返し)
 @cindex measure repeat (小節の繰り返し)
@@ -827,9 +820,8 @@ a'4 b c | a'4 b c
 @end lilypond
 
 
-@node トレモロの繰り返し
+@node Tremolo repeats
 @unnumberedsubsubsec トレモロの繰り返し
-@translationof Tremolo repeats
 
 @cindex tremolo beam (トレモロの連桁)
 @cindex tremolo (トレモロ)

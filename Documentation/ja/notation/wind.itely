@@ -12,49 +12,46 @@
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
-@node 管楽器
+@node Wind instruments
 @section 管楽器
-@translationof Wind instruments
 
 @lilypondfile[quote]{snippets/wind-headword.ly}
 
 このセクションでは管楽器の楽譜を記述する際に現れる記譜要素について説明します。
 
 @menu
-* 管楽器で共通の記譜法::
-* バグパイプ::
-* 木管楽器::
+* Common notation for wind instruments::
+* Bagpipes::
+* Woodwinds::
 @end menu
 
-@node 管楽器で共通の記譜法
+@node Common notation for wind instruments
 @subsection 管楽器で共通の記譜法
-@translationof Common notation for wind instruments
 
 このセクションでは多くの管楽器で共通の記譜法について説明します。
 
 @menu
-* 管楽器のためのリファレンス::
-* 運指::
+* References for wind instruments::
+* Fingerings::
 @end menu
 
-@node 管楽器のためのリファレンス
+@node References for wind instruments
 @unnumberedsubsubsec 管楽器のためのリファレンス
-@translationof References for wind instruments
 
 @cindex wind instruments (管楽器)
 
 管楽器のための多くの記譜の問題は、ブレスとタンギングに関係します:
 
 @itemize
-@item ブレスは休符や @ref{ブレス記号} によって示すことができます。
-@item レガート奏法は @ref{スラー} で示します。
+@item ブレスは休符や @ref{Breath marks} によって示すことができます。
+@item レガート奏法は @ref{Slurs} で示します。
 @item タンギングの種類 -- レガートからノンレガート、スタッカートまでの範囲 --
 は、通常、アーティキュレーション記号で示し、@c
 スラーと組み合わせる場合もあります。@c
-@ref{アーティキュレーションと装飾} と breathing を参照してください。
+@ref{Articulations and ornamentations} と breathing を参照してください。
 @item フラッター タンギングは、通常、音符の上にトレモロ記号と@c
 テキスト マークアップを配置して示します。@c
-@ref{トレモロの繰り返し} を参照してください。
+@ref{Tremolo repeats} を参照してください。
 @end itemize
 
 他の記譜要素を管楽器に適用することができます:
@@ -63,12 +60,12 @@
 @item 多くの管楽器は移調楽器です。@ref{Instrument transpositions} を参照してください。
 @item スライド グリッサンドはトロンボーンの特徴ですが、@c
 他の管楽器でもキーやバルブのグリッサンドを演奏できます。@c
-@ref{グリッサンド} を参照してください。
+@ref{Glissando} を参照してください。
 @item ハーモニック シリーズ (倍音連鎖) のグリッサンド
 -- これは、全ての金管楽器で可能ですが、フレンチ ホルンでよく使われます --
-は、通常、@ref{装飾小音符} として記述します。
-@item 音符の終わりでのピッチの変化は @ref{Fall と Doit} で説明しています。
-@item キー スラップとバルブ スラップはしばしば @ref{特殊な符頭} の
+は、通常、@ref{Grace notes} として記述します。
+@item 音符の終わりでのピッチの変化は @ref{Falls and doits} で説明しています。
+@item キー スラップとバルブ スラップはしばしば @ref{Special note heads} の
 @code{cross} スタイルで示します。
 @item 木管楽器は低い音符をオーバーブローして、@c
 ハーモニクスを鳴らすことができます。@c
@@ -78,11 +75,11 @@
 頻繁に変更する場合は、@c
 @code{stopped} アーティキュレーションと @code{open} アーティキュレーションを@c
 使う方が良いでしょう。@c
-@ref{アーティキュレーションと装飾} と @ref{List of articulations} を@c
+@ref{Articulations and ornamentations} と @ref{List of articulations} を@c
 参照してください。
 @item ホルンのストップット (閉塞音) は @code{stopped} アーティキュレーションで@c
 示します。@c
-@ref{アーティキュレーションと装飾} を参照してください。
+@ref{Articulations and ornamentations} を参照してください。
 @end itemize
 
 @morerefs
@@ -102,16 +99,15 @@
 @rlsr{Winds}
 
 
-@node 運指
+@node Fingerings
 @unnumberedsubsubsec 運指
-@translationof Fingerings
 
 トロンボーン以外の管楽器は各ピッチを鳴らすために@c
 いくつかの指を使う必要があります。@c
 以下でいくつかの運指の例を示します。
 
 木管楽器のダイアグラムを作り出すことができます。@c
-@ref{木管楽器のダイアグラム} で説明します。
+@ref{Woodwind diagrams} で説明します。
 
 @snippets
 
@@ -133,20 +129,18 @@
 @rlsr{Winds}
 
 
-@node バグパイプ
+@node Bagpipes
 @subsection バグパイプ
-@translationof Bagpipes
 
 このセクションではバグパイプで共通の記譜法について説明します。
 
 @menu
-* バグパイプの定義::
-* バグパイプの例::
+* Bagpipe definitions::
+* Bagpipe example::
 @end menu
 
-@node バグパイプの定義
+@node Bagpipe definitions
 @unnumberedsubsubsec バグパイプの定義
-@translationof Bagpipe definitions
 
 @cindex bagpipe (バグパイプ)
 @cindex Scottish highland bagpipe (スコティッシュ ハイランド バグパイプ)
@@ -201,9 +195,8 @@ C と F をフラットにするためクロス フィンガリングを使う�
 @rlsr{Winds}
 
 
-@node バグパイプの例
+@node Bagpipe example
 @unnumberedsubsubsec バグパイプの例
-@translationof Bagpipe example
 
 @cindex bagpipe example (バグパイプの例)
 @cindex Amazing Grace bagpipe example (アメージング グレースのバグパイプの例)
@@ -251,19 +244,17 @@ C と F をフラットにするためクロス フィンガリングを使う�
 コード断片集:
 @rlsr{Winds}
 
-@node 木管楽器
+@node Woodwinds
 @subsection 木管楽器
-@translationof Woodwinds
 
 このセクションでは木管楽器に特有の記譜法について説明します。
 
 @menu
-* 木管楽器のダイアグラム::
+* Woodwind diagrams::
 @end menu
 
-@node 木管楽器のダイアグラム
+@node Woodwind diagrams
 @subsubsection 木管楽器のダイアグラム
-@translationof Woodwind diagrams
 
 木管楽器のダイアグラムで特定の音符で使用する運指を示すことができ、@c
 以下の楽器のダイアグラムが利用可能です:

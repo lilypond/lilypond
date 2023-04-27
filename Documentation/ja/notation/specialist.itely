@@ -12,24 +12,23 @@
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
-@node 専門的な記譜法
+@node Specialist notation
 @chapter 専門的な記譜法
-@translationof Specialist notation
 
 この章では、特定のタイプの楽器やスタイル向けの音楽記譜を作成するための方法@c
 について説明します。
 
 @menu
-* 声楽::
-* キーボードと他の複数譜の楽器::
-* フレットの無い弦楽器::
-* フレットのある弦楽器::
-* 打楽器::
-* 管楽器::
-* 和音記譜法::
-* 現代音楽::
-* 古代の記譜法::
-* 世界の音楽::
+* Vocal music::
+* Keyboard and other multi-staff instruments::
+* Unfretted string instruments::
+* Fretted string instruments::
+* Percussion::
+* Wind instruments::
+* Chord notation::
+* Contemporary music::
+* Ancient notation::
+* World music::
 @end menu
 
 @include ja/notation/vocal.itely

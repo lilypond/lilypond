@@ -13,9 +13,8 @@
 @c Translators: Masamichi Hosoda, Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
-@node 基礎となるコンセプト
+@node Fundamental concepts
 @chapter 基礎となるコンセプト
-@translationof Fundamental concepts
 
 チュートリアルではシンプルなテキスト ファイルから美しい楽譜を譜刻する方法を@c
 見てきました。@c
@@ -23,16 +22,15 @@
 作り出すのに必要とされるコンセプトとテクニックについて紹介します。
 
 @menu
-* LilyPond 入力ファイルの仕組み::
-* 音楽を保持するボイス::
-* コンテキストとエングラーバ::
-* テンプレートを拡張する::
+* How LilyPond input files work::
+* Voices contain music::
+* Contexts and engravers::
+* Extending the templates::
 @end menu
 
 
-@node LilyPond 入力ファイルの仕組み
+@node How LilyPond input files work
 @section LilyPond 入力ファイルの仕組み
-@translationof How LilyPond input files work
 
 LilyPond の入力フォーマットは非常に自由な形式であり、@c
 経験豊富なユーザにとってはファイルを構築する際の自由度が高いです。@c
@@ -44,17 +42,16 @@ LilyPond の入力フォーマットは非常に自由な形式であり、@c
 参照してください。
 
 @menu
-* LilyPond ファイル構造の紹介::
-* Score は (単一の) 複合的な音楽表記::
-* 音楽表記をネストする::
-* 入力音符の構造::
-* ネストされない括弧とタイ::
+* Introduction to the LilyPond file structure::
+* Score is a (single) compound musical expression::
+* Nesting music expressions::
+* Structure of a note entry::
+* On the un-nestedness of brackets and ties::
 @end menu
 
 
-@node LilyPond ファイル構造の紹介
+@node Introduction to the LilyPond file structure
 @subsection LilyPond ファイル構造の紹介
-@translationof Introduction to the LilyPond file structure
 
 @cindex input format (入力フォーマット)
 @cindex file structure (ファイル構造)
@@ -126,7 +123,7 @@ LilyPond はまるでその音楽表記が上で示されたコマンドで包�
 -- 特に追加のコマンドが使用される場合 --
 コンテキストの暗黙的な作成は予想外の結果となる可能性があります。@c
 多分、予期しない余分な譜が作成されるでしょう。@c
-コンテキストを明示的に作成する方法は @ref{コンテキストとエングラーバ} で@c
+コンテキストを明示的に作成する方法は @ref{Contexts and engravers} で@c
 説明されています。
 
 @warning{数行以上の音楽を入力する場合、常に譜とボイスを明示的に@c
@@ -251,7 +248,7 @@ LilyPond がこのファイルを見ると、@code{melody} の値
 変数名はアルファベットだけで構成されていて、LilyPond コマンド名と@c
 異なっている限りは、ほぼどんな名前でも使用できるということを@c
 覚えておいてください。@c
-詳細は、@ref{変数と関数を用いて入力の手間を省く} を参照してください。@c
+詳細は、@ref{Saving typing with variables and functions} を参照してください。@c
 変数名の厳密な制限については、@rnotation{File structure} で詳述されています。
 
 
@@ -259,9 +256,8 @@ LilyPond がこのファイルを見ると、@code{melody} の値
 入力フォーマットの完全な定義は、@rnotation{File structure} を参照してください。
 
 
-@node Score は (単一の) 複合的な音楽表記
+@node Score is a (single) compound musical expression
 @subsection Score は (単一の) 複合的な音楽表記
-@translationof Score is a (single) compound musical expression
 
 @funindex \score
 @cindex score
@@ -270,7 +266,7 @@ LilyPond がこのファイルを見ると、@code{melody} の値
 @cindex compound music expression (複合音楽表記)
 @cindex music expression, compound (複合音楽表記)
 
-前のセクション -- @ref{LilyPond ファイル構造の紹介} -- で
+前のセクション -- @ref{Introduction to the LilyPond file structure} -- で
 LilyPond 入力ファイルの一般的な構造について見てきました。@c
 しかしながら、我々は最も重要な部分を飛ばしてきたようです:
 どうやって @code{\score} の後に記述するものを見つけ出すのでしょうか？
@@ -285,7 +281,7 @@ LilyPond 入力ファイルの一般的な構造について見てきました�
 
 @noindent
 音楽表記が意味しているものを理解するには、チュートリアルの
-@ref{音楽表記についての説明} を読み返すと役に立つかもしれません。@c
+@ref{Music expressions explained} を読み返すと役に立つかもしれません。@c
 そこでは、小さな音楽表記 -- 音符から始めて、それから和音など -- から@c
 大きな音楽表記を構築する方法を説明しています。@c
 今度は、大きな音楽表記から始めます。@c
@@ -322,7 +318,7 @@ LilyPond 入力ファイルの一般的な構造について見てきました�
 実際の音楽は後で付け加えるとして、@c
 ここではいくつかのダミーの音符と歌詞を配置してみます。@c
 歌詞の入力の仕方を忘れてしまったのなら、@c
-@ref{簡単な歌曲を作成する} の @code{\addlyrics} を見直してください。
+@ref{Setting simple songs} の @code{\addlyrics} を見直してください。
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -406,9 +402,8 @@ lower  = \relative { b,2 e }
 記譜法リファレンス: @rnotation{Structure of a score}
 
 
-@node 音楽表記をネストする
+@node Nesting music expressions
 @subsection 音楽表記をネストする
-@translationof Nesting music expressions
 
 @cindex staves, temporary (一時的な譜)
 @cindex temporary staves (一時的な譜)
@@ -472,11 +467,10 @@ lower  = \relative { b,2 e }
 オッシアはしばしば音部記号や拍子記号無しで描かれ、@c
 通常は小さなフォントで描かれます。@c
 これらはまだ紹介されていない追加のコマンドを必要とします。@c
-@ref{オブジェクトのサイズ} と @rnotation{オッシア譜} を参照してください。
+@ref{Size of objects} と @rnotationnamed{Ossia staves, オッシア譜} を参照してください。
 
-@node 入力音符の構造
+@node Structure of a note entry
 @subsection 入力音符の構造
-@translationof Structure of a note entry
 
 LilyPond の入力における音符は、順番にピッチ、長さ、@c
 1 つ以上の@q{後置イベント} (省略可能) からなります。LilyPond における@c
@@ -514,9 +508,8 @@ c' の 8 分音符に、1 の運指記号、@c
 @rnotation{Expressive marks}
 
 
-@node ネストされない括弧とタイ
+@node On the un-nestedness of brackets and ties
 @subsection ネストされない括弧とタイ
-@translationof On the un-nestedness of brackets and ties
 
 @cindex brackets, nesting (括弧をネストする)
 @cindex bracket types (括弧のタイプ)
@@ -592,9 +585,8 @@ LilyPond 以外では、種類の異なる括弧が適切にネストされる�
 @end lilypond
 
 
-@node 音楽を保持するボイス
+@node Voices contain music
 @section 音楽を保持するボイス
-@translationof Voices contain music
 
 歌手は歌うボイスを必要とし、@c
 LilyPond も歌う (演奏する) ボイスを必要とします。@c
@@ -602,15 +594,14 @@ LilyPond も歌う (演奏する) ボイスを必要とします。@c
 -- このことは LilyPond すべてのコンセプトの中での最も基礎的なことです。
 
 @menu
-* 私はボイスを聴いている::
-* ボイスを明示的にインスタンス化する::
-* ボイスとボーカル::
+* I'm hearing Voices::
+* Explicitly instantiating voices::
+* Voices and vocals::
 @end menu
 
 
-@node 私はボイスを聴いている
+@node I'm hearing Voices
 @subsection 私はボイスを聴いている
-@translationof I'm hearing Voices
 
 @cindex polyphony (多声)
 @cindex layers (レイヤ)
@@ -832,7 +823,7 @@ LilyPond の楽譜の中で最も低レベルで、最も基礎的であり、�
 @code{\voiceNeutralStyle} (これもここでは使用されていません) は@c
 符頭のスタイルをデフォルトに戻します。@c
 後ほど、ユーザがこのようなコマンドを作成するための方法を見ていきます。@c
-@ref{オブジェクトの可視性と色} と @ref{レイアウトの調整のために変数を使用する}
+@ref{Visibility and color of objects} と @ref{Using variables for layout adjustments}
 を参照してください。
 
 @cindex polyphony and relative note entry (多声と相対音符入力)
@@ -1008,12 +999,11 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 
 @morerefs
 記譜法リファレンス:
-@rnotation{複数のボイス}
+@rnotationnamed{Multiple voices, 複数のボイス}
 
 
-@node ボイスを明示的にインスタンス化する
+@node Explicitly instantiating voices
 @subsection ボイスを明示的にインスタンス化する
-@translationof Explicitly instantiating voices
 
 @funindex \voiceOne
 @funindex \voiceTwo
@@ -1259,7 +1249,7 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 @code{\shiftOnn} と @code{\shiftOnnn} はさらなるシフト レベルを@c
 定義するものであり、複雑な状況での衝突を解決するために@c
 一時的に指定されるかもしれません --
-@ref{実際の音楽からの例} を参照してください。
+@ref{Real music example} を参照してください。
 
 ある音符列は上向きの符幹を持つボイスからの音符 (あるいは和音) を 1 つだけ、@c
 下向きの符幹を持つボイスからの音符 (あるいは和音) を 1 つだけ@c
@@ -1277,12 +1267,11 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 @rnotation{Moving objects}
 
 記譜法リファレンス:
-@rnotation{複数のボイス}
+@rnotationnamed{Multiple voices, 複数のボイス}
 
 
-@node ボイスとボーカル
+@node Voices and vocals
 @subsection ボイスとボーカル
-@translationof Voices and vocals
 
 声楽には特別な困難があります:
 2 つの表記 -- 音符と歌詞 -- を組み合わせる必要があります。
@@ -1450,26 +1439,24 @@ VerseFour  =
 @c 声楽
 
 
-@node コンテキストとエングラーバ
+@node Contexts and engravers
 @section コンテキストとエングラーバ
-@translationof Contexts and engravers
 
 これまでに、コンテキストとエングラーバについて簡単に言及してきました。@c
 ここでは、これらのコンセプトをより詳細に見ていくことにします。@c
 なぜなら、これらは LilyPond 出力をうまく調節するのに重要だからです。
 
 @menu
-* コンテキストの説明::
-* コンテキストを作成する::
-* エングラーバの説明::
-* コンテキスト プロパティを変更する::
-* エングラーバを追加 / 削除する::
+* Contexts explained::
+* Creating contexts::
+* Engravers explained::
+* Modifying context properties::
+* Adding and removing engravers::
 @end menu
 
 
-@node コンテキストの説明
+@node Contexts explained
 @subsection コンテキストの説明
-@translationof Contexts explained
 
 @cindex contexts explained (コンテキストの説明)
 
@@ -1543,9 +1530,8 @@ LilyPond 内部では、これらの規則と情報ビットは@emph{コンテ�
 @c コンテキストの説明
 
 
-@node コンテキストを作成する
+@node Creating contexts
 @subsection コンテキストを作成する
-@translationof Creating contexts
 
 @funindex \new
 @cindex new contexts (新しいコンテキスト)
@@ -1583,7 +1569,7 @@ score ブロックは単一の音楽表記を保持しますが、それに関�
 自動的に作成されます。@c
 楽譜全体のコンテキスト プロパティのデフォルト値を変更するには、@c
 @code{@bs{}layout} ブロックの中で行います。@c
-@ref{コンテキスト プロパティを変更する} を参照してください。}
+@ref{Modifying context properties} を参照してください。}
 
 これまでに、新たに @code{Staff} と @code{Voice} コンテキストを作成する多くの@c
 実際的な例を見てきましたが、これらのコマンドが実際にどのように使用されるのかを@c
@@ -1659,16 +1645,15 @@ score ブロックは単一の音楽表記を保持しますが、それに関�
 のようになります。@c
 識別名はコンテキストのあるインスタンスを参照するために使用されます。@c
 このことを歌詞についてのセクションで見てきました。@c
-@ref{ボイスとボーカル} を参照してください。
+@ref{Voices and vocals} を参照してください。
 
 
 @morerefs
 記譜法リファレンス: @rnotation{Creating and referencing contexts}
 
 
-@node エングラーバの説明
+@node Engravers explained
 @subsection エングラーバの説明
-@translationof Engravers explained
 
 @cindex engravers (エングラーバ)
 
@@ -1752,9 +1737,8 @@ LilyPond によって作成された楽譜上にあるすべての記号は
 内部リファレンス: @rinternals{Engravers and Performers}
 
 
-@node コンテキスト プロパティを変更する
+@node Modifying context properties
 @subsection コンテキスト プロパティを変更する
-@translationof Modifying context properties
 
 @cindex context properties (コンテキスト プロパティ)
 @cindex context properties, modifying (コンテキスト プロパティを変更する)
@@ -2087,9 +2071,8 @@ like this:
 @rinternals{Tunable context properties}
 
 
-@node エングラーバを追加 / 削除する
+@node Adding and removing engravers
 @subsection エングラーバを追加 / 削除する
-@translationof Adding and removing engravers
 
 @cindex engravers, adding (エングラーバを追加する)
 @cindex adding engravers (エングラーバを追加する)
@@ -2257,30 +2240,28 @@ like this:
 それゆえ符幹も連桁も作られません。
 
 
-@node テンプレートを拡張する
+@node Extending the templates
 @section テンプレートを拡張する
-@translationof Extending the templates
 
 あなたはチュートリアルを読み終えました。@c
 あなたはどのように楽譜を書くかを知っていて、@c
 基礎となるコンセプトを理解しています。@c
 しかし、どうやったらあなたはあなたが望む譜を手に入れられるでしょうか？@c
 あなたにとって良いスタート地点となるかもしれない多くのテンプレートがあります
-(@ref{テンプレート} を参照してください)。@c
+(@ref{Templates} を参照してください)。@c
 しかしながら、あなたの望むものがそこでカバーされていなかったらどうしましょう？@c
 続きを読んでください。
 
 @menu
-* ソプラノとチェロ::
-* 4 パート SATB ボーカル譜::
-* ゼロから楽譜を構築する::
-* 変数と関数を用いて入力の手間を省く::
-* 楽譜とパート::
+* Soprano and cello::
+* Four-part SATB vocal score::
+* Building a score from scratch::
+* Saving typing with variables and functions::
+* Scores and parts::
 @end menu
 
-@node ソプラノとチェロ
+@node Soprano and cello
 @subsection ソプラノとチェロ
-@translationof Soprano and cello
 
 @cindex template, modifying (テンプレートを変更する)
 @cindex modifying templates (テンプレートを変更する)
@@ -2474,9 +2455,8 @@ celloMusic = \relative {
 @ref{Single staff templates} を参照してください。
 
 
-@node 4 パート SATB ボーカル譜
+@node Four-part SATB vocal score
 @subsection 4 パート SATB ボーカル譜
-@translationof Four-part SATB vocal score
 
 @cindex template, SATB (SATB テンプレート)
 @cindex SATB template (SATB テンプレート)
@@ -2838,9 +2818,8 @@ lower = \relative {
 @end lilypond
 
 
-@node ゼロから楽譜を構築する
+@node Building a score from scratch
 @subsection ゼロから楽譜を構築する
-@translationof Building a score from scratch
 
 @cindex template, writing your own (自分自身のテンプレートを記述する)
 @cindex example of writing a score (楽譜の書き方の例)
@@ -3134,9 +3113,8 @@ PedalOrganMusic = \relative {
 音楽用語集:
 @rglos{system}
 
-@node 変数と関数を用いて入力の手間を省く
+@node Saving typing with variables and functions
 @subsection 変数と関数を用いて入力の手間を省く
-@translationof Saving typing with variables and functions
 
 @cindex variables (変数)
 
@@ -3244,18 +3222,17 @@ padText =
 @end lilypond
 
 変数を使うことは、LilyPond 入力構文に変更があった場合の作業を減らす@c
-良い方法でもあります (@rprogram{convert-ly を使ってファイルを更新する}
+良い方法でもあります (@rprogramnamed{Updating files with convert-ly, convert-ly を使ってファイルを更新する}
 を参照してください)。@c
 あなたがあなたの入力ファイルすべてに使用する単一の定義
 (@code{\dolce} のような) を持っていて、構文が変更された場合、@c
 すべての @code{.ly} ファイルを変更する代わりに、@c
 @code{\dolce} 定義をアップデートするだけで済みます。
-(@ref{スタイル シート} を参照してください。)
+(@ref{Style sheets} を参照してください。)
 
 
-@node 楽譜とパート
+@node Scores and parts
 @subsection 楽譜とパート
-@translationof Scores and parts
 
 オーケストラ音楽では、すべての音符は 2 回譜刻されます。@c
 1 回は演奏家のためのパート譜で、1 回は指揮者のための総譜で譜刻されます。@c

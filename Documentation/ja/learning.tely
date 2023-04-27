@@ -43,18 +43,18 @@ Copyright @copyright{} 1998--2023 by the authors.
 
 @menu
 * Installing::               Installing LilyPond
-* チュートリアル::              LilyPond で譜刻するための基本
-* 一般的な記譜法::              LilyPond 導入の手引き
-* 基礎となるコンセプト::        このマニュアルの残りの部分を読むために@c
+* Tutorial::              LilyPond で譜刻するための基本
+* Common notation::              LilyPond 導入の手引き
+* Fundamental concepts::        このマニュアルの残りの部分を読むために@c
 必要とされる基本的なコンセプト
-* 出力を調整する::              出力を変更するための導入部
+* Tweaking output::              出力を変更するための導入部
 
 付録
 
-* テンプレート::                    作成 (コンパイル) 準備ができている@c
+* Templates::                    作成 (コンパイル) 準備ができている@c
 テンプレート
 * GNU Free Documentation License::  このドキュメントの使用許諾書
-* LilyPond インデックス::
+* LilyPond index::
 @end menu
 
 @docMain
@@ -80,9 +80,8 @@ Copyright @copyright{} 1998--2023 by the authors.
 @include en/fdl.itexi
 
 
-@node LilyPond インデックス
+@node LilyPond index
 @appendix LilyPond インデックス
-@translationof LilyPond index
 
 @printindex cp
 

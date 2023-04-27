@@ -12,9 +12,8 @@
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
-@node 和音記譜法
+@node Chord notation
 @section 和音記譜法
-@translationof Chord notation
 
 @lilypondfile[quote]{snippets/chords-headword.ly}
 
@@ -23,15 +22,14 @@
 和音ネームと通奏低音記譜を表示させることもできます。
 
 @menu
-* 和音モード::
-* 和音を表示する::
-* 通奏低音::
+* Chord mode::
+* Displaying chords::
+* Figured bass::
 @end menu
 
 
-@node 和音モード
+@node Chord mode
 @subsection 和音モード
-@translationof Chord mode
 
 @cindex chord (和音)
 
@@ -39,20 +37,19 @@
 和音構造の指示子を用いてコードを入力します。
 
 @menu
-* 和音モードの概要::
-* 一般的な和音::
-* 和音の拡張と変形::
-* 和音の転回と特殊なボイシング::
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
+* Chord inversions and specific voicings::
 @end menu
 
-@node 和音モードの概要
+@node Chord mode overview
 @unnumberedsubsubsec 和音モードの概要
-@translationof Chord mode overview
 
 @cindex chord name (コード ネーム)
 @cindex chord mode (和音モード)
 
-和音を @ref{和音の音符} で説明しているように、@c
+和音を @ref{Chorded notes} で説明しているように、@c
 同時進行する音として入力することができます。
 
 和音を @qq{和音モード} で入力することもできます。
@@ -60,7 +57,7 @@
 従来のヨーロッパ音楽での和音構造に焦点を当てた入力モードです。@c
 これは、コード ネームを使うことに慣れているユーザにとって、@c
 和音を記述するのに便利な機能です。@c
-他の入力モードについて更なる情報は、@ref{入力モード} を参照してください。
+他の入力モードについて更なる情報は、@ref{Input modes} を参照してください。
 
 @lilypond[verbatim,quote,ragged-right]
 \chordmode { c1 g a g c }
@@ -99,12 +96,11 @@
 
 あらかじめ定義されているアーティキュレーションと装飾の短縮形を@c
 和音モードで使うことはできません。@c
-@ref{アーティキュレーションと装飾} を参照してください。
+@ref{Articulations and ornamentations} を参照してください。
 
 
-@node 一般的な和音
+@node Common chords
 @unnumberedsubsubsec 一般的な和音
-@translationof Common chords
 
 @cindex triad (三和音、トライアド)
 @cindex seventh chord (七の和音、セブンス コード)
@@ -225,7 +221,7 @@ maj, maj7
 @morerefs
 記譜法リファレンス:
 @ref{Common chord modifiers},
-@ref{和音の拡張と変形}
+@ref{Extended and altered chords}
 
 コード断片集:
 @rlsr{Chords}
@@ -238,12 +234,11 @@ maj, maj7
 結果は予測できません。@c
 1 つのクオリティー修飾子では実現できない和音は、@c
 個々のピッチに分解してください
--- @ref{和音の拡張と変形} で説明しています。
+-- @ref{Extended and altered chords} で説明しています。
 
 
-@node 和音の拡張と変形
+@node Extended and altered chords
 @unnumberedsubsubsec 和音の拡張と変形
-@translationof Extended and altered chords
 
 @cindex extended chord (和音の拡張)
 @cindex altered chord (和音の変形)
@@ -403,9 +398,8 @@ maj, maj7
 @end lilypond
 
 
-@node 和音の転回と特殊なボイシング
+@node Chord inversions and specific voicings
 @unnumberedsubsubsec 和音の転回と特殊なボイシング
-@translationof Chord inversions and specific voicings
 
 @cindex chord, rotating (和音の転回)
 @cindex chord inversion (和音の転回)
@@ -443,21 +437,19 @@ maj, maj7
 @rlsr{Chords}
 
 
-@node 和音を表示する
+@node Displaying chords
 @subsection 和音を表示する
-@translationof Displaying chords
 
 譜に音符を表示させるという標準の表示に加えて、@c
 コード ネームを表示させることができます。
 
 @menu
-* コード ネームを譜刻する::
-* コード ネームをカスタマイズする::
+* Printing chord names::
+* Customizing chord name (コード ネームをカスタマイズする)::
 @end menu
 
-@node コード ネームを譜刻する
+@node Printing chord names
 @unnumberedsubsubsec コード ネームを譜刻する
-@translationof Printing chord names
 
 @cindex printing chord name (コード ネームを譜刻する)
 @cindex chord name (コード ネーム)
@@ -561,7 +553,7 @@ chordmusic = \relative {
 @rglos{chord}
 
 記譜法リファレンス:
-@ref{音楽を並列に記述する}
+@ref{Writing music in parallel}
 
 コード断片集:
 @rlsr{Chords}
@@ -578,9 +570,8 @@ chordmusic = \relative {
 転回や低音の追加を含む和音のコード ネームは正しく表示されません。
 
 
-@node コード ネームをカスタマイズする
+@node Customizing chord name (コード ネームをカスタマイズする)
 @unnumberedsubsubsec コード ネームをカスタマイズする
-@translationof Customizing chord name (コード ネームをカスタマイズする)
 
 @cindex customizing chord names (コード ネームをカスタマイズする)
 
@@ -841,9 +832,8 @@ myChords = \relative c' {
 @end lilypond
 
 
-@node 通奏低音
+@node Figured bass
 @subsection 通奏低音
-@translationof Figured bass
 
 @c Line width hack because of instrument names
 @lilypondfile[quote,staffsize=18,line-width=14.5\cm]{snippets/figured-bass-headword.ly}
@@ -851,14 +841,13 @@ myChords = \relative c' {
 通奏低音を譜刻することができます。
 
 @menu
-* 通奏低音の導入部::
-* 通奏低音を入力する::
-* 通奏低音を表示する::
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
 @end menu
 
-@node 通奏低音の導入部
+@node Introduction to figured bass
 @unnumberedsubsubsec 通奏低音の導入部
-@translationof Introduction to figured bass
 
 @cindex basso continuo (通奏低音)
 @cindex thorough bass (通奏低音)
@@ -921,13 +910,12 @@ example, the vertical spacing of the figures may be set with
 @rlsr{Chords}
 
 
-@node 通奏低音を入力する
+@node Entering figured bass
 @unnumberedsubsubsec 通奏低音を入力する
-@translationof Entering figured bass
 
 
 @code{\figuremode} は入力モードを通奏低音モードに切り替えるのに用いられます。@c
-他の入力モードについての更なる情報は @ref{入力モード} で見つかります。
+他の入力モードについての更なる情報は @ref{Input modes} で見つかります。
 
 通奏低音モードでは、通奏低音のグループを @code{<} と @code{>} で囲みます。@c
 演奏時間は @code{>} の後に入力します。
@@ -1122,9 +1110,8 @@ example, the vertical spacing of the figures may be set with
 @rinternals{FiguredBass}
 
 
-@node 通奏低音を表示する
+@node Displaying figured bass
 @unnumberedsubsubsec 通奏低音を表示する
-@translationof Displaying figured bass
 
 @code{FiguredBass} コンテキストを用いて通奏低音を表示させることができます。@c
 たいていの譜コンテキストでも表示させることができます。
