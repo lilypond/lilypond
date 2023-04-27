@@ -68,13 +68,18 @@ non-existent @var{tag}.
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
   LY_ASSERT_TYPE (scm_is_string, tag, 2);
-
-  char ctag[5] = "    ";
-
   std::string tag_string = ly_scm2string (tag);
-  strncpy (ctag, tag_string.c_str (), tag_string.length ());
+  if (tag_string.length () > 4)
+    {
+      scm_misc_error ("ly:otf-font-table-data",
+                      "tag string must have 4 characters at most: ~s",
+                      ly_list (tag));
+    }
 
-  std::string tab = otf->get_otf_table (std::string (ctag));
+  // Pad with spaces
+  tag_string.insert (tag_string.length (), 4 - tag_string.length (), ' ');
+
+  std::string tab = otf->get_otf_table (tag_string);
 
   SCM ret = scm_from_latin1_stringn (tab.data (), tab.length ());
   scm_remember_upto_here_1 (font);
