@@ -50,10 +50,10 @@ Partial_iterator::process (Moment m)
 
       if (!timing)
         programming_error ("missing Timing in \\partial");
-      else if (get_context ()->now_mom () > 0)
+      else if (timing->init_mom () < timing->now_mom ())
         {
           set_property (timing, "partialBusy", SCM_BOOL_T);
-          Global_context *g = find_global_context (get_context ());
+          Global_context *g = find_global_context (timing);
           g->add_finalization (ly_list (finalization_proc, timing->self_scm (),
                                         length.smobbed_copy ()));
         }

@@ -72,6 +72,8 @@ Context::add_context (Context *child)
     = ly_append (context_list_, scm_cons (child->self_scm (), SCM_EOL));
 
   child->parent_ = this;
+  child->init_mom_ = now_mom ();
+
   events_below_->register_as_listener (child->events_below_);
 }
 

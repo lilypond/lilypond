@@ -89,6 +89,12 @@ protected:
 private:
   Context *parent_;
 
+  // The global time at which this context was added to the tree.  This default
+  // value keeps Global_context, which is never added to the tree in the same
+  // sense as other contexts are added, following the rule that parent.init_mom_
+  // <= child.init_mom_.  (It isn't clear whether that is really important.)
+  Moment init_mom_ = -Moment::infinity ();
+
 protected:
   /* The used Context_def */
   SCM definition_;
@@ -182,7 +188,15 @@ public:
   SCM context_name_symbol () const;
 
   virtual Output_def *get_output_def () const;
+
+  // Get the current translation timestep.  The context providing access to this
+  // value has no bearing on it.  "Now" is the same throughout the tree.
   virtual Moment now_mom () const;
+
+  // Get the creation time of this context.  This is the value that now_mom ()
+  // returned when this context was added to the tree and the translators in
+  // this context were initialized.
+  const Moment &init_mom () const { return init_mom_; }
 
   Context *get_default_interpreter (const std::string &context_id = "");
   Context *get_user_accessible_interpreter ();
