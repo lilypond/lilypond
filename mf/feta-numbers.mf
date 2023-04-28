@@ -1073,8 +1073,8 @@ fet_endchar;
 fet_beginchar ("numeral dash", "hyphen");
   set_char_box (0, height# / 3, 0, height#);
 
-  draw_rounded_block ((-b, h / 3 - thin / 2),
-                      (w, h / 3 + thin / 2), thin);
+  draw_rounded_block ((-b, h / 3 - thin),
+                      (w, h / 3 + thin), 2 thin);
 fet_endchar;
 
 
@@ -1687,19 +1687,18 @@ fet_beginchar ("figure dash", "figuredash");
 
   bearing := hround (1/20 * (b + w));
 
-  draw_rounded_block ((-b + bearing, h / 3 - thin / 2),
-                      (w - bearing, h / 3 + thin / 2), thin);
+  draw_rounded_block ((-b + bearing, h / 3 - thin),
+                      (w - bearing, h / 3 + thin), 2 thin);
 fet_endchar;
 
 
-% The same as the figure dash.
 fet_beginchar ("en dash", "endash");
   save bearing;
 
-  set_char_box (0, fixed_width_advance#, 0, height#);
+  set_char_box (0, 2/3 height#, 0, height#);
 
   bearing := hround (1/20 * (b + w));
 
-  draw_rounded_block ((-b + bearing, h / 3 - thin / 2),
-                      (w - bearing, h / 3 + thin / 2), thin);
+  draw_rounded_block ((-b + bearing, h / 3 - thin),
+                      (w - bearing, h / 3 + thin), 2 thin);
 fet_endchar;
