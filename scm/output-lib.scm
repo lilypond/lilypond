@@ -1742,34 +1742,30 @@ visible, just that they exist."
         '(0 . 0))))
 
 (define-public (volta-bracket-interface::calc-text grob)
-  (let* ((enlarge-text
-          (lambda (text)
-            ;; Should this be configurable?  It would probably be better to add
-            ;; an en dash and a hair space to Emmentaler, with the right size.
-            (make-fontsize-markup 5.2 text)))
-         (en-dash (enlarge-text "\u2013"))
-         (hair-space (enlarge-text "\u200a"))
-         (volta-numbers (ly:grob-property grob 'volta-numbers))
+  (let* ((volta-numbers (ly:grob-property grob 'volta-numbers))
          (ranges (group-into-ranges volta-numbers))
          (threshold (ly:grob-property grob 'range-collapse-threshold)))
     (define (format-num num)
-      (make-volta-number-markup (string-append (number->string num) ".")))
+      (string-append (number->string num) "."))
     (make-concat-markup
      (list-join
       (map (match-lambda
              ((start . end)
-              (make-concat-markup
-               (if (<= threshold (1+ (- end start)))
-                   (list (format-num start)
-                         en-dash
-                         (format-num end))
-                   (list-join
-                    (map format-num
-                         (iota (1+ (- end start))
-                               start))
-                    hair-space)))))
+              (make-volta-number-markup
+               (make-concat-markup
+                (if (<= threshold (1+ (- end start)))
+                    (list (format-num start)
+                          "\u2013" ; EN DASH
+                          (format-num end))
+                    (list-join
+                     (map format-num
+                          (iota (1+ (- end start))
+                                start))
+                     "\u2009" ; THIN SPACE
+                     ))))))
            ranges)
-      hair-space))))
+      "\u2009" ; THIN SPACE
+      ))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; centered-spanner-interface

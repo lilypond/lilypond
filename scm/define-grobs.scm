@@ -2092,9 +2092,7 @@ and @iref{VowelTransition}.")))))
         (font-encoding . fetaText)
         (font-features . ("cv47"))
         (font-size . -2)
-        ;; This ought to be an en dash rather than a mere dash, but it
-        ;; looks way too wide with fetaText.
-        (number-range-separator . "-")
+        (number-range-separator . "\u2013") ; EN DASH
         (outside-staff-horizontal-padding . 0.5)
         (outside-staff-priority . 750)
         (self-alignment-X . ,CENTER)
