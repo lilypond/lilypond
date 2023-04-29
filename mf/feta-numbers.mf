@@ -1702,3 +1702,22 @@ fet_beginchar ("en dash", "endash");
   draw_rounded_block ((-b + bearing, h / 3 - thin),
                       (w - bearing, h / 3 + thin), 2 thin);
 fet_endchar;
+
+
+% This corresponds to LaTeX's `\,` command.  Since this and the other two spaces
+% below are mainly intended for use with numbers and number ranges, we base the
+% widths on `fixed_width_advance`, which is approx. 10% (or less) thinner than
+% the width of the 'm' glyph.
+fet_beginchar ("thin space", "u2009");
+  set_char_box (0, 1/6 fixed_width_advance#, 0, height#);
+fet_endchar;
+
+
+fet_beginchar ("hair space", "u200A");
+  set_char_box (0, 1/18 fixed_width_advance#, 0, height#);
+fet_endchar;
+
+
+fet_beginchar ("figure space", "u2007");
+  set_char_box (0, fixed_width_advance#, 0, height#);
+fet_endchar;

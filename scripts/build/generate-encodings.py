@@ -733,7 +733,6 @@ emmentaler_glyphsets = [
         ##
 
         # letters
-        "space",
         "f",
         "m",
         "n",
@@ -741,6 +740,12 @@ emmentaler_glyphsets = [
         "r",
         "s",
         "z",
+
+        # spaces
+        "space",
+        "u2007", # figure space
+        "u2009", # thin space
+        "u200A", # hair space
 
         # punctuation
         "comma",

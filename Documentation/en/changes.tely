@@ -533,6 +533,10 @@ A figure-dash glyph (U+2012) and an en-dash glyph (U+2013) have
 been added to the Emmentaler fonts.
 
 @item
+A figure space (U+2007), a thin space (U+2009), and a hair space
+(U+200A) have been added to the Emmentaler fonts.
+
+@item
 The @code{-dinclude-settings} option can now be given multiple times
 to include several stylesheets.
 

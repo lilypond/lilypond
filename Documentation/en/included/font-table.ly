@@ -70,7 +70,12 @@
       "fattened.fixedwidth.four"  "fattened.fixedwidth.four.alt"
       "fattened.fixedwidth.five"  "fattened.fixedwidth.six"
       "fattened.fixedwidth.seven" "fattened.fixedwidth.seven.alt"
-      "fattened.fixedwidth.eight" "fattened.fixedwidth.nine"))
+      "fattened.fixedwidth.eight" "fattened.fixedwidth.nine"
+
+      "u2007" ; figure space
+      "u2009" ; thin space
+      "u200A" ; hair space
+     ))
 
   (define figured-bass-symbols
     '("figbass.twoplus"    "figbass.fourplus"     "figbass.fiveplus"
@@ -145,7 +150,7 @@
   evenFooterMarkup = \markup {}
   }
 
-\version "2.16.0"
+\version "2.25.5"
 
 #(define-markup-command (doc-char layout props name) (string?)
   (interpret-markup layout props
