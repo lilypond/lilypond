@@ -385,6 +385,37 @@ to
 @end verbatim
 @end quotation
 
+
+@item
+In markup, fingerings (@code{\markup \finger}) and bass figures
+(@code{\markup \figured-bass}) now get scaled along with normal text
+when using @code{\fontsize}.
+
+@lilypond[quote,verbatim]
+myText = \markup {
+  The fingering \finger { 5-4 } for a \figured-bass { 7 "6\\" } …
+}
+
+\myText
+\markup\fontsize #6 \myText
+@end lilypond
+
+The previous behavior can be restored by setting the global variables
+@code{legacy-figured-bass-markup-fontsize} and @code{legacy-finger-markup-fontsize}
+to true, respectively:
+
+@lilypond[quote,verbatim]
+#(set! legacy-figured-bass-markup-fontsize #t)
+#(set! legacy-finger-markup-fontsize #t)
+
+myText = \markup {
+  The fingering \finger { 4-5 } for a \figured-bass { 5+ 6 } …
+}
+
+\myText
+\markup\fontsize #6 \myText
+@end lilypond
+
 @end itemize
 
 @node New for specialist notation

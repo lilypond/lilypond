@@ -3193,6 +3193,8 @@ of its own.
   (interpret-markup layout props
                     `(,fontsize-markup 1 ,arg)))
 
+(define-public legacy-figured-bass-markup-fontsize #f)
+
 (define-markup-command (figured-bass layout props arg)
   (markup?)
   #:category font
@@ -3215,11 +3217,16 @@ Additionally, it must be put into double quotes.
 }
 @end lilypond"
   (interpret-markup layout
-                    (cons '((font-size . -5)
-                            (font-encoding . fetaText)
+                    (cons '((font-encoding . fetaText)
                             (font-features . ("dlig" "tnum" "cv47" "ss01")))
-                          props)
-                    arg))
+                          (if legacy-figured-bass-markup-fontsize
+                              (cons '((font-size . -5)) props)
+                              props))
+                    (if legacy-figured-bass-markup-fontsize
+                        arg
+                        (make-fontsize-markup -5 arg))))
+
+(define-public legacy-finger-markup-fontsize #f)
 
 (define-markup-command (finger layout props arg)
   (markup?)
@@ -3234,11 +3241,14 @@ Additionally, it must be put into double quotes.
 }
 @end lilypond"
   (interpret-markup layout
-                    (cons '((font-size . -5)
-                            (font-encoding . fetaText)
+                    (cons '((font-encoding . fetaText)
                             (font-features . ("cv47" "ss01")))
-                          props)
-                    arg))
+                          (if legacy-finger-markup-fontsize
+                              (cons '((font-size . -5)) props)
+                              props))
+                    (if legacy-finger-markup-fontsize
+                        arg
+                        (make-fontsize-markup -5 arg))))
 
 (define-markup-command (volta-number layout props arg)
   (markup?)
@@ -3253,6 +3263,7 @@ Additionally, it must be put into double quotes.
                             (font-features . ("cv47" "ss01")))
                           props)
                     arg))
+
 
 (define-markup-command (abs-fontsize layout props size arg)
   (number? markup?)
