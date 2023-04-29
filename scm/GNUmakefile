@@ -29,7 +29,7 @@ TAGS_SOURCES += $(SCM_FILES)
 
 # Sync with $(tree-share-prefix) in the top-level GNUmakefile.in!
 tree-share-prefix = $(top-build-dir)/out/share/lilypond/current
-guile-ccache = $(tree-share-prefix)/guile/ccache
+guile-ccache = $(tree-share-prefix)/guile-bytecode
 
 # This rule depends on *all* .scm files because Guile is horribly bad at
 # dependency tracking for macros. If any of the source files changes, we

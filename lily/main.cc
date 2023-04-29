@@ -406,6 +406,11 @@ main_with_guile (void *, int, char **)
   std::string scm_pct_load_compiled_path = "%load-compiled-path";
   prepend_scheme_list (lilypond_libdir + "/ccache", scm_pct_load_compiled_path);
 
+  // TODO: consider introducing a -dbytecode-path option.
+  scm_variable_set_x (
+    scm_c_lookup ("%compile-fallback-path"),
+    scm_from_locale_string ((lilypond_datadir + "/guile-bytecode").c_str ()));
+
   if (is_loglevel (LOG_DEBUG))
     dir_info (stderr);
 
@@ -640,8 +645,6 @@ setup_guile_env ()
   sane_putenv ("GUILE_AUTO_COMPILE", "0", false); // disable auto-compile
   sane_putenv ("GUILE_WARN_DEPRECATED", "detailed",
                true); // set Guile to info re deprecation
-  // Set root for Guile %compile-fallback to Lilypond root for its data.
-  sane_putenv ("XDG_CACHE_HOME", lilypond_datadir, true);
 
   // This reduces the GC overhead during parsing and
   // initialization. To see if this is a good value, run #(display
