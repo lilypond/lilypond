@@ -1,13 +1,14 @@
-This is for large examples that are included in the manual.  Most of these
-examples are distinct snippets; files that are also included in the
-regression tests should be copied from input/regression/ into this
+This directory is mainly for large examples that are included in the manual.
+Most of these examples are distinct snippets; files that are also included
+in the regression tests should be copied from `input/regression/` into this
 direction and listed here.
-- anything from LSR should be in Documentation/snippets/, though
 
-- simple.ly isn't large, but it's included from
-  scm/define-markup-commands.scm and should not be removed.
+- Anything from the LSR should be in `Documentation/snippets/`, though.
 
-Do not use @ref{} in files in Documentation/included/;
-cross-references should be made with specific macros such as
-@rcontrib{}, @rextend{}, etc.  See Documentation/macros.itexi for a
-complete list.
+- `simple.ly` isn't large, but it is included from
+  `scm/define-markup-commands.scm` and should not be removed.
+
+Do not use `@ref{}` in files in `Documentation/en/included/`; instead, cross
+references should be made with specific macros such as `@rcontrib{}`,
+`@rextend{}`, etc.  See `Documentation/en/macros.itexi` (and
+`Documentation/en/common-macros.itexi`) for a complete list.

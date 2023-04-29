@@ -131,7 +131,7 @@
   ;; require all glyphs to appear here
   (if (pair? glyph-list) ; glyph-list should be empty by now
       (ly:error
-        (G_ "Unlisted glyphs in Documentation/included/font-table.ly: ~A")
+        (G_ "Unlisted glyphs in Documentation/en/included/font-table.ly: ~A")
         glyph-list))
 
 ) % end of (begin ...)

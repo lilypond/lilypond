@@ -143,9 +143,7 @@ echo "Running $LILYPOND_BOOK"
         -f texi-html \
         -I "$LILYPOND_GIT/Documentation/snippets" \
         -I "$LILYPOND_GIT/Documentation/snippets/new" \
-        -I "$LILYPOND_GIT/input/manual" \
         -I "$LILYPOND_GIT/Documentation" \
-        -I "$LILYPOND_GIT/Documentation/included"  \
         -I "$LILYPOND_GIT/Documentation/pictures" \
         -o "$OUTPUT_DIR/out" \
         "$SECTION_PATH"

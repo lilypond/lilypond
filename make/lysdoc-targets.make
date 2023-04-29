@@ -20,7 +20,7 @@ lysdoc-test:
 -dseparate-page-formats=ps $(LILYPOND_JOBS) -dseparate-log-files \
 -ddeterministic \
 -dinclude-eps-fonts -dgs-load-fonts --header=texidoc \
--I $(top-src-dir)/Documentation/included/ -dcheck-internal-types \
+-dcheck-internal-types \
 -danti-alias-factor=1 \
 $(LOCAL_LILYPOND_FLAGS)" \
 		LILYPOND_BOOK_WARN= \
