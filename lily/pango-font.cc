@@ -229,7 +229,7 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
   PangoGlyph pg = pgi.glyph;
   PangoGlyphGeometry ggeo = pgi.geometry;
   bool is_ttf = std::string (FT_Get_X11_Font_Format (ftface)) == "TrueType";
-  bool has_glyph_names = ftface->face_flags & FT_FACE_FLAG_GLYPH_NAMES;
+  bool has_glyph_names = FT_HAS_GLYPH_NAMES (ftface);
 
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];

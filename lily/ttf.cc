@@ -402,7 +402,7 @@ print_trailer (std::ostream &stream, FT_Face face)
   for (int i = 0; i < mp->numGlyphs; i++)
     {
       glyph_name[0] = 0;
-      if (face->face_flags & FT_FACE_FLAG_GLYPH_NAMES)
+      if (FT_HAS_GLYPH_NAMES (face))
         {
           FT_Error error
             = FT_Get_Glyph_Name (face, i, glyph_name, GLYPH_NAME_LEN);
