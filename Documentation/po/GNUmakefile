@@ -5,8 +5,7 @@ TEMPLATES = lilypond podir
 include $(depth)/make/lilypond.make
 
 doc-localedir=$(outdir)
-DOC_PO_SOURCES = python/auxiliar/postprocess_html.py \
- scripts/auxiliar/tely-gettext.py
+DOC_PO_SOURCES = python/auxiliar/postprocess_html.py
 TELY_FILES = $(shell ls $(depth)/Documentation/*.tely)
 TELY_FILES += $(foreach l, $(LANGS), $(shell ls $(depth)/Documentation/$(l)/*.tely))
 

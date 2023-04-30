@@ -2390,9 +2390,6 @@ are located in @file{scripts/auxiliar/}.
 make message catalogs and Texinfo skeleton files,
 @item @file{update-snippets.py} -- synchronize ly snippets with those
 from English docs,
-@item @file{tely-gettext.py} -- gettext node names, section titles and references
-in the sources; WARNING only use this script once for each file, when support for
-"makeinfo --html" has been dropped.
 @end itemize
 
 Python modules used by scripts in @file{scripts/auxiliar/} or @file{scripts/build/} (but
