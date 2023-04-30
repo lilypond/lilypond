@@ -3271,7 +3271,6 @@ Adjusts @code{baseline-skip} and @code{word-space} accordingly.
 }
 @end lilypond"
   (let* ((ref-size (ly:output-def-lookup layout 'text-font-size 12))
-         (text-props (list (ly:output-def-lookup layout 'text-font-defaults)))
          (magnification (/ size ref-size)))
     (interpret-markup
      layout
