@@ -2586,9 +2586,9 @@ Ecco un esempio che mostra del testo cirillico, ebraico e portoghese:
 @lilypond[quote]
 % I tipi di carattere Linux Libertine contengono i glifi cirillici e ebraici.
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
-  fonts.sans = "Linux Biolinum O,sans-serif"
-  fonts.typewriter = "Linux Libertine Mono O,monospace"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.sans = "Linux Biolinum O,sans-serif"
+  property-defaults.fonts.typewriter = "Linux Libertine Mono O,monospace"
 }
 
 % Cyrillic
@@ -2935,7 +2935,7 @@ La sintassi seguente imposta il font Gonville come font della notazione
 
 @example
 \paper @{
-  fonts.music = "gonville"
+  property-defaults.fonts.music = "gonville"
 @}
 @end example
 

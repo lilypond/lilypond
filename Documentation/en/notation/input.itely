@@ -3186,9 +3186,9 @@ text:
 @lilypond[quote]
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
-  fonts.sans = "Linux Biolinum O,sans-serif"
-  fonts.typewriter = "Linux Libertine Mono O,monospace"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.sans = "Linux Biolinum O,sans-serif"
+  property-defaults.fonts.typewriter = "Linux Libertine Mono O,monospace"
 }
 
 % Cyrillic
@@ -3586,7 +3586,7 @@ The following code changes the notation font to the Gonville font.
 
 @example
 \paper @{
-  fonts.music = "gonville"
+  property-defaults.fonts.music = "gonville"
 @}
 @end example
 
@@ -3633,7 +3633,7 @@ The following code changes the notation font to the
 
 @example
 \paper @{
-  fonts.music = "@var{fontname}"   % font filename without suffix and extension
+  property-defaults.fonts.music = "@var{fontname}"   % font filename without suffix and extension
 @}
 @end example
 

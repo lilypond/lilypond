@@ -8,7 +8,7 @@ and 'GFDL') should be printed, rather than letter glyphs."
   tagline = ##f
 }
 
-\version "2.18.0"
+\version "2.25.5"
 
 %% Create dummy font files in tmp dir (and subdir).
 
@@ -220,10 +220,10 @@ DQAAAAEAAAAA2m42gAAAAADapnDnAAAAANqnrLQFlwAyBZcARQ==
 
 #(let*
   ((fontfile (string-append temp-dir "/gpl-logo-font.otf" )))
-  
+
   (mkdir temp-dir) ;; will error out if it already exists.
   (mkdir subdir)
-  
+
   (dump-base64 fontfile gplLogoFont)
   (ly:font-config-add-font fontfile)
 
@@ -232,10 +232,10 @@ DQAAAAEAAAAA2m42gAAAAADapnDnAAAAANqnrLQFlwAyBZcARQ==
 
 \book {
   \markup {
-    GPL logo: \fontsize #20 \override #'(font-name . "DummyGPL") "A"
+    GPL logo: \fontsize #20 \override #'(fonts . ((serif . "DummyGPL"))) "A"
   }
   \markup {
-    GFDL logo: \fontsize #20 \override #'(font-name . "DummyGFDL") "A"
+    GFDL logo: \fontsize #20 \override #'(fonts . ((serif . "DummyGFDL"))) "A"
   }
 }
 

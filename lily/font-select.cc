@@ -72,7 +72,7 @@ best_rounded_design_size (Real requested_size, Real &best_actual_size)
 Font_metric *
 select_font (Output_def *layout, SCM chain)
 {
-  SCM fonts = layout->lookup_variable (ly_symbol2scm ("fonts"));
+  SCM fonts = ly_chain_assoc_get (ly_symbol2scm ("fonts"), chain, SCM_EOL);
   // If font-name is given, it is a Pango description string (only used for the
   // font family, shape, etc., but the size, if any, is disregarded).
   SCM string_desc

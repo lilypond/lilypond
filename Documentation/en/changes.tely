@@ -1,4 +1,5 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+
 @setfilename lilypond-changes.info
 @settitle LilyPond Changes
 
@@ -269,10 +270,10 @@ the new syntax is
 @quotation
 @verbatim
 \paper {
-  fonts.music = "Name of music font"
-  fonts.serif = "Name of serif font"
-  fonts.sans = "Name of sans-serif font"
-  fonts.typewriter = "Name of typewriter font"
+  property-defaults.fonts.music = "Name of music font"
+  property-defaults.fonts.serif = "Name of serif font"
+  property-defaults.fonts.sans = "Name of sans-serif font"
+  property-defaults.fonts.typewriter = "Name of typewriter font"
 }
 @end verbatim
 @end quotation
@@ -288,14 +289,10 @@ override this by using an extra font family, as shown in this example
 
 @quotation
 @verbatim
-\paper {
-  fonts.music-alt = "lilyjazz"
-}
-
 \layout {
   \context {
     \Score
-    \override SystemStartBrace.font-family = #'music-alt
+    \override SystemStartBrace.fonts.music = "lilyjazz"
   }
 }
 
@@ -304,9 +301,26 @@ override this by using an extra font family, as shown in this example
   \new Staff { c' }
 >>
 
-\markup \override #'(font-family . music-alt) \left-brace #20
+\markup \override #'(fonts . ((music . "lilyjazz"))) \left-brace #20
 @end verbatim
 @end quotation
+
+Because @code{fonts} is simply a property, it is possible to
+override it on a per-grob basis, e.g.,
+
+@quotation
+@verbatim
+\layout {
+  \override Score.SectionLabel.fonts.roman = "Custom font"
+}
+@end verbatim
+@end quotation
+
+This is preferable over the already existing @code{font-name}
+property, since the latter makes commands such as @code{\bold}
+ineffective, instead requiring to include @qq{Bold} in the
+@code{font-name} string.  Using @code{fonts} does not have such
+effects.
 
 
 @item

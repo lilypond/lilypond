@@ -20,7 +20,7 @@ Debian GNU/Linux, Ubuntu
 %}
 
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
 }
 
 #(set-global-staff-size 40)

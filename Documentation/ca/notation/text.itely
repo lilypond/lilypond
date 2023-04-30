@@ -1572,9 +1572,9 @@ més explicacions sobre els tipus de lletra, consulteu
 
 @lilypond[verbatim,quote]
 \paper  {
-  fonts.serif = "Linux Libertine O"
-  fonts.sans = "Nimbus Sans, Nimbus Sans L"
-  fonts.typewriter = "DejaVu Sans Mono"
+  property-defaults.fonts.serif = "Linux Libertine O"
+  property-defaults.fonts.sans = "Nimbus Sans, Nimbus Sans L"
+  property-defaults.fonts.typewriter = "DejaVu Sans Mono"
 }
 
 \relative c'{

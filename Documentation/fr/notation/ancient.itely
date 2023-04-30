@@ -2482,7 +2482,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {
@@ -2680,7 +2680,7 @@ Voici comment générer des ligatures en notation kiévienne :
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {

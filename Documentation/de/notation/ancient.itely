@@ -2498,7 +2498,7 @@ richtigen Werten, sodass man sofort den Choral notieren kann:
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {

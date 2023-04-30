@@ -18,9 +18,9 @@ Debian GNU/Linux, Ubuntu
 %}
 
 \paper {
-  fonts.serif = "DejaVu Serif"
-  fonts.sans = "DejaVu Sans"
-  fonts.typewriter = "DejaVu Sans Mono"
+  property-defaults.fonts.serif = "DejaVu Serif"
+  property-defaults.fonts.sans = "DejaVu Sans"
+  property-defaults.fonts.typewriter = "DejaVu Sans Mono"
 }
 
 {

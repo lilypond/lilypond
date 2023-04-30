@@ -63,6 +63,7 @@ Any symbol that is typeset through fixed sets of glyphs, (i.e., fonts).
                /* properties */
                R"(
 font
+fonts
 font-encoding
 font-family
 font-features

@@ -3167,9 +3167,9 @@ portugais.
 @lilypond[quote]
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
-  fonts.sans = "Linux Biolinum O,sans-serif"
-  fonts.typewriter = "Linux Libertine Mono O,monospace"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.sans = "Linux Biolinum O,sans-serif"
+  property-defaults.fonts.typewriter = "Linux Libertine Mono O,monospace"
 }
 
 % Cyrillic
@@ -3579,7 +3579,7 @@ La syntaxe suivante substitue aux fontes musicales les fontes Gonville.
 
 @example
 \paper @{
-  fonts.music = "gonville"
+  property-defaults.fonts.music = "gonville"
 @}
 @end example
 
@@ -3628,7 +3628,7 @@ La syntaxe suivante substitue aux fontes musicales les fontes
 
 @example
 \paper @{
-  fonts.music = "@var{nomfonte}" % fichier de fonte sans suffixe ni extension
+  property-defaults.fonts.music = "@var{nomfonte}" % fichier de fonte sans suffixe ni extension
 @}
 @end example
 

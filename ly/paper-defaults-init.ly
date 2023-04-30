@@ -17,7 +17,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.0"
+\version "2.25.5"
 
 \paper {
   #(set-paper-dimension-variables (current-module))
@@ -161,16 +161,19 @@
   %% Fonts
   %%
 
-  fonts.music = "emmentaler"
-  fonts.serif = #(if (eq? 'svg (ly:get-option 'backend))
-                     "serif"
-                     "LilyPond Serif")
-  fonts.sans = #(if (eq? 'svg (ly:get-option 'backend))
-                    "sans"
-                    "LilyPond Sans Serif")
-  fonts.typewriter = #(if (eq? 'svg (ly:get-option 'backend))
-                          "monospace"
-                          "LilyPond Monospace")
+  property-defaults.fonts.music = "emmentaler"
+  property-defaults.fonts.serif =
+    #(if (eq? 'svg (ly:get-option 'backend))
+         "serif"
+         "LilyPond Serif")
+  property-defaults.fonts.sans =
+    #(if (eq? 'svg (ly:get-option 'backend))
+         "sans"
+         "LilyPond Sans Serif")
+  property-defaults.fonts.typewriter =
+    #(if (eq? 'svg (ly:get-option 'backend))
+         "monospace"
+         "LilyPond Monospace")
 
   %%
   %% Property defaults

@@ -22,7 +22,7 @@ Debian GNU/Linux, Ubuntu
 
 % Linux Libertine fonts contain Hebrew glyphs.
 \paper {
-  fonts.serif = "Linux Libertine O, serif"
+  property-defaults.fonts.serif = "Linux Libertine O, serif"
 }
 
 \markup {

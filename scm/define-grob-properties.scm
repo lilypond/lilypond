@@ -362,6 +362,9 @@ font, if available in the font family. Possible values are
 @code{ultra-condensed}, @code{extra-condensed}, @code{condensed},
 @code{semi-condensed}, @code{normal}, @code{semi-expanded}, @code{expanded},
 @code{extra-expanded} and @code{ultra-expanded}.")
+     (fonts ,symbol-key-alist? "An alist mapping font families to
+font names.  The standard font families are @code{music}, @code{serif},
+@code{sans} and @code{typewriter}.")
      (footnote ,boolean? "Should this be a footnote or in-note?")
      (footnote-music ,ly:music? "Music creating a footnote.")
      (footnote-text ,markup? "A footnote for the grob.")

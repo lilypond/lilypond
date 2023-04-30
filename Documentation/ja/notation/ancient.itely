@@ -2362,7 +2362,7 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {
@@ -2543,7 +2543,7 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {

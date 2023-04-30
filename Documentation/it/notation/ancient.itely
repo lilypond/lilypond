@@ -2413,7 +2413,7 @@ immediatamente all'inserimento delle note del canto:
 @lilypond[quote,ragged-right,verbatim]
 % Impostazione dei font per il cirillico
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {
@@ -2601,7 +2601,7 @@ L'esempio seguente illustra l'uso delle legature di Kiev:
 @lilypond[quote,ragged-right,verbatim]
 % Impostazioni dei font cirillici
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {

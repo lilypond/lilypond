@@ -6,7 +6,7 @@
 %%
 %% This file is in the public domain.
 %%
-%% Note: this file works from version 2.25.4.
+%% Note: this file works from version 2.25.5.
 
 \version "2.25.5"
 
@@ -40,9 +40,9 @@ Debian GNU/Linux, Ubuntu
          lilypond -dshow-available-fonts
      to show all fonts available in the process log.
   %}
-  fonts.serif = "DejaVu Serif"
-  fonts.sans = "DejaVu Sans"
-  fonts.typewriter = "DejaVu Sans Mono"
+  property-defaults.fonts.serif = "DejaVu Serif"
+  property-defaults.fonts.sans = "DejaVu Sans"
+  property-defaults.fonts.typewriter = "DejaVu Sans Mono"
 }
 
 {

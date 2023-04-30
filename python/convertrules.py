@@ -5222,9 +5222,11 @@ macro, e.g., #(markup #:roman ...).  If this is the case, convert
 
 @rule((2, 25, 6), r"""
 BarCheck -> BarCheckEvent
+fonts.roman (etc.) -> property-defaults.fonts.roman (etc.)
 """)
 def conv(s):
     s = re.sub(r"\bBarCheck\b", r"BarCheckEvent", s)
+    s = re.sub(r"((?<!-)(?<!property-defaults\.)\bfonts\s*\.\s*[\w-]+\s*=)", r"property-defaults.\1", s)
     return s
 
 

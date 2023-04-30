@@ -25,7 +25,8 @@ Debian GNU/Linux, Ubuntu
 
 % 'Linux Libertine' fonts also contain Cyrillic and Hebrew glyphs.
 \paper {
-  fonts.serif = "Linux Libertine O, Noto Serif CJK JP, Noto Serif JP, serif"
+  property-defaults.fonts.serif =
+    "Linux Libertine O, Noto Serif CJK JP, Noto Serif JP, serif"
 }
 
 bulgarian = \lyricmode {

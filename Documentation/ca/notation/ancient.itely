@@ -2446,7 +2446,7 @@ cant:
 @lilypond[quote,ragged-right,verbatim]
 % Paràmetres de tipus de lletra per al ciríl·lic
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {
@@ -2627,7 +2627,7 @@ lligadures del cant kievà:
 @lilypond[quote,ragged-right,verbatim]
 % Paràmetres de tipus de lletra per a ciríl·Lic
 \paper {
-  fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {

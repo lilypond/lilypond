@@ -24,9 +24,9 @@ ignoreMelismaOff = \unset ignoreMelismata
 
   % Font settings for Cyrillic and Hebrew
   % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
-  fonts.serif = "Linux Libertine O,serif"
-  fonts.sans = "Linux Biolinum O,sans-serif"
-  fonts.typewriter = "Linux Libertine Mono O,monospace"
+  property-defaults.fonts.serif = "Linux Libertine O,serif"
+  property-defaults.fonts.sans = "Linux Biolinum O,sans-serif"
+  property-defaults.fonts.typewriter = "Linux Libertine Mono O,monospace"
 }
 
 modernAccidentals = {
