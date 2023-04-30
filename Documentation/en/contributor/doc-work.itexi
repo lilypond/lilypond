@@ -1873,9 +1873,8 @@ Every piece of text should be translated in the source file, except
 Texinfo comments, text in @code{@@lilypond} blocks and a few cases
 mentioned below.
 
-Node names are translated, but the original node name in English should
-be kept as the argument of @code{@@translationof} put after the section
-title; that is, every piece in the original file like
+Node names are not translated, only the section titles are.
+That is, every piece in the original file like
 
 @example
 @@node Foo bar
@@ -1886,9 +1885,8 @@ title; that is, every piece in the original file like
 should be translated as
 
 @example
-@@node @var{translation of Foo bar}
+@@node Foo bar
 @@@var{section_command} @var{translation of Bar baz}
-@@translationof Foo bar
 @end example
 
 The argument of @code{@@rglos} commands and the first argument of
@@ -1900,17 +1898,15 @@ argument of commands @code{@@ref, @@rprogram, @@rlearning, @@rlsr,
 @@rnotation} or the first argument of their @code{@var{*}named} variants,
 you should make sure the target node is defined in the correct source
 file; if you do not intend to translate the target node right now, you
-should at least write the node definition (that is, the @code{@@node
-@@@var{section_commmand} @@translationof} trio mentioned above) in the
+should at least write the node definition in the
 expected source file and define all its parent nodes; for each node you
 have defined this way but have not translated, insert a line that
 contains @code{@@untranslated}.  That is, you should end up
 for each untranslated node with something like
 
 @example
-@@node @var{translation of Foo bar}
+@@node Foo bar
 @@@var{section_command} @var{translation of Bar baz}
-@@translationof Foo bar
 
 @@untranslated
 @end example

@@ -461,23 +461,6 @@ Macro definitions that contain translatable text belong to file
 
 @c   ***** Macros specific to translated docs *****
 
-@c ugh, cannot set/define global variable 'translationof' in any way :-(
-
-@iftex
-
-@macro translationof{TEXT}
-@end macro
-
-@end iftex
-
-@ifinfo
-
-@macro translationof{TEXT}
-@set translationof \TEXT\
-@end macro
-
-@end ifinfo
-
 @ifhtml
 
 @ifset bigpage
