@@ -101,14 +101,9 @@ $DO_CONTENTS = 1;
 # The default has changed to 'class="no-bullet"' in texi2html 5.0.
 $NO_BULLET_LIST_CLASS = 'toc';
 
-my $bigpage = 0;
-my $have_index_entries = 0;
 if ($Texi2HTML::Config::SPLIT eq 'section' or
     $Texi2HTML::Config::SPLIT eq 'node') {
   $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
-  $bigpage = 0;
-} else {
-  $bigpage = 1;
 }
 
 $Texi2HTML::Config::anchor  = \&lilypond_anchor;
@@ -143,30 +138,6 @@ $Texi2HTML::Config::complex_format_map->{'example'} = {
    'Contents' => 'Contents',
    'About' => 'About'
 );
-
-
-my @section_to_filename;
-
-
-
-
-#############################################################################
-###  DEBUGGING
-#############################################################################
-
-use Data::Dumper;
-$Data::Dumper::Maxdepth = 2;
-
-sub print_element_info($)
-{
-  my $element = shift;
-  print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
-  print "Element: $element\n";
-  print Dumper($element);
-}
-
-
-
 
 
 #############################################################################
@@ -607,8 +578,6 @@ sub lilypond_print_page_head($)
 sub lilypond_print_page_foot($)
 {
   my $fh = shift;
-  my $program_string = &$program_string();
-#   print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
   print $fh "<!-- FOOTER -->\n\n";
   print $fh "<!-- end div#main here -->\n</div>\n\n";
   if ($web_manual) {
