@@ -42,7 +42,7 @@
 unique_fcconfig_ptr
 make_font_config (bool emmentaler)
 {
-  debug_output (_ ("Creating font configuration..."));
+  debug_output (_f ("Creating %sfont configuration...", emmentaler ? "Emmentaler " : ""));
 
   /* Create an empty configuration */
   unique_fcconfig_ptr conf (FcConfigCreate ());
@@ -97,6 +97,12 @@ make_font_config (bool emmentaler)
   else
     debug_output (_f ("Adding font directory: %s", dir.c_str ()));
 
+  FcStrList *cache_dirs = FcConfigGetCacheDirs (conf.get ());
+  FcChar8 *cache_dir;
+  while ((cache_dir = FcStrListNext (cache_dirs)))
+    debug_output (_f ("Font cache directory: %s\n", reinterpret_cast<char *> (cache_dir)));
+  FcStrListDone (cache_dirs);
+
   debug_output (_ ("Building font database..."));
   // FcConfigParseAndLoad calls should be followed by FcConfigBuildFonts, which
   // does the actual work of building the font database using all the
@@ -105,6 +111,7 @@ make_font_config (bool emmentaler)
   // documentation, but adding application fonts is fine, and this is what
   // ly:font-config-add-{font,directory} do.
   FcConfigBuildFonts (conf.get ());
+
   debug_output ("\n");
 
   return conf;
