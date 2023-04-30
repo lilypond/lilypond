@@ -162,5 +162,5 @@ makamGlyphs = #`((1 . "accidentals.doublesharp")
        (-1 . "accidentals.flatflat"))
 
 \paper {
-  font-defaults.alteration-glyph-name-alist = \makamGlyphs
+  property-defaults.alteration-glyph-name-alist = \makamGlyphs
 }

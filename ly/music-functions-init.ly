@@ -606,10 +606,7 @@ grobdescriptions =
 #(define-scheme-function (descriptions) (list?)
    (_i "Create a context modification from @var{descriptions}, a list
 in the format of @code{all-grob-descriptions}.")
-   (ly:make-context-mod
-    (map (lambda (p)
-           (list 'assign (car p) (ly:make-grob-properties (cdr p))))
-         descriptions)))
+   (ly:make-context-mod `((grob-descriptions ,descriptions))))
 
 harmonicByFret = #(define-music-function (fret music) (number? ly:music?)
   (_i "Convert @var{music} into mixed harmonics; the resulting notes resemble

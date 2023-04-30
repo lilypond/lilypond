@@ -256,20 +256,11 @@ markup_down_depth (void *)
 // interface?
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup,
                                    "ly:text-interface::interpret-markup", 3, 0,
-                                   "Convert a text markup into a stencil."
-                                   "  Takes three arguments, @var{layout},"
-                                   "  @var{props}, and @var{markup}.\n"
-                                   "\n"
-                                   "@var{layout} is a @code{\\layout} block;"
-                                   " it may be obtained from a grob with"
-                                   " @code{ly:grob-layout}.  @var{props} is an"
-                                   " alist chain, i.e., a list of alists."
-                                   "  This is typically obtained with"
-                                   " @code{(ly:grob-alist-chain grob"
-                                   " (ly:output-def-lookup layout"
-                                   " 'text-font-defaults))}."
-                                   "  @var{markup} is the markup text to be"
-                                   " processed.");
+                                   R"(
+Convert a text markup into a stencil.  @var{layout} is a @code{\\layout} block.
+@var{props} is an alist chain, i.e., a list of alists.  @var{markup} is the markup
+text to be processed.  See also @code{grob-interpret-markup}.
+                                   )");
 SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {

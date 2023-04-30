@@ -43,21 +43,16 @@ Font_interface::get_default_font (Grob *me)
 SCM
 Font_interface::music_font_alist_chain (Grob *g)
 {
-  SCM defaults
-    = g->layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
-  if (SCM_UNBNDP (defaults))
-    defaults = SCM_EOL;
-  return g->get_property_alist_chain (defaults);
+  return g->get_property_alist_chain (ly_list (
+    scm_cons (ly_symbol2scm ("font-family"), ly_symbol2scm ("music")),
+    scm_cons (ly_symbol2scm ("font-encoding"), ly_symbol2scm ("fetaMusic"))));
 }
 
 SCM
 Font_interface::text_font_alist_chain (Grob *g)
 {
-  SCM defaults
-    = g->layout ()->lookup_variable (ly_symbol2scm ("text-font-defaults"));
-  if (SCM_UNBNDP (defaults))
-    defaults = SCM_EOL;
-  return g->get_property_alist_chain (defaults);
+  return g->get_property_alist_chain (ly_list (
+    scm_cons (ly_symbol2scm ("font-encoding"), ly_symbol2scm ("latin1"))));
 }
 
 ADD_INTERFACE (Font_interface,

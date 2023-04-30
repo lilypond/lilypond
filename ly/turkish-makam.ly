@@ -484,7 +484,7 @@ dilkeside=\yegah %\key d
 sultanirast=\yegah %\key d
 
 \paper {
-  font-defaults.alteration-glyph-name-alist = \turkishMakamGlyphs
+  property-defaults.alteration-glyph-name-alist = \turkishMakamGlyphs
 }
 
 \layout {
@@ -606,4 +606,3 @@ key signature padding pairs
 )
   }
 }
-

@@ -64,10 +64,7 @@ Key_signature_interface::print (SCM smob)
   SCM padding_pairs = get_property (me, "padding-pairs");
 
   Font_metric *fm = Font_interface::get_default_font (me);
-  SCM props = Font_interface::music_font_alist_chain (me);
-  SCM alist = ly_chain_assoc_get (ly_symbol2scm ("alteration-glyph-name-alist"),
-                                  props, SCM_EOL);
-
+  SCM alist = get_property (me, "alteration-glyph-name-alist");
   for (SCM s = get_property (me, "alteration-alist"); scm_is_pair (s);
        s = scm_cdr (s))
     {

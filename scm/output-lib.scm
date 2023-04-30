@@ -922,10 +922,7 @@ extent of the grob to the extent of the staff."
 
 (define-public (accidental-interface::calc-glyph-name grob)
   (let* ((alteration (ly:grob-property grob 'alteration))
-         (layout (ly:grob-layout grob))
-         (defs (ly:output-def-lookup layout 'font-defaults '()))
-         (chain (ly:grob-alist-chain grob defs))
-         (alist (chain-assoc-get 'alteration-glyph-name-alist chain '()))
+         (alist (ly:grob-property grob 'alteration-glyph-name-alist))
          (glyph (assv-ref alist alteration)))
     (or glyph
         (begin

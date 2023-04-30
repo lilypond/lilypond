@@ -142,7 +142,7 @@ persianGlyphs = #`(
 % Register accidental symbols.
 
 \paper {
-  font-defaults.alteration-glyph-name-alist = \persianGlyphs
+  property-defaults.alteration-glyph-name-alist = \persianGlyphs
 }
 
 \layout {

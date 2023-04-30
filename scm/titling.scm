@@ -21,7 +21,8 @@
 (define-public (layout-extract-page-properties layout)
   (list (append `((line-width . ,(ly:paper-get-number
                                   layout 'line-width)))
-                (ly:output-def-lookup layout 'text-font-defaults))))
+                (ly:output-def-lookup layout 'property-defaults)
+                '((font-encoding . latin1)))))
 
 (define-public (headers-property-alist-chain headers)
   "Take a list of @code{\\header} blocks (Guile modules).  Return an

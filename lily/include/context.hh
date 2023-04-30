@@ -43,6 +43,7 @@ public:
 
 protected:
   Context (Context_def *odef, SCM ops);
+  Scheme_hash_table *properties_dict () const;
 
 private:
   void add_global_finalization (SCM x);
@@ -51,7 +52,6 @@ private:
                              const std::string &leaf_id, SCM leaf_operations);
   Context *find_child_to_adopt_grandchild (SCM child_name, SCM grandchild_name);
   SCM make_revert_finalization (SCM sym);
-  Scheme_hash_table *properties_dict () const;
 
   enum FindMode
   {

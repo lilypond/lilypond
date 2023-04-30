@@ -42,9 +42,6 @@ public:
   virtual ~Context_def ();
 
 private:
-  /*
-    these lists store the definition, in opposite order of entry
-  */
   SCM translator_mods_;
   Acceptance_set acceptance_;
   SCM property_ops_;
@@ -53,6 +50,7 @@ private:
   SCM context_aliases_;
   SCM translator_group_type_;
   SCM input_location_;
+  SCM grob_descriptions_;
 
 public:
   Input *origin () const;
@@ -63,6 +61,7 @@ public:
   SCM get_context_aliases () const { return context_aliases_; }
   SCM get_translator_names (SCM) const;
   SCM get_translator_group_type () const { return translator_group_type_; }
+  SCM get_grob_descriptions () const { return grob_descriptions_; }
   void set_acceptor (SCM accepts, bool add);
   SCM lookup (SCM sym) const;
   bool is_alias (SCM sym) const;

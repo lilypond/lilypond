@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.25.5"
 
 \header {
   texidoc = "One notation style for Persian music uses the @emph{sori} and
@@ -15,7 +15,7 @@ VaziriGlyphs = #'(
 )
 
 \paper {
-  font-defaults.alteration-glyph-name-alist = \VaziriGlyphs
+  property-defaults.alteration-glyph-name-alist = \VaziriGlyphs
 }
 
 \relative c' {

@@ -5087,7 +5087,21 @@ replacements:
   \set Score.repeatCommands = #'((volta "1.2. ad lib."))
   -> \set Score.repeatCommands = #`((volta ,#{ \markup { \volta-number "1.2." ad lib. } #}))
 """)
+    return s
 
+@rule((2, 25, 5),
+      r"""
+font-defaults, text-font-defaults -> property-defaults
+""")
+def conv(s):
+    s = re.sub(r"(text-)?font-defaults(?=\s*\.\s*[\w-]+\s*=)", "property-defaults", s)
+    if "font-defaults" in s:
+        stderr_write(NOT_SMART % "advanced use of (text-)font-defaults")
+        stderr_write("""
+The text-font-defaults and font-defaults variables have
+been merged into a single property-defaults variable.
+""")
+        stderr_write(UPDATE_MANUALLY)
     return s
 
 

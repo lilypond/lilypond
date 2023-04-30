@@ -826,7 +826,7 @@ vowelTransition = #(make-music 'VowelTransitionEvent)
 ;; If 'music is replaced by another music-font without cross-style-glyphs
 ;; note-head.cc throws a warning and no visual output happens.
   (let* ((layout (ly:grob-layout grob))
-         (props (ly:grob-alist-chain grob))
+         (props (ly:grob-alist-chain grob '((font-encoding . latin1))))
          (font (ly:paper-get-font layout props))
          (font-unknown? (string=? (ly:font-name font) "unknown")))
     (if font-unknown?

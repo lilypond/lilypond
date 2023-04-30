@@ -28,6 +28,8 @@
 
 #include "lily-proto.hh"
 
+SCM ly_make_grob_properties (SCM alist);
+
 // Several algorithms on Grob_properties need self-identifying
 // information to work properly, but there is no point in storing them
 // in the Grob_properties data structure itself.  Instead we create a

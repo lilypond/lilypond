@@ -3904,17 +3904,14 @@ rational number.
 @lilypond[verbatim,quote]
 \\markup \\accidental #1/2
 @end lilypond"
-  (let* ((defs (ly:output-def-lookup layout 'font-defaults))
-         (glyph-alist (or alteration-glyph-name-alist
-                          (assq-ref defs 'alteration-glyph-name-alist))))
-    (interpret-markup layout props
-                      (make-musicglyph-markup
-                       (or
-                        (assv-ref glyph-alist alteration)
-                        (begin
-                          (ly:warning (G_ "no accidental glyph found for alteration ~a")
-                                      alteration)
-                          "noteheads.s1cross"))))))
+  (interpret-markup layout props
+                    (make-musicglyph-markup
+                     (or
+                      (assv-ref alteration-glyph-name-alist alteration)
+                      (begin
+                        (ly:warning (G_ "no accidental glyph found for alteration ~a")
+                                    alteration)
+                        "noteheads.s1cross")))))
 
 (define-markup-command (doublesharp layout props)
   ()

@@ -138,7 +138,7 @@ TwentyFourTETglyphs = #'(
 )
 
 \paper {
-  font-defaults.alteration-glyph-name-alist = \TwentyFourTETglyphs
+  property-defaults.alteration-glyph-name-alist = \TwentyFourTETglyphs
 }
 
 % Layout settings

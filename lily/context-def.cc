@@ -51,6 +51,7 @@ Context_def::Context_def ()
   context_name_ = SCM_EOL;
   description_ = SCM_EOL;
   input_location_ = SCM_EOL;
+  grob_descriptions_ = SCM_EOL;
 
   smobify_self ();
 
@@ -84,6 +85,7 @@ Context_def::Context_def (Context_def const &s)
   context_aliases_ = s.context_aliases_;
   translator_group_type_ = s.translator_group_type_;
   context_name_ = s.context_name_;
+  grob_descriptions_ = s.grob_descriptions_;
 }
 
 Context_def::~Context_def ()
@@ -116,6 +118,7 @@ Context_def::mark_smob () const
   scm_gc_mark (property_ops_);
   scm_gc_mark (translator_group_type_);
   scm_gc_mark (input_location_);
+  scm_gc_mark (grob_descriptions_);
 
   return context_name_;
 }
@@ -129,7 +132,11 @@ Context_def::add_context_mod (SCM mod)
       description_ = scm_cadr (mod);
       return;
     }
-
+  else if (scm_is_eq (tag, ly_symbol2scm ("grob-descriptions")))
+    {
+      grob_descriptions_ = scm_cadr (mod);
+      return;
+    }
   /*
     other modifiers take symbols as argument.
   */
@@ -375,6 +382,8 @@ Context_def::to_alist () const
   if (scm_is_symbol (translator_group_type_))
     ell = scm_cons (
       scm_cons (ly_symbol2scm ("group-type"), translator_group_type_), ell);
+  ell = scm_cons (
+    scm_cons (ly_symbol2scm ("grob-descriptions"), grob_descriptions_), ell);
   return ell;
 }
 
@@ -397,6 +406,8 @@ Context_def::lookup (SCM sym) const
     return context_name_;
   else if (scm_is_eq (ly_symbol2scm ("group-type"), sym))
     return translator_group_type_;
+  else if (scm_is_eq (ly_symbol2scm ("grob-descriptions"), sym))
+    return grob_descriptions_;
   return SCM_UNDEFINED;
 }
 

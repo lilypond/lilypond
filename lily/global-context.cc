@@ -22,7 +22,9 @@
 #include "context-def.hh"
 #include "cpu-timer.hh"
 #include "dispatcher.hh"
+#include "grob-properties.hh"
 #include "international.hh"
+#include "ly-scm-list.hh"
 #include "music-iterator.hh"
 #include "music.hh"
 #include "output-def.hh"
@@ -47,6 +49,16 @@ Global_context::Global_context (Output_def *odef, Context_def *cdef)
   events_below ()->register_as_listener (event_source_);
 
   cdef->apply_default_property_operations (this);
+
+  SCM defs = odef->lookup_variable (ly_symbol2scm ("property-defaults"));
+  // FIXME: this happens with \partCombine/\autoChange.  It shouldn't.
+  if (SCM_UNBNDP (defs))
+    defs = SCM_EOL;
+  for (SCM keyval : ly_scm_list (cdef->get_grob_descriptions ()))
+    {
+      SCM props = ly_make_grob_properties (ly_append (scm_cdr (keyval), defs));
+      set_property (this, scm_car (keyval), props);
+    }
 }
 
 void

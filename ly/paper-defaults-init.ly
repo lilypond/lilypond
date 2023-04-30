@@ -173,28 +173,15 @@
                           "monospace"
                           "LilyPond Monospace")
 
-  %% text-font-defaults is typically used as the last component of
-  %% the alist chains passed around to markup commands.  When a
-  %% grob interprets a markup, the alist chain consists in that
-  %% grob's properties, and the defaults.  When interpreting a
-  %% standalone markup, there are only the defaults.  Thus,
-  %% text-font-defaults defines defaults for markup properties.
-  %% font-defaults is used to select the font for grobs printed
-  %% in a musical font.  Moreover, grobs are free to look up properties
-  %% in these two alists (usually as fallbacks through the use
-  %% of alist chains).
-  #(define font-defaults
-    `((alteration-glyph-name-alist . ,standard-alteration-glyph-name-alist)
-      (font-family . music)
-      (font-encoding . fetaMusic)))
+  %%
+  %% Property defaults
+  %%
+  property-defaults.alteration-glyph-name-alist
+    = #standard-alteration-glyph-name-alist
+  property-defaults.baseline-skip = 3
+  property-defaults.replacement-alist = #'()
+  property-defaults.string-transformers = #`(,ly:perform-text-replacements)
+  property-defaults.word-space = 0.6
 
-  % `latin1' is a dummy value for Pango fonts
-  #(define text-font-defaults
-     `((font-encoding . latin1)
-       (baseline-skip . 3)
-       (replacement-alist . ())
-       (string-transformers . (,ly:perform-text-replacements))
-       (word-space . 0.6)))
   \include "text-replacements.ly"
-
 }

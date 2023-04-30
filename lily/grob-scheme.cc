@@ -201,17 +201,13 @@ LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain", 1, 1, 0,
            (SCM grob, SCM global),
            R"(
 Get an alist chain for grob @var{grob}, with @var{global} as the global
-default.  If unspecified, @code{font-defaults} from the layout block is taken.
+default.  If unspecified, there is no global default.
            )")
 {
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
 
   if (SCM_UNBNDP (global))
-    {
-      global = sc->layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
-      if (SCM_UNBNDP (global))
-        global = SCM_EOL;
-    }
+    global = SCM_EOL;
 
   return sc->get_property_alist_chain (global);
 }
