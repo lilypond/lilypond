@@ -96,10 +96,10 @@ $Texi2HTML::Config::USE_REL_REV   = 1;
 $Texi2HTML::Config::SPLIT_INDEX   = 0;
 $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
 
-$DO_CONTENTS = 1;
+$Texi2HTML::Config::DO_CONTENTS = 1;
 
 # The default has changed to 'class="no-bullet"' in texi2html 5.0.
-$NO_BULLET_LIST_CLASS = 'toc';
+$Texi2HTML::Config::NO_BULLET_LIST_CLASS = 'toc';
 
 if ($Texi2HTML::Config::SPLIT eq 'section' or
     $Texi2HTML::Config::SPLIT eq 'node') {
