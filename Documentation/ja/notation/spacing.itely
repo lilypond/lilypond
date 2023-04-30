@@ -601,13 +601,13 @@ score の最後のシステムと、その後に score の最初のシステム�
 @ref{Automatic scaling to paper size} を参照してください。}
 
 @menu
-* \paper variables for widths and margins::
-* \paper variables for two-sided mode::
-* \paper variables for shifts and indents::
+* paper variables for widths and margins::
+* paper variables for two-sided mode::
+* paper variables for shifts and indents::
 @end menu
 
 
-@node \paper variables for widths and margins
+@node paper variables for widths and margins
 @unnumberedsubsubsec 幅とマージンの @code{\paper} 変数
 
 ここでリスト アップされていない (拡縮する前の) デフォルト値は、@c
@@ -727,7 +727,7 @@ score の最後のシステムと、その後に score の最初のシステム�
 明示的に定義された紙面サイズは、ユーザ定義の左または右のマージン設定を上書きします。
 
 
-@node \paper variables for two-sided mode
+@node paper variables for two-sided mode
 @unnumberedsubsubsec 両面モードのための @code{\paper} 変数
 
 (拡縮される前の) デフォルト値は
@@ -780,7 +780,7 @@ book の一部であるページすべてが見開きページの外側に持つ
 @file{ly/paper-defaults-init.ly}
 
 
-@node \paper variables for shifts and indents
+@node paper variables for shifts and indents
 @unnumberedsubsubsec シフトとインデントのための @code{\paper} 変数
 
 このにリスト アップされていない (拡縮される前の) デフォルト値は
@@ -1149,11 +1149,11 @@ score で使用すべきページ数です。@c
 
 @item
 @code{line-width}, @code{ragged-right} それに @code{ragged-last}
-(@ref{\paper variables for widths and margins} を参照してください)
+(@ref{paper variables for widths and margins} を参照してください)
 
 @item
 @code{indent} と @code{short-indent}
-(@ref{\paper variables for shifts and indents} を参照してください)
+(@ref{paper variables for shifts and indents} を参照してください)
 
 @item
 @code{system-count}

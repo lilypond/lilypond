@@ -934,7 +934,7 @@
 
 しかしながら、楽器名が長い場合、@code{indent} 設定と @code{short-indent}
 設定の値を増やさない限り、譜グループの中にある楽器名は中央揃えされません。@c
-これらの設定についての詳細は @ref{\paper variables for shifts and indents}
+これらの設定についての詳細は @ref{paper variables for shifts and indents}
 を参照してください。
 
 @lilypond[verbatim,quote,ragged-right]
@@ -1013,7 +1013,7 @@ setFlute = {
 
 @morerefs
 記譜法リファレンス:
-@ref{\paper variables for shifts and indents},
+@ref{paper variables for shifts and indents},
 @ref{Modifying context plug-ins}
 
 コード断片集:
