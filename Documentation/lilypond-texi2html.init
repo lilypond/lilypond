@@ -9,7 +9,6 @@
 ###
 ###
 ### Features implemented here:
-### -) For split manuals, the main page is index.html.
 ### -) TOC (folded, with the current page highlighted) in an overflown <div>
 ###    is added to every page; implemented by:
 ###           lilypond_print_page_head -- start <div id="main">
@@ -829,17 +828,6 @@ sub makeinfo_like_paragraph ($$$$$$$$$$$$$)
         }
     }
     return $open.'>'.$footnote_text.$text.'</p>';
-}
-
-
-#############################################################################
-###  OTHER SETTINGS
-#############################################################################
-
-# For split pages, use index.html as start page!
-if ($Texi2HTML::Config::SPLIT eq 'section' or
-    $Texi2HTML::Config::SPLIT eq 'node') {
-  $Texi2HTML::Config::TOP_FILE = 'index.html';
 }
 
 
