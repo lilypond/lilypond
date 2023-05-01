@@ -10,6 +10,8 @@
 ###
 ### Features implemented here:
 ### -) For split manuals, the main page is index.html.
+### -) Use our custom CSS file, with IE-specific fixes in another CSS file,
+###    implemented by lilypond_css_lines
 ### -) TOC (folded, with the current page highlighted) in an overflown <div>
 ###    is added to every page; implemented by:
 ###           lilypond_print_page_head -- start <div id="main">
@@ -114,15 +116,19 @@ our $web_manual;
 $Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
 
 @Texi2HTML::Config::CSS_REFS = (
-    "css/lilypond-manuals.css",
-    "css/lilypond-highlighting.css"
+    {FILENAME => "lilypond-manuals.css", TITLE => "Default style"},
+    {FILENAME => "lilypond-highlighting.css"}
+    );
+@Texi2HTML::Config::ALT_CSS_REFS      = (
     );
 
 sub web_settings() {
   print STDERR "Processing web site: [" . ly_get_language () . "]\n";
   $Texi2HTML::Config::BODYTEXT = "";
   @Texi2HTML::Config::CSS_REFS      = (
-      "css/lilypond-website.css"
+      {FILENAME => "lilypond-website.css", TITLE => "Default style"}
+      );
+  @Texi2HTML::Config::ALT_CSS_REFS      = (
       );
 }
 
@@ -160,6 +166,7 @@ $Texi2HTML::Config::internal_ref         = \&lilypond_internal_ref;
 $Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
 $default_external_href = $Texi2HTML::Config::external_href;
 $Texi2HTML::Config::external_href        = \&lilypond_external_href;
+$Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
 $default_unknown = $Texi2HTML::Config::unknown;
 $Texi2HTML::Config::unknown              = \&lilypond_unknown;
 # $Texi2HTML::Config::foot_line_and_ref    = \&lilypond_foot_line_and_ref;
@@ -314,6 +321,43 @@ sub split_texi_filename ($)
   $docu_name =~ s/\.te?x(i|info)?$//;
   return ($docu_dir, $docu_name);
 }
+
+
+
+
+
+#############################################################################
+###  CSS HANDLING
+#############################################################################
+
+# Include our standard CSS file, not hard-coded CSS code directly in the HTML!
+# For IE, add a second conditionally included CSS file.
+sub lilypond_css_lines ($$)
+{
+  my $import_lines = shift;
+  my $rule_lines = shift;
+  return if (defined($Texi2HTML::THISDOC{'CSS_LINES'}));
+  if (@$rule_lines or @$import_lines)
+  {
+    $Texi2HTML::THISDOC{'CSS_LINES'} = "<style type=\"text/css\">\n<!--\n";
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$import_lines) . "\n" if (@$import_lines);
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$rule_lines) . "\n" if (@$rule_lines);
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= "-->\n</style>\n";
+  }
+  foreach my $ref (@CSS_REFS)
+  {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<link rel=\"stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"css/$ref->{FILENAME}\">\n";
+  }
+  foreach my $ref (@Texi2HTML::Config::ALT_CSS_REFS)
+  {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"css/$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
+  }
+}
+
+
+
 
 
 #############################################################################
