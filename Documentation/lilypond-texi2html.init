@@ -96,14 +96,13 @@ $Texi2HTML::Config::SPLIT_INDEX   = 0;
 $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
 
 $Texi2HTML::Config::DO_CONTENTS = 1;
+$Texi2HTML::Config::NODE_FILES = 1;
 
 # The default has changed to 'class="no-bullet"' in texi2html 5.0.
 $Texi2HTML::Config::NO_BULLET_LIST_CLASS = 'toc';
 
-if ($Texi2HTML::Config::SPLIT eq 'section' or
-    $Texi2HTML::Config::SPLIT eq 'node') {
-  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
-}
+$default_node_file_name = $Texi2HTML::Config::node_file_name;
+$Texi2HTML::Config::node_file_name = \&lilypond_node_file_name;
 
 $Texi2HTML::Config::anchor  = \&lilypond_anchor;
 $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
@@ -217,40 +216,12 @@ sub split_texi_filename ($)
 ###  SPLITTING BASED ON NUMBERED SECTIONS
 #############################################################################
 
-my $docnr = 0;
-
-
-# This function is called after texi2html has done its own splitting and simply
-# returns the filename for the node given as first argument. We also might want
-# to name the anchors according to node titles, which works by simply overriding
-# the id element of the $element hash.
-sub lilypond_element_file_name($$$)
+sub lilypond_node_file_name($$)
 {
   my $element = shift;
   my $type = shift;
-  my $docu_name = shift;
-  my $docu_ext = $Texi2HTML::Config::EXTENSION;
 
-  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
-  # the snippets page does not use nodes for the snippets, so in this case
-  # we'll have to use the section name!
-  if ($node_name eq '') {
-    $node_name = main::remove_texi($element->{'texi'});
-  }
-
-  if ($type eq "top" or $type eq "toc" or $type eq "doc" or
-	   $type eq "stoc" or $type eq "foot" or $type eq "about") {
-    return;
-  } else {
-    my $filename = texinfo_file_name($node_name);
-    $filename .= ".$docu_ext" if (defined($docu_ext));
-    $filename = lc_last($filename);
-    $docnr += 1;
-    $$element{doc_nr} = $docnr;
-    return $filename;
-  }
-
-  return;
+  return lc(&$default_node_file_name($element, $type));
 }
 
 # This function produces an anchor.
