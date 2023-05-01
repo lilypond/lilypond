@@ -225,7 +225,8 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
 {
   PangoGlyph pg = pgi.glyph;
   PangoGlyphGeometry ggeo = pgi.geometry;
-  bool is_ttf = std::string (FT_Get_X11_Font_Format (ftface)) == "TrueType";
+  auto font_format = get_font_format (ftface);
+  bool is_ttf = font_format == "TrueType" || font_format == "CFF2";
   bool has_glyph_names = FT_HAS_GLYPH_NAMES (ftface);
 
   const int GLYPH_NAME_LEN = 256;

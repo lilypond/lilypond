@@ -22,6 +22,8 @@
 
 #include FT_FONT_FORMATS_H
 #include FT_TRUETYPE_TABLES_H
+#include FT_TRUETYPE_TAGS_H
+
 
 #include "dimensions.hh"
 #include "international.hh"
@@ -96,6 +98,34 @@ open_ft_face (const std::string &str, FT_Long idx)
 }
 
 std::string
+get_font_format (FT_Face face)
+{
+  auto fmt = static_cast<std::string> (FT_Get_Font_Format (face));
+  if (fmt == "CFF")
+    {
+      // 'CFF2' fonts use the 'CFF' technology, however, they can't be
+      // embedded in PS files.  From a practical point of view, they are
+      // like TTFs but having a 'CFF2' instead of a 'glyf' table, roughly
+      // speaking.
+      //
+      // FIXME: The font format doesn't change and should be computed and
+      //        stored somewhere in a class or structure while opening a
+      //        font.
+      FT_ULong num_tables;
+      FT_Sfnt_Table_Info (face, 0, NULL, &num_tables);
+
+      for (FT_UInt i = 0; i < FT_UInt (num_tables); i++)
+        {
+          FT_ULong tag, dummy;
+          FT_Sfnt_Table_Info (face, i, &tag, &dummy);
+          if (tag == TTAG_CFF2)
+            return "CFF2";
+        }
+    }
+  return fmt;
+}
+
+std::string
 get_postscript_name (FT_Face face)
 {
   std::string face_ps_name;
@@ -108,10 +138,10 @@ get_postscript_name (FT_Face face)
       return "";
     }
 
-  const char *fmt = FT_Get_Font_Format (face);
-  if (fmt)
+  std::string fmt = get_font_format (face);
+  if (!fmt.empty ())
     {
-      if (static_cast<std::string> (fmt) != "CFF")
+      if (fmt != "CFF")
         return face_ps_name; // For non-CFF font, pass it through.
     }
   else

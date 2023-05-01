@@ -18,6 +18,7 @@
 */
 
 #include "freetype.hh"
+#include "open-type-font.hh"
 #include "bezier.hh"
 #include "lazy-skyline-pair.hh"
 #include "international.hh"
@@ -28,7 +29,6 @@
 #include FT_BBOX_H
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
-#include FT_FONT_FORMATS_H
 
 FT_Library freetype2_library;
 
@@ -184,7 +184,7 @@ ly_FT_add_outline_to_skyline (Lazy_skyline_pair *lazy,
 
   // TrueType and PS fonts have opposite ideas about contour
   // orientation.
-  bool is_tt = std::string ("TrueType") == FT_Get_Font_Format (face);
+  bool is_tt = get_font_format (face) == "TrueType";
   auto orientation = is_tt ? Orientation::CW : Orientation::CCW;
 
   Path_interpreter interpreter (lazy, transform, orientation);

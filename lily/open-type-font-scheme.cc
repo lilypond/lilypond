@@ -22,15 +22,6 @@
 #include "open-type-font.hh"
 #include "freetype.hh"
 
-#ifdef FT_FONT_FORMATS_H
-/* FreeType 2.6+ */
-#include FT_FONT_FORMATS_H
-#else
-/* FreeType 2.5.5 and earlier */
-#include FT_XFREE86_H
-#define FT_Get_Font_Format FT_Get_X11_Font_Format
-#endif
-
 #include <cstdio>
 
 LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
@@ -173,7 +164,8 @@ TTC/OTC. The default value of @var{idx} is@tie{}0.
     }
 
   face = open_ft_face (file_name, i);
-  SCM asscm = scm_from_latin1_symbol (FT_Get_Font_Format (face));
+  std::string font_format = get_font_format (face);
+  SCM asscm = scm_from_latin1_symbol (font_format.c_str ());
   FT_Done_Face (face);
 
   return asscm;
