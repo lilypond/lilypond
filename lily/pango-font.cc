@@ -232,12 +232,12 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
   const int GLYPH_NAME_LEN = 256;
   char glyph_name[GLYPH_NAME_LEN];
 
-  /*
-    Zero-width characters are valid Unicode characters,
-    but glyph lookups need to be skipped.
-  */
-  if (!(pg ^ PANGO_GLYPH_EMPTY))
-    return SCM_BOOL_F;
+  // Zero-width input characters are valid Unicode but don't have associated
+  // glyphs.
+  if (pg == PANGO_GLYPH_EMPTY)
+    {
+      return ly_list (SCM_BOOL_F);
+    }
 
   if (pg & PANGO_GLYPH_UNKNOWN_FLAG)
     {
@@ -374,6 +374,16 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
       int idx_delta = cluster_iter.end_index - cluster_iter.start_index;
       int gl_delta = cluster_iter.end_glyph - cluster_iter.start_glyph;
 
+      // Check whether we have an empty glyph.  We assume that it was created by
+      // exactly one input character.
+      if ((gl_delta == 1 || gl_delta == -1)
+          && cluster_iter.glyph_item->glyphs->glyphs[cluster_iter.start_glyph]
+                 .glyph
+               == PANGO_GLYPH_EMPTY)
+        {
+          gl_delta = 0;
+        }
+
       *clusters_tail
         = scm_cons (scm_cons (to_scm (idx_delta), to_scm (gl_delta)), SCM_EOL);
       clusters_tail = SCM_CDRLOC (*clusters_tail);
@@ -402,10 +412,15 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
 
       if (scm_is_false (glyph_desc))
         {
-          // If we skip a glyph, the UTF-8 text, glyph list and cluster
-          // list will go out of sync. In this case, give up on
-          // copy&paste from PDFs.
+          // If we cannot get a glyph description and thus have to skip a glyph,
+          // the UTF-8 text, the glyph list, and the cluster list will go out of
+          // sync.  In this case, give up on copy-and-paste support for PDFs.
           clusters = SCM_BOOL_F;
+          continue;
+        }
+      if (scm_is_false (scm_car (glyph_desc)))
+        {
+          // For empty glyphs, the cluster list was properly adjusted earlier.
           continue;
         }
 
