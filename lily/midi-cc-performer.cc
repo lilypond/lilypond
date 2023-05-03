@@ -43,8 +43,8 @@ public:
   void announce_control_change (SCM);
   ~Midi_control_change_performer ();
 
-  void connect_to_context (Context *c) override;
-  void disconnect_from_context (Context *c) override;
+  void connect_to_context () override;
+  void disconnect_from_context () override;
 
 private:
   class Control_change_announcer : public Midi_control_change_announcer
@@ -73,17 +73,17 @@ Midi_control_change_performer::~Midi_control_change_performer ()
 }
 
 void
-Midi_control_change_performer::connect_to_context (Context *c)
+Midi_control_change_performer::connect_to_context ()
 {
-  c->events_below ()->add_listener (
+  context ()->events_below ()->add_listener (
     GET_LISTENER (this, announce_control_change),
     ly_symbol2scm ("SetProperty"));
 }
 
 void
-Midi_control_change_performer::disconnect_from_context (Context *c)
+Midi_control_change_performer::disconnect_from_context ()
 {
-  c->events_below ()->remove_listener (
+  context ()->events_below ()->remove_listener (
     GET_LISTENER (this, announce_control_change),
     ly_symbol2scm ("SetProperty"));
 }

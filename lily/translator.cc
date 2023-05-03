@@ -119,28 +119,28 @@ Translator::finalize ()
 }
 
 void
-Translator::connect_to_context (Context *c)
+Translator::connect_to_context ()
 {
   for (SCM r = get_listener_list (); scm_is_pair (r); r = scm_cdr (r))
     {
       SCM event_class = scm_caar (r);
       SCM callback = scm_cdar (r);
 
-      c->events_below ()->add_listener (Listener (callback, self_scm ()),
-                                        event_class);
+      context_->events_below ()->add_listener (Listener (callback, self_scm ()),
+                                               event_class);
     }
 }
 
 void
-Translator::disconnect_from_context (Context *c)
+Translator::disconnect_from_context ()
 {
   for (SCM r = get_listener_list (); scm_is_pair (r); r = scm_cdr (r))
     {
       SCM event_class = scm_caar (r);
       SCM callback = scm_cdar (r);
 
-      c->events_below ()->remove_listener (Listener (callback, self_scm ()),
-                                           event_class);
+      context_->events_below ()->remove_listener (
+        Listener (callback, self_scm ()), event_class);
     }
 }
 

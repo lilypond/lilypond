@@ -66,7 +66,7 @@ Translator_group::connect_to_context (Context *c)
        tr_list = scm_cdr (tr_list))
     {
       Translator *tr = unsmob<Translator> (scm_car (tr_list));
-      tr->connect_to_context (c);
+      tr->connect_to_context ();
     }
 }
 
@@ -77,7 +77,7 @@ Translator_group::disconnect_from_context ()
        tr_list = scm_cdr (tr_list))
     {
       Translator *tr = unsmob<Translator> (scm_car (tr_list));
-      tr->disconnect_from_context (context_);
+      tr->disconnect_from_context ();
     }
   context_->event_source ()->remove_listener (
     GET_LISTENER (this, create_child_translator),

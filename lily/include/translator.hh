@@ -155,8 +155,8 @@ public:
   virtual void initialize ();
   virtual void finalize ();
 
-  virtual void connect_to_context (Context *c);
-  virtual void disconnect_from_context (Context *c);
+  virtual void connect_to_context ();
+  virtual void disconnect_from_context ();
 
   void stop_translation_timestep ();
   void start_translation_timestep ();
