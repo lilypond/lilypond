@@ -152,11 +152,10 @@ public:
   virtual bool is_midi () const { return true; };
   virtual bool is_layout () const { return true; };
 
+  virtual void connect_to_context () {}
   virtual void initialize () {}
   virtual void finalize () {}
-
-  virtual void connect_to_context ();
-  virtual void disconnect_from_context ();
+  virtual void disconnect_from_context () {}
 
   void stop_translation_timestep ();
   void start_translation_timestep ();

@@ -62,10 +62,16 @@ Translator_group::connect_to_context (Context *c)
   c->event_source ()->add_listener (
     GET_LISTENER (this, create_child_translator),
     ly_symbol2scm ("AnnounceNewContext"));
-  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list);
-       tr_list = scm_cdr (tr_list))
+  auto *const dispatcher = c->events_below ();
+  for (auto *tr : as_ly_smob_list<Translator> (simple_trans_list_))
     {
-      Translator *tr = unsmob<Translator> (scm_car (tr_list));
+      for (SCM entry : ly_scm_list (tr->get_listener_list ()))
+        {
+          SCM event_class = scm_car (entry);
+          SCM callback = scm_cdr (entry);
+          dispatcher->add_listener (Listener (callback, tr->self_scm ()),
+                                    event_class);
+        }
       tr->connect_to_context ();
     }
 }
@@ -73,11 +79,17 @@ Translator_group::connect_to_context (Context *c)
 void
 Translator_group::disconnect_from_context ()
 {
-  for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list);
-       tr_list = scm_cdr (tr_list))
+  auto *const dispatcher = context_->events_below ();
+  for (auto *tr : as_ly_smob_list<Translator> (simple_trans_list_))
     {
-      Translator *tr = unsmob<Translator> (scm_car (tr_list));
       tr->disconnect_from_context ();
+      for (SCM entry : ly_scm_list (tr->get_listener_list ()))
+        {
+          SCM event_class = scm_car (entry);
+          SCM callback = scm_cdr (entry);
+          dispatcher->remove_listener (Listener (callback, tr->self_scm ()),
+                                       event_class);
+        }
     }
   context_->event_source ()->remove_listener (
     GET_LISTENER (this, create_child_translator),

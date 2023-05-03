@@ -108,32 +108,6 @@ Translator::internal_get_property (SCM sym) const
   return context_->internal_get_property (sym);
 }
 
-void
-Translator::connect_to_context ()
-{
-  for (SCM r = get_listener_list (); scm_is_pair (r); r = scm_cdr (r))
-    {
-      SCM event_class = scm_caar (r);
-      SCM callback = scm_cdar (r);
-
-      context_->events_below ()->add_listener (Listener (callback, self_scm ()),
-                                               event_class);
-    }
-}
-
-void
-Translator::disconnect_from_context ()
-{
-  for (SCM r = get_listener_list (); scm_is_pair (r); r = scm_cdr (r))
-    {
-      SCM event_class = scm_caar (r);
-      SCM callback = scm_cdar (r);
-
-      context_->events_below ()->remove_listener (
-        Listener (callback, self_scm ()), event_class);
-    }
-}
-
 SCM
 Translator::event_class_symbol (const char *ev_class)
 {
