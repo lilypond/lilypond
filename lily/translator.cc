@@ -109,16 +109,6 @@ Translator::internal_get_property (SCM sym) const
 }
 
 void
-Translator::initialize ()
-{
-}
-
-void
-Translator::finalize ()
-{
-}
-
-void
 Translator::connect_to_context ()
 {
   for (SCM r = get_listener_list (); scm_is_pair (r); r = scm_cdr (r))
