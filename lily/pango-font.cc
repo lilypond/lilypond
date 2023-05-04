@@ -19,9 +19,6 @@
 
 #include "freetype.hh"
 
-// The PangoFcFont definition is only visible if PANGO_ENABLE_BACKEND
-// is defined.
-#define PANGO_ENABLE_BACKEND
 #include <pango/pangofc-font.h>
 #include <pango/pangoft2.h>
 #include FT_XFREE86_H
