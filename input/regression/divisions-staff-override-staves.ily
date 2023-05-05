@@ -6,6 +6,8 @@
   \context {
     \Score
     \override Divisio.color = #(universal-color 'blue)
+    \consists Measure_spanner_engraver
+    \override TextMark.break-visibility = #all-visible
   }
 
   %% identify each staff in the margin
