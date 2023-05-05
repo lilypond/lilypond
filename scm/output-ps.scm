@@ -146,14 +146,14 @@ supported in the PostScript backend.  Use the Cairo backend instead."))
                       postscript-font-name
                       size
                       cid?
-                      w-x-y-named-glyphs
+                      w-hd-x-y-g
                       file-name
                       face-index
                       text clusters)
-  (define (glyph-spec w h x y g) ; h not used
+  (define (glyph-spec w hd x y g) ; hd not used
     (let ((prefix (if (string? g) "/" "")))
       (ly:format "~4f ~4f ~4f ~a~a" w x y prefix g)))
-  (define (emglyph-spec w h x y g) ; h not used
+  (define (emglyph-spec w hd x y g) ; hd not used
     (if (and (= x 0) (= y 0))
         (ly:format "currentpoint ~a moveto ~4f 0 rmoveto" g w)
         (ly:format "currentpoint ~4f ~4f rmoveto ~a moveto ~4f 0 rmoveto" x y g w)))
@@ -162,21 +162,21 @@ supported in the PostScript backend.  Use the Cairo backend instead."))
        "/~a /CIDFont findresource ~a output-scale div scalefont setfont\n~a\n~a print_glyphs\n"
        postscript-font-name size
        (string-join (map (lambda (x) (apply glyph-spec x))
-                         (reverse w-x-y-named-glyphs)) "\n")
-       (length w-x-y-named-glyphs))
+                         (reverse w-hd-x-y-g)) "\n")
+       (length w-hd-x-y-g))
       (if (and (ly:get-option 'music-font-encodings)
                (string-startswith postscript-font-name "Emmentaler"))
           ;; The 'P' font encoding is for communication with Pango.
           (ly:format "/~a-P ~a output-scale div selectfont\n~a\n"
                      postscript-font-name size
                      (string-join (map (lambda (x) (apply emglyph-spec x))
-                                       w-x-y-named-glyphs) "\n"))
+                                       w-hd-x-y-g) "\n"))
           (ly:format "/~a ~a output-scale div selectfont\n~a\n~a print_glyphs\n"
                      postscript-font-name size
                      (string-join (map (lambda (x)
                                          (apply glyph-spec x))
-                                       (reverse w-x-y-named-glyphs)) "\n")
-                     (length w-x-y-named-glyphs)))))
+                                       (reverse w-hd-x-y-g)) "\n")
+                     (length w-hd-x-y-g)))))
 
 (define (grob-cause offset grob)
   (if (ly:get-option 'point-and-click)
