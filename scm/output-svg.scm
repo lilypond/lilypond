@@ -404,18 +404,29 @@
 (define (embedded-svg string)
   string)
 
-(define (glyph-string pango-font font size cid glyphs
-                      xfile-name face-index text clusters)
+(define (glyph-string pango-font
+                      postscript-font-name
+                      size
+                      cid?
+                      w-x-y-named-glyphs
+                      file-name
+                      face-index
+                      text
+                      clusters)
   (define path "")
-  (if (= 1 (length glyphs))
-      (set! path (music-string-to-path font size (car glyphs)))
+  (if (= 1 (length w-x-y-named-glyphs))
+      (set! path (music-string-to-path postscript-font-name
+                                       size
+                                       (car w-x-y-named-glyphs)))
       (begin
         (set! path
               (string-append (eo 'g #t)
                              (string-join
                               (map (lambda (x)
-                                     (music-string-to-path font size x))
-                                   glyphs)
+                                     (music-string-to-path postscript-font-name
+                                                           size
+                                                           x))
+                                   w-x-y-named-glyphs)
                               "\n")
                              (ec 'g)))))
   (set! next-horiz-adv 0.0)
