@@ -535,8 +535,8 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
           for (SCM c = clusters; scm_is_pair (c); c = scm_cdr (c))
             {
               cairo_text_cluster_t entry = {
-                .num_bytes = std::abs (from_scm<int> (scm_caar (c))),
-                .num_glyphs = std::abs (from_scm<int> (scm_cdar (c))),
+                .num_bytes = from_scm<int> (scm_caar (c)),
+                .num_glyphs = from_scm<int> (scm_cdar (c)),
               };
 
               cluster_array.push_back (entry);

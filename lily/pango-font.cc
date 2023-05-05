@@ -371,21 +371,23 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
        have_cluster;
        have_cluster = pango_glyph_item_iter_next_cluster (&cluster_iter))
     {
-      int idx_delta = cluster_iter.end_index - cluster_iter.start_index;
-      int gl_delta = cluster_iter.end_glyph - cluster_iter.start_glyph;
+      int num_bytes
+        = std::abs (cluster_iter.end_index - cluster_iter.start_index);
+      int num_glyphs
+        = std::abs (cluster_iter.end_glyph - cluster_iter.start_glyph);
 
       // Check whether we have an empty glyph.  We assume that it was created by
       // exactly one input character.
-      if ((gl_delta == 1 || gl_delta == -1)
+      if (num_glyphs == 1
           && cluster_iter.glyph_item->glyphs->glyphs[cluster_iter.start_glyph]
                  .glyph
                == PANGO_GLYPH_EMPTY)
         {
-          gl_delta = 0;
+          num_glyphs = 0;
         }
 
-      *clusters_tail
-        = scm_cons (scm_cons (to_scm (idx_delta), to_scm (gl_delta)), SCM_EOL);
+      *clusters_tail = scm_cons (
+        scm_cons (to_scm (num_bytes), to_scm (num_glyphs)), SCM_EOL);
       clusters_tail = SCM_CDRLOC (*clusters_tail);
     }
 
