@@ -463,7 +463,6 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
   cairo_set_font_matrix (context (), &m);
 
   std::vector<cairo_glyph_t> cairo_glyphs;
-  std::string utf8;
   for (SCM g = glyphs; scm_is_pair (g); g = scm_cdr (g))
     {
       SCM whxyg = scm_car (g);
@@ -481,15 +480,22 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
               // than 0xffff (See get_glyph_name() in pango-font.cc).
               // This code path is currently not covered by the regression test.
               std::string hex;
+              bool is_glyph_index = false;
               std::string glyph_ustr = ly_scm2string (glyph_scm);
               if (!glyph_ustr.rfind ("uni", 0))
                 hex = glyph_ustr.substr (3);
               else
-                hex = glyph_ustr.substr (1);
+                {
+                  hex = glyph_ustr.substr (1);
+                  is_glyph_index = true;
+                }
               unsigned long gb = std::stoul (hex, nullptr, 16);
-              char gc[] = {0, 0, 0, 0, 0, 0};
-              int n = g_unichar_to_utf8 (static_cast<gunichar> (gb), gc);
-              utf8 += std::string (gc, n);
+              cairo_glyphs.push_back (cairo_glyph_t ({
+                .index = static_cast<long unsigned int> (
+                  is_glyph_index ? gb : FT_Get_Char_Index (ft_face, gb)),
+                .x = startx + (x + sumw),
+                .y = starty - y,
+              }));
             }
           else
             {
@@ -520,38 +526,29 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
       sumw = sumw + w;
     }
 
-  assert (cairo_glyphs.empty () || utf8.empty ());
-  if (!cairo_glyphs.empty ())
+  std::string text_str = ly_scm2string (text);
+  if (scm_is_false (clusters))
     {
-      std::string text_str = ly_scm2string (text);
-      if (scm_is_false (clusters))
-        {
-          cairo_show_glyphs (context (), cairo_glyphs.data (),
-                             int (cairo_glyphs.size ()));
-        }
-      else
-        {
-          std::vector<cairo_text_cluster_t> cluster_array;
-          for (SCM c = clusters; scm_is_pair (c); c = scm_cdr (c))
-            {
-              cairo_text_cluster_t entry = {
-                .num_bytes = from_scm<int> (scm_caar (c)),
-                .num_glyphs = from_scm<int> (scm_cdar (c)),
-              };
-
-              cluster_array.push_back (entry);
-            }
-          auto flags = static_cast<cairo_text_cluster_flags_t> (0);
-          cairo_show_text_glyphs (
-            context (), text_str.c_str (), static_cast<int> (text_str.size ()),
-            cairo_glyphs.data (), static_cast<int> (cairo_glyphs.size ()),
-            cluster_array.data (), static_cast<int> (cluster_array.size ()),
-            flags);
-        }
+      cairo_show_glyphs (context (), cairo_glyphs.data (),
+                         int (cairo_glyphs.size ()));
     }
-  else if (!utf8.empty ())
+  else
     {
-      cairo_show_text (context (), utf8.c_str ());
+      std::vector<cairo_text_cluster_t> cluster_array;
+      for (SCM c = clusters; scm_is_pair (c); c = scm_cdr (c))
+        {
+          cairo_text_cluster_t entry = {
+            .num_bytes = from_scm<int> (scm_caar (c)),
+            .num_glyphs = from_scm<int> (scm_cdar (c)),
+          };
+
+          cluster_array.push_back (entry);
+        }
+      auto flags = static_cast<cairo_text_cluster_flags_t> (0);
+      cairo_show_text_glyphs (
+        context (), text_str.c_str (), static_cast<int> (text_str.size ()),
+        cairo_glyphs.data (), static_cast<int> (cairo_glyphs.size ()),
+        cluster_array.data (), static_cast<int> (cluster_array.size ()), flags);
     }
 }
 
