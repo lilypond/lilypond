@@ -151,6 +151,32 @@ supported in the PostScript backend.  Use the Cairo backend instead."))
                       face-index
                       text
                       clusters)
+  "Emit a series of glyphs using a given font.  *pango-font* holds a pointer to
+the glyphs' associated `Pango_font` structure, *postscript-font-name* is the
+font's PostScript name, *size* is the font's size, and *cid?* is a Boolean flag
+that, if set, indicates whether glyphs are specified by CID values instead of
+glyph names (this is only relevant for CID-keyed OpenType Fonts).
+
+*w-hd-x-y-g-gn* is a list of sublists, where each sublist describes a single
+glyph and has the form
+
+```
+(width (height . depth) x-offset y-offset glyph-index glyph-name-or-CID-value)
+```
+
+*width*, *height*, and *depth* are the advance width, height, and depth of a
+glyph, respectively; *x-offset* and *y-offset* are the horizontal and vertical
+offsets relative to a glyph's current position, respectively, where the glyph
+must be drawn.  *glyph-index* holds the index, and *glyph-name-or-CID-value*
+holds the corresponding glyph name (as a string) or CID value (as an integer)
+depending on *cid?*.
+
+*file-name* is file name of the font; *face-index* is a value returned by the
+Fontconfig library to access subfonts and/or named instances in the font.
+
+*text* holds the original input text for the glyphs, and *clusters* is a list of
+pairs of the form `(num-bytes . num-glyphs)` for mapping input characters to
+output glyphs as described by the Cairo structure `cairo_text_cluster_t`."
   (define (glyph-spec w hd x y g gn) ; `hd` and `g` are not used
     (let ((prefix (if (string? gn) "/" "")))
       (ly:format "~4f ~4f ~4f ~a~a" w x y prefix gn)))

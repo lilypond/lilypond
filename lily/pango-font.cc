@@ -481,6 +481,8 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
 
       std::string substr
         = text.substr (glyph_item->item->offset, glyph_item->item->length);
+      // See function `glyph-string` in file `output-ps.scm` for documentation
+      // of the arguments.
       SCM expr
         = ly_list (ly_symbol2scm ("glyph-string"), self_scm (),
                    ly_string2scm (ps_name), to_scm (size), to_scm (cid_keyed),

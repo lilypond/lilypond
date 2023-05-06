@@ -437,6 +437,8 @@ Cairo_outputter::show_named_glyph (SCM scaled_font, SCM glyphname)
   cairo_show_glyphs (context (), &oneglyph, 1);
 }
 
+// See function `glyph-string` in file `output-ps.scm` for documentation of the
+// arguments.
 void
 Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
                                SCM face_index, SCM text, SCM clusters)

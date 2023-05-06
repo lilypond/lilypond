@@ -413,6 +413,8 @@
                       face-index
                       text
                       clusters)
+  "See function `glyph-string` in file `output-ps.scm` for documentation of the
+arguments."
   (define path "")
   (if (= 1 (length w-hd-x-y-g-gn))
       (set! path (music-string-to-path postscript-font-name
