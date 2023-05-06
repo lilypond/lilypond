@@ -465,64 +465,17 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
   std::vector<cairo_glyph_t> cairo_glyphs;
   for (SCM g = glyphs; scm_is_pair (g); g = scm_cdr (g))
     {
-      SCM whxyg = scm_car (g);
-      Real w = from_scm<Real> (scm_car (whxyg));
-      Real x = from_scm<Real> (scm_caddr (whxyg));
-      Real y = from_scm<Real> (scm_cadddr (whxyg));
-      SCM glyph_scm = scm_cadddr (scm_cdr (whxyg));
-      if (!FT_HAS_GLYPH_NAMES (ft_face))
-        {
-          if (scm_is_string (glyph_scm))
-            {
-              // We have a font without glyph names. LilyPond provides the
-              // glyph either as a string "uniXXXX" where XXXX is a four-digit
-              // hex number or as a string "uXXXXX..." for hex numbers greater
-              // than 0xffff (See get_glyph_name() in pango-font.cc).
-              // This code path is currently not covered by the regression test.
-              std::string hex;
-              bool is_glyph_index = false;
-              std::string glyph_ustr = ly_scm2string (glyph_scm);
-              if (!glyph_ustr.rfind ("uni", 0))
-                hex = glyph_ustr.substr (3);
-              else
-                {
-                  hex = glyph_ustr.substr (1);
-                  is_glyph_index = true;
-                }
-              unsigned long gb = std::stoul (hex, nullptr, 16);
-              cairo_glyphs.push_back (cairo_glyph_t ({
-                .index = static_cast<long unsigned int> (
-                  is_glyph_index ? gb : FT_Get_Char_Index (ft_face, gb)),
-                .x = startx + (x + sumw),
-                .y = starty - y,
-              }));
-            }
-          else
-            {
-              // We have a font without glyph names.
-              // The glyph is not a string, so it definitely must be an
-              // unsigned int. We feed this number to cairo_show_glyphs, people
-              // will complain if this is wrong. Tested to work correctly with
-              // Google Noto CJK OpenType/CFF Collection (OTC) font. Our test
-              // case collection does not exercise this code.
-              int glyph_code = from_scm<int> (glyph_scm);
-              cairo_glyphs.push_back (cairo_glyph_t ({
-                .index = static_cast<long unsigned int> (glyph_code),
-                .x = startx + (x + sumw),
-                .y = starty - y,
-              }));
-            }
-        }
-      else // we have a font with glyph names
-        {
-          std::string g = ly_scm2string (glyph_scm);
-          cairo_glyphs.push_back (cairo_glyph_t ({
-            .index
-            = FT_Get_Name_Index (ft_face, const_cast<FT_String *> (g.c_str ())),
-            .x = startx + (x + sumw),
-            .y = starty - y,
-          }));
-        }
+      SCM whxyggn = scm_car (g);
+      auto w = from_scm<Real> (scm_car (whxyggn));
+      auto x = from_scm<Real> (scm_caddr (whxyggn));
+      auto y = from_scm<Real> (scm_cadddr (whxyggn));
+      auto glyph_idx = from_scm<int> (scm_cadddr (scm_cdr (whxyggn)));
+
+      cairo_glyphs.push_back (cairo_glyph_t ({
+        .index = static_cast<long unsigned int> (glyph_idx),
+        .x = startx + (x + sumw),
+        .y = starty - y,
+      }));
       sumw = sumw + w;
     }
 

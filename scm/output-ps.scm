@@ -146,37 +146,42 @@ supported in the PostScript backend.  Use the Cairo backend instead."))
                       postscript-font-name
                       size
                       cid?
-                      w-hd-x-y-g
+                      w-hd-x-y-g-gn
                       file-name
                       face-index
-                      text clusters)
-  (define (glyph-spec w hd x y g) ; hd not used
-    (let ((prefix (if (string? g) "/" "")))
-      (ly:format "~4f ~4f ~4f ~a~a" w x y prefix g)))
-  (define (emglyph-spec w hd x y g) ; hd not used
+                      text
+                      clusters)
+  (define (glyph-spec w hd x y g gn) ; `hd` and `g` are not used
+    (let ((prefix (if (string? gn) "/" "")))
+      (ly:format "~4f ~4f ~4f ~a~a" w x y prefix gn)))
+  (define (emglyph-spec w hd x y g gn) ; `hd` and `g` are not used
     (if (and (= x 0) (= y 0))
-        (ly:format "currentpoint ~a moveto ~4f 0 rmoveto" g w)
-        (ly:format "currentpoint ~4f ~4f rmoveto ~a moveto ~4f 0 rmoveto" x y g w)))
+        (ly:format "currentpoint ~a moveto ~4f 0 rmoveto" gn w)
+        (ly:format "currentpoint ~4f ~4f rmoveto ~a moveto ~4f 0 rmoveto"
+                   x y gn w)))
   (if cid?
       (ly:format
        "/~a /CIDFont findresource ~a output-scale div scalefont setfont\n~a\n~a print_glyphs\n"
        postscript-font-name size
        (string-join (map (lambda (x) (apply glyph-spec x))
-                         (reverse w-hd-x-y-g)) "\n")
-       (length w-hd-x-y-g))
+                         (reverse w-hd-x-y-g-gn))
+                    "\n")
+       (length w-hd-x-y-g-gn))
       (if (and (ly:get-option 'music-font-encodings)
                (string-startswith postscript-font-name "Emmentaler"))
           ;; The 'P' font encoding is for communication with Pango.
           (ly:format "/~a-P ~a output-scale div selectfont\n~a\n"
                      postscript-font-name size
                      (string-join (map (lambda (x) (apply emglyph-spec x))
-                                       w-hd-x-y-g) "\n"))
+                                       w-hd-x-y-g-gn)
+                                  "\n"))
           (ly:format "/~a ~a output-scale div selectfont\n~a\n~a print_glyphs\n"
                      postscript-font-name size
                      (string-join (map (lambda (x)
                                          (apply glyph-spec x))
-                                       (reverse w-hd-x-y-g)) "\n")
-                     (length w-hd-x-y-g)))))
+                                       (reverse w-hd-x-y-g-gn))
+                                  "\n")
+                     (length w-hd-x-y-g-gn)))))
 
 (define (grob-cause offset grob)
   (if (ly:get-option 'point-and-click)

@@ -408,16 +408,16 @@
                       postscript-font-name
                       size
                       cid?
-                      w-hd-x-y-g
+                      w-hd-x-y-g-gn
                       file-name
                       face-index
                       text
                       clusters)
   (define path "")
-  (if (= 1 (length w-hd-x-y-g))
+  (if (= 1 (length w-hd-x-y-g-gn))
       (set! path (music-string-to-path postscript-font-name
                                        size
-                                       (car w-hd-x-y-g)))
+                                       (car w-hd-x-y-g-gn)))
       (begin
         (set! path
               (string-append (eo 'g #t)
@@ -426,7 +426,7 @@
                                      (music-string-to-path postscript-font-name
                                                            size
                                                            x))
-                                   w-hd-x-y-g)
+                                   w-hd-x-y-g-gn)
                               "\n")
                              (ec 'g)))))
   (set! next-horiz-adv 0.0)

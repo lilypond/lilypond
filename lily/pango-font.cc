@@ -325,7 +325,8 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
                   scm_cons (to_scm (scaled_glyph_extent[Y_AXIS][DOWN]),
                             to_scm (scaled_glyph_extent[Y_AXIS][UP])),
                   to_scm (ggeo.x_offset * scale_),
-                  to_scm (-ggeo.y_offset * scale_), char_id);
+                  to_scm (-ggeo.y_offset * scale_), to_scm<uint64_t> (pg),
+                  char_id);
 }
 
 Stencil

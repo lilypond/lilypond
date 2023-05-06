@@ -574,7 +574,7 @@ add_glyph_string_segments (Lazy_skyline_pair *skyline,
   std::vector<Interval> heights;
   std::vector<Real> xos;
   std::vector<Real> yos;
-  std::vector<std::string> char_ids;
+  std::vector<int> glyph_indices;
 
   Pango_font *pango_fm = dynamic_cast<Pango_font *> (fm);
   SCM_ASSERT_TYPE (pango_fm, fm_scm, SCM_ARG1, __FUNCTION__, "Pango font");
@@ -590,7 +590,7 @@ add_glyph_string_segments (Lazy_skyline_pair *skyline,
       now = scm_cdr (now);
       yos.push_back (from_scm<double> (scm_car (now), 0.0));
       now = scm_cdr (now);
-      char_ids.push_back (robust_scm2string (scm_car (now), ""));
+      glyph_indices.push_back (from_scm<int> (scm_car (now), 0));
     }
   Real cumulative_x = 0.0;
   for (vsize i = 0; i < widths.size (); i++)
@@ -602,7 +602,7 @@ add_glyph_string_segments (Lazy_skyline_pair *skyline,
       Box kerned_bbox;
       kerned_bbox.add_point (pt0);
       kerned_bbox.add_point (pt1);
-      size_t gidx = pango_fm->name_to_index (char_ids[i]);
+      int gidx = glyph_indices[i];
       Box real_bbox = pango_fm->get_scaled_indexed_char_dimensions (gidx);
       Box bbox = pango_fm->get_unscaled_indexed_char_dimensions (gidx);
 
