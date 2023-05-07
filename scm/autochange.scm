@@ -60,7 +60,7 @@ the direction of subsequent notes is seen.
                                     'change-tag '$autoChange
                                     'change-to-type 'Staff
                                     'change-to-id (if (< dir 0) "down" "up"))))
-                (generate-change-music-list now
+                (generate-change-music-list change-mom
                                             dir
                                             #f
                                             (cdr event-list)
