@@ -1205,7 +1205,7 @@ Aquestes plantilles s'usen per a @code{lilypond-book}.  Si no
 esteu familiaritzat amb aquest programa, consulteu
 @ref{lilypond-book}.
 
-@subsection LaTeX
+@subheading LaTeX
 
 Podem inserir fragments del LilyPond dins d'un document del LaTeX.
 
@@ -1230,7 +1230,7 @@ d4 c b a
 \end@{document@}
 @end example
 
-@subsection Texinfo
+@subheading Texinfo
 
 Podem inserir fragments del LilyPond dins del Texinfo; de fet, tot
 aquest manual està escrit en Texinfo.
@@ -1258,7 +1258,7 @@ d4 c b a
 @end example
 
 
-@subsection html
+@subheading html
 
 @example
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -1289,7 +1289,7 @@ a4 b c d
 
 @end example
 
-@subsection xelatex
+@subheading xelatex
 
 @verbatim
 \documentclass{article}

@@ -78,7 +78,7 @@ language is used for a specific purpose or purposes.  This section describes
 the languages used and provides links to reference manuals and tutorials for
 the relevant language.
 
-@subsection C++
+@subheading C++
 
 The core functionality of LilyPond is implemented in C++.
 
@@ -91,13 +91,13 @@ documented in the
 @uref{https://www.gnu.org/software/guile/manual/html_node/index.html, GUILE
   Reference Manual}.
 
-@subsection Flex
+@subheading Flex
 
 The LilyPond lexer is implemented in Flex, an implementation of the Unix lex
 lexical analyser generator.  Resources for Flex can be found
 @uref{http://flex.sourceforge.net/, here}.
 
-@subsection GNU Bison
+@subheading GNU Bison
 
 The LilyPond parser is implemented in Bison, a GNU parser generator.  The
 Bison homepage is found at @uref{https://www.gnu.org/software/bison/,
@@ -105,13 +105,13 @@ gnu.org}.  The manual (which includes both a reference and tutorial) is
 @uref{https://www.gnu.org/software/bison/manual/index.html, available} in a
 variety of formats.
 
-@subsection GNU Make
+@subheading GNU Make
 
 GNU Make is used to control the compiling process and to build the
 documentation and the website.  GNU Make documentation is available at
 @uref{https://www.gnu.org/software/make/manual/, the GNU website}.
 
-@subsection GUILE or Scheme
+@subheading GUILE or Scheme
 
 GUILE is the dialect of Scheme that is used as LilyPond's extension language.
 Many extensions to LilyPond are written entirely in GUILE.  The
@@ -125,13 +125,13 @@ programming in Scheme is available in its entirety online.
 An introduction to Guile/Scheme as used in LilyPond can be found in the
 @rextend{Scheme tutorial}.
 
-@subsection MetaFont
+@subheading MetaFont
 
 MetaFont is used to create the music fonts used by LilyPond.  A MetaFont
 tutorial is available at @uref{http://metafont.tutorial.free.fr/, the
 METAFONT tutorial page}.
 
-@subsection PostScript
+@subheading PostScript
 
 PostScript is used to generate graphical output.  A brief PostScript tutorial
 is @uref{http://local.wasp.uwa.edu.au/~pbourke/dataformats/postscript/,
@@ -139,7 +139,7 @@ available online}.  The
 @uref{https://www.adobe.com/products/postscript/pdfs/PLRM.pdf, PostScript Language
 Reference} is available online in PDF format.
 
-@subsection Python
+@subheading Python
 
 Python is used for XML2ly and is used for building the documentation and the
 website.
@@ -147,7 +147,7 @@ website.
 Python documentation is available at @uref{https://www.python.org/doc/,
 python.org}.
 
-@subsection Scalable Vector Graphics (SVG)
+@subheading Scalable Vector Graphics (SVG)
 
 Scalable Vector Graphics (SVG) is an XML-based markup language used to generate
 graphical output.  A brief SVG tutorial is
@@ -164,7 +164,7 @@ Much of the development work in LilyPond takes place by changing @file{*.ly} or
 changes are described in this section.
 
 
-@subsection Modifying distribution files
+@subheading Modifying distribution files
 
 Much of LilyPond is written in Scheme or LilyPond input files.  These
 files are interpreted when the program is run, rather than being compiled
@@ -180,7 +180,7 @@ LilyPond on some input file.  It's a good idea to create a file that
 demonstrates the feature you're trying to add.  This file will eventually
 become a regression test and will be part of the LilyPond distribution.
 
-@subsection Desired file formatting
+@subheading Desired file formatting
 
 Files that are part of the LilyPond distribution have Unix-style line
 endings (LF), rather than DOS (CR+LF) or Mac~OS~9 and earlier (CR).  Make
@@ -211,7 +211,7 @@ be modified live.  With nearly 3000 files in the source tree,
 trial-and-error searching is generally ineffective.  This section
 describes a process for finding interesting code.
 
-@subsection Using the ROADMAP
+@subheading Using the ROADMAP
 
 The file ROADMAP is located in the main directory of the lilypond source.
 ROADMAP lists all of the directories in the LilyPond source tree, along
@@ -220,7 +220,7 @@ This can be a very helpful tool for deciding which directories to search
 when looking for a function.
 
 
-@subsection Using grep to search
+@subheading Using grep to search
 
 Having identified a likely subdirectory to search, the grep utility can
 be used to search for a function name.  The format of the grep command is
@@ -240,7 +240,7 @@ scheme files, ly/ for lilypond input (@file{*.ly}) files, and @file{lily/} for C
 files.
 
 
-@subsection Using git grep to search
+@subheading Using git grep to search
 
 If you have used git to obtain the source, you have access to a
 powerful tool to search for functions.  The command:
@@ -255,7 +255,7 @@ of the search using @code{less}, so the results are displayed one page
 at a time.
 
 
-@subsection Using TAGS support
+@subheading Using TAGS support
 
 Many programs, including Emacs, ex, vi, and less, provide the
 ability to jump directly to the definition of an identifier based
@@ -278,7 +278,7 @@ This will create both @file{TAGS} and @file{tags} files in the
 source directory tree.  To enable and use tags in a particular
 program, see the associated program documentation.
 
-@subsection Searching on the git repository at GitLab and Savannah
+@subheading Searching on the git repository at GitLab and Savannah
 
 GitLab's web interface provides a built-in search.
 
@@ -783,7 +783,7 @@ Do not run make po/po-update with GNU gettext < 0.10.35
 @node Warnings Errors Progress and Debug Output
 @section Warnings, Errors, Progress and Debug Output
 
-@unnumberedsubsec Available log levels
+@subheading Available log levels
 
 LilyPond has several loglevels, which specify how verbose the output on
 the console should be:
@@ -801,7 +801,7 @@ The loglevel can either be set with the environment variable
 @code{LILYPOND_LOGLEVEL} or on the command line with the @option{--loglevel=...}
 option.
 
-@unnumberedsubsec Functions for debug and log output
+@subheading Functions for debug and log output
 
 LilyPond has two different types of error and log functions:
 @itemize
@@ -846,7 +846,7 @@ If the Scheme option @code{warning-as-error} is set, any warning will be
 treated as if @code{Input::error} was called.
 
 
-@unnumberedsubsec All logging functions at a glance
+@subheading All logging functions at a glance
 
 @multitable @columnfractions 0.16 0.42 0.42
 @headitem

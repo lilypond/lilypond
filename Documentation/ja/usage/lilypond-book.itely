@@ -1171,7 +1171,7 @@ LilyPond ブロックの最初の @code{\score} だけが処理されます。
 @code{lilypond-book} に馴染みが無いのであれば、@ref{lilypond-book} を@c
 読んで下さい。
 
-@subsection LaTeX
+@subheading LaTeX
 
 LilyPond 断片を LaTeX ドキュメントに組み込むことができます。
 
@@ -1196,7 +1196,7 @@ d4 c b a
 \end@{document@}
 @end example
 
-@subsection Texinfo
+@subheading Texinfo
 
 LilyPond 断片を Texinfo に組み込むことができます。@c
 実際、このマニュアル全体が Texinfo で記述されています。
@@ -1224,7 +1224,7 @@ d4 c b a
 @end example
 
 
-@subsection html
+@subheading html
 
 @example
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -1256,7 +1256,7 @@ a4 b c d
 
 @end example
 
-@subsection xelatex
+@subheading xelatex
 
 @verbatim
 \documentclass{article}

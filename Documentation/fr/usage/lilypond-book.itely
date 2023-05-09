@@ -1329,7 +1329,7 @@ Voici quelques canevas dédiés à @code{lilypond-book}.  Si vous ne savez
 pas de quoi il retourne, lisez le chapitre @ref{lilypond-book}.
 
 
-@subsection @LaTeX{}
+@subheading @LaTeX{}
 
 Vous pouvez inclure des partitions LilyPond dans un document LaTeX.
 
@@ -1355,7 +1355,7 @@ d4 c b a
 @end example
 
 
-@subsection Texinfo
+@subheading Texinfo
 
 Un document Texinfo est tout à fait capable de comporter des fragments
 de partition LilyPond.  Si vous ne le savez pas encore, sachez que
@@ -1387,7 +1387,7 @@ d4 c b a
 @end example
 
 
-@subsection html
+@subheading html
 
 @example
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -1419,7 +1419,7 @@ a4 b c d
 @end example
 
 
-@subsection xelatex
+@subheading xelatex
 
 @verbatim
 \documentclass{article}

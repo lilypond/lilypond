@@ -110,7 +110,7 @@ erzeugt daher die Dateien @var{Dateiname}@file{-Geige.pdf} und
 
 
 
-@unnumberedsubsubsec Häufige Kommandozeilenbefehle
+@subsubheading Häufige Kommandozeilenbefehle
 
 Wenn Ihre Kommandozeile normale Weiterleitungen unterstützt, können
 Sie es nützlich finden, mit folgenden Befehlen die Ausgabe der

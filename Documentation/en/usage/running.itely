@@ -145,7 +145,7 @@ LilyPond outputs @file{filename-violin.pdf} and
 @file{filename-cello-1.pdf}.
 
 
-@unnumberedsubsubsec Using LilyPond with standard shell features
+@subsubheading Using LilyPond with standard shell features
 
 Since LilyPond is a command-line application, features of the @q{shell}
 used for calling LilyPond can also be put to good use.

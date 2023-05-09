@@ -107,7 +107,7 @@ La salida consiste en los archivos @file{filename-violin.pdf} y
 @file{filename-cello-1.pdf}.
 
 
-@unnumberedsubsubsec Uso de LilyPond con las posibilidades básicas del shell
+@subsubheading Uso de LilyPond con las posibilidades básicas del shell
 
 Dado que LilyPond es una aplicación de consola, las posibilidades
 del @q{shell} usado para la llamada a LilyPond también pueden

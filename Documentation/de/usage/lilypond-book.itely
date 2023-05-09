@@ -1172,7 +1172,7 @@ Diese Vorlagen sollen mit @code{lilypond-book} benutzt werden.  Wenn Sie sich
 mit dem Programm nicht auskennen, lesen Sie bitte
 @ref{lilypond-book}.
 
-@subsection LaTeX
+@subheading LaTeX
 
 Sie können LilyPond-Fragmente in ein LaTeX-Dokument einfügen:
 
@@ -1197,7 +1197,7 @@ d4 c b a
 \end@{document@}
 @end example
 
-@subsection Texinfo
+@subheading Texinfo
 
 LilyPond-Fragmente können in Texinfo-Dokumente eingefügt werden: dieses gesamte
 Handbuch wurde in Texinfo geschrieben.
@@ -1225,7 +1225,7 @@ d4 c b a
 @end example
 
 
-@subsection html
+@subheading html
 
 @example
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -1256,7 +1256,7 @@ a4 b c d
 
 @end example
 
-@subsection xelatex
+@subheading xelatex
 
 @verbatim
 \documentclass{article}

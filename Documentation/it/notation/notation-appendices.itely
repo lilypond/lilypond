@@ -1924,7 +1924,8 @@ Output
 @end lilypond
 
 @end multitable
-@unnumberedsubsubsec Mensurali
+
+@subsubheading Mensurali
 
 @multitable @columnfractions .3 .18 .34 .18
 
@@ -2261,7 +2262,7 @@ Output
 @end multitable
 
 
-@unnumberedsubsubsec Kievan
+@subsubheading Kievan
 
 @multitable @columnfractions .3 .18 .34 .18
 

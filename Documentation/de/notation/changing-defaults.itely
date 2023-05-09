@@ -2597,7 +2597,7 @@ gerade Linie ziehen, unterstützen auch das
 @code{line-spanner-interface} (Strecker-Linienschnittstelle).
 
 
-@unnumberedsubsubsec Das @code{spanner-interface} benutzen
+@subsubheading Das @code{spanner-interface} benutzen
 
 Diese Schnittstelle stellt zwei Eigenschaften zur Verfügung,
 die sich auf mehrere Strecker auswirken:
@@ -2714,7 +2714,7 @@ keinen Effekt.  Das gilt auch für alle anderen Streckern, bei
 denen es nicht sinnvoll währe, sie an einer Taktlinie abzuschließen.
 
 
-@unnumberedsubsubsec Das @code{line-spanner-interface} benutzen
+@subsubheading Das @code{line-spanner-interface} benutzen
 
 Objekte, die das @code{line-spanner-interface} unterstützen,
 sind unter Anderem:

@@ -1559,7 +1559,7 @@ Résultat
 @node Ancient music clefs
 @unnumberedsubsec Clefs de musique ancienne
 
-@unnumberedsubsubsec Grégorien
+@subsubheading Grégorien
 
 @multitable @columnfractions .3 .18 .34 .18
 
@@ -1746,7 +1746,7 @@ Résultat
 @end multitable
 
 
-@unnumberedsubsubsec Mensural
+@subsubheading Mensural
 
 @multitable @columnfractions .3 .18 .34 .18
 
@@ -2083,7 +2083,7 @@ Résultat
 @end multitable
 
 
-@unnumberedsubsubsec Kiévien
+@subsubheading Kiévien
 
 @multitable @columnfractions .3 .18 .34 .18
 

@@ -1347,7 +1347,7 @@ Output
 @node Ancient music clefs
 @unnumberedsubsec Ancient music clefs
 
-@unnumberedsubsubsec Gregorian
+@subsubheading Gregorian
 
 @multitable @columnfractions .3 .18 .34 .18
 
@@ -1588,7 +1588,7 @@ Output
 @end multitable
 
 
-@unnumberedsubsubsec Mensural
+@subsubheading Mensural
 
 @multitable @columnfractions .3 .18 .34 .18
 
@@ -1928,7 +1928,7 @@ Output
 @end multitable
 
 
-@unnumberedsubsubsec Kievan
+@subsubheading Kievan
 
 @multitable @columnfractions .3 .18 .34 .18
 

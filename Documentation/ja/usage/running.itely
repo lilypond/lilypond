@@ -106,7 +106,7 @@ LilyPond は
 @file{filename-violin.pdf} と @file{filename-cello-1.pdf} を出力します。
 
 
-@unnumberedsubsubsec 標準シェルで LilyPond を使う
+@subsubheading 標準シェルで LilyPond を使う
 
 LilyPond はコマンドラインアプリケーションなので、@c
 LilyPond を呼び出すために @q{シェル} の機能をうまく利用することができます。

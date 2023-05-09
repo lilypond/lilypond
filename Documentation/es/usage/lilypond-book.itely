@@ -1233,7 +1233,7 @@ salida sobreescribirá al archivo de entrada}.
 Estas plantillas se usan para @code{lilypond-book}.  Si no está
 familiarizado con este programa, consulte @ref{lilypond-book}.
 
-@subsection LaTeX
+@subheading LaTeX
 
 Podemos insertar fragmentos de LilyPond dentro de un documento de
 LaTeX.
@@ -1259,7 +1259,7 @@ d4 c b a
 \end@{document@}
 @end example
 
-@subsection Texinfo
+@subheading Texinfo
 
 Podemos insertar fragmentos de LilyPond dentro de Texinfo; de
 hecho, todo el presente manual está escrito en Texinfo.
@@ -1287,7 +1287,7 @@ d4 c b a
 @end example
 
 
-@subsection html
+@subheading html
 
 @example
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -1318,7 +1318,7 @@ a4 b c d
 
 @end example
 
-@subsection xelatex
+@subheading xelatex
 
 @verbatim
 \documentclass{article}

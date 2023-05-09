@@ -1252,7 +1252,7 @@ These templates are for use with @code{lilypond-book}.  If you're not familiar
 with this program, please refer to
 @ref{lilypond-book}.
 
-@subsection LaTeX
+@subheading LaTeX
 
 You can include LilyPond fragments in a LaTeX document.
 
@@ -1277,7 +1277,7 @@ d4 c b a
 \end@{document@}
 @end example
 
-@subsection Texinfo
+@subheading Texinfo
 
 You can include LilyPond fragments in Texinfo; in fact, this entire manual
 is written in Texinfo.
@@ -1308,7 +1308,7 @@ d4 c b a
 @end example
 
 
-@subsection html
+@subheading html
 
 @example
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -1339,7 +1339,7 @@ a4 b c d
 
 @end example
 
-@subsection xelatex
+@subheading xelatex
 
 @verbatim
 \documentclass{article}

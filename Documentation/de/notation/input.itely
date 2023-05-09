@@ -2570,7 +2570,7 @@ Als Alternative kann man diese Option auch als Kommandozeilenparameter
 lilypond … -dmidi-extension=midi lilyDatei.ly
 @end example
 
-@unnumberedsubsubsec Instrumentenbezeichnungen
+@subsubheading Instrumentenbezeichnungen
 
 @cindex Instrumentbezeichnungen
 
@@ -2680,7 +2680,7 @@ in eine Partiturumgebung eingefügt wird, die mit dem Befehl
 @subsection Was geht in die MIDI-Ausgabe
 
 
-@unnumberedsubsubsec In MIDI unterstützt
+@subsubheading In MIDI unterstützt
 
 @cindex Tonhöhen in MIDI
 @cindex MIDI, Tonhöhen
@@ -2726,7 +2726,7 @@ zu der Liste hinzugefügt werden:
 @end itemize
 
 
-@unnumberedsubsubsec In MIDI nicht unterstützt
+@subsubheading In MIDI nicht unterstützt
 
 Folgende Notationselemente werden nicht in die MIDI-Ausgabe einbezogen,
 außer am setzt das @ref{The Articulate script} ein:
@@ -2803,7 +2803,7 @@ als auch relative Lautstärken von Dynamikanweisungen und auch
 relative Lautstärke von einzelnen Instrumenten einzustellen.
 
 
-@unnumberedsubsubsec Dynamik-Zeichen
+@subsubheading Dynamik-Zeichen
 
 Dynamikanweisungen werden als ein bestimmter Bruch der insgesamt
 zur Verfügung stehenden MIDI-Lautstärke notiert.  Die Standardbrüche
@@ -2852,7 +2852,7 @@ zu benutzen.  Das letzte Beispiel dieses Abschnittes zeigt, wie das
 gemacht werden kann.
 
 
-@unnumberedsubsubsec MIDI-Lautstärke
+@subsubheading MIDI-Lautstärke
 
 Die generellen Mindest- und Höchstwerte für die Lautstärke der MIDI-Datei
 wird kontrolliert, indem die Eigenschaften @code{midiMinimumVolume}
@@ -2907,7 +2907,7 @@ auf den Bereich zwischen 0.2 und 0.5 eingeschränkt.
 @end lilypond
 
 
-@unnumberedsubsubsec Verschiedene Instrumente angleichen (i)
+@subsubheading Verschiedene Instrumente angleichen (i)
 
 Wenn die Mindest- und Höchstwerte für die MIDI-Lautstärke
 innerhalb eines @code{Staff}-Kontextes gesetzt werden,
@@ -2955,7 +2955,7 @@ diese Einstellung korrekt funktioniert.
 @end lilypond
 
 
-@unnumberedsubsubsec Verschiedene Instrumente angleichen (ii)
+@subsubheading Verschiedene Instrumente angleichen (ii)
 
 Wenn Mindest- und Höchstwerte für die Lautstärke der MIDI-Datei
 nicht vorgegeben werden, nimmt LilyPond standardmäßig einige

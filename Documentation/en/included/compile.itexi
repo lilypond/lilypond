@@ -1300,7 +1300,7 @@ bug reports to @email{bug-lilypond@@gnu.org}.
 Bugs that are not fault of LilyPond are documented here.
 
 
-@unnumberedsubsec Compiling on macOS
+@subheading Compiling on macOS
 
 Here are special instructions for compiling under macOS.
 These instructions assume that dependencies are installed using
@@ -1339,7 +1339,7 @@ automatic font detection, add
 @end example
 
 
-@unnumberedsubsec FreeBSD
+@subheading FreeBSD
 
 To use system fonts, dejaview must be installed.  With the default
 port, the fonts are installed in @file{usr/X11R6/lib/X11/fonts/dejavu}.
@@ -1353,7 +1353,7 @@ for your hierarchy.)
 @end example
 
 
-@unnumberedsubsec International fonts
+@subheading International fonts
 
 On macOS, all fonts are installed by default.  However, finding all
 system fonts requires a bit of configuration; see
@@ -1380,7 +1380,7 @@ Debian GNU/Linux
 @end verbatim
 
 
-@unnumberedsubsec Using lilypond python libraries
+@subheading Using lilypond python libraries
 
 If you want to use lilypond's python libraries (either running
 certain build scripts manually, or using them in other programs),

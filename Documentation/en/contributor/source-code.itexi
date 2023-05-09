@@ -202,7 +202,7 @@ have a different way of working, great!  Feel free to ignore this
 advice.
 
 
-@unnumberedsubsec Pulling recent changes
+@subheading Pulling recent changes
 
 As LilyPond's source code is continously improved, it is wise to
 integrate recent changes into your local copy whenever you start a
@@ -214,7 +214,7 @@ git pull
 @end example
 
 
-@unnumberedsubsec Viewing the history
+@subheading Viewing the history
 
 Each change is contained in a @emph{commit} with an explanatory message.
 To list commits starting from the latest:
@@ -246,7 +246,7 @@ git branch cg-add-branches
 @end example
 
 
-@unnumberedsubsec Switching branches
+@subheading Switching branches
 
 Switching branches is somehow like @qq{loading a file}, although in this
 case it is really @qq{loading a directory and subdirectories full of
@@ -266,7 +266,7 @@ out you get a  temporary local branch.  Therefore, do not commit to
 these either.  Always work in a local branch.
 
 
-@unnumberedsubsec Listing branches
+@subheading Listing branches
 
 To list local branches:
 
@@ -283,7 +283,7 @@ git branch -a
 In the output, the current branch is prefixed with a star.
 
 
-@unnumberedsubsec Staging and committing files
+@subheading Staging and committing files
 
 Now edit files.  To show a summary of your edits:
 
@@ -313,7 +313,7 @@ A text editor window appears for you to write a commit message. See
 @ref{Writing good commit messages}.
 
 
-@unnumberedsubsec Amending and reverting changes
+@subheading Amending and reverting changes
 
 To add some more changes to the latest commit, stage them using
 @code{git add}, then run:
@@ -345,7 +345,7 @@ rebase -i} is not covered here; please try it and follow Git's
 instructions or read any tutorial on the Web.
 
 
-@unnumberedsubsec Uploading your branch for review
+@subheading Uploading your branch for review
 
 To upload the current branch on the remote repository:
 
@@ -387,7 +387,7 @@ with @code{master} and changing your commits.  In other words, use
 again.
 
 
-@unnumberedsubsec Deleting branches
+@subheading Deleting branches
 
 After the merge request has passed testing and was merged to
 @code{master}, or after a failed experiment, you can delete your

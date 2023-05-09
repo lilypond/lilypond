@@ -103,7 +103,7 @@ produirà com a sortida @var{base}@file{-violí.pdf} i
 @var{base}@file{-violoncel-1.pdf}.
 
 
-@unnumberedsubsubsec Instruccions estàndard de la línia d'ordres
+@subsubheading Instruccions estàndard de la línia d'ordres
 
 Si la vostra terminal (o finestra d'ordres) contempla les
 redireccions normals, potser us siguin d'utilitat les següents

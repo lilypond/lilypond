@@ -1118,7 +1118,7 @@ Notation Reference:
 @node Defining new contexts
 @subsection Defining new contexts
 
-@unnumberedsubsubsec Context definition overview
+@subsubheading Context definition overview
 
 @cindex context, defining new
 @cindex engraver, including in context
@@ -1340,7 +1340,7 @@ Internals Reference:
 @endmorerefs
 
 
-@unnumberedsubsubsec New contexts in MIDI
+@subsubheading New contexts in MIDI
 
 @cindex context, defining in MIDI
 @funindex Performer_group
@@ -1397,7 +1397,7 @@ Thus, to complete the example above, the following can be added:
 This makes the @code{ImproVoice} context also work in MIDI output.
 
 
-@unnumberedsubsubsec Replacing the @code{Score} context
+@subsubheading Replacing the @code{Score} context
 
 @cindex Score context, replacing
 @cindex context, Score-level

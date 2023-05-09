@@ -101,7 +101,7 @@ LilyPond produce come output @file{file-violino.pdf} e
 @file{file-violoncello-1.pdf}.
 
 
-@unnumberedsubsubsec Usare LilyPond con funzionalità standard della shell
+@subsubheading Usare LilyPond con funzionalità standard della shell
 
 Dato che LilyPond è un'applicazione a linea di comando, si possono sfruttare
 le funzionalità della @q{shell} usata per lanciare LilyPond.
