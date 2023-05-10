@@ -49,7 +49,7 @@ ancientmus = \relative {
     \finalis
   }
 
-\context VaticanaStaff {
+\new VaticanaScore {
   \ancientmus
 }
 
