@@ -25,11 +25,11 @@
 
 @menu
 * Overview of the supported styles::
-* Ancient notation---common features::
+* Ancient notation - common features::
 * Typesetting mensural music::
 * Typesetting Gregorian chant::
 * Typesetting Kievan square notation::
-* Working with ancient music---scenarios and solutions::
+* Working with ancient music - scenarios and solutions::
 @end menu
 
 Unterstützung für Notation der Alten Musik enthält einige Eigenheiten
@@ -178,7 +178,7 @@ Glossary:
 
 
 @c {{{1 Ancient notation, general
-@node Ancient notation---common features
+@node Ancient notation - common features
 @subsection Alte Notation -- Allgemeines
 
 @menu
@@ -2638,7 +2638,7 @@ Schlussstrich bezeichnen kann.  Es wird gesetzt mit @code{\bar "k"}.
 @ref{The Emmentaler font}
 
 @c Working with ancient music: scenarios and solutions::  {{{1
-@node Working with ancient music---scenarios and solutions
+@node Working with ancient music - scenarios and solutions
 @subsection Musiksatz Alter Musik in der Praxis -- Szenarien und Lösungen
 
 @menu

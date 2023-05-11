@@ -107,14 +107,14 @@ remaining ones without further explanation and with links to the IR.
 Contexts are arranged hierarchically:
 
 @menu
-* Output definitions -- blueprints for contexts::
-* Score -- the master of all contexts::
-* Top-level contexts -- staff containers::
-* Intermediate-level contexts -- staves::
-* Bottom-level contexts -- voices::
+* Output definitions - blueprints for contexts::
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
 @end menu
 
-@node Output definitions -- blueprints for contexts
+@node Output definitions - blueprints for contexts
 @unnumberedsubsubsec Output definitions -- blueprints for contexts
 
 This section explains the relevance of output definitions when
@@ -160,7 +160,7 @@ Installed Files:
 @endmorerefs
 
 
-@node Score -- the master of all contexts
+@node Score - the master of all contexts
 @unnumberedsubsubsec Score -- the master of all contexts
 
 This is the top level notation context.  No other context can
@@ -172,7 +172,7 @@ across staves.
 A Score context is instantiated implicitly when a
 @code{\score @{@dots{}@}} block is processed.
 
-@node Top-level contexts -- staff containers
+@node Top-level contexts - staff containers
 @unnumberedsubsubsec Top-level contexts -- staff containers
 
 @strong{@emph{StaffGroup}}
@@ -198,7 +198,7 @@ connected vertically.
 Just like @code{GrandStaff}, but with support for instrument names
 to the left of each system.
 
-@node Intermediate-level contexts -- staves
+@node Intermediate-level contexts - staves
 @unnumberedsubsubsec Intermediate-level contexts -- staves
 
 @strong{@emph{Staff}}
@@ -231,7 +231,7 @@ a piece in Gregorian style.
 Same as @code{Staff}, except that it is designed for typesetting
 a piece in mensural style.
 
-@node Bottom-level contexts -- voices
+@node Bottom-level contexts - voices
 @unnumberedsubsubsec Bottom-level contexts -- voices
 
 @code{Voice}-level contexts initialize certain properties and start
@@ -822,7 +822,7 @@ block.
 
 Settings for Midi output as opposed to typesetting will have to be
 separately specified in @code{\midi} blocks (@pxref{Output
-definitions -- blueprints for contexts}).
+definitions - blueprints for contexts}).
 
 The @code{\layout} block should be placed within the @code{\score}
 block to which it is to apply, after the music.
@@ -935,7 +935,7 @@ without being enclosed in a @code{\context} block.  Such settings
 are equivalent to including the same property-setting commands at
 the start of every context of the type specified.  If no context
 is specified @emph{every} bottom-level context is affected
-(@pxref{Bottom-level contexts -- voices}).  The syntax of a
+(@pxref{Bottom-level contexts - voices}).  The syntax of a
 property-setting command in a @code{\layout} block is the same as
 the same command written in the music stream.
 
@@ -1108,7 +1108,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{Contexts explained},
-@ref{Bottom-level contexts -- voices},
+@ref{Bottom-level contexts - voices},
 @ref{The set command},
 @ref{The override command},
 @ref{The layout block}.

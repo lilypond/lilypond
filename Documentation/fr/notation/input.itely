@@ -3413,8 +3413,8 @@ utiliserez.
 Vous pouvez contrôler très finement les parties à escamoter, grâce au
 commutateur @code{Score.skipTypesetting} : lorsqu'il est activé,
 aucune gravure n'est réalisée. En tant que propriété du contexte
-+@code{Score}, il affecte toutes les voix et portées -- voir
-+@ref{Score -- the master of all contexts}.
+@code{Score}, il affecte toutes les voix et portées -- voir
+@ref{Score - the master of all contexts}.
 
 Ce commutateur agit aussi sur la sortie MIDI.  Notez bien que tous les
 événements seront escamotés, y compris les changements de tempo ou
@@ -3441,7 +3441,7 @@ d'instrument qui interviendraient avant que @code{skipTypesetting} ne
 @morerefs
 Manuel de notation :
 @ref{Interpretation contexts},
-@ref{Score -- the master of all contexts}.
+@ref{Score - the master of all contexts}.
 
 Référence des propriétés internes :
 @rinternalsnamed{All context properties, Liste des propriétés de contexte}.

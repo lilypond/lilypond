@@ -27,11 +27,11 @@
 
 @menu
 * Overview of the supported styles::
-* Ancient notation---common features::
+* Ancient notation - common features::
 * Typesetting mensural music::
 * Typesetting Gregorian chant::
 * Typesetting Kievan square notation::
-* Working with ancient music---scenarios and solutions::
+* Working with ancient music - scenarios and solutions::
 @end menu
 
 
@@ -164,8 +164,8 @@ Glossario musicale:
 @endmorerefs
 
 
-@node Ancient notation---common features
-@subsection Notazione antica---funzionalità comuni
+@node Ancient notation - common features
+@subsection Notazione antica -- funzionalità comuni
 
 @menu
 * Pre-defined contexts::
@@ -2631,8 +2631,8 @@ Guida alla notazione:
 La spaziatura orizzontale delle legature è insoddisfacente.
 
 
-@node Working with ancient music---scenarios and solutions
-@subsection Lavorare con la musica antica---scenari e soluzioni
+@node Working with ancient music - scenarios and solutions
+@subsection Lavorare con la musica antica -- scenari e soluzioni
 
 @menu
 * Incipits::

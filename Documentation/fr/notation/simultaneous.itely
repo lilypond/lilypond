@@ -467,7 +467,7 @@ collisions.  La commande @code{\oneVoice} permet de retrouver les
 réglages par défaut.
 
 N'oubliez pas que @code{Voice} est un contexte de bas niveau --
-voir @ref{Bottom-level contexts -- voices}. Dans le cadre d'un
+voir @ref{Bottom-level contexts - voices}. Dans le cadre d'un
 @code{TabStaff}, il faudrait donc utiliser un @code{TabVoice}.
 
 
@@ -524,7 +524,7 @@ Dans un @code{TabStaff} doit être utilisé un @code{TabVoice}.
 Lorsque la même musique doit apparaître à la fois dans un
 @code{Staff} @b{et} dans un @code{TabStaff}, il est possible de
 recourir au contexte générique @code{Bottom} -- voir
-@ref{Bottom-level contexts -- voices}.
+@ref{Bottom-level contexts - voices}.
 
 @lilypond[quote,verbatim]
 mus =

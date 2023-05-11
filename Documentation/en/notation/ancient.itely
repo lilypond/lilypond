@@ -25,11 +25,11 @@
 
 @menu
 * Overview of the supported styles::
-* Ancient notation -- common features::
+* Ancient notation - common features::
 * Typesetting mensural music::
 * Typesetting Gregorian chant::
 * Typesetting Kievan square notation::
-* Working with ancient music -- scenarios and solutions::
+* Working with ancient music - scenarios and solutions::
 @end menu
 
 
@@ -166,7 +166,7 @@ Music Glossary:
 @endmorerefs
 
 
-@node Ancient notation -- common features
+@node Ancient notation - common features
 @subsection Ancient notation -- common features
 
 @menu
@@ -2753,7 +2753,7 @@ Notation Reference:
 @knownissues
 Horizontal spacing of ligatures is poor.
 
-@node Working with ancient music -- scenarios and solutions
+@node Working with ancient music - scenarios and solutions
 @subsection Working with ancient music -- scenarios and solutions
 
 @menu

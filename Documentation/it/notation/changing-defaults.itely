@@ -95,15 +95,15 @@ Guida al funzionamento interno:
 I contesti sono organizzati in modo gerarchico:
 
 @menu
-* Output definitions -- blueprints for contexts::
-* Score -- the master of all contexts::
-* Top-level contexts -- staff containers::
-* Intermediate-level contexts -- staves::
-* Bottom-level contexts -- voices::
+* Output definitions - blueprints for contexts::
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
 @end menu
 
 @c blueprint letteralmente indica la cianografia architettonica
-@node Output definitions -- blueprints for contexts
+@node Output definitions - blueprints for contexts
 @unnumberedsubsubsec Definizioni di output -- gerarchia dei contesti
 
 Questa sezione spiega la rilevanza delle definizioni di output quando
@@ -149,7 +149,7 @@ File installati:
 @endmorerefs
 
 
-@node Score -- the master of all contexts
+@node Score - the master of all contexts
 @unnumberedsubsubsec Score -- il padre di tutti i contesti
 
 Questo è il contesto del livello superiore.  Nessun altro contesto può
@@ -161,7 +161,7 @@ siano allineate da rigo a rigo.
 Un contesto Score viene istanziato implicitamente quando viene elaborato
 un blocco @code{\score @{@dots{}@}}.
 
-@node Top-level contexts -- staff containers
+@node Top-level contexts - staff containers
 @unnumberedsubsubsec Contesti del livello superiore -- contenitori di righi
 
 @strong{@emph{StaffGroup}}
@@ -187,7 +187,7 @@ connessi verticalmente.
 Identico a @code{GrandStaff}, ma con il supporto ai nomi degli strumenti a
 sinistra di ogni sistema.
 
-@node Intermediate-level contexts -- staves
+@node Intermediate-level contexts - staves
 @unnumberedsubsubsec Contesti del livello intermedio -- righi
 
 @strong{@emph{Staff}}
@@ -219,7 +219,7 @@ un brano in stile gregoriano.
 Identico a @code{Staff}, a parte il fatto che è progettato per rappresentare
 un brano in stile mensurale.
 
-@node Bottom-level contexts -- voices
+@node Bottom-level contexts - voices
 @unnumberedsubsubsec Contesti del livello inferiore -- voci
 
 I contesti al livello della voce inizializzano alcune proprietà e avviano
@@ -821,7 +821,7 @@ essere specificate in un blocco @code{\context} compreso in un qualsiasi
 blocco @code{\layout}.
 
 Le impostazioni per l'output Midi invece devono essere specificate separatamente
-in blocchi @code{\midi} (vedi @ref{Output definitions -- blueprints for contexts}).
+in blocchi @code{\midi} (vedi @ref{Output definitions - blueprints for contexts}).
 
 Il blocco @code{\layout} deve trovarsi all'interno del blocco @code{\score}
 al quale si vuole applicare, dopo la musica.
@@ -934,7 +934,7 @@ I comandi che impostano una proprietà possono essere posti in un blocco
 facendo si ottiene lo stesso risultato che si otterrebbe se si includessero
 gli stessi comandi all'inizio di ogni contesto del tipo specificato.  Se non
 è specificato alcun contesto, avranno effetto su @emph{qualsiasi} contesto
-di basso livello (@pxref{Bottom-level contexts -- voices}).  La sintassi
+di basso livello (@pxref{Bottom-level contexts - voices}).  La sintassi
 di un comando di impostazione della proprietà in un blocco @code{\layout} è
 identico a quello che si userebbe in mezzo alle note.
 
@@ -1105,7 +1105,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Contexts explained},
-@ref{Bottom-level contexts -- voices},
+@ref{Bottom-level contexts - voices},
 @ref{The set command},
 @ref{The override command},
 @ref{The layout block}.

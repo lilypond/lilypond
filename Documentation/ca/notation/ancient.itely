@@ -27,11 +27,11 @@
 
 @menu
 * Overview of the supported styles::
-* Ancient notation---common features::
+* Ancient notation - common features::
 * Typesetting mensural music::
 * Typesetting Gregorian chant::
 * Typesetting Kievan square notation::
-* Working with ancient music---scenarios and solutions::
+* Working with ancient music - scenarios and solutions::
 @end menu
 
 Entre les formes en les quals té suport la notació antiga es troba
@@ -170,8 +170,8 @@ Glossari musical:
 @rglos{flag}.
 
 
-@node Ancient notation---common features
-@subsection Notació antiga - funcionalitats comunes
+@node Ancient notation - common features
+@subsection Notació antiga -- funcionalitats comunes
 
 @menu
 * Pre-defined contexts::
@@ -2655,8 +2655,8 @@ Referència de la notació:
 @knownissues
 L'espaiat horitzontal de les lligadures és mediocre.
 
-@node Working with ancient music---scenarios and solutions
-@subsection Treball amb música antiga - escenaris i solucions
+@node Working with ancient music - scenarios and solutions
+@subsection Treball amb música antiga -- escenaris i solucions
 
 @menu
 * Incipits::

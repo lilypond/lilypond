@@ -27,11 +27,11 @@
 
 @menu
 * Overview of the supported styles::
-* Ancient notation -- common features::
+* Ancient notation - common features::
 * Typesetting mensural music::
 * Typesetting Gregorian chant::
 * Typesetting Kievan square notation::
-* Working with ancient music -- scenarios and solutions::
+* Working with ancient music - scenarios and solutions::
 @end menu
 
 La gestion par LilyPond des formes de notation ancienne inclut des
@@ -176,7 +176,7 @@ Glossaire musicologique :
 @endmorerefs
 
 
-@node Ancient notation -- common features
+@node Ancient notation - common features
 @subsection Considérations communes aux musiques anciennes
 
 @menu
@@ -2710,7 +2710,7 @@ Manuel de notation :
 L'espacement des ligatures n'est pas des meilleurs.
 
 
-@node Working with ancient music -- scenarios and solutions
+@node Working with ancient music - scenarios and solutions
 @subsection Réédition de musique ancienne
 
 @menu

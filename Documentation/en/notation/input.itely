@@ -3433,7 +3433,7 @@ Skipping parts of a score can be controlled in a more fine-grained
 fashion with the property @code{Score.skipTypesetting}.  When it is
 set, no typesetting is performed at all.  As a property of the
 @code{Score} context, it affects all voices and staves; see
-@ref{Score -- the master of all contexts}.
+@ref{Score - the master of all contexts}.
 
 This property is also used to control output to the MIDI file.
 If some event in the skipped section alters some of its context
@@ -3461,7 +3461,7 @@ new setting will take effect only at the point in time where
 @morerefs
 Notation Reference:
 @ref{Interpretation contexts},
-@ref{Score -- the master of all contexts}.
+@ref{Score - the master of all contexts}.
 
 Internals Reference:
 @rinternals{All context properties}.

@@ -115,15 +115,15 @@ without further explanation and with links to the IR.
 Les contextes sont hiérarchisés :
 
 @menu
-* Output definitions -- blueprints for contexts::
-* Score -- the master of all contexts::
-* Top-level contexts -- staff containers::
-* Intermediate-level contexts -- staves::
-* Bottom-level contexts -- voices::
+* Output definitions - blueprints for contexts::
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
 @end menu
 
 
-@node Output definitions -- blueprints for contexts
+@node Output definitions - blueprints for contexts
 @unnumberedsubsubsec Définitions de la sortie -- hiérarchie des contextes
 
 Les lignes qui suivent traitent de l'intérêt des définitions de sorties
@@ -179,7 +179,7 @@ Fichiers d'initialisation :
 @endmorerefs
 
 
-@node Score -- the master of all contexts
+@node Score - the master of all contexts
 @unnumberedsubsubsec Score -- le père de tous les contextes
 
 Il s'agit en l'occurrence du contexte le plus élevé, autrement dit le
@@ -193,7 +193,7 @@ Dès lors que LilyPond rencontre un bloc @code{\score @{@dots{}@}}
 se crée implicitement un contexte @code{Score}.
 
 
-@node Top-level contexts -- staff containers
+@node Top-level contexts - staff containers
 @unnumberedsubsubsec Contextes de haut niveau -- les systèmes
 
 De nombreuses partitions sont écrites sur plus d'une portée.  Ces
@@ -221,7 +221,7 @@ Ce regroupement est identique au @code{GrandStaff}, à ceci près que le
 nom de l'instrument sera directement attaché au système.
 
 
-@node Intermediate-level contexts -- staves
+@node Intermediate-level contexts - staves
 @unnumberedsubsubsec Contextes de niveau intermédiaire -- les portées
 
 @strong{@emph{Staff}}
@@ -258,7 +258,7 @@ Identique au contexte @code{Staff}, à ceci près qu'il est tout
 particulièrement adapté au style mensural de musique ancienne.
 
 
-@node Bottom-level contexts -- voices
+@node Bottom-level contexts - voices
 @unnumberedsubsubsec Contextes de bas niveau -- les voix
 
 Les contextes de niveau « voix » initialisent un certain nombre de
@@ -862,7 +862,7 @@ moyen d'un bloc @code{\context}.
 
 Les réglages dévolus à la sortie MIDI viendront quant à eux se placer
 dans un bloc @code{\midi} -- voir
-@ref{Output definitions -- blueprints for contexts}.
+@ref{Output definitions - blueprints for contexts}.
 
 @example
 \layout @{
@@ -979,7 +979,7 @@ dans un bloc @code{\layout} sans pour autant être incluses dans un bloc
 les commandes de modification des propriétés au début de chacun des
 contextes du type en question.  Lorsque le contexte n'est pas spécifié,
 @emph{tous} les contextes de bas niveau seront affectés -- voir
-@ref{Bottom-level contexts -- voices}.  La syntaxe appropriée répond
+@ref{Bottom-level contexts - voices}.  La syntaxe appropriée répond
 aux mêmes critères que si la commande était écrite dans le flot
 musical.
 
@@ -1157,7 +1157,7 @@ Manuel d'initiation :
 @rlearningnamed{Modifying context properties, Modification des propriétés d'un contexte}.
 
 Manuel de notation :
-@ref{Bottom-level contexts -- voices},
+@ref{Bottom-level contexts - voices},
 @ref{The override command},
 @ref{The set command},
 @ref{The layout block},

@@ -440,7 +440,7 @@ command returns all the voice settings to the neutral default
 directions.
 
 Note that @code{Voice} is a bottom-level context
-(@pxref{Bottom-level contexts -- voices}).
+(@pxref{Bottom-level contexts - voices}).
 In @code{TabStaff} one would use @code{TabVoice} instead.
 
 @subsubsubheading Temporary polyphonic passages
@@ -495,7 +495,7 @@ In @code{TabStaff} one needs to use @code{TabVoice}.
 
 If the same music should appear in @code{Staff} @emph{and} @code{TabStaff} the
 general @code{Bottom} context may be used
-(@pxref{Bottom-level contexts -- voices}).
+(@pxref{Bottom-level contexts - voices}).
 
 @lilypond[quote,verbatim]
 mus =
@@ -538,7 +538,7 @@ more) expressions are separated by double backslashes, behaves
 differently to the similar construct without the double backslashes:
 @emph{all} the expressions within this construct are assigned
 to new @code{Bottom} contexts of the current type, typically @code{Voice} or
-@code{TabVoice} (@pxref{Bottom-level contexts -- voices}).
+@code{TabVoice} (@pxref{Bottom-level contexts - voices}).
 These new @code{Bottom} contexts are created implicitly and are given the fixed
 names @code{"1"}, @code{"2"}, etc.
 

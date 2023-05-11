@@ -25,11 +25,11 @@
 
 @menu
 * Overview of the supported styles::
-* Ancient notation---common features::
+* Ancient notation - common features::
 * Typesetting mensural music::
 * Typesetting Gregorian chant::
 * Typesetting Kievan square notation::
-* Working with ancient music---scenarios and solutions::
+* Working with ancient music - scenarios and solutions::
 @end menu
 
 Entre las formas en que está contemplada la notación antigua se
@@ -172,8 +172,8 @@ Glosario musical:
 @rglos{flag}.
 
 
-@node Ancient notation---common features
-@subsection Notación antigua - funcionalidades comunes
+@node Ancient notation - common features
+@subsection Notación antigua -- funcionalidades comunes
 
 @menu
 * Pre-defined contexts::
@@ -2681,8 +2681,8 @@ Referencia de la notación:
 @knownissues
 El espaciado horizontal de las ligaduras es mediocre.
 
-@node Working with ancient music---scenarios and solutions
-@subsection Trabajar con música antigua - escenarios y soluciones
+@node Working with ancient music - scenarios and solutions
+@subsection Trabajar con música antigua -- escenarios y soluciones
 
 @menu
 * Incipits::

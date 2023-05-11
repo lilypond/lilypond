@@ -27,11 +27,11 @@
 
 @menu
 * Overview of the supported styles::
-* Ancient notation---common features::
+* Ancient notation - common features::
 * Typesetting mensural music::
 * Typesetting Gregorian chant::
 * Typesetting Kievan square notation::
-* Working with ancient music---scenarios and solutions::
+* Working with ancient music - scenarios and solutions::
 @end menu
 
 
@@ -156,7 +156,7 @@ Petrucci スタイルには符尾や臨時記号がありません。
 @rglos{flag}
 
 
-@node Ancient notation---common features
+@node Ancient notation - common features
 @subsection 古代音楽で共通の記譜法
 
 @menu
@@ -2571,8 +2571,8 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 @knownissues
 リガトゥーラの水平方向のスペーシングは非常に悪いです。
 
-@node Working with ancient music---scenarios and solutions
-@subsection 古代音楽に取り組む---事例とその解決法
+@node Working with ancient music - scenarios and solutions
+@subsection 古代音楽に取り組む -- 事例とその解決法
 
 @menu
 * Incipits::
