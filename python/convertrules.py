@@ -5089,9 +5089,12 @@ replacements:
 """))
     return s
 
-@rule((2, 25, 5),
-      r"""
+@rule((2, 25, 5), r"""
 font-defaults, text-font-defaults -> property-defaults
+
+Check for identifiers formerly present in 'gregorian.ly'.
+
+\include "gregorian.ly" -> GregorianScore context
 """)
 def conv(s):
     s = re.sub(r"(text-)?font-defaults(?=\s*\.\s*[\w-]+\s*=)", "property-defaults", s)
@@ -5102,15 +5105,7 @@ The text-font-defaults and font-defaults variables have
 been merged into a single property-defaults variable.
 """))
         stderr_write(UPDATE_MANUALLY)
-    return s
 
-
-@rule((2, 25, 5), r"""
-Check for identifiers formerly present in 'gregorian.ly'.
-
-\include "gregorian.ly" -> GregorianScore context
-""")
-def conv(s):
     gregorian_warning = _("""
 Identifiers formerly in file 'gregorian.ly' are now always defined.  The
 following variable or variables in your LilyPond input file have the same
