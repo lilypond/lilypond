@@ -117,13 +117,6 @@ apparaît, la seconde au début de la section où la commande ou le terme
 est abordé.
 @end ifhtml
 
-@iftex
-Les entrées d'index en italique renvoient à des endroits (principalement
-des sections « Voir aussi ») qui contiennent des liens externes vers
-d'autres ouvrages de documentation de LilyPond comme la Référence des
-propriétés internes ou le Glossaire musicologique.
-@end iftex
-
 @printindex cp
 
 @bye

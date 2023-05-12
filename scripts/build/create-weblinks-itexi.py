@@ -448,14 +448,12 @@ print(r"""
 @unmacro rweb
 
 @macro rweb{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\}
 @end macro
 
 @unmacro rwebnamed
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \TEXT\
 @ref{\TEXT\,,\DISPLAY\}
 @end macro
 """)

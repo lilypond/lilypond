@@ -103,7 +103,6 @@ unter @w{@uref{https://@/lilypond@/.org/}}.
 @macro lilyTitlePage{TITLE}
 @c  This produces the unified index
 @syncodeindex fn cp
-@syncodeindex vr cp
 
 
 @c   ***** Copyright stuff *****
@@ -255,92 +254,74 @@ Für LilyPond Version @version{}
 @ifset bigpage
 
 @macro rglos{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,music-glossary-big-page,Glossar}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Glossar}
 @end macro
 
 @macro rlearning{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,learning-big-page,Handbuch zum Lernen}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,learning-big-page,Handbuch zum Lernen}
 @end macro
 
 @macro rnotation{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,notation-big-page,Notationsreferenz}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Notationsreferenz}
 @end macro
 
 @macro rextend{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,extending-big-page,Extending}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending-big-page,Extending}
 @end macro
 
 @macro rchanges{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,changes-big-page,Änderungen}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes-big-page,Änderungen}
 @end macro
 
 @macro rcontrib{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,contributor-big-page,Contributor's Guide}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor-big-page,Contributor's Guide}
 @end macro
 
 @macro rweb{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,web-big-page,Allgemeine Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web-big-page,Allgemeine Information}
 @end macro
 
 @macro ressay{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,essay-big-page,Aufsatz}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay-big-page,Aufsatz}
 @end macro
 
 @macro rprogram{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,usage-big-page,Anwendungsbenutzung}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage-big-page,Anwendungsbenutzung}
 @end macro
 
@@ -353,12 +334,10 @@ Für LilyPond Version @version{}
 @end macro
 
 @macro rinternals{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,internals-big-page,Referenz der Interna}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals-big-page,Referenz der Interna}
 @end macro
 
@@ -372,92 +351,74 @@ Für LilyPond Version @version{}
 @ifnotinfo
 
 @macro rglos{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,music-glossary,Glossar}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossar}
 @end macro
 
 @macro rlearning{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,learning,Handbuch zum Lernen}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,learning,Handbuch zum Lernen}
 @end macro
 
 @macro rnotation{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,notation,Notationsreferenz}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation,Notationsreferenz}
 @end macro
 
 @macro rchanges{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,changes,Änderungen}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes,Änderungen}
 @end macro
 
 @macro rextend{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,extending,Extending}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending,Extending}
 @end macro
 
 @macro rcontrib{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,contributor,Contributor's Guide}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
 @end macro
 
 @macro rweb{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,web,Allgemeine Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web,Allgemeine Information}
 @end macro
 
 @macro ressay{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,essay,Aufsatz}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay,Aufsatz}
 @end macro
 
 @macro rprogram{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,usage,Anwendungsbenutzung}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage,Anwendungsbenutzung}
 @end macro
 
@@ -470,12 +431,10 @@ Für LilyPond Version @version{}
 @end macro
 
 @macro rinternals{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,internals,Referenz der Interna}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals,Referenz der Interna}
 @end macro
 
@@ -484,92 +443,74 @@ Für LilyPond Version @version{}
 @ifinfo
 
 @macro rglos{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,music-glossary,Glossar}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossar}
 @end macro
 
 @macro rlearning{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
 @end macro
 
 @macro rnotation{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-notation,Notationsreferenz}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Notationsreferenz}
 @end macro
 
 @macro rchanges{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-changes,Änderungen}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Änderungen}
 @end macro
 
 @macro rextend{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-extending,Extending}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extending}
 @end macro
 
 @macro rcontrib{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-contributor,Contributor's Guide}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Contributor's Guide}
 @end macro
 
 @macro rweb{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,web,Allgemeine Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web, Allgemeine Information}
 @end macro
 
 @macro ressay{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-essay,Aufsatz}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-essay,Aufsatz}
 @end macro
 
 @macro rprogram{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-usage,Anwendungsbenutzung}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-usage,Anwendungsbenutzung}
 @end macro
 
@@ -582,12 +523,10 @@ Für LilyPond Version @version{}
 @end macro
 
 @macro rinternals{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals,Referenz der Interna}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referenz der Interna}
 @end macro
 
@@ -602,123 +541,91 @@ Für LilyPond Version @version{}
 
 @iftex
 
-@c All commands below should work in the middle of the line;
-@c we thus must not use @vindex directly since it works only if placed
-@c on a line of its own.  To overcome this problem, we define a
-@c replacement macro using the internal definition of @vindex which
-@c delimits arguments in the standard way (i.e., with braces).
-
-@tex
-\gdef\lilyvindex#1{\doind{vr}{\code{#1}}\ignorespaces}
-@end tex
-
 @macro rglos{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,music-glossary,Glossar}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossar}
 @end macro
 
 @macro rlearning{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,learning.de,Handbuch zum Lernen}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,learning.de,Handbuch zum Lernen}
 @end macro
 
 @macro rnotation{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,notation.de,Notationsreferenz}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,notation.de,Notationsreferenz}
 @end macro
 
 @macro rchanges{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,changes,Änderungen}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,changes,Änderungen}
 @end macro
 
 @macro rextend{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,extending,Extending}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,extending,Extending}
 @end macro
 
 @macro rcontrib{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,contributor,Contributor's Guide}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,contributor,Contributor's Guide}
 @end macro
 
 @macro rweb{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,web.de,Allgemeine Information}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,web.de,Allgemeine Information}
 @end macro
 
 @macro ressay{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,essay.de,Aufsatz}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,essay.de,Aufsatz}
 @end macro
 
 @macro rprogram{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,usage.de,Anwendungsbenutzung}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,usage.de,Anwendungsbenutzung}
 @end macro
 
 @macro rlsr{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,snippets,Schnipsel}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,snippets,Schnipsel}
 @end macro
 
 @macro rinternals{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,internals,Referenz der Interna}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,internals,Referenz der Interna}
 @end macro
 

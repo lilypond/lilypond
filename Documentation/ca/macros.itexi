@@ -117,7 +117,6 @@ Si us falta algun manual, trobareu tota la documentació a
 @macro lilyTitlePage{TITLE}
 @c  This produces the unified index
 @syncodeindex fn cp
-@syncodeindex vr cp
 
 
 @c   ***** Copyright stuff *****
@@ -266,92 +265,74 @@ Per a la versió del LilyPond @version{}
 @ifset bigpage
 
 @macro rglos{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,music-glossary-big-page,Glossari musical}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Glossari musical}
 @end macro
 
 @macro rlearning{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,learning-big-page,Manual d'aprenentatge}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,learning-big-page,Manual d'aprenentatge}
 @end macro
 
 @macro rnotation{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,notation-big-page,Referència de la notació}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation-big-page,Referència de la notació}
 @end macro
 
 @macro rextend{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,extending-big-page,Extensions}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending-big-page,Extensions}
 @end macro
 
 @macro rchanges{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,changes-big-page,Canvis}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes-big-page,Canvis}
 @end macro
 
 @macro rcontrib{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,contributor-big-page,Guia del col·laborador}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor-big-page,Guia del col·laborador}
 @end macro
 
 @macro rweb{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,web-big-page,Informació general}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web-big-page,Informació general}
 @end macro
 
 @macro ressay{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,essay-big-page,Monografia}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay-big-page,Monografia}
 @end macro
 
 @macro rprogram{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,usage-big-page,Utilització del programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage-big-page,Utilització del programa}
 @end macro
 
@@ -364,12 +345,10 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rinternals{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,internals-big-page,Referència de funcionament intern}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals-big-page,Referència de funcionament intern}
 @end macro
 
@@ -383,92 +362,74 @@ Per a la versió del LilyPond @version{}
 @ifnotinfo
 
 @macro rglos{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,music-glossary,Glossari musical}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossari musical}
 @end macro
 
 @macro rlearning{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,learning,Manual d'aprenentatge}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,learning,Manual d'aprenentatge}
 @end macro
 
 @macro rnotation{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,notation,Referència de la notació}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,notation,Referència de la notació}
 @end macro
 
 @macro rchanges{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,changes,Canvis}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,changes,Canvis}
 @end macro
 
 @macro rextend{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,extending,Extensions}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,extending,Extensions}
 @end macro
 
 @macro rcontrib{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,contributor,Guia del col·laborador}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,contributor,Guia del col·laborador}
 @end macro
 
 @macro rweb{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,web,Informació general}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,web,Informació general}
 @end macro
 
 @macro ressay{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,essay,Monografia}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,essay,Monografia}
 @end macro
 
 @macro rprogram{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,usage,Utilització del programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,usage,Utilització del programa}
 @end macro
 
@@ -481,12 +442,10 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rinternals{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,internals,Referència de funcionament intern}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,internals,Referència de funcionament intern}
 @end macro
 
@@ -495,92 +454,74 @@ Per a la versió del LilyPond @version{}
 @ifinfo
 
 @macro rglos{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,music-glossary,Glossari musical}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossari musical}
 @end macro
 
 @macro rlearning{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-learning,Manual d'aprenentatge}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,,lilypond-learning,Manual d'aprenentatge}
 @end macro
 
 @macro rnotation{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-notation,Referència de la notació}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-notation,Referència de la notació}
 @end macro
 
 @macro rchanges{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-changes,Canvis}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-changes,Canvis}
 @end macro
 
 @macro rextend{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-extending,Extensions}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extensions}
 @end macro
 
 @macro rcontrib{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-contributor,Guia del col·laborador}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-contributor,Guia del col·laborador}
 @end macro
 
 @macro rweb{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-web,Informació general}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-web,Informació general}
 @end macro
 
 @macro ressay{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-essay,Monografia}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-essay,Monografia}
 @end macro
 
 @macro rprogram{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-usage,Utilització del programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-usage,Utilització del programa}
 @end macro
 
@@ -593,12 +534,10 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rinternals{TEXT}
-@vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals,Referència de funcionament intern}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@vindex \DISPLAY\
 @ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referència de funcionament intern}
 @end macro
 
@@ -613,123 +552,91 @@ Per a la versió del LilyPond @version{}
 
 @iftex
 
-@c All commands below should work in the middle of the line;
-@c we thus must not use @vindex directly since it works only if placed
-@c on a line of its own.  To overcome this problem, we define a
-@c replacement macro using the internal definition of @vindex which
-@c delimits arguments in the standard way (i.e., with braces).
-
-@tex
-\gdef\lilyvindex#1{\doind{vr}{\code{#1}}\ignorespaces}
-@end tex
-
 @macro rglos{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,music-glossary,Glossari musical}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,music-glossary,Glossari musical}
 @end macro
 
 @macro rlearning{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,learning.es,Manual d'aprenentatge}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,learning.es,Manual d'aprenentatge}
 @end macro
 
 @macro rnotation{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,notation.es,Referència de la notació}
 @end macro
 
 @macro rnotationnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,notation.es,Referència de la notació}
 @end macro
 
 @macro rchanges{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,changes,Canvis}
 @end macro
 
 @macro rchangesnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,changes,Canvis}
 @end macro
 
 @macro rextend{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,extending,Extendre}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,extending,Extensions}
 @end macro
 
 @macro rcontrib{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,contributor,Guia del col·laborador}
 @end macro
 
 @macro rcontribnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,contributor,Guia del col·laborador}
 @end macro
 
 @macro rweb{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,web,Informació general}
 @end macro
 
 @macro rwebnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,web,Informació general}
 @end macro
 
 @macro ressay{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,essay,Monografia}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,essay,Monografia}
 @end macro
 
 @macro rprogram{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,usage.es,Utilització del programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,usage.es,Utilització del programa}
 @end macro
 
 @macro rlsr{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,snippets,Fragments de codi}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,snippets,Fragments de codi}
 @end macro
 
 @macro rinternals{TEXT}
-@lilyvindex{\TEXT\}
 @ref{\TEXT\,,,internals,Referència de funcionament intern}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
-@lilyvindex{\DISPLAY\}
 @ref{\TEXT\,,\DISPLAY\,internals,Referència de funcionament intern}
 @end macro
 

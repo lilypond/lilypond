@@ -115,13 +115,6 @@ del manuale in cui compare l'argomento; la seconda parte porta all'inizio
 della sezione del manuale in cui l'argomento è trattato.
 @end ifhtml
 
-@iftex
-Gli elementi inclinati dell'indice puntano a posizioni (soprattutto le sezioni
-@q{Vedi anche}) che contengono collegamenti esterni ad altri file della
-documentazione di LilyPond, come la Guida al funzionamento interno o
-il Glossario.
-@end iftex
-
 @printindex cp
 
 @bye

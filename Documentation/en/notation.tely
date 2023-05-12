@@ -101,6 +101,7 @@ or keyword appears.
 
 @printindex ky
 
+
 @node LilyPond index
 @appendix LilyPond index
 
@@ -112,12 +113,6 @@ Each link is in two parts.  The first part points to the exact location
 in the manual where the topic appears; the second part points to the
 start of the section of the manual where that topic is discussed.
 @end ifhtml
-
-@iftex
-Slanted index entries point to locations (mostly @q{See also} sections)
-that contain external links to other LilyPond documentation files like
-the Internal Reference or the Glossary.
-@end iftex
 
 @printindex cp
 

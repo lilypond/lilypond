@@ -344,7 +344,7 @@ Macro definitions that contain translatable text belong to file
 
 @iftex
 
-@c In TeX output mode we unify `@findex', `@cindex', and `@vindex'
+@c In TeX output mode we unify `@findex' and `@cindex'
 @c entries in the concept index; this is done with the `@syncodeindex'
 @c lines in macro `@lilyTitlePage'.  We also set
 @c `txiindexbackslashignore' so that `\foo' gets sorted as `foo'.

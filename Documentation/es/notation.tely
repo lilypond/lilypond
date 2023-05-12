@@ -115,14 +115,6 @@ la segunda parte apunta al comienzo de la sección correspondiente
 del manual en la que se discute dicho término.
 @end ifhtml
 
-@iftex
-Las entradas en letra inclinada apuntan a ubicaciones
-(principalmente secciones del tipo @q{Véase tambiéno}s) que
-contienen enlaces externos a otros archivos de documentación de
-LilyPond como la Referencia de funcionamiento interno o el
-Glosario.
-@end iftex
-
 @printindex cp
 
 @bye
