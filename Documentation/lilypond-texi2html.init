@@ -408,7 +408,7 @@ sub lilypond_external_href($$$)
   my $file = shift;
 
   if (defined $file) {
-    $href = &$default_external_href($node, $node_id, $node_xhtml_id, lc_last($file));
+    $href = &$default_external_href($node, $node_id, $node_xhtml_id, $file);
     $href = remove_unneeded_anchor($href);
 
     if ($web_manual) {
