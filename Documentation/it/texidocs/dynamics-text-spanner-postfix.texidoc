@@ -4,4 +4,4 @@ Si possono definire estensori testuali personalizzati che fanno uso delle
 forcine e dei crescendo testuali.  @code{\\<} e @code{\\>} generano le
 forcine, @code{\\cresc} etc. generano gli estensori testuali.
 "
-  doctitleit = "Estensore testuale della dinamica personalizzato"
+  doctitleit = "Estensore testuale della dinamica"

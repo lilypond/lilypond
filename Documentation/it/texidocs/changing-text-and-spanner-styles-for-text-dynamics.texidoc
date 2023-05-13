@@ -10,4 +10,4 @@ proprietà @code{'style} di @code{DynamicTextSpanner}.  Il valore predefinito
 @code{'dotted-line} e @code{'none}.
 
 "
-  doctitleit = "Nascondere la linea di estensione per le dinamiche testuali"
+  doctitleit = "Cambiare gli stili del testo e degli estensori per le dinamiche testuali"
