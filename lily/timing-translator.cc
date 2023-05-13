@@ -141,28 +141,38 @@ Timing_translator::stop_translation_timestep ()
 }
 
 void
-Timing_translator::initialize ()
+Timing_translator::connect_to_context ()
 {
   SCM timing_context_name = ly_symbol2scm ("Timing");
-  auto *timing = find_context_above (context (), timing_context_name);
-  if (timing != context ())
+  if (!context ()->is_alias (timing_context_name))
     {
       context ()->add_alias (timing_context_name);
+    }
+}
 
-      if (!timing)
+void
+Timing_translator::initialize ()
+{
+  // Sanity check: In the polymeter use case, when we are not in the top
+  // user-accessible context, we expect that a context above (typically Score)
+  // has been initialized as Timing so that we can copy its current property
+  // values for our initial values here.
+  if (auto *const parent = context ()->get_parent ())
+    {
+      if (parent->is_accessible_to_user ()
+          && !find_context_above (parent, ly_symbol2scm ("Timing")))
         {
           programming_error ("Can't find Timing context template");
-          timing = context ();
         }
     }
 
-  SCM barnumber = get_property (timing, "currentBarNumber");
+  SCM barnumber = get_property (this, "currentBarNumber");
   if (!scm_is_integer (barnumber))
     barnumber = to_scm (1);
   set_property (context (), "currentBarNumber", barnumber);
   set_property (context (), "internalBarNumber", barnumber);
 
-  SCM timeSignatureFraction = get_property (timing, "timeSignatureFraction");
+  SCM timeSignatureFraction = get_property (this, "timeSignatureFraction");
 
   if (!scm_is_pair (timeSignatureFraction))
     {
@@ -171,7 +181,7 @@ Timing_translator::initialize ()
     }
   set_property (context (), "timeSignatureFraction", timeSignatureFraction);
 
-  SCM measureLength = get_property (timing, "measureLength");
+  SCM measureLength = get_property (this, "measureLength");
 
   if (!unsmob<Moment> (measureLength))
     {
@@ -186,7 +196,7 @@ Timing_translator::initialize ()
     set_property (context (), "measurePosition", mp.smobbed_copy ());
   }
 
-  SCM timeSignatureSettings = get_property (timing, "timeSignatureSettings");
+  SCM timeSignatureSettings = get_property (this, "timeSignatureSettings");
   if (!scm_is_pair (timeSignatureSettings))
     {
       programming_error ("missing timeSignatureSettings");
@@ -194,7 +204,7 @@ Timing_translator::initialize ()
     }
   set_property (context (), "timeSignatureSettings", timeSignatureSettings);
 
-  SCM beamExceptions = get_property (timing, "beamExceptions");
+  SCM beamExceptions = get_property (this, "beamExceptions");
   if (!scm_is_pair (beamExceptions))
     {
       beamExceptions
@@ -202,7 +212,7 @@ Timing_translator::initialize ()
     }
   set_property (context (), "beamExceptions", beamExceptions);
 
-  SCM baseMoment = get_property (timing, "baseMoment");
+  SCM baseMoment = get_property (this, "baseMoment");
   if (!unsmob<Moment> (baseMoment))
     {
       baseMoment = Moment (from_scm<Rational> (Lily::base_length (
@@ -211,7 +221,7 @@ Timing_translator::initialize ()
     }
   set_property (context (), "baseMoment", baseMoment);
 
-  SCM beatStructure = get_property (timing, "beatStructure");
+  SCM beatStructure = get_property (this, "beatStructure");
   if (!scm_is_pair (beatStructure))
     {
       beatStructure = Lily::beat_structure (
@@ -221,10 +231,9 @@ Timing_translator::initialize ()
   set_property (context (), "beatStructure", beatStructure);
 
   set_property (context (), "beamHalfMeasure",
-                get_property (timing, "beamHalfMeasure"));
+                get_property (this, "beamHalfMeasure"));
 
-  set_property (context (), "autoBeaming",
-                get_property (timing, "autoBeaming"));
+  set_property (context (), "autoBeaming", get_property (this, "autoBeaming"));
 }
 
 Timing_translator::Timing_translator (Context *c)

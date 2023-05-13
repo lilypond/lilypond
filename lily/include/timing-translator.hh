@@ -31,6 +31,7 @@ public:
   TRANSLATOR_DECLARATIONS (Timing_translator);
 
 protected:
+  void connect_to_context () override;
   void initialize () override;
   void listen_alternative (Stream_event *);
   void listen_bar (Stream_event *);
