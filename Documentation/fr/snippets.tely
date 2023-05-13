@@ -67,6 +67,7 @@ Copyright @copyright{} 1999--2023 par les auteurs.
 @macro nodeprefix{PRE}
 @unmacro lydoctitle
 @macro lydoctitle{TEXT}
+@node \PRE\: \\TEXT\\
 @unnumberedsec \\TEXT\\
 @end macro
 @end macro
