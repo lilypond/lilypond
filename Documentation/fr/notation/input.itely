@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 @c Translation checkers: Jean Abou Samra
@@ -3167,7 +3167,7 @@ portugais.
 @lilypond[quote]
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
   fonts.sans = "Linux Biolinum O,sans-serif"
   fonts.typewriter = "Linux Libertine Mono O,monospace"
 }

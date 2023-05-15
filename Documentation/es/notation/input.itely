@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 @node General input and output
 @chapter Entrada y salida generales
@@ -2751,7 +2751,7 @@ He aquí un ejemplo que muestra texto cirílico, hebreo y portugués:
 @lilypond[quote]
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
   fonts.sans = "Linux Biolinum O,sans-serif"
   fonts.typewriter = "Linux Libertine Mono O,monospace"
 }

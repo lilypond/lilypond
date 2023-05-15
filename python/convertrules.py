@@ -5095,6 +5095,10 @@ font-defaults, text-font-defaults -> property-defaults
 Check for identifiers formerly present in 'gregorian.ly'.
 
 \include "gregorian.ly" -> GregorianScore context
+
+\roman -> \serif
+font-family = #'roman -> font-family = #'serif
+fonts.roman = ... -> fonts.serif = ...
 """)
 def conv(s):
     s = re.sub(r"(text-)?font-defaults(?=\s*\.\s*[\w-]+\s*=)", "property-defaults", s)
@@ -5187,6 +5191,32 @@ should be replaced with
         keywords = sorted(set(re.findall(ancient_re, s)))
         if keywords:
             stderr_write(gregorian_warning.format(' '.join(keywords)))
+
+    # For \markup \roman
+    s = re.sub(r"\\roman\b", r"\\serif", s)
+    # For #(make-roman-markup ...)
+    s = re.sub(r"make-roman-markup", "make-serif-markup", s)
+    # We don't convert (markup #:roman ...) because there would be a risk of false
+    # positives, especially with advanced uses of set-global-fonts that convert-ly
+    # might not have been able to replace.
+    if m := re.search(r"#:roman\b(?!-)", s):
+        stderr_write(NOT_SMART % _(r"possible use of \roman "
+                                   "markup command with #(markup ...) macro"))
+        stderr_write(_(r"""
+convert-ly detected "#:roman" in the input file.  This may be
+related to using the \roman markup command with the markup
+macro, e.g., #(markup #:roman ...).  If this is the case, convert
+#:roman to #:serif .
+"""))
+
+    # For \override
+    s = re.sub(r"(font-family\s*=\s*[#$]')roman", r"\1serif", s)
+    # For \tweak
+    s = re.sub(r"(font-family\s+[#$]')roman", r"\1serif", s)
+    # For \markup \override
+    s = re.sub(r"(\(\s*font-family\s+\.\s+)roman(\s*\))", r"\1serif\2", s)
+    # For fonts.roman = ...
+    s = re.sub(r"(fonts\s*\.\s*)roman(\s*=\s*)", r"\1serif\2", s)
 
     return s
 

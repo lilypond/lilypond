@@ -241,7 +241,7 @@ Instead of
      (set-global-fonts
        #:music "Name of music font"
        #:brace "Name of music brace font"
-       #:roman "Name of roman font"
+       #:roman "Name of serif font"
        #:sans "Name of sans-serif font"
        #:typewriter "Name of typewriter font"))
 }
@@ -255,7 +255,7 @@ or
 \paper {
   #(define fonts
      (make-pango-font-tree
-       "Name of roman font"
+       "Name of serif font"
        "Name of sans-serif font"
        "Name of typewriter font"
        factor))
@@ -270,7 +270,7 @@ the new syntax is
 @verbatim
 \paper {
   fonts.music = "Name of music font"
-  fonts.roman = "Name of roman font"
+  fonts.serif = "Name of serif font"
   fonts.sans = "Name of sans-serif font"
   fonts.typewriter = "Name of typewriter font"
 }
@@ -415,6 +415,12 @@ myText = \markup {
 \myText
 \markup\fontsize #6 \myText
 @end lilypond
+
+@item
+For best clarity, the @code{\roman} markup command has been renamed to
+@code{\serif}.  Likewise, to cancel a setting of the @code{font-family}
+property to @code{sans} or @code{typewriter}, it should now be set
+to @code{serif}, not @code{roman}.
 
 @end itemize
 

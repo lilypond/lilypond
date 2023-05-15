@@ -1,4 +1,4 @@
-\version "2.25.4"
+\version "2.25.5"
 
 \header {
   lsrtags = "text, tweaks-and-overrides"
@@ -29,7 +29,7 @@ Debian GNU/Linux, Ubuntu
          lilypond -dshow-available-fonts
      to show all fonts available in the process log.
   %}
-  fonts.roman = "DejaVu Serif"
+  fonts.serif = "DejaVu Serif"
   fonts.sans = "DejaVu Sans"
   fonts.typewriter = "DejaVu Sans Mono"
 }

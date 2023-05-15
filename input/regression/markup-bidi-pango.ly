@@ -1,4 +1,4 @@
-\version "2.25.4"
+\version "2.25.5"
 
 \header {
 
@@ -24,7 +24,7 @@ Debian GNU/Linux, Ubuntu
 
 % Linux Libertine fonts contain Hebrew glyphs.
 \paper {
-  fonts.roman = "Linux Libertine O, serif"
+  fonts.serif = "Linux Libertine O, serif"
 }
 
 \markup {

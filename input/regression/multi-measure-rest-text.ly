@@ -1,4 +1,4 @@
-\version "2.21.0"
+\version "2.25.5"
 
 \header  {
 
@@ -19,7 +19,7 @@ measures stretch to accommodate wide texts.
   R2._\fermata _"Ad lib"
   R2.^\shortfermata
   R2.^"4"
-  R2.*3_\markup { \roman "a1b2c3" }
+  R2.*3_\markup { \serif "a1b2c3" }
   R2.*10^"inner"^"top"_"inner"_"bot"
   \override MultiMeasureRestText.springs-and-rods
     = #ly:multi-measure-rest::set-text-rods

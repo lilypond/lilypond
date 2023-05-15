@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 @node Text
 @section Texto
@@ -819,7 +819,7 @@ no hay diferencia entre la primera y la segunda palabra.
     \line { Act \number 1 }
     \line { \sans { Scene I. } }
     \line { \typewriter { Verona. An open place. } }
-    \line { Enter \roman Valentine and Proteus. }
+    \line { Enter \serif Valentine and Proteus. }
   }
 }
 @end lilypond
@@ -1926,7 +1926,7 @@ leer más explicaciones sobre las fuentes tipográficas, consulte
 
 @lilypond[verbatim,quote]
 \paper  {
-  fonts.roman = "Linux Libertine O"
+  fonts.serif = "Linux Libertine O"
   fonts.sans = "Nimbus Sans, Nimbus Sans L"
   fonts.typewriter = "DejaVu Sans Mono"
 }

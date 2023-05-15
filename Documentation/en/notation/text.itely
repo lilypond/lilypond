@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 @node Text
 @section Text
@@ -1077,9 +1077,9 @@ printed in a smaller size, but a normal size can be used as well:
 @cindex font family
 
 The markup mode provides an easy way to select alternate font
-families.  The default serif font, of roman type, is automatically
-selected unless specified otherwise; on the last line of the following
-example, there is no difference between the first and the second word.
+families.  A serif font is selected by default unless specified
+otherwise; on the last line of the following example, there is no
+difference between the first and the second word.
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1087,7 +1087,7 @@ example, there is no difference between the first and the second word.
     \line { Act \number 1 }
     \line { \sans { Scene I. } }
     \line { \typewriter { Verona. An open place. } }
-    \line { Enter \roman Valentine and Proteus. }
+    \line { Enter \serif Valentine and Proteus. }
   }
 }
 @end lilypond
@@ -1843,7 +1843,7 @@ access fonts in general.
 Three generic aliases for text font families@footnote{In its
 simplest form, a @emph{font family} usually contains fonts in
 roman, italic, bold, and bold italic styles.} are available:
-@q{roman} (serif), @q{sans}, and @q{typewriter}.  Depending on the
+@q{serif}, @q{sans}, and @q{typewriter}.  Depending on the
 backend, these families get mapped to different font family
 aliases.
 
@@ -1852,7 +1852,7 @@ For the @code{svg} backend:
 @indentedBlock
 @multitable {@b{generic family}} {@b{SVG font family}}
 @headitem generic family @tab SVG font family
-@item roman @tab serif
+@item serif @tab serif
 @item sans @tab sans-serif
 @item typewriter @tab monospace
 @end multitable
@@ -1869,7 +1869,7 @@ For other backends:
 @headitem generic family
           @tab default font family alias
                     @tab font families contained in alias
-@item roman
+@item serif
 @tab LilyPond Serif
 @tab C059,
      Century SchoolBook URW,
@@ -2166,14 +2166,14 @@ necessary.}
 
 @lilypond[verbatim,quote]
 \paper {
-  fonts.roman = "Linux Libertine O"
+  fonts.serif = "Linux Libertine O"
   fonts.sans = "DejaVu Sans"
   fonts.typewriter = "DejaVu Sans Mono"
 }
 
 \relative c'{
   c1-\markup {
-    roman,
+    serif,
     \sans sans,
     \typewriter typewriter. }
 }

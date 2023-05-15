@@ -2,7 +2,7 @@
   texidoc = "The default font families for text can be overridden."
 }
 
-\version "2.25.4"
+\version "2.25.5"
 
 %{
 You may have to install additional fonts.
@@ -18,7 +18,7 @@ Debian GNU/Linux, Ubuntu
 %}
 
 \paper {
-  fonts.roman = "DejaVu Serif"
+  fonts.serif = "DejaVu Serif"
   fonts.sans = "DejaVu Sans"
   fonts.typewriter = "DejaVu Sans Mono"
 }

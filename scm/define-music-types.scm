@@ -402,9 +402,7 @@ Syntax: @code{R2.*4} for 4 measures in 3/4 time.")
     (MultiMeasureTextEvent
      . ((description . "Texts on multi-measure rests.
 
-Syntax: @code{R-\\markup @{ \\roman \"bla\" @}}
-
-Note the explicit font switch.")
+Syntax: @code{R-\\markup @{ \"bla\" @}}")
         (types . (post-event event multi-measure-text-event))
         ))
 

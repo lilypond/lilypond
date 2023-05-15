@@ -126,7 +126,7 @@ select_font (Output_def *layout, SCM chain)
       if (scm_is_false (family)
           // This is ugly and should be improved. It happens with things like
           // \markup \sans { più \dynamic p }
-          || scm_is_eq (family, ly_symbol2scm ("roman"))
+          || scm_is_eq (family, ly_symbol2scm ("serif"))
           || scm_is_eq (family, ly_symbol2scm ("sans"))
           || scm_is_eq (family, ly_symbol2scm ("typewriter")))
         {
@@ -136,7 +136,7 @@ select_font (Output_def *layout, SCM chain)
   else // latin1
     {
       family = ly_chain_assoc_get (ly_symbol2scm ("font-family"), chain,
-                                   ly_symbol2scm ("roman"));
+                                   ly_symbol2scm ("serif"));
     }
 
   SCM name_scm = ly_assoc_get (family, fonts, SCM_BOOL_F);

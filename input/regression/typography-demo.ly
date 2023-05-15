@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.25.4"
+\version "2.25.5"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata
@@ -24,7 +24,7 @@ ignoreMelismaOff = \unset ignoreMelismata
 
   % Font settings for Cyrillic and Hebrew
   % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
   fonts.sans = "Linux Biolinum O,sans-serif"
   fonts.typewriter = "Linux Libertine Mono O,monospace"
 }

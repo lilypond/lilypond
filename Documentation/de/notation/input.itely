@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 @c Translators: Till Paala
 
@@ -2169,7 +2169,7 @@ Heir ein Beispiel mit Kyrilliza, hebräischem und portugiesischem Text:
 % Font settings for Cyrillic and Hebrew
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
   fonts.sans = "Linux Biolinum O,sans-serif"
   fonts.typewriter = "Linux Libertine Mono O,monospace"
 }

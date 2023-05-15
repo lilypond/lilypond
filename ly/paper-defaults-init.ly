@@ -161,9 +161,8 @@
   %% Fonts
   %%
 
-  %% TODO: Perhaps rename 'roman' to 'serif'?
   fonts.music = "emmentaler"
-  fonts.roman = #(if (eq? 'svg (ly:get-option 'backend))
+  fonts.serif = #(if (eq? 'svg (ly:get-option 'backend))
                      "serif"
                      "LilyPond Serif")
   fonts.sans = #(if (eq? 'svg (ly:get-option 'backend))

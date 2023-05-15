@@ -1,4 +1,4 @@
-\version "2.25.4"
+\version "2.25.5"
 
 \header {
   texidoc = "
@@ -25,7 +25,7 @@ Debian GNU/Linux, Ubuntu
 
 % 'Linux Libertine' fonts also contain Cyrillic and Hebrew glyphs.
 \paper {
-  fonts.roman = "Linux Libertine O, Noto Serif CJK JP, Noto Serif JP, serif"
+  fonts.serif = "Linux Libertine O, Noto Serif CJK JP, Noto Serif JP, serif"
 }
 
 bulgarian = \lyricmode {

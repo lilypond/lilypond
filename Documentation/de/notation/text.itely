@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 @c Translators: Till Paala
 
@@ -651,7 +651,7 @@ wird automatisch eine Schriftart mit Serifen ausgewählt.  Das Beispiel
 unten zeigt die Verwendung der eigenen Zahlenschriftart von LilyPond,
 den Einsatz von serifenloser Schriftart und von Schreibmaschinenschriftart.
 Die letzte Zeile zeigt, dass sich die Standardeinstellung mit dem
-Befehl @code{\roman} wieder herstellen lässt.
+Befehl @code{\serif} wieder herstellen lässt.
 
 @lilypond[quote,verbatim]
 \markup {
@@ -659,7 +659,7 @@ Befehl @code{\roman} wieder herstellen lässt.
     \line { Act \number 1 }
     \line { \sans { Scene I. } }
     \line { \typewriter { Verona. An open place. } }
-    \line { Enter \roman Valentine and Proteus. }
+    \line { Enter \serif Valentine and Proteus. }
   }
 }
 @end lilypond
@@ -1593,7 +1593,7 @@ Schriftarten in @ref{Fonts explained}.
 @lilypond[verbatim,quote]
 \paper  {
   myStaffSize = #20
-  fonts.roman = "Linux Libertine O"
+  fonts.serif = "Linux Libertine O"
   fonts.sans = "Nimbus Sans, Nimbus Sans L"
   fonts.typewriter = "DejaVu Sans Mono"
 }

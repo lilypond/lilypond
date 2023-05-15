@@ -1,4 +1,4 @@
-\version "2.25.4"
+\version "2.25.5"
 
 \header {
   lsrtags = "text"
@@ -30,7 +30,7 @@ Debian GNU/Linux, Ubuntu
 
 % 'Linux Libertine' fonts also contain Cyrillic and Hebrew glyphs.
 \paper {
-  fonts.roman = "Linux Libertine O, Noto Serif CJK JP, Noto Serif JP"
+  fonts.serif = "Linux Libertine O, Noto Serif CJK JP, Noto Serif JP"
 }
 
 bulgarian = \lyricmode {

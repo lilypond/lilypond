@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 @c Translators: Till Paala
 
@@ -2498,7 +2498,7 @@ richtigen Werten, sodass man sofort den Choral notieren kann:
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {

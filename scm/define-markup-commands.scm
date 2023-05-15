@@ -3453,25 +3453,26 @@ See also the markup commands @code{\\figured-bass} and
   (interpret-markup layout (prepend-alist-chain
                             'font-encoding 'fetaText props) arg))
 
-(define-markup-command (roman layout props arg)
+(define-markup-command (serif layout props arg)
   (markup?)
   #:category font
-  "Set font family to @code{roman}.
+  "Use a serif font (by setting @code{font-family} to @code{serif}). This can be used
+to override a setting of a sans-serif or typewriter font family.
 
 @lilypond[verbatim,quote]
 \\markup {
   \\sans \\bold {
     sans serif, bold
     \\hspace #2
-    \\roman {
-      text in roman font family
+    \\serif {
+      text in serif font
     }
     \\hspace #2
     return to sans
   }
 }
 @end lilypond"
-  (interpret-markup layout (prepend-alist-chain 'font-family 'roman props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-family 'serif props) arg))
 
 (define-markup-command (huge layout props arg)
   (markup?)
@@ -3807,7 +3808,7 @@ normal text font, no matter what font was used earlier.
 @end lilypond"
   ;; ugh - latin1
   (interpret-markup layout
-                    (cons '((font-family . roman) (font-shape . upright)
+                    (cons '((font-family . serif) (font-shape . upright)
                             (font-series . normal) (font-encoding . latin1)
                             (font-variant . normal))
                           props)

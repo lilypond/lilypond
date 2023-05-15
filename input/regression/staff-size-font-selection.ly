@@ -1,4 +1,4 @@
-\version "2.25.4"
+\version "2.25.5"
 
 \header {
   texidoc = "Font size configuration is independent from font
@@ -20,7 +20,7 @@ Debian GNU/Linux, Ubuntu
 %}
 
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
 }
 
 #(set-global-staff-size 40)

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 
 @node Ancient notation
@@ -2524,7 +2524,7 @@ values, so you can immediately go ahead entering the chant:
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {
@@ -2724,7 +2724,7 @@ The following example demonstrates the use of Kievan ligatures:
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
 }
 
 \score {

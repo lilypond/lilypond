@@ -1,4 +1,4 @@
-\version "2.25.4"
+\version "2.25.5"
 
 \header {
   texidoc = "LilyPond typesets Kievan notation.
@@ -8,7 +8,7 @@
 % Font settings for Cyrillic
 % Linux Libertine fonts contain Cyrillic glyphs.
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
   fonts.sans = "Linux Biolinum O,sans-serif"
   fonts.typewriter = "Linux Libertine Mono O,monospace"
 }

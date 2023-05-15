@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -2643,7 +2643,7 @@ Vet aquí un exemple que mostra text ciríl·lic, hebreu i portuguès:
 @lilypond[quote]
 % Els tipus de lletra Linux Libertine contenen glifs ciríl·lics i hebreus.
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
   fonts.sans = "Linux Biolinum O,sans-serif"
   fonts.typewriter = "Linux Libertine Mono O,monospace"
 }

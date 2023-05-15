@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -646,7 +646,7 @@ prima e la seconda parola.
     \line { Act \number 1 }
     \line { \sans { Scene I. } }
     \line { \typewriter { Verona. An open place. } }
-    \line { Enter \roman Valentine and Proteus. }
+    \line { Enter \serif Valentine and Proteus. }
   }
 }
 @end lilypond
@@ -1621,7 +1621,7 @@ definiti.  I tipi di carattere  sono spiegati in @ref{Fonts explained}.
 
 @lilypond[verbatim,quote]
 \paper  {
-  fonts.roman = "Linux Libertine O"
+  fonts.serif = "Linux Libertine O"
   fonts.sans = "Nimbus Sans, Nimbus Sans L"
   fonts.typewriter = "DejaVu Sans Mono"
 }

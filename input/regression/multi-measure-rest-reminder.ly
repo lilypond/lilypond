@@ -7,7 +7,7 @@
   @code{ly:make-grob-properties}."
 }
 
-\version "2.23.4"
+\version "2.25.5"
 
 % On seeing the end of a multi measure rest, create a MultiMeasureRestReminder item.
 multiMeasureReminderEngraver =
@@ -43,7 +43,7 @@ multiMeasureReminderEngraver =
       (break-visibility . ,begin-of-line-visible)
       (direction . ,UP)
       (extra-spacing-width . (+inf.0 . -inf.0))
-      (font-family . roman)
+      (font-family . serif)
       (font-series . bold)
       (font-size . -2)
       (horizon-padding . 0.05)

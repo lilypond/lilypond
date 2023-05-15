@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 @c Translators: Federico Bruni
 @c Translation checkers:
 
@@ -2586,7 +2586,7 @@ Ecco un esempio che mostra del testo cirillico, ebraico e portoghese:
 @lilypond[quote]
 % I tipi di carattere Linux Libertine contengono i glifi cirillici e ebraici.
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
   fonts.sans = "Linux Biolinum O,sans-serif"
   fonts.typewriter = "Linux Libertine Mono O,monospace"
 }

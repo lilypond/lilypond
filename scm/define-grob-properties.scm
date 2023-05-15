@@ -331,8 +331,8 @@ fonts (Emmentaler) are using this property.  Available
 values are @code{fetaMusic} (Emmentaler), @code{fetaBraces},
 @code{fetaText} (Emmentaler).")
      (font-family ,symbol? "The font family is the broadest category
-for selecting text fonts.  Options include: @code{sans},
-@code{roman}.")
+for selecting text fonts.  Options include @code{serif}, @code{sans}
+and @code{typewriter}.")
      (font-name ,string? "Specifies a file name (without extension) of
 the font to load.  This setting overrides selection using
 @code{font-family}, @code{font-series} and @code{font-shape}.")

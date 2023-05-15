@@ -251,7 +251,7 @@ changé. Au lieu de
      (set-global-fonts
        #:music "Nom de la fonte musicale"
        #:brace "Nom de la fonte musicale d'accolades"
-       #:roman "Nom de la fonte romaine"
+       #:roman "Nom de la fonte à empattements"
        #:sans "Nom de la fonte sans empattements"
        #:typewriter "Nom de la fonte monospace"))
 }
@@ -266,7 +266,7 @@ ou
 \paper {
   #(define fonts
      (make-pango-font-tree
-       "Nom de la fonte romaine"
+       "Nom de la fonte à empattements"
        "Nom de la fonte sans empattements"
        "Nom de la fonte monospace"
        factor))
@@ -281,7 +281,7 @@ la syntaxe consacrée est dorénavant
 @verbatim
 \paper {
   fonts.music = "Nom de la fonte musicale"
-  fonts.roman = "Nom de la fonte romaine"
+  fonts.serif = "Nom de la fonte à empattements"
   fonts.sans = "Nom de la fonte sans empattement"
   fonts.typewriter = "Nom de la fonte monospace"
 }

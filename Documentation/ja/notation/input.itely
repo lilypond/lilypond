@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.4"
+@c \version "2.25.5"
 
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
@@ -2619,7 +2619,7 @@ FT_Get_Glyph_Name () error: invalid argument
 @lilypond[quote]
 % Linux Libertine フォントはキリル文字やヘブライ文字を含みます
 \paper {
-  fonts.roman = "Linux Libertine O,serif"
+  fonts.serif = "Linux Libertine O,serif"
   fonts.sans = "Linux Biolinum O,sans-serif"
   fonts.typewriter = "Linux Libertine Mono O,monospace"
 }

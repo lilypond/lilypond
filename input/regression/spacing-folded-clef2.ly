@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.25.5"
 \header {
 
 texidoc = "A clef can be folded below notes in a different staff, if
@@ -13,8 +13,8 @@ can show where columns are in the score."
 	\Score
 	\override NonMusicalPaperColumn.stencil = #ly:paper-column::print
 	\override PaperColumn.stencil = #ly:paper-column::print	  
-	\override NonMusicalPaperColumn.font-family = #'roman
-	\override PaperColumn.font-family = #'roman	  
+	\override NonMusicalPaperColumn.font-family = #'serif
+	\override PaperColumn.font-family = #'serif	  
 
     }
 }
