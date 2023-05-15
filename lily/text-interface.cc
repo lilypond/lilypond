@@ -166,7 +166,7 @@ Text_interface::interpret_string (Output_def *layout, SCM props,
      contains newlines.  We do it on every recursive call, so the result
      of a string transformer is also modified this way. */
   for (auto &ch : str)
-    if (isspace (ch))
+    if (!(ch & 0x80) && isspace (ch)) // don't mess up multibyte chars
       ch = ' ';
 
   Font_metric *fm = select_font (layout, props);
