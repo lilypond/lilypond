@@ -18,6 +18,8 @@
 */
 
 #include "lily-guile.hh"
+#include "international.hh"
+#include "warn.hh"
 
 #include <pango/pango.h>
 
@@ -29,21 +31,37 @@ tweak_pango_description (PangoFontDescription *description, SCM chain)
   SCM variant
     = ly_chain_assoc_get (ly_symbol2scm ("font-variant"), chain, SCM_BOOL_F);
   PangoVariant pvariant = PANGO_VARIANT_NORMAL;
-  if (scm_is_eq (variant, ly_symbol2scm ("small-caps")))
+  if (scm_is_eq (variant, ly_symbol2scm ("normal")))
+    pvariant = PANGO_VARIANT_NORMAL;
+  else if (scm_is_eq (variant, ly_symbol2scm ("small-caps")))
     pvariant = PANGO_VARIANT_SMALL_CAPS;
   // TODO: add the extra variants from Pango 1.50 when older
   // versions are no longer supported.
+  else if (scm_is_symbol (variant))
+    {
+      warning (_f ("unknown font-variant value %s; allowed values are normal "
+                   "and small-caps",
+                   ly_scm_write_string (variant).c_str ()));
+    }
 
   pango_font_description_set_variant (description, pvariant);
 
   SCM style
     = ly_chain_assoc_get (ly_symbol2scm ("font-shape"), chain, SCM_BOOL_F);
   PangoStyle pstyle = PANGO_STYLE_NORMAL;
-  if (scm_is_eq (style, ly_symbol2scm ("italic")))
+  if (scm_is_eq (style, ly_symbol2scm ("upright")))
+    pstyle = PANGO_STYLE_NORMAL;
+  else if (scm_is_eq (style, ly_symbol2scm ("italic")))
     pstyle = PANGO_STYLE_ITALIC;
   else if (scm_is_eq (style, ly_symbol2scm ("oblique"))
            || scm_is_eq (style, ly_symbol2scm ("slanted")))
     pstyle = PANGO_STYLE_OBLIQUE;
+  else if (scm_is_symbol (style))
+    {
+      warning (_f ("unknown font-shape value %s; allowed values are italic, "
+                   "oblique and upright",
+                   ly_scm_write_string (style).c_str ()));
+    }
   pango_font_description_set_style (description, pstyle);
 
   SCM weight
@@ -59,6 +77,8 @@ tweak_pango_description (PangoFontDescription *description, SCM chain)
     pw = PANGO_WEIGHT_SEMILIGHT;
   else if (scm_is_eq (weight, ly_symbol2scm ("book")))
     pw = PANGO_WEIGHT_BOOK;
+  else if (scm_is_eq (weight, ly_symbol2scm ("normal")))
+    pw = PANGO_WEIGHT_NORMAL;
   else if (scm_is_eq (weight, ly_symbol2scm ("medium")))
     pw = PANGO_WEIGHT_MEDIUM;
   else if (scm_is_eq (weight, ly_symbol2scm ("semibold")))
@@ -71,6 +91,14 @@ tweak_pango_description (PangoFontDescription *description, SCM chain)
     pw = PANGO_WEIGHT_HEAVY;
   else if (scm_is_eq (weight, ly_symbol2scm ("ultraheavy")))
     pw = PANGO_WEIGHT_ULTRAHEAVY;
+  else if (scm_is_symbol (weight))
+    {
+      warning (_f (
+        "unknown font-series value %s; allowed values are thin, ultralight, "
+        "light, semilight, book, normal, medium, semibold, bold, ultrabold, "
+        "heavy and ultraheavy",
+        ly_scm_write_string (weight).c_str ()));
+    }
   pango_font_description_set_weight (description, pw);
 
   SCM stretch
@@ -84,6 +112,8 @@ tweak_pango_description (PangoFontDescription *description, SCM chain)
     pstretch = PANGO_STRETCH_CONDENSED;
   else if (scm_is_eq (stretch, ly_symbol2scm ("semi-condensed")))
     pstretch = PANGO_STRETCH_SEMI_CONDENSED;
+  else if (scm_is_eq (stretch, ly_symbol2scm ("normal")))
+    pstretch = PANGO_STRETCH_NORMAL;
   else if (scm_is_eq (stretch, ly_symbol2scm ("semi-expanded")))
     pstretch = PANGO_STRETCH_SEMI_EXPANDED;
   else if (scm_is_eq (stretch, ly_symbol2scm ("expanded")))
@@ -92,5 +122,13 @@ tweak_pango_description (PangoFontDescription *description, SCM chain)
     pstretch = PANGO_STRETCH_EXTRA_EXPANDED;
   else if (scm_is_eq (stretch, ly_symbol2scm ("ultra-expanded")))
     pstretch = PANGO_STRETCH_ULTRA_EXPANDED;
+  else if (scm_is_symbol (stretch))
+    {
+      warning (_f (
+        "unknown font-stretch value %s; allowed values are ultra-condensed, "
+        "extra-condensed, condensed, semi-condensed, normal, semi-expanded, "
+        "extra-expanded and ultra-expanded",
+        ly_scm_write_string (stretch).c_str ()));
+    }
   pango_font_description_set_stretch (description, pstretch);
 }
