@@ -312,7 +312,6 @@ line to visually mark and annotate another grob.")))))
         (break-visibility . ,begin-of-line-visible)
         (direction . ,UP)
         (extra-spacing-width . (+inf.0 . -inf.0))
-        (font-family . roman)
         (font-size . -2)
         (non-musical . #t)
         ;; w/o padding, bars numbers are not positioned over the staff as
@@ -487,8 +486,6 @@ vertically.")))))
         (direction . ,ly:beam::calc-direction)
 
         (normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
-        ;; only for debugging.
-        (font-family . roman)
         (font-size . -6)
 
         (gap . 0.8)
@@ -723,7 +720,6 @@ an outside-staff comma or a fermata over a bar line.")))))
     (CenteredBarNumber
      . (
         (extra-spacing-width . (+inf.0 . -inf.0))
-        (font-family . roman)
         ;; This is intentionally bigger than BarNumber.
         (font-size . 0)
         (self-alignment-X . ,CENTER)
