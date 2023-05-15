@@ -34,7 +34,7 @@ mus = {
   <<
     \mus
     \new Dynamics {
-      \override Score.TextMark.font-series = #'typewriter
+      \override Score.TextMark.font-family = #'typewriter
       \textMark "#f"
       s1
       \textMark
