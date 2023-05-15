@@ -140,23 +140,20 @@ select_font (Output_def *layout, SCM chain)
     }
 
   SCM name_scm = ly_assoc_get (family, fonts, SCM_BOOL_F);
-  std::string name;
   if (scm_is_false (name_scm))
     {
       warning (_f ("no entry for font family %s in fonts alist",
                    ly_scm_write_string (family).c_str ()));
-      name = "LilyPond Serif";
+      name_scm = ly_string2scm ("LilyPond Serif");
     }
   else if (!scm_is_string (name_scm))
     {
       warning (_f ("expected string for value in fonts alist, found: %s",
                    ly_scm_write_string (name_scm).c_str ()));
-      name = "LilyPond Serif";
+      name_scm = ly_string2scm ("LilyPond Serif");
     }
-  else
-    {
-      name = ly_scm2string (name_scm);
-    }
+
+  std::string name = ly_scm2string (name_scm);
 
   vsize rounded_size = 0;
   Real actual_size = 0; // dummy init value
