@@ -70,8 +70,7 @@ public:
   void derived_mark () const override;
 };
 
-PangoFontDescription *
-tweak_pango_description (PangoFontDescription *description, SCM chain);
+void tweak_pango_description (PangoFontDescription *description, SCM chain);
 
 const int PANGO_RESOLUTION = 1200;
 
