@@ -25,6 +25,7 @@
 #include "input.hh"
 #include "duration.hh"
 #include "pitch.hh"
+#include "protected-scm.hh"
 
 class Lily_lexer : public Smob<Lily_lexer>, public Includable_lexer
 {
@@ -46,7 +47,7 @@ private:
   const char *YYText_utf8 ();
 
   Lily_parser *parser_;
-  static SCM keytable_;
+  static Protected_scm keytable_;
   SCM scopes_;
   SCM start_module_;
   Input override_input_;

@@ -27,6 +27,7 @@
 #include "note-head.hh"
 #include "pitch-interval.hh"
 #include "pointer-group-interface.hh"
+#include "protected-scm.hh"
 #include "side-position-interface.hh"
 #include "separation-item.hh"
 #include "staff-symbol-referencer.hh"

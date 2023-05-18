@@ -23,6 +23,7 @@
 #include "item.hh"
 #include "note-column.hh"
 #include "pitch.hh"
+#include "protected-scm.hh"
 #include "side-position-interface.hh"
 #include "spanner.hh"
 #include "text-interface.hh"

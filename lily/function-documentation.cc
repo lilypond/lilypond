@@ -29,6 +29,7 @@
 #include "music-function.hh"
 #include "paper-score.hh"
 #include "performance.hh"
+#include "protected-scm.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "transform.hh"
@@ -40,7 +41,7 @@
 #include <map>
 #include <type_traits>
 
-static SCM doc_hash_table = SCM_UNDEFINED;
+static Protected_scm doc_hash_table;
 
 void
 ly_check_name (const char *cxx, const char *scm_name)
@@ -61,7 +62,7 @@ ly_add_function_documentation (SCM func, const char *fname, const char *varlist,
   if (*doc == 0)
     return;
 
-  if (SCM_UNBNDP (doc_hash_table))
+  if (!doc_hash_table.is_bound ())
     doc_hash_table = scm_c_make_hash_table (59);
 
   std::string s = std::string (" - ") + "LilyPond procedure: " + fname + " "

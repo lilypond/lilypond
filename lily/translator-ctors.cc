@@ -24,6 +24,7 @@
 #include "international.hh"
 #include "scm-hash.hh"
 #include "warn.hh"
+#include "protected-scm.hh"
 
 SCM
 Translator_creator::call (SCM ctx)
@@ -31,8 +32,8 @@ Translator_creator::call (SCM ctx)
   return (allocate_ (LY_ASSERT_SMOB (Context, ctx, 1)))->unprotect ();
 }
 
-SCM global_translator_dict = SCM_UNDEFINED;
-SCM global_translator_dict_rev = SCM_UNDEFINED;
+Protected_scm global_translator_dict;
+Protected_scm global_translator_dict_rev;
 
 LY_DEFINE (get_all_translators, "ly:get-all-translators", 0, 0, 0, (),
            R"(
@@ -69,9 +70,9 @@ Return the type name of the translator definition @var{creator}.  The name is a
 symbol.
            )")
 {
-  SCM res = SCM_UNBNDP (global_translator_dict_rev)
-              ? SCM_BOOL_F
-              : scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F);
+  SCM res = global_translator_dict_rev.is_bound ()
+              ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
+              : SCM_BOOL_F;
   SCM_ASSERT_TYPE (scm_is_pair (res), creator, SCM_ARG1, __FUNCTION__,
                    "translator definition");
   return scm_car (res);
@@ -83,9 +84,9 @@ LY_DEFINE (ly_translator_description, "ly:translator-description", 1, 0, 0,
 Return an alist of properties of translator definition @var{creator}.
            )")
 {
-  SCM res = SCM_UNBNDP (global_translator_dict_rev)
-              ? SCM_BOOL_F
-              : scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F);
+  SCM res = global_translator_dict_rev.is_bound ()
+              ? scm_hashq_ref (global_translator_dict_rev, creator, SCM_BOOL_F)
+              : SCM_BOOL_F;
   SCM_ASSERT_TYPE (scm_is_pair (res), creator, SCM_ARG1, __FUNCTION__,
                    "translator definition");
   return scm_cdr (res);

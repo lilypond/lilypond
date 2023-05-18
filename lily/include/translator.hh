@@ -26,6 +26,7 @@
 #include "input.hh" // for error reporting
 #include "smobs.hh"
 #include "stream-event.hh"
+#include "protected-scm.hh"
 
 // The Translator_creator class is only for translators defined in C.
 // Its elements are callable entities taking a context argument and
@@ -83,8 +84,8 @@ private:                                                                       \
   using self_type = NAME; /* no decltype(*this) in static methods */           \
 public:                                                                        \
   TRANSLATOR_FAMILY_DECLARATIONS (NAME)                                        \
-  static Drul_array<SCM> acknowledge_static_array_drul_;                       \
-  static SCM listener_list_;                                                   \
+  static Drul_array<Protected_scm> acknowledge_static_array_drul_;             \
+  static Protected_scm listener_list_;                                         \
   static SCM static_get_acknowledger (SCM sym, Direction start_end);           \
   SCM get_acknowledger (SCM sym, Direction start_end) override                 \
   {                                                                            \

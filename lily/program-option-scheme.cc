@@ -28,6 +28,7 @@
 #include "string-convert.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
+#include "protected-scm.hh"
 
 #include <algorithm>
 #include <cstdio>
@@ -48,7 +49,7 @@ bool profile_property_accesses = false;
 bool do_internal_type_checking_global;
 bool strict_infinity_checking = false;
 
-static SCM option_hash = SCM_UNDEFINED;
+static Protected_scm option_hash;
 
 static void
 internal_set_option (SCM var, SCM val)
@@ -214,7 +215,7 @@ which gathers @code{-d} values in a list instead of letting the
 last @code{-d} flag overwrite the others.
            )")
 {
-  if (SCM_UNBNDP (option_hash))
+  if (!option_hash.is_bound ())
     option_hash = scm_c_make_hash_table (11);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 1);
   LY_ASSERT_TYPE (scm_is_string, description, 3);

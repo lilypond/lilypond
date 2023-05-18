@@ -20,6 +20,7 @@
 #include "audio-item.hh"
 #include "international.hh"
 #include "performer.hh"
+#include "protected-scm.hh"
 
 class Time_signature_performer : public Performer
 {

@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "engraver.hh"
+#include "protected-scm.hh"
 #include "break-align-interface.hh"
 #include "align-interface.hh"
 #include "axis-group-interface.hh"

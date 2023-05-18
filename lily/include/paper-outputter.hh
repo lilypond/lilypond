@@ -23,6 +23,7 @@
 #include "cpu-timer.hh"
 #include "lily-proto.hh"
 #include "std-string.hh"
+#include "protected-scm.hh"
 #include "smobs.hh"
 
 /*

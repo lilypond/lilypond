@@ -22,6 +22,7 @@
 
 #include "std-string.hh"
 #include "lily-proto.hh"
+#include "protected-scm.hh"
 #include "smobs.hh"
 #include "virtual-methods.hh"
 

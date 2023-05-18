@@ -34,11 +34,12 @@
 #include "profile.hh"
 #include "unpure-pure-container.hh"
 #include "warn.hh"
+#include "protected-scm.hh"
 #include "string-convert.hh"
 
 #include <cstring>
 
-SCM grob_property_callback_stack = SCM_EOL;
+Protected_scm grob_property_callback_stack (SCM_EOL);
 
 extern bool debug_property_callbacks;
 
@@ -58,8 +59,8 @@ print_property_callback_stack ()
     }
 }
 
-static SCM modification_callback = SCM_EOL;
-static SCM cache_callback = SCM_EOL;
+static Protected_scm modification_callback (SCM_EOL);
+static Protected_scm cache_callback (SCM_EOL);
 
 /*
 FIXME: this should use ly:set-option interface instead.

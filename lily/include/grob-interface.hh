@@ -21,6 +21,7 @@
 #define INTERFACE_HH
 
 #include "lily-guile.hh"
+#include "protected-scm.hh"
 
 class Grob;
 
@@ -55,13 +56,13 @@ private:
   friend bool has_interface (Grob const *);
 
 private:
-  static SCM interface_symbol_;
+  static Protected_scm interface_symbol_;
   static char const *cxx_name_;
   static char const *description_;
   static char const *variables_;
 };
 
 template <class Interface>
-SCM Grob_interface<Interface>::interface_symbol_ = SCM_UNDEFINED;
+Protected_scm Grob_interface<Interface>::interface_symbol_;
 
 #endif /* INTERFACE_HH */

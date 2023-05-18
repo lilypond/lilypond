@@ -26,6 +26,7 @@
 #include "international.hh"
 #include "item.hh"
 #include "pitch.hh"
+#include "protected-scm.hh"
 #include "rhythmic-head.hh"
 #include "separation-item.hh"
 #include "side-position-interface.hh"

@@ -24,6 +24,7 @@
 #include "item.hh"
 #include "note-head.hh"
 #include "pitch.hh"
+#include "protected-scm.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
