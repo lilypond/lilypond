@@ -1982,30 +1982,29 @@ uses the font @q{TeX Gyre Schola} (this is, the roman style of the
 family).
 
 @lilypond[quote,verbatim]
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          normal style: Hello HELLO }
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \caps { small caps: Hello } }
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \override #'(font-features . ("smcp"))
-          { true small caps: Hello } }
+\paper {
+  property-defaults.fonts.serif = "TeX Gyre Schola"
+}
 
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          normal number style: 0123456789 }
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \override #'(font-features . ("onum"))
-          { old number style: 0123456789 } }
+\markup "normal style: Hello HELLO"
 
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \override #'(font-features . ("salt 0"))
-          { stylistic alternate 0: εφπρθ } }
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \override #'(font-features . ("salt 1"))
-          { stylistic alternate 1: εφπρθ } }
+\markup \caps "small caps: Hello"
 
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \override #'(font-features . ("onum" "smcp" "salt 1"))
-          { multiple features: Hello 0123456789 εφπρθ } }
+\markup \override #'(font-features . ("smcp")) "true small caps: Hello"
+
+\markup "normal number style: 0123456789"
+
+\markup \override #'(font-features . ("onum"))
+  "old number style: 0123456789"
+
+\markup \override #'(font-features . ("salt 0"))
+  "stylistic alternate 0: εφπρθ"
+
+\markup \override #'(font-features . ("salt 1"))
+  "stylistic alternate 1: εφπρθ"
+
+\markup \override #'(font-features . ("onum" "smcp" "salt 1"))
+  "multiple features: Hello 0123456789 εφπρθ"
 @end lilypond
 
 For the full OpenType font feature list see
