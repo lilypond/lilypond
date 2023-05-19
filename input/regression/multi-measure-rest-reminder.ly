@@ -35,52 +35,55 @@ multiMeasureReminderEngraver =
   \context {
     \Voice
     \consists \multiMeasureReminderEngraver
-
+  }
+  \context {
+    \Global
     % Define the grobs. The layout is crude, and should be refined for
     % "production" scores.
-    MultiMeasureRestReminder = #(ly:make-grob-properties `(
-      (break-align-symbols . (left-edge staff-bar))
-      (break-visibility . ,begin-of-line-visible)
-      (direction . ,UP)
-      (extra-spacing-width . (+inf.0 . -inf.0))
-      (font-family . serif)
-      (font-series . bold)
-      (font-size . -2)
-      (horizon-padding . 0.05)
-      (non-musical . #t)
-      (outside-staff-priority . 100)
-      (padding . 1.0)
-      (self-alignment-X . ,RIGHT)
-      (side-axis . ,Y)
-      (stencil . ,ly:text-interface::print)
-      ;; only print the reminder at the top of the page (ie rank-on-page == 0)
-      (text . ,(lambda (grob)
-                (let*
-                 ((r (ly:grob-property (ly:grob-system grob) 'rank-on-page)))
-                 (if (< 0 r)
-                  (begin
-                   (ly:grob-suicide! grob)
-                   "")
-                  (format #f "(~a)" (ly:grob-property grob 'measure-count))))))
-      (Y-extent . (0 . 0))
-      (X-offset . 4)
-      (X-extent . (0 . 0))
-      (Y-offset . ,side-position-interface::y-aligned-side)
-
-      (meta .
-       ((classes . (Item))
-        ;; This is clumsy, but we have to repeat the name
-        (name . MultiMeasureRestReminder)
-        (interfaces . (break-alignable-interface
-                       font-interface
-                       grob-interface
-                       item-interface
-                       multi-measure-rest-reminder-interface
-                       outside-staff-interface
-                       self-alignment-interface
-                       side-position-interface
-                       text-interface))))))
-
+    \grobdescriptions
+      #(cons
+        `(MultiMeasureRestReminder
+          . ((break-align-symbols . (left-edge staff-bar))
+             (break-visibility . ,begin-of-line-visible)
+             (direction . ,UP)
+             (extra-spacing-width . (+inf.0 . -inf.0))
+             (font-family . serif)
+             (font-series . bold)
+             (font-size . -2)
+             (horizon-padding . 0.05)
+             (non-musical . #t)
+             (outside-staff-priority . 100)
+             (padding . 1.0)
+             (self-alignment-X . ,RIGHT)
+             (side-axis . ,Y)
+             (stencil . ,ly:text-interface::print)
+             ;; only print the reminder at the top of the page (ie rank-on-page == 0)
+             (text . ,(lambda (grob)
+                       (let*
+                        ((r (ly:grob-property (ly:grob-system grob) 'rank-on-page)))
+                        (if (< 0 r)
+                         (begin
+                          (ly:grob-suicide! grob)
+                          "")
+                         (format #f "(~a)" (ly:grob-property grob 'measure-count))))))
+             (Y-extent . (0 . 0))
+             (X-offset . 4)
+             (X-extent . (0 . 0))
+             (Y-offset . ,side-position-interface::y-aligned-side)
+             (meta .
+              ((classes . (Item))
+               ;; This is clumsy, but we have to repeat the name
+               (name . MultiMeasureRestReminder)
+               (interfaces . (break-alignable-interface
+                              font-interface
+                              grob-interface
+                              item-interface
+                              multi-measure-rest-reminder-interface
+                              outside-staff-interface
+                              self-alignment-interface
+                              side-position-interface
+                              text-interface))))))
+        all-grob-descriptions)
   }
 }
 
