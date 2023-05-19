@@ -336,7 +336,10 @@ Text_interface::print (SCM grob)
 Stencil
 Text_interface::print (Grob *me)
 {
-  return grob_interpret_markup (me, get_property (me, "text"));
+  SCM text = get_property (me, "text");
+  if (!me->is_live ()) // perhaps the text callback caused this grob to suicide
+    return Stencil ();
+  return grob_interpret_markup (me, text);
 }
 
 Stencil
