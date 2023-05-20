@@ -101,7 +101,7 @@ If you compile the code in the example above, you should see a
 warning in the console output:
 
 @example
-warning: barcheck failed at: 1/2
+warning: bar check failed at: 1/2
  g'1 | e1 | c2. c'
                    | g4 c g e | c4 r r2 |
 @end example

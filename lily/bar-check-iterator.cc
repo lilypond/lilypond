@@ -75,7 +75,7 @@ Bar_check_iterator::check ()
     }
 
   if (warn)
-    warning (_f ("barcheck failed at: %s", to_string (mp)));
+    warning (_f ("bar check failed at: %s", to_string (mp)));
 }
 
 void
