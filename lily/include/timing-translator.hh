@@ -35,13 +35,16 @@ protected:
   void initialize () override;
   void listen_alternative (Stream_event *);
   void listen_bar (Stream_event *);
+  void listen_bar_check (Stream_event *);
   void listen_fine (Stream_event *);
+  void pre_process_music ();
   void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
 
 private:
-  bool measure_started_ = false;
+  Moment measure_start_mom_ = Moment::infinity ();
+  bool warned_for_bar_check_ = false;
 
   // alt_... members pertain to bar numbering for repeat alternatives
   Stream_event *alt_event_ = nullptr;
@@ -50,6 +53,7 @@ private:
   long alt_number_increment_ = 0;
   bool alt_reset_enabled_ = false;
 
+  Stream_event *bar_check_event_ = nullptr;
   Stream_event *fine_event_ = nullptr;
 };
 

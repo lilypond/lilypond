@@ -77,7 +77,7 @@ startStaff = #(make-span-event 'StaffSpanEvent START)
 %
 noBeam = #(make-music 'BeamForbidEvent)
 glide = #(make-music 'FingerGlideEvent)
-"|" = #(make-music 'BarCheck)
+"|" = #(make-music 'BarCheckEvent)
 "[" = #(make-span-event 'BeamEvent START)
 "]" = #(make-span-event 'BeamEvent STOP)
 "~" = #(make-music 'TieEvent)

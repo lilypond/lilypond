@@ -51,9 +51,82 @@ Timing_translator::listen_bar (Stream_event *ev)
 }
 
 void
+Timing_translator::listen_bar_check (Stream_event *ev)
+{
+  // Simultaneous bar checks are normal.  Since we're going to issue at most one
+  // warning, we only need to handle one of the events.
+  if (!bar_check_event_)
+    bar_check_event_ = ev;
+
+  // barCheckSynchronize is implemented here so that changes to timing
+  // properties occur before any translator's pre_process_music () is called.
+  //
+  // TODO: barCheckSynchronize is untested.
+  // TODO: Formally deprecate barCheckSynchronize.
+  const auto &now = now_mom ();
+  if ((now.main_part_ != measure_start_mom_.main_part_)
+      && from_scm<bool> (get_property (this, "barCheckSynchronize")))
+    {
+      SCM mp_sym = ly_symbol2scm ("measurePosition");
+      const auto mp = from_scm (get_property (context (), mp_sym), Moment ());
+      if (mp.main_part_
+          && !from_scm<bool> (get_property (this, "ignoreBarChecks")))
+        {
+          set_property (context (), mp_sym, to_scm (Moment ()));
+          set_property (context (), "measureStartNow", SCM_BOOL_T);
+          // The old Bar_check_iterator used to warn regardless (once).
+        }
+    }
+}
+
+void
 Timing_translator::listen_fine (Stream_event *ev)
 {
   assign_event_once (fine_event_, ev);
+}
+
+void
+Timing_translator::pre_process_music ()
+{
+  // We can't assume that measurePosition and measureStartNow have the same
+  // values as at the start of the timestep.  Partial_iterator or
+  // Alternative_sequence_iterator might have changed them.
+  //
+  // TODO: Using alternativeRestores for timing properties is an imperfect
+  // solution.  See comments in Alternative_sequence_iterator.  Consider making
+  // Timing_translator responsible for timing properties.
+  //
+  // We don't pay attention to which alternative a bar check is in.  If the
+  // previous alternative ends at a measure boundary or the next alternative
+  // begins at a measure boundary, we accept it.  False negatives may result.
+  // We could probably eliminate most false negatives if bar-check events told
+  // their place in the repeat structure.  The question is whether the value to
+  // the user is worth complicating the internals.
+  //
+  // We ignore differences in grace part.  Simultaneous sequences may include
+  // different amounts of grace time, which makes iteration interesting (see
+  // issue #34).  The measure starts with the earliest grace note, but we don't
+  // want to fail later bar checks when the only difference is grace notes.
+  const auto &now = now_mom ();
+  bool bar_check_ok = (now.main_part_ == measure_start_mom_.main_part_);
+  if (from_scm<bool> (get_property (context (), "measureStartNow")))
+    {
+      measure_start_mom_ = now;
+      bar_check_ok = true;
+    }
+
+  // One mistake offsets all subsequent bar checks by the same amount.  It is
+  // noisy to warn in every measure until the next mistake or change in timing,
+  // so we suppress further warnings.
+  if (!bar_check_ok && bar_check_event_ && !warned_for_bar_check_
+      && !from_scm<bool> (get_property (this, "ignoreBarChecks")))
+    {
+      const auto mp
+        = from_scm (get_property (this, "measurePosition"), Moment ());
+      bar_check_event_->warning (
+        _f ("bar check failed at: %s", to_string (mp)));
+      warned_for_bar_check_ = true;
+    }
 }
 
 void
@@ -138,6 +211,7 @@ Timing_translator::stop_translation_timestep ()
   set_property (context (), "measureStartNow", SCM_EOL);
 
   alt_event_ = nullptr;
+  bar_check_event_ = nullptr;
 }
 
 void
@@ -298,14 +372,14 @@ Timing_translator::start_translation_timestep ()
 
           set_property (context (), "currentBarNumber", to_scm (cbn));
           set_property (context (), "internalBarNumber", to_scm (ibn));
-          measure_started_ = false;
+          measure_start_mom_ = Moment::infinity ();
         }
 
-      if (!measure_started_ && !mp && dt.main_part_)
+      if (!mp && dt.main_part_ && (measure_start_mom_ == Moment::infinity ()))
         {
           // We have arrived at zero (as opposed to revisiting it).
-          measure_started_ = true;
           set_property (context (), "measureStartNow", SCM_BOOL_T);
+          measure_start_mom_ = now;
         }
     }
 
@@ -341,6 +415,7 @@ Timing_translator::boot ()
 {
   ADD_LISTENER (alternative);
   ADD_LISTENER (bar);
+  ADD_LISTENER (bar_check);
   ADD_LISTENER (fine);
 }
 

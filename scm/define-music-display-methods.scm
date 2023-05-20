@@ -622,7 +622,7 @@ expression."
       "\\["
       "\\]"))
 
-(define-display-method BarCheck (check)
+(define-display-method BarCheckEvent (check)
   (format #f "|~a" (new-line->lily-string)))
 
 (define-display-method PesOrFlexaEvent (expr)

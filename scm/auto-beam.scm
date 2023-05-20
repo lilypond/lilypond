@@ -124,7 +124,7 @@
     (let analyze ((m (unfold-repeats-fully (event-chord-reduce music)))
                   (pos 0))
       ;; enter beam ends from m starting at pos into res, return new pos
-      (cond ((music-is-of-type? m 'bar-check) 0)
+      (cond ((music-is-of-type? m 'bar-check-event) 0)
             ((music-is-of-type? m 'simultaneous-music)
              (fold (lambda (m prev) (max (analyze m pos) prev))
                    pos

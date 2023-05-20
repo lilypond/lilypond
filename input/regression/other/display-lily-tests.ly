@@ -218,7 +218,7 @@ are reported on the stderr of this run."
 
 %% Checks
 \test ##[ \octaveCheck a' #]				% RelativeOctaveCheck
-\test ##[ | #]						% BarCheck
+\test ##[ | #]						% BarCheckEvent
 
 %% Marks
 \test ##[ \mark \default #]			% RehearsalMarkEvent

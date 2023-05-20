@@ -29,6 +29,7 @@
     (music-event . (ad-hoc-jump-event
                     annotate-output-event
                     footnote-event arpeggio-event
+                    bar-check-event
                     bar-event
                     breathing-event
                     caesura-event

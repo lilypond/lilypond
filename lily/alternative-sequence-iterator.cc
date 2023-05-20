@@ -206,6 +206,12 @@ Alternative_sequence_iterator::save_context_properties ()
   //   * If one of these properties is undefined now, but something within
   //     an alternative element defines it, it will remain defined.
   //
+  //   * A property may be defined in a context where multiple
+  //     Alternative_sequence_iterators are operative, e.g. Timing.  What if a
+  //     difference in grace time between parts causes different iterators to
+  //     save such properties at different times?  measurePosition and
+  //     measureStartNow are concerning examples.
+  //
   SCM prop_syms = get_property (get_context (), "alternativeRestores");
   for (SCM sym : as_ly_scm_list (prop_syms))
     {

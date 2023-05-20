@@ -232,7 +232,7 @@
      ((EventChord)
       (set! ac:eventsBackward (cons m ac:eventsBackward))
       m)
-     ((BarCheck SkipMusic)
+     ((BarCheckEvent SkipMusic)
       (let ((wm (make-sequential-music (list m))))
        (set! ac:eventsBackward (cons wm ac:eventsBackward))
        wm))
@@ -518,11 +518,11 @@
      ((MultiMeasureRestMusic)
       (make-sequential-music
        (list
-        (make-music 'BarCheck)
+        (make-music 'BarCheckEvent)
         (make-music 'EventChord
           'elements (ly:music-property m 'articulations))
         (make-music 'SkipMusic 'duration (ly:music-property m 'duration))
-        (make-music 'BarCheck))))
+        (make-music 'BarCheckEvent))))
      (else
       m)))
    (unfold-repeats-fully music)))
@@ -849,7 +849,7 @@
      (set! ac:stealForward (+ ac:stealForward (* glen (- 1 ac:defaultGraceBackwardness))))
      gmus))
 
-   ((memq (ly:music-property music 'name) '(BarCheck SkipMusic))
+   ((memq (ly:music-property music 'name) '(BarCheckEvent SkipMusic))
     (let ((totallen (ly:moment-main (ly:music-length music)))
           (steallen ac:stealForward))
      (cond

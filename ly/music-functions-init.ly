@@ -1193,7 +1193,7 @@ order to facilitate ending the last entry at non-bar boundaries.
    (define voice-count (length voice-ids))
    (define (bar-check? m)
      "Checks whether m is a bar check."
-     (eq? (ly:music-property m 'name) 'BarCheck))
+     (eq? (ly:music-property m 'name) 'BarCheckEvent))
    (define (recurse-and-split-list lst)
      "Return either a list of music lists split along barchecks, or @code{#f}."
      (if (any bar-check? lst)

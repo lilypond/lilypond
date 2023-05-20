@@ -5220,6 +5220,13 @@ macro, e.g., #(markup #:roman ...).  If this is the case, convert
 
     return s
 
+@rule((2, 25, 6), r"""
+BarCheck -> BarCheckEvent
+""")
+def conv(s):
+    s = re.sub(r"\bBarCheck\b", r"BarCheckEvent", s)
+    return s
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

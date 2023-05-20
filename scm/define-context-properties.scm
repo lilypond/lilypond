@@ -833,8 +833,6 @@ deprecated.  Use @code{\\bar} or related commands to set it."))))
 @code{Voice} that has the melody for this @code{Lyrics}.")
 
 
-     (barCheckLastFail ,ly:moment? "Where in the measure did the last
-barcheck fail?")
      (beamMelismaBusy ,boolean? "Signal if a beam is present.")
      (breathMarkDefinitions ,list? "The description of breath marks.
 This is used by the @code{Breathing_@/sign_@/engraver}.  See

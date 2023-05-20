@@ -2359,7 +2359,7 @@ class MultiMeasureRest(Music):
 (make-music
   'MultiMeasureRestMusicGroup
   'elements
-  (list (make-music (quote BarCheck))
+  (list (make-music (quote BarCheckEvent))
         (make-music
           'ChordEvent
           'elements
@@ -2367,7 +2367,7 @@ class MultiMeasureRest(Music):
                   'MultiMeasureRestEvent
                   'duration
                   %s)))
-        (make-music (quote BarCheck))))
+        (make-music (quote BarCheckEvent))))
 """ % self.duration.lisp_expression()
 
     def ly_expression(self):

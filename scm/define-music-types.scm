@@ -105,11 +105,10 @@ Example: @code{\\bar \"!\"}")
         (types . (bar-event event))
         ))
 
-    (BarCheck
+    (BarCheckEvent
      . ((description . "Check whether this music coincides with
 the start of the measure.")
-        (types . (bar-check))
-        (iterator-ctor . ,ly:bar-check-iterator::constructor)
+        (types . (bar-check-event event))
         ))
 
     (BassFigureEvent
