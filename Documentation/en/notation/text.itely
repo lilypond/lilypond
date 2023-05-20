@@ -1802,8 +1802,7 @@ change them in scores.
 * Finding fonts::
 * Font families::
 * Font features::
-* Single entry fonts::
-* Entire document fonts::
+* Changing fonts::
 @end menu
 
 @node Finding fonts
@@ -1831,10 +1830,9 @@ To verify that the desired fonts are found by FontConfig, use the
 command @code{#(ly:font-config-display-fonts)}, which prints the
 complete list of available fonts to the console log.  It also
 shows the actual font names to be used with LilyPond; these may
-differ from the file names themselves.
-
-@xref{Single entry fonts} and @ref{Entire document fonts} how to
-access fonts in general.
+differ from the file names themselves.  Alternatively, running
+@command{lilypond -dshow-available-fonts} in a terminal has the
+same effect.
 
 
 @node Font families
@@ -2012,10 +2010,6 @@ For the full OpenType font feature list see
 for identifying features of OpenType fonts see
 @uref{https://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}.
 
-Although it is easy to switch between preconfigured fonts, it is
-also possible to use other fonts.  For more information,
-@pxref{Single entry fonts} and @ref{Entire document fonts}.
-
 @morerefs
 Notation Reference:
 @ref{The Emmentaler font},
@@ -2026,119 +2020,11 @@ Notation Reference:
 @endmorerefs
 
 
-@node Single entry fonts
-@unnumberedsubsubsec Single entry fonts
-
-Almost all outline fonts installed on the operating system and
-recognized by FontConfig may be used in a score, with the
-exception of bitmap fonts (which are not supported by design) and
-OpenType Variation Fonts (which are not supported yet).
-
-LilyPond calls function @code{pango_font_description_from_string}
-from the Pango library to access fonts; it uses the following
-syntax form for font names.@footnote{The data is taken from the
-Pango reference for version 1.46.1; the syntax supported by
-LilyPond is actually a subset of what Pango provides.}
-
-@example
-[@var{family-list}] [@var{style-options}]
-@end example
-
-@noindent
-where @var{family-list} is a comma-separated list of families
-optionally terminated by a comma, and @var{style-options} a
-whitespace-separated list of words where each word describes one
-of style, variant, weight, stretch, or gravity.
-
-The following words are understood as styles: @code{Normal} (the
-default), @code{Roman}, @code{Oblique}, @code{Italic}.
-
-The following words are understood as variants:
-@code{Small-Caps}.  Default is no variant.
-
-The following words are understood as weights: @code{Thin},
-@code{Ultra-Light}, @code{Extra-Light}, @code{Light},
-@code{Semi-Light}, @code{Demi-Light}, @code{Book}, @code{Regular}
-(the default), @code{Medium}, @code{Semi-Bold}, @code{Demi-Bold},
-@code{Bold}, @code{Ultra-Bold}, @code{Extra-Bold}, @code{Heavy},
-@code{Black}, @code{Ultra-Black}, @code{Extra-Black}.
-
-The following words are understood as stretch values:
-@code{Ultra-Condensed}, @code{Extra-Condensed}, @code{Condensed},
-@code{Semi-Condensed}, @code{Semi-Expanded}, @code{Expanded},
-@code{Extra-Expanded}, @code{Ultra-Expanded}.  Default is no
-stretch.
-
-The following words are understood as gravity values:
-@code{Not-Rotated}, @code{South}, @code{Upside-Down},
-@code{North}, @code{Rotated-Left}, @code{East},
-@code{Rotated-Right}, @code{West}.  Default is no gravity.
-
-Assuming the syntax is correct, setting a font name never fails.
-If none of the font families are known (or no font family is
-given), FontConfig returns a default font depending on the
-operating system.  If none of the style options are known (or no
-style option is given), default values are used.
-
-In the following example, the font for the time signature is set
-to @q{Bitstream Charter}.  Since no style option is given,
-FontConfig uses default values as specified above.  For the markup
-string, the list of font families is set to @q{Bitstream Vera
-Sans} and @q{sans-serif}, which tells FontConfig to try
-@q{Bitstream Vera Sans} first; if it is not available, it tries
-the generic font family @q{sans-serif} as described in @ref{Font
-families}.  The style for the markup is set to @q{Oblique Bold},
-which makes FontConfig try to find a font that is both oblique and
-bold.  If that fails, it tries to find an oblique or bold font.
-If that fails again, it tries to match a font with default style
-options.
-
-Note that FontConfig also checks whether the requested glyph is
-actually present in the font.  In case it is missing, another font
-gets tried (following the above algorithm) until the glyph is
-eventually found.  Only if FontConfig fails to find any font with
-the appropriate glyph a symbol for a missing glyph is shown (which
-is normally a rectangular box or simply some whitespace).
-
-@lilypond[quote,verbatim,fragment]
-\override Staff.TimeSignature.font-name = "Bitstream Charter"
-\override Staff.TimeSignature.font-size = #2
-\time 3/4
-
-a'1_\markup {
-  \override #'(font-name .
-               "Bitstream Vera Sans, sans-serif, Oblique Bold")
-    { Vera Oblique Bold }
-}
-@end lilypond
-
-@warning{If any of the above style options is part of the font
-(family) name you @emph{must} use a trailing comma after the name
-even if you do not select a style option.  A typical example is
-@q{Times New Roman}: If specified as @code{"Times New Roman"},
-FontConfig searches for a font @q{Times New} in roman style.  Only
-if you say @code{"Times New Roman,"} this font is really
-accessed.}
-
-@cindex font, finding available
-@cindex finding available fonts
-@cindex listing available fonts
-@cindex available fonts, listing
-@funindex show-available-fonts
-
-Running @command{lilypond} on the command line with the following
-option displays a list of all available fonts on the operating
-system:
-
-@example
-lilypond -dshow-available-fonts
-@end example
-
 @morerefs
 Notation Reference:
 @ref{Finding fonts},
 @ref{Font families},
-@ref{Entire document fonts}.
+@ref{Changing fonts}.
 
 Snippets:
 @rlsr{Text}.
@@ -2149,15 +2035,11 @@ Snippets:
 @c @file{lily/font-config-scheme.cc}.
 
 
-@node Entire document fonts
-@unnumberedsubsubsec Entire document fonts
+@node Changing fonts
+@unnumberedsubsubsec Changing fonts
 
 It is possible to change the fonts used in LilyPond's default font
-families.  Similar to single fonts (@pxref{Single entry fonts}),
-font families are set up by using comma-separated lists of font
-family names, but without style options.@footnote{This implies
-that, contrary to single fonts, a trailing comma is never
-necessary.}
+families.
 
 @cindex font family, setting
 @cindex font, changing for entire document
@@ -2181,11 +2063,34 @@ necessary.}
 The same syntax can be used to change the music font;
 @pxref{Replacing the notation font}.
 
+To change the fonts used for one specific grob, or one specific
+part of a markup, override the @code{fonts} property.  The
+following example changes the font for normal tablature @qq{note
+heads} (which use the @code{serif} family) while keeping the
+default font for those that are drawn as a cross (which use the
+@code{music} family).
+
+@lilypond[verbatim,quote]
+\layout {
+  \override TabVoice.TabNoteHead.fonts.serif = "Linux Libertine O"
+}
+
+\new TabStaff { c' d' e' \deadNote c' }
+@end lilypond
+
+Below is an example for overriding @code{fonts} in markup:
+
+@lilypond[verbatim,quote]
+\markup \override #'(fonts . ((serif . "Linux Libertine O")
+                              (typewriter . "DejaVu Sans Mono"))) {
+  Copyright © John Doe \typewriter john@doe.org
+}
+@end lilypond
+
 @morerefs
 Notation Reference:
 @ref{Finding fonts},
 @ref{Font families},
-@ref{Single entry fonts},
 @ref{Selecting font and font size},
 @ref{Font markup},
 @ref{Replacing the notation font}.

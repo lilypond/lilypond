@@ -3590,7 +3590,7 @@ The following code changes the notation font to the Gonville font.
 @}
 @end example
 
-For more information, see @ref{Entire document fonts}.
+For more information, see @ref{Changing fonts}.
 
 @morerefs
 Learning Manual:
@@ -3598,7 +3598,7 @@ Learning Manual:
 
 Notation Reference:
 @ref{The Emmentaler font},
-@ref{Entire document fonts}.
+@ref{Changing fonts}.
 @endmorerefs
 
 @knownissues
