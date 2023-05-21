@@ -110,7 +110,7 @@ $(outdir)/%.pdf: $(outdir)/%.texi
 	TEX="$(PDFTEX)" PDFTEX="$(PDFTEX)" PDFLATEX="$(PDFLATEX)" \
 		$(buildscript-dir)/run-and-check.sh \
 			"cd $(outdir); \
-				texi2pdf --batch \
+				texi2pdf \
 					-I $(abs-src-dir) \
 					-o $*.pdf \
 					$(<F) \

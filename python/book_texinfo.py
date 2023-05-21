@@ -234,7 +234,7 @@ def get_texinfo_width_indent(source, global_options):
         _("Running texi2pdf on file %s to detect default page settings.\n") % tmpfile)
 
     # execute the command and pipe stdout to the parameter_string:
-    cmd = '%s --batch -c -o %s %s' % (
+    cmd = '%s -c -o %s %s' % (
         global_options.texinfo_program, outfile, tmpfile)
     ly.debug_output("Executing: %s\n" % cmd)
     run_env = os.environ.copy()

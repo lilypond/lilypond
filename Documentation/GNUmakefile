@@ -440,7 +440,6 @@ $(outdir)/%.pdf: \
 \
 "cd $(dir $@); \
    texi2pdf \
-     --batch \
      $(TEXI2PDF_LOCAL_FLAGS) \
      -I ../ \
      -I $(abs-src-dir)/$(call target_language) \
