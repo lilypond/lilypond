@@ -97,7 +97,7 @@ $(outdir)/%.texi: %.tely
 $(outdir)/%.info: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh \
-		"$(MAKEINFO) --output=$@ $<" "$(outdir)/$*.makeinfo.log"
+		"$(TEXI2ANY) --info --output=$@ $<" "$(outdir)/$*.texi2any-info.log"
 
 $(outdir)/%.html: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)

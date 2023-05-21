@@ -380,14 +380,14 @@ $(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi $(outdir)/weblinks.ite
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh \
 \
-"$(MAKEINFO) \
+"$(TEXI2ANY) --plaintext \
    $(DOCUMENTATION_INCLUDES) \
    --no-split \
    --no-headers \
    --output $@ \
    $<" \
 \
-	  "$(outdir)/$*.makeinfotxt.log"
+	  "$(outdir)/$*.texi2any-plaintext.log"
 
 $(outdir)/version.itexi: $(top-src-dir)/VERSION
 	$(call ly_progress,Making,$@,)
@@ -404,12 +404,12 @@ $(outdir)/lilypond-%.info: \
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh \
 \
-"$(MAKEINFO) \
+"$(TEXI2ANY) --info \
    $(DOCUMENTATION_INCLUDES) \
    --output=$@ \
    $<" \
 \
-	  "$(outdir)/$*.makeinfo.log"
+	  "$(outdir)/$*.texi2any-info.log"
 	$(UPDATE_IMAGE_SYMLINKS)
 
 $(outdir)/music-glossary.info: \
@@ -419,12 +419,12 @@ $(outdir)/music-glossary.info: \
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh \
 \
-"$(MAKEINFO) \
+"$(TEXI2ANY) --info \
    $(DOCUMENTATION_INCLUDES) \
    --output=$@ \
    $<" \
 \
-	  "$(outdir)/music-glossary.makeinfo.log"
+	  "$(outdir)/music-glossary.texi2any-info.log"
 	$(UPDATE_IMAGE_SYMLINKS)
 
 $(outdir)/%.pdf: \

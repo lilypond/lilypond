@@ -10,4 +10,4 @@ TEXI2HTML_INCLUDES += --I=$(src-dir) --I=$(outdir)
 # because the setup in `Documentation/GNUmakefile` differs too much to
 # include this template.
 #
-# The same holds for the `MAKEINFO*` variables.
+# The same holds for the `TEXI2ANY*` variables.

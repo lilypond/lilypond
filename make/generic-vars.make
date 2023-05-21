@@ -107,8 +107,8 @@ script-dir = $(src-depth)/scripts
 
 export PYTHONPATH:=$(auxpython-dir):$(PYTHONPATH)
 
-MAKEINFO_FLAGS += --enable-encoding --error-limit=0
-MAKEINFO = LANG=C $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
+TEXI2ANY_FLAGS += --enable-encoding --error-limit=0
+TEXI2ANY = LANG=C $(TEXI2ANY_PROGRAM) $(TEXI2ANY_FLAGS)
 
 # texi2html v5 has fatal errors in the build, so only be strict about
 # errors in the version we officially support
