@@ -242,9 +242,6 @@ unless ($no_convert) {
   print "Using '$CONVERT_LY'\n" if $verbose;
 }
 
-my $convert_ly_options = $diff_version_update ? "--diff-version-update"
-                                              : "";
-
 # Check the actual snippet directories.
 my $snippet_dir = catdir("Documentation", "snippets");
 my $new_snippet_dir = catdir($snippet_dir, "new");
@@ -941,11 +938,15 @@ sub convert_ly {
   my ($in) = @_;
   my $out;
   my @err;
+  my @args;
+
+  push @args, $CONVERT_LY;
+  push @args, "--loglevel=$loglevel";
+  push @args, "--diff-version-update" if $diff_version_update;
+  push @args, "-";
 
   eval {
-    run3 [$CONVERT_LY,
-          "--loglevel=$loglevel", "$convert_ly_options", "-"],
-      \$in, \$out, \@err,
+    run3 \@args, \$in, \$out, \@err,
       {binmode_stdin => ":encoding(UTF-8)",
        binmode_stdout => ":encoding(UTF-8)"};
   };
