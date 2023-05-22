@@ -84,7 +84,7 @@ Volta_bracket_interface::print (SCM smob)
     return SCM_EOL;
 
   Drul_array<Real> edge_height
-    = from_scm (get_property (me, "edge-height"), Drul_array<Real> (1.0, 1.0));
+    = from_scm (get_property (me, "edge-height"), Drul_array<Real> (2.0, 2.0));
   Drul_array<Real> flare = from_scm (get_property (me, "bracket-flare"),
                                      Drul_array<Real> (0.0, 0.0));
   Drul_array<Real> shorten
@@ -128,7 +128,7 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
   if (no_vertical_end || no_vertical_start)
     {
       Drul_array<Real> edge_height = from_scm (get_property (me, "edge-height"),
-                                               Drul_array<Real> (1.0, 1.0));
+                                               Drul_array<Real> (2.0, 2.0));
       if (no_vertical_start)
         edge_height[LEFT] = 0.0;
 
