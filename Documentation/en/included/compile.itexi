@@ -455,10 +455,11 @@ pkg-config}
 Use version 2.4.1 or newer.
 
 @item
-Compiler with support for C++11@*
-Version 5 or newer of the @uref{https://gcc.gnu.org, GNU Compiler
-Collection} and version 3.5 or newer of
-@uref{https://clang.llvm.org, Clang} should work.
+Compiler with support for C++17@*
+Version 8 or newer of the @uref{https://gcc.gnu.org, GNU Compiler
+Collection} and version 8 or newer of
+@uref{https://clang.llvm.org, Clang} should work.  Your mileage
+may vary with older versions.
 
 @item
 @uref{https://github.com/westes/flex, Flex}@*
