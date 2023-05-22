@@ -103,7 +103,7 @@
 ;;               - brackets '{[]}'
 ;;               - ties '~'
 ;;               - ligatures \[, \]
-      '("\\(-?[][~}{]\\|\\\\[][]\\)" 0 font-lock-reference-face t)
+      '("\\(-?[][~}{]\\|\\\\[][]\\)" 0 font-lock-constant-face t)
 
 ;; "on top", ... vertical grouping:
 ;;               - '<>'-chord brackets with '\\'-voice sep., not marcato '->'
