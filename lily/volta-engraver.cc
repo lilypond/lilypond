@@ -414,9 +414,14 @@ Volta_engraver::stop_translation_timestep ()
           // and the other should not, and how important it is to get it right.
           if (!should_close_end_)
             {
-              SCM eh = get_property (layer.end_bracket_, "edge-height");
-              eh = scm_cons (scm_car (eh), to_scm (0));
-              set_property (layer.end_bracket_, "edge-height", eh);
+              SCM eh_sym = ly_symbol2scm ("edge-height");
+              auto eh = from_scm (get_property (layer.end_bracket_, eh_sym),
+                                  Drul_array<Real> (2.0, 2.0));
+              if (eh.back () != 0.0)
+                {
+                  eh.back () = 0.0;
+                  set_property (layer.end_bracket_, eh_sym, to_scm (eh));
+                }
             }
 
           announce_end_grob (layer.end_bracket_, SCM_EOL);
