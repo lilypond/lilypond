@@ -126,7 +126,21 @@ See if we need this again...
 @node Pitches improvements
 @unnumberedsec Pitches improvements
 
-None so far.
+@itemize
+
+@item
+Certain spurious change clefs have been fixed.
+
+@lilypond[quote,verbatim]
+{
+  R1
+  \clef treble
+  R1
+}
+@end lilypond
+
+@end itemize
+
 
 @node Rhythm improvements
 @unnumberedsec Rhythm improvements

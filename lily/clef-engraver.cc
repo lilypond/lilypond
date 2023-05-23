@@ -47,7 +47,7 @@ private:
 
   SCM prev_glyph_;
   SCM prev_cpos_;
-  SCM prev_transposition_;
+  int prev_transposition_ = 0;
   void create_clef ();
   void set_glyph ();
   void inspect_clef_properties ();
@@ -56,7 +56,6 @@ private:
 void
 Clef_engraver::derived_mark () const
 {
-  scm_gc_mark (prev_transposition_);
   scm_gc_mark (prev_cpos_);
   scm_gc_mark (prev_glyph_);
 }
@@ -70,7 +69,7 @@ Clef_engraver::Clef_engraver (Context *c)
   /*
     will trigger a clef at the start since #f != ' ()
   */
-  prev_transposition_ = prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
+  prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
 }
 
 void
@@ -97,14 +96,14 @@ Clef_engraver::create_clef ()
       if (scm_is_number (cpos))
         set_property (clef_, "staff-position", cpos);
 
-      SCM transp = get_property (this, "clefTransposition");
-      if (scm_is_number (transp) && from_scm<int> (transp))
+      const auto transp
+        = from_scm (get_property (this, "clefTransposition"), 0);
+      if (transp)
         {
           Item *g = make_item ("ClefModifier", SCM_EOL);
 
-          int abs_transp = from_scm<int> (transp);
-          int dir = sign (abs_transp);
-          abs_transp = std::abs (abs_transp) + 1;
+          const auto dir = sign (transp);
+          const auto abs_transp = std::abs (transp) + 1;
 
           SCM txt = scm_number_to_string (to_scm (abs_transp), to_scm (10));
 
@@ -147,13 +146,13 @@ Clef_engraver::inspect_clef_properties ()
 {
   SCM glyph = get_property (this, "clefGlyph");
   SCM clefpos = get_property (this, "clefPosition");
-  SCM transposition = get_property (this, "clefTransposition");
+  const auto transposition
+    = from_scm (get_property (this, "clefTransposition"), 0);
   SCM force_clef = get_property (this, "forceClef");
 
   if (scm_is_null (clefpos) || !ly_is_equal (glyph, prev_glyph_)
       || !ly_is_equal (clefpos, prev_cpos_)
-      || !ly_is_equal (transposition, prev_transposition_)
-      || from_scm<bool> (force_clef))
+      || (transposition != prev_transposition_) || from_scm<bool> (force_clef))
     {
       apply_on_children (context (), Lily::invalidate_alterations);
 

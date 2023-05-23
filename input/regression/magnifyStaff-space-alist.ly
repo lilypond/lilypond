@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.25.6"
 
 \header {
   texidoc = "@code{space-alist} values should be scaled along
@@ -27,7 +27,7 @@ example =
        d''2 \breathe d'' |
        \break
        g'1 |
-       \clef treble
+       \set Staff.forceClef = ##t % print clef without changing it
        \key c \major
        g'1 |
      }
