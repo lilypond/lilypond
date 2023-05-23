@@ -333,9 +333,8 @@ values are @code{fetaMusic} (Emmentaler), @code{fetaBraces},
      (font-family ,symbol? "The font family is the broadest category
 for selecting text fonts.  Options include @code{serif}, @code{sans}
 and @code{typewriter}.")
-     (font-name ,string? "Specifies a file name (without extension) of
-the font to load.  This setting overrides selection using
-@code{font-family}, @code{font-series} and @code{font-shape}.")
+     (font-name ,string? "This property is kept for backwards compatibility
+only.  Use the @code{fonts} property instead.")
      (font-series ,symbol? "Select the series of a font.  Common
 choices are @code{normal} and @code{bold}.  The full list of symbols
 that can be used is: @code{thin}, @code{ultralight}, @code{light},
