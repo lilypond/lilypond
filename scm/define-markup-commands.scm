@@ -3384,7 +3384,11 @@ properties (@rinternals{User backend properties})."
   }
 }
 @end lilypond"
-  (interpret-markup layout (prepend-alist-chain 'font-family 'sans props) arg))
+  (interpret-markup layout
+                    (cons '((font-family . sans)
+                            (font-encoding . latin1))
+                          props)
+                    arg))
 
 (define-markup-command (number layout props arg)
   (markup?)
@@ -3472,7 +3476,11 @@ to override a setting of a sans-serif or typewriter font family.
   }
 }
 @end lilypond"
-  (interpret-markup layout (prepend-alist-chain 'font-family 'serif props) arg))
+  (interpret-markup layout
+                    (cons '((font-family . serif)
+                            (font-encoding . latin1))
+                          props)
+                    arg))
 
 (define-markup-command (huge layout props arg)
   (markup?)
@@ -3741,8 +3749,11 @@ done in a different font.  The recommended font for this is bold and italic.
   typewriter
 }
 @end lilypond"
-  (interpret-markup
-   layout (prepend-alist-chain 'font-family 'typewriter props) arg))
+  (interpret-markup layout
+                    (cons '((font-family . typewriter)
+                            (font-encoding . latin1))
+                          props)
+                    arg))
 
 (define-markup-command (upright layout props arg)
   (markup?)
