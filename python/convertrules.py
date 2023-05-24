@@ -5089,6 +5089,9 @@ replacements:
 """))
     return s
 
+# Copied from Pygments
+NAME_END_RE = r"(?=\d|[^\w\-]|[\-_][\W\d])"
+
 @rule((2, 25, 5), r"""
 font-defaults, text-font-defaults -> property-defaults
 
@@ -5140,7 +5143,7 @@ should be replaced with
 
 """)
 
-    ancient_re = r'''(?x)
+    ancient_re = rf'''(?x)
   \\
   ( IJ |
     IIJ |
@@ -5177,10 +5180,7 @@ should be replaced with
 
     augmentum |
     ligature )
-  # This is `NAME_END_RE` in Pygments for LilyPond
-  (?= \d
-      | [^\w\-]
-      | [\-_] [\W\d] )
+  {NAME_END_RE}
 '''
 
     if re.search (r'(?xm) ^ \\include \s+ "gregorian.ly"', s):
@@ -5223,10 +5223,22 @@ macro, e.g., #(markup #:roman ...).  If this is the case, convert
 @rule((2, 25, 6), r"""
 BarCheck -> BarCheckEvent
 fonts.roman (etc.) -> property-defaults.fonts.roman (etc.)
+\text -> \serif, \sans or \typewriter
 """)
 def conv(s):
     s = re.sub(r"\bBarCheck\b", r"BarCheckEvent", s)
     s = re.sub(r"((?<!-)(?<!property-defaults\.)\bfonts\s*\.\s*[\w-]+\s*=)", r"property-defaults.\1", s)
+
+    # "text" could easily be a variable name, try to mitigate possible
+    # false positives.
+    if re.search(rf'\\text{NAME_END_RE}', s) and not 'text =' in s:
+       stderr_write(NOT_SMART % r'\text')
+       stderr_write(r"""
+The \text markup command has been removed. Instead, use \serif,
+\sans or \typewriter, depending on the desired font style.
+""")
+       stderr_write(UPDATE_MANUALLY)
+
     return s
 
 

@@ -333,15 +333,16 @@ Lorsqu'une fonte musicale est utilisée dans un @emph{markup} --
 typiquement pour une indication de nuance -- et qu'un glyphe en était
 absent, celui-ci était rendu dans une fonte textuelle normale. Ceci
 n'est plus le cas, et un avertissement est alors émis quant au glyphe
-manquant. Afin d'utiliser une fonte textuelle, il faut utiliser la
-commande de @emph{markup} @code{\text}, comme ici par exemple.
+manquant. Afin d'utiliser une fonte textuelle, il faut utiliser l'une
+des commande de @emph{markup} @code{\serif}, @code{\sans} et
+@code{\typewriter}, comme ici par exemple.
 
 @lilypond[verbatim,quote]
 dolceP =
 #(make-dynamic-script
   #{
     \markup {
-      \text \normal-weight dolce
+      \serif \normal-weight dolce
       p
     }
   #})

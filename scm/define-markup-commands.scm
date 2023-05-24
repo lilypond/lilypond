@@ -3700,27 +3700,6 @@ done in a different font.  The recommended font for this is bold and italic.
   (interpret-markup
    layout (prepend-alist-chain 'font-encoding 'fetaText props) arg))
 
-(define-markup-command (text layout props arg)
-  (markup?)
-  #:category font
-  "Use a text font instead of music symbol or music alphabet font.
-
-@lilypond[verbatim,quote]
-\\markup {
-  \\number {
-    1, 2,
-    \\text {
-      three, four,
-    }
-    5
-  }
-}
-@end lilypond"
-
-  ;; ugh - latin1
-  (interpret-markup layout (prepend-alist-chain 'font-encoding 'latin1 props)
-                    arg))
-
 (define-markup-command (italic layout props arg)
   (markup?)
   #:category font

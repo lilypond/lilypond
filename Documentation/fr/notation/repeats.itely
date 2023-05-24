@@ -1025,13 +1025,14 @@ dans le cas d'une indication textuelle, est de tout d'abord définir ce
 @emph{markup}, puis de l'inclure dans une liste Scheme.
 
 @lilypond[verbatim,quote]
-voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
+voltaAdLib = \markup { \volta-number { 1. 2. 3... } \italic { ad lib. } }
 \relative {
   c''1
-  \set Score.repeatCommands =
-    #(list(list 'volta voltaAdLib) 'start-repeat)
+  \set Score.repeatCommands = #`((volta ,voltaAdLib) start-repeat)
   c4 b d e
-  \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
+  \set Score.repeatCommands = #`((volta #f)
+                                 (volta ,#{ \markup \volta-number "4." #})
+                                 end-repeat)
   f1
   \set Score.repeatCommands = #'((volta #f))
 }

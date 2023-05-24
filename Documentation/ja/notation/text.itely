@@ -113,7 +113,7 @@ markup ブロックで入力できます。
 \header { title = \markup "Header" }
 
 dyn =
-#(make-dynamic-script #{ \markup \text "DynamicText" #})
+#(make-dynamic-script #{ \markup \serif "DynamicText" #})
 
 \markup \box "Top-level markup"
 
@@ -135,7 +135,7 @@ dyn =
         \once \override NoteHead.text =
           \markup \lower #0.5 "NoteHead"
         c''8^\markup \italic "TextScript"
-        a'\finger \markup \text "Fingering"
+        a'\finger \markup \serif "Fingering"
         \once \override Rest.stencil =
           #(lambda (grob)
              (grob-interpret-markup grob #{

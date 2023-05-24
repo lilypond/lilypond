@@ -1,4 +1,4 @@
-\version "2.23.3"
+\version "2.25.6"
 
 \header {
   texidoc = "When a measure counter extends over a compressed
@@ -17,7 +17,7 @@ this is configurable."
   c1
   \stopMeasureCount
   \override Staff.MeasureCounter.number-range-separator =
-    \markup \bold \text "…"
+    \markup \bold \serif "…"
   \startMeasureCount
   R1*7
   \stopMeasureCount

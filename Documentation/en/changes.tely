@@ -347,15 +347,15 @@ for other glyphs, use the @code{\musicglyph} command.  Instead of
 In markup, when a music font is used (such as for dynamic markings), a
 glyph absent from the music font was previously rendered in a normal
 text font. This is no longer the case; a warning about the missing glyph
-is output instead.  In order to use a text font, use the @code{\text}
-markup command.  For example:
+is output instead.  In order to use a text font, use the @code{\serif},
+@code{\sans} or @code{\typewriter} markup commands.  For example:
 
 @lilypond[verbatim,quote]
 dolceP =
 #(make-dynamic-script
   #{
     \markup {
-      \text \normal-weight dolce
+      \serif \normal-weight dolce
       p
     }
   #})
@@ -444,11 +444,20 @@ myText = \markup {
 \markup\fontsize #6 \myText
 @end lilypond
 
+
 @item
 For best clarity, the @code{\roman} markup command has been renamed to
 @code{\serif}.  Likewise, to cancel a setting of the @code{font-family}
 property to @code{sans} or @code{typewriter}, it should now be set
 to @code{serif}, not @code{roman}.
+
+
+@item
+The @code{\text} markup command has been removed.  Instead, the @code{\serif},
+@code{\sans} or @code{\typewriter} markup commands should be used.  These
+commands used to set the font style @emph{only if a normal text font
+was used} (not a musical font, such as for dynamics), but now they
+@emph{both} set the font style and make a normal text font used.
 
 @end itemize
 

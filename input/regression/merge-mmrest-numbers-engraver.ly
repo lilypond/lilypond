@@ -1,4 +1,4 @@
-\version "2.21.6"
+\version "2.25.6"
 
 \header {
   texidoc = "Test for merging rest numbers using the
@@ -10,7 +10,7 @@ additional use of @code{Merge_rests_engraver}."
 
 voice = {
   R1*7
-  \override MultiMeasureRestNumber.text = \markup \text \huge "seven"
+  \override MultiMeasureRestNumber.text = \markup \serif \huge "seven"
   R1*7
 }
 staff = <<
