@@ -593,7 +593,7 @@ Do not use tabs.
 @item
 Do not use spaces at the beginning of a line (except in
 @code{@@example} or @code{@@verbatim} environments), and do not
-use more than a single space between words.  @q{makeinfo} copies
+use more than a single space between words.  @q{texi2any} copies
 the input lines verbatim without removing those spaces.
 
 @item

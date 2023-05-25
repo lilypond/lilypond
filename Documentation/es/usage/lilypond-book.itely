@@ -1019,7 +1019,7 @@ preámbulo:
 Para producir un documento de Texinfo (en cualquier formato de
 salida), siga el procedimiento normal para Texinfo, esto es: o
 bien llame a @command{texi2pdf} o a @command{texi2dvi} o a
-@command{makeinfo}, según el formato de la salida que quiera
+@command{texi2any}, según el formato de la salida que quiera
 crear.
 @ifinfo
 @xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, y
@@ -1073,7 +1073,7 @@ Añadir @var{directorio} a la ruta de inclusión.
 en la ruta de inclusión, y no los vuelve a escribir en el
 directorio de salida, así que en ciertos casos es necesario
 invocar instrucciones de procesado posteriores como
-@command{makeinfo} o @command{latex} con las mismas opciones
+@command{texi2any} o @command{latex} con las mismas opciones
 @option{-I @var{directorio}}.
 
 @item -l @var{nivel_de_registro}
@@ -1093,7 +1093,7 @@ ejecución de @command{lilypond-book} genera montañas de pequeños
 archivos que luego procesará LilyPond.  Para evitar toda esta
 parafernalia en el mismo directorio que la fuente, utilice la
 opción @option{--output}, y cambie a este directorio antes de
-ejecutar @command{latex} o @command{makeinfo}.
+ejecutar @command{latex} o @command{texi2any}.
 
 @example
 lilypond-book --output=out miarchivo.lytex

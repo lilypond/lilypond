@@ -1106,7 +1106,7 @@ macrocommande @code{\betweenLilyPondSystem} dans le préambule.
 
 La génération d'un document Texinfo -- quel que soit le format final --
 s'obtient grâce aux commandes Texinfo habituelles, c'est à dire
-@command{texi2pdf}, @command{texi2dvi} ou @command{makeinfo} selon le
+@command{texi2pdf}, @command{texi2dvi} ou @command{texi2any} selon le
 résultat que vous désirez obtenir. Par défaut, @command{texi2pdf}
 recourt à @command{pdftex} pour son traitement, ce que l'on peut
 constater à l'affichage en console. En pareil cas, lancer
@@ -1163,7 +1163,7 @@ Ajoute @var{répertoire} au chemin des inclusions.  Lorsque des extraits
 ont déjà été compilés dans l'un des répertoires inclus,
 @command{lilypond-book} ne les réécrira pas dans le répertoire de
 sortie ; il sera donc nécessaire, dans la suite du traitement par
-@command{makeinfo} ou @command{latex}, de penser à utiliser cette même
+@command{texi2any} ou @command{latex}, de penser à utiliser cette même
 option @code{-I @var{répertoire}}.
 
 @item -l @var{loglevel}
@@ -1181,7 +1181,7 @@ Regroupe les fichiers générés dans @var{répertoire}.
 LilyPond.  Afin d'éviter de polluer votre répertoire source, nous vous
 conseillons d'utiliser l'option @option{--output}, puis de vous rendre
 dans ce répertoire pour y lancer les commandes @command{latex} ou
-@command{makeinfo}.
+@command{texi2any}.
 
 @example
 lilypond-book --output=out monfichier.lytex

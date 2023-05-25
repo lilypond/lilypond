@@ -994,7 +994,7 @@ preàmbul:
 Per produir un document de Texinfo (en qualsevol format de
 sortida), seguiu el procediment normal per a Texinfo, això és: o
 bé crideu a @command{texi2pdf} o a @command{texi2dvi} o a
-@command{makeinfo}, segons el format de la sortida que voleu
+@command{texi2any}, segons el format de la sortida que voleu
 crear.
 @ifinfo
 @xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, i
@@ -1047,7 +1047,7 @@ Afegir @var{directori} a la ruta d'inclusió.
 @command{lilypond-book} busca també els fragments compilats a la
 ruta d'inclusió, i no els torna a escriure al directori de
 sortida, de manera que en certs casos cal invocar ordres de
-processat posteriors com ara @command{makeinfo} o @command{latex}
+processat posteriors com ara @command{texi2any} o @command{latex}
 amb les mateixes opcions @option{-I @var{directori}}.
 
 @item -l @var{nivell_de_registre}
@@ -1067,7 +1067,7 @@ de @command{lilypond-book} genera un munt de petits fitxers que
 després processarà el Lilypond. Per evitar tots aquests fitxers al
 mateix directori que el codi font, feu servir l'opció
 @option{--output}, i canvieu a aquest directori abans d'executar
-@command{latex} o @command{makeinfo}.
+@command{latex} o @command{texi2any}.
 
 @example
 lilypond-book --output=out elmeufitxer.lytex

@@ -1030,7 +1030,7 @@ Molte variabili del blocco @code{\paper} non funzionano all'interno dell'ambient
 
 Per generare un documento Texinfo (in qualsiasi formato di output), si seguono
 le normali procedure usate con Texinfo; ovvero, si lancia @command{texi2pdf} o
-@command{texi2dvi} o @command{makeinfo}, a seconda del formato di output
+@command{texi2dvi} o @command{texi2any}, a seconda del formato di output
 che si vuole creare.  Per impostazione predefinita, @command{texi2pdf} usa
 @command{pdftex} per l'elaborazione, come si può verificare nella console di
 output.  In questo caso, eseguire @command{lilypond-book} con l'opzione
@@ -1088,7 +1088,7 @@ Mostra un breve messaggio di aiuto.
 Aggiunge @var{dir} al percorso di inclusione.  Dato che @command{lilypond-book}
 cerca anche dei frammenti già compilati nel percorso di inclusione e non li
 riscrive nella directory di output, in alcuni casi è necessario eseguire
-ulteriori comandi come @command{makeinfo} o @command{latex} con le stesse
+ulteriori comandi come @command{texi2any} o @command{latex} con le stesse
 opzioni @option{-I @var{dir}}.
 
 @item -l @var{loglevel}
@@ -1105,7 +1105,7 @@ Salva i file generati nella directory @var{dir}.  L'esecuzione di
 elaborerà.  Per evitare tutto questo disordine nella directory dei
 sorgenti, si usa l'opzione da linea di comando @option{--output}
 e si entra in questa directory prima di eseguire @command{latex}
-o @command{makeinfo}.
+o @command{texi2any}.
 
 @example
 lilypond-book --output=out tuofile.lytex

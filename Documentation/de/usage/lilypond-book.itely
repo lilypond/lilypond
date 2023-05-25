@@ -967,7 +967,7 @@ Benutzen Sie @code{\newcommand} mit @code{\betweenLilyPondSystem}:
 Um ein von @command{lilypond-book} erzeugtes Texinfo-Dokument zu
 verarbeiten, gehen Sie wie für alle anderen Texinfo-Dokumente vor:
 Rufen Sie -- abhängig vom gewünschten Ausgabeformat -- eines der Programme
-@command{texi2pdf}, @command{texi2dvi}, @command{makeinfo} oder
+@command{texi2pdf}, @command{texi2dvi}, @command{texi2any} oder
 @command{texi2html} auf.
 
 @ifinfo
@@ -1018,7 +1018,7 @@ Fügt @var{Pfad} zu den Include-Pfaden hinzu. @command{lilypond-book} sucht
 auch in allen Include-Pfaden nach bereits erstellten Grafiken für die
 Musikfragmente. Wird das aktuelle Fragment gefunden und hat sich seit der
 letzten Erstellung nicht geändert, wird es nicht erneut erzeugt. Bei manchen
-der Programme zur Weiterverarbeitung wie etwa @command{makeinfo} oder
+der Programme zur Weiterverarbeitung wie etwa @command{texi2any} oder
 @command{latex} muss dieselbe @option{-I @var{Pfad}} Option angegeben werden,
 damit das entsprechende Programm die Grafiken ebenso findet.
 
@@ -1034,10 +1034,10 @@ definiert ist, wird ihr Wert als Logstufe eingesetzt.
 @itemx --output=@var{Verzeichnis}
 Erzeugt die Ausgabedateien in @var{Verzeichnis}. Der Aufruf von
 @command{lilypond-book} erzeugt zahlreiche kleine Dateien, die von
-LilyPond, @command{latex}, @command{makeinfo} etc. dann weiter benützt
+LilyPond, @command{latex}, @command{texi2any} etc. dann weiter benützt
 werden. Um zu vermeiden, dass das Quellenverzeichnis durch diese
 Dateien unübersichtlich wird, kann die @option{--output} Option benutzt
-werden. Vor dem Aufruf von @command{latex} oder @command{makeinfo}
+werden. Vor dem Aufruf von @command{latex} oder @command{texi2any}
 sollten Sie in dieses Verzeichnis wechseln.
 
 @example

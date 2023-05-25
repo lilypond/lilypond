@@ -1038,7 +1038,7 @@ Many @code{\paper} block variables will also not work within a
 
 To produce a Texinfo document (in any output format), follow the normal
 procedures for Texinfo; this is, either call @command{texi2pdf} or
-@command{texi2dvi} or @command{makeinfo}, depending on the output format
+@command{texi2dvi} or @command{texi2any}, depending on the output format
 you want to create.  By default, @command{texi2pdf} uses @command{pdftex}
 for processing, which you can verify in the console output.  In this case,
 run @command{lilypond-book} with the @option{--pdf} option so that it
@@ -1094,7 +1094,7 @@ Print a short help message.
 Add @var{dir} to the include path.  Since @command{lilypond-book} also looks
 for already compiled snippets in the include path and does not write
 them back to the output directory, it is necessary in some cases to
-invoke further processing commands such as @command{makeinfo} or
+invoke further processing commands such as @command{texi2any} or
 @command{latex} with the same @option{-I @var{dir}} options.
 
 @item -l @var{loglevel}
@@ -1110,7 +1110,7 @@ Place generated files into directory @var{dir}.  Running
 @command{lilypond-book} generates lots of small files that LilyPond will
 process.  To avoid all that clutter in the source directory, use the
 @option{--output} command-line option, and change to that directory
-before running @command{latex} or @command{makeinfo}.
+before running @command{latex} or @command{texi2any}.
 
 @example
 lilypond-book --output=out yourfile.lytex

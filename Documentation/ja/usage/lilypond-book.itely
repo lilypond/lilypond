@@ -1015,7 +1015,7 @@ lilypond-book --filter='convert-ly --from=2.0.0 -' my-book.tely
 インクルード パスに @var{dir} を追加します。@c
 @command{lilypond-book} はインクルード パスの中でコンパイル済みの楽譜断片@c
 を見つけると、それらを出力ディレクトリに書き出しません。@c
-そのため、@command{lilypond-book} を呼び出してから更に @command{makeinfo}
+そのため、@command{lilypond-book} を呼び出してから更に @command{texi2any}
 や @command{latex} 等のコマンドを同じ @option{-I @var{dir}} オプションを@c
 付けて呼び出す必要がある場合があります。
 
@@ -1034,7 +1034,7 @@ lilypond-book --filter='convert-ly --from=2.0.0 -' my-book.tely
 ファイルが生成されます。@c
 そのようなゴミがソース ディレクトリに混入することを防ぐには、@c
 @option{--output} コマンド ライン オプションを使用して出力ディレクトリを@c
-変更して、@command{latex} や @command{makeinfo} を実行する前にその@c
+変更して、@command{latex} や @command{texi2any} を実行する前にその@c
 ディレクトリに移動します。
 
 @example
