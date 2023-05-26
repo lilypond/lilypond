@@ -147,8 +147,10 @@ Timing_translator::process_music ()
           {
             // Use a consistent numbering algorithm for the full set of
             // alternatives by changing it only on the first alternative.
-            alt_reset_enabled_ = scm_is_symbol (
-              get_property (this, "alternativeNumberingStyle"));
+            SCM style = get_property (this, "alternativeNumberingStyle");
+            alt_reset_enabled_
+              = scm_is_eq (style, ly_symbol2scm ("numbers"))
+                || scm_is_eq (style, ly_symbol2scm ("numbers-with-letters"));
             if (alt_reset_enabled_)
               {
                 alt_starting_bar_number_

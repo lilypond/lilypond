@@ -34,6 +34,10 @@ music = \fixed c' {
   \new Staff \with { instrumentName = "#f" } \music
 }
 
+\new Score \with { alternativeNumberingStyle = #'unknown-symbol } {
+  \new Staff \with { instrumentName = "unknown-symbol" } \music
+}
+
 \new Score \with { alternativeNumberingStyle = #'numbers } {
   \new Staff \with { instrumentName = "numbers" } \music
 }
