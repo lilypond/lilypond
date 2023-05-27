@@ -765,7 +765,7 @@ extent of the grob to the extent of the staff."
 ;; Tuplets
 
 (define-public (tuplet-number::calc-direction grob)
-  (ly:tuplet-bracket::calc-direction (ly:grob-object grob 'bracket)))
+  (ly:grob-property (ly:grob-object grob 'bracket) 'direction))
 
 (define-public (tuplet-number::calc-denominator-text grob)
   (number->string (ly:event-property (event-cause grob) 'denominator)))
