@@ -495,7 +495,7 @@ glib = GLib()
 class Bdwgc(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "8.2.2"
+        return "8.2.4"
 
     @property
     def directory(self) -> str:
@@ -508,24 +508,6 @@ class Bdwgc(ConfigurePackage):
     @property
     def download_url(self) -> str:
         return f"https://www.hboehm.info/gc/gc_source/{self.archive}"
-
-    def apply_patches(self, c: Config):
-        # For lack of a better method for finding static data sections in shared
-        # libraries, bdwgc on Windows scans all memory pages and (temporarily)
-        # adds them to the root set. This leads to problems and sporadic crashes
-        # if a memory page disappears while marking. Until a proper solution is
-        # found, disable this entire mechanism because by design of statically
-        # linking both bdwgc and libguile, we can guarantee that all root sets
-        # relevant for garbage collection are in the data section of the main
-        # executable, which can be conveniently located by looking at a single
-        # static variable and determining the surrounding pages.
-        # Upstream issue: https://github.com/ivmai/bdwgc/issues/454
-        def disable_win32_dlls(content: str) -> str:
-            return content.replace(
-                "GC_no_win32_dlls = FALSE", "GC_no_win32_dlls = TRUE"
-            )
-
-        self.patch_file(c, "os_dep.c", disable_win32_dlls)
 
     def configure_args(self, c: Config) -> List[str]:
         return [
