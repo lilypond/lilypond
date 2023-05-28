@@ -319,6 +319,17 @@ Syntax: @code{\\staffHighlight}, @code{\\stopStaffHighlight}.")
         (types . (post-event hyphen-event event))
         ))
 
+    (InitialContextMusic
+     . ((description . "Enter the initial context of the argument and ignore the
+rest of it.
+
+Syntax: @code{\\initialContextFrom} @var{music}")
+        (iterator-ctor . ,ly:initial-context-music-iterator::constructor)
+        (length . ,ZERO-MOMENT)
+        (to-relative-callback . ,ly:relative-octave-music::no-relative-callback)
+        (types . (initial-context-music))
+        ))
+
     (KeyChangeEvent
      . ((description . "Change the key signature.
 

@@ -108,6 +108,10 @@ various kinds of music.  Problems are reported on stderr."
 #ZERO-MOMENT
 #(ly:make-moment 1/4)
 
+\testStartAndLength \initialContextFrom d1
+#ZERO-MOMENT
+#ZERO-MOMENT
+
 \testStartAndLength \times 2/3 c4.
 #ZERO-MOMENT
 #(ly:make-moment 1/4)

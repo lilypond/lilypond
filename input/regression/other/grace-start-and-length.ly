@@ -124,6 +124,10 @@ various kinds of grace music.  Problems are reported on stderr."
 #(ly:make-moment 0 -1/4)
 #ZERO-MOMENT
 
+\testStartAndLength \initialContextFrom \grace d1
+#ZERO-MOMENT
+#ZERO-MOMENT
+
 \testStartAndLength \grace \times 2/3 c4.
 #(ly:make-moment 0 -1/4)
 #ZERO-MOMENT

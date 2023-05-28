@@ -654,6 +654,27 @@ specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
    (propertyTweak 'transparent #t item))
 
+initialContextFrom =
+#(define-music-function (music) (ly:music?)
+   (_i "Enter the initial context of the argument and ignore the rest of it.
+This is useful for prepending music while preserving the influence of the
+original music on the context.
+
+Syntax: @code{\\initialContextFrom} @var{music}
+
+Example:
+
+@example
+@{
+  \\initialContextFrom \\originalMusic
+  \\prependedMusic
+  \\originalMusic
+  \\appendedMusic
+@}
+@end example
+")
+   (make-initial-context-music music))
+
 inStaffSegno =
 #(define-music-function () ()
    (_i "Put the segno variant 'varsegno' at this position into the staff,

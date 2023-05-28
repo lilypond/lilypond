@@ -709,6 +709,10 @@ making it possible to @code{\\revert} to any previous value afterwards."
   (make-music 'GraceMusic
               'element music))
 
+(define-public (make-initial-context-music music)
+  (make-music 'InitialContextMusic
+              'element music))
+
 ;;;;;;;;;;;;;;;;
 
 ;; mmrest
@@ -1193,11 +1197,13 @@ actually fully cloned."
     ((_ start stop docstring)
      (define-music-function (music) (ly:music?)
        docstring
-       (make-music 'GraceMusic
-                   'element (make-music 'SequentialMusic
-                                        'elements (list (ly:music-deep-copy start)
-                                                        music
-                                                        (ly:music-deep-copy stop))))))
+       (make-grace-music
+        (make-sequential-music
+         (list
+          (make-initial-context-music music)
+          (ly:music-deep-copy start)
+          (ly:music-deep-copy music)
+          (ly:music-deep-copy stop))))))
     ((_ start stop)
      (def-grace-function start stop ""))))
 

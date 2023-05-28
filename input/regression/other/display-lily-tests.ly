@@ -130,6 +130,7 @@ are reported on the stderr of this run."
 
 %% Graces
 \test ##[ { \grace c8 d2 } #]				% GraceMusic
+\test "BUG" ##[ { \slashedGrace c8 d2 } #]
 \test ##[ { \appoggiatura c8 d2 } #]
 \test ##[ { \acciaccatura c8 d2 } #]
 \test ##[ { c1 \afterGrace 3/4 { b,16 c16 } d2 } #]
@@ -317,6 +318,7 @@ are reported on the stderr of this run."
   \consists "Timing_engraver"
   \remove "Clef_engraver"
 } { c4 d4 } #]
+\test ##[ \initialContextFrom c4 #]
 %% Context properties
 \test ##[ \once \set Score.skipBars = ##t #]		% PropertySet
 \test ##[ \set autoBeaming = ##f #]

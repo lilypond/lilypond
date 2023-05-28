@@ -256,7 +256,8 @@ expression."
                            'GraceMusic
                            element (music
                                     'SequentialMusic
-                                    elements (?start
+                                    elements (?init-context
+                                              ?start
                                               ?music
                                               ?stop))))
                     ;; we check whether ?start and ?stop look like
@@ -287,7 +288,8 @@ expression."
                            'GraceMusic
                            element (music
                                     'SequentialMusic
-                                    elements (?start
+                                    elements (?init-context
+                                              ?start
                                               ?music
                                               ?stop))))
                     ;; we check whether ?start and ?stop look like
@@ -331,7 +333,8 @@ expression."
                            'GraceMusic
                            element (music
                                     'SequentialMusic
-                                    elements (?start
+                                    elements (?init-context
+                                              ?start
                                               ?music
                                               ?stop))))
                     ;; we check whether ?start and ?stop look like
@@ -795,6 +798,10 @@ expression."
                         (*indent*)))
             (parameterize ((*current-context* ctype))
               (music->lily-string music)))))
+
+(define-display-method InitialContextMusic (expr)
+  (let ((music (ly:music-property expr 'element)))
+    (format #f "\\initialContextFrom ~a" (music->lily-string music))))
 
 ;; \after
 (define-extra-display-method ContextSpeccedMusic (expr)

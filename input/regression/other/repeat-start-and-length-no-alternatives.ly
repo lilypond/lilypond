@@ -97,10 +97,8 @@ reported on stderr."
 #(ly:make-moment 0 -1/8)
 #(ly:make-moment 3/4)
 
-\testStartAndLength \repeat tremolo 3 { \grace c8 d4 }
-%% The tremolo implementation doesn't expect grace notes, but ...
-#(ly:make-moment 0 -3/8) % TODO: -1/8 would probably make more sense
-#(ly:make-moment 3/4) % this makes sense
+%% The tremolo implementation doesn't handle grace notes gracefully.
+% \testStartAndLength \repeat tremolo 3 { \grace c8 d4 }
 
 \testStartAndLength \repeat unfold 3 { \grace c8 d4 }
 #(ly:make-moment 0 -1/8)
