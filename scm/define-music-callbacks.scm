@@ -23,10 +23,7 @@
 (define (mm-rest-child-list music)
   "Generate events for multimeasure rests,
 to be used by the sequential-iterator"
-  ;; This sequence begins with EventChord so that it initially descends to a
-  ;; bottom context.  BarCheckEvent doesn't have that effect.
-  (ly:set-origin! (list (make-music 'EventChord)
-                        (make-music 'BarCheckEvent)
+  (ly:set-origin! (list (make-music 'BarCheckEvent)
                         (make-music 'MultiMeasureRestEvent
                                     (ly:music-deep-copy music))
                         (make-music 'BarCheckEvent))
