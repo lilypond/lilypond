@@ -1188,12 +1188,12 @@ pageTurn =
 
 parallelMusic =
 #(define-void-function (voice-ids music) (list? ly:music?)
-   (_i "Define parallel music sequences, separated by '|' (bar check signs),
-and assign them to the identifiers provided in @var{voice-ids}.
+   (_i "Define parallel music sequences, separated by '|' (bar check), and
+assign them to the identifiers provided in @var{voice-ids}.
 
 @var{voice-ids}: a list of music identifiers (symbols containing only letters)
 
-@var{music}: a music sequence, containing BarChecks as limiting expressions.
+@var{music}: a music sequence containing bar checks as limiting expressions.
 
 Example:
 
@@ -1216,7 +1216,7 @@ order to facilitate ending the last entry at non-bar boundaries.
      "Checks whether m is a bar check."
      (eq? (ly:music-property m 'name) 'BarCheckEvent))
    (define (recurse-and-split-list lst)
-     "Return either a list of music lists split along barchecks, or @code{#f}."
+     "Return either a list of music lists split along bar checks, or @code{#f}."
      (if (any bar-check? lst)
          (let* ((voices (apply circular-list (make-list voice-count '())))
                 (current-voices voices)
@@ -1288,7 +1288,7 @@ change to the following voice."
                                   (ly:music-deep-copy (make-list voice-count m))))
                             lst deeper))))))
    (define (recurse-and-split music)
-     "This returns either a list of music split along barchecks, or
+     "This returns either a list of music split along bar checks, or
 @code{#f}."
      (let* ((elt (ly:music-property music 'element))
             (elts (ly:music-property music 'elements))
@@ -1318,7 +1318,7 @@ change to the following voice."
                      (ly:parser-define! voice-id voice))
                    voice-ids voices)
          (ly:music-warning music
-                           (G_ "ignoring parallel music without barchecks")))))
+                           (G_ "ignoring parallel music without bar checks")))))
 
 parenthesize =
 #(define-music-function (arg) (symbol-list-or-music?)
