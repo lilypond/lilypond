@@ -75,7 +75,11 @@ Time_signature_engraver::process_music ()
     {
       time_signature_
         = make_item ("TimeSignature", event_ ? to_scm (event_) : SCM_EOL);
-      set_property (time_signature_, "fraction", fr);
+
+      // check value before setting to respect overrides
+      SCM fraction_sym = ly_symbol2scm ("fraction");
+      if (scm_is_null (get_property (time_signature_, fraction_sym)))
+        set_property (time_signature_, fraction_sym, fr);
 
       if (scm_is_false (last_time_fraction_))
         set_property (time_signature_, "break-visibility",
