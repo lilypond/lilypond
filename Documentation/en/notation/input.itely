@@ -3347,6 +3347,7 @@ Installed Files:
 * Extracting fragments of music::
 * Skipping corrected music::
 * Alternative output formats::
+* Embedding files in PDF output::
 * Replacing the notation font::
 @end menu
 
@@ -3520,6 +3521,23 @@ file:
 The @code{<g>} tag contains all of the SVG elements for a given grob.  (Some
 grobs generate multiple SVG elements.)  In SVG syntax the @code{data-} prefix
 is used for non-standard custom metadata attributes.
+
+@node Embedding files in PDF output
+@subsection Embedding files in PDF output
+
+@cindex PDF, embedding files
+@cindex embedding files, in PDF
+@cindex files, embedding in PDF
+
+Command-line option @option{-dembed-source-code} makes LilyPond
+embed all (user) source files needed for compilation in the final
+output PDF (see @rprogram{Advanced command-line options for
+LilyPond}); a PDF viewer can then extract these attachments for
+further use.
+
+In a similar vein it is possible to embed arbitrary files in the
+PDF output with function @code{ly:note-extra-source-file} (see
+@rinternals{Scheme functions}).
 
 @node Replacing the notation font
 @subsection Replacing the notation font

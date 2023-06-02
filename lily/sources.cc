@@ -132,6 +132,9 @@ LY_DEFINE (ly_note_extra_source_file, "ly:note-extra-source-file", 1, 1, 0,
 Register a file, e.g., an image file, as being needed to compile the
 current file.  This is used for the @code{-dembed-@/source-@/code} option.
 A parser may optionally be specified.
+
+In general, this function can embed arbitrary files into LilyPond's PDF output
+(using @dfn{embedded file streams}).
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, filename, 1);
