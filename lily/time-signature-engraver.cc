@@ -34,7 +34,7 @@
 class Time_signature_engraver : public Engraver
 {
   Item *time_signature_ = nullptr;
-  SCM last_time_fraction_ = SCM_BOOL_F;
+  SCM last_time_fraction_ = SCM_EOL;
   Stream_event *event_ = nullptr;
 
 protected:
@@ -71,7 +71,8 @@ Time_signature_engraver::process_music ()
     return;
 
   SCM fr = get_property (this, "timeSignatureFraction");
-  if (!scm_is_eq (last_time_fraction_, fr) && scm_is_pair (fr))
+  if (!scm_is_eq (last_time_fraction_, fr)
+      && (scm_is_pair (fr) || scm_is_false (fr)))
     {
       time_signature_
         = make_item ("TimeSignature", event_ ? to_scm (event_) : SCM_EOL);
@@ -81,20 +82,24 @@ Time_signature_engraver::process_music ()
       if (scm_is_null (get_property (time_signature_, fraction_sym)))
         set_property (time_signature_, fraction_sym, fr);
 
-      if (scm_is_false (last_time_fraction_))
+      if (scm_is_null (last_time_fraction_))
         set_property (time_signature_, "break-visibility",
                       get_property (this, "initialTimeSignatureVisibility"));
 
-      int den = from_scm<int> (scm_cdr (fr));
-      if (den != (1 << intlog2 (den)))
+      if (scm_is_pair (fr))
         {
-          /*
-            Todo: should make typecheck?
+          int den = from_scm<int> (scm_cdr (fr));
+          if (den != (1 << intlog2 (den)))
+            {
+              /*
+                Todo: should make typecheck?
 
-            OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-          */
-          time_signature_->warning (_f ("strange time signature found: %d/%d",
-                                        from_scm<int> (scm_car (fr)), den));
+                OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+              */
+              time_signature_->warning (
+                _f ("strange time signature found: %d/%d",
+                    from_scm<int> (scm_car (fr)), den));
+            }
         }
 
       last_time_fraction_ = fr;
