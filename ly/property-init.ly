@@ -429,11 +429,15 @@ mergeDifferentlyHeadedOff =
   \revert Staff.NoteCollision.merge-differently-headed
 
 
-%% numeric time signature
+%% time signatures
 
 numericTimeSignature = \override Timing.TimeSignature.style = #'numbered
 defaultTimeSignature = \revert Timing.TimeSignature.style
 
+senzaMisuraTimeSignatureX =
+  \override Timing.TimeSignature.senza-misura-stencil =
+    #ly:time-signature::print-x
+senzaMisuraTimeSignatureOff = \revert Timing.TimeSignature.senza-misura-stencil
 
 %% palm mutes
 

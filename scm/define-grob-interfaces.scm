@@ -629,7 +629,9 @@ written as@tie{}3.
 @item numbered
 All time signatures are typeset with two digits.
 @end table"
- '(fraction style))
+ '(fraction
+   senza-misura-stencil
+   style))
 
 (ly:add-interface
  'trill-spanner-interface

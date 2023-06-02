@@ -3609,6 +3609,7 @@ direction and shape of stacked @iref{Tie} grobs.")))))
         (extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
         (extra-spacing-width . (0.0 . 0.8))
         (non-musical . #t)
+        (senza-misura-stencil . #f)
         (space-alist . (
                         (ambitus . (extra-space . 1.0))
                         (cue-clef . (extra-space . 1.5))
