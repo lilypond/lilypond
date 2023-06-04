@@ -986,11 +986,15 @@ Stem::offset_callback (SCM smob)
       /* If not centered: correct for stem thickness.  */
       std::string style
         = robust_symbol2string (get_property (f, "style"), "default");
-      if (attach && style != "mensural" && style != "neomensural" && style != "petrucci"
+      if (attach && style != "neomensural" && style != "petrucci"
           && style != "blackpetrucci" && style != "semipetrucci")
         {
           Direction d = get_grob_direction (me);
           Real rule_thick = thickness (me);
+          if (style == "mensural")
+            {
+              rule_thick /= -2;
+            }
           r += -d * rule_thick * 0.5;
         }
       return to_scm (r);
