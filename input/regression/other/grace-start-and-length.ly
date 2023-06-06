@@ -128,12 +128,30 @@ various kinds of grace music.  Problems are reported on stderr."
 #ZERO-MOMENT
 #ZERO-MOMENT
 
+\testStartAndLength \grace \times 0/1 c4.
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength \times 0/1 \grace c4.
+#ZERO-MOMENT
+#ZERO-MOMENT
+
 \testStartAndLength \grace \times 2/3 c4.
 #(ly:make-moment 0 -1/4)
 #ZERO-MOMENT
 
 \testStartAndLength \times 2/3 \grace c4.
 #(ly:make-moment 0 -1/4)
+#ZERO-MOMENT
+
+%% This certainly looks strange, but tuplet creates TimeScaledMusic with the
+%% reciprocal of its argument, so this should scale the music down to nothing.
+\testStartAndLength \tuplet 1/0 4 \grace c4.
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength \grace \tuplet 1/0 4 c4.
+#ZERO-MOMENT
 #ZERO-MOMENT
 
 \testStartAndLength \tuplet 3/2 4 \grace c4.
