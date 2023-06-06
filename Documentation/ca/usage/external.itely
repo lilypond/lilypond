@@ -1,0 +1,920 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 57617f931023d96645723d8139579e09948942f1
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.21"
+
+@node External programs
+@chapter Programes externs
+
+El LilyPond és capaç d'interactuar amb altres programes de
+diverses maneres.
+
+@menu
+* Point and click::
+* Text editor support::
+* Converting from other formats::
+* LilyPond output in other programs::
+* Independent includes::
+@end menu
+
+@node Point and click
+@section Apunteu i feu clic
+
+@cindex point and click (apunteu i feu clic)
+@cindex apunteu i feu clic
+
+«Point and click» (apunteu i feu clic amb el ratolí) us dóna la
+possibilitat de localitzar notes del codi d'entrada polsant sobre
+elles dins del visor del PDF.  Això facilita la trobada dels
+fragments de l'entrada que produeixen algun error en la partitura.
+
+@menu
+* Configuring the system for point and click::
+* Enabling point and click::
+* Selective point-and-click::
+@end menu
+
+
+@node Configuring the system for point and click
+@subsection Configuració del sistema per Apunteu i feu clic
+
+Quan aquesta funcionalitat està activada, el LilyPond afegeix
+enllaços als fitxers PDF i SVG.  Aquests enllaços s'envien al
+navegador de web, que al seu cop obre un editor de text amb el
+cursor ubicat al lloc correcte.
+
+Per aconseguir que aquesta cadena funcioni, heu de configurar el
+visualitzador de PDF de forma que segueixi els enllaços usant el
+guió @file{lilypond-invoke-editor} proporcionat amb el LilyPond.
+
+El programa @file{lilypond-invoke-editor} és un petit programa de
+suport.  Invoca un editor per a les URI especials de
+@code{textedit}, i llença un navegador de web per a la
+resta. Examina les variables d'entorn @code{EDITOR} i
+@code{LYEDITOR} per determinar i llençar l'editor favorit
+seleccionat.  @code{LYEDITOR} té prioritat sobre @code{EDITOR},
+per la qual cosa recomanem usar el primer especialment si
+utilitzareu un editor a la consola i un altre editor per a la
+funcionalitat Apunteu i polseu del LilyPond.
+
+Cada un dels editors pot tenir una sintaxi diferent per obrir un
+fitxer en una línia i columna especificada.  Per a la conveniència
+de l'usuari, el LilyPond incorpora ordres ja preparades per a
+diversos editors, relacionades a @file{scm/editor.scm}.  Això
+significa que pot limitar-se a escriure el nom del binari de
+l'editor, per exemple:
+
+@example
+export LYEDITOR=atom
+@end example
+
+@noindent
+cosa que invocarà a:
+@example
+atom %(fitxer)s:%(línia)s:%(columna)s
+@end example
+
+on @code{%(fitxer)s}, @code{%(línia)s} y @code{%(columna)s} se
+substitueixen pel fitxer, la línia i la columna, respectivament.
+
+Per fer servir un editor que estigui relacionat a
+@file{scm/editor.scm}, heu de trobar la seva sintaxi específica i
+assignar l'ordre al complet que correspongui a @code{LYEDITOR}.
+Vet aquí un exemple per a l'editor Visual Studio Code:
+
+@example
+export LYEDITOR="code --goto %(fitxer)s:%(línia)s:%(columna)s"
+@end example
+
+@warning{Si escolliu l'Emacs, cal una configuració addiciona. Heu
+d'afegir la línia @code{(server-start)} al seu fitxer
+@file{~/.emacs}, atès que en cas contrari cada clic sobre un
+objecte del PDF obrirà una finestra nova de l'Emacs.}
+
+@menu
+* Using Xpdf for point and click::
+* Using GNOME 2 for point and click::
+* Using GNOME 3 for point and click::
+* Extra configuration for Evince::
+@end menu
+
+@node Using Xpdf for point and click
+@unnumberedsubsubsec Ús del Xpdf per Apunteu i feu clic
+@cindex Xpdf
+
+Per al Xpdf sobre Unix, ha de ser el següent present a
+@file{xpdfrc}.  A l'Unix, aquest fitxer es troba o bé a
+@file{/etc/xpdfrc} o com @file{$HOME/.xpdfrc}.
+
+@example
+urlCommand     "lilypond-invoke-editor %s"
+@end example
+
+Si esteu fent servir l'Ubuntu, probablement la versió del Xpdf
+instal·lada al seu sistema faci parades abruptes a cada document
+PDF: aquesta situació es produeix des de ja fa diversos anys i es
+deu a la manca de correspondència entre biblioteques.  El millor
+que podeu fer en comptes d'això és instal·lar un paquet @samp{xpdf}
+actualitzat i el paquet @samp{libpoppler} corresponent procedent
+del Debian.  Un cop hagueu comprovat que funciona, podeu usar
+
+@example
+sudo apt-mark hold xpdf
+@end example
+
+@noindent
+amb l'objectiu d'evitar que l'Ubuntu el sobreescrigui amb la
+següent @q{actualització} del seu paquet defectuós.
+
+@node Using GNOME 2 for point and click
+@unnumberedsubsubsec Ús del GNOME 2 per Apunteu i feu clic
+
+Per fer servir el Gnome 2 (i els visors de documents PDF integrats
+a ell), la forma per informar al sistema sobre la URI
+@samp{textedit:} és:
+
+@smallexample
+gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
+gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
+gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
+@end smallexample
+
+Després d'aquesta invocació,
+
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+
+@noindent
+hauria de cridar a @file{lilypond-invoke-editor} per obrir
+fitxers.
+
+@node Using GNOME 3 for point and click
+@unnumberedsubsubsec Ús del GNOME 3 per Apunteu i feu clic
+
+Al GNOME 3 les URI es gestionen per part de la capa @q{gvfs} en
+comptes de per @q{gconf}.  Heu de crear un fitxer a un directori
+local com @file{/tmp} amb el nom
+@file{lilypond-invoke-editor.desktop} i que tingui el següent
+contingut:
+
+@example
+[Desktop Entry]
+Version=1.0
+Name=lilypond-invoke-editor
+GenericName=Textedit URI handler
+Comment=URI handler for textedit:
+Exec=lilypond-invoke-editor %u
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/textedit;
+Categories=Editor
+NoDisplay=true
+@end example
+i després executi les ordres
+@example
+xdg-desktop-menu install ./lilypond-invoke-editor.desktop
+xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit
+@end example
+
+Després d'aquesta invocació,
+
+@example
+gnome-open textedit:///etc/issue:1:0:0
+@end example
+@noindent
+hauria de cridar a @file{lilypond-invoke-editor} per obrir
+fitxers.
+
+
+@node Extra configuration for Evince
+@unnumberedsubsubsec Configuració addicional per a l'Evince
+@cindex Evince
+
+Si @code{gnome-open} funciona, però l'Evince encara no vol obrir
+enllaços de l'Apunteu i feu clic a causa de permisos denegats,
+potser haureu de canviar el perfil de l'Apparmor de l'Evince, que
+controla el tipus d'accions que se li permet realitzar a l'Evince.
+
+Per a l'Ubuntu, el procés és editar el fitxer
+@file{/etc/apparmor.d/local/usr.bin.evince} i afegir al final les
+línies següents:
+
+@example
+# Per a enllaços del Textedit
+/usr/local/bin/lilypond-invoke-editor Cx -> sanitized_helper,
+@end example
+@noindent
+
+Després d'afegir aquestes línies executeu
+
+@example
+sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.bin.evince
+@end example
+
+@noindent
+Ara l'Evince hauria de poder obrir enllaços de l'Apunteu i feu
+clic. Per a altres visualitzadors, és probable que funcionin
+configuracions semblants.
+
+
+@node Enabling point and click
+@unnumberedsubsec Habilitació de l'opció d'apunteu i feu clic
+@cindex fitxere sortida mida del
+
+Al LilyPond, la funcionalitat d'Apuntar i clicar està habilitada
+de forma predeterminada quan es creen els fitxers de sortida en
+format PDF o SVG.
+
+Els enllaços d'apuntar i fer clic augmenten significativament la
+mida dels fitxers de sortida.  Per reduir la mida dels fitxers PDF
+(i PS), la possibilitat d'apuntar i clicar es pot desactivar
+escrivint
+
+@example
+\pointAndClickOff
+@end example
+
+@noindent
+dins d'un fitxer @file{.ly}.  Es pot activar explícitament la
+possibilitat d'apuntar i clicar amb
+
+@example
+\pointAndClickOn
+@end example
+
+De manera alternativa, podeu desactivar la possibilitat d'apuntar i
+clicar amb una opció de línia d'ordres:
+
+@example
+lilypond -dno-point-and-click archivo.ly
+@end example
+
+@warning{Recordeu desactivar sempre la possibilitat Apuntar i
+clicar en qualsevol fitxer del LilyPond que hagi de ser
+distribuït, per evitar incloure informació de rutes de fitxer
+relativa als vostre equip dins del fitxer PDF, cosa que pot
+plantejar un problema de seguretat.}
+
+
+@node Selective point-and-click
+@unnumberedsubsec Apunteu i feu clic selectiu
+
+Per a certes aplicacions interactives podria ser desitjable
+incloure sols certs elements dins de la funció d'apuntar i fer
+clic.  Per exemple, si algú volgués crear una aplicació que
+reproduís àudio o vídeo començant en na nota concreta, seria
+incòmode que clicar sobre la nota produís les coordenades
+d'apuntar i clicar d'una alteració accidental o d'una lligadura
+d'expressió que estigués sobre aquesta nota.
+
+Això es pot controlar indicant quins esdeveniments incloure:
+
+@itemize
+@item
+Codificat de forma fixa dins del fitxer @file{.ly}:
+
+@example
+\pointAndClickTypes #'note-event
+\relative @{
+  c'2\f( f)
+@}
+@end example
+
+o bé
+
+@example
+#(ly:set-option 'point-and-click 'note-event)
+\relative @{
+  c'2\f( f)
+@}
+@end example
+
+@item
+Línia d'ordres:
+
+@example
+lilypond -dpoint-and-click=note-event   example.ly
+@end example
+
+@end itemize
+
+Es poden incloure diversos esdeveniments:
+
+@itemize
+@item
+Codificat de forma fixa dins del fitxer @file{.ly}:
+
+@example
+\pointAndClickTypes #'(note-event dynamic-event)
+\relative @{
+  c'2\f( f)
+@}
+@end example
+
+o bé
+
+@example
+#(ly:set-option 'point-and-click '(note-event dynamic-event))
+\relative @{
+  c'2\f( f)
+@}
+@end example
+
+@item
+Línia d'ordres:
+
+@example
+lilypond \
+  -e"(ly:set-option 'point-and-click '(note-event dynamic-event))" \
+  example.ly
+@end example
+
+
+@end itemize
+
+
+@node Text editor support
+@section Suport per als editors de text
+
+@cindex editors
+@cindex vim
+@cindex emacs
+@cindex modes de l'editor
+@cindex sintaxi, resaltat de
+@cindex colors, sintaxi
+
+Diversos editors de text donen suport al LilyPond.
+
+@menu
+* Emacs mode::
+* Vim mode::
+* Other editors::
+@end menu
+
+
+@node Emacs mode
+@unnumberedsubsec Mode de l'Emacs
+
+L'Emacs té un @file{lilypond-mode}, que proporciona completar
+automàticament, sagnat, compensació de parèntesi específica del
+LilyPond i realçat de sintaxi amb colors, combinacions útils de
+tecles per compilar i llegir els manuals del LilyPond fent servir
+l'info. Si el @file{lilypond-mode} no està instal·lat al vostre
+sistema, continueu llegint.
+
+Al fitxer del codi font dins del directori @file{elisp} hi ha
+inclòs un mode per escriure música i executar el LilyPond.  Feu
+@command{make install} per instal·lar-lo dins
+de @var{elispdir}.  El fitxer @file{lilypond-init.el} s'ha de
+posar a @var{load-path}@file{/site-start.d/} o afegir-se al
+vostre @file{~/.emacs} o @file{~/.emacs.el}.
+
+Com a usuari, podeu voler afegir la seva ruta a les fonts
+(per exemple @file{~/site-lisp/}) al vostre @var{load-path}
+afegint la línia següent (modificada) al vostre @file{~/.emacs}
+
+@c any reason we do not advise:  (push "~/site-lisp" load-path)
+@example
+(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
+@end example
+
+
+@node Vim mode
+@unnumberedsubsec Mode del Vim
+
+Per al @uref{https://@/www@/.vim@/.org,Vim}, es proporcionen per
+al seu ús amb el LilyPond un plug-in o complement per al tipus de
+fitxer, un mode de sagnat i mode de resaltat de sintaxi.  Per
+habilitar totes aquestes possibilitats, creeu (o modifiqueu) el
+vostre fitxer @file{$HOME/.vimrc} de manera que contingui aquestes
+tres línies al mateix ordre:
+
+@example
+filetype off
+set runtimepath+=/usr/local/share/lilypond/current/vim/
+filetype on
+syntax on
+@end example
+
+Si el LilyPond no està instal·lat al directori @file{/usr/local/},
+canviï aquesta ruta d'una forma adequada.  D'aquest tema es parla
+a @rlearning{Altres fonts d'informació}.
+
+@node Other editors
+@unnumberedsubsec Altres editors
+
+Altres editors (de text aixi com també gràfics) tenen suport per
+al LilyPond, pero els seus fitxers especials de configuració no es
+distribueixen amb el LilyPond.  Heu de consultar la documentació
+d'aquests programes per obtenir més informació.  Aquests editors
+s'expliquen a @rweb{Entorns millorats}.
+
+@node Converting from other formats
+@section Conversió des d'altres formats
+
+També es pot escriure la música mitjançant la seva importació des
+d'altres formats.  Aquest capítol intenta documentar les eines
+incloses a la distribució que permeten fe-lo.  Hi ha d'altres
+eines que produeixen codi d'entrada del LilyPond, com per exemple
+seqüenciadors amb interfície gràfica i convertidors de
+XML. Consulteu la @uref{https://@/lilypond@/.org,pàgina web} per
+veure més detalls.
+
+Aquests són programes diferents al @command{lilypond} pròpiament
+dit, i s'executen des de la línia d'ordres;
+
+Són programes diferents a @command{lilypond} pròpiament dit, i
+s'executen dins la línia d'ordres; consulteu
+@ref{Utilització des de la línia d'ordres} per veure més
+informació.  Si teniu MacOS 10.3 o 10.4 i teniu problemes per
+executar alguns d'aquests guions, per exemple @code{convert-ly},
+consulteu @rweb{MacOS X}.
+
+
+@knownissues
+Per desgràcia no disposem dels recursos necessaris per poder
+mantenir aquests programes; us preguem que els agafeu @qq{tal qual
+estan}.  S'agrairà l'enviament de pegats correctors, però els
+informes d'error gairebé amb certesa no es resoldran a mig termini.
+
+@menu
+* Invoking midi2ly::             Importació de fitxers MIDI.
+* Invoking musicxml2ly::         Importació de fitxers MusicXML.
+* Invoking abc2ly::              Importació de fitxers ABC.
+* Invoking etf2ly::              Importació de fitxers del Finale.
+* Other formats::
+@end menu
+
+
+@node Invocació de midi2ly
+@subsection Invocació de @command{midi2ly}
+
+@cindex MIDI
+
+@command{midi2ly} tradueix un fitxer MIDI del tipus@tie{}1 a un
+fitxer de codi font del LilyPond.
+
+El MIDI (Music Instrument Digital Interface, Interfície Digital
+per a Instruments Musicals) és un estàndard per a instruments
+digitals: especifica la interconnexió física, un protocol en sèrie
+i un format de fitxer.  El format de fitxer MIDI és un format
+estàndard de facto per exportar música d'altres programes, per la
+qual cosa aquesta possibilitat opt ser utilitzada per importar
+fitxers d'un programa que té un convertidor per a un format
+directe.
+
+@command{midi2ly} converteix les pistes en contextos de
+@rinternals{Staff) i els canals en contextos de
+@rinternals{Voice}.  S'utilitza el mode relatiu per a les altures
+i les duracions s'escriuen sols quan cal.
+
+És possible gravar un fitxer MIDI usant un teclat digital i
+convertir-lo després a @file{.ly}.  No obstant, els intèrprets
+humans no són prou exactes des del punt de vista rítmic com per
+fer que sigui trivial la conversió de MIDI a LY.  Si s'invoca amb
+les opcions de quantificació (@option{-s} i @option{-d}),
+@command{midi2ly} intenta compensar els errors de mesura, però no
+ho fa massa bé.  Per això, no es recomana usar @command{midi2ly}
+per a fitxers MIDI generats per éssers humans.
+
+S'invoca a partir de la línia d'ordres com segueix:
+
+@example
+midi2ly [@var{opción}]@dots{} @var{fitxer_midi}
+@end example
+
+Observeu que en dir @q{línia d'ordres}, volem dir la línia
+d'ordres del sistema operatiu.  Consulteu
+@ref{Conversió des d'altres formats} per veure més informació
+sobre això.
+
+@command{midi2ly} hi ha suport per a les opcions següents:
+
+@table @code
+@item -a, --absolute-pitches
+imprimeix altures absolutes.
+
+@item -d, --duration-quant=@var{DURACIÓN}
+quantifica les duracions a @var{DURACIÓ}.
+
+@item -e, --explicit-durations
+imprimeix valors de figura explícits.
+
+@item -h, --help
+mostra un resum de les instruccions de utilització.
+
+@item -k, --key=@var{alteració}[:@var{minor}]
+estableix la tonalitat predeterminada. @math{@var{alteració} >
+0} estableix el nombre de sostinguts; @math{@var{alteració} < 0}
+estableix el nombre de bemolls.  S'indica una tonalitat menor
+mitjançant @code{:1}.
+
+@item -o, --output=@var{archivo}
+escriu la sortida en @var{fitxer}.
+
+@item -s, --start-quant=@var{DURACIÓN}
+quantifica l'inici de les notes a @var{DURACIÓ}.
+
+@item -t, --allow-tuplet=@var{DURACIÓN}*@var{NUMERADOR}/@var{DENOMINADOR}
+permet duracions de grups especials @var{DURACIÓ}*@var{NUMERADOR}/@var{DENOMINADOR}.
+
+@item -v, --verbose
+mostra els comentaris.
+
+@item -V, --version
+imprimeix el nom de la versió.
+
+@item -w, --warranty
+presenta la garantia i el copyright.
+
+@item -x, --text-lyrics
+tracta tots els textos com a lletra de la cançó.
+@end table
+
+@knownissues
+Les notes superposades en un arpegi no es processaran
+correctament.  La primera nota es llegeix i la resta s'ignoren.
+Apliqueu la mateixa duració a totes les notes i afegeix marques de
+fraseig o indicacions de pedal.
+
+
+@node Invoking musicxml2ly
+@subsection Invocació de @command{musicxml2ly}
+
+@cindex MusicXML
+
+@uref{http://@/www.@/musicxml@/.org/,MusicXML} és un
+dialecte del XML per representar notació musical.
+
+@command{musicxml2ly} extrau les notes, articulacions, estructura
+de la partitura i lletra de fitxers de MusicXML @q{que estiguin
+dividits en parts}, i els escriu en un fitxer @file{.ly}.
+S'executa des de la línia d'ordres com segueix:
+
+@example
+musicxml2ly [@var{opció}]@dots{} @var{fitxer.xml}
+@end example
+
+Observeu que per @q{línia d'ordres}, ens referim a la línia
+d'ordres del sistema operatiu.  Consulteu @ref{Conversió des
+d'altres formats}, per obtenir més informació sobre això.
+
+Si el nom de fitxer proporcionat és @file{-} enlloc de
+@var{fitxer.xml}, @command{musicxml2ly} llegeix tota l'entrada
+directament a partir de l'entrada estàndard.
+
+@command{musicxml2ly} suporta les opcions següents:
+
+@table @code
+@item -a, --absolute
+converteix les altures en mode absolut.
+
+@item --fb --fretboards
+converteix els esdeveniments @code{<frame>} en una veu independent
+de diagrames de trastos enlloc d'elements de marcatge.
+
+@item -h, --help
+mostra un resum de la utilització i les opcions.
+
+@item -l, --language=IDIOMA
+utilitza IDIOMA per als noms de les notes.
+p.ej. @code{català}  per als noms de les notes en català.
+
+@item --loglevel=@var{LOGLEVEL}
+fixa el grau de depuració de la sortida al valor donat a
+@var{LOGLEVEL}.  Els valors possibles són @code{NONE} (cap),
+@code{ERROR} (errors), @code{WARNING} (advertiments),
+@code{PROGRESS} (avenç; predeterminat) y @code{DEBUG}
+(depuració).
+
+@item --lxml
+usa el paquet del Python lxml.etree per a l'anàlisi d l'XML; usa
+menys memòria i temps de CPU.
+
+@item -m, --midi
+activa el bloc midi dins del fitxer @var{.ly}.
+
+@item --nb, --no-beaming
+desactiva la informació de les barres, en comptes d'això fer
+ús del barrat automàtic del LilyPond.
+
+@item --nd, --no-articulation-directions
+converteix les direccions (@code{^}, @code{_} o @code{-}) per a
+les articulacions, dinàmica, etc.
+
+@item --nrp, --no-rest-positions
+desactiva les posicions verticals exactes dels silencis.
+
+@item --nsb, --no-system-breaks
+omet els salts de sistema.
+
+@item --npl, --no-page-layout
+desactiva la disposició exacta de la pàgina i els salts (és
+una forma compacta equivalent a les opcions @code{--nsb}
+@code{--npb} @code{--npm}).
+
+@item --npb, --no-page-breaks
+ignora els salts de pàgina.
+
+@item --npm, --no-page-margins
+ignora els marges de la pàgina.
+
+@item --nsd, --no-stem-directions
+ignora les direccions de les pliques a partir del MusicXML, i
+en el seu lloc utilització de les pliques de direcció automàtica
+del LilyPond.
+
+@item -o, --output=@var{FITXER}
+fixa el nom del fitxer de sortida com a @var{FITXER}. Si
+@var{FITXER} és @file{-}, la sortida s'imprimeix sobre stdout, la
+sortida estàndard. Si no es proporciona cap, en el seu lloc s'usa
+@var{fitxer_xml.ly}.
+
+@item -r, --relative
+converteix les altures en mode relatiu (predeterminat).
+
+@item --transpose=NOTA_DESTINO
+transposició a efectuar, entès com l'interval entre la nota
+@code{c} i @var{NOTA_DESTÍ}.
+
+@item --sm, --shift-meter=BEATS/BEATTYPE
+canvia la longitud o duració de les notes com una funció d'una
+indicació de compàs donada per fer que la partitura sembli més
+ràpida o més lenta, (per exemple @code{4/4} o @code{2/2}).
+
+@item --tc, --tab-clef=TABCLEFNAME
+alterna entre les dues versions de clau de tabulatura
+(@code{tab} i @code{moderntab}).
+
+@item --sn --string-numbers=t[rue]/f[alse]
+desactiva el símbol del nombre de corda amb
+@code{--string-numbers} @code{false}.  El predeterminat és
+@code{true}.
+
+@item -v, --verbose
+activa els missatges.
+
+@item -v, --version
+mostra la informació de la versió i surt.
+
+@item -z, --compressed
+el fitxer d'entrada és un fitxer MusicXML comprimit en zip.
+@end table
+
+
+@node Invoking abc2ly
+@subsection Invocació d'@code{abc2ly}
+
+@warning{Aquest programa ja no té suport i podria desaparèixer en
+versions posteriors del LilyPond.}
+
+@cindex ABC
+
+L'ABC és un format força simple basat en ASCII.  Es descriu al lloca
+web de l'ABC:
+
+@quotation
+@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/learn@/.html}.
+@end quotation
+
+@command{abc2ly} converteix ABC al LilyPond.  S'invoca de la
+manera següent:
+
+@example
+abc2ly [@var{opció}]@dots{} @var{fitxer_abc}
+@end example
+
+@command{abc2ly} suporta les opcions següents:
+
+@table @code
+@item -b, --beams=None
+preserva la noció d'ABC de les barres
+@item -h, --help
+aquesta ajud
+@item -o, --output=@var{archivo}
+fixa el nom del fitxer de sortida com a @var{fitxer}.
+@item -s, --strict
+estableix el nivell estricte per a la sortida
+@item --version
+imprimeix la informació de la versió.
+@end table
+
+Hi ha una possibilitat rudimentària per afegir codi del LilyPond
+al fitxer font de l'ABC.  Per exemple:
+
+@example
+%%LY voices \set autoBeaming = ##f
+@end example
+
+farà que el text que segueix a la paraula clau @q{voices}
+s'insereixi en la veu en curs del fitxer de sortida del LilyPond.
+
+De forma semblant,
+
+@example
+%%LY slyrics més paraules
+@end example
+
+produirà que el text que segueix a la paraula clau @q{slyrics}
+s'insereixi en la línia de lletra en curs.
+
+
+@knownissues
+L'estàndard ABC no és molt @q{estàndard}.  Existeixen diferents
+convencions per a la possibilitats avençades (per exemple,
+polifonia).
+
+No es poden convertir diverses melodies d'un sol fitxer.
+
+L'ABC sincronitza les lletres i les notes al principi d'una línia:
+@command{abc2ly} no ho fa.
+
+@command{abc2ly} ignora el barrat d l'ABC.
+
+@node Invoking etf2ly
+@subsection Invocació d'@command{etf2ly}
+
+@warning{Aquest programa ja no té suport i podria desaparèixer de
+versions posteriors del LilyPond.}
+
+@cindex Enigma Transport Format
+@cindex ETF
+@cindex enigma
+@cindex Finale
+@cindex Coda Technology
+
+ETF (Enigma Transport Format) és un format utilitzat pel Finale,
+un producte de Coda Music Technology.  @command{etf2ly} converteix
+part d'una fitxer ETF en un fitxer del LilyPond que ja es pot usar.
+
+S'invoca mitjançant la línia d'ordres com segueix:
+
+@example
+etf2ly [@var{opció}]@dots{} @var{fitxer_etf}
+@end example
+
+Observeu que per @q{línia d'ordres}, ens referim a la línia
+d'ordres del sistema operatiu.  Consulteu
+@ref{Conversió des d'altres formats}, para obtenir més
+informació sobre això.
+
+@command{etf2ly} suporta les opcions següents:
+
+@table @code
+@item -h, --help
+aquesta ajuda
+@item -o, --output=@var{FITXER}
+fixa el nom del fitxer de sortida com a @var{FITXER}
+@item --version
+informació de la versió
+@end table
+
+@knownissues
+La llista d'inscripcions d'articulació possibles és
+incompleta. Els compassos buits causen confusió a
+@command{etf2ly}.  Les seqüències de notes d'adorn no es donen per
+finalitzades satisfactòriament.
+
+@node Other formats
+@subsection Altres formats
+
+@cindex programes externs, generació de fitxers del LilyPond
+
+El propi LilyPond no dóna suport a la utilització de cap altre
+format, però hi ha algunes eines externes que també generen
+fitxers del LilyPond.  Podeu trobar una llista a la secció
+@rweb{Entorns millorats}.
+
+
+@node LilyPond output in other programs
+@section Sortida del LilyPond dins d'altres programes
+
+Aquesta secció presenta mètodes per integrar text i música
+diferents del mètode automatitzat amb el @command{lilypond-book}.
+
+@menu
+* LuaTeX::
+* OpenOffice and LibreOffice::
+* Other programs::
+@end menu
+
+
+@node LuaTeX
+@subsection Lua@TeX{}
+
+@cindex Lua@TeX{}
+@cindex lyluatex
+
+A més de @code{lilypond-book} per integrar la sortida del
+LilyPond, hi ha un programa alternatiu que pot fer-se servir si
+es fa servir el Lua@TeX{}, anomenat
+@uref{https://github.com/jperon/lyluatex/blob/master/README.en.md,lyluatex}.
+
+@node OpenOffice and LibreOffice
+@subsection OpenOffice i LibreOffice
+
+@cindex OpenOffice.org
+@cindex LibreOffice.org
+@cindex OOoLilyPond
+
+Es pot afegir notació del LilyPond als documents d'OpenOffice.org
+i LibreOffice amb
+@uref{https://github.com/openlilylib/LO-ly,OOoLilyPond}, una
+extensió del OpenOffice.org que converteix fitxers del LilyPond en
+imatges dins dels documents de l'OpenOffice.org.  OOoLilyPond
+(OLy) funciona amb versions recents del LibreOffice i
+OpenOffice. També han de funciona les versions antigues. Fins i
+tot s'ha comprovat que funciona amb l'OpenOffice 2.4 sense cap
+problema.
+
+@node Other programs
+@subsection Altres programes
+
+Altres programes capaces de gestionar elf formats @file{PNG},
+@file{EPS} o @file{PDF} haurien d'usar @code{lilypond} en comptes
+de @code{lilypond-book}.  Cada fitxer de sortida del LilyPond ha
+de crear-se individualment i afegir-se al document; consulteu la
+documentació del programa corresponent per veure com inserir
+fitxers des d'altres fonts.
+
+Per reduir l'espai buit al voltant de la partitura del LilyPond,
+utilitzeu les opcions següents:
+
+@example
+\paper@{
+  indent=0\mm
+  line-width=120\mm
+  oddFooterMarkup=##f
+  oddHeaderMarkup=##f
+  bookTitleMarkup = ##f
+  scoreTitleMarkup = ##f
+@}
+
+@var{@dots{} music @dots{}}
+@end example
+
+@noindent
+Per produir imatges @file{EPS}:
+
+@example
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts miarchivo.ly
+@end example
+
+@noindent
+Per produir imatges @file{PNG}:
+
+@example
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miarchivo.ly
+@end example
+
+@noindent
+Per produir imatges @file{PNG} amb transparència:
+
+@example
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pngalpha --png miarchivo.ly
+@end example
+
+@cindex fragments, música
+@cindex citació, fragments de muśica
+@cindex fragments de música, citació
+
+Cal citar molts fragments d'una partitura gran, també podeu usar
+la funcionalitat clip-systems de retallada de sistemes, vegeu
+@ruser{Extracció de fragments de música}.
+
+
+@node Independent includes
+@section Fitxers d'inclusió independents
+
+Alguns usuaris han produït fitxers que es poden incloure amb
+l'ordre @code{\include} al LilyPond per produir certs efectes, i
+els que s'indiquen més avall formen part de la distribució del
+LilyPond. Vegeu també
+@ruser{Treball sobre els fitxers d'entrada}
+
+@menu
+* MIDI articulation::
+@end menu
+
+
+@node Articulació MIDI
+@subsection Articulació MIDI
+
+@cindex MIDI
+@cindex Articulate project
+
+El projecte @uref{http://www.nicta.com.au/articulate,Articulate}
+és un intent de millora de la sortida MIDI del LilyPond, i
+funciona ajustant la duració de les notes (que no estiguin sota
+lligadures d'expressió) d'acord amb les articulacions que porti
+cadascuna.  Per exemple, un @q{staccato} redueix la duració a la
+meitat.  @q{tenuto} dóna a una nota la duració completa, etc.  Vegeu
+@ruser{Enriquiment de la sortida MIDI}.
