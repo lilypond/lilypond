@@ -36,6 +36,11 @@
   (and (pair? x)
        (index? (car x)) (index? (cdr x))))
 
+(define-public (positive-fraction? x)
+  (and (pair? x)
+       (integer? (car x)) (exact? (car x)) (positive? (car x))
+       (integer? (cdr x)) (exact? (cdr x)) (positive? (cdr x))))
+
 (define-public (exact-rational? x)
   (and (rational? x)
        (exact? x)))
@@ -65,6 +70,16 @@
 
 (define-public (index? x)
   (and (integer? x) (exact? x) (>= x 0)))
+
+(define-public (musical-length? x)
+  (and (ly:moment? x)
+       (zero? (ly:moment-grace x))
+       (not (negative? (ly:moment-main x)))))
+
+(define-public (positive-musical-length? x)
+  (and (ly:moment? x)
+       (zero? (ly:moment-grace x))
+       (positive? (ly:moment-main x))))
 
 (define-public (moment-pair? x)
   (and (pair? x)

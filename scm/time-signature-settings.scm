@@ -192,7 +192,9 @@
                                    time-signature
                                    time-signature-settings)))
     (if (null? return-value)
-        (/ (cdr time-signature))
+        (/ (if (zero? (cdr time-signature))
+               0.0 ; avoid integer div error
+               (cdr time-signature)))
         return-value)))
 
 (define-public (beat-structure base-length time-signature time-signature-settings)
@@ -210,7 +212,9 @@ for @var{time-signature} from @var{time-signature-settings}."
                                3
                                1))
                (beat-count (/ (car time-signature)
-                              (cdr time-signature)
+                              (if (zero? (cdr time-signature))
+                                  0.0 ; avoid integer div error
+                                  (cdr time-signature))
                               base-length
                               group-size)))
           (if (integer? beat-count)

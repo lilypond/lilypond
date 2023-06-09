@@ -692,8 +692,8 @@ square.  Coordinates are normalized between -1 and@tie{}1 within the square.")
 divisions (see the @code{measure-division} property) to lists of lines
 to draw in the square, given as 4-element lists:
 @code{(@var{x-start} @var{y-start} @var{x-end} @var{y-end})}.")
-     (measure-length ,ly:moment? "Length of a measure.  Used in some
-spacing situations.")
+     (measure-length ,positive-musical-length? "Length of a measure.  Used in
+some spacing situations.")
      (merge-differently-dotted ,boolean? "Merge note heads in
 collisions, even if they have a different number of dots.  This is
 normal notation for some types of polyphonic music.
@@ -728,7 +728,7 @@ should move (after padding).")
 X@tie{}dimension, measured in @code{staff-space} units.")
      (minimum-Y-extent ,number-pair? "Minimum size of an object in
 Y@tie{}dimension, measured in @code{staff-space} units.")
-     (musical-length ,ly:moment? "Musical length.")
+     (musical-length ,musical-length? "Musical length.")
 
 
 ;;;
