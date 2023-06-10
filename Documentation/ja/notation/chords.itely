@@ -445,7 +445,7 @@ maj, maj7
 
 @menu
 * Printing chord names::
-* Customizing chord name (コード ネームをカスタマイズする)::
+* Customizing chord names::
 @end menu
 
 @node Printing chord names
@@ -570,7 +570,7 @@ chordmusic = \relative {
 転回や低音の追加を含む和音のコード ネームは正しく表示されません。
 
 
-@node Customizing chord name (コード ネームをカスタマイズする)
+@node Customizing chord names
 @unnumberedsubsubsec コード ネームをカスタマイズする
 
 @cindex customizing chord names (コード ネームをカスタマイズする)
