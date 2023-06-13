@@ -32,24 +32,15 @@
 
 struct Tuplet_description
 {
-  Stream_event *event_;
-  Spanner *bracket_;
-  Spanner *number_;
+  Stream_event *event_ = nullptr;
+  Spanner *bracket_ = nullptr;
+  Spanner *number_ = nullptr;
 
-  bool full_length_;
-  bool full_length_note_;
+  bool full_length_ = false;
+  bool full_length_note_ = false;
   Moment stop_moment_;
   Moment start_moment_;
   Moment length_;
-
-  Tuplet_description ()
-  {
-    event_ = 0;
-    full_length_note_ = false;
-    full_length_ = false;
-    bracket_ = 0;
-    number_ = 0;
-  }
 };
 
 class Tuplet_engraver : public Engraver
