@@ -563,15 +563,6 @@ embedded_scm:
 	| lookup
 	;
 
-/* embedded_scm_arg is _not_ casting pitches to music by default, this
- * has to be done by the function itself.  Note that this may cause
- * the results of scm_function_call or embedded_scm_bare_arg to be
- * turned into music from pitches as well.  Note that this creates a
- * distinctly awkward situation for calculated drum pitches.  Those
- * are at the current point of time rejected as music constituents as
- * they can't be distinguished from "proper" symbols.
- */
-
 embedded_scm_arg:
 	embedded_scm_bare_arg
 	| scm_function_call
@@ -1887,10 +1878,7 @@ function_arglist_nonbackup:
 		if (scm_is_true (ly_call ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else
-			$$ = check_scheme_arg (parser, @4,
-					       make_music_from_simple
-					       (parser, @4, $4),
-					       $3, $2, $4);
+			$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup bare_number_common
 	{
@@ -2081,14 +2069,8 @@ function_arglist_backup:
 		if (scm_is_true (ly_call ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else {
-			$$ = make_music_from_simple (parser, @4, $4);
-			if (scm_is_true (ly_call ($2, $$)))
-				$$ = scm_cons ($$, $3);
-			else
-			{
-				$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
-				MYBACKUP (SCM_ARG, $4, @4);
-			}
+			$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
+			MYBACKUP (SCM_ARG, $4, @4);
 		}
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup post_event_nofinger
@@ -2395,10 +2377,7 @@ function_arglist_common:
 		if (scm_is_true (ly_call ($1, $3)))
 			$$ = scm_cons ($3, $2);
 		else
-			$$ = check_scheme_arg (parser, @3,
-					       make_music_from_simple
-					       (parser, @3, $3),
-					       $2, $1, $3);
+			$$ = check_scheme_arg (parser, @3, $3, $2, $1);
 	}
 	| EXPECT_SCM function_arglist_optional bare_number_common
 	{
