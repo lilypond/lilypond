@@ -233,6 +233,11 @@ even at the beginning of the piece.
 }
 @end lilypond
 
+@item
+The volta number position relative to the the volta bracket can
+now be adjusted with the @code{volta-number-offset} property of
+@code{VoltaBracket}.
+
 @end itemize
 
 

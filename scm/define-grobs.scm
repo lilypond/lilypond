@@ -3942,6 +3942,7 @@ of a voice.")))))
         (thickness . 1.6) ;; line-thickness
         (word-space . 0.6)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
+        (volta-number-offset . (1.0 . -0.5))
         (Y-extent . ,(grob::unpure-Y-extent-from-stencil volta-bracket-interface::pure-height))
         (meta . ((class . Spanner)
                  (interfaces . (font-interface

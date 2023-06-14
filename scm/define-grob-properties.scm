@@ -1287,6 +1287,8 @@ be combined with the default tuplet bracket visibility style and
 with @code{#'if-no-beam}.")
      (voiced-position ,number? "The staff-position of a voiced
 @code{Rest}, negative if the rest has @code{direction} @code{DOWN}.")
+     (volta-number-offset ,number-pair? "The offset of the volta number
+relative to the upper left corner of the volta bracket.")
 
 ;;;
 ;;; w

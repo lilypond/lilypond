@@ -98,11 +98,14 @@ Volta_bracket_interface::print (SCM smob)
   if (!orig_span || broken_first_bracket)
     {
       SCM text = get_property (me, "text");
+      Offset offset =
+        from_scm (get_property (me, "volta-number-offset"), Offset (1.0, -0.5));
+
       auto num = Text_interface::grob_interpret_markup (me, text);
       num.align_to (Y_AXIS, UP);
-      num.translate_axis (-0.5, Y_AXIS);
+      num.translate_axis (offset[Y_AXIS], Y_AXIS);
       total.add_at_edge (X_AXIS, LEFT, num,
-                         -num.extent (X_AXIS).length () - 1.0);
+                         -num.extent (X_AXIS).length () - offset[X_AXIS]);
     }
 
   total.translate_axis (left, X_AXIS);
@@ -158,6 +161,7 @@ height
 musical-length
 range-collapse-threshold
 shorten-pair
+volta-number-offset
 thickness
 volta-numbers
                )");
