@@ -913,7 +913,7 @@ horizontal edges.")
 ;;;
      (range-collapse-threshold ,index? "If the length of a volta
 range is greater than or equal to this threshold, print it with
-a dash.  For example, if this is@tie{}3, a @code{\volta 1,2,3} is
+a dash.  For example, if this is@tie{}3, a @code{\\volta 1,2,3} is
 printed as @samp{1.-3.}, but if it is@tie{}4, it is printed as
 @samp{1.2.3.}.")
      (rank-on-page ,number? "0-based index of the system on a page.")
