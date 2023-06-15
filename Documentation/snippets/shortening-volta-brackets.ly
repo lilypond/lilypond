@@ -28,12 +28,12 @@ lasts one measure, which is a duration of 3/4.
   \time 3/4
   c4 c c
   \set Score.voltaSpannerDuration = \musicLength 2.
-  \repeat volta 5 { d4 d d }
-  \alternative {
-    {
-      e4 e e
-      f4 f f
-    }
-    { g4 g g }
-  }
+  \repeat volta 5 {
+    d4 d d
+    \alternative {
+      \volta 1,2,3,4 {
+        e4 e e
+        f4 f f }
+      \volta 5 {
+        g4 g g } } }
 }

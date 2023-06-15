@@ -15,7 +15,7 @@
 
   texidoc = "
 This snippet removes the first brace from a @code{PianoStaff} or a
-@code{GrandStaff}.
+@code{GrandStaff}, together with the clefs.
 
 It may be useful when cutting and pasting the engraved image into
 existing music.
@@ -49,3 +49,5 @@ someMusic =  {
     }
   }
 }
+
+\paper { tagline = ##f }

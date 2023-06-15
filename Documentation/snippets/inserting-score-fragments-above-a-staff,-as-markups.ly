@@ -37,6 +37,7 @@ tuning = \markup {
   title = "Solo Cello Suites"
   subtitle = "Suite IV"
   subsubtitle = \markup { Originalstimmung: \raise #0.5 \tuning }
+  tagline = ##f
 }
 
 \layout { ragged-right = ##f }

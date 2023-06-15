@@ -14,16 +14,16 @@
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
 
   texidoc = "
-Changing the Clef glyph, its position, or the ottavation does not
+Changing the clef glyph, its position, or the ottavation does not
 change the position of subsequent notes on the staff.  To get key
-signatures on their correct staff lines @code{middleCClefPosition} must
-also be specified, with positive or negative values moving
-@code{middle C} up or down respectively, relative to the staff's center
-line.
+signatures on their correct staff lines, @code{middleCClefPosition}
+must also be specified, with positive or negative values moving
+@emph{middle@tie{}C} up or down respectively, relative to the staff's
+center line.
 
 For example, @code{\\clef \"treble_8\"} is equivalent to setting the
 @code{clefGlyph}, @code{clefPosition} (the vertical position of the
-clef itself on the staff), @code{middleCPosition} and
+clef itself on the staff), @code{middleCPosition}, and
 @code{clefTransposition}. Note that when any of these properties
 (except @code{middleCPosition}) are changed a new clef symbol is
 printed.
@@ -94,3 +94,5 @@ line, they do not.
   \set Staff.middleCPosition = #0
   c'1
 }
+
+\paper { tagline = ##f }

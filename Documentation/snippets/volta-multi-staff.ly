@@ -25,10 +25,10 @@ put over staves other than the topmost one in a score.
 voltaMusic = \relative c'' {
   \repeat volta 2 {
     c1
-  }
-  \alternative {
-    d1
-    e1
+    \alternative {
+      \volta 1 { d1 }
+      \volta 2 { e1 }
+    }
   }
 }
 

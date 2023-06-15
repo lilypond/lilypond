@@ -22,10 +22,12 @@ Rests may be used in various styles.
 
 
 restsA = {
-  r\maxima r\longa r\breve r1 r2 r4 r8 r16 s32 s64 s128 s256 s512 s1024 s1024
+  r\maxima r\longa r\breve r1 r2 r4 r8 r16 s32
+  s64 s128 s256 s512 s1024 s1024
 }
 restsB = {
-  r\maxima r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r256 r512 r1024 s1024
+  r\maxima r\longa r\breve r1 r2 r4 r8 r16 r32
+  r64 r128 r256 r512 r1024 s1024
 }
 
 \new Staff \relative c {

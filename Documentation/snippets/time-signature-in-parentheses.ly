@@ -14,7 +14,7 @@
   lsrtags = "rhythms, specific-notation, staff-notation, tweaks-and-overrides"
 
   texidoc = "
-The time signature can be enclosed within parentheses.
+Enclose the time signature in parentheses.
 "
 
   doctitle = "Time signature in parentheses"
@@ -23,7 +23,7 @@ The time signature can be enclosed within parentheses.
 
 \relative c'' {
   \override Staff.TimeSignature.stencil = #(lambda (grob)
-    (bracketify-stencil (ly:time-signature::print grob) Y 0.1 0.2 0.1))
+    (parenthesize-stencil (ly:time-signature::print grob) 0.1 0.4 0.4 0.1))
   \time 2/4
   a4 b8 c
 }

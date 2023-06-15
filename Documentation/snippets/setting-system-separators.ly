@@ -26,6 +26,7 @@ default.
 \paper {
   system-separator-markup = \slashSeparator
   line-width = 120
+  tagline = ##f
 }
 
 notes = \relative c' {

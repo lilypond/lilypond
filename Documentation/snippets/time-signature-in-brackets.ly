@@ -14,16 +14,16 @@
   lsrtags = "rhythms, specific-notation, staff-notation, tweaks-and-overrides"
 
   texidoc = "
-Another way to put the time signature in parenthesis
+The time signature can be enclosed within brackets.
 "
 
-  doctitle = "Time signature in parentheses - method 3"
+  doctitle = "Time signature in brackets"
 } % begin verbatim
 
 
 \relative c'' {
   \override Staff.TimeSignature.stencil = #(lambda (grob)
-    (parenthesize-stencil (ly:time-signature::print grob) 0.1 0.4 0.4 0.1 ))
+    (bracketify-stencil (ly:time-signature::print grob) Y 0.1 0.2 0.1))
   \time 2/4
   a4 b8 c
 }

@@ -60,3 +60,5 @@ written.
     R
   }
 >>
+
+\paper { tagline = ##f }

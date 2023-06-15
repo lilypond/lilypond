@@ -22,21 +22,29 @@ when using repeated music.
 } % begin verbatim
 
 
-\relative c'{
+music = \relative c' {
+  \repeat volta 3 {
+    c4 d e f |
+    \alternative {
+      \volta 1 { c4 d e f | c2 d \break }
+      \volta 2 { f4 g a b | f4 g a b | f2 a | \break }
+      \volta 3 { c4 d e f | c2 d } } }
+  c1 \bar "|."
+}
+
+\markup "default"
+{
+  \music
+}
+
+\markup \typewriter "'numbers"
+{
   \set Score.alternativeNumberingStyle = #'numbers
-  \repeat volta 3 { c4 d e f | }
-    \alternative {
-      { c4 d e f | c2 d \break }
-      { f4 g a b | f4 g a b | f2 a | \break }
-      { c4 d e f | c2 d }
-    }
-  c1 \break
+  \music
+}
+
+\markup \typewriter "'numbers-with-letters"
+{
   \set Score.alternativeNumberingStyle = #'numbers-with-letters
-  \repeat volta 3 { c,4 d e f | }
-    \alternative {
-      { c4 d e f | c2 d \break }
-      { f4 g a b | f4 g a b | f2 a | \break }
-      { c4 d e f | c2 d }
-    }
-  c1
+  \music
 }

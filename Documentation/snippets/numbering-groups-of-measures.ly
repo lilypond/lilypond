@@ -24,8 +24,8 @@ The engraver must be added to the appropriate context.  Here, a
 context.
 
 The counter is begun with @code{\\startMeasureCount} and ended with
-@code{\\stopMeasureCount}.  Numbering will start by default with
-@code{1}, but this behavior may be modified by overriding the
+@code{\\stopMeasureCount}.  Numbering will start by default
+with@tie{}1, but this behavior may be modified by overriding the
 @code{count-from} property.
 
 When a measure extends across a line break, the number will appear
@@ -65,3 +65,5 @@ twice, the second time in parentheses.
   }
   \stopMeasureCount
 }
+
+\paper { tagline = ##f }
