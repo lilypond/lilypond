@@ -719,30 +719,6 @@ Paper_book::systems ()
               append_scm_list (&systems_tail, scm_car (s));
             }
         }
-
-      /* backwards compatibility for the old page breaker */
-      int i = 0;
-      Prob *last = 0;
-      for (SCM s = systems_; scm_is_pair (s); s = scm_cdr (s))
-        {
-          Prob *ps = unsmob<Prob> (scm_car (s));
-          set_property (ps, "number", to_scm (++i));
-
-          if (last && from_scm<bool> (get_property (last, "is-title"))
-              && !scm_is_number (get_property (ps, "penalty")))
-            set_property (ps, "penalty", to_scm (10000));
-          last = ps;
-
-          if (scm_is_pair (scm_cdr (s)))
-            {
-              SCM perm = get_property (ps, "page-break-permission");
-              Prob *next = unsmob<Prob> (scm_cadr (s));
-              if (scm_is_null (perm))
-                set_property (next, "penalty", to_scm (10001));
-              else if (scm_is_eq (perm, ly_symbol2scm ("force")))
-                set_property (next, "penalty", to_scm (-10001));
-            }
-        }
     }
 
   return systems_;
