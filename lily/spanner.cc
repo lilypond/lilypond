@@ -414,6 +414,10 @@ add_bound_item (Spanner *sp, Grob *it)
 {
   if (!sp->get_bound (LEFT))
     sp->set_bound (LEFT, it);
+  // Should this really be under "else"?  This matters if there is only one
+  // call.  Isn't it more robust to create a spanner from one column to itself
+  // than a spanner without a right bound?  Existing callers should be checked
+  // before changing this.
   else
     sp->set_bound (RIGHT, it);
 }

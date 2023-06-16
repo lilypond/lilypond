@@ -124,29 +124,32 @@ Tuplet_engraver::process_music ()
       auto *number = tuplet.number_;
       if (bracket)
         {
-          if (tuplet.full_length_)
+          if (Grob *left = bracket->get_bound (LEFT))
             {
-              auto *col = unsmob<Item> (
-                tuplet.full_length_note_
-                  ? get_property (this, "currentMusicalColumn")
-                  : get_property (this, "currentCommandColumn"));
+              if (tuplet.full_length_)
+                {
+                  auto *col = unsmob<Item> (
+                    tuplet.full_length_note_
+                      ? get_property (this, "currentMusicalColumn")
+                      : get_property (this, "currentCommandColumn"));
 
-              bracket->set_bound (RIGHT, col);
-              number->set_bound (RIGHT, col);
+                  bracket->set_bound (RIGHT, col);
+                  number->set_bound (RIGHT, col);
+                }
+              else if (!bracket->get_bound (RIGHT))
+                {
+                  // This tuplet only spans one note, e.g.,
+                  // \tuplet 3/2 { s8 c'8 s8 }.
+                  bracket->set_bound (RIGHT, left);
+                  number->set_bound (RIGHT, left);
+                }
             }
-          else if (!bracket->get_bound (RIGHT))
+          else
             {
-              if (auto *bound = bracket->get_bound (LEFT))
-                {
-                  bracket->set_bound (RIGHT, bound);
-                  number->set_bound (RIGHT, bound);
-                }
-              else
-                {
-                  warning (_ ("omitting tuplet bracket with neither left nor "
-                              "right bound"));
-                  continue;
-                }
+              // This tuplet spans no notes at all, e.g.,
+              // \tuplet 3/2 { s8 s8 s8 }.  Remove it.
+              bracket->suicide ();
+              number->suicide ();
             }
         }
     }
