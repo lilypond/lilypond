@@ -6,7 +6,7 @@ the next note, by setting @code{tupletFullLengthNote}."
 
   }
 
-\version "2.17.11"
+\version "2.25.6"
 
 \new RhythmicStaff {
   \set tupletFullLength = ##t
@@ -20,5 +20,5 @@ the next note, by setting @code{tupletFullLengthNote}."
     c4 c c 
   }
   \time 3/4
-  c'4 c'4 c'4
+  \tuplet 4/3 { c'4 4 4 4 }
 }
