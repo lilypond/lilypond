@@ -52,7 +52,6 @@ protected:
   std::vector<Tuplet_description> tuplets_;
   std::vector<Tuplet_description> new_tuplets_;
   std::vector<Tuplet_description> stopped_tuplets_;
-  std::vector<Spanner *> last_tuplets_;
 
   void acknowledge_note_column (Grob_info_t<Item>);
   void acknowledge_script (Grob_info);
@@ -149,13 +148,8 @@ Tuplet_engraver::process_music ()
                   continue;
                 }
             }
-          // todo: scrap last_tuplets_, use stopped_tuplets_ only.
-          // clear stopped_tuplets_ at start_translation_timestep
-          last_tuplets_.push_back (bracket);
-          last_tuplets_.push_back (number);
         }
     }
-  stopped_tuplets_.clear ();
 
   tuplets_.insert (tuplets_.end (), new_tuplets_.begin (), new_tuplets_.end ());
   new_tuplets_.clear ();
@@ -247,7 +241,7 @@ Tuplet_engraver::add_script_to_all_tuplets (Item *script)
 void
 Tuplet_engraver::start_translation_timestep ()
 {
-  last_tuplets_.clear ();
+  stopped_tuplets_.clear ();
   /*
     May seem superfluous, but necessary for skipTypesetting.
    */
@@ -257,12 +251,16 @@ Tuplet_engraver::start_translation_timestep ()
 void
 Tuplet_engraver::finalize ()
 {
+  // If tupletFullLengthNote is used, fix up bounds to avoid grobs extending to
+  // the musical column of the last time step, which is after the end of the
+  // piece.
   if (from_scm<bool> (get_property (this, "tupletFullLength")))
-    for (vsize i = 0; i < last_tuplets_.size (); i++)
-      {
-        Item *col = unsmob<Item> (get_property (this, "currentCommandColumn"));
-        last_tuplets_[i]->set_bound (RIGHT, col);
-      }
+    {
+      Item *col = unsmob<Item> (get_property (this, "currentCommandColumn"));
+      for (Tuplet_description &desc : stopped_tuplets_)
+        for (Spanner *g : {desc.bracket_, desc.number_})
+          g->set_bound (RIGHT, col);
+    }
 }
 
 Tuplet_engraver::Tuplet_engraver (Context *c)
