@@ -29,33 +29,3 @@ Is @var{obj} a C++ @code{Prob} object of type @code{paper-system}?
 {
   return ly_prob_type_p (obj, ly_symbol2scm ("paper-system"));
 }
-
-LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
-           2, 0, 0, (SCM sys1, SCM sys2),
-           R"(
-Measure the minimum distance between two paper system @code{Prob}s @var{sys1}
-and @var{sys2}, using their stored skylines if possible and falling back to
-their extents otherwise.
-           )")
-{
-  Real ret = 0;
-  Prob *p1 = unsmob<Prob> (sys1);
-  Prob *p2 = unsmob<Prob> (sys2);
-  SCM sky1_scm = get_property (p1, "vertical-skylines");
-  SCM sky2_scm = get_property (p2, "vertical-skylines");
-  if (is_scm<Skyline_pair> (sky1_scm) && is_scm<Skyline_pair> (sky2_scm))
-    {
-      const Skyline_pair &sky1 = from_scm<Skyline_pair> (sky1_scm);
-      const Skyline_pair &sky2 = from_scm<Skyline_pair> (sky2_scm);
-      ret = sky1[DOWN].distance (sky2[UP]);
-    }
-  else
-    {
-      auto *s1 = unsmob<const Stencil> (get_property (p1, "stencil"));
-      auto *s2 = unsmob<const Stencil> (get_property (p2, "stencil"));
-      Interval iv1 = s1->extent (Y_AXIS);
-      Interval iv2 = s2->extent (Y_AXIS);
-      ret = iv2[UP] - iv1[DOWN];
-    }
-  return to_scm (ret);
-}
