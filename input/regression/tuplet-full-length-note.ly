@@ -21,4 +21,6 @@ the next note, by setting @code{tupletFullLengthNote}."
   }
   \time 3/4
   \tuplet 4/3 { c'4 4 4 4 }
+  % This used to cause programming errors.
+  \set tupletFullLength = ##f
 }

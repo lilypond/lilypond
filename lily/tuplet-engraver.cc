@@ -254,13 +254,11 @@ Tuplet_engraver::finalize ()
   // If tupletFullLengthNote is used, fix up bounds to avoid grobs extending to
   // the musical column of the last time step, which is after the end of the
   // piece.
-  if (from_scm<bool> (get_property (this, "tupletFullLength")))
-    {
-      Item *col = unsmob<Item> (get_property (this, "currentCommandColumn"));
-      for (Tuplet_description &desc : stopped_tuplets_)
-        for (Spanner *g : {desc.bracket_, desc.number_})
-          g->set_bound (RIGHT, col);
-    }
+  Item *col = unsmob<Item> (get_property (this, "currentCommandColumn"));
+  for (Tuplet_description &desc : stopped_tuplets_)
+    if (desc.full_length_note_)
+      for (Spanner *g : {desc.bracket_, desc.number_})
+        g->set_bound (RIGHT, col);
 }
 
 Tuplet_engraver::Tuplet_engraver (Context *c)
