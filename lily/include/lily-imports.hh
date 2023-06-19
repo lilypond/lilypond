@@ -111,6 +111,7 @@ extern Variable bar_line_calc_glyph_name_for_direction;
 extern Variable base_length;
 extern Variable beam_exceptions;
 extern Variable beat_structure;
+extern Variable calc_measure_length;
 extern Variable calc_repeat_slash_count;
 extern Variable car_less;
 extern Variable clipped_systems_stencils;

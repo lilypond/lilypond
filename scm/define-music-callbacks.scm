@@ -224,7 +224,8 @@ depth-first through MUSIC."
                           structure))
                      (beaming-exception
                       (beam-exceptions fraction time-signature-settings))
-                     (new-measure-length (ly:make-moment num den)))
+                     (new-measure-length
+                      (calc-measure-length fraction)))
                 (ly:context-set-property!
                  context 'timeSignatureFraction fraction)
                 (ly:context-set-property!

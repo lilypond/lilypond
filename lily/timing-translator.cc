@@ -309,10 +309,7 @@ Timing_translator::initialize ()
 
   if (!unsmob<Moment> (measureLength))
     {
-      measureLength = Moment (from_scm<Rational> (
-                                scm_divide (scm_car (timeSignatureFraction),
-                                            scm_cdr (timeSignatureFraction))))
-                        .smobbed_copy ();
+      measureLength = Lily::calc_measure_length (timeSignatureFraction);
     }
   set_property (context (), "measureLength", measureLength);
   {

@@ -185,6 +185,10 @@
    (cons 'beatStructure beat-structure)
    (cons 'beamExceptions beam-exceptions)))
 
+(define-public (calc-measure-length time-signature)
+  "Calculate the measure length for @var{time-signature}."
+  (ly:make-moment (car time-signature) (cdr time-signature)))
+
 (define-public (base-length time-signature time-signature-settings)
   "Get @code{baseMoment} rational value for @var{time-signature} from
 @var{time-signature-settings}."

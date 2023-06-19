@@ -100,6 +100,7 @@ Variable bar_line_calc_glyph_name_for_direction (
 Variable base_length ("base-length");
 Variable beam_exceptions ("beam-exceptions");
 Variable beat_structure ("beat-structure");
+Variable calc_measure_length ("calc-measure-length");
 Variable calc_repeat_slash_count ("calc-repeat-slash-count");
 Variable car_less ("car<");
 Variable clipped_systems_stencils ("clipped-systems-stencils");
