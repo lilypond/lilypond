@@ -86,10 +86,40 @@ Timing_translator::listen_fine (Stream_event *ev)
 }
 
 void
+Timing_translator::listen_partial (Stream_event *ev)
+{
+  auto *const dur = unsmob<Duration> (get_property (ev, "duration"));
+  if (!dur)
+    {
+      ev->programming_error ("invalid duration in \\partial");
+      return;
+    }
+
+  if (!assign_event_once (partial_event_, ev))
+    return;
+
+  if (context ()->init_mom () < now_mom ()) // in mid piece
+    {
+      set_property (context (), "partialBusy", SCM_BOOL_T);
+    }
+  else
+    {
+      const auto length = dur->get_length ();
+      auto mp = from_scm (get_property (this, "measurePosition"), Moment (0));
+      mp.main_part_ = -length;
+      set_property (context (), "measurePosition", mp.smobbed_copy ());
+      if (mp)
+        {
+          set_property (context (), "measureStartNow", SCM_EOL);
+        }
+    }
+}
+
+void
 Timing_translator::pre_process_music ()
 {
   // We can't assume that measurePosition and measureStartNow have the same
-  // values as at the start of the timestep.  Partial_iterator or
+  // values as at the start of the timestep.  A partial-event or
   // Alternative_sequence_iterator might have changed them.
   //
   // TODO: Using alternativeRestores for timing properties is an imperfect
@@ -196,21 +226,39 @@ Timing_translator::process_music ()
 void
 Timing_translator::stop_translation_timestep ()
 {
-  if (from_scm<bool> (get_property (this, "timing"))
-      && !from_scm<bool> (get_property (this, "skipBars")))
-    {
-      const auto barleft
-        = Moment (measure_length (context ())) - measure_position (context ());
+  // Defer setting measurePosition (etc.) until the beginning of the next
+  // timestep so that translators can read a consisent value from the beginning
+  // of pre_process_music() to the end of stop_translation_timestep().
+  carried_measure_position_
+    = from_scm (get_property (this, "measurePosition"), Moment (0)).main_part_;
 
-      if (barleft > Moment (0))
+  // Handle \partial in mid piece.
+  if (partial_event_ && (context ()->init_mom () < now_mom ()))
+    {
+      auto *const dur
+        = unsmob<Duration> (get_property (partial_event_, "duration"));
+      if (dur) // paranoia: listen_partial() should have rejected this event
         {
-          auto nextmom = now_mom () + barleft;
-          nextmom.grace_part_ = 0;
-          find_global_context ()->add_moment_to_process (nextmom);
+          carried_measure_position_
+            = measure_length (context ()) - dur->get_length ();
         }
     }
 
-  set_property (context (), "measureStartNow", SCM_EOL);
+  if (from_scm<bool> (get_property (this, "timing"))
+      && !from_scm<bool> (get_property (this, "skipBars")))
+    {
+      Rational barleft = 0;
+      if (carried_measure_position_ < 0)
+        barleft = -carried_measure_position_;
+      else
+        barleft = measure_length (context ()) - carried_measure_position_;
+
+      if (barleft > 0)
+        {
+          auto nextmom = Moment (now_mom ().main_part_ + barleft);
+          find_global_context ()->add_moment_to_process (nextmom);
+        }
+    }
 
   alt_event_ = nullptr;
   bar_check_event_ = nullptr;
@@ -347,11 +395,14 @@ Timing_translator::start_translation_timestep ()
       fine_event_ = nullptr;
     }
 
-  Rational mp;
-  {
-    auto mom = from_scm (get_property (this, "measurePosition"), now);
-    mp = mom.main_part_;
-  }
+  if (partial_event_)
+    {
+      context ()->unset_property (ly_symbol2scm ("partialBusy"));
+      partial_event_ = nullptr;
+    }
+
+  Rational mp = carried_measure_position_;
+  SCM measure_start_now = SCM_EOL;
 
   if (from_scm<bool> (get_property (this, "timing")))
     {
@@ -380,7 +431,7 @@ Timing_translator::start_translation_timestep ()
       if (!mp && dt.main_part_ && (measure_start_mom_ == Moment::infinity ()))
         {
           // We have arrived at zero (as opposed to revisiting it).
-          set_property (context (), "measureStartNow", SCM_BOOL_T);
+          measure_start_now = SCM_BOOL_T;
           measure_start_mom_ = now;
         }
     }
@@ -399,6 +450,7 @@ Timing_translator::start_translation_timestep ()
 
   set_property (context (), "measurePosition",
                 Moment (mp, now.grace_part_).smobbed_copy ());
+  set_property (context (), "measureStartNow", measure_start_now);
 
   // We set whichBar at each timestep because the user manuals used to suggest
   // using \set Timing.whichBar = ... rather than \once \set Timing.whichBar =
@@ -419,6 +471,7 @@ Timing_translator::boot ()
   ADD_LISTENER (bar);
   ADD_LISTENER (bar_check);
   ADD_LISTENER (fine);
+  ADD_LISTENER (partial);
 }
 
 ADD_TRANSLATOR (Timing_translator,

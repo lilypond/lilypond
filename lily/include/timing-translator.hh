@@ -37,6 +37,7 @@ protected:
   void listen_bar (Stream_event *);
   void listen_bar_check (Stream_event *);
   void listen_fine (Stream_event *);
+  void listen_partial (Stream_event *);
   void pre_process_music ();
   void process_music ();
   void stop_translation_timestep ();
@@ -44,6 +45,7 @@ protected:
 
 private:
   Moment measure_start_mom_ = Moment::infinity ();
+  Rational carried_measure_position_;
   bool warned_for_bar_check_ = false;
 
   // alt_... members pertain to bar numbering for repeat alternatives
@@ -55,6 +57,7 @@ private:
 
   Stream_event *bar_check_event_ = nullptr;
   Stream_event *fine_event_ = nullptr;
+  Stream_event *partial_event_ = nullptr;
 };
 
 #endif // TIMING_TRANSLATOR_HH

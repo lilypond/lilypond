@@ -405,12 +405,13 @@ are reported on the stderr of this run."
 \ignoreMusicType SpanEvent
 \ignoreMusicType Event
 \ignoreMusicType MultiMeasureRestEvent
+\ignoreMusicType PartialEvent % in computed elements of PartialSet
 \ignoreMusicType ScriptEvent % unused?
 \ignoreMusicType UnisonoEvent
 \ignoreMusicType SoloOneEvent
 \ignoreMusicType SoloTwoEvent
 \ignoreMusicType TupletSpanEvent
-\ignoreMusicType TimeSignatureEvent % unused?
+\ignoreMusicType TimeSignatureEvent % in computed elements of TimeSignatureMusic
 
 %% TODO: this one should be implemented, but currently
 %% isn't.  The implementation is complicated by the way

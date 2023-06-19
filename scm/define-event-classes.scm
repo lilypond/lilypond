@@ -34,7 +34,9 @@
                     breathing-event
                     caesura-event
                     extender-event span-event rhythmic-event dynamic-event
-                    break-event label-event percent-event key-change-event
+                    break-event label-event
+                    partial-event
+                    percent-event key-change-event
                     string-number-event stroke-finger-event tie-event
                     part-combine-event ottava-event
                     beam-forbid-event script-event tempo-change-event

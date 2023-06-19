@@ -462,9 +462,15 @@ Syntax: @code{\\override} [ @var{context} @code{.} ]
         (types . (break-event page-turn-event event))
         ))
 
+    (PartialEvent
+     . ((description . "An event announcing a partial measure.")
+        (types . (partial-event event))
+        ))
+
     (PartialSet
      . ((description . "Create an anacrusis or upbeat (partial measure).")
-        (iterator-ctor . ,ly:partial-iterator::constructor)
+        (elements-callback . ,make-partial-set)
+        (iterator-ctor . ,ly:sequential-iterator::constructor)
         ;; The length-callback is kind of cheesy since 'elements is
         ;; empty.  We just use that in order to get a zero length
         ;; for the overall timing in spite of having a non-zero

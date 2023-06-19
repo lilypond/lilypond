@@ -191,6 +191,18 @@ depth-first through MUSIC."
             'SequentialAlternativeMusic
             'elements alts)))))
 
+(define (make-partial-set music)
+  "Send the event for @code{\\partial}."
+  ;; Avoid creating a Bottom context.  See make-time-signature-set.
+  (list (descend-to-context
+         (make-apply-context
+          (lambda (context)
+            (ly:broadcast (ly:context-event-source context)
+                          (ly:make-stream-event
+                           (ly:make-event-class 'partial-event)
+                           (ly:music-mutable-properties music)))))
+         'Score)))
+
 (define (make-time-signature-set music)
   "Set context properties for a time signature."
   (let* ((num (ly:music-property music 'numerator))
