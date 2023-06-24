@@ -499,7 +499,7 @@ class Bdwgc(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://www.hboehm.info/gc/gc_source/{self.archive}"
+        return f"https://github.com/ivmai/bdwgc/releases/download/v{self.version}/{self.archive}"
 
     def configure_args(self, c: Config) -> List[str]:
         return [
