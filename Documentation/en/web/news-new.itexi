@@ -9,9 +9,9 @@
 @c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
-@subheading LilyPond 2.25.5 released  @emph{May 21, 2023}
+@subheading LilyPond 2.25.6 released  @emph{June 24, 2023}
 
-We are happy to announce the release of LilyPond 2.25.5. This is
+We are happy to announce the release of LilyPond 2.25.6. This is
 termed a development release, but these are usually reliable for
 testing new features and recent bug fixes. However, if you require
 stability, we recommend using version 2.24.1, the current stable
