@@ -680,7 +680,7 @@ libunistring = Libunistring()
 class Guile(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.2.7"
+        return "3.0.9"
 
     @property
     def major_version(self) -> str:
@@ -700,50 +700,7 @@ class Guile(ConfigurePackage):
         return f"https://ftpmirror.gnu.org/gnu/guile/{self.archive}"
 
     def _apply_patches_mingw(self, c: Config):
-        # Fix the build.
-        def patch_start_child(content: str) -> str:
-            return content.replace("int start_child", "pid_t start_child")
-
-        posix_w32_h = os.path.join("libguile", "posix-w32.h")
-        self.patch_file(c, posix_w32_h, patch_start_child)
-
-        # TODO: Find proper solution...
-        def patch_gethostname(content: str) -> str:
-            return "\n".join(
-                [
-                    line
-                    for line in content.split("\n")
-                    if "gethostname_used_without_requesting" not in line
-                ]
-            )
-
-        unistd_in_h = os.path.join("lib", "unistd.in.h")
-        self.patch_file(c, unistd_in_h, patch_gethostname)
-
-        # Fix conversion of large long values.
-        def patch_conversion(content: str) -> str:
-            return content.replace(
-                "SIZEOF_TYPE < SIZEOF_SCM_T_BITS", "SIZEOF_TYPE < SIZEOF_LONG"
-            )
-
-        for conv in ["conv-integer.i.c", "conv-uinteger.i.c"]:
-            self.patch_file(c, os.path.join("libguile", conv), patch_conversion)
-
         # Fix headers so compilation of LilyPond works.
-        def patch_iselect(content: str) -> str:
-            return content.replace("sys/select.h", "winsock2.h")
-
-        iselect_h = os.path.join("libguile", "iselect.h")
-        self.patch_file(c, iselect_h, patch_iselect)
-
-        def patch_null_threads(content: str) -> str:
-            content = content.replace(" sigset_t", " _sigset_t")
-            content = re.sub("return sigprocmask.*", "return 0;", content)
-            return content
-
-        null_threads_h = os.path.join("libguile", "null-threads.h")
-        self.patch_file(c, null_threads_h, patch_null_threads)
-
         def patch_numbers(content: str) -> str:
             return "\n".join(
                 [line for line in content.split("\n") if "copysign" not in line]
@@ -751,6 +708,14 @@ class Guile(ConfigurePackage):
 
         numbers_h = os.path.join("libguile", "numbers.h")
         self.patch_file(c, numbers_h, patch_numbers)
+
+        # Strictly speaking, this is not necessary for Guile 3.0.9 but it
+        # makes testing of current main easier.
+        def patch_scm(content: str) -> str:
+            return content.replace("# define SCM_API __declspec(dllimport) extern", "# define SCM_API extern")
+
+        scm_h = os.path.join("libguile", "scm.h")
+        self.patch_file(c, scm_h, patch_scm)
 
     def apply_patches(self, c: Config):
         # Fix configure on CentOS7 to not look in lib64.
@@ -776,6 +741,12 @@ class Guile(ConfigurePackage):
 
         libguile_makefile_in = os.path.join("libguile", "Makefile.in")
         self.patch_file(c, libguile_makefile_in, patch_inplace_sed)
+
+        # Fix cross-compilation in out-of-tree-builds.
+        def patch_cross_include(content: str) -> str:
+            return re.sub("\\$\\(CC_FOR_BUILD\\).*-I\\$\\(top_builddir\\)", "\\g<0> -I.", content)
+
+        self.patch_file(c, libguile_makefile_in, patch_cross_include)
 
         if c.is_mingw():
             self._apply_patches_mingw(c)
@@ -816,6 +787,8 @@ class Guile(ConfigurePackage):
             mingw_args = [
                 f"GUILE_FOR_BUILD={guile_for_build}",
                 f"--with-libiconv-prefix={libiconv_install_dir}",
+                # Disable JIT.
+                "--disable-jit",
             ]
 
         return (
@@ -825,6 +798,8 @@ class Guile(ConfigurePackage):
                 "--disable-networking",
                 # Disable -Werror to enable builds with newer compilers.
                 "--disable-error-on-warning",
+                # Disable LTO.
+                "--disable-lto",
                 # Make configure find the statically built dependencies.
                 f"--with-libgmp-prefix={gmp_install_dir}",
                 f"--with-libltdl-prefix={libtool_install_dir}",
