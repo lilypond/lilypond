@@ -283,6 +283,8 @@ sub lilypond_element_target_name($$$)
 
 sub lilypond_init ()
 {
+    $Texi2HTML::THISDOC{'do_about'} = 0;
+
     my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
     if ($docu_name eq 'web') {
 	$web_manual = 1;
