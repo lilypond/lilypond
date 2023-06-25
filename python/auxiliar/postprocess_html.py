@@ -140,12 +140,7 @@ def find_translations(pages_dict, prefix, lang_ext):
     return available
 
 
-online_links_re = re.compile('''(href|src)=['"]\
-([^/][.]*[^.:'"]*)\
-([.]html)(#[^"']*|)['"]''')
-offline_links_re = re.compile('''href=['"]\
-([^/][.]*[^.:'"]*)\
-([.]html)(#[^"\']*|)[\'"]''')
+links_re = re.compile(r'href="([^/]\.*[^".]*)\.html(#[^"]*|)"')
 
 def process_i18n_links(pages_dict, match, prefix, lang_ext):
     destination_path = os.path.normpath(os.path.join(
@@ -155,7 +150,7 @@ def process_i18n_links(pages_dict, match, prefix, lang_ext):
             lang_ext in pages_dict[destination_path]):
         return match.group(0)
     return ('href="' + match.group(1) + '.' + lang_ext
-            + match.group(2) + match.group(3) + '"')
+            + '.html' + match.group(2) + '"')
 
 
 def process_links(pages_dict, content, prefix, lang_ext, file_name, target):
@@ -165,13 +160,13 @@ def process_links(pages_dict, content, prefix, lang_ext, file_name, target):
         # negotiation).  The menu must keep the full extension, so do
         # this before adding the menu.
         page_flavors[file_name] = [lang_ext,
-                                   online_links_re.sub('\\1="\\2\\4"', content)]
+                                   links_re.sub('href="\\1\\2"', content)]
     elif target == 'offline':
         if lang_ext == '':
             page_flavors[file_name] = [lang_ext, content]
         else:
             page_flavors[file_name] = [lang_ext,
-                                       offline_links_re.sub(
+                                       links_re.sub(
                                            lambda match:
                                            process_i18n_links(
                                                pages_dict,
