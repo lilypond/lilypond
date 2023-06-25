@@ -602,7 +602,7 @@ expression."
             (null? tonic))
         "\\key \\default"
         (let ((c-pitch-alist (ly:transpose-key-alist pitch-alist
-                                                     (ly:pitch-diff (ly:make-pitch 0 0 0) tonic))))
+                                                     (- tonic))))
           (format #f "\\key ~a \\~a~a"
                   (note-name->lily-string (ly:music-property key 'tonic))
                   (any (lambda (mode)

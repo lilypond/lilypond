@@ -2026,7 +2026,7 @@ transpose =
 
    (_i "Transpose @var{music} from pitch @var{from} to pitch @var{to}.")
    (make-music 'TransposedMusic
-               'element (ly:music-transpose music (ly:pitch-diff to from))))
+               'element (ly:music-transpose music (- to from))))
 
 transposedCueDuring =
 #(define-music-function

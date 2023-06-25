@@ -1056,8 +1056,8 @@ parallel keys, and melodic/@/harmonic C@tie{}minor to A@tie{}minor."
        (let* ((rawoct (/ (ly:pitch-tones pitch) 6))
               (oct (floor rawoct))
               (ref (- rawoct oct))
-              (val (ly:pitch-transpose pitch
-                                       (ly:make-pitch (- oct) 0))))
+              (val (+ pitch
+                      (ly:make-pitch (- oct) 0))))
          (if (hash-table? lookup)
              (hashv-set! lookup ref val)
              (vector-set! lookup (* size ref) val))))
@@ -1076,7 +1076,7 @@ returned."
                         (and (integer? ref)
                              (vector-ref lookup ref))))))
         (and val
-             (ly:pitch-transpose val (ly:make-pitch oct 0)))))))
+             (+ val (ly:make-pitch oct 0)))))))
 
 (define-public ((shift-semitone->pitch key semitone->pitch) semitone)
   "Given a function @var{semitone->pitch} converting a semitone number
@@ -1084,8 +1084,8 @@ into a note value for a lookup table created in relation to@tie{}C,
 returns a corresponding function in relation to @var{key}.  The note
 values returned by this function differ only enharmonically from the
 original @var{semitone->pitch} function."
-  (ly:pitch-transpose (semitone->pitch (- semitone (* 2 (ly:pitch-tones key))))
-                      key))
+  (+ (semitone->pitch (- semitone (* 2 (ly:pitch-tones key))))
+     key))
 
 
 

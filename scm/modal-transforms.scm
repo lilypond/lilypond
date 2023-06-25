@@ -295,7 +295,7 @@ and transposes from @var{around} to @var{to}.")
     (if (ly:pitch? p)
         (ly:music-set-property!
          music 'pitch
-         (ly:pitch-transpose to (ly:pitch-diff around p))))
+         (+ to (- around p))))
     music))
 
 (define-public (music-invert around to music)
@@ -328,7 +328,7 @@ and transposes from @var{around} to @var{to}.")
                      (chord-limit (car (if (negative? direction)
                                            notes (reverse notes))))
                      (octs (ly:pitch-octave
-                            (ly:pitch-diff
+                            (-
                              (ly:music-property chord-limit 'pitch)
                              (ly:music-property note 'pitch)))))
                 (if (positive? direction) (set! octs (1+ octs)))

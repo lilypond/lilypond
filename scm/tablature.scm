@@ -371,7 +371,7 @@
       (ly:music-set-property! music 'element (calc-harmonic-pitch pitch e)))
      ((ly:pitch? p)
       (begin
-        (set! p (ly:pitch-transpose p pitch))
+        (set! p (+ p pitch))
         (ly:music-set-property! music 'pitch p))))
     music))
 

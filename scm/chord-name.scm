@@ -193,8 +193,7 @@ and non-false."
            ;; FIXME.  This results in #<Pitch c> ...,
            ;; but that is what we need because default octave for
            ;; \chords has changed to c' too?
-           (diff (ly:pitch-diff root (ly:make-pitch 0 0 0)))
-           (normalized (map (lambda (x) (ly:pitch-diff x diff)) sorted))
+           (normalized (map (lambda (x) (- x root)) sorted))
            (texts (map (lambda (x) (ly:music-property x 'text))
                        (filter
                         (lambda (y) (memq 'text-script-event

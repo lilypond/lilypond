@@ -117,7 +117,7 @@ the bass specified.
     ;; root is always one octave too low.
     ;; something weird happens when this is removed,
     ;; every other chord is octavated. --hwn... hmmm.
-    (set! root (ly:pitch-transpose root (ly:make-pitch 1 0 0)))
+    (set! root (+ root (ly:make-pitch 1 0 0)))
     ;; skip the leading : , we need some of the stuff following it.
     (if (pair? flat-mods)
         (if (eq? (car flat-mods) 'chord-colon)
@@ -166,7 +166,7 @@ the bass specified.
         (set! complete-chord (remove-step 3 complete-chord)))
     ;; must do before processing inversion/bass, since they are
     ;; not relative to the root.
-    (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root))
+    (set! complete-chord (map (lambda (x) (+ x root))
                               complete-chord))
     (if inversion
         (set! complete-chord (process-inversion complete-chord)))
@@ -200,7 +200,7 @@ non-inverted note."
          (let* ((octavation (- (ly:pitch-octave inversion)
                                (ly:pitch-octave original-inv-pitch)))
                 (down (ly:make-pitch octavation 0 0)))
-           (define (invert p) (ly:pitch-transpose down p))
+           (define (invert p) (+ down p))
            (define (make-inverted p . rest)
              (apply make-note-ev (invert p) 'octavation octavation rest))
            (receive (uninverted high)

@@ -225,7 +225,7 @@ work than classifying the pitches."
             '()))))
 
   (let* ((root (car in-pitches))
-         (pitches (map (lambda (x) (ly:pitch-diff x root)) (cdr in-pitches)))
+         (pitches (map (lambda (x) (- x root)) (cdr in-pitches)))
          (lowercase-root?
           (and (ly:context-property context 'chordNameLowercaseMinor)
                (let ((third (get-step 3 pitches)))

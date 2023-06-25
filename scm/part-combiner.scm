@@ -457,7 +457,7 @@ Only set if not set previously.
            (else
             ;; Is the interval outside of chord-range?
             (if (let ((diff (ly:pitch-steps
-                             (ly:pitch-diff
+                             (-
                               (ly:event-property (car notes1) 'pitch)
                               (ly:event-property (car notes2) 'pitch)))))
                   (or (< diff chord-min-diff)
