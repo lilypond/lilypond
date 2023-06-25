@@ -146,17 +146,14 @@ online_links_re = re.compile('''(href|src)=['"]\
 offline_links_re = re.compile('''href=['"]\
 ((?!Compiling-from-source.html")(?![.]{2}/contributor)[^/][.]*[^.:'"]*)\
 ([.]html)(#[^"\']*|)[\'"]''')
-big_page_name_re = re.compile('''(.+?)-big-page''')
 
 def process_i18n_links(pages_dict, match, prefix, lang_ext):
-    big_page_name = big_page_name_re.match(match.group(1))
-    if big_page_name:
-        destination_path = os.path.normpath(os.path.join(
-            os.path.dirname(prefix),
-            big_page_name.group(0)))
-        if not (destination_path in pages_dict and
-                lang_ext in pages_dict[destination_path]):
-            return match.group(0)
+    destination_path = os.path.normpath(os.path.join(
+        os.path.dirname(prefix),
+        match.group(1)))
+    if not (destination_path in pages_dict and
+            lang_ext in pages_dict[destination_path]):
+        return match.group(0)
     return ('href="' + match.group(1) + '.' + lang_ext
             + match.group(2) + match.group(3) + '"')
 
