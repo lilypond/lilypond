@@ -141,10 +141,10 @@ def find_translations(pages_dict, prefix, lang_ext):
 
 
 online_links_re = re.compile('''(href|src)=['"]\
-((?!Compiling-from-source.html")[^/][.]*[^.:'"]*)\
+([^/][.]*[^.:'"]*)\
 ([.]html)(#[^"']*|)['"]''')
 offline_links_re = re.compile('''href=['"]\
-((?!Compiling-from-source.html")(?![.]{2}/contributor)[^/][.]*[^.:'"]*)\
+([^/][.]*[^.:'"]*)\
 ([.]html)(#[^"\']*|)[\'"]''')
 
 def process_i18n_links(pages_dict, match, prefix, lang_ext):
