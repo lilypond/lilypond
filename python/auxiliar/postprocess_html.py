@@ -142,15 +142,32 @@ def find_translations(pages_dict, prefix, lang_ext):
 
 links_re = re.compile(r'href="([^/]\.*[^".]*)\.html(#[^"]*|)"')
 
-def process_i18n_links(pages_dict, match, prefix, lang_ext):
+def remove_unneeded_anchor(match):
+    file_no_ext = match.group(1)
+    anchor = match.group(2)
+    if anchor != '' and file_no_ext.endswith(anchor[1:]):
+        return ''
+    return anchor
+
+
+def process_online_link(match):
+    anchor = remove_unneeded_anchor(match)
+    return ('href="' + match.group(1) + anchor + '"')
+
+
+def process_offline_link(pages_dict, match, prefix, lang_ext):
     destination_path = os.path.normpath(os.path.join(
         os.path.dirname(prefix),
         match.group(1)))
     if not (destination_path in pages_dict and
             lang_ext in pages_dict[destination_path]):
-        return match.group(0)
-    return ('href="' + match.group(1) + '.' + lang_ext
-            + '.html' + match.group(2) + '"')
+        lang_ext = ''
+
+    anchor = remove_unneeded_anchor(match)
+    if lang_ext != '':
+        lang_ext = '.' + lang_ext
+    return ('href="' + match.group(1) + lang_ext
+            + '.html' + anchor + '"')
 
 
 def process_links(pages_dict, content, prefix, lang_ext, file_name, target):
@@ -160,18 +177,12 @@ def process_links(pages_dict, content, prefix, lang_ext, file_name, target):
         # negotiation).  The menu must keep the full extension, so do
         # this before adding the menu.
         page_flavors[file_name] = [lang_ext,
-                                   links_re.sub('href="\\1\\2"', content)]
+                                   links_re.sub(process_online_link, content)]
     elif target == 'offline':
-        if lang_ext == '':
-            page_flavors[file_name] = [lang_ext, content]
-        else:
-            page_flavors[file_name] = [lang_ext,
-                                       links_re.sub(
-                                           lambda match:
-                                           process_i18n_links(
-                                               pages_dict,
-                                               match, prefix, lang_ext),
-                                           content)]
+        def repl(match):
+            return process_offline_link(pages_dict, match, prefix, lang_ext)
+        page_flavors[file_name] = [lang_ext,
+                                   links_re.sub(repl, content)]
     return page_flavors
 
 # About the @license comments, see

@@ -237,7 +237,6 @@ sub lilypond_anchor($;$$$)
     my $href = shift;
     my $text = shift;
     my $attributes = shift;
-    $href = remove_unneeded_anchor($href);
     if (!defined($attributes) or ($attributes !~ /\S/))
     {
         $attributes = '';
@@ -411,7 +410,6 @@ sub lilypond_external_href($$$)
 
   if (defined $file) {
     $href = &$default_external_href($node, $node_id, $node_xhtml_id, $file);
-    $href = remove_unneeded_anchor($href);
 
     if ($web_manual) {
       my $only_web_version = $ENV{ONLY_WEB_VERSION};
@@ -423,7 +421,6 @@ sub lilypond_external_href($$$)
     return $href;
   } else {
     $href = &$default_external_href($node, $node_id, $node_xhtml_id);
-    $href = remove_unneeded_anchor($href);
     return $href;
   }
 }
@@ -431,23 +428,6 @@ sub lilypond_external_href($$$)
 sub lilypond_print_title ()
 {
   return "";
-}
-
-sub remove_unneeded_anchor($)
-{
-  my $href = shift;
-  my @hrefsplit = split("/", $href);
-  for ($i = 0; $i < @hrefsplit; $i++) {
-    $item = @hrefsplit[$i];
-    if ($item =~ /#/) {
-      @split = split(".html#", $item);
-      if (@split[0] eq @split[1]) {
-        @hrefsplit[$i] = @split[0] . ".html";
-      }
-    }
-  }
-  $href = join("/", @hrefsplit);
-  return $href
 }
 
 
