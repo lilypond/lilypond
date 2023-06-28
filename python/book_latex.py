@@ -163,8 +163,7 @@ Latex_output = {
 %(str)s
 \end{quote}''',
 
-    book_snippets.VERBATIM: r'''\noindent
-\begin{verbatim}%(verb)s\end{verbatim}
+    book_snippets.VERBATIM: r'''\begin{verbatim}%(verb)s\end{verbatim}
 ''',
 
     book_snippets.VERSION: r'''%(program_version)s''',
