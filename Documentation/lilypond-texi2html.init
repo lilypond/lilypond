@@ -228,23 +228,9 @@ sub lilypond_element_target_name($$$)
   my $element = shift;
   my $target = shift;
   my $id = shift;
-  # Target is based on node name (or sec name for secs without node attached)
-  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
-  if ($node_name eq '') {
-    $node_name = main::remove_texi($element->{'texi'});
-  }
 
-  my $anchor = $node_name;
-  # normalize to the same file name as texinfo
-  $target = texinfo_file_name($anchor);
-
-  # TODO: Once texi2html correctly prints out the target and not the id for
-  #       the sections, change this back to ($id, $target)
-  # I don't understand this comment, so I'm reluctant to delete it -gp
-  $target = lc_last($target);
-  $id = lc($target);
-# $id =~ s/-1$//i; # remove any trailing "-1"
-  return ($target, $id);
+  my $node = $element->{'with_node'};
+  return (lc($node->{'target'}), lc($node->{'id'}));
 }
 
 sub lilypond_init ()
