@@ -29,13 +29,6 @@
 ###           makeinfo_like_paragraph
 ### -) In tables, don't wrap <p> around the contents. Implemented in
 ###           makeinfo_like_paragraph
-###
-###
-### Useful helper functions:
-### -) texinfo_file_name($node_name): returns a texinfo-compatible file name
-###    for the given string $node_name (whitespace trimmed/replaced by -,
-###    non-standard chars replaced by _xxxx (ascii char code) and forced to
-###    start with a letter by prepending t_g if necessary)
 
 package Texi2HTML::Config;
 
@@ -155,41 +148,6 @@ sub lc_last($)
     $href = lc($href);
   }
   return $href;
-}
-
-# Convert a given node name to its proper file name (normalization as explained
-# in the texinfo manual:
-# http://www.gnu.org/software/texinfo/manual/texinfo/html_node/HTML-Xref-Node-Name-Expansion.html
-sub texinfo_file_name($)
-{
-  my $text = shift;
-  my $result = '';
-  # File name normalization by texinfo:
-  # 1/2: letters and numbers are left unchanged
-  # 3/4: multiple, leading and trailing whitespace is removed
-  $text = main::normalise_space($text);
-  # 5/6: all remaining spaces are converted to '-', all other 7- or 8-bit
-  #      chars are replaced by _xxxx (xxxx=ascii character code)
-  while ($text ne '') {
-    if ($text =~ s/^([A-Za-z0-9]+)//o) { # number or letter stay unchanged
-      $result .= $1;
-    } elsif ($text =~ s/^ //o) { # space -> '-'
-      $result .= '-';
-    } elsif ($text =~ s/^(.)//o) { # Otherwise use _xxxx (ascii char code)
-      my $ccode = ord($1);
-      if ( $ccode <= 0xFFFF ) {
-        $result .= sprintf("_%04x", $ccode);
-      } else {
-        $result .= sprintf("__%06x", $ccode);
-      }
-    }
-  }
-  # 7: if name does not begin with a letter, prepend 't_g' (so it starts with a letter)
-  if ($result !~ /^[a-zA-Z]/) {
-    $result = 't_g' . $result;
-  }
-  # DONE
-  return lc_last($result)
 }
 
 # Split the given path into dir and basename (with .texi removed). Used mainly
