@@ -148,7 +148,6 @@ Latex_output = {
 \else
   \expandafter\preLilyPondExample
 \fi
-\def\lilypondbook{}%%
 \input{%(base)s-systems.tex}%%
 \ifx\postLilyPondExample \undefined
 \else
