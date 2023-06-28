@@ -104,7 +104,6 @@ $Texi2HTML::Config::NO_BULLET_LIST_CLASS = 'toc';
 $default_node_file_name = $Texi2HTML::Config::node_file_name;
 $Texi2HTML::Config::node_file_name = \&lilypond_node_file_name;
 
-$Texi2HTML::Config::anchor  = \&lilypond_anchor;
 $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $default_print_page_head = $Texi2HTML::Config::print_page_head;
 $Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
@@ -223,38 +222,6 @@ sub lilypond_node_file_name($$)
 
   return lc(&$default_node_file_name($element, $type));
 }
-
-# This function produces an anchor.
-#
-# arguments:
-# $name           :   anchor name
-# $href           :   anchor href
-# text            :   text displayed
-# extra_attribs   :   added to anchor attributes list
-sub lilypond_anchor($;$$$)
-{
-    my $name = shift;
-    my $href = shift;
-    my $text = shift;
-    my $attributes = shift;
-    if (!defined($attributes) or ($attributes !~ /\S/))
-    {
-        $attributes = '';
-    }
-    else
-    {
-        $attributes = ' ' . $attributes;
-    }
-    $name = '' if (!defined($name) or ($name !~ /\S/));
-    $href = '' if (!defined($href) or ($href !~ /\S/));
-    $text = '' if (!defined($text));
-    return $text if (($name eq '') and ($href eq ''));
-    $name = "name=\"$name\"" if ($name ne '');
-    $href = "href=\"$href\"" if ($href ne '');
-    $href = ' ' . $href if (($name ne '') and ($href ne ''));
-    return "<a ${name}${href}${attributes}>$text</a>";
-}
-
 
 sub lilypond_element_target_name($$$)
 {
