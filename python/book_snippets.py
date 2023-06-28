@@ -172,7 +172,7 @@ def classic_lilypond_book_compatibility(key, value):
     if m:
         return ('staffsize', m.group(1))
 
-    if key == 'indent' or key == 'line-width':
+    if (key == 'indent' or key == 'line-width') and value:
         m = re.match('([-.0-9]+)(cm|in|mm|pt|bp|staffspace)', value)
         if m:
             f = float(m.group(1))
