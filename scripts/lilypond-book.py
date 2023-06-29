@@ -181,13 +181,16 @@ def get_option_parser():
                  dest='info_images_dir',
                  default='')
 
+    # The rounding happens in `framework-ps.scm`, function
+    # `dump-stencil-as-EPS-with-bbox`.
     p.add_option('--left-padding',
-                 help=_("pad left side of music to align music in spite "
-                        "of uneven bar numbers (in mm) [default: %default]"),
+                 help=_("set minimum distance between left margin and staff "
+                        "to PAD (in mm, rounded to multiples of bp) "
+                        "[default: %default]"),
                  metavar=_("PAD"),
                  dest="padding_mm",
                  type="float",
-                 default=3.0)
+                 default=3.175)
 
     p.add_option('--lily-loglevel',
                  help=_("print lilypond log messages according to LOGLEVEL "

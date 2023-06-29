@@ -612,8 +612,11 @@ class LilypondSnippet (Snippet):
             # For inline images, try to make left and right padding equal,
             # ignoring the `--left-padding` value.
             #
-            # URGH Value 0 makes LilyPond apply no left padding at all, but
-            #      still having some right padding.  This is a bug (#6116).
+            # Note that value 0 would make LilyPond apply no left padding at
+            # all, but still apply some right padding.
+            #
+            # The given value gets rounded up to be a multiple of the 'bp'
+            # unit.
             override['padding_mm'] = 0.0001
 
         # put paper-size first, if it exists
