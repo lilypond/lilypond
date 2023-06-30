@@ -56,6 +56,7 @@ NOGETTEXT = 'nogettext'
 NOINDENT = 'noindent'
 INDENT = 'indent'
 INLINE = 'inline'
+INLINEOUTPUT = 'inlineoutput'
 NORAGGED_RIGHT = 'noragged-right'
 NOTES = 'body'
 NOTIME = 'notime'
@@ -490,6 +491,11 @@ class LilypondSnippet (Snippet):
         # RELATIVE does not work without FRAGMENT, so imply that
         if RELATIVE in self.snippet_option_dict:
             self.snippet_option_dict[FRAGMENT] = None
+
+        # Assign default value to INLINE if necessary.
+        inline = INLINE in self.snippet_option_dict
+        if inline and self.snippet_option_dict[INLINE] is None:
+            self.snippet_option_dict[INLINE] = self.global_options.vshift
 
         # Now get the default options from the formatter object (HTML, latex,
         # texinfo, etc.) and insert the explicit snippet options to get the

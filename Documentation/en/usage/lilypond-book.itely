@@ -776,10 +776,17 @@ Do not add additional code to complete LilyPond code in music snippets.
 Since this is the default, @code{nofragment} is redundant normally.
 
 @item inline
+@itemx inline=@var{vshift}
 Set up snippet for inline use, that is, to be typeset within a paragraph.
 The snippet itself is formatted with a very small left padding
 (approximately the same as the right padding), ignoring the value given by
 the command-line option @option{--left-padding}.
+
+For the @LaTeX{} backend, the inline image gets shifted vertically;
+@var{vshift} is a factor of the current image's height.  If no argument is
+given a default value of -0.3 is used, thus moving the image down by
+approx.@: one third of its height.  The default value can be adjusted with
+command-line option @option{--inline-vshift}.
 
 For Texinfo output, it suppresses the insertion of a blank line before and
 after the snippet.  For HTML output, it suppresses the insertion of
@@ -1143,6 +1150,13 @@ as the log level.
 @item --info-images-dir=@var{dir}
 Format Texinfo output so that Info will look for images of music in
 directory @var{dir}.
+
+@item --inline-vshift=@var{vshift}
+In the @LaTeX{} backend, use @var{vshift} to vertically move all inline
+images.  @var{vshift} is a factor of an image's height; the default value is
+-0.3, thus moving the images down by approx.@: one third of their individual
+heights.  The factor can be locally overridden with an argument to the
+@code{inline} snippet option.
 
 @item --latex-program=@var{prog}
 Run executable @command{@var{prog}} instead of @command{latex}.  This is

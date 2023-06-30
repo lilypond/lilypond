@@ -155,6 +155,18 @@ Latex_output = {
 \fi
 }''',
 
+    book_snippets.INLINEOUTPUT: r'''%%
+\ifx\preLilyPondExample \undefined
+\else
+  \expandafter\preLilyPondExample
+\fi
+\raisebox{%(vshift)s\height}{\input{%(base)s-systems.tex}}%%
+\ifx\postLilyPondExample \undefined
+\else
+  \expandafter\postLilyPondExample
+\fi
+{}''',
+
     book_snippets.PRINTFILENAME: r'''\texttt{%(filename)s}
 \linebreak
 ''',
@@ -355,7 +367,11 @@ class BookLatexOutputFormat (book_base.BookOutputFormat):
             rep['verb'] = snippet.verb_ly()
             s += self.output[book_snippets.VERBATIM] % rep
 
-        s += self.output[book_snippets.OUTPUT] % rep
+        if book_snippets.INLINE not in snippet.option_dict:
+            s += self.output[book_snippets.OUTPUT] % rep
+        else:
+            rep['vshift'] = snippet.option_dict[book_snippets.INLINE]
+            s += self.output[book_snippets.INLINEOUTPUT] % rep
 
         # todo: maintain breaks
         if 0:

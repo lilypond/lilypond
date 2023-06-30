@@ -280,6 +280,22 @@ def get_option_parser():
                  action='store_true')
 
     group = OptionGroup(p, "Options only for the latex and texinfo backends")
+    group.add_option('--pdf',
+                     help=_("create PDF files for use with pdftex"),
+                     action="store_true",
+                     dest="create_pdf",
+                     default=False)
+    p.add_option_group(group)
+
+    group = OptionGroup(p, "Options only for the latex backend")
+    group.add_option('--inline-vshift',
+                     help=_("shift inline images vertically by VSHIFT "
+                            "(a factor of an image's height) "
+                            "[default: %default]"),
+                     metavar=_("VSHIFT"),
+                     dest="vshift",
+                     type="string",
+                     default="-0.3")
     group.add_option('--latex-program',
                      help=_("run executable PROG instead of latex or, "
                             "in case --pdf option is set, "
@@ -288,17 +304,15 @@ def get_option_parser():
                      action='store',
                      dest='latex_program',
                      default='latex')
+    p.add_option_group(group)
+
+    group = OptionGroup(p, "Options only for the texinfo backend")
     group.add_option('--texinfo-program',
                      help=_("run executable PROG instead of texi2pdf"),
                      metavar=_("PROG"),
                      action='store',
                      dest='texinfo_program',
                      default='texi2pdf')
-    group.add_option('--pdf',
-                     help=_("create PDF files for use with pdftex"),
-                     action="store_true",
-                     dest="create_pdf",
-                     default=False)
     p.add_option_group(group)
 
     p.add_option_group('',

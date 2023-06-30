@@ -593,6 +593,12 @@ A figure space (U+2007), a thin space (U+2009), and a hair space
 The @code{-dinclude-settings} option can now be given multiple times
 to include several stylesheets.
 
+@item
+In the @LaTeX{} backend of @command{lilypond-book}, all inline
+images are now vertically shifted.  The amount can be controlled
+globally with command-line option @option{--inline-vshift} and
+locally with an argument to the snippet option @code{inline}.
+
 @end itemize
 
 
