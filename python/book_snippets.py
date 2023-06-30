@@ -561,9 +561,10 @@ class LilypondSnippet (Snippet):
         # Update: since July 2011 we are running texinfo on a test file
         #         to detect the default exampleindent, so we might reintroduce
         #         further usage of exampleindent again.
-        #
-        # First, make sure we have some fallback default value, auto-detected
-        # values and explicitly specified values will always override them:
+
+        # First, make sure we have some fallback default values.
+        # Auto-detected values and explicitly specified values will always
+        # override them.
         override[EXAMPLEINDENT] = r'0.4\in'
         override[LINE_WIDTH] = '5\\in'
         override.update(self.formatter.default_snippet_options)
