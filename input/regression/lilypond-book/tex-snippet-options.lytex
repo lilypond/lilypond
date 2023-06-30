@@ -1,47 +1,96 @@
 \documentclass[a4paper, 12pt]{article}
 
+
+\def\blabla{%
+  foo bar grumble foo bar grumble foo bar grumble foo bar grumble
+  foo bar grumble foo bar grumble foo bar grumble foo bar grumble}
+
+
 \begin{document}
 
 \section{Snippet options}
 
 This document shows the effect of various snippet options.
 
-The fragment option:
+\bigskip
+
+\verb|fragment|: \blabla
 
 \begin{lilypond}[fragment]
 c' d' e' %\score
 \end{lilypond}
 
-The verbatim option:
+\blabla
+
+\verb|verbatim|: \blabla
 
 \begin{lilypond}[fragment,verbatim]
 c' d' e'
 \end{lilypond}
 
-The printfilename option:
+\blabla
+
+\verb|printfilename|: \blabla
 
 \lilypondfile[printfilename]{include.ly}
 
-The staffsize option:
+\blabla
+
+\verb|staffsize| (both \verb|lilypond| environment and
+\verb|\lilypond| in one paragraph): \blabla
 
 \begin{lilypond}[staffsize=7,fragment]
 \context Voice <<c' e' g'>>
 \end{lilypond}
 \lilypond[fragment,staffsize=7]{\context Voice <<c' es' g'>>}
 
-The relative option:
+\blabla
+
+\verb|relative|: \blabla
 
 \lilypond[relative=1]{ c4 f b e }
 
-The quote option:
+\blabla
 
-\lilypond[quote,fragment]{\relative c' c1 d4 c d e}
+\verb|quote|: \blabla
 
-Combining fragment, quote, staffsize=26, and verbatim options:
+\lilypond[quote]{\relative c' { c1 d4 c d e } }
+
+\blabla
+
+\verb|fragment|, \verb|quote|, \verb|staffsize=26|, and
+\verb|verbatim|: \blabla
 
 \begin{lilypond}[fragment,quote,staffsize=26,verbatim]
-  c'4 f16
+c'4 f16
 \end{lilypond}
 
+\blabla
+
+\verb|line-width| (with and without argument in one paragraph): \blabla
+
+\begin{lilypond}[line-width, fragment]
+d'
+\end{lilypond}
+\lilypond[line-width=5\cm, fragment]{ d' }
+
+\blabla
+
+\verb|ragged-right|, \verb|papersize|, \verb|relative| (without argument),
+\verb|line-width|: \blabla
+
+\begin{lilypond}[ragged-right, papersize=a9, relative, line-width=40\mm]
+c1 \break
+c8 c c c c c c c
+\end{lilypond}
+
+\blabla
+
+\verb|inline| (with and without argument), \verb|staffsize|: \blabla
+
+\lilypond[inline=-0.1, staffsize=10]{ { d' } } foo
+\lilypond[inline,staffsize=10]{ { d' } } bar
+
+\blabla
 
 \end{document}
