@@ -88,15 +88,6 @@ normal @code{\markup} syntax to print glyphs.
 
 @end itemize
 
-@node Known issues in LilyPond @version{}
-@unnumberedsec Known issues in LilyPond @version{}
-
-On Windows, compiling very large scores (several hundreds of
-pages) can result in crashes.@footnote{Note that very large
-scores could already crash in LilyPond 2.22 due to restrictions
-imposed by the 32-bit architecture.}  We hope to address this
-in a future 2.24.@var{x} release.
-
 
 @node Notes for source compilation and packagers
 @unnumberedsec Notes for source compilation and packagers

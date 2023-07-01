@@ -112,17 +112,6 @@ texte plutôt que du code PostScript écrit à la main.
 @end itemize
 
 
-@node Problèmes connus de LilyPond @version{}
-@unnumberedsec Problèmes connus de LilyPond @version{}
-@translationof Known issues in LilyPond @version{}
-
-Sur Windows, la compilation de partitions volumineuses (quelques
-centaines de pages) peut entraîner un crash.@footnote{Il est à noter que
-d'imposantes partitions pouvaient déjà crasher avec LilyPond 2.22 en
-raison de restrictions inhérentes à l'architecture 32 bits.} Nous
-espérons résoudre ce problème dans une future version 2.24.@var{x}.
-
-
 @node Notes à propos de la compilation des sources et à l'attention des empaqueteurs
 @unnumberedsec Notes à propos de la compilation des sources et à l'attention des empaqueteurs
 @translationof Notes for source compilation and packagers

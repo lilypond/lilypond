@@ -88,17 +88,6 @@ Schriftzeichen auszugeben.
 
 @end itemize
 
-@node Bekannte Probleme in LilyPond @version{}
-@unnumberedsec Bekannte Probleme in LilyPond @version{}
-@translationof Known issues in LilyPond @version{}
-
-Unter Windows kann das Kompilieren von sehr großen Dokumenten
-(mehrere hundert Seiten) zu Abstürzen führen.@footnote{Es ist
-zu beachten, dass sehr große Dokumente bereits in LilyPond 2.22
-abstürzen können, aufgrund der Einschränkungen durch die
-32-bit Architektur.}  Wir hoffen, dieses Problem in zukünftigen
-Versionen 2.24.@var{x} zu beheben.
-
 @node Hinweise zur Kompilierung des Quelltexts und für Paketersteller
 @unnumberedsec Hinweise zur Kompilierung des Quelltexts und für Paketersteller
 @translationof Notes for source compilation and packagers
