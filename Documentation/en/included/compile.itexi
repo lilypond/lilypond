@@ -437,7 +437,7 @@ pkg-config}
 Use version 2.4.1 or newer.
 
 @item
-Compiler with support for C++11@*
+Compiler with support for C++14@*
 Version 5 or newer of the @uref{https://gcc.gnu.org, GNU Compiler
 Collection} and version 3.5 or newer of
 @uref{https://clang.llvm.org, Clang} should work.
