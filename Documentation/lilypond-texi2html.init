@@ -57,12 +57,6 @@ sub ly_get_string () {
 
 
 #############################################################################
-### FUNCTIONALITY FOR MAIN WEB PAGES
-#############################################################################
-
-our $web_manual;
-
-#############################################################################
 ###  SETTINGS FOR TEXI2HTML
 #############################################################################
 
@@ -73,14 +67,6 @@ $Texi2HTML::Config::DOCTYPE = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Tran
     "css/lilypond-manuals.css",
     "css/lilypond-highlighting.css"
     );
-
-sub web_settings() {
-  print STDERR "Processing web site: [" . ly_get_language () . "]\n";
-  $Texi2HTML::Config::BODYTEXT = "";
-  @Texi2HTML::Config::CSS_REFS      = (
-      "css/lilypond-website.css"
-      );
-}
 
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
@@ -174,6 +160,7 @@ sub lilypond_element_target_name($$$)
 }
 
 our $docu_name;
+our $web_manual;
 
 sub lilypond_init ()
 {
@@ -183,8 +170,8 @@ sub lilypond_init ()
     $docu_name =~ s/^.*\/(.*)\.texi$/\1/;
 
     if ($docu_name eq 'web') {
-	$web_manual = 1;
-	web_settings();
+        $web_manual = 1;
+        @Texi2HTML::Config::CSS_REFS = ( "css/lilypond-website.css" );
     }
 }
 push @Texi2HTML::Config::command_handler_init, \&lilypond_init;
