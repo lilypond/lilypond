@@ -2082,7 +2082,10 @@ Use @code{\\override #'(line-width . @var{X})} to set the line width;
     commodo consequat.
   }
 }
-@end lilypond"
+@end lilypond
+
+The baseline of the output of @code{\\justify} is the baseline of its first
+line."
   (stack-lines DOWN 0.0 baseline-skip
                (wordwrap-internal-markup-list layout props #t args)))
 
@@ -2104,7 +2107,10 @@ the line width, where @var{X} is the number of staff spaces.
     commodo consequat.
   }
 }
-@end lilypond"
+@end lilypond
+
+The baseline of the output of @code{\\wordwrap} is the baseline of its first
+line."
   (stack-lines DOWN 0.0 baseline-skip
                (wordwrap-internal-markup-list layout props #f args)))
 
@@ -2162,7 +2168,10 @@ the line width, where @var{X} is the number of staff spaces.
       sunt in culpa qui officia deserunt mollit anim id
       est laborum\"
 }
-@end lilypond"
+@end lilypond
+
+The baseline of the output of @code{\\wordwrap-string} is the baseline of its
+first line."
   (stack-lines DOWN 0.0 baseline-skip
                (wordwrap-string-internal-markup-list layout props #f arg)))
 
@@ -2190,7 +2199,10 @@ the line width, where @var{X} is the number of staff spaces.
       in culpa qui officia deserunt mollit anim id est
       laborum\"
 }
-@end lilypond"
+@end lilypond
+
+The baseline of the output of @code{\\justify-string} is the baseline of its
+first line."
   (stack-lines DOWN 0.0 baseline-skip
                (wordwrap-string-internal-markup-list layout props #t arg)))
 
@@ -2323,9 +2335,9 @@ Takes a list of markups combining them.
   "
 @cindex stacking text in a column
 
-Stack the markups in @var{args} vertically.  The property
-@code{baseline-skip} determines the space between markups
-in @var{args}.
+Stack the markups in @var{args} vertically.  The property @code{baseline-skip}
+determines the space between markups in @var{args} (to be more precise, the
+space between the baselines of the markups).
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2335,7 +2347,10 @@ in @var{args}.
     three
   }
 }
-@end lilypond"
+@end lilypond
+
+The baseline of the output of @code{\\column} is the baseline of its first
+line."
   (let ((arg-stencils (interpret-markup-list layout props args)))
     (stack-lines -1 0.0 baseline-skip arg-stencils)))
 
@@ -2366,7 +2381,10 @@ setting of the @code{direction} layout property.
     going up
   }
 }
-@end lilypond"
+@end lilypond
+
+The baseline of the output of @code{\\dir-column} is the baseline of its first
+line."
   (stack-lines (if (number? direction) direction -1)
                0.0
                baseline-skip
