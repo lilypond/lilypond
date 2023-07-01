@@ -599,34 +599,6 @@ class Libiconv(ConfigurePackage):
 libiconv = Libiconv()
 
 
-class Libtool(ConfigurePackage):
-    @property
-    def version(self) -> str:
-        return "2.4.7"
-
-    @property
-    def directory(self) -> str:
-        return f"libtool-{self.version}"
-
-    @property
-    def archive(self) -> str:
-        return f"{self.directory}.tar.xz"
-
-    @property
-    def download_url(self) -> str:
-        return f"https://ftpmirror.gnu.org/gnu/libtool/{self.archive}"
-
-    @property
-    def license_files(self) -> List[str]:
-        return ["COPYING"]
-
-    def __str__(self) -> str:
-        return f"Libtool {self.version}"
-
-
-libtool = Libtool()
-
-
 class Libunistring(ConfigurePackage):
     @property
     def version(self) -> str:
@@ -779,7 +751,7 @@ class Guile(ConfigurePackage):
         libiconv_dep: List[Package] = []
         if c.is_mingw():
             libiconv_dep = [libiconv]
-        return gettext_dep + libiconv_dep + [bdwgc, libffi, libtool, libunistring, gmp]
+        return gettext_dep + libiconv_dep + [bdwgc, libffi, libunistring, gmp]
 
     def build_env_extra(self, c: Config) -> Dict[str, str]:
         env = super().build_env_extra(c)
@@ -792,7 +764,6 @@ class Guile(ConfigurePackage):
     def configure_args(self, c: Config) -> List[str]:
         gmp_install_dir = gmp.install_directory(c)
         libunistring_install_dir = libunistring.install_directory(c)
-        libtool_install_dir = libtool.install_directory(c)
 
         libintl_args = []
         if c.is_freebsd() or c.is_macos() or c.is_mingw():
@@ -823,7 +794,6 @@ class Guile(ConfigurePackage):
                 "--disable-lto",
                 # Make configure find the statically built dependencies.
                 f"--with-libgmp-prefix={gmp_install_dir}",
-                f"--with-libltdl-prefix={libtool_install_dir}",
                 f"--with-libunistring-prefix={libunistring_install_dir}",
                 # Prevent that configure searches for libcrypt.
                 "ac_cv_search_crypt=no",
@@ -1296,7 +1266,6 @@ all_dependencies: List[Package] = [
     bdwgc,
     gmp,
     libiconv,
-    libtool,
     libunistring,
     guile,
     harfbuzz,
