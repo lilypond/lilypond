@@ -150,24 +150,6 @@ sub lc_last($)
   return $href;
 }
 
-# Split the given path into dir and basename (with .texi removed). Used mainly
-# to get the path/basename of the original texi input file
-sub split_texi_filename ($)
-{
-  my $docu = shift;
-  my ($docu_dir, $docu_name);
-  if ($docu =~ /(.*\/)/) {
-    chop($docu_dir = $1);
-    $docu_name = $docu;
-    $docu_name =~ s/.*\///;
-  } else {
-     $docu_dir = '.';
-     $docu_name = $docu;
-  }
-  $docu_name =~ s/\.te?x(i|info)?$//;
-  return ($docu_dir, $docu_name);
-}
-
 
 #############################################################################
 ###  SPLITTING BASED ON NUMBERED SECTIONS
@@ -191,11 +173,15 @@ sub lilypond_element_target_name($$$)
   return (lc($node->{'target'}), lc($node->{'id'}));
 }
 
+our $docu_name;
+
 sub lilypond_init ()
 {
     $Texi2HTML::THISDOC{'do_about'} = 0;
 
-    my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+    $docu_name = $Texi2HTML::THISDOC{'input_file_name'};
+    $docu_name =~ s/^.*\/(.*)\.texi$/\1/;
+
     if ($docu_name eq 'web') {
 	$web_manual = 1;
 	web_settings();
@@ -205,16 +191,9 @@ push @Texi2HTML::Config::command_handler_init, \&lilypond_init;
 
 sub lilypond_bodytext ()
 {
-  ## This section makes the manual name visible to CSS through the body tag
-  ## so that styles can be applied per manual. It will add the manual
-  ## directory name (e.g., 'notation' or 'learning') as a CSS class.
-
-  # Parse the input file name to determine the manual we're dealing with.
-  my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-
-  # Create the extra information for the <body> tag.
-  # For example, the development Notation reference in English
-  # will output in HTML as <body lang='en' class='notation'>
+  # Create the extra information for the <body> tag, visible to CSS so that
+  # styles can be applied per manual. For example, the Notation reference in
+  # English will output in HTML as <body lang='en' class='notation'>
   my $bodytext = 'lang="' . ly_get_language () . '" class="' . $docu_name . '"';
 
   $Texi2HTML::THISDOC{'BODYTEXT'} = $bodytext;
