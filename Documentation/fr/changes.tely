@@ -98,16 +98,6 @@ de ceux mentionnés dans @rweb{Facilités d'édition}. Pour de plus amples
 informations, veuillez consulter les instructions détaillées dans
 @rlearning{Installation}.
 
-Dans les paquetages officiels, Ghostscript ne contient plus son
-propre jeu de polices par défaut, ceci afin de réduire la taille
-des archives à télécharger.  LilyPond n'a pas besoin de ces
-polices (l'application contient elle-même les polices dont elle a
-besoin).  Cependant, quelques utilisateurs y faisaient appel avec
-des instructions comme @code{/Arial findfont} dans du code
-PostScript inséré avec @code{\markup \postscript}.  Il est
-recommandé d'utiliser la syntaxe @code{\markup} normale pour le
-texte plutôt que du code PostScript écrit à la main.
-
 
 @end itemize
 

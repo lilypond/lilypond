@@ -77,15 +77,6 @@ Umgebung wie beschrieben in @rweb{Leichteres Editieren}.  Für
 weitere Informationen beachten Sie bitte die ausführlichen
 Anweisungen in @rlearning{Installing}.
 
-Die Version von Ghostscript, die mit den offiziellen Paketen
-verteilt wird, enthält keine eigenen Schriftarten mehr, um die
-Größe des Downloads zu reduzieren.  LilyPond benötigt diese nicht
-(es hat eine eigene Kopie der Schriftarten).  Dies bedeutet
-allerdings, dass Code wie zum Beispiel @code{/Arial findfont}
-in @code{\markup \postscript} nicht mehr funktioniert.  Wir
-empfehlen die Verwendung der normalen @code{\markup} Syntax, um
-Schriftzeichen auszugeben.
-
 @end itemize
 
 @node Hinweise zur Kompilierung des Quelltexts und für Paketersteller
