@@ -1496,6 +1496,7 @@ select them already when creating the context:
 }
 @end lilypond
 
+@noindent
 or use an explicit @code{\override}:
 
 @lilypond[quote,verbatim]
@@ -1509,6 +1510,37 @@ or use an explicit @code{\override}:
   \time 2/2
   c'
 }
+@end lilypond
+
+@findex volta repeat, and time signatures
+@findex time signature, and volta repeats
+
+If there is more than a single staff, and a time signature starts
+a prima volta but not the seconda volta, it is necessary to help
+LilyPond synchronize this situation by adding an explicit but
+invisible time signature in the seconda volta.
+
+@lilypond[quote,verbatim]
+music = {
+  \repeat volta 2 {
+    \time 2/4 c'2 |
+    \alternative {
+      \volta 1 {
+        \time 3/8 d'4. |
+        \time 2/4 c'2 | }
+      \volta 2 {
+        \once \omit Staff.TimeSignature
+        \time 2/4 c'2 |
+      }
+    }
+  }
+  \time 3/8 c'4. |
+}
+
+<<
+  \new Staff \music
+  \new Staff \music
+>>
 @end lilypond
 
 
