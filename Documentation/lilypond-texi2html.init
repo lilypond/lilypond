@@ -95,7 +95,6 @@ $Texi2HTML::Config::internal_ref         = \&lilypond_internal_ref;
 $Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
 $default_external_href = $Texi2HTML::Config::external_href;
 $Texi2HTML::Config::external_href        = \&lilypond_external_href;
-# $Texi2HTML::Config::foot_line_and_ref    = \&lilypond_foot_line_and_ref;
 $Texi2HTML::Config::foot_line_and_ref  = \&makeinfo_like_foot_line_and_ref;
 $Texi2HTML::Config::foot_lines         = \&makeinfo_like_foot_lines;
 $Texi2HTML::Config::paragraph          = \&makeinfo_like_paragraph;
