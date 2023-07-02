@@ -117,27 +117,6 @@ $Texi2HTML::Config::complex_format_map->{'example'} = {
 
 
 #############################################################################
-###  HELPER FUNCTIONS
-#############################################################################
-
-# only lc() the last portion of an href
-sub lc_last($)
-{
-  my $href = shift;
-  my @hrefsplit = split('/', $href);
-  # change the last portion (the filename), if it exists;
-  # if it is a plain filename with no path, change the string as a whole
-  if ($#hrefsplit > 0) {
-    @hrefsplit[$#hrefsplit] = lc( @hrefsplit[$#hrefsplit] );
-    $href = join("/", @hrefsplit);
-  } else {
-    $href = lc($href);
-  }
-  return $href;
-}
-
-
-#############################################################################
 ###  SPLITTING BASED ON NUMBERED SECTIONS
 #############################################################################
 
