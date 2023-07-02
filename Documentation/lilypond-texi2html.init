@@ -109,12 +109,6 @@ $Texi2HTML::Config::complex_format_map->{'example'} = {
   'style' => 'code',
  };
 
-%Texi2HTML::config::misc_pages_targets = (
-   'Overview' => 'Overview',
-   'Contents' => 'Contents',
-   'About' => 'About'
-);
-
 
 #############################################################################
 ###  SPLITTING BASED ON NUMBERED SECTIONS
