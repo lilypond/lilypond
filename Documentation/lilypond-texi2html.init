@@ -235,9 +235,6 @@ sub lilypond_external_ref($$$$$$)
   my $book = shift;
   my $file_node = shift;
   my $href = shift;
-
-  $href = lc_last($href);
-
   my $cross_ref = shift;
   my $args_texi = shift;
   my $formatted_args = shift;
@@ -284,6 +281,9 @@ sub lilypond_external_href($$$)
   my $node_id = shift;
   my $node_xhtml_id = shift;
   my $file = shift;
+
+  $node_id = lc($node_id);
+  $node_xhtml_id = lc($node_xhtml_id);
 
   if (defined $file) {
     $href = &$default_external_href($node, $node_id, $node_xhtml_id, $file);
