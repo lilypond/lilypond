@@ -19,6 +19,7 @@
 
 #include "open-type-font.hh"
 #include "freetype.hh"
+#include "zlib.h"
 
 #include FT_FONT_FORMATS_H
 #include FT_TRUETYPE_TABLES_H
@@ -73,7 +74,54 @@ SCM
 load_scheme_table (const char *tag_str, FT_Face face)
 {
   std::string contents = load_font_table (face, tag_str);
-  contents = "(quote (" + contents + "))";
+
+  // Try to decompress table.
+  z_stream zs;
+  memset (&zs, 0, sizeof (zs));
+
+  if (inflateInit (&zs) != Z_OK)
+    {
+      error (_f ("cannot initialize zlib decompression"));
+    }
+
+  zs.next_in = reinterpret_cast<Bytef *> (contents.data ());
+  zs.avail_in = static_cast<uInt> (contents.size ());
+
+  int ret;
+  char buf[32768];
+  std::string inflated;
+
+  // Get decompressed data block by block using a loop.
+  do
+    {
+      zs.next_out = reinterpret_cast<Bytef *> (buf);
+      zs.avail_out = sizeof (buf);
+
+      ret = inflate (&zs, Z_NO_FLUSH);
+
+      if (inflated.size () < zs.total_out)
+        {
+          inflated.append (buf, zs.total_out - inflated.size ());
+        }
+    }
+  while (ret == Z_OK);
+
+  inflateEnd (&zs);
+
+  if (ret == Z_DATA_ERROR || ret == Z_NEED_DICT)
+    {
+      // Apparently not a compressed table, so load it as-is.
+      contents = "(quote (" + contents + "))";
+    }
+  else
+    {
+      if (ret != Z_STREAM_END)
+        {
+          error (_f ("cannot uncompress font table: %s", tag_str));
+        }
+      contents = "(quote (" + inflated + "))";
+    }
+
   return scm_eval_string (scm_from_utf8_string (contents.c_str ()));
 }
 

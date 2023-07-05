@@ -21,6 +21,7 @@ import getopt
 import os
 import re
 import sys
+import zlib
 
 import fontforge
 
@@ -132,8 +133,9 @@ add_feature_kern(font)
 lisp = b""
 for sub in subfonts:
     lisp += open(os.path.join(indir, sub) + ".lisp", "rb").read()
+compressed_lisp = zlib.compress(lisp, 9)
 
-font.setTableData("LILC", lisp)
+font.setTableData("LILC", compressed_lisp)
 font.setTableData("LILY", open(os.path.join(
     indir, "feta%(design_size)d.global-lisp" % vars()), "rb").read())
 
