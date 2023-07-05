@@ -93,19 +93,28 @@ def character_lisp_table(global_info, charmetrics):
 
     def conv_char_metric(charmetric):
         f = 1.0
-        s = """(%s .
-((bbox . (%f %f %f %f))
-(attachment . (%f . %f))
-(attachment-down . (%f . %f))))
+        if (charmetric['name'].startswith('noteheads.')):
+            s = """(%s .
+((bbox . (%.3f %.3f %.3f %.3f))
+(attachment . (%.3f . %.3f))
+(attachment-down . (%.3f . %.3f))))
 """ % (charmetric['name'],
-            -charmetric['breapth'] * f,
-            -charmetric['depth'] * f,
-            charmetric['width'] * f,
-            charmetric['height'] * f,
-            charmetric['wx'],
-            charmetric['wy'],
-            charmetric['dwx'],
-            charmetric['dwy'])
+                -charmetric['breapth'] * f,
+                -charmetric['depth'] * f,
+                charmetric['width'] * f,
+                charmetric['height'] * f,
+                charmetric['wx'],
+                charmetric['wy'],
+                charmetric['dwx'],
+                charmetric['dwy'])
+        else:
+            s = """(%s .
+((bbox . (%.3f %.3f %.3f %.3f))))
+""" % (charmetric['name'],
+                -charmetric['breapth'] * f,
+                -charmetric['depth'] * f,
+                charmetric['width'] * f,
+                charmetric['height'] * f)
 
         return s
 
