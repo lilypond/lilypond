@@ -328,10 +328,11 @@ Timing_translator::initialize ()
 
   SCM timeSignatureFraction = get_property (this, "timeSignatureFraction");
 
-  if (!scm_is_pair (timeSignatureFraction))
+  if (!scm_is_pair (timeSignatureFraction)
+      && !scm_is_false (timeSignatureFraction))
     {
       programming_error ("missing timeSignatureFraction");
-      timeSignatureFraction = scm_cons (to_scm (4), to_scm (4));
+      timeSignatureFraction = SCM_BOOL_F;
     }
   set_property (context (), "timeSignatureFraction", timeSignatureFraction);
 

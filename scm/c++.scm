@@ -85,6 +85,9 @@
   (and (pair? x)
        (ly:moment? (car x)) (ly:moment? (cdr x))))
 
+(define-public (boolean-or-fraction? x)
+  (or (boolean? x) (fraction? x)))
+
 (define-public (boolean-or-number? x)
   (or (boolean? x) (number? x)))
 

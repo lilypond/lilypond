@@ -187,7 +187,9 @@
 
 (define-public (calc-measure-length time-signature)
   "Calculate the measure length for @var{time-signature}."
-  (ly:make-moment (car time-signature) (cdr time-signature)))
+  (if (pair? time-signature)
+      (ly:make-moment (car time-signature) (cdr time-signature))
+      INF-MOMENT))
 
 (define-public (base-length time-signature time-signature-settings)
   "Get @code{baseMoment} rational value for @var{time-signature} from
@@ -196,9 +198,11 @@
                                    time-signature
                                    time-signature-settings)))
     (if (null? return-value)
-        (/ (if (zero? (cdr time-signature))
-               0.0 ; avoid integer div error
-               (cdr time-signature)))
+        (if (pair? time-signature)
+            (/ (if (zero? (cdr time-signature))
+                   0.0 ; avoid integer div error
+                   (cdr time-signature)))
+            +inf.0) ; senza misura
         return-value)))
 
 (define-public (beat-structure base-length time-signature time-signature-settings)
@@ -208,7 +212,7 @@ for @var{time-signature} from @var{time-signature-settings}."
   (let ((return-value (get-setting 'beatStructure
                                    time-signature
                                    time-signature-settings)))
-    (if (null? return-value)
+    (if (and (null? return-value) (pair? time-signature))
         ;; calculate default beatStructure
         (let* ((numerator (car time-signature))
                (group-size (if (and (> numerator 3)

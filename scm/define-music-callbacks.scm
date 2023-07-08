@@ -205,10 +205,10 @@ depth-first through MUSIC."
 
 (define (make-time-signature-set music)
   "Set context properties for a time signature."
-  (let* ((num (ly:music-property music 'numerator))
-         (den (ly:music-property music 'denominator))
+  (let* ((num (ly:music-property music 'numerator #f))
+         (den (ly:music-property music 'denominator #f))
          (structure (ly:music-property music 'beat-structure))
-         (fraction (cons num den)))
+         (fraction (and num den (cons num den))))
     (list (context-spec-music
            (make-apply-context
             (lambda (context)

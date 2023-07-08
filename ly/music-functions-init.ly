@@ -1114,7 +1114,7 @@ ottava =
 overrideTimeSignatureSettings =
 #(define-music-function
    (time-signature base-moment beat-structure beam-exceptions)
-   (fraction? fraction? list? list?)
+   (boolean-or-fraction? fraction? list? list?)
 
    (_i "Override @code{timeSignatureSettings}
 for time signatures of @var{time-signature} to have settings
