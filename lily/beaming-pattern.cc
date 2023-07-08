@@ -120,9 +120,12 @@ Beaming_pattern::beamify (Beaming_options const &options)
 
   unbeam_invisible_stems ();
 
-  if (infos_[0].start_moment_ < 0)
-    for (vsize i = 0; i < infos_.size (); i++)
-      infos_[i].start_moment_ += options.measure_length_;
+  if (isfinite (options.measure_length_)) // TODO: otherwise...?
+    {
+      if (infos_[0].start_moment_ < 0)
+        for (vsize i = 0; i < infos_.size (); i++)
+          infos_[i].start_moment_ += options.measure_length_;
+    }
 
   find_rhythmic_importance (options);
 

@@ -104,6 +104,12 @@ Timing_translator::listen_partial (Stream_event *ev)
     }
   else
     {
+      // It would be consistent with the mid-piece behavior to refuse to adjust
+      // measurePosition when measureLength is infinite, and it would help
+      // defend consumers that might try to normalize a negative measurePosition
+      // using measureLength as a modulus; however, even if we caught it here,
+      // measureLength could be changed immediately afterward, so there is no
+      // point in trying.  We will detect it and warn in pre_process_music().
       const auto length = dur->get_length ();
       auto mp = from_scm (get_property (this, "measurePosition"), Moment (0));
       mp.main_part_ = -length;
@@ -156,6 +162,18 @@ Timing_translator::pre_process_music ()
       bar_check_event_->warning (
         _f ("bar check failed at: %s", to_string (mp)));
       warned_for_bar_check_ = true;
+    }
+
+  if (partial_event_ && (context ()->init_mom () == now)) // start of piece
+    {
+      if (!isfinite (measure_length (context ())))
+        {
+          // This is the same warning as for \partial in mid piece.
+          // See listen_partial() for more information.
+          partial_event_->warning (
+            _ ("cannot calculate a finite measurePosition from an infinite"
+               " measureLength"));
+        }
     }
 }
 
@@ -239,8 +257,20 @@ Timing_translator::stop_translation_timestep ()
         = unsmob<Duration> (get_property (partial_event_, "duration"));
       if (dur) // paranoia: listen_partial() should have rejected this event
         {
-          carried_measure_position_
-            = measure_length (context ()) - dur->get_length ();
+          const auto mlen = measure_length (context ());
+          if (isfinite (mlen))
+            {
+              carried_measure_position_ = mlen - dur->get_length ();
+            }
+          else
+            {
+              partial_event_->warning (
+                _ ("cannot calculate a finite measurePosition from an infinite"
+                   " measureLength"));
+              // We could try to handle this more gracefully by setting a
+              // calculated measureLength here, but there might be side effects
+              // that are hard to foresee, so we don't bother.
+            }
         }
     }
 
@@ -253,7 +283,7 @@ Timing_translator::stop_translation_timestep ()
       else
         barleft = measure_length (context ()) - carried_measure_position_;
 
-      if (barleft > 0)
+      if ((barleft > 0) && isfinite (barleft))
         {
           auto nextmom = Moment (now_mom ().main_part_ + barleft);
           find_global_context ()->add_moment_to_process (nextmom);
@@ -409,16 +439,23 @@ Timing_translator::start_translation_timestep ()
 
       if (mp >= len)
         {
-          auto cbn = from_scm (get_property (this, "currentBarNumber"), 0);
-          auto ibn = from_scm (get_property (this, "internalBarNumber"), 0);
+          auto cbn = from_scm (get_property (this, "currentBarNumber"), 0L);
+          auto ibn = from_scm (get_property (this, "internalBarNumber"), 0L);
 
-          do
-            {
-              mp -= len;
-              cbn++;
-              ibn++;
-            }
-          while (mp >= len);
+          // Advance by just one measure.
+          mp -= len;
+          ++cbn;
+          ++ibn;
+
+          // TODO: To support ad-hoc irregular measures more conveniently,
+          // reset measureLength at this point according to the time signature
+          // (possibly optionally, controlled by a new context property).
+
+          // Advance through any remaining measures.
+          const auto num_measures = (mp / len).trunc_int ();
+          mp %= len;
+          cbn += num_measures;
+          ibn += num_measures;
 
           set_property (context (), "currentBarNumber", to_scm (cbn));
           set_property (context (), "internalBarNumber", to_scm (ibn));

@@ -866,6 +866,7 @@ const char *const Context::type_p_name_ = "ly:context?";
 Rational
 measure_length (Context const *context)
 {
+  // TODO: Consider changing the default to Moment::infinity().
   return from_scm (get_property (context, "measureLength"), Moment (1))
     .main_part_;
 }
@@ -877,10 +878,29 @@ measure_position (Context const *context)
 
   if (m.main_part_ < 0)
     {
+      // A negative measurePosition is the effect of \partial at the start of a
+      // piece or (less likely) a \partial with a length longer than the measure
+      // length.
       const auto length (measure_length (context));
-      do
-        m.main_part_ += length;
-      while (m.main_part_ < 0);
+      if (isfinite (length))
+        {
+          // This seems to calculate the "euclidean remainder" of pos/len.
+          // Should Rational's (or Moment's) modulo operation work this way?
+          do
+            m.main_part_ += length;
+          while (m.main_part_ < 0);
+        }
+      else // senza misura
+        {
+          // We can't be sure what is intended from \partial when there is no
+          // measureLength.  Timing_translator warns if it is seen.  In mid
+          // piece, it also ignores the \partial, so this branch should not be
+          // reached.  At the start of the piece, returning the position from
+          // the start seems sane.  The portion before the bar line will be
+          // beamed as if it were the start of a measure (rather than the end),
+          // but improving this fallback without complicating it seems unlikely.
+          return context->now_mom ();
+        }
     }
 
   return m;
