@@ -909,7 +909,7 @@ Default: @code{#f}.
 
 @item @code{tall-page-formats} @var{symbol}
 Comma-separated list of formats (@code{svg}, @code{pdf},
-@code{png}, or @code{eps}) to use for the `tall page' image in
+@code{png}, or @code{eps}) to use for the @q{tall page} image in
 @code{lilypond-book}.  @xref{Other programs}.
 
 @item @code{use-paper-size-for-page} @var{bool}

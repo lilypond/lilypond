@@ -609,8 +609,8 @@ future.  Even better would be to have an English (en_GB, en_US)
 guide helping programmers writing consistent messages for all GNU
 programs.
 
-Non-preferred messages are marked with `+'.  By convention,
-ungrammatical examples are marked with `*'.  However, such ungrammatical
+Non-preferred messages are marked with @samp{+}.  By convention,
+ungrammatical examples are marked with @samp{*}.  However, such ungrammatical
 examples may still be preferred.
 
 @itemize
@@ -624,10 +624,10 @@ Do not localize/gettextify:
 
 @itemize
 @item
-`programming_error ()'s
+@code{programming_error}
 
 @item
-`programming_warning ()'s
+@code{programming_warning}
 
 @item
 debug strings
@@ -638,19 +638,19 @@ output strings (PostScript, TeX, etc.)
 @end itemize
 
 @item
-Messages to be localized must be encapsulated in `_ (STRING)' or
-`_f (FORMAT, ...)'. E.g.:
+Messages to be localized must be encapsulated in @code{_ (@var{string})} or
+@code{_f (@var{format}, ...)}, for example
 
 @example
 warning (_ ("need music in a score"));
 error (_f ("cannot open file: `%s'", file_name));
 @end example
 
-In some rare cases you may need to call `gettext ()' by hand.  This
+In some rare cases you may need to call @code{gettext} by hand.  This
 happens when you pre-define (a list of) string constants for later
 use.  In that case, you'll probably also need to mark these string
-constants for translation, using `_i (STRING)'.  The `_i' macro is
-a no-op, it only serves as a marker for `xgettext'.
+constants for translation, using @code{_i (@var{string})}.  The @q{_i} macro
+is a no-op, it only serves as a marker for @code{xgettext}.
 
 @example
 char const* messages[] = @{
@@ -685,7 +685,7 @@ number never start with a capital, eg,
 foo.ly: 12: not a duration: 3
 @end example
 
-Messages containing a final verb, or a gerund (`-ing'-form) always
+Messages containing a final verb, or a gerund (@q{-ing}-form) always
 start with a capital.  Other (simpler) messages start with a
 lowercase letter
 
@@ -696,10 +696,10 @@ Not declaring: `foo'.
 @end example
 
 @item
-Avoid abbreviations or short forms, use `cannot' and `do not'
-rather than `can't' or `don't'
+Avoid abbreviations or short forms, use @q{cannot} and @q{do not}
+rather than @q{can't} or @q{don't}
 To avoid having a number of different messages for the same
-situation, well will use quoting like this `"message: `%s'"' for all
+situation, we will use quoting like this @code{"message: `%s'"} for all
 strings.  Numbers are not quoted:
 
 @example
@@ -2337,7 +2337,7 @@ scm_is_pair (scm_value)
 
 since a list of at least one member is a pair.  This test is
 cheap; @code{scm_list_p} is actually quite more complex since it makes
-sure that its argument is neither a `dotted list' where the last pair
+sure that its argument is neither a @q{dotted list} where the last pair
 has a non-null @code{cdr}, nor a circular list.  There are few
 situations where the complexity of those tests make sense.
 

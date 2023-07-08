@@ -540,7 +540,7 @@ an earlier context.
 
 There is an exception to this general rule: inside of an
 @code{@{@dots{}@}} construct (sequential music), the construct's
-notion of the ``current context'' will descend whenever an element
+notion of the @qq{current context} will descend whenever an element
 of the sequence ends in a subcontext of the previous current
 context.  This avoids spurious creation of implicit contexts in a
 number of situations but means that the first context descended

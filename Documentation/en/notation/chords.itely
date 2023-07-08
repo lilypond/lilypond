@@ -699,7 +699,7 @@ separator between a chord and its bass note; to customize that, use
 @item slashChordSeparator
 
 Chords can be played over a bass note other than the conventional root
-of the chord.  These are known as ``inversions'' or ``slash chords'',
+of the chord.  These are known as @qq{inversions} or @qq{slash chords},
 because the default way of notating them is with a forward slash
 between the main chord and the bass note.  Therefore the value of
 @code{slashChordSeparator} defaults to a forward slash, but you can

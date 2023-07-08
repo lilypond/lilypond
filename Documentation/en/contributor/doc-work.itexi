@@ -484,7 +484,7 @@ but instead:  \override TextScript.padding = #3
 @end example
 
 @noindent
-excepted in Templates, where `doctitle' may be omitted.
+excepted in Templates, where @q{doctitle} may be omitted.
 
 @item
 Avoid long stretches of input code.  Nobody is going to read
@@ -1197,8 +1197,8 @@ style.
 
 Avoid duplication.  Although users are not expected to read this
 manual from start to finish, they should be familiar with the
-material in the Learning Manual (particularly ``Fundamental
-Concepts''), so do not repeat that material in each section of
+material in the Learning Manual (particularly @qq{Fundamental
+Concepts}), so do not repeat that material in each section of
 this book.  Also watch out for common constructs, like ^ - _ for
 directions -- those are explained in NR 3.  In NR 1, you can
 write: DYNAMICS may be manually placed above or below the staff,
@@ -1295,7 +1295,7 @@ Internals Reference:
 
 @item
 If there are multiple entries, separate them by commas but do not
-include an `and'.
+include an @q{and}.
 
 @item
 Always end with a period.

@@ -247,7 +247,7 @@ than return a value.  Some programming languages (like C and Scheme) use
 functions for either concept and just discard the returned value
 (usually by allowing any expression to act as statement, ignoring the
 result).  This is clever but error-prone: most C compilers nowadays
-offer warnings for various non-``void'' expressions being discarded.
+offer warnings for various non-@q{void} expressions being discarded.
 For many functions executing an action, the Scheme standards declare the
 return value to be unspecified.  LilyPond's Scheme interpreter Guile has
 a unique value @code{*unspecified*} that it usually (such when using
