@@ -3793,7 +3793,7 @@ example bar numbers are printed at all possible places:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-bar-numbers-inside-boxes-or-circles.ly}
 
-@c XXX also included in `repeats.itely'
+@c XXX also included in `repeats.itely`
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/alternative-bar-numbering.ly}
 

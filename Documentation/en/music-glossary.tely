@@ -12,7 +12,7 @@ terms used in the documentation manuals for LilyPond version
 @version{}.
 @end macro
 
-@c `Music Glossary' was born 1999-10-04 with this commit:
+@c 'Music Glossary' was born 1999-10-04 with this commit:
 @c lilypond-1.2.12
 @c author: fred
 @c commit: be4e46f61b1a8dec0922e0fd849c626beb6ab9be

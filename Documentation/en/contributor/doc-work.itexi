@@ -1108,8 +1108,8 @@ Introducing examples must be done with
 
 @example
 . (i.e., finish the previous sentence/paragraph)
-: (i.e., `in this example:')
-, (i.e., `may add foo with the blah construct,')
+: (i.e., 'in this example:')
+, (i.e., 'may add foo with the blah construct,')
 @end example
 
 The old @qq{sentence runs directly into the example} method is not

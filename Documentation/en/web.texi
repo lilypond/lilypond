@@ -19,7 +19,7 @@
 @include weblinks.itexi
 
 
-@c `Web' was born 2003-03-30 with this commit:
+@c 'Web' was born 2003-03-30 with this commit:
 @c Initial revision
 @c author: Han-Wen Nienhuys
 @c commit: d189a2119004c2f75da2020ea2ed36d817582fc5
@@ -262,7 +262,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
   * Prepend GNU for dir, must be unique.
 
-  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+  * Do not list the 'lilypond' node at toplevel, so that `info lilypond`
     goes to Top.
 
   * List all commands in direntry.

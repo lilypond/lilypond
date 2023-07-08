@@ -18,7 +18,7 @@ This file explains how to extend the functionality of
 LilyPond version @version{}.
 @end macro
 
-@c `Extending' was born 2004-03-07 with this commit:
+@c 'Extending' was born 2004-03-07 with this commit:
 @c * Documentation/user/changing-defaults.itely (Changing defaults):
 @c author: Han-Wen Nienhuys
 @c commit: c53d0cabdf9361e448cdd02a338aa5d696f4f466

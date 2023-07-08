@@ -1133,7 +1133,7 @@ is the appearance/disappearance of translated versions of some manuals.
 If you see such a warning from make:
 
 @example
-No rule to make target `X', needed by `Y'
+No rule to make target 'X', needed by 'Y'
 @end example
 
 @noindent

@@ -1504,7 +1504,7 @@ commands.
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@c `@funindex \bracket' is auto-generated, too
+@c `@funindex \bracket` is auto-generated, too
 @funindex \bracket
 @funindex \hbracket
 

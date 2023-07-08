@@ -10,7 +10,7 @@
 
 @c \version "2.19.22"
 
-@c Note: keep this node named so that `info lilypond-book' brings you here.
+@c Note: keep this node named so that `info lilypond-book` brings you here.
 @node lilypond-book
 @chapter Running @command{lilypond-book}
 

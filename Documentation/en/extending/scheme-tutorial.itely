@@ -863,7 +863,7 @@ traLaLa = @{ c'4 d'4 @}
 is internally converted to a Scheme definition:
 
 @example
-(define traLaLa @var{Scheme value of `@code{@dots{}}'})
+(define traLaLa @var{Scheme value of '@code{@dots{}}'})
 @end example
 
 This means that LilyPond variables and Scheme variables may be freely
@@ -1372,7 +1372,7 @@ put another element at the front of the @code{articulations} property.
 @example
 doubleSlur = #(define-music-function (note) (ly:music?)
          "Return: @{ note ( note ) @}.
-         `note' is supposed to be a single note."
+         `note` is supposed to be a single note."
          (let ((note2 (ly:music-deep-copy note)))
            (set! (ly:music-property note 'articulations)
                  (cons (make-music 'SlurEvent 'span-direction -1)
@@ -1438,7 +1438,7 @@ To build this function, we begin with
 
 @example
 (define (add-accent note-event)
-  "Add an accent ArticulationEvent to the articulations of `note-event',
+  "Add an accent ArticulationEvent to the articulations of `note-event`,
   which is supposed to be a NoteEvent expression."
   (set! (ly:music-property note-event 'articulations)
         (cons (make-music 'ArticulationEvent
@@ -1534,7 +1534,7 @@ argument).
 
 @example
 addAccent = #(define-music-function (note-event) (ly:music?)
-  "Add an accent ArticulationEvent to the articulations of `note-event',
+  "Add an accent ArticulationEvent to the articulations of `note-event`,
   which is supposed to be a NoteEvent expression."
   (set! (ly:music-property note-event 'articulations)
         (cons (make-music 'ArticulationEvent

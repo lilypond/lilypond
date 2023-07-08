@@ -401,7 +401,7 @@ provided maqams.
 
 @snippets
 
-@c XXX also included in `pitches.itely'
+@c XXX also included in `pitches.itely`
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/non-traditional-key-signatures.ly}
 

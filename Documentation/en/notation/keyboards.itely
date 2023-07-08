@@ -541,7 +541,7 @@ Sustain pedals are also found on vibraphones and celestas.
 
 @funindex pedalSustainStyle
 @funindex mixed
-@c `@funindex \bracket' is auto-generated
+@c `@funindex \bracket` is auto-generated
 @funindexpre bracket
 @funindex text
 

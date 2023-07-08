@@ -399,7 +399,7 @@ MIDIDIR := MIDI
 
 # Input and output files are searched in the directories listed in
 # the VPATH variable.  All of them are subdirectories of the current
-# directory (given by the GNU make variable `CURDIR').
+# directory (given by the GNU make variable `CURDIR`).
 VPATH := \
   $(CURDIR)/Scores \
   $(CURDIR)/Parts \
@@ -408,8 +408,8 @@ VPATH := \
   $(CURDIR)/$(MIDIDIR)
 
 # The pattern rule to create PDF and MIDI files from a LY input file.
-# The .pdf output files are put into the `PDF' subdirectory, and the
-# .midi files go into the `MIDI' subdirectory.
+# The .pdf output files are put into the `PDF` subdirectory, and the
+# .midi files go into the `MIDI` subdirectory.
 %.pdf %.midi: %.ly | $(PDFDIR) $(MIDIDIR)
 	$(LILY_CMD) $<          	# this line begins with a tab
 	mv "$*.pdf" $(PDFDIR)/		# this line begins with a tab
@@ -448,14 +448,14 @@ $(piece)-viola.pdf: $(piece)-viola.ly viola.ily $(common)
 $(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily $(common)
 $(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily $(common)
 
-# Type `make score' to generate the full score of all four
+# Type `make score` to generate the full score of all four
 # movements as one file.
 .PHONY: score
 score: $(piece).pdf
 
-# Type `make parts' to generate all parts.
-# Type `make symphony-foo.pdf' to generate the part for instrument `foo'.
-# Example: `make symphony-cello.pdf'.
+# Type `make parts` to generate all parts.
+# Type `make symphony-foo.pdf` to generate the part for instrument 'foo'.
+# Example: `make symphony-cello.pdf`.
 .PHONY: parts
 parts: $(piece)-cello.pdf \
        $(piece)-violinOne.pdf \
@@ -464,7 +464,7 @@ parts: $(piece)-cello.pdf \
        $(piece)-oboe.pdf \
        $(piece)-horn.pdf
 
-# Type `make movements' to generate files for the
+# Type `make movements` to generate files for the
 # four movements separately.
 .PHONY: movements
 movements: $(piece)I.pdf \

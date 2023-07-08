@@ -8,7 +8,7 @@
 @c hyphenation).
 @c
 @c For outline fonts, we also use the cm-super family; the setup is the same
-@c as with the EC fonts except that the prefix is not `ec' but `la'.
+@c as with the EC fonts except that the prefix is not 'ec' but 'la'.
 
 @tex
 
@@ -33,7 +33,7 @@
 }
 
 
-% Glyph names, taken from LaTeX's `t2aenc.def' font encoding definition file
+% Glyph names, taken from LaTeX's `t2aenc.def` font encoding definition file
 % for T2A encoding.
 
 \gdef\textnumero{{\cyrfont \char 157}}

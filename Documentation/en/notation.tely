@@ -20,7 +20,7 @@ the reader is familiar with the material in the
 @rlearningnamed{Top, Learning Manual}.
 @end macro
 
-@c `Notation Reference' was born 1998-08-14 with this commit:
+@c 'Notation Reference' was born 1998-08-14 with this commit:
 @c release: 1.0.2
 @c author: Han-Wen Nienhuys
 @c commit: a3a44f9f3c581b6824b3a65f9039656693e09bbf

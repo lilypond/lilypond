@@ -696,7 +696,7 @@ This section discusses how to modify pitches.
 @cindex octave check
 @cindex control pitch
 
-@c `@funindex \=' is auto-generated
+@c `@funindex \=` is auto-generated
 @funindexpre =
 @funindex \octaveCheck
 @funindex controlpitch

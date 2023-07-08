@@ -860,7 +860,7 @@ Slurs may be manually placed above or below the staff; see
 @cindex slur, multiple
 @cindex slur, simultaneous
 
-@c some entries for `\=' are auto-generated; don't use @funindexpost
+@c some entries for '\=' are auto-generated; don't use @funindexpost
 @funindex \=
 
 Simultaneous or overlapping slurs require special attention.  Most

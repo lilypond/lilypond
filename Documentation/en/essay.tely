@@ -18,7 +18,7 @@ This essay discusses automatic music engraving functions within
 LilyPond version @version{}.
 @end macro
 
-@c `Essay' was born 2002-06-03 with this commit:
+@c 'Essay' was born 2002-06-03 with this commit:
 @c tremolo segfault
 @c author: Han-Wen Nienhuys
 @c commit: 29262ca70c3d5209126150752fd3d804bef8e9a3
