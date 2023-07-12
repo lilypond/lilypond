@@ -1106,6 +1106,7 @@ Place a fret playing indication on string @var{string-number} at fret
 an optional color modifier @var{color-modifier}, an optional color
 @var{color}, an optional parenthesis @code{'parenthesized} and an
 optional paranthesis color @code{'default-paren-color}.
+
 By default, the fret playing indicator is a solid dot.  This can be
 globally changed by setting the value of the variable @var{dot-color}
 or for a single dot by setting the value of @var{color}.  The dot can
@@ -1115,6 +1116,7 @@ color for the parenthesis is taken from the dot.  Adding
 global @var{dot-color}, as a fall-back black will be used.
 Setting @var{color-modifier} to @code{inverted} inverts the dot color
 for a specific fingering.
+
 The values for @var{string-number}, @var{fret-number}, and the optional
 @var{finger} should be entered first in that order.
 The order of the other optional arguments does not matter.
@@ -1142,6 +1144,7 @@ indications per string.
 for fret spacing 3/4 of staff space, D chord diagram
 
 Syntax rules for @var{definition-string}:
+
 @itemize @minus
 
 @item
@@ -1245,8 +1248,8 @@ If there are multiple fret indicators desired on a string, they
 should be separated by spaces.
 
 @item
-Fingerings are given by following the fret number with a @w{@code{-},}
-followed by the finger indicator, e.g. @samp{3-2} for playing the third
+Fingerings are given by following the fret number with a @samp{-}
+followed by the finger indicator, e.g., @samp{3-2} for playing the third
 fret with the second finger.
 
 @item

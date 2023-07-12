@@ -1969,7 +1969,7 @@ For translators: you cannot translate the content of these files.
 @node Text markup list commands
 @appendixsec Text markup list commands
 
-The following commands can all be used with @code{\markuplist}:
+The following commands can all be used with @code{\markuplist}.
 
 @include en/markup-list-commands.tely
 

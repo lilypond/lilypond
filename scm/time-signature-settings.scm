@@ -363,6 +363,7 @@ a fresh copy of the list-head is made."
 
 @lilypond[verbatim,quote]
 \\markup {
+  \\override #'(baseline-skip . 4.5)
   \\column {
     \\line { Single number:
                \\compound-meter #3 }
@@ -370,7 +371,7 @@ a fresh copy of the list-head is made."
                \\compound-meter #'(4 . 4) or
                \\compound-meter #'(4 4) }
     \\line { Compound:
-               \\compound-meter #'(2 3 8) }
+               \\compound-meter #'(2 3 5 8) }
     \\line { Single-number compound:
                \\compound-meter #'((2) (3)) }
     \\line { Complex compound:

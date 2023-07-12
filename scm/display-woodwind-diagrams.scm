@@ -1877,32 +1877,24 @@ and right-hand gis key depressed while the five-hole of
 the central column effectuates a trill between 1/4 and 3/4 closed.
 
 The following instruments are supported:
-@itemize @minus
 
+@itemize @minus
 @item
 piccolo
-
 @item
 flute
-
 @item
 oboe
-
 @item
 clarinet
-
 @item
 bass-clarinet
-
 @item
 saxophone
-
 @item
 bassoon
-
 @item
 contrabassoon
-
 @end itemize
 
 To see all of the callable keys for a given instrument,
@@ -1937,10 +1929,10 @@ Additionally, these configurations can be used in trills.  So, for example,
 on the three hole.  As another example, @code{threeRT} effectuates a trill
 between R and open, whereas @code{threeTR} effectuates a trill between open
 and shut.  To see all of the possibilities for all of the keys of a given
-instrument, invoke @code{(print-keys-verbose 'instrument)}.
+instrument, invoke @code{(print-keys-verbose '@var{instrument})}.
 
-Lastly, substituting an empty list for the pressed-key alist will result in
-a diagram with all of the keys drawn but none filled, for example:
+Lastly, substituting an empty list for the pressed-key alist results in
+a diagram with all of the keys drawn but none filled, for example
 
 @example
 \\markup \\woodwind-diagram #'oboe #'()

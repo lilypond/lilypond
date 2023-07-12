@@ -348,9 +348,9 @@ Its appearance may be customized by overrides for @code{thickness},
     \\override #'(height . 1)
     \\draw-squiggle-line #0.5 #'(6 . 0) ##t
     \\override #'(thickness . 5)
-    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+    \\draw-squiggle-line #0.5 #'(6 . -2) ##t
     \\override #'(angularity . 2)
-    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+    \\draw-squiggle-line #0.5 #'(6 . 2) ##t
   }
 @end lilypond"
   (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
@@ -470,7 +470,7 @@ regularPentagon =
   #'((1 . 0) (0.31 . 0.95) (-0.81 . 0.59)
      (-0.81 . -0.59) (0.31 . -0.95))
 
-\\markup {
+\\markup \\scale #'(2 . 2) {
   \\polygon #'((-1 . -1) (0 . -3) (2 . 2) (1 . 2))
   \\override #'(filled . #f)
     \\override #'(thickness . 2)
@@ -697,8 +697,7 @@ a higher correction level also makes the code denser.
 
 The @var{quiet-zone-size} property specifies the width of the @qq{quiet zone},
 namely the white area around the QR code.  It is expressed as a multiple of the
-width of one little square inside the QR code.  Use at least 4 for best results.
-"
+width of one little square inside the QR code.  Use at least 4 for best results."
   (let ((arr (catch 'qr-code-error
                     (lambda ()
                       (qr-encode str error-correction-level))
@@ -750,14 +749,14 @@ width of one little square inside the QR code.  Use at least 4 for best results.
 Add a link to the page holding label @var{label} around @var{arg}.  This
 only works in the PDF backend.
 
-@verbatim
-\\markup {
-  \\with-link #'label {
-    \\italic { This links to the page
-               containing the label... }
-  }
-}
-@end verbatim"
+@example
+\\markup @{
+  \\with-link #'label @{
+    \\italic @{ This links to the page
+               containing the label... @}
+  @}
+@}
+@end example"
   (let* ((arg-stencil (interpret-markup layout props arg))
          (x-ext (ly:stencil-extent arg-stencil X))
          (y-ext (ly:stencil-extent arg-stencil Y)))
@@ -835,7 +834,7 @@ makes little sense, it would end up adding the provided value to the one of
   \\underline \"underlined\"
   \\override #'(offset . 5)
   \\override #'(underline-skip . 4)
-  \\underline \\underline \\underline \"multiple underlined\"
+  \\underline \\underline \\underline \"underlined thrice\"
 }
 @end lilypond"
   (let* ((thick (ly:output-def-lookup layout 'line-thickness))
@@ -986,8 +985,7 @@ thickness and padding around the markup.
 @lilypond[verbatim,quote]
 \\markup {
   \\override #'(box-padding . 0.5)
-  \\box
-  \\line { V. S. }
+  \\box \\line { V. S. }
 }
 @end lilypond
 
@@ -1024,6 +1022,8 @@ Draw a box with rounded corners of dimensions @var{xext} and
 @verbatim
 \\filled-box #'(-.3 . 1.8) #'(-.3 . 1.8) #0
 @end verbatim
+
+@noindent
 creates a box extending horizontally from -0.3 to 1.8 and
 vertically from -0.3 up to 1.8, with corners formed from a
 circle of diameter@tie{}0 (i.e., sharp corners).
@@ -1033,9 +1033,9 @@ circle of diameter@tie{}0 (i.e., sharp corners).
   \\filled-box #'(0 . 4) #'(0 . 4) #0
   \\filled-box #'(0 . 2) #'(-4 . 2) #0.4
   \\combine
-  \\filled-box #'(1 . 8) #'(0 . 7) #0.2
-  \\with-color #white
-  \\filled-box #'(3.6 . 5.6) #'(3.5 . 5.5) #0.7
+    \\filled-box #'(1 . 8) #'(0 . 7) #0.2
+    \\with-color #white
+      \\filled-box #'(3.6 . 5.6) #'(3.5 . 5.5) #0.7
 }
 @end lilypond"
   (ly:round-filled-box
@@ -1367,7 +1367,7 @@ the @code{cdr} comprises the associated arguments for each command.
 There are seven commands available to use in the list
 @code{commands}: @code{moveto}, @code{rmoveto}, @code{lineto},
 @code{rlineto}, @code{curveto}, @code{rcurveto}, and
-@code{closepath}.  Note that the commands that begin with @emph{r}
+@code{closepath}.  Note that the commands that begin with @samp{r}
 are the relative variants of the other three commands.  You may also
 use the standard SVG single-letter equivalents: @code{moveto} = @code{M},
 @code{lineto} = @code{L}, @code{curveto} = @code{C},
@@ -1391,9 +1391,9 @@ current subpath in the active path.
 Line-cap styles and line-join styles may be customized by
 overriding the @code{line-cap-style} and @code{line-join-style}
 properties, respectively.  Available line-cap styles are
-@code{'butt}, @code{'round}, and @code{'square}.  Available
-line-join styles are @code{'miter}, @code{'round}, and
-@code{'bevel}.
+@code{butt}, @code{round}, and @code{square}.  Available
+line-join styles are @code{miter}, @code{round}, and
+@code{bevel}.
 
 The property @code{filled} specifies whether or not the path is
 filled with color.
@@ -1406,7 +1406,7 @@ samplePath =
      (curveto -5 -5 -5 5 -1 0)
      (closepath))
 
-\\markup {
+\\markup \\scale #'(2 . 2) {
   \\path #0.25 #samplePath
 
   \\override #'(line-join-style . miter)
@@ -1456,8 +1456,7 @@ For EPS images, this always works (where EPS images work in the first place).
 On the other hand, for PNG images, it works in the Cairo backend (which can
 output all supported formats), as well as in the SVG backend, but @emph{not} in
 the PostScript backend, which is the default.  See @rprogram{Advanced
-command-line options for LilyPond} for how to activate the Cairo backend.
-"
+command-line options for LilyPond} for how to activate the Cairo backend."
   ;; From the width and height of the actual image plus one of the scaled
   ;; dimensions specified by the user, determine the scaling factor from image
   ;; coordinates to page coordinates, and the two dimensions of the stencil.
@@ -1921,6 +1920,7 @@ The width of the horizontal line can be modified by overriding the
 @cindex ligature, in text
 
 Concatenate @var{args} in a horizontal line, without spaces in between.
+
 Strings are concatenated on the input level, allowing ligatures.
 For example, @code{\\concat @{ \"f\" \"i\" @}} is
 equivalent to @code{\"fi\"}.
@@ -1928,9 +1928,7 @@ equivalent to @code{\"fi\"}.
 @lilypond[verbatim,quote]
 \\markup {
   \\concat {
-    one
-    two
-    three
+    one two three
   }
 }
 @end lilypond"
@@ -1956,7 +1954,7 @@ equivalent to @code{\"fi\"}.
 
 (define (wordwrap-stencils stencils
                            justify base-space line-width text-dir)
-  "Perform simple wordwrap, return stencil of each line."
+  "Perform simple word-wrap, return stencil of each line."
   (define space (if justify
                     ;; justify only stretches lines.
                     (* 0.7 base-space)
@@ -2212,7 +2210,7 @@ first line."
   #:as-string (markup->string (chain-assoc-get symbol props)
                               #:layout layout
                               #:props props)
-  "Wordwrap the data which has been assigned to @var{symbol}.
+  "Word-wrap the data that has been assigned to @var{symbol}.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\header {
@@ -2249,7 +2247,7 @@ first line."
   #:as-string (markup->string (chain-assoc-get symbol props)
                               #:layout layout
                               #:props props)
-  "Justify the data which has been assigned to @var{symbol}.
+  "Justify the data that has been assigned to @var{symbol}.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\header {
@@ -2319,7 +2317,7 @@ Takes a list of markups combining them.
   \\overlay {
     \\draw-line #'(0 . 4)
     \\arrow-head #Y #DOWN ##f
-    \\translate #'(0 . 4)\\arrow-head #Y #UP ##f
+    \\translate #'(0 . 4) \\arrow-head #Y #UP ##f
   }
 }
 @end lilypond"
@@ -2475,8 +2473,7 @@ Align @code{arg} to its Y@tie{}center.
 @lilypond[verbatim,quote]
 \\markup {
   one
-  \\vcenter
-  two
+  \\vcenter two
   three
 }
 @end lilypond"
@@ -2495,8 +2492,7 @@ Align @code{arg} to its X@tie{}center.
 \\markup {
   \\column {
     one
-    \\center-align
-    two
+    \\center-align two
     three
   }
 }
@@ -2516,8 +2512,7 @@ Align @var{arg} on its right edge.
 \\markup {
   \\column {
     one
-    \\right-align
-    two
+    \\right-align two
     three
   }
 }
@@ -2537,8 +2532,7 @@ Align @var{arg} on its left edge.
 \\markup {
   \\column {
     one
-    \\left-align
-    two
+    \\left-align two
     three
   }
 }
@@ -2558,26 +2552,22 @@ Align @var{arg} in @var{axis} direction to the @var{dir} side.
 \\markup {
   \\column {
     one
-    \\general-align #X #LEFT
-    two
+    \\general-align #X #LEFT two
     three
     \\null
     one
-    \\general-align #X #CENTER
-    two
+    \\general-align #X #CENTER two
     three
     \\null
     \\line {
       one
-      \\general-align #Y #UP
-      two
+      \\general-align #Y #UP two
       three
     }
     \\null
     \\line {
       one
-      \\general-align #Y #3.2
-      two
+      \\general-align #Y #3.2 two
       three
     }
   }
@@ -2600,23 +2590,19 @@ alignment accordingly.
 \\markup {
   \\column {
     one
-    \\halign #LEFT
-    two
+    \\halign #LEFT two
     three
     \\null
     one
-    \\halign #CENTER
-    two
+    \\halign #CENTER two
     three
     \\null
     one
-    \\halign #RIGHT
-    two
+    \\halign #RIGHT two
     three
     \\null
     one
-    \\halign #-5
-    two
+    \\halign #-5 two
     three
   }
 }
@@ -2750,11 +2736,11 @@ metrics.
   \\fontsize #10
   \\override #'((box-padding . 0) (thickness . 0.2))
   \\box
-  \\musicglyph \"scripts.trill\"
+    \\musicglyph \"scripts.trill\"
 @end lilypond
 
 For purposes other than setting text, this behavior may not be wanted.
-You can use @code{\\with-true-dimension} in order to give the markup
+You can use @code{\\with-@/true-@/dimension} in order to give the markup
 its actual printed extent.
 
 @lilypond[verbatim,quote]
@@ -2762,10 +2748,9 @@ its actual printed extent.
   \\fontsize #10
   \\override #'((box-padding . 0) (thickness . 0.2))
   \\box
-  \\with-true-dimension #X
-  \\musicglyph \"scripts.trill\"
-@end lilypond
-"
+    \\with-true-dimension #X
+    \\musicglyph \"scripts.trill\"
+@end lilypond"
   (let* ((stencil (interpret-markup layout props arg))
          (true-ext (stencil-true-extent stencil axis))
          ;; Don't use ly:stencil-outline like \with-dimensions et al.:
@@ -2907,15 +2892,13 @@ side, without moving @var{arg1}."
 \\new StaffGroup <<
   \\new Staff {
     \\set Staff.instrumentName = \\markup {
-      \\hcenter-in #12
-      Oboe
+      \\hcenter-in #12 Oboe
     }
     c''1
   }
   \\new Staff {
     \\set Staff.instrumentName = \\markup {
-      \\hcenter-in #12
-      Bassoon
+      \\hcenter-in #12 Bassoon
     }
     \\clef tenor
     c'1
@@ -2986,6 +2969,7 @@ returns an empty markup.
   (procedure? markup?)
   #:category other
   "Apply the @var{procedure} markup command to @var{arg}.
+
 @var{procedure} takes the same arguments as @code{interpret-markup}
 and returns a stencil."
   (procedure layout props arg))
@@ -3038,7 +3022,8 @@ The footnote will not be annotated automatically."
                       (markup->string note #:layout layout #:props props))
   "Have footnote @var{note} act as an annotation to the markup @var{mkup}.
 
-@c we don't want to display \\book
+@c we don't want to display \\book, and we also have to avoid incorrect
+@c cropping
 @example
 \\markup @{
   \\auto-footnote a b
@@ -3050,6 +3035,7 @@ The footnote will not be annotated automatically."
 \\book {
   \\header { tagline = ##f }
   \\markup {
+    \\vspace #0.6
     \\auto-footnote a b
     \\override #'(padding . 0.2)
     \\auto-footnote c d
@@ -3138,7 +3124,7 @@ of its own.
   \\undertie \"undertied\"
   \\override #'(offset . 15)
   \\undertie \"offset undertied\"
-  \\override #'((offset . 15)(thickness . 3))
+  \\override #'((offset . 15) (thickness . 3))
   \\undertie \"offset thick undertied\"
 }
 @end lilypond"
@@ -3157,7 +3143,7 @@ of its own.
   (begin
     (ly:note-extra-source-file name)
     (ly:gulp-file-utf8 name))
-  "Read the contents of file @var{name}, and include it verbatim.
+  "Read the contents of file @var{name} and include it verbatim.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3204,8 +3190,7 @@ of its own.
 \\markup {
   default
   \\hspace #2
-  \\larger
-  larger
+  \\larger larger
 }
 @end lilypond"
   (interpret-markup layout props
@@ -3323,8 +3308,7 @@ accordingly.
 \\markup {
   default
   \\hspace #2
-  \\fontsize #-1.5
-  smaller
+  \\fontsize #-1.5 smaller
 }
 @end lilypond"
   (interpret-markup
@@ -3375,14 +3359,13 @@ Use @code{\\fontsize} otherwise.
 \\markup {
   default
   \\hspace #2
-  \\bold
-  bold
+  \\bold bold
 }
 @end lilypond
 
 The code @code{\\markup \\bold @dots{}} is a shorthand for
-@code{\\markup \\override #'(font-series . bold) @dots{}}.
-Using the more verbose form, it is possible to obtain nuances
+@code{\\markup \\override #'(font-series . bold) @dots{}} --
+using the more verbose form, it is possible to obtain nuances
 such as semi-bold, if the text font has such variants.
 Refer to the documentation for the @code{font-series}
 properties (@rinternals{User backend properties})."
@@ -3447,7 +3430,7 @@ glyphs.
 @lilypond[verbatim,quote]
 \\markuplist
   \\number
-  \\fontsize #5
+  \\fontsize #4.5
   \\override #'((padding . 2)
                (baseline-skip . 4)
                (box-padding . 0)
@@ -3509,8 +3492,7 @@ to override a setting of a sans-serif or typewriter font family.
 \\markup {
   default
   \\hspace #2
-  \\huge
-  huge
+  \\huge huge
 }
 @end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size 2 props) arg))
@@ -3524,8 +3506,7 @@ to override a setting of a sans-serif or typewriter font family.
 \\markup {
   default
   \\hspace #2
-  \\large
-  large
+  \\large large
 }
 @end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size 1 props) arg))
@@ -3559,8 +3540,7 @@ to override a setting of a sans-serif or typewriter font family.
 \\markup {
   default
   \\hspace #2
-  \\small
-  small
+  \\small small
 }
 @end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size -1 props) arg))
@@ -3574,8 +3554,7 @@ to override a setting of a sans-serif or typewriter font family.
 \\markup {
   default
   \\hspace #2
-  \\tiny
-  tiny
+  \\tiny tiny
 }
 @end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size -2 props) arg))
@@ -3589,8 +3568,7 @@ to override a setting of a sans-serif or typewriter font family.
 \\markup {
   default
   \\hspace #2
-  \\teeny
-  teeny
+  \\teeny teeny
 }
 @end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size -3 props) arg))
@@ -3727,8 +3705,7 @@ done in a different font.  The recommended font for this is bold and italic.
 \\markup {
   default
   \\hspace #2
-  \\italic
-  italic
+  \\italic italic
 }
 @end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-shape 'italic props) arg))
@@ -3742,8 +3719,7 @@ done in a different font.  The recommended font for this is bold and italic.
 \\markup {
   default
   \\hspace #2
-  \\typewriter
-  typewriter
+  \\typewriter typewriter
 }
 @end lilypond"
   (interpret-markup layout
@@ -3803,7 +3779,7 @@ normal text font, no matter what font was used earlier.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\huge \\bold \\sans \\caps {
+  \\huge \\bold \\sans \\fontCaps {
     huge bold sans caps
     \\hspace #2
     \\normal-text {
@@ -4063,14 +4039,11 @@ Draw @var{arg} in color specified by @var{color}.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\with-color #red
-  red
+  \\with-color #red red
   \\hspace #2
-  \\with-color #green
-  green
+  \\with-color #green green
   \\hspace #2
-  \\with-color \"#0000ff\"
-  blue
+  \\with-color \"#0000ff\" blue
 }
 @end lilypond"
   (stencil-with-color (interpret-markup layout props arg) color))
@@ -4451,8 +4424,7 @@ A brace from the music font, of height @var{size} (in points).
   (number?)
   #:category other
   #:as-string "}"
-  "
-A feta brace in point size @var{size}, rotated 180 degrees.
+  "A music brace in point size @var{size}, rotated 180 degrees.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -5133,6 +5105,7 @@ an inverted glyph.  Note that within music, one would usually use the
 @cindex lowering text
 
 Lower @var{arg} by the distance @var{amount}.
+
 A negative @var{amount} indicates raising; see also @code{\\raise}.
 
 The argument to @code{\\lower} is the vertical displacement amount, measured
@@ -5140,7 +5113,7 @@ in (global) staff spaces, which is independent of the markup's current font
 size.  If you need vertical movement that takes the font size into account, use
 @code{\\translate-scaled} instead.
 
-This function is usually used to move one element inside of a markup relative to
+This function is normally used to move one element inside of a markup relative to
 the other elements.  When using it on the whole markup, bear in mind that
 spacing mechanisms that place the markup itself on the page could cancel this
 shift.  Consider using grob properties such as @code{padding}, @code{Y-offset},
@@ -5168,7 +5141,7 @@ or @code{extra-@/offset}, or spacing variables such as
 Translate @var{arg} by @var{offset}, scaling the offset by the @code{font-size}.
 See also @code{\\translate}.
 
-This function is usually used to move one element inside of a markup relative to
+This function is normally used to move one element inside of a markup relative to
 the other elements.  When using it on the whole markup, bear in mind that
 spacing mechanisms that place the markup itself on the page could cancel this
 shift.  Consider using grob properties such as @code{padding}, @code{X-offset},
@@ -5197,6 +5170,7 @@ shift.  Consider using grob properties such as @code{padding}, @code{X-offset},
 @cindex raising text
 
 Raise @var{arg} by the distance @var{amount}.
+
 A negative @var{amount} indicates lowering, see also @code{\\lower}.
 
 The argument to @code{\\raise} is the vertical displacement amount, measured
@@ -5204,7 +5178,7 @@ in (global) staff spaces, which is independent of the markup's current font
 size.  If you need vertical movement that takes the font size into account, use
 @code{\\translate-scaled} instead.
 
-This function is usually used to move one element inside of a markup relative to
+This function is normally used to move one element inside of a markup relative to
 the other elements.  When using it on the whole markup, bear in mind that
 spacing mechanisms that place the markup itself on the page could cancel this
 shift.  Consider using grob properties such as @code{padding}, @code{Y-offset},
@@ -5229,8 +5203,7 @@ or @code{extra-@/offset}, or spacing variables such as
 Make a fraction of two markups.
 @lilypond[verbatim,quote]
 \\markup {
-  π ≈
-  \\fraction 355 113
+  π ≈ \\fraction 355 113
 }
 @end lilypond"
   (let* ((m1 (interpret-markup layout props arg1))
@@ -5306,7 +5279,7 @@ Translate @var{arg} relative to its surroundings.  @var{offset} is a pair of
 numbers representing the displacement in the X and Y@tie{}axis.  See also
 @code{\\translate-scaled}.
 
-This function is usually used to move one element inside of a markup relative to
+This function is normally used to move one element inside of a markup relative to
 the other elements.  When using it on the whole markup, bear in mind that
 spacing mechanisms that place the markup itself on the page could cancel this
 shift.  Consider using grob properties such as @code{padding}, @code{X-offset},
@@ -5317,7 +5290,7 @@ shift.  Consider using grob properties such as @code{padding}, @code{X-offset},
 \\markup {
   *
   \\translate #'(2 . 3)
-  \\line { translated two spaces right, three up }
+    \\line { translated two spaces right, three up }
 }
 @end lilypond"
   (ly:stencil-translate (interpret-markup layout props arg)
@@ -5564,10 +5537,10 @@ Patterns are distributed on @var{axis}.
 
 @lilypond[verbatim,quote]
 \\markup \\column {
-  \"Horizontally repeated :\"
+  \"Horizontally repeated:\"
   \\pattern #7 #X #2 \\flat
   \\null
-  \"Vertically repeated :\"
+  \"Vertically repeated:\"
   \\pattern #3 #Y #0.5 \\flat
 }
 @end lilypond"
@@ -5592,18 +5565,18 @@ Patterns are aligned to the @var{dir} markup.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\markup \\column {
-  \"right-aligned :\"
+  \"right-aligned:\"
   \\fill-with-pattern #1 #RIGHT . first right
   \\fill-with-pattern #1 #RIGHT . second right
   \\null
-  \"center-aligned :\"
+  \"center-aligned:\"
   \\fill-with-pattern #1.5 #CENTER - left right
   \\null
-  \"left-aligned :\"
-  \\override #'(line-width . 50)
-  \\fill-with-pattern #2 #LEFT : left first
-  \\override #'(line-width . 50)
-  \\fill-with-pattern #2 #LEFT : left second
+  \"left-aligned:\"
+  \\override #'(line-width . 50) {
+    \\fill-with-pattern #2 #LEFT : left first
+    \\fill-with-pattern #2 #LEFT : left second
+  }
 }
 @end lilypond"
   (let* ((pattern-stencil (interpret-markup layout props pattern))
@@ -5671,11 +5644,12 @@ Note the quasiquoting syntax with a backquote in the second example.
 (define-markup-command (if layout props condition? argument)
   (procedure? markup?)
   #:category conditionals
-  "Test @var{condition}, and only insert @var{argument} if it is true.
+  "Test @var{condition?}, and only insert @var{argument} if it is true.
+
 The condition is provided as a procedure taking an output definition
 and a property alist chain.  The procedure is applied, and its result
 determines whether to print the markup.  This command is most useful inside
-@code{odd@/Header@/Markup} or similar.  Here is an example printing page
+@code{oddHeaderMarkup} or similar.  Here is an example printing page
 numbers in bold:
 
 @example
@@ -5802,10 +5776,11 @@ where @var{X} is the number of staff spaces."
 
 Returns a table.
 
-@var{column-align} specifies how each column is aligned, possible values are
--1, 0, 1.  The number of elements in @var{column-align} determines how many
+@var{column-align} specifies how each column is aligned; possible values are -1,
+0, and@tie{}1.  The number of elements in @var{column-align} determines how many
 columns will be printed.
-The entries to print are given by @var{lst}, a markup-list.  If needed, the last
+
+The entries to print are given by @var{lst}, a markup list.  If needed, the last
 row is filled up with @code{point-stencil}s.
 Overriding @code{padding} may be used to increase columns horizontal distance.
 Overriding @code{baseline-skip} to increase rows vertical distance.
@@ -5817,19 +5792,16 @@ Overriding @code{baseline-skip} to increase rows vertical distance.
 
 \\markuplist {
   \\override #'(padding . 2)
-  \\table
-    #'(0 1 0 -1)
-    {
-      \\underline { center-aligned right-aligned
-                    center-aligned left-aligned }
-      one      \\fwnum    1 thousandth \\fwnum 0.001
-      eleven   \\fwnum   11 hundredth  \\fwnum 0.01
-      twenty   \\fwnum   20 tenth      \\fwnum 0.1
-      thousand \\fwnum 1000 one        \\fwnum 1.0
-    }
+  \\table #'(0 1 0 -1) {
+    \\underline { center-aligned right-aligned
+                 center-aligned left-aligned }
+    one      \\fwnum    1 thousandth \\fwnum 0.001
+    eleven   \\fwnum   11 hundredth  \\fwnum 0.01
+    twenty   \\fwnum   20 tenth      \\fwnum 0.1
+    thousand \\fwnum 1000 one        \\fwnum 1.0
+  }
 }
-@end lilypond
-"
+@end lilypond"
 
   (define (split-lst initial-lst lngth result-lst)
     ;; split a list into a list of sublists of length lngth

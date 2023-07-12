@@ -102,9 +102,12 @@ for examples."
 symbol.
 
 To make it available,
+
 @example
 #(use-modules (lily accreg))
 @end example
+
+@noindent
 is required near the top of your input file.
 
 The register names in the default @code{\\discant} register set have
@@ -120,8 +123,8 @@ in the symbol.  Newer instruments may have registrations where 8' can
 be used either within or without a tone chamber, @q{cassotto}.
 Notationally, the central dot then indicates use of cassotto.  One can
 suffix the tens' digits @samp{1} and @samp{2} with @samp{+} or
-@samp{-} to indicate clustering the dots at the right or left
-respectively rather than centered.
+@samp{-} to indicate clustering the dots at the right or left,
+respectively, rather than centered.
 
 Some examples are
 
@@ -143,8 +146,7 @@ Some examples are
      \"\\\\discant \\\"131\\\"\"
   }
 }
-@end lilypond
-"
+@end lilypond"
   '((glyph . "accordion.discant")
     (reedbank
      (L (dots (0 . 0.5)))
@@ -190,9 +192,12 @@ Some examples are
 register symbol.
 
 To make it available,
+
 @example
 #(use-modules (lily accreg))
 @end example
+
+@noindent
 is required near the top of your input file.
 
 The default bass register definitions have been modeled after the
@@ -277,9 +282,12 @@ Available registrations are
 register symbol.
 
 To make it available,
+
 @example
 #(use-modules (lily accreg))
 @end example
+
+@noindent
 is required near the top of your input file.
 
 The main use is for four-reed standard bass instruments with reedbank
@@ -362,9 +370,12 @@ Available registrations are
 register symbol.
 
 To make it available,
+
 @example
 #(use-modules (lily accreg))
 @end example
+
+@noindent
 is required near the top of your input file.
 
 The main use is for five-reed standard bass instruments with reedbank
@@ -461,9 +472,12 @@ Available registrations are
 register symbol for six reed basses.
 
 To make it available,
+
 @example
 #(use-modules (lily accreg))
 @end example
+
+@noindent
 is required near the top of your input file.
 
 This is primarily the register layout for the Hohner @qq{Gola} model.
@@ -486,7 +500,7 @@ The layout is
 The registers are effectively quite similar to that of
 @code{\\stdBass}.  An additional bass reed at alto pitch is omitted
 for esthetical reasons from the @samp{Master} setting, so the symbols
-are almost the same except for the @samp{Alto/Soprano} register with
+are almost the same except for the @samp{Alto/@/Soprano} register with
 bass notes at Alto pitch and chords at Soprano pitch.
 
 Available registrations are
@@ -545,9 +559,12 @@ Available registrations are
 accordion register symbol for the usual two-reed layout.
 
 To make it available,
+
 @example
 #(use-modules (lily accreg))
 @end example
+
+@noindent
 is required near the top of your input file.
 
 Available registrations are
