@@ -141,10 +141,12 @@ tocItemWithDotsMarkup = \markup \fill-with-pattern #1 #RIGHT .
 
 #(define-markup-list-command (table-of-contents layout props) ()
   #:properties ((baseline-skip))
-  ( _i "Outputs the table of contents, using the paper variable
-@code{tocTitleMarkup} for its title, then the list of lines
-built using the @code{tocItem} music function.
-Usage: @code{\\markuplist \\table-of-contents}" )
+  "Print a table of contents.
+
+This function uses the paper variable @code{tocTitleMarkup} for the title; it
+then prints @code{\\tocItem} entries line by line.
+
+@xref{Table of contents} for a complete discussion."
   (let ((titleMarkup (ly:output-def-lookup layout 'tocTitleMarkup))
         (indentMarkup (ly:output-def-lookup layout 'tocIndentMarkup))
         (toplevelFormatter (ly:output-def-lookup layout 'tocFormatMarkup))
