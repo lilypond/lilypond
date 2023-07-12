@@ -98,8 +98,7 @@ for examples."
 
 
 (define-register-set discant
-  "@code{\\discant @var{name}} generates a discant accordion register
-symbol.
+  "Generate a discant accordion register symbol for @var{name}.
 
 To make it available,
 
@@ -110,9 +109,9 @@ To make it available,
 @noindent
 is required near the top of your input file.
 
-The register names in the default @code{\\discant} register set have
-modeled after numeric Swiss notation like depicted in
-@uref{http://de.wikipedia.org/wiki/Register_%28Akkordeon%29}, omitting
+The register names in the default @code{\\discant} register set have been
+modeled after the numeric Swiss notation (as depicted in
+@uref{http://de.wikipedia.org/wiki/Register_%28Akkordeon%29}), omitting
 the slashes and dropping leading zeros.
 
 The string @var{name} is basically a three-digit number with the
@@ -133,17 +132,17 @@ Some examples are
 \\markup {
   \\center-column {
      \\discant \"1\"
-     \"\\\\discant \\\"1\\\"\"
+     \\typewriter \"\\\\discant \\\"1\\\"\"
      \\vspace #1
      \\discant \"120\"
-     \"\\\\discant \\\"120\\\"\"
+     \\typewriter \"\\\\discant \\\"120\\\"\"
   } \\hspace #3
   \\center-column {
      \\discant \"1+0\"
-     \"\\\\discant \\\"1+0\\\"\"
+     \\typewriter \"\\\\discant \\\"1+0\\\"\"
      \\vspace #1
      \\discant \"131\"
-     \"\\\\discant \\\"131\\\"\"
+     \\typewriter \"\\\\discant \\\"131\\\"\"
   }
 }
 @end lilypond"
@@ -188,8 +187,7 @@ Some examples are
      ("131" (reedbanks H MMM MM M L)))))
 
 (define-register-set stdBass
-  "@code{\\stdBass @var{name}} generates a standard bass accordion
-register symbol.
+  "Generate a standard bass accordion register symbol for @var{name}.
 
 To make it available,
 
@@ -202,7 +200,7 @@ is required near the top of your input file.
 
 The default bass register definitions have been modeled after the
 article @uref{http://www.accordions.com/index/art/stradella.shtml}
-originally appearing in Accord Magazine.
+originally appearing in @emph{Accord Magazine}.
 
 The underlying register model is
 
@@ -223,8 +221,8 @@ The underlying register model is
 This kind of overlapping arrangement is common for Italian instruments
 though the exact location of the octave breaks differ.
 
-When not composing for a particular target instrument, using the five
-reed definitions makes more sense than using a four reed layout: in
+When not composing for a particular target instrument, using the five-reed
+definitions makes more sense than using a four-reed layout: in
 that manner, the @samp{Master} register is unambiguous.  This is
 rather the rule in literature bothering about bass registrations at
 all.
@@ -236,26 +234,26 @@ Available registrations are
 \\markup {
   \\center-column {
      \\stdBass \"Soprano\"
-     \"\\\\stdBass \\\"Soprano\\\"\"
+     \\typewriter \"\\\\stdBass \\\"Soprano\\\"\"
      \\vspace #1
      \\stdBass \"Alto\"
-     \"\\\\stdBass \\\"Alto\\\"\"
+     \\typewriter \"\\\\stdBass \\\"Alto\\\"\"
      \\vspace #1
      \\stdBass \"Tenor\"
-     \"\\\\stdBass \\\"Tenor\\\"\"
+     \\typewriter \"\\\\stdBass \\\"Tenor\\\"\"
      \\vspace #1
      \\stdBass \"Master\"
-     \"\\\\stdBass \\\"Master\\\"\"
+     \\typewriter \"\\\\stdBass \\\"Master\\\"\"
   } \\hspace #3
   \\center-column {
      \\stdBass \"Soft Bass\"
-     \"\\\\stdBass \\\"Soft Bass\\\"\"
+     \\typewriter \"\\\\stdBass \\\"Soft Bass\\\"\"
      \\vspace #1
      \\stdBass \"Soft Tenor\"
-     \"\\\\stdBass \\\"Soft Tenor\\\"\"
+     \\typewriter \"\\\\stdBass \\\"Soft Tenor\\\"\"
      \\vspace #1
      \\stdBass \"Bass/Alto\"
-     \"\\\\stdBass \\\"Bass/Alto\\\"\"
+     \\typewriter \"\\\\stdBass \\\"Bass/Alto\\\"\"
   }
 }
 @end lilypond
@@ -278,8 +276,7 @@ Available registrations are
 
 
 (define-register-set stdBassIV
-  "@code{\\stdBassIV @var{name}} generates a standard bass accordion
-register symbol.
+  "Generate a standard bass accordion register symbol for @var{name}.
 
 To make it available,
 
@@ -322,29 +319,29 @@ Available registrations are
 \\markup {
   \\center-column {
      \\stdBassIV \"Soprano\"
-     \"\\\\stdBassIV \\\"Soprano\\\"\"
+     \\typewriter \"\\\\stdBassIV \\\"Soprano\\\"\"
      \\vspace #1
      \\stdBassIV \"Alto\"
-     \"\\\\stdBassIV \\\"Alto\\\"\"
+     \\typewriter \"\\\\stdBassIV \\\"Alto\\\"\"
      \\vspace #1
      \\stdBassIV \"Tenor\"
-     \"\\\\stdBassIV \\\"Tenor\\\"\"
+     \\typewriter \"\\\\stdBassIV \\\"Tenor\\\"\"
      \\vspace #1
      \\stdBassIV \"Master\"
-     \"\\\\stdBassIV \\\"Master\\\"\"
+     \\typewriter \"\\\\stdBassIV \\\"Master\\\"\"
   } \\hspace #3
   \\center-column {
      \\stdBassIV \"Soft Bass\"
-     \"\\\\stdBassIV \\\"Soft Bass\\\"\"
+     \\typewriter \"\\\\stdBassIV \\\"Soft Bass\\\"\"
      \\vspace #1
      \\stdBassIV \"Bass/Alto\"
-     \"\\\\stdBassIV \\\"Bass/Alto\\\"\"
+     \\typewriter \"\\\\stdBassIV \\\"Bass/Alto\\\"\"
      \\vspace #1
      \\stdBassIV \"Soft Bass/Alto\"
-     \"\\\\stdBassIV \\\"Soft Bass/Alto\\\"\"
+     \\typewriter \"\\\\stdBassIV \\\"Soft Bass/Alto\\\"\"
      \\vspace #1
      \\stdBassIV \"Soft Tenor\"
-     \"\\\\stdBassIV \\\"Soft Tenor\\\"\"
+     \\typewriter \"\\\\stdBassIV \\\"Soft Tenor\\\"\"
   }
 }
 @end lilypond
@@ -366,8 +363,7 @@ Available registrations are
      ("Soft Tenor" (reedbanks Tenor Alto)))))
 
 (define-register-set stdBassV
-  "@code{\\stdBassV @var{name}} generates a standard bass accordion
-register symbol.
+  "Generate a standard bass accordion register symbol for @var{name}.
 
 To make it available,
 
@@ -394,11 +390,11 @@ layout
 @end lilypond
 
 This tends to be the bass layout for Hohner's Morino series without
-convertor or MIII manual.
+converter or MIII manual.
 
 With the exception of the rather new 7-register layout, the highest
-two chord reeds are usually sounded together.  The  Older instruments offer
-5 or 3 bass registers.  The Tango@tie{}VM offers an additional
+two chord reeds are usually sounded together.  Older instruments offer
+5 or 3@tie{}bass registers.  The Tango@tie{}VM offers an additional
 @samp{Solo Bass} setting that mutes the chord reeds.  The symbol on
 the register buttons of the Tango@tie{}VM would actually match the
 physical five-octave layout reflected here, but it is not used in
@@ -415,35 +411,35 @@ Available registrations are
 \\markuplist \\justified-lines {
   \\center-column {
      \\stdBassV \"Bass/Alto\"
-     \"\\\\stdBassV \\\"Bass/Alto\\\"\"
+     \\typewriter \"\\\\stdBassV \\\"Bass/Alto\\\"\"
      \\vspace #1
      \\stdBassV \"Soft Bass/Alto\"
-     \"\\\\stdBassV \\\"Soft Bass/Alto\\\"\"
+     \\typewriter \"\\\\stdBassV \\\"Soft Bass/Alto\\\"\"
      \\vspace #1
      \\stdBassV \"Alto\"
-     \"\\\\stdBassV \\\"Alto\\\"\"
+     \\typewriter \"\\\\stdBassV \\\"Alto\\\"\"
      \\vspace #1
      \\stdBassV \"Tenor\"
-     \"\\\\stdBassV \\\"Tenor\\\"\"
+     \\typewriter \"\\\\stdBassV \\\"Tenor\\\"\"
      \\vspace #1
      \\stdBassV \"Master\"
-     \"\\\\stdBassV \\\"Master\\\"\"
+     \\typewriter \"\\\\stdBassV \\\"Master\\\"\"
  } \\hspace #3
   \\center-column {
      \\stdBassV \"Soft Bass\"
-     \"\\\\stdBassV \\\"Soft Bass\\\"\"
+     \\typewriter \"\\\\stdBassV \\\"Soft Bass\\\"\"
      \\vspace #1
      \\stdBassV \"Soft Tenor\"
-     \"\\\\stdBassV \\\"Soft Tenor\\\"\"
+     \\typewriter \"\\\\stdBassV \\\"Soft Tenor\\\"\"
      \\vspace #1
      \\stdBassV \"Soprano\"
-     \"\\\\stdBassV \\\"Soprano\\\"\"
+     \\typewriter \"\\\\stdBassV \\\"Soprano\\\"\"
      \\vspace #1
      \\stdBassV \"Sopranos\"
-     \"\\\\stdBassV \\\"Sopranos\\\"\"
+     \\typewriter \"\\\\stdBassV \\\"Sopranos\\\"\"
      \\vspace #1
      \\stdBassV \"Solo Bass\"
-     \"\\\\stdBassV \\\"Solo Bass\\\"\"
+     \\typewriter \"\\\\stdBassV \\\"Solo Bass\\\"\"
   }
 }
 @end lilypond
@@ -468,8 +464,8 @@ Available registrations are
      ("Solo Bass" (reedbanks Bass)))))
 
 (define-register-set stdBassVI
-  "@code{\\stdBassVI @var{name}} generates a standard bass accordion
-register symbol for six reed basses.
+  "Generate a standard bass accordion register symbol for six-reed basses as
+given by @var{name}.
 
 To make it available,
 
@@ -510,26 +506,26 @@ Available registrations are
 \\markup {
   \\center-column {
      \\stdBassVI \"Soprano\"
-     \"\\\\stdBassVI \\\"Soprano\\\"\"
+     \\typewriter \"\\\\stdBassVI \\\"Soprano\\\"\"
      \\vspace #1
      \\stdBassVI \"Alto\"
-     \"\\\\stdBassVI \\\"Alto\\\"\"
+     \\typewriter \"\\\\stdBassVI \\\"Alto\\\"\"
      \\vspace #1
      \\stdBassVI \"Soft Tenor\"
-     \"\\\\stdBassVI \\\"Soft Tenor\\\"\"
+     \\typewriter \"\\\\stdBassVI \\\"Soft Tenor\\\"\"
      \\vspace #1
      \\stdBassVI \"Master\"
-     \"\\\\stdBassVI \\\"Master\\\"\"
+     \\typewriter \"\\\\stdBassVI \\\"Master\\\"\"
   } \\hspace #3
   \\center-column {
      \\stdBassVI \"Alto/Soprano\"
-     \"\\\\stdBassVI \\\"Alto/Soprano\\\"\"
+     \\typewriter \"\\\\stdBassVI \\\"Alto/Soprano\\\"\"
      \\vspace #1
      \\stdBassVI \"Bass/Alto\"
-     \"\\\\stdBassVI \\\"Bass/Alto\\\"\"
+     \\typewriter \"\\\\stdBassVI \\\"Bass/Alto\\\"\"
      \\vspace #1
      \\stdBassVI \"Soft Bass\"
-     \"\\\\stdBassVI \\\"Soft Bass\\\"\"
+     \\typewriter \"\\\\stdBassVI \\\"Soft Bass\\\"\"
   }
 }
 @end lilypond
@@ -555,8 +551,8 @@ Available registrations are
 ;; description.  Being a default, we just provide the normal 2 reed
 ;; registrations.
 (define-register-set freeBass
-  "@code{\\freeBass @var{name}} generates a free bass/@/converter
-accordion register symbol for the usual two-reed layout.
+  "Generate a free bass/@/converter accordion register symbol for the usual
+two-reed layout as given by @var{name}.
 
 To make it available,
 
@@ -574,14 +570,14 @@ Available registrations are
 \\markup {
   \\center-column {
      \\freeBass \"1\"
-     \"\\\\freeBass \\\"1\\\"\"
+     \\typewriter \"\\\\freeBass \\\"1\\\"\"
      \\vspace #1
      \\freeBass \"10\"
-     \"\\\\freeBass \\\"10\\\"\"
+     \\typewriter \"\\\\freeBass \\\"10\\\"\"
   } \\hspace #3
   \\center-column {
      \\freeBass \"11\"
-     \"\\\\freeBass \\\"11\\\"\"
+     \\typewriter \"\\\\freeBass \\\"11\\\"\"
   }
 }
 @end lilypond
