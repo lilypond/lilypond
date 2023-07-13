@@ -2744,9 +2744,10 @@ and@tie{}@var{y}."
   "
 @cindex setting extent of text object
 
-Set the horizontal dimension of @var{arg} to @var{val} if @var{axis}
-is equal to@tie{}@code{X}.  If @var{axis} is equal to@tie{}@code{Y},
-set the vertical dimension of @var{arg} to @var{val} instead."
+Set the dimension of @var{arg} along @var{axis} to @var{val}.
+
+If @var{axis} is equal to@tie{}@code{X}, set the horizontal dimension.  If
+@var{axis} is equal to@tie{}@code{Y}, set the vertical dimension."
   (let* ((stil (interpret-markup layout props arg))
          (x-orig (ly:stencil-extent stil X))
          (y-orig (ly:stencil-extent stil Y)))
@@ -2789,10 +2790,11 @@ Print @var{arg2} with the horizontal and vertical dimensions of @var{arg1}."
   "
 @cindex setting extent of text object
 
-Print @var{arg2} but replace the horizontal dimension with the one
-from @var{arg1} if @var{axis} is set to@tie{}@code{X}.  If @var{axis}
-is set to@tie{}@code{Y}, replace the vertical dimension with the one
-from @var{arg1} instead."
+Print @var{arg2} but replace the dimension along @var{axis} with the one from
+@var{arg1}.
+
+If @var{axis} is set to@tie{}@code{X}, replace the horizontal dimension.  If
+@var{axis} is set to@tie{}@code{Y}, replace the vertical dimension."
   (let* ((stil1 (interpret-markup layout props arg1))
          (stil2 (interpret-markup layout props arg2))
          (x (ly:stencil-extent (if (= axis X) stil1 stil2) X))
@@ -2820,11 +2822,14 @@ completely encompasses the glyph's outline) -- in most cases, the outline
 protrudes the box spanned up by the metrics.
 
 @lilypond[verbatim,quote]
-\\markup
+\\markup {
+  text
   \\fontsize #10
   \\override #'((box-padding . 0) (thickness . 0.2))
   \\box
     \\musicglyph \"scripts.trill\"
+  text
+}
 @end lilypond
 
 For purposes other than setting text, this behavior may not be wanted.
@@ -2832,12 +2837,15 @@ You can use @code{\\with-@/true-@/dimension} in order to give the markup
 its actual printed extent.
 
 @lilypond[verbatim,quote]
-\\markup
+\\markup {
+  text
   \\fontsize #10
   \\override #'((box-padding . 0) (thickness . 0.2))
   \\box
     \\with-true-dimension #X
     \\musicglyph \"scripts.trill\"
+  text
+}
 @end lilypond"
   (let* ((stencil (interpret-markup layout props arg))
          (true-ext (stencil-true-extent stencil axis))
@@ -2853,9 +2861,26 @@ its actual printed extent.
 (define-markup-command (with-true-dimensions layout props arg)
   (markup?)
   #:category other
-  "@code{\\markup \\with-@/true-@/dimensions @var{arg}} is short for
-@code{\\markup \\with-@/true-@/dimension #X \\with-@/true-@/dimension #Y
-@var{arg}}, i.e., @code{\\with-@/true-@/dimensions} has the effect of
+  "Give @var{arg} its actual dimensions (extents).
+
+Calling
+
+@example
+\\markup \\with-true-dimensions @var{arg}
+@end example
+
+@noindent
+is short for
+
+@example
+\\markup
+  \\with-true-dimension #X
+  \\with-true-dimension #Y
+  @var{arg}
+@end example
+
+@noindent
+i.e., @code{\\with-@/true-@/dimensions} has the effect of
 @code{\\with-@/true-@/dimension} on both axes."
   (interpret-markup
    layout
@@ -3033,9 +3058,10 @@ recursive markup definition."
                         symbol
                         (make-property-recursive-markup symbol)
                         props))
-  "Read the @var{symbol} from property settings, and produce a stencil
-from the markup contained within.  If @var{symbol} is not defined, it
-returns an empty markup.
+  "Read @var{symbol} from the property settings and produce a stencil
+from the markup contained within.
+
+If @var{symbol} is not defined, return an empty markup.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\header {
@@ -3207,13 +3233,17 @@ The footnote will be annotated automatically."
   "
 @cindex overriding property within text markup
 
-Add the argument @var{new-prop} to the property list.  Properties
-may be any property supported by @rinternals{font-interface},
-@rinternals{text-interface} and
-@rinternals{instrument-specific-markup-interface}.
+Add the argument @var{new-prop} to the property list for printing @var{arg}.
 
-@var{new-prop} may be either a single alist pair, or non-empty alist
-of its own.
+In general, any property may be overridden that is part of
+@code{font-@/interface} (@rinternals{font-interface}),
+@code{text-@/interface} (@rinternals{text-interface}), or
+@code{instrument-@/specific-@/markup-@/interface}
+(@rinternals{instrument-specific-markup-interface}).  Additionally, various
+markup commands listen to other properties, too, as described in a markup
+function's documentation.
+
+@var{new-prop} is either a single alist pair or a non-empty list of alist pairs.
 
 @lilypond[verbatim,quote]
 \\markup {
