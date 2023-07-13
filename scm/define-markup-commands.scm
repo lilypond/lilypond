@@ -1216,8 +1216,9 @@ markup.
 @cindex padding text
 @cindex putting space around text
 
-Add space around a markup object.
-Identical to @code{pad-around}.
+Add padding @var{amount} all around @var{arg}.
+
+Identical to function @code{\\pad-around}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1232,11 +1233,8 @@ Identical to @code{pad-around}.
   }
 }
 @end lilypond"
-  (let* ((m (interpret-markup layout props arg))
-         (x (interval-widen (ly:stencil-extent m X) amount))
-         (y (interval-widen (ly:stencil-extent m Y) amount)))
-    (ly:stencil-add (make-transparent-box-stencil x y)
-                    m)))
+  (stencil-pad-around amount (interpret-markup layout props arg)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; space
