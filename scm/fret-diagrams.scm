@@ -1071,16 +1071,15 @@ values."
                 (thickness 0.5))
   "Make a fret diagram containing the symbols indicated in @var{marking-list}.
 
-  For example,
+  The following example produces a standard D@tie{}chord diagram without
+fingering indications.
 
-@example
-\\markup \\fret-diagram-verbose
-  #'((mute 6) (mute 5) (open 4)
-     (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
-@end example
-
-@noindent
-produces a standard D@tie{}chord diagram without fingering indications.
+@lilypond[verbatim,quote]
+\\markup \\scale #'(1.5 . 1.5)
+  \\fret-diagram-verbose
+    #'((mute 6) (mute 5) (open 4)
+       (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
+@end lilypond
 
 Possible elements in @var{marking-list}:
 
@@ -1124,8 +1123,19 @@ If the @var{finger} part of the @code{place-fret} element is present,
 @var{finger-value} will be displayed according to the setting of the
 variable @var{finger-code}.  There is no limit to the number of fret
 indications per string.
-@end table"
+@end table
 
+@lilypond[verbatim,quote]
+\\markup \\scale #'(1.5 . 1.5)
+  \\fret-diagram-verbose #'(
+    (place-fret 6 3 1 red parenthesized default-paren-color)
+    (place-fret 5 3 1 inverted)
+    (place-fret 4 5 2 blue parenthesized)
+    (place-fret 3 5 3 blue)
+    (place-fret 2 5 4 blue)
+    (place-fret 1 3 1 inverted)
+  )
+@end lilypond"
   (make-fret-diagram layout props marking-list))
 
 
@@ -1134,14 +1144,16 @@ indications per string.
   #:category instrument-specific ; markup category
   #:properties (fret-diagram-verbose-markup) ; properties and defaults
   #:as-string ""
-  "Make a (guitar) fret diagram.  For example, say
+  "Make a (guitar) fret diagram based on @var{definition-string}.
 
-@example
-\\markup \\fret-diagram #\"s:0.75;6-x;5-x;4-o;3-2;2-3;1-2;\"
-@end example
+For example, say
+
+@lilypond[verbatim,quote]
+\\markup \\fret-diagram #\"s:1.25;6-x;5-x;4-o;3-2;2-3;1-2;\"
+@end lilypond
 
 @noindent
-for fret spacing 3/4 of staff space, D chord diagram
+for fret spacing 5/4 of staff space, D chord diagram.
 
 Syntax rules for @var{definition-string}:
 
@@ -1217,14 +1229,14 @@ Note: There is no limit to the number of fret indications per string.
   #:as-string ""
   "Make a fret diagram markup using terse string-based syntax.
 
-Here is an example
+For example,
 
-@example
+@lilypond[verbatim,quote]
 \\markup \\fret-diagram-terse #\"x;x;o;2;3;2;\"
-@end example
+@end lilypond
 
 @noindent
-for a D@tie{}chord diagram.
+displays a D@tie{}chord diagram.
 
 Syntax rules for @var{definition-string}:
 

@@ -1864,17 +1864,24 @@
                 (graphical #t)
                 (font-size 0)
                 (woodwind-diagram-details '()))
-  "Make a woodwind-instrument diagram.  For example, say
+  "Make a woodwind-instrument diagram for @var{instrument} using
+@var{user-draw-commands}.
 
-@example
+@var{user-draw-commands} is a list of alists, specifying the left-hand keys, the
+elements on the central column, and the right-hand keys.  For example, this
+diagram
+
+@lilypond[verbatim,quote]
 \\markup \\woodwind-diagram
-  #'oboe #'((lh . (d ees)) (cc . (five3qT1q)) (rh . (gis)))
-@end example
+  #'oboe #'((lh . (d ees))
+            (cc . (five3qT1q))
+            (rh . (gis)))
+@end lilypond
 
 @noindent
-for an oboe with the left-hand d key, left-hand ees key,
-and right-hand gis key depressed while the five-hole of
-the central column effectuates a trill between 1/4 and 3/4 closed.
+shows an oboe with the left-hand d@tie{}key, left-hand ees key, and right-hand
+gis key depressed, while the five-hole of the central column effectuating a
+trill between 1/4 and 3/4 is closed.
 
 The following instruments are supported:
 
@@ -1897,32 +1904,25 @@ bassoon
 contrabassoon
 @end itemize
 
-To see all of the callable keys for a given instrument,
-include the function @code{(print-keys 'instrument)}
-in your .ly file, where instrument is the instrument
-whose keys you want to print.
+To see all of the callable keys for a given instrument, include the function
+call @code{(print-keys '@var{instrument})} in your @file{.ly} file, where
+@var{instrument} is the instrument whose keys you want to print.
 
 Certain keys allow for special configurations.  The entire gamut of
 configurations possible is as follows:
 
-@itemize @minus
-
-@item
-1q (1/4 covered)
-
-@item
-1h (1/2 covered)
-
-@item
-3q (3/4 covered)
-
-@item
-R (ring depressed)
-
-@item
-F (fully covered; the default if no state put)
-
-@end itemize
+@table @code
+@item 1q
+1/4 covered
+@item 1h
+1/2 covered
+@item 3q
+3/4 covered
+@item R
+ring depressed
+@item F
+fully covered; the default if no state put
+@end table
 
 Additionally, these configurations can be used in trills.  So, for example,
 @code{three3qTR} effectuates a trill between 3/4 full and ring depressed
@@ -1934,9 +1934,9 @@ instrument, invoke @code{(print-keys-verbose '@var{instrument})}.
 Lastly, substituting an empty list for the pressed-key alist results in
 a diagram with all of the keys drawn but none filled, for example
 
-@example
-\\markup \\woodwind-diagram #'oboe #'()
-@end example"
+@lilypond[verbatim,quote]
+\\markup \\woodwind-diagram #'flute #'()
+@end lilypond"
   (let*  ((radius size)
           (thick (* size thickness))
           (display-graphic graphical)

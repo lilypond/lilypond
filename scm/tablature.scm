@@ -46,7 +46,17 @@
                         layout props num-strings staff-space)
   (integer? number?)
   #:category music
-  "Draw a tab clef sans-serif style."
+  "Draw a clef in sans-serif style for a tablature with @var{num-strings} lines
+spaced by @var{staff-space}.
+
+This markup command is used to implement @code{\\clef moderntab} within a
+@code{TabStaff} context.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\customTabClef #4 #1
+}
+@end lilypond"
   (define (square x) (* x x))
   (let* ((scale-factor (/ staff-space 1.5))
          (font-size (- (* num-strings 1.5 scale-factor) 7))

@@ -40,30 +40,49 @@ vertical divider line
 the following pedal should be circled (indicating a change)
 @end table
 
-The function also checks if the string has the typical form of three
-pedals, then the divider and then the remaining four pedals.  If not it
-prints out a warning.  However, in any case, it will also print each symbol
-in the order as given.  This means you can place the divider (even
-multiple dividers) anywhere you want, but you'll have to live with the
-warnings.
-
-The appearance of the diagram can be tweaked inter alia using the size property
-of the TextScript grob (@code{\\override Voice.TextScript.size = #0.3}) for
-the overall, the thickness property (@code{\\override
-Voice.TextScript.thickness = #3}) for the line thickness of
-the horizontal line and the divider.  The remaining configuration (box
-sizes, offsets and spaces) is done by the harp-pedal-details list of
-properties (@code{\\override Voice.TextScript.harp-pedal-details.box-width = #1}).
-It contains the following settings: @code{box-offset} (vertical shift
-of the box center for up/down pedals), @code{box-width},
-@code{box-height}, @code{space-before-divider} (the spacing between
-two boxes before the divider) and @code{space-after-divider} (box
-spacing after the divider).
-
 @lilypond[verbatim,quote]
 \\markup \\harp-pedal #\"^-v|--ov^\"
 @end lilypond
-"
+
+The function also checks whether the string has the typical form of three
+pedals, then the divider, and then the remaining four pedals, printing a warning
+otherwise (without preventing the non-standard order).
+
+Use the @code{size} property to control the overall size, and the
+@code{thickness} property for the line thickness of the horizontal line and the
+divider.
+
+The remaining configuration is done via the @code{harp-@/pedal-@/details}
+property; it contains the following elements:
+
+@table @code
+@item box-offset
+vertical shift of the box center for up/down pedals
+@item box-width
+box width
+@item box-height
+box height
+@item space-before-divider
+spacing between two boxes before the divider
+@item space-after-divider
+spacing between two boxes after the divider
+@end table
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'((size . 1.5)
+               (harp-pedal-details . ((box-width . 1)
+                                      (box-offset . 2))))
+  \\harp-pedal #\"^-v|--ov^\"
+}
+@end lilypond
+
+For global modification of @code{harp-@/pedal-@/details}, i.e., outside of the
+current @code{\\markup} block, you can also use code similar to
+
+@example
+\\override Voice.TextScript.harp-pedal-details.box-width = #1
+@end example"
   (let* ((pedal-list (harp-pedals-parse-string definition-string))
          (details (begin (harp-pedal-check pedal-list) harp-pedal-details))
          (dy (* size (assoc-get 'box-offset details 0.8))) ; offset of the box center from the line
