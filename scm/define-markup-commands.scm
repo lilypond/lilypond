@@ -193,19 +193,32 @@ Draw a line along vector @var{dest}.
   "
 @cindex drawing dashed line, within text
 
-A dashed line.
+Draw a dashed line along vector @var{dest}.
 
-If @code{full-length} is set to #t (default) the dashed-line extends to the
-whole length given by @var{dest}, without white space at beginning or end.
-@code{off} will then be altered to fit.
-To insist on the given (or default) values of @code{on}, @code{off} use
-@code{\\override #'(full-length . #f)}
-Manual settings for @code{on},@code{off} and @code{phase} are possible.
+Properties @code{on} and @code{off} give the length of a dash and the space
+between two dashes, respectively; @code{phase} shortens the first dash by the
+given amount.
+
+If the @code{full-length} property is set to @code{#t} (which is the default),
+the value of property @code{off} (and @code{on} under some boundary conditions)
+gets adjusted so that there is neither whitespace at the end of the line nor the
+last dash truncated.
+
 @lilypond[verbatim,quote]
 \\markup {
-  \\draw-dashed-line #'(5.1 . 2.3)
   \\override #'((on . 0.3) (off . 0.5))
-  \\draw-dashed-line #'(5.1 . 2.3)
+  \\draw-dashed-line #'(6 . 2)
+
+  \\draw-dashed-line #'(6 . 2)
+
+  \\override #'(full-length . #f)
+  \\draw-dashed-line #'(6 . 2)
+
+  \\override #'(phase . 0.5)
+  \\draw-dashed-line #'(6 . 2)
+
+  \\override #'((full-length . #f) (phase . 0.5))
+  \\draw-dashed-line #'(6 . 2)
 }
 @end lilypond"
   (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
@@ -298,14 +311,12 @@ Manual settings for @code{on},@code{off} and @code{phase} are possible.
   "
 @cindex drawing dotted line, within text
 
-A dotted line.
+Draw a dotted line along vector @var{dest}.
 
-The dotted-line always extends to the whole length given by @var{dest}, without
-white space at beginning or end.
-Manual settings for @code{off} are possible to get larger or smaller space
-between the dots.
-The given (or default) value of @code{off} will be altered to fit the
-line-length.
+Property @code{off} gives the space between two dots; its value gets adjusted so
+that the first and last dot exactly start and end the line, respectively.
+@code{phase} shifts all dots along the vector by the given amount.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\draw-dotted-line #'(5.1 . 2.3)
@@ -331,14 +342,17 @@ line-length.
   "
 @cindex drawing squiggled line, within text
 
-A squiggled line.
+Draw a squiggled line along vector @var{dest}.
 
-If @code{eq-end?} is set to @code{#t}, it is ensured the squiggled line ends
-with a bow in same direction as the starting one.  @code{sq-length} is the
-length of the first bow.  @code{dest} is the end point of the squiggled line.
-To match @code{dest} the squiggled line is scaled accordingly.
-Its appearance may be customized by overrides for @code{thickness},
-@code{angularity}, @code{height} and @code{orientation}.
+@var{sq-length} is the length of the first bow; this value gets always adjusted
+so that an integer number of squiggles is printed.  If @var{eq-end?} is set to
+@code{#t}, the squiggled line ends with a bow in the same direction as the
+starting one.
+
+The appearance of the squiggled line may be customized by overriding the
+@code{thickness}, @code{angularity}, @code{height}, and @code{orientation}
+properties.
+
 @lilypond[verbatim,quote]
 \\markup
   \\column {
@@ -411,8 +425,11 @@ Its appearance may be customized by overrides for @code{thickness},
   "
 @cindex drawing line, across a page
 
-Draws a line across a page, where the property @code{span-factor}
-controls what fraction of the page is taken up.
+Draw a horizontal line.
+
+The property @code{span-factor} sets the length of the line as a multiple of the
+@code{line-width} property.
+
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
   \\column {
@@ -437,8 +454,9 @@ controls what fraction of the page is taken up.
   "
 @cindex drawing circle, within text
 
-A circle of radius @var{radius} and thickness @var{thickness},
-optionally filled.
+Draw a circle with given @var{radius} and @var{thickness}.
+
+Fill the circle if @var{filled} is set to @code{#t}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -458,13 +476,14 @@ optionally filled.
   "
 @cindex drawing polygon
 
-A polygon delimited by the list of @var{points}.  @var{extroversion}
-defines how the shape of the polygon is adapted to its thickness.
-If it is@tie{}0, the polygon is traced as-is.  If@tie{}-1, the outer side
-of the line is just on the given points.  If@tie{}1, the line has its
-inner side on the points.  The @var{thickness} property controls the
-thickness of the line; for filled polygons, this means the diameter
-of the blot.
+A polygon delimited by the list of @var{points}.
+
+Property @code{extroversion} defines how the shape of the polygon is adapted to
+its thickness: if it is@tie{}0, the polygon is traced as-is.  If it is@tie{}-1,
+the outer side of the line is just on the given points.  If set to@tie{}1, the
+line has its inner side on the points.  The @code{thickness} property controls
+the thickness of the line; for filled polygons, this means the diameter of the
+blot.
 
 @lilypond[verbatim,quote]
 regularPentagon =
@@ -498,13 +517,24 @@ regularPentagon =
   "
 @cindex drawing triangle, within text
 
-A triangle, either filled or empty.
+Draw a triangle.
+
+Fill the triangle if @var{filled} is set to @code{#t}.
+
+The appearance can be controlled with properties @code{extroversion},
+@code{font-size}, and @code{thickness}.
 
 @lilypond[verbatim,quote]
 \\markup {
   \\triangle ##t
-  \\hspace #2
   \\triangle ##f
+  \\override #'(font-size . 5)
+  \\override #'(thickness . 5) {
+    \\override #'(extroversion . 1)
+    \\triangle ##f
+    \\override #'(extroversion . -1)
+    \\triangle ##f
+  }
 }
 @end lilypond"
   ;; The value 1.8 was found by trial and error (previously, it was 0.8 *
@@ -536,9 +566,10 @@ A triangle, either filled or empty.
   "
 @cindex circling text
 
-Draw a circle around @var{arg}.  Use @code{thickness},
-@code{circle-padding} and @code{font-size} properties to determine line
-thickness and padding around the markup.
+Draw a circle around @var{arg}.
+
+Use properties @code{thickness}, @code{circle-padding}, and @code{font-size} to
+set the line thickness and padding around the markup.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -563,9 +594,12 @@ thickness and padding around the markup.
   "
 @cindex drawing ellipse, around text
 
-Draw an ellipse around @var{arg}.  Use @code{thickness},
-@code{x-padding}, @code{y-padding} and @code{font-size} properties to determine
-line thickness and padding around the markup.
+Draw an ellipse around @var{arg}.
+
+Use properties @code{thickness}, @code{x-padding}, @code{y-padding}, and
+@code{font-size} to set the line thickness and padding around the markup.
+
+This is the same as function @code{\\oval} but with different padding defaults.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -593,9 +627,13 @@ line thickness and padding around the markup.
   "
 @cindex drawing oval, around text
 
-Draw an oval around @var{arg}.  Use @code{thickness},
-@code{x-padding}, @code{y-padding} and @code{font-size} properties to determine
-line thickness and padding around the markup.
+Draw an oval around @var{arg}.
+
+Use properties @code{thickness}, @code{x-padding}, @code{y-padding}, and
+@code{font-size} to set the line thickness and padding around the markup.
+
+This is the same as function @code{\\ellipse} but with different padding
+defaults.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -983,9 +1021,11 @@ Overtie @var{arg}.
   "
 @cindex enclosing text within a box
 
-Draw a box round @var{arg}.  Looks at @code{thickness},
-@code{box-padding} and @code{font-size} properties to determine line
-thickness and padding around the markup.
+Draw a box around @var{arg}.
+
+This function looks at the @code{thickness}, @code{box-padding}, and
+@code{font-size} properties to determine the line thickness and padding around
+the markup.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1022,11 +1062,14 @@ it.
 @cindex drawing solid box, within text
 @cindex drawing box, with rounded corners
 
-Draw a box with rounded corners of dimensions @var{xext} and
-@var{yext}.  For example,
-@verbatim
+Draw a box of dimensions @var{xext} and @var{yext}, with rounded corners given
+by @var{blot}.
+
+For example,
+
+@example
 \\filled-box #'(-.3 . 1.8) #'(-.3 . 1.8) #0
-@end verbatim
+@end example
 
 @noindent
 creates a box extending horizontally from -0.3 to 1.8 and
@@ -1059,10 +1102,12 @@ circle of diameter@tie{}0 (i.e., sharp corners).
 @cindex enclosing text in box, with rounded corners
 @cindex drawing box, with rounded corners, around text
 
-Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
-@code{box-padding} and @code{font-size} properties to determine line
-thickness and padding around the markup; the @code{corner-radius} property
-makes it possible to define another shape for the corners (default is 1).
+Draw a box with rounded corners around @var{arg}.
+
+This function looks at properties @code{thickness}, @code{box-padding}, and
+@code{font-size} to determine the line thickness and padding around the
+@var{arg}.  The @code{corner-radius} property defines the radius of the round
+corners (default value is@tie{}1).
 
 @lilypond[verbatim,quote,relative=2]
 c4^\\markup {
@@ -1123,11 +1168,12 @@ Rotate @var{arg} by @var{ang} degrees around its center.
   "
 @cindex adding white background, to text
 
-Provide a white background for @var{arg}.  The shape of the white
-background is determined by @code{style}.  The default
-is @code{box} which produces a rectangle.  @code{rounded-box}
-produces a rounded rectangle.  @code{outline} approximates the
-outline of the markup.
+Provide a white background for @var{arg}.
+
+The shape of the white background is determined by the @code{style} property.
+The default is @code{box} which produces a rectangle.  @code{rounded-box}
+produces a rounded rectangle, and @code{outline} approximates the outline of the
+markup.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1383,14 +1429,14 @@ lowercase: @code{rmoveto} = @code{r}, @code{rlineto} = @code{l},
 @code{rcurveto} = @code{c}.
 
 The commands @code{moveto}, @code{rmoveto}, @code{lineto}, and
-@code{rlineto} take 2 arguments; they are the X and Y coordinates
-for the destination point.
+@code{rlineto} take 2@tie{}arguments, namely the X and Y@tie{}coordinates
+of the destination point.
 
 The commands @code{curveto} and @code{rcurveto} create cubic
-Bézier curves, and take 6 arguments; the first two are the X and Y
-coordinates for the first control point, the second two are the X
-and Y coordinates for the second control point, and the last two
-are the X and Y coordinates for the destination point.
+Bézier curves, and take 6@tie{}arguments; the first two are the X and
+Y@tie{}coordinates for the first control point, the second two are the X
+and Y@tie{}coordinates for the second control point, and the last two
+are the X and Y@tie{}coordinates for the destination point.
 
 The @code{closepath} command takes zero arguments and closes the
 current subpath in the active path.
