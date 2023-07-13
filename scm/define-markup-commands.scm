@@ -680,8 +680,8 @@ Insert a QR code for the given string, usually a URL.
 }
 @end lilypond
 
-The @var{error-correction-level} property can be set to one of the symbols
-@code{low}, @code{medium}, @code{quarter} and @code{high}.  The higher
+The @code{error-correction-level} property can be set to one of the symbols
+@code{low}, @code{medium}, @code{quarter}, or @code{high}.  The higher
 the level of error correction is, the more the QR code contains redundancy,
 potentially helping detectors, e.g., in poor lighting conditions; however,
 a higher correction level also makes the code denser.
@@ -695,7 +695,7 @@ a higher correction level also makes the code denser.
 }
 @end lilypond
 
-The @var{quiet-zone-size} property specifies the width of the @qq{quiet zone},
+The @code{quiet-zone-size} property specifies the width of the @qq{quiet zone},
 namely the white area around the QR code.  It is expressed as a multiple of the
 width of one little square inside the QR code.  Use at least 4 for best results."
   (let ((arr (catch 'qr-code-error
@@ -1364,8 +1364,8 @@ directions given in @var{commands}.  @var{commands} is a list of
 lists where the @code{car} of each sublist is a drawing command and
 the @code{cdr} comprises the associated arguments for each command.
 
-There are seven commands available to use in the list
-@code{commands}: @code{moveto}, @code{rmoveto}, @code{lineto},
+There are seven commands available to use in
+@var{commands}: @code{moveto}, @code{rmoveto}, @code{lineto},
 @code{rlineto}, @code{curveto}, @code{rcurveto}, and
 @code{closepath}.  Note that the commands that begin with @samp{r}
 are the relative variants of the other three commands.  You may also
@@ -2409,7 +2409,7 @@ line."
   "
 @cindex centering column of text
 
-Put @code{args} in a centered column.
+Put @var{args} into a centered column.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2429,7 +2429,7 @@ Put @code{args} in a centered column.
   "
 @cindex text column, left-aligned
 
-Put @code{args} in a left-aligned column.
+Put @var{args} into a left-aligned column.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2449,7 +2449,7 @@ Put @code{args} in a left-aligned column.
   "
 @cindex text column, right-aligned
 
-Put @code{args} in a right-aligned column.
+Put @var{args} into a right-aligned column.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2468,7 +2468,7 @@ Put @code{args} in a right-aligned column.
   "
 @cindex vertically centering text
 
-Align @code{arg} to its Y@tie{}center.
+Align @var{arg} to its Y@tie{}center.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2486,7 +2486,7 @@ Align @code{arg} to its Y@tie{}center.
   "
 @cindex horizontally centering text
 
-Align @code{arg} to its X@tie{}center.
+Align @var{arg} to its X@tie{}center.
 
 @lilypond[verbatim,quote]
 \\markup {

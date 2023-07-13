@@ -1108,12 +1108,12 @@ an optional color modifier @var{color-modifier}, an optional color
 optional paranthesis color @code{'default-paren-color}.
 
 By default, the fret playing indicator is a solid dot.  This can be
-globally changed by setting the value of the variable @var{dot-color}
+globally changed by setting the value of the property @code{dot-color}
 or for a single dot by setting the value of @var{color}.  The dot can
 be parenthesized by adding @code{'parenthesized}.  By default the
 color for the parenthesis is taken from the dot.  Adding
-@code{'default-paren-color} will take the parenthesis-color from the
-global @var{dot-color}, as a fall-back black will be used.
+@code{'default-paren-color} will take the parenthesis color from the
+global @code{dot-color} property; as a fallback black will be used.
 Setting @var{color-modifier} to @code{inverted} inverts the dot color
 for a specific fingering.
 
