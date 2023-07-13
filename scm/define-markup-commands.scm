@@ -134,15 +134,20 @@
     #:category align
     #:properties ((word-space)
                   (text-direction RIGHT))
-    "Put @var{args} in a horizontal line.  The property @code{word-space}
-determines the space between markups in @var{args}.
+    "Put @var{args} into a horizontal line.
+
+The property @code{word-space} determines the space between markups in
+@var{args}.  For right-to-left scripts like Hebrew, @code{text-direction} should
+be set to@tie{}-1.
 
 @lilypond[verbatim,quote]
-\\markup {
-  \\line {
-    one two three
+\\markup
+  \\override #'(word-space . 3)
+  \\column {
+    \\line { \"A B\" \"C D\" \"E F\" }
+    \\override #'(text-direction . -1)
+    \\line { \"A B\" \"C D\" \"E F\" }
   }
-}
 @end lilypond"
     (let ((stencils (interpret-markup-list layout props args)))
       (if (= text-direction LEFT)
@@ -2149,8 +2154,10 @@ line."
   #:category align
   #:properties ((baseline-skip)
                 wordwrap-internal-markup-list)
-  "Simple wordwrap.  Use @code{\\override #'(line-width . @var{X})} to set
-the line width, where @var{X} is the number of staff spaces.
+  "Print @var{args} as left-aligned lines.
+
+This function provides simple word-wrap.  Use @code{\\override #'(line-width
+. @var{X})} to set the line width; @var{X}@tie{}is the number of staff spaces.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
@@ -2204,7 +2211,10 @@ line."
   #:category align
   #:properties ((baseline-skip)
                 wordwrap-string-internal-markup-list)
-  "Wordwrap a string.  Paragraphs may be separated with double newlines.
+  "Print string @var{arg} as left-aligned lines.
+
+Paragraphs are indicated by double newlines.  Use @code{\\override #'(line-width
+. @var{X})} to set the line width; @var{X}@tie{}is the number of staff spaces.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2235,7 +2245,10 @@ first line."
   #:category align
   #:properties ((baseline-skip)
                 wordwrap-string-internal-markup-list)
-  "Justify a string.  Paragraphs may be separated with double newlines
+  "Print string @var{arg} as lines aligned both at the left and the right.
+
+Paragraphs are indicated by double newlines.  Use @code{\\override #'(line-width
+. @var{X})} to set the line width; @var{X}@tie{}is the number of staff spaces.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2418,8 +2431,10 @@ line."
   "
 @cindex changing direction of text column
 
-Make a column of @var{args}, going up or down, depending on the
-setting of the @code{direction} layout property.
+Make a column of @var{args}.
+
+Depending on the setting of the @code{direction} layout property, the arguments
+are stacked upwards or downwards.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2468,6 +2483,8 @@ line."
 @cindex centering column of text
 
 Put @var{args} into a centered column.
+
+See also @code{\\column}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2640,9 +2657,10 @@ Align @var{arg} in @var{axis} direction to the @var{dir} side.
   "
 @cindex setting horizontal text alignment
 
-Set horizontal alignment.  If @var{dir} is @w{@code{-1}}, then it is
-left-aligned, while @code{+1} is right.  Values in between interpolate
-alignment accordingly.
+Print @var{arg} with horizontal alignment set to @var{dir}.
+
+If @var{dir} is -1, @var{arg} is left-aligned, while +1 makes it right-aligned.
+Values inbetween interpolate the alignment accordingly.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2674,12 +2692,11 @@ alignment accordingly.
                                        self-dir self)
   (index? number? markup? number? markup?)
   #:category align
-  "
-Align markup @var{self} on markup @var{other} along axis @var{axis},
-using @var{self-@/dir} and @var{other-@/dir} for mutual alignment of
-@var{self} and @var{other}, respectively.  This command translates
-@var{self} as requested relative to its surroundings; @var{other} is
-not printed.
+  "Align markup @var{self} on markup @var{other} along @var{axis}.
+
+This function uses @var{self-@/dir} and @var{other-@/dir} for mutual alignment
+of @var{self} and @var{other}, respectively, translating @var{self} as requested
+relative to its surroundings.  @var{other} is not printed.
 
 @lilypond[verbatim,quote]
 \\markup \\column {
@@ -2894,8 +2911,16 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   #:as-string (string-append
                (markup->string arg1 #:layout layout #:props props)
                (markup->string arg2 #:layout layout #:props props))
-  "Put @var{arg2} next to @var{arg1} in @var{axis} direction to the @var{dir}
-side, without moving @var{arg1}."
+  "Put @var{arg2} next to @var{arg1} along @var{axis} to the @var{dir} side,
+without moving @var{arg1}.
+
+@lilypond[verbatim,quote]
+\\markup \\column {
+  text
+  \\put-adjacent #X #LEFT text *
+  text
+}
+@end lilypond"
   (let ((m1 (interpret-markup layout props arg1))
         (m2 (interpret-markup layout props arg2)))
     (ly:stencil-combine-at-edge m1 axis dir m2 0.0)))
@@ -6052,14 +6077,14 @@ Overriding @code{baseline-skip} to increase rows vertical distance.
            stils)))
     (space-lines baseline-skip rows)))
 
-(define-markup-list-command (string-lines layout props strg)(string?)
+(define-markup-list-command (string-lines layout props str)(string?)
   #:properties ((split-char #\newline))
-  "
-Takes the string @var{strg} and splits it at the character provided by the
-property @code{split-char}, defaulting to @code{#\\newline}.
-Surrounding whitespace is removed from every resulting string.
-The returned list of markups is ready to be formatted by other markup or markup
-list commands like @code{\\column}, @code{\\line}, etc.
+  "Split string @var{str} into lines.
+
+The character to split at is specified by the property @code{split-char},
+defaulting to @code{#\\newline}.  Surrounding whitespace is removed from every
+resulting string.  The returned list of markups is ready to be formatted by
+other markup or markup list commands like @code{\\column}, @code{\\line}, etc.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -6071,7 +6096,7 @@ list commands like @code{\\column}, @code{\\line}, etc.
 }
 @end lilypond"
   (interpret-markup-list layout props
-                         (map string-trim-both (string-split strg split-char))))
+                         (map string-trim-both (string-split str split-char))))
 
 (define-markup-list-command (map-markup-commands layout props compose args)
   (procedure? markup-list?)
