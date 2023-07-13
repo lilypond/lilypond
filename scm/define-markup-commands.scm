@@ -3225,7 +3225,10 @@ of its own.
 (define-markup-command (smaller layout props arg)
   (markup?)
   #:category font
-  "Decrease the font size relative to the current setting.
+  "Decrease current font size by@tie{}1 to print @var{arg}.
+
+This function adjusts the @code{baseline-skip} and @code{word-space} properties
+accordingly.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3244,7 +3247,10 @@ of its own.
 (define-markup-command (larger layout props arg)
   (markup?)
   #:category font
-  "Increase the font size relative to the current setting.
+  "Increase current font size by@tie{}1 to print @var{arg}.
+
+This function adjusts the @code{baseline-skip} and @code{word-space} properties
+accordingly.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3334,7 +3340,9 @@ Additionally, it must be put into double quotes.
   #:properties ((word-space 0.6) (baseline-skip 3))
   #:category font
   "Use @var{size} as the absolute font size (in points) to display @var{arg}.
-Adjusts @code{baseline-skip} and @code{word-space} accordingly.
+
+This function adjusts the @code{baseline-skip} and @code{word-space} properties
+accordingly.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3362,7 +3370,9 @@ Adjusts @code{baseline-skip} and @code{word-space} accordingly.
   #:properties ((font-size 0)
                 (word-space 1)
                 (baseline-skip 2))
-  "Add @var{increment} to the font-size.  Adjusts @code{baseline-skip}
+  "Increase current font size by @var{increment} to print @var{arg}.
+
+This function adjusts the @code{baseline-skip} and @code{word-space} properties
 accordingly.
 
 @lilypond[verbatim,quote]
@@ -3387,15 +3397,7 @@ accordingly.
   "
 @cindex magnifying text
 
-Set the font magnification for its argument.  In the following
-example, the middle@tie{}A is 10% larger:
-
-@example
-A \\magnify #1.1 @{ A @} A
-@end example
-
-Note: Magnification only works if a font name is explicitly selected.
-Use @code{\\fontsize} otherwise.
+Magnify current font by factor @var{sz} to print @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3405,7 +3407,10 @@ Use @code{\\fontsize} otherwise.
     50% larger
   }
 }
-@end lilypond"
+@end lilypond
+
+Note that magnification only works if a font name is explicitly selected.  Use
+@code{\\fontsize} otherwise."
   (interpret-markup
    layout
    (prepend-alist-chain 'font-size (magnification->font-size sz) props)
@@ -3435,7 +3440,9 @@ properties (@rinternals{User backend properties})."
 (define-markup-command (sans layout props arg)
   (markup?)
   #:category font
-  "Switch to the sans serif font family.
+  "Print @var{arg} with a sans-serif font.
+
+This command sets the @code{font-family} property to @code{sans}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3455,8 +3462,11 @@ properties (@rinternals{User backend properties})."
 (define-markup-command (number layout props arg)
   (markup?)
   #:category font
-  "Set font family to @code{number}, which yields the font used for digits.
-This font also contains some punctuation; it has no letters.
+  "Print @var{arg} using the (music) font for numbers.
+
+This font also contains symbols for figured bass, some punctuation, spaces of
+various widths, and text variants of accidentals.  Use @code{\\dynamic} to
+access the (very small number of) letters.
 
 @cindex feature, OpenType font
 @cindex font feature, OpenType
@@ -3522,8 +3532,9 @@ See also the markup commands @code{\\figured-bass} and
 (define-markup-command (serif layout props arg)
   (markup?)
   #:category font
-  "Use a serif font (by setting @code{font-family} to @code{serif}). This can be used
-to override a setting of a sans-serif or typewriter font family.
+  "Print @var{arg} with a serif font.
+
+This command sets the @code{font-family} property to @code{serif}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3637,10 +3648,14 @@ to override a setting of a sans-serif or typewriter font family.
 (define-markup-command (fontCaps layout props arg)
   (markup?)
   #:category font
-  "Typeset text in small caps.  Unlike @code{\\smallCaps}, which merely uses
-capital letters in a smaller font size, this uses the actual variant of the font
-for small caps.  (As a consequence, if you configure a custom text font, this
-command has no effect if that font does not have a small caps variant.)
+  "Print @var{arg} in small caps.
+
+This command sets the @code{font-variant} property to @code{small-caps}.
+
+Unlike @code{\\smallCaps}, which merely uses capital letters at a smaller font
+size, this uses the actual variant of the font for small caps.  (As a
+consequence, if you configure a custom text font, this command has no effect if
+that font does not have a small caps variant.)
 
 @lilypond[verbatim,quote]
 \\markup \\fontCaps \"Small caps\"
@@ -3678,7 +3693,11 @@ about the two first arguments.
 (define-markup-command (smallCaps layout props arg)
   (markup?)
   #:category font
-  "Emit @var{arg} as small caps.
+  "Print @var{arg} in (fake) small caps.
+
+Unlike @code{\\fontCaps}, which uses the actual small caps variant of the
+current font, this fakes small caps by using capital letters at a smaller font
+size.  It can thus be used for fonts that don't have a small caps variant.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3727,7 +3746,9 @@ about the two first arguments.
 (define-markup-command (caps layout props arg)
   (markup?)
   #:category font
-  "Copy of the @code{\\smallCaps} command.
+  "Print @var{arg} in (fake) small caps.
+
+This function is a copy of the @code{\\smallCaps} command.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3737,16 +3758,21 @@ about the two first arguments.
     Text in small caps
   }
 }
-@end lilypond"
+@end lilypond
+
+Use @code{\\fontCaps} for real small caps (if the font provides it)."
   (interpret-markup layout props (make-smallCaps-markup arg)))
 
 (define-markup-command (dynamic layout props arg)
   (markup?)
   #:category font
-  "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
-@b{z}, @b{p}, and @b{r}.  When producing phrases, like
-@q{pi@`{u}@tie{}@b{f}}, the normal words (like @q{pi@`{u}}) should be
-done in a different font.  The recommended font for this is bold and italic.
+  "Print @var{arg} using the (music) font for dynamics.
+
+This font only contains letters @b{f}, @b{m}, @b{n}, @b{p}, @b{r}, @b{s}, and
+@b{z}.  When producing phrases like @q{più@tie{}@b{f}}, the normal words (like
+@q{più}) should be done in a different font.  The recommended font for this is
+bold and italic.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\dynamic {
@@ -3760,7 +3786,9 @@ done in a different font.  The recommended font for this is bold and italic.
 (define-markup-command (italic layout props arg)
   (markup?)
   #:category font
-  "Use italic @code{font-shape} for @var{arg}.
+  "Print @var{arg} in italics.
+
+This command sets the @code{font-shape} property to @code{italic}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3774,7 +3802,9 @@ done in a different font.  The recommended font for this is bold and italic.
 (define-markup-command (typewriter layout props arg)
   (markup?)
   #:category font
-  "Use @code{font-family} typewriter for @var{arg}.
+  "Print @var{arg} in typewriter.
+
+This command sets the @code{font-family} property to @code{typewriter}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3792,8 +3822,10 @@ done in a different font.  The recommended font for this is bold and italic.
 (define-markup-command (upright layout props arg)
   (markup?)
   #:category font
-  "Set @code{font-shape} to @code{upright}.  This is the opposite
-of @code{italic}.
+  "Print @var{arg} upright.
+
+This command is the opposite of @code{\\italic}; it sets the @code{font-shape}
+property to @code{upright}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3814,7 +3846,9 @@ of @code{italic}.
 (define-markup-command (normal-weight layout props arg)
   (markup?)
   #:category font
-  "Switch to normal font-series (in contrast to bold).
+  "Switch to normal weight (in contrast to bold) to print @var{arg}.
+
+This command sets the @code{font-series} property to @code{normal}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3835,8 +3869,10 @@ of @code{italic}.
 (define-markup-command (normal-text layout props arg)
   (markup?)
   #:category font
-  "Set all font related properties (except the size) to get the default
-normal text font, no matter what font was used earlier.
+  "Print @var{arg} with default text font.
+
+This resets all font-related properties (except the size), no matter what font
+was used earlier.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3867,10 +3903,10 @@ normal text font, no matter what font was used earlier.
   (string?)
   #:category music
   ;; TODO: as-string?
-  "@var{glyph-name} is converted to a musical symbol; for example,
-@code{\\musicglyph #\"accidentals.natural\"} selects the natural sign from
-the music font.  See @rnotation{The Emmentaler font} for a complete listing of
-the possible glyphs.
+  "Print music symbol @var{glyph-name}.
+
+See @rnotation{The Emmentaler font} for a complete listing of the possible glyph
+names.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3955,11 +3991,19 @@ the possible glyphs.
   (exact-rational?)
   #:category music
   #:properties ((alteration-glyph-name-alist))
-  "Select an accidental glyph from an alteration, given as
-rational number.
+  "Select an accidental glyph for @var{alteration}, given as a rational number.
+
+Use @code{\\number} instead if you need glyph representation forms that fit and
+align well with text.
 
 @lilypond[verbatim,quote]
-\\markup \\accidental #1/2
+\\markup {
+  text
+  \\tiny { \\accidental #1/2 \\accidental #-1/2 }
+  text
+  \\tiny \\number { \\char ##x266F \\char ##x266D }
+  text
+}
 @end lilypond"
   (interpret-markup layout props
                     (make-musicglyph-markup
@@ -4175,8 +4219,10 @@ Replace @q{~} tilde symbols with tie characters in @var{str}.
 (define-markup-command (arrow-head layout props axis dir filled)
   (integer? ly:dir? boolean?)
   #:category graphic
-  "Produce an arrow head in specified direction and axis.
-Use the filled head if @var{filled} is specified.
+  "Print an arrow head along @var{axis} in direction @var{dir}.
+
+Fill the head if @var{filled} is set to @code{#t}.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\fontsize #5 {
@@ -4205,9 +4251,10 @@ Use the filled head if @var{filled} is specified.
 (define-markup-command (lookup layout props glyph-name)
   (string?)
   #:category other
-  "Look up a brace glyph by name.  This is a historical command;
-@code{\\left-brace} (which looks up the glyph by absolute size
-and is independent of the font size) is recommended instead.
+  "Print a brace glyph with name @var{glyph-name}.
+
+This is a historical command; @code{\\left-brace} (which looks up the glyph by
+absolute size and is independent of the font size) is recommended instead.
 
 @lilypond[verbatim,quote]
 \\markup \\lookup #\"brace200\"
@@ -4230,8 +4277,9 @@ glyphs"))))
   (integer?)
   #:category other
   #:as-string (ly:wide-char->utf-8 num)
-  "Produce a single character.  Characters encoded in hexadecimal
-format require the prefix @code{#x}.
+  "Produce a single Unicode character with code @var{num}.
+
+Characters encoded in hexadecimal format require the prefix @code{#x}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -4369,8 +4417,11 @@ The letters start with A to@tie{}Z and continue with double letters.
   "
 @cindex slashed digit
 
-A feta number, with slash.  This is for use in the context of
-figured bass notation.
+Print number @var{num} with the Emmentaler font, crossed through with a
+slash.
+
+This is for use in the context of figured bass notation.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\slashed-digit #5
@@ -4390,8 +4441,11 @@ figured bass notation.
   "
 @cindex backslashed digit
 
-A feta number, with backslash.  This is for use in the context of
-figured bass notation.
+Print number @var{num} with the Emmentaler font, crossed through with a
+backslash.
+
+This is for use in the context of figured bass notation.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\backslashed-digit #5
@@ -5142,9 +5196,12 @@ disregarded.
                (if (eqv? direction UP)
                    #x1d110
                    #x1d111))
-  "Create a fermata glyph.  When @var{direction} is @code{DOWN}, use
-an inverted glyph.  Note that within music, one would usually use the
-@code{\\fermata} articulation instead of a markup.
+  "Create a fermata glyph.
+
+If property @code{direction} is @code{DOWN}, use an inverted glyph.
+
+Note that within music, one would normally use the @code{\\fermata} articulation
+instead of a markup.
 
 @lilypond[verbatim,quote]
 { c''1^\\markup \\fermata d''1_\\markup \\fermata }
