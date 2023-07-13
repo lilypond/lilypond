@@ -747,8 +747,9 @@ width of one little square inside the QR code.  Use at least 4 for best results.
   "
 @cindex referencing page label, in text
 
-Add a link to the page holding label @var{label} around @var{arg}.  This
-only works in the PDF backend.
+Add a link to the page holding label @var{label} around @var{arg}.
+
+This only works in the PDF backend.
 
 @example
 \\markup @{
@@ -1363,10 +1364,12 @@ grestore
   "
 @cindex path, drawing
 @cindex drawing path
-Draws a path with line @var{thickness} according to the
-directions given in @var{commands}.  @var{commands} is a list of
-lists where the @code{car} of each sublist is a drawing command and
-the @code{cdr} comprises the associated arguments for each command.
+Draw a path with line @var{thickness} according to the
+directions given in @var{commands}.
+
+@var{commands} is a list of lists where the @code{car} of each sublist is a
+drawing command and the @code{cdr} comprises the associated arguments for each
+command.
 
 There are seven commands available to use in
 @var{commands}: @code{moveto}, @code{rmoveto}, @code{lineto},
@@ -1854,9 +1857,10 @@ words varies according to their relative lengths."
   #:properties ((text-direction RIGHT)
                 (word-space 0.6)
                 (line-width #f))
-  "Put markups @var{args} in a horizontal line.  The markups are spaced or
-flushed to fill the entire line.  If there are no arguments, return an empty
-stencil.
+  "Put markups @var{args} into a horizontal line.
+
+The markups are spaced or flushed to fill the entire line.  If there are no
+arguments, return an empty stencil.
 
 The width of the horizontal line can be modified by overriding the
 @code{line-width} property.
@@ -1892,9 +1896,10 @@ The width of the horizontal line can be modified by overriding the
   #:properties ((text-direction RIGHT)
                 (word-space 0.6)
                 (line-width #f))
-  "Put markups @var{args} in a horizontal line.  The markups are spread to fill
-the entire line and separated by equal space.  If there are no arguments, return
-an empty stencil.
+  "Put markups @var{args} into a horizontal line.
+
+The markups are spread to fill the entire line and separated by equal space.  If
+there are no arguments, return an empty stencil.
 
 The width of the horizontal line can be modified by overriding the
 @code{line-width} property.
@@ -2339,9 +2344,10 @@ Take a list of markups @var{args} and combine them.
   "
 @cindex stacking text in a column
 
-Stack the markups in @var{args} vertically.  The property @code{baseline-skip}
-determines the space between markups in @var{args} (to be more precise, the
-space between the baselines of the markups).
+Stack the markups in @var{args} vertically.
+
+The property @code{baseline-skip} determines the space between markups in
+@var{args} (to be more precise, the space between the baselines of the markups).
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2683,8 +2689,9 @@ set the vertical dimension of @var{arg} to @var{val} instead."
   "
 @cindex setting extent of text object
 
-Print @var{arg} with the outline and dimensions of @var{outline}. The outline
-is used by skylines to resolve collisions (not for whiteout)."
+Print @var{arg} with the outline and dimensions of @var{outline}.
+
+The outline is used by skylines to resolve collisions (not for whiteout)."
   (ly:stencil-outline (interpret-markup layout props arg)
                       (interpret-markup layout props outline)))
 
@@ -2728,14 +2735,15 @@ from @var{arg1} instead."
 @cindex extent, of bounding box
 @cindex extent, of actual inking
 
-Give @var{arg} its actual dimension (extent) on @var{axis}.  Sometimes, the
-extents of a markup's printed ink differs from the default extents.  The main
-case is if glyphs are involved.  By default, the extents of a glyph are based on
-the glyph's @dfn{metrics} (i.e., a default vertical and horizontal size for the
-glyph), which, for various reasons, are often not identical to its @dfn{bounding
-box} (i.e., the smallest rectangle that completely encompasses the glyph's
-outline) -- in most cases, the outline protrudes the box spanned up by the
-metrics.
+Give @var{arg} its actual dimension (extent) on @var{axis}.
+
+Sometimes, the extents of a markup's printed ink differs from the default
+extents.  The main case is if glyphs are involved.  By default, the extents of a
+glyph are based on the glyph's @dfn{metrics} (i.e., a default vertical and
+horizontal size for the glyph), which, for various reasons, are often not
+identical to its @dfn{bounding box} (i.e., the smallest rectangle that
+completely encompasses the glyph's outline) -- in most cases, the outline
+protrudes the box spanned up by the metrics.
 
 @lilypond[verbatim,quote]
 \\markup
@@ -3207,11 +3215,12 @@ of its own.
 (define-markup-command (figured-bass layout props arg)
   (markup?)
   #:category font
-  "Set @var{arg} as small numbers for figured bass.  Specially slashed
-digits can be achieved with a trailing backslashes (for numbers 6,
-7, and@tie{}9) or a trailing plus (for numbers 2, 4,
-and@tie{}5).@footnote{Internally, this works by activating the
-@q{dlig} OpenType feature of the Emmentaler font.}
+  "Set @var{arg} as small numbers for figured bass.
+
+Specially slashed digits can be achieved with a trailing backslash (for numbers
+6, 7, and@tie{}9) or a trailing plus (for numbers 2, 4,
+and@tie{}5).@footnote{Internally, this works by activating the @q{dlig} OpenType
+feature of the Emmentaler font.}
 
 The use of a backslash is in analogy to
 @code{\\figuremode} (@pxref{Entering figured bass}).  Note that to get
@@ -4208,8 +4217,10 @@ format require the prefix @code{#x}.
   (integer?)
   #:category other
   #:as-string (markgeneric-string num 'alphabet-omit-i 'combine)
-  "Make a markup letter for @var{num}.  The letters start with A
-to@tie{}Z (skipping letter@tie{}I), and continue with double letters.
+  "Make a markup letter for @var{num}.
+
+The letters start with A to@tie{}Z (skipping letter@tie{}I), and continue with
+double letters.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -4225,8 +4236,9 @@ to@tie{}Z (skipping letter@tie{}I), and continue with double letters.
   (integer?)
   #:category other
   #:as-string (markgeneric-string num 'alphabet 'combine)
-  "Make a markup letter for @var{num}.  The letters start with A to@tie{}Z
-and continue with double letters.
+  "Make a markup letter for @var{num}.
+
+The letters start with A to@tie{}Z and continue with double letters.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -5282,9 +5294,10 @@ Set @var{arg} in superscript, see also @code{\\sub}.
   "
 @cindex translating text
 
-Translate @var{arg} relative to its surroundings.  @var{offset} is a pair of
-numbers representing the displacement in the X and Y@tie{}axis.  See also
-@code{\\translate-scaled}.
+Translate @var{arg} relative to its surroundings.
+
+@var{offset} is a pair of numbers representing the displacement in the X and
+Y@tie{}axes.  See also @code{\\translate-scaled}.
 
 This function is normally used to move one element inside of a markup relative to
 the other elements.  When using it on the whole markup, bear in mind that
@@ -5403,8 +5416,9 @@ Draw vertical brackets around @var{arg}.
   "
 @cindex placing parentheses, around text
 
-Draw parentheses around @var{arg}.  This is useful for parenthesizing
-a column containing several lines of text.
+Draw parentheses around @var{arg}.
+
+This is useful for parenthesizing a column containing several lines of text.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -5505,9 +5519,10 @@ width may require additional tweaking.)"
 @cindex scaling markup
 @cindex mirroring markup
 
-Scale @var{arg}.  @var{factor-pair} is a pair of numbers
-representing the scaling-factor in the X and Y axes.
-Negative values may be used to produce mirror images.
+Scale @var{arg}.
+
+@var{factor-pair} is a pair of numbers representing the scaling factor of the X
+and Y@tie{}axes.  Negative values may be used to produce mirror images.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -5753,7 +5768,9 @@ Use @code{\\override-lines #'(line-width . @var{X})} to set the line width;
   (markup-list?)
   #:properties ((baseline-skip)
                 wordwrap-internal-markup-list)
-  "Like @code{\\wordwrap}, but return a list of lines instead of a single markup.
+  "Print @var{args} as left-aligned lines.
+
+Like @code{\\wordwrap}, but return a list of lines instead of a single markup.
 Use @code{\\override-lines #'(line-width . @var{X})} to set the line width,
 where @var{X} is the number of staff spaces."
   (space-lines baseline-skip
@@ -5763,14 +5780,19 @@ where @var{X} is the number of staff spaces."
 (define-markup-list-command (column-lines layout props args)
   (markup-list?)
   #:properties ((baseline-skip))
-  "Like @code{\\column}, but return a list of lines instead of a single markup.
-@code{baseline-skip} determines the space between each markup in @var{args}."
+  "Stack the markups in @var{args} vertically.
+
+Like @code{\\column}, but return a list of lines instead of a single markup.
+The property @code{baseline-skip} determines the space between each markup in
+@var{args}."
   (space-lines baseline-skip
                (interpret-markup-list layout props args)))
 
 (define-markup-list-command (override-lines layout props new-prop args)
   (pair? markup-list?)
-  "Like @code{\\override}, for markup lists."
+  "Add the argument @var{new-prop} to the property list for printing @var{args}.
+
+Like @code{\\override} but for markup lists."
   (interpret-markup-list layout
                          (cons (if (pair? (car new-prop)) new-prop (list new-prop))
                                props)
