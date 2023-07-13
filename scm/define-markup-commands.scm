@@ -663,8 +663,10 @@ defaults.
   "
 @cindex inserting URL link, into text
 
-Add a link to URL @var{url} around @var{arg}.  This only works in
-the PDF backend.
+Add a link to URL @var{url} around @var{arg}.
+
+This only works in the PDF backend.@footnote{Due to technical limitations the
+link doesn't work here in the Notation Reference.}
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -689,12 +691,13 @@ the PDF backend.
   "
 @cindex referencing page number, in text
 
-Add a link to the page @var{page-number} around @var{arg}.  This only works
-in the PDF backend.
+Add a link to a score's page @var{page-number} around @var{arg}.
+
+This only works in the PDF backend.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\page-link #2  { \\italic { This links to page 2... } }
+  \\page-link #2 { \\italic { This links to page 2... } }
 }
 @end lilypond"
   (let* ((stil (interpret-markup layout props arg))
@@ -1334,12 +1337,22 @@ present."
   (number? number? string?)
   #:category graphic
   #:as-string ""
-  "
-See @code{\\image} for details on this command.
-@code{\\markup \\epsfile @var{axis} @var{size} @var{file-name}}
-is the same as @code{\\markup \\override #'(background-color . #f)
-\\image @var{axis} @var{size} @var{file-name}}.
-"
+  "Inline an image @var{file-name}, scaled along @var{axis} to @var{size}.
+
+See @code{\\image} for details on this command; calling
+
+@example
+\\markup \\epsfile @var{axis} @var{size} @var{file-name}
+@end example
+
+@noindent
+is the same as
+
+@example
+\\markup
+  \\override #'(background-color . #f)
+  \\image @var{axis} @var{size} @var{file-name}
+@end example"
   (interpret-markup layout props
                     (make-override-markup
                      '(background-color . #f)
@@ -1497,9 +1510,9 @@ samplePath =
 
 Inline an image @var{file-name}, scaled along @var{axis} to @var{size}.
 
-The image format is determined based on the file extension, which should be
-@file{.png} for a PNG image, or @file{.eps} for an EPS image (@file{.PNG} and
-@file{.EPS} are allowed as well).
+The image format is determined based on the extension of @var{file-name}, which
+should be @file{.png} for a PNG image, or @file{.eps} for an EPS
+image (@file{.PNG} and @file{.EPS} are allowed as well).
 
 EPS files are only supported in the PostScript backend -- for all output
 formats@tie{}--, and in the Cairo backend -- when creating PostScript or EPS
@@ -4156,7 +4169,7 @@ align well with text.
   (interpret-markup layout props
                     (make-accidental-markup -1)))
 
-(define-markup-command (with-color layout props color arg)
+(define-markup-command (with-color layout props col arg)
   (color? markup?)
   #:category other
   ;; Needed because a color can be a string and the default
@@ -4165,7 +4178,9 @@ align well with text.
   "
 @cindex coloring text
 
-Draw @var{arg} in color specified by @var{color}.
+Use color @var{col} to draw @var{arg}.
+
+@xref{Coloring objects} for valid color specifications.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -4176,7 +4191,7 @@ Draw @var{arg} in color specified by @var{color}.
   \\with-color \"#0000ff\" blue
 }
 @end lilypond"
-  (stencil-with-color (interpret-markup layout props arg) color))
+  (stencil-with-color (interpret-markup layout props arg) col))
 
 (define tie-regexp (ly:make-regex "~"))
 (define short-tie-regexp (ly:make-regex "~[^.]~"))
@@ -5586,14 +5601,16 @@ This is useful for parenthesizing a column containing several lines of text.
   "
 @cindex referencing page number, in text
 
-Reference to a page number.  @var{label} is the label set on the referenced
-page (using @code{\\label} or @code{\\tocItem}), @var{gauge} a markup used to estimate
-the maximum width of the page number, and @var{default} the value to display
-when @var{label} is not found.
+Print a page number reference.
 
-(If the current book or bookpart is set to use roman numerals for page numbers,
+@var{label} is the label set on the referenced page (using @code{\\label} or
+@code{\\tocItem}), @var{gauge} a markup used to estimate the maximum width of
+the page number, and @var{default} the value to display when @var{label} is not
+found.
+
+If the current book or bookpart is set to use roman numerals for page numbers,
 the reference will be formatted accordingly -- in which case the @var{gauge}'s
-width may require additional tweaking.)"
+width may require additional tweaking."
   (let* ((gauge-stencil (interpret-markup layout props gauge))
          (x-ext (ly:stencil-extent gauge-stencil X))
          (y-ext (ly:stencil-extent gauge-stencil Y))
