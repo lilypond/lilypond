@@ -22,7 +22,8 @@
   #:properties ((size 1.2)
                 (harp-pedal-details '())
                 (thickness 0.5))
-  "Make a harp pedal diagram.
+  "Make a harp pedal diagram containing the symbols indicated in
+@var{definition-string}.
 
 Possible elements in @var{definition-string}:
 

@@ -167,7 +167,8 @@ determines the space between markups in @var{args}.
   "
 @cindex drawing line, within text
 
-A simple line.
+Draw a line along vector @var{dest}.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\draw-line #'(4 . 4)
@@ -670,7 +671,7 @@ in the PDF backend.
 @cindex URL link, as QR code
 @cindex hyperlink, as QR code
 
-Insert a QR code for the given string, usually a URL.
+Insert a QR code for string @var{str}, usually a URL, with a given @var{width}.
 
 @lilypond[verbatim,quote]
 \\markup \\vcenter {
@@ -785,7 +786,8 @@ only works in the PDF backend.
   "
 @cindex drawing beam, within text
 
-Create a beam with the specified parameters.
+Draw a beam with given @var{width}, @var{slope}, and @var{thickness}.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\beam #5 #1 #2
@@ -933,6 +935,8 @@ of @var{arg}.  Looks at @code{thickness} to determine line thickness, and
   #:properties (tie-markup)
   "
 @cindex undertie-ing text
+
+Print a tie under @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup \\line {
@@ -1095,7 +1099,7 @@ it.
   "
 @cindex rotating text
 
-Rotate object with @var{ang} degrees around its center.
+Rotate @var{arg} by @var{ang} degrees around its center.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1202,7 +1206,7 @@ Create a box of the same height as the space in the current font."
   "
 @cindex creating horizontal space, in text
 
-Create an invisible object taking up horizontal space @var{amount}.
+Create an invisible object taking up @var{amount} horizontal space.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1249,7 +1253,7 @@ of @var{amount} multiplied by 3.
   "
 @cindex importing stencil, into text
 
-Use a stencil as markup.
+Use stencil @var{stil} as markup.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1437,7 +1441,7 @@ samplePath =
 @cindex PNG, image
 @cindex EPS, image
 
-Inline an image, scaled along @var{axis} to @var{size}.
+Inline an image @var{file-name}, scaled along @var{axis} to @var{size}.
 
 The image format is determined based on the file extension, which should be
 @file{.png} for a PNG image, or @file{.eps} for an EPS image (@file{.PNG} and
@@ -1610,7 +1614,7 @@ baseline.
 @cindex swing
 @cindex tempo, with rhythm
 
-An embedded rhythmic pattern.
+Draw embedded rhythmic pattern as specified by @var{music}.
 
 @lilypond[verbatim,quote]
 \\relative {
@@ -2066,6 +2070,8 @@ equivalent to @code{\"fi\"}.
   "
 @cindex justifying text
 
+Print @var{args} as lines aligned both at the left and the right.
+
 Like @code{\\wordwrap}, but with lines stretched to justify the margins.
 Use @code{\\override #'(line-width . @var{X})} to set the line width;
 @var{X}@tie{}is the number of staff spaces.
@@ -2284,7 +2290,7 @@ first line."
   "
 @cindex merging text
 
-Print two markups on top of each other.
+Print @var{arg1}, then print @var{arg2} on top of it.
 
 Note: @code{\\combine} cannot take a list of markups enclosed in
 curly braces as an argument; for this purpose use @code{\\overlay} instead.
@@ -2308,7 +2314,7 @@ curly braces as an argument; for this purpose use @code{\\overlay} instead.
   "
 @cindex merging text
 
-Takes a list of markups combining them.
+Take a list of markups @var{args} and combine them.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2922,8 +2928,8 @@ side, without moving @var{arg1}."
                 (ly:warning (G_ "Recursive definition of property ~a detected!")
                             symbol)
                 "")
-  "Print out a warning when a header field markup contains some recursive
-markup definition."
+  "Print out a warning when header field markup in @var{symbol} contains some
+recursive markup definition."
   (ly:warning (G_ "Recursive definition of property ~a detected!") symbol)
   empty-stencil)
 
@@ -3353,7 +3359,7 @@ Use @code{\\fontsize} otherwise.
 (define-markup-command (bold layout props arg)
   (markup?)
   #:category font
-  "Switch to bold font-series.
+  "Print @var{arg} with a bold face.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3486,7 +3492,7 @@ to override a setting of a sans-serif or typewriter font family.
 (define-markup-command (huge layout props arg)
   (markup?)
   #:category font
-  "Set font size to +2.
+  "Set font size to value@tie{}2 to print @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3500,7 +3506,7 @@ to override a setting of a sans-serif or typewriter font family.
 (define-markup-command (large layout props arg)
   (markup?)
   #:category font
-  "Set font size to +1.
+  "Set font size to value@tie{}1 to print @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3514,7 +3520,7 @@ to override a setting of a sans-serif or typewriter font family.
 (define-markup-command (normalsize layout props arg)
   (markup?)
   #:category font
-  "Set font size to default.
+  "Set font size to default (i.e., to value@tie{}0) to print @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3534,7 +3540,7 @@ to override a setting of a sans-serif or typewriter font family.
 (define-markup-command (small layout props arg)
   (markup?)
   #:category font
-  "Set font size to -1.
+  "Set font size to value@tie{}-1 to print @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3548,7 +3554,7 @@ to override a setting of a sans-serif or typewriter font family.
 (define-markup-command (tiny layout props arg)
   (markup?)
   #:category font
-  "Set font size to -2.
+  "Set font size to value@tie{}-2 to print @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3562,7 +3568,7 @@ to override a setting of a sans-serif or typewriter font family.
 (define-markup-command (teeny layout props arg)
   (markup?)
   #:category font
-  "Set font size to -3.
+  "Set font size to value@tie{}-3 to print @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -4060,7 +4066,7 @@ Draw @var{arg} in color specified by @var{color}.
   "
 @cindex simple text string, with tie characters
 
-Replace @q{~} tilde symbols with tie characters in the argument.
+Replace @q{~} tilde symbols with tie characters in @var{str}.
 
 @lilypond[verbatim,quote]
 \\markup \\column {
@@ -4382,7 +4388,7 @@ figured bass notation.
 @cindex brace, in markup
 @cindex staff brace, in markup
 
-A brace from the music font, of height @var{size} (in points).
+Print a brace from the music font, of height @var{size} (in points).
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -5200,7 +5206,8 @@ or @code{extra-@/offset}, or spacing variables such as
   "
 @cindex creating text fraction
 
-Make a fraction of two markups.
+Make a fraction of markups @var{arg1} and @var{arg2}.
+
 @lilypond[verbatim,quote]
 \\markup {
   π ≈ \\fraction 355 113
@@ -5733,6 +5740,8 @@ version 1.3.\"
   "
 @cindex justifying lines of text
 
+Print @var{args} as lines aligned both at the left and the right.
+
 Like @code{\\justify}, but return a list of lines instead of a single markup.
 Use @code{\\override-lines #'(line-width . @var{X})} to set the line width;
 @var{X}@tie{}is the number of staff spaces."
@@ -5774,7 +5783,7 @@ where @var{X} is the number of staff spaces."
   "
 @cindex creating a table
 
-Returns a table.
+Print a table.
 
 @var{column-align} specifies how each column is aligned; possible values are -1,
 0, and@tie{}1.  The number of elements in @var{column-align} determines how many
