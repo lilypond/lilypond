@@ -4640,20 +4640,30 @@ Print a brace from the music font, of height @var{size} (in points).
   "
 @cindex note, within text, by @code{log} and @code{dot-count}
 
-Construct a note symbol, with stem and flag.  By using fractional values for
-@var{dir}, longer or shorter stems can be obtained.
-Supports all note-head-styles.  Ancient note-head-styles will get
-mensural-style-flags.  @code{flag-style} may be overridden independently.
-Supported flag-styles are @code{default}, @code{old-straight-flag},
-@code{modern-straight-flag}, @code{flat-flag}, @code{mensural} and
-@code{neomensural}.  The latter two flag-styles will both result in
-mensural-flags.  Both are supplied for convenience.
+Draw a note of length @var{log}, with @var{dot-count} dots and a stem pointing
+into direction @var{dir}.
+
+By using fractional values for @var{dir}, longer or shorter stems can be
+obtained.
+
+Ancient note-head styles (via the @code{style} property, @pxref{Note head
+styles}) get mensural-style flags by default; use @code{flag-style} to override
+this.  Supported flag styles are @code{default}, @code{old-straight-flag},
+@code{modern-straight-flag}, @code{flat-flag}, @code{mensural}, and
+@code{neomensural}.  The last flag style is the same as @code{mensural} and
+provided for convenience.
 
 @lilypond[verbatim,quote]
 \\markup {
   \\note-by-number #3 #0 #DOWN
   \\hspace #2
   \\note-by-number #1 #2 #0.8
+  \\hspace #2
+  \\override #'(style . petrucci)
+  \\note-by-number #3 #0 #UP
+  \\hspace #2
+  \\override #'(flag-style . modern-straight-flag)
+  \\note-by-number #4 #0 #DOWN
 }
 @end lilypond"
   (define (get-glyph-name-candidates dir log style)
@@ -4888,15 +4898,20 @@ mensural-flags.  Both are supplied for convenience.
   "
 @cindex note, within text, by duration
 
-This produces a note with a stem pointing in @var{dir} direction, with
-the @var{duration} for the note head type and augmentation dots.  For
-example, @code{\\note @{4.@} #-0.75} creates a dotted quarter note, with
-a shortened down stem.
+Draw a note of given @var{duration} with a stem pointing into direction
+@var{dir}.
+
+@var{duration} gives the note head type and augmentation dots; @var{dir}
+controls both the direction and length of the stem.
+
+See also function @code{\\note-by-number}.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\override #'(style . cross)
   \\note {4..} #UP
+  \\hspace #2
+  \\override #'(style . cross)
+  \\note {4..} #0.75
   \\hspace #2
   \\note {\\breve} #0
 }
@@ -4920,9 +4935,9 @@ a shortened down stem.
   "
 @cindex rest, within text, by @code{log} and @code{dot-count}
 
-A rest symbol.
+Draw a rest of length @var{log}, with @var{dot-count} dots.
 
-For duration logs specified with property @code{ledgers}, rest symbols with
+For duration logs that appear in the @code{ledgers} property, rest symbols with
 ledger lines are selected.
 
 @lilypond[verbatim,quote]
@@ -4930,6 +4945,11 @@ ledger lines are selected.
   \\rest-by-number #3 #2
   \\hspace #2
   \\rest-by-number #0 #1
+  \\hspace #2
+  \\rest-by-number #-1 #0
+  \\hspace #2
+  \\override #'(ledgers . ())
+  \\rest-by-number #-1 #0
 }
 @end lilypond"
 
@@ -5033,7 +5053,7 @@ ledger lines are selected.
     rest-glyph))
 
 (define-markup-command
-  (multi-measure-rest-by-number layout props duration-scale)
+  (multi-measure-rest-by-number layout props length)
   (index?)
   #:category music
   #:properties ((font-size 0)
@@ -5046,20 +5066,23 @@ ledger lines are selected.
                 (multi-measure-rest-number #t))
   ;; TODO: as-string?
   "
-@cindex multi-measure rest, within text, by @code{duration-scale}
+@cindex multi-measure rest, within text, by number of measures
 
-Returns a multi-measure rest symbol.
+Return a multi-measure rest symbol for @var{length} measures.
 
 If the number of measures is greater than the number given by
-@code{expand-limit} a horizontal line is printed.  For every multi-measure rest
-lasting more than one measure a number is printed on top.
+@code{expand-limit} a thick horizontal line is printed.  For every multi-measure
+rest lasting more than one measure a number is printed on top.  However, if
+property @code{multi-@/measure-@/rest-@/number} is set to @code{#t}, this number
+gets suppressed.
 
 @lilypond[verbatim,quote]
 \\markup {
   Multi-measure rests may look like
   \\multi-measure-rest-by-number #12
   or
-  \\multi-measure-rest-by-number #7
+  \\override #'(multi-measure-rest-number . #f)
+    \\multi-measure-rest-by-number #7
   (church rests)
 }
 @end lilypond"
@@ -5102,7 +5125,7 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
     ;; if the MMR is longer then the amount of measures provided by
     ;; `expand-limit` print a horizontal line
     ;; otherwise compose the MMR from selected glyphs
-    (if (> duration-scale expand-limit)
+    (if (> length expand-limit)
         (let* ((blot (ly:output-def-lookup layout 'blot-diameter))
                (line-thickness (ly:output-def-lookup layout 'line-thickness))
                (thick-thick (* thick-thickness line-thickness))
@@ -5125,7 +5148,7 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
                   blot))))
         (let* (;; get a list containing the multipliers of the needed glyphs for
                ;; 8-, 4-, 2-, 1-measure.
-               (counted-glyphs-list (mmr-numbers duration-scale))
+               (counted-glyphs-list (mmr-numbers length))
                ;; get a nested list for the duration-log of each needed glyph.
                ;; example: for a 7-bar MMR it returns '(() (2) (1) (0))
                ;; the sublist may contain multiple entries if needed
@@ -5182,16 +5205,16 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
 
     ;; Print the number above a multi-measure-rest.
     ;; Depends on duration, style and multi-measure-rest-number set #t
-    (if (or (> duration-scale expand-limit)
+    (if (or (> length expand-limit)
             (and multi-measure-rest-number
-                 (> duration-scale 1)
+                 (> length 1)
                  (not (member style '(neomensural mensural petrucci)))))
         (let* ((mmr-stil-x-center
                 (interval-center (ly:stencil-extent mmr-stil X)))
                (duration-markup
                 (make-fontsize-markup -2
                                       (make-override-markup '(font-encoding . fetaText)
-                                                            (number->string duration-scale))))
+                                                            (number->string length))))
                (mmr-number-stil
                 (interpret-markup layout props duration-markup))
                (mmr-number-stil-x-center
@@ -5206,7 +5229,7 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
                   (- mmr-stil-x-center mmr-number-stil-x-center)
                   X)
                  ;; Ugh, hardcoded
-                 (if (> duration-scale expand-limit) 0 0.8)))))
+                 (if (> length expand-limit) 0 0.8)))))
     mmr-stil))
 
 (define-markup-command (rest layout props duration)
@@ -5219,13 +5242,18 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
 @cindex rest, within text, by duration
 @cindex multi-measure rest, within text, by duration
 
-Returns a rest symbol.
+Return a rest symbol with length @var{duration}.
 
-If @code{multi-measure-rest} is set to true, a multi-measure
-rest symbol my be returned.  In this case the duration needs to be entered as
-@code{@{ 1*2 @}}to get a multi-measure rest for two bars.  Actually, it's only
-the scaling factor that determines the length, the basic duration is
-disregarded.
+If the @code{multi-measure-rest} property is set to @code{#t}, a multi-measure
+rest symbol may be returned.  In this case the duration needs to be entered as
+@code{@{ 1*@var{N} @}} to get a multi-measure rest for @var{N}@tie{}bars.
+Actually, only the scaling factor (i.e., the number after @samp{*}) determines
+the length; the basic duration is disregarded.
+
+See also functions @code{\\rest-@/by-@/number} and
+@code{\\multi-@/measure-@/rest-@/by-@/number} for more information on the used
+properties.
+
 @lilypond[verbatim,quote]
 \\markup {
   Rests:
@@ -5237,11 +5265,10 @@ disregarded.
   Multi-measure rests:
   \\override #'(multi-measure-rest . #t)
   {
-  \\hspace #2
-  \\override #'(multi-measure-rest-number . #f)
-  \\rest { 1*7 }
-  \\hspace #2
-  \\rest { 1*12 }
+    \\hspace #2
+    \\rest { 1*7 }
+    \\hspace #2
+    \\rest { 1*12 }
   }
 }
 @end lilypond"
