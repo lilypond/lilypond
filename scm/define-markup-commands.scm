@@ -864,13 +864,16 @@ Draw a beam with given @var{width}, @var{slope}, and @var{thickness}.
   "
 @cindex underlining text
 
-Underline @var{arg}.  Looks at @code{thickness} to determine line
-thickness, @code{offset} to determine line y-offset from @var{arg} and
-@code{underline-skip} to determine the distance of additional lines from the
-others.
-@code{underline-shift} is used to get subsequent calls correct.  Overriding it
-makes little sense, it would end up adding the provided value to the one of
-@code{offset}.
+Underline @var{arg}.
+
+This function looks at the property @code{thickness} to determine the line
+thickness, at @code{offset} to determine the line's vertical offset from
+@var{arg}, and at @code{underline-skip} to determine the distance of additional
+lines from the others.
+
+The @code{underline-shift} property is used to make subsequent calls work
+correctly.  Overriding it makes little sense since it would end up adding the
+provided value to the one of @code{offset}.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\markup \\justify-line {
@@ -936,12 +939,14 @@ makes little sense, it would end up adding the provided value to the one of
   "
 @cindex tie-ing text
 
-Adds a horizontal bow created with @code{make-tie-stencil} at bottom or top
-of @var{arg}.  Looks at @code{thickness} to determine line thickness, and
-@code{offset} to determine y-offset.  The added bow fits the extent of
-@var{arg}, @code{shorten-pair} may be used to modify this.
-@var{direction} may be set using an @code{override} or direction-modifiers or
-@code{voiceOne}, etc.
+Add a horizontal bow at the bottom or top of @var{arg}.
+
+This function uses @code{make-tie-stencil} to create the bow; it looks at the
+@code{thickness} and @code{offset} properties to determine the line thickness
+and vertical offset, respectively.  The added bow fits the extent of @var{arg};
+use the @code{shorten-pair} property to modify this.  The @code{direction}
+property may be set explicitly using @code{override} or direction modifiers, or
+implicitly by using @code{voiceOne}, etc.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -950,7 +955,10 @@ of @var{arg}.  Looks at @code{thickness} to determine line thickness, and
   \\override #'(direction . -1)
   \\tie \"below\"
 }
-@end lilypond"
+@end lilypond
+
+See also @code{\\undertie} and @code{\\overtie}, which are shorthands for this
+function."
   (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
          (thick (* thickness line-thickness))
          (stil (interpret-markup layout props arg))
@@ -1596,9 +1604,9 @@ is '~a' a valid EPS file?")
 
 (define-markup-list-command (score-lines layout props score)
   (ly:score?)
-  "This is the same as the @code{\\score} markup but delivers its
-systems as a list of lines.  Its @var{score} argument is entered in
-braces like it would be for @code{\\score}."
+  "Inline an image of music as specified by @var{score}.
+
+Like @code{\\score} but return a list of lines instead of a single markup."
   (let ((output (ly:score-embedded-format score layout)))
 
     (if (ly:music-output? output)
@@ -1622,9 +1630,10 @@ braces like it would be for @code{\\score}."
   "
 @cindex inserting music, into text
 
-Inline an image of music.  The reference point (usually the middle
-staff line) of the lowest staff in the top system is placed on the
-baseline.
+Inline an image of music as specified by @var{score}.
+
+The reference point (usually the middle staff line) of the lowest staff in the
+top system is placed on the baseline.
 
 @lilypond[verbatim,quote,line-width=14\\cm,staffsize=16]
 \\markup {
@@ -1764,10 +1773,11 @@ An empty markup with extents of a single point.
 (define-markup-command (simple layout props str)
   (string?)
   #:category font
-  "@code{\\markup \\simple \"x\"} is equivalent to @code{\\markup \"x\"}.  This
+  "Print string @var{str}.
+
+@code{\\markup \\simple \"x\"} is equivalent to @code{\\markup \"x\"}.  This
 command was previously used internally, but no longer is, and is being kept for
-backwards compatibility only.
-"
+backward compatibility only."
   (interpret-markup layout props str))
 
 (define-markup-command (first-visible layout props args)
@@ -2896,6 +2906,8 @@ i.e., @code{\\with-@/true-@/dimensions} has the effect of
   #:category align
   "Add padding @var{amount} all around @var{arg}.
 
+Identical to function @code{\\pad-markup}.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\box {
@@ -3733,20 +3745,20 @@ that font does not have a small caps variant.)
 (define-markup-command (with-string-transformer layout props transformer arg)
   (procedure? markup?)
   #:category font
-  "Interpret the markup @var{arg} with a string transformer installed.
-Whenever a string is interpreted inside @var{arg}, the transformer
-is first called, and it is the result that is interpreted.  The arguments
-passed to the transformer are the output definition, the property alist
-chain, and the string.  See @rextend{New markup command definition}
-about the two first arguments.
+  "Apply string transformer function @var{transformer} to @var{arg}.
+
+Whenever a string is interpreted inside @var{arg}, function @var{transformer} is
+called first, and its result is then interpreted.  The arguments passed to
+@var{transformer} are the output definition, the property alist chain, and the
+markup @var{arg}.  See @rextend{New markup command definition} about the two
+first arguments.
 
 @lilypond[verbatim,quote]
 \\markup \\with-string-transformer
   #(lambda (layout props str)
      (string-upcase str))
-  \"abc\"
-@end lilypond
-"
+  \\concat { \"abc\" \\larger \"def\" }
+@end lilypond"
   (interpret-markup
    layout
    (prepend-alist-chain 'string-transformers
@@ -5354,8 +5366,7 @@ or @code{extra-@/offset}, or spacing variables such as
 @cindex translating text
 @cindex scaling text
 
-Translate @var{arg} by @var{offset}, scaling the offset by the @code{font-size}.
-See also @code{\\translate}.
+Translate @var{arg} by @var{offset}, scaling the offset by the font size.
 
 This function is normally used to move one element inside of a markup relative to
 the other elements.  When using it on the whole markup, bear in mind that
@@ -5363,6 +5374,8 @@ spacing mechanisms that place the markup itself on the page could cancel this
 shift.  Consider using grob properties such as @code{padding}, @code{X-offset},
 @code{Y-offset} or @code{extra-@/offset}, or spacing variables such as
 @code{markup-@/system-@/spacing}.
+
+See also @code{\\translate}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -5473,11 +5486,13 @@ Set @var{arg} in superscript with a normal font size.
   "
 @cindex superscript text
 
-Set @var{arg} in superscript, see also @code{\\sub}.
+Set @var{arg} in superscript.
 
 @lilypond[verbatim,quote]
 \\markup { E = \\concat { mc \\super 2 } }
-@end lilypond"
+@end lilypond
+
+See also @code{\\sub}."
   (ly:stencil-translate-axis
    (interpret-markup
     layout
@@ -5521,11 +5536,13 @@ shift.  Consider using grob properties such as @code{padding}, @code{X-offset},
   "
 @cindex subscript text
 
-Set @var{arg} in subscript, see also @code{\\super}.
+Set @var{arg} in subscript.
 
 @lilypond[verbatim,quote]
 \\markup { \\concat { H \\sub 2 O } }
-@end lilypond"
+@end lilypond
+
+Ssee also @code{\\super}."
   (ly:stencil-translate-axis
    (interpret-markup
     layout
@@ -5751,11 +5768,10 @@ and Y@tie{}axes.  Negative values may be used to produce mirror images.
                                                       #:layout layout
                                                       #:props props))
                            " ")
-  "
-Prints @var{count} times a @var{pattern} markup.
-Patterns are spaced apart by @var{space} (defined as for
-@code{\\hspace} or @code{\\vspace}, respectively).
-Patterns are distributed on @var{axis}.
+  "Print a @var{pattern} markup @var{count} times.
+
+Patterns are spaced apart by @var{space} (defined as for @code{\\hspace} or
+@code{\\vspace}, respectively) and distributed on @var{axis}.
 
 @lilypond[verbatim,quote]
 \\markup \\column {
@@ -5779,11 +5795,11 @@ Patterns are distributed on @var{axis}.
   #:as-string (markup->string (list left right)
                               #:layout layout
                               #:props props)
-  "
-Put @var{left} and @var{right} in a horizontal line of width @code{line-width}
-with a line of markups @var{pattern} in between.
-Patterns are spaced apart by @var{space}.
-Patterns are aligned to the @var{dir} markup.
+  "Put @var{left} and @var{right} at the start and end of a line, respectively, and
+fill the space inbetween with repeated @var{pattern} markups.
+
+Patterns are spaced apart by @var{space} and aligned to direction @var{dir}.
+The width of the line is given by the @code{line-width} property.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\markup \\column {
@@ -5835,10 +5851,10 @@ Patterns are aligned to the @var{dir} markup.
   #:category font
   #:properties ((replacement-alist))
   ;; TODO: is there something we can do for #:as-string?
-  "
-Used to automatically replace a string by another in the markup @var{arg}.
-Each pair of the alist @var{replacements} specifies what should be replaced.
-The @code{key} is the string to be replaced by the @code{value} markup.
+  "Use @var{replacements} to replace strings in @var{arg}.
+
+Each @code{(@var{key} . @var{value})} pair of the @var{replacements} alist
+specifies what should be replaced; @var{key} gets replaced by @var{value}.
 Note the quasiquoting syntax with a backquote in the second example.
 
 @lilypond[verbatim,quote]
@@ -5897,11 +5913,11 @@ numbers in bold:
 (define-markup-command (unless layout props condition? argument)
   (procedure? markup?)
   #:category conditionals
-  "Similar to @code{\\if}, printing the argument if the condition
-is false.
+  "Test @var{condition?}, and only insert @var{argument} if it is false.
 
-The following example shows how to print the copyright notice on
-all pages but the last instead of just the first page.
+This function is similar to @code{\\if}; the following example shows how to
+print the copyright notice on all pages but the last instead of just the first
+page.
 
 @example
 \\paper @{
@@ -6013,8 +6029,11 @@ columns will be printed.
 
 The entries to print are given by @var{lst}, a markup list.  If needed, the last
 row is filled up with @code{point-stencil}s.
-Overriding @code{padding} may be used to increase columns horizontal distance.
-Overriding @code{baseline-skip} to increase rows vertical distance.
+
+Override the @code{padding} property to increase the horizontal distance between
+columns.  Override @code{baseline-skip} to increase the vertical distance
+between rows.
+
 @lilypond[verbatim,quote]
 % A markup command to print a fixed-width number.
 \\markup fwnum =
