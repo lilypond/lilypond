@@ -1046,39 +1046,39 @@ cd out
 ...
 @end example
 
-@itemx --skip-lily-check
+@item --skip-lily-check
 Nicht mit einer Fehlermeldung abbrechen, wenn keine Ausgabe von LilyPond
 gefunden wird. Dies wird benutzt für Dokumentation ohne Grafiken.
 
-@itemx --skip-png-check
+@item --skip-png-check
 Nicht mit einer Fehlermeldung abbrechen, wenn für die EPS-Dateien keine
 PNG-Grafiken gefunden werden. Dies wird benutzt für Dokumentation ohne
 Grafiken.
 
-@itemx --lily-output-dir=@var{Verzeichnis}
+@item --lily-output-dir=@var{Verzeichnis}
 Schreibt @file{lily-XXX} Dateien nach @var{Verzeichnis} und erzeugt
 im mit @option{--output} angegebenen Verzeichnis Verknüpfungen darauf.
 Diese Option ist nützlich, um Zeit zu sparen, wenn Dokumente in
 verschiedenen Verzeichnissen viele identische Musikfragmente
 enthalten.
 
-@itemx --lily-loglevel=@var{Logstufe}
+@item --lily-loglevel=@var{Logstufe}
 Passt die Ausführlichkeit der Ausgabe entsprechend @var{Logstufe} an.
 Mögliche Werte sind @code{NONE}, @code{ERROR}, @code{WARNING},
 @code{PROGRESS} (Standard) und @code{DEBUG}.  Wenn diese Option nicht
 genutzt wird und die Umgebungsvariable @code{LILYPOND_LOGLEVEL}
 definiert ist, wird ihr Wert als Logstufe eingesetzt.
 
-@itemx --info-images-dir=@var{Verzeichnis}
+@item --info-images-dir=@var{Verzeichnis}
 Formatiert die Texinfo-Ausgabe dergestalt, dass Info in @var{Verzeichnis}
 nach den Grafiken zu den Musikfragmenten sucht.
 
-@itemx --latex-program=@var{Programm}
+@item --latex-program=@var{Programm}
 Führt @command{Programm} anstelle von @command{latex} aus. Dies ist
 nützlichen, wenn das Dokument mit einer anderen @LaTeX{}-Variante
 wie etwa @command{xelatex} verarbeitet werden soll.
 
-@itemx --left-padding=@var{Einrückung}
+@item --left-padding=@var{Einrückung}
 Fügt @var{Einrückung} als zusätzlichen Einzug in die EPS-Box ein.
 @var{Einrückung} wird in Millimetern angegeben, die Standardeinstellung
 ist 3.0 Millimeter. Diese Option kann benutzt werden, wenn die Notenzeilen
@@ -1104,7 +1104,7 @@ Standardmäßig wird die Ausgabe auf der Kommandozeile ausgegeben.
 Diese Option leitet die Ausgabe in eine Log-Datei im selben Verzeichnis
 wie die Quelldatei um.
 
-@itemx --use-source-file-names
+@item --use-source-file-names
 Schreibe Schnipsel-Ausgabedateien mit den gleichen Basisnamen wie die
 Quelldateien.  Diese Option funktioniert mit Schnipseln, die mit
 @code{lilypondfile} eingfügt wurden und auch nur, wenn die Verzeichnisse

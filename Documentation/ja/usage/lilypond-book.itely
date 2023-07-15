@@ -1100,7 +1100,7 @@ PDF@LaTeX{} で PDF ファイルを作成します。
 このオプションは全ての出力をソース ファイルと同じディレクトリにあるログ
 ファイルにリダイレクトします。
 
-@itemx --use-source-file-names
+@item --use-source-file-names
 楽譜断片出力ファイルにソース ファイルと同じベース名を付けます。@c
 このオプションは @code{lilypondfile} でインクルードされた楽譜断片に@c
 対してのみ、更に @option{--output-dir} オプションと
