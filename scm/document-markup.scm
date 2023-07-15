@@ -33,7 +33,9 @@
                                             (cadr prop-spec)))
                                 prop-strings)
                           ;; a markup command: get its properties
-                          ;; FIXME: avoid cyclical references
+                          ;; (NB: no cycles are possible since the command we are
+                          ;; copying properties from is necessarily defined before
+                          ;; this one.)
                           (append (doc-markup-function-properties prop-spec)
                                   prop-strings))))
               (or properties (list)))

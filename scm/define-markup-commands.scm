@@ -75,12 +75,14 @@
 ;;;
 ;;;   property-bindings
 ;;;     this is used both for documentation generation, and to ease
-;;;     programming the command itself.  It is list of
+;;;     programming the command itself.  It is a list of
 ;;;        (property-name default-value)
 ;;;     or (property-name)
-;;;     elements.  Each property is looked-up in the `props' argument, and
-;;;     the symbol naming the property is bound to its value.
-;;;     When the property is not found in `props', then the symbol is bound
+;;;     or XXX-markup
+;;;     or XXX-markup-list
+;;;     elements.  With the two first forms, the property with name `property-name` is
+;;;     looked up in the `props` argument, and the symbol naming the property is bound
+;;;     to its value.  When the property is not found in `props`, then the symbol is bound
 ;;;     to the given default value.  When no default value is given, #f is
 ;;;     used instead.
 ;;;     Thus, using the following property bindings:
@@ -90,11 +92,12 @@
 ;;;       (let ((thickness (chain-assoc-get 'thickness props 0.1))
 ;;;             (font-size (chain-assoc-get 'font-size props 0)))
 ;;;         ..body..)
-;;;     When a command `B' internally calls an other command `A', it may
-;;;     desirable to see in `B' documentation all the properties and
-;;;     default values used by `A'.  In that case, add `A-markup' to the
-;;;     property-bindings of B.  (This is used when generating
-;;;     documentation, but won't create bindings.)
+;;;     When a command B internally calls an other command A, it may be
+;;;     desirable to see in B's documentation all the properties and
+;;;     default values used by A.  In that case, add `A-markup` (if A is a
+;;;     markup command) or `A-markup-list` (if A is a markup list command)
+;;;     to the property-bindings of B.  (This is used when generating
+;;;     documentation, but won't create bindings.)  A must be defined before B.
 ;;;
 ;;;   as-string
 ;;;     If given, this is an expression evaluated by markup->string for
