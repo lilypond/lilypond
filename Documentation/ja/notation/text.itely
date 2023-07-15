@@ -24,10 +24,29 @@
 楽譜に (さまざまなフォーマットの) テキストを含める方法について説明します。
 
 @menu
-* Text objects overview::
 * Writing text::
 * Formatting text::
 * Fonts::
+@end menu
+
+@node Writing text
+@subsection テキストを記述する
+
+このセクションでは、楽譜にテキストを付け加えるいくつかの方法を紹介します。
+
+@cindex text, other languages (他の言語のテキスト)
+@warning{アクセント付きのテキストや特殊なテキスト
+(他の言語の文字など) を記述するには、@c
+単純にその文字を直接 LilyPond ファイルに挿入します。@c
+ファイルは UTF-8 で保存しなければなりません。@c
+更なる情報は @ref{Text encoding} を参照してください。}
+
+@menu
+* Text objects overview::
+* Text scripts::
+* Text spanners::
+* Text marks::
+* Separate text::
 @end menu
 
 @node Text objects overview
@@ -172,25 +191,6 @@ Essay on automated music engraving:
 コード断片集:
 @rlsr{Text}
 
-
-@node Writing text
-@subsection テキストを記述する
-
-このセクションでは、楽譜にテキストを付け加えるいくつかの方法を紹介します。
-
-@cindex text, other languages (他の言語のテキスト)
-@warning{アクセント付きのテキストや特殊なテキスト
-(他の言語の文字など) を記述するには、@c
-単純にその文字を直接 LilyPond ファイルに挿入します。@c
-ファイルは UTF-8 で保存しなければなりません。@c
-更なる情報は @ref{Text encoding} を参照してください。}
-
-@menu
-* Text scripts::
-* Text spanners::
-* Text marks::
-* Separate text::
-@end menu
 
 
 @node Text scripts
