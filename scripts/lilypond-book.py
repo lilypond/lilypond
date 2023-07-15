@@ -181,16 +181,16 @@ def get_option_parser():
                  dest='info_images_dir',
                  default='')
 
-    # The rounding happens in `framework-ps.scm`, function
+    # The given value is rounded up to be a multiple of the 'bp' unit on the
+    # PS (and PDF) backend, see `framework-ps.scm`, function
     # `dump-stencil-as-EPS-with-bbox`.
     p.add_option('--left-padding',
                  help=_("set minimum distance between left margin and staff "
-                        "to PAD (in mm, rounded to multiples of bp) "
-                        "[default: %default]"),
+                        "to PAD (in mm) [default: %default]"),
                  metavar=_("PAD"),
                  dest="padding_mm",
                  type="float",
-                 default=3.175)
+                 default=3.0)
 
     p.add_option('--lily-loglevel',
                  help=_("print lilypond log messages according to LOGLEVEL "

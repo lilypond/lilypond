@@ -621,8 +621,9 @@ class LilypondSnippet (Snippet):
             # Note that value 0 would make LilyPond apply no left padding at
             # all, but still apply some right padding.
             #
-            # The given value gets rounded up to be a multiple of the 'bp'
-            # unit.
+            # The given value is rounded up to be a multiple of the 'bp'
+            # unit on the PS (and PDF) backend, see `framework-ps.scm`,
+            # function `dump-stencil-as-EPS-with-bbox`.
             override['padding_mm'] = 0.0001
 
         # put paper-size first, if it exists

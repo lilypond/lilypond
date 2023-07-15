@@ -1166,10 +1166,8 @@ example.
 @item --left-padding=@var{amount}
 Pad LilyPond snippets on the left with whitespace.
 
-@var{amount} is rounded up to be an integer multiple of a @dfn{big
-point} (bp).  One bp is 1/72th of an inch (approx.@: 0.353@dmn{mm}).
-@var{amount} is given in millimeters @emph{relative to the start of the
-staff}.  The default value is 3.175@dmn{mm} (which equals 9@dmn{bp}).
+@var{amount} is given in millimeters @emph{relative to the start
+of the staff}.  The default value is 3.0@dmn{mm}.
 
 The widths of tightly clipped systems can vary due to notation elements
 such as bar numbers or instrument names that are positioned left of the
@@ -1181,6 +1179,14 @@ master document.
 In addition to padding at the left, this option shortens each staff
 line by @var{amount}.  As a consequence, each line is moved to the
 right visually.
+
+Note that @var{amount}, as used for padding, is rounded up to be
+an integer multiple of the @dfn{big point} (bp) unit for
+PostScript and PDF output (one bp is 1/72th of an inch, approx.@:
+0.353@dmn{mm}).  However, this is not done on the LilyPond side
+for shortening the staff line.  This might lead to a tiny but
+probably surprising staff length change instead of changing the
+padding if @var{amount} is not an integer multiple of the bp unit.
 
 @item -P @var{command}
 @itemx --process=@var{command}
