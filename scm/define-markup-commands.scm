@@ -402,7 +402,7 @@ Its appearance may be customized by overrides for @code{thickness},
 (define-markup-command (draw-hline layout props)
   ()
   #:category graphic
-  #:properties ((draw-line-markup)
+  #:properties (draw-line-markup
                 (line-width)
                 (span-factor 1))
   "
