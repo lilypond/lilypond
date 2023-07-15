@@ -947,7 +947,7 @@ El fitxer @file{.dvi} creat per aquest procés no conté els caps de
 les notes.  Això és normal; si segueix les instruccions, els caps
 apareixeran als fitxers @file{.ps} i @file{.pdf}.
 
-El fitxer @file(.dvi) creat per aquest procés no conté els caps de
+El fitxer @file{.dvi} creat per aquest procés no conté els caps de
 les notes.  Això és normal; si seguiu les instruccions, els caps
 apareixeran als fitxers @file{.ps} i @file{.pdf}.
 
