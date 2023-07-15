@@ -110,15 +110,8 @@ export PYTHONPATH:=$(auxpython-dir):$(PYTHONPATH)
 TEXI2ANY_FLAGS += --enable-encoding --error-limit=0
 TEXI2ANY = LANG=C $(TEXI2ANY_PROGRAM) $(TEXI2ANY_FLAGS)
 
-# texi2html v5 has fatal errors in the build, so only be strict about
-# errors in the version we officially support
-ifeq ($(TEXI2HTML_VERSION),1082000)
-TEXI2HTML_ERROR_LIMIT=--error-limit=0
-endif
-
 TEXI2HTML_FLAGS += \
   $(TEXI2HTML_INCLUDES) \
   $(TEXI2HTML_INIT) \
-  $(TEXI2HTML_ERROR_LIMIT) \
   $(if $(VERBOSE),--verbose)
 TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
