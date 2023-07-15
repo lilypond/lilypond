@@ -3,7 +3,7 @@
 
 $(outdir)/%.html: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
-	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<"  "$(outdir)/$*.texilog.log"
+	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) $(TEXI2ANY_HTML) --no-split --output=$@ $<"  "$(outdir)/$*.texi2any-html.log"
 
 $(outdir)/%.pdf: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)

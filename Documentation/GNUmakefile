@@ -188,11 +188,8 @@ DOCUMENTATION_INCLUDE_DIRS = \
 
 DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
 
-TEXI2HTML_INIT = 
-TEXI2HTML_INCLUDES += $(DOCUMENTATION_INCLUDES)
-
 ifeq ($(WEB_VERSION),yes)
-  TEXI2HTML_FLAGS += -D web_version
+  TEXI2ANY_HTML_FLAGS += -D web_version
   TEXI2PDF_LOCAL_FLAGS += -D web_version
   # As version, use the released $(VERSION_DEVEL) instead of the in-development
   # $(MAJOR_VERSION).$(MINOR_VERSION).  This makes a difference after branching
@@ -510,13 +507,14 @@ $(outdir)/%/index.html: \
 \
 "$(WEB_ENV) \
  DEPTH=$(depth)/../ \
-   $(TEXI2HTML) \
-     --prefix=index --split=node \
-     $(TEXI2HTML_FLAGS) \
+   $(TEXI2ANY_HTML) \
+     --split=node \
+     $(DOCUMENTATION_INCLUDES) \
+     $(TEXI2ANY_HTML_FLAGS) \
      --output=$(dir $@) \
      $<" \
 \
-	  "$(outdir)/$*.splittexi.log"
+	  "$(outdir)/$*.texi2any-html-split.log"
 
 $(outdir)/%-big-page.html: \
   $(outdir)/%.texi \
@@ -526,13 +524,15 @@ $(outdir)/%-big-page.html: \
 	$(buildscript-dir)/run-and-check.sh \
 \
 "DEPTH=$(depth) \
-   $(TEXI2HTML) \
-     $(TEXI2HTML_FLAGS) \
+   $(TEXI2ANY_HTML) \
+     $(DOCUMENTATION_INCLUDES) \
+     --no-split \
+     $(TEXI2ANY_HTML_FLAGS) \
      -D bigpage \
      --output=$@ \
      $<" \
 \
-	  "$(outdir)/$*.bigtexi.log"
+	  "$(outdir)/$*.texi2any-html-big.log"
 
 ### Bad hack for badly-integrated roadmap.
 # TODO: move into CG.

@@ -102,7 +102,7 @@ $(outdir)/%.info: $(outdir)/%.texi
 $(outdir)/%.html: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) \
-		$(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS) \
+		$(TEXI2ANY) --html \
 		--output=$@ $<"  "$(outdir)/$*.texilog.log"
 
 $(outdir)/%.pdf: $(outdir)/%.texi
