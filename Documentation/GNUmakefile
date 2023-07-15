@@ -188,9 +188,7 @@ DOCUMENTATION_INCLUDE_DIRS = \
 
 DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
 
-TEXI2HTML_INIT = \
-  --init-file=$(top-src-dir)/Documentation/lilypond-texi2html-lang.init \
-  --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
+TEXI2HTML_INIT = 
 TEXI2HTML_INCLUDES += $(DOCUMENTATION_INCLUDES)
 
 ifeq ($(WEB_VERSION),yes)
