@@ -220,7 +220,7 @@ Timing_translator::process_music ()
 
         default:
           assert (false);
-          // fallthrough
+          [[fallthrough]];
 
         case RIGHT:
           alt_number_ = 0;

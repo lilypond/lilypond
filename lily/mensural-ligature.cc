@@ -160,10 +160,10 @@ internal_brew_primitive (Grob *me)
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     case MLP_MAXIMA:
       duration_log--;
-    // fallthrough
+      [[fallthrough]];
     case MLP_LONGA:
       duration_log--;
-    // fallthrough
+      [[fallthrough]];
     case MLP_BREVIS:
       duration_log--;
       suffix = std::to_string (duration_log) + color
