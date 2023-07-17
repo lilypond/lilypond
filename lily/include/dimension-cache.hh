@@ -25,7 +25,7 @@
 /*
   XY offset/refpoint/extent structure.
 */
-class Dimension_cache
+class Dimension_cache final
 {
   // A value plus a validity flag.  The interface was chosen with the hope of
   // replacing this with C++17 std::optional someday.  The implementation
@@ -62,17 +62,15 @@ class Dimension_cache
 
   Optional<Interval> extent_;
   Optional<Real> offset_;
-  Grob *parent_;
+  Grob *parent_ = nullptr;
 
   friend class Grob;
 
-  Dimension_cache ()
-    : parent_ (0)
-  {
-  }
+  Dimension_cache () = default;
+  ~Dimension_cache () = default;
 
-  // The compiler-generated copy constructor, assignment operator, and
-  // destructor should be OK.
+  Dimension_cache (const Dimension_cache &) = default;
+  Dimension_cache &operator= (const Dimension_cache &) = default;
 
   void clear ()
   {
