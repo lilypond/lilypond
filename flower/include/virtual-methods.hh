@@ -28,7 +28,7 @@
     /* It is annoying that we must repeat the class name for */                \
     /* the preprocessor, but we can check that it is correct. */               \
     typedef std::decay<decltype (*this)>::type self_type;                      \
-    static_assert (std::is_same<name, self_type>::value, "");                  \
+    static_assert (std::is_same<name, self_type>::value);                      \
                                                                                \
     return #name;                                                              \
   }
@@ -39,7 +39,7 @@
     /* It is annoying that we must repeat the class name for */                \
     /* the preprocessor, but we can check that it is correct. */               \
     typedef std::decay<decltype (*this)>::type self_type;                      \
-    static_assert (std::is_same<name, self_type>::value, "");                  \
+    static_assert (std::is_same<name, self_type>::value);                      \
                                                                                \
     return #name;                                                              \
   }

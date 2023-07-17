@@ -215,7 +215,7 @@ struct ly_scm_func_of_arity<6>
   SCM TYPE ::FUNC##_proc;                                                      \
   void TYPE##_##FUNC##_init_functions ()                                       \
   {                                                                            \
-    static_assert (OPTIONAL_COUNT <= ARGCOUNT, "");                            \
+    static_assert (OPTIONAL_COUNT <= ARGCOUNT);                                \
     constexpr auto required_count = ARGCOUNT - OPTIONAL_COUNT;                 \
     /* assignment checks the signature of the function and selects */          \
     /* the function with SCM arguments even if there are overloads */          \

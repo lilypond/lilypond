@@ -30,148 +30,148 @@ static constexpr auto POSI = Direction::positive ();
 
 // initialization
 
-static_assert (Direction () == ZERO, "");
+static_assert (Direction () == ZERO);
 
-static_assert (Direction (-2) == NEGA, "");
-static_assert (Direction (-2L) == NEGA, "");
-static_assert (Direction (-2LL) == NEGA, "");
-static_assert (Direction (0) == ZERO, "");
-static_assert (Direction (0L) == ZERO, "");
-static_assert (Direction (0LL) == ZERO, "");
-static_assert (Direction (2) == POSI, "");
-static_assert (Direction (2L) == POSI, "");
-static_assert (Direction (2LL) == POSI, "");
+static_assert (Direction (-2) == NEGA);
+static_assert (Direction (-2L) == NEGA);
+static_assert (Direction (-2LL) == NEGA);
+static_assert (Direction (0) == ZERO);
+static_assert (Direction (0L) == ZERO);
+static_assert (Direction (0LL) == ZERO);
+static_assert (Direction (2) == POSI);
+static_assert (Direction (2L) == POSI);
+static_assert (Direction (2LL) == POSI);
 
 // conversion to bool
 
-static_assert (NEGA, "");
-static_assert (!ZERO, "");
-static_assert (POSI, "");
+static_assert (NEGA);
+static_assert (!ZERO);
+static_assert (POSI);
 
 // conversion to index
 
-static_assert (NEGA.to_index () == 0, "");
-static_assert (ZERO.to_index () == 1, "");
-static_assert (POSI.to_index () == 2, "");
+static_assert (NEGA.to_index () == 0);
+static_assert (ZERO.to_index () == 1);
+static_assert (POSI.to_index () == 2);
 
 // unary +/-
 
-static_assert (-NEGA == POSI, "");
-static_assert (-ZERO == ZERO, "");
-static_assert (-POSI == NEGA, "");
+static_assert (-NEGA == POSI);
+static_assert (-ZERO == ZERO);
+static_assert (-POSI == NEGA);
 
-static_assert (+NEGA == NEGA, "");
-static_assert (+ZERO == ZERO, "");
-static_assert (+POSI == POSI, "");
+static_assert (+NEGA == NEGA);
+static_assert (+ZERO == ZERO);
+static_assert (+POSI == POSI);
 
 static_assert (directed_opposite (+POSI, -POSI),
                "unary +/- should yield a Direction");
 
 // multiplication by another Direction
 
-static_assert (NEGA * NEGA == POSI, "");
-static_assert (NEGA * ZERO == ZERO, "");
-static_assert (NEGA * POSI == NEGA, "");
-static_assert (ZERO * NEGA == ZERO, "");
-static_assert (ZERO * ZERO == ZERO, "");
-static_assert (ZERO * POSI == ZERO, "");
-static_assert (POSI * NEGA == NEGA, "");
-static_assert (POSI * ZERO == ZERO, "");
-static_assert (POSI * POSI == POSI, "");
+static_assert (NEGA * NEGA == POSI);
+static_assert (NEGA * ZERO == ZERO);
+static_assert (NEGA * POSI == NEGA);
+static_assert (ZERO * NEGA == ZERO);
+static_assert (ZERO * ZERO == ZERO);
+static_assert (ZERO * POSI == ZERO);
+static_assert (POSI * NEGA == NEGA);
+static_assert (POSI * ZERO == ZERO);
+static_assert (POSI * POSI == POSI);
 
 static_assert (directed_same (POSI * POSI, POSI),
                "(Direction * Direction) should yield a Direction");
 
-static_assert ((Direction (NEGA) *= NEGA) == POSI, "");
-static_assert ((Direction (NEGA) *= ZERO) == ZERO, "");
-static_assert ((Direction (NEGA) *= POSI) == NEGA, "");
-static_assert ((Direction (ZERO) *= NEGA) == ZERO, "");
-static_assert ((Direction (ZERO) *= ZERO) == ZERO, "");
-static_assert ((Direction (ZERO) *= POSI) == ZERO, "");
-static_assert ((Direction (POSI) *= NEGA) == NEGA, "");
-static_assert ((Direction (POSI) *= ZERO) == ZERO, "");
-static_assert ((Direction (POSI) *= POSI) == POSI, "");
+static_assert ((Direction (NEGA) *= NEGA) == POSI);
+static_assert ((Direction (NEGA) *= ZERO) == ZERO);
+static_assert ((Direction (NEGA) *= POSI) == NEGA);
+static_assert ((Direction (ZERO) *= NEGA) == ZERO);
+static_assert ((Direction (ZERO) *= ZERO) == ZERO);
+static_assert ((Direction (ZERO) *= POSI) == ZERO);
+static_assert ((Direction (POSI) *= NEGA) == NEGA);
+static_assert ((Direction (POSI) *= ZERO) == ZERO);
+static_assert ((Direction (POSI) *= POSI) == POSI);
 
 static_assert (directed_same ((Direction (POSI) *= POSI), POSI),
                "(Direction *= Direction) should yield a Direction");
 
 // multiplication by an int
 
-static_assert (-3 * NEGA == 3, "");
-static_assert (-3 * ZERO == 0, "");
-static_assert (-3 * POSI == -3, "");
-static_assert (0 * NEGA == 0, "");
-static_assert (0 * ZERO == 0, "");
-static_assert (0 * POSI == 0, "");
-static_assert (3 * NEGA == -3, "");
-static_assert (3 * ZERO == 0, "");
-static_assert (3 * POSI == 3, "");
+static_assert (-3 * NEGA == 3);
+static_assert (-3 * ZERO == 0);
+static_assert (-3 * POSI == -3);
+static_assert (0 * NEGA == 0);
+static_assert (0 * ZERO == 0);
+static_assert (0 * POSI == 0);
+static_assert (3 * NEGA == -3);
+static_assert (3 * ZERO == 0);
+static_assert (3 * POSI == 3);
 
-static_assert (NEGA * -3 == 3, "");
-static_assert (ZERO * -3 == 0, "");
-static_assert (POSI * -3 == -3, "");
-static_assert (NEGA * 0 == 0, "");
-static_assert (ZERO * 0 == 0, "");
-static_assert (POSI * 0 == 0, "");
-static_assert (NEGA * 3 == -3, "");
-static_assert (ZERO * 3 == 0, "");
-static_assert (POSI * 3 == 3, "");
+static_assert (NEGA * -3 == 3);
+static_assert (ZERO * -3 == 0);
+static_assert (POSI * -3 == -3);
+static_assert (NEGA * 0 == 0);
+static_assert (ZERO * 0 == 0);
+static_assert (POSI * 0 == 0);
+static_assert (NEGA * 3 == -3);
+static_assert (ZERO * 3 == 0);
+static_assert (POSI * 3 == 3);
 
 // multiplication by a float
 // (but we're not covering special values like signed zero)
 
-static_assert (-4.4 * NEGA == 4.4, "");
-static_assert (-4.4 * ZERO == 0, "");
-static_assert (-4.4 * POSI == -4.4, "");
-static_assert (0.0 * NEGA == 0, "");
-static_assert (0.0 * ZERO == 0, "");
-static_assert (0.0 * POSI == 0, "");
-static_assert (4.4 * NEGA == -4.4, "");
-static_assert (4.4 * ZERO == 0, "");
-static_assert (4.4 * POSI == 4.4, "");
+static_assert (-4.4 * NEGA == 4.4);
+static_assert (-4.4 * ZERO == 0);
+static_assert (-4.4 * POSI == -4.4);
+static_assert (0.0 * NEGA == 0);
+static_assert (0.0 * ZERO == 0);
+static_assert (0.0 * POSI == 0);
+static_assert (4.4 * NEGA == -4.4);
+static_assert (4.4 * ZERO == 0);
+static_assert (4.4 * POSI == 4.4);
 
-static_assert (NEGA * -4.4 == 4.4, "");
-static_assert (ZERO * -4.4 == 0, "");
-static_assert (POSI * -4.4 == -4.4, "");
-static_assert (NEGA * 0.0 == 0, "");
-static_assert (ZERO * 0.0 == 0, "");
-static_assert (POSI * 0.0 == 0, "");
-static_assert (NEGA * 4.4 == -4.4, "");
-static_assert (ZERO * 4.4 == 0, "");
-static_assert (POSI * 4.4 == 4.4, "");
+static_assert (NEGA * -4.4 == 4.4);
+static_assert (ZERO * -4.4 == 0);
+static_assert (POSI * -4.4 == -4.4);
+static_assert (NEGA * 0.0 == 0);
+static_assert (ZERO * 0.0 == 0);
+static_assert (POSI * 0.0 == 0);
+static_assert (NEGA * 4.4 == -4.4);
+static_assert (ZERO * 4.4 == 0);
+static_assert (POSI * 4.4 == 4.4);
 
 // comparison
 
 // (cutting corners for the operators because they are compiler-generated)
-static_assert ((NEGA < ZERO) == true, "");
-static_assert ((ZERO < POSI) == true, "");
-static_assert ((POSI < ZERO) == false, "");
-static_assert ((ZERO < NEGA) == false, "");
+static_assert ((NEGA < ZERO) == true);
+static_assert ((ZERO < POSI) == true);
+static_assert ((POSI < ZERO) == false);
+static_assert ((ZERO < NEGA) == false);
 
-static_assert (directed_same (NEGA, NEGA) == true, "");
-static_assert (directed_same (NEGA, ZERO) == false, "");
-static_assert (directed_same (NEGA, POSI) == false, "");
-static_assert (directed_same (ZERO, NEGA) == false, "");
-static_assert (directed_same (ZERO, ZERO) == false, "");
-static_assert (directed_same (ZERO, POSI) == false, "");
-static_assert (directed_same (POSI, NEGA) == false, "");
-static_assert (directed_same (POSI, ZERO) == false, "");
-static_assert (directed_same (POSI, POSI) == true, "");
+static_assert (directed_same (NEGA, NEGA) == true);
+static_assert (directed_same (NEGA, ZERO) == false);
+static_assert (directed_same (NEGA, POSI) == false);
+static_assert (directed_same (ZERO, NEGA) == false);
+static_assert (directed_same (ZERO, ZERO) == false);
+static_assert (directed_same (ZERO, POSI) == false);
+static_assert (directed_same (POSI, NEGA) == false);
+static_assert (directed_same (POSI, ZERO) == false);
+static_assert (directed_same (POSI, POSI) == true);
 
-static_assert (directed_opposite (NEGA, NEGA) == false, "");
-static_assert (directed_opposite (NEGA, ZERO) == false, "");
-static_assert (directed_opposite (NEGA, POSI) == true, "");
-static_assert (directed_opposite (ZERO, NEGA) == false, "");
-static_assert (directed_opposite (ZERO, ZERO) == false, "");
-static_assert (directed_opposite (ZERO, POSI) == false, "");
-static_assert (directed_opposite (POSI, NEGA) == true, "");
-static_assert (directed_opposite (POSI, ZERO) == false, "");
-static_assert (directed_opposite (POSI, POSI) == false, "");
+static_assert (directed_opposite (NEGA, NEGA) == false);
+static_assert (directed_opposite (NEGA, ZERO) == false);
+static_assert (directed_opposite (NEGA, POSI) == true);
+static_assert (directed_opposite (ZERO, NEGA) == false);
+static_assert (directed_opposite (ZERO, ZERO) == false);
+static_assert (directed_opposite (ZERO, POSI) == false);
+static_assert (directed_opposite (POSI, NEGA) == true);
+static_assert (directed_opposite (POSI, ZERO) == false);
+static_assert (directed_opposite (POSI, POSI) == false);
 
-static_assert (minmax (NEGA, 1, 2) == 1, "");
-static_assert (minmax (NEGA, 2, 1) == 1, "");
-static_assert (minmax (POSI, 1, 2) == 2, "");
-static_assert (minmax (POSI, 2, 1) == 2, "");
+static_assert (minmax (NEGA, 1, 2) == 1);
+static_assert (minmax (NEGA, 2, 1) == 1);
+static_assert (minmax (POSI, 1, 2) == 2);
+static_assert (minmax (POSI, 2, 1) == 2);
 
 class Direction_test
 {
@@ -215,9 +215,9 @@ public:
   }
 };
 
-static_assert ((Direction_test::test_copy_construct (), true), "");
+static_assert ((Direction_test::test_copy_construct (), true));
 
-static_assert ((Direction_test::test_copy_assign (), true), "");
+static_assert ((Direction_test::test_copy_assign (), true));
 
 TEST (Direction_test, init_float)
 {

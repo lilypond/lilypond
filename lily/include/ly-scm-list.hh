@@ -309,8 +309,8 @@ inline const ly_scm_list_t<T> &
 as_ly_scm_list_t (const SCM &s)
 {
   // Check the sanity of the ly_scm_list_t<> design.
-  static_assert (std::is_standard_layout<ly_scm_list_t<T>>::value, "");
-  static_assert (sizeof (ly_scm_list_t<T>) == sizeof (SCM), "");
+  static_assert (std::is_standard_layout<ly_scm_list_t<T>>::value);
+  static_assert (sizeof (ly_scm_list_t<T>) == sizeof (SCM));
 
   return reinterpret_cast<const ly_scm_list_t<T> &> (s);
 }

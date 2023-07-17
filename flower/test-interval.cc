@@ -112,40 +112,40 @@ class Interval_test
   {
     constexpr IVM iv;
 
-    static_assert (iv.left () == Mint (100), "");
-    static_assert (iv.right () == Mint (-100), "");
+    static_assert (iv.left () == Mint (100));
+    static_assert (iv.right () == Mint (-100));
 
-    static_assert (iv.length () == Mint (0), "");
+    static_assert (iv.length () == Mint (0));
   }
 
   static void test_init_point ()
   {
     constexpr IVM iv (Mint (23));
 
-    static_assert (iv.left () == Mint (23), "");
-    static_assert (iv.right () == Mint (23), "");
+    static_assert (iv.left () == Mint (23));
+    static_assert (iv.right () == Mint (23));
 
-    static_assert (iv.length () == Mint (0), "");
+    static_assert (iv.length () == Mint (0));
   }
 
   static void test_init_list ()
   {
     constexpr IVM iv {Mint (10), Mint (20)};
 
-    static_assert (iv.left () == Mint (10), "");
-    static_assert (iv.right () == Mint (20), "");
+    static_assert (iv.left () == Mint (10));
+    static_assert (iv.right () == Mint (20));
 
-    static_assert (iv.length () == Mint (10), "");
+    static_assert (iv.length () == Mint (10));
   }
 
   static void test_init_list_assign ()
   {
     constexpr IVM iv = {Mint (40), Mint (30)};
 
-    static_assert (iv.left () == Mint (40), "");
-    static_assert (iv.right () == Mint (30), "");
+    static_assert (iv.left () == Mint (40));
+    static_assert (iv.right () == Mint (30));
 
-    static_assert (iv.length () == Mint (0), "");
+    static_assert (iv.length () == Mint (0));
   }
 
   static Interval_t<int> test_init_implicit_conversion ()
@@ -161,8 +161,8 @@ class Interval_test
     // signed char is not implicitly convertible to Mint (because the
     // implementation of Mint prevents it).
     constexpr Interval_t<int> test_iv (input_iv);
-    static_assert (test_iv.left () == -2, "");
-    static_assert (test_iv.right () == 3, "");
+    static_assert (test_iv.left () == -2);
+    static_assert (test_iv.right () == 3);
 
     return input_iv; // implicitly converted
   }
@@ -170,8 +170,8 @@ class Interval_test
   static void test_longest ()
   {
     constexpr auto iv = IVM::longest ();
-    static_assert (iv.left () == Mint (-100), "");
-    static_assert (iv.right () == Mint (100), "");
+    static_assert (iv.left () == Mint (-100));
+    static_assert (iv.right () == Mint (100));
   }
 
   static void test_std_chrono_time_point ()
@@ -224,17 +224,17 @@ TEST (Interval_test, center)
 
 // contains
 
-static_assert (IVM ().contains (Mint (0)) == false, "");
+static_assert (IVM ().contains (Mint (0)) == false);
 
-static_assert (IVM (Mint (4)).contains (Mint (3)) == false, "");
-static_assert (IVM (Mint (4)).contains (Mint (4)) == true, "");
-static_assert (IVM (Mint (4)).contains (Mint (5)) == false, "");
+static_assert (IVM (Mint (4)).contains (Mint (3)) == false);
+static_assert (IVM (Mint (4)).contains (Mint (4)) == true);
+static_assert (IVM (Mint (4)).contains (Mint (5)) == false);
 
-static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (-23)) == false, "");
-static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (-22)) == true, "");
-static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (0)) == true, "");
-static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (7)) == true, "");
-static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (8)) == false, "");
+static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (-23)) == false);
+static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (-22)) == true);
+static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (0)) == true);
+static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (7)) == true);
+static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (8)) == false);
 
 template <typename T>
 class Interval_math_test
@@ -343,30 +343,30 @@ protected:
     // empty
     {
       constexpr IVT iv;
-      static_assert (iv.clamp (neg_infinity ()) == neg_infinity (), "");
-      static_assert (iv.clamp (T (0)) == T (0), "");
-      static_assert (iv.clamp (pos_infinity ()) == pos_infinity (), "");
+      static_assert (iv.clamp (neg_infinity ()) == neg_infinity ());
+      static_assert (iv.clamp (T (0)) == T (0));
+      static_assert (iv.clamp (pos_infinity ()) == pos_infinity ());
     }
 
     // nonempty, nonfull
     {
       constexpr IVT iv {T (10), T (20)};
-      static_assert (iv.clamp (T (neg_infinity ())) == T (10), "");
-      static_assert (iv.clamp (T (9)) == T (10), "");
-      static_assert (iv.clamp (T (10)) == T (10), "");
-      static_assert (iv.clamp (T (11)) == T (11), "");
-      static_assert (iv.clamp (T (19)) == T (19), "");
-      static_assert (iv.clamp (T (20)) == T (20), "");
-      static_assert (iv.clamp (T (21)) == T (20), "");
-      static_assert (iv.clamp (T (pos_infinity ())) == T (20), "");
+      static_assert (iv.clamp (T (neg_infinity ())) == T (10));
+      static_assert (iv.clamp (T (9)) == T (10));
+      static_assert (iv.clamp (T (10)) == T (10));
+      static_assert (iv.clamp (T (11)) == T (11));
+      static_assert (iv.clamp (T (19)) == T (19));
+      static_assert (iv.clamp (T (20)) == T (20));
+      static_assert (iv.clamp (T (21)) == T (20));
+      static_assert (iv.clamp (T (pos_infinity ())) == T (20));
     }
 
     // full
     {
       constexpr IVT iv = IVT::longest ();
-      static_assert (iv.clamp (neg_infinity ()) == neg_infinity (), "");
-      static_assert (iv.clamp (T (0)) == T (0), "");
-      static_assert (iv.clamp (pos_infinity ()) == pos_infinity (), "");
+      static_assert (iv.clamp (neg_infinity ()) == neg_infinity ());
+      static_assert (iv.clamp (T (0)) == T (0));
+      static_assert (iv.clamp (pos_infinity ()) == pos_infinity ());
     }
   }
 
@@ -375,15 +375,15 @@ protected:
     constexpr auto z = T (0);
     constexpr auto p = pos_infinity ();
 
-    static_assert (IVT {}.is_empty () == true, "");
+    static_assert (IVT {}.is_empty () == true);
 
-    static_assert (IVT {z}.is_empty () == false, "");
-    static_assert (IVT {p}.is_empty () == false, "");
+    static_assert (IVT {z}.is_empty () == false);
+    static_assert (IVT {p}.is_empty () == false);
 
-    static_assert (IVT {z, z}.is_empty () == false, "");
-    static_assert (IVT {z, p}.is_empty () == false, "");
-    static_assert (IVT {p, z}.is_empty () == true, "");
-    static_assert (IVT {p, p}.is_empty () == false, "");
+    static_assert (IVT {z, z}.is_empty () == false);
+    static_assert (IVT {z, p}.is_empty () == false);
+    static_assert (IVT {p, z}.is_empty () == true);
+    static_assert (IVT {p, p}.is_empty () == false);
 
     constexpr auto n = neg_infinity ();
     if (z != n) // more cases for signed types

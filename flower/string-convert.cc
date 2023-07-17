@@ -54,7 +54,7 @@ std::string
 String_convert::bin2hex (char c)
 {
   std::string str;
-  static_assert (CHAR_BIT == 8, "");
+  static_assert (CHAR_BIT == 8);
   const auto bin_char = static_cast<uint8_t> (c);
   str += nibble2hex (bin_char >> 4);
   str += nibble2hex (bin_char);

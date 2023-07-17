@@ -49,15 +49,15 @@ public:
   static void test_init_default_int ()
   {
     constexpr Drul_array<int> arr;
-    static_assert (arr.front () == 0, "");
-    static_assert (arr.back () == 0, "");
+    static_assert (arr.front () == 0);
+    static_assert (arr.back () == 0);
   }
 
   static void test_init_default_dir ()
   {
     constexpr Drul_array<Direction> arr;
-    static_assert (arr.front () == CENTER, "");
-    static_assert (arr.back () == CENTER, "");
+    static_assert (arr.front () == CENTER);
+    static_assert (arr.back () == CENTER);
   }
 
   static void test_init_default_class ()
@@ -67,22 +67,22 @@ public:
       int val = 42;
     };
     constexpr Drul_array<AdHoc> arr;
-    static_assert (arr.front ().val == 42, "");
-    static_assert (arr.back ().val == 42, "");
+    static_assert (arr.front ().val == 42);
+    static_assert (arr.back ().val == 42);
   }
 
   static void test_init_value_int ()
   {
     constexpr Drul_array<int> arr {};
-    static_assert (arr.front () == 0, "");
-    static_assert (arr.back () == 0, "");
+    static_assert (arr.front () == 0);
+    static_assert (arr.back () == 0);
   }
 
   static void test_init_value_dir ()
   {
     constexpr Drul_array<Direction> arr {};
-    static_assert (arr.front () == CENTER, "");
-    static_assert (arr.back () == CENTER, "");
+    static_assert (arr.front () == CENTER);
+    static_assert (arr.back () == CENTER);
   }
 
   static void test_init_value_class ()
@@ -92,22 +92,22 @@ public:
       int val = 42;
     };
     constexpr Drul_array<AdHoc> arr {};
-    static_assert (arr.front ().val == 42, "");
-    static_assert (arr.back ().val == 42, "");
+    static_assert (arr.front ().val == 42);
+    static_assert (arr.back ().val == 42);
   }
 
   static void test_init_list ()
   {
     constexpr Drul_array<int> arr {12, 34};
-    static_assert (arr.front () == 12, "");
-    static_assert (arr.back () == 34, "");
+    static_assert (arr.front () == 12);
+    static_assert (arr.back () == 34);
   }
 
   static void test_init_list_assign ()
   {
     constexpr Drul_array<int> arr = {12, 34};
-    static_assert (arr.front () == 12, "");
-    static_assert (arr.back () == 34, "");
+    static_assert (arr.front () == 12);
+    static_assert (arr.back () == 34);
   }
 
   static constexpr void test_scaling ()
@@ -132,7 +132,7 @@ TEST (Drul_array_test, access_const_checked)
   EQUAL (34, arr[RIGHT]);
 }
 
-static_assert ((Drul_array_test::test_access_const_unchecked (), true), "");
+static_assert ((Drul_array_test::test_access_const_unchecked (), true));
 
 TEST (Drul_array_test, access_mutable_checked)
 {
@@ -149,6 +149,6 @@ TEST (Drul_array_test, access_mutable_checked)
   EQUAL (35, arr.at (RIGHT));
 }
 
-static_assert ((Drul_array_test::test_access_mutable_unchecked (), true), "");
+static_assert ((Drul_array_test::test_access_mutable_unchecked (), true));
 
-static_assert ((Drul_array_test::test_scaling (), true), "");
+static_assert ((Drul_array_test::test_scaling (), true));
