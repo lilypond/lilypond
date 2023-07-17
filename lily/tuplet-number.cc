@@ -133,14 +133,9 @@ Tuplet_number::adjacent_note_columns (Spanner *me, Grob *ref_stem)
         }
     }
 
-  Drul_array<Grob *> adj_cols (0, 0);
-
-  if (ref_pos > 0)
-    adj_cols[LEFT] = filtered_cols[ref_pos - 1];
-  if (ref_pos < filtered_cols.size () - 1)
-    adj_cols[RIGHT] = filtered_cols[ref_pos + 1];
-
-  return adj_cols;
+  return {(ref_pos > 0) ? filtered_cols[ref_pos - 1] : nullptr,
+          (ref_pos < filtered_cols.size () - 1) ? filtered_cols[ref_pos + 1]
+                                                : nullptr};
 }
 
 /*

@@ -47,7 +47,7 @@ class Engraver;
 class Preinit_Spanner
 {
 protected:
-  Drul_array<Item *> spanned_drul_ {nullptr, nullptr};
+  Drul_array<Item *> spanned_drul_;
   SCM pure_property_cache_ = SCM_UNDEFINED;
 
 public:

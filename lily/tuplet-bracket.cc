@@ -166,8 +166,8 @@ Tuplet_bracket::calc_x_positions (SCM smob)
   bounds[LEFT] = get_x_bound_item (me, LEFT, dir);
   bounds[RIGHT] = get_x_bound_item (me, RIGHT, dir);
 
-  Drul_array<bool> connect_to_other = from_scm (
-    get_property (me, "connect-to-neighbor"), Drul_array<bool> (false, false));
+  const auto connect_to_other
+    = from_scm (get_property (me, "connect-to-neighbor"), Drul_array<bool> ());
 
   bool span_note_heads
     = from_scm<bool> (get_property (me, "span-all-note-heads"));
@@ -365,9 +365,8 @@ Tuplet_bracket::print (SCM smob)
           scale_drul (&height, -ss * dir);
           scale_drul (&flare, ss);
 
-          Drul_array<bool> connect_to_other
-            = from_scm (get_property (me, "connect-to-neighbor"),
-                        Drul_array<bool> (false, false));
+          const auto connect_to_other = from_scm (
+            get_property (me, "connect-to-neighbor"), Drul_array<bool> ());
 
           for (const auto d : {LEFT, RIGHT})
             {
