@@ -42,7 +42,8 @@
 unique_fcconfig_ptr
 make_font_config (bool emmentaler)
 {
-  debug_output (_f ("Creating %sfont configuration...", emmentaler ? "Emmentaler " : ""));
+  debug_output (
+    _f ("Creating %sfont configuration...", emmentaler ? "Emmentaler " : ""));
 
   /* Create an empty configuration */
   unique_fcconfig_ptr conf (FcConfigCreate ());
@@ -100,7 +101,8 @@ make_font_config (bool emmentaler)
   FcStrList *cache_dirs = FcConfigGetCacheDirs (conf.get ());
   FcChar8 *cache_dir;
   while ((cache_dir = FcStrListNext (cache_dirs)))
-    debug_output (_f ("Font cache directory: %s\n", reinterpret_cast<char *> (cache_dir)));
+    debug_output (
+      _f ("Font cache directory: %s\n", reinterpret_cast<char *> (cache_dir)));
   FcStrListDone (cache_dirs);
 
   debug_output (_ ("Building font database..."));

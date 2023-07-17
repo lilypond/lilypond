@@ -387,7 +387,8 @@ Paper_column::print (SCM p)
 
       SCM number_markup
         = ly_string2scm (String_convert::form_string ("%5.2lf", dist));
-      auto number_stc = Text_interface::grob_interpret_markup (me, number_markup);
+      auto number_stc
+        = Text_interface::grob_interpret_markup (me, number_markup);
       number_stc.scale (1, 1.1);
       Real num_height = number_stc.extent (Y_AXIS).length ();
       Real num_len = number_stc.extent (X_AXIS).length ();

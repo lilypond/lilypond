@@ -118,7 +118,6 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
 
   music_context_ = to;
 
-
   if (music_context_)
     {
       auto *const d = music_context_->events_below ();

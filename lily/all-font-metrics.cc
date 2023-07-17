@@ -102,7 +102,8 @@ All_font_metrics::All_font_metrics (File_path search_path,
   if (!emmentaler_pango_ft2_fontmap_) // first initialization
     {
       emmentaler_pango_ft2_fontmap_ = make_font_map ();
-      PangoFcFontMap *fc_fontmap = PANGO_FC_FONT_MAP (emmentaler_pango_ft2_fontmap_);
+      PangoFcFontMap *fc_fontmap
+        = PANGO_FC_FONT_MAP (emmentaler_pango_ft2_fontmap_);
       pango_fc_font_map_set_config (fc_fontmap, emmentaler_font_config_.get ());
     }
 }

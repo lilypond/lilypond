@@ -98,8 +98,8 @@ Volta_bracket_interface::print (SCM smob)
   if (!orig_span || broken_first_bracket)
     {
       SCM text = get_property (me, "text");
-      Offset offset =
-        from_scm (get_property (me, "volta-number-offset"), Offset (1.0, -0.5));
+      Offset offset = from_scm (get_property (me, "volta-number-offset"),
+                                Offset (1.0, -0.5));
 
       auto num = Text_interface::grob_interpret_markup (me, text);
       num.align_to (Y_AXIS, UP);

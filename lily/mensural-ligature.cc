@@ -224,8 +224,9 @@ internal_brew_primitive (Grob *me)
   if (has_join || has_right_stem)
     {
       int join_right = has_join
-        ? from_scm<int> (get_property (me, "delta-position"))
-        : primitive & MLP_JOIN_UP ? longa_stem_length : -longa_stem_length;
+                         ? from_scm<int> (get_property (me, "delta-position"))
+                       : primitive & MLP_JOIN_UP ? longa_stem_length
+                                                 : -longa_stem_length;
       if (join_right)
         {
           Real y_top = join_right * 0.5 * staff_space;
