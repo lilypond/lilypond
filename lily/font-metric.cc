@@ -138,11 +138,9 @@ Font_metric::attachment_point (const std::string &, Direction) const
 }
 
 Stencil
-Font_metric::text_stencil (Output_def *state, const std::string &, bool,
+Font_metric::text_stencil (Output_def * /*state*/, const std::string &, bool,
                            const std::string &) const
 {
-  (void) state;
-
   programming_error ("Cannot get a text stencil from this font");
   return Stencil (Box (), SCM_EOL);
 }

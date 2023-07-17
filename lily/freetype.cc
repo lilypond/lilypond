@@ -112,11 +112,10 @@ struct Path_interpreter
     cur_ = dest;
     return 0;
   }
-  int curve2to (FT_Vector const &control, FT_Vector const &to)
+  int curve2to (FT_Vector const & /*control*/, FT_Vector const &to)
   {
     // It is a second order bezier.  We don't have code to
     // handle these. Substitute a line segment instead.
-    (void) control;
     return lineto (to);
   }
   int curve3to (FT_Vector const &c1, FT_Vector const &c2, FT_Vector const &to)
