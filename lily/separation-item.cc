@@ -58,7 +58,7 @@ Separation_item::set_distance (Item *l, Item *r, Real padding)
     {
       Rod rod;
 
-      rod.item_drul_ = Drul_array<Item *> (l, r);
+      rod.item_drul_ = {l, r};
 
       rod.distance_ = dist;
       rod.add_to_cols ();

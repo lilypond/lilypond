@@ -410,7 +410,7 @@ Tie_formatting_problem::from_semi_ties (std::vector<Item *> const &semi_ties,
 
       spec.note_head_drul_[head_dir] = head;
       column_rank = Semi_tie::get_column_rank (semi_tie);
-      spec.column_ranks_ = Drul_array<int> (column_rank, column_rank);
+      spec.column_ranks_ = {column_rank, column_rank};
       heads.push_back (head);
       specifications_.push_back (spec);
     }

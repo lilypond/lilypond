@@ -153,8 +153,8 @@ std::unique_ptr<Beam_configuration>
 Beam_configuration::new_config (Drul_array<Real> start, Drul_array<Real> offset)
 {
   auto qs = std::make_unique<Beam_configuration> ();
-  qs->y = Drul_array<Real> (int (start[LEFT]) + offset[LEFT],
-                            int (start[RIGHT]) + offset[RIGHT]);
+  qs->y = {static_cast<int> (start[LEFT]) + offset[LEFT],
+           static_cast<int> (start[RIGHT]) + offset[RIGHT]};
 
   // This orders the sequence so we try combinations closest to the
   // the ideal offset first.
@@ -326,16 +326,15 @@ Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> ys,
       edge_dirs_ = {};
       normal_stem_count_ += Beam::normal_stem_count (beams[i]);
       if (normal_stem_count_)
-        edge_dirs_ = Drul_array<Direction> (stem_infos_[0].dir_,
-                                            stem_infos_.back ().dir_);
+        edge_dirs_ = {stem_infos_[0].dir_, stem_infos_.back ().dir_};
 
       is_xstaff_ = has_interface<Align_interface> (common[Y_AXIS]);
       is_knee_ |= dirs_found[DOWN] && dirs_found[UP];
 
       staff_radius_ = Staff_symbol_referencer::staff_radius (beams[i]);
-      edge_beam_counts_ = Drul_array<int> (
-        Stem::beam_multiplicity (stems[0]).length () + 1,
-        Stem::beam_multiplicity (stems.back ()).length () + 1);
+      edge_beam_counts_
+        = {Stem::beam_multiplicity (stems[0]).length () + 1,
+           Stem::beam_multiplicity (stems.back ()).length () + 1};
 
       // TODO - why are we dividing by staff_space_?
       beam_translation_ = Beam::get_beam_translation (beams[i]) / staff_space_;
@@ -506,7 +505,7 @@ Beam_scoring_problem::no_visible_stem_positions ()
   Real y = head_positions.linear_combination (dir) * 0.5 * staff_space_
            + dir * beam_translation_ * (multiplicity.length () + 1);
 
-  unquanted_y_ = Drul_array<Real> (y, y);
+  unquanted_y_ = {y, y};
 }
 
 vsize
@@ -593,7 +592,7 @@ Beam_scoring_problem::least_squares_positions ()
       set_minimum_dy (beam_, &dy);
 
       ldy = dy;
-      unquanted_y_ = Drul_array<Real> (y, (y + dy));
+      unquanted_y_ = {y, (y + dy)};
     }
 
   musical_dy_ = ldy;
@@ -884,7 +883,7 @@ Beam_scoring_problem::shift_region_to_valid ()
         "no viable initial configuration found: may not find good beam slope"));
     }
 
-  unquanted_y_ = Drul_array<Real> (beam_left_y, (beam_left_y + beam_dy));
+  unquanted_y_ = {beam_left_y, (beam_left_y + beam_dy)};
 }
 
 void
