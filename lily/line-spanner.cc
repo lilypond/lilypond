@@ -83,25 +83,25 @@ offsets_maybe (Drul_array<Grob *> grobs, Grob *&common)
       common = g1->common_refpoint (g2, Y_AXIS);
       Real coord1 = g1->relative_coordinate (common, Y_AXIS);
       Real coord2 = g2->relative_coordinate (common, Y_AXIS);
-      return Drul_array<Real> (coord1, coord2);
+      return {coord1, coord2};
     }
   else if (g1)
     {
       common = g1;
       Real coord1 = g1->relative_coordinate (common, Y_AXIS);
       // The 0.0 shouldn't get used.
-      return Drul_array<Real> (coord1, 0.0);
+      return {coord1, 0.0};
     }
   else if (g2)
     {
       common = g2;
       Real coord2 = g2->relative_coordinate (common, Y_AXIS);
-      return Drul_array<Real> (0.0, coord2);
+      return {0.0, coord2};
     }
   else
     {
       common = nullptr;
-      return Drul_array<Real> (0.0, 0.0);
+      return {0.0, 0.0};
     }
 }
 

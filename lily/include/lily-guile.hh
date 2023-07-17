@@ -704,8 +704,7 @@ struct scm_conversions<Drul_array<T>>
   }
   static Drul_array<T> from_scm (SCM s)
   {
-    return Drul_array<T> (::from_scm<T> (scm_car (s)),
-                          ::from_scm<T> (scm_cdr (s)));
+    return {::from_scm<T> (scm_car (s)), ::from_scm<T> (scm_cdr (s))};
   }
   static Drul_array<T> from_scm (SCM s, Drul_array<T> fallback)
   {
