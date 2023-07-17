@@ -22,46 +22,15 @@
 
 #include "lily-proto.hh"
 
+#include <optional>
+
 /*
   XY offset/refpoint/extent structure.
 */
 class Dimension_cache final
 {
-  // A value plus a validity flag.  The interface was chosen with the hope of
-  // replacing this with C++17 std::optional someday.  The implementation
-  // differs fundamentally from std::optional, but not in any way that matters
-  // for current uses in Dimension_cache.
-  template <class T>
-  class Optional
-  {
-  private:
-    bool has_value_;
-    T value_;
-
-  public:
-    Optional ()
-      : has_value_ (false),
-        value_ ()
-    {
-    }
-
-    Optional &operator= (const T &value)
-    {
-      has_value_ = true;
-      value_ = value;
-      return *this;
-    }
-
-    void reset () { has_value_ = false; }
-
-    explicit operator bool () const { return has_value_; }
-
-    T &operator* () { return value_; }
-    const T &operator* () const { return value_; }
-  };
-
-  Optional<Interval> extent_;
-  Optional<Real> offset_;
+  std::optional<Interval> extent_;
+  std::optional<Real> offset_;
   Grob *parent_ = nullptr;
 
   friend class Grob;
