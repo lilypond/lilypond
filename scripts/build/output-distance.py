@@ -370,17 +370,28 @@ class ImageLink (FileLink):
     def get_cell_html(self, name: str, oldnew: int) -> str:
         base = os.path.splitext(self.file_names[oldnew])[0]
 
-        if self.image_exists[0] and self.image_exists[1] and oldnew == 1 and self.distance() > 0:
-            newimg = os.path.relpath(self.file_names[oldnew], self.dest_dir)
+        if self.image_exists[0] and self.image_exists[1] and self.distance() > 0:
+            newimg = os.path.relpath(self.file_names[1], self.dest_dir)
             oldimg = os.path.relpath(self.file_names[0], self.dest_dir)
             diffimg = os.path.splitext(newimg)[0] + '.diff.png'
 
-            return '''
+            if (oldnew == 0):
+                return '''
 <figure class="reactive_img">
   <div>
     <div class="newimg"><img alt="new image" src="%(newimg)s" /></div>
-    <div class="diffimg"><img alt="diff image" src="%(diffimg)s" /></div>
     <div class="oldimg"><img alt="old image" src="%(oldimg)s" /></div>
+    <div class="invisible"><img alt="old image" src="%(oldimg)s" /></div>
+  </div>
+  <figcaption><span>&nbsp;</span></figcaption>
+</figure>
+''' % locals()
+            else:
+                return '''
+<figure class="diff_img">
+  <div>
+    <div class="oldimg"><img alt="old image" src="%(oldimg)s" /></div>
+    <div class="diffimg"><img alt="diff image" src="%(diffimg)s" /></div>
     <div class="invisible"><img alt="diff image" src="%(diffimg)s" /></div>
   </div>
   <figcaption><span>&nbsp;</span></figcaption>
@@ -394,9 +405,9 @@ class ImageLink (FileLink):
 
             if self.image_exists[oldnew]:
                 img = os.path.relpath(self.file_names[oldnew], self.dest_dir)
-                return ('''
-  <div><a href="%s"><img alt="image of music" src="%s" /></a></div>
-''' % (img, img))
+                return '''
+  <div><img alt="image of music" src="%s" /></div>
+''' % img
 
         return ''
 
@@ -869,9 +880,6 @@ figure > div:first-child {
 figure.reactive_img.active > div > div.newimg {
     opacity: 0.0;
 }
-figure.reactive_img.active > div > div.diffimg {
-    opacity: 0.0;
-}
 figure.reactive_img.active > div > div.oldimg {
     opacity: 1.0;
 }
@@ -880,11 +888,6 @@ figure.reactive_img > div > div.newimg {
     position: absolute;
     opacity: 1.0;
 }
-figure.reactive_img > div > div.diffimg {
-    position: absolute;
-    opacity: 0.3;
-    filter: blur(2px);
-}
 figure.reactive_img > div > div.oldimg {
     position: absolute;
     opacity: 0.0;
@@ -892,6 +895,21 @@ figure.reactive_img > div > div.oldimg {
 /* Use this to add a non-visible image without absolute position,
    thus making the parent take up space. */
 figure.reactive_img > div > div.invisible {
+    opacity: 0.0;
+}
+
+figure.diff_img > div > div.oldimg {
+    position: absolute;
+    opacity: 1.0;
+}
+figure.diff_img > div > div.diffimg {
+    position: absolute;
+    opacity: 0.3;
+    filter: blur(2px);
+}
+/* Use this to add a non-visible image without absolute position,
+   thus making the parent take up space. */
+figure.diff_img > div > div.invisible {
     opacity: 0.0;
 }
 
@@ -956,22 +974,46 @@ td:empty {
     }
 
     function addControls() {
-        function makeMomentaryButton(label, object) {
-            function activate() { object.classList.add("active"); }
-            function revert() { object.classList.remove("active"); }
+        function makeMomentaryButton(object) {
+            function activate() {
+                object.classList.add("active");
+                button.replaceChild(document.createTextNode("after"),
+                                    button.lastChild);
+            }
+            function revert() {
+                object.classList.remove("active");
+                button.replaceChild(document.createTextNode("before"),
+                                    button.lastChild);
+            }
 
             var button = document.createElement("button");
-            button.appendChild(document.createTextNode(label));
+            button.appendChild(document.createTextNode("before"));
             button.addEventListener("mousedown", activate);
             button.addEventListener("mouseup", revert);
             button.addEventListener("mouseout", revert);
             return button;
         }
 
+        function makeFakeButton(object) {
+            var button = document.createElement("button");
+            button.appendChild(document.createTextNode("after"));
+            button.style.visibility = "hidden";
+            return button
+        }
+
         for (fig of document.getElementsByClassName("reactive_img")) {
             var caps = fig.getElementsByTagName("figcaption");
             if (caps.length > 0) {
-                caps[0].appendChild(makeMomentaryButton("Flip", fig));
+                caps[0].replaceChild(makeMomentaryButton(fig),
+                                     caps[0].lastChild);
+            }
+        }
+
+        for (fig of document.getElementsByClassName("diff_img")) {
+            var caps = fig.getElementsByTagName("figcaption");
+            if (caps.length > 0) {
+                caps[0].replaceChild(makeFakeButton(fig),
+                                     caps[0].lastChild);
             }
         }
     }
