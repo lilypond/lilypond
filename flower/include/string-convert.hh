@@ -33,4 +33,4 @@ public:
   static std::string percent_encode (std::string const &s);
 };
 
-#endif // __STRING_CONVERT_HH //
+#endif // STRING_CONVERT_HH

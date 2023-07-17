@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ABBREV_HH
-#define ABBREV_HH
+#ifndef STEM_TREMOLO_HH
+#define STEM_TREMOLO_HH
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
@@ -43,4 +43,4 @@ public:
   static Real vertical_length (Grob *me);
 };
 
-#endif /* ABBREV_HH */
+#endif /* STEM_TREMOLO_HH */

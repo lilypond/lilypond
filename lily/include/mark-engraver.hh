@@ -64,4 +64,4 @@ private:
                                          const char **grob_name, SCM *text);
 };
 
-#endif /* MARK_TRACKING_TRANSLATOR_HH */
+#endif /* MARK_ENGRAVER_HH */

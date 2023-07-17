@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef Script_COLUMN_HH
-#define Script_COLUMN_HH
+#ifndef SCRIPT_COLUMN_HH
+#define SCRIPT_COLUMN_HH
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
@@ -34,4 +34,4 @@ public:
   static void order_grobs (std::vector<Grob *> grobs);
 };
 
-#endif /* Script_COLUMN_HH */
+#endif /* SCRIPT_COLUMN_HH */

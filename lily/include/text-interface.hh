@@ -18,8 +18,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TEXT_ITEM
-#define TEXT_ITEM
+#ifndef TEXT_INTERFACE_HH
+#define TEXT_INTERFACE_HH
 
 #include "stencil.hh"
 #include "grob-interface.hh"
@@ -44,4 +44,4 @@ private:
                                    std::string &str);
 };
 
-#endif /* TEXT_ITEM */
+#endif // TEXT_INTERFACE_HH

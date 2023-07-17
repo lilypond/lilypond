@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef SINGLE_MALT_GROUPING_ITEM_HH
-#define SINGLE_MALT_GROUPING_ITEM_HH
+#ifndef SEPARATION_ITEM_HH
+#define SEPARATION_ITEM_HH
 
 #include "lily-proto.hh"
 #include "direction.hh"
@@ -41,4 +41,4 @@ struct Separation_item
   static void add_conditional_item (Grob *, Grob *);
 };
 
-#endif /* SINGLE_MALT_GROUPING_ITEM_HH */
+#endif /* SEPARATION_ITEM_HH */

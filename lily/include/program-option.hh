@@ -16,8 +16,8 @@
   You should have received a copy of the GNU General Public License
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef SCM_OPTION_HH
-#define SCM_OPTION_HH
+#ifndef PROGRAM_OPTION_HH
+#define PROGRAM_OPTION_HH
 
 #include "lily-guile.hh"
 
@@ -29,4 +29,4 @@ SCM ly_set_option (SCM, SCM);
 bool get_program_option (const char *);
 std::string get_output_backend_name ();
 
-#endif /* SCM_OPTION_HH */
+#endif /* PROGRAM_OPTION_HH */

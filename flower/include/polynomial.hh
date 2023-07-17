@@ -21,8 +21,8 @@
  * polynomial.hh -- routines for manipulation of polynomials in one var
  */
 
-#ifndef POLY_H
-#define POLY_H
+#ifndef POLYNOMIAL_HH
+#define POLYNOMIAL_HH
 
 #include "arithmetic-operator.hh"
 #include "real.hh"
@@ -81,4 +81,5 @@ operator* (Real a, Polynomial p)
   p *= a;
   return p;
 }
-#endif
+
+#endif // POLYNOMIAL_HH

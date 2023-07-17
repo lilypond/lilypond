@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PROPERTY_OBJECT_HH
-#define PROPERTY_OBJECT_HH
+#ifndef PROB_HH
+#define PROB_HH
 
 #include "pitch.hh"
 #include "stencil.hh"
@@ -77,4 +77,4 @@ SCM ly_prob_property (SCM prob, SCM sym, SCM val);
 
 SCM ly_prob_type_p (SCM obj, SCM sym);
 
-#endif /* PROPERTY_OBJECT_HH */
+#endif /* PROB_HH */

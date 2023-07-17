@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ALL_FONTS_HH
-#define ALL_FONTS_HH
+#ifndef ALL_FONT_METRICS_HH
+#define ALL_FONT_METRICS_HH
 
 #include "file-path.hh"
 #include "font-config.hh"
@@ -76,4 +76,4 @@ public:
 
 extern All_font_metrics *all_fonts_global;
 
-#endif /* ALL_FONTS_HH */
+#endif /* ALL_FONT_METRICS_HH */

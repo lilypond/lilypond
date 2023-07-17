@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef INTERFACE_HH
-#define INTERFACE_HH
+#ifndef GROB_INTERFACE_HH
+#define GROB_INTERFACE_HH
 
 #include "lily-guile.hh"
 #include "protected-scm.hh"
@@ -65,4 +65,4 @@ private:
 template <class Interface>
 Protected_scm Grob_interface<Interface>::interface_symbol_;
 
-#endif /* INTERFACE_HH */
+#endif /* GROB_INTERFACE_HH */

@@ -21,8 +21,8 @@
   some 2D geometrical concepts
 */
 
-#ifndef BOXES_HH
-#define BOXES_HH
+#ifndef BOX_HH
+#define BOX_HH
 
 #include "interval.hh"
 #include "offset.hh"
@@ -64,4 +64,4 @@ public:
   Box (Interval ix, Interval iy);
 };
 
-#endif
+#endif // BOX_HH

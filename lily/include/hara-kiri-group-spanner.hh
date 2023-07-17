@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
-#define HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
+#ifndef HARA_KIRI_GROUP_SPANNER_HH
+#define HARA_KIRI_GROUP_SPANNER_HH
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
@@ -37,4 +37,4 @@ public:
   static void add_interesting_item (Grob *me, Grob *n);
 };
 
-#endif // HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
+#endif // HARA_KIRI_GROUP_SPANNER_HH

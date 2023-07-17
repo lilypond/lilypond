@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef Tuplet_number_HH
-#define Tuplet_number_HH
+#ifndef TUPLET_NUMBER_HH
+#define TUPLET_NUMBER_HH
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
@@ -38,4 +38,4 @@ struct Tuplet_number
   static bool knee_position_against_beam (Spanner *me, Grob *ref_stem);
 };
 
-#endif // Tuplet_number_HH
+#endif // TUPLET_NUMBER_HH

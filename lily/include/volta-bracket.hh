@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef VOLTA_SPANNER_HH
-#define VOLTA_SPANNER_HH
+#ifndef VOLTA_BRACKET_HH
+#define VOLTA_BRACKET_HH
 
 #include "spanner.hh"
 #include "lily-proto.hh"
@@ -31,4 +31,4 @@ public:
   static void add_bar (Spanner *me, Item *bar);
 };
 
-#endif // VOLTA_SPANNER_HH
+#endif // VOLTA_BRACKET_HH

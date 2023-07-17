@@ -69,4 +69,4 @@ typedef void (Engraver::*Engraver_method) (void);
 
 void engraver_each (SCM list, Engraver_method method);
 
-#endif /* ENGRAVERGROUP_HH */
+#endif /* ENGRAVER_GROUP_HH */

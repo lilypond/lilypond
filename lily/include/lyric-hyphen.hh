@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef HYPHEN_SPANNER_HH
-#define HYPHEN_SPANNER_HH
+#ifndef LYRIC_HYPHEN_HH
+#define LYRIC_HYPHEN_HH
 
 #include "grob-interface.hh"
 #include "lily-proto.hh"
@@ -30,4 +30,4 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
 
-#endif // HYPHEN_SPANNER_HH
+#endif // LYRIC_HYPHEN_HH

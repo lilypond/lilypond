@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef Tuplet_bracket_HH
-#define Tuplet_bracket_HH
+#ifndef TUPLET_BRACKET_HH
+#define TUPLET_BRACKET_HH
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
@@ -45,4 +45,4 @@ public:
   static bool bracket_basic_visibility (Spanner *me);
 };
 
-#endif // Tuplet_bracket_HH
+#endif // TUPLET_BRACKET_HH

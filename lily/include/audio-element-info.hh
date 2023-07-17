@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AUDIO_ITEM_INFO_HH
-#define AUDIO_ITEM_INFO_HH
+#ifndef AUDIO_ELEMENT_INFO_HH
+#define AUDIO_ELEMENT_INFO_HH
 
 #include "lily-proto.hh"
 
@@ -45,4 +45,4 @@ public:
   }
 };
 
-#endif
+#endif // AUDIO_ELEMENT_INFO_HH

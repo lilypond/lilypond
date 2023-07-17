@@ -53,4 +53,4 @@ public:
 
 SCM ly_source_files (SCM parser_smob);
 
-#endif /* SOURCE_HH */
+#endif /* SOURCES_HH */

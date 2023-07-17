@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef LEASTSQUARE_HH
-#define LEASTSQUARE_HH
+#ifndef LEAST_SQUARES_HH
+#define LEAST_SQUARES_HH
 
 #include "offset.hh"
 
@@ -30,4 +30,4 @@
 void minimise_least_squares (Real *coef, Real *offset,
                              std::vector<Offset> const &);
 
-#endif // LEASTSQUARE_HH
+#endif // LEAST_SQUARES_HH

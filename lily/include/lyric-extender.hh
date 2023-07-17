@@ -5,8 +5,8 @@
   Copyright (C) 1998--2023 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#ifndef EXTENDER_SPANNER_HH
-#define EXTENDER_SPANNER_HH
+#ifndef LYRIC_EXTENDER_HH
+#define LYRIC_EXTENDER_HH
 
 #include "grob-interface.hh"
 #include "lily-proto.hh"
@@ -30,4 +30,4 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
 
-#endif // EXTENDER_SPANNER_HH
+#endif // LYRIC_EXTENDER_HH

@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef NOTEHEAD_HH
-#define NOTEHEAD_HH
+#ifndef NOTE_HEAD_HH
+#define NOTE_HEAD_HH
 
 #include "stencil.hh"
 #include "grob-interface.hh"
@@ -38,4 +38,4 @@ public:
   static Offset get_stem_attachment (Font_metric *, const std::string &,
                                      Direction);
 };
-#endif // NOTEHEAD_HH
+#endif // NOTE_HEAD_HH

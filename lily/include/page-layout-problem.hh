@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef PAGE_LAYOUT_HH
-#define PAGE_LAYOUT_HH
+#ifndef PAGE_LAYOUT_PROBLEM_HH
+#define PAGE_LAYOUT_PROBLEM_HH
 
 #include "simple-spacer.hh"
 #include "skyline.hh"
@@ -120,4 +120,4 @@ protected:
   Direction in_note_direction_;
 };
 
-#endif /* PAGE_LAYOUT_HH */
+#endif /* PAGE_LAYOUT_PROBLEM_HH */

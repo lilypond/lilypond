@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DIRECTIONAL_ELEMENT_HH
-#define DIRECTIONAL_ELEMENT_HH
+#ifndef DIRECTIONAL_ELEMENT_INTERFACE_HH
+#define DIRECTIONAL_ELEMENT_INTERFACE_HH
 
 #include "lily-proto.hh"
 #include "direction.hh"
@@ -28,4 +28,4 @@ void set_grob_direction (Grob *, Direction);
 Direction get_grob_direction (Grob *);
 Direction get_strict_grob_direction (Grob *);
 
-#endif /* DIRECTIONAL_ELEMENT_HH */
+#endif /* DIRECTIONAL_ELEMENT_INTERFACE_HH */

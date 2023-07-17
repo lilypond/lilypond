@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef COLLISION_HH
-#define COLLISION_HH
+#ifndef NOTE_COLLISION_HH
+#define NOTE_COLLISION_HH
 
 #include "grob-interface.hh"
 #include "lily-proto.hh"
@@ -46,4 +46,4 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM smob));
   static void add_column (Grob *me, Grob *ncol);
 };
-#endif // COLLISION_HH
+#endif // NOTE_COLLISION_HH
