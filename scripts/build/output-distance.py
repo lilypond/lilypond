@@ -218,9 +218,7 @@ class FileLink:
             file = self.get_file(oldnew)
             cell = self.get_cell(oldnew)
             if cell or os.path.exists(file):
-                cells[oldnew] = '''<figure>
-%(cell)s
-<figcaption><a href="%(file)s">%(name)s</a></figcaption>
+                cells[oldnew] = '''<figure>%(cell)s<figcaption><a href="%(file)s">%(name)s</a></figcaption>
 </figure>''' % locals()
 
         cell1 = cells[0]
@@ -232,7 +230,9 @@ class FileLink:
 </td>
 <td>%(cell1)s</td>
 <td>%(cell2)s</td>
-</tr>''' % locals()
+</tr>
+
+''' % locals()
 
 
 class FileCompareLink (FileLink):
@@ -381,8 +381,7 @@ class ImageLink (FileLink):
     <div class="newimg"><img alt="new image" src="%(newimg)s" /></div>
     <div class="diffimg"><img alt="diff image" src="%(diffimg)s" /></div>
     <div class="oldimg"><img alt="old image" src="%(oldimg)s" /></div>
-    <!-- add it invisibly without absolute position so the parent takes up space. -->
-    <div style="opacity: 0.0"><img alt="diff image" src="%(diffimg)s" /></div>
+    <div class="invisible"><img alt="diff image" src="%(diffimg)s" /></div>
   </div>
   <figcaption><span>&nbsp;</span></figcaption>
 </figure>
@@ -396,7 +395,7 @@ class ImageLink (FileLink):
             if self.image_exists[oldnew]:
                 img = os.path.relpath(self.file_names[oldnew], self.dest_dir)
                 return ('''
-<div><a href="%s"><img alt="image of music" src="%s" /></a></div>
+  <div><a href="%s"><img alt="image of music" src="%s" /></a></div>
 ''' % (img, img))
 
         return ''
@@ -811,7 +810,7 @@ class ComparisonData:
             table_rows += link.html_record_string()
 
         def make_row(label, value):
-            return '<tr><td>%d</td><td>%s</td></tr>' % (value, label)
+            return '<tr><td>%d</td><td>%s</td></tr>\n' % (value, label)
 
         def make_nz_row(label, value):
             if value:
@@ -819,7 +818,7 @@ class ComparisonData:
             else:
                 return ''
 
-        summary = '<table id="summary">'
+        summary = '<table id="summary">\n'
         summary += make_nz_row('in baseline only', len(self.missing))
         summary += make_nz_row('newly added', len(self.added))
         summary += make_nz_row('below threshold', len(below))
@@ -888,6 +887,11 @@ figure.reactive_img > div > div.diffimg {
 }
 figure.reactive_img > div > div.oldimg {
     position: absolute;
+    opacity: 0.0;
+}
+/* Use this to add a non-visible image without absolute position,
+   thus making the parent take up space. */
+figure.reactive_img > div > div.invisible {
     opacity: 0.0;
 }
 
