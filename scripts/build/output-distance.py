@@ -406,7 +406,9 @@ class ImageLink (FileLink):
             if self.image_exists[oldnew]:
                 img = os.path.relpath(self.file_names[oldnew], self.dest_dir)
                 return '''
+<figure class="unchanged_img">
   <div><img alt="image of music" src="%s" /></div>
+</figure>
 ''' % img
 
         return ''
@@ -855,12 +857,10 @@ a {
     color: var(--link-color);
 }
 
-figcaption {
-    margin-top: 0.5rem;
-}
-
 figcaption button {
     float: left;
+    margin-top: 0.2rem;
+    margin-bottom: 0.8rem;
 }
 
 figure {
@@ -869,12 +869,19 @@ figure {
     padding: 0rem;
 }
 
-figure > div:first-child {
+figure > div {
     background-color: white;
     background-repeat: no-repeat;
     border: 0.5rem solid white;
-    border-radius: 0.5rem;
     color: black;
+}
+
+figure > figure.unchanged_img {
+    margin-bottom: 2rem;
+}
+
+figure > figure.reactive_img > div {
+    border-radius: 0.5rem;
 }
 
 figure.reactive_img.active > div > div.newimg {
