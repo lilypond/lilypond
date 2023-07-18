@@ -79,13 +79,13 @@ Midi_instrument::Midi_instrument (Audio_instrument *a)
 std::string
 Midi_instrument::to_string () const
 {
-  Byte program_byte = 0;
+  char program_byte = 0;
   bool found = false;
 
   SCM program = Lily::midi_program (ly_symbol2scm (audio_->str_));
   found = (scm_is_true (program));
   if (found)
-    program_byte = static_cast<Byte> (from_scm<int> (program));
+    program_byte = static_cast<char> (from_scm<int> (program));
   else
     warning (_f ("no such MIDI instrument: `%s'", audio_->str_.c_str ()));
 
@@ -189,14 +189,14 @@ Midi_time_signature::to_string () const
 Midi_note::Midi_note (Audio_note *a)
   : Midi_channel_item (a),
     audio_ (a),
-    dynamic_byte_ (std::min (
+    velocity_ (std::min (
       std::max (
-        Byte ((a->dynamic_
-                 ? a->dynamic_->get_volume (a->audio_column_->when ()) * 0x7f
-                 : 0x5a)
-              + a->extra_velocity_),
-        Byte (0)),
-      Byte (0x7f)))
+        uint8_t ((a->dynamic_
+                    ? a->dynamic_->get_volume (a->audio_column_->when ()) * 0x7f
+                    : 0x5a)
+                 + a->extra_velocity_),
+        uint8_t (0)),
+      uint8_t (0x7f)))
 {
 }
 
@@ -224,7 +224,7 @@ Midi_note::get_semitone_pitch () const
 std::string
 Midi_note::to_string () const
 {
-  const auto status_byte = static_cast<Byte> (0x90 + channel_);
+  const auto status_byte = static_cast<char> (0x90 + channel_);
   std::string str = "";
 
   // print warning if fine tuning was needed, HJJ
@@ -240,7 +240,7 @@ Midi_note::to_string () const
 
   str += status_byte;
   str += static_cast<char> (get_semitone_pitch () + c0_pitch_);
-  str += dynamic_byte_;
+  str += velocity_;
 
   return str;
 }
@@ -252,17 +252,17 @@ Midi_note_off::Midi_note_off (Midi_note *n)
   channel_ = n->channel_;
 
   // use note_on with velocity=0 instead of note_off
-  aftertouch_byte_ = 0;
+  velocity_ = 0;
 }
 
 std::string
 Midi_note_off::to_string () const
 {
-  const auto status_byte = static_cast<Byte> (0x90 + channel_);
+  const auto status_byte = static_cast<char> (0x90 + channel_);
 
   std::string str (1, status_byte);
   str += static_cast<char> (get_semitone_pitch () + Midi_note::c0_pitch_);
-  str += aftertouch_byte_;
+  str += velocity_;
 
   if (get_fine_tuning () != 0)
     {
@@ -285,7 +285,7 @@ Midi_piano_pedal::Midi_piano_pedal (Audio_piano_pedal *a)
 std::string
 Midi_piano_pedal::to_string () const
 {
-  const auto status_byte = static_cast<Byte> (0xB0 + channel_);
+  const auto status_byte = static_cast<char> (0xB0 + channel_);
   std::string str (1, status_byte);
 
   if (audio_->type_ == SOSTENUTO)
@@ -332,7 +332,7 @@ Midi_text::to_string () const
 std::string
 Midi_control_change::to_string () const
 {
-  const auto status_byte = static_cast<Byte> (0xB0 + channel_);
+  const auto status_byte = static_cast<char> (0xB0 + channel_);
   std::string str (1, status_byte);
   str += static_cast<char> (audio_->control_);
   str += static_cast<char> (audio_->value_);

@@ -134,7 +134,7 @@ public:
   Audio_note *audio_;
 
   static int const c0_pitch_ = 60;
-  Byte dynamic_byte_;
+  uint8_t velocity_; // 0-127
 };
 
 class Midi_note_off : public Midi_note
@@ -146,7 +146,6 @@ public:
   std::string to_string () const override;
 
   Midi_note *on_;
-  Byte aftertouch_byte_;
 };
 
 class Midi_text : public Midi_item
