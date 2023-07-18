@@ -18,6 +18,8 @@
 */
 
 #include "std-string.hh"
+
+#include "flower-proto.hh"
 #include "string-convert.hh"
 #include "std-vector.hh"
 

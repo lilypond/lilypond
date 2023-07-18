@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2023 Han-Wen Nienhuys
+  Copyright (C) 2023 Daniel Eble <nine.fierce.ballads@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,12 +17,32 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef FLOWER_PROTO_HH
-#define FLOWER_PROTO_HH
+#include "string-convert.hh"
 
-#include <cstddef>
+#include "yaffut.hh"
 
-typedef size_t vsize;
-static constexpr vsize VPOS (-1);
+#include <string>
 
-#endif /* FLOWER_PROTO_HH */
+using namespace std::string_literals;
+
+class String_convert_test
+{
+};
+
+TEST (String_convert_test, bin2hex)
+{
+  EQUAL (String_convert::bin2hex ('\x00'), "00"s);
+  EQUAL (String_convert::bin2hex ('\x5a'), "5a"s);
+  EQUAL (String_convert::bin2hex ('\xa5'), "a5"s);
+  EQUAL (String_convert::bin2hex ('\xff'), "ff"s);
+}
+
+TEST (String_convert_test, hex2bin)
+{
+  EQUAL (String_convert::hex2bin ("005aa5ff"), "\x00\x5a\xa5\xff"s);
+}
+
+TEST (String_convert_test, percent_encode)
+{
+  EQUAL (String_convert::percent_encode ("A+Z=%X"), "A%2bZ%3d%25X"s);
+}

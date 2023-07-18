@@ -22,6 +22,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <climits>
 #include <cstdio>
 #include <cstring>
 #include <string>
@@ -50,9 +51,11 @@ nibble2hex (int byte)
 }
 
 std::string
-String_convert::bin2hex (Byte bin_char)
+String_convert::bin2hex (char c)
 {
   std::string str;
+  static_assert (CHAR_BIT == 8, "");
+  const auto bin_char = static_cast<uint8_t> (c);
   str += nibble2hex (bin_char >> 4);
   str += nibble2hex (bin_char);
   return str;
@@ -174,7 +177,7 @@ String_convert::be_u24 (uint32_t u)
 }
 
 static bool
-is_not_escape_character (Byte c)
+is_not_escape_character (char c)
 {
   if (('a' <= c) && (c <= 'z'))
     return true;
@@ -202,13 +205,8 @@ std::string
 String_convert::percent_encode (const std::string &orig_str)
 {
   std::string new_str;
-  vsize i = 0;
-  vsize n = orig_str.size ();
-
-  while (i < n)
+  for (const auto &cur : orig_str)
     {
-      Byte cur = orig_str[i];
-
       if (is_not_escape_character (cur))
         new_str += cur;
       else
@@ -216,8 +214,6 @@ String_convert::percent_encode (const std::string &orig_str)
           new_str += '%';
           new_str += String_convert::bin2hex (cur);
         }
-
-      i++;
     }
   return new_str;
 }
