@@ -23,6 +23,6 @@
 #include <cstddef>
 
 typedef size_t vsize;
-static constexpr vsize VPOS (-1);
+inline constexpr vsize VPOS (-1);
 
 #endif /* FLOWER_PROTO_HH */

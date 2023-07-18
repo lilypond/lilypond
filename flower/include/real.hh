@@ -23,7 +23,7 @@
 #include <cmath>
 
 typedef double Real;
-static constexpr Real infinity_f = INFINITY;
+inline constexpr Real infinity_f = INFINITY;
 
 template <class T>
 inline int

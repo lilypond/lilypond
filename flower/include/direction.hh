@@ -121,14 +121,14 @@ minmax (Direction d, T a, T b)
     return std::min (a, b);
 }
 
-static constexpr auto UP = Direction::positive ();
-static constexpr auto DOWN = Direction::negative ();
-static constexpr auto LEFT = Direction::negative ();
-static constexpr auto RIGHT = Direction::positive ();
-static constexpr auto CENTER = Direction::zero ();
-static constexpr auto SMALLER = Direction::negative ();
-static constexpr auto BIGGER = Direction::positive ();
-static constexpr auto START = Direction::negative ();
-static constexpr auto STOP = Direction::positive ();
+inline constexpr auto UP = Direction::positive ();
+inline constexpr auto DOWN = Direction::negative ();
+inline constexpr auto LEFT = Direction::negative ();
+inline constexpr auto RIGHT = Direction::positive ();
+inline constexpr auto CENTER = Direction::zero ();
+inline constexpr auto SMALLER = Direction::negative ();
+inline constexpr auto BIGGER = Direction::positive ();
+inline constexpr auto START = Direction::negative ();
+inline constexpr auto STOP = Direction::positive ();
 
 #endif // DIRECTION_HH

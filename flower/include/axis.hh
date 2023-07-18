@@ -26,7 +26,7 @@ enum Axis
   Y_AXIS = 1,
 };
 
-static constexpr unsigned NO_AXES = 2;
+inline constexpr unsigned NO_AXES = 2;
 
 constexpr Axis
 other_axis (Axis a)
