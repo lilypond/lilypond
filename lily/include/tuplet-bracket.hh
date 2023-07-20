@@ -23,6 +23,7 @@
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 
+#include <drul-array.hh>
 #include <vector>
 
 class Tuplet_bracket
@@ -36,7 +37,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
 
   static void add_tuplet_bracket (Grob *me, Grob *smaller_bracket);
-  static void get_bounds (Grob *, Grob **, Grob **);
+  static Drul_array<Grob *> get_bounds (Grob *me);
   static void add_column (Spanner *me, Item *);
   static void add_script (Grob *me, Item *);
   static void add_beam (Grob *me, Grob *);

@@ -416,8 +416,8 @@ Tuplet_bracket::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
-void
-Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
+Drul_array<Grob *>
+Tuplet_bracket::get_bounds (Grob *me)
 {
   extract_grob_set (me, "note-columns", columns);
   vsize l = 0;
@@ -428,13 +428,10 @@ Tuplet_bracket::get_bounds (Grob *me, Grob **left, Grob **right)
   while (r > l && Note_column::has_rests (columns[r - 1]))
     r--;
 
-  *left = *right = 0;
-
   if (l < r)
-    {
-      *left = columns[l];
-      *right = columns[r - 1];
-    }
+    return {columns[l], columns[r - 1]};
+  else
+    return {};
 }
 
 /*
@@ -521,9 +518,9 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
       /*
         Use outer non-rest columns to determine slope
       */
-      Grob *left_col = 0;
-      Grob *right_col = 0;
-      get_bounds (me, &left_col, &right_col);
+      const auto bounds = get_bounds (me);
+      auto *const left_col = bounds[LEFT];
+      auto *const right_col = bounds[RIGHT];
       if (left_col && right_col)
         {
           Interval rv = Note_column::cross_staff_extent (right_col, commony);
