@@ -300,10 +300,9 @@ Beam::calc_beaming (SCM smob)
   for (auto *const this_stem : stems)
     {
       SCM this_beaming = get_property (this_stem, "beaming");
-
-      Direction this_dir = get_grob_direction (this_stem);
-      if (scm_is_pair (last_beaming) && scm_is_pair (this_beaming))
+      if (scm_is_pair (this_beaming))
         {
+          Direction this_dir = get_grob_direction (this_stem);
           int start_point = position_with_maximal_common_beams (
             last_beaming, this_beaming, last_dir ? last_dir : this_dir,
             this_dir);
@@ -323,24 +322,12 @@ Beam::calc_beaming (SCM smob)
 
           if (!new_slice.is_empty ())
             last_int = new_slice;
-        }
-      else
-        {
-          /*
-            FIXME: what's this for?
-           */
-          for (SCM &s : ly_scm_list (scm_cdr (this_beaming)))
-            {
-              int np = -this_dir * from_scm<int> (s);
-              s = to_scm (np);
-              last_int.add_point (np);
-            }
-        }
 
-      if (scm_ilength (scm_cdr (this_beaming)) > 0)
-        {
-          last_beaming = this_beaming;
-          last_dir = this_dir;
+          if (scm_ilength (scm_cdr (this_beaming)) > 0)
+            {
+              last_beaming = this_beaming;
+              last_dir = this_dir;
+            }
         }
     }
 
