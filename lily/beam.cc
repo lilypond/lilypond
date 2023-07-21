@@ -150,9 +150,8 @@ Beam::get_beam_count (Grob *me)
   int m = 0;
 
   extract_grob_set (me, "stems", stems);
-  for (vsize i = 0; i < stems.size (); i++)
+  for (auto *const stem : stems)
     {
-      Grob *stem = stems[i];
       m = std::max (m, (Stem::beam_multiplicity (stem).length () + 1));
     }
   return m;
@@ -167,9 +166,11 @@ Beam::calc_normal_stems (SCM smob)
   extract_grob_set (me, "stems", stems);
   SCM val = Grob_array::make_array ();
   Grob_array *ga = unsmob<Grob_array> (val);
-  for (vsize i = 0; i < stems.size (); i++)
-    if (Stem::is_normal_stem (stems[i]))
-      ga->add (stems[i]);
+  for (auto *const stem : stems)
+    {
+      if (Stem::is_normal_stem (stem))
+        ga->add (stem);
+    }
 
   return val;
 }
@@ -266,9 +267,9 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
        i += left_dir)
     {
       int count = 0;
-      for (SCM s = scm_car (right_beaming); scm_is_pair (s); s = scm_cdr (s))
+      for (const auto beam_no : ly_scm_list_t<int> (scm_car (right_beaming)))
         {
-          int k = -right_dir * from_scm<int> (scm_car (s)) + i;
+          int k = -right_dir * beam_no + i;
           if (scm_is_true (ly_memv (to_scm (k), left_beaming)))
             count++;
         }
@@ -296,9 +297,8 @@ Beam::calc_beaming (SCM smob)
 
   SCM last_beaming = scm_cons (SCM_EOL, ly_list (to_scm (0)));
   Direction last_dir = CENTER;
-  for (vsize i = 0; i < stems.size (); i++)
+  for (auto *const this_stem : stems)
     {
-      Grob *this_stem = stems[i];
       SCM this_beaming = get_property (this_stem, "beaming");
 
       Direction this_dir = get_grob_direction (this_stem);
@@ -618,15 +618,15 @@ Beam::calc_beam_segments (SCM smob)
                            */
                           extract_grob_set (seg.stem_, "note-heads", heads);
 
-                          for (vsize k = 0; k < heads.size (); k++)
+                          for (auto *const head : heads)
                             current.horizontal_[event_dir]
                               = event_dir
                                 * std::min (
                                   event_dir * current.horizontal_[event_dir],
                                   -gap_lengths[event_dir] / 2
                                     + event_dir
-                                        * heads[k]->extent (
-                                          commonx, X_AXIS)[-event_dir]);
+                                        * head->extent (commonx,
+                                                        X_AXIS)[-event_dir]);
                         }
                     }
                 }
@@ -663,10 +663,12 @@ Beam::calc_x_positions (SCM smob)
   SCM segments = get_property (me, "beam-segments");
   Interval x_positions;
   x_positions.set_empty ();
-  for (SCM s = segments; scm_is_pair (s); s = scm_cdr (s))
-    x_positions.unite (from_scm (
-      ly_assoc_get (ly_symbol2scm ("horizontal"), scm_car (s), SCM_EOL),
-      Interval (0.0, 0.0)));
+  for (SCM segment : as_ly_scm_list (segments))
+    {
+      x_positions.unite (
+        from_scm (ly_assoc_get (ly_symbol2scm ("horizontal"), segment, SCM_EOL),
+                  Interval (0.0, 0.0)));
+    }
 
   // Case for beams without segments (i.e. uniting two skips with a beam)
   // TODO: should issue a warning?  warning likely issued downstream, but couldn't hurt...
@@ -685,14 +687,13 @@ Beam::get_beam_segments (Grob *me)
 {
   SCM segments_scm = get_property (me, "beam-segments");
   std::vector<Beam_segment> segments;
-  for (SCM s = segments_scm; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM segment : as_ly_scm_list (segments_scm))
     {
       segments.push_back (Beam_segment ());
       segments.back ().vertical_count_ = from_scm (
-        ly_assoc_get (ly_symbol2scm ("vertical-count"), scm_car (s), SCM_EOL),
-        0);
+        ly_assoc_get (ly_symbol2scm ("vertical-count"), segment, SCM_EOL), 0);
       segments.back ().horizontal_ = from_scm (
-        ly_assoc_get (ly_symbol2scm ("horizontal"), scm_car (s), SCM_EOL),
+        ly_assoc_get (ly_symbol2scm ("horizontal"), segment, SCM_EOL),
         Interval (0.0, 0.0));
     }
 
@@ -852,10 +853,9 @@ Beam::get_default_dir (Grob *me)
   extract_grob_set (me, "stems", stems);
 
   Drul_array<Real> extremes;
-  for (std::vector<Grob *>::const_iterator s = stems.begin ();
-       s != stems.end (); s++)
+  for (auto *const s : stems)
     {
-      Interval positions = Stem::head_positions (*s);
+      Interval positions = Stem::head_positions (s);
       for (const auto d : {DOWN, UP})
         {
           if (Direction (positions[d]) == d)
@@ -867,9 +867,8 @@ Beam::get_default_dir (Grob *me)
   Drul_array<int> count;
 
   bool force_dir = false;
-  for (vsize i = 0; i < stems.size (); i++)
+  for (auto *const s : stems)
     {
-      Grob *s = stems[i];
       Direction stem_dir = CENTER;
       SCM stem_dir_scm = get_property_data (s, "direction");
       if (is_scm<Direction> (stem_dir_scm))
@@ -923,10 +922,8 @@ Beam::set_stem_directions (Grob *me, Direction d)
 {
   extract_grob_set (me, "stems", stems);
 
-  for (vsize i = 0; i < stems.size (); i++)
+  for (auto *const s : stems)
     {
-      Grob *s = stems[i];
-
       SCM forcedir = get_property_data (s, "direction");
       if (!from_scm<Direction> (forcedir))
         set_grob_direction (s, d);
@@ -958,10 +955,8 @@ Beam::consider_auto_knees (Grob *me)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   std::vector<Interval> head_extents_array;
-  for (vsize i = 0; i < stems.size (); i++)
+  for (auto *const stem : stems)
     {
-      Grob *stem = stems[i];
-
       Interval head_extents;
       if (Stem::head_count (stem))
         {
@@ -1020,9 +1015,8 @@ Beam::consider_auto_knees (Grob *me)
   if (max_gap_len > threshold)
     {
       int j = 0;
-      for (vsize i = 0; i < stems.size (); i++)
+      for (auto *const stem : stems)
         {
-          Grob *stem = stems[i];
           Interval head_extents = head_extents_array[j++];
 
           Direction d
@@ -1180,9 +1174,8 @@ Beam::set_stem_lengths (SCM smob)
   Direction feather_dir
     = from_scm<Direction> (get_property (me, "grow-direction"));
 
-  for (vsize i = 0; i < stems.size (); i++)
+  for (auto *const s : stems)
     {
-      Grob *s = stems[i];
       bool french = from_scm<bool> (get_property (s, "french-beaming"));
       int french_count = 0;
       if (french)
@@ -1260,10 +1253,8 @@ Beam::forced_stem_count (Grob *me)
   extract_grob_set (me, "normal-stems", stems);
 
   vsize f = 0;
-  for (vsize i = 0; i < stems.size (); i++)
+  for (auto *const s : stems)
     {
-      Grob *s = stems[i];
-
       /* I can imagine counting those boundaries as a half forced stem,
          but let's count them full for now. */
       Direction defdir
@@ -1427,12 +1418,12 @@ Beam::pure_rest_collision_callback (SCM smob, SCM, /* start */
   std::vector<Grob *> my_stems;
   vsize idx = VPOS;
 
-  for (vsize i = 0; i < stems.size (); i++)
+  for (auto *const s : stems)
     {
-      if (Stem::head_count (stems[i]) || stems[i] == stem)
-        my_stems.push_back (stems[i]);
+      if (Stem::head_count (s) || s == stem)
+        my_stems.push_back (s);
 
-      if (stems[i] == stem)
+      if (s == stem)
         idx = my_stems.size () - 1;
     }
 
@@ -1481,9 +1472,11 @@ Beam::is_cross_staff (Grob *me)
 {
   extract_grob_set (me, "stems", stems);
   Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
-  for (vsize i = 0; i < stems.size (); i++)
-    if (Staff_symbol_referencer::get_staff_symbol (stems[i]) != staff_symbol)
-      return true;
+  for (auto *const s : stems)
+    {
+      if (Staff_symbol_referencer::get_staff_symbol (s) != staff_symbol)
+        return true;
+    }
   return false;
 }
 
