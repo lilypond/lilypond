@@ -523,6 +523,8 @@ UNTRANSLATED NODE: IGNORE ME
 @ifhtml
 @ifclear bigpage
 @macro docDownload{before,target,after}
+@c Empty comment to enforce that the html environment starts at the
+@c beginning of a line.
 @html
 <em>\before\<!-- file-size:, href="../\target\"-->\after\</em>
 @end html
@@ -530,6 +532,8 @@ UNTRANSLATED NODE: IGNORE ME
 @end ifclear
 @ifset bigpage
 @macro docDownload{before,target,after}
+@c Empty comment to enforce that the html environment starts at the
+@c beginning of a line.
 @html
 <em>\before\<!-- file-size:, href="\target\"-->\after\</em>
 @end html
