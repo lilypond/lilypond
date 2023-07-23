@@ -2,8 +2,6 @@ depth = ../../..
 
 TEMPLATES = lilypond ly lysdoc texinfo
 
-TEXI2HTML_FLAGS += --nomenu
-
 COLLATED_FILES = $(sort ${LY_FILES:%.ly=$(outdir)/recovered/%-midi.ly})
 
 HEADER_FIELDS = texidoc options

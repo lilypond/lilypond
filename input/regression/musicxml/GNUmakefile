@@ -2,8 +2,6 @@ depth = ../../..
 
 TEMPLATES = lilypond ly lysdoc texinfo
 
-TEXI2HTML_FLAGS += --nomenu
-
 MUSICXML_FILES = $(call src-wildcard,*.xml)
 MUSICMXL_FILES = $(call src-wildcard,*.mxl)  # Allow .mxl for compressed files
 

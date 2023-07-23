@@ -2,8 +2,6 @@ depth = ../../..
 
 TEMPLATES = lilypond ly lysdoc texinfo
 
-TEXI2HTML_FLAGS += --nomenu
-
 ABC_FILES = $(call src-wildcard,*.abc)
 COLLATED_FILES = $(sort ${ABC_FILES:%.abc=$(outdir)/%.ly})
 
