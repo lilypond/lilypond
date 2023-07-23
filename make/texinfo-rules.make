@@ -1,18 +1,9 @@
 
 .SUFFIXES: .html .info .texi .texinfo
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi
-	$(call ly_progress,Making,$@,< texi)
-	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) -D bigpage -D web_version --output=$@ $<"  "$(outdir)/$*.bigtexi.log"
-
 $(outdir)/%.html: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) $(TEXI2HTML) $(TEXI2HTML_FLAGS) --output=$@ $<"  "$(outdir)/$*.texilog.log"
-
-$(outdir)/%/index.html: $(outdir)/%.texi
-	$(call ly_progress,Making,$@,< texi)
-	mkdir -p $(dir $@)
-	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth)/../ $(TEXI2HTML) $(TEXI2HTML_SPLIT) $(TEXI2HTML_FLAGS) --output=$(dir $@) $<"  "$(outdir)/$*.splittexi.log"
 
 $(outdir)/%.pdf: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
