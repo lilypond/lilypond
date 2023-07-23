@@ -190,7 +190,6 @@ DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
 
 TEXI2HTML_INIT = \
   --init-file=$(top-src-dir)/Documentation/lilypond-texi2html-lang.init \
-  --document-language=$(call target_language) \
   --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
 TEXI2HTML_INCLUDES += $(DOCUMENTATION_INCLUDES)
 
