@@ -325,11 +325,11 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @item @docLinkBig{\name\,\base\,\big\} @minus{}
   llegiu aquest manual com una sola pàgina HTML enorme.
-  @*@ @ @emph{@docSize{(una sola descàrrega gran, \base\-big-page.html, )}}
+  @*@ @ @emph{@docDownload{(una sola descàrrega gran, \base\-big-page.html, )}}
 
 @item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
   descarregueu-lo com un fitxer en format PDF.
-  @*@ @ @emph{@docSize{(una sola descàrrega gran, \base\.pdf, )}}
+  @*@ @ @emph{@docDownload{(una sola descàrrega gran, \base\.pdf, )}}
 
 @end itemize
 
