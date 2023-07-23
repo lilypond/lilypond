@@ -524,21 +524,21 @@ UNTRANSLATED NODE: IGNORE ME
 @ifclear bigpage
 @macro docDownload{before,target,after}
 @html
-\before\<!-- file-size:, href="../\target\"-->\after\
+<em>\before\<!-- file-size:, href="../\target\"-->\after\</em>
 @end html
 @end macro
 @end ifclear
 @ifset bigpage
 @macro docDownload{before,target,after}
 @html
-\before\<!-- file-size:, href="\target\"-->\after\
+<em>\before\<!-- file-size:, href="\target\"-->\after\</em>
 @end html
 @end macro
 @end ifset
 @end ifhtml
 @ifnothtml
 @macro docDownload{before,target,after}
-\before\\after\
+@emph{\before\\after\}
 @end macro
 @end ifnothtml
 

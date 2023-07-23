@@ -274,11 +274,11 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @item @docLinkBig{\name\,\base\,\big\} @minus{}
   以单一大 HTML 页面的方式阅读本手册。
-  @*@ @ @emph{@docDownload{(大的单一下载, \base\-big-page.html, )}}
+  @*@ @ @docDownload{(大的单一下载, \base\-big-page.html, )}
 
 @item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
   以 PDF 文件的方式下载。
-  @*@ @ @emph{@docDownload{(大的单一下载, \base\.pdf, )}}
+  @*@ @ @docDownload{(大的单一下载, \base\.pdf, )}
 
 @end itemize
 

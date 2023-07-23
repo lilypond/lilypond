@@ -335,11 +335,11 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @item @docLinkBig{\name\,\base\,\big\} @minus{}
   このマニュアルは 1 つの巨大な HTML ページです。
-  @*@ @ @emph{@docDownload{(大きな単一のダウンロード, \base\-big-page.html, )}}
+  @*@ @ @docDownload{(大きな単一のダウンロード, \base\-big-page.html, )}
 
 @item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
   日本語では PDF 形式での提供はありません。
-  @*@ @ @emph{@docDownload{(大きな単一のダウンロード, \base\.pdf, )}}
+  @*@ @ @docDownload{(大きな単一のダウンロード, \base\.pdf, )}
 
 @end itemize
 
