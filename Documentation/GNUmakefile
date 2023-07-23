@@ -514,7 +514,7 @@ $(outdir)/%/index.html: \
 "$(WEB_ENV) \
  DEPTH=$(depth)/../ \
    $(TEXI2HTML) \
-     $(TEXI2HTML_SPLIT) \
+     --prefix=index --split=node \
      $(TEXI2HTML_FLAGS) \
      --output=$(dir $@) \
      $<" \

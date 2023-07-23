@@ -122,4 +122,3 @@ TEXI2HTML_FLAGS += \
   $(TEXI2HTML_ERROR_LIMIT) \
   $(if $(VERBOSE),--verbose)
 TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
-TEXI2HTML_SPLIT = --prefix=index --split=node
