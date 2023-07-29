@@ -319,46 +319,46 @@ div#tocframe h4 {
   margin: 0;
 }
 
-#tocframe ul.toc, #tocframe form {
+#tocframe ul, #tocframe form {
   padding: 0.25em 0.5em 1em 0.5em;
   margin: 0;
 }
-#tocframe ul.toc {
+#tocframe ul {
   list-style-type: none;
 }
 
-#tocframe ul.toc ul.toc {
+#tocframe ul ul {
   padding: 0;
   margin: 0;
 }
 
-#tocframe ul.toc ul.toc ul.toc {
+#tocframe ul ul ul {
   display: none;
 }
-#tocframe ul.toc ul.toc li.toc_current ul.toc {
+#tocframe ul ul li.toc_current ul {
   display: block;
 }
-#tocframe ul.toc ul.toc ul.toc ul.toc {
+#tocframe ul ul ul ul {
   display: none;
 }
-#tocframe ul.toc ul.toc ul.toc li.toc_current ul.toc {
+#tocframe ul ul ul li.toc_current ul {
   display: block;
 }
 
-#tocframe ul.toc li {
+#tocframe ul li {
   padding: 0;
   margin: 0;
 }
 
-#tocframe ul.toc > li {
+#tocframe ul > li {
   font-size: 1em;
 }
 
-#tocframe .contents > ul.toc > li {
+#tocframe .contents > ul > li {
   margin-top: 0.5em;
 }
 
-#tocframe ul.toc li li {
+#tocframe ul li li {
   padding-left: 1em;
 }
 

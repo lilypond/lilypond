@@ -95,7 +95,7 @@ div#tocframe {
   text-decoration: none;
 }
 
-#tocframe ul.toc {
+#tocframe ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -178,10 +178,10 @@ div#tocframe {
 }
 
 /* second level toc (unnumberedsec) */
-#tocframe .toc .toc {
+#tocframe ul ul {
   display: none;
 }
-#tocframe .toc li.toc_current .toc {
+#tocframe ul li.toc_current ul {
   display: block;
   position: absolute;
   top: 3.8em;
@@ -192,24 +192,24 @@ div#tocframe {
   margin: 0;
 }
 
-#tocframe .toc .toc li {
+#tocframe ul ul li {
   display: inline;
   padding: 0;
   margin: 0;
 }
 
-#tocframe .toc .toc li:first-child a {
+#tocframe ul ul li:first-child a {
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
   border-left: 1px solid rgba(85, 130, 70, 0.25);
 }
 
-#tocframe .toc .toc li:last-child a {
+#tocframe ul ul li:last-child a {
   border-top-right-radius: 7px;
   border-bottom-right-radius: 7px;
 }
 
-#tocframe .toc .toc li a {
+#tocframe ul ul li a {
   float: left;
   width: auto;
   background: rgb(165, 215, 150);
@@ -226,15 +226,15 @@ div#tocframe {
   border-right: 1px solid rgba(85, 130, 70, 0.25);
 }
 
-#tocframe .toc .toc li a:hover {
+#tocframe ul ul li a:hover {
   background: rgb(175, 225, 160);
   background: linear-gradient(to top,
     rgb(140, 210, 120),
     rgb(210, 240, 200));
 }
 
-#tocframe .toc .toc li.toc_current a,
-#tocframe .toc .toc li.toc_current a:hover {
+#tocframe ul ul li.toc_current a,
+#tocframe ul ul li.toc_current a:hover {
   background: rgb(135, 185, 120);
   background: linear-gradient(to top,
     rgb(100, 170, 80),
