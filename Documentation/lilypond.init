@@ -28,4 +28,33 @@ use strict;
 
 our $texinfo_version = $Texinfo::Common::VERSION;
 
+### Lower-case the node file names and the label target names.
+sub lilypond_node_file_name {
+    my ($converter, $element, $file_name) = @_;
+    return lc($file_name);
+}
+
+sub lilypond_label_target_name {
+    my ($converter, $normalized, $node_contents, $default_target) = @_;
+    if (!defined($default_target)) {
+        # In Texinfo 7.0, label_target_name received only three arguments.
+        $default_target = $node_contents;
+    }
+    if (!defined($default_target)) {
+        # Before Texinfo 7.0, label_target_name received only two arguments.
+        $default_target = $normalized;
+    }
+    return lc($default_target);
+}
+if ($texinfo_version lt '7.0') {
+    use vars qw($node_file_name $node_target_name);
+    $node_file_name = \&lilypond_node_file_name;
+    $node_target_name = \&lilypond_label_target_name;
+} else {
+    texinfo_register_file_id_setting_function('node_file_name',
+                                              \&lilypond_node_file_name);
+    texinfo_register_file_id_setting_function('label_target_name',
+                                              \&lilypond_label_target_name);
+}
+
 return 1;
