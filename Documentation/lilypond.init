@@ -32,7 +32,8 @@ our $texinfo_version = $Texinfo::Common::VERSION;
 our $manual_name;
 
 ### Set customization variables.
-# Output the Table of Contents into a separate file.
+# Output the Table of Contents into a separate file. We will output the tocframe
+# ourselves in lilypond_format_end_file.
 if ($texinfo_version lt '6.8') {
     set_from_init_file('INLINE_CONTENTS', '0');
 } elsif ($texinfo_version lt '7.0') {
@@ -280,5 +281,54 @@ if ($texinfo_version lt '7.0') {
 foreach my $command (keys(%$ref_commands)) {
     texinfo_register_command_formatting($command, \&lilypond_format_ref);
 }
+
+
+### Print out a Table of Contents on every page.
+
+# We could register the function format_begin_file, but since we only statically
+# need to open one <div>, it is easier with AFTER_BODY_OPEN. We keep the setting
+# here for symmetry with format_end_file.
+if ($texinfo_version lt '7.0') {
+    set_from_init_file('AFTER_BODY_OPEN', "<div id=\"main\">\n");
+} else {
+    texinfo_set_from_init_file('AFTER_BODY_OPEN', "<div id=\"main\">\n");
+}
+
+sub lilypond_format_tocframe {
+    my $converter = shift;
+
+    my $contents;
+    if ($texinfo_version lt '7.0') {
+        $contents = &{$converter->{'format_contents'}}($converter, 'contents');
+    } else {
+        $contents = &{$converter->formatting_function('format_contents')}($converter, 'contents');
+    }
+
+    return "
+<div id=\"tocframe\">
+$contents
+</div>
+";
+}
+
+our $format_end_file = 'format_end_file';
+if ($texinfo_version lt '6.8') {
+    $format_end_file = 'end_file';
+}
+sub lilypond_format_end_file {
+    my ($converter, $filename) = @_;
+
+    my $tocframe = lilypond_format_tocframe($converter);
+
+    return "
+<!-- FOOTER -->
+</div>
+$tocframe
+</body>
+</html>
+";
+}
+texinfo_register_formatting_function($format_end_file,
+                                     \&lilypond_format_end_file);
 
 return 1;
