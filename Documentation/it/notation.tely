@@ -7,7 +7,6 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@setfilename lilypond-notation.info
 @settitle Guida alla Notazione di LilyPond
 @documentencoding UTF-8
 @documentlanguage it

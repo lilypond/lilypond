@@ -7,7 +7,6 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@setfilename lilypond-notation.info
 @settitle LilyPond 記譜法リファレンス
 @documentencoding UTF-8
 @documentlanguage ja

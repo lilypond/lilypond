@@ -7,7 +7,6 @@
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
-@setfilename lilypond-learning.info
 @settitle Manuale di apprendimento di LilyPond
 @documentencoding UTF-8
 @documentlanguage it

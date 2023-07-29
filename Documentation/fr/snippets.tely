@@ -8,7 +8,6 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@setfilename lilypond-snippets.info
 @settitle LilyPond snippets
 @documentencoding UTF-8
 @documentlanguage fr

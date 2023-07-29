@@ -1,5 +1,4 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
-@setfilename texinfo-musicxml-file.info
 @settitle MusicXML inside texinfo
 
 @node Top

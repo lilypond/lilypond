@@ -140,7 +140,6 @@ generating the documentation.
 (display
  (string-append
   "\\input texinfo @c -*-texinfo-*-\n"
-  "@setfilename " file-name ".info\n"
   "@settitle LilyPond Internals Reference\n"
   "@documentencoding UTF-8\n"
   "@documentlanguage en\n"

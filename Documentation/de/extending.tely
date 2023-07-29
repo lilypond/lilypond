@@ -7,7 +7,6 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@setfilename lilypond-extending.info
 @settitle LilyPond erweitern
 @documentencoding UTF-8
 @documentlanguage de

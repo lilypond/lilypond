@@ -8,7 +8,6 @@
 @end ignore
 @documentencoding UTF-8
 @documentlanguage de
-@setfilename lilypond-usage.info
 @settitle GNU LilyPond Programmbenutzung
 @afourpaper
 

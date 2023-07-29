@@ -1,5 +1,4 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: en -*-
-@setfilename papersize-docs.info
 @settitle Different paper sizes for documentation
 @documentencoding UTF-8
 @documentlanguage en

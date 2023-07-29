@@ -6,7 +6,6 @@
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
-@setfilename lilypond-essay.info
 @settitle Aufsatz über den automatischen Musiksatz
 @documentencoding UTF-8
 @documentlanguage de

@@ -82,7 +82,6 @@ template = r'''\input texinfo
 @c     from: %s
 @c     by:   %s
 
-@setfilename %%(name)s
 @settitle %%(title)s
 
 @documentencoding UTF-8

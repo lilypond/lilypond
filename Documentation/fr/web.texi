@@ -7,7 +7,6 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@setfilename web.info
 @settitle LilyPond -- la notation musicale pour tous
 @documentencoding UTF-8
 @documentlanguage fr

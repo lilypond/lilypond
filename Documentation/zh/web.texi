@@ -7,7 +7,6 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@setfilename web.info
 @settitle LilyPond -- 人人的乐谱软件
 @documentencoding UTF-8
 @documentlanguage zh

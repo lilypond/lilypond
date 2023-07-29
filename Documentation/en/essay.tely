@@ -7,7 +7,6 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@setfilename lilypond-essay.info
 @settitle Essay on automated music engraving
 @documentencoding UTF-8
 @documentlanguage en

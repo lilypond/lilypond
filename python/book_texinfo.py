@@ -188,7 +188,6 @@ texinfo_line_widths = {
 # Retrieve dimensions from texinfo
 TEXINFO_INSPECTION_DOCUMENT = r'''
 \input texinfo
-@setfilename Texinfo_width_test
 @settitle Texinfo width test
 %(preamble)s
 

@@ -7,7 +7,6 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@setfilename lilypond-contributor.info
 @settitle LilyPond Contributor's Guide
 @documentencoding UTF-8
 @documentlanguage en

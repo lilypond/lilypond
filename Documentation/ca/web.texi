@@ -8,7 +8,6 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@setfilename web.info
 @settitle LilyPond: notació musical per a tots
 @documentencoding UTF-8
 @documentlanguage ca

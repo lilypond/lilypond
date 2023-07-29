@@ -11,7 +11,6 @@
 @c Translation checkers:
 
 
-@setfilename lilypond-learning.info
 @settitle Manual d'aprenentatge del GNU LilyPond
 @documentencoding UTF-8
 @documentlanguage ca
