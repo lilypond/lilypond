@@ -28,6 +28,55 @@ use strict;
 
 our $texinfo_version = $Texinfo::Common::VERSION;
 
+### Set customization variables.
+# Output the Table of Contents into a separate file.
+if ($texinfo_version lt '6.8') {
+    set_from_init_file('INLINE_CONTENTS', '0');
+} elsif ($texinfo_version lt '7.0') {
+    set_from_init_file('CONTENTS_OUTPUT_LOCATION', 'separate_element');
+} else {
+    texinfo_set_from_init_file('CONTENTS_OUTPUT_LOCATION', 'separate_element');
+}
+
+# This gives us Texinfo menus as defined in the source.
+if ($texinfo_version lt '6.8') {
+    set_from_init_file('SHOW_MENU', '1');
+} elsif ($texinfo_version lt '7.0') {
+    set_from_init_file('FORMAT_MENU', 'menu');
+} else {
+    texinfo_set_from_init_file('FORMAT_MENU', 'menu');
+}
+
+# Remove colon after index (before Texinfo 7.1) and menu entries (Texinfo 6.8
+# and later).
+if ($texinfo_version lt '7.0') {
+    set_from_init_file('INDEX_ENTRY_COLON', '');
+    set_from_init_file('MENU_ENTRY_COLON', '');
+} else {
+    texinfo_set_from_init_file('INDEX_ENTRY_COLON', '');
+    texinfo_set_from_init_file('MENU_ENTRY_COLON', '');
+}
+
+# Use (translated) section names in the indices, the menus, and in the <title>
+# for split output.
+if ($texinfo_version lt '7.0') {
+    set_from_init_file('USE_NODES', '0');
+    set_from_init_file('NODE_NAME_IN_INDEX', '0');
+    set_from_init_file('NODE_NAME_IN_MENU', '0');
+    set_from_init_file('SECTION_NAME_IN_TITLE', '1');
+} else {
+    texinfo_set_from_init_file('USE_NODES', '0');
+    texinfo_set_from_init_file('NODE_NAME_IN_INDEX', '0');
+    texinfo_set_from_init_file('NODE_NAME_IN_MENU', '0');
+    texinfo_set_from_init_file('SECTION_NAME_IN_TITLE', '1');
+}
+
+# Hide the title heading, which is the default since Texinfo 7.0.
+if ($texinfo_version lt '7.0') {
+    set_from_init_file('SHOW_TITLE', '0');
+}
+
+
 ### Lower-case the node file names and the label target names.
 sub lilypond_node_file_name {
     my ($converter, $element, $file_name) = @_;
