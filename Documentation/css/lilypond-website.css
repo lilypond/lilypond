@@ -382,29 +382,6 @@ div#footer {
   border-top: 10px solid #5b7f64;
 }
 
-div#language {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 50%;
-  width: 50%;
-  text-indent: 0.5em;
-  padding: 0;
-}
-
-#language h3 {
-  padding: 0;
-  border-bottom: 10px solid #5b7f64;
-  margin: 0;
-}
-
-#language p {
-  padding: 0;
-  margin: 0.25em 0 0 0;
-}
-
-/* used on website; not certain about the above ones.
-    see Issue 1105 */
 p#languages {
   float: left;
   width: 45%;
