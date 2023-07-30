@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.6\n"
+"Project-Id-Version: lilypond 2.25.7\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2023-06-24 10:23+0200\n"
+"POT-Creation-Date: 2023-07-29 15:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,98 +27,98 @@ msgstr ""
 msgid "Output function not implemented"
 msgstr ""
 
-#: book_latex.py:196
+#: book_latex.py:206
 #, python-brace-format
 msgid "cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
-#: book_latex.py:212
+#: book_latex.py:222
 #, python-format
 msgid "Running `%s' on file `%s' to detect default page settings.\n"
 msgstr ""
 
-#: book_latex.py:242 book_texinfo.py:257
+#: book_latex.py:252 book_texinfo.py:257
 msgid "Unable to auto-detect default settings:\n"
 msgstr ""
 
-#: book_latex.py:254 book_texinfo.py:269
+#: book_latex.py:264 book_texinfo.py:269
 #, python-format
 msgid ""
 "Unable to auto-detect default settings:\n"
 "%s"
 msgstr ""
 
-#: book_latex.py:277
+#: book_latex.py:287
 msgid "cannot detect textwidth from LaTeX"
 msgstr ""
 
-#: book_snippets.py:434
+#: book_snippets.py:435
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr ""
 
-#: book_snippets.py:436
+#: book_snippets.py:437
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr ""
 
-#: book_snippets.py:439
+#: book_snippets.py:440
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr ""
 
-#: book_snippets.py:441
+#: book_snippets.py:442
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr ""
 
-#: book_snippets.py:467 book_snippets.py:477
+#: book_snippets.py:468 book_snippets.py:478
 #, python-format
 msgid "ignoring invalid option %s=%s"
 msgstr ""
 
-#: book_snippets.py:596
+#: book_snippets.py:603
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr ""
 
-#: book_snippets.py:693
+#: book_snippets.py:704
 #, python-format
 msgid "Missing files: %s"
 msgstr ""
 
-#: book_snippets.py:731
+#: book_snippets.py:742
 #, python-format
 msgid "Could not overwrite file %s"
 msgstr ""
 
-#: book_snippets.py:824
+#: book_snippets.py:835
 #, python-format
 msgid "Running through filter `%s'"
 msgstr ""
 
-#: book_snippets.py:849
+#: book_snippets.py:860
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: book_snippets.py:850
+#: book_snippets.py:861
 msgid "The ly.error log is as follows:"
 msgstr ""
 
-#: book_snippets.py:981
+#: book_snippets.py:992
 #, python-format
 msgid "Converting MusicXML file `%s'..."
 msgstr ""
 
-#: book_snippets.py:1009
+#: book_snippets.py:1020
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of original file,\n"
 "printing diff against existing file."
 msgstr ""
 
-#: book_snippets.py:1025
+#: book_snippets.py:1036
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of converted lilypond file,\n"
@@ -1026,7 +1026,7 @@ msgid ""
 "%s) to LilyPond input.\n"
 msgstr ""
 
-#: abc2ly.py:1456 convert-ly.py:95 etf2ly.py:1231 lilypond-book.py:272
+#: abc2ly.py:1456 convert-ly.py:95 etf2ly.py:1231 lilypond-book.py:275
 #: midi2ly.py:1185 musicxml2ly.py:2849 main.cc:149
 msgid "show version number and exit"
 msgstr ""
@@ -1054,7 +1054,7 @@ msgstr ""
 msgid "suppress progress messages"
 msgstr ""
 
-#: abc2ly.py:1474 convert-ly.py:167 etf2ly.py:1241 lilypond-book.py:303
+#: abc2ly.py:1474 convert-ly.py:167 etf2ly.py:1241 lilypond-book.py:320
 #: midi2ly.py:1197 musicxml2ly.py:2993
 #, python-format
 msgid "Report bugs via %s"
@@ -1105,7 +1105,7 @@ msgid ""
 "(default), DEBUG)"
 msgstr ""
 
-#: convert-ly.py:115 lilypond-book.py:195 lilypond-book.py:211
+#: convert-ly.py:115 lilypond-book.py:198 lilypond-book.py:214
 #: musicxml2ly.py:2889 main.cc:137
 msgid "LOGLEVEL"
 msgstr ""
@@ -1141,7 +1141,7 @@ msgstr ""
 msgid "print rule descriptions during conversion"
 msgstr ""
 
-#: convert-ly.py:162 etf2ly.py:1235 lilypond-book.py:276 midi2ly.py:1186
+#: convert-ly.py:162 etf2ly.py:1235 lilypond-book.py:279 midi2ly.py:1186
 #: main.cc:151
 msgid "show warranty and copyright"
 msgstr ""
@@ -1240,8 +1240,8 @@ msgstr ""
 msgid "add DIR to include path"
 msgstr ""
 
-#: lilypond-book.py:171 lilypond-book.py:179 lilypond-book.py:203
-#: lilypond-book.py:218 lilypond-book.py:244 lilypond-book.py:252 main.cc:130
+#: lilypond-book.py:171 lilypond-book.py:179 lilypond-book.py:206
+#: lilypond-book.py:221 lilypond-book.py:247 lilypond-book.py:255 main.cc:130
 msgid "DIR"
 msgstr ""
 
@@ -1249,174 +1249,185 @@ msgstr ""
 msgid "format Texinfo output so that Info will look for images of music in DIR"
 msgstr ""
 
-#: lilypond-book.py:185
+#: lilypond-book.py:188
 #, python-format
 msgid ""
-"pad left side of music to align music in spite of uneven bar numbers (in mm) "
-"[default: %default]"
+"set minimum distance between left margin and staff to PAD (in mm) [default: "
+"%default]"
 msgstr ""
 
-#: lilypond-book.py:187
+#: lilypond-book.py:190
 msgid "PAD"
 msgstr ""
 
-#: lilypond-book.py:193
+#: lilypond-book.py:196
 #, python-format
 msgid "print lilypond log messages according to LOGLEVEL [default: %default]"
 msgstr ""
 
-#: lilypond-book.py:201
+#: lilypond-book.py:204
 msgid "write lily-XXX files to DIR, link into --output dir"
 msgstr ""
 
-#: lilypond-book.py:209
+#: lilypond-book.py:212
 msgid ""
 "print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS "
 "[default], DEBUG)"
 msgstr ""
 
-#: lilypond-book.py:217
+#: lilypond-book.py:220
 msgid "write output to DIR"
 msgstr ""
 
-#: lilypond-book.py:224
+#: lilypond-book.py:227
 msgid "process ly_files using COMMAND FILE..."
 msgstr ""
 
-#: lilypond-book.py:225
+#: lilypond-book.py:228
 msgid "COMMAND"
 msgstr ""
 
-#: lilypond-book.py:231
+#: lilypond-book.py:234
 msgid "redirect the lilypond output"
 msgstr ""
 
-#: lilypond-book.py:237
+#: lilypond-book.py:240
 msgid "removed; using this option results in an error"
 msgstr ""
 
-#: lilypond-book.py:243
+#: lilypond-book.py:246
 msgid "do not fail if no lilypond output is found"
 msgstr ""
 
-#: lilypond-book.py:250
+#: lilypond-book.py:253
 msgid "do not fail if no PNG images are found for EPS files"
 msgstr ""
 
-#: lilypond-book.py:258
+#: lilypond-book.py:261
 msgid "write snippet output files with the same base name as their source file"
 msgstr ""
 
-#: lilypond-book.py:265 midi2ly.py:1180 musicxml2ly.py:2855
+#: lilypond-book.py:268 midi2ly.py:1180 musicxml2ly.py:2855
 msgid "be verbose"
 msgstr ""
 
-#: lilypond-book.py:281
+#: lilypond-book.py:284
+msgid "create PDF files for use with pdftex"
+msgstr ""
+
+#: lilypond-book.py:292
+#, python-format
+msgid ""
+"shift inline images vertically by VSHIFT (a factor of an image's height) "
+"[default: %default]"
+msgstr ""
+
+#: lilypond-book.py:295
+msgid "VSHIFT"
+msgstr ""
+
+#: lilypond-book.py:300
 msgid ""
 "run executable PROG instead of latex or, in case --pdf option is set, "
 "instead of pdflatex"
 msgstr ""
 
-#: lilypond-book.py:284 lilypond-book.py:290
+#: lilypond-book.py:303 lilypond-book.py:312
 msgid "PROG"
 msgstr ""
 
-#: lilypond-book.py:289
+#: lilypond-book.py:311
 msgid "run executable PROG instead of texi2pdf"
 msgstr ""
 
-#: lilypond-book.py:295
-msgid "create PDF files for use with pdftex"
-msgstr ""
-
-#: lilypond-book.py:343
+#: lilypond-book.py:360
 #, python-format
 msgid "Invoking `%s'"
 msgstr ""
 
-#: lilypond-book.py:345
+#: lilypond-book.py:362
 #, python-format
 msgid "Processing %s.ly"
 msgstr ""
 
-#: lilypond-book.py:348
+#: lilypond-book.py:365
 #, python-format
 msgid "Running %s..."
 msgstr ""
 
 #. Next call write_ly() for each snippet once.
-#: lilypond-book.py:441
+#: lilypond-book.py:458
 msgid "Writing snippets..."
 msgstr ""
 
-#: lilypond-book.py:445
+#: lilypond-book.py:462
 msgid "Processing..."
 msgstr ""
 
-#: lilypond-book.py:450
+#: lilypond-book.py:467
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:452
+#: lilypond-book.py:469
 msgid "Linking files..."
 msgstr ""
 
-#: lilypond-book.py:468
+#: lilypond-book.py:485
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr ""
 
-#: lilypond-book.py:480
+#: lilypond-book.py:497
 #, python-format
 msgid "%s is up to date."
 msgstr ""
 
-#: lilypond-book.py:490
+#: lilypond-book.py:507
 #, python-format
 msgid "Writing `%s'..."
 msgstr ""
 
-#: lilypond-book.py:545
+#: lilypond-book.py:562
 msgid "Output would overwrite input file; use --output."
-msgstr ""
-
-#: lilypond-book.py:549
-#, python-format
-msgid "Reading `%s'"
-msgstr ""
-
-#: lilypond-book.py:555
-msgid "Dissecting..."
 msgstr ""
 
 #: lilypond-book.py:566
 #, python-format
+msgid "Reading `%s'"
+msgstr ""
+
+#: lilypond-book.py:572
+msgid "Dissecting..."
+msgstr ""
+
+#: lilypond-book.py:583
+#, python-format
 msgid "Processing include `%s'"
 msgstr ""
 
-#: lilypond-book.py:577
+#: lilypond-book.py:594
 #, python-format
 msgid "Removing `%s'"
 msgstr ""
 
-#: lilypond-book.py:690
+#: lilypond-book.py:707
 #, python-format
 msgid "Setting LilyPond's loglevel to %s"
 msgstr ""
 
-#: lilypond-book.py:695
+#: lilypond-book.py:712
 #, python-format
 msgid ""
 "Setting LilyPond's loglevel to %s (from environment variable "
 "LILYPOND_LOGLEVEL)"
 msgstr ""
 
-#: lilypond-book.py:701
+#: lilypond-book.py:718
 msgid ""
 "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
 msgstr ""
 
-#: lilypond-book.py:729
+#: lilypond-book.py:746
 #, python-format
 msgid "Compiling `%s'..."
 msgstr ""
@@ -1866,27 +1877,27 @@ msgstr ""
 msgid "natural alteration glyph not found"
 msgstr ""
 
-#: all-font-metrics.cc:164
+#: all-font-metrics.cc:165
 #, c-format
 msgid "cannot find font '%s' (search path: %s)"
 msgstr ""
 
-#: all-font-metrics.cc:306 font-config.cc:96
+#: all-font-metrics.cc:307 font-config.cc:97
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr ""
 
-#: all-font-metrics.cc:308 font-config.cc:98
+#: all-font-metrics.cc:309 font-config.cc:99
 #, c-format
 msgid "Adding font directory: %s"
 msgstr ""
 
-#: all-font-metrics.cc:318
+#: all-font-metrics.cc:319
 #, c-format
 msgid "failed adding font file: %s"
 msgstr ""
 
-#: all-font-metrics.cc:320
+#: all-font-metrics.cc:321
 #, c-format
 msgid "Adding font file: %s"
 msgstr ""
@@ -2216,31 +2227,31 @@ msgstr ""
 msgid "flag stroke `%s' not found"
 msgstr ""
 
-#: font-config.cc:45
+#: font-config.cc:46
 #, c-format
 msgid "Creating %sfont configuration..."
 msgstr ""
 
-#: font-config.cc:70
+#: font-config.cc:71
 msgid "cannot find fontconfig default config, skipping."
 msgstr ""
 
-#: font-config.cc:85
+#: font-config.cc:86
 #, c-format
 msgid "failed to add fontconfig configuration file `%s'"
 msgstr ""
 
-#: font-config.cc:89
+#: font-config.cc:90
 #, c-format
 msgid "Adding fontconfig configuration file: %s"
 msgstr ""
 
-#: font-config.cc:103
+#: font-config.cc:105
 #, c-format
 msgid "Font cache directory: %s\n"
 msgstr ""
 
-#: font-config.cc:106
+#: font-config.cc:108
 msgid "Building font database..."
 msgstr ""
 
@@ -2570,11 +2581,11 @@ msgstr ""
 msgid "Not drawing a box with negative dimension, %.2f by %.2f."
 msgstr ""
 
-#: lyric-combine-music-iterator.cc:220
+#: lyric-combine-music-iterator.cc:219
 msgid "argument of \\lyricsto should contain Lyrics context"
 msgstr ""
 
-#: lyric-combine-music-iterator.cc:369
+#: lyric-combine-music-iterator.cc:368
 #, c-format
 msgid "cannot find context: %s"
 msgstr ""
@@ -2859,11 +2870,11 @@ msgid ""
 "skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:199
+#: mensural-ligature-engraver.cc:200
 msgid "semibrevis must not be followed by a brevis; skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:229
+#: mensural-ligature-engraver.cc:230
 msgid ""
 "invalid ligature ending:\n"
 "when the last note is a descending brevis,\n"
@@ -2872,7 +2883,7 @@ msgid ""
 "semibrevis-semibrevis-brevis"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:405
+#: mensural-ligature-engraver.cc:407
 msgid "unexpected case fall-through"
 msgstr ""
 
@@ -3082,60 +3093,69 @@ msgstr ""
 msgid "FreeType error: %s"
 msgstr ""
 
-#: open-type-font.cc:93
+#: open-type-font.cc:83
+msgid "cannot initialize zlib decompression"
+msgstr ""
+
+#: open-type-font.cc:119
+#, c-format
+msgid "cannot uncompress font table: %s"
+msgstr ""
+
+#: open-type-font.cc:140
 #, c-format
 msgid "unsupported font format: %s"
 msgstr ""
 
-#: open-type-font.cc:95
+#: open-type-font.cc:142
 #, c-format
 msgid "error reading font file %s: %s"
 msgstr ""
 
-#: open-type-font.cc:137
+#: open-type-font.cc:184
 msgid "cannot get postscript name"
 msgstr ""
 
-#: open-type-font.cc:149
+#: open-type-font.cc:196
 #, c-format
 msgid "cannot get font %s format"
 msgstr ""
 
-#: open-type-font.cc:166
+#: open-type-font.cc:213
 #, c-format
 msgid "cannot get CFF name from font %s"
 msgstr ""
 
-#: open-type-font.cc:171
+#: open-type-font.cc:218
 #, c-format
 msgid "Subsitute font name: %s => %s"
 msgstr ""
 
-#: open-type-font.cc:177
+#: open-type-font.cc:224
 #, c-format
 msgid "CFF name for font %s is the same."
 msgstr ""
 
-#: open-type-font.cc:209
+#: open-type-font.cc:256
 #, c-format
 msgid "cannot read CFF: %s"
 msgstr ""
 
-#: open-type-font.cc:220
+#: open-type-font.cc:267
 msgid "cannot get CFF name"
 msgstr ""
 
-#: open-type-font.cc:295
+#: open-type-font.cc:342
 #, c-format
 msgid "no stem attachment found in font for glyph %s"
 msgstr ""
 
-#: open-type-font.cc:317
+#: open-type-font.cc:364
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:449 pango-font.cc:265
+#: open-type-font.cc:496 pango-font.cc:265
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
@@ -3351,7 +3371,7 @@ msgstr ""
 msgid "multi-page output not supported by backend `%s'"
 msgstr ""
 
-#: paper-column.cc:451
+#: paper-column.cc:452
 #, c-format
 msgid ""
 "refusing to create a grob sticking to Paper_column grob %s; paper columns "
@@ -3770,12 +3790,17 @@ msgstr ""
 msgid "bad baseMoment/beatStructure for MIDI time signature"
 msgstr ""
 
-#: timing-translator.cc:127
+#: timing-translator.cc:163
 #, c-format
 msgid "bar check failed at: %s"
 msgstr ""
 
-#: timing-translator.cc:345
+#: timing-translator.cc:174 timing-translator.cc:268
+msgid ""
+"cannot calculate a finite measurePosition from an infinite measureLength"
+msgstr ""
+
+#: timing-translator.cc:421
 msgid "found music after \\fine"
 msgstr ""
 
@@ -4168,36 +4193,36 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-event-classes.scm:98
+#: define-event-classes.scm:100
 #, scheme-format
 msgid "unknown parent class `~a'"
 msgstr ""
 
-#: define-event-classes.scm:132
+#: define-event-classes.scm:134
 #, scheme-format
 msgid "Cannot redefine event class `~S'"
 msgstr ""
 
-#: define-event-classes.scm:134
+#: define-event-classes.scm:136
 #, scheme-format
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-markup-commands.scm:280
+#: define-markup-commands.scm:302
 msgid "Can't print a line - setting on/off to default"
 msgstr ""
 
-#: define-markup-commands.scm:1489
+#: define-markup-commands.scm:1568
 #, scheme-format
 msgid "unrecognized image file, should have .png or .eps extension: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:1499
+#: define-markup-commands.scm:1578
 #, scheme-format
 msgid "EPS image dimensions could not be determined; is '~a' a valid EPS file?"
 msgstr ""
 
-#: define-markup-commands.scm:1547
+#: define-markup-commands.scm:1626
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
@@ -4206,17 +4231,17 @@ msgstr ""
 msgid "invalid tremolo repeat count: ~a"
 msgstr ""
 
-#: define-music-types.scm:966
+#: define-music-types.scm:972
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:969
+#: define-music-types.scm:975
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:989
+#: define-music-types.scm:995
 #, scheme-format
 msgid "bad make-music argument: ~S"
 msgstr ""
@@ -4239,7 +4264,7 @@ msgstr ""
 msgid "woodwind markup error - invalid key or hole requested"
 msgstr ""
 
-#: display-woodwind-diagrams.scm:1955
+#: display-woodwind-diagrams.scm:1947
 #, scheme-format
 msgid "~a is not a valid woodwind instrument."
 msgstr ""
@@ -4259,7 +4284,7 @@ msgstr ""
 msgid "context modification `~a' not documented."
 msgstr ""
 
-#: document-identifiers.scm:52
+#: document-identifiers.scm:54
 #, scheme-format
 msgid "music function `~a' not documented."
 msgstr ""
@@ -4462,22 +4487,22 @@ msgstr ""
 msgid "Writing graph to `~a'...\n"
 msgstr ""
 
-#: harp-pedals.scm:119
+#: harp-pedals.scm:139
 #, scheme-format
 msgid "Unhandled entry in harp-pedal: ~a"
 msgstr ""
 
-#: harp-pedals.scm:167
+#: harp-pedals.scm:187
 #, scheme-format
 msgid "Harp pedal diagram contains ~a pedals rather than the usual 7."
 msgstr ""
 
-#: harp-pedals.scm:170
+#: harp-pedals.scm:190
 msgid ""
 "Harp pedal diagram does not contain a divider (usually after third pedal)."
 msgstr ""
 
-#: harp-pedals.scm:172
+#: harp-pedals.scm:192
 #, scheme-format
 msgid ""
 "Harp pedal diagram contains dividers at positions ~a.  Normally, there is "
@@ -4591,37 +4616,37 @@ msgstr ""
 msgid "note scale expected: ~S"
 msgstr ""
 
-#: lily.scm:820
+#: lily.scm:821
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:821
+#: lily.scm:822
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:898
+#: lily.scm:899
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:901
+#: lily.scm:902
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:905
+#: lily.scm:906
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:918
+#: lily.scm:919
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:951
+#: lily.scm:952
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
