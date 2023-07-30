@@ -270,7 +270,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
       for (const auto beam_no : ly_scm_list_t<int> (scm_car (right_beaming)))
         {
           int k = -right_dir * beam_no + i;
-          if (scm_is_true (ly_memv (to_scm (k), left_beaming)))
+          if (scm_is_true (ly_memv (to_scm (k), scm_cdr (left_beaming))))
             count++;
         }
 
