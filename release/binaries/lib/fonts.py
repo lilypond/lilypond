@@ -68,7 +68,7 @@ class TeXGyre(FontPackage):
     @property
     def download_url(self) -> str:
         return (
-            f"http://www.gust.org.pl/projects/e-foundry/tex-gyre/whole/{self.archive}"
+            f"https://www.gust.org.pl/projects/e-foundry/tex-gyre/whole/{self.archive}"
         )
 
     @property
@@ -80,7 +80,7 @@ class TeXGyre(FontPackage):
         # Not really a patch, but the archive comes without a license that we
         # need to download separately.
         license_url = (
-            f"http://www.gust.org.pl/projects/e-foundry/licenses/{self.license_file}"
+            f"https://www.gust.org.pl/projects/e-foundry/licenses/{self.license_file}"
         )
         license_path = os.path.join(self.src_directory(c), self.license_file)
         if not os.path.exists(license_path):
