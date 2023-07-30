@@ -77,9 +77,6 @@ $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not
 $Texi2HTML::Config::DO_CONTENTS = 1;
 $Texi2HTML::Config::NODE_FILES = 1;
 
-# The default has changed to 'class="no-bullet"' in texi2html 5.0.
-$Texi2HTML::Config::NO_BULLET_LIST_CLASS = 'toc';
-
 $default_node_file_name = $Texi2HTML::Config::node_file_name;
 $Texi2HTML::Config::node_file_name = \&lilypond_node_file_name;
 
