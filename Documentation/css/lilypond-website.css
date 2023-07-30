@@ -250,7 +250,7 @@ div#main {
   right: 0;
   width: 100%;
   max-width: 70em;
-  margin: 0 auto 11.7em;
+  margin: 0 auto;
   /* Necessary to stretch over floated content;
    * will cause scrollbars to appear for content
    * that is wider than the width of this div.
@@ -383,8 +383,6 @@ div#footer {
 }
 
 p#languages {
-  float: left;
-  width: 45%;
   padding: 0.7em;
   margin: 0;
   text-align: left;
