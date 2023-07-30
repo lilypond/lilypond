@@ -413,34 +413,6 @@ p#languages {
   text-align: left;
 }
 
-#verifier_texinfo {
-  font-size: 0.8em;
-  float: right;
-  width: 48%;
-  padding: 0.5em;
-}
-
-#verifier_texinfo h3 {
-  position: relative;
-  height: 0;
-  text-indent: -9999em;
-  padding: 0;
-  margin: 0;
-}
-
-#verifier_texinfo img {
-  vertical-align: middle;
-  padding: 0;
-  margin: 0 0 0 0.5em;
-}
-
-#verifier_texinfo p {
-  clear: right;
-  text-align: right;
-  padding: 0;
-  margin: 0;
-}
-
 h1.unnumbered, h2.unnumberedsec, h3.unnumberedsubsec {
   position: relative;
   height: 0;

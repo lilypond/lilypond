@@ -108,8 +108,6 @@ def build_pages_dict(filelist):
 
 footer_insert_re = re.compile(r'<!--\s*FOOTER\s*-->')
 end_body_re = re.compile(r'(?i)</body>')
-verifier_div = '<div id="verifier_texinfo">'
-verifier_re = re.compile(verifier_div)
 
 
 def add_footer(s, footer_text):
@@ -119,8 +117,6 @@ def add_footer(s, footer_text):
     # be positioned correctly relative to the nav frame in the manuals.
     (s, n) = footer_insert_re.subn(footer_text + '\n' + '<!-- FOOTER -->',
                                    s, 1)
-    if not n:
-        (s, n) = verifier_re.subn(footer_text + '\n' + verifier_div, s, 1)
     if not n:
         (s, n) = end_body_re.subn(footer_text + '\n' + '</body>', s, 1)
     if not n:

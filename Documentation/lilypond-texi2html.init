@@ -378,20 +378,6 @@ sub lilypond_print_page_foot($)
   my $fh = shift;
   print $fh "<!-- FOOTER -->\n\n";
   print $fh "<!-- end div#main here -->\n</div>\n\n";
-  if ($web_manual) {
-    # FIXME: This div and p#languages need to be in div#footer.
-    #        Should we move this div to postprocess_html.py ?
-    print $fh "<div id=\"verifier_texinfo\">\n";
-    print $fh "<h3>Validation</h3>\n";
-    # FIXME: inlined text substitution, move to ly_get_string as soon as another case is needed
-    # this does the variable substitution ("quoting" in Perlish) after the localization
-    $hosting_thanks =~ s/(\$\{\w+\})/$1/eeg;
-    print $fh "<a href=\"https://validator.w3.org/check?uri=referer\">\n";
-    print $fh "<img src=\"https://www.w3.org/Icons/valid-html401\"\n";
-    print $fh "     alt=\"Valid HTML 4.01 Transitional\"\n";
-    print $fh "     height=\"31\" width=\"88\"></a></p>\n";
-    print $fh "</div>";
-  }
 
   # Print the TOC frame after the contents (positioned correctly using CSS),
   # so that browsers with CSS turned off still show the contents first.
