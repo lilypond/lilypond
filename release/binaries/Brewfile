@@ -1,6 +1,13 @@
 # This Brewfile lists all packages needed to build LilyPond binaries on macOS.
 
+# Note that flex and bison are "keg-only" Homebrew formulae.  This means that
+# you must set PATH, CPPFLAGS and LDFLAGS to make the build system, the compiler
+# and the linker find flex and bison in the Homebrew installation instead of
+# using the macOS system-provided ones (which are probably too old).  See "brew
+# info flex" and "brew info bison".
+brew "flex"
 brew "bison"
+
 brew "fontforge"
 brew "meson"
 brew "ninja"
