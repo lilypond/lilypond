@@ -28,6 +28,9 @@ use strict;
 
 our $texinfo_version = $Texinfo::Common::VERSION;
 
+# The manual name, i.e. learning, notation, web, etc.
+our $manual_name;
+
 ### Set customization variables.
 # Output the Table of Contents into a separate file.
 if ($texinfo_version lt '6.8') {
@@ -75,6 +78,55 @@ if ($texinfo_version lt '7.0') {
 if ($texinfo_version lt '7.0') {
     set_from_init_file('SHOW_TITLE', '0');
 }
+
+
+### Register init handlers.
+sub lilypond_handler_structure {
+    my $converter = shift;
+
+    if ($texinfo_version lt '7.0') {
+        $manual_name = $converter->{'document_name'};
+    } else {
+        $manual_name = $converter->get_info('document_name');
+    }
+    $manual_name =~ s/([^-]*)-.*/$1/;
+
+    # Add <link>s to the CSS files, depending on the document name.
+    my @css_refs = (
+        'css/lilypond-manuals.css',
+        'css/lilypond-highlighting.css',
+    );
+    if ($manual_name eq 'web') {
+        @css_refs = (
+            'css/lilypond-website.css',
+        );
+    }
+    # Use force_conf to override previous CSS_REFS set via the command line
+    # (which we don't do).
+    $converter->force_conf('CSS_REFS', \@css_refs);
+
+    if ($texinfo_version lt '7.0') {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+sub lilypond_handler_init {
+    my $converter = shift;
+
+    # Make current manual name available as class in the <body> tag for CSS.
+    my $bodytext = $converter->get_conf('BODYTEXT');
+    $bodytext .= " class=\"$manual_name\"";
+    $converter->set_conf('BODYTEXT', $bodytext);
+
+    if ($texinfo_version lt '7.0') {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+texinfo_register_handler('structure', \&lilypond_handler_structure);
+texinfo_register_handler('init', \&lilypond_handler_init);
 
 
 ### Lower-case the node file names and the label target names.
