@@ -20,6 +20,7 @@
 #include "engraver.hh"
 
 #include "duration.hh"
+#include "international.hh"
 #include "item.hh"
 #include "output-def.hh"
 #include "pitch.hh"
@@ -69,11 +70,11 @@ Note_heads_engraver::process_music ()
 
       Pitch *pit = unsmob<Pitch> (get_property (ev, "pitch"));
 
-#if 0 /* TODO: should have a mechanism to switch off these warnings. */
-
-      if (!pit)
-        ev->warning (_ ("NoteEvent without pitch"));
-#endif
+      if constexpr (false) // TODO: should have a mechanism to switch these off
+        {
+          if (!pit)
+            ev->warning (_ ("NoteEvent without pitch"));
+        }
 
       int pos;
       if (pit == 0)

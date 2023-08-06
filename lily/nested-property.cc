@@ -153,14 +153,13 @@ nested_property_alist (SCM alist, SCM prop_path, SCM value)
                         nested_property_alist (scm_cdar (where), rest, value),
                         partial_list_copy (alist, where, scm_cdr (where)));
     }
-    // Outcommented code would coalesce multiple overrides of the same
-    // property
-#if 0
-  SCM where = assq_tail (alist, key);
-  if (scm_is_true (where))
-    return scm_acons (key, value,
-                      partial_list_copy (alist, where, scm_cdr (where)));
-#endif
+  if constexpr (false) // coalesce multiple overrides of the same property
+    {
+      SCM where = assq_tail (alist, key);
+      if (scm_is_true (where))
+        return scm_acons (key, value,
+                          partial_list_copy (alist, where, scm_cdr (where)));
+    }
   return scm_acons (key, value, alist);
 }
 

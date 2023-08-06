@@ -58,21 +58,22 @@ class Scm_variable
 public:
   operator SCM & ()
   {
-#if 0
     // One could conceivably work with variables even before the
     // module is initialized
-    return SCM_VARIABLEP (var_) ? *SCM_VARIABLE_LOC (var_) : var_;
-#endif
-    if constexpr (CHECKING)
+    if constexpr (false)
       {
-        assert (SCM_VARIABLEP (var_));
+        return SCM_VARIABLEP (var_) ? *SCM_VARIABLE_LOC (var_) : var_;
       }
-    return *SCM_VARIABLE_LOC (var_);
+    else
+      {
+        if constexpr (CHECKING)
+          {
+            assert (SCM_VARIABLEP (var_));
+          }
+        return *SCM_VARIABLE_LOC (var_);
+      }
   }
-  void operator= (SCM const &k)
-  {
-    *SCM_VARIABLE_LOC (var_) = k;
-  }
+  void operator= (SCM const &k) { *SCM_VARIABLE_LOC (var_) = k; }
   template <typename... Args>
   SCM operator() (Args &&...args)
   {
