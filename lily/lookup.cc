@@ -223,18 +223,19 @@ Lookup::round_polygon (std::vector<Offset> const &points, Real blotdiameter,
      applies to the given polygon.  However, this is quite complicated
      to check. */
 
-#ifdef DEBUG
-  const Real epsilon = 0.01;
-
-  /* remove consecutive duplicate points */
-  for (vsize i = 0; i < points.size (); i++)
+  if constexpr (CHECKING)
     {
-      const auto next = (i + 1) % points.size ();
-      Real d = (points[i] - points[next]).length ();
-      if (d < epsilon)
-        programming_error ("Polygon should not have duplicate points");
+      const Real epsilon = 0.01;
+
+      /* remove consecutive duplicate points */
+      for (vsize i = 0; i < points.size (); i++)
+        {
+          const auto next = (i + 1) % points.size ();
+          Real d = (points[i] - points[next]).length ();
+          if (d < epsilon)
+            programming_error ("Polygon should not have duplicate points");
+        }
     }
-#endif
 
   /* special cases: degenerated polygons */
   if (points.size () == 0)

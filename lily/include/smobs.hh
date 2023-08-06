@@ -403,23 +403,15 @@ public:
   static SCM readout ();
 };
 
-#ifdef DEBUG
 #define ASSERT_LIVE_IS_ALLOWED(arg)                                            \
-  do                                                                           \
-    {                                                                          \
-      static parsed_dead pass_here;                                            \
-      if (parsed_objects_should_be_dead)                                       \
-        pass_here.checkin (arg);                                               \
-    }                                                                          \
-  while (0)
-#else
-#define ASSERT_LIVE_IS_ALLOWED(arg)                                            \
-  do                                                                           \
-    {                                                                          \
-      (void) (arg);                                                            \
-    }                                                                          \
-  while (0)
-#endif
+  [&] {                                                                        \
+    if constexpr (CHECKING)                                                    \
+      {                                                                        \
+        static parsed_dead pass_here;                                          \
+        if (parsed_objects_should_be_dead)                                     \
+          pass_here.checkin (arg);                                             \
+      }                                                                        \
+  }()
 
 #include "smobs.tcc"
 #endif /* SMOBS_HH */

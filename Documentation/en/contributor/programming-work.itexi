@@ -1407,11 +1407,11 @@ number of different platforms:
 @uref{https://www.graphviz.org/download/}
 @end example
 
-@item Compile LilyPond with debugging functionality
+@item Compile LilyPond with checking enabled
 
-In order for the Graphviz tool to work, LilyPond needs to be compiled
-with the option @option{-DDEBUG}.  You can achieve this by configuring
-with
+In order for the Graphviz tool to work, LilyPond needs to be
+compiled with checking enabled.  You can achieve this by
+configuring with
 
 @example
 ./configure --enable-checking
@@ -1483,10 +1483,10 @@ information is showed by default, see @file{ly/graphviz-init.ly}.
 
 @end enumerate
 
-When compiled with @option{-DDEBUG}, LilyPond may run slower
-than normal.  The original configuration can be restored by rerunning
-@code{./configure} with @option{--disable-checking}.  Then
-rebuild LilyPond with
+When configured with @option{--enable-checking}, LilyPond may run
+slower than normal.  The original configuration can be restored by
+rerunning @code{./configure} with @option{--disable-checking}.
+Then rebuild LilyPond with
 
 @example
 make clean && make

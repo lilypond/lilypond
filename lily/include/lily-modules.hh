@@ -63,9 +63,10 @@ public:
     // module is initialized
     return SCM_VARIABLEP (var_) ? *SCM_VARIABLE_LOC (var_) : var_;
 #endif
-#if DEBUG
-    assert (SCM_VARIABLEP (var_));
-#endif
+    if constexpr (CHECKING)
+      {
+        assert (SCM_VARIABLEP (var_));
+      }
     return *SCM_VARIABLE_LOC (var_);
   }
   void operator= (SCM const &k)

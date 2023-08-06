@@ -164,12 +164,6 @@ T *
 Engraver::internal_make_grob (SCM symbol, SCM cause, char const *file, int line,
                               char const *fun)
 {
-#ifndef DEBUG
-  (void) file;
-  (void) line;
-  (void) fun;
-#endif
-
   SCM props = Grob_property_info (context (), symbol).updated ();
   if (!scm_is_pair (props))
     {
@@ -183,11 +177,15 @@ Engraver::internal_make_grob (SCM symbol, SCM cause, char const *file, int line,
   T *grob = choose_grob_type<T> (classes, props);
   announce_grob (grob, cause);
 
-#ifdef DEBUG
-  if (ly_is_procedure (creation_callback))
-    ly_call (creation_callback, grob->self_scm (), scm_from_utf8_string (file),
-             to_scm (line), scm_from_latin1_string (fun));
-#endif
+  if constexpr (CHECKING)
+    {
+      if (ly_is_procedure (creation_callback))
+        {
+          ly_call (creation_callback, grob->self_scm (),
+                   scm_from_utf8_string (file), to_scm (line),
+                   scm_from_latin1_string (fun));
+        }
+    }
 
   return grob;
 }

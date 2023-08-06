@@ -337,17 +337,22 @@ void ly_check_name (const char *cxx, const char *fname);
 #define where_defined(p, x, ...)                                               \
   (p)->internal_where_defined (ly_symbol2scm (x), ##__VA_ARGS__)
 
-#ifdef DEBUG
 /*
   TODO: include modification callback support here, perhaps
   through intermediate Grob::instrumented_set_property( .. __LINE__ ).
  */
 #define set_property(p, x, y)                                                  \
-  (p)->instrumented_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__,    \
-                                  __FUNCTION__)
-#else
-#define set_property(p, x, y) (p)->internal_set_property (ly_symbol2scm (x), y)
-#endif
+  [&] {                                                                        \
+    if constexpr (CHECKING)                                                    \
+      {                                                                        \
+        return (p)->instrumented_set_property (ly_symbol2scm (x), y, __FILE__, \
+                                               __LINE__, __FUNCTION__);        \
+      }                                                                        \
+    else                                                                       \
+      {                                                                        \
+        return (p)->internal_set_property (ly_symbol2scm (x), y);              \
+      }                                                                        \
+  }()
 
 // Note: For Smobs, use LY_ASSERT_SMOB instead.
 #define LY_ASSERT_TYPE(pred, var, number)                                      \

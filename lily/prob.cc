@@ -152,10 +152,11 @@ Prob::print_smob (SCM port, scm_print_state *) const
 SCM
 Prob::internal_get_property (SCM sym) const
 {
-#ifdef DEBUG
-  if (profile_property_accesses)
-    note_property_access (&prob_property_lookup_table, sym);
-#endif
+  if constexpr (CHECKING)
+    {
+      if (profile_property_accesses)
+        note_property_access (&prob_property_lookup_table, sym);
+    }
 
   /*
     TODO: type checking

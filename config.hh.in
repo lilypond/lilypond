@@ -10,6 +10,9 @@
 /* default lilypond locale dir */
 #define LOCALEDIR "@LOCALEDIR@"
 
+/* compile with expensive run-time checks */
+#define CHECKING 0
+
 /* define to use the Ghostscript API */
 #define GS_API 0
 

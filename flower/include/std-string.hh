@@ -22,15 +22,6 @@
 
 #include "unistd.h"
 
-#if 0
-/*
-  leads to dubious crashes - libstdc++  bug?
- */
-#ifdef DEBUG
-#define _GLIBCXX_DEBUG 1
-#endif
-#endif
-
 #include <string>
 
 typedef size_t ssize;

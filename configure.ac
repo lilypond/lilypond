@@ -26,6 +26,16 @@ AC_CONFIG_HEADERS([config.hh:config.hh.in])
 
 # Uncomment the configuration options your package needs.
 
+CHECKING=no
+AC_ARG_ENABLE(checking,
+    [AS_HELP_STRING([--enable-checking],
+                    [compile with expensive run-time checks.  Default: off])],
+    [CHECKING=$enableval])
+
+if test "$CHECKING" = "yes"; then
+  AC_DEFINE(CHECKING)
+fi
+
 DOCUMENTATION=yes
 AC_ARG_ENABLE(documentation,
     [AS_HELP_STRING([--enable-documentation],

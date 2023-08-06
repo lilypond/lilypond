@@ -565,10 +565,11 @@ Context::get_user_accessible_interpreter ()
 Context *
 Context::internal_where_defined (SCM sym, SCM *value) const
 {
-#ifdef DEBUG
-  if (profile_property_accesses)
-    note_property_access (&context_property_lookup_table, sym);
-#endif
+  if constexpr (CHECKING)
+    {
+      if (profile_property_accesses)
+        note_property_access (&context_property_lookup_table, sym);
+    }
 
   if (properties_dict ()->try_retrieve (sym, value))
     return const_cast<Context *> (this);
@@ -581,10 +582,11 @@ Context::internal_where_defined (SCM sym, SCM *value) const
 bool
 Context::internal_here_defined (SCM sym, SCM *value) const
 {
-#ifdef DEBUG
-  if (profile_property_accesses)
-    note_property_access (&context_property_lookup_table, sym);
-#endif
+  if constexpr (CHECKING)
+    {
+      if (profile_property_accesses)
+        note_property_access (&context_property_lookup_table, sym);
+    }
 
   return properties_dict ()->try_retrieve (sym, value);
 }
@@ -595,10 +597,11 @@ Context::internal_here_defined (SCM sym, SCM *value) const
 SCM
 Context::internal_get_property (SCM sym) const
 {
-#ifdef DEBUG
-  if (profile_property_accesses)
-    note_property_access (&context_property_lookup_table, sym);
-#endif
+  if constexpr (CHECKING)
+    {
+      if (profile_property_accesses)
+        note_property_access (&context_property_lookup_table, sym);
+    }
 
   SCM val = SCM_EOL;
   if (properties_dict ()->try_retrieve (sym, &val))

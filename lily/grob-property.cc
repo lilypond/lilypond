@@ -69,17 +69,20 @@ FIXME: this should use ly:set-option interface instead.
 SCM
 check_debug_callback (SCM cb)
 {
-#ifdef DEBUG
-  if (scm_is_false (cb))
-    return SCM_EOL;
+  if constexpr (CHECKING)
+    {
+      if (scm_is_false (cb))
+        return SCM_EOL;
 
-  LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
-  return cb;
-#else
-  warning (_ ("To use grob debug callbacks, configure with --enable-checking"));
-  (void) cb;
-  return SCM_EOL;
-#endif
+      LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
+      return cb;
+    }
+  else
+    {
+      warning (
+        _ ("To use grob debug callbacks, configure with --enable-checking"));
+      return SCM_EOL;
+    }
 }
 
 LY_DEFINE (ly_set_grob_modification_callback,
@@ -116,18 +119,15 @@ void
 Grob::instrumented_set_property (SCM sym, SCM v, char const *file, int line,
                                  char const *fun)
 {
-#ifdef DEBUG
-  if (ly_is_procedure (modification_callback))
+  if constexpr (CHECKING)
     {
-      ly_call (modification_callback, self_scm (),
-               scm_from_locale_string (file), to_scm (line),
-               scm_from_latin1_string (fun), sym, v);
+      if (ly_is_procedure (modification_callback))
+        {
+          ly_call (modification_callback, self_scm (),
+                   scm_from_locale_string (file), to_scm (line),
+                   scm_from_latin1_string (fun), sym, v);
+        }
     }
-#else
-  (void) file;
-  (void) line;
-  (void) fun;
-#endif
 
   internal_set_property (sym, v);
 }
@@ -168,10 +168,11 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
 SCM
 Grob::internal_get_property_data (SCM sym) const
 {
-#ifdef DEBUG
-  if (profile_property_accesses)
-    note_property_access (&grob_property_lookup_table, sym);
-#endif
+  if constexpr (CHECKING)
+    {
+      if (profile_property_accesses)
+        note_property_access (&grob_property_lookup_table, sym);
+    }
 
   SCM handle = scm_sloppy_assq (sym, mutable_property_alist_);
   if (scm_is_true (handle))
@@ -267,10 +268,12 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
 
-#ifdef DEBUG
-  if (ly_is_procedure (cache_callback))
-    ly_call (cache_callback, self_scm (), sym, proc, value);
-#endif
+  if constexpr (CHECKING)
+    {
+      if (ly_is_procedure (cache_callback))
+        ly_call (cache_callback, self_scm (), sym, proc, value);
+    }
+
   internal_set_value_on_alist (alist, sym, value);
 
   return value;
