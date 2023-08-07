@@ -57,4 +57,120 @@ if ($texinfo_version lt '7.0') {
                                               \&lilypond_label_target_name);
 }
 
+
+### Format references, either internal or external.
+sub lilypond_format_ref {
+    my ($converter, $command_name, $element, $args, $content) = @_;
+
+    my $name;
+    if ($args->[2] and defined($args->[2]->{'normal'}) and
+        $args->[2]->{'normal'} ne '') {
+        $name = $args->[2]->{'normal'};
+    } elsif ($args->[1] and defined($args->[1]->{'normal'}) and
+             $args->[1]->{'normal'} ne '') {
+        $name = $args->[1]->{'normal'};
+    }
+
+    my $file = '';
+    if ($args->[3]) {
+        if ($texinfo_version lt '7.0.90') {
+            if (defined($args->[3]->{'monospacetext'}) and
+                $args->[3]->{'monospacetext'} ne '') {
+                $file = $args->[3]->{'monospacetext'};
+            }
+        } else {
+            if (defined($args->[3]->{'filenametext'}) and
+                $args->[3]->{'filenametext'} ne '') {
+                $file = $args->[3]->{'filenametext'};
+            }
+        }
+    }
+
+    my $book = '';
+    if ($args->[4] and defined($args->[4]->{'normal'})) {
+        $book = $args->[4]->{'normal'}
+    }
+
+    # Delegate internal references to the default conversion.
+    if ($file eq '') {
+        if ($texinfo_version lt '7.0') {
+            return &{$converter->default_commands_conversion($command_name)}(
+                $converter, $command_name, $element, $args, $content);
+        } else {
+            return &{$converter->default_command_conversion($command_name)}(
+                $converter, $command_name, $element, $args, $content);
+        }
+    }
+
+    # Expect that we only use @ref for external references.
+    if ($command_name ne 'ref') {
+        my $msg = "used '$command_name' to link to external manual '$file'";
+        $converter->line_error($converter, $msg, $element->{'source_info'});
+    }
+
+    my $node_content;
+    my $node_file;
+    if ($texinfo_version lt '7.0.90') {
+        if ($element->{'extra'} and $element->{'extra'}->{'node_argument'} and
+            $element->{'extra'}->{'node_argument'}->{'node_content'}) {
+            $node_content = $element->{'extra'}->{'node_argument'}->{'node_content'};
+        }
+    } else {
+        my $node_arg = $element->{'args'}->[0];
+        if ($node_arg->{'extra'} and $node_arg->{'extra'}->{'node_content'}) {
+            $node_content = $node_arg->{'extra'}->{'node_content'};
+        }
+    }
+
+    if (defined($node_content)) {
+        $node_file = Texinfo::Convert::NodeNameNormalization::normalize_node(
+            {'contents' => $node_content});
+        $node_file = lc($node_file);
+
+        if (!defined($name)) {
+            my $node_tree = {'type' => '_code', 'contents' => [@$node_content]};
+            my $node_name = $converter->convert_tree($node_tree, 'node in ref');
+            if (defined($node_name) and $node_name ne 'Top') {
+                $name = $node_name;
+            }
+        }
+    } else {
+        my $msg = "could not determine node for link to external manual '$file'";
+        $converter->line_error($converter, $msg, $element->{'source_info'});
+    }
+
+    if (!defined($name)) {
+        if ($book eq '') {
+            my $msg = "could not determine name for link to external manual '$file'";
+            $converter->line_error($converter, $msg, $element->{'source_info'});
+        }
+        $name = $book;
+    }
+
+    my $href;
+    if ($converter->get_conf('SPLIT')) {
+        if ($node_file eq 'top') {
+            $node_file = 'index';
+        }
+        $href = "../$file/$node_file.html";
+    } else {
+        # In this case, $file already has the big-page postfix.
+        my $target = $node_file;
+        $target =~ s/^([0-9_])/g_t$1/;
+        $href = "$file.html#$target";
+    }
+
+    return "<a href=\"$href\">$name</a>";
+}
+
+our $ref_commands;
+if ($texinfo_version lt '7.0') {
+    $ref_commands = \%Texinfo::Common::ref_commands;
+} else {
+    $ref_commands = \%Texinfo::Commands::ref_commands;
+}
+foreach my $command (keys(%$ref_commands)) {
+    texinfo_register_command_formatting($command, \&lilypond_format_ref);
+}
+
 return 1;
