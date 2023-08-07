@@ -75,7 +75,7 @@ public:
     return {Interval_traits<T>::min (), Interval_traits<T>::max ()};
   }
 
-  T center () const
+  constexpr T center () const
   {
     assert (!is_empty ());
     return unchecked_center ();

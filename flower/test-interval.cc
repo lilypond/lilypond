@@ -109,6 +109,22 @@ using IVM = Interval_t<Mint>;
 class Interval_test
 {
 public:
+  static constexpr void test_center ()
+  {
+    // TODO: center() asserts that the interval is not empty.  Maybe it should
+    // instead return a specified fallback value so we could test it.
+
+    {
+      constexpr IVM iv (Mint (13));
+      EQUAL (iv.center (), Mint (13));
+    }
+
+    {
+      constexpr IVM iv (Mint (10), Mint (20));
+      EQUAL (iv.center (), Mint (15));
+    }
+  }
+
   static constexpr void test_contains ()
   {
     CHECK (!IVM ().contains (Mint (0)));
@@ -222,22 +238,7 @@ public:
   }
 };
 
-TEST (Interval_test, center)
-{
-  // TODO: center() asserts that the interval is not empty.  Maybe it should
-  // instead return a specified fallback value so we could test it.
-
-  {
-    const IVM iv (Mint (13));
-    EQUAL (iv.center (), Mint (13));
-  }
-
-  {
-    const IVM iv (Mint (10), Mint (20));
-    EQUAL (iv.center (), Mint (15));
-  }
-}
-
+static_assert ((Interval_test::test_center (), true));
 static_assert ((Interval_test::test_contains (), true));
 static_assert ((Interval_test::test_init_default (), true));
 static_assert ((Interval_test::test_init_point (), true));
