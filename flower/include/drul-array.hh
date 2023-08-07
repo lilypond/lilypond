@@ -51,19 +51,19 @@ public:
   Drul_array &operator= (const Drul_array &) = default;
   Drul_array &operator= (Drul_array &&) = default;
 
-  T &at (Direction d)
+  constexpr T &at (Direction d)
   {
-    assert (d); // constexpr in C++17
+    assert (d);
     return array_[d > CENTER];
   }
 
-  T const &at (Direction d) const
+  constexpr T const &at (Direction d) const
   {
-    assert (d); // constexpr in C++17
+    assert (d);
     return array_[d > CENTER];
   }
 
-  T &operator[] (Direction d) { return at (d); }
+  constexpr T &operator[] (Direction d) { return at (d); }
 
   constexpr T const &operator[] (Direction d) const { return at (d); }
 

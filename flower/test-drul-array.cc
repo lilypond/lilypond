@@ -24,11 +24,37 @@
 class Drul_array_test
 {
 public:
+  static constexpr void test_access_const_checked ()
+  {
+    const Drul_array<int> arr {12, 34};
+
+    EQUAL (12, arr.at (LEFT));
+    EQUAL (34, arr.at (RIGHT));
+
+    EQUAL (12, arr[LEFT]);
+    EQUAL (34, arr[RIGHT]);
+  }
+
   static constexpr void test_access_const_unchecked ()
   {
     const Drul_array<int> arr {12, 34};
     EQUAL (12, arr.front ());
     EQUAL (34, arr.back ());
+  }
+
+  static constexpr void test_access_mutable_checked ()
+  {
+    Drul_array<int> arr {12, 34};
+
+    --arr[LEFT];
+
+    EQUAL (11, arr[LEFT]);
+    EQUAL (34, arr[RIGHT]);
+
+    ++arr.at (RIGHT);
+
+    EQUAL (11, arr.at (LEFT));
+    EQUAL (35, arr.at (RIGHT));
   }
 
   static constexpr void test_access_mutable_unchecked ()
@@ -121,33 +147,11 @@ public:
   }
 };
 
-TEST (Drul_array_test, access_const_checked)
-{
-  const Drul_array<int> arr {12, 34};
-
-  EQUAL (12, arr.at (LEFT));
-  EQUAL (34, arr.at (RIGHT));
-
-  EQUAL (12, arr[LEFT]);
-  EQUAL (34, arr[RIGHT]);
-}
+static_assert ((Drul_array_test::test_access_const_checked (), true));
 
 static_assert ((Drul_array_test::test_access_const_unchecked (), true));
 
-TEST (Drul_array_test, access_mutable_checked)
-{
-  Drul_array<int> arr {12, 34};
-
-  --arr[LEFT];
-
-  EQUAL (11, arr[LEFT]);
-  EQUAL (34, arr[RIGHT]);
-
-  ++arr.at (RIGHT);
-
-  EQUAL (11, arr.at (LEFT));
-  EQUAL (35, arr.at (RIGHT));
-}
+static_assert ((Drul_array_test::test_access_mutable_checked (), true));
 
 static_assert ((Drul_array_test::test_access_mutable_unchecked (), true));
 
