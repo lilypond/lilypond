@@ -108,47 +108,63 @@ using IVM = Interval_t<Mint>;
 
 class Interval_test
 {
-  static void test_init_default ()
+public:
+  static constexpr void test_contains ()
+  {
+    CHECK (!IVM ().contains (Mint (0)));
+
+    CHECK (!IVM (Mint (4)).contains (Mint (3)));
+    CHECK (IVM (Mint (4)).contains (Mint (4)));
+    CHECK (!IVM (Mint (4)).contains (Mint (5)));
+
+    CHECK (!IVM (Mint (-22), Mint (7)).contains (Mint (-23)));
+    CHECK (IVM (Mint (-22), Mint (7)).contains (Mint (-22)));
+    CHECK (IVM (Mint (-22), Mint (7)).contains (Mint (0)));
+    CHECK (IVM (Mint (-22), Mint (7)).contains (Mint (7)));
+    CHECK (!IVM (Mint (-22), Mint (7)).contains (Mint (8)));
+  }
+
+  static constexpr void test_init_default ()
   {
     constexpr IVM iv;
 
-    static_assert (iv.left () == Mint (100));
-    static_assert (iv.right () == Mint (-100));
+    EQUAL (iv.left (), Mint (100));
+    EQUAL (iv.right (), Mint (-100));
 
-    static_assert (iv.length () == Mint (0));
+    EQUAL (iv.length (), Mint (0));
   }
 
-  static void test_init_point ()
+  static constexpr void test_init_point ()
   {
     constexpr IVM iv (Mint (23));
 
-    static_assert (iv.left () == Mint (23));
-    static_assert (iv.right () == Mint (23));
+    EQUAL (iv.left (), Mint (23));
+    EQUAL (iv.right (), Mint (23));
 
-    static_assert (iv.length () == Mint (0));
+    EQUAL (iv.length (), Mint (0));
   }
 
-  static void test_init_list ()
+  static constexpr void test_init_list ()
   {
     constexpr IVM iv {Mint (10), Mint (20)};
 
-    static_assert (iv.left () == Mint (10));
-    static_assert (iv.right () == Mint (20));
+    EQUAL (iv.left (), Mint (10));
+    EQUAL (iv.right (), Mint (20));
 
-    static_assert (iv.length () == Mint (10));
+    EQUAL (iv.length (), Mint (10));
   }
 
-  static void test_init_list_assign ()
+  static constexpr void test_init_list_assign ()
   {
     constexpr IVM iv = {Mint (40), Mint (30)};
 
-    static_assert (iv.left () == Mint (40));
-    static_assert (iv.right () == Mint (30));
+    EQUAL (iv.left (), Mint (40));
+    EQUAL (iv.right (), Mint (30));
 
-    static_assert (iv.length () == Mint (0));
+    EQUAL (iv.length (), Mint (0));
   }
 
-  static Interval_t<int> test_init_implicit_conversion ()
+  static constexpr Interval_t<int> test_init_implicit_conversion ()
   {
     constexpr Interval_t<signed char> input_iv {-2, 3};
 
@@ -161,17 +177,17 @@ class Interval_test
     // signed char is not implicitly convertible to Mint (because the
     // implementation of Mint prevents it).
     constexpr Interval_t<int> test_iv (input_iv);
-    static_assert (test_iv.left () == -2);
-    static_assert (test_iv.right () == 3);
+    EQUAL (test_iv.left (), -2);
+    EQUAL (test_iv.right (), 3);
 
     return input_iv; // implicitly converted
   }
 
-  static void test_longest ()
+  static constexpr void test_longest ()
   {
     constexpr auto iv = IVM::longest ();
-    static_assert (iv.left () == Mint (-100));
-    static_assert (iv.right () == Mint (100));
+    EQUAL (iv.left (), Mint (-100));
+    EQUAL (iv.right (), Mint (100));
   }
 
   static void test_std_chrono_time_point ()
@@ -222,19 +238,13 @@ TEST (Interval_test, center)
   }
 }
 
-// contains
-
-static_assert (IVM ().contains (Mint (0)) == false);
-
-static_assert (IVM (Mint (4)).contains (Mint (3)) == false);
-static_assert (IVM (Mint (4)).contains (Mint (4)) == true);
-static_assert (IVM (Mint (4)).contains (Mint (5)) == false);
-
-static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (-23)) == false);
-static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (-22)) == true);
-static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (0)) == true);
-static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (7)) == true);
-static_assert (IVM (Mint (-22), Mint (7)).contains (Mint (8)) == false);
+static_assert ((Interval_test::test_contains (), true));
+static_assert ((Interval_test::test_init_default (), true));
+static_assert ((Interval_test::test_init_point (), true));
+static_assert ((Interval_test::test_init_list (), true));
+static_assert ((Interval_test::test_init_list_assign (), true));
+static_assert ((Interval_test::test_init_implicit_conversion (), true));
+static_assert ((Interval_test::test_longest (), true));
 
 template <typename T>
 class Interval_math_test
@@ -663,7 +673,7 @@ TEST (Interval_test, clamp_double_nan)
 
 TEST (Interval_test, is_empty_double_nan)
 {
-  // We can't test with static_assert because GCC does not handle NaN
+  // We can't test constant evaluation because GCC < 12 does not handle NaN
   // comparisons consistently.  0 > NaN is constexpr, but NaN > 0 isn't.
   // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=88173
 
