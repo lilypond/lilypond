@@ -1241,7 +1241,6 @@ stem-info
 stemlet-length
 thickness
 tremolo-flag
-tuplet-start
                )");
 
 /****************************************************************/

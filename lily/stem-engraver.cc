@@ -42,15 +42,13 @@ class Stem_engraver final : public Engraver
   Grob *tremolo_ = nullptr;
   std::vector<Item *> maybe_flags_;
   Stream_event *tremolo_ev_ = nullptr;
-  bool tuplet_start_ = false;
 
   TRANSLATOR_DECLARATIONS (Stem_engraver);
 
 protected:
-  void make_stem (Grob_info, bool);
+  void make_stem (Grob_info);
 
   void listen_tremolo (Stream_event *);
-  void listen_tuplet_span (Stream_event *);
   void acknowledge_rhythmic_head (Grob_info);
   void stop_translation_timestep ();
   void finalize () override;
@@ -63,13 +61,11 @@ Stem_engraver::Stem_engraver (Context *c)
 }
 
 void
-Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
+Stem_engraver::make_stem (Grob_info gi)
 {
   /* Announce the cause of the head as cause of the stem.  The
      stem needs a rhythmic structure to fit it into a beam.  */
   stem_ = make_item ("Stem", gi.grob ()->self_scm ());
-  if (tuplet_start)
-    set_property (stem_, "tuplet-start", SCM_BOOL_T);
   (void) make_item ("StemStub", gi.grob ()->self_scm ());
   if (tremolo_ev_)
     {
@@ -127,7 +123,7 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
     return;
 
   if (!stem_)
-    make_stem (gi, tuplet_start_);
+    make_stem (gi);
 
   int ds = Stem::duration_log (stem_);
   int dc = d->duration_log ();
@@ -163,8 +159,6 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
       set_object (stem_, "flag", flag->self_scm ());
       maybe_flags_.push_back (flag);
     }
-  if (tuplet_start_)
-    set_property (stem_, "tuplet-start", SCM_BOOL_T);
 }
 
 void
@@ -208,21 +202,7 @@ Stem_engraver::stop_translation_timestep ()
         }
       stem_ = nullptr;
     }
-  tuplet_start_ = false;
   tremolo_ev_ = nullptr;
-}
-
-void
-Stem_engraver::listen_tuplet_span (Stream_event *ev)
-{
-  Direction dir = from_scm<Direction> (get_property (ev, "span-direction"));
-  if (dir == START)
-    {
-      // set stem property if stem already exists
-      if (stem_)
-        set_property (stem_, "tuplet-start", SCM_BOOL_T);
-      tuplet_start_ = true; // stash the value for use in later creation
-    }
 }
 
 void
@@ -234,7 +214,6 @@ Stem_engraver::listen_tremolo (Stream_event *ev)
 void
 Stem_engraver::boot ()
 {
-  ADD_LISTENER (tuplet_span);
   ADD_LISTENER (tremolo);
   ADD_ACKNOWLEDGER (rhythmic_head);
 }

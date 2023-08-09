@@ -1532,7 +1532,6 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (ties ,ly:grob-array? "A grob array of @code{Tie} objects.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
      (tuplet-number ,ly:grob? "The number for a bracket.")
-     (tuplet-start ,boolean? "Is stem at the start of a tuplet?")
      (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")
 
      (vertical-alignment ,ly:grob? "The VerticalAlignment in a System.")
