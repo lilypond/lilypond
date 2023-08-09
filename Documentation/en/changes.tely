@@ -182,6 +182,28 @@ recommended by Gould and Ross.
 }
 @end lilypond
 
+@item
+Automatic beam subdivision has been reworked.  Previously, many
+imperfections could be found in the results of automatic subdivision of
+many complex beaming patterns due to overreliance of the value of
+@code{baseMoment}.  Now, LilyPond can correctly subdivide most beaming
+patterns and no longer uses the value of @code{baseMoment} to limit beam
+subdivision.  Simply setting @code{subdivideBeams} to true now
+automatically subdivides all intervals by default.  3@tie{}new
+properties have been introduced to tune automatic beam subdivision:
+@code{minimumBeamSubdivisionInterval},
+@code{maximumBeamSubdivisionInterval} and @code{respectIncompleteBeams}.
+@code{minimumBeamSubdivisionInterval} limits subdivision intervals the
+same way as how @code{baseMoment} previously did (reducing frequency of
+subdivided beams). @code{maximumBeamSubdivisionInterval} limits the
+number of beamlets removed at subdivisions in general.
+@code{respectIncompleteBeams} limits the number of beamlets at
+subdivisions where the remaining length would not complete the metric
+value of the subdivision. Setting @code{minimumBeamSubdivisionInterval}
+to the value of @code{baseMoment} at all times, even when
+@code{baseMoment} implicitly changes, preserves old behavior.
+
+
 @end itemize
 
 
