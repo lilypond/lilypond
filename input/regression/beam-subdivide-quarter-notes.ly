@@ -1,4 +1,4 @@
-\version "2.25.3"
+\version "2.25.8"
 
 \header {
 
@@ -10,8 +10,13 @@ longer than quarter notes, one beam should always be left."
 
 }
 
+\paper {
+  indent = 0
+  ragged-right = ##t
+}
+
 \relative c' {
-    \set baseMoment = \musicLength 4
-    \set subdivideBeams = ##t
-    c16 [ c c c c c c c c c c c c c c c ]
+  \set subdivideBeams = ##t
+  \set minimumBeamSubdivisionInterval = \musicLength 4
+  c16 [ c c c c c c c c c c c c c c c ]
 }

@@ -4,10 +4,11 @@
 
   doctitle = "Beam subdivide over quarter notes"
 
-  texidoc = "If in a subdivided beam one single stem follows a subdivision
-the beam count should reflect the beam count of the subdivision as usual.
-That is, the beam count should not be increased according to the remaining
-length of the beam. The appended single stem has beamlets to the left."
+  texidoc = "If in a subdivided beam one single stem follows a
+subdivision the beam count should reflect the beam count of the
+subdivision as usual.  That is, the beam count should not be increased
+according to the remaining length of the beam.  The appended single
+stem has beamlets to the left."
 
 }
 
