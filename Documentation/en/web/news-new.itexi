@@ -9,6 +9,27 @@
 @c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
+@subheading LilyPond 2.24.2 released!  @emph{August 12, 2023}
+
+We are proud to announce the release of GNU LilyPond 2.24.2. LilyPond is a
+music engraving program devoted to producing the highest-quality sheet music
+possible. It brings the aesthetics of traditionally engraved music to computer
+printouts.
+
+This version contains a number of fixes since the release of the previous
+stable version in February 2023. This includes an update of the library for
+garbage collection, addressing crashes when compiling very large scores
+(several hundreds of pages) on Windows. We recommend all users to update.
+Scores converted to or written for 2.24.0 will continue to work with this
+release. A list of added features and other user-visible changes for 2.24
+can be found at @uref{https://lilypond.org/doc/v2.24/Documentation/changes/}.
+Among others, version 2.24.0 switched to Guile 2.2 and features a completely
+rewritten infrastructure for creating the official packages, finally allowing
+us to offer 64-bit binaries for macOS and Windows.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.25.7 released  @emph{July 30, 2023}
 
 We are happy to announce the release of LilyPond 2.25.7. This is
@@ -16,24 +37,5 @@ termed a development release, but these are usually reliable for
 testing new features and recent bug fixes. However, if you require
 stability, we recommend using version 2.24.1, the current stable
 release.
-
-@newsEnd
-
-@newsItem
-@subheading LilyPond 2.24.1 released!  @emph{February 12, 2023}
-
-We are proud to announce the release of GNU LilyPond 2.24.1. LilyPond is a
-music engraving program devoted to producing the highest-quality sheet music
-possible. It brings the aesthetics of traditionally engraved music to computer
-printouts.
-
-This version includes a number of fixes since the release of the previous
-stable version in December 2022, and we recommend all users to update.
-Scores converted to or written for 2.24.0 will continue to work with this
-release. A list of added features and other user-visible changes for 2.24
-can be found at @uref{https://lilypond.org/doc/v2.24/Documentation/changes/}.
-Among others, version 2.24.0 switched to Guile 2.2 and features a completely
-rewritten infrastructure for creating the official packages, finally allowing
-us to offer 64-bit binaries for macOS and Windows.
 
 @newsEnd
