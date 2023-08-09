@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.24.1\n"
+"Project-Id-Version: lilypond 2.24.2\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2023-02-10 18:37+0100\n"
+"POT-Creation-Date: 2023-08-09 18:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1880,16 +1880,16 @@ msgstr ""
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:693
+#: axis-group-interface.cc:694
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr ""
 
-#: axis-group-interface.cc:762
+#: axis-group-interface.cc:763
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
-#: axis-group-interface.cc:898
+#: axis-group-interface.cc:899
 msgid "Cannot set outside-staff-priority for element and elements' Y parent."
 msgstr ""
 
@@ -3725,7 +3725,7 @@ msgstr ""
 msgid "bad baseMoment/beatStructure for MIDI time signature"
 msgstr ""
 
-#: timing-translator.cc:256
+#: timing-translator.cc:259
 msgid "found music after \\fine"
 msgstr ""
 
@@ -4160,7 +4160,7 @@ msgstr ""
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-music-callbacks.scm:103
+#: define-music-callbacks.scm:106
 #, scheme-format
 msgid "invalid tremolo repeat count: ~a"
 msgstr ""
