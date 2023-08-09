@@ -20,43 +20,37 @@
 #ifndef BEAMING_PATTERN_HH
 #define BEAMING_PATTERN_HH
 
+#include "context.hh"
 #include "direction.hh"
 #include "drul-array.hh"
+#include "duration.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "moment.hh"
 #include "rational.hh"
+#include "tuplet-description.hh"
 
+#include <memory>
 #include <vector>
 
 struct Beaming_options
 {
-  SCM grouping_;
   bool subdivide_beams_;
   bool strict_beat_beaming_;
+  bool respect_incomplete_beams_;
+
+  SCM beat_structure_;
   Rational base_moment_;
   Rational measure_length_;
 
-  Beaming_options ();
-  void from_context (Context *);
+  SCM time_signature_;
+
+  Rational minimum_subdivision_interval_;
+  Rational maximum_subdivision_interval_;
+
+  void from_context (Context const *);
+
   void gc_mark () const;
-};
-
-struct Beam_rhythmic_element
-{
-  Rational start_moment_;
-  Drul_array<int> beam_count_drul_;
-
-  int rhythmic_importance_;
-  bool invisible_;
-
-  Rational factor_;
-
-  bool tuplet_start_;
-
-  Beam_rhythmic_element (Rational, int, bool, Rational, bool);
-  Beam_rhythmic_element ();
-
-  int count (Direction d) const;
 };
 
 /*
@@ -66,27 +60,48 @@ struct Beam_rhythmic_element
 class Beaming_pattern
 {
 public:
-  Beaming_pattern ();
+  // measure_offset_ specifies the measure position of the first stem
+  // and must be nonnegative
+  Rational const measure_offset_;
 
   void beamify (Beaming_options const &);
-  void add_stem (Rational d, int beams, bool invisible, Rational factor,
-                 bool tuplet_start);
-  int beamlet_count (vsize idx, Direction d) const;
-  bool invisibility (vsize idx) const;
-  Rational factor (vsize idx) const;
-  bool tuplet_start (vsize idx) const;
-  Rational start_moment (vsize idx) const;
-  Rational end_moment (vsize idx) const;
-  Beaming_pattern *split_pattern (vsize idx);
+  void add_stem (Rational const &, bool, Duration const &,
+                 Tuplet_description const *);
+  Beaming_pattern *split_pattern (vsize, Rational const &);
+  unsigned beamlet_count (vsize, Direction) const;
+  Rational const &start_moment (vsize) const;
+  Rational end_moment (vsize) const;
+
+  Beaming_pattern (Rational const &);
 
 private:
+  struct Beam_rhythmic_element;
   std::vector<Beam_rhythmic_element> infos_;
-  Direction flag_direction (Beaming_options const &, vsize) const;
-  void find_rhythmic_importance (Beaming_options const &);
+
   void unbeam_invisible_stems ();
-  Rational remaining_length (vsize idx) const;
-  int beam_count_for_rhythmic_position (vsize idx) const;
-  int beam_count_for_length (Rational len) const;
+  void set_rhythmic_importance (Beaming_options const &);
+  void subdivide_beams (Beaming_options const &);
+  bool at_span_start (vsize) const;
+  bool at_span_stop (vsize) const;
+};
+
+struct Beaming_pattern::Beam_rhythmic_element
+{
+  Rational const start_moment_;
+  unsigned beam_count_;
+  Drul_array<unsigned>
+    beam_count_drul_; // stores beam count of left-right neighboring stems
+
+  int rhythmic_importance_;
+  bool const invisible_; // rests are "invisibile"
+
+  Duration const duration_;
+  // if not under a tuplet, then nullptr
+  Tuplet_description const *const tuplet_;
+
+  Beam_rhythmic_element (Rational const &, bool, Duration const &,
+                         Tuplet_description const *);
+  unsigned count () const;
 };
 
 #endif /* BEAMING_PATTERN_HH */

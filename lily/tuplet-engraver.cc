@@ -24,24 +24,12 @@
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "tuplet-bracket.hh"
+#include "tuplet-description.hh"
 #include "warn.hh"
 #include "item.hh"
 #include "moment.hh"
 
 #include "translator.icc"
-
-struct Tuplet_description
-{
-  Stream_event *event_ = nullptr;
-  Spanner *bracket_ = nullptr;
-  Spanner *number_ = nullptr;
-
-  bool full_length_ = false;
-  bool full_length_note_ = false;
-  Moment stop_moment_;
-  Moment start_moment_;
-  Moment length_;
-};
 
 class Tuplet_engraver : public Engraver
 {
@@ -49,9 +37,11 @@ public:
   TRANSLATOR_DECLARATIONS (Tuplet_engraver);
 
 protected:
-  std::vector<Tuplet_description> tuplets_;
-  std::vector<Tuplet_description> new_tuplets_;
-  std::vector<Tuplet_description> stopped_tuplets_;
+  std::vector<Tuplet_description *> tuplets_;
+  std::vector<Tuplet_description *> new_tuplets_;
+  std::vector<Tuplet_description *> stopped_tuplets_;
+
+  void derived_mark () const override;
 
   void acknowledge_note_column (Grob_info_t<Item>);
   void acknowledge_script (Grob_info);
@@ -65,32 +55,33 @@ protected:
 };
 
 void
+Tuplet_engraver::derived_mark () const
+{
+  for (auto const &vec : {tuplets_, new_tuplets_, stopped_tuplets_})
+    for (Tuplet_description *tuplet : vec)
+      scm_gc_mark (tuplet->self_scm ());
+}
+
+void
 Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
 {
   Direction dir = from_scm<Direction> (get_property (ev, "span-direction"));
   if (dir == START)
     {
-      Tuplet_description d;
-      d.event_ = ev;
+      Tuplet_description *const new_tuplet
+        = new Tuplet_description (ev, now_mom ());
+      //
+      for (Tuplet_description const *existing : new_tuplets_)
+        if (*existing == *new_tuplet)
+          // do not add already-existing tuplet
+          return;
 
-      d.length_ = from_scm (get_property (d.event_, "length"), Moment (0));
-      d.start_moment_ = now_mom ();
-      d.stop_moment_ = now_mom () + d.length_;
-
-      for (vsize i = 0; i < new_tuplets_.size (); i++)
-        {
-          /*
-            discard duplicates.
-          */
-          if (new_tuplets_[i].stop_moment_ == d.stop_moment_)
-            return;
-        }
-
-      new_tuplets_.push_back (d);
+      new_tuplets_.push_back (new_tuplet);
+      new_tuplet->unprotect ();
     }
   else if (dir == STOP)
     {
-      if (tuplets_.size ())
+      if (!tuplets_.empty ())
         {
           stopped_tuplets_.push_back (tuplets_.back ());
           tuplets_.pop_back ();
@@ -108,98 +99,99 @@ Tuplet_engraver::process_music ()
   /*
     This may happen if the end of a tuplet is part of a quoted voice.
    */
-  auto now = now_mom ();
-  for (vsize i = tuplets_.size (); i--;)
+  Moment now = now_mom ();
+  while (!tuplets_.empty () && tuplets_.back ()->stop_moment_ == now)
     {
-      if (tuplets_[i].stop_moment_ == now)
-        {
-          stopped_tuplets_.push_back (tuplets_[i]);
-          tuplets_.erase (tuplets_.begin () + i);
-        }
+      stopped_tuplets_.push_back (tuplets_.back ());
+      tuplets_.pop_back ();
     }
 
-  for (auto &tuplet : stopped_tuplets_)
+  for (Tuplet_description const *tuplet : stopped_tuplets_)
     {
-      auto *bracket = tuplet.bracket_;
-      auto *number = tuplet.number_;
-      if (bracket)
+      if (tuplet->bracket_)
         {
-          if (Grob *left = bracket->get_bound (LEFT))
+          if (Grob *left = tuplet->bracket_->get_bound (LEFT))
             {
-              if (tuplet.full_length_)
+              if (tuplet->full_length_)
                 {
                   auto *col = unsmob<Item> (
-                    tuplet.full_length_note_
+                    tuplet->full_length_note_
                       ? get_property (this, "currentMusicalColumn")
                       : get_property (this, "currentCommandColumn"));
 
-                  bracket->set_bound (RIGHT, col);
-                  number->set_bound (RIGHT, col);
+                  tuplet->bracket_->set_bound (RIGHT, col);
+                  tuplet->number_->set_bound (RIGHT, col);
                 }
-              else if (!bracket->get_bound (RIGHT))
+              else if (!tuplet->bracket_->get_bound (RIGHT))
                 {
                   // This tuplet only spans one note, e.g.,
                   // \tuplet 3/2 { s8 c'8 s8 }.
-                  bracket->set_bound (RIGHT, left);
-                  number->set_bound (RIGHT, left);
+                  tuplet->bracket_->set_bound (RIGHT, left);
+                  tuplet->number_->set_bound (RIGHT, left);
                 }
             }
           else
             {
               // This tuplet spans no notes at all, e.g.,
               // \tuplet 3/2 { s8 s8 s8 }.  Remove it.
-              bracket->suicide ();
-              number->suicide ();
+              tuplet->bracket_->suicide ();
+              tuplet->number_->suicide ();
             }
         }
     }
 
-  tuplets_.insert (tuplets_.end (), new_tuplets_.begin (), new_tuplets_.end ());
-  new_tuplets_.clear ();
-  for (vsize j = tuplets_.size (); j > 0; j--)
+  tuplets_.reserve (tuplets_.size () + new_tuplets_.size ());
+  for (Tuplet_description *tuplet : new_tuplets_)
     {
-      /* i goes from size-1 downto 0, inclusively */
-      vsize i = j - 1;
+      if (!tuplets_.empty ())
+        tuplet->parent_ = tuplets_.back ();
+      tuplets_.push_back (tuplet);
+    }
+  new_tuplets_.clear ();
 
-      if (tuplets_[i].bracket_)
+  set_property (context (), "currentTupletDescription",
+                tuplets_.empty () ? SCM_EOL : tuplets_.back ()->self_scm ());
+
+  for (vsize i = tuplets_.size (); i--;)
+    {
+      if (tuplets_[i]->bracket_)
         continue;
 
-      tuplets_[i].full_length_
+      tuplets_[i]->full_length_
         = from_scm<bool> (get_property (this, "tupletFullLength"));
-      tuplets_[i].full_length_note_
+      tuplets_[i]->full_length_note_
         = from_scm<bool> (get_property (this, "tupletFullLengthNote"));
 
-      tuplets_[i].bracket_
-        = make_spanner ("TupletBracket", tuplets_[i].event_->self_scm ());
-      tuplets_[i].number_
-        = make_spanner ("TupletNumber", tuplets_[i].event_->self_scm ());
-      set_object (tuplets_[i].number_, "bracket",
-                  tuplets_[i].bracket_->self_scm ());
-      tuplets_[i].number_->set_x_parent (tuplets_[i].bracket_);
-      tuplets_[i].number_->set_y_parent (tuplets_[i].bracket_);
-      set_object (tuplets_[i].bracket_, "tuplet-number",
-                  tuplets_[i].number_->self_scm ());
-      tuplets_[i].stop_moment_.grace_part_ = 0;
+      tuplets_[i]->bracket_
+        = make_spanner ("TupletBracket", tuplets_[i]->event_->self_scm ());
+      tuplets_[i]->number_
+        = make_spanner ("TupletNumber", tuplets_[i]->event_->self_scm ());
 
-      if (i + 1 < tuplets_.size () && tuplets_[i + 1].bracket_)
-        Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_,
-                                            tuplets_[i + 1].bracket_);
+      Spanner *const bracket = tuplets_[i]->bracket_;
+      Spanner *const number = tuplets_[i]->number_;
+      set_object (number, "bracket", bracket->self_scm ());
+      set_object (bracket, "tuplet-number", number->self_scm ());
+      number->set_x_parent (bracket);
+      number->set_y_parent (bracket);
+      tuplets_[i]->stop_moment_.grace_part_ = 0;
 
-      if (i > 0 && tuplets_[i - 1].bracket_)
-        Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1].bracket_,
-                                            tuplets_[i].bracket_);
+      if (i + 1 < tuplets_.size () && tuplets_[i + 1]->bracket_)
+        Tuplet_bracket::add_tuplet_bracket (bracket, tuplets_[i + 1]->bracket_);
+
+      if (i > 0 && tuplets_[i - 1]->bracket_)
+        Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1]->bracket_, bracket);
     }
 }
 
 void
 Tuplet_engraver::acknowledge_note_column (Grob_info_t<Item> inf)
 {
-  for (vsize j = 0; j < tuplets_.size (); j++)
-    if (tuplets_[j].bracket_)
+  for (Tuplet_description const *tuplet : tuplets_)
+    if (tuplet->bracket_)
       {
         auto *const i = inf.grob ();
-        Tuplet_bracket::add_column (tuplets_[j].bracket_, i);
-        add_bound_item (tuplets_[j].number_, i);
+        Tuplet_bracket::add_column (tuplet->bracket_, i);
+        add_bound_item (tuplet->number_, i);
       }
 }
 
@@ -234,11 +226,9 @@ Tuplet_engraver::acknowledge_string_number (Grob_info_t<Item> inf)
 void
 Tuplet_engraver::add_script_to_all_tuplets (Item *script)
 {
-  for (auto &tuplet : tuplets_)
-    {
-      if (tuplet.bracket_)
-        Tuplet_bracket::add_script (tuplet.bracket_, script);
-    }
+  for (Tuplet_description *tuplet : tuplets_)
+    if (tuplet->bracket_)
+      Tuplet_bracket::add_script (tuplet->bracket_, script);
 }
 
 void
@@ -258,9 +248,9 @@ Tuplet_engraver::finalize ()
   // the musical column of the last time step, which is after the end of the
   // piece.
   Item *col = unsmob<Item> (get_property (this, "currentCommandColumn"));
-  for (Tuplet_description &desc : stopped_tuplets_)
-    if (desc.full_length_note_)
-      for (Spanner *g : {desc.bracket_, desc.number_})
+  for (Tuplet_description *desc : stopped_tuplets_)
+    if (desc->full_length_note_)
+      for (Spanner *g : {desc->bracket_, desc->number_})
         g->set_bound (RIGHT, col);
 }
 

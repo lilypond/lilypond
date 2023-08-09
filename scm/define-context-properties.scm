@@ -498,6 +498,10 @@ no grob is created.")
 @code{\\magnifyStaff}.")
      (majorSevenSymbol ,markup? "How should the major 7th be formatted
 in a chord name?")
+     (maximumBeamSubdivisionInterval ,musical-length? "Maximum interval
+to subdivide beams, limiting the depth of beamlets removed from
+subdivision. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no
+subdivision, @code{+inf.0}=no limit).")
      (maximumFretStretch ,number? "Don't allocate frets further than
 this from specified frets.")
      (measureBarType ,string? "Bar line to insert at a measure boundary.")
@@ -562,6 +566,10 @@ mechanism selects the highest string with a fret at least
 page turn to be allowed.")
      (minimumRepeatLengthForPageTurn ,ly:moment? "Minimum length of a
 repeated section for a page turn to be allowed within that section.")
+     (minimumBeamSubdivisionInterval ,musical-length? "Minimum interval
+to subdivide beams, ignoring beamlets whose subdivision depth is too
+shallow. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no limit,
+@code{+inf.0}=no subdivision).")
      (minorChordModifier ,markup? "Markup displayed following the root
 for a minor chord")
 
@@ -658,6 +666,13 @@ arguments an integer and context, returning whether the corresponding
 percent repeat number should be printed when @code{countPercentRepeats}
 is set.")
      (restCompletionBusy ,boolean? "Signal whether a completion-rest is active.")
+     (respectIncompleteBeams ,boolean? "When subdividing beams, limit
+the beam subdivision interval until it is less than or equal to the
+remaining length from the current moment. Note that it is somewhat
+unclear whether to treat incomplete beams specially or not in beam
+subdivision is the correct way of valid notation. The default value
+of false is said to be the correct option, although beam subdivision
+as if this property is true is not unpopular.")
      (restNumberThreshold ,number? "If a multimeasure rest has more
 measures than this, a number is printed.")
      (restrainOpenStrings ,boolean? "Exclude open strings from the
@@ -737,8 +752,9 @@ of the pitches of each string (starting with the lowest numbered
 one).")
      (strokeFingerOrientations ,list? "See
 @code{fingeringOrientations}.")
-     (subdivideBeams ,boolean? "If set, multiple beams will be
-subdivided at @code{baseMoment} positions by only drawing one beam over the beat.")
+     (subdivideBeams ,boolean? "If set, beams of mulitple stems may be
+subdivided by omitting a number of beamlets, dependent on @code{maxSubdivideInterval},
+between beats at mulitiples of @code{minSubdivideInterval}.")
      (suggestAccidentals ,boolean-or-symbol? "If set to @code{#t},
 accidentals are typeset as suggestions above the note.  Setting it to
 @code{'cautionary} only applies that to cautionary accidentals.")
@@ -865,6 +881,9 @@ section, or segno mark event selected by
      (currentRehearsalMarkEvent ,ly:stream-event? "The ad-hoc or
 rehearsal mark event selected by @code{Mark_@/tracking_@/translator}
 for engraving by @code{Mark_@/engraver}.")
+     (currentTupletDescription ,ly:tuplet-description? "An object describing
+the current tuplet description, or @code{'()}.  Tuplet description objects
+are opaque to Scheme.")
 
 
      (dynamicAbsoluteVolumeFunction ,procedure? "A procedure that takes

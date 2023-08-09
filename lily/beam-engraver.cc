@@ -30,57 +30,42 @@
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "stem.hh"
+#include "template-engraver-for-beams.hh"
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 
 #include "translator.icc"
 
-class Beam_engraver : public Engraver
+class Beam_engraver : public Template_engraver_for_beams
 {
 public:
+  TRANSLATOR_DECLARATIONS (Beam_engraver);
+
+protected:
+  Stream_event *start_ev_ = nullptr;
+
+  Spanner *beam_ = nullptr;
+  Stream_event *prev_start_ev_ = nullptr;
+
+  Stream_event *stop_ev_ = nullptr;
+
+  Direction forced_direction_ = CENTER;
+
   void acknowledge_stem (Grob_info_t<Item>);
   void acknowledge_rest (Grob_info);
   void listen_beam (Stream_event *);
 
-protected:
-  Stream_event *start_ev_;
-
-  Spanner *finished_beam_;
-  Spanner *beam_;
-  Stream_event *prev_start_ev_;
-
-  Stream_event *stop_ev_;
-
-  Direction forced_direction_;
-
-  Beaming_pattern *beam_info_;
-  Beaming_pattern *finished_beam_info_;
-
-  /// location  within measure where beam started.
-  Moment beam_start_location_;
-
-  /// moment (global time) where beam started.
-  Moment beam_start_mom_;
-
-  Beaming_options beaming_options_;
-  Beaming_options finished_beaming_options_;
-
   void typeset_beam ();
   void set_melisma (bool);
 
-  Moment last_stem_added_at_;
   void stop_translation_timestep ();
   void start_translation_timestep ();
   void finalize () override;
-  void derived_mark () const override;
 
   void process_music ();
 
-  virtual bool valid_start_point ();
-  virtual bool valid_end_point ();
-
-public:
-  TRANSLATOR_DECLARATIONS (Beam_engraver);
+  virtual bool valid_start_point () const;
+  virtual bool valid_end_point () const;
 };
 
 /*
@@ -88,37 +73,20 @@ public:
   always nested.
 */
 bool
-Beam_engraver::valid_start_point ()
+Beam_engraver::valid_start_point () const
 {
-  auto n = now_mom ();
-
-  return n.grace_part_ == Rational (0);
+  return now_mom ().grace_part_ == Rational (0);
 }
 
 bool
-Beam_engraver::valid_end_point ()
+Beam_engraver::valid_end_point () const
 {
   return valid_start_point ();
 }
 
 Beam_engraver::Beam_engraver (Context *c)
-  : Engraver (c)
+  : Template_engraver_for_beams (c)
 {
-  beam_ = 0;
-  finished_beam_ = 0;
-  finished_beam_info_ = 0;
-  beam_info_ = 0;
-  forced_direction_ = CENTER;
-  stop_ev_ = 0;
-  start_ev_ = 0;
-  prev_start_ev_ = 0;
-}
-
-void
-Beam_engraver::derived_mark () const
-{
-  beaming_options_.gc_mark ();
-  finished_beaming_options_.gc_mark ();
 }
 
 void
@@ -149,6 +117,7 @@ Beam_engraver::set_melisma (bool ml)
 void
 Beam_engraver::process_music ()
 {
+
   if (start_ev_)
     {
       if (beam_)
@@ -161,15 +130,7 @@ Beam_engraver::process_music ()
       prev_start_ev_ = start_ev_;
       beam_ = make_spanner ("Beam", start_ev_->self_scm ());
 
-      const auto mp (
-        from_scm (get_property (this, "measurePosition"), Moment (0)));
-
-      beam_start_location_ = mp;
-      beam_start_mom_ = now_mom ();
-
-      beaming_options_.from_context (context ());
-      beam_info_ = new Beaming_pattern;
-      /* urg, must copy to Auto_beam_engraver too */
+      begin_beam ();
     }
 
   typeset_beam ();
@@ -196,20 +157,16 @@ Beam_engraver::typeset_beam ()
         set_grob_direction (stem, forced_direction_);
 
       forced_direction_ = CENTER;
-      finished_beam_info_->beamify (finished_beaming_options_);
 
-      Beam::set_beaming (finished_beam_, finished_beam_info_);
-
-      delete finished_beam_info_;
-      finished_beam_info_ = 0;
-      finished_beam_ = 0;
+      Template_engraver_for_beams::typeset_beam ();
     }
 }
 
 void
 Beam_engraver::start_translation_timestep ()
 {
-  start_ev_ = 0;
+
+  start_ev_ = nullptr;
 
   if (beam_)
     set_melisma (true);
@@ -221,12 +178,12 @@ Beam_engraver::stop_translation_timestep ()
   if (stop_ev_)
     {
       finished_beam_ = beam_;
-      finished_beam_info_ = beam_info_;
+      finished_beam_pattern_ = beam_pattern_;
       finished_beaming_options_ = beaming_options_;
 
-      stop_ev_ = 0;
-      beam_ = 0;
-      beam_info_ = 0;
+      stop_ev_ = nullptr;
+      beam_ = nullptr;
+      beam_pattern_ = nullptr;
       typeset_beam ();
       set_melisma (false);
     }
@@ -235,6 +192,7 @@ Beam_engraver::stop_translation_timestep ()
 void
 Beam_engraver::finalize ()
 {
+  Template_engraver_for_beams::finalize ();
   typeset_beam ();
   if (beam_)
     {
@@ -244,7 +202,7 @@ Beam_engraver::finalize ()
         we don't typeset it, (we used to, but it was commented
         out. Reason unknown) */
       beam_->suicide ();
-      delete beam_info_;
+      delete beam_pattern_;
     }
 }
 
@@ -266,7 +224,6 @@ Beam_engraver::acknowledge_stem (Grob_info_t<Item> info)
   if (!beam_)
     return;
 
-  auto now = now_mom ();
   if (!valid_start_point ())
     return;
 
@@ -289,10 +246,9 @@ Beam_engraver::acknowledge_stem (Grob_info_t<Item> info)
       return;
     }
 
-  last_stem_added_at_ = now;
-
-  Duration *stem_duration = unsmob<Duration> (get_property (ev, "duration"));
-  int durlog = stem_duration->duration_log ();
+  Duration const &stem_duration
+    = *unsmob<Duration> (get_property (ev, "duration"));
+  int const durlog = stem_duration.duration_log ();
   if (durlog <= 2)
     {
       ev->warning (_ ("stem does not fit in beam"));
@@ -308,12 +264,8 @@ Beam_engraver::acknowledge_stem (Grob_info_t<Item> info)
     set_grob_direction (stem, forced_direction_);
 
   set_property (stem, "duration-log", to_scm (durlog));
-  const auto stem_location = beam_start_location_ + (now - beam_start_mom_);
-  beam_info_->add_stem (stem_location.grace_part_ ? stem_location.grace_part_
-                                                  : stem_location.main_part_,
-                        std::max (durlog - 2, 0), Stem::is_invisible (stem),
-                        stem_duration->factor (),
-                        (from_scm<bool> (get_property (stem, "tuplet-start"))));
+  last_added_moment_ = now_mom ();
+  add_stem (stem, stem_duration);
   Beam::add_stem (beam_, stem);
 }
 
@@ -355,8 +307,8 @@ public:
   TRANSLATOR_DECLARATIONS (Grace_beam_engraver);
 
 protected:
-  bool valid_start_point () override;
-  bool valid_end_point () override;
+  bool valid_start_point () const override;
+  bool valid_end_point () const override;
 };
 
 Grace_beam_engraver::Grace_beam_engraver (Context *c)
@@ -365,15 +317,13 @@ Grace_beam_engraver::Grace_beam_engraver (Context *c)
 }
 
 bool
-Grace_beam_engraver::valid_start_point ()
+Grace_beam_engraver::valid_start_point () const
 {
-  auto n = now_mom ();
-
-  return n.grace_part_ != Rational (0);
+  return !Beam_engraver::valid_start_point ();
 }
 
 bool
-Grace_beam_engraver::valid_end_point ()
+Grace_beam_engraver::valid_end_point () const
 {
   return beam_ && valid_start_point ();
 }

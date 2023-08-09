@@ -1218,7 +1218,7 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
           if (scm_is_null (beaming_prop)
               || scm_is_null (index_get_cell (beaming_prop, d)))
             {
-              int count = beaming->beamlet_count (i, d);
+              unsigned count = beaming->beamlet_count (i, d);
               if (i > 0 && i + 1 < stems.size () && Stem::is_invisible (stem))
                 count = std::min (count, beaming->beamlet_count (i, -d));
 

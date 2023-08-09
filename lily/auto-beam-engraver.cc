@@ -29,12 +29,14 @@
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "stem.hh"
+#include "template-engraver-for-beams.hh"
 #include "warn.hh"
 
 #include "translator.icc"
 
-class Auto_beam_engraver : public Engraver
+class Auto_beam_engraver : public Template_engraver_for_beams
 {
+public:
   TRANSLATOR_DECLARATIONS (Auto_beam_engraver);
 
 protected:
@@ -52,16 +54,16 @@ protected:
   void listen_beam_forbid (Stream_event *);
 
 private:
-  virtual bool test_moment (Direction, Moment, Rational);
-  bool busy () const { return beam_start_moment_ < Moment::infinity (); }
-  void consider_begin (Moment, Rational);
-  void consider_end (Moment, Rational);
+  virtual bool test_moment (Direction, Moment const &, Rational const &) const;
+  bool busy () const;
+  void consider_begin (Moment const &, Rational const &);
+  void consider_end (Moment const &, Rational const &);
   Spanner *create_beam ();
   void begin_beam ();
   void end_beam ();
   void handle_current_stem (Item *stem);
   void junk_beam ();
-  virtual bool is_same_grace_state (Moment, Moment);
+  virtual bool is_same_grace_state (Moment const &, Moment const &) const;
   void recheck_beam ();
   void typeset_beam ();
 
@@ -72,60 +74,49 @@ private:
     shortest_dur_ is the shortest note in the beam.
   */
   Rational shortest_dur_ {1, 4};
-  Spanner *finished_beam_ = nullptr;
   // This engraver is designed to operate in Voice context, so we expect only
   // one stem per timestep.
   Item *current_stem_ = nullptr;
   std::vector<Item *> stems_;
 
-  int process_acknowledged_count_ = 0;
-  Moment last_add_mom_;
+  unsigned process_acknowledged_count_ = 0;
   /*
     Projected ending of the  beam we're working on.
   */
   Moment extend_mom_ {-1};
-  Moment beam_start_moment_ = Moment::infinity ();
-  Moment beam_start_location_;
   /*
     Handle on the starting staff keeps it alive until beam is complete
   */
   Context_handle beam_start_context_;
 
   // We act as if beam were created, and start a grouping anyway.
-  Beaming_pattern *grouping_ = nullptr;
   SCM beam_settings_ = SCM_EOL;
-
-  Beaming_pattern *finished_grouping_ = nullptr;
-
-  Beaming_options beaming_options_;
-  Beaming_options finished_beaming_options_;
 };
 
 void
 Auto_beam_engraver::derived_mark () const
 {
+  Template_engraver_for_beams::derived_mark ();
   scm_gc_mark (beam_settings_);
-  beaming_options_.gc_mark ();
-  finished_beaming_options_.gc_mark ();
 }
 
 void
 Auto_beam_engraver::process_music ()
 {
+
   auto now = now_mom ();
+
   /*
     don't beam over skips
   */
-  if (busy ())
-    {
-      if (extend_mom_ < now)
-        end_beam ();
-    }
+  if (busy () && extend_mom_ < now)
+    end_beam ();
 }
 
 Auto_beam_engraver::Auto_beam_engraver (Context *c)
-  : Engraver (c)
+  : Template_engraver_for_beams (c)
 {
+  beam_start_moment_ = Moment::infinity ();
 }
 
 void
@@ -136,46 +127,48 @@ Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
 }
 
 bool
-Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Rational dur)
+Auto_beam_engraver::test_moment (Direction dir, Moment const &test_mom,
+                                 Rational const &dur) const
 {
+  // TODO: Scale test_mom to accumulate tuplet ratios
   return scm_is_true (ly_call (
     get_property (this, "autoBeamCheck"), context ()->self_scm (), to_scm (dir),
     test_mom.smobbed_copy (), Moment (dur).smobbed_copy ()));
 }
 
+bool
+Auto_beam_engraver::busy () const
+{
+  return beam_start_moment_ < Moment::infinity ();
+}
+
 void
-Auto_beam_engraver::consider_begin (Moment test_mom, Rational dur)
+Auto_beam_engraver::consider_begin (Moment const &test_mom, Rational const &dur)
 {
   if (!busy () && !forbid_
       && from_scm<bool> (get_property (this, "autoBeaming"))
       && test_moment (START, test_mom, dur))
-    {
-      begin_beam ();
-    }
+    begin_beam ();
 }
 
 void
-Auto_beam_engraver::consider_end (Moment test_mom, Rational dur)
+Auto_beam_engraver::consider_end (Moment const &test_mom, Rational const &dur)
 {
-  if (busy ())
-    {
-      /* Allow already started autobeam to end:
-         don't check for autoBeaming */
-      bool b = test_moment (STOP, test_mom, dur);
-      if (b)
-        end_beam ();
-    }
+  /* Allow already started autobeam to end:
+     don't check for autoBeaming */
+  if (busy () && test_moment (STOP, test_mom, dur))
+    end_beam ();
 }
 
 Spanner *
 Auto_beam_engraver::create_beam ()
 {
   if (from_scm<bool> (get_property (this, "skipTypesetting")))
-    return 0;
+    return nullptr;
 
   for (const auto &stem : stems_)
     if (Stem::get_beam (stem))
-      return 0;
+      return nullptr;
 
   /*
     Can't use make_spanner () because we have to use
@@ -195,22 +188,18 @@ Auto_beam_engraver::create_beam ()
 void
 Auto_beam_engraver::begin_beam ()
 {
-  if (busy () || grouping_)
+  if (busy () || beam_pattern_)
     {
       programming_error ("already have autobeam");
       return;
     }
 
   stems_.clear ();
-  grouping_ = new Beaming_pattern ();
-  beaming_options_.from_context (context ());
-  beam_settings_
-    = Grob_property_info (context (), ly_symbol2scm ("Beam")).updated ();
 
   beam_start_context_ = context ()->get_parent ();
-  beam_start_location_
-    = from_scm (get_property (this, "measurePosition"), Moment (0));
-  beam_start_moment_ = now_mom ();
+  Template_engraver_for_beams::begin_beam ();
+  beam_settings_
+    = Grob_property_info (context (), ly_symbol2scm ("Beam")).updated ();
 }
 
 void
@@ -222,17 +211,19 @@ Auto_beam_engraver::junk_beam ()
   beam_start_context_ = nullptr;
   beam_start_moment_ = Moment::infinity ();
   stems_.clear ();
-  delete grouping_;
-  grouping_ = 0;
+  delete beam_pattern_;
+  beam_pattern_ = nullptr;
   beam_settings_ = SCM_EOL;
 
   shortest_dur_ = Rational (1, 4);
 }
 
 bool
-Auto_beam_engraver::is_same_grace_state (Moment start, Moment now)
+Auto_beam_engraver::is_same_grace_state (Moment const &start,
+                                         Moment const &now) const
 {
-  return bool (start.grace_part_) == bool (now.grace_part_);
+  return static_cast<bool> (start.grace_part_)
+         == static_cast<bool> (now.grace_part_);
 }
 
 void
@@ -249,12 +240,15 @@ Auto_beam_engraver::end_beam ()
           Grob_info i = make_grob_info (finished_beam_, SCM_EOL);
 
           announce_end_grob (i, beam_start_context_.get ());
-          finished_grouping_ = grouping_;
+          finished_beam_pattern_ = beam_pattern_;
           finished_beaming_options_ = beaming_options_;
         }
+      else
+        delete beam_pattern_;
+
       beam_start_moment_ = Moment::infinity ();
       stems_.clear ();
-      grouping_ = 0;
+      beam_pattern_ = nullptr;
       beam_settings_ = SCM_EOL;
     }
 
@@ -270,12 +264,7 @@ Auto_beam_engraver::typeset_beam ()
       if (!finished_beam_->get_bound (RIGHT))
         finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
 
-      finished_grouping_->beamify (finished_beaming_options_);
-      Beam::set_beaming (finished_beam_, finished_grouping_);
-      finished_beam_ = 0;
-
-      delete finished_grouping_;
-      finished_grouping_ = 0;
+      Template_engraver_for_beams::typeset_beam ();
     }
 }
 
@@ -284,7 +273,7 @@ Auto_beam_engraver::stop_translation_timestep ()
 {
   typeset_beam ();
   process_acknowledged_count_ = 0;
-  forbid_ = 0;
+  forbid_ = nullptr;
   considered_bar_ = false;
 }
 
@@ -333,26 +322,20 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
     }
 
   /*
-    Don't (start) auto-beam over empty stems; skips or rests
+    Don't (start) auto-beam over empty stems (skips or rests) or stems
+    that already have beam
   */
-  if (!Stem::head_count (stem))
+  if (!Stem::head_count (stem) || Stem::get_beam (stem))
     {
       if (busy ())
         end_beam ();
       return;
     }
 
-  if (Stem::get_beam (stem))
-    {
-      if (busy ())
-        junk_beam ();
-      return;
-    }
+  Duration const &stem_duration
+    = *unsmob<Duration> (get_property (ev, "duration"));
 
-  auto *const stem_duration = unsmob<Duration> (get_property (ev, "duration"));
-  const auto durlog = stem_duration->duration_log ();
-
-  if (durlog <= 2)
+  if (stem_duration.duration_log () <= 2)
     {
       if (busy ())
         end_beam ();
@@ -362,11 +345,11 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
   /*
     ignore interspersed grace notes.
   */
-  auto now = now_mom ();
-  if (!is_same_grace_state (beam_start_location_, now))
+  auto const now = now_mom ();
+  if (!is_same_grace_state (beam_start_position_, now))
     return;
 
-  const auto dur = stem_duration->get_length ();
+  const auto dur = stem_duration.get_length ();
   const auto measure_now = measure_position (context ());
   bool recheck_needed = false;
 
@@ -385,14 +368,10 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
   if (!busy ())
     return;
 
-  const auto stem_location = now - beam_start_moment_ + beam_start_location_;
-  grouping_->add_stem (stem_location.grace_part_ ? stem_location.grace_part_
-                                                 : stem_location.main_part_,
-                       durlog - 2, Stem::is_invisible (stem),
-                       stem_duration->factor (),
-                       (from_scm<bool> (get_property (stem, "tuplet-start"))));
+  last_added_moment_ = now;
+  add_stem (stem, stem_duration);
+
   stems_.push_back (stem);
-  last_add_mom_ = now;
   extend_mom_ = std::max (extend_mom_, now) + get_event_length (ev, now);
   if (recheck_needed)
     recheck_beam ();
@@ -407,12 +386,14 @@ Auto_beam_engraver::recheck_beam ()
     first part of the beam and reset the current beam to just
     the last part of the beam
   */
-  std::vector<Item *> new_stems;
 
   for (vsize i = 0; (i + 1) < stems_.size (); /*in body*/)
     {
-      const bool found_end
-        = test_moment (STOP, Moment (grouping_->end_moment (i)), shortest_dur_);
+      const bool found_end = test_moment (
+        STOP,
+        Moment (beam_pattern_->end_moment (i) - beam_pattern_->start_moment (0)
+                + beam_pattern_->measure_offset_),
+        shortest_dur_);
       if (!found_end)
         i++;
       else
@@ -426,21 +407,23 @@ Auto_beam_engraver::recheck_beam ()
 
           /* Eliminate (and save) the items no longer part of the first beam */
 
-          auto *const new_grouping_ = grouping_->split_pattern (i);
-          new_stems.insert (new_stems.end (),
-                            std::next (stems_.begin (), i + 1), stems_.end ());
+          auto *const new_grouping_ = beam_pattern_->split_pattern (
+            i, beaming_options_.measure_length_);
+          std::vector<Item *> new_stems (stems_.begin () + (i + 1),
+                                         stems_.end ());
           stems_.resize (i + 1);
 
           end_beam ();
           typeset_beam ();
 
           /* now recreate the unbeamed data structures */
-          stems_ = std::move (new_stems);
-          new_stems.clear ();
-          grouping_ = new_grouping_;
+          stems_ = new_stems;
+          beam_pattern_ = new_grouping_;
           shortest_dur_ = saved_shortest_dur;
           beam_settings_ = saved_beam_settings;
           beam_start_moment_ = now_mom ();
+          beam_start_position_
+            = from_scm (get_property (this, "measurePosition"), Moment (0));
 
           i = 0;
         }
@@ -492,7 +475,7 @@ Auto_beam_engraver::process_acknowledged ()
       else if (process_acknowledged_count_ > 1)
         {
           if ((extend_mom_ < now)
-              || ((extend_mom_ == now) && (last_add_mom_ != now)))
+              || ((extend_mom_ == now) && (last_added_moment_ != now)))
             end_beam ();
           else if (stems_.empty ())
             junk_beam ();
@@ -552,8 +535,8 @@ private:
   Moment last_grace_start_ {-Rational::infinity ()};
   Moment last_grace_position_; // Measure position of same
   void process_music ();
-  bool is_same_grace_state (Moment, Moment) override;
-  bool test_moment (Direction, Moment, Rational) override;
+  bool is_same_grace_state (Moment const &, Moment const &) const override;
+  bool test_moment (Direction, Moment const &, Rational const &) const override;
 };
 
 Grace_auto_beam_engraver::Grace_auto_beam_engraver (Context *c)
@@ -562,7 +545,8 @@ Grace_auto_beam_engraver::Grace_auto_beam_engraver (Context *c)
 }
 
 bool
-Grace_auto_beam_engraver::is_same_grace_state (Moment, Moment)
+Grace_auto_beam_engraver::is_same_grace_state (Moment const &,
+                                               Moment const &) const
 {
   // This is for ignoring interspersed grace notes in main note
   // beaming.  We never want to ignore something inside of grace note
@@ -586,7 +570,8 @@ Grace_auto_beam_engraver::process_music ()
 }
 
 bool
-Grace_auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Rational)
+Grace_auto_beam_engraver::test_moment (Direction dir, Moment const &test_mom,
+                                       Rational const &) const
 {
   // If no grace group started this main moment, we have no business
   // beaming.  Same if we have left the original main time step.
