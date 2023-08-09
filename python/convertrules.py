@@ -5241,6 +5241,25 @@ The \text markup command has been removed. Instead, use \serif,
 
     return s
 
+@rule((2, 25, 8), r"Warn about new behavior of subdivideBeams")
+def conv(s):
+    if re.search(r"\bsubdivideBeams\b", s):
+        stderr_write(NOT_SMART % _('subdivideBeams'))
+        stderr_write(_("""
+Context property 'subdivideBeams' used to rely on the value of
+'baseMoment' for the minimum subdivision interval. Now, separate
+properties 'minimumBeamSubdivisionInterval',
+'maximumBeamSubdivisionInterval' and 'respectIncompleteBeams'
+specifically control beam subdivision intervals, whereas 'baseMoment' no
+longer has an effect. The value of 'baseMoment' may implicitly change
+whenever time signature changes or is first set, so preserving past
+behavior requires setting 'minimumBeamSubdivisionInterval' to the same
+value of 'baseMoment', even at each implicit setting of 'baseMoment',
+and setting 'respectIncompleteBeams' to true"""))
+        stderr_write(UPDATE_MANUALLY)
+
+    return s
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #
