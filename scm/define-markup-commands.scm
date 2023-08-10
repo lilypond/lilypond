@@ -2201,7 +2201,7 @@ line."
                (wordwrap-internal-markup-list layout props #f args)))
 
 (define cr-regex (ly:make-regex "\r"))
-(define crlf-regex (ly:make-regex "\n"))
+(define crlf-regex (ly:make-regex "\r\n"))
 (define para-sep-regex (ly:make-regex "\n[ \t\n]*\n[ \t\n]*"))
 (define whitespace-regex (ly:make-regex "[ \t\n]+")) ;; should use "\\s+" ?
 (define-markup-list-command (wordwrap-string-internal layout props justify arg)
