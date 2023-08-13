@@ -168,8 +168,8 @@ div#tocframe {
     rgb(55, 215, 125));
 }
 
-#tocframe li.toc_current a,
-#tocframe li.toc_current a:hover {
+#tocframe li.toc_current > a,
+#tocframe li.toc_current > a:hover {
   background: rgb(0, 120, 30);
   background: linear-gradient(to top,
     rgb(0, 85, 20),
@@ -181,7 +181,7 @@ div#tocframe {
 #tocframe ul ul {
   display: none;
 }
-#tocframe ul li.toc_current ul {
+#tocframe ul li.toc_current > ul {
   display: block;
   position: absolute;
   top: 3.8em;
@@ -233,12 +233,13 @@ div#tocframe {
     rgb(210, 240, 200));
 }
 
-#tocframe ul ul li.toc_current a,
-#tocframe ul ul li.toc_current a:hover {
+#tocframe ul ul li.toc_current > a,
+#tocframe ul ul li.toc_current > a:hover {
   background: rgb(135, 185, 120);
   background: linear-gradient(to top,
     rgb(100, 170, 80),
     rgb(170, 200, 160));
+  color: #000;
 }
 
 /* Divs */

@@ -335,13 +335,7 @@ div#tocframe h4 {
 #tocframe ul ul ul {
   display: none;
 }
-#tocframe ul ul li.toc_current ul {
-  display: block;
-}
-#tocframe ul ul ul ul {
-  display: none;
-}
-#tocframe ul ul ul li.toc_current ul {
+#tocframe ul ul li.toc_current > ul {
   display: block;
 }
 
