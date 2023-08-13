@@ -456,4 +456,25 @@ $tocframe
 texinfo_register_formatting_function($format_end_file,
                                      \&lilypond_format_end_file);
 
+
+### Custom navigation headers / panels
+our $format_navigation_panel = 'format_navigation_panel';
+if ($texinfo_version lt '6.8') {
+    $format_navigation_panel = 'navigation_header_panel';
+} elsif ($texinfo_version lt '7.0') {
+    $format_navigation_panel = 'format_navigation_header_panel';
+}
+sub lilypond_format_navigation_panel {
+    my ($converter, $buttons, $command_name, $element, $vertical) = @_;
+
+    if ($manual_name eq 'web') {
+        return '';
+    }
+
+    return &{$converter->default_formatting_function($format_navigation_panel)}(
+        $converter, $buttons, $command_name, $element, $vertical);
+}
+texinfo_register_formatting_function($format_navigation_panel,
+                                     \&lilypond_format_navigation_panel);
+
 return 1;
