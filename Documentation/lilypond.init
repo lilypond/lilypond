@@ -297,6 +297,7 @@ if ($texinfo_version lt '7.0') {
 sub lilypond_format_tocframe {
     my $converter = shift;
 
+    # Get the contents without highlighting of the current element.
     my $contents;
     if ($texinfo_version lt '7.0') {
         $contents = &{$converter->{'format_contents'}}($converter, 'contents');
@@ -304,9 +305,35 @@ sub lilypond_format_tocframe {
         $contents = &{$converter->formatting_function('format_contents')}($converter, 'contents');
     }
 
+    # Find the path to the current element.
+    my $node = $converter->{'current_node'};
+    my $element = $node->{'extra'}->{'associated_section'};
+    my %parentelements;
+    while (defined($element)) {
+        my $toc_id = $converter->command_contents_target($element, 'contents');
+        if (!defined($toc_id)) {
+            last;
+        }
+        $parentelements{$toc_id} = 1;
+        if ($texinfo_version lt '7.0') {
+            $element = $element->{'section_up'};
+        } else {
+            $element = $element->{'structure'}->{'section_up'};
+        }
+    }
+
+    # Construct the contents with highlighting.
+    my $highlighted_contents = '';
+    for my $line (split(/\n/, $contents)) {
+        if ($line =~ /<a id="(.*)" href=/ and $parentelements{$1}) {
+            $line =~ s/<li>/<li class="toc_current">/;
+        }
+        $highlighted_contents .= "$line\n";
+    }
+
     return "
 <div id=\"tocframe\">
-$contents
+$highlighted_contents
 </div>
 ";
 }
