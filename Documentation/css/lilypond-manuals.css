@@ -48,52 +48,45 @@ body {
 /*                      HEADERS                            */
 /***********************************************************/
 
-.chapter, .section, .subsection, .subsubsection,
-.appendix, .appendixsec, .appendixsubsec,
-.unnumbered, .unnumberedsec, .unnumberedsubsec, .unnumberedsubsubsec,
-.subheading, .subsubheading {
+h2.chapter, h3.section, h4.subsection, h4.subsubsection,
+h2.appendix, h3.appendixsec, h4.appendixsubsec,
+h2.unnumbered, h3.unnumberedsec, h4.unnumberedsubsec, h4.unnumberedsubsubsec,
+h4.subheading, h4.subsubheading {
   color: rgb(32, 74, 135);
   padding-bottom: 0.15em;
   margin-top: 0.6em;
   margin-bottom: 0.6em;
 }
 
-.settitle, .top {
+h1.top {
   font-size: 2em;
   text-align: center;
   padding: 0.8em 0.5em;
   margin: 0;
 }
 
-.chapter, .appendix, .unnumbered,
-.section, .appendixsec, .unnumberedsec,
-.subsection, .appendixsubsec, .unnumberedsubsec,
-.subsubsection {
+h2.chapter, h2.appendix, h2.unnumbered,
+h3.section, h3.appendixsec, h3.unnumberedsec,
+h4.subsection, h4.appendixsubsec, h4.unnumberedsubsec,
+h4.subsubsection {
   font-size: 1.7em;
   margin-top: 0.9em;
 }
 
-.subheading, .unnumberedsubsubsec {
+h4.subheading, h4.unnumberedsubsubsec {
   font-size: 1.5em;
   margin-top: 0.9em;
 }
 
-.subheading {
+h4.subheading {
   border-top: 1px solid rgb(200, 200, 200);
   padding-top: 0.8em;
 }
 
-.subsubheading {
+h4.subsubheading {
   font-size: 1.15em;
   font-weight: bold;
   margin-top: 1.6em;
-}
-
-.chapheading {
-  position: absolute;
-  height: 0;
-  overflow: hidden;
-  text-indent: -999em;
 }
 
 /***********************************************************/

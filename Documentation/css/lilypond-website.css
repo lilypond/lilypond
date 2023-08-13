@@ -389,7 +389,7 @@ p#languages {
   text-align: left;
 }
 
-h1.unnumbered, h2.unnumberedsec, h3.unnumberedsubsec {
+h2.unnumbered, h3.unnumberedsec, h4.unnumberedsubsec {
   position: relative;
   height: 0;
   text-indent: -999em;
@@ -463,7 +463,7 @@ div.float-center a.clickable {
   margin: 0 auto;
 }
 
-.heading-center h2 {
+.heading-center h3.heading {
   padding: 0.25em 0;
   margin: 0;
 }
@@ -553,7 +553,7 @@ div.float-center a.clickable {
 }
 
 /* color1 */
-.column-center-top h3 {
+.column-center-top h4.subheading {
   background: #9ccc7c;
   background: linear-gradient(to top,
     rgb(140, 210, 118),
@@ -563,10 +563,10 @@ div.float-center a.clickable {
 }
 
 /* color2 */
-.column-left-top h3,
-.column-left-bottom h3,
-.column-center-middle-color2 h3,
-.news-item h3 {
+.column-left-top h4.subheading,
+.column-left-bottom h4.subheading,
+.column-center-middle-color2 h4.subheading,
+.news-item h4.subheading {
   background: #adce82;
   background: linear-gradient(to top,
     rgb(173, 206, 130),
@@ -574,14 +574,14 @@ div.float-center a.clickable {
   border-bottom: 1px solid #adce82;
 }
 
-.news-item h3 {
+.news-item h4.subheading {
   font-size: 1em;
 }
 
 /* color3 */
-.column-right-top h3,
-.column-right-bottom h3,
-.column-center-middle-color3 h3 {
+.column-right-top h4.subheading,
+.column-right-bottom h4.subheading,
+.column-center-middle-color3 h4.subheading {
   background: #bdd088;
   background: linear-gradient(to top,
     rgb(189, 208, 136),
@@ -590,7 +590,7 @@ div.float-center a.clickable {
 }
 
 /* color4 */
-.column-center-bottom h3 {
+.column-center-bottom h4.subheading {
   background: #ccd38f;
   background: linear-gradient(to top,
     rgb(204, 211, 143),
@@ -599,15 +599,15 @@ div.float-center a.clickable {
   border-bottom: 1px solid #ccd38f;
 }
 
-.column-center-top h3,
-.column-center-middle-color2 h3,
-.column-center-middle-color3 h3,
-.column-center-bottom h3,
-.column-left-top h3,
-.column-left-bottom h3,
-.column-right-top h3,
-.column-right-bottom h3,
-.news-item h3 {
+.column-center-top h4.subheading,
+.column-center-middle-color2 h4.subheading,
+.column-center-middle-color3 h4.subheading,
+.column-center-bottom h4.subheading,
+.column-left-top h4.subheading,
+.column-left-bottom h4.subheading,
+.column-right-top h4.subheading,
+.column-right-bottom h4.subheading,
+.news-item h4.subheading {
   text-align: left;
   padding: 3px 0.5em 0;
   margin: 0;
@@ -615,21 +615,21 @@ div.float-center a.clickable {
   border-top-right-radius: 5px;
 }
 
-.column-center-top h4,
-.column-center-middle-color2 h4,
-.column-center-middle-color3 h4,
-.column-center-bottom h4,
-.column-left-top h4,
-.column-left-bottom h4,
-.column-right-top h4,
-.column-right-bottom h4 {
+.column-center-top h4.subsubheading,
+.column-center-middle-color2 h4.subsubheading,
+.column-center-middle-color3 h4.subsubheading,
+.column-center-bottom h4.subsubheading,
+.column-left-top h4.subsubheading,
+.column-left-bottom h4.subsubheading,
+.column-right-top h4.subsubheading,
+.column-right-bottom h4.subsubheading {
   text-align: left;
   padding: 0.5em 0.5em 0;
   margin: 0 0 0.5em 0;
 }
 
 /* Used for google summer of code project ideas, for example. */
-.bigger-subsubheadings h4 {
+.bigger-subsubheadings h4.subsubheading {
   font-size: 1.17em;
   margin: 1.5em 0 0.5em 0;
 }
@@ -782,14 +782,4 @@ div.float-center a.clickable {
 
 .detail a {
   font-weight: normal;
-}
-
-/* kill title, probably best done in the init file, though */
-h1.settitle {
-  position: relative;
-  height: 0;
-  text-indent: -999em;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
 }
