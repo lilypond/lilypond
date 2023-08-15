@@ -404,48 +404,6 @@ li.toc_current ul {
   margin: 0;
 }
 
-div.header {
-  background: #b1d281;
-  text-align: center;
-  padding: 0.5em;
-  border-bottom: 1px solid #7b925a;
-  margin: 0;
-  height: auto;
-}
-
-div.header h1 {
-  font-size: 2em;
-  padding: 0.25em;
-  margin: 0;
-}
-
-div.subheader {
-  background: #ddd;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-}
-
-div.subheader p {
-  padding: 0.5em;
-  margin: 0;
-}
-
-table#navigation {
-  line-height: 1.5;
-  padding: 0;
-  margin: 1em auto;
-}
-
-table#navigation td {
-  padding: 0.5em 0.75em;
-}
-
-table#navigation ul {
-  padding-left: 0.5em;
-  margin: 0;
-}
-
 table .title {
   font-weight: bold;
 }
