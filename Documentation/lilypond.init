@@ -119,6 +119,13 @@ sub lilypond_handler_init {
     $bodytext .= " class=\"$manual_name\"";
     $converter->set_conf('BODYTEXT', $bodytext);
 
+    if ($texinfo_version lt '6.8') {
+        my $structuring = $converter->{'structuring'};
+        foreach my $section (@{$structuring->{'sections_list'}}) {
+            $converter->{'seenmenus'}{$section->{'extra'}->{'associated_node'}} = 1;
+        }
+    }
+
     if ($texinfo_version lt '7.0') {
         return 1;
     } else {
