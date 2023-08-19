@@ -18,6 +18,9 @@
 -- along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
+-- luacheck: globals node tex unicode
+
+
 -- If the LilyPond documentation is compiled with LuaTeX, Texinfo's
 -- `@code` macro gets enhanced by this Lua code to do the following
 -- things.
@@ -50,7 +53,6 @@ local GLUE = node.id("glue")
 local GLYPH = node.id("glyph")
 local HLIST = node.id("hlist")
 local PENALTY = node.id("penalty")
-local WHAT = node.id("whatsit")
 
 
 -- This value must be the same as set in `common-macros.itexi` (using
@@ -260,7 +262,6 @@ code_hyphenate = function(head)
     if word_len >= 4 then
       local start = word_start
       local len = word_len
-      local num_added_nodes = 0
 
       while len >= 4 do
         local cur = start
@@ -302,8 +303,6 @@ code_hyphenate = function(head)
           node.set_attribute(pen, code_attribute, 1)
           node.insert_before(head, cur, pen)
 
-          num_added_nodes = num_added_nodes + 1
-
           len = len - 2 - skip
           start = cur
           goto continue
@@ -315,8 +314,6 @@ code_hyphenate = function(head)
 
         ::continue::
       end -- end of while-loop
-
-      word_len = word_len + num_added_nodes
     end
   end -- end of for-loop
 
