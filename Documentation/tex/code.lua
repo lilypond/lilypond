@@ -80,7 +80,7 @@ code_hyphenate = function(head)
     if node.has_attribute(n, code_attribute) then
       -- Only characters typeset with the same font are considered to
       -- be in the same word.
-      if n.id == GLYPH and (prev_font == -1 or prev_font == n.font) then
+      if n.id == GLYPH and prev_font == n.font then
         in_word = true
       end
 
