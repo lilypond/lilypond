@@ -672,10 +672,11 @@ one voice.")))
       ;; current-moment to get the condition for ending the DurationLine.
       ;; We can't go for (ly:context-property context 'busyGrobs), because
       ;; we then wouldn't know if a skip-event needs to be respected.
+
       (if rhyth-event
           (let* ((rhyhtmic-evt-start (car rhyth-event))
                  (rhyhtmic-evt-length
-                  (ly:prob-property (cdr rhyth-event) 'length))
+                  (ly:prob-property (cdr rhyth-event) 'length ZERO-MOMENT))
                  (rhyhtmic-evt-end
                   (ly:moment-add rhyhtmic-evt-start rhyhtmic-evt-length))
                  (current-moment (ly:context-current-moment context)))
