@@ -44,7 +44,7 @@ sub lilypond_gdt {
 
 our $texinfo_version = $Texinfo::Common::VERSION;
 
-# Compatibility function for links to Top node.
+# Compatibility function for links to Top node and navigation buttons.
 sub lilypond_from_element_direction {
     my ($converter, $direction, $type) = @_;
     if ($texinfo_version lt '7.0') {
@@ -458,6 +458,79 @@ texinfo_register_formatting_function($format_end_file,
 
 
 ### Custom navigation headers / panels
+sub format_navigation_button {
+    my ($converter, $direction) = @_;
+
+    my $name = lilypond_from_element_direction($converter, $direction, 'node');
+    if (!defined($name)) {
+        $name = '';
+    } elsif ($texinfo_version ge '6.8' and $name ne 'Top') {
+        # FIXME: This is wrong and means that the nodes in the navigation panel
+        # do not show the translated section names!
+        $name = lilypond_from_element_direction($converter, $direction, 'section');
+    }
+    my $text;
+    if ($texinfo_version lt '7.0.90') {
+        $text = $converter->get_conf('BUTTONS_TEXT')->{$direction};
+    } else {
+        $text = $converter->direction_string($direction, 'text');
+    }
+    if ($direction eq 'Back' or $direction eq 'FastBack') {
+        $text = "$text$name ";
+    } elsif ($direction eq 'Forward' or $direction eq 'FastForward') {
+        $text = " $name$text";
+    } elsif ($direction eq 'Up') {
+        # The translations have whitespace in front, so make sure it's symmetric.
+        $text = " $text: $name ";
+    }
+    my $href = lilypond_from_element_direction($converter, $direction, 'href');
+    if (!defined($href)) {
+        return "[$text]";
+    }
+
+    # Copied and adapted from _direction_href_attributes / _default_format_button
+    my $attributes = '';
+    my $description;
+    if ($texinfo_version lt '7.0.90') {
+        if ($converter->get_conf('BUTTONS_GOTO')) {
+            $description = $converter->get_conf('BUTTONS_GOTO')->{$direction};
+        }
+    } else {
+        $description = $converter->direction_string($direction, 'description');
+    }
+    if (defined($description)) {
+        $attributes .= " title=\"$description\"";
+    }
+    if ($converter->get_conf('USE_ACCESSKEY')) {
+        my $accesskey;
+        if ($texinfo_version lt '7.0.90') {
+            if ($converter->get_conf('BUTTONS_ACCESSKEY')) {
+                $accesskey = $converter->get_conf('BUTTONS_ACCESSKEY')->{$direction};
+            }
+        } else {
+            $accesskey = $converter->direction_string($direction, 'accesskey');
+        }
+        if (defined($accesskey) and $accesskey ne '') {
+            $attributes .= " accesskey=\"$accesskey\"";
+        }
+    }
+    if ($converter->get_conf('USE_REL_REV')) {
+        my $button_rel;
+        if ($texinfo_version lt '7.0.90') {
+            if ($converter->get_conf('BUTTONS_REL')) {
+                $button_rel = $converter->get_conf('BUTTONS_REL')->{$direction};
+            }
+        } else {
+            $button_rel = $converter->direction_string($direction, 'rel');
+        }
+        if (defined($button_rel) and ($button_rel ne '')) {
+            $attributes .= " rel=\"$button_rel\"";
+        }
+    }
+
+    return "[<a href=\"$href\"$attributes>$text</a>]";
+}
+
 our $format_navigation_panel = 'format_navigation_panel';
 if ($texinfo_version lt '6.8') {
     $format_navigation_panel = 'navigation_header_panel';
@@ -471,8 +544,51 @@ sub lilypond_format_navigation_panel {
         return '';
     }
 
-    return &{$converter->default_formatting_function($format_navigation_panel)}(
-        $converter, $buttons, $command_name, $element, $vertical);
+    # Compare the button reference with one of the expected values.
+    my $section_buttons = (
+        ($buttons == $converter->get_conf('SECTION_BUTTONS')) or
+        ($buttons == $converter->get_conf('NODE_FOOTER_BUTTONS')));
+    my $result = "<table class=\"nav_table\">\n";
+
+    # First row:
+    $result .= '<tr>';
+    if ($section_buttons) {
+        $result .= '<td align="left">';
+        $result .= format_navigation_button($converter, 'FastBack');
+        $result .= '</td>';
+    }
+    $result .= '<td align="center">';
+    $result .= format_navigation_button($converter, 'Top');
+    $result .= format_navigation_button($converter, 'Contents');
+    # Not all manuals have an index.
+    if (defined(lilypond_from_element_direction($converter, 'Index', 'href'))) {
+        $result .= format_navigation_button($converter, 'Index');
+    }
+    $result .= '</td>';
+    if ($section_buttons) {
+        $result .= '<td align="right">';
+        $result .= format_navigation_button($converter, 'FastForward');
+        $result .= '</td>';
+    }
+    $result .= "</tr>\n";
+
+    if ($section_buttons) {
+        # (Optional) second row:
+        $result .= '<tr>';
+        $result .= '<td align="left">';
+        $result .= format_navigation_button($converter, 'Back');
+        $result .= '</td>';
+        $result .= '<td align="center">';
+        $result .= format_navigation_button($converter, 'Up');
+        $result .= '</td>';
+        $result .= '<td align="right">';
+        $result .= format_navigation_button($converter, 'Forward');
+        $result .= '</td>';
+        $result .= "</tr>\n";
+    }
+    $result .= "</table>\n";
+
+    return $result;
 }
 texinfo_register_formatting_function($format_navigation_panel,
                                      \&lilypond_format_navigation_panel);
