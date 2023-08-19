@@ -335,7 +335,7 @@ def process_html_files(pages_dict,
             content = content.replace('%', '%%')
 
             # add sidebar information
-            content = content.replace('<!-- Sidebar Version Tag  -->', sidebar_version)
+            content = content.replace('<!-- Sidebar Version Tag -->', sidebar_version)
 
             available = find_translations(pages_dict, prefix, lang_ext)
             page_flavors = process_links(pages_dict,

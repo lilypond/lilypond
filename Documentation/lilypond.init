@@ -30,6 +30,17 @@ use Encode qw(decode);
 
 our $texinfo_version = $Texinfo::Common::VERSION;
 
+# Compatibility function for links to Top node.
+sub lilypond_from_element_direction {
+    my ($converter, $direction, $type) = @_;
+    if ($texinfo_version lt '7.0') {
+        return $converter->_element_direction($converter->{'current_element'},
+                                              $direction, $type);
+    } else {
+        return $converter->from_element_direction($direction, $type);
+    }
+}
+
 # The manual name, i.e. learning, notation, web, etc.
 our $manual_name;
 
@@ -296,8 +307,57 @@ if ($texinfo_version lt '7.0') {
     texinfo_set_from_init_file('AFTER_BODY_OPEN', "<div id=\"main\">\n");
 }
 
+sub lilypond_format_tocheader {
+    my $converter = shift;
+    if ($manual_name eq 'web') {
+        return '';
+    }
+
+    my $lang = $converter->get_conf('documentlanguage');
+    # Construct a link back to the documentation index and a header.
+    my $lang_ext = '';
+    if ($lang and $lang ne 'en') {
+        $lang_ext = $lang . '.';
+    }
+    my $reldir = $ENV{DEPTH};
+    # Add a / at the end if there is none.
+    if (substr($reldir, -1) ne '/') {
+        $reldir .= '/';
+    }
+    my $uplink = "${reldir}Documentation/web/manuals.${lang_ext}html";
+    # TODO: Make these translatable...
+    my $uplink_text = 'Back to Documentation Index';
+    my $uplink_title = 'Documentation Index';
+
+    my $title;
+    if ($texinfo_version lt '7.0') {
+        $title = $converter->{'title_string'};
+    } else {
+        $title = $converter->get_info('title_string');
+    }
+    my $top_href = lilypond_from_element_direction($converter, 'Top', 'href');
+    # Here we use the already translated text of the 'Top' navigation button.
+    my $top_title = $converter->gdt('Cover (top) of document');
+    $top_title = $converter->convert_tree($top_title);
+
+    return "
+<p class=\"toc_uplink\">
+  <a href=\"$uplink\" title=\"$uplink_title\">
+    &lt;&lt; $uplink_text
+  </a>
+</p>
+<h4 class=\"toc_header\">
+  <a href=\"$top_href\" title=\"$top_title\">
+    $title <!-- Sidebar Version Tag -->
+  </a>
+</h4>
+";
+}
+
 sub lilypond_format_tocframe {
     my $converter = shift;
+
+    my $tocheader = lilypond_format_tocheader($converter);
 
     # Get the contents without highlighting of the current element.
     my $contents;
@@ -356,6 +416,7 @@ sub lilypond_format_tocframe {
 
     return "
 <div id=\"tocframe\">
+$tocheader
 $highlighted_contents
 $search_box
 </div>
