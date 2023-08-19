@@ -298,7 +298,14 @@ sub lilypond_format_ref {
     }
 
     my $href;
-    if ($converter->get_conf('SPLIT')) {
+    my $only_web_version = $ENV{ONLY_WEB_VERSION};
+    if ($manual_name eq 'web' and defined($only_web_version)) {
+        if (!$converter->get_conf('SPLIT')) {
+            my $msg = "unexpected website build without splitting";
+            $converter->line_error($converter, $msg, $element->{'source_info'});
+        }
+        $href = "../../doc/$only_web_version/Documentation/$file/$node_file.html";
+    } elsif ($converter->get_conf('SPLIT')) {
         if ($node_file eq 'top') {
             $node_file = 'index';
         }
