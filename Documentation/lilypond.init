@@ -26,6 +26,8 @@ package Texinfo::Config;
 
 use strict;
 
+use Encode qw(decode);
+
 our $texinfo_version = $Texinfo::Common::VERSION;
 
 # The manual name, i.e. learning, notation, web, etc.
@@ -331,9 +333,31 @@ sub lilypond_format_tocframe {
         $highlighted_contents .= "$line\n";
     }
 
+    # Get the (translated) search box.
+    local $/ = undef;
+    my $search_box_filename = 'search-box.ihtml';
+    my $lang = $converter->get_conf('documentlanguage');
+    my $fh;
+    open($fh, "$ENV{TOP_SRC_DIR}/Documentation/$lang/$search_box_filename") or
+        open($fh, "$ENV{TOP_SRC_DIR}/Documentation/en/$search_box_filename") or
+        die "no such file: $search_box_filename: $!";
+    my $search_box = decode('UTF-8', <$fh>);
+    close($fh);
+    # We depend on an external entity here, which we cannot control.  Suppose
+    # we go from 2.23.x to 2.25.x and put the documentation under "v2.25".
+    # For some time, Google won't have the new location in its index, so the
+    # search would get nothing.  It is better to keep "v2.23" in the search for
+    # a while.
+    my $search_site = 'lilypond.org/doc/v2.25';
+    if ($manual_name eq 'web') {
+        $search_site = 'lilypond.org';
+    }
+    $search_box =~ s/\{\{site\}\}/site:$search_site/g;
+
     return "
 <div id=\"tocframe\">
 $highlighted_contents
+$search_box
 </div>
 ";
 }

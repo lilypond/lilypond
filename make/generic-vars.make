@@ -111,4 +111,4 @@ TEXI2ANY_FLAGS += --enable-encoding --error-limit=0
 TEXI2ANY = LANG=C $(TEXI2ANY_PROGRAM) $(TEXI2ANY_FLAGS)
 
 TEXI2ANY_HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond.init
-TEXI2ANY_HTML = $(TEXI2ANY) --html $(TEXI2ANY_HTML_INIT)
+TEXI2ANY_HTML = TOP_SRC_DIR=$(top-src-dir) $(TEXI2ANY) --html $(TEXI2ANY_HTML_INIT)
