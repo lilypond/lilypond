@@ -1,0 +1,175 @@
+% This file tests LilyPond's `code.lua` file for Texinfo's PDF
+% output, improving the `@code` command by registering a function
+% for the 'hyphenate' callback.
+%
+% Process this file with `luatex`.
+%
+% There are a lot of 'Overfull \hbox' warnings, which are expected.
+
+\input texinfo
+
+@tex
+\ifx\luatexversion\thisisundefined
+\else
+  \directlua{
+    dofile(kpse.find_file("code.lua"))
+    callback.register("hyphenate",
+      function(head, tail)
+        code_hyphenate(head)
+        lang.hyphenate(head)
+      end) }
+
+  \global\let\texicodex \codex
+
+  \xdef\setattribute{%
+    \attribute 200 = 1 }
+  \xdef\unsetattribute{%
+    \attribute 200 = -"7FFFFFFF }
+
+  \gdef\codex#1{%
+    \setattribute
+    \aftergroup\unsetattribute
+    \texicodex{#1}}
+\fi
+@end tex
+
+
+@allowcodebreaks false
+@finalout
+
+@parindent 0pt
+@parskip 1em
+
+
+@heading Tests with @samp{-}
+
+@begingroup
+@hsize 10pt
+@code{-e}
+@code{f-g}
+@code{hh-i}
+@code{j-kk}
+@code{l-}
+@code{m-n-o-p}
+@code{ä-ó-ß-ç}
+
+@endgroup
+
+
+@heading Tests with @samp{--}
+
+@begingroup
+@hsize 10pt
+@code{--e}
+@code{f--g}
+@code{hh--i}
+@code{j--kk}
+@code{l--}
+@code{m--n--o--p}
+@code{ä--ó--ß--ç}
+
+@endgroup
+
+
+@heading Tests with @samp{_}
+
+@begingroup
+@hsize 10pt
+@code{_e}
+@code{f_g}
+@code{hh_i}
+@code{j_kk}
+@code{l_}
+@code{m_n_o_p}
+@code{ä_ó_ß_ç}
+
+@endgroup
+
+
+@page
+
+
+@heading Tests with @samp{__}
+
+@begingroup
+@hsize 10pt
+@code{__e}
+@code{f__g}
+@code{hh__i}
+@code{j__kk}
+@code{l__}
+@code{m__n__o__p}
+@code{ä__ó__ß__ç}
+
+@endgroup
+
+
+@heading Tests with @samp{_-}
+
+@begingroup
+@hsize 10pt
+@code{_-e}
+@code{f_-g}
+@code{hh_-i}
+@code{j_-kk}
+@code{l_-}
+@code{m_-n_-o_-p}
+@code{ä_-ó_-ß_-ç}
+
+@endgroup
+
+
+@heading Tests with @samp{-_}
+
+@begingroup
+@hsize 10pt
+@code{-_e}
+@code{f-_g}
+@code{hh-_i}
+@code{j-_kk}
+@code{l-_}
+@code{m-_n-_o-_p}
+@code{ä-_ó-_ß-_ç}
+
+@endgroup
+
+
+@page
+
+
+@heading Testing @code{@@/} and @code{@@-}
+
+@begingroup
+@hsize 10pt
+@code{a@/b}
+@code{c@-d}
+
+@endgroup
+
+
+@heading Testing @code{@@code} word recognition
+
+@begingroup
+@hsize 10pt
+q@code{r-_s}
+@code{t-_u}v
+
+@endgroup
+
+
+@heading Testing first and last single characters
+
+@begingroup
+@hsize 10pt
+
+@leavevmode @code{w xx}
+
+@leavevmode @code{yy z}
+
+@leavevmode @code{ä ó ß ç}
+
+@leavevmode @code{1 2 3}
+
+@endgroup
+
+@bye
