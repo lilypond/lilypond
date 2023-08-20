@@ -52,7 +52,10 @@ local DISC = node.id("disc")
 local GLUE = node.id("glue")
 local GLYPH = node.id("glyph")
 local HLIST = node.id("hlist")
+local KERN = node.id("kern")
 local PENALTY = node.id("penalty")
+
+local accentkern = 2 -- A subtype of 'kern'.
 
 
 -- This value must be the same as set in `common-macros.itexi` (using
@@ -71,13 +74,42 @@ code_hyphenate = function(head)
   local prev_font = -1
   local only_characters = true
 
+  local is_accent = 0 -- A counter up to value 3.
+  local in_word
+
   -- Loop over all nodes to find start and length of words, to be
-  -- stored in array `words`.
+  -- stored in array `words`.  We also take care of accented
+  -- characters: Because 7-bit CM fonts are used that don't contain
+  -- any precomposed accented characters, all of them are actually
+  -- composed of an accent and a base glyph.  In particular, TeX's
+  -- representation is
+  --
+  -- ```
+  -- <accent kern> + <accent glyph> + <accent kern> + <base glyph>
+  -- ```
+  --
+  -- Whenever we encounter an accent kern, we skip to the base glyph.
   for n in node.traverse(head) do
-    local in_word = false
+    if is_accent > 0 then
+      if is_accent == 3 then
+        is_accent = 0
+        in_word = false
+      else
+        is_accent = is_accent + 1
+        goto continue
+      end
+    else
+      in_word = false
+    end
 
     -- Handle only stuff in `@code`.
     if node.has_attribute(n, code_attribute) then
+      -- Skip accent.
+      if n.id == KERN and n.subtype == accentkern then
+        is_accent = 1
+        goto continue
+      end
+
       -- Only characters typeset with the same font are considered to
       -- be in the same word.
       if n.id == GLYPH and prev_font == n.font then
@@ -131,6 +163,14 @@ code_hyphenate = function(head)
         prev_font = -1
       end
     end
+    ::continue::
+  end -- end of for-loop
+
+  local skip_accent = function(n)
+    if n and n.id == KERN and n.subtype == accentkern then
+      n = n.next.next.next
+    end
+    return n
   end
 
   -- Item (1)
@@ -193,7 +233,7 @@ code_hyphenate = function(head)
     --
     -- and adjust the penalty after `-` if we have a hit.
     if word_len >= 5 then
-      local start = word_start
+      local start = word_start -- 'word_start' is never a KERN
       local len = word_len
 
       while len >= 5 do
@@ -206,14 +246,14 @@ code_hyphenate = function(head)
           goto no_match
         end
 
-        cur = cur.next
+        cur = skip_accent(cur.next)
         if cur.id ~= GLYPH then
           goto no_match
         end
 
         if cur.char == char_underscore
             and len >= 6 then
-          cur = cur.next
+          cur = skip_accent(cur.next)
           skip = 1
         elseif cur.char == char_hyphen
             and cur.next.id == PENALTY
@@ -230,11 +270,14 @@ code_hyphenate = function(head)
           goto no_match
         end
 
-        pen = cur.next
-        cur = cur.next.next
+        cur = skip_accent(cur.next)
+        pen = cur
+        cur = skip_accent(cur.next)
 
         if cur.id == GLYPH and umatch(uchar(cur.char), "[^_-]")
-            and cur.next.id == GLYPH then
+            and (cur.next.id == GLYPH
+                 or (cur.next.id == KERN
+                     and cur.next.subtype == accentkern)) then
           pen.penalty = tex.hyphenpenalty
           len = len - 3 - skip
           start = cur
@@ -243,7 +286,7 @@ code_hyphenate = function(head)
 
         ::no_match::
         len = len - 1
-        start = start.next
+        start = skip_accent(start.next)
 
         ::continue::
       end -- end of while-loop
@@ -259,11 +302,12 @@ code_hyphenate = function(head)
     --
     -- and insert a penalty after `_` if we have a hit.
     if word_len >= 4 then
-      local start = word_start
+      local start = word_start -- 'word_start' is never a KERN
       local len = word_len
 
       while len >= 4 do
         local cur = start
+        local penpos
         local skip = 0
 
         if not (cur.id == GLYPH
@@ -271,7 +315,7 @@ code_hyphenate = function(head)
           goto no_match
         end
 
-        cur = cur.next
+        cur = skip_accent(cur.next)
         if cur.id ~= GLYPH then
           goto no_match
         end
@@ -285,7 +329,7 @@ code_hyphenate = function(head)
         elseif cur.char == char_hyphen
             and cur.next.id == PENALTY
             and len >= 6 then
-          cur = cur.next.next
+          cur = skip_accent(cur.next.next)
           skip = 2
         end
 
@@ -293,14 +337,17 @@ code_hyphenate = function(head)
           goto no_match
         end
 
-        cur = cur.next
+        penpos = cur
+        cur = skip_accent(cur.next)
 
         if cur.id == GLYPH and umatch(uchar(cur.char), "[^_-]")
-            and cur.next.id == GLYPH then
+            and (cur.next.id == GLYPH
+                 or (cur.next.id == KERN
+                     and cur.next.subtype == accentkern)) then
           local pen = node.new(PENALTY)
           pen.penalty = tex.hyphenpenalty
           node.set_attribute(pen, code_attribute, 1)
-          node.insert_before(head, cur, pen)
+          node.insert_after(head, penpos, pen)
 
           len = len - 2 - skip
           start = cur
@@ -309,7 +356,7 @@ code_hyphenate = function(head)
 
         ::no_match::
         len = len - 1
-        start = start.next
+        start = skip_accent(start.next)
 
         ::continue::
       end -- end of while-loop
@@ -325,7 +372,7 @@ code_hyphenate = function(head)
     do
       local non_code = n
       if not node.has_attribute(non_code, code_attribute) then
-        local char = non_code.next
+        local char = skip_accent(non_code.next)
         if char
              and node.has_attribute(char, code_attribute)
              and char.id == GLYPH then
@@ -349,7 +396,7 @@ code_hyphenate = function(head)
       local space = n
       if node.has_attribute(space, code_attribute)
            and space.id == GLUE then
-        local char = space.next
+        local char = skip_accent(space.next)
         if char
              and node.has_attribute(char, code_attribute)
              and char.id == GLYPH then
