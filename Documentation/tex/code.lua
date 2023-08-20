@@ -169,8 +169,7 @@ code_hyphenate = function(head)
   -- ```
   --
   -- These regular expressions map to the cases below, which we are
-  -- going to implement.  We are a bit more strict and define a
-  -- 'character' as being either a letter or digit.
+  -- going to implement.
   --
   -- Note that in `texinfo.tex` a dash is actually already represented
   -- as a `-` glyph node followed by a penalty; we just have to adjust
@@ -203,7 +202,7 @@ code_hyphenate = function(head)
         local skip = 0
 
         if not (cur.id == GLYPH
-                and umatch(uchar(cur.char), "[%a%d]")) then
+                and umatch(uchar(cur.char), "[^_-]")) then
           goto no_match
         end
 
@@ -234,7 +233,7 @@ code_hyphenate = function(head)
         pen = cur.next
         cur = cur.next.next
 
-        if cur.id == GLYPH and umatch(uchar(cur.char), "[%a%d]")
+        if cur.id == GLYPH and umatch(uchar(cur.char), "[^_-]")
             and cur.next.id == GLYPH then
           pen.penalty = tex.hyphenpenalty
           len = len - 3 - skip
@@ -268,7 +267,7 @@ code_hyphenate = function(head)
         local skip = 0
 
         if not (cur.id == GLYPH
-                and umatch(uchar(cur.char), "[%a%d]")) then
+                and umatch(uchar(cur.char), "[^_-]")) then
           goto no_match
         end
 
@@ -296,7 +295,7 @@ code_hyphenate = function(head)
 
         cur = cur.next
 
-        if cur.id == GLYPH and umatch(uchar(cur.char), "[%a%d]")
+        if cur.id == GLYPH and umatch(uchar(cur.char), "[^_-]")
             and cur.next.id == GLYPH then
           local pen = node.new(PENALTY)
           pen.penalty = tex.hyphenpenalty
