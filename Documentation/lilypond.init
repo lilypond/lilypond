@@ -48,8 +48,22 @@ our $texinfo_version = $Texinfo::Common::VERSION;
 sub lilypond_from_element_direction {
     my ($converter, $direction, $type) = @_;
     if ($texinfo_version lt '7.0') {
-        return $converter->_element_direction($converter->{'current_element'},
-                                              $direction, $type);
+        my $element = $converter->{'current_element'};
+        if ($type ne 'section') {
+            return $converter->_element_direction($element, $direction, $type);
+        }
+
+        # Taken from the implementation of 'section' in Texinfo 6.8.
+        my $element_target = $element->{'extra'}->{'directions'}->{$direction};
+        if (defined($element_target)) {
+            my $section = $element_target->{'extra'}->{'section'};
+            if (defined($section)) {
+                return $converter->command_text($section, 'text_nonumber');
+            }
+        }
+
+        # Fall back to asking for $type = 'node'.
+        return $converter->_element_direction($element, $direction, 'node');
     } else {
         return $converter->from_element_direction($direction, $type);
     }
@@ -464,9 +478,7 @@ sub format_navigation_button {
     my $name = lilypond_from_element_direction($converter, $direction, 'node');
     if (!defined($name)) {
         $name = '';
-    } elsif ($texinfo_version ge '6.8' and $name ne 'Top') {
-        # FIXME: This is wrong and means that the nodes in the navigation panel
-        # do not show the translated section names!
+    } elsif ($name ne 'Top') {
         $name = lilypond_from_element_direction($converter, $direction, 'section');
     }
     my $text;
