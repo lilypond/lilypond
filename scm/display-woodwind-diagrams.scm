@@ -1362,7 +1362,7 @@
                   . ((offset . ,(assoc-get 'one CENTRAL-COLUMN-HOLE-PLACEMENTS))
                      (stencil . ,ring-column-circle-stencil)
                      (text? . #f)
-                     (complexity . trill)))
+                     (complexity . covered)))
                  (two
                   . ((offset . ,(assoc-get 'two CENTRAL-COLUMN-HOLE-PLACEMENTS))
                      (stencil . ,ring-column-circle-stencil)
