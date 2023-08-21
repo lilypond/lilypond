@@ -279,7 +279,6 @@ for specific notes and are available for the following instruments:
 @noindent
 Woodwind diagrams are created as markups:
 
-
 @lilypond[verbatim,quote,fragment]
 c''1^\markup {
   \woodwind-diagram #'piccolo #'((lh . (gis))
@@ -291,60 +290,40 @@ c''1^\markup {
 Keys can be open, partially-covered, ring-depressed, or fully
 covered. The angle of partially-covered keys can be specified:
 
-@lilypond[verbatim,quote,fragment]
-\textLengthOn
-c''1^\markup {
-  \center-column {
-    "one quarter"
+@lilypond[verbatim,quote]
+\markup \override #'(baseline-skip . 22) \column {
+  \override #'(baseline-skip . 2.5) \fill-line {
+    ""
+    \raise #1.2 \center-column { "one" "quarter" }
+    \raise #1.2 \center-column { "one" "half" }
+    \raise #1.2 \center-column { "three" "quarter" }
+    "ring"
+    "full"
+    \raise #1.2 \center-column { "one half," "vertical" }
+    ""
+  }
+  \fill-line {
+    ""
     \woodwind-diagram #'flute #'((cc . (one1q))
                                  (lh . ())
                                  (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "one half"
     \woodwind-diagram #'flute #'((cc . (one1h))
                                  (lh . ())
                                  (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "three quarter"
     \woodwind-diagram #'flute #'((cc . (one3q))
                                  (lh . ())
                                  (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "ring"
     \woodwind-diagram #'flute #'((cc . (oneR))
                                  (lh . ())
                                  (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "full"
     \woodwind-diagram #'flute #'((cc . (oneF two))
                                  (lh . ())
                                  (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "one half, vertical"
     \override #'(woodwind-diagram-details . ((fill-angle . 90)))
     \woodwind-diagram #'flute #'((cc . (one1h))
                                  (lh . ())
                                  (rh . ()))
+    ""
   }
 }
 @end lilypond
@@ -352,80 +331,76 @@ c''1^\markup {
 Trills are indicated as shaded keys, or in non-graphical mode,
 as either circled (the default) or shaded text:
 
-
-@lilypond[verbatim,quote,fragment]
-\textLengthOn
-c''1^\markup {
-  \woodwind-diagram #'bass-clarinet
-                    #'((cc . (threeT four))
-                       (lh . ())
-                       (rh . (b fis)))
-}
-
-c''1^\markup {
-  \override #'(graphical . #f)
-  \woodwind-diagram #'bass-clarinet
-                    #'((cc . (threeT four))
-                       (lh . ())
-                       (rh . (b fisT)))
-}
-
-c''1^\markup {
-  \override #'(graphical . #f)
-  \override #'(woodwind-diagram-details . ((text-trill-circled . #f)))
-  \woodwind-diagram #'bass-clarinet
-                    #'((cc . (threeT four))
-                       (lh . ())
-                       (rh . (b fisT)))
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(baseline-skip . 20)
+  \override #'(line-width . 50)
+  \column {
+    \fill-line {
+      ""
+      "standard"
+      "circled"
+      "shaded"
+      ""
+    }
+    \fill-line {
+      ""
+      \woodwind-diagram #'bass-clarinet
+                        #'((cc . (threeT four))
+                           (lh . ())
+                           (rh . (b fis)))
+      \override #'(graphical . #f)
+      \woodwind-diagram #'bass-clarinet
+                        #'((cc . (threeT four))
+                           (lh . ())
+                           (rh . (b fisT)))
+      \override #'(graphical . #f)
+      \override #'(woodwind-diagram-details
+                   . ((text-trill-circled . #f)))
+      \woodwind-diagram #'bass-clarinet
+                        #'((cc . (threeT four))
+                           (lh . ())
+                           (rh . (b fisT)))
+      ""
+    }
+  }
 }
 @end lilypond
 
 A variety of trills can be displayed:
 
-@lilypond[verbatim,quote,fragment]
-\textLengthOn
-c''1^\markup {
-  \center-column {
-    "one quarter to ring"
-    \woodwind-diagram #'flute #'((cc . (one1qTR))
-                                 (lh . ())
-                                 (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "ring to shut"
-    \woodwind-diagram #'flute #'((cc . (oneTR))
-                                 (lh . ())
-                                 (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "ring to open"
-    \woodwind-diagram #'flute #'((cc . (oneRT))
-                                 (lh . ())
-                                 (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "open to shut"
-    \woodwind-diagram #'flute #'((cc . (oneT))
-                                 (lh . ())
-                                 (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "one quarter to three quarters"
-    \woodwind-diagram #'flute #'((cc . (one1qT3q))
-                                 (lh . ())
-                                 (rh . ()))
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(baseline-skip . 22)
+  \column {
+    \override #'(baseline-skip . 2.5) \fill-line {
+      ""
+      \center-column { "one quarter" "to ring" }
+      \center-column { "ring" "to shut" }
+      \center-column { "ring" "to open" }
+      \center-column { "open" "to shut" }
+      \center-column { "one quarter to" "three quarters" }
+      ""
+    }
+    \fill-line {
+      ""
+      \woodwind-diagram #'flute #'((cc . (one1qTR))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (oneTR))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (oneRT))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (oneT))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (one1qT3q))
+                                   (lh . ())
+                                   (rh . ()))
+      ""
+    }
   }
 }
 @end lilypond
@@ -441,9 +416,6 @@ Scheme ability and may not be accessible to all users.  The
 patterns for the diagrams are in files
 @file{scm/define-@/woodwind-@/diagrams.scm} and
 @file{scm/display-@/woodwind-@/diagrams.scm}.
-
-@predefined
-@endpredefined
 
 
 @snippets
