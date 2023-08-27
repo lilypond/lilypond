@@ -1,0 +1,38 @@
+# vim: filetype=perl:softtabstop=4:tabstop=4
+
+# FIXME: Ideally translations should be handled via gettext in the lilypond-doc
+# domain. However, (a) our setup is quite broken at the moment and (b) using
+# libintl-perl is non-trivial because we set LANG=C during build time and that
+# completely disables the framework (see dance in tp/Texinfo/Translations.pm).
+
+use utf8;
+
+our $LILYPOND_DOC = {};
+
+$LILYPOND_DOC->{'ca'} = {
+    'Back to Documentation Index' => 'Torna a l\'índex de la documentació',
+};
+
+$LILYPOND_DOC->{'de'} = {
+    'Back to Documentation Index' => 'Zur Dokumentationsübersicht',
+};
+
+$LILYPOND_DOC->{'es'} = {
+    'Back to Documentation Index' => 'Volver al índice de la documentación',
+};
+
+$LILYPOND_DOC->{'fr'} = {
+    'Back to Documentation Index' => 'Retour à l\'accueil de la documentation',
+};
+
+$LILYPOND_DOC->{'it'} = {
+    'Back to Documentation Index' => 'Torna all\'indice della documentazione',
+};
+
+$LILYPOND_DOC->{'ja'} = {
+    'Back to Documentation Index' => 'ドキュメント インデックスに戻る',
+};
+
+$LILYPOND_DOC->{'zh'} = {
+    'Back to Documentation Index' => '回到文档索引',
+};

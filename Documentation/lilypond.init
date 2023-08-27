@@ -28,6 +28,20 @@ use strict;
 
 use Encode qw(decode);
 
+# Function to get translated functions. See comment in lilypond-lang.init for
+# a better setup.
+our $LILYPOND_DOC;
+defined($LILYPOND_DOC) or die('did you load lilypond-lang.init');
+sub lilypond_gdt {
+    my ($language, $msgid) = @_;
+
+    if ($language ne 'en' and defined($LILYPOND_DOC->{$language}->{$msgid})) {
+        return $LILYPOND_DOC->{$language}->{$msgid};
+    } else {
+        return $msgid;
+    }
+}
+
 our $texinfo_version = $Texinfo::Common::VERSION;
 
 # Compatibility function for links to Top node.
@@ -325,9 +339,8 @@ sub lilypond_format_tocheader {
         $reldir .= '/';
     }
     my $uplink = "${reldir}Documentation/web/manuals.${lang_ext}html";
-    # TODO: Make these translatable...
-    my $uplink_text = 'Back to Documentation Index';
-    my $uplink_title = 'Documentation Index';
+    my $uplink_text = lilypond_gdt($lang, 'Back to Documentation Index');
+    my $uplink_title = lilypond_gdt($lang, 'Documentation Index');
 
     my $title;
     if ($texinfo_version lt '7.0') {
