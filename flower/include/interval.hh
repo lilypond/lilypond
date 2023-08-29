@@ -296,7 +296,7 @@ TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T> &, Interval__compare,
 );
 
 template <>
-inline Real
+constexpr Real
 Interval_t<Real>::center () const
 {
   // This specialization omits the assert () that is present in the default
