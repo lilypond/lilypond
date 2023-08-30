@@ -1786,49 +1786,7 @@ settingsFrom =
    (_i "Take the layout instruction events from @var{music}, optionally
 restricted to those applying to context type @var{ctx}, and return
 a context modification duplicating their effect.")
-   (let ((mods (ly:make-context-mod)))
-     (define (musicop m)
-       (if (music-is-of-type? m 'layout-instruction-event)
-           (ly:add-context-mod
-            mods
-            (case (ly:music-property m 'name)
-              ((PropertySet)
-               (list 'assign
-                     (ly:music-property m 'symbol)
-                     (ly:music-property m 'value)))
-              ((PropertyUnset)
-               (list 'unset
-                     (ly:music-property m 'symbol)))
-              ((OverrideProperty)
-               (cons* 'push
-                      (ly:music-property m 'symbol)
-                      (ly:music-property m 'grob-value)
-                      (cond
-                       ((ly:music-property m 'grob-property #f) => list)
-                       (else
-                        (ly:music-property m 'grob-property-path)))))
-              ((RevertProperty)
-               (cons* 'pop
-                      (ly:music-property m 'symbol)
-                      (cond
-                       ((ly:music-property m 'grob-property #f) => list)
-                       (else
-                        (ly:music-property m 'grob-property-path)))))))
-           (case (ly:music-property m 'name)
-             ((ApplyContext)
-              (ly:add-context-mod mods
-                                  (list 'apply
-                                        (ly:music-property m 'procedure))))
-             ((ContextSpeccedMusic)
-              (if (or (not ctx)
-                      (eq? ctx (ly:music-property m 'context-type)))
-                  (musicop (ly:music-property m 'element))))
-             (else
-              (let ((callback (ly:music-property m 'elements-callback)))
-                (if (procedure? callback)
-                    (for-each musicop (callback m))))))))
-     (musicop music)
-     mods))
+   (context-mod-from-music m ctx))
 
 shape =
 #(define-music-function (offsets item)

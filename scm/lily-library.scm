@@ -315,42 +315,43 @@ bookoutput function"
                        (add-score score))
                      music))
 
-(define-public (context-mod-from-music music)
+(define*-public (context-mod-from-music music #:optional context)
   (let ((warn #t) (mods (ly:make-context-mod)))
     (let loop ((m music))
       (if (music-is-of-type? m 'layout-instruction-event)
-          (let ((symbol (ly:music-property m 'symbol)))
-            (ly:add-context-mod
-             mods
-             (case (ly:music-property m 'name)
-               ((PropertySet)
-                (list 'assign
-                      symbol
-                      (ly:music-property m 'value)))
-               ((PropertyUnset)
-                (list 'unset symbol))
-               ((OverrideProperty)
-                (cons* 'push
-                       symbol
-                       (ly:music-property m 'grob-value)
-                       (cond
-                        ((ly:music-property m 'grob-property #f) => list)
-                        (else
-                         (ly:music-property m 'grob-property-path)))))
-               ((RevertProperty)
-                (cons* 'pop
-                       symbol
-                       (cond
-                        ((ly:music-property m 'grob-property #f) => list)
-                        (else
-                         (ly:music-property m 'grob-property-path))))))))
+          (ly:add-context-mod
+           mods
+           (case (ly:music-property m 'name)
+             ((PropertySet)
+              (list 'assign
+                    (ly:music-property m 'symbol)
+                    (ly:music-property m 'value)))
+             ((PropertyUnset)
+              (list 'unset (ly:music-property m 'symbol)))
+             ((OverrideProperty)
+              (cons* 'push
+                     (ly:music-property m 'symbol)
+                     (ly:music-property m 'grob-value)
+                     (cond
+                      ((ly:music-property m 'grob-property #f) => list)
+                      (else
+                       (ly:music-property m 'grob-property-path)))))
+             ((RevertProperty)
+              (cons* 'pop
+                     (ly:music-property m 'symbol)
+                     (cond
+                      ((ly:music-property m 'grob-property #f) => list)
+                      (else
+                       (ly:music-property m 'grob-property-path)))))))
           (case (ly:music-property m 'name)
             ((ApplyContext)
              (ly:add-context-mod mods
                                  (list 'apply
                                        (ly:music-property m 'procedure))))
             ((ContextSpeccedMusic)
-             (loop (ly:music-property m 'element)))
+             (if (or (not context)
+                     (eq? context (ly:music-property m 'context-type)))
+                 (loop (ly:music-property m 'element))))
             (else
              (let ((callback (ly:music-property m 'elements-callback)))
                (if (procedure? callback)
