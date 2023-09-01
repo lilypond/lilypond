@@ -34,11 +34,13 @@ defaultNoteHeads = {
 accidentalStyle =
 #(define-music-function
    (style) (symbol-list?)
-   (_i "Set accidental style to symbol list @var{style} in the form
-@samp{piano-cautionary}.  If @var{style} has a form like
-@samp{Staff.piano-cautionary}, the settings are applied to that
-context.  Otherwise, the context defaults to @samp{Staff}, except for
-piano styles, which use @samp{GrandStaff} as a context." )
+   (_i "Set accidental style to @var{style}.
+
+@var{style} is a (predefined) symbol list like @code{piano-cautionary};
+@pxref{Automatic accidentals} for the available styles.  If it is preceded by a
+context name, the settings are applied to that context (example:
+@code{Staff@/.piano-cautionary}).  Otherwise, the context defaults to
+@code{Staff}, except for piano styles, which use @code{GrandStaff} as a context.")
    (case (length style)
     ((1) (set-accidental-style (car style)))
     ((2) (set-accidental-style (cadr style) (car style)))
@@ -317,8 +319,11 @@ improvisationOff = {
 
 incipit =
 #(define-music-function (incipit-music) (ly:music?)
-  (_i "Output @var{incipit-music} before the main staff as an indication of
-    its appearance in the original music.")
+  (_i "Output @var{incipit-music} as an incipit.
+
+@var{incipit-music} is typeset within a @code{MensuralStaff} context; the result
+is positioned before the main staff (as part of an @code{InstrumentName} grob)
+to indicate the music's original notation.")
   #{
     \once \override Staff.InstrumentName.stencil =
       #(lambda (grob)
@@ -458,7 +463,22 @@ palmMute =
 
 partCombineForce =
 #(define-music-function (type) ((symbol?))
-   (_i "Override the part-combiner.")
+   (_i "Override the part-combiner mode with @var{type}.
+
+The following table gives the possible values for @var{type}, together with the
+corresponding shorthand functions.
+
+@indentedBlock
+@multitable @columnfractions .2 .4
+@item @code{apart}     @tab @code{\\partCombineApart}
+@item @code{chords}    @tab @code{\\partCombineChords}
+@item @code{unisono}   @tab @code{\\partCombineUnisono}
+@item @code{solo1}     @tab @code{\\partCombineSoloI}
+@item @code{solo2}     @tab @code{\\partCombineSoloII}
+@item @code{\\default} @tab @code{\\partCombineAutomatic}
+@end multitable
+@endIndentedBlock
+")
    (if type (propertySet 'partCombineForced type)
        (propertyUnset 'partCombineForced)))
 
@@ -481,8 +501,14 @@ phrasingSlurNeutral = \revert PhrasingSlur.direction
 phrasingSlurDashPattern =
 #(define-music-function (dash-fraction dash-period)
    (number? number?)
-   (_i "Set up a custom style of dash pattern for @var{dash-fraction} ratio of
-line to space repeated at @var{dash-period} interval for phrasing slurs.")
+   (_i "Set up a custom dash pattern style for phrasing slurs.
+
+@var{dash-fraction} gives the size of one dash relative to @var{dash-period};
+@var{dash-period} is the length of one dash plus one space.  LilyPond adjusts
+@var{dash-period} to produce symmetrical output.
+
+More complex patterns can be achieved by directly manipulating the
+@code{PhrasingSlur@/.dash-definition} property.")
   #{
      \override PhrasingSlur.dash-definition =
        $(make-simple-dash-definition dash-fraction dash-period)
@@ -505,20 +531,25 @@ phrasingSlurSolid =
 
 pointAndClickOn  =
 #(define-void-function () ()
-   (_i "Enable generation of code in final-format (e.g. pdf) files to reference the
-originating lilypond source statement;
-this is helpful when developing a score but generates bigger final-format files.")
+   (_i "Generate links to LilyPond source code in music output.
+
+This enables the creation of code in a PDF or SVG output file to reference the
+originating LilyPond source code (i.e., file name, line number, and column).
+This is helpful when developing a score; however, the output file becomes much
+larger.")
    (ly:set-option 'point-and-click #t))
 
 pointAndClickOff =
 #(define-void-function () ()
-   (_i "Suppress generating extra code in final-format (e.g. pdf) files to point
-back to the lilypond source statement.")
+   (_i "Suppress links to LilyPond source code in music output.")
    (ly:set-option 'point-and-click #f))
 
 pointAndClickTypes =
 #(define-void-function (types) (symbol-list-or-symbol?)
-  (_i "Set a type or list of types (such as @code{#'note-event}) for which point-and-click info is generated.")
+   (_i "Generate point-and-click info for music of type @var{types} only.
+
+@var{types} is a single music expression (such as @code{#'note-event}) or a list
+of music expressions.")
   (ly:set-option 'point-and-click types))
 
 %% predefined fretboards
@@ -572,8 +603,14 @@ slurNeutral    = \revert Slur.direction
 slurDashPattern =
 #(define-music-function (dash-fraction dash-period)
   (number? number?)
-  (_i "Set up a custom style of dash pattern for @var{dash-fraction}
-ratio of line to space repeated at @var{dash-period} interval for slurs.")
+   (_i "Set up a custom dash pattern style for slurs.
+
+@var{dash-fraction} gives the size of one dash relative to @var{dash-period};
+@var{dash-period} is the length of one dash plus one space.  LilyPond adjusts
+@var{dash-period} to produce symmetrical output.
+
+More complex patterns can be achieved by directly manipulating the
+@code{Slur@/.dash-definition} property.")
   #{
      \override Slur.dash-definition =
        $(make-simple-dash-definition dash-fraction dash-period)
@@ -744,8 +781,14 @@ tieNeutral = \revert Tie.direction
 tieDashPattern =
 #(define-music-function (dash-fraction dash-period)
   (number? number?)
-  (_i "Set up a custom style of dash pattern for @var{dash-fraction}
-ratio of line to space repeated at @var{dash-period} interval for ties.")
+  (_i "Set up a custom dash pattern style for ties.
+
+@var{dash-fraction} gives the size of one dash relative to @var{dash-period};
+@var{dash-period} is the length of one dash plus one space.  LilyPond adjusts
+@var{dash-period} to produce symmetrical output.
+
+More complex patterns can be achieved by directly manipulating the
+@code{Tie@/.dash-definition} property.")
   #{
      \override Tie.dash-definition =
        $(make-simple-dash-definition dash-fraction dash-period)
