@@ -147,8 +147,10 @@ augmentum =
                             (make-span-event 'LigatureEvent STOP)))))))
 
 ligature =
-#(define-music-function
-   (location music) (ly:music?)
+#(define-music-function (music) (ly:music?)
+   (_i "Make a ligature from Gregorian Chant @var{music}.
+
+This is equivalent to enclosing @var{music} with @code{\\[} and @code{\\]}.")
    (make-ligature music))
 
 %%% Local Variables:
