@@ -51,14 +51,14 @@ iij = \lyricmode { iĳ }
                    m))))
       music)))
 
-% Add U+2123 (versicle) as prefix to lyrics.
 versus =
 #(define-music-function (music) (ly:music?)
+   (_i "Prepend character U+2123 (@sc{versicle}) to the lyrics represented by @var{music}.")
    (add-prefix-to-lyrics "℣" music))
 
-% Add U+211F (response) as prefix to lyrics.
 responsum =
 #(define-music-function (music) (ly:music?)
+   (_i "Prepend character U+211F (@sc{response}) to the lyrics represented by @var{music}.")
    (add-prefix-to-lyrics "℟" music))
 
 %
@@ -124,6 +124,7 @@ circulus = #(make-articulation 'circulus)
 %
 augmentum =
 #(define-music-function (expr) (ly:music?)
+   (_i "Add augmentum dots (@dfn{morae}) to Gregorian chant @var{expr}.")
    (shift-duration-log expr 0 1))
 
 %

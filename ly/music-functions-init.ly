@@ -1955,10 +1955,12 @@ property-changing music that isn't an @code{\\override}.")
 
 textMark =
 #(define-music-function (text) (markup?)
+   (_i "Create a (left-aligned) text mark using @var{text}.")
    (make-music 'TextMarkEvent 'text text 'horizontal-direction RIGHT))
 
 textEndMark =
 #(define-music-function (text) (markup?)
+   (_i "Create a right-aligned text mark using @var{text}.")
    (make-music 'TextMarkEvent 'text text 'horizontal-direction LEFT))
 
 time =
