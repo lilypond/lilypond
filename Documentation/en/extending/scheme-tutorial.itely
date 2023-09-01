@@ -656,11 +656,13 @@ methods for including Scheme in LilyPond.
 The simplest way is to use a hash mark@tie{}@code{#} before a Scheme
 expression.
 
+@c FIXME: the following is way too technical
+
 Now LilyPond's input is structured into tokens and expressions, much
 like human language is structured into words and sentences.  LilyPond
 has a lexer that recognizes tokens (literal numbers, strings, Scheme
-elements, pitches and so on), and a parser that understands the syntax,
-@rcontrib{LilyPond grammar}.  Once it knows that a particular syntax rule
+elements, pitches and so on), and a parser that understands the syntax.
+Once it knows that a particular syntax rule
 applies, it executes actions associated with it.
 
 The hash mark@tie{}@code{#} method of embedding Scheme is a natural fit
