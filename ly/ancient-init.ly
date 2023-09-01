@@ -53,12 +53,14 @@ iij = \lyricmode { iĳ }
 
 versus =
 #(define-music-function (music) (ly:music?)
-   (_i "Prepend character U+2123 (@sc{versicle}) to the lyrics represented by @var{music}.")
+   (_i "Prepend character U+2123 (@sc{versicle}) to the lyrics represented by
+@var{music}.")
    (add-prefix-to-lyrics "℣" music))
 
 responsum =
 #(define-music-function (music) (ly:music?)
-   (_i "Prepend character U+211F (@sc{response}) to the lyrics represented by @var{music}.")
+   (_i "Prepend character U+211F (@sc{response}) to the lyrics represented by
+@var{music}.")
    (add-prefix-to-lyrics "℟" music))
 
 %

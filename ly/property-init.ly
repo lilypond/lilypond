@@ -32,8 +32,7 @@ defaultNoteHeads = {
 }
 
 accidentalStyle =
-#(define-music-function
-   (style) (symbol-list?)
+#(define-music-function (style) (symbol-list?)
    (_i "Set accidental style to @var{style}.
 
 @var{style} is a (predefined) symbol list like @code{piano-cautionary};
@@ -499,8 +498,7 @@ phrasingSlurNeutral = \revert PhrasingSlur.direction
 
 % dash-patterns (make-simple-dash-definition defined at top of file)
 phrasingSlurDashPattern =
-#(define-music-function (dash-fraction dash-period)
-   (number? number?)
+#(define-music-function (dash-fraction dash-period) (number? number?)
    (_i "Set up a custom dash pattern style for phrasing slurs.
 
 @var{dash-fraction} gives the size of one dash relative to @var{dash-period};
@@ -601,8 +599,7 @@ slurNeutral    = \revert Slur.direction
 
 % dash-patterns (make-simple-dash-definition defined at top of file)
 slurDashPattern =
-#(define-music-function (dash-fraction dash-period)
-  (number? number?)
+#(define-music-function (dash-fraction dash-period) (number? number?)
    (_i "Set up a custom dash pattern style for slurs.
 
 @var{dash-fraction} gives the size of one dash relative to @var{dash-period};
@@ -779,8 +776,7 @@ tieNeutral = \revert Tie.direction
 
 % dash-patterns (make-simple-dash-definition defined at top of file)
 tieDashPattern =
-#(define-music-function (dash-fraction dash-period)
-  (number? number?)
+#(define-music-function (dash-fraction dash-period) (number? number?)
   (_i "Set up a custom dash pattern style for ties.
 
 @var{dash-fraction} gives the size of one dash relative to @var{dash-period};

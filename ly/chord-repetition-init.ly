@@ -34,23 +34,21 @@
 %}
 
 chordRepeats =
-#(define-music-function (event-types music)
-   ((list? '()) ly:music?)
+#(define-music-function (event-types music) ((list? '()) ly:music?)
    "Extend @samp{q} to also repeat articulation.
 
 This function walks through @var{music}, putting the notes of the previous chord
-into repeat chords, as well as an optional list of @var{event-types}
-such as @code{#'(string-number-event)}."
+into repeat chords, as well as an optional list of @var{event-types} such as
+@code{#'(string-number-event)}."
    (expand-repeat-chords! (cons 'rhythmic-event event-types) music))
 
 tabChordRepeats =
-#(define-music-function (event-types music)
-   ((list? '()) ly:music?)
+#(define-music-function (event-types music) ((list? '()) ly:music?)
    "Extend @samp{q} to also repeat string and fingering information.
 
 This function walks through @var{music} putting the notes, fingerings and string
-numbers of the previous chord into repeat chords, as well as an
-optional list of @var{event-types} such as @code{#'(articulation-event)}."
+numbers of the previous chord into repeat chords, as well as an optional list of
+@var{event-types} such as @code{#'(articulation-event)}."
    #{ \chordRepeats
       #(append '(string-number-event fingering-event) event-types)
       #music

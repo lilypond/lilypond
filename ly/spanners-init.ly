@@ -22,13 +22,15 @@
 #(define-event-function (id event) (key? ly:event?)
   (_i "Assign an ID to a spanner.
 
-This sets the @code{spanner-id} property of
-@var{event} to the given @var{id}, which is a non-negative integer or a symbol.
-This can be used to tell LilyPond how to connect overlapping
-or parallel slurs or phrasing slurs within a single @code{Voice} context.
+This sets the @code{spanner-id} property of @var{event} to the given @var{id},
+which is a non-negative integer or a symbol.  This can be used to tell LilyPond
+how to connect overlapping or parallel slurs or phrasing slurs within a single
+@code{Voice} context.
+
 @lilypond[quote,verbatim]
 \\fixed c' { c\\=1( d\\=2( e\\=1) f\\=2) }
-@end lilypond\n")
+@end lilypond
+")
   (set! (ly:music-property event 'spanner-id) id)
   event)
 

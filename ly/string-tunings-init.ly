@@ -30,8 +30,9 @@ stringTuning =
 #(define-scheme-function (chord)
    (ly:music?)
    (_i "Convert @var{chord} to a string tuning.
-@var{chord} must be in absolute pitches and should have the highest
-string number (generally the lowest pitch) first.")
+
+@var{chord} must be in absolute pitches and should have the highest string
+number (generally the lowest pitch) first.")
    (let* ((ev-chord (car (extract-named-music chord 'EventChord))))
      (reverse! (event-chord-pitches ev-chord))))
 
@@ -41,8 +42,8 @@ makeDefaultStringTuning =
 #(define-void-function (symbol pitches) (symbol? list?)
    (_i "Define string tuning @var{symbol} by a list of @var{pitches}.
 
-@var{symbol} also gets registered in @code{defaultStringTunings}
-for documentation purposes.")
+@var{symbol} also gets registered in @code{defaultStringTunings} for
+documentation purposes.")
    (ly:parser-define! symbol pitches)
    (set! defaultStringTunings (acons symbol pitches defaultStringTunings)))
 

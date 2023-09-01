@@ -34,8 +34,8 @@ addChordShape =
    (symbol? pair? string-or-pair?)
    (_i "Add @var{shape-definition} as a chord shape.
 
-It gets added to the @code{chord-shape-table}
-hash with the key @code{(cons @var{key-symbol} @var{tuning})}.")
+It gets added to the @code{chord-shape-table} hash with the key @code{(cons
+@var{key-symbol} @var{tuning})}.")
    (hash-set! chord-shape-table
                (cons key-symbol tuning)
                shape-definition))
@@ -68,8 +68,8 @@ storePredefinedDiagram =
    (hash-table? ly:music? pair? string-or-pair?)
   (_i "Add a predefined fret diagram to @var{fretboard-table}.
 
-It is defined by @var{diagram-definition}
-for the chord pitches @var{chord} and the string tuning @var{tuning}.")
+It is defined by @var{diagram-definition} for the chord pitches @var{chord} and
+the string tuning @var{tuning}.")
   (let* ((pitches (event-chord-pitches
                     (car (extract-named-music chord 'EventChord))))
          (hash-key (cons tuning pitches))

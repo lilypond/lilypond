@@ -183,8 +183,7 @@ tocItem =
 #(define-music-function (label text) ((symbol-list-or-symbol? '()) markup?)
    (_i "Add @var{text} as an entry to the table of contents.
 
-This uses the @code{tocItemMarkup}
-paper variable markup for formatting and assigns it to @var{label} if one is provided.
-If a hierarchy of labels is given, make the current item a child of
-the corresponding objects.")
+This uses the @code{tocItemMarkup} paper variable markup for formatting and
+assigns it to @var{label} if one is provided.  If a hierarchy of labels is
+given, make the current item a child of the corresponding objects.")
    (add-toc-item! 'tocItemMarkup text label))
