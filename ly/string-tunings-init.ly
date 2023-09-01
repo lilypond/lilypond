@@ -39,8 +39,9 @@ defaultStringTunings = #'()
 
 makeDefaultStringTuning =
 #(define-void-function (symbol pitches) (symbol? list?)
-   (_i "This defines a string tuning @var{symbol} via a list of @var{pitches}.
-The @var{symbol} also gets registered in @code{defaultStringTunings}
+   (_i "Define string tuning @var{symbol} by a list of @var{pitches}.
+
+@var{symbol} also gets registered in @code{defaultStringTunings}
 for documentation purposes.")
    (ly:parser-define! symbol pitches)
    (set! defaultStringTunings (acons symbol pitches defaultStringTunings)))

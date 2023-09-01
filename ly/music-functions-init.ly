@@ -32,21 +32,23 @@
 absolute =
 #(define-music-function (music)
    (ly:music?)
-   (_i "Make @var{music} absolute.  This does not actually change the
+   (_i "Make @var{music} absolute.
+
+This does not actually change the
 music itself but rather hides it from surrounding @code{\\relative}
 and @code{\\fixed} commands.")
    (make-music 'RelativeOctaveMusic 'element music))
 
 acciaccatura =
 #(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic
-   (_i "Create an acciaccatura from the following music expression"))
+   (_i "Create an acciaccatura from @var{music}."))
 
 %% keep these two together
 instrument-definitions = #'()
 addInstrumentDefinition =
 #(define-void-function
    (name lst) (string? list?)
-   (_i "Create instrument @var{name} with properties @var{list}.
+   (_i "Create instrument @var{name} with properties @var{lst}.
 
 This function is deprecated.")
    (set! instrument-definitions (acons name lst instrument-definitions)))
@@ -54,13 +56,14 @@ This function is deprecated.")
 addQuote =
 #(define-void-function (name music) (string? ly:music?)
    (_i "Define @var{music} as a quotable music expression named
-@var{name}")
+@var{name}.")
    (add-quotable name music))
 
 after =
 #(define-music-function (delta ev mus) (ly:duration? ly:music? ly:music?)
-  (_i "Add music @var{ev} (usually a post-event) with a delay of @var{delta}
-after the onset of @var{mus}.")
+  (_i "Add music @var{ev} with a delay of @var{delta} after the onset of @var{mus}.
+
+@var{ev} is usually a post-event.")
   (define (empty-chord? m)
      "Checks whether m is an empty chord <>."
      (and (music-is-of-type? m 'event-chord)
@@ -107,7 +110,9 @@ given fraction of the main note's duration has passed.  If
 %% so this is a music-function instead.
 allowPageTurn =
 #(define-music-function () ()
-   (_i "Allow a page turn. May be used at toplevel (ie between scores or
+   (_i "Allow a page turn.
+
+May be used at top level (i.e., between scores or
 markups), or inside a score.")
    (make-music 'EventChord
                'page-marker #t
@@ -139,8 +144,9 @@ form of a spanner event, @var{property} may also have the form
 appendToTag =
 #(define-music-function (tag more music)
    (symbol? ly:music? ly:music?)
-   (_i "Append @var{more} to the back of music tagged with @var{tag}.  A
-@code{post-event} can be added to the articulations of rhythmic events
+   (_i "Append @var{more} to @var{music} tagged with @var{tag}.
+
+A post-event can be added to the articulations of rhythmic events
 or chords; other expressions may be added to chords, sequential or
 simultaneous music.")
    (define (add-right m more)
@@ -199,7 +205,10 @@ applyMusic =
 applyOutput =
 #(define-music-function (target proc) (symbol-list-or-symbol? procedure?)
    (_i "Apply function @code{proc} to every layout object matched by
-@var{target} which takes the form @code{Context} or @code{Context.Grob}.")
+@var{target}.
+
+@var{target} takes the form @code{@var{Context}} or
+@code{@var{Context}@/.@var{Grob}}.")
    (let ((p (check-grob-path target #:max 2)))
      (if p
          (make-music 'ApplyOutputEvent
@@ -212,18 +221,18 @@ applyOutput =
 
 appoggiatura =
 #(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic
-   (_i "Create an appoggiatura from @var{music}"))
+   (_i "Create an appoggiatura from @var{music}."))
 
 % for regression testing purposes.
 assertBeamQuant =
 #(define-music-function (l r) (pair? pair?)
-   (_i "Testing function: check whether the beam quants @var{l} and @var{r} are correct")
+   (_i "Testing function: check whether the beam quants @var{l} and @var{r} are correct.")
    (make-grob-property-override 'Beam 'positions (check-quant-callbacks l r)))
 
 % for regression testing purposes.
 assertBeamSlope =
 #(define-music-function (comp) (procedure?)
-   (_i "Testing function: check whether the slope of the beam is the same as @code{comp}")
+   (_i "Testing function: check whether the slope of the beam is the same as @var{comp}.")
    (make-grob-property-override 'Beam 'positions (check-slope-callbacks comp)))
 
 autoChange =
@@ -250,7 +259,7 @@ balloonGrobText =
 #(define-music-function (grob-name offset text)
    (symbol? number-pair? markup?)
    (_i "Attach @var{text} to @var{grob-name} at offset @var{offset}
- (use like @code{\\once})")
+ (use like @code{\\once}).")
    (make-event-chord
     (list
      (make-music 'AnnotateOutputEvent
@@ -261,7 +270,7 @@ balloonGrobText =
 
 balloonText =
 #(define-event-function (offset text) (number-pair? markup?)
-   (_i "Attach @var{text} at @var{offset} (use like @code{\\tweak})")
+   (_i "Attach @var{text} at @var{offset} (use like @code{\\tweak}).")
    (make-music 'AnnotateOutputEvent
                'X-offset (car offset)
                'Y-offset (cdr offset)
@@ -288,9 +297,11 @@ barNumberCheck =
 
 beamExceptions =
 #(define-scheme-function (music) (ly:music?)
-   (_i "Extract a value suitable for setting
+   (_i "Set beam exceptions.
+
+This function extracts a value suitable for setting
 @code{Timing.beamExceptions} from the given pattern with explicit
-beams in @var{music}.  A bar check @code{|} has to be used between
+beams in @var{music}.  A bar check @samp{|} has to be used between
 bars of patterns in order to reset the timing.")
    (extract-beam-exceptions music))
 
@@ -303,8 +314,8 @@ bendAfter =
 %% BendSpanner convenience event functions
 bendStartLevel =
 #(define-event-function (idx mus)(index? ly:music?)
-   (_i "Sets the @code{details.successive-level} of a @code{BendSpanner} to
-@var{idx}.")
+   (_i "Set @code{Bendspanner.details.successive-level} to @var{idx} for
+@var{mus}.")
 #{
   \tweak details.successive-level $idx
   $mus
@@ -312,7 +323,7 @@ bendStartLevel =
 
 bendHold =
 #(define-event-function (mus)(ly:music?)
-   (_i "Sets the @code{'style} of a @code{BendSpanner} to @code{'hold}.")
+   (_i "Set @code{BendSpanner.style} to @code{'hold} for @var{mus}.")
 #{
   \tweak style #'hold
   \tweak details.head-text-break-visibility ##(#t #t #f)
@@ -321,7 +332,7 @@ bendHold =
 
 preBend =
 #(define-event-function (mus)(ly:music?)
-   (_i "Sets the @code{'style} of a @code{BendSpanner} to @code{'pre-bend}.")
+   (_i "Set @code{BendSpanner.style} to @code{'pre-bend} for @var{mus}.")
 #{
   \tweak style #'pre-bend
   \tweak details.head-text-break-visibility ##(#t #t #f)
@@ -330,8 +341,7 @@ preBend =
 
 preBendHold =
 #(define-event-function (mus)(ly:music?)
-   (_i "Sets the @code{'style} of a @code{BendSpanner} to
-@code{'pre-bend-hold}.")
+   (_i "Set @code{BendSpanner.style} to @code{'pre-bend-hold} for @var{mus}.")
 #{
   \tweak style #'pre-bend-hold
   \tweak details.head-text-break-visibility ##(#t #t #f)
@@ -374,7 +384,9 @@ clef =
 
 codaMark =
 #(define-music-function (num) ((index?))
-   (_i "Create a coda mark.  @var{num} may be 1@tie{}for the first
+   (_i "Create a coda mark.
+
+@var{num} may be 1@tie{}for the first
 mark, 2@tie{}for the second, etc., or it may be @code{\\default} to
 use the next number in sequence automatically.")
    (if num
@@ -409,8 +421,7 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
 
 compressMMRests =
 #(define-music-function (music) (ly:music?)
-  (_i "Remove the empty bars created by multi-measure rests,
-leaving just the first bar containing the MM rest itself.")
+   (_i "Convert empty bars to multi-measure rests in @var{music}.")
    (music-map
     (lambda (m)
       (if (eq? 'MultiMeasureRestMusic (ly:music-property m 'name))
@@ -420,7 +431,7 @@ leaving just the first bar containing the MM rest itself.")
 
 crossStaff =
 #(define-music-function (notes) (ly:music?)
-  (_i "Create cross-staff stems")
+  (_i "Create cross-staff stems for @var{notes}.")
   #{
   \temporary \override Stem.cross-staff = #cross-staff-connect
   \temporary \override Flag.style = #'no-flag
@@ -572,17 +583,18 @@ fixed =
 footnote =
 #(define-music-function (mark offset footnote item)
    ((markup?) number-pair? markup? symbol-list-or-music?)
-   (_i "Make the markup @var{footnote} a footnote on @var{item}.  The
-footnote is marked with a markup @var{mark} moved by @var{offset} with
+   (_i "Make the markup @var{footnote} a footnote on @var{item}.
+
+The footnote is marked with a markup @var{mark} moved by @var{offset} with
 respect to the marked music.
 
 If @var{mark} is not given or specified as @code{\\default}, it is
 replaced by an automatically generated sequence number.  If @var{item}
-is a symbol list of form @samp{@var{Grob}} or @samp{@var{Context.Grob}}, then
-grobs of that type will be marked at the current time step in the
+is a symbol list of form @code{@var{Grob}} or @code{@var{Context}@/.@var{Grob}}, then
+grobs of that type are marked at the current time step in the
 given context (default @code{Bottom}).
 
-If @var{item} is music, the music will get a footnote attached to a
+If @var{item} is music, the music gets a footnote attached to a
 grob immediately attached to the event, like @code{\\tweak} does.  For
 attaching a footnote to an @emph{indirectly} caused grob, write
 @code{\\single\\footnote}, use @var{item} to specify the grob, and
@@ -590,7 +602,7 @@ follow it with the music to annotate.
 
 Like with @code{\\tweak}, if you use a footnote on a following
 post-event, the @code{\\footnote} command itself needs to be attached
-to the preceding note or rest as a post-event with @code{-}.")
+to the preceding note or rest as a post-event with @samp{-}.")
    (let ((mus (make-music
                'FootnoteEvent
                'X-offset (car offset)
@@ -606,12 +618,19 @@ grace =
 
 grobdescriptions =
 #(define-scheme-function (descriptions) (list?)
-   (_i "Create a context modification from @var{descriptions}, a list
+   (_i "Create a context modification from @var{descriptions}.
+
+The argument is a list
 in the format of @code{all-grob-descriptions}.")
    (ly:make-context-mod `((grob-descriptions ,descriptions))))
 
-harmonicByFret = #(define-music-function (fret music) (number? ly:music?)
-  (_i "Convert @var{music} into mixed harmonics; the resulting notes resemble
+
+
+harmonicByFret =
+#(define-music-function (fret music) (number? ly:music?)
+   (_i "Convert @var{music} into mixed harmonics.
+
+The resulting notes resemble
 harmonics played on a fretted instrument by touching the strings at @var{fret}.")
   #{
     \set harmonicDots = ##t
@@ -627,8 +646,11 @@ harmonics played on a fretted instrument by touching the strings at @var{fret}."
     \revert NoteHead.stencil
   #})
 
-harmonicByRatio = #(define-music-function (ratio music) (number? ly:music?)
-    (_i "Convert @var{music} into mixed harmonics; the resulting notes resemble
+harmonicByRatio =
+#(define-music-function (ratio music) (number? ly:music?)
+   (_i "Convert @var{music} into mixed harmonics.
+
+The resulting notes resemble
 harmonics played on a fretted instrument by touching the strings at the point
 given through @var{ratio}.")
   #{
@@ -658,11 +680,10 @@ the same music expression with an appropriate tweak applied to it.")
 
 initialContextFrom =
 #(define-music-function (music) (ly:music?)
-   (_i "Enter the initial context of the argument and ignore the rest of it.
+   (_i "Enter the initial context of @var{music} and ignore the rest of it.
+
 This is useful for prepending music while preserving the influence of the
 original music on the context.
-
-Syntax: @code{\\initialContextFrom} @var{music}
 
 Example:
 
@@ -679,8 +700,9 @@ Example:
 
 inStaffSegno =
 #(define-music-function () ()
-   (_i "Put the segno variant 'varsegno' at this position into the staff,
-compatible with the repeat command.")
+   (_i "Put the segno variant @code{varsegno} at this position into the staff.
+
+This is compatible with the repeat command.")
    #{
      {
        \once \set Timing.segnoStyle = #'bar-line
@@ -691,7 +713,9 @@ compatible with the repeat command.")
 instrumentSwitch =
 #(define-music-function
    (name) (string?)
-   (_i "Switch instrument to @var{name}, which must have been predefined with
+   (_i "Switch instrument to @var{name}.
+
+@var{name} must have been predefined with
 function @code{\\addInstrumentDefinition}.
 
 This function is deprecated.")
@@ -720,7 +744,8 @@ transpose from @var{around} to @var{to}.")
 invertChords =
 #(define-music-function (num music) (integer? ly:music?)
    (_i "Invert any chords in @var{music} into their @var{num}-th position.
-(Chord inversions may be directed downwards using negative integers.)")
+
+Chord inversions may be directed downwards using negative integers.")
    (let loop ((num num) (music music))
      (cond ((zero? num) music)
        ((negative? num) (loop (1+ num) (dropNote 1 music)))
@@ -729,7 +754,7 @@ invertChords =
 
 jump =
 #(define-music-function (text) (markup?)
-   "Mark a point of departure, e.g. @q{Gavotte I D.C.}."
+   "Use @var{text} to mark a point of departure, e.g., @q{Gavotte@tie{}I D.C.}."
    (make-music 'AdHocJumpEvent 'text text))
 
 
@@ -737,7 +762,9 @@ jump =
 keepWithTag =
 #(define-music-function (tags music)
    (symbol-list-or-symbol? ly:music?)
-   (_i "Include only elements of @var{music} that are tagged with one
+   (_i "Keep tagged music.
+
+This function only includes elements of @var{music} that are tagged with one
 of the tags in @var{tags}.  @var{tags} may be either a single symbol
 or a list of symbols.
 
@@ -797,13 +824,13 @@ language =
 
 languageSaveAndChange =
 #(define-void-function (language) (string?)
-  (_i "Store the previous pitchnames alist, and set a new one.")
+  (_i "Save current @code{pitchnames} alist and change note names to @var{language}.")
   (set! previous-pitchnames pitchnames)
   (note-names-language language))
 
 languageRestore =
 #(define-void-function () ()
-   (_i "Restore a previously-saved pitchnames alist.")
+   (_i "Restore the previously-saved @code{pitchnames} alist.")
    (if previous-pitchnames
        (begin
         (set! pitchnames previous-pitchnames)
@@ -950,7 +977,9 @@ makeClusters =
 
 mark =
 #(define-music-function (label) ((index-or-markup?))
-   (_i "Create a rehearsal mark.  If @var{label} is an integer, create the
+   (_i "Create a rehearsal mark.
+
+If @var{label} is an integer, create the
 rehearsal mark for the given sequence number.  If @var{label} is
 @code{\\default}, create the next sequential rehearsal mark.  If
 @var{label} is markup, use it for the mark.")
@@ -1024,7 +1053,9 @@ musicMap =
 %% because music identifiers are not allowed at top-level.
 noPageBreak =
 #(define-music-function () ()
-   (_i "Forbid a page break.  May be used at toplevel (i.e., between scores or
+   (_i "Forbid a page break.
+
+May be used at top level (i.e., between scores or
 markups), or inside a score.")
    (make-music 'EventChord
                'page-marker #t
@@ -1034,7 +1065,9 @@ markups), or inside a score.")
 
 noPageTurn =
 #(define-music-function () ()
-   (_i "Forbid a page turn.  May be used at toplevel (i.e., between scores or
+   (_i "Forbid a page turn.
+
+May be used at top level (i.e., between scores or
 markups), or inside a score.")
    (make-music 'EventChord
                'page-marker #t
@@ -1054,10 +1087,12 @@ offset =
 #(define-music-function (property offsets item)
   (symbol-list-or-symbol? scheme? key-list-or-music?)
    (_i "Offset the default value of @var{property} of @var{item} by
-@var{offsets}.  If @var{item} is a string, the result is
-@code{\\override} for the specified grob type.  If @var{item} is
+@var{offsets}.
+
+If @var{item} is a string, the result is an
+override for the specified grob type.  If @var{item} is
 a music expression, the result is the same music expression with an
-appropriate tweak applied.")
+appropriate tweak applied to it.")
   (if (ly:music? item)
       ; In case of a tweak, grob property path is Grob.property
       (let ((prop-path (check-grob-path
@@ -1099,7 +1134,7 @@ the same music expression with an appropriate tweak applied to it.")
 
 once =
 #(define-music-function (music) (ly:music?)
-   (_i "Set @code{once} to @code{#t} on all layout instruction events
+   (_i "Set property @code{once} to @code{#t} on all layout instruction events
 in @var{music}.")
    (for-each
     (lambda (m)
@@ -1118,8 +1153,10 @@ overrideTimeSignatureSettings =
    (time-signature base-moment beat-structure beam-exceptions)
    (boolean-or-fraction? fraction? list? list?)
 
-   (_i "Override @code{timeSignatureSettings}
-for time signatures of @var{time-signature} to have settings
+   (_i "Override time signature settings.
+
+This function sets @code{timeSignatureSettings}
+for time signatures equal to @var{time-signature} to have settings
 of @var{base-moment}, @var{beat-structure}, and @var{beam-exceptions}.")
 
    ;; TODO -- add warning if largest value of grouping is
@@ -1132,11 +1169,13 @@ overrideProperty =
    (key-list? scheme?)
 
    (_i "Set the grob property specified by @var{grob-property-path} to
-@var{value}.  @var{grob-property-path} is a symbol list of the form
-@code{Context.GrobName.property} or @code{GrobName.property}, possibly
+@var{value}.
+
+@var{grob-property-path} is a symbol list of the form
+@code{@var{Context}@/.@var{GrobName}@/.@var{property}} or @code{@var{GrobName}@/.@var{property}}, possibly
 with subproperties given as well.
 
-As opposed to @code{\\override} which overrides the context-dependent
+As opposed to @code{\\override}, which overrides the context-dependent
 defaults with which a grob is created, this command uses
 @code{Output_property_engraver} at the grob acknowledge stage.  This
 may be necessary for overriding values set after the initial grob
@@ -1162,7 +1201,9 @@ creation.")
 %% because music identifiers are not allowed at top-level.
 pageBreak =
 #(define-music-function () ()
-   (_i "Force a page break.  May be used at toplevel (i.e., between scores or
+   (_i "Force a page break.
+
+May be used at top-level (i.e., between scores or
 markups), or inside a score.")
    (make-music 'EventChord
                'page-marker #t
@@ -1324,7 +1365,9 @@ change to the following voice."
 
 parenthesize =
 #(define-music-function (arg) (symbol-list-or-music?)
-   (_i "Tag @var{arg} to be parenthesized.  @var{arg} may
+   (_i "Tag @var{arg} to be parenthesized.
+
+@var{arg} may
 be either a music event or a grob path.")
    (let ((maybe-with-id (if (and (ly:music? arg)
                                  (music-is-of-type? arg 'event-chord))
@@ -1437,15 +1480,14 @@ that they share a staff with stems directed downward.")
 
 partial =
 #(define-music-function (dur) (ly:duration?)
-  (_i "Make a partial measure.")
+  (_i "Make a partial measure of duration @var{dur}.")
   (context-spec-music (make-music 'PartialSet
                                   'origin (*location*)
                                   'duration dur)
                       'Timing))
 
 pitchedTrill =
-#(define-music-function
-   (main-note secondary-note)
+#(define-music-function (main-note secondary-note)
    (ly:music? ly:music?)
    (_i "Print a trill with @var{main-note} as the main note of the trill and
 print @var{secondary-note} as a stemless note head in parentheses.")
@@ -1475,8 +1517,10 @@ propertyOverride =
 #(define-music-function (grob-property-path value)
    (key-list? scheme?)
    (_i "Set the grob property specified by @var{grob-property-path} to
-@var{value}.  @var{grob-property-path} is a symbol list of the form
-@code{Context.GrobName.property} or @code{GrobName.property}, possibly
+@var{value}.
+
+@var{grob-property-path} is a symbol list of the form
+@code{@var{Context}@/.@var{GrobName}@/.@var{property}} or @code{@var{GrobName}@/.@var{property}}, possibly
 with subproperties given as well.  This music function is mostly intended
 for use from Scheme as a substitute for the built-in @code{\\override}
 command.")
@@ -1498,8 +1542,10 @@ propertyRevert =
 #(define-music-function (grob-property-path)
    (key-list?)
    (_i "Revert the grob property specified by @var{grob-property-path} to
-its previous value.  @var{grob-property-path} is a symbol list of the form
-@code{Context.GrobName.property} or @code{GrobName.property}, possibly
+its previous value.
+
+@var{grob-property-path} is a symbol list of the form
+@code{@var{Context}@/.@var{GrobName}@/.@var{property}} or @code{@var{GrobName}@/.@var{property}}, possibly
 with subproperties given as well.  This music function is mostly intended
 for use from Scheme as a substitute for the built-in @code{\\revert}
 command.")
@@ -1518,8 +1564,9 @@ command.")
 propertySet =
 #(define-music-function (property-path value)
    (symbol-list-or-symbol? scheme?)
-   (_i "Set the context property specified by @var{property-path} to
-@var{value}.  This music function is mostly intended for use from
+   (_i "Set the context property specified by @var{property-path} to @var{value}.
+
+This music function is mostly intended for use from
 Scheme as a substitute for the built-in @code{\\set} command.")
    (let ((p (check-context-path property-path)))
      (if p
@@ -1621,8 +1668,9 @@ substitute for the built-in @code{\\unset} command.")
 pushToTag =
 #(define-music-function (tag more music)
    (symbol? ly:music? ly:music?)
-   (_i "Add @var{more} to the front of music tagged with @var{tag}.  A
-@code{post-event} can be added to the articulations of rhythmic events
+   (_i "Add @var{more} to the front of music tagged with @var{tag}.
+
+A post-event can be added to the articulations of rhythmic events
 or chords; other expressions may be added to chords, sequential or
 simultaneous music.")
    (define (add-left m more)
@@ -1669,10 +1717,12 @@ simultaneous music.")
 
 quoteDuring =
 #(define-music-function (what main-music) (string? ly:music?)
-   (_i "Indicate a section of music to be quoted.  @var{what} indicates the name
+   (_i "Indicate a section of music to be quoted.
+
+@var{what} indicates the name
 of the quoted voice, as specified in an @code{\\addQuote} command.
 @var{main-music} is used to indicate the length of music to be quoted;
-usually contains spacers or multi-measure rests.")
+it usually contains spacers or multi-measure rests.")
    (make-music 'QuoteMusic
                'element main-music
                'quoted-music-name what))
@@ -1685,15 +1735,18 @@ position from below.")
 
 reduceChords =
 #(define-music-function (music) (ly:music?)
-   (_i "Reduce chords contained in @var{music} to single notes,
-intended mainly for reusing music in RhythmicStaff.  Does not
-reduce parallel music.")
+   (_i "Reduce chords contained in @var{music} to single notes.
+
+This is intended mainly for reusing music in a @code{RhythmicStaff} context.  It does not
+reduce simultaneous music.")
    (event-chord-reduce music))
 
 relative =
 #(define-music-function (pitch music)
    ((ly:pitch?) ly:music?)
-   (_i "Make @var{music} relative to @var{pitch}.  If @var{pitch} is
+   (_i "Make @var{music} relative to @var{pitch}.
+
+If @var{pitch} is
 omitted, the first note in @var{music} is given in absolute pitch.")
    ;; When \relative has no clear decision (can only happen with
    ;; scales with an even number of steps), it goes down (see
@@ -1716,7 +1769,9 @@ removeWithTag =
 #(define-music-function (tags music)
    (symbol-list-or-symbol? ly:music?)
    (_i "Remove elements of @var{music} that are tagged with one of the
-tags in @var{tags}.  @var{tags} may be either a single symbol or a list
+tags in @var{tags}.
+
+@var{tags} may be either a single symbol or a list
 of symbols.")
    (music-filter
     (tags-remove-predicate tags)
@@ -1724,7 +1779,7 @@ of symbols.")
 
 resetRelativeOctave =
 #(define-music-function (pitch) (ly:pitch?)
-   (_i "Set the octave inside a \\relative section.")
+   (_i "Set the octave inside a @code{\\relative} section to @var{pitch}.")
 
    (make-music 'SequentialMusic
                'to-relative-callback
@@ -1747,12 +1802,12 @@ revertTimeSignatureSettings =
    (pair?)
 
    (_i "Revert @code{timeSignatureSettings}
-for time signatures of @var{time-signature}.")
+for time signatures equal to @var{time-signature}.")
    (revert-time-signature-setting time-signature))
 
 rightHandFinger =
 #(define-event-function (finger) (index-or-markup?)
-   (_i "Apply @var{finger} as a fingering indication.")
+   (_i "Apply @var{finger} as a right-hand fingering indication.")
 
    (make-music
             'StrokeFingerEvent
@@ -1766,8 +1821,9 @@ scaleDurations =
 
 sectionLabel =
 #(define-music-function (text) (markup?)
-   (_i "Mark the beginning of a named passage, e.g. @qq{Coda}.  This
-is well suited for use at a section division created with
+   (_i "Mark the beginning of a named passage, e.g., @qq{Coda}.
+
+This is well suited for use at a section division created with
 @code{\\section}, but it does not imply @code{\\section} and may be
 used alone.")
    (make-music 'SectionLabelEvent 'text text))
@@ -1874,11 +1930,11 @@ skip =
       (make-music 'SkippedMusic
                   'element arg)))
 
-
 slashedGrace =
 #(def-grace-function startSlashedGraceMusic stopSlashedGraceMusic
-   (_i "Create slashed graces (slashes through stems, but no slur) from
-the following music expression"))
+   (_i "Create slashed graces from @var{music}.
+
+This produces slashes through stems, but no slur."))
 
 styledNoteHeads =
 #(define-music-function (style heads music)
@@ -1901,23 +1957,26 @@ result, by adding the single symbol or symbol list @var{tags} to the
 
 tagGroup =
 #(define-void-function (tags) (symbol-list?)
-   (_i "Define a tag group comprising the symbols in the symbol list
-@var{tags}.  Tag groups must not overlap.")
+   (_i "Define a tag group comprising the symbols in the symbol list @var{tags}.
+
+Tag groups must not overlap.")
    (let ((err (define-tag-group tags)))
      (if err (ly:parser-error err (*location*)))))
 
 temporary =
 #(define-music-function (music)
    (ly:music?)
-   (_i "Make any @code{\\override} in @var{music} replace an existing
+   (_i "Make @code{\\override} reversible with @code{\\revert}.
+
+This function makes any @code{\\override} in @var{music} replace an existing
 grob property value only temporarily, restoring the old value when a
 corresponding @code{\\revert} is executed.  This is achieved by
-clearing the @samp{pop-first} property normally set on
+clearing the @code{pop-first} property normally set on
 @code{\\override}s.
 
 An @code{\\override}/@/@code{\\revert} sequence created by using
 @code{\\temporary} and @code{\\undo} on the same music containing
-overrides will cancel out perfectly or cause a@tie{}warning.
+overrides will cancel out perfectly or cause a warning.
 
 Non-property-related music is ignored, warnings are generated for any
 property-changing music that isn't an @code{\\override}.")
@@ -1995,7 +2054,9 @@ transposedCueDuring =
    (what dir pitch main-music)
    (string? ly:dir? ly:pitch? ly:music?)
 
-   (_i "Insert notes from the part @var{what} into a voice called @code{cue},
+   (_i "Create a transposed cue.
+
+This function inserts notes from the part @var{what} into a @code{CueVoice} context called @code{cue},
 using the transposition defined by @var{pitch}.  This happens
 simultaneously with @var{main-music}, which is usually a rest.  The
 argument @var{dir} determines whether the cue notes should be notated
@@ -2013,7 +2074,7 @@ as a first or second voice.")
 
 transposition =
 #(define-music-function (pitch) (ly:pitch?)
-   (_i "Set instrument transposition")
+   (_i "Set instrument transposition to @var{pitch}.")
 
    (context-spec-music
     (make-property-set 'instrumentTransposition pitch)
@@ -2022,17 +2083,24 @@ transposition =
 tuplet =
 #(define-music-function (ratio tuplet-span music)
    (fraction? (ly:duration? '()) ly:music?)
-   (_i "Scale the given @var{music} to tuplets.  @var{ratio} is a
+   (_i "Scale the given @var{music} to tuplets.
+
+@var{ratio} is a
 fraction that specifies how many notes are played in place of the
-nominal value: it will be @samp{3/2} for triplets, namely three notes
-being played in place of two.  If the optional duration
+nominal value: it will be 3/2 for triplets, namely three notes
+being played in place of two.
+
+If the optional duration
 @var{tuplet-span} is specified, it is used instead of
 @code{tupletSpannerDuration} for grouping the tuplets.
 For example,
+
 @example
 \\tuplet 3/2 4 @{ c8 c c c c c @}
 @end example
-will result in two groups of three tuplets, each group lasting for a
+
+@noindent
+results in two groups of three tuplets, each group lasting for a
 quarter note.")
    (make-music 'TimeScaledMusic
                'element (ly:music-compress
@@ -2061,21 +2129,25 @@ command without explicit @samp{tuplet-span}, use
 tweak =
 #(define-music-function (prop value music)
    (key-list-or-symbol? scheme? ly:music?)
-   (_i "Add a tweak to the following @var{music}.
+   (_i "Add a tweak to @var{music}.
+
 Layout objects created by @var{music} get their property @var{prop}
-set to @var{value}.  If @var{prop} has the form @samp{Grob.property}, like with
+set to @var{value}.  If @var{prop} has the form @code{@var{Grob}@/.@var{property}}, like with
+
 @example
 \\tweak Accidental.color #red cis'
 @end example
-an indirectly created grob (@samp{Accidental} is caused by
-@samp{NoteHead}) can be tweaked; otherwise only directly created grobs
+
+@noindent
+an indirectly created grob (@code{Accidental} is caused by
+@code{NoteHead}) can be tweaked; otherwise only directly created grobs
 are affected.
 
 @var{prop} can contain additional elements in which case a nested
 property (inside of an alist) is tweaked.
 
-If @var{music} is an @samp{event-chord}, every contained
-@samp{rhythmic-event} is tweaked instead.")
+If @var{music} is an @code{event-chord}, every contained
+@code{rhythmic-event} is tweaked instead.")
    (let ((p (check-grob-path prop
                              #:start 1
                              #:default #t
@@ -2100,7 +2172,9 @@ undo =
 #(define-music-function (music)
    (ly:music?)
    (_i "Convert @code{\\override} and @code{\\set} in @var{music} to
-@code{\\revert} and @code{\\unset}, respectively.  Any reverts and
+@code{\\revert} and @code{\\unset}, respectively.
+
+Any reverts and
 unsets already in @var{music} cause a warning.  Non-property-related music is ignored.")
    (define warned #f)
    (let loop
@@ -2160,10 +2234,12 @@ unfolded.")
 unfoldRepeats =
 #(define-music-function (types music)
    ((symbol-list-or-symbol? '()) ly:music?)
-   (_i "Force @code{\\repeat volta}, @code{\\repeat tremolo} or
+   (_i "Unfold @code{\\repeat}.
+
+This forces @code{\\repeat volta}, @code{\\repeat tremolo} or
 @code{\\repeat percent} commands in @var{music} to be interpreted
 as @code{\\repeat unfold}, if specified in the optional symbol-list @var{types}.
-The default for @var{types} is an empty list, which will force any of those
+The default for @var{types} is an empty list, which forces any of those
 commands in @var{music} to be interpreted as @code{\\repeat unfold}.  Possible
 entries are @code{volta}, @code{tremolo} or @code{percent}.  Multiple entries
 are possible.")
@@ -2171,10 +2247,12 @@ are possible.")
 
 voices =
 #(define-music-function (ids music) (key-list? ly:music?)
-   (_i "Take the given key list of numbers (indicating the use of
+   (_i "Specify voice order in simultaneous music.
+
+This takes the key list @var{ids} of numbers (indicating the use of
 @samp{\\voiceOne}@dots{}) or symbols (indicating voice names,
 typically converted from strings by argument list processing)
-and assign the following @code{\\\\}-separated music to
+and assign the following @code{\\\\}-separated music in @var{music} to
 contexts according to that list.  Named rather than numbered
 contexts can be used for continuing one voice (for the sake of
 spanners and lyrics), usually requiring a @code{\\voiceOne}-style
@@ -2182,26 +2260,33 @@ override at the beginning of the passage and a @code{\\oneVoice}
 override at its end.
 
 The default
+
 @example
 << @dots{} \\\\ @dots{} \\\\ @dots{} >>
 @end example
+
+@noindent
 construct would correspond to
+
 @example
 \\voices 1,2,3 << @dots{} \\\\ @dots{} \\\\ @dots{} >>
-@end example")
+@end example
+")
    (voicify-music music ids))
 
 void =
 #(define-void-function (arg) (scheme?)
-   (_i "Accept a scheme argument, return a void expression.
-Use this if you want to have a scheme expression evaluated
-because of its side-effects, but its value ignored."))
+   (_i "Accept a Scheme argument @var{arg} and return a void expression.
+
+Use this if you want to have a Scheme expression evaluated
+because of its side effects but its return value being ignored."))
 
 volta =
 #(define-music-function (volta-numbers music) (number-list? ly:music?)
-   (_i "Mark @var{music} as being limited to the volte given in
-@var{volta-numbers} when the innermost enclosing repeat is unfolded.
-Volta number begins at 1 and increases by 1 with each repetition.")
+   (_i "Mark @var{music} as being limited to the volte given in @var{volta-numbers}.
+
+This gets used when the innermost enclosing repeat is unfolded.
+Volta number begins at@tie{}1 and increases by@tie{}1 with each repetition.")
    (volta-spec-music volta-numbers music))
 
 vshape =
@@ -2214,7 +2299,7 @@ ease of tweaking."
 withMusicProperty =
 #(define-music-function (sym val music)
    (symbol? scheme? ly:music?)
-   (_i "Set @var{sym} to @var{val} in @var{music}.")
+   (_i "Set music property @var{sym} to @var{val} in @var{music}.")
 
    (set! (ly:music-property music sym) val)
    music)

@@ -66,7 +66,9 @@ in the first system."
 inherit-acceptability =
 #(define-void-function (to from)
    (symbol? symbol?)
-   (_i "When used in an output definition, will modify all context
+   (_i "Make two contexts @q{compatible}.
+
+When used in an output definition, modify all context
 definitions such that context @var{to} is accepted as a child by all
 contexts that also accept @var{from}.")
    (let* ((module (current-module))
@@ -88,11 +90,14 @@ contexts that also accept @var{from}.")
 
 enablePolymeter =
 #(define-void-function () ()
-  (_i "For use within an output definition.  Enables polymetry, moving
-timing management from @code{Score} to @code{Staff}-like contexts.
+  (_i "Enable polymetry.
+
+This function moves the timing management from @code{Score} to @code{Staff}-like contexts.
 This is done by removing the @code{Timing_@/translator} from
 @code{Score}, and adding it to all contexts having the @code{Staff}
-alias.")
+alias.
+
+Use this within an output definition.")
   (let ((module (current-module))
         (cmod-remove (ly:make-context-mod))
         (cmod-consists (ly:make-context-mod)))

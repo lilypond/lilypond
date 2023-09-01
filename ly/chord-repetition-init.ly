@@ -36,7 +36,9 @@
 chordRepeats =
 #(define-music-function (event-types music)
    ((list? '()) ly:music?)
-   "Walk through @var{music} putting the notes of the previous chord
+   "Extend @samp{q} to also repeat articulation.
+
+This function walks through @var{music}, putting the notes of the previous chord
 into repeat chords, as well as an optional list of @var{event-types}
 such as @code{#'(string-number-event)}."
    (expand-repeat-chords! (cons 'rhythmic-event event-types) music))
@@ -44,7 +46,9 @@ such as @code{#'(string-number-event)}."
 tabChordRepeats =
 #(define-music-function (event-types music)
    ((list? '()) ly:music?)
-   "Walk through @var{music} putting the notes, fingerings and string
+   "Extend @samp{q} to also repeat string and fingering information.
+
+This function walks through @var{music} putting the notes, fingerings and string
 numbers of the previous chord into repeat chords, as well as an
 optional list of @var{event-types} such as @code{#'(articulation-event)}."
    #{ \chordRepeats
@@ -55,6 +59,7 @@ optional list of @var{event-types} such as @code{#'(articulation-event)}."
 tabChordRepetition =
 #(define-void-function () ()
    (_i "Include the string and fingering information in a chord repetition.
-This function is deprecated; try using @code{\\tabChordRepeats} instead.")
+
+This function is deprecated; use @code{\\tabChordRepeats} instead.")
    (ly:parser-define! '$chord-repeat-events
                       '(string-number-event fingering-event)))

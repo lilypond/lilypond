@@ -20,10 +20,12 @@
 
 "\\=" =
 #(define-event-function (id event) (key? ly:event?)
-  (_i "This sets the @code{spanner-id} property of the following
-@var{event} to the given @var{id} (non-negative integer or symbol).
+  (_i "Assign an ID to a spanner.
+
+This sets the @code{spanner-id} property of
+@var{event} to the given @var{id}, which is a non-negative integer or a symbol.
 This can be used to tell LilyPond how to connect overlapping
-or parallel slurs or phrasing slurs within a single @code{Voice}.
+or parallel slurs or phrasing slurs within a single @code{Voice} context.
 @lilypond[quote,verbatim]
 \\fixed c' { c\\=1( d\\=2( e\\=1) f\\=2) }
 @end lilypond\n")

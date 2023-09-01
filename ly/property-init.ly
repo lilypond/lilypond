@@ -129,11 +129,13 @@ balloonLengthOff = {
 defineBarLine =
 #(define-void-function
    (bar glyph-list) (string? list?)
-   (_i "Define bar line settings for bar line @var{bar}.  The list
-     @var{glyph-list} must have three entries which define substitute
+   (_i "Define bar line settings for bar line @var{bar}.
+
+     The list
+     @var{glyph-list} must have three entries, defining substitute
      glyphs for the end of a line, the beginning of a line, and a span
      bar, respectively.  The substitute glyphs may be either strings
-     or booleans: @code{#t} calls for the same value as
+     or Booleans: @code{#t} calls for the same value as
      @var{bar} and @code{#f} calls for no glyph." )
   (if (not (= (length glyph-list) 3))
       (ly:error (G_ "Argument list for bar '~a' must have three components.") bar)
@@ -589,7 +591,7 @@ slurSolid      = \revert Slur.dash-definition
 
 staffHighlight =
 #(define-music-function (color) (color?)
-  (_i "Start a highlight with the specified color.")
+  (_i "Start a highlight with color @var{color}.")
   (make-music 'StaffHighlightEvent
               'span-direction START
               'color color))
