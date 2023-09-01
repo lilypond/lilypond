@@ -503,8 +503,11 @@ position from above.")
 
 endSpanners =
 #(define-music-function (music) (ly:music?)
-   (_i "Terminate the next spanner prematurely after exactly one note
-without the need of a specific end spanner.")
+   (_i "Terminate spanners.
+
+This function prematurely ends all spanners in @var{music} by inserting an
+end-spanner event at the end of the argument, without the need of specific
+end-spanner commands.")
    (let* ((start-span-evs (filter (lambda (ev)
                                     (equal? (ly:music-property ev 'span-direction)
                                             START))

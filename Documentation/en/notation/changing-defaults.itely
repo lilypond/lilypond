@@ -3550,18 +3550,13 @@ glissando would start and end in the center of each note head.
 @c FIXME: this should be somewhere else --JeanAS
 @funindex \endSpanners
 
-The music function @code{\endSpanners} terminates the spanner
-which starts on the immediately following note prematurely.  It
-is terminated after exactly one note, or at the following bar line
-if @code{to-barline} is true and a bar line occurs before the next
-note.
+The music function @code{\endSpanners} prematurely terminates all
+spanners in its argument, obeying the @code{to-barline} property if set.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
-  \endSpanners
-  c2 \startTextSpan c2 c2
-  \endSpanners
-  c2 \< c2 c2
+  \endSpanners c1 \> c
+  \endSpanners { r4 c2.\< c1\startTextSpan } c1 c
 }
 @end lilypond
 
