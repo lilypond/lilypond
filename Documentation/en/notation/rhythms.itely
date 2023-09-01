@@ -3007,7 +3007,7 @@ direction to the @code{Beam} property @code{grow-direction}.
 If the placement of the notes and the sound in the MIDI output is to
 reflect the @emph{ritardando} or @emph{accelerando} indicated by the
 feathered beam the notes must be grouped as a music expression delimited
-by braces and preceded by a @code{featherDurations} command which specifies
+by braces and preceded by a @code{\featherDurations} command which specifies
 the ratio between the durations of the first and last notes in the
 group.
 
