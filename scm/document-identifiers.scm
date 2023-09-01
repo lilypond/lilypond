@@ -25,16 +25,15 @@
        (func (ly:music-function-extract music-func))
        (doc (procedure-documentation func))
        (arg-names (syntax-function-procedure-arguments func))
-       (sign (ly:music-function-signature music-func))
-       (type-names (map (lambda (pred)
-                          (if (pair? pred)
-                              (format #f "[~a]" (type-name (car pred)))
-                              (format #f "(~a)" (type-name pred))))
-                        sign))
+       (signature (ly:music-function-signature music-func))
        (signature-str
-        (string-join
-         (map (lambda (arg type) (format #f "@var{~a} ~a" arg type))
-              arg-names (cdr type-names)))))
+        (string-join (map (lambda (arg sign)
+                            (if (pair? sign)
+                                (format #f "[@var{~a} (~a)]"
+                                        arg (type-name (car sign)))
+                                (format #f "@var{~a} (~a)"
+                                        arg (type-name sign))))
+                          arg-names (cdr signature)))))
     (format #f
             "@item @code{~a~a} ~a @result{} ~a
 @funindex ~a~a
@@ -43,7 +42,9 @@
             prefix
             name-sym
             signature-str
-            (car type-names)
+            (type-name (if (pair? (car signature))
+                           (caar signature)
+                           (car signature)))
 
             prefix
             name-sym

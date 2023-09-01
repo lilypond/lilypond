@@ -3408,7 +3408,22 @@ Internals Reference:
 @node Available music functions
 @appendixsec Available music functions
 
+In the following, the first argument of a function is printed with
+a slanted typeface, followed by the first argument's type in
+parentheses.  Then comes the second argument, followed by the
+second argument's type, again in parentheses, and so on.  After
+the arrow the type of the return value is printed.
+
+If an argument and its type is enclosed in brackets, the argument
+is optional and can be omitted, indicating that LilyPond should
+use a default value instead.  However, if a function's last
+argument is tagged as optional, it @emph{cannot} be omitted: you
+have to pass @code{\default} if you do not want to explicitly
+specify a value.  See @rextend{Scheme function usage} for more
+details on how optional arguments are handled.
+
 @include en/identifiers.tely
+
 
 @node Context modification identifiers
 @appendixsec Context modification identifiers
