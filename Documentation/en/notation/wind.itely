@@ -260,7 +260,7 @@ This section discusses notation specifically for woodwind instruments.
 @end menu
 
 @node Woodwind diagrams
-@subsubsection Woodwind diagrams
+@unnumberedsubsubsec Woodwind diagrams
 
 Woodwind diagrams can be used to indicate the fingering to be used
 for specific notes and are available for the following instruments:

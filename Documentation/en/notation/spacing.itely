@@ -3289,7 +3289,7 @@ identifying the type of spacing at play.
 @end menu
 
 @node Overview of object-specific horizontal spacing tweaks
-@subsubsection Overview of object-specific horizontal spacing tweaks
+@unnumberedsubsubsec Overview of object-specific horizontal spacing tweaks
 
 @cindex paper column
 @cindex column
@@ -3364,7 +3364,7 @@ between columns are different.
 
 
 @node Spacing between adjacent non-musical items
-@subsubsection Spacing between adjacent non-musical items
+@unnumberedsubsubsec Spacing between adjacent non-musical items
 
 @cindex horizontal spacing, between non-musical items
 
@@ -3445,7 +3445,7 @@ Internals Reference:
 
 
 @node Spacing between adjacent columns
-@subsubsection Spacing between adjacent columns
+@unnumberedsubsubsec Spacing between adjacent columns
 
 @cindex horizontal spacing, between columns
 

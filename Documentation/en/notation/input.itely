@@ -2800,7 +2800,7 @@ described in @rextend{Music functions}.
 @end menu
 
 @node Substitution function syntax
-@subsubsection Substitution function syntax
+@unnumberedsubsubsec Substitution function syntax
 
 Making a function that substitutes a variable into LilyPond
 code is easy.  The general form of these functions is
@@ -2871,7 +2871,7 @@ Installed Files:
 
 
 @node Substitution function examples
-@subsubsection Substitution function examples
+@unnumberedsubsubsec Substitution function examples
 
 This section introduces some substitution function examples.
 These are not intended to be exhaustive, but rather to demonstrate
@@ -2974,7 +2974,7 @@ tempoPadded =
 
 
 @node How to prevent sharing of music expressions
-@subsubsection How to prevent sharing of music expressions
+@unnumberedsubsubsec How to prevent sharing of music expressions
 
 @cindex music expression, sharing
 @cindex music expression, copying
@@ -3049,7 +3049,7 @@ simpleAccompaniment =
 
 
 @node Substitution functions and relative octave entry
-@subsubsection Substitution functions and relative octave entry
+@unnumberedsubsubsec Substitution functions and relative octave entry
 
 @cindex substitution function, and relative octave entry
 @funindex \relative
