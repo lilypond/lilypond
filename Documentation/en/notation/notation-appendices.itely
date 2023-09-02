@@ -3043,31 +3043,12 @@ A glossary of the technical terms and concepts used internally in
 LilyPond.  These terms may appear in the manuals, on mailing lists
 or in the source code.
 
-@menu
-* alist::
-* callback::
-* closure::
-* glyph::
-* grob::
-* immutable::
-* interface::
-* lexer::
-* mutable::
-* output-def::
-* parser::
-* parser variable::
-* prob::
-* smob::
-* spanner::
-* stencil::
-@end menu
-
-@node alist
-@unnumberedsubsec alist
+@table @asis
 
 @cindex alist
 @cindex association list
 
+@item alist
 An association list or @strong{alist} for short is a Scheme pair
 which associates a value with a key: @w{@code{(key . value)}}.  For
 example, in @file{scm/lily.scm}, the alist
@@ -3076,11 +3057,9 @@ example, in @file{scm/lily.scm}, the alist
 that type check failures can be reported with a console message that
 includes the name of the expected type predicate.
 
-@node callback
-@unnumberedsubsec callback
-
 @cindex callback
 
+@item callback
 A @strong{callback} is a routine, function or method whose reference is
 passed as an argument in a call to another routine, so allowing
 the called routine to invoke it.  The technique enables a lower-
@@ -3089,12 +3068,9 @@ layer.  Callbacks are used extensively in LilyPond to permit
 user-level Scheme code to define how many low-level actions are
 performed.
 
-
-@node closure
-@unnumberedsubsec closure
-
 @cindex closure
 
+@item closure
 In Scheme, a @strong{closure} is created when a function, usually
 a lambda expression, is passed as a variable.  The closure contains
 the function's code plus references to the lexical bindings of the
@@ -3106,60 +3082,43 @@ variables to be used in the calculation.  One useful property of
 closures is the retention of internal variable values between
 invocations, so permitting state to be maintained.
 
-
-@node glyph
-@unnumberedsubsec glyph
-
 @cindex glyph
 @cindex font
 @cindex typeface
 
+@item glyph
 A @strong{glyph} is a particular graphical representation of a typographic
 character, or a combination of two characters forming a ligature.
 A set of glyphs with a single style and shape comprise a font, and
 a set of fonts covering several styles and sizes comprise a typeface.
 
-@morerefs
-Notation Reference:
+See also:
 @ref{Fonts},
 @ref{Special characters}.
-@endmorerefs
-
-
-@node grob
-@unnumberedsubsec grob
 
 @cindex grob
 @cindex layout object
 @cindex graphical object
 
+@item grob
 LilyPond objects which represent items of notation in the printed
 output such as note heads, stems, slurs, ties, fingering, clefs,
 etc are called @q{Layout objects}, often known as @q{GRaphical
 OBjects}, or @strong{grobs} for short.  They are represented by
 instances of the @code{Grob} class.
 
-@morerefs
-Learning Manual:
+See also:
 @rlearning{Objects and interfaces},
-@rlearning{Properties of layout objects}.
-
-Notation Reference:
-@ref{Naming conventions}.
-
-Internals Reference:
+@rlearning{Properties of layout objects}.@*
+@ref{Naming conventions}.@*
 @rinternals{grob-interface},
 @rinternals{All layout objects}.
-@endmorerefs
-
-
-@node immutable
-@unnumberedsubsec immutable
 
 @cindex immutable object
 @cindex immutable property
 @cindex shared property
 
+@item immutable
 An @strong{immutable} object is one whose state cannot be modified
 after creation, in contrast to a mutable object, which can be
 modified after creation.
@@ -3169,60 +3128,42 @@ style and behavior of grobs.  They are shared between many objects.
 In apparent contradiction to the name, they can be changed using
 @code{\override} and @code{\revert}.
 
-@morerefs
-Notation Reference:
-@ref{mutable}.
-@endmorerefs
-
-
-@node interface
-@unnumberedsubsec interface
+See also below for mutable objects.
 
 @cindex interface
 @funindex grob-interface
 @cindex graphical object interface
 
+@item interface
 Actions and properties which are common to a number of grobs are
 grouped together in an object called a @code{grob-interface}, or
 just @q{interface} for short.
 
-@morerefs
-Learning Manual:
-@rlearning{Objects and interfaces},
-@rlearning{Properties found in interfaces}.
-
-Notation Reference:
+See also:
 @ref{Naming conventions},
-@ref{Layout interfaces}.
-
-Internals Reference:
+@ref{Layout interfaces}.@*
+@rlearning{Objects and interfaces},
+@rlearning{Properties found in interfaces}.@*
 @rinternals{Graphical Object Interfaces}.
-@endmorerefs
-
-
-@node lexer
-@unnumberedsubsec lexer
 
 @cindex lexer
 @cindex Flex
 
+@item lexer
 A @strong{lexer} is a program that converts a sequence of
 characters into a sequence of tokens, a process called @dfn{lexical
 analysis}.  The LilyPond lexer converts the stream obtained from an
 input @file{.ly} file into a tokenized stream more suited to the
-next stage of processing -- parsing (@pxref{parser}).
+next stage of processing -- parsing (see below).
 The LilyPond lexer is built with Flex from the lexer file
 @file{lily/lexer.ll}, which contains the lexical rules.  This file
 is part of the source code and is not included in the LilyPond
 binary installation.
 
-
-@node mutable
-@unnumberedsubsec mutable
-
 @cindex mutable object
 @cindex mutable property
 
+@item mutable
 A @strong{mutable} object is one whose state can be modified after
 creation, in contrast to an immutable object, whose state is fixed
 at the time of creation.
@@ -3231,24 +3172,14 @@ In LilyPond, mutable properties contain values that are specific to
 one grob.  Typically, lists of other objects or results from
 computations are stored in mutable properties.
 
-@morerefs
-Notation Reference:
-@ref{immutable}.
-@endmorerefs
-
-
-@node output-def
-@unnumberedsubsec output-def
+See also above for immutable objects.
 
 @funindex output-def
 
+@item output-def
 An instance of the @code{Output-def} class contains the methods and
 data structures associated with an output block.  Instances are
 created for midi, layout and paper blocks.
-
-
-@node parser
-@unnumberedsubsec parser
 
 @cindex parser
 @cindex Bison
@@ -3256,6 +3187,7 @@ created for midi, layout and paper blocks.
 @cindex grammar, for LilyPond
 @cindex BNF
 
+@item parser
 A @strong{parser} analyzes the sequence of tokens produced by a
 lexer to determine its grammatical structure, grouping the tokens
 progressively into larger groupings according to the rules of the
@@ -3269,10 +3201,6 @@ are defined in @file{lily/parser.yy} and shown in Backus Normal Form
 parser during the program build by the parser generator, Bison.  It is
 part of the source code and is not included in the LilyPond binary
 installation.
-
-
-@node parser variable
-@unnumberedsubsec parser variable
 
 @cindex parser variable
 @cindex Scheme variable
@@ -3289,6 +3217,7 @@ installation.
 @funindex showLastLength
 @funindex showFirstLength
 
+@item parser variable
 These are variables defined directly in Scheme.  Their direct
 use by users is strongly discouraged, because their scoping
 semantics can be confusing.
@@ -3317,13 +3246,10 @@ LilyPond uses the following parser variables:
 @item showFirstLength
 @end itemize
 
-
-@node prob
-@unnumberedsubsec prob
-
 @cindex prob
 @cindex property object
 
+@item prob
 PRoperty OBjects, or @strong{probs} for short, are instances of
 the @code{Prob} class, a simple base class for objects which have
 mutable and immutable property alists and the methods to manipulate
@@ -3332,13 +3258,10 @@ them.  The @code{Music} and @code{Stream_event} classes derive from
 to hold the formatted content of system grobs and titling blocks
 during page layout.
 
-
-@node smob
-@unnumberedsubsec smob
-
 @cindex smob
 @cindex Scheme object
 
+@item smob
 @strong{Smobs}, or ScheMe OBjects, are part of the mechanism used
 by Guile to export C and C++ objects to Scheme code.  In LilyPond,
 smobs are created from C++ objects through macros.  There are two
@@ -3347,12 +3270,9 @@ objects like numbers, and complex smobs, used for objects with
 identities.  If you have access to the LilyPond sources, more
 information can be found in @file{lily/includes/smob.hh}.
 
-
-@node spanner
-@unnumberedsubsec spanner
-
 @cindex spanner
 
+@item spanner
 @strong{Spanners} are a class of grobs that are not horizontally
 fixed on one point of the score but extend from one point to
 another.  Examples include beams, ties, and slurs, as well as
@@ -3372,21 +3292,13 @@ respectively.  The bounds are always items.  The X@tie{}parent of
 a spanner has little musical sense, but is usually set to the left
 bound.
 
-@morerefs
-Notation Reference:
-@ref{Spanners}.
-
-Internals Reference:
+See also: @ref{Spanners}.@*
 @rinternals{all-layout-objects},
 @rinternals{spanner-interface}.
-@endmorerefs
-
-
-@node stencil
-@unnumberedsubsec stencil
 
 @cindex stencil
 
+@item stencil
 An instance of the @strong{stencil} class holds the information
 required to print a typographical object.  It is a simple smob
 containing a confining box, which defines the vertical and
@@ -3399,10 +3311,8 @@ stencils.
 The @code{stencil} property, which connects a grob to its stencil,
 is defined in the @code{grob-interface} interface.
 
-@morerefs
-Internals Reference:
-@rinternals{grob-interface}.
-@endmorerefs
+See also @rinternals{grob-interface}.
+@end table
 
 
 @node Available music functions
