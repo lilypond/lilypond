@@ -63,9 +63,9 @@ Tuplet_number::select_reference_stem (Spanner *me,
     two stems.
   */
   Direction me_dir = from_scm (get_property (me, "direction"), UP);
-  const Drul_array<Item *> bounding_stems (
+  const Drul_array<Item *> bounding_stems {
     Note_column::get_stem (cols[col_count / 2 - 1]),
-    Note_column::get_stem (cols[col_count / 2]));
+    Note_column::get_stem (cols[col_count / 2])};
 
   for (const auto d : {LEFT, RIGHT})
     if (!bounding_stems[d])
@@ -338,7 +338,7 @@ Tuplet_number::calc_y_offset (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   Spanner *tuplet = unsmob<Spanner> (get_object (me, "bracket"));
   const auto positions
-    = from_scm (get_property (tuplet, "positions"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (tuplet, "positions"), Drul_array {0.0, 0.0});
   SCM to_bracket = to_scm ((positions[LEFT] + positions[RIGHT]) / 2.0);
 
   Grob *commonx = me->get_system ();

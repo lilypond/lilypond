@@ -531,7 +531,7 @@ Beam::calc_beam_segments (SCM smob)
     }
 
   const auto break_overshoot
-    = from_scm (get_property (me, "break-overshoot"), Drul_array (-0.5, 0.0));
+    = from_scm (get_property (me, "break-overshoot"), Drul_array {-0.5, 0.0});
 
   std::vector<Beam_segment> segments;
   for (const auto &[vertical_count, unsorted_segs] : stem_segments)
@@ -603,10 +603,10 @@ Beam::calc_beam_segments (SCM smob)
                       Grob *stem = stems[seg.stem_index_];
                       const auto beamlet_length = from_scm (
                         get_property (stem, "beamlet-default-length"),
-                        Drul_array (1.1, 1.1));
+                        Drul_array {1.1, 1.1});
                       const auto max_proportion = from_scm (
                         get_property (stem, "beamlet-max-length-proportion"),
-                        Drul_array (0.75, 0.75));
+                        Drul_array {0.75, 0.75});
                       Real length = beamlet_length[seg.dir_];
 
                       if (inside_stem)
@@ -1095,7 +1095,7 @@ SCM
 Beam::quanting (SCM smob, SCM ys_scm, SCM align_broken_intos)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  auto ys = from_scm (ys_scm, Drul_array (infinity_f, -infinity_f));
+  auto ys = from_scm (ys_scm, Drul_array {infinity_f, -infinity_f});
   bool cbs = from_scm<bool> (align_broken_intos);
 
   Beam_scoring_problem problem (me, ys, cbs);
@@ -1182,7 +1182,7 @@ Beam::set_stem_lengths (SCM smob)
 
   const auto staff_space = Staff_symbol_referencer::staff_space (me);
   const auto pos = [&] {
-    auto p = from_scm (posns, Drul_array (0.0, 0.0));
+    auto p = from_scm (posns, Drul_array {0.0, 0.0});
     scale_drul (&p, staff_space);
     return Interval (p[LEFT], p[RIGHT]);
   }();
@@ -1349,7 +1349,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Grob *common_y = rest->common_refpoint (beam, Y_AXIS);
 
   auto pos
-    = from_scm (get_property (beam, "positions"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (beam, "positions"), Drul_array {0.0, 0.0});
 
   for (const auto dir : {LEFT, RIGHT})
     pos[dir] += beam->relative_coordinate (common_y, Y_AXIS);

@@ -338,7 +338,7 @@ Tuplet_bracket::print (SCM smob)
 
   if (bracket_visibility)
     {
-      const Drul_array zero (0.0, 0.0);
+      const Drul_array zero {0.0, 0.0};
 
       Drul_array<Real> shorten
         = from_scm (get_property (me, "shorten-pair"), zero);
@@ -495,8 +495,8 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
   if (columns.size () && follow_beam && Note_column::get_stem (columns[0])
       && Note_column::get_stem (columns.back ()))
     {
-      const Drul_array<Grob *> stems (Note_column::get_stem (columns[0]),
-                                      Note_column::get_stem (columns.back ()));
+      const Drul_array<Grob *> stems {Note_column::get_stem (columns[0]),
+                                      Note_column::get_stem (columns.back ())};
 
       Interval poss;
       for (const auto side : {LEFT, RIGHT})
@@ -576,7 +576,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
           if (par_beam)
             beam_positions
               = from_scm (get_property (par_beam, "quantized-positions"),
-                          Drul_array (0.0, 0.0));
+                          Drul_array {0.0, 0.0});
           else
             {
               for (vsize i = columns.size (); i--;)
@@ -588,7 +588,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
                         {
                           beam_positions = from_scm (
                             get_property (beam, "quantized-positions"),
-                            Drul_array (0.0, 0.0));
+                            Drul_array {0.0, 0.0});
                           sub_x0 = robust_relative_extent (beam, commonx,
                                                            X_AXIS)[LEFT];
                           sub_x1 = robust_relative_extent (beam, commonx,
@@ -650,7 +650,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
         continue;
 
       const auto positions = from_scm (get_property (tuplets[i], "positions"),
-                                       Drul_array (0.0, 0.0));
+                                       Drul_array {0.0, 0.0});
 
       Real other_dy = positions[RIGHT] - positions[LEFT];
 

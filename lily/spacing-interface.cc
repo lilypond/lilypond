@@ -44,19 +44,18 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
   */
 
   Grob *orig = me->original () ? me->original () : me;
-  const Drul_array<Direction> break_dirs (
+  const Drul_array<Direction> break_dirs {
     dynamic_cast<Item *> (me)->break_status_dir (),
-    dynamic_cast<Item *> (right_col)->break_status_dir ());
-  Drul_array<Skyline> skylines
-    = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
-  Drul_array<std::vector<Grob *>> items (
+    dynamic_cast<Item *> (right_col)->break_status_dir ()};
+  Drul_array<Skyline> skylines {Skyline (RIGHT), Skyline (LEFT)};
+  const Drul_array<std::vector<Grob *>> items {
     ly_scm2link_array (get_object (orig, "left-items")),
-    ly_scm2link_array (get_object (orig, "right-items")));
+    ly_scm2link_array (get_object (orig, "right-items"))};
 
   Grob *system = me->get_system ();
   Grob *left_col = dynamic_cast<Item *> (me)->get_column ();
 
-  const Drul_array<Grob *> columns (left_col, right_col);
+  const Drul_array<Grob *> columns {left_col, right_col};
 
   for (const auto d : {LEFT, RIGHT})
     {

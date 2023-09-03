@@ -210,8 +210,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn, Real increment,
   Drul_array<Direction> stem_dirs;
   Drul_array<Interval> stem_posns;
   Drul_array<Interval> head_posns;
-  const Drul_array<SCM> props (get_object (me, "left-items"),
-                               get_object (me, "right-items"));
+  const Drul_array<SCM> props {get_object (me, "left-items"),
+                               get_object (me, "right-items")};
 
   Drul_array<Spanner *> beams_drul;
   Drul_array<Grob *> stems_drul;

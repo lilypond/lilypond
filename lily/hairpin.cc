@@ -163,10 +163,10 @@ Hairpin::print (SCM smob)
     thick = from_scm<double> (get_property (me, "thickness"), 1.0)
             * Staff_symbol_referencer::line_thickness (me);
   auto shorten
-    = from_scm (get_property (me, "shorten-pair"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (me, "shorten-pair"), Drul_array {0.0, 0.0});
 
   auto endpoint_alignments = from_scm (
-    get_property (me, "endpoint-alignments"), Drul_array (-1.0, 1.0));
+    get_property (me, "endpoint-alignments"), Drul_array {-1.0, 1.0});
 
   for (const auto d : {LEFT, RIGHT})
     {

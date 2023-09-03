@@ -130,7 +130,7 @@ Script_column::before_line_breaking (SCM smob)
 void
 Script_column::order_grobs (std::vector<Grob *> grobs)
 {
-  Drul_array<SCM> scripts_drul (SCM_EOL, SCM_EOL);
+  Drul_array<SCM> scripts_drul {SCM_EOL, SCM_EOL};
   for (vsize i = 0; i < grobs.size (); i++)
     {
       Grob *g = grobs[i];

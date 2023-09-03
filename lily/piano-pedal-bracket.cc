@@ -37,11 +37,11 @@ Piano_pedal_bracket::print (SCM smob)
   Spanner *orig = me->original ();
 
   auto height
-    = from_scm (get_property (me, "edge-height"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (me, "edge-height"), Drul_array {0.0, 0.0});
   const auto shorten
-    = from_scm (get_property (me, "shorten-pair"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (me, "shorten-pair"), Drul_array {0.0, 0.0});
   auto flare
-    = from_scm (get_property (me, "bracket-flare"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (me, "bracket-flare"), Drul_array {0.0, 0.0});
   Drul_array<bool> broken;
 
   const auto bounds = me->get_bounds ();

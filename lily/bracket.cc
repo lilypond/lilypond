@@ -42,7 +42,7 @@ Bracket::make_bracket (Grob *me, // for line properties.
                        Drul_array<Real> height, Interval gap,
                        Drul_array<Real> flare, Drul_array<Real> shorten)
 {
-  const Drul_array<Offset> corners (Offset (0, 0), dz);
+  const Drul_array<Offset> corners {Offset (0, 0), dz};
 
   Real length = dz.length ();
   Drul_array<Offset> gap_corners;
@@ -95,13 +95,13 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
                                         Direction dir, Interval gap)
 {
   auto edge_height
-    = from_scm (get_property (me, "edge-height"), Drul_array (1.0, 1.0));
+    = from_scm (get_property (me, "edge-height"), Drul_array {1.0, 1.0});
   auto flare
-    = from_scm (get_property (me, "bracket-flare"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (me, "bracket-flare"), Drul_array {0.0, 0.0});
   auto shorten
-    = from_scm (get_property (me, "shorten-pair"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (me, "shorten-pair"), Drul_array {0.0, 0.0});
   auto overshoot
-    = from_scm (get_property (me, "break-overshoot"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (me, "break-overshoot"), Drul_array {0.0, 0.0});
 
   // Make sure that it points in the correct direction:
   scale_drul (&edge_height, -dir);

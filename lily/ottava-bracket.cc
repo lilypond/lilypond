@@ -80,7 +80,7 @@ Ottava_bracket::print (SCM smob)
     text = Text_interface::grob_interpret_markup (me, markup);
 
   auto shorten
-    = from_scm (get_property (me, "shorten-pair"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (me, "shorten-pair"), Drul_array {0.0, 0.0});
 
   /*
     TODO: we should check if there are ledgers, and modify length of
@@ -137,10 +137,10 @@ Ottava_bracket::print (SCM smob)
   bracket_span_points[LEFT] += text_size;
 
   auto edge_height
-    = from_scm (get_property (me, "edge-height"), Drul_array (1.0, 1.0));
+    = from_scm (get_property (me, "edge-height"), Drul_array {1.0, 1.0});
 
   const auto flare
-    = from_scm (get_property (me, "bracket-flare"), Drul_array (0.0, 0.0));
+    = from_scm (get_property (me, "bracket-flare"), Drul_array {0.0, 0.0});
 
   for (const auto d : {LEFT, RIGHT})
     {

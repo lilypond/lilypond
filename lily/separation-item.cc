@@ -47,9 +47,9 @@ Separation_item::add_conditional_item (Grob *me, Grob *e)
 Real
 Separation_item::set_distance (Item *l, Item *r, Real padding)
 {
-  const Drul_array<Skyline_pair> lines (
+  const Drul_array<Skyline_pair> lines {
     from_scm<Skyline_pair> (get_property (l, "horizontal-skylines")),
-    from_scm<Skyline_pair> (get_property (r, "horizontal-skylines")));
+    from_scm<Skyline_pair> (get_property (r, "horizontal-skylines"))};
   Skyline right = conditional_skyline (r, l);
   right.merge (lines[RIGHT][LEFT]);
 

@@ -260,9 +260,9 @@ Spacing_spanner::prune_loose_columns (Grob *me,
               /*
                 Set distance constraints for loose columns
               */
-              const Drul_array<Item *> next_door (
+              const Drul_array<Item *> next_door {
                 dynamic_cast<Item *> (left_neighbor),
-                dynamic_cast<Item *> (right_neighbor));
+                dynamic_cast<Item *> (right_neighbor)};
 
               set_distances_for_loose_col (me, c, next_door, options);
             }
