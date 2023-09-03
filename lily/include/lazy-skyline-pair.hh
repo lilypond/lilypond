@@ -47,7 +47,7 @@ public:
   }
   void add_segment (Transform const &tr, Offset p1, Offset p2)
   {
-    todo_.push_back (Drul_array<Offset> (tr (p1), tr (p2)));
+    todo_.push_back ({tr (p1), tr (p2)});
   }
   /* add segment, assuming it is a contour in some direction. */
   void add_contour_segment (Transform const &tr, Orientation orientation,
@@ -89,8 +89,7 @@ public:
 
     for (const auto d : {DOWN, UP})
       {
-        per_dir_todo_[d].push_back (
-          Drul_array<Offset> (p1 + d * pad, p2 + d * pad));
+        per_dir_todo_[d].push_back ({p1 + d * pad, p2 + d * pad});
       }
   }
 

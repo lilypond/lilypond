@@ -170,7 +170,7 @@ can be given in any order, and overlap.
                           "building with infinite bound must be horizontal",
                           SCM_EOL);
         }
-      offs.push_back (Drul_array<Offset> (Offset (x1, y1), Offset (x2, y2)));
+      offs.push_back ({{x1, y1}, {x2, y2}});
     }
   LY_ASSERT_TYPE (is_scm<Axis>, axis, 2);
   Axis a = from_scm<Axis> (axis);
