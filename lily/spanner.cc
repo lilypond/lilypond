@@ -313,8 +313,8 @@ Spanner::spanner_length ()
 
   if (lr.is_empty ())
     {
-      Drul_array<SCM> bounds (get_property (this, "left-bound-info"),
-                              get_property (this, "right-bound-info"));
+      const Drul_array<SCM> bounds (get_property (this, "left-bound-info"),
+                                    get_property (this, "right-bound-info"));
 
       for (const auto d : {LEFT, RIGHT})
         lr[d] = from_scm<double> (

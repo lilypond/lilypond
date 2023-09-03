@@ -44,8 +44,8 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
   if (!Note_column::get_stem (clash_up) || !Note_column::get_stem (clash_down))
     return 0.0;
 
-  Drul_array<Grob *> stems (Note_column::get_stem (clash_down),
-                            Note_column::get_stem (clash_up));
+  const Drul_array<Grob *> stems (Note_column::get_stem (clash_down),
+                                  Note_column::get_stem (clash_up));
 
   Grob *const fh_up = Note_column::first_head (clash_up);
   Grob *const fh_down = Note_column::first_head (clash_down);

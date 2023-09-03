@@ -309,7 +309,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
       set_property (f, "direction", to_scm (hordir));
     }
 
-  Drul_array<std::vector<Finger_tuple>> vertical (down, up);
+  const Drul_array<std::vector<Finger_tuple>> vertical (down, up);
   for (const auto d : {DOWN, UP})
     {
       for (vsize i = 0; i < vertical[d].size (); i++)

@@ -53,7 +53,7 @@ public:
   void add_contour_segment (Transform const &tr, Orientation orientation,
                             Offset p1, Offset p2)
   {
-    Drul_array<Offset> seg (tr (p1), tr (p2));
+    const Drul_array<Offset> seg (tr (p1), tr (p2));
     if ((seg[LEFT][a_] > seg[RIGHT][a_]) == (orientation == Orientation::CCW))
       {
         per_dir_todo_[(a_ == X_AXIS) ? UP : LEFT].push_back (seg);

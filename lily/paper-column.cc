@@ -144,7 +144,7 @@ Paper_column::is_breakable (Grob *me)
 Real
 Paper_column::minimum_distance (Grob *left, Grob *right)
 {
-  Drul_array<Grob *> cols (left, right);
+  const Drul_array<Grob *> cols (left, right);
   Drul_array<Skyline> skys
     = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
 

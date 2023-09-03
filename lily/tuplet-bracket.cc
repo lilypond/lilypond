@@ -495,8 +495,8 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
   if (columns.size () && follow_beam && Note_column::get_stem (columns[0])
       && Note_column::get_stem (columns.back ()))
     {
-      Drul_array<Grob *> stems (Note_column::get_stem (columns[0]),
-                                Note_column::get_stem (columns.back ()));
+      const Drul_array<Grob *> stems (Note_column::get_stem (columns[0]),
+                                      Note_column::get_stem (columns.back ()));
 
       Interval poss;
       for (const auto side : {LEFT, RIGHT})

@@ -44,7 +44,7 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
   */
 
   Grob *orig = me->original () ? me->original () : me;
-  Drul_array<Direction> break_dirs (
+  const Drul_array<Direction> break_dirs (
     dynamic_cast<Item *> (me)->break_status_dir (),
     dynamic_cast<Item *> (right_col)->break_status_dir ());
   Drul_array<Skyline> skylines
@@ -56,7 +56,7 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
   Grob *system = me->get_system ();
   Grob *left_col = dynamic_cast<Item *> (me)->get_column ();
 
-  Drul_array<Grob *> columns (left_col, right_col);
+  const Drul_array<Grob *> columns (left_col, right_col);
 
   for (const auto d : {LEFT, RIGHT})
     {
