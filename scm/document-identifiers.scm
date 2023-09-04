@@ -71,5 +71,6 @@
             document-object
             (sort
              (ly:module->alist (current-module))
-             identifier<?)))
+             identifier<?))
+           "\n")
           ""))

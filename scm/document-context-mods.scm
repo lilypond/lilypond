@@ -66,8 +66,9 @@
             "@item @code{\\~a}
 @funindex \\~a
 ~a
+
 @itemize
-~{~a ~}
+~{~a~}
 @end itemize
 "
             name-sym
@@ -94,5 +95,6 @@
             document-mod
             (sort
              (ly:module->alist (current-module))
-             identifier<?)))
+             identifier<?))
+           "\n")
           ""))
