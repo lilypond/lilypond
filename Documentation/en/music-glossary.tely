@@ -5542,25 +5542,19 @@ This system extended to the ratio of longer note values to each other:
 
 @itemize
 
-  @item maxima to longa, called:
+@item maxima to longa, called:
+@itemize
+@item @notation{modus maximorum},
+@item @notation{modus major}, or
+@item @notation{maximodus})
+@end itemize
 
-    @itemize
-
-      @item @notation{modus maximorum},
-      @item @notation{modus major}, or
-      @item @notation{maximodus})
-
-    @end itemize
-
-  @item longa to breve, called:
-
-    @itemize
-
-      @item @notation{modus longarum},
-      @item @notation{modus minor}, or
-      @item @notation{modus}
-
-    @end itemize
+@item longa to breve, called:
+@itemize
+@item @notation{modus longarum},
+@item @notation{modus minor}, or
+@item @notation{modus}
+@end itemize
 
 @end itemize
 
@@ -5626,21 +5620,23 @@ by grouping beats and by subdividing the primary beat.
 
 @itemize
 
-  @item @b{duple}: groups of two.
-  @item @b{triple}: groups of three.
-  @item @b{quadruple}: groups of four.  A special case of duple meter.
-  @item @b{quintuple}: groups of five beats.
-  @item @b{sextuple} meter: groups of six.  A special case of:
+@item @b{duple}: groups of two.
 
-    @itemize
+@item @b{triple}: groups of three.
 
-      @item duple meter, subdivided in three; or
-      @item triple meter, subdivided in two.
+@item @b{quadruple}: groups of four.  A special case of duple meter.
 
-    @end itemize
+@item @b{quintuple}: groups of five beats.
 
-  @item @b{septuple} meter: groups of seven.
-  @item and so on.
+@item @b{sextuple} meter: groups of six.  A special case of:
+@itemize
+@item duple meter, subdivided in three; or
+@item triple meter, subdivided in two.
+@end itemize
+
+@item @b{septuple} meter: groups of seven.
+
+@item and so on.
 
 @end itemize
 
@@ -5652,25 +5648,19 @@ frequently used prior to the 20th Century.
 
 @itemize
 
-  @item simple: subdivided in groups of two.
+@item simple: subdivided in groups of two.
+@itemize
+@item duple: 2/2, 2/4, 2/8
+@item triple: 3/2, 3/4, 3/8
+@item quadruple: 4/2, 4/4 (also called common time), 4/8
+@end itemize
 
-    @itemize
-
-      @item duple: 2/2, 2/4, 2/8
-      @item triple: 3/2, 3/4, 3/8
-      @item quadruple: 4/2, 4/4 (also called common time), 4/8
-
-    @end itemize
-
-  @item compound: subdivided in groups of three.
-
-    @itemize
-
-      @item duple: 6/8
-      @item triple: 9/8
-      @item quadruple: 12/8
-
-    @end itemize
+@item compound: subdivided in groups of three.
+@itemize
+@item duple: 6/8
+@item triple: 9/8
+@item quadruple: 12/8
+@end itemize
 
 @end itemize
 
@@ -5840,18 +5830,18 @@ Used to qualify other indications, such as:
 @itemize
 
 @item Dynamics
-  @itemize
-  @item @notation{mezzo piano} is @q{medium quiet} (that is, not as quiet as
-  @notation{piano})
-  @item @notation{mezzo forte} is @q{medium loud} (that is, not as loud as
-  @notation{forte})
-  @end itemize
+@itemize
+@item @notation{mezzo piano} is @q{medium quiet} (that is, not as quiet as
+@notation{piano})
+@item @notation{mezzo forte} is @q{medium loud} (that is, not as loud as
+@notation{forte})
+@end itemize
 
 @item Voice
-  @itemize
-  @item Pitchwise, a mezzo-soprano's voice lies between that of contraltos and
-  sopranos
-  @end itemize
+@itemize
+@item Pitchwise, a mezzo-soprano's voice lies between that of contraltos and
+sopranos
+@end itemize
 
 @end itemize
 
@@ -8857,18 +8847,17 @@ FI: ääni, lauluääni.
 
 @itemize
 
-  @item Human voices:
+@item Human voices:
+@itemize
+@item @ref{soprano}
+@item @ref{mezzo-soprano}
+@item @ref{contralto}
+@item @ref{tenor}
+@item @ref{baritone}
+@item @ref{bass}
+@end itemize
 
-    @itemize
-      @item @ref{soprano}
-      @item @ref{mezzo-soprano}
-      @item @ref{contralto}
-      @item @ref{tenor}
-      @item @ref{baritone}
-      @item @ref{bass}
-    @end itemize
-
-  @item A melodic layer or part of a polyphonic composition.
+@item A melodic layer or part of a polyphonic composition.
 
 @end itemize
 

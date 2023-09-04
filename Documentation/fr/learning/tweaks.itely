@@ -1823,7 +1823,7 @@ peut être changée de la même manière.
 @node Placement of objects
 @section Positionnement des objets
 
- @menu
+@menu
 * Automatic behavior::
 * Within-staff objects::
 * Outside-staff objects::

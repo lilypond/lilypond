@@ -19,10 +19,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-  @heading Manuali di LilyPond @version
+@heading Manuali di LilyPond @version
 @end ifclear
 @ifset web_version
-  @heading Manuali di LilyPond @versionStable
+@heading Manuali di LilyPond @versionStable
 @end ifset
 
 @divEnd

@@ -25,7 +25,7 @@
 @heading Manuals del LilyPond @version
 @end ifclear
 @ifset web_version
-  @heading Manuals del LilyPond @versionStable
+@heading Manuals del LilyPond @versionStable
 @end ifset
 
 @divEnd

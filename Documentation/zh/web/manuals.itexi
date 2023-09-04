@@ -21,10 +21,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-  @heading LilyPond @version 手册
+@heading LilyPond @version 手册
 @end ifclear
 @ifset web_version
-  @heading LilyPond @versionStable 手册
+@heading LilyPond @versionStable 手册
 @end ifset
 
 @divEnd

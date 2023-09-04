@@ -23,10 +23,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-  @heading Documentation pour LilyPond @version
+@heading Documentation pour LilyPond @version
 @end ifclear
 @ifset web_version
-  @heading Documentation pour LilyPond @versionStable
+@heading Documentation pour LilyPond @versionStable
 @end ifset
 
 @divEnd

@@ -18,10 +18,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-  @heading Manuals for LilyPond @version
+@heading Manuals for LilyPond @version
 @end ifclear
 @ifset web_version
-  @heading Manuals for LilyPond @versionStable
+@heading Manuals for LilyPond @versionStable
 @end ifset
 
 @divEnd

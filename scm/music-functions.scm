@@ -1219,17 +1219,17 @@ actually fully cloned."
   (lambda (syntaks)
     "Helper macro for @code{ly:make-music-function}.  Syntax:
 
-  @example
-  (define-syntax-function @var{result-type?}
-                          (@var{arg1} @var{arg2} @dots{})
-                          (@var{type1?} @var{type2?} @dots{})
-    @var{function-body})
-  @end example
+@example
+(define-syntax-function @var{result-type?}
+                        (@var{arg1} @var{arg2} @dots{})
+                        (@var{type1?} @var{type2?} @dots{})
+  @var{function-body})
+@end example
 
-  See @code{define-music-function} for information on type predicates.
-  @code{result-type?} can specify a default in the same manner as
-  predicates, to be used in case of a type error in arguments or
-  result."
+See @code{define-music-function} for information on type predicates.
+@code{result-type?} can specify a default in the same manner as
+predicates, to be used in case of a type error in arguments or
+result."
     (define (take-body-docstring body)
       (syntax-case body (_i)
         ;; A string and nothing else in the function is not the docstring
