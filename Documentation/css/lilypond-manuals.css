@@ -248,6 +248,28 @@ img {
 }
 
 /***********************************************************/
+/*                     FOOTNOTES                           */
+/***********************************************************/
+
+div.footnote,
+div.footnotes-segment {
+  margin-bottom: 18px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+div.footnote h4, div.footnote h5,
+div.footnotes-segment h4, div.footnotes-segment h5 {
+  padding: 0;
+}
+.footnote h5,
+.footnotes-segment h5.footnote-body-heading,
+.footnote p,
+.footnotes-segment p {
+  display: inline;
+  padding: 0;
+}
+
+/***********************************************************/
 /*                    TOC SIDEBAR                          */
 /***********************************************************/
 
