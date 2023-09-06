@@ -114,7 +114,8 @@ a:hover {
 /***********************************************************/
 
 blockquote,
-.smallexample {
+div.example,
+div.lisp {
   width: 96%;
   padding: 0;
   border: solid #d5d7d6;
@@ -124,7 +125,7 @@ blockquote,
   background-color: white;
 }
 
-blockquote p, pre.smallexample {
+blockquote p {
   padding: 1em;
   margin: 0;
 }
@@ -133,7 +134,9 @@ blockquote blockquote {
   border: none;
 }
 
-.verbatim, .example, .lisp {
+pre.verbatim, pre.verbatim-preformatted,
+pre.example, pre.example-preformatted,
+pre.lisp, pre.lisp-preformatted {
   /* Tested with DejaVu fonts.  Maybe we should specify explicit
      fonts instead of relying on system defaults anyway? */
   font-size: 1.03em;
