@@ -233,10 +233,12 @@ positions.")
 and for grouped staves that do not have the relevant
 @code{StaffGrouper} property set (@code{staff-staff-spacing} or
 @code{staffgroup-staff-spacing}).")
-     (details ,symbol-key-alist? "Alist of parameters for detailed grob
-behavior. More information on the allowed parameters for a grob can be found
-by looking at the top of the Internals Reference page for each interface
-having a @code{details} property.")
+     (details ,symbol-key-alist?  "An alist of parameters for detailed
+grob behavior.  @xref{All layout objects} for more information on the
+available parameters and their default values of a particular grob's
+@code{details} property.  @xref{Graphical Object Interfaces} for
+documentation of the available parameters.  Supporting interfaces can
+be found at the bottom of a grob's description section.")
      (digit-names ,vector? "Names for string finger digits.")
      (direction ,ly:dir? "If @code{side-axis} is @code{0} (or
 @code{X}), then this property determines whether the object is placed
