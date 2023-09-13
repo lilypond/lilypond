@@ -929,6 +929,20 @@ Notation Reference:
 @node Default layout of bookpart and score titles
 @unnumberedsubsubsec Default layout of bookpart and score titles
 
+@funindex arranger
+@funindex composer
+@funindex copyright
+@funindex dedication
+@funindex instrument
+@funindex meter
+@funindex opus
+@funindex piece
+@funindex poet
+@funindex subsubtitle
+@funindex subtitle
+@funindex tagline
+@funindex title
+
 This example demonstrates all printed @code{\header} variables:
 
 @lilypond[papersize=a6landscape,line-width=14.5\cm,quote,verbatim,noragged-right]
