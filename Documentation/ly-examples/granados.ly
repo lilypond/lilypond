@@ -11,7 +11,7 @@
 
 
 \paper {
-  paper-height = 70\mm
+  paper-height = 82\mm
 }
 
 
@@ -84,7 +84,7 @@ middleVoiceOne = \relative {
   \voiceOne e,8( dis16 e) |
 
   % 3
-  \once \override VoiceFollower.bound-details.left.Y = #-10
+  \once \override VoiceFollower.bound-details.left.Y = 1
   \showStaffSwitch \csh \stemUp f4
 }
 
