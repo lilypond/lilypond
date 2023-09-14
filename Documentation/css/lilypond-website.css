@@ -35,7 +35,10 @@ p {
   margin: 0.5em;
 }
 
-h1, h2, h3, h4, h5 {
+h1 {
+  display: none;
+}
+h2, h3, h4, h5 {
   margin: 1em 10px;
 }
 

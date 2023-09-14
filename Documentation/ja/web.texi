@@ -82,8 +82,8 @@ GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー �
 @c TITLE PAGE
 @ifnottex
 @node Top
-@c This is intentionally blank because we have @settitle above
-@top
+@c This must exactly match @settitle above.
+@top LilyPond -- みんなの楽譜作成
 @end ifnottex
 
 

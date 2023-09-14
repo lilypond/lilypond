@@ -72,8 +72,8 @@ Free Documentation License''.
 @c TITLE PAGE
 @ifnottex
 @node Top
-@c This is intentionally blank because we have @settitle above
-@top
+@c This must exactly match @settitle above.
+@top LilyPond: notación musical para todos
 @end ifnottex
 
 
