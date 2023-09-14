@@ -26,6 +26,13 @@
 
 @divEnd
 
+The LilyPond manuals generally come in three formats: split HTML,
+big HTML, and PDF.  Split HTML is good for reading online.  Big
+HTML (and some of these files can be @emph{very} big) contains the
+whole manual as a single page.  PDF is available for downloading
+and using offline.  To get to these three formats, follow the
+links that read @q{details of} and then the manual name.
+
 @divClass{link-headings}
 
 @divClass{column-center-top}
@@ -154,17 +161,6 @@ manuals for the unstable version.
 these manuals are published under the GNU Free Documentation License.
 
 @end itemize
-
-@divEnd
-
-@divClass{column-center-bottom}
-@subheading Manual formats
-
-The LilyPond manuals generally come in three formats: split HTML, big HTML and
-PDF.  Split HTML is good for reading online.  Big HTML (and some of these can be
-very big) contains the whole manual in a single page.  PDF is available for
-downloading and using offline.  To get to these 3 formats, follow the links
-that read @code{details of} and then the manual name.
 
 @divEnd
 
