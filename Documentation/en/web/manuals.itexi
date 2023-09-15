@@ -83,6 +83,16 @@ running the programs.
 short tricks and tips.
 @details{Snippets}
 
+@ignore
+
+XXX Enable the next item after the 2.26 stable release.
+
+@item
+@docLink{Visual Index,ly-examples/visualindex.pdf,@value{manualStable}/ly-examples/visualindex.pdf}:
+visual reference of all graphical objects (PDF).
+
+@end ignore
+
 @end itemize
 
 @divEnd

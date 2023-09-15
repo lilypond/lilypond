@@ -634,6 +634,12 @@ lilypond -dlast=R1*5 ...
 makes LilyPond render only the last five measures (assuming a 4/4
 time signature).
 
+@item
+A visual index of all LilyPond graphical objects (grobs) is now
+available as a manual.  This is based on
+@uref{https://github.com/joram-berger/visualindex,Joram Berger's
+work for LilyPond 2.19}.
+
 @end itemize
 
 
