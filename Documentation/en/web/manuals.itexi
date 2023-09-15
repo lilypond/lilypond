@@ -335,8 +335,8 @@ demonstrates new features of a development version must be added
 separately.  These are stored in @file{Documentation/snippets/new/} in the LilyPond
 source tree.
 
-The list of snippets for each subsection of the Notation are also
-linked from the @strong{See also} portion.
+The list of snippets for each subsection of the Notation Reference
+is also linked from the @strong{See also} portion.
 @divEnd
 
 @divClass{column-right-bottom}

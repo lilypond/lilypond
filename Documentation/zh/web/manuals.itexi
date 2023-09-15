@@ -300,8 +300,8 @@ LilyPond 片断库 (LilyPond Snippet Repository@comma{} LSR)}
 稳定版，所以任何展示开发版中新特性的示例片断，都要另行添加。它们保存在
 LilyPond 源代码树的 @file{Documentation/snippets/new/} 里。
 
-The list of snippets for each subsection of the Notation are also
-linked from the @strong{See also (参见)} portion.
+The list of snippets for each subsection of the Notation Reference
+is also linked from the @strong{See also (参见)} portion.
 @divEnd
 
 @divClass{column-right-bottom}

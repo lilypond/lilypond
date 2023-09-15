@@ -178,7 +178,7 @@ Macro definitions that contain translatable text belong to file
 % See the implementation of `\xrefX` in `texinfo.tex` for more comments
 % and explanations.
 %
-% Not that we bypass `@xrefautomaticsectiontitle on` to get proper
+% Note that we bypass `@xrefautomaticsectiontitle on` to get proper
 % formatting of references to `@anchor`.
 %
 % This code needs `texinfo.tex` version 2021-02-20.11 or newer.
