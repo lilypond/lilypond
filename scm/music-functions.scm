@@ -1479,18 +1479,20 @@ then revert skipTypesetting."
 
 (define (skip-as-needed music)
   "Replace @var{music} by
+
 @example
 <<
   @{
     \\set skipTypesetting = ##f
-    \\skip %@{ length of \\showFirstLength %@}
+    \\skip @{ length of \\showFirstLength @}
     \\set skipTypesetting = ##t
-    \\skip %@{ length of music not to be typeset @}
+    \\skip @{ length of music not to be typeset @}
     \\set skipTypesetting = ##f
   @}
   @var{music}
 >>
 @end example
+
 @noindent
 if appropriate.
 
