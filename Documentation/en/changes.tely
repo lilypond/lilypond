@@ -620,6 +620,20 @@ images are now vertically shifted.  The amount can be controlled
 globally with command-line option @option{--inline-vshift} and
 locally with an argument to the snippet option @code{inline}.
 
+@item
+Two new command-line options @option{-dfirst} and @option{-dlast}
+have been introduced; they are equivalent to setting
+@code{showFirstLength} and @code{showLastLength}, respectively, in
+a LilyPond input file.  For example, saying
+
+@example
+lilypond -dlast=R1*5 ...
+@end example
+
+@noindent
+makes LilyPond render only the last five measures (assuming a 4/4
+time signature).
+
 @end itemize
 
 

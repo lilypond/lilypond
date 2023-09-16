@@ -1499,8 +1499,16 @@ if appropriate.
 When only @code{showFirstLength} is set, the @code{length} property of
 the music is overridden to speed up compiling."
   (let*
-      ((show-last (ly:parser-lookup 'showLastLength))
-       (show-first (ly:parser-lookup 'showFirstLength))
+      ((last (ly:get-option 'last))
+       (first (ly:get-option 'first))
+       (show-last (if last
+                      (ly:parse-string-expression
+                       (ly:parser-clone) (symbol->string last))
+                      (ly:parser-lookup 'showLastLength)))
+       (show-first (if first
+                       (ly:parse-string-expression
+                        (ly:parser-clone) (symbol->string first))
+                       (ly:parser-lookup 'showFirstLength)))
        (show-last-length (and (ly:music? show-last)
                               (ly:music-length show-last)))
        (show-first-length (and (ly:music? show-first)

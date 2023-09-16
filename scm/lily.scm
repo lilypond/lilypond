@@ -291,6 +291,9 @@ document.")
     (eps-box-padding #f
                      "Pad left edge of the output EPS bounding box by
 given amount (in mm).")
+    (first #f
+           "Only show LENGTH music at the beginning, with
+LENGTH being a string like \"R1*5\".")
     (font-export-dir #f
                      "Directory for exporting fonts as PostScript
 files.")
@@ -325,6 +328,9 @@ to process several files."
     (job-count #f
                "Process in parallel, using the given number of
 jobs.")
+    (last #f
+          "Only show LENGTH music at the end, with LENGTH
+being a string like \"R1*5\".")
     (log-file #f
               "If string FOO is given as an argument, redirect
 output to log file `FOO.log'.")

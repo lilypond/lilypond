@@ -683,6 +683,20 @@ Default: @code{#f}.
 Pad left edge of the output EPS bounding box by @var{num} millimeters.
 Default: @code{#f} (meaning no bounding box padding).
 
+@item @code{first} @var{string}
+Only show music with a length given by @var{string} at the
+beginning.  This is equivalent to
+
+@example
+showFirstLength = @var{string}
+@end example
+
+@noindent
+if inserted at the beginning of the input file.  If both
+@option{-dfirst} and @code{showFirstLength} are set, the
+command-line option takes precedence.  See @rnotation{Extracting
+fragments of music}.
+
 @item @code{font-export-dir} @var{string}
 Set directory for exporting fonts as PostScript files to @var{string}.
 This is useful when you want to create a PDF without embedded fonts first
@@ -781,6 +795,20 @@ Default: @code{'()} (meaning no global settings file).
 @item @code{job-count} @var{num}
 Process in parallel, using @var{num} jobs.
 Default: @code{#f} (meaning no parallel processing).
+
+@item @code{last} @var{string}
+Only show music with a length given by @var{string} at the end.
+This is equivalent to
+
+@example
+showLastLength = @var{string}
+@end example
+
+@noindent
+if inserted at the beginning of the input file.  If both
+@option{-dlast} and @code{showLastLength} are set, the
+command-line option takes precedence.  See @rnotation{Extracting
+fragments of music}.
 
 @item @code{log-file} @var{string}
 Redirect output to the log file @file{@var{string}.log}.
