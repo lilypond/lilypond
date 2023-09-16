@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.7\n"
+"Project-Id-Version: lilypond 2.25.8\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2023-07-29 15:52+0200\n"
+"POT-Creation-Date: 2023-09-16 11:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,11 +37,11 @@ msgstr ""
 msgid "Running `%s' on file `%s' to detect default page settings.\n"
 msgstr ""
 
-#: book_latex.py:252 book_texinfo.py:257
+#: book_latex.py:252 book_texinfo.py:256
 msgid "Unable to auto-detect default settings:\n"
 msgstr ""
 
-#: book_latex.py:264 book_texinfo.py:269
+#: book_latex.py:264 book_texinfo.py:268
 #, python-format
 msgid ""
 "Unable to auto-detect default settings:\n"
@@ -125,7 +125,7 @@ msgid ""
 "printing diff against existing file."
 msgstr ""
 
-#: book_texinfo.py:234
+#: book_texinfo.py:233
 #, python-format
 msgid "Running texi2pdf on file %s to detect default page settings.\n"
 msgstr ""
@@ -920,6 +920,25 @@ msgid ""
 "related to using the \\roman markup command with the markup\n"
 "macro, e.g., #(markup #:roman ...).  If this is the case, convert\n"
 "#:roman to #:serif .\n"
+msgstr ""
+
+#: convertrules.py:5247
+msgid "subdivideBeams"
+msgstr ""
+
+#: convertrules.py:5248
+msgid ""
+"\n"
+"Context property 'subdivideBeams' used to rely on the value of\n"
+"'baseMoment' for the minimum subdivision interval. Now, separate\n"
+"properties 'minimumBeamSubdivisionInterval',\n"
+"'maximumBeamSubdivisionInterval' and 'respectIncompleteBeams'\n"
+"specifically control beam subdivision intervals, whereas 'baseMoment' no\n"
+"longer has an effect. The value of 'baseMoment' may implicitly change\n"
+"whenever time signature changes or is first set, so preserving past\n"
+"behavior requires setting 'minimumBeamSubdivisionInterval' to the same\n"
+"value of 'baseMoment', even at each implicit setting of 'baseMoment',\n"
+"and setting 'respectIncompleteBeams' to true"
 msgstr ""
 
 #: lilylib.py:50
@@ -1966,23 +1985,23 @@ msgstr ""
 msgid "Cannot set outside-staff-priority for element and elements' Y parent."
 msgstr ""
 
-#: beam-engraver.cc:156
+#: beam-engraver.cc:125
 msgid "already have a beam"
 msgstr ""
 
-#: beam-engraver.cc:241
+#: beam-engraver.cc:199
 msgid "unterminated beam"
 msgstr ""
 
-#: beam-engraver.cc:288 chord-tremolo-engraver.cc:145
+#: beam-engraver.cc:245 chord-tremolo-engraver.cc:145
 msgid "stem must have Rhythmic structure"
 msgstr ""
 
-#: beam-engraver.cc:298
+#: beam-engraver.cc:254
 msgid "stem does not fit in beam"
 msgstr ""
 
-#: beam-engraver.cc:299
+#: beam-engraver.cc:255
 msgid "beam was started here"
 msgstr ""
 
@@ -1990,7 +2009,7 @@ msgstr ""
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
-#: beam.cc:198
+#: beam.cc:199
 msgid "removing beam with no stems"
 msgstr ""
 
@@ -2087,9 +2106,9 @@ msgstr ""
 msgid "junking empty cluster"
 msgstr ""
 
-#: coherent-ligature-engraver.cc:112
+#: coherent-ligature-engraver.cc:114
 #, c-format
-msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
+msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%p"
 msgstr ""
 
 #: constrained-breaking.cc:197 constrained-breaking.cc:218
@@ -2181,12 +2200,12 @@ msgstr ""
 msgid "grob class should be 'Item, 'Spanner or 'Paper_column, found %s"
 msgstr ""
 
-#: engraver.cc:177
+#: engraver.cc:171
 #, c-format
 msgid "No grob definition found for `%s'."
 msgstr ""
 
-#: engraver.cc:230
+#: engraver.cc:228
 #, c-format
 msgid ""
 "sticky grob %s created with a type that does not have the sticky-grob-"
@@ -2405,7 +2424,7 @@ msgstr ""
 msgid "Grob `%s' has no interface for property `%s'"
 msgstr ""
 
-#: grob-property.cc:79
+#: grob-property.cc:83
 msgid "To use grob debug callbacks, configure with --enable-checking"
 msgstr ""
 
@@ -2960,7 +2979,7 @@ msgstr ""
 msgid "none of note heads `%s' or `%s' found"
 msgstr ""
 
-#: note-heads-engraver.cc:75
+#: note-heads-engraver.cc:76
 msgid "NoteEvent without pitch"
 msgstr ""
 
@@ -3692,16 +3711,16 @@ msgstr ""
 msgid "remapping modulo 16"
 msgstr ""
 
-#: stem-engraver.cc:98
+#: stem-engraver.cc:94
 msgid "tremolo duration is too long"
 msgstr ""
 
-#: stem-engraver.cc:151
+#: stem-engraver.cc:147
 #, c-format
 msgid "adding note head to incompatible stem (type = %d/%d)"
 msgstr ""
 
-#: stem-engraver.cc:153
+#: stem-engraver.cc:149
 msgid "maybe input should specify polyphonic voices"
 msgstr ""
 
@@ -3821,7 +3840,7 @@ msgstr ""
 msgid "cannot find: `%s'"
 msgstr ""
 
-#: tuplet-engraver.cc:99
+#: tuplet-engraver.cc:90
 msgid "No tuplet to end"
 msgstr ""
 
@@ -4279,12 +4298,12 @@ msgstr ""
 msgid "unknown Grob interface: ~S"
 msgstr ""
 
-#: document-context-mods.scm:78
+#: document-context-mods.scm:79
 #, scheme-format
 msgid "context modification `~a' not documented."
 msgstr ""
 
-#: document-identifiers.scm:54
+#: document-identifiers.scm:55
 #, scheme-format
 msgid "music function `~a' not documented."
 msgstr ""
@@ -4519,40 +4538,40 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:362
+#: lily-library.scm:363
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:370
+#: lily-library.scm:371
 msgid "Cannot determine contexts to modify"
 msgstr ""
 
-#: lily-library.scm:421
+#: lily-library.scm:422
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:437
+#: lily-library.scm:438
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:1215
+#: lily-library.scm:1216
 msgid ""
 "version with third number omitted is only allowed for stable releases (when "
 "the second number is even)"
 msgstr ""
 
-#: lily-library.scm:1228
+#: lily-library.scm:1229
 #, scheme-format
 msgid "Invalid version string \"~a\""
 msgstr ""
 
-#: lily-library.scm:1243
+#: lily-library.scm:1244
 #, scheme-format
 msgid "program too old: ~a (file requires: ~a)"
 msgstr ""
 
-#: lily-library.scm:1259
+#: lily-library.scm:1260
 #, scheme-format
 msgid ""
 "\n"
@@ -4564,7 +4583,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: lily-library.scm:1427
+#: lily-library.scm:1428
 msgid ""
 "Bisect between the integers @var{start} and @var{end}, both ends inclusive, "
 "to\n"
@@ -4583,17 +4602,17 @@ msgid ""
 "greater than or equal to @var{target-val}."
 msgstr ""
 
-#: lily-library.scm:1672
+#: lily-library.scm:1673
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:1705
+#: lily-library.scm:1706
 #, scheme-format
 msgid "conflict with event: `~a'"
 msgstr ""
 
-#: lily-library.scm:1706
+#: lily-library.scm:1707
 #, scheme-format
 msgid "discarding event: `~a'"
 msgstr ""
@@ -5029,11 +5048,11 @@ msgstr ""
 msgid "unterminated measure spanner"
 msgstr ""
 
-#: scheme-engravers.scm:716
+#: scheme-engravers.scm:717
 msgid "unterminated DurationLine"
 msgstr ""
 
-#: scheme-engravers.scm:859
+#: scheme-engravers.scm:860
 msgid ""
 "No notes found to start from,\n"
 "ignoring. If you want to bend an open string, consider to override/tweak "
@@ -5041,23 +5060,23 @@ msgid ""
 "'bend-me property."
 msgstr ""
 
-#: scheme-engravers.scm:893
+#: scheme-engravers.scm:894
 msgid "Unbound BendSpanner, ignoring"
 msgstr ""
 
-#: scheme-engravers.scm:942
+#: scheme-engravers.scm:943
 msgid "no finger found to start this glide, ignoring."
 msgstr ""
 
-#: scheme-engravers.scm:977
+#: scheme-engravers.scm:978
 msgid "unterminated finger glide spanner"
 msgstr ""
 
-#: scheme-engravers.scm:1522
+#: scheme-engravers.scm:1523
 msgid "unterminated measure for chord square"
 msgstr ""
 
-#: scheme-engravers.scm:1655
+#: scheme-engravers.scm:1656
 msgid "no highlight to end"
 msgstr ""
 
