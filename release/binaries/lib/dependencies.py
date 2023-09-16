@@ -92,7 +92,7 @@ class Zlib(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://www.zlib.net/{self.archive}"
+        return f"https://github.com/madler/zlib/releases/download/v{self.version}/{self.archive}"
 
     def apply_patches(self, c: Config):
         def patch_configure(content: str) -> str:
