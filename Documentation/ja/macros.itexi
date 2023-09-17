@@ -168,11 +168,11 @@ LilyPond バージョン @version{} 用
 
 @macro predefined
 @subsubheading 定義済みコマンド
-@raggedRight
+@raggedright
 @end macro
 
 @macro endpredefined
-@endRaggedRight
+@end raggedright
 @end macro
 
 

@@ -189,11 +189,11 @@ Für LilyPond Version @version{}
 
 @macro predefined
 @subsubheading Vordefinierte Befehle
-@raggedRight
+@raggedright
 @end macro
 
 @macro endpredefined
-@endRaggedRight
+@end raggedright
 @end macro
 
 

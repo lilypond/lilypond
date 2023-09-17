@@ -42,7 +42,7 @@
     (string-append
      desc
      "\n\n"
-     "@raggedRight\n"
+     "@raggedright\n"
      (if (pair? accepted)
          (string-append
           "Music types accepted:\n"
@@ -116,7 +116,7 @@
                  "."))))
          "")
 
-     "\n@endRaggedRight")))
+     "\n@end raggedright")))
 
 ;; First level Engraver description
 (define (engraver-doc grav)
@@ -198,7 +198,7 @@
             ".")
            "")
 
-       "\n\n@raggedRight"
+       "\n\n@raggedright"
        "\nThis context creates the following layout object(s):\n"
        (list-xref-symbols grobs-created #:uniq #t)
        "."
@@ -216,7 +216,7 @@
                   "@end itemize\n")))
            "")
 
-       "\n@endRaggedRight"
+       "\n@end raggedright"
 
        (if defaultchild
            (format #f "\n\nThis is not a `Bottom' context; search for such a one will commence after creating an implicit context of type @iref{~a}."
@@ -226,13 +226,13 @@
        (if (null? accepts)
            "\n\nThis context cannot contain other contexts."
            (string-append
-            "\n\n@raggedRight"
+            "\n\n@raggedright"
             "\nContext @code{"
             name
             "} can contain\n"
             (list-xref-symbols accepts)
             "."
-            "\n@endRaggedRight"))
+            "\n@end raggedright"))
 
        (if (null? consists)
            ""

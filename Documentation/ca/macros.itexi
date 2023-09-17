@@ -202,11 +202,11 @@ Per a la versió del LilyPond @version{}
 
 @macro predefined
 @subsubheading Instruccions predefinides
-@raggedRight
+@raggedright
 @end macro
 
 @macro endpredefined
-@endRaggedRight
+@end raggedright
 @end macro
 
 

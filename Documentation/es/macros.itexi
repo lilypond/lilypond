@@ -192,11 +192,11 @@ Para la versión de LilyPond @version{}
 
 @macro predefined
 @subsubheading Instrucciones predefinidas
-@raggedRight
+@raggedright
 @end macro
 
 @macro endpredefined
-@endRaggedRight
+@end raggedright
 @end macro
 
 

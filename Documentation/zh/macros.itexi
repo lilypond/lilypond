@@ -182,11 +182,11 @@ LilyPond 版本 @version{}
 
 @macro predefined
 @subsubheading 预定义命令
-@raggedRight
+@raggedright
 @end macro
 
 @macro endpredefined
-@endRaggedRight
+@end raggedright
 @end macro
 
 
@@ -200,11 +200,11 @@ LilyPond 版本 @version{}
 
 @macro morerefs
 @subsubheading 参见
-@raggedRight
+@raggedright
 @end macro
 
 @macro endmorerefs
-@endRaggedRight
+@end raggedright
 @end macro
 
 

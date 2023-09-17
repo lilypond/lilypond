@@ -189,11 +189,11 @@ Per la versione di LilyPond @version{}
 
 @macro predefined
 @subsubheading Comandi predefiniti
-@raggedRight
+@raggedright
 @end macro
 
 @macro endpredefined
-@endRaggedRight
+@end raggedright
 @end macro
 
 
@@ -207,11 +207,11 @@ Per la versione di LilyPond @version{}
 
 @macro morerefs
 @subsubheading Vedi anche
-@raggedRight
+@raggedright
 @end macro
 
 @macro endmorerefs
-@endRaggedRight
+@end raggedright
 @end macro
 
 

@@ -3513,7 +3513,7 @@ Afin de s'y retrouver plus aisément et d'éviter les erreurs de frappe,
 voici quelques conventions en matière de nommage.
 
 @c Superset of the table in the Learning Manual. --JeanAS
-@raggedRight
+@raggedright
 @multitable @columnfractions .33 .33 .33
 @headitem Objet ou type de propriété
   @tab Convention de nommage
@@ -3568,7 +3568,7 @@ voici quelques conventions en matière de nommage.
   @code{ly:}.}
   @tab @code{ly:round-filled-box}, @code{music-map}
 @end multitable
-@endRaggedRight
+@end raggedright
 
 
 @node Predefined type predicates

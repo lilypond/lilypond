@@ -127,7 +127,7 @@
       #:name (symbol->string name)
       #:text (string-append
               (interface-doc-string (cdr interface))
-              "\n\n@raggedRight\n"
+              "\n\n@raggedright\n"
               "This grob interface "
               (if unconditional-grobs
                   (format #f
@@ -141,7 +141,7 @@
 by the following objects depending on their class: ~a."
                           (list-xref-symbols  conditional-grobs))
                   "")
-              "\n@endRaggedRight"))))
+              "\n@end raggedright"))))
 
 (define (grob-alist->texi alist)
   (let* ((uprops (filter (lambda (x) (not (object-property x 'backend-internal)))
@@ -179,7 +179,7 @@ node."
        "\n\n"
        docstring
        "\n\n"
-       "@raggedRight\n"
+       "@raggedright\n"
        "@code{"
        namestr "} objects "
        (cond
@@ -193,11 +193,11 @@ node."
          (ly:error "no engraver declares that it creates ~a grobs" name)))
 
        "."
-       "\n@endRaggedRight"
+       "\n@end raggedright"
 
        "\n\nStandard settings:\n"
        (grob-alist->texi description)
-       "\n\n@raggedRight\n"
+       "\n\n@raggedright\n"
        "This object supports the following interface(s):\n"
        (list-xref-symbols
         (if two-or-more
@@ -224,7 +224,7 @@ It supports the following interfaces conditionally depending on the class: ~a."
            (format #f "This object is of class ~a (characterized by ~a)."
                    (car classes)
                    (ref-ify (symbol->string (caar class-interfaces)))))
-       "\n\n@endRaggedRight"))))
+       "\n\n@end raggedright"))))
 
 (define (all-grobs-doc)
   (make <texi-node>

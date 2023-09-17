@@ -3758,7 +3758,7 @@ Si usano delle convenzioni per i nomi in modo che sia più facile avere in
 mente la natura di un oggetto.
 
 @c Superset of the table in the Learning Manual. --JeanAS
-@raggedRight
+@raggedright
 @multitable @columnfractions .33 .33 .33
 @headitem Object/property type
   @tab Convenzione del nome
@@ -3812,7 +3812,7 @@ mente la natura di un oggetto.
   definite da LilyPond iniziano col prefisso @code{ly:}.}
   @tab @code{ly:round-filled-box}, @code{music-map}
 @end multitable
-@endRaggedRight
+@end raggedright
 
 
 @node Predefined type predicates
