@@ -364,6 +364,7 @@ See @rnotation{Note names in other languages}.
 记谱法参考：@rnotation{Writing pitches},
 @rnotation{Writing rhythms}, @rnotation{Writing rests},
 @rnotation{Time signature}, @rnotation{Clef}.
+@endmorerefs
 
 
 @node Working on input files
