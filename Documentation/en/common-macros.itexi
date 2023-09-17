@@ -26,8 +26,9 @@ Macro definitions that contain translatable text belong to file
 @c Don't break words at `-` and `_` within `@code`, and activate
 @c 'microtype'.
 @c
-@c Both commands must be in an `iftex` block because `texi2html` 1.82
-@c doesn't know them.
+@c Both commands must be in an `iftex` block because microtype is
+@c new in Texinfo 7.0 (we have it texinfo.tex) and neither of the
+@c two has an effect outside of PDF documentation anyhow.
 @iftex
 @allowcodebreaks false
 @microtype on
