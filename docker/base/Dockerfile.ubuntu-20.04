@@ -45,7 +45,6 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         pkgconf \
         python3 \
         rsync \
-        texi2html \
         texinfo \
         texlive-binaries \
         texlive-fonts-recommended \
