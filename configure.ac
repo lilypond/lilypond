@@ -43,12 +43,6 @@ AC_ARG_ENABLE(documentation,
     [DOCUMENTATION=$enableval])
 AC_SUBST(DOCUMENTATION)
 
-ENABLE_TEXI2HTML=yes
-AC_ARG_ENABLE(texi2html,
-    [AS_HELP_STRING([--enable-texi2html],
-                    [build texi2html for HTML documentation.  Default: on])],
-    [ENABLE_TEXI2HTML=$enableval])
-
 AC_ARG_WITH(extractpdfmark,
     [AS_HELP_STRING([--with-extractpdfmark],
                     [use extractpdfmark for PDF documentation.]
@@ -263,12 +257,6 @@ else
 fi
 
 STEPMAKE_PROGS(TEXI2ANY, texi2any, $DOCUMENTATION_REQUIRED, 6.7)
-TEXI2HTML_REQUIRED=$DOCUMENTATION_REQUIRED
-if test "$ENABLE_TEXI2HTML" = "no"; then
-  TEXI2HTML_REQUIRED=OPTIONAL
-fi
-AC_SUBST(TEXI2HTML_VERSION)
-STEPMAKE_PROGS(TEXI2HTML, texi2html, $TEXI2HTML_REQUIRED, 1.82)
 STEPMAKE_PROGS(DBLATEX, dblatex, OPTIONAL, 0.1.4)
 STEPMAKE_PROGS(BIBTEX, bibtex, $DOCUMENTATION_REQUIRED)
 STEPMAKE_PROGS(PDFLATEX, xelatex pdflatex, $DOCUMENTATION_REQUIRED)
