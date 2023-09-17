@@ -445,7 +445,7 @@ numbers:
 
 @item
 Update the version of the search boxes in the Table of Contents sidebar to
-2.@var{NEW-DEVELOPMENT} (in @file{Documentation/lilypond-texi2html.init}).
+2.@var{NEW-DEVELOPMENT} (in @file{Documentation/lilypond.init}).
 
 @item
 Prevent crawlers from indexing the old documentation by adding lines

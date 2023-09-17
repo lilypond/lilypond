@@ -1792,10 +1792,10 @@ where @var{MY-LANGUAGE} is the ISO 639 language code.
 
 Finally, add a language definition for your language in
 @file{python/langdefs.py},
-@file{Documentation/lilypond-texi2html-lang.init} and
+@file{Documentation/lilypond-lang.init} and
 @file{Documentation/webserver/lilypond.org.htaccess}.
 Add this language definition and the corresponding section in
-@file{Documentation/lilypond-texi2html.init} and
+@file{Documentation/lilypond.init} and
 @file{scripts/build/create-weblinks-itexi.py}.
 
 
@@ -2369,11 +2369,7 @@ cross-reference names already exist in the translation.
 @item Each maintenance task except @q{Updating PO files} can be done by
 the same person for all languages, which saves overall time spent by
 translators to achieve this task: the node names and section titles
-are in English, so you can do.  It is important to take advantage of
-this now, as it will be more complicated (but still possible) to do
-step 3 in all languages when documentation is compiled with
-@command{texi2html} and node names are directly translated in source
-files.
+are in English, so you can do.
 @end itemize
 
 

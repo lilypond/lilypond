@@ -198,31 +198,6 @@ sudo dnf install autoconf gcc-c++
 @end example
 
 @item
-Download @code{texi2html 1.82} directly from:
-@uref{http://download.savannah.gnu.org/releases/texi2html/texi2html-1.82.tar.gz};
-
-@code{texi2html} is only required if you intend to compile LilyPond's
-own documentation (e.g., to help with any document writing).  The version
-available in the Fedora repositories is too new and will not work.
-Extract the files into an appropriate location and then run the
-commands;
-
-@example
-./configure
-make
-sudo make install
-@end example
-
-This should install @code{texi2html 1.82} into @code{/usr/local/bin},
-which will normally take priority over @code{/usr/bin} where the
-later, pre-installed versions gets put.  Now verify that your operating
-system is able to see the correct version of @code{texi2html}.
-
-@example
-texi2html --version
-@end example
-
-@item
 Although not @q{required} to compile LilyPond, if you intend to
 contribute to LilyPond (codebase or help improve the documentation) then
 it is recommended that you also need to install @code{git}.
@@ -542,30 +517,6 @@ We need the @command{convert} tool.
 
 @item
 @uref{https://rsync.samba.org, rsync}
-
-@item
-@uref{https://www.nongnu.org/texi2html, Texi2HTML}@*
-Use version 1.82.  Later versions might work, but produce
-suboptimal results.
-
-It is probably easiest to download @code{texi2html} directly from
-@uref{http://download.savannah.gnu.org/releases/texi2html/texi2html-1.82.tar.gz};
-then extract the files into an appropriate location and run the
-commands
-
-@example
-./configure
-make
-sudo make install
-@end example
-
-Now verify that your operating system is able to see the correct
-version of @code{texi2html} by entering
-@example
-texi2html --version
-@end example
-@noindent
-on the command line.
 
 @item
 To get reproducible documentation builds (this is, PDF
