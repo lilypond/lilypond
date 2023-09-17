@@ -447,15 +447,6 @@ Macro definitions that contain translatable text belong to file
 
 @end ifnottex
 
-@c XXX Currently we are forced to use ancient version 1.82 of texi2html
-@c     (from 2005); we thus have to provide a macro for `@sortas`,
-@c     which was introduced in Texinfo version 6.1 (in 2016).
-
-@ifhtml
-@macro sortas {TEXT}
-@end macro
-@end ifhtml
-
 
 @c   ***** Macros specific to translated docs *****
 
