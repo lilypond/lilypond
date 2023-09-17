@@ -34,11 +34,11 @@
 @noindent
 @strong{~a}
 
-@indentedBlock
+@indentedblock
 @multitable @columnfractions 0.27 0.5
 ~a
 @end multitable
-@endIndentedBlock
+@end indentedblock
 "
               (car size-group)
               (string-join

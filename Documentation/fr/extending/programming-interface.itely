@@ -717,7 +717,7 @@ syntaxes respectives de LilyPond et de Scheme en matière de
 @code{#@{ @dots{} #@}} apporte de la souplesse, nous allons voir comment
 utiliser la macro @code{markup} en Scheme exclusivement.
 
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .3 .3
 @item @b{LilyPond} @tab @b{Scheme}
 @item @code{\markup markup1} @tab @code{(markup markup1)}
@@ -730,7 +730,7 @@ utiliser la macro @code{markup} en Scheme exclusivement.
 @item @code{chaîne} @tab @code{"chaîne"}
 @item @code{#argument-scheme} @tab @code{argument-scheme}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 L'intégralité du langage Scheme est accessible à l'intérieur même de la
 macro @code{markup}.  Vous pouvez ainsi appeler des fonctions à partir

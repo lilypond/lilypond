@@ -1912,14 +1912,14 @@ seront mappées selon des alias différents.
 
 Pour le moteur @code{svg} :
 
-@indentedBlock
+@indentedblock
 @multitable {@b{Famille générique}} {@b{ Famille de fonte SVG}}
 @headitem Famille générique @tab Famille de fonte SVG
 @item @emph{roman} @tab serif
 @item @emph{sans} @tab sans-serif
 @item @emph{typewriter} @tab monospace
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @noindent
 « serif », « sans-serif » et « monospace » sont des
@@ -1927,7 +1927,7 @@ Pour le moteur @code{svg} :
 
 Pour les autres moteurs :
 
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .17 .30 .45
 @headitem Famille générique
           @tab Fonte par défaut (alias)
@@ -1959,7 +1959,7 @@ Pour les autres moteurs :
      @dots{},
      monospace
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @noindent
 Lorsqu'un caractère est absent de la première fonte listée, il sera

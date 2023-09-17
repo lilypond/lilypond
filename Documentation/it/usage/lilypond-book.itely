@@ -791,13 +791,13 @@ Il motivo
 @noindent
 diventa
 
-@indentedBlock
+@indentedblock
 Il motivo
 @lilypond[inline,staffsize=11]{
   { \time 2/4 r8 g'[ g' g'] | es'2 }
 }
 è ben noto.
-@endIndentedBlock
+@end indentedblock
 
 @item indent=@var{dimensione}\@var{unità}
 Imposta l'indentazione del primo sistema musicale a @var{dimensione} (espressa

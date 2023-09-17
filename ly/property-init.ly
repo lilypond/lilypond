@@ -467,7 +467,7 @@ partCombineForce =
 The following table gives the possible values for @var{type}, together with the
 corresponding shorthand functions.
 
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .2 .4
 @item @code{apart}     @tab @code{\\partCombineApart}
 @item @code{chords}    @tab @code{\\partCombineChords}
@@ -476,7 +476,7 @@ corresponding shorthand functions.
 @item @code{solo2}     @tab @code{\\partCombineSoloII}
 @item @code{\\default} @tab @code{\\partCombineAutomatic}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 ")
    (if type (propertySet 'partCombineForced type)
        (propertyUnset 'partCombineForced)))

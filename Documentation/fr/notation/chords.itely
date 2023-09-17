@@ -1221,7 +1221,7 @@ explicitement interrompue par un @code{\!}.
 Voici, de manière synthétique, les différents modificateurs
 disponibles :
 
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .1 .5 .4
 
 @headitem
@@ -1283,7 +1283,7 @@ terminaison d'une prolongation
 @end lilypond
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @predefined
 @cindex basse chiffrée, lignes d'extension

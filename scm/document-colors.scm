@@ -63,11 +63,11 @@ column with zero-based index COLUMN."
                    color-list)))
     (format #f
             "\
-@smallIndentedBlock
+@smallindentedblock
 @multitable ~a
 ~a
 @end multitable
-@endSmallIndentedBlock
+@end smallindentedblock
 "
             (string-join
              (map (lambda (x)

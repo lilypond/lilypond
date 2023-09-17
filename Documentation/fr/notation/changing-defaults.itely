@@ -3926,7 +3926,7 @@ fonctions prédéfinies, regroupées dans le fichier
 @file{scm/output-lib.scm}.  Le tableau suivant vous les présente ;
 les trois dernières colonnes indiquent l'endroit où l'objet sera visible.
 
-@indentedBlock
+@indentedblock
 @multitable {@code{begin-of-line-invisible}} {@code{#(#t #t #t)}} {apres} {apres} {apres}
 @headitem Forme                      @tab Forme                  @tab Avant @tab Hors    @tab Après
 @headitem fonctionnelle              @tab vectorielle            @tab saut  @tab saut    @tab saut
@@ -3940,14 +3940,14 @@ les trois dernières colonnes indiquent l'endroit où l'objet sera visible.
 @item @code{end-of-line-invisible}   @tab @code{#(#f #t #t)}    @tab non    @tab oui    @tab oui
 @item @code{all-invisible}           @tab @code{#(#f #f #f)}    @tab non    @tab non    @tab non
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 Les réglages par défaut de la propriété @code{break-visibility}
 diffèrent selon l'objet de rendu.  Le tableau suivant présente, pour la
 plupart des  objets comportant la propriété @code{break-visibility},
 ces réglages par défaut.
 
-@indentedBlock
+@indentedblock
 @multitable {@code{DoublePercentRepeat}} {@b{Contexte habituel}} {@code{begin-of-line-invisible}}
 
 @headitem Objet de rendu   @tab Contexte habituel  @tab Réglage par défaut
@@ -3973,7 +3973,7 @@ ces réglages par défaut.
 @item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 Voici un exemple d'utilisation de la forme vectorielle pour contrôler la
 visibilité des barres de mesure :
@@ -4327,7 +4327,7 @@ préceptes suivants :
 
 @c TODO add an example of each to the table
 
-@indentedBlock
+@indentedblock
 @multitable {@b{Propriété @code{side-axis}}} {@b{Propriété @code{direction}}} {@b{Positionnement}}
 @headitem Propriété @code{side-axis}
                       @tab Propriété @code{direction}
@@ -4339,7 +4339,7 @@ préceptes suivants :
 @item     @code{1}          @tab @code{1}          @tab au-dessus
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 Pour un @code{side-axis} à @code{0}, le @code{X-offset} devrait engager
 la procédure @code{ly:@/side-@/position-@/interface::@/x-aligned-@/side}.

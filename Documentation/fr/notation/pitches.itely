@@ -516,7 +516,7 @@ exemple, utiliser l'italien pour votre saisie :
 Les langues disponibles ainsi que les noms de note utilisés sont les
 suivantes :
 
-@indentedBlock
+@indentedblock
 @multitable {@w{@code{português} ou}} {@code{do} @code{re}/@code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}}
 @headitem Lange
   @tab Nom des notes
@@ -545,12 +545,12 @@ suivantes :
 @item @code{vlaams}
   @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @noindent
 et les suffixes d'altération correspondants :
 
-@indentedBlock
+@indentedblock
 @multitable {@w{@code{português} ou}} {@code{s}/@code{-sharp}} {@code{f}/@code{-flat}} {@code{ss}/@code{x}/@code{-sharpsharp}} {@code{ff}/@code{-flatflat}}
 @headitem Langue
   @tab dièse @tab bémol @tab double dièse @tab double bémol
@@ -583,7 +583,7 @@ et les suffixes d'altération correspondants :
 @item @code{vlaams}
   @tab @code{k} @tab @code{b} @tab @code{kk} @tab @code{bb}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @noindent
 Notez qu'en hollandais, en allemand, en norvégien et en finnois, un
@@ -613,7 +613,7 @@ tableau suivant répertorie les noms de note en quart de ton, tels que
 définis dans les fichiers linguistiques.  Les préfixes @emph{semi-}
 et @emph{sesqui-} correspondent au @emph{demi-} et @emph{trois demis}.
 
-@indentedBlock
+@indentedblock
 @multitable {@w{@code{português} ou}} {@b{semi-dièse}} {@b{semi-bémol}} {@b{sesqui-dièse}} {@b{sesqui-bémol}}
 @headitem Langue
   @tab semi-dièse @tab semi-bémol @tab sesqui-dièse @tab sesqui-bémol
@@ -644,7 +644,7 @@ et @emph{sesqui-} correspondent au @emph{demi-} et @emph{trois demis}.
 @item @code{vlaams}
   @tab @code{hk} @tab @code{hb} @tab @code{khk} @tab @code{bhb}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 En allemand, les contractions de microtonalités sont identiques à celles
 des hauteurs normales indiquées ci-dessus.

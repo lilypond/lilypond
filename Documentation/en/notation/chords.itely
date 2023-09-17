@@ -1198,7 +1198,7 @@ the continuation lines have been explicitly terminated with
 
 The table below summarizes the figure modifiers available.
 
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .1 .5 .4
 
 @headitem
@@ -1260,7 +1260,7 @@ end of continuation line
 @end lilypond
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @predefined
 @cindex figured bass, extender lines

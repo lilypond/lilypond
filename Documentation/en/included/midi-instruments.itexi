@@ -3,7 +3,7 @@
 @c Digits are right-aligned by using one or two leading U+2007 characters if
 @c necessary.
 
-@smallIndentedBlock
+@smallindentedblock
 @multitable {111@ @ @code{acoustic guitar (nylon)}} {111@ @ @code{acoustic guitar (steel)}} {111@ @ @code{electric guitar (clean)}}
 @item   1 @ @ @code{acoustic grand}
   @tab   2 @ @ @code{bright acoustic}
@@ -134,4 +134,4 @@
 @item 127 @ @ @code{applause}
   @tab 128 @ @ @code{gunshot}
 @end multitable
-@endSmallIndentedBlock
+@end smallindentedblock

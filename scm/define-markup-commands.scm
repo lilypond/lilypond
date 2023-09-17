@@ -3557,7 +3557,7 @@ The appearance of digits in the Emmentaler font can be controlled with
 four OpenType features: @q{tnum}, @q{cv47}, @q{ss01}, and @q{kern},
 which can be arbitrarily combined.
 
-@indentedBlock
+@indentedblock
 @table @asis
 @item tnum
 If off (which is the default), glyphs @q{zero} to @q{nine} have no
@@ -3577,7 +3577,7 @@ If on (which is the default), provide pairwise kerning between (most)
 glyphs.
 
 @end table
-@endIndentedBlock
+@end indentedblock
 
 @lilypond[verbatim,quote]
 \\markuplist

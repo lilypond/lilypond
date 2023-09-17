@@ -2283,7 +2283,7 @@ Quant aux lignes rattachées à des portées -- lignes de non-portée -- le
 tableau suivant présente le @i{point de référence} pour chacune
 d'elles :
 
-@indentedBlock
+@indentedblock
 @multitable {@b{Ligne de non-portée}} {mi-hauteur du « m »}
 @headitem Ligne de non-portée @tab Point de référence
 @item @code{ChordNames}  @tab ligne de base
@@ -2293,7 +2293,7 @@ d'elles :
 @item @code{FiguredBass} @tab point le plus haut
 @item @code{FretBoards}  @tab ligne supérieure
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 En voici une représentation graphique :
 

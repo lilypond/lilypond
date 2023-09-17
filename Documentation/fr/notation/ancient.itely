@@ -1087,7 +1087,7 @@ expliqué à la section @ref{Clef}. Dans la colonne exemple, la note
 suivant la clef est un do médium.
 
 @need 1000
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .4 .4 .2
 @item
 @b{Description}
@@ -1209,7 +1209,7 @@ Clef combinée ut/fa, style historique Hufnagel
   c'
 @end lilypond
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @morerefs
 Glossaire musicologique :
@@ -1638,7 +1638,7 @@ ayant permis de générer la ligature, se basant ici sur sol, la, si.
 @subsubsubheading Neumes simples
 
 @need 1000
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .35 .13 .52
 
 @item
@@ -1782,13 +1782,13 @@ Formes @b{Normale} et @emph{Liquescente}
 @code{\[ \virga b' \]}
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 
 @subsubsubheading Ligatures sur deux notes
 
 @need 1000
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .35 .13 .52
 
 @item
@@ -1943,13 +1943,13 @@ Initio Debilis}
 \descendens b \]}
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 
 @subsubsubheading Ligatures sur plusieurs notes
 
 @need 1000
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .35 .13 .52
 
 @item
@@ -2188,13 +2188,13 @@ Initio Debilis}
 @code{\[ g \pes a \pes \deminutum b \]}
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 
 @subsubsubheading Signes spéciaux
 
 @need 1000
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .35 .13 .52
 
 @item
@@ -2383,7 +2383,7 @@ Initio Debilis}
 \stropha a \]}
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @predefined
 @funindex \virga

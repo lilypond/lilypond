@@ -568,7 +568,7 @@ La sintassi è descritta in @ref{Coloring objects}.
 @cindex elenco dei colori
 @cindex colori, elenco dei
 
-@indentedBlock
+@indentedblock
 @multitable {@code{darkcyan}} {@code{darkmagenta}} {@code{darkyellow}} {@code{darkblue}}
 @item @code{black}
   @tab @code{white}
@@ -586,13 +586,13 @@ La sintassi è descritta in @ref{Coloring objects}.
   @tab @code{darkmagenta}
   @tab @code{darkyellow}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @subsubheading CSS color names
 
 CSS color names may be used as-is in string arguments.
 
-@indentedBlock
+@indentedblock
 @multitable {@code{blanchedalmond}} {@code{lightgoldenrodyellow}} {@code{mediumspringgreen}} {@code{rebeccapurple}}
 @item @code{aliceblue}
   @tab @code{darkturquoise}
@@ -743,7 +743,7 @@ CSS color names may be used as-is in string arguments.
   @tab @code{palevioletred}
 @item @code{darkslategrey}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 Le definizioni di colore CSS differiscono dai nomi di colore X per i seguenti
 colori: @code{green}, @code{grey}, @code{maroon}, @code{purple}.
@@ -778,7 +778,7 @@ usati con tale suffisso.
 
 @subsubheading Nomi di colori senza un suffisso numerico
 
-@indentedBlock
+@indentedblock
 @multitable {@code{BlanchedAlmond}} {@code{LightGoldenrodYellow}} {@code{PaleGoldenrod}} {@code{firebrick}}
 @item @code{AliceBlue}
   @tab @code{LawnGreen}
@@ -917,7 +917,7 @@ usati con tale suffisso.
   @tab @code{cyan}
   @tab @code{yellow}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 
 @subsubheading Nomi di colori con un suffisso numerico
@@ -925,7 +925,7 @@ usati con tale suffisso.
 Nei seguenti nomi il suffisso@tie{}@var{N} può essere un numero intero
 compreso tra 1 e@tie{}4, dalle tonalità più chiare a quelle più scure:
 
-@indentedBlock
+@indentedblock
 @multitable {@code{DarkOliveGreen@var{N}}} {@code{LightSteelBlue@var{N}}} {@code{aquamarine@var{N}}} {@code{turquoise@var{N}}}
 @item @code{AntiqueWhite@var{N}}
   @tab @code{LightSkyBlue@var{N}}
@@ -1004,7 +1004,7 @@ compreso tra 1 e@tie{}4, dalle tonalità più chiare a quelle più scure:
   @tab @code{ivory@var{N}}
   @tab @code{yellow@var{N}}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 
 @subsubheading Scala di grigi
@@ -1028,7 +1028,7 @@ La funzione Scheme @code{universal-@/color} fornisce
 @uref{https://jfly.uni-koeln.de/color, un insieme di otto colori}
 progettati per essere non ambigui per le persone affette da bicromatismo.
 
-@indentedBlock
+@indentedblock
 @multitable {@code{yellow}} {@code{orange}} {@code{vermillion}} {@code{bluegreen}}
 @item @code{black}
   @tab @code{orange}
@@ -1039,7 +1039,7 @@ progettati per essere non ambigui per le persone affette da bicromatismo.
   @tab @code{vermillion}
   @tab @code{redpurple}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 
 @node The Emmentaler font

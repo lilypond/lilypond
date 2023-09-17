@@ -1262,11 +1262,11 @@ If set to true, print demerits together with their cause,
 followed by the number of configurations that have been scored
 before concluding.  Default: unset.
 
-@indentedBlock
+@indentedblock
 Example: 'L 18.95 C 655.12 c19/625' @arrow{} demerits for
 stem lengths (@samp{L}) and collisions (@samp{C}), scored 19 out
 of 625 initially considered configurations.
-@endIndentedBlock
+@end indentedblock
 
 Possible demerit causes: collision (@samp{C}), inappropriate stem
 length (@samp{L}), beam direction different from damping direction
@@ -1285,12 +1285,12 @@ If set to true, print demerits together with their cause,
 followed by the sum of all demerits and the index of the slur
 configuration finally chosen.  Default: unset.
 
-@indentedBlock
+@indentedblock
 Example: 'slope=2.00, R edge=10.51, variance=0.03 TOTAL=12.54 idx=4'
 @arrow{} demerits for slope, distance of the right edge to the
 attachment point, variance of distance between note heads and
 slur.  Total demerits: 12.54, index of the chosen configuration: 4.
-@endIndentedBlock
+@end indentedblock
 
 Possible demerit causes: distance of the left/right slur edge to the
 attachment points (@samp{L edge}/@samp{R edge}),
@@ -1308,14 +1308,14 @@ If set to true, print the basic configuration of ties, followed by
 demerits and their corresponding causes and the total sum of demerits.
 Default: unset.
 
-@indentedBlock
+@indentedblock
 Example: '0 (0.23) u: vdist=1.08 lhdist=1.79 tie/stem dir=8.00 TOTAL=10.87'
 @arrow{} offset from the center of the staff according tie
 specification: 0 staff-spaces, vertical distance of the tie's center
 in y-direction to the bottom (or top) of the tie: 0.23,
 direction: up.  Demerits for vertical and horizontal distance
 to note head, same direction of stem and tie.  Total demerits: 10.87.
-@endIndentedBlock
+@end indentedblock
 
 @c TODO: Which unit does the vertical distance have? staff-spaces?
 

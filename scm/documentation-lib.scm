@@ -102,12 +102,12 @@ string-to-use).  If INDENTED? is #t, embed table in a @indentedblock
 environment."
   (string-append
    "\n"
-   (if indented? "@indentedBlock\n" "")
+   (if indented? "@indentedblock\n" "")
    "@table @asis"
    (string-concatenate (map one-item->texi items-alist))
    "\n\n"
    "@end table\n"
-   (if indented? "@endIndentedBlock\n" "")))
+   (if indented? "@end indentedblock\n" "")))
 
 (define (texi-menu items-alist)
   "Generate what is between @menu and @end menu."

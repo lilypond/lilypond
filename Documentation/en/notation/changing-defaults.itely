@@ -2997,7 +2997,7 @@ appending @code{\mm} (millimeter), @code{\cm} (centimeter),
 @code{\in} (inches), @code{\pt} (points), or @code{\bp} (big
 points).
 
-@indentedBlock
+@indentedblock
 @c U+2007 digit space characters are used to align numbers at the
 @c decimal separator.
 @multitable {@b{mm}} {12.3456} {1.2345} {1.2345} {12.3456} {12.3456}
@@ -3014,7 +3014,7 @@ points).
 @item
   @b{bp} @tab  0.3538 @tab 0.0354 @tab 0.0139 @tab  1.0038  @tab  1
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 Page layout distances can also be specified in scalable units (see
 the following paragraph) by appending @code{\staff-space} to the
@@ -3747,7 +3747,7 @@ by predefined functions, defined in @file{scm/output-lib.scm},
 where the last three columns indicate whether the layout objects
 will be visible in the positions shown at the head of the columns:
 
-@indentedBlock
+@indentedblock
 @multitable {@code{begin-of-line-invisible}} {@code{#(#t #t #t)}} {Before} {At no} {After}
 @headitem Function                   @tab Vector                 @tab Before @tab At no    @tab After
 @headitem form                       @tab form                   @tab break  @tab break    @tab break
@@ -3761,14 +3761,14 @@ will be visible in the positions shown at the head of the columns:
 @item @code{end-of-line-invisible}   @tab @code{#(#f #t #t)}     @tab no     @tab yes      @tab yes
 @item @code{all-invisible}           @tab @code{#(#f #f #f)}     @tab no     @tab no       @tab no
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 The default settings of @code{break-visibility} depend on the
 layout object.  The following table shows all the layout objects
 of interest which are affected by @code{break-visibility} and the
 default setting of this property:
 
-@indentedBlock
+@indentedblock
 @multitable {@code{DoublePercentRepeat}} {@b{Usual context}} {@code{begin-of-line-invisible}}
 @headitem Layout object   @tab Usual context  @tab Default setting
 
@@ -3791,7 +3791,7 @@ default setting of this property:
 @item @code{RehearsalMark}       @tab @code{Score}          @tab @code{end-of-line-invisible}
 @item @code{TimeSignature}       @tab @code{Staff}          @tab @code{all-visible}
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 The example below shows the use of the vector form to control the
 visibility of bar lines:
@@ -4127,7 +4127,7 @@ determine where the object is to be placed, as follows:
 
 @c TODO add an example of each to the table
 
-@indentedBlock
+@indentedblock
 @multitable {@b{@code{side-axis} property}} {@b{@code{direction} property}} {@b{Placement}}
 @headitem @code{side-axis} property
                             @tab @code{direction} property
@@ -4138,7 +4138,7 @@ determine where the object is to be placed, as follows:
 @item     @code{1}          @tab @code{-1}         @tab below
 @item     @code{1}          @tab @code{1}          @tab above
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 When @code{side-axis} is @code{0}, @code{X-offset} should be set to
 the procedure @code{ly:@/side-@/position-@/interface::@/x-aligned-@/side}.

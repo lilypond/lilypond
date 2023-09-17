@@ -799,7 +799,7 @@ intervalles étrangers.
 
 Voici les différents suffixes à porter aux nom des notes en anglais.
 
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .03 .77
 @item @code{ff} @tab double bémol
 @item @code{f}  @tab bémol
@@ -817,7 +817,7 @@ Voici les différents suffixes à porter aux nom des notes en anglais.
                      un dièse normal ; on ne le trouve jamais en musique
                      traditionelle iranienne)
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 
 @node Persian tunings
@@ -829,7 +829,7 @@ les mettent en œuvre. Les tonalités perses qui suivent sont à fournir en
 second argument à la commande @code{\key}. Notez bien que, en pratique,
 ces tonalités ne sont pas toutes utilisées dans tous les tons.
 
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .2 .6
 @item @code{\shur}
 @tab gushehs « Shur » avec
@@ -862,7 +862,7 @@ ces tonalités ne sont pas toutes utilisées dans tous les tons.
                                  dans un contexte complètement different
 @item @code{\delkashMahur}  @tab
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 Dans un dastgah « Shur », le
 @ifnothtml

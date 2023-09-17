@@ -527,7 +527,7 @@ d'indications de coda.
 
 
 Les cas habituels d'utilisation sont les suivants.
-@indentedBlock
+@indentedblock
 @table @emph
 
 @cindex al fine
@@ -662,7 +662,7 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 @end table
-@endIndentedBlock
+@end indentedblock
 
 @morerefs
 Glossaire musicologique :

@@ -114,6 +114,7 @@ a:hover {
 /***********************************************************/
 
 blockquote,
+blockquote.indentedblock, /* to take precedence over texi2any's rule */
 div.example,
 div.lisp {
   width: 96%;

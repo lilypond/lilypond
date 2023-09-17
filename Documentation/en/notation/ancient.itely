@@ -1130,7 +1130,7 @@ side of each clef in the example column denotes the @code{c'} with
 respect to that clef.
 
 @need 1000
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .4 .4 .2
 @item
 @b{Description}
@@ -1258,7 +1258,7 @@ Hufnagel style combined do/fa clef
 }
 @end lilypond
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @morerefs
 Music Glossary:
@@ -1687,7 +1687,7 @@ shows the code fragment that produces this ligature, using
 @subsubsubheading Single-note neumes
 
 @need 1000
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .35 .13 .52
 
 @item
@@ -1831,13 +1831,13 @@ shows the code fragment that produces this ligature, using
 @code{\[ \virga b' \]}
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 
 @subsubsubheading Two-note ligatures
 
 @need 1000
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .35 .13 .52
 
 @item
@@ -1993,13 +1993,13 @@ Initio Debilis}
 \descendens b \]}
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 
 @subsubsubheading Multi-note ligatures
 
 @need 1000
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .35 .13 .52
 
 @item
@@ -2238,13 +2238,13 @@ Initio Debilis}
 @code{\[ g \pes a \pes \deminutum b \]}
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 
 @subsubsubheading Special signs
 
 @need 1000
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .35 .13 .52
 
 @item
@@ -2433,7 +2433,7 @@ Initio Debilis}
 \stropha a \]}
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @predefined
 @funindex \virga

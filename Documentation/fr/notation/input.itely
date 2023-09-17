@@ -1416,7 +1416,7 @@ Enfin, nous appliquons le même paramétrage au @code{\evenFooterMarkup}.
 Voici une liste des procédures prédéfinies utilisables avec @code{\if}
 ou @code{\unless}.
 
-@indentedBlock
+@indentedblock
 @multitable {@code{\should-print-page-numbers-global}} {ce n'est pas la première page du book--}
 
 @headitem  Syntaxe                      @tab  Condition testée
@@ -1435,7 +1435,7 @@ ou @code{\unless}.
 @item @code{\should-print-all-headers}  @tab  @code{print-all-headers} est vrai.
 
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 @morerefs
 Manuel de notation :
@@ -2946,7 +2946,7 @@ fonction =
 @noindent
 où
 
-@indentedBlock
+@indentedblock
 @multitable @columnfractions .2 .7
 @item @code{@var{argN}}
 @tab Le @var{n}ième argument.
@@ -2962,7 +2962,7 @@ des @code{#} (lorsqu'il s'agit d'une valeur en Scheme, d'un argument de
 fonction musicale ou de musique faisant partie d'une liste) pour
 référencer les arguments (par ex. @samp{#arg1}).
 @end multitable
-@endIndentedBlock
+@end indentedblock
 
 La liste des types de prédicat est aussi obligatoire.  Voici quelques
 uns des types de prédicat les plus utilisés dans les fonctions
