@@ -640,6 +640,11 @@ available as a manual.  This is based on
 @uref{https://github.com/joram-berger/visualindex,Joram Berger's
 work for LilyPond 2.19}.
 
+@item
+The printing of arpeggios has been improved, using new, different
+default values for the @code{Arpeggio@/.positions} property.
+Adjustments of this property must probably be updated.
+
 @end itemize
 
 

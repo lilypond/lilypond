@@ -111,6 +111,9 @@ Arpeggio::calc_positions (SCM grob)
 
   heads *= 1 / Staff_symbol_referencer::staff_space (me);
 
+  // Adjust lower position to include note head in interval.
+  heads[DOWN] -= 0.5;
+
   return to_scm (heads);
 }
 
@@ -119,8 +122,8 @@ SCM
 Arpeggio::print (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Interval heads = from_scm (get_property (me, "positions"), Interval ())
-                   * Staff_symbol_referencer::staff_space (me);
+  Real ss = Staff_symbol_referencer::staff_space (me);
+  Interval heads = from_scm (get_property (me, "positions"), Interval ()) * ss;
 
   if (heads.is_empty () || heads.length () < 0.5)
     {
@@ -141,6 +144,11 @@ Arpeggio::print (SCM smob)
           return SCM_EOL;
         }
     }
+
+  // Make sure that we have at least two wiggles (or a wiggle plus an arrow
+  // head)
+  if (heads.length () < 1.5 * ss)
+    heads.widen (0.5 * ss);
 
   SCM ad = get_property (me, "arpeggio-direction");
   Direction dir = CENTER;
