@@ -997,7 +997,6 @@ td:empty {
             button.appendChild(document.createTextNode("before"));
             button.addEventListener("mousedown", activate);
             button.addEventListener("mouseup", revert);
-            button.addEventListener("mouseout", revert);
             return button;
         }
 
