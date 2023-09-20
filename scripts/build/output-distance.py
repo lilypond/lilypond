@@ -379,8 +379,8 @@ class ImageLink (FileLink):
                 return '''
 <figure class="reactive_img">
   <div>
-    <div class="newimg"><img alt="new image" src="%(newimg)s" /></div>
-    <div class="oldimg"><img alt="old image" src="%(oldimg)s" /></div>
+    <div class="oldimg"><img alt="new image" src="%(newimg)s" /></div>
+    <div class="newimg"><img alt="old image" src="%(oldimg)s" /></div>
     <div class="invisible"><img alt="old image" src="%(oldimg)s" /></div>
   </div>
   <figcaption><span>&nbsp;</span></figcaption>
