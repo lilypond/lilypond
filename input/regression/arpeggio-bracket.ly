@@ -9,10 +9,11 @@ arpeggiate the chord.
 "
 }
 
-\relative c''{
+\relative c' {
   \arpeggioBracket
-  
-  <fis,  d a >\arpeggio
+
+  <d d>2\arpeggio <d e>\arpeggio
+  <d fis>2\arpeggio <d g>\arpeggio
+  <d a'>2\arpeggio <d b'>\arpeggio
+  <d c'>2\arpeggio <d d'>\arpeggio
 }
-
-

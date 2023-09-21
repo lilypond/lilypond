@@ -201,12 +201,12 @@ Arpeggio::brew_chord_bracket (SCM smob)
 
   Real th = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
             * from_scm<double> (get_property (me, "thickness"), 1);
-  Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
+  Real sp = 1.0 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length () + sp;
   Real x = from_scm<double> (get_property (me, "protrusion"), 0.4);
 
   Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), th, x, th));
-  mol.translate_axis (heads[LEFT] - sp / 2.0, Y_AXIS);
+  mol.translate_axis (heads[LEFT] - 0.5 * sp / 2.0, Y_AXIS);
   return mol.smobbed_copy ();
 }
 
@@ -217,6 +217,7 @@ Arpeggio::brew_chord_slur (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   SCM dash_definition = get_property (me, "dash-definition");
+  Real ss = Staff_symbol_referencer::staff_space (me);
   Interval heads = from_scm (get_property (me, "positions"), Interval ())
                    * Staff_symbol_referencer::staff_space (me);
 
@@ -224,7 +225,15 @@ Arpeggio::brew_chord_slur (SCM smob)
             * from_scm<double> (get_property (me, "line-thickness"), 1.0);
   Real th = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
             * from_scm<double> (get_property (me, "thickness"), 1.0);
-  Real dy = heads.length ();
+
+  // Avoid too short chord slurs for small intervals.
+  if (heads.length () < 1.5 * ss)
+    heads.widen (0.5 * ss);
+  else if (heads.length () < 2 * ss)
+    heads.widen (0.25 * ss);
+
+  Real sp = 0.5 * ss;
+  Real dy = heads.length () - sp;
 
   Real height_limit = 1.5;
   Real ratio = .33;
@@ -232,7 +241,7 @@ Arpeggio::brew_chord_slur (SCM smob)
   curve.rotate (90.0);
 
   Stencil mol (Lookup::slur (curve, th, lt, dash_definition));
-  mol.translate_axis (heads[LEFT], Y_AXIS);
+  mol.translate_axis (heads[LEFT] + 1.5 * sp / 2.0, Y_AXIS);
   return mol.smobbed_copy ();
 }
 
