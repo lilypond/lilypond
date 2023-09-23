@@ -701,6 +701,7 @@ the automated method with @command{lilypond-book}.
 @menu
 * LuaTeX::
 * OpenOffice and LibreOffice::
+* ly2video::
 * Other programs::
 @end menu
 
@@ -730,6 +731,24 @@ OpenOffice.org extension that converts LilyPond files into images within
 OpenOffice.org documents.  OOoLilyPond (OLy) works with recent versions of
 LibreOffice and OpenOffice. Older versions should work as well. It has even
 been tested with OpenOffice 2.4 without issues.
+
+
+@node ly2video
+@subsection @command{ly2video}
+
+@cindex @command{ly2video}
+@cindex score, creating videos
+@cindex videos, with scrolling score
+@cindex MIDI, synchronized video
+
+Using the Python script
+@uref{https://github.com/aspiers/ly2video,@command{ly2video}} it
+is possible to create videos that contain a horizontally scrolling
+score synchronized with a MIDI-generated audio rendering of the
+music.  It is also possible to synchronize the video of the
+scrolling music notation with a previously recorded audio track of
+the same music, such as a live performance, even if the audio uses
+@emph{tempo rubato} or is not precisely metronomic.
 
 
 @node Other programs
