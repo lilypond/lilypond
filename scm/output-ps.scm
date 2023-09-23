@@ -175,10 +175,12 @@ grestore
                              (+ (car offset) (cdr x-ext))
                              (+ (cdr offset) (cdr y-ext))
 
-                             ;; Backslashes are not valid
-                             ;; file URI path separators.
                              (ly:string-percent-encode
-                              (ly:string-substitute "\\" "/" file))
+                              (if (eq? PLATFORM 'windows)
+                                  ;; Backslashes are not valid
+                                  ;; file URI path separators.
+                                  (ly:string-substitute "\\" "/" file)
+                                  file))
 
                              (cadr location)
                              (caddr location)
