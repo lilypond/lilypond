@@ -1640,6 +1640,7 @@ top system is placed on the baseline.
 
 @lilypond[verbatim,quote,line-width=14\\cm,staffsize=16]
 \\markup {
+  Text before the score.
   \\score {
     \\new PianoStaff <<
       \\new Staff \\relative c' {
@@ -1647,35 +1648,20 @@ top system is placed on the baseline.
         \\time 3/4
         \\mark \\markup { Allegro }
         f2\\p( a4)
-        c2( a4)
-        bes2( g'4)
-        f8( e) e4 r
       }
       \\new Staff \\relative c {
         \\clef bass
         \\key f \\major
         \\time 3/4
         f8( a c a c a
-        f c' es c es c)
-        f,( bes d bes d bes)
-        f( g bes g bes g)
       }
     >>
+
     \\layout {
       indent = 0.0\\cm
-      \\context {
-        \\Score
-        \\override RehearsalMark.break-align-symbols =
-           #'(time-signature key-signature)
-        \\override RehearsalMark.self-alignment-X = #LEFT
-      }
-      \\context {
-        \\Staff
-        \\override TimeSignature
-                   .break-align-anchor-alignment = #LEFT
-      }
     }
   }
+  Text after the score.
 }
 @end lilypond"
   (stack-stencils Y DOWN baseline-skip
