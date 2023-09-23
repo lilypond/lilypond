@@ -3561,8 +3561,8 @@ spanners in its argument, obeying the @code{to-barline} property if set.
 @end lilypond
 
 When using @code{\endSpanners} it is not necessary to close
-\startTextSpan with \stopTextSpan, nor is it necessary to close
-hairpins with @code{\!}.
+@code{\startTextSpan} with @code{\stopTextSpan}, nor is it
+necessary to close hairpins with @code{\!}.
 
 @morerefs
 Internals Reference:
