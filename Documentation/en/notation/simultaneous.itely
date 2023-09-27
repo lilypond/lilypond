@@ -359,6 +359,35 @@ Ordinary notes and clusters can be put together in the same staff,
 even simultaneously.  In such a case no attempt is made to
 automatically avoid collisions between ordinary notes and clusters.
 
+The following cluster styles are supported: @code{ramp},
+@code{leftsided-stairs}, @code{rightsided-stairs}, and
+@code{centered-stairs}.
+
+@lilypond[verbatim,quote,noragged-right]
+fragment = { <e' d''>4 <g' a'> <e' a'> r }
+
+{
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+
+  <>^\markup \typewriter "ramp"
+  \override ClusterSpanner.style = #'ramp
+  \makeClusters \fragment
+
+  <>_\markup \typewriter "leftsided-stairs"
+  \override ClusterSpanner.style = #'leftsided-stairs
+  \makeClusters \fragment
+
+  <>^\markup \typewriter "rightsided-stairs"
+  \override ClusterSpanner.style = #'rightsided-stairs
+  \makeClusters \fragment
+
+  <>_\markup \typewriter "centered-stairs"
+  \override ClusterSpanner.style = #'centered-stairs
+  \makeClusters \fragment
+}
+@end lilypond
+
 @morerefs
 Music Glossary:
 @rglos{cluster}.
