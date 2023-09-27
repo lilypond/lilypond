@@ -943,7 +943,13 @@ Notation Reference:
 @funindex tagline
 @funindex title
 
-This example demonstrates all printed @code{\header} variables:
+The next examples demonstrates all printed @code{\header}
+variables.  Note that the vertical spacing between the various
+header elements in the default layout is optimized for single-line
+entries.  If you need multi-line elements, say, a two-line
+composer entry, try to append @code{\vspace} to the field if
+necessary to adjust the vertical spacing.  An alternative is to
+define your own, custom layout, @pxref{Custom layout for titles}.
 
 @lilypond[papersize=a6landscape,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
