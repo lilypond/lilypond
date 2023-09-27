@@ -2917,7 +2917,6 @@ musicB = {
 @end lilypond
 
 
-
 @item no-reset
 
 @cindex accidental style, no-reset
@@ -2974,6 +2973,7 @@ musicB = {
   >>
 }
 @end lilypond
+
 
 @item forget
 
@@ -3058,9 +3058,19 @@ Internals Reference:
 @knownissues
 Simultaneous notes are not considered in the automatic
 determination of accidentals; only previous notes and the key
-signature are considered.  Forcing accidentals with@tie{}@code{!}
-or@tie{}@code{?} may be required when the same note name occurs
-simultaneously with different alterations, as in @samp{<f! fis!>}.
+signature are taken into account.  Forcing accidentals with @samp{!}
+or @samp{?} may be required when the same note name occurs
+simultaneously with different alterations, as in @code{<f! fis!>}.
+
+@lilypond[verbatim,quote]
+\relative c' <<
+  { fis8 g } \\
+  { f! f }
+>>
+@end lilypond
+
+A more sophisticated solution is given in
+@url{https://lsr.di.unimi.it/LSR/Item?id=1172,LSR snippet 1172}.
 
 In alternative endings, cautionary cancellation should be based on
 the previous @emph{played} measure, but it is based on the
