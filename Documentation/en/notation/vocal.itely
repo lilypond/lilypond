@@ -460,7 +460,7 @@ The command @code{\addlyrics} cannot handle polyphonic settings.
 Also, it cannot be used to associate lyrics to a @code{TabVoice}.
 For these cases one should use @code{\lyricsto}.
 
-@subheading Using associatedVoice
+@subheading Using @code{associatedVoice}
 
 The melody to which the lyrics are being aligned can be changed by
 setting the @code{associatedVoice} property,
