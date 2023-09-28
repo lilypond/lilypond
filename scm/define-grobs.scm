@@ -1981,7 +1981,6 @@ into modern notation.  See also @iref{KievanLigature},
         (minimum-length . 1.5)
         (stencil . ,ly:lyric-extender::print)
         (thickness . 0.8) ; line-thickness
-        (Y-extent . (0 . 0))
         (meta . ((class . Spanner)
                  (interfaces . (lyric-extender-interface
                                 lyric-interface))
@@ -2000,7 +1999,6 @@ into modern notation.  See also @iref{KievanLigature},
         (stencil . ,ly:lyric-hyphen::print)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (thickness . 1.3)
-        (Y-extent . (0 . 0))
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 lyric-hyphen-interface
