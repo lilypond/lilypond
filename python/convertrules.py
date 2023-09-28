@@ -4783,6 +4783,7 @@ def conv(s):
         stderr_write(UPDATE_MANUALLY)
     return s
 
+
 make_moment_re = (r'(?P<start>#\(\s*ly:make-moment\s+)'
                   r'(?P<numerator>\d+)'
                   r'(?P<separator>(/|\s+))'
@@ -4816,6 +4817,7 @@ def conv(s):
     # clean up 1*1 from previous rule
     s = re.sub(r'\\musicLength 1\*1(?!\S)', r'\\musicLength 1', s)
     return s
+
 
 @rule((2, 25, 4), r"""
 #(define fonts (set-global-fonts #:roman "roman" ...))
@@ -5089,6 +5091,7 @@ replacements:
 """))
     return s
 
+
 # Copied from Pygments
 NAME_END_RE = r"(?=\d|[^\w\-]|[\-_][\W\d])"
 
@@ -5206,7 +5209,7 @@ should be replaced with
 convert-ly detected "#:roman" in the input file.  This may be
 related to using the \roman markup command with the markup
 macro, e.g., #(markup #:roman ...).  If this is the case, convert
-#:roman to #:serif .
+#:roman to #:serif.
 """))
 
     # For \override
@@ -5219,6 +5222,7 @@ macro, e.g., #(markup #:roman ...).  If this is the case, convert
     s = re.sub(r"(fonts\s*\.\s*)roman(\s*=\s*)", r"\1serif\2", s)
 
     return s
+
 
 @rule((2, 25, 6), r"""
 BarCheck -> BarCheckEvent
@@ -5234,12 +5238,13 @@ def conv(s):
     if re.search(rf'\\text{NAME_END_RE}', s) and not 'text =' in s:
        stderr_write(NOT_SMART % r'\text')
        stderr_write(r"""
-The \text markup command has been removed. Instead, use \serif,
+The \text markup command has been removed.  Instead, use \serif,
 \sans or \typewriter, depending on the desired font style.
 """)
        stderr_write(UPDATE_MANUALLY)
 
     return s
+
 
 @rule((2, 25, 8), r"Warn about new behavior of subdivideBeams")
 def conv(s):
@@ -5247,15 +5252,16 @@ def conv(s):
         stderr_write(NOT_SMART % _('subdivideBeams'))
         stderr_write(_("""
 Context property 'subdivideBeams' used to rely on the value of
-'baseMoment' for the minimum subdivision interval. Now, separate
+'baseMoment' for the minimum subdivision interval.  Now, separate
 properties 'minimumBeamSubdivisionInterval',
-'maximumBeamSubdivisionInterval' and 'respectIncompleteBeams'
+'maximumBeamSubdivisionInterval', and 'respectIncompleteBeams'
 specifically control beam subdivision intervals, whereas 'baseMoment' no
-longer has an effect. The value of 'baseMoment' may implicitly change
-whenever time signature changes or is first set, so preserving past
+longer has an effect.  The value of 'baseMoment' may implicitly change
+whenever a time signature changes or is first set, so preserving past
 behavior requires setting 'minimumBeamSubdivisionInterval' to the same
 value of 'baseMoment', even at each implicit setting of 'baseMoment',
-and setting 'respectIncompleteBeams' to true"""))
+and setting 'respectIncompleteBeams' to true.
+"""))
         stderr_write(UPDATE_MANUALLY)
 
     return s
