@@ -30,6 +30,8 @@
                     indent
                     inner-margin
                     inner-margin-default-scaled
+                    in-note-system-padding
+                    in-note-padding
                     ledger-line-thickness
                     left-margin
                     left-margin-default-scaled

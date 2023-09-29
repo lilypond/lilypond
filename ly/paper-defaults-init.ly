@@ -132,6 +132,12 @@
   reset-footnotes-on-new-page = ##t
 
   %%
+  %% In-notes
+  %%
+  in-note-padding = 0.5\mm
+  in-note-system-padding = 0.5\mm
+
+  %%
   %% Page numbering
   %%
   first-page-number = #1

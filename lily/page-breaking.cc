@@ -284,6 +284,8 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break,
 
   footnote_padding_
     = from_scm<double> (pb->paper ()->c_variable ("footnote-padding"), 0.0);
+  in_note_padding_
+    = from_scm<double> (pb->paper ()->c_variable ("in-note-padding"), 0.0);
   in_note_system_padding_ = from_scm<double> (
     pb->paper ()->c_variable ("in-note-system-padding"), 0.0);
   footnote_footer_padding_ = from_scm<double> (
@@ -369,6 +371,12 @@ Real
 Page_breaking::footnote_padding () const
 {
   return footnote_padding_;
+}
+
+Real
+Page_breaking::in_note_padding () const
+{
+  return in_note_padding_;
 }
 
 Real

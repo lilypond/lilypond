@@ -150,6 +150,8 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter,
   SCM layout = paper->self_scm ();
   SCM props = Lily::layout_extract_page_properties (layout);
   Real padding = from_scm<double> (paper->c_variable ("footnote-padding"), 0.0);
+  Real in_note_padding
+    = from_scm<double> (paper->c_variable ("in-note-padding"), 0.0);
   Real number_raise
     = from_scm<double> (paper->c_variable ("footnote-number-raise"), 0.0);
 
@@ -225,7 +227,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter,
       }
   }
 
-  // build the footnotes
+  // build footnotes and in-notes
 
   for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -296,7 +298,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter,
                     mol.add_at_edge (Y_AXIS, DOWN, footnote_stencil, padding);
                   else
                     in_note_mol.add_at_edge (Y_AXIS, DOWN, footnote_stencil,
-                                             padding);
+                                             in_note_padding);
                 }
             }
           set_property (sys, "in-note-stencil", in_note_mol.smobbed_copy ());
@@ -602,6 +604,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring,
 
   if (in_note_stencil && in_note_stencil->extent (Y_AXIS).length () > 0)
     {
+      set_property (sys, "in-note-padding", to_scm (in_note_padding_));
       set_property (sys, "in-note-system-padding",
                     to_scm (in_note_system_padding_));
       set_property (sys, "in-note-direction", to_scm (in_note_direction_));

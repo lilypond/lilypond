@@ -81,6 +81,7 @@ Page_spacing::account_for_footnotes (Line_details const &line)
         += (has_in_notes ? 0.0 : breaker_->in_note_system_padding ());
       has_in_notes = true;
       in_note_height += line.in_note_heights_[i];
+      in_note_height += breaker_->in_note_padding ();
     }
 
   for (vsize i = 0; i < line.footnote_heights_.size (); i++)
@@ -90,14 +91,15 @@ Page_spacing::account_for_footnotes (Line_details const &line)
                            : (breaker_->footnote_separator_stencil_height ()
                               + breaker_->footnote_padding ()
                               + breaker_->footnote_number_raise ()));
-
       has_footnotes_ = true;
       footnote_height += line.footnote_heights_[i];
       footnote_height += breaker_->footnote_padding ();
     }
 
   return (in_note_height
-          - (has_in_notes ? breaker_->in_note_system_padding () : 0.0))
+          + (has_in_notes ? -breaker_->in_note_padding ()
+                              + breaker_->in_note_system_padding ()
+                          : 0.0))
          + (footnote_height
             + (has_footnotes_ ? -breaker_->footnote_padding ()
                                   + breaker_->footnote_footer_padding ()
