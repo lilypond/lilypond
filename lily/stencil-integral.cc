@@ -379,7 +379,7 @@ all_commands_to_absolute_and_group (SCM expr)
           current = start;
           expr = scm_cdddr (expr);
         }
-      if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rmoveto")))
+      else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rmoveto")))
         {
           Real x = from_scm<double> (scm_cadr (expr), 0.0);
           Real y = from_scm<double> (scm_caddr (expr), 0.0);
