@@ -1461,7 +1461,8 @@ the respective element is set to @code{#f}.")
      (items-worth-living ,ly:grob-array? "An array of interesting items.  If
 empty in a particular staff, then that staff is erased.")
      (in-note-direction ,ly:dir? "Direction to place in-notes above a system.")
-     (in-note-padding ,number? "Padding between in-notes.")
+     (in-note-system-padding ,number? "Padding between in-note and its
+associated system.")
      (in-note-stencil ,ly:stencil? "The stencil of a system's in-notes.")
 
      (keep-alive-with ,ly:grob-array? "An array of other

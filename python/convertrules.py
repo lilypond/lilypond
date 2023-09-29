@@ -5267,6 +5267,12 @@ and setting 'respectIncompleteBeams' to true.
     return s
 
 
+@rule((2, 25, 9), r"in-note-padding -> in-note-system-padding")
+def conv(s):
+    s = re.sub('in-note-padding', 'in-note-system-padding', s)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

@@ -116,7 +116,7 @@ protected:
   Real footer_height_;
   Real header_padding_;
   Real footer_padding_;
-  Real in_note_padding_;
+  Real in_note_system_padding_;
   Direction in_note_direction_;
 };
 

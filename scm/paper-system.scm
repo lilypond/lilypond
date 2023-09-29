@@ -26,7 +26,7 @@
           ))
 
 (define (system-stencil system-grob main-stencil)
-  (let* ((padding (ly:grob-property system-grob 'in-note-padding #f))
+  (let* ((padding (ly:grob-property system-grob 'in-note-system-padding #f))
          (in-notes (if padding (ly:grob-property system-grob 'in-note-stencil) empty-stencil))
          (in-notes (if in-notes in-notes empty-stencil))
          (direction (if padding (ly:grob-property system-grob 'in-note-direction) UP)))

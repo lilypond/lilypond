@@ -1052,7 +1052,7 @@ footnote-stencil
 footnotes-before-line-breaking
 footnotes-after-line-breaking
 in-note-direction
-in-note-padding
+in-note-system-padding
 in-note-stencil
 labels
 page-number

@@ -476,8 +476,8 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm,
                          ly_symbol2scm ("padding"));
       read_spacing_spec (last_bottom_spacing, &footer_padding_,
                          ly_symbol2scm ("padding"));
-      in_note_padding_
-        = from_scm<double> (paper->c_variable ("in-note-padding"), 0.5);
+      in_note_system_padding_
+        = from_scm<double> (paper->c_variable ("in-note-system-padding"), 0.5);
       in_note_direction_
         = from_scm (paper->c_variable ("in-note-direction"), UP);
     }
@@ -602,13 +602,15 @@ Page_layout_problem::append_system (System *sys, Spring const &spring,
 
   if (in_note_stencil && in_note_stencil->extent (Y_AXIS).length () > 0)
     {
-      set_property (sys, "in-note-padding", to_scm (in_note_padding_));
+      set_property (sys, "in-note-system-padding",
+                    to_scm (in_note_system_padding_));
       set_property (sys, "in-note-direction", to_scm (in_note_direction_));
       Skyline *sky = in_note_direction_ == UP ? &up_skyline : &down_skyline;
       sky->set_minimum_height (
         sky->max_height ()
         + in_note_direction_
-            * (in_note_padding_ + in_note_stencil->extent (Y_AXIS).length ()));
+            * (in_note_system_padding_
+               + in_note_stencil->extent (Y_AXIS).length ()));
     }
 
   /*

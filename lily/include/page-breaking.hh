@@ -143,7 +143,7 @@ public:
   vsize system_count () const;
   Real footnote_separator_stencil_height () const;
   Real footnote_padding () const;
-  Real in_note_padding () const;
+  Real in_note_system_padding () const;
   Real footnote_number_raise () const;
   Real footnote_footer_padding () const;
   Real line_count_penalty (int line_count) const;
@@ -211,7 +211,7 @@ private:
   vsize system_count_;
   Real footnote_separator_stencil_height_;
   Real footnote_padding_;
-  Real in_note_padding_;
+  Real in_note_system_padding_;
   Real footnote_number_raise_;
   Real footnote_footer_padding_;
   int orphan_penalty_;
