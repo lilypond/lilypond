@@ -645,6 +645,12 @@ The printing of arpeggios has been improved, using new, different
 default values for the @code{Arpeggio@/.positions} property.
 Adjustments of this property must probably be updated.
 
+@item
+LilyPond provides support for in-notes, i.e., footnote-like
+annotations between music systems.  This isn't new (it was
+actually available since version 2.15.17, published in 2011) but
+it had some flaws and wasn't documented until now.
+
 @end itemize
 
 

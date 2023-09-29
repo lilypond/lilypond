@@ -737,6 +737,7 @@ some pieces include a lot more information.
 * Custom titles headers and footers::
 * Creating output file metadata::
 * Creating footnotes::
+* Creating in-notes::
 * Reference to page numbers::
 * Table of contents::
 @end menu
@@ -1478,6 +1479,7 @@ The @code{title} variable sets also the sequence name for MIDI.  The
 @code{midititle} variable can be used to set the sequence name
 independently of the value used for typeset output.
 
+
 @node Creating footnotes
 @subsection Creating footnotes
 
@@ -1947,6 +1949,52 @@ the other; they cannot be printed on the same line.
 
 Footnote marks may collide with staves, @code{\markup} objects, other
 footnote marks and annotation lines.
+
+
+@node Creating in-notes
+@subsection Creating in-notes
+
+@cindex in-note
+
+In-notes function like footnotes in that they serve to annotate
+music, but are different in that they are typeset either above or
+below the system to which the grob being annotated belongs.
+
+@funindex in-note-padding
+@funindex in-note-system-padding
+@funindex in-note-direction
+
+To create an in-note, set the @code{footnote} property of the
+@code{Footnote} grob to @code{#f}.  The distance between two
+in-notes can be controlled with the paper variable
+@code{in-note-padding}, the distance between the in-note and its
+associated system by @code{in-note-system-padding}.  If you want
+in-notes positioned below its associated system, set paper
+variable @code{in-note-direction} to @code{DOWN}.
+
+@lilypond[verbatim,quote,papersize=a6]
+music = { a4 b8 e c4 d }
+
+\book {
+  \relative c'' {
+    \override Score.Footnote.footnote = ##f
+
+    \repeat unfold 5 \music
+    \footnote #'(1 . 1) "An in-note." NoteHead
+    <>-> \repeat unfold 4 \music
+    \footnote "" #'(0 . 0) "An in-note without number." NoteHead
+    <>-> \repeat unfold 2 \music
+    \footnote "" #'(0 . 0) "Another numberless in-note." NoteHead
+    <>-> \music
+  }
+
+  \paper {
+    in-note-system-padding = 5
+    in-note-padding = 2
+    tagline = ##f
+  }
+}
+@end lilypond
 
 
 @node Reference to page numbers
