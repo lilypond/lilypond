@@ -12,3 +12,10 @@ path are empty."
 \markup \line { X X X \path #0.5 #'() X}
 
 \markup \line { X X X \path #0.5 #'((moveto 0 0)) X }
+
+{
+  <<
+    { b'4 a'4_\markup \line { x x \path #0.5 #'() x} 4 b'4 }
+    { a'4 b'4^\markup \line { x x \path #0.5 #'((moveto 0 0)) x } 4 a'4 }
+  >>
+}
