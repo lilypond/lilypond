@@ -13,9 +13,9 @@
       \footnote
          "" #'(0 . 0)
          \markup { \box \fill-line { "this is a test" } } NoteHead
-      \repeat unfold 5 { a\< b c d\! }
-      \footnote #'(-1 . 1) "foobar" NoteHead
-      \repeat unfold 5 { a\< b c d\! }
+      \repeat unfold 6 { a\< b c d\! } \bar "."
+      \footnote #'(-1 . -0.2) "foobar" NoteHead
+      \repeat unfold 7 { a\< b c d\! } \bar ".."
     }
   }
 }
