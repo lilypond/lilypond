@@ -45,14 +45,15 @@ interpreting a markup in the context of these headers."
 
 (define-public ((marked-up-headfoot what-odd what-even) page)
   "Read variables @var{what-odd} and @var{what-even} from the page's
-layout.  Interpret either of them as markup, with properties
-reflecting the variables in the page's layout and header modules."
+layout.  Interpret either of them as header or footer markup, with
+properties reflecting the variables in the page's layout and header
+modules."
   (let* ((paper-book (page-property page 'paper-book))
          (layout (ly:paper-book-paper paper-book))
          (page-number (page-property page 'page-number))
          (even-mkup (ly:output-def-lookup layout what-even))
          (odd-mkup (ly:output-def-lookup layout what-odd))
-         ;; what-even default to what-odd if not defined.
+         ;; what-even defaults to what-odd if not defined.
          (header-mkup (cond
                        ((and (even? page-number)
                              (markup? even-mkup))
@@ -82,19 +83,13 @@ reflecting the variables in the page's layout and header modules."
         empty-stencil)))
 
 (define-public ((marked-up-title what) layout scopes)
-  "Read variables @var{what-odd} and @var{what-even} from the page's
-layout.  Interpret either of them as markup, with properties
-reflecting the variables in the page's layout and header modules."
-  (define (get sym)
-    (let ((x (ly:modules-lookup scopes sym)))
-      (if (markup? x) x #f)))
-
+  "Read variable @var{what} from the page's layout.  Interpret it as
+title markup, with properties reflecting the variable in the page's
+layout and header modules."
   (let* ((prefixed-alists (headers-property-alist-chain scopes))
          (props (append prefixed-alists
                         (layout-extract-page-properties layout)))
-
          (title-markup (ly:output-def-lookup layout what)))
-
     (if (markup? title-markup)
         (interpret-markup layout props title-markup)
         empty-stencil)))
