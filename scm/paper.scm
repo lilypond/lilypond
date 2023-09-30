@@ -84,9 +84,6 @@
     (setm! 'line-thickness (calc-line-thickness ss pt))
 
     ;;  sync with feta
-    (setm! 'ledger-line-thickness (+ (* 0.5 pt) (/ ss 10)))
-
-    ;;  sync with feta
     (setm! 'blot-diameter (* 0.4 pt))
     ))
 
