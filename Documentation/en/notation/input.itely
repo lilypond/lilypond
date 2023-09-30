@@ -3426,38 +3426,42 @@ Installed Files:
 @node Extracting fragments of music
 @subsection Extracting fragments of music
 
-It is possible to output one or more fragments of a score by defining
-the explicit location of the music to be extracted within the
-@code{\layout} block of the input file using the @code{clip-regions}
-function, and then running LilyPond with the @option{-dclip-systems}
-option;
+It is possible to output one or more fragments of a score.  To do
+so, use the @code{clip-regions} variable within the @code{\layout}
+or @code{\paper} block to define a list of explicit location of
+the music to be extracted, then execute @command{lilypond} with
+the @option{-dclip-systems} option.
 
 @example
 \layout @{
   clip-regions
-  = #(list
-      (cons
-       (make-rhythmic-location 5 1 2)
-       (make-rhythmic-location 7 3 4)))
+  = #(list (cons (make-rhythmic-location 5 1 2)
+                 (make-rhythmic-location 7 3 4)))
 @}
 @end example
 
-@noindent
-This example will extract a single fragment of the input file
-@emph{starting} after a half note duration in fifth measure
-(@code{5 1 2}) and @emph{ending} after the third quarter note in the
-seventh measure (@code{7 3 4}).
+This example extracts a single fragment of the input file starting
+after a half note duration in fifth measure (@code{5 1 2}) and
+ending after the third quarter note in the seventh measure
+(@code{7 3 4}).
 
 Additional fragments can be extracted by adding more pairs of
-@code{make-rhythmic-location} entries to the @code{clip-regions} list in
-the @code{\layout} block.
+@code{make-rhythmic-location} entries to the @code{clip-regions} list.
 
-By default, each music fragment will be output as a separate @code{EPS}
-file, but other formats such as @code{PDF} or @code{PNG} can also be
-created if required.  The extracted music is output as if had been
-literally @q{cut} from the original printed score so if a fragment runs
-over one or more lines, a separate output file for each line will be
-generated.
+If system starts and ends are included, they include extents of
+the @code{System} grob, e.g., instrument names.
+
+Grace notes at the end point of the region are not included.
+
+Each music fragment gets written as a separate file.  The
+extracted music is output as if it had been literally @q{cut} from
+the original printed score, so if a fragment runs over one or more
+lines, a separate output file for each line is generated.
+Assuming that the above example covers two lines in the PDF output
+of input file @file{foo.ly}, the output files for the music
+fragments would be called
+@file{foo-@/from-5.1.2-@/to-7.3.4-@/clip.pdf} and
+@file{foo-@/from-5.1.2-@/to-7.3.4-@/clip-1.pdf}.
 
 @morerefs
 Notation Reference:
