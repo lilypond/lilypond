@@ -48,9 +48,8 @@ do
         then
             continue
         fi
-   	sed -e 's#<!-- Created on .*by texi2html#<!-- Created by texi2html#g' \
-	    < ${LANG}/${DOC}-big-page.html >  ${DEST}/${DOC}-big-page.${html_suffix}
-	if [[ -f ${LANG}/${DOC}.pdf ]]
+        cp ${LANG}/${DOC}-big-page.html ${DEST}/${DOC}-big-page.${html_suffix}
+        if [[ -f ${LANG}/${DOC}.pdf ]]
         then
             cp ${LANG}/${DOC}.pdf ${DEST}/${DOC}.${pdf_suffix}
         fi
@@ -62,10 +61,9 @@ do
             dst="${DEST}/${DOC}/$(basename $fn .html).${html_suffix}"
 
             sed -e 's#\(href\|src\)="\([a-f0-9]*/lily-[a-f0-9]*\)\.\(ly\|png\)"#\1="../\2.\3"#g' \
-		-e 's#\(href\|src\)="\(pictures\|ly-examples\|css\)/#\1="../\2/#g' \
-		-e 's#<!-- Created on .*by texi2html#<!-- Created by texi2html#g' \
-		< $fn \
-		> $dst
+                -e 's#\(href\|src\)="\(pictures\|ly-examples\|css\)/#\1="../\2/#g' \
+                < $fn \
+                > $dst
         done
     done &
 done
