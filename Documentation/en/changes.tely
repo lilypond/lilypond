@@ -651,6 +651,13 @@ annotations between music systems.  This isn't new (it was
 actually available since version 2.15.17, published in 2011) but
 it had some flaws and wasn't documented until now.
 
+@item
+The @command{lilysong} script has been removed.  Besides lacking
+any documentation, it hasn't been maintained for a long time.
+Additionally, it has been using an external speech synthesis
+program called @command{festival}, which is no longer maintained
+either.
+
 @end itemize
 
 

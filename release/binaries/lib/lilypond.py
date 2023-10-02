@@ -196,7 +196,6 @@ class LilyPond(ConfigurePackage):
             "lilymidi",
             "lilypond-book",
             "lilypond-invoke-editor",
-            "lilysong",
             "midi2ly",
             "musicxml2ly",
         ]

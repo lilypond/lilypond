@@ -2,7 +2,15 @@ depth = ..
 
 SUBDIRS=build
 
-SEXECUTABLES=convert-ly lilypond-book abc2ly etf2ly midi2ly lilypond-invoke-editor musicxml2ly lilysong lilymidi
+SEXECUTABLES = \
+  abc2ly \
+  convert-ly \
+  etf2ly \
+  lilypond-book \
+  lilypond-invoke-editor \
+  lilymidi \
+  midi2ly \
+  musicxml2ly
 
 TEMPLATES = help2man lilypond po script
 HELP2MAN_EXECS = $(SEXECUTABLES)

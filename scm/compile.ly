@@ -16,7 +16,5 @@
   (lily output-ps)
   (lily output-svg)
   (lily page)
-  (lily song)
-  (lily song-util)
   (lily to-xml)
 )
