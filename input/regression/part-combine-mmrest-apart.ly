@@ -10,7 +10,7 @@ when using non-standard staves.
 
 \layout {
   indent = 4\cm
-  raggedright = ##t
+  ragged-right = ##t
 }
 
 \new StaffGroup

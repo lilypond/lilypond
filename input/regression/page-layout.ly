@@ -33,7 +33,7 @@ This file is best viewed outside the collated files document.
     ragged-last-bottom = ##t
     left-margin = 3\cm
     line-width = 15\cm
-    %rigthmargin = 3\cm
+    %right-margin = 3\cm
 
     annotate-spacing = ##t
   }

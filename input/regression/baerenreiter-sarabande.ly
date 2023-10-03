@@ -177,7 +177,7 @@ smallerPaper = \layout {
   score-system-spacing.padding = #0
   system-count = 6
 
-%%  annotatespacing = ##t
+%%  annotate-spacing = ##t
 }
 
 \book {
