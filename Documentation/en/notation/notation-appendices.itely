@@ -36,6 +36,7 @@
 * Technical glossary::
 * Available music functions::
 * Context modification identifiers::
+* Paper variables::
 * Naming conventions::
 * Predefined type predicates::
 @end menu
@@ -3339,6 +3340,24 @@ The following commands are defined for use as context modifications
 within a @code{\layout} or @code{\with} block.
 
 @include en/context-mod-identifiers.tely
+
+
+@node Paper variables
+@appendixsec Paper variables
+
+The following paper variables are predefined by LilyPond.  Default
+values that are scaled to paper size are given for the default
+paper size, A4.  The mentioned @code{@var{xxx}-default} variables
+are paper variables, too.
+
+Some values like @code{mm} or @code{pt} are constants and thus
+essentially read-only; changing them would confuse LilyPond
+thoroughly.
+
+Most paper variables can be either set in @code{\paper} or in
+@code{\layout}, @pxref{The layout block}.
+
+@include en/paper-variables.tely
 
 
 @node Naming conventions
