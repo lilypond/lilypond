@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.8\n"
+"Project-Id-Version: lilypond 2.25.9\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2023-09-16 11:20+0200\n"
+"POT-Creation-Date: 2023-10-07 12:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -705,7 +705,7 @@ msgstr ""
 #. assume that the user was not changing the font size, as doing that
 #. without passing #:factor was resulting in bad output anyway.
 #. Other values result in a warning.
-#: convertrules.py:4843
+#: convertrules.py:4845
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts.  The\n"
@@ -720,7 +720,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:4856
+#: convertrules.py:4858
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts.  The #:brace\n"
@@ -742,7 +742,7 @@ msgid ""
 "}\n"
 msgstr ""
 
-#: convertrules.py:4876
+#: convertrules.py:4878
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts. The code "
@@ -772,20 +772,20 @@ msgid ""
 "convert automatically.  Please do the update manually.\n"
 msgstr ""
 
-#: convertrules.py:4921
+#: convertrules.py:4923
 msgid "#:factor parameter to set-global-fonts"
 msgstr ""
 
-#: convertrules.py:4926
+#: convertrules.py:4928
 msgid "different music and brace fonts passed to set-global-fonts"
 msgstr ""
 
-#: convertrules.py:4943
+#: convertrules.py:4945
 msgid "advanced use of set-global-fonts"
 msgstr ""
 
 #. Similar logic here with the factor parameter here
-#: convertrules.py:4948
+#: convertrules.py:4950
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts.  The\n"
@@ -800,7 +800,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:4961
+#: convertrules.py:4963
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts. The code "
@@ -829,19 +829,19 @@ msgid ""
 "to convert automatically.  Please do the update manually.\n"
 msgstr ""
 
-#: convertrules.py:5008
+#: convertrules.py:5010
 msgid "factor parameter to make-pango-font-tree"
 msgstr ""
 
-#: convertrules.py:5019
+#: convertrules.py:5021
 msgid "advanced use of make-pango-font-tree"
 msgstr ""
 
-#: convertrules.py:5075
+#: convertrules.py:5077
 msgid "markup in repeatCommands"
 msgstr ""
 
-#: convertrules.py:5076
+#: convertrules.py:5078
 msgid ""
 "\n"
 "Markups inside repeatCommands are no longer automatically typeset in\n"
@@ -860,18 +860,18 @@ msgid ""
 "\"1.2.\" ad lib. } #}))\n"
 msgstr ""
 
-#: convertrules.py:5109
+#: convertrules.py:5112
 msgid "advanced use of (text-)font-defaults"
 msgstr ""
 
-#: convertrules.py:5110
+#: convertrules.py:5113
 msgid ""
 "\n"
 "The text-font-defaults and font-defaults variables have\n"
 "been merged into a single property-defaults variable.\n"
 msgstr ""
 
-#: convertrules.py:5116
+#: convertrules.py:5119
 msgid ""
 "\n"
 "Identifiers formerly in file 'gregorian.ly' are now always defined.  The\n"
@@ -883,7 +883,7 @@ msgid ""
 "It is recommended to rename them.\n"
 msgstr ""
 
-#: convertrules.py:5126
+#: convertrules.py:5129
 msgid ""
 "\n"
 "The use of 'gregorian.ly' is deprecated.  Code like\n"
@@ -905,40 +905,40 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:5187
+#: convertrules.py:5190
 msgid "gregorian.ly to VaticanaScore"
 msgstr ""
 
-#: convertrules.py:5203
+#: convertrules.py:5206
 msgid "possible use of \\roman markup command with #(markup ...) macro"
 msgstr ""
 
-#: convertrules.py:5205
+#: convertrules.py:5208
 msgid ""
 "\n"
 "convert-ly detected \"#:roman\" in the input file.  This may be\n"
 "related to using the \\roman markup command with the markup\n"
 "macro, e.g., #(markup #:roman ...).  If this is the case, convert\n"
-"#:roman to #:serif .\n"
+"#:roman to #:serif.\n"
 msgstr ""
 
-#: convertrules.py:5247
+#: convertrules.py:5252
 msgid "subdivideBeams"
 msgstr ""
 
-#: convertrules.py:5248
+#: convertrules.py:5253
 msgid ""
 "\n"
 "Context property 'subdivideBeams' used to rely on the value of\n"
-"'baseMoment' for the minimum subdivision interval. Now, separate\n"
+"'baseMoment' for the minimum subdivision interval.  Now, separate\n"
 "properties 'minimumBeamSubdivisionInterval',\n"
-"'maximumBeamSubdivisionInterval' and 'respectIncompleteBeams'\n"
+"'maximumBeamSubdivisionInterval', and 'respectIncompleteBeams'\n"
 "specifically control beam subdivision intervals, whereas 'baseMoment' no\n"
-"longer has an effect. The value of 'baseMoment' may implicitly change\n"
-"whenever time signature changes or is first set, so preserving past\n"
+"longer has an effect.  The value of 'baseMoment' may implicitly change\n"
+"whenever a time signature changes or is first set, so preserving past\n"
 "behavior requires setting 'minimumBeamSubdivisionInterval' to the same\n"
 "value of 'baseMoment', even at each implicit setting of 'baseMoment',\n"
-"and setting 'respectIncompleteBeams' to true"
+"and setting 'respectIncompleteBeams' to true.\n"
 msgstr ""
 
 #: lilylib.py:50
@@ -1929,7 +1929,7 @@ msgstr ""
 msgid "\\applycontext argument is not a procedure"
 msgstr ""
 
-#: arpeggio.cc:139
+#: arpeggio.cc:142
 msgid "no heads for arpeggio found?"
 msgstr ""
 
@@ -3234,52 +3234,52 @@ msgid ""
 "values"
 msgstr ""
 
-#: page-breaking.cc:297
+#: page-breaking.cc:299
 msgid ""
 "ignoring min-systems-per-page and max-systems-per-page because systems-per-"
 "page was set"
 msgstr ""
 
-#: page-breaking.cc:303
+#: page-breaking.cc:305
 msgid ""
 "min-systems-per-page is larger than max-systems-per-page, ignoring both "
 "values"
 msgstr ""
 
-#: page-breaking.cc:571
+#: page-breaking.cc:579
 #, c-format
 msgid "page %d has been compressed"
 msgstr ""
 
-#: page-breaking.cc:1253
+#: page-breaking.cc:1261
 #, c-format
 msgid "too few pages: %ld (should have at least %ld)"
 msgstr ""
 
-#: page-breaking.cc:1258
+#: page-breaking.cc:1266
 #, c-format
 msgid "too many pages: %ld (should have at most %ld)"
 msgstr ""
 
-#: page-layout-problem.cc:429
+#: page-layout-problem.cc:431
 msgid ""
 "A page layout problem has been initiated that cannot accommodate footnotes."
 msgstr ""
 
-#: page-layout-problem.cc:806
+#: page-layout-problem.cc:811
 msgid "ragged-bottom was specified, but page must be compressed"
 msgstr ""
 
-#: page-layout-problem.cc:810
+#: page-layout-problem.cc:815
 #, c-format
 msgid "compressing over-full page by %.1f staff-spaces"
 msgstr ""
 
-#: page-layout-problem.cc:1317
+#: page-layout-problem.cc:1322
 msgid "staff-affinities should only decrease"
 msgstr ""
 
-#: page-spacing.cc:193
+#: page-spacing.cc:197
 msgid "tried to space systems on a bad number of pages"
 msgstr ""
 
@@ -4625,47 +4625,47 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:468
+#: lily.scm:474
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:543
+#: lily.scm:549
 #, scheme-format
 msgid "note scale expected: ~S"
 msgstr ""
 
-#: lily.scm:821
+#: lily.scm:827
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:822
+#: lily.scm:828
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:899
+#: lily.scm:905
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:902
+#: lily.scm:908
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:906
+#: lily.scm:912
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:919
+#: lily.scm:925
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:952
+#: lily.scm:958
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
@@ -4804,44 +4804,44 @@ msgstr ""
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1581
+#: music-functions.scm:1591
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1644
+#: music-functions.scm:1654
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1645
+#: music-functions.scm:1655
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:2048
+#: music-functions.scm:2058
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2534
+#: music-functions.scm:2544
 msgid "giving up on cloned grob transform"
 msgstr ""
 
-#: music-functions.scm:2597
+#: music-functions.scm:2607
 #, scheme-format
 msgid "default '~a of ~a is ~a and can't be offset"
 msgstr ""
 
-#: music-functions.scm:2628
+#: music-functions.scm:2638
 #, scheme-format
 msgid "the property '~a of ~a cannot be offset"
 msgstr ""
 
-#: music-functions.scm:2853
+#: music-functions.scm:2863
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2856
+#: music-functions.scm:2866
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
@@ -4895,12 +4895,12 @@ msgid ""
 "supported in the PostScript backend.  Use the Cairo backend instead."
 msgstr ""
 
-#: output-ps.scm:347 output-svg.scm:541
+#: output-ps.scm:349 output-svg.scm:541
 #, scheme-format
 msgid "unknown line-cap-style: ~S"
 msgstr ""
 
-#: output-ps.scm:352 output-svg.scm:547
+#: output-ps.scm:354 output-svg.scm:547
 #, scheme-format
 msgid "unknown line-join-style: ~S"
 msgstr ""
@@ -4919,70 +4919,70 @@ msgstr ""
 msgid "cannot find SVG font ~S"
 msgstr ""
 
-#: paper.scm:116
+#: paper.scm:115
 msgid "set-global-staff-size: not in toplevel scope"
 msgstr ""
 
 #. The documentation script currently expects units mm or in.
 #. Don't use decimals with millimeters.
 #. ISO 216 has a tolerance of +- 2mm
-#: paper.scm:128
+#: paper.scm:127
 msgid "ISO 216, A series"
 msgstr ""
 
-#: paper.scm:140
+#: paper.scm:139
 msgid "Two extended sizes as defined in DIN 476"
 msgstr ""
 
-#: paper.scm:143
+#: paper.scm:142
 msgid "ISO 216, B series"
 msgstr ""
 
-#: paper.scm:155
+#: paper.scm:154
 msgid "ISO 269, C series"
 msgstr ""
 
-#: paper.scm:167
+#: paper.scm:166
 msgid "North American paper sizes"
 msgstr ""
 
-#: paper.scm:177
+#: paper.scm:176
 msgid "Sizes by IEEE Printer Working Group, for children's writing"
 msgstr ""
 
-#: paper.scm:181
+#: paper.scm:180
 msgid "ANSI sizes"
 msgstr ""
 
-#: paper.scm:190
+#: paper.scm:189
 msgid "North American architectural sizes"
 msgstr ""
 
-#: paper.scm:197
+#: paper.scm:196
 msgid "Other sizes, including antique sizes still used in the United Kingdom"
 msgstr ""
 
-#: paper.scm:220
+#: paper.scm:219
 msgid "PA4-based sizes"
 msgstr ""
 
-#: paper.scm:232
+#: paper.scm:231
 msgid "Additional format for use in Southeast Asia and Australia"
 msgstr ""
 
-#: paper.scm:326
+#: paper.scm:325
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr ""
 
-#: paper.scm:334
+#: paper.scm:333
 #, scheme-format
 msgid "Unknown paper size: ~a"
 msgstr ""
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:353
+#: paper.scm:352
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
