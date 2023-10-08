@@ -67,12 +67,34 @@ $(outdir)/%.pdf: $(outdir)/%.tex
 	$(call ly_progress,Making,$@,< tex)
 	rm -fr $(outdir)/$*.build/
 	mkdir $(outdir)/$*.build
-	cd $(outdir) && $(buildscript-dir)/run-and-check.sh \
-		"$(PDFLATEX) -interaction=nonstopmode -halt-on-error \
-			-output-directory=$*.build \
-			$(notdir $<)" \
-		"$*.pdflatex.log"
+	TEX="$(PDFTEX)" PDFTEX="$(PDFTEX)" PDFLATEX="$(PDFLATEX)" \
+		$(buildscript-dir)/run-and-check.sh \
+			"cd $(outdir); \
+				$(PDFLATEX) \
+					-interaction=nonstopmode \
+					-halt-on-error \
+					-output-directory=$*.build \
+					$(<F)" \
+			"$(outdir)/$*.pdflatex.log"
+ifeq ($(USE_EXTRACTPDFMARK),yes)
+	$(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
+                 -o $(outdir)/$*.pdfmark $(outdir)/$*.build/$*.pdf
+	$(GS920) -dBATCH \
+                 -dNOSAFER \
+                 -dNOPAUSE \
+                 -q \
+                 -sDEVICE=pdfwrite \
+                 -dAutoRotatePages=/None \
+                 -dPrinted=false \
+                 -sOutputFile=$@ \
+                 -c "30000000 setvmthreshold" \
+                 -I $(top-build-dir)/out-fonts \
+                 -I $(top-build-dir)/out-fonts/Font \
+                 $(outdir)/$*.pdfmark \
+                 $(outdir)/$*.build/$*.pdf
+else
 	mv $(outdir)/$*.build/$*.pdf $@
+endif
 	rm -fr $(outdir)/$*.build/
 endif
 
@@ -112,10 +134,30 @@ $(outdir)/%.pdf: $(outdir)/%.texi
 			"cd $(outdir); \
 				texi2pdf \
 					-I $(abs-src-dir) \
-					-o $*.pdf \
+					-o $*.tmp.pdf \
 					$(<F) \
 					< /dev/null" \
 			"$(outdir)/$*.texi2pdf.log"
+ifeq ($(USE_EXTRACTPDFMARK),yes)
+	$(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
+                 -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
+	$(GS920) -dBATCH \
+                 -dNOSAFER \
+                 -dNOPAUSE \
+                 -q \
+                 -sDEVICE=pdfwrite \
+                 -dAutoRotatePages=/None \
+                 -dPrinted=false \
+                 -sOutputFile=$@ \
+                 -c "30000000 setvmthreshold" \
+                 -I $(top-build-dir)/out-fonts \
+                 -I $(top-build-dir)/out-fonts/Font \
+                 $(outdir)/$*.pdfmark \
+                 $(outdir)/$*.tmp.pdf
+	rm $(outdir)/$*.tmp.pdf
+else
+	mv $(outdir)/$*.tmp.pdf $@
+endif
 
 ############## DocBook ######################
 
@@ -127,7 +169,32 @@ $(outdir)/%.xml: %.lyxml
 ifeq (,$(findstring dblatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf: $(outdir)/%.xml
 	$(call ly_progress,Making,$@,< xml)
-	cd $(outdir) && $(buildscript-dir)/run-and-check.sh \
-		"$(DBLATEX) $(DBLATEX_BACKEND) -o $*.pdf $(notdir $<)" \
-		"$*.dblatex.log"
+	TEX="$(PDFTEX)" PDFTEX="$(PDFTEX)" PDFLATEX="$(PDFLATEX)" \
+		$(buildscript-dir)/run-and-check.sh \
+			"cd $(outdir); \
+				$(DBLATEX) \
+					$(DBLATEX_BACKEND) \
+					-o $*.tmp.pdf \
+					$(<F)" \
+			"$(outdir)/$*.dblatex.log"
+ifeq ($(USE_EXTRACTPDFMARK),yes)
+	$(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
+                 -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
+	$(GS920) -dBATCH \
+                 -dNOSAFER \
+                 -dNOPAUSE \
+                 -q \
+                 -sDEVICE=pdfwrite \
+                 -dAutoRotatePages=/None \
+                 -dPrinted=false \
+                 -sOutputFile=$@ \
+                 -c "30000000 setvmthreshold" \
+                 -I $(top-build-dir)/out-fonts \
+                 -I $(top-build-dir)/out-fonts/Font \
+                 $(outdir)/$*.pdfmark \
+                 $(outdir)/$*.tmp.pdf
+	rm $(outdir)/$*.tmp.pdf
+else
+	mv $(outdir)/$*.tmp.pdf $@
+endif
 endif
