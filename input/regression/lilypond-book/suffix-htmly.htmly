@@ -1,6 +1,6 @@
 <html>
 <body>
-Testing lilypond-book HTML mode with .htmly file suffix.
+Testing <code>lilypond-book</code> HTML mode with <code>.htmly</code> file suffix.
 <lilypond fragment relative=2>
 \key c \minor c4 es g2
 </lilypond>
