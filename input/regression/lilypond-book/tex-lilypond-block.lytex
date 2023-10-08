@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\section{Simple lilypond blocks}
+\section{Simple \texttt{lilypond} blocks}
 
 A simple scale:
 

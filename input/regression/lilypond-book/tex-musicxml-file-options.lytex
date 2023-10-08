@@ -1,5 +1,8 @@
 \documentclass{article}
+
 \begin{document}
+
 Including a MusicXML file with options:
 \musicxmlfile[language=deutsch,absolute,no-beaming]{include.xml}
+
 \end{document}

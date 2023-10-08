@@ -1,6 +1,8 @@
 \documentclass{article}
+
 \begin{document}
-Including a LilyPond file with options (quote and noindent):
+
+Including a LilyPond file with options (\texttt{quote} and \texttt{noindent}):
 
 \lilypondfile[quote,noindent]{include2.ly}
 
@@ -8,7 +10,7 @@ From a subdirectory:
 
 \lilypondfile[quote,noindent]{include/example.ly}
 
-Within a lilypond block:
+Within a \texttt{lilypond} block:
 
 \begin{lilypond}[quote,noindent]
   \include "include/myvar.ily"

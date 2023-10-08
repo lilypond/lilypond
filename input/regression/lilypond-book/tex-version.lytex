@@ -1,4 +1,7 @@
 \documentclass{article}
+
 \begin{document}
+
 LilyPond version: \lilypondversion
+
 \end{document}

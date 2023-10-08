@@ -5,7 +5,7 @@
 
 \begin{document}
 
-\section{verb and verbatim}
+\section{\texttt{\textbackslash verb} and \textsl{verbatim}}
 
 This file should not contain (and produce) any LilyPond images!
 

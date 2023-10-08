@@ -1,6 +1,7 @@
 \documentclass[a4paper, 12pt]{article}
 
 \twocolumn
+
 \begin{document}
 
 \section{A latex file with two columns}

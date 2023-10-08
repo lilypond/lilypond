@@ -1,4 +1,7 @@
 \documentclass{article}
+
 \begin{document}
+
 Adding LilyPond code inline: \lilypond[relative=2]{ d g ceses }
+
 \end{document}

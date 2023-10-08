@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\section{LilyPond snippets inside lists:}
+\section{LilyPond snippets inside lists}
 
 Itemize environment:
 \begin{itemize}

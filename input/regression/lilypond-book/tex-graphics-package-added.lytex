@@ -2,9 +2,9 @@
 
 \begin{document}
 
-\section{LilyPond-book should add the graphicx package}
+\section{\texttt{lilypond-book} should add the \textsl{graphics} package}
 
-If a latex file does not yet include the graphicx package, it is added by
-lilypond-book.
+If a \LaTeX{} file does not yet include the \textsl{graphics} package, it is
+added by \texttt{lilypond-book}.
 
 \end{document}

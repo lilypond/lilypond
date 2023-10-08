@@ -4,6 +4,9 @@
 
 Version: \lilypondversion
 
+The following works because \verb|\lilypondversion| is handled by
+\texttt{lilypond-book} (before calling \LaTeX).
+
 A digit immediately after the version: \lilypondversion9
 A formula immediately after the version: \lilypondversion$x_k$
 

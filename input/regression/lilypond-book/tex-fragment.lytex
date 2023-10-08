@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\section{Using lilypond-book's fragment option}
+\section{Using \texttt{lilypond-book}'s \texttt{fragment} option}
 
 If a snippet is not a fully valid LilyPond file, you have
 to use the \verb|fragment| option:
@@ -11,8 +11,7 @@ to use the \verb|fragment| option:
 c d e
 \end{lilypond}
 
-% TODO: \verb does not yet work!!!
-There is also a shorthand version %\verb|\lilypond[fragment]{c' e' g'}|:
+There is also a shorthand version \verb|\lilypond[fragment]{c' e' g'}|:
 
 \lilypond[fragment]{c' e' g'}
 

@@ -1,6 +1,7 @@
 \documentclass[a4paper, 12pt]{article}
 
 \begin{document}
+
 \section{LilyPond snippets with deprecated options}
 
 A snippet with a deprecated option, triggering compatibility mode:

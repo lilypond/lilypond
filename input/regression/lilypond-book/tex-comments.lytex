@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\subsection{LaTeX comments}
+\subsection{\LaTeX{} comments}
 
 This is a line with LilyPond code after the comment
 character. % \lilypond{\context Voice <<c' e' g'>>}
