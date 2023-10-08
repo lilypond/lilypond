@@ -1,8 +1,10 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+
 @settitle Texinfo comments
 
 
-@chapter Texinfo comments
+@node Texinfo comments
+@section Texinfo comments
 
 This is a line with LilyPond code after the comment
 character. @c @lilypond{\context Voice <<c' e' g'>>}

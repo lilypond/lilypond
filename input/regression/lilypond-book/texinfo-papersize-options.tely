@@ -1,10 +1,13 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
-@settitle Test paper size options in texinfo
+
+@settitle Test paper size options in Texinfo
 
 
-@chapter Test paper size options in texinfo
+@node Test paper size option in Texinfo
+@section Test paper size options in Texinfo
 
-@section @code{papersize}
+
+@subsection @code{papersize}
 
 Option @option{papersize=a8landscape}:
 
@@ -25,7 +28,7 @@ Option @option{papersize = a8landscape}:
 @end lilypond
 
 Invalid option value @option{papersize=foo}; expect overfull warnings from
-texinfo:
+Texinfo:
 
 @lilypond[papersize=foo]
 \book {
@@ -35,7 +38,7 @@ texinfo:
 @end lilypond
 
 Invalid option key @option{paprsize=a8landscape}; expect overfull warnings
-from texinfo:
+from Texinfo:
 
 @lilypond[paprsize=a8landscape]
 \book {
@@ -45,7 +48,7 @@ from texinfo:
 @end lilypond
 
 
-@section @code{paper-width} and @code{paper-height}
+@subsection @code{paper-width} and @code{paper-height}
 
 Options @option{paper-width=100\mm, paper-height=10\cm}:
 
@@ -65,7 +68,7 @@ Options @option{paper-width = 3 \in, paper-height = 300 \pt}:
 }
 @end lilypond
 
-Option @option{paper-width=350\bp}: expect overfull warnings from texinfo:
+Option @option{paper-width=350\bp}: expect overfull warnings from Texinfo:
 
 @lilypond[paper-width=350\bp]
 \book {
@@ -74,7 +77,7 @@ Option @option{paper-width=350\bp}: expect overfull warnings from texinfo:
 }
 @end lilypond
 
-Option @option{paper-height=100\mm}: expect overfull warnings from texinfo:
+Option @option{paper-height=100\mm}: expect overfull warnings from Texinfo:
 
 @lilypond[paper-height=100\mm]
 \book {
@@ -84,7 +87,7 @@ Option @option{paper-height=100\mm}: expect overfull warnings from texinfo:
 @end lilypond
 
 Invalid option values @option{paper-width=foo\xy, paper-height=..4\yz};
-expect overfull warnings from texinfo:
+expect overfull warnings from Texinfo:
 
 @lilypond[paper-width=foo\xy, paper-height=..4\cm]
 \book {

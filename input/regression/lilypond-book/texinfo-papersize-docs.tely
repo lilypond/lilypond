@@ -1,13 +1,16 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: en -*-
-@settitle Different paper sizes for documentation
+
 @documentencoding UTF-8
 @documentlanguage en
 @afourpaper
 
-@node Top
-@top Different paper sizes for documentation.
+@settitle Different paper sizes for documentation
 
-This is a sample of a small papersize, which is useful when you
+
+@node Different paper sizes for documentation
+@section Different paper sizes for documentation
+
+This is a sample of a small paper size, which is useful when you
 want to add a @code{\book@{@}} around some input.
 
 @lilypond[verbatim,papersize=a8landscape]

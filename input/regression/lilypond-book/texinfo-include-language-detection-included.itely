@@ -1,2 +1,2 @@
-The texidoc of the following snippet should be "translated":
+The Texidoc of the following snippet should be ``translated'':
 @lilypondfile[printfilename,texidoc,doctitle]{include3.ily}

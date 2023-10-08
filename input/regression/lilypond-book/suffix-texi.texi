@@ -1,13 +1,14 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
-@settitle lilypond-book Suffix test for texi
 
-@node Top
-@top Suffix test for texi
+@settitle Suffix test for .texi
 
-Testing lilypond-book texinfo mode with .texi file suffix.
+
+@node Suffix test for texi
+@section Suffix test for @file{.texi}
+
+Testing @code{lilypond-book} Texinfo mode with @file{.texi} file suffix.
 @lilypond[fragment,relative=2]
 \key c \minor c4 e d2
 @end lilypond
-
 
 @bye

@@ -1,8 +1,10 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
-@settitle verb and verbatim
+
+@settitle @@verb and @@verbatim
 
 
-@chapter verb and verbatim
+@node verb and verbatim
+@section @code{@@verb} and @code{@@verbatim}
 
 This file should not contain (and produce) any LilyPond images!
 

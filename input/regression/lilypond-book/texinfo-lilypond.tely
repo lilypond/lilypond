@@ -1,9 +1,10 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
-@settitle Test @code{@@lilypond} command in texinfo
 
-@c @node Top
-@c @top Test @code{@@lilypond} command in texinfo
+@settitle Test @@lilypond command in Texinfo
 
+
+@node Test lilypond command in Texinfo
+@section Test @code{@@lilypond} command in Texinfo
 
 One line, with option:
 @lilypond[fragment]{ c' }

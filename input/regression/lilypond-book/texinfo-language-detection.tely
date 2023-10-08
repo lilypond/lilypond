@@ -1,19 +1,32 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
-@settitle Texinfo language detection
+
+@c This file should be tested with
+@c
+@c ```
+@c lilypond-book \
+@c   ...
+@c   --process="lilypond \
+@c                --header=texidoces \
+@c                --header=doctitlees" \
+@c   texinfo-language-detection.tely
+@c ```
+
 @documentencoding UTF-8
 @documentlanguage es
 @afourpaper
 
-@node Top
-@top Texinfo language detection
+@settitle Texinfo language detection
+
+
+@node Texinfo language detection
+@section Texinfo language detection
 
 @macro lydoctitle {TEXT}
 @need 600
 @emph{\TEXT\}
 @end macro
 
-The texidoc of the following snippet should be "translated":
+The @code{texidoc} field of the following snippet should be ``translated'':
 @lilypondfile[printfilename,texidoc,doctitle]{include3.ily}
-
 
 @bye

@@ -1,13 +1,14 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
-@settitle lilypond-book Suffix test for itely
 
-@node Top
-@top Suffix test for itely
+@settitle Suffix test for .itely
 
-Testing lilypond-book texinfo mode with .itely file suffix.
+
+@node Suffix test for itely
+@section Suffix test for @file{.itely}
+
+Testing @command{lilypond-book} Texinfo mode with @file{.itely} file suffix.
 @lilypond[fragment,relative=2]
 \key c \minor c4 e d2
 @end lilypond
-
 
 @bye

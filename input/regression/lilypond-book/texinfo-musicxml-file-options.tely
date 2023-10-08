@@ -1,11 +1,13 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
-@settitle MusicXML inside texinfo
 
-@node Top
-@top MusicXML in texinfo
+@settitle MusicXML inside Texinfo
 
-A MusicXML file included in texinfo with options (language=deutsch, absolute, no-beaming):
+
+@node MusicXML inside Texinfo
+@section MusicXML in Texinfo
+
+A MusicXML file included in Texinfo with options
+(@code{language=deutsch}, @code{absolute}, @code{no-beaming}):
 @musicxmlfile[language=deutsch,absolute,no-beaming]{include.xml}
-
 
 @bye
