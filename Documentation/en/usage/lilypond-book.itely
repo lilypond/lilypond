@@ -50,6 +50,7 @@ documents.
 * Music fragment options::
 * Invoking lilypond-book::
 * Filename extensions::
+* Parallel execution::
 * lilypond-book templates::
 * Sharing the table of contents::
 * Alternate methods of mixing text and music::
@@ -1273,6 +1274,35 @@ input file is in the same directory as @command{lilypond-book} working
 directory, you must use @option{--output} option to make
 @command{lilypond-book} running, otherwise it will exit with an error
 message like @qq{Output would overwrite input file}.
+
+
+@node Parallel execution
+@section Parallel execution
+
+The @command{lilypond-book} script cannot be used to process
+documents in parallel if the output directory is the same.  If you
+try to do so, sequential execution (in arbitrary order) of the
+@command{lilypond-book} processes is enforced instead by using a
+lock file.
+
+In other words, to process documents @file{foo.lytex} and
+@file{bar.lytex} at the same time (via the @command{make} utility,
+for example), put them either into two different directories, say,
+@file{foo/foo.lytex} and @file{bar/bar.lytex}, or use command-line
+option @option{--output} with different values.
+
+Note that LilyPond itself can process multiple input files in
+parallel, actually.  Since @command{lilypond-book} passes a list
+of all snippets in a document to @command{lilypond} in one rush,
+parallel execution is possible by using its @option{-djob-count}
+option.
+
+@example
+lilypond-book --process="lilypond -djob-count=4" \
+              --output=foo \
+              ... \
+              foo.lytex
+@end example
 
 
 @node lilypond-book templates
