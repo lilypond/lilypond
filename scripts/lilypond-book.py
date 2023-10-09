@@ -411,16 +411,52 @@ def lock_path(name):
     if os.name != 'posix':
         return None
 
-    fp = open(name, 'w', encoding='utf-8')
-    fcntl.lockf(fp, fcntl.LOCK_EX)
-    return fp
+    # https://stackoverflow.com/questions/17708885/flock-removing-locked-file-without-race-condition
+    #
+    # Consider the following potential race condition of three processes A,
+    # B, and C if you simply open and lock the lock file before use, and
+    # unlink and unlock the lock file after use:
+    #
+    #   A opens file
+    #   A locks file
+    #   B opens file, waiting
+    #   A unlinks file
+    #   A unlocks file
+    #   B locks file (B holds a lock on the deleted file)
+    #   C opens file (a new file is created)
+    #   C locks file (two processes hold the same named mutex!)
+    #
+    # Since we support the locking mechanism on Unix only, there is a
+    # solution: After the file was locked successfully, get the file status
+    # information of the lock handle and the file pointed to by its name,
+    # then compare the inode numbers.  If a process holds a lock on a file
+    # that is still on the file system, every other process that has a
+    # left-over file will have a wrong inode number.
+
+    while True:
+        lock = os.open(name, os.O_CREAT)
+        fcntl.flock(lock, fcntl.LOCK_EX)
+
+        status_lock = os.stat(lock)
+        try:
+            status_name = os.stat(name)
+        except FileNotFoundError:
+            pass
+        else:
+            if status_lock.st_ino == status_name.st_ino:
+                break
+
+        os.close(lock)
+
+    return lock
 
 
-def unlock_path(lock):
+def unlock_path(lock, name):
     if os.name != 'posix':
         return None
-    fcntl.lockf(lock, fcntl.LOCK_UN)
-    lock.close()
+
+    os.unlink(name)
+    fcntl.flock(lock, fcntl.LOCK_UN)
 
 
 def do_process_cmd(chunks, options):
@@ -440,7 +476,7 @@ def do_process_cmd(chunks, options):
         do_process_cmd_locked(snippets, options)
     finally:
         if lock:
-            unlock_path(lock)
+            unlock_path(lock, lock_file)
 
 
 def do_process_cmd_locked(snippets, options):
