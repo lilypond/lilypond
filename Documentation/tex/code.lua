@@ -168,7 +168,13 @@ code_hyphenate = function(head)
 
   local skip_accent = function(n)
     if n and n.id == KERN and n.subtype == accentkern then
-      n = n.next.next.next
+      n = n.next
+      if n then
+        n = n.next
+      end
+      if n then
+        n = n.next
+      end
     end
     return n
   end
