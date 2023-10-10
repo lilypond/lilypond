@@ -709,12 +709,12 @@ Set line width to @var{size} (expressed in @var{unit}).
 output (that is, the staff length of the music fragment), not the
 text layout.
 
-If used without an argument, set line width to a default value (as
-computed with a heuristic algorithm).
-
-If no @code{line-width} option is given, @command{lilypond-book} tries to
-guess a default for @code{lilypond} environments which don't use the
+If used without an argument, or if no @code{line-width} option is
+given, @command{lilypond-book} tries to guess a default for
+@code{lilypond} environments that don't use the
 @code{ragged-right} option.
+
+See also option @option{papersize}.
 
 @item papersize=@var{string}
 Set paper size to @var{string} (for example @code{a5} or
@@ -726,6 +726,13 @@ This option affects LilyPond output (that is, the paper size of
 the music fragment), not the text layout.  Unknown values of
 @var{string} are ignored: a warning is emitted and the snippet is
 printed using the default @code{a4} size.
+
+If option @option{papersize} is given without option
+@option{line-width} (more specifically, option @option{line-width}
+without an argument), LilyPond uses its own idea of the default
+line width within the snippet, also ignoring option @option{quote}
+(which still makes @command{lilypond-book} emit a quotation block,
+though).
 
 @item paper-width=@var{size}\@var{unit}
 Set paper width to @var{size} (expressed in @var{unit}) for music
@@ -834,6 +841,8 @@ LilyPond, not the text layout.  Since no indentation is the default,
 Reduce line length of a music snippet by @math{2*0.4}@dmn{in} and put
 the output into a quotation block.  The value @q{0.4@dmn{in}} can be
 controlled with the @code{exampleindent} option.
+
+See also option @option{papersize}.
 
 @item exampleindent
 Set the amount by which the @code{quote} option indents a music snippet.

@@ -576,6 +576,16 @@ class LilypondSnippet (Snippet):
         override.update(self.formatter.default_snippet_options)
         override['padding_mm'] = self.global_options.padding_mm
 
+        # If the `papersize` option is given (or constructed) but not
+        # `line-width`, don't use the default line width since it wouldn't
+        # give good results, especially if the paper size is smaller.  Also
+        # ignore the `quote` option (on the LilyPond side) for the same
+        # reason.
+        ignore_options = []
+        if (PAPERSIZE in self.snippet_option_dict
+                and LINE_WIDTH not in self.snippet_option_dict):
+            ignore_options.extend([LINE_WIDTH, QUOTE])
+
         option_string = ','.join(self.get_outputrelevant_option_strings())
         compose_dict = {}
         compose_types = [NOTES, PREAMBLE, LAYOUT, PAPER]
@@ -584,6 +594,9 @@ class LilypondSnippet (Snippet):
 
         option_names = sorted(self.option_dict.keys())
         for key in option_names:
+            if key in ignore_options:
+                continue
+
             value = self.option_dict[key]
 
             if value:
