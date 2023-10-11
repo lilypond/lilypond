@@ -376,9 +376,8 @@ images.")
 in the parser.  If #f, halt on errors and print
 a stack trace.")
     (read-file-list #f
-                    "Specify name of a file which contains a list of
-input files to be processed."
-                    #:internal? #t)
+                    "Handle all command-line file arguments as lists
+of input files to be processed.")
     (relative-includes #t
                        "When processing an \\include command, look for
 the included file relative to the current file\

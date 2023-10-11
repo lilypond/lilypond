@@ -892,6 +892,12 @@ code are caught in the parser.  If set to @code{#f}, halt on errors
 and print a stack trace.
 Default: @code{#t}.
 
+@item @code{read-file-list} @var{bool}
+If @var{bool} is @code{#t}, handle all file arguments on the
+command line as lists of LilyPond input files to be processed,
+with one input file per line in these lists.
+Default: @code{#f}.
+
 @item @code{relative-includes} @var{bool}
 When processing an @code{\include} command, look for the included
 file relative to the current file if @var{bool} is @code{#t}.  If set
