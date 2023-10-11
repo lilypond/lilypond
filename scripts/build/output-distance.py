@@ -390,7 +390,7 @@ class ImageLink (FileLink):
                 return '''
 <figure class="diff_img">
   <div>
-    <div class="oldimg"><img alt="old image" src="%(oldimg)s" /></div>
+    <div class="oldimg"><img alt="old image" src="%(newimg)s" /></div>
     <div class="diffimg"><img alt="diff image" src="%(diffimg)s" /></div>
     <div class="invisible"><img alt="diff image" src="%(diffimg)s" /></div>
   </div>
