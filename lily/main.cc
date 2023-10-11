@@ -114,10 +114,12 @@ static Long_option_init options_static[] = {
   {0, "ps", 0, _i ("generate PostScript files")},
   {0, "eps", 'E', _i ("generate Encapsulated PostScript files")},
   {_i ("KEY"), "pspdfopt", 'O',
-   _i ("set ps/pdf optimization to KEY, which is either\n"
-       "'size' (default), 'TeX', or 'TeX-GS'")},
+   _i ("set ps/pdf optimization to KEY, which is\n"
+       "either 'size' (default), 'TeX', or\n"
+       "'TeX-GS'")},
   {_i ("SYM[=VAL]"), "define-default", 'd',
-   _i ("set Scheme option SYM to VAL (default: '#t')")},
+   _i ("set Scheme option SYM to VAL (default:\n"
+       "'#t')")},
   {_i ("no-SYM"), "define-default", 'd', _i ("set Scheme option SYM to '#f'")},
   {"help", "define-default", 'd', _i ("show help for Scheme options")},
   {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
@@ -125,14 +127,14 @@ static Long_option_init options_static[] = {
      for --output-format.  */
   {0, "help", 'h', _i ("show this help and exit")},
   {_i ("FIELD"), "header", 'H',
-   _i ("dump \\header field FIELD to file\n"
-       "named BASENAME.FIELD")},
+   _i ("dump \\header field FIELD to file named\n"
+       "BASENAME.FIELD")},
   {_i ("DIR"), "include", 'I', _i ("append DIR to search path")},
   {_i ("FILE"), "init", 'i', _i ("use FILE as init file")},
 #if HAVE_CHROOT
   {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j',
-   _i ("chroot to JAIL, become USER:GROUP\n"
-       "and cd into DIR")},
+   _i ("chroot to JAIL, become USER:GROUP and cd\n"
+       "into DIR")},
 #endif
   {_i ("LOGLEVEL"), "loglevel", 'l',
    _i ("print log messages according to LOGLEVEL,\n"

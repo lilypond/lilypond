@@ -253,8 +253,8 @@ limitation in the Guile compiler, this option
 produces an error if there are more than a few
 thousand Scheme expressions in the file.")
     (crop #f
-          "Generate additional, possibly tall
-single-page output file(s) with cropped margins.")
+          "Generate additional, possibly tall single-page
+output file(s) with cropped margins.")
     (datadir #f
              "LilyPond prefix for data files (read-only).")
     (debug-eval ,(ly:verbose-output?)
@@ -263,7 +263,7 @@ single-page output file(s) with cropped margins.")
                                  "For internal use."
                                  #:internal? #t)
     (debug-gc-object-lifetimes #f
-                               "Sanity check object lifetimes"
+                               "Sanity check object lifetimes."
                                #:internal? #t)
     (debug-lexer #f
                  "Debug the flex lexer."
@@ -322,8 +322,8 @@ no other font format.")
                       "If string FOO is given as an argument, include
 file `FOO' (using LilyPond syntax) for global
 settings, included before the score is
-processed.  This can be passed several times
-to process several files."
+processed.  This can be passed several times to
+process several files."
                       #:accumulative? #t)
     (job-count #f
                "Process in parallel, using the given number of
@@ -336,8 +336,8 @@ being a string like \"R1*5\".")
 output to log file `FOO.log'.")
     (max-markup-depth 1024
                       "Maximum depth for the markup tree.  If a markup
-has more levels, assume it will not terminate
-on its own, print a warning and return a null
+has more levels, assume it will not terminate on
+its own, print a warning and return a null
 markup instead.")
     (midi-extension ,(if (eq? PLATFORM 'windows)
                          "mid"
@@ -372,9 +372,9 @@ images.")
                                "Keep statistics of get_property() calls."
                                #:internal? #t)
     (protected-scheme-parsing #t
-                              "Continue when errors in inline Scheme are
-caught in the parser.  If #f, halt on errors
-and print a stack trace.")
+                              "Continue when errors in inline Scheme are caught
+in the parser.  If #f, halt on errors and print
+a stack trace.")
     (read-file-list #f
                     "Specify name of a file which contains a list of
 input files to be processed."
@@ -384,20 +384,19 @@ input files to be processed."
 the included file relative to the current file\
 \n(instead of the root file).")
     (resolution 101
-                "Set resolution for generating PNG pixmaps to
+                "Set resolution for generating PNG output to
 given value (in dpi).")
     (safe #f
-          "Safe mode has been removed; using this option results
-in an error.")
+          "Safe mode has been removed; using this option
+results in an error.")
     (separate-log-files #f
                         "For input files `FILE1.ly', `FILE2.ly', ...
 output log data to files `FILE1.log',
 `FILE2.log', ...")
     (separate-page-formats #f
-                           "formats to use for
-separate-page output in lilypond-book. Format is
-a symbol containing as comma-separated
-formats")
+                           "Formats to use for separate-page output in
+lilypond-book.  The argument is a
+comma-separated string of formats.")
     (show-available-fonts #f
                           "List available font names.")
     (strict-infinity-checking #f
@@ -414,13 +413,12 @@ primitives, resulting in large PDF file size
 increases but often markedly better PDF
 previews.")
     (tall-page-formats #f
-                       "formats to use for
-tall-page output in lilypond-book. Format is
-a symbol containing as comma-separated
-formats")
+                       "Formats to use for tall-page output in
+lilypond-book.  The argument is a
+comma-separated string of formats.")
     (use-paper-size-for-page #t "Set page stencil size to paper size defined in
-\\paper. If unset, the size of the page stencil will be
-defined by the extents of its contents.")
+\\paper.  If unset, the size of the page stencil
+is defined by the extents of its contents.")
     (verbose ,(ly:verbose-output?)
              "Verbose output, i.e., loglevel at least DEBUG
 (read-only).")
