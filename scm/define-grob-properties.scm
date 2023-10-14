@@ -1052,9 +1052,9 @@ this grob to other breakable items, using the format:
   ...)
 @end example
 
-Standard choices for @w{@code{@var{break-align-symbol}}} are listed in
+Standard choices for @code{@var{break-align-symbol}} are listed in
 @rinternals{break-alignment-interface}.  Additionally, three special
-@w{break-align} symbols available to @w{@code{space-alist}} are:
+break-align symbols available to @code{space-alist} are:
 
 @quotation
 @table @code
@@ -1071,37 +1071,49 @@ the @w{@code{extra-space}} spacing style)
 @end table
 @end quotation
 
+If @code{space-alist} is defined for a grob that gets spaced in a
+staff, an entry for @code{first-note} must be present.  If there
+is no @code{next-note} entry, the value of @code{first-note} is
+used instead.
+
 Choices for @code{@var{spacing-style}} are:
 
 @quotation
 @table @code
 @item extra-space
 Put this much space between the two grobs.  The space is stretchable
-when paired with @w{@code{first-note}} or @w{@code{next-note}};
+and shrinkable when paired with @code{first-note} or @code{next-note};
 otherwise it is fixed.
 
 @item minimum-space
 Put at least this much space between the left sides of both grobs,
-without allowing them to collide.  The space is stretchable when paired
-with @w{@code{first-note}} or @w{@code{next-note}}; otherwise it
-is fixed.  Not compatible with @w{@code{right-edge}}.
+without allowing them to collide.  The space is stretchable and
+shrinkable when paired with @code{first-note} or @code{next-note};
+otherwise it is fixed.  Not compatible with @code{right-edge}.
 
 @item fixed-space
-Only compatible with @w{@code{first-note}} and
-@w{@code{next-note}}.  Put this much fixed space between the grob
-and the note.
+Only compatible with @code{first-note} and @code{next-note}.  Put
+this much fixed space between the grob and the note.
 
 @item minimum-fixed-space
-Only compatible with @w{@code{first-note}} and
-@w{@code{next-note}}.  Put at least this much fixed space between
-the left side of the grob and the left side of the note, without
-allowing them to collide.
+Only compatible with @code{first-note} and @code{next-note}.  Put at
+least this much fixed space between the left side of the grob and the
+left side of the note, without allowing them to collide.
 
 @item semi-fixed-space
-Only compatible with @w{@code{first-note}} and
-@w{@code{next-note}}.  Put this much space between the grob and
-the note, such that half of the space is fixed and half is
-stretchable.
+Only compatible with @code{first-note} and @code{next-note}.  Put
+this much space between the grob and the note, such that half of the
+space is fixed and half is stretchable and shrinkable.
+
+@item shrink-space
+Only compatible with @code{first-note} and @code{next-note}.  Put
+this much space between the two grobs.  The space is only shrinkable.
+
+@item semi-shrink-space
+Only compatible with @code{first-note} and @code{next-note}.  Put
+this much space between the grob and the note, such that half of the
+space is fixed and half is shrinkable.
+
 @end table
 @end quotation
 

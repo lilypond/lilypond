@@ -162,6 +162,7 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
   space_def = scm_cdr (space_def);
   Real distance = from_scm<double> (scm_cdr (space_def));
   SCM type = scm_car (space_def);
+  bool is_stretchable = true;
 
   Real fixed = last_ext[RIGHT];
   Real ideal = fixed + 1.0;
@@ -185,8 +186,19 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
       fixed = last_ext[LEFT] + std::max (last_ext.length (), distance);
       ideal = fixed;
     }
+  else if (scm_is_eq (type, ly_symbol2scm ("shrink-space")))
+    {
+      ideal = fixed + distance;
+      is_stretchable = false;
+    }
+  else if (scm_is_eq (type, ly_symbol2scm ("semi-shrink-space")))
+    {
+      fixed += distance / 2;
+      ideal = fixed + distance / 2;
+      is_stretchable = false;
+    }
 
-  Real stretchability = ideal - fixed;
+  Real stretchability = is_stretchable ? ideal - fixed : 0;
 
   /* 'situational_space' passed by the caller
       could include full-measure-extra-space */

@@ -658,6 +658,13 @@ Additionally, it has been using an external speech synthesis
 program called @command{festival}, which is no longer maintained
 either.
 
+@item
+Two new spacing styles are available for the @code{space-alist}
+grob property: @code{shrink-space} and @code{semi-shrink-space};
+these spaces only shrink and don't stretch.  They are also used
+directly in LilyPond, improving the formatting of tightly spaced
+staves.
+
 @end itemize
 
 
