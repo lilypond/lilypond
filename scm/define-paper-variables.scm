@@ -324,7 +324,14 @@ lines in unindented, non-ragged systems, equal to @code{(paper-width -
 left-margin - right-margin)} if not set.  If @code{line-width} is set,
 and both @code{left-margin} and @code{right-margin} are not set, then
 the margins are updated to center the systems on the page
-automatically.  Also see @code{check-consistency}.  Default: unset.")
+automatically.  Also see @code{check-consistency}.  Default: unset.
+
+As a feature of LilyPond, if the command-line option
+@option{-dcrop} is set, the dimensions of the cropped output file
+are always rounded up to integer (PostScript) big points; this
+might cause a little bit of whitespace at the right margin.  To
+avoid that, set @code{line-width} to an integer big point value
+like @code{450\\bp}.")
 
 ;;
 ;; m

@@ -652,6 +652,12 @@ If option @option{--svg} is set, an additional SVG file (with extension
 @file{.cropped.eps}) is produced instead of a cropped PDF.  Default:
 @code{#f}.
 
+As a feature of LilyPond, the dimensions of the cropped output
+file are always rounded up to integer (PostScript) big points;
+this might cause a little bit of whitespace at the right margin.
+To avoid that, set the @code{line-width} paper variable to an
+integer big point value like @code{450\bp}.
+
 Note that currently this option is not well suited for multi-system
 output since vertical space between systems gets removed.
 
