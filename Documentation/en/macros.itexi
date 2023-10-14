@@ -719,8 +719,11 @@ For LilyPond version @version{}
   <a class="clickable" href="ly-examples/\IMAGE-FILE\.png">
     <img src="ly-examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>
-  <p style="text-align: center">
-    (click to enlarge)
+  <p style="text-align: left">
+    (click image to enlarge)
+    <span style="float: right">
+      <a href="ly-examples/\IMAGE-FILE\.ly">source code</a>
+    </span>
   </p>
 </div>
 @end html

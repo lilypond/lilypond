@@ -23,6 +23,7 @@ TEXI2PDF_FLAGS = \
 ### ly examples
 
 LY_EXAMPLES = $(call src-wildcard,ly-examples/*.ly)
+OUT_LY_EXAMPLES = $(LY_EXAMPLES:%.ly=$(outdir)/%.ly)
 OUT_BITMAP_IMAGES += \
   $(LY_EXAMPLES:%.ly=$(outdir)/%.png) \
   $(LY_EXAMPLES:%.ly=$(outdir)/%-small.png)
@@ -496,7 +497,11 @@ PDF_TARGETS = $(OUT_PDF_IMAGES) $(PDF_FILES)
 pdf: $(PDF_TARGETS)
 
 HTML_TARGETS = $(OUT_HTML_FILES) $(SPLIT_HTML_INDEX_FILES)
-HTML_MISC_TARGETS = $(OUT_BITMAP_IMAGES) $(OUT_CSS_FILES) $(OUT_MISC_FILES)
+HTML_MISC_TARGETS = \
+  $(OUT_BITMAP_IMAGES) \
+  $(OUT_CSS_FILES) \
+  $(OUT_MISC_FILES) \
+  $(OUT_LY_EXAMPLES)
 html: $(HTML_TARGETS) $(HTML_MISC_TARGETS)
 
 # Do not specify phony targets (pdf, html) as dependencies to avoid building the
@@ -545,6 +550,11 @@ $(outdir)/misc/%: misc/%
 	cp -f $< $@
 
 # Copy files while tracking their dependencies.
+$(outdir)/ly-examples/%.ly: ly-examples/%.ly
+	$(call ly_progress,Making,$@,(copy))
+	mkdir -p $(dir $@)
+	cp -f $< $@
+
 $(outdir)/%.texi: %.texi
 	$(call ly_progress,Making,$@,(copy))
 	mkdir -p $(dir $@)
