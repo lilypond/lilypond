@@ -2059,7 +2059,7 @@ into modern notation.  See also @iref{KievanLigature},
         (font-series . normal)
         (font-size . 1.0)
         (parent-alignment-X . ())
-        (self-alignment-X . ,CENTER)
+        (self-alignment-X . ,left-align-at-split-notes)
         (stencil . ,lyric-text::print)
         (text . ,(grob::calc-property-by-copy 'text))
         (word-space . 0.6)

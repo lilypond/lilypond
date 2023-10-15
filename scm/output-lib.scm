@@ -1383,6 +1383,39 @@ and draws the stencil based on its coordinates.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lyrics
 
+(define-public left-align-at-split-notes
+  (lambda (grob)
+  "Left-align @code{LyricText} if the parent @code{NoteHead} is split by
+@code{Completion_heads_engraver}"
+    (let* (;; x-parent is usually NoteColumn
+           (x-parent (ly:grob-parent grob X))
+           ;; NoteHeads (an array or #f)
+           (x-parent-nhds-array (ly:grob-object x-parent 'note-heads #f))
+           ;; `x-parent` may contain a chord,
+           ;; thus `x-parent-nhds` is a list.
+           (x-parent-nhds
+             (if x-parent-nhds-array
+                 (ly:grob-array->list x-parent-nhds-array)
+                 '()))
+           (self-alignment-x-list
+             (map
+               (lambda (nhd)
+                 (let* ((cause (ly:grob-property nhd 'cause))
+                        (split? (ly:prob-property cause 'autosplit-end #f)))
+                   (if split?
+                       LEFT
+                       CENTER)))
+             x-parent-nhds)))
+      ;; `self-alignment-x-list` is empty or contains a number (or equal
+      ;; multiples of said number).
+      ;; Because it's not possible to align the same LyricText
+      ;; differently to each NoteHead of a chord, we can safely use the
+      ;; first element of `self-alignment-x-list`.
+      ;; As fall-back we use CENTER.
+      (if (pair? self-alignment-x-list)
+          (car self-alignment-x-list)
+          CENTER))))
+
 (define-public (lyric-text::print grob)
   "Allow interpretation of tildes as lyric tieing marks."
   ;; See also similar code in Lyric_performer.
