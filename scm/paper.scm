@@ -333,6 +333,20 @@ ignoring @var{landscape?}."
       (ly:warning (G_ "Unknown paper size: ~a") name)))))
 
 (define-public (set-default-paper-size name . rest)
+  "Set the default paper size to @var{name} with orientation @var{rest}.
+
+@var{name} is either a predefined paper size string like @code{\"quarto\"} or a
+pair of numbers like @code{'(cons (* 100 mm) (* 50 mm))} to specify a custom
+paper size.
+
+If optional argument @var{rest} is set to @code{'landscape}, pages are rotated
+by 90@tie{}degrees, and wider line widths are set accordingly.  Swapping the
+paper dimensions @emph{without} having the print rotated can be achieved by
+appending the string @code{landscape} to the name of the paper size
+itself (example: @code{\"a4landscape\"}).
+
+This function can only be used at top level; it must come before any
+@code{\\paper} block.  See also function @code{set-paper-size}."
   (let* ((pap (module-ref (current-module) '$defaultpaper))
          (new-paper (ly:output-def-clone pap))
          (new-scope (ly:output-def-scope new-paper)))
@@ -343,6 +357,21 @@ ignoring @var{landscape?}."
     (module-set! (current-module) '$defaultpaper new-paper)))
 
 (define-public (set-paper-size name . rest)
+  "Set the paper size within @code{\\paper} to @var{name} with orientation @var{rest}.
+
+@var{name} is either a predefined paper size string like @code{\"quarto\"} or a
+pair of numbers like @code{'(cons (* 100 mm) (* 50 mm))} to specify a custom
+paper size.
+
+If optional argument @var{rest} is set to @code{'landscape}, pages are rotated
+by 90@tie{}degrees, and wider line widths are set accordingly.  Swapping the
+paper dimensions @emph{without} having the print rotated can be achieved by
+appending the string @code{landscape} to the name of the paper size
+itself (example: @code{\"a4landscape\"}).
+
+This function can only be used within a @code{\\paper} block; it must come
+before any other functions used within the same @code{\\paper} block.  See also
+function @code{set-default-paper-size}."
   (if (eq? 'paper (module-ref (current-module) 'output-def-kind #f))
       (internal-set-paper-size (current-module) name
                                (memq 'landscape rest))
