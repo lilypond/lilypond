@@ -398,6 +398,8 @@ lilypond-book.  The argument is a
 comma-separated string of formats.")
     (show-available-fonts #f
                           "List available font names.")
+    (staff-size 20
+                "Set default staff size (in pt).")
     (strict-infinity-checking #f
                               "Force a crash on encountering Inf and NaN
 floating point exceptions."

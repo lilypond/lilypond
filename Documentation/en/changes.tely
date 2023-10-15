@@ -665,6 +665,11 @@ these spaces only shrink and don't stretch.  They are also used
 directly in LilyPond, improving the formatting of tightly spaced
 staves.
 
+@item
+The @command{lilypond} binary has a new command-line option
+@option{-dstaff-size} to set the global staff size, equivalent to
+setting @code{set-global-staff-size} in a LilyPond input file.
+
 @end itemize
 
 

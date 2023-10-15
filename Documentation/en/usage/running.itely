@@ -931,6 +931,16 @@ the fontconfig library.  Appended to this list LilyPond displays the
 configuration settings of fontconfig itself.
 Default: @code{#f}.
 
+@item @code{staff-size} @var{size}
+Set global staff size to @var{size} points.  This is equivalent to
+
+@example
+#(set-global-staff-size @var{size})
+@end example
+
+@noindent
+if inserted at the beginning of the input file.
+
 @item @code{strip-output-dir} @var{bool}
 If @var{bool} is @code{#t}, don't use the directory part from input
 file paths while constructing output file names.

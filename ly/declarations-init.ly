@@ -153,6 +153,8 @@ repeatTie = #(make-music 'RepeatTieEvent)
 }
 
 #(set-default-paper-size (ly:get-option 'paper-size))
+#(set-global-staff-size (ly:get-option 'staff-size))
+
 partCombineListener = \layout {
   \context {
     \Score

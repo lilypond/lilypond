@@ -36,8 +36,7 @@
   % 20pt staff, 5 pt = 1.75 mm
   output-scale = #1.7573
 
-  %% ugh. hard coded?
-  #(layout-set-absolute-staff-size (* 20.0 pt))
+  #(layout-set-absolute-staff-size (* (ly:get-option 'staff-size) pt))
 
 
   %% Automatic scaling to paper size:
