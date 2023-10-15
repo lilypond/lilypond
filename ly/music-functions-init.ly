@@ -1717,9 +1717,14 @@ For details, see @rmusicfn{\\partCombine}.")
 
 partial =
 #(define-music-function (dur) (ly:duration?)
-  (_i "Adjust the measure position to end the current measure at @var{dur} past
-the point of use.  As a special case, when used at the start, create an
-anacrusis before the first measure.")
+   (_i "End the current measure after @var{dur}.
+
+Adjust @code{Timing@/.measurePosition} to end the current measure at @var{dur}
+past the point of use.  As a special case, when used at the start, create an
+anacrusis before the first measure.
+
+Notational elements that communicate metric structure (e.g., beam breaks) will
+be engraved appropriately for the final @var{dur} part of a measure.")
   (context-spec-music (make-music 'PartialSet
                                   'origin (*location*)
                                   'duration dur)
