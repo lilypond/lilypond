@@ -1712,14 +1712,15 @@ Internals Reference:
 @unnumberedsubsubsec Upbeats
 
 @cindex anacrusis
-@cindex upbeat
-@cindex partial measure
+@cindex irregular measure
+@cindex measure, irregular
 @cindex measure, partial
 @cindex measure, pickup
+@cindex partial measure
 @cindex pickup measure
 @cindex time signature, mid-measure
+@cindex upbeat
 
-@funindex measurePosition
 @funindex \partial
 
 Partial or pickup measures, such as an @emph{anacrusis} or an
@@ -1740,6 +1741,9 @@ first bar.
   r4 e'8 | a4 c8 b c4 |
 }
 @end lilypond
+
+@cindex measure position
+@cindex position, in measure
 
 When @code{\partial} is used after the beginning of a score,
 @code{@var{duration}} is the @emph{remaining} length of the
@@ -1776,10 +1780,6 @@ signature changes in mid measure, but it may also be used alone.
   c8 b[ c b] |
 }
 @end lilypond
-
-The @code{\partial} command sets the @code{Timing.measurePosition}
-property, which is a rational number that indicates how much of
-the measure has passed.
 
 For technical reasons, the argument to @code{\partial} cannot be a
 zero-length duration (like @code{\partial 4*0}).
@@ -4722,9 +4722,9 @@ Snippets:
 @cindex unmetered music
 
 @funindex currentBarNumber
-@funindex measurePosition
 @funindex measureLength
-
+@funindex measurePosition
+@funindex timing
 @funindex Timing
 
 Time is administered by the @code{Timing_translator}, which by
@@ -4740,6 +4740,8 @@ to keep track of timing within the score.
 
 @cindex bar number
 @cindex measure number
+@cindex measure position
+@cindex position, in measure
 
 @table @code
 @item currentBarNumber
@@ -4753,34 +4755,36 @@ determines when bar lines are inserted and how automatic beams
 should be generated.
 
 @item measurePosition
-The point within the measure where we currently are.  This
-quantity is reset by subtracting @code{measureLength} whenever
-@code{measureLength} is reached or exceeded.  When that happens,
-@code{currentBarNumber} is incremented.
+This internal property is the current point in the current
+measure.  When it reaches @code{measureLength}, it is reset to
+zero and @code{currentBarNumber} is incremented.
+@code{measurePosition} should not be set explicitly, but may be
+changed with the @code{\partial} command.
 
 @item timing
-If set to @code{#t}, the above variables are updated for every time
-step.  When set to @code{#f}, the engraver stays in the current
-measure indefinitely.
+If set to @code{#t}, the above variables are updated for every
+time step.  When set to @code{#f}, the above variables keep their
+current values indefinitely.
 
 @end table
 
-Timing can be changed by setting any of these variables
-explicitly.  In the next example, the default 4/4 time
-signature is printed, but @code{measureLength} is set to 5/4.
-At 4/8 through the third measure, the @code{measurePosition} is
-advanced by 1/8 to 5/8, shortening that bar by 1/8.
-The next bar line then falls at 9/8 rather than 5/4.
+@funindex \partial
+
+Timing can be changed by setting any of these variables.  In the
+next example, the default 4/4 time signature is printed, but
+@code{measureLength} is set to 5/4.  At 4/8 through the third
+measure, the @code{\partial} command advances the measure position
+to leave only 5/8 remaining, which shortens that bar by 1/8.  The
+next bar line then falls at 9/8 rather than 5/4.
 
 @lilypond[quote,verbatim]
-\new Voice \relative {
+\fixed c' {
+  \override Score.BarNumber.break-visibility = #all-visible
   \set Timing.measureLength = \musicLength 4*5
-  c'1 c4 |
-  c1 c4 |
-  c4 c
-  \set Timing.measurePosition = \musicLength 8*5
-  b4 b b8 |
-  c4 c1 |
+  c1 c4
+  c1 c4
+  c4 c \partial 8*5 b4 b b8
+  c4 c1
 }
 @end lilypond
 

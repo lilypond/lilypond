@@ -1965,9 +1965,9 @@ are used for initializing grobs engraved from within a context.
 
 Context properties control the translation from music to notation.
 For example, @code{localAlterations} is used to determine whether
-to print accidentals; or @code{measurePosition} for determining
-when to print a bar line.  They can also change value over time
-while interpreting a piece of music; @code{measurePosition} is an
+to print accidentals; or @code{currentBarNumber} for determining
+which bar number to print.  They can also change value over time
+while interpreting a piece of music; @code{currentBarNumber} is an
 obvious example of this.
 
 The @code{\set} command (and its counterpart @code{\unset}) is

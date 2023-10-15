@@ -512,9 +512,6 @@ this from specified frets.")
      (measureBarType ,string? "Bar line to insert at a measure boundary.")
      (measureLength ,positive-musical-length-as-moment? "Length of one measure
 in the current time signature.")
-     (measurePosition ,ly:moment? "How much of the current measure have
-we had.  This can be set manually to create incomplete measures.")
-     (measureStartNow ,boolean? "True at the beginning of a measure.")
      (melismaBusyProperties ,list? "A list of properties (symbols) to
 determine whether a melisma is playing.  Setting this property will
 influence how lyrics are aligned to notes.  For example, if set to
@@ -918,6 +915,8 @@ also contain @code{((@var{octave} . @var{name}) . (@var{alter}
 @var{barnumber} . @var{measureposition}))} pairs.")
 
 
+     (measurePosition ,ly:moment? "The current point within the measure.")
+     (measureStartNow ,boolean? "True at the beginning of a measure.")
      (melismaBusy ,boolean? "Signifies whether a melisma is active.
 This can be used to signal melismas on top of those automatically
 detected.")
