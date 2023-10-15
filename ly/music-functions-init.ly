@@ -1586,7 +1586,9 @@ See function @code{\\partCombine} for details.")
 
 partial =
 #(define-music-function (dur) (ly:duration?)
-  (_i "Make a partial measure of duration @var{dur}.")
+  (_i "Adjust the measure position to end the current measure at @var{dur} past
+the point of use.  As a special case, when used at the start, create an
+anacrusis before the first measure.")
   (context-spec-music (make-music 'PartialSet
                                   'origin (*location*)
                                   'duration dur)
