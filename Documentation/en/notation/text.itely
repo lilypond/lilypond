@@ -994,13 +994,31 @@ Basic font switching is supported in markup mode:
 @cindex font size
 @cindex text size
 
+@funindex text-font-size
 @funindex \abs-fontsize
 @funindex \fontsize
 @funindex \smaller
 @funindex \larger
 @funindex \magnify
 
-The font size can be altered, relative to the global staff size, in a
+The global text size to be used in markups can be set with the
+@code{text-font-size} paper variable.  This is useful to adjust to
+a different main font that might appear smaller or larger despite
+of having the same nominal font sizes.
+
+@lilypond[quote,verbatim]
+\score {
+  { f'^"Default text size" }
+  \layout { text-font-size = 10 }
+}
+
+\score {
+  { f'^"Default text size" }
+  \layout { text-font-size = 20 }
+}
+@end lilypond
+
+The font size can be altered, relative to the global text size, in a
 number of different ways.
 
 It can be set to predefined size.

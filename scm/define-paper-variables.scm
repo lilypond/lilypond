@@ -536,7 +536,7 @@ in the same score.  The default value is defined in file
     (tagline ,markup? "This markup gets placed at the bottom of the
 last page (via @code{oddFooterMarkup}).  The default value is defined
 in file @file{titling-init.ly}.")
-    (text-font-size ,positive-number? "Internal.  This value globally
+    (text-font-size ,positive-number? "This value globally
 defines the standard text size for markups.  The default depends on
 the staff height and is computed as @code{(staff-height / 20 * 11)}.")
     (tocFormatMarkup ,procedure? "How the top-level entries of the
