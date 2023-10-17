@@ -1256,19 +1256,18 @@ c'2 c'
 The pitches are displayed as if the numeric argument were
 given without parentheses/@/brackets.
 
-By default, a clef change taking place at a line break will cause
+By default, a clef change taking place at a line break causes
 the new clef symbol to be printed at the end of the previous line,
-as a @emph{warning} clef, as well as the beginning of the next.
-This @emph{warning} clef can be suppressed.
+as a @q{warning clef}, as well as at the beginning of the next.
+This warning clef can be suppressed.
 
 @lilypond[verbatim,quote,fragment]
-\clef treble { c'2 c' } \break
-\clef bass { c'2 c' } \break
-\clef alto
-  \set Staff.explicitClefVisibility = #end-of-line-invisible
-  { c'2 c' } \break
-  \unset Staff.explicitClefVisibility
-\clef bass { c'2 c' } \break
+\clef treble c'2 c' \break
+\clef bass c'2 c' \break
+\set Staff.explicitClefVisibility = #end-of-line-invisible
+\clef alto c'2 c' \break
+\unset Staff.explicitClefVisibility
+\clef bass c'2 c'
 @end lilypond
 
 By default, a clef that has previously been printed will not be
