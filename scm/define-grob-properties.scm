@@ -370,8 +370,10 @@ font names.  The standard font families are @code{music}, @code{serif},
      (footnote-music ,ly:music? "Music creating a footnote.")
      (footnote-text ,markup? "A footnote for the grob.")
      (force-hshift ,number? "This specifies a manual shift for notes
-in collisions.  The unit is the note head width of the first voice
-note.  This is used by @rinternals{note-collision-interface}.")
+in collisions.  The unit is the note head width of the first down-stem
+voice note; if there are no down-stem voices, the width of the first
+up-stem voice note is taken instead.  This is used by
+@rinternals{note-collision-interface}.")
      (forced-spacing ,number? "Spacing forced between grobs, used in
 various ligature engravers.")
      (fraction ,fraction? "Numerator and denominator of a time
