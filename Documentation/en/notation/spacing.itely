@@ -175,6 +175,20 @@ The Scheme equivalent of the above example is:
 @}
 @end example
 
+@cindex predefined paper variables
+@cindex paper variable, predefined
+
+Finally, you can also predefine paper variables.
+
+@example
+bigMargin = \paper @{ top-margin = 10\cm @}
+
+\paper @{
+  \bigMargin
+  indent = 0\mm
+@}
+@end example
+
 @morerefs
 Notation Reference:
 @ref{Paper size and automatic scaling},
