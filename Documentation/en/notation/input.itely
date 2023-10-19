@@ -393,25 +393,16 @@ block instead that is included by @code{\book} or
 @node Multiple output files from one input file
 @subsection Multiple output files from one input file
 
-If you want multiple output files from the same @file{.ly} file,
-then you can add multiple @code{\book} blocks, where each
-such \book block will result in a separate output file.
-If you do not specify any @code{\book} block in the
-input file, LilyPond will implicitly treat the whole
-file as a single \book block, see
-@ref{File structure}.
+LilyPond creates one output file for each @code{\book} block.  If
+there is no explicit @code{\book} block in the input file,
+LilyPond implicitly treats the whole file as a single @code{\book}
+block, @pxref{File structure}.
 
-When producing multiple files from a single source file, LilyPond
-ensures that none of the output files from any @code{\book} block
-overwrites the output file produced by a preceding @code{\book} from
-the same input file.
-
-It does this by adding a suffix to the output name for each
-@code{\book} which uses the default output file name derived from the
-input source file.
-
-The default behavior is to append a version number suffix for each
-name which may clash, so
+By default, LilyPond names the output file using the input file
+name and, if necessary, suffixes it with an increasing number --
+i.e., if an output file with the same name has already been
+created during the run.  The default behavior is to append a
+version number suffix for each name that may clash, so
 
 @example
 \book @{
@@ -444,72 +435,55 @@ as output files.
 @node Output file names
 @subsection Output file names
 
-@funindex \bookOutputSuffix
-@funindex \bookOutputName
+@funindex output-filename
+@funindex output-suffix
 
-LilyPond provides facilities to allow you to control what file names
-are used by the various backends when producing output files.
-
-In the previous section, we saw how LilyPond prevents name clashes when
-producing several outputs from a single source file.  You also have the
-ability to specify your own suffixes for each @code{\book} block, so
-for example you can produce files called
+It is possible to override both the output file name and the
+suffix appended to the basic file name in @code{\paper} blocks.
 
 @example
-eightminiatures-Romanze.pdf
-eightminiatures-Menuetto.pdf
-eightminiatures-Nocturne.pdf
+\paper @{
+  output-filename = "my_special_output"
+@}
+
+\book @{
+  \paper @{
+    output-suffix = "menuetto"
+  @}
+  ...
+@}
+\book @{
+  \paper @{
+    output-suffix = "scherzo"
+  @}
+  ...
+@}
 @end example
 
 @noindent
-by adding a
-@code{\bookOutputSuffix} declaration inside each @code{\book} block.
+The result are two output files named
+@file{my_special_output-menuetto.pdf} and
+@file{my_special_output-scherzo.pdf}.
+
+If this output file name already exists (this can happen, for
+example, if both @code{output-filename} and @code{output-suffix}
+are set in the global @code{\paper} block and not in any
+@code{\book} blocks), LilyPond appends an additional suffix with
+an increasing number.
+
+Note that predefined @code{\paper} variables (@pxref{The paper
+block}) must be placed before the @code{output-filename} and
+@code{output-suffix} assignments, for example
 
 @example
-\book @{
-  \bookOutputSuffix "Romanze"
-  \score @{ @dots{} @}
-  \paper @{ @dots{} @}
-@}
-\book @{
-  \bookOutputSuffix "Menuetto"
-  \score @{ @dots{} @}
-  \paper @{ @dots{} @}
-@}
-\book @{
-  \bookOutputSuffix "Nocturne"
-  \score @{ @dots{} @}
-  \paper @{ @dots{} @}
-@}
-@end example
+bigMargin = \paper @{ top-margin = 10\cm @}
 
-You can also specify a different output filename for @code{book} block,
-by using @code{\bookOutputName} declarations
-
-@example
 \book @{
-  \bookOutputName "Romanze"
-  \score @{ @dots{} @}
-  \paper @{ @dots{} @}
+  \paper @{
+    \bigMargin % must come first
+    output-filename = "foo"
+  @}
 @}
-\book @{
-  \bookOutputName "Menuetto"
-  \score @{ @dots{} @}
-  \paper @{ @dots{} @}
-@}
-\book @{
-  \bookOutputName "Nocturne"
-  \score @{ @dots{} @}
-  \paper @{ @dots{} @}
-@}
-@end example
-
-The file above produces the following output files.
-
-@example
-Romanze.pdf
-Menuetto.pdf
-Nocturne.pdf
 @end example
 
 

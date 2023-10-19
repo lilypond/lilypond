@@ -380,11 +380,20 @@ the outer side if they are part of a book.  Has only an effect if
 @code{two-sided} is set to @code{#t}.  If unset,
 @code{outer-margin-default} (15@dmn{mm}, scaled to paper size) is used
 in computations.  Default: unset.")
+    (output-filename ,string? "If set, use this value as the output
+file name for LilyPond output.  See also @code{output-suffix}.  The
+default is the input file name (without the file extension).")
     (output-scale ,positive-number? "Internal.  This value globally
 defines the output scale LilyPond uses while creating output.  Use
 @code{set-global-staff-size} or @code{layout-set-staff-size} to change
 the scaling.  Default: 1.7573, which corresponds to a 20@dmn{pt} staff
 size.")
+    (output-suffix ,string? "If set, use this value as the output file
+name suffix for LilyPond output, appended to the output name with a dash
+inbetween.  See also @code{output-filename}.  The default is no output
+suffix if there is only a single book block (either implicit or
+explicit), and a running integer starting with value@tie{}1
+otherwise.")
 
 ;;
 ;; p

@@ -670,6 +670,15 @@ The @command{lilypond} binary has a new command-line option
 @option{-dstaff-size} to set the global staff size, equivalent to
 setting @code{set-global-staff-size} in a LilyPond input file.
 
+@item
+Instead of the functions @code{\bookOutputName} and
+@code{\bookOutputSuffix} we now recommend to use the paper
+variables @code{output-filename} and @code{output-suffix} (which
+are not new but stayed undocumented until now).  While the former
+will work unchanged, the latter is more coherent and easier to
+understand, especially if combined with predefined paper
+variables.
+
 @end itemize
 
 

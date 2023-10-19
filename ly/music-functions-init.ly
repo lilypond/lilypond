@@ -359,13 +359,19 @@ preBendHold =
 
 bookOutputName =
 #(define-void-function (newfilename) (string?)
-   (_i "Direct output for the current book block to @var{newfilename}.")
+   (_i "Direct output for the current book block to @var{newfilename}.
+
+This is equivalent to setting @code{output-filename} in the current book's
+@code{\\paper} block.")
    (set! (paper-variable #f 'output-filename) newfilename))
 
 bookOutputSuffix =
 #(define-void-function (newsuffix) (string?)
-   (_i "Set the output filename suffix for the current book block to
-@var{newsuffix}.")
+   (_i "Set the output file name suffix for the current book block to
+@var{newsuffix}.
+
+This is equivalent to setting @code{output-suffix} in the current book's
+@code{\\paper} block.")
    (set! (paper-variable #f 'output-suffix) newsuffix))
 
 %% \breathe is defined as a music function rather than an event identifier to
