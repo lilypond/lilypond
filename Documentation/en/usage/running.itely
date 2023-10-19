@@ -114,7 +114,7 @@ the command line.
 lilypond [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
-When invoked with a filename that has no extension, the @file{.ly}
+When invoked with a file name that has no extension, the @file{.ly}
 extension is tried first.  To read input from stdin, use a
 dash (@code{-}) for @var{file}.
 
@@ -431,7 +431,7 @@ All possible messages, including verbose debug output.
 @end table
 
 @cindex directory, redirect output
-@cindex output, setting filename
+@cindex output, setting file name
 @cindex output, directory
 
 @item @code{-o}, @code{--output=}@var{file}

@@ -537,7 +537,7 @@ ignore stem directions from MusicXML, use lilypond's automatic stemming
 instead.
 
 @item -o, --output=@var{FILE}
-set the output filename to @var{FILE}.  If @var{file} is @file{-}, the
+set the output file name to @var{FILE}.  If @var{file} is @file{-}, the
 output will be printed to stdout.  If not given, @var{xmlfile.ly} will
 be used instead.
 
@@ -601,7 +601,7 @@ preserve ABC's notion of beams
 @item -h, --help
 this help
 @item -o, --output=@var{file}
-set output filename to @var{file}.
+set output file name to @var{file}.
 @item -s, --strict
 be strict about success
 @item --version
@@ -671,7 +671,7 @@ The following options are supported by @command{etf2ly}:
 @item -h, --help
 this help
 @item -o, --output=@var{FILE}
-set output filename to @var{FILE}
+set output file name to @var{FILE}
 @item --version
 version information
 @end table

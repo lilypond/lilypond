@@ -263,7 +263,7 @@ source files are @file{learning.tely} (LM, Learning Manual),
 file, ending in @file{.itely} for files containing lilypond code, and
 @file{.itexi} for files without lilypond code, located in a subdirectory
 associated to the manual (@file{learning/} for @file{learning.tely}, and
-so on); list the subdirectory of each manual to determine the filename
+so on); list the subdirectory of each manual to determine the file name
 of the specific chapter you wish to modify.
 
 Developer manuals live in @file{Documentation/} too.  Currently there is
@@ -818,7 +818,7 @@ running into the PDF margin.  Each additional level of
 @code{@@smallexample} line by about 5 columns.
 
 @item
-@code{@@file@{@dots{}@}} --- Use when referring to filenames and
+@code{@@file@{@dots{}@}} --- Use when referring to file names and
 directories in the text.  Do not use inside an @code{@@example}
 block.
 

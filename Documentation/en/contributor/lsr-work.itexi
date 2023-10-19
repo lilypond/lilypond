@@ -116,7 +116,7 @@ is @version{}, use @code{\version "2.23.4"}.
 
 Particular attention is also necessary for the @code{lsrtags} and
 @code{doctitle} fields: the tags must match tags used in the
-documentation, and the @code{doctitle} must match the filename
+documentation, and the @code{doctitle} must match the file name
 (@command{makelsr.pl} shows a helpful error message if it
 doesn't).
 
@@ -352,7 +352,7 @@ compilation to fail, try the following steps to fix it.
 @itemize
 
 @item
-Look up the snippet filename @file{@var{foo}.ly} in the error
+Look up the snippet file name @file{@var{foo}.ly} in the error
 output or log file, then fix the file
 @file{Documentation/@/snippets/@/@var{foo}.ly} to make the
 documentation build successfully.
@@ -518,7 +518,7 @@ tell him about any deletions.
 @item
 Use the LSR web interface to change any descriptions you want to.
 Changing the titles of snippets is a bit fraught, since this also
-changes the filenames.  Only do this as a last resort.
+changes the file names.  Only do this as a last resort.
 
 @item
 Use the LSR web interface to add the other snippets from

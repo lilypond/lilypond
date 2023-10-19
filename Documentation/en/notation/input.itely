@@ -3699,7 +3699,7 @@ The following code changes the notation font to the
 
 @example
 \paper @{
-  % font filename without suffix and extension
+  % font file name without suffix and extension
   property-defaults.fonts.music = "@var{fontname}"
 @}
 @end example

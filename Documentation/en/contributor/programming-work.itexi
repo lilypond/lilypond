@@ -341,7 +341,7 @@ Definitions of classes that are only accessed via pointers (*) or
 references (&) shall not be included as include files.
 
 @verbatim
-   filenames
+   file names
 
         ".hh"   Include files
              ".cc"      Implementation files
