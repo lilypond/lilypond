@@ -1395,7 +1395,7 @@ dins del codi d'entrada.  Per exemple,
 @example
 ancho = 4.5\cm
 nombre = "Wendy"
-papelAcinco = \paper @{ paperheight = 21.0 \cm @}
+papelAcinco = \paper @{ paper-height = 21.0 \cm @}
 @end example
 
 Depenent del seu contingut, la variable es pot usar en diferents
