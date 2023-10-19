@@ -1138,6 +1138,10 @@ Learning Manual, see @rlearning{Vocal ensembles templates}.
 
 @snippets
 
+@cindex lyrics, separate, on single line
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/arranging-separate-lyrics-on-a-single-line.ly}
+
 @cindex lyrics, version 2.12 spacing
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
