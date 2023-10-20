@@ -245,33 +245,27 @@ that order."
 (define-public current-outfile-name #f)  ; for use by regression tests
 
 (define get-outfile-name
-  (let ((non-alnum-or-dash-regex (ly:make-regex "[^-[:alnum:]]")))
-    (lambda (book)
-      "return current filename for generating backend output files"
-      ;; user can now override the base file name, so we have to use
-      ;; the file-name concatenated with any potential output-suffix value
-      ;; as the key to out internal a-list
-      (let* ((base-name (get-current-filename book))
-             (output-suffix (get-current-suffix book))
-             (alist-key (format #f "~a~a" base-name output-suffix))
-             (counter-alist (ly:parser-lookup 'counter-alist))
-             (output-count (assoc-get alist-key counter-alist 0))
-             (result base-name))
-        ;; Allow all alphanumerics, including accents
-        (if (string? output-suffix)
-            (set! result
-                  (format #f "~a-~a"
-                          result
-                          (ly:regex-replace non-alnum-or-dash-regex output-suffix "_"))))
+  (lambda (book)
+    "Return current filename for generating backend output files."
+    ;; Users can now override the base file name, so we have to use
+    ;; the file name concatenated with any potential output suffix value
+    ;; as the key to out internal alist.
+    (let* ((base-name (get-current-filename book))
+           (output-suffix (get-current-suffix book))
+           (alist-key (format #f "~a~a" base-name output-suffix))
+           (counter-alist (ly:parser-lookup 'counter-alist))
+           (output-count (assoc-get alist-key counter-alist 0))
+           (result base-name))
+      (if (string? output-suffix)
+          (set! result (format #f "~a-~a" result output-suffix)))
+      ;; assoc-get call will always have returned a number
+      (if (> output-count 0)
+          (set! result (format #f "~a-~a" result output-count)))
 
-        ;; assoc-get call will always have returned a number
-        (if (> output-count 0)
-            (set! result (format #f "~a-~a" result output-count)))
-
-        (ly:parser-define! 'counter-alist
-                           (assoc-set! counter-alist alist-key (1+ output-count)))
-        (set! current-outfile-name result)
-        result))))
+      (ly:parser-define! 'counter-alist
+                         (assoc-set! counter-alist alist-key (1+ output-count)))
+      (set! current-outfile-name result)
+      result)))
 
 (define (print-book-with book process-procedure)
   (let* ((paper (ly:parser-lookup '$defaultpaper))

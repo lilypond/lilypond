@@ -463,7 +463,9 @@ suffix appended to the basic file name in @code{\paper} blocks.
 @noindent
 The result are two output files named
 @file{my_special_output-menuetto.pdf} and
-@file{my_special_output-scherzo.pdf}.
+@file{my_special_output-scherzo.pdf}.  Be careful to select values
+for @code{output-filename} and @code{output-suffix} that are valid
+for file names on your operating system!
 
 If this output file name already exists (this can happen, for
 example, if both @code{output-filename} and @code{output-suffix}
