@@ -221,14 +221,22 @@ for page layout instructions. "
          toplevel-music-functions)))
 
 (define (get-current-filename book)
-  "return any suffix value for output filename allowing for settings by
-calls to bookOutputName function"
-  (or (paper-variable book 'output-filename)
-      (ly:parser-output-name)))
+  "Return current output file name, either explicitly set by the
+@code{output-filename} paper variable (or the @code{\\bookOutputName}
+function), or @code{output-filename} set as a top-level variable, or
+implicitly derived from the input file, in that order."
+  (let ((book-output-filename (paper-variable book 'output-filename)))
+    (when (not (string? book-output-filename))
+      (set! book-output-filename (ly:parser-lookup 'output-filename))
+      (when (not (string? book-output-filename))
+        (set! book-output-filename (ly:parser-output-name))))
+    book-output-filename))
 
 (define (get-current-suffix book)
-  "return any suffix value for output filename allowing for settings by calls to
-bookoutput function"
+  "Return current output file suffix, either set by the
+@code{output-suffix} paper variable (or the @code{\\bookOutputSuffix}
+function), or @code{output-suffix} set as a top-level variable, in
+that order."
   (let ((book-output-suffix (paper-variable book 'output-suffix)))
     (if (not (string? book-output-suffix))
         (ly:parser-lookup 'output-suffix)
