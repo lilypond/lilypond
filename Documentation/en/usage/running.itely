@@ -127,22 +127,10 @@ they are each processed independently.@footnote{The status of
 GUILE is not reset after processing a @file{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
-If @file{filename.ly} contains more than one @code{\book}
-block, the rest of the scores is output in numbered files,
-starting with @file{filename-1.pdf}.  In addition, the value of
-@code{output-suffix} is inserted between the basename and the
-number.  For example, if @file{filename.ly} contains
-
-@example
-#(define output-suffix "violin")
-\score @{ @dots{} @}
-#(define output-suffix "cello")
-\score @{ @dots{} @}
-@end example
-
-@noindent
-LilyPond outputs @file{filename-violin.pdf} and
-@file{filename-cello-1.pdf}.
+If @file{filename.ly} contains more than one @code{\book} block,
+the rest of the scores is output in numbered files, starting with
+@file{filename-1.pdf}.  See @rnotation{Output file names} how to
+change the output file name and the file name suffix.
 
 
 @subsubheading Using LilyPond with standard shell features
