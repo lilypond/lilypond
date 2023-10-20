@@ -1,6 +1,6 @@
 \version "2.19.21"
 \header {
-  texidoc = "Manual beams do not collide with notes."
+  texidoc = "Collisions between manual beams and notes are minimized."
 }
 
 \layout {
