@@ -80,7 +80,9 @@
         <voice>1</voice>
       </note>
       <barline location="right">
+        <bar-style>light-heavy</bar-style>
         <ending number="2" type="stop"/>
+        <repeat direction="backward"/>
       </barline>
     </measure>
     <!--=======================================================-->
@@ -93,9 +95,6 @@
         <duration>4</duration>
         <voice>1</voice>
       </note>
-      <barline location="right">
-        <ending number="3" type="discontinue"/>
-      </barline>
     </measure>
     <!--=======================================================-->
     <measure number="7">
@@ -120,11 +119,16 @@
         <duration>4</duration>
         <voice>1</voice>
       </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+        <ending number="3" type="stop"/>
+        <repeat direction="backward"/>
+      </barline>
     </measure>
     <!--=======================================================-->
     <measure number="10">
       <barline location="left">
-        <ending number="1" type="start"/>
+        <ending number="4" type="start"/>
       </barline>
       <note>
         <rest/>
@@ -132,7 +136,9 @@
         <voice>1</voice>
       </note>
       <barline location="right">
-        <ending number="1" type="stop"/>
+        <bar-style>light-heavy</bar-style>
+        <ending number="4" type="stop"/>
+        <repeat direction="backward"/>
       </barline>
     </measure>
     <!--=======================================================-->
@@ -146,9 +152,7 @@
         <voice>1</voice>
       </note>
       <barline location="right">
-        <bar-style>light-heavy</bar-style>
-        <ending number="5" type="stop"/>
-        <repeat direction="backward"/>
+        <ending number="5" type="discontinue"/>
       </barline>
     </measure>
     <!--=======================================================-->

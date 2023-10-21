@@ -94,6 +94,10 @@
     </measure>
     <!--=======================================================-->
     <measure number="6">
+      <barline location="left">
+        <bar-style>heavy-light</bar-style>
+        <repeat direction="forward"/>
+      </barline>
       <note>
         <rest/>
         <duration>4</duration>
@@ -120,6 +124,7 @@
     <measure number="8">
       <barline location="left">
         <bar-style>heavy-light</bar-style>
+        <ending number="2" type="start"/>
         <repeat direction="forward"/>
       </barline>
       <note>
@@ -127,6 +132,9 @@
         <duration>4</duration>
         <voice>1</voice>
       </note>
+      <barline location="right">
+        <ending number="2" type="discontinue"/>
+      </barline>
     </measure>
     <!--=======================================================-->
     <measure number="9">
