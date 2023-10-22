@@ -268,6 +268,10 @@ def get_latex_paper_geometry(source, global_options):
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         (parameter_string, error_string) = proc.communicate()
         if proc.returncode != 0:
+            if not error_string:
+                error_string = (
+                    "  LaTeX subprocess returned error code %s"
+                    % proc.returncode)
             ly.warning(_("Unable to auto-detect default settings:\n%s")
                     % error_string)
     os.unlink(tmpfile)
