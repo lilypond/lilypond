@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+    Translation of GIT committish: ecd4ff25e8bee6643e9200eefb86f0ed23bda72f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -127,7 +127,7 @@ se trouve sur @w{@uref{https://@/lilypond@/.org/}}.
 
 @macro lilyTitlePage{TITLE}
 @c  This produces the unified index
-@syncodeindex fn cp
+@syncodeindex vr cp
 
 
 @c   ***** Copyright stuff *****
@@ -278,7 +278,6 @@ Pour LilyPond version @version{}
 @ifnottex
 
 @c ** bigpage **
-
 
 @ifset bigpage
 
@@ -671,8 +670,11 @@ Pour LilyPond version @version{}
   <a class="clickable" href="ly-examples/\IMAGE-FILE\.png">
     <img src="ly-examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>
-  <p style="text-align: center">
+  <p style="text-align: left">
     (cliquez pour agrandir)
+    <span style="float: right">
+      <a href="ly-examples/\IMAGE-FILE\.ly">source code</a>
+    </span>
   </p>
 </div>
 @end html

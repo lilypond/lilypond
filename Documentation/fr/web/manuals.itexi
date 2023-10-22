@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: ecd4ff25e8bee6643e9200eefb86f0ed23bda72f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -31,6 +31,15 @@
 
 @divEnd
 
+Les manuels de LilyPond sont disponibles sous différents formats : HTML
+multifichiers, fichier monolithique HTML ou PDF.@*
+Le HTML découpé en plusieurs fichiers est tout à fait adapté à une
+consultation en ligne. Les formats HTML en fichier unique -- certains
+ont une taille conséquente -- contiennent l'intégralité d'un manuel sur
+une seule page. Les exemplaires PDF sont plutôt destinés au
+téléchargement pour consultation hors ligne. Ces trois formats sont
+accessibles en suivant le lien « détail de@dots{} » de chacun des manuels.
+
 @divClass{link-headings}
 
 @divClass{column-center-top}
@@ -42,7 +51,7 @@
 @ref{Text input} :
 LilyPond est un système de gravure musicale @strong{en mode texte}.  Si
 vous ne savez pas du tout ce que ça veut dire, lisez tout d'abord
-ceci@tie{}!
+ceci !
 
 @item
 @ifWebLinks{@manualStableLearningSplitNoName-fr,@rlearningnamed{Top,Initiation}}
@@ -88,6 +97,16 @@ particularités de certains systèmes d'exploitation.
 @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Morceaux choisis}}
 courts extraits, trucs, modèles et autres exemples.
 @details{Snippets, Morceaux choisis}
+
+@ignore
+
+XXX Enable the next item after the 2.26 stable release.
+
+@item
+@docLink{Visual Index,ly-examples/visualindex.pdf,@value{manualStable}/ly-examples/visualindex.pdf} :
+index visuel de tous les objets graphiques (PDF).
+
+@end ignore
 
 @end itemize
 
@@ -171,20 +190,6 @@ manuels pour la version de développement.
 ces manuels sont publiés sous la licence GNU de documentation libre FDL.
 
 @end itemize
-
-@divEnd
-
-@divClass{column-center-bottom}
-@subheading Format des manuels
-
-Les manuels de LilyPond sont disponibles sous différents formats : HTML
-multifichiers, fichier monolithique HTML ou PDF.@*
-Le HTML découpé en plusieurs fichiers est tout à fait adapté à une
-consultation en ligne. Les formats HTML en fichier unique -- certains
-ont une taille conséquente -- contiennent l'intégralité d'un manuel sur
-une seule page. Les exemplaires PDF sont plutôt destinés au
-téléchargement pour consultation hors ligne. Ces trois formats sont
-accessibles en suivant le lien « détail de@dots{} » de chacun des manuels.
 
 @divEnd
 
