@@ -16,7 +16,7 @@
 
 If you want to add pictures of music to a document, you can simply do it
 the way you would do with other types of pictures.  The pictures are
-created separately, yielding PostScript output or PNG images, and those
+created separately (in PostScript, PDF, or PNG format), and those
 are included into a @LaTeX{} or HTML document.
 
 @command{lilypond-book} provides a way to automate this process: This
@@ -63,7 +63,7 @@ documents.
 @cindex musicology
 Some texts contain music examples.  These texts are musicological
 treatises, songbooks, or manuals like this.  Such texts can be made by
-hand, simply by importing a PostScript figure into the word processor.
+hand, simply by importing a PostScript or PDF figure into the word processor.
 However, there is an automated procedure to reduce the amount of work
 involved in HTML, @LaTeX{}, Texinfo and DocBook documents.
 
@@ -294,12 +294,25 @@ produces
 @lilypond[quote,fragment,staffsize=11]{<c' e' g'>}
 
 The default line width of the music is computed by examining the
-commands in the document preamble (this is, the part of the document before
+commands in the document preamble (that is, the part of the document before
 @code{\begin@{document@}}).  The @command{lilypond-book} command sends
 these to @LaTeX{} to find out how wide the text is.  The line width for
 music fragments is then adjusted to the text width.  Note that this
 heuristic algorithm can fail easily; in such cases it is necessary to
 use the @code{line-width} music fragment option.
+
+@warning{Make sure that your preamble actually compiles without
+errors, otherwise line width detection will fail.  You can test
+this by directly processing your document with @LaTeX{}, using an
+empty @code{\begin@{document@} ... \end@{document@}} block.
+
+If you use a landscape paper format, be sure to add the keyword
+@code{landscape} to the option list of the @code{\documentclass}
+macro.@footnote{This is necessary because @command{lilypond-book}
+adds @code{\usepackage@{graphics@}} to the preamble if neither the
+@code{graphics} nor the @code{graphicx} package gets loaded; this
+might change the paper dimensions unexpectedly for some document
+classes.}}
 
 @cindex titling and lilypond-book
 @cindex \header in @LaTeX{} documents
@@ -383,7 +396,7 @@ the number of systems you want in the output.
 @noindent
 (Since @code{\endinput} immediately stops the processing of the current
 input file we need @code{\expandafter} to delay the call of @code{\endinput}
-after executing @code{\fi} so that the @code{\if...}-@code{\fi} clause is
+after executing @code{\fi} so that the @code{\if ... \fi} clause is
 balanced.)
 
 Remember that the definition of @code{\betweenLilyPondSystem} is
@@ -725,7 +738,8 @@ sizes.
 This option affects LilyPond output (that is, the paper size of
 the music fragment), not the text layout.  Unknown values of
 @var{string} are ignored: a warning is emitted and the snippet is
-printed using the default @code{a4} size.
+printed using the document's paper size for @LaTeX{} and Texinfo,
+and the A4 paper format for HTML and DocBook.
 
 If option @option{papersize} is given without option
 @option{line-width} (more specifically, option @option{line-width}
@@ -744,7 +758,8 @@ This option affects LilyPond output (that is, the paper width of
 the music fragment), not the text layout.  If set, it overrides
 option @option{papersize} if given.  If option
 @option{paper-height} is not specified, the paper height is set to
-the default A4 paper height (296@dmn{mm}).
+the document's paper height for @LaTeX{} and Texinfo, and the A4
+paper height (296@dmn{mm}) for HTML and DocBook.
 
 @item paper-height=@var{size}\@var{unit}
 Set paper height to @var{size} (expressed in @var{unit}) for music
@@ -756,7 +771,8 @@ This option affects LilyPond output (that is, the paper height of
 the music fragment), not the text layout.  If set, it overrides
 option @option{papersize} if given.  If option
 @option{paper-width} is not specified, the paper width is set to
-the default A4 paper width (210@dmn{mm}).
+the document's paper width for @LaTeX{} and Texinfo, and the A4
+paper width (210@dmn{mm}) for HTML and DocBook.
 
 Example:
 @example
@@ -992,16 +1008,17 @@ depending on the output format.  All of @file{.tex}, @file{.texi} and
 @subsubheading @LaTeX{}
 
 There are two ways of processing your @LaTeX{} document for printing or
-publishing: getting a PDF file directly with PDF@LaTeX{}, or getting a
-PostScript file with @LaTeX{} via a DVI to PostScript translator like
+publishing: getting a PDF file directly with pdf@LaTeX{}
+(Xe@LaTeX{}, lua@LaTeX{}) or getting a
+PostScript file with @LaTeX{} via a DVI-to-PostScript translator like
 @command{dvips}.  The first way is simpler and recommended@footnote{Note
-that PDF@LaTeX{} and @LaTeX{} may not be both usable to compile any
+that pdf@LaTeX{} and @LaTeX{} may not be both usable to compile any
 @LaTeX{} document, that is why we explain the two ways.}, and whichever
 way you use, you can easily convert between PostScript and PDF with
 tools, like @command{ps2pdf} and @command{pdf2ps} included in
 Ghostscript package.
 
-To produce a PDF file through PDF@LaTeX{}, use:
+To produce a PDF file with pdf@LaTeX{}, use:
 
 @example
 lilypond-book --pdf yourfile.lytex
@@ -1031,7 +1048,7 @@ are harmless and may be ignored.  If you are running @command{latex} in
 twocolumn mode, remember to add @option{-t landscape} to the
 @command{dvips} options.
 
-Environments such as;
+Environments such as
 
 @example
 \begin@{lilypond@} @dots{} \end@{lilypond@}
@@ -1042,10 +1059,10 @@ are not interpreted by @LaTeX{}.  Instead, @code{lilypond-book} extracts
 those @q{environments} into files of its own and runs LilyPond on them.
 It then takes the resulting graphics and creates a @file{.tex} file
 where the @code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} macros
-are then replaced by @q{graphics inclusion} commands.  It is at this
+are replaced by @q{graphics inclusion} commands.  It is at this
 time that @LaTeX{} is run (although @LaTeX{} will have run previously,
 it will have been, effectively, on an @q{empty} document in order to
-calculate things like @code{\linewidth}).
+calculate paper dimensions and the line width for LilyPond snippets).
 
 @knownissues
 
@@ -1054,7 +1071,7 @@ The @code{\pageBreak} command will not work within a
 
 Many @code{\paper} block variables will also not work within a
 @code{\begin@{lilypond@} @dots{} \end@{lilypond@}} environment.  Use
-@code{\newcommand} with @code{\betweenLilyPondSystem} in the preamble;
+@code{\newcommand} with @code{\betweenLilyPondSystem} in the preamble.
 
 @example
 \newcommand@{\betweenLilyPondSystem@}[1]@{\vspace@{36mm@}\linebreak@}
@@ -1064,7 +1081,7 @@ Many @code{\paper} block variables will also not work within a
 @subsubheading Texinfo
 
 To produce a Texinfo document (in any output format), follow the normal
-procedures for Texinfo; this is, either call @command{texi2pdf} or
+procedures for Texinfo; that is, either call @command{texi2pdf} or
 @command{texi2dvi} or @command{texi2any}, depending on the output format
 you want to create.  By default, @command{texi2pdf} uses @command{pdftex}
 for processing, which you can verify in the console output.  In this case,
@@ -1411,7 +1428,7 @@ d4 c b a
 @@bye
 @end example
 
-@subheading html
+@subheading HTML
 
 @example
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
