@@ -1,0 +1,20 @@
+\documentclass[12pt, letterpaper, landscape]{article}
+
+\usepackage[rmargin=.625in, width=9.75in]{geometry}
+
+
+\begin{document}
+
+Automatically detect the full-page geometry from \LaTeX:
+
+\begin[noragged-right]{lilypond}
+\repeat unfold 20 { c'4 c' c' c' }
+\end{lilypond}
+
+If a paper size is explicitly specified, ignore the auto-detected values.
+
+\begin[noragged-right, papersize=a6]{lilypond}
+\repeat unfold 20 { c'4 c' c' c' }
+\end{lilypond}
+
+\end{document} 

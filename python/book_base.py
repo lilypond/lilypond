@@ -64,7 +64,13 @@ LINE_WIDTH = 'line-width'
 # TODO: Implement the intertext snippet option:
 #         'intertext': r',?\s*intertext=\".*?\"',
 
-default_snippet_opts = {'alt': "[image of music]"}
+default_snippet_opts = {
+    'alt': "[image of music]",
+    # A4 paper defaults.  The default line width is set in function
+    # `compose_ly` (file `book_snippets.py`).
+    book_snippets.PAPER_HEIGHT: r'845.047\pt',
+    book_snippets.PAPER_WIDTH: r'597.508\pt',
+}
 
 
 ########################################################################
@@ -169,13 +175,10 @@ class BookOutputFormat:
 
     def init_default_snippet_options(self, source):
         self.document_language = self.get_document_language(source)
-        if LINE_WIDTH not in self.default_snippet_options:
-            line_width = self.get_line_width(source)
-            if line_width:
-                self.default_snippet_options[LINE_WIDTH] = line_width
+        self.default_snippet_options.update(self.get_paper_geometry(source))
 
-    def get_line_width(self, source):
-        return None
+    def get_paper_geometry(self, source):
+        return {}
 
     def split_snippet_options(self, option_string):
         if option_string:

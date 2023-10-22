@@ -451,14 +451,18 @@ class LilypondSnippet (Snippet):
 
         # If we have an explicit paper width or height, use it,
         # overriding a `papersize` option.  If either width or height
-        # is missing, use the corresponding A4 dimension.
+        # is missing, use the value computed for the output format.
+        default_paper_width = (
+            self.formatter.default_snippet_options[PAPER_WIDTH])
+        default_paper_height = (
+            self.formatter.default_snippet_options[PAPER_HEIGHT])
         has_paper_width = PAPER_WIDTH in self.snippet_option_dict
         has_paper_height = PAPER_HEIGHT in self.snippet_option_dict
         if has_paper_width or has_paper_height:
             if not has_paper_height:
-                self.snippet_option_dict[PAPER_HEIGHT] = r'297\mm'
+                self.snippet_option_dict[PAPER_HEIGHT] = default_paper_height
             if not has_paper_width:
-                self.snippet_option_dict[PAPER_WIDTH] = r'210\mm'
+                self.snippet_option_dict[PAPER_WIDTH] = default_paper_width
 
             wd = self.snippet_option_dict[PAPER_WIDTH]
             m = re.match(ly_dimen_re, wd)
@@ -467,8 +471,7 @@ class LilypondSnippet (Snippet):
             else:
                 ly.warning(_("ignoring invalid option %s=%s")
                     % (PAPER_WIDTH, wd))
-                # Use A4 paper width in case of error
-                (w, w_unit) = ("210", "mm")
+                (w, w_unit) = (default_paper_width[:-3], "pt")
 
             ht = self.snippet_option_dict[PAPER_HEIGHT]
             m = re.match(ly_dimen_re, ht)
@@ -477,11 +480,16 @@ class LilypondSnippet (Snippet):
             else:
                 ly.warning(_("ignoring invalid option %s=%s")
                     % (PAPER_HEIGHT, ht))
-                # Use A4 paper height in case of error
-                (h, h_unit) = ("297", "mm")
+                (h, h_unit) = (default_paper_height[:-3], "pt")
 
             self.snippet_option_dict[PAPERSIZE] = (
               "'(cons (* %s %s) (* %s %s))" % (w, w_unit, h, h_unit))
+        else:
+            # Construct a default paper size.
+            self.formatter.default_snippet_options[PAPERSIZE] = (
+                "'(cons (* %s %s) (* %s %s))" %
+                (default_paper_width[:-3], "pt",
+                 default_paper_height[:-3], "pt"))
 
         # If LINE_WIDTH is used without parameter, set it to default.
         has_line_width = LINE_WIDTH in self.snippet_option_dict
@@ -517,18 +525,6 @@ class LilypondSnippet (Snippet):
                 option_list.append(key + "=" + value)
         option_list.sort()
         self.outputrelevant_option_list = option_list
-        #print ("self.outputrelevant_option_list: %s\n" % self.outputrelevant_option_list);
-
-        # Set a default line-width if there is none. We need this, because
-        # lilypond-book has set left-padding by default and therefore does
-        # #(define line-width (- line-width (* 3 mm)))
-        # TODO: Junk this ugly hack if the code gets rewritten to concatenate
-        # all settings before writing them in the \paper block.
-        #
-        # if not LINE_WIDTH in self.option_dict:
-        #     if not QUOTE in self.option_dict:
-        #         self.option_dict[LINE_WIDTH] = \
-        #           "#(- paper-width left-margin-default right-margin-default)"
 
     # Get a list of all options (as string) that influence the snippet appearance
 

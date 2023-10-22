@@ -328,11 +328,8 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         else:
             return ''
 
-    def init_default_snippet_options(self, source):
-        texinfo_defaults = get_texinfo_width_indent(
-            source, self.global_options)
-        self.default_snippet_options.update(texinfo_defaults)
-        book_base.BookOutputFormat.init_default_snippet_options(self, source)
+    def get_paper_geometry(self, source):
+        return get_texinfo_width_indent(source, self.global_options)
 
     def adjust_snippet_command(self, cmd):
         if '-dseparate-page-formats' not in cmd:

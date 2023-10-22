@@ -188,23 +188,30 @@ LATEX_INSPECTION_DOCUMENT = r'''
 \nonstopmode
 %(preamble)s
 \begin{document}
+\typeout{paperwidth=\the\paperwidth}
+\typeout{paperheight=\the\paperheight}
 \typeout{textwidth=\the\textwidth}
 \typeout{columnsep=\the\columnsep}
 \makeatletter\if@twocolumn\typeout{columns=2}\fi\makeatother
 \end{document}
 '''
 
-# Do we need anything else besides `textwidth'?
+
+def extract_latex_geometry_setting(setting, parameter_string):
+    m = re.search(setting + '=([-0-9.]+)pt', parameter_string)
+    if m:
+        return float(m.group(1))
 
 
-def get_latex_textwidth(source, global_options):
-    # default value
-    textwidth = 550.0
+def format_pt(value):
+    return '%.2f\\pt' % value
 
+
+def get_latex_paper_geometry(source, global_options):
     m = re.search(r'''(?P<preamble>\\begin\s*{document})''', source)
     if m is None:
         ly.warning(_("cannot find \\begin{document} in LaTeX document"))
-        return textwidth
+        return {}
 
     preamble = source[:m.start(0)]
     latex_document = LATEX_INSPECTION_DOCUMENT % {'preamble': preamble}
@@ -270,34 +277,41 @@ def get_latex_textwidth(source, global_options):
         parameter_string = open(logfile, encoding="utf8").read()
         os.unlink(logfile)
 
-    columns = 0
+    columns = 1
     m = re.search('columns=([0-9.]+)', parameter_string)
     if m:
         columns = int(m.group(1))
 
-    columnsep = 0
-    m = re.search('columnsep=([0-9.]+)pt', parameter_string)
-    if m:
-        columnsep = float(m.group(1))
-
-    m = re.search('textwidth=([0-9.]+)pt', parameter_string)
-    if m:
-        textwidth = float(m.group(1))
-    else:
-        ly.warning(_("cannot detect textwidth from LaTeX"))
-        return textwidth
+    paperwidth = extract_latex_geometry_setting('paperwidth',
+                                                parameter_string)
+    paperheight = extract_latex_geometry_setting('paperheight',
+                                                 parameter_string)
+    textwidth = extract_latex_geometry_setting('textwidth',
+                                               parameter_string)
+    columnsep = extract_latex_geometry_setting('columnsep',
+                                               parameter_string)
 
     ly.debug_output('Detected values:')
-    ly.debug_output('  columns = %s' % columns)
-    ly.debug_output('  columnsep = %s' % columnsep)
+    ly.debug_output('  paperwidth = %s' % paperwidth)
+    ly.debug_output('  paperheight = %s' % paperheight)
     ly.debug_output('  textwidth = %s' % textwidth)
+    ly.debug_output('  columns = %s' % columns)
+    ly.debug_output('  columnsep = %s\n' % columnsep)
 
-    if m and columns:
-        textwidth = (textwidth - columnsep) / columns
+    if textwidth and columns > 1 and columnsep:
+        textwidth = (textwidth + columnsep) / columns - columnsep
         ly.debug_output('Adjusted value:')
         ly.debug_output('  textwidth = %s' % textwidth)
 
-    return textwidth
+    geometry = {}
+    if paperwidth:
+        geometry[book_snippets.PAPER_WIDTH] = format_pt(paperwidth)
+    if paperheight:
+        geometry[book_snippets.PAPER_HEIGHT] = format_pt(paperheight)
+    if textwidth:
+        geometry[book_snippets.LINE_WIDTH] = format_pt(textwidth)
+
+    return geometry
 
 
 def modify_preamble(chunk):
@@ -325,9 +339,8 @@ class BookLatexOutputFormat (book_base.BookOutputFormat):
     def process_options(self, global_options):
         self.process_options_pdfnotdefault(global_options)
 
-    def get_line_width(self, source):
-        textwidth = get_latex_textwidth(source, self.global_options)
-        return '%.0f\\pt' % textwidth
+    def get_paper_geometry(self, source):
+        return get_latex_paper_geometry(source, self.global_options)
 
     def input_fullname(self, input_filename):
         # Use kpsewhich if available, otherwise fall back to the default:
