@@ -29,7 +29,7 @@
 #
 # Enhancements  (Roy R. Rankin)
 #
-# Header section moved to top of lilypond file
+# Header section moved to top of LilyPond file
 # handle treble, treble-8, alto, and bass clef
 # Handle voices (V: headers) with clef and part names, multiple voices
 # Handle w: lyrics with multiple verses
@@ -48,12 +48,12 @@
 
 # Enhancements (Laura Conrad)
 #
-# Barring now preserved between ABC and lilypond
+# Barring now preserved between ABC and LilyPond
 # the default placement for text in abc is above the staff.
 # %%LY now supported.
 # \breve and \longa supported.
 # M:none doesn't crash lily.
-# lilypond '--' supported.
+# LilyPond '--' supported.
 
 # Enhancements (Guy Gascoigne-Piggford)
 #
@@ -162,7 +162,7 @@ def check_clef(s):
     clef = None
     octave = 0
     for c in clefs:
-        m = re.match('^'+c[0], s)
+        m = re.match('^' + c[0], s)
         if m:
             (clef, octave) = (c[1], c[2])
             s = s[m.end():]
@@ -172,7 +172,7 @@ def check_clef(s):
 
     mod = ""
     for md in modifier:
-        m = re.match('^'+md[0], s)
+        m = re.match('^' + md[0], s)
         if m:
             mod = md[1]
             octave += md[2]
@@ -180,7 +180,7 @@ def check_clef(s):
             break
 
     state.base_octave = octave
-    voices_append("\\clef \""+clef+mod+"\"\n")
+    voices_append("\\clef \"" + clef + mod + "\"\n")
     return s
 
 
@@ -351,7 +351,7 @@ def set_default_len_from_time_sig(s):
     if m:
         n = int(m.group(1))
         d = int(m.group(2))
-        if (n * 1.0)/(d * 1.0) < 0.75:
+        if (n * 1.0) / (d * 1.0) < 0.75:
             __main__.default_len = 16
         else:
             __main__.default_len = 8
@@ -436,7 +436,7 @@ def quart_above_pitch(tup):
     return (n, a)
 
 
-key_lookup = {         # abc to lilypond key mode names
+key_lookup = {         # abc to LilyPond key mode names
     'm': 'minor',
     'min': 'minor',
     'maj': 'major',
@@ -544,12 +544,12 @@ def compute_key(k):
     if keytup in sharp_key_seq:
         accsign = 1
         key_count = sharp_key_seq.index(keytup)
-        accseq = [(4*x - 1) % 7 for x in range(1, key_count + 1)]
+        accseq = [(4 * x - 1) % 7 for x in range(1, key_count + 1)]
 
     elif keytup in flat_key_seq:
         accsign = -1
         key_count = flat_key_seq.index(keytup)
-        accseq = [(3*x + 3) % 7 for x in range(1, key_count + 1)]
+        accseq = [(3 * x + 3) % 7 for x in range(1, key_count + 1)]
     else:
         error("Huh?")
         raise Exception("Huh")
@@ -618,7 +618,7 @@ def stuff_append_back(stuff, idx, a):
     if not stuff:
         stuff.append(a)
     else:
-        point = len(stuff[idx])-1
+        point = len(stuff[idx]) - 1
         while stuff[idx][point] == ' ':
             point = point - 1
         point = point + 1
@@ -666,7 +666,7 @@ def fix_lyric(s):
         if m:
             word = m.group(1)
             s = m.group(2)
-            word = re.sub('"', '\\"', word)  # escape "
+            word = re.sub('"', '\\"', word)    # escape "
             if re.match(r'.*[0-9"\(]', word):
                 word = re.sub('_', ' ', word)  # _ causes probs inside ""
                 ret = ret + '\"' + word + '\" '
@@ -678,16 +678,17 @@ def fix_lyric(s):
 
 
 def slyrics_append(a):
-    a = re.sub('_', ' _ ', a)        # _ to ' _ '
+    a = re.sub('_', ' _ ', a)         # _ to ' _ '
     # split words with "-" unless was originally "--"
     a = re.sub('([^-])-([^-])', '\\1- \\2', a)
-    a = re.sub('\\\\- ', '-', a)         # unless \-
-    a = re.sub('~', '_', a)        # ~ to space('_')
+    a = re.sub('\\\\- ', '-', a)      # unless \-
+    a = re.sub('~', '_', a)           # ~ to space('_')
     a = re.sub(r'\*', '_ ', a)        # * to to space
-    a = re.sub('#', '\\#', a)        # latex does not like naked #'s
-    if re.match(r'.*[0-9"\(]', a):        # put numbers and " and ( into quoted string
+    a = re.sub('#', '\\#', a)         # latex does not like naked #'s
+    # put numbers and " and ( into quoted string
+    if re.match(r'.*[0-9"\(]', a):
         a = fix_lyric(a)
-    a = re.sub('$', ' ', a)        # insure space between lines
+    a = re.sub('$', ' ', a)           # insure space between lines
     __main__.lyric_idx = lyric_idx + 1
     if len(slyrics[current_voice_idx]) <= lyric_idx:
         slyrics[current_voice_idx].append(a)
@@ -772,11 +773,11 @@ def try_parse_header_line(ln, state):
             header['crossRefNumber'] = a
         if g == 'A':  # Area
             header['area'] = a
-        if g == 'H':        # History
+        if g == 'H':  # History
             header_append('history', a)
-        if g == 'B':        # Book
+        if g == 'B':  # Book
             header['book'] = a
-        if g == 'C':        # Composer
+        if g == 'C':  # Composer
             if 'composer' in header:
                 if a:
                     header['composer'] = header['composer'] + '\\\\\\\\' + a
@@ -784,24 +785,24 @@ def try_parse_header_line(ln, state):
                 header['composer'] = a
         if g == 'S':
             header['subtitle'] = a
-        if g == 'L':        # Default note length
+        if g == 'L':  # Default note length
             set_default_length(ln)
-        if g == 'V':        # Voice
+        if g == 'V':  # Voice
             voice = re.sub(' .*$', '', a)
             rest = re.sub('^[^ \t]*  *', '', a)
             if state.next_bar:
                 voices_append(state.next_bar)
                 state.next_bar = ''
             select_voice(voice, rest)
-        if g == 'W':        # Words
+        if g == 'W':  # Words
             lyrics_append(a)
-        if g == 'w':        # vocals
+        if g == 'w':  # vocals
             slyrics_append(a)
-        if g == 'Q':        # tempo
+        if g == 'Q':  # tempo
             try_parse_q(a)
-        if g == 'R':        # Rhythm (e.g. jig, reel, hornpipe)
+        if g == 'R':  # Rhythm (e.g. jig, reel, hornpipe)
             header['meter'] = a
-        if g == 'Z':        # Transcription (e.g. Steve Mansfield 1/2/2000)
+        if g == 'Z':  # Transcription (e.g. Steve Mansfield 1/2/2000)
             header['transcription'] = a
         return ''
     return ln
@@ -853,7 +854,7 @@ def parse_num(s):
 
 def duration_to_lilypond_duration(multiply_tup, defaultlen, dots):
     base = 1
-    # (num /  den)  / defaultlen < 1/base
+    # (num / den) / defaultlen < 1 / base
     while base * multiply_tup[0] < multiply_tup[1]:
         base = base * 2
     if base == 1:
@@ -921,7 +922,7 @@ def parse_duration(s, parser_state):
     try_dots = [3, 2, 1]
     for d in try_dots:
         f = 1 << d
-        multiplier = (2*f-1)
+        multiplier = (2 * f - 1)
         if num % multiplier == 0 and den % f == 0:
             num = num / multiplier
             den = den / f
@@ -948,7 +949,9 @@ def try_parse_rest(s, parser_state):
 
     (s, num, den, d) = parse_duration(s, parser_state)
     voices_append(
-        '%s%s' % (rest, duration_to_lilypond_duration((num, den), default_len, d)))
+        '%s%s' %
+        (rest, duration_to_lilypond_duration(
+            (num, den), default_len, d)))
     if parser_state.next_articulation:
         voices_append(parser_state.next_articulation)
         parser_state.next_articulation = ''
@@ -1088,9 +1091,10 @@ def try_parse_note(s, parser_state):
         mod = '!'
     else:
         mod = ''
-    voices_append("%s%s%s%s" %
-                  (pit, oct, mod,
-                   duration_to_lilypond_duration((num, den), default_len, current_dots)))
+    voices_append(
+        "%s%s%s%s" %
+        (pit, oct, mod, duration_to_lilypond_duration(
+            (num, den), default_len, current_dots)))
 
     set_bar_acc(notename, octave, acc, parser_state)
     if parser_state.next_articulation:
@@ -1177,7 +1181,7 @@ old_bar_dict = {
     '|1': '|',
     '|2': '|',
     ':|2': ':|.',
-    '|':  '|'
+    '|': '|'
 }
 bar_dict = {
     '|]': '\\bar "|."',
@@ -1189,7 +1193,7 @@ bar_dict = {
     '|1': '} \\alternative{{',
     '|2': '} {',
     ':|2': '} {',
-    '|':  '\\bar "|"'
+    '|': '\\bar "|"'
 }
 
 
@@ -1200,6 +1204,7 @@ repeat_opener = ['::', '|:']
 in_repeat = [''] * 8
 doing_alternative = [''] * 8
 using_old = ''
+
 
 def try_parse_bar(string, state):
     global in_repeat, doing_alternative, using_old
@@ -1245,6 +1250,7 @@ def try_parse_bar(string, state):
                 else:
                     bs = bar_dict[s]
             break
+
     if string[:1] == '|':
         state.next_bar = '|\n'
         string = string[1:]
@@ -1341,29 +1347,31 @@ def try_parse_comment(s):
     global nobarlines
     if s[0] == '%':
         if s[0:5] == '%MIDI':
-            # the nobarlines option is necessary for an abc to lilypond translator for
-            # exactly the same reason abc2midi needs it: abc requires the user to enter
-            # the note that will be printed, and MIDI and lilypond expect entry of the
-            # pitch that will be played.
+            # The nobarlines option is necessary for an abc to LilyPond
+            # translator for exactly the same reason abc2midi needs it: abc
+            # requires the user to enter the note that will be printed, and
+            # MIDI and LilyPond expect entry of the pitch that will be
+            # played.
             #
-            # In standard 19th century musical notation, the algorithm for translating
-            # between printed note and pitch involves using the barlines to determine
-            # the scope of the accidentals.
+            # In standard 19th century musical notation, the algorithm for
+            # translating between printed note and pitch involves using the
+            # barlines to determine the scope of the accidentals.
             #
-            # Since ABC is frequently used for music in styles that do not use this
-            # convention, such as most music written before 1700, or ethnic music in
-            # non-western scales, it is necessary to be able to tell a translator that
-            # the barlines should not affect its interpretation of the pitch.
+            # Since ABC is frequently used for music in styles that do not
+            # use this convention, such as most music written before 1700,
+            # or ethnic music in non-western scales, it is necessary to be
+            # able to tell a translator that the barlines should not affect
+            # its interpretation of the pitch.
             if 'nobarlines' in s:
                 nobarlines = 1
         elif s[0:3] == '%LY':
             p = s.find('voices')
             if p > -1:
-                voices_append(s[p+7:])
+                voices_append(s[p + 7:])
                 voices_append("\n")
             p = s.find('slyrics')
             if p > -1:
-                slyrics_append(s[p+8:])
+                slyrics_append(s[p + 8:])
 
 # write other kinds of appending  if we ever need them.
     return s
@@ -1440,15 +1448,18 @@ Written by Han-Wen Nienhuys <hanwen@xs4all.nl>, Laura Conrad
 
 
 def print_version():
-    print(r"""abc2ly (GNU lilypond) %s""" % version)
+    print(r"""abc2ly (GNU LilyPond) %s""" % version)
 
 
 def get_option_parser():
-    p = ly.get_option_parser(usage=_("%s [OPTION]... FILE") % 'abc2ly',
-                             description=_('''abc2ly converts ABC music files (see
+    p = ly.get_option_parser(
+        usage=_("%s [OPTION]... FILE") %
+        'abc2ly',
+        description=_('''abc2ly converts ABC music files (see
 %s) to LilyPond input.
-''') % 'http://abcnotation.com/abc2mtex/abc.txt',
-                             add_help_option=False)
+''') %
+        'http://abcnotation.com/abc2mtex/abc.txt',
+        add_help_option=False)
 
     p.version = "abc2ly (LilyPond) @TOPLEVEL_VERSION@"
     p.add_option("--version",
@@ -1495,7 +1506,7 @@ for f in files:
         global_options.output = os.path.basename(
             os.path.splitext(f)[0]) + ".ly"
     if not global_options.quiet:
-        sys.stderr.write('lilypond output to: `%s\'...' %
+        sys.stderr.write('LilyPond output to: `%s\'...' %
                          global_options.output)
     outf = open(global_options.output, 'w', encoding='utf-8')
 
@@ -1503,7 +1514,7 @@ for f in files:
 # the last version that was verified to work.
     outf.write('\\version "2.7.40"\n')
 
-#        dump_global (outf)
+#   dump_global (outf)
     dump_header(outf, header)
     dump_slyrics(outf)
     dump_voices(outf)
