@@ -216,12 +216,12 @@ def select_voice(name, rol):
 
 
 def dump_header(outf, hdr):
-    outf.write('\\header {\n')
+    outf.write('\n\\header {\n')
     ks = sorted(hdr.keys())
     for k in ks:
         hdr[k] = re.sub('"', '\\"', hdr[k])
-        outf.write('\t%s = "%s"\n' % (k, hdr[k]))
-    outf.write('}')
+        outf.write('  %s = "%s"\n' % (k, hdr[k]))
+    outf.write('}\n')
 
 
 def dump_lyrics(outf):
@@ -252,7 +252,7 @@ def dump_slyrics(outf):
             l = alphabet(i)
             outf.write("\nwords%sV%s = \\lyricmode {" % (m, l))
             outf.write("\n" + slyrics[voice_idx_dict[k]][i])
-            outf.write("\n}")
+            outf.write("\n}\n")
 
 
 def dump_voices(outf):
@@ -263,7 +263,7 @@ def dump_voices(outf):
             m = alphabet(int(k))
         else:
             m = k
-        outf.write("\nvoice%s =  {" % m)
+        outf.write("\nvoice%s = {" % m)
         dump_default_bar(outf)
         if repeat_state[voice_idx_dict[k]]:
             outf.write("\n\\repeat volta 2 {")
@@ -273,13 +273,13 @@ def dump_voices(outf):
                 outf.write("}")
             if in_repeat[voice_idx_dict[k]]:
                 outf.write("}")
-        outf.write("\n}")
+        outf.write("\n}\n")
 
 
 def try_parse_q(a):
     # assume that Q takes the form "Q:'opt. description' 1/4=120"
     # There are other possibilities, but they are deprecated
-    r = re.compile(r'^(.*) *([0-9]+) */ *([0-9]+) *=* *([0-9]+)\s*')
+    r = re.compile(r' *^(.*?) *([0-9]+) */ *([0-9]+) *=* *([0-9]+)\s*')
     m = r.match(a)
     if m:
         descr = m.group(1)  # possibly empty
@@ -287,7 +287,9 @@ def try_parse_q(a):
         denominator = int(m.group(3))
         tempo = m.group(4)
         dur = duration_to_lilypond_duration((numerator, denominator), 1, 0)
-        voices_append("\\tempo " + descr + " " + dur + "=" + tempo + "\n")
+        if descr:
+            descr += ' '
+        voices_append("\\tempo " + descr + dur + " = " + tempo + "\n")
     else:
         # Parsing of numeric tempi, as these are fairly
         # common.  The spec says the number is a "beat" so using
@@ -304,8 +306,8 @@ def try_parse_q(a):
 def dump_score(outf):
     outf.write(r"""
 
-\score{
-    <<
+\score {
+  <<
 """)
 
     ks = sorted(voice_idx_dict.keys())
@@ -316,26 +318,27 @@ def dump_score(outf):
             m = k
         if k == 'default' and len(voice_idx_dict) > 1:
             break
-        outf.write("\n\t\\context Staff=\"%s\"\n\t{\n" % k)
+        outf.write("    \\context Staff = \"%s\" {\n" % k)
         if k != 'default':
-            outf.write("\t    \\voicedefault\n")
-        outf.write("\t    \\voice%s " % m)
-        outf.write("\n\t}\n")
+            outf.write("      \\voicedefault\n")
+        outf.write("      \\voice%s" % m)
+        outf.write("\n    }")
 
         l = ord('A')
         for lyrics in slyrics[voice_idx_dict[k]]:
-            outf.write("\n\t\\addlyrics {\n")
+            outf.write("\n    \\addlyrics {\n")
             if re.match('[1-9]', k):
                 m = alphabet(int(k))
             else:
                 m = k
 
-            outf.write(" \\words%sV%s } " % (m, chr(l)))
+            outf.write("      \\words%sV%s" % (m, chr(l)))
+            outf.write("\n    }")
             l += 1
 
-    outf.write("\n    >>")
-    outf.write("\n\t\\layout {\n")
-    outf.write("\t}\n\t\\midi {%s}\n}\n" % midi_specs)
+    outf.write("\n  >>\n")
+    outf.write("\n  \\layout {}")
+    outf.write("\n  \\midi {%s}\n}\n" % midi_specs)
 
 
 def set_default_length(s):
@@ -723,7 +726,7 @@ def try_parse_header_line(ln, state):
                 if not state.common_time:
                     state.common_time = 1
                     voices_append(
-                        " \\override Staff.TimeSignature.style = #'C\n")
+                        "\\override Staff.TimeSignature.style = #'C\n")
                 a = '4/4'
             if a == 'C|':
                 if not state.common_time:
@@ -1101,12 +1104,13 @@ def try_parse_note(s, parser_state):
         articulation = articulation + parser_state.next_articulation
         parser_state.next_articulation = ''
 
-    voices_append(articulation)
+    if articulation:
+        voices_append(articulation)
 
     if slur_begin:
-        voices_append('-(' * slur_begin)
+        voices_append('(' * slur_begin)
     if slur_end:
-        voices_append('-)' * slur_end)
+        voices_append(')' * slur_end)
 
     if parser_state.parsing_tuplet:
         parser_state.parsing_tuplet = parser_state.parsing_tuplet - 1
@@ -1263,14 +1267,14 @@ def try_parse_bar(string, state):
     if bs is not None or state.next_bar != '':
         if state.parsing_tuplet:
             state.parsing_tuplet = 0
-            voices_append('} ')
+            voices_append('}')
 
     if bs is not None:
         clear_bar_acc(state)
         close_beam_state(state)
         voices_append(bs)
         if do_curly != '':
-            voices_append("} ")
+            voices_append("}")
             do_curly = ''
     return string
 
@@ -1278,7 +1282,7 @@ def try_parse_bar(string, state):
 def try_parse_tie(s):
     if s[:1] == '-':
         s = s[1:]
-        voices_append(' ~ ')
+        voices_append('~')
     return s
 
 
@@ -1334,7 +1338,7 @@ def try_parse_grace_delims(s, state):
             voices_append(state.next_bar)
             state.next_bar = ''
         s = s[1:]
-        voices_append('\\grace { ')
+        voices_append('\\grace {')
 
     if s[:1] == '}':
         s = s[1:]
@@ -1493,7 +1497,9 @@ option_parser = get_option_parser()
 
 identify()
 
-header['tagline'] = 'Lily was here %s -- automatically converted from ABC' % version
+header['tagline'] = (
+    'LilyPond %s was here -- automatically converted from ABC' % version)
+
 for f in files:
     if f == '-':
         f = ''
