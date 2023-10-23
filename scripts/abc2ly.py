@@ -25,7 +25,7 @@
 #   ...
 #
 # (not finished.)
-# ABC standard v1.6:  http://abcnotation.com/
+# ABC standard v1.6:  https://abcnotation.com/standard/abc_v1.6.txt
 #
 # Enhancements  (Roy R. Rankin)
 #
@@ -1462,7 +1462,7 @@ def get_option_parser():
         description=_('''abc2ly converts ABC music files (see
 %s) to LilyPond input.
 ''') %
-        'http://abcnotation.com/abc2mtex/abc.txt',
+        'https://abcnotation.com/standard/abc_v1.6.txt',
         add_help_option=False)
 
     p.version = "abc2ly (LilyPond) @TOPLEVEL_VERSION@"
