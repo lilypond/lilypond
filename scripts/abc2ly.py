@@ -548,7 +548,6 @@ def compute_key(k):
         accsign = 1
         key_count = sharp_key_seq.index(keytup)
         accseq = [(4 * x - 1) % 7 for x in range(1, key_count + 1)]
-
     elif keytup in flat_key_seq:
         accsign = -1
         key_count = flat_key_seq.index(keytup)
@@ -721,14 +720,14 @@ def try_parse_header_line(ln, state):
                         header['subtitle'] = a
             else:
                 header['title'] = a
-        if g == 'M':        # Meter
+        elif g == 'M':        # Meter
             if a == 'C':
                 if not state.common_time:
                     state.common_time = 1
                     voices_append(
                         "\\override Staff.TimeSignature.style = #'C\n")
                 a = '4/4'
-            if a == 'C|':
+            elif a == 'C|':
                 if not state.common_time:
                     state.common_time = 1
                     voices_append(
@@ -741,7 +740,7 @@ def try_parse_header_line(ln, state):
             if not a == 'none':
                 voices_append('\\time %s' % a)
             state.next_bar = ''
-        if g == 'K':  # KEY
+        elif g == 'K':  # KEY
             a = check_clef(a)
             if a:
                 # separate clef info
@@ -768,44 +767,44 @@ def try_parse_header_line(ln, state):
                     k = lily_key(a)
                     if k:
                         voices_append('\\key %s \\major' % k)
-        if g == 'N':  # Notes
+        elif g == 'N':  # Notes
             header['footnotes'] = header['footnotes'] + '\\\\\\\\' + a
-        if g == 'O':  # Origin
+        elif g == 'O':  # Origin
             header['origin'] = a
-        if g == 'X':  # Reference Number
+        elif g == 'X':  # Reference Number
             header['crossRefNumber'] = a
-        if g == 'A':  # Area
+        elif g == 'A':  # Area
             header['area'] = a
-        if g == 'H':  # History
+        elif g == 'H':  # History
             header_append('history', a)
-        if g == 'B':  # Book
+        elif g == 'B':  # Book
             header['book'] = a
-        if g == 'C':  # Composer
+        elif g == 'C':  # Composer
             if 'composer' in header:
                 if a:
                     header['composer'] = header['composer'] + '\\\\\\\\' + a
             else:
                 header['composer'] = a
-        if g == 'S':
+        elif g == 'S':
             header['subtitle'] = a
-        if g == 'L':  # Default note length
+        elif g == 'L':  # Default note length
             set_default_length(ln)
-        if g == 'V':  # Voice
+        elif g == 'V':  # Voice
             voice = re.sub(' .*$', '', a)
             rest = re.sub('^[^ \t]*  *', '', a)
             if state.next_bar:
                 voices_append(state.next_bar)
                 state.next_bar = ''
             select_voice(voice, rest)
-        if g == 'W':  # Words
+        elif g == 'W':  # Words
             lyrics_append(a)
-        if g == 'w':  # vocals
+        elif g == 'w':  # vocals
             slyrics_append(a)
-        if g == 'Q':  # tempo
+        elif g == 'Q':  # tempo
             try_parse_q(a)
-        if g == 'R':  # Rhythm (e.g. jig, reel, hornpipe)
+        elif g == 'R':  # Rhythm (e.g. jig, reel, hornpipe)
             header['meter'] = a
-        if g == 'Z':  # Transcription (e.g. Steve Mansfield 1/2/2000)
+        elif g == 'Z':  # Transcription (e.g. Steve Mansfield 1/2/2000)
             header['transcription'] = a
         return ''
     return ln
@@ -863,10 +862,10 @@ def duration_to_lilypond_duration(multiply_tup, defaultlen, dots):
     if base == 1:
         if (multiply_tup[0] / multiply_tup[1]) == 2:
             base = '\\breve'
-        if (multiply_tup[0] / multiply_tup[1]) == 3:
+        elif (multiply_tup[0] / multiply_tup[1]) == 3:
             base = '\\breve'
             dots = 1
-        if (multiply_tup[0] / multiply_tup[1]) == 4:
+        elif (multiply_tup[0] / multiply_tup[1]) == 4:
             base = '\\longa'
     return '%s%s' % (base, '.' * dots)
 
@@ -1215,7 +1214,9 @@ def try_parse_bar(string, state):
                 bs = "\\bar \"%s\"" % old_bar_dict[s]
             else:
                 bs = "%s" % bar_dict[s]
+
             string = string[trylen:]
+
             if s in alternative_opener:
                 if not in_repeat[current_voice_idx]:
                     using_old = 't'
@@ -1238,6 +1239,7 @@ def try_parse_bar(string, state):
                     bs = bar_dict[s]
                 doing_alternative[current_voice_idx] = ''
                 in_repeat[current_voice_idx] = ''
+
             if s in repeat_opener:
                 in_repeat[current_voice_idx] = 't'
                 if using_old:
@@ -1330,8 +1332,7 @@ def try_parse_grace_delims(s, state):
             state.next_bar = ''
         s = s[1:]
         voices_append('\\grace {')
-
-    if s[:1] == '}':
+    elif s[:1] == '}':
         s = s[1:]
         voices_append('}')
 
