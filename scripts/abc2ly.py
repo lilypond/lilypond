@@ -129,6 +129,7 @@ names = ["One", "Two", "Three"]
 DIGITS = '0123456789'
 HSPACE = ' \t'
 midi_specs = ''
+need_unmetered_bar = 0
 
 
 def error(msg):
@@ -215,6 +216,17 @@ def select_voice(name, rol):
             break
 
 
+def dump_global(outf):
+    if need_unmetered_bar:
+        outf.write(r'''
+cadenzaMeasure = {
+  \cadenzaOff
+  \partial 1024 s1024
+  \cadenzaOn
+}
+''')
+
+
 def dump_header(outf, hdr):
     outf.write('\n\\header {\n')
     ks = sorted(hdr.keys())
@@ -231,14 +243,6 @@ def dump_lyrics(outf):
             outf.write(lyrics[i])
             outf.write("\n")
         outf.write("}\n")
-
-
-def dump_default_bar(outf):
-    """
-    Nowadays abc2ly outputs explicits barlines (?)
-    """
-    # < 2.2
-    outf.write("\n\\set Score.measureBarType = \"\"\n")
 
 
 def dump_slyrics(outf):
@@ -264,7 +268,6 @@ def dump_voices(outf):
         else:
             m = k
         outf.write("\nvoice%s = {" % m)
-        dump_default_bar(outf)
         if repeat_state[voice_idx_dict[k]]:
             outf.write("\n\\repeat volta 2 {")
         outf.write("\n" + voices[voice_idx_dict[k]])
@@ -737,8 +740,13 @@ def try_parse_header_line(ln, state):
                 set_default_len_from_time_sig(a)
             else:
                 length_specified = 0
-            if not a == 'none':
+            if a == 'none':
+                state.has_meter = 0
+            else:
+                if state.in_music and not state.has_meter:
+                    voices_append('\\cadenzaOff\n')
                 voices_append('\\time %s' % a)
+                state.has_meter = 1
             state.next_bar = ''
         elif g == 'K':  # KEY
             a = check_clef(a)
@@ -872,6 +880,8 @@ def duration_to_lilypond_duration(multiply_tup, defaultlen, dots):
 
 class Parser_state:
     def __init__(self):
+        self.in_music = 0
+        self.has_meter = 0
         self.in_acc = {}
         self.next_articulation = ''
         self.next_bar = ''
@@ -1265,6 +1275,9 @@ def try_parse_bar(string, state):
     if bs is not None:
         clear_bar_acc(state)
         close_beam_state(state)
+        if not state.has_meter:
+            __main__.need_unmetered_bar = 1
+            voices_append('\\cadenzaMeasure')
         voices_append(bs)
         if do_curly != '':
             voices_append("}")
@@ -1408,6 +1421,14 @@ def parse_file(fn):
         ln = junk_space(ln, state)
         ln = try_parse_header_line(ln, state)
 
+        # If `ln' is not empty at this point, the parsing of header lines is
+        # finished, and the music block starts.
+        if ln:
+            state.in_music = 1
+            if not state.has_meter:
+                voices_append("\\once \\omit Staff.TimeSignature\n")
+                voices_append("\\cadenzaOn\n")
+
         # Try nibbling characters off until the line doesn't change.
         prev_ln = ''
         while ln != prev_ln:
@@ -1512,8 +1533,8 @@ for f in files:
     # the last version that was verified to work.
     outf.write('\\version "2.7.40"\n')
 
-#   dump_global (outf)
     dump_header(outf, header)
+    dump_global(outf)
     dump_slyrics(outf)
     dump_voices(outf)
     dump_score(outf)
