@@ -888,6 +888,11 @@ class Parser_state:
         self.next_dots = 0
         self.next_den = 1
         self.parsing_tuplet = 0
+        self.in_chord = 0
+        self.is_first_chord_note = 0
+        self.chord_num = -1
+        self.chord_den = -1
+        self.chord_current_dots = -1
         self.plus_chord = 0
         self.base_octave = 0
         self.common_time = 0
@@ -1080,6 +1085,11 @@ def try_parse_note(s, parser_state):
         s = s[1:]
 
     (s, num, den, current_dots) = parse_duration(s, parser_state)
+    if parser_state.in_chord and not parser_state.is_first_chord_note:
+        parser_state.chord_num = num
+        parser_state.chord_den = den
+        parser_state.chord_current_dots = current_dots
+        parser_state.is_first_chord_note = 1
 
     if re.match(r'[ \t]*\)', s):
         s = s.lstrip()
@@ -1096,18 +1106,22 @@ def try_parse_note(s, parser_state):
         mod = '!'
     else:
         mod = ''
-    voices_append(
-        "%s%s%s%s" %
-        (pit, oct, mod, duration_to_lilypond_duration(
-            (num, den), default_len, current_dots)))
+
+    if parser_state.in_chord:
+        voices_append("%s%s%s" % (pit, oct, mod))
+    else:
+        voices_append(
+            "%s%s%s%s" %
+            (pit, oct, mod, duration_to_lilypond_duration(
+                (num, den), default_len, current_dots)))
 
     set_bar_acc(notename, octave, acc, parser_state)
-    if parser_state.next_articulation:
-        articulation = articulation + parser_state.next_articulation
-        parser_state.next_articulation = ''
-
-    if articulation:
-        voices_append(articulation)
+    if not parser_state.in_chord:
+        if parser_state.next_articulation:
+            articulation = articulation + parser_state.next_articulation
+            parser_state.next_articulation = ''
+        if articulation:
+            voices_append(articulation)
 
     if slur_end:
         voices_append(')' * slur_end)
@@ -1302,6 +1316,7 @@ def bracket_escape(s, state):
 
 
 def try_parse_chord_delims(s, state):
+    out = ''
     if s[:1] == '[':
         s = s[1:]
         if re.match('[A-Z]:', s):        # bracket escape, not chord
@@ -1309,32 +1324,46 @@ def try_parse_chord_delims(s, state):
         if state.next_bar:
             voices_append(state.next_bar)
             state.next_bar = ''
-        voices_append('<<')
-
-    if s[:1] == '+':                     # deprecated since ABC 1.6
+        out = '<'
+    elif s[:1] == '+':                   # deprecated since ABC 1.6
         s = s[1:]
         if state.plus_chord:
-            voices_append('>>')
+            out = '>'
             state.plus_chord = 0
         else:
             if state.next_bar:
                 voices_append(state.next_bar)
                 state.next_bar = ''
-            voices_append('<<')
+            out = '<'
             state.plus_chord = 1
-
-    ch = ''
-    if s[:1] == ']':
+    elif s[:1] == ']':
         s = s[1:]
-        ch = '>>'
+        out = '>'
+
+    if not out:
+        return s
 
     end = 0
     while s[:1] == ')':
         end = end + 1
         s = s[1:]
 
-    voices_append("\\spanrequest \\stop \"slur\"" * end)
-    voices_append(ch)
+    if out == '>':
+        out += duration_to_lilypond_duration(
+            (state.chord_num, state.chord_den), default_len,
+            state.chord_current_dots)
+        if state.next_articulation:
+            out += state.next_articulation
+            state.next_articulation = ''
+        out += ")" * end
+        state.in_chord = 0
+    else:
+        if end:
+            sys.stderr.write("Warning: ignoring `)' in chord\n")
+        state.in_chord = 1
+        state.is_first_chord_note = 0
+
+    voices_append(out)
     return s
 
 
@@ -1531,7 +1560,7 @@ for f in files:
 
     # Don't substitute @VERSION@.  We want this to reflect
     # the last version that was verified to work.
-    outf.write('\\version "2.7.40"\n')
+    outf.write('\\version "2.24.0"\n')
 
     dump_header(outf, header)
     dump_global(outf)
