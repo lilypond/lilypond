@@ -193,7 +193,7 @@ def select_voice(name, rol):
     __main__.current_voice_idx = voice_idx_dict[name]
     __main__.state = state_list[current_voice_idx]
     while rol != '':
-        m = re.match('^([^ \t=]*)=(.*)$', rol)  # find keywork
+        m = re.match('^([^ \t=]*)=(.*)$', rol)  # find keyword
         if m:
             keyword = m.group(1)
             rol = m.group(2)
@@ -277,8 +277,8 @@ def dump_voices(outf):
 
 
 def try_parse_q(a):
-    # assume that Q takes the form "Q:'opt. description' 1/4=120"
-    # There are other possibilities, but they are deprecated
+    # Assume that Q takes the form "Q:'opt. description' 1/4=120".
+    # There are other possibilities, but they are deprecated.
     r = re.compile(r' *^(.*?) *([0-9]+) */ *([0-9]+) *=* *([0-9]+)\s*')
     m = r.match(a)
     if m:
@@ -293,7 +293,7 @@ def try_parse_q(a):
     else:
         # Parsing of numeric tempi, as these are fairly
         # common.  The spec says the number is a "beat" so using
-        # a quarter note as the standard time
+        # a quarter note as the standard time.
         numericQ = re.compile('[0-9]+')
         m = numericQ.match(a)
         if m:
@@ -376,9 +376,9 @@ def gulp_file(f):
     return s
 
 
-# pitch manipulation. Tuples are (name, alteration).
-# 0 is (central) C. Alteration -1 is a flat, Alteration +1 is a sharp
-# pitch in semitones.
+# Pitch manipulation. Tuples are (name, alteration).
+# 0 is (central) C. Alteration -1 is a flat, alteration +1 is a sharp.
+# Pitch in semitones.
 def semitone_pitch(tup):
     p = 0
 
@@ -614,8 +614,8 @@ def stuff_append(stuff, idx, a):
     else:
         stuff[idx] = wordwrap(a, stuff[idx])
 
-# ignore wordwrap since we are adding to the previous word
 
+# Ignore wordwrap since we are adding to the previous word.
 
 def stuff_append_back(stuff, idx, a):
     if not stuff:
@@ -633,11 +633,11 @@ def voices_append(a):
         select_voice('default', '')
     stuff_append(voices, current_voice_idx, a)
 
-# word wrap really makes it hard to bind beams to the end of notes since it
+
+# Wordwrap really makes it hard to bind beams to the end of notes since it
 # pushes out whitespace on every call. The _back functions do an append
 # prior to the last space, effectively tagging whatever they are given
-# onto the last note
-
+# onto the last note.
 
 def voices_append_back(a):
     if current_voice_idx < 0:
@@ -659,8 +659,8 @@ def lyrics_append(a):
     a = '  \\line { "' + a + '" }\n'
     stuff_append(lyrics, current_lyric_idx, a)
 
-# break lyrics to words and put "'s around words containing numbers and '"'s
 
+# Break lyrics to words and put "'s around words containing numbers and '"'s.
 
 def fix_lyric(s):
     ret = ''
@@ -747,9 +747,9 @@ def try_parse_header_line(ln, state):
                 # separate clef info
                 m = re.match('^([^ \t]*) *([^ ]*)( *)(.*)$', a)
                 if m:
-                    # there may or may not be a space
-                    # between the key letter and the mode
-                    # convert the mode to lower-case before comparing
+                    # There may or may not be a space
+                    # between the key letter and the mode.
+                    # Convert the mode to lower-case before comparing.
                     mode = m.group(2)[0:3].lower()
                     if mode in key_lookup:
                         # use the full mode, not only the first three letters
@@ -810,9 +810,9 @@ def try_parse_header_line(ln, state):
         return ''
     return ln
 
-# we use in this order specified accidental, active accidental for bar,
-# active accidental for key
 
+# We use in this order specified accidental, active accidental for bar,
+# active accidental for key.
 
 def pitch_to_lilypond_name(name, acc, bar_acc, key):
     s = ''
@@ -997,10 +997,8 @@ def try_parse_articulation(s, state):
 
     return s
 
-#
-# remember accidental for rest of bar
-#
 
+# Remember accidental for rest of bar.
 
 def set_bar_acc(note, octave, acc, state):
     if acc == UNDEF:
@@ -1008,8 +1006,8 @@ def set_bar_acc(note, octave, acc, state):
     n_oct = note + octave * 7
     state.in_acc[n_oct] = acc
 
-# get accidental set in this bar or UNDEF if not set
 
+# Get accidental set in this bar or UNDEF if not set.
 
 def get_bar_acc(note, octave, state):
     n_oct = note + octave * 7
@@ -1159,7 +1157,6 @@ def try_parse_escape(s):
     return s
 
 
-#
 # |] thin-thick double bar line
 # || thin-thin double bar line
 # [| thick-thin double bar line
@@ -1168,6 +1165,7 @@ def try_parse_escape(s):
 # :: left-right repeat
 # |1 volta 1
 # |2 volta 2
+
 old_bar_dict = {
     '|]': '|.',
     '||': '||',
@@ -1291,14 +1289,14 @@ def bracket_escape(s, state):
 def try_parse_chord_delims(s, state):
     if s[:1] == '[':
         s = s[1:]
-        if re.match('[A-Z]:', s):        # bracket escape
+        if re.match('[A-Z]:', s):        # bracket escape, not chord
             return bracket_escape(s, state)
         if state.next_bar:
             voices_append(state.next_bar)
             state.next_bar = ''
         voices_append('<<')
 
-    if s[:1] == '+':
+    if s[:1] == '+':                     # deprecated since ABC 1.6
         s = s[1:]
         if state.plus_chord:
             voices_append('>>')
@@ -1370,7 +1368,7 @@ def try_parse_comment(s):
             if p > -1:
                 slyrics_append(s[p + 8:])
 
-# write other kinds of appending  if we ever need them.
+    # Write other kinds of appending if we ever need them.
     return s
 
 
@@ -1509,8 +1507,8 @@ for f in files:
                          global_options.output)
     outf = open(global_options.output, 'w', encoding='utf-8')
 
-# don't substitute @VERSION@. We want this to reflect
-# the last version that was verified to work.
+    # Don't substitute @VERSION@.  We want this to reflect
+    # the last version that was verified to work.
     outf.write('\\version "2.7.40"\n')
 
 #   dump_global (outf)
