@@ -742,7 +742,7 @@ def try_parse_header_line(ln, state):
             state.next_bar = ''
         elif g == 'K':  # KEY
             a = check_clef(a)
-            if a:
+            if a and a != 'none':
                 # separate clef info
                 m = re.match('^([^ \t]*) *([^ ]*)( *)(.*)$', a)
                 if m:
@@ -750,7 +750,7 @@ def try_parse_header_line(ln, state):
                     # between the key letter and the mode.
                     # Convert the mode to lower-case before comparing.
                     mode = m.group(2)[0:3].lower()
-                    if mode in key_lookup:
+                    if mode and mode in key_lookup:
                         # use the full mode, not only the first three letters
                         key_info = m.group(1) + m.group(2).lower()
                         clef_info = a[m.start(4):]
