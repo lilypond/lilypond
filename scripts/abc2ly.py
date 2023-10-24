@@ -991,9 +991,7 @@ def try_parse_articulation(s, state):
     if re.match(r'[ \t]*\(', s):
         s = s.lstrip()
 
-    slur_begin = 0
     while s[:1] == '(' and s[1] not in DIGITS:
-        slur_begin = slur_begin + 1
         state.next_articulation = state.next_articulation + '('
         s = s[1:]
 
@@ -1034,9 +1032,6 @@ def close_beam_state(state):
 
 # WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
 def try_parse_note(s, parser_state):
-    mud = ''
-
-    slur_begin = 0
     if not s:
         return s
 
@@ -1107,8 +1102,6 @@ def try_parse_note(s, parser_state):
     if articulation:
         voices_append(articulation)
 
-    if slur_begin:
-        voices_append('(' * slur_begin)
     if slur_end:
         voices_append(')' * slur_end)
 
