@@ -87,7 +87,6 @@
 # UNDEF -> None
 #
 
-import getopt
 import gettext
 import os
 import re
@@ -211,7 +210,7 @@ def select_voice(name, rol):
                     value = re.sub('\\\\', '\\\\\\\\', value)
                     # < 2.2
                     voices_append("\\set Staff.instrument = %s\n" % value)
-                elif keyword == "sname" or keyword == "snm":
+                elif keyword in ("sname", "snm"):
                     voices_append("\\set Staff.instr = %s\n" % value)
         else:
             break
@@ -328,7 +327,7 @@ def dump_score(outf):
         outf.write("\n    }")
 
         l = ord('A')
-        for lyrics in slyrics[voice_idx_dict[k]]:
+        for lyr in slyrics[voice_idx_dict[k]]:
             outf.write("\n    \\addlyrics {\n")
             if re.match('[1-9]', k):
                 m = alphabet(int(k))
@@ -372,26 +371,10 @@ def set_default_len_from_time_sig(s):
     if m:
         n = int(m.group(1))
         d = int(m.group(2))
-        if (n * 1.0) / (d * 1.0) < 0.75:
+        if n / d < 0.75:
             default_len = 16
         else:
             default_len = 8
-
-
-def gulp_file(f):
-    try:
-        i = open(f, encoding="utf8")
-        i.seek(0, 2)
-        n = i.tell()
-        i.seek(0, 0)
-    except FileNotFoundError:
-        sys.stderr.write("cannot open file: `%s'\n" % f)
-        return ''
-    s = i.read(n)
-    if len(s) <= 0:
-        sys.stderr.write("gulped empty file: `%s'\n" % f)
-    i.close()
-    return s
 
 
 # Pitch manipulation. Tuples are (name, alteration).
@@ -474,7 +457,7 @@ key_lookup = {         # abc to LilyPond key mode names
 
 def lily_key(k):
     if k == 'none':
-        return
+        return ''
     orig = "" + k
     # UGR
     k = k.lower()
@@ -490,14 +473,14 @@ def lily_key(k):
     if not k:
         return '%s \\major' % key
 
-    type = k[0:3]
-    if type not in key_lookup:
+    typ = k[0:3]
+    if typ not in key_lookup:
         # ugh, use lilylib, say WARNING:FILE:LINE:
         sys.stderr.write("abc2ly:warning:")
         sys.stderr.write("ignoring unknown key: `%s'" % orig)
         sys.stderr.write('\n')
         return 0
-    return "%s \\%s" % (key, key_lookup[type])
+    return "%s \\%s" % (key, key_lookup[typ])
 
 
 def shift_key(note, acc, shift):
@@ -715,7 +698,6 @@ def slyrics_append(a):
     if len(slyrics[current_voice_idx]) <= lyric_idx:
         slyrics[current_voice_idx].append(a)
     else:
-        v = slyrics[current_voice_idx][lyric_idx]
         slyrics[current_voice_idx][lyric_idx] = wordwrap(
             a, slyrics[current_voice_idx][lyric_idx])
 
@@ -1053,8 +1035,7 @@ def get_bar_acc(note, octave, state):
     n_oct = note + octave * 7
     if n_oct in state.in_acc:
         return state.in_acc[n_oct]
-    else:
-        return UNDEF
+    return UNDEF
 
 
 def clear_bar_acc(state):
@@ -1133,18 +1114,18 @@ def try_parse_note(s, state):
 
     bar_acc = get_bar_acc(notename, octave, state)
     pit = pitch_to_lilypond_name(notename, acc, bar_acc, global_key[notename])
-    oct = octave_to_lilypond_quotes(octave)
-    if acc != UNDEF and (acc == global_key[notename] or acc == bar_acc):
+    octv = octave_to_lilypond_quotes(octave)
+    if acc != UNDEF and acc in (global_key[notename], bar_acc):
         mod = '!'
     else:
         mod = ''
 
     if state.in_chord:
-        voices_append("%s%s%s" % (pit, oct, mod))
+        voices_append("%s%s%s" % (pit, octv, mod))
     else:
         voices_append(
             "%s%s%s%s" %
-            (pit, oct, mod, duration_to_lilypond_duration(
+            (pit, octv, mod, duration_to_lilypond_duration(
                 (num, den), default_len, current_dots)))
 
     set_bar_acc(notename, octave, acc, state)
@@ -1250,7 +1231,6 @@ bar_dict = {
 }
 
 
-warn_about = ['|:', '::', ':|', '|1', ':|2', '|2']
 alternative_opener = ['|1', '|2', ':|2']
 repeat_ender = ['::', ':|']
 repeat_opener = ['::', '|:']
@@ -1600,31 +1580,31 @@ identify()
 header['tagline'] = (
     'LilyPond %s was here -- automatically converted from ABC' % version)
 
-for f in files:
-    if f == '-':
-        f = ''
+for file in files:
+    if file == '-':
+        file = ''
 
     if not global_options.quiet:
-        sys.stderr.write('Parsing `%s\'...\n' % f)
-    parse_file(f)
+        sys.stderr.write('Parsing `%s\'...\n' % file)
+    parse_file(file)
 
     if not global_options.output:
         global_options.output = os.path.basename(
-            os.path.splitext(f)[0]) + ".ly"
+            os.path.splitext(file)[0]) + ".ly"
     if not global_options.quiet:
         sys.stderr.write('LilyPond output to: `%s\'...' %
                          global_options.output)
-    outf = open(global_options.output, 'w', encoding='utf-8')
+    out_file = open(global_options.output, 'w', encoding='utf-8')
 
     # Don't substitute @VERSION@.  We want this to reflect
     # the last version that was verified to work.
-    outf.write('\\version "2.24.0"\n')
+    out_file.write('\\version "2.24.0"\n')
 
-    dump_header(outf, header)
-    dump_global(outf)
-    dump_slyrics(outf)
-    dump_voices(outf)
-    dump_score(outf)
-    dump_lyrics(outf)
+    dump_header(out_file, header)
+    dump_global(out_file)
+    dump_slyrics(out_file)
+    dump_voices(out_file)
+    dump_score(out_file)
+    dump_lyrics(out_file)
     if not global_options.quiet:
         sys.stderr.write('\n')
