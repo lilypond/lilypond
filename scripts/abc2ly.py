@@ -733,15 +733,17 @@ def try_parse_header_line(ln, state):
             if a == 'C':
                 if not state.common_time:
                     state.common_time = True
-                    voices_append(
-                        "\\override Staff.TimeSignature.style = #'C\n")
+                    voices_append("\\defaultTimeSignature")
                 a = '4/4'
             elif a == 'C|':
                 if not state.common_time:
                     state.common_time = True
-                    voices_append(
-                        "\\override Staff.TimeSignature.style = #'C\n")
+                    voices_append("\\defaultTimeSignature")
                 a = '2/2'
+            elif a in ('4/4', '2/2'):
+                if state.common_time:
+                    state.common_time = False
+                    voices_append("\\numericTimeSignature")
 
             if not length_specified:
                 set_default_len_from_time_sig(a)
@@ -905,7 +907,7 @@ class Parser_state:
         self.chord_current_dots = -1
         self.plus_chord = False
         self.base_octave = 0
-        self.common_time = False
+        self.common_time = True
         self.parsing_beam = False
 
 
