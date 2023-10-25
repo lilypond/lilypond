@@ -87,7 +87,6 @@
 # UNDEF -> None
 #
 
-import __main__
 import getopt
 import gettext
 import os
@@ -185,13 +184,18 @@ def check_clef(s):
 
 
 def select_voice(name, rol):
+    global current_voice_idx
+    global state
+
     if name not in voice_idx_dict:
         state_list.append(Parser_state())
         voices.append('')
         slyrics.append([])
         voice_idx_dict[name] = len(voices) - 1
-    __main__.current_voice_idx = voice_idx_dict[name]
-    __main__.state = state_list[current_voice_idx]
+
+    current_voice_idx = voice_idx_dict[name]
+    state = state_list[current_voice_idx]
+
     while rol != '':
         m = re.match('^([^ \t=]*)=(.*)$', rol)  # find keyword
         if m:
@@ -257,7 +261,6 @@ def dump_slyrics(outf):
 
 
 def dump_voices(outf):
-    global doing_alternative, in_repeat
     ks = sorted(voice_idx_dict.keys())
     for k in ks:
         if re.match('[1-9]', k):
@@ -342,22 +345,26 @@ def dump_score(outf):
 
 
 def set_default_length(s):
+    global default_len
     global length_specified
+
     m = re.search('1/([0-9]+)', s)
     if m:
-        __main__.default_len = int(m.group(1))
+        default_len = int(m.group(1))
         length_specified = True
 
 
 def set_default_len_from_time_sig(s):
+    global default_len
+
     m = re.search('([0-9]+)/([0-9]+)', s)
     if m:
         n = int(m.group(1))
         d = int(m.group(2))
         if (n * 1.0) / (d * 1.0) < 0.75:
-            __main__.default_len = 16
+            default_len = 16
         else:
-            __main__.default_len = 8
+            default_len = 8
 
 
 def gulp_file(f):
@@ -643,8 +650,6 @@ def voices_append_back(a):
 
 
 def repeat_prepend():
-    global repeat_state
-
     if current_voice_idx < 0:
         select_voice('default', '')
     if not using_old:
@@ -679,6 +684,8 @@ def fix_lyric(s):
 
 
 def slyrics_append(a):
+    global lyric_idx
+
     a = re.sub('_', ' _ ', a)         # _ to ' _ '
     # split words with "-" unless was originally "--"
     a = re.sub('([^-])-([^-])', '\\1- \\2', a)
@@ -690,7 +697,9 @@ def slyrics_append(a):
     if re.match(r'.*[0-9"\(]', a):
         a = fix_lyric(a)
     a = re.sub('$', ' ', a)           # insure space between lines
-    __main__.lyric_idx = lyric_idx + 1
+
+    lyric_idx += 1
+
     if len(slyrics[current_voice_idx]) <= lyric_idx:
         slyrics[current_voice_idx].append(a)
     else:
@@ -700,7 +709,6 @@ def slyrics_append(a):
 
 
 def try_parse_header_line(ln, state):
-    global length_specified
     m = re.match('^([A-Za-z]): *(.*)$', ln)
 
     if m:
@@ -720,6 +728,8 @@ def try_parse_header_line(ln, state):
             else:
                 header['title'] = a
         elif g == 'M':        # Meter
+            global length_specified
+
             if a == 'C':
                 if not state.common_time:
                     state.common_time = True
@@ -737,6 +747,7 @@ def try_parse_header_line(ln, state):
                 set_default_len_from_time_sig(a)
             else:
                 length_specified = False
+
             if a == 'none':
                 state.has_meter = False
             else:
@@ -748,6 +759,8 @@ def try_parse_header_line(ln, state):
         elif g == 'K':  # KEY
             a = check_clef(a)
             if a and a != 'none':
+                global global_key
+
                 # separate clef info
                 m = re.match('^([^ \t]*) *([^ ]*)( *)(.*)$', a)
                 if m:
@@ -762,13 +775,13 @@ def try_parse_header_line(ln, state):
                     else:
                         key_info = m.group(1)
                         clef_info = a[m.start(2):]
-                    __main__.global_key = compute_key(key_info)
+                    global_key = compute_key(key_info)
                     k = lily_key(key_info)
                     if k:
                         voices_append('\\key %s' % k)
                     check_clef(clef_info)
                 else:
-                    __main__.global_key = compute_key(a)
+                    global_key = compute_key(a)
                     k = lily_key(a)
                     if k:
                         voices_append('\\key %s \\major' % k)
@@ -946,10 +959,12 @@ def parse_duration(s, parser_state):
 
 
 def try_parse_rest(s, parser_state):
+    global lyric_idx
+
     if not s or s[0] != 'z' and s[0] != 'x':
         return s
 
-    __main__.lyric_idx = -1
+    lyric_idx = -1
 
     if parser_state.next_bar:
         voices_append(parser_state.next_bar)
@@ -1041,6 +1056,8 @@ def close_beam_state(state):
 
 # WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
 def try_parse_note(s, parser_state):
+    global lyric_idx
+
     if not s:
         return s
 
@@ -1068,7 +1085,7 @@ def try_parse_note(s, parser_state):
     else:
         return s                # failed; not a note!
 
-    __main__.lyric_idx = -1
+    lyric_idx = -1
 
     if parser_state.next_bar:
         voices_append(parser_state.next_bar)
@@ -1222,13 +1239,14 @@ using_old = False
 
 
 def try_parse_bar(string, state):
-    global in_repeat, doing_alternative, using_old
     do_curly = False
     bs = None
     if current_voice_idx < 0:
         select_voice('default', '')
     # first try the longer one
     for trylen in [3, 2, 1]:
+        global using_old
+
         if string[:trylen] and string[:trylen] in bar_dict:
             s = string[:trylen]
             if using_old:
@@ -1284,10 +1302,12 @@ def try_parse_bar(string, state):
             voices_append('}')
 
     if bs is not None:
+        global need_unmetered_bar
+
         clear_bar_acc(state)
         close_beam_state(state)
         if not state.has_meter:
-            __main__.need_unmetered_bar = True
+            need_unmetered_bar = True
             voices_append('\\cadenzaMeasure')
         voices_append(bs)
         if do_curly:
@@ -1379,7 +1399,6 @@ def try_parse_grace_delims(s, state):
 
 
 def try_parse_comment(s):
-    global nobarlines
     if s[0] == '%':
         if s[0:5] == '%MIDI':
             # The nobarlines option is necessary for an abc to LilyPond
@@ -1398,6 +1417,7 @@ def try_parse_comment(s):
             # able to tell a translator that the barlines should not affect
             # its interpretation of the pitch.
             if 'nobarlines' in s:
+                global nobarlines
                 nobarlines = True
         elif s[0:3] == '%LY':
             p = s.find('voices')
@@ -1417,17 +1437,19 @@ happy_count = 100
 
 
 def parse_file(fn):
+    global state
+    global lineno
+
     f = open(fn, encoding='utf-8')
     ls = f.readlines()
     ls = [re.sub("\r$", '', x) for x in ls]
 
     select_voice('default', '')
-    global lineno
     lineno = 0
     if not global_options.quiet:
         sys.stderr.write("Line ... ")
         sys.stderr.flush()
-    __main__.state = state_list[current_voice_idx]
+    state = state_list[current_voice_idx]
 
     for ln in ls:
         lineno = lineno + 1
