@@ -340,7 +340,18 @@ def dump_score(outf):
             l += 1
 
     outf.write("\n  >>\n")
-    outf.write("\n  \\layout {}")
+    if global_options.beams:
+        outf.write(r'''
+  \layout {
+    \context {
+      \Voice
+      \autoBeamOff
+      melismaBusyProperties = #'()
+    }
+  }''')
+    else:
+        outf.write(r'''
+  \layout {}''')
     outf.write("\n  \\midi {%s}\n}\n" % midi_specs)
 
 
@@ -586,6 +597,7 @@ def try_parse_tuplet_begin(s, state):
         prev_tuplet_state = state.parsing_tuplet
         state.parsing_tuplet = int(dig[0])
         if prev_tuplet_state:
+            close_beam_state(state)
             voices_append("}")
         voices_append("\\times %s {" % tup_lookup[dig])
     return s
@@ -1107,9 +1119,13 @@ def try_parse_note(s, parser_state):
         parser_state.chord_current_dots = current_dots
         parser_state.is_first_chord_note = True
 
+    if (global_options.beams
+            and state.parsing_beam
+            and num / den > 1 / 8):
+        close_beam_state(state)
+
     if re.match(r'[ \t]*\)', s):
         s = s.lstrip()
-
     slur_end = 0
     while s[:1] == ')':
         slur_end += 1
@@ -1145,12 +1161,15 @@ def try_parse_note(s, parser_state):
     if parser_state.parsing_tuplet:
         parser_state.parsing_tuplet -= 1
         if not parser_state.parsing_tuplet:
+            close_beam_state(parser_state)
             voices_append("}")
 
-    if global_options.beams and \
-            s[0] in '^=_ABCDEFGabcdefg' and \
-            not parser_state.parsing_beam and \
-            not parser_state.parsing_tuplet:
+    if (global_options.beams
+            and not parser_state.parsing_beam
+            and not parser_state.in_chord
+            and (s[0] in '^=_ABCDEFGabcdefg'
+                 or (s[0] == '[' and s[2] != ':'))
+            and num / den <= 1 / 8):
         parser_state.parsing_beam = True
         voices_append_back('[')
 
@@ -1375,6 +1394,13 @@ def try_parse_chord_delims(s, state):
             out += state.next_articulation
             state.next_articulation = ''
         out += ")" * end
+        if (global_options.beams
+                and not state.parsing_beam
+                and (s[0] in '^=_ABCDEFGabcdefg'
+                     or (s[0] == '[' and s[2] != ':'))
+                and state.chord_num / state.chord_den <= 1 / 8):
+            state.parsing_beam = True
+            out += '['
         state.in_chord = False
     else:
         if end:
@@ -1395,6 +1421,7 @@ def try_parse_grace_delims(s, state):
         voices_append('\\grace {')
     elif s[:1] == '}':
         s = s[1:]
+        close_beam_state(state)
         voices_append('}')
 
     return s
