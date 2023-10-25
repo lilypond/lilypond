@@ -288,7 +288,7 @@ def try_parse_q(a):
         numerator = int(m.group(2))
         denominator = int(m.group(3))
         tempo = m.group(4)
-        dur = duration_to_lilypond_duration((numerator, denominator), 1, 0)
+        dur = duration_to_lilypond_duration((numerator, denominator), 0)
         if descr:
             descr += ' '
         voices_append("\\tempo " + descr + dur + " = " + tempo + "\n")
@@ -868,9 +868,8 @@ def parse_num(s):
     return (s, n)
 
 
-def duration_to_lilypond_duration(multiply_tup, defaultlen, dots):
+def duration_to_lilypond_duration(multiply_tup, dots):
     base = 1
-    # (num / den) / defaultlen < 1 / base
     while base * multiply_tup[0] < multiply_tup[1]:
         base *= 2
     if base == 1:
@@ -974,9 +973,7 @@ def try_parse_rest(s, state):
 
     (s, num, den, d) = parse_duration(s, state)
     voices_append(
-        '%s%s' %
-        (rest, duration_to_lilypond_duration(
-            (num, den), default_len, d)))
+        '%s%s' % (rest, duration_to_lilypond_duration((num, den), d)))
     if state.next_articulation:
         voices_append(state.next_articulation)
         state.next_articulation = ''
@@ -1126,7 +1123,7 @@ def try_parse_note(s, state):
         voices_append(
             "%s%s%s%s" %
             (pit, octv, mod, duration_to_lilypond_duration(
-                (num, den), default_len, current_dots)))
+                (num, den), current_dots)))
 
     set_bar_acc(notename, octave, acc, state)
     if not state.in_chord:
@@ -1368,8 +1365,7 @@ def try_parse_chord_delims(s, state):
 
     if out == '>':
         out += duration_to_lilypond_duration(
-            (state.chord_num, state.chord_den), default_len,
-            state.chord_current_dots)
+            (state.chord_num, state.chord_den), state.chord_current_dots)
 
         if state.next_articulation:
             out += state.next_articulation
