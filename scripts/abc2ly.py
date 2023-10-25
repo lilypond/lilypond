@@ -106,7 +106,7 @@ if version == '@' + 'TOPLEVEL_VERSION' + '@':
     version = '(unknown version)'                # uGUHGUHGHGUGH
 
 UNDEF = 255
-state = UNDEF
+parser_state = UNDEF
 voice_idx_dict = {}
 header = {}
 header['footnotes'] = ''
@@ -139,7 +139,7 @@ def alphabet(i):
     return chr(i + ord('A'))
 
 
-def check_clef(s):
+def check_clef(s, state):
     # the number gives the base_octave
     clefs = [("treble", "treble", 0),
              ("treble1", "french", 0),
@@ -184,7 +184,7 @@ def check_clef(s):
 
 def select_voice(name, rol):
     global current_voice_idx
-    global state
+    global parser_state
 
     if name not in voice_idx_dict:
         state_list.append(Parser_state())
@@ -193,7 +193,7 @@ def select_voice(name, rol):
         voice_idx_dict[name] = len(voices) - 1
 
     current_voice_idx = voice_idx_dict[name]
-    state = state_list[current_voice_idx]
+    parser_state = state_list[current_voice_idx]
 
     while rol != '':
         m = re.match('^([^ \t=]*)=(.*)$', rol)  # find keyword
@@ -205,7 +205,7 @@ def select_voice(name, rol):
                 value = a.group(1)
                 rol = a.group(2)
                 if keyword == 'clef':
-                    check_clef(value)
+                    check_clef(value, parser_state)
                 elif keyword == "name":
                     value = re.sub('\\\\', '\\\\\\\\', value)
                     # < 2.2
@@ -753,7 +753,7 @@ def try_parse_header_line(ln, state):
                 state.has_meter = True
             state.next_bar = ''
         elif g == 'K':  # KEY
-            a = check_clef(a)
+            a = check_clef(a, state)
             if a and a != 'none':
                 global global_key
 
@@ -775,7 +775,7 @@ def try_parse_header_line(ln, state):
                     k = lily_key(key_info)
                     if k:
                         voices_append('\\key %s' % k)
-                    check_clef(clef_info)
+                    check_clef(clef_info, state)
                 else:
                     global_key = compute_key(a)
                     k = lily_key(a)
@@ -1456,7 +1456,7 @@ happy_count = 100
 
 
 def parse_file(fn):
-    global state
+    global parser_state
     global lineno
 
     f = open(fn, encoding='utf-8')
@@ -1468,7 +1468,7 @@ def parse_file(fn):
     if not global_options.quiet:
         sys.stderr.write("Line ... ")
         sys.stderr.flush()
-    state = state_list[current_voice_idx]
+    parser_state = state_list[current_voice_idx]
 
     for ln in ls:
         lineno += 1
@@ -1485,14 +1485,14 @@ def parse_file(fn):
 
         orig_ln = ln
 
-        ln = junk_space(ln, state)
-        ln = try_parse_header_line(ln, state)
+        ln = junk_space(ln, parser_state)
+        ln = try_parse_header_line(ln, parser_state)
 
         # If `ln' is not empty at this point, the parsing of header lines is
         # finished, and the music block starts.
         if ln:
-            state.in_music = True
-            if not state.has_meter:
+            parser_state.in_music = True
+            if not parser_state.has_meter:
                 voices_append("\\once \\omit Staff.TimeSignature\n")
                 voices_append("\\cadenzaOn\n")
 
@@ -1500,18 +1500,18 @@ def parse_file(fn):
         prev_ln = ''
         while ln != prev_ln:
             prev_ln = ln
-            ln = try_parse_chord_delims(ln, state)
-            ln = try_parse_rest(ln, state)
-            ln = try_parse_articulation(ln, state)
-            ln = try_parse_note(ln, state)
-            ln = try_parse_bar(ln, state)
+            ln = try_parse_chord_delims(ln, parser_state)
+            ln = try_parse_rest(ln, parser_state)
+            ln = try_parse_articulation(ln, parser_state)
+            ln = try_parse_note(ln, parser_state)
+            ln = try_parse_bar(ln, parser_state)
             ln = try_parse_tie(ln)
             ln = try_parse_escape(ln)
-            ln = try_parse_guitar_chord(ln, state)
-            ln = try_parse_tuplet_begin(ln, state)
-            ln = try_parse_group_end(ln, state)
-            ln = try_parse_grace_delims(ln, state)
-            ln = junk_space(ln, state)
+            ln = try_parse_guitar_chord(ln, parser_state)
+            ln = try_parse_tuplet_begin(ln, parser_state)
+            ln = try_parse_group_end(ln, parser_state)
+            ln = try_parse_grace_delims(ln, parser_state)
+            ln = junk_space(ln, parser_state)
 
         if ln:
             error("%s: %d: Huh?  Don't understand\n" % (fn, lineno))
