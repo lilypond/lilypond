@@ -390,13 +390,13 @@ def semitone_pitch(tup):
     p = 0
 
     t = tup[0]
-    p = p + 12 * (t // 7)
+    p += 12 * (t // 7)
     t = t % 7
 
     if t > 2:
-        p = p - 1
+        p -= 1
 
-    p = p + t * 2 + tup[1]
+    p += t * 2 + tup[1]
     return p
 
 
@@ -404,7 +404,7 @@ def fifth_above_pitch(tup):
     (n, a) = (tup[0] + 4, tup[1])
 
     difference = 7 - (semitone_pitch((n, a)) - semitone_pitch(tup))
-    a = a + difference
+    a += difference
 
     return (n, a)
 
@@ -439,7 +439,7 @@ def quart_above_pitch(tup):
     (n, a) = (tup[0] + 3, tup[1])
 
     difference = 5 - (semitone_pitch((n, a)) - semitone_pitch(tup))
-    a = a + difference
+    a += difference
 
     return (n, a)
 
@@ -471,10 +471,10 @@ def lily_key(k):
     # UGH
     k = k[1:]
     if k and k[0] == '#':
-        key = key + 'is'
+        key += 'is'
         k = k[1:]
     elif k and k[0] == 'b':
-        key = key + 'es'
+        key += 'es'
         k = k[1:]
     if not k:
         return '%s \\major' % key
@@ -499,7 +499,7 @@ def shift_key(note, acc, shift):
         n = (s + 1) // 2
         a = (s + 1) % 2
     if a:
-        n = n + 1
+        n += 1
         a = -1
     return (n, a)
 
@@ -563,7 +563,7 @@ def compute_key(k):
 
     key_table = [0] * 7
     for a in accseq:
-        key_table[a] = key_table[a] + accsign
+        key_table[a] += accsign
 
     return key_table
 
@@ -608,7 +608,7 @@ def header_append(key, a):
 def wordwrap(a, v):
     linelen = len(v) - v.rfind('\n')
     if linelen + len(a) > 80:
-        v = v + '\n'
+        v += '\n'
     return v + a + ' '
 
 
@@ -627,8 +627,8 @@ def stuff_append_back(stuff, idx, a):
     else:
         point = len(stuff[idx]) - 1
         while stuff[idx][point] == ' ':
-            point = point - 1
-        point = point + 1
+            point -= 1
+        point += 1
         stuff[idx] = stuff[idx][:point] + a + stuff[idx][point:]
 
 
@@ -675,9 +675,9 @@ def fix_lyric(s):
             word = re.sub('"', '\\"', word)    # escape "
             if re.match(r'.*[0-9"\(]', word):
                 word = re.sub('_', ' ', word)  # _ causes probs inside ""
-                ret = ret + '\"' + word + '\" '
+                ret += '\"' + word + '\" '
             else:
-                ret = ret + word + ' '
+                ret += word + ' '
         else:
             return ret
     return ret
@@ -722,7 +722,7 @@ def try_parse_header_line(ln, state):
                         # the non-ascii character
                         # in the string below is a
                         # punctuation dash. (TeX ---)
-                        header['title'] = header['title'] + ' — ' + a
+                        header['title'] += ' — ' + a
                     else:
                         header['subtitle'] = a
             else:
@@ -786,7 +786,7 @@ def try_parse_header_line(ln, state):
                     if k:
                         voices_append('\\key %s \\major' % k)
         elif g == 'N':  # Notes
-            header['footnotes'] = header['footnotes'] + '\\\\\\\\' + a
+            header['footnotes'] += '\\\\\\\\' + a
         elif g == 'O':  # Origin
             header['origin'] = a
         elif g == 'X':  # Reference Number
@@ -800,7 +800,7 @@ def try_parse_header_line(ln, state):
         elif g == 'C':  # Composer
             if 'composer' in header:
                 if a:
-                    header['composer'] = header['composer'] + '\\\\\\\\' + a
+                    header['composer'] += '\\\\\\\\' + a
             else:
                 header['composer'] = a
         elif g == 'S':
@@ -844,12 +844,12 @@ def pitch_to_lilypond_name(name, acc, bar_acc, key):
         s = 'is'
 
     if name > 4:
-        name = name - 7
+        name -= 7
     return chr(name + ord('c')) + s
 
 
 def octave_to_lilypond_quotes(o):
-    o = o + 2
+    o += 2
     s = ''
     if o < 0:
         o = -o
@@ -863,7 +863,7 @@ def octave_to_lilypond_quotes(o):
 def parse_num(s):
     durstr = ''
     while s and s[0] in DIGITS:
-        durstr = durstr + s[0]
+        durstr += s[0]
         s = s[1:]
 
     n = None
@@ -876,7 +876,7 @@ def duration_to_lilypond_duration(multiply_tup, defaultlen, dots):
     base = 1
     # (num / den) / defaultlen < 1 / base
     while base * multiply_tup[0] < multiply_tup[1]:
-        base = base * 2
+        base *= 2
     if base == 1:
         if (multiply_tup[0] / multiply_tup[1]) == 2:
             base = '\\breve'
@@ -927,9 +927,9 @@ def parse_duration(s, parser_state):
                     if s[0] in DIGITS:
                         (s, d) = parse_num(s)
 
-                    den = den * d
+                    den *= d
 
-    den = den * default_len
+    den *= default_len
 
     current_dots = parser_state.next_dots
     parser_state.next_dots = 0
@@ -938,22 +938,22 @@ def parse_duration(s, parser_state):
             s = s[1:]
         while s[0] == '>':
             s = s[1:]
-            current_dots = current_dots + 1
-            parser_state.next_den = parser_state.next_den * 2
+            current_dots += 1
+            parser_state.next_den *= 2
 
         while s[0] == '<':
             s = s[1:]
-            den = den * 2
-            parser_state.next_dots = parser_state.next_dots + 1
+            den *= 2
+            parser_state.next_dots += 1
 
     try_dots = [3, 2, 1]
     for d in try_dots:
         f = 1 << d
         multiplier = (2 * f - 1)
         if num % multiplier == 0 and den % f == 0:
-            num = num / multiplier
-            den = den / f
-            current_dots = current_dots + d
+            num /= multiplier
+            den /= f
+            current_dots += d
 
     return (s, num, den, current_dots)
 
@@ -1007,7 +1007,7 @@ artic_tbl = {
 
 def try_parse_articulation(s, state):
     while s and s[:1] in artic_tbl:
-        state.next_articulation = state.next_articulation + artic_tbl[s[:1]]
+        state.next_articulation += artic_tbl[s[:1]]
         if not artic_tbl[s[:1]]:
             sys.stderr.write("Warning: ignoring `%s'\n" % s[:1])
 
@@ -1018,7 +1018,7 @@ def try_parse_articulation(s, state):
         s = s.lstrip()
 
     while s[:1] == '(' and s[1] not in DIGITS:
-        state.next_articulation = state.next_articulation + '('
+        state.next_articulation += '('
         s = s[1:]
 
     return s
@@ -1076,7 +1076,7 @@ def try_parse_note(s, parser_state):
     octave = parser_state.base_octave
     if s[0] in "ABCDEFG":
         s = s[0].lower() + s[1:]
-        octave = octave - 1
+        octave -= 1
 
     notename = 0
     if s[0] in "abcdefg":
@@ -1092,10 +1092,10 @@ def try_parse_note(s, parser_state):
         parser_state.next_bar = ''
 
     while s[0] == ',':
-        octave = octave - 1
+        octave -= 1
         s = s[1:]
     while s[0] == '\'':
-        octave = octave + 1
+        octave += 1
         s = s[1:]
 
     (s, num, den, current_dots) = parse_duration(s, parser_state)
@@ -1110,7 +1110,7 @@ def try_parse_note(s, parser_state):
 
     slur_end = 0
     while s[:1] == ')':
-        slur_end = slur_end + 1
+        slur_end += 1
         s = s[1:]
 
     bar_acc = get_bar_acc(notename, octave, parser_state)
@@ -1132,7 +1132,7 @@ def try_parse_note(s, parser_state):
     set_bar_acc(notename, octave, acc, parser_state)
     if not parser_state.in_chord:
         if parser_state.next_articulation:
-            articulation = articulation + parser_state.next_articulation
+            articulation += parser_state.next_articulation
             parser_state.next_articulation = ''
         if articulation:
             voices_append(articulation)
@@ -1141,7 +1141,7 @@ def try_parse_note(s, parser_state):
         voices_append(')' * slur_end)
 
     if parser_state.parsing_tuplet:
-        parser_state.parsing_tuplet = parser_state.parsing_tuplet - 1
+        parser_state.parsing_tuplet -= 1
         if not parser_state.parsing_tuplet:
             voices_append("}")
 
@@ -1173,7 +1173,7 @@ def try_parse_guitar_chord(s, state):
         else:
             position = '^'
         while s and s[0] != '"':
-            gc = gc + s[0]
+            gc += s[0]
             s = s[1:]
 
         if s:
@@ -1362,7 +1362,7 @@ def try_parse_chord_delims(s, state):
 
     end = 0
     while s[:1] == ')':
-        end = end + 1
+        end += 1
         s = s[1:]
 
     if out == '>':
@@ -1452,7 +1452,7 @@ def parse_file(fn):
     state = state_list[current_voice_idx]
 
     for ln in ls:
-        lineno = lineno + 1
+        lineno += 1
 
         if not lineno % happy_count:
             sys.stderr.write('[%d]' % lineno)
