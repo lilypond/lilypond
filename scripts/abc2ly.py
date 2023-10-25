@@ -116,20 +116,19 @@ lyrics = []
 slyrics = []
 voices = []
 state_list = []
-repeat_state = [0] * 8
+repeat_state = [False] * 8
 current_voice_idx = -1
 current_lyric_idx = -1
 lyric_idx = -1
-part_names = 0
 default_len = 8
-length_specified = 0
-nobarlines = 0
+length_specified = False
+nobarlines = False
 global_key = [0] * 7                        # UGH
 names = ["One", "Two", "Three"]
 DIGITS = '0123456789'
 HSPACE = ' \t'
 midi_specs = ''
-need_unmetered_bar = 0
+need_unmetered_bar = False
 
 
 def error(msg):
@@ -208,8 +207,6 @@ def select_voice(name, rol):
                     value = re.sub('\\\\', '\\\\\\\\', value)
                     # < 2.2
                     voices_append("\\set Staff.instrument = %s\n" % value)
-
-                    __main__.part_names = 1
                 elif keyword == "sname" or keyword == "snm":
                     voices_append("\\set Staff.instr = %s\n" % value)
         else:
@@ -349,7 +346,7 @@ def set_default_length(s):
     m = re.search('1/([0-9]+)', s)
     if m:
         __main__.default_len = int(m.group(1))
-        length_specified = 1
+        length_specified = True
 
 
 def set_default_len_from_time_sig(s):
@@ -408,7 +405,6 @@ def fifth_above_pitch(tup):
 def sharp_keys():
     p = (0, 0)
     l = []
-    k = 0
     while True:
         l.append(p)
         (t, a) = fifth_above_pitch(p)
@@ -422,7 +418,6 @@ def sharp_keys():
 def flat_keys():
     p = (0, 0)
     l = []
-    k = 0
     while True:
         l.append(p)
         (t, a) = quart_above_pitch(p)
@@ -649,10 +644,11 @@ def voices_append_back(a):
 
 def repeat_prepend():
     global repeat_state
+
     if current_voice_idx < 0:
         select_voice('default', '')
     if not using_old:
-        repeat_state[current_voice_idx] = 't'
+        repeat_state[current_voice_idx] = True
 
 
 def lyrics_append(a):
@@ -726,27 +722,28 @@ def try_parse_header_line(ln, state):
         elif g == 'M':        # Meter
             if a == 'C':
                 if not state.common_time:
-                    state.common_time = 1
+                    state.common_time = True
                     voices_append(
                         "\\override Staff.TimeSignature.style = #'C\n")
                 a = '4/4'
             elif a == 'C|':
                 if not state.common_time:
-                    state.common_time = 1
+                    state.common_time = True
                     voices_append(
                         "\\override Staff.TimeSignature.style = #'C\n")
                 a = '2/2'
+
             if not length_specified:
                 set_default_len_from_time_sig(a)
             else:
-                length_specified = 0
+                length_specified = False
             if a == 'none':
-                state.has_meter = 0
+                state.has_meter = False
             else:
                 if state.in_music and not state.has_meter:
                     voices_append('\\cadenzaOff\n')
                 voices_append('\\time %s' % a)
-                state.has_meter = 1
+                state.has_meter = True
             state.next_bar = ''
         elif g == 'K':  # KEY
             a = check_clef(a)
@@ -880,23 +877,23 @@ def duration_to_lilypond_duration(multiply_tup, defaultlen, dots):
 
 class Parser_state:
     def __init__(self):
-        self.in_music = 0
-        self.has_meter = 0
+        self.in_music = False
+        self.has_meter = False
         self.in_acc = {}
         self.next_articulation = ''
         self.next_bar = ''
         self.next_dots = 0
         self.next_den = 1
         self.parsing_tuplet = 0
-        self.in_chord = 0
-        self.is_first_chord_note = 0
+        self.in_chord = False
+        self.is_first_chord_note = False
         self.chord_num = -1
         self.chord_den = -1
         self.chord_current_dots = -1
-        self.plus_chord = 0
+        self.plus_chord = False
         self.base_octave = 0
-        self.common_time = 0
-        self.parsing_beam = 0
+        self.common_time = False
+        self.parsing_beam = False
 
 
 # return (str, num,den,dots)
@@ -1038,7 +1035,7 @@ def clear_bar_acc(state):
 # if we are parsing a beam, close it off
 def close_beam_state(state):
     if state.parsing_beam and global_options.beams:
-        state.parsing_beam = 0
+        state.parsing_beam = False
         voices_append_back(']')
 
 
@@ -1089,7 +1086,7 @@ def try_parse_note(s, parser_state):
         parser_state.chord_num = num
         parser_state.chord_den = den
         parser_state.chord_current_dots = current_dots
-        parser_state.is_first_chord_note = 1
+        parser_state.is_first_chord_note = True
 
     if re.match(r'[ \t]*\)', s):
         s = s.lstrip()
@@ -1135,7 +1132,7 @@ def try_parse_note(s, parser_state):
             s[0] in '^=_ABCDEFGabcdefg' and \
             not parser_state.parsing_beam and \
             not parser_state.parsing_tuplet:
-        parser_state.parsing_beam = 1
+        parser_state.parsing_beam = True
         voices_append_back('[')
 
     return s
@@ -1219,14 +1216,14 @@ warn_about = ['|:', '::', ':|', '|1', ':|2', '|2']
 alternative_opener = ['|1', '|2', ':|2']
 repeat_ender = ['::', ':|']
 repeat_opener = ['::', '|:']
-in_repeat = [''] * 8
-doing_alternative = [''] * 8
-using_old = ''
+in_repeat = [False] * 8
+doing_alternative = [False] * 8
+using_old = False
 
 
 def try_parse_bar(string, state):
     global in_repeat, doing_alternative, using_old
-    do_curly = ''
+    do_curly = False
     bs = None
     if current_voice_idx < 0:
         select_voice('default', '')
@@ -1243,29 +1240,29 @@ def try_parse_bar(string, state):
 
             if s in alternative_opener:
                 if not in_repeat[current_voice_idx]:
-                    using_old = 't'
+                    using_old = True
                     bs = "\\bar \"%s\"" % old_bar_dict[s]
                 else:
-                    doing_alternative[current_voice_idx] = 't'
+                    doing_alternative[current_voice_idx] = True
 
             if s in repeat_ender:
                 if not in_repeat[current_voice_idx]:
                     sys.stderr.write(
                         "Warning: inserting repeat to beginning of notes.\n")
                     repeat_prepend()
-                    in_repeat[current_voice_idx] = ''
+                    in_repeat[current_voice_idx] = False
                 else:
                     if doing_alternative[current_voice_idx]:
-                        do_curly = 't'
+                        do_curly = True
                 if using_old:
                     bs = "\\bar \"%s\"" % old_bar_dict[s]
                 else:
                     bs = bar_dict[s]
-                doing_alternative[current_voice_idx] = ''
-                in_repeat[current_voice_idx] = ''
+                doing_alternative[current_voice_idx] = False
+                in_repeat[current_voice_idx] = False
 
             if s in repeat_opener:
-                in_repeat[current_voice_idx] = 't'
+                in_repeat[current_voice_idx] = True
                 if using_old:
                     bs = "\\bar \"%s\"" % old_bar_dict[s]
                 else:
@@ -1290,12 +1287,12 @@ def try_parse_bar(string, state):
         clear_bar_acc(state)
         close_beam_state(state)
         if not state.has_meter:
-            __main__.need_unmetered_bar = 1
+            __main__.need_unmetered_bar = True
             voices_append('\\cadenzaMeasure')
         voices_append(bs)
-        if do_curly != '':
+        if do_curly:
             voices_append("}")
-            do_curly = ''
+            do_curly = False
     return string
 
 
@@ -1329,13 +1326,13 @@ def try_parse_chord_delims(s, state):
         s = s[1:]
         if state.plus_chord:
             out = '>'
-            state.plus_chord = 0
+            state.plus_chord = False
         else:
             if state.next_bar:
                 voices_append(state.next_bar)
                 state.next_bar = ''
             out = '<'
-            state.plus_chord = 1
+            state.plus_chord = True
     elif s[:1] == ']':
         s = s[1:]
         out = '>'
@@ -1356,12 +1353,12 @@ def try_parse_chord_delims(s, state):
             out += state.next_articulation
             state.next_articulation = ''
         out += ")" * end
-        state.in_chord = 0
+        state.in_chord = False
     else:
         if end:
             sys.stderr.write("Warning: ignoring `)' in chord\n")
-        state.in_chord = 1
-        state.is_first_chord_note = 0
+        state.in_chord = True
+        state.is_first_chord_note = False
 
     voices_append(out)
     return s
@@ -1401,7 +1398,7 @@ def try_parse_comment(s):
             # able to tell a translator that the barlines should not affect
             # its interpretation of the pitch.
             if 'nobarlines' in s:
-                nobarlines = 1
+                nobarlines = True
         elif s[0:3] == '%LY':
             p = s.find('voices')
             if p > -1:
@@ -1453,7 +1450,7 @@ def parse_file(fn):
         # If `ln' is not empty at this point, the parsing of header lines is
         # finished, and the music block starts.
         if ln:
-            state.in_music = 1
+            state.in_music = True
             if not state.has_meter:
                 voices_append("\\once \\omit Staff.TimeSignature\n")
                 voices_append("\\cadenzaOn\n")
