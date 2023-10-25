@@ -1158,7 +1158,7 @@ def try_parse_note(s, parser_state):
     if slur_end:
         voices_append(')' * slur_end)
 
-    if parser_state.parsing_tuplet:
+    if not parser_state.in_chord and parser_state.parsing_tuplet:
         parser_state.parsing_tuplet -= 1
         if not parser_state.parsing_tuplet:
             close_beam_state(parser_state)
@@ -1390,25 +1390,35 @@ def try_parse_chord_delims(s, state):
         out += duration_to_lilypond_duration(
             (state.chord_num, state.chord_den), default_len,
             state.chord_current_dots)
+
         if state.next_articulation:
             out += state.next_articulation
             state.next_articulation = ''
-        out += ")" * end
+
+        voices_append(out + ")" * end)
+
+        if state.parsing_tuplet:
+            state.parsing_tuplet -= 1
+            if not state.parsing_tuplet:
+                close_beam_state(state)
+                voices_append("}")
+
         if (global_options.beams
                 and not state.parsing_beam
                 and (s[0] in '^=_ABCDEFGabcdefg'
                      or (s[0] == '[' and s[2] != ':'))
                 and state.chord_num / state.chord_den <= 1 / 8):
             state.parsing_beam = True
-            out += '['
+            voices_append('[')
+
         state.in_chord = False
     else:
         if end:
             sys.stderr.write("Warning: ignoring `)' in chord\n")
         state.in_chord = True
         state.is_first_chord_note = False
+        voices_append(out)
 
-    voices_append(out)
     return s
 
 
