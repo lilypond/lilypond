@@ -924,10 +924,10 @@ class Parser_state:
 
 
 # return (str, num,den,dots)
-def parse_duration(s, parser_state):
+def parse_duration(s, state):
     num = 0
-    den = parser_state.next_den
-    parser_state.next_den = 1
+    den = state.next_den
+    state.next_den = 1
 
     (s, num) = parse_num(s)
     if not num:
@@ -945,20 +945,20 @@ def parse_duration(s, parser_state):
 
     den *= default_len
 
-    current_dots = parser_state.next_dots
-    parser_state.next_dots = 0
+    current_dots = state.next_dots
+    state.next_dots = 0
     if re.match('[ \t]*[<>]', s):
         while s[0] in HSPACE:
             s = s[1:]
         while s[0] == '>':
             s = s[1:]
             current_dots += 1
-            parser_state.next_den *= 2
+            state.next_den *= 2
 
         while s[0] == '<':
             s = s[1:]
             den *= 2
-            parser_state.next_dots += 1
+            state.next_dots += 1
 
     try_dots = [3, 2, 1]
     for d in try_dots:
@@ -972,7 +972,7 @@ def parse_duration(s, parser_state):
     return (s, num, den, current_dots)
 
 
-def try_parse_rest(s, parser_state):
+def try_parse_rest(s, state):
     global lyric_idx
 
     if not s or s[0] != 'z' and s[0] != 'x':
@@ -980,9 +980,9 @@ def try_parse_rest(s, parser_state):
 
     lyric_idx = -1
 
-    if parser_state.next_bar:
-        voices_append(parser_state.next_bar)
-        parser_state.next_bar = ''
+    if state.next_bar:
+        voices_append(state.next_bar)
+        state.next_bar = ''
 
     if s[0] == 'z':
         rest = 'r'
@@ -990,14 +990,14 @@ def try_parse_rest(s, parser_state):
         rest = 's'
     s = s[1:]
 
-    (s, num, den, d) = parse_duration(s, parser_state)
+    (s, num, den, d) = parse_duration(s, state)
     voices_append(
         '%s%s' %
         (rest, duration_to_lilypond_duration(
             (num, den), default_len, d)))
-    if parser_state.next_articulation:
-        voices_append(parser_state.next_articulation)
-        parser_state.next_articulation = ''
+    if state.next_articulation:
+        voices_append(state.next_articulation)
+        state.next_articulation = ''
 
     return s
 
@@ -1069,7 +1069,7 @@ def close_beam_state(state):
 
 
 # WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
-def try_parse_note(s, parser_state):
+def try_parse_note(s, state):
     global lyric_idx
 
     if not s:
@@ -1087,7 +1087,7 @@ def try_parse_note(s, parser_state):
         if c == '_':
             acc = -1
 
-    octave = parser_state.base_octave
+    octave = state.base_octave
     if s[0] in "ABCDEFG":
         s = s[0].lower() + s[1:]
         octave -= 1
@@ -1101,9 +1101,9 @@ def try_parse_note(s, parser_state):
 
     lyric_idx = -1
 
-    if parser_state.next_bar:
-        voices_append(parser_state.next_bar)
-        parser_state.next_bar = ''
+    if state.next_bar:
+        voices_append(state.next_bar)
+        state.next_bar = ''
 
     while s[0] == ',':
         octave -= 1
@@ -1112,12 +1112,12 @@ def try_parse_note(s, parser_state):
         octave += 1
         s = s[1:]
 
-    (s, num, den, current_dots) = parse_duration(s, parser_state)
-    if parser_state.in_chord and not parser_state.is_first_chord_note:
-        parser_state.chord_num = num
-        parser_state.chord_den = den
-        parser_state.chord_current_dots = current_dots
-        parser_state.is_first_chord_note = True
+    (s, num, den, current_dots) = parse_duration(s, state)
+    if state.in_chord and not state.is_first_chord_note:
+        state.chord_num = num
+        state.chord_den = den
+        state.chord_current_dots = current_dots
+        state.is_first_chord_note = True
 
     if (global_options.beams
             and state.parsing_beam
@@ -1131,7 +1131,7 @@ def try_parse_note(s, parser_state):
         slur_end += 1
         s = s[1:]
 
-    bar_acc = get_bar_acc(notename, octave, parser_state)
+    bar_acc = get_bar_acc(notename, octave, state)
     pit = pitch_to_lilypond_name(notename, acc, bar_acc, global_key[notename])
     oct = octave_to_lilypond_quotes(octave)
     if acc != UNDEF and (acc == global_key[notename] or acc == bar_acc):
@@ -1139,7 +1139,7 @@ def try_parse_note(s, parser_state):
     else:
         mod = ''
 
-    if parser_state.in_chord:
+    if state.in_chord:
         voices_append("%s%s%s" % (pit, oct, mod))
     else:
         voices_append(
@@ -1147,30 +1147,30 @@ def try_parse_note(s, parser_state):
             (pit, oct, mod, duration_to_lilypond_duration(
                 (num, den), default_len, current_dots)))
 
-    set_bar_acc(notename, octave, acc, parser_state)
-    if not parser_state.in_chord:
-        if parser_state.next_articulation:
-            articulation += parser_state.next_articulation
-            parser_state.next_articulation = ''
+    set_bar_acc(notename, octave, acc, state)
+    if not state.in_chord:
+        if state.next_articulation:
+            articulation += state.next_articulation
+            state.next_articulation = ''
         if articulation:
             voices_append(articulation)
 
     if slur_end:
         voices_append(')' * slur_end)
 
-    if not parser_state.in_chord and parser_state.parsing_tuplet:
-        parser_state.parsing_tuplet -= 1
-        if not parser_state.parsing_tuplet:
-            close_beam_state(parser_state)
+    if not state.in_chord and state.parsing_tuplet:
+        state.parsing_tuplet -= 1
+        if not state.parsing_tuplet:
+            close_beam_state(state)
             voices_append("}")
 
     if (global_options.beams
-            and not parser_state.parsing_beam
-            and not parser_state.in_chord
+            and not state.parsing_beam
+            and not state.in_chord
             and (s[0] in '^=_ABCDEFGabcdefg'
                  or (s[0] == '[' and s[2] != ':'))
             and num / den <= 1 / 8):
-        parser_state.parsing_beam = True
+        state.parsing_beam = True
         voices_append_back('[')
 
     return s
