@@ -114,7 +114,7 @@ lyrics = []
 slyrics = []
 voices = []
 state_list = []
-repeat_state = [False] * 8
+implicit_repeat = [False] * 8
 current_voice_idx = -1
 current_lyric_idx = -1
 lyric_idx = -1
@@ -267,11 +267,11 @@ def dump_voices(outf):
         else:
             m = k
         outf.write("\nvoice%s = {" % m)
-        if repeat_state[voice_idx_dict[k]]:
+        if implicit_repeat[voice_idx_dict[k]]:
             outf.write("\n\\repeat volta 2 {")
         outf.write("\n" + voices[voice_idx_dict[k]])
         if not using_old:
-            if doing_alternative[voice_idx_dict[k]]:
+            if in_alternative[voice_idx_dict[k]]:
                 outf.write("}")
             if in_repeat[voice_idx_dict[k]]:
                 outf.write("}")
@@ -648,7 +648,7 @@ def repeat_prepend():
     if current_voice_idx < 0:
         select_voice('default', '')
     if not using_old:
-        repeat_state[current_voice_idx] = True
+        implicit_repeat[current_voice_idx] = True
 
 
 def lyrics_append(a):
@@ -1232,7 +1232,7 @@ alternative_opener = ['|1', '|2', ':|2']
 repeat_ender = ['::', ':|']
 repeat_opener = ['::', '|:']
 in_repeat = [False] * 8
-doing_alternative = [False] * 8
+in_alternative = [False] * 8
 using_old = False
 
 
@@ -1259,7 +1259,7 @@ def try_parse_bar(string, state):
                     using_old = True
                     bs = "\\bar \"%s\"" % old_bar_dict[s]
                 else:
-                    doing_alternative[current_voice_idx] = True
+                    in_alternative[current_voice_idx] = True
 
             if s in repeat_ender:
                 if not in_repeat[current_voice_idx]:
@@ -1268,13 +1268,13 @@ def try_parse_bar(string, state):
                     repeat_prepend()
                     in_repeat[current_voice_idx] = False
                 else:
-                    if doing_alternative[current_voice_idx]:
+                    if in_alternative[current_voice_idx]:
                         do_curly = True
                 if using_old:
                     bs = "\\bar \"%s\"" % old_bar_dict[s]
                 else:
                     bs = bar_dict[s]
-                doing_alternative[current_voice_idx] = False
+                in_alternative[current_voice_idx] = False
                 in_repeat[current_voice_idx] = False
 
             if s in repeat_opener:
