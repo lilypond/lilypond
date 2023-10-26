@@ -209,9 +209,11 @@ def select_voice(name, rol):
                 elif keyword == "name":
                     value = re.sub('\\\\', '\\\\\\\\', value)
                     # < 2.2
-                    voices_append("\\set Staff.instrument = %s\n" % value)
+                    voices_append(
+                        "\\set Staff.instrumentName = %s\n" % value)
                 elif keyword in ("sname", "snm"):
-                    voices_append("\\set Staff.instr = %s\n" % value)
+                    voices_append(
+                        "\\set Staff.shortInstrumentName = %s\n" % value)
         else:
             break
 
