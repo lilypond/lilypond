@@ -1,8 +1,6 @@
 #!@TARGET_PYTHON@
 # -*- coding: utf-8 -*-
 
-# once upon a rainy monday afternoon.
-
 #    This file is part of LilyPond, the GNU music typesetter.
 #
 #    Copyright (C) 1999--2023  Han-Wen Nienhuys <hanwen@xs4all.nl>
@@ -21,46 +19,13 @@
 #    You should have received a copy of the GNU General Public License
 #    along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+# Convert ABC music notation to LilyPond code.
 #
-#   ...
+# This script provides incomplete support for ABC standard v1.6:
 #
-# (not finished.)
-# ABC standard v1.6:  https://abcnotation.com/standard/abc_v1.6.txt
+#   https://abcnotation.com/standard/abc_v1.6.txt
 #
-# Enhancements  (Roy R. Rankin)
-#
-# Header section moved to top of LilyPond file
-# handle treble, treble-8, alto, and bass clef
-# Handle voices (V: headers) with clef and part names, multiple voices
-# Handle w: lyrics with multiple verses
-# Handle key mode names for minor, major, phrygian, ionian, locrian, aeolian,
-#     mixolydian, lydian, dorian
-# Handle part names from V: header
-# Tuplets handling fixed up
-# Lines starting with |: not discarded as header lines
-# Multiple T: and C: header entries handled
-# Accidental maintained until next bar check
-# Silent rests supported
-# articulations fermata, upbow, downbow, ltoe, accent, tenuto supported
-# Chord strings([-^]"string") can contain a '#'
-# Header fields enclosed by [] in notes string processed
-# W: words output after tune as abc2ps does it (they failed before)
 
-# Enhancements (Laura Conrad)
-#
-# Barring now preserved between ABC and LilyPond
-# the default placement for text in abc is above the staff.
-# %%LY now supported.
-# \breve and \longa supported.
-# M:none doesn't crash lily.
-# LilyPond '--' supported.
-
-# Enhancements (Guy Gascoigne-Piggford)
-#
-# Add support for maintaining ABC's notion of beaming, this is selectable
-# from the command line with a -b or --beam option.
-# Fixd a problem where on cygwin empty lines weren't being correctly identifed
-# and so were complaining, but still generating the correct output.
 
 # Limitations
 #
@@ -72,20 +37,21 @@
 # Postscript commands are ignored
 # lyrics not resynchronized by line breaks (lyrics must fully match notes)
 # %%LY slyrics can't be directly before a w: line.
-# ???
 
 
 # TODO:
 #
+# * updates to latest ABC standard
 # * coding style
 # * lilylib
 # * GNU style messages:  warning:FILE:LINE:
 # * l10n
-#
-# Convert to new chord styles.
+# * support of upbeats for metered music – this needs a huge rewrite of
+#   this script
+# * better support for incomplete repeats
 #
 # UNDEF -> None
-#
+
 
 import gettext
 import os
