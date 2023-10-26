@@ -195,6 +195,7 @@ def select_voice(name, rol):
     current_voice_idx = voice_idx_dict[name]
     parser_state = state_list[current_voice_idx]
 
+    # TODO: Add more keywords.
     while rol != '':
         m = re.match('^([^ \t=]*)=(.*)$', rol)  # find keyword
         if m:
@@ -250,13 +251,8 @@ def dump_lyrics(outf):
 def dump_slyrics(outf):
     ks = sorted(voice_idx_dict.keys())
     for k in ks:
-        if re.match('[1-9]', k):
-            m = alphabet(int(k))
-        else:
-            m = k
         for i in range(len(slyrics[voice_idx_dict[k]])):
-            l = alphabet(i)
-            outf.write("\nwords%sV%s = \\lyricmode {" % (m, l))
+            outf.write("\n\"words%sV%s\" = \\lyricmode {" % (k, i + 1))
             outf.write("\n" + slyrics[voice_idx_dict[k]][i])
             outf.write("\n}\n")
 
@@ -270,7 +266,7 @@ def dump_voices(outf):
             m = alphabet(int(k))
         else:
             m = k
-        outf.write("\nvoice%s = {" % m)
+        outf.write("\n\"voice%s\" = {" % m)
         if implicit_repeat[idx]:
             outf.write("\n\\repeat volta 2 {")
         outf.write("\n" + voices[idx])
@@ -318,29 +314,18 @@ def dump_score(outf):
 
     ks = sorted(voice_idx_dict.keys())
     for k in ks:
-        if re.match('[1-9]', k):
-            m = alphabet(int(k))
-        else:
-            m = k
         if k == 'default' and len(voice_idx_dict) > 1:
             break
         outf.write("    \\context Staff = \"%s\" {\n" % k)
         if k != 'default':
             outf.write("      \\voicedefault\n")
-        outf.write("      \\voice%s" % m)
+        outf.write("      \\\"voice%s\"" % k)
         outf.write("\n    }")
 
-        l = ord('A')
-        for lyr in slyrics[voice_idx_dict[k]]:
+        for i in range(len(slyrics[voice_idx_dict[k]])):
             outf.write("\n    \\addlyrics {\n")
-            if re.match('[1-9]', k):
-                m = alphabet(int(k))
-            else:
-                m = k
-
-            outf.write("      \\words%sV%s" % (m, chr(l)))
+            outf.write("      \\\"words%sV%s\"" % (k, i + 1))
             outf.write("\n    }")
-            l += 1
 
     outf.write("\n  >>\n")
     if global_options.beams:
