@@ -886,11 +886,12 @@ class Parser_state:
         self.parsing_beam = False
 
 
-# return (str, num,den,dots)
-def parse_duration(s, state):
+# return (str, num, den, dots, tie)
+def parse_duration_and_tie(s, state):
     num = 0
     den = state.next_den
     state.next_den = 1
+    tie = ''
 
     (s, num) = parse_num(s)
     if not num:
@@ -908,20 +909,45 @@ def parse_duration(s, state):
 
     den *= default_len
 
+    if s[0] == '-':
+        tie = '~'
+        s = s[1:]
+
     current_dots = state.next_dots
     state.next_dots = 0
+
+    current_dots_delta = 0
+    den_factor = 1
+    next_dots_delta = 0
+    next_den_factor = 1
+
+    have_lt = False
+    have_gt = False
+
     if re.match('[ \t]*[<>]', s):
         while s[0] in HSPACE:
             s = s[1:]
         while s[0] == '>':
+            have_gt = True
             s = s[1:]
-            current_dots += 1
-            state.next_den *= 2
-
+            current_dots_delta += 1
+            next_den_factor *= 2
         while s[0] == '<':
+            have_lt = True
             s = s[1:]
-            den *= 2
-            state.next_dots += 1
+            den_factor *= 2
+            next_dots_delta += 1
+
+    if state.in_chord:
+        if have_gt:
+            sys.stderr.write("Warning: ignoring '>' in chord\n")
+        if have_lt:
+            sys.stderr.write("Warning: ignoring '<' in chord\n")
+    else:
+        current_dots += current_dots_delta
+        den *= den_factor
+        state.next_dots += next_dots_delta
+        state.next_den *= next_den_factor
 
     try_dots = [3, 2, 1]
     for d in try_dots:
@@ -932,7 +958,7 @@ def parse_duration(s, state):
             den /= f
             current_dots += d
 
-    return (s, num, den, current_dots)
+    return (s, num, den, current_dots, tie)
 
 
 def try_parse_rest(s, state):
@@ -953,9 +979,11 @@ def try_parse_rest(s, state):
         rest = 's'
     s = s[1:]
 
-    (s, num, den, d) = parse_duration(s, state)
+    (s, num, den, d, tie) = parse_duration_and_tie(s, state)
     voices_append(
         '%s%s' % (rest, duration_to_lilypond_duration((num, den), d)))
+    if tie:
+        sys.stderr.write("Warning: ignoring tie after rest\n")
     if state.next_articulation:
         voices_append(state.next_articulation)
         state.next_articulation = ''
@@ -1072,7 +1100,7 @@ def try_parse_note(s, state):
         octave += 1
         s = s[1:]
 
-    (s, num, den, current_dots) = parse_duration(s, state)
+    (s, num, den, current_dots, tie) = parse_duration_and_tie(s, state)
     if state.in_chord and not state.is_first_chord_note:
         state.chord_num = num
         state.chord_den = den
@@ -1100,12 +1128,12 @@ def try_parse_note(s, state):
         mod = ''
 
     if state.in_chord:
-        voices_append("%s%s%s" % (pit, octv, mod))
+        voices_append("%s%s%s%s" % (pit, octv, mod, tie))
     else:
         voices_append(
-            "%s%s%s%s" %
+            "%s%s%s%s%s" %
             (pit, octv, mod, duration_to_lilypond_duration(
-                (num, den), current_dots)))
+                (num, den), current_dots), tie))
 
     set_bar_acc(notename, octave, acc, state)
     if not state.in_chord:
@@ -1337,13 +1365,6 @@ def try_parse_bar(string, state):
     return string
 
 
-def try_parse_tie(s):
-    if s[:1] == '-':
-        s = s[1:]
-        voices_append('~')
-    return s
-
-
 def bracket_escape(s, state):
     m = re.match(r'^([^\]]*)] *(.*)$', s)
     if m:
@@ -1526,7 +1547,6 @@ def parse_file(fn):
             ln = try_parse_articulation(ln, parser_state)
             ln = try_parse_note(ln, parser_state)
             ln = try_parse_bar(ln, parser_state)
-            ln = try_parse_tie(ln)
             ln = try_parse_escape(ln)
             ln = try_parse_guitar_chord(ln, parser_state)
             ln = try_parse_tuplet_begin(ln, parser_state)
