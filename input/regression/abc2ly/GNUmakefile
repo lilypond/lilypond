@@ -9,7 +9,7 @@ include $(depth)/make/lilypond.make
 
 $(outdir)/%.ly: %.abc
 	$(call ly_progress,Making,$@,< abc)
-	$(PYTHON) $(ABC2LY) --quiet -o $@ $<
+	$(PYTHON) $(ABC2LY) --beams --quiet -o $@ $<
 
 
 TITLE=abc2ly test suite
