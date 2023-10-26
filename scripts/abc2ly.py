@@ -1376,6 +1376,7 @@ def bracket_escape(s, state):
 
 def try_parse_chord_delims(s, state):
     out = ''
+    tie = ''
     if s[:1] == '[':
         if re.match('\\[[0-9]', s):      # repeat, not chord
             return s
@@ -1398,26 +1399,50 @@ def try_parse_chord_delims(s, state):
             out = '<'
             state.plus_chord = True
     elif s[:1] == ']':
+        global default_len
+
+        state.in_chord = False
+
         s = s[1:]
         out = '>'
+
+        def_len = default_len
+        next_den = state.next_den
+        next_dots = state.next_dots
+
+        default_len = 1
+        state.next_den = 1
+        state.next_dots = 0
+
+        (s, num, den, current_dots, tie) = parse_duration_and_tie(s, state)
+        state.chord_num *= num
+        state.chord_den *= den
+        state.chord_current_dots += current_dots
+
+        default_len = def_len
+        state.next_den *= next_den
+        state.next_dots += next_dots
 
     if not out:
         return s
 
-    end = 0
+    if re.match(r'[ \t]*\)', s):
+        s = s.lstrip()
+    slur_end = 0
     while s[:1] == ')':
-        end += 1
+        slur_end += 1
         s = s[1:]
 
     if out == '>':
         out += duration_to_lilypond_duration(
             (state.chord_num, state.chord_den), state.chord_current_dots)
+        out += tie
 
         if state.next_articulation:
             out += state.next_articulation
             state.next_articulation = ''
 
-        voices_append(out + ")" * end)
+        voices_append(out + ")" * slur_end)
 
         if state.parsing_tuplet:
             state.parsing_tuplet -= 1
@@ -1433,9 +1458,8 @@ def try_parse_chord_delims(s, state):
             state.parsing_beam = True
             voices_append('[')
 
-        state.in_chord = False
     else:
-        if end:
+        if slur_end:
             sys.stderr.write("Warning: ignoring `)' in chord\n")
         state.in_chord = True
         state.is_first_chord_note = False
