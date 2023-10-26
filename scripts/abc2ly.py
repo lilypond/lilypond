@@ -660,28 +660,88 @@ def fix_lyric(s):
     return ret
 
 
+TEXT = 1
+SPACE = 2
+SPANNER = 3
+
 def slyrics_append(a):
     global lyric_idx
 
-    a = re.sub('_', ' _ ', a)         # _ to ' _ '
-    # split words with "-" unless was originally "--"
-    a = re.sub('([^-])-([^-])', '\\1- \\2', a)
-    a = re.sub('\\\\- ', '-', a)      # unless \-
-    a = re.sub('~', '_', a)           # ~ to space('_')
-    a = re.sub(r'\*', '_ ', a)        # * to to space
-    a = re.sub('#', '\\#', a)         # latex does not like naked #'s
+    s = ''
+    status = TEXT
+    prev_status = TEXT
+    escaped = False
+
+    for c in a:
+        # Escaped characters are inserted as-is.
+        if escaped:
+            if status != TEXT:
+                s += ' '
+            s += c
+            status = TEXT
+            escaped = False
+            continue
+
+        if c == '\\':
+            escaped = True
+        elif c == ' ':
+            s += ' '
+            status = SPACE
+            continue       # Don't update `prev_status'.
+        elif c == '-':
+            # ' -' is the same as '-_'.
+            if status == SPACE:
+                if prev_status == TEXT:
+                    s += '-- '
+                s += '_'
+                status = SPANNER
+            elif status == TEXT:
+                s += ' --'
+                status = SPANNER
+            elif status == SPANNER:
+                s += ' _'
+        elif c == '_':
+            if status == SPACE:
+                if prev_status == TEXT:
+                    s += '__ '
+                s += '_'
+                status = SPANNER
+            if status == TEXT:
+                s += ' __ _'
+                status = SPANNER
+            elif status == SPANNER:
+                s += ' _'
+        elif c == '*':
+            if status == SPACE:
+                s += '_'
+            else:
+                s += ' _'
+        elif c == '~':
+            s += '_'
+            status = TEXT
+        else:
+            if status == SPANNER:
+                s += ' '
+            s += c
+            status = TEXT
+
+        prev_status = status
+
+    # ensure that we have a space between this and a potential follow-up 'w:' line
+    s += ' '
+
+    s = re.sub('#', '\\#', s)         # latex does not like naked #'s
     # put numbers and " and ( into quoted string
-    if re.match(r'.*[0-9"\(]', a):
-        a = fix_lyric(a)
-    a = re.sub('$', ' ', a)           # insure space between lines
+    if re.match(r'.*[0-9"\(]', s):
+        s = fix_lyric(s)
 
     lyric_idx += 1
 
     if len(slyrics[current_voice_idx]) <= lyric_idx:
-        slyrics[current_voice_idx].append(a)
+        slyrics[current_voice_idx].append(s)
     else:
         slyrics[current_voice_idx][lyric_idx] = wordwrap(
-            a, slyrics[current_voice_idx][lyric_idx])
+            s, slyrics[current_voice_idx][lyric_idx])
 
 
 def try_parse_header_line(ln, state):
