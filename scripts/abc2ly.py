@@ -262,18 +262,20 @@ def dump_slyrics(outf):
 def dump_voices(outf):
     ks = sorted(voice_idx_dict.keys())
     for k in ks:
+        idx = voice_idx_dict[k]
+
         if re.match('[1-9]', k):
             m = alphabet(int(k))
         else:
             m = k
         outf.write("\nvoice%s = {" % m)
-        if implicit_repeat[voice_idx_dict[k]]:
+        if implicit_repeat[idx]:
             outf.write("\n\\repeat volta 2 {")
-        outf.write("\n" + voices[voice_idx_dict[k]])
-        if not using_old:
-            if in_alternative[voice_idx_dict[k]]:
-                outf.write("}")
-            if in_repeat[voice_idx_dict[k]]:
+        outf.write("\n" + voices[idx])
+        if repeat_state[idx]:
+            if repeat_state[idx] in (ALTERNATIVE1, ALTERNATIVE2):
+                outf.write("} } }")
+            else:
                 outf.write("}")
         outf.write("\n}\n")
 
@@ -642,13 +644,6 @@ def voices_append_back(a):
     if current_voice_idx < 0:
         select_voice('default', '')
     stuff_append_back(voices, current_voice_idx, a)
-
-
-def repeat_prepend():
-    if current_voice_idx < 0:
-        select_voice('default', '')
-    if not using_old:
-        implicit_repeat[current_voice_idx] = True
 
 
 def lyrics_append(a):
@@ -1202,87 +1197,131 @@ def try_parse_escape(s):
 # |1 volta 1
 # |2 volta 2
 
-old_bar_dict = {
-    '|]': '|.',
-    '||': '||',
-    '[|': '||',
-    ':|': ':|.',
-    '|:': '|:',
-    '::': ':|.|:',
-    '|1': '|',
-    '|2': '|',
-    ':|2': ':|.',
-    '|': '|'
-}
+# TODO:
+#
+# * In '|[1' or ':|[2', allow space after '|'.
+# * Support '... :| ... :|'.
+
 bar_dict = {
     '|]': '\\bar "|."',
     '||': '\\bar "||"',
-    '[|': '\\bar "||"',
+    '[|': '\\bar ".|"',
     ':|': '}',
-    '|:': '\\repeat volta 2 {',
-    '::': '} \\repeat volta 2 {',
-    '|1': '} \\alternative{{',
-    '|2': '} {',
-    ':|2': '} {',
+    '|:': '\n\\repeat volta 2 {',
+    '::': '}\n\\repeat volta 2 {',
+    '[1': '\n  \\alternative {\n    \\volta 1 {',
+    '|1': '\n  \\alternative {\n    \\volta 1 {',
+    '|[1': '\n  \\alternative {\n    \\volta 1 {',
+    '[2': '}\n    \\volta 2 {',
+    '|2': '}\n    \\volta 2 {',
+    ':|2': '}\n    \\volta 2 {',
+    ':|[2': '}\n    \\volta 2 {',
     '|': '\\bar "|"'
 }
 
+alternative1_opener = ['[1', '|1', '|[1']
+alternative2_opener = ['[2', '|2', ':|2', ':|[2']
+repeat_ender = [':|']
+repeat_opener = ['|:']       # implicitly closes alternatives
+repeat_ender_opener = ['::'] # implicitly closes alternatives
 
-alternative_opener = ['|1', '|2', ':|2']
-repeat_ender = ['::', ':|']
-repeat_opener = ['::', '|:']
-in_repeat = [False] * 8
-in_alternative = [False] * 8
-using_old = False
+REPEAT = 0
+ALTERNATIVE1 = 1
+ALTERNATIVE2 = 2
+
+repeat_state = [None] * 8
 
 
 def try_parse_bar(string, state):
-    do_curly = False
-    bs = None
+    bs = ''
+    braces = ''
     if current_voice_idx < 0:
         select_voice('default', '')
-    # first try the longer one
-    for trylen in [3, 2, 1]:
-        global using_old
 
+    # Try the longer one first.
+    for trylen in [4, 3, 2, 1]:
         if string[:trylen] and string[:trylen] in bar_dict:
             s = string[:trylen]
-            if using_old:
-                bs = "\\bar \"%s\"" % old_bar_dict[s]
-            else:
-                bs = "%s" % bar_dict[s]
-
             string = string[trylen:]
+            rep = repeat_state[current_voice_idx]
 
-            if s in alternative_opener:
-                if not in_repeat[current_voice_idx]:
-                    using_old = True
-                    bs = "\\bar \"%s\"" % old_bar_dict[s]
-                else:
-                    in_alternative[current_voice_idx] = True
-
-            if s in repeat_ender:
-                if not in_repeat[current_voice_idx]:
+            if s in alternative1_opener:
+                if rep == ALTERNATIVE1:
                     sys.stderr.write(
-                        "Warning: inserting repeat to beginning of notes.\n")
-                    repeat_prepend()
-                    in_repeat[current_voice_idx] = False
+                        ("Warning: already in first alternative,"
+                         " ignoring `%s'\n") % s)
+                    break
+                if rep == ALTERNATIVE2:
+                    sys.stderr.write(
+                        ("Warning: already in second alternative,"
+                         " ignoring `%s'\n") % s)
+                    break
+                if rep == REPEAT:
+                    rep = ALTERNATIVE1
                 else:
-                    if in_alternative[current_voice_idx]:
-                        do_curly = True
-                if using_old:
-                    bs = "\\bar \"%s\"" % old_bar_dict[s]
-                else:
-                    bs = bar_dict[s]
-                in_alternative[current_voice_idx] = False
-                in_repeat[current_voice_idx] = False
+                    if implicit_repeat[current_voice_idx]:
+                        sys.stderr.write(
+                            "Warning: not in a repeat, ignoring `%s'\n" % s)
+                        break
+                    # Assume an implicit repeat sign at the beginning of
+                    # the piece.
+                    implicit_repeat[current_voice_idx] = True
+                    rep = ALTERNATIVE1
 
-            if s in repeat_opener:
-                in_repeat[current_voice_idx] = True
-                if using_old:
-                    bs = "\\bar \"%s\"" % old_bar_dict[s]
+            elif s in alternative2_opener:
+                if rep == ALTERNATIVE2:
+                    sys.stderr.write(
+                        ("Warning: already in second alternative,"
+                         " ignoring `%s'\n") % s)
+                    break
+                if rep == REPEAT:
+                    sys.stderr.write(
+                        ("Warning: no first alternative,"
+                         " ignoring `%s'\n") % s)
+                    break
+                if rep == ALTERNATIVE1:
+                    rep = ALTERNATIVE2
                 else:
-                    bs = bar_dict[s]
+                    sys.stderr.write(
+                        "Warning: not in a repeat, ignoring `%s'\n" % s)
+                    break
+
+            else:
+                if s in repeat_ender:
+                    if rep is None:
+                        if implicit_repeat[current_voice_idx]:
+                            sys.stderr.write(
+                                ("Warning: not in a repeat,"
+                                 " ignoring `%s'\n") % s)
+                            break
+                        # Assume an implicit repeat sign at the
+                        # beginning of the piece.
+                        implicit_repeat[current_voice_idx] = True
+                    rep = None
+
+                elif s in repeat_opener:
+                    if rep in (ALTERNATIVE1, ALTERNATIVE2):
+                        braces = '} } }'
+                    elif rep == REPEAT:
+                        braces = '}'
+                    rep = REPEAT
+
+                elif s in repeat_ender_opener:
+                    if rep is None:
+                        if implicit_repeat[current_voice_idx]:
+                            sys.stderr.write(
+                                ("Warning: not in a repeat,"
+                                 " ignoring `%s'\n") % s)
+                            break
+                        # Assume an implicit repeat sign at the
+                        # beginning of the piece.
+                        implicit_repeat[current_voice_idx] = True
+                    elif rep in (ALTERNATIVE1, ALTERNATIVE2):
+                        braces = '} }'
+                    rep = REPEAT
+
+            repeat_state[current_voice_idx] = rep
+            bs = braces + bar_dict[s]
             break
 
     if string[:1] == '|':
@@ -1294,12 +1333,12 @@ def try_parse_bar(string, state):
     if string[:1] == '}':
         close_beam_state(state)
 
-    if bs is not None or state.next_bar != '':
+    if bs or state.next_bar:
         if state.parsing_tuplet:
             state.parsing_tuplet = 0
             voices_append('}')
 
-    if bs is not None:
+    if bs:
         global need_unmetered_bar
 
         clear_bar_acc(state)
@@ -1308,9 +1347,6 @@ def try_parse_bar(string, state):
             need_unmetered_bar = True
             voices_append('\\cadenzaMeasure')
         voices_append(bs)
-        if do_curly:
-            voices_append("}")
-            do_curly = False
     return string
 
 
@@ -1333,6 +1369,8 @@ def bracket_escape(s, state):
 def try_parse_chord_delims(s, state):
     out = ''
     if s[:1] == '[':
+        if re.match('\\[[0-9]', s):      # repeat, not chord
+            return s
         s = s[1:]
         if re.match('[A-Z]:', s):        # bracket escape, not chord
             return bracket_escape(s, state)
