@@ -1862,8 +1862,8 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 * Overview of modifying properties::
 * The set command::
 * The override command::
-* The tweak command::
 * set versus override::
+* The tweak command::
 * The offset command::
 * Modifying alists::
 @end menu
@@ -2166,6 +2166,67 @@ Internals Reference:
 @endmorerefs
 
 
+@node set versus override
+@subsection @code{\set} vs. @code{\override}
+
+@c TODO Should't a bunch of that be explained earlier?
+
+@funindex \set
+@funindex \override
+
+The @code{\set} and @code{\override} commands manipulate properties
+associated with contexts.  In both cases, the properties follow a
+@emph{hierarchy of contexts}; properties that are not set themselves in
+a context will still show the values of their respective parent's
+context.
+
+The lifetime and value of a context property is dynamic and only
+available when music is being interpreted (i.e., @q{iterated}).  At the
+time of the context's creation, properties are initialized from its
+corresponding definitions (along with any other modifications) of that
+context.  Any subsequent changes are achieved with any
+@q{property-setting} commands that are within the music itself.
+
+Graphical Object (or @qq{grob}) definitions are a @emph{special}
+category of context properties as their structure and use is different
+from that of normal context properties.  Unlike normal context
+properties, grob definitions are subdivided into @emph{grob properties}.
+
+Also, in contrast to normal context properties, grob definitions have
+their own internal @q{bookkeeping} used to keep track of their own
+individual grob properties and any subproperties.  This means that it
+is possible to define those parts within different contexts and yet
+still have the overall grob definition at the time of grob creation from
+all the pieces provided amongst the current context and its parent(s).
+
+A grob is usually created by an engraver at the time of interpreting a
+music expression and receives its initial properties from the current
+grob definition of the engraver's context.  The engraver (or other
+@q{backend} parts of LilyPond) can then change (or add to) the grob's
+initial properties.  However, this does not affect the context's own
+grob definition.
+
+What LilyPond calls @emph{grob properties} in the context of
+@q{user-level} tweaks are really the properties of a @emph{context's}
+own grob definition.
+
+Grob definitions are accessed with a different set of commands and are
+manipulated using @code{\override} and @code{\revert} and have a name
+starting with a capital letter (e.g., @samp{NoteHead}); whereas normal
+context properties are manipulated using @code{\set} and @code{\unset}
+and are named starting with a lowercase letter.
+
+@cindex @code{tweak}, relation to @code{\override}
+@funindex \tweak
+@funindex \overrideProperty
+
+The commands @code{\tweak} and @code{\overrideProperty} change grob
+properties by bypassing all context properties completely and, instead,
+catch grobs as they are being created, setting properties on them for
+a music event (@code{\tweak}) or, in the case of
+@code{\overrideProperty} for a specific override.
+
+
 @node The tweak command
 @subsection The @code{\tweak} command
 
@@ -2296,66 +2357,6 @@ Extending LilyPond:
 The @code{\tweak} command cannot be used to modify the control
 points of just one of several ties in a chord, other than the first
 one encountered in the input file.
-
-@node set versus override
-@subsection @code{\set} vs. @code{\override}
-
-@c TODO Should't a bunch of that be explained earlier?
-
-@funindex \set
-@funindex \override
-
-The @code{\set} and @code{\override} commands manipulate properties
-associated with contexts.  In both cases, the properties follow a
-@emph{hierarchy of contexts}; properties that are not set themselves in
-a context will still show the values of their respective parent's
-context.
-
-The lifetime and value of a context property is dynamic and only
-available when music is being interpreted (i.e., @q{iterated}).  At the
-time of the context's creation, properties are initialized from its
-corresponding definitions (along with any other modifications) of that
-context.  Any subsequent changes are achieved with any
-@q{property-setting} commands that are within the music itself.
-
-Graphical Object (or @qq{grob}) definitions are a @emph{special}
-category of context properties as their structure and use is different
-from that of normal context properties.  Unlike normal context
-properties, grob definitions are subdivided into @emph{grob properties}.
-
-Also, in contrast to normal context properties, grob definitions have
-their own internal @q{bookkeeping} used to keep track of their own
-individual grob properties and any subproperties.  This means that it
-is possible to define those parts within different contexts and yet
-still have the overall grob definition at the time of grob creation from
-all the pieces provided amongst the current context and its parent(s).
-
-A grob is usually created by an engraver at the time of interpreting a
-music expression and receives its initial properties from the current
-grob definition of the engraver's context.  The engraver (or other
-@q{backend} parts of LilyPond) can then change (or add to) the grob's
-initial properties.  However, this does not affect the context's own
-grob definition.
-
-What LilyPond calls @emph{grob properties} in the context of
-@q{user-level} tweaks are really the properties of a @emph{context's}
-own grob definition.
-
-Grob definitions are accessed with a different set of commands and are
-manipulated using @code{\override} and @code{\revert} and have a name
-starting with a capital letter (e.g., @samp{NoteHead}); whereas normal
-context properties are manipulated using @code{\set} and @code{\unset}
-and are named starting with a lowercase letter.
-
-@cindex @code{tweak}, relation to @code{\override}
-@funindex \tweak
-@funindex \overrideProperty
-
-The commands @code{\tweak} and @code{\overrideProperty} change grob
-properties by bypassing all context properties completely and, instead,
-catch grobs as they are being created, setting properties on them for
-a music event (@code{\tweak}) or, in the case of
-@code{\overrideProperty} for a specific override.
 
 
 @node The offset command
