@@ -271,7 +271,7 @@ Tuplets may be nested:
 
 @noindent
 Modifying nested tuplets which begin at the same musical moment must be
-done with @code{\tweak}; see @ref{The tweak command}.
+done with @code{\tweak}; @pxref{Tweak and single}.
 
 @cindex tuplet slur
 @cindex slur, for tuplets
@@ -367,7 +367,7 @@ Notation Reference:
 @ref{Visibility of objects},
 @ref{Time administration},
 @ref{Scaling durations},
-@ref{The tweak command},
+@ref{Tweak and single},
 @ref{Polymetric notation}.
 
 Snippets:

@@ -2024,7 +2024,7 @@ instances of contexts by statements in a @code{\with} block, and by
 @morerefs
 Notation Reference:
 @rnotation{Changing context default settings},
-@rnotation{The set command}.
+@rnotation{Set and unset}.
 
 Internals Reference:
 @rinternals{Contexts},

@@ -1109,8 +1109,8 @@ Learning Manual:
 Notation Reference:
 @ref{Contexts explained},
 @ref{Bottom-level contexts - voices},
-@ref{The set command},
-@ref{The override command},
+@ref{Set and unset},
+@ref{Override and revert},
 @ref{The layout block}.
 @endmorerefs
 
@@ -1860,10 +1860,11 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 
 @menu
 * Overview of modifying properties::
-* The set command::
-* The override command::
-* set versus override::
-* The tweak command::
+* Set and unset::
+* Override and revert::
+* Set versus override::
+* The once command::
+* Tweak and single::
 * The offset command::
 * Modifying alists::
 @end menu
@@ -1872,61 +1873,60 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @node Overview of modifying properties
 @subsection Overview of modifying properties
 
-Each context is responsible for creating certain types of graphical
-objects.  The settings used for printing these objects are also stored by
-context.  By changing these settings, the appearance of objects can be
-altered.
+Within each context, there are two different kinds of properties:
+@dfn{context properties} and @dfn{grob properties}.  Context
+properties apply to a context as a whole, whereas grob properties
+are used for initializing grobs engraved from within a context.
 
-There are two different kinds of properties stored in contexts:
-context properties and grob properties.  Context properties are
-properties that apply to the context as a whole and control
-how the context itself is displayed.  In contrast, grob properties
-apply to specific grob types that will be displayed in the context.
+Context properties control the translation from music to notation.
+For example, @code{localAlterations} is used to determine whether
+to print accidentals; or @code{measurePosition} for determining
+when to print a bar line.  They can also change value over time
+while interpreting a piece of music; @code{measurePosition} is an
+obvious example of this.
 
-The @code{\set} and @code{\unset} commands are used to change values
-for context properties.  The @code{\override} and @code{\revert}
-commands are used to change values for grob properties.
-
-@morerefs
-Internals Reference:
-@rinternals{Backend},
-@rinternals{All layout objects},
-@rinternals{OverrideProperty},
-@rinternals{RevertProperty},
-@rinternals{PropertySet}.
-@endmorerefs
+The @code{\set} command (and its counterpart @code{\unset}) is
+used to alter values for context properties, whereas the
+@code{\override} command (and its counterpart @code{\revert}) is
+used to change values for grob properties.
 
 
-@node The set command
-@subsection The @code{\set} command
+@node Set and unset
+@subsection @code{\set} and @code{\unset}
 
-@cindex property
+@cindex property, modifying
+@cindex modifying properties
+@cindex changing properties
+@cindex context, properties
+@cindex modifying contexts
 @funindex \set
-@cindex changing property
+@funindex \unset
 
-Each context has a set of @emph{properties}, variables contained
-in that context.  Context properties are changed with the @code{\set}
-command, which has the following syntax:
+The @code{\set} command syntax is
 
 @example
-\set @var{context}.@var{property} = #@var{value}
+\set @var{context}.@var{property} = @var{value}
 @end example
 
-@var{value} is a Scheme object, which is why it must be preceded by
-the @code{#}@tie{}character.
+@noindent
+where @var{value} must be preceded by the @samp{#} character if it
+is a Scheme object.
 
-Contexts properties are usually named in
-@code{studlyCaps}.  They mostly control the translation from
-music to notation, e.g., @code{localAlterations} (for determining
-whether to print accidentals), or @code{measurePosition} (for
-determining when to print a bar line).  Context properties can
-change value over time while interpreting a piece of music;
-@code{measurePosition} is an obvious example of
-this.  Context properties are modified with @code{\set}.
+The counterpart command @code{\unset}'s syntax is
 
-For example, multi-measure rests will be combined into a single bar
-(as explained in @ref{Compressing empty measures})
-if the context property @code{skipBars} is set to @code{#t}:
+@example
+\unset @var{context}.@var{property}
+@end example
+
+@noindent
+This removes a previously set definition of the @var{property}
+from the @var{context}.  Any properties that have been set in an
+enclosing @var{context} are not altered by an @code{\unset} in the
+same enclosed context.
+
+For example, multi-measure rests are combined into a single bar
+(as explained in @ref{Compressing empty measures}) if the context
+property @code{skipBars} is set to @code{#t}:
 
 @lilypond[quote,fragment,verbatim]
 R1*2
@@ -1934,30 +1934,30 @@ R1*2
 R1*2
 @end lilypond
 
-If the @var{context} argument is left out, then the property will be
-set in the current bottom context (typically @code{ChordNames},
-@code{Voice}, @code{TabVoice}, or @code{Lyrics}).
+If the @var{context} argument is left out, then the property is
+set in the current @q{bottom} context (typically
+@code{ChordNames}, @code{Voice}, @code{TabVoice}, or
+@code{Lyrics}).
 
-@lilypond[quote,fragment,verbatim]
-\set Score.autoBeaming = ##f
-\relative {
-  e''8 e e e
-  \set autoBeaming = ##t
-  e8 e e e
-} \\
-\relative {
-  c''8 c c c c8 c c c
-}
+@lilypond[quote,verbatim]
+<<
+  \set Score.autoBeaming = ##f
+  \relative {
+    e''8 e e e
+    \set autoBeaming = ##t
+    e8 e e e
+  } \\
+  \relative {
+    c''8 c c c c8 c c c
+  }
+>>
 @end lilypond
 
-The change is applied @q{on-the-fly}, during the music, so that the
-setting only affects the second group of eighth notes.
-
-Note that the bottommost context does not always contain the property
-that you wish to change -- for example, attempting to set the
-@code{skipBars} property of the default bottom context, in this case
-@code{Voice}, will have no effect, because skipBars is a property of
-the @code{Score} context.
+Note that the bottom context may not always contain an
+@dfn{engraver} that uses the @var{property} that you wish to
+change.  For example, attempting to set the @code{skipBars}
+property of the default, bottom context has no effect because it
+is a property of the @code{Score}, not @code{Voice} context.
 
 @lilypond[quote,fragment,verbatim]
 R1*2
@@ -1965,36 +1965,29 @@ R1*2
 R1*2
 @end lilypond
 
-Contexts are hierarchical, so if an enclosing context was specified, for
-example @code{Staff}, then the change would also apply to all
-@code{Voice}s in the current staff.
+Contexts are hierarchical; any change specified for an enclosing
+context (e.g., @code{Staff}) would also apply to all @code{Voice}s
+in that current @code{Staff} context (assuming, of course, that
+the @code{Voice} context didn't have an override of its own).
 
-@funindex \unset
+All contexts inherit settings established in the top-most
+@code{Global} context (via @code{\grobdescriptions}), although a
+few of those defaults get overridden in their own context
+definitions.
 
-The @code{\unset} command:
-
-@example
-\unset @var{context}.@var{property}
-@end example
-
-@noindent
-is used to remove the definition of @var{property} from
-@var{context}.  This command removes
-the definition only if it is set in @var{context}.
-Properties that have been set in enclosing contexts will
-not be altered by an unset in an enclosed context:
-
-@lilypond[quote,fragment,verbatim]
-\set Score.autoBeaming = ##t
-\relative {
-  \unset autoBeaming
-  e''8 e e e
-  \unset Score.autoBeaming
-  e8 e e e
-} \\
-\relative {
-  c''8 c c c c8 c c c
-}
+@lilypond[quote,verbatim]
+<<
+  \set Score.autoBeaming = ##t
+  \relative {
+    \unset autoBeaming
+    e''8 e e e
+    \unset Score.autoBeaming
+    e8 e e e
+  } \\
+  \relative {
+    c''8 c c c c8 c c c
+  }
+>>
 @end lilypond
 
 Like @code{\set}, the @var{context} argument does not have to be
@@ -2009,46 +2002,19 @@ specified for a bottom context, so the two statements
 are equivalent if the current bottom context is @code{Voice}.
 
 
-@funindex \once
-Preceding a @code{\set} or @code{\unset} command by @code{\once}
-makes the setting apply to only a single time step:
-
-@lilypond[quote,fragment,verbatim]
-c''4
-\once \set fontSize = #4.7
-c''4
-c''4
-@end lilypond
-
-A full description of all available context properties is in the
-internals reference, see
-@ifhtml
-@rinternals{Tunable context properties}.
-@end ifhtml
-@ifnothtml
-Translation @expansion{} Tunable context properties.
-@end ifnothtml
-
-@morerefs
-Internals Reference:
-@rinternals{Tunable context properties}.
-@endmorerefs
-
-
-@node The override command
-@subsection The @code{\override} command
+@node Override and revert
+@subsection @code{\override} and @code{\revert}
 
 @cindex grob, property
 @cindex property, grob
 @funindex \override
 
-There is a special type of context property: the grob
-description.  Grob descriptions are named in @code{StudlyCaps}
-(starting with capital letters).  They contain the
-@q{default settings} for a particular kind of grob as an
-association list.  See @file{scm/define-grobs.scm}
-to see the settings for each grob description.  Grob descriptions
-are modified with @code{\override}.
+There is a special type of context property: the grob description.
+Grob descriptions start with a capital letter and exist as
+association lists only in @code{all-grob-descriptions}, but they
+get turned into more complex and efficient data structures
+supporting hierarchical manipulations when placed into contexts.
+See @file{scm/define-grobs.scm} for the settings of each grob.
 
 The syntax for the @code{\override} command is
 
@@ -2066,8 +2032,8 @@ c''4 c''
 c''4 c''
 @end lilypond
 
-If no context is specified in an @code{\override}, the bottom
-context is used:
+If no context is specified in an @code{\override} command, the
+bottom context is used:
 
 @lilypond[quote,fragment,verbatim]
 \override Staff.Stem.thickness = #3.0
@@ -2101,9 +2067,8 @@ or to modify the ends of spanners, use a form like these
 @cindex reverting override
 @cindex override, reverting
 
-The effects of @code{\override} can be undone by @code{\revert}.
-
-The syntax for the @code{\revert} command is
+The effects of @code{\override} can be undone by @code{\revert};
+its syntax is
 
 @example
 \revert [@var{context}.]@var{GrobName}.@var{property}
@@ -2139,26 +2104,22 @@ grobs in the affected context from the current time forward:
 >>
 @end lilypond
 
+
+@node The once command
+@subsection The @code{\once} command
+
 @funindex \once
-@cindex overriding for only one moment
 
-@code{\once} can be used with @code{\override} or @code{\revert}
-to affect only the current time step:
+@code{\once} is used in conjunction with the @code{\set} or
+@code{\override} command to affect only the current musical
+moment.
 
-@lilypond[quote,verbatim]
-<<
-  \relative c {
-    \override Stem.thickness = #3.0
-    e''4 e e e
-  } \\
-  \relative {
-    c''4
-    \once \override Stem.thickness = #3.0
-    c4 c c
-  }
->>
+@lilypond[quote,fragment,verbatim]
+c''4
+\once \set fontSize = #4.7
+c''4
+c''4
 @end lilypond
-
 
 @morerefs
 Internals Reference:
@@ -2166,10 +2127,8 @@ Internals Reference:
 @endmorerefs
 
 
-@node set versus override
-@subsection @code{\set} vs. @code{\override}
-
-@c TODO Should't a bunch of that be explained earlier?
+@node Set versus override
+@subsection @code{\set} versus @code{\override}
 
 @funindex \set
 @funindex \override
@@ -2177,7 +2136,7 @@ Internals Reference:
 The @code{\set} and @code{\override} commands manipulate properties
 associated with contexts.  In both cases, the properties follow a
 @emph{hierarchy of contexts}; properties that are not set themselves in
-a context will still show the values of their respective parent's
+a context still show the values of their respective parent's
 context.
 
 The lifetime and value of a context property is dynamic and only
@@ -2190,7 +2149,7 @@ context.  Any subsequent changes are achieved with any
 Graphical Object (or @qq{grob}) definitions are a @emph{special}
 category of context properties as their structure and use is different
 from that of normal context properties.  Unlike normal context
-properties, grob definitions are subdivided into @emph{grob properties}.
+properties, grob definitions are subdivided into @dfn{grob properties}.
 
 Also, in contrast to normal context properties, grob definitions have
 their own internal @q{bookkeeping} used to keep track of their own
@@ -2200,7 +2159,7 @@ still have the overall grob definition at the time of grob creation from
 all the pieces provided amongst the current context and its parent(s).
 
 A grob is usually created by an engraver at the time of interpreting a
-music expression and receives its initial properties from the current
+music expression, and receives its initial properties from the current
 grob definition of the engraver's context.  The engraver (or other
 @q{backend} parts of LilyPond) can then change (or add to) the grob's
 initial properties.  However, this does not affect the context's own
@@ -2211,7 +2170,7 @@ What LilyPond calls @emph{grob properties} in the context of
 own grob definition.
 
 Grob definitions are accessed with a different set of commands and are
-manipulated using @code{\override} and @code{\revert} and have a name
+manipulated using @code{\override} and @code{\revert}, and have a name
 starting with a capital letter (e.g., @samp{NoteHead}); whereas normal
 context properties are manipulated using @code{\set} and @code{\unset}
 and are named starting with a lowercase letter.
@@ -2227,36 +2186,35 @@ a music event (@code{\tweak}) or, in the case of
 @code{\overrideProperty} for a specific override.
 
 
-@node The tweak command
-@subsection The @code{\tweak} command
+@node Tweak and single
+@subsection @code{\tweak} and @code{\single}
 
 @funindex \tweak
+@funindex \single
 @cindex tweaking
 
-Changing grob properties
-with @code{\override} causes the changes to apply to all of the
-given grobs in the context at the moment the change applies.
-Sometimes, however, it is desirable to have changes apply to just
-one grob, rather than to all grobs in the affected context.  This is
-accomplished with the @code{\tweak} command, which has the following
-syntax:
+When multiple grobs occur at the same musical moment the
+@code{\override} command cannot be used to modify just one of
+them.  In this case the @code{\tweak} command is used.
+
+The @code{\tweak} command has the following syntax
 
 @example
 \tweak [@var{layout-object}.]@var{grob-property} @var{value}
 @end example
 
-Specifying @var{layout-object} is optional.
-The @code{\tweak} command applies to the music object that immediately
-follows @var{value} in the music stream.
+@noindent
+and applies to the music expression that immediately follows
+@var{value} in the music stream.  Specifying @var{layout-object}
+is necessary for disambiguation if the music expression causes the
+indirect creation of grobs with different types (for example,
+@code{NoteHead} causes @code{Stem}).
 
 For an introduction to the syntax and uses of the tweak command
 see @rlearning{Tweaking methods}.
 
-When several similar items are placed at the same musical moment,
-the @code{\override} command cannot be used to modify just one of
-them -- this is where the @code{\tweak} command must be used.
-Items which may appear more than once at the same musical moment
-include the following:
+Items that may appear more than once at the same musical moment
+include, but are not limited to, the following:
 
 @c TODO expand to include any further uses of \tweak
 @itemize
@@ -2268,7 +2226,7 @@ include the following:
 
 @c TODO add examples of these
 
-@cindex chord, modifying one note in
+@cindex chord, modifying a single note
 
 In this example, the color of one note head and the type of another
 note head are modified within a single chord:
@@ -2283,28 +2241,24 @@ note head are modified within a single chord:
 > 4
 @end lilypond
 
-@code{\tweak} can be used to modify slurs:
+@code{\tweak} can also be used to modify slurs:
 
 @lilypond[verbatim,quote]
 \relative { c'-\tweak thickness #5 ( d e f) }
 @end lilypond
 
-
-For the @code{\tweak} command to work, it must
-remain immediately adjacent to the object to which it is
-to apply after the input file has been converted to a music stream.
 Tweaking a whole chord tweaks all the contained notes:
 
 @lilypond[verbatim,quote]
 { \tweak color #red <c'' e''>4 }
 @end lilypond
 
-The simple @code{\tweak} command cannot be used to modify any object
-that is not directly created from the input.  In particular
-it will not affect stems, automatic
-beams or accidentals, since these are generated later by
-@code{NoteHead} layout objects rather than by music elements in the
-input stream.
+As mentioned above, the simple @code{\tweak} command syntax form
+cannot be used to modify any object that is not directly created
+from the input.  In particular, it will not affect stems,
+automatic beams, or accidentals, since these are generated later
+by @code{NoteHead} layout objects rather than by music elements in
+the input stream.
 
 Such indirectly created layout objects can be tweaked using the form
 of the @code{\tweak} command in which the grob name is specified
@@ -2321,11 +2275,13 @@ signatures, since these become separated from any preceding
 @code{\tweak} command in the input stream by the automatic
 insertion of extra elements required to specify the context.
 
-Several @code{\tweak} commands may be placed before a
-notational element -- all affect it:
+Multiple @code{\tweak} commands placed before a music expression
+all affect the grob(s) created at this musical moment.
 
 @lilypond[verbatim,fragment,quote]
 c'
+  -\tweak springs-and-rods #ly:spanner::set-spacing-rods
+  -\tweak minimum-length #15
   -\tweak style #'dashed-line
   -\tweak dash-fraction #0.2
   -\tweak thickness #3
@@ -2340,6 +2296,25 @@ see @rextend{Displaying music expressions}.  This may be helpful in
 determining what may be modified by a @code{\tweak} command, or
 in determining how to adjust the input to make a @code{\tweak}
 apply.
+
+@cindex properties
+@funindex \single
+@cindex changing properties
+
+The @code{\single} command takes one or more @code{\override}
+commands (which are intended to apply at a given musical moment or
+beyond) and converts them effectively into a @emph{single}
+@q{tweak} that now applies to the specific grobs created.
+
+The file @file{ly/property-init.ly} contains many definitions of
+multiple @code{\override} commands and so can be used in
+conjunction with the @code{\single} command.  For example, the
+function @code{\easyHeadsOn} can be used with @code{\single} to
+affect just one note head in a chord;
+
+@lilypond[verbatim,quote,relative=1]
+< \single \easyHeadsOn c' g' >2
+@end lilypond
 
 @morerefs
 Learning Manual:

@@ -352,11 +352,11 @@ Backslashes must not be used in node names.
 
 @example
 @@menu
-* The set command
+* Set and unset
 @@end menu
 
-@@node The set command
-@@subsection The @@code@{\set@} command
+@@node Set and unset
+@@subsection @@code@{\set@} and @@code@{\unset@}
 @end example
 
 With the exception of @code{@@} commands, @code{\} commands and

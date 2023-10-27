@@ -762,7 +762,7 @@ can be seen through when rendered in SVG.
 @morerefs
 Notation Reference:
 @ref{List of colors},
-@ref{The tweak command}.
+@ref{Tweak and single}.
 
 Snippets:
 @rlsr{Editorial annotations}.
@@ -786,8 +786,8 @@ as detailed in @ref{List of colors}.
 
 Notes in a chord cannot be separately colored with
 @code{\override}; use @code{\tweak} or the equivalent
-@code{\single\override} before the respective note instead, see
-@ref{The tweak command}.
+@code{\single\override} before the respective note instead,
+@pxref{Tweak and single}.
 
 
 @node Staff highlights

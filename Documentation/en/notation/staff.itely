@@ -1911,8 +1911,7 @@ it must be followed by a music expression:
 @funindex skipBars
 All of the commands described in this section actually
 rely on the @code{skipBars} internal property, which is
-set in the @code{Score} context as explained in
-@ref{The set command}.
+set in the @code{Score} context, @pxref{Set and unset}.
 
 @predefined
 @code{\compressEmptyMeasures},
@@ -1939,7 +1938,7 @@ set in the @code{Score} context as explained in
 Notation Reference:
 @ref{Using break-visibility},
 @ref{Full measure rests},
-@ref{The set command}.
+@ref{Set and unset}.
 
 Internals Reference:
 @rinternals{MultiMeasureRest},
