@@ -1357,7 +1357,11 @@ frame, typically between -1 (left) and 1 (right).")
      (X-extent ,number-pair? "Extent (size) in the X@tie{}direction,
 measured in staff-space units, relative to object's reference point.")
      (X-offset ,number? "The horizontal amount that this object is
-moved relative to its X-parent.")
+moved relative to its X-parent.
+
+Note that many objects have special positioning considerations, which cause any
+setting of @code{X-offset} to be ignored or modified, even though the object
+supports the @iref{self-alignment-interface}.")
      (X-positions ,number-pair? "Pair of X staff coordinates of a spanner
 in the form @code{(@var{left} . @var{right})}, where both @var{left} and
 @var{right} are in @code{staff-space} units of the current staff.")
@@ -1371,7 +1375,12 @@ frame, typically between -1 (down) and 1 (up).")
      (Y-extent ,number-pair? "Extent (size) in the Y@tie{}direction,
 measured in staff-space units, relative to object's reference point.")
      (Y-offset ,number? "The vertical amount that this object is moved
-relative to its Y-parent.")
+relative to its Y-parent.
+
+Note that many objects have special positioning considerations, which cause any
+setting of @code{Y-offset} to be ignored or modified, even though the object
+supports the @iref{self-alignment-interface}.")
+
 
 ;;;
 ;;; z
