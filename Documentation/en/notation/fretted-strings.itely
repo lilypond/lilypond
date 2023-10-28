@@ -2078,18 +2078,25 @@ text markup.
 @end lilypond
 
 Dampened notes (also called @notation{dead notes}) are supported
-within normal and tablature staves:
+within normal and tablature staves.  In the following example,
+such notes are shown with pitches in the normal staff, indicating
+the frets where they are dampened.  An alternative notation is to
+use empty strings instead.  In tablature notation, however, it
+doesn't make a difference.
 
 @lilypond[quote,ragged-right,verbatim]
-music = \relative {
-  < a\3 \deadNote c\2 a'\1 >4
-  < b\3 \deadNote d\2 b'\1 >
-  < c\3 \deadNote e\2 c'\1 >
-  \deadNotesOn
-  \tuplet 3/2 { g8 b e }
-  \deadNotesOff
-  < a,\3 c\2 e\1 >1
+music = \relative c' {
+  \omit StringNumber
+
+  <a \deadNote cis a'>4
+    <b\3 \deadNote dis b'>
+    <c\3 \deadNote e\2 c'>
+    \deadNotesOn
+    \tuplet 3/2 { g8 b e }
+    \deadNotesOff
+  <a, c e>1
 }
+
 \new StaffGroup <<
   \new Staff {
     \clef "treble_8"
