@@ -1960,6 +1960,7 @@ as an anchor point for other grobs.")))))
         (connect-to-neighbor . ,ly:spanner::calc-connect-to-neighbors)
         (direction . ,UP)
         (edge-height . (0.7 . 0.7))
+        (outside-staff-priority . 200)
         (padding . 2.0)
         (positions . ,ly:tuplet-bracket::calc-positions)
         (shorten-pair . (-0.2 . -0.2))
@@ -1970,6 +1971,7 @@ as an anchor point for other grobs.")))))
         (X-positions . ,ly:tuplet-bracket::calc-x-positions)
         (meta . ((class . Spanner)
                  (interfaces . (line-interface
+                                outside-staff-interface
                                 tuplet-bracket-interface))
                  (description . "A horizontal bracket over a group
 of notes, usually indicating an ancient ligature if transcribed
