@@ -1030,9 +1030,9 @@ In addition, open and unplayed (muted) strings can be indicated.
 >>
 @end lilypond
 
-@cindex barre indication
+@cindex barré indication
 
-Barre indications can be added to the diagram from
+Barré indications can be added to the diagram from
 the fret diagram markup string.
 
 @lilypond[quote, verbatim]
@@ -1189,7 +1189,7 @@ Mute strings, open strings, and fret numbers can be indicated.
 >>
 @end lilypond
 
-Barre indicators can be included in the @code{\fret-diagram-terse}
+Barré indicators can be included in the @code{\fret-diagram-terse}
 markup string.
 
 @lilypond[quote, verbatim]
@@ -1286,7 +1286,7 @@ placed on the fret diagram.
 >>
 @end lilypond
 
-Fingering indications and barres can be included in a
+Fingering indications and barrés can be included in a
 @code{\fret-diagram-verbose} markup string.  Unique to the
 @code{\fret-diagram-verbose} interface is a capo indication that
 can be placed on the fret diagram.  The capo indication is
@@ -2021,21 +2021,31 @@ or, for experienced users, a typesetter like GuitarTeX.
 
 @cindex indicating position and barring for fretted instrument
 @cindex fretted instrument, indicating position and barring
+@cindex barré line
+@cindex line, barré
 
 This example demonstrates how to include guitar position and
-barring indications.
+barring indications using a barré line.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative {
   \clef "treble_8"
   b,16 d g b e
-  \textSpannerDown
-  \override TextSpanner.bound-details.left.text = "XII "
+  \once \override TextSpanner.bound-details.left.text =
+    \markup {"XII" \hspace #0.4 }
+  \once \override TextSpanner.bound-details.right.text =
+    \markup \draw-line #'(0 . -.5)
+  \once \override TextSpanner.bound-details.right.padding = #-.65
+  \once \override TextSpanner.dash-fraction = #.4
+  \once \override TextSpanner.dash-period = #1.3
   g16\startTextSpan
   b16 e g e b g\stopTextSpan
   e16 b g d
 }
 @end lilypond
+
+A more sophisticated solution can be found in
+@url{https://lsr.di.unimi.it/LSR/Item?id=952,LSR snippet 952}.
 
 @morerefs
 Notation Reference:
