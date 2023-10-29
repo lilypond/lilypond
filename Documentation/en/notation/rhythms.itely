@@ -2434,6 +2434,7 @@ created; see @ref{Setting automatic beam behavior}.
 
 @snippets
 
+@anchor{Beams across line breaks}
 @cindex beam, line breaks
 @cindex line break, beams
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -4473,6 +4474,7 @@ direction is overridden and then reverted.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/redefining-grace-note-global-defaults.ly}
 
+@anchor{Positioning grace notes with floating space}
 @cindex grace note, and strict spacing
 @cindex strict spacing and grace notes
 @lilypondfile[verbatim,quote,texidoc,doctitle]

@@ -1370,6 +1370,7 @@ Different styles of glissandi can be created.  For details, see
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adding-timing-marks-to-long-glissandi.ly}
 
+@anchor{Making glissandi breakable}
 @cindex breakable glissando
 @cindex glissando, breakable
 @lilypondfile[verbatim,quote,texidoc,doctitle]

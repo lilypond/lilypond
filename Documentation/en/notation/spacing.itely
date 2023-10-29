@@ -3695,10 +3695,10 @@ in which each note consumes an amount of horizontal space exactly
 equivalent to its rhythmic duration.  This type of proportional spacing
 is comparable to horizontal spacing on top of graph paper.  Some late
 20th- and early 21st-century scores use proportional notation to
-clarify complex rhythmic relationships or to facilitate the placement
+clarify complex rhythmic relationships, or to facilitate the placement
 of timelines or other graphics directly in the score.
 
-LilyPond supports five different settings for proportional notation,
+The following settings for proportional notation are provided,
 which may be used together or alone:
 
 @itemize
@@ -3706,11 +3706,10 @@ which may be used together or alone:
 @item @code{uniform-stretching}
 @item @code{strict-note-spacing}
 @item @code{\remove Separating_line_group_engraver}
-@item @code{\override PaperColumn.used = ##t}
 @end itemize
 
-In the examples that follow, we explore these five different
-proportional notation settings and examine how these settings interact.
+In the examples that follow, we explore these different
+proportional notation settings and examine how they interact.
 
 We start with the following one-measure example, which uses classical
 spacing with ragged-right turned on.
@@ -3719,42 +3718,34 @@ spacing with ragged-right turned on.
 @c not preceded by other material in the score, but we don't want
 @c to explain that.
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-  >>
+\new RhythmicStaff {
+  c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
 }
 @end lilypond
 
-Notice that the half note which begins the measure takes up far less
+Notice that the half note starting the measure takes up far less
 than half of the horizontal space of the measure.  Likewise, the
 sixteenth notes and sixteenth-note quintuplets (or twentieth notes)
-which end the measure together take up far more than half the
+ending the measure together take up far more than half the
 horizontal space of the measure.
 
 In classical engraving, this spacing may be exactly what we want
 because we can borrow horizontal space from the half note and conserve
 horizontal space across the measure as a whole.
 
-On the other hand, if we want to insert a measured timeline or other
-graphic above or below our score, we need proportional notation.  We
-turn proportional notation on with the proportionalNotationDuration
-setting.
+On the other hand, if we want to insert a measured timeline or
+some other graphic above or below our score, we need proportional
+notation.  We turn proportional notation on with the
+@code{proportionalNotationDuration} setting.
 
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-  >>
- \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 1*1/20
-    }
+\new RhythmicStaff {
+  c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+}
+\layout {
+  \context {
+    \Score
+    proportionalNotationDuration = \musicLength 1*1/20
   }
 }
 @end lilypond
@@ -3767,15 +3758,15 @@ this example.
 The @code{proportionalNotationDuration} setting is a context setting
 that lives in @code{Score}.  Remember that context settings can appear
 in one of three locations within our input file -- in a @code{\with}
-block, in a @code{\context} block, or directly in music entry preceded
+block, in a @code{\context} block, or directly in the music entry preceded
 by the @code{\set} command.  As with all context settings, users can
-pick which of the three different locations they would like to
-set @code{proportionalNotationDuration} in to.
+pick in which of the three different locations they would like to
+set @code{proportionalNotationDuration}.
 
 The @code{proportionalNotationDuration} setting takes a single
-argument, which is the reference length against which all music
-will be spaced.  The call @code{\musicLength 1*1/20} specifies one
-twentieth of a whole note.  Values such as @code{\musicLength 16}
+argument, which is the reference length to space all music.
+The call @code{\musicLength 1*1/20} specifies one
+twentieth of a whole note; values such as @code{\musicLength 16}
 and @code{\musicLength @{2 2.@}} are possible as well.
 
 How do we select the right reference duration to pass to
@@ -3785,72 +3776,46 @@ duration in the piece.  Smaller reference durations space music loosely;
 larger reference durations space music tightly.
 
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-  >>
-  \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 8
-    }
-  }
+rhythm = { c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 } }
+
+\new RhythmicStaff {
+  \set Score.proportionalNotationDuration = \musicLength 8
+  % Allow overlapping of note heads.
+  \override NoteHead.extra-spacing-width = #'(+inf.0 . -inf.0)
+  \rhythm
 }
 
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-  >>
-  \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 16
-    }
-  }
+\new RhythmicStaff {
+  \set Score.proportionalNotationDuration = \musicLength 16
+  \rhythm
 }
 
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-  >>
-  \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 32
-    }
-  }
+\new RhythmicStaff {
+  \set Score.proportionalNotationDuration = \musicLength 32
+  \rhythm
 }
 @end lilypond
 
 Note that too large a reference duration -- such as the eighth note,
 above -- spaces music too tightly and can cause note head collisions.
-Also that proportional notation in general takes up more horizontal
+In general, proportional notation takes up more horizontal
 space than classical spacing.  Proportional spacing provides rhythmic
 clarity at the expense of horizontal space.
 
 Next we examine how to optimally space overlapping tuplets.
-
 We start by examining what happens to our original example, with
 classical spacing, when we add a second staff with a different type of
 tuplet.
 
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-    \new RhythmicStaff {
-      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
-    }
-  >>
-}
+<<
+  \new RhythmicStaff {
+    c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+  }
+  \new RhythmicStaff {
+    \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+  }
+>>
 @end lilypond
 
 The spacing is bad because the evenly spaced notes of the bottom staff
@@ -3859,20 +3824,18 @@ triplets and so classical engraving rules can generate this type of
 result.  Setting @code{proportionalNotationDuration} fixes this.
 
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-    \new RhythmicStaff {
-      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
-    }
-  >>
-  \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 1*1/20
-    }
+<<
+  \new RhythmicStaff {
+    c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+  }
+  \new RhythmicStaff {
+    \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    proportionalNotationDuration = \musicLength 1*1/20
   }
 }
 @end lilypond
@@ -3884,21 +3847,19 @@ turn on @code{uniform-stretching}, which is a property of
 @code{SpacingSpanner}.
 
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-    \new RhythmicStaff {
-      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
-    }
-  >>
-  \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 1*1/20
-      \override SpacingSpanner.uniform-stretching = ##t
-    }
+<<
+  \new RhythmicStaff {
+    c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+  }
+  \new RhythmicStaff {
+    \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    proportionalNotationDuration = \musicLength 1*1/20
+    \override SpacingSpanner.uniform-stretching = ##t
   }
 }
 @end lilypond
@@ -3907,27 +3868,25 @@ Our two-staff example now spaces exactly, our rhythmic
 relationships are visually clear, and we can include a measured
 timeline or graphic if we want.
 
-Note that the LilyPond's proportional notation package expects that
-all proportional scores set the @code{SpacingSpanner}'s
-@code{uniform-@/stretching} attribute to @code{#t}.  Setting
-@code{proportional@/Notation@/Duration} without also setting the
-@code{SpacingSpanner}'s @code{uniform-stretching} attribute to
-@code{#t} will, for example, cause skips to consume an incorrect
-amount of horizontal space.
+It is recommended to always set the @code{SpacingSpanner}'s
+@code{uniform-@/stretching} property to @code{#t} if you use
+@code{proportional@/Notation@/Duration}.  Omitting it, for
+example, causes skips to consume an incorrect amount of horizontal
+space.
 
 The @code{SpacingSpanner} is an abstract grob that lives in the
 @code{Score} context.  As with our settings of
 @code{proportional@/Notation@/Duration}, overrides to the
 @code{SpacingSpanner} can occur in any of three different places in
 our input file -- in the @code{Score}'s @code{\with} block, in a
-@code{Score}'s @code{\context} block, or in note entry directly.
+@code{Score}'s @code{\context} block, or directly in the note entry.
 
-There is by default only one @code{SpacingSpanner} per
-@code{Score}.  This means that, by default,
+By default, there is only one @code{SpacingSpanner} per
+@code{Score}.  This means that
 @code{uniform-@/stretching} is either turned on for the entire
 score or turned off for the entire score.  We can, however,
 override this behavior and turn on different spacing features at
-different places in the score.  We do this with the command
+different places in the score by using the command
 @code{\newSpacingSection}.  @xref{New spacing section}, for more
 info.
 
@@ -3942,17 +3901,16 @@ just before the first note in each system.
 }
 
 \new Staff {
-  c'1
-  \break
+  c'1 \break
   c'1
 }
 @end lilypond
 
-
-The amount of this prefatory space is the same whether after a time
-signature, a key signature or a clef.  @code{Separating_line_group_engraver}
-is responsible for this space.  Removing @code{Separating_line_group_engraver}
-reduces this space to zero.
+The amount of this prefatory space stays the same regardless
+whether a time signature, a key signature, or a clef follows.
+@code{Separating_line_group_engraver} is responsible for this
+space, and removing this engraver reduces the prefatory space to
+zero.
 
 @lilypond[quote,verbatim,ragged-right]
 \paper {
@@ -3962,15 +3920,14 @@ reduces this space to zero.
 \new Staff \with {
   \remove Separating_line_group_engraver
 } {
-  c'1
-  \break
+  c'1 \break
   c'1
 }
 @end lilypond
 
-non-musical elements like time signatures, key signatures, clefs and
+Non-musical elements like time signatures, key signatures, clefs, and
 accidentals are problematic in proportional notation.  None of these
-elements has rhythmic duration.  But all of these elements consume
+elements has rhythmic duration, but all of them consume
 horizontal space.  Different proportional scores approach these
 problems differently.
 
@@ -3978,8 +3935,8 @@ It may be possible to avoid spacing problems with key signatures
 simply by not having any.  This is a valid option since most
 proportional scores are contemporary music.  The same may be true
 of time signatures, especially for those scores
-that include a measured timeline or other graphic.  But these scores
-are exceptional and most proportional scores include at least some
+that include a measured timeline or other graphic.  However, such scores
+are exceptional, and most proportional scores do include at least some
 time signatures.  Clefs and accidentals are even more essential.
 
 So what strategies exist for spacing non-musical elements in a
@@ -3987,41 +3944,46 @@ proportional context?  One good option is the @code{strict-note-spacing}
 property of @code{SpacingSpanner}.  Compare the two scores below:
 
 @lilypond[quote,verbatim,ragged-right]
-\new Staff {
+{
   \set Score.proportionalNotationDuration = \musicLength 16
-  c''8 8 8 \clef alto d'2 2
+  c''8 8 8 \clef alto d'2 d'8
 }
 
-\new Staff {
+{
   \set Score.proportionalNotationDuration = \musicLength 16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
-  c''8 8 8 \clef alto d'2 2
+  c''8 8 8 \clef alto d'2 d'8
 }
 @end lilypond
 
+@noindent
 Both scores are proportional, but the spacing in the first score
 is too loose because of the clef change.  The spacing of the second
-score remains strict, however, because strict-note-spacing is
-turned on.  Turning on strict-note-spacing causes the width of
-time signatures, key signatures, clefs and accidentals to play no
+score remains strict, however, because @code{strict-note-spacing} is
+turned on.  Turning on this property causes the width of
+time signatures, key signatures, clefs, and accidentals to play no
 part in the spacing algorithm.
 
 In addition to the settings given here, there are other settings
-that frequently appear in proportional scores.  These include:
+that frequently appear in proportional scores.
 
-@itemize
-@item @code{\override SpacingSpanner.strict-grace-spacing = ##t}
-@item @code{\set tupletFullLength = ##t}
-@item @code{\override Beam.breakable = ##t}
-@item @code{\override Glissando.breakable = ##t}
-@item @code{\override TextSpanner.breakable = ##t}
-@item @code{\remove Forbid_line_break_engraver in the Voice context}
-@end itemize
-
-These settings space grace notes strictly, extend tuplet brackets to
-mark both rhythmic start and stop points, and allow spanning elements
-to break across systems and pages.  See the respective parts of the manual
-for these related settings.
+@indentedblock
+@table @code
+@item \override SpacingSpanner.strict-grace-spacing = ##t
+space grace notes strictly (@pxref{Positioning grace notes with
+floating space})
+@item \set tupletFullLength = ##t
+extend tuplet brackets to mark both rhythmic start and stop
+points
+@item \override Beam.breakable = ##t
+permit broken beams (@pxref{Beams across line breaks})
+@item \override Glissando.breakable = ##t
+permit broken glissandi (@pxref{Making glissandi breakable})
+@item \remove Forbid_line_break_engraver
+allow line breaks even if a musical element is still active
+(@pxref{Line breaking})
+@end table
+@end indentedblock
 
 @morerefs
 Notation Reference:
