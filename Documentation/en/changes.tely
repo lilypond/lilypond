@@ -147,6 +147,25 @@ Certain spurious change clefs have been fixed.
 @itemize
 
 @item
+It is now possible to right-align different types of bar lines.
+
+@lilypond[quote,verbatim]
+\new StaffGroup
+  <<
+    \new Staff { \textMark "default" b1 }
+    \new Staff { b1 \section }
+  >>
+
+\new StaffGroup
+  <<
+    \new Staff
+      { \textMark "right-aligned" b1 }
+    \new Staff
+      { b1 \override StaffGroup.BarLine.right-justified = ##t \section }
+  >>
+@end lilypond
+
+@item
 Bar checks (@code{|}) now implicitly create contexts.  The
 developers deem this unlikely to impact real-world scores.  Please
 report a bug if you find a problem without an obvious workaround.

@@ -780,13 +780,21 @@ drawn by the procedure associated with glyph @var{glyph}."
                 LEFT
                 neg-stencil
                 kern)))
-    stencil))
+
+    (if (and (ly:grob-property grob 'right-justified #f)
+             (< (ly:item-break-dir grob) 1))
+        (ly:stencil-translate-axis
+          stencil
+          (- (cdr (ly:stencil-extent stencil X)))
+          X)
+        stencil)))
 
 (define-public (ly:bar-line::calc-anchor grob)
   "Calculate the anchor position of a bar line. The anchor is used for
 the correct placement of bar numbers, etc."
   (let* ((bar-glyph (ly:grob-property grob 'glyph-name ""))
-         (bar-glyph-list (string->string-list (strip-string-annotation bar-glyph)))
+         (bar-glyph-list
+           (string->string-list (strip-string-annotation bar-glyph)))
          (span-glyph (assoc-get bar-glyph span-bar-glyph-alist bar-glyph))
          (x-extent (ly:grob-extent grob grob X))
          (anchor 0.0))
@@ -801,13 +809,26 @@ the correct placement of bar numbers, etc."
              ;; - we have a single bar-glyph
              ;; - bar-glyph and span-glyph are identical
              ;; - we have no span-glyph
-             (set! anchor (interval-center x-extent))
+             (set! anchor
+                   ;; if a mid-line bar-line is right-justified, the anchor
+                   ;; needs to be adjusted
+                   (if (and (ly:grob-property grob 'right-justified #f)
+                            (= (ly:item-break-dir grob) 0))
+                       (- (interval-end x-extent))
+                       (interval-center x-extent)))
              ;; If the conditions above do not hold,the anchor is the
              ;; center of the corresponding span bar stencil extent
-             (set! anchor (interval-center
-                           (ly:stencil-extent
-                            (span-bar::compound-bar-line grob bar-glyph dummy-extent)
-                            X)))))
+             (let* ((span-bar-stencil
+                      (span-bar::compound-bar-line grob bar-glyph dummy-extent))
+                    (span-stil-x-extent (ly:stencil-extent span-bar-stencil X)))
+               (set! anchor
+                     ;; if a mid-line bar-line is right-justified, the anchor
+                     ;; needs to be adjusted
+                     (if (and (ly:grob-property grob 'right-justified #f)
+                              (= (ly:item-break-dir grob) 0))
+                         (interval-end span-stil-x-extent)
+                         (interval-center span-stil-x-extent))))))
+
     anchor))
 
 (define-public (bar-line::calc-glyph-name-for-direction glyphs dir)
@@ -986,7 +1007,14 @@ no elements."
             (ly:warning
              (G_ "No span bar glyph defined for bar glyph '~a'; ignoring.")
              bar-glyph)))
-    stencil))
+
+    (if (and (ly:grob-property grob 'right-justified #f)
+             (< (ly:item-break-dir grob) 1))
+        (ly:stencil-translate-axis
+          stencil
+          (- (cdr (ly:stencil-extent stencil X)))
+          X)
+        stencil)))
 
 ;; The method used in the following routine depends on bar_engraver
 ;; not being removed from staff context.  If bar_engraver is removed,

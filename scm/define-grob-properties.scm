@@ -946,6 +946,12 @@ accidental.")
 measure position) in the score.")
      (right-bound-info ,symbol-key-alist? "An alist of properties for
 determining attachments of spanners to edges.")
+     (right-justified ,boolean? "Used for @code{BarLine}s to right-align them.
+Usually the extent of a @code{BarLine} has some positive value to the right.  If
+this property is set to @code{#t}, @code{BarLine.stencil} is translated to the
+left by this value.  Needs to be set at @code{Score} or @code{StaffGroup} level.
+As a result all @code{BarLine}s of said @code{Score} or @code{StaffGroup} are
+right-justified.")
      (right-padding ,ly:dimension? "Space to insert on the right side
 of an object (e.g., between note and its accidentals).")
      (right-number-text ,markup? "When the measure counter extends

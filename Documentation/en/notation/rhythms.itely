@@ -3550,6 +3550,47 @@ The bar type used for automatically inserted measure bar lines is
 @code{"|"}.  This may be changed at any time with @samp{\set
 Timing@/.measureBarType = @var{bartype}}.
 
+It is also possible to set different types of bar lines in a score with multiple
+staves, using one of the possible commands or properties explained below
+(@pxref{Automatic bar lines}).
+Of course this may lead to a mismatch of bar lines and span bars, due to their
+different width.
+
+Usually bar lines are left-aligned (disregarding colon signs as in repeat bar
+lines).  To get them right-aligned the command
+
+@example
+[\once] \override @var{Context}.BarLine.right-justified = ##t
+@end example
+
+@noindent
+needs to be applied, where @var{Context} is a context suitable for multiple
+staves, like @var{Score}, @var{StaffGroup}, @var{Grandstaff}, etc.
+
+@lilypond[quote,verbatim]
+\new StaffGroup
+  <<
+    \new Staff = "a" {
+      b1  b b
+      <<
+        { \textMark "BarLines right-justified" b b }
+        \new Staff \with { alignAboveContext = "b" }
+        {
+          \override StaffGroup.BarLine.right-justified = ##t
+          b
+          \section
+        }
+      >>
+    }
+    \new Staff = "b" { b \section }
+    \new Staff = "c" { b b \section b b b \section }
+  >>
+@end lilypond
+
+After a line-break bar lines are never right-aligned.  For mid-line and
+right-aligned bar lines the anchor-point (used to align @code{BarNumber},
+@code{RehearsalMark}, etc.) moves acordingly.
+
 @morerefs
 Notation Reference:
 @ref{Line breaking},

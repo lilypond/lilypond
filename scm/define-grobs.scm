@@ -280,6 +280,7 @@ line to visually mark and annotate another grob.")))))
 
         (layer . 0)
         (non-musical . #t)
+        (right-justified . #f)
         (rounded . #f)
         (short-bar-extent . ,ly:bar-line::calc-short-bar-extent)
         (space-alist . (

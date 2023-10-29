@@ -84,6 +84,7 @@ and tick bars are always rounded."
    hair-thickness
    has-span-bar
    kern
+   right-justified
    rounded
    segno-kern
    short-bar-extent
