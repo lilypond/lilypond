@@ -175,6 +175,19 @@ Return the parent of @var{context}, @code{#f} if none.
     return SCM_BOOL_F;
 }
 
+LY_DEFINE (ly_context_children, "ly:context-children", 1, 0, 0, (SCM context),
+           R"(
+Return a list with the children contexts of @var{context}.
+           )")
+{
+  auto *tr = LY_ASSERT_SMOB (Context, context, 1);
+
+  // Create a copy so that the context-internal list may not be tampered with
+  // from Scheme.
+
+  return scm_list_copy (tr->children_contexts ());
+}
+
 /* FIXME: todo: should support translator IDs, and creation? */
 LY_DEFINE (ly_context_find, "ly:context-find", 2, 0, 0, (SCM context, SCM name),
            R"(
