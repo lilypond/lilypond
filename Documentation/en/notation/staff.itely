@@ -892,7 +892,7 @@ context, as explained @ref{Modifying context plug-ins} (see
 
 In the following example, staves devoted to wind instruments are
 removed in the second system; however, the double bass is not, because
-it is part of the larger group of fretted strings, which is playing.
+it is part of the string section, which is playing.
 
 @lilypond
 %{
