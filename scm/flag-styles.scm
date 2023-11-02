@@ -21,7 +21,9 @@
 
 
 (define-public (no-flag grob)
-  "No flag: Simply return empty stencil."
+  "A callback for function @code{default-flag}, indicating @q{no flag}.
+
+This function simply returns an empty stencil."
   empty-stencil)
 
 
@@ -32,14 +34,18 @@
 
 (define-public (add-stroke-straight stencil grob dir log stroke-style
                                     offset length thickness stroke-thickness)
-  "Add the stroke for acciaccatura to the given flag stencil.
-The stroke starts for up-flags at `upper-end-of-flag + (0,length/2)'
-and ends at `(0, vertical-center-of-flag-end) - (flag-x-width/2,
-flag-x-width + flag-thickness)'.  Here `length' is the
-whole length, while `flag-x-width' is just the x@tie{}extent and thus
-depends on the angle!  Other combinations don't look as good.
+  "Add an acciaccatura stroke to the given flag stencil.
 
-For down-stems the y@tie{}coordinates are simply mirrored."
+This is an auxiliary function for @code{straight-flag}."
+
+
+  ;; The stroke starts for up-flags at `upper-end-of-flag + (0,length/2)' and
+  ;; ends at `(0, vertical-center-of-flag-end) - (flag-x-width/2, flag-x-width +
+  ;; flag-thickness)'.  Here `length' is the whole length, while `flag-x-width'
+  ;; is just the x-extent and thus depends on the angle!  Other combinations
+  ;; don't look as good.
+  ;;
+  ;; For down-stems the y-coordinates are simply mirrored.
   (let* ((stem-grob (ly:grob-parent grob X))
          (start (offset-add offset (cons 0  (* (/ length 2) dir))))
          (end (offset-add (cons 0 (cdr offset))
@@ -48,9 +54,9 @@ For down-stems the y@tie{}coordinates are simply mirrored."
     (ly:stencil-add stencil stroke)))
 
 (define (buildflag flag-stencil remain curr-stencil spacing)
-  "Internal function to recursively create a stencil with @code{remain} flags
-   from the single-flag stencil curr-stencil, which is already translated to
-   the position of the previous flag position."
+  "Internal function to recursively create a stencil with @var{remain} flags
+   from the single-flag stencil @var{curr-stencil}, which is already translated
+to the position of the previous flag position."
   (if (> remain 0)
       (let* ((translated-stencil (ly:stencil-translate-axis curr-stencil spacing Y))
              (new-stencil (ly:stencil-add flag-stencil translated-stencil)))
@@ -60,13 +66,20 @@ For down-stems the y@tie{}coordinates are simply mirrored."
 (define-public ((straight-flag flag-thickness flag-spacing
                                upflag-angle upflag-length
                                downflag-angle downflag-length) grob)
-  "Create a stencil for a straight flag.  @var{flag-thickness} and
-@var{flag-spacing} are given in staff spaces, @var{upflag-angle} and
-@var{downflag-angle} are given in degrees, and @var{upflag-length} and
-@var{downflag-length} are given in staff spaces.
+  "Construct a straight flag stencil function.
 
-All lengths are scaled according to the font size of the note."
+The constructed function expects a single argument, @var{grob}.
 
+@var{flag-thickness} and @var{flag-spacing} are given in staff spaces,
+@var{upflag-angle} and @var{downflag-angle} are given in degrees, and
+@var{upflag-length} and @var{downflag-length} are given in staff spaces.
+
+All lengths are scaled according to the font size of the note.  If the
+@code{stroke-style} property in @var{grob} is set to the string
+@code{\"grace\"}, add a slash through the flag.
+
+This is an auxiliary function for @code{modern-straight-flag},
+@code{old-straight-flag}, and @code{flat-flag}."
   (let* ((stem-grob (ly:grob-parent grob X))
          (log (ly:grob-property stem-grob 'duration-log))
          (dir (ly:grob-property stem-grob 'direction))
@@ -111,18 +124,38 @@ All lengths are scaled according to the font size of the note."
           (else flag-stencil))))
 
 (define-public (modern-straight-flag grob)
-  "Modern straight flag style (for composers like Stockhausen, Boulez, etc.).
-The angles are 18 and 22@tie{}degrees and thus smaller than for the ancient
-style of Bach, etc."
+  "A callback function for @code{Flag.stencil} to get a modern straight flag.
+
+This is used by composers like Stockhausen or Boulez.
+
+The straight flag angles are 18 and 22@tie{}degrees for up-stems and down-stems,
+respectively, and thus smaller than for @code{old-straight-flag}.  If the caller
+sets the @code{stroke-style} property of @var{grob} to the string
+@code{\"grace\"}, add a slash through the flag.
+
+This function returns a stencil."
   ((straight-flag 0.55 1 -18 1.1 22 1.2) grob))
 
 (define-public (old-straight-flag grob)
-  "Old straight flag style (for composers like Bach).  The angles of the
-flags are both 45@tie{}degrees."
+  "A callback function for @code{Flag.stencil} to get an old straight flag.
+
+This is used by composers like Bach.
+
+The up-stem and down-stem angles of the flags are both 45@tie{}degrees.  If the
+caller sets the @code{stroke-style} property of @var{grob} to the string
+@code{\"grace\"}, add a slash through the flag.
+
+This function returns a stencil."
   ((straight-flag 0.55 1 -45 1.2 45 1.4) grob))
 
 (define-public (flat-flag grob)
-  "Flat flag style.  The angles of the flags are both 0@tie{}degrees."
+  "A callback function for @code{Flag.stencil} to get a flat flag.
+
+The up-stem and down-stem angles of the flags are both 0@tie{}degrees.  If the
+caller sets the @code{stroke-style} property of @var{grob} to the string
+@code{\"grace\"}, add a slash through the flag.
+
+This function returns a stencil."
   ((straight-flag 0.55 1.0 0 1.0 0 1.0) grob))
 
 
@@ -131,17 +164,17 @@ flags are both 45@tie{}degrees."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; NOTE: By default, lilypond uses the C++ method Flag::stencil
-;; (ly:flag::stencil is the corresponding Scheme interface) to generate the
-;; flag stencil. The following functions are simply a reimplementation in
-;; Scheme, so that one has that functionality available in Scheme, if one
-;; wants to write a flag style, which modifies one of the standard flags
-;; by some stencil operations.
+;; NOTE: By default, LilyPond uses the C++ method Flag::print (ly:flag::print is
+;; the corresponding Scheme interface) to generate the flag stencil.  The
+;; following functions are identical reimplementations in Scheme, making its
+;; functionality available if someone wants to write a flag style that modifies
+;; one of the standard flags by some stencil operations.
 
 
 (define-public (add-stroke-glyph stencil grob dir stroke-style flag-style)
-  "Load and add a stroke (represented by a glyph in the font) to the given
-flag stencil."
+  "Add a stroke glyph (from the music font) to the given flag stencil.
+
+This is an auxiliary function for @code{create-glyph-flag}."
   (if (not (string? stroke-style))
       stencil
       ;; Otherwise: look up the stroke glyph and combine it with the flag
@@ -161,7 +194,9 @@ flag stencil."
 
 
 (define-public (retrieve-glyph-flag flag-style dir dir-modifier grob)
-  "Load the correct flag glyph from the font."
+  "Load the correct flag glyph from the music font.
+
+This is an auxiliary function for @code{create-glyph-flag}."
   (let* ((stem-grob (ly:grob-parent grob X))
          (log (ly:grob-property stem-grob 'duration-log))
          (font (ly:grob-default-font grob))
@@ -173,7 +208,10 @@ flag stencil."
 
 
 (define-public (create-glyph-flag flag-style dir-modifier grob)
-  "Create a flag stencil by looking up the glyph from the font."
+  "Create a flag stencil by looking up the glyph from the music font.
+
+This is an auxiliary function for @code{mensural-flag}, @code{glyph-flag}, and
+@code{normal-flag}."
   (let* ((stem-grob (ly:grob-parent grob X))
          (dir (if (eqv? (ly:grob-property stem-grob 'direction) UP) "u" "d"))
          (flag (retrieve-glyph-flag flag-style dir dir-modifier grob))
@@ -187,14 +225,21 @@ flag stencil."
 
 
 (define-public (mensural-flag grob)
-  "Mensural flags: Create the flag stencil by loading the glyph from the font.
-Flags are always aligned with staff lines, so we need to check the end point
-of the stem: For stems ending on staff lines, use different flags than for
-notes between staff lines.  The idea is that flags are always vertically
-aligned with the staff lines, regardless of whether the note head is on a
-staff line or between two staff lines.  In other words, the inner end of
-a flag always touches a staff line."
+  "A callback for function @code{default-flag} to get a mensural flag.
 
+Mensural flags are aligned with staff lines; for stems ending on staff lines,
+use different flags than for notes between staff lines.  The idea is that the
+inner end of a flag always touches a staff line.
+
+The mensural flag glyph is taken from the music font; its name is
+@code{flags.mensural@var{Dir}@var{Type}@var{Log}}.  @var{Dir} is the flag
+direction (either @samp{u} or @samp{d}), @var{Type} is @samp{0} if the note head
+is between staff lines and @samp{1} otherwise, @var{Log} is the duration log (an
+integer in the range 3 to@tie{}6) from which the number of flags attached to the
+stem is derived.  Both @var{Dir} and @var{Log} are taken from @var{grob}.
+Example: @code{flags.mensuralu13}.
+
+This function returns a stencil."
   (let* ((stem-grob (ly:grob-parent grob X))
          (adjust #t)
          (d (ly:grob-property stem-grob 'direction))
@@ -212,28 +257,58 @@ a flag always touches a staff line."
 
 
 (define-public ((glyph-flag flag-style) grob)
-  "Simulatesthe default way of generating flags: Look up glyphs
-@code{flags.style[ud][1234]} from the feta font and use it for the flag
-stencil."
+  "A callback for function @code{default-flag} to get a flag glyph.
+
+This function actually constructs a function returning a stencil, expecting a
+single argument, @var{grob}.
+
+It looks up glyph @code{flags.@var{Style}@var{Dir}@var{Log}} in the music font
+and uses it for the flag stencil.  @var{Style} is the flag style based on
+@var{flag-style} (which can be empty), @var{Dir} is the flag direction (either
+@samp{u} or @samp{d}), and @var{Log} the duration log (an integer in the range 3
+to 10) from which the number of flags attached to the stem is derived.  Both
+@var{Dir} and @var{Log} are taken from @var{grob}.  Example: @code{flags.u3}.
+
+If @code{grob} has the @code{stroke-style} property set, add a second glyph with
+the same glyph name components but use its value instead for @var{log}.
+Example: @code{flags.ugrace}.
+
+Not to be used with mensural flags, which have a slightly different naming
+scheme (see function @code{mensural-flag})."
   (create-glyph-flag flag-style "" grob))
 
 
 (define-public (normal-flag grob)
-  "Create a default flag."
+  "A callback for function @code{default-flag} to get a @q{normal} flag.
+
+See function @code{glyph-flag} for the naming scheme of flag glyphs (with
+argument @var{flag-style} set to the empty string).
+
+This function returns a stencil."
   (create-glyph-flag "" "" grob))
 
 
 (define-public (default-flag grob)
-  "Create a flag stencil for the stem.  Its style is derived from the
-@code{'style} Flag property.  By default, @code{lilypond} uses a
-C++ Function (which is slightly faster) to do exactly the same as this
-function.  However, if one wants to modify the default flags, this function
-can be used to obtain the default flag stencil, which can then be modified
-at will.  The correct way to do this is:
+  "Create a flag stencil for the stem.
+
+The flag style is derived from the @code{style} property of @var{grob} (which
+must be of type @code{Flag}).
+
+By default, LilyPond uses a C++ function (which is slightly faster) to do
+exactly the same as this function.  However, if you want to modify the default
+flags this function can be used to obtain the default flag stencil, which can
+then be modified at will.
+
+The available, predefined values for @code{style} are @code{\"\"} (empty, for
+normal flags), @code{\"mensural\"}, and @code{\"no-flag\"}.  Other values are
+used to construct glyph names for flags; see function @code{glyph-flag} for
+details.
+
+Example:
 
 @example
-\\override Flag #'stencil = #default-flag
-\\override Flag #'style = #'mensural
+\\override Flag.stencil = #default-flag
+\\override Flag.style = #'mensural
 @end example
 "
   (let* ((stem-grob (ly:grob-parent grob X))
