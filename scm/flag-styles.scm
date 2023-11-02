@@ -57,9 +57,9 @@ For down-stems the y@tie{}coordinates are simply mirrored."
         (buildflag new-stencil (- remain 1) translated-stencil spacing))
       flag-stencil))
 
-(define-public (straight-flag flag-thickness flag-spacing
-                              upflag-angle upflag-length
-                              downflag-angle downflag-length)
+(define-public ((straight-flag flag-thickness flag-spacing
+                               upflag-angle upflag-length
+                               downflag-angle downflag-length) grob)
   "Create a stencil for a straight flag.  @var{flag-thickness} and
 @var{flag-spacing} are given in staff spaces, @var{upflag-angle} and
 @var{downflag-angle} are given in degrees, and @var{upflag-length} and
@@ -67,49 +67,48 @@ For down-stems the y@tie{}coordinates are simply mirrored."
 
 All lengths are scaled according to the font size of the note."
 
-  (lambda (grob)
-    (let* ((stem-grob (ly:grob-parent grob X))
-           (log (ly:grob-property stem-grob 'duration-log))
-           (dir (ly:grob-property stem-grob 'direction))
-           (stem-up (eqv? dir UP))
-           (layout (ly:grob-layout grob))
-           (staff-space (ly:output-def-lookup layout 'staff-space))
-           ;; scale with font size-and staff-space (e.g. for grace notes)
-           (factor
-            (* staff-space
-               (magstep (ly:grob-property grob 'font-size 0))))
-           (grob-stem-thickness (ly:grob-property stem-grob 'thickness))
-           (line-thickness (ly:output-def-lookup layout 'line-thickness))
-           (half-stem-thickness (/ (* grob-stem-thickness line-thickness) 2))
-           (raw-length (if stem-up upflag-length downflag-length))
-           (angle (if stem-up upflag-angle downflag-angle))
-           (flag-length (+ (* raw-length factor) half-stem-thickness))
-           (flag-end (polar->rectangular flag-length angle))
-           (thickness (* flag-thickness factor))
-           (thickness-offset (cons 0 (* -1 thickness dir)))
-           (spacing (* -1 flag-spacing factor dir ))
-           (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
-           (raw-points
-            (list
-             '(0 . 0)
-             flag-end
-             (offset-add flag-end thickness-offset)
-             thickness-offset))
-           (points (map (lambda (coord) (offset-add coord start)) raw-points))
-           (stencil (ly:round-polygon points half-stem-thickness -1.0))
-           ;; Log for 1/8 is 3, so we need to subtract 3
-           (flag-stencil (buildflag stencil (- log 3) stencil spacing))
-           (stroke-style (ly:grob-property grob 'stroke-style)))
-      (cond ((eq? (ly:grob-property grob 'style) 'no-flag)
-             empty-stencil)
-            ((equal? stroke-style "grace")
-             (add-stroke-straight flag-stencil grob
-                                  dir log
-                                  stroke-style
-                                  flag-end flag-length
-                                  thickness
-                                  (* half-stem-thickness 2)))
-            (else flag-stencil)))))
+  (let* ((stem-grob (ly:grob-parent grob X))
+         (log (ly:grob-property stem-grob 'duration-log))
+         (dir (ly:grob-property stem-grob 'direction))
+         (stem-up (eqv? dir UP))
+         (layout (ly:grob-layout grob))
+         (staff-space (ly:output-def-lookup layout 'staff-space))
+         ;; scale with font size-and staff-space (e.g. for grace notes)
+         (factor
+          (* staff-space
+             (magstep (ly:grob-property grob 'font-size 0))))
+         (grob-stem-thickness (ly:grob-property stem-grob 'thickness))
+         (line-thickness (ly:output-def-lookup layout 'line-thickness))
+         (half-stem-thickness (/ (* grob-stem-thickness line-thickness) 2))
+         (raw-length (if stem-up upflag-length downflag-length))
+         (angle (if stem-up upflag-angle downflag-angle))
+         (flag-length (+ (* raw-length factor) half-stem-thickness))
+         (flag-end (polar->rectangular flag-length angle))
+         (thickness (* flag-thickness factor))
+         (thickness-offset (cons 0 (* -1 thickness dir)))
+         (spacing (* -1 flag-spacing factor dir ))
+         (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
+         (raw-points
+          (list
+           '(0 . 0)
+           flag-end
+           (offset-add flag-end thickness-offset)
+           thickness-offset))
+         (points (map (lambda (coord) (offset-add coord start)) raw-points))
+         (stencil (ly:round-polygon points half-stem-thickness -1.0))
+         ;; Log for 1/8 is 3, so we need to subtract 3
+         (flag-stencil (buildflag stencil (- log 3) stencil spacing))
+         (stroke-style (ly:grob-property grob 'stroke-style)))
+    (cond ((eq? (ly:grob-property grob 'style) 'no-flag)
+           empty-stencil)
+          ((equal? stroke-style "grace")
+           (add-stroke-straight flag-stencil grob
+                                dir log
+                                stroke-style
+                                flag-end flag-length
+                                thickness
+                                (* half-stem-thickness 2)))
+          (else flag-stencil))))
 
 (define-public (modern-straight-flag grob)
   "Modern straight flag style (for composers like Stockhausen, Boulez, etc.).
@@ -245,5 +244,5 @@ at will.  The correct way to do this is:
     (cond
      ((equal? flag-style "") (normal-flag grob))
      ((equal? flag-style "mensural") (mensural-flag grob))
-     ((equal? flag-style "no-flag") empty-stencil)
+     ((equal? flag-style "no-flag") (no-flag grob))
      (else ((glyph-flag flag-style) grob)))))
