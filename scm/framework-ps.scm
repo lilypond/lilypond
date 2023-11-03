@@ -552,8 +552,8 @@
       (begin
         (display "
 /currentpagedevice where {
-  pop currentpagedevice /Name known {
-    currentpagedevice /Name get (pdfwrite) eq {
+  pop currentpagedevice /OutputDevice known {
+    currentpagedevice /OutputDevice get (pdfwrite) eq {
       << /NeverEmbed [" port)
         (display (string-concatenate
                   (map (lambda (f) (string-append " /" f))

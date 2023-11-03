@@ -71,7 +71,12 @@
            (if (and is-eps (not fit-page)) "-dEPSCrop")
            (if fit-page "-dEPSFitPage")
            "-dAutoRotatePages=/None"
-           "-dPrinted=false")))
+           "-dPrinted=false"
+           ;; Load `nocache.ps` to define `uncachedevice`, which we need to
+           ;; reset the page counter for some devices; see `ps-to-png.scm`.
+           (if (ly:get-option 'gs-api)
+               (format #f "~a/ps/nocache.ps" (ly:get-option 'datadir)))
+          )))
 
 (define-public (gs-safe-run input)
   ;; The PostScript Language Reference Manual says "run is a convenience
@@ -115,7 +120,8 @@
          (run-strings
           (filter string?
                   (list
-                   (format #f "mark /OutputFile (~a)" output-file)
+                   "<<"
+                   (format #f "/OutputFile (~a)" output-file)
                    ;; Ghostscript's default level may change with future
                    ;; releases, the current being 1.7 since 9.24. This
                    ;; results in a warning when embedding the produced PDF
@@ -125,10 +131,15 @@
                    "/CompatibilityLevel 1.4"
                    (if (not is-eps)
                        (ly:format "/PageSize [~$ ~$]" paper-width paper-height))
-                   "(pdfwrite) finddevice putdeviceprops pop"
-                   ;; `setdevice` does not set some defaults. So we use
-                   ;; `selectdevide` instead.
-                   "(pdfwrite) selectdevice"
+                   "/OutputDevice /pdfwrite >> setpagedevice"
+                   ;; `setpagedevice` does not set some defaults, causing larger
+                   ;; output files than necessary, among other things.  To fix
+                   ;; this we call a gs-specific procedure.
+                   "/.setdefaultscreen where {"
+                   "pop .setdefaultscreen"
+                   "} {"
+                   "(Warning: .setdefaultscreen not available) print"
+                   "} ifelse"
                    ;; from Resource/Init/gs_pdfwr.ps; needed here because we
                    ;; do not have the pdfwrite device initially (-dNODISPLAY).
                    "newpath fill"
@@ -146,10 +157,15 @@
           (ly:gs-api (gs-cmd-args is-eps #f)
                      (string-join
                       (list
-                       (format #f "mark /OutputFile (~a)" flush-name)
-                       "(pdfwrite) finddevice putdeviceprops pop"
+                       "<<"
+                       (format #f "/OutputFile (~a)" flush-name)
+                       "/OutputDevice /pdfwrite >> setpagedevice"
                        ;; see above
-                       "(pdfwrite) selectdevice"
+                       "/.setdefaultscreen where {"
+                       "pop .setdefaultscreen"
+                       "} {"
+                       "(Warning: .setdefaultscreen not available) print"
+                       "} ifelse"
                        ;; see above
                        "newpath fill")
                       " "))
