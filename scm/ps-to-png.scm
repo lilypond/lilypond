@@ -117,7 +117,13 @@
            (filter
             string?
             (list
-             (format #f "mark /OutputFile (~a)" pngn-gs)
+             ;; If the Ghostscript API is used we need to reset the page counter
+             ;; (as used in `/OutputFile`).  To do so, we already loaded
+             ;; `nocache.ps` in `gs-cmd-args` to get function `uncachedevice`,
+             ;; which we now call after the `save ... restore` group.
+             (if (ly:get-option 'gs-api) "save")
+             "<<"
+             (format #f "/OutputFile (~a)" pngn-gs)
              "/GraphicsAlphaBits 4 /TextAlphaBits 4"
              (if fit-page
                  ;; Get available resolution and magnify it according
@@ -132,20 +138,10 @@ currentpagedevice /HWResolution get 1 get ~a mul \
              (format #f "/DownScaleFactor ~a" anti-alias-factor)
              (if (or (not is-eps) fit-page)
                  (format #f "/PageSize [~a ~a]" width height))
-             ;; We use `findprotodevice` because `finddevice` always returns
-             ;; the same device instance and we can't reset the page number of
-             ;; the device. `findprotodevice copydevice` creates a new device
-             ;; instance each time, which can reset the page number.
-             (format #f "(~a) findprotodevice copydevice" pixmap-format)
-             "putdeviceprops setdevice"
-             ;; We want to use `selectdevice` instead of `setdevice` because
-             ;; `setdevice` doesn't set some defaults. But using `selectdevice`
-             ;; can't reset the page number because `selectdevice` uses
-             ;; `finddevice` internally. So, as a workaround, we use an
-             ;; undocumented `.setdefaultscreen` procedure which is used inside
-             ;; `selectdevice` to set the defaults. It works in Ghostscript
-             ;; 9.52 but may not work if the internal implementation of
-             ;; `selectdevice` is changed in the future.
+             (format #f "/OutputDevice /~a" pixmap-format)
+             ">> setpagedevice"
+             ;; `setpagedevice` does not set some defaults.  To fix this we call
+             ;; a gs-specific procedure.
              "/.setdefaultscreen where {"
              "pop .setdefaultscreen"
              "} {"
@@ -158,7 +154,9 @@ currentpagedevice /HWResolution get 1 get ~a mul \
              (format #f "/PermitFileWriting (~a*) .addcontrolpath"
                      base-name-gs)
              "} if"
-             (gs-safe-run ps-tmp-name)))))
+             (gs-safe-run ps-tmp-name)
+             (if (ly:get-option 'gs-api)
+                 (format #f "restore /~a uncachedevice" pixmap-format))))))
 
      ;; This is a ghostscript constraint.
      (if (not (and (integer? anti-alias-factor)

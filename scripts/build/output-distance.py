@@ -537,12 +537,18 @@ def eps_to_png(files: Dict[str, str]):
             verbose_print = ''
             if options.verbose:
                 verbose_print = ' (processing %s\n) print ' % input_fn
+            # See `ps-to-png.scm` for details.
             driver.write('''
                 %s
-                mark /OutputFile (%s)
+                << /OutputFile (%s)
                 /GraphicsAlphaBits 4 /TextAlphaBits 4
                 /HWResolution [101 101]
-                (png16m) finddevice putdeviceprops setdevice
+                /OutputDevice /png16m >> setpagedevice
+                /.setdefaultscreen where {
+                pop .setdefaultscreen
+                } {
+                (Warning: .setdefaultscreen not available) print
+                } ifelse
                 (%s) run
                 ''' % (verbose_print, outfile, input_fn))
 

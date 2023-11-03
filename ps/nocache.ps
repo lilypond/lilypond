@@ -1,0 +1,77 @@
+%!PS-Adobe-2.0: nocache.ps
+%
+% Auxiliary function to clear Ghostscript's device cache.
+%
+% Written 2023 by Ken Sharp <ken.sharp@artifex.com>.
+%
+% This file is in the public domain.
+%
+% Taken from
+%
+%   https://bugs.ghostscript.com/show_bug.cgi?id=707307
+
+% Function to purge a named device from the device cache. This is required if we
+% want to 'reset' a device. The setpagedevice implementation, when it creates a
+% device instance, stores it in a cache. Next time we select a device we look in
+% the cache and, if we find we cached it, then we use the cached device.
+%
+% Presumably this is intended as an optimisation, but it defeats the expected use
+% of save and restore wihth devices because, after we restore a device away it is
+% not destroyed, it is in the cache. Requesting the same named device will return
+% the cached device, crucially *without* resetting any of its parameters. In
+% particular NumPages which is used to number output files and is a read-only parameter.
+%
+% /name uncachedevice -
+%
+/uncachedevice
+{
+    % Check we've been given a name
+    dup type /nametype eq
+    {
+        % Check the name isn't the current device
+        dup currentpagedevice /OutputDevice get eq
+        {
+            (*** ERROR: Can't uncache the current device\n) print
+            /uncachedevice /invalidaccess signalerror
+        }
+        {
+            % Make sure devicedict exists, if it does not, ignore
+            % the request because this code doesn't know how to
+            % deal with this PostScript itnerpreter.
+            /devicedict where
+            {
+                % Get devicedict out of its containing dictionary
+                /devicedict get dup             % stack: /device -devicedict- -devicedict-
+
+                % Check if the device we were given is known
+                2 index known                   % stack: /device -devicedict- bool
+                {
+                    % device was known, get the key/value pair from devicedict
+                    dup 2 index get             % stack: /device -devicedict- value
+
+                    % We expect the value in devicedict to be an array, check it is
+                    dup type /arraytype eq
+                    {
+                        dup 1 null put          % stack: /device -devicedict- [-device- null]
+                        3 -1 roll exch          % stack: -devicedict- /device [-device- null]
+                        put                     % stack: -
+                    }
+                    {
+                        % Value in devicedict associated with the named key is not an array
+                        /uncachedevice /typecheck signalerror
+                    } ifelse
+                }
+                {
+                    % The named key is not present in devicedict
+                    /uncachedevice /undefined signalerror
+                } ifelse
+            } if
+        } ifelse
+    }
+    {
+        % The parameter we were given wasn't a name type
+        /uncachedevice /typecheck signalerror
+    } ifelse
+} bind def
+
+% end nocache.ps
