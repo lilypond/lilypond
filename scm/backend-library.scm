@@ -55,8 +55,8 @@
     (close-port tmp)
     (set! args (append args (list tmp-name)))
     (ly:system args)
-    (delete-file tmp-name)
-    ))
+    (if (ly:get-option 'delete-intermediate-files)
+        (delete-file tmp-name))))
 
 (define-public (gs-cmd-args is-eps fit-page)
   (filter string?
