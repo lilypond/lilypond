@@ -533,41 +533,6 @@ class Bdwgc(ConfigurePackage):
 bdwgc = Bdwgc()
 
 
-class GMP(ConfigurePackage):
-    @property
-    def version(self) -> str:
-        return "6.2.1"
-
-    @property
-    def directory(self) -> str:
-        return f"gmp-{self.version}"
-
-    @property
-    def archive(self) -> str:
-        return f"{self.directory}.tar.xz"
-
-    @property
-    def download_url(self) -> str:
-        return f"https://gmplib.org/download/gmp/{self.archive}"
-
-    @property
-    def license_files(self) -> List[str]:
-        return ["COPYING.LESSERv3"]
-
-    def copy_license_files(self, destination: str, c: Config):
-        super().copy_license_files(destination, c)
-
-        readme_src = os.path.join(self.src_directory(c), "README")
-        readme_dst = os.path.join(destination, f"{self.directory}.README")
-        copy_slice(readme_src, readme_dst, slice(0, 27))
-
-    def __str__(self) -> str:
-        return f"GMP {self.version}"
-
-
-gmp = GMP()
-
-
 class Libiconv(ConfigurePackage):
     def enabled(self, c: Config) -> bool:
         return c.is_mingw()
@@ -690,6 +655,13 @@ class Guile(ConfigurePackage):
         scm_h = os.path.join("libguile", "scm.h")
         self.patch_file(c, scm_h, patch_scm)
 
+        # Patch mini-gmp to use "long long" datatype.
+        def patch_mini_gmp(content: str) -> str:
+            return content.replace("#define MINI_GMP_LIMB_TYPE long", "#define MINI_GMP_LIMB_TYPE long long")
+
+        mini_gmp_h = os.path.join("libguile", "mini-gmp.h")
+        self.patch_file(c, mini_gmp_h, patch_mini_gmp)
+
         # Apply backported patches to make Guile 3.0.9 work on Windows, see also
         # https://lists.gnu.org/archive/html/guile-devel/2023-10/msg00051.html
         root_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -751,7 +723,7 @@ class Guile(ConfigurePackage):
         libiconv_dep: List[Package] = []
         if c.is_mingw():
             libiconv_dep = [libiconv]
-        return gettext_dep + libiconv_dep + [bdwgc, libffi, libunistring, gmp]
+        return gettext_dep + libiconv_dep + [bdwgc, libffi, libunistring]
 
     def build_env_extra(self, c: Config) -> Dict[str, str]:
         env = super().build_env_extra(c)
@@ -762,7 +734,6 @@ class Guile(ConfigurePackage):
         return env
 
     def configure_args(self, c: Config) -> List[str]:
-        gmp_install_dir = gmp.install_directory(c)
         libunistring_install_dir = libunistring.install_directory(c)
 
         libintl_args = []
@@ -792,8 +763,9 @@ class Guile(ConfigurePackage):
                 "--disable-error-on-warning",
                 # Disable LTO.
                 "--disable-lto",
+                # Enable builtin mini-gmp to avoid building GMP ourselves.
+                "--enable-mini-gmp",
                 # Make configure find the statically built dependencies.
-                f"--with-libgmp-prefix={gmp_install_dir}",
                 f"--with-libunistring-prefix={libunistring_install_dir}",
                 # Prevent that configure searches for libcrypt.
                 "ac_cv_search_crypt=no",
@@ -1264,7 +1236,6 @@ all_dependencies: List[Package] = [
     pcre,
     glib,
     bdwgc,
-    gmp,
     libiconv,
     libunistring,
     guile,
