@@ -319,7 +319,8 @@ ignoring @var{landscape?}."
 
 (define (internal-set-paper-size module name landscape?)
   (let* ((entry (lookup-paper-name module name landscape?))
-         (is-paper? (eq? 'paper (module-ref module 'output-def-kind #f))))
+         (is-paper? (eq? 'paper (module-ref module 'output-def-kind #f)))
+         (name (if (string? name) name "custom")))
     (cond
      ((not is-paper?)
       (ly:warning (G_ "This is not a \\layout {} object, ~S") module))
