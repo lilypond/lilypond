@@ -24,6 +24,7 @@ import logging
 import os
 import re
 import shutil
+import subprocess
 from typing import Dict, List
 
 from .build import Package, ConfigurePackage, MesonPackage
@@ -716,6 +717,26 @@ class Guile(ConfigurePackage):
 
         scm_h = os.path.join("libguile", "scm.h")
         self.patch_file(c, scm_h, patch_scm)
+
+        # Apply backported patches to make Guile 3.0.9 work on Windows, see also
+        # https://lists.gnu.org/archive/html/guile-devel/2023-10/msg00051.html
+        root_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        for patch in [
+                "0001-scm_i_divide2double-Refactor-to-use-scm_to_mpz.patch",
+                "0002-scm_integer_modulo_expt_nnn-Refactor-to-use-scm_to_m.patch",
+                "0003-Rename-functions-that-should-accept-scm_t_inum.patch",
+                "0004-Decouple-scm_t_inum-from-long-datatype.patch",
+                "0005-Store-hashes-as-uintptr_t.patch",
+            ]:
+            patch_path = os.path.join(root_path, "patches", patch)
+            with open(patch_path) as patch_file:
+                subprocess.run(
+                    ["patch","-p1"],
+                    stdin=patch_file,
+                    stdout=subprocess.DEVNULL,
+                    cwd=self.src_directory(c),
+                    check=True,
+                )
 
     def apply_patches(self, c: Config):
         # Fix configure on CentOS7 to not look in lib64.

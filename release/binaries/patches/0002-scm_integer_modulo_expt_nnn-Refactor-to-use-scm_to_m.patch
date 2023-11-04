@@ -1,0 +1,61 @@
+From d6671b6e3f5c2fba53ebad35a9847767670f13f9 Mon Sep 17 00:00:00 2001
+From: Jonas Hahnfeld <hahnjo@hahnjo.de>
+Date: Wed, 30 Aug 2023 17:36:30 +0200
+Subject: [PATCH 2/5] scm_integer_modulo_expt_nnn: Refactor to use scm_to_mpz
+
+* libguile/integers.c (scm_integer_modulo_expt_nnn): Refactor to use
+scm_to_mpz.
+(integer_init_mpz): Remove helper function.
+---
+ libguile/integers.c | 28 ++++++++++------------------
+ 1 file changed, 10 insertions(+), 18 deletions(-)
+
+diff --git a/libguile/integers.c b/libguile/integers.c
+index cc62d1c78..81ee06206 100644
+--- a/libguile/integers.c
++++ b/libguile/integers.c
+@@ -2318,21 +2318,6 @@ scm_integer_expt_zi (struct scm_bignum *n, scm_t_inum k)
+   return take_mpz (res);
+ }
+ 
+-static void
+-integer_init_mpz (mpz_ptr z, SCM n)
+-{
+-  if (SCM_I_INUMP (n))
+-    mpz_init_set_si (z, SCM_I_INUM (n));
+-  else
+-    {
+-      ASSERT (SCM_BIGP (n));
+-      mpz_t zn;
+-      alias_bignum_to_mpz (scm_bignum (n), zn);
+-      mpz_init_set (z, zn);
+-      scm_remember_upto_here_1 (n);
+-    }
+-}
+-
+ SCM
+ scm_integer_modulo_expt_nnn (SCM n, SCM k, SCM m)
+ {
+@@ -2341,9 +2326,16 @@ scm_integer_modulo_expt_nnn (SCM n, SCM k, SCM m)
+ 
+   mpz_t n_tmp, k_tmp, m_tmp;
+ 
+-  integer_init_mpz (n_tmp, n);
+-  integer_init_mpz (k_tmp, k);
+-  integer_init_mpz (m_tmp, m);
++#if (! HAVE_DECL_MPZ_INITS) || SCM_ENABLE_MINI_GMP
++  mpz_init (n_tmp);
++  mpz_init (k_tmp);
++  mpz_init (m_tmp);
++#else
++  mpz_inits (n_tmp, k_tmp, m_tmp, NULL);
++#endif
++  scm_to_mpz (n, n_tmp);
++  scm_to_mpz (k, k_tmp);
++  scm_to_mpz (m, m_tmp);
+ 
+   /* if the exponent K is negative, and we simply call mpz_powm, we
+      will get a divide-by-zero exception when an inverse 1/n mod m
+-- 
+2.42.1
+

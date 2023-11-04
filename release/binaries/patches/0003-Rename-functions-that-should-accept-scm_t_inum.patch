@@ -1,0 +1,242 @@
+From d9825cda45b7f6050404671979d305712b57a593 Mon Sep 17 00:00:00 2001
+From: Jonas Hahnfeld <hahnjo@hahnjo.de>
+Date: Sat, 2 Sep 2023 16:38:59 +0200
+Subject: [PATCH 3/5] Rename functions that should accept scm_t_inum
+
+* libguile/integers.c (long_to_bignum): Rename to inum_to_bignum.
+(long_to_scm): Rename to scm_from_inum.
+---
+ libguile/integers.c | 52 ++++++++++++++++++++++-----------------------
+ 1 file changed, 26 insertions(+), 26 deletions(-)
+
+diff --git a/libguile/integers.c b/libguile/integers.c
+index 81ee06206..b4090e5bf 100644
+--- a/libguile/integers.c
++++ b/libguile/integers.c
+@@ -245,7 +245,7 @@ ulong_to_bignum (unsigned long u)
+ };
+ 
+ static struct scm_bignum *
+-long_to_bignum (long i)
++inum_to_bignum (scm_t_inum i)
+ {
+   if (i > 0)
+     return ulong_to_bignum (i);
+@@ -260,11 +260,11 @@ scm_from_bignum (struct scm_bignum *x)
+ }
+ 
+ static SCM
+-long_to_scm (long i)
++scm_from_inum (scm_t_inum i)
+ {
+   if (SCM_FIXABLE (i))
+     return SCM_I_MAKINUM (i);
+-  return scm_from_bignum (long_to_bignum (i));
++  return scm_from_bignum (inum_to_bignum (i));
+ }
+ 
+ static SCM
+@@ -328,7 +328,7 @@ take_mpz (mpz_ptr mpz)
+ {
+   SCM ret;
+   if (mpz_fits_slong_p (mpz))
+-    ret = long_to_scm (mpz_get_si (mpz));
++    ret = scm_from_inum (mpz_get_si (mpz));
+   else
+     ret = scm_from_bignum (make_bignum_from_mpz (mpz));
+   mpz_clear (mpz);
+@@ -516,7 +516,7 @@ scm_integer_abs_i (scm_t_inum i)
+   if (i >= 0)
+     return SCM_I_MAKINUM (i);
+ 
+-  return ulong_to_scm (long_magnitude (i));
++  return scm_from_inum (-i);
+ }
+ 
+ SCM
+@@ -541,7 +541,7 @@ scm_integer_floor_quotient_ii (scm_t_inum x, scm_t_inum y)
+   else if (x > 0)
+     x = x - y - 1;
+   scm_t_inum q = x / y;
+-  return long_to_scm (q);
++  return scm_from_inum (q);
+ }
+ 
+ SCM
+@@ -675,7 +675,7 @@ scm_integer_floor_divide_ii (scm_t_inum x, scm_t_inum y, SCM *qp, SCM *rp)
+       q--;
+     }
+ 
+-  *qp = long_to_scm (q);
++  *qp = scm_from_inum (q);
+   *rp = SCM_I_MAKINUM (r);
+ }
+ 
+@@ -768,7 +768,7 @@ scm_integer_ceiling_quotient_ii (scm_t_inum x, scm_t_inum y)
+     x = x + y + 1;
+   scm_t_inum q = x / y;
+ 
+-  return long_to_scm (q);
++  return scm_from_inum (q);
+ }
+ 
+ SCM
+@@ -935,7 +935,7 @@ scm_integer_ceiling_divide_ii (scm_t_inum x, scm_t_inum y, SCM *qp, SCM *rp)
+           r -= y;
+           q++;
+         }
+-      *qp = long_to_scm (q);
++      *qp = scm_from_inum (q);
+       *rp = SCM_I_MAKINUM (r);
+     }
+ }
+@@ -1034,7 +1034,7 @@ scm_integer_truncate_quotient_ii (scm_t_inum x, scm_t_inum y)
+   else
+     {
+       scm_t_inum q = x / y;
+-      return long_to_scm (q);
++      return scm_from_inum (q);
+     }
+ }
+ 
+@@ -1096,7 +1096,7 @@ scm_integer_truncate_remainder_ii (scm_t_inum x, scm_t_inum y)
+   else
+     {
+       scm_t_inum q = x % y;
+-      return long_to_scm (q);
++      return scm_from_inum (q);
+     }
+ }
+ 
+@@ -1150,7 +1150,7 @@ scm_integer_truncate_divide_ii (scm_t_inum x, scm_t_inum y, SCM *qp, SCM *rp)
+     {
+       scm_t_inum q = x / y;
+       scm_t_inum r = x % y;
+-      *qp = long_to_scm (q);
++      *qp = scm_from_inum (q);
+       *rp = SCM_I_MAKINUM (r);
+     }
+ }
+@@ -1284,13 +1284,13 @@ scm_integer_centered_quotient_ii (scm_t_inum x, scm_t_inum y)
+             q++;
+         }
+     }
+-  return long_to_scm (q);
++  return scm_from_inum (q);
+ }
+ 
+ SCM
+ scm_integer_centered_quotient_iz (scm_t_inum x, struct scm_bignum *y)
+ {
+-  return integer_centered_quotient_zz (long_to_bignum (x),
++  return integer_centered_quotient_zz (inum_to_bignum (x),
+                                        y);
+ }
+ 
+@@ -1409,7 +1409,7 @@ scm_integer_centered_remainder_ii (scm_t_inum x, scm_t_inum y)
+ SCM
+ scm_integer_centered_remainder_iz (scm_t_inum x, struct scm_bignum *y)
+ {
+-  return integer_centered_remainder_zz (long_to_bignum (x),
++  return integer_centered_remainder_zz (inum_to_bignum (x),
+                                         y);
+ }
+ 
+@@ -1525,14 +1525,14 @@ scm_integer_centered_divide_ii (scm_t_inum x, scm_t_inum y, SCM *qp, SCM *rp)
+             { q++; r -= y; }
+         }
+     }
+-  *qp = long_to_scm (q);
++  *qp = scm_from_inum (q);
+   *rp = SCM_I_MAKINUM (r);
+ }
+ 
+ void
+ scm_integer_centered_divide_iz (scm_t_inum x, struct scm_bignum *y, SCM *qp, SCM *rp)
+ {
+-  integer_centered_divide_zz (long_to_bignum (x), y, qp, rp);
++  integer_centered_divide_zz (inum_to_bignum (x), y, qp, rp);
+ }
+ 
+ void
+@@ -1643,13 +1643,13 @@ scm_integer_round_quotient_ii (scm_t_inum x, scm_t_inum y)
+       else if (r2 < -ay)
+         q--;
+     }
+-  return long_to_scm (q);
++  return scm_from_inum (q);
+ }
+ 
+ SCM
+ scm_integer_round_quotient_iz (scm_t_inum x, struct scm_bignum *y)
+ {
+-  return integer_round_quotient_zz (long_to_bignum (x), y);
++  return integer_round_quotient_zz (inum_to_bignum (x), y);
+ }
+ 
+ SCM
+@@ -1789,7 +1789,7 @@ scm_integer_round_remainder_ii (scm_t_inum x, scm_t_inum y)
+ SCM
+ scm_integer_round_remainder_iz (scm_t_inum x, struct scm_bignum *y)
+ {
+-  return integer_round_remainder_zz (long_to_bignum (x), y);
++  return integer_round_remainder_zz (inum_to_bignum (x), y);
+ }
+ 
+ SCM
+@@ -1902,14 +1902,14 @@ scm_integer_round_divide_ii (scm_t_inum x, scm_t_inum y, SCM *qp, SCM *rp)
+       else if (r2 < -ay)
+         { q--; r += y; }
+     }
+-  *qp = long_to_scm (q);
++  *qp = scm_from_inum (q);
+   *rp = SCM_I_MAKINUM (r);
+ }
+ 
+ void
+ scm_integer_round_divide_iz (scm_t_inum x, struct scm_bignum *y, SCM *qp, SCM *rp)
+ {
+-  integer_round_divide_zz (long_to_bignum (x), y, qp, rp);
++  integer_round_divide_zz (inum_to_bignum (x), y, qp, rp);
+ }
+ 
+ void
+@@ -2004,7 +2004,7 @@ scm_integer_gcd_ii (scm_t_inum x, scm_t_inum y)
+         }
+       result = u << k;
+     }
+-  return ulong_to_scm (result);
++  return scm_from_inum (result);
+ }
+ 
+ SCM
+@@ -2831,7 +2831,7 @@ scm_integer_from_double (double val)
+ SCM
+ scm_integer_add_ii (scm_t_inum x, scm_t_inum y)
+ {
+-  return long_to_scm (x + y);
++  return scm_from_inum (x + y);
+ }
+ 
+ static SCM
+@@ -2949,7 +2949,7 @@ scm_integer_add_zz (struct scm_bignum *x, struct scm_bignum *y)
+ SCM
+ scm_integer_negate_i (scm_t_inum x)
+ {
+-  return long_to_scm (-x);
++  return scm_from_inum (-x);
+ }
+ 
+ SCM
+@@ -3229,7 +3229,7 @@ scm_integer_from_int32 (int32_t n)
+ {
+   if (SCM_FIXABLE (n))
+     return SCM_I_MAKINUM (n);
+-  return scm_from_bignum (long_to_bignum (n));
++  return scm_from_bignum (inum_to_bignum (n));
+ }
+ 
+ SCM
+-- 
+2.42.1
+

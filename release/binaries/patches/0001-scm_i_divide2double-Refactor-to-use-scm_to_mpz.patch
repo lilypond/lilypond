@@ -1,0 +1,45 @@
+From aaa2246cb4b6e77c1227ab84c405738d918a7098 Mon Sep 17 00:00:00 2001
+From: Jonas Hahnfeld <hahnjo@hahnjo.de>
+Date: Wed, 30 Aug 2023 17:07:10 +0200
+Subject: [PATCH 1/5] scm_i_divide2double: Refactor to use scm_to_mpz
+
+* libguile/numbers.c (scm_i_divide2double): Refactor to use scm_to_mpz.
+---
+ libguile/numbers.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
+
+diff --git a/libguile/numbers.c b/libguile/numbers.c
+index 30a826f13..18fa21b6d 100644
+--- a/libguile/numbers.c
++++ b/libguile/numbers.c
+@@ -294,16 +294,11 @@ scm_i_divide2double (SCM n, SCM d)
+           else
+             return 0.0 / 0.0;
+         }
+-
+-      mpz_init_set_si (dd, SCM_I_INUM (d));
+     }
+-  else
+-    scm_integer_init_set_mpz_z (scm_bignum (d), dd);
+ 
+-  if (SCM_I_INUMP (n))
+-    mpz_init_set_si (nn, SCM_I_INUM (n));
+-  else
+-    scm_integer_init_set_mpz_z (scm_bignum (n), nn);
++  mpz_inits (nn, dd, lo, hi, x, NULL);
++  scm_to_mpz (d, dd);
++  scm_to_mpz (n, nn);
+ 
+   neg = (mpz_sgn (nn) < 0) ^ (mpz_sgn (dd) < 0);
+   mpz_abs (nn, nn);
+@@ -351,7 +346,6 @@ scm_i_divide2double (SCM n, SCM d)
+ 
+   /* Compute the initial values of lo, x, and hi
+      based on the initial guess of e */
+-  mpz_inits (lo, hi, x, NULL);
+   mpz_mul_2exp (x, nn, 2 + ((e < 0) ? -e : 0));
+   mpz_mul (lo, dd, scm_i_divide2double_lo2b);
+   if (e > 0)
+-- 
+2.42.1
+
