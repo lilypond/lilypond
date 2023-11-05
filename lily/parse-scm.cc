@@ -344,7 +344,7 @@ internal_evaluate_embedded_scheme (void *p)
   SCM port = scm_current_warning_port ();
   static SCM devnull = scm_sys_make_void_port (ly_string2scm ("w"));
   scm_set_current_warning_port (devnull);
-#if SCM_MAJOR_VERSION >= 3
+#if SCM_MAJOR_VERSION >= 3 && (SCM_MINOR_VERSION > 0 || SCM_MICRO_VERSION >= 3)
   SCM bytecode = Compile::compile (
     ps->form_, ly_keyword2scm ("to"), ly_symbol2scm ("bytecode"),
     ly_keyword2scm ("env"), scm_current_module (),
