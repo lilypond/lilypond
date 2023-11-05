@@ -69,11 +69,16 @@ ly_init_ly_module ()
      the list of optimizations is modeled after module/scripts/compile.scm in
      the sources.  This is also used when compiling Scheme code in user .ly
      files. */
-#if SCM_MAJOR_VERSION >= 3
+#if SCM_MAJOR_VERSION >= 3 && (SCM_MINOR_VERSION > 0 || SCM_MICRO_VERSION >= 3)
   Compile::default_optimization_level (to_scm (0));
-#elif SCM_MAJOR_VERSION == 2
+#else
+#if SCM_MAJOR_VERSION >= 3
+  SCM tree_il_opts = Tree_il_optimize::tree_il_optimizations ();
+  SCM cps_opts = Cps_optimize::cps_optimizations ();
+#else
   SCM tree_il_opts = Tree_il_optimize::tree_il_default_optimization_options ();
   SCM cps_opts = Cps_optimize::cps_default_optimization_options ();
+#endif
   SCM available_optimizations = ly_append (tree_il_opts, cps_opts);
   // available_optimizations is a list that looks like
   // '(#:precolor-calls? #t #:rotate-loops? #t ...).  Set all booleans to #f.
@@ -104,7 +109,7 @@ ly_c_init_guile ()
 {
   Guile_user::module.import ();
   Compile::module.import ();
-#if SCM_MAJOR_VERSION == 2
+#if SCM_MAJOR_VERSION < 3 || (SCM_MINOR_VERSION == 0 && SCM_MICRO_VERSION < 3)
   Tree_il_optimize::module.import ();
   Cps_optimize::module.import ();
 #endif
