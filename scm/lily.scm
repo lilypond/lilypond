@@ -716,7 +716,7 @@ floating point exceptions.")
     ))
 
 
-(set! type-p-name-alist
+(define type-p-name-alist
       (append r5rs-primary-predicates
               r5rs-secondary-predicates
               guile-predicates
