@@ -1095,19 +1095,17 @@ Handy for debugging, possibly turned off."
         (cons x  (cons between y))))
   (fold-right conc #f lst))
 
+;; Starting from Guile 3.0.6, we can use the version from (ice-9 binary-ports).
 (define-public call-with-output-bytevector
-  (cond-expand
-   (guile-3.0 (@ (ice-9 binary-ports) call-with-output-bytevector))
-   (else
-    (lambda (proc)
-      (call-with-values
-          (lambda ()
-            (open-bytevector-output-port))
-        (lambda (port get-bytevector)
-          (proc port)
-          (let ((bv (get-bytevector)))
-            (close-port port)
-            bv)))))))
+  (lambda (proc)
+    (call-with-values
+        (lambda ()
+          (open-bytevector-output-port))
+      (lambda (port get-bytevector)
+        (proc port)
+        (let ((bv (get-bytevector)))
+          (close-port port)
+          bv)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; numbering styles
