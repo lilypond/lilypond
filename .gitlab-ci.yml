@@ -86,6 +86,20 @@ build:
       - "build/out/lybook-db/**"
     expire_in: 1 week
 
+build-guile-3.0:
+  extends: build
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-20.04.guile-3.0:20231111
+  rules:
+    - <<: *if-default-branch
+      when: manual
+      allow_failure: true
+    - <<: *if-mr-to-default
+      when: manual
+      allow_failure: true
+    - <<: *if-schedule-or-web
+      when: manual
+      allow_failure: true
+
 test:
   stage: test
   rules:
@@ -103,6 +117,19 @@ test:
     expire_in: 1 week
     paths:
       - "**/*.fail.log"
+
+test-guile-3.0:
+  extends: test
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-20.04.guile-3.0:20231111
+  rules:
+    - <<: *if-default-branch
+      when: manual
+      allow_failure: true
+    - <<: *if-schedule-or-web
+      when: manual
+      allow_failure: true
+  dependencies: [ "build-guile-3.0" ]
+  needs: [ "build-guile-3.0" ]
 
 test-baseline:
   stage: test
@@ -149,6 +176,16 @@ check:
       - "test-results/**"
       - "**/*.fail.log"
 
+check-guile-3.0:
+  extends: check
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-20.04.guile-3.0:20231111
+  rules:
+    - <<: *if-mr-to-default
+      when: manual
+      allow_failure: true
+  dependencies: [ "build-guile-3.0" ]
+  needs: [ "build-guile-3.0" ]
+
 doc:
   stage: documentation
   rules:
@@ -168,6 +205,22 @@ doc:
     expire_in: 1 week
     paths:
       - "**/*.fail.log"
+
+doc-guile-3.0:
+  extends: doc
+  image: registry.gitlab.com/lilypond/lilypond/ci/ubuntu-20.04.guile-3.0:20231111
+  rules:
+    - <<: *if-default-branch
+      when: manual
+      allow_failure: true
+    - <<: *if-mr-to-default
+      when: manual
+      allow_failure: true
+    - <<: *if-schedule-or-web
+      when: manual
+      allow_failure: true
+  dependencies: [ "build-guile-3.0" ]
+  needs: [ "build-guile-3.0" ]
 
 website:
   stage: website
