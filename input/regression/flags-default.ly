@@ -2,11 +2,15 @@
 #(set-global-staff-size 17)
 
 \header {
-  texidoc = "Default flag styles: '(), 'mensural and 'no-flag.
-  Compare all three methods to print them: (1) C++ default implementation,
-  (2) Scheme implementation using the 'style grob property and
-  (3) setting the 'flag property explicitly to the desired Scheme function.
-  All three systems should be absolutely identical."
+  texidoc = "Default flag styles: @code{'()}, @code{'mensural},
+@code{'stacked}, and @code{'no-flag}.
+
+Compare all three methods to print them: (1) C++ default implementation,
+(2) Scheme implementation using the @code{'style} grob property, and
+(3) setting the @code{'flag} property explicitly to the desired Scheme
+function.
+
+All three systems should be absolutely identical."
 }
 
 \paper {
@@ -19,8 +23,8 @@ testnotes = { \autoBeamOff
   c''8 d''16 c''32 d''64 \acciaccatura {c''8} d''64
 }
 
-% Old settings: style set to default, 'mensural, 'no-flag; using the
-% default C++ function ly:stem::calc-stem
+% Old settings: style set to default, 'mensural, 'stacked, 'no-flag;
+% using the default C++ function ly:stem::calc-stem
 {
   \time 2/4
 
@@ -29,6 +33,10 @@ testnotes = { \autoBeamOff
 
   \textMark "Symbol: 'mensural (C++)"
   \override Flag.style = #'mensural
+  \testnotes
+
+  \textMark "Symbol: 'stacked (C++)"
+  \override Flag.style = #'stacked
   \testnotes
 
   \textMark "Symbol: 'no-flag (C++)"
@@ -47,6 +55,10 @@ testnotes = { \autoBeamOff
 
   \textMark "Symbol: 'mensural (Scheme)"
   \override Flag.style = #'mensural
+  \testnotes
+
+  \textMark "Symbol: 'stacked (Scheme)"
+  \override Flag.style = #'stacked
   \testnotes
 
   \textMark "Symbol: 'no-flag (Scheme)"

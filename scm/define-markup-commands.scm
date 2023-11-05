@@ -4650,7 +4650,7 @@ obtained.
 Ancient note-head styles (via the @code{style} property, @pxref{Note head
 styles}) get mensural-style flags by default; use @code{flag-style} to override
 this.  Supported flag styles are @code{default}, @code{old-straight-flag},
-@code{modern-straight-flag}, @code{flat-flag}, @code{mensural}, and
+@code{modern-straight-flag}, @code{flat-flag}, @code{stacked}, @code{mensural}, and
 @code{neomensural}.  The last flag style is the same as @code{mensural} and
 provided for convenience.
 
@@ -4840,38 +4840,45 @@ provided for convenience.
                                     (eq? flag-style 'flat-flag))
                                 (/ blot 10 (* -1 dir))
                                 0))
-         (flaggl (and (> log 2)
-                      (ly:stencil-translate
-                       (cond ((eq? flag-style 'modern-straight-flag)
-                              modern-straight-flag)
-                             ((eq? flag-style 'old-straight-flag)
-                              old-straight-flag)
-                             ((eq? flag-style 'flat-flag)
-                              flat-flag)
-                             (else
-                              (ly:font-get-glyph font
-                                                 (format #f
-                                                         (if (or (member flag-style
-                                                                         '(mensural neomensural))
-                                                                 (and ancient-flags?
-                                                                      (null? flag-style)))
-                                                             "flags.mensural~a2~a"
-                                                             "flags.~a~a")
-                                                         (if (> dir 0) "u" "d")
-                                                         log))))
-                       (cons (+ (car attach-off)
-                                ;; For tighter stems (with ancient-flags) the
-                                ;; flag has to be adjusted different.
-                                (if (and (not ancient-flags?) (< dir 0))
-                                    stem-thickness
-                                    0))
-                             (+ stemy flag-style-Y-corr))))))
+         (flaggl
+          (and (> log 2)
+               (ly:stencil-translate
+                (cond ((eq? flag-style 'modern-straight-flag)
+                       modern-straight-flag)
+                      ((eq? flag-style 'old-straight-flag)
+                       old-straight-flag)
+                      ((eq? flag-style 'flat-flag)
+                       flat-flag)
+                      (else
+                       (ly:font-get-glyph
+                        font
+                        (format #f
+                                (if (or (member flag-style
+                                                '(mensural neomensural))
+                                        (and ancient-flags?
+                                             (null? flag-style)))
+                                    ;; We use the '2' variants of the mensural
+                                    ;; flags that don't have a quantized stem
+                                    ;; length.
+                                    "flags.mensural~a2~a"
+                                    (if (eq? flag-style 'stacked)
+                                        "flags.stacked~a~a"
+                                        "flags.~a~a"))
+                                (if (> dir 0) "u" "d")
+                                log))))
+                (cons (+ (car attach-off)
+                         ;; For tighter stems (with ancient-flags) the
+                         ;; flag has to be adjusted different.
+                         (if (and (not ancient-flags?) (< dir 0))
+                             stem-thickness
+                             0))
+                      (+ stemy flag-style-Y-corr))))))
     ;; If there is a flag on an upstem and the stem is short, move the dots
     ;; to avoid the flag.  16th notes get a special case because their flags
     ;; hang lower than any other flags.
     ;; Not with ancient flags or straight-flags.
     (if (and dots (> dir 0) (> log 2)
-             (or (eq? flag-style 'default) (null? flag-style))
+             (or (member flag-style '(default stacked)) (null? flag-style))
              (not ancient-flags?)
              (or (< dir 1.15) (and (= log 4) (< dir 1.3))))
         (set! dots (ly:stencil-translate-axis dots 0.5 X)))

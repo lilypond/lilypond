@@ -222,6 +222,32 @@ value of the subdivision. Setting @code{minimumBeamSubdivisionInterval}
 to the value of @code{baseMoment} at all times, even when
 @code{baseMoment} implicitly changes, preserves old behavior.
 
+@item
+New @q{stacked} flag glyphs are available.  All flag elements of a
+flag glyph have the same width but are vertically more compact.
+
+Use @code{flagStyleStacked} to access them; with
+@code{flagStyleDefault} you can switch back to the standard flag
+style.
+
+@lilypond[quote,indent=0\cm,ragged-right,staffsize=26]
+Music = {
+  d'8*1/128 d'16*1/64 d'32*1/32 d'64*1/16
+    d'128*1/8 d'256*1/4 d'512*1/2 d'1024 s1024
+  g''8*1/128 g''16*1/64 g''32*1/32 g''64*1/16
+    g''128*1/8 g''256*1/4 g''512*1/2 g''1024 }
+
+{
+  \omit Staff.BarNumber
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+  \autoBeamOff
+
+  <>^"stacked" \flagStyleStacked \Music \break
+  <>^"default" \flagStyleDefault \Music
+}
+@end lilypond
+
 
 @end itemize
 

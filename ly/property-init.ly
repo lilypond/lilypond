@@ -646,6 +646,20 @@ stemDown    = \override Stem.direction = #DOWN
 stemNeutral = \revert Stem.direction
 
 
+%% flags
+
+flagStyleStacked = {
+  \override Flag.style = #'stacked
+  \override Stem.details.lengths =
+    #'(3.5 3.5 3.5 3.95 (4.9 . 4.6)
+           (5.9 . 5.5) (6.9 . 6.4) (7.9 . 7.3) (8.9 . 8.2))
+}
+flagStyleDefault = {
+  \revert Flag.style
+  \revert Stem.details.lengths
+}
+
+
 %% string numbers
 
 romanStringNumbers  = {

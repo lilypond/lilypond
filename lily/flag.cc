@@ -206,10 +206,10 @@ Flag::calc_x_offset (SCM smob)
 
 ADD_INTERFACE (Flag,
                R"(
-A flag that gets attached to a stem.The style property is  symbol determining
-what style of flag glyph is typeset on a @code{Stem}.  Valid options include
-@code{'()} for standard flags, @code{'mensural} and @code{'no-flag}, which
-switches off the flag.
+A flag that gets attached to a stem.  The @code{style} property is a symbol
+determining what style of flag glyph is typeset on a @code{Stem} grob.  Valid
+options include @code{'()} (for standard flags), @code{'mensural},
+@code{'stacked}, and @code{'no-flag} (which switches off the flag).
                )",
 
                /* properties */
