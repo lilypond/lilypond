@@ -763,7 +763,7 @@ determines the number of scale steps that make up an octave.  Usually the
     ))
 
 
-(set! type-p-name-alist
+(define type-p-name-alist
       (append r5rs-primary-predicates
               r5rs-secondary-predicates
               guile-predicates

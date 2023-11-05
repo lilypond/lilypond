@@ -176,10 +176,6 @@
 (define-public (void? x)
   (unspecified? x))
 
-;; moved list to end of lily.scm: then all type-predicates are
-;; defined.
-(define type-p-name-alist '())
-
 (define (match-predicate obj alist)
   (if (null? alist)
       "Unknown type"
