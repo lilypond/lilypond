@@ -1,0 +1,64 @@
+# This file is part of LilyPond, the GNU music typesetter.
+#
+# Copyright (C) 2020--2023  Jonas Hahnfeld <hahnjo@hahnjo.de>
+#
+# LilyPond is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# LilyPond is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
+
+FROM ubuntu:20.04
+ARG DEBIAN_FRONTEND=noninteractive
+ARG TZ=Etc/UTC
+RUN apt-get update && apt-get --no-install-recommends install -y \
+        autoconf \
+        bison \
+        ca-certificates \
+        flex \
+        fontconfig \
+        fontforge \
+        fonts-texgyre \
+        fonts-urw-base35 \
+        g++ \
+        gettext \
+        ghostscript \
+        git \
+        guile-3.0-dev \
+        imagemagick \
+        libfl-dev \
+        libfontconfig1-dev \
+        libfreetype6-dev \
+        libglib2.0-dev \
+        libgs-dev \
+        libpango1.0-dev \
+        lmodern \
+        make \
+        perl \
+        pkgconf \
+        python3 \
+        rsync \
+        texinfo \
+        texlive-binaries \
+        texlive-fonts-recommended \
+        texlive-font-utils \
+        texlive-lang-cyrillic \
+        texlive-metapost \
+        texlive-plain-generic \
+        wget \
+    && rm -rf /var/lib/apt/lists/* \
+    && find /usr/lib -name "*.a" ! -name "libgcc.a" ! -name "libc_nonshared.a" -delete \
+    && rm -rf /usr/share/doc /usr/share/info /usr/share/man \
+    && rm -rf /usr/share/icons /usr/share/mime /usr/share/zoneinfo \
+    && git config --system --add safe.directory '*'
+
+# This last command is needed to allow invoking git in the container, running as
+# nobody, on a repository owned by a different user. See the explanation here:
+# https://github.blog/2022-04-18-highlights-from-git-2-36/#stricter-repository-ownership-checks
