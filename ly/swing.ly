@@ -96,7 +96,7 @@
 %%% Helper functions
 
 #(define (moment-abs mom)
-   (if (< mom ZERO-MOMENT) (- mom) mom))
+   (if (ly:moment<? mom ZERO-MOMENT) (- mom) mom))
 
 #(define (chord-or-with-duration? music)
    (or
@@ -262,8 +262,8 @@ shifts, both given as moments."
           ;; of prev-lengthening. (Notice that the formulae must also
           ;; work for negative previous lengthening.)
           (if
-           (and (< ZERO-MOMENT (moment-abs rem-lengthening))
-                (< ZERO-MOMENT evt-duration))
+           (and (ly:moment<? ZERO-MOMENT (moment-abs rem-lengthening))
+                (ly:moment<? ZERO-MOMENT evt-duration))
            (let* ((max-shorten (* prev-lengthening
                                   (/ evt-duration swing-div)))
                   (shorten-by
@@ -280,7 +280,7 @@ shifts, both given as moments."
           ;; corresponding delta, if they are long enough
           (if
            (and (assoc grid-pos-end delta-alist)
-                (not (< evt-duration swing-div)))
+                (not (ly:moment<? evt-duration swing-div)))
            (let ((delta (assoc-ref delta-alist grid-pos-end)))
              (ly:debug "apply-swing:       lengthen by ~a" delta)
              (music-lengthen evt delta)
