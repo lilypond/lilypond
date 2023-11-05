@@ -62,6 +62,12 @@ define_pixels (stem_extra);
 % page 119, and [Wanske], p 41, 42.
 %
 
+% The overall size of a flag is given by `dims`; `hip_depth` and `foot_width`
+% are factors that control the vertical position of the flag's 'hip' and the
+% horizontal position of the flag's 'foot', respectively.
+%
+% This function sets `outer_path`, corresponding to the right-side outline of
+% the flag.
 def draw_flag (expr center, flare, dims, hip_depth, foot_wid,
                     hip_thickness, foot_thickness, show_labels) =
   save c;
@@ -114,6 +120,7 @@ def add_flag (expr yoff, flare, hip_wid_multiplier, hip_dep_multiplier,
     pair prev_center, center, foot, prev_xextreme, prev_yextreme;
     pair ip, rel_foot;
 
+    % Use `outer_path` of previous flag element to construct a new one.
     incision_depth = 1.013;
     prev_center = point 2 of outer_path;
     prev_xextreme = point 1 of outer_path;
@@ -144,11 +151,14 @@ enddef;
 def upstemsingleflag (expr shortening) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  flagspace_factor := 1;
 
   flag_count = 1;
   total_depth# = (3 - shortening) * staff_space# - blot_diameter# / 2;
   flare = staff_space;
-  flagspace# = staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .72;
   hip_width# = upflag_width# - hip_thickness# / 2;
   foot_width_ratio = .8;
@@ -173,14 +183,21 @@ def upstemsingleflag (expr shortening) =
 enddef;
 
 
-def upstemdoubleflag (expr shortening) =
+def upstemdoubleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .8;
+  else:
+    flagspace_factor := .85;
+  fi;
 
   flag_count = 2;
   total_depth# = (3.5 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .85 staff_space;
-  flagspace# = .85 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .72;
   hip_width# = upflag_width# - hip_thickness# / 2;
   foot_width_ratio = .8;
@@ -200,22 +217,34 @@ def upstemdoubleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, true);
 
-  add_flag (flagspace, flare, .97, 1, 1.25,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .97, 1, 1.25,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
 enddef;
 
 
-def upstemtripleflag (expr shortening) =
+def upstemtripleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .82;
+  else:
+    flagspace_factor := .87;
+  fi;
 
   flag_count = 3;
   total_depth# = (4.25 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .85 staff_space;
-  flagspace# = .87 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .72;
   hip_width# = upflag_width# - hip_thickness# / 2;
   foot_width_ratio = .8;
@@ -235,24 +264,38 @@ def upstemtripleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, true);
 
-  add_flag (flagspace, flare, .97, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .95, 1.05, 1.25,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .97, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .95, 1.05, 1.25,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
 enddef;
 
 
-def upstemquadrupleflag (expr shortening) =
+def upstemquadrupleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .87;
+  else:
+    flagspace_factor := .9;
+  fi;
 
   flag_count = 4;
   total_depth# = (5.25 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .85 staff_space;
-  flagspace# = .9 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .72;
   hip_width# = upflag_width# - hip_thickness# / 2;
   foot_width_ratio = .8;
@@ -272,26 +315,42 @@ def upstemquadrupleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, true);
 
-  add_flag (flagspace, flare, .97, 1, 1.3,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .95, 1.05, 1.25,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .97, 1, 1.3,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .95, 1.05, 1.25,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
 enddef;
 
 
-def upstemquintupleflag (expr shortening) =
+def upstemquintupleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .9;
+  else:
+    flagspace_factor := .93;
+  fi;
 
   flag_count = 5;
   total_depth# = (6.25 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .85 staff_space;
-  flagspace# = .93 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .72;
   hip_width# = upflag_width# - hip_thickness# / 2;
   foot_width_ratio = .8;
@@ -311,28 +370,46 @@ def upstemquintupleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, true);
 
-  add_flag (flagspace, flare, .97, 1, 1.3,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .95, 1.05, 1.25,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .97, 1, 1.3,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .95, 1.05, 1.25,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
 enddef;
 
 
-def upstemsextupleflag (expr shortening) =
+def upstemsextupleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .93;
+  else:
+    flagspace_factor := .93;
+  fi;
 
   flag_count = 6;
   total_depth# = (7.25 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .85 staff_space;
-  flagspace# = .93 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .72;
   hip_width# = upflag_width# - hip_thickness# / 2;
   foot_width_ratio = .8;
@@ -352,30 +429,50 @@ def upstemsextupleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, true);
 
-  add_flag (flagspace, flare, .97, 1, 1.3,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .95, 1.05, 1.25,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .97, 1, 1.3,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .95, 1.05, 1.25,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
 enddef;
 
 
-def upstemseptupleflag (expr shortening) =
+def upstemseptupleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .93;
+  else:
+    flagspace_factor := .93;
+  fi;
 
   flag_count = 7;
   total_depth# = (8.25 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .85 staff_space;
-  flagspace# = .93 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .72;
   hip_width# = upflag_width# - hip_thickness# / 2;
   foot_width_ratio = .8;
@@ -395,32 +492,54 @@ def upstemseptupleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, true);
 
-  add_flag (flagspace, flare, .97, 1, 1.3,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .95, 1.05, 1.25,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .97, 1, 1.3,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .95, 1.05, 1.25,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
 enddef;
 
 
-def upstemoctupleflag (expr shortening) =
+def upstemoctupleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .93;
+  else:
+    flagspace_factor := .93;
+  fi;
 
   flag_count = 8;
   total_depth# = (9.25 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .85 staff_space;
-  flagspace# = .93 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .72;
   hip_width# = upflag_width# - hip_thickness# / 2;
   foot_width_ratio = .8;
@@ -440,20 +559,37 @@ def upstemoctupleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, true);
 
-  add_flag (flagspace, flare, .97, 1, 1.3,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.25,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .95, 1.05, 1.25,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .97, 1, 1.3,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .95, 1.05, 1.25,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
@@ -463,11 +599,14 @@ enddef;
 def downstemsingleflag (expr shortening) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  flagspace_factor := .9;
 
   flag_count = 1;
   total_depth# = (2.75 - shortening) * staff_space#;
   flare = staff_space;
-  flagspace# = .9 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .74;
   hip_width# = downflag_width# - hip_thickness# / 2;
   foot_width_ratio = .85;
@@ -494,14 +633,21 @@ def downstemsingleflag (expr shortening) =
 enddef;
 
 
-def downstemdoubleflag (expr shortening) =
+def downstemdoubleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .8;
+  else:
+    flagspace_factor := .9;
+  fi;
 
   flag_count = 2;
   total_depth# = (3 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .82 staff_space;
-  flagspace# = .9 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .85;
   hip_width# = downflag_width# - hip_thickness# / 2;
   foot_width_ratio = .95;
@@ -521,8 +667,13 @@ def downstemdoubleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, false);
 
-  add_flag (flagspace, flare, .95, 1, 1.25,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.25,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .95, 1, 1.25,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
@@ -531,14 +682,21 @@ def downstemdoubleflag (expr shortening) =
 enddef;
 
 
-def downstemtripleflag (expr shortening) =
+def downstemtripleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .8;
+  else:
+    flagspace_factor := .88;
+  fi;
 
   flag_count = 3;
   total_depth# = (3.75 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .82 staff_space;
-  flagspace# = .88 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .87;
   hip_width# = downflag_width# - hip_thickness# / 2;
   foot_width_ratio = .965;
@@ -558,10 +716,17 @@ def downstemtripleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, false);
 
-  add_flag (flagspace, flare, .98, 1, 1.22,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .95, 1.02, 1.22,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.22,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.22,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .98, 1, 1.22,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .95, 1.02, 1.22,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
@@ -570,14 +735,21 @@ def downstemtripleflag (expr shortening) =
 enddef;
 
 
-def downstemquadrupleflag (expr shortening) =
+def downstemquadrupleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .75;
+  else:
+    flagspace_factor := .9;
+  fi;
 
   flag_count = 4;
   total_depth# = (4.5 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .8 staff_space;
-  flagspace# = .9 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .83;
   hip_width# = downflag_width# - hip_thickness# / 2;
   foot_width_ratio = .975;
@@ -597,12 +769,21 @@ def downstemquadrupleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, false);
 
-  add_flag (flagspace, flare, .98, 1.1, 1.19,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .98, 1.08, 1.19,
-            hip_thickness, foot_thickness);
-  add_flag (.98 flagspace, flare, .94, 1.04, 1.21,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.22,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.22,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.22,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .98, 1.1, 1.19,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .98, 1.08, 1.19,
+              hip_thickness, foot_thickness);
+    add_flag (.98 flagspace, flare, .94, 1.04, 1.21,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
@@ -611,14 +792,21 @@ def downstemquadrupleflag (expr shortening) =
 enddef;
 
 
-def downstemquintupleflag (expr shortening) =
+def downstemquintupleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .78;
+  else:
+    flagspace_factor := .92;
+  fi;
 
   flag_count = 5;
   total_depth# = (5.5 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .8 staff_space;
-  flagspace# = .92 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .85;
   hip_width# = downflag_width# - hip_thickness# / 2;
   foot_width_ratio = .98;
@@ -638,14 +826,25 @@ def downstemquintupleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, false);
 
-  add_flag (flagspace, flare, .98, 1.1, 1.185,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .98, 1.08, 1.185,
-            hip_thickness, foot_thickness);
-  add_flag (.98 flagspace, flare, .97, 1.06, 1.2,
-            hip_thickness, foot_thickness);
-  add_flag (.98 flagspace, flare, .93, 1.04, 1.22,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .98, 1.1, 1.185,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .98, 1.08, 1.185,
+              hip_thickness, foot_thickness);
+    add_flag (.98 flagspace, flare, .97, 1.06, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (.98 flagspace, flare, .93, 1.04, 1.22,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
@@ -654,14 +853,21 @@ def downstemquintupleflag (expr shortening) =
 enddef;
 
 
-def downstemsextupleflag (expr shortening) =
+def downstemsextupleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .8;
+  else:
+    flagspace_factor := .94;
+  fi;
 
   flag_count = 6;
   total_depth# = (6.5 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .8 staff_space;
-  flagspace# = .94 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .86;
   hip_width# = downflag_width# - hip_thickness# / 2;
   foot_width_ratio = .98;
@@ -681,16 +887,29 @@ def downstemsextupleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, false);
 
-  add_flag (flagspace, flare, .98, 1.1, 1.185,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .98, 1.08, 1.185,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1.06, 1.2,
-            hip_thickness, foot_thickness);
-  add_flag (.98 flagspace, flare, .97, 1.04, 1.2,
-            hip_thickness, foot_thickness);
-  add_flag (.98 flagspace, flare, .93, 1, 1.2,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .98, 1.1, 1.185,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .98, 1.08, 1.185,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1.06, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (.98 flagspace, flare, .97, 1.04, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (.98 flagspace, flare, .93, 1, 1.2,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
@@ -699,14 +918,21 @@ def downstemsextupleflag (expr shortening) =
 enddef;
 
 
-def downstemseptupleflag (expr shortening) =
+def downstemseptupleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .82;
+  else:
+    flagspace_factor := .95;
+  fi;
 
   flag_count = 7;
   total_depth# = (7.5 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .8 staff_space;
-  flagspace# = .95 staff_space#;
+  flagspace# = .flagspace_factor * staff_space#;
   hip_depth_ratio = .87;
   hip_width# = downflag_width# - hip_thickness# / 2;
   foot_width_ratio = .98;
@@ -726,18 +952,33 @@ def downstemseptupleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, false);
 
-  add_flag (flagspace, flare, .98, 1.1, 1.185,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .98, 1.08, 1.185,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1.06, 1.2,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1.04, 1.2,
-            hip_thickness, foot_thickness);
-  add_flag (.98 flagspace, flare, .97, 1, 1.22,
-            hip_thickness, foot_thickness);
-  add_flag (.98 flagspace, flare, .93, 1, 1.22,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .98, 1.1, 1.185,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .98, 1.08, 1.185,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1.06, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1.04, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (.98 flagspace, flare, .97, 1, 1.22,
+              hip_thickness, foot_thickness);
+    add_flag (.98 flagspace, flare, .93, 1, 1.22,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
@@ -746,14 +987,21 @@ def downstemseptupleflag (expr shortening) =
 enddef;
 
 
-def downstemoctupleflag (expr shortening) =
+def downstemoctupleflag (expr shortening, stacked) =
   save flare, hip_depth_ratio, hip_width, foot_depth, foot_width_ratio;
   save flagspace, total_depth, flag_count;
+  save flagspace_factor;
+
+  if stacked:
+    flagspace_factor := .83;
+  else:
+    flagspace_factor := .96;
+  fi;
 
   flag_count = 8;
   total_depth# = (8.5 - shortening) * staff_space# - blot_diameter# / 2;
   flare = .8 staff_space;
-  flagspace# = .96 staff_space#;
+  flagspace# = flagspace_factor * staff_space#;
   hip_depth_ratio = .88;
   hip_width# = downflag_width# - hip_thickness# / 2;
   foot_width_ratio = .98;
@@ -773,20 +1021,37 @@ def downstemoctupleflag (expr shortening) =
              hip_depth_ratio, foot_width_ratio,
              hip_thickness, foot_thickness, false);
 
-  add_flag (flagspace, flare, .98, 1.1, 1.185,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, .98, 1.08, 1.185,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1.06, 1.2,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1.04, 1.2,
-            hip_thickness, foot_thickness);
-  add_flag (flagspace, flare, 1, 1, 1.2,
-            hip_thickness, foot_thickness);
-  add_flag (.98 flagspace, flare, .97, 1, 1.22,
-            hip_thickness, foot_thickness);
-  add_flag (.98 flagspace, flare, .93, 1, 1.22,
-            hip_thickness, foot_thickness);
+  if stacked:
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+  else:
+    add_flag (flagspace, flare, .98, 1.1, 1.185,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, .98, 1.08, 1.185,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1.06, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1.04, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (flagspace, flare, 1, 1, 1.2,
+              hip_thickness, foot_thickness);
+    add_flag (.98 flagspace, flare, .97, 1, 1.22,
+              hip_thickness, foot_thickness);
+    add_flag (.98 flagspace, flare, .93, 1, 1.22,
+              hip_thickness, foot_thickness);
+  fi;
 
   draw_square_block ((-.5 stemthickness_rounded, 0),
                      (0, vround (-stem_length - stem_extra)));
@@ -801,37 +1066,37 @@ fet_endchar;
 
 
 fet_beginchar ("16th flag (up)", "u4");
-  upstemdoubleflag (0);
+  upstemdoubleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("32nd flag (up)", "u5");
-  upstemtripleflag (0);
+  upstemtripleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("64th flag (up)", "u6");
-  upstemquadrupleflag (0);
+  upstemquadrupleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("128th flag (up)", "u7");
-  upstemquintupleflag (0);
+  upstemquintupleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("256th flag (up)", "u8");
-  upstemsextupleflag (0);
+  upstemsextupleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("512th flag (up)", "u9");
-  upstemseptupleflag (0);
+  upstemseptupleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("1024th flag (up)", "u10");
-  upstemoctupleflag (0);
+  upstemoctupleflag (0, false);
 fet_endchar;
 
 
@@ -841,37 +1106,117 @@ fet_endchar;
 
 
 fet_beginchar ("16th flag (down)", "d4");
-  downstemdoubleflag (0);
+  downstemdoubleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("32nd flag (down)", "d5");
-  downstemtripleflag (0);
+  downstemtripleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("64th flag (down)", "d6");
-  downstemquadrupleflag (0);
+  downstemquadrupleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("128th flag (down)", "d7");
-  downstemquintupleflag (0);
+  downstemquintupleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("256th flag (down)", "d8");
-  downstemsextupleflag (0);
+  downstemsextupleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("512th flag (down)", "d9");
-  downstemseptupleflag (0);
+  downstemseptupleflag (0, false);
 fet_endchar;
 
 
 fet_beginchar ("1024th flag (down)", "d10");
-  downstemoctupleflag (0);
+  downstemoctupleflag (0, false);
+fet_endchar;
+
+
+fet_beginchar ("8th stacked flag (up)", "stackedu3");
+  upstemsingleflag (.4);
+fet_endchar;
+
+
+fet_beginchar ("16th stacked flag (up)", "stackedu4");
+  upstemdoubleflag (.4, true);
+fet_endchar;
+
+
+fet_beginchar ("32nd stacked flag (up)", "stackedu5");
+  upstemtripleflag (.4, true);
+fet_endchar;
+
+
+fet_beginchar ("64th stacked flag (up)", "stackedu6");
+  upstemquadrupleflag (.4, true);
+fet_endchar;
+
+
+fet_beginchar ("128th stacked flag (up)", "stackedu7");
+  upstemquintupleflag (.4, true);
+fet_endchar;
+
+
+fet_beginchar ("256th stacked flag (up)", "stackedu8");
+  upstemsextupleflag (.4, true);
+fet_endchar;
+
+
+fet_beginchar ("512th stacked flag (up)", "stackedu9");
+  upstemseptupleflag (.4, true);
+fet_endchar;
+
+
+fet_beginchar ("1024th stacked flag (up)", "stackedu10");
+  upstemoctupleflag (.4, true);
+fet_endchar;
+
+
+fet_beginchar ("8th stacked flag (down)", "stackedd3");
+  downstemsingleflag (.4);
+fet_endchar;
+
+
+fet_beginchar ("16th stacked flag (down)", "stackedd4");
+  downstemdoubleflag (.4, true);
+fet_endchar;
+
+
+fet_beginchar ("32nd stacked flag (down)", "stackedd5");
+  downstemtripleflag (.4, true);
+fet_endchar;
+
+
+fet_beginchar ("64th stacked flag (down)", "stackedd6");
+  downstemquadrupleflag (.4, true);
+fet_endchar;
+
+
+fet_beginchar ("128th stacked flag (down)", "stackedd7");
+  downstemquintupleflag (.5, true);
+fet_endchar;
+
+
+fet_beginchar ("256th stacked flag (down)", "stackedd8");
+  downstemsextupleflag (.6, true);
+fet_endchar;
+
+
+fet_beginchar ("512th stacked flag (down)", "stackedd9");
+  downstemseptupleflag (.7, true);
+fet_endchar;
+
+
+fet_beginchar ("1024th stacked flag (down)", "stackedd10");
+  downstemoctupleflag (.8, true);
 fet_endchar;
 
 

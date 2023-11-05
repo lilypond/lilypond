@@ -605,7 +605,7 @@ emmentaler_glyphsets = [
         "dots.dotvaticana",
         "dots.dotkievan",
 
-        # modern flags
+        # standard flags
         "flags.d3",
         "flags.u3",
         "flags.d4",
@@ -623,6 +623,25 @@ emmentaler_glyphsets = [
         "flags.d10",
         "flags.u10",
 
+        # stacked flags
+        "flags.stackedd3",
+        "flags.stackedu3",
+        "flags.stackedd4",
+        "flags.stackedu4",
+        "flags.stackedd5",
+        "flags.stackedu5",
+        "flags.stackedd6",
+        "flags.stackedu6",
+        "flags.stackedd7",
+        "flags.stackedu7",
+        "flags.stackedd8",
+        "flags.stackedu8",
+        "flags.stackedd9",
+        "flags.stackedu9",
+        "flags.stackedd10",
+        "flags.stackedu10",
+
+        # flag slashes for grace notes
         "flags.dgrace",
         "flags.ugrace",
 
