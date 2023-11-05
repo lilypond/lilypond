@@ -496,7 +496,10 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     else
         PKG_CHECK_MODULES([GUILE], [guile-2.2 >= 2.2.0],
                             [GUILE_FLAVOR="guile-2.2"], [
-            GUILE_FLAVOR="missing"
+            PKG_CHECK_MODULES([GUILE], [guile-3.0],
+                                [GUILE_FLAVOR="guile-3.0"], [
+                GUILE_FLAVOR="missing"
+            ])
         ])
     fi
 
