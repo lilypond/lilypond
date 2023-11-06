@@ -29,9 +29,6 @@ path outer_path;
 upflag_width# = .65 black_notehead_width# + stemthickness# / 2;
 downflag_width# = .833 black_notehead_width# + stemthickness# / 2;
 
-right_upflag_space# = .0 upflag_width#;
-right_downflag_space# = .0 downflag_width#;
-
 %
 % Flags on a down stem cannot overlap with the notehead in y-direction,
 % so they have less slant.
@@ -149,7 +146,7 @@ def upstemsingleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_upflag_space#,
+  set_char_box (0, hip_width#,
                 foot_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -179,7 +176,7 @@ def upstemdoubleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_upflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -212,7 +209,7 @@ def upstemtripleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_upflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -247,7 +244,7 @@ def upstemquadrupleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_upflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -284,7 +281,7 @@ def upstemquintupleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_upflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -323,7 +320,7 @@ def upstemsextupleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_upflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -364,7 +361,7 @@ def upstemseptupleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_upflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -407,7 +404,7 @@ def upstemoctupleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_upflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -452,7 +449,7 @@ def downstemsingleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_downflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2)
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -484,7 +481,7 @@ def downstemdoubleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_downflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -519,7 +516,7 @@ def downstemtripleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_downflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -556,7 +553,7 @@ def downstemquadrupleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_downflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -595,7 +592,7 @@ def downstemquintupleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_downflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -636,7 +633,7 @@ def downstemsextupleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_downflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -679,7 +676,7 @@ def downstemseptupleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_downflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -724,7 +721,7 @@ def downstemoctupleflag (expr shortening) =
   define_pixels (hip_width, foot_depth);
   define_whole_vertical_pixels (flagspace);
 
-  set_char_box (0, hip_width# + right_downflag_space#,
+  set_char_box (0, hip_width#,
                 total_depth# + foot_thickness# / 2, stemthickness# / 2);
 
   draw_flag ((0, -(flag_count - 1) * flagspace),
@@ -849,8 +846,7 @@ fet_beginchar ("grace dash (up)", "ugrace");
 
   define_pixels (hip_width, foot_depth);
 
-  set_char_box (hip_width# * hip_depth_ratio,
-                hip_width# + right_upflag_space#,
+  set_char_box (hip_width# * hip_depth_ratio, hip_width#,
                 foot_depth# * hip_depth_ratio, -flare#)
 
   pickup pencircle scaled 1.5 stemthickness;
@@ -888,8 +884,7 @@ fet_beginchar ("grace dash (down)", "dgrace");
 
   define_pixels (hip_width, foot_depth);
 
-  set_char_box (hip_width# * hip_depth_ratio,
-                hip_width# + right_downflag_space#,
+  set_char_box (hip_width# * hip_depth_ratio, hip_width#,
                 foot_depth# * hip_depth_ratio, -flare#)
 
   pickup pencircle scaled 1.5 stemthickness;
