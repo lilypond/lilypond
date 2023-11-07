@@ -439,7 +439,16 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
   Real length = 7;
   SCM s = ly_assoc_get (ly_symbol2scm ("lengths"), details, SCM_EOL);
   if (scm_is_pair (s))
-    length = 2 * from_scm<double> (robust_list_ref (durlog - 2, s));
+    {
+      SCM elem = robust_list_ref (durlog - 2, s);
+      SCM len;
+      if (scm_is_pair (elem))
+        len = dir == DOWN ? scm_cdr (elem) : scm_car (elem);
+      else
+        len = elem;
+      length = 2 * from_scm<double> (len);
+    }
+
 
   /* Stems in unnatural (forced) direction should be shortened,
      according to [Roush & Gourlay] */
@@ -1204,7 +1213,9 @@ multiplicity.
 List of extreme minimum free stem lengths (chord to beams) given beam
 multiplicity.
 @item lengths
-Default stem lengths.  The list gives a length for each flag count.
+Default stem lengths.  The list gives a length for each flag count.  If a
+list entry is a pair, it gives the stem length for the specific up and down
+stem, respectively.
 @item stem-shorten
 How much a stem in a forced direction should be shortened.  The list gives an
 amount depending on the number of flags and beams.

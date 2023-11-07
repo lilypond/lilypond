@@ -698,6 +698,11 @@ will work unchanged, the latter is more coherent and easier to
 understand, especially if combined with predefined paper
 variables.
 
+@item
+The @code{Stem.details.lengths} property now also accepts pairs as
+list elements, allowing to set the length for up and down stems
+separately.
+
 @end itemize
 
 
