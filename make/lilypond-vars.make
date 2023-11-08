@@ -94,5 +94,4 @@ export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out
 
 #texi-html for www only:
 LILYPOND_BOOK_FORMAT=$(if $(subst out-www,,$(notdir $(outdir))),texi,texi-html)
-LY2DVI = $(LILYPOND_BINARY)
 LYS_TO_TELY = $(PYTHON) $(buildscript-dir)/lys-to-tely.py
