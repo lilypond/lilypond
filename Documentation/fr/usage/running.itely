@@ -860,7 +860,7 @@ l'échelle correcte sans détourage.
 
 L'option @option{-dresolution} est ignorée.
 
-Notez la présence d'un bogue dans les versions de ghostscript
+Notez la présence d'un bogue dans les versions de Ghostscript
 inférieures à 9.52 avec ces deux options : l'image PNG produite sera
 vide dès lors que la hauteur est supérieure à la largeur.
 

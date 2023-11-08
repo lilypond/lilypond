@@ -768,7 +768,7 @@ senza tagli, si deve usare @option{--eps}, @option{-dcrop} o
 
 L'opzione @option{-dresolution} viene ignorata.
 
-Attenzione, c'è un bug nelle versioni di ghostscript fino alla 9.52 che
+Attenzione, c'è un bug nelle versioni di Ghostscript fino alla 9.52 che
 riguarda queste due opzioni: produce immagini PNG vuote se l'altezza è
 più grande della larghezza.
 

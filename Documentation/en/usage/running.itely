@@ -859,7 +859,7 @@ proper image scaling without clipping.
 
 Option @option{-dresolution} is ignored.
 
-Note that there is a bug in ghostscript versions up to 9.52 for
+Note that there is a bug in Ghostscript versions up to 9.52 for
 these two options: It produces empty PNG images if the height is
 larger than the width.
 

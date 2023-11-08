@@ -292,7 +292,7 @@ last dash truncated.
               (set! on line-length))))))
 
     ;; If `on' or `off' is negative, or the sum of `on' and `off' equals zero a
-    ;; ghostscript-error occurs while calling
+    ;; Ghostscript error occurs while calling
     ;; (ly:make-stencil (list 'dashed-line th on off x y phase) x-ext y-ext)
     ;; Better be paranoid.
     (if (or (= (+ on off) 0)

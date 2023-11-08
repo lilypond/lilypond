@@ -778,7 +778,7 @@ for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
       's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
         | sed '/.*=>.*/d'; done | sh -s
 
-# The shared files for ghostscript...
+# The shared files for Ghostscript...
       cp -L -r /usr/share/ghostscript usr/share
 # The shared files for ImageMagick
       cp -L -r /usr/lib/ImageMagick* usr/lib

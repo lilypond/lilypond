@@ -77,7 +77,7 @@
                      ;; the filename to avoid problems with Ghostscript
                      ;; on Windows.
                      (basename ps-tmp-name)))
-          ;; Escape `%' (except `page%d') for ghostscript
+          ;; Escape `%' (except `page%d') for Ghostscript
           (base-name-gs (string-join
                          (string-split tmp-name #\%)
                          "%%"))
@@ -156,7 +156,7 @@ currentpagedevice /HWResolution get 1 get ~a mul \
              (if (ly:get-option 'gs-api)
                  (format #f "restore /~a uncachedevice" pixmap-format))))))
 
-     ;; This is a ghostscript constraint.
+     ;; This is a Ghostscript constraint.
      (if (not (and (integer? anti-alias-factor)
                    (<= 1 anti-alias-factor 8)))
          (ly:error (G_ "`anti-alias-factor' must be a positive integer <= 8")))

@@ -456,10 +456,10 @@ $(outdir)/%.pdf: \
 	    "$(outdir)/$*.texi2pdf.log"
 # A surprisingly large number of options (the ones containing 'Image' in
 # their names together with `ColorConversionStrategy`) is necessary to
-# change ghostscript's default behaviour of converting PNG images to JPEG,
+# change Ghostscript's default behaviour of converting PNG images to JPEG,
 # which would cause ugly artifacts in our screenshots.
 #
-# Option `Printed=false` makes ghostscript preserve hyperlinks.
+# Option `Printed=false` makes Ghostscript preserve hyperlinks.
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	  $(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
             -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
