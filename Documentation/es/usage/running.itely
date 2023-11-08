@@ -1000,8 +1000,8 @@ compilación.  LilyPond no es una excepción; por ejemplo, una
 instalación típica coloca el binario @file{lilypond} en
 @file{/usr/@/bin} y todos los archivos específicos de LilyPond
 dentro de subdirectorios de
-@file{/usr/@/share/@/lilypond/@/2.21.0/} (suponiendo que la
-versión actual es 2.21.0).
+@file{/usr/@/share/@/lilypond/@/@version{}/} (suponiendo que la
+versión actual es @version{}).
 
 Aunque este enfoque funciona perfectamente para la compilación
 manual y para plataformas que vienen con gestores de paquetes

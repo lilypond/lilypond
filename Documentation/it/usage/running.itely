@@ -999,8 +999,8 @@ per i dati determinati al momento della configurazione che precede
 la compilazione.
 LilyPond non fa eccezione.  Per esempio, un'installazione tipica mette
 il binario @file{lilypond} in @file{/usr/@/bin} e tutti i file specifici
-di LilyPond in sottodirectory di @file{/usr/@/share/@/lilypond/@/2.21.0/}
-(assumendo che la versione corrente sia 2.21.0).
+di LilyPond in sottodirectory di @file{/usr/@/share/@/lilypond/@/@version{}/}
+(assumendo che la versione corrente sia @version{}).
 
 Questo approccio, sebbene funzioni bene in caso di compilazione manuale e
 di piattaforme che dispongono di gestori di pacchetti standardizzati, può

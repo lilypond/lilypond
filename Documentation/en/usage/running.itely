@@ -1046,8 +1046,8 @@ data that are determined at configure time before compilation.
 LilyPond is no exception; for example, a typical installation puts
 the @file{lilypond} binary into @file{/usr/@/bin} and all files
 specific to LilyPond into subdirectories of
-@file{/usr/@/share/@/lilypond/@/2.21.0/} (assuming that the
-current version is 2.21.0).
+@file{/usr/@/share/@/lilypond/@/@version{}/} (assuming that the
+current version is @version{}).
 
 While this approach works fine for manual compilation and
 platforms that come with standardized package managers, it can

@@ -1060,8 +1060,8 @@ avant même leur compilation. LilyPond n'y fait pas exception ; par
 exemple, une installation typique met le fichier binaire @file{lilypond}
 dans le répertoire @file{/usr/@/bin} et tous les fichiers propres à
 LilyPond dans des sous-répertoires de
-@file{/usr/@/share/@/lilypond/@/2.21.0/} si tant est que la version en
-cours soit 2.21.0.
+@file{/usr/@/share/@/lilypond/@/@version{}/} si tant est que la version en
+cours soit @version{}.
 
 Alors que cette approche est tout à fait fonctionnelle dans le cadre
 d'une compilation manuelle et des plateformes disposant de gestionnaires
