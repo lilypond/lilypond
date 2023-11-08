@@ -26,6 +26,7 @@ ifeq ($(USE_EXTRACTPDFMARK),yes)
                  -sDEVICE=pdfwrite \
                  -dAutoRotatePages=/None \
                  -dPrinted=false \
+                 -dPreserveMarkedContent=true \
                  -sOutputFile=$@ \
                  -c "30000000 setvmthreshold" \
                  -I $(top-build-dir)/out-fonts \

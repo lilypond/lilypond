@@ -471,6 +471,7 @@ ifeq ($(USE_EXTRACTPDFMARK),yes)
 	    -sDEVICE=pdfwrite \
 	    -dAutoRotatePages=/None \
 	    -dPrinted=false \
+	    -dPreserveMarkedContent=true \
 	    -dColorConversionStrategy=/LeaveColorUnchanged \
 	    -dDownsampleMonoImages=false \
 	    -dDownsampleGrayImages=false \
@@ -767,6 +768,7 @@ $(outdir)/%.png: %.eps
 	mkdir -p $(dir $@)
 	gs -dAutoRotatePages=/None \
            -dPrinted=false \
+           -dPreserveMarkedContent=true \
            -dTextAlphaBits=4 \
            -dGraphicsAlphaBits=4 \
            -q \
@@ -782,6 +784,7 @@ $(outdir)/%.pdf: %.eps
 	mkdir -p $(dir $@)
 	gs -dAutoRotatePages=/None \
            -dPrinted=false \
+           -dPreserveMarkedContent=true \
            -q \
            -sDEVICE=pdfwrite \
            -dNOPAUSE \
