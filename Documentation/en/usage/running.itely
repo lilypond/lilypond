@@ -1022,7 +1022,7 @@ value is used.
 
 @item LILYPOND_GC_YIELD
 A variable, as a percentage, that tunes memory management
-behavior.  A higher values means the program uses more memory, a
+behavior.  A higher value means the program uses more memory, a
 smaller value means more CPU time is used.  The default value is
 @code{70}.
 
