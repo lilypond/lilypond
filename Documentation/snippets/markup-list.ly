@@ -24,6 +24,8 @@ command.
 
 %% updated/modified by P.P.Schneider on Feb. 2014
 
+\paper { tagline = ##f }
+
 #(set-default-paper-size "a6")
 
 #(define-markup-list-command (paragraph layout props args) (markup-list?)

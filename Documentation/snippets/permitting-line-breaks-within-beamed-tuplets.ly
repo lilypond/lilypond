@@ -23,6 +23,7 @@ tuplets have to be beamed manually.
 } % begin verbatim
 
 
+\paper { tagline = ##f }
 \layout {
   \context {
     \Voice

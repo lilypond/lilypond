@@ -30,7 +30,10 @@ be hidden by enabling the callback.
 } % begin verbatim
 
 
-\paper { ragged-right = ##t }
+\paper {
+  ragged-right = ##t
+  tagline = ##f
+}
 
 \relative c'' {
   \override Hairpin.to-barline = ##f

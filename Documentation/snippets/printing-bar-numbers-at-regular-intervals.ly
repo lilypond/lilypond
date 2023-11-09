@@ -32,3 +32,5 @@ two measures except at the end of the line.
   \break
   c1 | c | c | c | c
 }
+
+\paper { tagline = ##f }

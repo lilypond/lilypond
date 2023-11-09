@@ -21,6 +21,8 @@ Hairpin dynamics may be created in a variety of styles.
 } % begin verbatim
 
 
+\paper { tagline = ##f }
+
 \relative c'' {
   \override Hairpin.stencil = #flared-hairpin
   a4\< a a a\f

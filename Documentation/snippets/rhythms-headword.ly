@@ -223,3 +223,5 @@ Rhythms headword
       c'32
    }
 >>
+
+\paper { tagline = ##f }

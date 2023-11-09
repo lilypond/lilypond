@@ -52,6 +52,8 @@ value of @var{font-size-pair}.
                  (cdr siblings))))))
 #})
 
+\paper { tagline = ##f }
+
 \layout {
   \context {
     \Staff

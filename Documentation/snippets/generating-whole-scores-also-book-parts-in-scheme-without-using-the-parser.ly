@@ -118,14 +118,20 @@ oneNoteScore =
 
 \book {
   \oneNoteScore
+
+  \paper { tagline = ##f }
 }
 
 
 \book {
   \oneNoteScore
   \oneNoteScore
+
+  \paper { tagline = ##f }
 }
 
 % Top-level scores are also handled correctly.
 \oneNoteScore
 \oneNoteScore
+
+\paper  { tagline = ##f }

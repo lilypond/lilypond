@@ -142,3 +142,5 @@ bass = \relative c {
     }
   }
 }
+
+\paper { tagline = ##f }

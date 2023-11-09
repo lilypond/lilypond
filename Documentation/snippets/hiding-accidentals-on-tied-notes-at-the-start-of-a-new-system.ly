@@ -28,3 +28,5 @@ system.
   \break
   cis
 }
+
+\paper { tagline = ##f }

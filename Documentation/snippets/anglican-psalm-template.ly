@@ -24,6 +24,8 @@ more possibilities.
 } % begin verbatim
 
 
+\paper { tagline = ##f }
+
 SopranoMusic = \relative g' {
   g1 | c2 b | a1 | \bar "||"
   a1 | d2 c | c b | c1 | \bar "||"

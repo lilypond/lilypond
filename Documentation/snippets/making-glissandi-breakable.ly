@@ -23,6 +23,8 @@ a line break:
 } % begin verbatim
 
 
+\paper { tagline = ##f }
+
 glissandoSkipOn = {
   \override NoteColumn.glissando-skip = ##t
   \hide NoteHead

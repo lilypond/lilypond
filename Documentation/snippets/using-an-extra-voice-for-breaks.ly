@@ -28,6 +28,8 @@ properties of @code{NonMusicalPaperColumnGrob}.
 } % begin verbatim
 
 
+\paper { tagline = ##f }
+
 music = \relative c'' { c4 c c c }
 
 \score {

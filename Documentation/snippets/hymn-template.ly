@@ -118,4 +118,5 @@ global = {
 \paper {  % Start paper block
   indent = 0     % don't indent first system
   line-width = 130   % shorten line length to suit music
+  tagline = ##f % Don't print tag line, can be removed
 }  % End paper block

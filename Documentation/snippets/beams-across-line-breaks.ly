@@ -27,3 +27,5 @@ behavior can be changed as shown:
   c8 c[ c] c[ c] c[ c] c[ \break
   c8] c[ c] c[ c] c[ c] c
 }
+
+\paper { tagline = ##f }

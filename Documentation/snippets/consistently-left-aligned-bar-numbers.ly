@@ -60,3 +60,5 @@ consistentlyLeftAlignedBarNumbers = {
   ragged-right = ##t
   ragged-last = ##t
 }
+
+\paper { tagline = ##f }

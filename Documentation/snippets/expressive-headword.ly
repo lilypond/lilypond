@@ -269,3 +269,5 @@ Expressive headword
       r8 r4 r8
    }
 >>
+
+\paper { tagline = ##f }

@@ -211,3 +211,5 @@ part = \relative c' {
     ragged-right = ##t
   }
 }
+
+\paper { tagline = ##f }

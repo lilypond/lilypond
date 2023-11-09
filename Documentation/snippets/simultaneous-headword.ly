@@ -153,3 +153,5 @@ trillFlat =
     r8. r8. r8.
   }
 >>
+
+\paper { tagline = ##f }

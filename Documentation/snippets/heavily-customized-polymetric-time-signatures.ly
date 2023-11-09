@@ -50,3 +50,5 @@ drum = \new DrumStaff \drummode {
   \melody
   \drum
 }
+
+\paper { tagline = ##f }

@@ -29,3 +29,5 @@ intervals can be changed.
   \context Score \applyContext #(set-bar-number-visibility 2)
   \repeat unfold 10 c
 }
+
+\paper { tagline = ##f }

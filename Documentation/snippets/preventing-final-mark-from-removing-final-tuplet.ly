@@ -27,6 +27,8 @@ tuplet marking.  This can be overcome by setting
 %   \textEndMark "Composed Feb 2007 - Feb 2008"
 % cannot be used here.
 
+\paper { tagline = ##f }
+
 \new Staff {
    \set tupletFullLength = ##t
    \time 1/8

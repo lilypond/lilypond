@@ -42,3 +42,5 @@ music = \relative c' {
   \override TextScript.staff-padding = #1
   \music
 }
+
+\paper { tagline = ##f }

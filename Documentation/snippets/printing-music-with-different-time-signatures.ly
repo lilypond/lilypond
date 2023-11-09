@@ -35,6 +35,7 @@ numbers to the relevant staff.
 \paper {
   indent = #0
   ragged-right = ##t
+  tagline = ##f
 }
 
 global = { \time 3/4 { s2.*3 } \bar "" \break { s2.*3 } }

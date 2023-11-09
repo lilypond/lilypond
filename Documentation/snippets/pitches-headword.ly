@@ -146,3 +146,5 @@ Piches headword
     r4 r2
   }
 >>
+
+\paper { tagline = ##f }
