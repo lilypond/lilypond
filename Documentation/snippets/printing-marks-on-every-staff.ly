@@ -14,8 +14,8 @@
   lsrtags = "text"
 
   texidoc = "
-Although text marks are normally only printed above the topmost staff,
-they may also be printed on every staff.
+Although rehearsal and text marks are normally only printed above the
+topmost staff, they may also be printed on every staff.
 "
 
   doctitle = "Printing marks on every staff"

@@ -36,7 +36,7 @@ pleasing combination of railtracks and fermata.
     }
   }
   \breathe c4
-  % set the breathe mark back to normal
+  % set the breath mark back to normal
   \revert BreathingSign.text
   c2. \breathe c4
   \bar "|."

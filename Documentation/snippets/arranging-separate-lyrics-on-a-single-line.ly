@@ -29,7 +29,9 @@ example.  This snippet shows how this can be done with
 \layout {
   \context {
     \Lyrics
-    \override VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance = ##f
+    \override VerticalAxisGroup
+              .nonstaff-nonstaff-spacing
+              .minimum-distance = ##f
   }
 }
 

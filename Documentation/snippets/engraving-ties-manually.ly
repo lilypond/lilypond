@@ -14,17 +14,21 @@
   lsrtags = "rhythms"
 
   texidoc = "
-Ties may be engraved manually by changing the @code{tie-configuration}
-property of the @code{TieColumn} object. The first number indicates the
-distance from the center of the staff in half staff-spaces, and the
-second number indicates the direction (1 = up, -1 = down).
+A single tie may be engraved manually by changing the
+@code{staff-position} property (an offset) of the @code{Tie} grob; if
+there are multiple ties at the same musical moment, they can be
+adjusted manually by changing the @code{tie-configuration} property (a
+list of offset/direction pairs) of the @code{TieColumn} object.
+
+The offset indicates the distance from the center of the staff in half
+staff spaces, the direction can be either 1 (up) or -1 (down).
 
 Note that LilyPond makes a distinction between exact and inexact values
-for the first number. If using an exact value (i.e., either an integer
-or a fraction like @code{(/ 4 5)}), the value serves as a rough
-vertical position that gets further tuned by LilyPond to make the tie
-avoid staff lines. If using an inexact value like a floating point
-number, it is taken as the vertical position without further
+for the offset.  If using an exact value (i.e., either an integer or a
+fraction like @code{(/ 4 5)}), the value serves as a rough vertical
+position that gets further tuned by LilyPond to make the tie avoid
+staff lines.  If using an inexact value like a floating point number,
+it is taken as the precise vertical position without further
 adjustments.
 "
 
@@ -33,11 +37,42 @@ adjustments.
 
 
 \relative c' {
-  <c e g>2~ <c e g>
-  \override TieColumn.tie-configuration =
-    #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
-  <c e g>2~ <c e g>
+  <>^"default"
+  g'1 ^~ g
+
+  <>^"0"
+  \once \override Tie.staff-position = #0
+  g1 ^~ g
+
+  <>^"0.0"
+  \once \override Tie.staff-position = #0.0
+  g1 ^~ g
+
+  <>^"reset"
+  \revert Tie.staff-position
+  g1 ^~ g
+}
+
+\relative c' {
+  \override TextScript.outside-staff-priority = ##f
+  \override TextScript.padding = 0
+
+  <>^"default"
+  <c e g>1~ <c e g>
+
+  <>^"0, -2, -4"
   \override TieColumn.tie-configuration =
     #'((0 . 1) (-2 . 1) (-4 . 1))
-  <c e g>2~ <c e g>
+  <c e g>1~ <c e g>
+
+  <>^"0.0, -2.0, -4.0"
+  \override TieColumn.tie-configuration =
+    #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
+  <c e g>1~ <c e g>
+
+  <>^"reset"
+  \override TieColumn.tie-configuration = ##f
+  <c e g>1~ <c e g>
 }
+
+\paper { tagline = ##f }

@@ -18,7 +18,7 @@ If the remainder of the division of the current @code{BarNumber} by the
 first argument of @code{modulo-bar-number-visible} equals its second
 argument print the @code{BarNumber}.
 
-Useful to print the @code{BarNumber} at certain distances, p.e:
+Useful to print the @code{BarNumber} at certain distances, p.e.:
 
 @itemize
 @item

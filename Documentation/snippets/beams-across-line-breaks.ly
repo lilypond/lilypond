@@ -14,8 +14,8 @@
   lsrtags = "rhythms"
 
   texidoc = "
-Line breaks are normally forbidden when beams cross bar lines. This
-behavior can be changed as shown:
+Line breaks are normally forbidden when beams cross bar lines; this
+behavior can be changed using enabling @code{Beam.breakable}.
 "
 
   doctitle = "Beams across line breaks"

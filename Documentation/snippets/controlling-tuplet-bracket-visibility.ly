@@ -18,10 +18,10 @@ The default behavior of tuplet-bracket visibility is to print a bracket
 unless there is a beam of the same length as the tuplet.
 
 To control the visibility of tuplet brackets, set the property
-@code{'bracket-visibility} to either @code{#t} (always print a
-bracket), @code{'if-no-beam} (only print a bracket if there is no beam)
-or @code{#f} (never print a bracket).  The latter is in fact equivalent
-to omitting the @code{TupletBracket} object altogether from the printed
+@code{bracket-visibility} to either @code{#t} (always print a bracket),
+@code{if-no-beam} (only print a bracket if there is no beam) or
+@code{#f} (never print a bracket).  The latter is in fact equivalent to
+omitting the @code{TupletBracket} object altogether from the printed
 output.
 "
 

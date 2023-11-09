@@ -19,44 +19,27 @@ instead only @qq{rhythmic patterns} and chords above the measures are
 notated giving the structure of a song. Such a feature is for example
 useful while creating/transcribing the structure of a song and also
 when sharing lead sheets with guitarists or jazz musicians.
-
-The standard support for this using @code{\\repeat percent} is
-unsuitable here since the first beat has to be an ordinary note or
-rest.
-
-This example shows two solutions to this problem, by redefining
-ordinary rests to be printed as slashes. (If the duration of each beat
-is not a quarter note, replace the @code{r4} in the definitions with a
-rest of the appropriate duration).
 "
 
   doctitle = "Rhythmic slashes"
 } % begin verbatim
 
 
-% Macro to print single slash
-rs = {
-  \once \override Rest.stencil = #ly:percent-repeat-interface::beat-slash
-  \once \override Rest.thickness = #0.48
-  \once \override Rest.slope = #1.7
-  r4
+startPat = {
+  \improvisationOn
+  \omit Stem
+}
+stopPat = {
+  \improvisationOff
+  \undo \omit Stem
 }
 
-% Function to print a specified number of slashes
-comp = #(define-music-function (count) (integer?)
-  #{
-    \override Rest.stencil = #ly:percent-repeat-interface::beat-slash
-    \override Rest.thickness = #0.48
-    \override Rest.slope = #1.7
-    \repeat unfold $count { r4 }
-    \revert Rest.stencil
-  #}
-)
-
-\score {
-  \relative c' {
-    c4 d e f |
-    \rs \rs \rs \rs |
-    \comp #4 |
-  }
+\new Voice \with {
+  \consists Pitch_squash_engraver
+} {
+  c'4 d' e' f' |
+  \startPat
+  4 4 4 4 |
+  \stopPat
+  f'4 e' d' c'
 }

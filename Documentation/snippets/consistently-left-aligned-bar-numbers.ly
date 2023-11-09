@@ -14,14 +14,14 @@
   lsrtags = "rhythms"
 
   texidoc = "
-When left aligning bar numbers, overlapping problems may occur with
-Staves brackets.
+When left-aligning bar numbers, overlapping problems may occur with
+staff brackets.
 
-The snippet solves this by keeping right aligned the first bar number
-following line breaks.
+The snippet solves this by keeping the first bar number right-aligned
+that follows a line break.
 "
 
-  doctitle = "Consistently left aligned bar numbers"
+  doctitle = "Consistently left-aligned bar numbers"
 } % begin verbatim
 
 
