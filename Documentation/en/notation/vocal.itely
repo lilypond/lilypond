@@ -3476,7 +3476,7 @@ the output because of the caesura configuration.
 Music} (1830) has a thick bar after each phrase.  For this tune,
 it also has fermatas over the bar lines:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=158\mm]
 \layout {
   \context {
     \Score
@@ -3491,7 +3491,7 @@ it also has fermatas over the bar lines:
 J.S. James' @cite{Original Sacred Harp} (1911) has a thick bar
 when a line is broken in mid-measure at the end of a phrase.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=158\mm]
 \layout {
   \context {
     \Score

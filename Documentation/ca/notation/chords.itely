@@ -794,8 +794,8 @@ myChords = \relative c' {
 @node Figured bass
 @subsection Baix xifrat
 
-@c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{snippets/figured-bass-headword.ly}
+@lilypondfile[quote,staffsize=18,indent=2\cm,line-width=159\mm]
+{snippets/figured-bass-headword.ly}
 
 Es pot imprimir notació de baix xifrat.
 

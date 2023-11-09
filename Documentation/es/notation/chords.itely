@@ -862,8 +862,8 @@ myChords = \relative c' {
 @node Figured bass
 @subsection Bajo cifrado
 
-@c Line width hack because of instrument names
-@lilypondfile[quote,staffsize=18,line-width=14.5\cm]{snippets/figured-bass-headword.ly}
+@lilypondfile[quote,staffsize=18,indent=2\cm,line-width=159\mm]
+{snippets/figured-bass-headword.ly}
 
 Se puede imprimir notación de bajo cifrado.
 

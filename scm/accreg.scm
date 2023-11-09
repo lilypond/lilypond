@@ -329,7 +329,7 @@ Available registrations are
      \\vspace #1
      \\stdBassIV \"Master\"
      \\typewriter \"\\\\stdBassIV \\\"Master\\\"\"
-  } \\hspace #3
+  } \\hspace #2
   \\center-column {
      \\stdBassIV \"Soft Bass\"
      \\typewriter \"\\\\stdBassIV \\\"Soft Bass\\\"\"
@@ -424,7 +424,7 @@ Available registrations are
      \\vspace #1
      \\stdBassV \"Master\"
      \\typewriter \"\\\\stdBassV \\\"Master\\\"\"
- } \\hspace #3
+ } \\hspace #1
   \\center-column {
      \\stdBassV \"Soft Bass\"
      \\typewriter \"\\\\stdBassV \\\"Soft Bass\\\"\"
@@ -516,7 +516,7 @@ Available registrations are
      \\vspace #1
      \\stdBassVI \"Master\"
      \\typewriter \"\\\\stdBassVI \\\"Master\\\"\"
-  } \\hspace #3
+  } \\hspace #1
   \\center-column {
      \\stdBassVI \"Alto/Soprano\"
      \\typewriter \"\\\\stdBassVI \\\"Alto/Soprano\\\"\"

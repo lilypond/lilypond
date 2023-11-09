@@ -991,8 +991,7 @@ Référence des propriétés internes :
 @node Figured bass
 @subsection Basse chiffrée
 
-@c Indent hack because of instrument names
-@lilypondfile[quote,staffsize=18,indent=2\cm]
+@lilypondfile[quote,staffsize=18,indent=2\cm,line-width=159\mm]
 {snippets/figured-bass-headword.ly}
 
 LilyPond permet de générer des parties de continuo.

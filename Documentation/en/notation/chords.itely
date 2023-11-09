@@ -992,8 +992,8 @@ Internals Reference:
 @node Figured bass
 @subsection Figured bass
 
-@c Indent hack because of instrument names
-@lilypondfile[quote,staffsize=18,indent=2\cm]{snippets/figured-bass-headword.ly}
+@lilypondfile[quote,staffsize=18,indent=2\cm,line-width=159\mm]
+{snippets/figured-bass-headword.ly}
 
 Figured bass notation can be displayed.
 
