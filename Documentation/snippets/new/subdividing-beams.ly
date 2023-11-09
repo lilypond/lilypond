@@ -60,6 +60,7 @@ this rule.
   % Respect the incomplete beams of the previous two examples
   \set respectIncompleteBeams = ##t
   c32[ c c c c c c] r32
-  % no visual change here as last two stems are exempt from this special rule
+  % no visual change here as last two stems are exempt from this
+  % special rule
   c32[ c c c c] r16.
 }
