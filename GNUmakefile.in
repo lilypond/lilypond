@@ -185,9 +185,12 @@ $(outdir)/website-root/index.html: website-build
 	$(foreach d,css misc pictures ly-examples,\
 		cp -a Documentation/out-web/website/$(d) $(dir $@)/ &&) true
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "offline"
-	# fixup links to subdirectories.
-	$(PERL) -i -pe 's#(href|src)="\.\./(misc|pictures|ly-examples|css)#\1="\2#g' $(dir $@)/*html
-	# simplify links to self.
+	$(call ly_progress,Fix up,links,to subdirectories)
+	$(PERL) \
+	  -i -p \
+	  -e 's#(href|src)="\.\./(misc|pictures|ly-examples|css|doc)#\1="\2#g' \
+	  $(dir $@)/*html
+	$(call ly_progress,Simplify,links,to self)
 	$(PERL) -i -pe 's#(href)="\.\./web/#\1="#g' $(dir $@)/*html
 
 website-build:
