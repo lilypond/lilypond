@@ -1546,7 +1546,7 @@ documentation to be accurate, and no important issues to be
 overlooked.  For upgrading the syntax of your input files to the
 latest version, see @uref{https://lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
 Please test this release and report back any problems, see
-@uref{https://lilypond.org/website/bug-reports.html, Bug reports}.
+@uref{https://lilypond.org/bug-reports.html, Bug reports}.
 
 @newsEnd
 
@@ -1560,7 +1560,7 @@ documentation to be accurate, and no important issues to be
 overlooked.  For upgrading the syntax of your input files to the
 latest version, see @uref{https://lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
 Please test this release and report back any problems, see
-@uref{https://lilypond.org/website/bug-reports.html, Bug reports}.
+@uref{https://lilypond.org/bug-reports.html, Bug reports}.
 
 @newsEnd
 

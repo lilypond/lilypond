@@ -299,7 +299,7 @@ contains all the development code.  For further information on
 setting this up, @pxref{Working with source code}.  An alternative
 to setting up a Git repository for people wanting to do LSR work
 is to get the source code from
-@uref{https://lilypond.org/website/development.html}.  However, we
+@uref{https://lilypond.org/development.html}.  However, we
 don't recommend this since it doesn't allow easy submission of
 patches as merge requests.
 
@@ -491,7 +491,7 @@ you only choose snippets which are already present in the LSR,
 since the LSR software isn't able to create new snippets this way.
 If you don't have a Git repository for LilyPond, you'll find these
 snippets in the source-tarball on
-@uref{https://lilypond.org/website/development.html}.
+@uref{https://lilypond.org/development.html}.
 Don't rename any files at this stage.
 
 @item

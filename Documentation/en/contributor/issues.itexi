@@ -135,7 +135,7 @@ this response:
 @example
 For questions about how to use LilyPond, please read our
 documentation available from:
-  @uref{https://lilypond.org/website/manuals.html}
+  @uref{https://lilypond.org/manuals.html}
 or ask the lilypond-user mailing list.
 @end example
 
@@ -152,7 +152,7 @@ user to resubmit the report with this response:
 I'm sorry, but due to our limited resources for handling bugs, we
 can only accept reports in the form of Tiny examples.  Please see
 step 2 in our bug reporting guidelines:
-  @uref{https://lilypond.org/website/bug-reports.html}
+  @uref{https://lilypond.org/bug-reports.html}
 @end example
 
 @item
@@ -175,7 +175,7 @@ documentation about this topic.  If you think that it really is a
 mistake, please explain in more detail.  If you think that the
 docs are unclear, please suggest an improvement as described by
 @qq{Simple tasks -- Documentation} on:
-  @uref{https://lilypond.org/website/help-us.html}
+  @uref{https://lilypond.org/help-us.html}
 @end example
 
 @item

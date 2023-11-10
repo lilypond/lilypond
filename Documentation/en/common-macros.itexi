@@ -476,7 +476,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end ifset
 
 @macro miscLink{MISC-FILE,MISC-TEXT}
-@uref{https://lilypond.org/website/misc/\MISC-FILE\,\MISC-TEXT\}
+@uref{https://lilypond.org/misc/\MISC-FILE\,\MISC-TEXT\}
 @end macro
 
 @macro spanClass {CLASS}

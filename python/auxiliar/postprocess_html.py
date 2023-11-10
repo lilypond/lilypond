@@ -59,7 +59,7 @@ help_us_url = 'https://lilypond.org/help-us.html'
 
 lang_available = _doc("Other languages: %s.")
 browser_lang = _doc('About <a href="%s">automatic language selection</a>.')
-browser_language_url = "http://www.lilypond.org/website/misc/browser-language"
+browser_language_url = "http://www.lilypond.org/misc/browser-language"
 syntax_highlighting_disable = _doc("Disable syntax highlighting")
 syntax_highlighting_enable = _doc("Enable syntax highlighting")
 syntax_highlighting_save = _doc("Save syntax highlighting preference")

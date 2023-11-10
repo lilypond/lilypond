@@ -985,7 +985,7 @@ LilyPond 2.6 のリリースがフランスのウェブサイト
 2004年10月
 
 オランダのコンピューター雑誌 Computer!Totaal の編集者は 2004年10月の@c
-刊行において @uref{https://lilypond.org/website/pdf/computer-totaal.jpeg,
+刊行において @staticFile{media/computer-totaal.jpeg,
 LilyPond をこのような文面で紹介} しました。
 @qq{素晴らしいフリーの（オープンソースの）ソフトウェア [@dots{}]
 LilyPond で生成された楽譜は並外れて綺麗で [@dots{}] ほとんど何でもすることが@c
