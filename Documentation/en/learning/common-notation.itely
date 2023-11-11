@@ -33,15 +33,15 @@ containing common musical notation.  For the most basic steps,
 @pxref{Tutorial}.
 
 @menu
-* Single staff notation::
+* Single-staff notation::
 * Multiple notes at once::
 * Songs::
 * Final touches::
 @end menu
 
 
-@node Single staff notation
-@section Single staff notation
+@node Single-staff notation
+@section Single-staff notation
 
 This section introduces common notation that is used for one voice
 on one staff.
@@ -700,7 +700,7 @@ than one voice on the same staff.
 * Multiple staves::
 * Staff groups::
 * Combining notes into chords::
-* Single staff polyphony::
+* Single-staff polyphony::
 @end menu
 
 
@@ -715,7 +715,7 @@ than one voice on the same staff.
 @menu
 * Analogy mathematical expressions::
 * Simultaneous music expressions multiple staves::
-* Simultaneous music expressions single staff::
+* Simultaneous music expressions single-staff::
 @end menu
 
 In LilyPond input files, music is represented by @dfn{music
@@ -816,8 +816,8 @@ the first one in a @code{@bs{}relative} block is relative to @samp{c}
 (one octave below the middle@tie{}C).}
 
 
-@node Simultaneous music expressions single staff
-@unnumberedsubsubsec Simultaneous music expressions: single staff
+@node Simultaneous music expressions single-staff
+@unnumberedsubsubsec Simultaneous music expressions: single-staff
 
 To determine the number of staves in a piece, LilyPond looks at
 the beginning of the first expression.  If there is a single note,
@@ -1012,13 +1012,13 @@ Notation Reference:
 @endmorerefs
 
 
-@node Single staff polyphony
-@subsection Single staff polyphony
+@node Single-staff polyphony
+@subsection Single-staff polyphony
 
 @cindex polyphony
 @cindex multiple voices
 @cindex voices, more on one staff
-@cindex single staff polyphony
+@cindex single-staff polyphony
 @cindex spacer rest
 @cindex rest, spacer
 
