@@ -31,14 +31,10 @@ configurable; virtually every fragment of output may be changed.
 @section Tweaking basics
 
 @menu
-* Introduction to tweaks::
 * Objects and interfaces::
 * Naming conventions of objects and properties::
 * Tweaking methods::
 @end menu
-
-@node Introduction to tweaks
-@subsection Introduction to tweaks
 
 @q{Tweaking} is a LilyPond term for the various methods available
 to the user for modifying the actions taken during interpretation

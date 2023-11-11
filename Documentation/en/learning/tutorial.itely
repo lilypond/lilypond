@@ -606,24 +606,11 @@ Sometimes LilyPond doesn't produce the output you expect.  This
 section provides some links to help you solve the problems you
 might encounter.
 
-@menu
-* General troubleshooting tips::
-* Some common errors::
-@end menu
-
-
-@node General troubleshooting tips
-@subsection General troubleshooting tips
-
 Troubleshooting LilyPond problems can be challenging for
 people who are used to a graphical interface, because invalid
 input files can be created.  When this happens, a logical approach
 is the best way to identify and solve the problem.  Some guidelines
 to help you learn to do this are provided in @rprogram{Troubleshooting}.
-
-
-@node Some common errors
-@subsection Some common errors
 
 @cindex common errors
 @cindex errors, common
