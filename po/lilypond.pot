@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.9\n"
+"Project-Id-Version: lilypond 2.25.10\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2023-10-07 12:20+0200\n"
+"POT-Creation-Date: 2023-11-11 14:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,33 +23,29 @@ msgstr ""
 msgid "file not found: %s"
 msgstr ""
 
-#: book_base.py:195
+#: book_base.py:198
 msgid "Output function not implemented"
 msgstr ""
 
-#: book_latex.py:206
+#: book_latex.py:213
 #, python-brace-format
 msgid "cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
-#: book_latex.py:222
+#: book_latex.py:229
 #, python-format
 msgid "Running `%s' on file `%s' to detect default page settings.\n"
 msgstr ""
 
-#: book_latex.py:252 book_texinfo.py:256
+#: book_latex.py:259 book_texinfo.py:256
 msgid "Unable to auto-detect default settings:\n"
 msgstr ""
 
-#: book_latex.py:264 book_texinfo.py:268
+#: book_latex.py:275 book_texinfo.py:268
 #, python-format
 msgid ""
 "Unable to auto-detect default settings:\n"
 "%s"
-msgstr ""
-
-#: book_latex.py:287
-msgid "cannot detect textwidth from LaTeX"
 msgstr ""
 
 #: book_snippets.py:435
@@ -72,53 +68,53 @@ msgstr ""
 msgid "compatibility mode translation: %s"
 msgstr ""
 
-#: book_snippets.py:468 book_snippets.py:478
+#: book_snippets.py:472 book_snippets.py:481
 #, python-format
 msgid "ignoring invalid option %s=%s"
 msgstr ""
 
-#: book_snippets.py:603
+#: book_snippets.py:612
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr ""
 
-#: book_snippets.py:704
+#: book_snippets.py:713
 #, python-format
 msgid "Missing files: %s"
 msgstr ""
 
-#: book_snippets.py:742
+#: book_snippets.py:751
 #, python-format
 msgid "Could not overwrite file %s"
 msgstr ""
 
-#: book_snippets.py:835
+#: book_snippets.py:844
 #, python-format
 msgid "Running through filter `%s'"
 msgstr ""
 
-#: book_snippets.py:860
+#: book_snippets.py:869
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: book_snippets.py:861
+#: book_snippets.py:870
 msgid "The ly.error log is as follows:"
 msgstr ""
 
-#: book_snippets.py:992
+#: book_snippets.py:1001
 #, python-format
 msgid "Converting MusicXML file `%s'..."
 msgstr ""
 
-#: book_snippets.py:1020
+#: book_snippets.py:1029
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of original file,\n"
 "printing diff against existing file."
 msgstr ""
 
-#: book_snippets.py:1036
+#: book_snippets.py:1045
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of converted lilypond file,\n"
@@ -1033,47 +1029,47 @@ msgstr ""
 msgid "Encountered unprocessed marker %s\n"
 msgstr ""
 
-#: abc2ly.py:1447 convert-ly.py:88 lilypond-book.py:139 midi2ly.py:1133
+#: abc2ly.py:1631 convert-ly.py:88 lilypond-book.py:139 midi2ly.py:1133
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr ""
 
-#: abc2ly.py:1448
+#: abc2ly.py:1633
 #, python-format
 msgid ""
 "abc2ly converts ABC music files (see\n"
 "%s) to LilyPond input.\n"
 msgstr ""
 
-#: abc2ly.py:1456 convert-ly.py:95 etf2ly.py:1231 lilypond-book.py:275
-#: midi2ly.py:1185 musicxml2ly.py:2849 main.cc:149
+#: abc2ly.py:1642 convert-ly.py:95 etf2ly.py:1231 lilypond-book.py:275
+#: midi2ly.py:1185 musicxml2ly.py:2849 main.cc:151
 msgid "show version number and exit"
 msgstr ""
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#: abc2ly.py:1459 convert-ly.py:99 etf2ly.py:1227 lilypond-book.py:160
-#: midi2ly.py:1152 musicxml2ly.py:2830 main.cc:126
+#: abc2ly.py:1645 convert-ly.py:99 etf2ly.py:1227 lilypond-book.py:160
+#: midi2ly.py:1152 musicxml2ly.py:2830 main.cc:128
 msgid "show this help and exit"
 msgstr ""
 
-#: abc2ly.py:1462 etf2ly.py:1232 midi2ly.py:1161
+#: abc2ly.py:1648 etf2ly.py:1232 midi2ly.py:1161
 msgid "write output to FILE"
 msgstr ""
 
-#: abc2ly.py:1465
+#: abc2ly.py:1651
 msgid "be strict about success"
 msgstr ""
 
-#: abc2ly.py:1468
+#: abc2ly.py:1654
 msgid "preserve ABC's notion of beams"
 msgstr ""
 
-#: abc2ly.py:1471
+#: abc2ly.py:1657
 msgid "suppress progress messages"
 msgstr ""
 
-#: abc2ly.py:1474 convert-ly.py:167 etf2ly.py:1241 lilypond-book.py:320
+#: abc2ly.py:1660 convert-ly.py:167 etf2ly.py:1241 lilypond-book.py:320
 #: midi2ly.py:1197 musicxml2ly.py:2993
 #, python-format
 msgid "Report bugs via %s"
@@ -1125,7 +1121,7 @@ msgid ""
 msgstr ""
 
 #: convert-ly.py:115 lilypond-book.py:198 lilypond-book.py:214
-#: musicxml2ly.py:2889 main.cc:137
+#: musicxml2ly.py:2889 main.cc:139
 msgid "LOGLEVEL"
 msgstr ""
 
@@ -1161,7 +1157,7 @@ msgid "print rule descriptions during conversion"
 msgstr ""
 
 #: convert-ly.py:162 etf2ly.py:1235 lilypond-book.py:279 midi2ly.py:1186
-#: main.cc:151
+#: main.cc:153
 msgid "show warranty and copyright"
 msgstr ""
 
@@ -1224,7 +1220,7 @@ msgid ""
 msgstr ""
 
 #: etf2ly.py:1233 lilypond-book.py:94 midi2ly.py:1157 midi2ly.py:1162
-#: musicxml2ly.py:2943 main.cc:131 main.cc:141
+#: musicxml2ly.py:2943 main.cc:133 main.cc:143
 msgid "FILE"
 msgstr ""
 
@@ -1260,7 +1256,7 @@ msgid "add DIR to include path"
 msgstr ""
 
 #: lilypond-book.py:171 lilypond-book.py:179 lilypond-book.py:206
-#: lilypond-book.py:221 lilypond-book.py:247 lilypond-book.py:255 main.cc:130
+#: lilypond-book.py:221 lilypond-book.py:247 lilypond-book.py:255 main.cc:132
 msgid "DIR"
 msgstr ""
 
@@ -1375,78 +1371,78 @@ msgid "Running %s..."
 msgstr ""
 
 #. Next call write_ly() for each snippet once.
-#: lilypond-book.py:458
+#: lilypond-book.py:494
 msgid "Writing snippets..."
 msgstr ""
 
-#: lilypond-book.py:462
+#: lilypond-book.py:498
 msgid "Processing..."
 msgstr ""
 
-#: lilypond-book.py:467
+#: lilypond-book.py:503
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:469
+#: lilypond-book.py:505
 msgid "Linking files..."
 msgstr ""
 
-#: lilypond-book.py:485
+#: lilypond-book.py:521
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr ""
 
-#: lilypond-book.py:497
+#: lilypond-book.py:533
 #, python-format
 msgid "%s is up to date."
 msgstr ""
 
-#: lilypond-book.py:507
+#: lilypond-book.py:543
 #, python-format
 msgid "Writing `%s'..."
 msgstr ""
 
-#: lilypond-book.py:562
+#: lilypond-book.py:598
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:566
+#: lilypond-book.py:602
 #, python-format
 msgid "Reading `%s'"
 msgstr ""
 
-#: lilypond-book.py:572
+#: lilypond-book.py:608
 msgid "Dissecting..."
 msgstr ""
 
-#: lilypond-book.py:583
+#: lilypond-book.py:619
 #, python-format
 msgid "Processing include `%s'"
 msgstr ""
 
-#: lilypond-book.py:594
+#: lilypond-book.py:630
 #, python-format
 msgid "Removing `%s'"
 msgstr ""
 
-#: lilypond-book.py:707
+#: lilypond-book.py:743
 #, python-format
 msgid "Setting LilyPond's loglevel to %s"
 msgstr ""
 
-#: lilypond-book.py:712
+#: lilypond-book.py:748
 #, python-format
 msgid ""
 "Setting LilyPond's loglevel to %s (from environment variable "
 "LILYPOND_LOGLEVEL)"
 msgstr ""
 
-#: lilypond-book.py:718
+#: lilypond-book.py:754
 msgid ""
 "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
 msgstr ""
 
-#: lilypond-book.py:746
+#: lilypond-book.py:782
 #, python-format
 msgid "Compiling `%s'..."
 msgstr ""
@@ -2433,7 +2429,7 @@ msgstr ""
 msgid "ignored infinite %s-offset"
 msgstr ""
 
-#: guile-init.cc:99
+#: guile-init.cc:104
 #, c-format
 msgid "(primitive-load-path lily): %.2f seconds"
 msgstr ""
@@ -2670,107 +2666,110 @@ msgstr ""
 
 #: main.cc:117
 msgid ""
-"set ps/pdf optimization to KEY, which is either\n"
-"'size' (default), 'TeX', or 'TeX-GS'"
-msgstr ""
-
-#: main.cc:119
-msgid "SYM[=VAL]"
+"set ps/pdf optimization to KEY, which is\n"
+"either 'size' (default), 'TeX', or\n"
+"'TeX-GS'"
 msgstr ""
 
 #: main.cc:120
-msgid "set Scheme option SYM to VAL (default: '#t')"
+msgid "SYM[=VAL]"
 msgstr ""
 
 #: main.cc:121
+msgid ""
+"set Scheme option SYM to VAL (default:\n"
+"'#t')"
+msgstr ""
+
+#: main.cc:123
 msgid "no-SYM"
 msgstr ""
 
-#: main.cc:121
+#: main.cc:123
 msgid "set Scheme option SYM to '#f'"
 msgstr ""
 
-#: main.cc:122
+#: main.cc:124
 msgid "show help for Scheme options"
 msgstr ""
 
-#: main.cc:123
+#: main.cc:125
 msgid "EXPR"
 msgstr ""
 
-#: main.cc:123
+#: main.cc:125
 msgid "evaluate scheme code"
 msgstr ""
 
-#: main.cc:127
+#: main.cc:129
 msgid "FIELD"
 msgstr ""
 
-#: main.cc:128
+#: main.cc:130
 msgid ""
-"dump \\header field FIELD to file\n"
-"named BASENAME.FIELD"
+"dump \\header field FIELD to file named\n"
+"BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:130
+#: main.cc:132
 msgid "append DIR to search path"
 msgstr ""
 
-#: main.cc:131
+#: main.cc:133
 msgid "use FILE as init file"
 msgstr ""
 
-#: main.cc:133
+#: main.cc:135
 msgid "USER,GROUP,JAIL,DIR"
 msgstr ""
 
-#: main.cc:134
+#: main.cc:136
 msgid ""
-"chroot to JAIL, become USER:GROUP\n"
-"and cd into DIR"
+"chroot to JAIL, become USER:GROUP and cd\n"
+"into DIR"
 msgstr ""
 
-#: main.cc:138
+#: main.cc:140
 msgid ""
 "print log messages according to LOGLEVEL,\n"
 "which is either NONE, ERROR, WARNING,\n"
 "BASIC, PROGRESS, INFO (default), or DEBUG"
 msgstr ""
 
-#: main.cc:142
+#: main.cc:144
 msgid ""
 "write output to FILE (suffix will be added)\n"
 "or to FOLDER, in which case the file name\n"
 "will be taken from the input file."
 msgstr ""
 
-#: main.cc:145
+#: main.cc:147
 msgid "(ignored)"
 msgstr ""
 
-#: main.cc:147
+#: main.cc:149
 msgid ""
 "no progress, only error messages\n"
 "(equivalent to --loglevel=ERROR)"
 msgstr ""
 
-#: main.cc:150
+#: main.cc:152
 msgid "be verbose (equivalent to --loglevel=DEBUG)"
 msgstr ""
 
-#: main.cc:171
+#: main.cc:173
 #, c-format
 msgid ""
 "\n"
 "Effective prefix: '%s'\n"
 msgstr ""
 
-#: main.cc:200
+#: main.cc:202
 #, c-format
 msgid "%s %s (running Guile %s)"
 msgstr ""
 
-#: main.cc:210
+#: main.cc:212
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -2778,25 +2777,25 @@ msgid ""
 msgstr ""
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:240
+#: main.cc:242
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr ""
 
-#: main.cc:242
+#: main.cc:244
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr ""
 
-#: main.cc:244
+#: main.cc:246
 msgid "LilyPond produces beautiful music notation."
 msgstr ""
 
-#: main.cc:246
+#: main.cc:248
 #, c-format
 msgid "For more information, see %s"
 msgstr ""
 
-#: main.cc:248
+#: main.cc:250
 msgid "Options:"
 msgstr ""
 
@@ -2804,61 +2803,61 @@ msgstr ""
 #. "Report bugs in English via %s",
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: main.cc:256
+#: main.cc:258
 #, c-format
 msgid "You found a bug? Please read %s"
 msgstr ""
 
-#: main.cc:276
+#: main.cc:278
 msgid "linked against Ghostscript:"
 msgstr ""
 
-#: main.cc:328
+#: main.cc:330
 #, c-format
 msgid "expected %d arguments with jail, found: %zu"
 msgstr ""
 
-#: main.cc:342
+#: main.cc:344
 #, c-format
 msgid "no such user: %s"
 msgstr ""
 
-#: main.cc:344
+#: main.cc:346
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
-#: main.cc:358
+#: main.cc:360
 #, c-format
 msgid "no such group: %s"
 msgstr ""
 
-#: main.cc:360
+#: main.cc:362
 #, c-format
 msgid "cannot get group id from group name: %s: %s"
 msgstr ""
 
-#: main.cc:368
+#: main.cc:370
 #, c-format
 msgid "cannot chroot to: %s: %s"
 msgstr ""
 
-#: main.cc:374
+#: main.cc:376
 #, c-format
 msgid "cannot change group id to: %d: %s"
 msgstr ""
 
-#: main.cc:380
+#: main.cc:382
 #, c-format
 msgid "cannot change user id to: %d: %s"
 msgstr ""
 
-#: main.cc:386
+#: main.cc:388
 #, c-format
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:527
+#: main.cc:529
 msgid "The --relocate option is no longer relevant."
 msgstr ""
 
@@ -4134,64 +4133,64 @@ msgstr ""
 msgid "Preparing Ghostscript command to `~a': ~a"
 msgstr ""
 
-#: backend-library.scm:138
+#: backend-library.scm:149
 #, scheme-format
 msgid "Converting to `~a'...\n"
 msgstr ""
 
 #. Do not try to guess the name of the png file,
 #. GS produces PNG files like BASE-page%d.png.
-#: backend-library.scm:165
+#: backend-library.scm:181
 #, scheme-format
 msgid "Converting to ~a..."
 msgstr ""
 
-#: backend-library.scm:184
+#: backend-library.scm:200
 #, scheme-format
 msgid "Copying to `~a'...\n"
 msgstr ""
 
-#: backend-library.scm:296
+#: backend-library.scm:312
 #, scheme-format
 msgid "can't create temp file in ~a after ~a times"
 msgstr ""
 
-#: backend-library.scm:332
+#: backend-library.scm:348
 #, scheme-format
 msgid "Writing ~a..."
 msgstr ""
 
-#: backend-library.scm:377
+#: backend-library.scm:393
 #, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
-#: bar-line.scm:106
+#: bar-line.scm:104
 #, scheme-format
 msgid "Bar glyph ~a not known. Ignoring."
 msgstr ""
 
-#: bar-line.scm:136
+#: bar-line.scm:134
 #, scheme-format
 msgid ""
 "Annotation '~a' is allowed in the first argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:144
+#: bar-line.scm:142
 #, scheme-format
 msgid ""
 "Replacement '~a' is allowed in the last argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:199
+#: bar-line.scm:197
 #, scheme-format
 msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:970
+#: bar-line.scm:1008
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
@@ -4328,12 +4327,12 @@ msgstr ""
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
 
-#: flag-styles.scm:159
+#: flag-styles.scm:191
 #, scheme-format
 msgid "flag stroke `~a' or `~a' not found"
 msgstr ""
 
-#: flag-styles.scm:172
+#: flag-styles.scm:206
 #, scheme-format
 msgid "flag ~a not found"
 msgstr ""
@@ -4538,20 +4537,20 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:363
+#: lily-library.scm:365
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:371
+#: lily-library.scm:373
 msgid "Cannot determine contexts to modify"
 msgstr ""
 
-#: lily-library.scm:422
+#: lily-library.scm:424
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:438
+#: lily-library.scm:440
 msgid "Music unsuitable for output-def"
 msgstr ""
 
@@ -4625,47 +4624,47 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:474
+#: lily.scm:473
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:549
+#: lily.scm:548
 #, scheme-format
 msgid "note scale expected: ~S"
 msgstr ""
 
-#: lily.scm:827
+#: lily.scm:826
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:828
+#: lily.scm:827
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:905
+#: lily.scm:904
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:908
+#: lily.scm:907
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:912
+#: lily.scm:911
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:925
+#: lily.scm:924
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:958
+#: lily.scm:957
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
@@ -4858,32 +4857,32 @@ msgid ""
 "one in alterationGlyphs"
 msgstr ""
 
-#: output-lib.scm:2029
+#: output-lib.scm:2062
 #, scheme-format
 msgid "~a with two line-breaks is not yet supported"
 msgstr ""
 
-#: output-lib.scm:2346
+#: output-lib.scm:2379
 #, scheme-format
 msgid "Factor ~a needs to be an integer value."
 msgstr ""
 
-#: output-lib.scm:2842
+#: output-lib.scm:2875
 msgid ""
 "Not enough space to print a nice arrow.\n"
 "Please consider to increase 'minimum-length or decrease 'arrow-length."
 msgstr ""
 
-#: output-lib.scm:2858
+#: output-lib.scm:2891
 msgid "Please consider to increase 'minimum-length"
 msgstr ""
 
-#: output-lib.scm:3175
+#: output-lib.scm:3208
 #, scheme-format
 msgid "no entry in measure-division-lines-alist for measure division ~a"
 msgstr ""
 
-#: output-lib.scm:3199
+#: output-lib.scm:3232
 #, scheme-format
 msgid ""
 "no entry in measure-division-chord-placement-alist for measure division ~a"
@@ -4970,19 +4969,19 @@ msgstr ""
 msgid "Additional format for use in Southeast Asia and Australia"
 msgstr ""
 
-#: paper.scm:325
+#: paper.scm:326
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr ""
 
-#: paper.scm:333
+#: paper.scm:334
 #, scheme-format
 msgid "Unknown paper size: ~a"
 msgstr ""
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:352
+#: paper.scm:382
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
@@ -5010,7 +5009,7 @@ msgstr ""
 msgid "Unknown pixmap format ~a"
 msgstr ""
 
-#: ps-to-png.scm:164
+#: ps-to-png.scm:162
 msgid "`anti-alias-factor' must be a positive integer <= 8"
 msgstr ""
 
