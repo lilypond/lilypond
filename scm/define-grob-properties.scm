@@ -181,7 +181,7 @@ when a spanner is broken at a line break.")
 ;;;
      (chord-dots-limit ,integer? "Limits the column of dots
 on each chord to the height of the chord plus
-@code{chord-dots-limit} staff-positions.")
+@code{chord-dots-limit} staff positions.")
      (circled-tip ,boolean? "Put a circle at start/@/end of
 hairpins (al/@/del niente).")
      (clef-alignments ,symbol-key-alist? "An alist of parent-alignments
@@ -320,13 +320,13 @@ for display.")
 @code{'old-straight-flag}, @code{'flat-flag}, @code{'mensural},
 @code{'stacked}, and @code{'default}.")
      (flat-positions ,list? "Flats in key signatures are placed
-within the specified ranges of staff-positions.  The general form
+within the specified ranges of staff positions.  The general form
 is a list of pairs, with one pair for each type of clef, in order
-of the staff-position at which each clef places C:
+of the staff position at which each clef places C:
 @code{(alto treble tenor soprano baritone mezzosoprano bass)}.
 If the list contains a single element it applies for all clefs.
 A single number in place of a pair sets accidentals within the octave
-ending at that staff-position.")
+ending at that staff position.")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font.  Currently, only lilypond's system
 fonts (Emmentaler) are using this property.  Available
@@ -996,13 +996,13 @@ the Y@tie{}axis.")
 has.  Valid choices depend on the @code{stencil} callback reading
 this property.")
      (sharp-positions ,list? "Sharps in key signatures are placed
-within the specified ranges of staff-positions.  The general form
+within the specified ranges of staff positions.  The general form
 is a list of pairs, with one pair for each type of clef, in order
-of the staff-position at which each clef places C:
+of the staff position at which each clef places C:
 @code{(alto treble tenor soprano baritone mezzosoprano bass)}.
 If the list contains a single element it applies for all clefs.
 A single number in place of a pair sets accidentals within the octave
-ending at that staff-position.")
+ending at that staff position.")
      (short-bar-extent ,number-pair? "The Y-extent of a short bar line.  The
 default is half the normal bar extent, rounded up to an integer number of staff
 spaces.")
@@ -1307,7 +1307,7 @@ one below this grob.")
 when the bracket is set to be over the note heads.  This option can
 be combined with the default tuplet bracket visibility style and
 with @code{#'if-no-beam}.")
-     (voiced-position ,number? "The staff-position of a voiced
+     (voiced-position ,number? "The staff position of a voiced
 @code{Rest}, negative if the rest has @code{direction} @code{DOWN}.")
      (volta-number-offset ,number-pair? "The offset of the volta number
 relative to the upper left corner of the volta bracket.")

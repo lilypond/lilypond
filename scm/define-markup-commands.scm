@@ -683,9 +683,7 @@ link doesn't work here in the Notation Reference.}
   (let* ((stil (interpret-markup layout props arg))
          (xextent (ly:stencil-extent stil X))
          (yextent (ly:stencil-extent stil Y))
-         (old-expr (ly:stencil-expr stil))
          (url-expr `(url-link ,url ,xextent ,yextent)))
-
     (ly:stencil-add (ly:make-stencil url-expr xextent yextent) stil)))
 
 (define-markup-command (page-link layout props page-number arg)
@@ -706,9 +704,7 @@ This only works in the PDF backend.
   (let* ((stil (interpret-markup layout props arg))
          (xextent (ly:stencil-extent stil X))
          (yextent (ly:stencil-extent stil Y))
-         (old-expr (ly:stencil-expr stil))
          (link-expr `(page-link ,page-number ,xextent ,yextent)))
-
     (ly:stencil-add (ly:make-stencil link-expr xextent yextent) stil)))
 
 (define-markup-command (qr-code layout props width str) (non-negative-number? string?)
@@ -1726,16 +1722,16 @@ tweaks to the output by using a @code{\\layout} block.
   (let* ((mkup
           #{
             \markup \score {
-                            \layout {
-                                     system-count = 1
-                                                  ragged-right = ##t
-                                                  }
-                            \new StandaloneRhythmVoice \with {
-                                                              \magnifyStaff #(magstep font-size)
-                                                              }
-                            { #music }
-                            }
-            #})
+              \layout {
+                system-count = 1
+                ragged-right = ##t
+              }
+              \new StandaloneRhythmVoice \with {
+                \magnifyStaff #(magstep font-size)
+              }
+              { #music }
+            }
+          #})
          (stil (interpret-markup layout props mkup)))
     (ly:stencil-aligned-to stil X LEFT)))
 

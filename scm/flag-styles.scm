@@ -46,8 +46,7 @@ This is an auxiliary function for @code{straight-flag}."
   ;; don't look as good.
   ;;
   ;; For down-stems the y-coordinates are simply mirrored.
-  (let* ((stem-grob (ly:grob-parent grob X))
-         (start (offset-add offset (cons 0  (* (/ length 2) dir))))
+  (let* ((start (offset-add offset (cons 0  (* (/ length 2) dir))))
          (end (offset-add (cons 0 (cdr offset))
                           (cons (- (/ (car offset) 2)) (* (- (+ thickness (car offset))) dir))))
          (stroke (make-line-stencil stroke-thickness (car start) (cdr start) (car end) (cdr end))))
@@ -178,8 +177,7 @@ This is an auxiliary function for @code{create-glyph-flag}."
   (if (not (string? stroke-style))
       stencil
       ;; Otherwise: look up the stroke glyph and combine it with the flag
-      (let* ((stem-grob (ly:grob-parent grob X))
-             (font-char (string-append "flags." flag-style dir stroke-style))
+      (let* ((font-char (string-append "flags." flag-style dir stroke-style))
              (alt-font-char (string-append "flags." dir stroke-style))
              (font (ly:grob-default-font grob))
              (tmpstencil (ly:font-get-glyph font font-char))
@@ -311,8 +309,7 @@ Example:
 \\override Flag.style = #'mensural
 @end example
 "
-  (let* ((stem-grob (ly:grob-parent grob X))
-         (flag-style-symbol (ly:grob-property grob 'style))
+  (let* ((flag-style-symbol (ly:grob-property grob 'style))
          (flag-style (if (symbol? flag-style-symbol)
                          (symbol->string flag-style-symbol)
                          "")))
