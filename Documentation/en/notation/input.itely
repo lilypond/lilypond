@@ -3827,10 +3827,18 @@ To create a MIDI output file from a LilyPond input file, insert a
 @}
 @end example
 
-@warning{A @code{@bs{}score} block that, as well as the music, contains
-only a @code{@bs{}midi} block (i.e., @emph{without} the
-@code{@bs{}layout} block), will only produce MIDI output files.  No
-notation will be printed.}
+@warning{A @code{@bs{}score} block that contains music and a
+@code{@bs{}midi} block but no @code{@bs{}layout} block produces a
+MIDI output file only.  No notation gets printed.
+
+A @code{@bs{}midi} block at the top level can be used to change
+MIDI settings globally; however, the generation of an actual MIDI
+file only happens when a @code{@bs{}midi} block is part of a
+@code{@bs{}score} block.
+
+Similarly, a @code{@bs{}layout} block at the top level affects
+layout settings globally but does not influence whether printed
+output is produced or not.}
 
 The default output file extension (@code{.midi}) can be changed by using
 the @code{-dmidi-extension} option with the @code{lilypond} command:
