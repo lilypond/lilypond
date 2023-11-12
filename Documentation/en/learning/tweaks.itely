@@ -149,7 +149,8 @@ alphabetic character and @q{aaa} to stand for any number of
 lower-case alphabetic characters.  Other characters are used
 verbatim.
 
-@multitable @columnfractions .33 .33 .33
+@indentedblock
+@multitable {Layout Object Properties} {@code{Aaaa} or @code{AaaaAaaaAaaa}} {@code{break-aligned-interface}}
 @headitem Object/property type
   @tab Naming convention
   @tab Examples
@@ -161,17 +162,18 @@ verbatim.
   @tab @code{Slur}, @code{NoteHead}
 @item Engravers
   @tab @code{Aaaa_aaa_engraver}
-  @tab @code{Clef_engraver}, @code{Note_heads_engraver}
+  @tab @code{Clef_engraver},@* @code{Note_heads_engraver}
 @item Interfaces
   @tab @code{aaa-aaa-interface}
-  @tab @code{grob-interface}, @code{break-aligned-interface}
+  @tab @code{grob-interface},@* @code{break-aligned-interface}
 @item Context Properties
   @tab @code{aaa} or @code{aaaAaaaAaaa}
   @tab @code{alignAboveContext}, @code{skipBars}
 @item Layout Object Properties
   @tab @code{aaa} or @code{aaa-aaa-aaa}
-  @tab @code{direction}, @code{beam-thickness}
+  @tab @code{direction},@* @code{beam-thickness}
 @end multitable
+@end indentedblock
 
 As we shall see shortly, the properties of different types of object are
 modified by different commands, so it is useful to be able to recognize

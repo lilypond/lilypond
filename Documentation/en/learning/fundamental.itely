@@ -1683,36 +1683,40 @@ Here are some of the most common engravers together with their
 function.  You will see it is usually easy to guess the function
 from the name, or vice versa.
 
-@multitable @columnfractions .3 .7
+@indentedblock
+@raggedright
+@multitable {@code{Forbid_line_break_engraver}} {engraves the five (by default) lines of the staff}
 @headitem Engraver
   @tab Function
-@item Accidental_engraver
-  @tab Makes accidentals, cautionary and suggested accidentals
-@item Beam_engraver
-  @tab Engraves beams
-@item Clef_engraver
-  @tab Engraves clefs
-@item Completion_heads_engraver
-  @tab Splits notes which cross bar lines
-@item Dynamic_engraver
-  @tab Creates hairpins and dynamic texts
-@item Forbid_line_break_engraver
-  @tab Prevents line breaks if a musical element is still active
-@item Key_engraver
-  @tab Creates the key signature
-@item Metronome_mark_engraver
-  @tab Engraves metronome marking
-@item Note_heads_engraver
-  @tab Engraves note heads
-@item Rest_engraver
-  @tab Engraves rests
-@item Staff_symbol_engraver
-  @tab Engraves the five (by default) lines of the staff
-@item Stem_engraver
-  @tab Creates stems and single-stem tremolos
-@item Time_signature_engraver
-  @tab Creates time signatures
+@item @code{Accidental_engraver}
+  @tab makes normal, cautionary, and suggested accidentals
+@item @code{Beam_engraver}
+  @tab engraves beams
+@item @code{Clef_engraver}
+  @tab engraves clefs
+@item @code{Completion_heads_engraver}
+  @tab splits notes that cross bar lines
+@item @code{Dynamic_engraver}
+  @tab creates hairpins and dynamic texts
+@item @code{Forbid_line_break_engraver}
+  @tab prevents line breaks if a musical element is still active
+@item @code{Key_engraver}
+  @tab creates the key signature
+@item @code{Metronome_mark_engraver}
+  @tab engraves metronome marking
+@item @code{Note_heads_engraver}
+  @tab engraves note heads
+@item @code{Rest_engraver}
+  @tab engraves rests
+@item @code{Staff_symbol_engraver}
+  @tab engraves the five (by default) lines of the staff
+@item @code{Stem_engraver}
+  @tab creates stems and single-stem tremolos
+@item @code{Time_signature_engraver}
+  @tab creates time signatures
 @end multitable
+@end raggedright
+@end indentedblock
 
 @smallspace
 
@@ -1755,36 +1759,40 @@ of some commonly used ones.  There are many more.
 
 @c attempt to force this onto a new page
 @need 50
-@multitable @columnfractions .25 .15 .45 .15
-@headitem propertyName
+@indentedblock
+@raggedright
+@multitable {@code{currentBarNumber}} {Boolean} {Increase or decrease the font size} {@b{Example Value}}
+@headitem Property Name
   @tab Type
   @tab Function
   @tab Example Value
-@item extraNatural
+@item @code{extraNatural}
   @tab Boolean
   @tab If true, set extra natural signs before accidentals
   @tab @code{#t}, @code{#f}
-@item currentBarNumber
-  @tab Integer
+@item @code{currentBarNumber}
+  @tab integer
   @tab Set the current bar number
   @tab @code{50}
-@item doubleSlurs
+@item @code{doubleSlurs}
   @tab Boolean
   @tab If true, print slurs both above and below notes
   @tab @code{#t}, @code{#f}
-@item instrumentName
-  @tab Text
+@item @code{instrumentName}
+  @tab text
   @tab Set the name to be placed at the start of the staff
   @tab @code{"Cello I"}
-@item fontSize
-  @tab Real
+@item @code{fontSize}
+  @tab real
   @tab Increase or decrease the font size
   @tab @code{2.4}
-@item stanza
-  @tab Text
+@item @code{stanza}
+  @tab text
   @tab Set the text to print before the start of a verse
   @tab @code{"2"}
 @end multitable
+@end raggedright
+@end indentedblock
 
 @noindent
 where a Boolean is either True (@code{#t}) or False (@code{#f}),
