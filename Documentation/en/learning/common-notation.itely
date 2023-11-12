@@ -420,8 +420,7 @@ dash (@samp{-}) followed by a single character.
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4-^ c-+ c-- c-!
-  c4-> c-. c2-_
+  c''4-^ c-- c4-> c-. c2-_
 }
 @end lilypond
 

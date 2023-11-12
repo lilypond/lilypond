@@ -2017,7 +2017,8 @@ within the score:
   >>
   \layout {
     \context {
-      \Score extraNatural = ##f
+      \Score
+      extraNatural = ##f
     }
   }
 }
@@ -2990,7 +2991,8 @@ identical.
         @}
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with @{
-        \override VerticalAxisGroup.staff-staff-spacing.stretchability = 5
+        \override VerticalAxisGroup
+                  .staff-staff-spacing.stretchability = 5
       @} <<
         \keyTime
         \clef "bass"
@@ -3053,7 +3055,8 @@ PedalOrganMusic = \relative {
         }
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" \with {
-        \override VerticalAxisGroup.staff-staff-spacing.stretchability = 5
+        \override VerticalAxisGroup
+                  .staff-staff-spacing.stretchability = 5
       } <<
         \keyTime
         \clef "bass"
@@ -3123,7 +3126,7 @@ dolce = \markup { \italic \bold dolce }
 
 centerText = { \once \override TextScript.self-alignment-X = #CENTER }
 
-fthenp =_\markup {
+fthenp = _\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 
@@ -3181,9 +3184,9 @@ direction, in which case you can insert a modifier that will take
 precedence:
 
 @lilypond[verbatim,quote,ragged-right]
-articulationVar = -^-!
+articulationVar = -^-.
 
-artEsprVar = \articulationVar ^\espressivo
+artEsprVar = \articulationVar ^>
 
 \relative c' {
   c\articulationVar d e2^\articulationVar
@@ -3204,9 +3207,7 @@ can think of these as functions).
 
 @lilypond[quote,verbatim,ragged-right]
 padText =
-#(define-music-function
-     (padding)
-     (number?)
+#(define-music-function (padding) (number?)
    #{
      \once \override TextScript.padding = #padding
    #})

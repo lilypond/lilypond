@@ -508,7 +508,8 @@ appearance may be modified in the usual way with
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \tuplet 3/2 { c'8[ c c] }
-  \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
+  \once \override TupletNumber.text =
+    #tuplet-number::calc-fraction-text
   \tuplet 3/2 {
     c8[ c]
     c8[ c]
