@@ -416,7 +416,21 @@ Music Glossary:
 @rglos{articulation}.
 
 Common @notation{articulations} can be added to a note using a
-dash (@samp{-}) followed by a single character.
+dash (@samp{-}) followed by a single character.  Here is a small
+table of the most important articulations.
+
+@indentedblock
+@multitable @columnfractions .05 .8
+@item @code{-^} @tab a marcato (an upward-pointing wedge)
+@item @code{--} @tab a tenuto (a short horizontal line)
+@item @code{->} @tab an accent (a right-pointing wedge)
+@item @code{-.} @tab a staccato dot
+@item @code{-_} @tab a portato (i.e., a tenuto line combined with
+                     a staccato dot)
+@end multitable
+@end indentedblock
+
+See @rnotation{List of articulations} for an exhaustive list.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -672,7 +686,9 @@ Music Glossary:
 
 @notation{Grace notes} are created with the @code{\grace} command,
 although they can also be created by prefixing a music expression
-with the keyword @code{\appoggiatura} or @code{\acciaccatura}:
+with the keyword @code{\appoggiatura} (a grace note with a slur to
+its main note) or @code{\acciaccatura} (a slashed grace note with
+a slur to its main note):
 
 @lilypond[verbatim,quote]
 \relative {

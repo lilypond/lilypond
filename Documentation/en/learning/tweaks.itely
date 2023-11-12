@@ -200,7 +200,7 @@ This subsection discusses the most important tweaking commands.
 * The override command::
 * The revert command::
 * The once prefix::
-* The tweak command::
+* The tweak and offset commands::
 * The single prefix::
 @end menu
 
@@ -286,7 +286,9 @@ overridden again or a @code{\revert} command is encountered.
 The @code{\revert} command has the following syntax and causes
 the value of the property to revert to its original default
 value; note, not its previous value if several @code{\override}
-commands have been issued.
+commands have been issued.@footnote{The behaviour of
+@code{\revert} can be changed by using @code{\temporary
+\override}; see @rextend{Intermediate substitution functions}.}
 
 @example
 \revert @var{Context}.@var{LayoutObject}.@var{layout-property}
@@ -358,19 +360,24 @@ predefined commands to limit their effect to one musical moment:
 @end lilypond
 
 
-@node The tweak command
-@unnumberedsubsubsec The @code{\tweak} command
+@node The tweak and offset commands
+@unnumberedsubsubsec The @code{\tweak} and @code{\offset} commands
 
 @cindex tweak command
 
 @funindex \tweak
+@funindex \offset
 
-The final tweaking command which is available is @code{\tweak}.  This
+The final tweaking commands of LilyPond are @code{\tweak} and @code{\offset}.  They
 should be used when several objects occur at the same musical moment,
 but you only want to change the properties of selected ones, such as a
 single note within a chord.  Using @code{\override} would affect all the
 notes within a chord, whereas @code{\tweak} affects just the following
 item in the input stream.
+
+Note that @code{\offset} can be used as an replacement for
+@code{\override}, too; it also has more syntax forms.  See
+@rnotation{The offset command}, for all the details.
 
 Here's an example.  Suppose we wish to change the size of the
 middle note head (the E) in a C major chord.  Let's first see what
@@ -395,9 +402,9 @@ apply the override to all layout objects of the type specified
 which occur at the same musical moment as the @code{\override}
 command itself.
 
-The @code{\tweak} command operates in a different way.  It acts on
-the immediately following item in the input stream.  In its simplest
-form, it is effective only on objects which are created directly
+The @code{\tweak} and @code{\offset} commands operate in a different way.  They act on
+the immediately following item in the input stream.  In their simplest
+forms, they are effective only on objects which are created directly
 from the following item, essentially note heads and articulations.
 
 So to return to our example, the size of the middle note of
@@ -413,18 +420,44 @@ a chord would be changed in this way:
 }
 @end lilypond
 
-Note that the syntax of @code{\tweak} is different from that of the
+Let's now try to change the vertical position of the
+@code{\breathe} symbol.  By default, LilyPond computes a vertical
+distance from the middle line automatically.  If we would like to
+move it up by two units, say, @code{\offset} is the right command.
+With @code{\tweak} it would be necessary to find the correct
+position manually by trial and error.
+
+@cindex @code{\offset}, example
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4
+  \breathe
+  c4
+  \offset Y-offset 2 \breathe
+  c2
+  \tweak Y-offset 4 \breathe
+}
+@end lilypond
+
+Obviously, @code{\offset} only works for values that actually have
+a numeric value.  There are more restrictions to that what can be
+changed; again, please refer to @rnotation{The offset command},
+for more details.
+
+Note that the syntax of @code{\tweak} and @code{\offset} is different from that of the
 @code{\override} command.  The context should not be specified; in
 fact, it would generate an error to do so.  Both context and layout
 object are implied by the following item in the input stream.  Note
 also that an equals sign should not be present.  So the simple form
-of the @code{\tweak} command is
+of the @code{\tweak} and @code{\offset} commands is
 
 @example
 \tweak @var{layout-property} #@var{value}
+\offset @var{layout-property} #@var{value}
 @end example
 
-A @code{\tweak} command can also be used to modify just one in
+@code{\tweak} and @code{\offset} can also be used to modify just one in
 a series of articulations, as shown here:
 
 @cindex color property, example
@@ -437,7 +470,7 @@ a'4^"Black"
 @end lilypond
 
 @noindent
-Note that the @code{\tweak} command must be preceded by an articulation
+Both @code{\tweak} and @code{\offset} must be preceded by an articulation
 mark since the tweaked expression needs to be applied as an articulation
 itself.  In case of multiple direction overrides (@samp{^} or @samp{_}),
 the leftmost override wins since it is applied last.
@@ -447,7 +480,7 @@ the leftmost override wins since it is applied last.
 
 Objects such as stems and accidentals are created later, and not
 directly from the following event.  It is still possible to use
-@code{\tweak} on such indirectly created objects by explicitly naming
+@code{\tweak} or @code{\offset} on such indirectly created objects by explicitly naming
 the layout object, provided that LilyPond can trace its origin back to
 the original event:
 
@@ -457,10 +490,11 @@ the original event:
  g''>
 @end lilypond
 
-This long form of the @code{\tweak} command can be described as
+This long form of the @code{\tweak} and @code{\offset} commands can be described as
 
 @example
 \tweak @var{LayoutObject}.@var{layout-property} #@var{value}
+\offset @var{LayoutObject}.@var{layout-property} #@var{value}
 @end example
 
 @cindex tuplets, nested
@@ -526,7 +560,8 @@ appearance may be modified in the usual way with
 
 @morerefs
 Notation Reference:
-@rnotation{Tweak and single}.
+@rnotation{Tweak and single},
+@rnotation{The offset command}
 @endmorerefs
 
 
@@ -554,7 +589,7 @@ The @code{\once} prefix works fine to emphasize single notes or
 complete chords, but it cannot be used to emphasize a single note
 @emph{within} a chord.  Earlier we have seen how @code{\tweak} can
 be used to do this, see
-@ref{The tweak command}.  But
+@ref{The tweak and offset commands}.  But
 @code{\tweak} cannot be used with a function; that's where
 @code{\single} comes in:
 
@@ -581,7 +616,7 @@ chord.  However, @code{\single} does not convert @code{\revert},
 
 @morerefs
 Learning Manual:
-@ref{The tweak command},
+@ref{The tweak and offset commands},
 @ref{Using variables for layout adjustments}.
 @endmorerefs
 

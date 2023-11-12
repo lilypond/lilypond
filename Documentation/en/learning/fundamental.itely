@@ -1630,8 +1630,8 @@ invented by the user.  Digits and spaces can also be used in the
 identifying name, but then it has to be placed in quotes,
 i.e., @code{\new Staff = "MyStaff 1" @var{music-expression}}.
 The identifying name is used to
-refer back to that particular instance of a context.  We saw this in
-use in the section on lyrics, see @ref{Voices and vocals}.
+refer back to that particular instance of a context, as demonstrated
+earlier with lyrics, @pxref{Voices and vocals}.
 
 
 @morerefs
@@ -1674,7 +1674,7 @@ in the printed score.
 
 Engravers all have compound names formed from words that
 describe their function.  Just the first word is capitalized,
-and the remainder are joined to it with underscores.  Thus
+and the remaining words are joined to it with underscores.  Thus
 the @code{Staff_symbol_engraver} is responsible for creating the
 lines of the staff, the @code{Clef_engraver} determines and sets
 the pitch reference point on the staff by drawing a clef symbol.
@@ -1796,11 +1796,11 @@ of some commonly used ones.  There are many more.
 @end indentedblock
 
 @noindent
-where a Boolean is either True (@code{#t}) or False (@code{#f}),
-an Integer is a positive whole number, a Real is a positive
-or negative decimal number, and text is enclosed in double
-apostrophes.  Note the occurrence of hash signs,
-(@code{#}), in two different places -- as part of the Boolean
+In the above table, a @dfn{Boolean} is either @code{#t} (true) or @code{#f} (false),
+an @dfn{integer} is a whole number (usually positive), a @dfn{real} is a positive
+or negative decimal number, and @dfn{text} is string enclosed in doublequote
+characters.  Note the occurrence of hash signs
+(@samp{#}) in two different places -- as part of the Boolean
 value before the @code{t} or @code{f}, and before @emph{value}
 in the @code{\set} statement.  So when a Boolean is being
 entered you need to code two hash signs, e.g., @code{##t}.
@@ -1837,7 +1837,7 @@ Remember the default context name is @code{Voice}, so the second
 @code{Voice} context to @code{clefs.F}, but as LilyPond does not look
 for any such property in the @code{Voice} context, no
 further action took place.  This is not an error, and no error
-message is logged in the log file.
+message is emitted.
 
 The @code{clefGlyph} property will take effect only
 if it is set in the @code{Staff} context, but
@@ -2551,8 +2551,8 @@ template do not correspond with the order in the vocal score shown
 above.  We need to rearrange them so there are four staves with the
 words written directly underneath the notes for each part.  All the
 voices should be @code{\voiceOne}, which is the default, so the
-@code{\voiceXXX} commands should be removed.  We also need to specify
-the tenor clef for the tenors.  The way in which lyrics are specified
+@code{\voiceXXX} commands should be removed.  We also need to adjust
+the clef for the tenors.  The way in which lyrics are specified
 in the template has not yet been encountered so we need to use the
 method with which we are familiar.  We should also add the names of
 each staff.
