@@ -27,6 +27,7 @@ configurable; virtually every fragment of output may be changed.
 * Further tweaking::
 @end menu
 
+
 @node Tweaking basics
 @section Tweaking basics
 
@@ -50,10 +51,11 @@ simply be copied to obtain the same effect in your own scores, and
 at the same time we show how these commands may be constructed so
 that you may learn how to develop your own tweaks.
 
-Before starting on this Chapter you may wish to review the section
-@ref{Contexts and engravers}, as Contexts, Engravers, and the
-Properties contained within them are fundamental to understanding
-and constructing Tweaks.
+Before starting on this chapter you may wish to review the section
+@ref{Contexts and engravers}, as contexts, engravers, and the
+properties contained within them are fundamental to understanding
+and constructing tweaks.
+
 
 @node Objects and interfaces
 @subsection Objects and interfaces
@@ -73,7 +75,7 @@ of the LilyPond program, so we must first introduce some terms
 which are used to describe those internal operations and
 structures.
 
-The term @q{Object} is a generic term used to refer to the
+The term @dfn{Object} is a generic term used to refer to the
 multitude of internal structures built by LilyPond during the
 processing of an input file.  So when a command like @code{\new
 Staff} is encountered a new object of type @code{Staff} is
@@ -88,10 +90,10 @@ notational elements such as bar lines,
 note heads, ties, dynamics, etc.  Every object has its own set of
 property values.
 
-Some types of object are given special names.  Objects which represent
+Some types of object are given special names.  Objects that represent
 items of notation on the printed output such as note heads, stems,
 slurs, ties, fingering, clefs, etc are called @q{Layout objects},
-often known as @q{Graphical Objects}, or @q{Grobs} for short.  These
+often known as @q{Graphical Objects}, or @dfn{grobs} for short.  These
 are still objects in the generic sense above, and so they too all have
 properties associated with them, such as their position, size, color,
 etc.
@@ -101,10 +103,10 @@ crescendo hairpins, ottava marks, and many other grobs are not
 localized in a single place -- they have a starting point, an
 ending point, and maybe other properties concerned with their
 shape.  Objects with an extended shape like these are called
-@q{Spanners}.
+@dfn{spanners}.
 
 Spanners cannot be tweaked after their creation.  This includes both
-@code{StaffSymbol} and @code{LedgerLineSpanner} which continue
+@code{StaffSymbol} and @code{LedgerLineSpanner}, which continue
 throughout the score, except if they are terminated by the
 @code{\stopStaff} command and then recreated using @code{\startStaff}
 command.
@@ -114,10 +116,10 @@ anything of their own, but rather collect, position and manage
 other grobs.  Common examples for this are
 @code{DynamicLineSpanner}, @code{BreakAlignment},
 @code{NoteColumn}, @code{VerticalAxisGroup},
-@code{NonMusicalPaperColumn} and similar.  We will see how some of
+or @code{NonMusicalPaperColumn}.  We will see how some of
 these are used later.
 
-It remains to explain what @q{Interfaces} are.  Many objects, even
+It remains to explain what @dfn{interfaces} are.  Many objects, even
 though they are quite different, share common features which need to
 be processed in the same way.  For example, all grobs have a color, a
 size, a position, etc, and all these properties are processed in the
@@ -131,6 +133,7 @@ use to the user.
 
 These, then, are the main terms relating to objects which we
 shall use in this chapter.
+
 
 @node Naming conventions of objects and properties
 @subsection Naming conventions of objects and properties
@@ -436,7 +439,7 @@ a'4^"Black"
 @noindent
 Note that the @code{\tweak} command must be preceded by an articulation
 mark since the tweaked expression needs to be applied as an articulation
-itself.  In case of multiple direction overrides (@code{^} or @code{_}),
+itself.  In case of multiple direction overrides (@samp{^} or @samp{_}),
 the leftmost override wins since it is applied last.
 
 @cindex @code{\tweak}, Accidental

@@ -1456,7 +1456,7 @@ in the fine-tuning of LilyPond output.
 @node Contexts explained
 @subsection Contexts explained
 
-@cindex contexts explained
+@cindex contexts, explained
 
 When music is printed, many notational elements which do not
 appear explicitly in the input file must be added to the
@@ -1468,7 +1468,7 @@ following example:
 @end lilypond
 
 The input is rather sparse, but in the output, bar lines,
-accidentals, clef, and time signature have been added.  When
+an accidental, a clef, and a time signature have been added.  When
 LilyPond @emph{interprets} the input the musical information
 is parsed from left to right, similar to the way a performer
 reads the score.  While reading the input, the program remembers
@@ -1478,15 +1478,15 @@ For example, an accidental affects only a single staff, while
 a bar line must be synchronized across the entire score.
 
 Within LilyPond, these rules and bits of information are grouped in
-@emph{Contexts}.  We have already introduced the @code{Voice} context.
+@dfn{contexts}.  We have already introduced the @code{Voice} context.
 Others are the @code{Staff} and @code{Score} contexts.  Contexts are
 hierarchical to reflect the hierarchical nature of a musical score.
-For example: a @code{Staff} context can contain many @code{Voice}
+For example, a @code{Staff} context can contain many @code{Voice}
 contexts, and a @code{Score} context can contain many @code{Staff}
 contexts.
 
 @quotation
-@sourceimage{context-example,5cm,}
+@sourceimage{context-example,6cm,}
 @end quotation
 
 Each context has the responsibility for enforcing some notation rules,
@@ -1510,7 +1510,7 @@ need, and that they are in the correct order.  For typesetting pieces
 with specialized notation, it is usual to modify existing, or
 even to define totally new, contexts.
 
-In addition to the @code{Score,} @code{Staff} and
+In addition to the @code{Score,} @code{Staff}, and
 @code{Voice} contexts there are contexts which fit between
 the score and staff levels to control staff groups, such as the
 @code{PianoStaff} and @code{ChoirStaff} contexts.  There
@@ -1559,7 +1559,7 @@ where @var{type} is a context name (like @code{Staff} or
 @code{Voice}).  This command creates a new context, and starts
 interpreting the @var{music-expression} within that context.
 
-You have seen many practical examples which created new
+You have seen many practical examples that created new
 @code{Staff} and @code{Voice} contexts in earlier sections, but
 to remind you how these commands are used in practice, here's an
 annotated real-music example:
@@ -1600,7 +1600,7 @@ annotated real-music example:
 }  % end of single compound music expression
 @end lilypond
 
-(Note how all the statements which open a block with either a
+(Note how all the statements that open a block with either a
 curly bracket, @code{@{}, or double angle brackets, @code{<<},
 are indented by two further spaces, and the corresponding
 closing bracket is indented by exactly the same amount.  While
@@ -1628,7 +1628,7 @@ Note the distinction between the name of the context type,
 particular instance of that type, which can be any sequence of letters
 invented by the user.  Digits and spaces can also be used in the
 identifying name, but then it has to be placed in quotes,
-i.e. @code{\new Staff = "MyStaff 1" @var{music-expression}}.
+i.e., @code{\new Staff = "MyStaff 1" @var{music-expression}}.
 The identifying name is used to
 refer back to that particular instance of a context.  We saw this in
 use in the section on lyrics, see @ref{Voices and vocals}.
@@ -1646,20 +1646,20 @@ Notation Reference:
 @cindex engravers
 
 Every mark on the printed output of a score produced by LilyPond
-is produced by an @code{Engraver}.  Thus there is an engraver
+is produced by an @dfn{Engraver}.  Thus there is an engraver
 to print staves, one to print note heads, one for stems, one for
-beams, etc, etc.  In total there are over 120 such engravers!
+beams, etc., etc.  In total there are over 140 such engravers!
 Fortunately, for most scores it is not necessary to know about
 more than a few, and for simple scores you do not need to know
 about any.
 
-Engravers live and operate in Contexts.  Engravers such as the
+Engravers live and operate in contexts.  Engravers such as the
 @code{Metronome_mark_engraver}, whose action and output apply to the
 score as a whole, operate in the highest level context -- the
 @code{Score} context.
 
 The @code{Clef_engraver} and @code{Key_engraver} are to be
-found in every @code{Staff} Context, as different staves may require
+found in every @code{Staff} context, as different staves may require
 different clefs and keys.
 
 The @code{Note_heads_engraver} and @code{Stem_engraver} live
@@ -1672,7 +1672,7 @@ associated with contexts, may be modified to change the
 operation of the engraver or the appearance of those elements
 in the printed score.
 
-Engravers all have compound names formed from words which
+Engravers all have compound names formed from words that
 describe their function.  Just the first word is capitalized,
 and the remainder are joined to it with underscores.  Thus
 the @code{Staff_symbol_engraver} is responsible for creating the
@@ -1721,7 +1721,7 @@ from the name, or vice versa.
 @smallspace
 
 We shall see later how the output of LilyPond can be changed
-by modifying the action of Engravers.
+by modifying the action of engravers.
 
 
 @morerefs
@@ -1739,7 +1739,7 @@ Internals reference: @rinternals{Engravers and Performers}.
 @funindex \unset
 
 Contexts are responsible for holding the values of a number of
-context @emph{properties}.  Many of them can be changed to
+context @dfn{properties}.  Many of them can be changed to
 influence the interpretation of the input and so change the
 appearance of the output.  They are changed by the
 @code{\set} command.  This takes the form
@@ -1748,8 +1748,9 @@ appearance of the output.  They are changed by the
 \set @emph{ContextName}.@emph{propertyName} = #@emph{value}
 @end example
 
-Where the @emph{ContextName} is usually @code{Score},
-@code{Staff} or @code{Voice}.  It may be omitted,
+@noindent
+where the @emph{ContextName} is usually @code{Score},
+@code{Staff}, or @code{Voice}.  It may be omitted,
 in which case the current context (typically @code{Voice}) is assumed.
 
 The names of context properties consist of words joined
@@ -1816,7 +1817,7 @@ action will not take place.  For example, the
 it is the staff's clef glyph that is to be changed.
 In this example the first staff's clef is printed correctly, but not the
 second -- which prints the default treble clef instead of the
-expected bass (or F) clef -- because we omitted the context name.
+expected bass (or@tie{}F) clef -- because we omitted the context name.
 
 @lilypond[quote,verbatim,ragged-right]
 <<
@@ -1842,8 +1843,8 @@ The @code{clefGlyph} property will take effect only
 if it is set in the @code{Staff} context, but
 some properties can be set in more than one context.
 For example, the property @code{extraNatural} is by
-default set to ##t (true) for all staves.
-If it is set to ##f (false) in one particular @code{Staff}
+default set to @code{#t} (true) for all staves.
+If it is set to @code{#f} (false) in one particular @code{Staff}
 context it applies just to the accidentals on that staff.
 If it is set to false in the @code{Score} context
 it applies to all staves.
@@ -1880,7 +1881,7 @@ and this turns them off in all staves:
 As another example, if @code{clefTransposition} is set in
 the @code{Score} context this immediately changes the value
 of the transposition in all current staves and sets a new default
-value which will be applied to all staves.
+value, which will be applied to all staves.
 
 The opposite command, @code{\unset}, effectively removes the
 property from the context, which causes most properties to
@@ -1912,7 +1913,7 @@ value, not the most recently set value.
 @end lilypond
 
 We have now seen how to set the values of several different types of
-property.  Note that integers and numbers are always preceded by a
+properties.  Note that integers and numbers are always preceded by a
 hash sign, @code{#}, while a true or false value is specified by
 @code{##t} and @code{##f}, with two hash signs.  A text property
 should be enclosed in double quotation signs, as above, although we
@@ -1931,7 +1932,7 @@ the context.  When a context is created with a @code{\new}
 command it may be followed immediately by a @code{\with @{ @dots{} @}}
 block in which the default property values are set.  For example,
 if we wish to suppress the printing of extra naturals for the
-duration of a staff we would write:
+duration of a staff we would write
 
 @example
 \new Staff \with @{ extraNatural = ##f @}
@@ -2024,7 +2025,6 @@ within the score:
 }
 @end lilypond
 
-@noindent
 Context properties set in this way may be overridden for particular
 instances of contexts by statements in a @code{\with} block, and by
 @code{\set} commands embedded in music statements.
@@ -2052,7 +2052,7 @@ Internals Reference:
 @funindex \consists
 @funindex \remove
 
-We have seen that contexts each contain several engravers, each
+We have seen that contexts contain several engravers, each
 of which is responsible for producing a particular part of the
 output, like bar lines, staves, note heads, stems, etc.  If an
 engraver is removed from a context, it can no longer produce its
@@ -2089,7 +2089,9 @@ produced by the @code{Staff_symbol_engraver}.
 Engravers can also be added to individual contexts.
 The command to do this is
 
-@code{\consists @var{Engraver_name}},
+@example
+\consists @var{Engraver_name}
+@end example
 
 @noindent
 placed inside a @code{\with} block.  Some vocal scores have an ambitus
@@ -2118,8 +2120,7 @@ range from that voice only:
 >>
 @end lilypond
 
-@noindent
-but if we add the ambitus engraver to the
+However if we add the ambitus engraver to the
 @code{Staff} context, it calculates the range from all
 the notes in all the voices on that staff:
 
@@ -2189,7 +2190,6 @@ staff in a four-staff score, we could write
 }
 @end lilypond
 
-@noindent
 The values of context properties may also be set
 for all contexts of a particular type by including the
 @code{\set} command in a @code{\context} block in the
@@ -2214,7 +2214,7 @@ either.
 You've read the tutorial, you know how to write music, you
 understand the fundamental concepts.  But how can you
 get the staves that you want?  Well, you can find lots of
-templates (see @ref{Templates}) which may give you a start.
+templates (@pxref{Templates}) which may give you a start.
 But what if you want something that isn't covered there?  Read on.
 
 @menu
@@ -2296,7 +2296,7 @@ section for the soprano @code{sopranoMusic} and the section for
 the cello @code{celloMusic}.  While we're doing this, let's rename
 @code{text} to be @code{sopranoLyrics}.  Remember to rename both
 instances of all these names -- both the initial definition (the
-@code{melody = \relative @{ } part) and the name's use (in the
+@code{melody = \relative @{ @dots{} @}} part) and the name's use (in the
 @code{\score} section).
 
 While we're doing this, let's change the cello part's staff --
@@ -2337,7 +2337,7 @@ celloMusic = \relative @{
 @}
 @end example
 
-This is looking promising, but the cello part won't appear in the
+This looks promising, but the cello part won't appear in the
 score -- we haven't used it in the @code{\score} section.  If we
 want the cello part to appear under the soprano part, we need to add
 
@@ -2422,11 +2422,11 @@ see @ref{Single staff templates}.
 @cindex SATB template
 
 Most vocal scores of music written for four-part mixed choir
-with orchestral accompaniment such as Mendelssohn's Elijah or
-Handel's Messiah have the choral music and words on four
+with orchestral accompaniment such as Mendelssohn's @emph{Elijah} or
+Handel's @emph{Messiah} have the choral music and words on four
 staves, one for each of SATB, with a piano reduction of the
 orchestral accompaniment underneath.  Here's an example
-from Handel's Messiah:
+from Handel's @emph{Messiah}:
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
@@ -2540,13 +2540,13 @@ to do this if the built-in template does not meet your needs
 adequately.}
 
 The nearest copy-and-edit template to this layout is
-@ref{SATB vocal score and automatic piano reduction} -- but we need
+@ref{SATB vocal score and automatic piano reduction}@: -- but we need
 to change the layout and add a piano
 accompaniment which is not derived automatically from the vocal parts.
 The variables holding the music and words for the vocal parts are
 fine, but we shall need to add variables for the piano reduction.
 
-The order in which the contexts appear in the ChoirStaff of the
+The order in which the contexts appear in the @code{ChoirStaff} of the
 template do not correspond with the order in the vocal score shown
 above.  We need to rearrange them so there are four staves with the
 words written directly underneath the notes for each part.  All the
@@ -2609,7 +2609,7 @@ Doing this gives for our ChoirStaff:
 @end example
 
 Next we must work out the piano part.  This is
-easy - we just pull out the piano part from the
+easy -- we just pull out the piano part from the
 @q{Solo piano} template:
 
 @example
@@ -2620,10 +2620,11 @@ easy - we just pull out the piano part from the
 >>
 @end example
 
+@noindent
 and add the variable definitions for @code{upper}
 and @code{lower}.
 
-The ChoirStaff and PianoStaff must be combined
+The @code{ChoirStaff} and @code{PianoStaff} must be combined
 using angle brackets as we want them to be
 stacked one above the other:
 
@@ -2832,7 +2833,7 @@ We simply mirror the staff structure we want.
 Organ music is usually written on three staves,
 one for each manual and one for the pedals.  The
 manual staves should be bracketed together, so we
-need to use a PianoStaff for them.  The first
+need to use a @code{PianoStaff} for them.  The first
 manual part needs two voices and the second manual
 part just one.
 
@@ -2855,7 +2856,7 @@ part just one.
 @end example
 
 Next we need to add a staff for the pedal organ.
-This goes underneath the PianoStaff, but it must
+This goes underneath the @code{PianoStaff}, but it must
 be simultaneous with it, so we need angle brackets
 around the two.  Missing these out would generate
 an error in the log file.  It's a common mistake
@@ -2894,7 +2895,7 @@ It is not necessary to use the simultaneous construct
 since they contain only one music expression, but it does no harm,
 and always using angle brackets after @code{\new Staff} is a good
 habit to cultivate in case there are multiple voices.  The opposite
-is true for Voices: these should habitually be followed by braces
+is true for @code{Voice} contexts: these should habitually be followed by braces
 @code{@{ @dots{} @}} in case your music is coded in several variables
 which need to run consecutively.
 
@@ -2960,7 +2961,7 @@ the pedal staff should behave similarly.
 Stretchability of staves can be controlled with the
 @code{staff-staff-spacing} property of the
 @code{VerticalAxisGroup} @q{graphical object} (commonly called
-@q{grob}s within the lilypond documentation) -- don't worry about
+@dfn{grob} within the LilyPond documentation) -- don't worry about
 the details right now; this is fully explained later.  For the
 curious, have a look at @rnotation{Overview of modifying properties}.
 In this case, we want to modify the @code{stretchability}
@@ -3119,7 +3120,7 @@ violin = \new Staff {
 @end lilypond
 
 However, you can also use these variables (also known as
-macros, or user-defined commands) for tweaks:
+@dfn{macros}, or @dfn{user-defined commands}) for tweaks:
 
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
@@ -3289,8 +3290,8 @@ in the following output
 
 In ensemble pieces, one of the voices often does not play for many
 measures.  This is denoted by a special rest, the multi-measure
-rest.  It is entered with a capital @code{R} followed by a duration
-(@code{1}@tie{}for a whole note, @code{2}@tie{}for a half note,
+rest.  It is entered with a capital @samp{R} followed by a duration
+(@samp{1} for a whole note, @samp{2} for a half note,
 etc.).  By multiplying the
 duration, longer rests can be constructed.  For example, this rest
 takes 3@tie{}measures in 2/4 time
@@ -3303,7 +3304,7 @@ When printing the part, multi-measure rests must be compressed.  There
 is a music function available to do this:
 
 @example
-\compressMMRests @{ ... @}
+\compressMMRests @{ @dots{} @}
 @end example
 
 Applying this to @code{hornNotes} gives:
