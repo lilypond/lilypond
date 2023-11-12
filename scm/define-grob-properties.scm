@@ -335,6 +335,7 @@ values are @code{fetaMusic} (Emmentaler), @code{fetaBraces},
      (font-family ,symbol? "The font family is the broadest category
 for selecting text fonts.  Options include @code{serif}, @code{sans}
 and @code{typewriter}.")
+     (font-features ,list? "Opentype features.")
      (font-name ,string? "This property is kept for backwards compatibility
 only.  Use the @code{fonts} property instead.")
      (font-series ,symbol? "Select the series of a font.  Common
@@ -343,8 +344,9 @@ that can be used is: @code{thin}, @code{ultralight}, @code{light},
 @code{semilight}, @code{book}, @code{normal}, @code{medium},
 @code{semibold}, @code{bold}, @code{ultrabold}, @code{heavy},
 @code{ultraheavy}.")
-     (font-shape ,symbol? "Select the shape of a font.  Choices
-include @code{upright}, @code{italic}, @code{caps}.")
+     (font-shape ,symbol? "Select the shape of a font.  Possible values
+are @code{upright}, @code{italic}, @code{oblique}, and @code{slanted}
+(which is the same as @code{oblique}).")
      (font-size ,number? "The font size, compared to the
 @q{normal}@tie{}size.  @code{0}@tie{}is style-sheet's normal size,
 @w{@code{-1}} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
@@ -352,17 +354,16 @@ approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
 larger.  If the context property @code{fontSize} is set, its value is
 added to this before the glyph is printed.  Fractional values are
 allowed.")
-     (font-features ,list? "Opentype features.")
-     (font-variant ,symbol? "Selects the variant of a font.
-Choices include @code{normal} and @code{small-caps}.")
      ;; FIXME: this can also be used in plain \markup, but right now,
      ;; we don't have a good way to document markup properties independently
      ;; from markup commands.
-     (font-stretch ,symbol? "Can be used to select a condensed or expanded
-font, if available in the font family. Possible values are
+     (font-stretch ,symbol? "Select a condensed or expanded
+font, if available in the font family.  Possible values are
 @code{ultra-condensed}, @code{extra-condensed}, @code{condensed},
 @code{semi-condensed}, @code{normal}, @code{semi-expanded}, @code{expanded},
-@code{extra-expanded} and @code{ultra-expanded}.")
+@code{extra-expanded}, and @code{ultra-expanded}.")
+     (font-variant ,symbol? "Select the variant of a font.
+Choices include @code{normal} and @code{small-caps}.")
      (fonts ,symbol-key-alist? "An alist mapping font families to
 font names.  The standard font families are @code{music}, @code{serif},
 @code{sans} and @code{typewriter}.")
