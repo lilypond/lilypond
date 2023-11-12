@@ -23,3 +23,4 @@ Combinations of `$container` and `$dockerfile` are:
 | `ci/ubuntu-20.04` | `ci/Dockerfile.ubuntu-20.04` | The image for CI testing |
 | `ci/ubuntu-20.04.guile-3.0` | `ci/Dockerfile.ubuntu-20.04.guile-3.0` | The image for CI testing with Guile 3.0 |
 | `doc/ubuntu-20.04` | `doc/Dockerfile.ubuntu-20.04` | The image for building the official documentation |
+| `doc/ubuntu-20.04.guile-3.0` | `doc/Dockerfile.ubuntu-20.04.guile-3.0` | The image for building the official documentation with Guile 3.0 |
