@@ -189,6 +189,8 @@ Notation Reference:
 
 @cindex tweaking methods
 
+This subsection discusses the most important tweaking commands.
+
 @menu
 * The override command::
 * The revert command::

@@ -43,8 +43,8 @@ containing common musical notation.  For the most basic steps,
 @node Single-staff notation
 @section Single-staff notation
 
-This section introduces common notation that is used for one voice
-on one staff.
+This section introduces common notation that is used for the most
+basic music: one voice written on one staff.
 
 @menu
 * Bar lines and bar checks::
@@ -289,6 +289,9 @@ Notation Reference:
 @funindex ~
 @funindex ( ... )
 @funindex \( ... \)
+
+Because of the similar optical appearance, we introduce ties and
+slurs in the same section.
 
 @menu
 * Ties::
@@ -586,6 +589,10 @@ Notation Reference:
 
 @node Advanced rhythmic commands
 @subsection Advanced rhythmic commands
+
+We have to extend simple durations (i.e., numbers appended to
+pitches, with or without trailing dots) with more concepts to
+cover a broader range of rhythmic input.
 
 @menu
 * Partial measure::
