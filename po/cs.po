@@ -1684,8 +1684,8 @@ msgid "flag stroke `%s' not found"
 msgstr "Symbol praporku `%s' nebyl nalezen"
 
 #: parse-scm.cc:112
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "GUILE naznačil chybu ve výrazu, který začíná zde"
+msgid "Guile signaled an error for the expression beginning here"
+msgstr "Guile naznačil chybu ve výrazu, který začíná zde"
 
 #: lily-lexer.cc:255
 msgid "include files are not allowed in safe mode"

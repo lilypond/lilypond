@@ -3147,8 +3147,8 @@ msgid "Don't know how to parenthesize spanners."
 msgstr "Vet inte hur man ska göra parenteser runt bryggare."
 
 #: parse-scm.cc:61
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "GUILE gav ett fel för uttrycket som börjar här"
+msgid "Guile signaled an error for the expression beginning here"
+msgstr "Guile gav ett fel för uttrycket som börjar här"
 
 #: pdf-scheme.cc:64
 #, c-format

@@ -84,7 +84,7 @@ stdin から入力を読み込む場合には、@c
 lilypond は出力として @file{filename.pdf} を作り出します。@c
 いくつかのファイルを指定することもできます。@c
 その場合、それらのファイルは個々に処理されます。@c
-@footnote{GUILE のステータスは @file{.ly} 処理後にリセットされません。@c
+@footnote{Guile のステータスは @file{.ly} 処理後にリセットされません。@c
 そのため、Scheme 内部からいかなるシステム デフォルトも変更しないよう@c
 注意してください。}
 
@@ -846,7 +846,7 @@ Web サーバ経由で LilyPond 譜刻が利用可能な場合、@option{--dsafe
 
 @option{-dsafe} オプションはインライン Scheme 表記を特別なセーフ
 モジュールの中で評価します。@c
-これは GUILE の @file{safe-r5rs} モジュールに由来しますが、@c
+これは Guile の @file{safe-r5rs} モジュールに由来しますが、@c
 @file{scm/safe-lily.scm} でリスト アップされている LilyPond API 関数の@c
 いくつかも追加されています。
 
@@ -1014,7 +1014,7 @@ LilyPond も例外ではありません。@c
 実行時の構成には、実際には別のメカニズムがあります。
 LilyPond は、外部プログラムとライブラリ、@c
 特にシステムフォントを見つけるための @q{FontConfig} 、
-Scheme ファイルを処理するための @q{GUILE} ライブラリ、
+Scheme ファイルを処理するための @q{Guile} ライブラリ、
 PS データを PDF ファイルに変換するための @command{gs} プログラムに@c
 それぞれ大きく依存しています。@c
 それらのすべては、関連するデータファイルを見つけるためにも構成する必要があります。@c

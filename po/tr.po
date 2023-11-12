@@ -1387,7 +1387,7 @@ msgid "Preprocessing graphical objects..."
 msgstr "Grafik nesneler önişleme tabi tutuluyor..."
 
 #: parse-scm.cc:77 lily/parse-scm.cc:77 lily/parse-scm.cc:84
-msgid "GUILE signaled an error for the expression beginning here"
+msgid "Guile signaled an error for the expression beginning here"
 msgstr "GULIE burada başlayan ifadede bir hata olduğunu bildiriyor"
 
 #: percent-repeat-engraver.cc:110 lily/percent-repeat-engraver.cc:110

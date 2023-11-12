@@ -132,7 +132,7 @@ fichier Unicode.}
 
 Le traitement de @file{monfichier.ly} produira @file{monfichier.pdf} par
 défaut.  Vous pouvez spécifier plusieurs fichiers à la fois ; ils seront
-traités indépendamment les uns des autres.@footnote{Le statut de GUILE
+traités indépendamment les uns des autres.@footnote{Le statut de Guile
 n'étant pas réinitialisé après traitement d'un fichier @file{.ly},
 veillez à ne pas modifier les réglages par défaut du système à partir
 d'assertions en Scheme.}
@@ -1088,7 +1088,7 @@ est calculée lors de l'exécution @emph{relativement au binaire lancé}.
 Un deuxième mécanisme intervient en fait pour la configuration de
 l'exécution : LilyPond dépend fortement de programme ou bibloithèques
 externes, en particulier les bibliothèques @command{FontConfig} et
-@command{GUILE} pour trouver respectivement les fontes du système et les
+@command{Guile} pour trouver respectivement les fontes du système et les
 traitement des fichiers Scheme, ainsi que le programme @command{gs} pour
 convertir les données PostScript en fichiers PDF. Tout ceci doit aussi
 être configuré pour retrouver ses propres fichiers de données. Pour y
@@ -1503,7 +1503,7 @@ ces notes en rouge :
 @unnumberedsubsec Message d'erreur @code{Unbound variable %}
 
 Ce message d'erreur, qu'il apparaisse sur le terminal ou en fin de
-fichier journal, est associé à un message du type « GUILE a signalé
+fichier journal, est associé à un message du type « Guile a signalé
 une erreur@dots{} ». Il survient à chaque fois qu'un commentaire
 @emph{LilyPond} est indûment placé dans une routine @emph{Scheme}.
 

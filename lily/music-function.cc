@@ -62,7 +62,7 @@ with_loc (SCM arg, Fluid &loc, bool clone = true)
 // A music function call implies walking through the call signature
 // and matching the actual argument list to the signature.  This
 // process is not 1:1 due to the possible presence of optional
-// arguments which are handled quite differently from how GUILE/Scheme
+// arguments which are handled quite differently from how Guile/Scheme
 // usually deal with optional arguments.
 //
 // The argument matching here intentionally closely tracks the

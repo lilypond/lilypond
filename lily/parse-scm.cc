@@ -35,7 +35,7 @@
 bool parse_protect_global = true;
 
 // Input to parsing and evaluation Scheme. We have to group these so
-// we can pass them as a void* through GUILE.
+// we can pass them as a void* through Guile.
 struct Parse_start
 {
   // Holds the SCM expression to be evaluated; unused for parsing.
@@ -227,7 +227,7 @@ internal_parse_embedded_scheme (void *p)
   scm_set_port_line_x (port, scm_from_ssize_t (line_number - 1));
   scm_set_port_filename_x (
     port, ly_string2scm (start.get_source_file ()->name_string ().c_str ()));
-  // TODO: Do GUILE ports count in characters or bytes? Do they do tab
+  // TODO: Do Guile ports count in characters or bytes? Do they do tab
   // expansion for column counts?
   scm_set_port_column_x (port, scm_from_ssize_t (column - 1));
 

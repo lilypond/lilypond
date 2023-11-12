@@ -80,7 +80,7 @@ de stdin, utilitzeu un guió (@code{-}) en substitució de @var{fitxer}.
 Quan es processa @file{archivo.ly}, la sortida resultant són els
 fitxers @file{fitxer.ps} i @file{fitxer.pdf}.  Es poden
 especificar diversos fitxers; cadascú d'ells es processarà de
-forma independent@footnote{L'estat del GUILE no es restableix
+forma independent@footnote{L'estat del Guile no es restableix
 després de processar un fitxer @code{.ly}, per la qual cosa heu de
 tenir cura de no modificar cap valor predeterminat des de dins del
 Scheme.}.
@@ -578,7 +578,7 @@ Scheme faci un desastre, per exemple:
 
 L'opció @option{-dsafe} funciona avaluant les expressions del
 Scheme en línia dins d'un mòdul segur especial.  Deriva del mòdul
-@file{safe-r5rs} del GUILE, però a més afegeix unes quantes
+@file{safe-r5rs} del Guile, però a més afegeix unes quantes
 funcions de l'API del LilyPond que estan relacionades en
 @file{scm/safe-lily.scm}.
 
@@ -993,7 +993,7 @@ explícitament:
 @unnumberedsubsec Missatge d'error Unbound variable %
 
 Aquest missatge d'error apareix al final dels missatges de la
-consola o del fitxer de registre junt a un missatge @qq{GUILE
+consola o del fitxer de registre junt a un missatge @qq{Guile
 ha senyalat un error @dots{}} cada cop que es cridi a una rutina
 del Scheme que (incorrectament) contingui un comentari @emph{del
 LilyPond} enlloc d'un comentari @emph{del Scheme}.

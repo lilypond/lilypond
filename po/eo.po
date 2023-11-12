@@ -3132,8 +3132,8 @@ msgid "Don't know how to parenthesize spanners."
 msgstr "Ne scias kiel interkrampigi etendigilojn."
 
 #: parse-scm.cc:61
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "GUILE signalis eraron por la esprimo komenciĝanta ĉi tie"
+msgid "Guile signaled an error for the expression beginning here"
+msgstr "Guile signalis eraron por la esprimo komenciĝanta ĉi tie"
 
 #: pdf-scheme.cc:64
 #, c-format

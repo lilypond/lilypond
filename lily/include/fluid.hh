@@ -22,7 +22,7 @@
 
 #include "lily-guile.hh"
 
-// Fluid is a wrapper class for cached storage of GUILE fluids.
+// Fluid is a wrapper class for cached storage of Guile fluids.
 // You use it like
 //
 //   Fluid parser (Lily::f_parser);

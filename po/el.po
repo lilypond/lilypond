@@ -2453,8 +2453,8 @@ msgid "Preprocessing graphical objects..."
 msgstr "Προεπεξεργασία γραφικών αντικειμένων…"
 
 #: parse-scm.cc:101
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "Το GUILE επεσήμανε ένα λάθος για την έκφραση που αρχίζει εδώ"
+msgid "Guile signaled an error for the expression beginning here"
+msgstr "Το Guile επεσήμανε ένα λάθος για την έκφραση που αρχίζει εδώ"
 
 #: partial-iterator.cc:45
 msgid "trying to use \\partial after the start of a piece"

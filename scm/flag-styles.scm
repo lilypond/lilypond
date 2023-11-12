@@ -15,7 +15,7 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-;;;;  This file implements different flag styles in Scheme / GUILE, most
+;;;;  This file implements different flag styles in Scheme / Guile, most
 ;;;;  notably the old-straight-flag, the modern-straight-flag and the flat-flag
 ;;;;  styles.
 

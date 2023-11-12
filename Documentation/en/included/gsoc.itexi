@@ -375,7 +375,7 @@ infrastructure.
 
 @emph{Requirements:} Python, (PyQt)
 
-@emph{Optional:} GUILE Scheme (if functionality involves LilyPond
+@emph{Optional:} Guile Scheme (if functionality involves LilyPond
 internals)
 
 @emph{Mentor:} @emph{Urs Liska}

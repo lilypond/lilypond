@@ -86,9 +86,9 @@ C++ is so ubiquitous that it is difficult to identify either a reference
 manual or a tutorial.  Programmers unfamiliar with C++ will need to spend some
 time to learn the language before attempting to modify the C++ code.
 
-The C++ code calls Scheme/GUILE through the GUILE interface, which is
+The C++ code calls Scheme/Guile through the Guile interface, which is
 documented in the
-@uref{https://www.gnu.org/software/guile/manual/html_node/index.html, GUILE
+@uref{https://www.gnu.org/software/guile/manual/html_node/index.html, Guile
   Reference Manual}.
 
 @subheading Flex
@@ -111,12 +111,12 @@ GNU Make is used to control the compiling process and to build the
 documentation and the website.  GNU Make documentation is available at
 @uref{https://www.gnu.org/software/make/manual/, the GNU website}.
 
-@subheading GUILE or Scheme
+@subheading Guile or Scheme
 
-GUILE is the dialect of Scheme that is used as LilyPond's extension language.
-Many extensions to LilyPond are written entirely in GUILE.  The
+Guile is the dialect of Scheme that is used as LilyPond's extension language.
+Many extensions to LilyPond are written entirely in Guile.  The
 @uref{https://www.gnu.org/software/guile/manual/html_node/index.html,
-GUILE Reference Manual} is available online.
+Guile Reference Manual} is available online.
 
 @uref{https://mitpress.mit.edu/sicp/full-text/book/book.html, Structure and
 Interpretation of Computer Programs}, a popular textbook used to teach
@@ -2277,7 +2277,7 @@ interface, which is made of all @code{ly:regex-@dots{}} functions
 Most of the C functions interfacing with Guile/Scheme used in LilyPond
 are described in the API Reference of the
 @uref{https://www.gnu.org/software/guile/manual/html_node/index.html,
-GUILE Reference Manual}.
+Guile Reference Manual}.
 
 The remaining functions are defined in @file{lily/lily-guile.cc},
 @file{lily/include/lily-guile.hh} and
@@ -2691,7 +2691,7 @@ would become zero as items are moved to other homes.
 @menu
 * Spacing algorithms::
 * Info from Han-Wen email::
-* Music functions and GUILE debugging::
+* Music functions and Guile debugging::
 * Articulations on EventChord::
 @end menu
 
@@ -2762,7 +2762,7 @@ classes because they play a special role in the linebreaking process.
 @subheading What's a smob, and how is one used?
 
 A C(++) object that is encapsulated so it can be used as a Scheme
-object.  See GUILE info, "19.3 Defining New Types (Smobs)"
+object.  See Guile info, "19.3 Defining New Types (Smobs)"
 
 @subheading When is each C++ class constructed and used?
 
@@ -2827,7 +2827,7 @@ fashion, and the synchronization is done by Music_iterators.
 @subheading What is the relationship between C++ classes and Scheme objects?
 
 Smobs are C++ objects in Scheme.  Scheme objects (lists, functions) are
-manipulated from C++ as well using the GUILE C function interface
+manipulated from C++ as well using the Guile C function interface
 (prefix: scm_)
 
 @subheading How do Scheme procedures get called from C++ functions?
@@ -3044,10 +3044,10 @@ along the way by doing
 p ly_display_scm(obj)
 @end example
 
-this will display OBJ through GUILE.
+this will display OBJ through Guile.
 
-@node Music functions and GUILE debugging
-@subsection Music functions and GUILE debugging
+@node Music functions and Guile debugging
+@subsection Music functions and Guile debugging
 
 Ian Hulin was trying to do some debugging in music functions, and
 came up with the following question (edited and adapted to current
@@ -3095,7 +3095,7 @@ in its later @emph{execution}.
 
 Here is the real deal:
 
-A music function is not the same as a GUILE function.  It boxes
+A music function is not the same as a Guile function.  It boxes
 both a proper Scheme function (with argument list and body from
 the @code{define-music-function} definition) along with a call
 signature representing the @emph{types} of both function and

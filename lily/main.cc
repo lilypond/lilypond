@@ -190,7 +190,7 @@ dir_info (FILE *out)
 static std::string
 gnu_lilypond_version_string ()
 {
-  // can't use version_string(), because GUILE hasn't started yet.
+  // can't use version_string(), because Guile hasn't started yet.
   std::string version = MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL;
   std::string mpl (MY_PATCH_LEVEL);
   if (mpl != "")
@@ -398,7 +398,7 @@ static void
 main_with_guile (void *, int, char **)
 {
   /* Engravers use lily.scm contents, so we need to make Guile find it.
-     Prepend onto GUILE %load-path.
+     Prepend onto Guile %load-path.
       %load-path is the symbol Guile searches for .scm files
       %load-compiled-path is the symbol Guile V2 searches for .go files
    */
@@ -427,7 +427,7 @@ main_with_guile (void *, int, char **)
      We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.
      This way we don't have to start the Guile/Scheme interpreter more than once, as
-     starting the GUILE engine is very time consuming.
+     starting the Guile engine is very time consuming.
   */
 
   SCM files = SCM_EOL;
@@ -701,6 +701,6 @@ main (int argc, char **argv)
   // Start up Guile API using main_with_guile as a callback.
   scm_boot_guile (argc, argv, main_with_guile, 0);
 
-  /* Only reachable if GUILE exits.  That is an error.  */
+  /* Only reachable if Guile exits.  That is an error.  */
   return 1;
 }

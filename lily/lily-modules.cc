@@ -99,7 +99,7 @@ Scm_module::import ()
   assert (SCM_UNBNDP (module_));
   SCM intrface = scm_c_resolve_module (name_);
   // Using only the public interface is a voluntary form of access
-  // control in GUILE.  It would be cumbersome to do so until
+  // control in Guile.  It would be cumbersome to do so until
   // Guile_user itself is imported.
   if (SCM_MODULEP (Guile_user::module.module_))
     intrface = Guile_user::module_public_interface (intrface);

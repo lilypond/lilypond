@@ -29,11 +29,11 @@
 #include <vector>
 
 /*
-  Smobs are GUILEs mechanism of exporting C(++) objects to the Scheme
-  world.  They are documented in the GUILE manual.
+  Smobs are Guile's mechanism of exporting C(++) objects to the Scheme
+  world.  They are documented in the Guile manual.
 
 
-  In LilyPond, C++ objects can be placed under the control of GUILE's
+  In LilyPond, C++ objects can be placed under the control of Guile's
   type system and garbage collection mechanism by inheriting from one
   of several Smob base classes.
 
@@ -47,7 +47,7 @@
 
   Simple smobs are created by deriving from Simple_smob<Classname>.
 
-  A simple smob is only optionally under the reign of the GUILE
+  A simple smob is only optionally under the reign of the Guile
   garbage collector: its usual life time is that of a normal C++
   object.  While a smobbed_copy () is fully under control of the
   garbage collector and will have its mark_smob function called during
@@ -57,13 +57,13 @@
   more complex mark_smob behavior is not suitable for a simple smob.
 
   When you create a smobbed_copy, the _copy_ is fully managed by the
-  GUILE memory system.  As a corollary, multiple smobbed_copy calls
-  yield multiple GUILE objects generally not eq? to each other.
+  Guile memory system.  As a corollary, multiple smobbed_copy calls
+  yield multiple Guile objects generally not eq? to each other.
 
   2. Complex smobs are objects that have an identity. These objects
   carry this identity in the form of a self_scm () method, which is a
   SCM pointer to the object itself.  Complex smobs are always under
-  control of the GUILE memory system.
+  control of the Guile memory system.
 
   The constructor for a complex smob should have 3 steps:
 
@@ -213,7 +213,7 @@ private:
   //
   // Most default functions are do-nothings.  void init() will
   // recognize their address when not overriden and will then refrain
-  // altogether from passing the the respective callbacks to GUILE.
+  // altogether from passing the the respective callbacks to Guile.
 
   SCM mark_smob (void) const;
   static SCM mark_trampoline (SCM); // Used for calling mark_smob
@@ -246,7 +246,7 @@ private:
 
   // Template parameter packs could reduce repetition here; however,
   // they would allow parameter types other than SCM.  It turns out
-  // that GUILE 1.8.8 cannot actually make callable structures with
+  // that Guile 1.8.8 cannot actually make callable structures with
   // more than 3 arguments anyway.  That's surprising, to say the
   // least, but in emergency situations one can always use a "rest"
   // argument and take it apart manually.
@@ -307,7 +307,7 @@ unsmob (SCM s)
 {
   /* Any reference to a freed cell is a programming error.
 
-     This is a bit clumsy, but works across GUILE 1.8 to 3.0
+     This is a bit clumsy, but works across Guile 1.8 to 3.0
    */
   const unsigned int FREED_SMOB = 0;
   assert (!(SCM_NIMP (s) && SCM_TYP7 (s) == scm_tc7_smob

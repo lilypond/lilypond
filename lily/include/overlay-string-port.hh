@@ -25,7 +25,7 @@
 /*
    Overlays a string port on existing data, without copying
 
-   GUILE v2 has a decent API for defining ports. We setup the encoding
+   Guile v2 has a decent API for defining ports. We setup the encoding
    as UTF-8 so UTF-8 within the embedded Scheme gets properly stored.
 
    The 1.8 API is terrible and incompatible. We do mostly a cut &
@@ -113,7 +113,7 @@ public:
 
   static void init ()
   {
-    // TODO: GUILE should take const char * for the name.
+    // TODO: Guile should take const char * for the name.
     char *name = const_cast<char *> ("Overlay_string_port");
     type_ = scm_make_port_type (name, &read_scm, NULL);
     scm_set_port_seek (type_, &seek_scm);

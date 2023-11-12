@@ -33,7 +33,7 @@ Protected_scm::Protected_scm (SCM s)
 {
   // Only allow immediate objects at construction time.  Protected_scm
   // is intended for variables of static duration, and creating
-  // non-immediate objects when GUILE is not yet up is a bad idea.
+  // non-immediate objects when Guile is not yet up is a bad idea.
   assert (SCM_IMP (s));
 }
 

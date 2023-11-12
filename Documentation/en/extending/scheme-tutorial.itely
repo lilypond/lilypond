@@ -14,7 +14,7 @@
 @chapter Scheme tutorial
 
 @cindex Scheme
-@cindex GUILE
+@cindex Guile
 @cindex Scheme, in-line code
 @cindex accessing Scheme
 @cindex evaluating Scheme
@@ -44,7 +44,7 @@ The @qq{R5RS} Scheme standard is located at
 @section Introduction to Scheme
 
 We begin with an introduction to Scheme.  For this brief introduction,
-we will use the GUILE interpreter to explore how the language works.
+we will use the Guile interpreter to explore how the language works.
 Once we are familiar with Scheme, we will show how the language can
 be integrated in LilyPond files.
 
@@ -853,7 +853,7 @@ In effect, each input file is a scope, and all @code{\header},
 @code{\midi}, and @code{\layout} blocks are scopes nested inside that
 toplevel scope.
 
-Both variables and scoping are implemented in the GUILE module system.
+Both variables and scoping are implemented in the Guile module system.
 An anonymous Scheme module is attached to each scope.  An assignment of
 the form:
 

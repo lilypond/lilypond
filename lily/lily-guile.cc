@@ -92,7 +92,7 @@ ly_scm2string (SCM str)
 {
   assert (scm_is_string (str));
 
-  // GUILE 1.8 with -lmcheck barfs because realloc with sz==0 returns
+  // Guile 1.8 with -lmcheck barfs because realloc with sz==0 returns
   // NULL.
   if (scm_c_string_length (str) == 0)
     {
@@ -205,7 +205,7 @@ ly_deep_copy (SCM src)
           src = scm_cdr (src);
         }
       while (scm_is_pair (src));
-      // Oh, come on, GUILE.  Why do you require the second argument
+      // Oh, come on, Guile.  Why do you require the second argument
       // of scm_reverse_x to be a proper list?  That makes no sense.
       // return scm_reverse_x (res, ly_deep_copy (src));
       SCM last_cons = res;

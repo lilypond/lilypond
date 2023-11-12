@@ -1479,8 +1479,8 @@ msgid "Preprocessing graphical objects..."
 msgstr "Esiprosessoidaan graafisia kohteita..."
 
 #: parse-scm.cc:83
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "GUILE antoi virheen lausekkeelle, joka alkoi täältä"
+msgid "Guile signaled an error for the expression beginning here"
+msgstr "Guile antoi virheen lausekkeelle, joka alkoi täältä"
 
 #: percent-repeat-engraver.cc:200
 msgid "unterminated percent repeat"

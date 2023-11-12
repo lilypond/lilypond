@@ -844,7 +844,7 @@ possa fare uno scempio,
 
 L'opzione @option{-dsafe} serve a valutare le espressioni Scheme presenti nell'input
 in uno speciale modulo di sicurezza.  Questo modulo di sicurezza è derivato dal
-modulo GUILE @file{safe-r5rs}, ma aggiunge alcune funzioni del
+modulo Guile @file{safe-r5rs}, ma aggiunge alcune funzioni del
 LilyPond API.  Queste funzioni sono elencate in @file{scm/safe-lily.scm}.
 
 Inoltre, la modalità sicura non permette le direttive @code{\include} e
@@ -1025,7 +1025,7 @@ modo @emph{relativo al binario eseguito}.
 
 Esiste in realtà un secondo meccanismo per la configurazione runtime:
 LilyPond fa ampio ricorso a programmi e librerie esterne, in particolare
-le librerie @q{FontConfig} e @q{GUILE} per trovare i font di sistema e
+le librerie @q{FontConfig} e @q{Guile} per trovare i font di sistema e
 gestire i file Scheme, e al programma @command{gs} per convertire i dati
 PS in file PDF.  Tutti questi devono anche essere configurati per individuare
 i propri file di dati.  Per far ciò, il programma @command{lilypond} analizza
@@ -1417,7 +1417,7 @@ corretto per colorare le teste di tutte le note è
 @unnumberedsubsec Messaggio di errore Unbound variable %
 
 Questo messaggio di errore comparirà in fondo alla console di
-output o nel file di log insieme al messaggio @qq{GUILE signalled an error @dots{}}
+output o nel file di log insieme al messaggio @qq{Guile signalled an error @dots{}}
 ogni volta che viene chiamata una routine di Scheme che contenga (erroneamente)
 un commento @emph{LilyPond} invece di un commento @emph{Scheme}.
 

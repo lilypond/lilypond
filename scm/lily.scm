@@ -29,12 +29,12 @@
              (lily curried-definitions)
              (ice-9 match))
 
-;; GUILE defaults to fixed seed.
+;; Guile defaults to fixed seed.
 (define-public (randomize-rand-seed)
   (ly:randomize-rand-seed)
   (let*
       ((t (gettimeofday))
-       ;; GUILE's random initialization is clumsy (it converts the
+       ;; Guile's random initialization is clumsy (it converts the
        ;; integer to decimal string, and then sums groups of 8 bytes
        ;; as 64 bit integers.  Here we multiply to spread the entropy
        ;; around a bit better.
@@ -87,7 +87,7 @@
 
 ;; It would be nice to convert occurrences of parser/location to
 ;; (*parser*)/(*location*) using the syncase module but it is utterly
-;; broken in GUILE 1 and would require changing a lot of unrelated
+;; broken in Guile 1 and would require changing a lot of unrelated
 ;; innocuous constructs which just happen to fall apart with
 ;; inscrutable error messages.
 
@@ -524,7 +524,7 @@ messages into errors.")
 
 ;; TODO: This is somewhat fishy: pitches protect their scale via a
 ;; mark_smob hook.  But since pitches are of Simple_smob variety, they
-;; are unknown to GUILE unless a smobbed_copy has been created.  So
+;; are unknown to Guile unless a smobbed_copy has been created.  So
 ;; changing the default scale might cause some existing pitches to
 ;; refer to an unprotected scale.  This likely mostly concerns pitches in MIDI
 ;; data structures it would appear; the others are either ephemeral or

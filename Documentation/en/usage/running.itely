@@ -124,7 +124,7 @@ file names.}
 When @file{filename.ly} is processed it produces
 @file{filename.pdf} as output by default.  Several files can be specified;
 they are each processed independently.@footnote{The status of
-GUILE is not reset after processing a @file{.ly} file, so be careful
+Guile is not reset after processing a @file{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
 If @file{filename.ly} contains more than one @code{\book} block,
@@ -1073,7 +1073,7 @@ the executed binary}.
 
 There's actually a second mechanism for run-time configuration:
 LilyPond heavily relies on external programs and libraries, in
-particular the @q{FontConfig} and @q{GUILE} libraries to find
+particular the @q{FontConfig} and @q{Guile} libraries to find
 system fonts and handle Scheme files, respectively, and the
 @command{gs} program to convert PS data to PDF files.  All of them
 must be configured also to locate its relevant data files.  To do
@@ -1462,7 +1462,7 @@ correct code to color all note heads red is
 @unnumberedsubsec Error message Unbound variable %
 
 This error message will appear at the bottom of the console
-output or log file together with a @qq{GUILE signalled an error @dots{}}
+output or log file together with a @qq{Guile signalled an error @dots{}}
 message every time a Scheme routine is called which (invalidly)
 contains a @emph{LilyPond} rather than a @emph{Scheme} comment.
 

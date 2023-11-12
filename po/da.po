@@ -3002,8 +3002,8 @@ msgid "Preprocessing graphical objects..."
 msgstr "Forbehandler grafiske objekter ..."
 
 #: parse-scm.cc:124
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "GUILE signalerede en fejl for udtrykket, der begynder her"
+msgid "Guile signaled an error for the expression beginning here"
+msgstr "Guile signalerede en fejl for udtrykket, der begynder her"
 
 #: pdf-scheme.cc:65
 #, c-format

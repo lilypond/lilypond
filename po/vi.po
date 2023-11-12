@@ -2141,8 +2141,8 @@ msgid "Preprocessing graphical objects..."
 msgstr "Đang tiền xử lý các đối tượng đồ họa..."
 
 #: parse-scm.cc:93
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "GUILE đã thông báo lỗi cho biểu thức bắt đầu ở đây"
+msgid "Guile signaled an error for the expression beginning here"
+msgstr "Guile đã thông báo lỗi cho biểu thức bắt đầu ở đây"
 
 #: percent-repeat-engraver.cc:202
 msgid "unterminated percent repeat"

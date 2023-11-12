@@ -1441,7 +1441,7 @@ msgid "Preprocessing graphical objects..."
 msgstr "Предварительно обрабатываю элементы..."
 
 #: parse-scm.cc:83
-msgid "GUILE signaled an error for the expression beginning here"
+msgid "Guile signaled an error for the expression beginning here"
 msgstr ""
 
 #: percent-repeat-engraver.cc:200

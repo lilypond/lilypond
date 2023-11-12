@@ -1,7 +1,7 @@
 \version "2.21.0"
 
 \header {
-  texidoc = "In GUILE v2, embedded Scheme can contain UTF-8 strings and identifiers.
+  texidoc = "In Guile v2, embedded Scheme can contain UTF-8 strings and identifiers.
 Here, identifer bääh contains music with the text \"bööh\""
 
 }

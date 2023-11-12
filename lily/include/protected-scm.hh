@@ -23,7 +23,7 @@
 #include "lily-guile.hh"
 
 /*
-  Mix GUILE GC with C++ ctors and dtors.
+  Mix Guile GC with C++ ctors and dtors.
 
   This version is intended to be only used for variables of static
   lifetime (which are not feasible to protect using the per-instance

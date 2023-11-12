@@ -83,7 +83,7 @@ desde stdin, utilice un guión (@code{-}) en sustitución de
 Cuando se procesa @file{archivo.ly}, la salida resultante por
 defecto es el archivo @file{archivo.pdf}.  Se pueden especificar
 varios archivos; cada uno de ellos se procesará de forma
-independiente@footnote{El estado de GUILE no se restablece después
+independiente@footnote{El estado de Guile no se restablece después
 de procesar un archivo @file{.ly}, por lo que debe tener cuidado
 de no modificar ningún valor predeterminado desde dentro de
 Scheme.}.
@@ -856,7 +856,7 @@ Scheme empotrado pueda producir un desastre, p.ej.:
 
 La opción @option{-dsafe} funciona evaluando las expresiones de
 Scheme en línea dentro de un módulo seguro especial.  Deriva del
-módulo @file{safe-r5rs} de GUILE, pero además añade unas cuantas
+módulo @file{safe-r5rs} de Guile, pero además añade unas cuantas
 funciones de la API de LilyPond que están relacionadas en
 @file{scm/safe-lily.scm}.
 
@@ -1030,7 +1030,7 @@ ejecuta}.
 En realidad existe un segundo mecanismo para la configuración en
 tiempo de ejecución: LilyPond se apoya fuertemente en bibliotecas
 y programas externos, especialmente las bibliotecas @q{FontConfig}
-y @q{GUILE} para encontrar las fuentes tipográficas del sistema y
+y @q{Guile} para encontrar las fuentes tipográficas del sistema y
 manejar los archivos de Scheme, respectivamente, y el programa
 @command{gs} (Ghostscript) para convertir datos de PS a archivos
 PDF.  Todos ellos se deben configurar también para tener
@@ -1447,7 +1447,7 @@ las notas de rojo es
 @unnumberedsubsec Mensaje de error Unbound variable %
 
 Este mensaje de error aparece al final de los mensajes de la
-consola o del archivo de registro junto a un mensaje @qq{GUILE
+consola o del archivo de registro junto a un mensaje @qq{Guile
 señaló un error @dots{}} cada vez que se llame a una rutina de
 Scheme que (incorrectamente) contenga un comentario @emph{de
 LilyPond} en lugar de un comentario @emph{de Scheme}.

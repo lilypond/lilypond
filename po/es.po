@@ -3169,8 +3169,8 @@ msgid "Don't know how to parenthesize spanners."
 msgstr ""
 
 #: parse-scm.cc:61
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "GUILE ha señalado un error para la expresión que comienza aquí"
+msgid "Guile signaled an error for the expression beginning here"
+msgstr "Guile ha señalado un error para la expresión que comienza aquí"
 
 #: pdf-scheme.cc:64
 #, c-format

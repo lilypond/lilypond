@@ -87,7 +87,7 @@ Wenn LilyPond die Datei @file{Dateiname.ly} verarbeitet, werden daraus
 die Dateien @file{Dateiname.ps} und @file{Dateiname.pdf} erzeugt.
 Es können an @code{lilypond} auch mehrere @file{.ly} Dateien übergeben
 werden, die dann einzeln und voneinander unabhängig abgearbeitet
-werden.@footnote{Der Zustand von GUILE wird allerdings nicht nach
+werden.@footnote{Der Zustand von Guile wird allerdings nicht nach
 jeder Datei zurückgesetzt, sodass Achtung geboten ist, wenn in einer
 Datei globale Änderungen von Scheme aus durchgeführt werden.}
 
@@ -588,7 +588,7 @@ Scheme-Code daran, Schaden auszuüben, etwa
 @end quotation
 
 Die Option @option{-dsafe} interpretiert eingefügte Scheme-Ausdrücke
-in einem besonderen sicheren Modul.  Das ist aus dem GUILE
+in einem besonderen sicheren Modul.  Das ist aus dem Guile
 @file{safe-r5rs}-Modul abgeleitet, fügt aber einige Funktionen der
 LilyPond API hinzu, welche sich in @file{scm/safe-lily.scm} aufgelistet finden.
 
@@ -1012,7 +1012,7 @@ Anführungszeichen sind meistens ein oder zwei Zeilen darüber.
 @unnumberedsubsec Fehlermeldung Ungebundene Variable %
 
 Diese Fehlermeldung erscheint am Ende der Kommandozeilenausgabe oder in der
-Log-Datei mit einer Meldung @qq{GUILE signalled an error ...}
+Log-Datei mit einer Meldung @qq{Guile signalled an error ...}
 jedes Mal, wenn eine Scheme-Routine aufgerufen wird, die
 (falscherweise) ein @emph{LilyPond}-Kommentar und kein
 @emph{Scheme}-Kommentar enthält.

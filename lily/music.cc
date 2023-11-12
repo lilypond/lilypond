@@ -321,7 +321,7 @@ music_deep_copy (SCM m)
           m = scm_cdr (m);
         }
       while (scm_is_pair (m));
-      // Oh, come on, GUILE.  Why do you require the second argument
+      // Oh, come on, Guile.  Why do you require the second argument
       // of scm_reverse_x to be a proper list?  That makes no sense.
       // return scm_reverse_x (copy, music_deep_copy (m));
       SCM last_cons = copy;

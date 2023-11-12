@@ -66,7 +66,7 @@ struct Figure_group
     augmented_slash_ = SCM_BOOL_F;
     text_ = SCM_BOOL_F;
   }
-  /* Mark the members of the struct as used for the GUILE Garbage Collection */
+  /* Mark the members of the struct as used for the Guile Garbage Collection */
   void gc_mark () const
   {
     scm_gc_mark (number_);

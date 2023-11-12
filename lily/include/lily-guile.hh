@@ -42,7 +42,7 @@ class Bezier;
 class Skyline;
 class Skyline_pair;
 
-/** Conversion functions follow the GUILE naming convention, i.e.
+/** Conversion functions follow the Guile naming convention, i.e.
     A ly_B2A (B b);  */
 
 std::string ly_scm_write_string (SCM s);

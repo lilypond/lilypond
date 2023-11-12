@@ -14,7 +14,7 @@
 @appendix Tutorial de Scheme
 
 @cindex Scheme
-@cindex GUILE
+@cindex Guile
 @cindex Scheme, código en línea
 @cindex acceder a Scheme
 @cindex evaluar Scheme
@@ -46,7 +46,7 @@ diferente).  Hay información sobre Guile en
 @section Introducción a Scheme
 
 Comenzaremos con una introducción a Scheme.  Para esta breve
-introducción utilizaremos el intérprete GUILE para explorar la
+introducción utilizaremos el intérprete Guile para explorar la
 manera en que el lenguaje funciona.  Una vez nos hayamos
 familiarizado con Scheme, mostraremos cómo se puede integrar el
 lenguaje en los archivos de LilyPond.
@@ -890,7 +890,7 @@ bloque @code{\header}, @code{\midi} y @code{\layout} son ámbitos
 anidados dentro del ámbito de nivel superior.
 
 Tanto las variables como los ámbitos están implementados en el
-sistema de módulos de GUILE.  A cada ámbito se adjunta un módulo
+sistema de módulos de Guile.  A cada ámbito se adjunta un módulo
 anónimo de Scheme.  Una asignación de la forma:
 
 @example

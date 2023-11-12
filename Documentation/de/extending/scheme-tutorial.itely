@@ -15,7 +15,7 @@
 
 
 @cindex Scheme
-@cindex GUILE
+@cindex Guile
 @cindex Scheme, in einer LilyPond-Datei
 @cindex LISP
 @cindex Auswertung von Scheme-Code
@@ -46,7 +46,7 @@ unter @uref{https://www.gnu.org/software/guile/}.  Der
 @section Einleitung in Scheme
 
 Wir wollen mit einer Einführung in Scheme beginnen.  Für diese kurze Einführung
-soll der GUILE-Interpreter genommen werden, um zu erforschen, wie die Sprache
+soll der Guile-Interpreter genommen werden, um zu erforschen, wie die Sprache
 funktioniert.  Nach besserer Bekanntschaft mit Scheme soll gezeigt werden, wie
 die Sprache in LilyPond-Dateien eingefügt werden kann.
 

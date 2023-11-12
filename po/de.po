@@ -3011,8 +3011,8 @@ msgid "Preprocessing graphical objects..."
 msgstr "Vorverarbeitung der grafischen Elemente..."
 
 #: parse-scm.cc:124
-msgid "GUILE signaled an error for the expression beginning here"
-msgstr "GUILE signalisierte einen Fehler für den hier beginnenden Ausdruck"
+msgid "Guile signaled an error for the expression beginning here"
+msgstr "Guile signalisierte einen Fehler für den hier beginnenden Ausdruck"
 
 #: pdf-scheme.cc:65
 #, c-format

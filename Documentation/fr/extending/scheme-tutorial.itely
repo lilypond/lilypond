@@ -16,7 +16,7 @@
 @chapter Tutoriel Scheme
 
 @cindex Scheme
-@cindex GUILE
+@cindex Guile
 @cindex Scheme, inclusion de code
 @cindex accéder à Scheme
 @cindex @'evaluation Scheme
