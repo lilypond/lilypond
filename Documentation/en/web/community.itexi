@@ -735,7 +735,8 @@ manuals can be found at @url{https://lilypond.org}}
 @docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf}
 
 @item
-@docLink{Visual Index (PDF),ly-examples/visualindex.pdf,@value{manualDevel}/ly-examples/visualindex.pdf}
+@docLink{Visual Index (PDF),ly-examples/visualindex.pdf,
+         @uref{@value{manualDevel}/ly-examples/visualindex.pdf,Visual Index (PDF)}}
 @tab
 @tab
 

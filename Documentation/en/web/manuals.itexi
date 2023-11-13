@@ -88,7 +88,8 @@ short tricks and tips.
 XXX Enable the next item after the 2.26 stable release.
 
 @item
-@docLink{Visual Index,ly-examples/visualindex.pdf,@value{manualStable}/ly-examples/visualindex.pdf}:
+@docLink{Visual Index,ly-examples/visualindex.pdf,
+         @uref{@value{manualStable}/ly-examples/visualindex.pdf,Visual Index}}:
 visual reference of all graphical objects (PDF).
 
 @end ignore
