@@ -175,12 +175,22 @@ Position this object on itself and/or on its parent.  To this end, the
 following functions are provided:
 
 @table @code
-@item Self_alignment_interface::[xy]_aligned_on_self
+@item ly:self-alignment-interface::x-aligned-on-self
+@itemx ly:self-alignment-interface::y-aligned-on-self
 Align self on reference point, using @code{self-alignment-X} and
-@code{self-alignment-Y}.@item Self_alignment_interface::aligned_on_[xy]_parent
-@item Self_alignment_interface::centered_on_[xy]_parent
+@code{self-alignment-Y}, respectively.
+
+@item ly:self-alignment-interface::aligned-on-x-parent
+@itemx ly:self-alignment-interface::aligned-on-y-parent
+Align reference point of self with the reference point of parent.  The
+position of the own reference point is adjusted with @code{self-alignment-X}
+and @code{self-alignment-Y}, the position of the parent's reference point
+with @code{parent-alignment-X} and @code{parent-alignment-Y}, respectively.
+
+@item ly:self-alignment-interface::centered-on-x-parent
+@itemx ly:self-alignment-interface::centered-on-y-parent
 Shift the object so its own reference point is centered on the extent of the
-parent
+parent.
 @end table
                )",
 
