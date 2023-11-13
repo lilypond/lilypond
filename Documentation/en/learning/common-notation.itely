@@ -180,11 +180,11 @@ names, see @rnotation{Note names in other languages}.
 @unnumberedsubsubsec Key signatures
 
 @cindex key signature
-@cindex major
-@cindex minor
-@cindex accidentals and key signature
-@cindex content vs.@: layout
-@cindex layout vs.@: content
+@cindex major key
+@cindex minor key
+@cindex accidentals, and key signature
+@cindex content, vs.@: layout
+@cindex layout, vs.@: content
 
 @funindex \key
 @funindex \major
@@ -367,7 +367,7 @@ slurs at the same time.
 @node Warnings slurs vs ties
 @unnumberedsubsubsec Warnings: slurs vs.@: ties
 
-@cindex slurs versus ties
+@cindex slur, vs.@: tie
 
 Music Glossary:
 @rglos{articulation},
@@ -520,8 +520,6 @@ Notation Reference:
 
 @cindex text, adding
 @cindex adding text
-@cindex markup
-
 @funindex \markup
 
 Text may be added to your scores:
@@ -552,9 +550,9 @@ Notation Reference:
 @cindex beaming
 @cindex automatic beams
 @cindex manual beams
-@cindex beams, automatic
-@cindex beams, manual
-@cindex beams, by hand
+@cindex beam, automatic
+@cindex beam, manual
+@cindex beam, by hand
 
 @funindex [
 @funindex ]
@@ -671,13 +669,10 @@ For triplets, there are three notes instead of two, so
 @unnumberedsubsubsec Grace notes
 
 @cindex grace notes
-@cindex acciaccatura
-@cindex appoggiatura
 
 @funindex \grace
 @funindex \acciaccatura
 @funindex \appoggiatura
-@funindex acciaccatura
 
 Music Glossary:
 @rglos{grace notes},
@@ -795,13 +790,13 @@ polyphonic scores.
 @cindex multiple staves
 @cindex staves, multiple
 @cindex polyphony
-@cindex combining expressions in parallel
-@cindex parallel expressions
-@cindex expressions, parallel
-@cindex relative notes and simultaneous music
-@cindex relative notes and parallel expressions
-@cindex simultaneous music and relative notes
-@cindex parallel expressions and relative notes
+@cindex combining expressions, in parallel
+@cindex parallel expression, multiple
+@cindex expression, multiple in parallel
+@cindex relative notes, and simultaneous music
+@cindex relative notes, and parallel expressions
+@cindex simultaneous music, and relative notes
+@cindex parallel expression, and relative notes
 
 @funindex <<
 @funindex >>
@@ -865,13 +860,12 @@ out on a single staff.
 @cindex context, notation
 @cindex notation context
 
-@funindex \new Staff
-@funindex Staff
 @funindex \new
-@funindex Score
-@funindex Voice
-@funindex Lyrics
-@funindex ChordNames
+@cindex @code{Staff} context
+@cindex @code{Score} context
+@cindex @code{Voice} context
+@cindex @code{Lyrics} context
+@cindex @code{ChordNames} context
 
 LilyPond input files are constructed out of music expressions
 (@pxref{Music expressions explained}).  If the score begins with
@@ -932,9 +926,9 @@ than polyrhythmic scores.
 @cindex staff, grand
 @cindex staff group
 
-@funindex PianoStaff
-@funindex GrandStaff
-@funindex ChoirStaff
+@cindex @code{PianoStaff} context
+@cindex @code{GrandStaff} context
+@cindex @code{ChoirStaff} context
 
 Music Glossary:
 @rglos{brace},
@@ -982,8 +976,8 @@ Notation Reference:
 Music Glossary:
 @rglos{chord}.
 
-@cindex chords
-@cindex note durations in chords
+@cindex chord
+@cindex note, duration, in chords
 
 @funindex <
 @funindex >
@@ -1039,7 +1033,7 @@ Notation Reference:
 
 @cindex polyphony
 @cindex multiple voices
-@cindex voices, more on one staff
+@cindex voice, multiple on one staff
 @cindex single-staff polyphony
 @cindex spacer rest
 @cindex rest, spacer
@@ -1125,12 +1119,12 @@ occur at the same time.
 
 @cindex melisma
 @cindex extender line
-@cindex hyphens
+@cindex hyphen
 @cindex underscore
 @cindex lyrics, aligning
 @cindex aligning lyrics
 @cindex lyrics, multi-syllable words
-@cindex words with multiple syllables in lyrics
+@cindex words, in lyrics, with multiple syllables
 
 Music Glossary:
 @rglos{melisma},
@@ -1305,7 +1299,7 @@ Notation Reference:
 @node Lyrics to multiple staves
 @subsection Lyrics to multiple staves
 
-@cindex lyrics and multiple staves
+@cindex lyrics, and multiple staves
 @cindex multiple staves and lyrics
 
 The simple approach using @code{\addlyrics} can be used for
@@ -1365,16 +1359,16 @@ introduction to the rest of the manual.
 @node Organizing pieces with variables
 @subsection Organizing pieces with variables
 
-@cindex variables
-@cindex variables, defining
-@cindex identifiers
-@cindex macros
+@cindex variable
+@cindex variable, defining
+@cindex identifier
+@cindex macro
 @cindex assigning variables
 @cindex using variables
-@cindex variables, using
-@cindex variables, characters allowed in
-@cindex characters allowed in variables
-@cindex variables containing music expressions
+@cindex variable, using
+@cindex variable, characters allowed in
+@cindex character, allowed in variables
+@cindex variable, containing music expressions
 
 When all of the elements discussed earlier are combined to produce
 larger files, the music expressions get a lot bigger.  In
@@ -1461,7 +1455,6 @@ places.  The following example uses the above variables:
 @subsection Adding titles
 
 @cindex title
-@cindex headers
 @cindex header block
 
 @funindex \header
@@ -1494,11 +1487,11 @@ above the music.  More information on titling can be found in
 @node Absolute note names
 @subsection Absolute note names
 
-@cindex note names
-@cindex note names, absolute
+@cindex note name
+@cindex note name, absolute
 @cindex absolute mode
-@cindex absolute values for pitches
-@cindex pitches, absolute values
+@cindex absolute value, for pitches
+@cindex pitch, absolute values
 @cindex absolute note names
 
 So far we have used @code{\relative} to define pitches.

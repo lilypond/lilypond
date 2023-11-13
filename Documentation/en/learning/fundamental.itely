@@ -49,7 +49,7 @@ description of the input format, see @rnotation{File structure}.
 @subsection Introduction to the LilyPond file structure
 
 @cindex input format
-@cindex file structure
+@cindex file, structure
 
 A basic example of a LilyPond input file is
 
@@ -71,8 +71,6 @@ serves as a useful starting place.
 
 @funindex \book
 @funindex \score
-@cindex book
-@cindex score
 
 Up to this point none of the examples you have seen have used a
 @code{\score} command.  This is because LilyPond automatically
@@ -108,7 +106,7 @@ LilyPond will interpret the file as though the music expression
 was wrapped up inside the commands shown above.
 
 @cindex implicit contexts
-@cindex contexts, implicit
+@cindex context, implicit
 
 @strong{A word of warning!}  Many of the examples in the LilyPond
 documentation will omit the @code{\new Staff} and @code{\new
@@ -156,9 +154,6 @@ things, such as
 @funindex \header
 @funindex \layout
 @funindex \midi
-@cindex header
-@cindex layout
-@cindex midi
 
 @noindent
 Note that these three commands -- @code{\header}, @code{\layout},
@@ -177,9 +172,9 @@ LilyPond to produce a printed output and a MIDI output,
 respectively.  They are described fully in the Notation Reference
 -- @rnotation{Score layout}, and @rnotation{Creating MIDI output}.
 
-@cindex scores, multiple
-@cindex book block, implicit
-@cindex implicit book block
+@cindex @code{\score}, multiple
+@cindex @code{\book} block, implicit
+@cindex implicit @code{\book} block
 @funindex \book
 
 You may code multiple @code{\score} blocks.  Each will be treated
@@ -202,7 +197,7 @@ your entire input code in a @code{\book} block implicitly.
 Every @code{\score} block is a separate chunk of music within a
 @code{\book} block.
 
-@cindex layout block, effect of location
+@cindex @code{\layout} block, effect of location
 @item
 Every @code{\layout} block affects the @code{\score} or
 @code{\book} block in which it appears -- i.e., a @code{\layout}
@@ -214,7 +209,7 @@ implicitly) will affect every @code{\score} in that @code{\book}.
 
 See @rnotation{Multiple scores in a book} for details.
 
-@cindex variables
+@cindex variable
 
 Another great shorthand is the ability to define variables, as
 shown previously (@pxref{Organizing pieces with variables}).  All
@@ -251,9 +246,8 @@ structure}.
 @subsection A score is a (single) compound musical expression
 
 @funindex \score
-@cindex score
-@cindex contents of a score block
-@cindex score block, contents of
+@cindex contents of a @code{\score} block
+@cindex @code{\score} block, contents of
 @cindex compound music expression
 @cindex music expression, compound
 
@@ -464,7 +458,7 @@ introduced.  @xref{Size of objects}, and @rnotation{Ossia staves}.
 @node Structure of a note entry
 @subsection Structure of a note entry
 
-@cindex post-events
+@cindex post-event
 
 A note entry in LilyPond consists of a pitch, followed by a
 duration, optionally followed by one or more @dfn{post-events}.
@@ -510,9 +504,9 @@ Notation Reference:
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
 
-@cindex brackets, nesting
+@cindex bracket, nesting
 @cindex bracket types
-@cindex brackets, enclosing vs.@: marking
+@cindex bracket, enclosing vs.@: marking
 
 You have already met a number of different types of bracket and
 bracket-like constructs in writing the input file to LilyPond.
@@ -606,15 +600,15 @@ most fundamental of all LilyPond's concepts.
 @cindex polyphony
 @cindex layers
 @cindex multiple voices
-@cindex voices, multiple
-@cindex Voice context
-@cindex context, Voice
+@cindex voice, multiple
+@cindex @code{Voice} context
+@cindex context, @code{Voice}
 @cindex simultaneous music
 @cindex music, simultaneous
 @cindex concurrent music
 @cindex music, concurrent
-@cindex voices vs.@: chords
-@cindex chords vs.@: voices
+@cindex voice, vs.@: chord
+@cindex chord, vs.@: voice
 
 The lowest, most fundamental or innermost layers in a LilyPond
 score are called @dfn{voice contexts} or just @q{voices} for
@@ -719,10 +713,7 @@ separately, like this:
 >>
 @end lilypond
 
-@cindex voices, naming
-@cindex voices crossing brackets
-@cindex slurs crossing brackets
-@cindex ties crossing brackets
+@cindex voice, naming
 
 This example has just two voices, but the same construct may be
 used to encode three or more voices by adding more back-slash
@@ -821,8 +812,8 @@ how commands like these may be created by the user.
 @xref{Visibility and color of objects} and @ref{Using variables
 for layout adjustments}.
 
-@cindex polyphony and relative note entry
-@cindex relative note entry and polyphony
+@cindex polyphony, and relative note entry
+@cindex relative notes, entry and polyphony
 
 Polyphony does not change the relationship of notes within a
 @code{\relative} block.  Each note is still calculated relative to
@@ -957,8 +948,8 @@ first bar in three voices:
 @end lilypond
 
 @cindex stem down
-@cindex voices and stem directions
-@cindex stem directions and voices
+@cindex voice, and stem directions
+@cindex stem direction, and voices
 @cindex stem up
 
 The stem directions are automatically assigned with the
@@ -1016,7 +1007,7 @@ Notation Reference:
 @funindex \voiceFour
 @funindex \oneVoice
 @funindex \new Voice
-@cindex voice contexts, creating
+@cindex @code{Voice} context, creating
 
 Voice contexts can also be created manually inside a @code{<< >>}
 block to create polyphonic music, using @code{\voiceOne} to
@@ -1056,7 +1047,7 @@ Both of the above would produce
 >>
 @end lilypond
 
-@cindex voices, reverting to single
+@cindex voice, reverting to single
 @cindex reverting to a single voice
 
 The @code{\voice@var{XXX}} commands set the direction of stems,
@@ -1133,7 +1124,7 @@ slur to be drawn over them.
 }
 @end lilypond
 
-@cindex voices, continued
+@cindex voice, continued
 @funindex \voices
 
 The @code{\voices} command can also be used for continuing a main
@@ -1166,8 +1157,8 @@ voice into the simultaneous construct:
 @cindex nesting music expressions
 @cindex nesting simultaneous constructs
 @cindex nesting voices
-@cindex voices, temporary
-@cindex voices, nesting
+@cindex voice, temporary
+@cindex voice, nesting
 
 More deeply nested polyphony constructs are possible, and if a
 voice appears only briefly this might be a more natural way to
@@ -1191,7 +1182,7 @@ typeset the music:
 }
 @end lilypond
 
-@cindex spacer rests
+@cindex spacer rest
 
 This method of nesting new voices briefly is useful when only
 small sections of the music are polyphonic, but when the whole
@@ -1222,8 +1213,8 @@ the voice is silent, as here:
 @subsubheading Note columns
 
 @cindex note column
-@cindex note collisions
-@cindex collisions, notes
+@cindex note, collision
+@cindex collision, notes
 @cindex shift commands
 @funindex \shiftOff
 @funindex \shiftOn
@@ -1277,10 +1268,9 @@ Notation Reference:
 Vocal music presents a special difficulty: we need to combine two
 expressions -- notes and lyrics.
 
-@funindex \new Lyrics
+@funindex \new
 @funindex \lyricsto
-@funindex Lyrics
-@cindex Lyrics context, creating
+@cindex @code{Lyrics} context, creating
 @cindex lyrics, linking to voice
 
 You have already seen the @code{\addlyrics} command, which handles
@@ -1310,8 +1300,8 @@ Note that the lyrics must be linked to a @code{Voice} context,
 necessary to create @code{Staff} and @code{Voice} contexts
 explicitly.
 
-@cindex lyrics and beaming
-@cindex beaming and lyrics
+@cindex lyrics, and beaming
+@cindex beaming, and lyrics
 @funindex \autoBeamOff
 
 The automatic beaming that LilyPond uses by default works well for
@@ -1320,10 +1310,10 @@ beaming is either not required at all or is used to indicate
 melismata in the lyrics.  In the example above we use the command
 @code{\autoBeamOff} to turn off the automatic beaming.
 
-@funindex \new ChoirStaff
-@funindex ChoirStaff
+@funindex \new
+@cindex @code{ChoirStaff} context
 @funindex \lyricmode
-@cindex vocal score structure
+@cindex vocal score, structure
 @cindex choir staff
 
 Let us reuse the earlier example from @emph{Judas Maccabæus} to
@@ -1381,7 +1371,7 @@ become too long.
 
 @cindex hymn structure
 @cindex SATB structure
-@cindex vocal scores with multiple verses
+@cindex vocal score, with multiple verses
 @cindex multiple vocal verses
 @cindex verses, multiple vocal
 
@@ -1456,7 +1446,7 @@ in the fine-tuning of LilyPond output.
 @node Contexts explained
 @subsection Contexts explained
 
-@cindex contexts, explained
+@cindex context, explained
 
 When music is printed, many notational elements which do not
 appear explicitly in the input file must be added to the
@@ -1535,7 +1525,7 @@ Notation Reference:
 @funindex \new
 @cindex new contexts
 @cindex creating contexts
-@cindex contexts, creating
+@cindex context, creating
 
 In an input file, a score block (introduced with a @code{\score}
 command) contains a single music expression; but it can also contain
@@ -1613,7 +1603,7 @@ because it requires two voices for its music, whereas the RH staff
 is created with a single music expression surrounded by curly
 brackets because it requires only one voice.)
 
-@cindex contexts, naming
+@cindex context, naming
 @cindex naming contexts
 
 The @code{\new} command may also give an identifying name to the
@@ -1805,8 +1795,8 @@ value before the @code{t} or @code{f}, and before @emph{value}
 in the @code{\set} statement.  So when a Boolean is being
 entered you need to code two hash signs, e.g., @code{##t}.
 
-@cindex properties operating in contexts
-@cindex setting properties within contexts
+@cindex property, operating in contexts
+@cindex setting properties, within contexts
 
 Before we can set any of these properties we need to know
 in which context they operate.  Sometimes this is obvious,
@@ -1923,7 +1913,7 @@ general way by using the very powerful @code{\markup} command.
 @subsubheading Setting context properties with @code{\with}
 
 @funindex \with
-@cindex context properties, setting with \with
+@cindex context properties, setting with @code{\with}
 
 The default value of context properties may be set at the time the
 context is created.  Sometimes this is a clearer way of setting a
@@ -1960,7 +1950,7 @@ Properties set in this way may still be changed dynamically using
 @code{\set} and returned to the default value set in the
 @code{\with} block with @code{\unset}.
 
-@cindex fontSize, default and setting
+@cindex @code{fontSize} property, default and setting
 
 So if the @code{fontSize} property is set in a @code{\with} clause
 it sets the default value of the font size.  If it is later changed
@@ -1969,7 +1959,7 @@ with @code{\set}, this new default value may be restored with the
 
 @subsubheading Setting context properties with @code{\context}
 
-@cindex context properties, setting with \context
+@cindex context properties, setting with @code{\context}
 @funindex \context
 
 The values of context properties may be set in @emph{all} contexts
@@ -2785,7 +2775,7 @@ lower = \relative {
 @subsection Building a score from scratch
 
 @cindex template, writing your own
-@cindex example of writing a score
+@cindex example, of writing a score
 @cindex writing a score, example
 @cindex score, example of writing
 
@@ -2952,11 +2942,11 @@ left hand staff.  In particular, the stretchability of staves in a
 the staves for the left and right hand can't become too large), and
 the pedal staff should behave similarly.
 
-@cindex sub-properties
-@cindex properties, sub-properties
-@cindex graphical objects
-@cindex objects, graphical
-@cindex grobs
+@cindex sub-property
+@cindex property, sub-property
+@cindex graphical object
+@cindex object, graphical
+@cindex grob
 
 Stretchability of staves can be controlled with the
 @code{staff-staff-spacing} property of the
@@ -3086,8 +3076,8 @@ Music Glossary:
 @node Saving typing with variables and functions
 @subsection Saving typing with variables and functions
 
-@cindex variables
-@cindex variables containing tweaks
+@cindex variable
+@cindex variable, containing tweaks
 
 By this point, you've seen this kind of thing:
 
@@ -3168,8 +3158,8 @@ violin = \relative @{
 @}
 @end example
 
-@cindex post-events, in variables
-@cindex variables containing post-events
+@cindex post-event, in variables
+@cindex variable, containing post-events
 
 Remember @q{post-events}?  Articulations, fingerings, anything
 that has to be added @emph{after} a note (see
@@ -3196,7 +3186,7 @@ artEsprVar = \articulationVar ^>
 @end lilypond
 
 @cindex music functions
-@cindex variables containing functions
+@cindex variable, containing functions
 
 So far we've seen static substitution -- when LilyPond
 sees @code{\centerText}, it replaces it with the stuff that

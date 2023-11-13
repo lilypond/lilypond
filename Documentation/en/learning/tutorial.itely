@@ -29,7 +29,7 @@ This chapter gives a basic introduction to working with LilyPond.
 @cindex compiling
 @cindex first example
 @cindex example, first
-@cindex case sensitive
+@cindex case-sensitive
 
 @dfn{Compiling} is the term used for processing an input file in
 LilyPond format to produce output file(s).  Output files are
@@ -135,11 +135,11 @@ values are useful.
 @node Pitches
 @unnumberedsubsubsec Pitches
 
-@cindex pitches
+@cindex pitch
 @cindex relative mode
 @cindex quote, single
 @cindex comma
-@cindex accidentals and relative mode
+@cindex accidentals, and relative mode
 @cindex relative mode, and accidentals
 
 @funindex \relative
@@ -261,14 +261,13 @@ quotes @code{''} and not one double quote @samp{"}!
 @node Durations (rhythms)
 @unnumberedsubsubsec Durations (rhythms)
 
-@cindex note durations
-@cindex durations
-@cindex rhythms
+@cindex note, duration
+@cindex duration
+@cindex rhythm
 @cindex whole note
 @cindex half note
 @cindex quarter note
 @cindex dotted note
-@cindex notating durations
 
 Music Glossary:
 @rglos{beam},
@@ -355,8 +354,8 @@ command:
 @node Tempo marks
 @unnumberedsubsubsec Tempo marks
 
-@cindex tempo marks
-@cindex metronome marks
+@cindex tempo mark
+@cindex metronome mark
 
 @funindex \tempo
 
@@ -385,12 +384,10 @@ set with the @code{\tempo} command:
 @node Clef
 @unnumberedsubsubsec Clef
 
-@cindex clef
-@cindex treble
-@cindex alto
-@cindex tenor
-@cindex bass
-
+@cindex treble clef
+@cindex alto clef
+@cindex tenor clef
+@cindex bass clef
 @funindex \clef
 
 Music Glossary:
@@ -443,17 +440,14 @@ Notation Reference:
 @subsection Working on input files
 
 @cindex curly braces
-@cindex braces, curly
-@cindex comments
+@cindex brace, curly
+@cindex comment
 @cindex line comment
 @cindex comment, line
 @cindex block comment
-@cindex comment, line
-@cindex case sensitive
-@cindex whitespace insensitive
-@cindex expressions
-@cindex versioning
-@cindex version
+@cindex case-sensitive
+@cindex whitespace, insensitive
+@cindex expression
 @cindex version number
 
 @funindex \version
@@ -556,7 +550,7 @@ A LilyPond command followed by a simple expression in braces (such
 as @samp{\relative @{ @dots{}@tie{}@}}) also counts as a single
 music expression.
 
-@cindex comments
+@cindex comment
 @cindex line comment
 @cindex block comment
 @item
@@ -640,12 +634,12 @@ online version.
 @cindex how to read the manual
 @cindex manual, reading
 @cindex reading the manual
-@cindex examples, clickable
+@cindex example, clickable
 @cindex clickable examples
 @cindex tips for constructing files
-@cindex templates
+@cindex template
 @cindex constructing files, tips
-@cindex files, tips for constructing
+@cindex file, tips for constructing
 
 LilyPond input must be surrounded by @code{@{@tie{}@}} marks or
 @samp{\relative @{ @dots{}@tie{}@}} (@pxref{Working on input

@@ -64,8 +64,8 @@ and constructing tweaks.
 @cindex grob
 @cindex spanner
 @cindex interface
-@cindex properties, object
-@cindex object properties
+@cindex property, object
+@cindex object, properties
 @cindex layout object
 @cindex object, layout
 @cindex interface
@@ -138,10 +138,10 @@ shall use in this chapter.
 @node Naming conventions of objects and properties
 @subsection Naming conventions of objects and properties
 
-@cindex naming conventions for objects
-@cindex naming conventions for properties
-@cindex objects, naming conventions
-@cindex properties, naming conventions
+@cindex naming convention, for objects
+@cindex naming convention, for properties
+@cindex object, naming conventions
+@cindex property, naming conventions
 
 We met some object naming conventions previously, in
 @ref{Contexts and engravers}.  Here for reference is a list
@@ -207,9 +207,6 @@ This subsection discusses the most important tweaking commands.
 @node The override command
 @unnumberedsubsubsec The @code{\override} command
 
-@cindex override command
-@cindex override syntax
-
 @funindex \override
 
 We have already met the commands @code{\set} and @code{\with}, used to
@@ -260,8 +257,8 @@ most of the rest of this chapter will be directed to presenting
 examples of how it is used.  Here is a simple example to change the
 color of the note head:
 
-@cindex color property, example
-@cindex NoteHead, example of overriding
+@cindex @code{color} property, example
+@cindex @code{NoteHead}, example of overriding
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -276,8 +273,6 @@ color of the note head:
 
 @node The revert command
 @unnumberedsubsubsec The @code{\revert} command
-
-@cindex revert command
 
 @funindex \revert
 
@@ -299,8 +294,8 @@ Again, just like @var{Context} in the @code{\override} command,
 in many of the following examples.  Here we revert the color
 of the note head to the default value for the final two notes:
 
-@cindex color property, example
-@cindex NoteHead, example of overriding
+@cindex @code{color} property, example
+@cindex @code{NoteHead}, example of overriding
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -328,8 +323,8 @@ be different from the default if another @code{\override} is still in
 effect).  Using the same example, we can change the color of a single
 note like this:
 
-@cindex color property, example
-@cindex NoteHead, example of overriding
+@cindex @code{color} property, example
+@cindex @code{NoteHead}, example of overriding
 
 @lilypond[quote,verbatim]
 \relative {
@@ -363,8 +358,6 @@ predefined commands to limit their effect to one musical moment:
 @node The tweak and offset commands
 @unnumberedsubsubsec The @code{\tweak} and @code{\offset} commands
 
-@cindex tweak command
-
 @funindex \tweak
 @funindex \offset
 
@@ -383,8 +376,8 @@ Here's an example.  Suppose we wish to change the size of the
 middle note head (the E) in a C major chord.  Let's first see what
 @code{\once \override} would do:
 
-@cindex font-size property, example
-@cindex NoteHead, example of overriding
+@cindex @code{font-size} property, example
+@cindex @code{NoteHead}, example of overriding
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -410,7 +403,7 @@ from the following item, essentially note heads and articulations.
 So to return to our example, the size of the middle note of
 a chord would be changed in this way:
 
-@cindex font-size property, example
+@cindex @code{font-size} property, example
 @cindex @code{\tweak}, example
 
 @lilypond[quote,ragged-right,verbatim]
@@ -460,7 +453,7 @@ of the @code{\tweak} and @code{\offset} commands is
 @code{\tweak} and @code{\offset} can also be used to modify just one in
 a series of articulations, as shown here:
 
-@cindex color property, example
+@cindex @code{color} property, example
 @cindex @code{\tweak}, example
 
 @lilypond[quote,fragment,ragged-right,verbatim]
@@ -475,7 +468,7 @@ mark since the tweaked expression needs to be applied as an articulation
 itself.  In case of multiple direction overrides (@samp{^} or @samp{_}),
 the leftmost override wins since it is applied last.
 
-@cindex @code{\tweak}, Accidental
+@cindex @code{\tweak}, accidental
 @cindex @code{\tweak}, specific layout object
 
 Objects such as stems and accidentals are created later, and not
@@ -504,7 +497,7 @@ This long form of the @code{\tweak} and @code{\offset} commands can be described
 @cindex tuplet bracket
 @cindex triplet bracket
 
-@funindex TupletBracket
+@cindex @code{TupletBracket}
 
 The @code{\tweak} command must also be used to change the
 appearance of one of a set of nested tuplets which begin at the
@@ -518,8 +511,8 @@ notes and the second one specifies that the tuplet number is to be
 printed in red on the first short tuplet bracket.
 
 @cindex @code{\tweak}, example
-@cindex direction property, example
-@cindex color property, example
+@cindex @code{direction} property, example
+@cindex @code{color} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -537,10 +530,10 @@ If nested tuplets do not begin at the same moment, their
 appearance may be modified in the usual way with
 @code{\override} commands:
 
-@cindex text property, example
-@cindex tuplet-number function, example
-@cindex transparent property, example
-@cindex TupletNumber, example of overriding
+@cindex @code{text} property, example
+@cindex @code{tuplet-number} function, example
+@cindex @code{transparent} property, example
+@cindex @code{TupletNumber}, example of overriding
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -569,7 +562,7 @@ Notation Reference:
 @unnumberedsubsubsec The @code{\single} prefix
 
 @funindex \single
-@cindex tweak, generated from override
+@cindex tweak, generated from @code{\override}
 
 Suppose we wanted to emphasize particular note heads by coloring them
 red and increasing their size, and to make it easy suppose also we
@@ -635,11 +628,10 @@ Learning Manual:
 @node Properties of layout objects
 @subsection Properties of layout objects
 
-@cindex properties of layout objects
-@cindex properties of grobs
-@cindex grobs, properties of
-@cindex layout objects, properties of
-@cindex Internals Reference manual
+@cindex property, of layout object
+@cindex property, of grob
+@cindex grob, properties of
+@cindex layout object, properties of
 
 Suppose you have a slur in a score which, to your mind,
 appears too thin and you'd like to draw it a little heavier.
@@ -661,9 +653,9 @@ The guidance and explanation presented here will enable you
 to extract the information from the Internals Reference for
 yourself with just a little practice.
 
-@cindex override example
+@cindex @code{\override}, example
 @cindex Internals Reference, example of using
-@cindex @code{\addlyrics} example
+@cindex @code{\addlyrics}, example
 
 Let's use a concrete example with a simple fragment of real
 music:
@@ -752,8 +744,8 @@ placed?}  While you are unsure and learning, the best
 answer is, @q{Within the music, before the first slur and
 close to it.}  Let's do that:
 
-@cindex Slur example of overriding
-@cindex thickness property, example
+@cindex @code{Slur}, example of overriding
+@cindex @code{thickness} property, example
 
 @lilypond[quote,verbatim]
 {
@@ -805,8 +797,8 @@ location.
 
 @subsubsubheading Overriding once only
 
-@cindex overriding once only
-@cindex once override
+@cindex override, only once
+@cindex @code{\once} @code{\override}
 
 @funindex \once
 
@@ -820,8 +812,8 @@ effect at all -- it is not remembered until a slur is encountered, it
 is simply discarded.  So the command with @code{\once} must be
 repositioned as follows:
 
-@cindex Slur, example of overriding
-@cindex thickness property, example
+@cindex @code{Slur}, example of overriding
+@cindex @code{thickness} property, example
 
 @lilypond[quote,verbatim]
 {
@@ -849,9 +841,7 @@ command.
 
 @subsubsubheading Reverting
 
-@cindex revert
 @cindex default properties, reverting to
-
 @funindex \revert
 
 Finally, what if we wanted just the first two slurs to be
@@ -859,8 +849,8 @@ heavier?  Well, we could use two commands, each preceded by
 @code{\once} placed immediately before each of the notes where
 the slurs begin:
 
-@cindex Slur, example of overriding
-@cindex thickness property, example
+@cindex @code{Slur}, example of overriding
+@cindex @code{thickness} property, example
 
 @lilypond[quote,verbatim]
 {
@@ -887,8 +877,8 @@ or we could omit the @code{\once} command and use the @code{\revert}
 command to return the @code{thickness} property to its default value
 after the second slur:
 
-@cindex Slur, example of overriding
-@cindex thickness property, example
+@cindex @code{Slur}, example of overriding
+@cindex @code{thickness} property, example
 
 @lilypond[quote,verbatim]
 {
@@ -929,7 +919,7 @@ contain progressively fewer words of guidance and explanation.
 
 @cindex interface
 @cindex interface properties
-@cindex properties in interfaces
+@cindex property, in interfaces
 
 Suppose now that we wish to print the lyrics in italics.  What form of
 @code{\override} command do we need to do this?  We first look in the
@@ -992,9 +982,9 @@ in italics is:
 This should be placed just in front of the lyrics we wish to affect,
 like so:
 
-@cindex font-shape property, example
+@cindex @code{font-shape} property, example
 @cindex italic, example
-@cindex LyricText, example of overriding
+@cindex @code{LyricText}, example of overriding
 @cindex @code{\addlyrics}, example
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1028,7 +1018,7 @@ Extending: @rextend{Scheme tutorial}.
 @node Types of properties
 @subsection Types of properties
 
-@cindex property types
+@cindex property, types
 
 So far we have seen two types of property: @code{number} and
 @code{symbol}.  To be valid, the value given to a property
@@ -1158,7 +1148,7 @@ these in turn.
 @node The stencil property
 @unnumberedsubsubsec The @code{stencil} property
 
-@cindex stencil property
+@cindex @code{stencil} property
 
 This property controls the appearance of the bar lines by specifying
 the symbol (glyph) which should be printed.  In common
@@ -1166,8 +1156,8 @@ with many other properties, it can be set to print nothing by
 setting its value to @code{#f}.  Let's try it, as before, omitting
 the implied Context, @code{Voice}:
 
-@cindex BarLine, example of overriding
-@cindex stencil property, example
+@cindex @code{BarLine}, example of overriding
+@cindex @code{stencil} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -1191,8 +1181,8 @@ incorrectly, the command simply does not work.  No error message is
 produced, and nothing is logged in the log file.  Let's try correcting
 it by adding the correct context:
 
-@cindex BarLine, example of overriding
-@cindex stencil property, example
+@cindex @code{BarLine}, example of overriding
+@cindex @code{stencil} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -1207,6 +1197,7 @@ it by adding the correct context:
 Now the bar lines have vanished.  Setting the @code{stencil}
 property to @code{#f} is such a frequent operation that there is a
 shorthand for it called @code{\omit}:
+
 @funindex \omit
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1238,7 +1229,7 @@ with zero size:
 @node The break-visibility property
 @unnumberedsubsubsec The @code{break-visibility} property
 
-@cindex break-visibility property
+@cindex @code{break-visibility} property
 
 We see from the @code{BarLine} properties in the IR that the
 @code{break-visibility} property requires a vector of three booleans.
@@ -1253,8 +1244,8 @@ as part of vector constant syntax, and the first@tie{}@code{#} is
 required, as always, to precede the value itself in the
 @code{\override} command.
 
-@cindex BarLine, example of overriding
-@cindex break-visibility property, example
+@cindex @code{BarLine}, example of overriding
+@cindex @code{break-visibility} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -1271,8 +1262,7 @@ And we see this too removes all the bar lines.
 @node The transparent property
 @unnumberedsubsubsec The @code{transparent} property
 
-@cindex transparent property
-@cindex transparency
+@cindex @code{transparent} property
 
 We see from the properties specified in the @code{grob-interface} page
 in the IR that the @code{transparent} property is a boolean.  This
@@ -1286,8 +1276,8 @@ also lives in the @code{Staff} context and also supports the
 @code{grob-interface}.  So the command to make the time signature
 transparent is:
 
-@cindex TimeSignature, example of overriding
-@cindex transparent property, example
+@cindex @code{TimeSignature}, example of overriding
+@cindex @code{transparent} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -1324,8 +1314,8 @@ circumstances a gap might be undesirable.  To remove it, the
 stencil for the time signature should be set to @code{#f}
 instead:
 
-@cindex TimeSignature, example of overriding
-@cindex stencil property, example
+@cindex @code{TimeSignature}, example of overriding
+@cindex @code{stencil} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -1347,7 +1337,7 @@ leaves it where it is, but makes it invisible.
 @node The color property
 @unnumberedsubsubsec The @code{color} property
 
-@cindex color property
+@cindex @code{color} property
 
 Finally let us try making the bar lines invisible by coloring
 them white.  (There is a difficulty with this in that the
@@ -1368,8 +1358,8 @@ of the predefined @q{CSS} colors listed in
 @rnotation{List of colors}.  To set the bar lines to white
 we write:
 
-@cindex BarLine, example of overriding
-@cindex color property, example
+@cindex @code{BarLine}, example of overriding
+@cindex @code{color} property, example
 @cindex color, css
 @cindex css colors
 
@@ -1392,8 +1382,8 @@ of internal values.  In that regard, LilyPond's syntax mimics the
 commonly used in webpages; in addition to predefined names,
 we can specify a hexadecimal color code:
 
-@cindex BarLine, example of overriding
-@cindex color property, example
+@cindex @code{BarLine}, example of overriding
+@cindex @code{color} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -1428,8 +1418,6 @@ whiteVar = "#FFFFFF"
 @end lilypond
 
 @cindex color, rgb
-@cindex rgb colors
-
 @funindex rgb-color
 
 Another way of adding colors to your score is by using a function.
@@ -1442,8 +1430,8 @@ blue colors.  These take values in the range 0 to 1.  So to
 set the color to red the value should be @code{(rgb-color 1 0 0)}
 and to white it should be @code{(rgb-color 1 1 1)}:
 
-@cindex BarLine, example of overriding
-@cindex color property, example
+@cindex @code{BarLine}, example of overriding
+@cindex @code{color} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -1461,8 +1449,6 @@ enclosed in parentheses.  The same can be said of the
 @code{x11-color} function which we just skipped over.
 
 @cindex color, X11
-@cindex X11 colors
-
 @funindex x11-color
 
 @code{x11-color}, again, maps predefined color names
@@ -1474,14 +1460,14 @@ to white, @code{'grey100}, in steps of@tie{}1.  Let's illustrate
 this by setting all the layout objects in our example to
 various shades of grey:
 
-@cindex StaffSymbol, example of overriding
-@cindex TimeSignature, example of overriding
-@cindex Clef, example of overriding
-@cindex NoteHead, example of overriding
-@cindex Stem, example of overriding
-@cindex BarLine, example of overriding
-@cindex color property, example
-@cindex x11-color, example of using
+@cindex @code{StaffSymbol}, example of overriding
+@cindex @code{TimeSignature}, example of overriding
+@cindex @code{Clef}, example of overriding
+@cindex @code{NoteHead}, example of overriding
+@cindex @code{Stem}, example of overriding
+@cindex @code{BarLine}, example of overriding
+@cindex @code{color} property, example
+@cindex @code{x11-color}, example of using
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -1512,16 +1498,16 @@ found.
 @node Size of objects
 @subsection Size of objects
 
-@cindex changing size of objects
-@cindex size of objects
-@cindex objects, size of
-@cindex objects, changing size of
+@cindex changing size, of objects
+@cindex size, of objects
+@cindex object, size of
+@cindex object, changing size of
 
 Let us begin by looking again at the earlier example
 (see @ref{Nesting music expressions}) which showed
 how to introduce a new temporary staff, as in an @rglos{ossia}.
 
-@cindex alignAboveContext property, example
+@cindex @code{alignAboveContext} property, example
 @cindex @code{\with}, example
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1545,11 +1531,11 @@ are usually printed slightly smaller than the main staff.  We
 already know now how to remove the clef and time signature --
 we simply set the stencil of each to @code{#f}, as follows:
 
-@cindex alignAboveContext property, example
+@cindex @code{alignAboveContext} property, example
 @cindex @code{\with}, example
+@cindex @code{Clef}, example of overriding
+@cindex @code{TimeSignature}, example of overriding
 @funindex \omit
-@cindex Clef, example of overriding
-@cindex TimeSignature, example of overriding
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
@@ -1609,10 +1595,10 @@ in this location.
 
 So we could replace the example above with
 
-@cindex alignAboveContext property, example
+@cindex @code{alignAboveContext} property, example
 @cindex @code{\with}, example
-@cindex Clef, example of overriding
-@cindex TimeSignature, example of overriding
+@cindex @code{Clef}, example of overriding
+@cindex @code{TimeSignature}, example of overriding
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
@@ -1697,11 +1683,11 @@ step reduces or increases the size by approximately 12%.
 
 Let's try it in our ossia example:
 
-@cindex alignAboveContext property, example
+@cindex @code{alignAboveContext} property, example
 @cindex @code{\with}, example
-@cindex Clef, example of overriding
-@cindex TimeSignature, example of overriding
-@cindex fontSize property, example
+@cindex @code{Clef}, example of overriding
+@cindex @code{TimeSignature}, example of overriding
+@cindex @code{fontSize} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
@@ -1733,13 +1719,13 @@ sub-section discusses how this is done.
 @node Length and thickness of objects
 @subsection Length and thickness of objects
 
-@cindex distances
-@cindex thickness
-@cindex length
-@cindex magstep
+@cindex distance, between objects
+@cindex thickness, of objects
+@cindex length, of objects
 @cindex size, changing
 @cindex stem length, changing
 @cindex staff line spacing, changing
+@cindex staff space, unit
 
 Distances and lengths in LilyPond are generally measured in
 staff-spaces, the distance between adjacent lines in the staff,
@@ -1759,15 +1745,15 @@ one argument, the change in font size (#-2 in the example above)
 and returns a scaling factor suitable for reducing other
 objects in proportion.  It is used like this:
 
-@cindex alignAboveContext property, example
+@cindex @code{alignAboveContext} property, example
 @cindex @code{\with}, example
-@cindex Clef, example of overriding
-@cindex TimeSignature, example of overriding
-@cindex fontSize property, example
-@cindex StaffSymbol, example of overriding
-@cindex magstep function, example of using
-@cindex staff-space property, example
-@cindex stencil property, example
+@cindex @code{Clef}, example of overriding
+@cindex @code{TimeSignature}, example of overriding
+@cindex @code{fontSize} property, example
+@cindex @code{StaffSymbol}, example of overriding
+@cindex @code{magstep} function, example of using
+@cindex @code{staff-space} property, example
+@cindex @code{stencil} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
@@ -1831,8 +1817,8 @@ from a font) may be changed in the same way.
 
 @cindex within-staff objects
 @cindex outside-staff objects
-@cindex objects, within-staff
-@cindex objects, outside-staff
+@cindex object, within-staff
+@cindex object, outside-staff
 
 There are some objects in musical notation that belong to
 the staff and there are other objects that should be
@@ -1848,6 +1834,8 @@ note heads, stems and accidentals in closely set chords are
 normally avoided automatically.  There are commands and
 overrides which can modify this automatic behavior, as we
 shall shortly see.
+
+@cindex @code{outside-staff-priority} property
 
 Objects belonging outside the staff include things such as
 rehearsal marks, text and dynamic markings.  LilyPond's rule for
@@ -1905,6 +1893,8 @@ this @q{nestling} of the notes on adjacent staves:
 @node Within-staff objects
 @subsection Within-staff objects
 
+@cindex @code{direction} property
+
 We have already seen how the commands @code{\voiceXXX} affect the
 direction of slurs, ties, fingering and everything else which depends on
 the direction of the stems -- see @ref{Explicitly instantiating voices}.
@@ -1930,10 +1920,9 @@ automatically when @code{direction} is set.
 @node The direction property
 @unnumberedsubsubsec The @code{direction} property
 
-@cindex down
-@cindex up
-@cindex center
-@cindex neutral
+@cindex @code{DOWN}
+@cindex @code{UP}
+@cindex @code{CENTER}
 
 The following example shows the default positioning of slurs in the
 first bar, with slurs starting on high notes positioned above the notes
@@ -1941,8 +1930,8 @@ and those starting on low notes positioned below, followed by a bar
 with both slurs forced down, a bar with both slurs forced up, and
 finally a bar with both slurs reverted back to the default behavior.
 
-@cindex Slur, example of overriding
-@cindex direction property, example
+@cindex @code{Slur}, example of overriding
+@cindex @code{direction} property, example
 
 @lilypond[quote,fragment,verbatim]
 a'4( g') c''( a') |
@@ -2041,8 +2030,8 @@ attached to single notes.  The first bar shows the default
 behavior, and the following two bars shows the effect of
 specifying @code{DOWN} and @code{UP}:
 
-@cindex Fingering, example of overriding
-@cindex direction property, example
+@cindex @code{Fingering}, example of overriding
+@cindex @code{direction} property, example
 
 @lilypond[quote,verbatim]
 \relative {
@@ -2054,13 +2043,17 @@ specifying @code{DOWN} and @code{UP}:
 }
 @end lilypond
 
+@findex -
+@findex ^
+@findex _
+
 However, overriding the @code{direction} property is not the
 easiest way of manually setting the fingering above or below
 the notes; using @code{_} or @code{^} instead of @code{-} before
 the fingering number is usually preferable.  Here is the previous
 example using this method:
 
-@cindex fingering example
+@cindex fingering, example
 
 @lilypond[quote,verbatim]
 \relative {
@@ -2075,7 +2068,7 @@ directional prefixes, @code{_} and @code{^} do work.  By default,
 the fingering is automatically placed both above and below the
 notes of a chord, as shown:
 
-@cindex fingering example
+@cindex fingering, example
 
 @lilypond[quote,verbatim]
 \relative {
@@ -2089,7 +2082,7 @@ notes of a chord, as shown:
 but this may be overridden to manually force all or any of the
 individual fingering numbers above or below:
 
-@cindex fingering example
+@cindex fingering, example
 
 @lilypond[quote,verbatim]
 \relative {
@@ -2098,6 +2091,8 @@ individual fingering numbers above or below:
   <c^5 g^3 e^2 c_1>4
 }
 @end lilypond
+
+@cindex @code{fingeringOrientations} property
 
 Even greater control over the placement of fingering of the
 individual notes in a chord is possible by using the
@@ -2130,9 +2125,9 @@ note chord by placing angle brackets round it.}
 
 Here are a few examples:
 
-@cindex fingering example
+@cindex fingering, example
 @cindex @code{\set}, example of using
-@cindex fingeringOrientations property, example
+@cindex @code{fingeringOrientations} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -2209,7 +2204,7 @@ and to a numerical value appropriate to each outside-staff object
 when the object is created.  See @rnotation{Default values for
 outside-staff-priority} for an exhaustive table.
 
-@cindex spanners
+@cindex spanner
 
 Note the unusual names for some of the objects: spanner objects
 are automatically created to control the vertical positioning of
@@ -2232,8 +2227,8 @@ these.
 @funindex \startTextSpan
 @funindex \stopTextSpan
 
-@cindex TextSpanner, example of overriding
-@cindex bound-details property, example
+@cindex @code{TextSpanner}, example of overriding
+@cindex @code{bound-details} property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 % Set details for later Text Spanner
@@ -2267,11 +2262,11 @@ For more details see @rnotation{Text spanners}.
 It also shows how ottava brackets are created.
 
 @cindex tweaking bar number placement
-@cindex bar numbers, tweaking placement
+@cindex bar number, tweaking placement
 @cindex tweaking metronome mark placement
 @cindex metronome mark, tweaking placement
 @cindex tweaking rehearsal mark placement
-@cindex rehearsal marks, tweaking placement
+@cindex rehearsal mark, tweaking placement
 
 If the default values of @code{outside-staff-priority} do not give you
 the placing you want, the priority of any of the objects may be
@@ -2283,8 +2278,8 @@ reduce it to a value lower than that of a @code{TextSpanner},
 remembering that @code{OttavaBracket} is created in the @code{Staff}
 context:
 
-@cindex TextSpanner, example of overriding
-@cindex bound-details property, example
+@cindex @code{TextSpanner}, example of overriding
+@cindex @code{bound-details} property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 % Set details for later Text Spanner
@@ -2316,9 +2311,11 @@ metronome marks and rehearsal marks, live by default in the
 @code{Score} context, so be sure to use the correct context
 when these are being overriden.
 
-@cindex slurs and outside-staff-priority
-@cindex slurs and articulations
-@cindex articulations and slurs
+@cindex slur, and @code{outside-staff-priority}
+@cindex slur, and articulations
+@cindex articulation, and slurs
+
+@cindex @code{avoid-slur} property
 
 Slurs by default are classed as within-staff objects, but
 they often appear above the staff if the notes to
@@ -2354,8 +2351,8 @@ All we need to do is to look up the priority of @code{TextScript}
 in the IR or in the tables above, and increase the priority of
 @qq{Text3} to a higher value:
 
-@cindex TextScript, example of overriding
-@cindex outside-staff-priority property, example
+@cindex @code{TextScript}, example of overriding
+@cindex @code{outside-staff-priority} property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 c''2^"Text1"
@@ -2376,7 +2373,7 @@ command.
 @node The textLengthOn command
 @unnumberedsubsubsec The @code{\textLengthOn} command
 
-@cindex notes, spreading out with text
+@cindex note, increase width with text
 
 @funindex \textLengthOn
 @funindex \textLengthOff
@@ -2394,6 +2391,9 @@ c''2^"Text3"
 c''2^"Text4" |
 @end lilypond
 
+@funindex \markLengthOn
+@funindex \markLengthOff
+
 The command to revert to the default behavior is
 @code{\textLengthOff}.  Alternatively, @code{\once} may be used
 with @code{\textLengthOn} if the effect is to be limited to just a
@@ -2409,8 +2409,8 @@ If this is not desired, the automatic displacement upwards may
 be turned off by setting the priority to @code{#f}.  Here's an
 example to show how markup text interacts with such notes.
 
-@cindex TextScript, example of overriding
-@cindex outside-staff-priority property, example
+@cindex @code{TextScript}, example of overriding
+@cindex @code{outside-staff-priority} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -2482,7 +2482,7 @@ shall have to work out how to do this using @code{\override} commands.
 @node Grob sizing
 @unnumberedsubsubsec Grob sizing
 
-@cindex grob sizing
+@cindex grob, sizing
 @cindex sizing grobs
 
 First we must learn how grobs are sized.  All grobs have a
@@ -2497,7 +2497,7 @@ is similarly defined by a pair of numbers, @code{Y-extent}.
 These are properties of all grobs which support the
 @code{grob-interface}.
 
-@cindex @code{extra-spacing-width}
+@cindex @code{extra-spacing-width} property
 
 By default, outside-staff objects are given a width of zero so
 that they may overlap in the horizontal direction.  This is done
@@ -2517,8 +2517,8 @@ right edge half a unit to the right should do it:
 @noindent
 Let's see if this works in our previous example:
 
-@cindex DynamicText, example of overriding
-@cindex extra-spacing-width property, example
+@cindex @code{DynamicText}, example of overriding
+@cindex @code{extra-spacing-width} property, example
 
 
 @lilypond[quote,ragged-right,verbatim,fragment]
@@ -2589,6 +2589,11 @@ them from the lower line will use the @code{unrelatedstaff} property.
 The vocal parts are part of a @code{VerticalAxisGroup}, so we need to
 adjust its properties.  Let's try it and see if it works.
 
+@cindex @code{VerticalAxisGroup}
+@cindex @code{padding} sub-property
+@cindex @code{nonstaff-relatedstaff-spacing} property
+@cindex @code{nonstaff-unrelatedstaff-spacing} property
+
 @lilypond[quote,fragment,ragged-right,verbatim]
 <<
   \new ChoirStaff
@@ -2626,6 +2631,11 @@ adjust its properties.  Let's try it and see if it works.
 Well - yes it does, but perhaps too well.  When we set the
 @code{padding} to 5, LilyPond adds 5 staff spaces to the distance
 between objects, which is too much for us here.  We'll use 2.
+
+@cindex @code{StaffGrouper}
+@cindex @code{ChoirStaff} context
+@cindex @code{basic-distance} sub-property
+@cindex @code{staffgroup-staff-spacing} property
 
 Next, let's move the piano music away from the vocal parts.  The
 vocal music is a @code{ChoirStaff}, so we need to increase the
@@ -2748,8 +2758,8 @@ details.
 @cindex moving overlapping objects
 @cindex moving colliding objects
 @cindex moving colliding grobs
-@cindex objects, moving colliding
-@cindex grobs, moving colliding
+@cindex object, moving colliding
+@cindex grob, moving colliding
 
 This may come as a surprise, but LilyPond is not perfect.  Some
 notation elements can overlap.  This is unfortunate, but in fact
@@ -2789,10 +2799,9 @@ This has already been covered in some detail -- see
 @item
 @code{padding}, @code{right-padding}, @code{staff-padding}
 
-@cindex padding
-@cindex padding property
-@cindex right-padding property
-@cindex staff-padding property
+@cindex @code{padding} property
+@cindex @code{right-padding} property
+@cindex @code{staff-padding} property
 
 As an object is being positioned the value of its @code{padding}
 property specifies the gap that must be left between itself and the
@@ -2838,7 +2847,7 @@ objects, this value is set by default to be around 1.0 or less
 @item
 @code{self-alignment-X}
 
-@cindex self-alignment-X property
+@cindex @code{self-alignment-X} property
 
 This property can be used to align the object to the left, to
 the right, or to center it with respect to the parent object's
@@ -2857,7 +2866,7 @@ in the value corresponds to a movement of half the text's length.
 @item
 @code{extra-spacing-width}
 
-@cindex extra-spacing-width property
+@cindex @code{extra-spacing-width} property
 
 This property is available for all objects which support the
 @code{item-interface}.  It takes two numbers, the first is added
@@ -2871,7 +2880,7 @@ notice of the first (left edge) number.
 @item
 @code{staff-position}
 
-@cindex staff-position property
+@cindex @code{staff-position} property
 
 @code{staff-position} is a property of the
 @code{staff-symbol-referencer-interface}, which is supported by
@@ -2884,10 +2893,10 @@ and notes in different voices.
 @item
 @code{horizontal-shift}
 
-@cindex horizontal-shift property
+@cindex @code{horizontal-shift} property
 @cindex note column
-@cindex note collisions
-@cindex collisions, notes
+@cindex note, collision
+@cindex collision, notes
 @cindex shift commands
 @funindex \shiftOff
 @funindex \shiftOn
@@ -2915,7 +2924,7 @@ a closely spaced group of notes is involved.
 @item
 @code{force-hshift}
 
-@cindex force-hshift property
+@cindex @code{force-hshift} property
 
 The @code{force-hshift} property is a property of a @code{NoteColumn}
 (actually of the @code{note-column-interface}).  Changing it permits a
@@ -2947,7 +2956,7 @@ properties that can be used for this type of manual repositioning are:
 @table @code
 @item extra-offset
 
-@cindex extra-offset property
+@cindex @code{extra-offset} property
 
 This property applies to any layout object supporting the
 @code{grob-interface}.  It takes a pair of numbers which specify the
@@ -2959,7 +2968,7 @@ affecting anything else.
 
 @item positions
 
-@cindex positions property
+@cindex @code{positions} property
 
 This is most useful for manually adjusting the slope and height
 of beams, slurs, and tuplets.  It takes a pair of numbers
@@ -3027,8 +3036,8 @@ The @code{padding} property can be set to increase
 (or decrease) the distance between symbols that are printed
 above or below notes.
 
-@cindex Script, example of overriding
-@cindex padding property, example
+@cindex @code{Script}, example of overriding
+@cindex @code{padding} property, example
 
 @lilypond[quote,fragment,verbatim]
 c'2\fermata
@@ -3036,8 +3045,8 @@ c'2\fermata
 b2\fermata
 @end lilypond
 
-@cindex MetronomeMark, example of overriding
-@cindex padding property, example
+@cindex @code{MetronomeMark}, example of overriding
+@cindex @code{padding} property, example
 
 @lilypond[quote,fragment,verbatim]
 % This will not work, see below
@@ -3065,7 +3074,7 @@ objects outside it are moved.
 @node The right-padding property
 @unnumberedsubsubsec The @code{right-padding} property
 
-@cindex right-padding property
+@cindex @code{right-padding} property
 
 The @code{right-padding} property affects the spacing between the
 accidental and the note to which it applies.  It is not often
@@ -3074,11 +3083,11 @@ accidental glyphs or combination of glyphs used in some microtonal
 music.  These have to be entered by overriding the accidental
 stencil with a markup containing the desired symbol(s), like this:
 
-@cindex Accidental, example of overriding
-@cindex text property, example
-@cindex stencil property, example
-@cindex AccidentalPlacement, example of overriding
-@cindex right-padding property, example
+@cindex @code{Accidental}, example of overriding
+@cindex @code{text} property, example
+@cindex @code{stencil} property, example
+@cindex @code{AccidentalPlacement}, example of overriding
+@cindex @code{right-padding} property, example
 
 @lilypond[quote,ragged-right,verbatim]
 sesquisharp = \markup { \sesquisharp }
@@ -3109,8 +3118,8 @@ note head by overriding @code{right-padding}.
 @node The staff-padding property
 @unnumberedsubsubsec The @code{staff-padding} property
 
-@cindex aligning objects on a baseline
-@cindex objects, aligning on a baseline
+@cindex aligning object, on a baseline
+@cindex object, aligning on a baseline
 
 @code{staff-padding} can be used to align objects such as dynamics
 along a baseline at a fixed distance from the staff, when no other
@@ -3121,10 +3130,10 @@ equally to @strong{all} dynamics, including those created as extended
 spanners.  So this is the way to align the dynamic marks in the
 example taken from the previous section:
 
-@cindex DynamicText, example of overriding
-@cindex extra-spacing-width property, example
-@cindex DynamicLineSpanner, example of overriding
-@cindex staff-padding property, example
+@cindex @code{DynamicText}, example of overriding
+@cindex @code{extra-spacing-width} property, example
+@cindex @code{DynamicLineSpanner}, example of overriding
+@cindex @code{staff-padding} property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \override DynamicLineSpanner.staff-padding = #3
@@ -3139,8 +3148,8 @@ The following example shows how to adjust the position
 of a string fingering object relative to a note's stem by aligning the
 right edge with the reference point of the parent note:
 
-@cindex StringNumber, example of overriding
-@cindex self-alignment-X property, example
+@cindex @code{StringNumber}, example of overriding
+@cindex @code{self-alignment-X} property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \voiceOne
@@ -3152,7 +3161,7 @@ right edge with the reference point of the parent note:
 @node The staff-position property
 @unnumberedsubsubsec The @code{staff-position} property
 
-@cindex object collision within a staff
+@cindex object, collision within a staff
 
 Multimeasure rests in one voice can collide with notes in another.
 Since these rests are typeset centered between the bar lines, it
@@ -3172,8 +3181,8 @@ second voice of a @code{<<@{@dots{}@} \\ @{@dots{}@}>>} construct) is
 that @code{staff-position} is set to -6 for MultiMeasureRest, so we need
 to move it, say, four half-staff spaces down to @w{@code{-10}}.
 
-@cindex MultiMeasureRest, example of overriding
-@cindex staff-position property, example
+@cindex @code{MultiMeasureRest}, example of overriding
+@cindex @code{staff-position} property, example
 
 @lilypond[quote,verbatim,ragged-right]
 <<
@@ -3195,8 +3204,8 @@ See the snippet @q{Engraving ties manually} in the section on
 
 @cindex positioning objects
 @cindex positioning grobs
-@cindex objects, positioning
-@cindex grobs, positioning
+@cindex object, positioning
+@cindex grob, positioning
 
 The @code{extra-offset} property provides complete control over the
 positioning of an object both horizontally and vertically.
@@ -3204,8 +3213,8 @@ positioning of an object both horizontally and vertically.
 In the following example, the second fingering is moved a little to
 the left, and 1.8 staff space downwards:
 
-@cindex Fingering, example of overriding
-@cindex extra-offset property, example
+@cindex @code{Fingering}, example of overriding
+@cindex @code{extra-offset} property, example
 
 @lilypond[quote,fragment,verbatim]
 f'4-5
@@ -3219,10 +3228,10 @@ f'4-5
 
 @cindex controlling tuplets, slurs, phrasing slurs, and beams manually
 @cindex manually controlling tuplets, slurs, phrasing slurs, and beams
-@cindex tuplet beams, controlling manually
-@cindex slurs, controlling manually
-@cindex phrasing slurs, controlling manually
-@cindex beams, controlling manually
+@cindex tuplet beam, controlling manually
+@cindex slur, controlling manually
+@cindex phrasing slur, controlling manually
+@cindex beam, controlling manually
 
 The @code{positions} property allows the vertical position and hence
 the slope of tuplets, slurs, phrasing slurs and beams to be controlled
@@ -3234,8 +3243,8 @@ Here's an example in which the phrasing slur and slur collide:
 \relative { a'8 \( ( a'16 ) a \) }
 @end lilypond
 
-@cindex PhrasingSlur, example of overriding
-@cindex positions property, example
+@cindex @code{PhrasingSlur}, example of overriding
+@cindex @code{positions} property, example
 
 @noindent
 One possibility would be to move the two ends of the phrasing slur
@@ -3289,8 +3298,8 @@ This can be resolved by manually moving both ends of the beam
 up from their position at 1.81 staff-spaces below the center line to,
 say, 1:
 
-@cindex Beam, example of overriding
-@cindex positions property, example
+@cindex @code{Beam}, example of overriding
+@cindex @code{positions} property, example
 
 @lilypond[quote,verbatim,ragged-right]
 {
@@ -3363,8 +3372,8 @@ be omitted.  This would not be good practice.
 
 Here's the final result:
 
-@cindex NoteColumn, example of overriding
-@cindex force-hshift property, example
+@cindex @code{NoteColumn}, example of overriding
+@cindex @code{force-hshift} property, example
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 \new Staff \relative {
@@ -3761,8 +3770,8 @@ respectively.  So we have to shift the C a further level still
 using @code{\shiftOnn} to avoid it interfering with the two D's.
 Applying these changes gives:
 
-@cindex Tie, example of overriding
-@cindex staff-position property, example
+@cindex @code{Tie}, example of overriding
+@cindex @code{staff-position} property, example
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
@@ -3829,10 +3838,10 @@ to the right of the D's.  We know how to do both of these from the
 earlier tweaks: we make the stem transparent, and move the C with
 the @code{force-hshift} property.  Here's the final result:
 
-@cindex NoteColumn, example of overriding
-@cindex force-hshift property, example
-@cindex Stem, example of overriding
-@cindex transparent property, example
+@cindex @code{NoteColumn}, example of overriding
+@cindex @code{force-hshift} property, example
+@cindex @code{Stem}, example of overriding
+@cindex @code{transparent} property, example
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
@@ -3922,7 +3931,7 @@ lhMusic = \relative {
 @end menu
 
 @cindex removing objects
-@cindex objects, removing
+@cindex object, removing
 
 @node Tying notes across voices
 @unnumberedsubsubsec Tying notes across voices
@@ -3943,10 +3952,9 @@ and removing the first up-stem and its flag in that voice, the tie
 appears to cross voices:
 
 @funindex \omit
-@cindex Stem, example of removing
-@cindex Flag, example of removing
+@cindex @code{Stem}, example of removing
+@cindex @code{Flag}, example of removing
 @cindex @code{\omit}, example
-@cindex example of @code{\omit}
 
 @lilypond[quote,verbatim]
 <<
@@ -3970,7 +3978,6 @@ Learning Manual:
 @node Simulating a fermata in MIDI
 @unnumberedsubsubsec Simulating a fermata in MIDI
 
-@cindex stencil property, use of
 @cindex fermata, implementing in MIDI
 
 For outside-staff objects it is usually better to override the
@@ -3989,8 +3996,8 @@ the positions of adjacent annotations on the staff.  So setting
 its @code{stencil} property to @code{#f} would be the best way.
 We show here the effect of the two methods:
 
-@cindex MetronomeMark, example of overriding
-@cindex transparent property, example
+@cindex @code{MetronomeMark}, example of overriding
+@cindex @code{transparent} property, example
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -4011,8 +4018,8 @@ We show here the effect of the two methods:
 }
 @end lilypond
 
-@cindex MetronomeMark, example of overriding
-@cindex stencil property, example
+@cindex @code{MetronomeMark}, example of overriding
+@cindex @code{stencil} property, example
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -4049,10 +4056,10 @@ Music Glossary:
 @node Using variables for layout adjustments
 @subsection Using variables for layout adjustments
 
-@cindex variables, using for overrides
-@cindex overrides, using variables for
-@cindex adjustments, using variables for
-@cindex layout adjustments, using variables for
+@cindex variable, using for overrides
+@cindex override, using variable for
+@cindex adjustment, using variable for
+@cindex layout adjustment, using variable for
 
 Override commands are often long and tedious to type, and they
 have to be absolutely correct.  If the same overrides are to be
@@ -4083,9 +4090,9 @@ being interpreted in @code{\lyricmode} directly.  Here's an example
 of this, although in practice  we would choose shorter names
 for the variables to make them quicker to type:
 
-@cindex LyricText, example of overriding
-@cindex font-shape property, example
-@cindex font-series property, example
+@cindex @code{LyricText}, example of overriding
+@cindex @code{font-shape} property, example
+@cindex @code{font-series} property, example
 
 @lilypond[quote,verbatim]
 emphasize = {
@@ -4583,9 +4590,9 @@ determined by the procedure at the time it is called.  In this
 example we color the note head in accordance with its position on
 the staff.
 
-@cindex x11-color function, example of using
-@cindex NoteHead, example of overriding
-@cindex color property, setting to Scheme procedure
+@cindex @code{x11-color}, example of using
+@cindex @code{NoteHead}, example of overriding
+@cindex @code{color} property, setting to Scheme procedure
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (color-notehead grob)
