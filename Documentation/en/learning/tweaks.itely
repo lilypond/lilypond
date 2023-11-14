@@ -717,14 +717,18 @@ slurs, and you should find
 
 @example
 thickness (number)
-     1.2
-     Line thickness, generally measured in line-thickness
+    1.2
+    [...] For slurs and ties, this is the distance between the two
+    arcs of the curve's outline at its thickest point, [...]  This
+    property is expressed as a multiple of the current staff-line
+    thickness [...]
 @end example
 
 This looks a good bet to change the heaviness.  It tells us that
 the value of @code{thickness} is a simple @emph{number},
-that the default value is 1.2, and that the units are
-in another property called @code{line-thickness}.
+that the default value is 1.2, and that this value depends on the
+thickness of staff lines -- which means more or less that smaller
+staves have thinner slurs.
 
 As we said earlier, there are few to no explanations in the IR,
 but we already have enough information to try changing the
@@ -845,6 +849,21 @@ Now only the first slur is made heavier.
 The @code{\once} command can also be used before the @code{\set}
 command.
 
+An alternative to @code{\once \override} is to use the
+@code{\tweak} command; you get the same result if you replace
+
+@example
+\once \override Slur.thickness = #5.0
+bes8[(
+@end example
+
+@noindent
+in the previous example with
+
+@example
+bes8[\tweak thickness #5.0 (
+@end example
+
 @subsubsubheading Reverting
 
 @cindex default properties, reverting to
@@ -950,8 +969,10 @@ are also properties of all the objects which support it, including
 @code{LyricText}.
 
 Now we see all the user-settable properties which control fonts,
-including @code{font-shape(symbol)}, where @code{symbol} can be
-set to @code{upright}, @code{italics} or @code{caps}.
+including @q{@code{font-shape} (symbol)}.  The value in
+parentheses gives the variable type expected by the property; here
+it is a (Scheme) symbol.  The IR also documents the possible
+values, which are @code{upright}, @code{italics}, or @code{slanted}.
 
 You will notice that @code{font-series} and @code{font-size} are also
 listed there.  This immediately raises the question: Why are the
@@ -1190,8 +1211,8 @@ gives a list of contexts in which the bar engraver operates.  All of
 them are of the type @code{Staff}, so the reason the @code{\override}
 command failed to work as expected is because @code{BarLine} is not in
 the default @code{Voice} context.  If the context is specified
-incorrectly, the command simply does not work.  No error message is
-produced, and nothing is logged in the log file.  Let's try correcting
+incorrectly, the command simply does not work, without producing
+an error message or warning.  Let's try correcting
 it by adding the correct context:
 
 @cindex @code{BarLine}, example of overriding
@@ -1737,12 +1758,13 @@ sub-section discusses how this is done.
 @cindex staff space, unit
 
 Distances and lengths in LilyPond are generally measured in
-staff-spaces, the distance between adjacent lines in the staff,
-(or occasionally half staff spaces) while most @code{thickness}
-properties are measured in units of an internal property called
-@code{line-thickness.}  For example, by default, the lines of
-hairpins are given a thickness of 1 unit of @code{line-thickness},
-while the @code{thickness} of a note stem is 1.3.  Note, though,
+staff spaces, i.e., the distance between adjacent lines in the staff
+(or occasionally half staff spaces), while most thickness
+properties are measured as multiples of the current staff-line
+thickness (which is given by the @code{thickness} property of the
+@code{StaffSymbol} grob).  For example, by default, the lines of
+hairpins are given a thickness of 1@tie{}unit of the staff-line thickness,
+while the thickness of a note stem is 1.3@tie{}units.  Note, though,
 that some thickness properties are different; for example, the
 thickness of beams is controlled by the value of the
 @code{beam-thickness} property, which is measured in staff spaces.
@@ -1752,7 +1774,10 @@ This can be done with the help of a special function called
 @code{magstep} provided for exactly this purpose.  It takes
 one argument, the change in font size (value@tie{}@w{-2} in the example above)
 and returns a scaling factor suitable for reducing other
-objects in proportion.  It is used like this:
+objects in proportion.  The trick is now not to actually change
+the lengths of stems and other grobs but to rather change the unit on
+which the length values are based -- it is the @code{staff-space}
+property of the @code{StaffSymbol} grob.
 
 @cindex @code{alignAboveContext} property, example
 @cindex @code{\with}, example
@@ -1786,12 +1811,9 @@ objects in proportion.  It is used like this:
 }
 @end lilypond
 
-@noindent
-Since the length of stems and many other length-related properties are
-always calculated relative to the value of the @code{staff-space}
-property these are automatically scaled down in length too.  Note that
-this affects only the vertical scale of the ossia -- the horizontal
-scale is determined by the layout of the main music in order to remain
+While changing @code{staff-space} affects the scale of the ossia, it
+does not affect the horizontal spacing -- this is determined by
+the layout of the main music in order to remain
 synchronized with it, so it is not affected by any of these changes in
 size.  Of course, if the scale of all the main music were changed in
 this way then the horizontal spacing would be affected.  This is
@@ -2513,16 +2535,17 @@ These are properties of all grobs which support the
 
 @cindex @code{extra-spacing-width} property
 
-By default, outside-staff objects are given a width of zero so
-that they may overlap in the horizontal direction.  This is done
-by the trick of making the leftmost extent infinity and
-the rightmost extent minus infinity by setting the
-@code{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  To
-ensure they do not overlap in the horizontal direction we
-must override this value of @code{extra-spacing-width} to give them
-a little extra spacing.  The units are the space between two staff
-lines, so moving the left edge half a unit to the left and the
-right edge half a unit to the right should do it:
+By default, outside-staff objects are given a width (i.e., a
+horizontal extent) of zero so that they may overlap in the
+horizontal direction.  By convention, this is done by positioning
+a grob's left edge at infinity and the right edge at minus
+infinity by setting the @code{extra-spacing-width} property to
+@code{'(+inf.0 .@tie{}-inf.0)}.  To ensure grobs do not overlap in
+the horizontal direction we must override this value of
+@code{extra-spacing-width} to give them a little extra spacing.
+The units are the space between two staff lines, so moving the
+left edge half a unit to the left and the right edge half a unit
+to the right should do it:
 
 @example
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
@@ -2593,15 +2616,16 @@ the lyrics spaced away from any notes, they want the piano
 accompaniment spaced away from the vocal line and they want the two
 piano staves pushed together tightly.  Let's start with the lyrics.
 
-Lyrics sit within a system, and therefore the commands to space them
-are found in @rnotation{Flexible vertical spacing within systems}.  It
-tells us that lyrics are @code{non-staff lines} and therefore the
-command to change their spacing will refer to the @code{nonstaff}
-property.  Spacing them away from the staff to which they relate
-(the top line) will use the @code{relatedstaff} property.  Spacing
-them from the lower line will use the @code{unrelatedstaff} property.
-The vocal parts are part of a @code{VerticalAxisGroup}, so we need to
-adjust its properties.  Let's try it and see if it works.
+Lyrics sit within a system, and therefore the commands to space
+them are found in @rnotation{Flexible vertical spacing within
+systems}.  It tells us that lyrics are @q{non-staff lines} and
+therefore the command to change their spacing will refer to a
+property that has the word @code{nonstaff} in its name.  Spacing
+them away from the staff to which they relate (the top line) is
+indicated by the the word @code{relatedstaff}.  Spacing them from
+the lower line is indicated by the word @code{unrelatedstaff}.
+The vocal parts are part of a @code{VerticalAxisGroup}, so we need
+to adjust its properties.  Let's try it and see if it works.
 
 @cindex @code{VerticalAxisGroup}
 @cindex @code{padding} sub-property
@@ -2892,7 +2916,7 @@ in the value corresponds to a movement of half the text's length.
 
 This property is available for all objects that support the
 @code{item-interface}.  It takes two numbers, the first is added
-to the left edge of extent and the second is added to the right edge.
+to the left edge of the extent and the second is added to the right edge.
 Negative numbers move the edge to the left, positive to
 the right, so to widen an object the first number must be negative,
 the second positive.  Note that not all objects honor both
@@ -3237,8 +3261,12 @@ to move it, say, four half-staff spaces down to @w{-10}.
 This is better than using, for example, @code{extra-offset},
 because the ledger line above the rest is inserted automatically.
 
-See the snippet @q{Engraving ties manually} in the section on
-@rnotation{Ties} for the difference between exact and inexact values.
+Note that there is a peculiarity with this property if applied to
+a @code{Tie} grob: LilyPond distinguishes between @dfn{exact}
+numbers (like integers and fractions) and @dfn{inexact} numbers
+(like numbers with a decimal point).  See @rnotation{engraving
+ties manually} for the difference between exact and inexact
+values.
 
 @node The extra-offset property
 @unnumberedsubsubsec The @code{extra-offset} property
@@ -3443,11 +3471,14 @@ problems with notation.  It is not representative of the more usual
 engraving process, so please do not let these difficulties put
 you off!  Fortunately, difficulties like these are not very common.
 
-The example is from Chopin's Première Ballade, Op. 23, bars 6 to
-9, the transition from the opening Lento to Moderato.
+The example is from Chopin's @emph{Première Ballade}, Op. 23, bars 6
+to@tie{}9, the transition from the opening @q{Lento} to
+@q{Moderato}.@footnote{This is taken from an older edition that
+deviates from the Urtext version as shown by Henle, for example.}
 Here, first, is what we want the output to look like, but to avoid
 over-complicating the example too much we have left out the
-dynamics, fingering and pedalling.
+dynamics, fingering and pedalling, and we aren't going to tweak the
+appearance as much as would be possible.
 
 @c The following should appear as music without code
 @c This example should not be indexed
@@ -3649,7 +3680,9 @@ line} in the index quickly shows us that an arpeggio is produced by
 appending @code{\arpeggio} to a chord, and a double bar line is
 produced by the @code{\bar "||"} command.  That's easily done.  We
 next need to correct the collision of the tie with the time signature.
-This is best done by moving the tie upwards.  Moving objects was
+This is best done by moving the tie upwards.@footnote{An
+alternative would be to adjust @code{Tie.details.height-limit},
+making the tie more concave.}  Moving objects was
 covered earlier in @ref{Moving objects}, which says that objects
 positioned relative to the staff can be moved vertically by overriding
 their @code{staff-position} property, which is specified in half
@@ -4557,12 +4590,13 @@ contains the definitions of all the standard LilyPond predefined
 commands, such as @code{\tieUp} and @code{\slurDotted}.  You will
 see that these are nothing more than definitions of variables
 containing one or a group of @code{\override} commands.  For
-example, @code{\tieDotted} is defined to be:
+example, @code{\textLengthOn} is defined to be:
 
 @example
-tieDotted = @{
-  \override Tie.dash-period = #0.75
-  \override Tie.dash-fraction = #0.1
+textLengthOn = @{
+  % 0.4 staff-space between adjacent texts
+  \override TextScript.extra-spacing-width = #'(-0.0 . 0.4)
+  \override TextScript.extra-spacing-height = #'(-inf.0 . +inf.0)
 @}
 @end example
 
