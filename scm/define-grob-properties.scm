@@ -1168,7 +1168,12 @@ reference points and the staff.  Its effect is to align objects of
 differing sizes (like the dynamics @b{p} and @b{f}) on their
 baselines.")
      (staff-position ,number? "Vertical position, measured in half
-staff spaces, counted from the middle line.")
+staff spaces, counted from the middle line.
+
+For ties, there is a distinction between exact and inexact values: an
+exact value serves as a rough vertical offset that gets further tuned
+to make the tie avoid staff lines.  An inexact value is taken as the
+precise vertical offset without further adjustments.")
      (staff-space ,ly:dimension? "Amount of space between staff lines,
 expressed in global @code{staff-space}.")
      (staff-staff-spacing ,symbol-key-alist? "When applied to a
@@ -1262,12 +1267,18 @@ arcs.  This property is expressed as a multiple of the current
 staff-line thickness (i.e., the visual output is influenced by
 changes to @code{@var{Staff}.StaffSymbol.thickness}).")
      (tie-configuration ,list? "List of @code{(@var{position} .
-@var{dir})} pairs, indicating the desired tie configuration, where
-@var{position} is the offset from the center of the staff in staff
-space and @var{dir} indicates the direction of the tie (@code{1}=>up,
-@w{@code{-1}}=>down, @code{0}=>center).  A non-pair entry
-in the list causes the corresponding tie to be formatted
-automatically.")
+@var{dir})} pairs, indicating a desired tie configuration that
+overrides the default.  @var{position} is the offset from the center
+of the staff in half staff-space units, and @var{dir} indicates the
+direction of the tie (@code{1}=>up, @w{@code{-1}}=>down,
+@code{0}=>center).  A non-pair entry in the list causes the
+corresponding tie to be formatted automatically.
+
+There is a distinction between exact and inexact values for
+@var{position}: an exact value serves as a rough vertical offset that
+gets further tuned to make the tie avoid staff lines.  An inexact
+value is taken as the precise vertical offset without further
+adjustments.")
      (to-barline ,boolean? "If true, the spanner will stop at the bar
 line just before it would otherwise stop.")
      (toward-stem-shift ,number? "Amount by which scripts are shifted
