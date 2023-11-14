@@ -4,7 +4,7 @@ Prebuilt Documentation and packages are available from:
 
 LilyPond development is hosted at:
 
-    http://savannah.gnu.org/projects/lilypond
+    https://gitlab.com/lilypond/
 
 Here is a simple explanation of the directory layout for
 LilyPond's source files.
@@ -39,15 +39,11 @@ LilyPond's source files.
 |   |       2) a texidocs/ directory for snippet translations
 |   |
 |   |-- ca/              Catalan
-|   |-- cs/              Czech
 |   |-- de/              German
 |   |-- es/              Spanish
 |   |-- fr/              French
-|   |-- hu/              Hungarian
 |   |-- it/              Italian
 |   |-- ja/              Japanese
-|   |-- nl/              Dutch
-|   |-- pt/              Portuguese
 |   |-- zh/              Chinese
 |   |
 |   |
@@ -56,9 +52,9 @@ LilyPond's source files.
 |   |-- bib/             Bibliography files for documentation
 |   |-- css/             CSS files for HTML docs
 |   |-- logo/            Web logo and "note" icon
-|   |-- ly-examples/     .ly files for the "Examples" webpage
+|   |-- ly-examples/     .ly example files for the webpage
 |   |-- misc/            Old announcements, ChangeLogs and NEWS
-|   |-- pictures/        Images used (eps/jpg/png/svg)
+|   |-- pictures/        Images (eps/jpg/png/svg) for the webpage
 |   |   `-- pdf/         (pdf)
 |   |-- po/              Translated build/maintenance scripts
 |   |-- snippets/        Auto-generated from the LSR and from ./new/
@@ -86,6 +82,7 @@ LilyPond's source files.
 |   SCRIPTS:
 |
 |-- config/              Autoconf helpers for configure script
+|-- m4/                  Files used while generating the configure script
 |-- python/              Python modules, MIDI module
 |   `-- auxiliar/        Python modules for build/maintenance
 |-- scripts/             End-user scripts (--> lilypond/usr/bin/)
@@ -98,6 +95,17 @@ LilyPond's source files.
 |
 |-- make/                Specific make subroutine files
 |
+|-- docker/
+|   |-- base/            CI Docker files used for running `make`
+|   |-- ci/              Support for continuous integration (CI) on gitlab
+|   `-- doc/             CI Docker files used for running `make doc`
+|
+|-- release/             Scripts to generate and upload release packages
+|   |-- binaries/        Scripts to build binaries
+|   |   |-- ansible/     Ansible playbooks for building binaries
+|   |   |-- lib/         Auxiliary files for building binaries
+|   |   `-- relocate/    Relocation data for lilypond binary
+|   `-- doc              Scripts to build documentation
 |
 |   REGRESSION TESTS:
 |
@@ -115,6 +123,4 @@ LilyPond's source files.
 |
 |-- elisp/               Emacs LilyPond mode and syntax coloring
 |-- vim/                 Vi(M) LilyPond mode and syntax coloring
-|-- po/                  Translations for binaries and end-user scripts
-`-- docker/
-    `-- ci/              Support for continuous integration (CI) on gitlab
+`-- po/                  Translations for binaries and end-user scripts
