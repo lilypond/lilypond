@@ -4511,51 +4511,27 @@ The Internals Reference documentation contains a lot of information
 about LilyPond, but even more information can be gathered by
 looking at the internal LilyPond files.  To explore these, you must
 first find the directory appropriate to your system.  The location
-of this directory depends (a) on whether you obtained LilyPond
-by downloading a precompiled binary from lilypond.org
-or whether you installed it from a package manager (i.e.
-distributed with GNU/Linux, or installed under fink or cygwin) or
-compiled it from source, and (b) on which operating system it is
-being used:
+of this directory depends on whether you obtained LilyPond
+by downloading a precompiled binary from @code{lilypond.org}
+or whether you installed it from a package manager (i.e.,
+distributed with GNU/Linux, or installed under MacPorts, Homebrew,
+Cygwin, Chocolatey, etc.) or compiled it from source.
 
-@subsubsubheading Downloaded from lilypond.org
-
-@itemize @bullet
-@item GNU/Linux
+@itemize
+@item Downloaded from @code{lilypond.org}
 
 Navigate to
 @example
-@file{@var{INSTALLDIR}/lilypond/usr/@/share/lilypond/current/}
+@file{@var{INSTALLDIR}/lilypond-@version{}/share/lilypond/@version{}/}
 @end example
 
-@item MacOS X
+@item Installed from a package manager or compiled from source
 
 Navigate to
-@example
-@file{@var{INSTALLDIR}/LilyPond.app/Contents/@/Resources/share/lilypond/current/}
-@end example
-
-by either @code{cd}-ing into this directory from the
-Terminal, or control-clicking on the LilyPond application and
-selecting @q{Show Package Contents}.
-
-@item Windows
-
-Using Windows Explorer, navigate to
-@example
-@file{@var{INSTALLDIR}/LilyPond/usr/@/share/lilypond/current/}
-@end example
-
-@end itemize
-
-@subsubsubheading Installed from a package manager or compiled from source
-
-Navigate to
-@file{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, where
+@file{@var{PREFIX}/share/lilypond/@version{}/}, where
 @var{PREFIX} is set by your package manager or @code{configure}
-script, and @var{X.Y.Z} is the LilyPond version number.
-
-@smallspace
+script.
+@end itemize
 
 Within this directory the two interesting subdirectories are
 
