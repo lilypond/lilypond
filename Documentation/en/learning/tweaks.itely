@@ -3142,43 +3142,28 @@ objects outside of it are moved.
 @cindex @code{right-padding} property
 
 The @code{right-padding} property affects the spacing between the
-accidental and the note to which it applies.  It is not often
-required, but the default spacing may be wrong for certain special
-accidental glyphs or combination of glyphs used in some microtonal
-music.  These have to be entered by overriding the accidental
-stencil with a markup containing the desired symbol(s), like this:
+accidental and the note to which it applies.@footnote{The
+@code{DynamicText} grob also has a @code{right-padding} property
+but with a completely different function: it controls the
+horizontal space between an absolute dynamic and a dynamic text
+span that starts at the same moment.}  It is not often required,
+but it can help in horizontally tight situations, for example.
 
-@cindex @code{Accidental}, example of overriding
-@cindex @code{text} property, example
-@cindex @code{stencil} property, example
 @cindex @code{AccidentalPlacement}, example of overriding
 @cindex @code{right-padding} property, example
 
 @lilypond[quote,ragged-right,verbatim]
-sesquisharp = \markup { \sesquisharp }
-\relative {
-  c''4
-  % This prints a sesquisharp but the spacing is too small
-  \once \override Accidental.stencil = #ly:text-interface::print
-  \once \override Accidental.text = #sesquisharp
-  cis4 c
-  % This improves the spacing
-  \once \override Score.AccidentalPlacement.right-padding = #0.6
-  \once \override Accidental.stencil = #ly:text-interface::print
-  \once \override Accidental.text = #sesquisharp
-  cis4 |
+\relative c' {
+  cis8[ dis eis fis gis ais bis cis]
+}
+
+\relative c' {
+  % move accents nearer to note heads
+  \override Score.AccidentalPlacement.right-padding = #-0.1
+  cis8[ dis eis fis gis ais bis cis]
 }
 @end lilypond
 
-@noindent
-This necessarily uses an override for the accidental stencil which
-will not be covered until later.  The stencil type must be a
-procedure, here changed to print the contents of the @code{text}
-property of @code{Accidental}, which itself is set to be a
-sesquisharp sign.  This sign is then moved further away from the
-note head by overriding @code{right-padding}.
-
-@noindent
 
 @node The staff-padding property
 @unnumberedsubsubsec The @code{staff-padding} property
