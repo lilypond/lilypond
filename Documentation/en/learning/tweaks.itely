@@ -21,6 +21,7 @@ configurable; virtually every fragment of output may be changed.
 * Tweaking basics::
 * The Internals Reference manual::
 * Appearance of objects::
+* Offsets and alignments::
 * Placement of objects::
 * Vertical spacing::
 * Collisions of objects::
@@ -1833,6 +1834,312 @@ The thickness of all drawn objects (i.e., those not produced
 from a font) may be changed in the same way.
 
 
+@node Offsets and alignments
+@section Offsets and alignments
+
+LilyPond needs to know where each and every grob should be placed.
+This placement information is stored using relative coordinates:
+the position of a grob is defined relative to the position of its
+parent (if we had to use absolute coordinates instead -- e.g.,
+distances from the edges of the page -- it would be hard to
+maintain spatial relationships between grobs).
+
+Every grob knows which grob is its parent in the respective axis.
+For example, a @code{Flag} grob knows that its x-parent is a
+particular @code{Stem} grob.
+
+@cindex @code{X-offset} property
+@cindex @code{Y-offset} property
+
+Relative coordinates that describe a grob's placement are stored
+in grob properties called @code{X-offset} and @code{Y-offset}.
+They are measured in staff spaces.  @code{X-offset} is the
+horizontal displacement between a grob's @dfn{reference point} and
+the reference point of a grob's x-parent (similarly with
+@code{Y-offset}).
+
+What is a reference point?  It's a special point that defines the
+grob's position.  Think about geometry: if you have to define
+where a figure is placed on a plane, you'll usually say something
+like @qq{the lower left corner of this square has coordinates
+(0,@tie{}2)}, or @qq{the center of this circle is at
+(@w{-1},@tie{}3)}. @q{Lower left corner} and @q{center} would be
+the reference points for square and circle, respectively.
+
+This illustration shows where reference points of particular grobs
+are located, indicated as red dots (for example, the middle staff
+line for bars and stems, the intersection between the baseline and
+the left edge for a text box, or the vertical center at the left
+side for a note head).
+
+@example
+@{
+  \override NoteHead.style = #'altdefault     % for breve
+
+  \time 4/2 g'2-> c''\fermata as'1^"Yogi" |
+  b'\breve _"Larry" |
+  \mark "Twinkle" e''8 s4.. \bar "|."
+@}
+@end example
+
+@lilypond[quote,staffsize=26]
+\include "reference-points.ly"
+
+\new Staff \with {
+  \printRefpoint ##f #'all-grobs
+} {
+  \override NoteHead.style = #'altdefault     % for breve
+
+  \time 4/2 g'2-> c''\fermata as'1^"Yogi" |
+  b'\breve _"Larry" |
+  \mark "Twinkle" e''8 s4.. \bar "|."
+}
+
+\layout {
+  \context {
+    \Score
+    \remove "Mark_engraver"
+  }
+  \context {
+    \Staff
+    \consists "Mark_engraver"
+  }
+}
+@end lilypond
+
+By overriding the @code{X-offset} or @code{Y-offset} value we can
+move grobs relative to their parents:
+
+@cindex @code{X-offset} property, example
+@cindex @code{Y-offset} property, example
+
+@example
+@{
+  \override Script.X-offset = #3              % fermata, accent
+  \override TextScript.X-offset = #2          % "Yogi", "Larry"
+  \override Stem.X-offset = #-2
+  \override Score.RehearsalMark.Y-offset = #5 % "Twinkle"
+
+  \override NoteHead.style = #'altdefault     % for breve
+
+  \time 4/2 g'2-> c''\fermata as'1^"Yogi" |
+  b'\breve _"Larry" |
+  \mark "Twinkle" e''8 s4.. \bar "|."
+@}
+@end example
+
+@lilypond[quote,staffsize=26]
+\include "reference-points.ly"
+
+\new Staff \with {
+  \printRefpoint ##f #'all-grobs
+} {
+  \override Script.X-offset = #3              % fermata, accent
+  \override TextScript.X-offset = #2          % "Yogi", "Larry"
+  \override Stem.X-offset = #-2
+  \override Score.RehearsalMark.Y-offset = #5 % "Twinkle"
+
+  \override NoteHead.style = #'altdefault     % for breve
+
+  \time 4/2 g'2-> c''\fermata as'1^"Yogi" |
+  b'\breve _"Larry" |
+  \mark "Twinkle" e''8 s4.. \bar "|."
+}
+
+\layout {
+  \context {
+    \Score
+    \remove "Mark_engraver"
+  }
+  \context {
+    \Staff
+    \consists "Mark_engraver"
+  }
+}
+@end lilypond
+
+@noindent
+Note that the @code{Flag} grob moved together with its @code{Stem}
+grob.
+
+@warning{Changing @code{X-offset} or @code{Y-offset} doesn't
+always work as expected, see @rnotation{Aligning objects}.}
+
+@cindex @code{X-extent} property
+@cindex @code{Y-extent} property
+
+Now, let's explain another pair of properties: @code{X-extent} and
+@code{Y-extent}.  Each of them is a pair of numbers (internally,
+LilyPond calls this an @dfn{interval}), and they store a grob's
+dimensions relative to its reference point.  For example,
+@code{X-extent} equal to (@w{-1} .@tie{}4) means that the left
+edge of the grob is 1@tie{}staff space to the left of its
+reference point, and the right edge is 4@tie{}staff spaces to the
+right from reference point, for a total width of 4@tie{}- @w{(-1)}
+= 4 +@tie{}1 = 5@tie{}staff spaces.  Both numbers in an extent may
+be positive; for example, (2 .@tie{}3) is a valid extent: it means
+that the whole grob is on the right of its reference point, and
+the width of the grob is 3@tie{}- 2 =@tie{}1 staff space.
+Similarly, both numbers can be negative; these situations are
+quite unusual but won't give LilyPond headaches.  The most common
+situation (at least for @code{X-extent}) is that the first number
+is@tie{}0, which means that the reference point is on the left
+edge of the grob.
+
+The previous example demonstrates this nicely: both the accent's
+and the fermata's left edge is left of the reference point; the
+same holds for the breve note head (we selected the
+@code{'altdefault} note head style to make this better visible).
+
+Now, suppose that we want to position a @code{RehearsalMark} grob
+so that its right edge is aligned with a bar line (by default,
+LilyPond horizontally centers the rehearsal mark).  With
+@code{X-offset} equal to zero (i.e., its reference point is
+aligned on the parent, which is equal to the bar line in this
+situation), the @code{RehearsalMark} grob is placed like this:
+
+@lilypond[quote,verbatim]
+{
+  \override Score.RehearsalMark.X-offset = #0
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+@noindent
+So, we need to shift it.  Remember what the second number in
+@code{X-extent} means?  It's the position of a grob's right edge
+relative to its reference point.  If we subtract this value from
+zero, we'll get the x-offset we want:
+
+@lilypond[quote,verbatim]
+{
+  % value -10.4 found by trial and error
+  \override Score.RehearsalMark.X-offset = #-10.4
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+What if we wanted to center some grob on the reference point on
+its parent?  That's simple: calculate the displacement between a
+grob's reference point and the @emph{center} of its extent.  Some
+examples:
+
+@itemize
+@item @code{X-extent} = (-2 . 2)@*
+      @result{} @code{X-offset} = 0 - 0 = 0
+@item @code{X-extent} = (0 . 4)@*
+      @result{} @code{X-offset} = 0 - (0 + 0.5 *@tie{}4) = @w{-2}
+@item @code{X-extent} = (-2 . 4)@*
+      @result{} @code{X-offset} = 0 - ((0.5 * @w{-2}) + (0.5 * 4))
+                                = 0 - (@w{-1} +@tie{}2) = @w{-1}
+@end itemize
+
+There is already a function with a super-long name available that
+can do these calculations for us:
+
+@example
+\override @var{GrobName}.X-offset =
+  #ly:self-alignment-interface::x-aligned-on-self
+@end example
+
+@noindent
+and we only need to specify what alignment we want:
+
+@example
+\override @var{GrobName}.self-alignment-X = #RIGHT
+@end example
+
+This code tells the procedure to find the displacement between a
+grob's reference point and its right edge, and use it as the
+x-offset, which will result in the grob being right-aligned.
+
+So, if you change a grob's extent, you will affect how it will be
+aligned (because LilyPond will think that the grob's dimensions
+are different):
+
+@lilypond[quote,verbatim]
+{
+  \override Score.RehearsalMark.X-extent = #'(0 . 8)
+  \override Score.RehearsalMark.self-alignment-X = #RIGHT
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+Also, if a grob's extent is empty (i.e., it's not an interval
+pair), procedures like @code{x-aligned-on-self} won't have any
+information about a grob's dimensions, so they won't be able to
+calculate an offset (they'll just return value@tie{}0).  In other
+words, a grob with an empty extent can only be @q{aligned} on its
+reference point because there's no other information that can be
+used for alignment:
+
+@lilypond[quote,verbatim]
+{
+  \override Score.RehearsalMark.X-extent = ##f
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+Notice that an empty extent and a zero extent result in the same
+positioning:
+
+@lilypond[quote,verbatim]
+{
+  \override Score.RehearsalMark.X-extent = #'(0 . 0)
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+However, an empty extent (or a zero extent, or any other extent)
+doesn't prevent us from placing the grob at any location we want
+-- we just can't use alignment procedures for that.  We can still
+specify any offset we want, and it will work as usual:
+
+@lilypond[quote,verbatim]
+{
+  \override Score.RehearsalMark.X-extent = ##f
+  \override Score.RehearsalMark.X-offset = #-10.4
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+Now, there is one more thing to keep in mind: a grob's parent has
+its own dimensions, too, and we need to take them into account.
+For example, if we write
+
+@lilypond[quote,verbatim]
+{ a'1 }
+\addlyrics {
+  \override LyricText.X-offset =
+    #ly:self-alignment-interface::x-aligned-on-self
+  \override LyricText.self-alignment-X = #CENTER
+  nn
+}
+@end lilypond
+
+@noindent
+the @code{LyricText} grob will be centered, but @emph{on the
+reference point of its parent} (i.e., the center of the syllable
+will be aligned to the reference point of the note head).  If we
+want the center of the @code{LyricText} grob to be aligned with
+the center of its parent @code{NoteHead} grob, we have to use a
+different procedure: @code{aligned-on-x-parent}.  It works very
+similar to @code{x-aligned-on-self}, but in addition to
+calculating an offset based on a grob's own extent, it also uses
+the grob's parent extent and computes positions relative to the
+center of the extent:
+
+@lilypond[quote,verbatim]
+{ a'1 }
+\addlyrics {
+  \override LyricText.X-offset =
+    #ly:self-alignment-interface::aligned-on-x-parent
+  \override LyricText.self-alignment-X = #CENTER
+  nn
+}
+@end lilypond
+
+
 @node Placement of objects
 @section Placement of objects
 
@@ -2521,17 +2828,10 @@ shall have to work out how to do this using @code{\override} commands.
 @cindex grob, sizing
 @cindex sizing grobs
 
-First we must learn how grobs are sized.  All grobs have a
-reference point defined within them which is used to position
-them relative to their parent object.  This point in the grob
-is then positioned at a horizontal distance, @code{X-offset},
-and at a vertical distance, @code{Y-offset}, from its parent.
-The horizontal extent of the object is given by a pair of
-numbers, @code{X-extent}, which say where the left and right
-edges are relative to the reference point.  The vertical extent
-is similarly defined by a pair of numbers, @code{Y-extent}.
-These are properties of all grobs which support the
-@code{grob-interface}.
+In general, all grobs support the @code{grob-interface}, which
+contains, among other things, the properties @code{X-offset},
+@code{Y-offset}, @code{X-extent}, and @code{Y-extent}
+(@pxref{Offsets and alignments} for a thorough introduction).
 
 @cindex @code{extra-spacing-width} property
 
