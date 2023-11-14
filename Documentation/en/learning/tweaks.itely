@@ -1033,58 +1033,65 @@ starts with@tie{}@code{#}.  We only give examples for constants
 here: if you want to compute a value using Scheme, see
 @rextend{Calculations in Scheme}.
 
-@multitable @columnfractions .2 .45 .35
+@indentedblock
+@raggedright
+@multitable {@b{Property Type}} {either @q{true} or @q{false}, represented by)} {@code{ly:text-interface::print},}
 @headitem Property type
   @tab Rules
   @tab Examples
 @item Boolean
-  @tab Either True or False, represented by #t or #f
-  @tab @code{#t}, @code{#f}
-@item Dimension (in staff space)
-  @tab A decimal number (in units of staff space)
-  @tab @code{2.5}, @code{0.34}
-@item Direction
-  @tab A valid direction constant or its numerical equivalent
-  (@code{0} or @code{CENTER} indicate a neutral direction)
-  @tab @code{LEFT}, @code{CENTER}, @code{UP},
-       @code{1}, @w{@code{-1}}
-@item Integer
-  @tab A whole number
-  @tab @code{3}, @code{-1}
-@item List
-  @tab A sequence of constants or symbols separated by spaces, enclosed
-  in parentheses
-and preceded by an apostrophe (quote mark)
-  @tab @code{'(left-edge staff-bar)}, @code{'(1)}, @code{'()},
-       @code{'(1.0 0.25 0.5)}
-@item Markup
-  @tab Any valid markup
-  @tab @code{\markup @{ \italic "cresc." @}}, @code{"bagpipe"}
-@item Moment
-  @tab A musical length; this type is distinct from a note
-  duration
-  @tab @code{\musicLength 4.},
-       @code{\musicLength @{2 2.@}}
-@item Number
-  @tab Any positive or negative, possibly decimal, value
-  @tab @code{3}, @w{@code{-2.45}}
-@item Pair (of numbers)
-  @tab Two numbers separated by a @q{space . space} and enclosed
-in brackets preceded by an apostrophe
-  @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
-@item Symbol
-  @tab Any of the set of permitted symbols for that property,
-preceded by an apostrophe
-  @tab @code{'italic}, @code{'inside}
-@item Unknown
-  @tab A procedure, or @code{#f} to cause no action
-  @tab @code{bend::print}, @code{ly:text-interface::print},
+  @tab either @q{true} or @q{false}, represented by @code{#t} or
        @code{#f}
-@item Vector
-  @tab Constants
-  enclosed in @code{#(}@dots{}@code{)}.
+  @tab @code{#t}, @code{#f}
+@item dimension@*(in staff spaces)
+  @tab a decimal number (in units of staff spaces)
+  @tab @code{2.5}, @code{0.34}
+@item direction
+  @tab a valid direction constant or its numerical equivalent
+       (value@tie{}@code{0} or @code{CENTER} indicate a neutral
+       direction)
+  @tab @code{LEFT}, @code{CENTER}, @code{UP}, @code{1}, @code{-1}
+@item integer
+  @tab a whole number
+  @tab @code{3}, @code{-1}
+@item list
+  @tab a sequence of constants or symbols separated by spaces, enclosed
+       in parentheses and preceded by an apostrophe (quote mark)
+  @tab @code{'(left-edge staff-bar)},@*
+       @code{'(1)}, @code{'()},@*
+       @code{'(1.0 0.25 0.5)}
+@item markup
+  @tab any valid markup
+  @tab @code{\markup @{ \italic "cresc." @}}, @code{"bagpipe"}
+@item moment
+  @tab a musical length; this type is distinct from a note
+       duration
+  @tab @code{\musicLength 4.},@*
+       @code{\musicLength @{ 2 2. @}}
+@item number
+  @tab any positive or negative, possibly decimal, value
+  @tab @code{3}, @code{-2.45}
+@item pair@*(of numbers)
+  @tab two numbers separated by the sequence @q{whitespace},
+       @samp{.}, @q{whitespace}, enclosed in parentheses, and
+       preceded by an apostrophe
+  @tab @code{'(2 . 3.5)},@*
+       @code{'(0.1 . -3.2)}
+@item symbol
+  @tab any of the set of permitted symbols for that property,
+       preceded by an apostrophe
+  @tab @code{'italic}, @code{'inside}
+@item unknown
+  @tab a procedure, or @code{#f} to cause no action
+  @tab @code{bend::print},@*
+       @code{ly:text-interface::print},@*
+       @code{#f}
+@item vector
+  @tab constants enclosed in @code{#(}@dots{}@code{)}.
   @tab @code{#(#t #t #f)}
 @end multitable
+@end raggedright
+@end indentedblock
 
 
 @morerefs
@@ -1954,7 +1961,9 @@ However, these explicit overrides are not usually used, as there are
 simpler equivalent predefined commands available.  Here is a table of
 the commonest.  The meaning of each is stated where it is not obvious.
 
-@multitable @columnfractions .2 .2 .25 .35
+@smallindentedblock
+@raggedright
+@multitable {@code{\arpeggioArrowDown}} {@code{\arpeggioArrowUp}} {@code{\phrasingSlurNeutral}} {Arrow is at bottom, at top}
 @headitem Down/Left
   @tab Up/Right
   @tab Revert
@@ -1996,6 +2005,8 @@ the commonest.  The meaning of each is stated where it is not obvious.
   @tab @code{\tupletNeutral}
   @tab Tuplets are below/above notes
 @end multitable
+@end raggedright
+@end smallindentedblock
 
 The neutral/normal variants of these commands are implemented
 using @code{\revert} and these may @strong{not} be
@@ -2953,8 +2964,10 @@ main difficulty with this approach is that the repositioning values
 may need to be reworked if the music is later modified.  The
 properties that can be used for this type of manual repositioning are:
 
-@table @code
-@item extra-offset
+@itemize
+
+@item
+@code{extra-offset}
 
 @cindex @code{extra-offset} property
 
@@ -2966,7 +2979,8 @@ staff-spaces.  The extra displacement is made after the typesetting of
 objects is finished, so an object may be repositioned anywhere without
 affecting anything else.
 
-@item positions
+@item
+@code{positions}
 
 @cindex @code{positions} property
 
@@ -2980,7 +2994,7 @@ generates a list of possible positions for the slur and by default
 finds the slur that @qq{looks best}.  If the @code{positions}
 property has been overridden the slur that is closest to the
 requested positions is selected from the list.
-@end table
+@end itemize
 
 @end enumerate
 
@@ -2993,19 +3007,34 @@ involved in collisions, together with the name of the object which
 should be looked up in the IR in order to discover which properties
 should be used to move them.
 
-@multitable @columnfractions .5 .5
-@headitem Object type           @tab Object name
-@item Articulations             @tab @code{Script}
-@item Beams                     @tab @code{Beam}
-@item Dynamics (vertically)     @tab @code{DynamicLineSpanner}
-@item Dynamics (horizontally)   @tab @code{DynamicText}
-@item Fingerings                @tab @code{Fingering}
-@item Rehearsal / Text marks    @tab @code{RehearsalMark}
-@item Slurs                     @tab @code{Slur}
-@item Text e.g. @code{^"text"}  @tab @code{TextScript}
-@item Ties                      @tab @code{Tie}
-@item Tuplets                   @tab @code{TupletBracket}
+@indentedblock
+@multitable {Dynamics (horizontally)} {@code{DynamicLineSpanner}}
+@headitem Object type
+  @tab Object name
+@item articulations, e.g., @samp{->}
+  @tab @code{Script}
+@item beams
+  @tab @code{Beam}
+@item dynamics (vertically)
+  @tab @code{DynamicLineSpanner}
+@item dynamics (horizontally)
+  @tab @code{DynamicText}
+@item fingerings
+  @tab @code{Fingering}
+@item rehearsal marks
+  @tab @code{RehearsalMark}
+@item text marks
+  @tab @code{TextMark}
+@item slurs
+  @tab @code{Slur}
+@item text, e.g., @samp{^"text"}
+  @tab @code{TextScript}
+@item ties
+  @tab @code{Tie}
+@item tuplets
+  @tab @code{TupletBracket}
 @end multitable
+@end indentedblock
 
 
 @node Fixing overlapping notation
@@ -4494,10 +4523,14 @@ script, and @var{X.Y.Z} is the LilyPond version number.
 
 Within this directory the two interesting subdirectories are
 
-@itemize
-@item @file{ly/} - contains files in LilyPond format
-@item @file{scm/} - contains files in Scheme format
-@end itemize
+@indentedblock
+@table @file
+@item ly/
+contains files in LilyPond format
+@item scm/
+contains files in Scheme format
+@end table
+@end indentedblock
 
 Let's begin by looking at some files in @file{ly/}.
 Open @file{ly/property-init.ly} in a text editor.  The one
@@ -4522,20 +4555,24 @@ head of your input file.
 The following are the most useful files to be found in
 @file{ly/}:
 
-@multitable @columnfractions .4 .6
+@indentedblock
+@raggedright
+@multitable @columnfractions .42 .53
 @headitem Filename
   @tab Contents
 @item @file{ly/engraver-init.ly}
-  @tab Definitions of engraver Contexts
+  @tab Definitions of engraver contexts
 @item @file{ly/paper-defaults-init.ly}
   @tab Specifications of paper-related defaults
 @item @file{ly/performer-init.ly}
-  @tab Definitions of performer Contexts
+  @tab Definitions of performer contexts
 @item @file{ly/property-init.ly}
   @tab Definitions of all common predefined commands
 @item @file{ly/spanner-init.ly}
   @tab Definitions of spanner-related predefined commands
 @end multitable
+@end raggedright
+@end indentedblock
 
 Other settings (such as the definitions of markup commands) are
 stored as @file{.scm} (Scheme) files.  The Scheme programming
@@ -4549,7 +4586,9 @@ to understand Scheme and these files (see @rextend{Scheme tutorial}).
 If you have this knowledge, the Scheme files which may be of
 interest are:
 
-@multitable @columnfractions .4 .6
+@indentedblock
+@raggedright
+@multitable @columnfractions .42 .53
 @headitem Filename
   @tab Contents
 @item @file{scm/auto-beam.scm}
@@ -4557,17 +4596,19 @@ interest are:
 @item @file{scm/define-grobs.scm}
   @tab Default settings for grob properties
 @item @file{scm/define-markup-commands.scm}
-  @tab Specify all markup commands
+  @tab Almost all markup commands
 @item @file{scm/midi.scm}
   @tab Default settings for MIDI output
 @item @file{scm/output-lib.scm}
   @tab Settings that affect appearance of frets, colors,
-       accidentals, bar lines, etc
+       accidentals, bar lines, etc.
 @item @file{scm/parser-clef.scm}
   @tab Definitions of supported clefs
 @item @file{scm/script.scm}
   @tab Default settings for articulations
 @end multitable
+@end raggedright
+@end indentedblock
 
 
 @node Advanced tweaks with Scheme
