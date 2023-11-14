@@ -2247,23 +2247,23 @@ these.
 @cindex @code{bound-details} property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-% Set details for later Text Spanner
-\override TextSpanner.bound-details.left.text
-    = \markup { \small \bold Slower }
-% Place dynamics above staff
+% set details for later TextSpanner
+\override TextSpanner.bound-details.left.text =
+  \markup { \small \bold Slower }
+% place dynamics above staff
 \dynamicUp
-% Start Ottava Bracket
+% start ottava bracket
 \ottava #1
 c''4 \startTextSpan
-% Add Dynamic Text and hairpin
+% add dynamic text and hairpin
 c''4\pp\<
 c''4
-% Add Text Script
+% add text script
 c''4^Text |
 c''4 c''
-% Add Dynamic Text and terminate hairpin
+% add dynamic text and terminate hairpin
 c''4\ff c'' \stopTextSpan |
-% Stop Ottava Bracket
+% stop ottava bracket
 \ottava #0
 c'4 c' c' c' |
 @end lilypond
@@ -2298,26 +2298,26 @@ context:
 @cindex @code{bound-details} property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-% Set details for later Text Spanner
-\override TextSpanner.bound-details.left.text
-    = \markup { \small \bold Slower }
-% Place dynamics above staff
+% set details for later text spanner
+\override TextSpanner.bound-details.left.text =
+  \markup { \small \bold Slower }
+% place dynamics above staff
 \dynamicUp
-% Place following Ottava Bracket below Text Spanners
+% place following ottava bracket below text spanners
 \once \override Staff.OttavaBracket.outside-staff-priority = #340
-% Start Ottava Bracket
+% start ottava bracket
 \ottava #1
 c''4 \startTextSpan
-% Add Dynamic Text
+% add dynamic text
 c''4\pp
-% Add Dynamic Line Spanner
+% add dynamic line spanner
 c''4\<
-% Add Text Script
+% add text script
 c''4^Text |
 c''4 c''
-% Add Dynamic Text
+% add dynamic text
 c''4\ff c'' \stopTextSpan |
-% Stop Ottava Bracket
+% stop ottava bracket
 \ottava #0
 c'4 c' c' c' |
 @end lilypond
@@ -2620,10 +2620,10 @@ adjust its properties.  Let's try it and see if it works.
       }
     }
     \new Lyrics \with {
-      \override VerticalAxisGroup.
-        nonstaff-relatedstaff-spacing.padding = #5
-      \override VerticalAxisGroup.
-        nonstaff-unrelatedstaff-spacing.padding = #5
+      \override VerticalAxisGroup
+                .nonstaff-relatedstaff-spacing.padding = #5
+      \override VerticalAxisGroup
+                .nonstaff-unrelatedstaff-spacing.padding = #5
     }
     \lyricsto "music" {
       Here are some lyrics
@@ -2662,8 +2662,8 @@ We'll do this by changing the @code{basic-distance} of the
 @lilypond[quote,fragment,ragged-right,verbatim]
 <<
   \new ChoirStaff \with {
-    \override StaffGrouper.
-      staffgroup-staff-spacing.basic-distance = #15
+    \override StaffGrouper
+              .staffgroup-staff-spacing.basic-distance = #15
   }
   <<
     \new Staff {
@@ -2672,10 +2672,10 @@ We'll do this by changing the @code{basic-distance} of the
       }
     }
     \new Lyrics \with {
-      \override VerticalAxisGroup.
-        nonstaff-relatedstaff-spacing.padding = #2
-      \override VerticalAxisGroup.
-        nonstaff-unrelatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup
+                .nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup
+                .nonstaff-unrelatedstaff-spacing.padding = #2
     }
     \lyricsto "music" {
       Here are some lyrics
@@ -2705,8 +2705,8 @@ as shown below.
 @lilypond[quote,fragment,ragged-right,verbatim]
 <<
   \new ChoirStaff \with {
-    \override StaffGrouper.
-      staffgroup-staff-spacing.basic-distance = #15
+    \override StaffGrouper
+              .staffgroup-staff-spacing.basic-distance = #15
   }
   <<
     \new Staff {
@@ -2715,10 +2715,10 @@ as shown below.
       }
     }
     \new Lyrics \with {
-      \override VerticalAxisGroup.
-        nonstaff-relatedstaff-spacing.padding = #2
-      \override VerticalAxisGroup.
-        nonstaff-unrelatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup
+                .nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup
+                .nonstaff-unrelatedstaff-spacing.padding = #2
     }
     \lyricsto "music" {
       Here are some lyrics
@@ -2728,9 +2728,9 @@ as shown below.
     }
   >>
   \new PianoStaff \with {
-    \override StaffGrouper.staff-staff-spacing = #'(
-                            (basic-distance . 0)
-                            (padding . 0))
+    \override StaffGrouper.staff-staff-spacing =
+                #'((basic-distance . 0)
+                   (padding . 0))
   }
   <<
     \new Staff {
@@ -4326,7 +4326,7 @@ inst =
   @}
   \context @{
     \Staff
-    \override TimeSignature.style = #'numbered
+    \numericTimeSignature
   @}
   \context @{
     \Voice
@@ -4356,7 +4356,7 @@ inst =
   }
   \context {
     \Staff
-    \override TimeSignature.style = #'numbered
+    \numericTimeSignature
   }
   \context {
     \Voice
@@ -4475,7 +4475,7 @@ file with @code{\include "../global.ily"}, which contains
 
 @example
 %%%   global.ily
-\version @w{"@version{}"}
+\version "@version{}"
 
 #(ly:set-option 'point-and-click #f)
 
