@@ -619,6 +619,11 @@ Learning Manual:
 
 @cindex Internals Reference
 
+The @dfn{Internals Reference} manual (IR) is the ultimate answer
+to LilyPond's configurability.  To understand how it can be used,
+however, you need a bunch of information that has not yet been
+presented, and which follows in the next subsections.
+
 @menu
 * Properties of layout objects::
 * Properties found in interfaces::
@@ -1812,21 +1817,6 @@ from a font) may be changed in the same way.
 @node Placement of objects
 @section Placement of objects
 
-@menu
-* Automatic behavior::
-* Within-staff objects::
-* Outside-staff objects::
-@end menu
-
-
-@node Automatic behavior
-@subsection Automatic behavior
-
-@cindex within-staff objects
-@cindex outside-staff objects
-@cindex object, within-staff
-@cindex object, outside-staff
-
 There are some objects in musical notation that belong to
 the staff and there are other objects that should be
 placed outside the staff.  These are called within-staff
@@ -1841,6 +1831,21 @@ note heads, stems and accidentals in closely set chords are
 normally avoided automatically.  There are commands and
 overrides which can modify this automatic behavior, as we
 shall shortly see.
+
+@menu
+* Automatic behavior::
+* Within-staff objects::
+* Outside-staff objects::
+@end menu
+
+
+@node Automatic behavior
+@subsection Automatic behavior
+
+@cindex within-staff objects
+@cindex outside-staff objects
+@cindex object, within-staff
+@cindex object, outside-staff
 
 @cindex @code{outside-staff-priority} property
 
@@ -2754,8 +2759,15 @@ variables of the @code{VerticalAxisGroup}.  See the
 @rnotation{Flexible vertical spacing within systems} for more
 details.
 
+
 @node Collisions of objects
 @section Collisions of objects
+
+The tips and tricks covered in this section are applications and
+extensions of previous parts of this manual.  In particular, you
+should be comfortable with the concepts of @dfn{extents},
+@dfn{offsets}, and @dfn{alignments}, @pxref{Offsets and
+alignments}.
 
 @menu
 * Moving objects::
@@ -3943,6 +3955,9 @@ lhMusic = \relative {
 @node Further tweaking
 @section Further tweaking
 
+We have almost completed our introduction into tweaking, and only
+some topics remain that we would like to discuss.
+
 @menu
 * Other uses for tweaks::
 * Using variables for layout adjustments::
@@ -3953,6 +3968,9 @@ lhMusic = \relative {
 
 @node Other uses for tweaks
 @subsection Other uses for tweaks
+
+Here we describe situations that occur rather frequently in
+real-world scores.
 
 @menu
 * Tying notes across voices::
