@@ -265,7 +265,9 @@ at the coordinate of the column relative to the system.
 Interval
 Paper_column::get_interface_extent (Grob *column, SCM iface, Axis a)
 {
-  Interval extent = Interval (0, 0);
+  Interval extent;
+  extent.set_empty();
+
   extract_grob_set (column, "elements", elts);
 
   for (vsize i = 0; i < elts.size (); i++)
@@ -479,4 +481,5 @@ rhythmic-location
 spacing
 used
 when
+X-alignment-extent
                )");

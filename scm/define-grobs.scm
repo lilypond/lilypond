@@ -2493,6 +2493,8 @@ note name.")))))
         ;; allows double flat of F to be nestled over dots of C
         (skyline-vertical-padding . 0.08)
         ;; (stencil . ,ly:paper-column::print)
+        ;; Make the placeholder extent as wide as a note head.
+        (X-alignment-extent . (0 . 1.35))
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Paper_column)
                  (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)

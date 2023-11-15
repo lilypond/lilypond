@@ -118,13 +118,25 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
   Grob *him = me->get_parent (a);
   Interval he;
   if (has_interface<Paper_column> (him))
-    /*
-      PaperColumn extents aren't reliable (they depend on size and alignment
-      of PaperColumn's children), so we align on NoteColumn instead.
-      This happens e.g. for lyrics without associatedVoice.
-    */
-    he = Paper_column::get_interface_extent (
-      him, ly_symbol2scm ("note-column-interface"), a);
+    {
+      /*
+        PaperColumn extents aren't reliable (they depend on size and alignment
+        of PaperColumn's children), so we align on combined note heads instead.
+        If there are no note heads, we use a placeholder extent, see regtest
+        `paper-column-grob-alignment.ly` for more details.
+
+        This situation happens for lyrics without `associatedVoice`, for
+        example.
+      */
+      he = Paper_column::get_interface_extent (
+        him, ly_symbol2scm ("note-column-interface"), a);
+      if (he.is_empty () && a == X_AXIS)
+        {
+          SCM ext = get_property (him, "X-alignment-extent");
+          if (is_number_pair (ext))
+            he = from_scm<Interval> (ext);
+        }
+    }
   else
     {
       if (from_scm<bool> (get_property (me, "X-align-on-main-noteheads"))
@@ -186,6 +198,11 @@ Align reference point of self with the reference point of parent.  The
 position of the own reference point is adjusted with @code{self-alignment-X}
 and @code{self-alignment-Y}, the position of the parent's reference point
 with @code{parent-alignment-X} and @code{parent-alignment-Y}, respectively.
+
+Function @code{ly:self-alignment-interface::aligned-on-x-parent} listens to
+the property @code{X-alignment-extent} of the @code{PaperColumn} grob, using
+it as a fallback width for parent alignment in case the @code{PaperColumn}
+grob does not contain note heads.
 
 @item ly:self-alignment-interface::centered-on-x-parent
 @itemx ly:self-alignment-interface::centered-on-y-parent

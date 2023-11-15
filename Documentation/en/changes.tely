@@ -729,6 +729,38 @@ The @code{Stem.details.lengths} property now also accepts pairs as
 list elements, allowing to set the length for up and down stems
 separately.
 
+@item
+The @code{ly:self-alignment-interface::aligned-on-x-parent}
+function (used by many grobs to compute the x-offset) now listens
+to a new @code{PaperColumn} property called
+@code{X-alignment-extent}.  Set by default, it provides a fallback
+width for the @code{PaperColumn} grob in case it doesn't contain
+note heads.  This helps align dynamic scripts that are attached to
+spacer rests, for example.
+
+@lilypond[quote,verbatim]
+music =
+  \new Staff <<
+    { f'2 g'2 }
+    { s4\f s\f s\f s\f }
+  >>
+
+\score {
+  \music
+}
+
+\score {
+  \music
+
+  \layout {
+    \context {
+      \Score
+      \override PaperColumn.X-alignment-extent = ##f
+    }
+  }
+}
+@end lilypond
+
 @end itemize
 
 

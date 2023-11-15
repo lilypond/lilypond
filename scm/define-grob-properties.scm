@@ -1372,6 +1372,9 @@ texts.")
 ;;;
      (X-align-on-main-noteheads ,boolean? "If true, this grob will
 ignore suspended noteheads when aligning itself on NoteColumn.")
+     (X-alignment-extent ,number-pair? "If a grob wants to align
+itself on a @code{PaperColumn} grob that doesn't contain note heads,
+use this horizontal extent as a placeholder.")
      (X-attachment ,number? "Horizontal attachment of a line on a
 frame, typically between -1 (left) and 1 (right).")
      (X-extent ,number-pair? "Extent (size) in the X@tie{}direction,
