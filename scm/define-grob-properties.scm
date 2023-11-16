@@ -890,6 +890,7 @@ of the parent the object is aligned. The value @w{@code{-1}} means
 aligned on parent's left edge, @code{0}@tie{}on@tie{}center, and
 @code{1}@tie{}right edge, in X@tie{}direction.  Other numerical
 values may also be specified - the unit is half the parent's width.
+If not a number, align on the parent's reference point.
 If unset, the value from @code{self-alignment-X} property will be
 used.")
      (parent-alignment-Y ,number? "Like @code{parent-alignment-X}
@@ -987,7 +988,8 @@ influenced by changes to
      (self-alignment-X ,number? "Specify alignment of an object.  The
 value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 @code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
-values may also be specified - the unit is half the object width.")
+values may also be specified - the unit is half the object width.
+If not a number, align on the object's reference point.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
      (senza-misura-stencil ,ly:stencil? "The symbol to print when
