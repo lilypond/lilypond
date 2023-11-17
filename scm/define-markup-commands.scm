@@ -2696,7 +2696,7 @@ Values inbetween interpolate the alignment accordingly.
                                        axis
                                        other-dir other
                                        self-dir self)
-  (index? number? markup? number? markup?)
+  (index? boolean-or-number? markup? boolean-or-number? markup?)
   #:category align
   "Align markup @var{self} on markup @var{other} along @var{axis}.
 
@@ -2704,21 +2704,32 @@ This function uses @var{self-@/dir} and @var{other-@/dir} for mutual alignment
 of @var{self} and @var{other}, respectively, translating @var{self} as requested
 relative to its surroundings.  @var{other} is not printed.
 
+If @var{self-@/dir} or @var{other-@/dir} is @code{#f}, use the reference point
+of @var{self} or @var{other}, respectively.
+
 @lilypond[verbatim,quote]
 \\markup \\column {
-  1
   12
   \\align-on-other #X #RIGHT 12
                      #LEFT 12345
+  \\align-on-other #X #RIGHT 123
+                     #LEFT \\fermata
   123
+  \\align-on-other #X #RIGHT 123
+                     ##f \\fermata
 }
 @end lilypond"
   (let* ((self-stil (interpret-markup layout props self))
          (self-ext (ly:stencil-extent self-stil axis))
+         (self-offset (if (number? self-dir)
+                          (interval-index self-ext self-dir)
+                          0))
          (other-stil (interpret-markup layout props other))
          (other-ext (ly:stencil-extent other-stil axis))
-         (trans (- (interval-index other-ext other-dir)
-                   (interval-index self-ext self-dir))))
+         (other-offset (if (number? other-dir)
+                           (interval-index other-ext other-dir)
+                           0))
+         (trans (- other-offset self-offset)))
     (ly:stencil-translate-axis self-stil trans axis)))
 
 (define-markup-command (with-dimensions layout props x y arg)

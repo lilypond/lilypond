@@ -767,6 +767,10 @@ music =
 property has been replaced with the corresponding sub-properties
 in @code{bound-details}.
 
+@item
+The @code{\align-on-other} markup command now accepts @code{#f} as
+a value for the alignment, indicating a markup's reference point.
+
 @end itemize
 
 
