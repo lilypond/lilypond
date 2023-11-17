@@ -332,6 +332,10 @@ segni to avoid ambiguity."
     (1/2 . #x266f)
     (1 . #x1d12a)))
 
+;; By default, LilyPond doesn't organize figured bass elements vertically per
+;; music moment but rather horizontally per staff (via multiple `BassFigureLine`
+;; grobs).  As a consequence, for a stack of figured bass elements at a given
+;; musical moment, every element gets formatted separately.
 (define-public (format-bass-figure figure event context)
   (let* (;; User properties controlling the figured bass layout.
          (large-number-alignment
@@ -345,6 +349,8 @@ segni to avoid ambiguity."
 
          (augmented (ly:event-property event 'augmented))
 
+         (number-one (make-number-markup "1"))
+
          ;; The digit(s), horizontally positioned, or #f.
          (fig-markup
           (if (number? figure)
@@ -352,7 +358,7 @@ segni to avoid ambiguity."
                    (lambda (y)
                      (make-align-on-other-markup
                       X
-                      large-number-alignment (make-number-markup "1")
+                      large-number-alignment number-one
                       large-number-alignment y))
                    identity)
                (cond
@@ -407,7 +413,7 @@ segni to avoid ambiguity."
           (set! fig-markup
                 (make-align-on-other-markup
                  X
-                 CENTER (make-number-markup "1")
+                 CENTER number-one
                  CENTER alt-markup))
           (set! alt-markup #f)))
 
@@ -417,10 +423,10 @@ segni to avoid ambiguity."
           (set! fig-markup
                 (make-align-on-other-markup
                  Y
-                 CENTER (make-number-markup "1")
+                 CENTER number-one
                  CENTER (make-align-on-other-markup
                          X
-                         CENTER (make-number-markup "1")
+                         CENTER number-one
                          CENTER (make-fontsize-markup 3 plus-markup))))
           (set! plus-markup #f)))
 
