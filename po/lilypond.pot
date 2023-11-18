@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.24.2\n"
+"Project-Id-Version: lilypond 2.24.3\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2023-08-09 18:23+0200\n"
+"POT-Creation-Date: 2023-11-18 12:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2332,7 +2332,7 @@ msgstr ""
 msgid "ignored infinite %s-offset"
 msgstr ""
 
-#: guile-init.cc:101
+#: guile-init.cc:106
 #, c-format
 msgid "(primitive-load-path lily): %.2f seconds"
 msgstr ""
@@ -4059,64 +4059,64 @@ msgstr ""
 msgid "Preparing Ghostscript command to `~a': ~a"
 msgstr ""
 
-#: backend-library.scm:138
+#: backend-library.scm:149
 #, scheme-format
 msgid "Converting to `~a'...\n"
 msgstr ""
 
 #. Do not try to guess the name of the png file,
 #. GS produces PNG files like BASE-page%d.png.
-#: backend-library.scm:165
+#: backend-library.scm:181
 #, scheme-format
 msgid "Converting to ~a..."
 msgstr ""
 
-#: backend-library.scm:184
+#: backend-library.scm:200
 #, scheme-format
 msgid "Copying to `~a'...\n"
 msgstr ""
 
-#: backend-library.scm:296
+#: backend-library.scm:312
 #, scheme-format
 msgid "can't create temp file in ~a after ~a times"
 msgstr ""
 
-#: backend-library.scm:332
+#: backend-library.scm:348
 #, scheme-format
 msgid "Writing ~a..."
 msgstr ""
 
-#: backend-library.scm:377
+#: backend-library.scm:393
 #, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
-#: bar-line.scm:139
+#: bar-line.scm:137
 #, scheme-format
 msgid "Bar glyph ~a not known. Ignoring."
 msgstr ""
 
-#: bar-line.scm:167
+#: bar-line.scm:165
 #, scheme-format
 msgid ""
 "Annotation '~a' is allowed in the first argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:175
+#: bar-line.scm:173
 #, scheme-format
 msgid ""
 "Replacement '~a' is allowed in the last argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:224
+#: bar-line.scm:222
 #, scheme-format
 msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:973
+#: bar-line.scm:990
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
@@ -4795,12 +4795,12 @@ msgid ""
 "no entry in measure-division-chord-placement-alist for measure division ~a"
 msgstr ""
 
-#: output-ps.scm:283 output-svg.scm:559
+#: output-ps.scm:285 output-svg.scm:559
 #, scheme-format
 msgid "unknown line-cap-style: ~S"
 msgstr ""
 
-#: output-ps.scm:288 output-svg.scm:565
+#: output-ps.scm:290 output-svg.scm:565
 #, scheme-format
 msgid "unknown line-join-style: ~S"
 msgstr ""
@@ -4910,7 +4910,7 @@ msgstr ""
 msgid "Unknown pixmap format ~a"
 msgstr ""
 
-#: ps-to-png.scm:166
+#: ps-to-png.scm:164
 msgid "`anti-alias-factor' must be a positive integer <= 8"
 msgstr ""
 
@@ -4930,11 +4930,11 @@ msgstr ""
 msgid "unterminated measure spanner"
 msgstr ""
 
-#: scheme-engravers.scm:720
+#: scheme-engravers.scm:721
 msgid "unterminated DurationLine"
 msgstr ""
 
-#: scheme-engravers.scm:869
+#: scheme-engravers.scm:870
 msgid ""
 "No notes found to start from,\n"
 "ignoring. If you want to bend an open string, consider to override/tweak "
@@ -4942,15 +4942,15 @@ msgid ""
 "'bend-me property."
 msgstr ""
 
-#: scheme-engravers.scm:903
+#: scheme-engravers.scm:904
 msgid "Unbound BendSpanner, ignoring"
 msgstr ""
 
-#: scheme-engravers.scm:1578
+#: scheme-engravers.scm:1579
 msgid "unterminated measure for chord square"
 msgstr ""
 
-#: scheme-engravers.scm:1711
+#: scheme-engravers.scm:1712
 msgid "no highlight to end"
 msgstr ""
 
