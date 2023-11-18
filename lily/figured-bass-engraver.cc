@@ -460,8 +460,26 @@ Figured_bass_engraver::create_grobs ()
             ensure the extenders of different figures always end at the same
             position, e.g. in <12 5> <12 5>
           */
+          SCM text;
+          if (ly_is_procedure (proc))
+            {
+              Stream_event *event = group.current_event_;
+              event = event->clone ();
+              set_property (event, "alteration", SCM_BOOL_F);
+              set_property (event, "augmented", SCM_BOOL_F);
+              set_property (event, "diminished", SCM_BOOL_F);
+              set_property (event, "augmented-slash", SCM_BOOL_F);
+
+              text = ly_call (proc, scm_from_int (0), event->self_scm (),
+                              context ()->self_scm ());
+            }
+          else
+            {
+              text = ly_string2scm ("0");
+            }
+
           set_property (group.figure_item_, "transparent", SCM_BOOL_T);
-          set_property (group.figure_item_, "text", ly_string2scm ("0"));
+          set_property (group.figure_item_, "text", text);
           group.continuation_line_->set_bound (RIGHT, group.figure_item_);
         }
 
