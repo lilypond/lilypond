@@ -104,18 +104,15 @@ mandatory to the procedures stored in @code{bar-glyph-print-procedures}."
         (ly:warning (G_ "Bar glyph ~a not known. Ignoring.") glyph))
     stencil))
 
-(define (string->string-list str)
-  "Convert a string into a list of strings with length 1.
+(define-public (string->string-list str)
+  "Convert string @var{str} into a list of strings with length@tie{}1.
 @code{\"aBc\"} will be converted to @code{(\"a\" \"B\" \"c\")}.
-An empty string gets converted to a list containing @code{\"\"}.
-If @var{str} is not of type @code{string?}, return an empty list."
-  (cond ((and (string? str) (string-null? str))
-         (list ""))
-        ((string? str)
-         (map (lambda (s)
-                (string s))
-              (string->list str)))
-        (else '())))
+For an empty string or if @var{str} is not of type @code{string?}, return a
+list containing @code{\"\"}."
+    (if (and (string? str)
+             (not (string-null? str)))
+        (map string (string->list str))
+        (list "")))
 
 (define (strip-string-annotation str)
   "Strip annotations starting with and including the
