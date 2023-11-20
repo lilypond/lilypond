@@ -1,7 +1,8 @@
 \version "2.23.4"
 
 \header {
-  texidoc = "Bass figures can carry alterations, which may also be bracketed."
+  texidoc = "Bass figures can carry alterations, which may also be
+bracketed."
 }
 
 \layout {
@@ -23,8 +24,8 @@
     % 2) Bracketed accidentals
     <3[--]> <3[-]> <3[!]> <3[+]> <3[++]>
 
-    % 3) Multi-number figures, figure _, combination with bass figure brackets
-    % (Also, whitespace inside < > is ignored.)
+    % 3) Multi-number figures, figure _, combination with bass
+    %    figure brackets (also, whitespace inside < > is ignored.)
     <6 [ + ]3[  - ] >
     <[6[+]
     4[-]]

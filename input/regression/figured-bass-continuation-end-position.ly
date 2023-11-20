@@ -1,9 +1,9 @@
 \version "2.16.0"
 
 \header {
-  texidoc = "Figured bass extender for figures of different width (e.g. with
-alteration or two-digit figures) should still stop at the same position."
-
+  texidoc = "Figured bass extender for figures of different width (e.g.,
+with alteration or two-digit figures) should still stop at the same
+position."
 }
 
 \figures {

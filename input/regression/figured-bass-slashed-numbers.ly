@@ -1,9 +1,7 @@
 \version "2.19.22"
 
 \header {
-texidoc = "Figured bass supports numbers with slashes through
-them.
-"
+  texidoc = "Figured bass supports numbers with slashes through them."
 }
 
 bassfigures = \figuremode {
@@ -13,9 +11,8 @@ bassfigures = \figuremode {
   <3\\\+ 6\\/ 7\\+! >
 }
 
-<<
-  \new FiguredBass \bassfigures
->>
+\new FiguredBass \bassfigures
+
 
 %{
 % Override the exceptions:

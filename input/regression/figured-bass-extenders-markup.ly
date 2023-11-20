@@ -1,20 +1,16 @@
 \version "2.16.0"
 
 \header {
-
-  texidoc = "When using extender lines in FiguredBass, markup objects should
-be treated like ordinary figures and work correctly with extender lines.
+  texidoc = "When using extender lines in figured bass, markup objects
+should be treated like ordinary figures and work correctly with extender
+lines.
 
 Extenders should only be used if the markup is really identical."
-
 }
-
-
-\paper { ragged-right = ##t }
 
 <<
   \context Voice {
-    c'4 c' c' c'
+    c'4 c' c' c' |
     c' c' c' c'
   }
   \figures {

@@ -5,8 +5,9 @@
 }
 
 <<
-  \new Staff \with { \clef bass }
+  \new Staff
   {
+    \clef bass
     <g, e g c'>2 <g, d f b>
     <c f g c'>~ <c e g c'>
     <c, a, e d'>2 <c, g, es c'>
