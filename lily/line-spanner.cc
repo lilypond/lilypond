@@ -39,17 +39,18 @@
 #include <cassert>
 
 /*
-  There are basically two types of horizontal line spanners we
-  want to distinguish between.  The non-horizontal ones (such as
-  Glissando and VoiceFollower) usually compute Y positions automatically,
-  and even when the positions are tweaked by the user, they try
-  to make them relative to their containing vertical axis group.
-  The horizontal ones (TextSpanner, DynamicTextSpanner, etc.)
-  don't try to compute refpoints. In particular, for these, user
-  tweaks to Y values are always relative to the spanner itself.
-  This means that horizontal line spanners can be side-positioned
-  without causing cyclic dependencies on their distance from the
-  staff.
+  There are two types of non-vertical line spanners we want to distinguish.
+
+  * The normal ones (such as `Glissando` and `VoiceFollower`) usually
+    compute Y positions automatically, and even when the positions are
+    tweaked by the user, they try to make them relative to their containing
+    vertical axis group.
+
+  * The horizontal ones (`TextSpanner`, `DynamicTextSpanner`, etc.) don't
+    try to compute reference points.  In particular, for these, user tweaks
+    to Y values are always relative to the spanner itself.  This means that
+    horizontal line spanners can be side-positioned without causing cyclic
+    dependencies on their distance from the staff.
 */
 
 class Line_spanner
@@ -264,9 +265,9 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
             -----------------------  \\   /~~~~/---xxx|-----------
             -----------------------  \\ /~~~/---------------------
                                 /  ~~~~ /-------------------------
-          This line                 / ~~~~  \\  -------------------------
-          might be            / ~~~~~       \\  -------------------------
-          stretched...      ~~~~~~~/        \\                               ... while this
+   This line                 / ~~~~  \\  -------------------------
+   might be            / ~~~~~       \\  -------------------------
+   stretched...      ~~~~~~~/        \\                               ... while this
                   ~~~ /              \\  -------------------------    line might be
              |xxx                    \\  -------------------------    compressed.
              |xxx------------------  \\  -------------------------

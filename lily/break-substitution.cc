@@ -155,51 +155,46 @@ do_break_substitution (Crit break_criterion, SCM src)
 /*
   We don't do
 
-  forall b in broken-childs:
-  forall p in properties:
-  forall g in p (if grob-list):
-  g := substitute (g)
+    forall b in broken-childs:
+      forall p in properties:
+        forall g in p (if grob-list):
+          g := substitute (g)
 
-  for spanners since this is O (SYSTEMCOUNT * GROBCOUNT), and SYSTEMCOUNT =
-  O (GROBCOUNT), we have a quadratic algorithm. --for a single spanner
+  for spanners since this is O(SYSTEMCOUNT * GROBCOUNT), and SYSTEMCOUNT =
+  O(GROBCOUNT); we have a quadratic algorithm -- for a single spanner
 
   This is problematic: with large (long) scores, the costs can be
-  significant; especially all-elements in System, can become huge. For
-  a typical 50 page score, it requires running through a 100k list 50
+  significant; especially all-elements in System can become huge.  For
+  a typical 50-page score, it requires running through a 100k list 50
   times.
 
   Instead:
 
-  forall p in properties:
-  (if grob list)
+    forall p in properties:
+      (if grob list)
 
-  put  grob list in array,
+      put grob list in array,
 
-  reorder array so spanners are separate -- O (grobcount)
+      reorder array so spanners are separate -- O(grobcount)
 
-  find first and last indexes of grobs on a specific system
+      find first and last indices of grobs on a specific system
 
-  for items this is O (itemcount)
+      for items this is O(itemcount)
 
-  for spanners this is O (sum-of spanner-system-ranges)
+      for spanners this is O(sum-of spanner-system-ranges)
 
-  perform the substitution O (sum-of spanner-system-ranges)
+      perform the substitution O(sum-of spanner-system-ranges)
 
-
-  The complexity is harder to determine, but should be subquadratic;
-
-  For the situation above, we run through the entire 100k list once,
+  The complexity is harder to determine, but should be subquadratic:
+  for the situation above, we run through the entire 100k list once,
   and also (more or less) once through the item part of the 100k (say
   98k elements) of the list.
 
+  These timings were measured without -O2 (in 2002).
 
-  These timings were measured without -O2.
-
-  lehre, before 28.98 seconds, after: 27.91 seconds, 3.5 %.
-
-  coriolan, before 2:30, after:  1:59. Increase of 20%.
-
-  moz-k498-p1, before 24.10, after: 19.790s, Increase of 18%
+    lehre, before 28.98s, after: 27.91s, 3.5%
+    coriolan, before 2:30, after: 1:59, 20%
+    moz-k498-p1, before 24.1s, after: 19.79s, 18%
 */
 
 struct Substitution_entry

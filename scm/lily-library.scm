@@ -811,9 +811,8 @@ results in a pair.  Additional pair arguments are accepted as for
 (define-public (interval-index interval dir)
   "Interpolate @var{interval} between between left (@var{dir}=@code{-1}) and
 right (@var{dir}=@code{+1})."
-
-  (* (+  (interval-start interval) (interval-end interval)
-         (* dir (- (interval-end interval) (interval-start interval))))
+  (* (+ (interval-start interval) (interval-end interval)
+        (* dir (- (interval-end interval) (interval-start interval))))
      0.5))
 
 (define-public (interval-center x)
