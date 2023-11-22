@@ -743,4 +743,13 @@ having this interface can be side-positioned vertically.
 )",
                /* properties */
                R"(
+bound-details
+gap
+left-bound-info
+left-neighbor
+note-columns
+right-bound-info
+right-neighbor
+thickness
+to-barline
                )");

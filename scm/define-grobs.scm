@@ -1262,7 +1262,6 @@ contain mixed durations.  See also @iref{PercentRepeat},
         (meta . ((class . Spanner)
                  (interfaces . (horizontal-line-spanner-interface
                                 line-interface
-                                line-spanner-interface
                                 duration-line-interface
                                 font-interface
                                 unbreakable-spanner-interface))
@@ -1373,7 +1372,6 @@ or @q{mp}.  See also @iref{DynamicLineSpanner}.")))))
                                 font-interface
                                 horizontal-line-spanner-interface
                                 line-interface
-                                line-spanner-interface
                                 ;; for now, LilyPond never will typeset
                                 ;; these without a DynamicLineSpanner
                                 ;; as their controlling element
@@ -1407,7 +1405,6 @@ usually followed by a (dashed) line.  See also
                                 font-interface
                                 horizontal-line-spanner-interface
                                 line-interface
-                                line-spanner-interface
                                 side-position-interface))
                  (description . "An @dfn{episema} line (over a
 group of notes).  Used in Gregorian chant.")))))
@@ -3542,7 +3539,6 @@ a note head.  See also @iref{MultiMeasureRestText}.")))))
                  (interfaces . (font-interface
                                 horizontal-line-spanner-interface
                                 line-interface
-                                line-spanner-interface
                                 outside-staff-interface
                                 side-position-interface))
                  (description . "Text like @q{rit}, usually
@@ -3743,7 +3739,6 @@ trill.  See also @iref{TrillPitchGroup}.")))))
                  (interfaces . (font-interface
                                 horizontal-line-spanner-interface
                                 line-interface
-                                line-spanner-interface
                                 outside-staff-interface
                                 side-position-interface
                                 trill-spanner-interface))
@@ -4006,7 +4001,6 @@ vertically.")))))
         (meta . ((class . Spanner)
                  (interfaces . (horizontal-line-spanner-interface
                                 line-interface
-                                line-spanner-interface
                                 lyric-interface))
                  (description . "A vowel transition in
 lyrics.  See also @iref{LyricHyphen}.")))))
