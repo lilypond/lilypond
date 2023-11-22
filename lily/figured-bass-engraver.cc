@@ -280,8 +280,12 @@ Figured_bass_engraver::process_music ()
 {
   bool use_extenders
     = from_scm<bool> (get_property (this, "useBassFigureExtenders"));
-  if (alignment_ && !use_extenders)
-    clear_spanners ();
+  if (alignment_ && !use_extenders
+      && (!(now_mom ().main_part_ < stop_moment_.main_part_
+            || now_mom ().grace_part_ < Rational (0))))
+    {
+      clear_spanners ();
+    }
 
   // If we have a rest, or we have no new or continued events, clear all spanners
   if ((!continuation_ && new_events_.empty ())
