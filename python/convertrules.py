@@ -5288,6 +5288,16 @@ def conv(s):
     return s
 
 
+@rule((2, 25, 11), r"""
+BassFigureContinuation.padding
+  -> BassFigureContinuation.bound-details.left.padding
+""")
+def conv(s):
+    s = re.sub(r"BassFigureContinuation\.padding",
+               r"BassFigureContinuation.bound-details.left.padding", s)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

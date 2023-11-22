@@ -761,6 +761,12 @@ music =
 }
 @end lilypond
 
+@item
+@code{BassFigureContinuation} grobs now support
+@code{horizontal-line-spanner-interface}; the @code{padding}
+property has been replaced with the corresponding sub-properties
+in @code{bound-details}.
+
 @end itemize
 
 

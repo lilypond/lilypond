@@ -54,41 +54,6 @@ Figured_bass_continuation::center_on_figures (SCM grob)
   return to_scm (ext.center () - me->relative_coordinate (common, Y_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Figured_bass_continuation, print,
-                      "ly:figured-bass-continuation::print", 1);
-SCM
-Figured_bass_continuation::print (SCM grob)
-{
-  Spanner *me = unsmob<Spanner> (grob);
-
-  Real thick = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-               * from_scm<double> (get_property (me, "thickness"), 1);
-
-  Interval spanned;
-
-  Grob *common
-    = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  for (const auto d : {LEFT, RIGHT})
-    {
-      Item *bound = me->get_bound (d);
-      Direction extdir
-        = (d == LEFT && from_scm<bool> (get_property (bound, "implicit")))
-            ? LEFT
-            : RIGHT;
-
-      spanned[d] = robust_relative_extent (bound, common, X_AXIS)[extdir]
-                   - me->relative_coordinate (common, X_AXIS);
-    }
-  spanned.widen (-from_scm<double> (get_property (me, "padding"), 0.2));
-
-  Stencil extender;
-  if (!spanned.is_empty ())
-    extender = Line_interface::make_line (thick, Offset (spanned[LEFT], 0),
-                                          Offset (spanned[RIGHT], 0));
-
-  return extender.smobbed_copy ();
-}
-
 ADD_INTERFACE (Figured_bass_continuation,
                R"(
 Simple extender line between bounds.
@@ -96,7 +61,5 @@ Simple extender line between bounds.
 
                /* properties */
                R"(
-thickness
-padding
 figures
                )");

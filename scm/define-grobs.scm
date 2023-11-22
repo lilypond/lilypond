@@ -406,10 +406,23 @@ side-positioning.")))))
 
     (BassFigureContinuation
      . (
-        (stencil . ,ly:figured-bass-continuation::print)
+        (bound-details
+         .
+         ((right . ((attach-dir . ,RIGHT)
+                    (padding . -0.15)))
+          (right-broken . ((attach-dir . ,LEFT)
+                           (padding . 0.5)))
+          (left-broken . ((attach-dir . ,RIGHT)
+                          (padding . 0.5)))
+          (left . ((attach-dir . ,RIGHT)
+                   (padding . 0.15)))))
+        (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
+        (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
+        (stencil . ,figured-bass-continuation::print)
         (Y-offset . ,ly:figured-bass-continuation::center-on-figures)
         (meta . ((class . Spanner)
-                 (interfaces . (figured-bass-continuation-interface))
+                 (interfaces . (figured-bass-continuation-interface
+                                horizontal-line-spanner-interface))
                  (description . "A horizontal line to indicate
 that a number of a previous figured bass is continued in the
 current figured bass.")))))

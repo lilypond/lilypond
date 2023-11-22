@@ -3471,3 +3471,25 @@ for measure division ~a")
                        (if change-clef? (- font-size 1.7) font-size))))
     (grob-interpret-markup grob
                            (make-fontsize-markup font-size text))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; figured bass
+
+(define-public (figured-bass-continuation::print grob)
+  "Callback for @code{BassFigureContinuation} grobs."
+  (let* ((left-bound (ly:spanner-bound grob LEFT))
+         (implicit (ly:grob-property left-bound 'implicit #f))
+         (details (ly:grob-property grob 'bound-details))
+         (right-details (ly:assoc-get 'right details))
+         (right-padding (ly:assoc-get 'padding right-details)))
+    (when implicit
+      (ly:grob-set-nested-property! grob
+                                    '(bound-details left attach-dir)
+                                    LEFT)
+      ;; For implicit continuation lines, use the same padding on the left as on
+      ;; the right.
+      (ly:grob-set-nested-property! grob
+                                    '(bound-details left padding)
+                                    right-padding))
+    (ly:line-spanner::print grob)))
