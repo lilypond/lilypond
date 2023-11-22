@@ -322,6 +322,26 @@ now be adjusted with the @code{volta-number-offset} property of
 
 @itemize
 @item
+A new @code{\\bar-line} markup command to print bar lines in text is now
+available.
+
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(word-space . 2)
+    \line {
+      Examples
+      \fontsize #-5 \translate-scaled #'(0 . 2) {
+        \bar-line ":|."
+        \bar-line ".|:"
+        \bar-line ";!S!;"
+        \bar-line "]{|}["
+      }
+    }
+}
+@end lilypond
+
+
+@item
 The syntax for customizing text and music fonts has been changed.
 Instead of
 

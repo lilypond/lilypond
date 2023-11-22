@@ -4632,6 +4632,274 @@ Print a brace from the music font, of height @var{size} (in points).
                      180 (make-left-brace-markup size))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; the bar line command.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-markup-command (bar-line layout props strg)(string?)
+  #:category music
+  #:properties ((font-size 0)
+                (height 4)
+                (dot-count 4)
+                (dash-count 5)
+                (hair-thickness 1.9)
+                (kern 3.0)
+                (thick-thickness 6.0))
+  "
+@cindex bar line, in markup
+
+Print a bar line in markup.
+
+The allowed characters for input string @var{strg} are @samp{;|.:!S[]@{@}},
+having the same meaning as with the @code{\\bar} command.
+The additional characters @samp{@{} and @samp{@}} denote left and right braces,
+respectively.
+
+The output is vertically centered.
+
+Changes of @code{font-size} are respected.
+
+The default of @code{height} is 4@tie{}staff-space units.
+Apart from the bracket tips of a bracket bar line and the segno bar line all
+other bar lines are scaled with @code{height}.  We don't scale bracket tips and
+segno to meet the behaviour of @code{SystemStartBracket} and the segno barline.
+
+@code{\\bar-line} is further customizable by overriding @code{dot-count} and
+@code{dash-count} for dotted and dashed bar lines.
+The values for @code{hair-thickness}, @code{kern} and @code{thick-thickness} are
+customizable as well; defaults are the same as the values of the corresponding
+@code{BarLine} grob properties.
+
+@lilypond[verbatim,quote]
+\\markup {
+   \\override #'(word-space . 2)
+   \\column {
+      \\line {
+        Examples
+        \\fontsize #-5 \\translate-scaled #'(0 . 2) {
+          \\bar-line \":|.|:\"
+          \\bar-line \";!S!;\"
+          \\bar-line \"]{|}[\"
+        }
+      }
+      \\line {
+        Examples
+        \\fontsize #0 \\translate-scaled #'(0 . 2) {
+          \\bar-line \":|.|:\"
+          \\bar-line \";!S!;\"
+          \\bar-line \"]{|}[\"
+        }
+      }
+      \\line {
+        Examples
+        \\fontsize #5 \\translate-scaled #'(0 . 2) {
+          \\bar-line \":|.|:\"
+          \\bar-line \";!S!;\"
+          \\bar-line \"]{|}[\"
+        }
+      }
+   }
+}
+@end lilypond"
+
+  ;; simple bar-line
+  (define (make-bar-line thickness height font-size blot-diameter)
+    "Draw a simple bar line."
+    (ly:round-filled-box
+      (cons 0 (* thickness (magstep font-size)))
+      (cons 0 (* height (magstep font-size)))
+      blot-diameter))
+
+  ;; colon bar-line
+  (define (make-colon-bar-line height font-size)
+    (let* ((font
+             (ly:paper-get-font layout
+               (cons '((font-encoding . fetaMusic)) props)))
+           (dot (ly:font-get-glyph font "dots.dot")))
+    (ly:stencil-add
+        dot
+        (ly:stencil-translate-axis
+          dot
+          (* (magstep font-size) (/ height 4))
+          Y))))
+
+  ;; dotted bar-line
+  (define (make-dotted-bar-line height font-size)
+    "Draw a dotted barline."
+    ;; Usually dots are printed between the five staff lines.  We keep this
+    ;; behaviour even in the absence of said staff lines and draw a line of
+    ;; four dots.
+    ;; To get more dots override the `dot-count' property.
+    (let* ((font
+             (ly:paper-get-font layout
+               (cons '((font-encoding . fetaMusic)) props)))
+           (dot (ly:font-get-glyph font "dots.dot"))
+           (dot-height
+             (interval-length (ly:stencil-extent dot Y)))
+           (scaled-height (* (magstep font-size) height))
+           (space-between-dots
+             (/ (- scaled-height (* dot-count dot-height)) dot-count)))
+      (stack-stencils Y UP space-between-dots (make-list dot-count dot))))
+
+  ;; dashed bar-line
+  (define (make-dashed-bar-line thickness height font-size blot-diameter)
+    "Draw a dashed bar line."
+    ;; According to the most common 5-lines staff we draw a dashed line with
+    ;; three full dashes and two half-sized dashes at top/bottom.
+    ;; To get more dashes override the `dash-count' property.
+    ;; In the absence of staff-lines using the `draw-dashed-line-markup' looks
+    ;; ugly, especially with larger font size.
+    ;; Thus dashes are always drawn by `ly:round-filled-box'.
+    (let* ((scaled-thick (* (magstep font-size) thickness))
+           (scaled-height (* (magstep font-size) height))
+           ;; `dash-size' is the printed dash plus the white-space
+           ;; |-------------------|
+           ;; |xxxxxxxxxx         |
+           ;; |-------------------|
+           (dash-size (/ scaled-height (1- dash-count)))
+           (inked-dash-size (* dash-size 2/3))
+           (white-space (* dash-size 1/3))
+           (dash
+             (ly:round-filled-box
+               (cons 0 scaled-thick)
+               (cons 0 inked-dash-size)
+               blot-diameter))
+           (half-dash
+             (ly:round-filled-box
+               (cons 0 scaled-thick)
+               (cons 0 (/ inked-dash-size 2))
+               blot-diameter))
+           (dashes
+             (cons half-dash
+                   (append
+                     (make-list (- dash-count 2) dash)
+                     (list half-dash)))))
+      (stack-stencils Y UP white-space dashes)))
+
+  ;; bracket bar-line
+  (define (make-bracket-bar-line height font-size dir)
+    "Draw a bracket-style bar line.  If @var{dir} is set to @code{LEFT}, the
+     opening bracket will be drawn, for @code{RIGHT} we get the
+     closing bracket."
+     ;; The bracket-tips scale with `font-size' but not with `height'.
+    (let* ((font
+             (ly:paper-get-font layout
+               (cons '((font-encoding . fetaMusic)) props)))
+           (brackettips-up (ly:font-get-glyph font "brackettips.up"))
+           (brackettips-down (ly:font-get-glyph font "brackettips.down"))
+           (line-thickness (ly:output-def-lookup layout 'line-thickness))
+           (thick-thickness (* line-thickness thick-thickness))
+           (blot (ly:output-def-lookup layout 'blot-diameter))
+           ;; The x-extent of the brackettips must not be taken into account
+           ;; for bar line constructs like "[|:", so we set new bounds:
+           (tip-up-stil
+             (ly:make-stencil
+               (ly:stencil-expr brackettips-up)
+               (cons 0 0)
+               (ly:stencil-extent brackettips-up Y)))
+           (tip-down-stil
+             (ly:make-stencil
+               (ly:stencil-expr brackettips-down)
+               (cons 0 0)
+               (ly:stencil-extent brackettips-down Y)))
+           (stencil
+             (ly:stencil-add
+               (make-bar-line thick-thickness height font-size blot)
+               (ly:stencil-translate-axis
+                 tip-up-stil
+                 (* (magstep font-size) height)
+                 Y)
+               tip-down-stil)))
+        (if (eq? dir LEFT)
+            stencil
+            (flip-stencil X stencil))))
+
+  ;; brace bar-line
+  (define (make-brace-bar-line height dir font-size)
+    "Draw a brace bar line.  If @var{dir} is set to @code{LEFT}, the
+     opening brace will be drawn, for @code{RIGHT} we get the
+     closing brace."
+     ;; The default brace with zero `fontsize' and `default' height has size 20.
+     ;; We adjust it with other `fontsize' and `height' (as opposed to
+     ;; bracket-tips and segno), in order to have the brace the same height as a
+     ;; simple bar line.
+     ;; Sometimes warnings of kind
+     ;; \"no brace found for point size ...\" \"defaulting to ... pt\" are
+     ;; expected.
+    (if (negative? dir)
+        (left-brace-markup layout props
+          (* (magstep font-size) (/ height 4) 20.0))
+        (right-brace-markup layout props
+          (* (magstep font-size) (/ height 4) 20.0))))
+
+  ;; segno bar-line
+  (define (make-segno-bar-line height font-size blot-diameter)
+    "Draw a segno bar line.
+     The segno sign is drawn over a double bar line."
+     ;; The segno scales with `font-size', but not with `height'.
+    (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
+           (thinkern (* line-thickness kern))
+           (thin-thickness (* line-thickness hair-thickness))
+           (thin-stil
+             (make-bar-line
+               thin-thickness
+               height
+               font-size
+               blot-diameter))
+           (double-line-stil
+             (ly:stencil-combine-at-edge
+               thin-stil
+               X
+               LEFT
+               thin-stil
+               (* (magstep font-size) thinkern)))
+           (font
+             (ly:paper-get-font layout
+               (cons '((font-encoding . fetaMusic)) props)))
+           (segno (ly:font-get-glyph font "scripts.varsegno")))
+         (ly:stencil-add
+           segno
+           (centered-stencil double-line-stil))))
+
+    (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
+           (thin-thick (* line-thickness hair-thickness))
+           (scaled-kern (* (magstep font-size) (* line-thickness kern)))
+           (thick-thickness (* line-thickness thick-thickness))
+           (blot (ly:output-def-lookup layout 'blot-diameter))
+           (strg-list (string->string-list strg))
+           (raw-bar-line-stencils
+              (lambda (x)
+                (ly:stencil-aligned-to
+                  (cond
+                    ((string=? ":" x)
+                      (make-colon-bar-line height font-size))
+                    ((string=? "|" x)
+                      (make-bar-line thin-thick height font-size blot))
+                    ((string=? "." x)
+                      (make-bar-line thick-thickness height font-size blot))
+                    ((string=? ";" x)
+                      (make-dotted-bar-line height font-size))
+                    ((string=? "!" x)
+                      (make-dashed-bar-line thin-thick height font-size blot))
+                    ((string=? "[" x)
+                      (make-bracket-bar-line height font-size LEFT))
+                    ((string=? "]" x)
+                      (make-bracket-bar-line height font-size RIGHT))
+                    ((string=? "{" x)
+                      (make-brace-bar-line height LEFT font-size))
+                    ((string=? "}" x)
+                      (make-brace-bar-line height RIGHT font-size))
+                    ((string=? "S" x)
+                      (make-segno-bar-line height font-size blot))
+                    (else
+                      (begin
+                        (ly:warning "No bar line stencil found for '~a'" x)
+                        empty-stencil)))
+                  Y CENTER)))
+           (single-bar-line-stils
+             (remove ly:stencil-empty? (map raw-bar-line-stencils strg-list))))
+      (stack-stencils X RIGHT scaled-kern single-bar-line-stils)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
