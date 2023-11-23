@@ -443,10 +443,24 @@ Figured_bass_engraver::create_grobs ()
               set_property (item, "implicit", SCM_BOOL_T);
             }
 
+          SCM number = group.number_;
+          if (scm_is_null (group.number_)
+              && scm_is_null (group.text_)
+              && scm_is_null (group.alteration_)
+              && scm_is_null (group.augmented_)
+              && scm_is_null (group.diminished_)
+              && scm_is_null (group.augmented_slash_))
+            {
+              // Convert `<_>` to an invisible digit.
+              number = scm_from_int (0);
+              set_property (item, "transparent", SCM_BOOL_T);
+              set_property (item, "implicit", SCM_BOOL_T);
+            }
+
           SCM text = group.text_;
           if (!Text_interface::is_markup (text) && ly_is_procedure (proc))
             {
-              text = ly_call (proc, group.number_,
+              text = ly_call (proc, number,
                               group.current_event_->self_scm (),
                               context ()->self_scm ());
             }
