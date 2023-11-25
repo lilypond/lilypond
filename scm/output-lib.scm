@@ -3448,3 +3448,26 @@ for measure division ~a")
      (zero? (ly:item-break-dir left-bound))
      (zero? (ly:item-break-dir right-bound))
      (ly:grob-object grob 'potential-beam))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; clefs
+
+(define-public (clef-modifier::print grob)
+  "Callback for @code{ClefModifier} grob."
+  (let* ((text (ly:grob-property grob 'text))
+         (font-shape (ly:grob-property grob 'font-shape))
+         (clef (ly:grob-parent grob X))
+         (clef-glyph-name (ly:grob-property clef 'glyph-name))
+         (clef-font-size (ly:grob-property clef 'font-size))
+         (font-size (if (null? clef-font-size) 0 clef-font-size))
+         (change-clef? (string-suffix? "_change" clef-glyph-name))
+         ;; We apply a dampening factor for the size reduction so that digits
+         ;; are not becoming too small and thus completely illegible.
+         (size-factor 0.6)
+         ;; Value 1.7 is the approximate size difference between a normal clef
+         ;; and a change clef for Emmentaler glyphs.
+         (font-size (* size-factor
+                       (if change-clef? (- font-size 1.7) font-size))))
+    (grob-interpret-markup grob
+                           (make-fontsize-markup font-size text))))

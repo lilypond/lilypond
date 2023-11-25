@@ -849,7 +849,7 @@ of the square are drawn by @iref{StaffSymbol} and @iref{BarLine}.")))))
         (parent-alignment-X . ,ly:clef-modifier::calc-parent-alignment)
         (self-alignment-X . ,CENTER)
         (staff-padding . 0.7)
-        (stencil . ,ly:text-interface::print)
+        (stencil . ,clef-modifier::print)
         (transparent . ,(grob::inherit-parent-property
                          X 'transparent))
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
