@@ -514,7 +514,7 @@ the line when the line is broken.  @code{#f} indicates that no glyph
 should be visible; otherwise the value must be a string.")
      (glyph-name ,string? "The glyph name within the font.
 
-In the context of (span) bar lines, @var{glyph-name} represents
+In the context of (span) bar lines or clefs, @var{glyph-name} represents
 a processed form of @code{glyph}, where decisions about line breaking,
 etc., are already taken.")
      (glyph-right ,string? "The @code{glyph} value to use at the

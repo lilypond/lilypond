@@ -241,14 +241,14 @@ object to a text markup.  Used for chords.")
      (clefPosition ,number? "Where should the center of the clef
 symbol go, measured in half staff spaces from the center of the
 staff.")
-     (clefTransposition ,integer? "Add this much extra transposition.
-Values of 7 and -7 are common.")
+     (clefTransposition ,integer? "Add this much extra transposition to a
+clef.  Values of 7 and @w{-7} are common.")
      (clefTranspositionFormatter ,procedure? "A procedure that takes the
-Transposition number as a string and the style as a symbol and returns a
-markup.")
-     (clefTranspositionStyle ,symbol? "Determines the way the ClefModifier
-grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
-and @samp{bracketed}.")
+transposition number of a @code{Clef} grob as a string and the style as a
+symbol and returns a markup.")
+     (clefTranspositionStyle ,symbol? "Determines the way the
+@code{ClefModifier} grob of a clef is displayed.  Possible values are
+@code{'default}, @code{'parenthesized}, and @code{'bracketed}.")
      (codaMarkFormatter ,procedure? "A procedure that creates a coda
 mark (which in conventional @emph{D.S. al Coda} form indicates the
 start of the alternative endings), taking as arguments the mark
@@ -283,15 +283,15 @@ crescendo, i.e., @samp{cresc.}.")
      (cueClefPosition ,number? "Where should the center of the clef
 symbol go, measured in half staff spaces from the center of the
 staff.")
-     (cueClefTransposition ,integer? "Add this much extra transposition.
-Values of 7 and -7 are common.")
-     (cueClefTranspositionFormatter ,procedure? "A procedure that
-takes the Transposition number as a string and the style as a symbol
-and returns a markup.")
-     (cueClefTranspositionStyle ,symbol? "Determines the way the ClefModifier
-grob is displayed.  Possible values are @samp{default}, @samp{parenthesized}
-and @samp{bracketed}.")
-     (currentBarNumber ,integer? "Contains the current barnumber.
+     (cueClefTransposition ,integer? "Add this much extra transposition to
+a cue clef.  Values of 7 and @w{-7} are common.")
+     (cueClefTranspositionFormatter ,procedure? "A procedure that takes
+the transposition number of a @code{cueClef} grob as a string and the style as a
+symbol and returns a markup.")
+     (cueClefTranspositionStyle ,symbol? "Determines the way the
+@code{ClefModifier} grob of a cue clef is displayed.  Possible values are
+@code{'default}, @code{'parenthesized}, and @code{'bracketed}.")
+     (currentBarNumber ,integer? "Contains the current bar number.
 This property is incremented at every bar line.")
 
 
@@ -464,7 +464,7 @@ the @code{shortInstrumentName} property labels following lines.")
 the instrument. Its value is the pitch that sounds when the instrument
 plays written middle C.  This is used to transpose the MIDI output,
 and @code{\\quote}s.")
-     (internalBarNumber ,integer? "Contains the current barnumber.
+     (internalBarNumber ,integer? "Contains the current bar number.
 This property is used for internal timekeeping, among others by the
 @code{Accidental_engraver}.")
 
