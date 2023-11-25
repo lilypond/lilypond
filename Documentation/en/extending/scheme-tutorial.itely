@@ -510,7 +510,7 @@ variables defined outside of the procedure.
 Procedures are defined in Scheme with define
 
 @example
-(define (function-name arg1 arg2 ... argn)
+(define (function-name arg1 arg2 @dots{} argn)
  scheme-expression-that-gives-a-return-value)
 @end example
 
@@ -1127,11 +1127,346 @@ This section explains how to gather the information necessary
 to create complicated music functions.
 
 @menu
+* A first approach (example)::
 * Displaying music expressions::
 * Music properties::
 * Doubling a note with slurs (example)::
 * Adding articulation to notes (example)::
 @end menu
+
+
+@node A first approach (example)
+@subsection A first approach (example)
+
+@enumerate
+@item @b{The problem}
+
+Using the following input, the @q{espressivo} sign (i.e., the two
+small hairpins) should become wider, but not taller.
+
+@lilypond[verbatim,quote]
+{ f'\espressivo }
+@end lilypond
+
+@item @b{Possible solutions}
+
+@enumerate A
+@item create a new stencil
+@item scale the default stencil in direction of the X-axis
+@end enumerate
+
+@item @b{Thoughts about previous item}
+
+Solution@tie{}A is doable.  However, it will result in a higher
+coding effort.  On the other hand, solution@tie{}B is cheaper, but
+it has the disadvantage that it doesn't print acceptable results
+in all cases (although you may not know this before you've
+actually tried).
+
+@result{} choose solution@tie{}B.
+
+@item @b{Coding}
+
+@itemize
+@item
+If you want to manipulate the default stencil you have to find
+information about it.
+
+The espressivo sign is a @code{Script} grob.  Looking this up in
+the IR (@rinternals{script}), we see
+
+@example
+‘stencil’ (stencil):
+     ‘ly:script-interface::print’
+@end example
+
+Let us test whether this is correct.  To be sure that we affect
+the correct grob we are going to use colors.  There is a
+predefined function for that, see @rinternals{Scheme functions}.
+
+@funindex stencil-with-color
+
+@example
+-- Function: stencil-with-color stencil color
+    Return a modified version of the given stencil that is
+    colored with the given color.  See ‘normalize-color’ for
+    possible color formats.
+@end example
+
+@funindex normalize-color
+
+@example
+-- Function: normalize-color color
+    Convert a color given in any of the supported formats into
+    a list of 4 numbers: R, G, B, A.  Possible formats are:
+    such a list of 4 numbers; a list of 3 numbers (transparency
+    defaults to 1.0); a CSS string (named color, or “#RRGGBB”,
+    or “#RRGGBBAA”, or “#RGB”, or “#RGBA”).
+@end example
+
+Using a named color (@samp{red}), this results in the following
+code.
+
+@lilypond[verbatim,quote]
+colorDefaultStencil =
+\once \override Script.stencil =
+  % `lambda` starts a procedure; its argument is `grob`.
+  #(lambda (grob)
+     ;; With `let`, local variables are defined.
+     (let ((stil (ly:script-interface::print grob)))
+       ;; The procedure returns the colored default stencil.
+       (stencil-with-color stil red)))
+
+{ \colorDefaultStencil f'\espressivo }
+@end lilypond
+
+Fine, works.
+
+@item
+This kind of operation -- taking a default stencil or property and
+returning a modified version of it -- is very common, and LilyPond
+provides a special function for it: @code{grob-transformer}.
+
+@funindex grob-transformer
+
+@example
+-- Function: grob-transformer property func
+    Create an override value good for applying FUNC to either
+    pure or unpure values.  FUNC is called with the
+    respective grob as first argument and the default value
+    (after resolving all callbacks) as the second.
+@end example
+
+Let's try that.  (The concept of pure vs.@: unpure gets explained
+later, @pxref{Unpure-pure containers}; we can ignore it for now).
+
+@lilypond[verbatim,quote]
+colorDefaultStencil =
+\once \override Script.stencil =
+  #(grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color orig red)))
+
+{ \colorDefaultStencil f'\espressivo }
+@end lilypond
+
+Success!
+
+@item
+To get a scaled stencil we have to use
+
+@funindex ly:stencil-scale
+
+@example
+-- Function: ly:stencil-scale stil x y
+    Scale stencil STIL using the horizontal and vertical
+    scaling factors X and optional Y (defaulting to X).
+    Negative values flip or mirror STIL without changing its
+    origin; this may result in collisions unless it is
+    repositioned.
+@end example
+
+@noindent
+from the same chapter in the Internals Reference.
+
+Result:
+
+@lilypond[verbatim,quote]
+scaleColorDefaultStencil =
+\once \override Script.stencil =
+  #(grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color
+        (ly:stencil-scale
+         orig
+         ;; 1 is the neutral element with ly:stencil-scale,
+         ;; i.e., scaling with '1 1' (for x- and y-axis)
+         ;; returns a visibly unchanged stencil.
+         2 1)
+        red)))
+
+{ \scaleColorDefaultStencil f'\espressivo }
+@end lilypond
+
+Apart from the color that seems to be the desired output.
+
+@item
+There are some problems, though, as can be seen in the following example
+
+@example
+@{ \scaleColorDefaultStencil f'_\espressivo ^\fermata @}
+@end example
+
+@lilypond[quote]
+scaleColorDefaultStencil =
+\once \override Script.stencil =
+  #(grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color
+        (ly:stencil-scale orig 2 1)
+        red)))
+
+{ \scaleColorDefaultStencil f'_\espressivo ^\fermata }
+@end lilypond
+
+@itemize @minus
+@item
+The fermata is scaled, too.
+@item
+Having to type the command before the note(s) and
+@code{\espressivo} after the note(s) is annoying.
+@end itemize
+
+Solution for both: use @code{\tweak}!
+
+@lilypond[verbatim,quote]
+{
+  f'-\tweak stencil
+      #(grob-transformer 'stencil
+         (lambda (grob orig)
+           (stencil-with-color
+            (ly:stencil-scale orig 2 1)
+            red)))
+      _\espressivo
+    ^\fermata
+}
+@end lilypond
+
+This does what we want, however, typing so much isn't nice – let's
+define a variable and use it with the tweak.  With some copy and
+paste we get
+
+@lilypond[verbatim,quote]
+#(define longer-script
+   (grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color
+        (ly:stencil-scale orig 2 1)
+        red))))
+
+{
+  f'-\tweak stencil #longer-script _\espressivo
+    ^\fermata
+}
+@end lilypond
+
+Works fine, though the scaling values are hard-coded, and typing
+@code{-\tweak stencil #longer-script} repeatedly is still awkward.
+
+To fix that, let's first introduce some variables in
+@code{longer-script} for x@tie{}and y@tie{}scaling
+values.
+
+@example
+#(define (longer-script x y)
+   (grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color
+        (ly:stencil-scale orig x y)
+        red))))
+@end example
+
+Second, to reduce typing, we define an event function,
+@pxref{Event functions}.  The elements in the first parenthesis
+group (@samp{(x-val y-val)}) are the function variables, the
+elements in the second parenthesis group the respective variable
+types (two times we check for a number; see @rnotation{Predefined
+type predicates} for possible tests).
+
+@funindex #@{ @dots{} #@}
+
+@example
+scaleEspr =
+#(define-event-function (x-val y-val) (number? number?)
+  #@{
+    \tweak stencil #(longer-script x-val y-val)
+    \espressivo
+  #@})
+
+@{ f'_\scaleEspr 2 1
+     ^\fermata @}
+@end example
+
+@lilypond[quote]
+#(define (longer-script x y)
+   (grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color
+        (ly:stencil-scale orig x y)
+        red))))
+
+scaleEspr =
+#(define-event-function (x-val y-val) (number? number?)
+  #{
+    \tweak stencil #(longer-script x-val y-val)
+    \espressivo
+  #})
+
+{ f'_\scaleEspr 2 1
+    ^\fermata }
+@end lilypond
+
+Works as expected, fine!  Note the use of @code{#@{ @dots{} #@}}:
+Within this Scheme construction, we can use LilyPond syntax, and
+the function's arguments (like @var{x-val}) are properly expanded.
+@xref{LilyPond code blocks}.
+
+@end itemize
+
+@item @b{The finished code}
+
+Finally, we want to do some clean-up.
+
+@itemize @minus
+@item
+We only want scaling in the x-direction, so let's hard-code
+y-scaling in the event function.
+@item
+Delete the color.
+@end itemize
+
+This eventually leads to the following code.
+
+@lilypond[verbatim,quote]
+#(define (longer-script x y)
+   (grob-transformer 'stencil
+     (lambda (grob orig)
+       (ly:stencil-scale orig x y))))
+
+longEspressivo =
+#(define-event-function (x-val) (number?)
+  #{
+    \tweak stencil #(longer-script x-val 1)
+    \espressivo
+  #})
+
+{ f'^\longEspressivo #2 _\fermata }
+@end lilypond
+
+Voilà!
+
+The main benefit of using @code{grob-transformer} is that we no
+longer have to take care of the actual name of the stencil
+function.  In the next example we rotate the stencil of a slur and
+a beam by 90 degrees – that the actual stencil functions are
+called @code{ly:slur::print} and @code{ly:beam::print},
+respectively, is of no concern here.
+
+@lilypond[verbatim,quote]
+#(define rotate-90
+   (grob-transformer 'stencil
+     (lambda (grob orig)
+       (ly:stencil-rotate orig 90 0 0))))
+
+{ f'8( g')
+  f'8-\tweak stencil #rotate-90 ( g')
+  f'8[ g']
+  f'8-\tweak stencil #rotate-90 [ g'] }
+@end lilypond
+
+
+@end enumerate
+
 
 @node Displaying music expressions
 @subsection Displaying music expressions
