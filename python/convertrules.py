@@ -3551,7 +3551,22 @@ def conv(s):
     return s
 
 
-barstring = r"(\\bar|whichBar|defaultBarType|segnoType|doubleRepeatType|startRepeatType|endRepeatType|doubleRepeatSegnoType|startRepeatSegnoType|endRepeatSegnoType)(\s*[=]?\s*[#]?)"
+barstring = r'''(?x)
+( \\bar |
+  whichBar |
+  defaultBarType |
+  segnoType |
+  doubleRepeatType |
+  startRepeatType |
+  endRepeatType |
+  doubleRepeatSegnoType |
+  startRepeatSegnoType |
+  endRepeatSegnoType |
+  BarLine \s* [#]'glyph |
+  BarLine \s* [#]'glyph-name |
+  SpanBar \s* [#]'glyph-name )
+( \s* [=]? \s* [#]? )
+'''
 
 @rule((2, 17, 5), r"New bar line interface")
 def conv(s):
