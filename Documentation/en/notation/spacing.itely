@@ -2156,14 +2156,21 @@ but only if explicitly called.  These properties are described
 individually at the end of this section.
 
 The names of these properties (except for @code{staff-affinity})
-follow the format @code{@var{item1}-@var{item2}-spacing}, where
+follow the format @code{@var{item1}-@/@var{item2}-@/spacing}, where
 @code{@var{item1}} and @code{@var{item2}} are the items to be
 spaced.  Note that @code{@var{item2}} is not necessarily below
 @code{@var{item1}}; for example,
 @code{nonstaff-relatedstaff-spacing} will measure upwards from the
 non-staff line if @code{staff-affinity} is @code{UP}.
 
-Each distance is measured between the @emph{reference points} of
+Each distance is measured between the @emph{reference
+points}@footnote{This is a sloppy formulation.  For contexts, the
+positions of grobs along the x-axis are computed by LilyPond's
+spacing algorithm (using @code{PaperColumn} objects and the like
+for alignment); this means that the only relevant information here
+is the vertical position.  In other words, a reference @q{point}
+of a context is the y-coordinate position to which other grobs
+are aligned to.} of
 the two items.  The reference point for a staff is the vertical
 center of its @code{StaffSymbol} (i.e., the middle line if
 @code{line-count} is odd; the middle space if @code{line-count} is
@@ -2171,13 +2178,13 @@ even).  The reference points for individual non-staff lines are
 given in the following table:
 
 @indentedblock
-@multitable {@b{Non-staff line}} {mid-height of @q{m}}
+@multitable {@b{Non-staff line}} {baseline of topmost element}
 @headitem Non-staff line @tab Reference point
 @item @code{ChordNames}  @tab baseline
 @item @code{NoteNames}   @tab baseline
 @item @code{Lyrics}      @tab baseline
 @item @code{Dynamics}    @tab mid-height of @q{m}
-@item @code{FiguredBass} @tab highest point
+@item @code{FiguredBass} @tab baseline of topmost element
 @item @code{FretBoards}  @tab top line
 @end multitable
 @end indentedblock
@@ -2185,61 +2192,67 @@ given in the following table:
 In the following image, horizontal lines indicate the positions
 of these reference points:
 
-@lilypond[quote,noragged-right,line-width=110\mm]
+@lilypond[quote]
 #(define zero-space '((padding . -inf.0) (basic-distance . 0)))
 
 alignToZero = \with {
   \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #zero-space
   \override VerticalAxisGroup.nonstaff-nonstaff-spacing = #zero-space
   \override VerticalAxisGroup.staff-affinity = #DOWN
+
   \remove Text_engraver % avoid having two
   \consists Text_engraver
 }
+
 lowerCaseChords = \with {
   chordNameLowercaseMinor = ##t
 }
+
 labelContext =
-#(define-music-function
-     (context)
-     (string?)
-     #{ s1*0^\markup { \upright {\typewriter #context } } #})
+#(define-music-function (context) (string?)
+   #{ s1*0^\markup { \upright \typewriter #context } #})
 
 \layout {
+  \context { \ChordNames  \alignToZero \lowerCaseChords }
   \context { \Dynamics    \alignToZero }
   \context { \FiguredBass \alignToZero }
+  \context { \FretBoards  \alignToZero }
   \context { \Lyrics      \alignToZero }
   \context { \NoteNames   \alignToZero }
-  \context { \ChordNames  \alignToZero \lowerCaseChords }
-  \context { \FretBoards  \alignToZero }
+
   \context { \Score
     \omit BarLine
-    \override DynamicText.self-alignment-X = #-1
-    \override FretBoard.X-offset = #1.75
-    \override InstrumentName.minimum-Y-extent = #'(-1 . 2)
-    \textLengthOn
     \omit TimeSignature
+
+    \override DynamicText.self-alignment-X = #-0.5
+    \override FretBoard.X-offset = #1.75
+    \override LyricText.self-alignment-X = #LEFT
+    \override TextScript.Y-offset = #3
+
+    \textLengthOn
   }
 }
 
-%% These contexts have reference points at the baseline:
-%%   ChordNames, NoteNames, and Lyrics
+%% These contexts have reference points at the baseline: ChordNames,
+%% NoteNames, and Lyrics.
 <<
-  \new ChordNames { \chords { \labelContext "ChordNames"  g1:m } }
-  \new NoteNames { s1 |\labelContext "NoteNames"  g1 | }
-  \new Lyrics { \lyrics { \skip 1*2 | \labelContext "Lyrics" ghijk1 | } }
+  \chords { \labelContext "ChordNames  " g1:m }
+  \new NoteNames { s1 | \labelContext "NoteNames  " g1 }
+  \lyrics { \skip 1*2 | \labelContext "Lyrics" ghijk1 }
   \new RhythmicStaff \with { instrumentName = "baseline " } s1*3
 >>
 
-%% The reference point for Dynamics is the midline of 'm' in the font
+%% The reference point for Dynamics is the midline of 'm' in the font.
 <<
   \new Dynamics { \labelContext "Dynamics" s1\mp s\fp }
-  \new RhythmicStaff \with { instrumentName = "mid-height " } s1*3
+  \new RhythmicStaff \with { instrumentName = "mid-height " } s1*2
 >>
 
-%% The reference point for FiguredBass is its highest point
+%% The reference point for FiguredBass is the baseline of the topmost
+%% element.
 <<
-  \new FiguredBass { \labelContext "FiguredBass" \figuremode { <6 5>1 } }
-  \new RhythmicStaff \with { instrumentName = "highest point " } s1
+  \figures { \labelContext "FiguredBass" \figuremode { <6 4 2>1 } }
+  \new RhythmicStaff \with { instrumentName = "top baseline " } s1
 >>
 
 %% The reference point for FretBoards is the top line
