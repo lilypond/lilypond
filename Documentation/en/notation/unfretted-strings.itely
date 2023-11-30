@@ -146,8 +146,7 @@ Notation Reference:
 
 @funindex \harmonic
 
-@noindent
-@strong{Natural harmonics}
+@subsubsubheading Natural harmonics
 
 @cindex note head, diamond-shaped
 @cindex diamond-shaped note head
@@ -179,8 +178,7 @@ played as a harmonic:
 d''2^\flageolet d''_\flageolet
 @end lilypond
 
-@noindent
-@strong{Artificial harmonics}
+@subsubsubheading Artificial harmonics
 
 @cindex artificial harmonics
 @cindex harmonics, artificial
@@ -210,6 +208,17 @@ Notation Reference:
 @ref{Special note heads},
 @ref{References for unfretted strings}.
 @endmorerefs
+
+@knownissues
+If you want to center a harmonic on a whole note, make it part of
+a chord.
+
+@lilypond[verbatim,quote]
+{
+  << { d''1\harmonic } \\ { a'1 } >>
+  <a' d''\harmonic>1
+}
+@end lilypond
 
 
 @node Snap (Bartok) pizzicato
