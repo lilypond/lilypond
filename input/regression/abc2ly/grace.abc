@@ -1,5 +1,6 @@
 X:1
-T:abc2ly grace note bug (missing square bracket, duration of grace notes)
+T:abc2ly grace note bug
+S:(missing square bracket, duration of grace notes)
 M:C
 L:1/8
 K:E Dorian

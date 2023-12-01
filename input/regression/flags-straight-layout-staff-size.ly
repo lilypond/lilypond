@@ -29,4 +29,4 @@ mus = {
 
 \score { \mus }
 
-\score { \mus \layout { #(layout-set-staff-size 60) } }
+\score { \mus \layout { #(layout-set-staff-size 50) } }
