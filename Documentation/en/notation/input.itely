@@ -149,6 +149,28 @@ it may be useful to do so in certain situations, for example if you
 are in lyric mode, chord mode or any other mode and want to insert
 something that only can be done with note mode syntax.
 
+@lilypond[verbatim,quote]
+% This ...
+
+<<
+  \chords { g1:m }
+  { f'1 }
+  \lyrics { foo1 }
+  \drums { sn1 }
+  \figures { <6 4>1 }
+>>
+
+% ... is equivalent to
+
+<<
+  \new ChordNames \chordmode { g1:m }
+  \new Voice \notemode { f'1 }
+  \new Lyrics \lyricmode { foo1 }
+  \new DrumStaff \drummode { sn1 }
+  \new FiguredBass \figuremode { <6 4>1 }
+>>
+@end lilypond
+
 
 @node Input structure
 @section Input structure
