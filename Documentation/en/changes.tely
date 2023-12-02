@@ -98,6 +98,137 @@ currently supported are PDF outlines, the
 @code{-dembed-source-code} option for PDF, and the
 @code{output-attributes} property for SVG.
 
+@item
+The distances between clefs and time signatures, together with the
+distances between clefs and key signatures, are now calculated
+differently.  As a consequence, you will get better spacing for
+extra-wide clefs (like @code{\clef "GG"}) or extra-slim clefs
+(like @code{\clef "petrucci-c3"}).
+
+In the following image, both old and new positions are shown.
+The percentage gives the width difference of clef plus time
+signature and clef plus key signature, respectively.
+
+@lilypond[quote]
+diff =
+#(define-music-function (percent) (string?)
+  #{
+     \once \override Score.TextMark.break-align-symbols = #'(clef)
+     \textMark \markup {
+                 \smaller \smaller { #percent \hspace #-0.5 "%" } }
+  #})
+
+musicA = {
+  \override Score.Clef.space-alist.time-signature =
+              #'(minimum-space . 4.2)
+  \time 2/2 c'2
+}
+musicB = {
+  \time 2/2 c'2
+}
+
+musicC = {
+  \omit Staff.TimeSignature
+  \override Staff.Clef.space-alist.key-cancellation =
+              #'(minimum-space . 3.5)
+  \override Staff.Clef.space-alist.key-signature =
+              #'(minimum-space . 3.5)
+  \key c \minor c'2
+}
+musicD = {
+  \omit Staff.TimeSignature
+  \key c \minor c'2
+}
+
+\markup \line {
+  \override #'(baseline-skip . 10) \column {
+    "clef + time sig"
+    \vspace #-2.5
+    "old"
+    \vspace #-1
+    \score { { \clef "treble" \musicA } }
+    \score { { \clef "alto" \musicA } }
+    \score { { \clef "bass" \musicA } }
+    \score { { \clef "GG" \musicA } }
+    \score { { \clef "varC" \musicA } }
+    \score { \new PetrucciStaff {
+               \clef "petrucci-c3" \musicA } }
+  }
+
+  \hspace #3
+
+  \override #'(baseline-skip . 10) \column {
+    "clef + time sig"
+    \vspace #-2.5
+    "new"
+    \vspace #-1
+    \score { { \clef "treble" \diff "-1.6" \musicB } }
+    \score { { \clef "alto" \diff "+0.5" \musicB } }
+    \score { { \clef "bass" \diff "0" \musicB } }
+    \score { { \clef "GG" \diff "+17.9" \musicB } }
+    \score { { \clef "varC" \diff "-5.6" \musicB } }
+    \score { \new PetrucciStaff {
+               \clef "petrucci-c3" \diff "-21.8" \musicB } }
+  }
+
+  \hspace #4
+
+  \override #'(baseline-skip . 10) \column {
+    "clef + key sig"
+    \vspace #-2.5
+    "old"
+    \vspace #-1
+    \score { { \clef "treble" \musicC } }
+    \score { { \clef "alto" \musicC } }
+    \score { { \clef "bass" \musicC } }
+    \score { { \clef "GG" \musicC } }
+    \score { { \clef "varC" \musicC } }
+    \score { \new PetrucciStaff {
+               \clef "petrucci-c3" \musicC } }
+  }
+
+  \hspace #4
+
+  \override #'(baseline-skip . 10) \column {
+    "clef + key sig"
+    \vspace #-2.5
+    "new"
+    \vspace #-1
+    \score { { \clef "treble" \diff "-1.5" \musicD } }
+    \score { { \clef "alto" \diff "+0.5" \musicD } }
+    \score { { \clef "bass" \diff "0" \musicD } }
+    \score { { \clef "GG" \diff "+9.3" \musicD } }
+    \score { { \clef "varC" \diff "-5.2" \musicD } }
+    \score { \new PetrucciStaff {
+               \clef "petrucci-c3" \diff "-23.5" \musicD } }
+  }
+}
+
+\paper {
+  indent = 0
+}
+@end lilypond
+
+Note that, as before, the widest clef in a staff group determines
+the horizontal position of all clefs in a system; this means, for
+example, that a piano score containing a treble and an alto clef
+doesn't change at all.
+
+If you want to restore the previous default values for whatever
+reason, add
+
+@example
+\override Staff.Clef.space-alist.time-signature =
+            #'(minimum-space . 3.5)
+\override Staff.Clef.space-alist.key-cancellation =
+            #'(minimum-space . 3.5)
+\override Staff.Clef.space-alist.key-signature =
+            #'(minimum-space . 4.2)
+@end example
+
+@noindent
+to your score.
+
 @end itemize
 
 @ignore
