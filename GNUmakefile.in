@@ -155,8 +155,14 @@ $(outdir)/%-root/index.html: doc-build
 		mkdir -p $(dir $@)/input/regression/$${d}; \
 		cp --link -a input/regression/$${d}/out-www/*  $(dir $@)/input/regression/$${d}/ ; \
 	done
-	find $(dir $@)/input/regression/ -type f -not -name '*.png' \
-		-not -name '*.ly' -not -name '*.html' -not -name 'collated-files.pdf' \
+	find $(dir $@)/input/regression/ \
+		-type f \
+		-not -name '*.png' \
+		-not -name '*.ly' \
+		-not -name '*.html' \
+		-not -name '*.xml' \
+		-not -name '*.mxl' \
+		-not -name 'collated-files.pdf' \
 		-delete
 	cp --link -a Documentation/out-www/webdoc/* $(dir $@)/Documentation/
 	cp --link $(TOPDOC_TXT_FILES) $(dir $@)
