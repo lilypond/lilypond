@@ -161,7 +161,9 @@ It is now possible to right-align different types of bar lines.
     \new Staff
       { \textMark "right-aligned" b1 }
     \new Staff
-      { b1 \override StaffGroup.BarLine.right-justified = ##t \section }
+      { b1
+        \override StaffGroup.BarLine.right-justified = ##t
+        \section }
   >>
 @end lilypond
 
