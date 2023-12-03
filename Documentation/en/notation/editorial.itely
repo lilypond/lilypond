@@ -169,7 +169,11 @@ value is 0.  See @rinternals{All layout objects}.
 @subsubsubheading Understanding the @code{fontSize} property
 
 The @code{fontSize} context property adjusts the relative size of
-all glyph-based notational elements in a context:
+all glyph-based notational elements in a context.@footnote{Note
+the words @q{glyph-based} – a stem, for example, is not a glyph
+but directly constructed by LilyPond with lines and curves;
+consequently, it is not affected.  The same holds for similar
+objects like slurs or beams.}
 
 @lilypond[verbatim,quote]
 \relative {
