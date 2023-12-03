@@ -786,16 +786,26 @@ Do not run make po/po-update with GNU gettext < 0.10.35
 @subheading Available log levels
 
 LilyPond has several loglevels, which specify how verbose the output on
-the console should be:
-@itemize
-@item NONE: No output at all, even on failure
-@item ERROR: Only error messages
-@item WARN: Only error messages and warnings
-@item BASIC_PROGRESS: Warnings, errors and basic progress (success, etc.)
-@item PROGRESS: Warnings, errors and full progress messages
-@item INFO: Warnings, errors, progress and more detailed information (default)
-@item DEBUG: All messages, including full debug messages (very verbose!)
-@end itemize
+the console should be.
+
+@indentedblock
+@table @code
+@item NONE
+No output at all, even on failure
+@item ERROR
+Only error messages
+@item WARN
+Only error messages and warnings
+@item BASIC_PROGRESS
+Warnings, errors and basic progress (success, etc.)
+@item PROGRESS
+Warnings, errors and full progress messages
+@item INFO
+Warnings, errors, progress and more detailed information (default)
+@item DEBUG
+All messages, including full debug messages (very verbose!)
+@end table
+@end indentedblock
 
 The loglevel can either be set with the environment variable
 @code{LILYPOND_LOGLEVEL} or on the command line with the @option{--loglevel=...}
@@ -846,100 +856,84 @@ If the Scheme option @code{warning-as-error} is set, any warning will be
 treated as if @code{Input::error} was called.
 
 
+@need 1000
+
 @subheading All logging functions at a glance
 
+@raggedright
 @multitable @columnfractions 0.16 0.42 0.42
-@headitem
-@tab C++, no location
-@tab C++ from input location
-
-@item ERROR
-@tab @code{error ()}, @code{programming_error (msg)}, @code{non_fatal_error (msg)}
-@tab @code{Input::error (msg)}, @code{Input::programming_error (msg)}
-
-@item WARN
-@tab @code{warning (msg)}
-@tab @code{Input::warning (msg)}
-
-@item BASIC
-@tab @code{basic_progress (msg)}
-@tab -
-
-@item PROGRESS
-@tab @code{progress_indication (msg)}
-@tab -
-
-@item INFO
-@tab @code{message (msg)}
-@tab @code{Input::message (msg)}
-
-@item DEBUG
-@tab @code{debug_output (msg)}
-@tab @code{Input::debug_output (msg)}
-
-@item @tab @tab
 
 @headitem
-@tab C++ from a Grob
-@tab Scheme, music expression
-
-@item ERROR
-@tab @code{Grob::programming_error (msg)}
-@tab -
-
-@item WARN
-@tab @code{Grob::warning (msg)}
-@tab @code{(ly:music-warning music msg)}
-
-@item BASIC
-@tab -
-@tab -
-
-@item PROGRESS
-@tab -
-@tab -
-
-@item INFO
-@tab -
-@tab @code{(ly:music-message music msg)}
-
-@item DEBUG
-@tab -
-@tab -
-
-@item @tab @tab
+      @tab C++, no location
+      @tab C++, from input location
+@item @code{ERROR}
+      @tab @code{error ()},
+           @code{programming_error (msg)},
+           @code{non_fatal_error (msg)}
+      @tab @code{Input::error (msg)},
+           @code{Input::programming_error (msg)}
+@item @code{WARN}
+      @tab @code{warning (msg)}
+      @tab @code{Input::warning (msg)}
+@item @code{BASIC}
+      @tab @code{basic_progress (msg)}
+      @tab ---
+@item @code{PROGRESS}
+      @tab @code{progress_indication (msg)}
+      @tab ---
+@item @code{INFO}
+      @tab @code{message (msg)}
+      @tab @code{Input::message (msg)}
+@item @code{DEBUG}
+      @tab @code{debug_output (msg)}
+      @tab @code{Input::debug_output (msg)}
 
 @headitem
-@tab Scheme, no location
-@tab Scheme, input location
+      @tab C++, from a Grob
+      @tab Scheme, music expression
+@item @code{ERROR}
+      @tab @code{Grob::programming_error (msg)}
+      @tab ---
+@item @code{WARN}
+      @tab @code{Grob::warning (msg)}
+      @tab @code{(ly:music-warning music msg)}
+@item @code{BASIC}
+      @tab ---
+      @tab ---
+@item @code{PROGRESS}
+      @tab ---
+      @tab ---
+@item @code{INFO}
+      @tab ---
+      @tab @code{(ly:music-message music msg)}
+@item @code{DEBUG}
+      @tab ---
+      @tab ---
 
-@item ERROR
-@tab -
-@tab @code{(ly:error msg args)}, @code{(ly:programming-error msg args)}
-
-@item WARN
-@tab @code{(ly:warning msg args)}
-@tab @code{(ly:input-warning input msg args)}
-
-@item BASIC
-@tab @code{(ly:basic-progress msg args)}
-@tab -
-
-@item PROGRESS
-@tab @code{(ly:progress msg args)}
-@tab -
-
-@item INFO
-@tab @code{(ly:message msg args)}
-@tab @code{(ly:input-message input msg args)}
-
-@item DEBUG
-@tab @code{(ly:debug msg args)}
-@tab -
-
+@headitem
+      @tab Scheme, no location
+      @tab Scheme, input location
+@item @code{ERROR}
+      @tab ---
+      @tab @code{(ly:error msg args)},
+           @code{(ly:programming-error msg args)}
+@item @code{WARN}
+      @tab @code{(ly:warning msg args)}
+      @tab @code{(ly:input-warning input msg args)}
+@item @code{BASIC}
+      @tab @code{(ly:basic-progress msg args)}
+      @tab ---
+@item @code{PROGRESS}
+      @tab @code{(ly:progress msg args)}
+      @tab ---
+@item @code{INFO}
+      @tab @code{(ly:message msg args)}
+      @tab @code{(ly:input-message input msg args)}
+@item @code{DEBUG}
+      @tab @code{(ly:debug msg args)}
+      @tab ---
 @end multitable
-
-
+@end raggedright
 
 
 @node Debugging LilyPond

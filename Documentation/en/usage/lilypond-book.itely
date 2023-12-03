@@ -1276,8 +1276,9 @@ manually specify the output format; for details, see @ref{Invoking
 lilypond-book}.  Otherwise, @command{lilypond-book} automatically
 selects the output format based on the input file name's extension.
 
+@need 800
 @indentedblock
-@multitable @columnfractions .2 .5
+@multitable {@strong{extension}} {@strong{output format}}
 @item @strong{extension} @tab @strong{output format}
 @item
 @item @file{.html} @tab HTML

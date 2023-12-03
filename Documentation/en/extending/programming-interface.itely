@@ -118,12 +118,13 @@ function =
 @noindent
 where
 
-@multitable @columnfractions .33 .66
-@item @code{@var{argN}}
-@tab @var{n}th argument.
+@indentedblock
+@table @code
+@item @var{argN}
+@var{n}th argument.
 
-@item @code{@var{typeN?}}
-@tab A Scheme @emph{type predicate} for which @code{@var{argN}}
+@item @var{typeN?}
+A Scheme @emph{type predicate} for which @code{@var{argN}}
 must return @code{#t}.  There is also a special form
 @code{(@emph{predicate?} @emph{default})} for specifying optional
 arguments.  If the actual argument is missing when the function is being
@@ -137,8 +138,8 @@ definition or run time: it is your responsibility to deal with the
 values you specify.  Default values that happen to be music expressions
 are copied while setting @code{origin} to the current input location.
 
-@item @code{@var{body}}
-@tab A sequence of Scheme forms evaluated in order, the last one being
+@item @var{body}
+A sequence of Scheme forms evaluated in order, the last one being
 used as the return value of the scheme function.  It may contain
 LilyPond code blocks enclosed in hashed braces
 (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), like described in
@@ -151,7 +152,8 @@ Scheme expressions using @code{$}, for example as @samp{$music}.
 
 If your function returns a music expression, it is given a useful value
 of @code{origin}.
-@end multitable
+@end table
+@end indentedblock
 
 @noindent
 Suitability of arguments for the predicates is determined by
@@ -650,18 +652,25 @@ LilyPond markup syntax and Scheme markup syntax.  Using @code{#@{
 convenient, but we explain how to use the @code{markup} macro to get a
 Scheme-only solution.
 
+@need 800
 @indentedblock
-@multitable @columnfractions .3 .3
-@item @b{LilyPond} @tab @b{Scheme}
-@item @code{\markup markup1} @tab @code{(markup markup1)}
-@item @code{\markup @{ markup1 markup2 @dots{} @}} @tab
-        @code{(markup markup1 markup2 @dots{} )}
-@item @code{\markup-command} @tab @code{#:markup-command}
-@item @code{\variable} @tab @code{variable}
-@item @code{\center-column @{ @dots{} @}} @tab
-        @code{#:center-column ( @dots{} )}
-@item @code{string} @tab @code{"string"}
-@item @code{#scheme-arg} @tab @code{scheme-arg}
+@multitable {@code{\markup @{ markup1 markup2 @dots{} @}}} {@code{(markup markup1 markup2 @dots{})}}
+@item @b{LilyPond}
+      @tab @b{Scheme}
+@item @code{\markup markup1}
+      @tab @code{(markup markup1)}
+@item @code{\markup @{ markup1 markup2 @dots{} @}}
+      @tab @code{(markup markup1 markup2 @dots{})}
+@item @code{\markup-command}
+      @tab @code{#:markup-command}
+@item @code{\variable}
+      @tab @code{variable}
+@item @code{\center-column @{ @dots{} @}}
+      @tab @code{#:center-column (@dots{})}
+@item @code{string}
+      @tab @code{"string"}
+@item @code{#scheme-arg}
+      @tab @code{scheme-arg}
 @end multitable
 @end indentedblock
 
