@@ -504,12 +504,15 @@ Three interfaces deal specifically with break alignment:
 @item @ref{break-aligned-interface}.
 @end enumerate
 
- Each of these interfaces supports grob properties that use
-@w{@emph{break-align symbols}}, which are Scheme symbols that are used to
+Each of these interfaces supports grob properties that use
+@emph{break-align symbols}, which are Scheme symbols to
 specify the alignment, ordering, and spacing of certain notational elements
-(@q{breakable}@tie{}items).
-@subsubheading Available break-align symbols:
+(@q{breakable} items).
 
+@need 800
+@subsubheading Available break-align symbols
+
+@indentedblock
 @example
 ambitus
 breathing-sign
@@ -525,6 +528,7 @@ staff-bar
 staff-ellipsis
 time-signature
 @end example
+@end indentedblock
                )",
 
                /* properties */
