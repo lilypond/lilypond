@@ -5,18 +5,18 @@
 @macro helpusNeed
 @subheading We need you!
 
-Thank you for your interest in helping us --- we would love to see
+Thank you for your interest in helping us -- we would love to see
 you get involved!  Your contribution will help a large group of users
 make beautifully typeset music.
 
 Even working on small tasks can have a big impact: taking care of
-them allows experienced developers work on advanced tasks, instead
+them allows experienced developers to work on advanced tasks instead
 of spending time on those simple tasks.
 
 For a multi-faceted project like LilyPond, sometimes it's tough to know
 where to begin.  In addition to the avenues proposed below, you can send
 an e-mail to the
-@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel, lilypond-devel@@gnu.org}
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel, @code{lilypond-devel@@gnu.org}}
 mailing list, and we'll help you to get started.
 
 @end macro
@@ -33,8 +33,8 @@ Mailing list support: answer questions from fellow users.
 (This may entail helping them navigate the online documentation;
 in such cases it may sometimes be appropriate to point them
 to version-agnostic URL paths such as
-@uref{https://lilypond.org/doc/latest/Documentation/notation/, @code{/latest/}} or
-@uref{https://lilypond.org/doc/stable/Documentation/notation/, @code{/stable/}},
+@uref{https://lilypond.org/doc/latest/Documentation/notation/, @samp{latest}} or
+@uref{https://lilypond.org/doc/stable/Documentation/notation/, @samp{stable}},
 which are automatically redirected.)
 
 @item

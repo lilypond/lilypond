@@ -5,8 +5,8 @@
 @node Introduction to contributing
 @chapter Introduction to contributing
 
-This chapter presents a quick overview of ways that people can
-help LilyPond.
+This chapter presents a quick overview how people can help
+LilyPond.
 
 @menu
 * Help us::
@@ -32,7 +32,7 @@ help LilyPond.
 @advanced{Experienced developers should skip to
 @ref{Summary for experienced developers}.}
 
-Git is a @emph{version control system} that tracks the history of
+Git is a @dfn{version control system} that tracks the history of
 a program's source code.  The LilyPond source code is maintained
 as a Git repository, which contains:
 
@@ -55,11 +55,11 @@ LilyPond Git repository online:
 However, the main development takes place at
 @uref{https://gitlab.com/lilypond/lilypond/}, which also hosts the
 project's issues.  Automatic mirroring ensures that @q{important}
-branches (such as @code{master} and @code{stable/*}) are up-to-date
+branches (such as @code{master} and @code{stable/*}) are up to date
 on the @q{official} repository at GNU Savannah, so you can also base
 your development on a clone from there.
 
-@emph{Compiling} (@q{building}) LilyPond allows developers to see
+@dfn{Compiling} (@q{building}) LilyPond allows developers to see
 how changes to the source code affect the program itself.
 Compiling is also needed to package the program for specific
 operating systems or distributions.  LilyPond can be compiled from
@@ -89,84 +89,89 @@ If you are already familiar with typical open-source tools, here's
 what you need to know:
 
 @itemize
-@item @strong{@q{official} source repository}:
+@item
+@strong{@q{Official} source repository:}
 hosted by GNU Savannah
 
 @example
 @uref{https://git.savannah.gnu.org/gitweb/?p=lilypond.git}
 @end example
 
-@item @strong{development platform}:
-hosted by GitLab; also includes the issue tracker (see @ref{Issues})
+@item
+@strong{Development platform:}
+hosted by GitLab; also includes the issue tracker (@pxref{Issues})
 
 @example
 @uref{https://gitlab.com/lilypond/lilypond/}
 @end example
 
-@item @strong{environment variables}:
-many maintenance scripts, and many instructions in this guide rely on
-predefined @ref{Environment variables}.
+@item
+@strong{Environment variables:}
+needed by many maintenance scripts, and many instructions in this
+guide rely on them; @pxref{Environment variables}.
 
-@item @strong{mailing lists}:
-given on @rweb{Contact}.
+@item
+@strong{Mailing lists:}
+given in @rweb{Contact}.
 
-@item @strong{Git branches}:
+@item
+@strong{Git branches:}
 
 @itemize
 @item @code{master}:
-always base your work from this branch, but @strong{never push} directly
-to it.  Instead, use GitLab to merge changes after they have passed
-automatic testing (see below).
-
-@item @code{translation}:
-Translators should base their work on this branch only and push any
-translation patches directly to it as well.
+always base your work on this branch, but @strong{never push}
+directly to it.
 
 @item @code{dev/foo}:
-feel free to push any new branch name under @code{dev/}.
-
+feel free to push any new branches under @code{dev/} and use
+GitLab to create @dfn{Merge Requests} (MR), which eventually get
+merged into @code{master} after they have passed automatic testing
+(see below).
 @end itemize
 
-@item @strong{regression tests}:
-also known as @qq{regtests}. A collection of more than a thousand
+@item
+@strong{Regression tests:}
+also known as @qq{regtests}.  A collection of around two thousand
 @code{.ly} files that are used to track LilyPond's engraving output
 between released stable and unstable versions as well as checked for all
 patches submitted for testing.
 
-If a patch introduces any unintentional changes to any of the regtests
-it is very likely it will be rejected (to be fixed) -- always make sure
-that, if you expect any regression test changes, that they are explained
-clearly as part of the patch description when submitting for testing.
-For more information see @ref{Regression tests}.
+If a patch introduces any unintentional changes to any of the
+regtests it is very likely it will be rejected (to be fixed) -- if
+you expect any regression test changes, always make sure that they
+are explained clearly as part of the patch description when
+submitting for testing.  For more information, @pxref{Regression
+tests}.
 
-@item @strong{reviews}:
-after finishing work on a patch or branch:
+@item
+@strong{Reviews:}
+after finishing work on a patch or branch you should do the following.
 
 @enumerate
 @item
-Commit the changes and create a merge request.  More information on
-this can be found in the section @ref{Uploading a patch for review}.
+Commit the changes and create a Merge Request.  @xref{Uploading a
+patch for review} for more information.
 
 @item
-Patches are generally tested within 24 hours of submission.  Once
-it has passed the basic tests -- @command{make@tie{}check},
-@command{make}, @command{make@tie{}doc} -- the tracker will be
+A Merge Request is usually automatically tested within an hour of
+submission.  Once it has passed the basic tests -- @command{make
+check}, @command{make}, @command{make doc} -- the tracker will be
 updated and the patch's status will change to @code{Patch::review}
 for other developers to examine.
 
 @item
-Every third day, the @qq{Patch Meister} will examine all merge requests
+Every third day, the @qq{Patch Meister} will examine all Merge Requests
 currently under review, looking for any comments by other developers.
-Depending on what has been posted, the patch will be either; @qq{moved on}
-to the next patch status (@code{Patch::countdown}); set back to
-@code{Patch::needs_work}; or if more discussion is needed, left at
-@code{Patch::review}.  In all cases the merge request will be updated by
+Depending on what has been posted, the patch will be either @qq{moved on}
+to the next patch status (@code{Patch::countdown}), set back to
+@code{Patch::needs_work}, or if more discussion is needed, left at
+@code{Patch::review}.  In all cases the Merge Request will be updated by
 the Patch Meister accordingly.
 
 @item
 Once another three days have passed, any patch that has been given
 @code{Patch::countdown} status will be changed to @code{Patch::push}, the
-merge request is updated, and the developer can now rebase and merge to
+Merge Request is updated, and the developer can now rebase and merge to
 the @code{master} branch (or ask one of the other developers to merge it
 for you).
 
@@ -200,23 +205,23 @@ jobs have more potential mentors than others.}
 Ask your mentor which sections of the CG you should read.
 
 @item
-If you get stuck for longer than 10 minutes, ask your mentor.
+If you get stuck for longer than ten minutes, ask your mentor.
 They might not be able to help you with all problems, but we find
 that new contributors often get stuck with something that could be
-solved/explained with 2 or 3 sentences from a mentor.
+solved or explained with two or three sentences from a mentor.
 
 @item
 If you have been working on a task much longer than was originally
 estimated, stop and ask your mentor.  There may have been a
 miscommunication, or there may be some time-saving tips that could
-vastly simply your task.
+vastly simplify your task.
 
 @item
 Send patches to your mentor for initial comments.
 
 @item
 Inform your mentor if you're going to be away for a month, or if
-you leave entirely.  Contributing to lilypond isn't for everybody;
+you leave entirely.  Contributing to LilyPond isn't for everybody;
 just let your mentor know so that we can reassign that work to
 somebody else.
 
@@ -241,7 +246,7 @@ sure they feel valued.
 
 @item
 Inform your contributor(s) about the expected turnaround for your
-emails -- do you work on lilypond every day, or every weekend, or
+emails -- do you work on LilyPond every day, or every weekend, or
 what?  Also, if you'll be unavailable for longer than usual (say,
 if you normally reply within 24 hours, but you'll be at a
 conference for a week), let your contributors know.  Again, make
@@ -250,33 +255,31 @@ question during that period) isn't their fault.
 
 @item
 Inform your contributor(s) if they need to do anything unusual for
-the builds, such as doing a @qq{make clean / doc-clean} or
-switching git branches (not expected, but just in case...)
+the builds, such as doing a @code{make clean} or @code{make
+doc-clean}, or switching git branches (not expected, but just in
+case).
 
 @item
 You don't need to be able to completely approve patches.  Make
-sure the patch meets whatever you know of the guidelines (for doc
-style, code indentation, whatever), and then send it on to -devel
-for more comments.  If you feel confident
-about the patch, you can push it directly (this is mainly intended
-for docs and translations; code patches should almost always go to
--devel before being pushed).
+sure the patch meets whatever you know of the guidelines
+(documentation style, code indentation, whatever).
 
 @item
-Keep track of patches from your contributor.  Either open merge
-requests yourself, or help and encourage them to upload the patches
-themselves.
+Keep track of patches from your contributor.  Either open Merge
+Requests by yourself or help and encourage them to upload the
+patches themselves.
 
 @item
 Encourage your contributor to review patches, particularly your
-own!  It doesn't matter if they're not familiar with C++ / scheme
-/ build system / doc stuff -- simply going through the process is
-valuable.  Besides, anybody can find a typo!
+own!  It doesn't matter if they're not familiar with C++, Scheme,
+the build system, or the documentation guidelines -- simply going
+through the process is valuable.  Besides, anybody can find a
+typo!
 
 @item
 Contact your contributor at least once a week.  The goal is just
 to get a conversation started -- there's nothing wrong with simply
-copy&pasting this into an email:
+copying & pasting this into an email:
 
 @example
 Hey there,
@@ -287,7 +290,4 @@ reviews yet, do you know when you will get reviews?  If you are
 working on a patch, what step(s) are you working on?
 @end example
 
-
 @end enumerate
-
-
