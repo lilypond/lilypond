@@ -226,8 +226,8 @@ to the value of @code{baseMoment} at all times, even when
 New @q{stacked} flag glyphs are available.  All flag elements of a
 flag glyph have the same width but are vertically more compact.
 
-Use @code{flagStyleStacked} to access them; with
-@code{flagStyleDefault} you can switch back to the standard flag
+Use @code{\flagStyleStacked} to access them; with
+@code{\flagStyleDefault} you can switch back to the standard flag
 style.
 
 @lilypond[quote,indent=0\cm,ragged-right,staffsize=26]
