@@ -444,12 +444,14 @@ Make a @code{Stencil} object that prints a black box of dimensions @var{xext},
 }
 
 LY_DEFINE (ly_round_polygon, "ly:round-polygon", 2, 2, 0,
-           (SCM points, SCM blot, SCM extroversion, SCM filled_scm),
+           (SCM points, SCM blot, SCM extroversion, SCM filled),
            R"(
-Make a @code{Stencil} object that prints a black polygon with corners at the
-points defined by @var{points} (list of coordinate pairs) and roundness
-@var{blot}.  Optional @var{extroversion} shifts the outline outward, with the
-default of@tie{}0 keeping the middle of the line just on the polygon.
+Make a @code{Stencil} object that prints a polygon with corners at the
+points defined by @var{points} (a list of coordinate pairs) and roundness
+@var{blot}.  Optional numeric argument @var{extroversion} shifts the outline
+outward, with the default of@tie{}0 keeping the middle of the line just on
+the polygon.  If optional Boolean argument @var{filled} is set to
+@code{#t} (which is the default), fill the polygon.
            )")
 {
   SCM_ASSERT_TYPE (scm_ilength (points) > 0, points, SCM_ARG1, __FUNCTION__,
@@ -461,11 +463,11 @@ default of@tie{}0 keeping the middle of the line just on the polygon.
       LY_ASSERT_TYPE (scm_is_number, extroversion, 3);
       ext = from_scm<double> (extroversion);
     }
-  bool filled = true;
-  if (!SCM_UNBNDP (filled_scm))
+  bool fill = true;
+  if (!SCM_UNBNDP (filled))
     {
-      LY_ASSERT_TYPE (scm_is_bool, filled_scm, 4);
-      filled = from_scm<bool> (filled_scm);
+      LY_ASSERT_TYPE (scm_is_bool, filled, 4);
+      fill = from_scm<bool> (filled);
     }
   std::vector<Offset> pts;
   for (SCM scm_pt : as_ly_scm_list (points))
@@ -479,7 +481,7 @@ default of@tie{}0 keeping the middle of the line just on the polygon.
           // TODO: Print out warning
         }
     }
-  return Lookup::round_polygon (pts, from_scm<double> (blot), ext, filled)
+  return Lookup::round_polygon (pts, from_scm<double> (blot), ext, fill)
     .smobbed_copy ();
 }
 
