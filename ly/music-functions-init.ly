@@ -197,7 +197,7 @@ applyContext =
 
 applyMusic =
 #(define-music-function (func music) (procedure? ly:music?)
-   (_i"Apply procedure @var{func} to @var{music}.")
+   (_i "Apply procedure @var{func} to @var{music}.")
    (func music))
 
 applyOutput =
@@ -690,10 +690,13 @@ The resulting notes resemble harmonics played on a fretted instrument by
 touching the strings at the point given through @var{ratio}.")
   #{
     \set harmonicDots = ##t
-    \temporary \override TabNoteHead.stencil = #(tab-note-head::print-custom-fret-label (ratio->fret ratio))
-    \temporary \override NoteHead.Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height)
-    \temporary \override NoteHead.stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
-                                            (ly:note-head::print grob))
+    \temporary \override TabNoteHead.stencil =
+      #(tab-note-head::print-custom-fret-label (ratio->fret ratio))
+    \temporary \override NoteHead.Y-extent =
+      #(ly:make-unpure-pure-container ly:grob::stencil-height)
+    \temporary \override NoteHead.stencil =
+      #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
+               (ly:note-head::print grob))
     #(make-harmonic
       (calc-harmonic-pitch (ratio->pitch ratio) music))
     \unset harmonicDots
@@ -791,7 +794,8 @@ Chord inversions may be directed downwards using negative integers.")
 
 jump =
 #(define-music-function (text) (markup?)
-   "Use @var{text} to mark a point of departure, e.g., @q{Gavotte@tie{}I D.C.}."
+   (_i "Use @var{text} to mark a point of departure, e.g.,
+@q{Gavotte@tie{}I D.C.}.")
    (make-music 'AdHocJumpEvent 'text text))
 
 
@@ -1210,7 +1214,6 @@ overrideTimeSignatureSettings =
 #(define-music-function
    (time-signature base-moment beat-structure beam-exceptions)
    (boolean-or-fraction? fraction? list? list?)
-
    (_i "Override time signature settings.
 
 This function sets @code{timeSignatureSettings} for time signatures equal to
@@ -2353,8 +2356,8 @@ begins at@tie{}1 and increases by@tie{}1 with each repetition.")
 
 vshape =
 #(define-music-function (offsets item) (list? key-list-or-music?)
-   "Like @code{\\shape}, but additionally show control points for ease of
-tweaking."
+   (_i "Like @code{\\shape}, but additionally show control points for ease of
+tweaking.")
    (once (propertyTweak 'show-control-points #t (shape offsets item))))
 
 
