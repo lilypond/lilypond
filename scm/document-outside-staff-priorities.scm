@@ -17,7 +17,8 @@
 
 (define outside-staff-priorities-doc-string
   (format #f
-          "@indentedblock
+          "@need 800
+@indentedblock
 @multitable {@code{BassFigureAlignmentPositioning}} {Priority}
 @headitem Grob @tab Priority
 ~a
