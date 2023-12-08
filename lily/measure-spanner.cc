@@ -96,6 +96,7 @@ A bracket aligned to a measure or measures.
                R"(
 bracket-flare
 bracket-visibility
+break-overshoot
 connect-to-neighbor
 direction
 edge-height

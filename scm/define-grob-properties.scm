@@ -167,8 +167,12 @@ items to align this to.  If the grob selected by the first symbol
 in the list is invisible due to @w{@code{break-visibility}}, we
 will align to the next grob (and so on).  Choices are listed in
 @rinternals{break-alignment-interface}.")
-     (break-overshoot ,number-pair? "How much does a broken spanner
-stick out of its bounds?")
+     (break-overshoot ,number-pair? "A pair of numbers specifying how much a
+broken spanner sticks out of its bounds horizontally on the broken side(s).  For
+broken beams and broken tuplet brackets, the bounds are given by the prefatory
+matter on the left and/or the rightmost column on the right.  For broken
+horizontal brackets, the bounds are the leftmost and/or rightmost column; for
+broken measure spanners, the left and/or right edge of the staff.")
      (break-visibility ,vector? "A vector of 3@tie{}booleans,
 @w{@code{#(@var{end-of-line} @var{unbroken} @var{begin-of-line})}}.
 @code{#t} means visible, @code{#f} means killed.")

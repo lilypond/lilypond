@@ -100,6 +100,8 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
                                      Drul_array<Real> (0.0, 0.0));
   Drul_array<Real> shorten
     = from_scm (get_property (me, "shorten-pair"), Drul_array<Real> (0.0, 0.0));
+  Drul_array<Real> overshoot = from_scm (get_property (me, "break-overshoot"),
+                                         Drul_array<Real> (0.0, 0.0));
 
   // Make sure that it points in the correct direction:
   scale_drul (&edge_height, -dir);
@@ -116,7 +118,7 @@ Bracket::make_axis_constrained_bracket (Grob *me, Real length, Axis a,
         {
           edge_height[d] = 0.0;
           flare[d] = 0.0;
-          shorten[d] = 0.0;
+          shorten[d] = -overshoot[d];
         }
     }
 

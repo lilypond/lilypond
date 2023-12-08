@@ -62,6 +62,7 @@ A horizontal bracket encompassing notes.
                R"(
 bracket-flare
 bracket-text
+break-overshoot
 columns
 dashed-edge
 edge-height
