@@ -1532,7 +1532,10 @@ For EPS images, this always works (where EPS images work in the first place).
 On the other hand, for PNG images, it works in the Cairo backend (which can
 output all supported formats), as well as in the SVG backend, but @emph{not} in
 the PostScript backend, which is the default.  See @rprogram{Advanced
-command-line options for LilyPond} for how to activate the Cairo backend."
+command-line options for LilyPond} for how to activate the Cairo backend.
+
+Use @code{\\withRelativeDir} as a prefix to @var{file-name} if the file should
+be found relative to the input file."
   ;; From the width and height of the actual image plus one of the scaled
   ;; dimensions specified by the user, determine the scaling factor from image
   ;; coordinates to page coordinates, and the two dimensions of the stencil.
@@ -3281,9 +3284,12 @@ function's documentation.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\verbatim-file #\"en/included/simple.ly\"
+  \\verbatim-file \"en/included/simple.ly\"
 }
-@end lilypond"
+@end lilypond
+
+Use @code{\\withRelativeDir} as a prefix to @var{name} if the file should be
+found relative to the input file."
   (ly:note-extra-source-file name)
   (interpret-markup layout props
                     (make-typewriter-markup

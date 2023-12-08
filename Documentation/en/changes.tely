@@ -791,6 +791,15 @@ in @code{bound-details}.
 The @code{\align-on-other} markup command now accepts @code{#f} as
 a value for the alignment, indicating a markup's reference point.
 
+@item
+A new function @code{\withRelativeDir} is now available for markup
+commands that include files, and where such files should be found
+relative to the input file.  Example:
+
+@example
+\markup @{ \image #X #3 \withRelativeDir "test.png" @}
+@end example
+
 @end itemize
 
 

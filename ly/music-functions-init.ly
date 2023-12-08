@@ -2369,3 +2369,18 @@ withMusicProperty =
 
    (set! (ly:music-property music sym) val)
    music)
+
+withRelativeDir =
+#(define-scheme-function (file-name) (string?)
+   (_i "Prepend directory of current input file to string @var{file-name}.
+
+Use this for markup commands that include files, and where such files
+should be found relative to the input file.  Example:
+
+@example
+\\markup @{ \\image #X #3 \\withRelativeDir \"test.png\" @}
+@end example
+")
+   (let* ((input-file (car (ly:input-file-line-char-column (*location*))))
+          (input-dir (dirname input-file)))
+     (string-append input-dir file-name-separator-string file-name)))
