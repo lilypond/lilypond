@@ -14,13 +14,15 @@ breaks.
 }
 
 {
-  c''
-  -\tweak HorizontalBracketText.text \markup \draw-circle #1 #0.5 ##f
-  \startGroup
-  -\tweak HorizontalBracketText.text "a" \startGroup
+  c''\tweak HorizontalBracketText.text
+              \markup \draw-circle #1 #0.5 ##f
+     \tweak outside-staff-priority #801
+       \startGroup
+     \tweak HorizontalBracketText.text "a"
+       \startGroup
   d'' e'' f''
   g'' a'' b'' c'''\stopGroup
-  c'''-\tweak HorizontalBracketText.text "a'" \startGroup b'' a'' g''
-  \break
+  c'''\tweak HorizontalBracketText.text "a'"
+    \startGroup b'' a'' g'' \break
   f'' e'' d'' c''\stopGroup\stopGroup
 }

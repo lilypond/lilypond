@@ -1680,13 +1680,16 @@ start or end point for a @iref{GridLine} grob.")))))
     (HorizontalBracket
      . (
         (bracket-flare . (0.5 . 0.5))
+        (break-overshoot . ,horizontal-bracket::calc-break-overshoot)
         (connect-to-neighbor . ,ly:spanner::calc-connect-to-neighbors)
         (direction . ,DOWN)
+        (outside-staff-priority . 800)
         (padding . 0.2)
         (side-axis . ,Y)
         (staff-padding . 0.2)
         (stencil . ,ly:horizontal-bracket::print)
         (thickness . 1.0)
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (horizontal-bracket-interface

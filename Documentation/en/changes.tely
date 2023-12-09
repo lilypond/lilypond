@@ -800,6 +800,15 @@ relative to the input file.  Example:
 \markup @{ \image #X #3 \withRelativeDir "test.png" @}
 @end example
 
+@item
+The positioning of horizontal (analysis) brackets has been
+improved; in particular, the @code{HorizontalBracket} grob now has
+an @code{outside-staff-priority} value of 800.  As a consequence,
+however, nested horizontal brackets might be positioned
+differently than before.  You can fix this by adjusting
+@code{outside-staff-priority} values with @code{\tweak} (where the
+outermost bracket should get the highest priority value).
+
 @end itemize
 
 

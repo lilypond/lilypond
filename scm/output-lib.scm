@@ -3493,3 +3493,17 @@ for measure division ~a")
                                     '(bound-details left padding)
                                     right-padding))
     (ly:line-spanner::print grob)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; horizontal brackets
+
+(define-public (horizontal-bracket::calc-break-overshoot bracket)
+  (if (unbroken-spanner? bracket)
+      '()
+      (let* ((left-bound (ly:spanner-bound bracket LEFT))
+             (extent (ly:grob-extent left-bound left-bound X)))
+        ;; Use right edge of `left-bound` item (which is normally the
+        ;; prefatory matter of a staff) as the horizontal starting position
+        ;; of a broken bracket.
+        (cons (- (cdr extent)) 0))))

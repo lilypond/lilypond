@@ -13,7 +13,9 @@ tweaks are applied to the correct spanner."
 }
 
 \relative {
-  c'1-\tweak thickness #6 \startGroup
+  c'1\tweak thickness #6
+     \tweak outside-staff-priority #801
+       \startGroup
   c1\startGroup
   c1\stopGroup
   c1\stopGroup

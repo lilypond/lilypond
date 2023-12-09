@@ -20,9 +20,11 @@ usual nesting order of brackets.
 \relative c'' {
   \time 3/4
   \key f \major
-  c4
-  -\tweak HorizontalBracketText.text "contrasting period" \startGroup
-  -\tweak HorizontalBracketText.text "a" \startGroup
+  c4\tweak HorizontalBracketText.text "contrasting period"
+    \tweak outside-staff-priority #801
+      \startGroup
+    \tweak HorizontalBracketText.text "a"
+      \startGroup
   a8( bes c f)
   f4( e d)
   c d8( c bes c)
