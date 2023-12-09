@@ -1554,7 +1554,7 @@ triplets may result in poor notation.
 The simplest way to format cue notes is to explicitly create a
 @code{CueVoice} context within the part.
 
-@lilypond[verbatim]
+@lilypond[verbatim,quote]
 \relative {
   R1
   <<
@@ -1573,7 +1573,7 @@ an appropriately sized clef for the cue notes.  The @code{\cueClefUnset}
 command can then be used to switch back to the original clef, again with
 an appropriately sized clef.
 
-@lilypond[verbatim,noragged-right]
+@lilypond[verbatim,quote]
 \relative {
   \clef "bass"
   R1
@@ -1587,10 +1587,10 @@ an appropriately sized clef.
 }
 @end lilypond
 
-The @code{\cueClef} and @code{\cueClefUnset} command can also be used
+The @code{\cueClef} and @code{\cueClefUnset} commands can also be used
 without a @code{CueVoice} if required.
 
-@lilypond[verbatim,noragged-right]
+@lilypond[verbatim,quote]
 \relative {
   \clef "bass"
   R1
@@ -1601,29 +1601,30 @@ without a @code{CueVoice} if required.
 }
 @end lilypond
 
-For more complex cue note placement, e.g including transposition, or
-inserting cue notes from multiple music sources the @code{\cueDuring} or
+For more complex cue note placement like including transposition, or
+inserting cue notes from multiple music sources, the @code{\cueDuring} or
 @code{\cueDuringWithClef} commands can be used.  These are more
-specialized form of @code{\quoteDuring}, see @ref{Quoting other voices}
+specialized forms of @code{\quoteDuring}, @pxref{Quoting other voices}
 in the previous section.
 
-The syntax is:
+The syntax is
 
 @example
-\cueDuring @var{quotename} #@var{direction} @var{music}
+\cueDuring @var{quotename} @var{direction} @var{music}
 @end example
 
+@noindent
 and
 
 @example
-\cueDuringWithClef @var{quotename} #@var{direction} #@var{clef} @var{music}
+\cueDuringWithClef @var{quotename} @var{direction} @var{clef} @var{music}
 @end example
 
-The music from the corresponding measures of the @code{@var{quote name}}
-is added as a @code{CueVoice} context and occurs simultaneously with the
-@code{@var{music}}, which then creates a polyphonic situation.  The
-@code{@var{direction}} takes the argument @code{UP} or @code{DOWN}, and
-corresponds to the first and second voices respectively, determining how
+The music from the corresponding measures of @var{quotename}
+is added as a @code{CueVoice} context and occurs simultaneously with
+@var{music}, which then creates a polyphonic situation.  The
+@var{direction} variable takes the argument @code{#UP} or @code{#DOWN}, and
+corresponds to the first and second voice, respectively, determining how
 the cue notes are printed in relation to the other voice.
 
 @lilypond[verbatim,quote]
@@ -1644,9 +1645,6 @@ oboeNotes = \relative c'' {
   \oboeNotes
 }
 @end lilypond
-
-@noindent
-
 
 It is possible to adjust which aspects of the music are quoted with
 @code{\cueDuring} by setting the @code{quotedCueEventTypes}

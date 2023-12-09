@@ -2543,7 +2543,8 @@ name later, using either @code{\keepWithTag #'@var{name}} or
 @code{\removeWithTag #'@var{name}}.  The result of applying these filters
 to tagged music is as follows:
 
-@multitable @columnfractions .5 .5
+@indentedblock
+@multitable @columnfractions .55 .45
 @headitem Filter
   @tab Result
 
@@ -2580,6 +2581,7 @@ Tagged music not preceded by either@*
 @code{\keepWithTag} or @code{\removeWithTag}
   @tab All tagged and untagged music is included.
 @end multitable
+@end indentedblock
 
 The arguments of the @code{\tag}, @code{\keepWithTag} and
 @code{\removeWithTag} commands should be a symbol or list of
@@ -2621,7 +2623,7 @@ Alternatively, it is sometimes easier to exclude sections of music:
 music = \relative {
   g'8. c32 d
   \tag #'trills { d8.\trill }
-  \tag #'expand {\repeat unfold 3 { e32 d } }
+  \tag #'expand { \repeat unfold 3 { e32 d } }
   c32 d
  }
 
