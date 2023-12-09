@@ -2637,6 +2637,48 @@ music = \relative {
 }
 @end lilypond
 
+@cindex @code{\cueDuring}, and tags
+@cindex @code{\quoteDuring}, and tags
+@cindex @code{\tag}, and quoting music
+
+If tags mark alternatives that have non-zero duration, the
+alternatives are often conceptually simultaneous, in which case it
+is best to put the alternatives in a simultaneous music expression
+so that the music expression has the same duration no matter which
+tags are retained.  This is especially important if you are using
+tags in combination with commands like @code{\cueDuring}.
+
+@lilypond[verbatim,quote]
+outputTypeTag = "isScore"
+
+firstInstrument = \relative c' {
+  <<
+    \tag #'isPart {
+      \cueDuring #"quoteSecondInstrument" #UP { r2 } }
+    \tag #'isScore { r2 }
+  >>
+  e4 f |
+  g4 a b c |
+}
+
+secondInstrument= \relative c'' {
+  c4 c r2 |
+  \cueDuring #"quoteFirstInstrument" #DOWN { r2 }
+  c4 c |
+}
+
+\addQuote quoteFirstInstrument \firstInstrument
+\addQuote quoteSecondInstrument \secondInstrument
+
+\new Staff {
+  \keepWithTag \outputTypeTag \firstInstrument
+}
+
+\new Staff {
+  \keepWithTag \outputTypeTag \secondInstrument
+}
+@end lilypond
+
 Tagged filtering can be applied to articulations, texts, etc., by
 prepending
 
