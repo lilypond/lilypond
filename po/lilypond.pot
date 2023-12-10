@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.10\n"
+"Project-Id-Version: lilypond 2.25.11\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2023-11-11 14:19+0100\n"
+"POT-Creation-Date: 2023-12-10 11:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -467,25 +467,25 @@ msgstr ""
 msgid "beamExceptions controls whole-measure beaming."
 msgstr ""
 
-#: convertrules.py:3844
+#: convertrules.py:3859
 msgid ""
 "\n"
 "staff-padding now controls the distance to the baseline, not the nearest "
 "point.\n"
 msgstr ""
 
-#: convertrules.py:4138
+#: convertrules.py:4153
 msgid ""
 "\n"
 "Previously the \"id\" grob property (string) was used for SVG output.\n"
 "Now \"output-attributes\" (association list) is used instead.\n"
 msgstr ""
 
-#: convertrules.py:4245
+#: convertrules.py:4260
 msgid "alternative chord naming functions"
 msgstr ""
 
-#: convertrules.py:4261
+#: convertrules.py:4276
 msgid ""
 "\n"
 "Instead of (for example)\n"
@@ -497,7 +497,7 @@ msgid ""
 "the multi-measure rest lasts.\n"
 msgstr ""
 
-#: convertrules.py:4297
+#: convertrules.py:4312
 msgid ""
 "\n"
 "If you had\n"
@@ -519,11 +519,11 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:4343
+#: convertrules.py:4358
 msgid "Stem.neutral-direction with Melody_engraver"
 msgstr ""
 
-#: convertrules.py:4352
+#: convertrules.py:4367
 msgid ""
 "\n"
 "ly:round-filled-polygon was renamed to ly:round-polygon and now takes\n"
@@ -532,14 +532,14 @@ msgid ""
 "-1 to 0.\n"
 msgstr ""
 
-#: convertrules.py:4429
+#: convertrules.py:4444
 msgid ""
 "\n"
 "If independent mark sequences are desired, use multiple "
 "Mark_tracking_translators.\n"
 msgstr ""
 
-#: convertrules.py:4446
+#: convertrules.py:4461
 msgid ""
 "\n"
 "The signature of the markup->string Scheme function changed.  Calls with\n"
@@ -555,7 +555,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:4503
+#: convertrules.py:4518
 msgid ""
 "\n"
 "Warning:\n"
@@ -579,7 +579,7 @@ msgid ""
 "  \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
 msgstr ""
 
-#: convertrules.py:4561
+#: convertrules.py:4576
 msgid ""
 "\n"
 "The X-offset property of PercentRepeat is no longer relative to the\n"
@@ -588,18 +588,18 @@ msgid ""
 "should be updated.\n"
 msgstr ""
 
-#: convertrules.py:4580
+#: convertrules.py:4595
 msgid ""
 "\n"
 "The automaticBars property has been removed.  Instead, set\n"
 "measureBarType to #'() or a valid bar type.\n"
 msgstr ""
 
-#: convertrules.py:4598
+#: convertrules.py:4613
 msgid "advanced use of automaticBars"
 msgstr ""
 
-#: convertrules.py:4644
+#: convertrules.py:4659
 msgid ""
 "\n"
 "Warning: \\fine no longer enforces the end of the music.  If your piece\n"
@@ -607,7 +607,7 @@ msgid ""
 "unfolded, use \\volta to exclude it.\n"
 msgstr ""
 
-#: convertrules.py:4650
+#: convertrules.py:4665
 msgid ""
 "\n"
 "MensuralStaff and VaticanaStaff now use Divisio_engraver to engrave\n"
@@ -622,7 +622,7 @@ msgid ""
 "and Divisio_engraver in the appropriate Staff-aliased context.\n"
 msgstr ""
 
-#: convertrules.py:4663
+#: convertrules.py:4678
 msgid ""
 "\n"
 "GregorianTranscriptionStaff now engraves \\divisioMinima,\n"
@@ -642,41 +642,41 @@ msgid ""
 "grobs.\n"
 msgstr ""
 
-#: convertrules.py:4691
+#: convertrules.py:4706
 msgid "music following \\fine"
 msgstr ""
 
-#: convertrules.py:4696
+#: convertrules.py:4711
 msgid "BreathingSign to BarLine or Divisio"
 msgstr ""
 
-#: convertrules.py:4701
+#: convertrules.py:4716
 msgid "BreathingSign to Divisio"
 msgstr ""
 
-#: convertrules.py:4707
+#: convertrules.py:4722
 msgid ""
 "\n"
 "The barAlways property has been removed.  Instead, use\n"
 "forbidBreakBetweenBarLines.\n"
 msgstr ""
 
-#: convertrules.py:4719
+#: convertrules.py:4734
 msgid "advanced use of barAlways"
 msgstr ""
 
-#: convertrules.py:4725
+#: convertrules.py:4740
 msgid ""
 "\n"
 "The second argument to ly:skylines-for-stencil is now the 'horizon axis',\n"
 "which is the opposite of the convention used previously.\n"
 msgstr ""
 
-#: convertrules.py:4735
+#: convertrules.py:4750
 msgid "ly:skylines-for-stencil second argument"
 msgstr ""
 
-#: convertrules.py:4757
+#: convertrules.py:4772
 msgid ""
 "\n"
 "The string-regexp-substitute function has been removed.  A call\n"
@@ -688,7 +688,7 @@ msgid ""
 "  (ly:regex-replace (ly:make-regex pattern) str replacement)\n"
 msgstr ""
 
-#: convertrules.py:4767
+#: convertrules.py:4782
 msgid ""
 "\n"
 "uniqued-alist no longer needs to take '() as its second argument.\n"
@@ -701,7 +701,7 @@ msgstr ""
 #. assume that the user was not changing the font size, as doing that
 #. without passing #:factor was resulting in bad output anyway.
 #. Other values result in a warning.
-#: convertrules.py:4845
+#: convertrules.py:4860
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts.  The\n"
@@ -716,7 +716,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:4858
+#: convertrules.py:4873
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts.  The #:brace\n"
@@ -738,7 +738,7 @@ msgid ""
 "}\n"
 msgstr ""
 
-#: convertrules.py:4878
+#: convertrules.py:4893
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts. The code "
@@ -768,20 +768,20 @@ msgid ""
 "convert automatically.  Please do the update manually.\n"
 msgstr ""
 
-#: convertrules.py:4923
+#: convertrules.py:4938
 msgid "#:factor parameter to set-global-fonts"
 msgstr ""
 
-#: convertrules.py:4928
+#: convertrules.py:4943
 msgid "different music and brace fonts passed to set-global-fonts"
 msgstr ""
 
-#: convertrules.py:4945
+#: convertrules.py:4960
 msgid "advanced use of set-global-fonts"
 msgstr ""
 
 #. Similar logic here with the factor parameter here
-#: convertrules.py:4950
+#: convertrules.py:4965
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts.  The\n"
@@ -796,7 +796,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:4963
+#: convertrules.py:4978
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts. The code "
@@ -825,19 +825,19 @@ msgid ""
 "to convert automatically.  Please do the update manually.\n"
 msgstr ""
 
-#: convertrules.py:5010
+#: convertrules.py:5025
 msgid "factor parameter to make-pango-font-tree"
 msgstr ""
 
-#: convertrules.py:5021
+#: convertrules.py:5036
 msgid "advanced use of make-pango-font-tree"
 msgstr ""
 
-#: convertrules.py:5077
+#: convertrules.py:5092
 msgid "markup in repeatCommands"
 msgstr ""
 
-#: convertrules.py:5078
+#: convertrules.py:5093
 msgid ""
 "\n"
 "Markups inside repeatCommands are no longer automatically typeset in\n"
@@ -856,18 +856,18 @@ msgid ""
 "\"1.2.\" ad lib. } #}))\n"
 msgstr ""
 
-#: convertrules.py:5112
+#: convertrules.py:5127
 msgid "advanced use of (text-)font-defaults"
 msgstr ""
 
-#: convertrules.py:5113
+#: convertrules.py:5128
 msgid ""
 "\n"
 "The text-font-defaults and font-defaults variables have\n"
 "been merged into a single property-defaults variable.\n"
 msgstr ""
 
-#: convertrules.py:5119
+#: convertrules.py:5134
 msgid ""
 "\n"
 "Identifiers formerly in file 'gregorian.ly' are now always defined.  The\n"
@@ -879,7 +879,7 @@ msgid ""
 "It is recommended to rename them.\n"
 msgstr ""
 
-#: convertrules.py:5129
+#: convertrules.py:5144
 msgid ""
 "\n"
 "The use of 'gregorian.ly' is deprecated.  Code like\n"
@@ -901,15 +901,15 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:5190
+#: convertrules.py:5205
 msgid "gregorian.ly to VaticanaScore"
 msgstr ""
 
-#: convertrules.py:5206
+#: convertrules.py:5221
 msgid "possible use of \\roman markup command with #(markup ...) macro"
 msgstr ""
 
-#: convertrules.py:5208
+#: convertrules.py:5223
 msgid ""
 "\n"
 "convert-ly detected \"#:roman\" in the input file.  This may be\n"
@@ -918,11 +918,11 @@ msgid ""
 "#:roman to #:serif.\n"
 msgstr ""
 
-#: convertrules.py:5252
+#: convertrules.py:5267
 msgid "subdivideBeams"
 msgstr ""
 
-#: convertrules.py:5253
+#: convertrules.py:5268
 msgid ""
 "\n"
 "Context property 'subdivideBeams' used to rely on the value of\n"
@@ -3389,7 +3389,7 @@ msgstr ""
 msgid "multi-page output not supported by backend `%s'"
 msgstr ""
 
-#: paper-column.cc:452
+#: paper-column.cc:454
 #, c-format
 msgid ""
 "refusing to create a grob sticking to Paper_column grob %s; paper columns "
@@ -4170,27 +4170,27 @@ msgstr ""
 msgid "Bar glyph ~a not known. Ignoring."
 msgstr ""
 
-#: bar-line.scm:134
+#: bar-line.scm:131
 #, scheme-format
 msgid ""
 "Annotation '~a' is allowed in the first argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:142
+#: bar-line.scm:139
 #, scheme-format
 msgid ""
 "Replacement '~a' is allowed in the last argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:197
+#: bar-line.scm:194
 #, scheme-format
 msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:1008
+#: bar-line.scm:1005
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
@@ -4230,17 +4230,17 @@ msgstr ""
 msgid "Can't print a line - setting on/off to default"
 msgstr ""
 
-#: define-markup-commands.scm:1568
+#: define-markup-commands.scm:1564
 #, scheme-format
 msgid "unrecognized image file, should have .png or .eps extension: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:1578
+#: define-markup-commands.scm:1574
 #, scheme-format
 msgid "EPS image dimensions could not be determined; is '~a' a valid EPS file?"
 msgstr ""
 
-#: define-markup-commands.scm:1626
+#: define-markup-commands.scm:1622
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
@@ -4327,12 +4327,12 @@ msgstr ""
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
 
-#: flag-styles.scm:191
+#: flag-styles.scm:189
 #, scheme-format
 msgid "flag stroke `~a' or `~a' not found"
 msgstr ""
 
-#: flag-styles.scm:206
+#: flag-styles.scm:204
 #, scheme-format
 msgid "flag ~a not found"
 msgstr ""
@@ -4554,23 +4554,23 @@ msgstr ""
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:1216
+#: lily-library.scm:1215
 msgid ""
 "version with third number omitted is only allowed for stable releases (when "
 "the second number is even)"
 msgstr ""
 
-#: lily-library.scm:1229
+#: lily-library.scm:1228
 #, scheme-format
 msgid "Invalid version string \"~a\""
 msgstr ""
 
-#: lily-library.scm:1244
+#: lily-library.scm:1243
 #, scheme-format
 msgid "program too old: ~a (file requires: ~a)"
 msgstr ""
 
-#: lily-library.scm:1260
+#: lily-library.scm:1259
 #, scheme-format
 msgid ""
 "\n"
@@ -4582,7 +4582,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: lily-library.scm:1428
+#: lily-library.scm:1427
 msgid ""
 "Bisect between the integers @var{start} and @var{end}, both ends inclusive, "
 "to\n"
@@ -4601,17 +4601,17 @@ msgid ""
 "greater than or equal to @var{target-val}."
 msgstr ""
 
-#: lily-library.scm:1673
+#: lily-library.scm:1672
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:1706
+#: lily-library.scm:1705
 #, scheme-format
 msgid "conflict with event: `~a'"
 msgstr ""
 
-#: lily-library.scm:1707
+#: lily-library.scm:1706
 #, scheme-format
 msgid "discarding event: `~a'"
 msgstr ""
@@ -5083,54 +5083,54 @@ msgstr ""
 msgid "Both angle-increments and radial-increments must be positive numbers."
 msgstr ""
 
-#: translation-functions.scm:391
+#: translation-functions.scm:397
 #, scheme-format
 msgid "no accidental glyph found for alteration ~a"
 msgstr ""
 
-#: translation-functions.scm:653
+#: translation-functions.scm:659
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:658
+#: translation-functions.scm:664
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:663
+#: translation-functions.scm:669
 #, scheme-format
 msgid "Open fret on string ~a has finger of ~a"
 msgstr ""
 
-#: translation-functions.scm:706
+#: translation-functions.scm:712
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:729 translation-functions.scm:741
+#: translation-functions.scm:735 translation-functions.scm:747
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:732
+#: translation-functions.scm:738
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:744
+#: translation-functions.scm:750
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:769
+#: translation-functions.scm:775
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:808
+#: translation-functions.scm:814
 msgid "additional bass strings are not supported by FretBoards"
 msgstr ""
 
-#: translation-functions.scm:892
+#: translation-functions.scm:898
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
