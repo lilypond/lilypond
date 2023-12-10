@@ -9,6 +9,17 @@
 @c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
+@subheading LilyPond 2.25.11 released  @emph{December 10, 2023}
+
+We are happy to announce the release of LilyPond 2.25.11. This is
+termed a development release, but these are usually reliable for
+testing new features and recent bug fixes. However, if you require
+stability, we recommend using version 2.24.3, the current stable
+release.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.24.3 released!  @emph{November 19, 2023}
 
 We are proud to announce the release of GNU LilyPond 2.24.3. LilyPond is a
@@ -29,16 +40,5 @@ For distributions, LilyPond 2.24.3 most notably includes a fix to restore PDF
 conversion with the recent Ghostscript 10.02.1. Also Guile 3.0 is now officially
 supported, even though the recommended version will remain Guile 2.2 for the
 LilyPond 2.24 series.
-
-@newsEnd
-
-@newsItem
-@subheading LilyPond 2.25.10 released  @emph{November 11, 2023}
-
-We are happy to announce the release of LilyPond 2.25.10. This is
-termed a development release, but these are usually reliable for
-testing new features and recent bug fixes. However, if you require
-stability, we recommend using version 2.24.2, the current stable
-release.
 
 @newsEnd
