@@ -1370,7 +1370,7 @@ Snippets:
 @funindex set-global-staff-size
 @funindex layout-set-staff-size
 
-The default @strong{staff size} is 20 points, which corresponds to
+The default @dfn{staff size} is 20 points, which corresponds to
 a staff height of 7.03@dmn{mm} (one point is equal to 100/7227 of an
 inch, or 2540/7227@dmn{mm}).  The staff size may be changed in three
 ways:
@@ -1378,9 +1378,8 @@ ways:
 @enumerate
 
 @item
-To set the staff size globally for all scores in a file (or in a
-@code{\book} block, to be precise), use
-@code{set-global-staff-size}:
+To set the staff size globally for all scores in a file, use
+@code{set-global-staff-size}.
 
 @example
 #(set-global-staff-size 14)
@@ -1389,6 +1388,21 @@ To set the staff size globally for all scores in a file (or in a
 @noindent
 The above example sets the global default staff size to 14@dmn{pt}
 (4.92@dmn{mm}) and scales all fonts accordingly.
+
+The function can also be used to set various staff sizes for
+different @code{\book} blocks:
+
+@example
+#(set-global-staff-size 30)
+\book @{
+  @{ c' @}
+@}
+
+#(set-global-staff-size 10)
+\book @{
+  @{ c' @}
+@}
+@end example
 
 @item
 To set the staff size for a single score within a book, use
