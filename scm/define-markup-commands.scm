@@ -3884,18 +3884,21 @@ This command sets the @code{font-shape} property to @code{italic}.
   #:category font
   "Print @var{arg} in typewriter.
 
-This command sets the @code{font-family} property to @code{typewriter}.
+This command sets the @code{font-family} property to @code{typewriter}, also
+switching off the @q{liga} OpenType feature to disable ligatures like @q{ff} or
+@q{fi}.
 
 @lilypond[verbatim,quote]
 \\markup {
-  default
+  \"default fi ff\"
   \\hspace #2
-  \\typewriter typewriter
+  \\typewriter \"typewriter fi ff\"
 }
 @end lilypond"
   (interpret-markup layout
                     (cons '((font-family . typewriter)
-                            (font-encoding . latin1))
+                            (font-encoding . latin1)
+                            (font-features . ("-liga")))
                           props)
                     arg))
 
