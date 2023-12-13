@@ -1276,8 +1276,32 @@ Create an invisible object taking up @var{amount} horizontal space.
   \\hspace #8
   three
 }
-@end lilypond"
+@end lilypond
+
+See also @code{\\abs-hspace}."
   (ly:make-stencil "" (cons 0 amount) empty-interval))
+
+(define-markup-command (abs-hspace layout props amount)
+  (number?)
+  #:category align
+  "
+@cindex creating horizontal space, in text
+
+Create an invisible object taking up absolute horizontal space of @var{amount}
+points.
+
+@lilypond[verbatim,quote]
+\\markup {
+  one
+  \\abs-hspace #20
+  two
+  \\abs-hspace #40
+  three
+}
+@end lilypond
+
+See also @code{\\hspace}."
+  (ly:make-stencil "" (cons 0 (to-staff-space amount)) empty-interval))
 
 (define-markup-command (vspace layout props amount)
   (number?)
@@ -1298,9 +1322,35 @@ of @var{amount} multiplied by 3.
     three
   }
 }
-@end lilypond"
+@end lilypond
+
+See also @code{\\abs-vspace}."
   (let ((amount (* amount 3.0)))
     (ly:make-stencil "" empty-interval (cons 0 amount))))
+
+(define-markup-command (abs-vspace layout props amount)
+  (number?)
+  #:category align
+  "
+@cindex creating vertical space, in text
+
+Create an invisible object taking up absolute vertical space of @var{amount}
+points.
+
+@lilypond[verbatim,quote]
+\\markup {
+    \\center-column {
+    one
+    \\abs-vspace #20
+    two
+    \\abs-vspace #40
+    three
+  }
+}
+@end lilypond
+
+See also @code{\\vspace}."
+  (ly:make-stencil "" empty-interval (cons 0 (to-staff-space amount))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

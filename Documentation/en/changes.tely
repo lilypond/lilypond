@@ -942,6 +942,28 @@ differently than before.  You can fix this by adjusting
 @code{outside-staff-priority} values with @code{\tweak} (where the
 outermost bracket should get the highest priority value).
 
+@item
+A new Scheme function @code{to-staff-space} is provided to convert
+absolute dimensions (in various units) to staff-space units.
+Examples:
+
+@example
+top-markup-spacing.basic-distance = #(to-staff-space 2 'cm)
+
+% default unit is pt
+\markup
+  \override #`(baseline-skip . ,(to-staff-space 20))
+  \column @{
+    foo
+    bar
+  @}
+@end example
+
+@item
+Two new markup functions @code{\abs-hspace} and @code{\abs-vspace}
+are available to provide absolute dimensions that stay the same
+regardless of the current staff size.
+
 @end itemize
 
 

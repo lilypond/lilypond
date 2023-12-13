@@ -95,7 +95,6 @@
 (define-public (layout-set-staff-size sz)
   "Set the staff size inside of a @code{\\layout@{@}} block.
 @var{sz} is in points."
-
   (layout-set-absolute-staff-size (* (eval 'pt (current-module)) sz)))
 
 (define-public (set-global-staff-size sz)
@@ -118,6 +117,40 @@
     (layout-set-absolute-staff-size-in-module new-scope
                                               (* sz (eval 'pt new-scope)))
     (module-define! current-mod '$defaultpaper new-paper)))
+
+(define unit-conversion-alist
+  `((pt . ,(/ (ly:pt 1) (ly:pt 1)))
+    (bp . ,(/ (ly:bp 1) (ly:pt 1)))
+    (mm . ,(/ (ly:mm 1) (ly:pt 1)))
+    (cm . ,(/ (ly:cm 1) (ly:pt 1)))
+    (in . ,(/ (ly:inch 1) (ly:pt 1)))))
+
+(define*-public (to-staff-space size #:optional (unit 'pt))
+  "Convert absolute @var{size} in @var{unit} to staff-space units.
+
+Possible values for @var{unit} are @code{'pt}, @code{'bp}, @code{'mm},
+@code{'cm}, and @code{'in}.  If @var{unit} is omitted, use @code{'pt}.
+
+Example:
+
+@example
+\\markup \\hspace #(to-staff-space 25 'mm)
+@end example
+"
+  (let* (;; The value `output-scale` gives the size (in mm) of the staff space
+         ;; at the current staff size.  By definition, the staff space for a
+         ;; 20pt staff size is 20pt / 4 = 5pt.
+         (paper (module-ref (current-module) '$defaultpaper))
+         (output-scale (ly:output-def-lookup paper 'output-scale 1))
+         (unit-factor-1 (assv-ref unit-conversion-alist unit))
+         (unit-factor (or unit-factor-1 1))
+         (scaled-size (* size unit-factor))
+         (5pt (ly:pt 5))
+         (factor (/ output-scale 5pt))
+         (staff-space (* 5 factor)))
+    (if (not unit-factor-1)
+        (ly:warning (G_ "Unknown unit '~a', using 'pt' instead" unit)))
+    (/ scaled-size staff-space)))
 
 (define-public documented-paper-alist
   ;; The documentation script currently expects units mm or in.
