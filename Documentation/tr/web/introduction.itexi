@@ -1,0 +1,1578 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: tr -*-
+@ignore
+    Translation of GIT committish: 34f932f6b2a5e5520202b8319720ff62c532de0f
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Begüm Önal
+
+@node Introduction
+@unnumbered Giriş
+
+@divClass{column-center-top}
+@subheading Vizyonumuz
+
+@imageFloat{flat-design,png,right}
+
+LilyPond, iki müzisyenin bilgisayar tarafından yazılmış notaların duygusuz
+görünümünü aşmak istedikleri zaman ortaya çıktı.  Müzisyenler güzel notaları
+okumayı tercih eder, peki programcılar neden zarif çıktı veren parçalar
+üretebilmek yazılım yazmazlar?
+
+Sonuç, klasik müzik notasyonunun en iyi geleneklerini takip
+ederek güzel nota kağıtları oluşturan bir programdır.  Programlı
+olarak sayfa düzeni detaylarına özen göstererir, böylece bestecilerin,
+transkripsiyoncuların ve yayıncıların yazılımın varsayılan çıktısını
+geliştirmek yerine @emph{music} üzerine odaklanmalarına izin verir.
+Sanatçılar @emph{reading} yerine @emph{playing} üzerine odaklanmalarını
+sağlayan parçalar elde ederler.
+
+
+@divEnd
+
+@divClass{link-headings}
+
+@divClass{column-left-top}
+@subheading LilyPond neler yapar?
+
+@itemize
+
+@item
+@ref{Features}: LilyPond neler yapabilir?
+
+@item
+@ref{Examples}: Biraz müzik görmek istiyorum!
+
+@item
+@ref{Freedom}: LilyPond Özgür Yazılımdır.
+
+@item
+@ref{Background}: Hesaplamalı estetiklerimiz.
+
+@end itemize
+@divEnd
+
+@divClass{column-right-top}
+@subheading LilyPond'un kullanımı
+@itemize
+
+@item
+@ref{Productions}: LilyPond'un gerçek hayatta kullanımı.
+
+@item
+@ref{Reviews}: İnsanlar ne diyor?
+
+@end itemize
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading LilyPond nasıl çalışır
+@itemize
+
+@item
+@ref{Text input}: Sen müziği böyle mi yazıyorsun @emph{text}?!
+
+@item
+@ref{Easier editing}: LilyPond ile çalışmanın diğer yolları.
+
+@end itemize
+@divEnd
+
+@divEnd
+
+@c TRANSLATORS, translations are not yet compiled in Info format, so
+@c it's not worth translating the right column of the following
+@c menu. -JM
+@menu
+* Features::                    What can LilyPond do?
+* Examples::                    I want to see some music!
+* Freedom::                     Freedom and the GPL.
+* Background::                  Computational aesthetics.
+* Productions::                 Real-life use of LilyPond.
+* Reviews::                     What do people say about it?
+* Text input::                  You write music as text?!
+* Easier editing::              Other ways of working with LilyPond.
+@end menu
+
+
+
+@node Features
+@unnumberedsec Özellikler
+@divClass{column-center-top}
+
+
+@subheading Mükemmel klasik notasyon
+
+@imageFloat{flat-design,png,right}
+
+LilyPond, müzisyenlere kolay okunabilir zarif nota kağıtları üretme imkanı
+tanır.  Geliştirici topluluğu güzel notasyonlu müzikle sonuçlanan güçlü bir
+müzik notasyon yazılımı geliştirmek için binlerce saat harcamıştır.
+LilyPond'un tüm stil ayarları, font tasarımları ve algoritmaları, el ile
+çizilmiş en iyi müzik notasyonundan ilham almıştır.  LilyPond çıktısı, en iyi
+notasyon ile hazırlanmış klasik partisyonlar ile aynı güce, dengeye ve zarif
+görünüme sahiptir.  Bu konu daha derin detaylar ile bölümümüzde açıklanmıştır:
+@ref{Essay}.
+
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Metin girdisi
+
+@subsubheading Her şey açıkça belirtilmiştir
+
+Lilypond, partisyonun @emph{content}'i hakkında bütün bilgileri içeren
+metin girdisini işler ve herhangi bir insan veya başka bir program tarafından
+kolaylıkla okunabilir.  İkili(binary) dosya depolaması ve menü öğelerinin
+arkasına gizlenmiş karmaşık ayarlar bulunmamaktadır.
+
+Bu konsept hakkında daha fazla bilgi için: @ref{Text input}.
+
+
+@subsubheading İnce ayarlar sağlam ve takip edilebilirdir
+
+Eğer sayfa düzeninde herhangi bir şeyi değiştirmeniz gerekiyorsa, bu ince
+ayar insan tarafından okunabilir bir formda giriş dosyasında açıkça
+görünecektir, böylece her zaman daha önce yapmış olduğunuz değişikliği
+takip edebilirsiniz.  Eğer yanlışlıkla bir şeyi bozarsanız, bir @emph{Undo}
+işlemine bağlı olmadan değişikliği kolayca geri alabilir veya
+değiştirebilirsiniz.
+
+
+@subsubheading Metin dosyaları hataya dayanıklı ve gelecek garantilidir
+
+Metin dosyaları dosya bozulmasına karşı çok sağlamdır.  Aynı zamanda insan
+tarafından okunabilir olduklarından, metin dosyalarını oluşturan programlara
+erişiminiz olmasa bile onları her zaman yorumlayabilirsiniz.
+
+
+@subsubheading Partisyonlarınızı versiyon kontrolü ile yönetin
+
+Metin dosyaları, versiyon kontrolü ile yönetilmek için uygundur.
+Bu yöntemi kullanarak, sınırsız ve seçici geri al/yinele mekanizmalarını
+ve partisyonlarınızın bütün geliştirme geçmişini deneyimleyebilirsiniz.
+Ayrıca versiyon kontrolü, size yeni (işbirlikçi) iş akışları da sunabilir.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Kullanılabilirlik
+
+@imageFloat{lilypond-book,png,right}
+
+
+@subsubheading Efektif sayfa düzeni seçenekleri
+
+Çıktıyı ayarlamakta daha az zaman harcayın; LilyPond biçimlendirmeyi
+başlangıçtan itibaren doğru bir şekilde yerine getirir.  Boşlukları kendisi
+belirler, sıkı ve uyumlu bir sayfa düzeni sağlamak için satırları ve sayfaları
+kendi başına bölümlendirir.  Şarkı sözleri, notalar ve akorlar arasındaki
+çatışmalar çözülür, notalar arasındaki bağlamalar otomatik olarak
+eğimlendirilir!
+
+
+@subsubheading Müziği ve metni bir araya getirin
+
+Müzik parçalarını kesme ve yapıştırma yapmadan metinlere ekleyin.  Müziği
+sorunsuz bir şekilde @LaTeX{} veya HTML'e entegre edin veya OpenOffice.org
+ve LibreOffice'e
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilyPond}.
+eklentisi ile müzik ekleyin.  Ayrıca, çevrimdışı işbirliğini mümkün kılabilmek
+sebebiyle LilyPond kodunu çeşitli blog ve wikilere eklemek için eklentiler de
+mevcuttur.
+
+
+@subsubheading Erişilebilirlik
+
+Metin tabanlı girdi fiziksel engeli olan kullanıcılar için nota yazımını
+mümkün kılar.  Ortopedik engeli olan, klavyeyi veya bilgisayar faresini
+kontrol edemeyen kullanıcılar, LilyPond dosyalarını düzenlemek için konuşma
+tanıma yazılımlarını kullanabilirler.  Görme engeli olan  kullanıcılar ise
+ekran okuma ayzılımlarını kullanarak LilyPond dosyalarını yazabilirler --ki
+bu, grafik nota yazma programlarında imkansızdır. Etkileyici bir partisyona
+buradan göz atabilirsiniz:  @ref{Examples}.
+
+@subsubheading Editör çeşitliliği
+
+Aktif olarak LilyPond kullanan birçok geliştirici LilyPond dosyalarını düzenleme
+sürecini daha hızlı ve efektif hale getirmeyi amaçlayan araçlar yazmışlardır; tek
+bir kullanıcı arayüzüne bağlı kalmazsınız, farklı görevler için farklı araçlar
+kullanabilirsiniz.  Hatta evde tam teşekküllü bir LilyPond editörü kullanabilir ve
+hareket halindeyken dosyaları düzenlemek için cep telefonunuzun not defteri uygulamasını
+kullanabilirsiniz.  Örnekler için @ref{Easier editing} bölümüne bakabilirsiniz.
+@c TODO: Change this when the new pages have been written and pushed
+
+
+@divEnd
+
+@divClass{column-center-top}
+
+@subheading Genişletilebilir yazılım
+
+@subsubheading Stil sayfalarının kolayca yönetilmesi
+
+Tüm düzen ayarları, kişisel tipografik tercihinize uyacak şekilde değiştirilebilir.
+Böylece LilyPond notalarının varsayılan görünümünü değiştiren stil sayfalarını kolayca
+yazabilirsiniz.  Bu stil sayfaları metin olarak da  yazıldığından ve ayrı dosyalarda
+saklanabildiğinden, iki stil arasında geçiş yaparak tamamen farklı bir görünüm veya
+sayfa düzeni ile notalar oluşturabilirsiniz.
+A4 kağıdına nota yazdırmak ve sayfa başına bir sistem olmak üzere projektörle yansıtmak
+mı istiyorsunuz?  LilyPond'un sayfa düzen motoru, aynı girdiden her ikisini de rahatlıkla
+üretecektir.
+
+@subsubheading Kendi fonksiyonlarınızı ekleyin
+
+Eğer bunlar yeterli değilse, LilyPond'un sayfa düzen motoruna
+LilyPond'un kendisi gibi aynı düzeyde erişebilen dahili betik dil
+Scheme (şema) 'sını kullanabilirsiniz, bu da onu @emph{son derece}
+güçlü bir araç haline getirir.
+Ayarlar, değişkenler ve fonksiyonlar, kapsamlı program referans kılavuzunda
+tüm detaylarıyla belgelenmiştir.
+
+@subsubheading Notaları programatik olarak işlemek
+
+LilyPond girdi dosyaları programlar ve betikler tarafından tamamen düzenlenebilir
+veya oluşturulabilir.  Örneğin bu özellik algoritmik besteleme için kullanılabilir.
+Ayrıca müzikal içeriğe, analiz yapmak, girdi parçalarını bir veritabanında yönetmek
+gibi amaçlarla erişilebilir.  Hayal gücünüz dışında hiçbir sınır yoktur.
+
+
+@subsubheading LilyPond kullanarak yeni araçlar oluşturun
+
+LilyPond, monolitik bir grafik arayüzü programı olmayıp bir komut satırı aracı olduğu
+için diğer uygulamalar içinde kullanılabilir.  Bu sayede, örneğin web uygulamalarını
+LilyPond'un notalama gücü ile donatmak mümkündür.  LilyPond'u halihazırda kullanan birkaç
+çevrimiçi araç bulunmaktadır.
+
+
+@divEnd
+
+@divClass{column-center-top}
+
+@subheading Çalıştırma Ortamı
+
+@imageFloat{frescobaldi-lilypond-editor-small,png,right}
+
+
+
+@subsubheading Mükemmel destek
+
+LilyPond, popüler tüm platformlarda çalışır: GNU/Linux, macOS ve
+Windows.  LilyPond, kapsamlı belgelerle birlikte gelir ve yüzlerce
+example dosyası içerir.  LilyPond kullanıcılarından oluşan etkin bir
+topluluk, lilypond-kullanıcı posta listesindeki soruları yanıtlayarak
+size dostça yardım sunar.  Yanıt süresi genellikle çok kısadır ve rapor
+edilen sorunlara sıklıkla parlak çözümler geliştirilir.  Bu gibi çözümler,
+geliştirme ekibi ile yakın etkileşim sayesinde düzenli olarak LilyPond'a
+dahil edilir.
+Daha fazlasını @ref{Community} bölümünde okuyabilirsiniz.
+
+
+@subsubheading Özgür yazılım
+
+LilyPond ücretsiz olarak indirilebilir!  Evet - Ücretsiz.  İndirme sayfasından
+LilyPond'u edinebilirsiniz.
+
+Ayrıca, bu yazılım ifade (speech) anlamında da özgürdür.  Kaynak kodu ile
+birlikte gelir ve değiştirme ve kopyalama izni verir.  Bir hatadan rahatsız
+mı oldunuz veya farklı bir özellik mi istiyorsunuz?  Sadece kendiniz ekleyin
+veya bunu yapması için başka birini ücretlendirin.
+Daha fazla bilgi için @ref{Freedom} bölümüne bakın.
+
+@divEnd
+@divClass{column-center-bottom}
+@subheading Şimdi ne yapmalısınız?
+
+Hâlâ ikna olmadınız mı?  Bazı @ref{Examples} (örneklere) göz atın.  Eğer LilyPond'u
+denemeye karar verdiyseniz, önce @ref{Text input} hakkında okuyun.
+@divEnd
+
+
+
+@node Examples
+@unnumberedsec Örnekler
+
+@divClass{column-center-top}
+@subheading Güzel Örnekler
+
+LilyPond, her türlü notasyon görevi için güçlü ve esnek bir araçtır.
+Lütfen örnekler içeren galerimizi gezin ve ilham alın!
+
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Klasik Müzik
+
+J.S. Bach'ın bu org eseri, LilyPond'da oldukça tipik bir notasyon
+projesidir.
+
+@exampleImage{bach-bwv610}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Karmaşık Nota Düzeni
+
+Enrique Granados'un @emph{Goyescas} eserinden bu örnek, notasyon
+hazırlamanın daha gelişmiş özelliklerini, eğik kalın çizgileri,
+kesişen stavlara çizilen sapları ve sesi takip eden çizgileri gösterir.
+
+@exampleImage{granados}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Eski Müzik
+
+LilyPond bu Gregorian ilahisinin bir bölümü gibi, çeşitli türlerde
+antik notasyonu da destekler.
+
+@exampleImage{ancient-headword}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Modern Müzik
+
+Çağdaş besteciler, LilyPond'un olağandışı notasyonları başarılı bir
+şekilde göstermek için uygun olduğunu bulmuşlardır.  İşte Trevor
+Bača'nın @emph{Čáry} adlı eserinden, solo kontrbas flüt için bir alıntı.
+
+@exampleImage{cary}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Verimli, esnek performans materyalleri oluşturma
+
+Aynı kaynak kodundan çeşitli performans malzemeleri oluşturulabilir.
+Bu, @uref{https://editions-nicolas-sceaux.fr/,Nicolas Sceaux's} Handel'in
+@emph{Giulio Cesare} eserinin tam partisyonu, piyano-vokal düzenlemesi ve
+keman partisyonu bir alıntıdır.
+
+@exampleImage{sesto-full}
+
+@exampleImage{sesto-piano}
+
+@exampleImage{sesto-violin}
+
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Tablature
+
+LilyPond, tablature'dan nota okuyan herhangi bir enstrümana göre
+uyarlanabilen tablature notasyonunu destekler.  5 çizgili staf için
+girilen notalardan tablature stafı otomatik olarak oluşturulur.
+
+@exampleImage{tab-example}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Vokal Müzik
+
+LilyPond, kutsal ilahilerden operalara kadar her türden vokal müzik
+için mükemmeldir.  İşte biraz alışılmamış gereksinimlere sahip bir
+ortaçağ moteti örneği.  Tenor sesi, diğer seslerden farklı bir ölçüde
+yazılmış olsa da, sanki aynı ölçüdeymiş gibi hizalanmalıdır.  LilyPond
+bunu son derece zarif bir şekilde ele alır.  Ayrıca, Vaticana tarzı
+anahtar işaretleriyle başlayan bölümler, tekrarlı notaları gösteren
+kesikli saplar ve belirli notaların üstündeki ligatür parantezleri
+gibi detayları da içerir.
+
+@exampleImage{aucun-snippet}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Nota Kağıtları
+
+Melodi, şarkı sözleri, akorlar ve klavye ile nota kağıtları
+oluşturmak oldukça kolaydır. Bu örnekte önceden tanımlanmış bazı
+klavye diyagramlarını görebilirsiniz, ancak bunlar neredeyse her
+duruma uyacak şekilde yoğunca özelleştirilebilir.
+
+@exampleImage{chart}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Eğitim Uygulamaları
+
+LilyPond, eğitim amaçları için de mükemmel bir şekilde uygundur.
+İşte basit bir kontrpuan egzersizi örneği.
+
+@exampleImage{theory}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Büyük Projeler
+
+LilyPond, operalar veya senfoni orkestrasının tamamı için yapılan
+işler gibi büyük projeler için de mükemmel bir seçenektir.  Ayrıca,
+metin tabanlı girdi, daha fazla erişilebilirlik sağlar -- bu örnek,
+kör bir besteci olan Hu Haipeng tarafından sağlanmıştır.
+
+@exampleImage{orchestra}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Kişiselleştirilmiş Çıktı
+
+LilyPond'un özelleştirilmiş çıktı özelliğini göstermek için Stockhausen'ın
+Klavierstück II adlı eserinden kısa bir alıntı.
+
+@exampleImage{stockhausen-klavierstueckII}
+@divEnd
+
+
+@divClass{column-center-middle-color2}
+@subheading Schenker Grafikleri
+
+Standart çıkış büyük ölçüde değiştirilebilir.  Kris Schaffer tarafından
+oluşturulan etkileyici bir Schenker analizi örneği verilmiştir,
+@uref{https://www.linuxjournal.com/article/8364 , Linux Journal}'dan bir
+makale okuyabilirsiniz.  Daha iyi görünürlük için renkler eklenmiştir.
+
+@exampleImage{bach-schenker}
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Şimdi ne yapmalısınız?
+
+Hâlâ ikna olmadınız mı?  LilyPond size @ref{Freedom} sağlayan özgür
+bir yazılımdır.  Eğer LilyPond'u denemeye karar verdiyseniz, önce
+@ref{Text input} hakkında okuyun.
+@divEnd
+
+
+@node Freedom
+@unnumberedsec Özgürlük
+
+@divClass{column-center-top}
+@subheading Özgür Yazılım
+
+@uref{https://www.gnu.org/, GNU} LilyPond, bir tutkun topluluğu tarafından
+yazılmış ve sürdürülmektedir.  Program, @ref{GPL, GNU Genel Kamu Lisansı} ve
+@ref{FDL, GNU Özgür Dokümantasyon Lisansı} altında yayımlanarak herkese programı
+düzeltebilme, değiştirebilme ve genişletebilme özgürlüğünü vermiştir.  Güzel müzik
+oluşturmak yüksek ücretli yazılım gerektirmemelidir!
+@divEnd
+
+
+@c @divClass{column-left-top}
+@divClass{column-center-middle-color2}
+@divClass{keep-bullets}
+@subheading Kullanıcılara sağlanan faydalar nelerdir?
+
+@itemize
+
+@item
+Ücretsiz: İndirin ve deneyin! Kaybedecek bir şeyiniz yok!
+
+@item
+Paylaşım: Eğer programı beğenirseniz, arkadaşlarınıza,
+öğretmenlerinize, öğrencileinize ve meslektaşlarınıza bir
+kopyasını verin!
+
+@item
+Kaynak Kodu Mevcut:  Eğer LilyPond'un bazı notasyonları nasıl
+oluşturduğunu merak ediyorsanız, tam olarak nasıl yapıldığını
+görebilirsiniz.
+
+@item
+Genişletilebilir:  Özellik ekleyebilir, hataları düzeltebilir ve
+işlevselliği değiştirebilirsiniz.  Eğer bir programcı değilseniz,
+bu görevleri yapmak için birisine ücret ödemeniz de mümkündür.
+
+Bu özellik, sıradan müzisyenlere çekici gelmeyebilir, ancak
+yazılımı genişletebilme yeteneği, ciddi besteciler, şirketler
+ve akademisyenler için son derece değerli olabilir.
+
+@item
+Gelecek Güvenliği:  Bir ticari şirket iflas ederse, ürünlerine bağlı
+olan herhangi bir elektronik müziğe ne olur?  Bu, LilyPond için bir
+endişe kaynağı değildir.  Eğer tüm geliştirme ekibi ayrılsa bile
+(son derece düşük bir olasılık), program hala yasal olarak kopyalanabilir,
+değiştirilebilir ve dağıtılabilir durumda olacaktır.
+
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@c @divClass{column-right-top}
+@divClass{column-center-middle-color3}
+@divClass{keep-bullets}
+@subheading LilyPond geliştiricileri neden kendi çalışmalarını ücretsiz olarak @qq{dağıtıyorlar}?
+
+Çoğumuz LilyPond'u geliştirmeyi bir hobi veya gönüllü çalışma olarak görüyoruz.
+Dolayısıyla bu soru aslında @qq{neden insanlar gönüllü çalışır}? sorusunu soruyor.
+
+@itemize
+
+@item
+Eğlence: Bir hedefe yönelik çalışmak, özellikle bir ekip olarak çalıştığınızda
+keyifli olabilir!
+
+@item
+Ortak hedefler:  Hepimiz güzel nota kağıtlarına sahip olmak istiyoruz,
+ama bütün durumlarla başa çıkabilen bir program oluşturabilecek uzman
+sayısı az  (ve hiç kimsenin zamanı yok!).  Sadece kişisel eforun bir
+kısmı ile -- bir kişi otomatik nota gruplama kodunu geliştirir,
+bir başkası yay şeklini iyileştirir ve bir üçüncü kişi bu özellikleri
+nasıl kullanılacağını açıklayan belgeler yazar -- birlikte çalışarak
+hedefimize ulaşabiliriz.
+
+
+@item
+@qq{Hediye Kültürü}:  Özgür Yazılım hareketi
+birçok harika yazılım projesi oluşturmuştur, örneğin
+@uref{https://www.gnu.org/distros/, GNU/Linux},
+@uref{https://www.getfirefox.com/, Mozilla Firefox} ve
+@uref{https://www.wesnoth.org/, Battle for Wesnoth}.  Bu
+projelerden faydalanan bazı geliştiriciler, topluluğa
+@qq{geri verme} isteğindedir.
+
+@item
+İş deneyimi:  Özgür yazılım projelerine katkıda bulunmak,
+programlamayı, dokümantasyon yazmayı veya tasarlamayı pratik
+etmek için harika bir yoldur.  Bu deneyim, bazı geliştiricilerin
+iş teklifi veya burs elde etmelerinde yardımcı olmuştur.
+
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Şimdi ne yapmalısınız?
+
+Hâlâ ikna olmadınız mı?  @ref{Background}'daki notasyon felsefemiz
+hakkındaki kapsamlı makalemizi okuyun.  Eğer LilyPond'u denemeye
+karar verdiyseniz, önce @ref{Text input} hakkında okuyun.
+@divEnd
+
+
+@node Background
+@unnumberedsec Arka Plan
+
+@divClass{column-center-top}
+@subheading Arka plan makalesi
+
+Hesaplamalı estetiğimizi anlatan kapsamlı bir makalemiz bulunmaktadır:
+bilgisayar ile güzellik yaratma sanatı.
+
+Eğer temel fikirlerimizin derinlemesine tartışılmasını okumaya ilgi
+duyuyorsanız, ilginç bir okuma olabilir.  Hacmi nedeniyle, makaleye
+"kılavuz" olarak erişebilirsiniz.  Şimdi okumak istiyorsanız, lütfen
+@ref{Essay}'e ilerleyin.  Ancak, LilyPond'a hızlı bir giriş yapmak
+istiyorsanız şimdilik bunu atlayabilirsiniz.
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Şimdi ne yapmalısınız?
+
+Hâlâ ikna olmadınız mı?  Bazı kullanıcılarımızın @ref{Productions}
+ve nota kağıtları hakkında okuyun.  Eğer LilyPond'u denemeye karar
+verdiyseniz, önce @ref{Text input} hakkında okuyun.
+@divEnd
+
+
+@node Productions
+@unnumberedsec Prodüksiyonlar
+
+@divClass{column-center-top}
+
+@subheading LilyPond kullanan prodüksiyonlar
+
+Burada, LilyPond'u  müziklerinin  performanslarını veya notalarını
+yayınlamak amacıyla prodüksiyonlarında kullanan insanlar hakkında
+okuyabilirsiniz.  Liste, genel kamuya ait veya açık içerik lisansları
+altında yayınlanan eserlerle sınırlıdır.
+
+@divEnd
+
+@divClass{column-left-top}
+@subheading Performanslar ve Konserler
+
+LilyPond notasyonları dünya genelinde çeşitli performanslarda kullanılmıştır.
+Bazı önemli örnekler:
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Marc Hohl, çocuklar ve gençler için partisyonlar yazmıştır.  LilyPond
+(LaTeX ile birlikte) kullanılarak nostasyon edilen ve ücretsiz olarak
+Almanca dilinde sunulan bu partisyonlar @uref{https://www.singspielschmiede.de/},
+Marc'ın çalıştığı okulun sahnesinde performe edilmiştir.
+
+
+@item
+@uref{https://www.aurelienbello.com/,Aurélien Bello}, Richard Strauss'ın
+@emph{Der Rosenkavalier} adlı eserini dört şarkıcı ve on üç müzisyenlik
+bir oda orkestrası için düzenledi.  Bu, 2015 yılında  Berlin Filarmoni
+Orkestrası tarafından
+@uref{https://www.festspielhaus.de/,Festspielhaus, Baden-Baden}
+ve aynı zamanda
+@uref{https://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,Philharmonie
+(großer Saal)} konserlerinde icra edilen bir siparişti.  Böylesi itibara
+sahip müzisyenlerin LilyPond notalarından çalmasını görmek bizi memnun
+etti (geri bildirimlerinde LilyPond ile ilgili memnuniyetlerini belirttiler).
+
+
+Aurélien ayrıca Richard Wagner'ın @emph{Der Ring des Nibelungen} eserinin,
+bir aile konseri için (7 yaş ve üzeri) yeniden orkestrasyonunu yapmıştır.
+Eser, şarkıcı kadrosu azaltılarak standart bir senfoni orkestrası için
+yazılmıştır ve 2014 yılında Berlin'deki Atze Musiktheater'da
+@uref{https://www.rsb-online.de/,@emph{Radio-Sinfonieorchester Berlin}}
+tarafından icra edilmiştir.  Şef, Heiko Matthias Förster'dir.
+
+Aurélien'ın gerçekleştirdiği bir diğer re-orkestrasyon, Mussorgsky'nin
+@emph{Pictures at an Exhibition} adlı eseriydi.  Bu eseri aynı zamanda
+2011 ve 2012 yıllarında
+@uref{https://junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
+için yönetti.
+
+
+@item
+Joe Smeets, Annie M.G. tarafından yazılan ve @emph{Querido} tarafından
+yayımlanan@emph{Zing Mee} (Sing Along) adlı çocuk kitabı için nota kağıtları
+hazırladı - ISBN 9789045106205.  Ayrıca, Mussorgsky'nin 2014 yılında @emph{Muziektheater
+Hollands Diep} tarafından sahnelenen @emph{Boris Godunov} adlı eserinin bir düzenlemesi
+için nefesli dörtlüsü, piyano ve perküsyon üzerinde çalıştı.
+
+Joe aynı zamanda Benjamin Britten'in 2011 yılında @emph{Muziektheater Hollands Diep}
+tarafından sahnelenen @emph{Saint Nicolas} eserinin Hollandaca çevirisine ait koro
+prova notalarını da hazırladı.  Detaylar için bağlantıya bakabilirsiniz:
+@uref{https://muziektheaterhollandsdiep.nl/?s=sint+nicolaas+leeft,www.muziektheaterhollandsdiep.nl}.
+
+@item
+@uref{https://unito.academia.edu/LucaRossettoCasel,Luca Rossetto Casel},
+doktora tezi için Tommaso Traetta'nın @emph{Enea nel Lazio (1760)}'sının
+eleştirel bir düzenlemesini oluşturdu, Vittorio Amedeo Cigna-Santi
+tarafından yazılan libretto opera seria, dört bölümden oluşmaktadır:
+@uref{https://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Part One}
+@uref{https://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Part Two}
+@uref{https://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Part Three}
+@uref{https://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Part Four}
+
+
+@item
+@uref{https://kierenmacmillan.info/, Kieren MacMillan}, birçok eserin bestecisi ve
+müzik direktörüdür.  Bunların arasında; 2012 yılında
+@uref{https://www.saltlakechoralartists.org/, Salt Lake Choral Artists} tarafından
+performe edilen @emph{Go Thy Way};
+@uref{https://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo
+-Chrysalis-to-perform-at-Marsh> Chrysalis Duo} tarafından performe edilen
+@emph{Just Out of Reach Suite}; ve 2011 yılında
+@uref{https://www.pnme.org/, Pittsburgh New Music Ensemble} tarafından performe edilen
+@emph{thrafsmata} eserleri bulunmaktadır.
+
+
+@item
+@uref{https://www.mikesolomon.org, Mike Solomon}, eseri
+@emph{Anonymous Student Compliment or Complaint} ile
+@uref{https://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}
+yarışmasını, 22 ülke ve 172 başvuru arasından seçilerek kazanmıştır.
+
+Mike'ın diğer işleri arasında, @uref{https://arts.ufl.edu/academics/music/,
+University of Florida}'nın Ekim 2010'da düzenlediği Elektroakustik Müzik
+Festivali'nde (FEMF) performe edilen @emph{Norman (age 1)} adlı klarinet
+solosu bulunmaktadır.
+
+
+@item
+Thomas Griffin, müzikolog (Roma, İtalya), Alessandro Scarlatti'nin
+@emph{Serenata Erminia} eserinin modern bir baskısını düzenledi.  Bu
+eser, bestecinin 350. doğum günü şerefine 2010 yılında Napoli, İtalya'daki
+Palazzo Zevallos Stigliano'nun Galleria'sında seslendirildi. Detaylar için
+bağlantıya göz atabilirsiniz:  @uref{http://www.ascarlatti2010.net}.
+
+
+@item
+@uref{https://editions-nicolas-sceaux.fr/, Nicolas Sceaux}, Lully'nin
+@emph{Armide} eserinin notasyon işlemini gerçekleştirdi.  Bu eser, 2009
+yılında @uref{https://www.mercuryhouston.org/, Mercury Baroque} tarafından
+sahnelendi.
+
+Nicolas ayrıca Rameau'nun @emph{Hippolyte et Aricie} adlı eserinin
+enstrümantal bölümlerinin notasyonlarını da yaptı.  Bu bölümler, 2009 yılında
+Frederick Renz ve ekibi tarafından New York'un Manhattan bölgesindeki
+St. James's Church'te seslendirildi.  Detaylar için bağlantıya göz
+atabilirsiniz:  @uref{https://www.earlymusicny.org/, Early Music New York}.
+
+
+@item
+@uref{https://valentin.villenave.net/, Valentin Villenave},
+@uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, LewisTrondheim}'ın
+@emph{Affaire étrangère} adlı operasının libretto'sunun notasyonunu yaptı.
+Bu opera, 2009 yılında Fransa'nın Montpellier şehrinde bulunan
+@uref{https://www.opera-orchestre-montpellier.fr/, L'Opéra National de Montpellier}'de
+prömiyerini yaptı.
+
+
+@end itemize
+@divEnd
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Yayınlanmış nota kağıtları
+
+@subsubheading Nota kağıdı kütüphaneleri
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+@uref{https://www.mutopiaproject.org, Mutopia Project}, LilyPond notalarının
+başlıca sergilendiği, ücretsiz indirilebilen 2000'den fazla klasik nota parçasını
+içeren bir projedir.  Her parça, diğer dizgicilerden öğrenmenize ve kendi sürümünüzü
+yapmanıza olanak tanıyan LilyPond kaynak dosyası ile birlikte gelir.
+
+@item
+@uref{https://www.baroquemusic.it/, baroquemusic.it}, 2005 yılında başlamış olup
+barok müziğine ait 800'den fazla partisyon toplamıştır.  Arşiv, notaları, ayrı
+parçaları ve midi dosyalarını içerir ve bunlar Creative Commons lisansı ile dağıtılmış
+olup sadece abonelere sunulmaktadır.
+
+@item
+@uref{https://partitura.org/, Partitura Organum}, LilyPond tarafından düzenlenmiş ve
+Creative Commons lisansı altında dağıtılan, kamuya açık org eserlerinin gittikçe artan
+bir koleksiyonudur.
+
+@item
+@uref{https://clairnote.org/, Clairnote}, Clairnote notasyonunda ücretsiz nota kağıdı
+sunmaktadır.  Clairnote, müziği daha okunabilir ve anlaşılır hale getirmeyi amaçlayan
+alternatif bir notasyon sistemidir.  Web sitesindeki notalar, Mutopia ve diğer çevrimiçi
+kaynaklardan alınır ve ardından Clairnote'un kendi notasyonuna dönüştürülür.
+
+@end itemize
+@divEnd
+
+@subsubheading Nota kağıtlarının kaynak depoları
+@divClass{keep-bullets}
+@itemize
+
+@item
+@uref{https://github.com/MutopiaProject/MutopiaProject/, Mutopia Proje deposu}:
+Mutopia kütüphanesindeki tüm parçaların kaynak dosyaları.
+
+@item
+@uref{https://git.savannah.gnu.org/cgit/lilypond.git/tree/Documentation/ly-examples, LilyPond internet sitesi örnekleri}:
+örnek galerisinin kaynak dosyaları, @ref{Examples} bölümünde gösterilmiştir.
+
+@item
+@uref{https://github.com/nsceaux/nenuvar, Nicolas Sceaux}:  geliştiricilerinden birisi
+tarafından oluşturulmuş, LilyPond tarafından düzenlenmiş barok müzik eserleri.
+
+@end itemize
+@divEnd
+
+@divEnd
+
+@contactUsAbout{konserler veya nota kağıtları}
+
+@divClass{column-center-bottom}
+@subheading Şimdi ne yapmalısınız?
+
+Hala ikna olmadınız mı?  Bazı kullanıcılarımızın @ref{Reviews}'unu okuyun.
+Eğer LilyPond'u denemeye karar verdiyseniz, @ref{Text input} hakkında okuyun.
+@divEnd
+
+@c TRANSLATORS, so far it's mostly from
+@c https://lilypond.org/productions.html
+
+@node Reviews
+@unnumberedsec İncelemeler
+
+@divClass{column-center-top}
+@subheading İnsanlar LilyPond hakkında ne diyor?
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading Yayınlanmış makaleler
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Nisan 2011
+
+@uref{https://www.linux-magazine.com,Linux Magazine}, "Projects on the Move" başlıklı
+bir makale yayınladı
+@uref{https://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
+Projects on the Move}.  Bu, MuseScore, LilyPond ve Chordii hakkında yazılmış bir tanıtım
+makalesidir.  Yazar Carla Schroder, @qq{LilyPond komut satırından çalışır, ancak GUI'nin
+olmaması sizi korkutmasın; LilyPond'u öğrenmesi kolaydır ve kullanıcı dostudur} ifadesini
+kullanarak kullanıcıya yönelik öğretici bir örnek sunuyor.
+
+@item
+Mayıs 2010
+
+Peter Kirn, Create Digital Music websitesinde bir inceleme yayınladı.
+@uref{https://createdigitalmusic.com/2010/05/14/lilypond-free-beautiful-music-notation-engraving-for-an
+inceleme}.  Kullanım konusuna dengeli bir bakış açısı sundu, LilyPond'un
+yüksek kaliteli nota yazımını övgüyle karşıladı ve denenmesini önerdi.
+
+@item
+Eylül 2009
+
+Alman LinuxUser dergisi, LilyPond hakkında bir makale yazdı
+@uref{https://www.linux-community.de/Internal/Artikel/Print-Artikel/LinuxUser/2009/10/Digitaler-Notenschluessel,
+LilyPond hakkındaki makale}.
+
+@item
+Ağustos 2009
+
+Ann Drinan,
+@uref{https://iml.esm.rochester.edu/polyphonic-archive/article/the-role-of-the-orchestra-librarian-as-music-copyist/, Polyphonic.org}
+websitesinde, iki orkestra kütüphanecisinin yazılım kullanarak kütüphanelerini
+yönetme konusundaki yorumlarını sunmaktadır.
+
+@item
+Haziran 2009
+
+Fransız @emph{National Conservatory Parent Association}'ın yıllık dergisinde
+yayımlanan bir @uref{https://web.archive.org/web/20110325004849/http://news.lilynet.net/Free-Music-Now,
+article} makalesinde, LilyPond'a katkıda bulunan Fransız besteci Valentin Villenave,
+Özgür lisansların ve özellikle LilyPond tarafından düzenlenen notaları herkese
+erişilebilir kılma konusundaki önemini açıklıyor.
+
+@item
+Şubat 2008
+
+Andrew Hawryluk kişisel sitesinde, @uref{http://www.musicbyandrew.ca/finale-lilypond-1.html,
+kişisel sitesindeki makaleler}, Andrew Hawryluk genel terimlerde Finale ve
+LilyPond'u karşılaştırır ve her iki yazılımın notasyon yeteneklerini detaylı
+bir şekilde değerlendirir.  İkinci makale, Rachmaninoff'un Piano Prelude No. 6'sının
+notasyon sorunlarının öğretici bir analizini ve el ile notasyon edilmiş bir referans
+kağıdı ile karşılaştırılmasını içerir.
+
+
+@item
+Haziran 2006
+
+@uref{https://distrowatch.com,DistroWatch}, LilyPond'u ödüllendirir,
+@uref{https://distrowatch.com/weekly.php?issue=20060605,writes}
+@qq{Hanımefendiler ve Beyefendiler, okuyucularımızın taleplerine dayanarak,
+DistroWatch Mayıs 2006 bağışı LilyPond'a (€190.00) ve Lua'ya (US$250.00) verilmiştir.}
+
+@item
+Aralık 2005
+
+@uref{https://linuxjournal.com,Linux Journal}, @uref{https://www.linuxjournal.com/article/8364,
+GNU LilyPond ile Şahane Schenker Grafikleri Oluşturun} başlıklı bir makale yayımlar.
+Bu, net LilyPond grafikleriyle anlatılan detaylı ama uygulamalı bir özellik makalesidir.
+Yazar Kris Shaffer, @qq{GNU LilyPond, ticari alternatifleri ikinci sınıf gibi gösteren
+güzel grafikler üretir.} şeklinde bir değerlendirme yapmaktadır.
+
+@item
+20 Ağustos 2005
+
+Belçika gazetesi De Standaard, @uref{https://www.standaard.be/Artikel/Detail.aspx?artikelId=G42H5GD6,
+Delen van KENNIS zonder WINSTBEJAG} (Kar Amaçsız Bilgi Paylaşımı) başlıklı
+makalesinin @q{DS2 bijlage} bölümünde özgür yazılım geliştiricilerini araştırır.
+LilyPond bir örnek olarak kullanılır ve makale, Jan Nieuwenhuizen ile yapılmış bir
+e-posta röportajından alıntılar içerir.  Bu, LilyPond'un ana akım basında ilk görünümü
+olarak değerlendirilmektedir.
+
+@item
+Haziran 2005
+
+LilyPond 2.6 sürümü ile ilgili bir Fransız makalesi,
+@uref{https://linuxfr.org/2005/06/27/19210.html, linuxfr.org} üzerinde yayınlandı.
+
+@item
+Ekim 2004
+
+Computer'ın editörleri! Totaal, Hollanda'da bir bilgisayar dergisi, Ekim 2004
+sayısında LilyPond'u şu şekilde tanımlar:  @qq{Harika, özgür (açık kaynak)
+yazılım [@dots{}] LilyPond tarafından üretilen nota kağıtları, olağanüstü
+güzellikte [@dots{}] neredeyse her şeyi yapabilen çok güçlü bir sistem.}
+
+@item
+Temmuz, Ağustos 2004
+
+Dave Phillips, @uref{https://linuxjournal.com,Linux Journal} için bir tanıtım
+makalesi yazdı:  "At the Sounding Edge: LilyPond, Bölüm 1" ve "At the Sounding Edge:
+LilyPond, Bölüm 2", sırasıyla:
+@uref{https://www.linuxjournal.com/article/7657, birinci} ve
+@uref{https://www.linuxjournal.com/article/7719, ikinci}.
+
+@item
+Mart 2004
+
+Chris Cannam, linuxmusician.com sitesinde Han-Wen Nienhuys ve Jan Nieuwenhuizen
+ile bir @uref{https://www.all-day-breakfast.com/cannam/linux-musician/lilypond.html,
+röportaj} gerçekleştirdi (orijinal site şu anda kullanılmıyor).  Bu röportaj, aynı
+zamanda bir @uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=, slashdot
+hikayesinde} de incelendi.
+
+@item
+Şubat 2004
+
+Caz şarkıcısı Gail Selkirk,
+@uref{http://www.songbirdofswing.com/editorial_page/lilypond/,LilyPond'a Dalış}
+konulu bir yazıyı kaleme alıyor.  @qq{@dots{} nota kağıtları (lead sheets) veya
+tam orkestral parçalar yazabilirsiniz ve sonuçlar etkileyici olabilir.}
+@uref{http://www.computermusic.co.uk/, Computer Music Special} dergisi, CMS06 sayısı.
+
+@end itemize
+
+@divEnd
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Kullanıcı referansları
+
+@divClass{testimonial-item}
+@imageFloat{carter-brey,jpg, right}
+@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, New York Filarmoni'nin Baş Çellisti
+
+@qq{@dots{} Solo çello için birkaç ek parça yazdım ve bunları LilyPond ile
+bastım ve Schirmer'a yayımlanmak üzere göndereceğim.  Bahse girerim ki onların
+notasyon versiyonu benimki kadar keskin görünmeyecek!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@imageFloat{orm-finnendahl,jpg, left}
+@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, Kompozisyon Profesörü, Hochschule für Musik und Darstellende Kunst Frankfurt am Main
+
+@qq{Henüz [LilyPond]'u çok iyi bilmesem de, @strong{*oldukça} etkilendim.
+Programı kullanarak Josquin Desprez'in mensural nota ile yazılmış bir motetini
+girdim ve hiç şüphe yok ki LilyPond, hız, kullanım kolaylığı ve görünüm konusunda
+diğer tüm nota programlarına kolayca üstünlük sağlıyor!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@imageFloat{darius-blasband,jpg, right}
+@subsubheading Darius Blasband, besteci (Brüksel, Belçika)
+
+@qq{[..ilk orkestra provasından sonra] partisyon kalitesi hakkında sayısız övgü
+aldım.  Daha da önemlisi, LilyPond, partisyon görünümünü iyileştirmek için birçok
+özellik sunsa da, orkestraya vermiş olduğum, ham, dokunulmamış çıktıdır.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Kieren MacMillan, besteci (Toronto, Kanada)
+
+@qq{olağanüstü çalışmaları için geliştirme ekibine teşekkürler.  LilyPond'dan elde
+ettiğim çıktıya yaklaşan hiçbir program görmedim -- bu harika uygulamayı kullanarak
+müzik yayınlama ihtiyaçlarımın, beklentilerimin ötesinde karşılanacağına tamamen
+güveniyorum.  [@dots{}] temelde hiç ayar yapılmamış LilyPond çıktısı [@dots{}] çoğu
+yeni @q{profesyonel} yayınla karşılaştırıldığında daha iyi gözüküyor (bkz., neredeyse
+tüm Warner Bros.@: partisyonları ve hatta @q{the old houses}'ın en yeni partisyonları).
+[@dots{}]} @qq{Bunu geç Finale/Sibelius/Igor/ne varsa!!!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Chris Cannam, @uref{https://www.rosegardenmusic.com/, RoseGarden} projesinin baş programcısı
+
+@qq{LilyPond kesinlikle [büyük müzik düzenleme] programlarının devi.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Müzik Yayıncılık}
+
+@qq{LilyPond için müziğin nasıl girildiği, beni daha müzikal bir şekilde düşünmeye
+sevk ediyor -- bazen Lily'ye bir şeyi nasıl notasyon ettireceğime kafa yorduğum
+anlar oldu, fark ettim ki tam olarak bestecinin istediğini yapsam bile, müziğin
+okunması karışık olacaktı.  LilyPond, benim düzenleyici+notasyon rolümde çalışmamı
+çok daha kolay bir hale getiriyor.}
+
+@qq{Fledgling müzik yayıncılık işim için yalnızca LilyPond'u kullanıyorum. Hemen hemen
+hiç istisna olmadan, her besteci, müziklerinin yayımlanmaya hazır bir şekilde sunulan
+prova kopyalarının notasyon kalitesinden oldukça etkilendi.  Bunun için bir miktar
+övgüyü hak ediyorum -- çıktıya ince ayarlar yapmakta uzun zaman harcarım, özellikle
+bağlarda (genellikle akorlarda)-- ancak LilyPond, mükemmel bir başlangıç noktası, çok
+sezgisel bir arayüz ve istediğim takdirde her şeyi değiştirebilme seçeneğini sunuyor.
+Hiçbir ticari ürünün buna yaklaşabileceğine inanmıyorum.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading David Bobroff, Bas Trombon, İzlanda Senfoni Orkestrası
+
+@qq{LilyPond'u harika buluyorum [@dots{}] LilyPond'u öğrendikçe daha da çok seviyorum!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Vaylor Trucks, Elektro Gitar Çalgıcısı (Evet, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, ilişkin})
+
+@qq{LilyPond beni son derece etkiledi [@dots{}]}
+
+@qq{BU EN İYİ PROGRAM!!!}
+
+@qq{Çalışma ve özveriniz için hepinize ÇOK teşekkür ederim!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{https://editions-nicolas-sceaux.fr/, Nicolas Sceaux}, @uref{https://www.mutopiaproject.org/, Mutopia} katkıda bulunan
+
+@qq{LilyPond ile bir tür nefret-tutku ilişkim vardı.  Tutku, çünkü gördüğüm
+ilk nota çok etkileyiciydi!  LilyPond güzelliği hakkında yalan söylüyor, çok
+mütevazı!  [@dots{}] LilyPond her zaman daha iyi hale geldikçe ve şemada nasıl
+işler yapıldığını daha yakından inceledikçe, benim için azalan bir hayal kırıklığı
+var.  Her neyse, demek istediğim:  LilyPond'u sağladığınız için teşekkür ederim,
+gerçekten iyi bir program.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg}, Koblenz, Almanya'daki tiyatroda orkestra şefi ve seçkin GNU Hacker
+
+@qq{Neyse, LilyPond inanılmaz bir iş çıkarıyor!}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading Paul Davis, @uref{https://jackaudio.org/, JACK} ve @uref{https://www.ardour.org/, Ardour}'un geliştiricisi
+
+@qq{Ben [LilyPond'un] inanılmaz bir program olduğunu düşünüyorum ve harika,
+harika çıktılar üretiyor.  Geçen yıl onunla ilgili bir röportaj okuduğumda,
+potansiyeli hakkında birkaç arkadaşıma övgülerde bulunmuştum.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, Dr. Mika Kuuskankare}, @uref{http://siba.fi, Sibelius Akademisi Finlandiya}'da araştırmacı, besteci ve Expressive Notation Package (ENP) yazarı
+
+@qq{LilyPond'a, onun yaratıcılarına ve bakımını yapanlara en derin saygıyı
+duyuyorum, çünkü bu tür yazılımların ne kadar zorlu olabileceğini kişisel
+deneyimimden biliyorum.}
+@divEnd
+
+
+@divClass{testimonial-item}
+@subsubheading @uref{https://camerondh.blogspot.com, David Cameron}, Müzisyen, profesyonel düzenleyici ve uzun süredir SCORE kullanıcısı
+
+@qq{Bu projeye katkıda bulunan herkese içten teşekkürler.  Ben, '90'larda büyük
+house müzik düzenlemeleri için güçlü bir SCORE kullanıcısıydım, ancak LilyPond
+sayesinde sayfa üzerinde tam olarak istediğimi elde etmemin mümkün olduğunu
+hissediyorum, özellikle de bu "standart" uygulama olmadığında.}
+@divEnd
+
+@divEnd
+
+@contactUsAbout{haber makaleleri veya referanslar}
+
+@divClass{column-center-bottom}
+@subheading Şimdi ne yapmalısınız?
+
+@ref{Text input} hakkında okuyun.
+@divEnd
+
+
+
+@node Text input
+@unnumberedsec Metin girdisi
+
+@c TRANSLATORS, so far it's mostly from
+@c https://lilypond.org/web/switch/howto
+
+@divClass{column-center-top}
+@subheading Müzik @qq{Derlemek}
+
+@imageClickable{nereid-shot-small,png, (click to enlarge), nereid-shot,png, right}
+
+LilyPond, bir @emph{derlenmiş} sistemdir:  müziği tanımlayan bir metin dosyasında
+çalıştırılır.  Sonuç olarak elde edilen çıktı, ekranda görüntülenir veya yazdırılır.
+Bir bakıma, LilyPond, grafik notasyon düzenleme yazılımından ziyade bir programlama
+diline daha çok benzer.
+
+Müziği grafik bir araç çubuğundan notaları sürükleyip dinamik olarak güncellenen bir
+partisyon üzerine yerleştirerek yazmazsınız; müziği metin olarak yazarsınız.  Bu metin,
+LilyPond tarafından yorumlanır (veya @qq{derlenir}), sonuç olarak güzel notasyon edilmiş
+nota sayfaları elde edilir.
+
+Grafik kullanıcı arayüzlerine alışkın olan insanlar, yeni bir çalışma yöntemi öğrenmek
+zorunda kalabilirler, ancak sonuçlar kesinlikle buna değer!
+
+@warning{Metin girişimizin hızlı bir genel bakışını sunuyoruz - duyulduğu kadar karmaşık
+değil!  Bu örneklerde her ayrıntıyı anlamanıza gerek yok; başlangıç belgelerimiz her şeyi
+çok daha yavaş bir tempoda kapsar.}
+
+
+@subsubheading A B C kadar basit
+
+Notalar harfler ve sayılarla kodlanır.  Özel komutlar ters bölü işareti ile girilir.
+
+@imageFloat{text-input-1-annotate,png,center}
+@imageFloat{text-input-1-output,png,center}
+
+Değişiklikler farklı isimlerle yapılır:  diyez eklemek için @w{@code{-is}}, bemol
+eklemek için ise @w{@code{-es}} (bunlar Hollanda nota isimleridir, başka diller de
+mevcuttur).  LilyPond, hangi notalara accidentals (işaretler) yerleştireceğini belirler.
+
+@imageFloat{text-input-2-annotate,png,center}
+@imageFloat{text-input-2-output,png,center}
+
+
+@subsubheading Pop müzik
+
+Akorları ve sözleri bir araya getirerek bir nota kağıdı elde edin:
+
+@imageFloat{text-input-pop-annotate,png,center}
+@imageFloat{text-input-pop-output,png,center}
+
+
+
+@subsubheading Orkestra parçaları
+
+Girdi dosyası, müzik parçasının notalarını içerir.  Bir girdi dosyasından
+skor ve parçalar oluşturulabilir, böylece bir notayı değiştirmek her
+zaman skoru ve parçaları etkiler.  Aynı müziği birden fazla yere dahil
+edebilmek için müzik bir @qq{değişkene} atanır.
+
+@imageFloat{text-input-parts-both-annotate,png,center}
+
+
+Bu değişken daha sonra tek bir parçada kullanılır (transpoze edilmiş, birkaç
+ölçüyü kapsayan kısaltılmış duraklar):
+
+@imageFloat{text-input-parts-single-annotate,png,center}
+@imageFloat{text-input-parts-single-output,png,center}
+
+
+Aynı değişken, bütün eserde de kullanılır (burada konser tonunda):
+
+@imageFloat{text-input-score-annotate,png,center}
+@imageFloat{text-input-score-output,png,center}
+
+
+@subsubheading Başlangıç Dokümantasyonları
+
+Birçok kullanıcının bu yöntem ile müziğe girişmeyi biraz tuhaf
+bulduklarının farkındayız.  Bu nedenle, yeni kullanıcılara yardımcı
+olmak için, @ref{Learning} ile başlayan kapsamlı belgeler hazırladık.
+Öğrenme Kılavuzu, başlangıç için en iyi yerdir, birçok soru henüz
+sorulmadan önce burada cevaplanmıştır!
+
+Yeni kullanıcıların, LilyPond'un davranışlarının bazı yönleri sebebiyle
+gereksiz yere kafaları karışabilir.  LilyPond'un doğru çalışıp çalışmadığını
+sorgulamadan önce lütfen bu kılavuzu okuyun.
+
+Daha detaylı bilgi, @ref{Manuals}'da bulunabilir.
+
+LilyPond kullanıcısı Ben Lemon, blogundaki serisiyle yeni kullanıcılara
+yönelik bir @uref{https://benl.xyz/lilypond/operation-lilypond,video tutorials}
+yaratmıştır.
+
+
+@subsubheading Daha Kolay Düzenleme Ortamları
+
+@imageClickable{lilykde-screenshot-small,png,
+  (büyütmek için tıklayın),lilykde-screenshot,png,right}
+
+LilyPond, kaliteli notasyonlar üretmeye odaklıdır; bir Grafiksel
+Kullanıcı Arayüzü (GUI) oluşturmak bu hedeften sapmamıza neden
+olurdu.  Ancak, LilyPond girdi dosyalarını oluşturmayı kolaylaştırmayı
+amaçlayan diğer projeler bulunmaktadır.
+
+Bazı düzenleme ortamları, sözdizimi vurgulama, otomatik komut tamamlama
+ve hazır şablonlar gibi özellikleri içerir.  Diğer programlar ise grafik
+bir eserin doğrudan gösterimini sağlayan bir GUI sunar.  Daha fazla bilgi
+için @ref{Easier editing}'e göz atın.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Şimdi ne yapmalısınız?
+
+Şimdi @ref{Download, LilyPond'u İndir} için hazırsınız.  Hala ikna olmadınız
+mı? @ref{Easier editing}'i okuyun.
+
+@divEnd
+
+
+@node Easier editing
+@unnumberedsec Daha Kolay Düzenleme
+
+@ignore
+GNU politikası bizi özgür olmayan yazılımlara bağlantı yapmaktan alıkoyar,
+bu yüzden böyle bağlantılar eklemeyin.
+
+Özellikle şu bağlantıyla bağlantı yapmayın:
+- TextMate için LilyPond paketi (macOS için ticari bir düzenleyici).
+
+@end ignore
+
+@divClass{column-center-top}
+@subheading Ön-Yüz Uygulamaları
+
+@subsubheading Frescobaldi
+
+@imageClickable{frescobaldi-lilypond-editor-small,png,
+  (büyütmek için tıklayın),frescobaldi-lilypond-editor,png,right}
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+@uref{https://www.frescobaldi.org}
+
+Frescobaldi, bilhassa LilyPond için eklenmiş ve geliştirilmiş birçok
+özelliğe sahip hafif ancak güçlü bir müzik ve metin düzenleyicisidir.
+Başlıca özellikler, kod ve müzik görünümleri arasında tıklama ile bağlantılar,
+detaylı eser sihirbazları, hazır LilyPond belgelendirme tarayıcısı, sözdizimi
+vurgulama ve otomatik tamamlama içerir.  Frescobaldi, Python ile yazılmış olup
+kullanıcı arayüzü için PyQt4 kullanmaktadır ve tüm önemli işletim sistemlerinde
+(GNU/Linux, macOS ve Windows) çalışır.
+
+@subsubheading Denemo
+
+@imageClickable{screenshot-denemo-small,png,
+  (büyütmek için tıklayın),screenshot-denemo,png,right}
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+@uref{http://denemo.org}
+
+Denemo, LilyPond kaynak kodu üreten ve aynı zamanda sesli oynatma imkanı
+sunan bir grafik düzenleyicidir.  Kullanıcılara LilyPond kaynak kodunu grafik
+görünümle paralel olarak görüntüleme olanağı tanır.  Ekstra LilyPond düzenlemeleri,
+notalar, akorlar vb. ile ilişkilendirilebilir ve Denemo dosyası ile birlikte
+saklanır, böylece kullanıcılar grafiksel olarak düzenlemeye devam edebilir.
+
+LilyPond metinindeki imleci hareket ettirmek, grafik görünümdeki imleci hareket
+ettirir ve LilyPond düzenlemelerinizdeki herhangi bir sözdizimi hatası, oradan
+yazdırıldığında, metin görünümünde vurgulanır.
+
+@subsubheading Spontini-Editor
+
+@imageClickable{screenshot-spontini-small,png,
+  (büyütmek için tıklayın),screenshot-spontini,png,right}
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+@uref{https://github.com/paopre/Spontini}
+
+Spontini-Editor, iki temel özellik ile, LilyPond ile düzenlenmiş eserlerin
+oluşturulmasını ve detaylı grafik ayarlarını hızlandıran karma metin ve
+grafik müzik düzenleyicisidir:
+
+@enumerate
+
+@item
+Müzik nesnelerinin (artikülasyon, metinler, pedallar, eğriler, parantezler
+vb.) fare ile konumlandırılmasına izin verir.  Konumlandırma grafik olarak
+tamamlandığında, metin düzenleyici, ilgili değişiklikleri girdi dosyasında
+rapor eder.
+
+@item
+Tablo ve biçimli formatta notalar ekleyerek piyano müziği oluşturulmasına
+yardımcı olur ve cross-staff notalar için hızlı araçlar sağlar.
+
+@end enumerate
+
+Hem bağımsız bir uygulama olarak hem de web tabanlı bir sunucu + çoklu
+istemci sistemi olarak çalışır.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Tarayıcı tabanlı editörler
+
+@subsubheading Hacklily
+@uref{https://www.hacklily.org/}
+
+LilyPond tarafından desteklenen, otomatik tamamlama ve bağlamsal yardım
+gibi ek özelliklere sahip, çevrimiçi bir nota düzenleyici ve yayınlama
+aracıdır.  Temel web barındaırma kodu, kendi
+@uref{https://github.com/hacklily/hacklily,geliştirme sayfası} üzerinde
+AGPL lisansı altında bulunmaktadır.
+
+@subsubheading www.omet.ca
+@uref{http://www.omet.ca/}
+
+2010'dan beri, Online Music Editing Tools (OMET), özel olarak tasarlanmış
+bir web arayüzü ile kullanıma hazır bir LilyPond hizmeti sunmaktadır.  Kayıt
+gereklidir ancak ücretsizdir.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Kelime İşlemci Eklentileri
+
+@subsubheading OOoLilyPond
+
+@uref{https://extensions.services.openoffice.org/en/project/OOoLilyPond}
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+LilyPond dosyalarını OpenOffice.org belgeleri içinde resimlere dönüştüren bir
+OpenOffice.org uzantısı.
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading IDE Plug-ins
+
+@subsubheading Elysium
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+@uref{https://github.com/thSoft/elysium}
+
+LilyPond notalarını Eclipse ile düzenlemek için bütün bir ortam, LilyPond'u
+kolayca yönetebilmek için zengin bir araç seti sunan bir yazılım.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Metin editörleri
+
+@sourceimage{logo-linux,,}
+@sourceimage{logo-freebsd,,}
+@sourceimage{logo-macosx,,}
+@sourceimage{logo-windows,,}
+
+@subsubheading Emacs
+@uref{https://www.gnu.org/software/emacs/}
+Emacs, birçok farklı bilgisayar diline yönelik dil duyarlı bir metin
+düzenleyicisidir.  Emacs, son derece genişletilebilir bir düzenleyicidir ve
+Tümleşik Geliştirme Ortamı olarak kullanılabilir.  LilyPond kaynak dosyalarıyla
+çalışmak için dil tanımlamalarını sağlayan bir @q{lilypond modu} bulunmaktadır.
+Bir geliştirici, Emacs için bir ana mod olan
+@uref{https://github.com/nsceaux/lyqi,lyqi}'i yazmıştır.
+
+Eğer Emacs'a alışkın değilseniz, muhtemelen LilyPond girdi dosyalarını yazmak
+için farklı bir düzenleyici kullanmayı tercih edebililrsiniz.
+
+Emacs kurulumu hakkında daha fazla bilgiye, @rprogram{Metin düzenleyici desteği}
+bölümünde ulaşabilirsiniz.
+
+@subsubheading Vim
+@uref{https://www.vim.org}
+Vim, minimal bir metin düzenleyicisidir ve eski Unix @command{vi} düzenleyicisinin
+bir uzantısıdır.  Aynı zamanda genişletilebilir ve yapılandırılabilirdir.
+
+Eğer Vi'ye alışkın değilseniz, muhtemelen LilyPond giriş dosyalarını yazmak için
+farklı bir düzenleyici kullanmayı tercih edebilirsiniz.
+
+Vim kurulumu hakkında daha fazla bilgiye, @rprogram{Text editor support, Metin
+düzenleyici desteği} bölümünde ulaşabilirsiniz.
+
+@sourceimage{logo-macosx,,}
+@subsubheading TeXShop
+@uref{https://pages.uoregon.edu/koch/texshop/}
+
+macOS için TeXShop düzenleyicisi LiyPond'u çalıştırmak için genişletilebilir,
+düzenleyici içindeki @command{lilypond-book} ve @command{convert-ly}, bu
+eklentileri kullanmak için:
+
+@example
+@uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
+@end example
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading LilyPond kodunu dışarı aktarabilen diğer programlar
+
+@subsubheading Partisyon, tab ve MIDI düzenleyicileri:
+
+@itemize
+
+@item
+@uref{http://www.jezra.net/projects/bwwtolily,bwwtolily}, bir @code{.bww}
+veya @code{.bmw} dosyasını LilyPond'a dönüştürmeye çalışır.  Tüm süslemelerin
+doğru bir şekilde dönüştürülemeyebileceği unutulmamalıdır (bu özellikle
+piobaireachd için geçerlidir), ancak program bunları listeleyecektir.
+
+@item
+@uref{http://www.canorus.org,Canorus}, bir partisyon düzenleyicisidir ve
+LilyPond için dışa aktarabilir, ancak hala beta yazılım aşamasındadır.
+Buna rağmen, testçilere açıktır.
+
+@item
+@uref{http://enc2ly.sourceforge.net/en/,Enc2ly}, Encore müzik partisyonunu
+LilyPond formatına dönüştüren bir GNU/Linux programıdır.
+
+@item
+@uref{https://github.com/hanwen/go-enc2ly,go-enc2ly}, Encore dosyalarını
+LilyPond'a dönüştüren bir Go aracıdır.  Felipe Castro'nun araştırmasını
+kullanarak oluşturulmuş ve 4.55 demo versiyonunu kulllanarak, tersine
+mühendislik ile varolan .enc dosyalarına ince ayarlar yaparak onları yüklemiştir.
+
+@item
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
+@uref{https://www.cairographics.org,Cairo} kütüphanesine dayanan bir partisyon
+düzenleyicisidir ve LilyPond için dışa aktarma konusunda deneysel destek sunmaktadır.
+
+@item
+@uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,NW2LY},
+NoteWorthy bestecilerinin şarkılarını LilyPond'a dönüştüren bir C# programıdır.
+
+@item
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple},
+farklı müzik çalışmalarını tek bir eser veya parçada birleştirmek için bir mod içeren
+eser ve parça oluşturmaya yardımcı olan bir programdır.
+
+@item
+@uref{https://www.rosegardenmusic.com,Rosegarden}, bir ses ve MIDI sekans düzenleyicisidir
+ve aynı zamanda tek porte düzenleme için bir partisyon düzenleyiciye sahiptir.
+
+@end itemize
+
+@subsubheading Algoritmik Kod Oluşturucular
+
+@itemize
+
+@item
+@uref{http://www.projectabjad.org/,Abjad}, bestecilere LilyPond notasyonunda karmaşık
+parçaları yinelemeli ve aşamalı bir şekilde oluşturmalarına yardımcı olmak amacıyla
+tasarlanmış Formalize Edilmiş Partisyon Kontrolü için bir
+@uref{https://www.python.org/,Python} API'dır.
+
+@item
+@uref{https://common-lisp.net/project/fomus/,FOMUS}, (FOrmat MUSic), bilgisayar müziği
+bestecileri için bir müzik notasyon aracıdır.  Lisp programlama dilinde yazılmış olup
+çeşitli yorumlayıcılarda test edilmiştir.  Ayrıca bir C++ girişi de mevcuttur.
+
+@item
+@uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela},
+@uref{https://mozart.github.io/, The Mozart Programming System} üzerine inşa edilmiş
+bir ortamdır.
+
+@end itemize
+@divEnd
+
+@divClass{column-center-top}
+
+@subheading Aktif olarak geliştirilmeyen diğer programlar
+
+@itemize
+
+@item
+@uref{https://github.com/LilyBin/LilyBin,LilyBin}, LilyPond'u
+yüklemeye gerek kalmadan çevrimiçi olarak partisyonlarınızı doğrudan
+biçimlendirebileceğiniz bir çevrimiçi LilyPond düzenleyicisidir.  Kod
+parçacıkları, @q{pastebin} sitelerinde olduğu gibi benzersiz bir URL
+ile saklanır.  Önceden @uref{https://lilybin.com} adresinde barındırılsa
+da, şu anda devam etmeyen bu hizmetin kaynak kodu hala MIT lisansı altında
+ücretsiz olarak kullanılabilir;
+@uref{https://github.com/LilyBin/LilyBin,GitHub sayfasında} bulunabilir.
+
+@item
+@uref{https://www.weblily.net/,WebLily}, LilyPond temelli ilk web
+hizmetlerinden biriydi.
+
+@item
+@uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool},
+@uref{http://www.jedit.org,jEdit} metin düzenleyicisi için bir eklenti
+olarak oluşturulmuştur.
+
+@item
+@uref{https://www.frescobaldi.org/,Frescobaldi},
+@uref{https://lilykde.googlecode.com/,LilyKDE}'nin yerini almıştır ve
+yalnızca, KDE 3.5 için LilyKDE3 ve KDE 4.1 için lilypond-KDE4 olarak mevcuttur.
+
+@item
+@uref{https://lilycomp.sourceforge.net, LilyComp}, sayı tablosu gibi
+davranan ve LilyPond notaları üreten bir grafik nota giriş programıdır.
+
+@item
+@uref{https://www.musescore.org,MuseScore}, bir partisyon düzenleyicisidir.
+LilyPond dışa aktarma özelliği 2.0 sürümünde kaldırılmıştır, ancak önceki
+sürümleri hala @uref{https://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}
+üzerinden indirilebilir.
+
+@item
+@uref{https://www.musicxml.com/,MusicXML}'i içe aktaran
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}
+@uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd} ve
+@uref{https://canorus.org,Canorus}'a çatallanmıştır (fork).
+
+@item
+@uref{https://launchpad.net/rumor/,Rumor}, gerçek zamanlı monofonik MIDI'den
+LilyPond'a dönüştürücüdür.
+
+@item
+@uref{https://github.com/tiredpixel/tunefl,tunefl}, LilyPond'u yerel olarak
+yüklemeye gerek olmadan çevrimiçi olarak mini-partisyonlarınızı düzenlemenizi
+sağlar.  Programın tüm özelliklerini kullanışlı bir web arayüzü sağlayarak
+deneyimleye olanak tanır.
+
+@item
+@uref{https://sourceforge.net/projects/tuxguitar/,TuxGuitar}, çoklu parça
+tablatura düzenleyici ve çalardır, bir partisyon görüntüleyici içerir ve LilyPond'a
+dışa aktarım yapabilir.
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Şimdi ne yapmalısınız?
+
+Şimdi @ref{Download, LilyPond'u İndirmek} için hazırsınız.
+
+Hala ikna olmadınız mı? Birçok besteci, müzisyen ve orkestra şefi, müziği
+LilyPond'un girdi formatında yazmayı öğrendi.  Deneyimli kullanıcılar, LilyPond
+ile tam bir partisyonu girmenin, bir piyano klavyesi veya fare+GUI ile yapmaktan
+daha hızlı olduğunu bildirdiler!  Belki de LilyPond'un sağladığı @ref{Features},
+@ref{Examples} veya @ref{Freedom} konularını gözden geçirmek ya da kullanıcıların
+@ref{Productions} ve@ref{Reviews} hakkında okumak istersiniz.  Ayrıca, klasik notasyonun
+hesaplamalı estetiğine yaklaşımımız, @ref{Background} bölümümüzde açıklanmıştır.
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Hukuki Dil
+
+@divClass{legal}
+Tüm logolar ve ürün görselleri telif hakkına ve ticari markaya tabidir.
+
+@logoLegalLinux
+
+@logoLegalFreeBSD
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+
+@divEnd

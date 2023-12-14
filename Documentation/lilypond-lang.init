@@ -33,6 +33,10 @@ $LILYPOND_DOC->{'ja'} = {
     'Back to Documentation Index' => 'ドキュメント インデックスに戻る',
 };
 
+$LILYPOND_DOC->{'tr'} = {
+    'Back to Documentation Index' => 'Dokümantasyon indeksine geri dön',
+};
+
 $LILYPOND_DOC->{'zh'} = {
     'Back to Documentation Index' => '回到文档索引',
 };

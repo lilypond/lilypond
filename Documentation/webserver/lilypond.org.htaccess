@@ -123,6 +123,7 @@ AddCharset utf-8 .de
 AddCharset utf-8 .en
 AddCharset utf-8 .es
 AddCharset utf-8 .fr
+AddCharset utf-8 .tr
 AddCharset utf-8 .txt
 
 # Add extensions for language negotiation
@@ -133,6 +134,7 @@ AddLanguage es .es
 AddLanguage fr .fr
 AddLanguage it .it
 AddLanguage ja .ja
+AddLanguage tr .tr
 AddLanguage zh .zh
 
 # Make en the default language and serve *.html as a fallback if
