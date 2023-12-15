@@ -33,6 +33,7 @@
 * Percussion notes::
 * List of bar lines::
 * Default values for outside-staff-priority::
+* Default values for script-priority::
 * Technical glossary::
 * Available music functions::
 * Context modification identifiers::
@@ -3030,11 +3031,40 @@ lines}.
 @node Default values for outside-staff-priority
 @appendixsec Default values for @code{outside-staff-priority}
 
+@funindex outside-staff-priority
+
 The following table shows the default @code{outside-staff-priority} of
 all outside-staff grobs.  Objects with smaller values are placed closer
 to the staff.
 
 @include en/outside-staff-priorities.tely
+
+
+@node Default values for script-priority
+@appendixsec Default values for @code{script-priority}
+
+@funindex script-priority
+
+The following table shows the default @code{script-priority} of
+all script-related grobs (starting with an uppercase letter) and
+script names (starting with a lowercase letter).  Objects with
+smaller values are placed closer to the staff.
+
+The @code{Fingering}, @code{StringNumber}, and @code{StrokeFinger}
+grobs, if part of a chord, add the vertical position of the
+associated note head to get the final priority value.  The
+@code{script-priority} values of other scripts part of a chord
+stay unmodified.
+
+For scripts not part of a chord, the current event position is
+added instead.  This means that for scripts with the same
+@code{script-priority} value, the first one attached to a note
+head gets the lowest priority value.
+
+Grobs not listed here (and which are related to scripts) get 200
+as the default @code{script-priority} value.
+
+@include en/script-priorities.tely
 
 
 @node Technical glossary

@@ -276,8 +276,10 @@ For more information about the ordering of @code{Script} and
 @cindex vertical ordering, of scripts
 @cindex ordering, vertical, of scripts
 @cindex script, vertical ordering
+@funindex script-priority
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/controlling-the-vertical-ordering-of-scripts.ly}
+@xref{Default values for script-priority}.
 
 @cindex delayed turn ornamentation
 @cindex turn ornamentation, delayed

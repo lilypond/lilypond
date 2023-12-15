@@ -43,6 +43,7 @@
                     "document-markup"
                     "document-paper-variables"
                     "document-outside-staff-priorities"
+                    "document-script-priorities"
                     "document-paper-sizes"
                     "document-colors"
                     "hyphenate-internal-words"))
@@ -85,6 +86,10 @@
 (display
  outside-staff-priorities-doc-string
  (open-output-file "outside-staff-priorities.tely" #:encoding "UTF-8"))
+
+(display
+ script-priorities-doc-string
+ (open-output-file "script-priorities.tely" #:encoding "UTF-8"))
 
 (display
  paper-sizes-doc-string
