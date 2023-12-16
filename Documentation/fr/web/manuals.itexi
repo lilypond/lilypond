@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: ecd4ff25e8bee6643e9200eefb86f0ed23bda72f
+   Translation of GIT committish: 996d51292c9ec3cfa6075b4f3ba95871a32474c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -103,7 +103,8 @@ courts extraits, trucs, modèles et autres exemples.
 XXX Enable the next item after the 2.26 stable release.
 
 @item
-@docLink{Visual Index,ly-examples/visualindex.pdf,@value{manualStable}/ly-examples/visualindex.pdf} :
+@docLink{Index visuel,ly-examples/visualindex.pdf,
+         @uref{@value{manualStable}/ly-examples/visualindex.pdf}} :
 index visuel de tous les objets graphiques (PDF).
 
 @end ignore
