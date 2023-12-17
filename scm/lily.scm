@@ -851,7 +851,7 @@ use an external tool to run LilyPond in a sandbox."))
              (ly:exit 0 #t)))
   (if (ly:get-option 'show-available-fonts)
       (begin (ly:reset-all-fonts) ; initialize font configuration
-             (ly:font-config-display-fonts)
+             (ly:font-config-display-fonts (current-output-port))
              (ly:exit 0 #t)))
   (if (null? files)
       (begin (ly:usage)

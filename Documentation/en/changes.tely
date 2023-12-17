@@ -964,6 +964,14 @@ Two new markup functions @code{\abs-hspace} and @code{\abs-vspace}
 are available to provide absolute dimensions that stay the same
 regardless of the current staff size.
 
+@item
+The data emitted by the command-line option
+@option{-dshow-available-fonts} is now sent to standard output.
+
+@item
+Function @code{ly:font-config-display-fonts} got an optional
+argument to select the output port.
+
 @end itemize
 
 

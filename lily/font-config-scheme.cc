@@ -32,13 +32,22 @@ Get the file for font @var{name}, as found by FontConfig.
   return ly_string2scm (all_fonts_global->get_font_file (n));
 }
 
-LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0,
-           0, (),
+LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 1,
+           0, (SCM port),
            R"(
-Dump a list of all fonts visible to FontConfig.
+List all fonts visible to FontConfig, together with directory information.
+
+Optional argument @var{port} selects the output port; the default is
+@code{(current-error-port)}.
            )")
 {
-  all_fonts_global->display_fonts ();
+  SCM use_port = scm_current_error_port ();
+  if (!SCM_UNBNDP (port))
+    {
+      LY_ASSERT_TYPE (ly_is_port, port, 1)
+      use_port = port;
+    }
+  all_fonts_global->display_fonts (use_port);
   return SCM_UNSPECIFIED;
 }
 

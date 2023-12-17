@@ -68,7 +68,7 @@ public:
   Open_type_font *find_otf_font (const std::string &name);
   SCM font_descriptions () const;
 
-  void display_fonts ();
+  void display_fonts (SCM port);
   std::string get_font_file (const std::string &name);
   void add_font_directory (const std::string &name);
   void add_font_file (const std::string &name);

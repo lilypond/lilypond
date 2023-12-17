@@ -269,11 +269,11 @@ display_list (FcConfig *fcc)
 }
 
 void
-All_font_metrics::display_fonts ()
+All_font_metrics::display_fonts (SCM port)
 {
   std::string str = display_list (font_config_.get ());
   str += display_config (font_config_.get ());
-  progress_indication (str);
+  scm_write_line (ly_string2scm (str), port);
 }
 
 std::string
