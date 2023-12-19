@@ -28,7 +28,7 @@ class Volta_bracket_interface
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   static void modify_edge_height (Spanner *);
-  static void add_bar (Spanner *me, Item *bar);
+  static void add_bar (Spanner *me, Item *bar, Direction d);
 };
 
 #endif // VOLTA_BRACKET_HH

@@ -1121,41 +1121,53 @@ of the volta brackets relative to the bar lines."
          (volta-half-line-thickness (* (ly:grob-property grob 'thickness 1.6)
                                        line-thickness
                                        1/2))
-         (bar-array (ly:grob-object grob 'bars))
-         ;; the bar-array starts with the uppermost bar line grob that is
+         (left-bar-array (ly:grob-object grob 'bars-left))
+         (left-bar-array-length (and (ly:grob-array? left-bar-array)
+                                     (ly:grob-array-length left-bar-array)))
+         (right-bar-array (ly:grob-object grob 'bars-right))
+         (right-bar-array-length (and (ly:grob-array? right-bar-array)
+                                      (ly:grob-array-length right-bar-array)))
+         ;; left-bar-array starts with the uppermost bar line grob that is
          ;; covered by the left edge of the volta bracket; more (span)
          ;; bar line grobs from other staves may follow
-         (left-bar-line (and (ly:grob-array? bar-array)
-                             (positive? (ly:grob-array-length bar-array))
-                             (ly:grob-array-ref bar-array 0)))
+         (left-bar-line (and (positive-number? left-bar-array-length)
+                             (ly:grob-array-ref left-bar-array 0)))
          ;; we need the vertical-axis-group-index of the left-bar-line
          ;; to find the corresponding right-bar-line
          (vag-index (and left-bar-line
                          (ly:grob-get-vertical-axis-group-index left-bar-line)))
-         ;; the bar line corresponding to the right edge of the volta bracket
-         ;; is the last entry with the same vag-index, so we transform the array to a list,
-         ;; reverse it and search for the first suitable entry from
-         ;; the back
-         (right-bar-line (and left-bar-line
-                              (find (lambda (e)
-                                      (eqv? (ly:grob-get-vertical-axis-group-index e)
-                                            vag-index))
-                                    (reverse (ly:grob-array->list bar-array)))))
+         (right-bar-line
+          (if (positive-number? right-bar-array-length)
+              (if left-bar-line
+                  ;; the bar line corresponding to the right edge of the volta
+                  ;; bracket is the last entry with the same vag-index, so we
+                  ;; transform right-bar-array to a list, reverse it and search
+                  ;; for the first suitable entry from the back
+                  (find (lambda (e)
+                          (eqv? (ly:grob-get-vertical-axis-group-index e)
+                                vag-index))
+                        (reverse (ly:grob-array->list right-bar-array)))
+                  ;; if there is no bar line at the left edge, take the last
+                  ;; entry from right-bar-array
+                  (ly:grob-array-ref right-bar-array
+                                     (1- right-bar-array-length)))
+              #f))
          ;; the left-bar-line may be a #'<Grob Item >,
          ;; so we add "" as a fallback return value
          (left-bar-glyph-name (if left-bar-line
-                                  (ly:grob-property left-bar-line 'glyph-name "")
-                                  (string annotation-char)))
+                                  (ly:grob-property left-bar-line
+                                                    'glyph-name "")
+                                  ""))
          (right-bar-glyph-name (if right-bar-line
-                                   (ly:grob-property right-bar-line 'glyph-name "")
-                                   (string annotation-char)))
-         ;; This is the original logic.  It flags left-bar-broken if
-         ;; there is no left-bar-line.  That seems strange.
-         (left-bar-broken (not (and left-bar-line
-                                    (zero? (ly:item-break-dir left-bar-line)))))
-         (right-bar-broken (not (and right-bar-line
-                                     (zero? (ly:item-break-dir
-                                             right-bar-line)))))
+                                   (ly:grob-property right-bar-line
+                                                     'glyph-name "")
+                                   ""))
+         (no-left-bar-or-broken (not (and left-bar-line
+                                          (zero? (ly:item-break-dir
+                                                  left-bar-line)))))
+         (no-right-bar-or-broken (not (and right-bar-line
+                                           (zero? (ly:item-break-dir
+                                                   right-bar-line)))))
          ;; Revert to current grob for getting layout info if no
          ;; left-bar-line available
          (left-span-stencil-extent (ly:stencil-extent
@@ -1171,13 +1183,18 @@ of the volta brackets relative to the bar lines."
                                       dummy-extent)
                                      X))
          (left-shorten 0.0)
-         (right-shorten 0.0))
-
+         (right-shorten 0.0)
+         ;; for volta brackets not starting at a bar line, we need to find out
+         ;; whether the left bound contains prefatory stuff, or whether it is an
+         ;; empty column
+         (refp (ly:grob-system grob))
+         (left-bound (ly:spanner-bound grob LEFT))
+         (left-bound-extent (ly:grob-extent left-bound refp X)))
     ;; since "empty" intervals may look like (1.0 . -1.0), we use the
     ;; min/max functions to make sure that the placement is not corrupted
     ;; in case of empty bar lines
     (set! left-shorten
-          (if left-bar-broken
+          (if no-left-bar-or-broken
               (- (max 0 (interval-end left-span-stencil-extent))
                  (max 0 (interval-end (ly:stencil-extent
                                        (bar-line::compound-bar-line
@@ -1185,12 +1202,21 @@ of the volta brackets relative to the bar lines."
                                         left-bar-glyph-name
                                         dummy-extent)
                                        X)))
-                 volta-half-line-thickness)
+                 volta-half-line-thickness
+                 (if (interval-empty? left-bound-extent)
+                     ;; value 0.5 is 'magic'; LilyPond sets this as the ideal
+                     ;; spacing for empty columns, which we have to compensate
+                     ;; for (see function
+                     ;; `Spacing_spanner::standard_breakable_column_spacing`)
+                     -0.5
+                     ;; if the volta bracket starts right after the prefatory
+                     ;; matter, shorten more by some ad-hoc value
+                     (if left-bar-line 0 -1)))
               (- (max 0 (interval-end left-span-stencil-extent))
                  volta-half-line-thickness)))
 
     (set! right-shorten
-          (if right-bar-broken
+          (if no-right-bar-or-broken
               (+ (- (max 0 (interval-end right-span-stencil-extent)))
                  volta-half-line-thickness)
               (- (min 0 (interval-start right-span-stencil-extent))

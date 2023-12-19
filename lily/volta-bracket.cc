@@ -142,9 +142,11 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
 }
 
 void
-Volta_bracket_interface::add_bar (Spanner *me, Item *b)
+Volta_bracket_interface::add_bar (Spanner *me, Item *b, Direction d)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("bars"), b);
+  SCM bars
+    = (d == LEFT) ? ly_symbol2scm ("bars-left") : ly_symbol2scm ("bars-right");
+  Pointer_group_interface::add_grob (me, bars, b);
   add_bound_item (me, b);
 }
 
@@ -155,7 +157,8 @@ Volta bracket with number.
 
                /* properties */
                R"(
-bars
+bars-left
+bars-right
 dashed-edge
 height
 musical-length

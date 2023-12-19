@@ -1451,7 +1451,10 @@ function is to protect objects from being garbage collected.")
      (axis-group-parent-X ,ly:grob? "Containing X@tie{}axis group.")
      (axis-group-parent-Y ,ly:grob? "Containing Y@tie{}axis group.")
 
-     (bars ,ly:grob-array? "An array of bar line pointers.")
+     (bars-left ,ly:grob-array? "An array of bar line pointers for the
+left side of a volta bracket.")
+     (bars-right ,ly:grob-array? "An array of bar line pointers for the
+right side of a volta bracket.")
      (beam ,ly:grob? "A pointer to the beam, if applicable.")
      (beam-segments ,list? "Internal representation of beam segments.")
      (bezier ,ly:grob? "A pointer to a Bézier curve, for use by

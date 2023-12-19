@@ -309,9 +309,9 @@ Volta_engraver::acknowledge_bar_line (Grob_info_t<Item> info)
   for (auto &layer : layers_)
     {
       if (layer.bracket_)
-        Volta_bracket_interface::add_bar (layer.bracket_, item);
+        Volta_bracket_interface::add_bar (layer.bracket_, item, LEFT);
       if (layer.end_bracket_)
-        Volta_bracket_interface::add_bar (layer.end_bracket_, item);
+        Volta_bracket_interface::add_bar (layer.end_bracket_, item, RIGHT);
 
       if (layer.spanner_)
         Side_position_interface::add_support (layer.spanner_, item);
