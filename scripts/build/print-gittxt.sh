@@ -23,15 +23,19 @@ then
     then
         echo "MERGE_BASE: $FP"
         echo
-        echo "   HISTORY:"
-        echo "   ========"
-        git --no-pager log --pretty=format:"      HASH: %H%n   SUBJECT: %s%n" HEAD $FP^!
+        echo "    HISTORY"
+        echo "    ======="
+        git --no-pager \
+            log --pretty=format:"      HASH: %H%n   SUBJECT: %w(50,0,12)%s%n" \
+            HEAD $FP^!
     else
         echo "MERGE_BASE: unknown"
         echo
-        echo "   HISTORY:"
-        echo "   ========"
-        git --no-pager log --max-count=10 --pretty=format:"      HASH: %H%nSUBJECT: %s%n"
+        echo "    HISTORY"
+        echo "    ======="
+        git --no-pager
+            log --max-count=10 \
+                --pretty=format:"      HASH: %H%n   SUBJECT: %w(50,0,12)%s%n"
     fi
     echo ""
     date
