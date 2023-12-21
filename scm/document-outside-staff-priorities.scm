@@ -26,18 +26,6 @@
 @end indentedblock
 "
           (string-join
-           (map
-            (lambda (name-priority-pair)
-              (let ((name (car name-priority-pair))
-                    (priority (cdr name-priority-pair)))
-                (format #f "@item @code{~a} @tab @code{~a}" name priority)))
-            (sort
-             (filter-map
-              (lambda (grob-definition)
-                (let* ((name (car grob-definition))
-                       (properties (cdr grob-definition))
-                       (priority (assq-ref properties 'outside-staff-priority)))
-                  (and priority (cons name priority))))
-              all-grob-descriptions)
-             (comparator-from-key cdr <)))
+           (priority-entries `(,all-grob-descriptions)
+                             'outside-staff-priority)
            "\n")))

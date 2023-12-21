@@ -205,3 +205,36 @@ first."
                       (uniq-list sorted-strings)
                       sorted-strings)))
     (human-listify (map ref-ify uniqued))))
+
+(define (list-property-users alist property)
+  "For a given @var{alist} in the format used by @code{all-grob-descriptions},
+walk over all grobs and check whether they have a property @var{property}.
+
+Return a list of all such grob/@/property-value pairs."
+  (filter-map
+   (lambda (grob-definition)
+     (let* ((name (car grob-definition))
+            (props (cdr grob-definition))
+            (val (assq-ref props property)))
+       (and val (cons name val))))
+   alist))
+
+(define (priority-entries alists priority)
+  "Walk over all alists in @var{alists} and extract grob/@/property-value pairs
+for property @var{priority}.
+
+Return a list of entries (formatted as @code{@@item} strings for a
+@code{@@multitable} environment) sorted numerically by property value."
+  (map
+   (lambda (name-priority-pair)
+     (let ((name (car name-priority-pair))
+           (priority (cdr name-priority-pair)))
+       ;; Use the 'FIGURE SPACE' U+2007 character to emulate right-aligned
+       ;; number output.
+       (format #f "@item @code{~a} @tab @code{~4,,,'\u2007@a}" name priority)))
+   (sort
+    (append-map
+     (lambda (alist)
+       (list-property-users alist priority))
+     alists)
+    (comparator-from-key cdr <))))

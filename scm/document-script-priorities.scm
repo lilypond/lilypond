@@ -26,26 +26,6 @@
 @end indentedblock
 "
           (string-join
-           (map
-            (lambda (name-priority-pair)
-              (let ((name (car name-priority-pair))
-                    (priority (cdr name-priority-pair)))
-                (format #f "@item @code{~a} @tab @code{~a}" name priority)))
-            (sort
-             (append
-              (filter-map
-               (lambda (grob-definition)
-                 (let* ((name (car grob-definition))
-                        (properties (cdr grob-definition))
-                        (priority (assq-ref properties 'script-priority)))
-                   (and priority (cons name priority))))
-               all-grob-descriptions)
-              (filter-map
-               (lambda (script-definition)
-                 (let* ((name (car script-definition))
-                        (properties (cdr script-definition))
-                        (priority (assq-ref properties 'script-priority)))
-                   (and priority (cons name priority))))
-               default-script-alist))
-             (comparator-from-key cdr <)))
+           (priority-entries `(,all-grob-descriptions ,default-script-alist)
+                             'script-priority)
            "\n")))
