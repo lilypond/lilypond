@@ -1,25 +1,42 @@
-\version "2.19.21"
+\version "2.25.12"
 
 \header {
-  texidoc = "LilyPond creates hairpins found in Ferneyhough scores.
+  texidoc = "LilyPond creates hairpins found in Ferneyhough scores.  Flared
+hairpins may print circled tips.
 "
 }
 
-\relative {
-  \override Hairpin.stencil = #flared-hairpin
-  a'4\< a a a\f
-  a4\p\< a a a\ff
-  a4\sfz\< a a a\!
-  \override Hairpin.stencil = #constante-hairpin
+mus = {
   a4\< a a a\f
-  a4\p\< a a a\ff
-  a4\sfz\< a a a\!
-  \override Hairpin.stencil = #flared-hairpin
-  a4\> a a a\f
-  a4\p\> a a a\ff
-  a4\sfz\> a a a\!
-  \override Hairpin.stencil = #constante-hairpin
-  a4\> a a a\f
-  a4\p\> a a a\ff
-  a4\sfz\> a a a\!
+  a\p\< a a a\ff
+  a\sfz\< a a a\!
 }
+
+<<
+  \new Staff \relative a' {
+    \override Hairpin.stencil = #flared-hairpin
+    \mus
+    \override Hairpin.stencil = #constante-hairpin
+    \mus
+    \override Hairpin.stencil = #flared-hairpin
+    \mus
+    \override Hairpin.stencil = #constante-hairpin
+    \mus
+  }
+
+  %% circled tips with `constante-hairpin' makes no sense, thus always unset
+  \new Staff \relative a' {
+    \override Hairpin.stencil = #flared-hairpin
+    \override Hairpin.circled-tip = ##t
+    \mus
+    \override Hairpin.stencil = #constante-hairpin
+    \override Hairpin.circled-tip = #'()
+    \mus
+    \override Hairpin.stencil = #flared-hairpin
+    \override Hairpin.circled-tip = ##t
+    \mus
+    \override Hairpin.stencil = #constante-hairpin
+    \override Hairpin.circled-tip = #'()
+    \mus
+  }
+>>

@@ -391,6 +391,17 @@ Music = {
 @itemize
 
 @item
+Hairpins in the style of Ferneyhough now support al niente circles.
+
+@lilypond[quote,verbatim]
+{
+  \override Hairpin.circled-tip = ##t
+  \override Hairpin.stencil = #flared-hairpin
+  b1\< b\> b\> b2 b\< b2 b\!
+}
+@end lilypond
+
+@item
 Two new variant glyphs for breathing signs are available:
 @q{laltcomma} and @q{raltcomma}.  These glyphs represent the old
 shapes of @q{lcomma} and @q{rcomma}, respectively, before changing

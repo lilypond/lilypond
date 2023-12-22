@@ -154,6 +154,7 @@ Hairpin::print (SCM smob)
                 * Staff_symbol_referencer::staff_space (me);
   /*
     FIXME: 0.525 is still just a guess...
+           same method is used in `circle-radius' of scm/output-lib.scm
   */
   Real rad = height * 0.525;
   Real thick = 1.0;

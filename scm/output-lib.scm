@@ -1343,11 +1343,32 @@ and draws the stencil based on its coordinates.
     (let ((stil (make-connected-line points me)))
       (if decresc? (ly:stencil-scale stil -1 1) stil)))
 
+  (define (circle-radius grob niente?)
+    (if niente?
+        ;; calculation of radius of circle for circled tip
+        ;; by method used in `cc/hairpin.cc'
+        (let* ((grob-height (ly:grob-property grob 'height 0.2))
+               (height (* grob-height (ly:staff-symbol-staff-space grob))))
+          (* height 0.525))
+        0))
+
+  (define (circled-tip-stil grob radius niente?)
+    (if niente?
+        (let* ((grob-thick (ly:grob-property grob 'thickness 0.1))
+               (thick (* grob-thick (layout-line-thickness grob))))
+          (make-circle-stencil radius thick #f))
+        empty-stencil))
+
   ;; outer let to trigger suicide
   (let ((sten (ly:hairpin::print grob)))
     (if (grob::is-live? grob)
         (let* ((decresc? (eqv? (ly:grob-property grob 'grow-direction) LEFT))
-               (xex (ly:stencil-extent sten X))
+               (niente? (ly:grob-property grob 'circled-tip #f))
+               (raw-xex (ly:stencil-extent sten X))
+               (circle-rad (circle-radius grob niente?))
+               ;; If circle tip is present shorten the extent accordingly.
+               (xex (cons (car raw-xex)
+                          (- (cdr raw-xex) (* 2 circle-rad) 0)))
                (lenx (interval-length xex))
                (yex (ly:stencil-extent sten Y))
                (leny (interval-length yex))
@@ -1365,12 +1386,48 @@ and draws the stencil based on its coordinates.
                        empty-stencil))
                   (cons xtrans ytrans))
                  Y CENTER))
-               (stil-y-extent (ly:stencil-extent stil Y)))
-          ;; Return a final stencil properly aligned in Y-axis direction and with
-          ;; proper extents. Otherwise stencil-operations like 'box-stencil' will
-          ;; return badly. Extent in X-axis direction is taken from the original,
-          ;; in Y-axis direction from the new stencil.
-          (ly:make-stencil (ly:stencil-expr stil) xex stil-y-extent))
+               (stil-y-extent (ly:stencil-extent stil Y))
+               (circle (circled-tip-stil grob circle-rad niente?))
+               (hairpin-stencil
+                 ;; For crescendo with circled tip, move it, to make place for
+                 ;; the circle.
+                 (ly:stencil-translate-axis
+                   (ly:make-stencil (ly:stencil-expr stil) xex stil-y-extent)
+                   (if (and niente? (not decresc?))
+                       (* 2 circle-rad)
+                       0)
+                       X)))
+          ;; Return a final stencil properly aligned in Y-axis direction and
+          ;; with proper extents. Otherwise stencil operations like
+          ;; 'box-stencil' will return badly. Extent in X-axis direction is
+          ;; taken from the original, in Y-axis direction from the new stencil.
+          ;;
+          ;; Although `elbowed-hairpin' in general doesn't code differently for
+          ;; broken hairpins, we need to care about the case when a decrescendo
+          ;; hairpin with circled tip ends at the first note of a new line.
+          ;; If the hairpin part in the new line is killed (the default), the
+          ;; circled tip has to be drawn at the end of the *previous* part.
+          (if niente?
+              (ly:stencil-add
+                hairpin-stencil
+                (let* ((orig (ly:grob-original grob))
+                       (siblings (ly:spanner-broken-into orig))
+                       (live-siblings (filter grob::is-live? siblings)))
+                  (cond ((and (unbroken-or-first-broken-spanner? grob)
+                              (not decresc?))
+                          (ly:stencil-translate-axis
+                             circle
+                             (+ circle-rad (car xex))
+                             X))
+                        ((and (or (unbroken-spanner? grob)
+                                  (eq? grob (last live-siblings)))
+                              niente?
+                              decresc?)
+                          (ly:stencil-translate-axis
+                            circle
+                            (+ circle-rad (car xex) lenx) X))
+                        (else empty-stencil))))
+               hairpin-stencil))
         ;; return empty, if no Hairpin.stencil present.
         '())))
 
