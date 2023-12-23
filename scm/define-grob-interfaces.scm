@@ -116,21 +116,22 @@ and tick bars are always rounded."
  "The (curved) line representing a bent string.
 Available for the @code{'style} property are @code{'hold}, @code{'pre-bend} and
 @code{'pre-bend-hold}.
-The following properties may be set in the details list.
+
+The following properties may be set in the @code{details} list.
 
 @table @code
 @item arrow-stencil
 The stencil procedure for the @code{BendSpanner} arrow head.
-@item curvature-factor
-Determines the horizontal part of a bend arrow as percentage of the total
-horizontal extent, usually between 0 and@tie{}1.
+@item bend-amount-strings
+An alist with entries for @code{'quarter}, @code{'half}, @code{'three-quarter}
+and @code{'full}, which are used to print how much a string is bent.
 @item bend-arrowhead-height
 The height of the arrow head.
 @item bend-arrowhead-width
 The width of the arrow head.
-@item bend-amount-strings
-An alist with entries for @code{'quarter}, @code{'half}, @code{'three-quarter}
-and @code{'full}, which are used to print how much a string is bent.
+@item curvature-factor
+Determines the horizontal part of a bent arrow as percentage of the total
+horizontal extent, usually between 0 and@tie{}1.
 @item curve-x-padding-line-end
 For a broken @code{BendSpanner}, set the padding at the line end to subsequent
 objects like changed @code{Clef}, etc.

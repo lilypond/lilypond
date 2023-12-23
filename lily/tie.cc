@@ -272,66 +272,41 @@ Tie::print (SCM smob)
 
 ADD_INTERFACE (Tie,
                R"(
-A tie - a horizontal curve connecting two noteheads.
+A tie -- a horizontal curve connecting two noteheads.
 
 The following properties may be set in the @code{details} list.
 
 @table @code
-@item height-limit
-The maximum height allowed for this tie.
-@item ratio
-Parameter for tie shape.  The higher this number, the quicker the slur attains
-its height-limit.
 @item between-length-limit
 This detail is currently unused.
-@item wrong-direction-offset-penalty
-Demerit for ties that are offset in the wrong direction.
-@item min-length
-If the tie is shorter than this amount (in staff-spaces) an increasingly large
-length penalty is incurred.
-@item min-length-penalty-factor
-Demerit factor for tie lengths shorter than @code{min-length}.
 @item center-staff-line-clearance
 If the center of the tie is closer to a staff line than this amount, an
 increasingly large staff line collision penalty is incurred.
-@item tip-staff-line-clearance
-If the tips of the tie are closer to a staff line than this amount, an
-increasingly large staff line collision penalty is incurred.
-@item staff-line-collision-penalty
-Demerit factor for ties whose tips or center come close to staff lines.
 @item dot-collision-clearance
 If the tie comes closer to a dot than this amount, an increasingly large dot
 collision penalty is incurred.
 @item dot-collision-penalty
 Demerit factor for ties which come close to dots.
-@item note-head-gap
-The distance (in staff-spaces) by which the ends of the tie are offset
-horizontally from the center line through the note head.
-@item stem-gap
-The distance (in staff-spaces) by which the ends of the tie are offset
-horizontally from a stem which is on the same side of the note head as the tie.
-@item tie-column-monotonicity-penalty
-Demerit if the y-position of this tie in the set of ties being considered is
-less than the y-position of the previous tie.
-@item tie-tie-collision-distance
-If this tie is closer than this amount to the previous tie in the set being
-considered, an increasingly large tie-tie collision penalty is incurred.
-@item tie-tie-collision-penalty
-Demerit factor for a tie in the set being considered which is close to the
-previous one.
+@item height-limit
+The maximum height allowed for this tie.
 @item horizontal-distance-penalty-factor
 Demerit factor for ties in the set being considered which are horizontally
 distant from the note heads.
-@item vertical-distance-penalty-factor
-Demerit factor for ties in the set being considered which are vertically
-distant from the note heads.
-@item same-dir-as-stem-penalty
-Demerit if tie is on the same side as a stem or on the opposite side to the one
-specified.
 @item intra-space-threshold
 If the tie's height (in half staff-spaces) is less than this it is positioned
-between two adjacent staff lines; otherwise it is positioned to straddle a
-staff line further from the note heads.
+between two adjacent staff lines; otherwise it is positioned to straddle a staff
+line further from the note heads.
+@item min-length
+If the tie is shorter than this amount (in staff-spaces) an increasingly large
+length penalty is incurred.
+@item min-length-penalty-factor
+Demerit factor for tie lengths shorter than @code{min-length}.
+@item multi-tie-region-size
+The number of variations that are tried for the extremal ties in a chord.
+Variations differ in their initial vertical position by half a staff-space.
+@item note-head-gap
+The distance (in staff-spaces) by which the ends of the tie are offset
+horizontally from the center line through the note head.
 @item outer-tie-length-symmetry-penalty-factor
 Demerit factor for ties horizontally positioned unsymmetrically with respect to
 the two note heads.
@@ -341,15 +316,40 @@ the two note heads.
 @item outer-tie-vertical-gap
 Amount (in half staff-spaces) by which a tie is moved away from the note heads
 if it is closer to either of them than 0.25 half staff-spaces.
-@item skyline-padding
-Padding of the skylines around note heads in chords.
+@item ratio
+Parameter for tie shape.  The higher this number, the quicker the slur attains
+its height limit.
+@item same-dir-as-stem-penalty
+Demerit if tie is on the same side as a stem or on the opposite side to the one
+specified.
 @item single-tie-region-size
 The number of candidate ties to generate when only a single tie is required.
 Successive candidates differ in their initial vertical position by half a
 staff-space.
-@item multi-tie-region-size
-The number of variations that are tried for the extremal ties in a chord.
-Variations differ in their initial vertical position by half a staff-space.
+@item skyline-padding
+Padding of the skylines around note heads in chords.
+@item staff-line-collision-penalty
+Demerit factor for ties whose tips or center come close to staff lines.
+@item stem-gap
+The distance (in staff-spaces) by which the ends of the tie are offset
+horizontally from a stem which is on the same side of the note head as the tie.
+@item tie-column-monotonicity-penalty
+Demerit if the Y-position of this tie in the set of ties being considered is
+less than the Y-position of the previous tie.
+@item tie-tie-collision-distance
+If this tie is closer than this amount to the previous tie in the set being
+considered, an increasingly large tie-tie collision penalty is incurred.
+@item tie-tie-collision-penalty
+Demerit factor for a tie in the set being considered which is close to the
+previous one.
+@item tip-staff-line-clearance
+If the tips of the tie are closer to a staff line than this amount, an
+increasingly large staff-line collision penalty is incurred.
+@item vertical-distance-penalty-factor
+Demerit factor for ties in the set being considered which are vertically distant
+from the note heads.
+@item wrong-direction-offset-penalty
+Demerit for ties that are offset in the wrong direction.
 @end table
                )",
 

@@ -483,20 +483,19 @@ vertically.")))))
                                  time-signature-interface))
         (cross-staff . ,ly:beam::calc-cross-staff)
         (damping . 1)
-        (details
-         .(
-           (secondary-beam-demerit . 10)
-           (stem-length-demerit-factor . 5)
-           (region-size . 2)
-           (beam-eps . 0.001)
-           (stem-length-limit-penalty . 5000)
-           (damping-direction-penalty . 800)
-           (hint-direction-penalty . 20)
-           (musical-direction-factor . 400)
-           (ideal-slope-factor . 10)
-           (collision-penalty . 500)
-           (collision-padding . 0.35)
-           (round-to-zero-slope . 0.02)))
+        (details . ((beam-eps . 0.001)
+                    (collision-padding . 0.35)
+                    (collision-penalty . 500)
+                    (damping-direction-penalty . 800)
+                    (hint-direction-penalty . 20)
+                    (ideal-slope-factor . 10)
+                    (musical-direction-factor . 400)
+                    (region-size . 2)
+                    (round-to-zero-slope . 0.02)
+                    (secondary-beam-demerit . 10)
+                    (stem-collision-factor . 0.1)
+                    (stem-length-demerit-factor . 5)
+                    (stem-length-limit-penalty . 5000)))
         (direction . ,ly:beam::calc-direction)
 
         (normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
@@ -546,13 +545,13 @@ vertically.")))))
                     ;; bend-arrow-curvature-factor, usually between 0 and 1,
                     ;; determines the horizontal part of a bend arrow as
                     ;; a percentage of the total horizontal extent
-                    (curvature-factor . 0.35)
-                    (bend-arrowhead-height . 1.25)
-                    (bend-arrowhead-width . 0.8)
                     (bend-amount-strings . ((quarter . "¼")
                                             (half . "½")
                                             (three-quarter . "¾")
                                             (full . #f)))
+                    (bend-arrowhead-height . 1.25)
+                    (bend-arrowhead-width . 0.8)
+                    (curvature-factor . 0.35)
                     (curve-x-padding-line-end . 0.5)
                     (curve-y-padding-line-end . 1)
                     ;; (dashed-line-settings . (on off phase))
@@ -1252,13 +1251,12 @@ contain mixed durations.  See also @iref{PercentRepeat},
                    (padding . -0.3)
                    (start-at-dot . #f)))))
         (breakable . #t)
-        (details
-         .
-         ((hook-height . 0.34)
-          ;; Unless set by the user, grob's thickness is taken as default
-          (hook-thickness . #f)
-          (hook-direction . ,UP)
-          (extra-dot-padding . 0.5)))
+        (details . ((extra-dot-padding . 0.5)
+                    (hook-direction . ,UP)
+                    (hook-height . 0.34)
+                    ;; Unless set by the user, grob's thickness is taken as
+                    ;; default
+                    (hook-thickness . #f)))
         (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
         (minimum-length . 2)
         (minimum-length-after-break . 6)
@@ -1891,8 +1889,8 @@ melisma (ligature) as used in Kievan square notation.  See also
      . (
         (control-points . ,ly:semi-tie::calc-control-points)
         (cross-staff . ,semi-tie::calc-cross-staff)
-        (details . ((ratio . 0.333)
-                    (height-limit . 1.0)))
+        (details . ((height-limit . 1.0)
+                    (ratio . 0.333)))
         (direction . ,ly:tie::calc-direction)
         (head-direction . ,LEFT)
         (line-thickness . 0.8)
@@ -2682,8 +2680,8 @@ measure, and which contain identical durations.  See also
      . (
         (cross-staff . ,semi-tie::calc-cross-staff)
         (control-points . ,ly:semi-tie::calc-control-points)
-        (details . ((ratio . 0.333)
-                    (height-limit . 1.0)))
+        (details . ((height-limit . 1.0)
+                    (ratio . 0.333)))
         (direction . ,ly:tie::calc-direction)
         (head-direction . ,RIGHT)
         (line-thickness . 0.8)
@@ -3145,33 +3143,24 @@ lyrics.")))))
         (beamlet-max-length-proportion . (0.75 . 0.75))
         (cross-staff . ,ly:stem::calc-cross-staff)
         (default-direction . ,ly:stem::calc-default-direction)
-        (details
-         . (
-            ;; 3.5 (or 3 measured from note head) is standard length
-            ;; 32nd, 64th, ..., 1024th flagged stems should be longer
-            (lengths . (3.5 3.5 3.5 4.25 5.0 6.0 7.0 8.0 9.0))
-
-            ;; FIXME.  3.5 yields too long beams (according to Ross and
-            ;; looking at Baerenreiter examples) for a number of common
-            ;; boundary cases.  Subtracting half a beam thickness fixes
-            ;; this, but the bug may well be somewhere else.
-
-            ;; FIXME this should come from 'lengths
-            (beamed-lengths . (3.26 3.5 3.6))
-
-            ;; The 'normal' minima
-            (beamed-minimum-free-lengths . (1.83 1.5 1.25))
-            ;;(beamed-minimum-free-lengths . (2.0 1.83 1.25))
-
-            ;; The 'extreme case' minima
-            (beamed-extreme-minimum-free-lengths . (2.0 1.25))
-
-            ;; Stems in unnatural (forced) direction should be shortened by
-            ;; one staff space, according to [Roush & Gourlay].
-            ;; Flagged stems we shorten only half a staff space.
-            (stem-shorten . (1.0 0.5 0.25))
-
-            ))
+        (details . (;; The 'extreme case' minima
+                    (beamed-extreme-minimum-free-lengths . (2.0 1.25))
+                    ;; FIXME.  3.5 yields too long beams (according to Ross and
+                    ;; looking at Baerenreiter examples) for a number of common
+                    ;; boundary cases.  Subtracting half a beam thickness fixes
+                    ;; this, but the bug may well be somewhere else.
+                    ;; FIXME this should come from 'lengths
+                    (beamed-lengths . (3.26 3.5 3.6))
+                    ;; The 'normal' minima
+                    (beamed-minimum-free-lengths . (1.83 1.5 1.25))
+                    ;;(beamed-minimum-free-lengths . (2.0 1.83 1.25))
+                    ;; 3.5 (or 3 measured from note head) is standard length
+                    ;; 32nd, 64th, ..., 1024th flagged stems should be longer
+                    (lengths . (3.5 3.5 3.5 4.25 5.0 6.0 7.0 8.0 9.0))
+                    ;; Stems in unnatural (forced) direction should be shortened
+                    ;; by one staff space, according to [Roush & Gourlay].
+                    ;; Flagged stems we shorten only half a staff space.
+                    (stem-shorten . (1.0 0.5 0.25))))
 
         ;; We use the normal minima as minimum for the ideal lengths,
         ;; and the extreme minima as abolute minimum length.
@@ -3422,16 +3411,15 @@ start delimiter.")))))
                                               (padding . 0)
                                               (procedure . ,parenthesize-stencil)
                                               (width . 0.25)))
-                    (head-offset . 3/5)
                     (harmonic-properties . ((angularity . 2)
                                             (half-thickness . 0.075)
                                             (padding . 0)
                                             (procedure . ,parenthesize-stencil)
                                             (width . 0.25)))
+                    (head-offset . 3/5)
                     (repeat-tied-properties . ((note-head-visible . #t)
                                                (parenthesize . #t)))
                     (tied-properties . ((parenthesize . #t)))))
-
         (direction . ,CENTER)
         (duration-log . ,note-head::calc-duration-log)
         (font-series . bold)
@@ -3568,28 +3556,32 @@ followed by a (dashed) line.  See also
      . (
         (avoid-slur . inside)
         (control-points . ,ly:tie::calc-control-points)
-        (details . (
-                    ;; for a full list, see tie-details.cc
-                    (ratio . 0.333)
+        (details . ((between-length-limit . 1.0)
                     (center-staff-line-clearance . 0.6)
-                    (tip-staff-line-clearance . 0.45)
-                    (note-head-gap . 0.2)
-                    (stem-gap . 0.35)
+                    (dot-collision-clearance . 0.25)
+                    (dot-collision-penalty . 0.25)
                     (height-limit . 1.0)
                     (horizontal-distance-penalty-factor . 10)
-                    (same-dir-as-stem-penalty . 8)
+                    (intra-space-threshold . 1.25)
+                    (min-length . 1.0)
                     (min-length-penalty-factor . 26)
+                    (multi-tie-region-size . 3)
+                    (note-head-gap . 0.2)
+                    (outer-tie-length-symmetry-penalty-factor . 10)
+                    (outer-tie-vertical-distance-symmetry-penalty-factor . 10)
+                    (outer-tie-vertical-gap . 0.25)
+                    (ratio . 0.333)
+                    (same-dir-as-stem-penalty . 8)
+                    (single-tie-region-size . 4)
+                    (skyline-padding . 0.05)
+                    (staff-line-collision-penalty . 5)
+                    (stem-gap . 0.35)
+                    (tie-column-monotonicity-penalty . 100)
                     (tie-tie-collision-distance . 0.45)
                     (tie-tie-collision-penalty . 25.0)
-                    (intra-space-threshold . 1.25)
-                    (outer-tie-vertical-distance-symmetry-penalty-factor . 10)
-                    (outer-tie-length-symmetry-penalty-factor . 10)
+                    (tip-staff-line-clearance . 0.45)
                     (vertical-distance-penalty-factor . 7)
-                    (outer-tie-vertical-gap . 0.25)
-                    (multi-tie-region-size . 3)
-                    (single-tie-region-size . 4)
-                    (between-length-limit . 1.0)))
-
+                    (wrong-direction-offset-penalty . 10)))
         (direction . ,ly:tie::calc-direction)
         (font-size . -6) ; for debug-tie-scoring
         (line-thickness . 0.8)

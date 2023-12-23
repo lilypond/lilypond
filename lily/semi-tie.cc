@@ -29,8 +29,9 @@
 
 ADD_INTERFACE (Semi_tie,
                R"(
-A tie which is only connected to a note head on one side.  The following
-properties may be set in the @code{details} list:
+A tie that is only connected to a note head on one side.
+
+The following properties may be set in the @code{details} list.
 
 @table @code
 @item height-limit

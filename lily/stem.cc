@@ -1204,13 +1204,13 @@ note heads, beams, and tremolos.  Rests and whole notes have invisible stems.
 The following properties may be set in the @code{details} list.
 
 @table @code
+@item beamed-extreme-minimum-free-lengths
+List of extreme minimum free stem lengths (chord to beams) given beam
+multiplicity.
 @item beamed-lengths
 List of stem lengths given beam multiplicity.
 @item beamed-minimum-free-lengths
 List of normal minimum free stem lengths (chord to beams) given beam
-multiplicity.
-@item beamed-extreme-minimum-free-lengths
-List of extreme minimum free stem lengths (chord to beams) given beam
 multiplicity.
 @item lengths
 Default stem lengths.  The list gives a length for each flag count.  If a

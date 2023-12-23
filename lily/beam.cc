@@ -1498,33 +1498,34 @@ A beam.
 
 The @code{beam-thickness} property is the weight of beams, measured in
 staffspace.  The @code{direction} property is not user-serviceable.  Use the
-@code{direction} property of @code{Stem} instead.  The following properties may
-be set in the @code{details} list.
+@code{direction} property of @code{Stem} instead.
+
+The following properties may be set in the @code{details} list.
 
 @table @code
-@item stem-length-demerit-factor
-Demerit factor used for inappropriate stem lengths.
-@item secondary-beam-demerit
-Demerit used in quanting calculations for multiple beams.
-@item region-size
-Size of region for checking quant scores.
 @item beam-eps
 Epsilon for beam quant code to check for presence in gap.
-@item stem-length-limit-penalty
-Penalty for differences in stem lengths on a beam.
 @item damping-direction-penalty
 Demerit penalty applied when beam direction is different from damping
 direction.
 @item hint-direction-penalty
 Demerit penalty applied when beam direction is different from damping
 direction, but damping slope is <= @code{round-to-zero-slope}.
-@item musical-direction-factor
-Demerit scaling factor for difference between beam slope and music slope.
 @item ideal-slope-factor
 Demerit scaling factor for difference between beam slope and damping slope.
+@item musical-direction-factor
+Demerit scaling factor for difference between beam slope and music slope.
+@item region-size
+Size of region for checking quant scores.
 @item round-to-zero-slope
 Damping slope which is considered zero for purposes of calculating direction
 penalties.
+@item secondary-beam-demerit
+Demerit used in quanting calculations for multiple beams.
+@item stem-length-demerit-factor
+Demerit factor used for inappropriate stem lengths.
+@item stem-length-limit-penalty
+Penalty for differences in stem lengths on a beam.
 @end table
                )",
 
