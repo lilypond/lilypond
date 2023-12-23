@@ -3338,20 +3338,25 @@ identifying the type of spacing at play.
 @cindex non-musical item
 @cindex item, musical
 @cindex item, non-musical
-@cindex prefatory material
+@cindex prefatory matter
+@cindex matter, prefatory
+
+@funindex NoteColumn
+@funindex NonMusicalPaperColumn
 
 Layout objects that have a horizontally fixed position are called
-@emph{items}, as opposed to @emph{spanners}, and for the purpose
-of horizontal spacing, are grouped into @emph{columns}.  Note
+@dfn{items} (as opposed to @dfn{spanners}) and, for the purpose
+of horizontal spacing, are grouped into @dfn{columns}.  Note
 heads and rests, forming the main musical material, together with
 those objects that are logically linked to them -- accidentals,
-articulations, stems, dots, etc. -- are all part of @q{musical
-column}.  Prefatory items, such as clefs, time signatures and bar
-lines, are grouped into @q{non-musical columns}.  In the following
-example, musical items are colored red, while non-musical items
-are blue.
+articulations, stems, dots, etc.@: -- are all part of @q{musical
+columns} (represented by @code{NoteColumn} grobs).  @dfn{Prefatory
+matter}, such as clefs, time signatures and bar lines, is grouped
+into @q{non-musical columns} (represented by
+@code{NonMusicalPaperColumn} grobs).  In the following example,
+musical items are colored red, while non-musical items are blue.
 
-@lilypond
+@lilypond[quote]
 musical =
 #(define-music-function (grob) (key-list?)
    #{ \override $grob . color = #(universal-color 'vermillion) #})
@@ -3390,11 +3395,12 @@ nonmusical =
 }
 @end lilypond
 
+@noindent
 This example shows that there is an alternation between musical
 and non-musical columns.  The first non-musical column contains a
 clef and a time signature.  The first musical column has a note
 head with its stem and articulation.  The second non-musical
-column is empty and thus is removed during the layout process.
+column is empty and thus removed during the layout process.
 The second musical column has a note again.  The third non-musical
 column contains a clef, a bar line and a rehearsal mark, etc.
 
@@ -3408,6 +3414,9 @@ between columns are different.
 @unnumberedsubsubsec Spacing between adjacent non-musical items
 
 @cindex horizontal spacing, between non-musical items
+@cindex non-musical item, horizontal spacing
+@cindex prefatory matter
+@cindex matter, prefatory
 
 Within a non-musical column, items are laid out in a specific
 order.  For instance, with the set of items in the picture below,
@@ -3428,15 +3437,16 @@ finally the time signature (this is controlled by the
 }
 @end lilypond
 
-@cindex break align symbol
+@cindex break-align symbol
+@cindex symbol, break-align
 @funindex space-alist
 
 The distance between two adjacent items from the same non-musical
 column is controlled by the value of the @code{space-alist}
 property of the leftmost one of the two.  @code{space-alist} has
-the form of an associative list mapping break align symbols to
-@code{(spacing-style . value)} pairs.  A breakable item's break
-align symbol is given by the value of its
+the form of an associative list mapping break-align symbols to
+@code{(@var{spacing-style} . @var{value})} pairs.  A breakable item's
+break-align symbol is given by the value of its
 @code{break-@/align-@/symbol} property; standard choices are
 listed in @rinternals{break-alignment-interface}.  Spacing styles
 are listed in @rinternals{break-aligned-interface}.  Among the
@@ -3467,6 +3477,14 @@ different columns.  However, this kind of spacing is flexible, and
 does not merely depend on the types of object involved but also
 their shapes.  Methods specific to it are documented in the next
 section.
+
+@snippets
+
+@cindex key cancellation, before bar line
+@funindex break-align-orders
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/separating-key-cancellations-from-key-signature-changes.ly}
 
 @morerefs
 Notation Reference:
