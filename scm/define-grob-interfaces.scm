@@ -156,6 +156,9 @@ the first one; later on, this value is maintained by the engraver.
 @item target-visibility
 A boolean to decide whether the target @code{TabNoteHead} should be visible.
 For up-pointing bends this is usually true.
+@item vertical-padding
+Vertical padding between note heads and bends for @code{pre-bend} and
+@code{pre-bend-hold} styles.
 @item y-distance-from-tabstaff-to-arrow-tip
 This numeric value determines the distance between the @code{TabStaff} and the
 arrow head of the @code{BendSpanner}.
@@ -235,7 +238,26 @@ undefined, which is normal 19th/20th century traditional style.  Set
 
 (ly:add-interface
  'duration-line-interface
- "A line lasting for the duration of a rhythmic event."
+ "A line lasting for the duration of a rhythmic event.
+
+If @code{bound-details.right.end-style} is set to @code{'arrow}, end the
+duration line with a right-pointing arrow.  If set to @code{'hook}, end it with
+a hook.
+
+The following properties may be set in the @code{details} list.
+
+@table @code
+@item extra-dot-padding
+Padding to apply if a @code{DotColumn} grob is present and the
+@code{start-at-dot} sub-property is enabled.
+@item hook-direction
+The direction of the hook ending the duration line.
+@item hook-height
+The height of the hook ending the duration line.
+@item hook-thickness
+The thickness of the hook ending the duration line.
+@end table
+"
  '(details))
 
 (ly:add-interface
@@ -599,7 +621,74 @@ as bar lines, but it is not a bar line."
 
 (ly:add-interface
  'tab-note-head-interface
- "A note head in tablature."
+ "A note head in tablature.
+
+The following properties may be set in the @code{details} list.
+
+@table @code
+@item cautionary-properties
+An alist to format cautionaries (usually parentheses enclosing the number)
+with the following elements.
+
+@table @code
+@item angularity
+How much the parentheses should become angular.
+@item half-thickness
+The maximum thickness of a parenthesis.
+@item padding
+The padding between the parentheses and the enclosed number.
+@item procedure
+A function to handle cautionaries, taking the other four elements of the
+@code{cautionary-properties} alist as arguments.
+@item width
+The maximum horizontal extent of a parenthesis.
+@end table
+
+@item harmonic-properties
+An alist to format harmonics (usually parentheses enclosing the number) with
+the following elements.
+
+@table @code
+@item angularity
+How much the parentheses should become angular.
+@item half-thickness
+The maximum thickness of a parenthesis.
+@item padding
+The padding between the parentheses and the enclosed number.
+@item procedure
+A function to handle harmonics, taking the other four elements of the
+@code{harmonic-properties} alist as arguments.
+@item width
+The maximum horizontal extent of a parenthesis.
+@end table
+
+@item head-offset
+Move all tablature numbers horizontally.  The value is given as a multiple of a
+single-digit number width.
+
+@item repeat-tied-properties
+An alist with the following elements.
+
+@table @code
+@item note-head-visible
+If set to @code{#t}, show a number for a note with @code{\\repeatTie}.
+@item parenthesize
+If set to @code{#t}, parenthesize the number for a note with @code{\\repeatTie}.
+@end table
+
+@item tied-properties
+An alist with the following elements.
+
+@table @code
+@item break-visibility
+A vector of 3@tie{}booleans, @code{#(@var{end-of-line} @var{unbroken}
+@var{begin-of-line})}, to control the visibility of ties over a line break.
+@code{#t} means visible, @code{#f} means killed.
+@item parenthesize
+If set to @code{#t}, parenthesize the number for a tied note after a line break.
+@end table
+@end table
+"
  '(details display-cautionary span-start))
 
 (ly:add-interface

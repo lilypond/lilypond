@@ -1505,6 +1505,10 @@ The following properties may be set in the @code{details} list.
 @table @code
 @item beam-eps
 Epsilon for beam quant code to check for presence in gap.
+@item collision-padding
+Padding value to avoid vertical collision with other objects.
+@item collision-penalty
+Demerit penalty for @code{collision-padding}.
 @item damping-direction-penalty
 Demerit penalty applied when beam direction is different from damping
 direction.
@@ -1522,6 +1526,8 @@ Damping slope which is considered zero for purposes of calculating direction
 penalties.
 @item secondary-beam-demerit
 Demerit used in quanting calculations for multiple beams.
+@item stem-collision-factor
+Demerit factor used for colliding stems.
 @item stem-length-demerit-factor
 Demerit factor used for inappropriate stem lengths.
 @item stem-length-limit-penalty

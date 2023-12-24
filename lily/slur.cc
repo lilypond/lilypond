@@ -472,12 +472,18 @@ Factor to calculate demerit for variance between a note head and slur.
 Factor to calculate demerit for @code{Accidental} objects that the slur
 encompasses.  This property value replaces the value of
 @code{extra-object-collision-penalty}.
+@item close-to-edge-length
+Threshold to decide whether an object to avoid is horizontally close to the
+slur's edge.  If it is, it doesn't influence the slur's height.
 @item edge-attraction-factor
 Factor used to calculate the demerit for distances between slur endpoints and
 their corresponding base attachments.
 @item edge-slope-exponent
 Factor used to calculate the demerit for the slope of a slur near its endpoints;
 a larger value yields a larger demerit.
+@item encompass-object-range-overshoot
+Widen the range of @code{encompass-object} positions by this amount for
+computing the slur.
 @item extra-encompass-collision-distance
 This detail is currently unused.
 @item extra-encompass-free-distance
@@ -515,6 +521,11 @@ Size of region (in staff spaces) for determining potential endpoints in the
 Y-direction.
 @item same-slope-penalty
 Demerit for slurs with attachment points that are horizontally aligned.
+@item slur-tie-extrema-min-distance
+If a slur starts or ends very near to or at the same position as a tie, check
+this threshold whether slur and tie are too close.
+@item slur-tie-extrema-min-distance-penalty
+Demerit to apply if @code{slur-tie-extrema-min-distance} gets triggered.
 @item steeper-slope-factor
 Factor used to calculate demerit only if this slur is not broken.
 @item stem-encompass-penalty
