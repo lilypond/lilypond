@@ -36,7 +36,7 @@ Some templates, suitable for a range of choral music, are built into
 LilyPond.  These may be used to create simple choral music, with or
 without piano accompaniment, in two, four or eight staves.  Unlike
 other templates, these templates are @q{built-in}, which means they do
-not need to be copied and edited:  instead they are simply
+not need to be copied and edited: instead, they are simply
 @code{\include}'d in the input file.
 
 @warning {Unlike most included files, these built-in templates must be
@@ -61,39 +61,38 @@ Here's the complete input file for producing a full four-part SATB
 arrangement with individual lyrics and piano accompaniment:
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a'4\f a8 a a4 a }
-  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
-  AltoMusic = \relative { d'4\f d d d }
-  AltoLyrics = \lyricmode { Al -- to ly -- rics }
-  TenorMusic = \relative { a4\p a a a }
-  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
-  BassMusic = \relative { c2\p c4 c }
-  BassLyrics = \lyricmode { Bass ly -- rics }
-  PianoRHMusic = \relative { c' e g c }
-  PianoDynamics = { s2\mp s4 s4 }
-  PianoLHMusic = \relative { c e g c }
-  \include "satb.ly"
+SopranoMusic = \relative { a'4\f a8 a a4 a }
+SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+AltoMusic = \relative { d'4\f d d d }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+TenorMusic = \relative { a4\p a a a }
+TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+BassMusic = \relative { c2\p c4 c }
+BassLyrics = \lyricmode { Bass ly -- rics }
+PianoRHMusic = \relative { c' e g c }
+PianoDynamics = { s2\mp s4 s4 }
+PianoLHMusic = \relative { c e g c }
+\include "satb.ly"
 @end lilypond
 
 The same input can be used to produce a score with two voices
 per staff just by setting @code{TwoVoicesPerStaff} to @code{##t}.
 Again, each voice has individual lyrics.
 
-
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a'4\f a8 a a4 a }
-  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
-  AltoMusic = \relative { d'4\f d d d }
-  AltoLyrics = \lyricmode { Al -- to ly -- rics }
-  TenorMusic = \relative { a4\p a a a }
-  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
-  BassMusic = \relative { c2\p c4 c }
-  BassLyrics = \lyricmode { Bass ly -- rics }
-  PianoRHMusic = \relative { c' e g c }
-  PianoDynamics = { s2\mp s4 s4 }
-  PianoLHMusic = \relative { c e g c }
-  TwoVoicesPerStaff = ##t
-  \include "satb.ly"
+SopranoMusic = \relative { a'4\f a8 a a4 a }
+SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+AltoMusic = \relative { d'4\f d d d }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+TenorMusic = \relative { a4\p a a a }
+TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+BassMusic = \relative { c2\p c4 c }
+BassLyrics = \lyricmode { Bass ly -- rics }
+PianoRHMusic = \relative { c' e g c }
+PianoDynamics = { s2\mp s4 s4 }
+PianoLHMusic = \relative { c e g c }
+TwoVoicesPerStaff = ##t
+\include "satb.ly"
 @end lilypond
 
 When @code{TwoVoicesPerStaff} is set to false or allowed to default,
@@ -102,27 +101,27 @@ with fewer voices.  Here, for example, is how the input file for a
 Soprano/Bass duet might be written:
 
 @lilypond[verbatim,quote]
-  SopranoMusic = \relative { c'' c c c }
-  SopranoLyrics = \lyricmode { High voice ly -- rics }
-  BassMusic = \relative { a a a a }
-  BassLyrics = \lyricmode { Low voice ly -- rics }
-  \include "satb.ly"
+SopranoMusic = \relative { c'' c c c }
+SopranoLyrics = \lyricmode { High voice ly -- rics }
+BassMusic = \relative { a a a a }
+BassLyrics = \lyricmode { Low voice ly -- rics }
+\include "satb.ly"
 @end lilypond
 
 A second verse or alternative lyrics may be added to each of the
 parts:
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a'4 a a a }
-  SopranoLyricsOne = \lyricmode {
-    \set stanza = "1."
-    Words to verse one
-  }
-  SopranoLyricsTwo = \lyricmode {
-    \set stanza = "2."
-    Words to verse two
-  }
-  \include "satb.ly"
+SopranoMusic = \relative { a'4 a a a }
+SopranoLyricsOne = \lyricmode {
+  \set stanza = "1."
+  Words to verse one
+}
+SopranoLyricsTwo = \lyricmode {
+  \set stanza = "2."
+  Words to verse two
+}
+\include "satb.ly"
 @end lilypond
 
 When the lyrics and rhythms are the same for every part, the vocal
@@ -131,55 +130,55 @@ nine verses may be provided.  Here's an unaccompanied example with
 just three verses.
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a' a a a }
-  AltoMusic = \relative { f' f f f }
-  VerseOne = \lyricmode {
-    \set stanza = "1."
-    Words to verse one
-  }
-  VerseTwo = \lyricmode {
-    \set stanza = "2."
-    Words to verse two
-  }
-  VerseThree = \lyricmode {
-    \set stanza = "3."
-    Words to verse three
-  }
-  TenorMusic = \relative { a a a a }
-  BassMusic = \relative { f f f f }
-  TwoVoicesPerStaff = ##t
-  \include "satb.ly"
+SopranoMusic = \relative { a' a a a }
+AltoMusic = \relative { f' f f f }
+VerseOne = \lyricmode {
+  \set stanza = "1."
+  Words to verse one
+}
+VerseTwo = \lyricmode {
+  \set stanza = "2."
+  Words to verse two
+}
+VerseThree = \lyricmode {
+  \set stanza = "3."
+  Words to verse three
+}
+TenorMusic = \relative { a a a a }
+BassMusic = \relative { f f f f }
+TwoVoicesPerStaff = ##t
+\include "satb.ly"
 @end lilypond
 
 Other variables may be given values.  The key signature and
 the time signature may be changed from the default:
 
 @lilypond[verbatim, quote]
-  Key = \key a \major
-  Time = {
-    \time 5/4
-    \tempo "Allegro" 4 = 144
-  }
-  SopranoMusic = \relative { gis' gis gis gis gis }
-  AltoMusic = \relative { cis' cis cis cis cis }
-  VerseOne = \lyricmode { Words to this du -- et }
-  TwoVoicesPerStaff = ##t
-  \include "satb.ly"
+Key = \key a \major
+Time = {
+  \time 5/4
+  \tempo "Allegro" 4 = 144
+}
+SopranoMusic = \relative { gis' gis gis gis gis }
+AltoMusic = \relative { cis' cis cis cis cis }
+VerseOne = \lyricmode { Words to this du -- et }
+TwoVoicesPerStaff = ##t
+\include "satb.ly"
 @end lilypond
 
 The instrument names and/or the short instrument names may be
 changed:
 
 @lilypond[verbatim,quote]
-  SopranoMusic = \relative { c'' c c c }
-  SopranoLyrics = \lyricmode { High voice ly -- rics }
-  SopranoInstrumentName = "Soprano 1"
-  SopranoShortInstrumentName = "S1"
-  AltoMusic = \relative { a' a a a }
-  AltoLyrics = \lyricmode { Low voice ly -- rics }
-  AltoInstrumentName = "Soprano 2"
-  AltoShortInstrumentName = "S2"
-  \include "satb.ly"
+SopranoMusic = \relative { c'' c c c }
+SopranoLyrics = \lyricmode { High voice ly -- rics }
+SopranoInstrumentName = "Soprano 1"
+SopranoShortInstrumentName = "S1"
+AltoMusic = \relative { a' a a a }
+AltoLyrics = \lyricmode { Low voice ly -- rics }
+AltoInstrumentName = "Soprano 2"
+AltoShortInstrumentName = "S2"
+\include "satb.ly"
 @end lilypond
 
 although rather than do this it might be easier to use the
