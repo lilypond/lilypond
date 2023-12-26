@@ -383,7 +383,7 @@ middle note head (the E) in a C major chord.  Let's first see what
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   <c' e g>4
-  \once \override NoteHead.font-size = #-3
+  \once \override NoteHead.font-size = -3
   <c e g>4
   <c e g>4
 }
@@ -410,7 +410,7 @@ a chord would be changed in this way:
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   <c' e g>4
-  <c \tweak font-size #-3 e g>4
+  <c \tweak font-size -3 e g>4
 }
 @end lilypond
 
@@ -744,7 +744,7 @@ the context.  Let's use a very large value for the thickness
 at first, so we can be sure the command is working.  We get:
 
 @example
-\override Slur.thickness = #5.0
+\override Slur.thickness = 5.0
 @end example
 
 @noindent
@@ -764,7 +764,7 @@ close to it.}  Let's do that:
   \time 6/8
   \relative {
     % Increase thickness of all following slurs from 1.2 to 5.0
-    \override Slur.thickness = #5.0
+    \override Slur.thickness = 5.0
     r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
@@ -833,7 +833,7 @@ repositioned as follows:
   \relative {
     r4 bes'8
     % Increase thickness of immediately following slur only
-    \once \override Slur.thickness = #5.0
+    \once \override Slur.thickness = 5.0
     bes8[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
@@ -854,7 +854,7 @@ An alternative to @code{\once \override} is to use the
 @code{\tweak} command; you get the same result if you replace
 
 @example
-\once \override Slur.thickness = #5.0
+\once \override Slur.thickness = 5.0
 bes8[(
 @end example
 
@@ -862,7 +862,7 @@ bes8[(
 in the previous example with
 
 @example
-bes8[\tweak thickness #5.0 (
+bes8[\tweak thickness 5.0 (
 @end example
 
 @subsubsubheading Reverting
@@ -885,10 +885,10 @@ the slurs begin:
   \relative {
     r4 bes'8
     % Increase thickness of immediately following slur only
-    \once \override Slur.thickness = #5.0
+    \once \override Slur.thickness = 5.0
     bes[( g]) g |
     % Increase thickness of immediately following slur only
-    \once \override Slur.thickness = #5.0
+    \once \override Slur.thickness = 5.0
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -913,7 +913,7 @@ after the second slur:
   \relative {
     r4 bes'8
     % Increase thickness of all following slurs from 1.2 to 5.0
-    \override Slur.thickness = #5.0
+    \override Slur.thickness = 5.0
     bes[( g]) g |
     g8[( es]) es
     % Revert thickness of all following slurs to default of 1.2
@@ -1697,7 +1697,7 @@ fonts of each object type, like @code{NoteHead}s with commands
 like
 
 @example
-\override NoteHead.font-size = #-2
+\override NoteHead.font-size = -2
 @end example
 
 or we can change the size of all fonts by setting a special
@@ -1705,7 +1705,7 @@ property, @code{fontSize}, using @code{\set}, or by including
 it in a @code{\with} clause (but without the @code{\set}).
 
 @example
-\set fontSize = #-2
+\set fontSize = -2
 @end example
 
 Both of these statements would cause the font size to be reduced
@@ -1732,7 +1732,7 @@ Let's try it in our ossia example:
         \omit Clef
         \omit TimeSignature
         % Reduce all font sizes by ~24%
-        fontSize = #-2
+        fontSize = -2
       }
       { f8 f c }
     >>
@@ -1801,7 +1801,7 @@ property of the @code{StaffSymbol} grob.
         alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
-        fontSize = #-2
+        fontSize = -2
         % Reduce stem length and line spacing to match
         \override StaffSymbol.staff-space = #(magstep -2)
       }
@@ -1915,10 +1915,10 @@ move grobs relative to their parents:
 
 @example
 @{
-  \override Script.X-offset = #3              % fermata, accent
-  \override TextScript.X-offset = #2          % "Yogi", "Larry"
-  \override Stem.X-offset = #-2
-  \override Score.RehearsalMark.Y-offset = #5 % "Twinkle"
+  \override Script.X-offset = 3               % fermata, accent
+  \override TextScript.X-offset = 2           % "Yogi", "Larry"
+  \override Stem.X-offset = -2
+  \override Score.RehearsalMark.Y-offset = 5  % "Twinkle"
 
   \override NoteHead.style = #'altdefault     % for breve
 
@@ -1934,10 +1934,10 @@ move grobs relative to their parents:
 \new Staff \with {
   \printRefpoint ##f #'all-grobs
 } {
-  \override Script.X-offset = #3              % fermata, accent
-  \override TextScript.X-offset = #2          % "Yogi", "Larry"
-  \override Stem.X-offset = #-2
-  \override Score.RehearsalMark.Y-offset = #5 % "Twinkle"
+  \override Script.X-offset = 3               % fermata, accent
+  \override TextScript.X-offset = 2           % "Yogi", "Larry"
+  \override Stem.X-offset = -2
+  \override Score.RehearsalMark.Y-offset = 5  % "Twinkle"
 
   \override NoteHead.style = #'altdefault     % for breve
 
@@ -2000,7 +2000,7 @@ situation), the @code{RehearsalMark} grob is placed like this:
 
 @lilypond[quote,verbatim]
 {
-  \override Score.RehearsalMark.X-offset = #0
+  \override Score.RehearsalMark.X-offset = 0
   b4 b b b \mark "Twinkle" b b b b
 }
 @end lilypond
@@ -2014,7 +2014,7 @@ zero, we'll get the x-offset we want:
 @lilypond[quote,verbatim]
 {
   % value -10.4 found by trial and error
-  \override Score.RehearsalMark.X-offset = #-10.4
+  \override Score.RehearsalMark.X-offset = -10.4
   b4 b b b \mark "Twinkle" b b b b
 }
 @end lilypond
@@ -2098,7 +2098,7 @@ specify any offset we want, and it will work as usual:
 @lilypond[quote,verbatim]
 {
   \override Score.RehearsalMark.X-extent = ##f
-  \override Score.RehearsalMark.X-offset = #-10.4
+  \override Score.RehearsalMark.X-offset = -10.4
   b4 b b b \mark "Twinkle" b b b b
 }
 @end lilypond
@@ -2499,7 +2499,7 @@ try @w{@code{-7}}:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
-  \override Fingering.font-size = #-7
+  \override Fingering.font-size = -7
   \set fingeringOrientations = #'(left)
   <f'-2>4
   <c-1 e-2 g-3 b-5>4
@@ -2580,7 +2580,7 @@ these.
 % place dynamics above staff
 \dynamicUp
 % start ottava bracket
-\ottava #1
+\ottava 1
 c''4 \startTextSpan
 % add dynamic text and hairpin
 c''4\pp\<
@@ -2591,7 +2591,7 @@ c''4 c''
 % add dynamic text and terminate hairpin
 c''4\ff c'' \stopTextSpan |
 % stop ottava bracket
-\ottava #0
+\ottava 0
 c'4 c' c' c' |
 @end lilypond
 
@@ -2631,9 +2631,9 @@ context:
 % place dynamics above staff
 \dynamicUp
 % place following ottava bracket below text spanners
-\once \override Staff.OttavaBracket.outside-staff-priority = #340
+\once \override Staff.OttavaBracket.outside-staff-priority = 340
 % start ottava bracket
-\ottava #1
+\ottava 1
 c''4 \startTextSpan
 % add dynamic text
 c''4\pp
@@ -2645,7 +2645,7 @@ c''4 c''
 % add dynamic text
 c''4\ff c'' \stopTextSpan |
 % stop ottava bracket
-\ottava #0
+\ottava 0
 c'4 c' c' c' |
 @end lilypond
 
@@ -2680,7 +2680,7 @@ example showing the effect of the two methods:
     \once \override TextScript.avoid-slur = #'inside
     \once \override TextScript.outside-staff-priority = ##f
     c4^\markup { \tiny \sharp } d4.) c8 |
-  \once \override Slur.outside-staff-priority = #500
+  \once \override Slur.outside-staff-priority = 500
     c4( c^\markup { \tiny \sharp } d4.) c8 |
 }
 @end lilypond
@@ -2700,7 +2700,7 @@ in the IR or in the tables above, and increase the priority of
 @lilypond[quote,fragment,ragged-right,verbatim]
 c''2^"Text1"
 c''2^"Text2" |
-\once \override TextScript.outside-staff-priority = #500
+\once \override TextScript.outside-staff-priority = 500
 c''2^"Text3"
 c''2^"Text4" |
 @end lilypond
@@ -2943,9 +2943,9 @@ to adjust its properties.  Let's try it and see if it works.
     }
     \new Lyrics \with {
       \override VerticalAxisGroup
-                .nonstaff-relatedstaff-spacing.padding = #5
+                .nonstaff-relatedstaff-spacing.padding = 5
       \override VerticalAxisGroup
-                .nonstaff-unrelatedstaff-spacing.padding = #5
+                .nonstaff-unrelatedstaff-spacing.padding = 5
     }
     \lyricsto "music" {
       Here are some lyrics
@@ -2986,7 +2986,7 @@ We'll do this by changing the @code{basic-distance} sub-property of the
 <<
   \new ChoirStaff \with {
     \override StaffGrouper
-              .staffgroup-staff-spacing.basic-distance = #15
+              .staffgroup-staff-spacing.basic-distance = 15
   }
   <<
     \new Staff {
@@ -2996,9 +2996,9 @@ We'll do this by changing the @code{basic-distance} sub-property of the
     }
     \new Lyrics \with {
       \override VerticalAxisGroup
-                .nonstaff-relatedstaff-spacing.padding = #2
+                .nonstaff-relatedstaff-spacing.padding = 2
       \override VerticalAxisGroup
-                .nonstaff-unrelatedstaff-spacing.padding = #2
+                .nonstaff-unrelatedstaff-spacing.padding = 2
     }
     \lyricsto "music" {
       Here are some lyrics
@@ -3029,7 +3029,7 @@ as shown below.
 <<
   \new ChoirStaff \with {
     \override StaffGrouper
-              .staffgroup-staff-spacing.basic-distance = #15
+              .staffgroup-staff-spacing.basic-distance = 15
   }
   <<
     \new Staff {
@@ -3039,9 +3039,9 @@ as shown below.
     }
     \new Lyrics \with {
       \override VerticalAxisGroup
-                .nonstaff-relatedstaff-spacing.padding = #2
+                .nonstaff-relatedstaff-spacing.padding = 2
       \override VerticalAxisGroup
-                .nonstaff-unrelatedstaff-spacing.padding = #2
+                .nonstaff-unrelatedstaff-spacing.padding = 2
     }
     \lyricsto "music" {
       Here are some lyrics
@@ -3406,7 +3406,7 @@ above or below notes.
 
 @lilypond[quote,fragment,verbatim]
 c'2\fermata
-\override Script.padding = #3
+\override Script.padding = 3
 b2\fermata
 @end lilypond
 
@@ -3415,11 +3415,11 @@ b2\fermata
 
 @lilypond[quote,fragment,verbatim]
 % This will not work, see below
-\override MetronomeMark.padding = #3
+\override MetronomeMark.padding = 3
 \tempo 4 = 120
 c'1 |
 % This works
-\override Score.MetronomeMark.padding = #3
+\override Score.MetronomeMark.padding = 3
 \tempo 4 = 80
 d'1 |
 @end lilypond
@@ -3459,7 +3459,7 @@ but it can help in horizontally tight situations, for example.
 
 \relative c' {
   % move accents nearer to note heads
-  \override Score.AccidentalPlacement.right-padding = #-0.1
+  \override Score.AccidentalPlacement.right-padding = -0.1
   cis8[ dis eis fis gis ais bis cis]
 }
 @end lilypond
@@ -3486,7 +3486,7 @@ example taken from the previous section:
 @cindex @code{staff-padding} property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\override DynamicLineSpanner.staff-padding = #3
+\override DynamicLineSpanner.staff-padding = 3
 \relative { a'4\f b\mf a\p b\mp }
 @end lilypond
 
@@ -3538,7 +3538,7 @@ to move it, say, four half-staff spaces down to @w{-10}.
 <<
   \relative { c'4 c c c }
   \\
-  \override MultiMeasureRest.staff-position = #-10
+  \override MultiMeasureRest.staff-position = -10
   { R1 }
 >>
 @end lilypond
@@ -3772,7 +3772,7 @@ appearance as much as would be possible.
 rhMusic = \relative {
   \new Voice {
     r2 c''4.\( g8 |
-    \once \override Tie.staff-position = #3.5
+    \once \override Tie.staff-position = 3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -3785,7 +3785,7 @@ rhMusic = \relative {
         \voiceTwo
         c,8~
         % Reposition the c2 to the right of the merged note
-        \once \override NoteColumn.force-hshift = #1.0
+        \once \override NoteColumn.force-hshift = 1.0
         % Move the c2 out of the main note column
         % so the merge will work
         \shiftOnn
@@ -3975,7 +3975,7 @@ staff-space units relative to the center line of the staff.  So the following
 override placed just before the first tied note would move the tie up
 to 3.5 half staff spaces above the center line:
 
-@code{\once \override Tie.staff-position = #3.5}
+@code{\once \override Tie.staff-position = 3.5}
 
 This completes bar two, giving:
 
@@ -3984,7 +3984,7 @@ This completes bar two, giving:
 rhMusic = \relative {
   \new Voice {
     r2 c''4.\( g8 |
-    \once \override Tie.staff-position = #3.5
+    \once \override Tie.staff-position = 3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -4063,7 +4063,7 @@ to the end, giving:
 rhMusic = \relative {
   \new Voice {
     r2 c''4.\( g8 |
-    \once \override Tie.staff-position = #3.5
+    \once \override Tie.staff-position = 3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -4137,7 +4137,7 @@ Applying these changes gives:
 rhMusic = \relative {
   \new Voice {
     r2 c''4.\( g8 |
-    \once \override Tie.staff-position = #3.5
+    \once \override Tie.staff-position = 3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -4207,7 +4207,7 @@ the @code{force-hshift} property.  Here's the final result:
 rhMusic = \relative {
   \new Voice {
     r2 c''4.\( g8 |
-    \once \override Tie.staff-position = #3.5
+    \once \override Tie.staff-position = 3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -4221,7 +4221,7 @@ rhMusic = \relative {
         \voiceTwo
         c,8~
         % Reposition the c2 to the right of the merged note
-        \once \override NoteColumn.force-hshift = #1.0
+        \once \override NoteColumn.force-hshift = 1.0
         % Move the c2 out of the main note column
         % so the merge will work
         \shiftOnn
@@ -4529,7 +4529,7 @@ the parts with all the @code{#(@dots{})}.  This is explained in
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
@@ -4559,7 +4559,7 @@ Let's hide them in another file:
 @example
 %%% save this to a file called "definitions.ily"
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
@@ -4594,7 +4594,7 @@ Now let's modify our music (let's save this file as @file{music.ly}).
 
 @lilypond[quote,ragged-right]
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
@@ -4626,7 +4626,7 @@ with this:
 @example
 %%%  definitions.ily
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
@@ -4640,7 +4640,7 @@ inst =
   \context @{
     \Score
     \override MetronomeMark.extra-offset = #'(-5 . 0)
-    \override MetronomeMark.padding = #'3
+    \override MetronomeMark.padding = 3
   @}
   \context @{
     \Staff
@@ -4648,15 +4648,15 @@ inst =
   @}
   \context @{
     \Voice
-    \override Glissando.thickness = #3
-    \override Glissando.gap = #0.1
+    \override Glissando.thickness = 3
+    \override Glissando.gap = 0.1
   @}
 @}
 @end example
 
 @lilypond[quote,ragged-right]
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
@@ -4670,7 +4670,7 @@ inst =
   \context {
     \Score
     \override MetronomeMark.extra-offset = #'(-5 . 0)
-    \override MetronomeMark.padding = #'3
+    \override MetronomeMark.padding = 3
   }
   \context {
     \Staff
@@ -4678,8 +4678,8 @@ inst =
   }
   \context {
     \Voice
-    \override Glissando.thickness = #3
-    \override Glissando.gap = #0.1
+    \override Glissando.thickness = 3
+    \override Glissando.gap = 0.1
   }
 }
 
@@ -4704,7 +4704,7 @@ overall size of the output.
 @example
 %%%  web-publish.ily
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
@@ -4720,22 +4720,22 @@ inst =
   \context @{
     \Score
     \override MetronomeMark.extra-offset = #'(-5 . 0)
-    \override MetronomeMark.padding = #'3
+    \override MetronomeMark.padding = 3
   @}
   \context @{
     \Staff
   @}
   \context @{
     \Voice
-    \override Glissando.thickness = #3
-    \override Glissando.gap = #0.1
+    \override Glissando.thickness = 3
+    \override Glissando.gap = 0.1
   @}
 @}
 @end example
 
 @lilypond[quote,ragged-right]
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
@@ -4750,11 +4750,11 @@ inst =
 \layout{
   \context { \Score
     \override MetronomeMark.extra-offset = #'(-5 . 0)
-    \override MetronomeMark.padding = #'3
+    \override MetronomeMark.padding = 3
   }
   \context { \Voice
-    \override Glissando.thickness = #3
-    \override Glissando.gap = #0.1
+    \override Glissando.thickness = 3
+    \override Glissando.gap = 0.1
   }
 }
 

@@ -869,14 +869,14 @@ will all be explained in later sections.
   \\  % Voice two
     {
       % Ignore these for now - they are explained later
-      \once \override NoteColumn.force-hshift = #0
+      \once \override NoteColumn.force-hshift = 0
       <ees, c>2
-      \once \override NoteColumn.force-hshift = #0.5
+      \once \override NoteColumn.force-hshift = 0.5
       des2
     }
   \\  % Voice four
     {
-      \override NoteColumn.force-hshift = #0
+      \override NoteColumn.force-hshift = 0
       aes'2 f4 fes
     }
   >> |
@@ -917,14 +917,14 @@ later, so ignore anything you do not understand.
   \\  % Voice two
     { \voiceTwoStyle
       % Ignore these for now - they are explained later
-      \once \override NoteColumn.force-hshift = #0
+      \once \override NoteColumn.force-hshift = 0
       <ees, c>2
-      \once \override NoteColumn.force-hshift = #0.5
+      \once \override NoteColumn.force-hshift = 0.5
       des2
     }
   \\  % Voice four
     { \voiceThreeStyle
-      \override NoteColumn.force-hshift = #0
+      \override NoteColumn.force-hshift = 0
       aes'2 f4 fes
     }
   >> |
@@ -1891,10 +1891,10 @@ value, not the most recently set value.
 \relative {
   c'4 d
   % make note heads smaller
-  \set fontSize = #-4
+  \set fontSize = -4
   e4 f |
   % make note heads larger
-  \set fontSize = #2.5
+  \set fontSize = 2.5
   g4 a
   % return to default size
   \unset fontSize
@@ -2065,11 +2065,11 @@ produced by the @code{Staff_symbol_engraver}.
 }
 \relative {
   c'4 d
-  \set fontSize = #-4  % make note heads smaller
+  \set fontSize = -4  % make note heads smaller
   e4 f |
-  \set fontSize = #2.5  % make note heads larger
+  \set fontSize = 2.5 % make note heads larger
   g4 a
-  \unset fontSize  % return to default size
+  \unset fontSize     % return to default size
   b4 c |
 }
 @end lilypond
@@ -3205,9 +3205,9 @@ padText =
 
 \relative {
   c''4^"piu mosso" b a b
-  \padText #1.8
+  \padText 1.8
   c4^"piu mosso" b a b
-  \padText #2.6
+  \padText 2.6
   c4^"piu mosso" b a b
 }
 @end lilypond
