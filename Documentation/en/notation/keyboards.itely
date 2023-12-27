@@ -222,7 +222,7 @@ Overlapping notation can result when voices cross staves:
   \new Staff = "up" {
     \voiceOne
     % Make space for fingering in the cross-staff voice
-    \once\override DynamicLineSpanner.staff-padding = #4
+    \once\override DynamicLineSpanner.staff-padding = 4
     e''2\p\< d''\>
     c''1\!
   }

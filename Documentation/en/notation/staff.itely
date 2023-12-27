@@ -483,7 +483,7 @@ The number of staff lines can be altered:
 @lilypond[verbatim,quote]
 \relative {
   f''4 d \stopStaff
-  \override Staff.StaffSymbol.line-count = #2
+  \override Staff.StaffSymbol.line-count = 2
   \startStaff g, e |
 
   f'4 d \stopStaff
@@ -524,7 +524,7 @@ default, are also affected.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \override StaffSymbol.thickness = #3
+  \override StaffSymbol.thickness = 3
 } \relative {
   f''4 d g, e
 }
@@ -535,7 +535,7 @@ lines.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \override StaffSymbol.thickness = #2
+  \override StaffSymbol.thickness = 2
   \override StaffSymbol.ledger-line-thickness = #'(0.5 . 0.4)
 } \relative {
   f'''4 a, a,, f
@@ -563,7 +563,7 @@ also have their own ledger lines.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \override StaffSymbol.ledger-extra = #4
+  \override StaffSymbol.ledger-extra = 4
 } \relative {
   f'''4 a, d, f,
 }
@@ -591,7 +591,7 @@ line spacing as well.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \override StaffSymbol.staff-space = #1.5
+  \override StaffSymbol.staff-space = 1.5
 } \relative {
   f'''4 d, g, e,
 }
@@ -603,7 +603,7 @@ this setting.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \override StaffSymbol.width = #23
+  \override StaffSymbol.width = 23
 }
 \relative { a4 e' f b | d1 }
 @end lilypond

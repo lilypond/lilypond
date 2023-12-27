@@ -704,7 +704,7 @@ only the @code{mensural} style is supported.
 @lilypond[quote,fragment,ragged-right,verbatim]
 \relative c' {
   \override Flag.style = #'mensural
-  \override Stem.thickness = #1.0
+  \override Stem.thickness = 1.0
   \override NoteHead.style = #'mensural
   \autoBeamOff
   c8 d e f c16 d e f c32 d e f s8
@@ -919,7 +919,7 @@ For example,
     \[ c''\maxima g \]
     \[ d'\longa
        \override NoteHead.ligature-flexa = ##t
-       \once \override NoteHead.flexa-width = #3.2
+       \once \override NoteHead.flexa-width = 3.2
        c\breve f e d \]
     \[ c\maxima d\longa \]
     \[ e1 a, g\breve \]
@@ -948,7 +948,7 @@ Without replacing @code{Ligature_bracket_engraver} with
   \[ c''\maxima g \]
   \[ d'\longa
      \override NoteHead.ligature-flexa = ##t
-     \once \override NoteHead.flexa-width = #3.2
+     \once \override NoteHead.flexa-width = 3.2
      c\breve f e d \]
   \[ c\maxima d\longa \]
   \[ e1 a, g\breve \]
@@ -1231,7 +1231,7 @@ Hufnagel style fa clef
   \new VaticanaStaff {
     \override NoteHead.style = #'hufnagel.punctum
     % This is a guess; I couldn't find a ledger-line example (wl)
-    \override VaticanaStaff.LedgerLineSpanner.length-fraction = #0.45
+    \override VaticanaStaff.LedgerLineSpanner.length-fraction = 0.45
     \clef "hufnagel-fa2" s c' s
   }
 \layout {
@@ -1249,7 +1249,7 @@ Hufnagel style combined do/fa clef
 \new VaticanaScore
   \new VaticanaStaff {
     \override NoteHead.style = #'hufnagel.punctum
-    \override Staff.StaffSymbol.line-count = #5
+    \override Staff.StaffSymbol.line-count = 5
     \clef "hufnagel-do-fa" s c' s
   }
 \layout {
@@ -1356,7 +1356,7 @@ configure @code{\caesura} to produce an ancient caesura mark.
 @lilypond[quote,ragged-right,staffsize=23]
 \new VaticanaScore {
   \new VaticanaVoice {
-    \override TextScript.padding = #3
+    \override TextScript.padding = 3
     g a g
     s^\markup { "divisio minima" }
     \divisioMinima
@@ -1451,7 +1451,7 @@ specifically designed for use with notation in
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
 \new VaticanaScore {
   \new VaticanaVoice {
-    \override Script.padding = #-0.1
+    \override Script.padding = -0.1
     a\ictus_"ictus " \break
     a\circulus_"circulus " \break
     a\semicirculus_"semicirculus " \break
@@ -2907,9 +2907,9 @@ chant = \relative {
 }
 
 verba = \lyricmode {
-  \once \override LyricText.self-alignment-X = #-1
+  \once \override LyricText.self-alignment-X = -1
   "Noctem quietam et" fi -- nem per -- fec -- tum
-  \once \override LyricText.self-alignment-X = #-1
+  \once \override LyricText.self-alignment-X = -1
   "concedat nobis Dominus" om -- ni -- po -- tens.
 }
 \score {

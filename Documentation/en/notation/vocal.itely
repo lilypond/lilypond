@@ -610,7 +610,7 @@ the tilde symbol (@code{~}) to get a lyric tie.
   \addlyrics
   {
     % Ensure hyphens are visible
-    \override LyricHyphen.minimum-distance = #1.0
+    \override LyricHyphen.minimum-distance = 1.0
     Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
   }
   \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
@@ -1169,7 +1169,7 @@ To increase the spacing between lyrics, set the
 @lilypond[verbatim,quote,ragged-right]
 \relative c' {
   c c c c
-  \override Lyrics.LyricSpace.minimum-distance = #1.0
+  \override Lyrics.LyricSpace.minimum-distance = 1.0
   c c c c
 }
 \addlyrics {
@@ -1195,7 +1195,7 @@ To make this change for all lyrics in the score, set the property in the
   \layout {
     \context {
       \Lyrics
-      \override LyricSpace.minimum-distance = #1.0
+      \override LyricSpace.minimum-distance = 1.0
     }
   }
 }
@@ -2062,7 +2062,7 @@ within the lyrics by setting the @code{associatedVoice} property:
         \voiceOne
         \tuplet 3/2 {
           % show associations clearly.
-          \override NoteColumn.force-hshift = #-3
+          \override NoteColumn.force-hshift = -3
           f8 f g
         }
       }

@@ -535,7 +535,7 @@ Text marks may be printed below the staff.
   e'4 c' c'8 b c'4
   g4 c' c2~ c1
   \tweak direction #DOWN
-    \tweak font-size #-1
+    \tweak font-size -1
       \textEndMark "Composed on November 13th, 2020"
 }
 @end lilypond
@@ -1954,7 +1954,7 @@ relative to the default font size.
 \override Voice.TextScript.font-shape = #'italic
 \override Voice.TextScript.font-series = #'bold
 d''2.^\markup "Allegro"
-\override Voice.TextScript.font-size = #-3
+\override Voice.TextScript.font-size = -3
 c''4^"smaller"
 @end lilypond
 

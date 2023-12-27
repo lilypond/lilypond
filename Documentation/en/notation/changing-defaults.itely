@@ -855,7 +855,7 @@ An @code{\override} command, but with the context name omitted
   \layout {
     \context {
       \Staff
-      \override Stem.thickness = #4.0
+      \override Stem.thickness = 4.0
     }
   }
 }
@@ -873,7 +873,7 @@ Directly setting a context property
   \layout {
     \context {
       \Staff
-      fontSize = #-4
+      fontSize = -4
     }
   }
 }
@@ -909,7 +909,7 @@ of the @code{\with} block see
 
 @lilypond[quote,verbatim]
 StaffDefaults = \with {
-  fontSize = #-4
+  fontSize = -4
 }
 
 \score {
@@ -949,8 +949,8 @@ the same command written in the music stream.
   }
   \layout {
     \accidentalStyle dodecaphonic
-    \set fontSize = #-4
-    \override Voice.Stem.thickness = #4.0
+    \set fontSize = -4
+    \override Voice.Stem.thickness = 4.0
   }
 }
 @end lilypond
@@ -1008,7 +1008,7 @@ An @code{\override} command, but with the context name omitted
 @lilypond[quote,verbatim]
 \score {
   \new Staff {
-    \new Voice \with { \override Stem.thickness = #4.0 }
+    \new Voice \with { \override Stem.thickness = 4.0 }
     {
       \relative {
         a'4^"Thick stems" a a a
@@ -1031,7 +1031,7 @@ Directly setting a context property
         a4 a a a
       }
     }
-    \new Staff \with { fontSize = #-4 }
+    \new Staff \with { fontSize = -4 }
     {
       \relative {
         a'4^"Smaller font" a a a
@@ -1148,7 +1148,7 @@ to indicate improvisation in jazz pieces,
     \consists Rhythmic_column_engraver
     \consists Text_engraver
     \consists Pitch_squash_engraver
-    squashedPosition = #0
+    squashedPosition = 0
     \override NoteHead.style = #'slash
     \hide Stem
     \alias Voice
@@ -1214,7 +1214,7 @@ The note heads should all be placed on the center line,
 
 @example
 \consists Pitch_squash_engraver
-squashedPosition = #0
+squashedPosition = 0
 @end example
 
 The @code{Pitch_squash_engraver} modifies note heads (created
@@ -1254,7 +1254,7 @@ Put together, we get
   \consists Text_engraver
   \consists Rhythmic_column_engraver
   \consists Pitch_squash_engraver
-  squashedPosition = #0
+  squashedPosition = 0
   \override NoteHead.style = #'slash
   \hide Stem
   \alias Voice
@@ -1835,14 +1835,14 @@ away from the note head.  The following command will insert @qq{three
 staff spaces} worth of distance between the note and a fingering mark:
 
 @example
-\once \override Voice.Fingering.padding = #3
+\once \override Voice.Fingering.padding = 3
 @end example
 
 Inserting the padding before the fingering object is created results in
 the following:
 
 @lilypond[quote,fragment,verbatim]
-\once \override Voice.Fingering.padding = #3
+\once \override Voice.Fingering.padding = 3
 c''-2
 @end lilypond
 
@@ -2028,7 +2028,7 @@ object:
 
 @lilypond[quote,fragment,verbatim]
 c''4 c''
-\override Voice.Stem.thickness = #3.0
+\override Voice.Stem.thickness = 3.0
 c''4 c''
 @end lilypond
 
@@ -2036,11 +2036,11 @@ If no context is specified in an @code{\override} command, the
 bottom context is used:
 
 @lilypond[quote,fragment,verbatim]
-\override Staff.Stem.thickness = #3.0
+\override Staff.Stem.thickness = 3.0
 <<
   \relative {
     e''4 e
-    \override Stem.thickness = #0.5
+    \override Stem.thickness = 0.5
     e4 e
   } \\
   \relative {
@@ -2079,7 +2079,7 @@ For example,
 @lilypond[quote,verbatim]
 \relative {
   c''4
-  \override Voice.Stem.thickness = #3.0
+  \override Voice.Stem.thickness = 3.0
   c4 c
   \revert Voice.Stem.thickness
   c4
@@ -2093,7 +2093,7 @@ grobs in the affected context from the current time forward:
 <<
   \relative {
     e''4
-    \override Staff.Stem.thickness = #3.0
+    \override Staff.Stem.thickness = 3.0
     e4 e e
   } \\
   \relative {
@@ -2116,7 +2116,7 @@ moment.
 
 @lilypond[quote,fragment,verbatim]
 c''4
-\once \set fontSize = #4.7
+\once \set fontSize = 4.7
 c''4
 c''4
 @end lilypond
@@ -2236,7 +2236,7 @@ note head are modified within a single chord:
   \tweak color #red
   d''
   g''
-  \tweak duration-log #1
+  \tweak duration-log 1
   a''
 > 4
 @end lilypond
@@ -2244,7 +2244,7 @@ note head are modified within a single chord:
 @code{\tweak} can also be used to modify slurs:
 
 @lilypond[verbatim,quote]
-\relative { c'-\tweak thickness #5 ( d e f) }
+\relative { c'-\tweak thickness 5 ( d e f) }
 @end lilypond
 
 Tweaking a whole chord tweaks all the contained notes:
@@ -2267,7 +2267,7 @@ explicitly:
 @lilypond[fragment,verbatim,quote]
 \tweak Stem.color #(universal-color 'orange)
 \tweak Beam.color #(universal-color 'skyblue) c''8 e''
-<c'' e'' \tweak Accidental.font-size #-3 ges''>4
+<c'' e'' \tweak Accidental.font-size -3 ges''>4
 @end lilypond
 
 @code{\tweak} cannot be used to modify clefs or time
@@ -2281,10 +2281,10 @@ all affect the grob(s) created at this musical moment.
 @lilypond[verbatim,fragment,quote]
 c'
   -\tweak springs-and-rods #ly:spanner::set-spacing-rods
-  -\tweak minimum-length #15
+  -\tweak minimum-length 15
   -\tweak style #'dashed-line
-  -\tweak dash-fraction #0.2
-  -\tweak thickness #3
+  -\tweak dash-fraction 0.2
+  -\tweak thickness 3
   -\tweak color #red
   \glissando
 f''
@@ -2600,7 +2600,7 @@ to both members of a @code{number-pair}.)
   \offset Beam.positions #'(-2 . -2)
   c''8 g'' e'' d''
   c''8 g'' e'' d''
-  c''8-\offset positions #-2 [ g'' e'' d'']
+  c''8-\offset positions -2 [ g'' e'' d'']
 }
 @end lilypond
 
@@ -2628,7 +2628,7 @@ not necessary to know this to achieve the desired positioning.
 @lilypond[quote,verbatim]
 {
   \offset staff-padding #'(0 3) Staff.OttavaBracket
-  \ottava #1
+  \ottava 1
   c'''2 c'''
   \break
   c'''2 c'''
@@ -2700,7 +2700,7 @@ key individually, use a @emph{nested declaration}:
 % reduced space between staves
 \new PianoStaff \with {
   % this is the nested declaration
-  \override StaffGrouper.staff-staff-spacing.basic-distance = #7
+  \override StaffGrouper.staff-staff-spacing.basic-distance = 7
 } <<
   \new Staff { \clef treble c''1 }
   \new Staff { \clef bass   c1   }
@@ -3237,7 +3237,7 @@ Works not at all for:
 a'~ a'
 a'
 % increase the length of the tie
--\tweak minimum-length #5
+-\tweak minimum-length 5
 ~ a'
 @end lilypond
 
@@ -3246,7 +3246,7 @@ a'
   a'1
   R1*23
   % increase the length of the rest bar
-  \once \override MultiMeasureRest.minimum-length = #20
+  \once \override MultiMeasureRest.minimum-length = 20
   R1*23
   a1
 }
@@ -3256,7 +3256,7 @@ a'
 \relative {
   a' \< a a a \!
   % increase the length of the hairpin
-  \override Hairpin.minimum-length = #20
+  \override Hairpin.minimum-length = 20
   a \< a a a \!
 }
 @end lilypond
@@ -3268,12 +3268,12 @@ phrasing slurs:
 \relative {
   a'( g)
   a
-  -\tweak minimum-length #5
+  -\tweak minimum-length 5
   ( g)
 
   a\( g\)
   a
-  -\tweak minimum-length #5
+  -\tweak minimum-length 5
   \( g\)
 }
 @end lilypond
@@ -3290,11 +3290,11 @@ the minimum length of a glissando has no effect unless the
 e' \glissando c''
 
 % not effective alone
-\once \override Glissando.minimum-length = #20
+\once \override Glissando.minimum-length = 20
 e' \glissando c''
 
 % effective only when both overrides are present
-\once \override Glissando.minimum-length = #20
+\once \override Glissando.minimum-length = 20
 \once \override Glissando.springs-and-rods =
                   #ly:spanner::set-spacing-rods
 e' \glissando c''
@@ -3304,11 +3304,11 @@ The same is true of the @code{Beam} object:
 
 @lilypond[verbatim,fragment,quote]
 % not effective alone
-\once \override Beam.minimum-length = #20
+\once \override Beam.minimum-length = 20
 e'8 e' e' e'
 
 % effective only when both overrides are present
-\once \override Beam.minimum-length = #20
+\once \override Beam.minimum-length = 20
 \once \override Beam.springs-and-rods =
                   #ly:spanner::set-spacing-rods
 e'8 e' e' e'
@@ -3421,8 +3421,8 @@ within the property hierarchy, but the syntax of the
 
 @lilypond[quote,fragment,verbatim]
 e''2 \glissando b'
-\once \override Glissando.bound-details.left.Y = #3
-\once \override Glissando.bound-details.right.Y = #-2
+\once \override Glissando.bound-details.left.Y = 3
+\once \override Glissando.bound-details.right.Y = -2
 e''2 \glissando b'
 @end lilypond
 
@@ -3441,7 +3441,7 @@ sublists of @code{bound-details}.  For example:
 
 @lilypond[ragged-right,fragment,verbatim,quote]
 \override Glissando.breakable = ##t
-\override Glissando.bound-details.right-broken.Y = #-3
+\override Glissando.bound-details.right-broken.Y = -3
 c''1 \glissando \break
 f''1
 @end lilypond
@@ -3496,7 +3496,7 @@ relative to the end point of the line:
 
 @lilypond[quote,fragment,verbatim]
 \override TextSpanner.bound-details
-          .left.stencil-align-dir-y = #-2
+          .left.stencil-align-dir-y = -2
 \override TextSpanner.bound-details
           .right.stencil-align-dir-y = #UP
 
@@ -3676,7 +3676,7 @@ the @code{Clef} object must be given in a lower value of
 
 @lilypond[quote,fragment,verbatim]
 \override Staff.Clef.color = #white
-\override Staff.Clef.layer = #-1
+\override Staff.Clef.layer = -1
 a'1
 @end lilypond
 
@@ -4076,12 +4076,12 @@ and @code{Y-offset} modified.
 @lilypond[verbatim,fragment,quote]
 a'-3
 a'
--\tweak X-offset #0
--\tweak Y-offset #0
+-\tweak X-offset 0
+-\tweak Y-offset 0
 -3
 a'
--\tweak X-offset #-1
--\tweak Y-offset #1
+-\tweak X-offset -1
+-\tweak Y-offset 1
 -3
 @end lilypond
 
@@ -4158,13 +4158,13 @@ note:
 
 @lilypond[quote,verbatim,fragment]
 a'
--\tweak self-alignment-X #-1
+-\tweak self-alignment-X -1
 ^"left-aligned"
--\tweak self-alignment-X #0
+-\tweak self-alignment-X 0
 ^"center-aligned"
 -\tweak self-alignment-X #RIGHT
 ^"right-aligned"
--\tweak self-alignment-X #-2.5
+-\tweak self-alignment-X -2.5
 ^"aligned further to the right"
 @end lilypond
 
@@ -4196,9 +4196,9 @@ that it nestles close to the note head.
 
 @lilypond[quote,verbatim,fragment]
 a'
--\tweak self-alignment-X #0.5  % move horizontally left
+-\tweak self-alignment-X 0.5  % move horizontally left
 -\tweak Y-offset #ly:self-alignment-interface::y-aligned-on-self
--\tweak self-alignment-Y #-1  % move vertically up
+-\tweak self-alignment-Y -1  % move vertically up
 -3  % third finger
 @end lilypond
 
@@ -4363,14 +4363,14 @@ left edge by an arbitrary amount.  The units are staff spaces:
 % and then shifted right by 3.5 staff spaces
 \override Score.TextMark.break-align-symbols =
             #'(key-signature)
-\once \override Score.KeySignature.break-align-anchor = #3.5
+\once \override Score.KeySignature.break-align-anchor = 3.5
 \key a \major
 \textMark "↓"
 e'1
 % The text mark will be aligned
 % with the left edge of the key signature
 % and then shifted left by 2 staff spaces
-\once \override Score.KeySignature.break-align-anchor = #-2
+\once \override Score.KeySignature.break-align-anchor = -2
 \key a \major
 \textMark "↓"
 e'1

@@ -2654,7 +2654,7 @@ outputTypeTag = "isScore"
 firstInstrument = \relative c' {
   <<
     \tag #'isPart {
-      \cueDuring #"quoteSecondInstrument" #UP { r2 } }
+      \cueDuring "quoteSecondInstrument" #UP { r2 } }
     \tag #'isScore { r2 }
   >>
   e4 f |
@@ -2663,7 +2663,7 @@ firstInstrument = \relative c' {
 
 secondInstrument= \relative c'' {
   c4 c r2 |
-  \cueDuring #"quoteFirstInstrument" #DOWN { r2 }
+  \cueDuring "quoteFirstInstrument" #DOWN { r2 }
   c4 c |
 }
 
@@ -3001,9 +3001,9 @@ padText =
 
 \relative {
   c''4^"piu mosso" b a b
-  \padText #1.8
+  \padText 1.8
   c4^"piu mosso" b a b
-  \padText #2.6
+  \padText 2.6
   c4^"piu mosso" b a b
 }
 @end lilypond
@@ -3041,9 +3041,9 @@ padText =
 
 \relative {
   c''4^"piu mosso" b a b
-  \padText #1.8
+  \padText 1.8
   c4^"piu mosso" b a b
-  \padText #2.6
+  \padText 2.6
   c4^"piu mosso" b a b
 }
 @end lilypond
@@ -3075,7 +3075,7 @@ tempoPadded =
 \relative {
   \tempo \markup { "Low tempo" }
   c''4 d e f g1
-  \tempoPadded #4.0 "High tempo"
+  \tempoPadded 4.0 "High tempo"
   g4 f e d c1
 }
 @end lilypond
@@ -4027,8 +4027,8 @@ volume is limited to the range 0.2--0.5.
   \midi @{
     \context @{
       \Score
-      midiMinimumVolume = #0.2
-      midiMaximumVolume = #0.5
+      midiMinimumVolume = 0.2
+      midiMaximumVolume = 0.5
     @}
   @}
 @}
@@ -4042,8 +4042,8 @@ the @code{Staff} context.
 \score @{
   \new Staff @{
     \set Staff.midiInstrument = "flute"
-    \set Staff.midiMinimumVolume = #0.7
-    \set Staff.midiMaximumVolume = #0.9
+    \set Staff.midiMinimumVolume = 0.7
+    \set Staff.midiMaximumVolume = 0.9
     @var{@dots{} music @dots{}}
   @}
   \midi @{ @}
@@ -4058,14 +4058,14 @@ relative volumes of each instrument can be set individually;
   <<
     \new Staff @{
       \set Staff.midiInstrument = "flute"
-      \set Staff.midiMinimumVolume = #0.7
-      \set Staff.midiMaximumVolume = #0.9
+      \set Staff.midiMinimumVolume = 0.7
+      \set Staff.midiMaximumVolume = 0.9
       @var{@dots{} music @dots{}}
     @}
     \new Staff @{
       \set Staff.midiInstrument = "clarinet"
-      \set Staff.midiMinimumVolume = #0.3
-      \set Staff.midiMaximumVolume = #0.6
+      \set Staff.midiMinimumVolume = 0.3
+      \set Staff.midiMaximumVolume = 0.6
       @var{@dots{} music @dots{}}
     @}
   >>

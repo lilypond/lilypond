@@ -628,9 +628,9 @@ Custom dash patterns can be specified:
 
 @lilypond[quote, verbatim]
 \relative c' {
-  \tieDashPattern #0.3 #0.75
+  \tieDashPattern 0.3 0.75
   c2~ 2
-  \tieDashPattern #0.7 #1.5
+  \tieDashPattern 0.7 1.5
   c2~ 2
   \tieSolid
   c2~ 2
@@ -650,9 +650,9 @@ that should cause a gap in ties.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative {
-  \override Tie.layer = #-2
-  \override Staff.TimeSignature.layer = #-1
-  \override Staff.KeySignature.layer = #-1
+  \override Tie.layer = -2
+  \override Staff.TimeSignature.layer = -1
+  \override Staff.KeySignature.layer = -1
   \override Staff.TimeSignature.whiteout = ##t
   \override Staff.KeySignature.whiteout = ##t
   b'2 b~
@@ -1043,12 +1043,12 @@ following example:}
 
 @lilypond[quote,verbatim,fragment]
 % This fails, as the wrong object name is specified
-\override TextScript.padding = #5
+\override TextScript.padding = 5
 \override Script.color = #blue
 R1^"wrong"
 R1\fermata
 % This is the correct object name to be specified
-\override MultiMeasureRestText.padding = #5
+\override MultiMeasureRestText.padding = 5
 \override MultiMeasureRestScript.color = #blue
 R1^"right"
 R1\fermata
@@ -2946,10 +2946,10 @@ the group as a whole.
 \relative a' {
   a8[ r16 f g a]
   a8[ r16
-  \set stemLeftBeamCount = #2
-  \set stemRightBeamCount = #1
+  \set stemLeftBeamCount = 2
+  \set stemRightBeamCount = 1
   f16
-  \set stemLeftBeamCount = #1
+  \set stemLeftBeamCount = 1
   g16 a]
 }
 @end lilypond
@@ -3777,7 +3777,7 @@ automatically for every measure.  It may also be set manually:
 \relative c' {
   c1 c c c
   \break
-  \set Score.currentBarNumber = #50
+  \set Score.currentBarNumber = 50
   c1 c c c
 }
 @end lilypond
@@ -3799,7 +3799,7 @@ example bar numbers are printed at all possible places:
 @lilypond[verbatim,quote,line-width=15\cm]
 \relative c' {
   \override Score.BarNumber.break-visibility = ##(#t #t #t)
-  \set Score.currentBarNumber = #11
+  \set Score.currentBarNumber = 11
   c1 | c | c | c |
   \break
   c1 | c | c | c |
@@ -3950,7 +3950,7 @@ entering from.  This can be checked with @code{\barNumberCheck}, for
 example,
 
 @verbatim
-\barNumberCheck #123
+\barNumberCheck 123
 @end verbatim
 
 @noindent
@@ -3994,7 +3994,7 @@ mark manually.  The value to use is stored in the property
 \relative c'' {
   c1 \mark \default
   c1 \mark \default
-  c1 \mark #8
+  c1 \mark 8
   c1 \mark \default
   c1 \mark \default
 }
@@ -4018,7 +4018,7 @@ hollow circle).
   \set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
   c1 \mark \default
   c1 \mark \default
-  c1 \mark #8
+  c1 \mark 8
   c1 \mark \default
   c1 \mark \default
 }

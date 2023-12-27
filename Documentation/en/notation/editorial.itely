@@ -506,7 +506,7 @@ If the @code{Finger_glide_engraver} is moved to @code{Staff} context
       \set fingeringOrientations = #'(right)
       <e''-3>2
       \set fingeringOrientations = #'(left)
-      <d''-\tweak bound-details.left.padding #2.5 \glide-2>
+      <d''-\tweak bound-details.left.padding 2.5 \glide-2>
       <c''-2>
       \bar "||"
     }
@@ -515,7 +515,7 @@ If the @code{Finger_glide_engraver} is moved to @code{Staff} context
       \set fingeringOrientations = #'(right)
       <c''\glide-2>
       \set fingeringOrientations = #'(left)
-      <b'-\tweak bound-details.left.padding #2.5 \glide-4>
+      <b'-\tweak bound-details.left.padding 2.5 \glide-4>
       <a'-4>
     }
   >>

@@ -524,7 +524,7 @@ redefines the variable:
 
 @example
 \paper @{
-  system-system-spacing.basic-distance = #8
+  system-system-spacing.basic-distance = 8
   score-system-spacing =
     #'((basic-distance . 12)
        (minimum-distance . 6)
@@ -1243,12 +1243,12 @@ Here is an example @code{\layout} block:
   indent = 2\cm
   \context @{
     \StaffGroup
-    \override StaffGrouper.staff-staff-spacing.basic-distance = #8
+    \override StaffGrouper.staff-staff-spacing.basic-distance = 8
   @}
   \context @{
     \Voice
-    \override TextScript.padding = #1
-    \override Glissando.thickness = #3
+    \override TextScript.padding = 1
+    \override Glissando.thickness = 3
   @}
 @}
 @end example
@@ -1270,7 +1270,7 @@ For example, if this block:
   \context @{
     \Voice
     \override TextScript.color = #magenta
-    \override Glissando.thickness = #1.5
+    \override Glissando.thickness = 1.5
   @}
 @}
 @end example
@@ -1290,7 +1290,7 @@ If a variable is defined like this:
 layoutVariable = \layout @{
   \context @{
     \Voice
-    \override NoteHead.font-size = #4
+    \override NoteHead.font-size = 4
   @}
 @}
 @end example
@@ -1328,10 +1328,10 @@ use of @code{\layoutVariable} the final @code{\layout} block would
 consist of:
 
 @example
-  TextScript.padding = #1
+  TextScript.padding = 1
   TextScript.color = #magenta
-  Glissando.thickness = #1.5
-  NoteHead.font-size = #4
+  Glissando.thickness = 1.5
+  NoteHead.font-size = 4
   NoteHead.color = #red
 @end example
 
@@ -1342,7 +1342,7 @@ But if the variable had already been defined before the first
 only
 
 @example
-  NoteHead.font-size = #4 % (written in the variable definition)
+  NoteHead.font-size = 4 % (written in the variable definition)
   NoteHead.color = #red % (added after the use of the variable)
 @end example
 
@@ -2238,10 +2238,10 @@ labelContext =
     \omit BarLine
     \omit TimeSignature
 
-    \override DynamicText.self-alignment-X = #-0.5
-    \override FretBoard.X-offset = #1.75
+    \override DynamicText.self-alignment-X = -0.5
+    \override FretBoard.X-offset = 1.75
     \override LyricText.self-alignment-X = #LEFT
-    \override TextScript.Y-offset = #3
+    \override TextScript.Y-offset = 3
 
     \textLengthOn
   }
@@ -2294,7 +2294,7 @@ individually, and the second completely redefines the property:
 @example
 \new Staff \with @{
   \override VerticalAxisGroup
-            .default-staff-staff-spacing.basic-distance = #10
+            .default-staff-staff-spacing.basic-distance = 10
 @} @{ @dots{} @}
 
 \new Staff \with @{
@@ -2315,7 +2315,7 @@ To change any spacing settings globally, put them in the
     \Staff
     \override VerticalAxisGroup
               .default-staff-staff-spacing
-              .basic-distance = #10
+              .basic-distance = 10
   @}
 @}
 @end example
@@ -2554,8 +2554,8 @@ The following example shows how properties of the
 \layout {
   \context {
     \Score
-    \override StaffGrouper.staff-staff-spacing.padding = #0
-    \override StaffGrouper.staff-staff-spacing.basic-distance = #1
+    \override StaffGrouper.staff-staff-spacing.padding = 0
+    \override StaffGrouper.staff-staff-spacing.basic-distance = 1
   }
 }
 
@@ -2563,7 +2563,7 @@ The following example shows how properties of the
   \new PianoStaff \with {
     \override StaffGrouper
               .staffgroup-staff-spacing
-              .basic-distance = #20
+              .basic-distance = 20
   } <<
     \new Staff { c'1 }
     \new Staff { c'1 }
@@ -2625,7 +2625,7 @@ able to stretch much more than usual:
     \Lyrics
     \override VerticalAxisGroup
               .nonstaff-nonstaff-spacing
-              .stretchability = #1000
+              .stretchability = 1000
   }
 }
 
@@ -2981,7 +2981,7 @@ A listing of defaults for @code{outside-staff-priority} may be found in
 \relative c'' {
   c4_"Text"\pp
   r2.
-  \once \override TextScript.outside-staff-priority = #1
+  \once \override TextScript.outside-staff-priority = 1
   c4_"Text"\pp % this time the text will be closer to the staff
   r2.
   % by setting outside-staff-priority to a non-number,
@@ -2997,10 +2997,10 @@ can be controlled with property @code{outside-staff-padding}.
 
 @lilypond[quote,ragged-right,verbatim,staffsize=18]
 \relative {
-  \once \override TextScript.outside-staff-padding = #0
-  a'4-"outside-staff-padding = #0"
-  \once \override TextScript.outside-staff-padding = #3
-  d-"outside-staff-padding = #3"
+  \once \override TextScript.outside-staff-padding = 0
+  a'4-"outside-staff-padding = 0"
+  \once \override TextScript.outside-staff-padding = 3
+  d-"outside-staff-padding = 3"
   c-"default outside-staff-padding"
   b-"default outside-staff-padding"
   R1
@@ -3020,7 +3020,7 @@ to prevent it from getting too close to the ledger lines.
 \relative {
   c''4^"Word" c c''2
   R1
-  \once \override TextScript.outside-staff-horizontal-padding = #1
+  \once \override TextScript.outside-staff-horizontal-padding = 1
   c,,4^"Word" c c''2
 }
 @end lilypond
@@ -3127,8 +3127,8 @@ once with an exaggerated adjustment:
 \fixed c' {
   c4 e'4 e4 b4 |
   b4 e'4 b4 e'4 |
-  \override Staff.NoteSpacing.stem-spacing-correction = #1.5
-  \override Staff.StaffSpacing.stem-spacing-correction = #1.5
+  \override Staff.NoteSpacing.stem-spacing-correction = 1.5
+  \override Staff.StaffSpacing.stem-spacing-correction = 1.5
   c4 e'4 e4 b4 |
   b4 e'4 b4 e'4 |
 }
@@ -3156,7 +3156,7 @@ following workaround may be used to insert extra space into a score,
 adjusting the padding value as necessary.
 
 @example
- \override Score.NonMusicalPaperColumn.padding = #10
+ \override Score.NonMusicalPaperColumn.padding = 10
 @end example
 
 No workaround exists for decreasing the amount of space.
@@ -3203,7 +3203,7 @@ example:
   \time 4/16
   c16[ c c8]
   \newSpacingSection
-  \override Score.SpacingSpanner.spacing-increment = #2
+  \override Score.SpacingSpanner.spacing-increment = 2
   c16[ c c8]
   \newSpacingSection
   \revert Score.SpacingSpanner.spacing-increment
@@ -3675,8 +3675,8 @@ paragraph, the last line simply takes its natural horizontal length.
 
 @example
 \layout @{
-  indent = #0
-  line-width = #150
+  indent = 0
+  line-width = 150
   ragged-last = ##t
 @}
 @end example
@@ -3938,7 +3938,7 @@ just before the first note in each system.
 
 @lilypond[quote,verbatim,ragged-right]
 \paper {
-  indent = #0
+  indent = 0
 }
 
 \new Staff {
@@ -3956,7 +3956,7 @@ reduces this space to zero.
 
 @lilypond[quote,verbatim,ragged-right]
 \paper {
-  indent = #0
+  indent = 0
 }
 
 \new Staff \with {
@@ -4145,7 +4145,7 @@ assignment will force a layout with 10 systems.
 
 @example
 \paper @{
-  system-count = #10
+  system-count = 10
 @}
 @end example
 
@@ -4155,7 +4155,7 @@ assignment will force a layout with 2 pages.
 
 @example
 \paper @{
-  page-count = #2
+  page-count = 2
 @}
 @end example
 
@@ -4170,7 +4170,7 @@ can be moved closer to the staff:
 @lilypond[verbatim,quote]
 \relative e' {
   e4 c g\f c
-  e4 c g-\tweak X-offset #-2.7 \f c
+  e4 c g-\tweak X-offset -2.7 \f c
 }
 @end lilypond
 

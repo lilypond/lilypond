@@ -935,9 +935,9 @@ Custom dash patterns for slurs can be defined:
 @lilypond[verbatim,quote]
 \relative {
   c'4( e g2)
-  \slurDashPattern #0.7 #0.75
+  \slurDashPattern 0.7 0.75
   g4( e c2)
-  \slurDashPattern #0.5 #2.0
+  \slurDashPattern 0.5 2.0
   c4( e g2)
   \slurSolid
   g4( e c2)
@@ -1100,9 +1100,9 @@ Custom dash patterns for phrasing slurs can be defined:
 @lilypond[verbatim,quote]
 \relative {
   c'4\( e g2\)
-  \phrasingSlurDashPattern #0.7 #0.75
+  \phrasingSlurDashPattern 0.7 0.75
   g4\( e c2\)
-  \phrasingSlurDashPattern #0.5 #2.0
+  \phrasingSlurDashPattern 0.5 2.0
   c4\( e g2\)
   \phrasingSlurSolid
   g4\( e c2\)
@@ -1224,12 +1224,12 @@ indicates the pitch interval that the fall or doit will extend
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  c2\bendAfter #+4
-  c2\bendAfter #-4
-  c2\bendAfter #+6.5
-  c2\bendAfter #-6.5
-  c2\bendAfter #+8
-  c2\bendAfter #-8
+  c2\bendAfter 4
+  c2\bendAfter -4
+  c2\bendAfter 6.5
+  c2\bendAfter -6.5
+  c2\bendAfter 8
+  c2\bendAfter -8
 }
 @end lilypond
 

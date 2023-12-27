@@ -1506,15 +1506,15 @@ octave for the staff:
 @lilypond[verbatim,quote]
 \relative c'' {
   a2 b
-  \ottava #-2
+  \ottava -2
   a2 b
-  \ottava #-1
+  \ottava -1
   a2 b
-  \ottava #0
+  \ottava 0
   a2 b
-  \ottava #1
+  \ottava 1
   a2 b
-  \ottava #2
+  \ottava 2
   a2 b
 }
 @end lilypond
@@ -1536,29 +1536,29 @@ how to go back to the current default behavior:
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  \ottava #1
+  \ottava 1
   a'2 b
-  \ottava #2
+  \ottava 2
   a'2 b
   \bar "||"
   \set Staff.ottavationMarkups = #ottavation-ordinals
-  \ottava #1
+  \ottava 1
   a,2 b
-  \ottava #2
+  \ottava 2
   a'2 b
   \bar "||"
   \override Staff.OttavaBracket.font-series = #'normal
   \set Staff.ottavationMarkups = #ottavation-simple-ordinals
-  \ottava #1
+  \ottava 1
   a,2 b
-  \ottava #2
+  \ottava 2
   a'2 b
   \bar "||"
   \revert Staff.OttavaBracket.font-series
   \set Staff.ottavationMarkups = #ottavation-numbers
-  \ottava #1
+  \ottava 1
   a,2 b
-  \ottava #2
+  \ottava 2
   a'2 b
 }
 @end lilypond

@@ -1563,7 +1563,7 @@ Output
   \new VaticanaStaff {
     \override NoteHead.style = #'hufnagel.punctum
     % This is a guess; I couldn't find a ledger-line example (wl)
-    \override VaticanaStaff.LedgerLineSpanner.length-fraction = #0.45
+    \override VaticanaStaff.LedgerLineSpanner.length-fraction = 0.45
   \clef "hufnagel-fa2" s c' s
 }
 \layout {
@@ -1578,7 +1578,7 @@ Output
 \new VaticanaScore
   \new VaticanaStaff {
     \override NoteHead.style = #'hufnagel.punctum
-    \override Staff.StaffSymbol.line-count = #5
+    \override Staff.StaffSymbol.line-count = 5
     \clef "hufnagel-do-fa" s c' s
   }
 \layout {
