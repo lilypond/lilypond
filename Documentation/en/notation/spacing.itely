@@ -117,7 +117,7 @@ Settings that can appear in a @code{\paper} block include:
 @itemize
 
 @item
-the @code{set-paper-size} scheme function,
+the @code{set-paper-size} Scheme function,
 
 @item
 @code{\paper} variables used for customizing page layout, and
@@ -311,7 +311,7 @@ Installed Files:
 @node Automatic scaling to paper size
 @unnumberedsubsubsec Automatic scaling to paper size
 
-If the paper size is changed with one of the scheme functions
+If the paper size is changed with one of the Scheme functions
 (@code{set-default-paper-size} or @code{set-paper-size}), the
 values of several @code{\paper} variables are automatically scaled
 to the new size.  To bypass the automatic scaling for a particular
@@ -1206,7 +1206,7 @@ music.  Settings that can appear in a @code{\layout} block
 include:
 
 @itemize
-@item the @code{layout-set-staff-size} scheme function,
+@item the @code{layout-set-staff-size} Scheme function,
 @item context modifications in @code{\context} blocks, and
 @item @code{\paper} variables that affect score layout.
 @end itemize

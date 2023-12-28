@@ -86,7 +86,7 @@ of LilyPond, this should work in the sandbox as well.
 @node Scheme variables
 @subsection Scheme variables
 
-Scheme variables can have any valid scheme value, including a Scheme
+Scheme variables can have any valid Scheme value, including a Scheme
 procedure.
 
 Scheme variables are created with @code{define}:
@@ -427,7 +427,7 @@ guile> (/ 7.0 3.0)
 2.33333333333333
 @end lisp
 
-When the scheme interpreter encounters an expression that is a list,
+When the Scheme interpreter encounters an expression that is a list,
 the first element of the list is treated as a procedure to be
 evaluated with the arguments of the remainder of the list.  Therefore,
 all operators in Scheme are prefix operators.
@@ -494,7 +494,7 @@ The quote mark @code{'} prevents the Scheme interpreter from substituting
 @node Scheme procedures
 @subsection Scheme procedures
 
-Scheme procedures are executable scheme expressions that return a
+Scheme procedures are executable Scheme expressions that return a
 value resulting from their execution.  They can also manipulate
 variables defined outside of the procedure.
 
@@ -609,7 +609,7 @@ guile> (if (> a b) "a is greater than b" "a is not greater than b")
 @node cond
 @unnumberedsubsubsec cond
 
-Another conditional procedure in scheme is @code{cond}:
+Another conditional procedure in Scheme is @code{cond}:
 
 @example
 (cond (test-expression-1 result-expression-sequence-1)
@@ -944,7 +944,7 @@ sequence and inserted into the list, as if we had written
 Now in all of these forms, the Scheme code is evaluated while the
 input is still being consumed, either in the lexer or in the parser.
 If you need it to be executed at a later point of time, check out
-@ref{Void scheme functions}, or store it in a procedure:
+@ref{Void Scheme functions}, or store it in a procedure:
 
 @example
 #(define (nopc)

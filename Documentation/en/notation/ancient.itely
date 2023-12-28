@@ -265,7 +265,7 @@ The syntax still uses the deprecated @qq{infix} style
 be changed to @qq{postfix} style @code{note\[ @dots{} note\]}.
 
 @c Alternatively, the file
-@c @file{gregorian-init.ly} can be included; it provides a scheme
+@c @file{gregorian-init.ly} can be included; it provides a Scheme
 @c function
 @c @example
 @c \ligature @var{music expr}

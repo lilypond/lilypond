@@ -193,7 +193,7 @@ to the standard size for the current staff height.  The default
 doubles the printed size of the glyphs, and subtracting 6 halves
 the size.  Each step increases the size by approximately 12%.
 
-The scheme function @code{magnification->font-size} is provided
+The Scheme function @code{magnification->font-size} is provided
 for convenience since the logarithmic units of the
 @code{font-size} property are not entirely intuitive.  For
 example, to adjust the musical notation to 75% of the default
@@ -203,7 +203,7 @@ size, use:
 \set fontSize = #(magnification->font-size 0.75)
 @end example
 
-The scheme function @code{magstep} does the opposite: it converts
+The Scheme function @code{magstep} does the opposite: it converts
 a @code{font-size} value into a magnification factor.
 
 The @code{fontSize} property will only affect notational elements

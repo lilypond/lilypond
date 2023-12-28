@@ -2525,7 +2525,7 @@ explicit setting or because no @code{beamExceptions} rules are defined
 internally for the time signature in force, the ending points for
 beams are on beats as specified by the context properties
 @code{baseMoment} and @code{beatStructure}.  @code{beatStructure} is
-a scheme list that defines the length of each beat in the measure in
+a Scheme list that defines the length of each beat in the measure in
 units of @code{baseMoment}.  By default, @code{baseMoment} is one
 over the denominator of the time signature.  By default, each unit of
 length @code{baseMoment} is a single beat.

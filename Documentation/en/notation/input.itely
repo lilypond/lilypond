@@ -536,7 +536,7 @@ details of how this affects the @code{\layout} block see
 @ref{The layout block}.
 
 @item
-A direct scheme expression, such as
+A direct Scheme expression, such as
 @code{#(set-default-paper-size "a7" 'landscape)} or
 @code{#(ly:set-option 'point-and-click #f)}.
 
@@ -4680,7 +4680,7 @@ display musical information as text.
 
 @menu
 * Displaying LilyPond notation::
-* Displaying scheme music expressions::
+* Displaying Scheme music expressions::
 * Saving music events to a file::
 @end menu
 
@@ -4731,8 +4731,8 @@ time, remove it from the output file use the @code{\void} command.
 @end example
 
 
-@node Displaying scheme music expressions
-@subsection Displaying scheme music expressions
+@node Displaying Scheme music expressions
+@subsection Displaying Scheme music expressions
 
 See @rextend{Displaying music expressions}.
 

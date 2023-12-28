@@ -98,14 +98,14 @@ receive arguments specified in LilyPond syntax.
 @menu
 * Scheme function definitions::
 * Scheme function usage::
-* Void scheme functions::
+* Void Scheme functions::
 @end menu
 
 @node Scheme function definitions
 @subsection Scheme function definitions
 @funindex define-scheme-function
 
-The general form for defining scheme functions is:
+The general form for defining Scheme functions is:
 
 @example
 function =
@@ -140,7 +140,7 @@ are copied while setting @code{origin} to the current input location.
 
 @item @var{body}
 A sequence of Scheme forms evaluated in order, the last one being
-used as the return value of the scheme function.  It may contain
+used as the return value of the Scheme function.  It may contain
 LilyPond code blocks enclosed in hashed braces
 (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), like described in
 @ref{LilyPond code blocks}.  Within LilyPond code blocks, use @code{#}
@@ -220,16 +220,16 @@ The @code{mark} and @code{key} commands make use of that trick to
 provide their default behavior when just followed by @code{\default}.
 
 Apart from places where a Scheme value is required, there are a few
-places where @code{#} expressions are currently accepted and evaluated
+places where @samp{#} expressions are currently accepted and evaluated
 for their side effects but otherwise ignored.  Mostly those are the
 places where an assignment would be acceptable as well.
 
 Since it is a bad idea to return values that can be misinterpreted in
-some context, you should use normal scheme functions only for those
-cases where you always return a useful value, and use void scheme
-functions (@pxref{Void scheme functions}) otherwise.
+some context, you should use normal Scheme functions only for those
+cases where you always return a useful value, and use void Scheme
+functions (@pxref{Void Scheme functions}) otherwise.
 
-For convenience, scheme functions may also be called directly from
+For convenience, Scheme functions may also be called directly from
 Scheme bypassing the LilyPond parser.  Their name can be used like
 the name of an ordinary function.  Typechecking of the arguments
 and skipping optional arguments will happen in the same manner as
@@ -239,8 +239,8 @@ reserved word for explicitly skipping optional arguments.
 Optional arguments at the end of an argument list can just be
 omitted without indication when called via Scheme.
 
-@node Void scheme functions
-@subsection Void scheme functions
+@node Void Scheme functions
+@subsection Void Scheme functions
 @funindex define-void-function
 @funindex \void
 
@@ -338,7 +338,7 @@ Installed Files:
 @node Music function usage
 @subsection Music function usage
 With regard to handling the argument list, music functions don't
-differ from scheme functions, @ref{Scheme function usage}.
+differ from Scheme functions, @ref{Scheme function usage}.
 
 A @q{music function} has to return an expression matching the predicate
 @code{ly:music?}.  This makes music function calls suitable as arguments
@@ -788,7 +788,7 @@ Arguments are distinguished according to their type:
 @item a markup, corresponding to type predicate @code{markup?};
 @item a list of markups, corresponding to type predicate
 @code{markup-list?};
-@item any other scheme object, corresponding to type predicates such as
+@item any other Scheme object, corresponding to type predicates such as
 @code{list?}, @code{number?}, @code{boolean?}, etc.
 @end itemize
 
@@ -914,9 +914,9 @@ or, equivalently
 type: it identifies it as a markup.  The @code{interpret-markup}
 function is used in most of markup commands: it builds a stencil, using
 @code{layout}, @code{props}, and a markup.  In the second case, this
-markup is built using the @code{markup} scheme macro, see @ref{Markup
+markup is built using the @code{markup} Scheme macro, see @ref{Markup
 construction in Scheme}.  The transformation from @code{\markup}
-expression to scheme markup expression is straight-forward.
+expression to Scheme markup expression is straight-forward.
 
 The new command can be used as follow:
 
@@ -1282,7 +1282,7 @@ remain in effect until they are directly modified again, or
 reverted, even if the initial conditions that they depended on
 have changed.
 
-The following scheme functions are useful when using
+The following Scheme functions are useful when using
 @code{\applyContext}:
 
 @table @code
