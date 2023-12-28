@@ -76,7 +76,6 @@ quando si discute di LilyPond.
 
 @divEnd
 
-@divClass{hide}
 @menu
 * Contact::
 * Tiny examples::
@@ -90,7 +89,6 @@ quando si discute di LilyPond.
 * News::
 * Attic::
 @end menu
-@divEnd
 
 
 @node Contact

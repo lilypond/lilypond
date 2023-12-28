@@ -180,7 +180,6 @@ dem Offline Lesen vorgesehen.  Sie gelangen zu diesen 3 Formaten indem Sie den L
 @divEnd
 
 
-@divClass{hide}
 @menu
 * Learning::             Einführung.
 * Glossary::                Glossar.
@@ -196,8 +195,6 @@ dem Offline Lesen vorgesehen.  Sie gelangen zu diesen 3 Formaten indem Sie den L
 * All::                  Alle Handbücher
 * FDL::                    Lizenz.
 @end menu
-
-@divEnd
 
 
 @c TRANSLATORS, most of the text in this file came from

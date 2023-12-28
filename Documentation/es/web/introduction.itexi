@@ -88,7 +88,6 @@ la música en vez de solo @emph{leerla}.
 @c TRANSLATORS, translations are not yet compiled in Info format, so
 @c it's not worth translating the right column of the following
 @c menu. -JM
-@divClass{hide}
 @menu
 * Features::
 * Examples::
@@ -99,7 +98,6 @@ la música en vez de solo @emph{leerla}.
 * Text input::
 * Easier editing::          Otras formas de trabajar con LilyPond.
 @end menu
-@divEnd
 
 
 

@@ -90,7 +90,6 @@ de sols @emph{llegir-la}.
 @c TRANSLATORS, translations are not yet compiled in Info format, so
 @c it's not worth translating the right column of the following
 @c menu. -JM
-@divClass{hide}
 @menu
 * Features::
 * Examples::
@@ -101,7 +100,6 @@ de sols @emph{llegir-la}.
 * Text input::
 * Easier editing::           Altres formes de treballar amb el Lilypond.
 @end menu
-@divEnd
 
 
 

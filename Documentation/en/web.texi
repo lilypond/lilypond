@@ -240,14 +240,12 @@ Browse our gallery of @ref{Examples} and be inspired!
 
 @ifnottex
 
-@divClass{hide}
 @menu
 * Introduction::     Start here to creating sheet music.
 * Download::         Get LilyPond.
 * Manuals::          Read The Fine Manuals (RTFM).
 * Community::        Contact other users.
 @end menu
-@divEnd
 
 @end ifnottex
 

@@ -80,7 +80,6 @@ Summer of Code» (Estiu de Codi del Google).
 
 @divEnd
 
-@divClass{hide}
 @menu
 * Contact::
 * Tiny examples::
@@ -94,7 +93,6 @@ Summer of Code» (Estiu de Codi del Google).
 * News::
 * Attic::
 @end menu
-@divEnd
 
 
 @node Contact

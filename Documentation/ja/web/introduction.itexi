@@ -90,7 +90,6 @@ LilyPond のきっかけは2人の音楽仲間がコンピュータで印刷し�
 @c TRANSLATORS, translations are not yet compiled in Info format, so
 @c it's not worth translating the right column of the following
 @c menu. -JM
-@divClass{hide}
 @menu
 * Features::                    LilyPond は何ができるの?
 * Examples::                      楽譜を見てみたい！
@@ -101,7 +100,6 @@ LilyPond のきっかけは2人の音楽仲間がコンピュータで印刷し�
 * Text input::            楽譜をテキストで記述する？！
 * Easier editing::      LilyPond に取り組むための他の方法。
 @end menu
-@divEnd
 
 
 

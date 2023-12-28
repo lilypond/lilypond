@@ -238,14 +238,12 @@ Guarda la galleria di @ref{Examples} e lasciati ispirare!
 
 @ifnottex
 
-@divClass{hide}
 @menu
 * Introduction::     Inizia da qui se vuoi creare spartiti musicali.
 * Download::         Scarica LilyPond.
 * Manuals::          Leggi i manuali (RTFM).
 * Community::         Contatta altri utenti.
 @end menu
-@divEnd
 
 @end ifnottex
 

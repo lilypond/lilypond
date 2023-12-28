@@ -242,14 +242,12 @@ Sehen Sie sich unsere @ref{Examples} an und lassen sich inspirieren!
 
 @ifnottex
 
-@divClass{hide}
 @menu
 * Introduction::     Hier beginnen, um Noten zu setzen.
 * Download::       LilyPond Herunterladen.
 * Manuals::     Lesen der Handbücher.
 * Community::   Kontakt mit anderen Benutzern aufnehmen.
 @end menu
-@divEnd
 
 @end ifnottex
 

@@ -82,7 +82,6 @@ Versionen, alte Neuigkeiten, etc.
 
 @divEnd
 
-@divClass{hide}
 @menu
 * Contact::
 * Tiny examples::
@@ -96,7 +95,6 @@ Versionen, alte Neuigkeiten, etc.
 * News::
 * Attic::
 @end menu
-@divEnd
 
 
 @node Contact

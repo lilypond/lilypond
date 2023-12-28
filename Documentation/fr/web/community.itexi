@@ -88,7 +88,6 @@ aux cours des versions précédentes, actualités passée, etc.
 
 @divEnd
 
-@divClass{hide}
 @menu
 * Contact::
 * Tiny examples::
@@ -102,7 +101,6 @@ aux cours des versions précédentes, actualités passée, etc.
 * News::
 * Attic::
 @end menu
-@divEnd
 
 
 @node Contact

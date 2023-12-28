@@ -267,14 +267,12 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 
 @ifnottex
 
-@divClass{hide}
 @menu
 * Introduction::               ここから始めて、楽譜を作ってください。
 * Download::         LilyPond の入手方法。
 * Manuals::           マニュアルを読んでください。
 * Community::         他のユーザとの交流。
 @end menu
-@divEnd
 
 @end ifnottex
 

@@ -206,14 +206,12 @@ LilyPond (荷花池) 是一个音乐雕版软件，致力产生最高质量的�
 
 @ifnottex
 
-@divClass{hide}
 @menu
 * Introduction::        从这开始创建乐谱。
 * Download::        获得 LilyPond。
 * Manuals::        阅读完整的手册（RTFM）。
 * Community::        和其他用户联络。
 @end menu
-@divEnd
 
 @end ifnottex
 

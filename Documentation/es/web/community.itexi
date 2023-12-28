@@ -80,7 +80,6 @@ anteriores, noticias antiguas, etc.
 
 @divEnd
 
-@divClass{hide}
 @menu
 * Contact::
 * Tiny examples::
@@ -94,7 +93,6 @@ anteriores, noticias antiguas, etc.
 * News::
 * Attic::
 @end menu
-@divEnd
 
 
 @node Contact

@@ -170,7 +170,6 @@ el nom del manual.
 @divEnd
 
 
-@divClass{hide}
 @menu
 * Learning::           Aprenentatge.
 * Glossary::               Glossari.
@@ -186,8 +185,6 @@ el nom del manual.
 * All::                   Tots els manuals.
 * FDL::                    Llicència.
 @end menu
-
-@divEnd
 
 
 @c TRANSLATORS, most of the text in this file came from

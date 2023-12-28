@@ -78,7 +78,6 @@ LilyPond 是怎么来的呢？从前，有两位音乐家，对于那种用电�
 @c TRANSLATORS, translations are not yet compiled in Info format, so
 @c it's not worth translating the right column of the following
 @c menu. -JM
-@divClass{hide}
 @menu
 * Features::                        What can LilyPond do?
 * Examples::                        I want to see some music!
@@ -89,7 +88,6 @@ LilyPond 是怎么来的呢？从前，有两位音乐家，对于那种用电�
 * Text input::                    You write music as text?!
 * Easier editing::                  Other ways of working with LilyPond.
 @end menu
-@divEnd
 
 
 

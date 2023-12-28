@@ -168,7 +168,6 @@ Per vedere questi tre formati segui i collegamenti
 @divEnd
 
 
-@divClass{hide}
 @menu
 * Learning::             Apprendimento.
 * Glossary::                 Glossario.
@@ -184,8 +183,6 @@ Per vedere questi tre formati segui i collegamenti
 * All::                     Tutti i manuali.
 * FDL::                       Licenza.
 @end menu
-
-@divEnd
 
 
 @c TRANSLATORS, most of the text in this file came from

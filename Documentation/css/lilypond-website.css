@@ -753,11 +753,8 @@ pre.example, pre.example-preformatted {
   margin: 0;
 }
 
-.hide {
-  position: relative;
-  text-indent: -999em;
-  height: 0;
-  overflow: hidden;
+.menu {
+  display: none;
 }
 
 .help {

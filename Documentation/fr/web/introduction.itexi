@@ -96,7 +96,6 @@ pourront se concentrer sur leur @emph{jeu} plutôt que sur du
 @c Les traductions ne se compilent pas encore au format Info, il est
 @c donc inutile de traduire la colonne de droite du menu suivant. -JM
 @c Mais elle apparaît dans Emacs "M-x ewww-open-file" - JCM
-@divClass{hide}
 @menu
 * Features::            Ce dont LilyPond est capable.
 * Examples::                   Quelques exemples concrets.
@@ -107,7 +106,6 @@ pourront se concentrer sur leur @emph{jeu} plutôt que sur du
 * Text input:: C'est du texte, pas de la musique !
 * Easier editing::        Différentes méthodes de travail avec LilyPond.
 @end menu
-@divEnd
 
 
 @node Features

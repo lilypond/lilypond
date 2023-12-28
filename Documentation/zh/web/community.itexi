@@ -77,7 +77,6 @@
 
 @divEnd
 
-@divClass{hide}
 @menu
 * Contact::
 * Tiny examples::
@@ -91,7 +90,6 @@
 * News::
 * Attic::
 @end menu
-@divEnd
 
 
 @node Contact

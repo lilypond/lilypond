@@ -259,14 +259,12 @@ e incluso
 
 @ifnottex
 
-@divClass{hide}
 @menu
 * Introduction::     Empiece aquí a crear partituras musicales.
 * Download::         Obtener LilyPond.
 * Manuals::         Léase los dichosos manuales (RTFM).
 * Community::        Póngase en contacto con otros usuarios.
 @end menu
-@divEnd
 
 @end ifnottex
 

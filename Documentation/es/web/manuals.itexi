@@ -166,7 +166,6 @@ de} y a continuación el nombre del manual.
 @divEnd
 
 
-@divClass{hide}
 @menu
 * Learning::            Aprendizaje.
 * Glossary::               Glosario.
@@ -182,8 +181,6 @@ de} y a continuación el nombre del manual.
 * All::                  Todos los manuales.
 * FDL::                    Licencia.
 @end menu
-
-@divEnd
 
 
 @c TRANSLATORS, most of the text in this file came from

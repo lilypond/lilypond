@@ -257,14 +257,12 @@ Admireu la nostra galeria de @ref{Examples} i inspireu-vos''
 
 @ifnottex
 
-@divClass{hide}
 @menu
 * Introduction::      Comenceu aquí a crear partitures musicals.
 * Download::         Obtenir el LilyPond
 * Manuals::          Llegiu els benaurats manuals (RTFM)
 * Community::        Poseu-vos en contacte amb altres usuaris.
 @end menu
-@divEnd
 
 @end ifnottex
 

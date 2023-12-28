@@ -197,7 +197,6 @@ ces manuels sont publiés sous la licence GNU de documentation libre FDL.
 @divEnd
 
 
-@divClass{hide}
 @menu
 * Learning::          Premiers pas
 * Glossary::           Glossaire musicologique multilingue
@@ -213,8 +212,6 @@ ces manuels sont publiés sous la licence GNU de documentation libre FDL.
 * All::                Tous les manuels
 * FDL::                 Licence.
 @end menu
-
-@divEnd
 
 
 @c TRANSLATORS, most of the text in this file came from

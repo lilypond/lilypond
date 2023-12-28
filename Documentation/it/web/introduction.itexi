@@ -85,7 +85,6 @@ otterranno delle parti che permetteranno loro di concentrarsi sull'
 @c TRANSLATORS, translations are not yet compiled in Info format, so
 @c it's not worth translating the right column of the following
 @c menu. -JM
-@divClass{hide}
 @menu
 * Features::               Cosa può fare LilyPond?
 * Examples::                     Voglio vedere un po' di musica!
@@ -96,7 +95,6 @@ otterranno delle parti che permetteranno loro di concentrarsi sull'
 * Text input::             Scrivere la musica in forma di testo?!
 * Easier editing::         Altri modi di lavorare con LilyPond.
 @end menu
-@divEnd
 
 
 

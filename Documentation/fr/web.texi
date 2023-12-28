@@ -242,14 +242,12 @@ Venez puiser l'inspiration dans notre galerie
 
 @ifnottex
 
-@divClass{hide}
 @menu
 * Introduction::        Comment créer des partitions
 * Download::      Télécharger LilyPond
 * Manuals::             Bibliothèque de LilyPond
 * Community::          Comment contacter d'autres utilisateurs
 @end menu
-@divEnd
 
 @end ifnottex
 

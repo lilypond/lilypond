@@ -178,7 +178,6 @@ these manuals are published under the GNU Free Documentation License.
 @divEnd
 
 
-@divClass{hide}
 @menu
 * Learning::             Learning.
 * Glossary::              Glossary.
@@ -194,8 +193,6 @@ these manuals are published under the GNU Free Documentation License.
 * All::                 All manuals.
 * FDL::                     Licence.
 @end menu
-
-@divEnd
 
 
 @c TRANSLATORS, most of the text in this file came from
