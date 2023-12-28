@@ -1149,7 +1149,7 @@ indications per string.
 For example, say
 
 @lilypond[verbatim,quote]
-\\markup \\fret-diagram #\"s:1.25;6-x;5-x;4-o;3-2;2-3;1-2;\"
+\\markup \\fret-diagram \"s:1.25;6-x;5-x;4-o;3-2;2-3;1-2;\"
 @end lilypond
 
 @noindent
@@ -1232,7 +1232,7 @@ Note: There is no limit to the number of fret indications per string.
 For example,
 
 @lilypond[verbatim,quote]
-\\markup \\fret-diagram-terse #\"x;x;o;2;3;2;\"
+\\markup \\fret-diagram-terse \"x;x;o;2;3;2;\"
 @end lilypond
 
 @noindent

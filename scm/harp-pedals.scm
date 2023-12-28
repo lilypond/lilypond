@@ -41,7 +41,7 @@ the following pedal should be circled (indicating a change)
 @end table
 
 @lilypond[verbatim,quote]
-\\markup \\harp-pedal #\"^-v|--ov^\"
+\\markup \\harp-pedal \"^-v|--ov^\"
 @end lilypond
 
 The function also checks whether the string has the typical form of three
@@ -73,7 +73,7 @@ spacing between two boxes after the divider
   \\override #'((size . 1.5)
                (harp-pedal-details . ((box-width . 1)
                                       (box-offset . 2))))
-  \\harp-pedal #\"^-v|--ov^\"
+  \\harp-pedal \"^-v|--ov^\"
 }
 @end lilypond
 
@@ -81,7 +81,7 @@ For global modification of @code{harp-@/pedal-@/details}, i.e., outside of the
 current @code{\\markup} block, you can also use code similar to
 
 @example
-\\override Voice.TextScript.harp-pedal-details.box-width = #1
+\\override Voice.TextScript.harp-pedal-details.box-width = 1
 @end example"
   (let* ((pedal-list (harp-pedals-parse-string definition-string))
          (details (begin (harp-pedal-check pedal-list) harp-pedal-details))

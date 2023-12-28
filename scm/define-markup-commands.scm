@@ -673,7 +673,7 @@ link doesn't work here in the Notation Reference.}
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\with-url #\"https://lilypond.org/\" {
+  \\with-url \"https://lilypond.org/\" {
     LilyPond ... \\italic {
       music notation for everyone
     }
@@ -1444,7 +1444,7 @@ interpreter (GhostScript) can vary, and some of its features may be disabled.
 @end itemize
 
 @lilypond[verbatim,quote]
-ringsps = #\"
+ringsps = \"
   0.15 setlinewidth
   0.9 0.6 moveto
   0.4 0.6 0.5 0 361 arc
@@ -2278,7 +2278,7 @@ Paragraphs are indicated by double newlines.  Use @code{\\override #'(line-width
 @lilypond[verbatim,quote]
 \\markup {
   \\override #'(line-width . 40)
-  \\wordwrap-string #\"Lorem ipsum dolor sit amet,
+  \\wordwrap-string \"Lorem ipsum dolor sit amet,
       consectetur adipisicing elit, sed do eiusmod tempor
       incididunt ut labore et dolore magna aliqua.
 
@@ -2312,7 +2312,7 @@ Paragraphs are indicated by double newlines.  Use @code{\\override #'(line-width
 @lilypond[verbatim,quote]
 \\markup {
   \\override #'(line-width . 40)
-  \\justify-string #\"Lorem ipsum dolor sit amet, consectetur
+  \\justify-string \"Lorem ipsum dolor sit amet, consectetur
       adipisicing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua.
 
@@ -4043,9 +4043,9 @@ names.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\musicglyph #\"f\"
-  \\musicglyph #\"rests.2\"
-  \\musicglyph #\"clefs.G_change\"
+  \\musicglyph \"f\"
+  \\musicglyph \"rests.2\"
+  \\musicglyph \"clefs.G_change\"
 }
 @end lilypond"
   (let* ((font (ly:paper-get-font layout
@@ -4305,11 +4305,11 @@ Replace @q{~} tilde symbols with tie characters in @var{str}.
 @lilypond[verbatim,quote]
 \\markup \\column {
   \\tied-lyric
-    #\"Siam navi~all'onde~algenti Lasciate~in abbandono\"
+    \"Siam navi~all'onde~algenti Lasciate~in abbandono\"
   \\tied-lyric
-    #\"Impetuosi venti I nostri~affetti sono\"
+    \"Impetuosi venti I nostri~affetti sono\"
   \\tied-lyric
-    #\"Ogni diletto~e scoglio Tutta la vita~e~un mar.\"
+    \"Ogni diletto~e scoglio Tutta la vita~e~un mar.\"
 }
 @end lilypond"
   (define (replace-ties tie str)
@@ -4392,7 +4392,7 @@ This is a historical command; @code{\\left-brace} (which looks up the glyph by
 absolute size and is independent of the font size) is recommended instead.
 
 @lilypond[verbatim,quote]
-\\markup \\lookup #\"brace200\"
+\\markup \\lookup \"brace200\"
 @end lilypond"
   (let ((result
          (ly:font-get-glyph (ly:paper-get-font
