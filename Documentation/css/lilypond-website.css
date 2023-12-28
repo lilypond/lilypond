@@ -721,7 +721,7 @@ div.float-center a.clickable {
   line-height: 0.8;
 }
 
-.example {
+pre.example, pre.example-preformatted {
   position: relative;
   left: -2.5em;
   text-align: left;
