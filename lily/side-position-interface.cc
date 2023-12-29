@@ -260,12 +260,9 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start,
 
   std::vector<Box> boxes;
   std::vector<Skyline_pair> skyps;
-  std::set<Grob *>::iterator it;
 
-  for (it = support.begin (); it != support.end (); it++)
+  for (Grob *e : support)
     {
-      Grob *e = *it;
-
       bool cross_staff = from_scm<bool> (get_property (e, "cross-staff"));
       if (a == Y_AXIS
           && !me_cross_staff // 'me' promised not to adapt to staff-spacing

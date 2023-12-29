@@ -126,10 +126,8 @@ Dot_column::calc_positioning_done (SCM smob)
         stems.insert (stem);
     }
 
-  for (std::set<Grob *>::const_iterator i (stems.begin ()); i != stems.end ();
-       i++)
+  for (Grob *stem : stems)
     {
-      Grob *stem = (*i);
       Grob *flag = Stem::flag (stem);
       if (flag)
         {

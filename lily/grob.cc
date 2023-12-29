@@ -962,13 +962,11 @@ common_refpoint_of_array (std::vector<Grob *> const &arr, Grob *common, Axis a)
 Grob *
 common_refpoint_of_array (std::set<Grob *> const &arr, Grob *common, Axis a)
 {
-  std::set<Grob *>::iterator it;
-
-  for (it = arr.begin (); it != arr.end (); it++)
+  for (Grob *g : arr)
     if (common)
-      common = common->common_refpoint (*it, a);
+      common = common->common_refpoint (g, a);
     else
-      common = *it;
+      common = g;
 
   return common;
 }

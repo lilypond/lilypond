@@ -795,10 +795,8 @@ Tie_formatting_problem::score_configuration (Tie_configuration *conf) const
         {
           Real y = b.get_other_coordinate (X_AXIS, x);
 
-          for (std::set<int>::const_iterator i (dot_positions_.begin ());
-               i != dot_positions_.end (); i++)
+          for (int dot_pos : dot_positions_)
             {
-              int dot_pos = (*i);
               conf->add_score (
                 details_.dot_collision_penalty_
                   * peak_around (

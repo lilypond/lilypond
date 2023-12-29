@@ -87,9 +87,8 @@ Rest_collision_engraver::process_acknowledged ()
   if (!rest_collision_ && rest_count && columns.size () > 1)
     {
       rest_collision_ = make_item ("RestCollision", SCM_EOL);
-      for (std::set<Grob *>::iterator i = columns.begin (); i != columns.end ();
-           ++i)
-        Rest_collision::add_column (rest_collision_, *i);
+      for (Grob *g : columns)
+        Rest_collision::add_column (rest_collision_, g);
     }
 }
 
