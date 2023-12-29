@@ -44,7 +44,6 @@
 
 #include <algorithm>
 #include <cmath> // ceil.
-#include <map>
 #include <set>
 
 void
