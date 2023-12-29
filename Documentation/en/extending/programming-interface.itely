@@ -62,7 +62,7 @@ ritpp = #(define-event-function () ()
 LilyPond code blocks can be used anywhere where you can write Scheme
 code.  The Scheme reader actually is changed for accommodating
 LilyPond code blocks and can deal with embedded Scheme expressions
-starting with @code{$} and@w{ }@code{#}.
+starting with @samp{$} and @samp{#}.
 
 The reader extracts the LilyPond code block and generates a runtime
 call to the LilyPond parser to interpret the LilyPond code.
@@ -72,8 +72,8 @@ and function parameters available at the point the LilyPond code block
 is written may be accessed.  Variables defined in other Scheme modules,
 like the modules containing @code{\header} and @code{\layout} blocks,
 are not accessible as Scheme variables, i.e., prefixed
-with@tie{}@code{#}, but they are accessible as LilyPond variables, i.e.
-prefixed with@tie{}@code{\}.
+with @samp{#}, but they are accessible as LilyPond variables, i.e.,
+prefixed with @samp{\}.
 
 All music generated inside the code block has its
 @samp{origin} set to the current input location.
@@ -90,7 +90,7 @@ expression.
 
 @emph{Scheme functions} are Scheme procedures that can create Scheme
 expressions from input written in LilyPond syntax.  They can be called
-in pretty much all places where using @code{#} for specifying a value in
+in pretty much all places where using @samp{#} for specifying a value in
 Scheme syntax is allowed.  While Scheme has functions of its own, this
 chapter is concerned with @emph{syntactic} functions, functions that
 receive arguments specified in LilyPond syntax.
@@ -143,12 +143,12 @@ A sequence of Scheme forms evaluated in order, the last one being
 used as the return value of the Scheme function.  It may contain
 LilyPond code blocks enclosed in hashed braces
 (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), like described in
-@ref{LilyPond code blocks}.  Within LilyPond code blocks, use @code{#}
-to reference function arguments (eg., @samp{#arg1}) or to start an
-inline Scheme expression containing function arguments (eg.,
+@ref{LilyPond code blocks}.  Within LilyPond code blocks, use @samp{#}
+to reference function arguments (e.g., @code{#arg1}) or to start an
+inline Scheme expression containing function arguments (e.g.,
 @w{@samp{#(cons arg1 arg2)}}).  Where normal Scheme expressions using
-@code{#} don't do the trick, you might need to revert to immediate
-Scheme expressions using @code{$}, for example as @samp{$music}.
+@samp{#} don't do the trick, you might need to revert to immediate
+Scheme expressions using @samp{$}, for example as @code{$music}.
 
 If your function returns a music expression, it is given a useful value
 of @code{origin}.
@@ -159,8 +159,8 @@ of @code{origin}.
 Suitability of arguments for the predicates is determined by
 actually calling the predicate after LilyPond has already converted them
 into a Scheme expression.  As a consequence, the argument can be
-specified in Scheme syntax if desired (introduced with @code{#} or as
-the result of calling a scheme function), but LilyPond will also convert
+specified in Scheme syntax if desired (introduced with @samp{#} or as
+the result of calling a Scheme function), but LilyPond will also convert
 a number of LilyPond constructs into Scheme before actually checking the
 predicate on them.  Currently, those include music, postevents, simple
 strings (with or without quotes), numbers, full markups and markup
@@ -201,8 +201,8 @@ Installed Files:
 @subsection Scheme function usage
 
 Scheme functions can be called pretty much anywhere where a Scheme
-expression starting with @code{#} can be written.  You call a
-scheme function from LilyPond by writing its name preceded by
+expression starting with @samp{#} can be written.  You call a
+Scheme function from LilyPond by writing its name preceded by
 @code{\}, followed by its arguments.  Once an optional argument
 predicate does not match an argument, LilyPond skips this and all
 following optional arguments, replacing them with their specified

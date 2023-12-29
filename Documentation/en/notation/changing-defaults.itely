@@ -37,7 +37,7 @@ Internally, LilyPond uses Scheme (a LISP dialect) to provide
 infrastructure.  Overriding layout decisions in effect accesses the
 program internals, which requires Scheme input.  Scheme elements are
 introduced in a @file{.ly} file with the hash
-mark@tie{}@code{#}.@footnote{@rextend{Scheme tutorial}, contains a
+mark @samp{#}.@footnote{@rextend{Scheme tutorial}, contains a
 short tutorial on entering numbers, lists, strings, and symbols in
 Scheme.}
 

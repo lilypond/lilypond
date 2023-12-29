@@ -659,7 +659,7 @@ available as predefined variables (see @q{Normal colors} in
 @ref{List of colors}), any color may be entered as a string.
 That string may be either a
 @uref{https://www.w3.org/Style/CSS/, CSS}-style predefined color name,
-or a hexadecimal color code prefixed by the @code{#} character
+or a hexadecimal color code prefixed by the @samp{#} character
 (@emph{inside} the double quotes):
 
 @lilypond[verbatim,quote,fragment]

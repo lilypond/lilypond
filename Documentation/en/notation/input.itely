@@ -701,7 +701,7 @@ circumstances to avoid errors:
 begins with a @code{\} sign.
 
 @item After every item that is to be interpreted as a Scheme
-expression, i.e., every item that begins with a @code{#}@tie{}sign.
+expression, i.e., every item that begins with a @samp{#} sign.
 
 @item To separate all elements of a Scheme expression.
 
@@ -2938,8 +2938,8 @@ where
 must return @code{#t}.
 
 @item @code{@var{@dots{}music@dots{}}}
-@tab Normal LilyPond input, using @code{$} (in places where only
-LilyPond constructs are allowed) or @code{#} (to use it as a Scheme
+@tab Normal LilyPond input, using @samp{$} (in places where only
+LilyPond constructs are allowed) or @samp{#} (to use it as a Scheme
 value or music function argument or music inside of music lists) to
 reference arguments
 (e.g., @samp{#arg1}).
