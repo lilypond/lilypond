@@ -1474,32 +1474,32 @@ def musicxml_accordion_to_markup(mxl_event):
         if txt == 3:
             commandname += "MMM"
             command += r"""\combine
-          \raise #1.5 \musicglyph #"accordion.dot"
+          \raise #1.5 \musicglyph "accordion.dot"
           \combine
-          \raise #1.5 \translate #(cons 1 0) \musicglyph #"accordion.dot"
+          \raise #1.5 \translate #(cons 1 0) \musicglyph "accordion.dot"
           \combine
-          \raise #1.5 \translate #(cons -1 0) \musicglyph #"accordion.dot"
+          \raise #1.5 \translate #(cons -1 0) \musicglyph "accordion.dot"
           """
         elif txt == 2:
             commandname += "MM"
             command += r"""\combine
-          \raise #1.5 \translate #(cons 0.5 0) \musicglyph #"accordion.dot"
+          \raise #1.5 \translate #(cons 0.5 0) \musicglyph "accordion.dot"
           \combine
-          \raise #1.5 \translate #(cons -0.5 0) \musicglyph #"accordion.dot"
+          \raise #1.5 \translate #(cons -0.5 0) \musicglyph "accordion.dot"
           """
         elif not txt <= 0:
             commandname += "M"
             command += r"""\combine
-          \raise #1.5 \musicglyph #"accordion.dot"
+          \raise #1.5 \musicglyph "accordion.dot"
           """
     low = mxl_event.get_maybe_exist_named_child('accordion-low')
     if low:
         commandname += "L"
         command += r"""\combine
-          \raise #0.5 \musicglyph #"accordion.dot"
+          \raise #0.5 \musicglyph "accordion.dot"
           """
 
-    command += r'\musicglyph #"accordion.discant"'
+    command += r'\musicglyph "accordion.discant"'
     command = r"\markup { \normalsize %s }" % command
     # Define the newly built command \accReg[H][MMM][L]
     additional_definitions[commandname] = "%s = %s" % (commandname, command)
