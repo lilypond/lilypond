@@ -36,6 +36,8 @@
 #include "text-interface.hh"
 #include "warn.hh"
 
+#include <set>
+
 Paper_book::Paper_book (Output_def *paper, Paper_book *parent_part)
 {
   header_ = SCM_EOL;
