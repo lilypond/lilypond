@@ -33,6 +33,7 @@
 
 #include <cstdio>
 #include <memory>
+#include <unordered_map>
 #include <utility>
 
 std::string
@@ -201,7 +202,7 @@ get_postscript_name (FT_Face face)
   // because other tables are not embedded in the output PS file.
   // However, parsing CFF takes time, so we use a cache.
   std::string cff_name;
-  static std::map<std::string, std::string> cff_name_cache;
+  static std::unordered_map<std::string, std::string> cff_name_cache;
   auto it = cff_name_cache.find (face_ps_name);
   if (it == cff_name_cache.end ())
     {
@@ -430,8 +431,7 @@ Open_type_font::add_outline_to_skyline (Lazy_skyline_pair *lazy,
 size_t
 Open_type_font::index_to_charcode (size_t i) const
 {
-  std::map<FT_UInt, FT_ULong>::const_iterator iter;
-  iter = index_to_charcode_map_.find (FT_UInt (i));
+  auto iter = index_to_charcode_map_.find (FT_UInt (i));
 
   if (iter != index_to_charcode_map_.end ())
     return static_cast<size_t> (iter->second);
