@@ -227,11 +227,11 @@ how this is done.
 The general syntax of this command is:
 
 @example
-\override @var{Context}.@var{LayoutObject}.@var{layout-property} = #@var{value}
+\override @var{Context}.@var{LayoutObject}.@var{layout-property} = @var{value}
 @end example
 
 @noindent
-This will set the property with the name @var{layout-property} of the
+This sets the property with the name @var{layout-property} of the
 layout object with the name @var{LayoutObject}, which is a member of
 the @var{Context} context, to the value @var{value}.
 
@@ -242,16 +242,27 @@ level contexts, i.e., @code{Voice}, @code{ChordNames} or
 examples.  We shall see later when it must be specified.
 
 Later sections deal comprehensively with properties and their
-values, see @ref{Types of properties}.  But in this section we shall
+values, @pxref{Types of properties}.  But in this section we shall
 use just a few simple properties and values which are easily
 understood in order to illustrate the format and use of these
 commands.
 
 LilyPond's primary expressions are musical items like notes and
 durations, as well as strings and markups.  More specific expressions
-like numbers, symbols and lists are processed in @q{Scheme mode}, which is
-invoked by prefixing the value with @samp{#}.  For more information about
-Scheme mode, see @rextend{LilyPond Scheme syntax}.
+like symbols and lists are processed in @q{Scheme mode}, which is
+invoked by prefixing the value with @samp{#}.  A special case are
+numbers, which must be prefixed with @samp{#} only if used as
+arguments to a markup function (i.e., within
+@code{\markup}).@footnote{Note, however, that for LilyPond a
+number @emph{must} start with a digit or a minus sign followed by
+a digit if not in Scheme mode.  In other words, @samp{0.2} or
+@samp{-0.2} are valid numbers, while @samp{.2} or @samp{-.2} are
+not.  If really necessary you can write @samp{#.2} or @samp{#-.2}
+instead -- Scheme supports a much broader range of number
+representations.}
+
+For more information about Scheme mode, see @rextend{LilyPond
+Scheme syntax}.
 
 @code{\override} is the most common command used in tweaking, and
 most of the rest of this chapter will be directed to presenting
@@ -447,8 +458,8 @@ also that an equals sign should not be present.  So the simple form
 of the @code{\tweak} and @code{\offset} commands is
 
 @example
-\tweak @var{layout-property} #@var{value}
-\offset @var{layout-property} #@var{value}
+\tweak @var{layout-property} @var{value}
+\offset @var{layout-property} @var{value}
 @end example
 
 @code{\tweak} and @code{\offset} can also be used to modify just one in
@@ -487,8 +498,8 @@ the original event:
 This long form of the @code{\tweak} and @code{\offset} commands can be described as
 
 @example
-\tweak @var{LayoutObject}.@var{layout-property} #@var{value}
-\offset @var{LayoutObject}.@var{layout-property} #@var{value}
+\tweak @var{LayoutObject}.@var{layout-property} @var{value}
+\offset @var{LayoutObject}.@var{layout-property} @var{value}
 @end example
 
 @cindex tuplets, nested
@@ -746,9 +757,6 @@ at first, so we can be sure the command is working.  We get:
 @example
 \override Slur.thickness = 5.0
 @end example
-
-@noindent
-Don't forget the @samp{#} character preceding the new value!
 
 The final question is, @q{Where should this command be
 placed?}  While you are unsure and learning, the best
@@ -1054,7 +1062,7 @@ must be of the correct type and obey the rules for that type.
 The type of property is always shown in parentheses after the
 property name in the IR.  Here is a list of the types you may
 need, together with the rules for that type, and some examples.
-You must always add a hash symbol, @code{#}
+If you use a Scheme expression you must add a hash symbol, @samp{#},
 to the front of these values when they are entered in the
 @code{\override} command, even if the value itself already
 starts with@tie{}@code{#}.  We only give examples for constants
@@ -1063,14 +1071,14 @@ here: if you want to compute a value using Scheme, see
 
 @indentedblock
 @raggedright
-@multitable {@b{Property Type}} {either @q{true} or @q{false}, represented by)} {@code{ly:text-interface::print},}
+@multitable {@b{Property Type}} {either @q{true} or @q{false}, represented} {@code{\markup @{ \italic "cresc." @}},}
 @headitem Property type
   @tab Rules
-  @tab Examples
+  @tab Input examples
 @item Boolean
   @tab either @q{true} or @q{false}, represented by @code{#t} or
        @code{#f}
-  @tab @code{#t}, @code{#f}
+  @tab @code{##t}, @code{##f}
 @item dimension@*(in staff spaces)
   @tab a decimal number (in units of staff spaces)
   @tab @code{2.5}, @code{0.34}
@@ -1078,19 +1086,20 @@ here: if you want to compute a value using Scheme, see
   @tab a valid direction constant or its numerical equivalent
        (value@tie{}@code{0} or @code{CENTER} indicate a neutral
        direction)
-  @tab @code{LEFT}, @code{CENTER}, @code{UP}, @code{1}, @code{-1}
+  @tab @code{#LEFT}, @code{#CENTER}, @code{#UP}, @code{1}, @code{-1}
 @item integer
   @tab a whole number
   @tab @code{3}, @code{-1}
 @item list
   @tab a sequence of constants or symbols separated by spaces, enclosed
        in parentheses and preceded by an apostrophe (quote mark)
-  @tab @code{'(left-edge staff-bar)},@*
-       @code{'(1)}, @code{'()},@*
-       @code{'(1.0 0.25 0.5)}
+  @tab @code{#'(left-edge staff-bar)},@*
+       @code{#'(1)}, @code{#'()},@*
+       @code{#'(1.0 0.25 0.5)}
 @item markup
   @tab any valid markup
-  @tab @code{\markup @{ \italic "cresc." @}}, @code{"bagpipe"}
+  @tab @code{\markup @{ \italic "cresc." @}},@*
+       @code{"bagpipe"}
 @item moment
   @tab a musical length; this type is distinct from a note
        duration
@@ -1103,23 +1112,26 @@ here: if you want to compute a value using Scheme, see
   @tab two numbers separated by the sequence @q{whitespace},
        @samp{.}, @q{whitespace}, enclosed in parentheses, and
        preceded by an apostrophe
-  @tab @code{'(2 . 3.5)},@*
-       @code{'(0.1 . -3.2)}
+  @tab @code{#'(2 . 3.5)},@*
+       @code{#'(0.1 . -3.2)}
 @item symbol
   @tab any of the set of permitted symbols for that property,
        preceded by an apostrophe
-  @tab @code{'italic}, @code{'inside}
+  @tab @code{#'italic}, @code{#'inside}
 @item unknown
   @tab a procedure, or @code{#f} to cause no action
-  @tab @code{bend::print},@*
-       @code{ly:text-interface::print},@*
-       @code{#f}
+  @tab @code{#bend::print},@*
+       @code{#ly:text-interface::print},@*
+       @code{##f}
 @item vector
   @tab constants enclosed in @code{#(}@dots{}@code{)}.
-  @tab @code{#(#t #t #f)}
+  @tab @code{##(#t #t #f)}
 @end multitable
 @end raggedright
 @end indentedblock
+
+Note that number arguments to markup functions within a
+@code{\markup} block need a leading hash mark.
 
 
 @morerefs

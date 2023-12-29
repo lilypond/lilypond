@@ -2019,7 +2019,7 @@ See @file{scm/define-grobs.scm} for the settings of each grob.
 The syntax for the @code{\override} command is
 
 @example
-\override [@var{context}.]@var{GrobName}.@var{property} = #@var{value}
+\override [@var{context}.]@var{GrobName}.@var{property} = @var{value}
 @end example
 
 For example, we can increase the thickness of a note stem by

@@ -1517,8 +1517,8 @@ mus = { b1 \bar "|."}
   <<
     \new Staff
       \with {
-        \magnifyStaff
-        #1/2 #(revert-props 'magnifyStaff 0 bar-line-props)
+        \magnifyStaff #1/2
+        #(revert-props 'magnifyStaff 0 bar-line-props)
       }
       \mus
     \new Staff

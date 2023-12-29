@@ -55,7 +55,7 @@ specific variables.  These definitions must come before the
 @appendixsubsec SATB template
 
 The music may be set out with one or two voices per staff by setting
-@code{TwoVoicesPerStaff} to @code{##f} or @code{##t} respectively.
+@code{TwoVoicesPerStaff} to @code{##f} or @code{##t}, respectively.
 
 Here's the complete input file for producing a full four-part SATB
 arrangement with individual lyrics and piano accompaniment:
@@ -98,7 +98,7 @@ TwoVoicesPerStaff = ##t
 When @code{TwoVoicesPerStaff} is set to false or allowed to default,
 any of the music variables may be omitted to produce arrangements
 with fewer voices.  Here, for example, is how the input file for a
-Soprano/Bass duet might be written:
+Soprano-Bass duet might be written:
 
 @lilypond[verbatim,quote]
 SopranoMusic = \relative { c'' c c c }
@@ -181,8 +181,9 @@ AltoShortInstrumentName = "S2"
 \include "satb.ly"
 @end lilypond
 
-although rather than do this it might be easier to use the
-@code{ssaattbb.ly} template, see @ref{SSAATTBB template}.
+@noindent
+although rather than doing this it might be easier to use the
+@code{ssaattbb.ly} template, @pxref{SSAATTBB template}.
 
 A descant may be added by defining values for the variable
 @code{DescantMusic} and descant lyrics may be provided by defining
@@ -202,8 +203,8 @@ Layout = \layout @{ ... @}
 @end example
 
 The complete set of variables which may be changed can be seen by
-examining the file @file{ly/satb.ly}, see
-@ref{Other sources of information}.
+examining the file @file{ly/satb.ly},
+@pxref{Other sources of information}.
 
 @morerefs
 Learning Manual:
@@ -227,10 +228,10 @@ this simple built-in template.
 
 All the variables defined for the SATB template, with the exception of
 the @code{VerseXxx} variables, are also available for the SSAATTBB
-template, see @ref{SATB template}.  In addition, music and lyrics for
+template, @pxref{SATB template}.  In addition, music and lyrics for
 first and second voices in any or all of the four parts may be specified
 by providing values for @code{SopranoOneMusic}, @code{SopranoTwoMusic},
-etc, with lyrics in @code{SopranoOneLyrics} and @code{SopranoTwoLyrics},
+etc., with lyrics in @code{SopranoOneLyrics} and @code{SopranoTwoLyrics},
 etc.  Up to four additional stanzas may be defined for all the voice
 parts by using the variables @code{SopranoOneLyricsOne}, with the others
 defined in an analogous way.
@@ -242,7 +243,7 @@ individual voice parts may be set on one or two staves according to
 the setting of @code{SopranoTwoVoicesPerStaff},
 @code{MenTwoVoicesPerStaff}, etc.
 
-As an example, suppose we have a piece for soprano and alto which begins
+As an example, suppose we have a piece for soprano and alto that begins
 with all voices in unison, progresses to a section with two parts,
 soprano and alto, and ends with a four-part section.  This would be
 coded like this:
@@ -270,7 +271,7 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 Male voices may be added in an analogous way.
 
 To change the layout so that the divisi soprano voices use a shared
-staff, we simply set @code{SopranoTwoVoicesPerStaff} to ##t, leaving
+staff, we simply set @code{SopranoTwoVoicesPerStaff} to @code{##t}, leaving
 all other variables unchanged, like this:
 
 @lilypond[verbatim,quote]
@@ -294,6 +295,7 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 \include "ssaattbb.ly"
 @end lilypond
 
+@noindent
 or, to make all paired voices share a single staff, set
 @code{TwoVoicesPerStaff} to ##t:
 
@@ -319,8 +321,8 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @end lilypond
 
 The complete set of variables which may be changed can be seen by
-examining the file @file{ly/ssaattbb.ly}, see
-@ref{Other sources of information}.
+examining the file @file{ly/ssaattbb.ly},
+@pxref{Other sources of information}.
 
 @morerefs
 Learning Manual:
@@ -338,7 +340,7 @@ values at different times.
 More complex arrangements of 8-part choral music are not possible with
 this simple built-in template.
 
-
+@need 800
 @node Single staff templates
 @appendixsec Single staff templates
 
@@ -374,13 +376,14 @@ this simple built-in template.
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
+@need 800
 @node Piano templates
 @appendixsec Piano templates
 
 @menu
 * Solo piano::
 * Piano and melody with lyrics::
-* Piano centered lyrics::
+* Piano-centered lyrics::
 @end menu
 
 @node Solo piano
@@ -395,13 +398,14 @@ this simple built-in template.
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-melody-and-lyrics.ly}
 
-@node Piano centered lyrics
-@appendixsubsec Piano centered lyrics
+@node Piano-centered lyrics
+@appendixsubsec Piano-centered lyrics
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-centered-lyrics.ly}
 
 
+@need 800
 @node String quartet templates
 @appendixsec String quartet templates
 
@@ -428,8 +432,8 @@ this simple built-in template.
 
 The templates shown below should be copied into your score and edited
 there.  If you have a relatively simple SATB layout you may prefer to
-use the built-in templates, which can simply be @code{\include}'d, see
-@ref{Built-in templates}.
+use the built-in templates, which can simply be @code{\include}'d,
+@pxref{Built-in templates}.
 
 @menu
 * SATB vocal score::

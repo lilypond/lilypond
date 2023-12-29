@@ -1735,11 +1735,11 @@ appearance of the output.  They are changed by the
 @code{\set} command.  This takes the form
 
 @example
-\set @emph{ContextName}.@emph{propertyName} = #@emph{value}
+\set @var{ContextName}.@var{propertyName} = @var{value}
 @end example
 
 @noindent
-where the @emph{ContextName} is usually @code{Score},
+where @var{ContextName} is usually @code{Score},
 @code{Staff}, or @code{Voice}.  It may be omitted,
 in which case the current context (typically @code{Voice}) is assumed.
 
@@ -1752,7 +1752,7 @@ of some commonly used ones.  There are many more.
 @need 50
 @indentedblock
 @raggedright
-@multitable {@code{currentBarNumber}} {Boolean} {Increase or decrease the font size} {@b{Example Value}}
+@multitable {@code{currentBarNumber}} {Boolean} {Increase or decrease the font size} {@code{\markup @{ ... @}}}
 @headitem Property Name
   @tab Type
   @tab Function
@@ -1760,7 +1760,7 @@ of some commonly used ones.  There are many more.
 @item @code{extraNatural}
   @tab Boolean
   @tab If true, set extra natural signs before accidentals
-  @tab @code{#t}, @code{#f}
+  @tab @code{##t}, @code{##f}
 @item @code{currentBarNumber}
   @tab integer
   @tab Set the current bar number
@@ -1768,11 +1768,11 @@ of some commonly used ones.  There are many more.
 @item @code{doubleSlurs}
   @tab Boolean
   @tab If true, print slurs both above and below notes
-  @tab @code{#t}, @code{#f}
+  @tab @code{##t}, @code{##f}
 @item @code{instrumentName}
   @tab text
   @tab Set the name to be placed at the start of the staff
-  @tab @code{"Cello I"}
+  @tab @code{\markup @{ ... @}}
 @item @code{fontSize}
   @tab real
   @tab Increase or decrease the font size
@@ -1786,14 +1786,12 @@ of some commonly used ones.  There are many more.
 @end indentedblock
 
 @noindent
-In the above table, a @dfn{Boolean} is either @code{#t} (true) or @code{#f} (false),
-an @dfn{integer} is a whole number (usually positive), a @dfn{real} is a positive
-or negative decimal number, and @dfn{text} is string enclosed in doublequote
-characters.  Note the occurrence of hash signs
-(@samp{#}) in two different places -- as part of the Boolean
-value before the @code{t} or @code{f}, and before @emph{value}
-in the @code{\set} statement.  So when a Boolean is being
-entered you need to code two hash signs, e.g., @code{##t}.
+In the above table, a @dfn{Boolean} is either @code{#t} (true) or
+@code{#f} (false), an @dfn{integer} is a whole number (usually
+positive), a @dfn{real} is a positive or negative decimal number,
+and @dfn{text} is string enclosed in doublequote characters.  Note
+the use of an additional hash sign (@samp{#}), which must always
+be used if a Scheme expression follows.
 
 @cindex property, operating in contexts
 @cindex setting properties, within contexts
@@ -1903,9 +1901,9 @@ value, not the most recently set value.
 @end lilypond
 
 We have now seen how to set the values of several different types of
-properties.  Note that integers and numbers are always preceded by a
-hash sign, @code{#}, while a true or false value is specified by
-@code{##t} and @code{##f}, with two hash signs.  A text property
+properties.  Note that Scheme expressions are introduced with a
+hash sign, @samp{#}, so the @q{true} and @q{false} values are specified by
+@code{##t} and @code{##f}, respectively, with two hash signs.  A text property
 should be enclosed in double quotation signs, as above, although we
 shall see later that text can actually be specified in a much more
 general way by using the very powerful @code{\markup} command.
@@ -3115,7 +3113,9 @@ However, you can also use these variables (also known as
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
 
-centerText = { \once \override TextScript.self-alignment-X = #CENTER }
+centerText = {
+  \once \override TextScript.self-alignment-X = #CENTER
+}
 
 fthenp = _\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
