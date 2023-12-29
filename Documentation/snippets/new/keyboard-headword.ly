@@ -137,11 +137,11 @@ fermataLong = \markup {
         s8 \!
         \stemDown
         \once \override Script.direction = #UP
-        \ottava #1
+        \ottava 1
         \voiceOne
-        \once \override PianoStaff.Arpeggio.padding = #0.8
+        \once \override PianoStaff.Arpeggio.padding = 0.8
         <cs''' as''' cs''''>4. \arpeggio \fermata
-        \ottava #0
+        \ottava 0
         \bar "|."
       }
     >>
@@ -214,8 +214,8 @@ fermataLong = \markup {
       cs'8
       < ds as >8 ] )
       |
-      \once \override Script.outside-staff-priority = #100
-      \once \override TextScript.outside-staff-priority = #500
+      \once \override Script.outside-staff-priority = 100
+      \once \override TextScript.outside-staff-priority = 500
       <cs, gs,>4. \fermata _\markup \italic { ped. }
       <fs, cs>8 (
       |

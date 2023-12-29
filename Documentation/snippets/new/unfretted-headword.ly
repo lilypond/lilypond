@@ -69,9 +69,9 @@ quatre         = \markup \teeny "IV"
 %% Shifting Notes
 %%
 
-shift      = \once \override NoteColumn.force-hshift = #0.9
-shifta     = \once \override NoteColumn.force-hshift = #1.2
-shiftb     = \once \override NoteColumn.force-hshift = #1.4
+shift      = \once \override NoteColumn.force-hshift = 0.9
+shifta     = \once \override NoteColumn.force-hshift = 1.2
+shiftb     = \once \override NoteColumn.force-hshift = 1.4
 
 
 %%
@@ -86,7 +86,7 @@ aniente        = \once \override Hairpin.circled-tip = ##t
 %% Tuplets
 %%
 
-tupletbp       = \once \override Staff.TupletBracket.padding = #2.25
+tupletbp       = \once \override Staff.TupletBracket.padding = 2.25
 
 
 %%

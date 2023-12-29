@@ -31,13 +31,13 @@ fingering, string number, fermata, bowing, and text script."
 
 
 \relative c''' {
-  \once \override TextScript.script-priority = #-100
+  \once \override TextScript.script-priority = -100
   a2^\prall^\markup { \sharp }
 
-  \once \override Script.script-priority = #-100
+  \once \override Script.script-priority = -100
   a2^\prall^\markup { \sharp }
 
   \set fingeringOrientations = #'(up)
   <c-2 a-1>2
-  <a-1 c\tweak script-priority #-100 -2>2
+  <a-1 c\tweak script-priority -100 -2>2
 }
