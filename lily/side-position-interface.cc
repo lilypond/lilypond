@@ -44,7 +44,7 @@
 
 #include <algorithm>
 #include <cmath> // ceil.
-#include <set>
+#include <unordered_set>
 
 void
 Side_position_interface::add_support (Grob *me, Grob *e)
@@ -53,14 +53,14 @@ Side_position_interface::add_support (Grob *me, Grob *e)
     me, ly_symbol2scm ("side-support-elements"), e);
 }
 
-std::set<Grob *>
+std::unordered_set<Grob *>
 get_support_set (Grob *me)
 {
   // Only slightly kludgy heuristic...
   // We want to make sure that all AccidentalPlacements'
   // accidentals make it into the side support
   extract_grob_set (me, "side-support-elements", proto_support);
-  std::set<Grob *> support;
+  std::unordered_set<Grob *> support;
 
   for (vsize i = 0; i < proto_support.size (); i++)
     {
@@ -199,7 +199,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start,
       return to_scm (current_off ? *current_off : 0.0);
     }
 
-  std::set<Grob *> support = get_support_set (me);
+  std::unordered_set<Grob *> support = get_support_set (me);
 
   Grob *common[NO_AXES];
   for (const auto ax : {X_AXIS, Y_AXIS})

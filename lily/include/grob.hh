@@ -27,7 +27,7 @@
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
-#include <set>
+#include <unordered_set>
 #include <vector>
 
 typedef Interval_t<vsize> System_rank_interval;
@@ -230,7 +230,8 @@ void uniquify (std::vector<Grob *> &);
 /* refpoints */
 Grob *common_refpoint_of_list (SCM elt_list, Grob *, Axis a);
 Grob *common_refpoint_of_array (std::vector<Grob *> const &, Grob *, Axis a);
-Grob *common_refpoint_of_array (std::set<Grob *> const &, Grob *, Axis a);
+Grob *common_refpoint_of_array (std::unordered_set<Grob *> const &, Grob *,
+                                Axis a);
 System *get_root_system (Grob *me);
 
 /* extents */

@@ -34,7 +34,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
-#include <set>
+#include <unordered_set>
 #include <vector>
 
 MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done,
@@ -74,7 +74,7 @@ Dot_column::calc_positioning_done (SCM smob)
     }
 
   std::vector<Box> boxes;
-  std::set<Grob *> stems;
+  std::unordered_set<Grob *> stems;
 
   extract_grob_set (me, "side-support-elements", support);
 

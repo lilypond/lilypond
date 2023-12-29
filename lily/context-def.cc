@@ -31,6 +31,8 @@
 #include "translator.hh"
 #include "warn.hh"
 
+#include <unordered_set>
+
 static bool
 is_instantiable (Context_def *c)
 {
@@ -188,7 +190,7 @@ std::vector<Context_def *>
 Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef,
                                          SCM accepted) const
 {
-  std::set<const Context_def *> seen;
+  std::unordered_set<const Context_def *> seen;
   Context_def *t = unsmob<Context_def> (find_context_def (odef, type_sym));
   return internal_path_to_acceptable_context (type_sym, is_instantiable (t),
                                               odef, accepted, &seen);
@@ -210,7 +212,7 @@ accept a Score, for which Timing is an alias, so substitute a Score.
 std::vector<Context_def *>
 Context_def::internal_path_to_acceptable_context (
   SCM type_sym, bool instantiable, Output_def *odef, SCM accepted,
-  std::set<const Context_def *> *seen) const
+  std::unordered_set<const Context_def *> *seen) const
 {
   assert (scm_is_symbol (type_sym));
 

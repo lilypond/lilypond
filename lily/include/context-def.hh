@@ -26,7 +26,7 @@
 #include "input.hh"
 #include "virtual-methods.hh"
 
-#include <set>
+#include <unordered_set>
 #include <vector>
 
 /*
@@ -86,7 +86,7 @@ private:
 
   std::vector<Context_def *> internal_path_to_acceptable_context (
     SCM type_string, bool instantiable, Output_def *, SCM,
-    std::set<const Context_def *> *seen) const;
+    std::unordered_set<const Context_def *> *seen) const;
 
   static bool internal_path_to_bottom_context (Output_def *,
                                                std::vector<Context_def *> *path,

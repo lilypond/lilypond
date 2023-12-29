@@ -39,7 +39,6 @@
 #include "lily-imports.hh"
 
 #include <cstring>
-#include <set>
 #include <unordered_set>
 
 Grob::Grob (SCM basicprops)
@@ -960,7 +959,8 @@ common_refpoint_of_array (std::vector<Grob *> const &arr, Grob *common, Axis a)
 }
 
 Grob *
-common_refpoint_of_array (std::set<Grob *> const &arr, Grob *common, Axis a)
+common_refpoint_of_array (std::unordered_set<Grob *> const &arr, Grob *common,
+                          Axis a)
 {
   for (Grob *g : arr)
     if (common)

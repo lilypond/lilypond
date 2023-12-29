@@ -32,7 +32,7 @@
 
 #include "translator.icc"
 
-#include <set>
+#include <unordered_set>
 
 class Rest_collision_engraver : public Engraver
 {
@@ -56,7 +56,7 @@ void
 Rest_collision_engraver::process_acknowledged ()
 {
   vsize rest_count = 0;
-  std::set<Grob *> columns;
+  std::unordered_set<Grob *> columns;
   auto now = now_mom ();
 
   for (SCM s = get_property (this, "busyGrobs"); scm_is_pair (s);

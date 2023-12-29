@@ -29,7 +29,7 @@
 
 #include "translator.icc"
 
-#include <set>
+#include <unordered_set>
 
 class Dynamic_align_engraver : public Engraver
 {
@@ -54,7 +54,7 @@ private:
   std::vector<Grob *> scripts_;
   std::vector<Grob *> support_;
 
-  std::set<Spanner *> running_;
+  std::unordered_set<Spanner *> running_;
 };
 
 Dynamic_align_engraver::Dynamic_align_engraver (Context *c)
@@ -200,7 +200,7 @@ Dynamic_align_engraver::stop_translation_timestep ()
     {
       Spanner *sp = ended_[i];
 
-      std::set<Spanner *>::iterator it = running_.find (sp);
+      auto it = running_.find (sp);
       if (it != running_.end ())
         running_.erase (it);
       else

@@ -47,7 +47,7 @@
 #include <cmath>
 #include <memory>
 #include <queue>
-#include <set>
+#include <unordered_set>
 #include <vector>
 
 // Compute the increase from dr.front () to dr.back ().
@@ -364,7 +364,7 @@ Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> ys,
       for (vsize j = 0; j < segments_.size (); j++)
         segments_[j].horizontal_ += (x_span_ - x_pos[LEFT]);
 
-      std::set<Grob *> colliding_stems;
+      std::unordered_set<Grob *> colliding_stems;
       for (vsize j = 0; j < collisions.size (); j++)
         {
           if (!collisions[j]->is_live ())
