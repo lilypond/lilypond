@@ -28,9 +28,9 @@
 #include "grob.hh"
 #include "pointer-group-interface.hh"
 
-#include <map>
+#include <unordered_map>
 
-typedef std::map<Grob *, std::vector<Grob *>> Grob_scripts_map;
+typedef std::unordered_map<Grob *, std::vector<Grob *>> Grob_scripts_map;
 
 void
 Script_column::add_side_positioned (Grob *me, Grob *script)

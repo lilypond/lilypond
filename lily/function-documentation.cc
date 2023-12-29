@@ -38,7 +38,7 @@
 #include <climits>
 #include <cstdint>
 #include <cstring>
-#include <map>
+#include <unordered_map>
 #include <type_traits>
 
 static Protected_scm doc_hash_table;
@@ -83,7 +83,7 @@ Get a hash table with all LilyPond Scheme extension functions.
   return doc_hash_table;
 }
 
-static std::map<const void *, std::string> type_names;
+static std::unordered_map<const void *, std::string> type_names;
 
 void
 ly_internal_add_type_predicate (const void *pred, const char *name)

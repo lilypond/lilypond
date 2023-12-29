@@ -24,13 +24,13 @@
 #include "item.hh"
 #include "pointer-group-interface.hh"
 
-#include <map>
+#include <unordered_map>
 
 #include "translator.icc"
 
 class Note_spacing_engraver : public Engraver
 {
-  typedef std::map<Context *, Grob *> Last_spacing_map;
+  typedef std::unordered_map<Context *, Grob *> Last_spacing_map;
   Last_spacing_map last_spacings_;
   Grob *last_spacing_;
 
