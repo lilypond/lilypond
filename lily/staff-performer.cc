@@ -30,7 +30,7 @@
 #include "translator.icc"
 
 #include <deque>
-#include <map>
+#include <unordered_map>
 
 /* Perform a staff. Individual notes should have their instrument
   (staff-wide) set, so we override play_element ()
@@ -77,18 +77,18 @@ private:
   Audio_text *instrument_name_;
   Audio_text *name_;
   Audio_tempo *tempo_;
-  std::map<std::string, Audio_staff *> staff_map_;
-  std::map<std::string, int> channel_map_;
+  std::unordered_map<std::string, Audio_staff *> staff_map_;
+  std::unordered_map<std::string, int> channel_map_;
   // Would prefer to have the following two items be
   // members of the containing class Performance,
   // so they can be reset for each new midi file output.
-  static std::map<std::string, int> static_channel_map_;
+  static std::unordered_map<std::string, int> static_channel_map_;
   static int channel_count_;
   // For now, ask the last Staff_performer clean up during its finalize method
   static int staff_performer_count_;
 };
 
-std::map<std::string, int> Staff_performer::static_channel_map_;
+std::unordered_map<std::string, int> Staff_performer::static_channel_map_;
 int Staff_performer::channel_count_ = 0;
 int Staff_performer::staff_performer_count_ = 0;
 
@@ -172,11 +172,10 @@ Staff_performer::get_audio_staff (const std::string &voice)
       && staff_map_.size ())
     return staff_map_.begin ()->second;
 
-  std::map<std::string, Audio_staff *>::const_iterator i
-    = staff_map_.find (voice);
+  auto i = staff_map_.find (voice);
   if (i != staff_map_.end ())
     return i->second;
-  std::map<std::string, Audio_staff *>::const_iterator e = staff_map_.find ("");
+  auto e = staff_map_.find ("");
   if (staff_map_.size () == 1 && e != staff_map_.end ())
     {
       staff_map_[voice] = e->second;
@@ -225,10 +224,9 @@ Staff_performer::finalize ()
 {
   Moment end_mom
     = now_mom () + from_scm (get_property (this, "midiSkipOffset"), Moment ());
-  for (std::map<std::string, Audio_staff *>::iterator i = staff_map_.begin ();
-       i != staff_map_.end (); ++i)
+  for (auto &i : staff_map_)
     {
-      i->second->end_mom_ = end_mom;
+      i.second->end_mom_ = end_mom;
     }
 
   staff_map_.clear ();
@@ -260,7 +258,7 @@ int
 Staff_performer::get_channel (const std::string &instrument)
 {
   SCM channel_mapping = get_property (this, "midiChannelMapping");
-  std::map<std::string, int> &channel_map
+  std::unordered_map<std::string, int> &channel_map
     = (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument")))
         ? channel_map_
         : static_channel_map_;
@@ -268,7 +266,7 @@ Staff_performer::get_channel (const std::string &instrument)
   if (scm_is_eq (channel_mapping, ly_symbol2scm ("staff")) && channel_ >= 0)
     return channel_;
 
-  std::map<std::string, int>::const_iterator i = channel_map.find (instrument);
+  auto i = channel_map.find (instrument);
   if (i != channel_map.end ())
     return i->second;
 
