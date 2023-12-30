@@ -16,8 +16,8 @@
   texidoc = "
 The placement of fingering numbers can be controlled precisely. For
 fingering orientation to apply, it must be used within a chord
-construct <>, even for single notes.  Orientation for string numbers
-and right-hand fingerings may be set in a similar way.
+construct @code{<...>}, even for single notes.  Orientation for string
+numbers and right-hand fingerings may be set in a similar way.
 "
 
   doctitle = "Controlling the placement of chord fingerings"

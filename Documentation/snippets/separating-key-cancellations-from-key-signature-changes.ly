@@ -16,15 +16,37 @@
   texidoc = "
 By default, the accidentals used for key cancellations are placed
 adjacent to those for key signature changes.  This behavior can be
-changed by overriding the @code{'break-align-orders} property of the
+changed by overriding the @code{break-align-orders} property of the
 @code{BreakAlignment} grob.
 
-The value of @code{'break-align-orders} is a vector of length 3, with
-quoted lists of breakable items as elements.  This example only
-modifies the second list, moving @code{key-cancellation} before
-@code{staff-bar}; by modifying the second list, break alignment
-behavior only changes in the middle of a system, not at the beginning
-or the end.
+The value of @code{break-align-orders} is a vector of length@tie{}3,
+with quoted lists of breakable items as elements.  Each list describes
+the default order of prefatory matter at the end, in the middle, and at
+the beginning of a line, respectively.  We are only interested in
+changing the behaviour in the middle of a line.
+
+If you look up the definition of @code{break-align-orders} in
+LilyPond's Internal Reference (see the
+@uref{https://lilypond.org/doc/v2.22/Documentation/internals/breakalignment,@code{BreakAlignment}}
+grob), you get the following order in the second element:
+
+@verbatim
+...
+staff-bar
+key-cancellation
+key-signature
+...
+@end verbatim
+
+We want to change that, moving @code{key-cancellation} before
+@code{staff-bar}.  To make this happen we use the
+@code{grob-transformer} function, which gives us access to the original
+vector as the second argument of the lambda function, here called
+@var{orig} (we don't need the first argument,
+@var{grob}).  We return a new vector, with unchanged first and
+last elements.  For the middle element, we first remove
+@code{key-cancellation} from the list, then adding it again before
+@code{staff-bar}.
 "
 
   doctitle = "Separating key cancellations from key signature changes"
@@ -32,20 +54,42 @@ or the end.
 
 
 
-\new Staff {
-  \override Score.BreakAlignment.break-align-orders =
-    ##((left-edge ambitus breathing-sign clef staff-bar
-                   key-cancellation key-signature time-signature custos)
+#(define (insert-before where what lst)
+   (cond
+    ((null? lst)           ; If the list is empty,
+     (list what))          ; return a single-element list.
+    ((eq? where (car lst)) ; If we find symbol `where`,
+     (cons what lst))      ; insert `what` before curr. position.
+    (else                  ; Otherwise keep building the list by
+     (cons (car lst)       ; adding the current element and
+                           ; recursing with the next element.
+           (insert-before where what (cdr lst))))))
 
-        (left-edge ambitus breathing-sign clef key-cancellation
-                   staff-bar key-signature time-signature custos)
+cancellationFirst =
+\override Score.BreakAlignment.break-align-orders =
+#(grob-transformer
+  'break-align-orders
+  (lambda (grob orig)
+    (let* ((middle (vector-ref orig 1))
+           (middle (delq 'key-cancellation middle))
+           (middle (insert-before
+                    'staff-bar 'key-cancellation middle)))
+      (vector
+       ;; end of line
+       (vector-ref orig 0)
+       ;; middle of line
+       middle
+       ;; beginning of line
+       (vector-ref orig 2)))))
 
-        (left-edge ambitus breathing-sign clef key-cancellation
-                   key-signature staff-bar time-signature custos))
+music = { \key es \major d'1 \bar "||"
+          \key a \major d'1 }
 
-  \key des \major
-  c'1
-  \bar "||"
-  \key bes \major
-  c'1
-}
+{ <>^\markup "default"
+  \music }
+
+{ <>^\markup "cancellation first"
+  \cancellationFirst
+  \music }
+
+\paper { tagline = ##f }

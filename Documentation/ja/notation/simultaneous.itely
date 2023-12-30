@@ -1165,7 +1165,7 @@ instrumentTwo = \relative {
 @cindex part combiner, changing text (パート結合のテキストを変更する)
 @cindex combining parts, changing text (パート結合のテキストを変更する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing-partcombine-texts.ly}
+{snippets/changing--partcombine-texts.ly}
 
 @morerefs
 音楽用語集:

@@ -1169,7 +1169,7 @@ usando un contesto @code{NullVoice}.  Vedi @ref{Polyphony with shared lyrics}.
 @cindex combinatore delle parti, modifica del testo
 @cindex combinare le parti, modifica del testo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing-partcombine-texts.ly}
+{snippets/changing--partcombine-texts.ly}
 
 @morerefs
 Glossario Musicale:

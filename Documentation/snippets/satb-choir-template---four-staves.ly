@@ -14,7 +14,7 @@
   lsrtags = "template, vocal-music"
 
   texidoc = "
-SATB choir template (four staves)
+This is a template for a SATB choir on four staves.
 "
 
   doctitle = "SATB Choir template - four staves"

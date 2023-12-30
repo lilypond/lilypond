@@ -1246,7 +1246,7 @@ this effect can be achieved using a @code{NullVoice} context.  See
 @cindex part combiner, changing text
 @cindex combining parts, changing text
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing-partcombine-texts.ly}
+{snippets/changing--partcombine-texts.ly}
 
 
 @morerefs

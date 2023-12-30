@@ -14,7 +14,7 @@
   lsrtags = "fretted-strings"
 
   texidoc = "
-Demonstrates fretted-string harmonics in tablature
+The following demonstrates fretted-string harmonics in a tablature.
 "
 
   doctitle = "Fretted-string harmonics in tablature"

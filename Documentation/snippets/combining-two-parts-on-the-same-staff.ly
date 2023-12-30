@@ -69,7 +69,9 @@ musicDown = \relative c'' {
     indent = 6.0\cm
     \context {
       \Score
-      \override SystemStartBar.collapse-height = #30
+      % Setting this to a large value avoids a bar line at the
+      % beginning that would connect the three staves otherwise.
+      \override SystemStartBar.collapse-height = 30
     }
   }
 }

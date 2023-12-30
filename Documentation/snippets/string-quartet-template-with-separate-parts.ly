@@ -32,48 +32,35 @@ Do not forget to remove specified comments when using separate files!
 } % begin verbatim
 
 
-%%%%% piece.ly
-%%%%% (This is the global definitions file)
+% piece.ly
+% (This is the global definitions file)
 
 global= {
   \time 4/4
   \key c \major
 }
 
-
-Violinone = \new Voice {
-  \relative c'' {
-    c2 d e1
-    \bar "|."
-  }
+Violinone = \new Voice \relative c'' {
+  c2 d e1
+  \bar "|."
 }
 
-
-Violintwo = \new Voice {
-  \relative c'' {
-    g2 f e1
-    \bar "|."
-  }
+Violintwo = \new Voice \relative c'' {
+  g2 g e1
+  \bar "|."
 }
 
-
-Viola = \new Voice {
-  \relative c' {
-    \clef alto
-    e2 d c1
-    \bar "|."
-  }
+Viola = \new Voice \relative c' {
+  \clef alto
+  e2 d c1
+  \bar "|."
 }
 
-
-Cello = \new Voice {
-  \relative c' {
-    \clef bass
-    c2 b a1
-    \bar "|."
-  }
+Cello = \new Voice \relative c' {
+  \clef bass
+  c2 b a1
+  \bar "|."
 }
-
 
 music = {
   <<

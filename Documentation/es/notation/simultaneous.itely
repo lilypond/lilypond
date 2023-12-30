@@ -1208,7 +1208,7 @@ usando un contexto @code{NullVoice}.  Véase @ref{Polyphony with shared lyrics}.
 @cindex partes, combinador, cambiar textos
 @cindex combinar, partes, cambiar el texto
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing-partcombine-texts.ly}
+{snippets/changing--partcombine-texts.ly}
 
 
 @morerefs

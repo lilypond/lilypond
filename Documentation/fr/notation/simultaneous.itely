@@ -1250,7 +1250,7 @@ les effets escomptés -- voir @ref{Polyphony with shared lyrics}.
 @cindex parties combinées, texte
 @cindex @code{\partocombine}, texte
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing-partcombine-texts.ly}
+{snippets/changing--partcombine-texts.ly}
 
 @morerefs
 Glossaire musicologique :

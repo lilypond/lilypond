@@ -1117,7 +1117,7 @@ context @code{NullVoice}.  Vegeu
 {snippets/combining-two-parts-on-the-same-staff.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing-partcombine-texts.ly}
+{snippets/changing--partcombine-texts.ly}
 
 @morerefs
 Glossari musical:

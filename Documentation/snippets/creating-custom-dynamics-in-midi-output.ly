@@ -15,10 +15,10 @@
 
   texidoc = "
 The following example shows how to create a dynamic marking, not
-included in the default list, and assign it a specific value so that it
-can be used to affect MIDI output.
+included in the default list, and assign a specific value to it so that
+it affects MIDI output.
 
-The dynamic mark @code{\\rfz} is assigned a value of @code{0.9}.
+The dynamic mark @code{\\rfz} gets value @code{0.9}.
 "
 
   doctitle = "Creating custom dynamics in MIDI output"
