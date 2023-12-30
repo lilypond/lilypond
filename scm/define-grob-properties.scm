@@ -180,6 +180,7 @@ broken measure spanners, the left and/or right edge of the staff.")
      (broken-bound-padding ,number? "The amount of padding to insert
 when a spanner is broken at a line break.")
 
+
 ;;;
 ;;; c
 ;;;
@@ -214,6 +215,7 @@ this should list the control points of a third-order B@'ezier curve.")
      (count-from ,integer? "The first measure in a measure count
 receives this number.  The following measures are numbered in
 increments from this initial value.")
+
 
 ;;;
 ;;; d
@@ -309,6 +311,7 @@ thickness.  If this is@tie{}0, the middle of line is on the polygon.
 If@tie{}1, the line sticks out of the polygon.  If@tie{}-1, the outer
 side of the line is exactly on the polygon.  Other numeric values
 are interpolated.")
+
 
 ;;;
 ;;; f
@@ -918,6 +921,7 @@ dot.")
      (protrusion ,number? "In an arpeggio bracket, the length of the
 horizontal edges.")
 
+
 ;;;
 ;;; r
 ;;;
@@ -1313,8 +1317,7 @@ This looks better in complex polyphonic patterns.")
 spacing problem.")
      (usable-duration-logs ,list? "List of @code{duration-log}s that
 can be used in typesetting the grob.")
-     (use-skylines ,boolean? "Should skylines be used for side
-positioning?")
+
 
 ;;;
 ;;; v
@@ -1329,6 +1332,7 @@ with @code{#'if-no-beam}.")
 @code{Rest}, negative if the rest has @code{direction} @code{DOWN}.")
      (volta-number-offset ,number-pair? "The offset of the volta number
 relative to the upper left corner of the volta bracket.")
+
 
 ;;;
 ;;; w

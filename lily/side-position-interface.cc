@@ -569,5 +569,4 @@ side-axis
 side-support-elements
 slur-padding
 staff-padding
-use-skylines
                )");
