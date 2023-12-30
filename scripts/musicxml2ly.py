@@ -1396,11 +1396,9 @@ def get_font_size(size):
 
 def musicxml_words_to_lily_event(words):
     event = musicexp.TextEvent()
-    text = words.get_text()
-    # remove white spaces and line breaks before text
-    text = re.sub('^ *\n? *', '', text)
-    # remove white spaces and line breaks before text
-    text = re.sub(' *\n? *$', '', text)
+    # Remove leading and trailing whitespace; reduce sequences of whitespace
+    # characters to a single space.
+    text = " ".join(words.get_text().split())
     event.text = text
 
     if options.convert_directions:
