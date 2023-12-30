@@ -15,7 +15,7 @@
 
   texidoc = "
 Slides can be typeset in both @code{Staff} and @code{TabStaff}
-contexts:
+contexts.
 "
 
   doctitle = "Slides in tablature"

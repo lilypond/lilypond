@@ -16,7 +16,7 @@
   texidoc = "
 Predefined fret diagrams can be added for new instruments in addition
 to the standards used for guitar.  This file shows how this is done by
-defining a new string-tuning and a few predefined fretboards for the
+defining a new string tuning and a few predefined fretboards for the
 Venezuelan @emph{cuatro}.
 
 This file also shows how fingerings can be included in the chords used

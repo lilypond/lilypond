@@ -15,10 +15,10 @@
 
   texidoc = "
 Fret diagram properties can be set through
-@code{'fret-diagram-details}.  For FretBoard fret diagrams, overrides
-are applied to the @code{FretBoards.FretBoard} object. Like
-@code{Voice}, @code{FretBoards} is a bottom level context, therefore
-can be omitted in property overrides.
+@code{'fret-diagram-details}.  For @code{FretBoard} fret diagrams,
+overrides are applied to the @code{FretBoards.FretBoard} object. Like
+@code{Voice}, @code{FretBoards} is a bottom-level context, and
+therefore can be omitted in property overrides.
 "
 
   doctitle = "Customizing fretboard fret diagrams"
@@ -48,7 +48,7 @@ oo = #(define-music-function
     \override FretBoard.fret-diagram-details.dot-color = #'white
     \chordmode {
       c
-      \oo FretBoard.size #'1.0
+      \oo FretBoard.size #1.0
       \oo FretBoard.fret-diagram-details.barre-type #'straight
       \oo FretBoard.fret-diagram-details.dot-color #'black
       \oo FretBoard.fret-diagram-details.finger-code #'below-string

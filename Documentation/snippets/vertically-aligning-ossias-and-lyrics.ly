@@ -23,10 +23,6 @@ positioning of lyrics and ossias.
 } % begin verbatim
 
 
-\paper {
-  ragged-right = ##t
-}
-
 \relative c' <<
   \new Staff = "1" { c4 c s2 }
   \new Staff = "2" { c4 c s2 }
@@ -51,3 +47,7 @@ positioning of lyrics and ossias.
     >>
   }
 >>
+
+\paper {
+  ragged-right = ##t
+}

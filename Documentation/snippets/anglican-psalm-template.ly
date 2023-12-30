@@ -93,7 +93,8 @@ tick = \markup {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner.base-shortest-duration = \musicLength 2
+          \override SpacingSpanner.base-shortest-duration =
+                      \musicLength 2
         }
         \context {
           \Staff

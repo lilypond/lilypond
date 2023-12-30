@@ -22,8 +22,6 @@ and the line joining them.
 } % begin verbatim
 
 
-\paper { tagline = ##f }
-
 \layout {
   \context {
     \Voice
@@ -54,3 +52,5 @@ and the line joining them.
   \override AmbitusLine.gap = 1.5
   c'4 g''
 }
+
+\paper { tagline = ##f }

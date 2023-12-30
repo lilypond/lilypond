@@ -31,12 +31,13 @@ referred to as @emph{transcription}.
 
 \header { tagline = ##f }
 
-menrest = #(define-music-function (note)
+menrest =
+#(define-music-function (note)
   (ly:music?)
-#{
-  \tag #'mens $(make-music 'RestEvent note)
-  \tag #'mod $(make-music 'RestEvent note 'pitch '())
-#})
+    #{
+      \tag #'mens $(make-music 'RestEvent note)
+      \tag #'mod $(make-music 'RestEvent note 'pitch '())
+    #})
 
 MenStyle = {
   \autoBeamOff

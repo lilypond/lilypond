@@ -14,7 +14,7 @@
   lsrtags = "contexts-and-engravers, template, vocal-music"
 
   texidoc = "
-This template creates a score which starts with a solo verse and
+This template creates a score that starts with a solo verse and
 continues into a refrain for two voices.  It also demonstrates the use
 of spacer rests within the @code{\\global} variable to define meter
 changes (and other elements common to all parts) throughout the entire

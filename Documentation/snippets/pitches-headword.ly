@@ -14,7 +14,7 @@
   lsrtags = "headword"
 
   texidoc = "
-Piches headword
+Pitches headword
 "
 
   doctitle = "Pitches headword"

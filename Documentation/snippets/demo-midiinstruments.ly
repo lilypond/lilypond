@@ -181,3 +181,5 @@ melody = {
   >>
   \midi { }
 }
+
+\paper { tagline = ##f }

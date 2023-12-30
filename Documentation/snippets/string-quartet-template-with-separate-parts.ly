@@ -83,11 +83,11 @@ music = {
 
     \tag #'score \tag #'vn2
     \new Staff \with { instrumentName = "Violin 2" }
-    << \global \Violintwo>>
+    << \global \Violintwo >>
 
     \tag #'score \tag #'vla
     \new Staff \with { instrumentName = "Viola" }
-    << \global \Viola>>
+    << \global \Viola >>
 
     \tag #'score \tag #'vlc
     \new Staff \with { instrumentName = "Cello" }
@@ -123,7 +123,6 @@ music = {
   \layout { }
 }
 
-
 % vn2.ly
 % (This is the Violin 2 part file)
 
@@ -133,7 +132,6 @@ music = {
   \layout { }
 }
 
-
 % vla.ly
 % (This is the Viola part file)
 
@@ -142,7 +140,6 @@ music = {
   \keepWithTag #'vla \music
   \layout { }
 }
-
 
 % vlc.ly
 % (This is the Cello part file)
