@@ -4,7 +4,7 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">A part with no id attribute.
-            Since this piece has only one part, it is clear which part 
+            Since this piece has only one part, it is clear which part
             is described by the one part element.</miscellaneous-field>
     </miscellaneous>
   </identification>

@@ -5,7 +5,7 @@
     <miscellaneous>
       <miscellaneous-field name="description">This piece has more part elements
               than the part-list section gives. One can either convert all
-              the parts present, but not listed in the part-list, or simply 
+              the parts present, but not listed in the part-list, or simply
               not import / ignore them.</miscellaneous-field>
     </miscellaneous>
   </identification>

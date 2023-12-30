@@ -4,8 +4,8 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A piano staff with dynamics and 
-          clef changes, where each element (ffff, wedge and clef changes) 
+      <miscellaneous-field name="description">A piano staff with dynamics and
+          clef changes, where each element (ffff, wedge and clef changes)
           applies only to one voice or one staff, respectively.</miscellaneous-field>
     </miscellaneous>
   </identification>

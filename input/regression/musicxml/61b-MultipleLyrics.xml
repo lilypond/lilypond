@@ -4,8 +4,8 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Multiple (simple) lyrics. The 
-          order of the exported stanzas is relevant (identified by the number 
+      <miscellaneous-field name="description">Multiple (simple) lyrics. The
+          order of the exported stanzas is relevant (identified by the number
           attribute in this test case)</miscellaneous-field>
     </miscellaneous>
   </identification>

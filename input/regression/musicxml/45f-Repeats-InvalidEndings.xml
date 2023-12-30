@@ -4,9 +4,9 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Some more nested repeats with 
-          alternatives, where the MusicXML file does not make sense in the 
-          first place. How well are applications able to cope with improper 
+      <miscellaneous-field name="description">Some more nested repeats with
+          alternatives, where the MusicXML file does not make sense in the
+          first place. How well are applications able to cope with improper
           repeats and alternatives?</miscellaneous-field>
     </miscellaneous>
   </identification>

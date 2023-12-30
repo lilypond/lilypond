@@ -4,8 +4,8 @@
 <score-partwise version="2.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Check for proper chord detection 
-          after a pickup measure (i.e. the first beat of the measure is not 
+      <miscellaneous-field name="description">Check for proper chord detection
+          after a pickup measure (i.e. the first beat of the measure is not
           aligned with multiples of the time signature)!</miscellaneous-field>
     </miscellaneous>
   </identification>

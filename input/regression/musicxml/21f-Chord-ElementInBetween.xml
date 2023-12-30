@@ -3,9 +3,9 @@
 <score-partwise>
     <identification>
       <miscellaneous>
-        <miscellaneous-field name="description">Between the individual notes of 
-            a chord there can be direction or harmony elements, which should be 
-            properly assigned to the chord (or the position of the 
+        <miscellaneous-field name="description">Between the individual notes of
+            a chord there can be direction or harmony elements, which should be
+            properly assigned to the chord (or the position of the
             chord).</miscellaneous-field>
       </miscellaneous>
     </identification>

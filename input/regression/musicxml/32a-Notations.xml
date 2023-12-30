@@ -5,8 +5,8 @@
   <movement-title>MusicXML notations (attached to note)</movement-title>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">All &lt;notation&gt; elements 
-          defined in MusicXML. The lyrics show the notation assigned to each 
+      <miscellaneous-field name="description">All &lt;notation&gt; elements
+          defined in MusicXML. The lyrics show the notation assigned to each
           note.</miscellaneous-field>
     </miscellaneous>
   </identification>
@@ -169,7 +169,7 @@
       </barline>
     </measure>
 
-    <!-- Articulations: 
+    <!-- Articulations:
             accent | strong-accent | staccato | tenuto |
             detached-legato | staccatissimo | spiccato |
             scoop | plop | doit | falloff | breath-mark |
@@ -374,11 +374,11 @@
 
     <!-- Ornaments:
          trill-mark | turn | delayed-turn | inverted-turn |
-         shake | wavy-line | mordent | inverted-mordent | 
-         schleifer | tremolo | other-ornament), 
-         accidental-mark 
-         
-         Test cases for various tremolo options are in a separate 
+         shake | wavy-line | mordent | inverted-mordent |
+         schleifer | tremolo | other-ornament),
+         accidental-mark
+
+         Test cases for various tremolo options are in a separate
          unit test file
          -->
     <measure number="7">
@@ -1135,7 +1135,7 @@
         <bar-style>light-light</bar-style>
       </barline>
     </measure>
-    
+
     <!-- Dynamics, attached to notes by putting them inside <notations> tags -->
     <measure number="22">
       <note>
@@ -1187,7 +1187,7 @@
         <lyric number="1"><text>Oth.dyn.</text></lyric>
       </note>
     </measure>
-    
+
     <!-- General tests: multiple notations, directions, etc. -->
     <measure number="23">
       <note>

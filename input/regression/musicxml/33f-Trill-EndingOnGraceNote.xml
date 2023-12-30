@@ -4,8 +4,8 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A trill spanner that spans a 
-          grace note and ends on an after-grace note at the end of the 
+      <miscellaneous-field name="description">A trill spanner that spans a
+          grace note and ends on an after-grace note at the end of the
           measure.</miscellaneous-field>
     </miscellaneous>
   </identification>

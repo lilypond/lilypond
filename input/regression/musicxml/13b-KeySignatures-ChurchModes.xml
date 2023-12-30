@@ -4,9 +4,9 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">All different modes: major, 
-        minor, ionian, dorian, phrygian, lydian, mixolydian, aeolian, and 
-        locrian; All modes are given with 2 sharps.</miscellaneous-field>
+      <miscellaneous-field name="description">All different modes: major,
+          minor, ionian, dorian, phrygian, lydian, mixolydian, aeolian, and
+          locrian; All modes are given with 2 sharps.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

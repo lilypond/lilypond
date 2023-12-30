@@ -4,7 +4,7 @@
 <score-partwise version="1.1">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Tempo Markings: note=bpm, 
+      <miscellaneous-field name="description">Tempo Markings: note=bpm,
           text (note=bpm), note=note, (note=note), (note=bpm)</miscellaneous-field>
     </miscellaneous>
   </identification>
