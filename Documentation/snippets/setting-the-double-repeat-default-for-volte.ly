@@ -24,10 +24,10 @@ be set using @code{doubleRepeatBarType}.
 
 \relative c'' {
   \repeat volta 2 { c1 }
-  \set Score.doubleRepeatBarType = #":..:"
+  \set Score.doubleRepeatBarType = ":..:"
   \repeat volta 2 { c1 }
-  \set Score.doubleRepeatBarType = #":|.|:"
+  \set Score.doubleRepeatBarType = ":|.|:"
   \repeat volta 2 { c1 }
-  \set Score.doubleRepeatBarType = #":|.:"
+  \set Score.doubleRepeatBarType = ":|.:"
   \repeat volta 2 { c1 }
 }

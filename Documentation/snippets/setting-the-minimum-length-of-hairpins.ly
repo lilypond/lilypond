@@ -25,7 +25,7 @@ If hairpins are too short, they can be lengthened by modifying the
 <<
   {
     \after 4 \< \after 2 \> \after 2. \! f'1
-    \override Hairpin.minimum-length = #8
+    \override Hairpin.minimum-length = 8
     \after 4 \< \after 2 \> \after 2. \! f'1
   }
   {

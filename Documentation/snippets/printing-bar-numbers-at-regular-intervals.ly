@@ -25,7 +25,7 @@ two measures except at the end of the line.
 
 \relative c' {
   \override Score.BarNumber.break-visibility = #end-of-line-invisible
-  \set Score.currentBarNumber = #11
+  \set Score.currentBarNumber = 11
   % Print a bar number every second measure
   \set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
   c1 | c | c | c | c

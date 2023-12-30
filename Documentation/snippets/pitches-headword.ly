@@ -34,7 +34,7 @@ Piches headword
 
     % RH Voice 1
     \new Voice {
-      \set Score.currentBarNumber = #34
+      \set Score.currentBarNumber = 34
       \voiceOne
       gs''2 ( ^ \markup \italic { dolce e molto ligato }
       fs''4
@@ -72,7 +72,7 @@ Piches headword
     % RH Voice 2
     \new Voice {
       \voiceTwo
-      \override Staff.DynamicLineSpanner.staff-padding = #3
+      \override Staff.DynamicLineSpanner.staff-padding = 3
       <e'' b'>2 \p
       <ds'' a'>4
       <cs'' gs'>4
@@ -103,7 +103,7 @@ Piches headword
 
   % LH Staff
   \new Staff {
-    \override Staff.SustainPedalLineSpanner.staff-padding = #6
+    \override Staff.SustainPedalLineSpanner.staff-padding = 6
     <gs' e'>2 ( \sustainOn
     <fs' ds' b>4 \sustainOff
     <e' cs'>4

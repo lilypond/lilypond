@@ -29,7 +29,7 @@ can be omitted in property overrides.
 
 \storePredefinedDiagram #default-fret-table \chordmode { c' }
                         #guitar-tuning
-                        #"x;1-1-(;3-2;3-3;3-4;1-1-);"
+                        "x;1-1-(;3-2;3-3;3-4;1-1-);"
 
 % shorthand
 oo = #(define-music-function
@@ -43,7 +43,7 @@ oo = #(define-music-function
   }
   \new FretBoards {
     % Set global properties of fret diagram
-    \override FretBoards.FretBoard.size = #'1.2
+    \override FretBoards.FretBoard.size = 1.2
     \override FretBoard.fret-diagram-details.finger-code = #'in-dot
     \override FretBoard.fret-diagram-details.dot-color = #'white
     \chordmode {
@@ -56,7 +56,7 @@ oo = #(define-music-function
       \oo FretBoard.fret-diagram-details.barre-type #'none
       \oo FretBoard.fret-diagram-details.number-type #'arabic
       \oo FretBoard.fret-diagram-details.orientation #'landscape
-      \oo FretBoard.fret-diagram-details.mute-string #"M"
+      \oo FretBoard.fret-diagram-details.mute-string "M"
       \oo FretBoard.fret-diagram-details.label-dir #LEFT
       \oo FretBoard.fret-diagram-details.dot-color #'black
       c'

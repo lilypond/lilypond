@@ -33,7 +33,7 @@ two MIDI channels are created, each with a different
 \score {
   \new Staff <<
     \new Voice \relative c''' {
-      \set midiInstrument = #"flute"
+      \set midiInstrument = "flute"
       \voiceOne
       \key g \major
       \time 2/2
@@ -43,7 +43,7 @@ two MIDI channels are created, each with a different
       e4 d8 cis d2
     }
     \new Voice \relative c'' {
-      \set midiInstrument = #"clarinet"
+      \set midiInstrument = "clarinet"
       \voiceTwo
       b1-"Clarinet"
       a2. b8 a

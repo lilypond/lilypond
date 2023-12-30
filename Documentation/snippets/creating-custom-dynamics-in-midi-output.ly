@@ -32,7 +32,7 @@ The dynamic mark @code{\\rfz} is assigned a value of @code{0.9}.
 
 \score {
   \new Staff {
-    \set Staff.midiInstrument = #"cello"
+    \set Staff.midiInstrument = "cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
       \relative {

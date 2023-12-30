@@ -278,8 +278,8 @@ drumContents = {
     \context { \Staff \RemoveEmptyStaves }
     \context {
       \Score
-      \override BarNumber.padding = #3
-      \override RehearsalMark.padding = #2
+      \override BarNumber.padding = 3
+      \override RehearsalMark.padding = 2
       skipBars = ##t
     }
   }

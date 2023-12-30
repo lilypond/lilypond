@@ -27,7 +27,7 @@ Bar numbers can also be printed inside boxes or circles.
   \set Score.barNumberVisibility = #(every-nth-bar-number-visible 4)
 
   % Increase the size of the bar number by 2
-  \override Score.BarNumber.font-size = #2
+  \override Score.BarNumber.font-size = 2
 
   % Draw a box round the following bar number(s)
   \override Score.BarNumber.stencil

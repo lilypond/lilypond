@@ -30,7 +30,7 @@ markup.
   \new Voice = "mel" {
     \textLengthOn
     % Set global properties of fret diagram
-    \override TextScript.size = #'1.2
+    \override TextScript.size = 1.2
     \override TextScript.fret-diagram-details.finger-code = #'in-dot
     \override TextScript.fret-diagram-details.dot-color = #'white
 

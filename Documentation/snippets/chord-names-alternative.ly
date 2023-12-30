@@ -442,7 +442,7 @@ epartialJazzAlt = #(sequential-music-to-chord-exceptions epartialmusicJazzAlt #f
 
     \new ChordNames {
       \set chordNameFunction = #banter-chordnames
-      \override ChordName.font-size = #-3
+      \override ChordName.font-size = -3
       \set instrumentName = "Banter"
       \set shortInstrumentName = "Ban"
       \chs
@@ -452,7 +452,7 @@ epartialJazzAlt = #(sequential-music-to-chord-exceptions epartialmusicJazzAlt #f
   >>
   \layout {
     #(layout-set-staff-size 16)
-    system-system-spacing.basic-distance = #0
+    system-system-spacing.basic-distance = 0
     \context {
       \ChordNames
       \consists "Instrument_name_engraver"

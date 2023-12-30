@@ -24,9 +24,9 @@ independently of the dots placed after the note.
 
 \relative c' {
   c4.. a16 r2 |
-  \override Dots.dot-count = #4
+  \override Dots.dot-count = 4
   c4.. a16 r2 |
-  \override Dots.dot-count = #0
+  \override Dots.dot-count = 0
   c4.. a16 r2 |
   \revert Dots.dot-count
   c4.. a16 r2 |

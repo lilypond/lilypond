@@ -36,7 +36,7 @@ repeatGliss = #(define-music-function (grace)
     % to be visible
     \once \override Glissando.springs-and-rods
       = #ly:spanner::set-spacing-rods
-    \once \override Glissando.minimum-length = #3.5
+    \once \override Glissando.minimum-length = 3.5
     \once \hideNotes
     \grace $grace \glissando
   #})

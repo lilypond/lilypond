@@ -39,18 +39,18 @@ and the line joining them.
 
 \new Staff {
   \time 2/4
-  \override AmbitusLine.gap = #0
+  \override AmbitusLine.gap = 0
   c'4 g''
 }
 
 \new Staff {
   \time 2/4
-  \override AmbitusLine.gap = #1
+  \override AmbitusLine.gap = 1
   c'4 g''
 }
 
 \new Staff {
   \time 2/4
-  \override AmbitusLine.gap = #1.5
+  \override AmbitusLine.gap = 1.5
   c'4 g''
 }

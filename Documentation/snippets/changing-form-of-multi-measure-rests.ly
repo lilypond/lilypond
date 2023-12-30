@@ -28,7 +28,7 @@ default number of ten may be changed by overriding the
 \relative c'' {
   \compressMMRests {
     R1*2 | R1*5 | R1*9
-    \override MultiMeasureRest.expand-limit = #3
+    \override MultiMeasureRest.expand-limit = 3
     R1*2 | R1*5 | R1*9
   }
 }

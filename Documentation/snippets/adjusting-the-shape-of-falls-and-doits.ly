@@ -23,9 +23,9 @@ the shape of @emph{falls} and @emph{doits}.
 
 
 \relative c'' {
-  \override Score.SpacingSpanner.shortest-duration-space = #4.0
-  c2-\bendAfter #5
-  c2-\bendAfter #-4.75
-  c2-\bendAfter #8.5
-  c2-\bendAfter #-6
+  \override Score.SpacingSpanner.shortest-duration-space = 4.0
+  c2-\bendAfter 5
+  c2-\bendAfter -4.75
+  c2-\bendAfter 8.5
+  c2-\bendAfter -6
 }

@@ -23,6 +23,6 @@ other situations.
 
 
 \relative c'' {
-  \override Flag.stroke-style = #"grace"
+  \override Flag.stroke-style = "grace"
   c8( d2) e8( f4)
 }

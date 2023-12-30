@@ -36,7 +36,7 @@ other effects may be obtained.
 
 startAcciaccaturaMusic = {
   <>(
-  \override Flag.stroke-style = #"grace"
+  \override Flag.stroke-style = "grace"
   \slurDashed
 }
 

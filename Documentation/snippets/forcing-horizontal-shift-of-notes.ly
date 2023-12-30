@@ -30,7 +30,7 @@ are staff spaces.
   \\
   {
     <b f'>2
-    \once \override NoteColumn.force-hshift = #1.7
+    \once \override NoteColumn.force-hshift = 1.7
     <b f'>2
   }
 >>

@@ -41,11 +41,11 @@ adjustments.
   g'1 ^~ g
 
   <>^"0"
-  \once \override Tie.staff-position = #0
+  \once \override Tie.staff-position = 0
   g1 ^~ g
 
   <>^"0.0"
-  \once \override Tie.staff-position = #0.0
+  \once \override Tie.staff-position = 0.0
   g1 ^~ g
 
   <>^"reset"

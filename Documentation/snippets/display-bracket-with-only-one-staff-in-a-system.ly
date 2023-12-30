@@ -32,8 +32,8 @@ property has to be set, as shown on the second system in the example.
 \score {
   \new StaffGroup <<
     % Must be lower than the actual number of staff lines
-    \override StaffGroup.SystemStartBracket.collapse-height = #4
-    \override Score.SystemStartBar.collapse-height = #4
+    \override StaffGroup.SystemStartBracket.collapse-height = 4
+    \override Score.SystemStartBar.collapse-height = 4
     \new Staff {
       c'1
     }
@@ -41,8 +41,8 @@ property has to be set, as shown on the second system in the example.
 }
 \score {
   \new PianoStaff <<
-    \override PianoStaff.SystemStartBrace.collapse-height = #4
-    \override Score.SystemStartBar.collapse-height = #4
+    \override PianoStaff.SystemStartBrace.collapse-height = 4
+    \override Score.SystemStartBar.collapse-height = 4
     \new Staff {
       c'1
     }

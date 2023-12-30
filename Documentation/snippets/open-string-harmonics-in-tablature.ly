@@ -24,68 +24,68 @@ This snippet demonstrates open-string harmonics.
 
 openStringHarmonics = {
   \textSpannerDown
-  \override TextSpanner.staff-padding = #3
-  \override TextSpanner.dash-fraction = #0.3
-  \override TextSpanner.dash-period = #1
+  \override TextSpanner.staff-padding = 3
+  \override TextSpanner.dash-fraction = 0.3
+  \override TextSpanner.dash-period = 1
 
   %first harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "1st harm. "
-  \harmonicByFret #12 e,2\6\startTextSpan
+  \harmonicByFret 12 e,2\6\startTextSpan
   \harmonicByRatio #1/2 e,\6\stopTextSpan
 
   %second harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "2nd harm. "
-  \harmonicByFret #7 e,\6\startTextSpan
+  \harmonicByFret 7 e,\6\startTextSpan
   \harmonicByRatio #1/3 e,\6
-  \harmonicByFret #19 e,\6
+  \harmonicByFret 19 e,\6
   \harmonicByRatio #2/3 e,\6\stopTextSpan
-  %\harmonicByFret #19 < e,\6 a,\5 d\4 >
+  %\harmonicByFret 19 < e,\6 a,\5 d\4 >
   %\harmonicByRatio #2/3 < e,\6 a,\5 d\4 >
 
   %third harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "3rd harm. "
-  \harmonicByFret #5 e,\6\startTextSpan
+  \harmonicByFret 5 e,\6\startTextSpan
   \harmonicByRatio #1/4 e,\6
-  \harmonicByFret #24 e,\6
+  \harmonicByFret 24 e,\6
   \harmonicByRatio #3/4 e,\6\stopTextSpan
   \break
 
   %fourth harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "4th harm. "
-  \harmonicByFret #4 e,\6\startTextSpan
+  \harmonicByFret 4 e,\6\startTextSpan
   \harmonicByRatio #1/5 e,\6
-  \harmonicByFret #9 e,\6
+  \harmonicByFret 9 e,\6
   \harmonicByRatio #2/5 e,\6
-  \harmonicByFret #16 e,\6
+  \harmonicByFret 16 e,\6
   \harmonicByRatio #3/5 e,\6\stopTextSpan
 
   %fifth harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "5th harm. "
-  \harmonicByFret #3 e,\6\startTextSpan
+  \harmonicByFret 3 e,\6\startTextSpan
   \harmonicByRatio #1/6 e,\6\stopTextSpan
   \break
 
   %sixth harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "6th harm. "
-  \harmonicByFret #2.7 e,\6\startTextSpan
+  \harmonicByFret 2.7 e,\6\startTextSpan
   \harmonicByRatio #1/7 e,\6\stopTextSpan
 
   %seventh harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "7th harm. "
-  \harmonicByFret #2.3 e,\6\startTextSpan
+  \harmonicByFret 2.3 e,\6\startTextSpan
   \harmonicByRatio #1/8 e,\6\stopTextSpan
 
   %eighth harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "8th harm. "
-  \harmonicByFret #2 e,\6\startTextSpan
+  \harmonicByFret 2 e,\6\startTextSpan
   \harmonicByRatio #1/9 e,\6\stopTextSpan
 }
 

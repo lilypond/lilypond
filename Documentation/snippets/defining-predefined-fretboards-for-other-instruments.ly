@@ -49,19 +49,19 @@ gMajor = { <b\4 b\1 d\3 g\2> }
 
 \storePredefinedDiagram #default-fret-table \dSix
                         #cuatroTuning
-                        #"o;o;o;o;"
+                        "o;o;o;o;"
 \storePredefinedDiagram #default-fret-table \dMajor
                         #cuatroTuning
-                        #"o;o;o;3-3;"
+                        "o;o;o;3-3;"
 \storePredefinedDiagram #default-fret-table \aMajSeven
                         #cuatroTuning
-                        #"o;2-2;1-1;2-3;"
+                        "o;2-2;1-1;2-3;"
 \storePredefinedDiagram #default-fret-table \dMajSeven
                         #cuatroTuning
-                        #"o;o;o;1-1;"
+                        "o;o;o;1-1;"
 \storePredefinedDiagram #default-fret-table \gMajor
                         #cuatroTuning
-                        #"2-2;o;1-1;o;"
+                        "2-2;o;1-1;o;"
 
 % end of potential include file /predefined-cuatro-fretboards.ly
 

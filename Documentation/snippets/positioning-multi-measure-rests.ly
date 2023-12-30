@@ -31,15 +31,15 @@ The positioning of multi-measure rests can be controlled as follows:
   % Multi-measure rests by default are set under the fourth line
   R1
   % They can be moved using an override
-  \override MultiMeasureRest.staff-position = #-2
+  \override MultiMeasureRest.staff-position = -2
   R1
-  \override MultiMeasureRest.staff-position = #0
+  \override MultiMeasureRest.staff-position = 0
   R1
-  \override MultiMeasureRest.staff-position = #2
+  \override MultiMeasureRest.staff-position = 2
   R1
-  \override MultiMeasureRest.staff-position = #3
+  \override MultiMeasureRest.staff-position = 3
   R1
-  \override MultiMeasureRest.staff-position = #6
+  \override MultiMeasureRest.staff-position = 6
   R1
   \revert MultiMeasureRest.staff-position
   \break
@@ -54,7 +54,7 @@ The positioning of multi-measure rests can be controlled as follows:
   % Separating multi-measure rests in more than two voices
   % requires an override
   << { R1 } \\ { R1 } \\
-     \once \override MultiMeasureRest.staff-position = #0
+     \once \override MultiMeasureRest.staff-position = 0
      { R1 }
   >>
 

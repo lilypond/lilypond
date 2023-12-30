@@ -34,17 +34,17 @@ positioning of lyrics and ossias.
   { \skip 2
     <<
       \lyrics {
-        \set alignBelowContext = #"1"
+        \set alignBelowContext = "1"
         lyrics4 below
       }
       \new Staff \with {
-        alignAboveContext = #"3"
-        fontSize = #-2
+        alignAboveContext = "3"
+        fontSize = -2
         \override StaffSymbol.staff-space = #(magstep -2)
         \remove "Time_signature_engraver"
       } {
         \tuplet 6/4 {
-          \override TextScript.padding = #3
+          \override TextScript.padding = 3
           c8[^"ossia above" d e d e f]
         }
       }

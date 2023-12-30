@@ -26,8 +26,8 @@ right-hand fingering.
 
 \relative c {
   \clef "treble_8"
-  <c-3\5\RH #1 >4
-  <e-2\4\RH #2 >4
-  <g-0\3\RH #3 >4
-  <c-1\2\RH #4 >4
+  <c-3\5\RH 1 >4
+  <e-2\4\RH 2 >4
+  <g-0\3\RH 3 >4
+  <c-1\2\RH 4 >4
 }

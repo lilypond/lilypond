@@ -37,7 +37,7 @@ It is possible to change the slope of the Ottava spanner.
      #ly:horizontal-line-spanner::calc-left-bound-info-and-text
   \override Staff.OttavaBracket.right-bound-info =
      #ly:horizontal-line-spanner::calc-right-bound-info
-  \ottava #1
+  \ottava 1
   c1
   c'''1
 }

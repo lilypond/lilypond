@@ -82,7 +82,7 @@ ModLyr = \lyricmode { So far, dear life, dear life }
           \remove "Rest_engraver"
           \consists "Completion_rest_engraver" }
         {
-          \shiftDurations #1 #0 { \autoBeamOff \Music }
+          \shiftDurations 1 0 { \autoBeamOff \Music }
         }
       }
       \new Lyrics \lyricsto Sop \ModLyr

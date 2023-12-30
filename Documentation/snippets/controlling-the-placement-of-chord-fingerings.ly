@@ -40,5 +40,5 @@ and right-hand fingerings may be set in a similar way.
   \set stringNumberOrientations = #'(up left down)
   <f\3 a\2 c\1>1
   \set strokeFingerOrientations = #'(down right up)
-  <c\rightHandFinger #1 e\rightHandFinger #2 c'\rightHandFinger #4 >
+  <c\rightHandFinger 1 e\rightHandFinger 2 c'\rightHandFinger 4 >
 }

@@ -16,9 +16,8 @@
   texidoc = "
 Horizontal alignment for lyrics can be set by overriding the
 @code{self-alignment-X} property of the @code{LyricText} object.
-@code{#-1} is left, @code{#0} is center and @code{#1} is right;
-however, you can use @code{#LEFT}, @code{#CENTER} and @code{#RIGHT} as
-well.
+@code{-1} is left, @code{0} is center, and @code{1} is right; however,
+you can use @code{#LEFT}, @code{#CENTER} and @code{#RIGHT} as well.
 "
 
   doctitle = "Lyrics alignment"
@@ -37,6 +36,6 @@ well.
   "This is left-aligned"
   \once \override LyricText.self-alignment-X = #CENTER
   "This is centered"
-  \once \override LyricText.self-alignment-X = #1
+  \once \override LyricText.self-alignment-X = 1
   "This is right-aligned"
 }

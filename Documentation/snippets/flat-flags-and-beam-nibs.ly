@@ -48,32 +48,32 @@ carry both a left- and right-pointing flat flag. Do this with paired
   <<
     % Example 1
     \new RhythmicStaff {
-      \set stemLeftBeamCount = #0
+      \set stemLeftBeamCount = 0
       c16[]
       r8.
     }
     % Example 2
     \new RhythmicStaff {
       r8.
-      \set stemRightBeamCount = #0
+      \set stemRightBeamCount = 0
       16[]
     }
     % Example 3
     \new RhythmicStaff {
       16 16
-      \set stemRightBeamCount = #2
+      \set stemRightBeamCount = 2
       16 r r
-      \set stemLeftBeamCount = #2
+      \set stemLeftBeamCount = 2
       16 16 16
     }
     % Example 4
     \new RhythmicStaff {
       16 16
-      \set stemRightBeamCount = #2
+      \set stemRightBeamCount = 2
       16 r16
       16[]
       r16
-      \set stemLeftBeamCount = #2
+      \set stemLeftBeamCount = 2
       16 16
     }
   >>

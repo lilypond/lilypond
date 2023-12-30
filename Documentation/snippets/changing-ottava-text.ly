@@ -28,12 +28,12 @@ Short text is especially useful when a brief ottava is used.
 
 {
   c'2
-  \ottava #1
-  \set Staff.ottavation = #"8"
+  \ottava 1
+  \set Staff.ottavation = "8"
   c''2
-  \ottava #0
+  \ottava 0
   c'1
-  \ottava #1
-  \set Staff.ottavation = #"Text"
+  \ottava 1
+  \set Staff.ottavation = "Text"
   c''1
 }

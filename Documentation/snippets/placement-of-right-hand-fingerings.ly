@@ -29,14 +29,14 @@ in the following example.
   \clef "treble_8"
 
   \set strokeFingerOrientations = #'(up down)
-  <c\RH #1 e\RH #2 g\RH #3 c\RH #4 >4
+  <c\RH 1 e\RH 2 g\RH 3 c\RH 4 >4
 
   \set strokeFingerOrientations = #'(up right down)
-  <c\RH #1 e\RH #2 g\RH #3 c\RH #4 >4
+  <c\RH 1 e\RH 2 g\RH 3 c\RH 4 >4
 
   \set strokeFingerOrientations = #'(left)
-  <c\RH #1 e\RH #2 g\RH #3 c\RH #4 >2
+  <c\RH 1 e\RH 2 g\RH 3 c\RH 4 >2
 
   \set strokeFingerOrientations = #'(right)
-  c\RH #1
+  c\RH 1
 }

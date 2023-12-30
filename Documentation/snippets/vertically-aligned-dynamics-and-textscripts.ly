@@ -37,9 +37,9 @@ music = \relative c' {
 {
   \music
   \break
-  \override DynamicLineSpanner.staff-padding = #3
+  \override DynamicLineSpanner.staff-padding = 3
   \textLengthOn
-  \override TextScript.staff-padding = #1
+  \override TextScript.staff-padding = 1
   \music
 }
 

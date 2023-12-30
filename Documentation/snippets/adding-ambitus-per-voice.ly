@@ -26,7 +26,7 @@ manually to prevent collisions.
   \new Voice \with {
     \consists "Ambitus_engraver"
   } \relative c'' {
-    \override Ambitus.X-offset = #2.0
+    \override Ambitus.X-offset = 2.0
     \voiceOne
     c4 a d e
     f1
