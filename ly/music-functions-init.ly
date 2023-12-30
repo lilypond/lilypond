@@ -567,7 +567,7 @@ end-spanner commands.")
 
 eventChords =
 #(define-music-function (music) (ly:music?)
-   (_i "Compatibility function: Handle isolated rhythmic events.
+   (_i "Compatibility function: Handle isolated rhythmic events in @var{music}.
 
 Use this to wrap @code{EventChord} around isolated rhythmic events occuring
 since version 2.15.28, after expanding repeat chords @samp{q}.
@@ -1736,7 +1736,7 @@ the built-in @code{\\unset} command.")
 
 pushToTag =
 #(define-music-function (tag more music) (symbol? ly:music? ly:music?)
-   (_i "Add @var{more} to the front of music tagged with @var{tag}.
+   (_i "Add @var{more} to the front of @var{music} tagged with @var{tag}.
 
 A post-event can be added to the articulations of rhythmic events or chords;
 other expressions may be added to chords, sequential or simultaneous music.")
@@ -1890,7 +1890,7 @@ scaleDurations =
 
 sectionLabel =
 #(define-music-function (text) (markup?)
-   (_i "Mark the beginning of a named passage, e.g., @qq{Coda}.
+   (_i "Mark the beginning of a named passage with @var{text}, e.g., @qq{Coda}.
 
 This is well suited for use at a section division created with @code{\\section},
 but it does not imply @code{\\section} and may be used alone.")
