@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3123dcf12436526a8d8f4498e4f7d3661d156a57
+    Translation of GIT committish: 996d51292c9ec3cfa6075b4f3ba95871a32474c0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -54,11 +54,12 @@ which scares away people.
 
 @warning{Chaque nouvelle version de LilyPond peut comporter des
 changements de syntaxe, ce qui peut exiger de modifier les fichiers que
-vous avez écrits avec des vesrions précédentes, de telle sorte qu'ils
+vous avez écrits avec des versions précédentes, de telle sorte qu'ils
 restent fonctionnels avec les nouvelles versions. Afin de mettre à jour
 vos fichiers, il est @strong{fortement conseillé} d'utiliser
 l'utilitaire @command{convert-ly} distribué avec LilyPond et qui est
-abordé dans @rprogramnamed{Updating files with convert-ly, Mise à jour avec convert-ly}. @command{convert-ly}
+abordé dans @rprogramnamed{Updating files with convert-ly,
+Mise à jour avec convert-ly}. @command{convert-ly}
 est capable de réaliser la plupart des modifications de syntaxe
 automatiquement. Les utilisateurs de Frescobaldi peuvent lancer
 @command{convert-ly} directement à partir du menu de Frescobaldi en
@@ -85,8 +86,8 @@ Le marges sont désormais plus larges, suivant ainsi les mises en pages
 de nombreux éditeurs, et conformément aux recommandations d'Elaine
 Gould.
 
-Pour retrouver les même réglages que précédemment, notamment dans le but
-de conserver la mise en page après mise à jour d'une partitiion à la
+Pour retrouver les mêmes réglages que précédemment, notamment dans le
+but de conserver la mise en page après mise à jour d'une partition à la
 version @version{}, il suffit d'ajouter le code suivant :
 
 @example
@@ -112,8 +113,8 @@ activé par l'option @code{-dbackend-cairo} en ligne de commande. Cette
 fonctionnalité est opérationnelle pour tous les formats de sortie (PDF,
 SVG, PNG, PostScript) et apporte vitesse et amélioration du rendu SVG en
 particulier. Néanmoins, les fonctionnalités des moteurs par défaut ne
-sont pas encore toutes implémentées. Sont entre autre absent le plan des
-PDF, l'option @code{-dembed-source-code} pour le PDF et la propriété
+sont pas encore toutes implémentées. Sont entre autre absents le plan
+des PDF, l'option @code{-dembed-source-code} pour le PDF et la propriété
 @code{output-attributes} pour le SVG.
 
 @end itemize
@@ -143,7 +144,20 @@ PDF, l'option @code{-dembed-source-code} pour le PDF et la propriété
 @node Pitches improvements
 @unnumberedsec Améliorations de la représentation des hauteurs
 
-Rien pour l'instant.
+@itemize
+
+@item
+Certains faux changements de clefs ont été réglés.
+
+@lilypond[quote,verbatim]
+{
+  R1
+  \clef treble
+  R1
+}
+@end lilypond
+
+@end itemize
 
 
 @node Rhythm improvements
@@ -151,9 +165,35 @@ Rien pour l'instant.
 
 @itemize
 @item
+Il est désormais possible d'aligner par la droite différents types de
+barre de mesure.
+
+@lilypond[quote,verbatim]
+\new StaffGroup
+  <<
+    \new Staff { \textMark "default" b1 }
+    \new Staff { b1 \section }
+  >>
+
+\new StaffGroup
+  <<
+    \new Staff
+      { \textMark "right-aligned" b1 }
+    \new Staff
+      { b1 \override StaffGroup.BarLine.right-justified = ##t \section }
+  >>
+@end lilypond
+
+@item
+Désormais, les contrôles de mesure (@code{|}) créent implicitement des
+contextes. Les développeurs considèrent que cela n'aura aucun impact sur
+les partitions courantes. N'hésitez pas à signaler tout problème qui ne
+trouverait pas de solution de contournement évidente.
+
+@item
 La nouvelle option @code{span-all-note-heads} permet aux crochets de
 n-olets d'embrasser toutes les têtes de notes (pas seulement les hampes)
-comme recomandé par Gould et Ross.
+comme recommandé par Gould et Ross.
 
 @lilypond[quote]
 {
@@ -181,16 +221,54 @@ comme recomandé par Gould et Ross.
 }
 @end lilypond
 
+@item
+La subdivision des ligatures automatiques a été retravaillée. Jusqu'à
+présent, on pouvait constater de nombreuses imperfections dans la
+manière de subdiviser automatiquement des motifs de ligature complexes
+en raison de surestimations de la valeur de @code{baseMoment}. LilyPond
+est désormais capable de subdiviser correctement la plupart des motifs
+de ligature sans utiliser la valeur de @code{baseMoment} pour limiter la
+subdivision d'une ligature. La simple activation de
+@code{subdivideBeams} divise automatiquement tous les intervalles par
+défaut. Trois nouvelles propriétés ont été introduites pour permettre
+d'affiner la subdivision automatique des ligatures :
+@code{minimumBeamSubdivisionInterval},
+@code{maximumBeamSubdivisionInterval} et @code{respectIncompleteBeams}.
+@code{minimumBeamSubdivisionInterval} limite les intervalles de
+subdivision de manière identique à ce que @code{baseMoment} faisait
+auparavant (réduction de la fréquence des subdivisions de ligatures).
+@code{maximumBeamSubdivisionInterval} limite globalement le nombre de
+tronçons supprimés aux emplacements de subdivision.
+@code{respectIncompleteBeams} limite le nombre de moignons lorsque le
+temps restant ne complèterait pas la métrique de la subdivision. Régler
+@code{minimumBeamSubdivisionInterval} à la valeur de @code{baseMoment}
+dans tous les cas, y compris lorsque @code{baseMoment} varie
+implicitement, préserve le comportement antérieur.
 
 @item
-Grâce à la propriété @code{printInitialRepeatBar}, il est désormais
-possible d'afficher automatiquement une barre de reprise même
-lorsqu'elle intervient en début de pièce.
+Sont désormais disponibles des glyphes de crochets « empilés ». Tous les
+éléments d'un glyphe de crochet ont la même largeur, mais sont
+verticalement plus compacts.
 
-@lilypond[quote]
-\fixed c'' {
-  \set Score.printInitialRepeatBar = ##t
-  \repeat volta 2 { c2 f }
+Ces glyphes sont accessibles à l'aide de @code{\flagStyleStacked} ; un
+@code{\flagStyleDefault} permet de retrouver le style de crochet
+standard.
+
+@lilypond[quote,indent=0\cm,ragged-right,staffsize=26]
+Music = {
+  d'8*1/128 d'16*1/64 d'32*1/32 d'64*1/16
+    d'128*1/8 d'256*1/4 d'512*1/2 d'1024 s1024
+  g''8*1/128 g''16*1/64 g''32*1/32 g''64*1/16
+    g''128*1/8 g''256*1/4 g''512*1/2 g''1024 }
+
+{
+  \omit Staff.BarNumber
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+  \autoBeamOff
+
+  <>^"stacked" \flagStyleStacked \Music \break
+  <>^"default" \flagStyleDefault \Music
 }
 @end lilypond
 
@@ -203,9 +281,9 @@ lorsqu'elle intervient en début de pièce.
 @itemize
 @item
 Sont désormais disponibles deux variantes du signe de respiration :
-@q{laltcomma} et @q{raltcomma}. Ces glyphes représent respectivement les
-anciens galbes de « lcomma » et « rcomma » avant leur changement pour un
-galbe plus courant.
+@code{laltcomma} et @code{raltcomma}. Ces glyphes représentent
+respectivement les anciens galbes de « lcomma » et « rcomma » avant leur
+changement pour un galbe plus courant.
 
 @lilypond[quote,verbatim]
 {
@@ -221,7 +299,34 @@ galbe plus courant.
 @node Repeat improvements
 @unnumberedsec Améliorations en matière de reprises
 
-Rien pour l'instant.
+@itemize
+@item
+Les fins alternatives d'un @code{\repeat volta} ne créent plus de barre
+de mesure invisible. Ceci peut affecter le saut de ligne, l'espacement
+horizontal et l'extension d'un @code{VoltaBracket} lorsqu'une
+alternative débute ou se termine en l'absence de barre de mesure. Dans
+le cas d'un changement non désiré, il est possible d'ajouter un
+@code{\bar ""} ou toute autre commande créant un objet @code{BarLine}
+précisément à ce point.
+
+@item
+Grâce à la propriété @code{printInitialRepeatBar}, il est désormais
+possible d'afficher automatiquement une barre de reprise même
+lorsqu'elle intervient en début de pièce.
+
+@lilypond[quote]
+\fixed c'' {
+  \set Score.printInitialRepeatBar = ##t
+  \repeat volta 2 { c2 f }
+}
+@end lilypond
+
+@item
+Le positionnement du numéro de @emph{volta} relativement au crochet de
+reprise peut désormais s'ajuster à l'aide de la propriété
+@code{volta-number-offset} du @code{VoltaBracket}.
+
+@end itemize
 
 
 @node Editorial annotation improvements
@@ -239,6 +344,25 @@ horizontalement par défaut.
 @unnumberedsec Améliorations en matière de fontes et de mise en forme du texte
 
 @itemize
+@item
+La nouvelle commande de @emph{markup} @code{\bar-line} permet d'imprimer
+une barre de mesure dans du texte.
+
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(word-space . 2)
+    \line {
+      Examples
+      \fontsize #-5 \translate-scaled #'(0 . 2) {
+        \bar-line ":|."
+        \bar-line ".|:"
+        \bar-line ";!S!;"
+        \bar-line "]{|}["
+      }
+    }
+}
+@end lilypond
+
 @item
 La syntaxe permettant de modifier les fontes musicales et textuelles a
 changé. Au lieu de
@@ -279,10 +403,10 @@ la syntaxe consacrée est dorénavant
 @quotation
 @verbatim
 \paper {
-  fonts.music = "Nom de la fonte musicale"
-  fonts.serif = "Nom de la fonte à empattements"
-  fonts.sans = "Nom de la fonte sans empattement"
-  fonts.typewriter = "Nom de la fonte monospace"
+  property-defaults.fonts.music = "Nom de la fonte musicale"
+  property-defaults.fonts.serif = "Nom de la fonte à empattements"
+  property-defaults.fonts.sans = "Nom de la fonte sans empattement"
+  property-defaults.fonts.typewriter = "Nom de la fonte monospace"
 }
 @end verbatim
 @end quotation
@@ -299,14 +423,10 @@ alors être disponible) :
 
 @quotation
 @verbatim
-\paper {
-  fonts.music-alt = "lilyjazz"
-}
-
 \layout {
   \context {
     \Score
-    \override SystemStartBrace.font-family = #'music-alt
+    \override SystemStartBrace.font.music = "lilyjazz"
   }
 }
 
@@ -315,9 +435,26 @@ alors être disponible) :
   \new Staff { c' }
 >>
 
-\markup \override #'(font-family . music-alt) \left-brace #20
+\markup \override #'(fonts . ((music . "lilyjazz"))) \left-brace #20
 @end verbatim
 @end quotation
+
+Dans la mesure où @code{fonts} est une simple propriété, il est possible
+de lui apporter dérogation sur la base d'un objet graphique, comme par
+exemple
+
+@quotation
+@verbatim
+\layout {
+  \override Score.SectionLabel.fonts.roman = "Custom font"
+}
+@end verbatim
+@end quotation
+Ceci s'avère préférable à l'utilisation de la propriété
+@code{font-name}, cette dernière rendant ineffectives les commandes
+telles que @code{\bold} et requérant d'inclure « Bold » dans la chaîne
+de @code{font-name}. L'utilisation de @code{fonts} ne provoque pas de
+tels effets.
 
 
 @item
@@ -333,7 +470,7 @@ typiquement pour une indication de nuance -- et qu'un glyphe en était
 absent, celui-ci était rendu dans une fonte textuelle normale. Ceci
 n'est plus le cas, et un avertissement est alors émis quant au glyphe
 manquant. Afin d'utiliser une fonte textuelle, il faut utiliser l'une
-des commande de @emph{markup} @code{\serif}, @code{\sans} et
+des commande de @emph{markup} @code{\serif}, @code{\sans} ou
 @code{\typewriter}, comme ici par exemple.
 
 @lilypond[verbatim,quote]
@@ -358,9 +495,97 @@ Les petites capitales s'obtiennent désormais en réglant
 rend possible l'utilisation conjointe de petites capitales et de
 l'italique.
 
-@lilypond[quote]
-\markup \fontCaps \italic "Small caps in italics"
+
+@item
+La propriété @code{font-series} est désormais plus flexible et accepte
+des valeurs telles que @code{semibold} et @code{light} en plus des seules
+@code{normal} et @code{bold}.
+
+La valeur @code{medium} est désormais une valeur intermédiaire entre
+@code{normal} et @code{bold} plutôt qu'un équivalent de @code{normal}.
+Par conséquent, la commande de @emph{markup} @code{\medium} a été
+renommée en @code{\normal-weight}.
+
+
+@item
+La nouvelle propriété @code{font-stretch} permet de sélectionner une
+fonte resserrée ou expansée.
+
+
+@item
+Le texte d'un objet @code{VoltaBracket} tel que défini par un
+@code{\override Score.VoltaBracket.text = @dots{}} ou @code{\set
+Score.repeatCommands =  @dots{}} n'est plus automatiquement rendu dans
+une fonte musicale ; il faut pour cela utiliser la commande de
+@emph{markup} @code{\volta-number} sur les parties qui le nécessitent.
+Il faudra donc, par exemple, convertir
+
+@quotation
+@verbatim
+\set Score.repeatCommands = #'((volta "2, 5"))
+@end verbatim
+@end quotation
+
+@noindent
+en
+
+@quotation
+@verbatim
+\set Score.repeatCommands =
+  #`((volta ,#{ \markup {
+                  \concat { \volta-number 2 , }
+                  \volta-number 5 }
+            #}))
+@end verbatim
+@end quotation
+
+
+@item
+Dans un @emph{markup}, les doigtés (@code{\markup \finger}) et
+chiffrages d'accord (@code{\markup \figured-bass}) sont désormais
+adaptés à la taille du texte normal en présence d'un @code{\fontsize}.
+
+@lilypond[quote,verbatim]
+myText = \markup {
+  The fingering \finger { 5-4 } for a \figured-bass { 7 "6\\" } …
+}
+
+\myText
+\markup\fontsize #6 \myText
 @end lilypond
+
+Le comportement antérieur peut être retrouvé en activant les variables
+globales @code{legacy-figured-bass-markup-fontsize} et
+@code{legacy-finger-markup-fontsize}, soit :
+
+@lilypond[quote,verbatim]
+#(set! legacy-figured-bass-markup-fontsize #t)
+#(set! legacy-finger-markup-fontsize #t)
+
+myText = \markup {
+  The fingering \finger { 4-5 } for a \figured-bass { 5+ 6 } …
+}
+
+\myText
+\markup\fontsize #6 \myText
+@end lilypond
+
+
+@item
+Pour plus de clarté, la commande de @emph{markup} @code{\roman} a été
+renommée en @code{\serif}. Aussi, pour modifier une propriété
+@code{font-family} réglée à @code{sans} ou @code{typewriter}, il faut
+faut la définir à @code{serif}, non plus à @code{roman}.
+
+
+@item
+La commande de @emph{markup} @code{\text} a été supprimée. Doivent être
+utilisées en remplacement les commandes @code{\serif}, @code{\sans} ou
+@code{\typewriter}. Si ces commandes permettaient de définir le style de
+fonte @emph{uniquement lorsqu'une fonte textuelle était utilisée} (non
+une fonte musicale comme pour les nuances), elles déterminent désormais
+@emph{à la fois} le style de fonte et l'utilisation d'une fonte
+textuelle.
 
 @end itemize
 
@@ -385,13 +610,97 @@ l'italique.
 @node Chord notation improvements
 @unnumberedsec Améliorations pour la notation des accords
 
-
+@end ignore
 
 @node Ancient notation improvements
 @unnumberedsec Améliorations pour les notations anciennes
 
+@itemize
+@item
+Pour plus de cohérence avec les clefs anciennes, cinq nouvelles clefs
+mensurales sont disponibles : @code{"mensural-f2"},
+@code{"mensural-f3"}, @code{"mensural-f4"} (identique à
+@code{"mensural-f"}), @code{"mensural-f5"}, @code{"mensural-g1"} et
+@code{"mensural-g2"} (identique à @code{"mensural-g"}).
 
 
+@item
+La métrique et le style d'altération à l'armure d'un contexte
+@code{PetrucciStaff} sont désormais identiques à ceux d'un
+@code{MensuralStaff}.
+
+
+@item
+Les ligatures mensurales blanches prennent désormais en charge quelques
+cas rares (semi-brève isolée ou non), et autorisent des affinages
+permettant d'indiquer quelque hampe non nécessaire.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative {
+    \set Score.timing = ##f
+    \set Score.measureBarType = #'()
+    \override NoteHead.style = #'petrucci
+    \override Staff.TimeSignature.style = #'mensural
+    \clef "petrucci-c4"
+    \[ a1 g f e \]
+    \[ a1 g\longa \]
+    \[ \once \override NoteHead.left-down-stem = ##t
+       a\breve b
+       \once \override NoteHead.right-down-stem = ##t
+       g\longa \]
+    \[ \once \override NoteHead.right-down-stem = ##t
+       b\maxima
+       \once \override NoteHead.right-up-stem = ##t
+       g\longa \]
+  }
+  \layout {
+    \context {
+      \Voice
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
+    }
+  }
+}
+@end lilypond
+
+
+@item
+L'utilisation de @file{gregorian.ly} est désuète. Bien que toujours
+fonctionnelle pour raison de compatibilté ascendante, elle devrait être
+remplacée par l'utilisation d'un contexte @code{VaticanaScore}, avec si
+besoin des adaptations manuelles dans le bloc @code{\layout}. Un code
+tel que
+
+@quotation
+@verbatim
+\include "gregorian.ly"
+
+\score {
+  \new VaticanaStaff { ... }
+}
+@end verbatim
+@end quotation
+
+@noindent
+devrait devenir
+
+@quotation
+@verbatim
+\new VaticanaScore {
+  \new VaticanaStaff { ... }
+}
+
+\layout {
+  indent = 0
+  ragged-last = ##t
+}
+@end verbatim
+@end quotation
+
+@end itemize
+
+@ignore
 @subsubheading Améliorations pour les musiques du monde
 
 @end ignore
@@ -414,6 +723,158 @@ La nouvelle commande de @emph{markup} @code{\qr-code} permet d'insérer
 un QR-code de la taille spécifiée pour l'URL correspondante. Ceci peut
 servir à fournir un lien vers le site du compositeur ou de l'éditeur, ou
 bien vers les sources LilyPond ou des enregistrements, etc.
+
+@lilypond[verbatim,quote]
+\markup \qr-code #10 "https://lilypond.org"
+@end lilypond
+
+@item
+Ont été ajoutés à la fonte Emmentaler les glyphes figure-dash (U+2012)
+et en-dash (U+2013) (quart de catradin).
+
+@item
+Une espace pour nombres (U+2007), une espace fine (U+2009) et une espace
+ultrafine (U+200A) ont été ajoutées à la fonte Emmentaler.
+
+@item
+L'option @code{-dinclude-settings} peut désormais apparaître à
+plusieurs reprises, afin de pouvoir inclure différentes feuilles de
+style.
+
+@item
+Dans l'utilisation conjointe de @LaTeX{} et @command{lilypond-book}, les
+images au fil du texte sont désormais décalées verticalement. Ce
+décalage peut se contrôler en ligne de commande à l'aide de l'option
+@option{--inline-vshift} et, localement, en ajoutant @code{inline} en
+argument aux options de l'extrait.
+
+@item
+Deux nouvelles options en ligne de commande font leur apparition :
+@option{-dfirst} and @option{-dlast}. Elles sont équivalents aux
+réglages respectifs de @code{showFirstLength} et @code{showLastLength}
+dans un fichier LilyPond. Par exemple, taper
+
+@example
+lilypond -dlast=R1*5 ...
+@end example
+
+@noindent
+aura pour résultat que LilyPond génèrera seulement les cinq dernières
+mesure (partant du principe d'une métrique à 4/4).
+
+@item
+Est désormais disponible un nouveau manuel constituant un index de tous
+les objets graphiques (@emph{grobs}) de LilyPond. Il est basé sur le
+@uref{https://github.com/joram-berger/visualindex,
+travail de Joram Berger pour LilyPond 2.19}.
+
+@item
+L'impression des arpeggios a été améliorée de par l'utilisation de
+nouvelles valeurs par défaut différentes pour la propriété
+@code{Arpeggio@/.positions}. Les ajustements à cette propriété sont
+susceptibles d'évoluer.
+
+@item
+LilyPond prend en charge les annotations au fil du texte, autrement dit
+des sortes de notes de bas de page entre les systèmes. Bien que ce ne
+soit pas nouveau, puisque disponible depuis la version 2.15.17 publiée
+en 2011, cette possibilité n'était pas si stable et manquait de
+documentation jusqu'à présent.
+
+@item
+Le script @command{lilysong} a été supprimé. En dehors du fait qu'il ne
+disposait d'aucune documentation, il n'était plus maintenu depuis fort
+longtemps. De plus, il reposait sur un programme externe de synthèse
+vocale -- @command{festival} -- laissé à l'abandon.
+
+@item
+Deux nouveaux styles sont disponibles pour la propriété d'objet
+graphique @code{space-alist} : @code{shrink-space} et
+@code{semi-shrink-space}. Ils contractent les espaces au lieu de les
+étendre. Ils sont aussi directement utilisés par LilyPond afin
+d'améliorer le formatage des portées resserrées.
+
+@item
+Le binaire @command{lilypond} dispose d'une nouvelle option en ligne de
+commande, @option{-dstaff-size}, pour régler la taille globale des
+portées. Elle est équivalente à la présence d'un
+@code{set-global-staff-size} dans un fichier LilyPond.
+
+@item
+En remplacement des fonctions @code{\bookOutputName} et
+@code{\bookOutputSuffix}, nous recommandons dorénavant l'utilisation des
+variables de papier @code{output-filename} et @code{output-suffix}. Bien
+que les premières restent pleinement fonctionnelles, ces dernières sont
+plus cohérentes et facilement compréhensibles, notamment si elles sont
+combinées avec des variables de papier prédéfinies.
+
+@item
+La propriété @code{Stem.details.lengths} accepte maintenant des paires
+en tant qu'éléments de liste. Ceci permet de définir séparément les
+longueurs de hampe ascendante ou descendante.
+
+@item
+La fonction @code{ly:self-alignment-interface::aligned-on-x-parent}
+-- utilisée par de nombreux objets graphiques pour calculer leur
+x-offset -- écoute désormais la nouvelle propriété
+@code{X-alignment-extent} de @code{PaperColumn}. Activée par défaut,
+elle fournit une largeur de secours au @emph{grob} @code{PaperColumn}
+dans le cas où il ne contiendrait pas de tête de note. Ceci permet
+d'aider à l'alignement des scripts de nuance attachés à des silences
+invisibles, entre autres.
+
+@lilypond[quote,verbatim]
+music =
+  \new Staff <<
+    { f'2 g'2 }
+    { s4\f s\f s\f s\f }
+  >>
+
+\score {
+  \music
+}
+
+\score {
+  \music
+
+  \layout {
+    \context {
+      \Score
+      \override PaperColumn.X-alignment-extent = ##f
+    }
+  }
+}
+@end lilypond
+
+@item
+Les objets @code{BassFigureContinuation} prennent désormais en charge la
+@code{horizontal-line-spanner-interface}. La propriété @code{padding} a
+été remplacée par des sous-propriétés correspondantes dans
+@code{bound-details}.
+
+@item
+La commande de @emph{markup} @code{\align-on-other} accepte désormais la
+valeur @code{#f} pour l'alignement, indiquant le point de référence d'un
+@emph{markup}.
+
+@item
+Une nouvelle fonction @code{\withRelativeDir} est désormais disponible
+pour les commandes de @emph{markup} qui incluent des fichiers lorsque
+ces fichiers devraient se trouver relativement au fichier source. Par
+exemple :
+
+@example
+\markup @{ \image #X #3 \withRelativeDir "test.png" @}
+@end example
+
+@item
+Le positionnement des crochets horizontaux d'analyse a été amélioré.
+En particulier, l'objet @code{HorizontalBracket} a désormais une valeur
+de @code{outside-staff-priority} fixée à 800. Par conséquent, il se
+pourrait que des crochets imbriqués voient leur positionement modifié.
+Ceci peut se corriger en ajustant les valeurs de
+@code{outside-staff-priority} par un @code{\tweak}, tout en sachant que
+le crochet externe doit garder une valeur de priorité supérieure.
 
 
 @end itemize
