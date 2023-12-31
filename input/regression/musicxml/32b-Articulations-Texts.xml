@@ -22,7 +22,7 @@
       </attributes>
       <direction placement="above">
         <direction-type>
-          <words default-x="-1" default-y="15" font-size="medium" font-weight="normal">
+          <words default-x="0" default-y="15" font-size="medium" font-weight="normal">
             Normal, Medium
           </words>
         </direction-type>
@@ -31,12 +31,12 @@
         <pitch><step>F</step><octave>4</octave></pitch>
         <duration>384</duration>
         <voice>1</voice>
-        <type>eighth</type>
+        <type>whole</type>
       </note>
       <direction placement="below">
         <direction-type>
-          <words default-x="1" default-y="15" justify="left" font-size="medium" font-weight="bold">
-            Bold, Medium
+          <words default-x="50" default-y="-100" justify="left" font-size="medium" font-weight="bold">
+            Bold, Medium, Below
           </words>
         </direction-type>
       </direction>
@@ -44,7 +44,7 @@
     <measure number="2">
       <direction placement="above">
         <direction-type>
-          <words default-x="1" default-y="15" font-size="large" font-weight="normal">
+          <words default-x="50" default-y="35" font-size="large" font-weight="normal">
             Normal, Large
           </words>
         </direction-type>
@@ -57,8 +57,8 @@
       </note>
       <direction placement="below">
         <direction-type>
-          <words default-x="1" default-y="15" font-size="large" font-weight="bold">
-            Bold, Large
+          <words default-x="0" default-y="-120" font-size="large" font-weight="bold">
+            Bold, Large, Below
           </words>
         </direction-type>
       </direction>
@@ -66,7 +66,7 @@
     <measure number="3">
       <direction placement="above">
         <direction-type>
-          <words default-x="1" default-y="15" font-size="small" font-weight="normal">
+          <words default-x="0" default-y="55" font-size="small" font-weight="normal">
             Normal, Small
           </words>
         </direction-type>
@@ -79,14 +79,14 @@
       </note>
       <direction placement="below">
         <direction-type>
-          <words default-x="1" default-y="15" font-size="small" font-weight="bold">
-            Bold, Small
+          <words default-x="50" default-y="-140" font-size="small" font-weight="bold">
+            Bold, Small, Below
           </words>
         </direction-type>
       </direction>
       <direction placement="below">
         <direction-type>
-          <words default-x="1" default-y="-15" font-size="small" color="#FF8000">
+          <words default-x="100" default-y="-160" font-size="small" color="#FF8000">
             Normal, Small, Colored, Below
           </words>
         </direction-type>
