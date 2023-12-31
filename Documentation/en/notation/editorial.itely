@@ -976,15 +976,14 @@ above can be used to work around this issue.
 
 @funindex \parenthesize
 
-Objects may be parenthesized by prefixing @code{\parenthesize} to
-the music event.  When prefixed to a chord, it parenthesizes every
-note.  Individual notes inside a chord may also be parenthesized.
+Objects may be parenthesized by prefixing the music event with
+@code{\parenthesize}.
 
 @lilypond[verbatim,quote]
 \relative {
   c''2 \parenthesize d
-  c2 \parenthesize <c e g>
-  c2 <c \parenthesize e g>
+  c2 \tweak Parentheses.font-size 2 \parenthesize <c e g>
+  c2 <c e \parenthesize g>
 }
 @end lilypond
 
@@ -998,16 +997,7 @@ a hyphen is needed before the @code{\parenthesize} command.
 }
 @end lilypond
 
-When @code{\parenthesize} applies to a chord, all of its notes
-are enclosed in the parentheses.
-
-@lilypond[verbatim,quote]
-\relative c' {
-  \parenthesize <e f>
-}
-@end lilypond
-
-To parenthesize only certain notes in a chord, use a parallel music
+To parenthesize a group of notes in a chord, use a parallel music
 construct @code{<< @dots{} >>}.
 
 @lilypond[verbatim,quote]
