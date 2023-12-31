@@ -820,7 +820,7 @@ def musicxml_time_to_lily(attributes):
     time_elm = attributes.get_maybe_exist_named_child('time')
     symbol = getattr(time_elm, 'symbol', None)
     if symbol is not None:
-        change.style = {'single-number': "'single-digit",
+        change.style = {'single-number': "'single-number",
                         'cut': None,
                         'common': None,
                         'normal': "'()"}.get(symbol, "'()")

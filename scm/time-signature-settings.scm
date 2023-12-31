@@ -419,7 +419,7 @@ make a numbered time signature instead."
 
 (add-simple-time-signature-style 'numbered
                                  make-compound-meter-markup)
-(add-simple-time-signature-style 'single-digit
+(add-simple-time-signature-style 'single-number
                                  (lambda (fraction)
                                    (make-compound-meter-markup
                                     (car fraction))))

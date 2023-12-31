@@ -11205,8 +11205,8 @@ msgid "Revert to default style:"
 msgstr "Retorna a l'estil predeterminat:"
 
 #. Documentation/snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly:70 (comment)
-msgid "single-digit style only for the next time signature"
-msgstr "l'estil d'un sol dígit sols per a la propera indicació de temps"
+msgid "single-number style only for the next time signature"
+msgstr "l'estil d'un sol número sols per a la propera indicació de temps"
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:40 (comment)
 msgid "make the staff lines invisible on staves"

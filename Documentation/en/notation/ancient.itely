@@ -571,8 +571,8 @@ differences in style:
   \override Staff.TimeSignature.style = #'neomensural
   \time 2/2 s1*3
 
-  \textMark \markup \typewriter single-digit
-  \override Staff.TimeSignature.style = #'single-digit
+  \textMark \markup \typewriter single-number
+  \override Staff.TimeSignature.style = #'single-number
   \time 2/2 s1
 }
 

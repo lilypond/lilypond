@@ -11016,7 +11016,7 @@ msgid "Revert to default style:"
 msgstr ""
 
 #. Documentation/snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly:69 (comment)
-msgid "single-digit style only for the next time signature"
+msgid "single-number style only for the next time signature"
 msgstr ""
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:39 (comment)

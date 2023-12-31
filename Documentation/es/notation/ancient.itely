@@ -585,9 +585,9 @@ las diferencias que existen entre los estilos:
   \override Staff.TimeSignature.style = #'neomensural
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter neomensural }
-  \override Staff.TimeSignature.style = #'single-digit
+  \override Staff.TimeSignature.style = #'single-number
   \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter single-digit }
+  c1^\markup { \hspace #-2.0 \typewriter single-number }
 }
 @end lilypond
 

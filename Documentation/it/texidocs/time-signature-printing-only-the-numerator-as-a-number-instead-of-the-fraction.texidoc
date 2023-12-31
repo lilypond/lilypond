@@ -2,10 +2,10 @@
   texidocit = "
 Talvolta un'indicazione di tempo non deve mostrare la frazione intera (ad esempio
 7/4), ma solo il numeratore (numero@tie{}7 in questo caso). Si può ottenere
-facilmente con @code{\\override Staff.TimeSignature.style = #'single-digit},
+facilmente con @code{\\override Staff.TimeSignature.style = #'single-number},
 che cambia lo stile in modo permanente. Con @code{\\revert
 Staff.TimeSignature.style}, questa impostazione può essere annullata. Per
-applicare lo stile a cifra singola (@code{single-digit}) a una sola indicazione
+applicare lo stile a cifra singola (@code{single-number}) a una sola indicazione
 di tempo, si usa il comando @code{\\override} preceduto da @code{\\once}.
 
 "

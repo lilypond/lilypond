@@ -381,6 +381,10 @@ Music = {
 }
 @end lilypond
 
+@item
+The @code{TimeSignature} style @code{'single-digit} has been
+renamed to @code{'single-number}.
+
 
 @end itemize
 
