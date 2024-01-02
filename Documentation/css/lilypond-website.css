@@ -37,9 +37,11 @@ p {
 
 h1 {
   display: none;
+  clear: both;
 }
 h2, h3, h4, h5 {
   margin: 1em 10px;
+  clear: both;
 }
 
 dt {
