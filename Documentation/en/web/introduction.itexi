@@ -1335,6 +1335,9 @@ server + multi-client system.
 @subsubheading Hacklily
 @uref{https://www.hacklily.org/}
 
+@imageClickable{screenshot-hacklily-small,png,
+  (click to enlarge),screenshot-hacklily,png,right}
+
 An online sheet-music editor and publishing tool powered by LilyPond,
 with additional features such as autocompletion and contextual help.
 The underlying web hosting code is available under the AGPL license,
@@ -1342,6 +1345,9 @@ on its own @uref{https://github.com/hacklily/hacklily,development page}.
 
 @subsubheading www.omet.ca
 @uref{http://www.omet.ca/}
+
+@imageClickable{screenshot-omet-small,png,
+  (click to enlarge),screenshot-omet,png,right}
 
 Since 2010, Online Music Editing Tools (OMET) offers a ready-to-use
 LilyPond service with a specifically-tailored web interface.

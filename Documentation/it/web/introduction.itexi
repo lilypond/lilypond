@@ -1305,6 +1305,9 @@ quando elaborato da lì.
 @subsubheading Hacklily
 @uref{https://www.hacklily.org/}
 
+@imageClickable{screenshot-hacklily-small,png,
+  (clicca per ingrandire),screenshot-hacklily,png,right}
+
 Un editor online di spartiti musicali e strumento editoriale basato
 su LilyPond, con funzionalità particolari come l'autocompletamento e
 l'aiuto contestuale.  Il codice sottostante per il web hosting,
@@ -1313,6 +1316,9 @@ rilasciato con licenza AGPL, è disponibile alla sua
 
 @subsubheading www.omet.ca
 @uref{http://www.omet.ca/}
+
+@imageClickable{screenshot-omet-small,png,
+  (clicca per ingrandire),screenshot-omet,png,right}
 
 Dal 2010, Online Music Editing Tools (OMET) offre un servizio LilyPond
 pronto all'uso con un'interfaccia web adattabile.  La registrazione è

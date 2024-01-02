@@ -1408,7 +1408,7 @@ la vue graphique et toute erreur de syntaxe dans votre code sera mise en
 @subsubheading Spontini-Editor
 
 @imageClickable{screenshot-spontini-small,png,
-  (click to enlarge),screenshot-spontini,png,right}
+  (cliquez pour agrandir),screenshot-spontini,png,right}
 
 @sourceimage{logo-linux,,}
 @sourceimage{logo-macosx,,}
@@ -1450,6 +1450,9 @@ client-serveur.
 @subsubheading Hacklily
 @uref{https://www.hacklily.org/}
 
+@imageClickable{screenshot-hacklily-small,png,
+  (cliquez pour agrandir),screenshot-hacklily,png,right}
+
 Hacklily est un éditeur de partition en ligne et un outil de publication
 reposant sur LilyPond qui dispose de fonctionnalités supplémentaires
 telles que l'autocomplétion ou l'aide contextuelle. Le code sous-jascent
@@ -1458,6 +1461,9 @@ propre @uref{https://github.com/hacklily/hacklily,page de développement}.
 
 @subsubheading www.omet.ca
 @uref{http://www.omet.ca/}
+
+@imageClickable{screenshot-omet-small,png,
+  (click to enlarge),screenshot-omet,png,right}
 
 Online Music Editing Tools (OMET) offre, depuis 2010, un service
 LilyPond prêt à l'emploi grâce à une interface spécifique. Bien qu'il

@@ -1402,6 +1402,9 @@ la licencia MIT; puede verse en su
 @subsubheading Hacklily
 @uref{https://www.hacklily.org/}
 
+@imageClickable{screenshot-hacklily-small,png,
+  (pulse para ver una imagen más grande),screenshot-hacklily,png,right}
+
 Un editor de partituras online y herramienta de publicación movida
 internamente por LilyPond, con funcionalidades adicionales tales
 como el autocompletado y la ayuda contextual.  El código del
@@ -1411,6 +1414,9 @@ desarrollo}.
 
 @subsubheading www.omet.ca
 @uref{http://www.omet.ca/}
+
+@imageClickable{screenshot-omet-small,png,
+  (pulse para ver una imagen más grande),screenshot-omet,png,right}
 
 Desde 2010, las Online Music Editing Tools (OMET) ofrecen un
 servicio de LilyPond listo para usar con una interfaz web

@@ -1339,6 +1339,9 @@ Textansicht markiert, wenn man von dort aus druckt.
 @subsubheading Hacklily
 @uref{https://www.hacklily.org/}
 
+@imageClickable{screenshot-hacklily-small,png,
+  (Klick zum Vergrößern),screenshot-hacklily,png,right}
+
 Ein Onlineeditor und Werkzeug zur Veröffentlichung von Musiknoten angetrieben
 von LilyPond, mit zusätzlichen Features wie Autovervollständigung und
 kontextbasierter Hilfe. Der zugrundeliegende Code ist verfügbar unter der
@@ -1346,6 +1349,9 @@ AGPL, auf seiner eigenen @uref{https://github.com/hacklily/hacklily,Entwicklungs
 
 @subsubheading www.omet.ca
 @uref{http://www.omet.ca/}
+
+@imageClickable{screenshot-omet-small,png,
+  (Klick zum Vergrößern),screenshot-omet,png,right}
 
 Seit 2010 bietet Online Music Editing Tools (OMET) einen fertigen
 LilyPond-Service mit einem eigens ausgelegten Webinterface.
