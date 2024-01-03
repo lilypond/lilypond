@@ -71,7 +71,7 @@ Performance::output (Midi_stream &midi_stream,
   const auto num_tracks = static_cast<uint16_t> (audio_staffs_.size ());
 
   midi_stream.write (Midi_header (1, num_tracks, 384));
-  debug_output (_ ("Track...") + " ", false);
+  debug_output (_ ("Track..."), false);
 
   for (uint16_t i = 0; i < num_tracks; ++i)
     {
@@ -90,7 +90,7 @@ Performance::output (Midi_stream &midi_stream,
           assert (text->type_ == Audio_text::TRACK_NAME);
           assert (text->text_string_ == "control track");
           if (!performance_name.empty ())
-            text->text_string_ = performance_name;
+            text->text_string_ = s->track_name_ = performance_name;
           else
             {
               // This is an efficiency misdemeanor, but the control
@@ -99,9 +99,12 @@ Performance::output (Midi_stream &midi_stream,
             }
         }
       debug_output ("[" + std::to_string (i), true);
+      if (!s->track_name_.empty ())
+        debug_output (" " + s->track_name_, false);
       s->output (midi_stream, i, ports_, start_mom_);
       debug_output ("]", false);
     }
+  debug_output ("", true);
 }
 
 void
@@ -122,7 +125,7 @@ Performance::write_output (std::string out,
   out = file_name.to_string ();
 
   Midi_stream midi_stream (out);
-  message (_f ("MIDI output to `%s'...", out));
+  message (_f ("MIDI output to `%s'...\n", out));
 
   output (midi_stream, performance_name);
 

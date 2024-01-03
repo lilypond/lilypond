@@ -38,6 +38,7 @@ public:
   Moment end_mom_;
   bool percussion_;
   bool merge_unisons_;
+  std::string track_name_; // for tracing
   std::vector<Audio_item *> audio_items_;
 };
 

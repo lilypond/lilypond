@@ -146,14 +146,15 @@ Staff_performer::new_audio_staff (const std::string &voice)
   Audio_staff *audio_staff = new Audio_staff;
   audio_staff->merge_unisons_
     = from_scm<bool> (get_property (this, "midiMergeUnisons"));
-  std::string track_name = context ()->id_string () + ":" + voice;
-  if (track_name != ":")
+  audio_staff->track_name_ = context ()->id_string () + ":" + voice;
+  if (audio_staff->track_name_ != ":")
     {
-      name_ = new Audio_text (Audio_text::TRACK_NAME,
-                              context ()->id_string () + ":" + voice);
+      name_ = new Audio_text (Audio_text::TRACK_NAME, audio_staff->track_name_);
       audio_staff->add_audio_item (name_);
       announce_element (Audio_element_info (name_, 0));
     }
+  else
+    audio_staff->track_name_ = "";
   announce_element (Audio_element_info (audio_staff, 0));
   staff_map_[voice] = audio_staff;
   if (!instrument_string_.empty ())

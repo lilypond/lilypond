@@ -82,11 +82,13 @@ Control_track_performer::initialize ()
   std::string id_string
     = String_convert::pad_to ("LilyPond " + version_string (), 30);
 
+  control_track_->track_name_ = "control track";
+
   // The first audio element in the control track is a placeholder for the
   // name of the MIDI sequence.  The actual name is stored in the element
   // later before outputting the track (in Performance::output, see
   // performance.cc).
-  add_text (Audio_text::TRACK_NAME, "control track");
+  add_text (Audio_text::TRACK_NAME, control_track_->track_name_);
   add_text (Audio_text::TEXT, "creator: ");
   add_text (Audio_text::TEXT, id_string);
 }
