@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 996d51292c9ec3cfa6075b4f3ba95871a32474c0
+    Translation of GIT committish: bed9927b86580f2871a2dfdcfa47f8c40b0b4aec
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -117,6 +117,136 @@ sont pas encore toutes implémentées. Sont entre autre absents le plan
 des PDF, l'option @code{-dembed-source-code} pour le PDF et la propriété
 @code{output-attributes} pour le SVG.
 
+@item
+Les distances entre la clef et la métrique ainsi qu'entre la clef et
+l'armure sont désormais calculées différemment. Par voie de conséquence,
+on obtient un meilleur espacement pour des clefs imposantes, comme
+@code{\clef "GG"}, ou très fines comme @code{\clef "petrucci-c3"}.
+
+L'image suivante illustre les modifications apportées aux
+positionnements. Le pourcentage indique la différence d'espacement entre
+la clef et la métrique, et entre la clef et l'armure.
+
+@lilypond[quote]
+diff =
+#(define-music-function (percent) (string?)
+  #{
+     \once \override Score.TextMark.break-align-symbols = #'(clef)
+     \textMark \markup {
+                 \smaller \smaller { #percent \hspace #-0.5 "%" } }
+  #})
+
+musicA = {
+  \override Score.Clef.space-alist.time-signature =
+              #'(minimum-space . 4.2)
+  \time 2/2 c'2
+}
+musicB = {
+  \time 2/2 c'2
+}
+
+musicC = {
+  \omit Staff.TimeSignature
+  \override Staff.Clef.space-alist.key-cancellation =
+              #'(minimum-space . 3.5)
+  \override Staff.Clef.space-alist.key-signature =
+              #'(minimum-space . 3.5)
+  \key c \minor c'2
+}
+musicD = {
+  \omit Staff.TimeSignature
+  \key c \minor c'2
+}
+
+\markup \line {
+  \override #'(baseline-skip . 10) \column {
+    "clef + time sig"
+    \vspace #-2.5
+    "old"
+    \vspace #-1
+    \score { { \clef "treble" \musicA } }
+    \score { { \clef "alto" \musicA } }
+    \score { { \clef "bass" \musicA } }
+    \score { { \clef "GG" \musicA } }
+    \score { { \clef "varC" \musicA } }
+    \score { \new PetrucciStaff {
+               \clef "petrucci-c3" \musicA } }
+  }
+
+  \hspace #3
+
+  \override #'(baseline-skip . 10) \column {
+    "clef + time sig"
+    \vspace #-2.5
+    "new"
+    \vspace #-1
+    \score { { \clef "treble" \diff "-1.6" \musicB } }
+    \score { { \clef "alto" \diff "+0.5" \musicB } }
+    \score { { \clef "bass" \diff "0" \musicB } }
+    \score { { \clef "GG" \diff "+17.9" \musicB } }
+    \score { { \clef "varC" \diff "-5.6" \musicB } }
+    \score { \new PetrucciStaff {
+               \clef "petrucci-c3" \diff "-21.8" \musicB } }
+  }
+
+  \hspace #4
+
+  \override #'(baseline-skip . 10) \column {
+    "clef + key sig"
+    \vspace #-2.5
+    "old"
+    \vspace #-1
+    \score { { \clef "treble" \musicC } }
+    \score { { \clef "alto" \musicC } }
+    \score { { \clef "bass" \musicC } }
+    \score { { \clef "GG" \musicC } }
+    \score { { \clef "varC" \musicC } }
+    \score { \new PetrucciStaff {
+               \clef "petrucci-c3" \musicC } }
+  }
+
+  \hspace #4
+
+  \override #'(baseline-skip . 10) \column {
+    "clef + key sig"
+    \vspace #-2.5
+    "new"
+    \vspace #-1
+    \score { { \clef "treble" \diff "-1.5" \musicD } }
+    \score { { \clef "alto" \diff "+0.5" \musicD } }
+    \score { { \clef "bass" \diff "0" \musicD } }
+    \score { { \clef "GG" \diff "+9.3" \musicD } }
+    \score { { \clef "varC" \diff "-5.2" \musicD } }
+    \score { \new PetrucciStaff {
+               \clef "petrucci-c3" \diff "-23.5" \musicD } }
+  }
+}
+
+\paper {
+  indent = 0
+}
+@end lilypond
+
+Note that, as before, the widest clef in a staff group determines
+the horizontal position of all clefs in a system; this means, for
+example, that a piano score containing a treble and an alto clef
+doesn't change at all.
+
+If you want to restore the previous default values for whatever
+reason, add
+
+@example
+\override Staff.Clef.space-alist.time-signature =
+            #'(minimum-space . 3.5)
+\override Staff.Clef.space-alist.key-cancellation =
+            #'(minimum-space . 3.5)
+\override Staff.Clef.space-alist.key-signature =
+            #'(minimum-space . 4.2)
+@end example
+
+@noindent
+to your score.
+
 @end itemize
 
 
@@ -180,7 +310,9 @@ barre de mesure.
     \new Staff
       { \textMark "right-aligned" b1 }
     \new Staff
-      { b1 \override StaffGroup.BarLine.right-justified = ##t \section }
+      { b1
+        \override StaffGroup.BarLine.right-justified = ##t
+        \section }
   >>
 @end lilypond
 
@@ -272,6 +404,10 @@ Music = {
 }
 @end lilypond
 
+@item
+Le style de @code{TimeSignature} @code{'single-digit} a été renommé en
+@code{'single-number}.
+
 @end itemize
 
 
@@ -279,6 +415,19 @@ Music = {
 @unnumberedsec Améliorations en matière d'expressivité
 
 @itemize
+
+@item
+Les soufflets de style Ferneyhough acceptent désormais un cercle
+@emph{al niente}.
+
+@lilypond[quote,verbatim]
+{
+  \override Hairpin.circled-tip = ##t
+  \override Hairpin.stencil = #flared-hairpin
+  b1\< b\> b\> b2 b\< b2 b\!
+}
+@end lilypond
+
 @item
 Sont désormais disponibles deux variantes du signe de respiration :
 @code{laltcomma} et @code{raltcomma}. Ces glyphes représentent
@@ -876,6 +1025,36 @@ Ceci peut se corriger en ajustant les valeurs de
 @code{outside-staff-priority} par un @code{\tweak}, tout en sachant que
 le crochet externe doit garder une valeur de priorité supérieure.
 
+@item
+La nouvelle fonction Scheme @code{to-staff-space} permet de convertir
+des dimensions absolues (exprimées en diverses unités) en unités
+d'espace de portée. Par exemple :
+
+@example
+top-markup-spacing.basic-distance = #(to-staff-space 2 'cm)
+
+% l'unité par défaut est le point (pt)
+\markup
+  \override #`(baseline-skip . ,(to-staff-space 20))
+  \column @{
+    foo
+    bar
+  @}
+@end example
+
+@item
+Les deux nouvelles fonctions de @emph{markup} @code{\abs-hspace} et
+@code{\abs-vspace} permettent de déterminer des dimensions absolues
+qui subsistent quelle que soit la taille de portée en cours.
+
+@item
+Les donnes émises par l'option en ligne de commande
+@option{-dshow-available-fonts} sont désormais envoyées sur la sortie
+standard.
+
+@item
+La fonction @code{ly:font-config-display-fonts} accepte désormais un
+argument optionnel pour sélectionner le port de sortie.
 
 @end itemize
 
