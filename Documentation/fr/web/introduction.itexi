@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: ecd4ff25e8bee6643e9200eefb86f0ed23bda72f
+   Translation of GIT committish: a639edf751682ef4a5a9988b708fcdde3c3dd386
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -97,14 +97,14 @@ pourront se concentrer sur leur @emph{jeu} plutôt que sur du
 @c donc inutile de traduire la colonne de droite du menu suivant. -JM
 @c Mais elle apparaît dans Emacs "M-x ewww-open-file" - JCM
 @menu
-* Features::            Ce dont LilyPond est capable.
-* Examples::                   Quelques exemples concrets.
-* Freedom::                    De la liberté et de la GPL.
-* Background::                   L'esthétique assistée par ordinateur.
-* Productions::                Cas concrets d'utilisation de LilyPond.
-* Reviews::                Ce que se dit de LilyPond.
-* Text input:: C'est du texte, pas de la musique !
-* Easier editing::        Différentes méthodes de travail avec LilyPond.
+* Features::           Ce dont LilyPond est capable.
+* Examples::           Quelques exemples concrets.
+* Freedom::            De la liberté et de la GPL.
+* Background::         L'esthétique assistée par ordinateur.
+* Productions::        Cas concrets d'utilisation de LilyPond.
+* Reviews::            Ce que se dit de LilyPond.
+* Text input::         C'est du texte, pas de la musique !
+* Easier editing::     Différentes méthodes de travail avec LilyPond.
 @end menu
 
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 996d51292c9ec3cfa6075b4f3ba95871a32474c0
+   Translation of GIT committish: a639edf751682ef4a5a9988b708fcdde3c3dd386
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -198,19 +198,19 @@ ces manuels sont publiés sous la licence GNU de documentation libre FDL.
 
 
 @menu
-* Learning::          Premiers pas
-* Glossary::           Glossaire musicologique multilingue
-* Essay::               Pourquoi LilyPond
-* Notation::            Référence en matière de notation
-* Usage::         Les différentes composantes de LilyPond
-* Snippets::    Exemples de code, trucs et astuces
-* FAQ::                 Foire aux questions
-* Web::                 Le site de LilyPond
-* Changes::          Ce qui change au fil des versions
-* Extending::           Programmation au sein de LilyPond
+* Learning::  Premiers pas
+* Glossary::  Glossaire musicologique multilingue
+* Essay::     Pourquoi LilyPond
+* Notation::  Référence en matière de notation
+* Usage::     Les différentes composantes de LilyPond
+* Snippets::  Exemples de code, trucs et astuces
+* FAQ::       Foire aux questions
+* Web::       Le site de LilyPond
+* Changes::   Ce qui change au fil des versions
+* Extending:: Programmation au sein de LilyPond
 * Internals:: Références du programme
-* All::                Tous les manuels
-* FDL::                 Licence.
+* All::       Tous les manuels
+* FDL::       Licence.
 @end menu
 
 

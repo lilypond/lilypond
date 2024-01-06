@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+    Translation of GIT committish: a639edf751682ef4a5a9988b708fcdde3c3dd386
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@ consacrer leur temps à des travaux plus ardus.
 Pour un projet aux multiples facettes tel que LilyPond, il n'est parfois
 pas évident de savoir sous quel angle l'aborder.  En plus des pistes
 ci-dessous proposées, n'hésitez pas à envoyer un courriel sur la liste
-@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel, lilypond-devel@@gnu.org}
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel, @code{lilypond-devel@@gnu.org}}
 afin d'obtenir de l'aide.
 
 @end macro
@@ -42,9 +42,9 @@ La liste de diffusion : répondre aux questions des autres utilisateurs.
 Ceci peut consister à les aider dans leur navigation dans la
 documentation en ligne ; il peut s'avérer approprié en tel cas de les
 diriger sur une URL agnostique en matière de version, telles que
-@uref{https://lilypond.org/doc/latest/Documentation/notation/, @code{/latest/}}
+@uref{https://lilypond.org/doc/latest/Documentation/notation/, @samp{/latest/}}
 ou
-@uref{https://lilypond.org/doc/stable/Documentation/notation/, @code{/stable/}},
+@uref{https://lilypond.org/doc/stable/Documentation/notation/, @samp{/stable/}},
 qui font l'objet d'une redirection automatique.
 
 
