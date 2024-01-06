@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+    Translation of GIT committish: 7d3a21cd7b0c4d44a12991f49482e9fef6a62d09
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,14 +15,14 @@
 @c Translation checkers:
 
 
-@c Note: keep this node named so that `info lilypond-book' brings you here.
+@c Note: keep this node named so that `info lilypond-book` brings you here.
 @node lilypond-book
 @chapter Association musique-texte avec @command{lilypond-book}
 
 Vous pouvez inclure des partitions dans un document tout comme vous
-feriez pour n'importe quelle image.  Ces images sont générées séparément
--- que ce soit sous forme de description PostScript ou au format PNG --
-puis incluses dans votre document @LaTeX{} ou HTML.
+feriez pour n'importe quelle image. Ces images sont générées séparément
+-- que ce soit sous forme de description PostScript ou au format PDF ou
+PNG -- puis incluses dans votre document @LaTeX{} ou HTML.
 
 @command{lilypond-book} permet d'automatiser ces opérations : le
 programme extrait de votre document les fragments de musique, les
@@ -55,6 +55,7 @@ et DocBook.
 * Music fragment options::
 * Invoking lilypond-book::
 * Filename extensions::
+* Parallel execution::
 * lilypond-book templates::
 * Sharing the table of contents::
 * Alternate methods of mixing text and music::
@@ -69,8 +70,8 @@ et DocBook.
 Un certain nombre d'ouvrages peuvent être illustrés par des extraits
 musicaux, qu'il s'agisse d'un traité de musicologie, d'un carnet de
 chant ou d'un manuel à l'exemple de celui que vous consultez
-actuellement.  Cet agencement peut se faire « à la main » par
-importation d'un graphique PostScript dans le traitement de texte.  Les
+actuellement. Cet agencement peut se faire « à la main » par importation
+d'un graphique PostScript ou PDF dans le traitement de texte. Les
 développeurs de LilyPond ont cependant créé un outil permettant
 d'automatiser ces opérations pour ce qui concerne les documents HTML,
 @LaTeX{}, Texinfo et DocBook.
@@ -331,6 +332,19 @@ de conséquence, déterminer la longueur des portées.  Notez bien que cet
 algorithme heuristique n'est pas infaillible ; vous devrez alors
 recourir à l'option @code{line-width}.
 
+@warning{Assurez-vous que votre préambule compile effectivement sans
+erreur, au risque d'empêcher la déctetion de longueur de ligne. Ceci
+peut se tester en traitant votre document avec @LaTeX{}, sur un bloc
+@code{\begin@{document@} ... \end@{document@}} vide.
+
+Si vous utilisez un format à l'italienne, assurez-vous d'ajouter le
+mot-clé @code{landscape} à la liste des options de la macro
+@code{\documentclass}.@footnote{Ceci est nécessaire dans la mesure
+où @command{lilypond-book} ajoute @code{\usepackage@{graphics@}} au
+préambule si aucun des paquetages @code{graphics} ou @code{graphicx} ne
+sont chargés, ce qui pourrait modifier de manière surprenante les
+dimensions du papier pour certaines classes de document.}}
+
 @cindex titrage et lilypond-book
 @cindex \header et document @LaTeX{}
 
@@ -415,7 +429,7 @@ besoin :
 Étant donné que @code{\endinput} arrête immédiatement le traitement du
 fichier source en cours, l'insertion du @code{\expandafter} permet de
 repousser ce @code{\endinput} après le @code{\fi} ; la clause
-@w{@code{\if...}-@code{\fi}} sera alors respectée.
+@w{@code{\if... \fi}} sera alors respectée.
 
 Gardez à l'esprit que @code{\betweenLilyPondSystem} est effectif jusqu'à
 la fin du groupe en cours -- tel que l'environnement @LaTeX{} -- ou
@@ -716,16 +730,18 @@ adaptations.
 @node Music fragment options
 @section Options applicables aux fragments de musique
 
-Dans les lignes qui suivent, l'appellation « commande LilyPond » fait
-référence à toutes celles vues plus haut et qui font appel à
-@command{lilypond-book} pour produire un extrait musical.  Pour plus de
-simplicité, nous ne parlerons que de la syntaxe applicable à @LaTeX{}.
+Dans les lignes qui suivent, l'appellation « commande
+@command{lilypond-book} » fait référence à toutes celles vues plus haut
+et qui font appel à @command{lilypond-book} pour produire un extrait
+musical. Pour plus de simplicité, nous ne parlerons que de la syntaxe
+applicable à Texinfo (autrement dit, débutant par un @samp{@@}) afin
+qu'elles soient aisément distinguables des commandes LilyPond.
 
 Nous attirons votre attention sur le fait que les différentes options
 sont lues de la gauche vers la droite.  Si une option est transmise
 plusieurs fois, seule la dernière sera prise en compte.
 
-Les commandes LilyPond acceptent les options suivantes :
+Les commandes @command{lilypond-book} acceptent les options suivantes :
 
 @table @code
 @item staffsize=@var{hauteur}
@@ -754,25 +770,31 @@ Détermine la longueur de ligne à @var{taille}, exprimée en @var{unité}.
 LilyPond -- la longueur de la portée -- et en aucun cas la mise en forme
 du texte.
 
-En l'absence d'argument, la longueur de ligne sera définie à une valeur
-par défaut telle que calculée par un algorithme heuristique.
+En l'absence d'argument ou lorsque l'option @code{line-width} n'est pas
+utilisée, @command{lilypond-book} tentera de déterminer une longueur de
+ligne par défaut pour les cas où les environnements @code{lilypond} ne
+font pas appel à @option{ragged-right}.
 
-Lorsque l'option @code{line-width} n'est pas utilisée,
-@command{lilypond-book} tentera de déterminer des valeurs par défaut
-pour les cas où les environnements @code{lilypond} ne font pas appel à
-@option{ragged-right}.
+Voir aussi l'option @option{papersize}.
 
 @item papersize=@var{chaîne}
 Détermine le format du papier à @var{chaîne} (par exemple @code{a5} ou
 @code{letter}) pour les fragments utilisant @code{\book}. Voir
-@rnotationnamed{Predefined paper sizes, Formats de papier prédéfinis} pour une liste des différentes
-tailles disponibles.
+@rnotationnamed{Predefined paper sizes, Formats de papier prédéfinis}
+pour une liste des différentes tailles disponibles.
 
 Cette option affecte le résultat de LilyPond -- les dimensions de la
 feuille contenant le fragment musical -- et en aucaun cas le texte. Une
 valeur non reconnue de @var{chaîne} sera rejetée. @code{lilypond-book}
 émettra un message d'avertissement et l'extrait utilisera le format par
-défaut, à savoir @code{a4}.
+défaut, à savoir la taille de papier du documents pour @LaTeX{} et
+Texinfo, et A4 pour le HTML et le DocBook.
+
+Si l'option @option{papersize} est présente mais pas @option{line-width}
+(plus exactement une option @option{line-width} sans argument), LilyPond
+utilise sa propre estimation de la longueur de ligne par défaut de par
+l'extrait, ignorant aussi l'option @option{quote} --
+@command{lilypond-book} émettra toutefois un bloc de citation.
 
 @item paper-width=@var{taille}\@var{unité}
 Définit la largeur du papier à @var{taille} (exprimée en @var{unité})
@@ -797,8 +819,9 @@ Cette option affecte le résultat de LilyPond -- les dimensions de la
 feuille contenant le fragement musical -- et en aucun cas le texte.
 Cette option, lorsqu'elle est présente, a préséance sur l'option
 @option{papersize}. En l'absence d'option @option{paper-width}, la
-largeur de la feuille est déterminée à sa valeur par défaut de A4
-(210@dmn{mm}).
+largeur de la feuille est déterminée à celle du document pour @LaTeX{}
+et Texinfo, et à la valeur par défaut de A4 (210@dmn{mm}) pour HTML et
+DocBook.
 
 Exemple :
 @example
@@ -829,11 +852,19 @@ N'ajoute rien à ce qui se trouve dans l'environnement LilyPond. À noter
 qu'il s'agit de l'option par défaut.
 
 @item inline
+@itemx inline=@var{vshift}
 Traite l'extrait pour une utilisation en ligne, autrement dit au fil du
 texte d'un paragraphe. L'extrait en lui-même est formaté avec un léger
 décalage à gauche (à peu près équivalent à celui sur la droite) tout en
 ignorant la valeur donnée à l'option en ligne de commande
 @option{--left-padding}.
+
+En ce qui concerne @LaTeX{}, l'image au fil du texte est décalée
+verticalement. @var{vshift} est un ratio de la hauteur de l'image. En
+l'absence d'argument est utilisée la valeur par défaut de -0.3,
+descendant ainsi l'image d'environ un tiers de sa hauteur. Cette valeur
+par défaut peut s'ajuster à l'aide de l'option en ligne de commande
+@option{--inline-vshift}.
 
 Dans le cas d'une sortie Texinfo, ceci supprime l'insertion d'une ligne
 vide avant et après l'extrait. Dans le cas d'une sortie HTML, ceci
@@ -842,7 +873,7 @@ supprime l'insertion des @code{<p>} et @code{</p>} encadrant l'extrait.
 Afin que l'extrait apparaisse réellement au fil du texte dans les
 modes @LaTeX{} et Texinfo, il est nécessaire de le positionner au sein
 même du paragraphe, autrement dit éviter toute ligne vide avant et après
-l'extrait. Par exemple,
+l'extrait. Par exemple, ce code @LaTeX{}
 
 @example
 Le motif
@@ -885,6 +916,8 @@ citation.  La valeur « 0,4 pouce » est contrôlée par l'option
 Détermine la valeur de l'indentation qui sera utilisée par l'option
 @option{quote}.
 
+Voir aussi l'option @option{papersize}.
+
 @item relative
 @itemx relative=@var{n}
 Utilise le mode d'octave relative.  Les notes sont donc par défaut
@@ -904,10 +937,10 @@ quelques options particulières.
 
 @table @code
 @item verbatim
-L'argument de la commande LilyPond est recopié textuellement dans le
-fichier généré, avant l'image de la partition.  Cependant, cette option
-n'est pas pleinement opérationnelle lorsqu'un @code{\lilypond@{@}} se
-trouve au milieu d'un paragraphe.
+L'argument de la commande @code{lilypond-book} est recopié textuellement
+dans le fichier généré, avant l'image de la partition. Cependant, cette
+option n'est pas pleinement opérationnelle lorsqu'un
+@code{@@lilypond@{@}} se trouve au milieu d'un paragraphe.
 
 L'utilisation conjointe d'un @option{verbatim} et de la commande
 @code{lilypondfile} permet de n'inclure textuellement qu'une seule
@@ -942,14 +975,15 @@ messages -- fichiers d'extension @code{.mo} -- du domaine
 @code{lilypond-doc}.
 
 @item texidoc
-Option disponible uniquement avec Texinfo.@*
+Option disponible uniquement avec Texinfo, et pour
+@code{@@lilypondfile}.@*
 Dès lors qu'un fichier @file{toto.ly} contient dans sa section
 @code{\header} un champ @code{texidoc}, l'appel de @command{lilypond}
 avec l'option @option{--header=@/texidoc} créera le fichier
-@file{toto.texidoc}.  Par ailleurs, c'est le contenu de ce
-@file{toto.texidoc} qui sera ensuite recopié par
-@command{lilypond-book} en préambule de l'extrait de partition -- soit
-avant l'environnement @code{example} créé par un @code{quote}.
+@file{toto.texidoc}. C'est l'option @code{texidoc} de
+@command{lilypond-book} qui aura pour effet de reproduire le contenu de
+ce @file{toto.texidoc} en préambule de l'extrait de partition -- soit
+avant l'environnement @code{example} créé par l'option @code{quote}.
 
 Prenons par exemple le fichier @file{toto.ly} dont le contenu est
 
@@ -971,32 +1005,37 @@ et quelque part dans notre document Texinfo @file{test.texinfo}
 La ligne de commande suivante produira le résultat escompté.
 
 @example
-lilypond-book --pdf --process="lilypond \
-  --header=texidoc" test.texinfo
+lilypond-book --pdf \
+              --process="lilypond --header=texidoc" \
+              test.texinfo
 @end example
 
-La plupart des fichiers de test contenus dans le répertoire @file{input}
-de la distribution est constituée de la sorte.
+Tous les extraits inclus dans la documentations de LilyPond (voir le
+répertoire @file{Documentation/@/snippets} de la distribution) sont des
+fichiers @file{.ly} contenant de tels champs @code{texidoc} dans leur
+bloc @code{\header}.
 
 Cette option est fort utile dans le cadre de l'adaptation en langue
-étrangère.  En effet, s'il est spécifié dans le document Texinfo une
-clause @code{@@documentlanguage @var{LANGUE}}, la présence d'une
-variable @code{texidoc@var{LANGUE}} dans l'entête du fichier
+étrangère. En effet, s'il est spécifié dans le document Texinfo une
+clause @code{@@documentlanguage @var{XX}}, la présence d'une variable
+@code{texidoc@var{XX}} dans le bloc @code{\header} du fichier
 @file{toto.ly} entraînera la reproduction -- par l'appel
-@code{lilypond} @option{--header=@/texidoc@var{LANGUE}} -- du
-contenu de @file{toto.texidoc@var{LANGUE}} en lieu et place de celui de
-@file{toto.texidoc}.
+@code{lilypond} @option{--header=@/texidoc@var{XX}} -- du contenu de
+@file{toto.texidoc@var{XX}} en lieu et place de celui de
+@file{toto.texidoc}. @var{XX} est en réalité une chaîne de deux
+caractères telle que « de » pour l'allemand ou « ca » pour le catalan.
 
 @item doctitle
-Option disponible uniquement avec Texinfo.@*
+Option disponible uniquement avec Texinfo, et seulement pour
+@code{@@lilypondfile}.@*
 Cette option fonctionne selon le même principe que l'option
-@code{texidoc} : lorsqu'un fichier @file{toto.ly} contient dans
-son @code{\header} une variable @code{doctitle} et que @code{lilypond}
-est appelé avec l'option @code{doctitle}, le contenu de cette variable
--- une simple ligne de @var{texte} -- sera recopié dans un fichier
-@file{toto.doctitle} puis inséré dans le document Texinfo sous la
-forme @code{@@lydoctitle @var{texte}}.  @code{@@lydoctitle} doit
-faire l'objet d'une macro, définie dans le document Texinfo.
+@code{texidoc} : lorsqu'un fichier @file{toto.ly} contient dans son
+@code{\header} une variable @code{doctitle} et que @code{lilypond} est
+appelé avec l'option @code{doctitle}, le contenu de cette variable --
+une simple ligne de @var{texte} -- sera recopié dans un fichier
+@file{toto.doctitle} puis inséré dans le document Texinfo sous la forme
+@code{@@lydoctitle @var{texte}}. @code{@@lydoctitle} doit faire l'objet
+d'une macro, définie dans le document Texinfo.
 
 Il en va de l'option @code{doctitle} comme de l'option @code{texidoc} en
 matière d'adaptation en langue étrangère.
@@ -1008,10 +1047,10 @@ textuelle du code.
 
 @item printfilename
 Lorsqu'un fichier source LilyPond est inclus à l'aide de
-@code{\lilypondfile}, le nom du fichier sera reproduit juste au dessus
-de l'extrait.  Si le résultat est un fichier HTML, il s'agira alors d'un
-lien.  Seul le nom du fichier est imprimé ; autrement dit, le
-chemin d'accès au fichier est tronqué.
+@code{lilypondfile}, le nom du fichier sera reproduit juste au dessus de
+l'extrait. Si le résultat est un fichier HTML, il s'agira alors d'un
+lien. Seul le nom du fichier est imprimé ; autrement dit, le chemin
+d'accès au fichier est tronqué.
 
 @end table
 
@@ -1030,18 +1069,19 @@ nécessitent un traitement complémentaire.
 @subsubheading @LaTeX{}
 
 Un document @LaTeX{} destiné à l'impression ou à la publication peut se
-traiter de deux manières différentes :  générer directement un PDF
-à l'aide de PDF@LaTeX{}, ou bien générer un fichier avec @LaTeX{}
-qui sera ensuite passé à un traducteur DVI-PostScript comme
-@command{dvips}.  La première façon est de loin la plus simple et c'est
-celle que nous vous recommandons@footnote{Sachant que vous ne disposez
-pas forcément de PDF@LaTeX{} et @LaTeX{} pour compiler un document
-@LaTeX{}, nous vous présentons les deux méthodes.} ; quelque soit
-votre préférence, sachez que vous pouvez aller du PostScript au PDF avec
-des outils tels que @command{ps2pdf} et @command{pdf2ps} -- tous deux
-inclus dans la distribution de Ghostscript.
+traiter de deux manières différentes : générer directement un PDF à
+l'aide de pdf@LaTeX{} (Xe@LaTeX{}, lua@LaTeX{}), ou bien générer un
+fichier PostScript avec @LaTeX{} qui sera ensuite passé à un traducteur
+DVI-PostScript comme @command{dvips}. La première façon est de loin la
+plus simple et c'est celle que nous vous recommandons@footnote{Sachant
+que vous ne disposez pas forcément de pdf@LaTeX{} et @LaTeX{} pour
+compiler un document @LaTeX{}, nous vous présentons les deux
+méthodes.} ; quelque soit votre préférence, sachez que vous pouvez aller
+du PostScript au PDF avec des outils tels que @command{ps2pdf} et
+@command{pdf2ps} -- tous deux inclus dans la distribution de
+Ghostscript.
 
-La production d'un PDF avec PDF@LaTeX{} se fait en lançant les commandes
+La production d'un PDF avec pdf@LaTeX{} se fait en lançant les commandes
 
 @example
 lilypond-book --pdf monfichier.lytex
@@ -1079,15 +1119,15 @@ Les environnements tels que
 @end example
 
 @noindent
-ne sont pas interprétés par @LaTeX{}.  En fait, @code{lilypond-book}
+ne sont pas interprétés par @LaTeX{}. En fait, @code{lilypond-book}
 extrait ces « environnements » dans des fichiers accessoires et les
-traite par LilyPond.  Il récupère ensuite les graphiques résultants et
+traite par LilyPond. Il récupère ensuite les graphiques résultants et
 crée un fichier @file{.tex} dans lequel les macros
-@code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} sont alors
-remplacées par des commandes « d'inclusion de graphique ».  C'est
-seulement à ce moment là que @LaTeX{} est lancé -- bien que @LaTeX{}
-aura préalablement tourné, cela aura été en fait sur un document
-« vide » et pour calculer certains éléments comme @code{\linewidth}.
+@code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} sont remplacées
+par des commandes « d'inclusion de graphique ». C'est seulement à ce
+moment là que @LaTeX{} est lancé -- bien que @LaTeX{} aura préalablement
+tourné, cela aura été en fait sur un document « vide » et pour calculer
+les dimensions du papier et la longueur de ligne pour l'extrait LilyPon.
 
 @knownissues
 La commande @code{\pageBreak} est inopérante dans un environnement
@@ -1178,7 +1218,7 @@ pas activée, c'est le niveau déterminé par la variable d'environnement
 @itemx --output=@var{répertoire}
 Regroupe les fichiers générés dans @var{répertoire}.
 @command{lilypond-book} crée un certain nombre de fichiers à l'usage de
-LilyPond.  Afin d'éviter de polluer votre répertoire source, nous vous
+LilyPond. Afin d'éviter de polluer votre répertoire source, nous vous
 conseillons d'utiliser l'option @option{--output}, puis de vous rendre
 dans ce répertoire pour y lancer les commandes @command{latex} ou
 @command{texi2any}.
@@ -1219,6 +1259,14 @@ c'est le niveau déterminé par la variable d'environnement
 Formate la sortie Texinfo de telle sorte que Info cherche les images
 de musique dans @var{répertoire}.
 
+@item --inline-vshift=@var{vshift}
+En ce qui concerne le traitement par @LaTeX{}, utiliser @var{vshift}
+aura pour effet de déplacer verticalement toutes les images au fil du
+texte. @var{vshift} est un ratio de la hauteur de l'image ; sa valeur
+par défaut est de -0.3, ce qui descendra donc les images d'environ un
+tiers de leur hauteur respective. Ce facteur peut s'adapter localement
+en fournissant un argument à l'option @code{inline} de l'extrait.
+
 @item --latex-program=@var{programme}
 Utilise l'exécutable @command{@var{programme}} en lieu et place de
 @command{latex}.  C'est l'option que vous utiliserez si vous préférez
@@ -1226,10 +1274,8 @@ Utilise l'exécutable @command{@var{programme}} en lieu et place de
 
 @item --left-padding=@var{distance}
 Insère du blanc à gauche de l'extrait LilyPond. @var{distance} est
-arrondie à une valeur entière en @dfn{big point} (bp) -- le bp correspond à
-1/72 pouce, soit environ 0,353 @dmn{mm}. @var{distance} est exprimée en
-millimètres @emph{relativement au début de la portée}. Sa valeur est par
-défaut de 3,175 @dmn{mm}, ce qui correpond à 9 @dmn{bp}.
+exprimée en millimètres @emph{relativement au début de la portée}. Sa
+valeur est par défaut de 3,0@dmn{mm}.
 
 Rappelez-vous que la largeur d'un système dépend des élément positionnés
 à sa gauche, tels que numéro de mesure et noms d'instrument. Le décalage
@@ -1239,6 +1285,14 @@ correct des extraits dans le document maître.
 
 Cette option permet de « raccourcir » les lignes de portée et de les
 décaler vers la droite, de la distance donnée en argument.
+
+Notez bien que @var{distance}, lorsqu'utilsée pour décaler, est arrondie
+à une valeur entière en @dfn{big point} (bp), unité pour les sorties
+PostScript et PDF -- le bp correspond à 1/72 pouce, soit environ
+0,353 @dmn{mm}. Ce n'est toutefois pas LilyPond qui raccourcira la
+longueur de la portée. Il se pourrait donc, si @var{distance} ne
+correspondait pas à un entier multiple de bp, que la longueur de portée
+paraisse modifiée.
 
 @item -P @var{commande}
 @itemx --process=@var{commande}
@@ -1296,8 +1350,9 @@ extension hors du commun vous obligera à spécifier le format de sortie,
 alors que @code{lilpond-book} est en mesure de déterminer le format de
 sortie en fonction de l'extension du fichier source.
 
-@quotation
-@multitable @columnfractions .2 .5
+@need 800
+@indentedblock
+@multitable {@strong{extension}} {@strong{format résultant}}
 @item @strong{extension} @tab @strong{format résultant}
 @item
 @item @file{.html} @tab HTML
@@ -1312,7 +1367,7 @@ sortie en fonction de l'extension du fichier source.
 @item @file{.texinfo} @tab Texinfo
 @item @file{.xml} @tab HTML
 @end multitable
-@end quotation
+@end indentedblock
 
 Lorsque le fichier source a la même extension que celle que
 @code{lilypond-book} affectera au fichier résultant et que vous
@@ -1320,6 +1375,36 @@ lancez @code{lilypond-book} à partir du répertoire le contenant, vous
 verrez assurément un message du type « La sortie va écraser le fichier
 d'entrée ».  Aussi ne saurions-nous trop vous conseiller d'utiliser
 l'option @option{--output}.
+
+
+@node Parallel execution
+@section Exécution parallèle
+
+Le script @command{lilypond-book} ne peut s'utiliser pour des
+traitements parallèles lorsque le répertoire de sortie est identique. Si
+vous le tentez, l'utiliation d'un fichier verrou forcera l'exécution
+séquentielle (dans un ordre arbitraire) des processus
+@command{lilypond-book}.
+
+En d'autres termes, lorsque l'on veut traiter à la fois les documents
+@file{foo.lytex} et @file{bar.lytex} (via l'utilitaire @command{make}
+par exemple), il faut soit qu'il se situent dans des répertoires
+différents -- disons @file{foo/foo.lytex} et @file{bar/bar.lytex} --,
+soit utiliser l'option de la ligne de commande @option{--output} avec des
+valeurs différentes.
+
+Notez que LilyPond peut, de son côté, traiter plusieurs fichiers sources
+en parallèle. Dans la mesure où @command{lilypond-book} passe en une
+fois la liste des extraits du document à @command{lilypond}, il est
+possible d'avoir une exécution parallèle à l'aide son option
+@option{-djob-count}.
+
+@example
+lilypond-book --process="lilypond -djob-count=4" \
+              --output=foo \
+              ... \
+              foo.lytex
+@end example
 
 
 @node lilypond-book templates
@@ -1331,28 +1416,66 @@ pas de quoi il retourne, lisez le chapitre @ref{lilypond-book}.
 
 @subheading @LaTeX{}
 
-Vous pouvez inclure des partitions LilyPond dans un document LaTeX.
+Vous pouvez inclure des partitions LilyPond dans un document @LaTeX{}.
 
-@example
-\documentclass[]@{article@}
+@quotation
+@verbatim
+\documentclass{article}
 
-\begin@{document@}
+% insérer ici tous les paquetages reconnus par les moutures de LaTeX
+\usepackage[ngerman,finnish,english,french]{babel}
+\usepackage{graphicx}
+\usepackage{libertinus}
 
-Des bananes alitées sur du LaTeX.
+\usepackage{iftex}
+\ifxetex
+  % pour ce qui est de XeTeX
+  \usepackage{xltxtra}
+\else
+  % inutile en l'absence de pdftex
+  \usepackage[T1]{fontenc}
+\fi
 
-\begin@{lilypond@}
-\relative @{
-  a'4 b c d
-@}
-\end@{lilypond@}
 
-Encore des banalités LaTeX, puis quelques options entre crochets.
+\begin{document}
 
-\begin@{lilypond@}[fragment,relative=2,quote,staffsize=26,verbatim]
-d4 c b a
-\end@{lilypond@}
-\end@{document@}
-@end example
+\title{Un petit document avec LilyPond et \LaTeX}
+\maketitle
+
+Les commandes habituelles de \textbf{fontes} sont fonctionnelles y
+compris au fil du \emph{texte}, étant donné qu'\textsf{elles sont
+prises en charge par toutes les moutures de \LaTeX{}.} Lorsque
+vous avez besoin de commandes particulières du style
+\verb+\XeTeX+, pensez à les inclure dans un environnement
+\verb+\ifxetex+. Vous pourrez ainsi utiliser l'instruction
+\ifxetex commande \XeTeX{} \else commande XeTeX \fi qui, elle,
+n'est pas reconnue par pdfTeX par défaut.
+
+Vous pouvez inclure des commandes LilyPond directement dans votre texte,
+comme ici~:
+
+\smallskip
+\begin[staffsize=12]{lilypond}
+{ a2^"foo" b_"bar" c'8 c' c' c' }
+
+\paper {
+  property-defaults.fonts.serif = "Libertinus Serif"
+}
+\end{lilypond}
+\smallskip
+
+\noindent
+Il est à noter que les fontes utilisées dans l'extrait LilyPond
+doivent être définies au sein même de l'extrait, comme illustré.
+
+\selectlanguage{ngerman}
+Da die Standard-Eingabekodierung von \LaTeX{} UTF-8 ist,
+funktionieren Umlaute u.\,ä. ohne \LaTeX-Akzentbefehle (ßäöü),
+wenn sie von der Schriftart unterstützt werden.
+
+\end{document}
+@end verbatim
+@end quotation
 
 
 @subheading Texinfo
@@ -1387,7 +1510,7 @@ d4 c b a
 @end example
 
 
-@subheading html
+@subheading HTML
 
 @example
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -1414,65 +1537,7 @@ a4 b c d
 
 </body>
 </html>
-
-
 @end example
-
-
-@subheading xelatex
-
-@verbatim
-\documentclass{article}
-\usepackage{ifxetex}
-\ifxetex
-%pour ce qui est de xetex
-\usepackage{xunicode,fontspec,xltxtra}
-\setmainfont[Numbers=OldStyle]{Times New Roman}
-\setsansfont{Arial}
-\else
-%inutile en l'absence de pdftex
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{mathptmx}%Times
-\usepackage{helvet}%Helvetica
-\fi
-%ici les paquetages que pdftex sait interpréter
-\usepackage[ngerman,finnish,english]{babel}
-\usepackage{graphicx}
-
-\begin{document}
-\title{Un petit document avec LilyPond et xelatex}
-\maketitle
-
-Les commandes habituelles de \textbf{fontes} sont fonctionnelles y
-compris au fil du texte, étant donné qu'\textsf{elles sont prises en
-charge par \LaTeX{} et XeteX.} Lorsque vous avez besoin de commandes
-particulières du style \verb+\XeTeX+, pensez à les inclure dans un
-environnement \verb+\ifxetex+. Vous pourrez ainsi utiliser la \ifxetex
-commande \XeTeX{} \else commande XeTeX \fi qui, elle, n'est pas reconnue
-par le \LaTeX traditionnel.
-
-Vous pouvez inclure des commandes LilyPond directement dans votre texte,
-comme ici~:
-
-\begin{lilypond}
-{a2 b c'8 c' c' c'}
-\end{lilypond}
-
-\noindent
-puis reprendre le fil de votre discours.
-
-Les fontes utilisées dans les extraits LilyPond  devront être définies
-au sein de l'extrait. Lisez le manuel d'utilisation si vous ne
-maîtrisez pas lilypond-book.
-
-\selectlanguage{ngerman}
-Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle anderen
-seltsamen Zeichen: ß, æ, ł, ã, č, wenn sie von der Schriftart unterstützt
-werden.
-
-\end{document}
-@end verbatim
 
 
 @node Sharing the table of contents

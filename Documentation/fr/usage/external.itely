@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: 7d3a21cd7b0c4d44a12991f49482e9fef6a62d09
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -745,6 +745,7 @@ et musique, en laissant de côté l'automatisation grâce à
 @menu
 * LuaTeX::
 * OpenOffice and LibreOffice::
+* ly2video::
 * Other programs::
 @end menu
 
@@ -774,6 +775,23 @@ LibreOffice. OOoLilyPond (OLy) fonctionne avec les versions récentes
 d'OpenOffice et LibreOffice. Il devrait être fonctionnel également avec
 d'anciennes versions. Il a même été testé avec OpenOffice 2.4 sans
 problème.
+
+
+@node ly2video
+@subsection @command{ly2video}
+
+@cindex @command{ly2video}
+@cindex partition, création de vidéos
+@cindex vidéos avec défilement de la partition
+@cindex MIDI, vidéo synchronisée
+
+L'utilisation du script
+@uref{https://github.com/aspiers/ly2video,@command{ly2video}} permet de
+générer une partition sous forme de bande défilante synchronisée avec un
+fichier MIDI de cette même musique. Il est aussi possible de
+synchroniser cette vidéo avec un enregistrement audio de cette musique,
+tel qu'un concert, même si la piste audio utilise un @emph{tempo rubato}
+ou ne respecte pas rigoureusement le métronome.
 
 
 @node Other programs

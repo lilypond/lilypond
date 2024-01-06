@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: 7d3a21cd7b0c4d44a12991f49482e9fef6a62d09
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -84,13 +84,14 @@ fichiers.
 
 @item
 @strong{Ajoutez des contrôles de limite ou numéro de mesure et
-d'octaviation} -- voir @rnotationnamed{Bar and bar number checks, Vérification des limites et numéros de
-mesure} et @rnotationnamed{Octave checks, Vérifications d'octave}. Si vous avez ajouté des
-contrôles de loin en loin et que vous faites une erreur, vous pourrez la
-retrouver plus rapidement. « De loin en loin », qu'est-ce à dire ? Cela
-dépend de la complexité de la musique. Pour de la musique très simple, à
-certains endroits stratégiques. Pour de la musique très complexe ou avec
-une multiplicité de voix, peut-être à chaque mesure.
+d'octaviation} -- voir @rnotationnamed{Bar and bar number checks,
+Vérification des limites et numéros de mesure} et
+@rnotationnamed{Octave checks, Vérifications d'octave}. Si vous avez
+ajouté des contrôles de loin en loin et que vous faites une erreur, vous
+pourrez la retrouver plus rapidement. « De loin en loin », qu'est-ce à
+dire ? Cela dépend de la complexité de la musique. Pour de la musique
+très simple, à certains endroits stratégiques. Pour de la musique très
+complexe ou avec une multiplicité de voix, peut-être à chaque mesure.
 
 @item @strong{Ajoutez des commentaires}.
 Utilisez soit des numéros de mesure (assez souvent), soit des références
@@ -152,8 +153,9 @@ au sein du bloc @code{\layout} :
 @end example
 
 Ceci n'aura par pour effet de générer un contexte supplémentaire,
-mais s'appliquera dès sa création.  Voyez @rlearningnamed{Saving typing with variables and functions,@'Economie de
-saisie grâce aux identificateurs et fonctions} et
+mais s'appliquera dès sa création.  Voyez
+@rlearningnamed{Saving typing with variables and functions,
+@'Economie de saisie grâce aux identificateurs et fonctions} et
 @rlearningnamed{Style sheets, Feuilles de style}.
 
 @end itemize
@@ -173,7 +175,8 @@ n'entrez qu'un seul système de la partition originale
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
 utiliser les commandes @code{showLastLength} et @code{showFirstLength}
 pour accélérer la compilation -- voir
-@rnotationnamed{Skipping corrected music, Ignorer des passages de la partition} ;
+@rnotationnamed{Skipping corrected music,
+Ignorer des passages de la partition} ;
 
 @item
 définissez @code{mBreak = @{ \break @}} et insérez @code{\mBreak} dans
@@ -426,7 +429,7 @@ MIDIDIR := MIDI
 # Les fichiers sources et résultants sont recherchés dans les
 # répertoires listés dans la variable VPATH.  Ceux-ci sont tous
 # des sous-répertoires du répertoire courant (fourni par la variable
-# de GNU make `CURDIR').
+# de GNU make "CURDIR").
 VPATH := \
   $(CURDIR)/Partitions \
   $(CURDIR)/Pupitres \
@@ -476,15 +479,15 @@ $(piece)-hautbois.pdf: $(piece)-hautbois.ly hautbois.ily $(commun)
 $(piece)-violonUn.pdf: $(piece)-violonUn.ly violonUn.ily $(commun)
 $(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily $(commun)
 
-# Lancer `make score' pour générer l'intégrale des quatre mouvements
+# Lancer "make score" pour générer l'intégrale des quatre mouvements
 # en un seul fichier.
 .PHONY: score
 score: $(piece).pdf
 
-# Lancer `make parties' pour obtenir tous les pupitres.
-# Lancer `make symphonie-toto.pdf' pour obtenir la partie
+# Lancer "make parties" pour obtenir tous les pupitres.
+# Lancer "make symphonie-toto.pdf" pour obtenir la partie
 # instrumentale de toto.
-# Par exemple : `make symphonie-cello.pdf'.
+# Par exemple : "make symphonie-cello.pdf"
 .PHONY: parties
 parties: $(piece)-cello.pdf \
          $(piece)-violonUn.pdf \
@@ -493,7 +496,7 @@ parties: $(piece)-cello.pdf \
          $(piece)-hautbois.pdf \
          $(piece)-cor.pdf
 
-# Lancer `make mouvements' pour générer un fichier séparé pour chacun
+# Lancer "make mouvements" pour générer un fichier séparé pour chacun
 # des mouvements.
 .PHONY: mouvements
 mouvements: $(piece)I.pdf \

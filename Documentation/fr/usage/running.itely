@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3123dcf12436526a8d8f4498e4f7d3661d156a57
+   Translation of GIT committish: 7d3a21cd7b0c4d44a12991f49482e9fef6a62d09
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -31,9 +31,10 @@ Ce chapitre passe en revue ce qui se passe lorsque vous lancez LilyPond.
 
 La plupart des utilisateurs de LilyPond le font au travers d'une
 interface graphique (@emph{GUI} pour @emph{graphical user interface}).
-Si vous ne l'avez pas encore parcouru, lisez le @rlearningnamed{Tutorial, Tutoriel}.
-Si vous utilisez un éditeur alternatif pour rédiger vos fichiers
-LilyPond, référez-vous à la documentation de celui-ci.
+Si vous ne l'avez pas encore parcouru, lisez le
+@rlearningnamed{Tutorial, Tutoriel}. Si vous utilisez un éditeur
+alternatif pour rédiger vos fichiers LilyPond, référez-vous à la
+documentation de celui-ci.
 
 
 @node Command-line usage
@@ -138,21 +139,9 @@ veillez à ne pas modifier les réglages par défaut du système à partir
 d'assertions en Scheme.}
 
 Lorsque @file{monfichier.ly} contient plus d'une section @code{\book},
-les fichiers produits -- à partir du deuxième -- seront numérotés.  Par
-ailleurs, la valeur affectée à @code{output-suffix} sera insérée entre la
-racine et le numéro.  Par exemple, un fichier @var{racine} qui
-contiendrait
-
-@example
-#(define output-suffix "violon")
-\score @{ @dots{} @}
-#(define output-suffix "cello")
-\score @{ @dots{} @}
-@end example
-
-@noindent
-fournira grâce à LilyPond @file{racine-violon.pdf} et
-@file{racine-cello-1.pdf}.
+les fichiers produits -- à partir du deuxième -- seront numérotés. Voir
+@rnotationnamed{Output file names, Nom des fichiers de sortie} à propos
+de la dénomination des fichiers résultants.
 
 
 @subsubheading Utilisation de LilyPond avec les fonctionnalités standard de l'interpréteur
@@ -237,6 +226,15 @@ forfiles /s /p "C:\Documents\Mes Partitions" /M *.ly /c "cmd /c lilypond @@file"
 @cindex switches
 @cindex commutateurs
 
+Gardez bien à l'esprit que lorsque l'argument à une option contient des
+espaces, il doit être encadré par des guillemets. Par exemple, pour
+écrire la sortie de LilyPond dans un répertoire @samp{foo bar}, il
+faudra ajouter @code{-o "foo bar"} (ou @code{--output="foo bar"}) aux
+arguments de @command{lilypond} en ligne de commande. Ces guillemets
+informatiques encadrant des arguments sont reconnus par pratiquement
+tous les interpréteurs en ligne de commande, que ce soit sur Windows ou
+les différents type d'Unix (y compris macOS).
+
 Différentes options sont disponibles en ligne de commande :
 
 @table @asis
@@ -257,7 +255,7 @@ Dans la mesure où l'expression est évaluée par le module
 définitions telles que @code{(define-public a 42)}, spécifier
 
 @example
-lilypond -e '(define-public a 42)'
+lilypond -e "(define-public a 42)"
 @end example
 
 @noindent
@@ -269,10 +267,6 @@ en ligne de commande, et ajouter la ligne
 
 @noindent
 en tête de votre fichier @file{.ly}.
-
-@warning{Les utilisateurs de Windows doivent utiliser des guillemets
-doubles @code{"} en lieu et place des guillemets simples @code{'}.}
-@c Match " in context-sensitive editors
 
 @item @code{-E}, @code{--eps}
 Génère des fichiers EPS.
@@ -336,7 +330,7 @@ examinés l'un après l'autre.
 @warning{L'utilisation du tilde (@code{~}) avec l'option @option{-I}
 peut produire des résultats inattendus selon le @emph{shell}.
 
-Les utilisateurs de Windows doivent ajouter une oblique (@code{/}
+Les utilisateurs de Windows doivent ajouter une oblique (@code{/})
 finale au chemin d'accès.}
 
 @cindex chroot jail, fonctionnement
@@ -476,20 +470,20 @@ possibles sont :
 @table @code
 
 @item size
-Génère un un document PS, EPS ou PDF le plus léger possible. Il s'agit
+Génère un document PS, EPS ou PDF le plus léger possible. Il s'agit
 de la valeur par défaut.
 
 L'utilisation de cette valeur revient à lancer les commandes Scheme de
-LilyPond @code{-dmusic-@/font-@/encodings=@/'#f'} et
-@code{-dgs-@/never-@/embed-@/fonts=@/'#f'}.
+LilyPond @code{-dmusic-@/font-@/encodings=@/"#f"} et
+@code{-dgs-@/never-@/embed-@/fonts=@/"#f"}.
 
 @item TeX
 Produit des fichiers optimisés pour leur inclusion dans des documents
 pdf@TeX{}, Lua@TeX{} ou Xe@TeX{}.
 
 L'utilisation de cette valeur revient à lancer les commandes Scheme de
-LilyPond @code{-dmusic-@/font-@/encodings=@/'#t'} et
-@code{-dgs-@/never-@/embed-@/fonts=@/'#f'}.
+LilyPond @code{-dmusic-@/font-@/encodings=@/"#t"} et
+@code{-dgs-@/never-@/embed-@/fonts=@/"#f"}.
 
 @item TeX-GS
 L'inclusion de plusieurs PDF générés par LilyPond dans un document
@@ -497,8 +491,8 @@ L'inclusion de plusieurs PDF générés par LilyPond dans un document
 du PDF généré par @TeX{} à l'aide de Ghostscript.
 
 L'utilisation de cette valeur revient à lancer les commandes Scheme de
-LilyPond @code{-dmusic-@/font-@/encodings=@/'#t'} et
-@code{-dgs-@/never-@/embed-@/fonts=@/'#t'}.
+LilyPond @code{-dmusic-@/font-@/encodings=@/"#t"} et
+@code{-dgs-@/never-@/embed-@/fonts=@/"#t"}.
 
 @end table
 
@@ -597,7 +591,7 @@ de @var{valeur} n'est pas boléen. Préfixer @var{nom-option} d'un
 @noindent
 revient au même que
 @example
--dpoint-and-click='#f'
+-dpoint-and-click="#f"
 @end example
 @end table
 
@@ -641,17 +635,15 @@ script de Ghostscript, qui par défaut extrait des sous-ensembles des
 fontes.
 
 @item svg
-Génère du @emph{Scalable Vector Graphics}.  Cette option permet de
-créer un fichier SVG par page.  Les glyphes musicaux sont codés en tant
-que graphiques vectoriels mais les fontes textuelles @b{ne sont pas}
-incorporées aux fichiers @file{SVG} résultants.  Quel que soit le
+Génère du @emph{Scalable Vector Graphics}. Cette option permet de créer
+un fichier SVG par page. Les glyphes musicaux sont codés en tant que
+graphiques vectoriels mais les fontes textuelles @strong{ne sont pas}
+incorporées aux fichiers @file{SVG} résultants. Quel que soit le
 programme utilisé pour visionner ces fichiers, il devra avoir accès aux
 fontes en question pour pouvoir afficher correctement les textes et
-paroles.  Il est préférable de ne pas recourir aux « alias de police »
-ni aux listes de fontes si la visionneuse de fichier SVG ne peut le
-traîter correctement.  L'option supplémentaire @w{@code{--svg-woff}} --
-voir ci-après -- permet d'utiliser les fontes WOFF (@emph{Web Open Font
-Format}) avec le moteur @code{svg}.
+paroles. Il est préférable de ne pas recourir aux « alias de police » ni
+aux listes de fontes si la visionneuse de fichier SVG ne peut le traîter
+correctement.
 
 @end table
 
@@ -659,9 +651,10 @@ Format}) avec le moteur @code{svg}.
 Si @var{bool} est déterminé à @code{#t}, extrait des fragments musicaux
 d'une partition.  Ceci requiert que la fonction @code{clip-regions} a
 été définie au sein du bloc @code{\layout} -- voir
-@rnotationnamed{Extracting fragments of music, Extraction de fragments musicaux}.  Bien entendu, aucun fragment
-ne sera extrait si l'on utilise l'option @option{-dno-print-pages}. La
-valeur par défaut est  @code{#f}.
+@rnotationnamed{Extracting fragments of music,
+Extraction de fragments musicaux}.  Bien entendu, aucun fragment ne sera
+extrait si l'on utilise l'option @option{-dno-print-pages}. La valeur
+par défaut est  @code{#f}.
 
 @item @code{compile-scheme-code} @var{bool}
 Utilise le compilateur de Guile pour traiter du code Scheme, au lieu de
@@ -678,6 +671,12 @@ un fichier SVG (avec l'extension @file{.cropped.svg}). Dès lors que sont
 utilisées les options @option{--eps} ou @option{--ps}, un fichier réduit
 PS (avec l'extension @file{.cropped.eps}) sera généré en lieu et place
 d'un PDF réduit. La valeur par défaut est @code{#f}.
+
+Pour les fonctionnalités de LilyPond, les dimensions de l'image réduite
+sont toujours arrondies à un nombre entier de @emph{big points}
+(PostScript), ce qui peut résulter en un peu d'espace blanc sur la
+marge droite. Il est possible de l'éviter en réglant la variable de
+papier à une valeur entière de @emph{big points} comme @code{450\bp}.
 
 Notez bien que cette option n'est, à ce jour, pas très adaptée dans le
 cadre d'une sortie comportant plusieurs systèmes puisque l'espace les
@@ -708,6 +707,21 @@ LilyPond au document PDF généré. La valeur par défaut est @code{#f}.
 @item @code{eps-box-padding} @var{num}
 Décale le bord gauche du typon EPS d'une valeur @var{num} donnée en
 millimètres. La valeur par défaut est @code{#f}, autrement dit sans décalage.
+
+@item @code{first} @var{chaîne}
+Génère la partition sur une durée donnée par @var{chaîne} à compter du
+début. Ceci est équivalent à une clause
+
+@example
+showFirstLength = @var{chaîne}
+@end example
+
+@noindent
+mentionnée au début du fichier source. Dès lors que @option{-dfirst} et
+@code{showFirstLength} sont tous deux présents, l'option de la ligne de
+commande aura priorité. Voir
+@rnotationnamed{Extracting fragments of music,
+Extraction de fragments musicaux}.
 
 @item @code{font-export-dir} @var{chaîne}
 Détermine à @var{chaîne} le répertoire dans lequel exporter les fontes
@@ -807,13 +821,29 @@ fichier EPS contenant un système. La valeur par défaut est @code{#t}.
 
 @item @code{include-settings} @var{chaîne}
 Inclut le fichier @var{chaîne} contenant les réglages globaux, qui sera
-inclus avant traitement de la partition. La valeur par défaut est
-@code{#f}, autrement dit absence de fichier de réglages.
+inclus avant traitement de la partition. Cette option peut se multiplier
+afin d'incorporer plusierus réglages. La valeur par défaut
+est @code{'()}, autrement dit absence de fichier de réglages.
 
 @item @code{job-count} @var{num}
 Traite plusieurs fichiers en parallèle, selon le nombre @var{num} de
 @emph{jobs}. La valeur par défaut est @code{#f}, autrement dit sans
 traitement parallèle.
+
+@item @code{last} @var{chaîne}
+Génère la partition sur une durée donnée par @var{chaîne} à compter de
+la fin. Ceci est équivalent à une clause
+
+@example
+showLastLength = @var{chaîne}
+@end example
+
+@noindent
+mentionnée au début du fichier source. Dès lors que @option{-dlast} et
+@code{showLastLength} sont tous deux présents, l'option de la ligne de
+commande aura priorité. Voir
+@rnotationnamed{Extracting fragments of music,
+Extraction de fragments musicaux}.
 
 @item @code{log-file} @var{chaîne}
 Redirige la sortie dans le fichier journal @file{@var{chaîne}.log}. La
@@ -839,9 +869,17 @@ musicale. La valeur par défaut est @code{#f}.
 @item @code{paper-size} @var{chaîne-entre-guillemets}
 Détermine la taille par défaut du papier à
 @var{chaîne-entre-guillemets}. Veillez à ne pas oublier d'encadrer la
-valeur par des guillemets échappés (@code{\"}).La valeur par défaut est
+valeur par des guillemets échappés (@code{\"}). La valeur par défaut est
 @code{"\"a4\""}.
 @c Match " in context-sensitive editors
+
+L'obtention de guillemets échapés dépend de votre interpréteur de
+commande. Si, par exemple, vous souhaitez sélectioner du papier A5, vous
+devrez taper @code{-dpaper-size='"a5"'} dans un @emph{shell} de type
+Unix comme @command{sh} ou @command{bash} que l'on trouve sur GNU/Linux
+ou macOS. En ce qui concerne l'interface de commande standard de
+Windows, @command{cmd.exe}, il faudra alors taper
+@code{-dpaper-size="""a5"""}.
 
 @item @code{pixmap-format} @var{symbole}
 Détermine le format de sortie en images pixélisées pour Ghostscript à
@@ -902,6 +940,12 @@ que l'analyseur syntaxique détecterait dans du code Scheme inclus.
 Lorsque basculé sur @code{#f}, stoppe le traitement s'il y a erreur et
 affiche une trace de la pile. La valeur par défaut est @code{#t}.
 
+@item @code{read-file-list} @var{bool}
+Si @var{bool} est déterminé à @code{#t}, consigère tous les fichiers en
+argument sur la ligne de commande comme étant des listes de fichiers
+sources LilyPond à traiter, ces listes mentionnant un fichier par ligne.
+La valeur par défaut est @code{#f}.
+
 @item @code{relative-includes} @var{bool}
 Face à une instruction @code{\include}, recherche les fichiers à inclure
 relativement à l'endroit où se trouve le fichier en cours de traitement
@@ -929,6 +973,17 @@ disponibles tel que le ressort la bibliothèque fontconfig. LilyPond
 ajoute à cette liste les réglages et la configuration de fontconfig. La
 valeur par défaut est @code{#t}.
 
+@item @code{staff-size} @var{taille}
+Détermine la taille globale de portée à @var{taille} points. Ceci est
+équivalent à une clause
+
+@example
+#(set-global-staff-size @var{taille})
+@end example
+
+@noindent
+mentionnée au début du fichier source.
+
 @item @code{strip-output-dir} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, supprime, lors du nommage des
 fichiers résultants, la partie correspondant au répertoire des fichiers
@@ -944,23 +999,6 @@ pas rendre de manière constante l'épaisseur des hampes dans les
 résolutions habituelles des écrans. Bien que n'affectant pas notoirement
 la qualité d'impression, cette option accroit notablement la taille des
 fichiers PDF. La valeur par défaut est @code{#f}.
-
-@item @code{svg-woff} @var{bool}
-Cette option est obligatoire dès lors que sont utilisées, avec le
-moteur @code{svg}, les fontes @emph{Web Open Font Format} (WOFF). Un
-fichier SVG sera généré pour chacune des pages produites. En dehors des
-glyphes musicaux propres à LilyPond, aucune autre information ne sera
-incluse. Quelque soit le visionneur de SVG utilisé, il devra avoir à
-disposition les fontes requises pour pouvoir afficher les éléments
-textuels et les paroles. Dans la mesure où le visionneur pourrait ne pas
-savoir le gérer, mieux vaut s'abstenir de recourir aux alias ou listes
-de fontes. La valeur par défaut est @code{#f}.
-
-Lorsque celles-ci sont utilisées correctement, nul n'est besoin
-d'installer les fontes que les fichiers SVG utiliseront dans
-l'environnement du visionneur.  Néanmoins, LilyPond ne dispose pas de
-fichier de fonte @code{woff} textuelle.  La présence du fichier de fonte
-@code{woff} est un prérequis.
 
 @item @code{tall-page-formats} @var{symbole}
 Liste des formats (@code{svg}, @code{pdf}, @code{png}, ou @code{eps}),
@@ -1067,7 +1105,7 @@ Alors que cette approche est tout à fait fonctionnelle dans le cadre
 d'une compilation manuelle et des plateformes disposant de gestionnaires
 de paquetages standardisés, elle peut entraîner des problèmes lorsque de
 tels gestionnaires ne sont pas courants ou pas utilisés par défaut -- on
-peut citer à titre d'exemple Windows et MacOS pour lesquels les
+peut citer à titre d'exemple Windows et macOS pour lesquels les
 utilisateurs s'attendent à ce que l'installation des programmes se
 fasse n'importe où.
 
@@ -1457,12 +1495,13 @@ conduit à une musique compressée, voire à un débordement de la page.}
 
 Une erreur de durée sera bien plus facilement localisable si vous
 positionnez régulièrement des contrôles de barre de mesure -- voir
-@rnotationnamed{Bar and bar number checks, Vérification des limites et numéros de mesure}.
+@rnotationnamed{Bar and bar number checks,
+Vérification des limites et numéros de mesure}.
 
 Si vous tenez absolument à enchaîner de tels débordements, vous devrez
 insérer des barres de mesure invisibles là où vous souhaitez positionner
-un saut de ligne.  Consultez le chapitre @rnotationnamed{Bar lines, Barres de mesure} pour
-plus de détails.
+un saut de ligne.  Consultez le chapitre @rnotationnamed{Bar lines,
+Barres de mesure} pour plus de détails.
 
 
 @node An extra staff appears
@@ -1537,8 +1576,8 @@ une portée, à l'aide de l'instruction
 
 @noindent
 que vous insérerez dès sa création.  Pour plus d'information,
-reportez-vous à la rubrique
-@rnotationnamed{Spacing of non-staff lines, Espacement des lignes rattachées à des portées}.
+reportez-vous à la rubrique @rnotationnamed{Spacing of non-staff lines,
+Espacement des lignes rattachées à des portées}.
 
 
 @node Error message unexpected new
@@ -1623,7 +1662,8 @@ ces voix se croisent (@code{\voiceThree} au dessus de@code{\voiceOne}).
 
 @morerefs
 Manuel d'initiation :
-@rlearningnamed{Explicitly instantiating voices, Instanciation explicite des voix},
+@rlearningnamed{Explicitly instantiating voices,
+Instanciation explicite des voix},
 @rlearningnamed{Real music example, Exemple concret}.
 
 Manuel de notation :
