@@ -101,7 +101,7 @@ support is enabled by default.
 
 @item
 @uref{https://www.gnu.org/software/guile/guile.html, Guile}@*
-Use version 2.2 or 3.0.
+Use version 3.0.
 
 @item
 @uref{http://www.libpng.org/pub/png/libpng.html, libpng}@*

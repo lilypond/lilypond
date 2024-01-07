@@ -485,7 +485,7 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
 
 AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     AC_ARG_VAR(GUILE_FLAVOR,
-               AS_HELP_STRING([], [pkgconfig name for Guile, like guile-2.2.
+               AS_HELP_STRING([], [pkgconfig name for Guile, like guile-3.0.
                                    If the respective .pc file
                                    cannot be found by pkgconfig,
                                    add its path to PKG_CONFIG_PATH]))dnl
@@ -494,12 +494,9 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
         PKG_CHECK_MODULES([GUILE], [$GUILE_FLAVOR],
                             [true], [GUILE_FLAVOR="missing"])
     else
-        PKG_CHECK_MODULES([GUILE], [guile-2.2 >= 2.2.0],
-                            [GUILE_FLAVOR="guile-2.2"], [
-            PKG_CHECK_MODULES([GUILE], [guile-3.0],
-                                [GUILE_FLAVOR="guile-3.0"], [
-                GUILE_FLAVOR="missing"
-            ])
+        PKG_CHECK_MODULES([GUILE], [guile-3.0],
+                            [GUILE_FLAVOR="guile-3.0"], [
+            GUILE_FLAVOR="missing"
         ])
     fi
 
