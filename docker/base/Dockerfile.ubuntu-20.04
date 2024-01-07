@@ -31,7 +31,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         gettext \
         ghostscript \
         git \
-        guile-2.2-dev \
+        guile-3.0-dev \
         imagemagick \
         libfl-dev \
         libfontconfig1-dev \
