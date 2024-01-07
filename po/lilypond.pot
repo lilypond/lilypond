@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.11\n"
+"Project-Id-Version: lilypond 2.25.12\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2023-12-10 11:06+0100\n"
+"POT-Creation-Date: 2024-01-07 10:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1042,14 +1042,14 @@ msgid ""
 msgstr ""
 
 #: abc2ly.py:1642 convert-ly.py:95 etf2ly.py:1231 lilypond-book.py:275
-#: midi2ly.py:1185 musicxml2ly.py:2849 main.cc:151
+#: midi2ly.py:1185 musicxml2ly.py:2847 main.cc:150
 msgid "show version number and exit"
 msgstr ""
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
 #: abc2ly.py:1645 convert-ly.py:99 etf2ly.py:1227 lilypond-book.py:160
-#: midi2ly.py:1152 musicxml2ly.py:2830 main.cc:128
+#: midi2ly.py:1152 musicxml2ly.py:2828 main.cc:127
 msgid "show this help and exit"
 msgstr ""
 
@@ -1070,7 +1070,7 @@ msgid "suppress progress messages"
 msgstr ""
 
 #: abc2ly.py:1660 convert-ly.py:167 etf2ly.py:1241 lilypond-book.py:320
-#: midi2ly.py:1197 musicxml2ly.py:2993
+#: midi2ly.py:1197 musicxml2ly.py:2991
 #, python-format
 msgid "Report bugs via %s"
 msgstr ""
@@ -1114,14 +1114,14 @@ msgstr ""
 msgid "edit in place"
 msgstr ""
 
-#: convert-ly.py:113 musicxml2ly.py:2887
+#: convert-ly.py:113 musicxml2ly.py:2885
 msgid ""
 "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS "
 "(default), DEBUG)"
 msgstr ""
 
 #: convert-ly.py:115 lilypond-book.py:198 lilypond-book.py:214
-#: musicxml2ly.py:2889 main.cc:139
+#: musicxml2ly.py:2887 main.cc:138
 msgid "LOGLEVEL"
 msgstr ""
 
@@ -1157,7 +1157,7 @@ msgid "print rule descriptions during conversion"
 msgstr ""
 
 #: convert-ly.py:162 etf2ly.py:1235 lilypond-book.py:279 midi2ly.py:1186
-#: main.cc:153
+#: main.cc:152
 msgid "show warranty and copyright"
 msgstr ""
 
@@ -1220,7 +1220,7 @@ msgid ""
 msgstr ""
 
 #: etf2ly.py:1233 lilypond-book.py:94 midi2ly.py:1157 midi2ly.py:1162
-#: musicxml2ly.py:2943 main.cc:133 main.cc:143
+#: musicxml2ly.py:2941 main.cc:132 main.cc:142
 msgid "FILE"
 msgstr ""
 
@@ -1256,7 +1256,7 @@ msgid "add DIR to include path"
 msgstr ""
 
 #: lilypond-book.py:171 lilypond-book.py:179 lilypond-book.py:206
-#: lilypond-book.py:221 lilypond-book.py:247 lilypond-book.py:255 main.cc:132
+#: lilypond-book.py:221 lilypond-book.py:247 lilypond-book.py:255 main.cc:131
 msgid "DIR"
 msgstr ""
 
@@ -1322,7 +1322,7 @@ msgstr ""
 msgid "write snippet output files with the same base name as their source file"
 msgstr ""
 
-#: lilypond-book.py:268 midi2ly.py:1180 musicxml2ly.py:2855
+#: lilypond-book.py:268 midi2ly.py:1180 musicxml2ly.py:2853
 msgid "be verbose"
 msgstr ""
 
@@ -1579,67 +1579,67 @@ msgstr ""
 msgid "unknown span type %s for %s"
 msgstr ""
 
-#: musicxml2ly.py:1602
+#: musicxml2ly.py:1600
 msgid "Unknown metronome mark, ignoring"
 msgstr ""
 
-#: musicxml2ly.py:1608
+#: musicxml2ly.py:1606
 msgid ""
 "Metronome marks with complex relations (<metronome-note> in MusicXML) are "
 "not yet implemented."
 msgstr ""
 
-#: musicxml2ly.py:1783
+#: musicxml2ly.py:1781
 #, python-format
 msgid "Unable to convert chord type %s to lilypond."
 msgstr ""
 
-#: musicxml2ly.py:2155
+#: musicxml2ly.py:2153
 #, python-format
 msgid "Negative skip %s (from position %s to %s)"
 msgstr ""
 
-#: musicxml2ly.py:2344
+#: musicxml2ly.py:2342
 #, python-format
 msgid "Negative skip found: from %s to %s, difference is %s"
 msgstr ""
 
-#: musicxml2ly.py:2448
+#: musicxml2ly.py:2446
 #, python-format
 msgid "unexpected %s; expected %s or %s or %s"
 msgstr ""
 
-#: musicxml2ly.py:2577
+#: musicxml2ly.py:2575
 msgid "Encountered closing slur, but no slur is open"
 msgstr ""
 
-#: musicxml2ly.py:2581
+#: musicxml2ly.py:2579
 msgid "Cannot have two simultaneous (closing) slurs"
 msgstr ""
 
-#: musicxml2ly.py:2591
+#: musicxml2ly.py:2589
 msgid "Cannot have a slur inside another slur"
 msgstr ""
 
-#: musicxml2ly.py:2595
+#: musicxml2ly.py:2593
 msgid "Cannot have two simultaneous slurs"
 msgstr ""
 
-#: musicxml2ly.py:2811
+#: musicxml2ly.py:2809
 msgid "Converting to LilyPond expressions..."
 msgstr ""
 
-#: musicxml2ly.py:2823
+#: musicxml2ly.py:2821
 msgid "musicxml2ly [OPTION]... FILE.xml"
 msgstr ""
 
-#: musicxml2ly.py:2824
+#: musicxml2ly.py:2822
 msgid ""
 "Convert MusicXML from FILE.xml to LilyPond input.\n"
 "If the given filename is -, musicxml2ly reads from the command line.\n"
 msgstr ""
 
-#: musicxml2ly.py:2834
+#: musicxml2ly.py:2832
 #, python-format
 msgid ""
 "Copyright (c) 2005--2023 by\n"
@@ -1654,156 +1654,156 @@ msgid ""
 "information."
 msgstr ""
 
-#: musicxml2ly.py:2860
+#: musicxml2ly.py:2858
 msgid "--lxml is obsolete, ignoring"
 msgstr ""
 
-#: musicxml2ly.py:2861
+#: musicxml2ly.py:2859
 msgid "obsolete"
 msgstr ""
 
-#: musicxml2ly.py:2867
+#: musicxml2ly.py:2865
 msgid ""
 "input file is a compressed MusicXML file (by default, activate if file "
 "extension is .mxl)"
 msgstr ""
 
-#: musicxml2ly.py:2874
+#: musicxml2ly.py:2872
 msgid "convert pitches in relative mode (default)"
 msgstr ""
 
-#: musicxml2ly.py:2879
+#: musicxml2ly.py:2877
 msgid "convert pitches in absolute mode"
 msgstr ""
 
-#: musicxml2ly.py:2882
+#: musicxml2ly.py:2880
 msgid "LANG"
 msgstr ""
 
-#: musicxml2ly.py:2884
+#: musicxml2ly.py:2882
 msgid "use LANG for pitch names, e.g. 'deutsch' for note names in German"
 msgstr ""
 
-#: musicxml2ly.py:2898
+#: musicxml2ly.py:2896
 msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
 msgstr ""
 
-#: musicxml2ly.py:2904
+#: musicxml2ly.py:2902
 msgid "do not convert exact vertical positions of rests"
 msgstr ""
 
-#: musicxml2ly.py:2910
+#: musicxml2ly.py:2908
 msgid "ignore system breaks"
 msgstr ""
 
-#: musicxml2ly.py:2916
+#: musicxml2ly.py:2914
 msgid "ignore page breaks"
 msgstr ""
 
-#: musicxml2ly.py:2922
+#: musicxml2ly.py:2920
 msgid "ignore page margins"
 msgstr ""
 
-#: musicxml2ly.py:2928
+#: musicxml2ly.py:2926
 msgid ""
 "do not convert the exact page layout and breaks (shortcut for \"--nsb --npb "
 "--npm\" options)"
 msgstr ""
 
-#: musicxml2ly.py:2934
+#: musicxml2ly.py:2932
 msgid ""
 "ignore stem directions from MusicXML, use lilypond's automatic stemming "
 "instead"
 msgstr ""
 
-#: musicxml2ly.py:2940
+#: musicxml2ly.py:2938
 msgid ""
 "do not convert beaming information, use lilypond's automatic beaming instead"
 msgstr ""
 
-#: musicxml2ly.py:2948
+#: musicxml2ly.py:2946
 msgid "set output filename to FILE, stdout if -"
 msgstr ""
 
-#: musicxml2ly.py:2954
+#: musicxml2ly.py:2952
 msgid "activate midi-block in .ly file"
 msgstr ""
 
-#: musicxml2ly.py:2958
+#: musicxml2ly.py:2956
 msgid "TOPITCH"
 msgstr ""
 
-#: musicxml2ly.py:2961
+#: musicxml2ly.py:2959
 msgid "set pitch to transpose by the interval between pitch 'c' and TOPITCH"
 msgstr ""
 
-#: musicxml2ly.py:2965
+#: musicxml2ly.py:2963
 msgid "BEATS/BEATTYPE"
 msgstr ""
 
-#: musicxml2ly.py:2968
+#: musicxml2ly.py:2966
 msgid ""
 "change the length|duration of notes as a function of a given time signature "
 "to make the score look faster or slower, (eg. '4/4' or '2/2')"
 msgstr ""
 
-#: musicxml2ly.py:2972
+#: musicxml2ly.py:2970
 msgid "TABCLEFNAME"
 msgstr ""
 
-#: musicxml2ly.py:2975
+#: musicxml2ly.py:2973
 msgid "switch between two versions of tab clefs (\"tab\" and \"moderntab\")"
 msgstr ""
 
-#: musicxml2ly.py:2979
+#: musicxml2ly.py:2977
 msgid "t[rue]/f[alse]"
 msgstr ""
 
-#: musicxml2ly.py:2982
+#: musicxml2ly.py:2980
 msgid ""
 "deactivate string number stencil with --string-numbers f[alse]. Default is "
 "t[rue]"
 msgstr ""
 
-#: musicxml2ly.py:2989
+#: musicxml2ly.py:2987
 msgid ""
 "converts '<frame>' events to a separate FretBoards voice instead of markups"
 msgstr ""
 
-#: musicxml2ly.py:3074
+#: musicxml2ly.py:3072
 #, python-format
 msgid "unknown part in part-list: %s"
 msgstr ""
 
-#: musicxml2ly.py:3168
+#: musicxml2ly.py:3166
 msgid "Input is compressed, extracting raw MusicXML data from stdin"
 msgstr ""
 
-#: musicxml2ly.py:3182
+#: musicxml2ly.py:3180
 #, python-format
 msgid "Input file %s is compressed, extracting raw MusicXML data"
 msgstr ""
 
-#: musicxml2ly.py:3212
+#: musicxml2ly.py:3210
 msgid "Reading MusicXML from Standard input ..."
 msgstr ""
 
-#: musicxml2ly.py:3214
+#: musicxml2ly.py:3212
 #, python-format
 msgid "Reading MusicXML from %s ..."
 msgstr ""
 
-#: musicxml2ly.py:3245
+#: musicxml2ly.py:3243
 #, python-format
 msgid "Output to `%s'"
 msgstr ""
 
-#: musicxml2ly.py:3273
+#: musicxml2ly.py:3271
 #, python-format
 msgid "Converting to current version (%s) notations ..."
 msgstr ""
 
-#: musicxml2ly.py:3362
+#: musicxml2ly.py:3360
 #, python-format
 msgid "Unable to find input file %s"
 msgstr ""
@@ -2001,7 +2001,7 @@ msgstr ""
 msgid "beam was started here"
 msgstr ""
 
-#: beam-quanting.cc:886
+#: beam-quanting.cc:884
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
@@ -2111,12 +2111,12 @@ msgstr ""
 msgid "cannot find line breaking that satisfies constraints"
 msgstr ""
 
-#: context-def.cc:284
+#: context-def.cc:286
 #, c-format
 msgid "cannot create default child context: %s"
 msgstr ""
 
-#: context-def.cc:291
+#: context-def.cc:293
 #, c-format
 msgid "default child context begins a cycle: %s"
 msgstr ""
@@ -2424,7 +2424,7 @@ msgstr ""
 msgid "To use grob debug callbacks, configure with --enable-checking"
 msgstr ""
 
-#: grob.cc:521
+#: grob.cc:520
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -2438,14 +2438,14 @@ msgstr ""
 msgid "Asking for broken bound padding at a non-broken bound."
 msgstr ""
 
-#: hairpin.cc:174
+#: hairpin.cc:175
 #, c-format
 msgid ""
 "hairpin: '%f' is not a valid direction for property 'endpoint-alignments', "
 "setting to '%d'"
 msgstr ""
 
-#: hairpin.cc:293
+#: hairpin.cc:294
 msgid "decrescendo too small"
 msgstr ""
 
@@ -2617,7 +2617,7 @@ msgstr ""
 #: main.cc:86
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
-"modify it under the terms of the GNU General Public License as \n"
+"modify it under the terms of the GNU General Public License as\n"
 "published by the Free Software Foundation, either version 3 of\n"
 "the License, or (at your option) any later version.\n"
 "\n"
@@ -2626,150 +2626,149 @@ msgid ""
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
 "General Public License for more details.\n"
 "\n"
-"    You should have received a copy of the\n"
-"GNU General Public License along with this program; if not, write to\n"
-"the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
-"Boston, MA 02111-1307, USA.\n"
+"    You should have received a copy of the GNU General Public\n"
+"License along with this program.  If not, see\n"
+"https://www.gnu.org/licenses/.\n"
 msgstr ""
 
-#: main.cc:109
+#: main.cc:108
 msgid "FORMATs"
 msgstr ""
 
-#: main.cc:110
+#: main.cc:109
 msgid "dump FORMAT,...  Also as separate options:"
 msgstr ""
 
-#: main.cc:111
+#: main.cc:110
 msgid "generate PDF files (default)"
 msgstr ""
 
-#: main.cc:112
+#: main.cc:111
 msgid "generate SVG files "
 msgstr ""
 
-#: main.cc:113
+#: main.cc:112
 msgid "generate PNG files "
 msgstr ""
 
-#: main.cc:114
+#: main.cc:113
 msgid "generate PostScript files"
 msgstr ""
 
-#: main.cc:115
+#: main.cc:114
 msgid "generate Encapsulated PostScript files"
 msgstr ""
 
-#: main.cc:116
+#: main.cc:115
 msgid "KEY"
 msgstr ""
 
-#: main.cc:117
+#: main.cc:116
 msgid ""
 "set ps/pdf optimization to KEY, which is\n"
 "either 'size' (default), 'TeX', or\n"
 "'TeX-GS'"
 msgstr ""
 
-#: main.cc:120
+#: main.cc:119
 msgid "SYM[=VAL]"
 msgstr ""
 
-#: main.cc:121
+#: main.cc:120
 msgid ""
 "set Scheme option SYM to VAL (default:\n"
 "'#t')"
 msgstr ""
 
-#: main.cc:123
+#: main.cc:122
 msgid "no-SYM"
 msgstr ""
 
-#: main.cc:123
+#: main.cc:122
 msgid "set Scheme option SYM to '#f'"
 msgstr ""
 
-#: main.cc:124
+#: main.cc:123
 msgid "show help for Scheme options"
 msgstr ""
 
-#: main.cc:125
+#: main.cc:124
 msgid "EXPR"
 msgstr ""
 
-#: main.cc:125
+#: main.cc:124
 msgid "evaluate scheme code"
 msgstr ""
 
-#: main.cc:129
+#: main.cc:128
 msgid "FIELD"
 msgstr ""
 
-#: main.cc:130
+#: main.cc:129
 msgid ""
 "dump \\header field FIELD to file named\n"
 "BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:132
+#: main.cc:131
 msgid "append DIR to search path"
 msgstr ""
 
-#: main.cc:133
+#: main.cc:132
 msgid "use FILE as init file"
 msgstr ""
 
-#: main.cc:135
+#: main.cc:134
 msgid "USER,GROUP,JAIL,DIR"
 msgstr ""
 
-#: main.cc:136
+#: main.cc:135
 msgid ""
 "chroot to JAIL, become USER:GROUP and cd\n"
 "into DIR"
 msgstr ""
 
-#: main.cc:140
+#: main.cc:139
 msgid ""
 "print log messages according to LOGLEVEL,\n"
 "which is either NONE, ERROR, WARNING,\n"
 "BASIC, PROGRESS, INFO (default), or DEBUG"
 msgstr ""
 
-#: main.cc:144
+#: main.cc:143
 msgid ""
 "write output to FILE (suffix will be added)\n"
 "or to FOLDER, in which case the file name\n"
 "will be taken from the input file."
 msgstr ""
 
-#: main.cc:147
+#: main.cc:146
 msgid "(ignored)"
 msgstr ""
 
-#: main.cc:149
+#: main.cc:148
 msgid ""
 "no progress, only error messages\n"
 "(equivalent to --loglevel=ERROR)"
 msgstr ""
 
-#: main.cc:152
+#: main.cc:151
 msgid "be verbose (equivalent to --loglevel=DEBUG)"
 msgstr ""
 
-#: main.cc:173
+#: main.cc:172
 #, c-format
 msgid ""
 "\n"
 "Effective prefix: '%s'\n"
 msgstr ""
 
-#: main.cc:202
+#: main.cc:201
 #, c-format
 msgid "%s %s (running Guile %s)"
 msgstr ""
 
-#: main.cc:212
+#: main.cc:211
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -2777,25 +2776,25 @@ msgid ""
 msgstr ""
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:242
+#: main.cc:241
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr ""
 
-#: main.cc:244
+#: main.cc:243
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr ""
 
-#: main.cc:246
+#: main.cc:245
 msgid "LilyPond produces beautiful music notation."
 msgstr ""
 
-#: main.cc:248
+#: main.cc:247
 #, c-format
 msgid "For more information, see %s"
 msgstr ""
 
-#: main.cc:250
+#: main.cc:249
 msgid "Options:"
 msgstr ""
 
@@ -2803,61 +2802,61 @@ msgstr ""
 #. "Report bugs in English via %s",
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: main.cc:258
+#: main.cc:257
 #, c-format
 msgid "You found a bug? Please read %s"
 msgstr ""
 
-#: main.cc:278
+#: main.cc:277
 msgid "linked against Ghostscript:"
 msgstr ""
 
-#: main.cc:330
+#: main.cc:329
 #, c-format
 msgid "expected %d arguments with jail, found: %zu"
 msgstr ""
 
-#: main.cc:344
+#: main.cc:343
 #, c-format
 msgid "no such user: %s"
 msgstr ""
 
-#: main.cc:346
+#: main.cc:345
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
-#: main.cc:360
+#: main.cc:359
 #, c-format
 msgid "no such group: %s"
 msgstr ""
 
-#: main.cc:362
+#: main.cc:361
 #, c-format
 msgid "cannot get group id from group name: %s: %s"
 msgstr ""
 
-#: main.cc:370
+#: main.cc:369
 #, c-format
 msgid "cannot chroot to: %s: %s"
 msgstr ""
 
-#: main.cc:376
+#: main.cc:375
 #, c-format
 msgid "cannot change group id to: %d: %s"
 msgstr ""
 
-#: main.cc:382
+#: main.cc:381
 #, c-format
 msgid "cannot change user id to: %d: %s"
 msgstr ""
 
-#: main.cc:388
+#: main.cc:387
 #, c-format
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:529
+#: main.cc:528
 msgid "The --relocate option is no longer relevant."
 msgstr ""
 
@@ -3096,79 +3095,79 @@ msgstr ""
 msgid "subfont `%s': cannot write table `%s'"
 msgstr ""
 
-#: open-type-font.cc:54
+#: open-type-font.cc:55
 #, c-format
 msgid "cannot allocate %lu bytes"
 msgstr ""
 
-#: open-type-font.cc:58
+#: open-type-font.cc:59
 #, c-format
 msgid "cannot load font table: %s"
 msgstr ""
 
-#: open-type-font.cc:67
+#: open-type-font.cc:68
 #, c-format
 msgid "FreeType error: %s"
 msgstr ""
 
-#: open-type-font.cc:83
+#: open-type-font.cc:84
 msgid "cannot initialize zlib decompression"
 msgstr ""
 
-#: open-type-font.cc:119
+#: open-type-font.cc:120
 #, c-format
 msgid "cannot uncompress font table: %s"
 msgstr ""
 
-#: open-type-font.cc:140
+#: open-type-font.cc:141
 #, c-format
 msgid "unsupported font format: %s"
 msgstr ""
 
-#: open-type-font.cc:142
+#: open-type-font.cc:143
 #, c-format
 msgid "error reading font file %s: %s"
 msgstr ""
 
-#: open-type-font.cc:184
+#: open-type-font.cc:185
 msgid "cannot get postscript name"
 msgstr ""
 
-#: open-type-font.cc:196
+#: open-type-font.cc:197
 #, c-format
 msgid "cannot get font %s format"
 msgstr ""
 
-#: open-type-font.cc:213
+#: open-type-font.cc:214
 #, c-format
 msgid "cannot get CFF name from font %s"
 msgstr ""
 
-#: open-type-font.cc:218
+#: open-type-font.cc:219
 #, c-format
 msgid "Subsitute font name: %s => %s"
 msgstr ""
 
-#: open-type-font.cc:224
+#: open-type-font.cc:225
 #, c-format
 msgid "CFF name for font %s is the same."
 msgstr ""
 
-#: open-type-font.cc:256
+#: open-type-font.cc:257
 #, c-format
 msgid "cannot read CFF: %s"
 msgstr ""
 
-#: open-type-font.cc:267
+#: open-type-font.cc:268
 msgid "cannot get CFF name"
 msgstr ""
 
-#: open-type-font.cc:342
+#: open-type-font.cc:343
 #, c-format
 msgid "no stem attachment found in font for glyph %s"
 msgstr ""
 
-#: open-type-font.cc:364
+#: open-type-font.cc:365
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
@@ -3378,13 +3377,13 @@ msgid ""
 "and ultra-expanded"
 msgstr ""
 
-#: paper-book.cc:342
+#: paper-book.cc:344
 #, c-format
 msgid ""
 "program option -dclip-systems/-dcrop/-dpreview not supported by backend `%s'"
 msgstr ""
 
-#: paper-book.cc:394
+#: paper-book.cc:396
 #, c-format
 msgid "multi-page output not supported by backend `%s'"
 msgstr ""
@@ -3643,7 +3642,7 @@ msgstr ""
 msgid "music is shorter than anticipated"
 msgstr ""
 
-#: side-position-interface.cc:482
+#: side-position-interface.cc:478
 #, c-format
 msgid "no side-axis setting found for grob %s."
 msgstr ""
@@ -3702,11 +3701,11 @@ msgstr ""
 msgid "expected to read %zu characters, got %zu"
 msgstr ""
 
-#: staff-performer.cc:300
+#: staff-performer.cc:298
 msgid "MIDI channel wrapped around"
 msgstr ""
 
-#: staff-performer.cc:301
+#: staff-performer.cc:299
 msgid "remapping modulo 16"
 msgstr ""
 
@@ -3766,7 +3765,7 @@ msgid ""
 msgstr ""
 
 #. TODO: Also print the arguments of the markup!
-#: text-interface.cc:301
+#: text-interface.cc:303
 #, c-format
 msgid "Markup depth exceeds maximal value of %zu; Markup: %s"
 msgstr ""
@@ -4230,17 +4229,17 @@ msgstr ""
 msgid "Can't print a line - setting on/off to default"
 msgstr ""
 
-#: define-markup-commands.scm:1564
+#: define-markup-commands.scm:1617
 #, scheme-format
 msgid "unrecognized image file, should have .png or .eps extension: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:1574
+#: define-markup-commands.scm:1627
 #, scheme-format
 msgid "EPS image dimensions could not be determined; is '~a' a valid EPS file?"
 msgstr ""
 
-#: define-markup-commands.scm:1622
+#: define-markup-commands.scm:1675
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
@@ -4703,45 +4702,45 @@ msgstr ""
 msgid "Not a markup command: ~A"
 msgstr ""
 
-#: modal-transforms.scm:38
+#: modal-transforms.scm:37
 msgid "'from' pitch not in scale; ignoring"
 msgstr ""
 
-#: modal-transforms.scm:42 modal-transforms.scm:75
+#: modal-transforms.scm:41 modal-transforms.scm:74
 msgid "'to' pitch not in scale; ignoring"
 msgstr ""
 
-#: modal-transforms.scm:46
+#: modal-transforms.scm:45
 msgid "pitch to be transposed not in scale; ignoring"
 msgstr ""
 
-#: modal-transforms.scm:71
+#: modal-transforms.scm:70
 msgid "'around' pitch not in scale; ignoring"
 msgstr ""
 
-#: modal-transforms.scm:79
+#: modal-transforms.scm:78
 msgid "pitch to be inverted not in scale; ignoring"
 msgstr ""
 
-#: modal-transforms.scm:95
+#: modal-transforms.scm:94
 msgid "negative replication count; ignoring"
 msgstr ""
 
-#: modal-transforms.scm:287
+#: modal-transforms.scm:286
 msgid "Dangling tie in \\retrograde"
 msgstr ""
 
-#: modal-transforms.scm:292
+#: modal-transforms.scm:291
 msgid ""
 "If @var{music} is a single pitch, inverts it about @var{around}\n"
 "and transposes from @var{around} to @var{to}."
 msgstr ""
 
-#: modal-transforms.scm:302
+#: modal-transforms.scm:301
 msgid "Applies pitch-invert to all pitches in @var{music}."
 msgstr ""
 
-#: modal-transforms.scm:309
+#: modal-transforms.scm:308
 msgid ""
 "Transpose a note (numbered as @var{n}) in @var{direction}.\n"
 "@var{n} is zero-based and can be negative to count from the end."
@@ -4857,32 +4856,32 @@ msgid ""
 "one in alterationGlyphs"
 msgstr ""
 
-#: output-lib.scm:2062
+#: output-lib.scm:2119
 #, scheme-format
 msgid "~a with two line-breaks is not yet supported"
 msgstr ""
 
-#: output-lib.scm:2379
+#: output-lib.scm:2436
 #, scheme-format
 msgid "Factor ~a needs to be an integer value."
 msgstr ""
 
-#: output-lib.scm:2875
+#: output-lib.scm:2932
 msgid ""
 "Not enough space to print a nice arrow.\n"
 "Please consider to increase 'minimum-length or decrease 'arrow-length."
 msgstr ""
 
-#: output-lib.scm:2891
+#: output-lib.scm:2948
 msgid "Please consider to increase 'minimum-length"
 msgstr ""
 
-#: output-lib.scm:3208
+#: output-lib.scm:3265
 #, scheme-format
 msgid "no entry in measure-division-lines-alist for measure division ~a"
 msgstr ""
 
-#: output-lib.scm:3232
+#: output-lib.scm:3289
 #, scheme-format
 msgid ""
 "no entry in measure-division-chord-placement-alist for measure division ~a"
@@ -4918,70 +4917,75 @@ msgstr ""
 msgid "cannot find SVG font ~S"
 msgstr ""
 
-#: paper.scm:115
+#: paper.scm:114
 msgid "set-global-staff-size: not in toplevel scope"
+msgstr ""
+
+#: paper.scm:152
+#, scheme-format
+msgid "Unknown unit '~a', using 'pt' instead"
 msgstr ""
 
 #. The documentation script currently expects units mm or in.
 #. Don't use decimals with millimeters.
 #. ISO 216 has a tolerance of +- 2mm
-#: paper.scm:127
+#: paper.scm:160
 msgid "ISO 216, A series"
 msgstr ""
 
-#: paper.scm:139
+#: paper.scm:172
 msgid "Two extended sizes as defined in DIN 476"
 msgstr ""
 
-#: paper.scm:142
+#: paper.scm:175
 msgid "ISO 216, B series"
 msgstr ""
 
-#: paper.scm:154
+#: paper.scm:187
 msgid "ISO 269, C series"
 msgstr ""
 
-#: paper.scm:166
+#: paper.scm:199
 msgid "North American paper sizes"
 msgstr ""
 
-#: paper.scm:176
+#: paper.scm:209
 msgid "Sizes by IEEE Printer Working Group, for children's writing"
 msgstr ""
 
-#: paper.scm:180
+#: paper.scm:213
 msgid "ANSI sizes"
 msgstr ""
 
-#: paper.scm:189
+#: paper.scm:222
 msgid "North American architectural sizes"
 msgstr ""
 
-#: paper.scm:196
+#: paper.scm:229
 msgid "Other sizes, including antique sizes still used in the United Kingdom"
 msgstr ""
 
-#: paper.scm:219
+#: paper.scm:252
 msgid "PA4-based sizes"
 msgstr ""
 
-#: paper.scm:231
+#: paper.scm:264
 msgid "Additional format for use in Southeast Asia and Australia"
 msgstr ""
 
-#: paper.scm:326
+#: paper.scm:359
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr ""
 
-#: paper.scm:334
+#: paper.scm:367
 #, scheme-format
 msgid "Unknown paper size: ~a"
 msgstr ""
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:382
+#: paper.scm:415
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
