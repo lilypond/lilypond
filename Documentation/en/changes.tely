@@ -231,14 +231,22 @@ to your score.
 
 @end itemize
 
-@ignore
-
 @node Notes for source compilation and packagers
 @unnumberedsec Notes for source compilation and packagers
 
-See if we need this again...
+This section is aimed at enthusiasts compiling LilyPond from source
+and packagers preparing LilyPond for distribution.  If you are not
+part of either group, you can skip over this section.
 
-@end ignore
+@itemize
+
+@item
+LilyPond now requires Guile 3.0.  As before, it is still strongly
+recommended to compile the @file{.scm} files into bytecode by first
+running @command{make bytecode} during compilation and then
+@command{make install-bytecode} in addition to @command{make install}.
+
+@end itemize
 
 
 @node New for musical notation
