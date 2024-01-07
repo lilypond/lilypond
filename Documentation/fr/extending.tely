@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+    Translation of GIT committish: c1444d90c29ad71bd1da0442ff5126168c3511da
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,7 +19,7 @@ Ce document fournit les informations de base pour étendre les
 fonctionnalités de LilyPond@tie{}version @version{}.
 @end macro
 
-@c `Extending' was born 2004-03-07 with this commit:
+@c 'Extending' was born 2004-03-07 with this commit:
 @c * Documentation/user/changing-defaults.itely (Changing defaults):
 @c author: Han-Wen Nienhuys
 @c commit: c53d0cabdf9361e448cdd02a338aa5d696f4f466
@@ -43,9 +43,9 @@ Copyright @copyright{} 2004--2023 by par les auteurs.
 @ifnottex
 
 @menu
-* Scheme tutorial::              Programmation dans LilyPond.
-* Interfaces for programmers:: Comment dialoguer avec scheme.
-* LilyPond Scheme interfaces::   Obtention d'information dans la musique et autour
+* Scheme tutorial::            Programmation dans LilyPond.
+* Interfaces for programmers:: Comment dialoguer avec Scheme.
+* LilyPond Scheme interfaces:: Obtention d'information dans la musique et autour
 
 Appendices
 
