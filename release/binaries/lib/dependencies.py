@@ -43,7 +43,7 @@ def copy_slice(src: str, dst: str, lines: slice):
 class Expat(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.4.9"
+        return "2.5.0"
 
     @property
     def directory(self) -> str:
@@ -81,7 +81,7 @@ expat = Expat()
 class Zlib(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.2.13"
+        return "1.3.1"
 
     @property
     def directory(self) -> str:
@@ -139,7 +139,7 @@ zlib = Zlib()
 class FreeType(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.12.1"
+        return "2.13.2"
 
     @property
     def directory(self) -> str:
@@ -214,7 +214,7 @@ fontconfig = Fontconfig()
 class Ghostscript(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "9.56.1"
+        return "10.02.1"
 
     @property
     def directory(self) -> str:
@@ -376,7 +376,7 @@ gettext = Gettext()
 class Libffi(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "3.4.3"
+        return "3.4.4"
 
     @property
     def directory(self) -> str:
@@ -567,7 +567,7 @@ libiconv = Libiconv()
 class Libunistring(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.0"
+        return "1.1"
 
     @property
     def directory(self) -> str:
@@ -801,7 +801,7 @@ guile = Guile()
 class HarfBuzz(MesonPackage):
     @property
     def version(self) -> str:
-        return "4.4.1"
+        return "8.3.0"
 
     @property
     def directory(self) -> str:
@@ -840,7 +840,7 @@ harfbuzz = HarfBuzz()
 class FriBidi(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.0.12"
+        return "1.0.13"
 
     @property
     def directory(self) -> str:
@@ -869,6 +869,8 @@ fribidi = FriBidi()
 class Pango(MesonPackage):
     @property
     def version(self) -> str:
+        # Later versions require a newer mingw-w64 than what we currently have
+        # on Ubuntu 20.04 (related to dwrite library and dwrite_1.h header).
         return "1.50.11"
 
     @property
@@ -928,7 +930,7 @@ pango = Pango()
 class Libpng(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.6.38"
+        return "1.6.41"
 
     @property
     def directory(self) -> str:
@@ -964,7 +966,7 @@ libpng = Libpng()
 class Pixman(MesonPackage):
     @property
     def version(self) -> str:
-        return "0.40.0"
+        return "0.43.0"
 
     @property
     def directory(self) -> str:
