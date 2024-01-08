@@ -290,7 +290,6 @@ class ConfigurePackage(Package):
 
         # Set up the log file.
         with open(self.log_path(c), "w", encoding="utf-8") as log:
-
             # Run the configure script.
             args = [f"{src_directory}/{self.configure_script}"]
 
@@ -346,7 +345,6 @@ class MesonPackage(Package):
 
         # Set up the log file.
         with open(self.log_path(c), "w", encoding="utf-8") as log:
-
             # Run 'meson setup' to configure the package.
             args = ["meson", "setup", "--buildtype=release"]
 

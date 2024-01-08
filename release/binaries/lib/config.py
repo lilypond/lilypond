@@ -27,6 +27,7 @@ import sysconfig
 
 from typing import Optional
 
+
 @enum.unique
 class Platform(enum.Enum):
     """An enum of all supported platforms"""

@@ -650,14 +650,20 @@ class Guile(ConfigurePackage):
         # Strictly speaking, this is not necessary for Guile 3.0.9 but it
         # makes testing of current main easier.
         def patch_scm(content: str) -> str:
-            return content.replace("# define SCM_API __declspec(dllimport) extern", "# define SCM_API extern")
+            return content.replace(
+                "# define SCM_API __declspec(dllimport) extern",
+                "# define SCM_API extern",
+            )
 
         scm_h = os.path.join("libguile", "scm.h")
         self.patch_file(c, scm_h, patch_scm)
 
         # Patch mini-gmp to use "long long" datatype.
         def patch_mini_gmp(content: str) -> str:
-            return content.replace("#define MINI_GMP_LIMB_TYPE long", "#define MINI_GMP_LIMB_TYPE long long")
+            return content.replace(
+                "#define MINI_GMP_LIMB_TYPE long",
+                "#define MINI_GMP_LIMB_TYPE long long",
+            )
 
         mini_gmp_h = os.path.join("libguile", "mini-gmp.h")
         self.patch_file(c, mini_gmp_h, patch_mini_gmp)
@@ -666,16 +672,16 @@ class Guile(ConfigurePackage):
         # https://lists.gnu.org/archive/html/guile-devel/2023-10/msg00051.html
         root_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         for patch in [
-                "0001-scm_i_divide2double-Refactor-to-use-scm_to_mpz.patch",
-                "0002-scm_integer_modulo_expt_nnn-Refactor-to-use-scm_to_m.patch",
-                "0003-Rename-functions-that-should-accept-scm_t_inum.patch",
-                "0004-Decouple-scm_t_inum-from-long-datatype.patch",
-                "0005-Store-hashes-as-uintptr_t.patch",
-            ]:
+            "0001-scm_i_divide2double-Refactor-to-use-scm_to_mpz.patch",
+            "0002-scm_integer_modulo_expt_nnn-Refactor-to-use-scm_to_m.patch",
+            "0003-Rename-functions-that-should-accept-scm_t_inum.patch",
+            "0004-Decouple-scm_t_inum-from-long-datatype.patch",
+            "0005-Store-hashes-as-uintptr_t.patch",
+        ]:
             patch_path = os.path.join(root_path, "patches", patch)
             with open(patch_path) as patch_file:
                 subprocess.run(
-                    ["patch","-p1"],
+                    ["patch", "-p1"],
                     stdin=patch_file,
                     stdout=subprocess.DEVNULL,
                     cwd=self.src_directory(c),
@@ -709,7 +715,9 @@ class Guile(ConfigurePackage):
 
         # Fix cross-compilation in out-of-tree-builds.
         def patch_cross_include(content: str) -> str:
-            return re.sub("\\$\\(CC_FOR_BUILD\\).*-I\\$\\(top_builddir\\)", "\\g<0> -I.", content)
+            return re.sub(
+                "\\$\\(CC_FOR_BUILD\\).*-I\\$\\(top_builddir\\)", "\\g<0> -I.", content
+            )
 
         self.patch_file(c, libguile_makefile_in, patch_cross_include)
 
