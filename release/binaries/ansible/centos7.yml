@@ -67,4 +67,4 @@
       pip:
         executable: pip3
         name:
-          - meson==0.59.0
+          - meson==0.61.5
