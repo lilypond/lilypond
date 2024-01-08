@@ -149,6 +149,10 @@ class LilyPond(ConfigurePackage):
                 # Include the static version of libstdc++.
                 "--enable-static-gxx",
             ]
+        if c.is_mingw():
+            static += [
+                "CFLAGS=-DCAIRO_WIN32_STATIC_BUILD",
+            ]
 
         flexlexer = []
         if c.is_mingw():

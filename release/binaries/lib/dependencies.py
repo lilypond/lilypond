@@ -1008,10 +1008,10 @@ class Pixman(MesonPackage):
 pixman = Pixman()
 
 
-class Cairo(ConfigurePackage):
+class Cairo(MesonPackage):
     @property
     def version(self) -> str:
-        return "1.16.0"
+        return "1.18.0"
 
     @property
     def directory(self) -> str:
@@ -1035,26 +1035,12 @@ class Cairo(ConfigurePackage):
         env["CFLAGS"] = "-Wp,-U_FORTIFY_SOURCE"
         return env
 
-    def configure_args(self, c: Config) -> List[str]:
+    def meson_args(self, c: Config) -> List[str]:
         return [
-            # ordering follows Cairo's configure --help output
-            "--enable-xlib=no",
-            "--enable-xlib-xrender=no",
-            "--enable-xcb=no",
-            "--enable-xcb-shm=no",
-            "--enable-quartz=no",
-            "--enable-quartz-font=no",
-            "--enable-win32=no",
-            "--enable-win32-font=no",
-            "--enable-egl=no",
-            "--enable-glx=no",
-            "--enable-wgl=no",
-            "--enable-script=no",
-            "--enable-ft=yes",
-            "--enable-fc=yes",
-            "--enable-ps=yes",
-            "--enable-pdf=yes",
-            "--enable-svg=yes",
+            "-Dfontconfig=enabled",
+            "-Dfreetype=enabled",
+            "-Dpng=enabled",
+            "-Dzlib=enabled",
         ]
 
     @property
