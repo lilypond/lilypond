@@ -377,8 +377,6 @@ class LilyPondPackager:
         # This directory contains the libpython*.a library.
         shutil.rmtree(glob.glob(os.path.join(python_libdir, "config-*"))[0])
         for directory in [
-            # "Distributing Python Modules"
-            "distutils",
             # "Integrated Development and Learning Environment"
             "idlelib",
             # 2to3

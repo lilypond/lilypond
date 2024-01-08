@@ -1054,7 +1054,7 @@ class Cairo(MesonPackage):
 cairo = Cairo()
 
 
-PYTHON_VERSION = "3.10.8"
+PYTHON_VERSION = "3.12.1"
 
 
 class Python(ConfigurePackage):
@@ -1090,14 +1090,15 @@ class Python(ConfigurePackage):
         return f"https://www.python.org/ftp/python/{self.version}/{self.archive}"
 
     def apply_patches(self, c: Config):
-        # setup.py tries to build extension based on software installed in the
-        # global system directories, and there is no option to build some of
-        # them selectively. Instead we empty the script and enable what we need
-        # in Modules/Setup below. This has the additional advantage that the
-        # modules are built statically into libpython and not dynamically loaded
-        # from lib-dynload/.
-        setup_py = os.path.join(self.src_directory(c), "setup.py")
-        with open(setup_py, "w", encoding="utf-8"):
+        # By default, configure and Modules/Setup.stdlib build extensions based
+        # on installed software, and while it is possible to selectively disable
+        # them, it is just easier to enable what we need in Modules/Setup below.
+        # It has the additional advantage that the modules are built statically
+        # into libpython and not dynamically loaded from lib-dynload/.
+        Setup_stdlib_in = os.path.join(
+            self.src_directory(c), "Modules", "Setup.stdlib.in"
+        )
+        with open(Setup_stdlib_in, "w", encoding="utf-8"):
             pass
 
         def patch_setup(content: str) -> str:
@@ -1108,12 +1109,11 @@ class Python(ConfigurePackage):
                 # Needed for fractions
                 "_contextvars",
                 # Needed for hashlib
+                "_blake2",
                 "_md5",
                 "_sha1",
-                "_sha256",
-                "_sha512",
+                "_sha2",
                 "_sha3",
-                "_blake2",
                 # Needed for subprocess
                 "_posixsubprocess",
                 "select",
