@@ -401,14 +401,14 @@ class Libffi(ConfigurePackage):
 libffi = Libffi()
 
 
-class PCRE(ConfigurePackage):
+class PCRE2(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "8.45"
+        return "10.42"
 
     @property
     def directory(self) -> str:
-        return f"pcre-{self.version}"
+        return f"pcre2-{self.version}"
 
     @property
     def archive(self) -> str:
@@ -416,31 +416,35 @@ class PCRE(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://sourceforge.net/projects/pcre/files/pcre/{self.version}/{self.archive}"
+        return f"https://github.com/PCRE2Project/pcre2/releases/download/{self.directory}/{self.archive}"
+
+    def apply_patches(self, c: Config):
+        def patch_makefile(content: str) -> str:
+            return "\n".join(
+                [
+                    line
+                    for line in content.split("\n")
+                    if "= pcre2posix_test" not in line
+                ]
+            )
+
+        self.patch_file(c, "Makefile.in", patch_makefile)
 
     @property
     def license_files(self) -> List[str]:
         return ["LICENCE"]
 
-    def configure_args(self, c: Config) -> List[str]:
-        return [
-            # Enable Unicode support, needed for LilyPond's GLib-based
-            # regex API.  This is the default in PCRE2, but we use PCRE1.
-            "--enable-utf",
-            "--enable-unicode-properties",
-        ]
-
     def __str__(self) -> str:
-        return f"PCRE {self.version}"
+        return f"PCRE2 {self.version}"
 
 
-pcre = PCRE()
+pcre2 = PCRE2()
 
 
 class GLib(MesonPackage):
     @property
     def version(self) -> str:
-        return "2.72.4"
+        return "2.78.4"
 
     @property
     def directory(self) -> str:
@@ -459,7 +463,7 @@ class GLib(MesonPackage):
         gettext_dep: List[Package] = []
         if c.is_freebsd() or c.is_macos() or c.is_mingw():
             gettext_dep = [gettext]
-        return gettext_dep + [libffi, pcre, zlib]
+        return gettext_dep + [libffi, pcre2, zlib]
 
     def build_env_extra(self, c: Config) -> Dict[str, str]:
         env = super().build_env_extra(c)
@@ -475,7 +479,13 @@ class GLib(MesonPackage):
         return super().meson_args_static(c)
 
     def meson_args(self, c: Config) -> List[str]:
-        return [
+        mingw_args = []
+        if c.is_mingw():
+            mingw_args = [
+                # Prevent using format specifiers that trigger GCC warnings.
+                "-Dc_args=-D__USE_MINGW_ANSI_STDIO",
+            ]
+        return mingw_args + [
             # Disable unused features and tests.
             "-Dlibmount=disabled",
             "-Dtests=false",
@@ -1243,7 +1253,7 @@ all_dependencies: List[Package] = [
     ghostscript,
     gettext,
     libffi,
-    pcre,
+    pcre2,
     glib,
     bdwgc,
     libiconv,
