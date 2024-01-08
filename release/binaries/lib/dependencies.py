@@ -287,7 +287,7 @@ class Gettext(ConfigurePackage):
 
     @property
     def version(self) -> str:
-        return "0.21.1"
+        return "0.22.4"
 
     @property
     def directory(self) -> str:
@@ -306,9 +306,9 @@ class Gettext(ConfigurePackage):
         # Guile. However, Guile has a modification to this file so we really
         # need to build that version.
         def patch_makefile(content: str) -> str:
-            return content.replace("localcharset.lo", "")
+            return content.replace("libgnu_la-localcharset.lo", "")
 
-        makefile = os.path.join("gettext-runtime", "intl", "Makefile.in")
+        makefile = os.path.join("gettext-runtime", "intl", "gnulib-lib", "Makefile.in")
         self.patch_file(c, makefile, patch_makefile)
 
         def patch_dcigettext(content: str) -> str:
