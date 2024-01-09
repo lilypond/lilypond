@@ -273,7 +273,9 @@ All_font_metrics::display_fonts (SCM port)
 {
   std::string str = display_list (font_config_.get ());
   str += display_config (font_config_.get ());
-  scm_write_line (ly_string2scm (str), port);
+  // `str` might contain non-UTF8 characters; we thus can't use
+  // `ly_string2scm`.
+  scm_c_write (port, str.c_str (), str.length ());
 }
 
 std::string
