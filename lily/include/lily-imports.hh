@@ -31,6 +31,7 @@ extern Variable apply;
 #if SCM_MAJOR_VERSION < 3 || (SCM_MINOR_VERSION == 0 && SCM_MICRO_VERSION < 3)
 extern Variable p_auto_compilation_options;
 #endif
+extern Variable boolean_p;
 extern Variable debug_options;
 extern Variable equal;
 extern Variable f_default_port_encoding;

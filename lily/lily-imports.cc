@@ -27,6 +27,7 @@ Variable apply ("apply");
 #if SCM_MAJOR_VERSION < 3 || (SCM_MINOR_VERSION == 0 && SCM_MICRO_VERSION < 3)
 Variable p_auto_compilation_options ("%auto-compilation-options");
 #endif
+Variable boolean_p ("boolean?");
 Variable debug_options ("debug-options");
 Variable equal ("=");
 Variable less ("<");
