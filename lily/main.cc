@@ -518,12 +518,9 @@ parse_argv (int argc, char **argv)
         case 0:
           if (std::string (opt->longname_str0_) == "pdf"
               || std::string (opt->longname_str0_) == "png"
-              || std::string (opt->longname_str0_) == "ps")
+              || std::string (opt->longname_str0_) == "ps"
+              || std::string (opt->longname_str0_) == "svg")
             add_output_format (opt->longname_str0_);
-          else if (std::string (opt->longname_str0_) == "svg")
-            {
-              add_output_format ("svg");
-            }
           else if (std::string (opt->longname_str0_) == "relocate")
             warning (_ ("The --relocate option is no longer relevant."));
           break;
