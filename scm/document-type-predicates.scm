@@ -26,10 +26,9 @@
      "} @tab \n"
      (case pred
        ;; clarify `list?' vs. `cheap-list?'
-       ((list?) "list @emph{(use} @code{cheap-list?}
-                @emph{for faster processing)}")
-       ((cheap-list?) "list @emph{(use this instead of}
-                      @code{list?} @emph{for faster processing)}")
+       ((list?) "list (use @code{cheap-list?} for faster processing)")
+       ((cheap-list?) "list (use this instead of
+                      @code{list?} for faster processing)")
        (else (cdr entry)))
      "\n")))
 
@@ -39,12 +38,14 @@
    "@unnumberedsubsec " nodename "\n"
    "\n\n"
    description "\n\n"
-   "@multitable @columnfractions .33 .66\n"
+   "@indentedblock\n"
+   "@multitable @columnfractions .38 .6\n"
    "@headitem Type predicate @tab Description\n"
    (string-concatenate
     (sort (map document-type-predicate alist)
           ly:string-ci<?))
    "@end multitable\n"
+   "@end indentedblock\n"
    "\n"))
 
 (define-public type-predicates-doc-string

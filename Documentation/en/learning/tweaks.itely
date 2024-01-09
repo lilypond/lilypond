@@ -1071,7 +1071,7 @@ need, together with the rules for that type, and some examples.
 If you use a Scheme expression you must add a hash symbol, @samp{#},
 to the front of these values when they are entered in the
 @code{\override} command, even if the value itself already
-starts with@tie{}@code{#}.  We only give examples for constants
+starts with @samp{#}.  We only give examples for constants
 here: if you want to compute a value using Scheme, see
 @rextend{Calculations in Scheme}.
 
@@ -1292,8 +1292,8 @@ our example we want all bar lines to be suppressed, so the value we
 need is @code{#(#f #f #f)} (also available
 under the name @code{all-invisible}).  Let's try that, remembering to include
 the @code{Staff} context.  Note also that in writing this value we
-have @code{##} before the opening parenthesis.  One @code{#} is required
-as part of vector constant syntax, and the first@tie{}@code{#} is
+have @code{##} before the opening parenthesis.  One @samp{#} is required
+as part of vector constant syntax, and the first @samp{#} is
 required, as always, to precede the value itself in the
 @code{\override} command.
 
