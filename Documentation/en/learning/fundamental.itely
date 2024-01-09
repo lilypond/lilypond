@@ -1748,6 +1748,11 @@ together with no hyphens or underscores, all except the
 first having a capital letter.  Here are a few examples
 of some commonly used ones.  There are many more.
 
+@cindex @code{#t} (true)
+@cindex @code{#f} (false)
+@cindex true (@code{#t})
+@cindex false (@code{#f})
+
 @c attempt to force this onto a new page
 @need 50
 @indentedblock
@@ -1784,6 +1789,9 @@ of some commonly used ones.  There are many more.
 @end multitable
 @end raggedright
 @end indentedblock
+
+@cindex Scheme expressions (@code{#})
+@cindex @code{#}, Scheme expressions
 
 @noindent
 In the above table, a @dfn{Boolean} is either @code{#t} (true) or

@@ -145,8 +145,8 @@ often used with LilyPond.
 @item Booleans
 Boolean values are True or False.  The Scheme for True is @code{#t}
 and False is @code{#f}.
-@funindex ##t
-@funindex ##f
+@funindex #t
+@funindex #f
 
 @item Numbers
 Numbers are entered in the standard fashion,

@@ -49,8 +49,13 @@
 
 (define-public type-predicates-doc-string
   (string-append
-   "Predicates return @code{#t} when their argument is of the named type
-and @code{#f} if it isn't.\n\n"
+   "@cindex @code{#f} (false)\n"
+   "@cindex @code{#t} (true)\n"
+   "@cindex false (@code{#f})\n"
+   "@cindex true (@code{#t})\n"
+   "\n"
+   "Predicates return @code{#t} (true) if their argument is of the named type
+and @code{#f} (false) if it isn't.\n\n"
    "@menu\n"
    "* R5RS primary predicates::\n"
    "* R5RS secondary predicates::\n"

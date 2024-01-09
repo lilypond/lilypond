@@ -1055,6 +1055,12 @@ Extending: @rextend{Scheme tutorial}.
 @subsection Types of properties
 
 @cindex property, types
+@cindex @code{#t} (true)
+@cindex @code{#f} (false)
+@cindex true (@code{#t})
+@cindex false (@code{#f})
+@cindex Scheme expressions (@code{#})
+@cindex @code{#}, Scheme expressions
 
 So far we have seen two types of property: @q{number} and
 @q{symbol}.  To be valid, the value given to a property
