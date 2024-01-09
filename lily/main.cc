@@ -415,7 +415,6 @@ main_with_guile (void *, int, char **)
   if (is_loglevel (LOG_DEBUG))
     dir_info (stderr);
 
-  init_scheme_variables_global = "(" + init_scheme_variables_global + ")";
   init_scheme_code_global = "(begin " + init_scheme_code_global + ")";
 
   ly_c_init_guile ();
@@ -526,22 +525,36 @@ parse_argv (int argc, char **argv)
           break;
 
         case 'E':
-          init_scheme_variables_global += "(separate-page-formats . eps)\n";
-          init_scheme_variables_global += "(tall-page-formats . eps)\n";
+          init_scheme_variables_global.push_back (
+            std::pair ("separate-page-formats", "eps"));
+          init_scheme_variables_global.push_back (
+            std::pair ("tall-page-formats", "eps"));
           break;
 
         case 'O':
           {
             std::string arg (option_parser->optional_argument_str0_);
             if (arg == "size")
-              init_scheme_variables_global += "(music-font-encodings . #f)\n"
-                                              "(gs-never-embed-fonts . #f)\n";
+              {
+                init_scheme_variables_global.push_back (
+                  std::pair ("music-font-encodings", "#f"));
+                init_scheme_variables_global.push_back (
+                  std::pair ("gs-never-embed-fonts", "#f"));
+              }
             else if (arg == "TeX-GS")
-              init_scheme_variables_global += "(music-font-encodings . #t)\n"
-                                              "(gs-never-embed-fonts . #t)\n";
+              {
+                init_scheme_variables_global.push_back (
+                  std::pair ("music-font-encodings", "#t"));
+                init_scheme_variables_global.push_back (
+                  std::pair ("gs-never-embed-fonts", "#t"));
+              }
             else if (arg == "TeX")
-              init_scheme_variables_global += "(music-font-encodings . #t)\n"
-                                              "(gs-never-embed-fonts . #f)\n";
+              {
+                init_scheme_variables_global.push_back (
+                  std::pair ("music-font-encodings", "#t"));
+                init_scheme_variables_global.push_back (
+                  std::pair ("gs-never-embed-fonts", "#f"));
+              }
             else
               programming_error ("Ignoring unknown optimization key");
           }
@@ -561,7 +574,7 @@ parse_argv (int argc, char **argv)
                 val = arg.substr (eq + 1, arg.length () - 1);
               }
 
-            init_scheme_variables_global += "(" + key + " . " + val + ")\n";
+            init_scheme_variables_global.push_back (std::pair (key, val));
           }
           break;
 
@@ -622,10 +635,19 @@ parse_argv (int argc, char **argv)
   if (output_formats_global.empty ())
     add_output_format ("pdf");
 
-  if (output_formats_global.size () == 1 && output_formats_global[0] == "svg"
-      && init_scheme_variables_global.find ("backend") == std::string::npos)
+  if (output_formats_global.size () == 1 && output_formats_global[0] == "svg")
     {
-      init_scheme_variables_global += "(backend . svg)\n";
+      bool have_backend = false;
+      for (const auto keyval : init_scheme_variables_global)
+        {
+          if (keyval.first == "backend")
+            {
+              have_backend = true;
+              break;
+            }
+        }
+      if (!have_backend)
+        init_scheme_variables_global.push_back (std::pair ("backend", "svg"));
     }
 
   if (show_help)
@@ -691,7 +713,7 @@ main (int argc, char **argv)
 
 #if !GS_API
   // Let Guile know whether the Ghostscript API is not available.
-  init_scheme_variables_global += "(gs-api . #f)\n";
+  init_scheme_variables_global.push_back (std::pair ("gs-api", "#f"));
 #endif
 
   // Start up Guile API using main_with_guile as a callback.

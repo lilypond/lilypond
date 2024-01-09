@@ -305,7 +305,11 @@ LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
 The Scheme options specified on the command line with option @option{-d}.
            )")
 {
-  return ly_string2scm (init_scheme_variables_global);
+  std::string str = "";
+  for (const auto keyval : init_scheme_variables_global)
+    str += "(" + keyval.first + " . " + keyval.second + ")\n";
+
+  return ly_string2scm ("(" + str + ")");
 }
 
 LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),

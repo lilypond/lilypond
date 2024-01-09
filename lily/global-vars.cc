@@ -38,7 +38,9 @@ std::string output_name_global;
 /* Scheme code to execute before parsing, after .scm init.
    This is where -e arguments are appended to.  */
 std::string init_scheme_code_global;
-std::string init_scheme_variables_global;
+
+/* Command-line Scheme options (via `-d`).  */
+std::vector<std::pair<std::string, std::string>> init_scheme_variables_global;
 
 /*
  * Miscellaneous global stuff.

@@ -34,7 +34,8 @@ extern std::string lilypond_datadir;
 extern std::string lilypond_libdir;
 extern bool strict_infinity_checking;
 extern std::string init_scheme_code_global;
-extern std::string init_scheme_variables_global;
+extern std::vector<std::pair<std::string, std::string>>
+  init_scheme_variables_global;
 
 extern std::vector<std::string> output_formats_global;
 
