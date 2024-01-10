@@ -21,6 +21,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; type predicates.
+
+;; Some of them are defined in `lily.scm` since they are needed to check Scheme
+;; command-line arguments.
+
 (define-public (duration-or-music? x)
   (or (ly:duration? x) (ly:music? x)))
 
@@ -53,10 +57,6 @@
 (define-public (number-or-grob? x)
   (or (ly:grob? x) (number? x)))
 
-(define-public (positive-number? x)
-  (and (number? x)
-       (positive? x)))
-
 (define-public (non-negative-number? x)
   (and (number? x)
        (or (positive? x)
@@ -67,9 +67,6 @@
 
 (define-public (number-list? x)
   (and (list? x) (every number? x)))
-
-(define-public (index? x)
-  (and (integer? x) (exact? x) (>= x 0)))
 
 (define-public (musical-length? x)
   (and (ly:moment? x)

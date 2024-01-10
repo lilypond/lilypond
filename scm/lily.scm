@@ -221,6 +221,15 @@ session has started."
   (dump-zombies 0)
   (set! first-session-done? #t))
 
+;; Type predicates needed for type-checking command-line arguments.
+
+(define-public (index? x)
+  (and (integer? x) (exact? x) (>= x 0)))
+
+(define-public (positive-number? x)
+  (and (number? x)
+       (positive? x)))
+
 (define scheme-options-definitions
   `(
     ;; NAMING: either
