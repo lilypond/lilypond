@@ -219,12 +219,16 @@ last @code{-d} flag overwrite the others.
     option_hash = scm_c_make_hash_table (11);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 1);
   LY_ASSERT_TYPE (scm_is_string, description, 3);
+
   SCM internal = SCM_BOOL_F;
   SCM accumulative = SCM_BOOL_F;
+  SCM type = SCM_UNDEFINED;
   scm_c_bind_keyword_arguments (
-    "ly:add-option", rest, static_cast<scm_t_keyword_arguments_flags> (0),
-    ly_keyword2scm ("internal?"), &internal, ly_keyword2scm ("accumulative?"),
-    &accumulative, SCM_UNDEFINED);
+    "ly:add-option", rest, static_cast<scm_t_keyword_arguments_flags> (0), //
+    ly_keyword2scm ("type"), &type,                                        //
+    ly_keyword2scm ("internal?"), &internal,                               //
+    ly_keyword2scm ("accumulative?"), &accumulative,                       //
+    SCM_UNDEFINED);
 
   if (scm_is_true (internal))
     scm_set_object_property_x (sym, ly_symbol2scm ("program-option-internal?"),

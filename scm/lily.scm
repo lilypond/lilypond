@@ -230,6 +230,19 @@ session has started."
   (and (number? x)
        (positive? x)))
 
+(define (positive-integer-or-false? x)
+  (or (and (boolean? x) (eq? x #f))
+      (and (integer? x) (exact? x) (> x 0))))
+
+(define (number-or-false? x)
+  (or (and (boolean? x) (eq? x #f))
+      (number? x)))
+
+(define (boolean-or-symbol-or-symbol-list? x)
+  (if (list? x)
+      (every symbol? x)
+      (or (symbol? x) (boolean? x))))
+
 (define scheme-options-definitions
   `(
     ;; NAMING: either
@@ -242,22 +255,25 @@ session has started."
 
     (anti-alias-factor 1
                        "Render at higher resolution (using given
-positive integer factor <=8) and scale down
-result to prevent jaggies in PNG images.")
+positive integer factor <= 8) and scale down
+result to prevent jaggies in PNG images."
+                       #:type (1 2 3 4 5 6 7 8))
     (aux-files #f
                "Create .tex, .texi, .count files for use with
-lilypond-book")
+lilypond-book.")
     (backend ps
-             "Select backend.  Possible values are 'ps and
-'svg.")
+             "Select backend.  Possible values are 'ps',
+'cairo', and 'svg'."
+             #:type (ps cairo svg))
     (check-internal-types #f
                           "Check every property assignment for types."
                           #:internal? #t)
     (clip-systems #f
                   "Generate cut-out snippets of a score.")
-    (compile-scheme-code #f "Use the Guile byte-compiler to run Scheme code,
+    (compile-scheme-code #f
+                         "Use the Guile byte-compiler to run Scheme code,
 instead of the evaluator.  This makes for better
-diagnostics. On the other hand, due to a
+diagnostics.  On the other hand, due to a
 limitation in the Guile compiler, this option
 produces an error if there are more than a few
 thousand Scheme expressions in the file.")
@@ -265,7 +281,8 @@ thousand Scheme expressions in the file.")
           "Generate additional, possibly tall single-page
 output file(s) with cropped margins.")
     (datadir #f
-             "LilyPond prefix for data files (read-only).")
+             "LilyPond prefix for data files (read-only)."
+             #:type string)
     (debug-eval ,(ly:verbose-output?)
                 "Use the debugging Scheme evaluator.")
     (debug-gc-assert-parsed-dead #f
@@ -299,16 +316,20 @@ configurations."
 document.")
     (eps-box-padding #f
                      "Pad left edge of the output EPS bounding box by
-given amount (in mm).")
+given amount (in mm)."
+                     #:type ,number-or-false?)
     (first #f
            "Only show LENGTH music at the beginning, with
-LENGTH being a string like \"R1*5\".")
+LENGTH being a string like \"R1*5\"."
+           #:type string-or-false) ; checked in function `skip-as-needed`
     (font-export-dir #f
                      "Directory for exporting fonts as PostScript
-files.")
+files."
+                     #:type string-or-false)
     (font-ps-resdir #f
                     "Build a subset of PostScript resource directory
-for embedding fonts.")
+for embedding fonts."
+                    #:type string-or-false)
     (gs-api #t
             "Whether to use the Ghostscript API (read-only
 if not available).")
@@ -333,26 +354,32 @@ file `FOO' (using LilyPond syntax) for global
 settings, included before the score is
 processed.  This can be passed several times to
 process several files."
+                      #:type string
                       #:accumulative? #t)
     (job-count #f
                "Process in parallel, using the given number of
-jobs.")
+jobs."
+               #:type ,positive-integer-or-false?)
     (last #f
           "Only show LENGTH music at the end, with LENGTH
-being a string like \"R1*5\".")
+being a string like \"R1*5\"."
+          #:type string-or-false) ; checked in function `skip-as-needed`
     (log-file #f
               "If string FOO is given as an argument, redirect
-output to log file `FOO.log'.")
+output to log file `FOO.log'."
+              #:type string-or-false)
     (max-markup-depth 1024
                       "Maximum depth for the markup tree.  If a markup
 has more levels, assume it will not terminate on
 its own, print a warning and return a null
-markup instead.")
+markup instead."
+                      #:type ,index?)
     (midi-extension ,(if (eq? PLATFORM 'windows)
                          "mid"
                          "midi")
                     "Set the default file extension for MIDI output
-file to given string.")
+file to given string."
+                    #:type string)
     (music-font-encodings #f
                           "Use font encodings and the PostScript `show'
 operator with music fonts.")
@@ -363,16 +390,21 @@ belong to a music font.")
                        "Use bookmarks in table of contents metadata
 (e.g., for PDF viewers).")
     (paper-size "a4"
-                "Set default paper size.")
+                "Set default paper size."
+                #:type string)
     (pixmap-format "png16m"
                    "Set GhostScript's output format for pixel
-images.")
+images."
+                   #:type string)
     (png-width 0
-               "Image width for PNG output (in pixels).")
+               "Image width for PNG output (in pixels)."
+               #:type ,index?)
     (png-height 0
-                "Image height for PNG output (in pixels).")
+                "Image height for PNG output (in pixels)."
+                #:type ,index?)
     (point-and-click #t
-                     "Add point & click links to PDF and SVG output.")
+                     "Add point & click links to PDF and SVG output."
+                     #:type ,boolean-or-symbol-or-symbol-list?)
     (preview #f
              "Create preview images also.")
     (print-pages #t
@@ -393,7 +425,8 @@ the included file relative to the current file\
 \n(instead of the root file).")
     (resolution 101
                 "Set resolution for generating PNG output to
-given value (in dpi).")
+given value (in dpi)."
+                #:type ,positive-number?)
     (safe #f
           "Safe mode has been removed; using this option
 results in an error.")
@@ -404,11 +437,13 @@ output log data to files `FILE1.log',
     (separate-page-formats #f
                            "Formats to use for separate-page output in
 lilypond-book.  The argument is a
-comma-separated string of formats.")
+comma-separated string of formats."
+                           #:type string-or-false)
     (show-available-fonts #f
                           "List available font names.")
     (staff-size 20
-                "Set default staff size (in pt).")
+                "Set default staff size (in pt)."
+                #:type ,positive-number?)
     (strict-infinity-checking #f
                               "Force a crash on encountering Inf and NaN
 floating point exceptions."
@@ -425,15 +460,17 @@ previews.")
     (tall-page-formats #f
                        "Formats to use for tall-page output in
 lilypond-book.  The argument is a
-comma-separated string of formats.")
-    (use-paper-size-for-page #t "Set page stencil size to paper size defined in
+comma-separated string of formats."
+                       #:type string-or-false)
+    (use-paper-size-for-page #t
+                             "Set page stencil size to paper size defined in
 \\paper.  If unset, the size of the page stencil
 is defined by the extents of its contents.")
     (verbose ,(ly:verbose-output?)
              "Verbose output, i.e., loglevel at least DEBUG
 (read-only).")
     (warning-as-error #f
-                      "Change all warning and programming_error
+                      "Change all warning and `programming error'
 messages into errors.")
     ))
 
