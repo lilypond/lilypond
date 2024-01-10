@@ -189,7 +189,7 @@ ly_output_formats ()
 SCM
 lilypond_book_output_formats (SCM sym)
 {
-  std::string arg = robust_symbol2string (ly_get_option (sym), "");
+  std::string arg = robust_scm2string (ly_get_option (sym), "");
   std::set<std::string> formats;
   for (std::string format : string_split (arg, ','))
     if (std::find (formats.begin (), formats.end (), format) == formats.end ())

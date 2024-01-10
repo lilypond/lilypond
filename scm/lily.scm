@@ -243,6 +243,7 @@ session has started."
       (every symbol? x)
       (or (symbol? x) (boolean? x))))
 
+;; See `ly:add-option` for an explanation of `#:type` and friends.
 (define scheme-options-definitions
   `(
     ;; NAMING: either
@@ -482,12 +483,53 @@ messages into errors.")
             (apply ly:add-option x))
           scheme-options-definitions)
 
-(for-each (match-lambda
-            ((key . val)
-             (if (object-property key 'program-option-accumulative?)
-                 (ly:append-to-option key val)
-                 (ly:set-option key val))))
-          (with-input-from-string (ly:command-line-options) read))
+(for-each
+ (match-lambda
+   ((key . str-val)
+    (let* ((type (object-property key 'program-option-type))
+           ;; Handle `str-val` as a Scheme expression if not to be treated as a
+           ;; string.  We also catch read errors.
+           (read-val
+            (cond ((eq? type #f)
+                   ;; An unknown `-d` option, probably used privately by the
+                   ;; user.  Make `-dfoo`, `-dno-foo`, `-dfoo="#f"`, and
+                   ;; `-dfoo="#t"` work as expected; any other argument value is
+                   ;; handled as a string since we don't know the type.
+                   (cond ((string=? str-val "#t")
+                          (cons #t #f))
+                         ((string=? str-val "#f")
+                          (cons #f #f))
+                         (else
+                          (cons str-val #f))))
+                  ((eq? type 'string)
+                   (cons str-val #f))
+                  ((eq? type 'string-or-false)
+                   (if (string=? str-val "#f")
+                       (cons #f #f)
+                       (cons str-val #f)))
+                  (else
+                   (catch 'read-error
+                          (lambda ()
+                            (cons (with-input-from-string str-val read)
+                                  #f))
+                          (lambda (err-key . err-args)
+                            (cons #f (second err-args)))))))
+           (val (car read-val))
+           (err-str (cdr read-val))
+           (err-regex (ly:make-regex "#<unknown port>:\\d+:\\d+: (.*)$"))
+           (eof-regex (ly:make-regex "end of file$")))
+      (if err-str
+          ;; Since we read from a string port, remove port name, line number,
+          ;; and line column from the error message.
+          (ly:warning (G_ "Ignoring option -d~a=\"~a\" due to read error: ~a")
+                      key str-val
+                      (ly:regex-replace eof-regex
+                                        (ly:regex-replace err-regex err-str 1)
+                                        (G_ "end of string")))
+          (if (object-property key 'program-option-accumulative?)
+              (ly:append-to-option key val)
+              (ly:set-option key val))))))
+ (ly:command-line-options))
 
 (debug-set! stack 0)
 

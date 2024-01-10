@@ -50,16 +50,15 @@
     (bbox #f)
     (rename-page-1 #f)
     (be-verbose (ly:get-option 'verbose))
-    (pixmap-format 'png16m)
+    (pixmap-format "png16m")
     (anti-alias-factor 1)
     (png-width 0)
     (png-height 0))
 
-   (let* ((format-str (format #f "~a" pixmap-format))
-          (extension (cond
-                      ((string-contains format-str "png") "png")
-                      ((string-contains format-str "jpg") "jpeg")
-                      ((string-contains format-str "jpeg") "jpeg")
+   (let* ((extension (cond
+                      ((string-contains pixmap-format "png") "png")
+                      ((string-contains pixmap-format "jpg") "jpeg")
+                      ((string-contains pixmap-format "jpeg") "jpeg")
                       (else
                        (ly:error (G_ "Unknown pixmap format ~a") pixmap-format))))
           (page-count (if is-eps

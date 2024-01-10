@@ -1502,12 +1502,10 @@ the music is overridden to speed up compiling."
       ((last (ly:get-option 'last))
        (first (ly:get-option 'first))
        (show-last (if last
-                      (ly:parse-string-expression
-                       (ly:parser-clone) (symbol->string last))
+                      (ly:parse-string-expression (ly:parser-clone) last)
                       (ly:parser-lookup 'showLastLength)))
        (show-first (if first
-                       (ly:parse-string-expression
-                        (ly:parser-clone) (symbol->string first))
+                       (ly:parse-string-expression (ly:parser-clone) first)
                        (ly:parser-lookup 'showFirstLength)))
        (show-last-length (and (ly:music? show-last)
                               (ly:music-length show-last)))

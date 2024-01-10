@@ -5306,6 +5306,24 @@ def conv(s):
     return s
 
 
+@rule((2, 25, 13), r"""
+(ly:set-option 'pixel-format '...)
+  -> (ly:set-option 'pixel-format "...")
+(ly:set-option 'separate-page-formats '...)
+  -> (ly:set-option 'separate-page-formats "...")
+(ly:set-option 'tall-page-formats '...)
+  -> (ly:set-option 'tall-page-formats "...")
+""")
+def conv(s):
+    s = re.sub(r"([#$]\(\s*ly:set-option\s+'pixel-format\s+)'(.*?)(\s*\))",
+               r'\1"\2"\3', s)
+    s = re.sub(r"([#$]\(\s*ly:set-option\s+'separate-page-formats\s+)'(.*?)(\s*\))",
+               r'\1"\2"\3', s)
+    s = re.sub(r"([#$]\(\s*ly:set-option\s+'tall-page-formats\s+)'(.*?)(\s*\))",
+               r'\1"\2"\3', s)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

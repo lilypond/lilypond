@@ -140,6 +140,13 @@ get_help_string (SCM alist)
     {
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
+      SCM type
+        = scm_object_property (sym, ly_symbol2scm ("program-option-type"));
+
+      // Skip unknown Scheme options given on the command line.
+      if (scm_is_false (type))
+        continue;
+
       std::string opt_spec = std::string (INDENT, ' ') + ly_symbol2string (sym)
                              + " (" + ly_scm2string (Lily::scm_to_string (val))
                              + ")";
@@ -203,16 +210,53 @@ for internal options.
 LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 1,
            (SCM sym, SCM val, SCM description, SCM rest),
            R"(
-Add a program option @var{sym}.  @var{val} is the default value and
-@var{description} is a string description.
+Add program option @var{sym} with default value @var{val} and docstring
+@var{description}.
 
-Passing @code{#internal? #t} makes the option an internal option, not
+LilyPond uses this function to define Scheme options available on the command
+line (given by @option{-d} or @option{--define-default}).
+
+After start-up, command-line Scheme options are provided to LilyPond by function
+@code{ly:command-line-options}, which returns a key-value alist where all values
+are Scheme strings.  Use the optional argument @code{#:type} to specify how such
+a value string for key @var{sym} should be processed by @code{ly:set-option}.
+
+@itemize
+@item
+If set to symbol @code{string}, don't do any further conversion and accept the
+value as a string.  This is also necessary if a potentially fitting type
+predicate gets defined after LilyPond's command-line option handling (for
+example, @code{ly:duration?}).  In such cases, type checking should be performed
+manually later on.
+
+@item
+If set to symbol @code{string-or-false}, do the same as with @code{string} but
+convert a string value @code{"#f"} to Boolean value @code{#f}.
+
+@item
+If set to a procedure, handle the value as a Scheme expression and use the
+procedure as a predicate to check whether the value fits.  This is also the
+default behaviour if @code{#:type} is not set, using @code{boolean?} as the
+procedure.
+
+@item
+If set to a list, handle the value as a Scheme expression and check whether it
+is one of the list's elements (using @code{equal?} for the comparison test).
+@end itemize
+
+@q{Handling as a Scheme expression} means that the string gets passed to the
+@code{read} Scheme function, which stops reading after the first complete Scheme
+expression has been parsed.  As a consequence, both strings @code{"foo"} and
+@code{"foo bar"} get converted to symbol @code{foo}, while a string
+@code{"(foo"} causes an error because the Scheme expression is not complete.
+
+Passing @code{#:internal? #t} makes the option an internal option, not
 displayed in the @command{lilypond -dhelp} output (but displayed in
 @command{lilypond -dhelp-internal}.
 
 Passing @code{#:accumulative? #t} makes the option accumulative,
-which gathers @code{-d} values in a list instead of letting the
-last @code{-d} flag overwrite the others.
+which gathers @option{-d} values in a list instead of letting the
+last @option{-d} flag overwrite the others.
            )")
 {
   if (!option_hash.is_bound ())
@@ -230,6 +274,24 @@ last @code{-d} flag overwrite the others.
     ly_keyword2scm ("accumulative?"), &accumulative,                       //
     SCM_UNDEFINED);
 
+  SCM p_o_t = ly_symbol2scm ("program-option-type");
+
+  if (SCM_UNBNDP (type))
+    scm_set_object_property_x (sym, p_o_t, Guile_user::boolean_p);
+  else if (scm_is_true (scm_eq_p (type, ly_symbol2scm ("string"))))
+    scm_set_object_property_x (sym, p_o_t, type);
+  else if (scm_is_true (scm_eq_p (type, ly_symbol2scm ("string-or-false"))))
+    scm_set_object_property_x (sym, p_o_t, type);
+  else
+    {
+      if (!ly_is_procedure (type) && !ly_is_list (type))
+        {
+          programming_error ("invalid #:type argument");
+          return SCM_UNSPECIFIED;
+        }
+      scm_set_object_property_x (sym, p_o_t, type);
+    }
+
   if (scm_is_true (internal))
     scm_set_object_property_x (sym, ly_symbol2scm ("program-option-internal?"),
                                SCM_BOOL_T);
@@ -246,9 +308,48 @@ last @code{-d} flag overwrite the others.
   return SCM_UNSPECIFIED;
 }
 
+static bool
+check_value_type (SCM key, SCM val)
+{
+  SCM type = scm_object_property (key, ly_symbol2scm ("program-option-type"));
+  if (ly_is_procedure (type))
+    {
+      if (scm_is_false (ly_call (type, val)))
+        {
+          std::string key_str
+            = ly_scm2string (scm_object_to_string (key, SCM_UNDEFINED));
+          std::string val_str
+            = ly_scm2string (scm_object_to_string (val, SCM_UNDEFINED));
+          warning (_f ("ignoring option -d%s=\"%s\": value has wrong type",
+                       key_str, val_str));
+          return false;
+        }
+    }
+  else if (ly_is_list (type))
+    {
+      if (scm_is_false (scm_member (val, type)))
+        {
+          std::string key_str
+            = ly_scm2string (scm_object_to_string (key, SCM_UNDEFINED));
+          std::string val_str
+            = ly_scm2string (scm_object_to_string (val, SCM_UNDEFINED));
+          std::string type_str
+            = ly_scm2string (scm_object_to_string (type, SCM_UNDEFINED));
+          warning (_f ("ignoring option -d%s=\"%s\":\n"
+                       "  invalid value; possible values are %s",
+                       key_str, val_str, type_str));
+          return false;
+        }
+    }
+
+  return true;
+}
+
 LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
            R"(
-Set a program option.
+Set program option @var{var} to value @var{val}.
+
+See also function @code{ly:add-option}.
            )")
 {
   LY_ASSERT_TYPE (ly_is_symbol, var, 1);
@@ -274,16 +375,20 @@ Set a program option.
     }
   SCM handle = scm_hashq_get_handle (option_hash, var);
   if (scm_is_false (handle))
-    warning (_f ("no such internal option: %s", varstr.c_str ()));
+    warning (_f ("no such program option: %s", varstr.c_str ()));
 
-  internal_set_option (var, val);
+  if (check_value_type (var, val))
+    internal_set_option (var, val);
+
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_append_to_option, "ly:append-to-option", 2, 0, 0,
            (SCM var, SCM val),
            R"(
-Add a value to an accumulative program option.
+Add value @var{val} to an accumulative program option @var{var}.
+
+See also function @code{ly:add-option}.
            )")
 {
   LY_ASSERT_TYPE (ly_is_symbol, var, 1);
@@ -300,20 +405,28 @@ Add a value to an accumulative program option.
                    "of ly:add-to-option",
                    ly_symbol2string (var).c_str ()));
     }
-  scm_set_cdr_x (handle, scm_cons (val, scm_cdr (handle)));
+
+  if (check_value_type (var, val))
+    scm_set_cdr_x (handle, scm_cons (val, scm_cdr (handle)));
+
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
            R"(
 The Scheme options specified on the command line with option @option{-d}.
+
+Return a key-value alist, with keys being symbols and values being strings.
            )")
 {
-  std::string str = "";
+  SCM options = SCM_EOL;
   for (const auto keyval : init_scheme_variables_global)
-    str += "(" + keyval.first + " . " + keyval.second + ")\n";
-
-  return ly_string2scm ("(" + str + ")");
+    {
+      options
+        = scm_acons (scm_from_utf8_symbol (keyval.first.c_str ()),
+                     scm_from_utf8_string (keyval.second.c_str ()), options);
+    }
+  return scm_reverse_x (options, SCM_EOL);
 }
 
 LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
