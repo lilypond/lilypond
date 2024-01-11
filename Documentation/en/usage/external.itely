@@ -235,7 +235,7 @@ or
 Command line:
 
 @example
-lilypond -dpoint-and-click=note-event   example.ly
+lilypond -dpoint-and-click=note-event example.ly
 @end example
 
 @end itemize
@@ -265,11 +265,11 @@ or
 @item
 Command line:
 
-@smallexample
+@example
 lilypond \
-  -e"(ly:set-option 'point-and-click '(note-event dynamic-event))" \
+  -dpoint-and-click="(note-event dynamic-event)" \
   example.ly
-@end smallexample
+@end example
 
 @end itemize
 

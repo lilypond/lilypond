@@ -553,8 +553,7 @@ is equivalent to
 @noindent
 in a LilyPond input file.
 
-If @var{value} is not supplied, use @code{#t} as the value (which might
-produce strange results if the expected @var{value} type is not boolean).
+If @var{value} is not supplied, use @code{#t} as the value.
 The prefix @code{no-} may be added to @var{option-name} to switch @q{off} an
 option, providing @code{#f} as the value.  For example,
 
@@ -583,12 +582,12 @@ function @code{ly:get-option}.
 
 @item @code{anti-alias-factor} @var{num}
 Render at a higher resolution (using factor @var{num}, which must
-be a positive integer @leq{}8) and scale down the result to
+be a positive integer @leq{}@tie{}8) and scale down the result to
 prevent @q{jaggies} in PNG images.  Default: @code{1}.
 
 @item @code{aux-files} @var{bool}
 If @var{bool} is @code{#t}, create @file{.tex}, @file{.texi}, and
-@file{.count} files.  This option is mostly for use by
+@file{.count} files.  This option is primarily for use by
 @command{lilypond-book}.  Default: @code{#f}.
 
 @item @code{backend} @var{symbol}
@@ -609,8 +608,7 @@ which also does font subsetting by default.
 
 @item cairo
 This creates graphics output throught the Cairo library.
-This backend can output @code{ps}, @code{eps}, @code{pdf},
-@code{png} and @code{svg}.
+This backend can output PS, EPS, PDF, PNG, and SVG.
 
 @item svg
 Scalable Vector Graphics.
@@ -635,7 +633,6 @@ Use the Guile compiler to run Scheme code, instead of the evaluator.
 For more information, see @rextend{Debugging Scheme code}.
 
 @item @code{crop} @var{bool}
-
 If @var{bool} is @code{#t}, a second PDF file gets created (with
 extension @file{.cropped.pdf}), together with a rendered image of it
 (with extension @file{.cropped.png}).  This output file fits all the
@@ -655,7 +652,7 @@ integer big point value like @code{450\bp}.
 Note that currently this option is not well suited for multi-system
 output since vertical space between systems gets removed.
 
-@item @code{datadir}
+@item @code{datadir} @var{string}
 Prefix for data files.  This is a read-only option; setting it has no
 effect.
 
@@ -696,6 +693,7 @@ if inserted at the beginning of the input file.  If both
 @option{-dfirst} and @code{showFirstLength} are set, the
 command-line option takes precedence.  See @rnotation{Extracting
 fragments of music}.
+Default: @code{#f}.
 
 @item @code{font-export-dir} @var{string}
 Set directory for exporting fonts as PostScript files to @var{string}.
@@ -703,7 +701,8 @@ This is useful when you want to create a PDF without embedded fonts first
 and later embed the fonts with Ghostscript as shown below.
 
 @example
-$ lilypond -dfont-export-dir=fontdir -dgs-never-embed-fonts foo.ly
+$ lilypond -dfont-export-dir=fontdir \
+           -dgs-never-embed-fonts foo.ly
 $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
      -sOutputFile=foo.embedded.pdf foo.pdf fontdir/*.font.ps
 @end example
@@ -713,14 +712,14 @@ Note: Unlike @code{font-ps-resdir},
 this method cannot embed CID fonts with Ghostscript 9.26 and later.
 
 @noindent
-Note: Same as @code{font-ps-resdir}, this option skips TrueType fonts
-because embedding TrueType fonts later causes garbled characters.
+Note: Similar to @code{font-ps-resdir}, this option skips TrueType fonts
+because embedding TrueType fonts might cause garbled characters.
 To avoid garbling characters, use
 @code{gs-never-embed-fonts}, as this embeds TrueType fonts
 despite its name.
 
 @noindent
-Default: @code{#f} (meaning not to export).
+Default: @code{#f} (meaning no export directory).
 
 @item @code{font-ps-resdir} @var{string}
 Set directory (as @var{string}) to build a subset of the PostScript resource
@@ -729,14 +728,15 @@ This is useful when you want to create a PDF without embedded fonts first
 and later embed the fonts with Ghostscript as shown below.
 
 @example
-$ lilypond -dfont-ps-resdir=resdir -dgs-never-embed-fonts foo.ly
+$ lilypond -dfont-ps-resdir=resdir \
+           -dgs-never-embed-fonts foo.ly
 $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
      -I resdir -I resdir/Font \
      -sOutputFile=foo.embedded.pdf foo.pdf
 @end example
 
 @noindent
-Note: It is better not to specify the directory
+Note: It is better not to specify a directory
 that contains the name @file{Resource} because it has a special meaning
 when specified with the @code{-I} option for Ghostscript.
 
@@ -745,14 +745,14 @@ Note: Unlike @code{font-export-dir},
 this method can embed CID fonts with Ghostscript 9.26 and later.
 
 @noindent
-Note: Same as @code{font-export-dir}, this option skips TrueType fonts
-because embedding TrueType fonts later causes garbled characters.
+Note: Similar to @code{font-export-dir}, this option skips TrueType fonts
+because embedding TrueType fonts might cause garbled characters.
 To avoid garbling characters, use
 @code{gs-never-embed-fonts}, as this embeds TrueType fonts
 despite its name.
 
 @noindent
-Default: @code{#f} (meaning not to build).
+Default: @code{#f} (meaning no subset directory).
 
 @item @code{gs-load-fonts} @var{bool}
 If @var{bool} is @code{#t}, load fonts via Ghostscript.  This option
@@ -775,7 +775,7 @@ fonts and no other font format.
 Default: @code{#f}.
 
 @item @code{help} @var{bool}
-If @var{bool} is @code{#t}, show this help.
+If @var{bool} is @code{#t}, show a help screen and exit.
 Default: @code{#f}.
 
 @item @code{include-book-title-preview} @var{bool}
@@ -788,12 +788,13 @@ Default: @code{#t}.
 
 @item @code{include-settings} @var{string}
 Include file @var{string} for global settings, which is included before the
-score is processed.  This can be passed multiple times to include several
+score is processed.  This option can be passed multiple times to include several
 files.
-Default: @code{'()} (meaning no global settings file).
+Default: not set (meaning no global settings file).
 
 @item @code{job-count} @var{num}
-Process in parallel, using @var{num} jobs.
+Process in parallel, using @var{num} jobs (@var{num} being a
+positive integer).
 Default: @code{#f} (meaning no parallel processing).
 
 @item @code{last} @var{string}
@@ -809,13 +810,15 @@ if inserted at the beginning of the input file.  If both
 @option{-dlast} and @code{showLastLength} are set, the
 command-line option takes precedence.  See @rnotation{Extracting
 fragments of music}.
+Default: @code{#f}.
 
 @item @code{log-file} @var{string}
 Redirect output to the log file @file{@var{string}.log}.
 Default: @code{#f} (meaning no log file).
 
 @item @code{max-markup-depth} @var{num}
-Set maximum depth for the markup tree to value @var{num}.  If a
+Set maximum depth for the markup tree to value @var{num} (being a
+non-negative integer).  If a
 markup has more levels, assume it will not terminate on its own,
 print a warning, and return a null markup instead.
 Default: @code{1024}.
@@ -830,28 +833,21 @@ If @var{bool} is @code{#t}, convert text strings to paths when glyphs
 belong to a music font.
 Default: @code{#f}.
 
-@item @code{paper-size} @var{extra-quoted-string}
-Set default paper size to @var{extra-quoted-string}.  Note that the
-string must be enclosed in escaped double quotes.
-Default: @code{"\"a4\""}.
+@item @code{paper-size} @var{string}
+Set default paper size to @var{string}.
+Default: @code{"a4"}.
 
-Getting escaped double quotes depends on your command-line
-interpreter.  Assuming you want to select A5 paper, say
-@code{-dpaper-size='"a5"'} within a Unix-like shell like
-@command{sh} or @command{bash}, as used on GNU/Linux or macOS.
-Within the standard Windows command prompt, @command{cmd.exe}, say
-@code{-dpaper-size="""a5"""} instead.
-
-@item @code{pixmap-format} @var{symbol}
-Set Ghostscript's output format for pixel images to @var{symbol}.
-Default: @code{png16m}.
+@item @code{pixmap-format} @var{string}
+Set Ghostscript's output format for pixel images to @var{string}.
+Default: @code{"png16m"}.
 
 @item @code{png-width} @var{width}
 @itemx @code{png-height} @var{height}
 For PNG output, set the width and height (in pixels) of the
 created image file.  If one of the options is missing, the other
 dimension is computed according to the EPS bounding box, retaining
-the aspect ratio.
+the aspect ratio.  Both @var{width} and @var{height} must be
+non-negative integers.
 
 In addition to @option{--png}, either @option{--eps},
 @option{-dcrop}, or @option{-dpreview} should be used to get
@@ -863,9 +859,14 @@ Note that there is a bug in Ghostscript versions up to 9.52 for
 these two options: It produces empty PNG images if the height is
 larger than the width.
 
-@item @code{point-and-click} @var{bool}
-If @var{bool} is @code{#t}, add @q{point & click} links to PDF and
-SVG output.  @xref{Point and click}.
+Default: @code{0} for both @var{width} and @var{height} (meaning
+both dimensions are derived from the EPS bounding box).
+
+@item @code{point-and-click} @var{value}
+If @var{value} is @code{#t}, add @q{point & click} links to PDF and
+SVG output.
+
+There are more possible option values; @pxref{Point and click}.
 Default: @code{#t}.
 
 @item @code{preview} @var{bool}
@@ -912,7 +913,8 @@ to @code{#f}, look for the file relative to the root file.
 Default: @code{#t}.
 
 @item @code{resolution} @var{num}
-Set resolution for generating @code{PNG} pixmaps to @var{num} dpi.
+Set resolution for generating @code{PNG} pixmaps to @var{num} dpi
+(which must be a positive number).
 Default: @code{101}.
 
 @item @code{separate-log-files} @var{bool}
@@ -921,10 +923,11 @@ data to files @file{file1.log}, @file{file2.log}, @dots{}, if
 @var{bool} is @code{#t}.
 Default: @code{#f}.
 
-@item @code{separate-page-formats} @var{symbol}
+@item @code{separate-page-formats} @var{string}
 Comma-separated list of formats (@code{svg}, @code{pdf},
 @code{png}, or @code{eps}) to use for the separate page
 images in @code{lilypond-book}.  @xref{Other programs}.
+Default: @code{#f}.
 
 @item @code{show-available-fonts} @var{bool}
 If @var{bool} is @code{#t}, list available font names as delivered by
@@ -932,15 +935,17 @@ the fontconfig library.  Appended to this list LilyPond displays the
 configuration settings of fontconfig itself.
 Default: @code{#f}.
 
-@item @code{staff-size} @var{size}
-Set global staff size to @var{size} points.  This is equivalent to
+@item @code{staff-size} @var{num}
+Set global staff size to @var{num} points (which must be a
+positive number).  This is equivalent to
 
 @example
-#(set-global-staff-size @var{size})
+#(set-global-staff-size @var{num})
 @end example
 
 @noindent
 if inserted at the beginning of the input file.
+Default: 20@dmn{pt}.
 
 @item @code{strip-output-dir} @var{bool}
 If @var{bool} is @code{#t}, don't use the directory part from input
@@ -958,18 +963,20 @@ affect print quality and causes large file size increases in PDF
 files.
 Default: @code{#f}.
 
-@item @code{tall-page-formats} @var{symbol}
+@item @code{tall-page-formats} @var{string}
 Comma-separated list of formats (@code{svg}, @code{pdf},
 @code{png}, or @code{eps}) to use for the @q{tall page} image in
 @code{lilypond-book}.  @xref{Other programs}.
+Default: @code{#f}.
 
 @item @code{use-paper-size-for-page} @var{bool}
-If @var{bool} is @code{#t} (the default), each page is set to the
+If @var{bool} is @code{#t}, each page is set to the
 paper size, possibly cropping parts that extend beyond the
-paper. Setting it @code{#f} will resize the page to contain the
+paper.  Setting it @code{#f} resizes the page to contain the
 content as necessary.
+Default: @code{#t}.
 
-@item @code{verbose}
+@item @code{verbose} @var{bool}
 Verbosity level.  This is a read-only option; setting it has no
 effect.
 

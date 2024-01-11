@@ -995,6 +995,37 @@ The data emitted by the command-line option
 Function @code{ly:font-config-display-fonts} got an optional
 argument to select the output port.
 
+@item
+The Scheme command-line option handling is now more robust.  In
+course of the new implementation, some minor changes were
+necessary.
+
+@itemize
+@item
+On the command line, the argument for the @option{-dpaper-size}
+option no longer needs to be extra-quoted, i.e., a call like
+@code{-dpaper-size=a3} works just fine.
+
+@item
+The @option{pixmap-format} option now expects a string as a value,
+not a symbol.  No change on the command line, but a call like
+
+@example
+#(ly:set-option 'pixmap-format 'pngalpha)
+@end example
+
+@noindent
+must be changed to
+
+@example
+#(ly:set-option 'pixmap-format "pngalpha")
+@end example
+
+The same holds for options @option{separate-page-formats} and
+@option{tall-page-formats}.  Note that @command{convert-ly} can
+handle this automatically.
+@end itemize
+
 @end itemize
 
 
