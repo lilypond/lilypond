@@ -467,6 +467,10 @@ table.menu {
   margin: 1em;
 }
 
+.warning div.example {
+  background: #eef;
+}
+
 .advanced {
   background: #ffffc8;
   text-align: left;

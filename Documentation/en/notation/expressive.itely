@@ -575,6 +575,38 @@ items such as text scripts, text spanners, and piano pedal marks.
 >>
 @end lilypond
 
+@warning{Even if there is only a single absolute dynamic mark like
+@code{@bs{}p} in a score, LilyPond always creates @emph{two}
+objects for it, a @code{DynamicText} and a
+@code{DynamicLineSpanner} object, and the properties to control
+the dynamic mark are shared between these two objects.  For
+example, the size can be changed with the
+@code{DynamicText.font-size} property, while the vertical position
+is controlled by @code{DynamicLineSpanner.Y-offset}.
+
+As a consequence, code like
+
+@example
+@bs{}tweak font-size 5 @bs{}p
+@end example
+
+@noindent
+works but
+
+@example
+@bs{}tweak Y-offset 5 @bs{}p
+@end example
+
+@noindent
+does not.  You have to say
+
+@example
+@bs{}tweak DynamicLineSpanner.Y-offset 5 @bs{}p
+@end example
+
+@noindent
+instead.}
+
 @predefined
 @code{\dynamicUp},
 @code{\dynamicDown},
