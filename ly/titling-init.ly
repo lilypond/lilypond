@@ -59,22 +59,11 @@ slashSeparator = \markup {
   \raise #0.7 \beam #2.0 #0.5 #0.48
 }
 
-tagline = \markup {
-  \pad-to-box #'(0 . 0) #'(0 . 3)
-  {  \with-url
-
-    "https://lilypond.org/"
-    \line {
-
-      %% 2014 = em dash.
-
-      #(format #f "Music engraving by LilyPond ~a~awww.lilypond.org"
-         (lilypond-version)
-         (ly:wide-char->utf-8 #x2014)
-         )
-    }
-  }
-}
+tagline = \markup
+            \pad-to-box #'(0 . 0) #'(0 . 3)
+              \with-url
+                "https://lilypond.org"
+                #(format #f "LilyPond v~a" (lilypond-version))
 
 bookTitleMarkup = \markup {
   \override #'(baseline-skip . 3.5)
