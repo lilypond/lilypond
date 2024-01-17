@@ -1428,19 +1428,54 @@ fulfilled by other markup commands (see, for example, @code{\\path} and
 mind:
 
 @itemize
-
 @item @code{\\postscript} does not work in SVG output.
+
+@item Only a subset of the PostScript language is supported during the
+conversion from PostScript to PDF.
 
 @item There are no stability guarantees on the details of how LilyPond produces
 its own output (i.e., the context into which the PostScript code is inserted).
 They may change substantially across versions.
 
-@item LilyPond cannot understand the shape of the drawing, leading to
-suboptimal spacing.
+@item LilyPond cannot understand the shape of the drawing, leading to suboptimal
+spacing.  Usually, it is necessary to explicitly set up dimensions with a
+command like @code{\\with-dimensions}.
 
 @item Depending on how you install LilyPond, the version of the PostScript
-interpreter (GhostScript) can vary, and some of its features may be disabled.
+interpreter (Ghostscript) can vary, and some of its features may be disabled.
+@end itemize
 
+@var{str} is processed with the following constraints.
+
+@itemize
+@item The string is embedded into the (intermediate) output file with the
+PostScript commands
+
+@example
+gsave currentpoint translate 0.1 setlinewidth
+@end example
+
+@noindent
+before and
+
+@example
+grestore
+@end example
+
+@noindent
+after it.
+
+@item After these preceding commands (i.e., @code{currentpoint translate}) the
+origin of the current transformation is the reference point of
+@code{\\postscript}.  Scale and rotation of the current transformation reflect
+the global staff line distance and (if applied) other transformation markup
+commands (e.g., @code{\\scale} and @code{\\rotate}) encapsulating the
+@code{\\postscript} command.
+
+@item The current point is set to the coordinate (0,@tie{}0).
+
+@item If an unwanted line appears at the beginning of your PostScript code, you
+are probably missing a call to @code{newpath}.
 @end itemize
 
 @lilypond[verbatim,quote]
