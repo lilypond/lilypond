@@ -264,6 +264,14 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
       if (errorcode)
         programming_error (_f ("FT_Get_Glyph_Name () error: %s",
                                freetype_error_string (errorcode).c_str ()));
+      else
+        {
+          // There are fonts like `Symbola.ttf` version 10.23 that have a
+          // 'post' table with all entries set to the empty string.  While
+          // being technically valid we can't use that.
+          if (glyph_name[0] == '\0')
+            has_glyph_names = false;
+        }
     }
 
   SCM char_id = SCM_EOL;
