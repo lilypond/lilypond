@@ -27,7 +27,7 @@ Slashes on beamed notes should be rectangular and parallel to the beams. }
   \music
 }
 
-\markup \wordwrap { style=constant.  All slashes should be rectangular.
+\markup \wordwrap { style=constant.  All slashes should be beam-like.
 All slashes should have the same slope except for downstem flagged notes. }
 \new Staff {
   \override StemTremolo.style = #'constant
