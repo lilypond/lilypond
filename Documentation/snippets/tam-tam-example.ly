@@ -33,4 +33,4 @@ A tam-tam example, entered with 'tt'
   tt 1 \pp \laissezVibrer
 }
 
-\paper { tagline = ##t}
+\paper { tagline = ##f }
