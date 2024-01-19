@@ -30,14 +30,30 @@ import sys
 
 def process_options(args):
     parser = optparse.OptionParser(version="@TOPLEVEL_VERSION@")
-    parser.add_option('', '--filter-tracks', metavar='REGEXP', action='store', type='string', dest='regexp',
-                      help="display only tracks numbers, of those track names matching REGEXP")
-    parser.add_option('', '--prefix-tracks', metavar='PREFIX', action='store', type='string', dest='prefix',
-                      help="prefix filtered track numbers with PREFIX")
+    parser.add_option(
+        '',
+        '--filter-tracks',
+        metavar='REGEXP',
+        action='store',
+        type='string',
+        dest='regexp',
+        help="display only tracks numbers, of those track names matching REGEXP")
+    parser.add_option(
+        '',
+        '--prefix-tracks',
+        metavar='PREFIX',
+        action='store',
+        type='string',
+        dest='prefix',
+        help="prefix filtered track numbers with PREFIX")
     parser.add_option('', '--dump', action='store_true', dest='dump',
                       help="just dump parsed contents of the MIDI file")
-    parser.add_option('', '--pretty', action='store_true', dest='pretty',
-                      help="dump parsed contents of the MIDI file in human-readable form (implies --dump)")
+    parser.add_option(
+        '',
+        '--pretty',
+        action='store_true',
+        dest='pretty',
+        help="dump parsed contents of the MIDI file in human-readable form (implies --dump)")
     parser.usage = parser.usage + " FILE"
     options, args = parser.parse_args(args)
     if len(args) != 1:
@@ -92,7 +108,7 @@ class meta_formatter (formatter):
 
 class tempo_formatter (formatter):
     def format_vals(self, val1, val2):
-        return str(ord(val2[0])*65536 + ord(val2[1])*256 + ord(val2[2])) \
+        return str(ord(val2[0]) * 65536 + ord(val2[1]) * 256 + ord(val2[2])) \
             + " msec/quarter"
 
 
@@ -113,8 +129,8 @@ class time_signature_formatter (formatter):
 class key_signature_formatter (formatter):
     def format_vals(self, val1, val2):
         key_names = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
-        key = (((ord(val2[0])+128) % 256)-128) + ord(val2[1])*3 + 1
-        return (key_names[key % 7] + (key//7) * "is" + (-(key//7)) * "es"
+        key = (((ord(val2[0]) + 128) % 256) - 128) + ord(val2[1]) * 3 + 1
+        return (key_names[key % 7] + (key // 7) * "is" + (-(key // 7)) * "es"
                 + " " + ['major', 'minor'][ord(val2[1])])
 
 
@@ -224,9 +240,10 @@ def dump_midi(data, midi_file, options):
     # First, dump general info, #tracks, etc.
     print("Filename:     " + midi_file)
     i = data[0]
-    m_formats = {0: 'single multi-channel track',
-                 1: "one or more simultaneous tracks",
-                 2: "one or more sequentially independent single-track patterns"}
+    m_formats = {
+        0: 'single multi-channel track',
+        1: "one or more simultaneous tracks",
+        2: "one or more sequentially independent single-track patterns"}
     print("MIDI format:  " + str(i[0]) + " (" + m_formats.get(i[0], "") + ")")
     print("Divisions:    " + str(i[1]) + " per whole note")
     print("#Tracks:      " + str(len(data[1])))
@@ -254,7 +271,7 @@ def go():
     elif options.regexp:
         import re
         regexp = re.compile(options.regexp)
-        numbers = [str(n+1) for n, name in info if regexp.search(name)]
+        numbers = [str(n + 1) for n, name in info if regexp.search(name)]
         if numbers:
             if options.prefix:
                 sys.stdout.write('%s ' % (options.prefix,))
@@ -262,7 +279,7 @@ def go():
             sys.stdout.write('\n')
     else:
         for n, name in info:
-            sys.stdout.write('%d %s\n' % (n+1, name,))
+            sys.stdout.write('%d %s\n' % (n + 1, name,))
 
 
 if __name__ == '__main__':
