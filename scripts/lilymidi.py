@@ -138,6 +138,13 @@ class control_mode_formatter (formatter):
             self.format_vals(val1, val2)
 
 
+class bend_formatter (channel_formatter):
+    def format_vals(self, val1, val2):
+        bend = (val2 << 7) + val1
+        return ("+" if bend > 0x2000 else "") + str(bend - 0x2000) + \
+            " (" + str(bend) + ")"
+
+
 class note_formatter (channel_formatter):
     def pitch(self, val):
         pitch_names = ['C', 'Cis', 'D', 'Dis', 'E',
@@ -194,6 +201,8 @@ def dump_event(ev, time, padding):
         f = channel_formatter("Program Change: ", ch)
     elif func == 0xD0:
         f = channel_formatter("Channel aftertouch: ", ch)
+    elif func == 0xE0:
+        f = bend_formatter("Pitch bend: ", ch)
     elif ev[0] in [0xF0, 0xF7]:
         f = meta_formatter("System-exclusive event: ")
 
