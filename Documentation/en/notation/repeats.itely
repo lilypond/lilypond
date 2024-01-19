@@ -1404,6 +1404,9 @@ the last value is used:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/cross-staff-tremolos.ly}
 
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/controlling-the-appearance-of-tremolo-slashes.ly}
+
 
 @morerefs
 Snippets:
