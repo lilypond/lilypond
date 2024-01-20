@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7d3a21cd7b0c4d44a12991f49482e9fef6a62d09
+   Translation of GIT committish: 8c0a6ff91af8a80f426e0a34031e9de0de68f50b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -575,11 +575,9 @@ Affecte la valeur Scheme @var{valeur} à l'option interne
 @noindent
 dans un fichier source LilyPond.
 
-En l'absence de @var{valeur}, le programme utilisera @var{#t}, ce qui
-peut conduire à des résultats inescomptés dès lors que le type escompté
-de @var{valeur} n'est pas boléen. Préfixer @var{nom-option} d'un
-@code{no-} permet de désactiver une option, autrement dit affecte
-@code{#f} à @var{valeur}.  Ainsi,
+En l'absence de @var{valeur}, le programme utilisera @var{#t}. Préfixer
+@var{nom-option} d'un @code{no-} permet de désactiver une option,
+autrement dit affecte @code{#f} à @var{valeur}. Ainsi,
 
 @cindex point and click, ligne de commande
 @cindex pointer-cliquer, ligne de commande
@@ -634,6 +632,10 @@ est utilisé. Les données PS sont ensuite retraitées par @code{ps2pdf},
 script de Ghostscript, qui par défaut extrait des sous-ensembles des
 fontes.
 
+@item cairo
+Crée des sorties graphiques à l'aide de la bibliothèque Cairo. Ce moteur
+peut générer du PS, du EPS, du PDF, du PNG et du SVG.
+
 @item svg
 Génère du @emph{Scalable Vector Graphics}. Cette option permet de créer
 un fichier SVG par page. Les glyphes musicaux sont codés en tant que
@@ -682,7 +684,7 @@ Notez bien que cette option n'est, à ce jour, pas très adaptée dans le
 cadre d'une sortie comportant plusieurs systèmes puisque l'espace les
 séparant est supprimé.
 
-@item @code{datadir}
+@item @code{datadir} @var{chaîne}
 Détermine le préfixe des fichiers de données (lecture seule).
 
 @item @code{debug-eval} @var{bool}
@@ -721,7 +723,7 @@ mentionnée au début du fichier source. Dès lors que @option{-dfirst} et
 @code{showFirstLength} sont tous deux présents, l'option de la ligne de
 commande aura priorité. Voir
 @rnotationnamed{Extracting fragments of music,
-Extraction de fragments musicaux}.
+Extraction de fragments musicaux}. La valeur par défaut est @code{#f}.
 
 @item @code{font-export-dir} @var{chaîne}
 Détermine à @var{chaîne} le répertoire dans lequel exporter les fontes
@@ -731,7 +733,8 @@ temps, et laisse Ghostscript le faire par la suite comme indiqué
 ci-dessous.
 
 @example
-$ lilypond -dfont-export-dir=fontdir -dgs-never-embed-fonts foo.ly
+$ lilypond -dfont-export-dir=fontdir\
+           -dgs-never-embed-fonts foo.ly
 $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
      -sOutputFile=foo.embedded.pdf foo.pdf fontdir/*.font.ps
 @end example
@@ -742,14 +745,16 @@ pas d'incorporer de fonte CID avec une version de Ghostscript égale ou
 supérieure à 9.26.
 
 @noindent
-Note : Identique à @code{font-ps-resdir}, cette option ignore les fontes
-TrueType dans la mesure où les incorporer @i{a posteriori} cause une
-altération des caractères. L'utilisation de @code{gs-never-embed-fonts},
-dans la mesure où elle incorpore les fontes TrueType en dépit de ce
-qu'elle prétend d'après son nom, permet d'éviter les caractères altérés.
+Note : De la même manière que @code{font-ps-resdir}, cette option ignore
+les fontes TrueType dans la mesure où les incorporer @i{a posteriori}
+peut causer une altération des caractères. L'utilisation de
+@code{gs-never-embed-fonts}, dans la mesure où elle incorpore les fontes
+TrueType en dépit de ce qu'elle prétend d'après son nom, permet d'éviter
+les caractères altérés.
 
 @noindent
-La valeur par défaut est @code{#f}, autrement dit absence d'export.
+La valeur par défaut est @code{#f}, autrement dit absence de répertoire
+pour l'export.
 
 @item @code{font-ps-resdir} @var{chaîne}
 Détermine à @var{chaîne} le répertoire dans lequel sera construit le
@@ -759,7 +764,8 @@ un fichier PDF sans y incorporer les fontes dans un premier temps, et
 laisse Ghostscript le faire par la suite comme indiqué ci-dessous.
 
 @example
-$ lilypond -dfont-ps-resdir=resdir -dgs-never-embed-fonts foo.ly
+$ lilypond -dfont-ps-resdir=resdir
+           -dgs-never-embed-fonts foo.ly
 $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
      -I resdir -I resdir/Font \
      -sOutputFile=foo.embedded.pdf foo.pdf
@@ -776,16 +782,16 @@ l'incorporation de fontes CID avec une version de Ghostscript égale ou
 supérieure à 9.26.
 
 @noindent
-Note : Identique à @code{font-export-dir}, cette option ignore les
-fontes TrueType dans la mesure où les incorporer @i{a posteriori} cause
-une altération des caractères. L'utilisation de
+Note : De la même manière que @code{font-export-dir}, cette option
+ignore les fontes TrueType dans la mesure où les incorporer @i{a
+posteriori} peut causer une altération des caractères. L'utilisation de
 @code{gs-never-embed-fonts}, dans la mesure où elle incorpore les fontes
 TrueType en dépit de ce qu'elle prétend d'après son nom, permet d'éviter
 les caractères altérés.
 
 @noindent
 La valeur par défaut est @code{#f}, autrement dit absence de
-construction d'un sous-ensemble.
+construction d'un répertoire de sous-ensemble.
 
 @item @code{gs-load-fonts} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, charge les fontes grâce à
@@ -805,11 +811,11 @@ fontes sont générées normalement. La valeur par défaut est @code{#f}.
 @item @code{gs-never-embed-fonts} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, intime à Ghostscript
 d'embarquer les fontes uniquement au format TrueType, sans exception. La
-valeur par défaut est @code{#f}.
+valeur par défaut est @code{#f}.
 
 @item @code{help} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, affiche cette aide. La valeur
-par défaut est @code{#f}.
+Si @var{bool} est déterminé à @code{#t}, affiche un écran d'aide. La
+valeur par défaut est @code{#f}.
 
 @item @code{include-book-title-preview} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, inclut les titres de l'ouvrage
@@ -822,13 +828,13 @@ fichier EPS contenant un système. La valeur par défaut est @code{#t}.
 @item @code{include-settings} @var{chaîne}
 Inclut le fichier @var{chaîne} contenant les réglages globaux, qui sera
 inclus avant traitement de la partition. Cette option peut se multiplier
-afin d'incorporer plusierus réglages. La valeur par défaut
-est @code{'()}, autrement dit absence de fichier de réglages.
+afin d'incorporer plusieurs réglages. La valeur par défaut n'est pas
+déterminée, autrement dit absence de fichier de réglages.
 
 @item @code{job-count} @var{num}
-Traite plusieurs fichiers en parallèle, selon le nombre @var{num} de
-@emph{jobs}. La valeur par défaut est @code{#f}, autrement dit sans
-traitement parallèle.
+Traite plusieurs fichiers en parallèle, selon le nombre @var{num} (un
+entier positif) de @emph{jobs}. La valeur par défaut est @code{#f},
+autrement dit sans traitement parallèle.
 
 @item @code{last} @var{chaîne}
 Génère la partition sur une durée donnée par @var{chaîne} à compter de
@@ -843,7 +849,7 @@ mentionnée au début du fichier source. Dès lors que @option{-dlast} et
 @code{showLastLength} sont tous deux présents, l'option de la ligne de
 commande aura priorité. Voir
 @rnotationnamed{Extracting fragments of music,
-Extraction de fragments musicaux}.
+Extraction de fragments musicaux}. La valeur par défaut est @code{#f}.
 
 @item @code{log-file} @var{chaîne}
 Redirige la sortie dans le fichier journal @file{@var{chaîne}.log}. La
@@ -851,10 +857,11 @@ valeur par défaut est @code{#f}, autrement dit absence de fichier de
 journalisation.
 
 @item @code{max-markup-depth} @var{num}
-Détermine à @var{num} la profondeur maximale de l'arborescence de
-@emph{markups}. Si un @emph{markup} était plus profond, part du principe
-qu'on n'aboutira pas, émet un avertissement et renvoie alors un
-@emph{markup} vide. La valeur par défaut est @code{1024}.
+Détermine à @var{num} (un entier positif) la profondeur maximale de
+l'arborescence de @emph{markups}. Si un @emph{markup} était plus
+profond, part du principe qu'on n'aboutira pas, émet un avertissement et
+renvoie alors un @emph{markup} vide. La valeur par défaut
+est @code{1024}.
 
 @item @code{midi-extension} @var{chaîne}
 Détermine à @var{chaîne} l'extension par défaut des fichiers MIDI.La
@@ -865,34 +872,25 @@ Si @var{bool} est déterminé à @code{#t}, convertit les chaînes
 textuelles en chemins lorsque les glyphes font partie d'une fonte
 musicale. La valeur par défaut est @code{#f}.
 
-@cindex paper-size, ligne de commande
-@item @code{paper-size} @var{chaîne-entre-guillemets}
-Détermine la taille par défaut du papier à
-@var{chaîne-entre-guillemets}. Veillez à ne pas oublier d'encadrer la
-valeur par des guillemets échappés (@code{\"}). La valeur par défaut est
-@code{"\"a4\""}.
+@cindex @code{paper-size}, ligne de commande
+@item @code{paper-size} @var{chaîne}
+Détermine la taille par défaut du papier à @var{chaîne}. La valeur par
+défaut est @code{"a4"}.
 @c Match " in context-sensitive editors
 
-L'obtention de guillemets échapés dépend de votre interpréteur de
-commande. Si, par exemple, vous souhaitez sélectioner du papier A5, vous
-devrez taper @code{-dpaper-size='"a5"'} dans un @emph{shell} de type
-Unix comme @command{sh} ou @command{bash} que l'on trouve sur GNU/Linux
-ou macOS. En ce qui concerne l'interface de commande standard de
-Windows, @command{cmd.exe}, il faudra alors taper
-@code{-dpaper-size="""a5"""}.
-
-@item @code{pixmap-format} @var{symbole}
+@item @code{pixmap-format} @var{chaîne}
 Détermine le format de sortie en images pixélisées pour Ghostscript à
-@var{symbole}. La valeur par défaut est @code{png16m}.
+@var{chaîne}. La valeur par défaut est @code{"png16m"}.
 
 @item @code{png-width} @var{largeur}
 @itemx @code{png-height} @var{hauteur}
 Dans le cas d'une sortie PNG, détermine la largeur et la hauteur, en
 pixels, des images créées. En l'absence de l'une de ces options, l'autre
 dimension sera calculée relativement à la boîte EPS englobante tout en
-maintenant le ration d'aspect.
+maintenant le ratio d'aspect. Les valeurs @var{largeur} et @var{hauteur}
+sont toutes deux des entiers positifs.
 
-En comlément de l'option @option{--png}, les options @option{--eps},
+En complément de l'option @option{--png}, les options @option{--eps},
 @option{-dcrop} ou @option{-dpreview} devraient permettre une mise à
 l'échelle correcte sans détourage.
 
@@ -902,13 +900,17 @@ Notez la présence d'un bogue dans les versions de Ghostscript
 inférieures à 9.52 avec ces deux options : l'image PNG produite sera
 vide dès lors que la hauteur est supérieure à la largeur.
 
-@item @code{point-and-click} @var{bool}
-Si @var{bool} est déterminé à @code{#t}, ajoute les liens « point &
+La valeur par défaut est @code{0} autant pour @var{largeur} que pour
+@var{hauteur}, ce qui signifie que ces deux dimensions seront
+déterminées par la boîte EPS englobante.
+
+@item @code{point-and-click} @var{valeur}
+Si @var{valeur} est déterminé à @code{#t}, ajoute les liens « point &
 click » à la sortie PDF ou SVG -- voir @ref{Point and click}. La valeur
-par défaut est @code{#t}.
+par défaut est @code{#t}.
 
 @cindex format de sortie, définition
-@cindex preview, ligne de commande
+@cindex @code{preview}, ligne de commande
 @item @code{preview} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, génère une prévisualisation en
 plus de la sortie normale. La valeur par défaut est @code{#f}.
@@ -953,8 +955,8 @@ si @var{bool} est déterminé à @code{#t}, plutôt que par rapport au
 fichier maître. La valeur par défaut est @code{#t}.
 
 @item @code{resolution} @var{num}
-Détermine la résolution des pixmaps @code{PNG}  à générer à @var{num}
-@code{dpi}. La valeur par défaut est @code{101}.
+Détermine la résolution des pixmaps @code{PNG} à générer à @var{num} (un
+entier positif) @code{dpi}. La valeur par défaut est @code{101}.
 
 @item @code{separate-log-files} @var{bool}
 Pour les fichiers @file{fichier1.ly}, @file{fichier2.ly}, etc.
@@ -962,10 +964,11 @@ enregistre le déroulement dans les journaux @file{fichier1.log},
 @file{fichier2.log}@dots{} si @var{bool} est déterminé à @code{#t}. La
 valeur par défaut est @code{#f}.
 
-@item @code{separate-page-formats} @var{symbole}
+@item @code{separate-page-formats} @var{chaîne}
 Liste des formats (@code{svg}, @code{pdf}, @code{png}, ou @code{eps}),
 séparés par des virgules, à utiliser pour les images séparées des pages pour
-@code{lilypond-book}.
+@code{lilypond-book} -- voir @ref{Other programs}. La valeur par défaut
+est @code{#f}.
 
 @item @code{show-available-fonts} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, liste le nom des fontes
@@ -973,16 +976,17 @@ disponibles tel que le ressort la bibliothèque fontconfig. LilyPond
 ajoute à cette liste les réglages et la configuration de fontconfig. La
 valeur par défaut est @code{#t}.
 
-@item @code{staff-size} @var{taille}
-Détermine la taille globale de portée à @var{taille} points. Ceci est
-équivalent à une clause
+@item @code{staff-size} @var{num}
+Détermine la taille globale de portée à @var{num} (un nombre positif)
+points. Ceci est équivalent à une clause
 
 @example
-#(set-global-staff-size @var{taille})
+#(set-global-staff-size @var{num})
 @end example
 
 @noindent
-mentionnée au début du fichier source.
+mentionnée au début du fichier source. La valeur par défaut est
+20@dmn{pt}.
 
 @item @code{strip-output-dir} @var{bool}
 Si @var{bool} est déterminé à @code{#t}, supprime, lors du nommage des
@@ -1000,18 +1004,20 @@ résolutions habituelles des écrans. Bien que n'affectant pas notoirement
 la qualité d'impression, cette option accroit notablement la taille des
 fichiers PDF. La valeur par défaut est @code{#f}.
 
-@item @code{tall-page-formats} @var{symbole}
+@item @code{tall-page-formats} @var{chaîne}
 Liste des formats (@code{svg}, @code{pdf}, @code{png}, ou @code{eps}),
 séparés par des virgules, à utiliser pour l'image pleine page pour
-@code{lilypond-book}.
+@code{lilypond-book} -- voir @ref{Other programs}. La valeur par défaut
+est @code{#f}.
 
 @item @code{use-paper-size-for-page} @var{bool}
-Si @var{bool} est déterminé à @code{#t} (valeur par défaut), chaque page
+Si @var{bool} est déterminé à @code{#t}, chaque page
 est dimensionnée au format du papier, tout en éliminant les parties qui
 pourraient déborder. Lorsque cette option est déterminée à @code{#f}, la
-feuille sera redimsensionnée pour contenir autant que nécessaire.
+feuille sera redimensionnée pour contenir autant que nécessaire. La
+valeur par défaut est @code{#t}.
 
-@item @code{verbose}
+@item @code{verbose} @var{bool}
 Passe en mode verbeux, ce qui correspond à un niveau de journalisation
 @code{DEBUG} (lecture seule).
 

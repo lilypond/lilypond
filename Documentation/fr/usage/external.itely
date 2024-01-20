@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7d3a21cd7b0c4d44a12991f49482e9fef6a62d09
+   Translation of GIT committish: 8c0a6ff91af8a80f426e0a34031e9de0de68f50b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -287,12 +287,11 @@ ou
 @item
 En ligne de commande :
 
-@smallexample
+@example
 lilypond \
-  -e"(ly:set-option 'point-and-click '(note-event dynamic-event))" \
+  -dpoint-and-click="(note-event dynamic-event)" \
   exemple.ly
-@end smallexample
-
+@end example
 
 @end itemize
 
