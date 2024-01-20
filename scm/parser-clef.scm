@@ -221,8 +221,14 @@
                               (format #f "  ~a\n"
                                       (string-join (map car lst)))))
                         clefs))))
-                (ly:warning (G_ "unknown clef type '~a'") clef-name)
-                (ly:warning (G_ "supported clefs:\n~a") supported-clefs-string)
+                (ly:input-warning
+                 (*location*)
+                 (string-join
+                  (list
+                   (format #f (G_ "unknown clef type '~a'") clef-name)
+                   (format #f (G_ "supported clefs:\n~a")
+                           supported-clefs-string))
+                  "\n"))
                 (make-music 'Music))))))))
 
 (define-public (make-cue-clef-set clef-name)
