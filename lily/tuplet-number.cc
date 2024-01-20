@@ -337,8 +337,8 @@ Tuplet_number::calc_y_offset (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
   Spanner *tuplet = unsmob<Spanner> (get_object (me, "bracket"));
-  Drul_array<Real> positions = from_scm (get_property (tuplet, "positions"),
-                                         Drul_array<Real> (0.0, 0.0));
+  const auto positions
+    = from_scm (get_property (tuplet, "positions"), Drul_array (0.0, 0.0));
   SCM to_bracket = to_scm ((positions[LEFT] + positions[RIGHT]) / 2.0);
 
   Grob *commonx = me->get_system ();

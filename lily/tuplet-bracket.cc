@@ -337,7 +337,7 @@ Tuplet_bracket::print (SCM smob)
 
   if (bracket_visibility)
     {
-      Drul_array<Real> zero (0, 0);
+      const Drul_array zero (0.0, 0.0);
 
       Drul_array<Real> shorten
         = from_scm (get_property (me, "shorten-pair"), zero);
@@ -577,7 +577,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
           if (par_beam)
             beam_positions
               = from_scm (get_property (par_beam, "quantized-positions"),
-                          Drul_array<Real> (0.0, 0.0));
+                          Drul_array (0.0, 0.0));
           else
             {
               for (vsize i = columns.size (); i--;)
@@ -589,7 +589,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
                         {
                           beam_positions = from_scm (
                             get_property (beam, "quantized-positions"),
-                            Drul_array<Real> (0.0, 0.0));
+                            Drul_array (0.0, 0.0));
                           sub_x0 = robust_relative_extent (beam, commonx,
                                                            X_AXIS)[LEFT];
                           sub_x1 = robust_relative_extent (beam, commonx,
@@ -650,8 +650,8 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
       if (!tuplets[i]->is_live ())
         continue;
 
-      Drul_array<Real> positions = from_scm (
-        get_property (tuplets[i], "positions"), Drul_array<Real> (0.0, 0.0));
+      const auto positions = from_scm (get_property (tuplets[i], "positions"),
+                                       Drul_array (0.0, 0.0));
 
       Real other_dy = positions[RIGHT] - positions[LEFT];
 

@@ -45,8 +45,8 @@ Vowel_transition::set_spacing_rods (SCM smob)
         return SCM_UNSPECIFIED;
       std::vector<Item *> cols (root->broken_col_range (
         bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
-      Drul_array<Real> padding = {0.0, 0.0};
-      Drul_array<Real> padding_broken = {0.0, 0.0};
+      Drul_array padding = {0.0, 0.0};
+      Drul_array padding_broken = {0.0, 0.0};
       for (const auto d : {LEFT, RIGHT})
         {
           SCM bounds = get_property (me, "bound-details");

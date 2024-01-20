@@ -92,7 +92,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
   ret.set_empty ();
 
   Grob *parent = me->get_y_parent ();
-  Drul_array<Real> extremal_heights (infinity_f, -infinity_f);
+  Drul_array extremal_heights (infinity_f, -infinity_f);
   if (common_refpoint_of_array (encompasses, me, Y_AXIS) != parent)
     /* this could happen if, for example, we are a cross-staff slur.
        in this case, we want to be ignored */

@@ -934,8 +934,8 @@ Beam_scoring_problem::generate_quants (
             if ((unquanted_y_[d] + unshifted_quants[i]) * edge_dirs_[d] > 2.5)
               corr[d] = grid_shift * edge_dirs_[d];
         auto c = Beam_configuration::new_config (
-          unquanted_y_, Drul_array<Real> (unshifted_quants[i] - corr[LEFT],
-                                          unshifted_quants[j] - corr[RIGHT]));
+          unquanted_y_, Drul_array (unshifted_quants[i] - corr[LEFT],
+                                    unshifted_quants[j] - corr[RIGHT]));
 
         for (const auto d : {LEFT, RIGHT})
           {

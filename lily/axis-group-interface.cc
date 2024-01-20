@@ -736,7 +736,7 @@ add_grobs_of_one_priority (
   // edge of the just-placed grob).  Otherwise, we skip it until the next pass.
   while (!elements.empty ())
     {
-      Drul_array<Real> last_end (-infinity_f, -infinity_f);
+      Drul_array last_end (-infinity_f, -infinity_f);
       std::vector<Grob *> skipped_elements;
       for (vsize i = l2r ? 0 : elements.size ();
            l2r ? i < elements.size () : i--; l2r ? i++ : 0)
