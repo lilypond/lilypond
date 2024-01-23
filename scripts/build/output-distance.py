@@ -1196,7 +1196,15 @@ def test_compare_tree_pairs():
 
     tidy_bin = shutil.which('tidy')
     if tidy_bin:
-        subprocess.run([tidy_bin, '-o', '/dev/null', '-q', html_fn], check=True)
+        # `tidy` understands HTML 5 at least since version 5.0.0 (which was
+        # released in 2015).  Note that earlier versions don't show the
+        # version number in the output of `--version`.
+        version_string = subprocess.run([tidy_bin, '--version'],
+                                        capture_output=True).stdout
+        if re.search(r'5\.[0-9]{1,2}\.[0-9]+',
+                     version_string.decode('utf-8')):
+            subprocess.run([tidy_bin, '-o', '/dev/null',
+                           '-q', html_fn], check=True, encoding='utf-8')
 
     images_link = data.file_links['dir/20grob']
     assert images_link.distance() > 0
