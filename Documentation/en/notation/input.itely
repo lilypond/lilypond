@@ -741,8 +741,9 @@ some pieces include a lot more information.
 @end menu
 
 
+@need 800
 @node Creating titles headers and footers
-@subsection Creating titles headers and footers
+@subsection Creating titles, headers, and footers
 
 @menu
 * Titles explained::
@@ -755,21 +756,21 @@ some pieces include a lot more information.
 @unnumberedsubsubsec Titles explained
 
 Each @code{\book} block in a single input file produces a separate
-output file, see @ref{File structure}.  Within each output file
-three types of titling areas are provided: @emph{Book Titles} at the
-beginning of each book, @emph{Bookpart Titles} at the beginning of
-each bookpart and @emph{Score Titles} at the beginning of each score.
+output file, @pxref{File structure}.  Within each output file
+three types of titling areas are provided: @dfn{book titles} at the
+beginning of each book, @dfn{bookpart titles} at the beginning of
+each bookpart, and @dfn{score titles} at the beginning of each score.
 
 Values of titling fields such as @code{title} and @code{composer}
 are set in @code{\header} blocks.  (For the syntax of @code{\header}
-blocks and a complete list of the fields available by default see
-@ref{Default layout of bookpart and score titles}).  Book Titles,
-Bookpart Titles and Score Titles can all contain the same fields,
-although by default the fields in Score Titles are limited to
+blocks and a complete list of the fields available by default,
+@pxref{Default layout of bookpart and score titles}).  Book titles,
+bookpart titles, and score titles can all contain the same fields,
+although by default the fields in score titles are limited to
 @code{piece} and @code{opus}.
 
 @code{\header} blocks may be placed in four different places to form
-a descending hierarchy of @code{\header} blocks:
+a descending hierarchy.
 
 @itemize
 
@@ -792,33 +793,33 @@ Within a @code{\score} block.
 
 The values of the fields filter down this hierarchy, with the values
 set higher in the hierarchy persisting unless they are overridden
-by a value set lower in the hierarchy, so:
+by a value set lower in the hierarchy.
 
 @itemize
 
 @item
-A Book Title is derived from fields set at the top of the input file,
+A book title is derived from fields set at the top of the input file,
 modified by fields set in the @code{\book} block.  The resulting
-fields are used to print the Book Title for that book, providing that
-there is other material which generates a page at the start of the
-book, before the first bookpart.  A single @code{\pageBreak} will
-suffice.
+fields are used to print the book title for that book, providing that
+there is other material that generates a page at the start of the
+book, before the first bookpart.  A single @code{\pageBreak}
+suffices.
 
 @item
-A Bookpart Title is derived from fields set at the top of the input
+A bookpart title is derived from fields set at the top of the input
 file, modified by fields set in the @code{\book} block, and further
 modified by fields set in the @code{\bookpart} block.  The resulting
-values are used to print the Bookpart Title for that bookpart.
+values are used to print the bookpart title for that bookpart.
 
 @item
-A Score Title is derived from fields set at the top of the input
+A score title is derived from fields set at the top of the input
 file, modified by fields set in the @code{\book} block, further
 modified by fields set in the @code{\bookpart} block and finally
 modified by fields set in the @code{\score} block.  The resulting
-values are used to print the Score Title for that score.  Note,
+values are used to print the score title for that score.  Note,
 though, that only @code{piece} and @code{opus} fields are printed
-by default in Score Titles unless the @code{\paper} variable,
-@code{print-all-headers}, is set to @code{#t}.
+by default in score titles unless the @code{\paper} variable
+@code{print-all-headers} is set to @code{#t}.
 
 @end itemize
 
@@ -828,13 +829,13 @@ input files may omit the @code{\book} and @code{\bookpart} blocks,
 leaving them to be created implicitly.
 
 If the book has only a single score, the @code{\header} block should
-normally be placed at the top of the file so that just a Bookpart
-Title is produced, making all the titling fields available for use.
+normally be placed at the top of the file so that just a bookpart
+title is produced, making all the titling fields available for use.
 
 If the book has multiple scores a number of different arrangements
 of @code{\header} blocks are possible, corresponding to the various
 types of musical publications.  For example, if the publication
-contains several pieces by the same composer a @code{\header} block
+contains several pieces by the same composer, a @code{\header} block
 placed at the top of the file specifying the book title and the
 composer with @code{\header} blocks in each @code{\score} block
 specifying the @code{piece} and/or @code{opus} would be most
@@ -874,7 +875,7 @@ suitable, as here:
 
 More complicated arrangements are possible.  For example, text
 fields from the @code{\header} block in a book can be displayed in
-all Score Titles, with some fields overridden and some manually
+all score titles, with some fields overridden and some manually
 suppressed:
 
 @lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
@@ -942,7 +943,7 @@ Notation Reference:
 @funindex tagline
 @funindex title
 
-The next examples demonstrates all printed @code{\header}
+The next example demonstrates all printed @code{\header}
 variables.  Note that the vertical spacing between the various
 header elements in the default layout is optimized for single-line
 entries.  If you need multi-line elements, say, a two-line
@@ -1009,37 +1010,37 @@ Note that
 
 @itemize
 @item
-The instrument name will be repeated on every page.
+the instrument name is repeated on every page,
 
 @item
-Only @code{piece} and @code{opus} are printed in a @code{\score}
+only @code{piece} and @code{opus} are printed in a @code{\score}
 when the paper variable @code{print-all-headers} is set to
-@code{#f} (the default).
+@code{#f} (the default),
 
 @item
-@c Is the bit about \null markups true? -mp
-Text fields left unset in a @code{\header} block are replaced with
-@code{\null} markups so that the space is not wasted.
+text fields left unset in a @code{\header} block produce no output
+so that the space is not wasted,
 
 @item
-The default settings for @code{scoreTitleMarkup} place the @code{piece}
+the default settings for @code{scoreTitleMarkup} place the @code{piece}
 and @code{opus} text fields at opposite ends of the same line.
 
 @end itemize
 
-To change the default layout see @ref{Custom layout for titles}.
+To change the default layout, @pxref{Custom layout for titles}.
 
 @funindex breakbefore
 
 If a @code{\book} block starts immediately with a @code{\bookpart}
-block, no Book Title will be printed, as there is no page on which
-to print it.  If a Book Title is required, begin the @code{\book}
+block, no book title gets printed, as there is no page on which
+to print it.  If a book title is required, begin the @code{\book}
 block with some markup material or a @code{\pageBreak} command.
 
 Use the @code{breakbefore} variable inside a @code{\header} block
 that is itself in a @code{\score} block, to make the higher-level
 @code{\header} block titles appear on the first page on their own, with
-the music (defined in the @code{\score} block) starting on the next.
+the music (defined in the @code{\score} block) starting on the
+next page.
 
 @lilypond[papersize=c7landscape,verbatim,noragged-right]
 \book {
@@ -1060,7 +1061,7 @@ the music (defined in the @code{\score} block) starting on the next.
 
 @morerefs
 Learning Manual:
-@rlearning{How LilyPond input files work},
+@rlearning{How LilyPond input files work}.
 
 Notation Reference:
 @ref{Custom layout for titles},
@@ -1079,7 +1080,7 @@ Installed Files:
 @cindex header, page
 @cindex footer, page
 
-@emph{Headers} and @emph{footers} are lines of text appearing at
+@dfn{Headers} and @dfn{footers} are lines of text appearing at
 the top and bottom of pages, separate from the main text of a book.
 They are controlled by the following @code{\paper} variables:
 
@@ -1090,31 +1091,31 @@ They are controlled by the following @code{\paper} variables:
 @item @code{evenFooterMarkup}
 @end itemize
 
-These markup variables can only access text fields from top-level
-@code{\header} blocks (which apply to all scores in the book) and are
-defined in @file{ly/titling-init.ly}.  By default:
+These markup variables are defined in @file{ly/titling-init.ly} and
+do the following by default.
 
 @itemize
 
 @item
-page numbers are automatically placed on the top far left (if even) or
+Page numbers are automatically placed on the top far left (if even) or
 top far right (if odd), starting from the second page.
 
 @item
-the @code{instrument} text field is placed in the center of every
-page, starting from the second page.
+The @code{instrument} header field is placed in the center of
+every page, starting from the second page.
 
 @item
-the @code{copyright} text is centered on the bottom of the first page.
+The @code{copyright} header field is centered on the bottom
+of the first page.
 
 @item
-the @code{tagline} is centered on the bottom of the last page, and below
-the @code{copyright} text if there is only a single page.
+The @code{tagline} header field is centered on the bottom of the
+last page, and below the @code{copyright} field if there is only a
+single page.
 
 @end itemize
 
-The default LilyPond footer text can be changed by adding a
-@code{tagline} in the top-level @code{\header} block.
+The following shows an example how to change the tag line.
 
 @lilypond[papersize=a8landscape,verbatim]
 \book {
@@ -1129,12 +1130,17 @@ The default LilyPond footer text can be changed by adding a
 }
 @end lilypond
 
-To remove the default LilyPond footer text, the @code{tagline} can be
-set to @code{#f}.
+Set @code{tagline} to @code{#f} if you don't want a tag line.
+
+@morerefs
+Notation Reference:
+@ref{Custom layout for headers and footers}.
+@endmorerefs
 
 
+@need 800
 @node Custom titles headers and footers
-@subsection Custom titles headers and footers
+@subsection Custom titles, headers, and footers
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
@@ -1150,7 +1156,7 @@ set to @code{#f}.
 @unnumberedsubsubsec Custom text formatting for titles
 
 Standard @code{\markup} commands can be used to customize any header,
-footer and title text within the @code{\header} block.
+footer, or title text within the @code{\header} block.
 
 @lilypond[quote,verbatim,noragged-right]
 \score {
@@ -1184,26 +1190,25 @@ change either or both of the following @code{\paper} variables:
 @item @code{scoreTitleMarkup}
 @end itemize
 
-The placement of titles when using the default values of these
-@code{\markup} variables is shown in the examples in
-@ref{Default layout of bookpart and score titles}.
+@xref{Default layout of bookpart and score titles} for the
+placement of titles when using the default values of these
+@code{\markup} variables.
 
-The default settings for @code{scoreTitleMarkup} as defined in
-@file{ly/titling-init.ly} are:
+The default setting for @code{scoreTitleMarkup} defined in
+@file{ly/titling-init.ly} is as follows.
 
 @example
-scoreTitleMarkup = \markup @{ \column @{
+scoreTitleMarkup = \markup \column @{
   \if \should-print-all-headers @{ \bookTitleMarkup \hspace #1 @}
   \fill-line @{
     \fromproperty #'header:piece
     \fromproperty #'header:opus
   @}
 @}
-@}
 @end example
 
 This places the @code{piece} and @code{opus} text fields at opposite
-ends of the same line:
+ends of the same line.
 
 @lilypond[quote,verbatim,noragged-right]
 \score {
@@ -1215,8 +1220,8 @@ ends of the same line:
 }
 @end lilypond
 
-This example redefines @code{scoreTitleMarkup} so that the @code{piece}
-text field is centered and in a large, bold font.
+The next example redefines @code{scoreTitleMarkup} so that the
+@code{piece} text field is centered, using a large, bold font.
 
 @lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
@@ -1242,17 +1247,17 @@ text field is centered and in a large, bold font.
 @end lilypond
 
 Text fields not normally effective in score @code{\header} blocks
-can be printed in the Score Title area if @code{print-all-headers} is
+can be printed in the score title area if @code{print-all-headers} is
 placed inside the @code{\paper} block.  A disadvantage of using this
-method is that text fields that are intended specifically for the
-Bookpart Title area need to be manually suppressed in every
-@code{\score} block.  See @ref{Titles explained}.
+method is that text fields intended specifically for the
+bookpart title area need to be manually suppressed in every
+@code{\score} block.  @xref{Titles explained}.
 
 To avoid this, add the desired text field to the @code{scoreTitleMarkup}
 definition.  In the following example, the @code{composer} text field
 (normally associated with @code{bookTitleMarkup}) is added to
 @code{scoreTitleMarkup}, allowing each score to list a different
-composer:
+composer.
 
 @lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
 \book {
@@ -1284,7 +1289,7 @@ composer:
 }
 @end lilypond
 
-It is also possible to create your own custom text fields, and refer to
+It is also possible to create your own custom text fields and refer to
 them in the markup definition.
 
 @lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
@@ -1332,8 +1337,8 @@ Notation Reference:
 @code{\markup} commands in the @code{\header} block are useful for
 simple text formatting, but they do not allow precise control over the
 placement of headers and footers.  To customize the placement of
-the text fields, use either or both of the following @code{\paper}
-variables:
+the text fields, use one or more of the following @code{\paper}
+variables.
 
 @itemize
 @item @code{oddHeaderMarkup}
@@ -1355,6 +1360,7 @@ conditionally to header and footer text defined within the
 \if @var{condition} @var{argument}
 @end example
 
+@noindent
 The @var{condition} is tested each time the markup is interpreted.  The
 resulting markup is @var{argument} if the condition is true, but empty if false.
 Typical conditions include tests for page numbers (first page, last page,
@@ -1363,8 +1369,8 @@ specific page, @dots{}).  To test for the condition being false, replace
 
 The following example centers page numbers at the bottom of every
 page.  First, the default settings for @code{oddHeaderMarkup} and
-@code{evenHeaderMarkup} are removed by defining each as a @emph{null}
-markup.  Then, @code{oddFooterMarkup} is redefined with the page
+@code{evenHeaderMarkup} are removed by assigning @code{#f}.
+Then, @code{oddFooterMarkup} is redefined with the page
 number centered.  Finally, @code{evenFooterMarkup} is given the
 same layout by defining it as @code{\oddFooterMarkup}:
 
@@ -1373,12 +1379,12 @@ same layout by defining it as @code{\oddFooterMarkup}:
   \paper {
     print-page-number = ##t
     print-first-page-number = ##t
-    oddHeaderMarkup = \markup \null
-    evenHeaderMarkup = \markup \null
+    oddHeaderMarkup = ##f
+    evenHeaderMarkup = ##f
     oddFooterMarkup = \markup {
       \fill-line {
         \if \should-print-page-number
-        \fromproperty #'page:page-number-string
+          \fromproperty #'page:page-number-string
       }
     }
     evenFooterMarkup = \oddFooterMarkup
