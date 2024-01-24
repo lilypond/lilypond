@@ -3157,7 +3157,29 @@ recursive markup definition."
   "Read @var{symbol} from the property settings and produce a stencil
 from the markup contained within.
 
-If @var{symbol} is not defined, return an empty markup.
+If @var{symbol} is not defined or is not a markup, return an empty
+markup.
+
+Currently, the following properties can be accessed.
+
+@itemize
+@item
+Within a @code{\\paper} block defining titles, headers, or
+footers, or within a @code{\\header} block: all fields from the
+@code{\\header} block (that produce markup) are available, with
+@code{header:} as a name prefix.
+
+@item
+Within a @code{\\paper} block defining headers or footers: the
+current page number (symbol @code{page:page-number-string}).
+
+@item
+Within the @code{tocItemMarkup} paper variable (or in custom-made
+Scheme code that uses function @code{add-toc-item!}) defining a
+table of contents entry: the entry's text and page number are
+available as @code{toc:text} and @code{toc:page}, respectively.
+An entry's indentation markup is available as @code{toc:indent}.
+@end itemize
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\header {
