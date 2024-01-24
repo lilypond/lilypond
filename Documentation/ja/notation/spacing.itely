@@ -82,7 +82,7 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 @menu
 * The paper block::
 * Paper size and automatic scaling::
-* Fixed vertical spacing \paper variables::
+* Fixed vertical spacing paper variables::
 * Flexible vertical spacing paper variables::
 * Horizontal spacing paper variables::
 * Other paper variables::
@@ -320,7 +320,7 @@ Scheme 関数
 
 自動拡縮によって影響を受ける垂直方向の長さは
 @code{top-margin} と @code{bottom-margin} です
-(@ref{Fixed vertical spacing \paper variables} を参照してください)。@c
+(@ref{Fixed vertical spacing paper variables} を参照してください)。@c
 自動拡縮によって影響を受ける水平方向の長さは
 @code{right-margin}, @code{inner-margin}, @code{outer-margin},
 @code{binding-offset}, @code{indent}, それに @code{short-indent} です
@@ -336,7 +336,7 @@ Scheme 関数
 
 @morerefs
 記譜法リファレンス:
-@ref{Fixed vertical spacing \paper variables},
+@ref{Fixed vertical spacing paper variables},
 @ref{Horizontal spacing paper variables}
 
 インストールされているファイル:
@@ -344,7 +344,7 @@ Scheme 関数
 @file{scm/paper.scm}
 
 
-@node Fixed vertical spacing \paper variables
+@node Fixed vertical spacing paper variables
 @subsection 固定された垂直方向の @code{\paper} スペース変数
 
 @warning{いくつかの @code{@bs{}paper} 変数は紙面サイズに応じて@c
@@ -1620,7 +1620,7 @@ score や最上位レベルのマークアップの間に挿入することが�
 (これがデフォルトです)、@c
 最後のページ (あるいは各 @code{\bookpart} の最後のページ) の下部に@c
 空きスペースが挿入することが許可されます。@c
-@ref{Fixed vertical spacing \paper variables} を参照してください。
+@ref{Fixed vertical spacing paper variables} を参照してください。
 
 改ページは @code{page-breaking} 関数によって算出されます。@c
 LilyPond は改ページを算出するためにいくつかのアルゴリズムを提供します:
