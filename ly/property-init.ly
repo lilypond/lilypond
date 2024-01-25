@@ -326,51 +326,59 @@ incipit =
 
 @var{incipit-music} is typeset within a @code{MensuralStaff} context; the result
 is positioned before the main staff (as part of an @code{InstrumentName} grob)
-to indicate the music's original notation.")
+to indicate the music's original notation.
+
+In the special case that @var{incipit-music} has the form @code{\\new xxx
+@dots{}} where @samp{xxx} is a context type not accepted by
+@code{MensuralStaff}, it is taken directly.
+")
   #{
     \once \override Staff.InstrumentName.stencil =
-      #(lambda (grob)
-        (let* ((instrument-name (ly:grob-property grob 'long-text))
-               (align-x (ly:grob-property grob 'self-alignment-X 0))
-               (align-y (ly:grob-property grob 'self-alignment-Y 0)))
-        (set! (ly:grob-property grob 'long-text)
-          #{ \markup {
-            \score
-            {
-              \new MensuralStaff \with {
-                \override InstrumentName.self-alignment-X = #align-x
-                \override InstrumentName.self-alignment-Y = #align-y
-                instrumentName = #instrument-name
-              }
-              {
-                $incipit-music
-              }
-              \layout {
-                $(ly:grob-layout grob)
-                indent-incipit-default = 15\mm
-                line-width = #(primitive-eval
-                  '(or (false-if-exception indent)
-                    indent-incipit-default))
-                indent = #(primitive-eval
-                           '(or (false-if-exception (- line-width incipit-width))
-                            (* 0.5 line-width)))
-                ragged-right = ##f
-                ragged-last = ##f
-                system-count = 1
-              }
-            }
-            }
-          #})
-          (set! (ly:grob-property grob 'self-alignment-Y) #f)
-          ;; Do 'self-alignment-X RIGHT only for the first InstrumentName, which
-          ;; actually is the incipit. Otherwise self-alignment-X for the
-          ;; shortInstrumentName is not longer settable.
-          (let ((parts (ly:spanner-broken-into (ly:grob-original grob))))
-            (if (and (pair? parts) (equal? grob (car parts)))
-                (ly:grob-set-property! grob 'self-alignment-X RIGHT)))
-          (system-start-text::print grob)))
-  #}
-)
+    #(lambda (grob)
+       (let* ((instrument-name (ly:grob-property grob 'long-text))
+              (align-x (ly:grob-property grob 'self-alignment-X 0))
+              (align-y (ly:grob-property grob 'self-alignment-Y 0))
+              (ms-def (ly:output-def-lookup (ly:grob-layout grob)
+                                            'MensuralStaff)))
+         (and ms-def
+              (or (not (music-is-of-type? incipit-music 'context-specification))
+                  (memq (ly:music-property incipit-music 'context-type)
+                        (ly:context-def-lookup ms-def 'accepts)))
+           ;; either not a \new/\context or one acceptable by MensuralStaff
+              (set! incipit-music (context-spec-music incipit-music 'MensuralStaff)))
+         (set! (ly:music-property incipit-music 'property-operations)
+               (append (ly:music-property incipit-music 'property-operations)
+                       `((push InstrumentName ,align-x self-alignment-X)
+                         (push InstrumentName ,align-y self-alignment-Y)
+                         (assign instrumentName ,instrument-name))))
+         (set! (ly:grob-property grob 'long-text)
+               #{ \markup
+                  \score {
+                      #incipit-music
+                      \layout {
+                          $(ly:grob-layout grob)
+                          indent-incipit-default = 15\mm
+                          line-width = #(primitive-eval
+                                         '(or (false-if-exception indent)
+                                              indent-incipit-default))
+                          indent = #(primitive-eval
+                                     '(or (false-if-exception (- line-width incipit-width))
+                                          (* 0.5 line-width)))
+                          ragged-right = ##f
+                          ragged-last = ##f
+                          system-count = 1
+                          }
+                      }
+                  #})
+         (set! (ly:grob-property grob 'self-alignment-Y) #f)
+         ;; Do 'self-alignment-X RIGHT only for the first InstrumentName, which
+         ;; actually is the incipit. Otherwise self-alignment-X for the
+         ;; shortInstrumentName is not longer settable.
+         (let ((parts (ly:spanner-broken-into (ly:grob-original grob))))
+           (if (and (pair? parts) (equal? grob (car parts)))
+               (ly:grob-set-property! grob 'self-alignment-X RIGHT)))
+         (system-start-text::print grob)))
+    #})
 
 %% kievan
 kievanOn = {

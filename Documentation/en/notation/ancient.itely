@@ -2812,6 +2812,12 @@ incipit staff.
 }
 @end lilypond
 
+By default, LilyPond uses a @samp{MensuralStaff} context for
+typesetting an incipit.  Other contexts can be used by directly
+writing @code{\incipit \new @var{contexttype} @dots{}}; in this
+case a @samp{MensuralStaff} wrapper is only used when it can
+contain the specified context.
+
 @knownissues
 Note that instrumentName must be set in the music for the incipit to be
 produced.  If no instrument name is required then use
