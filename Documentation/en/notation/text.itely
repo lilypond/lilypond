@@ -320,10 +320,14 @@ object property.  This syntax is described in @ref{Line styles}.
 @funindex \textSpannerUp
 @funindex \textSpannerDown
 @funindex \textSpannerNeutral
+@funindex \startTextSpan
+@funindex \stopTextSpan
 
 @code{\textSpannerUp},
 @code{\textSpannerDown},
-@code{\textSpannerNeutral}.
+@code{\textSpannerNeutral},
+@code{\startTextSpan},
+@code{\stopTextSpan}.
 @endpredefined
 
 @knownissues

@@ -3476,6 +3476,8 @@ Line spanners may have symbols at the beginning or end, which is
 contained in this subproperty.  This is for internal use; it is
 recommended that @code{text} be used instead.
 
+@funindex \startTextSpan
+@funindex \stopTextSpan
 @item text
 This is a markup that is evaluated to yield the stencil.  It is used
 to put @emph{cresc.}, @emph{tr}, and other text on horizontal spanners.
@@ -3523,8 +3525,10 @@ glissando would start and end in the center of each note head.
 
 @end table
 
-@c FIXME: this should be somewhere else --JeanAS
+@c FIXME: \endSpanners should be somewhere else --JeanAS
 @funindex \endSpanners
+@funindex \startTextSpan
+@funindex \stopTextSpan
 
 The music function @code{\endSpanners} prematurely terminates all
 spanners in its argument, obeying the @code{to-barline} property if set.
