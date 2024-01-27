@@ -19,9 +19,6 @@ An exmple `inventory.ini` could look like this:
 [lily_centos7]
 root@Lily-CentOS7
 
-[lily_freebsd12]
-root@Lily-FreeBSD12
-
 [lily_ubuntu20_04]
 root@Lily-Ubuntu20.04
 ```
