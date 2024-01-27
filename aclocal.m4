@@ -501,7 +501,7 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     fi
 
     if test "$GUILE_FLAVOR" = "missing"; then
-        STEPMAKE_ADD_ENTRY(REQUIRED, ["guile-devel >= 2.2"])
+        STEPMAKE_ADD_ENTRY(REQUIRED, ["guile-devel >= 3.0"])
     fi
 ])
 
