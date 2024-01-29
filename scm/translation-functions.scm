@@ -502,7 +502,7 @@ entries in @var{string-frets}."
                                         ; highest string number
                                         ; lowest string number
                                         ; finger (seems redundant, but makes it
-                                        ;  easy to convert from array to list
+                                        ;  easy to convert from array to list)
            (barres (make-array 0 finger-range barre-elements))
            (add-string-fret
             (lambda(sf)

@@ -14,7 +14,7 @@ We would like to address many thanks to Sebastiano Vigna for maintaining
 LSR web site and database, and the University of Milano for hosting LSR.
 
 Please note that this document is not an exact subset of LSR: some
-snippets come from @file{Documentation/snippets/new/} LilyPond sources
+snippets come from the @file{Documentation/snippets/new/} LilyPond sources
 directory, and snippets from LSR are converted through @command{convert-ly}, as
 LSR is based on a stable LilyPond version, and this document is for
 version @version{}.
