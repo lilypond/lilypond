@@ -65,7 +65,6 @@ OUT_CSS_FILES = \
 
 IN_ITELY_FILES = $(call src-wildcard,snippets/*-intro.itely)
 SNIPPET_LY_FILES = $(call src-wildcard,snippets/*.ly)
-OUT_SNIPPET_LY_FILES = $(SNIPPET_LY_FILES:%.ly=$(outdir)/%.ly)
 
 ### Out files
 
