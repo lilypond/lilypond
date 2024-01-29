@@ -420,7 +420,7 @@ Return a key-value alist, with keys being symbols and values being strings.
            )")
 {
   SCM options = SCM_EOL;
-  for (const auto keyval : init_scheme_variables_global)
+  for (const auto &keyval : init_scheme_variables_global)
     {
       options
         = scm_acons (scm_from_utf8_symbol (keyval.first.c_str ()),

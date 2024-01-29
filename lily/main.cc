@@ -638,7 +638,7 @@ parse_argv (int argc, char **argv)
   if (output_formats_global.size () == 1 && output_formats_global[0] == "svg")
     {
       bool have_backend = false;
-      for (const auto keyval : init_scheme_variables_global)
+      for (const auto &keyval : init_scheme_variables_global)
         {
           if (keyval.first == "backend")
             {
