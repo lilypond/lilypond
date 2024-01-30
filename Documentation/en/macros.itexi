@@ -217,6 +217,7 @@ For LilyPond version @version{}
 @c     @rinternals
 @c     @rlearning
 @c     @rlsr
+@c     @rlsrsnippet
 @c     @rprogram
 @c     @rnotation
 @c     @rchanges
@@ -228,6 +229,16 @@ For LilyPond version @version{}
 @c
 @c ***** HTML + bigpage is a special case (other manual names); all other
 @c formats are treated similarly.
+@c
+
+@c Note that `@rlsr` refers to a snippet section like `@rlsr{World
+@c Music}`, while `@rlsrsnippet` refers to a specific snippet,
+@c using the section name as an additional prefix argument, for
+@c example `@rlsrsnippet{World Music, Arabic improvisation}`
+@c (these prefixes are necessary since a given snippet can appear
+@c in multiple sections).  Note also that the second argument of
+@c `@rlsrsnippet` must not contain literal commas; replace them
+@c with `@comma{}` if necessary.
 
 
 @c *** not TeX ***
@@ -317,6 +328,10 @@ For LilyPond version @version{}
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,snippets-big-page,Snippets}
+@end macro
+
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets-big-page,Snippets}
 @end macro
 
 @macro rinternals{TEXT}
@@ -416,6 +431,10 @@ For LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,snippets,Snippets}
 @end macro
 
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets,Snippets}
+@end macro
+
 @macro rinternals{TEXT}
 @ref{\TEXT\,,,internals,Internals Reference}
 @end macro
@@ -506,6 +525,10 @@ For LilyPond version @version{}
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Snippets}
+@end macro
+
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\: \TEXT\,,\TEXT\,lilypond-snippets,Snippets}
 @end macro
 
 @macro rinternals{TEXT}
@@ -605,6 +628,10 @@ For LilyPond version @version{}
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,snippets,Snippets}
+@end macro
+
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets,Snippets}
 @end macro
 
 @macro rinternals{TEXT}

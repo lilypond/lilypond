@@ -1414,11 +1414,13 @@ and color of dots.
 
 @funindex fret-diagram-interface
 
-The graphical layout of a fret diagram can be customized according to
-user preference through the properties of the
-@code{fret-diagram-interface}. Details are found at
-@rinternals{fret-diagram-interface}.  For a fret diagram
-markup, the interface properties belong to @code{Voice.TextScript}.
+The graphical layout of a fret diagram can be customized according
+to user preference through the properties of the
+@code{fret-diagram-interface}.  Details are found at
+@rinternals{fret-diagram-interface}; see @rlsrsnippet{Fretted
+strings, Fret diagrams explained and developed} for an exhaustive
+example.  For a fret diagram markup, the interface properties
+belong to @code{Voice.TextScript}.
 
 
 @snippets
@@ -1722,11 +1724,13 @@ mychords = \chordmode {
 >>
 @end lilypond
 
-The graphical layout of a fret diagram can be customized according to
-user preference through the properties of the
-@code{fret-diagram-interface}. Details are found at
-@rinternals{fret-diagram-interface}.  For a predefined fret diagram,
-the interface properties belong to @code{FretBoards.FretBoard}.
+The graphical layout of a fret diagram can be customized according
+to user preference through the properties of the
+@code{fret-diagram-interface}.  Details are found at
+@rinternals{fret-diagram-interface}; see @rlsrsnippet{Fretted
+strings, Fret diagrams explained and developed} for an exhaustive
+example.  For a predefined fret diagram, the interface properties
+belong to @code{FretBoards.FretBoard}.
 
 
 @snippets
@@ -1908,12 +1912,13 @@ on the @code{stringTunings} property, which has the same meaning
 as in the @code{TabStaff} context.  @xref{Custom tablatures} for
 information on the @code{stringTunings} property.
 
-The graphical layout of a fret diagram can be customized according to
-user preference through the properties of the
+The graphical layout of a fret diagram can be customized according
+to user preference through the properties of the
 @code{fret-diagram-interface}.  Details are found at
-@rinternals{fret-diagram-interface}.  For a @code{FretBoards} fret
-diagram, the interface properties belong to
-@code{FretBoards.FretBoard}.
+@rinternals{fret-diagram-interface}; see @rlsrsnippet{Fretted
+strings, Fret diagrams explained and developed} for an exhaustive
+example.  For a @code{FretBoards} fret diagram, the interface
+properties belong to @code{FretBoards.FretBoard}.
 
 
 @predefined
