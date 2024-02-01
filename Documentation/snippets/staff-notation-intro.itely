@@ -1,8 +1,11 @@
 @node Staff notation
 @unnumbered Staff notation
-@nodeprefix Staff notation
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Staff notation: \TEXT\
+@end macro
 
 @rnotation{Staff notation}
 
 @lysnippets
-

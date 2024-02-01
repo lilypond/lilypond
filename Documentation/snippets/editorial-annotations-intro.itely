@@ -1,8 +1,11 @@
 @node Editorial annotations
 @unnumbered Editorial annotations
-@nodeprefix Editorial annotations
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Editorial annotations: \TEXT\
+@end macro
 
 @rnotation{Editorial annotations}
 
 @lysnippets
-

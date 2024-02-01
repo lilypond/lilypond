@@ -1,6 +1,10 @@
 @node MIDI
 @unnumbered MIDI
-@nodeprefix MIDI
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node MIDI: \TEXT\
+@end macro
 
 @rnotation{Creating MIDI output}
 

@@ -1,8 +1,11 @@
 @node Spacing
 @unnumbered Spacing
-@nodeprefix Spacing
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Spacing: \TEXT\
+@end macro
 
 @rnotation{Spacing issues}
 
 @lysnippets
-

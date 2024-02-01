@@ -143,11 +143,9 @@ Macro definitions that contain translatable text belong to file
 @subsubheading @i{\TEXT\}
 @end macro
 
-@ifclear snippets-sections
 @macro lydoctitle {TEXT}
 @subsubsubheading{\TEXT\}
 @end macro
-@end ifclear
 
 
 @c   ***** References *****

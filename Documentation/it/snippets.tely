@@ -44,28 +44,24 @@ sull'immagine di ciascun esempio per vedere il corrispondente file di input.
 Copyright @copyright{} 1999--2023 degli autori.
 @end macro
 
-@c This disables @lydoctitle definition in common-macros.itexi
-@set snippets-sections
-
 @include it/macros.itexi
 
-@ifnothtml
-@macro nodeprefix{PRE}
-@end macro
+@unmacro lydoctitle
+
+@c `@lsrnode` must be redefined for every included snippet section
+@c to provide a proper node name prefix.
+@c
 @macro lydoctitle{TEXT}
+@lsrnode \TEXT\
 @unnumberedsec \TEXT\
 @end macro
-@end ifnothtml
 
-@ifhtml
-@macro nodeprefix{PRE}
-@unmacro lydoctitle
-@macro lydoctitle{TEXT}
-@node \PRE\: \\TEXT\\
-@unnumberedsec \\TEXT\\
+@c Due to a bug in `texinfo.tex` it is not possible to call
+@c `@unmacro` with an undefined macro (which is explicitly allowed
+@c in the documentation); we thus provide a dummy definition for
+@c `@lsrnode`.
+@macro lsrnode{TEXT}
 @end macro
-@end macro
-@end ifhtml
 
 
 @lilyTitlePage{Frammenti}

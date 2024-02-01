@@ -1,8 +1,11 @@
 @node Titles
 @unnumbered Titles
-@nodeprefix Titles
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Titles: \TEXT\
+@end macro
 
 @rnotation{Titles and headers}
 
 @lysnippets
-

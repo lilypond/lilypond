@@ -1,9 +1,12 @@
 @node Paper and layout
 @unnumbered Paper and layout
-@nodeprefix Paper and layout
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Paper and layout: \TEXT\
+@end macro
 
 @c FIXME not precise enough reference?
 @rnotation{Spacing issues}
 
 @lysnippets
-

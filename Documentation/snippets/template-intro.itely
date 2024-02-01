@@ -1,6 +1,9 @@
 @node Templates
 @unnumbered Templates
-@nodeprefix Templates
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Templates: \TEXT\
+@end macro
 
 @lysnippets
-

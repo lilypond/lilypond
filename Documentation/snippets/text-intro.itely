@@ -1,8 +1,11 @@
 @node Text
 @unnumbered Text
-@nodeprefix Text
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Text: \TEXT\
+@end macro
 
 @rnotation{Text}
 
 @lysnippets
-

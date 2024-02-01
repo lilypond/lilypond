@@ -1,8 +1,11 @@
 @node Keyboards
 @unnumbered Keyboards
-@nodeprefix Keyboards
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Keyboards: \TEXT\
+@end macro
 
 @rnotation{Keyboard and other multi-staff instruments}
 
 @lysnippets
-

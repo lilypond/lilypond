@@ -1,8 +1,11 @@
 @node Vocal music
 @unnumbered Vocal music
-@nodeprefix Vocal music
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Vocal music: \TEXT\
+@end macro
 
 @rnotation{Vocal music}
 
 @lysnippets
-

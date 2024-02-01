@@ -1,8 +1,11 @@
 @node Percussion
 @unnumbered Percussion
-@nodeprefix Percussion
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Percussion: \TEXT\
+@end macro
 
 @rnotation{Percussion}
 
 @lysnippets
-

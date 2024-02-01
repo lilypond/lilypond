@@ -1,8 +1,11 @@
 @node Ancient notation
 @unnumbered Ancient notation
-@nodeprefix Ancient notation
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Ancient notation: \TEXT\
+@end macro
 
 @rnotation{Ancient notation}
 
 @lysnippets
-

@@ -1,8 +1,11 @@
 @node Simultaneous notes
 @unnumbered Simultaneous notes
-@nodeprefix Simultaneous notes
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Simultaneous notes: \TEXT\
+@end macro
 
 @rnotation{Simultaneous notes}
 
 @lysnippets
-

@@ -1,8 +1,11 @@
 @node Pitches
 @unnumbered Pitches
-@nodeprefix Pitches
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Pitches: \TEXT\
+@end macro
 
 @rnotation{Pitches}
 
 @lysnippets
-

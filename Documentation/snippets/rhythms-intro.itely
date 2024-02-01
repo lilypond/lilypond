@@ -1,8 +1,11 @@
 @node Rhythms
 @unnumbered Rhythms
-@nodeprefix Rhythms
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Rhythms: \TEXT\
+@end macro
 
 @rnotation{Rhythms}
 
 @lysnippets
-

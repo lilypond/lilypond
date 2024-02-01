@@ -1,6 +1,10 @@
 @node Tweaks and overrides
 @unnumbered Tweaks and overrides
-@nodeprefix Tweaks and overrides
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Tweaks and overrides: \TEXT\
+@end macro
 
 @c FIXME make xref more precise when the chapter has been
 @c revised in GDP
@@ -9,4 +13,3 @@
 @rlearning{Tweaking output}
 
 @lysnippets
-

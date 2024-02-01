@@ -1,8 +1,11 @@
 @node Unfretted strings
 @unnumbered Unfretted strings
-@nodeprefix Unfretted strings
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Unfretted strings: \TEXT\
+@end macro
 
 @rnotation{Unfretted string instruments}
 
 @lysnippets
-

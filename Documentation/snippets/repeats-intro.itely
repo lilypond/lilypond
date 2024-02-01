@@ -1,8 +1,11 @@
 @node Repeats
 @unnumbered Repeats
-@nodeprefix Repeats
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Repeats: \TEXT\
+@end macro
 
 @rnotation{Repeats}
 
 @lysnippets
-

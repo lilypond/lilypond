@@ -1,8 +1,11 @@
 @node Fretted strings
 @unnumbered Fretted strings
-@nodeprefix Fretted strings
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Fretted strings: \TEXT\
+@end macro
 
 @rnotation{Fretted string instruments}
 
 @lysnippets
-

@@ -1,8 +1,11 @@
 @node Chords
 @unnumbered Chords
-@nodeprefix Chords
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Chords: \TEXT\
+@end macro
 
 @rnotation{Chord notation}
 
 @lysnippets
-

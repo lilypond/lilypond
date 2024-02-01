@@ -1,8 +1,11 @@
 @node Winds
 @unnumbered Winds
-@nodeprefix Winds
+
+@unmacro lsrnode
+@macro lsrnode{TEXT}
+@node Winds: \TEXT\
+@end macro
 
 @rnotation{Wind instruments}
 
 @lysnippets
-
