@@ -24,332 +24,348 @@ diagrams.
 
 <<
   \chords {
-    a2 a
+    a1 a \bar "||" \break
     \repeat unfold 3 {
-      c c c d d
+      c c c d d \bar "||" \break
     }
   }
 
-  \new Voice = "mel" {
-    \textLengthOn
+  \new Voice {
     % Set global properties of fret diagram
-    \override TextScript.size = #1.2
-    \override TextScript.fret-diagram-details.finger-code = #'below-string
-    \override TextScript.fret-diagram-details.dot-color = #'black
+    \override TextScript.size = 1.2
+    \override TextScript.fret-diagram-details
+                .finger-code = #'below-string
+    \override TextScript.fret-diagram-details
+                .dot-color = #'black
 
-    %% A chord for ukulele
-    a'2^\markup {
-      \override #'(fret-diagram-details . (
-                   (string-count . 4)
-                   (dot-color . white)
-                   (finger-code . in-dot))) {
-        \fret-diagram "4-2-2;3-1-1;2-o;1-o;"
-      }
-    }
+    % 1
+    %
+    % A chord for ukulele.
+    a'1^\markup
+      \override #'(fret-diagram-details
+                   . ((string-count . 4)
+                      (dot-color . white)
+                      (finger-code . in-dot)))
+      \fret-diagram "4-2-2;3-1-1;2-o;1-o;"
 
-    %% A chord for ukulele, with formatting defined in definition string
-    %  1.2 * size, 4 strings, 4 frets, fingerings below string
-    %  dot radius .35 of fret spacing, dot position 0.55 of fret spacing
-    a'2^\markup {
-      \override #'(fret-diagram-details . (
-                   (dot-color . white)
-                   (open-string . "o"))) {
-        \fret-diagram "s:1.2;w:4;h:3;f:2;d:0.35;p:0.55;4-2-2;3-1-1;2-o;1-o;"
-      }
-    }
+    % 2
+    %
+    % A chord for ukulele, with formatting defined in definition
+    % string: 1.2 * size, 4 strings, 4 frets, fingerings below,
+    % string dot radius .35 of fret spacing, dot position 0.55 of
+    % fret spacing.
+    a'1^\markup
+      \override #'(fret-diagram-details
+                   . ((dot-color . white)
+                      (open-string . "o")))
+      \fret-diagram
+        "s:1.2;w:4;h:3;f:2;d:0.35;p:0.55;4-2-2;3-1-1;2-o;1-o;"
 
-      %% These chords will be in normal orientation
 
-    %% C major for guitar, barred on third fret
-    %  verbose style
-    %  roman fret label, finger labels below string, straight barre
-    c'2^\markup {
+    %%
+    %% These chords will be in normal orientation
+    %%
+
+
+    % 3
+    %
+    % C major for guitar, barred on third fret: verbose style,
+    % roman fret label, finger labels below string, straight barre.
+    c'1^\markup
       % 110% of default size
-      \override #'(size . 1.1) {
-        \override #'(fret-diagram-details . (
-                     (number-type . roman-lower)
-                     (finger-code . below-string)
-                     (barre-type . straight))) {
-          \fret-diagram-verbose #'((mute 6)
-                                   (place-fret 5 3 1)
-                                   (place-fret 4 5 2)
-                                   (place-fret 3 5 3)
-                                   (place-fret 2 5 4)
-                                   (place-fret 1 3 1)
-                                   (barre 5 1 3))
-        }
-      }
-    }
+      \override #'(size . 1.1)
+      \override #'(fret-diagram-details
+                   . ((number-type . roman-lower)
+                      (finger-code . below-string)
+                      (barre-type . straight)))
+      \fret-diagram-verbose #'((mute 6)
+                               (place-fret 5 3 1)
+                               (place-fret 4 5 2)
+                               (place-fret 3 5 3)
+                               (place-fret 2 5 4)
+                               (place-fret 1 3 1)
+                               (barre 5 1 3))
 
-    %% C major for guitar, barred on third fret
-    %% Double barre used to test barre function
-    %  verbose style
-    c'2^\markup {
+    % 4
+    %
+    % C major for guitar, barred on third fret: double barre used
+    % to test barre function, verbose style.
+    c'1^\markup
       % 110% of default size
-      \override #'(size . 1.1) {
-        \override #'(fret-diagram-details . (
-                     (number-type . arabic)
-                     (dot-label-font-mag . 0.9)
-                     (finger-code . in-dot)
-                     (fret-label-font-mag . 0.6)
-                     (fret-label-vertical-offset . 0)
-                     (label-dir . -1)
-                     (mute-string . "M")
-                     (xo-font-magnification . 0.4)
-                     (xo-padding . 0.3))) {
-          \fret-diagram-verbose #'((mute 6)
-                                   (place-fret 5 3 1)
-                                   (place-fret 4 5 2)
-                                   (place-fret 3 5 3)
-                                   (place-fret 2 5 4)
-                                   (place-fret 1 3 1)
-                                   (barre 4 2 5)
-                                   (barre 5 1 3))
-        }
-      }
-    }
+      \override #'(size . 1.1)
+      \override #'(fret-diagram-details
+                   . ((number-type . arabic)
+                      (dot-label-font-mag . 0.9)
+                      (finger-code . in-dot)
+                      (fret-label-font-mag . 0.6)
+                      (fret-label-vertical-offset . 0)
+                      (label-dir . -1)
+                      (mute-string . "M")
+                      (xo-font-magnification . 0.4)
+                      (xo-padding . 0.3)))
+      \fret-diagram-verbose #'((mute 6)
+                               (place-fret 5 3 1)
+                               (place-fret 4 5 2)
+                               (place-fret 3 5 3)
+                               (place-fret 2 5 4)
+                               (place-fret 1 3 1)
+                               (barre 4 2 5)
+                               (barre 5 1 3))
 
-    %% C major for guitar, with capo on third fret
-    %  verbose style
-    c'2^\markup {
+    % 5
+    %
+    % C major for guitar, with capo on third fret: verbose style.
+    c'1^\markup
       % 110% of default size
-      \override #'(size . 1.1) {
-        \override #'(fret-diagram-details . (
-                     (number-type . roman-upper)
-                     (dot-label-font-mag . 0.9)
-                     (finger-code . none)
-                     (fret-label-vertical-offset . 0.5)
-                     (xo-font-magnification . 0.4)
-                     (xo-padding . 0.3))) {
-          \fret-diagram-verbose #'((mute 6)
-                                   (capo 3)
-                                   (open 5)
-                                   (place-fret 4 5 1)
-                                   (place-fret 3 5 2)
-                                   (place-fret 2 5 3)
-                                   (open 1))
-        }
-      }
-    }
+      \override #'(size . 1.1)
+      \override #'(fret-diagram-details
+                   . ((number-type . roman-upper)
+                      (dot-label-font-mag . 0.9)
+                      (finger-code . none)
+                      (fret-label-vertical-offset . 0.5)
+                      (xo-font-magnification . 0.4)
+                      (xo-padding . 0.3)))
+      \fret-diagram-verbose #'((mute 6)
+                               (capo 3)
+                               (open 5)
+                               (place-fret 4 5 1)
+                               (place-fret 3 5 2)
+                               (place-fret 2 5 3)
+                               (open 1))
 
-    %% simple D chord
-    d'2^\markup {
-      \override #'(fret-diagram-details . (
-                   (finger-code . below-string)
-                   (dot-radius . 0.35)
-                   (string-thickness-factor . 0.3)
-                   (dot-position . 0.5)
-                   (fret-count . 3))) {
-        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
-      }
-    }
+    % 6
+    %
+    % Simple D chord.
+    d'1^\markup
+      \override #'(fret-diagram-details
+                   . ((finger-code . below-string)
+                      (dot-radius . 0.35)
+                      (string-thickness-factor . 0.3)
+                      (dot-position . 0.5)
+                      (fret-count . 3)))
+      \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
 
-    %% simple D chord, large top fret thickness
-    d'2^\markup  {
-      \override #'(fret-diagram-details . (
-                   (finger-code . below-string)
-                   (dot-radius . 0.35)
-                   (dot-position . 0.5)
-                   (top-fret-thickness . 7)
-                   (fret-count . 3))) {
-        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
-      }
-    }
+    % 7
+    %
+    % Simple D chord, large top fret thickness.
+    d'1^\markup
+      \override #'(fret-diagram-details
+                   . ((finger-code . below-string)
+                      (dot-radius . 0.35)
+                      (dot-position . 0.5)
+                      (top-fret-thickness . 7)
+                      (fret-count . 3)))
+      \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
 
-      % These chords will be in landscape orientation
-    \override TextScript.fret-diagram-details.orientation = #'landscape
 
-    %% C major for guitar, barred on third fret
-    %  verbose style
-    %  roman fret label, finger labels below string, straight barre
-    c'2^\markup {
+    %%
+    %% These chords will be in landscape orientation
+    %%
+    \override TextScript.fret-diagram-details
+                .orientation = #'landscape
+
+
+    % 8
+    %
+    % C major for guitar, barred on third fret: verbose style,
+    % roman fret label, finger labels below string, straight
+    % barre.
+    c'1^\markup
       % 110% of default size
-      \override #'(size . 1.1) {
-        \override #'(fret-diagram-details . (
-                     (number-type . roman-lower)
-                     (finger-code . below-string)
-                     (barre-type . straight))) {
-          \fret-diagram-verbose #'((mute 6)
-                                   (place-fret 5 3 1)
-                                   (place-fret 4 5 2)
-                                   (place-fret 3 5 3)
-                                   (place-fret 2 5 4)
-                                   (place-fret 1 3 1)
-                                   (barre 5 1 3))
-        }
-      }
-    }
+      \override #'(size . 1.1)
+      \override #'(fret-diagram-details
+                   . ((number-type . roman-lower)
+                      (finger-code . below-string)
+                      (barre-type . straight)))
+      \fret-diagram-verbose #'((mute 6)
+                               (place-fret 5 3 1)
+                               (place-fret 4 5 2)
+                               (place-fret 3 5 3)
+                               (place-fret 2 5 4)
+                               (place-fret 1 3 1)
+                               (barre 5 1 3))
 
-    %% C major for guitar, barred on third fret
-    %% Double barre used to test barre function
-    %  verbose style
-    c'2^\markup {
+    % 9
+    %
+    % C major for guitar, barred on third fret: Double barre
+    % used to test barre function, verbose style.
+    c'1^\markup
       % 110% of default size
-      \override #'(size . 1.1) {
-        \override #'(fret-diagram-details . (
-                     (number-type . arabic)
-                     (dot-label-font-mag . 0.9)
-                     (finger-code . in-dot)
-                     (fret-label-font-mag . 0.6)
-                     (fret-label-vertical-offset . 0)
-                     (label-dir . -1)
-                     (mute-string . "M")
-                     (xo-font-magnification . 0.4)
-                     (xo-padding . 0.3))) {
-          \fret-diagram-verbose #'((mute 6)
-                                   (place-fret 5 3 1)
-                                   (place-fret 4 5 2)
-                                   (place-fret 3 5 3)
-                                   (place-fret 2 5 4)
-                                   (place-fret 1 3 1)
-                                   (barre 4 2 5)
-                                   (barre 5 1 3))
-        }
-      }
-    }
+      \override #'(size . 1.1)
+      \override #'(fret-diagram-details
+                   . ((number-type . arabic)
+                      (dot-label-font-mag . 0.9)
+                      (finger-code . in-dot)
+                      (fret-label-font-mag . 0.6)
+                      (fret-label-vertical-offset . 0)
+                      (label-dir . -1)
+                      (mute-string . "M")
+                      (xo-font-magnification . 0.4)
+                      (xo-padding . 0.3)))
+      \fret-diagram-verbose #'((mute 6)
+                               (place-fret 5 3 1)
+                               (place-fret 4 5 2)
+                               (place-fret 3 5 3)
+                               (place-fret 2 5 4)
+                               (place-fret 1 3 1)
+                               (barre 4 2 5)
+                               (barre 5 1 3))
 
-    %% C major for guitar, with capo on third fret
-    %  verbose style
-    c'2^\markup {
+    % 10
+    %
+    % C major for guitar, with capo on third fret: verbose style.
+    c'1^\markup
       % 110% of default size
-      \override #'(size . 1.1) {
-        \override #'(fret-diagram-details . (
-                     (number-type . roman-upper)
-                     (dot-label-font-mag . 0.9)
-                     (finger-code . none)
-                     (fret-label-vertical-offset . 0.5)
-                     (xo-font-magnification . 0.4)
-                     (xo-padding . 0.3))) {
-          \fret-diagram-verbose #'((mute 6)
-                                   (capo 3)
-                                   (open 5)
-                                   (place-fret 4 5 1)
-                                   (place-fret 3 5 2)
-                                   (place-fret 2 5 3)
-                                   (open 1))
-        }
-      }
-    }
+      \override #'(size . 1.1)
+      \override #'(fret-diagram-details
+                   . ((number-type . roman-upper)
+                      (dot-label-font-mag . 0.9)
+                      (finger-code . none)
+                      (fret-label-vertical-offset . 0.5)
+                      (xo-font-magnification . 0.4)
+                      (xo-padding . 0.3)))
+      \fret-diagram-verbose #'((mute 6)
+                               (capo 3)
+                               (open 5)
+                               (place-fret 4 5 1)
+                               (place-fret 3 5 2)
+                               (place-fret 2 5 3)
+                               (open 1))
 
-    %% simple D chord
-    d'2^\markup {
-      \override #'(fret-diagram-details . (
-                   (finger-code . below-string)
-                   (dot-radius . 0.35)
-                   (dot-position . 0.5)
-                   (fret-count . 3))) {
-        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
-      }
-    }
+    % 11
+    %
+    % Simple D chord.
+    d'1^\markup
+      \override #'(fret-diagram-details
+                   . ((finger-code . below-string)
+                      (dot-radius . 0.35)
+                      (dot-position . 0.5)
+                      (fret-count . 3)))
+      \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
 
-    %% simple D chord, large top fret thickness
-    d'2^\markup {
-      \override #'(fret-diagram-details . (
-                   (finger-code . below-string)
-                   (dot-radius . 0.35)
-                   (dot-position . 0.5)
-                   (top-fret-thickness . 7)
-                   (fret-count . 3))) {
-        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
-      }
-    }
+    % 12
+    %
+    % Simple D chord, large top fret thickness.
+    d'1^\markup
+      \override #'(fret-diagram-details
+                   . ((finger-code . below-string)
+                      (dot-radius . 0.35)
+                      (dot-position . 0.5)
+                      (top-fret-thickness . 7)
+                      (fret-count . 3)))
+      \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
 
-      % These chords will be in opposing-landscape orientation
-    \override TextScript.fret-diagram-details.orientation = #'opposing-landscape
 
-    %% C major for guitar, barred on third fret
-    %  verbose style
-    %  roman fret label, finger labels below string, straight barre
-    c'2^\markup {
+    %%
+    %% These chords will be in opposing-landscape orientation.
+    %%
+    \override TextScript.fret-diagram-details
+                .orientation = #'opposing-landscape
+
+
+    % 13
+    %
+    % C major for guitar, barred on third fret: verbose style,
+    % roman fret label, finger labels below string, straight
+    % barre.
+    c'1^\markup
       % 110% of default size
-      \override #'(size . 1.1) {
-        \override #'(fret-diagram-details . (
-                     (number-type . roman-lower)
-                     (finger-code . below-string)
-                     (barre-type . straight))) {
-          \fret-diagram-verbose #'((mute 6)
-                                   (place-fret 5 3 1)
-                                   (place-fret 4 5 2)
-                                   (place-fret 3 5 3)
-                                   (place-fret 2 5 4)
-                                   (place-fret 1 3 1)
-                                   (barre 5 1 3))
-        }
-      }
-    }
+      \override #'(size . 1.1)
+      \override #'(fret-diagram-details
+                   . ((number-type . roman-lower)
+                      (finger-code . below-string)
+                      (barre-type . straight)))
+      \fret-diagram-verbose #'((mute 6)
+                               (place-fret 5 3 1)
+                               (place-fret 4 5 2)
+                               (place-fret 3 5 3)
+                               (place-fret 2 5 4)
+                               (place-fret 1 3 1)
+                               (barre 5 1 3))
 
-    %% C major for guitar, barred on third fret
-    %% Double barre used to test barre function
-    %  verbose style
-    c'2^\markup {
+    % 14
+    %
+    % C major for guitar, barred on third fret: double barre
+    % used to test barre function, verbose style.
+    c'1^\markup
       % 110% of default size
-      \override #'(size . 1.1) {
-        \override #'(fret-diagram-details . (
-                     (number-type . arabic)
-                     (dot-label-font-mag . 0.9)
-                     (finger-code . in-dot)
-                     (fret-label-font-mag . 0.6)
-                     (fret-label-vertical-offset . 0)
-                     (label-dir . -1)
-                     (mute-string . "M")
-                     (xo-font-magnification . 0.4)
-                     (xo-padding . 0.3))) {
-          \fret-diagram-verbose #'((mute 6)
-                                   (place-fret 5 3 1)
-                                   (place-fret 4 5 2)
-                                   (place-fret 3 5 3)
-                                   (place-fret 2 5 4)
-                                   (place-fret 1 3 1)
-                                   (barre 4 2 5)
-                                   (barre 5 1 3))
-        }
-      }
-    }
+      \override #'(size . 1.1)
+      \override #'(fret-diagram-details
+                   . ((number-type . arabic)
+                      (dot-label-font-mag . 0.9)
+                      (finger-code . in-dot)
+                      (fret-label-font-mag . 0.6)
+                      (fret-label-vertical-offset . 0)
+                      (label-dir . -1)
+                      (mute-string . "M")
+                      (xo-font-magnification . 0.4)
+                      (xo-padding . 0.3)))
+      \fret-diagram-verbose #'((mute 6)
+                               (place-fret 5 3 1)
+                               (place-fret 4 5 2)
+                               (place-fret 3 5 3)
+                               (place-fret 2 5 4)
+                               (place-fret 1 3 1)
+                               (barre 4 2 5)
+                               (barre 5 1 3))
 
-    %% C major for guitar, with capo on third fret
-    %  verbose style
-    c'2^\markup {
+    % 15
+    %
+    % C major for guitar, with capo on third fret: verbose style.
+    c'1^\markup
       % 110% of default size
-      \override #'(size . 1.1) {
-        \override #'(fret-diagram-details . (
-                     (number-type . roman-upper)
-                     (dot-label-font-mag . 0.9)
-                     (finger-code . none)
-                     (fret-label-vertical-offset . 0.5)
-                     (xo-font-magnification . 0.4)
-                     (xo-padding . 0.3))) {
-          \fret-diagram-verbose #'((mute 6)
-                                   (capo 3)
-                                   (open 5)
-                                   (place-fret 4 5 1)
-                                   (place-fret 3 5 2)
-                                   (place-fret 2 5 3)
-                                   (open 1))
-        }
-      }
-    }
+      \override #'(size . 1.1)
+      \override #'(fret-diagram-details
+                   . ((number-type . roman-upper)
+                      (dot-label-font-mag . 0.9)
+                      (finger-code . none)
+                      (fret-label-vertical-offset . 0.5)
+                      (xo-font-magnification . 0.4)
+                      (xo-padding . 0.3)))
+      \fret-diagram-verbose #'((mute 6)
+                               (capo 3)
+                               (open 5)
+                               (place-fret 4 5 1)
+                               (place-fret 3 5 2)
+                               (place-fret 2 5 3)
+                               (open 1))
 
-    %% simple D chord
-    d'2^\markup {
-      \override #'(fret-diagram-details . (
-                   (finger-code . below-string)
-                   (dot-radius . 0.35)
-                   (dot-position . 0.5)
-                   (fret-count . 3))) {
-        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
-      }
-    }
+    % 16
+    %
+    % Simple D chord.
+    d'1^\markup
+      \override #'(fret-diagram-details
+                   . ((finger-code . below-string)
+                      (dot-radius . 0.35)
+                      (dot-position . 0.5)
+                      (fret-count . 3)))
+      \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
 
-    %% simple D chord, large top fret thickness
-    d'2^\markup {
-      \override #'(fret-diagram-details . (
-                   (finger-code . below-string)
-                   (dot-radius . 0.35)
-                   (dot-position . 0.5)
-                   (top-fret-thickness . 7)
-                   (fret-count . 3))) {
-        \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
-      }
-    }
+    % 17
+    %
+    % Simple D chord, large top fret thickness.
+    d'1^\markup
+      \override #'(fret-diagram-details
+                   . ((finger-code . below-string)
+                      (dot-radius . 0.35)
+                      (dot-position . 0.5)
+                      (top-fret-thickness . 7)
+                      (fret-count . 3)))
+      \fret-diagram-terse "x;x;o;2-1;3-2;2-3;"
   }
 >>
+
+
+\paper {
+  tagline = ##f
+  ragged-right = ##t
+  indent = 0
+  system-system-spacing.basic-distance = 20
+}
+
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.spacing-increment = 3
+  }
+}
