@@ -917,7 +917,7 @@ square:
 @end lilypond
 
 The @code{\medianChordGridStyle} changes the default display of
-squares with four chords of equal length to use the style
+squares with particular measure divisions to use the style
 recommended by Philippe Baudoin in his book @emph{Jazz, mode
 d'emploi} (@qq{Jazz, user instructions}).
 
@@ -930,28 +930,41 @@ d'emploi} (@qq{Jazz, user instructions}).
 @}
 @end example
 
-@lilypond[quote,indent=0\cm,noragged-right]
-\new ChordGrid \chordmode {
-  \override GridChordName.stencil =
-    #(lambda (grob)
-       (let* ((ev (event-cause grob))
-              (mus (ly:event-property ev 'music-cause))
-              (dur (ly:music-property mus 'duration))
-              (num (number->string (1+ (ly:grob-property grob 'index)))))
+@lilypond[quote,indent=0\cm,noragged-right,line-width=6\cm]
+\layout {
+  \override ChordGrid.GridChordName.stencil =
+  #(lambda (grob)
+     (let* ((ev (event-cause grob))
+            (mus (ly:event-property ev 'music-cause))
+            (dur (ly:music-property mus 'duration))
+            (num (number->string (1+ (ly:grob-property grob 'index)))))
        (grob-interpret-markup
         grob
         #{ \markup { \note #dur #UP \hspace #0.7 \circle #num } #})))
-  \override Score.RehearsalMark.self-alignment-X = #LEFT
-  \textMark "default"
-  r4 r4 r4 r4
-  \stopStaff
-  s1
-  \startStaff
-  \textMark \markup \typewriter "\\medianChordGridStyle"
-  \medianChordGridStyle
-  r4 r4 r4 r4
-  \stopStaff
-  s1*2
+}
+
+
+#(define-markup-command (demo layout props measure init) (ly:music? ly:music?)
+   (interpret-markup
+    layout
+    props
+    #{
+      \markup \column {
+        \score { \new ChordGrid { #init #measure } }
+      }
+    #}))
+
+\markup \column {
+  \override #'(baseline-skip . 13)
+  \override #'(padding . 2)
+  \table #`(,CENTER ,CENTER) {
+    "Default style" \typewriter "\\medianChordGridStyle"
+    \demo { r2 r4 r4 } {} \demo { r2 r4 r4 } \medianChordGridStyle
+    \demo { r4 r4 r2 } {} \demo { r4 r4 r2 } \medianChordGridStyle
+    \demo { r2. r4 } {} \demo { r2. r4 } \medianChordGridStyle
+    \demo { r4 r2. } {} \demo { r4 r2. } \medianChordGridStyle
+    \demo { r4 r4 r4 r4 } {} \demo { r4 r4 r4 r4 } \medianChordGridStyle
+  }
 }
 @end lilypond
 
