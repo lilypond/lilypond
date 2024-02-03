@@ -27,7 +27,7 @@
 
 class Collision_engraver final : public Engraver
 {
-  Item *col_;
+  Item *col_ = nullptr;
   std::vector<Item *> note_columns_;
 
 protected:
@@ -69,14 +69,13 @@ Collision_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 void
 Collision_engraver::stop_translation_timestep ()
 {
-  col_ = 0;
+  col_ = nullptr;
   note_columns_.clear ();
 }
 
 Collision_engraver::Collision_engraver (Context *c)
   : Engraver (c)
 {
-  col_ = 0;
 }
 
 void

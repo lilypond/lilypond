@@ -35,9 +35,9 @@ void completize_extender (Spanner *sp);
 
 class Extender_engraver final : public Engraver
 {
-  Stream_event *ev_;
-  Spanner *extender_;
-  Spanner *pending_extender_;
+  Stream_event *ev_ = nullptr;
+  Spanner *extender_ = nullptr;
+  Spanner *pending_extender_ = nullptr;
 
 public:
   TRANSLATOR_DECLARATIONS (Extender_engraver);
@@ -56,9 +56,6 @@ protected:
 Extender_engraver::Extender_engraver (Context *c)
   : Engraver (c)
 {
-  extender_ = 0;
-  pending_extender_ = 0;
-  ev_ = 0;
 }
 
 void
@@ -79,7 +76,7 @@ Extender_engraver::listen_completize_extender (Stream_event * /* ev */)
   if (pending_extender_)
     {
       completize_extender (pending_extender_);
-      pending_extender_ = 0;
+      pending_extender_ = nullptr;
     }
 }
 
@@ -101,7 +98,7 @@ Extender_engraver::acknowledge_lyric_syllable (Grob_info_t<Item> info)
     {
       set_object (pending_extender_, "next", item->self_scm ());
       completize_extender (pending_extender_);
-      pending_extender_ = 0;
+      pending_extender_ = nullptr;
     }
 }
 
@@ -133,17 +130,17 @@ Extender_engraver::stop_translation_timestep ()
               && !from_scm<bool> (get_property (this, "extendersOverRests")))
             {
               completize_extender (pending_extender_);
-              pending_extender_ = 0;
+              pending_extender_ = nullptr;
             }
         }
       if (extender_)
         {
           pending_extender_ = extender_;
-          extender_ = 0;
+          extender_ = nullptr;
         }
     }
 
-  ev_ = 0;
+  ev_ = nullptr;
 }
 
 void
@@ -173,7 +170,7 @@ Extender_engraver::finalize ()
 
       if (!extender_->get_bound (RIGHT))
         extender_->warning (_ ("unterminated extender"));
-      extender_ = 0;
+      extender_ = nullptr;
     }
 
   if (pending_extender_)
@@ -182,7 +179,7 @@ Extender_engraver::finalize ()
 
       if (!pending_extender_->get_bound (RIGHT))
         pending_extender_->warning (_ ("unterminated extender"));
-      pending_extender_ = 0;
+      pending_extender_ = nullptr;
     }
 }
 

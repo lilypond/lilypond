@@ -36,9 +36,9 @@
 class Axis_group_engraver final : public Engraver
 {
 protected:
-  bool active_;
-  Spanner *staffline_;
-  SCM interesting_;
+  bool active_ = false;
+  Spanner *staffline_ = nullptr;
+  SCM interesting_ = SCM_EOL;
   std::vector<Grob *> elts_;
   void process_music ();
   void initialize () override;
@@ -57,9 +57,6 @@ public:
 Axis_group_engraver::Axis_group_engraver (Context *c)
   : Engraver (c)
 {
-  staffline_ = 0;
-  interesting_ = SCM_EOL;
-  active_ = false;
 }
 
 void
@@ -157,7 +154,7 @@ Axis_group_engraver::process_acknowledged ()
               staffline_->warning (_ ("are there two Axis_group_engravers?"));
               staffline_->warning (_ ("removing this vertical group"));
               staffline_->suicide ();
-              staffline_ = 0;
+              staffline_ = nullptr;
               break;
             }
           add_element (elts_[i]);

@@ -34,9 +34,9 @@ class Key_engraver final : public Engraver
   void create_key (bool);
   void read_event (Stream_event const *r);
 
-  Stream_event *key_event_;
-  Item *item_;
-  Item *cancellation_;
+  Stream_event *key_event_ = nullptr;
+  Item *item_ = nullptr;
+  Item *cancellation_ = nullptr;
 
 public:
   TRANSLATOR_DECLARATIONS (Key_engraver);
@@ -59,9 +59,6 @@ Key_engraver::finalize ()
 Key_engraver::Key_engraver (Context *c)
   : Engraver (c)
 {
-  key_event_ = 0;
-  item_ = 0;
-  cancellation_ = 0;
 }
 
 void
@@ -157,11 +154,11 @@ Key_engraver::process_music ()
 void
 Key_engraver::stop_translation_timestep ()
 {
-  item_ = 0;
+  item_ = nullptr;
   set_property (context (), "lastKeyAlterations",
                 get_property (this, "keyAlterations"));
-  cancellation_ = 0;
-  key_event_ = 0;
+  cancellation_ = nullptr;
+  key_event_ = nullptr;
 }
 
 void

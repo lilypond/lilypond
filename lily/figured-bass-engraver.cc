@@ -114,10 +114,10 @@ struct Figured_bass_engraver final : public Engraver
 
 protected:
   std::vector<Figure_group> groups_;
-  Spanner *alignment_;
+  Spanner *alignment_ = nullptr;
   std::vector<Stream_event *> new_events_;
-  bool continuation_;
-  bool new_event_found_;
+  bool continuation_ = false;
+  bool new_event_found_ = false;
 
   Moment stop_moment_;
   Boolean_event_listener rest_listener_;
@@ -134,9 +134,6 @@ protected:
 Figured_bass_engraver::Figured_bass_engraver (Context *c)
   : Engraver (c)
 {
-  alignment_ = 0;
-  continuation_ = false;
-  new_event_found_ = false;
 }
 
 void
@@ -252,7 +249,7 @@ Figured_bass_engraver::clear_spanners ()
     return;
 
   announce_end_grob (alignment_, SCM_EOL);
-  alignment_ = 0;
+  alignment_ = nullptr;
 
   if (from_scm<bool> (get_property (this, "figuredBassCenterContinuations")))
     center_repeated_continuations ();

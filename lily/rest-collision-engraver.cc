@@ -37,7 +37,7 @@
 class Rest_collision_engraver final : public Engraver
 {
 protected:
-  Grob *rest_collision_;
+  Grob *rest_collision_ = nullptr;
 
   void process_acknowledged ();
   void stop_translation_timestep ();
@@ -49,7 +49,6 @@ public:
 Rest_collision_engraver::Rest_collision_engraver (Context *c)
   : Engraver (c)
 {
-  rest_collision_ = 0;
 }
 
 void
@@ -95,7 +94,7 @@ Rest_collision_engraver::process_acknowledged ()
 void
 Rest_collision_engraver::stop_translation_timestep ()
 {
-  rest_collision_ = 0;
+  rest_collision_ = nullptr;
 }
 
 void

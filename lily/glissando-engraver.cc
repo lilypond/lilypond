@@ -45,10 +45,10 @@ protected:
 private:
   std::vector<Spanner *> lines_;
   std::vector<Spanner *> kill_me_;
-  bool start_glissandi_;
-  bool stop_glissandi_;
+  bool start_glissandi_ = false;
+  bool stop_glissandi_ = false;
 
-  Stream_event *event_;
+  Stream_event *event_ = nullptr;
   std::vector<vsize> note_column_1;
   std::vector<vsize> note_column_2;
 };
@@ -56,9 +56,6 @@ private:
 Glissando_engraver::Glissando_engraver (Context *c)
   : Engraver (c)
 {
-  event_ = 0;
-  start_glissandi_ = false;
-  stop_glissandi_ = false;
 }
 
 void
@@ -149,7 +146,7 @@ Glissando_engraver::stop_translation_timestep ()
       stop_glissandi_ = true;
       start_glissandi_ = false;
     }
-  event_ = 0;
+  event_ = nullptr;
 }
 
 void

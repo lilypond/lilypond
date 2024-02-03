@@ -45,7 +45,7 @@ protected:
   void stop_translation_timestep ();
 
 private:
-  Item *span_arpeggio_;
+  Item *span_arpeggio_ = nullptr;
   std::vector<Grob *> arpeggios_;
   std::vector<Grob *> note_columns_;
 };
@@ -53,7 +53,6 @@ private:
 Span_arpeggio_engraver::Span_arpeggio_engraver (Context *c)
   : Engraver (c)
 {
-  span_arpeggio_ = 0;
 }
 
 void
@@ -120,7 +119,7 @@ Span_arpeggio_engraver::stop_translation_timestep ()
         }
 
       span_arpeggio_->set_y_parent (arpeggios_[0]->get_y_parent ());
-      span_arpeggio_ = 0;
+      span_arpeggio_ = nullptr;
     }
   arpeggios_.clear ();
   note_columns_.clear ();

@@ -35,7 +35,7 @@
 */
 class Fretboard_engraver final : public Engraver
 {
-  Item *fret_board_;
+  Item *fret_board_ = nullptr;
 
   std::vector<Stream_event *> note_events_;
   std::vector<Stream_event *> tabstring_events_;
@@ -53,7 +53,7 @@ protected:
   void listen_fingering (Stream_event *);
 
 private:
-  SCM last_placements_;
+  SCM last_placements_ = SCM_BOOL_F;
 };
 
 void
@@ -65,8 +65,6 @@ Fretboard_engraver::derived_mark () const
 Fretboard_engraver::Fretboard_engraver (Context *c)
   : Engraver (c)
 {
-  fret_board_ = 0;
-  last_placements_ = SCM_BOOL_F;
 }
 
 void
@@ -114,7 +112,7 @@ Fretboard_engraver::process_music ()
 void
 Fretboard_engraver::stop_translation_timestep ()
 {
-  fret_board_ = 0;
+  fret_board_ = nullptr;
   note_events_.clear ();
   tabstring_events_.clear ();
   fingering_events_.clear ();

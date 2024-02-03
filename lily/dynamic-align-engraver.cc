@@ -46,9 +46,10 @@ protected:
 private:
   void create_line_spanner (Grob *cause);
   void set_spanner_bounds (Spanner *line, bool end);
-  Spanner *line_;
-  Spanner *ended_line_; // Spanner manually broken, don't use it for new grobs
-  Spanner *current_dynamic_spanner_;
+  Spanner *line_ = nullptr;
+  // Spanner manually broken; don't use it for new grobs
+  Spanner *ended_line_ = nullptr;
+  Spanner *current_dynamic_spanner_ = nullptr;
   std::vector<Spanner *> ended_;
   std::vector<Spanner *> started_;
   std::vector<Grob *> scripts_;
@@ -60,9 +61,6 @@ private:
 Dynamic_align_engraver::Dynamic_align_engraver (Context *c)
   : Engraver (c)
 {
-  line_ = 0;
-  ended_line_ = 0;
-  current_dynamic_spanner_ = 0;
 }
 
 void
@@ -91,8 +89,8 @@ Dynamic_align_engraver::acknowledge_end_dynamic (Grob_info_t<Spanner> info)
       if (ended_line_)
         programming_error ("already have a force-ended DynamicLineSpanner.");
       ended_line_ = line_;
-      line_ = 0;
-      current_dynamic_spanner_ = 0;
+      line_ = nullptr;
+      current_dynamic_spanner_ = nullptr;
     }
 }
 
@@ -134,8 +132,8 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
         {
           if (!ended_line_)
             ended_line_ = line_;
-          line_ = 0;
-          current_dynamic_spanner_ = 0;
+          line_ = nullptr;
+          current_dynamic_spanner_ = nullptr;
         }
     }
 
@@ -224,10 +222,10 @@ Dynamic_align_engraver::stop_translation_timestep ()
 
   if (end)
     {
-      line_ = 0;
+      line_ = nullptr;
     }
 
-  ended_line_ = 0;
+  ended_line_ = nullptr;
   ended_.clear ();
   started_.clear ();
   scripts_.clear ();

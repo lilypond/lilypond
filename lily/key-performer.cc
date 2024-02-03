@@ -38,13 +38,12 @@ protected:
   void listen_key_change (Stream_event *);
 
 private:
-  Stream_event *key_ev_;
+  Stream_event *key_ev_ = nullptr;
 };
 
 Key_performer::Key_performer (Context *c)
   : Performer (c)
 {
-  key_ev_ = 0;
 }
 
 Key_performer::~Key_performer ()
@@ -79,7 +78,7 @@ Key_performer::process_music ()
                     && from_scm<Rational> (scm_cdr (third)) == FLAT_ALTERATION);
 
       announce<Audio_key> (key_ev_, from_scm<int> (acc), !minor);
-      key_ev_ = 0;
+      key_ev_ = nullptr;
     }
 }
 

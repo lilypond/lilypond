@@ -28,7 +28,7 @@
 
 class Control_track_performer final : public Performer
 {
-  Audio_staff *control_track_;
+  Audio_staff *control_track_ = nullptr;
 
   void add_text (Audio_text::Type, const std::string &);
   TRANSLATOR_DECLARATIONS (Control_track_performer);
@@ -42,7 +42,6 @@ protected:
 Control_track_performer::Control_track_performer (Context *c)
   : Performer (c)
 {
-  control_track_ = 0;
 }
 
 void

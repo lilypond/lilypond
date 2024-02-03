@@ -46,15 +46,13 @@ protected:
   void listen_arpeggio (Stream_event *);
 
 private:
-  Item *arpeggio_;
-  Stream_event *arpeggio_event_;
+  Item *arpeggio_ = nullptr;
+  Stream_event *arpeggio_event_ = nullptr;
 };
 
 Arpeggio_engraver::Arpeggio_engraver (Context *c)
   : Engraver (c)
 {
-  arpeggio_ = 0;
-  arpeggio_event_ = 0;
 }
 
 void
@@ -106,8 +104,8 @@ Arpeggio_engraver::process_music ()
 void
 Arpeggio_engraver::stop_translation_timestep ()
 {
-  arpeggio_ = 0;
-  arpeggio_event_ = 0;
+  arpeggio_ = nullptr;
+  arpeggio_event_ = nullptr;
 }
 
 void

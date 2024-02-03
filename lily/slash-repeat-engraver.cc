@@ -34,7 +34,7 @@ public:
   TRANSLATOR_DECLARATIONS (Slash_repeat_engraver);
 
 protected:
-  Stream_event *slash_;
+  Stream_event *slash_ = nullptr;
 
 protected:
   void listen_repeat_slash (Stream_event *);
@@ -44,7 +44,6 @@ protected:
 Slash_repeat_engraver::Slash_repeat_engraver (Context *c)
   : Engraver (c)
 {
-  slash_ = 0;
 }
 
 void
@@ -63,7 +62,7 @@ Slash_repeat_engraver::process_music ()
         make_item ("DoubleRepeatSlash", slash_->self_scm ());
       else
         make_item ("RepeatSlash", slash_->self_scm ());
-      slash_ = 0;
+      slash_ = nullptr;
     }
 }
 

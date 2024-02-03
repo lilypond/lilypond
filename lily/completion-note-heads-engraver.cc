@@ -59,7 +59,7 @@ class Completion_heads_engraver final : public Engraver
   // Must remember notes for explicit ties.
   std::vector<Spanner *> ties_;
   std::vector<Stream_event *> note_events_;
-  Spanner *tie_column_;
+  Spanner *tie_column_ = nullptr;
   Moment note_end_mom_;
   bool is_first_;
   Rational left_to_do_;
@@ -296,7 +296,7 @@ void
 Completion_heads_engraver::stop_translation_timestep ()
 {
   ties_.clear ();
-  tie_column_ = 0;
+  tie_column_ = nullptr;
 
   if (notes_.size ())
     prev_notes_ = notes_;
@@ -318,7 +318,6 @@ Completion_heads_engraver::start_translation_timestep ()
 Completion_heads_engraver::Completion_heads_engraver (Context *c)
   : Engraver (c)
 {
-  tie_column_ = 0;
 }
 
 void

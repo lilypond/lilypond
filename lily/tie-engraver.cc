@@ -71,13 +71,13 @@ class Tie_engraver final : public Engraver
     Whether tie event has been processed and can be deleted or should
     be kept for later portions of a split note.
   */
-  bool event_processed_;
-  Stream_event *event_;
+  bool event_processed_ = false;
+  Stream_event *event_ = nullptr;
   std::vector<Grob *> now_heads_;
   std::vector<Head_event_tuple> heads_to_tie_;
   std::vector<Spanner *> ties_;
 
-  Spanner *tie_column_;
+  Spanner *tie_column_ = nullptr;
   bool tie_notehead (Grob *h, bool enharmonic);
 
 protected:
@@ -98,9 +98,6 @@ public:
 Tie_engraver::Tie_engraver (Context *c)
   : Engraver (c)
 {
-  event_ = 0;
-  tie_column_ = 0;
-  event_processed_ = false;
 }
 
 void
@@ -273,7 +270,7 @@ Tie_engraver::process_acknowledged ()
         typeset_tie (ties_[i]);
 
       ties_.clear ();
-      tie_column_ = 0;
+      tie_column_ = nullptr;
     }
 
   std::vector<Head_event_tuple> new_heads_to_tie;
@@ -352,7 +349,7 @@ Tie_engraver::stop_translation_timestep ()
     appropriate note.
   */
   if (event_processed_)
-    event_ = 0;
+    event_ = nullptr;
 
   event_processed_ = false;
 }

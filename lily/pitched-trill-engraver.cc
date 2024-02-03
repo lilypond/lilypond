@@ -45,10 +45,10 @@ protected:
   void stop_translation_timestep ();
 
 private:
-  Item *trill_head_;
-  Item *trill_group_;
-  Item *trill_accidental_;
-  Item *trill_parentheses_;
+  Item *trill_head_ = nullptr;
+  Item *trill_group_ = nullptr;
+  Item *trill_accidental_ = nullptr;
+  Item *trill_parentheses_ = nullptr;
 
   std::vector<Grob *> heads_;
 
@@ -58,9 +58,6 @@ private:
 Pitched_trill_engraver::Pitched_trill_engraver (Context *c)
   : Engraver (c)
 {
-  trill_head_ = 0;
-  trill_group_ = 0;
-  trill_accidental_ = 0;
 }
 
 void
@@ -123,7 +120,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
   if (trill_head_)
     {
       programming_error ("already have a trill head.");
-      trill_head_ = 0;
+      trill_head_ = nullptr;
     }
 
   trill_head_ = make_item ("TrillPitchHead", ev->self_scm ());
@@ -170,9 +167,9 @@ Pitched_trill_engraver::stop_translation_timestep ()
       Side_position_interface::add_support (trill_group_, heads_[i]);
 
   heads_.clear ();
-  trill_head_ = 0;
-  trill_group_ = 0;
-  trill_accidental_ = 0;
+  trill_head_ = nullptr;
+  trill_group_ = nullptr;
+  trill_accidental_ = nullptr;
 }
 
 void

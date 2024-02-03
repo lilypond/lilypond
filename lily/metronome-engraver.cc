@@ -33,10 +33,10 @@
 
 class Metronome_mark_engraver final : public Engraver
 {
-  Item *text_;
-  Grob *support_;
-  Grob *bar_;
-  Stream_event *tempo_ev_;
+  Item *text_ = nullptr;
+  Grob *support_ = nullptr;
+  Grob *bar_ = nullptr;
+  Stream_event *tempo_ev_ = nullptr;
 
 public:
   TRANSLATOR_DECLARATIONS (Metronome_mark_engraver);
@@ -55,10 +55,6 @@ protected:
 Metronome_mark_engraver::Metronome_mark_engraver (Context *c)
   : Engraver (c)
 {
-  text_ = 0;
-  support_ = 0;
-  bar_ = 0;
-  tempo_ev_ = 0;
 }
 
 void
@@ -140,10 +136,10 @@ Metronome_mark_engraver::stop_translation_timestep ()
         }
       set_object (text_, "side-support-elements",
                   grob_list_to_grob_array (get_property (this, "stavesFound")));
-      text_ = 0;
-      support_ = 0;
-      bar_ = 0;
-      tempo_ev_ = 0;
+      text_ = nullptr;
+      support_ = nullptr;
+      bar_ = nullptr;
+      tempo_ev_ = nullptr;
     }
 }
 

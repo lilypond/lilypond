@@ -26,7 +26,7 @@
 
 class Ledger_line_engraver final : public Engraver
 {
-  Spanner *span_;
+  Spanner *span_ = nullptr;
   std::vector<Grob *> ledgered_grobs_;
 
 public:
@@ -47,7 +47,6 @@ protected:
 Ledger_line_engraver::Ledger_line_engraver (Context *c)
   : Engraver (c)
 {
-  span_ = 0;
 }
 
 void
@@ -99,7 +98,7 @@ Ledger_line_engraver::stop_spanner ()
     {
       auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       span_->set_bound (RIGHT, col);
-      span_ = 0;
+      span_ = nullptr;
     }
 }
 

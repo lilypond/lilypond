@@ -42,11 +42,12 @@ protected:
   void derived_mark () const override;
 
 private:
-  Item *clef_;
-  Item *modifier_;
+  Item *clef_ = nullptr;
+  Item *modifier_ = nullptr;
 
-  SCM prev_glyph_;
-  SCM prev_cpos_;
+  // trigger a clef at the start since #f != '()
+  SCM prev_glyph_ = SCM_BOOL_F;
+  SCM prev_cpos_ = SCM_BOOL_F;
   int prev_transposition_ = 0;
   void create_clef ();
   void set_glyph ();
@@ -63,13 +64,6 @@ Clef_engraver::derived_mark () const
 Clef_engraver::Clef_engraver (Context *c)
   : Engraver (c)
 {
-  clef_ = 0;
-  modifier_ = 0;
-
-  /*
-    will trigger a clef at the start since #f != '()
-  */
-  prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
 }
 
 void
@@ -189,9 +183,8 @@ Clef_engraver::stop_translation_timestep ()
             set_property (clef_, "break-visibility", vis);
         }
 
-      clef_ = 0;
-
-      modifier_ = 0;
+      clef_ = nullptr;
+      modifier_ = nullptr;
     }
 }
 

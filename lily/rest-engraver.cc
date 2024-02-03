@@ -30,9 +30,9 @@
 
 class Rest_engraver final : public Engraver
 {
-  Stream_event *rest_event_;
-  Item *dot_;
-  Grob *rest_;
+  Stream_event *rest_event_ = nullptr;
+  Item *dot_ = nullptr;
+  Grob *rest_ = nullptr;
 
 protected:
   void start_translation_timestep ();
@@ -49,17 +49,14 @@ public:
 Rest_engraver::Rest_engraver (Context *c)
   : Engraver (c)
 {
-  rest_event_ = 0;
-  rest_ = 0;
-  dot_ = 0;
 }
 
 void
 Rest_engraver::start_translation_timestep ()
 {
-  rest_event_ = 0;
-  rest_ = 0;
-  dot_ = 0;
+  rest_event_ = nullptr;
+  rest_ = nullptr;
+  dot_ = nullptr;
 }
 
 void

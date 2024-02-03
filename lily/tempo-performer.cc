@@ -36,7 +36,7 @@ protected:
   void process_music ();
 
 private:
-  SCM last_tempo_;
+  SCM last_tempo_ = SCM_EOL;
 };
 
 void
@@ -48,7 +48,6 @@ Tempo_performer::derived_mark () const
 Tempo_performer::Tempo_performer (Context *c)
   : Performer (c)
 {
-  last_tempo_ = SCM_EOL;
 }
 
 Tempo_performer::~Tempo_performer ()

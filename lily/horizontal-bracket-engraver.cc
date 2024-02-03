@@ -35,8 +35,8 @@ public:
   std::vector<Spanner *> bracket_stack_;
   std::vector<Spanner *> text_stack_;
   std::vector<Stream_event *> events_;
-  vsize pop_count_;
-  vsize push_count_;
+  vsize pop_count_ = 0;
+  vsize push_count_ = 0;
 
   void stop_translation_timestep ();
   void process_music ();
@@ -47,8 +47,6 @@ public:
 Horizontal_bracket_engraver::Horizontal_bracket_engraver (Context *c)
   : Engraver (c)
 {
-  pop_count_ = 0;
-  push_count_ = 0;
 }
 
 void

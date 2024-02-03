@@ -60,23 +60,18 @@ private:
   // the rest are optional MultiMeasureRestText and MultiMeasureRestScript
   // grobs
   std::vector<Spanner *> text_;
-  Stream_event *rest_ev_;
-  Spanner *mmrest_;
+  Stream_event *rest_ev_ = nullptr;
+  Spanner *mmrest_ = nullptr;
   Moment stop_moment_;
-  int start_measure_;
+  int start_measure_ = 0;
   // Ugh, this is a kludge - need this for multi-measure-rest-grace.ly
-  Item *last_command_item_;
-  bool first_time_;
+  Item *last_command_item_ = nullptr;
+  bool first_time_ = true;
   int number_threshold_;
 };
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver (Context *c)
-  : Engraver (c),
-    rest_ev_ (0),
-    mmrest_ (0),
-    start_measure_ (0),
-    last_command_item_ (0),
-    first_time_ (true)
+  : Engraver (c)
 {
 }
 
@@ -122,7 +117,7 @@ Multi_measure_rest_engraver::clear_lapsed_events (const Moment &now)
 {
   if (now.main_part_ >= stop_moment_.main_part_)
     {
-      rest_ev_ = 0;
+      rest_ev_ = nullptr;
       text_events_.clear ();
       articulation_events_.clear ();
     }
@@ -197,7 +192,7 @@ void
 Multi_measure_rest_engraver::reset_grobs ()
 {
   text_.clear ();
-  mmrest_ = 0;
+  mmrest_ = nullptr;
 }
 
 void
@@ -253,7 +248,7 @@ Multi_measure_rest_engraver::process_music ()
       if (last_command_item_)
         {
           add_bound_item_to_grobs (last_command_item_);
-          last_command_item_ = 0;
+          last_command_item_ = nullptr;
         }
 
       start_measure_ = from_scm<int> (get_property (this, "internalBarNumber"));

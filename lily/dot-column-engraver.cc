@@ -26,7 +26,7 @@
 
 class Dot_column_engraver final : public Engraver
 {
-  Grob *dotcol_;
+  Grob *dotcol_ = nullptr;
 
 public:
   TRANSLATOR_DECLARATIONS (Dot_column_engraver);
@@ -40,13 +40,12 @@ protected:
 Dot_column_engraver::Dot_column_engraver (Context *c)
   : Engraver (c)
 {
-  dotcol_ = 0;
 }
 
 void
 Dot_column_engraver::stop_translation_timestep ()
 {
-  dotcol_ = 0;
+  dotcol_ = nullptr;
 }
 
 void

@@ -68,8 +68,8 @@ class Spacing_engraver final : public Engraver
   std::vector<Rhythmic_tuple> now_durations_;
   std::vector<Rhythmic_tuple> stopped_durations_;
   Moment now_;
-  Spanner *spacing_;
-  Stream_event *start_section_;
+  Spanner *spacing_ = nullptr;
+  Stream_event *start_section_ = nullptr;
 
   TRANSLATOR_DECLARATIONS (Spacing_engraver);
 
@@ -95,8 +95,6 @@ protected:
 Spacing_engraver::Spacing_engraver (Context *c)
   : Engraver (c)
 {
-  spacing_ = 0;
-  start_section_ = 0;
 }
 
 void
@@ -145,7 +143,7 @@ Spacing_engraver::stop_spanner ()
       Grob *p = unsmob<Grob> (get_property (this, "currentCommandColumn"));
 
       spacing_->set_bound (RIGHT, p);
-      spacing_ = 0;
+      spacing_ = nullptr;
     }
 }
 
@@ -257,7 +255,7 @@ Spacing_engraver::stop_translation_timestep ()
 void
 Spacing_engraver::start_translation_timestep ()
 {
-  start_section_ = 0;
+  start_section_ = nullptr;
 
   now_ = now_mom ();
   stopped_durations_.clear ();

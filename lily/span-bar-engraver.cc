@@ -34,8 +34,8 @@ dependencies to the spanbars.
 */
 class Span_bar_engraver final : public Engraver
 {
-  Item *spanbar_;
-  bool make_spanbar_;
+  Item *spanbar_ = nullptr;
+  bool make_spanbar_ = false;
   std::vector<Item *> bars_;
 
 public:
@@ -50,8 +50,6 @@ protected:
 Span_bar_engraver::Span_bar_engraver (Context *c)
   : Engraver (c)
 {
-  spanbar_ = 0;
-  make_spanbar_ = false;
 }
 
 void
@@ -91,7 +89,7 @@ Span_bar_engraver::stop_translation_timestep ()
           bars_[i], "has-span-bar",
           scm_cons (i == bars_.size () - 1 ? SCM_BOOL_F : spanbar_->self_scm (),
                     i == 0 ? SCM_BOOL_F : spanbar_->self_scm ()));
-      spanbar_ = 0;
+      spanbar_ = nullptr;
     }
   bars_.resize (0);
 }

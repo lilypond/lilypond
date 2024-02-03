@@ -115,24 +115,19 @@ private:
 
 private:
   std::vector<Audio_note *> notes_;
-  Stream_event *script_event_;
+  Stream_event *script_event_ = nullptr;
   Drul_array<Stream_event *> span_events_;
-  Direction next_grow_dir_;
-  Direction depart_dir_;
+  Direction next_grow_dir_ = CENTER;
+  Direction depart_dir_ = CENTER;
   UnfinishedSpan open_span_;
   DynamicQueue depart_queue_;
   DynamicQueue return_queue_;
-  State state_;
+  State state_ = STATE_INITIAL;
 };
 
 Dynamic_performer::Dynamic_performer (Context *c)
-  : Performer (c),
-    script_event_ (0),
-    next_grow_dir_ (CENTER),
-    depart_dir_ (CENTER),
-    state_ (STATE_INITIAL)
+  : Performer (c)
 {
-  span_events_[LEFT] = span_events_[RIGHT] = 0;
 }
 
 void
@@ -452,8 +447,8 @@ Dynamic_performer::stop_translation_timestep ()
     }
   notes_.clear ();
 
-  script_event_ = 0;
-  span_events_[LEFT] = span_events_[RIGHT] = 0;
+  script_event_ = nullptr;
+  span_events_ = {};
   next_grow_dir_ = CENTER;
 }
 

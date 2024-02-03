@@ -27,8 +27,8 @@
 
 class Laissez_vibrer_engraver : public Engraver
 {
-  Stream_event *event_;
-  Grob *lv_column_;
+  Stream_event *event_ = nullptr;
+  Grob *lv_column_ = nullptr;
   std::vector<Grob *> lv_ties_;
 
   virtual bool is_my_event_class (Stream_event *ev);

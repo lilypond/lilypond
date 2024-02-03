@@ -25,7 +25,7 @@
 
 class Grid_line_span_engraver final : public Engraver
 {
-  Item *spanline_;
+  Item *spanline_ = nullptr;
   std::vector<Item *> lines_;
 
 public:
@@ -39,7 +39,6 @@ protected:
 Grid_line_span_engraver::Grid_line_span_engraver (Context *c)
   : Engraver (c)
 {
-  spanline_ = 0;
 }
 
 void
@@ -62,7 +61,7 @@ Grid_line_span_engraver::stop_translation_timestep ()
       for (vsize i = 0; i < lines_.size (); i++)
         Grid_line_interface::add_grid_point (spanline_, lines_[i]);
 
-      spanline_ = 0;
+      spanline_ = nullptr;
     }
   lines_.resize (0);
 }

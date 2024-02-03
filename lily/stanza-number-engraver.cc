@@ -24,9 +24,9 @@
 
 class Stanza_number_engraver final : public Engraver
 {
-  Item *text_;
+  Item *text_ = nullptr;
 
-  SCM last_stanza_;
+  SCM last_stanza_ = SCM_EOL;
 
 public:
   TRANSLATOR_DECLARATIONS (Stanza_number_engraver);
@@ -51,8 +51,6 @@ Stanza_number_engraver::derived_mark () const
 Stanza_number_engraver::Stanza_number_engraver (Context *c)
   : Engraver (c)
 {
-  text_ = 0;
-  last_stanza_ = SCM_EOL;
 }
 
 void
@@ -79,7 +77,7 @@ Stanza_number_engraver::acknowledge_lyric_syllable (Grob_info inf)
 void
 Stanza_number_engraver::stop_translation_timestep ()
 {
-  text_ = 0;
+  text_ = nullptr;
 }
 
 #include "translator.icc"

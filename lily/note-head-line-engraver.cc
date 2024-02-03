@@ -44,21 +44,16 @@ protected:
   void stop_translation_timestep ();
 
 private:
-  Spanner *line_;
-  Context *last_staff_;
-  bool follow_;
-  Grob *head_;
-  Grob *last_head_;
+  Spanner *line_ = nullptr;
+  Context *last_staff_ = nullptr;
+  bool follow_ = false;
+  Grob *head_ = nullptr;
+  Grob *last_head_ = nullptr;
 };
 
 Note_head_line_engraver::Note_head_line_engraver (Context *c)
   : Engraver (c)
 {
-  line_ = 0;
-  follow_ = false;
-  head_ = 0;
-  last_head_ = 0;
-  last_staff_ = 0;
 }
 
 void
@@ -98,10 +93,10 @@ Note_head_line_engraver::process_acknowledged ()
 void
 Note_head_line_engraver::stop_translation_timestep ()
 {
-  line_ = 0;
+  line_ = nullptr;
   if (head_)
     last_head_ = head_;
-  head_ = 0;
+  head_ = nullptr;
 }
 
 #include "translator.icc"

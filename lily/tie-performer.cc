@@ -42,7 +42,7 @@ struct Head_audio_event_tuple
 
 class Tie_performer final : public Performer
 {
-  Stream_event *event_;
+  Stream_event *event_ = nullptr;
   std::list<Head_audio_event_tuple> now_heads_;
   std::list<Head_audio_event_tuple> now_tied_heads_; // new tied notes
   std::list<Head_audio_event_tuple>
@@ -62,7 +62,6 @@ public:
 Tie_performer::Tie_performer (Context *c)
   : Performer (c)
 {
-  event_ = 0;
 }
 
 void
@@ -179,7 +178,7 @@ Tie_performer::stop_translation_timestep ()
     }
   heads_to_tie_.splice (heads_to_tie_.end (), now_tied_heads_);
 
-  event_ = 0;
+  event_ = nullptr;
   now_heads_.clear ();
   now_tied_heads_.clear ();
 }

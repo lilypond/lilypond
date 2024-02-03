@@ -47,8 +47,6 @@ protected:
 Fingering_column_engraver::Fingering_column_engraver (Context *c)
   : Engraver (c)
 {
-  for (const auto d : {LEFT, RIGHT})
-    fingering_columns_[d] = 0;
 }
 
 void
@@ -74,7 +72,7 @@ Fingering_column_engraver::stop_translation_timestep ()
       if (scripts_[d].size () < 2 && fingering_columns_[d])
         {
           fingering_columns_[d]->suicide ();
-          fingering_columns_[d] = 0;
+          fingering_columns_[d] = nullptr;
         }
       if (fingering_columns_[d])
         {
@@ -83,7 +81,7 @@ Fingering_column_engraver::stop_translation_timestep ()
                                              scripts_[d][i]);
         }
       scripts_[d].clear ();
-      fingering_columns_[d] = 0;
+      fingering_columns_[d] = nullptr;
     }
   possibles_.clear ();
 }

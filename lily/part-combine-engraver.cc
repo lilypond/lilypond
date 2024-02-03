@@ -44,11 +44,11 @@ protected:
   void create_item (Stream_event *ev);
 
 private:
-  Item *text_;
-  Stream_event *new_event_; // Event happened at this moment
+  Item *text_ = nullptr;
+  Stream_event *new_event_ = nullptr; // Event happened at this moment
   Boolean_event_listener note_listener_;
   // Event possibly from an earlier moment waiting to create a text:
-  Stream_event *waiting_event_;
+  Stream_event *waiting_event_ = nullptr;
 };
 
 void
@@ -63,9 +63,6 @@ Part_combine_engraver::listen_part_combine (Stream_event *ev)
 Part_combine_engraver::Part_combine_engraver (Context *c)
   : Engraver (c)
 {
-  text_ = 0;
-  new_event_ = 0;
-  waiting_event_ = 0;
 }
 
 void
@@ -97,7 +94,7 @@ Part_combine_engraver::process_music ()
           || !from_scm<bool> (get_property (this, "partCombineTextsOnNote")))
         {
           create_item (waiting_event_);
-          waiting_event_ = 0;
+          waiting_event_ = nullptr;
         }
     }
 }
@@ -124,8 +121,8 @@ Part_combine_engraver::acknowledge_stem (Grob_info i)
 void
 Part_combine_engraver::stop_translation_timestep ()
 {
-  text_ = 0;
-  new_event_ = 0;
+  text_ = nullptr;
+  new_event_ = nullptr;
   note_listener_.reset ();
 }
 

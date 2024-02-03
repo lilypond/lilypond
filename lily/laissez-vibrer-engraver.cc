@@ -29,15 +29,13 @@
 Laissez_vibrer_engraver::Laissez_vibrer_engraver (Context *c)
   : Engraver (c)
 {
-  event_ = 0;
-  lv_column_ = 0;
 }
 
 void
 Laissez_vibrer_engraver::stop_translation_timestep ()
 {
-  event_ = 0;
-  lv_column_ = 0;
+  event_ = nullptr;
+  lv_column_ = nullptr;
   lv_ties_.clear ();
 }
 

@@ -72,11 +72,11 @@ private:
   };
 
   std::string instrument_string_;
-  int channel_;
-  Audio_instrument *instrument_;
-  Audio_text *instrument_name_;
-  Audio_text *name_;
-  Audio_tempo *tempo_;
+  int channel_ = -1;
+  Audio_instrument *instrument_ = nullptr;
+  Audio_text *instrument_name_ = nullptr;
+  Audio_text *name_ = nullptr;
+  Audio_tempo *tempo_ = nullptr;
   std::unordered_map<std::string, Audio_staff *> staff_map_;
   std::unordered_map<std::string, int> channel_map_;
   // Would prefer to have the following two items be
@@ -121,12 +121,7 @@ midiSkipOffset
                 )");
 
 Staff_performer::Staff_performer (Context *c)
-  : Performer (c),
-    channel_ (-1),
-    instrument_ (0),
-    instrument_name_ (0),
-    name_ (0),
-    tempo_ (0)
+  : Performer (c)
 {
 }
 
@@ -214,10 +209,10 @@ Staff_performer::set_instrument_name (const std::string &voice)
 void
 Staff_performer::stop_translation_timestep ()
 {
-  name_ = 0;
-  tempo_ = 0;
-  instrument_name_ = 0;
-  instrument_ = 0;
+  name_ = nullptr;
+  tempo_ = nullptr;
+  instrument_name_ = nullptr;
+  instrument_ = nullptr;
 }
 
 void

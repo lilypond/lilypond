@@ -32,9 +32,9 @@ class Note_spacing_engraver final : public Engraver
 {
   typedef std::unordered_map<Context *, Grob *> Last_spacing_map;
   Last_spacing_map last_spacings_;
-  Grob *last_spacing_;
+  Grob *last_spacing_ = nullptr;
 
-  Grob *spacing_;
+  Grob *spacing_ = nullptr;
 
   void add_spacing_item (Grob *);
   TRANSLATOR_DECLARATIONS (Note_spacing_engraver);
@@ -58,8 +58,6 @@ Note_spacing_engraver::derived_mark () const
 Note_spacing_engraver::Note_spacing_engraver (Context *c)
   : Engraver (c)
 {
-  spacing_ = 0;
-  last_spacing_ = 0;
 }
 
 void
@@ -126,7 +124,7 @@ Note_spacing_engraver::stop_translation_timestep ()
     {
       last_spacings_[parent] = spacing_;
       last_spacing_ = spacing_;
-      spacing_ = 0;
+      spacing_ = nullptr;
     }
 }
 

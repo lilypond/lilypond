@@ -50,7 +50,7 @@
 class Span_bar_stub_engraver final : public Engraver
 {
   std::vector<Grob *> spanbars_;
-  SCM axis_groups_;
+  SCM axis_groups_ = SCM_EOL;
 
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_stub_engraver);
@@ -66,7 +66,6 @@ protected:
 Span_bar_stub_engraver::Span_bar_stub_engraver (Context *c)
   : Engraver (c)
 {
-  axis_groups_ = SCM_EOL;
 }
 
 void

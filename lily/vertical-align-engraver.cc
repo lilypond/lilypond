@@ -31,8 +31,8 @@
 
 class Vertical_align_engraver final : public Engraver
 {
-  Spanner *valign_;
-  SCM id_to_group_hashtab_;
+  Spanner *valign_ = nullptr;
+  SCM id_to_group_hashtab_ = SCM_EOL;
 
 public:
   TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
@@ -45,7 +45,7 @@ protected:
   void finalize () override;
   void initialize () override;
 
-  bool top_level_;
+  bool top_level_ = false;
 };
 
 void
@@ -86,9 +86,6 @@ hasAxisGroup
 Vertical_align_engraver::Vertical_align_engraver (Context *c)
   : Engraver (c)
 {
-  valign_ = 0;
-  id_to_group_hashtab_ = SCM_EOL;
-  top_level_ = false;
 }
 
 void
@@ -131,7 +128,7 @@ Vertical_align_engraver::finalize ()
     {
       auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       valign_->set_bound (RIGHT, col);
-      valign_ = 0;
+      valign_ = nullptr;
     }
 }
 

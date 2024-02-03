@@ -67,8 +67,8 @@ class New_fingering_engraver final : public Engraver
 
   std::vector<Grob *> heads_;
   std::vector<Grob *> accidentals_;
-  Grob *stem_;
-  Item *note_column_;
+  Grob *stem_ = nullptr;
+  Item *note_column_ = nullptr;
 
   void position_all ();
 
@@ -350,8 +350,8 @@ void
 New_fingering_engraver::stop_translation_timestep ()
 {
   position_all ();
-  stem_ = 0;
-  note_column_ = 0;
+  stem_ = nullptr;
+  note_column_ = nullptr;
   heads_.clear ();
   accidentals_.clear ();
 }
@@ -404,7 +404,6 @@ New_fingering_engraver::position_all ()
 New_fingering_engraver::New_fingering_engraver (Context *c)
   : Engraver (c)
 {
-  stem_ = 0;
 }
 
 void

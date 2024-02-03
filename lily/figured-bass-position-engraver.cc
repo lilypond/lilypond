@@ -31,8 +31,8 @@ class Figured_bass_position_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Figured_bass_position_engraver);
 
-  Spanner *bass_figure_alignment_;
-  Spanner *positioner_;
+  Spanner *bass_figure_alignment_ = nullptr;
+  Spanner *positioner_ = nullptr;
   std::vector<Grob *> support_;
   std::vector<Grob *> span_support_;
 
@@ -54,8 +54,6 @@ protected:
 Figured_bass_position_engraver::Figured_bass_position_engraver (Context *c)
   : Engraver (c)
 {
-  positioner_ = 0;
-  bass_figure_alignment_ = 0;
 }
 
 void
@@ -77,8 +75,8 @@ Figured_bass_position_engraver::stop_spanner ()
       positioner_->set_bound (RIGHT, bass_figure_alignment_->get_bound (RIGHT));
     }
 
-  positioner_ = 0;
-  bass_figure_alignment_ = 0;
+  positioner_ = nullptr;
+  bass_figure_alignment_ = nullptr;
 }
 
 void

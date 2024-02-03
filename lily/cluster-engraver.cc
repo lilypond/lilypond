@@ -42,19 +42,16 @@ protected:
 
 private:
   std::vector<Stream_event *> cluster_notes_;
-  Item *beacon_;
+  Item *beacon_ = nullptr;
 
   void typeset_grobs ();
-  Spanner *spanner_;
-  Spanner *finished_spanner_;
+  Spanner *spanner_ = nullptr;
+  Spanner *finished_spanner_ = nullptr;
 };
 
 Cluster_spanner_engraver::Cluster_spanner_engraver (Context *c)
   : Engraver (c)
 {
-  spanner_ = 0;
-  finished_spanner_ = 0;
-  beacon_ = 0;
 }
 
 void
@@ -62,7 +59,7 @@ Cluster_spanner_engraver::finalize ()
 {
   typeset_grobs ();
   finished_spanner_ = spanner_;
-  spanner_ = 0;
+  spanner_ = nullptr;
   typeset_grobs ();
 }
 
@@ -77,9 +74,9 @@ Cluster_spanner_engraver::typeset_grobs ()
                                         finished_spanner_->get_bound (LEFT));
         }
 
-      finished_spanner_ = 0;
+      finished_spanner_ = nullptr;
     }
-  beacon_ = 0;
+  beacon_ = nullptr;
 }
 
 void
@@ -140,7 +137,7 @@ Cluster_spanner_engraver::acknowledge_note_column (Grob_info_t<Item>)
   if (!beacon_)
     {
       finished_spanner_ = spanner_;
-      spanner_ = 0;
+      spanner_ = nullptr;
     }
 }
 

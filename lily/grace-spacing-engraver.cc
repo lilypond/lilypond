@@ -31,7 +31,7 @@ class Grace_spacing_engraver final : public Engraver
 
 protected:
   Moment last_moment_;
-  Spanner *grace_spacing_;
+  Spanner *grace_spacing_ = nullptr;
 
   void process_music ();
   void stop_translation_timestep ();
@@ -40,7 +40,6 @@ protected:
 Grace_spacing_engraver::Grace_spacing_engraver (Context *c)
   : Engraver (c)
 {
-  grace_spacing_ = 0;
 }
 
 void
@@ -73,7 +72,7 @@ Grace_spacing_engraver::stop_translation_timestep ()
   last_moment_ = now_mom ();
 
   if (!last_moment_.grace_part_)
-    grace_spacing_ = 0;
+    grace_spacing_ = nullptr;
 }
 
 void

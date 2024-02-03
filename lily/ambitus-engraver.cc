@@ -51,15 +51,15 @@ protected:
 
 private:
   void create_ambitus ();
-  Item *ambitus_;
-  Item *group_;
+  Item *ambitus_ = nullptr;
+  Item *group_ = nullptr;
   Drul_array<Item *> heads_;
   Drul_array<Item *> accidentals_;
   Drul_array<Stream_event *> causes_;
   Pitch_interval pitch_interval_;
-  bool is_typeset_;
+  bool is_typeset_ = false;
   int start_c0_;
-  SCM start_key_sig_;
+  SCM start_key_sig_ = SCM_EOL;
 };
 
 void
@@ -92,10 +92,6 @@ Ambitus_engraver::create_ambitus ()
 Ambitus_engraver::Ambitus_engraver (Context *c)
   : Engraver (c)
 {
-  ambitus_ = 0;
-  group_ = 0;
-  is_typeset_ = false;
-  start_key_sig_ = SCM_EOL;
 }
 
 void

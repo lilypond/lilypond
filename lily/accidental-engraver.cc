@@ -90,12 +90,12 @@ protected:
   void derived_mark () const override;
 
 public:
-  SCM last_keysig_;
+  SCM last_keysig_ = SCM_EOL;
 
   std::vector<Grob *> left_objects_;
   std::vector<Grob *> right_objects_;
 
-  Grob *accidental_placement_;
+  Grob *accidental_placement_ = nullptr;
 
   std::vector<Accidental_entry> accidentals_;
   std::vector<Spanner *> ties_;
@@ -110,8 +110,6 @@ public:
 Accidental_engraver::Accidental_engraver (Context *c)
   : Engraver (c)
 {
-  accidental_placement_ = 0;
-  last_keysig_ = SCM_EOL;
 }
 
 void
@@ -449,7 +447,7 @@ Accidental_engraver::stop_translation_timestep ()
       Separation_item::add_conditional_item (note_columns_[i],
                                              accidental_placement_);
 
-  accidental_placement_ = 0;
+  accidental_placement_ = nullptr;
   accidentals_.clear ();
   note_columns_.clear ();
   left_objects_.clear ();

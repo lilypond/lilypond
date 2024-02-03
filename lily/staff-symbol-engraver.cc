@@ -33,9 +33,9 @@ public:
 
 protected:
   Unique_span_event_listener staff_span_listener_;
-  Spanner *span_;
-  Spanner *finished_span_;
-  bool first_start_;
+  Spanner *span_ = nullptr;
+  Spanner *finished_span_ = nullptr;
+  bool first_start_ = true;
 
 protected:
   virtual void start_spanner ();
@@ -60,9 +60,6 @@ Staff_symbol_engraver::~Staff_symbol_engraver ()
 Staff_symbol_engraver::Staff_symbol_engraver (Context *c)
   : Engraver (c)
 {
-  finished_span_ = 0;
-  first_start_ = true;
-  span_ = 0;
 }
 
 void
@@ -71,7 +68,7 @@ Staff_symbol_engraver::process_music ()
   if (staff_span_listener_.get_stop ())
     {
       finished_span_ = span_;
-      span_ = 0;
+      span_ = nullptr;
       if (first_start_)
         first_start_ = false;
     }
@@ -111,7 +108,7 @@ Staff_symbol_engraver::stop_spanner ()
                        ? staff_span_listener_.get_stop ()->self_scm ()
                        : SCM_EOL);
 
-  finished_span_ = 0;
+  finished_span_ = nullptr;
 }
 
 void
@@ -128,7 +125,7 @@ void
 Staff_symbol_engraver::finalize ()
 {
   finished_span_ = span_;
-  span_ = 0;
+  span_ = nullptr;
   stop_spanner ();
 }
 

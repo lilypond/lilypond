@@ -28,7 +28,7 @@ class Font_size_engraver final : public Engraver
 protected:
   void acknowledge_font (Grob_info);
   void process_music ();
-  Real size;
+  Real size = 0.0;
 
 private:
 };
@@ -36,7 +36,6 @@ private:
 Font_size_engraver::Font_size_engraver (Context *c)
   : Engraver (c)
 {
-  size = 0.0;
 }
 
 void

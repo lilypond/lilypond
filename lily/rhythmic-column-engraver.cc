@@ -55,9 +55,9 @@
 class Rhythmic_column_engraver final : public Engraver
 {
   std::vector<Grob *> rheads_;
-  Grob *stem_;
-  Grob *flag_;
-  Grob *note_column_;
+  Grob *stem_ = nullptr;
+  Grob *flag_ = nullptr;
+  Grob *note_column_ = nullptr;
 
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
 
@@ -72,10 +72,6 @@ protected:
 Rhythmic_column_engraver::Rhythmic_column_engraver (Context *c)
   : Engraver (c)
 {
-
-  stem_ = 0;
-  flag_ = 0;
-  note_column_ = 0;
 }
 
 void
@@ -98,13 +94,13 @@ Rhythmic_column_engraver::process_acknowledged ()
       if (stem_ && !stem_->get_x_parent ())
         {
           Note_column::set_stem (note_column_, stem_);
-          stem_ = 0;
+          stem_ = nullptr;
         }
 
       if (flag_)
         {
           Axis_group_interface::add_element (note_column_, flag_);
-          flag_ = 0;
+          flag_ = nullptr;
         }
     }
 }
@@ -130,9 +126,9 @@ Rhythmic_column_engraver::acknowledge_rhythmic_head (Grob_info i)
 void
 Rhythmic_column_engraver::stop_translation_timestep ()
 {
-  note_column_ = 0;
-  stem_ = 0;
-  flag_ = 0;
+  note_column_ = nullptr;
+  stem_ = nullptr;
+  flag_ = nullptr;
 }
 
 void

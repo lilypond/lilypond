@@ -44,12 +44,12 @@ protected:
   void derived_mark () const override;
 
 private:
-  Item *clef_;
-  Item *modifier_;
+  Item *clef_ = nullptr;
+  Item *modifier_ = nullptr;
 
-  SCM prev_glyph_;
-  SCM prev_cpos_;
-  SCM prev_transposition_;
+  SCM prev_glyph_ = SCM_EOL;
+  SCM prev_cpos_ = SCM_EOL;
+  SCM prev_transposition_ = SCM_EOL;
   void create_clef ();
   void create_end_clef ();
   void set_glyph ();
@@ -68,10 +68,6 @@ Cue_clef_engraver::derived_mark () const
 Cue_clef_engraver::Cue_clef_engraver (Context *c)
   : Engraver (c)
 {
-  clef_ = 0;
-  modifier_ = 0;
-
-  prev_transposition_ = prev_cpos_ = prev_glyph_ = SCM_EOL;
 }
 
 void
@@ -200,8 +196,8 @@ Cue_clef_engraver::stop_translation_timestep ()
             set_property (clef_, "break-visibility", vis);
         }
 
-      clef_ = 0;
-      modifier_ = 0;
+      clef_ = nullptr;
+      modifier_ = nullptr;
     }
 }
 

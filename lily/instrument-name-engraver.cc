@@ -34,10 +34,10 @@ public:
   TRANSLATOR_DECLARATIONS (Instrument_name_engraver);
 
 protected:
-  Spanner *text_spanner_;
+  Spanner *text_spanner_ = nullptr;
 
-  SCM long_text_;
-  SCM short_text_;
+  SCM long_text_ = SCM_EOL;
+  SCM short_text_ = SCM_EOL;
 
   std::vector<Grob *> axis_groups_;
   std::vector<Grob *> backup_axis_groups_;
@@ -62,10 +62,6 @@ Instrument_name_engraver::derived_mark () const
 Instrument_name_engraver::Instrument_name_engraver (Context *c)
   : Engraver (c)
 {
-  text_spanner_ = 0;
-
-  long_text_ = SCM_EOL;
-  short_text_ = SCM_EOL;
 }
 
 void
@@ -159,7 +155,7 @@ Instrument_name_engraver::stop_spanner ()
   Pointer_group_interface::set_ordered (text_spanner_,
                                         ly_symbol2scm ("elements"), false);
 
-  text_spanner_ = 0;
+  text_spanner_ = nullptr;
 }
 
 void
