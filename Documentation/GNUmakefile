@@ -275,7 +275,8 @@ ifeq ($(out),www)
   UPDATE_IMAGE_SYMLINKS = \
     mkdir -p $(outdir)/$(INFO_IMAGES_DIR) \
       && cd $(outdir)/$(INFO_IMAGES_DIR) \
-      && ln -sf ../en/[a-f0-9][a-f0-9] .
+      && find ../en -maxdepth 1 -name '[0-9a-f][0-9a-f]' \
+              -exec sh -c 'ln -sf "$$@" .' sh {} +
 else
   UPDATE_IMAGE_SYMLINKS = true
 endif
