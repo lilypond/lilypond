@@ -29,7 +29,7 @@
 
 #include "translator.icc"
 
-class Footnote_engraver : public Engraver
+class Footnote_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Footnote_engraver);
 

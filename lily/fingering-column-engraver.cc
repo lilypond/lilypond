@@ -29,7 +29,7 @@
 /**
    Find potentially colliding scripts, and put them in a
    Fingering_column, that will fix the columns.  */
-class Fingering_column_engraver : public Engraver
+class Fingering_column_engraver final : public Engraver
 {
   Drul_array<Grob *> fingering_columns_;
   Drul_array<std::vector<Grob *>> scripts_;

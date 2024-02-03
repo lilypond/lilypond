@@ -28,7 +28,7 @@
 
 #include "translator.icc"
 
-class Note_spacing_engraver : public Engraver
+class Note_spacing_engraver final : public Engraver
 {
   typedef std::unordered_map<Context *, Grob *> Last_spacing_map;
   Last_spacing_map last_spacings_;

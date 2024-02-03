@@ -26,7 +26,7 @@
 
 #include "translator.icc"
 
-class Staff_symbol_engraver : public Engraver
+class Staff_symbol_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Staff_symbol_engraver);

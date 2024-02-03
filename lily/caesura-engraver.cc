@@ -32,7 +32,7 @@
 #include <algorithm>
 #include <vector>
 
-class Caesura_engraver : public Engraver
+class Caesura_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Caesura_engraver);

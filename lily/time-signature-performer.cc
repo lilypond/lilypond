@@ -22,7 +22,7 @@
 #include "performer.hh"
 #include "protected-scm.hh"
 
-class Time_signature_performer : public Performer
+class Time_signature_performer final : public Performer
 {
   Audio_time_signature *audio_ = nullptr;
   SCM last_time_fraction_ = SCM_BOOL_F;

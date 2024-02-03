@@ -36,7 +36,7 @@
    MIDI control change performer.  Announces "set property" events on MIDI
    context properties.
 */
-class Midi_control_change_performer : public Performer
+class Midi_control_change_performer final : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Midi_control_change_performer);

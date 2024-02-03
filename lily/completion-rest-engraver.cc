@@ -52,7 +52,7 @@
   all durations exactly right.
 */
 
-class Completion_rest_engraver : public Engraver
+class Completion_rest_engraver final : public Engraver
 {
   std::vector<Item *> rests_;
   std::vector<Stream_event *> rest_events_;

@@ -58,7 +58,7 @@
  * two dots in a ligature should be collected and all other dots put
  * behind or on top of the head?
  */
-class Vaticana_ligature_engraver : public Gregorian_ligature_engraver
+class Vaticana_ligature_engraver final : public Gregorian_ligature_engraver
 {
 
 private:

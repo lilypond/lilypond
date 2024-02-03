@@ -62,7 +62,7 @@ Rhythmic_tuple::time_compare (Rhythmic_tuple const &h1,
   Acknowledge rhythmic elements, for initializing spacing fields in
   the columns.
 */
-class Spacing_engraver : public Engraver
+class Spacing_engraver final : public Engraver
 {
   PQueue<Rhythmic_tuple> playing_durations_;
   std::vector<Rhythmic_tuple> now_durations_;

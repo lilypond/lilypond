@@ -28,7 +28,7 @@
 
 #include "translator.icc"
 
-class Instrument_name_engraver : public Engraver
+class Instrument_name_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Instrument_name_engraver);

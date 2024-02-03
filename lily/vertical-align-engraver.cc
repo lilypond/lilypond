@@ -29,7 +29,7 @@
 
 #include "translator.icc"
 
-class Vertical_align_engraver : public Engraver
+class Vertical_align_engraver final : public Engraver
 {
   Spanner *valign_;
   SCM id_to_group_hashtab_;

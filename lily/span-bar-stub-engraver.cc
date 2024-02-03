@@ -47,7 +47,7 @@
   be engraved in contexts where BarLines are engraved.
 */
 
-class Span_bar_stub_engraver : public Engraver
+class Span_bar_stub_engraver final : public Engraver
 {
   std::vector<Grob *> spanbars_;
   SCM axis_groups_;

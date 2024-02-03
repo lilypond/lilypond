@@ -20,7 +20,7 @@
 #include "engraver.hh"
 #include "spanner.hh"
 
-class Tab_staff_symbol_engraver : public Engraver
+class Tab_staff_symbol_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Tab_staff_symbol_engraver);

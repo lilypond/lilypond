@@ -28,7 +28,7 @@
 #include "spanner.hh"
 #include "text-interface.hh"
 
-class Ottava_spanner_engraver : public Engraver
+class Ottava_spanner_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Ottava_spanner_engraver);

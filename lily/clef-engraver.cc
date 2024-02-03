@@ -30,7 +30,7 @@
 
 #include <cctype>
 
-class Clef_engraver : public Engraver
+class Clef_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Clef_engraver);

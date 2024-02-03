@@ -51,7 +51,7 @@ struct Script_tuple
   }
 };
 
-class Script_engraver : public Engraver
+class Script_engraver final : public Engraver
 {
   std::vector<Script_tuple> scripts_;
 

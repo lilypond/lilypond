@@ -24,7 +24,7 @@
 
 #include <vector>
 
-class Score_engraver : public Engraver_group
+class Score_engraver final : public Engraver_group
 {
   System *system_;
 

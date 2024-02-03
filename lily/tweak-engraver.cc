@@ -24,7 +24,7 @@
 #include "stream-event.hh"
 #include "translator.icc"
 
-class Tweak_engraver : public Engraver
+class Tweak_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Tweak_engraver);
 

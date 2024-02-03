@@ -26,7 +26,7 @@
 
 #include <vector>
 
-class Paper_column_engraver : public Engraver
+class Paper_column_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Paper_column_engraver);
 

@@ -23,7 +23,7 @@
 
 #include "translator.icc"
 
-class Phrasing_slur_engraver : public Slur_engraver
+class Phrasing_slur_engraver final : public Slur_engraver
 {
   SCM event_symbol () const override;
   bool double_property () const override;

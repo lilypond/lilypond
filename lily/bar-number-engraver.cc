@@ -34,7 +34,7 @@
   system-start-delims. If we find these, and the top staff is in the
   staff-group, add padding to the bar number.
 */
-class Bar_number_engraver : public Engraver
+class Bar_number_engraver final : public Engraver
 {
 protected:
   // A regular bar number.

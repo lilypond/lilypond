@@ -28,7 +28,7 @@
 
 #include "translator.icc"
 
-class Concurrent_hairpin_engraver : public Engraver
+class Concurrent_hairpin_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Concurrent_hairpin_engraver);

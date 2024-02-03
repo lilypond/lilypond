@@ -46,7 +46,7 @@ create dependencies between engravers, which is bad.
 
 - create TremoloBeam iso Beam?
 */
-class Chord_tremolo_engraver : public Engraver
+class Chord_tremolo_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Chord_tremolo_engraver);
 

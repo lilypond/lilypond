@@ -26,7 +26,7 @@
 
 #include "translator.icc"
 
-class Spanner_break_forbid_engraver : public Engraver
+class Spanner_break_forbid_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Spanner_break_forbid_engraver);
   std::vector<Spanner *> running_spanners_;

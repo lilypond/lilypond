@@ -29,7 +29,7 @@
 /**
    Find potentially colliding scripts, and put them in a
    Script_column, that will fix the collisions.  */
-class Script_column_engraver : public Engraver
+class Script_column_engraver final : public Engraver
 {
   Item *script_column_ = nullptr;
   std::vector<Item *> scripts_;

@@ -22,7 +22,7 @@
 #include "context.hh"
 #include "spanner.hh"
 
-class Staff_collecting_engraver : public Engraver
+class Staff_collecting_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Staff_collecting_engraver);

@@ -29,7 +29,7 @@
 
 #include "translator.icc"
 
-class Key_engraver : public Engraver
+class Key_engraver final : public Engraver
 {
   void create_key (bool);
   void read_event (Stream_event const *r);

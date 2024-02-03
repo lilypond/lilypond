@@ -31,7 +31,7 @@
    Generate texts for lyric syllables.  We only do one lyric at a time.
    Multiple copies of this engraver should be used to do multiple voices.
 */
-class Lyric_engraver : public Engraver
+class Lyric_engraver final : public Engraver
 {
 protected:
   void stop_translation_timestep ();

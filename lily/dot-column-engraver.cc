@@ -24,7 +24,7 @@
 #include "translator.icc"
 #include "item.hh"
 
-class Dot_column_engraver : public Engraver
+class Dot_column_engraver final : public Engraver
 {
   Grob *dotcol_;
 

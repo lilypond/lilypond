@@ -73,7 +73,7 @@ struct Preinit_Volta_engraver
   Create Volta spanners, by reading repeatCommands  property, usually
   set by Volta_repeat_iterator.
 */
-class Volta_engraver : Preinit_Volta_engraver, public Engraver
+class Volta_engraver final : Preinit_Volta_engraver, public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Volta_engraver);

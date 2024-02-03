@@ -32,7 +32,7 @@ of staves changes the appearance of spanbars.  It is up to the
 aligner (Vertical_align_engraver, in this case, to add extra
 dependencies to the spanbars.
 */
-class Span_bar_engraver : public Engraver
+class Span_bar_engraver final : public Engraver
 {
   Item *spanbar_;
   bool make_spanbar_;

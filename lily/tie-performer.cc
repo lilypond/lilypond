@@ -40,7 +40,7 @@ struct Head_audio_event_tuple
   }
 };
 
-class Tie_performer : public Performer
+class Tie_performer final : public Performer
 {
   Stream_event *event_;
   std::list<Head_audio_event_tuple> now_heads_;

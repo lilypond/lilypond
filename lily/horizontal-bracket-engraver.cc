@@ -28,7 +28,7 @@
 
 #include "translator.icc"
 
-class Horizontal_bracket_engraver : public Engraver
+class Horizontal_bracket_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Horizontal_bracket_engraver);

@@ -30,7 +30,7 @@
 
 #include "translator.icc"
 
-class Part_combine_engraver : public Engraver
+class Part_combine_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Part_combine_engraver);
 

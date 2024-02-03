@@ -27,7 +27,7 @@
 
 #include "translator.icc"
 
-class Break_align_engraver : public Engraver
+class Break_align_engraver final : public Engraver
 {
   Item *align_ = nullptr;
   SCM column_alist_ = SCM_EOL;

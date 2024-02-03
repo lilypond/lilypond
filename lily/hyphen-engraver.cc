@@ -29,7 +29,7 @@
 
 #include "translator.icc"
 
-class Hyphen_engraver : public Engraver
+class Hyphen_engraver final : public Engraver
 {
   Stream_event *ev_ = nullptr;
   Stream_event *finished_ev_ = nullptr;

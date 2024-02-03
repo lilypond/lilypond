@@ -25,7 +25,7 @@
 
 #include "translator.icc"
 
-class Dots_engraver : public Engraver
+class Dots_engraver final : public Engraver
 {
   void acknowledge_rhythmic_head (Grob_info);
   TRANSLATOR_DECLARATIONS (Dots_engraver);

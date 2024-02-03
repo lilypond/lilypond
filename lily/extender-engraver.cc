@@ -33,7 +33,7 @@
 
 void completize_extender (Spanner *sp);
 
-class Extender_engraver : public Engraver
+class Extender_engraver final : public Engraver
 {
   Stream_event *ev_;
   Spanner *extender_;

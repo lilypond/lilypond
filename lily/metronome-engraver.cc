@@ -31,7 +31,7 @@
 
 #include <cctype>
 
-class Metronome_mark_engraver : public Engraver
+class Metronome_mark_engraver final : public Engraver
 {
   Item *text_;
   Grob *support_;

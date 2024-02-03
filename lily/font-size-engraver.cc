@@ -20,7 +20,7 @@
 #include "grob.hh"
 #include "engraver.hh"
 
-class Font_size_engraver : public Engraver
+class Font_size_engraver final : public Engraver
 {
 
   TRANSLATOR_DECLARATIONS (Font_size_engraver);

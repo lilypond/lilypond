@@ -64,7 +64,7 @@ Accidental_entry::Accidental_entry ()
   head_ = 0;
 }
 
-class Accidental_engraver : public Engraver
+class Accidental_engraver final : public Engraver
 {
   void update_local_key_signature (SCM new_signature);
   void create_accidental (Accidental_entry *entry, bool, bool);

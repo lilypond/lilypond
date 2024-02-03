@@ -31,7 +31,7 @@
 
 #include "translator.icc"
 
-class Arpeggio_engraver : public Engraver
+class Arpeggio_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Arpeggio_engraver);

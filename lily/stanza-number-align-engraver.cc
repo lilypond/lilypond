@@ -26,7 +26,7 @@
 
 #include "translator.icc"
 
-class Stanza_number_align_engraver : public Engraver
+class Stanza_number_align_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Stanza_number_align_engraver);

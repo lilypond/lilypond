@@ -31,7 +31,7 @@
   this is C&P from beam_performer.
 */
 
-class Slur_performer : public Performer
+class Slur_performer final : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Slur_performer);

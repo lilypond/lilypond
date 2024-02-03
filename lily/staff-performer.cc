@@ -35,7 +35,7 @@
 /* Perform a staff. Individual notes should have their instrument
   (staff-wide) set, so we override play_element ()
 */
-class Staff_performer : public Performer
+class Staff_performer final : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Staff_performer);

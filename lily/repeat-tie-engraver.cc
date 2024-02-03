@@ -24,7 +24,7 @@
 
 #include "translator.icc"
 
-class Repeat_tie_engraver : public Laissez_vibrer_engraver
+class Repeat_tie_engraver final : public Laissez_vibrer_engraver
 {
   bool is_my_event_class (Stream_event *ev) override;
   Grob *make_my_tie (SCM cause) override;

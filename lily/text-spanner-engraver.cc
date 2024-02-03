@@ -30,7 +30,7 @@
 
 #include "translator.icc"
 
-class Text_spanner_engraver : public Engraver
+class Text_spanner_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Text_spanner_engraver);

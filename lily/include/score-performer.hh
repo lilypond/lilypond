@@ -27,7 +27,7 @@
 /**
    Top level performer. Completely takes care of MIDI output
 */
-class Score_performer : public Performer_group
+class Score_performer final : public Performer_group
 {
 public:
   OVERRIDE_CLASS_NAME (Score_performer);

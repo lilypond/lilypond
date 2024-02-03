@@ -30,7 +30,7 @@
 /**
    perform Piano pedals
 */
-class Piano_pedal_performer : public Performer
+class Piano_pedal_performer final : public Performer
 {
   struct Pedal_info
   {

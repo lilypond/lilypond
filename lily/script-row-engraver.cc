@@ -33,7 +33,7 @@
    Find potentially colliding scripts, and put them in a
    Script_row
 */
-class Script_row_engraver : public Engraver
+class Script_row_engraver final : public Engraver
 {
   Item *script_row_ = nullptr;
   std::vector<Item *> scripts_;

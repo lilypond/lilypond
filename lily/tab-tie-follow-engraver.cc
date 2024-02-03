@@ -32,7 +32,7 @@
    Change tab-note-head properties when a tie is followed by a
    slurs or glissando.
 */
-class Tab_tie_follow_engraver : public Engraver
+class Tab_tie_follow_engraver final : public Engraver
 {
   std::vector<Spanner *> slurs_;
   std::vector<Spanner *> glissandi_;

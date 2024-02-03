@@ -31,7 +31,7 @@
 
 #include "translator.icc"
 
-class Tuplet_engraver : public Engraver
+class Tuplet_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Tuplet_engraver);

@@ -23,7 +23,7 @@
 
 #include "translator.icc"
 
-class Grid_point_engraver : public Engraver
+class Grid_point_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Grid_point_engraver);

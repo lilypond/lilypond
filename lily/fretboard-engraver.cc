@@ -33,7 +33,7 @@
 /**
    make (guitar-like) tablature note
 */
-class Fretboard_engraver : public Engraver
+class Fretboard_engraver final : public Engraver
 {
   Item *fret_board_;
 

@@ -34,7 +34,7 @@
 
 #include <cctype>
 
-class Drum_notes_engraver : public Engraver
+class Drum_notes_engraver final : public Engraver
 {
   std::vector<Item *> scripts_;
   std::vector<Stream_event *> events_;

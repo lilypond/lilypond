@@ -52,7 +52,7 @@
   all durations exactly right.
 */
 
-class Completion_heads_engraver : public Engraver
+class Completion_heads_engraver final : public Engraver
 {
   std::vector<Item *> notes_;
   std::vector<Item *> prev_notes_;

@@ -33,7 +33,7 @@
    Make arpeggios that span multiple staves.  Catch arpeggios, and span a
    Span_arpeggio over them if we find more than two arpeggios.
 */
-class Span_arpeggio_engraver : public Engraver
+class Span_arpeggio_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Span_arpeggio_engraver);

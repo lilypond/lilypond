@@ -24,7 +24,7 @@
 #include "rhythmic-head.hh"
 #include "grob.hh"
 
-class Pitch_squash_engraver : public Engraver
+class Pitch_squash_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Pitch_squash_engraver);

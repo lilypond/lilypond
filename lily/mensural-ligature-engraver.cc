@@ -52,7 +52,7 @@
  * a single note.
  */
 
-class Mensural_ligature_engraver : public Coherent_ligature_engraver
+class Mensural_ligature_engraver final : public Coherent_ligature_engraver
 {
 
 protected:

@@ -38,7 +38,7 @@ struct Preinit_Scheme_engraver
   Preinit_Scheme_engraver ();
 };
 
-class Scheme_engraver : Preinit_Scheme_engraver, public Engraver
+class Scheme_engraver final : Preinit_Scheme_engraver, public Engraver
 {
 public:
   TRANSLATOR_FAMILY_DECLARATIONS (Scheme_engraver)

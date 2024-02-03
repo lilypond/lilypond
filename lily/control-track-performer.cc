@@ -26,7 +26,7 @@
 
 #include "translator.icc"
 
-class Control_track_performer : public Performer
+class Control_track_performer final : public Performer
 {
   Audio_staff *control_track_;
 

@@ -27,7 +27,7 @@
 
 #include "translator.icc"
 
-class Beam_performer : public Performer
+class Beam_performer final : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Beam_performer);

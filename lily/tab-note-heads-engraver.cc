@@ -37,7 +37,7 @@
 /**
    make (guitar-like) tablature note
 */
-class Tab_note_heads_engraver : public Engraver
+class Tab_note_heads_engraver final : public Engraver
 {
   std::vector<Stream_event *> note_events_;
   std::vector<Stream_event *> tabstring_events_;

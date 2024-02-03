@@ -165,7 +165,7 @@ Bracket_nesting_group::add_staff (Grob *grob)
 
 /****************/
 
-class System_start_delimiter_engraver : public Engraver
+class System_start_delimiter_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (System_start_delimiter_engraver);

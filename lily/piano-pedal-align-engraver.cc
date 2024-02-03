@@ -65,7 +65,7 @@ struct Pedal_align_info
   }
 };
 
-class Piano_pedal_align_engraver : public Engraver
+class Piano_pedal_align_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Piano_pedal_align_engraver);

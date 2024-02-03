@@ -32,7 +32,7 @@
    typeset directions that are  plain text.
 */
 
-class Text_engraver : public Engraver
+class Text_engraver final : public Engraver
 {
   std::vector<Stream_event *> evs_;
   std::vector<Grob *> scripts_;

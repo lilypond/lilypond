@@ -65,7 +65,7 @@ struct Head_event_tuple
   }
 };
 
-class Tie_engraver : public Engraver
+class Tie_engraver final : public Engraver
 {
   /*
     Whether tie event has been processed and can be deleted or should

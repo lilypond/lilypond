@@ -33,7 +33,7 @@
    Put stuff in a Spanner with an Axis_group_interface.
    Use as last element of a context.
 */
-class Axis_group_engraver : public Engraver
+class Axis_group_engraver final : public Engraver
 {
 protected:
   bool active_;

@@ -24,7 +24,7 @@
 
 #include "translator.icc"
 
-class Ledger_line_engraver : public Engraver
+class Ledger_line_engraver final : public Engraver
 {
   Spanner *span_;
   std::vector<Grob *> ledgered_grobs_;

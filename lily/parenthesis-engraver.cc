@@ -29,7 +29,7 @@
 
 #include "translator.icc"
 
-class Parenthesis_engraver : public Engraver
+class Parenthesis_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Parenthesis_engraver);
 

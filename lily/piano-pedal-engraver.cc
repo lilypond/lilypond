@@ -97,7 +97,7 @@ struct Pedal_info
 
 static Pedal_type_info pedal_types_[NUM_PEDAL_TYPES];
 
-class Piano_pedal_engraver : public Engraver
+class Piano_pedal_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Piano_pedal_engraver);

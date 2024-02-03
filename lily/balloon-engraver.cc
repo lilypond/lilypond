@@ -25,7 +25,7 @@
 
 #include "translator.icc"
 
-class Balloon_engraver : public Engraver
+class Balloon_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Balloon_engraver);
 

@@ -26,7 +26,7 @@
 
 #include "translator.icc"
 
-class Forbid_line_break_engraver : public Engraver
+class Forbid_line_break_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Forbid_line_break_engraver);

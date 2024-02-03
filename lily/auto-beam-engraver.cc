@@ -525,7 +525,7 @@ subdivideBeams
 
                 )");
 
-class Grace_auto_beam_engraver : public Auto_beam_engraver
+class Grace_auto_beam_engraver final : public Auto_beam_engraver
 {
   TRANSLATOR_DECLARATIONS (Grace_auto_beam_engraver);
 

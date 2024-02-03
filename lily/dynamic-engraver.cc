@@ -31,7 +31,7 @@
 
 #include "translator.icc"
 
-class Dynamic_engraver : public Engraver
+class Dynamic_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);
   void acknowledge_note_column (Grob_info_t<Item>);

@@ -58,7 +58,7 @@ operator<(Finger_tuple const &a, Finger_tuple const &b)
   return a.position_ < b.position_;
 }
 
-class New_fingering_engraver : public Engraver
+class New_fingering_engraver final : public Engraver
 {
   std::vector<Finger_tuple> fingerings_;
   std::vector<Finger_tuple> stroke_fingerings_;

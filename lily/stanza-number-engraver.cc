@@ -22,7 +22,7 @@
 #include "text-interface.hh"
 #include "item.hh"
 
-class Stanza_number_engraver : public Engraver
+class Stanza_number_engraver final : public Engraver
 {
   Item *text_;
 

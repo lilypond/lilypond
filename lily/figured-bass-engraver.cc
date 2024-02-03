@@ -102,7 +102,7 @@ struct Figure_group
   }
 };
 
-struct Figured_bass_engraver : public Engraver
+struct Figured_bass_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Figured_bass_engraver);
   void clear_spanners ();

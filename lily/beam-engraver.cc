@@ -301,7 +301,7 @@ subdivideBeams
                 R"(
                 )");
 
-class Grace_beam_engraver : public Beam_engraver
+class Grace_beam_engraver final : public Beam_engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Grace_beam_engraver);

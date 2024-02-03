@@ -27,7 +27,7 @@
 
 #include "translator.icc"
 
-class Double_percent_repeat_engraver : public Engraver
+class Double_percent_repeat_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Double_percent_repeat_engraver);

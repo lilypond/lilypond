@@ -48,7 +48,7 @@ struct Spacings
   }
 };
 
-class Separating_line_group_engraver : public Engraver
+class Separating_line_group_engraver final : public Engraver
 {
 protected:
   Spacings current_spacings_;

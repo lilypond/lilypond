@@ -31,7 +31,7 @@
 
 #include "translator.icc"
 
-class Pitched_trill_engraver : public Engraver
+class Pitched_trill_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Pitched_trill_engraver);

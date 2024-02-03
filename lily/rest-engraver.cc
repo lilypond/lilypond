@@ -28,7 +28,7 @@
 
 #include "translator.icc"
 
-class Rest_engraver : public Engraver
+class Rest_engraver final : public Engraver
 {
   Stream_event *rest_event_;
   Item *dot_;

@@ -34,7 +34,7 @@
  * FIXME: note heads inside of ligatures (i.e. ligature heads) are
  * sometimes not recognized by this engraver. --jr
  */
-class Custos_engraver : public Engraver
+class Custos_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Custos_engraver);

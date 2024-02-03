@@ -29,7 +29,7 @@
 #include <unordered_set>
 #include <vector>
 
-class Beam_collision_engraver : public Engraver
+class Beam_collision_engraver final : public Engraver
 {
   struct Grob_with_context
   {

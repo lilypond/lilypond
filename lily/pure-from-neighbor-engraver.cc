@@ -30,7 +30,7 @@
 #include <map>
 #include <vector>
 
-class Pure_from_neighbor_engraver : public Engraver
+class Pure_from_neighbor_engraver final : public Engraver
 {
   std::vector<Item *> pure_relevants_;
   std::vector<Item *> need_pure_heights_from_neighbors_;

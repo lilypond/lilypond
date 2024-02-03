@@ -25,7 +25,7 @@
 
 #include "translator.icc"
 
-class Grace_spacing_engraver : public Engraver
+class Grace_spacing_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Grace_spacing_engraver);
 

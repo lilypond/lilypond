@@ -34,7 +34,7 @@
 
 #include <unordered_set>
 
-class Rest_collision_engraver : public Engraver
+class Rest_collision_engraver final : public Engraver
 {
 protected:
   Grob *rest_collision_;

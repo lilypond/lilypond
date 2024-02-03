@@ -26,7 +26,7 @@
    put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
    rehearsal marks.
 */
-class Mark_engraver : public Engraver
+class Mark_engraver final : public Engraver
 {
 private:
   struct Mark_state

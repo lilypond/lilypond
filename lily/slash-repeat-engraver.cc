@@ -28,7 +28,7 @@
   This acknowledges repeated music with "percent" style.  It typesets
   a slash sign or double percent sign.
 */
-class Slash_repeat_engraver : public Engraver
+class Slash_repeat_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Slash_repeat_engraver);

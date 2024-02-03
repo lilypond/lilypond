@@ -31,7 +31,7 @@
 /**
    generate time_signatures.
 */
-class Time_signature_engraver : public Engraver
+class Time_signature_engraver final : public Engraver
 {
   Item *time_signature_ = nullptr;
   SCM last_time_fraction_ = SCM_EOL;

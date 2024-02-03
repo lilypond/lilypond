@@ -39,7 +39,7 @@ operator<(Grob_pq_entry const &a, Grob_pq_entry const &b)
   return a.end_ < b.end_;
 }
 
-class Grob_pq_engraver : public Engraver
+class Grob_pq_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Grob_pq_engraver);

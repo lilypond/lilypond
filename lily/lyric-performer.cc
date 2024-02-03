@@ -23,7 +23,7 @@
 #include "stream-event.hh"
 #include "translator.icc"
 
-class Lyric_performer : public Performer
+class Lyric_performer final : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Lyric_performer);

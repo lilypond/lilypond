@@ -25,7 +25,7 @@
 
 #include "translator.icc"
 
-class Tempo_performer : public Performer
+class Tempo_performer final : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Tempo_performer);

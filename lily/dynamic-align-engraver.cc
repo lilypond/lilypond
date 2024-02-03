@@ -31,7 +31,7 @@
 
 #include <unordered_set>
 
-class Dynamic_align_engraver : public Engraver
+class Dynamic_align_engraver final : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_align_engraver);
   void acknowledge_rhythmic_head (Grob_info);

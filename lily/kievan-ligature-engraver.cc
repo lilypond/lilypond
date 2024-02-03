@@ -29,7 +29,7 @@
 
 #include "translator.icc"
 
-class Kievan_ligature_engraver : public Coherent_ligature_engraver
+class Kievan_ligature_engraver final : public Coherent_ligature_engraver
 {
 
 protected:

@@ -52,7 +52,7 @@
   the default spacing do its work.
 */
 
-class Rhythmic_column_engraver : public Engraver
+class Rhythmic_column_engraver final : public Engraver
 {
   std::vector<Grob *> rheads_;
   Grob *stem_;

@@ -28,7 +28,7 @@
 
 #include "translator.icc"
 
-class Percent_repeat_engraver : public Engraver
+class Percent_repeat_engraver final : public Engraver
 {
   void typeset_perc ();
 

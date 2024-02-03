@@ -26,7 +26,7 @@
 
 #include "translator.icc"
 
-class Key_performer : public Performer
+class Key_performer final : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Key_performer);

@@ -26,7 +26,7 @@
 
 #include "translator.icc"
 
-class Note_performer : public Performer
+class Note_performer final : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Note_performer);

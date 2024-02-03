@@ -33,7 +33,7 @@
    TODO: have the line commit suicide if the notes are connected with
    either slur or beam.
 */
-class Note_head_line_engraver : public Engraver
+class Note_head_line_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Note_head_line_engraver);

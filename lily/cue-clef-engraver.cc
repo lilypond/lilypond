@@ -32,7 +32,7 @@
 
 #include <cctype>
 
-class Cue_clef_engraver : public Engraver
+class Cue_clef_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Cue_clef_engraver);

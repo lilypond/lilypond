@@ -33,7 +33,7 @@
 /**
    The name says it all: make multi measure rests
 */
-class Multi_measure_rest_engraver : public Engraver
+class Multi_measure_rest_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Multi_measure_rest_engraver);

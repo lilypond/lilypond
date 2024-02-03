@@ -27,7 +27,7 @@
 
 #include "translator.icc"
 
-class Fingering_engraver : public Engraver
+class Fingering_engraver final : public Engraver
 {
   std::vector<Stream_event *> events_;
   std::vector<Item *> fingerings_;

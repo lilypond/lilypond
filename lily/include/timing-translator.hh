@@ -25,7 +25,7 @@
 
 class Stream_event;
 
-class Timing_translator : public Translator
+class Timing_translator final : public Translator
 {
 public:
   TRANSLATOR_DECLARATIONS (Timing_translator);

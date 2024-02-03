@@ -25,7 +25,7 @@
 
 #include "translator.icc"
 
-class Repeat_acknowledge_engraver : public Engraver
+class Repeat_acknowledge_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Repeat_acknowledge_engraver);

@@ -29,7 +29,7 @@
 
 #include "translator.icc"
 
-class Ligature_bracket_engraver : public Engraver
+class Ligature_bracket_engraver final : public Engraver
 {
 protected:
   void process_music ();

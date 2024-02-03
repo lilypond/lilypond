@@ -36,7 +36,7 @@
 
 #include "translator.icc"
 
-class Ambitus_engraver : public Engraver
+class Ambitus_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Ambitus_engraver);
