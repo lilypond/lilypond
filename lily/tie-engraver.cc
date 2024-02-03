@@ -43,26 +43,17 @@
    basis of position and duration-log of the heads (not of the events).
 */
 
-struct Head_event_tuple
+struct Head_event_tuple final
 {
-  Grob *head_;
+  Grob *head_ = nullptr;
   Moment end_moment_;
-  Stream_event *tie_stream_event_;
-  Stream_event *tie_event_;
-  Spanner *tie_;
+  Stream_event *tie_stream_event_ = nullptr;
+  Stream_event *tie_event_ = nullptr;
+  Spanner *tie_ = nullptr;
   // Indicate whether a tie from the same moment has been processed successfully
   // This is needed for tied chords, e.g. <c e g>~ g, because otherwise the c
   // and e will trigger a warning for an unterminated tie!
-  bool tie_from_chord_created;
-
-  Head_event_tuple ()
-  {
-    head_ = 0;
-    tie_event_ = 0;
-    tie_stream_event_ = 0;
-    tie_from_chord_created = false;
-    tie_ = 0;
-  }
+  bool tie_from_chord_created = false;
 };
 
 class Tie_engraver final : public Engraver

@@ -41,11 +41,11 @@ public:
   virtual void create_grobs (Engraver *, SCM) {}
 };
 
-struct Bracket_nesting_group : public Bracket_nesting_node
+struct Bracket_nesting_group final : public Bracket_nesting_node
 {
-  Spanner *delimiter_;
+  Spanner *delimiter_ = nullptr;
   std::vector<std::unique_ptr<Bracket_nesting_node>> children_;
-  SCM symbol_;
+  SCM symbol_ = SCM_EOL;
 
   void from_list (SCM);
   void add_support (Grob *grob) override;
@@ -53,23 +53,18 @@ struct Bracket_nesting_group : public Bracket_nesting_node
   void set_nesting_support (Grob *) override;
   void set_bound (Direction, Grob *grob) override;
   void create_grobs (Engraver *, SCM) override;
-  ~Bracket_nesting_group ();
-  Bracket_nesting_group ();
 };
 
-struct Bracket_nesting_staff : public Bracket_nesting_node
+struct Bracket_nesting_staff final : public Bracket_nesting_node
 {
-  Grob *staff_;
+  Grob *staff_ = nullptr;
 
-  Bracket_nesting_staff (Grob *s) { staff_ = s; }
+  Bracket_nesting_staff (Grob *s)
+    : staff_ (s)
+  {
+  }
   bool add_staff (Grob *) override;
 };
-
-Bracket_nesting_group::Bracket_nesting_group ()
-{
-  symbol_ = SCM_EOL;
-  delimiter_ = 0;
-}
 
 bool
 Bracket_nesting_staff::add_staff (Grob *g)
@@ -99,10 +94,6 @@ Bracket_nesting_group::add_support (Grob *g)
   Side_position_interface::add_support (g, delimiter_);
   for (vsize i = 0; i < children_.size (); i++)
     children_[i]->add_support (g);
-}
-
-Bracket_nesting_group::~Bracket_nesting_group ()
-{
 }
 
 void

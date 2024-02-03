@@ -34,22 +34,14 @@
 #include <algorithm>
 #include <vector>
 
-struct Finger_tuple
+struct Finger_tuple final
 {
-  Grob *head_;
-  Grob *script_;
-  Stream_event *note_event_;
-  Stream_event *finger_event_;
-  bool follow_into_staff_;
-  int position_;
-
-  Finger_tuple ()
-  {
-    position_ = 0;
-    head_ = script_ = 0;
-    note_event_ = finger_event_ = 0;
-    follow_into_staff_ = false;
-  }
+  Grob *head_ = nullptr;
+  Grob *script_ = nullptr;
+  Stream_event *note_event_ = nullptr;
+  Stream_event *finger_event_ = nullptr;
+  bool follow_into_staff_ = false;
+  int position_ = 0;
 };
 
 bool

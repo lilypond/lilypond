@@ -29,7 +29,7 @@
 
 #include "translator.icc"
 
-struct Rhythmic_tuple
+struct Rhythmic_tuple final
 {
   Grob_info info_;
   Moment end_;

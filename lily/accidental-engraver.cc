@@ -39,30 +39,16 @@
 
 #include <cstdint>
 
-class Accidental_entry
+struct Accidental_entry final
 {
-public:
-  bool done_;
-  Stream_event *melodic_;
-  Grob *accidental_;
-  Context *origin_;
-  Engraver *origin_engraver_;
-  Grob *head_;
-  bool tied_;
-
-  Accidental_entry ();
+  bool done_ = false;
+  Stream_event *melodic_ = nullptr;
+  Grob *accidental_ = nullptr;
+  Context *origin_ = nullptr;
+  Engraver *origin_engraver_ = nullptr;
+  Grob *head_ = nullptr;
+  bool tied_ = false;
 };
-
-Accidental_entry::Accidental_entry ()
-{
-  tied_ = false;
-  done_ = false;
-  melodic_ = 0;
-  accidental_ = 0;
-  origin_ = 0;
-  origin_engraver_ = 0;
-  head_ = 0;
-}
 
 class Accidental_engraver final : public Engraver
 {

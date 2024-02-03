@@ -33,10 +33,10 @@
 
 #include "translator.icc"
 
-struct Figure_group
+struct Figure_group final
 {
-  Spanner *group_;
-  Spanner *continuation_line_;
+  Spanner *group_ = nullptr;
+  Spanner *continuation_line_ = nullptr;
 
   SCM number_;
   SCM alteration_;
@@ -45,17 +45,10 @@ struct Figure_group
   SCM augmented_slash_;
   SCM text_;
 
-  Item *figure_item_;
-  Stream_event *current_event_;
+  Item *figure_item_ = nullptr;
+  Stream_event *current_event_ = nullptr;
 
-  Figure_group ()
-  {
-    figure_item_ = 0;
-    continuation_line_ = 0;
-    reset_figure ();
-    group_ = 0;
-    current_event_ = 0;
-  }
+  Figure_group () { reset_figure (); }
   /* Reset (or init) all figure information to FALSE */
   void reset_figure ()
   {
@@ -155,7 +148,7 @@ Figured_bass_engraver::start_translation_timestep ()
   rest_listener_.reset ();
   new_events_.clear ();
   for (vsize i = 0; i < groups_.size (); i++)
-    groups_[i].current_event_ = 0;
+    groups_[i].current_event_ = nullptr;
 
   continuation_ = false;
 }
@@ -259,13 +252,13 @@ Figured_bass_engraver::clear_spanners ()
       if (groups_[i].group_)
         {
           announce_end_grob (groups_[i].group_, SCM_EOL);
-          groups_[i].group_ = 0;
+          groups_[i].group_ = nullptr;
         }
 
       if (groups_[i].continuation_line_)
         {
           announce_end_grob (groups_[i].continuation_line_, SCM_EOL);
-          groups_[i].continuation_line_ = 0;
+          groups_[i].continuation_line_ = nullptr;
         }
     }
 
@@ -327,7 +320,7 @@ Figured_bass_engraver::process_music ()
 
       groups_[k].reset_figure ();
       groups_[k].current_event_ = new_events_[i];
-      groups_[k].figure_item_ = 0;
+      groups_[k].figure_item_ = nullptr;
       k++;
     }
 
@@ -364,7 +357,7 @@ Figured_bass_engraver::process_music ()
                   Pointer_group_interface::add_grob (
                     line, ly_symbol2scm ("figures"), item);
 
-                  group.figure_item_ = 0;
+                  group.figure_item_ = nullptr;
                 }
             }
           else if (group.continuation_line_)
@@ -397,7 +390,7 @@ Figured_bass_engraver::process_music ()
             }
         }
       for (vsize i = 0; i < junk_continuations.size (); i++)
-        groups_[junk_continuations[i]].continuation_line_ = 0;
+        groups_[junk_continuations[i]].continuation_line_ = nullptr;
     }
 
   create_grobs ();
