@@ -212,9 +212,9 @@ $(outdir)/website-root/index.html: website-build
 	$(call ly_progress,Making,$@,)
 	rm -rf $(dir $@)/
 	mkdir -p $(dir $@)/
-	cp -a Documentation/out-web/website/web/* $(dir $@)/
+	rsync -a Documentation/out-web/website/web/ $(dir $@)
 	$(foreach d,css misc pictures ly-examples,\
-		cp -a Documentation/out-web/website/$(d) $(dir $@)/ &&) true
+	  rsync -a Documentation/out-web/website/$(d) $(dir $@) &&) true
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "offline"
 	$(call ly_progress,Fix up,links,to subdirectories)
 	$(PERL) \

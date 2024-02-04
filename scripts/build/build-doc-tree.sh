@@ -69,7 +69,7 @@ do
 done
 wait
 
-cp -a misc/ ${DEST}
-cp -a pictures/ ${DEST}
-cp -a ly-examples/ ${DEST}/
-cp -a css/ ${DEST}/
+rsync -a misc ${DEST}
+rsync -a pictures ${DEST}
+rsync -a ly-examples ${DEST}
+rsync -a css ${DEST}
