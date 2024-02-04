@@ -150,10 +150,11 @@ WWW-post: $(WEB_ROOT_FILES)
 $(outdir)/%-root/index.html: doc-build
 	$(call ly_progress,Making,$@,)
 	rm -rf $(dir $@)/
-	mkdir -p $(dir $@)/Documentation/
 	for d in . musicxml abc2ly lilypond-book ; do \
-		mkdir -p $(dir $@)/input/regression/$${d}; \
-		cp --link -a input/regression/$${d}/out-www/*  $(dir $@)/input/regression/$${d}/ ; \
+	  mkdir -p $(dir $@)/input/regression/$${d}; \
+	  rsync -a --link-dest=$(build-dir)/input/regression/$${d}/out-www \
+		input/regression/$${d}/out-www/ \
+		$(dir $@)/input/regression/$${d} ; \
 	done
 	find $(dir $@)/input/regression/ \
 		-type f \
@@ -164,8 +165,13 @@ $(outdir)/%-root/index.html: doc-build
 		-not -name '*.mxl' \
 		-not -name 'collated-files.pdf' \
 		-delete
-	cp --link -a Documentation/out-www/webdoc/* $(dir $@)/Documentation/
-	cp --link $(TOPDOC_TXT_FILES) $(dir $@)
+	mkdir -p $(dir $@)/Documentation/
+	rsync -a --link-dest=$(build-dir)/Documentation/out-www/webdoc \
+	      Documentation/out-www/webdoc/ \
+	      $(dir $@)/Documentation
+	rsync -a --link-dest=$(build-dir)/Documentation/$(outdir)/topdocs \
+	      $(TOPDOC_TXT_FILES) \
+	      $(dir $@)
 	# No link because the files come from the source directory.
 	cp $(addprefix $(src-dir)/,$(README_FILES)) $(dir $@)
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "$*"
