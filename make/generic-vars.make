@@ -24,8 +24,6 @@ endif
 
 abs-src-dir = $(top-src-dir)$(tree-dir)
 
-.UNEXPORT: build-dir src-dir tree-dir
-
 # Sort to make execution order deterministic. It also provides a
 # poor man's progress indicator.
 src-wildcard = $(sort $(subst $(src-dir)/,,$(wildcard $(src-dir)/$(1))))
