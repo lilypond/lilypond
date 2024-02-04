@@ -266,7 +266,7 @@ Interval
 Paper_column::get_interface_extent (Grob *column, SCM iface, Axis a)
 {
   Interval extent;
-  extent.set_empty();
+  extent.set_empty ();
 
   extract_grob_set (column, "elements", elts);
 

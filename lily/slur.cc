@@ -162,8 +162,8 @@ Slur::print (SCM smob)
   Stencil a;
 
   SCM dash_definition = get_property (me, "dash-definition");
-  a = Lookup::slur (one, get_grob_direction (me) * base_thick,
-                    line_thick, dash_definition);
+  a = Lookup::slur (one, get_grob_direction (me) * base_thick, line_thick,
+                    dash_definition);
 
   SCM annotation = get_property (me, "annotation");
   if (scm_is_string (annotation))

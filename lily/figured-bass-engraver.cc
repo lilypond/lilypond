@@ -444,8 +444,7 @@ Figured_bass_engraver::create_grobs ()
             }
 
           SCM number = group.number_;
-          if (scm_is_null (group.number_)
-              && scm_is_null (group.text_)
+          if (scm_is_null (group.number_) && scm_is_null (group.text_)
               && scm_is_null (group.alteration_)
               && scm_is_null (group.augmented_)
               && scm_is_null (group.diminished_)
@@ -460,8 +459,7 @@ Figured_bass_engraver::create_grobs ()
           SCM text = group.text_;
           if (!Text_interface::is_markup (text) && ly_is_procedure (proc))
             {
-              text = ly_call (proc, number,
-                              group.current_event_->self_scm (),
+              text = ly_call (proc, number, group.current_event_->self_scm (),
                               context ()->self_scm ());
             }
 

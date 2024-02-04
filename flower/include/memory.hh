@@ -24,7 +24,7 @@
 #include <stdlib.h>
 
 // a functor wrapping an arbitrary free-like function
-template<typename T, void (*f) (T *)>
+template <typename T, void (*f) (T *)>
 struct Freer
 {
   void operator() (void *p) { f (static_cast<T *> (p)); }
@@ -34,9 +34,8 @@ struct Freer
 template <typename T, void (*f) (T *)>
 using unique_ptr_with_freer = std::unique_ptr<T, Freer<T, f>>;
 
-
 // same as Freer, but f takes void *
-template<typename T, void (*f) (void *)>
+template <typename T, void (*f) (void *)>
 struct VoidFreer
 {
   void operator() (void *p) { f (p); }

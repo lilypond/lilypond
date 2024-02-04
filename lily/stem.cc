@@ -449,7 +449,6 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
       length = 2 * from_scm<double> (len);
     }
 
-
   /* Stems in unnatural (forced) direction should be shortened,
      according to [Roush & Gourlay] */
   Interval hp = head_positions (me);

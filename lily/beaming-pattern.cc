@@ -392,7 +392,8 @@ Beaming_pattern::set_rhythmic_importance (Beaming_options const &options)
               // Account for the right side of the subdivision having
               // incomplete length as that should make the rhythmic_importance_
               // value higher
-              if (options.respect_incomplete_beams_ && end_moment (i) < cur_position.end_moment_)
+              if (options.respect_incomplete_beams_
+                  && end_moment (i) < cur_position.end_moment_)
                 infos_[i].rhythmic_importance_ = std::max (
                   infos_[i].rhythmic_importance_,
                   rhythmic_importance_for_length (
