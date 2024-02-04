@@ -44,7 +44,7 @@
 #endif
 
 #define YAFFUT_CHECK(e)                                                        \
-  yaffut::check (e, __YAFFUT_AT__, "CHECK(" #e ") failed ")
+  yaffut::check (static_cast<bool> (e), __YAFFUT_AT__, "CHECK(" #e ") failed ")
 #ifndef CHECK
 #define CHECK YAFFUT_CHECK
 #endif

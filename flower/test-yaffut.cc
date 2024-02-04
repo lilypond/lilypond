@@ -23,6 +23,7 @@
 #include <cassert>
 #include <cmath>
 #include <functional>
+#include <memory>
 
 #ifdef NDEBUG
 #warning Yaffut self-tests signal failure with assert ().
@@ -90,7 +91,8 @@ TEST (Yaffut_self_test, failure_message_assert_throw)
 
 TEST (Yaffut_self_test, failure_message_check)
 {
-  const bool phooey = false;
+  // unique_ptr is interesting because it is not implicitly convertible to bool.
+  const std::unique_ptr<int> phooey;
   expect_fail ([&] { YAFFUT_CHECK (phooey); }, ": CHECK(phooey) failed ");
 }
 
