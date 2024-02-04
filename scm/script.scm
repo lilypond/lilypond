@@ -108,8 +108,8 @@
         (script-stencil . (feta . ("flageolet" . "flageolet")))
         (padding . 0.20)
         (avoid-slur . around) ;guessing?
-        (direction . ,UP)))
-        (script-priority . 50)
+        (direction . ,UP)
+        (script-priority . 50)))
 
 
     (halfopen
