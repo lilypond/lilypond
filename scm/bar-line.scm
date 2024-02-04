@@ -53,9 +53,9 @@ otherwise pad the string with @code{annotation-char}s to the length of the
 
     (if (string? span-glyph)
         (string-pad-right
-          span-glyph
-          (string-length bar-glyph)
-          replacement-char)
+         span-glyph
+         (string-length bar-glyph)
+         replacement-char)
         span-glyph)))
 
 (define (layout-blot-diameter grob)
@@ -109,10 +109,10 @@ mandatory to the procedures stored in @code{bar-glyph-print-procedures}."
 @code{\"aBc\"} will be converted to @code{(\"a\" \"B\" \"c\")}.
 For an empty string or if @var{str} is not of type @code{string?}, return a
 list containing @code{\"\"}."
-    (if (and (string? str)
-             (not (string-null? str)))
-        (map string (string->list str))
-        (list "")))
+  (if (and (string? str)
+           (not (string-null? str)))
+      (map string (string->list str))
+      (list "")))
 
 (define (strip-string-annotation str)
   "Strip annotations starting with and including the
@@ -716,15 +716,15 @@ drawn by the procedure associated with glyph @var{glyph}."
                           (strip-string-annotation bar-glyph)))
          (span-glyph (get-span-glyph bar-glyph))
          (span-glyph-list
-           (cond ((string? span-glyph)
-                   (string->string-list span-glyph))
-                 ((boolean? span-glyph)
-                   (make-list (length bar-glyph-list) span-glyph))
-                 (else
-                   (ly:warning
-"Setting for span bar needs to be a boolean or string: ~a. Using #f instead."
-                    span-glyph)
-                   (make-list (length bar-glyph-list) #f))))
+          (cond ((string? span-glyph)
+                 (string->string-list span-glyph))
+                ((boolean? span-glyph)
+                 (make-list (length bar-glyph-list) span-glyph))
+                (else
+                 (ly:warning
+                  "Setting for span bar needs to be a boolean or string: ~a. Using #f instead."
+                  span-glyph)
+                 (make-list (length bar-glyph-list) #f))))
          (neg-stencil empty-stencil)
          (stencil empty-stencil)
          (is-first-neg-stencil #t)
@@ -781,9 +781,9 @@ drawn by the procedure associated with glyph @var{glyph}."
     (if (and (ly:grob-property grob 'right-justified #f)
              (< (ly:item-break-dir grob) 1))
         (ly:stencil-translate-axis
-          stencil
-          (- (cdr (ly:stencil-extent stencil X)))
-          X)
+         stencil
+         (- (cdr (ly:stencil-extent stencil X)))
+         X)
         stencil)))
 
 (define-public (ly:bar-line::calc-anchor grob)
@@ -791,7 +791,7 @@ drawn by the procedure associated with glyph @var{glyph}."
 the correct placement of bar numbers, etc."
   (let* ((bar-glyph (ly:grob-property grob 'glyph-name ""))
          (bar-glyph-list
-           (string->string-list (strip-string-annotation bar-glyph)))
+          (string->string-list (strip-string-annotation bar-glyph)))
          (span-glyph (assoc-get bar-glyph span-bar-glyph-alist bar-glyph))
          (x-extent (ly:grob-extent grob grob X))
          (anchor 0.0))
@@ -816,7 +816,7 @@ the correct placement of bar numbers, etc."
              ;; If the conditions above do not hold,the anchor is the
              ;; center of the corresponding span bar stencil extent
              (let* ((span-bar-stencil
-                      (span-bar::compound-bar-line grob bar-glyph dummy-extent))
+                     (span-bar::compound-bar-line grob bar-glyph dummy-extent))
                     (span-stil-x-extent (ly:stencil-extent span-bar-stencil X)))
                (set! anchor
                      ;; if a mid-line bar-line is right-justified, the anchor
@@ -1008,9 +1008,9 @@ no elements."
     (if (and (ly:grob-property grob 'right-justified #f)
              (< (ly:item-break-dir grob) 1))
         (ly:stencil-translate-axis
-          stencil
-          (- (cdr (ly:stencil-extent stencil X)))
-          X)
+         stencil
+         (- (cdr (ly:stencil-extent stencil X)))
+         X)
         stencil)))
 
 ;; The method used in the following routine depends on bar_engraver

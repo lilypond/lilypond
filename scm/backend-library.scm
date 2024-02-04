@@ -76,7 +76,7 @@
            ;; reset the page counter for some devices; see `ps-to-png.scm`.
            (if (ly:get-option 'gs-api)
                (format #f "~a/ps/nocache.ps" (ly:get-option 'datadir)))
-          )))
+           )))
 
 (define-public (gs-safe-run input)
   ;; The PostScript Language Reference Manual says "run is a convenience
@@ -545,7 +545,7 @@ created."
 (define-public font-name-split
   (let ((regex (ly:make-regex "(.*)-([0-9]*)")))
     (lambda (font-name)
-       "Return @code{(@var{font-name} . @var{design-size})} from @var{font-name}
+      "Return @code{(@var{font-name} . @var{design-size})} from @var{font-name}
       string or @code{#f}."
       (let ((match (ly:regex-exec regex font-name)))
         (if match

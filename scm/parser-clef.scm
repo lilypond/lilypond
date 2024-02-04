@@ -105,7 +105,7 @@
     ("vaticana-do3" . ("clefs.vaticana.do" 3 0))
     ("vaticana-fa1" . ("clefs.vaticana.fa" -1 0))
     ("vaticana-fa2" . ("clefs.vaticana.fa" 1 0))
-  ))
+    ))
 
 ;; "an alist mapping GLYPHNAME to the position of the middle C for
 ;; that symbol"
@@ -147,7 +147,7 @@
     ("clefs.petrucci.g2" . -4)
     ("clefs.vaticana.do" . 0)
     ("clefs.vaticana.fa" . 4)
-  ))
+    ))
 
 (define-public make-clef-set
   (let ((clef-with-modifier-regex (ly:make-regex "^(.*)([_^])([^0-9a-zA-Z]*)([1-9][0-9]*)([^0-9a-zA-Z]*)$")))

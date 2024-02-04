@@ -4821,22 +4821,22 @@ customizable as well; defaults are the same as the values of the corresponding
   (define (make-bar-line thickness height font-size blot-diameter)
     "Draw a simple bar line."
     (ly:round-filled-box
-      (cons 0 (* thickness (magstep font-size)))
-      (cons 0 (* height (magstep font-size)))
-      blot-diameter))
+     (cons 0 (* thickness (magstep font-size)))
+     (cons 0 (* height (magstep font-size)))
+     blot-diameter))
 
   ;; colon bar-line
   (define (make-colon-bar-line height font-size)
     (let* ((font
-             (ly:paper-get-font layout
-               (cons '((font-encoding . fetaMusic)) props)))
+            (ly:paper-get-font layout
+                               (cons '((font-encoding . fetaMusic)) props)))
            (dot (ly:font-get-glyph font "dots.dot")))
-    (ly:stencil-add
+      (ly:stencil-add
+       dot
+       (ly:stencil-translate-axis
         dot
-        (ly:stencil-translate-axis
-          dot
-          (* (magstep font-size) (/ height 4))
-          Y))))
+        (* (magstep font-size) (/ height 4))
+        Y))))
 
   ;; dotted bar-line
   (define (make-dotted-bar-line height font-size)
@@ -4846,14 +4846,14 @@ customizable as well; defaults are the same as the values of the corresponding
     ;; four dots.
     ;; To get more dots override the `dot-count' property.
     (let* ((font
-             (ly:paper-get-font layout
-               (cons '((font-encoding . fetaMusic)) props)))
+            (ly:paper-get-font layout
+                               (cons '((font-encoding . fetaMusic)) props)))
            (dot (ly:font-get-glyph font "dots.dot"))
            (dot-height
-             (interval-length (ly:stencil-extent dot Y)))
+            (interval-length (ly:stencil-extent dot Y)))
            (scaled-height (* (magstep font-size) height))
            (space-between-dots
-             (/ (- scaled-height (* dot-count dot-height)) dot-count)))
+            (/ (- scaled-height (* dot-count dot-height)) dot-count)))
       (stack-stencils Y UP space-between-dots (make-list dot-count dot))))
 
   ;; dashed bar-line
@@ -4875,20 +4875,20 @@ customizable as well; defaults are the same as the values of the corresponding
            (inked-dash-size (* dash-size 2/3))
            (white-space (* dash-size 1/3))
            (dash
-             (ly:round-filled-box
-               (cons 0 scaled-thick)
-               (cons 0 inked-dash-size)
-               blot-diameter))
+            (ly:round-filled-box
+             (cons 0 scaled-thick)
+             (cons 0 inked-dash-size)
+             blot-diameter))
            (half-dash
-             (ly:round-filled-box
-               (cons 0 scaled-thick)
-               (cons 0 (/ inked-dash-size 2))
-               blot-diameter))
+            (ly:round-filled-box
+             (cons 0 scaled-thick)
+             (cons 0 (/ inked-dash-size 2))
+             blot-diameter))
            (dashes
-             (cons half-dash
-                   (append
-                     (make-list (- dash-count 2) dash)
-                     (list half-dash)))))
+            (cons half-dash
+                  (append
+                   (make-list (- dash-count 2) dash)
+                   (list half-dash)))))
       (stack-stencils Y UP white-space dashes)))
 
   ;; bracket bar-line
@@ -4896,10 +4896,10 @@ customizable as well; defaults are the same as the values of the corresponding
     "Draw a bracket-style bar line.  If @var{dir} is set to @code{LEFT}, the
      opening bracket will be drawn, for @code{RIGHT} we get the
      closing bracket."
-     ;; The bracket-tips scale with `font-size' but not with `height'.
+    ;; The bracket-tips scale with `font-size' but not with `height'.
     (let* ((font
-             (ly:paper-get-font layout
-               (cons '((font-encoding . fetaMusic)) props)))
+            (ly:paper-get-font layout
+                               (cons '((font-encoding . fetaMusic)) props)))
            (brackettips-up (ly:font-get-glyph font "brackettips.up"))
            (brackettips-down (ly:font-get-glyph font "brackettips.down"))
            (line-thickness (ly:output-def-lookup layout 'line-thickness))
@@ -4908,112 +4908,112 @@ customizable as well; defaults are the same as the values of the corresponding
            ;; The x-extent of the brackettips must not be taken into account
            ;; for bar line constructs like "[|:", so we set new bounds:
            (tip-up-stil
-             (ly:make-stencil
-               (ly:stencil-expr brackettips-up)
-               (cons 0 0)
-               (ly:stencil-extent brackettips-up Y)))
+            (ly:make-stencil
+             (ly:stencil-expr brackettips-up)
+             (cons 0 0)
+             (ly:stencil-extent brackettips-up Y)))
            (tip-down-stil
-             (ly:make-stencil
-               (ly:stencil-expr brackettips-down)
-               (cons 0 0)
-               (ly:stencil-extent brackettips-down Y)))
+            (ly:make-stencil
+             (ly:stencil-expr brackettips-down)
+             (cons 0 0)
+             (ly:stencil-extent brackettips-down Y)))
            (stencil
-             (ly:stencil-add
-               (make-bar-line thick-thickness height font-size blot)
-               (ly:stencil-translate-axis
-                 tip-up-stil
-                 (* (magstep font-size) height)
-                 Y)
-               tip-down-stil)))
-        (if (eq? dir LEFT)
-            stencil
-            (flip-stencil X stencil))))
+            (ly:stencil-add
+             (make-bar-line thick-thickness height font-size blot)
+             (ly:stencil-translate-axis
+              tip-up-stil
+              (* (magstep font-size) height)
+              Y)
+             tip-down-stil)))
+      (if (eq? dir LEFT)
+          stencil
+          (flip-stencil X stencil))))
 
   ;; brace bar-line
   (define (make-brace-bar-line height dir font-size)
     "Draw a brace bar line.  If @var{dir} is set to @code{LEFT}, the
      opening brace will be drawn, for @code{RIGHT} we get the
      closing brace."
-     ;; The default brace with zero `fontsize' and `default' height has size 20.
-     ;; We adjust it with other `fontsize' and `height' (as opposed to
-     ;; bracket-tips and segno), in order to have the brace the same height as a
-     ;; simple bar line.
-     ;; Sometimes warnings of kind
-     ;; \"no brace found for point size ...\" \"defaulting to ... pt\" are
-     ;; expected.
+    ;; The default brace with zero `fontsize' and `default' height has size 20.
+    ;; We adjust it with other `fontsize' and `height' (as opposed to
+    ;; bracket-tips and segno), in order to have the brace the same height as a
+    ;; simple bar line.
+    ;; Sometimes warnings of kind
+    ;; \"no brace found for point size ...\" \"defaulting to ... pt\" are
+    ;; expected.
     (if (negative? dir)
         (left-brace-markup layout props
-          (* (magstep font-size) (/ height 4) 20.0))
+                           (* (magstep font-size) (/ height 4) 20.0))
         (right-brace-markup layout props
-          (* (magstep font-size) (/ height 4) 20.0))))
+                            (* (magstep font-size) (/ height 4) 20.0))))
 
   ;; segno bar-line
   (define (make-segno-bar-line height font-size blot-diameter)
     "Draw a segno bar line.
      The segno sign is drawn over a double bar line."
-     ;; The segno scales with `font-size', but not with `height'.
+    ;; The segno scales with `font-size', but not with `height'.
     (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
            (thinkern (* line-thickness kern))
            (thin-thickness (* line-thickness hair-thickness))
            (thin-stil
-             (make-bar-line
-               thin-thickness
-               height
-               font-size
-               blot-diameter))
+            (make-bar-line
+             thin-thickness
+             height
+             font-size
+             blot-diameter))
            (double-line-stil
-             (ly:stencil-combine-at-edge
-               thin-stil
-               X
-               LEFT
-               thin-stil
-               (* (magstep font-size) thinkern)))
+            (ly:stencil-combine-at-edge
+             thin-stil
+             X
+             LEFT
+             thin-stil
+             (* (magstep font-size) thinkern)))
            (font
-             (ly:paper-get-font layout
-               (cons '((font-encoding . fetaMusic)) props)))
+            (ly:paper-get-font layout
+                               (cons '((font-encoding . fetaMusic)) props)))
            (segno (ly:font-get-glyph font "scripts.varsegno")))
-         (ly:stencil-add
-           segno
-           (centered-stencil double-line-stil))))
+      (ly:stencil-add
+       segno
+       (centered-stencil double-line-stil))))
 
-    (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
-           (thin-thick (* line-thickness hair-thickness))
-           (scaled-kern (* (magstep font-size) (* line-thickness kern)))
-           (thick-thickness (* line-thickness thick-thickness))
-           (blot (ly:output-def-lookup layout 'blot-diameter))
-           (strg-list (string->string-list strg))
-           (raw-bar-line-stencils
-              (lambda (x)
-                (ly:stencil-aligned-to
-                  (cond
-                    ((string=? ":" x)
-                      (make-colon-bar-line height font-size))
-                    ((string=? "|" x)
-                      (make-bar-line thin-thick height font-size blot))
-                    ((string=? "." x)
-                      (make-bar-line thick-thickness height font-size blot))
-                    ((string=? ";" x)
-                      (make-dotted-bar-line height font-size))
-                    ((string=? "!" x)
-                      (make-dashed-bar-line thin-thick height font-size blot))
-                    ((string=? "[" x)
-                      (make-bracket-bar-line height font-size LEFT))
-                    ((string=? "]" x)
-                      (make-bracket-bar-line height font-size RIGHT))
-                    ((string=? "{" x)
-                      (make-brace-bar-line height LEFT font-size))
-                    ((string=? "}" x)
-                      (make-brace-bar-line height RIGHT font-size))
-                    ((string=? "S" x)
-                      (make-segno-bar-line height font-size blot))
-                    (else
-                      (begin
-                        (ly:warning "No bar line stencil found for '~a'" x)
-                        empty-stencil)))
-                  Y CENTER)))
-           (single-bar-line-stils
-             (remove ly:stencil-empty? (map raw-bar-line-stencils strg-list))))
-      (stack-stencils X RIGHT scaled-kern single-bar-line-stils)))
+  (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
+         (thin-thick (* line-thickness hair-thickness))
+         (scaled-kern (* (magstep font-size) (* line-thickness kern)))
+         (thick-thickness (* line-thickness thick-thickness))
+         (blot (ly:output-def-lookup layout 'blot-diameter))
+         (strg-list (string->string-list strg))
+         (raw-bar-line-stencils
+          (lambda (x)
+            (ly:stencil-aligned-to
+             (cond
+              ((string=? ":" x)
+               (make-colon-bar-line height font-size))
+              ((string=? "|" x)
+               (make-bar-line thin-thick height font-size blot))
+              ((string=? "." x)
+               (make-bar-line thick-thickness height font-size blot))
+              ((string=? ";" x)
+               (make-dotted-bar-line height font-size))
+              ((string=? "!" x)
+               (make-dashed-bar-line thin-thick height font-size blot))
+              ((string=? "[" x)
+               (make-bracket-bar-line height font-size LEFT))
+              ((string=? "]" x)
+               (make-bracket-bar-line height font-size RIGHT))
+              ((string=? "{" x)
+               (make-brace-bar-line height LEFT font-size))
+              ((string=? "}" x)
+               (make-brace-bar-line height RIGHT font-size))
+              ((string=? "S" x)
+               (make-segno-bar-line height font-size blot))
+              (else
+               (begin
+                 (ly:warning "No bar line stencil found for '~a'" x)
+                 empty-stencil)))
+             Y CENTER)))
+         (single-bar-line-stils
+          (remove ly:stencil-empty? (map raw-bar-line-stencils strg-list))))
+    (stack-stencils X RIGHT scaled-kern single-bar-line-stils)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.

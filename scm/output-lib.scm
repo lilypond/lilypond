@@ -1389,14 +1389,14 @@ and draws the stencil based on its coordinates.
                (stil-y-extent (ly:stencil-extent stil Y))
                (circle (circled-tip-stil grob circle-rad niente?))
                (hairpin-stencil
-                 ;; For crescendo with circled tip, move it, to make place for
-                 ;; the circle.
-                 (ly:stencil-translate-axis
-                   (ly:make-stencil (ly:stencil-expr stil) xex stil-y-extent)
-                   (if (and niente? (not decresc?))
-                       (* 2 circle-rad)
-                       0)
-                       X)))
+                ;; For crescendo with circled tip, move it, to make place for
+                ;; the circle.
+                (ly:stencil-translate-axis
+                 (ly:make-stencil (ly:stencil-expr stil) xex stil-y-extent)
+                 (if (and niente? (not decresc?))
+                     (* 2 circle-rad)
+                     0)
+                 X)))
           ;; Return a final stencil properly aligned in Y-axis direction and
           ;; with proper extents. Otherwise stencil operations like
           ;; 'box-stencil' will return badly. Extent in X-axis direction is
@@ -1409,25 +1409,25 @@ and draws the stencil based on its coordinates.
           ;; circled tip has to be drawn at the end of the *previous* part.
           (if niente?
               (ly:stencil-add
-                hairpin-stencil
-                (let* ((orig (ly:grob-original grob))
-                       (siblings (ly:spanner-broken-into orig))
-                       (live-siblings (filter grob::is-live? siblings)))
-                  (cond ((and (unbroken-or-first-broken-spanner? grob)
-                              (not decresc?))
-                          (ly:stencil-translate-axis
-                             circle
-                             (+ circle-rad (car xex))
-                             X))
-                        ((and (or (unbroken-spanner? grob)
-                                  (eq? grob (last live-siblings)))
-                              niente?
-                              decresc?)
-                          (ly:stencil-translate-axis
-                            circle
-                            (+ circle-rad (car xex) lenx) X))
-                        (else empty-stencil))))
-               hairpin-stencil))
+               hairpin-stencil
+               (let* ((orig (ly:grob-original grob))
+                      (siblings (ly:spanner-broken-into orig))
+                      (live-siblings (filter grob::is-live? siblings)))
+                 (cond ((and (unbroken-or-first-broken-spanner? grob)
+                             (not decresc?))
+                        (ly:stencil-translate-axis
+                         circle
+                         (+ circle-rad (car xex))
+                         X))
+                       ((and (or (unbroken-spanner? grob)
+                                 (eq? grob (last live-siblings)))
+                             niente?
+                             decresc?)
+                        (ly:stencil-translate-axis
+                         circle
+                         (+ circle-rad (car xex) lenx) X))
+                       (else empty-stencil))))
+              hairpin-stencil))
         ;; return empty, if no Hairpin.stencil present.
         '())))
 
@@ -1442,7 +1442,7 @@ and draws the stencil based on its coordinates.
 
 (define-public left-align-at-split-notes
   (lambda (grob)
-  "Left-align @code{LyricText} if the parent @code{NoteHead} is split by
+    "Left-align @code{LyricText} if the parent @code{NoteHead} is split by
 @code{Completion_heads_engraver}"
     (let* (;; x-parent is usually NoteColumn
            (x-parent (ly:grob-parent grob X))
@@ -1451,17 +1451,17 @@ and draws the stencil based on its coordinates.
            ;; `x-parent` may contain a chord,
            ;; thus `x-parent-nhds` is a list.
            (x-parent-nhds
-             (if x-parent-nhds-array
-                 (ly:grob-array->list x-parent-nhds-array)
-                 '()))
+            (if x-parent-nhds-array
+                (ly:grob-array->list x-parent-nhds-array)
+                '()))
            (self-alignment-x-list
-             (map
-               (lambda (nhd)
-                 (let* ((cause (ly:grob-property nhd 'cause))
-                        (split? (ly:prob-property cause 'autosplit-end #f)))
-                   (if split?
-                       LEFT
-                       CENTER)))
+            (map
+             (lambda (nhd)
+               (let* ((cause (ly:grob-property nhd 'cause))
+                      (split? (ly:prob-property cause 'autosplit-end #f)))
+                 (if split?
+                     LEFT
+                     CENTER)))
              x-parent-nhds)))
       ;; `self-alignment-x-list` is empty or contains a number (or equal
       ;; multiples of said number).

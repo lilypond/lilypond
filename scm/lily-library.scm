@@ -691,7 +691,7 @@ all lists are exhausted.  For example:
                (loop generator acc))))))))
 
 (define-public (index-map f . lsts)
-"Applies @var{f} to corresponding elements of @var{lists}, just as @code{map},
+  "Applies @var{f} to corresponding elements of @var{lists}, just as @code{map},
 providing an additional counter starting at zero.  @var{f} needs to have the
 counter in its arguments.  For example:
 
@@ -700,15 +700,15 @@ counter in its arguments.  For example:
              (format #f \"~s is the element at index ~a\" elt i))
            '(a b c d e))
 @end example"
-   (let loop ((lsts lsts)
-              (acc '())
-              (i 0))
-     (if (any null? lsts)
-         (reverse! acc)
-         (loop (map cdr lsts)
-               (cons (apply f i (map car lsts))
-                     acc)
-               (1+ i)))))
+  (let loop ((lsts lsts)
+             (acc '())
+             (i 0))
+    (if (any null? lsts)
+        (reverse! acc)
+        (loop (map cdr lsts)
+              (cons (apply f i (map car lsts))
+                    acc)
+              (1+ i)))))
 
 (define-public (fold-values proc lst . inits)
   "A variant of @code{fold} that works on one list only, but allows

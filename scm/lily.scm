@@ -852,11 +852,11 @@ determines the number of scale steps that make up an octave.  Usually the
 
 
 (define type-p-name-alist
-      (append r5rs-primary-predicates
-              r5rs-secondary-predicates
-              guile-predicates
-              lilypond-scheme-predicates
-              lilypond-exported-predicates))
+  (append r5rs-primary-predicates
+          r5rs-secondary-predicates
+          guile-predicates
+          lilypond-scheme-predicates
+          lilypond-exported-predicates))
 
 ;; Undead objects that should be ignored after the first time round
 (define gc-zombies

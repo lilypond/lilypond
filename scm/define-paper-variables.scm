@@ -36,9 +36,9 @@
 ;;;     below.
 
 
-;;
-;; a
-;;
+    ;;
+    ;; a
+    ;;
     (annotate-spacing ,boolean? "If this value is set to @code{#t},
 dimensions of vertical layout variables that may be altered for page
 formatting are graphically displayed.  Default: @code{#f}.")
@@ -48,9 +48,9 @@ affected by the first page number being odd or even.  If set to
 number.  This results in the first page number remaining as is or
 being increased by one.  Default: @code{#f}.")
 
-;;
-;; b
-;;
+    ;;
+    ;; b
+    ;;
     (binding-offset ,number? "This amount gets added to
 @code{inner-margin} so that nothing is hidden by the binding.  Has
 only an effect if @code{two-sided} is set to @code{#t}.  Default:
@@ -89,9 +89,9 @@ bottom of the printable area and the bottom of the page.  Default:
 @dfn{desktop publishing point} (DTP point).  It is 1/72 of an inch,
 approx.@: 0.353@dmn{mm} (0.0138@dmn{in}).")
 
-;;
-;; c
-;;
+    ;;
+    ;; c
+    ;;
     (check-consistency ,boolean? "If set to @code{#t}, print a
 warning if the left margin, line width, and right margin do not
 exactly add up to @code{paper-width}, and replace each of
@@ -120,9 +120,9 @@ Has only an effect if LilyPond's command-line option
     (cm ,positive-number? "The centimeter unit, approx.@:
 0.39@dmn{in}.")
 
-;;
-;; d
-;;
+    ;;
+    ;; d
+    ;;
     (debug-beam-scoring ,boolean? "If set to @code{#t}, print demerits
 together with their cause, followed by the number of configurations
 that have been scored before concluding.  Default: @code{#f}.
@@ -206,9 +206,9 @@ Demerits are configurable, see @rinternals{tie-interface} for a
 list of tunable parameters.")
     (dimension-variables ,list? "Internal.")
 
-;;
-;; e
-;;
+    ;;
+    ;; e
+    ;;
     (evenFooterMarkup ,markup? "The footer markup used for
 even-numbered pages.  If not set, @code{oddFooterMarkup} is used
 instead.  The default value is defined in file @file{titling-init.ly}.")
@@ -216,9 +216,9 @@ instead.  The default value is defined in file @file{titling-init.ly}.")
 even-numbered pages.  If not set, @code{oddHeaderMarkup} is used
 instead.  The default value is defined in file @file{titling-init.ly}.")
 
-;;
-;; f
-;;
+    ;;
+    ;; f
+    ;;
     (first-page-number ,integer? "The value of the page number on the
 first page.  Default:@tie{}1.")
     (footnote-footer-padding ,number? "The padding between the footer
@@ -250,17 +250,17 @@ Default: 0.5@dmn{mm}.")
 from the footnotes, usually a horizontal line.  The default value is
 defined in file @file{paper-defaults-init.ly}.")
 
-;;
-;; h
-;;
+    ;;
+    ;; h
+    ;;
     (horizontal-shift ,number? "If set, the main content block of all
 pages (but not headers and footers) is shifted horizontally.  Positive
 values shift to the right (on both even and odd pages).  Default:
 0@dmn{mm}.")
 
-;;
-;; i
-;;
+    ;;
+    ;; i
+    ;;
     (in ,positive-number? "The inch unit, equal to 2.54@dmn{cm}.")
     (incipit-width ,positive-number? "The width of an incipit as
 created by the @code{\\incipit} command.  Must be smaller than or
@@ -283,9 +283,9 @@ Default: 0.5@dmn{mm}.")
 and the associated music system.  Default: 0.5@dmn{mm}.")
     (is-last-bookpart ,boolean? "To be documented.")
 
-;;
-;; l
-;;
+    ;;
+    ;; l
+    ;;
     (label-alist-table ,list? "Internal.  LilyPond uses this to
 construct a table of contents.")
     (label-page-table ,alist? "Internal.  LilyPond uses this to
@@ -333,9 +333,9 @@ might cause a little bit of whitespace at the right margin.  To
 avoid that, set @code{line-width} to an integer big point value
 like @code{450\\bp}.")
 
-;;
-;; m
-;;
+    ;;
+    ;; m
+    ;;
     (make-footer ,procedure? "Internal.  This is what LilyPond
 actually uses for for handling @code{evenFooterMarkup} and
 @code{oddFooterMarkup}.")
@@ -358,15 +358,15 @@ made too large.  This is currently supported only by the
     (mm ,positive-number? "The millimeter unit, approx.@:
 0.039@dmn{in}.")
 
-;;
-;; n
-;;
+    ;;
+    ;; n
+    ;;
     (number-footnote-table ,list? "Internal.  LilyPond uses this to
 manage footnotes and footnote numbers.")
 
-;;
-;; o
-;;
+    ;;
+    ;; o
+    ;;
     (oddFooterMarkup ,markup? "The footer markup used for
 odd-numbered pages.  The default value is defined in file
 @file{titling-init.ly}.")
@@ -395,9 +395,9 @@ suffix if there is only a single book block (either implicit or
 explicit), and a running integer starting with value@tie{}1
 otherwise.")
 
-;;
-;; p
-;;
+    ;;
+    ;; p
+    ;;
     (page-breaking ,procedure? "The page-breaking algorithm to use.
 Choices are @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
 @code{ly:one-page-breaking}, @code{ly:one-line-breaking},
@@ -463,9 +463,9 @@ skip.  The default value is defined in file
     (pt ,positive-number? "The point unit, equal to approx.@:
 0.351@dmn{mm} (0.0139@dmn{in}).")
 
-;;
-;; r
-;;
+    ;;
+    ;; r
+    ;;
     (ragged-bottom ,boolean? "If set to @code{#t}, systems are set at
 at their natural spacing, neither compressed nor stretched vertically
 to fit the page.  Default: @code{#f}.")
@@ -498,9 +498,9 @@ in computations.  Default: unset.
 If @code{two-sided} is set to @code{#t}, this value is ignored.  Also
 see @code{check-consistency}.")
 
-;;
-;; s
-;;
+    ;;
+    ;; s
+    ;;
     (score-markup-spacing ,alist? "The distance between the last
 system of a score and the (title or top-level) markup that follows it.
 The default value is defined in file @file{paper-defaults-init.ly}.")
@@ -539,9 +539,9 @@ Default: unset.")
 in the same score.  The default value is defined in file
 @file{paper-defaults-init.ly}.")
 
-;;
-;; t
-;;
+    ;;
+    ;; t
+    ;;
     (tagline ,markup? "This markup gets placed at the bottom of the
 last page (via @code{oddFooterMarkup}).  The default value is defined
 in file @file{titling-init.ly}.")
@@ -581,4 +581,4 @@ determine margins depending on whether the page number is odd or even.
 @code{left-margin} and @code{right-margin} are then ignored.  Default:
 @code{#f}.")
 
-     ))
+    ))
