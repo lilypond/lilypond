@@ -4,22 +4,22 @@ build-dir := $(realpath  . )
 tree-dir = $(build-dir:$(top-build-dir)%=%)
 
 ifneq ($(configure-srcdir),.)
-srcdir-build = 1
+  srcdir-build = 1
 endif
 
 ifndef srcdir-build
-src-depth = $(depth)
+  src-depth = $(depth)
 else
-src-depth = $(configure-srcdir)
+  src-depth = $(configure-srcdir)
 endif
 
 top-src-dir := $(realpath $(src-depth))
 
 ifndef srcdir-build
-src-dir = .
+  src-dir = .
 else
-src-dir = $(top-src-dir)$(tree-dir)
-VPATH = $(src-dir)
+  src-dir = $(top-src-dir)$(tree-dir)
+  VPATH = $(src-dir)
 endif
 
 abs-src-dir = $(top-src-dir)$(tree-dir)
@@ -43,31 +43,33 @@ po-outdir = $(depth)/po/$(outdir)
 # stepmake package support.
 DEPTH = $(depth)/$(package-depth)
 
-INSTALLPY=$(PYTHON) $(buildscript-dir)/install.py $(INSTALLPY_QUIET) -c
+INSTALLPY = $(PYTHON) $(buildscript-dir)/install.py $(INSTALLPY_QUIET) -c
 
 package-icon = $(outdir)/$(package)-icon.xpm
 
 ifneq ($(strip $(MY_PATCH_LEVEL)),)
-VERSION=$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL).$(MY_PATCH_LEVEL)
+  VERSION = $(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL).$(MY_PATCH_LEVEL)
 else
-VERSION=$(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL)
+  VERSION = $(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL)
 endif
 
 ifneq ($(strip $(TOPLEVEL_MY_PATCH_LEVEL)),)
-TOPLEVEL_VERSION=$(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL).$(TOPLEVEL_MY_PATCH_LEVEL)
+  TOPLEVEL_VERSION = \
+    $(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL).$(TOPLEVEL_MY_PATCH_LEVEL)
 else
-TOPLEVEL_VERSION=$(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)
+  TOPLEVEL_VERSION = \
+    $(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)
 endif
 
 
 # no locale settings in the build process.
-LANG=C
+LANG = C
 export LANG
 
 
-# texi2html iterates over section headers stored as entries of a map.
+# texi2any iterates over section headers stored as entries of a map.
 # Disable Perl's hash randomization to make the order reproducible.
-PERL_HASH_SEED=0
+PERL_HASH_SEED = 0
 export PERL_HASH_SEED
 
 
@@ -85,11 +87,13 @@ INCLUDES = $(src-dir)/include $(outdir) $(MODULE_INCLUDES)
 # $(2) is a list of targets
 define make_subdirs
 #       enforce order to avoid surprises due to implicit dependencies
-	[ "$(1)" = "$(filter $(1),$(SUBDIRS))" ] || (echo "*** {$(1)} is not a subset of ordered set {$(SUBDIRS)}" 1>&2 && false)
+	[ "$(1)" = "$(filter $(1),$(SUBDIRS))" ] \
+	|| (echo "*** {$(1)} is not a subset of ordered set {$(SUBDIRS)}" 1>&2 \
+	    && false)
 	+$(foreach d, $(1), $(MAKE) -C $(d) $(2) &&) true
 endef
 
-LOOP=+$(foreach i, $(SUBDIRS), $(MAKE) -C $(i) $@ &&) true
+LOOP = +$(foreach i, $(SUBDIRS), $(MAKE) -C $(i) $@ &&) true
 
 ETAGS_FLAGS =
 CTAGS_FLAGS =
@@ -105,7 +109,7 @@ auxpython-dir = $(src-depth)/python/auxiliar
 auxscript-dir = $(src-depth)/scripts/auxiliar
 script-dir = $(src-depth)/scripts
 
-export PYTHONPATH:=$(auxpython-dir):$(PYTHONPATH)
+export PYTHONPATH := $(auxpython-dir):$(PYTHONPATH)
 
 TEXI2ANY_FLAGS += --enable-encoding --error-limit=0
 TEXI2ANY = LANG=C $(TEXI2ANY_PROGRAM) $(TEXI2ANY_FLAGS)
