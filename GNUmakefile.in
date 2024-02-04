@@ -177,11 +177,27 @@ $(outdir)/%-root/index.html: doc-build
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "$*"
 	find $(outdir)/$*-root -type l | xargs rm -f
 	cd $(outdir)/$*-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
-	$(PERL) -i -pe 's#(href)="\.\./Documentation/#\1="#g' $(dir $@)/Documentation/*html
-	$(PERL) -i -pe 's#(href)="\.\./\.\./Documentation/#\1="../#g' $(dir $@)/Documentation/*/*html
-	# Fixup links to CSS files.
-	$(PERL) -i -pe 's#(href)="css/#\1="../../Documentation/css/#g' $(dir $@)/input/regression/*html
-	$(PERL) -i -pe 's#(href)="css/#\1="../../../Documentation/css/#g' $(dir $@)/input/regression/*/*html
+	find $(dir $@)/Documentation \
+	     -maxdepth 1 \
+	     -name "*html" | \
+		xargs $(PERL) -i -p \
+			-e 's#(href)="\.\./Documentation/#\1="#g'
+	find $(dir $@)/Documentation \
+	     -mindepth 2 -maxdepth 2 \
+	     -name "*html" | \
+		xargs $(PERL) -i -p \
+			-e 's#(href)="\.\./\.\./Documentation/#\1="../#g'
+	# Fix up links to CSS files.
+	find $(dir $@)/input/regression \
+	     -maxdepth 1 \
+	     -name "*html" | \
+		xargs $(PERL) -i -p \
+			-e 's#(href)="css/#\1="../../Documentation/css/#g'
+	find $(dir $@)/input/regression \
+	     -mindepth 2 -maxdepth 2 \
+	     -name "*html" | \
+		xargs $(PERL) -i -p \
+			-e 's#(href)="css/#\1="../../../Documentation/css/#g'
 
 doc-build: top-doc
 	$(MAKE) out=www -C Documentation/ doc
