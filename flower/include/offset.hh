@@ -62,14 +62,6 @@ public:
     return *this;
   }
 
-  Offset &scale (Offset o)
-  {
-    (*this)[X_AXIS] *= o[X_AXIS];
-    (*this)[Y_AXIS] *= o[Y_AXIS];
-
-    return *this;
-  }
-
   Offset &operator/= (Real a)
   {
     (*this) *= 1 / a;

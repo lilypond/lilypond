@@ -95,15 +95,21 @@ respective coordinates are scaled independently, useful for ellipse drawings.
       LY_ASSERT_TYPE (scm_is_number, direction, 1);
       res = offset_directed (from_scm<double> (direction));
     }
-  if (SCM_UNBNDP (magnitude))
-    return to_scm (res);
-  if (scm_is_pair (magnitude))
+  if (!SCM_UNBNDP (magnitude))
     {
-      LY_ASSERT_TYPE (is_number_pair, magnitude, 2);
-      return to_scm (res.scale (from_scm<Offset> (magnitude)));
+      if (scm_is_pair (magnitude))
+        {
+          LY_ASSERT_TYPE (is_number_pair, magnitude, 2);
+          res[X_AXIS] *= from_scm<double> (scm_car (magnitude));
+          res[Y_AXIS] *= from_scm<double> (scm_cdr (magnitude));
+        }
+      else
+        {
+          LY_ASSERT_TYPE (scm_is_number, magnitude, 2);
+          res *= from_scm<double> (magnitude);
+        }
     }
-  LY_ASSERT_TYPE (scm_is_number, magnitude, 2);
-  return to_scm (from_scm<double> (magnitude) * res);
+  return to_scm (res);
 }
 
 /*

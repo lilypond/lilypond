@@ -102,8 +102,8 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
           SCM args = scm_cadr (expr);
           SCM x_scale = scm_car (args);
           SCM y_scale = scm_cadr (args);
-          Offset unscaled = o.scale (Offset (1 / from_scm<double> (x_scale),
-                                             1 / from_scm<double> (y_scale)));
+          Offset unscaled (o[X_AXIS] / from_scm<double> (x_scale),
+                           o[Y_AXIS] / from_scm<double> (y_scale));
 
           sink->output (ly_list (ly_symbol2scm ("setscale"), x_scale, y_scale));
           interpret_stencil_expression (scm_caddr (expr), sink, unscaled);

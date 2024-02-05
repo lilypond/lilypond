@@ -173,7 +173,9 @@ add_partial_ellipse_segments (Lazy_skyline_pair *skyline,
     {
       Real ang = linear_interpolate (
         static_cast<Real> (i), 0, static_cast<Real> (quantization), start, end);
-      Offset pt (offset_directed (ang).scale (rad));
+      Offset pt (offset_directed (ang));
+      pt[X_AXIS] *= rad[X_AXIS];
+      pt[Y_AXIS] *= rad[Y_AXIS];
       if (i > 0)
         skyline->add_segment (transform, last, pt, th);
       else
@@ -245,7 +247,6 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
       /* draw rounded corners */
       if (radius)
         {
-          Offset rad (radius, radius);
           Drul_array<Real> cx;
           Drul_array<Real> cy;
 
@@ -263,7 +264,8 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
                     Real ang = linear_interpolate (
                       static_cast<Real> (i), 0,
                       static_cast<Real> (quantization), 0., 90.);
-                    Offset pt (offset_directed (ang).scale (rad));
+                    Offset pt (offset_directed (ang));
+                    pt *= radius;
                     Offset inter (cx[h] + h * pt[X_AXIS],
                                   cy[v] + v * pt[Y_AXIS]);
 
