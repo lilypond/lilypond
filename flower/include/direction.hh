@@ -57,7 +57,7 @@ public:
 
   // Direction is copiable
   Direction (const Direction &) = default;
-  Direction &operator= (const Direction &) = default;
+  Direction &operator= (const Direction &) & = default;
 
   // Implicit conversion to int keeps legacy code working, but it has its
   // quirks.  All of these are true:
@@ -81,7 +81,7 @@ public:
     return Direction (val_ * other.val_);
   }
 
-  constexpr Direction &operator*= (Direction other)
+  constexpr Direction &operator*= (Direction other) &
   {
     return (*this = (*this) * other);
   }

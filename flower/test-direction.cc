@@ -82,19 +82,6 @@ static_assert (POSI * POSI == POSI);
 static_assert (directed_same (POSI * POSI, POSI),
                "(Direction * Direction) should yield a Direction");
 
-static_assert ((Direction (NEGA) *= NEGA) == POSI);
-static_assert ((Direction (NEGA) *= ZERO) == ZERO);
-static_assert ((Direction (NEGA) *= POSI) == NEGA);
-static_assert ((Direction (ZERO) *= NEGA) == ZERO);
-static_assert ((Direction (ZERO) *= ZERO) == ZERO);
-static_assert ((Direction (ZERO) *= POSI) == ZERO);
-static_assert ((Direction (POSI) *= NEGA) == NEGA);
-static_assert ((Direction (POSI) *= ZERO) == ZERO);
-static_assert ((Direction (POSI) *= POSI) == POSI);
-
-static_assert (directed_same ((Direction (POSI) *= POSI), POSI),
-               "(Direction *= Direction) should yield a Direction");
-
 // multiplication by an int
 
 static_assert (-3 * NEGA == 3);
@@ -186,9 +173,30 @@ public:
   static constexpr void test_copy_assign ()
   {
     const Direction D (7);
-    Direction d;
-    d = D;
-    EQUAL (d, POSI);
+    Direction d1;
+    auto &d2 = d1 = D;
+    EQUAL (&d1, &d2);
+    EQUAL (d1, POSI);
+  }
+
+  static constexpr void test_mul_assign ()
+  {
+    auto mul = [] (Direction lhs, Direction rhs) {
+      auto d1 = lhs;
+      auto &d2 = d1 *= rhs;
+      EQUAL (&d1, &d2);
+      return d1;
+    };
+
+    EQUAL (mul (NEGA, NEGA), POSI);
+    EQUAL (mul (NEGA, ZERO), ZERO);
+    EQUAL (mul (NEGA, POSI), NEGA);
+    EQUAL (mul (ZERO, NEGA), ZERO);
+    EQUAL (mul (ZERO, ZERO), ZERO);
+    EQUAL (mul (ZERO, POSI), ZERO);
+    EQUAL (mul (POSI, NEGA), NEGA);
+    EQUAL (mul (POSI, ZERO), ZERO);
+    EQUAL (mul (POSI, POSI), POSI);
   }
 
   static int test_switch (Direction d)
@@ -218,6 +226,8 @@ public:
 static_assert ((Direction_test::test_copy_construct (), true));
 
 static_assert ((Direction_test::test_copy_assign (), true));
+
+static_assert ((Direction_test::test_mul_assign (), true));
 
 TEST (Direction_test, init_float)
 {
