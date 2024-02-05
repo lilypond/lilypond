@@ -166,14 +166,14 @@ compare (Rational const &r, Rational const &s)
 }
 
 Rational &
-Rational::operator%= (Rational r)
+Rational::operator%= (Rational r) &
 {
   *this = mod_rat (r);
   return *this;
 }
 
 Rational &
-Rational::operator+= (Rational r)
+Rational::operator+= (Rational r) &
 {
   if (r.sign_ == 0)
     ;
@@ -250,7 +250,7 @@ Rational::Rational (double x)
 }
 
 Rational &
-Rational::operator*= (Rational r)
+Rational::operator*= (Rational r) &
 {
   sign_ *= sign (r.sign_);
   if (isinf (r))
@@ -268,7 +268,7 @@ exit_func:
 }
 
 Rational &
-Rational::operator/= (Rational r)
+Rational::operator/= (Rational r) &
 {
   if (isinf (r))
     {
@@ -294,7 +294,7 @@ Rational::negate ()
 }
 
 Rational &
-Rational::operator-= (Rational r)
+Rational::operator-= (Rational r) &
 {
   r.negate ();
   return (*this += r);

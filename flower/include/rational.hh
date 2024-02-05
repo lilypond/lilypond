@@ -113,13 +113,13 @@ public:
 
   explicit Rational (double);
   Rational (Rational const &r) = default;
-  Rational &operator= (Rational const &r) = default;
+  Rational &operator= (Rational const &r) & = default;
 
-  Rational &operator*= (Rational);
-  Rational &operator/= (Rational);
-  Rational &operator+= (Rational);
-  Rational &operator-= (Rational);
-  Rational &operator%= (Rational);
+  Rational &operator*= (Rational) &;
+  Rational &operator/= (Rational) &;
+  Rational &operator+= (Rational) &;
+  Rational &operator-= (Rational) &;
+  Rational &operator%= (Rational) &;
   static int compare (Rational const &, Rational const &);
   std::string to_string () const;
 

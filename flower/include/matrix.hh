@@ -22,6 +22,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <utility>
 #include <vector>
 
 template <class T, class A = std::allocator<T>>
@@ -39,14 +40,14 @@ public:
   {
   }
 
-  const T &at (size_type row, size_type col) const
+  const T &at (size_type row, size_type col) const &
   {
     assert (row < rows_ && col * rows_ + row < data_.size ());
 
     return data_[col * rows_ + row];
   }
 
-  T &at (size_type row, size_type col)
+  T &at (size_type row, size_type col) &
   {
     assert (row < rows_ && col * rows_ + row < data_.size ());
 

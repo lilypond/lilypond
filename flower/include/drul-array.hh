@@ -48,41 +48,41 @@ public:
   constexpr Drul_array (Drul_array &&) = default;
   ~Drul_array () = default; // N.B. non-virtual
 
-  Drul_array &operator= (const Drul_array &) = default;
-  Drul_array &operator= (Drul_array &&) = default;
+  Drul_array &operator= (const Drul_array &) & = default;
+  Drul_array &operator= (Drul_array &&) & = default;
 
-  constexpr T &at (Direction d)
+  constexpr T &at (Direction d) &
   {
     assert (d);
     return array_[d > CENTER];
   }
 
-  constexpr T const &at (Direction d) const
+  constexpr T const &at (Direction d) const &
   {
     assert (d);
     return array_[d > CENTER];
   }
 
-  constexpr T &operator[] (Direction d) { return at (d); }
+  constexpr T &operator[] (Direction d) & { return at (d); }
 
-  constexpr T const &operator[] (Direction d) const { return at (d); }
+  constexpr T const &operator[] (Direction d) const & { return at (d); }
 
-  constexpr T &front () // at (Direction::negative ())
+  constexpr T &front () & // at (Direction::negative ())
   {
     return array_[0];
   }
 
-  constexpr T const &front () const // at (Direction::negative ())
+  constexpr T const &front () const & // at (Direction::negative ())
   {
     return array_[0];
   }
 
-  constexpr T &back () // at (Direction::positive ())
+  constexpr T &back () & // at (Direction::positive ())
   {
     return array_[1];
   }
 
-  constexpr T const &back () const // at (Direction::positive ())
+  constexpr T const &back () const & // at (Direction::positive ())
   {
     return array_[1];
   }

@@ -34,11 +34,11 @@ class Offset
 public:
   Real coordinate_a_[NO_AXES];
 
-  Real &operator[] (Axis i) { return coordinate_a_[i]; }
+  Real &operator[] (Axis i) & { return coordinate_a_[i]; }
 
-  Real operator[] (Axis i) const { return coordinate_a_[i]; }
+  Real const &operator[] (Axis i) const & { return coordinate_a_[i]; }
 
-  Offset &operator+= (Offset o)
+  Offset &operator+= (Offset o) &
   {
     (*this)[X_AXIS] += o[X_AXIS];
     (*this)[Y_AXIS] += o[Y_AXIS];
@@ -54,7 +54,7 @@ public:
     return o;
   }
 
-  Offset &operator-= (Offset o)
+  Offset &operator-= (Offset o) &
   {
     (*this)[X_AXIS] -= o[X_AXIS];
     (*this)[Y_AXIS] -= o[Y_AXIS];
@@ -62,13 +62,13 @@ public:
     return *this;
   }
 
-  Offset &operator/= (Real a)
+  Offset &operator/= (Real a) &
   {
     (*this) *= 1 / a;
     return *this;
   }
 
-  Offset &operator*= (Real a)
+  Offset &operator*= (Real a) &
   {
     (*this)[X_AXIS] *= a;
     (*this)[Y_AXIS] *= a;
@@ -86,7 +86,7 @@ public:
 
   std::string to_string () const;
 
-  Offset &mirror (Axis a)
+  Offset &mirror (Axis a) &
   {
     coordinate_a_[a] = -coordinate_a_[a];
     return *this;
@@ -97,7 +97,7 @@ public:
   Real angle_degrees () const;
   Real length () const;
   bool is_sane () const;
-  Offset operator*= (Offset z2);
+  Offset &operator*= (Offset z2) &;
 
   /*
     Gets an orthogonal vector with same size to orig, pointing left
@@ -117,8 +117,8 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Offset, *);
 Offset complex_multiply (Offset, Offset);
 Offset offset_directed (Real);
 
-inline Offset
-Offset::operator*= (Offset z2)
+inline Offset &
+Offset::operator*= (Offset z2) &
 {
   *this = complex_multiply (*this, z2);
   return *this;

@@ -64,9 +64,9 @@ public:
       priority might fuck up the invariants
 
       @param 1 <= i < size () */
-  T &operator[] (size_type i) { return heap_array_[i]; }
-  T const &operator[] (size_type i) const { return heap_array_[i]; }
-  T const &front () const { return heap_array_.front (); }
+  T &operator[] (size_type i) & { return heap_array_[i]; }
+  T const &operator[] (size_type i) const & { return heap_array_[i]; }
+  T const &front () const & { return heap_array_.front (); }
   size_type size () const { return heap_array_.size (); }
   void insert (T v)
   {

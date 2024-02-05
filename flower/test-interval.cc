@@ -57,19 +57,19 @@ public:
   static constexpr M infinity () { return M (100); }
 
   // assignment
-  M &operator= (const M &) = default;
-  M &operator= (M &&) = default;
+  M &operator= (const M &) & = default;
+  M &operator= (M &&) & = default;
 
   // negation
   friend constexpr M operator- (M a) { return M (-a.v_); }
 
   // addition
-  M &operator+= (M b)
+  M &operator+= (M b) &
   {
     v_ += b.v_;
     return *this;
   }
-  M &operator-= (M b)
+  M &operator-= (M b) &
   {
     v_ -= b.v_;
     return *this;

@@ -83,7 +83,7 @@ public:
 
   // If t lies outside this interval to the left or the right, return left ()
   // or right () respectively; otherwise, return a reference to t.
-  constexpr T const &clamp (T const &t) const
+  constexpr T const &clamp (T const &t) const &
   {
     if (!is_empty ())
       {
@@ -97,9 +97,9 @@ public:
     return t;
   }
 
-  T &left () { return base_type::front (); }
+  constexpr T &left () & { return base_type::front (); }
 
-  constexpr T const &left () const { return base_type::front (); }
+  constexpr T const &left () const & { return base_type::front (); }
 
   // Given x in [-1.0, 1.0], interpolate linearly between the left and right
   // bounds of this Interval.  For other values, extrapolate linearly.
@@ -110,12 +110,12 @@ public:
   // and +1 at the right.  This is the inverse of linear_combination ().
   Real inverse_linear_combination (const T &t) const;
 
-  T &right () { return base_type::back (); }
+  constexpr T &right () & { return base_type::back (); }
 
-  constexpr T const &right () const { return base_type::back (); }
+  constexpr T const &right () const & { return base_type::back (); }
 
   template <typename T2>
-  Interval_t<T> &translate (const T2 &t)
+  Interval_t<T> &translate (const T2 &t) &
   {
     return *this += t;
   }
@@ -212,14 +212,14 @@ public:
   constexpr bool is_empty () const { return left () > right (); }
 
   template <typename T2>
-  Interval_t<T> &operator-= (T2 r)
+  Interval_t<T> &operator-= (T2 r) &
   {
     *this += -r;
     return *this;
   }
 
   template <typename T2>
-  Interval_t<T> &operator+= (const T2 &r)
+  Interval_t<T> &operator+= (const T2 &r) &
   {
     left () += r;
     right () += r;
@@ -227,7 +227,7 @@ public:
   }
 
   template <class Factor>
-  Interval_t<T> &operator*= (Factor r)
+  Interval_t<T> &operator*= (Factor r) &
   {
     if (!is_empty ())
       {

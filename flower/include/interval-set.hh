@@ -31,7 +31,7 @@ public:
 
   static Interval_set interval_union (std::vector<Interval>);
 
-  std::vector<Interval> const &intervals () const { return intervals_; }
+  std::vector<Interval> const &intervals () const & { return intervals_; }
   std::vector<Interval>::const_iterator upper_bound (Real x) const;
   Real nearest_point (Real x, Direction dir = CENTER) const;
   Interval_set complement () const;
