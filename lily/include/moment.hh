@@ -66,25 +66,25 @@ public:
 
   Moment operator- () const;
 
-  Moment &operator+= (Moment const &m);
-  Moment &operator-= (Moment const &m);
+  Moment &operator+= (Moment const &m) &;
+  Moment &operator-= (Moment const &m) &;
 
   friend Moment operator+ (Moment a, Moment const &b) { return a += b; }
   friend Moment operator- (Moment a, Moment const &b) { return a -= b; }
 
-  Moment &operator+= (Rational const &r)
+  Moment &operator+= (Rational const &r) &
   {
     main_part_ += r;
     return *this;
   }
-  Moment &operator-= (Rational const &r)
+  Moment &operator-= (Rational const &r) &
   {
     main_part_ -= r;
     return *this;
   }
-  Moment &operator*= (Rational const &); // affects main and grace parts
-  Moment &operator/= (Rational const &); // affects main and grace parts
-  Moment &operator%= (Rational const &); // affects main and grace parts
+  Moment &operator*= (Rational const &) &; // affects main and grace parts
+  Moment &operator/= (Rational const &) &; // affects main and grace parts
+  Moment &operator%= (Rational const &) &; // affects main and grace parts
 
   friend Moment operator+ (Moment m, Rational const &r) { return m += r; }
   friend Moment operator- (Moment m, Rational const &r) { return m -= r; }
