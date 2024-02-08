@@ -63,21 +63,21 @@ Transform::Transform (Real angle, Offset center)
 }
 
 Transform &
-Transform::concat (const Transform &t)
+Transform::concat (const Transform &t) &
 {
   pango_matrix_concat (&m_, &t.m_);
   return *this;
 }
 
 Transform &
-Transform::translate (Offset p)
+Transform::translate (Offset p) &
 {
   pango_matrix_translate (&m_, p[X_AXIS], p[Y_AXIS]);
   return *this;
 }
 
 Transform &
-Transform::rotate (Real angle, Offset center)
+Transform::rotate (Real angle, Offset center) &
 {
   Transform tmp (angle, center);
   return concat (tmp);
@@ -100,7 +100,7 @@ Transform::print_smob (SCM p, scm_print_state *) const
 }
 
 Transform &
-Transform::scale (Real xscale, Real yscale)
+Transform::scale (Real xscale, Real yscale) &
 {
   pango_matrix_scale (&m_, xscale, yscale);
   return *this;
@@ -120,7 +120,9 @@ Transform::operator() (const Transform &t) const
   // there is no allocation happening inside of this routine, so the
   // lack of garbage protection for the incoming argument should not
   // prove an issue.
-  return Transform (*this).concat (t);
+  Transform result (*this);
+  result.concat (t);
+  return result;
 }
 
 Offset
