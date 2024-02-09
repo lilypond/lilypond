@@ -1583,7 +1583,8 @@ print a warning and set an optional @var{default}."
 
 (define-public scm->string
   (let ((newline-and-space-regex (ly:make-regex "\n "))
-        (procedure-hex-at-regex (ly:make-regex "#<procedure [0-9a-f]+ at")))
+        (procedure-hex-at-regex
+         (ly:make-regex "#<procedure [0-9a-f]+ at .*/([^/]+/[^/]+.scm:)")))
     (lambda (val)
       (let* ((quote-style (if (string? val)
                               'double
@@ -1596,7 +1597,9 @@ print a warning and set an optional @var{default}."
                                   'none)))
              ;; Try to not confuse users with #<procedure ...> syntax, if the
              ;; procedure has a name. If it cannot be avoided, remove the
-             ;; hexadecimal address to ensure reproducible builds.
+             ;; hexadecimal address to ensure reproducible builds, also
+             ;; shortening the path to only show the file name and its
+             ;; containing directory.
              (str (cond
                    ((and (procedure? val) (symbol? (procedure-name val)))
                     (symbol->string (procedure-name val)))
@@ -1612,7 +1615,7 @@ print a warning and set an optional @var{default}."
                                                              ((single) 63)
                                                              (else 64))))
                           (lambda (port) (display val port))))
-                     "#<procedure at")))))
+                     "#<procedure at " 1)))))
         (case quote-style
           ((single) (string-append
                      "'"
