@@ -406,6 +406,7 @@ $(outdir)/lilypond-%.info: \
   $(outdir)/version.itexi \
   $(outdir)/weblinks.itexi
 	$(call ly_progress,Making,$@,< texi)
+	$(UPDATE_IMAGE_SYMLINKS)
 	$(buildscript-dir)/run-and-check.sh \
 \
 "$(TEXI2ANY) --info \
@@ -414,13 +415,13 @@ $(outdir)/lilypond-%.info: \
    $<" \
 \
 	  "$(outdir)/$*.texi2any-info.log"
-	$(UPDATE_IMAGE_SYMLINKS)
 
 $(outdir)/music-glossary.info: \
   $(outdir)/en/music-glossary.texi \
   $(outdir)/version.itexi \
   $(outdir)/weblinks.itexi
 	$(call ly_progress,Making,$@,< texi)
+	$(UPDATE_IMAGE_SYMLINKS)
 	$(buildscript-dir)/run-and-check.sh \
 \
 "$(TEXI2ANY) --info \
@@ -429,7 +430,6 @@ $(outdir)/music-glossary.info: \
    $<" \
 \
 	  "$(outdir)/music-glossary.texi2any-info.log"
-	$(UPDATE_IMAGE_SYMLINKS)
 
 $(outdir)/%.pdf: \
   $(outdir)/%.texi \
