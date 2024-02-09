@@ -1862,8 +1862,8 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 * Overview of modifying properties::
 * Set and unset::
 * Override and revert::
-* Set versus override::
 * The once command::
+* Set versus override::
 * Tweak and single::
 * The offset command::
 * Modifying alists::

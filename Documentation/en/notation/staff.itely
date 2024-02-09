@@ -1736,7 +1736,7 @@ to produce the sounding pitches of the source instrument.
 To transpose cue notes differently, use
 @code{\transposedCueDuring}.  This command takes an extra argument
 to specify (in absolute mode) the printed pitch that you want to
-represent the sound of a concert middle C.  This is useful for
+represent the sound of a concert middle@tie{}C.  This is useful for
 taking cues from an instrument in a completely different register.
 
 @lilypond[verbatim,quote]

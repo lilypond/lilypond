@@ -362,7 +362,7 @@ A string, which is output as-is.
 
 @item
 A non-negative integer, which is interpreted as a match substring
-index (see @code{ly:regex-match-substring}.
+index (see @code{ly:regex-match-substring}).
 
 @item
 A procedure, which is called on the match object, and should return
