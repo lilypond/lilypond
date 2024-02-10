@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.12\n"
+"Project-Id-Version: lilypond 2.25.13\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2024-01-07 10:49+0100\n"
+"POT-Creation-Date: 2024-02-10 09:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1897,22 +1897,22 @@ msgstr ""
 msgid "cannot find font '%s' (search path: %s)"
 msgstr ""
 
-#: all-font-metrics.cc:307 font-config.cc:97
+#: all-font-metrics.cc:309 font-config.cc:97
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr ""
 
-#: all-font-metrics.cc:309 font-config.cc:99
+#: all-font-metrics.cc:311 font-config.cc:99
 #, c-format
 msgid "Adding font directory: %s"
 msgstr ""
 
-#: all-font-metrics.cc:319
+#: all-font-metrics.cc:321
 #, c-format
 msgid "failed adding font file: %s"
 msgstr ""
 
-#: all-font-metrics.cc:321
+#: all-font-metrics.cc:323
 #, c-format
 msgid "Adding font file: %s"
 msgstr ""
@@ -2856,7 +2856,7 @@ msgstr ""
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:528
+#: main.cc:524
 msgid "The --relocate option is no longer relevant."
 msgstr ""
 
@@ -3327,26 +3327,26 @@ msgstr ""
 msgid "no glyph for character '%s' (U+%04X%s) in font `%s'"
 msgstr ""
 
-#: pango-font.cc:287
+#: pango-font.cc:295
 #, c-format
 msgid ""
 "Glyph has no name, but font supports glyph naming.\n"
 "Skipping glyph U+%04X, file %s"
 msgstr ""
 
-#: pango-font.cc:312
+#: pango-font.cc:320
 #, c-format
 msgid ""
 "FT_Get_CID_From_Glyph_Index () error: %s\n"
 "Skipping glyph U+%04X, file %s"
 msgstr ""
 
-#: pango-font.cc:443
+#: pango-font.cc:451
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr ""
 
-#: pango-font.cc:495
+#: pango-font.cc:503
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
@@ -3426,9 +3426,9 @@ msgstr ""
 msgid "Track..."
 msgstr ""
 
-#: performance.cc:125
+#: performance.cc:128
 #, c-format
-msgid "MIDI output to `%s'..."
+msgid "MIDI output to `%s'...\n"
 msgstr ""
 
 #: piano-pedal-engraver.cc:281
@@ -3450,23 +3450,30 @@ msgstr ""
 msgid "cannot find start of piano pedal"
 msgstr ""
 
-#: program-option-scheme.cc:266
+#: program-option-scheme.cc:323
+#, c-format
+msgid "ignoring option -d%s=\"%s\": value has wrong type"
+msgstr ""
+
+#: program-option-scheme.cc:338
+#, c-format
+msgid ""
+"ignoring option -d%s=\"%s\":\n"
+"  invalid value; possible values are %s"
+msgstr ""
+
+#: program-option-scheme.cc:371
 #, c-format
 msgid ""
 "option %s is accumulative; use ly:append-to-option instead of ly:set-option"
 msgstr ""
 
-#: program-option-scheme.cc:273
-#, c-format
-msgid "no such internal option: %s"
-msgstr ""
-
-#: program-option-scheme.cc:290
+#: program-option-scheme.cc:378 program-option-scheme.cc:399
 #, c-format
 msgid "no such program option: %s"
 msgstr ""
 
-#: program-option-scheme.cc:295
+#: program-option-scheme.cc:404
 #, c-format
 msgid ""
 "option %s is not accumulative; use ly:set-option instead of ly:add-to-option"
@@ -3701,11 +3708,11 @@ msgstr ""
 msgid "expected to read %zu characters, got %zu"
 msgstr ""
 
-#: staff-performer.cc:298
+#: staff-performer.cc:299
 msgid "MIDI channel wrapped around"
 msgstr ""
 
-#: staff-performer.cc:299
+#: staff-performer.cc:300
 msgid "remapping modulo 16"
 msgstr ""
 
@@ -4229,17 +4236,17 @@ msgstr ""
 msgid "Can't print a line - setting on/off to default"
 msgstr ""
 
-#: define-markup-commands.scm:1617
+#: define-markup-commands.scm:1652
 #, scheme-format
 msgid "unrecognized image file, should have .png or .eps extension: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:1627
+#: define-markup-commands.scm:1662
 #, scheme-format
 msgid "EPS image dimensions could not be determined; is '~a' a valid EPS file?"
 msgstr ""
 
-#: define-markup-commands.scm:1675
+#: define-markup-commands.scm:1710
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
@@ -4623,47 +4630,58 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:473
+#. Since we read from a string port, remove port name, line number,
+#. and line column from the error message.
+#: lily.scm:524
+#, scheme-format
+msgid "Ignoring option -d~a=\"~a\" due to read error: ~a"
+msgstr ""
+
+#: lily.scm:528
+msgid "end of string"
+msgstr ""
+
+#: lily.scm:561
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:548
+#: lily.scm:636
 #, scheme-format
 msgid "note scale expected: ~S"
 msgstr ""
 
-#: lily.scm:826
+#: lily.scm:914
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:827
+#: lily.scm:915
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:904
+#: lily.scm:992
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:907
+#: lily.scm:995
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:911
+#: lily.scm:999
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:924
+#: lily.scm:1012
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:957
+#: lily.scm:1045
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
@@ -4802,44 +4820,44 @@ msgstr ""
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1591
+#: music-functions.scm:1589
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1654
+#: music-functions.scm:1652
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1655
+#: music-functions.scm:1653
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:2058
+#: music-functions.scm:2056
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2544
+#: music-functions.scm:2542
 msgid "giving up on cloned grob transform"
 msgstr ""
 
-#: music-functions.scm:2607
+#: music-functions.scm:2605
 #, scheme-format
 msgid "default '~a of ~a is ~a and can't be offset"
 msgstr ""
 
-#: music-functions.scm:2638
+#: music-functions.scm:2636
 #, scheme-format
 msgid "the property '~a of ~a cannot be offset"
 msgstr ""
 
-#: music-functions.scm:2863
+#: music-functions.scm:2861
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2866
+#: music-functions.scm:2864
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
@@ -5008,12 +5026,12 @@ msgstr ""
 msgid "quoted music `~a' is empty"
 msgstr ""
 
-#: ps-to-png.scm:64
+#: ps-to-png.scm:63
 #, scheme-format
 msgid "Unknown pixmap format ~a"
 msgstr ""
 
-#: ps-to-png.scm:162
+#: ps-to-png.scm:161
 msgid "`anti-alias-factor' must be a positive integer <= 8"
 msgstr ""
 
