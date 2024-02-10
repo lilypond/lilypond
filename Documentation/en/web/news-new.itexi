@@ -9,9 +9,9 @@
 @c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
-@subheading LilyPond 2.25.12 released  @emph{January 7, 2024}
+@subheading LilyPond 2.25.13 released  @emph{Feburary 10, 2024}
 
-We are happy to announce the release of LilyPond 2.25.12. This is
+We are happy to announce the release of LilyPond 2.25.13. This is
 termed a development release, but these are usually reliable for
 testing new features and recent bug fixes. However, if you require
 stability, we recommend using version 2.24.3, the current stable
