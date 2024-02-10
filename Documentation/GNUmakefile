@@ -333,7 +333,8 @@ $(outdir)/webdoc/dep: \
   $(HTML_MISC_TARGETS)
 	$(call ly_progress,Making,$(dir $@),)
 	cd $(outdir) \
-	  && $(buildscript-dir)/build-doc-tree.sh \
+	  && PERL=$(PERL) \
+	     $(buildscript-dir)/build-doc-tree.sh \
 	       webdoc "$(LANGS)" $(LYS_OUTPUT_DIR) "$(DOC_BASENAMES)"
 	touch $@
 
@@ -349,7 +350,8 @@ $(outdir)/website/dep: \
   $(PICTURE_SYMLINKS)
 	$(call ly_progress,Making,$(dir $@),)
 	cd $(outdir) \
-	  && $(buildscript-dir)/build-doc-tree.sh website "$(LANGS)" "" "web"
+	  && PERL=$(PERL) \
+	     $(buildscript-dir)/build-doc-tree.sh website "$(LANGS)" "" "web"
 	cp $(foreach F, \
 	             favicon.ico robots.txt tweets.xml, \
 	             $(src-dir)/webserver/$(F)) \

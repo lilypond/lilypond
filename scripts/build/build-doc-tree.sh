@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 DEST="$1"
 shift
@@ -8,12 +8,14 @@ LYBOOK_DB="$1"
 shift
 DOCS="$1"
 
+PERL=${PERL:-perl}
+
 set -eu
 
 rm -rf ${DEST}
 mkdir -p ${DEST}
 
-if [[ -n "${LYBOOK_DB}" ]] ; then
+if [ -n "${LYBOOK_DB}" ]; then
     # This command is complicated, but it's very fast.
     rsync -r \
           --exclude='*.count' \
@@ -38,19 +40,17 @@ for LANG in ${LANGS}
 do
     html_suffix="${LANG}.html"
     pdf_suffix="${LANG}.pdf"
-    if [[ "${LANG}" = "en" ]] ; then
+    if [ "${LANG}" = "en" ]; then
         html_suffix="html"
         pdf_suffix="pdf"
     fi
     for DOC in ${DOCS}
     do
-        if [[ ! -f "${LANG}/${DOC}-big-page.html" ]]
-        then
+        if [ ! -f "${LANG}/${DOC}-big-page.html" ]; then
             continue
         fi
         cp ${LANG}/${DOC}-big-page.html ${DEST}/${DOC}-big-page.${html_suffix}
-        if [[ -f ${LANG}/${DOC}.pdf ]]
-        then
+        if [ -f ${LANG}/${DOC}.pdf ]; then
             cp ${LANG}/${DOC}.pdf ${DEST}/${DOC}.${pdf_suffix}
         fi
         find ${LANG}/${DOC}/ -type f -name '*.html'  | while read fn
@@ -60,10 +60,11 @@ do
             fi
             dst="${DEST}/${DOC}/$(basename $fn .html).${html_suffix}"
 
-            sed -e 's#\(href\|src\)="\([a-f0-9]*/lily-[a-f0-9]*\)\.\(ly\|png\)"#\1="../\2.\3"#g' \
-                -e 's#\(href\|src\)="\(pictures\|ly-examples\|css\)/#\1="../\2/#g' \
-                < $fn \
-                > $dst
+            $PERL -p \
+              -e 's#(href|src)="([a-f0-9]*/lily-[a-f0-9]*)\.(ly|png)"#\1="../\2.\3"#g;' \
+              -e 's#(href|src)="(pictures|ly-examples|css)/#\1="../\2/#g;' \
+              < $fn \
+              > $dst
         done
     done &
 done
