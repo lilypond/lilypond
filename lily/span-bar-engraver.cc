@@ -24,6 +24,8 @@
 
 #include "translator.icc"
 
+#include <vector>
+
 /**
 
 Make bars that span multiple "staves". Catch bars, and span a
@@ -71,10 +73,14 @@ Span_bar_engraver::process_acknowledged ()
   if (make_spanbar_)
     {
       spanbar_ = make_item ("SpanBar", SCM_EOL);
-
-      for (vsize i = 0; i < bars_.size (); i++)
-        Pointer_group_interface::add_grob (spanbar_, ly_symbol2scm ("elements"),
-                                           bars_[i]);
+      for (auto *const bar : bars_)
+        {
+          Pointer_group_interface::add_grob (spanbar_,
+                                             ly_symbol2scm ("elements"), bar);
+        }
+      // TODO: More bar lines could be acknowledged, but they won't be added to
+      // the group.  That might not happen currently, but it could conceivably
+      // happen after enhancements to bar-line engraving.
       make_spanbar_ = false;
     }
 }
@@ -84,14 +90,21 @@ Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_)
     {
-      for (vsize i = 0; i < bars_.size (); i++)
-        set_object (
-          bars_[i], "has-span-bar",
-          scm_cons (i == bars_.size () - 1 ? SCM_BOOL_F : spanbar_->self_scm (),
-                    i == 0 ? SCM_BOOL_F : spanbar_->self_scm ()));
+      const auto num_bars = bars_.size ();
+      for (vsize i = 0; i < num_bars; ++i)
+        {
+          // TODO: Issue 6745: This assumes that the bar lines were announced in
+          // the order that they will be laid out.  alignAboveContext and
+          // alignBelowContext can make that untrue.
+          const bool is_top = (i == 0);
+          const bool is_bottom = (i == (num_bars - 1));
+          set_object (bars_[i], "has-span-bar",
+                      scm_cons (is_bottom ? SCM_BOOL_F : spanbar_->self_scm (),
+                                is_top ? SCM_BOOL_F : spanbar_->self_scm ()));
+        }
       spanbar_ = nullptr;
     }
-  bars_.resize (0);
+  bars_.clear ();
 }
 
 void
