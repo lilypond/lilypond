@@ -36,24 +36,25 @@ do
         mkdir -p ${DEST}/${DOC}
 done
 
-for LANG in ${LANGS}
+# Don't use the locale-specific variable name `LANG` for a local variable.
+for LNG in ${LANGS}
 do
-    html_suffix="${LANG}.html"
-    pdf_suffix="${LANG}.pdf"
-    if [ "${LANG}" = "en" ]; then
+    html_suffix="${LNG}.html"
+    pdf_suffix="${LNG}.pdf"
+    if [ "${LNG}" = "en" ]; then
         html_suffix="html"
         pdf_suffix="pdf"
     fi
     for DOC in ${DOCS}
     do
-        if [ ! -f "${LANG}/${DOC}-big-page.html" ]; then
+        if [ ! -f "${LNG}/${DOC}-big-page.html" ]; then
             continue
         fi
-        cp ${LANG}/${DOC}-big-page.html ${DEST}/${DOC}-big-page.${html_suffix}
-        if [ -f ${LANG}/${DOC}.pdf ]; then
-            cp ${LANG}/${DOC}.pdf ${DEST}/${DOC}.${pdf_suffix}
+        cp ${LNG}/${DOC}-big-page.html ${DEST}/${DOC}-big-page.${html_suffix}
+        if [ -f ${LNG}/${DOC}.pdf ]; then
+            cp ${LNG}/${DOC}.pdf ${DEST}/${DOC}.${pdf_suffix}
         fi
-        find ${LANG}/${DOC}/ -type f -name '*.html'  | while read fn
+        find ${LNG}/${DOC}/ -type f -name '*.html' | while read fn
         do
             if grep --quiet "^<p>UNTRANSLATED NODE: IGNORE ME" $fn ; then
                 continue
