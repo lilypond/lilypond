@@ -176,7 +176,10 @@ $(outdir)/%-root/index.html: doc-build
 	cp $(addprefix $(src-dir)/,$(README_FILES)) $(dir $@)
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "$*"
 	find $(outdir)/$*-root -type l | xargs rm -f
-	cd $(outdir)/$*-root && find -name \*.html -execdir $(buildscript-dir)/fix-docsize.sh {} +
+	cd $(outdir)/$*-root && \
+	  find . \
+	       -name "*.html" \
+	       -execdir $(buildscript-dir)/fix-docsize.sh {} +
 	find $(dir $@)/Documentation \
 	     -maxdepth 1 \
 	     -name "*html" | \
