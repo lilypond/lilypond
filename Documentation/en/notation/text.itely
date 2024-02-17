@@ -1008,7 +1008,13 @@ Basic font switching is supported in markup mode:
 The global text size to be used in markups can be set with the
 @code{text-font-size} paper variable.  This is useful to adjust to
 a different main font that might appear smaller or larger despite
-of having the same nominal font sizes.
+of having the same nominal font sizes.  The value is given in
+points (without specifying a unit); the default value depends on
+the staff height and is computed as @code{(staff-height / 20 *
+11)}.
+
+@xref{Distances and measurements} for more information on
+dimensions used by LilyPond.
 
 @lilypond[quote,verbatim]
 \score {
