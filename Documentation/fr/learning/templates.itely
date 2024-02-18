@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+   Translation of GIT committish: dc7cd6d41c4dd62eb9db709658eb1e60ec90b2ad
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -16,7 +16,7 @@
 @appendix Modèles
 
 Cette annexe du manuel d'initiation propose des patrons de partition
-LilyPond, prets à l'emploi.  Il vous suffira d'y ajouter quelques notes,
+LilyPond, prets à l'emploi. Il vous suffira d'y ajouter quelques notes,
 de lancer LilyPond, et d'aprécier le résultat.
 
 @menu
@@ -37,7 +37,7 @@ de lancer LilyPond, et d'aprécier le résultat.
 LilyPond est livré avec plusieurs gabarits convenant à différentes
 configurations chorales. Ils permettent de gérer de la musique chorale
 simple, avec ou sans accompagnement de piano, présentée sur deux, quatre
-ou huit portées.  Contrairement aux autre gabarits, celui-ci est
+ou huit portées. Contrairement aux autre gabarits, celui-ci est
 « préprogrammé », ce qui signifie qu'il ne nécessite pas d'être recopié
 et édité ; il suffit en fait d'ajouter une instruction @code{\include}
 au fichier source.
@@ -47,7 +47,7 @@ au fichier source.
 @strong{à la fin} du fichier source.}
 
 Les expressions musicales nécessaires sont affectées à des variables
-spécifiques.  Ces définitions doivent intervenir avant la commande
+spécifiques. Ces définitions doivent intervenir avant la commande
 @code{\include}.
 
 La musique peut se présenter en une ou deux voix par portée à l'aide du
@@ -70,141 +70,140 @@ chœur à quatre voix avec paroles individuelles et accompagnement de
 piano :
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a'4\f a8 a a4 a }
-  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
-  AltoMusic = \relative { d'4\f d d d }
-  AltoLyrics = \lyricmode { Al -- to ly -- rics }
-  TenorMusic = \relative { a4\p a a a }
-  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
-  BassMusic = \relative { c2\p c4 c }
-  BassLyrics = \lyricmode { Bass ly -- rics }
-  PianoRHMusic = \relative { c' e g c }
-  PianoDynamics = { s2\mp s4 s4 }
-  PianoLHMusic = \relative { c e g c }
-  \include "satb.ly"
+SopranoMusic = \relative { a'4\f a8 a a4 a }
+SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+AltoMusic = \relative { d'4\f d d d }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+TenorMusic = \relative { a4\p a a a }
+TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+BassMusic = \relative { c2\p c4 c }
+BassLyrics = \lyricmode { Bass ly -- rics }
+PianoRHMusic = \relative { c' e g c }
+PianoDynamics = { s2\mp s4 s4 }
+PianoLHMusic = \relative { c e g c }
+\include "satb.ly"
 @end lilypond
 
 Ce même fichier peut servir à générer une partition dans laquelle deux
 voix partagent une même portée, après avoir simplement commuté
-@code{TwoVoicesPerStaff} à @code{##t}.  Chaque voix dispose à nouveau de
+@code{TwoVoicesPerStaff} à @code{##t}. Chaque voix dispose à nouveau de
 ses propres paroles.
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a'4\f a8 a a4 a }
-  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
-  AltoMusic = \relative { d'4\f d d d }
-  AltoLyrics = \lyricmode { Al -- to ly -- rics }
-  TenorMusic = \relative { a4\p a a a }
-  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
-  BassMusic = \relative { c2\p c4 c }
-  BassLyrics = \lyricmode { Bass ly -- rics }
-  PianoRHMusic = \relative { c' e g c }
-  PianoDynamics = { s2\mp s4 s4 }
-  PianoLHMusic = \relative { c e g c }
-  TwoVoicesPerStaff = ##t
-  \include "satb.ly"
+SopranoMusic = \relative { a'4\f a8 a a4 a }
+SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+AltoMusic = \relative { d'4\f d d d }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+TenorMusic = \relative { a4\p a a a }
+TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+BassMusic = \relative { c2\p c4 c }
+BassLyrics = \lyricmode { Bass ly -- rics }
+PianoRHMusic = \relative { c' e g c }
+PianoDynamics = { s2\mp s4 s4 }
+PianoLHMusic = \relative { c e g c }
+TwoVoicesPerStaff = ##t
+\include "satb.ly"
 @end lilypond
 
 Désactiver @code{TwoVoicesPerStaff}, ou le laisser à sa valeur par
 défaut, et se limiter à certaines variables seulement permet d'obtenir
-un agencement pour moins de voix.  Voici, par exemple, comment saisir un
+un agencement pour moins de voix. Voici, par exemple, comment saisir un
 duo soprano basse :
 
 @lilypond[verbatim,quote]
-  SopranoMusic = \relative { c'' c c c }
-  SopranoLyrics = \lyricmode { High voice ly -- rics }
-  BassMusic = \relative { a a a a }
-  BassLyrics = \lyricmode { Low voice ly -- rics }
-  \include "satb.ly"
+SopranoMusic = \relative { c'' c c c }
+SopranoLyrics = \lyricmode { High voice ly -- rics }
+BassMusic = \relative { a a a a }
+BassLyrics = \lyricmode { Low voice ly -- rics }
+\include "satb.ly"
 @end lilypond
 
 Chacune des parties peut se voir adjoindre un deuxième couplet ou des
 paroles alternatives :
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a'4 a a a }
-  SopranoLyricsOne = \lyricmode {
-    \set stanza = "1."
-    Words to verse one
-  }
-  SopranoLyricsTwo = \lyricmode {
-    \set stanza = "2."
-    Words to verse two
-  }
-  \include "satb.ly"
+SopranoMusic = \relative { a'4 a a a }
+SopranoLyricsOne = \lyricmode {
+  \set stanza = "1."
+  Words to verse one
+}
+SopranoLyricsTwo = \lyricmode {
+  \set stanza = "2."
+  Words to verse two
+}
+\include "satb.ly"
 @end lilypond
 
 Lorsque paroles et rythme sont identiques à toutes les voix, la
 partition peut s'agencer sur deux portées, chacune comportant deux voix.
-Le gabarit préprogrammé autorise jusqu'à neuf couplets.  L'exemple
+Le gabarit préprogrammé autorise jusqu'à neuf couplets. L'exemple
 suivant, dépourvu d'accompagnement, se contente de trois couplets.
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a' a a a }
-  AltoMusic = \relative { f' f f f }
-  VerseOne = \lyricmode {
-    \set stanza = "1."
-    Words to verse one
-  }
-  VerseTwo = \lyricmode {
-    \set stanza = "2."
-    Words to verse two
-  }
-  VerseThree = \lyricmode {
-    \set stanza = "3."
-    Words to verse three
-  }
-  TenorMusic = \relative { a a a a }
-  BassMusic = \relative { f f f f }
-  TwoVoicesPerStaff = ##t
-  \include "satb.ly"
+SopranoMusic = \relative { a' a a a }
+AltoMusic = \relative { f' f f f }
+VerseOne = \lyricmode {
+  \set stanza = "1."
+  Words to verse one
+}
+VerseTwo = \lyricmode {
+  \set stanza = "2."
+  Words to verse two
+}
+VerseThree = \lyricmode {
+  \set stanza = "3."
+  Words to verse three
+}
+TenorMusic = \relative { a a a a }
+BassMusic = \relative { f f f f }
+TwoVoicesPerStaff = ##t
+\include "satb.ly"
 @end lilypond
 
-Dautres variables peuvent se voir attribuer une valeur.  C'est notamment
+Dautres variables peuvent se voir attribuer une valeur. C'est notamment
 le cas de la tonalité et de la métrique :
 
 @lilypond[verbatim, quote]
-  Key = \key a \major
-  Time = {
-    \time 5/4
-    \tempo "Allegro" 4 = 144
-  }
-  SopranoMusic = \relative { gis' gis gis gis gis }
-  AltoMusic = \relative { cis' cis cis cis cis }
-  VerseOne = \lyricmode { Words to this du -- et }
-  TwoVoicesPerStaff = ##t
-  \include "satb.ly"
+Key = \key a \major
+Time = {
+  \time 5/4
+  \tempo "Allegro" 4 = 144
+}
+SopranoMusic = \relative { gis' gis gis gis gis }
+AltoMusic = \relative { cis' cis cis cis cis }
+VerseOne = \lyricmode { Words to this du -- et }
+TwoVoicesPerStaff = ##t
+\include "satb.ly"
 @end lilypond
 
 Les intitulés d'instrument, ainsi que leur version abrégée, sont
 modifiables :
 
 @lilypond[verbatim,quote]
-  SopranoMusic = \relative { c'' c c c }
-  SopranoLyrics = \lyricmode { High voice ly -- rics }
-  SopranoInstrumentName = "Soprano 1"
-  SopranoShortInstrumentName = "S1"
-  AltoMusic = \relative { a' a a a }
-  AltoLyrics = \lyricmode { Low voice ly -- rics }
-  AltoInstrumentName = "Soprano 2"
-  AltoShortInstrumentName = "S2"
-  \include "satb.ly"
+SopranoMusic = \relative { c'' c c c }
+SopranoLyrics = \lyricmode { High voice ly -- rics }
+SopranoInstrumentName = "Soprano 1"
+SopranoShortInstrumentName = "S1"
+AltoMusic = \relative { a' a a a }
+AltoLyrics = \lyricmode { Low voice ly -- rics }
+AltoInstrumentName = "Soprano 2"
+AltoShortInstrumentName = "S2"
+\include "satb.ly"
 @end lilypond
 
 @noindent
 bien que, dans ce cas particulier, il est plus simple d'utiliser le
-gabarit @code{ssaattbb.ly} -- voir
-@ref{SSAATTBB template}.
+gabarit @code{ssaattbb.ly} -- @pxref{SSAATTBB template}.
 
 Une partie de soliste s'ajoute à l'aide de la variable
 @code{DescantMusic}, à laquelle s'appliqueront les paroles contenues
-dans la variable @code{DescantLyrics}.  De la même manière, une partie
-de solo peut s'ajouter au-dessus du chœur en alimentant les variables
+dans la variable @code{DescantLyrics}. De la même manière, une partie de
+solo peut s'ajouter au-dessus du chœur en alimentant les variables
 @code{SoloMusic} et @code{SoloLyrics}.
 
 Comme pour n'importe quelle partition, vous pouver y ajouter des blocs
 @code{\header} et @code{\paper} en tête de fichier ; leur contenu sera
-combiné (sans les remplacer) aux réglages du gabarit préprogrammé.  Tous
+combiné (sans les remplacer) aux réglages du gabarit préprogrammé. Tous
 les réglages par défaut du gabarit seront annulés dès lors que
 @b{toutes} ses valeurs auront été redéfinies dans une variable
 @code{Layout} :
@@ -214,7 +213,7 @@ Layout = \layout @{ ... @}
 @end example
 
 Le jeu complet des variables modifiables disponibles est contenu dans le
-fichier @file{ly/satb.ly} -- voir @ref{Other sources of information}.
+fichier @file{ly/satb.ly} -- @pxref{Other sources of information}.
 
 @morerefs
 Manuel d'initiation :
@@ -239,24 +238,23 @@ voix ne sont pas réalisables avec ce gabarit préprogrammé.
 @cindex chœur SSAATTBB
 
 Ce gabarit préprogrammé dispose, à l'exception des variables
-@code{VerseXxx}, des mêmes variable que le gabarit SATB -- voir
-@ref{SATB template}.  Pour chacune des quatre
-parties, paroles et musique peuvent être dédoublées en alimentant les
-variables @code{SopranoOneMusic} et @code{SopranoTwoMusic}, etc. ainsi
-que leurs paroles associées dans @code{SopranoOneLyrics} et
-@code{SopranoTwoLyrics}, etc.  Jusqu'à quatre couplets supplémentaires
-peuvent venir s'ajouter aux paroles, à l'aide de variables de la forme
-@code{SopranoOneLyricsOne}.
+@code{VerseXxx}, des mêmes variable que le gabarit SATB -- @pxref{SATB
+template}. Pour chacune des quatre parties, paroles et musique peuvent
+être dédoublées en alimentant les variables @code{SopranoOneMusic} et
+@code{SopranoTwoMusic}, etc. ainsi que leurs paroles associées dans
+@code{SopranoOneLyrics} et @code{SopranoTwoLyrics}, etc. Jusqu'à quatre
+couplets supplémentaires peuvent venir s'ajouter aux paroles, à l'aide
+de variables de la forme @code{SopranoOneLyricsOne}.
 
 Le commutateur @code{TwoVoicesPerStaff}, basculé sur @code{##t},
-regroupera @b{toutes} les parties sur une même portée.  Lui laisser sa
-avaleur par défaut ou lui affecter @code{##f} laisse la possibilité de
-répartir les voix sur une ou deux portées selon le réglage de
+regroupera @strong{toutes} les parties sur une même portée. Lui laisser
+sa valeur par défaut ou lui affecter @code{##f} laisse la possibilité
+de répartir les voix sur une ou deux portées selon le réglage de
 @code{SopranoTwoVoicesPerStaff}, @code{MenTwoVoicesPerStaff}, etc.
 
 Prenons par exmple un pièce pour soprano et alto qui commence à
 l'unisson, puis passe à deux voix (soprano et alto), lesquelles
-finissent par se diviser.  Cette partition pourrait se coder ainsi :
+finissent par se diviser. Cette partition pourrait se coder ainsi :
 
 @lilypond[verbatim,quote]
 Time = { s1 \break s1 \break }
@@ -330,8 +328,7 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @end lilypond
 
 Le jeu complet des variables modifiables disponibles est contenu dans le
-fichier @file{ly/ssaattbb.ly} -- voir
-@ref{Other sources of information}.
+fichier @file{ly/ssaattbb.ly} -- @pxref{Other sources of information}.
 
 @morerefs
 Manuel d'initiation :
@@ -350,6 +347,7 @@ Des arrangements plus complexes de partition pour chœur à huit voix ne
 sont pas réalisables avec ce gabarit préprogrammé.
 
 
+@need 800
 @node Single staff templates
 @appendixsec Modèles pour portée unique
 
@@ -389,13 +387,14 @@ sont pas réalisables avec ce gabarit préprogrammé.
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
+@need 800
 @node Piano templates
 @appendixsec Modèles pour piano
 
 @menu
 * Solo piano::
 * Piano and melody with lyrics::
-* Piano centered lyrics::
+* Piano-centered lyrics::
 @end menu
 
 
@@ -413,13 +412,14 @@ sont pas réalisables avec ce gabarit préprogrammé.
 {snippets/piano-template-with-melody-and-lyrics.ly}
 
 
-@node Piano centered lyrics
+@node Piano-centered lyrics
 @appendixsubsec Piano et paroles entre les portées
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {snippets/piano-template-with-centered-lyrics.ly}
 
 
+@need 800
 @node String quartet templates
 @appendixsec Modèles pour quatuor à cordes
 
@@ -447,9 +447,9 @@ sont pas réalisables avec ce gabarit préprogrammé.
 @appendixsec Modèles pour ensemble vocal
 
 Les exemples ci-après demandent à être recopiés et édités dans vos
-propres fichiers.  Pour des constructions simples, vous pouvez
-adopter une construction préprogrammée appelée par une instruction
-@code{\include} -- voir @ref{Built-in templates}.
+propres fichiers. Pour des constructions simples, vous pouvez adopter
+une construction préprogrammée appelée par une instruction
+@code{\include} -- @pxref{Built-in templates}.
 
 @menu
 * SATB vocal score::

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: dc7cd6d41c4dd62eb9db709658eb1e60ec90b2ad
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@ Tutorial guidelines:  (different from policy.txt!)
 @c \version "2.19.21"
 
 @c Translators: Nicolas Grandclaude, Ludovic Sardain, Gauvain Pocentek
-@c Translation checkers: J.-Charles Malahieude, Valentin Villenave, John Mandereau
+@c Translation checkers: J.-C. Malahieude, Valentin Villenave, John Mandereau
 @c Translation status: post-GDP
 
 @node Common notation
@@ -35,14 +35,14 @@ Suite au premier contact avec le @ref{Tutorial}, voyons comment
 créer de belles partitions utilisant une notation musicale courante.
 
 @menu
-* Single staff notation::
+* Single-staff notation::
 * Multiple notes at once::
 * Songs::
 * Final touches::
 @end menu
 
 
-@node Single staff notation
+@node Single-staff notation
 @section Notation sur une seule portée
 
 Cette section présente la notation courante dont on a besoin pour
@@ -105,7 +105,7 @@ La compilation du code ci-dessus devrait vous afficher le message
 suivant en console :
 
 @example
-Avertissement : échec du contrôle de mesure (barcheck) à 1/2
+Avertissement : échec du contrôle de mesure (bar check) à 1/2
  g'1 | e1 | c2. c'
                    | g4 c g e | c4 r r2 |
 @end example
@@ -196,8 +196,8 @@ autres langues disponibles, consultez
 @cindex armure, définition de l'
 @cindex armure, altérations à l'
 @cindex altérations à l'armure
-@cindex majeur
-@cindex mineur
+@cindex majeur, tonalité
+@cindex mineur, tonalité
 @cindex présentation et contenu
 @cindex contenu et présentation
 
@@ -285,20 +285,25 @@ d'effort dans la phase de saisie, mais cela facilite grandement la
 @notation{transposition}.  De plus, les altérations accidentelles
 peuvent ainsi être imprimées suivant plusieurs conventions.  Pour
 connaître les différentes manières dont les altérations accidentelles
-peuvent être imprimées, consultez
-@rnotationnamed{Automatic accidentals, Altérations accidentelles automatiques}.
+peuvent être imprimées, consultez @rnotationnamed{Automatic accidentals,
+Altérations accidentelles automatiques}.
 
 @morerefs
 Manuel de notation :
-@rnotationnamed{Note names in other languages, Nom des notes dans d'autres langues},
+@rnotationnamed{Note names in other languages,
+Nom des notes dans d'autres langues},
 @rnotationnamed{Accidentals, Altérations},
-@rnotationnamed{Automatic accidentals, Altérations accidentelles automatiques},
+@rnotationnamed{Automatic accidentals,
+Altérations accidentelles automatiques},
 @rnotationnamed{Key signature, Armure}.
 @endmorerefs
 
 
 @node Ties and slurs
 @subsection Liaisons
+
+Sont regrpoupées dans cette section, en raison de leur apparence
+similaire, les liaisons de phrasé et les liaisons de tenue.
 
 @menu
 * Ties::
@@ -368,9 +373,9 @@ Glossaire musicologique :
 @rglosnamed{slur,liaison},
 @rglosnamed{phrasing,phrasé}.
 
-Une liaison d'articulation ou @emph{legato} peut englober
-plusieurs notes.  Les notes de départ et d'arrivée sont suivies
-respectivement d'un signe @samp{(} et @samp{)}.
+Une liaison d'articulation ou @emph{legato} peut englober plusieurs
+notes. Les notes de départ et d'arrivée sont suivies respectivement d'un
+signe @samp{(} et d'un signe @samp{)}.
 
 @lilypond[verbatim,quote]
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
@@ -445,12 +450,26 @@ Glossaire musicologique :
 @rglos{articulation}.
 
 Des @notation{articulations} peuvent être ajoutées à une note, au moyen
-d'un tiret (@samp{-}) suivi d'un caractère :
+d'un tiret (@samp{-}) suivi d'un caractère. Voici une liste des
+articulations les plus courantes.
+
+@indentedblock
+@multitable @columnfractions .05 .8
+@item @code{-^} @tab un @emph{marcato} (une pointe vers le haut)
+@item @code{--} @tab un @emph{tenuto} (un court trait horizontal)
+@item @code{->} @tab un accent (une pointe vers la droite)
+@item @code{-.} @tab un point de @emph{staccato}
+@item @code{-_} @tab un @emph{portato} (un trait de @emph{tenuto}
+                     additionné d'un point de @emph{staccato})
+@end multitable
+@end indentedblock
+
+Un recensement exhaustif se trouve à la rubrique
+@rnotationnamed{List of articulations, Liste des signes d’articulation}.
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4-^ c-+ c-- c-!
-  c4-> c-. c2-_
+  c''4-^ c-- c4-> c-. c2-_
 }
 @end lilypond
 
@@ -543,7 +562,8 @@ Manuel de notation :
 
 @cindex texte, ajout de
 @cindex ajout de texte
-@cindex @'etiquette
+@cindex @'etiquette, @emph{(markup)}
+@cindex @emph{markup}, étiquette
 
 @funindex \markup
 
@@ -627,6 +647,10 @@ Manuel de notation :
 @node Advanced rhythmic commands
 @subsection Commandes rythmiques avancées
 
+Pour compléter le principe de durée simple (un nombre, avec ou sans
+point, ajouté à une hauteur), intéressons-nous à d'autres concepts afin
+de couvrir plus d'aspects de la rythmique.
+
 @menu
 * Partial measure::
 * Tuplets::
@@ -692,8 +716,6 @@ que deux ; un @notation{triolet} portera donc une fraction de 3/2.
 
 @cindex notes d'ornement
 @cindex ornementation
-@cindex appoggiature
-@cindex acciaccature
 
 @funindex \grace
 @funindex \acciaccatura
@@ -706,8 +728,9 @@ Glossaire musicologique :
 @rglosnamed{appoggiatura,appoggiature}.
 
 Des @notation{notes d'ornement} s'obtiennent en appliquant la commande
-@code{\grace}, @code{\appoggiatura} ou @code{\acciaccatura} à une
-expression musicale :
+@code{\grace}, @code{\appoggiatura} (note d'ornement liée à la note
+principale) ou @code{\acciaccatura} (note d'ornement barrée et liée à la
+note principale) à une expression musicale :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -741,7 +764,7 @@ il y a plus d'une voix sur une même portée.
 * Multiple staves::
 * Staff groups::
 * Combining notes into chords::
-* Single staff polyphony::
+* Single-staff polyphony::
 @end menu
 
 
@@ -753,7 +776,7 @@ il y a plus d'une voix sur une même portée.
 @menu
 * Analogy mathematical expressions::
 * Simultaneous music expressions multiple staves::
-* Simultaneous music expressions single staff::
+* Simultaneous music expressions single-staff::
 @end menu
 
 Dans les fichiers source LilyPond, la musique est représentée par ce
@@ -862,7 +885,7 @@ au au @samp{c} (une octave sous le do médium) de la commande
 @code{@bs{}relative} de départ.}
 
 
-@node Simultaneous music expressions single staff
+@node Simultaneous music expressions single-staff
 @unnumberedsubsubsec Expressions musicales simultanées -- une seule portée
 
 Pour déterminer le nombre de portées, LilyPond regarde le début de la
@@ -889,13 +912,11 @@ produite sur une unique portée.
 @cindex contexte de notation
 @cindex notation, contexte
 
-@funindex \new Staff
-@funindex Staff
-@funindex \new
-@funindex Score
-@funindex Voice
-@funindex Lyrics
-@funindex ChordNames
+@cindex @code{Staff}, contexte
+@cindex @code{Score}, contexte
+@cindex @code{Voice}, contexte
+@cindex @code{Lyrics}, contexte
+@cindex @code{ChordNames}, contexte
 
 Comme nous l'avons vu dans @ref{Music expressions explained}, un
 fichier d'entrée LilyPond est fait d'expressions musicales.  Si la
@@ -962,9 +983,9 @@ fréquente que la musique polyrythmique.
 @cindex portées, regroupement de
 @cindex regroupement de portées
 
-@funindex PianoStaff
-@funindex GrandStaff
-@funindex ChoirStaff
+@cindex @code{PianoStaff}, contexte
+@cindex @code{GrandStaff}, contexte
+@cindex @code{ChoirStaff}, contexte
 
 Glossaire musicologique :
 @rglosnamed{brace,accolade},
@@ -1011,8 +1032,8 @@ Manuel de notation :
 @node Combining notes into chords
 @subsection Combinaison de notes en accords
 
-@cindex accords, notes simultanées
-@cindex accords et durée
+@cindex accord, notes simultanées
+@cindex accord et durée
 
 @funindex <
 @funindex >
@@ -1066,7 +1087,7 @@ Manuel de notation :
 @endmorerefs
 
 
-@node Single staff polyphony
+@node Single-staff polyphony
 @subsection Polyphonie sur une portée
 
 @cindex polyphonie
@@ -1158,6 +1179,7 @@ produisent en même temps.
 @cindex mélisme
 @cindex ligne d'extension
 @cindex trait d'union (paroles)
+@cindex @emph{hyphen}, trait d'union (paroles)
 @cindex caractère souligné (paroles)
 @cindex paroles, alignement des
 @cindex alignement des paroles
@@ -1392,13 +1414,13 @@ du manuel.
 @node Organizing pieces with variables
 @subsection Organisation du code source avec des variables
 
-@cindex variables
-@cindex variables, définition
-@cindex identificateurs
-@cindex macros
-@cindex assignation de variables
-@cindex utilisation de variables
-@cindex variables, utilisation de
+@cindex variable
+@cindex variable, définition
+@cindex identificateur
+@cindex macro
+@cindex assignation de variable
+@cindex utilisation de variable
+@cindex variable, utilisation de
 @cindex variables, caractères autorisés dans les
 @cindex caractères autorisés dans les variables
 @cindex variables et expressions musicales
@@ -1493,7 +1515,6 @@ ci-dessus.
 @subsection Ajout de titres
 
 @cindex titre
-@cindex en-têtes
 @cindex bloc d'en-tête
 
 @funindex \header

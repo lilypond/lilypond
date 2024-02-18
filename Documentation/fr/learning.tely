@@ -1,11 +1,12 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+    Translation of GIT committish: dc7cd6d41c4dd62eb9db709658eb1e60ec90b2ad
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
+
 @documentencoding UTF-8
 @settitle GNU LilyPond -- Manuel d'initiation
 @documentlanguage fr
@@ -17,7 +18,7 @@ Ce document constitue le manuel d'initiation à GNU LilyPond
 @version{}.
 @end macro
 
-@c `Learning Manual' was born 1998-08-14 with this commit:
+@c 'Learning Manual' was born 1998-08-14 with this commit:
 @c release: 1.0.2
 @c author: Han-Wen Nienhuys
 @c commit: a3a44f9f3c581b6824b3a65f9039656693e09bbf
@@ -48,11 +49,11 @@ Copyright @copyright{} 1998--2023 par les auteurs.
 @ifnottex
 
 @menu
-* Installing::                   installation de LilyPond
-* Tutorial::                       introduction pratique à la gravure avec LilyPond.
-* Common notation::     débuter avec la notation musicale courante.
-* Fundamental concepts::          concepts de base de LilyPond.
-* Tweaking output::          introduction aux retouches de mise en forme.
+* Installing::           installation de LilyPond
+* Tutorial::             introduction pratique à la gravure avec LilyPond.
+* Common notation::      débuter avec la notation musicale courante.
+* Fundamental concepts:: concepts de base de LilyPond.
+* Tweaking output::      introduction aux retouches de mise en forme.
 
 Annexes
 
