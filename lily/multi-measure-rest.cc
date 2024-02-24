@@ -344,22 +344,20 @@ Multi_measure_rest::calculate_spacing_rods (Spanner *me, Real length)
       return;
     }
 
-  Item *li = bounds[LEFT]->get_column ();
-  Item *ri = bounds[RIGHT]->get_column ();
-  Item *lb = li->find_prebroken_piece (RIGHT);
-  Item *rb = ri->find_prebroken_piece (LEFT);
+  auto *const lc = bounds[LEFT]->get_column ();
+  auto *const rc = bounds[RIGHT]->get_column ();
 
-  Grob *spacing = unsmob<Grob> (get_object (li, "spacing"));
+  auto *spacing = unsmob<Grob> (get_object (lc, "spacing"));
   if (!spacing)
-    spacing = unsmob<Grob> (get_object (ri, "spacing"));
+    spacing = unsmob<Grob> (get_object (rc, "spacing"));
   if (spacing)
     {
       Spacing_options options;
       options.init_from_grob (me);
       const auto mlen
-        = from_scm (get_property (li, "measure-length"), Moment (1));
+        = from_scm (get_property (lc, "measure-length"), Moment (1));
       length
-        += from_scm<double> (get_property (li, "full-measure-extra-space"), 0.0)
+        += from_scm<double> (get_property (lc, "full-measure-extra-space"), 0.0)
            + options.get_duration_space (mlen.main_part_)
            + (from_scm<double> (get_property (me, "space-increment"), 0.0)
               * std::log2 (from_scm (get_property (me, "measure-count"), 1)));
@@ -369,23 +367,22 @@ Multi_measure_rest::calculate_spacing_rods (Spanner *me, Real length)
 
   Real minlen = from_scm<double> (get_property (me, "minimum-length"), 0.0);
 
-  Item *combinations[4][2] = {{li, ri}, {lb, ri}, {li, rb}, {lb, rb}};
-
-  for (int i = 0; i < 4; i++)
+  auto *const lb = lc->find_prebroken_piece (RIGHT);
+  auto *const rb = rc->find_prebroken_piece (LEFT);
+  for (auto *const li : {lc, lb})
     {
-      Item *li = combinations[i][0];
-      Item *ri = combinations[i][1];
-
-      if (!li || !ri)
+      if (!li)
         continue;
-
-      Rod rod;
-      rod.item_drul_[LEFT] = li;
-      rod.item_drul_[RIGHT] = ri;
-
-      rod.distance_
-        = std::max (Paper_column::minimum_distance (li, ri) + length, minlen);
-      rod.add_to_cols ();
+      for (auto *const ri : {rc, rb})
+        {
+          if (!ri)
+            continue;
+          Rod rod;
+          rod.item_drul_ = {li, ri};
+          rod.distance_ = std::max (
+            Paper_column::minimum_distance (li, ri) + length, minlen);
+          rod.add_to_cols ();
+        }
     }
 }
 
