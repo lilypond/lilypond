@@ -337,14 +337,15 @@ Multi_measure_rest::add_column (Spanner *me, Item *c)
 void
 Multi_measure_rest::calculate_spacing_rods (Spanner *me, Real length)
 {
-  if (!(me->get_bound (LEFT) && me->get_bound (RIGHT)))
+  const auto bounds = me->get_bounds ();
+  if (!(bounds[LEFT] && bounds[RIGHT]))
     {
       programming_error ("Multi measure rest seems misplaced.");
       return;
     }
 
-  Item *li = me->get_bound (LEFT)->get_column ();
-  Item *ri = me->get_bound (RIGHT)->get_column ();
+  Item *li = bounds[LEFT]->get_column ();
+  Item *ri = bounds[RIGHT]->get_column ();
   Item *lb = li->find_prebroken_piece (RIGHT);
   Item *rb = ri->find_prebroken_piece (LEFT);
 

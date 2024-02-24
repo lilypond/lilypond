@@ -133,11 +133,12 @@ Tuplet_bracket::bracket_basic_visibility (Spanner *me)
   */
   if (!from_scm<bool> (bracket_vis_prop))
     {
-      auto *const start_col = me->get_bound (LEFT)->get_column ();
-      auto *const end_col = me->get_bound (RIGHT)->get_column ();
+      const auto bounds = me->get_bounds ();
+      auto *const start_col = bounds[LEFT]->get_column ();
+      auto *const end_col = bounds[RIGHT]->get_column ();
       auto start_mom = from_scm (get_property (start_col, "when"), Moment (0));
       auto end_mom = from_scm (get_property (end_col, "when"), Moment (0));
-      if (start_mom == end_mom && !me->get_bound (LEFT)->break_status_dir ())
+      if (start_mom == end_mom && !bounds[LEFT]->break_status_dir ())
         bracket_visibility = false;
     }
 

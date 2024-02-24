@@ -261,9 +261,8 @@ Tuplet_number::calc_x_offset (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
 
-  Item *left_bound = me->get_bound (LEFT);
-  Item *right_bound = me->get_bound (RIGHT);
-  Drul_array<Item *> bounds (left_bound, right_bound);
+  auto bounds = me->get_bounds ();
+  auto *const left_bound = bounds[LEFT];
 
   Spanner *tuplet = unsmob<Spanner> (get_object (me, "bracket"));
 

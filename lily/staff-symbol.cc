@@ -34,8 +34,8 @@ SCM
 Staff_symbol::print (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
-  Grob *common
-    = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  const auto bounds = me->get_bounds ();
+  Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
 
   Interval span_points (0, 0);
 
@@ -63,7 +63,7 @@ Staff_symbol::print (SCM smob)
         }
       else
         {
-          Item *x = me->get_bound (d);
+          Item *x = bounds[d];
           if (x->extent (x, X_AXIS).is_empty ()
               || (x->break_status_dir () && me->broken_neighbor (d)))
             span_points[d] = x->relative_coordinate (common, X_AXIS);

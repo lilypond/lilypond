@@ -51,13 +51,13 @@ Ottava_bracket::print (SCM smob)
   Spanner *me = unsmob<Spanner> (smob);
   Interval span_points;
 
-  auto *common
-    = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  const auto bounds = me->get_bounds ();
+  auto *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
 
   Drul_array<bool> broken;
   for (const auto d : {LEFT, RIGHT})
     {
-      Item *b = me->get_bound (d);
+      Item *b = bounds[d];
       broken[d] = (b->break_status_dir () != CENTER);
 
       if (has_interface<Note_column> (b))
@@ -88,7 +88,7 @@ Ottava_bracket::print (SCM smob)
   */
   for (const auto d : {LEFT, RIGHT})
     {
-      Item *b = me->get_bound (d);
+      Item *b = bounds[d];
 
       Interval ext;
       if (has_interface<Note_column> (b))

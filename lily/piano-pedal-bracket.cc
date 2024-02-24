@@ -44,8 +44,8 @@ Piano_pedal_bracket::print (SCM smob)
     = from_scm (get_property (me, "bracket-flare"), Drul_array (0.0, 0.0));
   Drul_array<bool> broken;
 
-  Grob *common
-    = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  const auto bounds = me->get_bounds ();
+  Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
   Grob *textbit = unsmob<Grob> (get_object (me, "pedal-text"));
 
   if (textbit)
@@ -54,7 +54,7 @@ Piano_pedal_bracket::print (SCM smob)
   Interval span_points (0, 0);
   for (const auto d : {LEFT, RIGHT})
     {
-      Item *b = me->get_bound (d);
+      Item *b = bounds[d];
       broken[d] = b->break_status_dir () != CENTER;
       if (broken[d])
         {
