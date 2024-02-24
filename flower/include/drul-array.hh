@@ -24,6 +24,7 @@
 #include "real.hh"
 
 #include <cassert>
+#include <utility>
 
 /**
    Left/right or Up/down arrays. Drul is nicer sounding than udlr
@@ -63,29 +64,39 @@ public:
     return array_[d > CENTER];
   }
 
+  constexpr T &&at (Direction d) &&
+  {
+    assert (d);
+    return std::move (array_[d > CENTER]);
+  }
+
+  constexpr T const &&at (Direction d) const &&
+  {
+    assert (d);
+    return std::move (array_[d > CENTER]);
+  }
+
+  // The operator[] in std classes often doesn't check bounds, but we consider
+  // it prudent; therefore, we call at().
   constexpr T &operator[] (Direction d) & { return at (d); }
-
   constexpr T const &operator[] (Direction d) const & { return at (d); }
-
-  constexpr T &front () & // at (Direction::negative ())
+  constexpr T &&operator[] (Direction d) && { return std::move (at (d)); }
+  constexpr T const &&operator[] (Direction d) const &&
   {
-    return array_[0];
+    return std::move (at (d));
   }
 
-  constexpr T const &front () const & // at (Direction::negative ())
-  {
-    return array_[0];
-  }
+  // at (Direction::negative ())
+  constexpr T &front () & { return array_[0]; }
+  constexpr T const &front () const & { return array_[0]; }
+  constexpr T &&front () && { return std::move (array_[0]); }
+  constexpr T const &&front () const && { return std::move (array_[0]); }
 
-  constexpr T &back () & // at (Direction::positive ())
-  {
-    return array_[1];
-  }
-
-  constexpr T const &back () const & // at (Direction::positive ())
-  {
-    return array_[1];
-  }
+  // at (Direction::positive ())
+  constexpr T &back () & { return array_[1]; }
+  constexpr T const &back () const & { return array_[1]; }
+  constexpr T &&back () && { return std::move (array_[1]); }
+  constexpr T const &&back () const && { return std::move (array_[1]); }
 };
 
 template <class T1, class T2>

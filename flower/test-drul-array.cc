@@ -21,10 +21,24 @@
 
 #include "yaffut.hh"
 
+#include <type_traits>
+
+namespace
+{
+
+template <typename T>
+constexpr bool
+is_lvalue_ref (T &&)
+{
+  return std::is_lvalue_reference<T> ();
+}
+
+} // namespace
+
 class Drul_array_test
 {
 public:
-  static constexpr void test_access_const_checked ()
+  static constexpr void test_access_checked_const ()
   {
     const Drul_array<int> arr {12, 34};
 
@@ -35,14 +49,22 @@ public:
     EQUAL (34, arr[RIGHT]);
   }
 
-  static constexpr void test_access_const_unchecked ()
+  static constexpr void test_access_checked_const_temp ()
   {
-    const Drul_array<int> arr {12, 34};
-    EQUAL (12, arr.front ());
-    EQUAL (34, arr.back ());
+    using CD = const Drul_array<int>;
+    EQUAL (12, (CD {12, 34}).at (LEFT));
+    EQUAL (34, (CD {12, 34}).at (RIGHT));
+    EQUAL (12, (CD {12, 34})[LEFT]);
+    EQUAL (34, (CD {12, 34})[RIGHT]);
+
+    // no backdoor to create an lvalue reference to a temporary
+    CHECK (!is_lvalue_ref (CD {}.at (LEFT)));
+    CHECK (!is_lvalue_ref (CD {}.at (RIGHT)));
+    CHECK (!is_lvalue_ref (CD {}[LEFT]));
+    CHECK (!is_lvalue_ref (CD {}[RIGHT]));
   }
 
-  static constexpr void test_access_mutable_checked ()
+  static constexpr void test_access_checked_mutable ()
   {
     Drul_array<int> arr {12, 34};
 
@@ -57,7 +79,39 @@ public:
     EQUAL (35, arr.at (RIGHT));
   }
 
-  static constexpr void test_access_mutable_unchecked ()
+  static constexpr void test_access_checked_mutable_temp ()
+  {
+    EQUAL (12, (Drul_array<int> {12, 34})[LEFT]);
+    EQUAL (34, (Drul_array<int> {12, 34})[RIGHT]);
+    EQUAL (12, (Drul_array<int> {12, 34}).at (LEFT));
+    EQUAL (34, (Drul_array<int> {12, 34}).at (RIGHT));
+
+    // no backdoor to create an lvalue reference to a temporary
+    CHECK (!is_lvalue_ref (Drul_array<int> {}[LEFT]));
+    CHECK (!is_lvalue_ref (Drul_array<int> {}[RIGHT]));
+    CHECK (!is_lvalue_ref (Drul_array<int> {}.at (LEFT)));
+    CHECK (!is_lvalue_ref (Drul_array<int> {}.at (RIGHT)));
+  }
+
+  static constexpr void test_access_unchecked_const ()
+  {
+    const Drul_array<int> arr {12, 34};
+    EQUAL (12, arr.front ());
+    EQUAL (34, arr.back ());
+  }
+
+  static constexpr void test_access_unchecked_const_temp ()
+  {
+    using CD = const Drul_array<int>;
+    EQUAL (12, (CD {12, 34}).front ());
+    EQUAL (34, (CD {12, 34}).back ());
+
+    // no backdoor to create an lvalue reference to a temporary
+    CHECK (!is_lvalue_ref (CD {}.front ()));
+    CHECK (!is_lvalue_ref (CD {}.back ()));
+  }
+
+  static constexpr void test_access_unchecked_mutable ()
   {
     Drul_array<int> arr {12, 34};
 
@@ -70,6 +124,16 @@ public:
 
     EQUAL (13, arr.front ());
     EQUAL (33, arr.back ());
+  }
+
+  static constexpr void test_access_unchecked_mutable_temp ()
+  {
+    EQUAL (12, (Drul_array<int> {12, 34}).front ());
+    EQUAL (34, (Drul_array<int> {12, 34}).back ());
+
+    // no backdoor to create an lvalue reference to a temporary
+    CHECK (!is_lvalue_ref (Drul_array<int> {}.front ()));
+    CHECK (!is_lvalue_ref (Drul_array<int> {}.back ()));
   }
 
   static void test_init_default_int ()
@@ -147,12 +211,14 @@ public:
   }
 };
 
-static_assert ((Drul_array_test::test_access_const_checked (), true));
+static_assert ((Drul_array_test::test_access_checked_const (), true));
+static_assert ((Drul_array_test::test_access_checked_const_temp (), true));
+static_assert ((Drul_array_test::test_access_checked_mutable (), true));
+static_assert ((Drul_array_test::test_access_checked_mutable_temp (), true));
 
-static_assert ((Drul_array_test::test_access_const_unchecked (), true));
-
-static_assert ((Drul_array_test::test_access_mutable_checked (), true));
-
-static_assert ((Drul_array_test::test_access_mutable_unchecked (), true));
+static_assert ((Drul_array_test::test_access_unchecked_const (), true));
+static_assert ((Drul_array_test::test_access_unchecked_const_temp (), true));
+static_assert ((Drul_array_test::test_access_unchecked_mutable (), true));
+static_assert ((Drul_array_test::test_access_unchecked_mutable_temp (), true));
 
 static_assert ((Drul_array_test::test_scaling (), true));
