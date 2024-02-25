@@ -444,7 +444,7 @@ Notenbezeichnungen.
 @item --loglevel=@var{Logstufe}
 Passt die Ausführlichkeit der Ausgabe entsprechend @var{Logstufe} an.
 Mögliche Werte sind @code{NONE},
-@code{ERROR}, @code{WARNING}, @code{PROGRESS} (Standard) und @code{DEBUG}.
+@code{ERROR}, @code{WARN}, @code{PROGRESS} (Standard) und @code{DEBUG}.
 
 @item --lxml
 Benutzt das lxml.etree Python-Paket für die Verarbeitung von XML (benötigt weniger Speicher und Rechenleistung)

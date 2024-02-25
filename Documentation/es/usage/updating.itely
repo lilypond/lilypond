@@ -273,7 +273,7 @@ Imprimir la ayuda de utilización.
 @item -l @var{loglevel}, --loglevel=@var{loglevel}
 Fijar el grado en que la salida es prolija a @var{loglevel}. Los
 valores posibles son @code{NONE} (ninguno), @code{ERROR}
-(errores), @code{WARNING} (advertencias), @code{PROGRESS} (avance;
+(errores), @code{WARN} (advertencias), @code{PROGRESS} (avance;
 predeterminado) y @code{DEBUG} (depuración).
 
 @item -n, --no-version

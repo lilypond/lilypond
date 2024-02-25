@@ -1022,7 +1022,7 @@ lilypond-book --filter='convert-ly --from=2.0.0 -' my-book.tely
 @item -l @var{loglevel}
 @itemx --loglevel=@var{loglevel}
 出力の饒舌さを @var{loglevel} にセットします。@c
-取り得る値は @code{NONE}, @code{ERROR}, @code{WARNING}, @code{PROGRESS}
+取り得る値は @code{NONE}, @code{ERROR}, @code{WARN}, @code{PROGRESS}
 (デフォルト), それに @code{DEBUG} です。@c
 このオプションを使わなかった場合、環境変数 @code{LILYPOND_BOOK_LOGLEVEL}
 がセットされ、その値が loglevel として使われます。
@@ -1060,8 +1060,8 @@ lily-XXX ファイルをディレクトリ @var{dir} に書き出し、@option{-
 @item --lily-loglevel=@var{loglevel}
 呼び出された @command{lilypond} の出力の饒舌さを @var{loglevel} にセット@c
 します。@c
-取り得る値は @code{NONE}, @code{ERROR}, @code{WARNING},
-@code{BASIC_PROGRESS}, @code{PROGRESS}, @code{INFO} (デフォルト),
+取り得る値は @code{NONE}, @code{ERROR}, @code{WARN},
+@code{BASIC}, @code{PROGRESS}, @code{INFO} (デフォルト),
 それに @code{DEBUG} です。@c
 このオプションを使わなかった場合、環境変数 @code{LILYPOND_LOGLEVEL}
 がセットされ、その値が loglevel として使われます。

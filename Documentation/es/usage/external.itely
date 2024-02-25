@@ -591,7 +591,7 @@ p.ej. @code{español} para los nombres de las notas en español.
 @item --loglevel=@var{LOGLEVEL}
 fijar el grado en que la salida es prolija al valor dado en
 @var{LOGLEVEL}.  Los valores posibles son @code{NONE} (ninguno),
-@code{ERROR} (errores), @code{WARNING} (advertencias),
+@code{ERROR} (errores), @code{WARN} (advertencias),
 @code{PROGRESS} (avance; predeterminado) y @code{DEBUG}
 (depuración).
 

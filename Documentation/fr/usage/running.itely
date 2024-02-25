@@ -434,7 +434,7 @@ ni de progression.
 Messages d'avertissement ou d'erreur ; pas d'information de
 progression.
 
-@item BASIC_PROGRESS
+@item BASIC
 Information de progression basique (réussite) et avertissements ou
 erreurs.
 

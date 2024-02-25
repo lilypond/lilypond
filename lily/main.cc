@@ -137,7 +137,7 @@ static Long_option_init options_static[] = {
 #endif
   {_i ("LOGLEVEL"), "loglevel", 'l',
    _i ("print log messages according to LOGLEVEL,\n"
-       "which is either NONE, ERROR, WARNING,\n"
+       "which is either NONE, ERROR, WARN,\n"
        "BASIC, PROGRESS, INFO (default), or DEBUG")},
   {_i ("FILE"), "output", 'o',
    _i ("write output to FILE (suffix will be added)\n"

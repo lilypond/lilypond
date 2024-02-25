@@ -31,7 +31,7 @@
 /** We have several different loglevels, each with its own message function(s):
       ERROR: error, non_fatal_error, programming_error
       WARN: warning
-      BASIC_PROGRESS: success/...
+      BASIC: success/...
       PROGRESS: progress_indication
       INFO: message
       DEBUG: debug

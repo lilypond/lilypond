@@ -247,7 +247,7 @@ convert-ly.py myfile.ly > mynewfile.ly
 @item -l @var{loglevel}, --loglevel=@var{loglevel}
 出力の饒舌さを @var{loglevel} にセットします。@c
 取り得る値は、大文字で、@code{PROGRESS} (デフォルト), @code{NONE},
-@code{WARNING}, @code{ERROR}, それに @code{DEBUG} です。
+@code{WARN}, @code{ERROR}, それに @code{DEBUG} です。
 
 @item -n, --no-version
 通常、@command{convert-ly} は @code{\version} インジケータを@c

@@ -1209,7 +1209,7 @@ option @code{-I @var{répertoire}}.
 @item -l @var{loglevel}
 @itemx --loglevel=@var{loglevel}
 Détermine le degré de verbosité à @var{loglevel}. Les différentes
-valeurs admises sont @code{NONE}, @code{ERROR}, @code{WARNING},
+valeurs admises sont @code{NONE}, @code{ERROR}, @code{WARN},
 @code{PROGRESS} (par défaut) et @code{DEBUG}. Lorsque cette option n'est
 pas activée, c'est le niveau déterminé par la variable d'environnement
 @code{LILYPOND_BOOK_LOGLEVEL} qui sera utilisé.
@@ -1250,7 +1250,7 @@ identiques.
 @item --lily-loglevel=@var{loglevel}
 Détermine le degré de verbosité lors des appels à @command{lilypond}.
 Les valeurs autorisée de @var{loglevel} sont : @code{NONE},
-@code{ERROR}, @code{WARNING}, @code{BASIC}, @code{PROGRESS}, @code{INFO}
+@code{ERROR}, @code{WARN}, @code{BASIC}, @code{PROGRESS}, @code{INFO}
 (par défaut) et @code{DEBUG}. Lorsque cette option n'est pas activée,
 c'est le niveau déterminé par la variable d'environnement
 @code{LILYPOND_LOGLEVEL} qui sera utilisé.

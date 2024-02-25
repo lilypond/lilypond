@@ -1025,7 +1025,7 @@ damit das entsprechende Programm die Grafiken ebenso findet.
 @item -l @var{Logstufe}
 @itemx --loglevel=@var{Logstufe}
 Passt die Ausführlichkeit der Ausgabe entsprechend @var{Logstufe} an.
-Mögliche Werte sind @code{NONE}, @code{ERROR}, @code{WARNING},
+Mögliche Werte sind @code{NONE}, @code{ERROR}, @code{WARN},
 @code{PROGRESS} (Standard) und @code{DEBUG}.  Wenn diese Option nicht
 genutzt wird und die Umgebungsvariable @code{LILYPOND_BOOK_LOGLEVEL}
 definiert ist, wird ihr Wert als Logstufe eingesetzt.
@@ -1064,7 +1064,7 @@ enthalten.
 
 @item --lily-loglevel=@var{Logstufe}
 Passt die Ausführlichkeit der Ausgabe entsprechend @var{Logstufe} an.
-Mögliche Werte sind @code{NONE}, @code{ERROR}, @code{WARNING},
+Mögliche Werte sind @code{NONE}, @code{ERROR}, @code{WARN},
 @code{PROGRESS} (Standard) und @code{DEBUG}.  Wenn diese Option nicht
 genutzt wird und die Umgebungsvariable @code{LILYPOND_LOGLEVEL}
 definiert ist, wird ihr Wert als Logstufe eingesetzt.

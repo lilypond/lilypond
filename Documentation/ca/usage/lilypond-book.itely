@@ -1054,7 +1054,7 @@ amb les mateixes opcions @option{-I @var{directori}}.
 @itemx --loglevel=@var{nivel_de_registre}
 Fixació del nivell en el qual la sortida és neta, al valor
 @var{nivell_de_registre}. Els valors possibles són 
-@code{NONE} (res), @code{ERROR} (errors), @code{WARNING} (advertiments),
+@code{NONE} (res), @code{ERROR} (errors), @code{WARN} (advertiments),
 @code{PROGRESS} (avanç; predeterminat) y @code{DEBUG}
 (depuració). Si aquesta opció no es fa servir, i està establerta la variable
 d'entorn @code{LILYPOND_BOOK_LOGLEVEL}, s'usa el seu valor com a
@@ -1095,8 +1095,8 @@ directoris que comparteixen molts fragments idèntics de codi.
 Establiment del nivell en el qual la sortida és neta per a les
 crides de l'ordre invocat @command{lilypond}, al valor
 @var{nivell _de_registre}.  Els valors possibles són@code{NONE}
-(res), @code{ERROR} (errors), @code{WARNING} (advertiments),
-@code{BASIC_PROGRESS} (avanç bàsic), @code{PROGRESS} (avanç),
+(res), @code{ERROR} (errors), @code{WARN} (advertiments),
+@code{BASIC} (avanç bàsic), @code{PROGRESS} (avanç),
 @code{INFO} (informació; predeterminat) i @code{DEBUG}
 (depuració). Si no es fa servi aquesta opció i la variable d'entorn
 @code{LILYPOND_LOGLEVEL} està establerta, el seu valor es fa

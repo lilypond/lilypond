@@ -194,7 +194,7 @@ Imprimeix l'ajuda d'utilització.
 @item -l @var{nivellderegistre}, --loglevel=@var{nivellderegistre}
 Fixa el grau en el qual la sortida és detallada a
 @var{nivellderegistre}.  Els valors possibles són @code{NONE}
-(cap), @code{ERROR} (errors), @code{WARNING} (advertiments),
+(cap), @code{ERROR} (errors), @code{WARN} (advertiments),
 @code{PROGRESS} (avenç;predeterminat) i @code{DEBUG} (depuració).
 
 @item -n, --no-version

@@ -1144,7 +1144,7 @@ invoke further processing commands such as @command{texi2any} or
 @item -l @var{loglevel}
 @itemx --loglevel=@var{loglevel}
 Set the output verbosity to @var{loglevel}.  Possible values are @code{NONE},
-@code{ERROR}, @code{WARNING}, @code{PROGRESS} (default), and @code{DEBUG}.
+@code{ERROR}, @code{WARN}, @code{PROGRESS} (default), and @code{DEBUG}.
 If this option is not used and the environment variable
 @code{LILYPOND_BOOK_LOGLEVEL} is set, its value is used as the log level.
 
@@ -1179,7 +1179,7 @@ snippets.
 @item --lily-loglevel=@var{loglevel}
 Set the output verbosity of the invoked @command{lilypond} command to
 @var{loglevel}.  Possible values are @code{NONE}, @code{ERROR},
-@code{WARNING}, @code{BASIC}, @code{PROGRESS}, @code{INFO}
+@code{WARN}, @code{BASIC}, @code{PROGRESS}, @code{INFO}
 (default), and @code{DEBUG}.  If this option is not used and the
 environment variable @code{LILYPOND_LOGLEVEL} is set, its value is used
 as the log level.

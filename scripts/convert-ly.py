@@ -111,7 +111,7 @@ def get_option_parser():
 
     p.add_option("-l", "--loglevel",
                  help=_("Print log messages according to LOGLEVEL "
-                        "(NONE, ERROR, WARNING, PROGRESS (default), DEBUG)"),
+                        "(NONE, ERROR, WARN, PROGRESS (default), DEBUG)"),
                  metavar=_("LOGLEVEL"),
                  action='callback',
                  callback=ly.handle_loglevel_option,

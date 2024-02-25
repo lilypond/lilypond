@@ -396,7 +396,7 @@ progreso.
 @item WARN
 Advertencias y mensajes de error, no de progreso.
 
-@item BASIC_PROGRESS
+@item BASIC
 Mensajes de progreso básicos (éxito), advertencias y errores.
 
 @item PROGRESS

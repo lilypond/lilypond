@@ -415,7 +415,7 @@ Only error messages, no warnings or progress messages.
 @item WARN
 Warnings and error messages, no progress.
 
-@item BASIC_PROGRESS
+@item BASIC
 Basic progress messages (success), warnings and errors.
 
 @item PROGRESS

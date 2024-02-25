@@ -591,7 +591,7 @@ p.ej. @code{català}  per als noms de les notes en català.
 @item --loglevel=@var{LOGLEVEL}
 fixa el grau de depuració de la sortida al valor donat a
 @var{LOGLEVEL}.  Els valors possibles són @code{NONE} (cap),
-@code{ERROR} (errors), @code{WARNING} (advertiments),
+@code{ERROR} (errors), @code{WARN} (advertiments),
 @code{PROGRESS} (avenç; predeterminat) y @code{DEBUG}
 (depuració).
 

@@ -7,7 +7,7 @@
 \header{
   texidoc="
 Test the different loglevels of lilypond. Run this file with --loglevel=NONE,
-ERROR, WARNING, PROGRESS, DEBUG to see the different loglevels. The errors
+ERROR, WARN, PROGRESS, DEBUG to see the different loglevels. The errors
 are commented out. Comment them in to check the output manually.
 "
 }

@@ -325,7 +325,7 @@ Affiche l'aide et quitte.
 
 @item -l @var{loglevel}, --loglevel=@var{loglevel}
 Règle le degré de verbosité à @var{loglevel}. Les différentes valeurs
-sont @code{PROGRESS} (par défaut), @code{NONE}, @code{WARNING},
+sont @code{PROGRESS} (par défaut), @code{NONE}, @code{WARN},
 @code{ERROR} et @code{DEBUG}.
 
 @item -n, --no-version

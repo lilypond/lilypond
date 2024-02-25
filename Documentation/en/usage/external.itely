@@ -502,7 +502,7 @@ German.
 
 @item --loglevel=@var{LOGLEVEL}
 Sets the output verbosity to @var{LOGLEVEL}. Possible values are
-@code{NONE}, @code{ERROR}, @code{WARNING}, @code{PROGRESS} (default) and
+@code{NONE}, @code{ERROR}, @code{WARN}, @code{PROGRESS} (default) and
 @code{DEBUG}.
 
 @item -m, --midi

@@ -1080,7 +1080,7 @@ invocar instrucciones de procesado posteriores como
 @itemx --loglevel=@var{nivel_de_registro}
 Fijar el nivel en que la salida es prolija, al valor
 @var{nivel_de_registro}. Los valores posibles son @code{NONE}
-(nada), @code{ERROR} (errores), @code{WARNING} (advertencias),
+(nada), @code{ERROR} (errores), @code{WARN} (advertencias),
 @code{PROGRESS} (avance; predeterminado) y @code{DEBUG}
 (depuración). Si esta opción no se utiliza, y la variable de
 entorno @code{LILYPOND_BOOK_LOGLEVEL} está establecida, se usa su
@@ -1121,8 +1121,8 @@ directorios que comparten muchos fragmentos idénticos de código.
 Fijar el nivel en que la salida es prolija para las llamadas de la
 instrucción invocada @command{lilypond}, al valor
 @var{nivel_de_registro}.  Los valores posibles son @code{NONE}
-(nada), @code{ERROR} (errores), @code{WARNING} (advertencias),
-@code{BASIC_PROGRESS} (avance básico), @code{PROGRESS} (avance),
+(nada), @code{ERROR} (errores), @code{WARN} (advertencias),
+@code{BASIC} (avance básico), @code{PROGRESS} (avance),
 @code{INFO} (información; predeterminado) y @code{DEBUG}
 (depuración). Si no se utiliza esta opción y la variable de
 entorno @code{LILYPOND_LOGLEVEL} está establecida, su valor se usa

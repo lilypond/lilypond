@@ -294,7 +294,7 @@ Nur Fehlermeldungen, keine Warnungen oder Fortschrittsmeldungen.
 @item WARN
 Warnungen und Fehlermeldungen, keine Fortschrittsmeldungen.
 
-@item BASIC_PROGRESS
+@item BASIC
 Grundlegende Fortschrittsmeldungen (Erfolg), Warnungen und Fehler.
 
 @item PROGRESS

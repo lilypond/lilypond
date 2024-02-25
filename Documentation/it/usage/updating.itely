@@ -242,7 +242,7 @@ Mostra la schermata di aiuto.
 @item -l @var{loglevel}, --loglevel=@var{loglevel}
 Imposta la verbosità dell'output su @var{loglevel}. I valori possibili, in
 caratteri maiuscoli, sono @code{PROGRESS} (predefinito), @code{NONE},
-@code{WARNING}, @code{ERROR} e @code{DEBUG}.
+@code{WARN}, @code{ERROR} e @code{DEBUG}.
 
 @item -n, --no-version
 Normalmente @command{convert-ly} aggiunge un indicatore @code{\version}

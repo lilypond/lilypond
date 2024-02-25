@@ -362,7 +362,7 @@ Solo i messaggi di errore, niente avvisi o messaggi di elaborazione.
 @item WARN
 Avvisi e messaggi di errore, nessun messaggio di elaborazione.
 
-@item BASIC_PROGRESS
+@item BASIC
 Messaggi di elaborazione di base (riuscita), avvisi e errori.
 
 @item PROGRESS

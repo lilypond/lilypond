@@ -334,7 +334,7 @@ Print usage help.
 @item -l @var{loglevel}, --loglevel=@var{loglevel}
 Set the output verbosity to @var{loglevel}.  Possible values, in
 upper case, are @code{PROGRESS} (the default), @code{NONE},
-@code{WARNING}, @code{ERROR}, and @code{DEBUG}.
+@code{WARN}, @code{ERROR}, and @code{DEBUG}.
 
 @item -n, --no-version
 Normally, @command{convert-ly} adds a @code{\version} indicator

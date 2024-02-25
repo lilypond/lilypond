@@ -575,7 +575,7 @@ musicxml2ly [@var{option}]@dots{} @var{file.xml}
 
 @item --loglevel=@var{LOGLEVEL}
 出力の饒舌さを @var{LOGLEVEL} にセットします。@c
-取り得る値は @code{NONE}, @code{ERROR}, @code{WARNING},
+取り得る値は @code{NONE}, @code{ERROR}, @code{WARN},
 @code{PROGRESS} (デフォルト), それに @code{DEBUG} です。
 
 @item --lxml

@@ -547,7 +547,7 @@ delle note in tedesco.
 
 @item --loglevel=@var{LIVELLOLOG}
 Imposta la verbosità dell'output su @var{LIVELLOLOG}. I valori possibili sono
-@code{NONE}, @code{ERROR}, @code{WARNING}, @code{PROGRESS} (predefinito) e
+@code{NONE}, @code{ERROR}, @code{WARN}, @code{PROGRESS} (predefinito) e
 @code{DEBUG}.
 
 @item --lxml

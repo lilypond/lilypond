@@ -1094,7 +1094,7 @@ opzioni @option{-I @var{dir}}.
 @item -l @var{loglevel}
 @itemx --loglevel=@var{loglevel}
 Imposta la verbosità dell'output su @var{loglevel}. I valori possibili sono @code{NONE},
-@code{ERROR}, @code{WARNING}, @code{PROGRESS} (predefinito) e @code{DEBUG}. Se
+@code{ERROR}, @code{WARN}, @code{PROGRESS} (predefinito) e @code{DEBUG}. Se
 questa opzione non viene usata e la variabile d'ambiente @code{LILYPOND_BOOK_LOGLEVEL}
 è impostata, il suo valore viene usato come livello di log.
 
@@ -1129,7 +1129,7 @@ molti identici frammenti.
 
 @item --lily-loglevel=@var{loglevel}
 Imposta la verbosità dell'output del comando @command{lilypond} su @var{loglevel}.
-I valori possibili sono @code{NONE}, @code{ERROR}, @code{WARNING}, @code{BASIC},
+I valori possibili sono @code{NONE}, @code{ERROR}, @code{WARN}, @code{BASIC},
 @code{PROGRESS}, @code{INFO} (predefinito) e @code{DEBUG}. Se questa opzione
 non viene usata e la variabile d'ambiente @code{LILYPOND_LOGLEVEL} è
 impostata, il suo valore viene usato come livello di log.

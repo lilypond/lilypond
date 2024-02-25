@@ -290,7 +290,7 @@ Sols missatges d'error, cap advertiment o indicacions de progrés.
 @item WARN
 Advertiments i missatges d'error, no de progrés.
 
-@item BASIC_PROGRESS
+@item BASIC
 Missatges de progrés bàsics (èxit), advertiment i errors.
 
 @item PROGRESS
