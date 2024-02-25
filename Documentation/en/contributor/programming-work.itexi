@@ -785,29 +785,33 @@ Do not run make po/po-update with GNU gettext < 0.10.35
 
 @subheading Available log levels
 
-LilyPond has several loglevels, which specify how verbose the output on
-the console should be.
+LilyPond has several log levels to specify how verbose the output
+on the console should be, as shown in the following table.  Note
+that only the first few characters of a given value are checked
+(as indicated); additionally, case doesn't matter.  In other
+words, @code{ERR} is the same as @code{error} or @code{ERRO}, for
+example.
 
 @indentedblock
 @table @code
 @item NONE
-No output at all, even on failure
-@item ERROR
-Only error messages
+no output at all, even on failure
+@item ERR[OR]
+only error messages
 @item WARN
-Only error messages and warnings
-@item BASIC_PROGRESS
-Warnings, errors and basic progress (success, etc.)
-@item PROGRESS
-Warnings, errors and full progress messages
+only error messages and warnings
+@item BASIC
+warnings, errors, and basic progress (success, etc.)
+@item PROG[RESS]
+warnings, errors, and full progress messages
 @item INFO
-Warnings, errors, progress and more detailed information (default)
+warnings, errors, progress, and more detailed information (default)
 @item DEBUG
-All messages, including full debug messages (very verbose!)
+all messages, including full debug messages (very verbose!)
 @end table
 @end indentedblock
 
-The loglevel can either be set with the environment variable
+The log level can either be set with the environment variable
 @code{LILYPOND_LOGLEVEL} or on the command line with the @option{--loglevel=...}
 option.
 
@@ -850,7 +854,7 @@ return a non-zero return value of the LilyPond call (i.e., indicate an
 unsuccessful program execution).  All other errors will be printed on the
 console, but not exit LilyPond or indicate an unsuccessful return code.
 Their only differences to a warnings are the displayed text and that
-they will be shown with loglevel @code{ERROR}.
+they will be shown with log level @code{ERROR}.
 
 If the Scheme option @code{warning-as-error} is set, any warning will be
 treated as if @code{Input::error} was called.
