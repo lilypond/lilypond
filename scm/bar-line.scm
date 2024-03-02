@@ -18,7 +18,9 @@
 
 
 ;; TODO:
-;; (1) Dotted bar lines look ugly in combination with span bars
+;; (1) Dashed bar lines may stick out above and below the staff lines
+;;
+;; (2) Dashed and dotted lines look ugly in combination with span bars
 ;;
 ;; (This was the case in the c++-version of (span) bar stuff)
 
@@ -458,10 +460,9 @@ is not used within the routine."
 
       (add-stencils! empty-stencil stil-list))))
 
-
 (define (make-dashed-bar-line grob extent)
   "Draw a dashed bar line."
-  (let* ((bar-height (interval-length extent))
+  (let* ((height (interval-length extent))
          (staff-symbol (ly:grob-object grob 'staff-symbol grob))
          (staff-space (ly:staff-symbol-staff-space grob))
          (line-thickness (layout-line-thickness grob))
@@ -469,11 +470,11 @@ is not used within the routine."
                        line-thickness))
          (dash-size (- 1.0 (ly:grob-property grob 'gap 0.3)))
          (line-count (staff-symbol-line-count staff-symbol)))
+
     (if (< (abs (+ line-thickness
                    (* (1- line-count) staff-space)
-                   (- bar-height)))
+                   (- height)))
            0.1)
-        ;; use ly:round-filled-box to build the dashes and line them up
         (let ((blot (layout-blot-diameter grob))
               (half-space (/ staff-space 2.0))
               (half-thick (/ line-thickness 2.0))
@@ -498,40 +499,22 @@ is not used within the routine."
            stencil
            (interval-center extent)
            Y))
-        ;; use dashed-line stencil
-        ;;
-        ;; In this case we need to ensure the rounded ends of the top/bottom
-        ;; dash do not stick out by *reducing* the `bar-height'
-        ;; by (* 2 line-thickness).
-        ;; Alas, although it prints nicely for BarLine, SpanBar becomes worse.
-        ;; Thus we need to *widen* the `span-extent' for SpanBar in
-        ;; ly:span-bar::print by `line-thickness'.
-        ;; See below.
-        ;; As a result the dashed BarLine overlaps the dashed SpanBar inside of
-        ;; top or bottom staff line.
-        (let* ((height (- bar-height (* 2 line-thickness)))
-               (dashes (/ bar-height staff-space))
-               (total-dash-size (/ bar-height dashes))
-               (factor (/ (- (- dash-size 0) thickness) staff-space))
+        (let* ((dashes (/ height staff-space))
+               (total-dash-size (/ height dashes))
+               (factor (/ (- dash-size thickness) staff-space))
                (stencil (ly:stencil-translate-axis
                          (ly:make-stencil (list 'dashed-line
-                                                ;; thick
                                                 thickness
-                                                ;; on
                                                 (* factor total-dash-size)
-                                                ;; off
                                                 (* (- 1 factor) total-dash-size)
-                                                ;; dx
                                                 0
-                                                ;; dy
                                                 height
-                                                ;; phase
-                                                (+ (* factor total-dash-size 0.5)
-                                                   (* 0.5 line-thickness)))
+                                                (* factor total-dash-size 0.5))
                                           (cons (/ thickness -2) (/ thickness 2))
                                           (cons 0 height))
-                         (+ (interval-start extent) line-thickness)
+                         (interval-start extent)
                          Y)))
+
           (ly:stencil-translate-axis stencil (/ thickness 2) X)))))
 
 
@@ -1024,7 +1007,6 @@ no elements."
   "The print routine for span bars."
   (let ((span-bar empty-stencil)
         (model-bar (ly:span-bar::choose-model-bar-line grob))
-        (line-thickness (layout-line-thickness grob))
         ;; note: choose-model-bar-line might have killed the span bar
         (bar-glyph (ly:grob-property grob 'glyph-name)))
     (when (string? bar-glyph)
@@ -1067,6 +1049,7 @@ no elements."
         (reduce (lambda (curr prev)
                   (let ((span-extent (cons 0 0))
                         (allow-span-bar (car make-span-bars)))
+
                     (set! make-span-bars (cdr make-span-bars))
                     (when (positive? (interval-length prev))
                       (set! span-extent (cons (cdr prev) (car curr)))
@@ -1080,13 +1063,7 @@ no elements."
                                   (span-bar::compound-bar-line
                                    model-bar
                                    bar-glyph
-                                   (if (equal? bar-glyph "!")
-                                       ;; In case of a dashed bar line we need
-                                       ;; to widen `span-extent' by
-                                       ;; line-thickness.
-                                       ;; See above in `make-dashed-bar-line'
-                                       (interval-widen span-extent line-thickness)
-                                       span-extent))))))
+                                   span-extent)))))
                     curr))
                 "" extents)
         (set! span-bar (ly:stencil-translate-axis
