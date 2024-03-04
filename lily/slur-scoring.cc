@@ -727,12 +727,12 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
     = staff_space_
       * from_scm<double> (get_property (slur_, "minimum-length"), 2.0);
 
-  for (int i = 0; dir_ * os[LEFT][Y_AXIS] <= dir_ * end_ys[LEFT]; i++)
+  while (dir_ * os[LEFT][Y_AXIS] <= dir_ * end_ys[LEFT])
     {
       os[RIGHT] = base_attachments_[RIGHT];
-      for (int j = 0; dir_ * os[RIGHT][Y_AXIS] <= dir_ * end_ys[RIGHT]; j++)
-        {
 
+      while (dir_ * os[RIGHT][Y_AXIS] <= dir_ * end_ys[RIGHT])
+        {
           Drul_array<bool> attach_to_stem;
           for (const auto d : {LEFT, RIGHT})
             {

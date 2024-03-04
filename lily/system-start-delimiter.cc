@@ -105,7 +105,6 @@ System_start_delimiter::print (SCM smob)
 
   Interval ext;
   Real staffspace = 1.0;
-  int non_empty_count = 0;
   for (vsize i = elts.size (); i--;)
     {
       Spanner *sp = dynamic_cast<Spanner *> (elts[i]);
@@ -115,7 +114,6 @@ System_start_delimiter::print (SCM smob)
           Interval dims = sp->extent (common, Y_AXIS);
           if (!dims.is_empty ())
             {
-              non_empty_count++;
               ext.unite (dims);
               staffspace = Staff_symbol_referencer::staff_space (sp);
             }

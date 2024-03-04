@@ -39,12 +39,10 @@ make_index_to_charcode_map (FT_Face face)
   FT_CharMap current_cmap = face->charmap;
   FT_Select_Charmap (face, FT_ENCODING_UNICODE);
 
-  int j = 0;
   for (charcode = FT_Get_First_Char (face, &gindex); gindex != 0;
        charcode = FT_Get_Next_Char (face, charcode, &gindex))
     {
       m[gindex] = charcode;
-      j++;
     }
   FT_Set_Charmap (face, current_cmap);
 

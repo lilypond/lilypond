@@ -42,7 +42,6 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 
   for (vsize i = 0; i < loose_col_count; i++)
     {
-      int divide_over = 1;
       Paper_column *loose = static_cast<Paper_column *> (posns->loose_cols_[i]);
 
       Paper_column *left = 0;
@@ -77,7 +76,6 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 
           clique.push_back (loose);
 
-          divide_over++;
           loose = right = re->get_column ();
         }
 
