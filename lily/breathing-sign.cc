@@ -152,7 +152,9 @@ Breathing_sign::divisio_maior (SCM smob)
           std::sort (line_pos.begin (), line_pos.end ());
           ydim[DOWN] = line_pos.front ();
           ydim[UP] = line_pos.back ();
-          if (Real const height = ydim.length ())
+
+          Real const height = ydim.length ();
+          if (height != 0.0)
             {
               ydim.widen (-0.25 * height);
 

@@ -50,7 +50,7 @@ Page_spacing::resize (Real new_height)
 void
 Page_spacing::append_system (const Line_details &line)
 {
-  if (rod_height_)
+  if (rod_height_ != 0.0)
     {
       rod_height_ += line.tallness_;
       spring_len_ += last_line_.spring_length (line);
@@ -109,7 +109,7 @@ Page_spacing::account_for_footnotes (Line_details const &line)
 void
 Page_spacing::prepend_system (const Line_details &line)
 {
-  if (rod_height_)
+  if (rod_height_ != 0.0)
     spring_len_ += line.spring_length (first_line_);
   else
     last_line_ = line;

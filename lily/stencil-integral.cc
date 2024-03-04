@@ -213,7 +213,7 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
   Real x_scale = sqrt (sqr (transform.get_xx ()) + sqr (transform.get_yx ()));
   Real y_scale = sqrt (sqr (transform.get_xy ()) + sqr (transform.get_yy ()));
   bool rounded = (diameter * std::max (x_scale, y_scale) > 0.5);
-  bool rotated = (transform.get_yx () || transform.get_xy ());
+  bool rotated = (transform.get_yx () != 0.0 || transform.get_xy () != 0.0);
 
   std::vector<Box> boxes;
   if (!rotated && !rounded)
@@ -245,7 +245,7 @@ add_round_filled_box_segments (Lazy_skyline_pair *skyline,
         }
 
       /* draw rounded corners */
-      if (radius)
+      if (radius != 0.0)
         {
           Drul_array<Real> cx;
           Drul_array<Real> cy;

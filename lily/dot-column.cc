@@ -86,7 +86,7 @@ Dot_column::calc_positioning_done (SCM smob)
   for (vsize i = 0; i < support.size (); i++)
     {
       Grob *s = support[i];
-      if (!ss)
+      if (ss == 0.0)
         ss = Staff_symbol_referencer::staff_space (s);
 
       /* can't inspect Y extent of rest.

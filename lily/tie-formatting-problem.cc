@@ -956,7 +956,7 @@ Tie_formatting_problem::generate_base_chord_configuration ()
 
   set_ties_config_standard_directions (&ties_config);
   for (vsize i = 0; i < ties_config.size (); i++)
-    if (!specifications_[i].manual_position_)
+    if (specifications_[i].manual_position_ == 0.0)
       ties_config[i].position_ += ties_config[i].dir_;
 
   ties_config = generate_ties_configuration (ties_config);
@@ -1048,7 +1048,7 @@ Tie_formatting_problem::set_ties_config_standard_directions (
 
       Real span_diff = specifications_[i].column_span ()
                        - specifications_[i - 1].column_span ();
-      if (span_diff && fabs (diff) <= 2)
+      if (span_diff != 0.0 && fabs (diff) <= 2)
         {
           if (span_diff > 0)
             (*tie_configs)[i].dir_ = UP;

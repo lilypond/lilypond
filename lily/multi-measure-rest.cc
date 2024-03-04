@@ -202,7 +202,7 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Box b (Interval (0.0, std::max (0.0, (width - 2 * ythick))),
          Interval (-y, y));
 
-  Real blot = width ? (.8 * std::min (y, ythick)) : 0.0;
+  Real blot = width != 0.0 ? (.8 * std::min (y, ythick)) : 0.0;
 
   Stencil m = Lookup::filled_box (b);
   Stencil yb = Lookup::round_filled_box (

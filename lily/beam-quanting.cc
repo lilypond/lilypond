@@ -145,7 +145,7 @@ Beam_configuration::add (Real demerit, const std::string &reason)
 {
   demerits += demerit;
 
-  if (demerit)
+  if (demerit != 0.0)
     score_card_ += to_string (" %s %.2f", reason.c_str (), demerit);
 }
 
@@ -461,7 +461,7 @@ entire beam.
 void
 set_minimum_dy (Grob *me, Real *dy)
 {
-  if (*dy)
+  if (*dy != 0.0)
     {
       /*
         If dy is smaller than the smallest quant, we
@@ -554,7 +554,7 @@ Beam_scoring_problem::least_squares_positions ()
   Real slope = 0;
   Real dy = 0;
   Real ldy = 0.0;
-  if (!delta (ideal))
+  if (delta (ideal) == 0.0)
     {
       Drul_array<Real> chord (chord_start_y_[0], chord_start_y_.back ());
 
@@ -565,7 +565,8 @@ Beam_scoring_problem::least_squares_positions ()
          ideal[LEFT] == ideal[RIGHT] and delta (ideal) == 0.
 
          For that case, we apply artificial slope */
-      if (!ideal[LEFT] && delta (chord) && stem_infos_.size () == 2)
+      if (ideal[LEFT] == 0.0 && delta (chord) != 0.0
+          && stem_infos_.size () == 2)
         {
           const Direction d (delta (chord));
           unquanted_y_[d] = Beam::get_beam_thickness (beam_) / 2;
@@ -679,7 +680,7 @@ calc_positions_concaveness (std::vector<int> const &positions,
     Normalize. For dy = 0, the slope ends up as 0 anyway, so the
     scaling of concaveness doesn't matter much.
   */
-  if (dy)
+  if (dy != 0.0)
     concaveness /= fabs (dy);
   return concaveness;
 }
@@ -754,11 +755,11 @@ Beam_scoring_problem::slope_damping ()
       damping = 0;
     }
 
-  if ((damping) && (damping + concaveness))
+  if (damping != 0.0 && (damping + concaveness) != 0.0)
     {
       Real dy = unquanted_y_[RIGHT] - unquanted_y_[LEFT];
 
-      Real slope = dy && x_span_ ? dy / x_span_ : 0;
+      Real slope = (dy != 0.0 && x_span_ != 0.0) ? dy / x_span_ : 0;
 
       slope = 0.6 * tanh (slope) / (damping + concaveness);
 
@@ -778,7 +779,7 @@ Beam_scoring_problem::shift_region_to_valid ()
     return;
 
   Real beam_dy = unquanted_y_[RIGHT] - unquanted_y_[LEFT];
-  Real slope = x_span_ ? beam_dy / x_span_ : 0.0;
+  Real slope = x_span_ != 0.0 ? beam_dy / x_span_ : 0.0;
 
   /*
     Shift the positions so that we have a chance of finding good
@@ -928,7 +929,7 @@ Beam_scoring_problem::generate_quants (
     for (vsize j = 0; j < unshifted_quants.size (); j++)
       {
         Interval corr (0.0, 0.0);
-        if (grid_shift)
+        if (grid_shift != 0.0)
           for (const auto d : {LEFT, RIGHT})
             /* apply grid shift if quant outside 5-line staff: */
             if ((unquanted_y_[d] + unshifted_quants[i]) * edge_dirs_[d] > 2.5)
@@ -1120,9 +1121,9 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration *config) const
 
       Real x = stem_xpositions_[i];
       Real dx = x_span_;
-      Real beam_y
-        = dx ? config->y[RIGHT] * x / dx + config->y[LEFT] * (x_span_ - x) / dx
-             : (config->y[RIGHT] + config->y[LEFT]) / 2;
+      Real beam_y = dx != 0.0 ? config->y[RIGHT] * x / dx
+                                  + config->y[LEFT] * (x_span_ - x) / dx
+                              : (config->y[RIGHT] + config->y[LEFT]) / 2;
       Real current_y = beam_y + base_lengths_[i];
       Real length_pen = parameters_.STEM_LENGTH_DEMERIT_FACTOR;
 
@@ -1181,7 +1182,7 @@ Beam_scoring_problem::score_slope_direction (Beam_configuration *config) const
   */
   if (sign (damped_dy) != sign (dy))
     {
-      if (!dy)
+      if (dy == 0.0)
         {
           if (fabs (damped_dy / x_span_) > parameters_.ROUND_TO_ZERO_SLOPE)
             dem += parameters_.DAMPING_DIRECTION_PENALTY;

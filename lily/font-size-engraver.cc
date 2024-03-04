@@ -50,7 +50,7 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
   /*
     We only want to process a grob once.
   */
-  if (!size)
+  if (size == 0.0)
     return;
 
   if (gi.origin_engraver ()->context () != context ())

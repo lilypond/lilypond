@@ -106,8 +106,9 @@ Simple_spacer::add_rod (vsize left, vsize right, Real dist)
       Real spring_dist = range_ideal_len (left, right);
       if (spring_dist < dist)
         {
-          Real factor = spring_dist ? dist / spring_dist
-                                    : dist / static_cast<Real> (right - left);
+          Real factor = spring_dist != 0.0
+                          ? dist / spring_dist
+                          : dist / static_cast<Real> (right - left);
 
           for (vsize i = left; i < right; i++)
             {

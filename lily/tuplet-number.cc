@@ -244,7 +244,7 @@ calc_beam_y_shift (Grob *ref_stem, Real dx)
                              Interval (0.0, 0.0));
   Real beam_dx = x_pos.length ();
   Real beam_dy = y_pos[RIGHT] - y_pos[LEFT];
-  Real slope = beam_dx ? beam_dy / beam_dx : 0.0;
+  Real slope = beam_dx != 0.0 ? beam_dy / beam_dx : 0.0;
 
   return (slope * dx);
 }

@@ -94,7 +94,7 @@ Tie_configuration::add_score (Real s, const std::string &desc)
 {
   assert (!scored_);
   score_ += s;
-  if (s)
+  if (s != 0.0)
     score_card_ += to_string ("%s=%.2f ", desc.c_str (), s);
 }
 
@@ -127,7 +127,7 @@ Ties_configuration::add_tie_score (Real s, vsize i, const std::string &desc)
 {
   assert (!scored_);
   score_ += s;
-  if (s)
+  if (s != 0.0)
     {
       while (tie_score_cards_.size () < size ())
         tie_score_cards_.push_back ("");
@@ -141,7 +141,7 @@ Ties_configuration::add_score (Real s, const std::string &desc)
 {
   assert (!scored_);
   score_ += s;
-  if (s)
+  if (s != 0.0)
     score_card_ += to_string ("%s=%.2f ", desc.c_str (), s);
 }
 

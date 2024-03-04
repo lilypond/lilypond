@@ -67,7 +67,7 @@ Stem_tremolo::calc_slope (SCM smob)
       Real dx = s2->relative_coordinate (common, X_AXIS)
                 - s1->relative_coordinate (common, X_AXIS);
 
-      return to_scm (dx ? dy / dx : 0);
+      return to_scm (dx != 0.0 ? dy / dx : 0);
     }
   else
     /* down stems with flags should have more sloped trems (helps avoid

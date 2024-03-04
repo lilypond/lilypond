@@ -809,11 +809,11 @@ Cairo_outputter::draw_polygon (SCM points, SCM linewidth, SCM filled)
 void
 Cairo_outputter::draw_maybe_filled_path (bool filled, Real blot)
 {
-  if (blot)
+  if (blot != 0.0)
     cairo_set_line_width (context (), blot);
   if (filled)
     {
-      if (blot)
+      if (blot != 0.0)
         cairo_stroke_preserve (context ());
       cairo_fill (context ());
     }

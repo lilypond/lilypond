@@ -560,7 +560,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
 
       Real last_x = x;
 
-      if (*dy)
+      if (*dy != 0.0)
         {
           Real slope = fabs (*dy / (x1 - x0));
           Real max_slope = 0;
@@ -600,14 +600,14 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
 
           beam_dy = beam_positions[RIGHT] - beam_positions[LEFT];
 
-          if (beam_dy)
+          if (beam_dy != 0.0)
             {
-              if (!sub_x1)
+              if (sub_x1 == 0.0)
                 beam_slope = fabs (beam_dy / (x1 - x0));
               else
                 beam_slope = fabs (beam_dy / (sub_x1 - sub_x0));
 
-              if (beam_slope)
+              if (beam_slope != 0.0)
                 max_slope = std::max (beam_slope, max_slope_factor);
               else
                 max_slope = max_slope_factor;

@@ -726,7 +726,7 @@ Beam::print (SCM grob)
   scale_drul (&pos, Staff_symbol_referencer::staff_space (me));
 
   Real dy = pos[RIGHT] - pos[LEFT];
-  Real slope = (dy && span.length ()) ? dy / span.length () : 0;
+  Real slope = (dy != 0.0 && span.length () != 0.0) ? dy / span.length () : 0.0;
 
   Real beam_thickness = get_beam_thickness (me);
   Real beam_dy = get_beam_translation (me);
@@ -1045,7 +1045,7 @@ Beam::calc_stem_shorten (SCM smob)
 
   shorten *= forced_fraction;
 
-  if (shorten)
+  if (shorten != 0.0)
     return to_scm (shorten);
 
   return to_scm (0.0);
@@ -1079,8 +1079,9 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common, Real xl, Real xr,
   Direction stem_dir = get_grob_direction (stem);
 
   Real dx = xr - xl;
-  Real relx
-    = dx ? (stem->relative_coordinate (common[X_AXIS], X_AXIS) - xl) / dx : 0;
+  Real relx = dx != 0.0
+                ? (stem->relative_coordinate (common[X_AXIS], X_AXIS) - xl) / dx
+                : 0;
   Real xdir = 2 * relx - 1;
 
   Real stem_y = pos.linear_combination (xdir);
@@ -1326,7 +1327,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
     = from_scm (get_property (beam, "X-positions"), Interval (0.0, 0.0));
   Real x0 = x_span[LEFT];
   Real dx = x_span.length ();
-  Real slope = dy && dx ? dy / dx : 0;
+  Real slope = (dy != 0.0 && dx != 0.0) ? dy / dx : 0.0;
 
   Direction d = get_grob_direction (stem);
   Real stem_y

@@ -172,7 +172,7 @@ Stem::set_stem_positions (Grob *me, Real se, Real fc)
                 to_scm (height[-d] * 2 / staff_space));
   set_property (me, "length", to_scm (height.length () * 2 / staff_space));
 
-  if (fc)
+  if (fc != 0.0)
     set_property (me, "french-beaming-stem-adjustment", to_scm (fc));
 }
 
@@ -994,7 +994,7 @@ Stem::offset_callback (SCM smob)
       /* If not centered: correct for stem thickness.  */
       std::string style
         = robust_symbol2string (get_property (f, "style"), "default");
-      if (attach && style != "neomensural" && style != "petrucci"
+      if (attach != 0.0 && style != "neomensural" && style != "petrucci"
           && style != "blackpetrucci" && style != "semipetrucci")
         {
           Direction d = get_grob_direction (me);

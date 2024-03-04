@@ -126,7 +126,7 @@ fit_factor (Offset dz_unit, Offset dz_perp, Real close_to_edge_length,
         continue;
 
       Real y = curve.get_other_coordinate (X_AXIS, p[X_AXIS]);
-      if (y)
+      if (y != 0.0)
         fit_factor = std::max (fit_factor, (p[Y_AXIS] / y));
     }
   return fit_factor;
@@ -214,13 +214,13 @@ Slur_configuration::Slur_configuration ()
 void
 Slur_configuration::add_score (Real s, const std::string &desc)
 {
-  if (s < 0)
+  if (s < 0.0)
     {
       programming_error ("Negative demerits found for slur.  Ignoring");
       s = 0.0;
     }
 
-  if (s)
+  if (s != 0.0)
     {
       if (score_card_.length () > 0)
         score_card_ += ", ";
@@ -262,7 +262,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
             }
           else
             {
-              Real hd = (head_dy)
+              Real hd = (head_dy != 0.0)
                           ? (1 / fabs (head_dy)
                              - 1 / state.parameters_.free_head_distance_)
                           : state.parameters_.head_encompass_penalty_;

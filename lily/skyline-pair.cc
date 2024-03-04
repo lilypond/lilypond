@@ -65,7 +65,7 @@ Skyline_pair::raise (Real r)
 void
 Skyline_pair::pad (Real r)
 {
-  if (!r)
+  if (r == 0.0)
     return;
   for (const auto d : {UP, DOWN})
     skylines_[d] = skylines_[d].padded (r);
