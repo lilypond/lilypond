@@ -26,6 +26,6 @@
 using Byte = uint8_t; // C++17 has std::byte
 
 typedef size_t vsize;
-static constexpr vsize VPOS (-1);
+static constexpr auto VPOS = vsize (-1);
 
 #endif /* FLOWER_PROTO_HH */
