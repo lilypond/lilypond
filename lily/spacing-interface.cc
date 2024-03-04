@@ -116,14 +116,14 @@ Spacing_interface::right_column (Grob *me)
   Paper_column *mincol = 0;
   if (Grob_array *a = unsmob<Grob_array> (get_object (me, "right-items")))
     {
-      int min_rank = INT_MAX;
+      vsize min_rank = INT_MAX;
       for (vsize i = 0; i < a->size (); i++)
         {
           if (Item *ri = dynamic_cast<Item *> (a->grob (i)))
             {
               if (Paper_column *col = ri->get_column ())
                 {
-                  int rank = col->get_rank ();
+                  vsize rank = col->get_rank ();
                   if (rank < min_rank)
                     {
                       min_rank = rank;

@@ -75,7 +75,7 @@ Spanner::do_break_processing ()
       break_points.insert (break_points.begin () + 0, left);
       break_points.push_back (right);
 
-      Slice parent_rank_slice;
+      Interval_t<vsize> parent_rank_slice;
       parent_rank_slice.set_full ();
 
       /*
@@ -192,10 +192,10 @@ Spanner::set_my_columns ()
     }
 }
 
-Interval_t<int>
+Interval_t<vsize>
 Spanner::spanned_column_rank_interval () const
 {
-  Interval_t<int> iv (0, 0);
+  Interval_t<vsize> iv (0, 0);
   for (const auto d : {LEFT, RIGHT})
     {
       if (Item *b = get_bound (d))

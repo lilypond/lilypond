@@ -516,7 +516,7 @@ Slur_score_state::get_y_attachment_range () const
 bool
 spanner_less (Spanner *s1, Spanner *s2)
 {
-  Slice b1, b2;
+  Interval_t<vsize> b1, b2;
   for (const auto d : {LEFT, RIGHT})
     {
       b1[d] = s1->get_bound (d)->get_column ()->get_rank ();

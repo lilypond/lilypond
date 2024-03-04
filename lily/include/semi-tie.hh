@@ -27,7 +27,7 @@ struct Semi_tie
 {
 
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
-  static int get_column_rank (Item *);
+  static vsize get_column_rank (Item *);
   static int get_position (Item *);
   static Item *head (Item *);
 

@@ -96,7 +96,7 @@ Tie_formatting_problem::Tie_formatting_problem ()
 void
 Tie_formatting_problem::set_column_chord_outline (std::vector<Item *> bounds,
                                                   Direction dir,
-                                                  int column_rank)
+                                                  vsize column_rank)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (bounds[0]);
 
@@ -291,7 +291,7 @@ Tie_formatting_problem::set_chord_outline (std::vector<Item *> bounds,
                                            Direction dir)
 
 {
-  std::vector<int> ranks;
+  std::vector<vsize> ranks;
   for (vsize i = 0; i < bounds.size (); i++)
     ranks.push_back (bounds[i]->get_column ()->get_rank ());
 
@@ -375,7 +375,8 @@ Tie_formatting_problem::from_ties (std::vector<Spanner *> const &ties)
       for (const auto d : {LEFT, RIGHT})
         {
           spec.note_head_drul_[d] = Tie::head (tie, d);
-          spec.column_ranks_[d] = Tie::get_column_rank (tie, d);
+          spec.column_ranks_[d]
+            = static_cast<int> (Tie::get_column_rank (tie, d));
         }
       specifications_.push_back (spec);
     }
@@ -392,7 +393,7 @@ Tie_formatting_problem::from_semi_ties (std::vector<Item *> const &semi_ties,
   details_.from_grob (semi_ties[0]);
   std::vector<Item *> heads;
 
-  int column_rank = -1;
+  vsize column_rank = VPOS;
   for (auto *const semi_tie : semi_ties)
     {
       Tie_specification spec;
@@ -410,7 +411,8 @@ Tie_formatting_problem::from_semi_ties (std::vector<Item *> const &semi_ties,
 
       spec.note_head_drul_[head_dir] = head;
       column_rank = Semi_tie::get_column_rank (semi_tie);
-      spec.column_ranks_ = {column_rank, column_rank};
+      spec.column_ranks_
+        = {static_cast<int> (column_rank), static_cast<int> (column_rank)};
       heads.push_back (head);
       specifications_.push_back (spec);
     }

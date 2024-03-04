@@ -55,8 +55,8 @@ SCM
 Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  int start = from_scm (start_scm, 0);
-  int end = from_scm (end_scm, INT_MAX);
+  auto start = from_scm (start_scm, vsize{0});
+  auto end = from_scm (end_scm, vsize{INT_MAX});
 
   if (request_suicide (me, start, end))
     return to_scm (Interval ());
@@ -122,12 +122,12 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start,
   else /* build the important-columns-cache */
     {
       extract_grob_set (me, "items-worth-living", worth);
-      std::vector<int> ranks;
+      std::vector<vsize> ranks;
 
       for (vsize i = 0; i < worth.size (); i++)
         {
-          Interval_t<int> iv = worth[i]->spanned_column_rank_interval ();
-          for (int j = iv[LEFT]; j <= iv[RIGHT]; j++)
+          Interval_t<vsize> iv = worth[i]->spanned_column_rank_interval ();
+          for (vsize j = iv[LEFT]; j <= iv[RIGHT]; j++)
             ranks.push_back (j);
         }
       std::sort (ranks.begin (), ranks.end ());
@@ -149,8 +149,8 @@ void
 Hara_kiri_group_spanner::consider_suicide (Grob *me)
 {
   Spanner *sp = dynamic_cast<Spanner *> (me);
-  int left = 0;
-  int right = INT_MAX;
+  vsize left = 0;
+  vsize right = INT_MAX;
   if (Item *l = sp->get_bound (LEFT))
     left = l->get_column ()->get_rank ();
   if (Item *r = sp->get_bound (RIGHT))

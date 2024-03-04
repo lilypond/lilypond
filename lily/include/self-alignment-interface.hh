@@ -27,7 +27,7 @@
 
 struct Self_alignment_interface
 {
-  static Real aligned_on_self (Grob *me, Axis a, bool pure, int start, int end);
+  static Real aligned_on_self (Grob *me, Axis a, bool pure, vsize start, vsize end);
   static Real centered_on_self (Grob *me, Axis a);
   static Real aligned_on_parent (Grob *me, Axis a);
   static void set_aligned_on_parent (Grob *me, Axis a);
@@ -45,7 +45,7 @@ struct Self_alignment_interface
   }
 
   DECLARE_SCHEME_CALLBACK (pure_y_aligned_on_self, (SCM, SCM, SCM));
-  static Real pure_y_aligned_on_self (Grob *me, int start, int end)
+  static Real pure_y_aligned_on_self (Grob *me, vsize start, vsize end)
   {
     return aligned_on_self (me, Y_AXIS, true, start, end);
   }

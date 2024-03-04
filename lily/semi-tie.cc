@@ -77,7 +77,7 @@ Semi_tie::calc_control_points (SCM smob)
   return SCM_EOL;
 }
 
-int
+vsize
 Semi_tie::get_column_rank (Item *me)
 {
   return me->get_column ()->get_rank ();

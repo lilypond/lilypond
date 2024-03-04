@@ -114,7 +114,8 @@ Paper_score::calc_breaking ()
 
   message (_ ("Calculating line breaks...") + " ");
 
-  int system_count = from_scm (layout ()->c_variable ("system-count"), 0);
+  auto system_count
+    = from_scm (layout ()->c_variable ("system-count"), vsize{0});
   if (system_count)
     return algorithm.solve (0, VPOS, system_count);
 

@@ -204,16 +204,16 @@ public:
   static int get_vertical_axis_group_index (Grob *g);
 
   /* skylines */
-  virtual Interval_t<int> spanned_column_rank_interval () const = 0;
+  virtual Interval_t<vsize> spanned_column_rank_interval () const = 0;
   virtual System_rank_interval spanned_system_rank_interval () const = 0;
   bool check_cross_staff (Grob *common);
   static bool less (Grob *g1, Grob *g2);
   static SCM maybe_pure_internal_simple_skylines_from_extents (Grob *, Axis,
-                                                               bool, int, int,
+                                                               bool, vsize, vsize,
                                                                bool, bool);
   static SCM internal_skylines_from_element_stencils (Grob *me, Axis a,
-                                                      bool pure, int beg,
-                                                      int end);
+                                                      bool pure, vsize beg,
+                                                      vsize end);
   static SCM internal_skylines_from_element_stencils (SCM, Axis);
 };
 

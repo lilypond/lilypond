@@ -29,7 +29,7 @@ class Tie
 public:
   static void set_head (Spanner *, Direction, Grob *head);
   static Item *head (Spanner *, Direction);
-  static int get_column_rank (Spanner *, Direction);
+  static vsize get_column_rank (Spanner *, Direction);
   static int get_position (Spanner *);
   static Direction get_default_dir (Spanner *);
   static SCM get_control_points (Grob *, Grob *, Tie_configuration const &,

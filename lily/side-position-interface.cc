@@ -85,7 +85,7 @@ get_support_set (Grob *me)
   Position next to support, taking into account my own dimensions and padding.
 */
 static SCM
-axis_aligned_side_helper (Grob *me, Axis a, bool pure, int start, int end,
+axis_aligned_side_helper (Grob *me, Axis a, bool pure, vsize start, vsize end,
                           SCM current_off_scm)
 {
   Real r;
@@ -138,8 +138,8 @@ Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end,
                                               SCM cur_off)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return axis_aligned_side_helper (me, Y_AXIS, true, from_scm<int> (start),
-                                   from_scm<int> (end), cur_off);
+  return axis_aligned_side_helper (me, Y_AXIS, true, from_scm<vsize> (start),
+                                   from_scm<vsize> (end), cur_off);
 }
 
 MAKE_SCHEME_CALLBACK (Side_position_interface, calc_cross_staff,
@@ -186,8 +186,8 @@ Side_position_interface::calc_cross_staff (SCM smob)
 // long function - each stage is clearly marked
 
 SCM
-Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start,
-                                       int end, Real *current_off)
+Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, vsize start,
+                                       vsize end, Real *current_off)
 {
   Direction dir = get_grob_direction (me);
 

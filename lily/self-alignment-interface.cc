@@ -50,13 +50,13 @@ SCM
 Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return to_scm (
-    pure_y_aligned_on_self (me, from_scm (start, 0), from_scm (end, INT_MAX)));
+  return to_scm (pure_y_aligned_on_self (me, from_scm (start, vsize{0}),
+                                         from_scm (end, vsize{INT_MAX})));
 }
 
 Real
 Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure,
-                                           int start, int end)
+                                           vsize start, vsize end)
 {
   SCM align = (a == X_AXIS) ? get_property (me, "self-alignment-X")
                             : get_property (me, "self-alignment-Y");

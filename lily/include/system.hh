@@ -58,7 +58,7 @@ private:
 public:
   Paper_score *paper_score () const;
   Grob *get_neighboring_staff (Direction dir, Grob *vertical_axis_group,
-                               Interval_t<int> bounds);
+                               Interval_t<vsize> bounds);
   bool accepts_as_bound_item (const Item *) const override;
   bool accepts_as_bound_paper_column (const Paper_column *) const override;
   Paper_column *get_bound (Direction d) const

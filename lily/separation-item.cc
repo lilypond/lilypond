@@ -122,7 +122,7 @@ Separation_item::boxes (Grob *me, Grob *left)
 {
   Item *item = dynamic_cast<Item *> (me);
 
-  int very_large = INT_MAX;
+  vsize very_large = INT_MAX;
   Paper_column *pc = item->get_column ();
   std::vector<Box> out;
   extract_grob_set (me, left ? "conditional-elements" : "elements",

@@ -134,7 +134,7 @@ Beam_collision_engraver::finalize ()
         }
       Context const *beam_context = beams_[i].context_;
 
-      Interval_t<int> beam_spanned_rank
+      Interval_t<vsize> beam_spanned_rank
         = beam_grob->spanned_column_rank_interval ();
       // Start considering grobs at the first grob whose
       // end falls at or after the beam's beginning.
@@ -153,7 +153,7 @@ Beam_collision_engraver::finalize ()
             continue;
           Context const *covered_grob_context = covered_grobs_[j].context_;
 
-          Interval_t<int> covered_grob_spanned_rank
+          Interval_t<vsize> covered_grob_spanned_rank
             = covered_grob->spanned_column_rank_interval ();
 
           if (covered_grob_spanned_rank[LEFT] > beam_spanned_rank[RIGHT])

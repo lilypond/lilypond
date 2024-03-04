@@ -53,7 +53,7 @@ Tie::head (Spanner *me, Direction d)
   return has_interface<Note_head> (it) ? it : 0;
 }
 
-int
+vsize
 Tie::get_column_rank (Spanner *me, Direction d)
 {
   return me->get_bound (d)->get_column ()->get_rank ();

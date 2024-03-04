@@ -169,7 +169,7 @@ struct Ledger_request
   }
 };
 
-typedef std::map<int, Drul_array<Ledger_request>> Ledger_requests;
+typedef std::map<vsize, Drul_array<Ledger_request>> Ledger_requests;
 
 /*
   TODO: ledger share a lot of info. Lots of room to optimize away
@@ -225,7 +225,7 @@ Ledger_line_spanner::print (SCM smob)
           ledger_extent.widen (length_fraction * head_extent.length ());
 
           Direction vdir = Direction (sign (pos != 0 ? pos : 1));
-          int rank = h->get_column ()->get_rank ();
+          vsize rank = h->get_column ()->get_rank ();
 
           reqs[rank][vdir].max_ledger_extent_.unite (ledger_extent);
           reqs[rank][vdir].max_head_extent_.unite (head_extent);

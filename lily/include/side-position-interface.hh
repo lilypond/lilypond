@@ -40,7 +40,7 @@ public:
   DECLARE_SCHEME_CALLBACK (move_to_extremal_staff, (SCM));
   DECLARE_SCHEME_CALLBACK (set_axis_x, (SCM, SCM));
 
-  static SCM aligned_side (Grob *me, Axis a, bool pure, int start, int end,
+  static SCM aligned_side (Grob *me, Axis a, bool pure, vsize start, vsize end,
                            Real *current_off_ptr);
 
   static bool is_on_x_axis (Grob *);

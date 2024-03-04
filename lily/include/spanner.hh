@@ -73,7 +73,7 @@ public:
   void substitute_one_mutable_property (SCM sym, SCM val);
 
   Interval_t<Moment> spanned_time () const;
-  Interval_t<int> spanned_column_rank_interval () const override;
+  Interval_t<vsize> spanned_column_rank_interval () const override;
   System_rank_interval spanned_system_rank_interval () const override;
 
   void set_bound (Direction d, Grob *);

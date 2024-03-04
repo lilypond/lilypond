@@ -67,8 +67,8 @@ by @var{spring-count}+1 positions of the objects.
   for (SCM s = rods; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
-      int l = from_scm<int> (scm_car (entry));
-      int r = from_scm<int> (scm_cadr (entry));
+      auto l = from_scm<vsize> (scm_car (entry));
+      auto r = from_scm<vsize> (scm_cadr (entry));
       entry = scm_cddr (entry);
 
       Real distance = from_scm<double> (scm_car (entry));

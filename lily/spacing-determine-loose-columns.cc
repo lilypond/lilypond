@@ -291,15 +291,15 @@ Spacing_spanner::set_explicit_neighbor_columns (
         {
           Item *wish = dynamic_cast<Item *> (wishes[j]);
           Paper_column *left_col = wish->get_column ();
-          int left_rank = left_col->get_rank ();
-          int min_right_rank = INT_MAX;
+          vsize left_rank = left_col->get_rank ();
+          vsize min_right_rank = INT_MAX;
 
           extract_grob_set (wish, "right-items", right_items);
           for (vsize k = right_items.size (); k--;)
             {
               Paper_column *right_col
                 = dynamic_cast<Item *> (right_items[k])->get_column ();
-              int right_rank = right_col->get_rank ();
+              vsize right_rank = right_col->get_rank ();
 
               if (right_rank < min_right_rank)
                 {

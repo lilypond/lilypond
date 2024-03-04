@@ -759,8 +759,8 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break,
               // this score is fixed.  We need to ensure that chunk
               // boundaries only occur at line breaks.
               Constrained_breaking breaking (system_specs_[i].pscore_);
-              std::vector<Line_details> details
-                = breaking.line_details (0, VPOS, from_scm<int> (system_count));
+              std::vector<Line_details> details = breaking.line_details (
+                0, VPOS, from_scm<vsize> (system_count));
 
               for (vsize j = 0; j < details.size (); j++)
                 forced_line_break_cols.push_back (details[j].last_column_);
@@ -1143,7 +1143,7 @@ Page_breaking::calc_line_heights ()
 vsize
 Page_breaking::min_page_count (vsize configuration, int first_page_num)
 {
-  int ret = 1;
+  vsize ret = 1;
   vsize page_starter = 0;
   Real cur_rod_height = 0;
   Real cur_spring_height = 0;
@@ -1184,7 +1184,8 @@ Page_breaking::min_page_count (vsize configuration, int first_page_num)
           cur_spring_height = 0;
           page_starter = i;
 
-          cur_page_height = page_height (first_page_num + ret, false);
+          cur_page_height
+            = page_height (first_page_num + static_cast<int> (ret), false);
           cur_page_height -= min_whitespace_at_top_of_page (cur);
 
           ret++;
@@ -1212,7 +1213,8 @@ Page_breaking::min_page_count (vsize configuration, int first_page_num)
 
   if (is_last ())
     {
-      cur_page_height = page_height (first_page_num + ret - 1, true);
+      cur_page_height
+        = page_height (first_page_num + static_cast<int> (ret) - 1, true);
       cur_page_height
         -= min_whitespace_at_top_of_page (cached_line_details_[page_starter]);
       cur_page_height

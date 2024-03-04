@@ -505,8 +505,8 @@ void
 Constrained_breaking::fill_line_details (Line_details *const out, vsize start,
                                          vsize end)
 {
-  int start_rank = all_[breaks_[start]]->get_rank ();
-  int end_rank = all_[breaks_[end]]->get_rank ();
+  vsize start_rank = all_[breaks_[start]]->get_rank ();
+  vsize end_rank = all_[breaks_[end]]->get_rank ();
   System *sys = pscore_->root_system ();
   Interval begin_of_line_extent
     = sys->begin_of_line_pure_height (start_rank, end_rank);

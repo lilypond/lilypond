@@ -233,7 +233,7 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
   for (vsize i = 0; i < footnote_grobs.size (); i++)
     {
       Grob *at_bat = footnote_grobs[i];
-      int pos = at_bat->spanned_column_rank_interval ()[LEFT];
+      vsize pos = at_bat->spanned_column_rank_interval ()[LEFT];
       bool end_of_line_visible = true;
       if (Spanner *s = dynamic_cast<Spanner *> (at_bat))
         {
@@ -262,22 +262,22 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
           if (!item->break_visible ())
             continue;
           // safeguard to bring down the column rank so that end of line footnotes show up on the correct line
-          if (pos == int (start) && item->break_status_dir () != RIGHT)
+          if (pos == start && item->break_status_dir () != RIGHT)
             continue;
-          if (pos == int (end) && item->break_status_dir () != LEFT)
+          if (pos == end && item->break_status_dir () != LEFT)
             continue;
-          if (pos != int (end) && pos != int (start)
+          if (pos != end && pos != start
               && item->break_status_dir () != CENTER)
             continue;
         }
 
-      if (pos < int (start))
+      if (pos < start)
         continue;
-      if (pos > int (end))
+      if (pos > end)
         continue;
-      if (pos == int (start) && end_of_line_visible)
+      if (pos == start && end_of_line_visible)
         continue;
-      if (pos == int (end) && !end_of_line_visible)
+      if (pos == end && !end_of_line_visible)
         continue;
       if (!at_bat->is_live ())
         continue;
@@ -346,7 +346,7 @@ System::num_footnotes ()
 bool
 grob_2D_less (Grob *g1, Grob *g2)
 {
-  int sri[] = {0, 0};
+  vsize sri[] = {0, 0};
   Grob *gs[] = {g1, g2};
 
   for (int i = 0; i < 2; i++)
@@ -397,7 +397,7 @@ System::footnotes_after_line_breaking (SCM smob)
 {
   auto *const sys = LY_ASSERT_SMOB (System, smob, 1);
 
-  Interval_t<int> sri = sys->spanned_column_rank_interval ();
+  Interval_t<vsize> sri = sys->spanned_column_rank_interval ();
   std::vector<Grob *> footnote_grobs
     = sys->get_footnote_grobs_in_range (sri[LEFT], sri[RIGHT]);
   std::sort (footnote_grobs.begin (), footnote_grobs.end (), grob_2D_less);
@@ -454,8 +454,8 @@ System::break_into_pieces (std::vector<Column_x_positions> const &breaking)
       std::vector<Paper_column *> const &c (breaking[i].cols_);
       pscore_->typeset_system (system);
 
-      int st = c[0]->get_rank ();
-      int end = c.back ()->get_rank ();
+      vsize st = c[0]->get_rank ();
+      vsize end = c.back ()->get_rank ();
       Interval iv (pure_y_extent (this, st, end));
       set_property (system, "pure-Y-extent", to_scm (iv));
 
@@ -504,7 +504,7 @@ System::add_column (Paper_column *p)
       ga = unsmob<Grob_array> (scm_ga);
     }
 
-  p->set_rank (static_cast<int> (ga->size ()));
+  p->set_rank (static_cast<vsize> (ga->size ()));
 
   ga->add (p);
   Axis_group_interface::add_element (this, p);
@@ -788,7 +788,7 @@ System::get_vertical_alignment (SCM smob)
 // Finds the neighboring staff in the given direction over bounds
 Grob *
 System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group,
-                               Interval_t<int> bounds)
+                               Interval_t<vsize> bounds)
 {
   Grob *align = unsmob<Grob> (get_object (this, "vertical-alignment"));
   if (!align)
@@ -935,8 +935,8 @@ SCM
 System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
   System *me = unsmob<System> (smob);
-  int start = from_scm<int> (start_scm);
-  int end = from_scm<int> (end_scm);
+  auto start = from_scm<vsize> (start_scm);
+  auto end = from_scm<vsize> (end_scm);
 
   Interval begin = me->begin_of_line_pure_height (start, end);
   Interval rest = me->rest_of_line_pure_height (start, end);

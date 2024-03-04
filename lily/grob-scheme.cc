@@ -112,8 +112,8 @@ found, return @var{val} or @code{'()} if @var{val} is not specified.
   if (SCM_UNBNDP (val))
     val = SCM_EOL;
 
-  SCM retval = sc->internal_get_pure_property (sym, from_scm<int> (beg),
-                                               from_scm<int> (end));
+  SCM retval = sc->internal_get_pure_property (sym, from_scm<vsize> (beg),
+                                               from_scm<vsize> (end));
   if (scm_is_null (retval))
     retval = val;
 
@@ -135,7 +135,7 @@ found, return @var{val} or @code{'()} if @var{val} is not specified.
     val = SCM_EOL;
 
   Interval retval
-    = sc->pure_y_extent (ref, from_scm<int> (beg), from_scm<int> (end));
+    = sc->pure_y_extent (ref, from_scm<vsize> (beg), from_scm<vsize> (end));
 
   return to_scm (retval);
 }
@@ -290,10 +290,10 @@ Return the pure vertical coordinate of @var{grob} relative to
 {
   auto *const g = LY_ASSERT_SMOB (Grob, grob, 1);
   auto *const r = LY_ASSERT_SMOB (Grob, refp, 2);
-  LY_ASSERT_TYPE (is_scm<int>, start, 3);
-  int s = from_scm<int> (start);
-  LY_ASSERT_TYPE (is_scm<int>, end, 4);
-  int e = from_scm<int> (end);
+  LY_ASSERT_TYPE (is_scm<vsize>, start, 3);
+  auto s = from_scm<vsize> (start);
+  LY_ASSERT_TYPE (is_scm<vsize>, end, 4);
+  auto e = from_scm<vsize> (end);
   return to_scm (g->pure_relative_y_coordinate (r, s, e));
 }
 
@@ -488,7 +488,7 @@ Return a pair with the @code{rank} of the furthest left column and the
 {
   auto *const gr = LY_ASSERT_SMOB (Grob, grob, 1);
 
-  Interval_t<int> iv = gr->spanned_column_rank_interval ();
+  Interval_t<vsize> iv = gr->spanned_column_rank_interval ();
 
   return scm_cons (to_scm (iv[LEFT]), to_scm (iv[RIGHT]));
 }

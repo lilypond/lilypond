@@ -184,7 +184,7 @@ Item::internal_set_as_bound_of_spanner (Spanner *s, Direction)
   return s->accepts_as_bound_item (this);
 }
 
-Interval_t<int>
+Interval_t<vsize>
 Item::spanned_column_rank_interval () const
 {
   // An Item "always" has a column, but it is possible for a grob to be killed
@@ -192,7 +192,7 @@ Item::spanned_column_rank_interval () const
   if (const auto *col = get_column ())
     {
       auto c = col->get_rank ();
-      return Interval_t<int> (c, c);
+      return {c, c};
     }
   return {};
 }

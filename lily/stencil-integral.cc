@@ -766,8 +766,8 @@ interpret_stencil_for_skyline (Lazy_skyline_pair *skyline,
 
 SCM
 Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a,
-                                                        bool pure, int beg,
-                                                        int end, bool ignore_x,
+                                                        bool pure, vsize beg,
+                                                        vsize end, bool ignore_x,
                                                         bool ignore_y)
 {
   std::vector<Box> boxes;
@@ -796,8 +796,8 @@ Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm,
                                                   SCM endscm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  int beg = from_scm (begscm, 0);
-  int end = from_scm (endscm, INT_MAX);
+  auto beg = from_scm (begscm, vsize{0});
+  auto end = from_scm (endscm, vsize{INT_MAX});
   // We cannot measure the widths before line breaking,
   // so we assume that the width is infinite: pass ignore_x=true
   return maybe_pure_internal_simple_skylines_from_extents (
@@ -822,8 +822,8 @@ Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm,
                                                     SCM endscm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  int beg = from_scm (begscm, 0);
-  int end = from_scm (endscm, INT_MAX);
+  auto beg = from_scm (begscm, vsize{0});
+  auto end = from_scm (endscm, vsize{INT_MAX});
   // If the grob is cross staff, we cannot measure its Y-extent before
   // wayyyy downstream (after spacing of axis groups is done).
   // Thus, we assume that the Y extent is infinite for cross staff grobs.
@@ -903,7 +903,7 @@ Grob::horizontal_skylines_from_stencil (SCM smob)
 
 SCM
 Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure,
-                                               int beg, int end)
+                                               vsize beg, vsize end)
 {
   extract_grob_set (me, "elements", elts);
   std::vector<Real> x_pos;
@@ -970,8 +970,8 @@ Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm,
                                                     SCM end_scm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  int beg = from_scm (beg_scm, 0);
-  int end = from_scm (end_scm, 0);
+  auto beg = from_scm (beg_scm, vsize{0});
+  auto end = from_scm (end_scm, vsize{0});
   return internal_skylines_from_element_stencils (me, X_AXIS, true, beg, end);
 }
 
@@ -983,7 +983,7 @@ Grob::pure_horizontal_skylines_from_element_stencils (SCM smob, SCM beg_scm,
                                                       SCM end_scm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  int beg = from_scm (beg_scm, 0);
-  int end = from_scm (end_scm, 0);
+  auto beg = from_scm (beg_scm, vsize{0});
+  auto end = from_scm (end_scm, vsize{0});
   return internal_skylines_from_element_stencils (me, Y_AXIS, true, beg, end);
 }

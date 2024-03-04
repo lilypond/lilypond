@@ -46,10 +46,10 @@ struct Tie_configuration_variation
   }
 };
 
-typedef std::tuple<int, Direction> Tie_rank_and_dir;
+typedef std::tuple<vsize, Direction> Tie_rank_and_dir;
 typedef std::map<Tie_rank_and_dir, Skyline> Chord_outline_map;
 typedef std::map<Tie_rank_and_dir, Box> Column_extent_map;
-typedef std::map<int, Slice> Position_extent_map;
+typedef std::map<vsize, Slice> Position_extent_map;
 
 class Tie_formatting_problem
 {
@@ -116,7 +116,7 @@ public:
   void from_tie (Spanner *tie);
   void from_semi_ties (std::vector<Item *> const &, Direction head_dir);
   void set_chord_outline (std::vector<Item *>, Direction);
-  void set_column_chord_outline (std::vector<Item *>, Direction, int rank);
+  void set_column_chord_outline (std::vector<Item *>, Direction, vsize rank);
   void set_manual_tie_configuration (SCM);
   Interval get_attachment (Real, Drul_array<int>) const;
   Grob *common_x_refpoint () const;

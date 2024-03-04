@@ -135,7 +135,7 @@ Axis_group_interface::generic_bound_extent (Grob *me, Grob *common, Axis a)
 }
 
 Interval
-Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
+Axis_group_interface::relative_pure_height (Grob *me, vsize start, vsize end)
 {
   /* It saves a _lot_ of time if we assume a VerticalAxisGroup is additive
      (ie. height (i, k) = std::max (height (i, j) height (j, k)) for all i <= j <= k).
@@ -159,7 +159,7 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
       if (!g)
         continue;
 
-      Interval_t<int> rank_span = g->spanned_column_rank_interval ();
+      Interval_t<vsize> rank_span = g->spanned_column_rank_interval ();
       if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
           && !(from_scm<bool> (get_property (g, "cross-staff"))
                && has_interface<Stem> (g)))
@@ -196,13 +196,13 @@ SCM
 Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  int start = from_scm (start_scm, 0);
-  int end = from_scm (end_scm, INT_MAX);
+  auto start = from_scm (start_scm, vsize{0});
+  auto end = from_scm (end_scm, vsize{INT_MAX});
   return to_scm (pure_group_height (me, start, end));
 }
 
 Interval
-Axis_group_interface::pure_group_height (Grob *me, int start, int end)
+Axis_group_interface::pure_group_height (Grob *me, vsize start, vsize end)
 {
   Grob *common = unsmob<Grob> (get_object (me, "pure-Y-common"));
 
@@ -271,7 +271,7 @@ Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 }
 
 Interval
-Axis_group_interface::sum_partial_pure_heights (Grob *me, int start, int end)
+Axis_group_interface::sum_partial_pure_heights (Grob *me, vsize start, vsize end)
 {
   Interval iv = begin_of_line_pure_height (me, start);
   iv.unite (rest_of_line_pure_height (me, start, end));
@@ -990,7 +990,7 @@ Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob, SCM start,
                                                      SCM end)
 {
   return calc_maybe_pure_staff_staff_spacing (
-    unsmob<Grob> (smob), true, from_scm<int> (start), from_scm<int> (end));
+    unsmob<Grob> (smob), true, from_scm<vsize> (start), from_scm<vsize> (end));
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_staff_staff_spacing,
@@ -1004,7 +1004,7 @@ Axis_group_interface::calc_staff_staff_spacing (SCM smob)
 
 SCM
 Axis_group_interface::calc_maybe_pure_staff_staff_spacing (Grob *me, bool pure,
-                                                           int start, int end)
+                                                           vsize start, vsize end)
 {
   Grob *grouper = unsmob<Grob> (get_object (me, "staff-grouper"));
 

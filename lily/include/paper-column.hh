@@ -34,7 +34,7 @@ class Paper_column : public Item
    rank. Typically, the last column created is the musical column
    beyond the non-musical column that ends the score.
   */
-  int rank_;
+  vsize rank_;
 
   /* after line breaking, `system_` indicates in which line this
     column is
@@ -74,8 +74,8 @@ public:
     return a->rank_ < b->rank_;
   }
 
-  int get_rank () const { return rank_; }
-  void set_rank (int);
+  vsize get_rank () const { return rank_; }
+  void set_rank (vsize);
 
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));

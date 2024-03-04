@@ -34,7 +34,7 @@ public:
   static SCM generic_group_extent (Grob *me, Axis a);
   static Real get_default_outside_staff_padding ();
   static Interval generic_bound_extent (Grob *me, Grob *common, Axis a);
-  static Interval pure_group_height (Grob *me, int start, int end);
+  static Interval pure_group_height (Grob *me, vsize start, vsize end);
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_x_common, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_y_common, (SCM smob));
@@ -54,9 +54,9 @@ public:
   static Interval
   relative_maybe_bound_group_extent (std::vector<Grob *> const &list,
                                      Grob *common, Axis, bool);
-  static Interval relative_pure_height (Grob *me, int start, int end);
+  static Interval relative_pure_height (Grob *me, vsize start, vsize end);
   static Interval combine_pure_heights (Grob *me, SCM, vsize, vsize);
-  static Interval sum_partial_pure_heights (Grob *me, int, int);
+  static Interval sum_partial_pure_heights (Grob *me, vsize, vsize);
   static Interval begin_of_line_pure_height (Grob *me, vsize);
   static Interval rest_of_line_pure_height (Grob *me, vsize, vsize);
   static Interval part_of_line_pure_height (Grob *me, bool begin, vsize, vsize);
@@ -70,7 +70,7 @@ public:
   static Interval staff_extent (Grob *me, Grob *ref, Axis, Grob *staff, Axis);
   static SCM calc_common (Grob *, Axis);
   static Real minimum_distance (Grob *, Grob *, Axis);
-  static SCM calc_maybe_pure_staff_staff_spacing (Grob *, bool, int, int);
+  static SCM calc_maybe_pure_staff_staff_spacing (Grob *, bool, vsize, vsize);
 };
 
 #endif /* AXIS_GROUP_INTERFACE_HH */

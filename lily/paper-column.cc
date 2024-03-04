@@ -58,7 +58,7 @@ Paper_column::internal_set_as_bound_of_spanner (Spanner *s, Direction)
 }
 
 void
-Paper_column::set_rank (int rank)
+Paper_column::set_rank (vsize rank)
 {
   rank_ = rank;
 }
@@ -85,7 +85,7 @@ Paper_column::Paper_column (SCM l)
   : Item (l)
 {
   system_ = 0;
-  rank_ = -1;
+  rank_ = VPOS;
   add_interface (ly_symbol2scm ("paper-column-interface"));
 }
 
