@@ -45,9 +45,15 @@ Context::is_removable () const
 void
 Context::check_removal ()
 {
-  for (SCM p = context_list_; scm_is_pair (p); p = scm_cdr (p))
+  for (SCM p = context_list_; scm_is_pair (p); /*in loop*/)
     {
       Context *ctx = unsmob<Context> (scm_car (p));
+
+      // Removing a context involves removing its pair from context_list_.  The
+      // documentation of scm_delq_x does not promise that the cdr of the
+      // removed pair will continue to refer to the rest of the list, so advance
+      // to the next pair before triggering removal.
+      p = scm_cdr (p);
 
       ctx->check_removal ();
       if (ctx->is_removable ())
