@@ -796,6 +796,12 @@ should become
 @end verbatim
 @end quotation
 
+@item
+LilyPond's @q{arabic} note name language is deprecated.  While
+still working for backward compatibility (if you load
+@file{hel-arabic.ly}), it is recommended to use @q{english},
+@q{italiano}, or your preferred note name language instead.
+
 @end itemize
 
 

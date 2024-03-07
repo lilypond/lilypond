@@ -4799,6 +4799,16 @@ def conv(s):
     return s
 
 
+@rule((2, 25, 2), r"""
+Add `\language "arabic"` if `hel-arabic.ly` gets included.
+""")
+def conv(s):
+    s = re.sub(r'(?xm) ^ ( \s* \\include \s+ "hel-arabic\.ly" .* )',
+               r'\1\n\\language "arabic"',
+               s)
+    return s
+
+
 make_moment_re = (r'(?P<start>#\(\s*ly:make-moment\s+)'
                   r'(?P<numerator>\d+)'
                   r'(?P<separator>(/|\s+))'

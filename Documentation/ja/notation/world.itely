@@ -184,6 +184,7 @@
 
 @lilypond[quote,verbatim]
 \include "hel-arabic.ly"
+\language "english"
 \relative {
 \key c \rast
   c' d eqf f | g a bqf c | c bf a g | f d c
