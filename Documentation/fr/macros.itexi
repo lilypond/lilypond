@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: ecd4ff25e8bee6643e9200eefb86f0ed23bda72f
+    Translation of GIT committish: 7c22272dfd6e8ce056da51333c75d7c8c574a66c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -260,6 +260,7 @@ Pour LilyPond version @version{}
 @c     @rinternals
 @c     @rlearning
 @c     @rlsr
+@c     @rlsrsnippet
 @c     @rprogram
 @c     @rnotation
 @c     @rchanges
@@ -271,6 +272,15 @@ Pour LilyPond version @version{}
 @c
 @c ***** HTML + bigpage is a special case (other manual names); all other
 @c formats are treated similarly.
+
+@c Note that `@rlsr` refers to a snippet section like `@rlsr{World
+@c Music}`, while `@rlsrsnippet` refers to a specific snippet,
+@c using the section name as an additional prefix argument, for
+@c example `@rlsrsnippet{World Music, Arabic improvisation}`
+@c (these prefixes are necessary since a given snippet can appear
+@c in multiple sections).  Note also that the second argument of
+@c `@rlsrsnippet` must not contain literal commas; replace them
+@c with `@comma{}` if necessary.
 
 
 @c *** not TeX ***
@@ -359,6 +369,14 @@ Pour LilyPond version @version{}
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,snippets-big-page,Morceaux choisis}
+@end macro
+
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets-big-page,Morceaux choisis}
+@end macro
+
+@macro rlsrsnippetnamed{PREFIX,TEXT,DISPLAY}
+@ref{\PREFIX\: \TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
 @end macro
 
 @macro rinternals{TEXT}
@@ -458,6 +476,14 @@ Pour LilyPond version @version{}
 @ref{\TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
 @end macro
 
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets,Morceaux choisis}
+@end macro
+
+@macro rlsrsnippetnamed{PREFIX,TEXT,DISPLAY}
+@ref{\PREFIX\: \TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
+@end macro
+
 @macro rinternals{TEXT}
 @ref{\TEXT\,,,internals,Référence des propriétés internes}
 @end macro
@@ -548,6 +574,10 @@ Pour LilyPond version @version{}
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Morceaux choisis}
+@end macro
+
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\: \TEXT\,,\TEXT\,lilypond-snippets,Morceaux choisis}
 @end macro
 
 @macro rinternals{TEXT}
@@ -647,6 +677,14 @@ Pour LilyPond version @version{}
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
+@end macro
+
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets,Morceaux choisis}
+@end macro
+
+@macro rlsrsnippetnamed{PREFIX,TEXT,DISPLAY}
+@ref{\PREFIX\: \TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
 @end macro
 
 @macro rinternals{TEXT}
