@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -67,13 +67,11 @@ l'intérieur même de la portée.
 @funindex \huge
 
 @warning{@*
-Pour les tailles de police textuelle, voir
-@ref{Selecting font and font size}.@*
-Pour la taille des portées, voir
-@ref{Setting the staff size}.@*
-Pour les petites notes, voir
-@ref{Formatting cue notes}.@*
-Pour les variantes, voir @ref{Ossia staves}.}
+Pour les tailles de police textuelle,
+@pxref{Selecting font and font size}.@*
+Pour la taille des portées, @pxref{Setting the staff size}.@*
+Pour les petites notes, @pxref{Formatting cue notes}.@*
+Pour les variantes, @pxref{Ossia staves}.}
 
 Le plus sûr moyen de régler la taille des éléments de notation sans
 modifier la taille de la portée consiste à utiliser la commande
@@ -97,9 +95,9 @@ modifier la taille de la portée consiste à utiliser la commande
 >>
 @end lilypond
 
-La présence d'un @code{\override} dans cet exemple permet de
-contourner une bogue -- voir « Problèmes connus et avertissements » en
-fin de section.
+La présence d'un @code{\override} dans cet exemple permet de contourner
+une bogue -- voir « Problèmes connus et avertissements » en fin de
+section.
 
 Dans le cas de fusion d'une tête de note normale avec une autre de
 taille inférieure, la taille de la petite note peut nécessiter une
@@ -135,17 +133,17 @@ de telle sorte que les hampes et altérations s'alignent correctement :
 @end lilypond
 
 La commande @code{\magnifyMusic} n'est pas conçue pour gérer les
-citations, notes d'ornement ou portées d'ossia -- des moyens
-spécifiques sont déjà disponibles en la matière.  Elle est par contre
-tout à fait adaptée dans le cas d'un instrument particulier disposant de
-sa propre portée là où des notes d'ornement seraient inappropriées,
-comme pour une pseudo-cadence ou les exemples ci-dessus.  L'attribution
-d'une valeur de 0,63 à @code{\magnifyMusic} duplique les dimensions d'un
-contexte @code{CueVoice}.
+citations, notes d'ornement ou portées d'ossia -- des moyens spécifiques
+sont déjà disponibles en la matière. Elle est par contre tout à fait
+adaptée dans le cas d'un instrument particulier disposant de sa propre
+portée là où des notes d'ornement seraient inappropriées, comme pour une
+pseudo-cadence ou les exemples ci-dessus. L'attribution d'une valeur de
+0,63 à @code{\magnifyMusic} duplique les dimensions d'un contexte
+@code{CueVoice}.
 
 @warning{La commande @code{@bs{}magnifyMusic} n'est pas censée
 intervenir en complément d'une modification de la taille de portée --
-voir @ref{Setting the staff size}.}
+@pxref{Setting the staff size}.}
 
 
 @subsubsubheading Redimmensionnement individuel d'objets de rendu
@@ -169,10 +167,10 @@ particulier :
 @end lilypond
 
 La valeur par défaut de @code{font-size} est mentionnée, pour chaque
-objet de rendu, dans la référence des propriétés internes.  La propriété
+objet de rendu, dans la référence des propriétés internes. La propriété
 @code{font-size} ne peut intervenir que pour les objets qui utilisent
 des polices, autrement dit ceux qui disposent de l'interface de rendu
-@code{font-interface}.  L'abence de @code{font-size} dans la liste des
+@code{font-interface}. L'abence de @code{font-size} dans la liste des
 « réglages par défaut » d'un objet signifie qu'elle est de 0 -- voir
 @rinternals{All layout objects} @emph{(Tous les objets de rendu)}.
 
@@ -181,8 +179,12 @@ des polices, autrement dit ceux qui disposent de l'interface de rendu
 @c VO Understanding the @code{fontSize} property
 
 La propriété @code{fontSize} d'un contexte a pour effet de définir la
-taille proportionnelle de tout élément de notation basé sur un
-glyphe dans ce contexte :
+taille proportionnelle de tout élément de notation basé sur un glyphe
+dans ce contexte.@footnote{Notez bien les mots « basé sur un glyphe » --
+une hampe, par exemple, n'est pas un glyphe mais est dessinée par
+LilyPond à l'aide de lignes et de courbes, en conséquence de quoi elle
+n'est pas affectée. Il en va de même pour d'autres objets tels que
+liaisons et ligatures.}
 
 @lilypond[verbatim,quote]
 \relative {
@@ -196,18 +198,17 @@ glyphe dans ce contexte :
 }
 @end lilypond
 
-La valeur de @code{fontSize} est un nombre indiquant la taille
-relative par rapport à la hauteur standard de la portée en cours.
-La valeur par défaut de @code{fontSize} est de 0.  Un pas de six
-aboutit exactement au doublement de la taille ; un pas de moins
-six la réduit de moitié.  Chaque incrément correspond à une
-augmentation d'environ 12 % de la taille de la police.
+La valeur de @code{fontSize} est un nombre indiquant la taille relative
+par rapport à la hauteur standard de la portée en cours. La valeur par
+défaut de @code{fontSize} est de 0. Un pas de six aboutit exactement au
+doublement de la taille ; un pas de moins six la réduit de moitié.
+Chaque incrément correspond à une augmentation d'environ 12 % de la
+taille de la police.
 
 La fonction Scheme @code{magnification->font-size} permet de
-s'affranchir de l'échelle logarithmique peu intuitive des unités
-de la propriété @code{font-size}.  Ainsi, l'ajustement à 75 % de
-la notation musicale par rapport à la taille de la portée peut se
-libeller :
+s'affranchir de l'échelle logarithmique peu intuitive des unités de la
+propriété @code{font-size}. Ainsi, l'ajustement à 75 % de la notation
+musicale par rapport à la taille de la portée peut se libeller :
 
 @example
 \set fontSize = #(magnification->font-size 0.75)
@@ -217,23 +218,23 @@ La fonction Scheme @code{magstep} quant à elle effectue
 l'inverse : elle convertit le nombre affecté à @code{font-size} en
 facteur d'échelle.
 
-La propriété @code{fontSize} affecte uniquement les éléments de
-notation reposant sur des glyphes, tels les têtes de note,
-altérations, scripts, etc.  Elle n'aura aucun effet sur la taille
-de la portée, la hauteur des hampes ou la longueur des ligatures
-ni sur l'espacement horizontal.  L'échelonnement des hampes,
-ligature et espacement horizontal, couplé à la taille de la
-notation (sans modification de la taille de la portée), s'obtient
-à l'aide de la commande @code{\magnifyMusic} comme nous venons de
-le voir.  La modification de l'ensemble, y compris la taille de
-portée, est abordé dans @ref{Setting the staff size}.
+La propriété @code{fontSize} affecte uniquement les éléments de notation
+reposant sur des glyphes, tels les têtes de note, altérations,
+scripts, etc. Elle n'aura aucun effet sur la taille de la portée, la
+hauteur des hampes ou la longueur des ligatures ni sur l'espacement
+horizontal. L'échelonnement des hampes, ligature et espacement
+horizontal, couplé à la taille de la notation (sans modification de la
+taille de la portée), s'obtient à l'aide de la commande
+@code{\magnifyMusic} comme nous venons de le voir. La modification de
+l'ensemble, y compris la taille de portée, est abordé dans @ref{Setting
+the staff size}.
 
 Dès lors que la @strong{propriété de contexte} @code{fontSize} est
 définie, sa valeur est ajoutée individuellement à la valeur de la
-@strong{propriété de @emph{grob}} @code{font-size} des objets de
-rendu.  Ceci peut être source de confusion lorsque des propriétés
-@code{font-size} individuelles sont réglées alors que
-@code{fontSize} est déjà fixé :
+@strong{propriété de @emph{grob}} @code{font-size} des objets de rendu.
+Ceci peut être source de confusion lorsque des propriétés
+@code{font-size} individuelles sont réglées alors que @code{fontSize}
+est déjà fixé :
 
 @lilypond[verbatim,quote,fragment]
 % the default font-size for NoteHead is 0
@@ -286,10 +287,9 @@ LilyPond dispose d'un certain nombre de raccourcis :
 @funindex font-size
 
 Pour changer la taille des caractères, LilyPond met à l'échelle la fonte
-dont la taille est la plus proche de la taille voulue.  La taille
-standard (pour laquelle @code{font-size = 0}) dépend de la hauteur
-de la portée.  À une portée de 20 points correspond une police de
-11 points.
+dont la taille est la plus proche de la taille voulue. La taille
+standard (pour laquelle @code{font-size = 0}) dépend de la hauteur de la
+portée. À une portée de 20 points correspond une police de 11 points.
 
 
 @predefined
@@ -325,10 +325,10 @@ Référence des propriétés internes :
 @c https://sourceforge.net/p/testlilyissues/issues/3990/
 @knownissues
 Deux bogues actuellement répertoriés font obstacle à un espacement
-horizontal correct avec @code{\magnifyMusic}.  La seule façon de les
-contourner n'est cependant pas garantie dans toutes les situations.
-Dans l'exemple suivant, il vous faudra adapter la valeur de la variable
-@var{mag}.  Vous pourriez aussi tenter de supprimer une ou les deux
+horizontal correct avec @code{\magnifyMusic}. La seule façon de les
+contourner n'est cependant pas garantie dans toutes les situations. Dans
+l'exemple suivant, il vous faudra adapter la valeur de la variable
+@var{mag}. Vous pourriez aussi tenter de supprimer une ou les deux
 commandes @code{\newSpacingSection}, ou les commandes @code{\override}
 et @code{\revert} :
 
@@ -392,7 +392,7 @@ indiquant après chaque hauteur de note.
 @end lilypond
 
 Les indications de doigtés peuvent se placer au-dessus ou en dessous de
-la portée -- voir @ref{Direction and placement} à ce sujet.
+la portée -- @pxref{Direction and placement} à ce sujet.
 
 @snippets
 
@@ -520,7 +520,7 @@ contextes @code{Voice} pourront être reliés.
       \set fingeringOrientations = #'(right)
       <e''-3>2
       \set fingeringOrientations = #'(left)
-      <d''-\tweak bound-details.left.padding #2.5 \glide-2>
+      <d''-\tweak bound-details.left.padding 2.5 \glide-2>
       <c''-2>
       \bar "||"
     }
@@ -529,7 +529,7 @@ contextes @code{Voice} pourront être reliés.
       \set fingeringOrientations = #'(right)
       <c''\glide-2>
       \set fingeringOrientations = #'(left)
-      <b'-\tweak bound-details.left.padding #2.5 \glide-4>
+      <b'-\tweak bound-details.left.padding 2.5 \glide-4>
       <a'-4>
     }
   >>
@@ -603,10 +603,10 @@ utiles dans le cadre d'exercices de théorie ou de composition.
 }
 @end lilypond
 
-Têtes de note, hampes, crochets et silences sont invisibles.  Une
-ligature sera invisible si elle démarre sur une note invisible.
-Les objets de notation attachés à une note invisible ne seront pas
-masqués pour autant.
+Têtes de note, hampes, crochets et silences sont invisibles. Une
+ligature sera invisible si elle démarre sur une note invisible. Les
+objets de notation attachés à une note invisible ne seront pas masqués
+pour autant.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -623,7 +623,8 @@ masqués pour autant.
 
 @morerefs
 Manuel d'initiation :
-@rlearningnamed{Visibility and color of objects, Visibilité et couleur des objets}.
+@rlearningnamed{Visibility and color of objects,
+Visibilité et couleur des objets}.
 
 Manuel de notation :
 @ref{Hiding staves},
@@ -669,11 +670,11 @@ e''
 @cindex couleur, code CSS
 
 En plus du jeu limité de couleurs de base prédéfini sous forme de
-variable -- voir les « couleurs normales » dans @ref{List of colors}
--- n'importe quelle couleur peut être spécifiée sous forme de chaîne,
-qu'il s'agisse d'un nom de couleur prédéfini dans le style
+variable -- voir les « couleurs normales » dans @ref{List of colors} --
+n'importe quelle couleur peut être spécifiée sous forme de chaîne, qu'il
+s'agisse d'un nom de couleur prédéfini dans le style
 @uref{https://www.w3.org/Style/CSS/, CSS} ou d'un code hexadécimal
-préfixé d'un @code{#} (le tout entre guillemets informatiques) :
+préfixé d'un @samp{#} (le tout entre guillemets informatiques) :
 
 @lilypond[verbatim,quote,fragment]
 \override NoteHead.color = "lightsalmon"
@@ -689,11 +690,11 @@ g'8 \huge r4 a'16 f'
 
 @noindent
 Lorsque ce code couleur comporte un canal alpha pour la transparence,
-spécifier un code sur huit caractères @var{"#RRGGBBAA"}, ou sa
-forme abrégée @var{"#RGBA"}, produira ses effets pour une sortie SVG,
-mais pas pour du PostScript ni du PDF. Dans l'exemple  précédent, on
-peut voir à travers le silence dès lors qu'il est compilé avec le moteur
-SVG, comme expliqué dans @ref{Alternative output formats}.
+spécifier un code sur huit caractères @var{"#RRGGBBAA"}, ou sa forme
+abrégée @var{"#RGBA"}, produira ses effets pour une sortie SVG, mais pas
+pour du PostScript ni du PDF. Dans l'exemple précédent, on peut voir à
+travers le silence dès lors qu'il est compilé avec le moteur SVG, comme
+expliqué dans @ref{Alternative output formats}.
 
 @cindex x11, couleur
 @funindex x11-color
@@ -709,7 +710,7 @@ permet d'accéder aux noms composés des couleurs de X11 comme ici
 @code{"dark sea green 4"}.
 
 Lorsque la fonction @code{x11-color} ne trouve pas le paramètre fourni,
-elle revient à la couleur par défaut, le noir.  Le problème ressort de
+elle revient à la couleur par défaut, le noir. Le problème ressort de
 façon évidente au vu de la partition finale.
 
 @lilypond[verbatim,quote]
@@ -738,10 +739,10 @@ façon évidente au vu de la partition finale.
 @cindex daltonisme
 @funindex universal-color
 
-LilyPond prend aussi en charge un
-@uref{https://jfly.uni-koeln.de/color, jeu de huit noms de
-couleur} sans ambiguïté pour les gens souffrant de daltonisme ou
-non. Il est accessible sous le nom de @code{universal-@/color}.
+LilyPond prend aussi en charge un @uref{https://jfly.uni-koeln.de/color,
+jeu de huit noms de couleur} sans ambiguïté pour les gens souffrant de
+daltonisme ou non. Il est accessible sous le nom de
+@code{universal-@/color}.
 
 @lilypond[verbatim,quote]
 \markup \with-color #(universal-color 'vermillion) vermillion
@@ -781,7 +782,7 @@ de l'extrait ci-dessous sera affectée.
 
 @morerefs
 Manuel de notation :
-@ref{The tweak command},
+@ref{Tweak and single},
 @ref{List of colors}.
 
 Morceaux choisis :
@@ -800,13 +801,13 @@ Une couleur x11 n'aura pas forcément le même rendu qu'une couleur
 normale ayant un nom similaire.
 
 Les couleurs de X11 ne sont pas toutes perceptibles dans un navigateur
-internet.  Aussi nous vous recommandons, dans le cadre d'une
-présentation multimédia, d'utiliser des couleurs CSS.
+internet. Aussi nous vous recommandons, dans le cadre d'une présentation
+multimédia, d'utiliser des couleurs CSS.
 
 Vous ne pouvez pas coloriser individuellement des notes à l'intérieur
-d'un accord avec @code{\override}.  Si besoin est, utilisez
-@code{\tweak} ou @code{\single\override} devant la note en question.
-Pour plus de détails, consultez @ref{The tweak command}.
+d'un accord avec @code{\override}. Si besoin est, utilisez @code{\tweak}
+ou @code{\single\override} devant la note en question. Pour plus de
+détails, consultez @ref{Tweak and single}.
 
 
 @node Staff highlights
@@ -876,9 +877,9 @@ Plusieurs portées peuvent toutefois être surlignées de concert dès lors
 que le @code{Staff_highlight_engraver} aura été déplacé dans un contexte
 supérieur à @code{Staff} (ou bien @code{RhythmicStaff} ou similaire). Il
 suffit en pareil cas d'utiliser les commandes @code{\consists} et
-@code{\remove} -- voir @ref{Modifying context plug-ins} pour
-de plus amples informations. Le surlignage de toutes les portées
-s'obtient donc en déplaçant le graveur dans le contexte @code{Score}.
+@code{\remove} -- @pxref{Modifying context plug-ins} pour de plus amples
+informations. Le surlignage de toutes les portées s'obtient donc en
+déplaçant le graveur dans le contexte @code{Score}.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -988,16 +989,13 @@ ci-dessus permet alors de contourner le problème.
 @funindex \parenthesize
 
 Des objets peuvent être mis entre parenthèses en saisissant
-@code{\parenthesize} juste avant l'événement musical.  Si l'instruction
-préfixe un accord, chaque note le composant se présentera entre
-parenthèses.  Vous pouvez aussi mettre individuellement entre
-parenthèses les notes d'un accord.
+@code{\parenthesize} juste avant l'événement musical.
 
 @lilypond[verbatim,quote]
 \relative {
   c''2 \parenthesize d
-  c2 \parenthesize <c e g>
-  c2 <c \parenthesize e g>
+  c2  \tweak Parentheses.font-size 2 \parenthesize <c e g>
+  c2 <c e \parenthesize g>
 }
 @end lilypond
 
@@ -1009,15 +1007,6 @@ doit cependant être précédée d'un tiret.
 \relative {
   c''2-\parenthesize -. d
   c2 \parenthesize r
-}
-@end lilypond
-
-Lorsque @code{\parenthesize} s'applique à un accord, toutes ses notes
-seront mises dans une seule paire de parenthèses.
-
-@lilypond[verbatim,quote]
-\relative c' {
-  \parenthesize <e f>
 }
 @end lilypond
 

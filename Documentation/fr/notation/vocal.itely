@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3123dcf12436526a8d8f4498e4f7d3661d156a57
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -463,7 +463,7 @@ paroles à un contexte @code{TabVoice}.  Dans ces cas là, mieux vaut
 employer @code{\lyricsto}.
 
 
-@subheading Utilisation de associatedVoice
+@subheading Utilisation de @code{associatedVoice}
 @c VO: Using associatedVoice
 
 La propriété @code{associatedVoice} permet de basculer de mélodie pour
@@ -609,7 +609,7 @@ pour obtenir une liaison entre les syllabes.
   \addlyrics
   {
     % Ensure hyphens are visible
-    \override LyricHyphen.minimum-distance = #1.0
+    \override LyricHyphen.minimum-distance = 1.0
     Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
   }
   \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
@@ -1143,6 +1143,10 @@ de ces exemples, ou en examinant ce qui figure à la rubrique
 
 @snippets
 
+@cindex parole séparées, ligne unique
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/arranging-separate-lyrics-on-a-single-line.ly}
+
 @cindex paroles, espacement version 2.12
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
@@ -1169,7 +1173,7 @@ permet d'accroître l'espacement des paroles.
 @lilypond[verbatim,quote,ragged-right]
 \relative c' {
   c c c c
-  \override Lyrics.LyricSpace.minimum-distance = #1.0
+  \override Lyrics.LyricSpace.minimum-distance = 1.0
   c c c c
 }
 \addlyrics {
@@ -1195,7 +1199,7 @@ dans le bloc @code{\layout}.
   \layout {
     \context {
       \Lyrics
-      \override LyricSpace.minimum-distance = #1.0
+      \override LyricSpace.minimum-distance = 1.0
     }
   }
 }
@@ -1395,7 +1399,7 @@ Et ce quel que soit le nombre de « couplets » :
 
 Cependant, lorsque la partition comporte plusieurs portées, cas typique
 d'un @code{ChoirStaff}, les paroles des deuxième et troisième couplets
-seront repoussées sous la dernière portée.  L'instruction
+seront repoussées sous la dernière portée. L'instruction
 @code{alignBelowContext} permet alors de les repositionner correctement :
 
 @lilypond[verbatim,quote]
@@ -2086,7 +2090,7 @@ modifie la propriété @code{associatedVoice}.  Dans cet exemple,
         \voiceOne
         \tuplet 3/2 {
           % show associations clearly.
-          \override NoteColumn.force-hshift = #-3
+          \override NoteColumn.force-hshift = -3
           f8 f g
         }
       }
@@ -3536,7 +3540,7 @@ Music} (1830) positionne une barre épaisse à la fin de chaque phrase.
 Dans cet hymne, il y a aussi des points d'orgue sur les barres de
 mesure :
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=158\mm]
 \layout {
   \context {
     \Score
@@ -3552,7 +3556,7 @@ J.S. James, dans @cite{Original Sacred Harp} (1911), dispose une barre
 épaisse lorsqu'un saut de ligne intervient en cours de mesure à la fin
 d'une phrase.
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=158\mm]
 \layout {
   \context {
     \Score

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+  Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -34,9 +34,11 @@
 * List of breath marks::
 * Percussion notes::
 * Default values for outside-staff-priority::
+* Default values for script-priority::
 * Technical glossary::
 * Available music functions::
 * Context modification identifiers::
+* Paper variables::
 * Naming conventions::
 * Predefined type predicates::
 @end menu
@@ -1575,172 +1577,224 @@ Résultat
 @item
 @code{\clef "vaticana-do1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "vaticana-do1"
-  \override NoteHead.style = #'vaticana.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-do1" s c' s }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "vaticana-do2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "vaticana-do2"
-  \override NoteHead.style = #'vaticana.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-do2" s c' s }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "vaticana-do3"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "vaticana-do3"
-  \override NoteHead.style = #'vaticana.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-do3" s c' s }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "vaticana-fa1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "vaticana-fa1"
-  \override NoteHead.style = #'vaticana.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-fa1" s c' s }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "vaticana-fa2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "vaticana-fa2"
-  \override NoteHead.style = #'vaticana.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-fa2" s c' s }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @*
 
 @item
 @code{\clef "medicaea-do1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "medicaea-do1"
-  \override NoteHead.style = #'medicaea.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-do1" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "medicaea-do2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "medicaea-do2"
-  \override NoteHead.style = #'medicaea.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-do2" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "medicaea-do3"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "medicaea-do3"
-  \override NoteHead.style = #'medicaea.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-do3" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "medicaea-fa1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "medicaea-fa1"
-  \override NoteHead.style = #'medicaea.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-fa1" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "medicaea-fa2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "medicaea-fa2"
-  \override NoteHead.style = #'medicaea.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-fa2" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @*
 
 @item
 @code{\clef "hufnagel-do1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-do1"
-  \override NoteHead.style = #'hufnagel.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \clef "hufnagel-do1" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "hufnagel-do2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-do2"
-  \override NoteHead.style = #'hufnagel.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \clef "hufnagel-do2" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "hufnagel-do3"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-do3"
-  \override NoteHead.style = #'hufnagel.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \clef "hufnagel-do3" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "hufnagel-fa1"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-fa1"
-  \override NoteHead.style = #'hufnagel.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \clef "hufnagel-fa1" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
 @code{\clef "hufnagel-fa2"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-fa2"
-  \override NoteHead.style = #'hufnagel.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    % This is a guess; I couldn't find a ledger-line example (wl)
+    \override VaticanaStaff.LedgerLineSpanner.length-fraction = 0.45
+  \clef "hufnagel-fa2" s c' s
+}
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @tab
 @code{\clef "hufnagel-do-fa"}
 @tab
-@lilypond[inline,line-width=3\cm,notime,ragged-right,relative=1]
-  \override Staff.StaffSymbol.line-count = #5
-  \override Staff.StaffSymbol.color = #red
-  \clef "hufnagel-do-fa"
-  \override NoteHead.style = #'hufnagel.punctum
-  c1
+@lilypond[inline,line-width=2\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \override Staff.StaffSymbol.line-count = 5
+    \clef "hufnagel-do-fa" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @end multitable
@@ -1919,6 +1973,7 @@ Résultat
   \override NoteHead.style = #'blackmensural
   c1
 @end lilypond
+
 @*
 
 @item
@@ -1963,6 +2018,7 @@ Résultat
   \override NoteHead.style = #'neomensural
   c1
 @end lilypond
+
 @*
 
 @item
@@ -2007,6 +2063,7 @@ Résultat
   \override NoteHead.style = #'petrucci
   c1
 @end lilypond
+
 @*
 
 @item
@@ -2051,6 +2108,7 @@ Résultat
   \override NoteHead.style = #'petrucci
   c1
 @end lilypond
+
 @*
 
 @item
@@ -2078,7 +2136,6 @@ Résultat
   \override NoteHead.style = #'petrucci
   c1
 @end lilypond
-@*
 
 @end multitable
 
@@ -2573,26 +2630,26 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @item
 @code{\accentus}
-@lilypond[inline,notime]
+@lilypond[notime]
 \new VaticanaScore
   \new VaticanaStaff { e'^\accentus s4 f_\accentus s4 b\accentus }
 @end lilypond
 @tab
 @code{\circulus}
-@lilypond[inline,notime]
+@lilypond[notime]
 \new VaticanaScore
   \new VaticanaStaff { e'^\circulus s4 f_\circulus s4 b\circulus }
 @end lilypond
 @tab
 @code{\ictus}
-@lilypond[inline,notime]
+@lilypond[notime]
 \new VaticanaScore
   \new VaticanaStaff { e'^\ictus s4 f_\ictus s4 b\ictus }
 @end lilypond
 
 @item
 @code{\semicirculus}
-@lilypond[inline,notime]
+@lilypond[notime]
 \new VaticanaScore
   \new VaticanaStaff {
     e'^\semicirculus s4 f_\semicirculus s4 b\semicirculus
@@ -2600,7 +2657,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 @end lilypond
 @tab
 @code{\signumcongruentiae}
-@lilypond[inline,notime]
+@lilypond[notime]
 \new VaticanaScore
   \new VaticanaStaff {
     e'^\signumcongruentiae s4
@@ -3085,6 +3142,8 @@ b4 4 \breathe 4
 @node Default values for outside-staff-priority
 @appendixsec Valeurs par défaut de @code{outside-staff-priority}
 
+@funindex outside-staff-priority
+
 Le tableau suivant indique la valeur par défaut de la propriété
 @code{outside-staff-priority} de tous les objets graphiques extérieurs à
 la portée. Au plus la valeur est faible, au plus l'objet est proche de
@@ -3093,108 +3152,101 @@ la portée.
 @include en/outside-staff-priorities.tely
 
 
+@node Default values for script-priority
+@appendixsec Valeurs par défaut de @code{script-priority}
+
+@funindex script-priority
+
+Le tableau suivant indique la valeur par défaut de de la propriété
+@code{script-priority} de tous les objets (nom avec capitale initiale)
+liés aux scripts (nom en minuscules). Le objets aux plus petites valeurs
+sont plus proches de la portée.
+
+Les objets @code{Fingering}, @code{StringNumber} et @code{StrokeFinger},
+lorsqu'ils font partie d'un accord, voient leur priorité finale accrue
+de la position verticale de la tête de note d'attachement. La valeur de
+@code{script-priority} des autres scripts de l'accord ne sont quant à
+elles pas modifiées.
+
+En ce qui concerne les scripts non attachés à un accord, c'est la
+position de l'événement considéré qui est ajoutée. Par conséquent,
+lorsque plusieurs scripts ont une même valeur de @code{script-priority},
+le premier aura préséance.
+
+Les objets qui ne sont pas ici mentionnés bien qu'ils soient relatifs à
+des scripts voient leur @code{script-priority} fixée à 200 par défaut.
+
+@include en/script-priorities.tely
+
+
 @node Technical glossary
 @appendixsec Glossaire technique
 
 Ce glossaire regroupe les termes techniques et concepts utilisés en
-interne par LilyPond.  Ils apparaissent aussi bien dans les manuels, que
+interne par LilyPond. Ils apparaissent aussi bien dans les manuels, que
 sur les listes de diffusion et dans le code source.
 
-@menu
-* alist::
-* callback::
-* closure::
-* glyph::
-* grob::
-* immutable::
-* interface::
-* lexer::
-* mutable::
-* output-def::
-* parser::
-* parser variable::
-* prob::
-* smob::
-* spanner::
-* stencil::
-@end menu
+@table @asis
 
-
-@node alist
-@unnumberedsubsec alist (liste associative)
-
+@item alist (liste associative)
 @cindex alist
 @cindex liste associative
 
-Une liste associative -- @strong{alist} pour @emph{association list} --
-est une paire Scheme qui associe une valeur à une clé :
+Une liste associative -- @dfn{alist} pour @emph{association list} -- est
+une paire Scheme qui associe une valeur à une clé :
 @code{(clé . valeur)}. Le fichier @file{scm/lily.scm} contient par
-exemple une @emph{alist} @w{@qq{type-p-name-alist}} qui associe certains
+exemple une @emph{alist} @code{type-p-name-alist} qui associe certains
 types de prédicat (par ex. @code{ly:music?}) à des noms (par ex.
 « music ») de telle sorte qu'une erreur lors d'un contrôle de typage
 puisse être rapportée en console avec mention du type de prédicat
 attendu.
 
-
-@node callback
-@unnumberedsubsec callback (rappel)
-
+@item callback (rappel)
 @cindex callback
 @cindex rappel
 
-Un @strong{rappel}, @emph{callback} en anglais, est une routine,
-fonction ou méthode qui est passée en argument à une autre fonction.
-Cette dernière peut alors faire usage de cette fonction de rappel comme
-de n'importe quelle autre fonction, alors qu'elle ne la connaît pas par
-avance.  Cette façon de procéder permet à des couches logicielles de bas
+Un @strong{rappel}, @dfn{callback} en anglais, est une routine, fonction
+ou méthode qui est passée en argument à une autre fonction. Cette
+dernière peut alors faire usage de cette fonction de rappel comme de
+n'importe quelle autre fonction, alors qu'elle ne la connaît pas par
+avance. Cette façon de procéder permet à des couches logicielles de bas
 niveau d'appeler des fonctions définies à des niveaux plus élevés.
 LilyPond utilise abondamment les @emph{callbacks} afin que le code
-Scheme saisi par l'utilisateur puisse définir les actions de bas niveau
-à opérer.
+Scheme saisi par l'utilisateur puisse contrôler les actions de bas
+niveau.
 
-
-@node closure
-@unnumberedsubsec closure (clôture)
-
+@item closure (clôture)
 @cindex clôture
 @cindex closure
 
-En Scheme, une @strong{clôture} (en anglais, @emph{closure}) est créée
+En Scheme, une @strong{clôture} (en anglais @dfn{closure}) est créée
 lorsqu'une fonction, généralement une expression lambda, est passée en
-tant que variable.  La clôture comporte, en plus du code de la fonction,
+tant que variable. La clôture comporte, en plus du code de la fonction,
 des références à des variables libres dans l'environnement lexical --
-variables utilisées dans l'expression mais définies ailleurs.  Lorsque
-la fonction est par la suite appliquée aux différents arguments, les
+variables utilisées dans l'expression mais définies ailleurs. Lorsque la
+fonction est par la suite appliquée aux différents arguments, les
 références aux variables libres, capturées par la clôture, permettent
 d'obtenir la valeur de ces variables libres qui sera utilisée lors des
-calculs.  L'une des propriétés intéressantes des clôtures est la
+calculs. L'une des propriétés intéressantes des clôtures est la
 rétention de la valeur de variables internes tout au long des
 différentes invocations, leur état étant alors persistant.
 
-
-@node glyph
-@unnumberedsubsec glyphe
-
+@item glyphe
 @cindex glyphe
 @cindex fonte
 @cindex type de caractère
 
-Un @strong{glyphe} est une représentation graphique particulière d'un
+Un @dfn{glyphe} est une représentation graphique particulière d'un
 caractère typographique ou d'une combinaison de deux caractères formant
-une ligature.  Un jeu de glyphes aux mêmes style et allure constitue une
-fonte ; un jeu de fontes comprenant plusieurs styles et tailles constitue
-un type de caractère.
+une ligature. Un jeu de glyphes aux mêmes style et allure constitue une
+fonte ; un jeu de fontes comprenant plusieurs styles et tailles
+constitue un type de caractère.
 
-@morerefs
-Manuel de notation :
+Voir aussi :
 @ref{Fonts},
 @ref{Special characters}.
-@endmorerefs
 
-
-@node grob
-@unnumberedsubsec grob (objet graphique)
-
+@item grob (objet graphique)
 @cindex grob
 @cindex graphique, objet
 @cindex rendu, objet de
@@ -3203,34 +3255,26 @@ Manuel de notation :
 Dans LilyPond, les objets représentants les différents éléments de
 notation, comme les têtes de note, hampes, liaisons, doigtés, clefs etc.
 sont appelés « objets de rendu » ou objet graphique -- en anglais
-@emph{GRaphical OBjects} couramment abrégé en @strong{grob}.  Ils sont
+@emph{GRaphical OBjects} couramment abrégé en @dfn{grob}. Ils sont
 représentés par des instances de la classe @code{grob}.
 
-@morerefs
-Manuel d'initiation :
+Voir aussi :
 @rlearningnamed{Objects and interfaces, Objets et interfaces},
-@rlearningnamed{Properties of layout objects, Propriétés des objets de rendu}.
-
-Manuel de notation :
-@ref{Naming conventions}.
-
-Référence des propriétés internes :
+@rlearningnamed{Properties of layout objects, Propriétés des objets de rendu}.@*
+@ref{Naming conventions}.@*
 @rinternals{grob-interface},
 @rinternals{All layout objects}.
-@endmorerefs
 
-
-@node immutable
-@unnumberedsubsec inaltérable
-
+@item inaltérable
+@cindex @emph{immutable}, inaltérable
 @cindex inaltérable, objet
 @cindex inaltérable, propriété
 @cindex propriété commune
 @cindex propriété partagée
 
-Un objet est dit @strong{inaltérable} -- @emph{immutable} en anglais --
-dès lors que son état ne peut être modifié après sa création ; les
-objets altérables, à l'inverse, peuvent être modifiés après création.
+Un objet est dit @dfn{inaltérable} -- @dfn{immutable} en anglais -- dès
+lors que son état ne peut être modifié après sa création ; les objets
+altérables, à l'inverse, peuvent être modifiés après création.
 
 Pour LilyPond, une propriété est inaltérable ou commune lorsqu'elle
 définit les style ou le comportement par défaut d'objets graphiques ;
@@ -3239,126 +3283,95 @@ En apparente contradiction avec ce que leur nom laisse accroire, de
 telles propriétés peuvent être adaptées par @code{\override} et
 @code{\revert}.
 
-@morerefs
-Manuel de notation :
-@ref{mutable}.
-@endmorerefs
+Voir plus avant pour les objets altérables.
 
-
-@node interface
-@unnumberedsubsec interface
-
+@item interface
 @cindex interface
 @funindex grob-interface
 @cindex objet graphique, interface
 
 Les actions et propriétés communes à plusieurs objets graphiques sont
-regroupées dans un objet appelé @code{grob-interface}, ou « interface »
-pour faire court.
+regroupées dans un objet appelé @code{grob-interface}, ou
+@dfn{interface} pour faire court.
 
-@morerefs
-Manuel d'initiation :
+Voir aussi :
+@ref{Layout interfaces}.@*
 @rlearningnamed{Objects and interfaces, Objets et interfaces},
-@rlearningnamed{Properties found in interfaces, Propriétés listées par interface}.
-
-Manuel de notation :
-@ref{Naming conventions},
-@ref{Layout interfaces}.
-
-Référence des propriétés internes :
+@rlearningnamed{Properties found in interfaces,
+Propriétés listées par interface}.@*
 @rinternals{Graphical Object Interfaces}.
-@endmorerefs
 
-
-@node lexer
-@unnumberedsubsec lexer (analyseur lexical)
-
+@item lexer (analyseur lexical)
 @cindex lexer
 @cindex analyse lexicale
-@cindex Flex
+@cindex @command{flex}, programme
 
-Un @strong{lexer} est un programme chargé de convertir une séquence de
+Un @dfn{lexer} est un programme chargé de convertir une séquence de
 caractères en une séquence de jetons. Cette opération s'appelle
 @dfn{analyse lexicale}. L'analyseur lexical de LilyPond convertit le
 flot d'information contenu dans un fichier @file{.ly} en flot de jetons
 qui pourront être traités lors de l'étape suivant, l'analyse
-grammaticale abordée à la rubrique @ref{parser}.
-L'analyseur lexical de LilyPond repose sur @code{Flex} ; les règles
-lexicales sont regroupées dans le fichier @file{lily/lexer.ll}. Ce
-fichier, partie intégrante des sources, n'est pas distribué avec les
-programmes binaires de LilyPond.
+grammaticale abordée plus avant. L'analyseur lexical de LilyPond repose
+sur le programme @command{flex} ; les règles lexicales sont regroupées
+dans le fichier @file{lily/lexer.ll}. Ce fichier, partie intégrante des
+sources, n'est pas distribué avec les programmes binaires de LilyPond.
 
 
-@node mutable
-@unnumberedsubsec altérable
-
+@item altérable
+@cindex mutable
 @cindex altérable, objet et propriété
 @cindex propriété altérable
 @cindex objet altérable
 
-Un objet est dit @strong{altérable} -- @emph{mutable} en anglais --
-lorsque son état est sujet à modification après sa création, à l'inverse
-des objets inaltérables dont l'état est figé dès leur création.
+Un objet est dit @dfn{altérable} -- @dfn{mutable} en anglais -- lorsque
+son état est sujet à modification après sa création, à l'inverse des
+objets inaltérables dont l'état est figé dès leur création.
 
 Les propriétés altérables contiennent, pour LilyPond, des valeurs
-spécifiques à un objet graphique.  En particulier, les listes d'autres
+spécifiques à un objet graphique. En particulier, les listes d'autres
 objets ou résultats de calculs sont enregistrés sous dorme de propriétés
 altérables.
 
-@morerefs
-Manuel de notation :
-@ref{immutable}.
-@endmorerefs
+Voir ci-dessus pour les objets inaltérables.
 
-
-@node output-def
-@unnumberedsubsec output-def (définition de sortie)
-
+@item output-def (définition de sortie)
 @funindex output-def
 @cindex sortie, définition
 @cindex définition de sortie
 
 Une instance de la classe @code{Output-def} contient les méthodes et
-structures des données associées à un bloc de sortie.  Ces instances
-sont créées par les blocs @code{\midi}, @code{\layout} et @code{\paper}.
+structures des données associées à un bloc de sortie. Ces instances sont
+créées par les blocs @code{\midi}, @code{\layout} et @code{\paper}.
 
 
-@node parser
-@unnumberedsubsec parser (analyseur syntaxique)
-
+@item parser (analyseur syntaxique)
 @cindex parser
 @cindex analyseur syntaxique
-@cindex Bison
+@cindex @command{bison}, programme
 @cindex grammaire de LilyPond
 @cindex BNF
 
-Un analyseur syntaxique -- @strong{parser} en anglais -- est un
-programme qui analyse la séquence de jetons produite par l'analyseur
-lexical pour en déterminer la structure grammaticale.  Les jetons sont,
-pour ce faire, regroupés progressivement en tronçons plus importants,
-selon des règles grammaticales.  Lorsque la séquence de jetons est
-valide, les produit final est une arborescence de jetons ayant à sa base
-le symbole grammatical de début.  Dès lors que cette étape n'est pas
-concluante, le fichier est déclaré invalide ; un message approprié est
-alors émis.  Les différents regroupements syntaxiques ainsi que les
-règles de construction des regroupements relatifs à la grammaire de
-LilyPond sont définis dans le fichier @file{lily/parser.yy} et présentés
-selon la forme de Backus-Naur (BNF) à la rubrique
-@rcontribnamed{LilyPond grammar, Grammaire de LilyPond}.  Ce
-fichier est utilisé par le générateur de @emph{parser} Bison lors
-de la construction du programme. Partie intégrante des sources, il
-n'est pas distribué avec les programmes binaires de LilyPond.
+Un analyseur syntaxique -- @dfn{parser} en anglais -- est un programme
+qui analyse la séquence de jetons produite par l'analyseur lexical pour
+en déterminer la structure grammaticale. Les jetons sont, pour ce faire,
+regroupés progressivement en tronçons plus importants, selon des règles
+grammaticales. Lorsque la séquence de jetons est valide, le produit
+final est une arborescence de jetons ayant à sa base le symbole
+grammatical de début. Dès lors que cette étape n'est pas concluante, le
+fichier est déclaré invalide ; un message approprié est alors émis. Les
+différents regroupements syntaxiques ainsi que les règles de
+construction des regroupements relatifs à la grammaire de LilyPond sont
+définis dans le fichier @file{lily/parser.yy}. Ce fichier est utilisé
+par le générateur de @emph{parser} @command{bison} lors de la
+construction du programme. Partie intégrante des sources, il n'est pas
+distribué avec les programmes binaires de LilyPond.
 
-
-@node parser variable
-@unnumberedsubsec variable de l'analyseur grammatical
-
+@item variable de l'analyseur grammatical
 @cindex parser, variable
 @cindex Scheme, variable
 @cindex globale, variable
 @funindex afterGraceFraction
 @funindex musicQuotes
-@funindex mode
 @funindex output-count
 @funindex output-suffix
 @funindex partCombineListener
@@ -3368,77 +3381,68 @@ n'est pas distribué avec les programmes binaires de LilyPond.
 @funindex showLastLength
 @funindex showFirstLength
 
-Il s'agit de variables définies directement en Scheme.  Dans la mesure
-où leur champ sémantique peut porter à confusion, il est fortement
+Il s'agit de variables définies directement en Scheme. Dans la mesure où
+leur champ sémantique peut porter à confusion, il est fortement
 déconseillé de les utiliser tels quels.
 
 La modification des valeurs de l'une de ces variables dans un fichier
-@file{.ly} sera effective de manière globale.  Les valeurs modifiées,
-sauf à être explicitement remises à leur état d'origine, affecteront
-tous les blocs @code{\score} rencontrés, y compris s'ils proviennent
-d'autres fichiers ajoutés par une commande @code{\include}.  Ceci peut
-avoir des conséquences inattendues et les erreurs qui pourraient en
-découler difficiles à localiser dans le cadre d'un projet d'envergure.
+@file{.ly} est effective de manière globale. Les valeurs modifiées, sauf
+à être explicitement remises à leur état d'origine, affectent tous les
+blocs @code{\score} rencontrés, y compris s'ils proviennent d'autres
+fichiers ajoutés par une commande @code{\include}. Ceci peut avoir des
+conséquences inattendues et les erreurs qui pourraient en découler
+difficiles à localiser dans le cadre d'un projet d'envergure.
 
-LilyPond utilise les variables suivantes :
+LilyPond utilise, entre autres, les variables suivantes :
 
-@itemize
-@item afterGraceFraction
-@item musicQuotes
-@item mode
-@item output-count
-@item output-suffix
-@item partCombineListener
-@item pitchnames
-@item toplevel-bookparts
-@item toplevel-scores
-@item showLastLength
-@item showFirstLength
+@itemize @w{}
+@item @code{afterGraceFraction}
+@item @code{musicQuotes}
+@item @code{output-count}
+@item @code{output-suffix}
+@item @code{partCombineListener}
+@item @code{pitchnames}
+@item @code{toplevel-bookparts}
+@item @code{toplevel-scores}
+@item @code{showLastLength}
+@item @code{showFirstLength}
 @end itemize
 
-
-@node prob
-@unnumberedsubsec prob (objet de propriété)
-
+@item prob (objet de propriété)
 @cindex prob
 @cindex propriété objet
 @cindex objet de propriété
 
-Les objets de propriété -- @strong{probs} pour @emph{PRoperty OBjects}
--- sont des instances de la classe @code{Prob}, une classe de base
-simple pour les objets qui disposent de de listes associatives de
-propriétés altérables et inaltérables ainsi que les méthodes pour les
-manipuler.  Les classes @code{Music} et @code{Stream_event} dérivent
-d'un @code{prob}.  Les instances de la classe @code{prob} se créent
-aussi pour garder trace du contenu des systèmes une fois formatés et
-des blocs de titrage lors de la phase de mise en forme des pages.
+Les objets de propriété -- @dfn{probs} pour @emph{PRoperty OBjects} --
+sont des instances de la classe @code{Prob}, une classe de base simple
+pour les objets qui disposent de de listes associatives de propriétés
+altérables et inaltérables ainsi que les méthodes pour les manipuler.
+Les classes @code{Music} et @code{Stream_event} dérivent d'un
+@code{prob}. Les instances de la classe @code{prob} se créent aussi pour
+garder trace du contenu des systèmes une fois formatés et des blocs de
+titrage lors de la phase de mise en forme des pages.
 
-
-@node smob
-@unnumberedsubsec smob (objet Scheme)
-
+@item smob (objet Scheme)
 @cindex smob
 @cindex Scheme, objet
 @cindex objet Scheme
 
-Les objets Scheme -- @strong{Smobs} pour @emph{ScheMe OBjects} -- font
+Les objets Scheme -- @dfn{Smobs} pour @emph{ScheMe OBjects} -- font
 partie du mécanisme utilisé par l'interpréteur Guile pour exporter en
-code Scheme les objets C ou C++.  Dans LilyPond, les @emph{smobs} sont
-créés, grâce à des macros, à partir d'objets C++.    On peut distinguer
+code Scheme les objets C ou C++. Dans LilyPond, les @emph{smobs} sont
+créés, grâce à des macros, à partir d'objets C++. On peut distinguer
 deux types d'objets @emph{smob} : des @emph{smobs} simples destinés aux
 objets inaltérables comme les nombres par exemples, et des @emph{smobs}
-complexes utilisés pour des objets possédant une identité.  De plus
+complexes utilisés pour des objets possédant une identité. De plus
 amples informations sont disponibles dans les sources de LilyPond, au
 sein du fichier @file{lily/includes/smob.hh}.
 
 
-@node spanner
-@unnumberedsubsec spanner (bandeau)
-
+@item spanner (bandeau)
 @cindex bandeau @emph{(spanner)}
 @cindex @emph{spanner}, bandeau
 
-Les @strong{bandeaux} @emph{(spanners)} constituent une classe d'objets
+Les @dfn{bandeaux} @emph{(spanners)} constituent une classe d'objets
 graphiques qui ne sont pas fixés horizontalement, mais s'étendent entre
 deux points. On peut citer à titre d'exemple les ligatures, les liaisons
 quel que soit leur type, les soufflets, et même les lignes de la portée.
@@ -3456,43 +3460,49 @@ ils constituent des instances de la sous-classe @code{Spanner} de
 @code{grob}. Leurs extrémités gauche et droite peuvent se récupérer ou
 définir respectivement à l'aide de @code{ly:spanner-@/bound} et
 @code{ly:spanner-@/set-@/bound!}. Leurs extrémités sont toujours des
-objets ponctuels. Le parent X d'un bandeau n'a que peu de sens en termes de
-musique, mais il se détermine habituellement par son extrémité gauche.
+objets ponctuels. Le parent X d'un bandeau n'a que peu de sens en termes
+de musique, mais il se détermine habituellement par son extrémité
+gauche.
 
-@morerefs
-Manuel de notation :
-@ref{Spanners}.
-
-Référence des propriétés internes :
+Voir aussi :
+@ref{Spanners}.@*
 @rinternals{all-layout-objects},
 @rinternals{spanner-interface}.
-@endmorerefs
 
-
-@node stencil
-@unnumberedsubsec stencil
-
+@item stencil
 @cindex stencil
 
-Une instance de la classe @strong{stencil} comporte l'information
-nécessaire à l'impression d'un objet typographique.  Il s'agit d'un
+Une instance de la classe @code{Stencil} comporte l'information
+nécessaire à l'impression d'un objet typographique. Il s'agit d'un
 @emph{smob} simple qui contient un espace de confinement qui définit
 l'envergure verticale et horizontale de l'objet ainsi qu'une expression
-Scheme qui imprimera l'objet après évaluation.  Les stencils peuvent se
+Scheme qui imprimera l'objet après évaluation. Les stencils peuvent se
 combiner et adopter une forme plus complexe définie par une arborescence
 d'expressions Scheme des stencils qui la composent.
 
 La propriété @code{stencil}, qui permet de connecter un @emph{grob} à
 son stencil, est définie par l'interface @code{grob-interface}.
 
-@morerefs
-Référence des propriétés internes :
-@rinternals{grob-interface}.
-@endmorerefs
+Voir aussi @rinternals{grob-interface}.
+
+@end table
 
 
 @node Available music functions
 @appendixsec Fonctions musicales prédéfinies
+
+Dans le tableau suivant, le premier argument d'une fonction est présenté
+en italique avec son type entre parenthèses. Vient ensuite le deuxième
+argument avec, lui aussi, son type entre parenthèses, et aisni de suite.
+Est indiqué, après la flêche, le type de valeur de retour.
+
+Lorsqu'un argument et son type sont placés entre crochets, cet argument
+est optionnel et peut être omis, indiquant à LilyPond de prendre une
+valeur par défaut. Toutefois, si le dernier argument d'une fonction est
+optionnel, il @emph{ne saurait} être omis ; il faudra le remplacer par
+@code{\default} en l'absence de valeur explicite. Voir
+@rextendnamed{Scheme function usage,Utilisation de fonctions Scheme}
+pour de plus amples détails sur le traitement des arguments optionnels.
 
 @include en/identifiers.tely
 
@@ -3504,6 +3514,25 @@ Les commandes suivantes permettent de modifier des contextes au sein
 d'un bloc @code{\layout} ou @code{\with}.
 
 @include en/context-mod-identifiers.tely
+
+
+@node Paper variables
+@appendixsec Variables pour format imprimable
+
+Les variables suivantes concernent les sortie imprimables et sont
+prédéfinies par LilyPond. Les valeurs susceptibles d'être mises à
+l'échelle selon le format de papier sont présentées pou la taille par
+défaut, soit A4. Les variables du style @code{@var{xxx}-default} ici
+mentionnées sont aussi des variables de papier.
+
+Certaines valeurs comme @code{mm} or @code{pt} sont des constantes et
+normalement en lecture seule ; les modifier pourait grandement perturber
+LilyPond.
+
+La plupart de ces variables peuvent se définir dans un bloc
+@code{\paper} ou @code{\layout}, @pxref{The layout block}.
+
+@include en/paper-variables.tely
 
 
 @node Naming conventions

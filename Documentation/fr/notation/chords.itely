@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -102,7 +102,7 @@ Morceaux choisis :
 
 @knownissues
 Les raccourcis d'articulation ou d'ornementation ne sont pas disponibles
-en mode accord -- voir @ref{Articulations and ornamentations}.
+en mode accord -- @pxref{Articulations and ornamentations}.
 
 
 @node Common chords
@@ -865,9 +865,9 @@ recommandés pour l'impression de grilles harmoniques :
 @end example
 
 @code{indent = 0} donne l'assurance que la première ligne ne sera pas
-indentée -- voir @ref{paper variables for shifts and indents}. La clause
+indentée -- @pxref{paper variables for shifts and indents}. La clause
 @code{ragged-right = ##f} permet d'étaler en pleine largeur les grilles
-sur une ligne -- voir @ref{paper variables for widths and margins}.
+sur une ligne -- @pxref{paper variables for widths and margins}.
 
 La création d'une grille harmonique demande l'instanciation d'un contexte
 @code{ChordGrid}.
@@ -916,7 +916,7 @@ résumé des règles par défaut en matière de subdivision des cases :
 @end lilypond
 
 L'instruction @code{\medianChordGridStyle} modifie la présentation par
-défaut des cases avec quatre accords d'égale durée pour adopter le
+défaut des cases marquant les divisions de la mesure pour adopter le
 style préconisé par Philippe Baudoin dansn son ouvrage @emph{Jazz, mode
 d'emploi}.
 
@@ -929,34 +929,47 @@ d'emploi}.
 @}
 @end example
 
-@lilypond[quote,indent=0\cm,noragged-right]
-\new ChordGrid \chordmode {
-  \override GridChordName.stencil =
-    #(lambda (grob)
-       (let* ((ev (event-cause grob))
-              (mus (ly:event-property ev 'music-cause))
-              (dur (ly:music-property mus 'duration))
-              (num (number->string (1+ (ly:grob-property grob 'index)))))
+@lilypond[quote,indent=0\cm,noragged-right,line-width=6\cm]
+\layout {
+  \override ChordGrid.GridChordName.stencil =
+  #(lambda (grob)
+     (let* ((ev (event-cause grob))
+            (mus (ly:event-property ev 'music-cause))
+            (dur (ly:music-property mus 'duration))
+            (num (number->string (1+ (ly:grob-property grob 'index)))))
        (grob-interpret-markup
         grob
         #{ \markup { \note #dur #UP \hspace #0.7 \circle #num } #})))
-  \override Score.RehearsalMark.self-alignment-X = #LEFT
-  \textMark "default"
-  r4 r4 r4 r4
-  \stopStaff
-  s1
-  \startStaff
-  \textMark \markup \typewriter "\\medianChordGridStyle"
-  \medianChordGridStyle
-  r4 r4 r4 r4
-  \stopStaff
-  s1*2
+}
+
+
+#(define-markup-command (demo layout props measure init) (ly:music? ly:music?)
+   (interpret-markup
+    layout
+    props
+    #{
+      \markup \column {
+        \score { \new ChordGrid { #init #measure } }
+      }
+    #}))
+
+\markup \column {
+  \override #'(baseline-skip . 13)
+  \override #'(padding . 2)
+  \table #`(,CENTER ,CENTER) {
+    "Default style" \typewriter "\\medianChordGridStyle"
+    \demo { r2 r4 r4 } {} \demo { r2 r4 r4 } \medianChordGridStyle
+    \demo { r4 r4 r2 } {} \demo { r4 r4 r2 } \medianChordGridStyle
+    \demo { r2. r4 } {} \demo { r2. r4 } \medianChordGridStyle
+    \demo { r4 r2. } {} \demo { r4 r2. } \medianChordGridStyle
+    \demo { r4 r4 r4 r4 } {} \demo { r4 r4 r4 r4 } \medianChordGridStyle
+  }
 }
 @end lilypond
 
 Dans une grille harmonique, les silences déclenchent l'impression du
 symbole @code{noChordSymbol} comme dans un contexte @code{ChordNames} --
-voir @ref{Printing chord names}.
+@pxref{Printing chord names}.
 
 @lilypond[verbatim,quote,indent=0\cm,noragged-right]
 \new ChordGrid \chordmode { c1 r2 c2 R1 }

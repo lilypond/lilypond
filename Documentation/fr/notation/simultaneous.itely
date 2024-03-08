@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -21,7 +21,7 @@
 {snippets/simultaneous-headword.ly}
 
 La notion musicale de polyphonie fait référence au fait d'avoir plus
-d'une voix simultanément dans une pièce.  Dans LilyPond, la notion de
+d'une voix simultanément dans une pièce. Dans LilyPond, la notion de
 polyphonie fait référence au fait d'avoir plus d'une voix sur la même
 portée.
 
@@ -56,7 +56,7 @@ même voix.
 @funindex <...>
 
 Un accord est formé en mettant une série de hauteurs entre @code{<}
-et @code{>}.  Un accord peut être suivi d'une durée comme une simple
+et @code{>}. Un accord peut être suivi d'une durée comme une simple
 note.
 
 @lilypond[verbatim,quote]
@@ -86,7 +86,7 @@ articulation ou d'un ornement :
 
 Certains éléments de notation, tels que nuances et soufflets ne peuvent
 se rattacher qu'à un accord et non aux notes qui le composent, sous
-peine de ne les voir s'imprimer.  D'autres éléments, tels que doigtés ou
+peine de ne les voir s'imprimer. D'autres éléments, tels que doigtés ou
 liaisons, seront placés différemment selon qu'ils sont rattachés à des
 notes composant un accord, à un accord dans sa globalité ou à des notes
 individuelles.
@@ -104,11 +104,11 @@ individuelles.
 @funindex <>
 
 Un accord peut se voir comme un conteneur de notes, articulations et
-autres éléments rattachés.  Par voie de conséquence, un accord dépourvu
+autres éléments rattachés. Par voie de conséquence, un accord dépourvu
 de note n'a pas de durée ; toute articulation qui lui serait attachée
 interviendra au même moment que la note ou l'accord qui le suit et lui
-sera donc combiné -- pour des combinaisons plus complexes, voir
-@ref{Simultaneous expressions}.
+sera donc combiné -- pour des combinaisons plus complexes,
+@pxref{Simultaneous expressions}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -121,11 +121,11 @@ sera donc combiné -- pour des combinaisons plus complexes, voir
 @cindex accord et mode relatif
 @cindex mode relatif et accord
 
-Les accords peuvent être saisis en mode relatif.  Dans un accord,
+Les accords peuvent être saisis en mode relatif. Dans un accord,
 l'octave de chaque hauteur saisie est fonction de la précédente, à
 l'exception de la première qui, elle, sera positionnée en fonction de la
 première hauteur mentionnée dans l'accord précédent ou de la note
-individuelle précédente.  Les autres notes au sein de l'accord se
+individuelle précédente. Les autres notes au sein de l'accord se
 positionnent relativement à la précédente @emph{dans cet accord}.
 
 @lilypond[verbatim,quote]
@@ -157,7 +157,7 @@ Morceaux choisis :
 @knownissues
 Un accord comportant plus de deux notes dans le même « espace de
 portée » -- tel que @samp{<e f! fis!>} -- conduit immanquablement à des
-chevauchements.  En fonction de la situation, un meilleur rendu peut
+chevauchements. En fonction de la situation, un meilleur rendu peut
 nécessiter de recourir à
 
 @itemize
@@ -195,7 +195,7 @@ répéter le dernier accord saisi :
 
 À l'instar de n'importe quel accord, le symbole de répétition peut être
 affublé d'une durée, de signes d'articulation, @emph{markups}, liaisons,
-ligatures@dots{}  En fait, c'est la structure du dernier accord qui est
+ligatures@dots{} En fait, c'est la structure du dernier accord qui est
 dupliquée.
 
 @lilypond[verbatim,quote]
@@ -241,15 +241,15 @@ seraient absents de l'accord construit par un @code{q}.
 @end lilypond
 
 Comme vous pouvez le constater, l'utilisation de @code{\chordRepeats} au
-sein d'un bloc @code{\relative} ne produit pas le résultat
-escompté : les événements de l'accord expansés sont identiques à la
-saisie traditionnelle d'un accord, ce qui a pour conséquence que l'octave
+sein d'un bloc @code{\relative} ne produit pas le résultat escompté :
+les événements de l'accord expansés sont identiques à la saisie
+traditionnelle d'un accord, ce qui a pour conséquence que l'octave
 affectée par @code{\relative} repose sur le contexte en cours.
 
 Dans la mesure où l'imbrication de clauses @code{\relative} n'est pas
 source d'interférence, l'ajout d'un @code{\relative} à ce qui sera
 concerné par l'instruction @code{\chordRepeats} permet d'établir une
-relation d'octave entre les accords dès avant leur expansion.  Dans le
+relation d'octave entre les accords dès avant leur expansion. Dans le
 cas présent, l'intégralité du bloc @code{\relative} intérieur n'affecte
 en rien ce qui l'entoure, ce qui explique la spécification d'octave
 attachée à la dernière note :
@@ -265,8 +265,8 @@ attachée à la dernière note :
 @end lilypond
 
 Les interactions avec @code{\relative} ne se produisent que lors d'un
-appel explicite de @code{\chordRepeats} : l'expansion implicite en
-début de saisie intervient à un moment où toutes les instances de
+appel explicite de @code{\chordRepeats} : l'expansion implicite en début
+de saisie intervient à un moment où toutes les instances de
 @code{\relative} ont déjà été interprétées.
 
 @morerefs
@@ -283,10 +283,10 @@ Fichiers d'initialisation :
 @unnumberedsubsubsec Expressions simultanées
 
 Lorsqu'une ou plusieurs expressions musicales sont encadrées par des
-doubles chevrons, elles sont considérées comme étant simultanées.  Si la
+doubles chevrons, elles sont considérées comme étant simultanées. Si la
 première expression débute par une note unique ou si l'intégralité de
 l'expression simultanée est explicitement rattachée à une voix en
-particulier, elle sera placée sur une seule portée.  Dans le cas
+particulier, elle sera placée sur une seule portée. Dans le cas
 contraire, les éléments d'une expression simultanée seront placés sur
 des portées distinctes.
 
@@ -308,7 +308,7 @@ Voici deux exemples d'expression simultanée sur une même portée :
 @end lilypond
 
 Cette manière de procéder est utile lorsque les éléments de l'expression
-ont des rythmes identiques.  Dès que vous tenterez d'attacher sur une
+ont des rythmes identiques. Dès que vous tenterez d'attacher sur une
 même hampe des notes de durée différente, vous générerez des erreurs.
 Notes, articulations et modifications de propriétés au sein d'un même
 @code{Voice} sont enregistrées et gravées selon l'ordre musical :
@@ -338,9 +338,9 @@ puisqu'ils sont interprétés dans des voix différentes.
 
 @knownissues
 Des notes, bien qu'appartenant à des voix différentes, mais dont les
-hampes ont la même orientation, peuvent se retrouver au même endroit
-sur la portée, ce quelque soit le décalage que vous auriez pu leur
-appliquer.  Ceci ne manque pas de faire apparaître un message
+hampes ont la même orientation, peuvent se retrouver au même endroit sur
+la portée, ce quelque soit le décalage que vous auriez pu leur
+appliquer. Ceci ne manque pas de faire apparaître un message
 
 @example
 warning: This voice needs a \voiceXx or \shiftXx setting
@@ -349,7 +349,7 @@ warning: This voice needs a \voiceXx or \shiftXx setting
 Avertissement : Cette voix requiert un voiceXx ou un réglage \shiftXx
 @end example
 
-lors de la compilation.  Le déclenchement de cet avertissement peut être
+lors de la compilation. Le déclenchement de cet avertissement peut être
 désactivé par une clause
 
 @example
@@ -357,8 +357,8 @@ désactivé par une clause
 @end example
 
 Ceci n'aura pas pour seule conséquence que ce message ne sera plus
-émis ; les procédures d'évitement de collision de quelqu'ordre que
-ce soit seront désactivées, ce qui peut conduire à quelques effets
+émis ; les procédures d'évitement de collision de quelqu'ordre que ce
+soit seront désactivées, ce qui peut conduire à quelques effets
 inattendus (voir aussi @emph{Problèmes connus et avertissements} à la
 rubrique @ref{Collision resolution}).
 
@@ -370,8 +370,8 @@ rubrique @ref{Collision resolution}).
 
 @funindex \makeClusters
 
-Un cluster indique un agrégat de sons.  On peut le représenter par une
-plage limitée par un @emph{ambitus} (notes extrêmes).  On obtient une
+Un cluster indique un agrégat de sons. On peut le représenter par une
+plage limitée par un @emph{ambitus} (notes extrêmes). On obtient une
 telle notation en appliquant la fonction @code{\makeClusters} à une
 séquence d'accords, comme
 
@@ -380,8 +380,37 @@ séquence d'accords, comme
 @end lilypond
 
 Des notes ordinaires et des clusters peuvent cohabiter sur une même
-portée, y compris simultanément -- en pareil cas, rien ne sera fait
-pour tenter d'empêcher les chevauchements entre notes et clusters.
+portée, y compris simultanément -- en pareil cas, rien ne sera fait pour
+tenter d'empêcher les chevauchements entre notes et clusters.
+
+Plusieurs styles de clsuter sont disponibles : @code{ramp},
+@code{leftsided-stairs}, @code{rightsided-stairs} et
+@code{centered-stairs}.
+
+@lilypond[verbatim,quote,noragged-right]
+fragment = { <e' d''>4 <g' a'> <e' a'> r }
+
+{
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+
+  <>^\markup \typewriter "ramp"
+  \override ClusterSpanner.style = #'ramp
+  \makeClusters \fragment
+
+  <>_\markup \typewriter "leftsided-stairs"
+  \override ClusterSpanner.style = #'leftsided-stairs
+  \makeClusters \fragment
+
+  <>^\markup \typewriter "rightsided-stairs"
+  \override ClusterSpanner.style = #'rightsided-stairs
+  \makeClusters \fragment
+
+  <>_\markup \typewriter "centered-stairs"
+  \override ClusterSpanner.style = #'centered-stairs
+  \makeClusters \fragment
+}
+@end lilypond
 
 @morerefs
 Glossaire musicologique :
@@ -401,9 +430,8 @@ L'apparence d'un cluster sera extrêmement resserrée s'il ne comporte au
 moins deux accords.
 
 Dans la mesure où un cluster ne possède pas de hampe, il n'y a aucun
-moyen d'en connaître la durée ; cependant la longueur du signe
-imprimé dépend directement de la durée affectée aux accords qui le
-définissent.
+moyen d'en connaître la durée ; cependant la longueur du signe imprimé
+dépend directement de la durée affectée aux accords qui le définissent.
 
 Seul un silence peut séparer deux clusters.
 
@@ -457,17 +485,17 @@ sur une portée est la suivante :
 @end lilypond
 
 @noindent
-Vous constaterez que les voix sont créées explicitement et qu'elles
-sont nommées.  Les commandes @code{\voiceOne} @dots{} @code{\voiceFour}
-déterminent les voix de telle sorte que les première et troisième
-auront des hampes vers le haut, et les deuxième et quatrième vers le
-bas.  D'autre part, les notes des troisième et quatrième voix seront
-quelque peu décalées, tout comme leurs silences, afin d'éviter les
-collisions.  La commande @code{\oneVoice} permet de retrouver les
-réglages par défaut.
+Vous constaterez que les voix sont créées explicitement et qu'elles sont
+nommées. Les commandes @code{\voiceOne} @dots{} @code{\voiceFour}
+déterminent les voix de telle sorte que les première et troisième auront
+des hampes vers le haut, et les deuxième et quatrième vers le bas.
+D'autre part, les notes des troisième et quatrième voix seront quelque
+peu décalées, tout comme leurs silences, afin d'éviter les collisions.
+La commande @code{\oneVoice} permet de retrouver les réglages par
+défaut.
 
 N'oubliez pas que @code{Voice} est un contexte de bas niveau --
-voir @ref{Bottom-level contexts - voices}. Dans le cadre d'un
+@pxref{Bottom-level contexts - voices}. Dans le cadre d'un
 @code{TabStaff}, il faudrait donc utiliser un @code{TabVoice}.
 
 
@@ -485,8 +513,8 @@ suivante :
 @noindent
 En fait, la première expression d'une polyphonie temporaire reste dans
 le même contexte @code{Voice} que celui existant auparavant et qui
-perdurera après ce fragment.  Les autres expressions entre doubles
-chevrons seront assignées à des voix temporaires distinctes.  C'est la
+perdurera après ce fragment. Les autres expressions entre doubles
+chevrons seront assignées à des voix temporaires distinctes. C'est la
 raison pour laquelle les paroles qui suivaient la voix avant la
 polyphonie continueront à le faire durant ce passage polyphonique et
 après lui :
@@ -521,10 +549,9 @@ permettent d'obtenir des réglages différents pour chacune des voix.
 @noindent
 Dans un @code{TabStaff} doit être utilisé un @code{TabVoice}.
 
-Lorsque la même musique doit apparaître à la fois dans un
-@code{Staff} @b{et} dans un @code{TabStaff}, il est possible de
-recourir au contexte générique @code{Bottom} -- voir
-@ref{Bottom-level contexts - voices}.
+Lorsque la même musique doit apparaître à la fois dans un @code{Staff}
+@b{et} dans un @code{TabStaff}, il est possible de recourir au contexte
+générique @code{Bottom} -- @pxref{Bottom-level contexts - voices}.
 
 @lilypond[quote,verbatim]
 mus =
@@ -587,16 +614,16 @@ hampes, etc. sont réglés de manière appropriée. En voici un exemple :
 @end lilypond
 
 Cette syntaxe peut être utilisée dans la mesure où la création puis la
-disparition de voix temporaires sont sans conséquence.  Les réglages de
+disparition de voix temporaires sont sans conséquence. Les réglages de
 ces voix créées implicitement sont les mêmes que si elles avaient été
 créées à l'aide des commandes @code{\voiceOne} à @code{\voiceFour}, dans
 leur ordre d'apparition.
 
 Dans l'exemple qui suit, la voix intermédiaire a des hampes vers le
-haut.   Nous la plaçons donc en troisième position, de telle sorte
-qu'elle adopte les réglages de @code{\voiceThree} qui correspondent à ce
-que nous voulons.  Grâce à des espaces invisibles, nous évitons de
-surcharger la portée avec des demis soupirs.
+haut. Nous la plaçons donc en troisième position, de telle sorte qu'elle
+adopte les réglages de @code{\voiceThree} qui correspondent à ce que
+nous voulons. Grâce à des espaces invisibles, nous évitons de surcharger
+la portée avec des demis soupirs.
 
 @lilypond[quote,verbatim]
 <<
@@ -611,7 +638,8 @@ surcharger la portée avec des demis soupirs.
 En dehors des cas les plus simples, nous vous invitons à toujours créer
 les contextes de voix de manière explicite.  Voir à ce sujet
 @rlearningnamed{Contexts and engravers, Contextes et graveurs} et
-@rlearningnamed{Explicitly instantiating voices, Instanciation explicite des voix}.
+@rlearningnamed{Explicitly instantiating voices,
+Instanciation explicite des voix}.
 
 
 @subsubsubheading Ordre des voix
@@ -630,8 +658,8 @@ etc.
 @end example
 
 Cette présentation en entonnoir peut sembler quelque peu
-contre-intuitive ; elle simplifie cependant grandement le processus
-de mise en forme.  Vous noterez que les hampes des voix au numéro impair
+contre-intuitive ; elle simplifie cependant grandement le processus de
+mise en forme. Vous noterez que les hampes des voix au numéro impair
 vont vers le haut, celles des voix paires vers le bas :
 
 @lilypond[quote,verbatim]
@@ -678,7 +706,7 @@ passer d'une voix à l'autre.}
 
 Lorsque l'on doit saisir des fragments de musique parallèle qui ont le
 même rythme, on peut les combiner dans un contexte de voix unique et par
-voie de conséquence former des accords.  Il suffit pour cela de les
+voie de conséquence former des accords. Il suffit pour cela de les
 regrouper dans une construction de musique simultanée simple au sein
 d'une voix explicite :
 
@@ -703,7 +731,8 @@ messages d'avertissement.
 
 @morerefs
 Manuel d'initiation :
-@rlearningnamed{Explicitly instantiating voices, Instanciation explicite des voix},
+@rlearningnamed{Explicitly instantiating voices,
+Instanciation explicite des voix},
 @rlearningnamed{Voices contain music, Les voix contiennent la musique}.
 
 Manuel de notation :
@@ -790,12 +819,12 @@ Morceaux choisis :
 
 Les notes de hauteur identique appartenant à des voix différentes, même
 si leur hampe sont opposées, verront leur tête automatiquement
-fusionner.  Les notes dont la tête diffère ou bien qui ont la hampe
-dans la même direction ne seront pas automatiquement fusionnées.  Les
-silences, lorsqu'ils sont dans une autre voix et à l'opposé des
-hampes seront décalés verticalement.  Vous constaterez, dans l'exemple
-suivant, que la fusion échoue aux premier et troisième temps de la
-première mesure, ainsi qu'au premier temps de la deuxième mesure.
+fusionner. Les notes dont la tête diffère ou bien qui ont la hampe dans
+la même direction ne seront pas automatiquement fusionnées. Les
+silences, lorsqu'ils sont dans une autre voix et à l'opposé des hampes
+seront décalés verticalement. Vous constaterez, dans l'exemple suivant,
+que la fusion échoue aux premier et troisième temps de la première
+mesure, ainsi qu'au premier temps de la deuxième mesure.
 
 @lilypond[quote,verbatim]
 <<
@@ -816,7 +845,7 @@ première mesure, ainsi qu'au premier temps de la deuxième mesure.
 @end lilypond
 
 Cependant, vous pouvez fusionner une tête de blanche avec une tête de
-croche -- jamais avec une noire.  Les têtes du premier temps de la
+croche -- jamais avec une noire. Les têtes du premier temps de la
 première mesure ont bien fusionné :
 
 @lilypond[quote,verbatim]
@@ -838,8 +867,8 @@ première mesure ont bien fusionné :
 >>
 @end lilypond
 
-De même, vous pouvez fusionner les têtes de notes pointées et
-non pointées comme au troisième temps de la première mesure :
+De même, vous pouvez fusionner les têtes de notes pointées et non
+pointées comme au troisième temps de la première mesure :
 
 @lilypond[quote,verbatim]
 <<
@@ -863,9 +892,9 @@ non pointées comme au troisième temps de la première mesure :
 
 Lorsque trois notes ou plus s'agglutinent dans un même empilement,
 @code{\mergeDifferentlyHeadedOn} ne peut mener à bien la fusion des deux
-notes qui devraient l'être.  Pour obtenir une fusion optimale, appliquez
-un décalage (@code{\shift}) à la note qui ne devrait pas fusionner.
-Ici, on applique un @code{\shiftOn} pour décaler le @notation{sol} de
+notes qui devraient l'être. Pour obtenir une fusion optimale, appliquez
+un décalage (@code{\shift}) à la note qui ne devrait pas fusionner. Ici,
+on applique un @code{\shiftOn} pour décaler le @notation{sol} de
 l'empilement ; le rendement de @code{\mergeDifferentlyHeadedOn} est
 alors comme il faut.
 
@@ -891,15 +920,15 @@ alors comme il faut.
 @end lilypond
 
 La commande @code{\shiftOn} permet, sans pour autant le forcer, un
-décalage des notes d'une voix en particulier.  Une note ou un accord
+décalage des notes d'une voix en particulier. Une note ou un accord
 appartenant à cette voix ne seront décalés que si leur hampe menaçait
 d'entrer en collision avec une hampe appartenant à une autre voix allant
-dans la même direction.  La commande @code{\shiftOff} interdit
+dans la même direction. La commande @code{\shiftOff} interdit
 l'apparition de décalage.
 
 Les voix externes -- habituellement les voix une et deux -- sont
 affectées de @code{\shiftOff}, alors que les voix internes -- trois et
-quatre -- sont affectées de @code{\shiftOn}.  Lorsqu'un décalage
+quatre -- sont affectées de @code{\shiftOn}. Lorsqu'un décalage
 intervient, les notes dont les hampes sont ascendantes (voix impaire)
 iront vers la droite, et les notes à hampe descendante (voix paire)
 iront vers la gauche.
@@ -936,7 +965,8 @@ l'ordre vertical des voix tel qu'il apparaîtra sur la portée.}
 
 Les commandes @code{\shiftOnn} et @code{\shiftOnnn} sont des niveaux
 supplémentaires de décalage qui peuvent s'adopter temporairement dans
-certaines situations complexes -- voir @rlearningnamed{Real music example, Exemple concret}.
+certaines situations complexes -- voir @rlearningnamed{Real music
+example, Exemple concret}.
 
 Les têtes de notes ne fusionneront que dans la mesure où leur hampe sont
 opposées -- implicitement parce qu'appartenant aux voix une ou deux, ou
@@ -992,9 +1022,9 @@ Référence des propriétés internes :
 @cindex collision, ignorer
 
 @knownissues
-Une clause @code{\override NoteColumn.ignore-collision = ##t} aura
-pour effet une fusion incorrecte des têtes de note différentes à partir
-de voix différentes.
+Une clause @code{\override NoteColumn.ignore-collision = ##t} aura pour
+effet une fusion incorrecte des têtes de note différentes à partir de
+voix différentes.
 
 @lilypond[quote,verbatim,fragment]
 \mergeDifferentlyHeadedOn
@@ -1016,7 +1046,7 @@ are at the same time differently dotted are not clear.
 @cindex silences, fusion
 
 Il est d'usage, lorsque plusieurs voix cohabitent, de fusionner les
-silences qui apparaissent simultanément dans différentes parties.  Ceci
+silences qui apparaissent simultanément dans différentes parties. Ceci
 peut s'obtenir à l'aide du @code{Merge_rests_engraver}.
 
 @lilypond[quote,verbatim]
@@ -1044,8 +1074,7 @@ voiceB = \relative { fis'4 r g2 | R1 | }
 @end lilypond
 
 La propriété de contexte @code{suspendRestMerging}, lorsque activée par
-un @code{#t}, permet de suspendre temporairement la fusion des
-silences.
+un @code{#t}, permet de suspendre temporairement la fusion des silences.
 
 
 @node Automatic part combining
@@ -1060,12 +1089,12 @@ silences.
 @funindex \partCombine
 
 Le regroupement automatique de parties vous permet de fusionner deux
-pupitres sur une seule portée, ceci dans le but de créer des
-partitions d'orchestre.  Lorsque les deux parties sont identiques sur
-une certaine durée, une seule s'affiche.  Lorsqu'elles diffèrent,
-deux voix séparées apparaissent, avec des hampes dont la direction est
-gérée automatiquement.  Vous pouvez aussi identifier et faire
-ressortir les solos et parties @emph{a due}.
+pupitres sur une seule portée, ceci dans le but de créer des partitions
+d'orchestre. Lorsque les deux parties sont identiques sur une certaine
+durée, une seule s'affiche. Lorsqu'elles diffèrent, deux voix séparées
+apparaissent, avec des hampes dont la direction est gérée
+automatiquement. Vous pouvez aussi identifier et faire ressortir les
+solos et parties @emph{a due}.
 
 Voici la syntaxe qui permet de combiner des parties :
 
@@ -1075,7 +1104,7 @@ Voici la syntaxe qui permet de combiner des parties :
 
 L'exemple suivant illustre les fonctionnalités élémentaires du
 combinateur de parties : positionner les parties sur une portée, gérer
-la direction des hampes et de la polyphonie.  Les identifiants sont les
+la direction des hampes et de la polyphonie. Les identifiants sont les
 mêmes pour la combinaison et les parties séparées.
 
 @lilypond[quote,verbatim]
@@ -1102,25 +1131,25 @@ instrumentTwo = \relative {
 >>
 @end lilypond
 
-Les notes de la troisième mesure n'apparaissent qu'une seule fois,
-alors qu'elles ont été spécifiées deux fois (une fois dans chacune des
-parties).  La direction des hampes et des liaisons de tenue ou de phrasé
+Les notes de la troisième mesure n'apparaissent qu'une seule fois, alors
+qu'elles ont été spécifiées deux fois (une fois dans chacune des
+parties). La direction des hampes et des liaisons de tenue ou de phrasé
 est gérée automatiquement, selon qu'il s'agisse d'un solo ou d'un
-unisson.  La première partie, dont le contexte s'appellera @code{one},
+unisson. La première partie, dont le contexte s'appellera @code{one},
 aura toujours ses hampes dirigées vers le haut et sera notée « Solo »,
 alors que la deuxième, appelée @code{two}, aura des hampes vers le bas
-et sera notée « Solo II ».  Les parties à l'unisson seront par défaut
+et sera notée « Solo II ». Les parties à l'unisson seront par défaut
 estampillées d'un « a2 ».
 
 Par défaut, le combinateur fusionnera deux notes de même hauteur en une
 note @notation{a due}, regroupera en accord les notes de même rythme et
 dont l'intervalle est inférieur à une neuvième, enfin isolera les notes
 séparées de plus d'une neuvième (ou si les voix se croisent) dans des
-voix distinctes.  Ceci peut s'adapter à l'aide d'une paire de nombres
+voix distinctes. Ceci peut s'adapter à l'aide d'une paire de nombres
 fournie en argument optionnel à la commande @code{\partCombine} : le
 premier nombre spécifie l'intervalle à partir duquel les notes seront
 combinées (0 par défaut) et le second celui à partir duquel les notes
-seront placées dans des voix séparées.  Un second élément de cette paire
+seront placées dans des voix séparées. Un second élément de cette paire
 à zéro obligera le combinateur à séparer les notes dès la seconde ; s'il
 est à un, elles seront séparées à partir de la tierce, et ainsi de
 suite.
@@ -1145,7 +1174,7 @@ instrumentTwo = \relative {
 @end lilypond
 
 LilyPond interprète dans un contexte @code{Voice} chacun des arguments
-fournis à @code{\partCombine}.  Si vous travaillez avec des octaves
+fournis à @code{\partCombine}. Si vous travaillez avec des octaves
 relatives, spécifiez @code{\relative} dans chacune des expressions
 musicales, comme ceci :
 
@@ -1171,13 +1200,13 @@ restera sans effet sur les hauteurs de
 En matière d'édition professionnelle, les voix sont souvent maintenues
 séparément et sur une durée conséquente, bien que les notes des
 différentes voix soient les mêmes et pourraient donc être présentées à
-l'unisson.  Dans la mesure où @code{\partCombine} considère les notes
+l'unisson. Dans la mesure où @code{\partCombine} considère les notes
 séparément, combiner des notes en accord ou indiquer un solo ne serait
-pas optimal en pareil cas.  LilyPond dispose alors de certaines
-commandes qui permettent d'influencer le comportement de la fonction
-@code{\partCombine}.  Ces commandes peuvent se voir préfixées d'un
-@code{\once} de sorte à n'affecter que la note qui les suit
-directement dans l'expression musicale.
+pas optimal en pareil cas. LilyPond dispose alors de certaines commandes
+qui permettent d'influencer le comportement de la fonction
+@code{\partCombine}. Ces commandes peuvent se voir préfixées d'un
+@code{\once} de sorte à n'affecter que la note qui les suit directement
+dans l'expression musicale.
 
 @itemize
 @item
@@ -1240,7 +1269,7 @@ La commande @code{\partCombine} n'est pas conçue pour traiter des
 paroles ; si l'une des voix est explicitement nommée, afin de lui
 adjoindre des paroles, le combinateur de parties cessera de fonctionner.
 Toutefois, le recours à un contexte @code{NullVoice} permet d'obtenir
-les effets escomptés -- voir @ref{Polyphony with shared lyrics}.
+les effets escomptés -- @pxref{Polyphony with shared lyrics}.
 
 
 @snippets
@@ -1270,8 +1299,8 @@ Référence des propriétés internes :
 
 @knownissues
 Les différentes commandes @code{\partCombine@dots{}} ne prennent en
-charge que deux voix.  De la même manière, le combinateur n'est pas
-conçu pour travailler avec des paroles ; il s'arrête dès qu'il est
+charge que deux voix. De la même manière, le combinateur n'est pas conçu
+pour travailler avec des paroles ; il s'arrête dès qu'il est
 explicitement fait appel à l'une des voix pour y attacher des paroles.
 
 @code{\partCombine@dots{}} ne peut s'inscrire ni dans un bloc
@@ -1281,8 +1310,8 @@ Lorsque @code{printPartCombineTexts} est actif et que les deux voix
 jouent souvent les mêmes notes, le combinateur peut afficher @code{a2}
 plus d'une fois par mesure.
 
-@code{\partCombine} n'examine que l'attaque des notes.  Il n'est donc
-pas en mesure de déterminer si une note attaquée précédemment est encore
+@code{\partCombine} n'examine que l'attaque des notes. Il n'est donc pas
+en mesure de déterminer si une note attaquée précédemment est encore
 jouée ou non, ce qui peut engendrer quelques problèmes, entre autres des
 indications de « Solo » ou « Unison » incorrectement placées.
 
@@ -1293,9 +1322,9 @@ voix différente.
 
 En interne, @code{\partCombine} interprète les deux arguments en tant
 que @code{Voice}s, dénommées @code{one} et @code{two}, puis décide de
-quand les parties seront fusionnées.  Par conséquent, si les arguments
-changent pour d'autres noms de contexte @code{Voice}, les
-événements qu'ils contiendraient seront ignorés.
+quand les parties seront fusionnées. Par conséquent, si les arguments
+changent pour d'autres noms de contexte @code{Voice}, les événements
+qu'ils contiendraient seront ignorés.
 
 Certaines considérations apparaissent aussi dans les chapitres
 @ref{Default tablatures} et @ref{Automatic beams}.
@@ -1310,9 +1339,9 @@ Certaines considérations apparaissent aussi dans les chapitres
 
 @funindex \parallelMusic
 
-On peut écrire plusieurs voix de façon entremêlée.  La fonction
+On peut écrire plusieurs voix de façon entremêlée. La fonction
 @code{\parallelMusic} prend en charge une liste des variables à créer,
-ainsi qu'une expression musicale.  Le contenu des différentes mesures de
+ainsi qu'une expression musicale. Le contenu des différentes mesures de
 l'expression musicale deviennent les valeurs des variables respectives
 que vous pourrez ensuite utiliser pour imprimer la partition.
 
@@ -1338,11 +1367,11 @@ les mesures doivent être de longueur identique.}
 >>
 @end lilypond
 
-Vous pouvez travailler en mode relatif.  Notez cependant que la commande
+Vous pouvez travailler en mode relatif. Notez cependant que la commande
 @code{\relative} n'apparaît pas au sein du bloc @code{\parallelMusic}.
 Le calcul des hauteurs relatives s'effectue voix par voix, et non au fil
-des lignes saisies ; en d'autres termes, les notes de la
-@code{voiceA} ignorent tout de celles de la @code{voiceB}.
+des lignes saisies ; en d'autres termes, les notes de la @code{voiceA}
+ignorent tout de celles de la @code{voiceB}.
 
 @lilypond[quote,verbatim]
 \parallelMusic voiceA,voiceB,voiceC {
@@ -1363,7 +1392,7 @@ des lignes saisies ; en d'autres termes, les notes de la
 >>
 @end lilypond
 
-Ceci fonctionne bien avec la musique pour piano.  L'exemple suivant
+Ceci fonctionne bien avec la musique pour piano. L'exemple suivant
 affecte quatre mesures à quatre variables :
 
 @lilypond[quote,verbatim]
@@ -1412,7 +1441,8 @@ global = {
 
 @morerefs
 Manuel d'initiation :
-@rlearningnamed{Organizing pieces with variables, Organisation du code source avec des variables}.
+@rlearningnamed{Organizing pieces with variables,
+Organisation du code source avec des variables}.
 
 Morceaux choisis :
 @rlsrnamed{Simultaneous notes,Notation simultanée}.

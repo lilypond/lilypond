@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -246,7 +246,7 @@ Une voix qui change de portée peut entraîner des collisions :
   \new Staff = "up" {
     \voiceOne
     % Make space for fingering in the cross-staff voice
-    \once\override DynamicLineSpanner.staff-padding = #4
+    \once\override DynamicLineSpanner.staff-padding = 4
     e''2\p\< d''\>
     c1\!
   }

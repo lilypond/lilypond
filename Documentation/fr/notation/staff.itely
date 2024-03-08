@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -22,10 +22,9 @@
 @lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]
 {snippets/staff-headword.ly}
 
-Cette section aborde les détails de gravure de la portée, la
-réalisation de partitions comprenant plusieurs portées et l'ajout
-d'indications globales d'exécution, présentes sur certaines portées
-seulement.
+Cette section aborde les détails de gravure de la portée, la réalisation
+de partitions comprenant plusieurs portées et l'ajout d'indications
+globales d'exécution, présentes sur certaines portées seulement.
 
 @menu
 * Displaying staves::
@@ -71,10 +70,10 @@ Nous allons voir ici comment créer des portées et comment les regrouper.
 @funindex VaticanaStaff
 @funindex GregorianTranscriptionStaff
 
-Les @notation{portées} -- en anglais @emph{staff} (@emph{staves}
-au pluriel) -- sont créées à l'aide des commandes @code{\new} ou
-@code{\context}.  Pour de plus amples détails, consultez
-@ref{Creating and referencing contexts}.
+Les @notation{portées} -- en anglais @emph{staff} (@emph{staves} au
+pluriel) -- sont créées à l'aide des commandes @code{\new} ou
+@code{\context}. Pour de plus amples détails, consultez @ref{Creating
+and referencing contexts}.
 
 Le contexte de portée standard s'appelle @code{Staff} :
 
@@ -84,9 +83,9 @@ Le contexte de portée standard s'appelle @code{Staff} :
 
 Le contexte @code{DrumStaff} crée une portée à cinq lignes correspondant
 à une batterie traditionnelle et chacun des instruments est représenté
-par un symbole spécifique.  Les éléments sont saisis en mode batterie,
+par un symbole spécifique. Les éléments sont saisis en mode batterie,
 initialisé par la commande @code{\drummode}, chaque composante étant
-spécifiée par son nom.  Pour de plus amples détails, consultez
+spécifiée par son nom. Pour de plus amples détails, consultez
 @ref{Percussion staves}.
 
 @lilypond[verbatim,quote]
@@ -96,25 +95,25 @@ spécifiée par son nom.  Pour de plus amples détails, consultez
 @end lilypond
 
 Un @code{RhythmicStaff} est composé d'une portée à ligne unique chargée
-de présenter les valeurs rythmiques saisies.  Seules sont imprimées les
-durées.  Pour de plus amples détails, consultez
-@ref{Showing melody rhythms}.
+de présenter les valeurs rythmiques saisies. Seules sont imprimées les
+durées. Pour de plus amples détails, consultez @ref{Showing melody
+rhythms}.
 
 @lilypond[verbatim,quote]
 \new RhythmicStaff { c4 d e f }
 @end lilypond
 
 Un @code{TabStaff} crée une portée de tablature correspondant aux six
-cordes d'une guitare standard.  Pour de plus amples détails, consultez
+cordes d'une guitare standard. Pour de plus amples détails, consultez
 @ref{Default tablatures}.
 
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
 @end lilypond
 
-LilyPond dispose aussi de deux contextes dédiés à la musique
-ancienne : @code{MensuralStaff} et @code{VaticanaStaff}.  Ils sont
-abordés plus en détails au chapitre @ref{Predefined contexts}.
+LilyPond dispose aussi de deux contextes dédiés à la musique ancienne :
+@code{MensuralStaff} et @code{VaticanaStaff}. Ils sont abordés plus en
+détails au chapitre @ref{Predefined contexts}.
 
 Le contexte @code{GregorianTranscriptionStaff} permet d'obtenir des
 éditions modernes du grégorien. Les @notation{divisions} apparaîtront,
@@ -176,15 +175,14 @@ Référence des propriétés internes :
 @cindex système
 
 LilyPond dispose de différents contextes permettant de regrouper des
-portées individuelles et d'obtenir ainsi des « systèmes ».  Chacun de
-ces contextes définira le style de regroupement, avec son signe
-particulier en début de portée et ses règles de gestion des barres de
-mesure.
+portées individuelles et d'obtenir ainsi des « systèmes ». Chacun de ces
+contextes définira le style de regroupement, avec son signe particulier
+en début de portée et ses règles de gestion des barres de mesure.
 
 Lorsqu'aucun contexte particulier n'est spécifié, les propriétés
-suivantes s'appliqueront par défaut : les portées du groupe ne sont
-pas reliées, hormis par une simple ligne verticale en début de ligne, et
-les barres de mesure sont indépendantes.
+suivantes s'appliqueront par défaut : les portées du groupe ne sont pas
+reliées, hormis par une simple ligne verticale en début de ligne, et les
+barres de mesure sont indépendantes.
 
 @lilypond[verbatim,quote]
 <<
@@ -276,10 +274,10 @@ trois portées partageant le même espace. Ici, le
 
 Les barres de mesure au début de chaque système adoptent l'un des styles
 @code{SystemStartBar}, @code{SystemStartBrace} ou
-@code{SystemStartBracket}.  Dans chaque contexte, seul l'un de ces
-styles est utilisé, et c'est la propriété @code{systemStartDelimiter}
-qui détermine lequel.  Un quatrième style, @code{SystemStartSquare},
-doit quant à lui être spécifié de manière explicite.
+@code{SystemStartBracket}. Dans chaque contexte, seul l'un de ces styles
+est utilisé, et c'est la propriété @code{systemStartDelimiter} qui
+détermine lequel. Un quatrième style, @code{SystemStartSquare}, doit
+quant à lui être spécifié de manière explicite.
 
 Vous pouvez aussi créer vos propres contextes de regroupement, comme
 l'explique @ref{Defining new contexts}.
@@ -341,7 +339,7 @@ Référence des propriétés internes :
 @cindex crochet de regroupement, imbrication
 
 Les accolades et crochets qui délimitent les systèmes peuvent être
-imbriqués en profondeur.  Chaque niveau inférieur aura son propre
+imbriqués en profondeur. Chaque niveau inférieur aura son propre
 délimiteur, en plus de celui du niveau supérieur.
 
 @lilypond[verbatim,quote]
@@ -391,11 +389,10 @@ Référence des propriétés internes :
 
 @cindex système, indicateur de séparation
 
-Le nombre de systèmes peut varier d'une page à l'autre ; vous
-pouvez, en pareil cas, rendre plus évidente la séparation entre les
-systèmes en l'indiquant visuellement.  Ce « séparateur » est absent par
-défaut, mais vous pouvez l'activer par une option au sein du bloc
-@code{\paper}.
+Le nombre de systèmes peut varier d'une page à l'autre ; vous pouvez, en
+pareil cas, rendre plus évidente la séparation entre les systèmes en
+l'indiquant visuellement. Ce « séparateur » est absent par défaut, mais
+vous pouvez l'activer par une option au sein du bloc @code{\paper}.
 
 @c \book is required here to display the system separator
 @c ragged-right is required as there are two systems
@@ -438,9 +435,9 @@ Morceaux choisis :
 @node Modifying single staves
 @subsection Modification de portées individuelles
 
-Cette section explique le réglage de la gravure de chaque portée,
-comme la taille de portée ou le nombre de lignes ; sont aussi
-décrits la suspension et la reprise de portées, ainsi que les portées
+Cette section explique le réglage de la gravure de chaque portée, comme
+la taille de portée ou le nombre de lignes ; sont aussi décrits la
+suspension et la reprise de portées, ainsi que les portées
 d'@emph{ossia}.
 
 @menu
@@ -485,9 +482,9 @@ une partition.
 
 Les notes, nuances, etc. sont regroupées dans un assemblage de lignes
 horizontales, que l'on nomme la portée (en anglais @emph{staff}, et
-@emph{staves} au pluriel).  Dans LilyPond, ces lignes sont dessinées au
+@emph{staves} au pluriel). Dans LilyPond, ces lignes sont dessinées au
 moyen d'un objet graphique (@emph{grob}) à part entière, nommé
-@code{StaffSymbol} -- symbole de portée.  Modifier les propriétés d'un
+@code{StaffSymbol} -- symbole de portée. Modifier les propriétés d'un
 @code{StaffSymbol} changera l'apparence de la portée, dès lors qu'elles
 auront été définies avant de créer la portée en question.
 
@@ -496,7 +493,7 @@ Vous pouvez modifier le nombre de lignes d'une portée :
 @lilypond[verbatim,quote]
 \relative {
   f''4 d \stopStaff
-  \override Staff.StaffSymbol.line-count = #2
+  \override Staff.StaffSymbol.line-count = 2
   \startStaff g, e |
 
   f'4 d \stopStaff
@@ -529,17 +526,17 @@ Afin de préserver l'orientation habituelle des hampes -- ascendantes
 dans la partie inférieure de la portée, descendantes dans la partie
 supérieure -- la ligne (ou l'interligne) centrale de la portée
 personnalisée devra être en phase avec avec la ligne médiane d'une
-portée classique (0).  La position de la clef et celle du do médium
+portée classique (0). La position de la clef et celle du do médium
 demanderont parfois un ajustement afin d'être en phase avec cette
-nouvelle portée.  Pour plus d'explications, reportez-vous aux exemples
-du chapitre @ref{Clef}.
+nouvelle portée. Pour plus d'explications, reportez-vous aux exemples du
+chapitre @ref{Clef}.
 
 Lorsque vous modifierez l'épaisseur des lignes, gardez à l'esprit que
 les lignes supplémentaires et les hampes seront aussi modifiées.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
-  \override StaffSymbol.thickness = #3
+  \override StaffSymbol.thickness = 3
 }
 { e4 d c b }
 @end lilypond
@@ -549,7 +546,7 @@ déterminée indépendamment des lignes de la portée.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \override StaffSymbol.thickness = #2
+  \override StaffSymbol.thickness = 2
   \override StaffSymbol.ledger-line-thickness = #'(0.5 . 0.4)
 } \relative {
   f'''4 a, a,, f
@@ -578,17 +575,17 @@ supplémentaires.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \override StaffSymbol.ledger-extra = #4
+  \override StaffSymbol.ledger-extra = 4
 } \relative {
   f'''4 a, d, f,
 }
 @end lilypond
 
 Des lignes supplémentaires peuvent apparaître y compris au sein d'une
-portée, notamment lorsque vous l'avez personnalisée.  L'exemple suivant
+portée, notamment lorsque vous l'avez personnalisée. L'exemple suivant
 illustre deux cas de figure quant au positionnement des lignes
 supplémentaires selon que la propriété @code{legder-position} est
-définie explicitement ou non.  La présence du @code{\stopStaff} est ici
+définie explicitement ou non. La présence du @code{\stopStaff} est ici
 rendue nécessaire pour annuler les effets de la commande
 @code{\override} qui s'applique à l'intégralité du @code{StaffSymbol}.
 
@@ -606,7 +603,7 @@ lignes supplémentaires.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \override StaffSymbol.staff-space = #1.5
+  \override StaffSymbol.staff-space = 1.5
 } \relative {
   f'''4 d, g, e,
 }
@@ -618,7 +615,7 @@ par ce réglage.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
-  \override StaffSymbol.width = #23
+  \override StaffSymbol.width = 23
 }
 \relative { a4 e' f b | d1 }
 @end lilypond
@@ -673,15 +670,15 @@ Une portée d'@notation{ossia} -- ou de variante -- s'obtient en créant,
 
 @noindent
 L'exemple ci-dessus n'est probablement pas ce qui vous conviendra le
-plus.  Afin que cette ossia se place au-dessus de la portée à laquelle
+plus. Afin que cette ossia se place au-dessus de la portée à laquelle
 elle se réfère, étant par ailleurs dépourvue de métrique et de clef, et
 d'une taille légèrement inférieure, vous devrez avoir recours à quelques
-retouches.  Le manuel d'initiation aborde une technique particulière
-pour obtenir ce résultat, au chapitre
-@rlearningnamed{Nesting music expressions, Expressions musicales imbriquées}.
+retouches. Le manuel d'initiation aborde une technique particulière pour
+obtenir ce résultat, au chapitre @rlearningnamed{Nesting music
+expressions, Expressions musicales imbriquées}.
 
 L'exemple qui suit utilise, pour aligner la portée d'ossia, la propriété
-@code{alignAboveContext}.  Cette méthode est tout à fait appropriée
+@code{alignAboveContext}. Cette méthode est tout à fait appropriée
 lorsqu'il y a un nombre restreint d'ossias.
 
 @lilypond[verbatim,quote]
@@ -702,12 +699,12 @@ lorsqu'il y a un nombre restreint d'ossias.
 }
 @end lilypond
 
-Dans le cas où de nombreux et courts fragments d'ossia affecteraient
-une même portée, il est judicieux de créer un contexte @code{Staff} vide
+Dans le cas où de nombreux et courts fragments d'ossia affecteraient une
+même portée, il est judicieux de créer un contexte @code{Staff} vide
 auquel sera attribué un @emph{identifiant}. Il suffira alors, pour
-entamer un fragment d'ossia, de « faire appel » à ce contexte grâce
-aux commandes @code{\startStaff} et @code{\stopStaff}.  Vous vous
-rendrez compte à l'utilisation des avantages que procure cette façon de
+entamer un fragment d'ossia, de « faire appel » à ce contexte grâce aux
+commandes @code{\startStaff} et @code{\stopStaff}. Vous vous rendrez
+compte à l'utilisation des avantages que procure cette façon de
 procéder, bien plus que dans l'exemple suivant.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -741,8 +738,8 @@ procéder, bien plus que dans l'exemple suivant.
 @end lilypond
 
 Vous pourriez aussi recourir à la commande @code{\RemoveAllEmptyStaves}
-pour créer votre portée d'ossia.  Cependant, cette méthode reste limitée
-à l'apparition de ces ossias en début de ligne.  Pour plus d'information
+pour créer votre portée d'ossia. Cependant, cette méthode reste limitée
+à l'apparition de ces ossias en début de ligne. Pour plus d'information
 au sujet de la commande @code{\RemoveAllEmptyStaves}, reportez-vous au
 chapitre @ref{Hiding staves}.
 
@@ -786,8 +783,10 @@ Glossaire musicologique :
 @rglos{Frenched staff}.
 
 Manuel d'initiation :
-@rlearningnamed{Nesting music expressions, Expressions musicales imbriquées},
-@rlearningnamed{Length and thickness of objects, Longueur et épaisseur des objets},
+@rlearningnamed{Nesting music expressions,
+Expressions musicales imbriquées},
+@rlearningnamed{Length and thickness of objects,
+Longueur et épaisseur des objets},
 @rlearningnamed{Size of objects, Taille des objets}.
 
 Manuel de notation :
@@ -816,8 +815,8 @@ Référence des propriétés internes :
 @funindex \stopStaff
 
 Désactiver le graveur @code{Staff_symbol_engraver} dans un contexte
-@code{Staff} permet de masquer des lignes.  La commande
-@code{\stopStaff} aura le même effet.
+@code{Staff} permet de masquer des lignes. La commande @code{\stopStaff}
+aura le même effet.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
@@ -833,8 +832,8 @@ rien. Dans les partitions d'orchestre, les portées qui n'ont que des
 silences sont habituellement masquées afin de gagner de la place. Ce
 style d'édition s'appelle en anglais « Frenched Score ». Cette
 fonctionnalité masque et supprime toutes les portées vides d'une
-partition, hormis celles du premier système.  Le premier système sera
-lui aussi concerné dès lors que sera utilisée l'instruction
+partition, hormis celles du premier système. Le premier système sera lui
+aussi concerné dès lors que sera utilisée l'instruction
 @code{\RemoveAllEmptyStaves}.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -875,8 +874,8 @@ de contexte @code{keepAliveInterfaces} telle que définie dans le fichier
 @code{\RemoveEmptyStaves} et @code{\RemoveAllEmptyStaves} sont tous deux
 des racourcis prédéfinis qui déterminent les propriétés telles que
 @code{remove-empty} et @code{remove-first}, attachées à l'objet
-@code{VerticalAxisGroup}, comme indiqué dans
-@ref{Context modification identifiers}.
+@code{VerticalAxisGroup}, comme indiqué dans @ref{Context modification
+identifiers}.
 
 
 Le @code{Keep_alive_together_engraver} permet de masquer l'intégralité
@@ -887,9 +886,8 @@ le composent sont vides. De la même manière, il est d'usage pour un
 conducteur d'orchestre de masquer les regroupements de portées plutôt
 que de manière individuelle. Ceci s'obtient en ajoutant le
 @code{Keep_alive_together_engraver} au regroupement de portées
-considéré, comme indiqué dans
-@ref{Modifying context plug-ins} -- voir
-@ref{Grouping staves} pour leur dénomination.
+considéré, comme indiqué dans @ref{Modifying context plug-ins} --
+@pxref{Grouping staves} pour leur dénomination.
 
 @example
 \layout @{
@@ -1030,11 +1028,11 @@ prioritaires sur celles plus élevées, ce qui aura pour conséquence de
 masquer d'abord les portées dont le @code{remove-layer} est plus grand.
 
 Ceci se révèle tout particulièrement utile pour une « division » de
-portée, lorsque plusieurs parties indépendantes -- voir
-@ref{Writing parts} -- doivent momentanément se répartir
-sur plusieurs portées. Dans l'exemple qui suit, deux parties sont
-réparties sur @emph{trois} portées ; ces trois portées n'apparaissent
-toutefois jamais simultanément :
+portée, lorsque plusieurs parties indépendantes -- @pxref{Writing
+parts} -- doivent momentanément se répartir sur plusieurs portées. Dans
+l'exemple qui suit, deux parties sont réparties sur @emph{trois}
+portées ; ces trois portées n'apparaissent toutefois jamais
+simultanément :
 
 @itemize
 
@@ -1119,7 +1117,8 @@ Glossaire musicologique :
 @rglos{Frenched staff}.
 
 Manuel d'initiation :
-@rlearningnamed{Visibility and color of objects, Visibilité et couleur des objets}.
+@rlearningnamed{Visibility and color of objects,
+Visibilité et couleur des objets}.
 
 Manuel de notation :
 @ref{Hidden notes},
@@ -1151,9 +1150,9 @@ Référence des propriétés internes :
 
 @knownissues
 Supprimer le @code{Staff_symbol_engraver} aura pour effet de masquer les
-barres de mesure.  Forcer leur visibilité peut entraîner des problèmes
-de formatage.  En pareil cas il vaut mieux, au lieu de supprimer le
-graveur, recourir aux dérogations suivantes :
+barres de mesure. Forcer leur visibilité peut entraîner des problèmes de
+formatage. En pareil cas il vaut mieux, au lieu de supprimer le graveur,
+recourir aux dérogations suivantes :
 
 @example
 \omit StaffSymbol
@@ -1175,7 +1174,7 @@ l'instruction @code{\RemoveEmptyStaves}, consultez
 
 Nous allons voir, au fil des lignes qui suivent, comment préparer un
 « matériel » pour orchestre ou ensemble musical, ce qui requiert souvent
-d'insérer des noms d'instrument dans une partition.  Nous aborderons
+d'insérer des noms d'instrument dans une partition. Nous aborderons
 aussi la citation d'autres voix, et comment la mettre en forme, ainsi
 que le moyen de contracter une succession de mesures vides dans une
 partition de pupitre.
@@ -1201,7 +1200,7 @@ abordée à la rubrique @ref{Hiding staves}.
 Dans un conducteur, les noms d'instrument sont portés en regard de
 chacune des portées, qu'il s'agisse d'un contexte @code{Staff},
 @code{PianoStaff}, @code{StaffGroup}, @code{GrandStaff} ou
-@code{ChoirStaff} .  La première ligne affichera la valeur de
+@code{ChoirStaff} . La première ligne affichera la valeur de
 @code{instrumentName}, et les suivantes celle de
 @code{shortInstrumentName}.
 
@@ -1237,7 +1236,7 @@ d'instrument particuliers, tels que
 @cindex nom d'instrument, centrage
 Lorsque plusieurs contextes de portée sont regroupés, les noms
 d'instrument, que ce soit sous leur forme développée ou abrégée, sont
-par défaut centrés.  Si l'un d'entre eux est libellé sur plusieurs
+par défaut centrés. Si l'un d'entre eux est libellé sur plusieurs
 lignes, il faudra recourir à l'instruction @code{\center-column} :
 
 @lilypond[verbatim,quote,indent=1.5\cm,relative=2]
@@ -1263,7 +1262,7 @@ lignes, il faudra recourir à l'instruction @code{\center-column} :
 Lorsque le nom d'un instrument est relativement long, il est judicieux
 d'augmenter les retraits -- @emph{indent} -- au sein du bloc
 @code{\layout} à l'aide des commandes @code{indent} et
-@code{short-indent}.  Pour plus de plus amples détails sur ces réglages,
+@code{short-indent}. Pour plus de plus amples détails sur ces réglages,
 reportez-vous au chapitre @ref{paper variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -1294,16 +1293,16 @@ reportez-vous au chapitre @ref{paper variables for shifts and indents}.
 @cindex instrument, nom, autres contextes
 Des noms d'instrument peuvent s'utiliser dans d'autres contextes, tels
 que @code{ChordNames} ou @code{FiguredBass}, dès lors qu'on leur adjoint
-le graveur @code{Instrument_name_engraver}.  Pour de plus amples
-informations sur la manière d'activer ou désactiver un graveur, voir
-@ref{Modifying context plug-ins}.
+le graveur @code{Instrument_name_engraver}. Pour de plus amples
+informations sur la manière d'activer ou désactiver un graveur,
+@pxref{Modifying context plug-ins}.
 
 @cindex instrument, changement de nom
 @cindex changement de nom d'instrument
 
 Le nom abrégé d'un instrument (@code{shortInstrumentName}) peut changer
 en cours de morceau, en même temps que les autres réglages propres au
-nouvel instrument.  Notez cependant que la valeur de
+nouvel instrument. Notez cependant que la valeur de
 @code{instrumentName} ne s'affichera que sur la première portée :
 
 @lilypond[verbatim,quote,ragged-right]
@@ -1366,18 +1365,18 @@ Référence des propriétés internes :
 @funindex \quoteDuring
 @funindex \transposition
 
-Il est assez courant qu'une voix soit doublée par une autre.  Par
+Il est assez courant qu'une voix soit doublée par une autre. Par
 exemple, les premiers et seconds violons peuvent jouer les mêmes notes
-durant un moment.  LilyPond gère parfaitement ces situations où une
-voix est la @emph{réplique} d'une autre, sans devoir ressaisir la
-musique en question.
+durant un moment. LilyPond gère parfaitement ces situations où une voix
+est la @emph{réplique} d'une autre, sans devoir ressaisir la musique en
+question.
 
 L'instruction @code{\addQuote}, placée au niveau le plus haut -- c'est à
 dire en dehors de tout bloc de musique -- définit la musique dont il
 sera possible de répliquer des fragments.
 
 Au cours d'une partie, des extraits de répliques peuvent être cités en
-utilisant la commande @code{\quoteDuring}.  Cette commande prend deux
+utilisant la commande @code{\quoteDuring}. Cette commande prend deux
 arguments : le nom de la voix reproduite, tel que défini par
 @code{\addQuote}, et une expression musicale qui indique la durée de
 cette citation.
@@ -1523,7 +1522,7 @@ oboeNotes = \relative {
 @end lilypond
 
 Les citations peuvent être « balisées » par un nom particulier afin de
-les utiliser de différentes manières.  Pour de plus amples détails à ce
+les utiliser de différentes manières. Pour de plus amples détails à ce
 propos, consultez le chapitre @ref{Using tags}.
 
 @morerefs
@@ -1544,11 +1543,11 @@ Référence des propriétés internes :
 @endmorerefs
 
 @knownissues
-Seul le contenu de la première @code{Voice} rencontrée dans la
-partie marquée d'une commande @code{\addQuote} pourra être retenu.  Par
-voie de conséquence, @code{@var{musique}} ne saurait comprendre de
-@code{\new} ou une instance @code{\context Voice} qui la ferait
-passer à une autre voix.
+Seul le contenu de la première @code{Voice} rencontrée dans la partie
+marquée d'une commande @code{\addQuote} pourra être retenu. Par voie de
+conséquence, @code{@var{musique}} ne saurait comprendre de @code{\new}
+ou une instance @code{\context Voice} qui la ferait passer à une autre
+voix.
 
 Citer des notes d'ornement ne fonctionne pas, et peut même entraîner
 un blocage de LilyPond.
@@ -1575,7 +1574,7 @@ Le moyen le plus simple pour mettre en forme des notes provenant d'une
 autre voix consiste à déclarer explicitement un contexte @code{CueVoice}
 au sein de la voix où elle apparaît.
 
-@lilypond[verbatim]
+@lilypond[verbatim,quote]
 \relative {
   R1
   <<
@@ -1590,10 +1589,10 @@ au sein de la voix où elle apparaît.
 
 L'instruction @code{\cueClef}, utilisée conjointement à un contexte
 @code{CueVoice} explicite permet d'indiquer la clef, dans une taille
-réduite, propre à la voix citée.  Le retour à la clef d'origine
+réduite, propre à la voix citée. Le retour à la clef d'origine
 s'effectue à l'aide de l'instruction @code{\cueClefUnset}.
 
-@lilypond[verbatim,noragged-right]
+@lilypond[verbatim,quote]
 \relative {
   \clef "bass"
   R1
@@ -1610,7 +1609,7 @@ s'effectue à l'aide de l'instruction @code{\cueClefUnset}.
 Notez que les deux instructions @code{\cueClef} et @code{\cueClefUnset}
 sont disponibles si nécessaire en dehors d'un @code{CueVoice}.
 
-@lilypond[verbatim,noragged-right]
+@lilypond[verbatim,quote]
 \relative {
   \clef "bass"
   R1
@@ -1630,22 +1629,22 @@ la commande @code{\quoteDuring} -- voir la rubrique précédente
 Leur syntaxe est :
 
 @example
-\cueDuring @var{origine} #@var{position} @var{musique}
+\cueDuring @var{origine} @var{position} @var{musique}
 @end example
 
 et
 
 @example
-\cueDuringWithClef @var{origine} #@var{position} #@var{clef} @var{musique}
+\cueDuringWithClef @var{origine} @var{position} #@var{clef} @var{musique}
 @end example
 
-Des mesures issues de la partie d'@code{@var{origine}} seront recopiées
-dans un contexte de @code{CueVoice} et synchronisées avec
-@code{@var{musique}} -- habituellement un silence.  L'apparition des
-petites notes initialise une polyphonie temporaire pour la portée
-concernée.  L'argument @code{@var{position}} détermine si ces petites
-notes seront attachées à la première ou à la seconde voix -- @code{UP}
-pour la première, @code{DOWN} pour la seconde.
+Des mesures issues de la partie d'@var{origine} seront recopiées dans un
+contexte de @code{CueVoice} et synchronisées avec @var{musique} --
+habituellement un silence. L'apparition des petites notes initialise une
+polyphonie temporaire pour la portée concernée. L'argument
+@var{position} détermine si ces petites notes seront attachées à la
+première ou à la seconde voix -- @code{UP} pour la première, @code{DOWN}
+pour la seconde.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1666,11 +1665,10 @@ oboeNotes = \relative c'' {
 }
 @end lilypond
 
-@noindent
 La propriété @code{quotedCueEventTypes} permet de définir précisément
-quels éléments de la voix originelle seront reproduits.  Sa valeur par
+quels éléments de la voix originelle seront reproduits. Sa valeur par
 défaut est @code{'(note-event rest-event tie-event beam-event
-tuplet-span-event)}.  LilyPond reproduira donc les notes, silences,
+tuplet-span-event)}. LilyPond reproduira donc les notes, silences,
 liaisons de prolongation, ligatures et n-olets, mais pas les
 articulations, annotations ni nuances.
 
@@ -1696,9 +1694,9 @@ oboeNotes = \relative {
 @end lilypond
 
 Le nom de l'instrument qui est répliqué peut s'indiquer à l'aide d'un
-@emph{markup}.  Par ailleurs, si la citation nécessite l'apparition
-d'une clef différente, celle-ci devra être introduite manuellement, tout
-comme l'originale qui devra être rappelée en fin de citation.
+@emph{markup}. Par ailleurs, si la citation nécessite l'apparition d'une
+clef différente, celle-ci devra être introduite manuellement, tout comme
+l'originale qui devra être rappelée en fin de citation.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1749,13 +1747,13 @@ bassoonNotes = \relative c {
 @funindex \transposedCueDuring
 
 L'instruction @code{\cueDuring}, à l'instar de la commande
-@code{\quoteDuring}, tient compte des instruments transpositeurs.  La
+@code{\quoteDuring}, tient compte des instruments transpositeurs. La
 citation s'effectue aux hauteurs correspondant à l'instrument où elles
 apparaissent.
 
 L'instruction @code{\transposedCueDuring} est particulièrement adaptée
 pour des instrument ayant une tessiture éloignée, comme dans le cas d'un
-piccolo cité dans une partie de clarinette basse.  Sa syntaxe  est
+piccolo cité dans une partie de clarinette basse. Sa syntaxe est
 identique à celle de @code{\cueDuring}, à ceci près qu'elle nécessite un
 argument supplémentaire afin de spécifier la transposition à effectuer
 en hauteur absolue.
@@ -1791,12 +1789,11 @@ bassClarinetNotes = \relative c' {
 @funindex \killCues
 
 La commande @code{killCues} permet de supprimer les notes d'une
-citation.  Ceci est utile lorsque cette citation n'est pas imprimée dans
-le conducteur entre autres.  @code{killCues} supprimera les notes et
-autres événements pris en charge par @code{\cueDuring}.  Pour les
-autres annotations telles que changement de clef ou instrument concerné,
-faites appel à des balises -- voir @ref{Using tags} à ce
-sujet.
+citation. Ceci est utile lorsque cette citation n'est pas imprimée dans
+le conducteur entre autres. @code{killCues} supprimera les notes et
+autres événements pris en charge par @code{\cueDuring}. Pour les autres
+annotations telles que changement de clef ou instrument concerné, faites
+appel à des balises -- @pxref{Using tags} à ce sujet.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1887,18 +1884,18 @@ c'1 d'1. e'\breve
 Bien que la syntaxe de cette notation soit correcte, elle peut être
 déroutante d'un point de vue musical, ce qu'illustre l'exemple
 ci-dessus. C'est pourquoi l'impression des numéros de mesure devient
-nécessaire, en suivant la syntaxe indiquée dans
-@ref{Using break-visibility}.
+nécessaire, en suivant la syntaxe indiquée dans @ref{Using
+break-visibility}.
 
 @cindex multimesure, silence, expansion
 @cindex multimesure, silence, contraction
 @funindex \compressMMRests
 
-Une telle notation peut toutefois s'avérer utile lorsqu'elle
-s'applique à des @ref{Full measure rests,
-silences valant une mesure}. Un silence de plusieurs mesures sera alors
-affiché sous la forme d'une seule mesure contenant un symbole de silence
-multimesure surplombé du nombre de mesures de silence :
+Une telle notation peut toutefois s'avérer utile lorsqu'elle s'applique
+à des @ref{Full measure rests, silences valant une mesure}. Un silence
+de plusieurs mesures sera alors affiché sous la forme d'une seule mesure
+contenant un symbole de silence multimesure surplombé du nombre de
+mesures de silence :
 
 @lilypond[quote,verbatim,fragment]
 % Comportement par défaut
@@ -1933,7 +1930,7 @@ qu'elle doit être suivie d'une expression musicale :
 @funindex skipBars
 Toutes les commandes décrites dans ces paragraphes reposent en fait sur
 la propriété interne @code{skipBars}, qui se définit au sein du contexte
-@code{Score} comme indiqué dans @ref{The set command}.
+@code{Score} comme indiqué dans @ref{Set and unset}.
 
 @predefined
 @code{\compressEmptyMeasures},
@@ -1958,7 +1955,7 @@ la propriété interne @code{skipBars}, qui se définit au sein du contexte
 
 @morerefs
 Manuel de notation :
-@ref{The set command},
+@ref{Set and unset},
 @ref{Full measure rests},
 @ref{Using break-visibility}.
 

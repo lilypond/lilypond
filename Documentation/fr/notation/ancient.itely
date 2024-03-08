@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3123dcf12436526a8d8f4498e4f7d3661d156a57
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -40,11 +40,11 @@ et à la notation de style kievien. Ces fonctionnalités sont accessibles
 en modifiant les propriétés de style des objets graphiques tels que tête
 de note ou silence, ou bien grâce aux contextes prédéfinis à cet effet.
 
-De nombreux objets graphiques -- « grobs » dans le jargon de LilyPond
--- disposent d'une propriété @code{style}.  Manipuler cette propriété
-permet d'adapter l'aspect typographique des @emph{grobs} à une forme de
+De nombreux objets graphiques -- « grobs » dans le jargon de LilyPond --
+disposent d'une propriété @code{style}. Manipuler cette propriété permet
+d'adapter l'aspect typographique des @emph{grobs} à une forme de
 notation particulière, ce qui évite la création de nouveaux concepts de
-notation.  Voir à ce sujet
+notation. Voir à ce sujet
 
 @itemize
 @item @ref{Mensural note heads},
@@ -56,10 +56,10 @@ notation.  Voir à ce sujet
 @item @ref{Mensural time signatures}.
 @end itemize
 
-D'autres aspects de la notation ancienne ne peuvent pas être gérés
-aussi simplement qu'en jouant sur les propriétés d'un style appliqué à
-un objet graphique ou en lui ajoutant des articulations.  Certains
-concepts sont spécifiques à la notation ancienne :
+D'autres aspects de la notation ancienne ne peuvent pas être gérés aussi
+simplement qu'en jouant sur les propriétés d'un style appliqué à un
+objet graphique ou en lui ajoutant des articulations. Certains concepts
+sont spécifiques à la notation ancienne :
 
 @itemize
 @item @ref{Custodes},
@@ -191,12 +191,13 @@ Glossaire musicologique :
 
 LilyPond dispose, en matière de musique ancienne et de grégorien, de
 contextes prédéfinis. Ceux-ci contiennent tout ce qui est nécessaire à
-la gestion d'une voix ou d'une portée selon le style adopté. Si tout
-cela vous dépasse et que vous désirez plonger dans le vif du sujet sans
-trop vous préoccuper d'ajuster des contextes, consultez les pages
-dédiées aux contextes prédéfinis. Ils vous permettront d'adapter vos
-contextes de voix et de portée, et vous n'aurez plus qu'à saisir les
-notes dans un contexte @code{VaticanaVoice}, @code{VaticanaStaff},
+la gestion d'une voix, d'une portée ou d'une partition selon le style
+adopté. Si tout cela vous dépasse et que vous désirez plonger dans le
+vif du sujet sans trop vous préoccuper d'ajuster des contextes,
+consultez les pages dédiées aux contextes prédéfinis. Ils vous
+permettront d'adapter vos contextes de voix et de portée, et vous
+n'aurez plus qu'à saisir les notes dans un contexte
+@code{VaticanaVoice}, @code{VaticanaStaff},@code{VaticanaScore},
 @code{MensuralVoice}, @code{MensuralStaff}, @code{KievanVoice} ou
 @code{KievanStaff}.
 
@@ -444,28 +445,30 @@ attaché à l'une ou l'autre des lignes de la portée. Le chiffre porté en
 suffixe permet alors de les différencier, en partant de la ligne
 inférieure.
 
-@lilypond[notime,verbatim,quote,fragment]
-\override NoteHead.style = #'vaticana.punctum
-\clef "vaticana-do1"
-c'1
+@lilypond[verbatim,quote]
+\new MensuralStaff {
+\clef "mensural-c1" c'1
+}
 @end lilypond
 
-@lilypond[notime,verbatim,quote,fragment]
-\override NoteHead.style = #'medicaea.punctum
-\clef "medicaea-do3"
-c'1
+@lilypond[verbatim,quote]
+\new MensuralStaff {
+  \override NoteHead.style = #'blackmensural
+  \clef "blackmensural-c2" c'1
+}
 @end lilypond
 
-@lilypond[notime,verbatim,quote,fragment]
-\override NoteHead.style = #'hufnagel.punctum
-\clef "hufnagel-fa2"
-c'1
+@lilypond[verbatim,quote]
+\new MensuralStaff {
+  \override NoteHead.style = #'neomensural
+  \clef "neomensural-c3" c'1
+}
 @end lilypond
 
-@lilypond[notime,verbatim,quote,fragment]
-\override NoteHead.style = #'neomensural
-\clef "neomensural-c4"
-c'1
+@lilypond[verbatim,quote]
+\new PetrucciStaff {
+  \clef "petrucci-c4" c'1
+}
 @end lilypond
 
 Un glyphe de clef peut tout à fait arbitrairement être positionné sur
@@ -510,52 +513,46 @@ La clef de sol mensurale est calquée sur celle de Petrucci.
 Les chiffrages de métrique mensurale sont partiellement pris en charge.
 Les glyphes ne font que représenter des métriques particulières. En
 d'autres termes, pour obtenir le glyphe correspondant à une métrique
-mensurale particulière à l'aide de la commande @code{\time n/m}, vous
-devez choisir la paire @w{@code{(n,m)}} parmi les valeurs suivantes :
+mensurale particulière à l'aide de la commande @code{\time
+@var{n}/@var{m}}, vous devez choisir @var{n} et @var{m} parmi les
+valeurs suivantes :
 
-@lilypond[quote,ragged-right]
-\layout {
-  indent = 0.0
-  \context {
-    \Staff
-    \remove Staff_symbol_engraver
-    \remove Clef_engraver
-    \remove Time_signature_engraver
+@lilypond[quote]
+\markup \column {
+  \override #'(padding . 3)
+  \override #'(baseline-skip . 2)
+  \table #'(0 0 0 0) {
+    \typewriter "\\time 4/4"
+      \typewriter "\\time 2/2"
+        \typewriter "\\time 6/4"
+          \typewriter "\\time 6/8"
+    \musicglyph "timesig.neomensural44"
+      \musicglyph "timesig.neomensural22"
+        \musicglyph "timesig.neomensural64"
+          \musicglyph "timesig.neomensural68"
+
+    \null \null \null \null
+
+    \typewriter "\\time 3/2"
+      \typewriter "\\time 3/4"
+        \typewriter "\\time 9/4"
+          \typewriter "\\time 9/8"
+    \musicglyph "timesig.neomensural32"
+      \musicglyph "timesig.neomensural34"
+        \musicglyph "timesig.neomensural94"
+          \musicglyph "timesig.neomensural98"
+
+    \null \null \null \null
+
+    \typewriter "\\time 4/8"
+      \typewriter "\\time 2/4"
+        \null
+          \null
+    \musicglyph "timesig.neomensural48"
+      \musicglyph "timesig.neomensural24"
+        \null
+          \null
   }
-}
-{
-  \set Score.timing = ##f
-  \set Score.forbidBreakBetweenBarLines = ##f
-  \textLengthOn
-  s^\markup { "\\time 4/4" }_\markup { "       " \musicglyph
-"timesig.neomensural44" }
-  s
-  s^\markup { "\\time 2/2" }_\markup { "       " \musicglyph
-"timesig.neomensural22" }
-  s
-  s^\markup { "\\time 6/4" }_\markup { "       " \musicglyph
-"timesig.neomensural64" }
-  s
-  s^\markup { "\\time 6/8" }_\markup { "       " \musicglyph
-"timesig.neomensural68" }
-  \break
-  s^\markup { "\\time 3/2" }_\markup { "       " \musicglyph
-"timesig.neomensural32" }
-  s
-  s^\markup { "\\time 3/4" }_\markup { "       " \musicglyph
-"timesig.neomensural34" }
-  s
-  s^\markup { "\\time 9/4" }_\markup { "       " \musicglyph
-"timesig.neomensural94" }
-  s
-  s^\markup { "\\time 9/8" }_\markup { "       " \musicglyph
-"timesig.neomensural98" }
-  \break
-  s^\markup { "\\time 4/8" }_\markup { "       " \musicglyph
-"timesig.neomensural48" }
-  s
-  s^\markup { "\\time 2/4" }_\markup { "       " \musicglyph
-"timesig.neomensural24" }
 }
 @end lilypond
 
@@ -578,26 +575,49 @@ XVI<sup>e</sup>
 Voici les différences entre les styles :
 
 @lilypond[ragged-right,quote]
-\relative c' {
-  \textLengthOn
+{
+  \omit Staff.BarLine
+  \omit Staff.Clef
 
-  \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter default }
+  \override Staff.TextMark.self-alignment-X = #CENTER
+  \override Staff.TextMark.break-align-symbols = #'(time-signature)
+  \override Staff.TextMark.font-size = -1
+  \override Staff.TextMark.staff-padding = 1.5
+  \override Staff.TimeSignature.break-align-anchor-alignment = #CENTER
 
+  \once \omit Staff.TimeSignature
+  s1
+
+  \textMark \markup \typewriter default
+  \time 2/2 s1*3
+
+  \textMark \markup \typewriter numbered
   \override Staff.TimeSignature.style = #'numbered
-  \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter numbered }
+  \time 2/2 s1*3
 
+  \textMark \markup \typewriter mensural
   \override Staff.TimeSignature.style = #'mensural
-  \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter mensural }
+  \time 2/2 s1*3
 
+  \textMark \markup \typewriter neomensural
   \override Staff.TimeSignature.style = #'neomensural
-  \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter neomensural }
+  \time 2/2 s1*3
+
+  \textMark \markup \typewriter single-number
   \override Staff.TimeSignature.style = #'single-number
-  \time 2/2
-  c1^\markup { \hspace #-2.0 \typewriter single-number }
+  \time 2/2 s1
+}
+
+% `TextMark` grobs in `Score` don't react to `staff-padding` (issue #342).
+\layout {
+  \context {
+    \Score
+    \remove Text_mark_engraver
+  }
+  \context {
+    \Staff
+    \consists Text_mark_engraver
+  }
 }
 @end lilypond
 
@@ -715,7 +735,7 @@ actuellement pris en charge sont @code{default} et @code{mensural}.
 @lilypond[quote,fragment,ragged-right,verbatim]
 \relative c' {
   \override Flag.style = #'mensural
-  \override Stem.thickness = #1.0
+  \override Stem.thickness = 1.0
   \override NoteHead.style = #'mensural
   \autoBeamOff
   c8 d e f c16 d e f c32 d e f s8
@@ -931,9 +951,9 @@ transcription automatisée d'une ligature.
 
 Il se peut que deux notes consécutives puissent être représentées aussi
 bien par deux carrées que par un parallélogramme oblique (en forme de
-flexe).  Par défaut, LilyPond présentera deux carrés ; l'impression
+flexe). Par défaut, LilyPond présentera deux carrées ; l'impression
 d'une flexe s'obtient par affectation, pour la @strong{deuxième} note,
-de la propriété @code{ligature-flexa}.  Le réglage de la longueur d'une
+de la propriété @code{ligature-flexa}. Le réglage de la longueur d'une
 flexe se gère par la propriété de tête de note @code{flexa-width}.
 
 Par exemple,
@@ -949,7 +969,7 @@ Par exemple,
     \[ c''\maxima g \]
     \[ d\longa
        \override NoteHead.ligature-flexa = ##t
-       \once \override NoteHead.flexa-width = #3.2
+       \once \override NoteHead.flexa-width = 3.2
        c\breve f e d \]
     \[ c'\maxima d\longa \]
     \[ e1 a, g\breve \]
@@ -964,8 +984,8 @@ Par exemple,
 }
 @end lilypond
 
-Si on ne remplace pas le @code{Ligature_bracket_engraver}
-par le @code{Mensural_@/ligature_@/engraver}, on obtient
+Si on ne remplace pas le @code{Ligature_bracket_engraver} par le
+@code{Mensural_@/ligature_@/engraver}, on obtient
 
 @lilypond[quote,ragged-right]
 \relative {
@@ -977,10 +997,79 @@ par le @code{Mensural_@/ligature_@/engraver}, on obtient
   \[ c''\maxima g \]
   \[ d\longa
      \override NoteHead.ligature-flexa = ##t
-     \once \override NoteHead.flexa-width = #3.2
+     \once \override NoteHead.flexa-width = 3.2
      c\breve f e d \]
   \[ c'\maxima d\longa \]
   \[ e1 a, g\breve \]
+}
+@end lilypond
+
+Dans certains cas, et bien qu'une hampe ne soit pas requise pour lever
+toute ambiguïté quant à la longueur de la note, elle ne soit pas
+interdite :
+
+@itemize
+@item
+une brève en initiale (lorsque plus basse que la note qui la suit) peut
+ou non être pourvue d'une hampe descendante à gauche ;
+@item
+une maxime peut ou non être pourvue d'une hampe descendante à droite ;
+@item
+une longue finale (lorsque plus basse que la note qui la précède) peut
+ou non être pourvue d'une hampe à droite.
+@end itemize
+
+@noindent
+Par exemple,
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative {
+    \set Score.timing = ##f
+    \set Score.measureBarType = #'()
+    \override NoteHead.style = #'petrucci
+    \override Staff.TimeSignature.style = #'mensural
+    \clef "petrucci-c4"
+    \[ \once \override NoteHead.left-down-stem = ##t
+       a\breve b
+       \once \override NoteHead.right-down-stem = ##t
+       g\longa \]
+    \[ \once \override NoteHead.right-down-stem = ##t
+       b\maxima
+       \once \override NoteHead.right-up-stem = ##t
+       g\longa \]
+  }
+  \layout {
+    \context {
+      \Voice
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
+    }
+  }
+}
+@end lilypond
+
+@noindent
+sans retoucher les ligatures ressemble à
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative {
+    \set Score.timing = ##f
+    \set Score.measureBarType = #'()
+    \override NoteHead.style = #'petrucci
+    \override Staff.TimeSignature.style = #'mensural
+    \clef "petrucci-c4"
+    \[ a\breve b g\longa \]
+    \[ b\maxima g\longa \]
+  }
+  \layout {
+    \context {
+      \Voice
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
+    }
+  }
 }
 @end lilypond
 
@@ -1033,14 +1122,16 @@ Manuel de notation :
 @unnumberedsubsubsec Contextes du chant grégorien
 
 @funindex VaticanaVoice
+@funindex VaticanaLyrics
 @funindex VaticanaStaff
+@funindex VaticanaScore
 
-Les contextes prédéfinis @code{VaticanaVoice}, @code{VaticanaStaff} et
-@code{VaticanaLyrics} permettent de graver le chant grégorien dans le
-style des éditions vaticanes. Ces contextes initialisent les propriétés
-de tous les autres contextes et objets graphiques à des valeurs
-adéquates, de telle sorte que vous pouvez tout de suite vous lancer dans
-la saisie de votre chant, comme ci-dessous :
+Les contextes prédéfinis @code{VaticanaVoice}, @code{VaticanaStaff},
+@code{VaticanaLyrics} et @code{VaticanaScore}, permettent de graver le
+chant grégorien dans le style des éditions vaticanes. Ces contextes
+initialisent les propriétés de tous les autres contextes et objets
+graphiques à des valeurs adéquates, de telle sorte que vous pouvez tout
+de suite vous lancer dans la saisie de votre chant, comme ci-dessous :
 
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
 \new VaticanaScore {
@@ -1102,14 +1193,13 @@ Clef d'ut, style des éditions vaticanes
 @code{vaticana-do1}, @code{vaticana-do2},@*
 @code{vaticana-do3}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
-  \override NoteHead.style = #'vaticana.punctum
-  \clef "vaticana-do2"
-  c'
+@lilypond[inline,line-width=1.5\cm]
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-do2" s c' s }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1117,16 +1207,13 @@ Clef de fa, style des éditions vaticanes
 @tab
 @code{vaticana-fa1}, @code{vaticana-fa2}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
-  \override Staff.LedgerLineSpanner.length-fraction = #0.9
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
-  \override NoteHead.style = #'vaticana.punctum
-  \clef "vaticana-fa2"
-  c'
+@lilypond[inline,line-width=1.5\cm]
+\new VaticanaScore
+  \new VaticanaStaff { \clef "vaticana-fa2" s c' s }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1135,14 +1222,16 @@ Clef d'ut, style Editio Medicaea
 @code{medicaea-do1}, @code{medicaea-do2},@*
 @code{medicaea-do3}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
-  \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-do2"
-  c'
+@lilypond[inline,line-width=1.5\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-do2" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1150,16 +1239,16 @@ Clef de fa, style Editio Medicaea
 @tab
 @code{medicaea-fa1}, @code{medicaea-fa2}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
-  \override Staff.LedgerLineSpanner.length-fraction = #0.9
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
-  \override NoteHead.style = #'medicaea.punctum
-  \clef "medicaea-fa2"
-  c'
+@lilypond[inline,line-width=1.5\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'medicaea.punctum
+    \clef "medicaea-fa2" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1168,14 +1257,16 @@ Clef d'ut, style historique Hufnagel
 @code{hufnagel-do1}, @code{hufnagel-do2},@*
 @code{hufnagel-do3}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
-  \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-do2"
-  c'
+@lilypond[inline,line-width=1.5\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \clef "hufnagel-do2" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1183,16 +1274,18 @@ Clef de fa, style historique Hufnagel
 @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.line-count = #4
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.StaffSymbol.ledger-line-thickness = #'(1 . 0)
-  \override Staff.LedgerLineSpanner.length-fraction = #0.9
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
-  \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-fa2"
-  c'
+@lilypond[inline,line-width=1.5\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    % This is a guess; I couldn't find a ledger-line example (wl)
+    \override VaticanaStaff.LedgerLineSpanner.length-fraction = 0.45
+    \clef "hufnagel-fa2" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 
 @item
@@ -1200,13 +1293,17 @@ Clef combinée ut/fa, style historique Hufnagel
 @tab
 @code{hufnagel-do-fa}
 @tab
-@lilypond[inline,fragment,notime]
-  \override Staff.StaffSymbol.color = #red
-  \override Staff.LedgerLineSpanner.color = #red
-  \hide Voice.Stem
-  \override NoteHead.style = #'hufnagel.punctum
-  \clef "hufnagel-do-fa"
-  c'
+@lilypond[inline,line-width=1.5\cm]
+\new VaticanaScore
+  \new VaticanaStaff {
+    \override NoteHead.style = #'hufnagel.punctum
+    \override Staff.StaffSymbol.line-count = 5
+    \clef "hufnagel-do-fa" s c' s
+  }
+\layout {
+  ragged-last = ##f
+  \override SpacingSpanner.packed-spacing = ##f
+}
 @end lilypond
 @end multitable
 @end indentedblock
@@ -1297,18 +1394,15 @@ respiration --- cf. @ref{Breath marks}. Le signe @emph{finalis}
 n'est pas uniquement une marque de fin de chant ; il sert aussi à
 indiquer la fin de chaque partie dans une structure verset/répons.
 
-Les divisions sont disponibles après inclusion du fichier
-@file{gregorian.ly}. Ce fichier définit les commandes
-@code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima} et
-@code{\finalis}. Certaines éditions utilisent @emph{virgula} ou
-@emph{caesura} en lieu et place de @emph{divisio minima} ; c'est
-pourquoi @file{gregorian.ly} définit aussi @code{\virgula} et
-@code{\caesura}.
+Certaines éditions utilisent @emph{virgula} ou @emph{caesura} en lieu et
+place de @emph{divisio minima} ; les contextes prédéfinis de chant
+grégorien sont configurés pour utiliser @code{\caesura} afin de produire
+une marque de césure..
 
 @lilypond[quote,ragged-right,staffsize=23]
 \new VaticanaScore {
   \new VaticanaVoice {
-    \override TextScript.padding = #3
+    \override TextScript.padding = 3
     g a g
     s^\markup { "divisio minima" }
     \divisioMinima
@@ -1361,9 +1455,6 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Breath marks}.
-
-Fichiers d'initialisation :
-@file{gregorian.ly}.
 @endmorerefs
 
 
@@ -1405,7 +1496,7 @@ spécifiquement destinées au style des éditions vaticanes.
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
 \new VaticanaScore {
   \new VaticanaVoice {
-    \override Script.padding = #-0.1
+    \override Script.padding = -0.1
     a\ictus_"ictus " \break
     a\circulus_"circulus " \break
     a\semicirculus_"semicirculus "  \break
@@ -1488,12 +1579,6 @@ sont déjà disponibles, mais beaucoup de règles typographiques ne sont
 pas encore implémentées, notamment l'espacement horizontal des
 enchaînements de ligatures, l'alignement des paroles ou une gestion
 convenable des altérations.
-
-La prise en charge des neumes grégoriens est activée par l'inclusion, en
-début de votre fichier source, du fichier d'initialisation
-@file{gregorian.ly}. Ceci aura pour effet de rendre disponible un
-certain nombre de commandes dans le but de reproduire les symboles de
-neumes tels qu'ils apparaissent dans la notation du plain-chant.
 
 Les têtes de note peuvent être @emph{modifiées} ou @emph{jointes}.
 
@@ -1619,12 +1704,12 @@ note.
 @funindex \responsum
 @funindex \versus
 
-En plus des signes propres à la notation, le fichier @file{gregorian.ly}
-contient la définition des commandes @code{\versus}, @code{\responsum},
-@code{\ij}, @code{\iij}, @code{\IJ} et @code{\IIJ}, qui permettent par
-exemple d'indiquer dans les paroles des repères de section. Ces
-commandes font appel à des caractères unicode spécifiques qui ne seront
-reproduits que si vous utilisez une fonte qui en dispose.
+En plus des signes propres à la notation, LilyPond dispose des commandes
+@code{\versus}, @code{\responsum}, @code{\ij}, @code{\iij}, @code{\IJ}
+et @code{\IIJ}, qui permettent par exemple d'indiquer dans les paroles
+des repères de section. Ces commandes font appel à des caractères
+unicode spécifiques qui ne seront reproduits que si vous utilisez une
+fonte qui en dispose.
 
 @c table des neumes
 
@@ -2868,7 +2953,7 @@ Dans de nombreuses transcriptions, le récitatif fait apparaître une
 brève au lieu de la répétition d'une même note. Le texte psalmodié se
 présente alors sous la forme d'une unique syllabe alignée à gauche :
 
-@lilypond[verbatim,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 chant = \relative {
   \clef "G_8"
   c'\breve c4 b4 a c2 c4 \divisioMaior
@@ -2876,9 +2961,9 @@ chant = \relative {
 }
 
 verba = \lyricmode {
-  \once \override LyricText.self-alignment-X = #-1
+  \once \override LyricText.self-alignment-X = -1
   "Noctem quietam et" fi -- nem per -- fec -- tum
-  \once \override LyricText.self-alignment-X = #-1
+  \once \override LyricText.self-alignment-X = -1
   "concedat nobis Dominus" om -- ni -- po -- tens.
 }
 \score {
@@ -2900,20 +2985,20 @@ masquées comme ci-dessous.
 Certaines transcriptions laissent néanmoins apparaître occasionnellement
 des hampes, notamment pour indiquer la transition entre un récitatif
 monodique et une phrase mélodique. Il suffit en pareil cas d'utiliser
-plutôt @code{\hide Stem} ou @code{\override Stem.length = #0} puis, en
-cas de besoin, recourir à une clause
-@code{\once \override Stem.transparent = ##f}.
+le @code{Stem_engraver} et, selon les besoins, recourir aux clauses
+@code{\omit Stem} et @code{\undo \omit Stem}.
 
-@lilypond[verbatim,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 chant = \relative {
   \clef "G_8"
   \set Score.timing = ##f
   \omit Stem
-  c'\breve \hide NoteHead c c c c c
+  \omit Flag
+  c'\breve*1/16 \hide NoteHead c8 c c c c
   \undo \hide NoteHead
   \undo \omit Stem \stemUp c4 b4 a
   \omit Stem c2 c4 \divisioMaior
-  c\breve \hide NoteHead c c c c c c c
+  c\breve*1/16 \hide NoteHead c8 c c c c c c
   \undo \hide NoteHead c4 c f, f \finalis
 }
 
@@ -2959,19 +3044,22 @@ solution consiste à figer la propriété @code{X-extent} de l'objet
 syllabes sous forme de @emph{markup}. Des ajustements supplémentaires
 peuvent se réaliser avec des « notes silencieuses » (@code{s}).
 
-@lilypond[verbatim,quote]
+@c In this example, hyphens stick out to the right, so we reduce
+@c the line width a little bit to avoid an overfull box in the
+@c PDF.
+@lilypond[verbatim,quote,line-width=159\mm]
 spiritus = \relative {
   \time 1/4
-  \override Lyrics.LyricText.X-extent  = #'(0 . 3)
   d'4 \tuplet 3/2 { f8 a g } g a a4 g f8 e
   d4 f8 g g8 d f g a g f4 g8 a a4 s
   \tuplet 3/2 { g8 f d } e f g a g4
 }
 
 spirLyr = \lyricmode {
-  Spi -- ri -- _ _ tus _ Do -- mi -- ni _ re -- ple -- _ vit _
-  or -- _ bem _ ter -- ra -- _ rum, al -- _ _ le -- _ lu
-  -- _ ia.
+  \override Lyrics.LyricText.X-extent  = #'(0 . 3)
+  Spi -- ri -- _ _ tus _ Do -- mi -- ni _
+  re -- ple -- _ vit _ or -- _ bem _ ter -- ra -- _ rum,
+  al -- _ _ le -- _ lu -- _ ia.
 }
 \score {
   \new GregorianTranscriptionStaff <<

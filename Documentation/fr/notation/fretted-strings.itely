@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 
 @c \version "2.23.1"
 
-@c Translators: Matthieu Jacquot
+@c Translators: Matthieu Jacquot, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude
 
 
@@ -59,13 +59,13 @@ particularités communes aux différents instruments à cordes frettées.
 
 La musique pour instruments à cordes frettées est généralement notée sur
 une seule portée, en notation traditionnelle ou en tablature, les deux
-étant parfois combinées.  Il est aussi courant en musique populaire
+étant parfois combinées. Il est aussi courant en musique populaire
 d'utiliser des diagrammes d'accord au-dessus de la portée
-traditionnelle.  La guitare et le banjo sont des instruments
-transpositeurs, sonnant une octave au-dessous de ce qui est écrit.  Les
+traditionnelle. La guitare et le banjo sont des instruments
+transpositeurs, sonnant une octave au-dessous de ce qui est écrit. Les
 partitions pour ces instruments utilisent donc la clé de sol ottava
 bassa @code{"treble_8"} -- ou une instruction @code{\transposition c}
-pour un rendu MIDI correct.  Vous pourrez trouver ailleurs dans la
+pour un rendu MIDI correct. Vous pourrez trouver ailleurs dans la
 documentation d'autres éléments aussi utilisés par les instruments à
 cordes frettées :
 
@@ -107,9 +107,9 @@ Manuel de notation :
 @cindex numéro de corde ou doigté
 @cindex doigté ou numéro de corde
 
-La corde sur laquelle une note doit être jouée peut être indiquée
-en attachant @code{\@var{numéro}} à cette note prise dans une
-construction de type accord @code{<>}.
+La corde sur laquelle une note doit être jouée peut être indiquée en
+attachant @code{\@var{numéro}} à cette note prise dans une construction
+de type accord @code{<>}.
 
 @lilypond[verbatim,quote,fragment]
 \clef "treble_8"
@@ -120,9 +120,9 @@ c4\5 e\4 g2\3
 Quand les indications de doigté et de numéro de corde sont attachées à
 une même note, leur positionnement se fera en fonction de l'ordre dans
 lequel elles apparaissent dans le code, mais @strong{uniquement} si
-elles interviennent au sein d'une construction d'accord.  En effet, le
-positionnement des doigtés est géré différemment lorsqu'ils
-sont attachés à des notes isolées indépendantes d'un accord.
+elles interviennent au sein d'une construction d'accord. En effet, le
+positionnement des doigtés est géré différemment lorsqu'ils sont
+attachés à des notes isolées indépendantes d'un accord.
 
 @lilypond[verbatim,quote,fragment]
 \clef "treble_8"
@@ -151,9 +151,9 @@ a\3
 g1\4
 @end lilypond
 
-Le traitement des numéros de corde, objets @code{StringNumber},
-et notamment leur positionnement, est comparable à celui des
-doigtés -- voir @ref{Fingering instructions}.
+Le traitement des numéros de corde, objets @code{StringNumber}, et
+notamment leur positionnement, est comparable à celui des doigtés --
+@pxref{Fingering instructions}.
 
 @predefined
 @code{\arabicStringNumbers},
@@ -183,15 +183,15 @@ Référence des propriétés internes :
 @funindex TabVoice
 
 La notation en tablature est utilisée pour certains instruments à cordes
-pincées.  Les hauteurs n'y sont pas indiquées par des têtes de note
-mais par des chiffres ou autres symboles qui indiquent sur quelle
-corde et à quelle case chaque note doit être jouée.  Des notes devant
-être jouées simultanément seront alors alignées verticalement.
+pincées. Les hauteurs n'y sont pas indiquées par des têtes de note mais
+par des chiffres ou autres symboles qui indiquent sur quelle corde et à
+quelle case chaque note doit être jouée. Des notes devant être jouées
+simultanément seront alors alignées verticalement.
 
 Par défaut, la première corde est la plus aiguë et correspond à la ligne
-supérieure du @code{TabStaff}.  Les cordes suivent par défaut
-l'accordage traditionnel d'une guitare (à six cordes).  Les notes sont
-imprimées sous forme de tablature dans les contextes @code{TabStaff} et
+supérieure du @code{TabStaff}. Les cordes suivent par défaut l'accordage
+traditionnel d'une guitare (à six cordes). Les notes sont imprimées sous
+forme de tablature dans les contextes @code{TabStaff} et
 @code{TabVoice}, qui comportent une clef spécifique ajoutée
 automatiquement.
 
@@ -227,7 +227,7 @@ symbols = {
 
 Pour obtenir les symboles de notation habituelle dans une tablature, il
 faut appliquer la commande @code{\tabFullNotation} au contexte
-@code{TabStaff}.  Vous noterez que les blanches sont affublées d'une
+@code{TabStaff}. Vous noterez que les blanches sont affublées d'une
 double hampe afin qu'elles ne se confondent pas avec des noires.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -256,15 +256,15 @@ symbols = {
 
 Quand aucune corde n'est précisée, LilyPond choisit automatiquement la
 corde pour laquelle la position est la moins élevée, avec une préférence
-pour une corde à vide.  Vous pouvez préférer qu'une note donnée soit
+pour une corde à vide. Vous pouvez préférer qu'une note donnée soit
 jouée sur une corde particulière, auquel cas l'affectation directe du
-numéro de corde suffit.  L'absence d'indication des numéros de corde en
-notation traditionnelle se gère au niveau des stencils.  Il est
-cependant plus facile de jouer sur la propriété @code{minimumFret}, dont
-la valeur par défaut est fixée à 0, ce qui correspond aux cordes à vide.
+numéro de corde suffit. L'absence d'indication des numéros de corde en
+notation traditionnelle se gère au niveau des stencils. Il est cependant
+plus facile de jouer sur la propriété @code{minimumFret}, dont la valeur
+par défaut est fixée à 0, ce qui correspond aux cordes à vide.
 
 Cependant, et en dépit d'une affectation de @code{minimumFret}, une
-corde à vide aura toujours préséance.  Ce comportement se modifie par
+corde à vide aura toujours préséance. Ce comportement se modifie par
 l'activation de @code{restrainOpenStrings}.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -280,7 +280,7 @@ l'activation de @code{restrainOpenStrings}.
    \new TabStaff \relative {
      c16 d e f g4
      c,16\5 d\5 e\4 f\4 g4\4
-     \set TabStaff.minimumFret = #5
+     \set TabStaff.minimumFret = 5
      \set TabStaff.restrainOpenStrings = ##t
      c,16 d e f g4
    }
@@ -294,11 +294,11 @@ l'activation de @code{restrainOpenStrings}.
 @cindex répétition, utilisation de @code{q}
 @cindex @code{q}, répétition d'accord
 
-La répétition d'une construction en accord s'indique par un @code{q} --
-voir @ref{Chord repetition}.  Cette fonctionnalité, bien
-qu'opérationnelle en mode tablature, supprime entre autres les numéros
-de corde et doigtés.  Il vous faudra donc préalablement recourir
-explicitement à l'instruction
+La répétition d'une construction en accord s'indique par
+un @code{q} -- @pxref{Chord repetition}. Cette fonctionnalité,
+bien qu'opérationnelle en mode tablature, supprime entre autres
+les numéros de corde et doigtés. Il vous faudra donc préalablement
+recourir explicitement à l'instruction
 @example
 \chordRepeats #'(string-number-event fingering-event)
 @end example
@@ -322,7 +322,7 @@ guitar = \relative {
 @end lilypond
 
 Lorsqu'une liaison de prolongation intervient à l'occasion d'un saut de
-ligne, la note est répétée, entre parenthèses.  Il en va de même pour la
+ligne, la note est répétée, entre parenthèses. Il en va de même pour la
 seconde alternative d'une répétition.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -354,7 +354,7 @@ ties = \relative {
     >>
   >>
   \layout {
-  indent = #0
+  indent = 0
   ragged-right = ##t
   }
 }
@@ -394,7 +394,7 @@ ties = \relative {
     >>
   >>
   \layout {
-  indent = #0
+  indent = 0
   ragged-right = ##t
   }
 }
@@ -430,17 +430,17 @@ firstHarmonic = {
 
 Vous noterez que la commande @code{\harmonic} s'attache toujours à une
 note unique (parfois contenue dans un accord) et non à l'ensemble d'un
-accord.  Ceci ne fonctionne donc que pour une harmonique au douzième
-fret d'une corde à vide.  Toute autre harmonique devrait être défini
-directement par LilyPond.  Vous pouvez l'y aider en indiquant la case où
+accord. Ceci ne fonctionne donc que pour une harmonique au douzième fret
+d'une corde à vide. Toute autre harmonique devrait être défini
+directement par LilyPond. Vous pouvez l'y aider en indiquant la case où
 le doigt viendrait se placer sur le manche.
 
 @lilypond[verbatim,quote]
 fretHarmonics = {
-  \harmonicByFret #5 d16\4
-  \harmonicByFret #4 d16\4
-  \harmonicByFret #3 d8\4
-  \harmonicByFret #5 <g\3 b\2>2.
+  \harmonicByFret 5 d16\4
+  \harmonicByFret 4 d16\4
+  \harmonicByFret 3 d8\4
+  \harmonicByFret 5 <g\3 b\2>2.
 }
 \score {
   <<
@@ -453,8 +453,8 @@ fretHarmonics = {
 }
 @end lilypond
 
-Un harmonique peut accessoirement se calculer à partir de la longueur
-de corde par rapport au doigté de cet harmonique.
+Un harmonique peut accessoirement se calculer à partir de la longueur de
+corde par rapport au doigté de cet harmonique.
 
 @lilypond[verbatim,quote]
 ratioHarmonics = {
@@ -524,7 +524,7 @@ bend-styles = {
     }
     \context {
       \TabStaff
-      minimumFret = #5
+      minimumFret = 5
     }
     \context {
       \TabVoice
@@ -625,9 +625,8 @@ mus = {
 L'extension du @code{BendSpanner} se termine par défaut sur la note ou
 l'accord qui suit, même en présence d'une liaison de prolongation. Un
 élément @code{NoteColumn} particulier peut être sauté à l'aide d'un
-@code{\skipNC}. Un groupe de @code{NoteColumn}s peut se sauter en
-le faisant précéder d'un @code{\skipNCs} et suivre d'un
-@code{\endSkipNCs}.
+@code{\skipNC}. Un groupe de @code{NoteColumn}s peut se sauter en le
+faisant précéder d'un @code{\skipNCs} et suivre d'un @code{\endSkipNCs}.
 
 @lilypond[verbatim,quote]
 bends-with-ties-and-skips = {
@@ -656,7 +655,7 @@ bends-with-ties-and-skips = {
     }
     \context {
       \TabStaff
-      minimumFret = #3
+      minimumFret = 3
       restrainOpenStrings = ##t
     }
     \context {
@@ -741,9 +740,9 @@ Référence des propriétés internes :
 @endmorerefs
 
 @knownissues
-Les accords ne subissent aucun traitement particulier ; de ce fait,
-la sélection automatique des cordes peut attribuer une même corde pour
-deux notes différentes de l'accord.
+Les accords ne subissent aucun traitement particulier ; de ce fait, la
+sélection automatique des cordes peut attribuer une même corde pour deux
+notes différentes de l'accord.
 
 Afin que @code{\partCombine} fonctionne avec des tablatures, on doit
 ajouter au contexte @code{TabStaff} des voix fantômes :
@@ -780,14 +779,14 @@ harmoniques et aux glissandos.
 @funindex stringTunings
 
 Sous LilyPond, la case correspondant à une note jouée sur une corde
-donnée est calculée automatiquement.  Pour ce faire, l'accordage doit
-être spécifié.  L'accordage des cordes est donné par la propriété
+donnée est calculée automatiquement. Pour ce faire, l'accordage doit
+être spécifié. L'accordage des cordes est donné par la propriété
 @code{stringTunings}.
 
 LilyPond possède des accordages prédéfinis pour le banjo, la mandoline,
 la guitare et la guitare basse ainsi que le ukulele et les cordes
-d'orchestre.  LilyPond calcule automatiquement la transposition
-correspondant à ces accordages.  L'exemple ci-dessous est pour guitare
+d'orchestre. LilyPond calcule automatiquement la transposition
+correspondant à ces accordages. L'exemple ci-dessous est pour guitare
 basse, il sonnera donc une octave en dessous de ce qui est écrit.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -821,18 +820,18 @@ répertoriés dans le fichier @file{ly/string-@/tunings-@/init.ly}.
 
 @funindex \stringTuning
 
-LilyPond vous permet de créer n'importe quel accordage.  L'accordage du
+LilyPond vous permet de créer n'importe quel accordage. L'accordage du
 contexte en cours se détermine à l'aide de la fonction
-@code{\stringTuning}.  Celle-ci prend deux arguments : une
-représentation symbolique qui gardera l'accordage en mémoire, et une
-construction d'accord définissant la hauteur des différentes cordes.
-Les hauteurs fournies s'expriment impérativement en mode absolu -- voir
-@ref{Absolute octave entry}.  La corde ayant le numéro le plus
-élevé (généralement la note la plus basse) est mentionnée en premier.
+@code{\stringTuning}. Celle-ci prend deux arguments : une représentation
+symbolique qui gardera l'accordage en mémoire, et une construction
+d'accord définissant la hauteur des différentes cordes. Les hauteurs
+fournies s'expriment impérativement en mode absolu -- @pxref{Absolute
+octave entry}. La corde ayant le numéro le plus élevé (généralement la
+note la plus basse) est mentionnée en premier.
 
 Nous pouvons ainsi définir par exemple l'accordage d'un instrument à
-quatre cordes accordées do sol ré la, soit en anglais
-@code{a''}, @code{d''}, @code{g'}, et @code{c'} :
+quatre cordes accordées do sol ré la, soit en anglais @code{a''},
+@code{d''}, @code{g'}, et @code{c'} :
 
 @lilypond[quote,verbatim]
 mynotes = {
@@ -856,8 +855,8 @@ mynotes = {
 La propriété @code{stringTunings} permet aussi au @code{FretBoards} de
 calculer automatiquement les diagrammes de frets.
 
-L'accordage fait partie de la clé permettant d'identifier les
-diagrammes prédéfinis -- voir @ref{Predefined fret diagrams}.
+L'accordage fait partie de la clé permettant d'identifier les diagrammes
+prédéfinis -- @pxref{Predefined fret diagrams}.
 
 Nous pourrions donc écrire l'exemple précédent ainsi :
 
@@ -883,14 +882,16 @@ mynotes = {
 
 L'accordage est constitué, en interne, par une liste Scheme des hauteurs
 de note correspondant aux cordes à vide, une note pour chaque corde,
-classée par numéro de corde de 1 à n, où la corde 1 est la plus haute
-dans la tablature et n la plus basse.  Cela revient généralement à
+classée par numéro de corde de 1 à n, où la corde 1 est la plus haute
+dans la tablature et n la plus basse. Cela revient généralement à
 classer les cordes de la plus aiguë à la plus grave, mais certains
-instruments (comme le ukulele) n'ont pas les cordes classées par hauteur.
+instruments (comme le ukulele) n'ont pas les cordes classées par
+hauteur.
 
 Chaque hauteur de corde incluse dans un accordage est un objet LilyPond
 de type @emph{pitch}.  Les objets @emph{pitch} sont créés par la fonction
-@code{ly:make-pitch} -- voir @rinternals{Fonctions Scheme}.
+@code{ly:make-pitch} -- voir @rinternalsnamed{Scheme functions,
+Fonctions Scheme}.
 
 La fonction @code{\stringTuning} permet de créer de tels objets à partir
 de la saisie d'un accord.
@@ -936,9 +937,9 @@ Cette clef moderne prend en charge les tablatures de quatre à sept cordes.
 @cindex tablature et quart de ton
 
 Un @code{TabStaff} peut contenir des micro-intervalles tels les quarts
-de ton, qui interveiennent dans les chutes ou sauts.  L'assertion
+de ton, qui interveiennent dans les chutes ou sauts. L'assertion
 @w{@code{supportNonIntegerFret = ##t}} devra se placer au niveau du
-contexte @code{Score}.  Les micro-intervalles ne sont toutefois pas pris
+contexte @code{Score}. Les micro-intervalles ne sont toutefois pas pris
 en charge dans un contexte @code{FretBoards}.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1003,18 +1004,18 @@ hauteurs, comme le ukulele.
 @cindex diagramme personnalisé de fret
 
 On peut ajouter des diagrammes d'accord au-dessus de n'importe quelle
-note, en tant qu'objets @code{\markup}.  Ces objets contiennent toutes
-les informations du diagramme d'accord.  Il y a pour les définir trois
+note, en tant qu'objets @code{\markup}. Ces objets contiennent toutes
+les informations du diagramme d'accord. Il y a pour les définir trois
 interfaces « diagramme d'accord » (@emph{fret-diagram} en anglais) :
-@var{standard}, @var{terse} et @var{verbose}.  Ces trois interfaces
+@var{standard}, @var{terse} et @var{verbose}. Ces trois interfaces
 produiront des diagrammes similaires mais permettent des niveaux de
-personnalisation différents.  Des détails à propos des interfaces de
-type @code{\markup} peuvent être trouvés à l'annexe
-@ref{Instrument-specific markup}.
+personnalisation différents. Des détails à propos des interfaces de type
+@code{\markup} peuvent être trouvés à l'annexe @ref{Instrument-specific
+markup}.
 
 Dans l'interface standard des diagrammes d'accord, on indiquera le
-numéro de corde et le numéro de case pour chaque point placé sur une corde.
-Les cordes à vide et étouffées peuvent aussi être indiquées.
+numéro de corde et le numéro de case pour chaque point placé sur une
+corde. Les cordes à vide et étouffées peuvent aussi être indiquées.
 
 @lilypond[quote, verbatim]
 <<
@@ -1175,10 +1176,10 @@ les diagrammes de fret correctement.
 
 Dans l'interface @code{fret-diagram-terse}, les numéros de corde sont
 omis ; les numéros de corde sont induits par la présence de
-points-virgules.  Il y a un point-virgule pour chaque corde du
-diagramme.  Le premier point-virgule correspondant au plus haut numéro
-de corde, le dernier à la première corde.  Les cordes étouffées, les
-cordes à vide ainsi que les numéros de case peuvent y être indiqués.
+points-virgules. Il y a un point-virgule pour chaque corde du diagramme.
+Le premier point-virgule correspondant au plus haut numéro de corde, le
+dernier à la première corde. Les cordes étouffées, les cordes à vide
+ainsi que les numéros de case peuvent y être indiqués.
 
 @lilypond[quote, verbatim]
 <<
@@ -1261,7 +1262,7 @@ plusieurs, utiliser un @emph{markup} @code{fret-diagram} ou
 @funindex \fret-diagram-verbose
 
 L'interface @code{fret-diagram-verbose} est au format d'une liste
-Scheme.  Chaque élément de la liste décrit un objet devant être placé
+Scheme. Chaque élément de la liste décrit un objet devant être placé
 dans le diagramme d'accord.
 
 @lilypond[quote, verbatim]
@@ -1298,7 +1299,7 @@ dans le diagramme d'accord.
 @end lilypond
 
 Les indications de doigté et de barré peuvent être décrites dans
-l'interface @code{fret-diagram-verbose}.  Particularité propre à
+l'interface @code{fret-diagram-verbose}. Particularité propre à
 l'interface @code{fret-diagram-verbose} : l'indication de capodastre
 dans le diagramme d'accord. L'indication de capodastre est une petite
 ligne transversale aux cordes. La case avec le capodastre est la case la
@@ -1427,11 +1428,15 @@ and color of dots.
 
 @funindex fret-diagram-interface
 
-La disposition graphique d'un diagramme d'accord peut être modifiée
-suivant les préférences de l'utilisateur grâce aux propriétés de
-l'interface @code{fret-diagram-interface}.  Des détails se trouvent dans
-@rinternals{fret-diagram-interface}.  Pour un diagramme d'accord, les
-propriétés de l'interface dépendent de @code{Voice.TextScript}.
+La disposition graphique d'un diagramme d'accord peut être
+modifiée suivant les préférences de l'utilisateur grâce aux
+propriétés de l'interface @code{fret-diagram-interface}. Des
+détails se trouvent dans @rinternals{fret-diagram-interface}. Voir
+aussi @rlsrsnippetnamed{Fretted strings, construction et
+developpement de diagrammes de fret,Construction et développement
+de diagrammes de fret} pour un exemple développé. Pour un
+diagramme d'accord, les propriétés de l'interface dépendent de
+@code{Voice.TextScript}.
 
 @snippets
 
@@ -1468,7 +1473,7 @@ Référence des propriétés internes :
 @funindex stringTunings
 
 Les diagrammes d'accord peuvent être affichés en utilisant le contexte
-@code{FretBoards}.  Par défaut le contexte @code{FretBoards} affichera
+@code{FretBoards}. Par défaut le contexte @code{FretBoards} affichera
 des diagrammes d'accord stockés dans une table de correspondance :
 
 @lilypond[verbatim, ragged-right, quote]
@@ -1527,8 +1532,7 @@ myChords = \chordmode { c1 c:m7.5- c:aug }
 @end lilypond
 
 Les notes des accords peuvent être entrées aussi bien comme musique
-simultanée qu'en utilisant le mode accord (voir
-@ref{Chord mode overview}).
+simultanée qu'en utilisant le mode accord (@pxref{Chord mode overview}).
 
 @lilypond[verbatim, ragged-right,quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1545,7 +1549,7 @@ simultanée qu'en utilisant le mode accord (voir
 @funindex \chordmode
 
 Il est courant d'afficher simultanément le nom des accords et les
-diagrammes d'accord correspondants.  Ceci s'obtient en mettant en
+diagrammes d'accord correspondants. Ceci s'obtient en mettant en
 parallèle un contexte @code{ChordNames} et un contexte
 @code{FretBoards}, tout en affectant aux deux la même musique.
 
@@ -1569,9 +1573,9 @@ mychords = \chordmode {
 @cindex fret et transposition
 @cindex diagramme de fret et transposition
 
-Les diagrammes d'accord prédéfinis sont transposables tant qu'il y a
-un diagramme correspondant à l'accord transposé dans la base des
-diagrammes d'accord.
+Les diagrammes d'accord prédéfinis sont transposables tant qu'il y a un
+diagramme correspondant à l'accord transposé dans la base des diagrammes
+d'accord.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1627,10 +1631,10 @@ mychords = \chordmode {
 @cindex diagramme de fret personnalisé, ajout
 
 Des diagrammes d'accord peuvent être ajoutés à la table des diagrammes
-d'accord.  Pour ajouter un diagramme d'accord, il faut spécifier
-l'accord correspondant au diagramme, l'accord utilisé et la définition
-du diagramme.  Cette définition de diagramme peut être
-aussi bien de type @var{terse} que @var{verbose}.
+d'accord. Pour ajouter un diagramme d'accord, il faut spécifier l'accord
+correspondant au diagramme, l'accord utilisé et la définition du
+diagramme. Cette définition de diagramme peut être aussi bien de type
+@var{terse} que @var{verbose}.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1655,8 +1659,8 @@ mychords = \chordmode {
 @end lilypond
 
 On peut enregistrer différents diagrammes pour un même accord en les
-définissant à des octaves différentes.  Notez qu'il faut un intervalle
-de deux octaves, le premier servant à la transposition.
+définissant à des octaves différentes. Notez qu'il faut un intervalle de
+deux octaves, le premier servant à la transposition.
 
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
@@ -1687,13 +1691,13 @@ mychords = \chordmode {
 @funindex \addChordShape
 @funindex \storePredefinedDiagram
 
-En plus des  diagrammes d'accord, LilyPond possède une liste interne de
-carrures d'accord.  Les carrures d'accords sont des diagrammes d'accord
-qui peuvent être transposés le long du manche.  Les carrures d'accords
+En plus des diagrammes d'accord, LilyPond possède une liste interne de
+carrures d'accord. Les carrures d'accords sont des diagrammes d'accord
+qui peuvent être transposés le long du manche. Les carrures d'accords
 peuvent être ajoutées à la liste interne et être ensuite utilisées pour
-définir des accords prédéfinis.  Puisqu'elles sont transposables le long
+définir des accords prédéfinis. Puisqu'elles sont transposables le long
 du manche, les carrures d'accord ne contiennent généralement pas de
-corde à vide.  Tout comme les diagrammes d'accord, les carrures d'accord
+corde à vide. Tout comme les diagrammes d'accord, les carrures d'accord
 sont définies grâce aux interfaces @code{fret-diagram-terse} ou
 @code{fret-diagram-verbose}.
 
@@ -1733,10 +1737,12 @@ mychords = \chordmode{
 
 La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur grâce aux propriétés de
-l'interface @code{fret-diagram-interface}.  Pour plus d'information,
-consultez @rinternals{fret-diagram-interface}.  Pour un diagramme
-d'accord donné, les propriétés de l'interface dépendent de
-@code{FretBoards.FretBoard}.
+l'interface @code{fret-diagram-interface}. Pour plus d'information,
+consultez @rinternals{fret-diagram-interface}. Voir aussi
+@rlsrsnippetnamed{Fretted strings, construction et developpement de
+diagrammes de fret,Construction et développement de diagrammes de fret}
+pour un exemple développé. Pour un diagramme d'accord donné, les
+propriétés de l'interface dépendent de @code{FretBoards.FretBoard}.
 
 @snippets
 
@@ -1794,10 +1800,10 @@ Référence des propriétés internes :
 @cindex automatique, diagramme d'accord
 
 Les diagrammes d'accord peuvent être créés automatiquement ; il suffit
-d'affecter les notes à un contexte @code{FretBoards}.  Si aucun
-diagramme prédéfini n'est disponible pour les notes entrées avec
-l'accordage actuel (@code{stringTunings}), les cordes et cases
-correspondant aux notes seront automatiquement calculées.
+d'affecter les notes à un contexte @code{FretBoards}. Si aucun diagramme
+prédéfini n'est disponible pour les notes entrées avec l'accordage
+actuel (@code{stringTunings}), les cordes et cases correspondant aux
+notes seront automatiquement calculées.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -1823,7 +1829,7 @@ correspondant aux notes seront automatiquement calculées.
 
 Dans la mesure où aucun diagramme prédéfini n'est chargé par défaut, le
 calcul automatique des diagrammes d'accord est le comportement par
-défaut.  Dès que les diagrammes par défaut sont chargés, le calcul
+défaut. Dès que les diagrammes par défaut sont chargés, le calcul
 automatique peut être activé ou désactivé par des commandes
 prédéfinies :
 
@@ -1856,8 +1862,8 @@ prédéfinies :
 @end lilypond
 
 Le calculateur se trouvera parfois incapable de trouver un diagramme
-d'accord convenable.  On peut souvent y remédier en assignant les notes
-aux cordes.  Dans bien des cas, il suffit de placer manuellement une
+d'accord convenable. On peut souvent y remédier en assignant les notes
+aux cordes. Dans bien des cas, il suffit de placer manuellement une
 seule note pour que les autres soient alors placées de manière
 appropriée par le contexte @code{FretBoards}.
 
@@ -1900,7 +1906,7 @@ servira à calculer les cordes et les cases du contexte @code{FretBoard}.
   }
   \new FretBoards {
     <d a d' f'>1
-    \set FretBoards.minimumFret = #5
+    \set FretBoards.minimumFret = 5
     <d a d' f'>1
   }
   \new Staff {
@@ -1918,9 +1924,11 @@ plus d'information sur la propriété @code{stringTunings}.
 
 La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur au travers des propriétés de
-l'interface @code{fret-diagram-interface}.  Pour un diagramme
-d'accord @code{FretBoards} donné, les propriétés de l'interface
-dépendent de @code{FretBoards.FretBoard}.
+l'interface @code{fret-diagram-interface}. Voir aussi
+@rlsrsnippetnamed{Fretted strings, construction et developpement de
+diagrammes de fret,Construction et développement de diagrammes de fret}
+pour un exemple. Pour un diagramme d'accord @code{FretBoards} donné, les
+propriétés de l'interface dépendent de @code{FretBoards.FretBoard}.
 
 @predefined
 @code{\predefinedFretboardsOff},
@@ -1962,17 +1970,17 @@ construction par un @code{>}.}
 
 @lilypond[quote,verbatim,fragment]
 \clef "treble_8"
-c4\rightHandFinger #1
-e\rightHandFinger #2
-g\rightHandFinger #3
-c'\rightHandFinger #4
-<c\rightHandFinger #1 e\rightHandFinger #2
- g\rightHandFinger #3 c'\rightHandFinger #4 >1
+c4\rightHandFinger 1
+e\rightHandFinger 2
+g\rightHandFinger 3
+c'\rightHandFinger 4
+<c\rightHandFinger 1 e\rightHandFinger 2
+ g\rightHandFinger 3 c'\rightHandFinger 4 >1
 @end lilypond
 
 Pour plus de clarté, vous pouvez traduire ou abréger la commande
-@code{\rightHandFinger}, par exemple en @code{doigtMainDroite} ou
-même @code{MD} en tête du fichier source :
+@code{\rightHandFinger}, par exemple en @code{doigtMainDroite} ou même
+@code{MD} en tête du fichier source :
 
 @example
 MD = #rightHandFinger \etc
@@ -2007,13 +2015,13 @@ Référence des propriétés internes :
 @subsection Guitare
 
 La plupart des aspects en matière de notation pour guitare sont traités
-dans la partie commune aux instruments frettés.  Il subsiste cependant
+dans la partie commune aux instruments frettés. Il subsiste cependant
 quelques particularités que nous allons maintenant examiner.
 
 Parfois l'utilisateur aimerait créer des documents de type recueil de
-chansons, où l'on ne trouve que des accords au-dessus des paroles.  Dans
+chansons, où l'on ne trouve que des accords au-dessus des paroles. Dans
 la mesure où LilyPond est un éditeur de partitions, il n'est pas l'outil
-optimal pour des documents sans partition.  Une meilleure alternative
+optimal pour des documents sans partition. Une meilleure alternative
 serait de recourir à un traitement de texte, un éditeur de texte ou,
 pour les utilisateurs expérimentés, un logiciel typographique tel que
 GuitarTeX.
@@ -2037,13 +2045,21 @@ Cet exemple montre comment indiquer les positions et les barrés :
 \relative {
   \clef "treble_8"
   b,16 d g b e
-  \textSpannerDown
-  \override TextSpanner.bound-details.left.text = "XII "
+  \once \override TextSpanner.bound-details.left.text =
+    \markup {"XII" \hspace #0.4 }
+  \once \override TextSpanner.bound-details.right.text =
+    \markup \draw-line #'(0 . -.5)
+  \once \override TextSpanner.bound-details.right.padding = -0.65
+  \once \override TextSpanner.dash-fraction = 0.4
+  \once \override TextSpanner.dash-period = 1.3
   g16\startTextSpan
   b16 e g e b g\stopTextSpan
   e16 b g d
 }
 @end lilypond
+
+Une solution plus sophistiquée est disponible ici :
+@url{https://lsr.di.unimi.it/LSR/Item?id=952,LSR snippet 952}.
 
 @morerefs
 Manuel de notation :
@@ -2064,7 +2080,7 @@ Morceaux choisis :
 @cindex harmonique et cordes frettées
 
 Des têtes de note spéciales peuvent servir à indiquer les notes
-étouffées et les sons harmoniques.  Les sons harmoniques sont souvent
+étouffées et les sons harmoniques. Les sons harmoniques sont souvent
 détaillés grâce à des indications textuelles.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -2076,17 +2092,23 @@ détaillés grâce à des indications textuelles.
 @end lilypond
 
 Les notes étouffées, ou @notation{notes fantômes}, se rencontrent aussi
-bien sur une portée normale que dans une tablature :
+bien sur une portée normale que dans une tablature. Dans l'exemple
+suivant, ces notes sont affichées à leur hauteur dans une portée
+normale, avec indication du fret étouffé. Une alternative consiste à
+utiliser des cordes à vide. Ceci ne fait, en matière de tablature,
+aucune différence.
 
 @lilypond[quote,ragged-right,verbatim]
-music = \relative {
-  < a\3 \deadNote c\2 a'\1 >4
-  < b\3 \deadNote d\2 b'\1 >
-  < c\3 \deadNote e\2 c'\1 >
-  \deadNotesOn
-  \tuplet 3/2 { g8 b e }
-  \deadNotesOff
-  < a,\3 c\2 e\1 >1
+music = \relative c' {
+  \omit StringNumber
+
+  <a \deadNote cis a'>4
+    <b\3 \deadNote dis b'>
+    <c\3 \deadNote e\2 c'>
+    \deadNotesOn
+    \tuplet 3/2 { g8 b e }
+    \deadNotesOff
+  <a, c e>1
 }
 \new StaffGroup <<
   \new Staff {
@@ -2101,9 +2123,9 @@ music = \relative {
 
 Le @emph{palm mute}, appelé aussi parfois @emph{chop}, est une technique
 de jeu pour la guitare électrique ; elle est connue sous le nom de
-pizzicato par les joueurs de guitare classique.  Elle consiste à poser
-la main droite sur les cordes juste au-dessus du chevalet, de façon à
-étouffer plus ou moins légèrement les notes.  LilyPond permet d'indiquer
+pizzicato par les joueurs de guitare classique. Elle consiste à poser la
+main droite sur les cordes juste au-dessus du chevalet, de façon à
+étouffer plus ou moins légèrement les notes. LilyPond permet d'indiquer
 ce style de jeu en affectant un profil spécifique aux têtes de note.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -2142,9 +2164,9 @@ Morceaux choisis :
 
 Les @emph{power chords} -- terme anglais signifiant littéralement
 « accords de puissance » -- s'indiquent aussi bien en mode accord que
-dans une construction en accord.  La quinte est exceptionnellement
-indiquée dans le chiffrage de ces accords, contrairement aux
-accords habituels (parfaits ou non) :
+dans une construction en accord. La quinte est exceptionnellement
+indiquée dans le chiffrage de ces accords, contrairement aux accords
+habituels (parfaits ou non) :
 
 @lilypond[quote,ragged-right,verbatim]
 ChordsAndSymbols = {
@@ -2152,11 +2174,11 @@ ChordsAndSymbols = {
     e,,1:5
     a,,:5.8
     \set TabStaff.restrainOpenStrings = ##t
-    \set minimumFret = #8
+    \set minimumFret = 8
     c,:5
     f,:5.8
   }
-  \set minimumFret = #2
+  \set minimumFret = 2
   \set restrainOpenStrings = ##f
   <a, e> <a cis' e'>
   <g d' g'>
@@ -2205,7 +2227,7 @@ Morceaux choisis :
 @cindex tablature pour banjo
 
 LilyPond permet d'écrire des tablatures de base pour le banjo à cinq
-cordes.  Pour ce faire, pensez à utiliser le format de tablature pour
+cordes. Pour ce faire, pensez à utiliser le format de tablature pour
 banjo, afin d'avoir le bon nombre de cordes et le bon accordage :
 
 @c due to crazy intervals of banjo music, absolute pitch is recommended
@@ -2281,7 +2303,7 @@ LilyPond prend en charge les tablatures pour le luth.
 
 Les cordes supplémentaires s'ajoutent à l'aide de la commande
 @code{additionalBassStrings} qui permet de définir les hauteurs
-respectives de ces cordes.  Elles viendront s'imprimer ainsi au-dessous
+respectives de ces cordes. Elles viendront s'imprimer ainsi au-dessous
 de la ligne inférieure : a, /a, //a, ///a, 4, 5, etc.
 
 @code{fret-letter-tablature-format}, et probablement @code{fretLabels},

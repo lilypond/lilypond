@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+    Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -366,8 +366,8 @@ mus = \drummode { timh ssh timl ssl cb s16 }
     \remove Time_signature_engraver
     \hide Stem
     \override Stem.Y-extent = ##f
-    \override StaffSymbol.line-count = #2
-    \override StaffSymbol.staff-space = #2
+    \override StaffSymbol.line-count = 2
+    \override StaffSymbol.staff-space = 2
     \override VerticalAxisGroup.minimum-Y-extent = #'(-3.0 . 4.0)
     drumStyleTable = #timbales-style
   } \mus
@@ -390,10 +390,10 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
     \remove Bar_engraver
     \remove Time_signature_engraver
     drumStyleTable = #congas-style
-    \override StaffSymbol.line-count = #2
+    \override StaffSymbol.line-count = 2
 
     %% this sucks; it will lengthen stems.
-    \override StaffSymbol.staff-space = #2
+    \override StaffSymbol.staff-space = 2
     \hide Stem
     \override Stem.Y-extent = ##f
   } \mus
@@ -415,11 +415,11 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
   \new DrumStaff \with {
     \remove Bar_engraver
     \remove Time_signature_engraver
-    \override StaffSymbol.line-count = #2
+    \override StaffSymbol.line-count = 2
     drumStyleTable = #bongos-style
 
     %% this sucks; it will lengthen stems.
-    \override StaffSymbol.staff-space = #2
+    \override StaffSymbol.staff-space = 2
     \hide Stem
     \override Stem.Y-extent = ##f
   } \mus
@@ -442,7 +442,7 @@ musI = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
   \new DrumStaff \with{
     \remove Bar_engraver
     drumStyleTable = #percussion-style
-    \override StaffSymbol.line-count = #1
+    \override StaffSymbol.line-count = 1
     \remove Time_signature_engraver
     \hide Stem
     \override Stem.Y-extent = ##f
@@ -460,7 +460,7 @@ musII = \drummode { cb4 cl tamb cab mar hc s16 }
   \new DrumStaff \with{
     \remove Bar_engraver
     drumStyleTable = #percussion-style
-    \override StaffSymbol.line-count = #1
+    \override StaffSymbol.line-count = 1
     \remove Time_signature_engraver
     \hide Stem
     \override Stem.Y-extent = ##f
@@ -600,7 +600,7 @@ test = \drummode { dba4 do ds dbm dom dsm }
 
 \score {
   \new DrumStaff \with {
-    \override StaffSymbol.line-count = #3
+    \override StaffSymbol.line-count = 3
     instrumentName = "Djembé "
     drumStyleTable = #(alist->hash-table djembe-style)
     drumPitchTable = #(alist->hash-table midiDrumPitches)

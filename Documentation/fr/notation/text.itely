@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3123dcf12436526a8d8f4498e4f7d3661d156a57
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -343,10 +343,14 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 @funindex \textSpannerUp
 @funindex \textSpannerDown
 @funindex \textSpannerNeutral
+@funindex \startTextSpan
+@funindex \stopTextSpan
 
 @code{\textSpannerUp},
 @code{\textSpannerDown},
-@code{\textSpannerNeutral}.
+@code{\textSpannerNeutral},
+@code{\startTextSpan},
+@code{\stopTextSpan}.
 @endpredefined
 
 @snippets
@@ -560,7 +564,7 @@ Les indications textuelles peuvent se présenter en dessous de la portée.
   e'4 c' c'8 b c'4
   g4 c' c2~ c1
   \tweak direction #DOWN
-    \tweak font-size #-1
+    \tweak font-size -1
       \textEndMark "Composed on November 13th, 2020"
 }
 @end lilypond
@@ -1031,11 +1035,35 @@ fonte :
 @cindex caractère, taille
 @cindex texte, taille
 
+@funindex text-font-size
 @funindex \abs-fontsize
 @funindex \fontsize
 @funindex \smaller
 @funindex \larger
 @funindex \magnify
+
+La taille globale du texte apparaissaant dans les @emph{markups} peut se
+régler à l'aide de la variable de papier @code{text-font-size}. Ceci
+permet d'ajuster une fonte pricipale qui pourrait paraître plus grande
+ou plus petite bien qu'ayant la même taille nominale. La valeur est
+exprimée en points (sans mention de l'unité) : la valeur par défaut
+dépend de la taille de portée et résulte du calcul @code{(staff-height /
+20 * 11)}.
+
+@xref{Distances and measurements} pour de plus amples informations quant
+aux dimensions utilisé'es par LilyPond.
+
+@lilypond[quote,verbatim]
+\score {
+  { f'^"Default text size" }
+  \layout { text-font-size = 10 }
+}
+
+\score {
+  { f'^"Default text size" }
+  \layout { text-font-size = 20 }
+}
+@end lilypond
 
 La taille des caractères se modifie, relativement à la taille globale
 des portées, de différentes manières.
@@ -1115,10 +1143,10 @@ affectiez une taille normale :
 @cindex fonte, famille
 
 Le mode @emph{markup} vous permet de sélectionner d'autres familles de
-fontes.  Par défaut, LilyPond utilise une police avec empattement, du
-type roman, et tout changement doit être explicite.  Dans la dernière
-ligne de l'exemple qui suit, vous noterez qu'il n'y a aucune différence
-entre les premier et deuxième mots.
+fontes. Par défaut, LilyPond utilise une police avec empattement, et
+tout changement doit être explicite. Dans la dernière ligne de l'exemple
+qui suit, vous noterez qu'il n'y a aucune différence entre les premier
+et deuxième mots.
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1555,7 +1583,7 @@ graphiques à votre partition.
 @funindex \box
 @funindex \circle
 @funindex \rounded-box
-@c `@funindex \bracket' is auto-generated, too
+@c '@funindex \bracket' is auto-generated, too
 @funindex \bracket
 @funindex \hbracket
 
@@ -1860,8 +1888,7 @@ de partition.
 * Finding fonts::
 * Font families::
 * Font features::
-* Single entry fonts::
-* Entire document fonts::
+* Changing fonts::
 @end menu
 
 
@@ -1891,11 +1918,8 @@ L'instruction @code{#(ly:font-config-display-fonts)} permettra de
 vérifier que la fonte requise est bien détectée par FontConfig. Elle
 affiche en console la liste exhaustive des fontes du système ainsi que
 le nom exact qu'il faudra transmettre à LilyPond ; ce nom peut être
-différent du nom du fichier.
-
-Les fontes se sélectionnent selon les méthodes indiquées dans
-@ref{Single entry fonts} et
-@ref{Entire document fonts}.
+différent du nom du fichier. Par ailleurs, lancer @command{lilypond
+-dshow-available-fonts} dans un terminal produira le même effet.
 
 
 @node Font families
@@ -1904,10 +1928,10 @@ Les fontes se sélectionnent selon les méthodes indiquées dans
 
 Vous disposez de trois familles de fontes@footnote{Dans sa forme la plus
 simple, une @emph{famille de fonte} contient habituellement les styles
-de police romain, italique, gras et gras italique.} textuelles :
-@emph{roman} pour la police sérif ou avec empattement, une police sans
-empattement (@emph{sans} sérif) et une police à chasse fixe (monospace
-ou @emph{typewriter}). En fonction du moteur de rendu utilisé, ces familles
+de police romain, italique, gras et gras italique.} textuelles : une
+police avec empattement (@emph{sérif}), une police sans empattement
+(@emph{sans} sérif) et une police à chasse fixe (monospace ou
+@emph{typewriter}). En fonction du moteur de rendu utilisé, ces familles
 seront mappées selon des alias différents.
 
 Pour le moteur @code{svg} :
@@ -1915,7 +1939,7 @@ Pour le moteur @code{svg} :
 @indentedblock
 @multitable {@b{Famille générique}} {@b{ Famille de fonte SVG}}
 @headitem Famille générique @tab Famille de fonte SVG
-@item @emph{roman} @tab serif
+@item @emph{serif} @tab serif
 @item @emph{sans} @tab sans-serif
 @item @emph{typewriter} @tab monospace
 @end multitable
@@ -1932,7 +1956,7 @@ Pour les autres moteurs :
 @headitem Famille générique
           @tab Fonte par défaut (alias)
                      @tab Listes de définition des alias
-@item @emph{roman}
+@item @emph{serif}
 @tab LilyPond Serif
 @tab C059,
      Century SchoolBook URW,
@@ -2001,7 +2025,7 @@ défaut.
 \override Voice.TextScript.font-shape = #'italic
 \override Voice.TextScript.font-series = #'bold
 d''2.^\markup "Allegro"
-\override Voice.TextScript.font-size = #-3
+\override Voice.TextScript.font-size = -3
 c''4^smaller
 @end lilypond
 
@@ -2045,30 +2069,30 @@ bonnement ignorée. Les exemples ci-dessous utilisent « TeX Gyre
 Schola », autrement dit le style romain de la famille.
 
 @lilypond[quote,verbatim]
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          Style normal : Hello HELLO }
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \caps { Petites capitales : Hello } }
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \override #'(font-features . ("smcp"))
-          { Vraies petites capitales : Hello } }
+\paper {
+  property-defaults.fonts.serif = "TeX Gyre Schola"
+}
 
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          Style numérique normal : 0123456789 }
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \override #'(font-features . ("onum"))
-          { Style numérique ancien : 0123456789 } }
+\markup "Style normal : Hello HELLO"
 
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \override #'(font-features . ("salt 0"))
-          { Alternative stylistique 0 : εφπρθ } }
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \override #'(font-features . ("salt 1"))
-          { Alternative stylistique 1 : εφπρθ } }
+\markup \caps "Petites capitales : Hello"
 
-\markup { \override #'(font-name . "TeX Gyre Schola")
-          \override #'(font-features . ("onum" "smcp" "salt 1"))
-          { Fonctionnalités multiples : Hello 0123456789 εφπρθ } }
+\markup \override #'(font-features . ("smcp"))
+  "Vraies petites capitales : Hello"
+
+\markup "Style numérique normal : 0123456789"
+
+\markup \override #'(font-features . ("onum"))
+  "Style numérique ancien : 0123456789"
+
+\markup \override #'(font-features . ("salt 0"))
+  "Alternative stylistique 0 : εφπρθ"
+
+\markup \override #'(font-features . ("salt 1"))
+  "Alternative stylistique 1 : εφπρθ"
+
+\markup \override #'(font-features . ("onum" "smcp" "salt 1"))
+  "Fonctionnalités multiples : Hello 0123456789 εφπρθ"
 @end lilypond
 
 Une liste exhaustive des fonctionnalités des fontes OpenType est
@@ -2077,12 +2101,6 @@ disponible à l'adresse
 les différents types de fonctionnalités des fontes OpenType
 sont recensés dans le message
 @uref{https://lists.gnu.org/archive/html/lilypond-devel/2017-08/msg00004.html}.
-
-En plus de pouvoir jongler entre les différentes fontes prédéfinies,
-LilyPond vous permet d'en utiliser d'autres, ce qui fait l'objet des
-deux prochaines parties :
-@ref{Single entry fonts}
-et @ref{Entire document fonts}.
 
 @morerefs
 Manuel de notation :
@@ -2094,139 +2112,12 @@ Manuel de notation :
 @endmorerefs
 
 
-@node Single entry fonts
-@unnumberedsubsubsec Attribution d'une fonte en particulier
-
-La plupart des fontes installées sur le système et reconnues par
-FontConfig peuvent s'utiliser dans une partition, à l'exception des
-polices bitmap -- qui ne sont pas supportées de par leur conception --
-et les OpenType Variation Fonts (non prises en charge à ce jour).
-
-LilyPond appelle la fonction @code{pango_font_description_from_string}
-de la bibliothèque Pango pour accéder aux fontes ; elle utilise la forme
-syntaxique suivante pour le nom des fontes.@footnote{La donnée est issue
-des références de la version 1.46.1 de Pango ; la syntaxe prise en
-charge par LilyPond est en fait un sous-ensemble de ce que Pango
-procure.}
-
-@example
-[@var{family-list}] [@var{style-options}]
-@end example
-
-@noindent
-où @var{family-list} est une liste, dont le séparateur est la virgule, des
-familles éventuellement terminée par une virgule, et @var{style-options}
-une liste, dont le séparateur est l'espace, de mots dont chacun désigne
-un style, une variante, une graisse, une chasse, ou une orientation.
-
-Les termes suivants sont considérés comme des styles : @code{Normal}
-(par défaut), @code{Roman}, @code{Oblique}, @code{Italic}.
-
-Les termes suivants sont considérés comme des variantes :
-@code{Small-Caps}.  Il n'y a pas de variante par défaut.
-
-Les termes suivants sont considérés comme des graisses : @code{Thin},
-@code{Ultra-Light}, @code{Extra-Light}, @code{Light}, @code{Semi-Light},
-@code{Demi-Light}, @code{Book}, @code{Regular} (the default),
-@code{Medium}, @code{Semi-Bold}, @code{Demi-Bold}, @code{Bold},
-@code{Ultra-Bold}, @code{Extra-Bold}, @code{Heavy}, @code{Black},
-@code{Ultra-Black}, @code{Extra-Black}.
-
-Les termes suivants sont considérés comme des valeurs de chasse :
-@code{Ultra-Condensed}, @code{Extra-Condensed}, @code{Condensed},
-@code{Semi-Condensed}, @code{Semi-Expanded}, @code{Expanded},
-@code{Extra-Expanded}, @code{Ultra-Expanded}. Il n'y a pas d'étirement
-par défaut.
-
-Les termes suivants sont considérés comme des valeurs d'orientation :
-@code{Not-Rotated}, @code{South}, @code{Upside-Down}, @code{North},
-@code{Rotated-Left}, @code{East}, @code{Rotated-Right}, @code{West}. Il
-n'y a pas d'orientation par défaut.
-
-Partant du principe que la syntaxe est correcte, déterminer le nom d'une
-police n'échoue jamais. Si aucune famille de fonte n'est reconnue (ou
-aucune famille n'a été donnée), FontConfig renvoie une fonte par défaut
-dépendant du système. Si aucune option de style n'est reconnue (ou
-aucune option de style n'a été spécifiée), seront utilisées les valeurs
-par défaut.
-
-Dans l'exemple qui suit, la fonte de la métrique est déterminée à
-« Bitstream Charter ». Dans la mesure où aucun style n'est spécifié,
-FontConfig utilisera les valeurs par défaut comme vu ci-dessus. Pour la
-chaîne de @emph{markup} sont demandées les familles « Bitstream Vera
-Sans » et « sans-serif », ce qui indique à FontConfig de rechercher en
-premier « Bitstream Vera Sans » et, si elle n'est pas disponible, de se
-reporter sur une famille « sans-serif » générique comme indiqué dans
-@ref{Font families}. Le style du @emph{markup} est défini à
-« Oblique Bold » ; FontConfig tentera donc de trouver une fonte qui soit
-à la fois penchée et grasse. Si elle échoue, elle tentera de trouver
-soit une fonte penchée, soit une fonte grasse. Si elle échoue à nouveau,
-elle essaiera une fonte répondant aux options de style par défaut.
-
-Notez bien que FontConfig vérifie aussi la présence du glyphe
-requis dans la fonte demandée. Dans le cas où il y serait absent,
-sera essayée une autre fonte, toujours selon le même algorithme,
-jusqu'à ce qu'elle trouve le glyphe en question. Dans
-l'éventualité où FontConfig ne trouve nulle part le glyphe
-approprié, sera affiché un symbole de glyphe absent --
-habituellement un rectangle ou un simple espace blanc.
-
-@lilypond[quote,verbatim,fragment]
-\override Staff.TimeSignature.font-name = "Bitstream Charter"
-\override Staff.TimeSignature.font-size = #2
-\time 3/4
-
-a'1_\markup {
-  \override #'(font-name .
-               "Bitstream Vera Sans,sans-serif, Oblique Bold")
-    { Vera Oblique Bold }
-}
-@end lilypond
-
-@warning{Dès lors que l'une des options stylistiques mentionnées
-ci-dessus fait partie du nom de la (famille) fonte, il est @b{impératif}
-de faire suivre ce nom d'une virgule même si aucun style n'est défini.
-L'exemple typique est « Times New Roman » : spécifier @code{"Times New
-Roman"} fera rechercher à FontConfig une police « Times New » de style
-roman, et c'est seulement si est libellé @code{"Times New Roman,"} que
-cette police sera réellement accédée.}
-
-@cindex fontes disponibles
-@cindex disponibilité des fontes
-@funindex show-available-fonts
-
-Lancer @command{lilypond} en ligne de commande avec l'option suivante,
-affiche la liste de toutes les polices disponibles sur votre machine :
-
-@example
-lilypond -dshow-available-fonts
-@end example
-@noindent
-
-@morerefs
-Manuel de notation :
-@ref{Entire document fonts},
-@ref{Finding fonts},
-@ref{Font families}.
-
-Morceaux choisis :
-@rlsrnamed{Text,Texte}.
-
-@c A source file gets never installed...
-@c Fichiers d'initialisation :
-@c @file{lily/font-config-scheme.cc}.
-@endmorerefs
 
 
-@node Entire document fonts
-@unnumberedsubsubsec Choix des fontes par défaut
+@node Changing fonts
+@unnumberedsubsubsec Choix des fontes
 
 On peut tout à fait modifier le jeu de polices par défaut de LilyPond.
-Tout comme indiqué dans @ref{Single entry fonts}, il
-peut s'agir d'une liste de polices séparées par une virgule, à ceci près
-qu'il n'est pas possible de spécifier de style.@footnote{Ce qui a pour
-conséquence que, contrairement au cas d'une fonte particulière, aucune
-virgule terminale n'est nécessaire.}
 
 @cindex polices, choix par défaut
 @cindex fontes, choix par défaut
@@ -2235,24 +2126,48 @@ virgule terminale n'est nécessaire.}
 @lilypond[verbatim,quote]
 \paper  {
   property-defaults.fonts.serif = "Linux Libertine O"
-  property-defaults.fonts.sans = "Nimbus Sans, Nimbus Sans L"
+  property-defaults.fonts.sans = "DejaVu Sans"
   property-defaults.fonts.typewriter = "DejaVu Sans Mono"
 }
 
 \relative c'{
   c1-\markup {
-    roman,
+    serif,
     \sans sans,
     \typewriter typewriter. }
 }
 @end lilypond
 
 Il est aussi posible de substituer les fontes musicales à l'aide de la
-même syntaxe -- voir @ref{Replacing the notation font}.
+même syntaxe -- @pxref{Replacing the notation font}.
+
+Il est possible de changer de fonte pour un objet particulier ou une
+partie d'un @emph{markup} à l'aide d'une dérogation à la propriété
+@code{fonts}. Dans l'exemple suivant, la police des « têtes de note »
+normales de la tablature est changée -- c'est normalement une famille
+@code{serif}-- alors que celles dessinées en forme de croix conservent
+la police par défaut (de la famille @code{music}).
+
+@lilypond[verbatim,quote]
+\layout {
+  \override TabVoice.TabNoteHead.fonts.serif = "Linux Libertine O"
+}
+
+\new TabStaff { c' d' e' \deadNote c' }
+@end lilypond
+
+Et voici comment opérer sur cette propriété @code{fonts} dans le cadre
+d'un @emph{markup} :
+
+@lilypond[verbatim,quote]
+\markup \override #'(fonts . ((serif . "Linux Libertine O")
+                              (typewriter . "DejaVu Sans Mono"))) {
+  Copyright © John Doe \typewriter john@doe.org
+}
+@end lilypond
 
 @morerefs
 Manuel de notation :
-@ref{Single entry fonts},
 @ref{Font markup,Fonte},
 @ref{Replacing the notation font},
 @ref{Font families},

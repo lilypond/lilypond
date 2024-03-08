@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -156,7 +156,7 @@ Manuel de notation :
 @funindex \harmonic
 
 @noindent
-@strong{Harmoniques naturels}
+@subsubsubheading Harmoniques naturels
 
 @cindex harmonique naturel
 @cindex naturel, harmonique
@@ -190,7 +190,7 @@ d''2^\flageolet d''_\flageolet
 @end lilypond
 
 @noindent
-@strong{Harmoniques artificiels}
+@subsubsubheading Harmoniques artificiels
 
 @cindex harmoniques artificiels
 @cindex artificiels, harmoniques
@@ -218,6 +218,17 @@ Manuel de notation :
 @ref{References for unfretted strings},
 @ref{Special note heads}.
 @endmorerefs
+
+@knownissues
+Une harmonique sera centrée sur une ronde dès lors qu'est adoptée une
+construction d'accord.
+
+@lilypond[verbatim,quote]
+{
+  << { d''1\harmonic } \\ { a'1 } >>
+  <a' d''\harmonic>1
+}
+@end lilypond
 
 
 @node Snap (Bartok) pizzicato

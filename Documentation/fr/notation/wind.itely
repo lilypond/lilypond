@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -289,7 +289,7 @@ Nous allons ici nous intéresser aux spécificités de la section des bois.
 
 
 @node Woodwind diagrams
-@subsubsection Diagrammes pour bois
+@unnumberedsubsubsec Diagrammes pour bois
 
 Les doigtés pour obtenir une note particulière peuvent s'afficher sous
 forme graphique.  LilyPond dispose de diagrammes pour la plupart des
@@ -320,60 +320,40 @@ Les clés ou trous peuvent être partiellement enfoncés ou bouchés, et il
 est possible de spécifier l'angle de bouchage :
 
 @c KEEP LY
-@lilypond[verbatim, quote, fragment]
-\textLengthOn
-c''1^\markup {
-  \center-column {
-   "quart de trou"
-   \woodwind-diagram #'flute #'((cc . (one1q))
-                                (lh . ())
-                                (rh . ()))
+@lilypond[verbatim, quote]
+\markup \override #'(baseline-skip . 22) \column {
+  \override #'(baseline-skip . 2.5) \fill-line {
+    ""
+    \raise #1.2 \center-column { "quart de" "trou" }
+    \raise #1.2 \center-column { "demi" "trou" }
+    \raise #1.2 \center-column { "trois quarts" "de trou" }
+    "anneau"
+    "bouché"
+    \raise #1.2 \center-column { "semi bouché," "vertical" }
+    ""
   }
-}
-
-c''1^\markup {
-  \center-column {
-   "demi-trou"
-   \woodwind-diagram #'flute #'((cc . (one1h))
-                                (lh . ())
-                                (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-   "trois quarts de trou"
-   \woodwind-diagram #'flute #'((cc . (one3q))
-                                (lh . ())
-                                (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-   "anneau"
-   \woodwind-diagram #'flute #'((cc . (oneR))
-                                (lh . ())
-                                (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-   "bouché"
-   \woodwind-diagram #'flute #'((cc . (oneF two))
-                                (lh . ())
-                                (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "semi-bouché, vertical"
+  \fill-line {
+    ""
+    \woodwind-diagram #'flute #'((cc . (one1q))
+                                 (lh . ())
+                                 (rh . ()))
+    \woodwind-diagram #'flute #'((cc . (one1h))
+                                 (lh . ())
+                                 (rh . ()))
+    \woodwind-diagram #'flute #'((cc . (one3q))
+                                 (lh . ())
+                                 (rh . ()))
+    \woodwind-diagram #'flute #'((cc . (oneR))
+                                 (lh . ())
+                                 (rh . ()))
+    \woodwind-diagram #'flute #'((cc . (oneF two))
+                                 (lh . ())
+                                 (rh . ()))
     \override #'(woodwind-diagram-details . ((fill-angle . 90)))
     \woodwind-diagram #'flute #'((cc . (one1h))
                                  (lh . ())
                                  (rh . ()))
+    ""
   }
 }
 @end lilypond
@@ -382,30 +362,40 @@ L'indication du doigté permettant de triller s'obtient en grisant une
 position ou, de manière non graphique, par un texte encerclé (par
 défaut) ou grisé :
 
-@lilypond[verbatim,quote,fragment]
-\textLengthOn
-c''1^\markup {
-  \woodwind-diagram #'bass-clarinet
-                    #'((cc . (threeT four))
-                       (lh . ())
-                       (rh . (b fis)))
-}
-
-c''1^\markup {
-  \override #'(graphical . #f)
-  \woodwind-diagram #'bass-clarinet
-                    #'((cc . (threeT four))
-                       (lh . ())
-                       (rh . (b fisT)))
-}
-
-c''1^\markup {
-  \override #'(graphical . #f)
-  \override #'(woodwind-diagram-details . ((text-trill-circled . #f)))
-  \woodwind-diagram #'bass-clarinet
-                    #'((cc . (threeT four))
-                       (lh . ())
-                       (rh . (b fisT)))
+@c KEEP LY
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(baseline-skip . 20)
+  \override #'(line-width . 50)
+  \column {
+    \fill-line {
+      ""
+      "standard"
+      "encerclé"
+      "grisé"
+      ""
+    }
+    \fill-line {
+      ""
+      \woodwind-diagram #'bass-clarinet
+                        #'((cc . (threeT four))
+                           (lh . ())
+                           (rh . (b fis)))
+      \override #'(graphical . #f)
+      \woodwind-diagram #'bass-clarinet
+                        #'((cc . (threeT four))
+                           (lh . ())
+                           (rh . (b fisT)))
+      \override #'(graphical . #f)
+      \override #'(woodwind-diagram-details
+                   . ((text-trill-circled . #f)))
+      \woodwind-diagram #'bass-clarinet
+                        #'((cc . (threeT four))
+                           (lh . ())
+                           (rh . (b fisT)))
+      ""
+    }
+  }
 }
 @end lilypond
 
@@ -413,50 +403,38 @@ Certaines combinaisons particulières en matière de trille sont
 possibles :
 
 @c KEEP LY
-@lilypond[verbatim,quote,fragment]
-\textLengthOn
-c''1^\markup {
-  \center-column {
-   "quart de trou et anneau"
-   \woodwind-diagram #'flute #'((cc . (one1qTR))
-                                (lh . ())
-                                (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-   "anneau et fermé"
-   \woodwind-diagram #'flute #'((cc . (oneTR))
-                                (lh . ())
-                                (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-   "anneau et ouvert"
-   \woodwind-diagram #'flute #'((cc . (oneRT))
-                                (lh . ())
-                                (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-   "ouvert et fermé"
-   \woodwind-diagram #'flute #'((cc . (oneT))
-                                (lh . ())
-                                (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-   "quart de trou et trois quarts"
-   \woodwind-diagram #'flute #'((cc . (one1qT3q))
-                                (lh . ())
-                                (rh . ()))
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(baseline-skip . 22)
+  \column {
+    \override #'(baseline-skip . 2.5) \fill-line {
+      ""
+      \center-column { "quart de trou" "et anneau" }
+      \center-column { "anneau" "et bouché" }
+      \center-column { "anneau" "et ouvert" }
+      \center-column { "ouvert" "et bouché" }
+      \center-column { "quart de trou" "et trois quarts" }
+      ""
+    }
+    \fill-line {
+      ""
+      \woodwind-diagram #'flute #'((cc . (one1qTR))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (oneTR))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (oneRT))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (oneT))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (one1qT3q))
+                                   (lh . ())
+                                   (rh . ()))
+      ""
+    }
   }
 }
 @end lilypond
