@@ -1,9 +1,9 @@
-%% Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
   texidocfr = "
 Pour appréhender la notation, nous l'avons disséquée en éléments
 simples : chaque type de symbole est géré par un module différent.
-Chaque module est appelé « graveur ». Dans cet exemple, chaque graveur
-est appelé à son tour, dans l'ordre suivant :
+Chaque module est appelé « graveur ». Dans cet exemple, quelques
+graveurs sont appelé chacun à son tour, dans l'ordre suivant :
 
 @itemize
 @item têtes de note,

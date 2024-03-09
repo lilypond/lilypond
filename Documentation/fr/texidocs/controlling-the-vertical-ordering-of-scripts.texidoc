@@ -1,4 +1,4 @@
-%% Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
   texidocfr = "
 Les symboles s'ordonnent verticalement suivant la propriété
 @code{script-priority}. Plus sa valeur numérique est faible, plus le
@@ -9,6 +9,21 @@ se voit donc placé au plus près de la note ; ensuite, c'est l'objet
 place alors sous le dièse. Lorsque deux objets ont la même priorité,
 c'est l'ordre dans lequel ils sont indiqués qui détermine lequel sera
 placé en premier.
+
+Il est à noter que pour les objets @code{Fingering}, @code{StringNumber}
+et @code{StrokeFinger}, lorsqu'ils apparaissent dans un accord, leur
+ordonnancement vertical est aussi déterminé par le positionnement
+vertical de leur tête de note d'attachement qui sera ajoutée (ou
+soustraite selon la direction) de la valeur de @code{script-priority} du
+@emph{grob}. Ceci permet de s'assurer que, pour des doigtés au-dessous
+d'un accord, la note la plus basse soit associée au doigté le plus bas,
+et inversement. L'ordre dans lequel les hauteurs sont saisies dans
+l'accord est ici sans importance.
+
+Par défaut, les scripts les moins techniques sont inscrits au plus près
+de la tête de note. L'ordrre de base est articulation, flageolet,
+doigté, doigté main droite, numéro de corde, point d'orgue, archet et
+script textuel.
 "
 
   doctitlefr = "Contrôle de l'ordre vertical des articulations et ornements"

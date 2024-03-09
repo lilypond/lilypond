@@ -1,24 +1,28 @@
-%% Translation of GIT committish: 91cd60cce0314b04b46dbc8b8f67fa7c0c35f042
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
   texidocfr = "
-Les ligatures d'une succession de notes de durée inférieure à la croche
-ne sont pas subdivisées par défaut. Autrement dit, tous les traits de
-ligature (deux ou plus) seront continus. Ce comportement peut être
-modifié afin de diviser la ligature en sous-groupes grâce à la propriété
-@code{subdivideBeams}. Lorsqu'elle est activée, les ligatures seront
-subdivisées selon un intervalle défini par @code{baseMoment} ; il n'y
-aura alors plus que le nombre de traits de ligature déterminé entre
-chaque sous-groupe. Si le groupe qui suit la division est plus court que
-la valeur pour la métrique en cours -- généralement lorsque la ligature
-est incomplète --, le nombre de traits de ligature correspond au
-regroupement de la bubdivision la plus longue. Cette restriction ne sera
-toutefois pas appliquée dans le cas où ne reste qu'une note après la
-division. Par défaut, @code{baseMoment} fixe la valeur de référence par
-rapport à la métrique en vigueur. Il faudra donc lui fournir, à l'aide
-de la fonction @code{ly:make-moment}, une fraction correspondant à la
-durée du sous-groupe désiré comme dans l'exemple ci-dessous. Gardez à
-l'esprit que, si vous venez à modifier @code{baseMoment}, vous devrez
-probablement adapter @code{beatStrusture} afin qu'il reste en adéquation
-avec les nouvelles valeurs de @code{baseMoment}.
+Les ligatures d'une succession de notes de durée inférieure à la double
+croche ne sont pas subdivisées par défaut. Autrement dit, tous les
+traits de ligature (deux ou plus) seront continus. Ce comportement peut
+être modifié afin de diviser la ligature en sous-groupes grâce à la
+propriété @code{subdivideBeams}. Lorsqu'elle est activée, un certain
+nombre de traits de ligature entre deux hampes est supprimé à des
+intervalles correspondant à la durée de sous-groupe souhaitée.
+
+Les propriétés @code{minimumBeamSubdivisionInterval} et
+@code{maximumBeamSubdivisionInterval} permettent de configurer les
+limites de la subdivision automatique des ligatures : l'intervalle
+rythmique minimum auquel subdiviser et le nombre de tronçons supprimés
+selon cet intervalle. Lorsque le nombre fourni à
+@code{maximumBeamSubdivisionInterval} n'est pas une puissance de 2, la
+plus petite durée pour subdiviser sera de
+@code{maximumBeamSubdivisionInterval} divisé par une puissance de 2 tout
+en restant supérieur ou égal à @code{minimumBeamSubdivisionInterval}.
+
+Lorsque la propriété @code{respectIncompletBeams} est activée, la
+profondeur de la subdivision (le nombre de traits de ligature)
+correspond à la durée la plus longue de sous-groupe possible à partir de
+la hampe considérée. Les deux dernières hampes de la ligature sont
+toutefois exclues de cette règle.
 "
 
   doctitlefr = "Subdivision des ligatures"

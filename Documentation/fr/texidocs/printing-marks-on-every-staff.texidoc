@@ -1,8 +1,9 @@
-%% Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
   texidocfr = "
-Bien que ces indications textuelles ne soient habituellement imprimées
-qu'au niveau de la portée supérieure d'un système, leur affectation peut
-être répercutée à chacune des portées.
+Bien que ces indications textuelles et repères ne soient
+habituellement imprimées qu'au niveau de la portée supérieure d'un
+système, leur affectation peut être répercutée à chacune des
+portées.
 "
 
   doctitlefr = "Impression des indications sur toutes les portées d'un système"

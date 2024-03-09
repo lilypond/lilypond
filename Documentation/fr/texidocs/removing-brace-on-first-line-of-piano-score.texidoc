@@ -1,7 +1,7 @@
-%% Translation of GIT committish: d371b0a876e9053968a9fad8f4f14de65e7497e4
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
   texidocfr = "
 Dans cet extrait est supprimée la première accolade d'un
-@code{PianoStaff} ou d'un @code{GrandStaff}.
+@code{PianoStaff} ou d'un @code{GrandStaff}, ainsi que les clefs.
 
 Ceci peut s'avérer utile pour couper et coller l'image générée dans de
 la musique préexistante.
