@@ -365,8 +365,9 @@ is not used within the routine."
          ;; extent will likely cross the center of the staff, and in a
          ;; call to create a span bar line, it likely will not.
          (making-span-bar? (not (interval-contains? extent 0)))
-         (top-pos (round (* (interval-end extent) 2)))
-         (bottom-pos (round (* (interval-start extent) 2)))
+         (staff-space (ly:staff-symbol-staff-space grob))
+         (top-pos (round (* (/ (interval-end extent) staff-space) 2)))
+         (bottom-pos (round (* (/ (interval-start extent) staff-space) 2)))
          (dots-pos '())
          (dot (ly:font-get-glyph (ly:grob-default-font grob) "dots.dot")))
 
@@ -391,74 +392,76 @@ is not used within the routine."
 
           (set! dots-pos (calc-dot-positions (cons bottom-pos top-pos)))))
 
-    (if (not making-span-bar?)
-        (begin
-          ;; Narrow the extent by half a dot on each end; if the
-          ;; center of a dot is within the reduced interval, then the
-          ;; whole dot is within the original interval.
-          (let ((extent-less-dot
-                 (interval-widen
-                  extent
-                  (/ (interval-length (ly:stencil-extent dot Y)) -2))))
+    (when (not making-span-bar?)
+      ;; Narrow the extent by half a dot on each end; if the
+      ;; center of a dot is within the reduced interval, then the
+      ;; whole dot is within the original interval.
+      ;; If `layout-set-staff-size` is used, the thickness of staff lines change,
+      ;; take it into account. `blot-diamter` as well
+      (let* ((extent-less-dot
+              (interval-widen
+               extent
+               (/ (interval-length (ly:stencil-extent dot Y)) -2)))
+             (staff-line-thick (ly:staff-symbol-line-thickness grob))
+             (bar-thick (ly:grob-property grob 'thick-thickness))
+             (blot (bar-line::calc-blot bar-thick extent grob)))
 
-            ;; If a dot is out of bounds due to rounding, bring it in.
-            (if (> top-pos (* 2 (interval-end extent-less-dot)))
-                (set! top-pos (- top-pos 1)))
-            (if (< bottom-pos (* 2 (interval-start extent-less-dot)))
-                (set! bottom-pos (1+ bottom-pos))))
+        ;; If a dot is out of bounds due to rounding, bring it in.
+        (when (> (+ top-pos staff-line-thick blot)
+                 (/ (interval-end extent-less-dot) staff-space))
+            (set! top-pos (1- top-pos)))
+        (when (< (- bottom-pos staff-line-thick blot)
+                 (/ (interval-start extent-less-dot) staff-space))
+            (set! bottom-pos (1+ bottom-pos))))
 
-          ;; The dots will be separated by one staff space center to
-          ;; center, so they will be placed all in even or all in odd
-          ;; positions.  Choose the alternative with more dots not
-          ;; colliding with staff lines.
-          (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
-                 (lines-pos (if (ly:grob? staff-symbol)
-                                (ly:grob-property staff-symbol 'line-positions)
-                                '()))
-                 (even-interval (cons
-                                 (if (even? bottom-pos)
-                                     bottom-pos
-                                     (1+ bottom-pos))
-                                 (if (even? top-pos)
-                                     top-pos
-                                     (- top-pos 1))))
-                 (even-dots-pos (calc-dot-positions even-interval))
-                 (even-score (length (lset-difference
-                                      = even-dots-pos lines-pos)))
-                 (odd-interval (cons
-                                (if (odd? bottom-pos)
-                                    bottom-pos
-                                    (1+ bottom-pos))
-                                (if (odd? top-pos)
-                                    top-pos
-                                    (- top-pos 1))))
-                 (odd-dots-pos (calc-dot-positions odd-interval))
-                 (odd-score (length (lset-difference
-                                     = odd-dots-pos lines-pos))))
-            ;; choose the even or the odd configuration
-            (if (= even-score odd-score)
-                ;; break ties by choosing more dots
-                (if (> (length odd-dots-pos) (length even-dots-pos))
-                    (set! dots-pos odd-dots-pos)
-                    (set! dots-pos even-dots-pos))
-                ;; usually, take the config with more dots in spaces
-                (if (> odd-score even-score)
-                    (set! dots-pos odd-dots-pos)
-                    (set! dots-pos even-dots-pos))))))
+      ;; The dots will be separated by one staff space center to
+      ;; center, so they will be placed all in even or all in odd
+      ;; positions.  Choose the alternative with more dots not
+      ;; colliding with staff lines.
+      (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
+             (lines-pos (if (ly:grob? staff-symbol)
+                            (ly:grob-property staff-symbol 'line-positions)
+                            '()))
+             (even-interval (cons
+                             (if (even? bottom-pos)
+                                 bottom-pos
+                                 (1+ bottom-pos))
+                             (if (even? top-pos)
+                                 top-pos
+                                 (1- top-pos))))
+             (even-dots-pos (calc-dot-positions even-interval))
+             (even-score (length (lset-difference
+                                  = even-dots-pos lines-pos)))
+             (odd-interval (cons
+                            (if (odd? bottom-pos)
+                                bottom-pos
+                                (1+ bottom-pos))
+                            (if (odd? top-pos)
+                                top-pos
+                                (1- top-pos))))
+             (odd-dots-pos (calc-dot-positions odd-interval))
+             (odd-score (length (lset-difference
+                                 = odd-dots-pos lines-pos))))
 
-    (let* ((stil-list (map
-                       (lambda (pos)
-                         (ly:stencil-translate-axis dot (/ pos 2) Y))
-                       dots-pos)))
+        ;; choose the even or the odd configuration
+        (if (= even-score odd-score)
+            ;; break ties by choosing more dots
+            (if (> (length odd-dots-pos) (length even-dots-pos))
+                (set! dots-pos odd-dots-pos)
+                (set! dots-pos even-dots-pos))
+            ;; usually, take the config with more dots in spaces
+            (if (> odd-score even-score)
+                (set! dots-pos odd-dots-pos)
+                (set! dots-pos even-dots-pos)))))
 
-      (define (add-stencils! stil l)
-        (if (null? l)
-            stil
-            (if (null? (cdr l))
-                (ly:stencil-add stil (car l))
-                (add-stencils! (ly:stencil-add stil (car l)) (cdr l)))))
+    (apply
+      ly:stencil-add
+      empty-stencil
+      (map
+        (lambda (pos)
+          (ly:stencil-translate-axis dot (/ (* staff-space pos) 2) Y))
+        dots-pos))))
 
-      (add-stencils! empty-stencil stil-list))))
 
 (define (make-dashed-bar-line grob extent)
   "Draw a dashed bar line."
@@ -953,7 +956,6 @@ no elements."
     (if (string? span-glyph)
         (let ((span-glyph-list (string->string-list span-glyph))
               (is-first-stencil #t))
-
           (for-each (lambda (bar span)
                       ;; the stencil stack routine is similar to the one
                       ;; used in bar-line::compound-bar-line, but here,
@@ -1009,6 +1011,7 @@ no elements."
         (model-bar (ly:span-bar::choose-model-bar-line grob))
         ;; note: choose-model-bar-line might have killed the span bar
         (bar-glyph (ly:grob-property grob 'glyph-name)))
+
     (when (string? bar-glyph)
       (let* ((elts-array (ly:grob-object grob 'elements))
              (refp (ly:grob-common-refpoint-of-array grob elts-array Y))
