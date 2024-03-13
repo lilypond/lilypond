@@ -24,7 +24,7 @@ Acceptance_set::accept (SCM item)
 {
   // Ignore \accept C when C is already the default child.  It seems perfectly
   // sane for a user to express both, but it should have no practical effect.
-  if (!scm_is_eq (item, default_))
+  if (!scm_is_true (scm_equal_p (item, default_)))
     {
       // We do not bother deduplicating \accepts.  It would most often be a
       // waste of time because it is not likely that a user would \accept a
@@ -57,6 +57,6 @@ void
 Acceptance_set::deny (SCM item)
 {
   accepted_ = scm_delete_x (item, accepted_);
-  if (scm_is_eq (item, default_))
+  if (scm_is_true (scm_equal_p (item, default_)))
     default_ = SCM_EOL;
 }
