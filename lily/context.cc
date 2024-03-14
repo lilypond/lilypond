@@ -101,7 +101,7 @@ Context::Context (Context_def *cdef, SCM ops)
   definition_ = cdef->self_scm ();
   definition_mods_ = ops;
   aliases_ = cdef->get_context_aliases ();
-  acceptance_.assign_copy (cdef->get_acceptance ());
+  acceptance_ = shallow_copy (cdef->get_acceptance ());
   // TODO: Set this with "\adopts ##t" in the ly code.
   SCM type_sym = cdef->get_translator_group_type ();
   adopts_ = (scm_is_eq (type_sym, ly_symbol2scm ("Score_engraver"))

@@ -28,24 +28,29 @@
 struct Acceptance_set
 {
 private:
-  SCM accepted_;
-  SCM default_;
+  SCM accepted_ = SCM_EOL;
+  SCM default_ = SCM_EOL;
 
-public:
-  Acceptance_set ()
-    : accepted_ (SCM_EOL),
-      default_ (SCM_EOL)
+private:
+  Acceptance_set (SCM accepted, SCM dflt)
+    : accepted_ (accepted),
+      default_ (dflt)
   {
   }
 
+public:
+  Acceptance_set () = default;
+
+  // prevent implicit copying for the sake of clarity; moving is fine
   Acceptance_set (const Acceptance_set &) = delete;
   Acceptance_set &operator= (const Acceptance_set &) = delete;
+  Acceptance_set (Acceptance_set &&) = default;
+  Acceptance_set &operator= (Acceptance_set &&) & = default;
 
-  Acceptance_set &assign_copy (const Acceptance_set &other)
+  // return a shallow copy
+  friend Acceptance_set shallow_copy (const Acceptance_set &other)
   {
-    accepted_ = scm_list_copy (other.accepted_);
-    default_ = other.default_;
-    return *this;
+    return {scm_list_copy (other.accepted_), other.default_};
   }
 
   void gc_mark () const
@@ -54,7 +59,8 @@ public:
     // if default_ references an item, it is held in accepted_
   }
 
-  // get the full list of acceptable items; if there is a default, it is first
+  // Get the full list of acceptable items; if there is a default, it is first.
+  // This Acceptance_set still owns the returned list and may later mutate it.
   SCM get_list () const { return accepted_; }
 
   // get the default item (SCM_EOL if there isn't one)

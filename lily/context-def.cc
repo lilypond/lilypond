@@ -81,7 +81,7 @@ Context_def::Context_def (Context_def const &s)
 
   description_ = s.description_;
   input_location_ = s.origin ()->smobbed_copy ();
-  acceptance_.assign_copy (s.acceptance_);
+  acceptance_ = shallow_copy (s.acceptance_);
   property_ops_ = s.property_ops_;
   translator_mods_ = s.translator_mods_;
   context_aliases_ = s.context_aliases_;
