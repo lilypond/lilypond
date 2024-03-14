@@ -44,7 +44,7 @@ public:
   Acceptance_set &assign_copy (const Acceptance_set &other)
   {
     accepted_ = scm_list_copy (other.accepted_);
-    default_ = scm_is_pair (accepted_) ? scm_car (accepted_) : SCM_EOL;
+    default_ = other.default_;
     return *this;
   }
 
