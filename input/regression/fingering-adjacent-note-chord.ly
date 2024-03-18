@@ -2,12 +2,12 @@
 
 \header {
   texidoc = "@code{Fingering} grobs created by the @code{Fingering_engraver}
-    (i.e. fingerings entered inside @code{<>}) above/below chords containing
-    adjacent notes (seconds) or unison notes should be aligned on the
-    main noteheads, i.e., on the noteheads that are on the ``correct'' side of
-    the stem.
+(i.e., fingerings entered outside of @code{<>}) above or below chords
+containing adjacent notes (seconds) or unison notes should be aligned on the
+main noteheads, i.e., on the noteheads that are on the ``correct'' side of
+the stem.
 
-    Incidentally, this also avoids collisions with accidentals."
+Incidentally, this also avoids collisions with accidentals."
 }
 
 {

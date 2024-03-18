@@ -2,15 +2,14 @@
 
 \header {
   texidoc = "@code{Fingering} grobs created by the
-    @code{New_fingering_engraver} (i.e. fingerings entered outside @code{<>})
-    with @code{fingeringOrientations} set to @code{up} or @code{down} avoid
-    accidentals of displaced notes that might get into the way in chords
-    containing adjacent notes (seconds) or unison notes.
+@code{New_fingering_engraver} (i.e., fingerings entered inside of @code{<>})
+with @code{fingeringOrientations} set to @code{up} or @code{down} avoid
+accidentals of displaced notes that might get into the way in chords
+containing adjacent notes (seconds) or unison notes.
 
-    With @code{\override Fingering.X-align-on-main-noteheads = ##t},
-    the fingerings oriented @code{up} and @code{down} will be arranged
-    in a straight column aligned on the noteheads on the ``correct'' side
-    of the stem."
+With @code{\override Fingering.X-align-on-main-noteheads = ##t}, the
+fingerings oriented @code{up} and @code{down} are arranged in a straight
+column aligned on the noteheads on the ``correct'' side of the stem."
 }
 
 {
