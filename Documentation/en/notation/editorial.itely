@@ -335,16 +335,30 @@ and @code{\revert} commands:
 @cindex fingering
 @cindex finger change
 
-@funindex \finger
+LilyPond provides two engravers for handling fingering
+instructions.  In both cases, the fingering can be entered using
+the syntax @samp{@var{note}-@var{digit}}.
 
-Fingering instructions can be entered using
-@samp{@var{note}-@var{digit}}:
+@itemize
+@item
+The first engraver is @code{Fingering_engraver}, which takes care
+of fingering instructions that are outside of chord constructs
+(i.e., outside of @code{<...>}).  The order of fingering given in
+the input code is directly reflected in the output, and the
+fingering markup is always stacked vertically within a single
+column above or below the note or chord.
 
 @lilypond[verbatim,quote]
-\relative { c''4-1 d-2 f-4 e-3 }
+\relative {
+  c''4-1 d-2 f-4 e-3 |
+  <g, b f' g>2_2_1^4^5 <g a c e>_2_1^3^5
+}
 @end lilypond
 
-Markup texts or strings may be used for finger changes.
+@funindex \finger
+
+If you want markup texts or strings for fingering, use the
+@code{\finger} command instead.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -352,33 +366,35 @@ Markup texts or strings may be used for finger changes.
 }
 @end lilypond
 
+@item
+@cindex chord, fingering
+The second engraver is @code{New_fingering_engraver}, which
+handles fingering instructions, articulations, and harmonic note
+heads inside of chords (i.e., inside of @code{<...>}).
+
+@lilypond[verbatim,quote]
+\relative {
+  <g'-1 b-2 f'-4 g-5>2 <e'-5 c-3 a-2 g-1>
+}
+@end lilypond
+@end itemize
+
 @cindex @q{thumb} fingering
 @cindex fingering, thumb
-
 @funindex \thumb
 
-A thumb fingering can be added (e.g., cello music) to indicate
-that a note should be played with the thumb.
+A thumb fingering can also be added (e.g., for cello music) to
+indicate that a note should be played with the thumb.
 
 @lilypond[verbatim,quote]
 \relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
-@cindex fingering chord
-@cindex fingering instruction, for chords
-@cindex chord, fingering
-
-Fingerings for chords can also be added to individual notes by
-adding them after the pitches.
-
-@lilypond[verbatim,quote]
-\relative {
-  <c''-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
-}
-@end lilypond
-
 Fingering instructions may be manually placed above or below the
 staff, see @ref{Direction and placement}.
+
+See the next section for snippet examples that demonstrate how to
+control the positioning of fingering instructions.
 
 
 @snippets
