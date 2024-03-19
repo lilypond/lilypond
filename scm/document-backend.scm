@@ -159,6 +159,7 @@ node."
   (let* ((meta (assoc-get 'meta description))
          (name (assoc-get 'name meta))
          (docstring (assoc-get 'description meta ""))
+         (remarks (assoc-get 'remarks meta '()))
          (ifaces (assoc-get 'interfaces meta))
          (classes (assoc-get 'classes meta))
          (class-interfaces (map (lambda (class)
@@ -197,6 +198,10 @@ node."
 
        "\n\nStandard settings:\n"
        (grob-alist->texi description)
+       (if (not (null? remarks))
+           (string-append "\n\nRemarks:\n"
+                          (string-list->texi remarks #t))
+           "")
        "\n\n@raggedright\n"
        "This object supports the following interface(s):\n"
        (list-xref-symbols

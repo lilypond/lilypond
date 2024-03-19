@@ -89,6 +89,21 @@
                      (4 . "@appendixsubsubsec")
                      (5 . "@appendixsubsubsec"))))
 
+(define (string->texi str)
+  "Emit STR as an item in an itemized list."
+  (string-append "@item\n" str "\n"))
+
+(define (string-list->texi string-list indented?)
+  "Emit STRING-LIST, which is a list of strings, as an itemized list.
+If INDENTED? is #t, embed list in a @indentedblock environment."
+  (string-append
+   "\n"
+   (if indented? "@indentedblock\n" "")
+   "@itemize\n"
+   (string-concatenate (map string->texi string-list))
+   "@end itemize\n"
+   (if indented? "@end indentedblock\n" "")))
+
 (define (one-item->texi label-desc-pair)
   "Document one (LABEL . DESC); return empty string if LABEL is empty string."
   (if (eq? (car label-desc-pair) "")
