@@ -60,7 +60,7 @@
 
      (if (pair? uprops)
          (string-append
-          "\n\n@subsubheading User settable properties:\n"
+          "\n\n@subsubheading User-settable properties:\n"
           (description-list->texi user-propdocs #t))
          "")
 

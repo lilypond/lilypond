@@ -95,7 +95,6 @@
       ""
       (string-append "\n\n@item " (car label-desc-pair) "\n" (cdr label-desc-pair))))
 
-
 (define (description-list->texi items-alist indented?)
   "Document ITEMS-ALIST in a table; entries contain (item-label .
 string-to-use).  If INDENTED? is #t, embed table in a @indentedblock
