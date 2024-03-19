@@ -804,7 +804,8 @@ the @code{Voice} context, as they are clearly closely associated
 with individual lines of music, but can we be sure?  To
 find out, go back to the top of the IR page describing the
 @code{Slur} grob, where it says @q{@code{Slur} objects are created
-by: @code{Slur_engraver}.}  So slurs will be created in whichever context
+by the following engraver(s): @code{Slur_engraver}.}
+So slurs will be created in whichever context
 the @code{Slur_engraver} is in.  Follow the link to the
 @code{Slur_engraver} page.  At the very bottom it tells
 us that @code{Slur_engraver} is part of ten voice contexts,
@@ -1224,7 +1225,8 @@ the implied context, @code{Voice}.
 
 The bar lines are still printed.  What is wrong?  Go back to the IR
 and look again at the page giving the properties of @code{BarLine}.  At the
-top of the page it says @qq{@code{BarLine} objects are created by:
+top of the page it says @qq{@code{BarLine} objects are created by
+the following engraver(s):
 @code{Bar_engraver}}.  Go to the @code{Bar_engraver} page.  At the bottom it
 gives a list of contexts in which the bar engraver operates.  All of
 them are of the type @code{Staff}, so the reason the @code{\override}

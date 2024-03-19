@@ -1343,8 +1343,8 @@ Gehen Sie über diesen Link zum Abschnitt @rinternals{Fingering}.
 Oben auf der Seite findet sich:
 
 @quotation
-Fingering objects are created by: @rinternals{Fingering_engraver} and
-@rinternals{New_fingering_engraver}.
+Fingering objects are created by the following engraver(s):
+@rinternals{Fingering_engraver} and @rinternals{New_fingering_engraver}.
 @end quotation
 
 Indem Sie die Links in der Referenz der Interna folgen, können Sie
@@ -1353,8 +1353,8 @@ verfolgen, wie LilyPond intern arbeitet:
 @itemize
 
 @item @rinternals{Fingering}:
-@rinternals{Fingering} objects are created by:
-@rinternals{Fingering_engraver}
+@rinternals{Fingering} objects are created by the following engraver(s):
+@rinternals{Fingering_engraver}.
 
 @item @rinternals{Fingering_engraver}:
 Music types accepted: @rinternals{fingering-event}

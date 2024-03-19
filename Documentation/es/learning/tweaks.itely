@@ -811,7 +811,7 @@ ligaduras están en el contexto de Voz, por estar claramente
 asociados de manera estrecha con las líneas individuales de
 música, pero ¿podemos estar seguros?  Para averiguarlo, vayamos de
 nuevo al inicio de la página del RFI que describe las ligaduras
-(Slur), donde dice @q{Slur objects are created by: Slur engraver}
+(Slur), donde dice @q{Slur objects are created by the following engraver(s): Slur_engraver.}
 («Los objetos de ligadura de expresión se crean por: el grabador
 Slur»).  Así pues, las ligaduras de expresión se crean en
 cualquier contexto en el que se encuentre el grabador
@@ -1223,7 +1223,7 @@ implícito, @code{Voice}:
 Las barras de compás todavía se imprimen.  ¿Qué es lo que está
 mal?  Vuelva al RFI y mire de nuevo la página que ofrece las
 propiedades del objeto BarLine.  Al principio de la página dice
-@qq{Barline objects are created by: Bar_engraver} (los objetos
+@qq{Barline objects are created by the following engraver(s): Bar_engraver.} (los objetos
 Barline se crean por el grabador Bar_engraver).  Vaya a la página
 del grabador @code{Bar_engraver} siguiendo el enlace.  Al final da
 una lista de contextos en los que el grabador de líneas divisorias

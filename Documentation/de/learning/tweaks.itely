@@ -833,7 +833,7 @@ Aber wir können uns dessen nicht sicher sein. Um unsere
 Annahme zu überprüfen, gehen wir wieder zu der Seite im
 IR, die die Legatobögen beschreibt und die Überschrift
 @emph{Slur} hat. Dort steht: @qq{Slur objects are created
-by: Slur engraver}. Legatobögen werden also in dem Kontext
+by the following engraver(s): Slur_engraver}. Legatobögen werden also in dem Kontext
 erstellt, in dem sich der @code{Slur_engraver} befindet.
 Folgen Sie dem Link zu der @code{Slur_engraver}-Seite.
 Unten auf der Seite steht, dass der @code{Slur_engraver}
@@ -1258,7 +1258,7 @@ Die Taktstriche werden aber immer noch angezeigt.  Was ist da
 falsch gelaufen?  Gehen Sie zurück zur IR und schauen Sie auf
 die Seite, die die Eigenschaften für @code{BarLine} angibt.
 Oben auf der Seite steht: @qq{Barline objects are created
-by: Bar_engraver}.  Schauen Sie sich die
+by the following engraver(s): Bar_engraver}.  Schauen Sie sich die
 @code{Bar_engraver}-Seite an.  Unten auf der Seite steht
 eine Liste der Kontexte, in denen der Takt-Engraver
 funktioniert.  Alle Kontexte sind @code{Staff}-Typen (also

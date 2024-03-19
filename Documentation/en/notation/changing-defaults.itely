@@ -1648,8 +1648,8 @@ Follow the link to @rinternals{Fingering}.  At the top of the
 page, you will see
 
 @quotation
-Fingering objects are created by: @rinternals{Fingering_engraver} and
-@rinternals{New_fingering_engraver}.
+Fingering objects are created by the following engraver(s):
+@rinternals{Fingering_engraver} and @rinternals{New_fingering_engraver}.
 @end quotation
 
 By following related links inside the program reference, we can follow the
@@ -1658,8 +1658,8 @@ flow of information within the program:
 @itemize
 
 @item @rinternals{Fingering}:
-@rinternals{Fingering} objects are created by:
-@rinternals{Fingering_engraver}
+@rinternals{Fingering} objects are created by the following engraver(s):
+@rinternals{Fingering_engraver}.
 
 @item @rinternals{Fingering_engraver}:
 Music types accepted: @rinternals{fingering-event}

@@ -1706,8 +1706,8 @@ Suivons le lien @rinternals{Fingering}.  En haut de la nouvelle page,
 on peut lire
 
 @quotation
-Fingering objects are created by: @rinternals{Fingering_engraver} and
-@rinternals{New_fingering_engraver}.
+Fingering objects are created by the following engraver(s):
+@rinternals{Fingering_engraver} and @rinternals{New_fingering_engraver}.
 @end quotation
 
 En d'autres termes, @emph{Les indications de doigtés} (@code{Fingering}
@@ -1720,8 +1720,8 @@ suit en fait le cheminement qui aboutit à la création de la partition :
 @itemize
 
 @item @rinternals{Fingering}:
-@rinternals{Fingering} objects are created by:
-@rinternals{Fingering_engraver}
+@rinternals{Fingering} objects are created by the following engraver(s):
+@rinternals{Fingering_engraver}.
 
 @item @rinternals{Fingering_engraver}:
 Music types accepted: @rinternals{fingering-event}

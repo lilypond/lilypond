@@ -1625,8 +1625,8 @@ PDF マニュアルを使用していると、@c
 ページの先頭に、以下のような記述があります:
 
 @quotation
-Fingering objects are created by: @rinternals{Fingering_engraver} and
-@rinternals{New_fingering_engraver}.
+Fingering objects are created by the following engraver(s):
+@rinternals{Fingering_engraver} and @rinternals{New_fingering_engraver}.
 @end quotation
 
 内部リファレンスの中にある関連リンクを辿っていくことで、@c
@@ -1635,8 +1635,8 @@ Fingering objects are created by: @rinternals{Fingering_engraver} and
 @itemize
 
 @item @rinternals{Fingering}:
-@rinternals{Fingering} objects are created by:
-@rinternals{Fingering_engraver}
+@rinternals{Fingering} objects are created by the following engraver(s):
+@rinternals{Fingering_engraver}.
 
 (@rinternals{Fingering}:
 @rinternals{Fingering} オブジェクトを作成するのは:

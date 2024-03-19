@@ -753,8 +753,9 @@ Quale dovrebbe essere?  Potremmo immaginare che le legature
 di portamento si trovino nel contesto Voice, dato che sono ovviamente
 collegate strettamente alle singole voci, ma possiamo
 esserne sicuri?  Per scoprirlo, vai in cima alla pagina del Funzionamento
-Interno relativa a «Slur», dove dice @q{Slur objects are created by: Slur
-engraver}.  Significa che le legature di portamento sono create nel contesto
+Interno relativa a «Slur», dove dice @q{Slur objects are created
+by the following engraver(s):
+Slur_engraver.}  Significa che le legature di portamento sono create nel contesto
 in cui si trova l'incisore @code{Slur_engraver}.  Segui il link alla pagina
 @code{Slur_engraver}.  In fondo dice che lo @code{Slur_engraver} fa parte di
 otto contesti Voice, incluso il contesto standard della voce, @code{Voice}.
@@ -1148,7 +1149,7 @@ implicito, @code{Voice}:
 Le stanghette sono ancora visibili.  Cosa abbiamo sbagliato?  Torna alla
 guida del Funzionamento interno e scorri di nuovo la pagina che elenca
 le proprietà di BarLine.  In cima alla pagina dice @qq{Barline objects are
-created by: Bar_engraver}.  Vai alla pagina @code{Bar_engraver}.  In fondo
+created by the following engraver(s): Bar_engraver.}  Vai alla pagina @code{Bar_engraver}.  In fondo
 si trova una lista dei contesti nel quale opera l'incisore della battuta.
 Tutti questi sono di tipo @code{Staff}, dunque la ragione per cui il comando
 @code{\override} precedente non funziona è che @code{Barline} non si trova

@@ -1499,8 +1499,8 @@ si vede
 
 @c Non tradurre le parti citate del manuale Internals Reference, che non è tradotto.
 @quotation
-Fingering objects are created by: @rinternals{Fingering_engraver} and
-@rinternals{New_fingering_engraver}.
+Fingering objects are created by the following engraver(s):
+@rinternals{Fingering_engraver} and @rinternals{New_fingering_engraver}.
 @end quotation
 
 Seguendo i collegamenti correlati nella guida del programma, possiamo seguire
@@ -1509,8 +1509,8 @@ il flusso di informazione del programma:
 @itemize
 
 @item @rinternals{Fingering}:
-@rinternals{Fingering} objects are created by:
-@rinternals{Fingering_engraver}
+@rinternals{Fingering} objects are created by the following engraver(s):
+@rinternals{Fingering_engraver}.
 
 @item @rinternals{Fingering_engraver}:
 Music types accepted: @rinternals{fingering-event}

@@ -185,7 +185,7 @@ node."
        (cond
         ((not (null? engraver-names))
          (string-append
-          "are created by: "
+          "are created by the following engraver(s): "
           (list-xref-symbols engraver-names)))
         ((eq? name 'System)
          "are created internally by the @code{Score_engraver} translator group.")

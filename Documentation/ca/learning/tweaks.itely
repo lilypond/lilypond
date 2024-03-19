@@ -804,7 +804,7 @@ lligadures estan al context Voice, per estar clarament associats
 de manera estreta amb les línies individuals de música, però podem
 tenir seguretat?  Per esbrinar-lo, anem de nou a l'inici de la
 pàgina del RFI que descriu les lligadures (Slur), con diu
-@q{Slur objects are created by: Slur engraver}
+@q{Slur objects are created by the following engraver(s): Slur_engraver}
 («Els objectes de lligadura d'expressió es creen per: el gravador
 Slur»). Així doncs, les lligadures d'expressió es creen en
 qualsevol context en el que es trobi el gravador
@@ -1212,7 +1212,7 @@ p@code{Voice}:
 Les barres de compàs encara s'imprimeixen.  Què és el que està
 malament?  Torneu al RFI i mireu un altre cop la pàgina que
 ofereix les propietats de l'objecte Barline.  Al principi de la
-pàgina diu @qq{Barline objects are created by: Bar_engraver} (els
+pàgina diu @qq{Barline objects are created by the following engraver(s): Bar_engraver} (els
 objectes Barline es creen pel gravador Bar_engraver).  Aneu a la
 pàgina del gravador @code{Bar_engraver} seguint l'enllaç.  Al
 final dóna una llista de contextos en els quals el gravador de
