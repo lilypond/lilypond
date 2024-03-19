@@ -94,7 +94,7 @@ otherwise pad the string with @code{annotation-char}s to the length of the
 (define dummy-extent (cons -1 1))
 
 
-(define (glyph->stencil glyph grob extent)
+(define (glyph->stencil glyph is-span grob extent)
   "Return a stencil computed by the procedure associated with
 glyph @var{glyph}. The arguments @var{grob} and @var{extent} are
 mandatory to the procedures stored in @code{bar-glyph-print-procedures}."
@@ -102,7 +102,7 @@ mandatory to the procedures stored in @code{bar-glyph-print-procedures}."
         (stencil empty-stencil))
 
     (if (procedure? proc)
-        (set! stencil (proc grob extent))
+        (set! stencil (proc is-span grob extent))
         (ly:warning (G_ "Bar glyph ~a not known. Ignoring.") glyph))
     stencil))
 
@@ -207,15 +207,15 @@ is not used within the routine."
 ;; (make-...-bar-line grob extent)
 ;; even if the extent is not used.
 
-(define (make-no-bar-line grob extent)
+(define (make-no-bar-line is-span grob extent)
   "Return an empty stencil."
   empty-stencil)
 
-(define (make-empty-bar-line grob extent)
+(define (make-empty-bar-line is-span grob extent)
   "Draw an empty bar line."
   (ly:make-stencil "" (cons 0 0) extent))
 
-(define (make-simple-bar-line grob extent)
+(define (make-simple-bar-line is-span grob extent)
   "Draw a simple bar line."
   (let* ((line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
@@ -228,7 +228,7 @@ is not used within the routine."
      extent
      grob)))
 
-(define (make-thick-bar-line grob extent)
+(define (make-thick-bar-line is-span grob extent)
   "Draw a thick bar line."
   (let* ((line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'thick-thickness 1)
@@ -241,7 +241,7 @@ is not used within the routine."
      extent
      grob)))
 
-(define (make-short-bar-line grob extent)
+(define (make-short-bar-line is-span grob extent)
   "Draw a short bar line."
   (let* ((line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
@@ -255,7 +255,7 @@ is not used within the routine."
      short-extent ; y
      (bar-line::calc-blot thickness short-extent grob))))
 
-(define (make-tick-bar-line grob extent)
+(define (make-tick-bar-line is-span grob extent)
   "Draw a tick bar line."
   (let* ((line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
@@ -284,7 +284,7 @@ is not used within the routine."
      (coord-translate (symmetric-interval half-staff) center) ; y
      (bar-line::calc-blot thickness extent grob))))
 
-(define (make-colon-bar-line grob extent)
+(define (make-colon-bar-line is-span grob extent)
   "Draw repeat dots."
   (let* ((staff-space (ly:staff-symbol-staff-space grob))
          (line-thickness (ly:staff-symbol-line-thickness grob))
@@ -359,7 +359,7 @@ is not used within the routine."
       stencil)))
 
 
-(define (make-dotted-bar-line grob extent)
+(define (make-dotted-bar-line is-span grob extent)
   "Draw a dotted bar line."
   (let* (;; Heuristic: In a call to create a staff bar line, the
          ;; extent will likely cross the center of the staff, and in a
@@ -463,7 +463,7 @@ is not used within the routine."
         dots-pos))))
 
 
-(define (make-dashed-bar-line grob extent)
+(define (make-dashed-bar-line is-span grob extent)
   "Draw a dashed bar line."
   (let* ((height (interval-length extent))
          (staff-symbol (ly:grob-object grob 'staff-symbol grob))
@@ -521,13 +521,13 @@ is not used within the routine."
           (ly:stencil-translate-axis stencil (/ thickness 2) X)))))
 
 
-(define ((make-segno-bar-line show-segno) grob extent)
+(define ((make-segno-bar-line show-segno) is-span grob extent)
   "Draw a segno bar line.  If @var{show-segno} is set to @code{#t},
 the segno sign is drawn over the double bar line; otherwise, it
 draws the span bar variant, i.e., without the segno sign."
   (let* ((line-thickness (layout-line-thickness grob))
          (segno-kern (* (ly:grob-property grob 'segno-kern 1) line-thickness))
-         (thin-stil (make-simple-bar-line grob extent))
+         (thin-stil (make-simple-bar-line is-span grob extent))
          (double-line-stil (ly:stencil-combine-at-edge
                             thin-stil
                             X
@@ -550,7 +550,7 @@ draws the span bar variant, i.e., without the segno sign."
 
     stencil))
 
-(define (make-kievan-bar-line grob extent)
+(define (make-kievan-bar-line is-span grob extent)
   "Draw a kievan bar line."
   (let* ((font (ly:grob-default-font grob))
          (stencil (stencil-whiteout-box
@@ -561,10 +561,10 @@ draws the span bar variant, i.e., without the segno sign."
     (ly:grob-set-property! grob 'layer 1)
     stencil))
 
-(define ((make-bracket-bar-line dir) grob extent)
+(define ((make-bracket-bar-line dir) is-span grob extent)
   "Draw a bracket-style bar line. If @var{dir} is set to @code{LEFT}, the
 opening bracket will be drawn, for @code{RIGHT} we get the closing bracket."
-  (let* ((thick-stil (make-thick-bar-line grob extent))
+  (let* ((thick-stil (make-thick-bar-line is-span grob extent))
          (brackettips-up (ly:font-get-glyph (ly:grob-default-font grob)
                                             "brackettips.up"))
          (brackettips-down (ly:font-get-glyph (ly:grob-default-font grob)
@@ -590,10 +590,10 @@ opening bracket will be drawn, for @code{RIGHT} we get the closing bracket."
         stencil
         (flip-stencil X stencil))))
 
-(define ((make-spacer-bar-line glyph) grob extent)
+(define ((make-spacer-bar-line glyph) is-span grob extent)
   "Draw an invisible bar line which has the same dimensions as the one
 drawn by the procedure associated with glyph @var{glyph}."
-  (let* ((stil (glyph->stencil glyph grob extent))
+  (let* ((stil (glyph->stencil glyph is-span grob extent))
          (stil-x-extent (ly:stencil-extent stil X)))
 
     (ly:make-stencil "" stil-x-extent extent)))
@@ -740,7 +740,7 @@ drawn by the procedure associated with glyph @var{glyph}."
                              neg-stencil
                              X
                              RIGHT
-                             (glyph->stencil bar grob extent)
+                             (glyph->stencil bar #f grob extent)
                              (if is-first-neg-stencil 0 kern)))
                       (set! is-first-neg-stencil #f))
                     (begin
@@ -749,7 +749,7 @@ drawn by the procedure associated with glyph @var{glyph}."
                              stencil
                              X
                              RIGHT
-                             (glyph->stencil bar grob extent)
+                             (glyph->stencil bar #f grob extent)
                              (if is-first-stencil 0 kern)))
                       (set! is-first-stencil #f))))
               bar-glyph-list span-glyph-list)
@@ -977,8 +977,8 @@ no elements."
                                    ;; but this makes hardly any sense from a
                                    ;; typographical point of view
                                    (if (string=? span (string replacement-char))
-                                       ((make-spacer-bar-line bar) grob extent)
-                                       (glyph->stencil span grob extent))
+                                       ((make-spacer-bar-line bar) #t grob extent)
+                                       (glyph->stencil span #t grob extent))
                                    (if is-first-stencil 0 kern)))
                             (set! is-first-stencil #f))))
                     bar-glyph-list span-glyph-list))

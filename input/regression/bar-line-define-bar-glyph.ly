@@ -6,7 +6,7 @@
 \paper { ragged-right = ##t }
 
 
-#(define (make-coda-sign-bar-line grob extent)
+#(define (make-coda-sign-bar-line is-span grob extent)
    (let ((stencil (ly:font-get-glyph (ly:grob-default-font grob)
                                      "scripts.coda")))
         stencil))
