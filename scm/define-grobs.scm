@@ -1490,7 +1490,9 @@ digit).  See also @iref{FingeringColumn} and
         (meta . ((class . Item)
                  (interfaces . (fingering-column-interface))
                  (description . "An auxiliary grob to align
-stacked @iref{Fingering} grobs.")))))
+stacked @iref{Fingering} grobs.")
+                 (remarks . ("@code{padding} applies to the
+vertical axis only."))))))
 
     (FingerGlideSpanner
      . ((bound-details . ((right . ((attach-dir .  ,LEFT)
