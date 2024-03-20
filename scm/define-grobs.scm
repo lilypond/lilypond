@@ -40,7 +40,8 @@
         (glyph-name . ,accidental-interface::calc-glyph-name)
         (extra-spacing-width . (-0.2 . 0.0))
         (stencil . ,ly:accidental-interface::print)
-        (horizontal-skylines . ,(ly:make-unpure-pure-container ly:accidental-interface::horizontal-skylines))
+        (horizontal-skylines . ,(ly:make-unpure-pure-container
+                                 ly:accidental-interface::horizontal-skylines))
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (X-offset . ,ly:grob::x-parent-positioning)
         (Y-extent . ,accidental-interface::height)
@@ -62,7 +63,8 @@ by the @iref{AccidentalPlacement} grob.")))))
         (extra-spacing-width . (-0.2 . 0.0))
         (glyph-name . ,accidental-interface::calc-glyph-name)
         (stencil . ,ly:accidental-interface::print)
-        (horizontal-skylines . ,(ly:make-unpure-pure-container ly:accidental-interface::horizontal-skylines))
+        (horizontal-skylines . ,(ly:make-unpure-pure-container
+                                 ly:accidental-interface::horizontal-skylines))
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (X-offset . ,ly:grob::x-parent-positioning)
         (Y-extent . ,accidental-interface::height)
@@ -78,14 +80,11 @@ enclosed in parentheses.")))))
      . (
         (direction .  ,LEFT)
         (positioning-done . ,ly:accidental-placement::calc-positioning-done)
-
         ;; this is quite small, but it is very ugly to have
         ;; accs closer to the previous note than to the next one.
         (right-padding . 0.15)
-
         ;; for horizontally stacked scripts.
         (script-priority .  -100)
-
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Item)
                  (interfaces . (accidental-placement-interface))
@@ -142,8 +141,11 @@ in @dfn{musica ficta}.  Normally positioned above a note.")))))
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (ambitus-interface
                                 axis-group-interface
                                 break-aligned-interface))
@@ -212,7 +214,8 @@ horizontal spacing from the ambitus to other items.")))))
         (stencil . ,ly:arpeggio::print)
         (thickness . 1)
         (X-extent . ,ly:arpeggio::width)
-        (Y-extent . ,(grob::unpure-Y-extent-from-stencil ly:arpeggio::pure-height))
+        (Y-extent . ,(grob::unpure-Y-extent-from-stencil
+                      ly:arpeggio::pure-height))
         (X-offset . ,ly:side-position-interface::x-aligned-side)
         (Y-offset . ,staff-symbol-referencer::callback)
         (meta . ((class . Item)
@@ -259,13 +262,13 @@ line to visually mark and annotate another grob.")))))
         (break-align-anchor . ,ly:bar-line::calc-anchor)
         (break-align-symbol . staff-bar)
         (break-visibility . ,bar-line::calc-break-visibility)
-        (extra-spacing-height . ,pure-from-neighbor-interface::account-for-span-bar)
+        (extra-spacing-height
+         . ,pure-from-neighbor-interface::account-for-span-bar)
         (gap . 0.4)
         (glyph . "|")
         (glyph-left . ,(grob::relay-other-property 'glyph))
         (glyph-name . ,bar-line::calc-glyph-name)
         (glyph-right . #f)
-
         ;;
         ;; Ross. page 151 lists other values, we opt for a leaner look
         ;;
@@ -277,7 +280,6 @@ line to visually mark and annotate another grob.")))))
         ;; For chord squares to determine the ending of inner lines.
         (horizontal-skylines . ,grob::always-horizontal-skylines-from-stencil)
         (thick-thickness . 6.0)
-
         (layer . 0)
         (non-musical . #t)
         (right-justified . #f)
@@ -296,8 +298,11 @@ line to visually mark and annotate another grob.")))))
         (stencil . ,ly:bar-line::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
                  (interfaces . (bar-line-interface
                                 break-aligned-interface
                                 font-interface
@@ -306,10 +311,10 @@ line to visually mark and annotate another grob.")))))
 
     (BarNumber
      . (
-        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (after-line-breaking
+         . ,ly:side-position-interface::move-to-extremal-staff)
         ;; want the bar number before the clef at line start.
         (break-align-symbols . (left-edge staff-bar))
-
         (break-visibility . ,begin-of-line-visible)
         (direction . ,UP)
         (extra-spacing-width . (+inf.0 . -inf.0))
@@ -363,8 +368,11 @@ alteration as well.")))))
         (Y-extent . ,axis-group-interface::height)
         (vertical-skylines . ,ly:axis-group-interface::calc-skylines)
         (meta . ((class . Spanner)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (align-interface
                                 axis-group-interface
                                 bass-figure-alignment-interface))
@@ -384,8 +392,11 @@ several @iref{BassFigureLine} grobs vertically.")))))
         (Y-extent . ,axis-group-interface::height)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
                                 side-position-interface))
@@ -406,16 +417,14 @@ side-positioning.")))))
 
     (BassFigureContinuation
      . (
-        (bound-details
-         .
-         ((right . ((attach-dir . ,RIGHT)
-                    (padding . -0.15)))
-          (right-broken . ((attach-dir . ,LEFT)
-                           (padding . 0.5)))
-          (left-broken . ((attach-dir . ,RIGHT)
-                          (padding . 0.5)))
-          (left . ((attach-dir . ,RIGHT)
-                   (padding . 0.15)))))
+        (bound-details . ((right . ((attach-dir . ,RIGHT)
+                                    (padding . -0.15)))
+                          (right-broken . ((attach-dir . ,LEFT)
+                                           (padding . 0.5)))
+                          (left-broken . ((attach-dir . ,RIGHT)
+                                          (padding . 0.5)))
+                          (left . ((attach-dir . ,RIGHT)
+                                   (padding . 0.15)))))
         (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
         (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
         (stencil . ,figured-bass-continuation::print)
@@ -429,7 +438,8 @@ current figured bass.")))))
 
     (BassFigureLine
      . (
-        (adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
+        (adjacent-pure-heights
+         . ,ly:axis-group-interface::adjacent-pure-heights)
         (axes . (,Y))
         (staff-staff-spacing . ((minimum-distance . 1.5)
                                 (padding . 0.1)))
@@ -437,8 +447,11 @@ current figured bass.")))))
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)
         (meta . ((class . Spanner)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 outside-staff-axis-group-interface))
                  (description . "An auxiliary grob providing a
@@ -453,7 +466,6 @@ vertically.")))))
         (auto-knee-gap . 5.5)
         (beam-segments . ,ly:beam::calc-beam-segments)
         (beam-thickness . 0.48) ; in staff-space
-
         ;; We have some unreferenced problems here.
         ;;
         ;; If we shorten beamed stems less than normal stems (1 staff-space),
@@ -463,13 +475,12 @@ vertically.")))))
         ;;
         ;; But if we shorten 16th beams as much as 8th beams, a single
         ;; forced 16th beam looks *very* short.
-
+        ;;
         ;; We choose to shorten 8th beams the same as single stems,
         ;; and high order beams less than 8th beams, so that all
         ;; isolated shortened beams look nice and a bit shortened,
         ;; sadly possibly breaking patterns with high order beams.
         (beamed-stem-shorten . (1.0 0.5 0.25))
-
         (beaming . ,ly:beam::calc-beaming)
         (clip-edges . #t)
         (collision-interfaces . (beam-interface
@@ -497,10 +508,8 @@ vertically.")))))
                     (stem-length-demerit-factor . 5)
                     (stem-length-limit-penalty . 5000)))
         (direction . ,ly:beam::calc-direction)
-
         (normalized-endpoints . ,ly:spanner::calc-normalized-endpoints)
         (font-size . -6)
-
         (gap . 0.8)
         (knee . ,ly:beam::calc-knee)
         (minimum-length . 6.0)
@@ -510,16 +519,14 @@ vertically.")))))
         (X-positions . ,ly:beam::calc-x-positions)
         (transparent . ,(grob::inherit-parent-property
                          X 'transparent))
-
         ;; this is a hack to set stem lengths, if positions is set.
         (quantized-positions . ,ly:beam::set-stem-lengths)
-
         (shorten . ,ly:beam::calc-stem-shorten)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (stencil . ,ly:beam::print)
-
         (meta . ((class . Spanner)
-                 (object-callbacks . ((normal-stems . ,ly:beam::calc-normal-stems)))
+                 (object-callbacks . ((normal-stems
+                                       . ,ly:beam::calc-normal-stems)))
                  (interfaces . (beam-interface
                                 staff-symbol-referencer-interface
                                 unbreakable-spanner-interface))
@@ -591,7 +598,8 @@ tablature notation.")))))
      . (
         (axes . (,X))
         (break-align-anchor . ,ly:break-aligned-interface::calc-average-anchor)
-        (break-align-anchor-alignment . ,ly:break-aligned-interface::calc-joint-anchor-alignment)
+        (break-align-anchor-alignment
+         . ,ly:break-aligned-interface::calc-joint-anchor-alignment)
         (break-visibility . ,ly:break-aligned-interface::calc-break-visibility)
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Item)
@@ -652,7 +660,8 @@ See also @iref{BreakAlignment}.")))))
                                cue-clef
                                custos)))
         (non-musical . #t)
-        (positioning-done . ,ly:break-alignment-interface::calc-positioning-done)
+        (positioning-done
+         . ,ly:break-alignment-interface::calc-positioning-done)
         (stacking-dir . 1)
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Item)
@@ -686,7 +695,8 @@ time signature follows or precedes a bar line).")))))
         ;; the same as BarLine.hair-thickness to allow them to blend
         ;; into modern contexts.
         (thickness . 1.9)
-        (Y-offset . ,(ly:make-unpure-pure-container ly:breathing-sign::offset-callback))
+        (Y-offset . ,(ly:make-unpure-pure-container
+                      ly:breathing-sign::offset-callback))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (break-aligned-interface
@@ -710,11 +720,9 @@ time signature follows or precedes a bar line).")))))
         (positioning-done . ,ly:script-interface::calc-positioning-done)
         (self-alignment-X . ,CENTER)
         (side-axis . ,Y)
-
         ;; padding set in script definitions.
         (slur-padding . 0.2)
         (staff-padding . 0.25)
-
         (stencil . ,ly:script-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
@@ -751,19 +759,24 @@ managed with @iref{BarNumber} grobs.")))))
 
     (CenteredBarNumberLineSpanner
      . (
-        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (after-line-breaking
+         . ,ly:side-position-interface::move-to-extremal-staff)
         (axes . (,Y))
         (direction . ,UP)
         (outside-staff-priority . 1200)
         (padding . 4)
         (side-axis . ,Y)
-        (vertical-skylines . ,grob::always-vertical-skylines-from-element-stencils)
+        (vertical-skylines
+         . ,grob::always-vertical-skylines-from-element-stencils)
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 bar-number-interface
                                 centered-bar-number-line-spanner-interface
@@ -815,11 +828,13 @@ of the square are drawn by @iref{StaffSymbol} and @iref{BarLine}.")))))
     (Clef
      . (
         (avoid-slur . inside)
-        (break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+        (break-align-anchor
+         . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
         (break-align-anchor-alignment . ,RIGHT)
         (break-align-symbol . clef)
         (break-visibility . ,begin-of-line-visible)
-        (extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line)
+        (extra-spacing-height
+         . ,pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line)
         (glyph-name . ,ly:clef::calc-glyph-name)
         (non-musical . #t)
         (space-alist . ((cue-clef . (extra-space . 2.0))
@@ -837,8 +852,11 @@ of the square are drawn by @iref{StaffSymbol} and @iref{BarLine}.")))))
         (Y-offset . ,staff-symbol-referencer::callback)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
                  (interfaces . (break-aligned-interface
                                 clef-interface
                                 font-interface
@@ -906,7 +924,8 @@ given moment.")))))
 
     (CodaMark
      . (
-        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (after-line-breaking
+         . ,ly:side-position-interface::move-to-extremal-staff)
         (baseline-skip . 2)
         (break-align-symbols . (staff-bar key-signature clef))
         (break-visibility . ,begin-of-line-invisible)
@@ -918,7 +937,8 @@ given moment.")))))
         (outside-staff-padding . 0.4)
         (outside-staff-priority . 1400) ; inside RehearsalMark
         (padding . 0.4)
-        (self-alignment-X . ,break-alignable-interface::self-alignment-opposite-of-anchor)
+        (self-alignment-X
+         . ,break-alignable-interface::self-alignment-opposite-of-anchor)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
@@ -1011,10 +1031,12 @@ properties if automatic part combining is active.")))))
     (CueClef
      . (
         (avoid-slur . inside)
-        (break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+        (break-align-anchor
+         . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
         (break-align-symbol . cue-clef)
         (break-visibility . ,begin-of-line-visible)
-        (extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line)
+        (extra-spacing-height
+         . ,pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line)
         (font-size . -4)
         (glyph-name . ,ly:clef::calc-glyph-name)
         (non-musical . #t)
@@ -1033,8 +1055,11 @@ properties if automatic part combining is active.")))))
         (Y-offset . ,staff-symbol-referencer::callback)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
                  (interfaces . (break-aligned-interface
                                 clef-interface
                                 font-interface
@@ -1046,10 +1071,12 @@ properties if automatic part combining is active.")))))
     (CueEndClef
      . (
         (avoid-slur . inside)
-        (break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+        (break-align-anchor
+         . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
         (break-align-symbol . cue-end-clef)
         (break-visibility . ,begin-of-line-invisible)
-        (extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line)
+        (extra-spacing-height
+         . ,pure-from-neighbor-interface::extra-spacing-height-at-beginning-of-line)
         (font-size . -4)
         (glyph-name . ,ly:clef::calc-glyph-name)
         (non-musical . #t)
@@ -1068,8 +1095,11 @@ properties if automatic part combining is active.")))))
         (Y-offset . ,staff-symbol-referencer::callback)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
                  (interfaces . (break-aligned-interface
                                 clef-interface
                                 font-interface
@@ -1124,7 +1154,8 @@ notation like Gregorian chant.")))))
                         (right-edge . (extra-space . 0.0))))
         (stencil . ,ly:text-interface::print)
         (thickness . 1.9)
-        (Y-offset . ,(ly:make-unpure-pure-container ly:breathing-sign::offset-callback))
+        (Y-offset . ,(ly:make-unpure-pure-container
+                      ly:breathing-sign::offset-callback))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (break-aligned-interface
@@ -1236,20 +1267,18 @@ contain mixed durations.  See also @iref{PercentRepeat},
         (after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
         (arrow-width . 1.5)
         (arrow-length . 2)
-        (bound-details
-         .
-         ((right . ((attach-dir . ,LEFT)
-                    (end-on-accidental . #t)
-                    (end-on-arpeggio . #t)
-                    (padding . 0.4)
-                    ;; possible values for endstyle: arrow, hook
-                    (end-style . #f)))
-          (right-broken . ((padding . 0.4)
-                           (end-style . #f)))
-          (left-broken . ((padding . 0.5)))
-          (left . ((attach-dir . ,RIGHT)
-                   (padding . -0.3)
-                   (start-at-dot . #f)))))
+        (bound-details . ((right . ((attach-dir . ,LEFT)
+                                    (end-on-accidental . #t)
+                                    (end-on-arpeggio . #t)
+                                    (padding . 0.4)
+                                    ;; possible values for endstyle: arrow, hook
+                                    (end-style . #f)))
+                          (right-broken . ((padding . 0.4)
+                                           (end-style . #f)))
+                          (left-broken . ((padding . 0.5)))
+                          (left . ((attach-dir . ,RIGHT)
+                                   (padding . -0.3)
+                                   (start-at-dot . #f)))))
         (breakable . #t)
         (details . ((extra-dot-padding . 0.5)
                     (hook-direction . ,UP)
@@ -1290,13 +1319,17 @@ continuing rhythmic items (usually note heads).")))))
         (side-axis . ,Y)
         (slur-padding . 0.3)
         (staff-padding . 0.1)
-        (vertical-skylines . ,grob::always-vertical-skylines-from-element-stencils)
+        (vertical-skylines
+         . ,grob::always-vertical-skylines-from-element-stencils)
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 dynamic-interface
                                 dynamic-line-spanner-interface
@@ -1309,9 +1342,7 @@ and @iref{Hairpin}) within a staff.")))))
 
     (DynamicText
      . (
-
         ;; todo.
-
         (direction . ,ly:script-interface::calc-direction)
         (extra-spacing-width . (+inf.0 . -inf.0))
         (font-encoding . fetaText)
@@ -1347,7 +1378,6 @@ or @q{mp}.  See also @iref{DynamicLineSpanner}.")))))
                           (right-broken . ((attach-dir .  ,RIGHT)
                                            (padding . 0.0)
                                            ))
-
                           (left . ((attach-dir .  ,LEFT)
                                    (stencil-offset . (-0.75 . -0.5))
                                    (padding . 0.75)
@@ -1357,20 +1387,16 @@ or @q{mp}.  See also @iref{DynamicLineSpanner}.")))))
                           ))
         (dash-fraction . 0.2)
         (dash-period . 3.0)
-
         ;; rather ugh with NCSB
         ;; (font-series . bold)
         (font-shape . italic)
-
         ;; need to blend with dynamic texts.
         (font-size . 1)
-
-        (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info-and-text)
-
+        (left-bound-info
+         . ,ly:horizontal-line-spanner::calc-left-bound-info-and-text)
         (minimum-length . 2.0)
         ;; make sure the spanner doesn't get too close to notes
         (minimum-Y-extent . (-1 . 1))
-
         (right-bound-info . ,ly:horizontal-line-spanner::calc-right-bound-info)
         (skyline-horizontal-padding . 0.2)
         (springs-and-rods . ,ly:spanner::set-spacing-rods)
@@ -1423,7 +1449,6 @@ group of notes).  Used in Gregorian chant.")))))
 
     (Fingering
      . (
-
         ;; sync with TextScript (?)
         (add-stem-support . ,only-if-beamed)
         (avoid-slur . around)
@@ -1509,7 +1534,9 @@ for stringed instruments.")))))
                    X 'color))
         (X-extent . ,ly:flag::width)
         (X-offset . ,ly:flag::calc-x-offset)
-        (Y-offset . ,(ly:make-unpure-pure-container ly:flag::calc-y-offset ly:flag::pure-calc-y-offset))
+        (Y-offset . ,(ly:make-unpure-pure-container
+                      ly:flag::calc-y-offset
+                      ly:flag::pure-calc-y-offset))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (meta . ((class . Item)
@@ -1523,7 +1550,8 @@ sense).")))))
         (after-line-breaking . ,ly:balloon-interface::remove-irrelevant-spanner)
         (annotation-balloon . #f)
         (annotation-line . #t)
-        (automatically-numbered . ,(grob::calc-property-by-copy 'automatically-numbered))
+        (automatically-numbered
+         . ,(grob::calc-property-by-copy 'automatically-numbered))
         (break-visibility . ,(sticky-grob-interface::inherit-property
                               'break-visibility))
         (cross-staff . ,(sticky-grob-interface::inherit-property
@@ -1664,7 +1692,8 @@ start or end point for a @iref{GridLine} grob.")))))
         (thickness . 1.0)
         (to-barline . #t)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
-        (Y-extent . ,(grob::unpure-Y-extent-from-stencil ly:hairpin::pure-height))
+        (Y-extent
+         . ,(grob::unpure-Y-extent-from-stencil ly:hairpin::pure-height))
         (Y-offset . ,self-alignment-interface::y-aligned-on-self)
         (meta . ((class . Spanner)
                  (interfaces . (dynamic-interface
@@ -1770,7 +1799,8 @@ not use it.")))))
     ;; for style advice.
     (JumpScript
      . (
-        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (after-line-breaking
+         . ,ly:side-position-interface::move-to-extremal-staff)
         (baseline-skip . 2)
         (break-align-symbols . (staff-bar key-signature clef))
         (break-visibility . ,begin-of-line-invisible)
@@ -1819,11 +1849,15 @@ departure} like @emph{D.C. al fine}.")))))
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (extra-spacing-width . (0.0 . 1.0))
-        (extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
+        (extra-spacing-height
+         . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
         (Y-offset . ,staff-symbol-referencer::callback)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
                  (interfaces . (accidental-switch-interface
                                 break-aligned-interface
                                 font-interface
@@ -1838,7 +1872,8 @@ before a @iref{KeySignature} grob if the key changes.")))))
     (KeySignature
      . (
         (avoid-slur . inside)
-        (break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+        (break-align-anchor
+         . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
         (break-align-anchor-alignment . ,RIGHT)
         (break-align-symbol . key-signature)
         (break-visibility . ,begin-of-line-visible)
@@ -1856,12 +1891,16 @@ before a @iref{KeySignature} grob if the key changes.")))))
         (stencil . ,ly:key-signature-interface::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (extra-spacing-width . (0.0 . 1.0))
-        (extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
+        (extra-spacing-height
+         . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-offset . ,staff-symbol-referencer::callback)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
                  (interfaces . (accidental-switch-interface
                                 break-aligned-interface
                                 font-interface
@@ -1937,7 +1976,8 @@ ledger lines of a whole staff.")))))
 
     (LeftEdge
      . (
-        (break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+        (break-align-anchor
+         . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
         (break-align-symbol . left-edge)
         (break-visibility . ,begin-of-line-visible)
         (non-musical . #t)
@@ -1968,7 +2008,6 @@ as an anchor point for other grobs.")))))
      . (
         ;; ugh.  A ligature bracket is totally different from
         ;; a tuplet bracket.
-
         (bracket-visibility . #t)
         (connect-to-neighbor . ,ly:spanner::calc-connect-to-neighbors)
         (direction . ,UP)
@@ -2189,7 +2228,8 @@ used in mensural notation.  See also @iref{KievanLigature},
 
     (MetronomeMark
      . (
-        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (after-line-breaking
+         . ,ly:side-position-interface::move-to-extremal-staff)
         (break-visibility . ,end-of-line-invisible)
         (direction . ,UP)
         (extra-spacing-width . (+inf.0 . -inf.0))
@@ -2234,7 +2274,8 @@ by a precise indication in parentheses.")))))
         ;; See Wanske pp. 125
         (usable-duration-logs . ,(iota 4 -3))
         (voiced-position . 4)
-        (Y-extent . ,(ly:make-unpure-pure-container ly:multi-measure-rest::height))
+        (Y-extent
+         . ,(ly:make-unpure-pure-container ly:multi-measure-rest::height))
         (Y-offset . ,staff-symbol-referencer::callback)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
@@ -2336,7 +2377,6 @@ attached to a @iref{MultiMeasureRest} grob.  See also
         (full-measure-extra-space . 1.0)
         (horizontal-skylines . ,ly:separation-item::calc-skylines)
         ;;                    (stencil . ,ly:paper-column::print)
-
         (keep-inside-line . #t)
         ;; used by Paper_column::print when debugging columns:
         (layer . 1000)
@@ -2345,8 +2385,11 @@ attached to a @iref{MultiMeasureRest} grob.  See also
         (page-break-permission . allow)
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Paper_column)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 font-interface
                                 non-musical-paper-column-interface
@@ -2368,8 +2411,11 @@ non-musical and musical columns.  Grobs that have the property
         (Y-extent . ,axis-group-interface::height)
         (vertical-skylines . ,ly:axis-group-interface::calc-skylines)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 note-collision-interface))
                  (description . "An auxiliary grob to group
@@ -2388,8 +2434,11 @@ note collisions.  See also @iref{RestCollision}.")))))
         (Y-extent . ,axis-group-interface::height)
         (vertical-skylines . ,ly:axis-group-interface::calc-skylines)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 bend-interface
                                 note-column-interface
@@ -2509,8 +2558,11 @@ note name.")))))
         (X-alignment-extent . (0 . 1.35))
         (X-extent . ,ly:axis-group-interface::width)
         (meta . ((class . Paper_column)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 font-interface
                                 musical-paper-column-interface
@@ -2631,7 +2683,8 @@ style.")))))
 
     (RehearsalMark
      . (
-        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (after-line-breaking
+         . ,ly:side-position-interface::move-to-extremal-staff)
         (baseline-skip . 2)
         (break-align-symbols . (staff-bar key-signature clef))
         (break-visibility . ,end-of-line-invisible)
@@ -2642,7 +2695,8 @@ style.")))))
         (outside-staff-horizontal-padding . 0.2)
         (outside-staff-priority . 1500)
         (padding . 0.8)
-        (self-alignment-X . ,break-alignable-interface::self-alignment-opposite-of-anchor)
+        (self-alignment-X
+         . ,break-alignable-interface::self-alignment-opposite-of-anchor)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
@@ -2718,7 +2772,9 @@ direction and shape of stacked @iref{RepeatTie} grobs.")))))
         (stencil . ,ly:rest::print)
         (voiced-position . 4)
         (X-extent . ,ly:rest::width)
-        (Y-extent . ,(ly:make-unpure-pure-container ly:rest::height ly:rest::pure-height))
+        (Y-extent . ,(ly:make-unpure-pure-container
+                      ly:rest::height
+                      ly:rest::pure-height))
         (Y-offset . ,(ly:make-unpure-pure-container ly:rest::y-offset-callback))
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (meta . ((class . Item)
@@ -2751,11 +2807,9 @@ collisions of different voices.  See also
         (positioning-done . ,ly:script-interface::calc-positioning-done)
         (self-alignment-X . ,CENTER)
         (side-axis . ,Y)
-
         ;; padding set in script definitions.
         (slur-padding . 0.2)
         (staff-padding . 0.25)
-
         (stencil . ,ly:script-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
@@ -2789,7 +2843,8 @@ horizontally align stacked @iref{Script} grobs.")))))
 
     (SectionLabel
      . (
-        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (after-line-breaking
+         . ,ly:side-position-interface::move-to-extremal-staff)
         (baseline-skip . 2)
         (break-align-symbols . (left-edge staff-bar))
         (break-visibility . ,end-of-line-invisible)
@@ -2829,7 +2884,8 @@ horizontally align stacked @iref{Script} grobs.")))))
 
     (SegnoMark
      . (
-        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (after-line-breaking
+         . ,ly:side-position-interface::move-to-extremal-staff)
         (baseline-skip . 2)
         (break-align-symbols . (staff-bar key-signature clef))
         (break-visibility . ,end-of-line-invisible)
@@ -2840,7 +2896,8 @@ horizontally align stacked @iref{Script} grobs.")))))
         (outside-staff-horizontal-padding . 0.2)
         (outside-staff-priority . 1400) ; inside RehearsalMark
         (padding . 0.8)
-        (self-alignment-X . ,break-alignable-interface::self-alignment-opposite-of-anchor)
+        (self-alignment-X
+         . ,break-alignable-interface::self-alignment-opposite-of-anchor)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
@@ -2866,7 +2923,8 @@ horizontally align stacked @iref{Script} grobs.")))))
         (break-align-anchor . ,ly:bar-line::calc-anchor)
         (break-align-symbol . signum-repetitionis)
         (break-visibility . ,begin-of-line-invisible)
-        (extra-spacing-height . ,pure-from-neighbor-interface::account-for-span-bar)
+        (extra-spacing-height
+         . ,pure-from-neighbor-interface::account-for-span-bar)
         (gap . 0.4)
         ;; The engraver should set a glyph based on the repeat count.
         ;; If it doesn't, we signal it with this modern-looking placeholder.
@@ -2877,7 +2935,6 @@ horizontally align stacked @iref{Script} grobs.")))))
         (segno-kern . 3.0)
         (hair-thickness . 1.9)
         (thick-thickness . 6.0)
-
         (layer . 0)
         (non-musical . #t)
         (rounded . #f)
@@ -2896,8 +2953,11 @@ horizontally align stacked @iref{Script} grobs.")))))
         (stencil . ,ly:bar-line::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
                  (interfaces . (break-aligned-interface
                                 font-interface
                                 pure-from-neighbor-interface
@@ -2957,13 +3017,17 @@ also @iref{SostenutoPedalLineSpanner}, @iref{PianoPedalBracket},
         (padding . 1.2)
         (side-axis . ,Y)
         (staff-padding . 1.0)
-        (vertical-skylines . ,grob::always-vertical-skylines-from-element-stencils)
+        (vertical-skylines
+         . ,grob::always-vertical-skylines-from-element-stencils)
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
                                 piano-pedal-interface
@@ -2976,7 +3040,8 @@ vertically.")))))
      . (
         (average-spacing-wishes . #t)
         (base-shortest-duration . ,(ly:make-moment 3 16))
-        (common-shortest-duration . ,ly:spacing-spanner::calc-common-shortest-duration)
+        (common-shortest-duration
+         . ,ly:spacing-spanner::calc-common-shortest-duration)
         (shortest-duration-space . 2.0)
         (spacing-increment . 1.2)
         (springs-and-rods . ,ly:spacing-spanner::set-springs)
@@ -3016,13 +3081,17 @@ a multi-staff bar line that are outside of staves.  See also
      . (
         (X-extent . ,(grob::inherit-parent-property
                       X 'X-extent))
-        (extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height)
+        (extra-spacing-height
+         . ,pure-from-neighbor-interface::extra-spacing-height)
         ;; we want this to be ignored, so empty, but the extra spacing height
         ;; should preserve the span bar's presence for horizontal spacing
         (Y-extent . ,pure-from-neighbor-interface::height-if-pure)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
                  (interfaces . (pure-from-neighbor-interface))
                  (description . "An auxiliary grob, acting like a
 fake @iref{SpanBar} grob in contexts such as @iref{Lyrics} that
@@ -3103,7 +3172,8 @@ spacing within a staff.  See also @iref{NoteSpacing},
         (Y-extent . ,staff-highlight::height)
         (meta . ((class . Spanner)
                  (interfaces . (staff-highlight-interface))
-                 (description . "A colored span to highlight a music passage.")))))
+                 (description . "A colored span to highlight a music
+passage.")))))
 
     (StaffSymbol
      . (
@@ -3161,24 +3231,28 @@ lyrics.")))))
                     ;; by one staff space, according to [Roush & Gourlay].
                     ;; Flagged stems we shorten only half a staff space.
                     (stem-shorten . (1.0 0.5 0.25))))
-
         ;; We use the normal minima as minimum for the ideal lengths,
         ;; and the extreme minima as abolute minimum length.
-
         (direction . ,ly:stem::calc-direction)
         (double-stem-separation . 0.5)
         (duration-log . ,stem::calc-duration-log)
-        (length . ,(ly:make-unpure-pure-container ly:stem::calc-length ly:stem::pure-calc-length))
+        (length . ,(ly:make-unpure-pure-container
+                    ly:stem::calc-length
+                    ly:stem::pure-calc-length))
         (neutral-direction . ,DOWN)
         (note-collision-threshold . 1)
         (positioning-done . ,ly:stem::calc-positioning-done)
         (stem-info . ,ly:stem::calc-stem-info)
-        (stem-begin-position . ,(ly:make-unpure-pure-container ly:stem::calc-stem-begin-position ly:stem::pure-calc-stem-begin-position))
+        (stem-begin-position . ,(ly:make-unpure-pure-container
+                                 ly:stem::calc-stem-begin-position
+                                 ly:stem::pure-calc-stem-begin-position))
         (stencil . ,ly:stem::print)
         (thickness . 1.3)
         (X-extent . ,ly:stem::width)
         (X-offset . ,ly:stem::offset-callback)
-        (Y-extent . ,(ly:make-unpure-pure-container ly:stem::height ly:stem::pure-height))
+        (Y-extent . ,(ly:make-unpure-pure-container
+                      ly:stem::height
+                      ly:stem::pure-height))
         (Y-offset . ,staff-symbol-referencer::callback)
         (meta . ((class . Item)
                  (interfaces . (stem-interface))
@@ -3208,8 +3282,11 @@ articulations.")))))
         (shape . ,ly:stem-tremolo::calc-shape)
         (X-extent . ,ly:stem-tremolo::width)
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
-        (Y-extent . ,(grob::unpure-Y-extent-from-stencil ly:stem-tremolo::pure-height))
-        (Y-offset . ,(ly:make-unpure-pure-container ly:stem-tremolo::calc-y-offset ly:stem-tremolo::pure-calc-y-offset))
+        (Y-extent . ,(grob::unpure-Y-extent-from-stencil
+                      ly:stem-tremolo::pure-height))
+        (Y-offset . ,(ly:make-unpure-pure-container
+                      ly:stem-tremolo::calc-y-offset
+                      ly:stem-tremolo::pure-calc-y-offset))
         (meta . ((class . Item)
                  (interfaces . (self-alignment-interface
                                 stem-tremolo-interface))
@@ -3301,13 +3378,17 @@ letter) to indicate right-hand fingering.  See also
         (padding . 1.2)
         (side-axis . ,Y)
         (staff-padding . 1.2)
-        (vertical-skylines . ,grob::always-vertical-skylines-from-element-stencils)
+        (vertical-skylines
+         . ,grob::always-vertical-skylines-from-element-stencils)
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
                                 piano-pedal-interface
@@ -3318,21 +3399,31 @@ vertically.")))))
 
     (System
      . (
-        (adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
+        (adjacent-pure-heights
+         . ,ly:axis-group-interface::adjacent-pure-heights)
         (axes . (,X ,Y))
         (outside-staff-placement-directive . left-to-right-polite)
         (show-vertical-skylines . ,grob::show-skylines-if-debug-skylines-set)
         (skyline-horizontal-padding . 1.0)
         (vertical-skylines . ,ly:axis-group-interface::calc-skylines)
         (X-extent . ,ly:axis-group-interface::width)
-        (Y-extent . ,(ly:make-unpure-pure-container ly:system::height ly:system::calc-pure-height))
+        (Y-extent . ,(ly:make-unpure-pure-container
+                      ly:system::height
+                      ly:system::calc-pure-height))
         (meta . ((class . System)
-                 (object-callbacks . ((footnotes-before-line-breaking . ,ly:system::footnotes-before-line-breaking)
-                                      (footnotes-after-line-breaking . ,ly:system::footnotes-after-line-breaking)
-                                      (pure-relevant-grobs . ,ly:system::calc-pure-relevant-grobs)
-                                      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (vertical-skyline-elements . ,ly:system::vertical-skyline-elements)
-                                      (vertical-alignment . ,ly:system::get-vertical-alignment)))
+                 (object-callbacks
+                  . ((footnotes-before-line-breaking
+                      . ,ly:system::footnotes-before-line-breaking)
+                     (footnotes-after-line-breaking
+                      . ,ly:system::footnotes-after-line-breaking)
+                     (pure-relevant-grobs
+                      . ,ly:system::calc-pure-relevant-grobs)
+                     (pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (vertical-skyline-elements
+                      . ,ly:system::vertical-skyline-elements)
+                     (vertical-alignment
+                      . ,ly:system::get-vertical-alignment)))
                  (interfaces . (axis-group-interface
                                 outside-staff-axis-group-interface))
                  (description . "The top-level grob of a score.
@@ -3342,7 +3433,6 @@ All other grobs are descendants of it.")))))
      . (
         (collapse-height . 5.0)
         (direction . ,LEFT)
-
         ;; ugh--hardcoded.
         (padding . -0.1)  ;; bar must cover rounded ending of staff line.
         (stencil . ,ly:system-start-delimiter::print)
@@ -3445,7 +3535,8 @@ digit) in a tablature.  See also @iref{NoteHead}.")))))
 
     (TextMark
      . (
-        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (after-line-breaking
+         . ,ly:side-position-interface::move-to-extremal-staff)
         (baseline-skip . 2)
         (break-align-symbols . (staff-bar key-signature clef))
         (break-visibility . ,text-mark-interface::calc-break-visibility)
@@ -3491,10 +3582,8 @@ more specific intent.")))))
         (extra-spacing-width . (+inf.0 . -inf.0))
         (outside-staff-horizontal-padding . 0.2)
         (outside-staff-priority . 450)
-
         ;; sync with Fingering ?
         (padding . 0.3)
-
         (parent-alignment-X . #f)
         (script-priority . 200)
         ;; self-alignment cannot be LEFT because of fingering diagrams.
@@ -3541,7 +3630,6 @@ a note head.  See also @iref{MultiMeasureRestText}.")))))
         (stencil . ,ly:line-spanner::print)
         (style . dashed-line)
         (Y-offset . ,side-position-interface::y-aligned-side)
-
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 horizontal-line-spanner-interface
@@ -3616,7 +3704,8 @@ direction and shape of stacked @iref{Tie} grobs.")))))
         (break-align-symbol . time-signature)
         (break-align-anchor-alignment . ,LEFT)
         (break-visibility . ,all-visible)
-        (extra-spacing-height . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
+        (extra-spacing-height
+         . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
         (extra-spacing-width . (0.0 . 0.8))
         (non-musical . #t)
         (senza-misura-stencil . #f)
@@ -3631,8 +3720,11 @@ direction and shape of stacked @iref{Tie} grobs.")))))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (style . C)
         (meta . ((class . Item)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
                  (interfaces . (break-aligned-interface
                                 font-interface
                                 pure-from-neighbor-interface
@@ -3722,21 +3814,22 @@ trill.  See also @iref{TrillPitchGroup}.")))))
     (TrillSpanner
      . (
         (after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
-        (bound-details . ((left . (
-                                   ;; Need true X extent for chained trills not to overlap.
-                                   ;; The trill glyph has a loop on its left, which sticks
-                                   ;; out of its bounding box.
-                                   (text . ,(make-with-true-dimension-markup
-                                             X
-                                             (make-musicglyph-markup "scripts.trill")))
-                                   (stencil-offset . (0 . -1))
-                                   (attach-dir . ,CENTER)
-                                   ))
-                          (left-broken . ((end-on-note . #t)))
-                          (right . ((adjust-on-neighbor . #t)
-                                    (attach-dir . ,LEFT)
-                                    (end-on-accidental . #t)))
-                          ))
+        (bound-details
+         . ((left . (
+                     ;; Need true X extent for chained trills not to overlap.
+                     ;; The trill glyph has a loop on its left, which sticks
+                     ;; out of its bounding box.
+                     (text . ,(make-with-true-dimension-markup
+                               X
+                               (make-musicglyph-markup "scripts.trill")))
+                     (stencil-offset . (0 . -1))
+                     (attach-dir . ,CENTER)
+                     ))
+            (left-broken . ((end-on-note . #t)))
+            (right . ((adjust-on-neighbor . #t)
+                      (attach-dir . ,LEFT)
+                      (end-on-accidental . #t)))
+            ))
         (direction . ,UP)
         (left-bound-info . ,ly:horizontal-line-spanner::calc-left-bound-info)
         (outside-staff-priority . 50)
@@ -3838,13 +3931,17 @@ also @iref{UnaCordaPedalLineSpanner}, @iref{SostenutoPedal},
         (padding . 1.2)
         (side-axis . ,Y)
         (staff-padding . 1.2)
-        (vertical-skylines . ,grob::always-vertical-skylines-from-element-stencils)
+        (vertical-skylines
+         . ,grob::always-vertical-skylines-from-element-stencils)
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
                                 piano-pedal-interface
@@ -3876,9 +3973,12 @@ vertically.")))))
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)
         (meta . ((class . Spanner)
-                 (object-callbacks . ((Y-common . ,ly:axis-group-interface::calc-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)
-                                      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)))
+                 (object-callbacks
+                  . ((Y-common . ,ly:axis-group-interface::calc-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)
+                     (pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)))
                  (interfaces . (align-interface
                                 axis-group-interface))
                  (description . "A top-level auxiliary grob to
@@ -3887,26 +3987,34 @@ stack groups (staves, lyrics lines, etc.).  See also
 
     (VerticalAxisGroup
      . (
-        (adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
+        (adjacent-pure-heights
+         . ,ly:axis-group-interface::adjacent-pure-heights)
         (axes . (,Y))
         (default-staff-staff-spacing . ((basic-distance . 9)
                                         (minimum-distance . 8)
                                         (padding . 1)))
         (nonstaff-unrelatedstaff-spacing . ((padding . 0.5)))
         (outside-staff-placement-directive . left-to-right-polite)
-        (staff-staff-spacing . ,(ly:make-unpure-pure-container ly:axis-group-interface::calc-staff-staff-spacing ly:axis-group-interface::calc-pure-staff-staff-spacing))
+        (staff-staff-spacing
+         . ,(ly:make-unpure-pure-container
+             ly:axis-group-interface::calc-staff-staff-spacing
+             ly:axis-group-interface::calc-pure-staff-staff-spacing))
         (show-vertical-skylines . ,grob::show-skylines-if-debug-skylines-set)
         (skyline-horizontal-padding . 0.1)
         (vertical-skylines . ,ly:hara-kiri-group-spanner::calc-skylines)
         (X-extent . ,ly:axis-group-interface::width)
-        (Y-extent . ,(ly:make-unpure-pure-container ly:hara-kiri-group-spanner::y-extent ly:hara-kiri-group-spanner::pure-height))
+        (Y-extent . ,(ly:make-unpure-pure-container
+                      ly:hara-kiri-group-spanner::y-extent
+                      ly:hara-kiri-group-spanner::pure-height))
         (Y-offset . ,ly:hara-kiri-group-spanner::force-hara-kiri-callback)
         (meta . ((class . Spanner)
-                 (object-callbacks . (
-                                      (X-common . ,ly:axis-group-interface::calc-x-common)
-                                      (pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
-
+                 (object-callbacks
+                  . (
+                     (X-common . ,ly:axis-group-interface::calc-x-common)
+                     (pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 hara-kiri-group-spanner-interface
                                 outside-staff-axis-group-interface))
@@ -3952,7 +4060,8 @@ of a voice.")))))
         (word-space . 0.6)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (volta-number-offset . (1.0 . -0.5))
-        (Y-extent . ,(grob::unpure-Y-extent-from-stencil volta-bracket-interface::pure-height))
+        (Y-extent . ,(grob::unpure-Y-extent-from-stencil
+                      volta-bracket-interface::pure-height))
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 horizontal-bracket-interface
@@ -3966,19 +4075,24 @@ of a voice.")))))
 
     (VoltaBracketSpanner
      . (
-        (after-line-breaking . ,ly:side-position-interface::move-to-extremal-staff)
+        (after-line-breaking
+         . ,ly:side-position-interface::move-to-extremal-staff)
         (axes . (,Y))
         (direction . ,UP)
         (outside-staff-priority . 600)
         (padding . 1)
         (side-axis . ,Y)
-        (vertical-skylines . ,grob::always-vertical-skylines-from-element-stencils)
+        (vertical-skylines
+         . ,grob::always-vertical-skylines-from-element-stencils)
         (X-extent . ,ly:axis-group-interface::width)
         (Y-extent . ,axis-group-interface::height)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (object-callbacks . ((pure-Y-common . ,ly:axis-group-interface::calc-pure-y-common)
-                                      (pure-relevant-grobs . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
+                 (object-callbacks
+                  . ((pure-Y-common
+                      . ,ly:axis-group-interface::calc-pure-y-common)
+                     (pure-relevant-grobs
+                      . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
                                 outside-staff-interface
                                 side-position-interface
