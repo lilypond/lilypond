@@ -1,0 +1,55 @@
+From cf380c1a734acd0d22041c7c875fbffc6b535d2a Mon Sep 17 00:00:00 2001
+From: Jonas Hahnfeld <hahnjo@hahnjo.de>
+Date: Wed, 20 Mar 2024 20:57:02 +0100
+Subject: [PATCH] Use inum_magnitude for inums
+
+* libguile/integers.c: Call inum_magnitude instead of long_magnitude
+  for scm_t_inum arguments.
+---
+ libguile/integers.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/libguile/integers.c b/libguile/integers.c
+index 23bd2c0d5..380ff193c 100644
+--- a/libguile/integers.c
++++ b/libguile/integers.c
+@@ -251,7 +251,7 @@ inum_to_bignum (scm_t_inum i)
+   if (i > 0)
+     return ulong_to_bignum (i);
+ 
+-  return i == 0 ? make_bignum_0 () : make_bignum_1 (1, long_magnitude (i));
++  return i == 0 ? make_bignum_0 () : make_bignum_1 (1, inum_magnitude (i));
+ #else
+   return make_bignum_from_int64 (i);
+ #endif
+@@ -3061,15 +3061,15 @@ scm_integer_mul_ii (scm_t_inum x, scm_t_inum y)
+     return SCM_I_MAKINUM (k);
+ #endif
+ 
+-  mp_limb_t xd[1] = { long_magnitude (x) };
++  mp_limb_t xd[1] = { inum_magnitude (x) };
+   mp_limb_t lo;
+   int negative = (x < 0) != (y < 0);
+-  mp_limb_t hi = mpn_mul_1 (&lo, xd, 1, long_magnitude (y));
++  mp_limb_t hi = mpn_mul_1 (&lo, xd, 1, inum_magnitude (y));
+   if (!hi)
+     {
+       if (negative)
+         {
+-          if (lo <= long_magnitude (SCM_MOST_NEGATIVE_FIXNUM))
++          if (lo <= inum_magnitude (SCM_MOST_NEGATIVE_FIXNUM))
+             return SCM_I_MAKINUM (negative_long (lo));
+         }
+       else if (lo <= SCM_MOST_POSITIVE_FIXNUM)
+@@ -3100,7 +3100,7 @@ scm_integer_mul_zi (struct scm_bignum *x, scm_t_inum y)
+         struct scm_bignum *result = allocate_bignum (xn + 1);
+         mp_limb_t *rd = bignum_limbs (result);
+         const mp_limb_t *xd = bignum_limbs (x);
+-        mp_limb_t yd = long_magnitude (y);
++        mp_limb_t yd = inum_magnitude (y);
+         int negate = bignum_is_negative (x) != (y < 0);
+         mp_limb_t hi = mpn_mul_1 (rd, xd, xn, yd);
+         if (hi)
+-- 
+2.44.0
+
