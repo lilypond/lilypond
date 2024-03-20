@@ -648,6 +648,17 @@ class Guile(ConfigurePackage):
         return f"https://ftpmirror.gnu.org/gnu/guile/{self.archive}"
 
     def _apply_patches_mingw(self, c: Config):
+        # Patch lightening to fix JIT calling conventions on Windows.
+        def patch_x86(content: str) -> str:
+            replace = "if (defined(__CYGWIN__) || defined(_WIN64))"
+            content = content.replace("ifdef __CYGWIN__", replace)
+            content = content.replace("if __CYGWIN__", replace)
+            return content
+
+        for ext in ["c", "h"]:
+            x86 = os.path.join("libguile", "lightening", "lightening", f"x86.{ext}")
+            self.patch_file(c, x86, patch_x86)
+
         # Fix headers so compilation of LilyPond works.
         def patch_numbers(content: str) -> str:
             return "\n".join(
@@ -751,8 +762,6 @@ class Guile(ConfigurePackage):
             mingw_args = [
                 f"GUILE_FOR_BUILD={guile_for_build}",
                 f"--with-libiconv-prefix={libiconv_install_dir}",
-                # Disable JIT.
-                "--disable-jit",
                 # Disable threads, not needed on Windows.
                 "--without-threads",
             ]
