@@ -13,7 +13,7 @@ with the preceding bar line.
 }
 
 \layout {
-  line-width = 50\mm
+  line-width = 100\mm
 }
 
 \relative {
@@ -28,11 +28,11 @@ with the preceding bar line.
   R1 \break
   \time 8/8
   \tempo "T-time"
-  R1
+  R1 \bar "||"
   \override Score.MetronomeMark.break-align-symbols = #'(key-signature)
   \key as \major
   \tempo "T-key"
-  c1 \break
+  c1 \bar "||" \break
   \override Score.MetronomeMark.non-break-align-symbols =
     #'(note-column-interface multi-measure-rest-interface)
   \tempo "T-rest"
