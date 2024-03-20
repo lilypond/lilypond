@@ -753,12 +753,13 @@ class Guile(ConfigurePackage):
                 f"--with-libiconv-prefix={libiconv_install_dir}",
                 # Disable JIT.
                 "--disable-jit",
+                # Disable threads, not needed on Windows.
+                "--without-threads",
             ]
 
         return (
             [
                 # Disable unused parts of Guile.
-                "--without-threads",
                 "--disable-networking",
                 # Disable -Werror to enable builds with newer compilers.
                 "--disable-error-on-warning",
