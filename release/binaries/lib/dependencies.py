@@ -699,23 +699,6 @@ class Guile(ConfigurePackage):
                 )
 
     def apply_patches(self, c: Config):
-        # Fix configure on CentOS7 to not look in lib64.
-        def patch_configure(content: str) -> str:
-            return content.replace("=lib64", "=lib")
-
-        self.patch_file(c, "configure", patch_configure)
-
-        # Explicitly list static archive to prevent pkgconfig on CentOS7 from
-        # reordering the library items.
-        def patch_pkgconfig(content: str) -> str:
-            return content.replace(
-                "-lguile-@GUILE_EFFECTIVE_VERSION@",
-                "${libdir}/libguile-@GUILE_EFFECTIVE_VERSION@.a",
-            )
-
-        pkgconfig = os.path.join("meta", f"guile-{self.major_version}.pc.in")
-        self.patch_file(c, pkgconfig, patch_pkgconfig)
-
         # Fix non-portable invocation of inplace sed.
         def patch_inplace_sed(content: str) -> str:
             return content.replace("$(SED) -i", "$(SED)")
