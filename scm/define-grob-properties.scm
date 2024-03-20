@@ -738,6 +738,9 @@ as fraction of note head size.")
 should move (after padding).")
      (minimum-X-extent ,number-pair? "Minimum size of an object in
 X@tie{}dimension, measured in @code{staff-space} units.")
+     (minimum-X-space ,ly:dimension? "Minimum distance that the victim
+should move horizontally (after padding), overriding the
+@code{minimum-space} property value.")
      (minimum-Y-extent ,number-pair? "Minimum size of an object in
 Y@tie{}dimension, measured in @code{staff-space} units.")
      (musical-length ,musical-length? "Musical length.")
@@ -1393,6 +1396,9 @@ moved relative to its X-parent.
 Note that many objects have special positioning considerations, which cause any
 setting of @code{X-offset} to be ignored or modified, even though the object
 supports the @iref{self-alignment-interface}.")
+     (X-padding ,ly:dimension? "Add this much extra space between objects that
+are next to each other horizontally, overriding the @code{padding} property
+value.")
      (X-positions ,number-pair? "Pair of X staff coordinates of a spanner
 in the form @code{(@var{left} . @var{right})}, where both @var{left} and
 @var{right} are in @code{staff-space} units of the current staff.")

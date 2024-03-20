@@ -356,15 +356,29 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, vsize start,
       get_maybe_pure_property (me, "horizon-padding", pure, start, end), 0.0));
   Real total_off = !std::isinf (dist) ? dir * dist : 0.0;
 
-  total_off
-    += dir * ss
-       * from_scm<double> (
-         get_maybe_pure_property (me, "padding", pure, start, end), 0.0);
+  Real padding = from_scm<double> (
+    get_maybe_pure_property (me, "padding", pure, start, end), 0.0);
+  if (a == X_AXIS)
+    {
+      SCM x_padding
+        = get_maybe_pure_property (me, "X-padding", pure, start, end);
+      if (scm_is_number (x_padding))
+        padding = from_scm<double> (x_padding, 0.0);
+    }
+
+  total_off += dir * ss * padding;
 
   Real minimum_space
     = ss
       * from_scm<double> (
         get_maybe_pure_property (me, "minimum-space", pure, start, end), -1);
+  if (a == X_AXIS)
+    {
+      SCM minimum_x_space
+        = get_maybe_pure_property (me, "minimum-X-space", pure, start, end);
+      if (scm_is_number (minimum_x_space))
+        minimum_space = ss * from_scm<double> (minimum_x_space, 0.0);
+    }
 
   if (minimum_space >= 0 && dir && total_off * dir < minimum_space)
     total_off = minimum_space * dir;
@@ -562,6 +576,7 @@ The routine also takes the size of the staff into account if
 add-stem-support
 direction
 minimum-space
+minimum-X-space
 horizon-padding
 padding
 quantize-position
@@ -569,4 +584,5 @@ side-axis
 side-support-elements
 slur-padding
 staff-padding
+X-padding
                )");

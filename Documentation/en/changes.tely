@@ -1046,6 +1046,15 @@ The same holds for options @option{separate-page-formats} and
 handle this automatically.
 @end itemize
 
+@item
+The @code{side-position-interface} got two new properties,
+@code{X-padding} and @code{minimum-X-space}, to control the
+horizontal padding and minimum distance to a grob's parent object,
+independently of the vertical padding and minimum distance.  This
+is useful for grobs like @code{Fingering} that can be attached
+either horizontally or vertically to note heads, and which need
+different padding values for the X- and Y-axis, respectively.
+
 @end itemize
 
 
