@@ -815,15 +815,15 @@ at @var{fret}."
              (label-space (* 0.5 size))
              (label-dir (assoc-get 'label-dir details RIGHT))
              (label-vertical-offset
-              (assoc-get 'fret-label-vertical-offset details 0))
+              (assoc-get 'fret-label-vertical-offset details -0.5))
              (label-horizontal-offset
-              (assoc-get 'fret-label-horizontal-offset details 0))
+              (assoc-get 'fret-label-horizontal-offset details 0.2))
              (number-type
-              (assoc-get 'number-type details 'roman-lower))
+              (assoc-get 'number-type details 'custom))
              (label-text
               (number-format number-type base-fret
                              (assoc-get 'fret-label-custom-format
-                                        details "~a")))
+                                        details "~dfr")))
              (label-stencil
               (centered-stencil
                (sans-serif-stencil

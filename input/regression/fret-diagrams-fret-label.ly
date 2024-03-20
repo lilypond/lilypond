@@ -46,8 +46,8 @@ size, and number type.
      %% C major for guitar, verbose style
     \revert TextScript.fret-diagram-details.label-dir
     \override TextScript.fret-diagram-details.fret-label-font-mag = #0.4
-    \override TextScript.fret-diagram-details.number-type = #'arabic
-    \once \override TextScript.fret-diagram-details.fret-label-vertical-offset = #0.25
+    \override TextScript.fret-diagram-details.number-type = #'roman-lower
+    \once \override TextScript.fret-diagram-details.fret-label-vertical-offset = #0
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)
