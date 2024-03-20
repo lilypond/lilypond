@@ -2916,8 +2916,7 @@ horizontally align stacked @iref{Script} grobs.")))))
                  (description . "A segno mark (created with
 @code{\\repeat segno}, not with @code{\\segno}).")))))
 
-    ;; Ancient end-repeat sign.  This isn't a bar line, but it shares
-    ;; much of the BarLine implementation.
+    ;; This isn't a bar line, but it shares much of the BarLine implementation.
     (SignumRepetitionis
      . (
         (bar-extent . ,ly:bar-line::calc-bar-extent)
@@ -2962,7 +2961,8 @@ horizontally align stacked @iref{Script} grobs.")))))
                  (interfaces . (break-aligned-interface
                                 font-interface
                                 pure-from-neighbor-interface
-                                signum-repetitionis-interface))))))
+                                signum-repetitionis-interface))
+                 (description . "An ancient end-repeat sign.")))))
 
     (Slur
      . (
