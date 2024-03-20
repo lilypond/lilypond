@@ -1480,7 +1480,11 @@ group of notes).  Used in Gregorian chant.")))))
                                 text-script-interface))
                  (description . "A fingering symbol (usually a
 digit).  See also @iref{FingeringColumn} and
-@iref{StrokeFinger}.")))))
+@iref{StrokeFinger}.")
+                 (remarks . ("If the fingering is left- or
+right-positioned, the @code{Y-offset} property is taken relative
+to the vertical position of its X-parent (i.e., its associated
+note head)."))))))
 
     (FingeringColumn
      . (
