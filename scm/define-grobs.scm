@@ -1469,6 +1469,7 @@ group of notes).  Used in Gregorian chant.")))))
         (staff-padding . 0.5)
         (stencil . ,ly:text-interface::print)
         (text . ,fingering::calc-text)
+        (X-padding . 0.3)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (finger-interface
