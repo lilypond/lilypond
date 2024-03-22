@@ -698,6 +698,7 @@ printing of a single line of lyrics."
   \consists Current_chord_text_engraver
   \consists Chord_name_engraver
   \consists Axis_group_engraver
+  \consists Pure_from_neighbor_engraver
   %\consists Note_spacing_engraver
   \consists Alteration_glyph_engraver
 
