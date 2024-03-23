@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.13\n"
+"Project-Id-Version: lilypond 2.25.14\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2024-02-10 09:20+0100\n"
+"POT-Creation-Date: 2024-03-23 11:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -701,7 +701,7 @@ msgstr ""
 #. assume that the user was not changing the font size, as doing that
 #. without passing #:factor was resulting in bad output anyway.
 #. Other values result in a warning.
-#: convertrules.py:4860
+#: convertrules.py:4870
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts.  The\n"
@@ -716,7 +716,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:4873
+#: convertrules.py:4883
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts.  The #:brace\n"
@@ -738,7 +738,7 @@ msgid ""
 "}\n"
 msgstr ""
 
-#: convertrules.py:4893
+#: convertrules.py:4903
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts. The code "
@@ -768,20 +768,20 @@ msgid ""
 "convert automatically.  Please do the update manually.\n"
 msgstr ""
 
-#: convertrules.py:4938
+#: convertrules.py:4948
 msgid "#:factor parameter to set-global-fonts"
 msgstr ""
 
-#: convertrules.py:4943
+#: convertrules.py:4953
 msgid "different music and brace fonts passed to set-global-fonts"
 msgstr ""
 
-#: convertrules.py:4960
+#: convertrules.py:4970
 msgid "advanced use of set-global-fonts"
 msgstr ""
 
 #. Similar logic here with the factor parameter here
-#: convertrules.py:4965
+#: convertrules.py:4975
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts.  The\n"
@@ -796,7 +796,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:4978
+#: convertrules.py:4988
 msgid ""
 "\n"
 "LilyPond now uses a different syntax for selecting fonts. The code "
@@ -825,19 +825,19 @@ msgid ""
 "to convert automatically.  Please do the update manually.\n"
 msgstr ""
 
-#: convertrules.py:5025
+#: convertrules.py:5035
 msgid "factor parameter to make-pango-font-tree"
 msgstr ""
 
-#: convertrules.py:5036
+#: convertrules.py:5046
 msgid "advanced use of make-pango-font-tree"
 msgstr ""
 
-#: convertrules.py:5092
+#: convertrules.py:5102
 msgid "markup in repeatCommands"
 msgstr ""
 
-#: convertrules.py:5093
+#: convertrules.py:5103
 msgid ""
 "\n"
 "Markups inside repeatCommands are no longer automatically typeset in\n"
@@ -856,18 +856,18 @@ msgid ""
 "\"1.2.\" ad lib. } #}))\n"
 msgstr ""
 
-#: convertrules.py:5127
+#: convertrules.py:5137
 msgid "advanced use of (text-)font-defaults"
 msgstr ""
 
-#: convertrules.py:5128
+#: convertrules.py:5138
 msgid ""
 "\n"
 "The text-font-defaults and font-defaults variables have\n"
 "been merged into a single property-defaults variable.\n"
 msgstr ""
 
-#: convertrules.py:5134
+#: convertrules.py:5144
 msgid ""
 "\n"
 "Identifiers formerly in file 'gregorian.ly' are now always defined.  The\n"
@@ -879,7 +879,7 @@ msgid ""
 "It is recommended to rename them.\n"
 msgstr ""
 
-#: convertrules.py:5144
+#: convertrules.py:5154
 msgid ""
 "\n"
 "The use of 'gregorian.ly' is deprecated.  Code like\n"
@@ -901,15 +901,15 @@ msgid ""
 "\n"
 msgstr ""
 
-#: convertrules.py:5205
+#: convertrules.py:5215
 msgid "gregorian.ly to VaticanaScore"
 msgstr ""
 
-#: convertrules.py:5221
+#: convertrules.py:5231
 msgid "possible use of \\roman markup command with #(markup ...) macro"
 msgstr ""
 
-#: convertrules.py:5223
+#: convertrules.py:5233
 msgid ""
 "\n"
 "convert-ly detected \"#:roman\" in the input file.  This may be\n"
@@ -918,11 +918,11 @@ msgid ""
 "#:roman to #:serif.\n"
 msgstr ""
 
-#: convertrules.py:5267
+#: convertrules.py:5277
 msgid "subdivideBeams"
 msgstr ""
 
-#: convertrules.py:5268
+#: convertrules.py:5278
 msgid ""
 "\n"
 "Context property 'subdivideBeams' used to rely on the value of\n"
@@ -1116,7 +1116,7 @@ msgstr ""
 
 #: convert-ly.py:113 musicxml2ly.py:2885
 msgid ""
-"Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS "
+"Print log messages according to LOGLEVEL (NONE, ERROR, WARN, PROGRESS "
 "(default), DEBUG)"
 msgstr ""
 
@@ -1286,7 +1286,7 @@ msgstr ""
 
 #: lilypond-book.py:212
 msgid ""
-"print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS "
+"print log messages according to LOGLEVEL (NONE, ERROR, WARN, PROGRESS "
 "[default], DEBUG)"
 msgstr ""
 
@@ -1873,12 +1873,12 @@ msgstr ""
 msgid "suppressed warning: %s"
 msgstr ""
 
-#: accidental-engraver.cc:175
+#: accidental-engraver.cc:159
 #, c-format
 msgid "accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
-#: accidental-engraver.cc:203
+#: accidental-engraver.cc:187
 #, c-format
 msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr ""
@@ -1956,15 +1956,15 @@ msgid ""
 "asked to compute volume at +%f for dynamic span of duration %f starting at %s"
 msgstr ""
 
-#: axis-group-engraver.cc:156
+#: axis-group-engraver.cc:153
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr ""
 
-#: axis-group-engraver.cc:157
+#: axis-group-engraver.cc:154
 msgid "are there two Axis_group_engravers?"
 msgstr ""
 
-#: axis-group-engraver.cc:158
+#: axis-group-engraver.cc:155
 msgid "removing this vertical group"
 msgstr ""
 
@@ -2130,7 +2130,7 @@ msgstr ""
 #. failure, so we have to log here if we want to log at all.  It would be
 #. more flexible to return null and let the caller decide whether to warn in
 #. its situation.  The caller might know a useful source location too.
-#: context-specced-music-iterator.cc:77 context.cc:535 quote-iterator.cc:140
+#: context-specced-music-iterator.cc:77 context.cc:541 quote-iterator.cc:140
 #, c-format
 msgid "cannot find or create context: %s"
 msgstr ""
@@ -2224,11 +2224,11 @@ msgstr ""
 msgid "unterminated episema"
 msgstr ""
 
-#: extender-engraver.cc:175 extender-engraver.cc:184
+#: extender-engraver.cc:172 extender-engraver.cc:181
 msgid "unterminated extender"
 msgstr ""
 
-#: fingering-column-engraver.cc:68
+#: fingering-column-engraver.cc:66
 msgid "Cannot add a fingering without a direction."
 msgstr ""
 
@@ -2358,7 +2358,7 @@ msgstr ""
 msgid "Error when running GhostScript command!"
 msgstr ""
 
-#: glissando-engraver.cc:160
+#: glissando-engraver.cc:157
 msgid "unterminated glissando"
 msgstr ""
 
@@ -2449,11 +2449,11 @@ msgstr ""
 msgid "decrescendo too small"
 msgstr ""
 
-#: horizontal-bracket-engraver.cc:63
+#: horizontal-bracket-engraver.cc:61
 msgid "do not have that many brackets"
 msgstr ""
 
-#: horizontal-bracket-engraver.cc:72
+#: horizontal-bracket-engraver.cc:70
 msgid "conflicting note group events"
 msgstr ""
 
@@ -2488,7 +2488,7 @@ msgstr ""
 msgid "unknown remove-layer value `%s'"
 msgstr ""
 
-#: key-engraver.cc:200
+#: key-engraver.cc:197
 msgid "Incomplete keyAlterationOrder for key signature"
 msgstr ""
 
@@ -2731,7 +2731,7 @@ msgstr ""
 #: main.cc:139
 msgid ""
 "print log messages according to LOGLEVEL,\n"
-"which is either NONE, ERROR, WARNING,\n"
+"which is either NONE, ERROR, WARN,\n"
 "BASIC, PROGRESS, INFO (default), or DEBUG"
 msgstr ""
 
@@ -2952,15 +2952,15 @@ msgstr ""
 msgid "octave check failed; expected \"%s\", found: \"%s\""
 msgstr ""
 
-#: new-fingering-engraver.cc:116
+#: new-fingering-engraver.cc:108
 msgid "cannot add text scripts to individual note heads"
 msgstr ""
 
-#: new-fingering-engraver.cc:269
+#: new-fingering-engraver.cc:261
 msgid "no placement found for fingerings"
 msgstr ""
 
-#: new-fingering-engraver.cc:270
+#: new-fingering-engraver.cc:262
 msgid "placing below"
 msgstr ""
 
@@ -2988,12 +2988,12 @@ msgstr ""
 
 #: open-type-font-scheme.cc:145 open-type-font-scheme.cc:192
 #: open-type-font-scheme.cc:238 open-type-font-scheme.cc:388 otf-scheme.cc:43
-#: ttf.cc:490 ttf.cc:539
+#: ttf.cc:488 ttf.cc:537
 msgid "font index must be non-negative, using index 0"
 msgstr ""
 
 #: open-type-font-scheme.cc:159 open-type-font-scheme.cc:206
-#: open-type-font-scheme.cc:285 otf-scheme.cc:58 ttf.cc:457 ttf.cc:506
+#: open-type-font-scheme.cc:285 otf-scheme.cc:58 ttf.cc:455 ttf.cc:504
 #, c-format
 msgid "font index %d too large for font `%s', using index 0"
 msgstr ""
@@ -3213,7 +3213,7 @@ msgid "best score for this sys-count: %f"
 msgstr ""
 
 #: optimal-page-breaking.cc:250 page-turn-page-breaking.cc:271
-#: paper-score.cc:154
+#: paper-score.cc:155
 msgid "Drawing systems..."
 msgstr ""
 
@@ -3249,12 +3249,12 @@ msgstr ""
 msgid "page %d has been compressed"
 msgstr ""
 
-#: page-breaking.cc:1261
+#: page-breaking.cc:1263
 #, c-format
 msgid "too few pages: %ld (should have at least %ld)"
 msgstr ""
 
-#: page-breaking.cc:1266
+#: page-breaking.cc:1268
 #, c-format
 msgid "too many pages: %ld (should have at most %ld)"
 msgstr ""
@@ -3400,12 +3400,12 @@ msgstr ""
 msgid "Paper_outputter elapsed time: %.2f seconds"
 msgstr ""
 
-#: paper-score.cc:127
+#: paper-score.cc:128
 #, c-format
 msgid "Element count %zu (spanners %zu) "
 msgstr ""
 
-#: paper-score.cc:130
+#: paper-score.cc:131
 msgid "Preprocessing graphical objects..."
 msgstr ""
 
@@ -3708,11 +3708,11 @@ msgstr ""
 msgid "expected to read %zu characters, got %zu"
 msgstr ""
 
-#: staff-performer.cc:299
+#: staff-performer.cc:294
 msgid "MIDI channel wrapped around"
 msgstr ""
 
-#: staff-performer.cc:300
+#: staff-performer.cc:295
 msgid "remapping modulo 16"
 msgstr ""
 
@@ -3741,7 +3741,7 @@ msgstr ""
 msgid "weird stem size, check for narrow beams"
 msgstr ""
 
-#: stencil-integral.cc:472
+#: stencil-integral.cc:474
 msgid "Malformed path for path stencil."
 msgstr ""
 
@@ -3793,11 +3793,11 @@ msgstr ""
 msgid "unterminated text spanner"
 msgstr ""
 
-#: tie-engraver.cc:123
+#: tie-engraver.cc:111
 msgid "unterminated tie"
 msgstr ""
 
-#: tie-engraver.cc:368
+#: tie-engraver.cc:356
 msgid "lonely tie"
 msgstr ""
 
@@ -3876,16 +3876,16 @@ msgstr ""
 msgid "ascending vaticana style flexa"
 msgstr ""
 
-#: vertical-align-engraver.cc:113
+#: vertical-align-engraver.cc:110
 msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
 msgstr ""
 
-#: vertical-align-engraver.cc:167
+#: vertical-align-engraver.cc:164
 #, c-format
 msgid "alignAboveContext not found: %s"
 msgstr ""
 
-#: vertical-align-engraver.cc:172
+#: vertical-align-engraver.cc:169
 #, c-format
 msgid "alignBelowContext not found: %s"
 msgstr ""
@@ -4171,32 +4171,32 @@ msgstr ""
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
-#: bar-line.scm:104
+#: bar-line.scm:106
 #, scheme-format
 msgid "Bar glyph ~a not known. Ignoring."
 msgstr ""
 
-#: bar-line.scm:131
+#: bar-line.scm:133
 #, scheme-format
 msgid ""
 "Annotation '~a' is allowed in the first argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:139
+#: bar-line.scm:141
 #, scheme-format
 msgid ""
 "Replacement '~a' is allowed in the last argument of a bar line definition "
 "only."
 msgstr ""
 
-#: bar-line.scm:194
+#: bar-line.scm:196
 #, scheme-format
 msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:1005
+#: bar-line.scm:988
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
@@ -4607,17 +4607,17 @@ msgid ""
 "greater than or equal to @var{target-val}."
 msgstr ""
 
-#: lily-library.scm:1672
+#: lily-library.scm:1675
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:1705
+#: lily-library.scm:1708
 #, scheme-format
 msgid "conflict with event: `~a'"
 msgstr ""
 
-#: lily-library.scm:1706
+#: lily-library.scm:1709
 #, scheme-format
 msgid "discarding event: `~a'"
 msgstr ""
