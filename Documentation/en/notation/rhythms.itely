@@ -1770,6 +1770,9 @@ The @code{\partial} command sets the @code{Timing.measurePosition}
 property, which is a rational number that indicates how much of
 the measure has passed.
 
+For technical reasons, the argument to @code{\partial} cannot be a
+zero-length duration (like @code{\partial 4*0}).
+
 @morerefs
 Music Glossary:
 @rglos{anacrusis}.
