@@ -170,9 +170,9 @@ generating the documentation.
 
   "@macro manualIntro
 This manual is a technical reference for all internal elements used
-by LilyPond and all Scheme functions it provides.  This information can
-be used to create tweaks and extensions, from simple output settings
-to advanced Scheme programming.
+by LilyPond version @version{} and all Scheme functions it provides.
+This information can be used to create tweaks and extensions, from
+simple output settings to advanced Scheme programming.
 @end macro
 
 @macro bytecodeWarning"
