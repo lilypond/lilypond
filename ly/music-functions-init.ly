@@ -448,14 +448,14 @@ compressMMRests =
 
 crossStaff =
 #(define-music-function (notes) (ly:music?)
-  (_i "Create cross-staff stems for @var{notes}.")
-  #{
-  \temporary \override Stem.cross-staff = #cross-staff-connect
-  \temporary \override Flag.style = #'no-flag
-  #notes
-  \revert Stem.cross-staff
-  \revert Flag.style
-#})
+   (_i "Create cross-staff stems for @var{notes}.")
+   #{
+     \temporary \override Stem.cross-staff = #cross-staff-connect
+     \temporary \override Flag.style = #'no-flag
+     #notes
+     \revert Stem.cross-staff
+     \revert Flag.style
+   #})
 
 cueClef =
 #(define-music-function (type) (string?)
