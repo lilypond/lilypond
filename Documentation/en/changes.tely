@@ -802,6 +802,20 @@ still working for backward compatibility (if you load
 @file{hel-arabic.ly}), it is recommended to use @q{english},
 @q{italiano}, or your preferred note name language instead.
 
+@item
+Defaults for fret diagram fret labels have changed.
+
+@itemize
+@item
+The default value for @code{fret-label-vertical-offset} is set to
+@w{-0.5}, which centers the label in the fret space.
+
+@item
+The default number format is now @code{'custom}, with a format
+string of @code{"~dfr"} (resulting in @q{3fr}, for example),
+instead of @code{'roman-lower}.
+@end itemize
+
 @end itemize
 
 
@@ -1030,22 +1044,6 @@ must be changed to
 The same holds for options @option{separate-page-formats} and
 @option{tall-page-formats}.  Note that @command{convert-ly} can
 handle this automatically.
-@end itemize
-
-@item
-Defaults for fret diagram fret labels have changed.
-@itemize
-
-@item
-The default value for @code{fret-label-vertical-offset} is set to -0.5, 
-which centers the label in the fret space.
-
-
-@item
-The default number format is now @code{'custom}, with a format string of 
-@code{"~dfr"} (resulting in @q{3fr}, for example), 
-instead of @code{'roman-lower}.
-
 @end itemize
 
 @end itemize
