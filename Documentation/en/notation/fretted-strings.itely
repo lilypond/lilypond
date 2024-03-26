@@ -287,15 +287,17 @@ to @code{#t}.
 @cindex @code{q}, chord repetition
 
 Chord constructs can be repeated by the chord repetition symbol
-@code{q}.  In combination with tablatures, its behavior of removing
-string and finger numbers alongside with other events is cumbersome, so
-you'll want to run
-@example
-\chordRepeats #'(string-number-event fingering-event)
-@end example
-explicitly on music expressions in tablature using @ref{Chord
-repetition}.  This particular command is so common that it is available
-as @code{\tabChordRepeats}.
+@samp{q}, (@pxref{Chord repetition} for more).  In combination
+with tabulatures, its behavior of removing string and fingering
+numbers alongside with other events may lead to unwanted results,
+in particular different fret positions.  The command
+@code{\tabChordRepeats} keeps the fingering consistent across
+repetitions.  In the following example, the default fingering for
+this chord (without fingering indications) would be @q{gis} on 4th
+string, @q{b} on 3rd string, and @q{cis} on 2nd string.  As we use
+@code{b-0} in the input, @q{b} is on the second string, and
+@q{cis} moves to the 3rd string.  @code{\tabChordRepeats} allows
+to keep the same fingering in the following q chords:
 
 @lilypond[quote,verbatim]
 guitar = \relative {
