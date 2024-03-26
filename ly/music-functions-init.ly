@@ -452,9 +452,18 @@ crossStaff =
    #{
      \temporary \override Stem.cross-staff = #cross-staff-connect
      \temporary \override Flag.style = #'no-flag
+     \temporary \override TupletBracket.stencil = ##f
+     \temporary \override TupletNumber.stencil = ##f
+     \pushContextProperty autoBeaming ##f
+
+     <>\noBeam
      #notes
+
      \revert Stem.cross-staff
      \revert Flag.style
+     \revert TupletBracket.stencil
+     \revert TupletNumber.stencil
+     \popContextProperty autoBeaming
    #})
 
 cueClef =

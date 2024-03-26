@@ -1,12 +1,9 @@
 \version "2.16.0"
 
 \header {
-
-    texidoc = "Test for cross-staff stems.  The test produces a
-piano staff with cross-staff connected crochet, semi-quaver,
-dotted quaver (beamed with the semi-quaver) and finally a quaver.
-All stems should connect, showing correct spacing and
-stem length.  The lower connected notes should have no flags." }
+  texidoc = "Test for cross-staff stems.  We check for properly
+connected chords, triplets, and auto-beamed beams correctly ended."
+}
 
 \layout {
   \context {
@@ -18,13 +15,14 @@ stem length.  The lower connected notes should have no flags." }
 {
   \new PianoStaff <<
     \new Staff {
-      <b d'>4 r d'16\> e'8. g8 r\!
+      r4 e'8 f' <b d'>8\> r \tuplet 3/2 { e'8. f'16 g'8 } |
+      g r\!
     }
    \new Staff {
      \clef bass
-      \voiceOne
-      \autoBeamOff
-      \crossStaff { <e g>4 e, g16 a8. c8} d
+      \stemUp
+      c8 d \crossStaff { e f <e g>8 r \tuplet 3/2 { e8. f16 g8 } |
+      c8 } d
     }
   >>
 }
