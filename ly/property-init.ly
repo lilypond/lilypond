@@ -110,7 +110,11 @@ arpeggioParenthesisDashed = {
 %% auto beaming
 
 autoBeamOn  = \set autoBeaming = ##t
-autoBeamOff = \set autoBeaming = ##f
+autoBeamOff = {
+  \set autoBeaming = ##f
+  % Make auto-beaming stop immediately.
+  <>\noBeam
+}
 
 
 %% balloon length

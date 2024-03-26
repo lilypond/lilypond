@@ -127,7 +127,8 @@ arguments, @var{context}, @var{dir} [start/@/stop (-1 or 1)], and
 @var{test} [shortest note in the beam].  A non-@code{#f} return value
 starts or stops the auto beam.")
      (autoBeaming ,boolean? "If set to true then beams are generated
-automatically.")
+automatically.  If set to false, auto-beaming is switched off as soon as the
+current beam (if any) is finished according to the auto-beaming rules.")
      (autoCautionaries ,list? "List similar to @code{autoAccidentals},
 but it controls cautionary accidentals rather than normal ones.  Both
 lists are tried, and the one giving the most accidentals wins.  In
