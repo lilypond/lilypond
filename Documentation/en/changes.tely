@@ -1055,6 +1055,27 @@ is useful for grobs like @code{Fingering} that can be attached
 either horizontally or vertically to note heads, and which need
 different padding values for the X- and Y-axis, respectively.
 
+@item
+@code{\pushContextProperty} and @code{\popContextProperty} are two
+new commands for manipulating context properties.  The first one
+pushes the current value to a stack and sets a new value, while
+the second one pops off the value from the stack and uses it to
+restore the previous value.
+
+@lilypond[quote,verbatim]
+{
+  c'
+  \pushContextProperty Staff.fontSize 3
+  c'
+  \pushContextProperty Staff.fontSize 6
+  c'
+  \popContextProperty Staff.fontSize
+  c'
+  \popContextProperty Staff.fontSize
+  c'
+}
+@end lilypond
+
 @end itemize
 
 

@@ -1584,6 +1584,37 @@ as a stemless note head in parentheses.")
                            trill-events)))))
      main-note))
 
+popContextProperty =
+#(define-music-function (path) (key-list?)
+   (_i "Pop value of context property @var{path} from stack and set it.
+
+This is the opposite to function @code{\\pushContextProperty}.")
+   (if (= (length path) 1)
+       (set! path (cons 'Bottom path)))
+   (context-spec-music
+    (make-music
+     'ApplyContext
+     'procedure
+     (lambda (ctx)
+       (let* ((stack (ly:context-property ctx 'propertyStack))
+              (this-hierarchy (assoc-get (cadr path) stack '())))
+         (if (null? this-hierarchy)
+             (begin
+               (ly:warning
+                (G_ "context property ~a.~a not stacked, setting to default")
+                (car path) (cadr path))
+               (ly:context-unset-property ctx (cadr path)))
+             (begin
+               (ly:context-set-property! ctx
+                                         (cadr path)
+                                         (car this-hierarchy))
+               (ly:context-set-property! ctx
+                                         'propertyStack
+                                         (assoc-set! stack
+                                                     (cadr path)
+                                                     (cdr this-hierarchy))))))))
+    (car path)))
+
 propertyOverride =
 #(define-music-function (grob-property-path value) (key-list? scheme?)
    (_i "Set the grob property specified by @var{grob-property-path} to
@@ -1733,6 +1764,32 @@ the built-in @code{\\unset} command.")
                       'origin (*location*))
           (car p))
          (make-music 'Music))))
+
+pushContextProperty =
+#(define-music-function (path value) (key-list? scheme?)
+   (_i "Set context property @var{path} to @var{value} and push old value to stack.
+
+The old value can be popped off the stack and restored with function
+@code{\\popContextProperty}.")
+   (if (= (length path) 1)
+       (set! path (cons 'Bottom path)))
+   (context-spec-music
+    (make-music
+     'ApplyContext
+     'procedure
+     (lambda (ctx)
+       (let* ((stack (ly:context-property ctx 'propertyStack))
+              (this-hierarchy (assoc-get (cadr path) stack '()))
+              (this-val (ly:context-property ctx (cadr path))))
+         (ly:context-set-property! ctx
+                                   'propertyStack
+                                   (assoc-set! stack
+                                               (cadr path)
+                                               (cons this-val this-hierarchy)))
+         (ly:context-set-property! ctx
+                                   (cadr path)
+                                   value))))
+    (car path)))
 
 pushToTag =
 #(define-music-function (tag more music) (symbol? ly:music? ly:music?)
