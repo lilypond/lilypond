@@ -96,7 +96,7 @@ Use the LSR database to regenerate LilyPond's 'snippets' directory.
                            database dump; ignored if '--dump=no'
   -T, --textdump-only=FILE
                          shorthand for '--no-convert --no-lsr
-                         --no-new --no-snippet-list --textdump=FILE'
+                           --no-new --no-snippet-list --textdump=FILE'
   -V, --verbose          be verbose
 
 Environment variables:

@@ -478,7 +478,7 @@ now be adjusted with the @code{volta-number-offset} property of
 
 @itemize
 @item
-A new @code{\\bar-line} markup command to print bar lines in text is now
+A new @code{\bar-line} markup command to print bar lines in text is now
 available.
 
 @lilypond[verbatim,quote]
