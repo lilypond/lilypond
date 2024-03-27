@@ -478,7 +478,7 @@ def conv(s):
     if re.search('\\\\textscript "[^"]* *"[^"]*"', s):
         stderr_write(NOT_SMART % _("new \\textscript markup text"))
 
-    s = re.sub('\\textscript +("[^"]*")', '\\textscript #\\1', s)
+    s = re.sub(r'\\textscript +("[^"]*")', r'\\textscript #\1', s)
     return s
 
 # TODO: add lots of these
@@ -1419,8 +1419,8 @@ def conv(s):
     s = re.sub(r'>>', '@ENDCHORD@', s)
     s = re.sub(r'>', '@ENDSIMUL@', s)
     s = re.sub(r'<', '@STARTSIMUL@', s)
-    s = re.sub('@STARTDECRESC@', '\\>', s)
-    s = re.sub('@STARTCRESC@', '\\<', s)
+    s = re.sub('@STARTDECRESC@', r'\\>', s)
+    s = re.sub('@STARTCRESC@', r'\\<', s)
     s = re.sub('@ACCENT@', '>', s)
     s = re.sub('@ENDCHORD@', '>', s)
     s = re.sub('@STARTCHORD@', '<', s)
@@ -2147,7 +2147,7 @@ def conv(s):
 
     def get_markup(m):
         s = m.group(0)
-        s = re.sub(r'''((\\"|})\s*){''', '\2 \\line {', s)
+        s = re.sub(r'''((\\"|})\s*){''', r'\2 \\line {', s)
         return s
     s = re.sub(r'\\markup\s*{([^}]|{[^}]*})*}', get_markup, s)
     return s
