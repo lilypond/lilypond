@@ -8210,10 +8210,12 @@ Pytagorisessa viritysjärjestelmässä.
 
 Named after Ptolemy's syntonic diatonic genus.  Originally, the difference
 by which the ditone exceeds the pure major third obtained by Pythagorean
-tuning -- (9:8)^2 - 5:4 = 81:80, or 21.5@w{ }cents.
+tuning: (9:8)^2 / (5:4) = 81:80, or 21.5@tie{}cents.@footnote{Addition and
+subtraction of intervals are represented in the arithmetic expressions by
+multiplication and division, respectively.}
 
-Modern acoustical theory defines it as the interval by which four fifths exceed
-the sum of two octaves plus a major third.  (3:2)^4 - (2:1)^2 + (5:4)
+Modern acoustics theory defines it as the interval by which four fifths exceed
+the sum of two octaves plus a major third: (3:2)^4 / ((2:1)^2 * (5:4)).
 
 This comma is also known as the comma of Didymus, or didymic comma.
 
