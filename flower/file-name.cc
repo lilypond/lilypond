@@ -129,16 +129,18 @@ File_name::to_string () const
 
 File_name::File_name (std::string file_name)
 {
+  ssize i;
+
 #ifdef __MINGW32__
   file_name = slashify (file_name);
-#endif
 
-  ssize i = file_name.find (ROOTSEP);
+  i = file_name.find (ROOTSEP);
   if (i != NPOS)
     {
       root_ = file_name.substr (0, i);
       file_name = file_name.substr (i + 1);
     }
+#endif
 
   // note: `c:foo' is not absolute
   i = file_name.find (DIRSEP);

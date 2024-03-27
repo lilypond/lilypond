@@ -108,14 +108,23 @@ TEST (File_name, absolute)
   EQUAL (File_name ("abc/def.g").absolute ("/home").to_string (),
          "/home/abc/def.g");
 
+#ifdef __MINGW32__
   EQUAL (File_name ("c:/abc/def.g").absolute ("/home").to_string (),
          "c:/abc/def.g");
-  EQUAL (File_name ("/abc/def.g").absolute ("/home").to_string (),
-         "/abc/def.g");
-  EQUAL (File_name ("/def.g").absolute ("/home").to_string (), "/def.g");
-  EQUAL (File_name ("def.g").absolute ("/home").to_string (), "/home/def.g");
   EQUAL (File_name ("c:abc/def.g").absolute ("c:/home").to_string (),
          "c:/home/abc/def.g");
   EQUAL (File_name ("d:abc/def.g").absolute ("c:/home").to_string (),
          "c:/home/abc/def.g");
+#else
+  EQUAL (File_name ("c:/abc/def.g").absolute ("/home").to_string (),
+         "/home/c:/abc/def.g");
+  EQUAL (File_name ("c:abc/def.g").absolute ("c:/home").to_string (),
+         "c:/home/c:abc/def.g");
+  EQUAL (File_name ("d:abc/def.g").absolute ("c:/home").to_string (),
+         "c:/home/d:abc/def.g");
+#endif
+  EQUAL (File_name ("/abc/def.g").absolute ("/home").to_string (),
+         "/abc/def.g");
+  EQUAL (File_name ("/def.g").absolute ("/home").to_string (), "/def.g");
+  EQUAL (File_name ("def.g").absolute ("/home").to_string (), "/home/def.g");
 }
