@@ -293,6 +293,7 @@
         <type>quarter</type>
         <notations>
           <ornaments>
+            <trill-mark/>
             <wavy-line number="1" type="start"/>
             <wavy-line number="1" type="stop"/>
           </ornaments>
