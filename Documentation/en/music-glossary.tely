@@ -365,6 +365,7 @@ Languages in this order.
 * shake::
 * sharp::
 * simile::
+* simile mark::
 * simple meter::
 * sixteenth note::
 * sixteenth rest::
@@ -6556,31 +6557,11 @@ web.
 @node percent repeat
 @section percent repeat
 
-LilyPond-specific term to indicate the repetition of a musical expression on a
-single staff, as opposed to the more usual definition of repeat, which affects
-all parts.  The musical expression can be anything from a single note or note
-pattern to one or more measures.  There are other names for this symbol:
-
-@itemize
-
-@item simile mark
-@item slash mark, or slash repeat
-@item beat repeat
-@item measure (or multi-measure) repeat
-
-@end itemize
-
-@lilypond[quote,relative=2,line-width=13.0\cm]
-\time 4/4
-  \repeat percent 4 { c4_"Beat (or slash) repeat" }
-  \repeat percent 2 { c4 e g b_"Measure repeat" }
-  \repeat percent 2 { c,2 es | f4 fis g c_"Multi-measure repeat" | }
-@end lilypond
+LilyPond-specific term to indicate the repetition of a musical
+expression through simile marks.
 
 @morerefs
-@ref{repeat},
-@uref{http://www.music.vt.edu/musicdictionary/textr/Repeat.html,University of
-Vermont Music Dictionary}.
+@ref{simile mark}.
 @endmorerefs
 
 
@@ -7611,6 +7592,52 @@ etc.@:) as the music that precedes it.
 
 @morerefs
 TODO: Where else could I refer the reader?
+@endmorerefs
+
+
+@node simile mark
+@section simile mark
+
+E: see below,
+D: Faulenzer (colloquial).
+
+Symbol to indicate a percent repeat, the repetition of a musical
+expression on a single staff, as opposed to the more usual definition
+of a repeat, which affects all parts.  The musical expression can be
+anything from a single note or note pattern to one or more
+measures.  There are other names for this symbol:
+
+@itemize
+@item slash mark, or slash repeat
+@item beat repeat, repeat-beat, or repeat-bar
+@item measure (or multi-measure) repeat
+@end itemize
+
+@lilypond[quote,relative=2,line-width=16.0\cm]
+\after 4*3 {
+  \tweak self-alignment-X #CENTER
+  \tweak non-musical ##f
+  \textMark "beat (or slash) repeat"
+} \repeat percent 4 { c4 }
+\after 2*3 {
+  \tweak self-alignment-X #CENTER
+  \tweak direction #DOWN
+  \tweak padding 1.5
+  \tweak non-musical ##f
+  \textMark "measure repeat"
+} \repeat percent 2 { c4 d e f }
+\after 1*3 {
+  \tweak self-alignment-X #CENTER
+  \tweak direction #DOWN
+  \tweak padding 1.5
+  \textMark "multi-measure repeat"
+} \repeat percent 2 { c2 e | f4 e c g }
+\stopStaff s1
+@end lilypond
+
+@morerefs
+@ref{repeat},
+@uref{https://dictionary.onmusic.org/terms/4804-repeat,OnMusic Dictionary}.
 @endmorerefs
 
 
