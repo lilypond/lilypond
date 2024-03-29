@@ -1422,6 +1422,12 @@ class BracketSpannerEvent(SpanEvent):
         val = self.bracket_to_ly()
         if val:
             if self.span_direction == -1:
+                style = {"dashed": "dashed-line",
+                         "dotted": "dotted-line",
+                         "wavy": "trill"}.get(self.line_type, None)
+                if style:
+                    printer.dump(r"\tweak style #'%s" % style)
+
                 dir = {1: "#UP",
                        -1: "#DOWN"}.get(self.force_direction, '')
                 if dir:
