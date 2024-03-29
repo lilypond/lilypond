@@ -358,14 +358,14 @@ is not used within the routine."
                                 (/ staff-space 2)) Y)))
       stencil)))
 
-
+;; A dotted line obviously contains a lined up amount of dots with space
+;; inbetween, and probably before and behind.
+;; Caused by different sized staves and user settings like \magnifyStaff,
+;; layout-set-staff-size etc., the space between dots and the even the size of
+;; the dots itself may differ, making a dotted bar line a beasty thing...
 (define (make-dotted-bar-line is-span grob extent)
   "Draw a dotted bar line."
-  (let* (;; Heuristic: In a call to create a staff bar line, the
-         ;; extent will likely cross the center of the staff, and in a
-         ;; call to create a span bar line, it likely will not.
-         (making-span-bar? (not (interval-contains? extent 0)))
-         (staff-space (ly:staff-symbol-staff-space grob))
+  (let* ((staff-space (ly:staff-symbol-staff-space grob))
          (top-pos (round (* (/ (interval-end extent) staff-space) 2)))
          (bottom-pos (round (* (/ (interval-start extent) staff-space) 2)))
          (dots-pos '())
@@ -378,21 +378,58 @@ is not used within the routine."
                 2)
           '()))
 
-    (if making-span-bar?
-        (begin
-          ;; If a dot is out of bounds due to rounding, bring it in.
-          (if (>= top-pos (* 2 (interval-end extent)))
-              (set! top-pos (- top-pos 1)))
-          (if (<= bottom-pos (* 2 (interval-start extent)))
-              (set! bottom-pos (1+ bottom-pos)))
+    (define (add! init ls rl)
+    ;; Returns the list @code{rl} where the elements from @code{ls} are added to
+    ;; the previous one, starting at @code{(+ init (car ls))}. Example:
+    ;;   (add! 1.23 '(1 2 3) '())
+    ;;   --> '(2.23 4.23 7.23)
+      (if (null? ls)
+          (reverse rl)
+          (let ((new-init ((if (negative? init) - +) init (car ls))))
+            (add! new-init (cdr ls) (cons new-init rl)))))
 
-          ;; Span an integer number of staff spaces (2 positions per space).
-          (if (not (equal? (even? top-pos) (even? bottom-pos)))
-              (set! bottom-pos (1+ bottom-pos)))
+    ;; A staff group may contain staves with different staff space, like
+    ;; TabStaff and Staff. If the SpanBar would use the staff space from above,
+    ;; i.e. from the topmost staff, all other span bars would use these staff
+    ;; space, even if not appropriate.
+    ;; Instead we use the staff space from layout. Covers the majority of cases.
+    (when is-span
+      (let* ((height (interval-length extent))
+             (grob-layout (ly:grob-layout grob))
+             (layout-staff-space (ly:output-def-lookup grob-layout 'staff-space))
+             (dot-count (round (/ height layout-staff-space)))
+             (space (/ height dot-count))
+             ;; Distribute dots evenly
+             ;;
+             ;; - For no dots we return an empty list.
+             ;; - For one dot we want the same space from upper staff to dot
+             ;; and from the dot to lower staff, i.e (/ space 2).
+             ;; - For multiple dots we want said (/ space 2) from upper staff to
+             ;; the topmost dot and from bottommost dot to lower staff.
+             ;; Between the dots we go for `space'.
+             ;;
+             ;; Actually it is unneeded to add (/ space 2) at the end of `ls'
+             ;; below (we also drop the result later), it makes understanding
+             ;; easier, though.
+             ;; -Harm
+             (ls
+               (if (zero? dot-count)
+                   '()
+                   (cons
+                     (/ space 2)
+                     (append
+                       (make-list
+                         (inexact->exact (1- dot-count))
+                         space)
+                       (list (/ space 2)))))))
+        (set! dots-pos
+              (if (pair? ls)
+                  (map
+                    (lambda (x) (* (/ x staff-space) 2))
+                    (drop-right (add! (interval-end extent) ls '()) 1))
+                  '()))))
 
-          (set! dots-pos (calc-dot-positions (cons bottom-pos top-pos)))))
-
-    (when (not making-span-bar?)
+    (when (not is-span)
       ;; Narrow the extent by half a dot on each end; if the
       ;; center of a dot is within the reduced interval, then the
       ;; whole dot is within the original interval.

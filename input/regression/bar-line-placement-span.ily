@@ -1,4 +1,4 @@
-\version "2.23.7"
+\version "2.23.15"
 
 \layout {
   \context {
@@ -15,11 +15,14 @@ test =
       s4
       \override Staff.BarLine.bar-extent =
         #(lambda (grob)
-          (interval-widen (ly:bar-line::calc-bar-extent grob) extra-bar-extent))
+          (let ((staff-space (ly:staff-symbol-staff-space grob)))
+            (interval-widen
+              (ly:bar-line::calc-bar-extent grob)
+              (* extra-bar-extent staff-space))))
       \startStaff
       \bar "|" f4 \bar \testBar e'4 \bar "|"
     }
-  #} )
+  #})
 
 sweepBarExtent = {
   \test -1.0
