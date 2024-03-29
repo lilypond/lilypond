@@ -1403,25 +1403,29 @@ class TextSpannerEvent(SpanEvent):
 
 
 class BracketSpannerEvent(SpanEvent):
-    # Ligature brackets use prefix-notation!!!
-    def print_before_note(self, printer):
+    # Ligature brackets use prefix notation for the start.
+    def wait_for_note(self):
         if self.span_direction == -1:
-            if self.force_direction == 1:
-                printer.dump(
-                    r"\once \override LigatureBracket.direction = #UP")
-            elif self.force_direction == -1:
-                printer.dump(
-                    r"\once \override LigatureBracket.direction = #DOWN")
-            printer.dump(r'\[')
-    # the bracket after the last note
+            return False
+        else:
+            return True
 
-    def print_after_note(self, printer):
-        if self.span_direction == 1:
-            printer.dump(r'\]')
-    # we're printing everything in print_(before|after)_note...
+    def bracket_to_ly(self):
+        return {1: r'\]', -1: r'\['}.get(self.span_direction, '')
 
     def ly_expression(self):
-        return ''
+        return self.bracket_to_ly()
+
+    def print_ly(self, printer):
+        val = self.bracket_to_ly()
+        if val:
+            if self.span_direction == -1:
+                dir = {1: "#UP",
+                       -1: "#DOWN"}.get(self.force_direction, '')
+                if dir:
+                    override = r"\tweak direction "
+                    printer.dump('%s%s' % (override, dir))
+            printer.dump(val)
 
 
 class OctaveShiftEvent(SpanEvent):
