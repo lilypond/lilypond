@@ -1476,11 +1476,9 @@ class TrillSpanEvent(SpanEvent):
 class GlissandoEvent(SpanEvent):
     def print_before_note(self, printer):
         if self.span_direction == -1:
-            style = {
-                "dashed": "dashed-line",
-                "dotted": "dotted-line",
-                "wavy": "zigzag"
-            }. get(self.line_type, None)
+            style = {"dashed": "dashed-line",
+                     "dotted": "dotted-line",
+                     "wavy": "trill"}. get(self.line_type, None)
             if style:
                 printer.dump(
                     "\\once \\override Glissando.style = #'%s" % style)
