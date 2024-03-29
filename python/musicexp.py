@@ -1392,10 +1392,12 @@ class TextSpannerEvent(SpanEvent):
         style = getattr(self, 'style', None)
         if style == 'ignore':
             return ""
-        # if self.style=="wave":
         if whatOrnament == "wave":
             return {-1: '\\startTextSpan',
                     1: '\\stopTextSpan'}.get(self.span_direction, '')
+        elif style == "dashes":
+            return {-1: r"\tweak style #'dashed-line \startTextSpan",
+                    1: r'\stopTextSpan'}.get(self.span_direction, '')
         elif (style == 'stop') and (whatOrnament != 'trill'):
             return ""
         return {-1: '\\startTrillSpan',

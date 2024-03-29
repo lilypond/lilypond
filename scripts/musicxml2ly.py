@@ -1094,6 +1094,8 @@ def musicxml_spanner_to_lily_event(mxl_event):
 
     if name == "wavy-line":
         ev.style = OrnamenthasWhat(mxl_event)
+    elif name == "dashes":
+        ev.style = "dashes"
 
     type = mxl_event.get_type()
     span_direction = spanner_type_dict.get(type)
