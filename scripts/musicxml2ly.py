@@ -1169,11 +1169,9 @@ def musicxml_tremolo_to_lily_event(mxl_event):
     if txt:
         ev.strokes = txt
     else:
-        # This is supposed to be a default for empty tremolo elements
-        # TODO: Add empty tremolo element to test cases in tremolo.xml
-        # TODO: Test empty tremolo element
-        # TODO: Consideration: Is 3 really a reasonable default?
-        ev.strokes = "3"
+        ev.strokes = 3
+        ly.warning(_('empty <tremolo> element, setting value to %s')
+                   % ev.strokes)
     return ev
 
 
