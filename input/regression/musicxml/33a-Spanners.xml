@@ -774,9 +774,16 @@
         </pitch>
         <duration>3</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>half</type>
+        <time-modification>
+          <actual-notes>2</actual-notes>
+          <normal-notes>1</normal-notes>
+        </time-modification>
+        <beam number="1">begin</beam>
         <notations>
-          <ornaments><tremolo type="start">2</tremolo></ornaments>
+          <ornaments>
+            <tremolo type="start">2</tremolo>
+          </ornaments>
         </notations>
       </note>
       <note>
@@ -786,9 +793,16 @@
         </pitch>
         <duration>3</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>half</type>
+        <time-modification>
+          <actual-notes>2</actual-notes>
+          <normal-notes>1</normal-notes>
+        </time-modification>
+        <beam number="1">end</beam>
         <notations>
-          <ornaments><tremolo type="stop">2</tremolo></ornaments>
+          <ornaments>
+            <tremolo type="stop">2</tremolo>
+          </ornaments>
         </notations>
       </note>
       <note>
