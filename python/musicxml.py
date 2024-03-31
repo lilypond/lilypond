@@ -1750,6 +1750,14 @@ class Words(Music_xml_node):
     pass
 
 
+# A tremolo can be either a normal ornamentation (single-note tremolo) or a
+# spanner (double-note tremolo).
+class Tremolo(Music_xml_spanner):
+    # The `type` attribute is optional, defaulting to `single`.
+    def get_type(self):
+        return self._attribute_dict.get('type', 'single')
+
+
 # need this, not all classes are instantiated
 # for every input file. Only add those classes, that are either directly
 # used by class name or extend Music_xml_node in some way!
@@ -1818,6 +1826,7 @@ class_dict = {
     'text': Text,
     'time-modification': Time_modification,
     'tied': Tied,
+    'tremolo': Tremolo,
     'tuplet': Tuplet,
     'type': Type,
     'unpitched': Unpitched,

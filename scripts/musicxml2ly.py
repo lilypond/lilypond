@@ -1163,6 +1163,7 @@ def musicxml_nonarpeggiate_to_lily_event(mxl_event):
     return ev
 
 
+# Single-note tremolo.
 def musicxml_tremolo_to_lily_event(mxl_event):
     ev = musicexp.TremoloEvent()
     txt = mxl_event.get_text()
@@ -1173,6 +1174,14 @@ def musicxml_tremolo_to_lily_event(mxl_event):
         ly.warning(_('empty <tremolo> element, setting value to %s')
                    % ev.strokes)
     return ev
+
+
+# Double-note tremolo.
+#
+# TODO: Expand this stub implementation to actually support tremolo
+#       spanners.
+def musicxml_tremolo_spanner_to_lily_event(mxl_event):
+    return musicexp.TremoloSpannerEvent()
 
 
 def musicxml_falloff_to_lily_event(mxl_event):
@@ -1292,14 +1301,13 @@ articulations_dict = {
     "thumb-position": "thumb",
     # "toe": "?",
     "turn": "turn",
-    "tremolo": musicxml_tremolo_to_lily_event,
+    "tremolo": musicxml_tremolo_to_lily_event,  # can also be a spanner
     "trill-mark": "trill",
     # "triple-tongue": "?",
     # "unstress": "?"
     "up-bow": "upbow",
-    # "wavy-line": "?",
+    # "wavy-line": handled as spanner
 }
-articulation_spanners = ["wavy-line"]
 
 
 def OrnamenthasWhat(mxl_event):
@@ -1346,12 +1354,18 @@ def OrnamenthasWavyline(mxl_event):
 
 
 def musicxml_articulation_to_lily_event(mxl_event):
-    # wavy-line elements are treated as trill spanners, not as articulation
-    # ornaments
-    if mxl_event.get_name() in articulation_spanners:
+    name = mxl_event.get_name()
+    if name == "wavy-line":
+        # `wavy-line` elements are treated as trill spanners, not as
+        # articulation ornaments.
         return musicxml_spanner_to_lily_event(mxl_event)
+    elif name == "tremolo":
+        # `tremolo` elements might be spanners, too, if they span two notes.
+        type = mxl_event.get_type()
+        if type == 'start' or type == 'stop':
+            return musicxml_tremolo_spanner_to_lily_event(mxl_event)
 
-    tmp_tp = articulations_dict.get(mxl_event.get_name())
+    tmp_tp = articulations_dict.get(name)
     if OrnamenthasWavyline(mxl_event):
         return
     if not tmp_tp:
