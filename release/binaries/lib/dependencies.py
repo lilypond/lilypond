@@ -43,7 +43,7 @@ def copy_slice(src: str, dst: str, lines: slice):
 class Expat(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.5.0"
+        return "2.6.2"
 
     @property
     def directory(self) -> str:
@@ -214,7 +214,7 @@ fontconfig = Fontconfig()
 class Ghostscript(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "10.02.1"
+        return "10.03.0"
 
     @property
     def directory(self) -> str:
@@ -287,7 +287,7 @@ class Gettext(ConfigurePackage):
 
     @property
     def version(self) -> str:
-        return "0.22.4"
+        return "0.22.5"
 
     @property
     def directory(self) -> str:
@@ -376,7 +376,7 @@ gettext = Gettext()
 class Libffi(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "3.4.4"
+        return "3.4.6"
 
     @property
     def directory(self) -> str:
@@ -404,7 +404,7 @@ libffi = Libffi()
 class PCRE2(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "10.42"
+        return "10.43"
 
     @property
     def directory(self) -> str:
@@ -444,7 +444,7 @@ pcre2 = PCRE2()
 class GLib(MesonPackage):
     @property
     def version(self) -> str:
-        return "2.78.4"
+        return "2.80.0"
 
     @property
     def directory(self) -> str:
@@ -506,7 +506,7 @@ glib = GLib()
 class Bdwgc(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "8.2.4"
+        return "8.2.6"
 
     @property
     def directory(self) -> str:
@@ -577,7 +577,7 @@ libiconv = Libiconv()
 class Libunistring(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.1"
+        return "1.2"
 
     @property
     def directory(self) -> str:
@@ -805,7 +805,7 @@ guile = Guile()
 class HarfBuzz(MesonPackage):
     @property
     def version(self) -> str:
-        return "8.3.0"
+        return "8.4.0"
 
     @property
     def directory(self) -> str:
@@ -873,9 +873,7 @@ fribidi = FriBidi()
 class Pango(MesonPackage):
     @property
     def version(self) -> str:
-        # Later versions require a newer mingw-w64 than what we currently have
-        # on Ubuntu 20.04 (related to dwrite library and dwrite_1.h header).
-        return "1.50.11"
+        return "1.52.2"
 
     @property
     def directory(self) -> str:
@@ -934,7 +932,7 @@ pango = Pango()
 class Libpng(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.6.41"
+        return "1.6.43"
 
     @property
     def directory(self) -> str:
@@ -970,7 +968,7 @@ libpng = Libpng()
 class Pixman(MesonPackage):
     @property
     def version(self) -> str:
-        return "0.43.0"
+        return "0.43.4"
 
     @property
     def directory(self) -> str:
@@ -1048,7 +1046,7 @@ class Cairo(MesonPackage):
 cairo = Cairo()
 
 
-PYTHON_VERSION = "3.12.1"
+PYTHON_VERSION = "3.12.2"
 
 
 class Python(ConfigurePackage):
