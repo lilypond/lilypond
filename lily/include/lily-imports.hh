@@ -28,7 +28,7 @@ extern Scm_module module;
 typedef Module_variable<module> Variable;
 
 extern Variable apply;
-#if SCM_MAJOR_VERSION < 3 || (SCM_MINOR_VERSION == 0 && SCM_MICRO_VERSION < 3)
+#if SCM_MAJOR_VERSION == 3 && SCM_MINOR_VERSION == 0 && SCM_MICRO_VERSION < 3
 extern Variable p_auto_compilation_options;
 #endif
 extern Variable boolean_p;
@@ -52,22 +52,18 @@ extern Scm_module module;
 typedef Module_variable<module> Variable;
 
 extern Variable compile;
-#if SCM_MAJOR_VERSION >= 3 && (SCM_MINOR_VERSION > 0 || SCM_MICRO_VERSION >= 3)
+#if SCM_MAJOR_VERSION > 3 || SCM_MINOR_VERSION > 0 || SCM_MICRO_VERSION >= 3
 extern Variable default_optimization_level;
 #endif
 } // namespace Compile
 
-#if SCM_MAJOR_VERSION < 3 || (SCM_MINOR_VERSION == 0 && SCM_MICRO_VERSION < 3)
+#if SCM_MAJOR_VERSION == 3 && SCM_MINOR_VERSION == 0 && SCM_MICRO_VERSION < 3
 namespace Tree_il_optimize
 {
 extern Scm_module module;
 typedef Module_variable<module> Variable;
 
-#if SCM_MAJOR_VERSION >= 3
 extern Variable tree_il_optimizations;
-#else
-extern Variable tree_il_default_optimization_options;
-#endif
 } // namespace Tree_il_optimize
 
 namespace Cps_optimize
@@ -75,11 +71,7 @@ namespace Cps_optimize
 extern Scm_module module;
 typedef Module_variable<module> Variable;
 
-#if SCM_MAJOR_VERSION >= 3
 extern Variable cps_optimizations;
-#else
-extern Variable cps_default_optimization_options;
-#endif
 } // namespace Cps_optimize
 #endif
 
