@@ -42,7 +42,8 @@
           - m4
           - ninja-build
           - perl
-          - python38
+          - python3.11
+          - python3.11-pip
           - t1utils
           - texlive-kpathsea-bin
           - texlive-metafont-bin
