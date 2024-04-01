@@ -205,9 +205,7 @@ DQAAAAEAAAAA2m42gAAAAADapnDnAAAAANqnrLQFlwAyBZcARQ==
 
 #(define (dump-base64 name content)
   (let* ((port (open-output-file name)))
-   (cond-expand
-    (guile-2 (set-port-encoding! port "ISO-8859-1"))
-    (else))
+   (set-port-encoding! port "ISO-8859-1")
    (base64-decode port content)
    (close port)))
 

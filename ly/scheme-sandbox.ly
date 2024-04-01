@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.16.0"
+\version "2.24.0"
 
 #(load-user-init)
 
@@ -26,14 +26,10 @@
 % (activate-readline)
 % in order to activate command-line editing for interactive sessions.
 % You need libreadline support and the respective Guile module to be
-% installed for that.  In Debian, for example, this is part of the
-% guile-1.8-libs package.  Depending on your system and version, the
+% installed for that.  Depending on your system and version, the
 % requirements may be different.
 
 #(newline)
-#(cond-expand
-   (guile-2
-     (begin
-       (use-modules (system repl repl))
-       (start-repl)))
-   (else (scm-style-repl)))
+#(begin
+  (use-modules (system repl repl))
+  (start-repl))
