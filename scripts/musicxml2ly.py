@@ -1114,6 +1114,11 @@ def musicxml_spanner_to_lily_event(mxl_event):
 
     ev.size = int(getattr(mxl_event, 'size', 0))  # attr of octave-shift
 
+    if options.convert_directions:
+        dir = getattr(mxl_event, 'placement', None)
+        if dir is not None and span_direction == -1:
+            ev.force_direction = musicxml_direction_to_indicator(dir)
+
     return ev
 
 

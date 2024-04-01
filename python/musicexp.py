@@ -1320,6 +1320,7 @@ class SpanEvent(Event):
         self.line_type = 'solid'
         self.span_type = 0  # e.g. cres/decrescendo, ottava up/down
         self.size = 0  # size of e.g. octave shift
+        self.force_direction = 0  # for LilyPond's `^` and `_` modifier
 
     def wait_for_note(self):
         return True
@@ -1363,8 +1364,22 @@ class SlurEvent(SpanEvent):
         if command and self.span_direction == -1:
             printer.dump(command)
 
-    def ly_expression(self):
+    def direction_mod(self):
+        return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
+
+    def slur_to_ly(self):
         return {-1: '(', 1: ')'}.get(self.span_direction, '')
+
+    def ly_expression(self):
+        return self.slur_to_ly()
+
+    def print_ly(self, printer):
+        val = self.slur_to_ly()
+        if val:
+            if self.span_direction == -1:
+                printer.dump('%s%s' % (self.direction_mod(), val))
+            else:
+                printer.dump(val)
 
 
 class BeamEvent(SpanEvent):
@@ -1392,33 +1407,42 @@ class PedalEvent(SpanEvent):
 
 
 class TextSpannerEvent(SpanEvent):
-    def print_before_note(self, printer):
-        if getattr(self, 'style', None) == 'wave':
-            printer.dump(r"\once \override TextSpanner.style = #'trill")
-        force_dir = getattr(self, 'force_direction', None)
-        if force_dir is not None:
-            x = {-1: '\\textSpannerDown', 0: '\\textSpannerNeutral',
-                 1: '\\textSpannerUp'}.get(force_dir, '')
-            printer.dump(x)
+    def direction_mod(self):
+        return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
 
-    def print_after_note(self, printer):
-        pass
-
-    def ly_expression(self):
+    def text_spanner_to_ly(self):
         global whatOrnament
         style = getattr(self, 'style', None)
         if style == 'ignore':
-            return ""
+            return ('', '')
         if whatOrnament == "wave":
-            return {-1: '\\startTextSpan',
-                    1: '\\stopTextSpan'}.get(self.span_direction, '')
+            return {-1: (r"\tweak style #'trill", r'\startTextSpan'),
+                    1: ('', r'\stopTextSpan')}.get(self.span_direction,
+                                                   ('', ''))
         elif style == "dashes":
-            return {-1: r"\tweak style #'dashed-line \startTextSpan",
-                    1: r'\stopTextSpan'}.get(self.span_direction, '')
+            return {-1: (r"\tweak style #'dashed-line", r'\startTextSpan'),
+                    1: ('', r'\stopTextSpan')}.get(self.span_direction,
+                                                   ('', ''))
         elif (style == 'stop') and (whatOrnament != 'trill'):
-            return ""
-        return {-1: '\\startTrillSpan',
-                1: '\\stopTrillSpan'}.get(self.span_direction, '')
+            return ('', '')
+        return {-1: ('', r'\startTrillSpan'),
+                1: ('', r'\stopTrillSpan')}.get(self.span_direction,
+                                                ('', ''))
+
+    def ly_expression(self):
+        (tweak, val) = self.text_spanner_to_ly()
+        if tweak:
+            return ('%s %s' % (tweak, val))
+        else:
+            return val
+
+    def print_ly(self, printer):
+        (tweak, val) = self.text_spanner_to_ly()
+        if val:
+            if tweak:
+                printer.dump('%s %s%s' % (tweak, self.direction_mod(), val))
+            else:
+                printer.dump('%s%s' % (self.direction_mod(), val))
 
 
 class BracketSpannerEvent(SpanEvent):
