@@ -741,12 +741,10 @@ class TimeScaledMusic(MusicWrapper):
 
     def print_ly(self, func):
         if self.display_bracket is None:
-            func("\\once \\omit TupletBracket")
+            func(r"\once \omit TupletBracket")
             func.newline()
         elif self.display_bracket == "curved":
-            ly.warning(
-                _("Tuplet brackets of curved shape are not correctly implemented"))
-            func("\\once \\override TupletBracket.stencil = #ly:slur::print")
+            func(r"\once \override TupletBracket.tuplet-slur = ##t")
             func.newline()
 
         base_number_function = {
