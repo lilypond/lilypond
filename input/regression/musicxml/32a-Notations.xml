@@ -467,8 +467,7 @@
         <type>quarter</type>
         <notations>
           <ornaments>
-            <wavy-line placement="below" type="stop"/>
-            <wavy-line placement="below" type="start"/>
+            <wavy-line placement="below" type="continue"/>
           </ornaments>
         </notations>
         <lyric number="1"><syllabic>middle</syllabic><text>wavy</text></lyric>
