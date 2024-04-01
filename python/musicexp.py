@@ -1378,6 +1378,13 @@ class TremoloSpannerEvent(SpanEvent):
 
 
 class PedalEvent(SpanEvent):
+    # LilyPond's support for positioning pedal marks above or below a staff
+    # is limited: if there is a series of `\sustainOn` and `\sustainOff`
+    # commands without any intermediate stop, all of them are positioned
+    # with a single `SustainPedalLineSpanner` grob (which can span over
+    # multiple systems).  In other words, positioning of single pedal marks
+    # is not possible in general.  For this reason we ignore the `placement`
+    # attribute.
     def ly_expression(self):
         return {-1: '\\sustainOn',
                 0: '\\sustainOff\\sustainOn',
