@@ -42,6 +42,7 @@
           - make
           - ninja-build
           - pkgconf
+          - python3-packaging
           - python3-pip
           - t1utils
           - tar
