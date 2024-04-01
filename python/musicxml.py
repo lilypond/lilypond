@@ -1618,6 +1618,21 @@ class Direction(Measure_element):
         'voice': 1,
     }
 
+    # We assume there is only a single pedal spanner in the `<Direction>`
+    # element.  Additionally, we only consider the `line` attribute at the
+    # beginning, assuming that the remaining parts of the pedal spanner are
+    # of the same type.
+    def pedal_is_line(self):
+        for dt in self.get_typed_children(DirType):
+            pedal = dt.get_named_child('pedal')
+            if pedal:
+                break
+
+        if pedal and pedal.type == 'start':
+            return (getattr(pedal, 'line', 'no') == 'yes')
+        else:
+            return None
+
 
 class Elision(Music_xml_node):
     pass

@@ -2377,6 +2377,9 @@ def musicxml_voice_to_lily_voice(voice):
     is_beamed = False
     ignore_lyrics = False
 
+    # For pedal marks.
+    pedal_is_line = False
+
     current_staff = None
 
     pending_figured_bass = []
@@ -2485,6 +2488,15 @@ def musicxml_voice_to_lily_voice(voice):
                 continue
             else:
                 n.converted = True
+
+                new_pedal_is_line = n.pedal_is_line()
+                if (new_pedal_is_line is not None
+                        and pedal_is_line != new_pedal_is_line):
+                    style = "#'bracket" if new_pedal_is_line else "#'text"
+                    se = musicexp.SetEvent("Staff.pedalSustainStyle", style)
+                    voice_builder.add_command(se)
+                    pedal_is_line = new_pedal_is_line
+
                 for direction in musicxml_direction_to_lily(n):
                     if direction.wait_for_note():
                         voice_builder.add_dynamics(direction)
