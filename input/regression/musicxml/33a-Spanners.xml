@@ -100,7 +100,7 @@
         <voice>1</voice>
         <type>quarter</type>
         <notations>
-          <slur number="1" type="start"/>
+          <slur number="1" placement="below" type="start"/>
         </notations>
       </note>
       <note>
@@ -203,7 +203,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="5">
-      <direction placement="above">
+      <direction placement="below">
         <direction-type>
           <wedge spread="15" type="diminuendo"/>
         </direction-type>
@@ -429,7 +429,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="11">
-      <direction placement="above">
+      <direction placement="below">
         <direction-type>
           <bracket line-end="down" line-type="dashed" number="1" type="start"/>
         </direction-type>
@@ -452,7 +452,7 @@
         <voice>1</voice>
         <type>quarter</type>
       </note>
-      <direction placement="above">
+      <direction placement="below">
         <direction-type>
           <bracket line-end="down" number="1" type="stop"/>
         </direction-type>
@@ -509,7 +509,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="13">
-      <direction placement="above">
+      <direction placement="below">
         <direction-type>
           <bracket line-end="none" line-type="dashed" number="1" type="start"/>
         </direction-type>
@@ -532,7 +532,7 @@
         <voice>1</voice>
         <type>quarter</type>
       </note>
-      <direction placement="above">
+      <direction placement="below">
         <direction-type>
           <bracket line-end="up" number="1" type="stop"/>
         </direction-type>
@@ -589,7 +589,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="15">
-      <direction placement="above">
+      <direction placement="below">
         <direction-type>
           <dashes number="1" type="start"/>
         </direction-type>
@@ -612,7 +612,7 @@
         <voice>1</voice>
         <type>quarter</type>
       </note>
-      <direction placement="above">
+      <direction placement="below">
         <direction-type>
           <dashes number="1" type="stop"/>
         </direction-type>
@@ -921,7 +921,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="24">
-      <direction>
+      <direction placement="above">
         <direction-type>
           <pedal type="start"/>
         </direction-type>
@@ -938,7 +938,7 @@
         <voice>1</voice>
         <type>quarter</type>
       </note>
-      <direction>
+      <direction placement="above">
         <direction-type>
           <pedal type="stop"/>
         </direction-type>
