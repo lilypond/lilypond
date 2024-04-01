@@ -784,6 +784,11 @@ def musicxml_tuplet_to_lily(tuplet_elt, time_modification):
     if show_type is not None:
         tsm.display_type = display_values.get(show_type, None)
 
+    if options.convert_directions:
+        dir = getattr(tuplet_elt, 'placement', None)
+        if dir is not None:
+            tsm.force_direction = musicxml_direction_to_indicator(dir)
+
     return tsm
 
 

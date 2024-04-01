@@ -738,6 +738,7 @@ class TimeScaledMusic(MusicWrapper):
         self.normal_type = None   # The basic unit of the scaling
         self.display_numerator = None
         self.display_denominator = None
+        self.force_direction = 0
 
     def print_ly(self, func):
         if self.display_bracket is None:
@@ -745,6 +746,12 @@ class TimeScaledMusic(MusicWrapper):
             func.newline()
         elif self.display_bracket == "curved":
             func(r"\once \override TupletBracket.tuplet-slur = ##t")
+            func.newline()
+
+        dir = {-1: r'\once \tupletDown',
+               1: r'\once \tupletUp'}.get(self.force_direction, '')
+        if dir:
+            func(dir)
             func.newline()
 
         base_number_function = {
