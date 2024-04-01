@@ -1557,8 +1557,10 @@ class HairpinEvent(SpanEvent):
     def print_ly(self, printer):
         val = self.hairpin_to_ly()
         if val:
-            # printer.dump (val)
-            printer.dump('%s%s' % (self.direction_mod(), val))
+            if self.span_direction == -1:
+                printer.dump('%s%s' % (self.direction_mod(), val))
+            else:
+                printer.dump(val)
 
 
 class DynamicsEvent(Event):

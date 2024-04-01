@@ -1743,7 +1743,8 @@ def musicxml_direction_to_lily(n):
         if entry.get_name() in directions_spanners:
             event = musicxml_spanner_to_lily_event(entry)
             if event:
-                event.force_direction = dir
+                if event.span_direction == -1:
+                    event.force_direction = dir
                 res.append(event)
             continue
 
