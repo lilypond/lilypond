@@ -10,7 +10,8 @@
            bracket (solid down/down, dashed down/down, solid none/down,
            dashed none/up, solid none/none), dashes, glissando (wavy),
            bend-alter, slide (solid), grouping, two-note tremolo, hammer-on,
-           pull-off, pedal (down, change, up).</miscellaneous-field>
+           pull-off, pedal line (down, change, up), pedal text (down,
+           up).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -886,7 +887,7 @@
     <measure number="23">
       <direction>
         <direction-type>
-          <pedal type="start"/>
+          <pedal type="start" line="yes"/>
         </direction-type>
       </direction>
       <note>
@@ -897,9 +898,40 @@
       </note>
       <direction>
         <direction-type>
-          <pedal type="change"/>
+          <pedal type="change" line="yes"/>
         </direction-type>
       </direction>
+      <note>
+        <pitch><step>B</step><octave>4</octave></pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <direction>
+        <direction-type>
+          <pedal type="stop" line="yes"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch><step>B</step><octave>4</octave></pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="24">
+      <direction>
+        <direction-type>
+          <pedal type="start"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch><step>B</step><octave>4</octave></pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
       <note>
         <pitch><step>B</step><octave>4</octave></pitch>
         <duration>3</duration>
