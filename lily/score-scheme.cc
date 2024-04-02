@@ -27,7 +27,11 @@
 
 LY_DEFINE (ly_make_score, "ly:make-score", 1, 0, 0, (SCM music),
            R"(
-Return score with @var{music} encapsulated in it.
+Encapsulate @var{music} into a score smob.
+
+This is a low-level function that does no preprocessing.  You might be
+looking for function @code{scorify-music} instead, which also preprocesses
+@var{music}.
            )")
 {
   LY_ASSERT_SMOB (Music, music, 1);

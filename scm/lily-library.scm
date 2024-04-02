@@ -214,7 +214,10 @@ for page layout instructions. "
                      music))
 
 (define-public (scorify-music music)
-  "Preprocess @var{music}."
+  "Preprocess @var{music} and encapsulate it into a score smob.
+
+Among other things, preprocessing replaces chord repetitions via `q'
+with the correct actual chords."
   (ly:make-score
    (fold (lambda (f m) (f m))
          music
