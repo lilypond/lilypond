@@ -18,6 +18,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
+// TODO: Replace the whole file with the `<filesystem>` functionality
+//       provided by C++17.  This will eventually avoid platform-dependent
+//       code and tests.
+
+
 #include "config.hh"
 
 #include "file-name.hh"
