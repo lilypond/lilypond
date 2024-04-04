@@ -15,15 +15,6 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
-;; TODO:
-;; (1) Dashed bar lines may stick out above and below the staff lines
-;;
-;; (2) Dashed and dotted lines look ugly in combination with span bars
-;;
-;; (This was the case in the c++-version of (span) bar stuff)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helper functions for staff and layout properties
 
@@ -505,57 +496,43 @@ is not used within the routine."
   (let* ((height (interval-length extent))
          (staff-symbol (ly:grob-object grob 'staff-symbol grob))
          (staff-space (ly:staff-symbol-staff-space grob))
+         (grob-layout (ly:grob-layout grob))
+         (layout-staff-space (ly:output-def-lookup grob-layout 'staff-space))
+         (half-space (/ (if is-span
+                            layout-staff-space
+                            staff-space)
+                         2.0))
+         (blot (layout-blot-diameter grob))
          (line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
                        line-thickness))
+         (half-thick (/ line-thickness 2.0))
          (dash-size (- 1.0 (ly:grob-property grob 'gap 0.3)))
-         (line-count (staff-symbol-line-count staff-symbol)))
+         (amount-of-dashes (/ height
+                              (if is-span
+                                  layout-staff-space
+                                  staff-space)))
+         (rounded-amount (round amount-of-dashes))
+         (stencil empty-stencil))
 
-    (if (< (abs (+ line-thickness
-                   (* (1- line-count) staff-space)
-                   (- height)))
-           0.1)
-        (let ((blot (layout-blot-diameter grob))
-              (half-space (/ staff-space 2.0))
-              (half-thick (/ line-thickness 2.0))
-              (stencil empty-stencil))
-
-          (for-each (lambda (i)
-                      (let ((top-y (min (* (+ i dash-size) half-space)
-                                        (+ (* (1- line-count) half-space)
-                                           half-thick)))
-                            (bot-y (max (* (- i dash-size) half-space)
-                                        (- 0 (* (1- line-count) half-space)
-                                           half-thick))))
-
-                        (set! stencil
-                              (ly:stencil-add
-                               stencil
-                               (ly:round-filled-box (cons 0 thickness)
-                                                    (cons bot-y top-y)
-                                                    blot)))))
-                    (iota line-count (1- line-count) (- 2)))
-          (ly:stencil-translate-axis
-           stencil
-           (interval-center extent)
-           Y))
-        (let* ((dashes (/ height staff-space))
-               (total-dash-size (/ height dashes))
-               (factor (/ (- dash-size thickness) staff-space))
-               (stencil (ly:stencil-translate-axis
-                         (ly:make-stencil (list 'dashed-line
-                                                thickness
-                                                (* factor total-dash-size)
-                                                (* (- 1 factor) total-dash-size)
-                                                0
-                                                height
-                                                (* factor total-dash-size 0.5))
-                                          (cons (/ thickness -2) (/ thickness 2))
-                                          (cons 0 height))
-                         (interval-start extent)
-                         Y)))
-
-          (ly:stencil-translate-axis stencil (/ thickness 2) X)))))
+    (for-each (lambda (i)
+                (let ((top-y (min (* (+ i dash-size) half-space)
+                                  (+ (* amount-of-dashes half-space)
+                                     half-thick)))
+                      (bot-y (max (* (- i dash-size) half-space)
+                                  (- 0 (* amount-of-dashes half-space)
+                                     half-thick))))
+                  (set! stencil
+                        (ly:stencil-add
+                         stencil
+                         (ly:round-filled-box (cons 0 thickness)
+                                              (cons bot-y top-y)
+                                              blot)))))
+              (iota (1+ rounded-amount) rounded-amount (- 2)))
+    (ly:stencil-translate-axis
+       stencil
+     (interval-center extent)
+     Y)))
 
 
 (define ((make-segno-bar-line show-segno) is-span grob extent)

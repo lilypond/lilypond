@@ -5,8 +5,6 @@
 @code{set-global-staff-size} and @code{layout-set-staff-size}."
 }
 
-%% TODO obviously dashed/dotted bar lines need to be improved, currently they
-%% do not print nicely
 
 #(set-global-staff-size 10)
 
@@ -16,7 +14,14 @@ mus =
 staffGroup =
   \new StaffGroup
   <<
-    \new Staff { \clef alto \mus }
+    \new Staff
+      \with {
+        \override VerticalAxisGroup.staff-staff-spacing =
+         #'((basic-distance . 9)
+            (minimum-distance . 8)
+            (padding . 12))
+      }
+      { \clef alto \mus }
     \new TabStaff \mus
   >>
 
