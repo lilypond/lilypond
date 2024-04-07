@@ -8,7 +8,7 @@
 %%
 %% Note: this file works from version 2.25.5.
 
-\version "2.25.5"
+\version "2.25.13"
 
 \header {
   lsrtags = "text, tweaks-and-overrides"

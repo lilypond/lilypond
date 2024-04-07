@@ -8,7 +8,7 @@
 %%
 %% Note: this file works from version 2.25.4.
 
-\version "2.25.4"
+\version "2.25.13"
 
 \header {
   lsrtags = "repeats, symbols-and-glyphs, text"
