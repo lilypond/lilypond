@@ -1754,7 +1754,9 @@ class Voice(Music_xml_node):
 
 
 class Wavy_line(Music_xml_spanner):
-    pass
+    def __init__(self):
+        Music_xml_spanner.__init__(self)
+        self.start_stop = False
 
 
 class Wedge(Music_xml_spanner):

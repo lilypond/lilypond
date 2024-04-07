@@ -1407,6 +1407,10 @@ class PedalEvent(SpanEvent):
 
 
 class TextSpannerEvent(SpanEvent):
+    def __init__(self):
+        SpanEvent.__init__(self)
+        self.start_stop = False  # for single-note spanners
+
     def direction_mod(self):
         return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
 
@@ -2505,6 +2509,11 @@ class Break(Music):
     def print_ly(self, printer):
         if self.type:
             printer.dump("\\%s" % self.type)
+
+
+class EmptyChord(Music):
+    def print_ly(self, printer):
+        printer.dump("<>")
 
 
 class StaffGroup:

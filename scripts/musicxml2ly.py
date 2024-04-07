@@ -1111,6 +1111,7 @@ def musicxml_spanner_to_lily_event(mxl_event):
 
     ev.set_span_type(type)
     ev.line_type = getattr(mxl_event, 'line-type', 'solid')
+    ev.start_stop = getattr(mxl_event, 'start_stop', False)
 
     ev.size = int(getattr(mxl_event, 'size', 0))  # attr of octave-shift
 
@@ -2126,6 +2127,7 @@ class LilyPondVoiceBuilder:
     def __init__(self):
         self.elements = []
         self.pending_dynamics = []
+        self.pending_last = []
         self.end_moment = 0
         self.begin_moment = 0
         self.pending_multibar = 0
@@ -2164,6 +2166,23 @@ class LilyPondVoiceBuilder:
             self.elements.append(d)
         self.pending_dynamics = []
 
+    def add_pending_last(self):
+        # The elements in `pending_last` are separated from the previous
+        # chord with `<>`.  We use this to implement support for
+        # `<notation>` elements that start and stop at the same time step
+        # (for example, a wavy line of a trill).  Normally, such elements
+        # have different values of the `relative-x` property to indicate
+        # their horizontal positions, but `relative-x` gets ignored by
+        # `musicxml2ly`.
+        #
+        # Since `<>` must be inserted into the output after any
+        # `<direction>` elements have been emitted, we handle this within
+        # `LilyPondVoiceBuilder` (and not while constructing `ChordEvent`).
+        self.elements.append(musicexp.EmptyChord())
+        for d in self.pending_last:
+            self.elements.append(d)
+        self.pending_last = []
+
     def add_music(self, music, duration, relevant=True):
         assert isinstance(music, musicexp.Music)
         if self.pending_multibar > 0:
@@ -2179,6 +2198,12 @@ class LilyPondVoiceBuilder:
                         index = self.pending_dynamics.index(d)
                         dyn = self.pending_dynamics.pop(index)
                         self.elements.append(dyn)
+
+        # The elements in `pending_last` were added while processing the
+        # previous `<note>` element and must be emitted before the current
+        # `<note>` element gets handled.
+        if isinstance(music, musicexp.ChordEvent) and self.pending_last:
+            self.add_pending_last()
 
         self.elements.append(music)
         self.begin_moment = self.end_moment
@@ -2220,6 +2245,10 @@ class LilyPondVoiceBuilder:
     def add_dynamics(self, dynamic):
         # store the dynamic item(s) until we encounter the next note/rest:
         self.pending_dynamics.append(dynamic)
+
+    def add_last(self, last):
+        # Store items that come right before the next note (or bar line).
+        self.pending_last.append(last)
 
     def add_bar_check(self, number):
         # re/store has_relevant_elements, so that a barline alone does not
@@ -2744,9 +2773,28 @@ def musicxml_voice_to_lily_voice(voice):
             #         shake | wavy-line | mordent | inverted-mordent |
             #         schleifer | tremolo | other-ornament, accidental-mark
             def convert_and_append_all_child_articulations(mxl_node):
+                # Mark trill spanners where `start` and `stop` elements (in
+                # that order) happen at the same musical moment.
+                wavy_line_starts = []
+                for ch in mxl_node.get_named_children('wavy-line'):
+                    id = ch._attribute_dict.get('number', 1)
+                    type = spanner_type_dict.get(ch.type)
+                    if type == -1:
+                        wavy_line_starts.append(id)
+                    elif type == 1:
+                        if id in wavy_line_starts:
+                            ch.start_stop = True
+
                 for ch in mxl_node.get_all_children():
                     ev = musicxml_articulation_to_lily_event(ch)
                     if ev is not None:
+                        try:
+                            if ev.start_stop == True:
+                                voice_builder.add_last(ev)
+                                continue
+                        except AttributeError:
+                            pass
+
                         ev_chord.append(ev)
 
             def convert_and_append_all_child_dynamics(mxl_node):
