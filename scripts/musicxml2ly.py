@@ -51,7 +51,8 @@ import lilylib as ly
 
 lilypond_version = "@TOPLEVEL_VERSION@"
 
-# Store command-line options in a global variable, so we can access them everywhere
+# Store command-line options in a global variable, so we can access them
+# everywhere.
 options = None
 
 
@@ -64,37 +65,38 @@ class Conversion_Settings:
 
 conversion_settings = Conversion_Settings()
 # Use a global variable to store the setting needed inside a \layout block.
-# whenever we need to change a setting or add/remove an engraver, we can access
-# this layout and add the corresponding settings
+# Whenever we need to change a setting or add/remove an engraver, we can
+# access this layout and add the corresponding settings.
 layout_information = musicexp.Layout()
 # Use a global variable to store the setting needed inside a \paper block.
 paper = musicexp.Paper()
 
 needed_additional_definitions = []
 additional_definitions = {
-    "tuplet-note-wrapper": """      % a formatter function, which is simply a wrapper around an existing
-      % tuplet formatter function. It takes the value returned by the given
-      % function and appends a note of given length.
-  #(define-public ((tuplet-number::append-note-wrapper function note) grob)
-    (let* ((txt (if function (function grob) #f)))
-      (if txt
-        (markup txt #:fontsize -5 #:note note UP)
-        (markup #:fontsize -5 #:note note UP)
-      )
-    )
-  )""",
+    "tuplet-note-wrapper": """\
+% A formatter function, which is simply a wrapper around an existing
+% tuplet formatter function.  It takes the value returned by the given
+% function and appends a note of given length.
+#(define-public ((tuplet-number::append-note-wrapper function note) grob)
+  (let* ((txt (if function (function grob) #f)))
+    (if txt
+      (markup txt #:fontsize -5 #:note note UP)
+      (markup #:fontsize -5 #:note note UP))))
+""",
 
-    "tuplet-non-default-denominator": """#(define ((tuplet-number::non-default-tuplet-denominator-text denominator) grob)
+    "tuplet-non-default-denominator": """\
+#(define ((tuplet-number::non-default-tuplet-denominator-text denominator) grob)
   (number->string (if denominator
                       denominator
                       (ly:event-property (event-cause grob) 'denominator))))
 """,
 
-    "tuplet-non-default-fraction": """#(define ((tuplet-number::non-default-tuplet-fraction-text denominator numerator) grob)
-    (let* ((ev (event-cause grob))
-           (den (if denominator denominator (ly:event-property ev 'denominator)))
-           (num (if numerator numerator (ly:event-property ev 'numerator))))
-       (format #f "~a:~a" den num)))
+    "tuplet-non-default-fraction": """\
+#(define ((tuplet-number::non-default-tuplet-fraction-text denominator numerator) grob)
+  (let* ((ev (event-cause grob))
+         (den (if denominator denominator (ly:event-property ev 'denominator)))
+         (num (if numerator numerator (ly:event-property ev 'numerator))))
+    (format #f "~a:~a" den num)))
 """,
 }
 
@@ -125,7 +127,8 @@ def extract_paper_information(score_partwise):
         if 1 < staff_size < 100:
             paper.global_staff_size = staff_size
         else:
-            msg = "paper.global_staff_size %s is too large, using defaults=20" % staff_size
+            msg = ("paper.global_staff_size %s is too large, "
+                   "using defaults=20" % staff_size)
             warnings.warn(msg)
             paper.global_staff_size = 20
 
@@ -171,7 +174,8 @@ def extract_paper_information(score_partwise):
         dist = sl.get_named_child('staff-distance')
         # TODO: the staff distance needs to be set in the Staff context!!!
 
-    # TODO: Finish appearance?, music-font?, word-font?, lyric-font*, lyric-language*
+    # TODO: Finish appearance?, music-font?, word-font?, lyric-font*,
+    #       lyric-language*
     appearance = defaults.get_named_child('appearance')
     if appearance:
         lws = appearance.get_named_children('line-width')
@@ -218,10 +222,11 @@ credit_dict = {
     'lyricist': 'poet',
     'rights': 'copyright'
 }
-# score information is contained in the <work>, <identification> or <movement-title> tags
-# extract those into a hash, indexed by proper lilypond header attributes
 
 
+# Score information is contained in the <work>, <identification> or
+# <movement-title> tags.  Extract those into a hash, indexed by proper
+# lilypond header attributes.
 def extract_score_information(tree):
     header = musicexp.Header()
 
@@ -235,7 +240,8 @@ def extract_score_information(tree):
         set_if_exists('title', movement_title.get_text())
     if movement_number:
         set_if_exists('movementnumber', movement_number.get_text())
-        # set_if_exists('piece', movement_number.get_text()) # the movement number should be visible in the score.
+        # The movement number should be visible in the score.
+        # set_if_exists('piece', movement_number.get_text())
 
     work = tree.get_maybe_exist_named_child('work')
     if work:
@@ -248,7 +254,8 @@ def extract_score_information(tree):
         if movement_title:
             set_if_exists('subtitle', movement_title.get_text())
 
-# TODO: Translation of opus element. Not to be confused with opus in LilyPond. MusicXML opus is a document element for opus DTD
+    # TODO: Translation of opus element.  Not to be confused with opus in
+    #       LilyPond.  MusicXML opus is a document element for opus DTD.
     identifications = tree.get_named_children('identification')
     for ids in identifications:
         set_if_exists('copyright', ids.get_rights())
@@ -309,8 +316,10 @@ def extract_score_information(tree):
         elif type == 'title':
             if not work and not movement_title:
                 set_if_exists('title', cred.get_text())
-            # elif(not(movement_title)): #bullshit!
-            #    set_if_exists('subtitle', cred.get_text()) #bullshit! otherwise both title and subtitle show the work-title.
+            # elif (not(movement_title)):  # bullshit!
+            #    # bullshit! otherwise both title and subtitle show the work
+            #    # title.
+            #    set_if_exists('subtitle', cred.get_text())
         elif type is None:
             pass
         else:
@@ -429,7 +438,8 @@ def extract_instrument_sound(score_part):
         return None
     sound = score_instrument.get_maybe_exist_named_child('instrument-sound')
     if sound:
-        return utilities.musicxml_sound_to_lilypond_midi_instrument(sound.get_text())
+        return utilities.musicxml_sound_to_lilypond_midi_instrument(
+            sound.get_text())
 
 
 def extract_score_structure(part_list, staffinfo):
@@ -444,7 +454,7 @@ def extract_score_structure(part_list, staffinfo):
         if not isinstance(el, musicxml.Score_part):
             return
         # Depending on the attributes of the first measure, we create different
-        # types of staves(Staff, RhythmicStaff, DrumStaff, TabStaff, etc.)
+        # types of staves (Staff, RhythmicStaff, DrumStaff, TabStaff, etc.)
         staff = staff_attributes_to_lily_staff(staffinfo.get(el.id, None))
         if not staff:
             return None
@@ -549,7 +559,8 @@ def extract_score_structure(part_list, staffinfo):
                     j = pos + 1
                     foundclosing = False
                     while j < len(staves) and not foundclosing:
-                        if isinstance(staves[j], PartGroupInfo) and grpid in staves[j].end:
+                        if (isinstance(staves[j], PartGroupInfo)
+                                and grpid in staves[j].end):
                             foundclosing = True
                             del staves[j].end[grpid]
                             if staves[j].is_empty():
@@ -601,11 +612,12 @@ def group_repeats(music_list):
     repeat_replaced = True
     music_start = 0
     i = 0
-    # Walk through the list of expressions, looking for repeat structure
-    # (repeat start/end, corresponding endings). If we find one, try to find the
-    # last event of the repeat, replace the whole structure and start over again.
-    # For nested repeats, as soon as we encounter another starting repeat bar,
-    # treat that one first, and start over for the outer repeat.
+    # Walk through the list of expressions, looking for repeat structures
+    # (repeat start/end, corresponding endings).  If we find one, try to
+    # find the last event of the repeat, replace the whole structure, and
+    # start over again.  For nested repeats, as soon as we encounter another
+    # starting repeat bar, treat that one first, and start over for the
+    # outer repeat.
     while repeat_replaced and i < 100:
         i += 1
         repeat_start = -1  # position of repeat start / end
@@ -680,7 +692,7 @@ def group_repeats(music_list):
                 if repeat_start == music_start:
                     start = music_start
                 r.set_music(music_list[start:repeat_end])
-                for(start, end) in endings:
+                for (start, end) in endings:
                     s = musicexp.SequentialMusic()
                     s.elements = music_list[start + 1:end]
                     r.add_ending(s)
@@ -752,7 +764,7 @@ def group_tuplets(music_list, events):
     brackets = {}
 
     j = 0
-    for(ev_chord, tuplet_elt, time_modification) in events:
+    for (ev_chord, tuplet_elt, time_modification) in events:
         while j < len(music_list):
             if music_list[j] == ev_chord:
                 break
@@ -772,7 +784,7 @@ def group_tuplets(music_list, events):
 
     new_list = []
     last = 0
-    for(i1, i2, tsm) in indices:
+    for (i1, i2, tsm) in indices:
         if i1 > i2:
             continue
 
@@ -784,7 +796,8 @@ def group_tuplets(music_list, events):
         # tuplet. There might be dynamics following this range, however, which
         # apply to the last note of the tuplet. Advance last to include them
         # in the range.
-        while last < len(music_list) and isinstance(music_list[last], musicexp.DynamicsEvent):
+        while (last < len(music_list)
+               and isinstance(music_list[last], musicexp.DynamicsEvent)):
             last += 1
 
         seq.elements = music_list[i1:last]
@@ -800,7 +813,8 @@ def group_tuplets(music_list, events):
 
 def musicxml_clef_to_lily(attributes):
     change = musicexp.ClefChange()
-    (change.type, change.position, change.octave) = attributes.get_clef_information()
+    (change.type, change.position, change.octave) = \
+        attributes.get_clef_information()
     return change
 
 
@@ -838,7 +852,9 @@ def musicxml_time_to_lily(attributes):
 
 def musicxml_key_to_lily(attributes):
     key_sig = attributes.get_key_signature()
-    if not key_sig or not(isinstance(key_sig, list) or isinstance(key_sig, tuple)):
+    if (not key_sig
+            or not (isinstance(key_sig, list)
+                    or isinstance(key_sig, tuple))):
         ly.warning(_("Unable to extract key signature!"))
         return None
 
@@ -1018,18 +1034,20 @@ spanner_type_dict = {
     'crescendo': -1,
     'decreschendo': -1, # TODO: explain this nonstandard, misspelled value
     'diminuendo': -1,
-    'continue': 0,
-    'change': 0,
     'up': -1,
     'down': -1,
+
+    'continue': 0,
+    'change': 0,
+
     'stop': 1,
     'end': 1
-    ## TODO: 'backward hook' for <beam>
-    ## TODO: 'discontinue' for <pedal>
-    ## TODO: 'forward hook' for <beam>
-    ## TODO: 'let-ring' for <tied>
-    ## TODO: 'resume' for <pedal>
-    ## TODO: 'sostenuto' for <pedal>
+    # TODO: 'backward hook' for <beam>
+    # TODO: 'discontinue' for <pedal>
+    # TODO: 'forward hook' for <beam>
+    # TODO: 'let-ring' for <tied>
+    # TODO: 'resume' for <pedal>
+    # TODO: 'sostenuto' for <pedal>
 }
 
 
@@ -1056,13 +1074,20 @@ def musicxml_spanner_to_lily_event(mxl_event):
     ev.set_span_type(type)
     ev.line_type = getattr(mxl_event, 'line-type', 'solid')
 
-    ev.size = int(getattr(mxl_event, 'size', 0)) # attr of octave-shift
+    ev.size = int(getattr(mxl_event, 'size', 0))  # attr of octave-shift
 
     return ev
 
 
 def musicxml_direction_to_indicator(direction):
-    return {"above": 1, "upright": 1, "up": 1, "below": -1, "downright": -1, "down": -1, "inverted": -1}.get(direction, 0)
+    return {"above": 1,
+            "upright": 1,
+            "up": 1,
+
+            "below": -1,
+            "downright": -1,
+            "down": -1,
+            "inverted": -1}.get(direction, 0)
 
 
 def musicxml_fermata_to_lily_event(mxl_event):
@@ -1078,8 +1103,8 @@ def musicxml_fermata_to_lily_event(mxl_event):
     #
     # TODO: This needs further explanation because
     # https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/fermata
-    # says that the 'type' attribute is either 'upright' or 'inverted'.  Is this
-    # intended to support XML files written by a non-compliant program?
+    # says that the 'type' attribute is either 'upright' or 'inverted'.  Is
+    # this intended to support XML files written by a non-compliant program?
     type_attr = getattr(mxl_event, 'type', None)
     ev.type = fermata_types.get(type_attr or mxl_event.get_text(), 'fermata')
 
@@ -1184,11 +1209,15 @@ def musicxml_accidental_mark(mxl_event):
         return None
 
 
-# translate articulations, ornaments and other notations into ArticulationEvents
-# possible values:
-#   -) string  (ArticulationEvent with that name)
-#   -) function (function(mxl_event) needs to return a full ArticulationEvent-derived object
-#   -) (class, name)  (like string, only that a different class than ArticulationEvent is used)
+# Translate articulations, ornaments, and other notations into
+# ArticulationEvents.  Possible values:
+#
+#   -) string:        ArticulationEvent with that name
+#   -) function:      function(mxl_event) needs to return a full
+#                     ArticulationEvent-derived object
+#   -) (class, name): like string, only that a different class than
+#                     ArticulationEvent is used
+#
 # TODO: Some translations are missing!
 articulations_dict = {
     "accent": (musicexp.ShortArticulationEvent, ">"),  # or "accent"
@@ -1249,6 +1278,7 @@ def OrnamenthasWhat(mxl_event):
             wavy = True
         elif i._name == "trill-mark":
             trilly = True
+
         try:
             if i.type == "continue":
                 ignore = True
@@ -1258,11 +1288,13 @@ def OrnamenthasWhat(mxl_event):
                 stop = True
         except Exception: ## TODO: find out what to except.
             pass
+
     if start == True:
         if wavy == True and trilly == False:
             musicexp.whatOrnament = "wave"
         else:
             musicexp.whatOrnament = "trill"
+
     if ignore == True:
         return "ignore"
     elif stop == True:
@@ -1283,7 +1315,8 @@ def OrnamenthasWavyline(mxl_event):
 
 
 def musicxml_articulation_to_lily_event(mxl_event):
-    # wavy-line elements are treated as trill spanners, not as articulation ornaments
+    # wavy-line elements are treated as trill spanners, not as articulation
+    # ornaments
     if mxl_event.get_name() in articulation_spanners:
         return musicxml_spanner_to_lily_event(mxl_event)
 
@@ -1323,7 +1356,7 @@ def musicxml_dynamics_to_lily_event(dynentry):
     if not dynamicsname or dynamicsname == "#text":
         return None
 
-    if not dynamicsname in dynamics_available:
+    if dynamicsname not in dynamics_available:
         # Get rid of - in tag names (illegal in ly tags!)
         dynamicstext = dynamicsname
         dynamicsname = dynamicsname.replace("-", "")
@@ -1349,7 +1382,9 @@ def hexcolorval_to_nr(hex_val):
 
 def hex_to_color(hex_val):
     res = re.match(
-        r'#([0-9a-f][0-9a-f]|)([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])$', hex_val, re.IGNORECASE)
+        r'#([0-9a-f][0-9a-f]|)([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])$',
+        hex_val,
+        re.IGNORECASE)
     if res:
         return [hexcolorval_to_nr(x) for x in res.group(2, 3, 4)]
     else:
@@ -1602,15 +1637,19 @@ def musicxml_metronome_to_ly(mxl_event, text_event=None):
         return ev
     else:
         # TODO: Implement the other (more complex) way for tempo marks!
-        ly.warning(
-            _("Metronome marks with complex relations (<metronome-note> in MusicXML) are not yet implemented."))
+        ly.warning(_("Metronome marks with complex relations "
+                     "(<metronome-note> in MusicXML) "
+                     "are not yet implemented."))
         return
 
 
-# translate directions into Events, possible values:
-#   -) string  (MarkEvent with that command)
-#   -) function (function(mxl_event) needs to return a full Event-derived object
-#   -) (class, name)  (like string, only that a different class than MarkEvent is used)
+# Translate directions into Events.  Possible values:
+#
+#   -) string:        MarkEvent with that command
+#   -) function:      function(mxl_event) needs to return a full Event-derived
+#                     object
+#   -) (class, name): like string, only that a different class than MarkEvent
+#                     is used
 directions_dict = {
     'accordion-registration': musicxml_accordion_to_ly,
     'coda': (musicexp.MusicGlyphMarkEvent, "coda"),
@@ -1649,7 +1688,8 @@ def musicxml_direction_to_lily(n):
         if not entry:
             continue
 
-        # brackets, dashes, octave shifts. pedal marks, hairpins etc. are spanners:
+        # brackets, dashes, octave shifts. pedal marks, hairpins etc. are
+        # spanners:
         if entry.get_name() in directions_spanners:
             event = musicxml_spanner_to_lily_event(entry)
             if event:
@@ -1659,15 +1699,16 @@ def musicxml_direction_to_lily(n):
 
         # handle text+bpm marks like "Allegro moderato (♩ = 144)"
         if entry.get_name() == 'words' and i < len(dirtype_children) - 1:
-            next_entry = dirtype_children[i+1]
+            next_entry = dirtype_children[i + 1]
             if next_entry.get_name() == 'metronome':
                 event = musicxml_metronome_to_ly(next_entry, entry)
                 if event:
                     res.append(event)
-                    dirtype_children[i+1] = None
+                    dirtype_children[i + 1] = None
                     continue
 
-        # now treat all the "simple" ones, that can be translated using the dict
+        # now treat all the "simple" ones, that can be translated using the
+        # dict
         ev = None
         tmp_tp = directions_dict.get(entry.get_name(), None)
         if isinstance(tmp_tp, str):  # string means MarkEvent
@@ -1795,8 +1836,8 @@ def musicxml_get_string_tunings(lines):
         for i in range(0, lines):
             p = musicexp.Pitch()
             p.step = musicxml2ly_conversion.musicxml_step_to_lily(
-                ((("E", "A", "D", "G", "B")*(lines/5+1))[0:lines])[i])
-            p.octave = (([-2+int(x % 5 > 1)+2*(x/5)
+                ((("E", "A", "D", "G", "B") * (lines / 5 + 1))[0:lines])[i])
+            p.octave = (([-2 + int(x % 5 > 1) + 2 * (x / 5)
                           for x in range(0, lines)][0:lines])[i])
             p.alteration = 0
             p._force_absolute_pitch = True
@@ -1809,10 +1850,10 @@ def musicxml_frame_to_lily_event(frame):
     ev = musicexp.FretEvent()
     ev.strings = frame.get_strings()
     ev.frets = frame.get_frets()
-    #offset = frame.get_first_fret() - 1
-    #offset = frame.get_first_fret()
+    # offset = frame.get_first_fret() - 1
+    # offset = frame.get_first_fret()
     barre = []
-    open_strings = list(range(1, ev.strings+1))
+    open_strings = list(range(1, ev.strings + 1))
     for fn in frame.get_named_children('frame-note'):
         fret = fn.get_fret()
         if fret <= 0:
@@ -1856,7 +1897,7 @@ def musicxml_harmony_to_lily_fretboards(n):
             strings = 6
         tunings = musicxml_get_string_tunings(strings)
         ev = musicexp.FretBoardEvent()
-        #barre = []
+        # barre = []
         for fn in frame.get_named_children('frame-note'):
             fbn = musicexp.FretBoardNote()
             string = fn.get_string()
@@ -1864,7 +1905,7 @@ def musicxml_harmony_to_lily_fretboards(n):
             fingering = fn.get_fingering()
             if fingering >= 0:
                 fbn.fingering = fingering
-            p = tunings[string-1].copy()
+            p = tunings[string - 1].copy()
             p.add_semitones(fn.get_fret())
             fbn.pitch = p
             ev.append(fbn)
@@ -1976,8 +2017,8 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
         if isinstance(e, musicxml.Syllabic):
             continued = e.continued()
         elif isinstance(e, musicxml.Text):
-            # We need to convert soft hyphens to -, otherwise the ascii codec as well
-            # as lilypond will barf on that character
+            # We need to convert soft hyphens to -, otherwise the ascii codec
+            # as well as lilypond will barf on that character
             text += e.get_text().replace('\xad', '-')
         elif isinstance(e, musicxml.Elision):
             if text:
@@ -1996,9 +2037,11 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
     elif continued and text:
         if options.convert_beaming:
             if ignoremelismata == "on":
-                return r" \set ignoreMelismata = ##t " + utilities.escape_ly_output_string(text)
+                return r" \set ignoreMelismata = ##t " + \
+                    utilities.escape_ly_output_string(text)
             elif ignoremelismata == "off":
-                return " " + utilities.escape_ly_output_string(text) + " -- \\unset ignoreMelismata"
+                return " " + utilities.escape_ly_output_string(text) + \
+                    " -- \\unset ignoreMelismata"
             else:
                 return " " + utilities.escape_ly_output_string(text) + " --"
         else:
@@ -2075,7 +2118,8 @@ class LilyPondVoiceBuilder:
         if isinstance(music, musicexp.BarLine):
             if self.pending_dynamics:
                 for d in self.pending_dynamics:
-                    if not isinstance(d, (musicexp.SpanEvent, musicexp.DynamicsEvent)):
+                    if not isinstance(
+                            d, (musicexp.SpanEvent, musicexp.DynamicsEvent)):
                         index = self.pending_dynamics.index(d)
                         dyn = self.pending_dynamics.pop(index)
                         self.elements.append(dyn)
@@ -2088,7 +2132,8 @@ class LilyPondVoiceBuilder:
         if isinstance(music, musicexp.ChordEvent) and self.pending_dynamics:
             self.add_pending_dynamics()
 
-    # Insert some music command that does not affect the position in the measure
+    # Insert some music command that does not affect the position in the
+    # measure.
     def add_command(self, command, relevant=True):
         assert isinstance(command, musicexp.Music)
         if self.pending_multibar > 0:
@@ -2110,7 +2155,8 @@ class LilyPondVoiceBuilder:
 
     def add_partial(self, command):
         self.ignore_skips = True
-        # insert the partial, but restore relevant_elements (partial is not relevant)
+        # insert the partial, but restore relevant_elements (partial is not
+        # relevant)
         relevant = self.has_relevant_elements
         self.add_command(command)
         self.has_relevant_elements = relevant
@@ -2134,9 +2180,10 @@ class LilyPondVoiceBuilder:
         diff = moment - current_end
         if diff > 0:
             if self.ignore_skips and (moment == 0):
-                # TODO: This seems convoluted and fragile.  LilyPond regression
-                # tests still pass without this block, so what's the problem? is
-                # test coverage lacking or is ignore_skips bogus?
+                # TODO: This seems convoluted and fragile.  LilyPond
+                # regression tests still pass without this block, so what's
+                # the problem?  Is test coverage lacking or is ignore_skips
+                # bogus?
                 self.ignore_skips = False
                 return
 
@@ -2156,7 +2203,8 @@ class LilyPondVoiceBuilder:
     def last_event_chord(self, starting_at):
         value = None
 
-        # if the position matches, find the last ChordEvent, do not cross a bar line!
+        # if the position matches, find the last ChordEvent, do not cross a
+        # bar line!
         at = len(self.elements) - 1
         while (at >= 0 and
                not isinstance(self.elements[at], musicexp.ChordEvent) and
@@ -2206,22 +2254,22 @@ def music_xml_voice_name_to_lily_name(part_id, name):
 
 def music_xml_lyrics_name_to_lily_name(part_id, name, lyricsnr):
     s = music_xml_voice_name_to_lily_name(
-        part_id, name)+("Lyrics%s" % lyricsnr)
+        part_id, name) + ("Lyrics%s" % lyricsnr)
     return musicxml_id_to_lily(s)
 
 
 def music_xml_figuredbass_name_to_lily_name(part_id, voicename):
-    s = music_xml_voice_name_to_lily_name(part_id, voicename)+"FiguredBass"
+    s = music_xml_voice_name_to_lily_name(part_id, voicename) + "FiguredBass"
     return musicxml_id_to_lily(s)
 
 
 def music_xml_chordnames_name_to_lily_name(part_id, voicename):
-    s = music_xml_voice_name_to_lily_name(part_id, voicename)+"Chords"
+    s = music_xml_voice_name_to_lily_name(part_id, voicename) + "Chords"
     return musicxml_id_to_lily(s)
 
 
 def music_xml_fretboards_name_to_lily_name(part_id, voicename):
-    s = music_xml_voice_name_to_lily_name(part_id, voicename)+"FretBoards"
+    s = music_xml_voice_name_to_lily_name(part_id, voicename) + "FretBoards"
     return musicxml_id_to_lily(s)
 
 
@@ -2244,7 +2292,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
         return is_note(elem) and not is_rest(elem)
 
     for idx, elem in enumerate(voice._elements):
-        lyrics = elem.get('lyric', []) # only <note> contains <lyric>
+        lyrics = elem.get('lyric', [])  # only <note> contains <lyric>
         found_matching_lyric = False
         for lyric in lyrics:
             if getattr(lyric, 'number', None) == lyric_key:
@@ -2253,7 +2301,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
                 result.append(text)
         if found_matching_lyric:
             pass
-        elif len(lyrics) > 0: # any lyric
+        elif len(lyrics) > 0:  # any lyric
             result.append(r'\skip1 ')
         # Note does not have any lyric attached to it.
         elif is_chord(elem):
@@ -2273,7 +2321,8 @@ def musicxml_voice_to_lily_voice(voice):
     return_value = VoiceData()
     return_value.voicedata = voice
 
-    # First pitch needed for relative mode (if selected in command-line options)
+    # First pitch needed for relative mode (if selected in command-line
+    # options)
     first_pitch = None
 
     # Needed for melismata detection (ignore lyrics on those notes!):
@@ -2339,8 +2388,9 @@ def musicxml_voice_to_lily_voice(voice):
                 figured_bass_builder.correct_negative_skip(n._when)
                 chordnames_builder.correct_negative_skip(n._when)
                 fretboards_builder.correct_negative_skip(n._when)
-                n.message(_("Negative skip found: from %s to %s, difference is %s") % (
-                    neg.here, neg.dest, neg.dest - neg.here))
+                n.message(
+                    _("Negative skip found: from %s to %s, difference is %s") %
+                    (neg.here, neg.dest, neg.dest - neg.here))
 
         if isinstance(n, musicxml.Barline):
             barlines = n.to_lily_object()
@@ -2350,7 +2400,8 @@ def musicxml_voice_to_lily_voice(voice):
                     figured_bass_builder.add_barline(a, False)
                     chordnames_builder.add_barline(a, False)
                     fretboards_builder.add_barline(a, False)
-                elif isinstance(a, musicxml2ly_conversion.RepeatMarker) or isinstance(a, musicxml2ly_conversion.EndingMarker):
+                elif (isinstance(a, musicxml2ly_conversion.RepeatMarker)
+                      or isinstance(a, musicxml2ly_conversion.EndingMarker)):
                     voice_builder.add_command(a)
                     figured_bass_builder.add_barline(a, False)
                     chordnames_builder.add_barline(a, False)
@@ -2499,14 +2550,15 @@ def musicxml_voice_to_lily_voice(voice):
             ignore_lyrics = True
         else:
             ev_chord.append(main_event)
-            # When a note/chord has grace notes (duration==0), the duration of the
-            # event chord is not yet known, but the event chord was already added
-            # with duration 0. The following correct this when we hit the real note!
+            # When a note/chord has grace notes (duration==0), the duration
+            # of the event chord is not yet known, but the event chord was
+            # already added with duration 0.  The following corrects this
+            # when we hit the real note!
             if voice_builder.current_duration() == 0 and n._duration > 0:
                 voice_builder.set_duration(n._duration)
 
-        # if we have a figured bass, set its voice builder to the correct position
-        # and insert the pending figures
+        # if we have a figured bass, set its voice builder to the correct
+        # position and insert the pending figures
         if pending_figured_bass:
             try:
                 figured_bass_builder.jumpto(n._when)
@@ -2515,7 +2567,8 @@ def musicxml_voice_to_lily_voice(voice):
             except NegativeSkip as neg:
                 pass
             for fb in pending_figured_bass:
-                # if a duration is given, use that, otherwise the one of the note
+                # if a duration is given, use that, otherwise the one of the
+                # note
                 dur = fb.real_duration
                 if not dur:
                     dur = ev_chord.get_length()
@@ -2554,7 +2607,9 @@ def musicxml_voice_to_lily_voice(voice):
         tuplet_event = None
         span_events = []
 
-        # The <notation> element can have the following children (+ means implemented, ~ partially, - not):
+        # The <notation> element can have the following children
+        # (+ means implemented, ~ partially, - not):
+        #
         # +tied | +slur | +tuplet | glissando | slide |
         #    ornaments | technical | articulations | dynamics |
         #    +fermata | arpeggiate | non-arpeggiate |
@@ -2566,7 +2621,7 @@ def musicxml_voice_to_lily_voice(voice):
                 tuplet_events.append((ev_chord, tuplet_event, time_mod))
 
             # First, close all open slurs, only then start any new slur
-            # TODO: Record the number of the open slur to dtermine the correct
+            # TODO: Record the number of the open slur to determine the correct
             #       closing slur!
             endslurs = [s for s in notations['slur']
                         if s.get_type() in ('stop')]
@@ -2659,9 +2714,11 @@ def musicxml_voice_to_lily_voice(voice):
             beam_ev = musicxml_spanner_to_lily_event(mxl_beams[0])
             if beam_ev:
                 ev_chord.append(beam_ev)
-                if beam_ev.span_direction == -1:  # beam and thus melisma starts here
+                if beam_ev.span_direction == -1:
+                    # beam and thus melisma starts here
                     is_beamed = True
-                elif beam_ev.span_direction == 1:  # beam and thus melisma ends here
+                elif beam_ev.span_direction == 1:
+                    # beam and thus melisma ends here
                     is_beamed = False
 
         # Assume that a <tie> element only lasts for one note.
@@ -2671,7 +2728,7 @@ def musicxml_voice_to_lily_voice(voice):
             is_tied = False
 
     # force trailing mm rests to be written out.
-    voice_builder.add_music (musicexp.ChordEvent(), 0)
+    voice_builder.add_music(musicexp.ChordEvent(), 0)
 
     if options.shift_meter:
         for event in voice_builder.elements:
@@ -2803,11 +2860,11 @@ def get_all_voices(parts):
     all_ly_voices = {}
     all_ly_staffinfo = {}
     for p, (name_voice, staff_info) in list(all_voices.items()):
-
         part_ly_voices = OrderedDict()
         for n, v in list(name_voice.items()):
             ly.progress(_("Converting to LilyPond expressions..."), True)
-            # musicxml_voice_to_lily_voice returns (lily_voice, {nr->lyrics, nr->lyrics})
+            # musicxml_voice_to_lily_voice returns
+            # (lily_voice, {nr->lyrics, nr->lyrics})
             voice = musicxml_voice_to_lily_voice(v)
             part_ly_voices[n] = voice
 
@@ -2819,9 +2876,11 @@ def get_all_voices(parts):
 
 def option_parser():
     p = ly.get_option_parser(usage=_("musicxml2ly [OPTION]... FILE.xml"),
-                             description=_("""Convert MusicXML from FILE.xml to LilyPond input.
+                             description=_("""\
+Convert MusicXML from FILE.xml to LilyPond input.
 If the given filename is -, musicxml2ly reads from the command line.
-"""), add_help_option=False)
+"""),
+                             add_help_option=False)
 
     p.add_option("-h", "--help",
                  action="help",
@@ -2879,7 +2938,8 @@ information.""") % 'lilypond')
     p.add_option('-l', '--language',
                  metavar=_("LANG"),
                  action="store",
-                 help=_("use LANG for pitch names, e.g. 'deutsch' for note names in German"))
+                 help=_("use LANG for pitch names, "
+                        "e.g., 'deutsch' for note names in German"))
 
     p.add_option("--loglevel",
                  help=_("Print log messages according to LOGLEVEL "
@@ -2893,7 +2953,8 @@ information.""") % 'lilypond')
                  action="store_false",
                  default=True,
                  dest="convert_directions",
-                 help=_("do not convert directions (^, _ or -) for articulations, dynamics, etc."))
+                 help=_("do not convert directions (^, _ or -) "
+                        "for articulations, dynamics, etc."))
 
     p.add_option('--nrp', '--no-rest-positions',
                  action="store_false",
@@ -2923,19 +2984,22 @@ information.""") % 'lilypond')
                  action="store_false",
                  default=True,
                  dest="convert_page_layout",
-                 help=_("do not convert the exact page layout and breaks (shortcut for \"--nsb --npb --npm\" options)"))
+                 help=_("do not convert the exact page layout and breaks "
+                        "(shortcut for \"--nsb --npb --npm\" options)"))
 
     p.add_option('--nsd', '--no-stem-directions',
                  action="store_false",
                  default=True,
                  dest="convert_stem_directions",
-                 help=_("ignore stem directions from MusicXML, use lilypond's automatic stemming instead"))
+                 help=_("ignore stem directions from MusicXML, "
+                        "use lilypond's automatic stemming instead"))
 
     p.add_option('--nb', '--no-beaming',
                  action="store_false",
                  default=True,
                  dest="convert_beaming",
-                 help=_("do not convert beaming information, use lilypond's automatic beaming instead"))
+                 help=_("do not convert beaming information, "
+                        "use lilypond's automatic beaming instead"))
 
     p.add_option('-o', '--output',
                  metavar=_("FILE"),
@@ -2956,35 +3020,41 @@ information.""") % 'lilypond')
                  metavar=_("TOPITCH"),
                  action="store",
                  dest="transpose",
-                 help=_("set pitch to transpose by the interval between pitch 'c' and TOPITCH"))
+                 help=_("set pitch to transpose by the interval "
+                        "between pitch 'c' and TOPITCH"))
 
     # time signature changing function
     p.add_option('--sm', '--shift-meter',
                  metavar=_("BEATS/BEATTYPE"),
                  action="store",
                  dest="shift_meter",
-                 help=_("change the length|duration of notes as a function of a given time signature to make the score look faster or slower, (eg. '4/4' or '2/2')"))
+                 help=_("change the length|duration of notes as a function "
+                        "of a given time signature to make the score look "
+                        "faster or slower (e.g., '4/4' or '2/2')"))
 
     # switch tabstaff clef
     p.add_option('--tc', '--tab-clef',
                  metavar=_("TABCLEFNAME"),
                  action="store",
                  dest="tab_clef",
-                 help=_("switch between two versions of tab clefs (\"tab\" and \"moderntab\")"))
+                 help=_("switch between two versions of tab clefs "
+                        "(\"tab\" and \"moderntab\")"))
 
     # StringNumber stencil on/off
     p.add_option('--sn', '--string-numbers',
                  metavar=_("t[rue]/f[alse]"),
                  action="store",
                  dest="string_numbers",
-                 help=_("deactivate string number stencil with --string-numbers f[alse]. Default is t[rue]"))
+                 help=_("deactivate string number stencil with "
+                        "--string-numbers f[alse]. Default is t[rue]"))
 
     # StringNumber stencil on/off
     p.add_option('--fb', '--fretboards',
                  action="store_true",
                  default=False,
                  dest="fretboards",
-                 help=_("converts '<frame>' events to a separate FretBoards voice instead of markups"))
+                 help=_("convert '<frame>' events to a separate "
+                        "FretBoards voice instead of markups"))
 
     p.add_option_group('',
                        description=(
@@ -3081,14 +3151,24 @@ def update_score_setup(score_structure, part_list, voices, parts):
             staves_info = []
             staves = sorted(set(staves))
             for s in staves:
-                thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass, voice.chordnames, voice.fretboards)
-                                        for (voice_name, voice) in list(nv_dict.items())
-                                        if voice.voicedata._start_staff == s]
+                thisstaff_raw_voices = [
+                    (voice_name,
+                     voice.lyrics_order,
+                     voice.figured_bass,
+                     voice.chordnames,
+                     voice.fretboards)
+                    for (voice_name, voice) in list(nv_dict.items())
+                    if voice.voicedata._start_staff == s]
                 staves_info.append(format_staff_info(
                     part_id, s, thisstaff_raw_voices))
         else:
-            thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass, voice.chordnames, voice.fretboards)
-                                    for (voice_name, voice) in list(nv_dict.items())]
+            thisstaff_raw_voices = [
+                (voice_name,
+                 voice.lyrics_order,
+                 voice.figured_bass,
+                 voice.chordnames,
+                 voice.fretboards)
+                for (voice_name, voice) in list(nv_dict.items())]
             staves_info.append(format_staff_info(
                 part_id, None, thisstaff_raw_voices))
         part = score_structure.find_part(part_id)
@@ -3147,6 +3227,7 @@ def print_ly_additional_definitions(printer, filename=None):
         printer.newline()
     printer.newline()
 
+
 # Read in the tree from the given I/O object (file name, file, or bytes) and
 # demarshall it using the classes from the musicxml.py file
 def read_xml(io_object):
@@ -3163,7 +3244,9 @@ def read_musicxml(filename, compressed):
     if compressed:
         if filename == "-":
             ly.progress(
-                _("Input is compressed, extracting raw MusicXML data from stdin"), True)
+                _("Input is compressed, "
+                  "extracting raw MusicXML data from stdin"),
+                True)
             # unfortunately, zipfile.ZipFile can't read directly from
             # stdin, so copy everything from stdin to a temp file and read
             # that. TemporaryFile() will remove the file when it is closed.
@@ -3177,7 +3260,9 @@ def read_musicxml(filename, compressed):
             z = zipfile.ZipFile(tmp, "r")
         else:
             ly.progress(
-                _("Input file %s is compressed, extracting raw MusicXML data") % filename, True)
+                _("Input file %s is compressed, "
+                  "extracting raw MusicXML data") % filename,
+                True)
             z = zipfile.ZipFile(filename, "r")
         container_xml = z.read("META-INF/container.xml")
         if not container_xml:
@@ -3224,7 +3309,8 @@ def convert(filename, options):
         score = extract_score_structure(mxl_pl, staff_info)
         part_list = mxl_pl.get_named_children("score-part")
 
-    # score information is contained in the <work>, <identification> or <movement-title> tags
+    # Score information is contained in the <work>, <identification> or
+    # <movement-title> tags.
     update_score_setup(score, part_list, voices, parts)
     # After the conversion, update the list of settings for the \layout block
     update_layout_information()
@@ -3235,14 +3321,14 @@ def convert(filename, options):
     elif re.match(r".*\.ly", options.output_name):
         options.output_name = os.path.splitext(options.output_name)[0]
 
-    #defs_ly_name = options.output_name + '-defs.ly'
+    # defs_ly_name = options.output_name + '-defs.ly'
     if options.output_name == "-":
         output_ly_name = 'Standard output'
     else:
         output_ly_name = options.output_name + '.ly'
     ly.progress(_("Output to `%s'") % output_ly_name, True)
     printer = musicexp.Output_printer()
-    #ly.progress(_("Output to `%s'") % defs_ly_name, True)
+    # ly.progress(_("Output to `%s'") % defs_ly_name, True)
     if options.output_name == "-":
         printer.set_file(sys.stdout)
     else:
@@ -3267,8 +3353,8 @@ def convert(filename, options):
     if options.output_name != "-":
         version = os.popen(
             "lilypond --version | head -1 | cut -d' ' -f3").read().strip()
-        ly.progress(
-            _("Converting to current version (%s) notations ..." % version), True)
+        ly.progress(_("Converting to current version (%s) notations ..."
+                      % version), True)
         os.system("convert-ly -e %s 2> /dev/null" %
                   utilities.escape_ly_output_string(output_ly_name))
 
@@ -3326,7 +3412,8 @@ def main():
     if options.language:
         musicexp.set_pitch_language(options.language)
         needed_additional_definitions.append(options.language)
-        additional_definitions[options.language] = "\\language \"%s\"\n" % options.language
+        additional_definitions[options.language] = \
+            "\\language \"%s\"\n" % options.language
 
     conversion_settings.ignore_beaming = not options.convert_beaming
     conversion_settings.convert_page_layout = options.convert_page_layout
