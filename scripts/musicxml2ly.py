@@ -1032,7 +1032,6 @@ spanner_type_dict = {
     'start': -1,
     'begin': -1,
     'crescendo': -1,
-    'decreschendo': -1, # TODO: explain this nonstandard, misspelled value
     'diminuendo': -1,
     'up': -1,
     'down': -1,
@@ -1286,7 +1285,7 @@ def OrnamenthasWhat(mxl_event):
                 start = True
             elif i.type == "stop":
                 stop = True
-        except Exception: ## TODO: find out what to except.
+        except AttributeError:
             pass
 
     if start == True:
