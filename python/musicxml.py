@@ -32,6 +32,7 @@ import musicexp
 import musicxml2ly_conversion
 import utilities
 
+
 def minidom_demarshal_text_to_int(node):
     text = ''.join([n.data for n in node.childNodes
                     if (n.nodeType == node.TEXT_NODE)])
@@ -63,7 +64,7 @@ class Xml_node(object):
 
     def __init__(self):
         self._children = []
-        self._content = {} # certain children are here instead of _children
+        self._content = {}  # certain children are here instead of _children
         self._data = None
         self._attribute_dict = {}
 
@@ -189,13 +190,11 @@ class Music_xml_spanner(Music_xml_node):
 
 
 class Measure_element(Music_xml_node):
-
     def get_voice_id(self):
         return self.get('voice', self.voice_id)
 
 
 class Work(Xml_node):
-
     def get_work_information(self, tag):
         wt = self.get_maybe_exist_named_child(tag)
         if wt:
@@ -214,7 +213,6 @@ class Work(Xml_node):
 
 
 class Identification(Xml_node):
-
     def get_rights(self):
         rights = self.get_named_children('rights')
         ret = []
@@ -234,7 +232,9 @@ class Identification(Xml_node):
                 ret.append(text)
         return "\n".join(ret)
 
-    # get contents of the source-element(usually used for publishing information).(These contents are saved in a custom variable named "source" in the header of the .ly file.)
+    # Get contents of the source-element (usually used for publishing
+    # information).  (These contents are saved in a custom variable named
+    # "source" in the header of the .ly file.)
     def get_source(self):
         source = self.get_named_children('source')
         ret = []
@@ -330,8 +330,8 @@ class Credit(Xml_node):
         else:
             return None
 
-    ## TODO: Should this method even exist?  Review all callers since there can
-    ## be multiple <credit-words> in a <credit>.
+    # TODO: Should this method even exist?  Review all callers since there
+    # can be multiple <credit-words> in a <credit>.
     def get_first_credit_words(self):
         try:
             return self['credit-words'][0]
@@ -364,13 +364,13 @@ class Credit(Xml_node):
         valign = getattr(words, 'valign', None)
 
         if (size and size == max(sizes) and y and y == max(ys) and
-            (halign == 'center')):
+                halign == 'center'):
             return 'title'
-        elif (y and y > min(ys) and y < max(ys) and (halign == 'center')):
+        elif y and y > min(ys) and y < max(ys) and halign == 'center':
             return 'subtitle'
-        elif ((halign == 'left') and (not x or x == min(xs))):
+        elif halign == 'left' and (not x or x == min(xs)):
             return 'lyricist'
-        elif ((halign == 'right') and (not x or x == max(xs))):
+        elif halign == 'right' and (not x or x == max(xs)):
             return 'composer'
         elif size and size == min(sizes) and y == min(ys):
             return 'rights'
@@ -472,7 +472,6 @@ class Alter(Music_xml_node):
 
 
 class Attributes(Measure_element):
-
     def __init__(self):
         Measure_element.__init__(self)
         self._dict = {}
@@ -528,7 +527,7 @@ class Attributes(Measure_element):
                 # TODO: Handle pieces without a time signature!
                 ly.warning(
                     _("Senza-misura time signatures are not yet supported!"))
-                return(4, 4)
+                return (4, 4)
             else:
                 signature = []
                 current_sig = []
@@ -544,10 +543,10 @@ class Attributes(Measure_element):
                     signature = signature[0]
                 self._time_signature_cache = signature
                 return signature
-        except(KeyError, ValueError):
+        except (KeyError, ValueError):
             self.message(
                 _("Unable to interpret time signature! Falling back to 4/4."))
-            return(4, 4)
+            return (4, 4)
 
     # returns clef information in the form("cleftype", position, octave-shift)
     def get_clef_information(self):
@@ -585,7 +584,7 @@ class Attributes(Measure_element):
                 mode = 'major'
             fifths = int(fifths_elm.get_text())
             # TODO: Shall we try to convert the key-octave and the cancel, too?
-            return(fifths, mode)
+            return (fifths, mode)
         else:
             alterations = []
             current_step = 0
@@ -597,16 +596,19 @@ class Attributes(Measure_element):
                         [current_step, utilities.interpret_alter_element(i)])
                 elif isinstance(i, KeyOctave):
                     nr = int(getattr(i, 'number', -1))
-                    if(nr > 0) and (nr <= len(alterations)):
+                    if nr > 0 and nr <= len(alterations):
                         # MusicXML Octave 4 is middle C -> shift to 0
                         alterations[nr - 1].append(int(i.get_text()) - 4)
                     else:
                         i.message(_("Key alteration octave given for a "
-                                    "non-existing alteration nr. %s, available numbers: %s!") % (nr, len(alterations)))
+                                    "non-existing alteration nr. %s, "
+                                    "available numbers: %s!") %
+                                  (nr, len(alterations)))
             return alterations
 
     def get_transposition(self):
         return self.get_named_attribute('transpose')
+
 
 class Backup(Measure_element):
     max_occurs_by_child = {
@@ -615,7 +617,6 @@ class Backup(Measure_element):
 
 
 class Barline(Measure_element):
-
     def to_lily_object(self):
         # retval contains all possible markers in the order:
         # 0..bw_ending, 1..bw_repeat, 2..barline, 3..fw_repeat, 4..fw_ending
@@ -634,13 +635,13 @@ class Barline(Measure_element):
             repeat.direction = {'forward': -1, 'backward': 1}.get(direction, 0)
 
             if ((direction == 'forward' and bartype == 'heavy-light') or
-                (direction == 'backward' and bartype == 'light-heavy')):
+                    (direction == 'backward' and bartype == 'light-heavy')):
                 bartype = None
             times = getattr(repeat_element, 'times', None)
             if times is not None:
                 try:
                     repeat.times = int(times)
-                except ValueError: # TODO: explain this choice
+                except ValueError:  # TODO: explain this choice
                     repeat.times = 2
             repeat.event = self
             if repeat.direction == -1:
@@ -675,12 +676,11 @@ class Partial(Measure_element):
 
 
 class Stem(Music_xml_node):
-
     stem_value_dict = {
         'down': 'stemDown',
         'up': 'stemUp',
         'double': None,  # TODO: Implement
-        'none': 'stemNeutral' # FIXME: 'none' should omit the stem
+        'none': 'stemNeutral'  # FIXME: 'none' should omit the stem
     }
 
     def to_stem_event(self):
@@ -703,7 +703,6 @@ class Stem(Music_xml_node):
 
 
 class Notehead(Music_xml_node):
-
     notehead_styles_dict = {
         'slash': '\'slash',
         'triangle': '\'triangle',
@@ -744,7 +743,9 @@ class Notehead(Music_xml_node):
         color = getattr(self, 'color', None)
         if color is not None:
             event.color = utilities.hex_to_color(color)
-        if event.style or (event.filled is not None) or (event.color is not None):
+        if (event.style
+                or (event.filled is not None)
+                or (event.color is not None)):
             styles.append(event)
         # parentheses
         if getattr(self, 'parentheses', None) == 'yes':
@@ -756,7 +757,7 @@ class Notehead(Music_xml_node):
 class Note(Measure_element):
     max_occurs_by_child = {
         'accidental': 1,
-        'beam': 2, # actually 8
+        'beam': 2,  # actually 8
         'chord': 1,
         'dot': 2,
         'duration': 1,
@@ -810,15 +811,17 @@ class Note(Measure_element):
 
     def initialize_duration(self):
         from musicexp import Duration
-        # if the note has no Type child, then that method returns None. In that case,
-        # use the <duration> tag instead. If that doesn't exist, either -> Error
+        # If the note has no Type child return None.  In that case, use the
+        # <duration> tag instead.  If that doesn't exist either, report an
+        # error.
         dur = self.get_duration_info()
         if dur:
             d = Duration()
             d.duration_log = dur[0]
             d.dots = dur[1]
-            # Grace notes by specification have duration 0, so no time modification
-            # factor is possible. It even messes up the output with *0/1
+            # Grace notes by specification have duration 0, so no time
+            # modification factor is possible.  It even messes up the output
+            # with *0/1
             if 'grace' not in self:
                 nominal_duration = d.get_length()
                 actual_duration = self._duration
@@ -839,12 +842,13 @@ class Note(Measure_element):
         pitch = self['pitch'].to_lily_object()
         event = musicexp.NoteEvent()
         event.pitch = pitch
-        # <accidental> is optional, but profiling showed that is slightly better
-        # to treat it as expected.
+        # <accidental> is optional, but profiling showed that is slightly
+        # better to treat it as expected.
         try:
             event.cautionary = self['accidental'].cautionary
             # TODO: Handle editorial accidentals
-            # TODO: Handle the level-display setting for displaying brackets/parentheses
+            # TODO: Handle the level-display setting for displaying
+            # brackets/parentheses
         except KeyError:
             pass
         return event
@@ -903,13 +907,11 @@ class Note(Measure_element):
 
 
 class Part_list(Music_xml_node):
-
     def __init__(self):
         Music_xml_node.__init__(self)
         self._id_instrument_name_dict = {}
 
     def generate_id_instrument_dict(self):
-
         # not empty to make sure this happens only once.
         mapping = {1: 1}
         for score_part in self.get_named_children('score-part'):
@@ -933,7 +935,6 @@ class Part_list(Music_xml_node):
 
 
 class Measure(Music_xml_node):
-
     def __init__(self):
         Music_xml_node.__init__(self)
         self.partial = 0
@@ -946,7 +947,6 @@ class Measure(Music_xml_node):
 
 
 class Syllabic(Music_xml_node):
-
     def continued(self):
         text = self.get_text()
         return text == "begin" or text == "middle"
@@ -966,11 +966,11 @@ class Lyric(Music_xml_node):
 
 
 class Sound(Music_xml_node):
-
     def get_tempo(self):
         """
         Return the tempo attribute(if it exists) of the sound element.
-        This attribute can be used by musicxml2ly for the midi output(see L{musicexp.Score}).
+        This attribute can be used by musicxml2ly for the midi output
+        (see L{musicexp.Score}).
 
         @rtype: string
         @return: The value of the tempo attribute
@@ -1000,11 +1000,10 @@ class Notations(Music_xml_node):
 
 
 class Time_modification(Music_xml_node):
-
     def get_fraction(self):
         b = self.get_maybe_exist_named_child('actual-notes')
         a = self.get_maybe_exist_named_child('normal-notes')
-        return(int(a.get_text()), int(b.get_text()))
+        return (int(a.get_text()), int(b.get_text()))
 
     def get_normal_type(self):
         tuplet_type = self.get_maybe_exist_named_child('normal-type')
@@ -1012,13 +1011,12 @@ class Time_modification(Music_xml_node):
             dots = self.get_named_children('normal-dot')
             log = utilities.musicxml_duration_to_log(
                 tuplet_type.get_text().strip())
-            return(log, len(dots))
+            return (log, len(dots))
         else:
             return None
 
 
 class Accidental(Music_xml_node):
-
     def __init__(self):
         Music_xml_node.__init__(self)
         self.editorial = False
@@ -1026,14 +1024,13 @@ class Accidental(Music_xml_node):
 
 
 class Tuplet(Music_xml_spanner):
-
     def duration_info_from_tuplet_note(self, tuplet_note):
         tuplet_type = tuplet_note.get_maybe_exist_named_child('tuplet-type')
         if tuplet_type:
             dots = tuplet_note.get_named_children('tuplet-dot')
             log = utilities.musicxml_duration_to_log(
                 tuplet_type.get_text().strip())
-            return(log, len(dots))
+            return (log, len(dots))
         else:
             return None
 
@@ -1061,10 +1058,12 @@ class Tuplet(Music_xml_spanner):
         return None
 
     def get_normal_nr(self):
-        return self.get_tuplet_note_count(self.get_maybe_exist_named_child('tuplet-normal'))
+        return self.get_tuplet_note_count(
+            self.get_maybe_exist_named_child('tuplet-normal'))
 
     def get_actual_nr(self):
-        return self.get_tuplet_note_count(self.get_maybe_exist_named_child('tuplet-actual'))
+        return self.get_tuplet_note_count(
+            self.get_maybe_exist_named_child('tuplet-actual'))
 
 
 class Slur(Music_xml_spanner):
@@ -1077,7 +1076,7 @@ class Tied(Music_xml_spanner):
 
 class Beam(Music_xml_spanner):
     def get_type(self):
-        return self.get_text() # <beam> has no 'type' attribute
+        return self.get_text()  # <beam> has no 'type' attribute
 
     def is_primary(self):
         return getattr(self, 'number', '1') == '1'
@@ -1114,14 +1113,12 @@ class Rest(Music_xml_node):
 
 
 class Bend(Music_xml_node):
-
     def bend_alter(self):
         alter = self.get_maybe_exist_named_child('bend-alter')
         return utilities.interpret_alter_element(alter)
 
 
 class ChordPitch(Music_xml_node):
-
     def step_class_name(self):
         return 'root-step'
 
@@ -1139,7 +1136,6 @@ class ChordPitch(Music_xml_node):
 
 
 class Bass(ChordPitch):
-
     def step_class_name(self):
         return 'bass-step'
 
@@ -1148,10 +1144,11 @@ class Bass(ChordPitch):
 
 
 class ChordModification(Music_xml_node):
-
     def get_type(self):
         ch = self.get_maybe_exist_typed_child(get_class('degree-type'))
-        return {'add': 1, 'alter': 1, 'subtract': -1}.get(ch.get_text().strip(), 0)
+        return {'add': 1,
+                'alter': 1,
+                'subtract': -1}.get(ch.get_text().strip(), 0)
 
     def get_value(self):
         ch = self.get_maybe_exist_typed_child(get_class('degree-value'))
@@ -1166,7 +1163,6 @@ class ChordModification(Music_xml_node):
 
 
 class Frame(Music_xml_node):
-
     def get_frets(self):
         return self.get_named_child_value_number('frame-frets', 4)
 
@@ -1178,7 +1174,6 @@ class Frame(Music_xml_node):
 
 
 class Frame_Note(Music_xml_node):
-
     def get_string(self):
         return self.get_named_child_value_number('string', 1)
 
@@ -1197,7 +1192,6 @@ class Frame_Note(Music_xml_node):
 
 
 class Musicxml_voice:
-
     def __init__(self):
         self._elements = []
         self._staves = {}
@@ -1213,7 +1207,7 @@ class Musicxml_voice:
                 if not self._start_staff and ('grace' not in e):
                     self._start_staff = name
                 self._staves[name] = True
-            except KeyError: # no <staff>
+            except KeyError:  # no <staff>
                 pass
 
             lyrics = e['lyric']
@@ -1229,7 +1223,7 @@ class Musicxml_voice:
         self._elements.insert(idx, e)
 
     def get_lyrics_numbers(self):
-        if(len(self._lyrics) == 0) and self._has_lyrics:
+        if len(self._lyrics) == 0 and self._has_lyrics:
             # only happens if none of the <lyric> tags has a number attribute
             return ['1']
         else:
@@ -1237,7 +1231,6 @@ class Musicxml_voice:
 
 
 class Part(Music_xml_node):
-
     def __init__(self):
         Music_xml_node.__init__(self)
         self._voices = {}
@@ -1286,7 +1279,9 @@ class Part(Music_xml_node):
             # know if the next measure is implicit and continues that measure)
             if not m.is_implicit():
                 # Warn about possibly overfull measures and reset the position
-                if attributes_object and previous_measure and previous_measure.partial == 0:
+                if (attributes_object
+                        and previous_measure
+                        and previous_measure.partial == 0):
                     length = attributes_object.get_measure_length()
                     new_now = measure_start_moment + length
                     if now != new_now:
@@ -1296,7 +1291,8 @@ class Part(Music_xml_node):
                         # only for verbose operation.
                         if problem != 'incomplete' and previous_measure:
                             previous_measure.message(
-                                '%s measure? Expected: %s, Difference: %s' % (problem, now, new_now - now))
+                                '%s measure? Expected: %s, Difference: %s' %
+                                (problem, now, new_now - now))
                     now = new_now
                 measure_start_moment = now
                 measure_position = 0
@@ -1340,10 +1336,9 @@ class Part(Music_xml_node):
 
                     # default to <divisions>1</divisions>
                     divisions = (int(attributes_dict['divisions'].get_text())
-                        if 'divisions' in attributes_dict else 1)
+                                 if 'divisions' in attributes_dict else 1)
 
                     factor = Fraction(1, divisions)
-
 
                 if 'duration' in n:
                     dur = Fraction(n['duration'], 4) * factor
@@ -1353,11 +1348,11 @@ class Part(Music_xml_node):
                         # reset all graces before the backup to after-graces:
                         self.graces_to_aftergraces(pending_graces)
                         pending_graces = []
-                    if 'grace' in n: # not expected to coexist with 'duration'
+                    if 'grace' in n:  # not expected to coexist with 'duration'
                         dur = 0
 
                     rest = n.get('rest')
-                    if(rest
+                    if (rest
                             and attributes_object
                             and attributes_object.get_measure_length() == dur):
 
@@ -1403,17 +1398,18 @@ class Part(Music_xml_node):
                         measure_position = 0
                     last_moment = now
                     last_measure_position = measure_position
-                instruments = n.get('instrument', []) # only in <note>
+                instruments = n.get('instrument', [])  # only in <note>
                 if len(instruments) > 0:
-                    ## TODO: <note> can contain any number of <instrument> but
-                    ## we are only paying attention to the first.
+                    # TODO: <note> can contain any number of <instrument> but
+                    # we are only paying attention to the first.
                     instr = instruments[0]
                     n.instrument_name = part_list.get_instrument(instr.id)
 
             # reset all graces at the end of the measure to after-graces:
             self.graces_to_aftergraces(pending_graces)
             pending_graces = []
-            # Incomplete first measures are not padded, but registered as partial
+            # Incomplete first measures are not padded, but registered as
+            # partial
             if is_first_measure:
                 is_first_measure = False
                 # upbeats are marked as implicit measures
@@ -1434,8 +1430,8 @@ class Part(Music_xml_node):
         if staff == "None":
             staff = "1"
         for c in attr._children:
-            if ((getattr(c, 'number', staff) == staff) and
-                  not isinstance(c, Hash_text)):
+            if (getattr(c, 'number', staff) == staff
+                    and not isinstance(c, Hash_text)):
                 attributes._children.append(c)
         if not attributes._children:
             return None
@@ -1486,7 +1482,7 @@ class Part(Music_xml_node):
         # all the correct voices. This will never work entirely correct due
         # to staff-switches, but that's the best we can do!
         staff_to_voice_dict = {}
-        for(v, s) in list(voice_to_staff_dict.items()):
+        for (v, s) in list(voice_to_staff_dict.items()):
             if s not in staff_to_voice_dict:
                 staff_to_voice_dict[s] = [v]
             else:
@@ -1507,7 +1503,7 @@ class Part(Music_xml_node):
             # We don't need backup/forward any more, since we have already
             # assigned the correct onset times.
             # TODO: Let Grouping through. Also: link, print, bokmark sound
-            if not(isinstance(n, Note) or isinstance(n, Attributes) or
+            if not (isinstance(n, Note) or isinstance(n, Attributes) or
                     isinstance(n, Direction) or isinstance(n, Partial) or
                     isinstance(n, Barline) or isinstance(n, Harmony) or
                     isinstance(n, FiguredBass) or isinstance(n, Print)):
@@ -1519,14 +1515,16 @@ class Part(Music_xml_node):
 
             if isinstance(n, Attributes):
                 # assign these only to the voices they really belong to!
-                for(s, vids) in list(staff_to_voice_dict.items()):
+                for (s, vids) in list(staff_to_voice_dict.items()):
                     staff_attributes = part.extract_attributes_for_staff(n, s)
                     if staff_attributes:
                         for v in vids:
                             voices[v].add_element(staff_attributes)
                 continue
 
-            if isinstance(n, Partial) or isinstance(n, Barline) or isinstance(n, Print):
+            if (isinstance(n, Partial)
+                    or isinstance(n, Barline)
+                    or isinstance(n, Print)):
                 for v in list(voices.keys()):
                     voices[v].add_element(n)
                 continue
@@ -1560,7 +1558,7 @@ class Part(Music_xml_node):
         assign_to_next_note = []
 
         if start_attr:
-            for(s, vids) in list(staff_to_voice_dict.items()):
+            for (s, vids) in list(staff_to_voice_dict.items()):
                 staff_attributes = part.extract_attributes_for_staff(
                     start_attr, s)
                 staff_attributes.read_self()
@@ -1634,6 +1632,7 @@ class FiguredBass(Music_xml_node):
         'duration': 1,
     }
 
+
 class Forward(Music_xml_node):
     max_occurs_by_child = {
         'duration': 1,
@@ -1674,7 +1673,7 @@ class KeyStep(Music_xml_node):
 
 
 class Octave(Music_xml_node):
-    minidom_demarshal_to_value = minidom_demarshal_text_to_int # 0 to 9, per the spec
+    minidom_demarshal_to_value = minidom_demarshal_text_to_int  # 0 to 9, per the spec
 
 
 class Display_octave(Octave):
@@ -1865,7 +1864,7 @@ def minidom_demarshal_node(node, py_parent=None):
         assert type(py_parent).max_occurs_by_child[name] == 1
         py_parent._content[name] = value
         return
-    except AttributeError: # minidom_demarshal_to_value not in cls
+    except AttributeError:  # minidom_demarshal_to_value not in cls
         pass
 
     # Create a node
@@ -1890,7 +1889,7 @@ def minidom_demarshal_node(node, py_parent=None):
 
     if max_occurs == 1:
         py_parent._content[name] = py_node
-    elif max_occurs == 2: # unlimited
+    elif max_occurs == 2:  # unlimited
         # The parent's constructor is required to initialize an empty list.
         py_parent._content[name].append(py_node)
 
