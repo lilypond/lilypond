@@ -130,6 +130,30 @@ additional_definitions = {
          (num (if numerator numerator (ly:event-property ev 'numerator))))
     (format #f "~a:~a" den num)))
 """,
+
+  # TODO: Implement values `both` and `arrow` of `line-end` attribute.
+  "make-edge-height": """\
+#(define edge-height-alist
+   '((up . -0.7)
+     (down . 0.7)
+     (none . 0)))
+
+#(define (get-height type)
+   (or (assv-ref edge-height-alist type)
+       (begin
+         (ly:warning "bracket edge type '~a' not implemented" type)
+         0)))
+
+% Make the `edge-height` property independent of a bracket's direction.
+#(define (make-edge-height left right)
+   (grob-transformer
+    'edge-height
+    (lambda (grob orig)
+      (let ((dir (ly:grob-property grob 'direction))
+            (left-height (get-height left))
+            (right-height (get-height right)))
+        (cons (* dir left-height) (* dir right-height))))))
+"""
 }
 
 
@@ -1101,6 +1125,8 @@ def musicxml_spanner_to_lily_event(mxl_event):
         ev.style = OrnamenthasWhat(mxl_event)
     elif name == "dashes":
         ev.style = "dashes"
+    elif name == "bracket":
+        needed_additional_definitions.append("make-edge-height")
 
     type = mxl_event.get_type()
     span_direction = spanner_type_dict.get(type)
@@ -1112,6 +1138,8 @@ def musicxml_spanner_to_lily_event(mxl_event):
     ev.set_span_type(type)
     ev.line_type = getattr(mxl_event, 'line-type', 'solid')
     ev.start_stop = getattr(mxl_event, 'start_stop', False)
+    ev.line_end_at_start = getattr(mxl_event, 'line_end_at_start', 'none')
+    ev.line_end_at_stop = getattr(mxl_event, 'line_end_at_stop', 'none')
 
     ev.size = int(getattr(mxl_event, 'size', 0))  # attr of octave-shift
 

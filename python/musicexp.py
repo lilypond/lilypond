@@ -1450,6 +1450,11 @@ class TextSpannerEvent(SpanEvent):
 
 
 class BracketSpannerEvent(SpanEvent):
+    def __init__(self):
+        SpanEvent.__init__(self)
+        self.line_end_at_start = None
+        self.line_end_at_stop = None
+
     # Ligature brackets use prefix notation for the start.
     def wait_for_note(self):
         if self.span_direction == -1:
@@ -1473,11 +1478,15 @@ class BracketSpannerEvent(SpanEvent):
                 if style:
                     printer.dump(r"\tweak style #'%s" % style)
 
+                printer.dump(r"\tweak edge-height #(make-edge-height '%s '%s)"
+                             % (self.line_end_at_start, self.line_end_at_stop))
+
                 dir = {1: "#UP",
                        -1: "#DOWN"}.get(self.force_direction, '')
                 if dir:
                     override = r"\tweak direction "
                     printer.dump('%s%s' % (override, dir))
+
             printer.dump(val)
 
 
