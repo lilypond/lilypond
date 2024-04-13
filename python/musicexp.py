@@ -1019,7 +1019,7 @@ class Header:
         self.header_fields[field] = value
 
     def format_header_strings(self, key, value, printer):
-        printer.dump(key + ' = ')
+        printer.dump(key + ' =')
 
         # If a header item contains a line break, it is segmented. The
         # substrings are formatted with the help of \markup, using
@@ -2721,9 +2721,9 @@ class Staff(StaffGroup):
         for [staff_id, voices] in self.part_information:
             # now comes the real staff definition:
             if staff_id:
-                printer(r'\context %s = "%s" << ' % (sub_staff_type, staff_id))
+                printer(r'\context %s = "%s" <<' % (sub_staff_type, staff_id))
             else:
-                printer(r'\context %s << ' % sub_staff_type)
+                printer(r'\context %s <<' % sub_staff_type)
             printer.newline()
             printer.dump(r"\mergeDifferentlyDottedOn\mergeDifferentlyHeadedOn")
             printer.newline()
@@ -2891,8 +2891,8 @@ class Score:
             printer.dump(
                 "% To create MIDI output, uncomment the following line:")
             printer.newline()
-            printer.dump("% ")
-        printer.dump(r"\midi {\tempo 4 = " + self.tempo + " }")
+            printer.dump("%")
+        printer.dump(r"\midi { \tempo 4 = " + self.tempo + " }")
         printer.newline()
         printer.dump("}")
         printer.newline()

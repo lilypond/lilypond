@@ -3213,27 +3213,27 @@ def print_voice_definitions(printer, part_list, voices):
         nv_dict = voices.get(part_id, {})
         for (name, voice) in list(nv_dict.items()):
             k = music_xml_voice_name_to_lily_name(part_id, name)
-            printer.dump('%s = ' % k)
+            printer.dump('%s =' % k)
             voice.ly_voice.print_ly(printer)
             printer.newline()
             if voice.chordnames:
                 cnname = music_xml_chordnames_name_to_lily_name(part_id, name)
-                printer.dump('%s = ' % cnname)
+                printer.dump('%s =' % cnname)
                 voice.chordnames.print_ly(printer)
                 printer.newline()
             for l in voice.lyrics_order:
                 lname = music_xml_lyrics_name_to_lily_name(part_id, name, l)
-                printer.dump('%s = ' % lname)
+                printer.dump('%s =' % lname)
                 voice.lyrics_dict[l].print_ly(printer)
                 printer.newline()
             if voice.figured_bass:
                 fbname = music_xml_figuredbass_name_to_lily_name(part_id, name)
-                printer.dump('%s = ' % fbname)
+                printer.dump('%s =' % fbname)
                 voice.figured_bass.print_ly(printer)
                 printer.newline()
             if voice.fretboards:
                 fbdname = music_xml_fretboards_name_to_lily_name(part_id, name)
-                printer.dump('%s = ' % fbdname)
+                printer.dump('%s =' % fbdname)
                 voice.fretboards.print_ly(printer)
                 printer.newline()
 
