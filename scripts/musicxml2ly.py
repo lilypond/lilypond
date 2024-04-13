@@ -482,7 +482,7 @@ def staff_attributes_to_lily_staff(mxl_attr):
         # TODO: Handle case with lines != 5!
         if lines != 5:
             staff.add_context_modification(
-                "\\override StaffSymbol.line-count = #%s" % lines)
+                r"\override StaffSymbol.line-count = #%s" % lines)
 
     return staff
 
@@ -1069,11 +1069,11 @@ def musicxml_print_to_lily(el):
     child = el.get_maybe_exist_named_child("part-name-display")
     if child:
         elts.append(musicexp.SetEvent("Staff.instrumentName",
-                                      "\"%s\"" % extract_display_text(child)))
+                                      '"%s"' % extract_display_text(child)))
     child = el.get_maybe_exist_named_child("part-abbreviation-display")
     if child:
         elts.append(musicexp.SetEvent("Staff.shortInstrumentName",
-                                      "\"%s\"" % extract_display_text(child)))
+                                      '"%s"' % extract_display_text(child)))
     return elts
 
 
@@ -1267,19 +1267,19 @@ def musicxml_string_event(mxl_event):
 
 def musicxml_accidental_mark(mxl_event):
     ev = musicexp.MarkupEvent()
-    contents = {"sharp": "\\sharp",
-                "natural": "\\natural",
-                "flat": "\\flat",
-                "double-sharp": "\\doublesharp",
-                "sharp-sharp": "\\sharp\\sharp",
-                "flat-flat": "\\flat\\flat",
-                "flat-flat": "\\doubleflat",
-                "natural-sharp": "\\natural\\sharp",
-                "natural-flat": "\\natural\\flat",
-                "quarter-flat": "\\semiflat",
-                "quarter-sharp": "\\semisharp",
-                "three-quarters-flat": "\\sesquiflat",
-                "three-quarters-sharp": "\\sesquisharp",
+    contents = {"sharp": r"\sharp",
+                "natural": r"\natural",
+                "flat": r"\flat",
+                "double-sharp": r"\doublesharp",
+                "sharp-sharp": r"\sharp\sharp",
+                "flat-flat": r"\flat\flat",
+                "flat-flat": r"\doubleflat",
+                "natural-sharp": r"\natural\sharp",
+                "natural-flat": r"\natural\flat",
+                "quarter-flat": r"\semiflat",
+                "quarter-sharp": r"\semisharp",
+                "three-quarters-flat": r"\sesquiflat",
+                "three-quarters-sharp": r"\sesquisharp",
                 }.get(mxl_event.get_text())
     if contents:
         ev.contents = contents
@@ -1445,7 +1445,7 @@ def musicxml_dynamics_to_lily_event(dynentry):
         dynamicstext = dynamicsname
         dynamicsname = dynamicsname.replace("-", "")
         additional_definitions[dynamicsname] = dynamicsname + \
-            " = #(make-dynamic-script \"" + dynamicstext + "\")"
+            ' = #(make-dynamic-script "' + dynamicstext + '")'
         needed_additional_definitions.append(dynamicsname)
     event = musicexp.DynamicsEvent()
     event.type = dynamicsname
@@ -1494,13 +1494,13 @@ def font_size_number_to_lily_command(size):
 
 def font_size_word_to_lily_command(size):
     font_size_dict = {
-        "xx-small": '\\teeny',
-        "x-small": '\\tiny',
-        "small": '\\small',
+        "xx-small": r'\teeny',
+        "x-small": r'\tiny',
+        "small": r'\small',
         "medium": '',
-        "large": '\\large',
-        "x-large": '\\huge',
-        "xx-large": '\\larger\\huge'
+        "large": r'\large',
+        "x-large": r'\huge',
+        "xx-large": r'\larger\huge'
     }
     return font_size_dict.get(size, '')
 
@@ -1532,7 +1532,7 @@ def musicxml_words_to_lily_event(words):
             except ValueError:
                 event.force_direction = 0
 
-    font_weight = {"normal": '', "bold": '\\bold'}.get(
+    font_weight = {"normal": '', "bold": r'\bold'}.get(
         getattr(words, 'font-weight', None), '')
     if font_weight:
         event.markup += font_weight
@@ -1548,10 +1548,10 @@ def musicxml_words_to_lily_event(words):
     if color is not None:
         rgb = hex_to_color(color)
         if rgb:
-            event.markup += "\\with-color #(rgb-color %s %s %s)" % (
+            event.markup += r"\with-color #(rgb-color %s %s %s)" % (
                 rgb[0], rgb[1], rgb[2])
 
-    font_style = {"italic": '\\italic'}.get(
+    font_style = {"italic": r'\italic'}.get(
         getattr(words, 'font-style', None), '')
     if font_style:
         event.markup += font_style
@@ -1576,8 +1576,8 @@ def musicxml_accordion_to_markup(mxl_event):
     high = mxl_event.get_maybe_exist_named_child('accordion-high')
     if high:
         commandname += "H"
-        command += """\\combine
-          \\raise #2.5 \\musicglyph #\"accordion.dot\"
+        command += r"""\combine
+          \raise #2.5 \musicglyph #"accordion.dot"
           """
     middle = mxl_event.get_maybe_exist_named_child('accordion-middle')
     if middle:
@@ -1621,7 +1621,7 @@ def musicxml_accordion_to_markup(mxl_event):
     # Define the newly built command \accReg[H][MMM][L]
     additional_definitions[commandname] = "%s = %s" % (commandname, command)
     needed_additional_definitions.append(commandname)
-    return "\\%s" % commandname
+    return r"\%s" % commandname
 
 
 def musicxml_accordion_to_ly(mxl_event):
@@ -1640,14 +1640,14 @@ def musicxml_rehearsal_to_ly_mark(mxl_event):
     encl = {"none": None, "square": "box", "circle": "circle"}.get(
         getattr(mxl_event, 'enclosure', 'square'), None)
     if encl:
-        text = "\\%s { %s }" % (encl, text)
-    ev = musicexp.MarkEvent("\\markup { %s }" % text)
+        text = r"\%s { %s }" % (encl, text)
+    ev = musicexp.MarkEvent(r"\markup { %s }" % text)
     return ev
 
 
 def musicxml_harp_pedals_to_ly(mxl_event):
     count = 0
-    result = "\\harp-pedal #\""
+    result = r'\harp-pedal #"'
     for t in mxl_event.get_named_children('pedal-tuning'):
         alter = t.get_named_child('pedal-alter')
         if alter:
@@ -1657,13 +1657,13 @@ def musicxml_harp_pedals_to_ly(mxl_event):
         if count == 3:
             result += "|"
     ev = musicexp.MarkupEvent()
-    ev.contents = result + "\""
+    ev.contents = result + '"'
     return ev
 
 
 def musicxml_eyeglasses_to_ly(mxl_event):
     needed_additional_definitions.append("eyeglasses")
-    return musicexp.MarkEvent("\\markup { \\eyeglasses }")
+    return musicexp.MarkEvent(r"\markup { \eyeglasses }")
 
 
 def next_non_hash_index(lst, pos):
@@ -2126,7 +2126,7 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
                     utilities.escape_ly_output_string(text)
             elif ignoremelismata == "off":
                 return " " + utilities.escape_ly_output_string(text) + \
-                    " -- \\unset ignoreMelismata"
+                    r" -- \unset ignoreMelismata"
             else:
                 return " " + utilities.escape_ly_output_string(text) + " --"
         else:
@@ -3129,7 +3129,7 @@ information.""") % 'lilypond')
                  default=True,
                  dest="convert_page_layout",
                  help=_("do not convert the exact page layout and breaks "
-                        "(shortcut for \"--nsb --npb --npm\" options)"))
+                        '(shortcut for "--nsb --npb --npm" options)'))
 
     p.add_option('--nsd', '--no-stem-directions',
                  action="store_false",
@@ -3182,7 +3182,7 @@ information.""") % 'lilypond')
                  action="store",
                  dest="tab_clef",
                  help=_("switch between two versions of tab clefs "
-                        "(\"tab\" and \"moderntab\")"))
+                        '("tab" and "moderntab")'))
 
     # StringNumber stencil on/off
     p.add_option('--sn', '--string-numbers',
@@ -3342,7 +3342,7 @@ def update_layout_information():
         layout_information.set_context_item('Score', 'autoBeaming = ##f')
     if musicexp.get_string_numbers() == "f":
         layout_information.set_context_item(
-            'Score', '\\override StringNumber #\'stencil = ##f')
+            'Score', r"\override StringNumber #'stencil = ##f")
 
 #  \n\t\t\t\t\\override StringNumber #\'stencil = ##f
 
@@ -3557,7 +3557,7 @@ def main():
         musicexp.set_pitch_language(options.language)
         needed_additional_definitions.append(options.language)
         additional_definitions[options.language] = \
-            "\\language \"%s\"\n" % options.language
+            '\\language "%s"\n' % options.language
 
     conversion_settings.ignore_beaming = not options.convert_beaming
     conversion_settings.convert_page_layout = options.convert_page_layout
