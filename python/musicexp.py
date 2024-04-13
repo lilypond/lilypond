@@ -45,7 +45,7 @@ def escape_instrument_string(input_string):
         strings = rx.split(retstring)
         retstring = r"\markup { \center-column { "
         for s in strings:
-            retstring += r'\line {"' + s + '"} '
+            retstring += r'\line { "' + s + '" } '
         retstring += "} }"
     else:
         retstring = '"' + retstring + '"'
@@ -70,13 +70,13 @@ class Output_printer(object):
 
     def __init__(self):
         self._line = ''
-        self._indent = 4
+        self._indent = 2
         self._nesting = 0
         self._nesting_str = ''
         self._nesting_more_str = ''
         self._nesting_less_str = ''
         self._file = sys.stdout
-        self._line_len = 72
+        self._line_len = 80
         self._output_state_stack = [Output_stack_element()]
         self._skipspace = False
         self._last_duration = None
@@ -185,6 +185,12 @@ class Output_printer(object):
                 s)
             for w in words:
                 self.add_word(w)
+
+    def dump_lyrics(self, s):
+        words = utilities.split_string_and_preserve_doublequoted_substrings(s)
+        for w in words:
+            self.add_word(w)
+        return
 
     def close(self):
         self.newline()
@@ -997,18 +1003,30 @@ class Lyrics:
     def __init__(self):
         self.lyrics_syllables = []
 
+    def lyrics_to_ly(self):
+        mode = r'\lyricmode {'
+        no_melismata = r'\set ignoreMelismata = ##t'
+        lyrics = ''
+        for l in self.lyrics_syllables:
+            lyrics += l
+        return (mode, no_melismata, lyrics)
+
     def print_ly(self, printer):
-        printer.dump(self.ly_expression())
+        (mode, no_melismata, lyrics) = self.lyrics_to_ly()
+        printer.dump(mode)
         printer.newline()
+
+        printer.dump(no_melismata)
+        printer.newline()
+
+        printer.dump_lyrics(lyrics)
+        printer.newline()
+
         printer.dump('}')
         printer.newline()
 
     def ly_expression(self):
-        lstr = r"\lyricmode {\set ignoreMelismata = ##t"
-        for l in self.lyrics_syllables:
-            lstr += l
-        # lstr += "\n}"
-        return lstr
+        return "%s %s %s" % self.lyrics_to_ly()
 
 
 class Header:
@@ -1031,7 +1049,8 @@ class Header:
             substrings = value.split('\n')
             for s in substrings:
                 printer.newline()
-                printer.dump(r'\line { "' + s + '"}')
+                printer.dump(r'\line { "' + s + '" }')
+            printer.newline()
             printer.dump('}')
             printer.newline()
         else:
@@ -1138,7 +1157,9 @@ class Layout:
             printer.dump(r'\layout {')
             printer.newline()
             for (context, defs) in list(self.context_dict.items()):
-                printer.dump(r'\context { \%s' % context)
+                printer.dump(r'\context {')
+                printer.newline()
+                printer.dump(r'\%s' % context)
                 printer.newline()
                 for d in defs:
                     printer.dump(d)
@@ -2606,43 +2627,41 @@ class StaffGroup:
     def print_ly_context_mods(self, printer):
         if self.instrument_name or self.short_instrument_name:
             printer.dump(r'\consists "Instrument_name_engraver"')
+            printer.newline()
         if self.spanbar == "no":
             printer.dump(r"\hide SpanBar")
+            printer.newline()
         brack = {"brace": "SystemStartBrace",
                  "none": "SystemStartBar",
                  "line": "SystemStartSquare"}.get(self.symbol, None)
         if brack:
             printer.dump("systemStartDelimiter = #'%s" % brack)
+            printer.newline()
 
     def print_ly_overrides(self, printer):
         needs_with = self.needs_with() | (len(self.context_modifications) > 0)
         if needs_with:
             printer.dump(r"\with {")
+            printer.newline()
             self.print_ly_context_mods(printer)
             for m in self.context_modifications:
                 printer.dump(m)
+                printer.newline()
             printer.dump("}")
-            printer.newline()
-        # print a single << after StaffGroup only when the with-block is not
-        # needed. # This doesn't work.  << is printed before and after
-        # StaffGroup!
-        #
-        # else:
-        #    printer.dump (" <<")
-        #
-        # prints loads off << before and after StaffGroup and before
-        # \set Staff.instrumentName
-        #
-        # elif not needs_with:
-        #    printer.dump (" <<")
 
     def print_chords(self, printer):
         try:
             for [staff_id, voices] in self.part_information:
                 for [v, lyrics, figuredbass, chordnames, fretboards] in voices:
                     if chordnames:
-                        printer(r'\context ChordNames = "%s" {%s \%s}' % (
-                            chordnames, get_transpose("string"), chordnames))
+                        printer(r'\context ChordNames = "%s" {' % chordnames)
+                        printer.newline()
+                        transpose = get_transpose("string")
+                        if transpose:
+                            printer.dump(transpose)
+                        printer.dump(r'\%s' % chordnames)
+                        printer.newline()
+                        printer.dump('}')
                         printer.newline()
         except TypeError:
             return
@@ -2652,8 +2671,14 @@ class StaffGroup:
             for [staff_id, voices] in self.part_information:
                 for [v, lyrics, figuredbass, chordnames, fretboards] in voices:
                     if fretboards:
-                        printer(r'\context FretBoards = "%s" {%s \%s}' % (
-                            fretboards, get_transpose("string"), fretboards))
+                        printer(r'\context FretBoards = "%s" {' % fretboards)
+                        printer.newline()
+                        transpose = get_transpose("string")
+                        if transpose:
+                            printer.dump(transpose)
+                        printer.dump(r'\%s' % fretboards)
+                        printer.newline()
+                        printer.dump('}')
                         printer.newline()
         except TypeError:
             return
@@ -2664,28 +2689,22 @@ class StaffGroup:
         if self.stafftype:
             printer.dump(r"\new %s" % self.stafftype)
         self.print_ly_overrides(printer)
-        printer.newline()
         if self.stafftype:
             printer.dump("<<")
             printer.newline()
         if self.stafftype and self.instrument_name:
-            printer.dump(
-                r"\set %s.instrumentName = %s" %
-                (self.stafftype,
-                 escape_instrument_string(self.instrument_name)))
+            printer.dump(r"\set %s.instrumentName =" % self.stafftype)
+            printer.dump(escape_instrument_string(self.instrument_name))
             printer.newline()
         if self.stafftype and self.short_instrument_name:
-            printer.dump(
-                r"\set %s.shortInstrumentName = %s" %
-                (self.stafftype,
-                 escape_instrument_string(self.short_instrument_name)))
+            printer.dump(r"\set %s.shortInstrumentName =" % self.stafftype)
+            printer.dump(escape_instrument_string(self.short_instrument_name))
             printer.newline()
         if self.sound:
             printer.dump(r'\set %s.midiInstrument = "%s"' %
                          (self.stafftype, self.sound))
             printer.newline()
         self.print_ly_contents(printer)
-        printer.newline()
         if self.stafftype:
             printer.dump(">>")
             printer.newline()
@@ -2716,7 +2735,6 @@ class Staff(StaffGroup):
         # printer.dump ("test") # prints test in each staff after the
         #                       # definitions of the instrument name and
         #                       # before the definition of the contexts.
-        printer.newline()
 
         for [staff_id, voices] in self.part_information:
             # now comes the real staff definition:
@@ -2725,7 +2743,9 @@ class Staff(StaffGroup):
             else:
                 printer(r'\context %s <<' % sub_staff_type)
             printer.newline()
-            printer.dump(r"\mergeDifferentlyDottedOn\mergeDifferentlyHeadedOn")
+            printer.dump(r"\mergeDifferentlyDottedOn")
+            printer.newline()
+            printer.dump(r"\mergeDifferentlyHeadedOn")
             printer.newline()
             n = 0
             nr_voices = len(voices)
@@ -2740,24 +2760,33 @@ three, and four, this would result in: \voiceOne, \voiceTwo, and \voiceThree.
 This causes wrong stem directions and collisions.
                     """
                     voice_count_text = {
-                        1: r' \voiceOne',
-                        2: r' \voiceTwo',
-                        3: r' \voiceThree'}.get(n, r' \voiceFour')
-                printer(r'\context %s = "%s" {%s %s \%s }' %
-                        (self.voice_command, v, get_transpose("string"),
-                         voice_count_text, v))
+                        1: r'\voiceOne ',
+                        2: r'\voiceTwo ',
+                        3: r'\voiceThree '}.get(n, r'\voiceFour ')
+
+                printer(r'\context %s = "%s" {' % (self.voice_command, v))
+                printer.newline()
+                transpose = get_transpose("string")
+                if transpose:
+                    printer.dump(transpose)
+                printer.dump(r'%s\%s' % (voice_count_text, v))
+                printer.newline()
+                printer.dump('}')
                 printer.newline()
                 lyrics_id = 1
                 for l in lyrics:
-                    printer(r'\new Lyrics \lyricsto "%s" { '
-                            r'\set stanza = "%s." \%s }' %
-                            (v, lyrics_id, l))
-                    lyrics_id += 1
+                    printer(r'\new Lyrics \lyricsto "%s" {' % v)
                     printer.newline()
+                    printer(r'\set stanza = "%s." \%s' % (lyrics_id, l))
+                    printer.newline()
+                    printer('}')
+                    printer.newline()
+                    lyrics_id += 1
                 if figuredbass:
                     printer(r'\context FiguredBass = "%s" \%s' %
                             (figuredbass, figuredbass))
             printer('>>')
+            printer.newline()
             # printer.dump ("test") # prints test after each definition of a
             #                       # context.
             # printer.newline ()
@@ -2782,13 +2811,16 @@ class TabStaff(Staff):
     def print_ly_overrides(self, printer):
         if self.string_tunings or self.tablature_format:
             printer.dump(r"\with {")
+            printer.newline()
             if self.string_tunings:
                 printer.dump("stringTunings = #`(")
                 for i in self.string_tunings:
                     printer.dump(",%s" % i.lisp_expression())
                 printer.dump(")")
+                printer.newline()
             if self.tablature_format:
                 printer.dump("tablatureFormat = #%s" % self.tablature_format)
+                printer.newline()
             printer.dump("}")
 
 

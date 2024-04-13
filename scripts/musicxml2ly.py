@@ -2415,7 +2415,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
         if found_matching_lyric:
             pass
         elif len(lyrics) > 0:  # any lyric
-            result.append(r'\skip1 ')
+            result.append(r' \skip1 ')
         # Note does not have any lyric attached to it.
         elif is_chord(elem):
             # note without lyrics part of a chord. MusicXML format is
@@ -2423,7 +2423,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
             # asume that we do not want to put a skip here.
             continue
         elif is_note_and_not_rest(elem):
-            result.append(r'\skip1 ')
+            result.append(r' \skip1 ')
 
     lyrics_dict[lyric_key].extend(result)
 
