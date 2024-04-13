@@ -72,6 +72,9 @@ class Output_printer(object):
         self._line = ''
         self._indent = 4
         self._nesting = 0
+        self._nesting_str = ''
+        self._nesting_more_str = ''
+        self._nesting_less_str = ''
         self._file = sys.stdout
         self._line_len = 72
         self._output_state_stack = [Output_stack_element()]
@@ -116,6 +119,14 @@ class Output_printer(object):
                           - s.count('->') - s.count('_>')
                           - s.count('^>')
                           + s.count('}'))
+
+        self._nesting_str = ' ' * self._indent * self._nesting
+        self._nesting_more_str = ' ' * self._indent * (self._nesting + 1)
+        if self._nesting > 0:
+            self._nesting_less_str = ' ' * self._indent * (self._nesting - 1)
+        else:
+            self._nesting_less_str = ''
+
         self.print_verbatim(s)
 
     def print_duration_string(self, s):
@@ -145,8 +156,17 @@ class Output_printer(object):
         self._skipspace = False
 
     def newline(self):
+        # Correct indentation for `}`, `>>`, and `} <<` on a line by its
+        # own.
+        to_replace = self._nesting_more_str + r'(>>|})\s*$'
+        replace_with = self._nesting_str + r'\1'
+        self._line = re.sub(to_replace, replace_with, self._line)
+        to_replace = self._nesting_str + r'} <<\s*$'
+        replace_with = self._nesting_less_str + '} <<'
+        self._line = re.sub(to_replace, replace_with, self._line)
+
         self._file.write(self._line + '\n')
-        self._line = ' ' * self._indent * self._nesting
+        self._line = self._nesting_str
         self._skipspace = True
 
     def skipspace(self):
