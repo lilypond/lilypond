@@ -30,6 +30,7 @@ FILE_PATTERNS = [
     # sources
     "lilypond-%s.tar.gz",
     # binaries
+    "lilypond-%s-darwin-arm64.tar.gz",
     "lilypond-%s-darwin-x86_64.tar.gz",
     "lilypond-%s-linux-x86_64.tar.gz",
     "lilypond-%s-mingw-x86_64.zip",
