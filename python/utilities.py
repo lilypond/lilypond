@@ -74,13 +74,12 @@ def hex_to_color(hex_val):
         return None
 
 
+# Examples:
+#
+# r'"foo  \"bar  baz\"  urgh"'  ->  [r'"foo  \"bar  baz\"  urgh"']
+# r'foo  "bar  baz"  urgh'      ->  ['foo', '"bar  baz"', 'urgh']
 def split_string_and_preserve_doublequoted_substrings(value):
-    import shlex
-    lex = shlex.shlex(value)
-    lex.quotes = '"'
-    lex.whitespace_split = True
-    lex.commenters = ''
-    return list(lex)
+    return re.findall(r'(?sx) (?: " .*? [^\\] " | \S )+', value)
 
 
 def musicxml_sound_to_lilypond_midi_instrument(sound):
