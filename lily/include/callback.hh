@@ -35,6 +35,7 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 
+#include <type_traits>
 #include <utility>
 
 // Templated work class to Callbacks
@@ -152,23 +153,6 @@ public:
   static SCM trampoline (SCM target, SCM spanner, SCM source_engraver);
 };
 
-// This duplicates std::remove_pointer (apart from erroring out if
-// there is no pointer to be removed) but it's simple enough that we
-// don't want to pull in all of <type_traits> for a header as
-// frequently included as this one.
-template <typename U>
-struct ly_remove_pointer; // Template, no default
-template <typename U>
-struct ly_remove_pointer<U *>
-{
-  using type = U;
-};
-template <typename U>
-struct ly_remove_pointer<const U *>
-{
-  using type = U;
-};
-
 // Tool class for member function pointer base class identification in
 // spirit akin to the <type_traits> include file classes.
 //
@@ -185,8 +169,8 @@ class mfp_baseclass
   static U *strip_mfp (V (U::*) (W...) const);
 
 public:
-  using type = typename ly_remove_pointer<decltype (strip_mfp (
-    static_cast<T> (nullptr)))>::type;
+  using type = typename std::remove_pointer_t<decltype (strip_mfp (
+    static_cast<T> (nullptr)))>;
 };
 
 // Tool class for member object pointer base class identification in
@@ -203,13 +187,13 @@ class mop_baseclass
   static U *strip_mop (V U::*);
 
 public:
-  using type = typename ly_remove_pointer<decltype (strip_mop (
-    static_cast<T> (nullptr)))>::type;
+  using type = typename std::remove_pointer_t<decltype (strip_mop (
+    static_cast<T> (nullptr)))>;
 };
 
 // Build a member function pointer given a pointer to the class and
 // the unqualified name of a member function
-#define MFP_CREATE(ptr, proc) (&ly_remove_pointer<decltype (ptr)>::type::proc)
+#define MFP_CREATE(ptr, proc) (&std::remove_pointer_t<decltype (ptr)>::proc)
 
 // Split a constant member function pointer into a pair of template
 // arguments, the first being the underlying base class type, the
