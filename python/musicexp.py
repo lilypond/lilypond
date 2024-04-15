@@ -658,8 +658,8 @@ class Pitch:
             s += self.absolute_pitch()
         return s
 
-    def print_ly(self, outputter):
-        outputter(self.ly_expression())
+    def print_ly(self, outputter, pitch_mods = ''):
+        outputter('%s%s' % (self.ly_expression(), pitch_mods))
 
 
 class Music:
@@ -2193,8 +2193,7 @@ class NoteEvent(RhythmicEvent):
 
         pitch = getattr(self, "pitch", None)
         if pitch is not None:
-            pitch.print_ly(printer)
-            printer(self.pitch_mods())
+            pitch.print_ly(printer, self.pitch_mods())
 
         self.duration.print_ly(printer)
 
