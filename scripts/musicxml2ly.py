@@ -1826,32 +1826,6 @@ def musicxml_direction_to_lily(n):
     return res
 
 
-notehead_styles_dict = {
-    'slash': '\'slash',
-    'triangle': '\'triangle',
-    'diamond': '\'diamond',
-    'square': '\'la',  # TODO: Proper squared note head
-    'cross': None,  # TODO: + shaped note head
-    'x': '\'cross',
-    'circle-x': '\'xcircle',
-    'inverted triangle': None,  # TODO: Implement
-    'arrow down': None,  # TODO: Implement
-    'arrow up': None,  # TODO: Implement
-    'slashed': None,  # TODO: Implement
-    'back slashed': None,  # TODO: Implement
-    'normal': None,
-    'cluster': None,  # TODO: Implement
-    'none': '#f',
-    'do': '\'do',
-    're': '\'re',
-    'mi': '\'mi',
-    'fa': '\'fa',
-    'so': None,
-    'la': '\'la',
-    'ti': '\'ti',
-}
-
-
 def musicxml_chordpitch_to_lily(mxl_cpitch):
     r = musicexp.ChordPitch()
     r.alteration = mxl_cpitch.get_alteration()
