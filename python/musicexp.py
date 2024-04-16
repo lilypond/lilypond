@@ -2185,6 +2185,8 @@ class NoteEvent(RhythmicEvent):
     def pre_note_ly(self, is_chord_element):
         elements = super().pre_note_ly(is_chord_element)
         if self.editorial:
+            # We don't support both `editorial` and `cautionary` at the same
+            # time, letting the former win.
             elements.append(r'\bracketAcc')
         return elements
 

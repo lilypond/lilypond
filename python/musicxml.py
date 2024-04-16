@@ -842,13 +842,49 @@ class Note(Measure_element):
         pitch = self['pitch'].to_lily_object()
         event = musicexp.NoteEvent()
         event.pitch = pitch
+
         # <accidental> is optional, but profiling showed that is slightly
         # better to treat it as expected.
         try:
-            event.editorial = self['accidental'].editorial
-            event.cautionary = self['accidental'].cautionary
-            # TODO: Handle the level-display setting for displaying
-            # brackets/parentheses
+            acc = self['accidental']
+
+            cautionary = getattr(acc, 'cautionary', None)
+            editorial = getattr(acc, 'editorial', None)
+            parentheses = getattr(acc, 'parentheses', None)
+            bracket = getattr(acc, 'bracket', None)
+
+            if cautionary == 'yes':
+                # According to Gould's book *Behind Bars*, a cautionary
+                # accidental can be
+                #
+                # 1. an ordinary accidental,
+                # 2. a parenthesized accidental, or
+                # 3. an accidental above the note.
+                #
+                # Here, we take care of items 1 and 2.
+                #
+                # TODO: At the time of this writing (April 2024), handling a
+                #       combination of `cautionary="yes"` and
+                #       `parentheses="no"` is still under discussion for the
+                #       forthcoming MusicXML standard version 4.1.  Most
+                #       applications don't set `cautionary` at all, and we
+                #       rather have to keep track of a measure's accidentals
+                #       to find out whether MusicXML asks for a
+                #       'superfluous' accidental, which we can then
+                #       translate to LilyPond's `!` pitch attribute.  This
+                #       is not implemented yet.
+                if parentheses == 'no':
+                    event.forced_accidental = True
+                else:
+                    event.cautionary = True
+            if editorial == 'yes':
+                if bracket != 'no':
+                    event.editorial = True
+            if parentheses == 'yes':
+                event.cautionary = True
+            if bracket == 'yes':
+                event.editorial = True
+
         except KeyError:
             pass
         return event
@@ -1017,10 +1053,7 @@ class Time_modification(Music_xml_node):
 
 
 class Accidental(Music_xml_node):
-    def __init__(self):
-        Music_xml_node.__init__(self)
-        self.editorial = False
-        self.cautionary = False
+    pass
 
 
 class Tuplet(Music_xml_spanner):
