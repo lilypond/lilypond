@@ -2147,6 +2147,7 @@ class NoteEvent(RhythmicEvent):
         RhythmicEvent.__init__(self)
         self.pitch = Pitch()
         self.cautionary = False
+        self.editorial = False
         self.forced_accidental = False
 
     def get_properties(self):
@@ -2159,7 +2160,7 @@ class NoteEvent(RhythmicEvent):
 
     def pitch_mods(self):
         excl_question = ''
-        if self.cautionary:
+        if self.cautionary or self.editorial:
             excl_question += '?'
         if self.forced_accidental:
             excl_question += '!'
@@ -2181,6 +2182,12 @@ class NoteEvent(RhythmicEvent):
             return res + '%s%s' % (self.pitch.ly_expression(),
                                    self.pitch_mods())
 
+    def pre_note_ly(self, is_chord_element):
+        elements = super().pre_note_ly(is_chord_element)
+        if self.editorial:
+            elements.append(r'\bracketAcc')
+        return elements
+
     def print_ly(self, printer):
         for ev in self.associated_events:
             ev.print_ly(printer)
@@ -2193,6 +2200,8 @@ class NoteEvent(RhythmicEvent):
 
         pitch = getattr(self, "pitch", None)
         if pitch is not None:
+            if self.editorial:
+                printer(r'\bracketAcc')
             pitch.print_ly(printer, self.pitch_mods())
 
         self.duration.print_ly(printer)

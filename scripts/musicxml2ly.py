@@ -153,6 +153,31 @@ additional_definitions = {
             (left-height (get-height left))
             (right-height (get-height right)))
         (cons (* dir left-height) (* dir right-height))))))
+""",
+
+    "make-bracketed": """\
+#(define make-bracketed
+   (grob-transformer
+    'stencil
+    (lambda (grob orig)
+      (let* ((paren-stil (grob-interpret-markup
+                          grob
+                          (markup #:musicglyph "accidentals.leftparen")))
+             (ext (ly:stencil-extent paren-stil Y))
+             (stil (ly:accidental-interface::print grob))
+             (thick (ly:output-def-lookup (ly:grob-layout grob)
+                                          'line-thickness 0.1))
+             (padding thick)
+             (protrusion (* 2.5 thick))
+             (lb (ly:bracket Y ext thick protrusion))
+             (rb (ly:bracket Y ext thick (- protrusion))))
+        (set! stil (ly:stencil-combine-at-edge stil X 1 rb padding))
+        (set! stil (ly:stencil-combine-at-edge stil X -1 lb padding))
+        stil))))
+
+bracketAcc =
+  \\tweak AccidentalCautionary.parenthesized ##f
+  \\tweak AccidentalCautionary.stencil #make-bracketed \\etc
 """
 }
 
@@ -2610,6 +2635,10 @@ def musicxml_voice_to_lily_voice(voice):
         main_event = n.to_lily_object(
             convert_stem_directions=conversion_settings.convert_stem_directions,
             convert_rest_positions=conversion_settings.convert_rest_positions)
+
+        # Do we need bracketed accidentals?
+        if getattr(main_event, 'editorial', False):
+            needed_additional_definitions.append("make-bracketed")
 
         if main_event and not first_pitch:
             first_pitch = main_event.pitch

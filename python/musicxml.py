@@ -845,8 +845,8 @@ class Note(Measure_element):
         # <accidental> is optional, but profiling showed that is slightly
         # better to treat it as expected.
         try:
+            event.editorial = self['accidental'].editorial
             event.cautionary = self['accidental'].cautionary
-            # TODO: Handle editorial accidentals
             # TODO: Handle the level-display setting for displaying
             # brackets/parentheses
         except KeyError:
