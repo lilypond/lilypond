@@ -288,7 +288,14 @@ def extract_score_information(tree):
 
     def set_if_exists(field, value):
         if value:
-            header.set_field(field, utilities.escape_ly_output_string(value))
+            if field == 'texidoc':
+                # Don't surround the string with doublequotes yet so that it
+                # gets split into words.  Doublequotes are added later in
+                # function `dump_texidoc`.
+                header.set_field(field, value.replace('"', r'\"'))
+            else:
+                header.set_field(field,
+                                 utilities.escape_ly_output_string(value))
 
     movement_title = tree.get_maybe_exist_named_child('movement-title')
     movement_number = tree.get_maybe_exist_named_child('movement-number')

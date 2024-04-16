@@ -110,6 +110,14 @@ class Output_printer(object):
     def print_verbatim(self, s):
         self._line += s
 
+    def set_nesting_strings(self):
+        self._nesting_str = ' ' * self._indent * self._nesting
+        self._nesting_more_str = ' ' * self._indent * (self._nesting + 1)
+        if self._nesting > 0:
+            self._nesting_less_str = ' ' * self._indent * (self._nesting - 1)
+        else:
+            self._nesting_less_str = ''
+
     def unformatted_output(self, s):
         # don't indent on \< and indent only once on <<
         self._nesting += (s.count('<')
@@ -119,14 +127,7 @@ class Output_printer(object):
                           - s.count('->') - s.count('_>')
                           - s.count('^>')
                           + s.count('}'))
-
-        self._nesting_str = ' ' * self._indent * self._nesting
-        self._nesting_more_str = ' ' * self._indent * (self._nesting + 1)
-        if self._nesting > 0:
-            self._nesting_less_str = ' ' * self._indent * (self._nesting - 1)
-        else:
-            self._nesting_less_str = ''
-
+        self.set_nesting_strings()
         self.print_verbatim(s)
 
     def print_duration_string(self, s):
@@ -185,6 +186,21 @@ class Output_printer(object):
                 s)
             for w in words:
                 self.add_word(w)
+
+    def dump_texidoc(self, s):
+        words = utilities.split_string_and_preserve_doublequoted_substrings(s)
+        if words:
+            words[0] = '"' + words[0]
+            words[-1] += '"'
+
+            self._nesting += 1
+            self.set_nesting_strings()
+
+            for w in words:
+                self.add_word(w)
+
+            self._nesting -= 1
+            self.set_nesting_strings()
 
     def dump_lyrics(self, s):
         words = utilities.split_string_and_preserve_doublequoted_substrings(s)
@@ -1043,18 +1059,21 @@ class Header:
         # substrings are formatted with the help of \markup, using
         # \column and \line. An exception, however, are texidoc items,
         # which should not contain LilyPond formatting commands.
-        if (key != 'texidoc') and ('\n' in value):
-            value = value.replace('"', '')
-            printer.dump(r'\markup \column {')
-            substrings = value.split('\n')
-            for s in substrings:
-                printer.newline()
-                printer.dump(r'\line { "' + s + '" }')
-            printer.newline()
-            printer.dump('}')
-            printer.newline()
+        if (key == 'texidoc'):
+            printer.dump_texidoc(value)
         else:
-            printer.dump(value)
+            if '\n' in value:
+                value = value.replace('"', '')
+                printer.dump(r'\markup \column {')
+                substrings = value.split('\n')
+                for s in substrings:
+                    printer.newline()
+                    printer.dump(r'\line { "' + s + '" }')
+                printer.newline()
+                printer.dump('}')
+                printer.newline()
+            else:
+                printer.dump(value)
         printer.newline()
 
     def print_ly(self, printer):
