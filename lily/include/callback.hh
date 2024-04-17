@@ -40,8 +40,8 @@
 
 // Templated work class to Callbacks
 
-template <typename... Args>
-class Callback_wrapper : public Simple_smob<Callback_wrapper<Args...>>
+template <typename Result, typename... Args>
+class Callback_wrapper : public Simple_smob<Callback_wrapper<Result, Args...>>
 {
   // force_scm_t<Args>... converts Args... to the same number of SCM
   template <typename>
@@ -55,12 +55,12 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper<Args...>>
   // pointers in connection with inheritance are somewhat opaque as
   // this involves an adjustment of the this pointer from Smob_core to
   // the scope containing the callback.
-  SCM (*trampoline_) (force_scm_t<Args>...);
+  Result (*trampoline_) (force_scm_t<Args>...);
 
   // Writing force_scm_t<Args>... here would interfere with class template
   // argument deduction; however, all arguments must be SCM for the
   // initialization of trampoline_ to compile; therefore, we have lost nothing.
-  Callback_wrapper (SCM (*trampoline) (Args...))
+  Callback_wrapper (Result (*trampoline) (Args...))
     : trampoline_ (trampoline)
   {
   } // Private constructor, use only in get_callback_wrapper_smob
@@ -68,7 +68,15 @@ public:
   LY_DECLARE_STATIC_SMOB_PROC (call, sizeof...(Args), 0, 0)
   static SCM call (SCM self, force_scm_t<Args>... args)
   {
-    return Callback_wrapper::unchecked_unsmob (self)->trampoline_ (args...);
+    if constexpr (std::is_same_v<Result, void>)
+      {
+        Callback_wrapper::unchecked_unsmob (self)->trampoline_ (args...);
+        return SCM_UNSPECIFIED;
+      }
+    else
+      {
+        return Callback_wrapper::unchecked_unsmob (self)->trampoline_ (args...);
+      }
   }
 
   template <auto>
@@ -107,21 +115,19 @@ public:
   }
 
   template <class T, void (T::*p) ()>
-  static SCM trampoline (SCM target)
+  static void trampoline (SCM target)
   {
     auto *const t = LY_ASSERT_SMOB (T, target, 1);
     (t->*p) ();
-    return SCM_UNSPECIFIED;
   }
 
   // Single SCM argument, like used in Listener
   template <class T, void (T::*callback) (SCM)>
-  static SCM trampoline (SCM target, SCM ev)
+  static void trampoline (SCM target, SCM ev)
   {
     auto *const t = LY_ASSERT_SMOB (T, target, 1);
 
     (t->*callback) (ev);
-    return SCM_UNSPECIFIED;
   }
 
   // The more complex trampolines are defined near their use cases.
@@ -129,22 +135,22 @@ public:
   // Stream_event argument is used in Translators
 
   template <class T, void (T::*p) (Stream_event *)>
-  static SCM trampoline (SCM target, SCM ev);
+  static void trampoline (SCM target, SCM ev);
 
   template <class Target, class Owner, class Delegate,
             Delegate Owner::*delegate,
             void (Delegate::*method) (Stream_event *) = &Delegate::operator()>
-  static SCM trampoline (SCM owner, SCM ev);
+  static void trampoline (SCM owner, SCM ev);
 
   // Acknowledger trampolines
   template <class T, void (T::*callback) (Grob_info_t<Grob>)>
-  static SCM trampoline (SCM target, SCM grob, SCM source_engraver);
+  static void trampoline (SCM target, SCM grob, SCM source_engraver);
 
   template <class T, void (T::*callback) (Grob_info_t<Item>)>
-  static SCM trampoline (SCM target, SCM item, SCM source_engraver);
+  static void trampoline (SCM target, SCM item, SCM source_engraver);
 
   template <class T, void (T::*callback) (Grob_info_t<Spanner>)>
-  static SCM trampoline (SCM target, SCM spanner, SCM source_engraver);
+  static void trampoline (SCM target, SCM spanner, SCM source_engraver);
 };
 
 // Tool class for member function pointer base class identification in

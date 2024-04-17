@@ -96,7 +96,7 @@ bool ly_is_grob_cause (SCM obj);
 
 // Acknowledger trampolines
 template <class T, void (T::*callback) (Grob_info_t<Grob>)>
-SCM
+void
 Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
 {
   auto *const t = LY_ASSERT_SMOB (T, target, 1);
@@ -104,11 +104,10 @@ Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
   auto *const e = LY_ASSERT_SMOB (Engraver, source_engraver, 3);
 
   (t->*callback) ({e, g});
-  return SCM_UNSPECIFIED;
 }
 
 template <class T, void (T::*callback) (Grob_info_t<Item>)>
-SCM
+void
 Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
 {
   auto *const t = LY_ASSERT_SMOB (T, target, 1);
@@ -116,11 +115,10 @@ Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
   auto *const e = LY_ASSERT_SMOB (Engraver, source_engraver, 3);
 
   (t->*callback) ({e, g});
-  return SCM_UNSPECIFIED;
 }
 
 template <class T, void (T::*callback) (Grob_info_t<Spanner>)>
-SCM
+void
 Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
 {
   auto *const t = LY_ASSERT_SMOB (T, target, 1);
@@ -128,7 +126,6 @@ Callbacks::trampoline (SCM target, SCM grob, SCM source_engraver)
   auto *const e = LY_ASSERT_SMOB (Engraver, source_engraver, 3);
 
   (t->*callback) ({e, g});
-  return SCM_UNSPECIFIED;
 }
 
 #endif // ENGRAVER_HH

@@ -177,11 +177,11 @@ protected:
   void protect_event (SCM ev);
 
   template <class T, void (T::*callback) (Stream_event *)>
-  friend SCM Callbacks::trampoline (SCM, SCM);
+  friend void Callbacks::trampoline (SCM, SCM);
 
   template <class Target, class Owner, class Delegate, Delegate Owner::*member,
             void (Delegate::*method) (Stream_event *)>
-  friend SCM Callbacks::trampoline (SCM, SCM);
+  friend void Callbacks::trampoline (SCM, SCM);
 
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);
@@ -193,7 +193,7 @@ protected:
 };
 
 template <class T, void (T::*callback) (Stream_event *)>
-SCM
+void
 Callbacks::trampoline (SCM target, SCM event)
 {
   auto *const t = LY_ASSERT_SMOB (T, target, 1);
@@ -201,14 +201,13 @@ Callbacks::trampoline (SCM target, SCM event)
 
   t->protect_event (event);
   (t->*callback) (ev);
-  return SCM_UNSPECIFIED;
 }
 
 template <class Target, // receives the callback
           class Owner,  // has the delegate object as a member
           class Delegate, Delegate Owner::*delegate,
           void (Delegate::*method) (Stream_event *)>
-SCM
+void
 Callbacks::trampoline (SCM target, SCM event)
 {
   auto *const t = LY_ASSERT_SMOB (Target, target, 1);
@@ -216,7 +215,6 @@ Callbacks::trampoline (SCM target, SCM event)
 
   t->protect_event (event);
   ((t->*delegate).*method) (ev);
-  return SCM_UNSPECIFIED;
 }
 
 SCM generic_get_acknowledger (SCM sym, SCM ack_hash);
