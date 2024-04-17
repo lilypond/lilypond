@@ -74,10 +74,18 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
 AC_DEFUN(STEPMAKE_NUMERIC_VERSION, [
     echo "$1" | awk -F. '
     {
-      if ([$]3) {three = [$]3}
-      else {three = 0}
+      one = [$]1
+      two = [$]2
+      three = [$]3
+
+      if (one > 1000) {
+        # for version dates like '20230124', avoiding numeric overflow
+        three = one
+        two = 0
+        one = 0
+      }
     }
-    {printf "%.0f\n", [$]1*1000000 + [$]2*1000 + three}'
+    {printf "%.0f\n", one*1000000 + two*1000 + three}'
 ])
 
 
