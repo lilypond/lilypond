@@ -43,6 +43,10 @@
 template <typename... Args>
 class Callback_wrapper : public Simple_smob<Callback_wrapper<Args...>>
 {
+  // force_scm_t<Args>... converts Args... to the same number of SCM
+  template <typename>
+  using force_scm_t = SCM;
+
   // We use an ordinary function pointer pointing to a trampoline
   // function (templated on the callback in question) instead of
   // storing a member function pointer to a common base class like
@@ -51,51 +55,41 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper<Args...>>
   // pointers in connection with inheritance are somewhat opaque as
   // this involves an adjustment of the this pointer from Smob_core to
   // the scope containing the callback.
-  SCM (*trampoline_) (SCM, Args...);
-  Callback_wrapper (SCM (*trampoline) (SCM, Args...))
+  SCM (*trampoline_) (force_scm_t<Args>...);
+
+  // Writing force_scm_t<Args>... here would interfere with class template
+  // argument deduction; however, all arguments must be SCM for the
+  // initialization of trampoline_ to compile; therefore, we have lost nothing.
+  Callback_wrapper (SCM (*trampoline) (Args...))
     : trampoline_ (trampoline)
   {
-  } // Private constructor, use only in make_smob
+  } // Private constructor, use only in get_callback_wrapper_smob
 public:
-  LY_DECLARE_STATIC_SMOB_PROC (call, sizeof...(Args) + 1, 0, 0)
-  static SCM call (SCM self, SCM target, Args... args)
+  LY_DECLARE_STATIC_SMOB_PROC (call, sizeof...(Args), 0, 0)
+  static SCM call (SCM self, force_scm_t<Args>... args)
   {
-    return (Callback_wrapper::unchecked_unsmob (self)->trampoline_) (target,
-                                                                     args...);
+    return Callback_wrapper::unchecked_unsmob (self)->trampoline_ (args...);
   }
 
-  // Callback wrappers are for an unchanging entity, so we do the Lisp
-  // creation just once on the first call of make_smob.  So we only
-  // get a single Callback_wrapper instance for each differently
-  // templated make_smob call.
-  template <SCM (*trampoline) (SCM, Args...)>
-  static SCM make_smob ()
-  {
-    static SCM res
-      = scm_permanent_object (Callback_wrapper (trampoline).smobbed_copy ());
-    return res;
-  }
+  template <auto>
+  friend SCM get_callback_wrapper_smob ();
 };
+
+// Callback wrappers are for an unchanging entity, so we do the Lisp creation
+// just once on the first call of get_callback_wrapper_smob.  So we get a single
+// Callback_wrapper instance per trampoline function.
+template <auto trampoline>
+inline SCM
+get_callback_wrapper_smob ()
+{
+  static SCM res
+    = scm_permanent_object (Callback_wrapper (trampoline).smobbed_copy ());
+  return res;
+}
 
 class Callbacks
 {
 public:
-  template <SCM (*trampoline) (SCM)>
-  static SCM make_smob ()
-  {
-    return Callback_wrapper<>::make_smob<trampoline> ();
-  }
-  template <SCM (*trampoline) (SCM, SCM)>
-  static SCM make_smob ()
-  {
-    return Callback_wrapper<SCM>::make_smob<trampoline> ();
-  }
-  template <SCM (*trampoline) (SCM, SCM, SCM)>
-  static SCM make_smob ()
-  {
-    return Callback_wrapper<SCM, SCM>::make_smob<trampoline> ();
-  }
-
   // Provide a number of trampolines, first basic no-argument ones
   template <class T, SCM (T::*p) ()>
   static SCM trampoline (SCM target)
@@ -205,7 +199,7 @@ public:
 // Wrapper macro for member function pointers
 
 #define MFP_WRAP(mfp)                                                          \
-  Callbacks::make_smob<Callbacks::trampoline<MFP_ARGS (mfp)>> ()
+  get_callback_wrapper_smob<Callbacks::trampoline<MFP_ARGS (mfp)>> ()
 
 // Wrap a member object's member function.  The resulting procedure expects to
 // be called with the owning object as the first argument, and it will forward
@@ -219,7 +213,7 @@ public:
   [] () {                                                                      \
     using Delegate = decltype (std::declval<target> ().delegate);              \
     using Owner = typename mop_baseclass<decltype (&target::delegate)>::type;  \
-    return Callbacks::make_smob<Callbacks::trampoline<                         \
+    return get_callback_wrapper_smob<Callbacks::trampoline<                    \
       target, Owner, Delegate, &target::delegate, &Delegate::method>> ();      \
   }()
 
