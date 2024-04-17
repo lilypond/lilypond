@@ -106,8 +106,8 @@ AC_DEFUN(STEPMAKE_OPTIONAL_REQUIRED, [
 AC_DEFUN(STEPMAKE_CHECK_SEARCH_RESULT, [
     r="`eval echo '$'"$1"`"
     if test -n "$r" \
-            -a "$r" != "error" \
-            -a "$r" != "no" \
+       && test "$r" != "error" \
+       && test "$r" != "no" \
        && expr '`eval echo '$'"$1"`' : '.*\(echo\)' > /dev/null; then
         true
     else
@@ -149,7 +149,7 @@ AC_DEFUN(STEPMAKE_BISON, [
     STEPMAKE_PROGS(BISON, bison, $1)
 
     # urg.  should test functionality rather than version.
-    if test "$BISON" = "bison" -a -n "$2"; then
+    if test "$BISON" = "bison" && test -n "$2"; then
         STEPMAKE_CHECK_VERSION(BISON, $1, $2)
     fi
 ])
@@ -643,7 +643,7 @@ AC_DEFUN(STEPMAKE_PROGS, [
     AC_CHECK_PROGS($1, $2, no)
     STEPMAKE_OPTIONAL_REQUIRED($1, $2, $3)
     if test $? -eq 0; then
-        if test -n "$4" -o -n "$5"; then
+        if test -n "$4" || test -n "$5"; then
             STEPMAKE_CHECK_VERSION($1, $3, $4, $5)
         fi
     fi
@@ -743,7 +743,7 @@ AC_DEFUN(STEPMAKE_TEXMF, [
         num=`STEPMAKE_NUMERIC_VERSION($ver)`
         # Avoid buggy metapost versions: 1.600 <= x < 1.803
         if test "$num" -ge "1600000" \
-                -a "$num" -lt "1803000"; then
+           && test "$num" -lt "1803000"; then
             STEPMAKE_ADD_ENTRY($1,
                 ["mpost (due to a bug in metapost, versions 1.600 <= x < 1.803 are not supported; installed: $ver)"])
         fi
