@@ -862,8 +862,7 @@ class TimeScaledMusic(MusicWrapper):
                      base_number_function)
                 func.newline()
 
-        func(r'\times %d/%d ' %
-             (self.numerator, self.denominator))
+        func(r'\times %d/%d' % (self.numerator, self.denominator))
         func.add_factor(Fraction(self.numerator, self.denominator))
         MusicWrapper.print_ly(self, func)
         func.revert()
@@ -1128,7 +1127,6 @@ class Paper:
             printer.newline()
         printer.dump(r'\paper {')
         printer.newline()
-        printer.newline()
         self.print_length_field(printer, "paper-width", self.page_width)
         self.print_length_field(printer, "paper-height", self.page_height)
         self.print_length_field(printer, "top-margin", self.top_margin)
@@ -1155,6 +1153,7 @@ class Paper:
                 printer, "short-indent", self.short_indent / char_per_cm)
 
         printer.dump('}')
+        printer.newline()
         printer.newline()
 
 
@@ -1186,6 +1185,7 @@ class Layout:
                 printer.dump('}')
                 printer.newline()
             printer.dump('}')
+            printer.newline()
             printer.newline()
 
 
@@ -1386,7 +1386,7 @@ class SpanEvent(Event):
         return True
 
     def get_properties(self):
-        return "'span-direction  %d" % self.span_direction
+        return "'span-direction %d" % self.span_direction
 
     def set_span_type(self, type):
         self.span_type = type
@@ -2233,23 +2233,32 @@ class KeySignatureChange(Music):
                          "to a lilypond expression") % a[1])
             return ''
         if len(a) == 2:
-            return "( %s . %s )" % (a[0], accidental)
+            return "(%s . %s)" % (a[0], accidental)
         elif len(a) == 3:
-            return "(( %s . %s ) . %s )" % (a[2], a[0], accidental)
+            return "((%s . %s) . %s)" % (a[2], a[0], accidental)
         else:
             return ''
 
-    def ly_expression(self):
+    def key_change_to_ly(self):
         if self.tonic:
-            return r'\key %s \%s' % (self.tonic.ly_step_expression(),
-                                     self.mode)
+            return (r'\key %s \%s' % (self.tonic.ly_step_expression(),
+                                      self.mode),
+                    '')
         elif self.non_standard_alterations:
             alterations = [self.format_non_standard_alteration(a) for
                            a in self.non_standard_alterations]
-            return (r"\set Staff.keyAlterations = #`(%s)"
-                    % " ".join(alterations))
+            return (r"\set Staff.keyAlterations =",
+                    "#`(%s)" % " ".join(alterations))
         else:
-            return ''
+            return ('', '')
+
+    def ly_expression(self):
+        return "%s %s" % self.key_change_to_ly()
+
+    def print_ly(self, printer):
+        (left, right) = self.key_change_to_ly()
+        printer.dump(left)
+        printer.dump(right)
 
 
 class ShiftDurations(MusicWrapper):
