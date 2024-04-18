@@ -1063,8 +1063,7 @@ def musicxml_attributes_to_lily(attrs):
         if children:
             ev = func(attrs)
             if isinstance(ev, list):
-                for e in ev:
-                    elts.append(e)
+                elts.extend(ev)
             elif ev:
                 elts.append(ev)
 
@@ -2196,8 +2195,7 @@ class LilyPondVoiceBuilder:
         return self.end_moment - self.begin_moment
 
     def add_pending_dynamics(self):
-        for d in self.pending_dynamics:
-            self.elements.append(d)
+        self.elements.extend(self.pending_dynamics)
         self.pending_dynamics = []
 
     def add_pending_last(self):
@@ -2213,8 +2211,7 @@ class LilyPondVoiceBuilder:
         # `<direction>` elements have been emitted, we handle this within
         # `LilyPondVoiceBuilder` (and not while constructing `ChordEvent`).
         self.elements.append(musicexp.EmptyChord())
-        for d in self.pending_last:
-            self.elements.append(d)
+        self.elements.extend(self.pending_last)
         self.pending_last = []
 
     def add_music(self, music, duration, relevant=True):
@@ -2410,7 +2407,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
     def is_note_and_not_rest(elem):
         return is_note(elem) and not is_rest(elem)
 
-    for idx, elem in enumerate(voice._elements):
+    for elem in voice._elements:
         lyrics = elem.get('lyric', [])  # only <note> contains <lyric>
         found_matching_lyric = False
         for lyric in lyrics:
@@ -2478,7 +2475,7 @@ def musicxml_voice_to_lily_voice(voice):
         extract_lyrics(voice, number, lyrics)
 
     last_bar_check = -1
-    for idx, n in enumerate(voice._elements):
+    for n in voice._elements:
         tie_started = False
         if n.get_name() == 'forward':
             continue
@@ -3332,11 +3329,9 @@ def update_score_setup(score_structure, part_list, voices, parts):
     sounds = []
     for part in parts:
         for measure in part.get_typed_children(musicxml.Measure):
-            for sound in measure.get_typed_children(musicxml.Sound):
-                sounds.append(sound)
+            sounds.extend(measure.get_typed_children(musicxml.Sound))
             for direction in measure.get_typed_children(musicxml.Direction):
-                for sound in direction.get_typed_children(musicxml.Sound):
-                    sounds.append(sound)
+                sounds.extend(direction.get_typed_children(musicxml.Sound))
 
     score_structure.set_tempo('100')
     if len(sounds) != 0:
