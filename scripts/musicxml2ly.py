@@ -3498,15 +3498,6 @@ def convert(filename, options):
     score.print_ly(printer)
     printer.newline()
 
-    # Syntax update to current version
-    if options.output_name != "-":
-        version = os.popen(
-            "lilypond --version | head -1 | cut -d' ' -f3").read().strip()
-        ly.progress(_("Converting to current version (%s) notations ..."
-                      % version), True)
-        os.system("convert-ly -e %s 2> /dev/null" %
-                  utilities.escape_ly_output_string(output_ly_name))
-
     return voices
 
 
