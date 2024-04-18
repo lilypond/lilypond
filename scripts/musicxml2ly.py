@@ -2171,6 +2171,16 @@ class LilyPondVoiceBuilder:
 
     def _insert_multibar(self):
         layout_information.set_context_item('Score', 'skipBars = ##t')
+
+        # Doing `R1^\markup{...}` would center the markup over the
+        # multi-measure rest, which is most certainly not intended.
+        # Instead, do `<>^\markup{...} R1`.  Since it doesn't cause a
+        # problem, we do this for the remaining pending elements also.
+        if self.pending_dynamics:
+            self.elements.append(musicexp.EmptyChord())
+            self.elements.extend(self.pending_dynamics)
+            self.pending_dynamics = []
+
         r = musicexp.MultiMeasureRest()
         lenfrac = self.measure_length
         r.duration = musicexp.Duration.from_fraction(lenfrac)

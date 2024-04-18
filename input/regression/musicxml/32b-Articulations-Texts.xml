@@ -4,8 +4,9 @@
 <score-partwise>
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Text markup:
-          different font sizes, weights and colors.</miscellaneous-field>
+      <miscellaneous-field name="description">Text markup with different font
+          sizes, weights, colors, horizontal positions, and vertical positions.
+      </miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -72,7 +73,7 @@
         </direction-type>
       </direction>
       <note>
-        <pitch><step>F</step><octave>4</octave></pitch>
+        <rest measure="yes"/>
         <duration>384</duration>
         <voice>1</voice>
         <type>whole</type>
