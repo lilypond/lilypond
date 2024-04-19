@@ -2149,6 +2149,7 @@ class NoteEvent(RhythmicEvent):
         self.cautionary = False
         self.editorial = False
         self.forced_accidental = False
+        self.accidental_value = None
 
     def get_properties(self):
         s = RhythmicEvent.get_properties(self)
@@ -2212,6 +2213,7 @@ class NoteEvent(RhythmicEvent):
 class KeySignatureChange(Music):
     def __init__(self):
         Music.__init__(self)
+        self.fifths = 0
         self.tonic = None
         self.mode = 'major'
         self.non_standard_alterations = None
@@ -2238,6 +2240,30 @@ class KeySignatureChange(Music):
             return "((%s . %s) . %s)" % (a[2], a[0], accidental)
         else:
             return ''
+
+    def get_alterations(self):
+        alterations = [0, 0, 0, 0, 0, 0, 0]  # for pitches C to B
+
+        if self.non_standard_alterations:
+            # `non_standard_alterations` can contain two-element or
+            # three-element lists, thus the use of `*`.
+            for (pitch, alteration, *dummy) in self.non_standard_alterations:
+                alterations[pitch] = alteration
+        else:
+            count = self.fifths
+            if count > 0:
+                pitch = -1  # B
+                while count > 0:
+                    pitch = (pitch + 4) % 7  # a fifth up
+                    alterations[pitch] += 1
+                    count -= 1
+            elif count < 0:
+                pitch = 3  # F
+                while count < 0:
+                    pitch = (pitch - 4) % 7  # a fifth down
+                    alterations[pitch] -= 1
+                    count += 1
+        return alterations
 
     def key_change_to_ly(self):
         if self.tonic:

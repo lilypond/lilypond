@@ -956,6 +956,7 @@ def musicxml_key_to_lily(attributes):
     if len(key_sig) == 2 and not isinstance(key_sig[0], list):
         # standard key signature,(fifths, mode)
         (fifths, mode) = key_sig
+        change.fifths = fifths
         change.mode = mode
 
         start_pitch = musicexp.Pitch()
@@ -2446,6 +2447,14 @@ def musicxml_voice_to_lily_voice(voice):
     return_value = VoiceData()
     return_value.voicedata = voice
 
+    # Track pitch alterations for cautionary accidentals without parentheses
+    # (to be realized with LilyPond's `!` pitch modifier) that are not
+    # represented with `<accidental cautionary="yes" parentheses="no">`.
+    # Note that this might not work correctly if there are multiple voices
+    # in a single staff.
+    alterations = [0, 0, 0, 0, 0, 0, 0]
+    curr_alterations = [0, 0, 0, 0, 0, 0, 0]
+
     # First pitch needed for relative mode (if selected in command-line
     # options)
     first_pitch = None
@@ -2522,6 +2531,7 @@ def musicxml_voice_to_lily_voice(voice):
 
         if isinstance(n, musicxml.Barline):
             barlines = n.to_lily_object()
+            curr_alterations = alterations.copy()
             for a in barlines:
                 if isinstance(a, musicexp.BarLine):
                     voice_builder.add_barline(a)
@@ -2551,6 +2561,7 @@ def musicxml_voice_to_lily_voice(voice):
 
         # Print bar checks between measures.
         if n._measure_position == 0 and n != voice._elements[0]:
+            curr_alterations = alterations.copy()
             try:
                 num = int(n.get_parent().number)
             except ValueError:
@@ -2622,6 +2633,9 @@ def musicxml_voice_to_lily_voice(voice):
 
         if isinstance(n, musicxml.Attributes):
             for a in musicxml_attributes_to_lily(n):
+                if isinstance(a, musicexp.KeySignatureChange):
+                    alterations = a.get_alterations()
+                    current_alterations = alterations
                 voice_builder.add_command(a)
             measure_length = measure_length_from_attributes(
                 n, current_measure_length)
@@ -2641,6 +2655,18 @@ def musicxml_voice_to_lily_voice(voice):
         main_event = n.to_lily_object(
             convert_stem_directions=conversion_settings.convert_stem_directions,
             convert_rest_positions=conversion_settings.convert_rest_positions)
+
+        if isinstance(main_event, musicexp.NoteEvent):
+            if not (main_event.cautionary or main_event.editorial):
+                alteration = main_event.pitch.alteration
+                step = main_event.pitch.step
+
+                if curr_alterations[step] == alteration:
+                    # Do we need a forced accidental?
+                    if main_event.accidental_value:
+                        main_event.forced_accidental = True
+                else:
+                    curr_alterations[step] = alteration
 
         # Do we need bracketed accidentals?
         if getattr(main_event, 'editorial', False):

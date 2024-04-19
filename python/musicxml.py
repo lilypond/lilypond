@@ -853,6 +853,8 @@ class Note(Measure_element):
             parentheses = getattr(acc, 'parentheses', None)
             bracket = getattr(acc, 'bracket', None)
 
+            event.accidental_value = acc.get_text()
+
             if cautionary == 'yes':
                 # According to Gould's book *Behind Bars*, a cautionary
                 # accidental can be
@@ -866,13 +868,7 @@ class Note(Measure_element):
                 # TODO: At the time of this writing (April 2024), handling a
                 #       combination of `cautionary="yes"` and
                 #       `parentheses="no"` is still under discussion for the
-                #       forthcoming MusicXML standard version 4.1.  Most
-                #       applications don't set `cautionary` at all, and we
-                #       rather have to keep track of a measure's accidentals
-                #       to find out whether MusicXML asks for a
-                #       'superfluous' accidental, which we can then
-                #       translate to LilyPond's `!` pitch attribute.  This
-                #       is not implemented yet.
+                #       forthcoming MusicXML standard version 4.1.
                 if parentheses == 'no':
                     event.forced_accidental = True
                 else:
