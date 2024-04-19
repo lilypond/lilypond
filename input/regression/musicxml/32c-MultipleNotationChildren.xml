@@ -42,7 +42,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <accidental>sharp</accidental>
         <notations>
           <articulations>
             <staccato placement="above"/>
@@ -62,7 +61,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <accidental>sharp</accidental>
         <notations>
           <articulations>
             <staccato placement="above"/>
@@ -80,7 +78,6 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <accidental>sharp</accidental>
         <notations>
           <articulations>
             <staccato placement="above"/>
