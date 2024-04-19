@@ -1500,8 +1500,15 @@ Internals Reference:
 
 @funindex \ottava
 
-@notation{Ottava brackets} introduce an extra transposition of an
-octave for the staff:
+@notation{Ottava brackets} raise or lower displayed notes by one or more
+octaves, leaving the sounding pitch unchanged.  The purpose of the octavation
+is to reduce the use of ledger lines, especially when wide intervals occur in
+short passages.  The @code{\ottava} takes a positive integer to indicate
+playing higher than printed, or a negative to play lower.  The effect of the
+ottava brackets lasts to the next entry of a different octavation, and can be
+ended by using @code{\ottava 0}.
+
+In the following example, all notes sound at the same pitch:
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -1526,9 +1533,9 @@ octave for the staff:
 
 By default, only a number is printed at the start of the
 bracket.  That setting may be changed to include an abbreviated
-ordinal, either in superscript or in normal letters (the latter
-was formerly used by default); the default bold font weight of
-these characters may also be altered, as explained in
+ordinal, either in superscript or in normal letters;
+the initial bold font weight of these characters may also be altered,
+as explained in
 @ref{Selecting font and font size}.
 
 The following example demonstrates various options, as well as
