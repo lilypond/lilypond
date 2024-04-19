@@ -658,7 +658,7 @@ class Pitch:
             s += self.absolute_pitch()
         return s
 
-    def print_ly(self, outputter, pitch_mods = ''):
+    def print_ly(self, outputter, pitch_mods=''):
         outputter('%s%s' % (self.ly_expression(), pitch_mods))
 
 
@@ -839,7 +839,7 @@ class TimeScaledMusic(MusicWrapper):
                     num_duration = self.actual_type.lisp_expression()
                 else:
                     num_duration = den_duration
-                if (self.display_denominator or self.display_numerator):
+                if self.display_denominator or self.display_numerator:
                     func(r"\once \override TupletNumber.text "
                          "= #(tuplet-number::non-default-fraction-with-notes "
                          "%s %s %s %s)"
@@ -948,7 +948,7 @@ class SequentialMusic(NestedMusic):
                and not isinstance(self.elements[at], BarLine)):
             at -= 1
 
-        if (at >= 0 and isinstance(self.elements[at], ChordEvent)):
+        if at >= 0 and isinstance(self.elements[at], ChordEvent):
             value = self.elements[at]
         return value
 
@@ -1058,7 +1058,7 @@ class Header:
         # substrings are formatted with the help of \markup, using
         # \column and \line. An exception, however, are texidoc items,
         # which should not contain LilyPond formatting commands.
-        if (key == 'texidoc'):
+        if key == 'texidoc':
             printer.dump_texidoc(value)
         else:
             if '\n' in value:
@@ -1277,7 +1277,7 @@ class ChordEvent(NestedMusic):
             for x in note_events:
                 if x.associated_events:
                     for aev in x.associated_events:
-                        if (isinstance(aev, StemEvent) and aev.value):
+                        if isinstance(aev, StemEvent) and aev.value:
                             stem = aev
                 pitches.append(x.chord_element_ly())
                 if not basepitch:
@@ -1487,7 +1487,7 @@ class TextSpannerEvent(SpanEvent):
             return {-1: (r"\tweak style #'dashed-line", r'\startTextSpan'),
                     1: ('', r'\stopTextSpan')}.get(self.span_direction,
                                                    ('', ''))
-        elif (style == 'stop') and (whatOrnament != 'trill'):
+        elif style == 'stop' and whatOrnament != 'trill':
             return ('', '')
         return {-1: ('', r'\startTrillSpan'),
                 1: ('', r'\stopTrillSpan')}.get(self.span_direction,
@@ -2319,7 +2319,7 @@ class TimeSignatureChange(Music):
             elif self.style != "'()":
                 st = (r"\once \override Staff.TimeSignature.style "
                       "= #%s " % self.style)
-            elif (self.style != "'()") or is_common_signature:
+            elif self.style != "'()" or is_common_signature:
                 st = r"\numericTimeSignature"
 
         if self.visible:

@@ -131,8 +131,8 @@ additional_definitions = {
     (format #f "~a:~a" den num)))
 """,
 
-  # TODO: Implement values `both` and `arrow` of `line-end` attribute.
-  "make-edge-height": """\
+    # TODO: Implement values `both` and `arrow` of `line-end` attribute.
+    "make-edge-height": """\
 #(define edge-height-alist
    '((up . -0.7)
      (down . 0.7)
@@ -2191,7 +2191,7 @@ class LilyPondVoiceBuilder:
         self.pending_multibar = 0
 
     def set_measure_length(self, mlen):
-        if (mlen != self.measure_length) and self.pending_multibar:
+        if mlen != self.measure_length and self.pending_multibar:
             self._insert_multibar()
         self.measure_length = mlen
 
@@ -2267,10 +2267,9 @@ class LilyPondVoiceBuilder:
         # Insert only if we don't have a barline already
         # TODO: Implement proper merging of default barline and custom bar line
         has_relevant = self.has_relevant_elements
-        if (not (self.elements) or
-            not (isinstance(self.elements[-1], musicexp.BarLine)) or
-                (self.pending_multibar > 0)):
-
+        if (not self.elements
+                or not isinstance(self.elements[-1], musicexp.BarLine)
+                or self.pending_multibar > 0):
             self.add_music(barline, 0)
 
         self.has_relevant_elements = has_relevant or relevant
@@ -2338,8 +2337,8 @@ class LilyPondVoiceBuilder:
             at -= 1
 
         if (self.elements
-            and at >= 0
-            and isinstance(self.elements[at], musicexp.ChordEvent)
+                and at >= 0
+                and isinstance(self.elements[at], musicexp.ChordEvent)
                 and self.begin_moment == starting_at):
             value = self.elements[at]
         else:
@@ -2586,7 +2585,7 @@ def musicxml_voice_to_lily_voice(voice):
                 continue
 
         # Start any new multimeasure rests
-        if (rest and rest.is_whole_measure()):
+        if rest and rest.is_whole_measure():
             if pending_chordnames:
                 chordnames_builder.jumpto(n._when)
                 chordnames_builder.stay_here = True
@@ -3346,7 +3345,7 @@ def update_score_setup(score_structure, part_list, voices, parts):
     score_structure.set_tempo('100')
     if len(sounds) != 0:
         for sound in sounds:
-            if (sound.get_tempo() is not None and sound.get_tempo() != ""):
+            if sound.get_tempo() is not None and sound.get_tempo() != "":
                 score_structure.set_tempo(sound.get_tempo())
                 break
 

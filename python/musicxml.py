@@ -35,13 +35,13 @@ import utilities
 
 def minidom_demarshal_text_to_int(node):
     text = ''.join([n.data for n in node.childNodes
-                    if (n.nodeType == node.TEXT_NODE)])
+                    if n.nodeType == node.TEXT_NODE])
     return int(text)
 
 
 def minidom_demarshal_text_to_int_or_float(node):
     text = ''.join([n.data for n in node.childNodes
-                    if (n.nodeType == node.TEXT_NODE)])
+                    if n.nodeType == node.TEXT_NODE])
     try:
         return int(text)
     except ValueError:
@@ -51,7 +51,7 @@ def minidom_demarshal_text_to_int_or_float(node):
 
 def minidom_demarshal_text_to_str(node):
     text = ''.join([n.data for n in node.childNodes
-                    if (n.nodeType == node.TEXT_NODE)])
+                    if n.nodeType == node.TEXT_NODE])
     return text.strip()
 
 
@@ -363,8 +363,8 @@ class Credit(Xml_node):
         halign = getattr(words, 'halign', justify)
         valign = getattr(words, 'valign', None)
 
-        if (size and size == max(sizes) and y and y == max(ys) and
-                halign == 'center'):
+        if (size and size == max(sizes) and y and y == max(ys)
+                and halign == 'center'):
             return 'title'
         elif y and y > min(ys) and y < max(ys) and halign == 'center':
             return 'subtitle'
@@ -634,8 +634,8 @@ class Barline(Measure_element):
             repeat = musicxml2ly_conversion.RepeatMarker()
             repeat.direction = {'forward': -1, 'backward': 1}.get(direction, 0)
 
-            if ((direction == 'forward' and bartype == 'heavy-light') or
-                    (direction == 'backward' and bartype == 'light-heavy')):
+            if ((direction == 'forward' and bartype == 'heavy-light')
+                    or (direction == 'backward' and bartype == 'light-heavy')):
                 bartype = None
             times = getattr(repeat_element, 'times', None)
             if times is not None:
@@ -744,8 +744,8 @@ class Notehead(Music_xml_node):
         if color is not None:
             event.color = utilities.hex_to_color(color)
         if (event.style
-                or (event.filled is not None)
-                or (event.color is not None)):
+                or event.filled is not None
+                or event.color is not None):
             styles.append(event)
         # parentheses
         if getattr(self, 'parentheses', None) == 'yes':
@@ -798,13 +798,13 @@ class Note(Measure_element):
             ch = self['type']
         except KeyError:
             # FIXME: is it ok to default to eight note for grace notes?
-            return 3 if ('grace' in self) else None
+            return 3 if 'grace' in self else None
         log = ch.get_text().strip()
         return utilities.musicxml_duration_to_log(log)
 
     def get_duration_info(self):
         log = self.get_duration_log()
-        return (log, len(self['dot'])) if (log is not None) else None
+        return (log, len(self['dot'])) if log is not None else None
 
     def get_factor(self):
         return 1
@@ -1249,7 +1249,7 @@ class Musicxml_voice:
 
             for l in lyrics:
                 nr = getattr(l, 'number', None)
-                if (nr is not None) and (nr not in self._lyrics):
+                if nr is not None and nr not in self._lyrics:
                     self._lyrics.append(nr)
 
     def insert(self, idx, e):
@@ -1391,7 +1391,7 @@ class Part(Music_xml_node):
 
                         rest._is_whole_measure = True
 
-                if (dur > 0) and ('chord' in n):
+                if dur > 0 and 'chord' in n:
                     now = last_moment
                     measure_position = last_measure_position
 
@@ -1523,7 +1523,7 @@ class Part(Music_xml_node):
                 vid = n['voice']
             except KeyError:
                 if isinstance(n, Note):
-                    vid = last_voice if ('chord' in n) else "1"
+                    vid = last_voice if 'chord' in n else "1"
                 else:
                     # TODO: Check whether we shall really use "None" here, or
                     #       rather use "1" as the default?
@@ -1561,7 +1561,7 @@ class Part(Music_xml_node):
             try:
                 id = n['voice']
             except KeyError:
-                id = last_voice if ('chord' in n) else "1"
+                id = last_voice if 'chord' in n else "1"
 
             if id != "None":
                 last_voice = id
