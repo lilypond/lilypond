@@ -2400,7 +2400,6 @@ def music_xml_fretboards_name_to_lily_name(part_id, voicename):
 def extract_lyrics(voice, lyric_key, lyrics_dict):
     assert lyric_key is not None
 
-    curr_number = None
     result = []
 
     def is_note(elem):
@@ -2436,7 +2435,20 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
         elif is_note_and_not_rest(elem):
             result.append(r' \skip1 ')
 
-    lyrics_dict[lyric_key].extend(result)
+    # We apply a heuristic regular expression to get a stanza number from
+    # the first syllable; we search for strings like '1.', '1.-3.', '2.,
+    # 3.', and '1./3./5.', with possible whitespace characters inbetween.
+    stanza_id = None
+    match = re.search(r'(?xs)'
+                      r'^ \s*'
+                      r'( " )?'
+                      r'( (?: [0-9]+ \s* \. \s* [-/,]? \s* )+ ) \s*'
+                      r'( [^-/,] .* )', result[0])
+    if match:
+        stanza_id = match.group(2).strip()
+        result[0] = match.group(1) + match.group(3)
+
+    lyrics_dict[lyric_key] = (result, stanza_id)
 
 
 def musicxml_voice_to_lily_voice(voice):
@@ -2931,7 +2943,8 @@ def musicxml_voice_to_lily_voice(voice):
     seq_music.elements = ly_voice
     for k, v in lyrics.items():
         ev = musicexp.Lyrics()
-        ev.lyrics_syllables = v
+        ev.lyrics_syllables = v[0]
+        ev.stanza_id = v[1]
         return_value.lyrics_dict[k] = ev
 
     if options.shift_meter:
@@ -3284,11 +3297,11 @@ def print_voice_definitions(printer, part_list, voices):
 # [staff_id,
 #   [
 #     [lily_voice_id1,
-#       [lily_lyrics_id11, lily_lyrics_id12, ...],
+#       [(lily_lyrics_id11, stanza_id11), (lily_lyrics_id12, stanza_id12) ...],
 #       lily_figured_bass_id1,
 #       ...],
 #     [lily_voice_id2,
-#       [lily_lyrics_id21, lily_lyrics_id22, ...],
+#       [(lily_lyrics_id21, stanza_id21), (lily_lyrics_id22, stanza_id22) ...],
 #       lily_figured_bass_id2,
 #       ...],
 #     ...
@@ -3300,8 +3313,14 @@ def print_voice_definitions(printer, part_list, voices):
 #
 # ```
 # [
-#   (voice_name_id1, lyrics_ids1, figured_bass_id1, ...)
-#   (voice_name_id2, lyrics_ids2, figured_bass_id2, ...)
+#   (voice_name_id1,
+#    [(lyrics_id11, stanza_id11), (lyrics_id12, stanza_id12), ...]
+#    figured_bass_id1,
+#    ...)
+#   (voice_name_id2,
+#    [(lyrics_id21, stanza_id21), (lyrics_id22, stanza_id22), ...]
+#    figured_bass_id2,
+#    ...)
 #   ...
 # ]
 # ```
@@ -3309,8 +3328,9 @@ def format_staff_info(part_id, staff_id, raw_voices):
     voices = []
     for (v, lyricsids, figured_bass, chordnames, fretboards) in raw_voices:
         voice_name = music_xml_voice_name_to_lily_name(part_id, v)
-        voice_lyrics = [music_xml_lyrics_name_to_lily_name(part_id, v, l)
-                        for l in lyricsids]
+        voice_lyrics = [
+            (music_xml_lyrics_name_to_lily_name(part_id, v, l), stanza_id)
+            for (l, stanza_id) in lyricsids]
         figured_bass_name = ''
         if figured_bass:
             figured_bass_name = music_xml_figuredbass_name_to_lily_name(
@@ -3350,25 +3370,36 @@ def update_score_setup(score_structure, part_list, voices, parts):
         if len(staves) > 1:
             staves_info = []
             staves = sorted(set(staves))
+
             for s in staves:
-                thisstaff_raw_voices = [
-                    (voice_name,
-                     voice.lyrics_order,
-                     voice.figured_bass,
-                     voice.chordnames,
-                     voice.fretboards)
-                    for (voice_name, voice) in list(nv_dict.items())
-                    if voice.voicedata._start_staff == s]
+                thisstaff_raw_voices = []
+                for (voice_name, voice) in list(nv_dict.items()):
+                    if voice.voicedata._start_staff == s:
+                        order = []
+                        for i in voice.lyrics_order:
+                            order.append((i, voice.lyrics_dict[i].stanza_id))
+                        raw_voice = (voice_name,
+                                     order,
+                                     voice.figured_bass,
+                                     voice.chordnames,
+                                     voice.fretboards)
+                        thisstaff_raw_voices.append(raw_voice)
+
                 staves_info.append(format_staff_info(
                     part_id, s, thisstaff_raw_voices))
         else:
-            thisstaff_raw_voices = [
-                (voice_name,
-                 voice.lyrics_order,
-                 voice.figured_bass,
-                 voice.chordnames,
-                 voice.fretboards)
-                for (voice_name, voice) in list(nv_dict.items())]
+            thisstaff_raw_voices = []
+            for (voice_name, voice) in list(nv_dict.items()):
+                order = []
+                for i in voice.lyrics_order:
+                    order.append((i, voice.lyrics_dict[i].stanza_id))
+                raw_voice = (voice_name,
+                             order,
+                             voice.figured_bass,
+                             voice.chordnames,
+                             voice.fretboards)
+                thisstaff_raw_voices.append(raw_voice)
+
             staves_info.append(format_staff_info(
                 part_id, None, thisstaff_raw_voices))
         part = score_structure.find_part(part_id)

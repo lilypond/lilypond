@@ -1017,6 +1017,7 @@ class RepeatedMusic:
 class Lyrics:
     def __init__(self):
         self.lyrics_syllables = []
+        self.stanza_id = None
 
     def lyrics_to_ly(self):
         mode = r'\lyricmode {'
@@ -2837,15 +2838,15 @@ This causes wrong stem directions and collisions.
                 printer.newline()
                 printer.dump('}')
                 printer.newline()
-                lyrics_id = 1
-                for l in lyrics:
+                for (l, stanza_id) in lyrics:
                     printer(r'\new Lyrics \lyricsto "%s" {' % v)
                     printer.newline()
-                    printer(r'\set stanza = "%s." \%s' % (lyrics_id, l))
+                    if stanza_id:
+                        printer(r'\set stanza = "%s"' % stanza_id)
+                    printer(r'\%s' % l)
                     printer.newline()
                     printer('}')
                     printer.newline()
-                    lyrics_id += 1
                 if figuredbass:
                     printer(r'\context FiguredBass = "%s" \%s' %
                             (figuredbass, figuredbass))
