@@ -3278,17 +3278,33 @@ def print_voice_definitions(printer, part_list, voices):
                 printer.newline()
 
 
-# format the information about the staff in the form
-#     [staffid,
-#         [
-#            [voiceid1, [lyricsid11, lyricsid12,...], figuredbassid1],
-#            [voiceid2, [lyricsid21, lyricsid22,...], figuredbassid2],
-#            ...
-#         ]
-#     ]
-# raw_voices is of the form [(voicename, lyricsids, havefiguredbass)*]
-
-
+# Format staff information to get the following format.
+#
+# ```
+# [staff_id,
+#   [
+#     [lily_voice_id1,
+#       [lily_lyrics_id11, lily_lyrics_id12, ...],
+#       lily_figured_bass_id1,
+#       ...],
+#     [lily_voice_id2,
+#       [lily_lyrics_id21, lily_lyrics_id22, ...],
+#       lily_figured_bass_id2,
+#       ...],
+#     ...
+#   ]
+# ]
+# ```
+#
+# The input `raw_voices` is of the form
+#
+# ```
+# [
+#   (voice_name_id1, lyrics_ids1, figured_bass_id1, ...)
+#   (voice_name_id2, lyrics_ids2, figured_bass_id2, ...)
+#   ...
+# ]
+# ```
 def format_staff_info(part_id, staff_id, raw_voices):
     voices = []
     for (v, lyricsids, figured_bass, chordnames, fretboards) in raw_voices:
