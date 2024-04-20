@@ -23,6 +23,7 @@
 #include "config.hh"
 
 #include <string>
+#include <variant>
 
 /* this lets us "overload" macros such as get_property to take
    symbols as well as strings */
@@ -243,11 +244,7 @@ void ly_add_function_documentation (SCM proc, const char *fname,
 void ly_check_name (const char *cxx, const char *fname);
 
 #define ADD_SCM_INIT_FUNC(name, func)                                          \
-  class name##_scm_initter                                                     \
-  {                                                                            \
-  public:                                                                      \
-    name##_scm_initter () { add_scm_init_func (func); }                        \
-  } _##name##_scm_initter;
+  auto ly_##name##_scm_initter = (add_scm_init_func (func), std::monostate {})
 
 /* end define */
 
