@@ -2117,8 +2117,6 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
             continued = False
             extended = False
         elif isinstance(e, musicxml.Extend):
-            if text:
-                text += " "
             extended = True
 
     if text == "-" and continued:
