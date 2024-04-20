@@ -587,6 +587,8 @@ pruebas querrán descargar el último archivo binario:
 
 @downloadDevelLinux
 
+@downloadDevelDarwinArm
+
 @downloadDevelDarwin
 
 @downloadDevelMingw

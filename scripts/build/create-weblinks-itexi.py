@@ -286,6 +286,8 @@ def make_download_source(name, version, lang):
 def make_all_downloads(macroName, version):
     make_download("download"+macroName+"Linux", version,
                   "linux-x86_64.tar.gz", "GNU/Linux x86_64")
+    make_download("download"+macroName+"DarwinArm", version,
+                  "darwin-arm64.tar.gz", "macOS arm64")
     make_download("download"+macroName+"Darwin", version,
                   "darwin-x86_64.tar.gz", "macOS x86_64")
     make_download("download"+macroName+"Mingw", version,
