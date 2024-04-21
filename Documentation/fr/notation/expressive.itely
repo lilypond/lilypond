@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
+   Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1353,6 +1353,7 @@ Un glissando est indiqué graphiquement, par une ligne ou des vaguelettes
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adding-timing-marks-to-long-glissandi.ly}
 
+@anchor{Saut de ligne et glissando}
 @cindex glissando tronqué
 @cindex tronqué, glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]

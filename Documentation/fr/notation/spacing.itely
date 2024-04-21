@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
+   Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1461,7 +1461,7 @@ Morceaux choisis :
 @funindex layout-set-staff-size
 
 La @strong{taille de portée} @emph{(staff size)} est fixée par défaut à
-20 points, ce qui correspond à 7,03 cm -- 1 point équivaut à
+20 points, ce qui correspond à 7,03 mm -- 1 point équivaut à
 100/7227 pouce, soit 2 540/7 227 mm. Il existe trois manières de la
 modifier :
 
@@ -3858,7 +3858,7 @@ XXI<sup>e</sup>
 structures rythmiques complexes, d'aider au positionnement d'indications
 temporelles ou autres éléments graphiques directement dans la partition.
 
-LilyPond met à votre disposition cinq réglages différents, qui peuvent
+LilyPond met à votre disposition différents réglages, qui peuvent
 s'utiliser conjointement ou individuellement, aux fins de mettre au
 point cette notation proportionnelle.
 
@@ -3867,7 +3867,6 @@ point cette notation proportionnelle.
 @item @code{uniform-stretching}
 @item @code{strict-note-spacing}
 @item @code{\remove Separating_line_group_engraver}
-@item @code{\override PaperColumn.used = ##t}
 @end itemize
 
 Nous allons examiner, dans les différents exemples qui suivent, les
@@ -3880,12 +3879,8 @@ classique et justifiée à gauche.
 @c not preceded by other material in the score, but we don't want
 @c to explain that.
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-  >>
+\new RhythmicStaff {
+  c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
 }
 @end lilypond
 
@@ -3905,17 +3900,13 @@ aurons besoin de la notation proportionnelle. Celle-ci s'active en
 définissant la propriété @code{proportionalNotationDuration}.
 
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-  >>
- \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 1*1/20
-    }
+\new RhythmicStaff {
+  c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+}
+\layout {
+  \context {
+    \Score
+    proportionalNotationDuration = \musicLength 1*1/20
   }
 }
 @end lilypond
@@ -3947,46 +3938,23 @@ référence est petite, au plus la musique sera étalée ; à l'inverse, une
 durée de référence élevée produira une musique resserrée.
 
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-  >>
-  \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 8
-    }
-  }
+rhythm = { c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 } }
+
+\new RhythmicStaff {
+  \set Score.proportionalNotationDuration = \musicLength 8
+  % Allow overlapping of note heads.
+  \override NoteHead.extra-spacing-width = #'(+inf.0 . -inf.0)
+  \rhythm
 }
 
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-  >>
-  \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 16
-    }
-  }
+\new RhythmicStaff {
+  \set Score.proportionalNotationDuration = \musicLength 16
+  \rhythm
 }
 
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-  >>
-  \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 32
-    }
-  }
+\new RhythmicStaff {
+  \set Score.proportionalNotationDuration = \musicLength 32
+  \rhythm
 }
 @end lilypond
 
@@ -3999,22 +3967,19 @@ notation proportionnelle met en évidence le rythme au détriment de
 l'espacement horizontal.
 
 Examinons à présent le moyen d'optimiser l'espacement de n-olets en
-tuilage.
-
-Reprenons notre exemple de départ, avec son espacement traditionnel, et
-ajoutons lui une portée incluant un autre type de n-olet.
+tuilage. Reprenons notre exemple de départ, avec son espacement
+traditionnel, et ajoutons lui une portée incluant un autre type de
+n-olet.
 
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-    \new RhythmicStaff {
-      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
-    }
-  >>
-}
+<<
+  \new RhythmicStaff {
+    c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+  }
+  \new RhythmicStaff {
+    \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+  }
+>>
 @end lilypond
 
 L'espacement est loin d'être idéal, pour la simple raison que
@@ -4025,20 +3990,18 @@ les règles qu'elle applique peuvent amener à ce résultat. Le recours à
 @code{proportionalNotationDuration} permet d'arranger les choses.
 
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-    \new RhythmicStaff {
-      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
-    }
-  >>
-  \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 1*1/20
-    }
+<<
+  \new RhythmicStaff {
+    c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+  }
+  \new RhythmicStaff {
+    \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    proportionalNotationDuration = \musicLength 1*1/20
   }
 }
 @end lilypond
@@ -4050,21 +4013,19 @@ allons activer le @code{uniform-stretching}, propriété attachée au
 @code{SpacingSpanner}.
 
 @lilypond[quote,verbatim,ragged-right]
-\score {
-  <<
-    \new RhythmicStaff {
-      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
-    }
-    \new RhythmicStaff {
-      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
-    }
-  >>
-  \layout {
-    \context {
-      \Score
-      proportionalNotationDuration = \musicLength 1*1/20
-      \override SpacingSpanner.uniform-stretching = ##t
-    }
+<<
+  \new RhythmicStaff {
+    c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+  }
+  \new RhythmicStaff {
+    \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+  }
+>>
+\layout {
+  \context {
+    \Score
+    proportionalNotationDuration = \musicLength 1*1/20
+    \override SpacingSpanner.uniform-stretching = ##t
   }
 }
 @end lilypond
@@ -4073,12 +4034,11 @@ L'espacement sur les deux portées est maintenant correct, les relations
 rythmiques sont clairement perceptibles, et nous pourrions y insérer une
 indication temporelle ou autre graphisme selon notre envie.
 
-Notez bien que la prise en charge de la notation proportionnelle par
-LilyPond demande que, dans chaque partition, soit activée la propriété
-@code{uniform-@/stretching} du @code{SpacingSpanner}. Dans le cas
-contraire, utiliser @code{proportional@/Notation@/Duration} aura pour
-conséquence, entre autres, un espacement erroné lorsque vous y aurez
-inséré des silences invisibles @emph{skip}.
+Il est préférable de toujours activer la propriété
+@code{uniform-@/stretching} du @code{SpacingSpanner} lorsqu'on fait
+appel à @code{proportional@/Notation@/Duration}. Dans le cas contraire,
+un espacement erroné pourrait se produire en présence de silences
+invisibles @emph{skip}.
 
 Le @code{SpacingSpanner} est en fait un objet graphique abstrait attaché
 au contexte @code{Score}. Tout comme pour la propriété
@@ -4088,13 +4048,13 @@ votre fichier : dans un bloc @code{\with} attaché à @code{\Score}, dans
 un bloc @code{\context} ou au beau milieu de la musique à l'aide de la
 commande @code{\set}.
 
-Gardez bien à l'esprit qu'il n'y a qu'un seul @code{SpacingSpanner} par
-@code{Score}. Il s'ensuit que @code{uniform-@/stretching} est soit
-activé, soit désactivé, et dans tous les cas pour l'intégralité de la
-partition. Vous pourriez toutefois avoir besoin de modifier ce
-comportement en cours de partition, et recourir alors à l'instruction
-@code{\newSpacingSection} -- pour de plus amples détails, voir la
-rubrique @ref{New spacing section}.
+Gardez bien à l'esprit qu'il n'y a par défaut qu'un seul
+@code{SpacingSpanner} par @code{Score}. Il s'ensuit que
+@code{uniform-@/stretching} est soit activé, soit désactivé, et dans
+tous les cas pour l'intégralité de la partition. Vous pourriez toutefois
+avoir besoin de modifier ce comportement en cours de partition, et
+recourir alors à l'instruction @code{\newSpacingSection} -- pour de plus
+amples détails, voir la rubrique @ref{New spacing section}.
 
 Intéressons-nous maintenant au @code{Separating_line_group_engraver},
 qui est désactivé pour la plupart des partitions en notation
@@ -4108,15 +4068,14 @@ première note de chaque portée.
 }
 
 \new Staff {
-  c'1
-  \break
+  c'1 \break
   c'1
 }
 @end lilypond
 
 Cet espace, géré par le @code{Separating_line_group_engraver}, est aussi
 présent lorsqu'intervient un changement de métrique, d'armure ou de
-clef.  Désactiver le @code{Separating_line_group_engraver} revient à
+clef. Désactiver le @code{Separating_line_group_engraver} revient à
 réduire cet espace à zéro.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -4127,8 +4086,7 @@ réduire cet espace à zéro.
 \new Staff \with {
   \remove Separating_line_group_engraver
 } {
-  c'1
-  \break
+  c'1 \break
   c'1
 }
 @end lilypond
@@ -4155,18 +4113,19 @@ L'une des options permettant de s'affranchir de l'espacement dû aux
 les deux portées suivantes :
 
 @lilypond[quote,verbatim,ragged-right]
-\new Staff {
+{
   \set Score.proportionalNotationDuration = \musicLength 16
-  c''8 8 8 \clef alto d' 2
+  c''8 8 8 \clef alto d'2 d'8
 }
 
-\new Staff {
+{
   \set Score.proportionalNotationDuration = \musicLength 16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
-  c''8 8 8 \clef alto d' 2
+  c''8 8 8 \clef alto d'2 d'8
 }
 @end lilypond
 
+@noindent
 Toutes deux affichent un espacement proportionnel. Cependant, la
 première ligne laisse apparaître un espacement plus lâche en raison de
 la présence d'un changement de clef. En ce qui concerne la deuxième
@@ -4177,22 +4136,27 @@ conséquence que l'algorithme d'espacement ignore tout bonnement la
 largeur des métriques, armures, clefs et altérations.
 
 En plus de ceux que nous venons de voir, vous trouverez d'autres
-réglages en usage dans la notation proportionnelle comme, entre autres,
+réglages en usage dans la notation proportionnelle.
 
-@itemize
-@item @code{\override SpacingSpanner.strict-grace-spacing = ##t}
-@item @code{\set tupletFullLength = ##t}
-@item @code{\override Beam.breakable = ##t}
-@item @code{\override Glissando.breakable = ##t}
-@item @code{\override TextSpanner.breakable = ##t}
-@item @code{\remove Forbid_line_break_engraver} (dans un contexte de voix)
-@end itemize
+@indentedblock
+@table @code
+@item \override SpacingSpanner.strict-grace-spacing = ##t
+espace les notes d'ornement de manière stricte (@pxref{Positionnement
+des notes d'ornement avec espace flottant})
+@item \set tupletFullLength = ##t
+étend le crochet de n-olet pour indiquer rhytmiquement ses points de
+début et de fin
+@item \override Beam.breakable = ##t
+permet d'interrompre des ligatures (@pxref{Ligature au moment d'un saut
+de ligne})
+@item \override Glissando.breakable = ##t
+permet d'interrompre des glissandos (@pxref{Saut de ligne et glissando})
+@item \remove Forbid_line_break_engraver
+autorise les sauts de lignes même lorsqu'un élément musical est encore
+actif (@pxref{Line breaking})
+@end table
+@end indentedblock
 
-Ces différents réglages permettent un espacement strict des notes
-d'ornement, d'étendre les indications de n-olet afin d'indiquer de façon
-évidente leurs bornes et d'autoriser le tronçonnement des extenseurs à
-l'occasion d'un saut de ligne ou de page. Nous vous renvoyons aux
-différentes rubriques associées du manuel pour chacun de ces réglages.
 
 @morerefs
 Manuel de notation :

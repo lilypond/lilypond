@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
+   Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -349,17 +349,30 @@ et @code{\revert} :
 @cindex doigté
 @cindex substitution de doigt
 
-@funindex \finger
+LilyPond dispose de deux graveurs chargés de gérer les instructions de
+doigté. Dans les deux cas, les doigtés peuvent s'indiquer par un
+@samp{@var{note}-@var{chiffre_du_doigt}}.
 
-Les doigtés peuvent être indiqués comme suit :
-@var{note}-@var{chiffre_du_doigt}
+@itemize
+@item
+Le premier graveur est le @code{Fingering_engraver}, qui se charge des
+instructions de doigté en dehors des constructions d'accord -- autrement
+dit en dehors d'un @code{<...>}. Les doigtés apparaîtront selon leur
+ordre d'apparition dans le code saisi, et les @emph{markups} de doigté
+sont toujours empilés verticalement en surplomb ou au-dessous de la note
+ou de l'accord.
 
 @lilypond[verbatim,quote]
-\relative { c''4-1 d-2 f-4 e-3 }
+\relative {
+  c''4-1 d-2 f-4 e-3 |
+  <g, b f' g>2_2_1^4^5 <g a c e>_2_1^3^5
+}
 @end lilypond
 
-Pour les substitutions de doigts, on a recours à une indication
-textuelle (commande @code{\markup}) de doigté (commande @code{\finger}).
+@funindex \finger
+
+Lorsqu'un doigté doit s'indiquer sous forme textuelle, il est préférable
+d'utiliser la commande @code{\finger}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -367,8 +380,20 @@ textuelle (commande @code{\markup}) de doigté (commande @code{\finger}).
 }
 @end lilypond
 
-@cindex pouce, doigté
+@item
+@cindex accord et doigtés
+Le second graveur est le @code{New_fingering_engraver} qui gère les
+instructions de doigté, d'articulation et d'harmonique au sein des
+accords -- à l'intérieur d'un @code{<...>}.
 
+@lilypond[verbatim,quote]
+\relative {
+  <g'-1 b-2 f'-4 g-5>2 <e'-5 c-3 a-2 g-1>
+}
+@end lilypond
+@end itemize
+
+@cindex pouce, doigté
 @funindex \thumb
 
 La commande @code{\thumb} peut être utilisée pour indiquer, par exemple
@@ -379,20 +404,11 @@ pouce (@emph{thumb} en anglais).
 \relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
-@cindex doigté d'accord
-@cindex accord, doigté
-
-Les doigtés des accords peuvent être saisis note par note, en les
-indiquant après chaque hauteur de note.
-
-@lilypond[verbatim,quote]
-\relative {
-  <c''-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
-}
-@end lilypond
-
 Les indications de doigtés peuvent se placer au-dessus ou en dessous de
 la portée -- @pxref{Direction and placement} à ce sujet.
+
+Les extraits ci-après indique comment contrôler le positionnement des
+doigtés.
 
 @snippets
 

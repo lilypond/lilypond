@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
+   Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1797,6 +1797,9 @@ La commande @code{\partial} détermine la propriété
 @code{Timing.measurePosition}, nombre rationnel qui indique combien de
 temps est déjà passé dans la mesure.
 
+Pour des raisons techniques, l'argument fourni à @code{\partial} ne
+saurait être une durée nulle (comme @code{\partial 4*0}).
+
 @morerefs
 Glossaire musicologique :
 @rglosnamed{anacrusis,anacrouse}.
@@ -2472,6 +2475,8 @@ possibles ; @pxref{Setting automatic beam behavior}.
 @funindex breakable
 
 @snippets
+
+@anchor{Ligature au moment d'un saut de ligne}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/beams-across-line-breaks.ly}
 
@@ -4499,6 +4504,7 @@ même expression.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/redefining-grace-note-global-defaults.ly}
 
+@anchor{Positionnement des notes d'ornement avec espace flottant}
 @cindex orenement, espacement
 @cindex espacement, ornement
 @lilypondfile[verbatim,quote,texidoc,doctitle]

@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8c0a6ff91af8a80f426e0a34031e9de0de68f50b
+    Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -93,7 +93,7 @@ version @version{}, il suffit d'ajouter le code suivant :
 @example
 \paper @{
   top-margin = 5\mm
-  bottom-margin = 10\mm
+  bottom-margin = 6\mm
   top-system-spacing.basic-distance = 1
   top-markup-spacing.basic-distance = 0
   left-margin = 10\mm
@@ -857,6 +857,36 @@ devrait devenir
 @end verbatim
 @end quotation
 
+@item
+La langue de saisie @q{arabic} est dépréciée. Bien que toujours
+fonctionnelle pour des raisons de rétrocompatiblité -- si l'on charge
+@file{hel-arabic} --, il est recommandé d'utiliser @q{english},
+@q{italiano} ou votre langue de saisie préférée.
+
+@item
+Les réglages par défaut des étiquettes de diagramme de fret ont changé.
+
+@itemize
+@item
+La valeur par défaut de @code{fret-label-vertical-offset} est fixée
+à @w{-0.5}, ce qui a pour effet de centrer l'étiquette dans l'espace du
+fret.
+
+@item
+Le format numérique par défaut est désormais @code{'custom}, avec un
+format de chaîne @code{"~dfr"} (résultant en @q{3fr} par exemple), au
+lieu de @code{'roman-lower}.
+@end itemize
+
+@item
+La commande @code{\autoBeamOff} interrompt désormais immédiatement la
+ligature automatique. Auparavant, ses effets étaient différés lorsque le
+graveur de ligature automatique était actif.
+
+@item
+Il n'est désormais plus nécessaire de désactiver les ligatures
+automatiques dans le cadre d'un @code{\crossStaff}.
+
 @end itemize
 
 @ignore
@@ -1097,6 +1127,37 @@ Il en va de même pour les options @option{separate-page-formats} et
 @option{tall-page-formats}. Notez que @command{convert-ly} se charge
 d'effectuer la modification automatiquement.
 @end itemize
+
+@item
+La @code{side-position-interface} dispose de deux nouvelles propriétés,
+@code{X-padding} et @code{minimum-X-space}, aux fins de contrôler le
+décalage horizontal et la distance minimale d'un @emph{grob} avec son
+objet parent, indépendamment du décalage vertical et de la distance
+minimale. Ceci se révèle utile pour des objets tels que @code{Fingering}
+qui peuvent avoir un attachement à une tête de note tant dans la
+verticalité que l'horizontalité, et dont le décalage dans chacun des
+axes peut requérir des valeurs différentes.
+
+@item
+@code{\pushContextProperty} et @code{\popContextProperty} sont deux
+nouvelles commandes permettant de manipuler les propriétés de contexte.
+La première insère la valeur courante dans une pile et définit une
+nouvelle valeur, alors que la seconde suprime cette valeur de la pile et
+restaure la valeur initale.
+
+@lilypond[quote,verbatim]
+{
+  c'
+  \pushContextProperty Staff.fontSize 3
+  c'
+  \pushContextProperty Staff.fontSize 6
+  c'
+  \popContextProperty Staff.fontSize
+  c'
+  \popContextProperty Staff.fontSize
+  c'
+}
+@end lilypond
 
 @end itemize
 
