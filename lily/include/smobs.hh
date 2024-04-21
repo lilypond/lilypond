@@ -237,13 +237,19 @@ private:
 #define LY_DECLARE_STATIC_SMOB_PROC(FUN, REQ, OPT, VAR)                        \
   static void smob_proc_init (scm_t_bits smob_tag)                             \
   {                                                                            \
-    scm_set_smob_apply (smob_tag, reinterpret_cast<scm_t_subr> (FUN), REQ,     \
-                        OPT, VAR);                                             \
+    /* Strange but true: function-like smobs are allowed fewer arguments */    \
+    /* than normal procedures.  See smob.c in the libguile source. */          \
+    static_assert (REQ + OPT + VAR <= 3);                                      \
+    /* + 1 because scm_set_smob_apply () does not count the smob argument. */  \
+    constexpr auto fun = ly_subr_ptr<1 + REQ, OPT, VAR> {FUN};                 \
+    scm_set_smob_apply (smob_tag, static_cast<scm_t_subr> (fun), REQ, OPT,     \
+                        VAR);                                                  \
   }
 
 #define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                               \
   LY_DECLARE_STATIC_SMOB_PROC (smob_trampoline<PMF>, REQ, OPT, VAR)
 
+protected:
   // Template parameter packs could reduce repetition here; however,
   // they would allow parameter types other than SCM.  It turns out
   // that Guile 1.8.8 cannot actually make callable structures with
@@ -272,6 +278,7 @@ private:
     return (Super::unchecked_unsmob (self)->*pmf) (arg1, arg2, arg3);
   }
 
+private:
   static bool is_smob (SCM s)
   {
     return SCM_SMOB_PREDICATE (smob_tag (), s);

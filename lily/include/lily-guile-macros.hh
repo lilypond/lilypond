@@ -118,20 +118,58 @@ predicate_to_typename (ReturnType (*pred) (SCM))
   return internal_predicate_to_typename (reinterpret_cast<const void *> (pred));
 }
 
+namespace detail
+{
 // ly_scm_func_of_arity<n>::ptr_type is a pointer to a function taking n SCM
-// arguments and returning SCM.
+// arguments and returning SCM.  This is a helper for ly_subr_ptr, which adds
+// some distinctions and restrictions.
 template <unsigned N, typename... Args>
 struct ly_scm_func_of_arity
 {
   // recur, adding one SCM to the parameter pack at each level
-  using ptr_type = typename ly_scm_func_of_arity<N - 1, SCM, Args...>::ptr_type;
+  using type = typename ly_scm_func_of_arity<N - 1, SCM, Args...>::type;
 };
 
 template <typename... Args>
 struct ly_scm_func_of_arity<0, Args...>
 {
   // at bottom, declare the type using the accumulated SCM parameters
-  using ptr_type = SCM (*) (Args...);
+  using type = SCM (*) (Args...);
+};
+} // namespace detail
+
+// This type statically associates a set of argument counts with the type of a
+// raw function having the specified total number of SCM arguments and returning
+// SCM.  Creating an instance of ly_subr_ptr from an overloaded function pointer
+// automatically resolves using the expected signature (or fails if there is no
+// matching overload).
+template <unsigned N_REQ, unsigned N_OPT = 0, unsigned N_REST = 0>
+struct ly_subr_ptr
+{
+public:
+  static inline constexpr unsigned num_required_args = N_REQ;
+  static inline constexpr unsigned num_optional_args = N_OPT;
+  static inline constexpr unsigned num_rest_args = N_REST;
+  static inline constexpr unsigned num_args_total
+    = num_required_args + num_optional_args + num_rest_args;
+
+  static_assert (num_rest_args <= 1, "as doc'd for scm_c_make_gsubr ()");
+  static_assert (num_args_total <= 10, "as doc'd for scm_c_make_gsubr ()");
+
+  using raw_ptr = typename detail::ly_scm_func_of_arity<num_args_total>::type;
+
+public: // to keep it literal, anticipating use as C++20 non-type template arg
+  raw_ptr private_func_;
+
+public:
+  // If there were a need to get the raw pointer, get() would be the way.
+  // If there were a need to invoke the function, operator() would be the way.
+
+  // allow static_cast<scm_t_subr>
+  explicit operator scm_t_subr () const
+  {
+    return reinterpret_cast<scm_t_subr> (private_func_); // C++20: std::bit_cast
+  };
 };
 
 /*
@@ -181,14 +219,12 @@ struct ly_scm_func_of_arity<0, Args...>
   SCM TYPE ::FUNC##_proc;                                                      \
   void TYPE##_##FUNC##_init_functions ()                                       \
   {                                                                            \
-    static_assert (OPTIONAL_COUNT <= ARGCOUNT);                                \
     constexpr auto required_count = ARGCOUNT - OPTIONAL_COUNT;                 \
-    /* assignment checks the signature of the function and selects */          \
-    /* the function with SCM arguments even if there are overloads */          \
-    ly_scm_func_of_arity<ARGCOUNT>::ptr_type func = TYPE::FUNC;                \
+    constexpr auto func                                                        \
+      = ly_subr_ptr<required_count, OPTIONAL_COUNT> {TYPE::FUNC};              \
     TYPE ::FUNC##_proc                                                         \
       = scm_c_define_gsubr (PRIMNAME, required_count, OPTIONAL_COUNT, 0,       \
-                            reinterpret_cast<scm_t_subr> (func));              \
+                            static_cast<scm_t_subr> (func));                   \
     ly_check_name (#TYPE "::" #FUNC, PRIMNAME);                                \
     ly_add_function_documentation (TYPE ::FUNC##_proc, PRIMNAME, "", DOC);     \
     scm_c_export (PRIMNAME, NULL);                                             \
@@ -220,14 +256,9 @@ void ly_check_name (const char *cxx, const char *fname);
   SCM FNAME##_proc;                                                            \
   void INITPREFIX##init ()                                                     \
   {                                                                            \
-    static_assert ((VAR == 0) || (VAR == 1),                                   \
-                   "can't have more than one 'rest' argument");                \
-    constexpr auto arg_count = REQ + OPT + VAR;                                \
-    /* assignment checks the signature of the function and selects */          \
-    /* the function with SCM arguments even if there are overloads */          \
-    ly_scm_func_of_arity<arg_count>::ptr_type func = FNAME;                    \
+    constexpr auto func = ly_subr_ptr<REQ, OPT, VAR> {FNAME};                  \
     FNAME##_proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR,                \
-                                       reinterpret_cast<scm_t_subr> (func));   \
+                                       static_cast<scm_t_subr> (func));        \
     ly_check_name (#FNAME, PRIMNAME);                                          \
     ly_add_function_documentation (FNAME##_proc, PRIMNAME, #ARGLIST,           \
                                    DOCSTRING);                                 \
@@ -262,14 +293,9 @@ void ly_check_name (const char *cxx, const char *fname);
   SCM FNAME##_proc;                                                            \
   void FNAME##init ()                                                          \
   {                                                                            \
-    static_assert ((VAR == 0) || (VAR == 1),                                   \
-                   "can't have more than one 'rest' argument");                \
-    constexpr auto arg_count = REQ + OPT + VAR;                                \
-    /* assignment checks the signature of the function and selects */          \
-    /* the function with SCM arguments even if there are overloads */          \
-    ly_scm_func_of_arity<arg_count>::ptr_type func = FNAME;                    \
+    constexpr auto func = ly_subr_ptr<REQ, OPT, VAR> {FNAME};                  \
     FNAME##_proc_without_setter = scm_c_make_gsubr (                           \
-      PRIMNAME, REQ, OPT, VAR, reinterpret_cast<scm_t_subr> (func));           \
+      PRIMNAME, REQ, OPT, VAR, static_cast<scm_t_subr> (func));                \
     ly_check_name (#FNAME, PRIMNAME);                                          \
     FNAME##_proc = scm_make_procedure_with_setter (                            \
       FNAME##_proc_without_setter, SETTERNAME##_proc);                         \
