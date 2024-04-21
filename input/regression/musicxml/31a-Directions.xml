@@ -773,7 +773,6 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><text>subp</text></lyric>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
