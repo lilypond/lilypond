@@ -2398,10 +2398,6 @@ def music_xml_fretboards_name_to_lily_name(part_id, voicename):
 
 
 def extract_lyrics(voice, lyric_key, lyrics_dict):
-    assert lyric_key is not None
-
-    result = []
-
     def is_note(elem):
         return isinstance(elem, musicxml.Note)
 
@@ -2411,29 +2407,68 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
     def is_chord(elem):
         return 'chord' in elem
 
-    def is_note_and_not_rest(elem):
-        return is_note(elem) and not is_rest(elem)
+    assert lyric_key is not None
 
+    result = []
+
+    base = None
+    action = 'store'
+    text = ''
     for elem in voice._elements:
-        lyrics = elem.get('lyric', [])  # only <note> contains <lyric>
-        found_matching_lyric = False
-        for lyric in lyrics:
-            if getattr(lyric, 'number', None) == lyric_key:
-                found_matching_lyric = True
-                text = musicxml_lyrics_to_text(lyric, None)
-                result.append(text)
-        if found_matching_lyric:
-            pass
-        elif len(lyrics) > 0:  # any lyric
-            result.append(r' \skip1 ')
-        # Note does not have any lyric attached to it.
-        elif is_chord(elem):
-            # note without lyrics part of a chord. MusicXML format is
-            # unclear if a chord element could contain a lyric, lets
-            # asume that we do not want to put a skip here.
+        if not is_note(elem):
             continue
-        elif is_note_and_not_rest(elem):
-            result.append(r' \skip1 ')
+
+        lyrics = elem.get('lyric', [])
+
+        if is_chord(elem):
+            if is_rest(elem):
+                type = 'chord rest'
+            else:
+                type = 'chord note'
+        else:
+            if is_rest(elem):
+                type = 'main rest'
+                if lyrics:
+                    ly.warning(_('rests with lyrics are not supported yet'))
+                    lyrics = []
+            else:
+                type = 'main note'
+
+        if base == 'main rest':
+            if type != 'main note':
+                action = 'ignore'
+        elif base == 'main note':
+            if type == 'main rest' or type == 'main note':
+                action = 'emit'
+
+        if type == 'main rest' or type == 'main note':
+            base = type
+
+        if action == 'ignore':
+            action = 'store'
+            continue
+        elif action == 'emit':
+            if text:
+                result.append(text)
+                text = ''
+            else:
+                result.append(r' \skip1 ')
+
+        for lyric in lyrics:
+            # If there is more than a single entry with the same `number`
+            # attribute, the existing one gets overwritten.  Note that we
+            # ignore the `name` attribute.
+            if getattr(lyric, 'number', '1') == lyric_key:
+                text = musicxml_lyrics_to_text(lyric, None)
+
+        action = 'store'
+
+    if action == 'store':
+        if base == 'main note':
+            if text:
+                result.append(text)
+            else:
+                result.append(r' \skip1 ')
 
     # We apply a heuristic regular expression to get a stanza number from
     # the first syllable; we search for strings like '1.', '1.-3.', '2.,
