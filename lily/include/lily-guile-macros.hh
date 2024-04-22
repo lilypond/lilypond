@@ -120,52 +120,18 @@ predicate_to_typename (ReturnType (*pred) (SCM))
 
 // ly_scm_func_of_arity<n>::ptr_type is a pointer to a function taking n SCM
 // arguments and returning SCM.
-template <unsigned>
+template <unsigned N, typename... Args>
 struct ly_scm_func_of_arity
 {
-  // ptr_type is defined in specializations
+  // recur, adding one SCM to the parameter pack at each level
+  using ptr_type = typename ly_scm_func_of_arity<N - 1, SCM, Args...>::ptr_type;
 };
 
-template <>
-struct ly_scm_func_of_arity<0>
+template <typename... Args>
+struct ly_scm_func_of_arity<0, Args...>
 {
-  typedef SCM (*ptr_type) ();
-};
-
-template <>
-struct ly_scm_func_of_arity<1>
-{
-  typedef SCM (*ptr_type) (SCM);
-};
-
-template <>
-struct ly_scm_func_of_arity<2>
-{
-  typedef SCM (*ptr_type) (SCM, SCM);
-};
-
-template <>
-struct ly_scm_func_of_arity<3>
-{
-  typedef SCM (*ptr_type) (SCM, SCM, SCM);
-};
-
-template <>
-struct ly_scm_func_of_arity<4>
-{
-  typedef SCM (*ptr_type) (SCM, SCM, SCM, SCM);
-};
-
-template <>
-struct ly_scm_func_of_arity<5>
-{
-  typedef SCM (*ptr_type) (SCM, SCM, SCM, SCM, SCM);
-};
-
-template <>
-struct ly_scm_func_of_arity<6>
-{
-  typedef SCM (*ptr_type) (SCM, SCM, SCM, SCM, SCM, SCM);
+  // at bottom, declare the type using the accumulated SCM parameters
+  using ptr_type = SCM (*) (Args...);
 };
 
 /*
