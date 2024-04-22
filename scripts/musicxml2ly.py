@@ -1050,6 +1050,29 @@ def musicxml_staff_details_to_lily(attributes):
     return ret
 
 
+def musicxml_measure_style_to_lily(attributes):
+    details = attributes.get_named_children('measure-style')
+    if not details:
+        return None
+
+    # TODO: Handle `measure-repeat`, `beat-repeat`, `slash`.
+    ret = []
+    for detail in details:
+        multiple_rest = detail.get_maybe_exist_named_child('multiple-rest')
+        if multiple_rest:
+            measure_style_event = musicexp.MeasureStyleEvent()
+
+            length = int(multiple_rest.get_text())
+            measure_style_event.multiple_rest_length = length
+
+            if getattr(multiple_rest, 'use-symbols', 'no') == 'yes':
+                measure_style_event.use_symbols = True
+
+            ret.append(measure_style_event)
+
+    return ret
+
+
 def musicxml_attributes_to_lily(attrs):
     elts = []
     attr_dispatch = [
@@ -1058,6 +1081,7 @@ def musicxml_attributes_to_lily(attrs):
         ('key', musicxml_key_to_lily),
         ('transpose', musicxml_transpose_to_lily),
         ('staff-details', musicxml_staff_details_to_lily),
+        ('measure-style', musicxml_measure_style_to_lily),
     ]
     for (k, func) in attr_dispatch:
         children = attrs.get_named_children(k)
@@ -2170,6 +2194,8 @@ class LilyPondVoiceBuilder:
 
     def _insert_multibar(self):
         layout_information.set_context_item('Score', 'skipBars = ##t')
+        layout_information.set_context_item('Staff',
+            r'\override MultiMeasureRest.expand-limit = 1')
 
         # Doing `R1^\markup{...}` would center the markup over the
         # multi-measure rest, which is most certainly not intended.
@@ -2515,6 +2541,7 @@ def musicxml_voice_to_lily_voice(voice):
     pedal_is_line = False
 
     current_staff = None
+    multibar_count = 0
 
     pending_figured_bass = []
     pending_chordnames = []
@@ -2600,8 +2627,10 @@ def musicxml_voice_to_lily_voice(voice):
         # Don't handle new MM rests yet, because for them we want bar checks!
         rest = n.get('rest')
         if (rest and rest.is_whole_measure()
+                and multibar_count > 0
                 and voice_builder.pending_multibar > 0):
             voice_builder.add_multibar_rest(n._duration)
+            multibar_count -= 1
             continue
 
         # Print bar checks between measures.
@@ -2652,6 +2681,8 @@ def musicxml_voice_to_lily_voice(voice):
                 fretboards_builder.jumpto(n._when)
                 fretboards_builder.stay_here = True
             voice_builder.add_multibar_rest(n._duration)
+            if multibar_count:
+                multibar_count -= 1
             continue
 
         if isinstance(n, musicxml.Harmony):
@@ -2681,6 +2712,8 @@ def musicxml_voice_to_lily_voice(voice):
                 if isinstance(a, musicexp.KeySignatureChange):
                     alterations = a.get_alterations()
                     current_alterations = alterations
+                elif isinstance(a, musicexp.MeasureStyleEvent):
+                    multibar_count = a.multiple_rest_length
                 voice_builder.add_command(a)
             measure_length = measure_length_from_attributes(
                 n, current_measure_length)

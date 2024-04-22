@@ -2471,6 +2471,24 @@ class StaffLinesEvent(Music):
                     r"\startStaff")
 
 
+class MeasureStyleEvent(Music):
+    def __init__(self):
+        Music.__init__(self)
+        self.multiple_rest_length = 0
+        self.use_symbols = False
+
+    def ly_expression(self):
+        if self.use_symbols:
+            return r'\tweak expand-limit 10'
+        else:
+            return ''
+
+    def print_ly(self, printer):
+        s = self.ly_expression()
+        if s:
+            printer(s)
+
+
 class TempoMark(Music):
     def __init__(self):
         Music.__init__(self)
