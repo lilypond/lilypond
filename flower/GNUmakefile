@@ -2,8 +2,7 @@ depth = ..
 
 NAME = flower
 
-# test uses LILYPOND_DATADIR
-TEMPLATES= c++ po lilypond
+TEMPLATES= c++ po 
 export top-src-dir
 
 include $(depth)/make/lilypond.make
