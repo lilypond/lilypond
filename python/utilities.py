@@ -39,7 +39,9 @@ def interpret_alter_element(alter_elm):
 
 
 def musicxml_duration_to_log(dur):
-    return {'256th': 8,
+    return {'1024th': 10,
+            '512th': 9,
+            '256th': 8,
             '128th': 7,
             '64th': 6,
             '32nd': 5,
