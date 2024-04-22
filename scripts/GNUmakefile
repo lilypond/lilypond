@@ -12,7 +12,7 @@ SEXECUTABLES = \
   midi2ly \
   musicxml2ly
 
-TEMPLATES = help2man lilypond po script
+TEMPLATES = help2man po script
 HELP2MAN_EXECS = $(SEXECUTABLES)
 
 AT_FILES=relocate-preamble
