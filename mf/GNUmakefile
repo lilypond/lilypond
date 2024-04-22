@@ -2,7 +2,7 @@
 
 depth = ..
 
-TEMPLATES = install install-out lilypond
+TEMPLATES = install install-out 
 
 FETA_MF_FILES = \
   $(call src-wildcard,feta[0-9]*.mf) \
