@@ -1446,7 +1446,7 @@ def print_version():
 def get_option_parser():
     p = ly.get_option_parser(usage=_("%s [OPTION]... FILE") % 'abc2ly',
                              description=_('''abc2ly converts ABC music files (see
-%s) to LilyPond input.
+<%s>) to LilyPond input.
 ''') % 'http://abcnotation.com/abc2mtex/abc.txt',
                              add_help_option=False)
 
