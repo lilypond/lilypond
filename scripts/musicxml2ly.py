@@ -2316,8 +2316,8 @@ class LilyPondVoiceBuilder:
         self.pending_last.append(last)
 
     def add_bar_check(self, number):
-        # re/store has_relevant_elements, so that a barline alone does not
-        # trigger output for figured bass, chord names
+        # (Re)store `has_relevant_elements` so that a barline alone does not
+        # trigger output for figured bass or chord names.
         b = musicexp.BarLine()
         b.bar_number = number
         self.add_barline(b)
@@ -2640,7 +2640,10 @@ def musicxml_voice_to_lily_voice(voice):
                 num = int(n.get_parent().number)
             except ValueError:
                 num = 0
-            if num > 0 and num > last_bar_check:
+            # When we reach this point in the loop we are at the beginning
+            # of a MusicXML measure.  However, we want to emit a bar check
+            # *after* the measure, so we start with num == 2.
+            if num > 1 and num > last_bar_check:
                 voice_builder.add_bar_check(num)
                 figured_bass_builder.add_bar_check(num)
                 chordnames_builder.add_bar_check(num)

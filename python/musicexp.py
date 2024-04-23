@@ -1321,7 +1321,7 @@ class Partial(Music):
 class BarLine(Music):
     def __init__(self):
         Music.__init__(self)
-        self.bar_number = 0
+        self.bar_number = 0  # The bar number of the bar to the right.
         self.type = None
 
     def print_ly(self, printer):
@@ -1342,10 +1342,13 @@ class BarLine(Music):
         else:
             printer.dump("|")
 
-        if self.bar_number > 0 and (self.bar_number % 10) == 0:
-            printer.dump(r"\barNumberCheck #%d " % self.bar_number)
-        elif self.bar_number > 0:
-            printer.print_verbatim(' %% %d' % self.bar_number)
+        # Emit a comment indicating the bar number to the left.
+        if self.bar_number > 1:
+            printer.print_verbatim(' %% %d' % (self.bar_number - 1))
+            if self.bar_number % 10 == 0:
+                printer.newline()
+                printer.newline()
+                printer.dump(r"\barNumberCheck #%d " % self.bar_number)
         printer.newline()
 
     def ly_expression(self):
