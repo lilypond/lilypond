@@ -1,2 +1,0 @@
-default: $(INFO_FILES)
-

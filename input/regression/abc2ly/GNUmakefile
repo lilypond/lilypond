@@ -1,6 +1,6 @@
 depth = ../../..
 
-TEMPLATES = lilypond ly lysdoc texinfo
+TEMPLATES = lilypond ly lysdoc 
 
 ABC_FILES = $(call src-wildcard,*.abc)
 COLLATED_FILES = $(sort ${ABC_FILES:%.abc=$(outdir)/%.ly})

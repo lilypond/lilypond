@@ -1,3 +1,5 @@
+default: $(INFO_FILES)
+
 ifeq ($(out),www)
 local-WWW: $(outdir)/collated-files.texi $(outdir)/collated-files.pdf  $(outdir)/collated-files.html
 endif

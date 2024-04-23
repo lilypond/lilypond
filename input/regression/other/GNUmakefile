@@ -1,6 +1,6 @@
 depth = ../../..
 
-TEMPLATES = lilypond ly lysdoc texinfo
+TEMPLATES = lilypond ly lysdoc 
 
 COLLATED_FILES = $(sort $(LY_FILES))
 
