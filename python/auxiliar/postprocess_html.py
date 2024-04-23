@@ -168,15 +168,15 @@ def process_offline_link(pages_dict, match, prefix, lang_ext):
             + '.html' + anchor + '"')
 
 
-def process_links(pages_dict, content, prefix, lang_ext, file_name, target):
+def process_links(pages_dict, content, prefix, lang_ext, file_name, is_online):
     page_flavors = {}
-    if target == 'online':
+    if is_online:
         # Strip .html, suffix for auto language selection (content
         # negotiation).  The menu must keep the full extension, so do
         # this before adding the menu.
         page_flavors[file_name] = [lang_ext,
                                    links_re.sub(process_online_link, content)]
-    elif target == 'offline':
+    else:
         def repl(match):
             return process_offline_link(pages_dict, match, prefix, lang_ext)
         page_flavors[file_name] = [lang_ext,
@@ -281,7 +281,7 @@ def add_menu(page_flavors, prefix, available, translation):
 def process_html_files(pages_dict,
                        package_name='',
                        package_version='',
-                       target='offline'):
+                       is_online=False):
     """Add header, footer, syntax highlighting toggle, and tweak links
     to a number of HTML files.
 
@@ -289,10 +289,8 @@ def process_html_files(pages_dict,
      pages_dict:               dict of filename => translations
      package_name=NAME         set package_name to NAME
      package_version=VERSION   set package version to VERSION
-     target=offline|online    set page processing depending on the target
-          offline is for reading HTML pages locally
-          online is for hosting the HTML pages on a website with content
-            negotiation
+     is_online                 set page processing for HTTP webserving with content
+                                 negotiation rather filesystem browsing
     """
     versiontup = package_version.split('.')
     branch_str = _doc('stable-branch')
@@ -344,7 +342,7 @@ def process_html_files(pages_dict,
 
             available = find_translations(pages_dict, prefix, lang_ext)
             page_flavors = process_links(pages_dict,
-                                         content, prefix, lang_ext, file_name, target)
+                                         content, prefix, lang_ext, file_name, is_online)
             # Add menu after stripping: must not have autoselection for language menu.
             page_flavors = add_menu(
                 page_flavors, prefix, available, langdefs.translation)
@@ -359,5 +357,5 @@ def process_html_files(pages_dict,
                 os.rename(k + ".tmp", k)
 
         # if the page is translated, a .en.html symlink is necessary for content negotiation
-        if target == 'online' and ext_list != [''] and not os.path.lexists(prefix + '.en.html'):
+        if is_online and ext_list != [''] and not os.path.lexists(prefix + '.en.html'):
             os.symlink(os.path.basename(prefix) + '.html', prefix + '.en.html')

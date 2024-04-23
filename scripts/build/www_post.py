@@ -32,6 +32,10 @@ import postprocess_html
 
 package_name, package_version, target_dir, target = sys.argv[1:]
 
+if target not in ("online", "offline"):
+    sys.stderr.write("target must be 'online' or 'offline'")
+    os.exit(2)
+
 # these redirection pages allow to go back to the documentation index
 # from HTML manuals/snippets page
 if os.path.isdir(os.path.join(target_dir, 'Documentation/')):
@@ -69,4 +73,4 @@ postprocess_html.process_html_files(
     pages_dict,
     package_name=package_name,
     package_version=package_version,
-    target=target)
+    is_online=(target=="online"))
