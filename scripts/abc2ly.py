@@ -1631,7 +1631,7 @@ def get_option_parser():
         usage=_("%s [OPTION]... FILE") %
         'abc2ly',
         description=_('''abc2ly converts ABC music files (see
-%s) to LilyPond input.
+<%s>) to LilyPond input.
 ''') %
         'https://abcnotation.com/standard/abc_v1.6.txt',
         add_help_option=False)
