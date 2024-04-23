@@ -175,7 +175,7 @@ $(outdir)/%-root/index.html: doc-build
 	# No link because the files come from the source directory.
 	cp $(addprefix $(src-dir)/,$(README_FILES)) $(dir $@)
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "$*"
-	find $(outdir)/$*-root -type l | xargs rm -f
+	find $(outdir)/$*-root -type l -delete
 	cd $(outdir)/$*-root && \
 	  find . \
 	       -name "*.html" \
