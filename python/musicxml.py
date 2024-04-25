@@ -105,11 +105,11 @@ class Xml_node(object):
         return ''.join([c.get_text() for c in self._children])
 
     def message(self, msg):
-        ly.warning(msg)
+        ly.warning(msg + ':')
 
         p = self
         while p:
-            ly.progress('  In: <%s %s>\n' % (p._name, ' '.join(
+            ly.progress('  In: <%s %s>' % (p._name, ' '.join(
                 ['%s=%s' % item for item in list(p._attribute_dict.items())])))
             p = p.get_parent()
 
