@@ -2215,6 +2215,7 @@ class KeySignatureChange(Music):
         self.tonic = None
         self.mode = 'major'
         self.non_standard_alterations = None
+        self.visible = True
 
     def format_non_standard_alteration(self, a):
         alter_dict = {-2: ",DOUBLE-FLAT",

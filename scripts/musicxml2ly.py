@@ -944,14 +944,15 @@ def musicxml_time_to_lily(attributes):
 
 
 def musicxml_key_to_lily(attributes):
-    key_sig = attributes.get_key_signature()
-    if (not key_sig
-            or not (isinstance(key_sig, list)
-                    or isinstance(key_sig, tuple))):
+    key_signature = attributes.get_key_signature()
+    if not key_signature:
         ly.warning(_("Unable to extract key signature!"))
         return None
 
+    (key_sig, visible) = key_signature
+
     change = musicexp.KeySignatureChange()
+    change.visible = visible
 
     if len(key_sig) == 2 and not isinstance(key_sig[0], list):
         # standard key signature,(fifths, mode)
@@ -2527,6 +2528,7 @@ def musicxml_voice_to_lily_voice(voice):
     return_value.voicedata = voice
 
     clef_visible = True
+    key_visible = True
 
     # Track pitch alterations for cautionary accidentals without parentheses
     # (to be realized with LilyPond's `!` pitch modifier) that are not
@@ -2726,11 +2728,26 @@ def musicxml_voice_to_lily_voice(voice):
                     alterations = a.get_alterations()
                     current_alterations = alterations
 
-                elif isinstance(a, musicexp.MeasureStyleEvent):
-                    multibar_count = a.multiple_rest_length
+                    key_visible_new = a.visible
+
+                    if key_visible and not key_visible_new:
+                        voice_builder.add_command(
+                            musicexp.OmitEvent('Staff.KeySignature'))
+                        voice_builder.add_command(
+                            musicexp.OmitEvent('Staff.KeyCancellation'))
+                    elif not key_visible and key_visible_new:
+                        voice_builder.add_command(
+                            musicexp.OmitEvent('Staff.KeySignature',
+                                               undo=True))
+                        voice_builder.add_command(
+                            musicexp.OmitEvent('Staff.KeyCancellation',
+                                               undo=True))
+
+                    key_visible = key_visible_new
 
                 elif isinstance(a, musicexp.ClefChange):
                     clef_visible_new = a.visible
+
                     if a.type == 'none':
                         clef_visible_new = False
 
@@ -2746,7 +2763,11 @@ def musicxml_voice_to_lily_voice(voice):
 
                     clef_visible = clef_visible_new
 
+                elif isinstance(a, musicexp.MeasureStyleEvent):
+                    multibar_count = a.multiple_rest_length
+
                 voice_builder.add_command(a)
+
             measure_length = measure_length_from_attributes(
                 n, current_measure_length)
             if current_measure_length != measure_length:
