@@ -906,7 +906,7 @@ def group_tuplets(music_list, events):
 
 def musicxml_clef_to_lily(attributes):
     change = musicexp.ClefChange()
-    (change.type, change.position, change.octave) = \
+    (change.type, change.position, change.octave, change.visible) = \
         attributes.get_clef_information()
     return change
 
@@ -2526,6 +2526,8 @@ def musicxml_voice_to_lily_voice(voice):
     return_value = VoiceData()
     return_value.voicedata = voice
 
+    clef_visible = True
+
     # Track pitch alterations for cautionary accidentals without parentheses
     # (to be realized with LilyPond's `!` pitch modifier) that are not
     # represented with `<accidental cautionary="yes" parentheses="no">`.
@@ -2723,8 +2725,27 @@ def musicxml_voice_to_lily_voice(voice):
                 if isinstance(a, musicexp.KeySignatureChange):
                     alterations = a.get_alterations()
                     current_alterations = alterations
+
                 elif isinstance(a, musicexp.MeasureStyleEvent):
                     multibar_count = a.multiple_rest_length
+
+                elif isinstance(a, musicexp.ClefChange):
+                    clef_visible_new = a.visible
+                    if a.type == 'none':
+                        clef_visible_new = False
+
+                    if clef_visible and not clef_visible_new:
+                        voice_builder.add_command(
+                            musicexp.OmitEvent('Staff.Clef'))
+                    elif not clef_visible and clef_visible_new:
+                        voice_builder.add_command(
+                            musicexp.OmitEvent('Staff.Clef', undo=True))
+                        voice_builder.add_command(
+                            musicexp.SetEvent('Staff.forceClef', '##t',
+                                              once=True))
+
+                    clef_visible = clef_visible_new
+
                 voice_builder.add_command(a)
             measure_length = measure_length_from_attributes(
                 n, current_measure_length)

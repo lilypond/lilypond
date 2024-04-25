@@ -2369,29 +2369,50 @@ class ClefChange(Music):
         self.type = 'G'
         self.position = 2
         self.octave = 0
+        self.visible = True
 
     def octave_modifier(self):
         return {1: "^8", 2: "^15", -1: "_8", -2: "_15"}.get(self.octave, '')
 
-    def clef_name(self):
-        return {('G', 2): "treble",
-                ('G', 1): "french",
-                ('C', 1): "soprano",
-                ('C', 2): "mezzosoprano",
-                ('C', 3): "alto",
-                ('C', 4): "tenor",
-                ('C', 5): "baritone",
-                ('F', 3): "varbaritone",
-                ('F', 4): "bass",
-                ('F', 5): "subbass",
-                ("percussion", 2): "percussion",
-                # Workaround: MuseScore uses PERC instead of percussion
-                ("PERC", 2): "percussion",
-                ("TAB", 5): get_tab_clef()}.get((self.type, self.position),
-                                                None)
+    supported_clefs = ['G', 'F', 'C', 'percussion', 'TAB']
+
+    lily_clef_dict = {
+        ('G', 2): "treble",
+        ('G', 1): "french",
+        ('C', 1): "soprano",
+        ('C', 2): "mezzosoprano",
+        ('C', 3): "alto",
+        ('C', 4): "tenor",
+        ('C', 5): "baritone",
+        ('F', 3): "varbaritone",
+        ('F', 4): "bass",
+        ('F', 5): "subbass",
+        ("percussion", 2): "percussion",
+        # Old MuseScore versions used `PERC` instead of `percussion`.
+        ("PERC", 2): "percussion",
+        ("TAB", 5): "tab",
+    }
 
     def ly_expression(self):
-        return r'\clef "%s%s"' % (self.clef_name(), self.octave_modifier())
+        if self.type in self.supported_clefs:
+            clef_name = self.lily_clef_dict.get((self.type, self.position),
+                                                None)
+            if clef_name == 'tab':
+                clef_name = get_tab_clef()
+            elif not clef_name:
+                ly.warning(_("Non-standard clef positions are not supported "
+                             "yet, using 'treble' instead"))
+                clef_name = 'treble'
+        else:
+            if self.type == 'none':
+                # Deprecated in MusicXML version 4.0.
+                clef_name = 'treble'
+            else:
+                ly.warning(_("Unsupported clef '%s', using 'treble' instead")
+                           % clef_name)
+                clef_name = 'treble'
+
+        return r'\clef "%s%s"' % (clef_name, self.octave_modifier())
 
     clef_dict = {
         "G": ("clefs.G", -2, -6),

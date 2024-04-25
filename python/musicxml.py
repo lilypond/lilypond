@@ -548,9 +548,10 @@ class Attributes(Measure_element):
                 _("Unable to interpret time signature! Falling back to 4/4."))
             return (4, 4)
 
-    # returns clef information in the form("cleftype", position, octave-shift)
+    # Return clef information in the form `("cleftype", position,
+    # octave-shift, print-object)`.
     def get_clef_information(self):
-        clefinfo = ['G', 2, 0]
+        clefinfo = ['G', 2, 0, True]
         mxl = self.get_named_attribute('clef')
         if not mxl:
             return clefinfo
@@ -563,6 +564,7 @@ class Attributes(Measure_element):
         octave = mxl.get_maybe_exist_named_child('clef-octave-change')
         if octave:
             clefinfo[2] = int(octave.get_text())
+        clefinfo[3] = (getattr(mxl, 'print-object', 'yes') == 'yes')
         return clefinfo
 
     def get_key_signature(self):
