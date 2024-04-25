@@ -2440,16 +2440,34 @@ class StaffChange(Music):
 
 
 class SetEvent(Music):
-    def __init__(self, contextprop, value):
+    def __init__(self, contextprop, value, once=False):
         Music.__init__(self)
         self.context_prop = contextprop
         self.value = value
+        self.once = once
 
     def ly_expression(self):
+        once_str = ''
+        if self.once:
+            once_str = r'\once '
         if self.value:
-            return r"\set %s = %s" % (self.context_prop, self.value)
+            return (r"%s\set %s = %s"
+                    % (once_str, self.context_prop, self.value))
         else:
             return ''
+
+
+class OmitEvent(Music):
+    def __init__(self, contextprop, undo=False):
+        Music.__init__(self)
+        self.context_prop = contextprop
+        self.undo = undo
+
+    def ly_expression(self):
+        undo_str = ''
+        if self.undo:
+            undo_str = r'\undo '
+        return r'%s\omit %s' % (undo_str, self.context_prop)
 
 
 class StaffLinesEvent(Music):
