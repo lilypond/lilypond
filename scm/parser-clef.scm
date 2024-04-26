@@ -150,25 +150,34 @@
     ))
 
 (define-public make-clef-set
-  (let ((clef-with-modifier-regex (ly:make-regex "^(.*)([_^])([^0-9a-zA-Z]*)([1-9][0-9]*)([^0-9a-zA-Z]*)$")))
+  (let ((clef-with-modifier-regex
+         (ly:make-regex
+          "^(.*)([_^])([^0-9a-zA-Z]*)([1-9][0-9]*)([^0-9a-zA-Z]*)$")))
     (lambda (clef-name)
       "Generate the clef setting commands for a clef with name @var{clef-name}."
       (let* ((match (ly:regex-exec clef-with-modifier-regex clef-name))
-             (e (assoc-get (if match (ly:regex-match-substring match 1) clef-name) supported-clefs))
-             (oct (if match
-                      ((if (equal? (ly:regex-match-substring match 2) "^") - +)
-                       (1- (string->number (ly:regex-match-substring match 4))))
-                      0))
-             (style (cond ((not match) 'default)
-                          ((equal? (ly:regex-match-substring match 3) "(") 'parenthesized)
-                          ((equal? (ly:regex-match-substring match 3) "[") 'bracketed)
-                          (else 'default))))
+             (e (assoc-get (if match (ly:regex-match-substring match 1)
+                               clef-name)
+                           supported-clefs))
+             (oct
+              (if match
+                  ((if (equal? (ly:regex-match-substring match 2) "^") - +)
+                   (1- (string->number (ly:regex-match-substring match 4))))
+                  0))
+             (style
+                 (cond ((not match) 'default)
+                       ((equal? (ly:regex-match-substring match 3) "(")
+                        'parenthesized)
+                       ((equal? (ly:regex-match-substring match 3) "[")
+                        'bracketed)
+                       (else 'default))))
         (if e
             (let ((musics (list
                            (make-property-set 'clefGlyph (car e))
                            (make-property-set 'middleCClefPosition
                                               (+ oct (cadr e)
-                                                 (assoc-get (car e) c0-pitch-alist)))
+                                                 (assoc-get (car e)
+                                                            c0-pitch-alist)))
                            (make-property-set 'clefPosition (cadr e))
                            (make-property-set 'clefTransposition (- oct))
                            (make-property-set 'clefTranspositionStyle style)
@@ -211,10 +220,13 @@
    (make-cue-clef-set "treble_(8)")))
 
 ;; a function to add new clefs at runtime
-(define-public (add-new-clef clef-name clef-glyph clef-position transposition c0-position)
+(define-public
+  (add-new-clef clef-name clef-glyph clef-position transposition c0-position)
   "Append the entries for a clef symbol to supported clefs and
 @code{c0-pitch-alist}."
   (set! supported-clefs
-        (acons clef-name (list clef-glyph clef-position transposition) supported-clefs))
+        (acons clef-name (list clef-glyph clef-position transposition)
+               supported-clefs))
   (set! c0-pitch-alist
-        (acons clef-glyph c0-position c0-pitch-alist)))
+        (acons clef-glyph c0-position
+               c0-pitch-alist)))
