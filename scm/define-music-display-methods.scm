@@ -1038,10 +1038,12 @@ Otherwise, return #f."
   "Initialize @code{clef-name-alist}, if not already set."
   (if (not clef-name-alist)
       (set! clef-name-alist
-            (map (lambda (name+vals)
-                   (cons (cdr name+vals)
-                         (car name+vals)))
-                 clefs))))
+            (filter-map (lambda (name+vals)
+                          (if (symbol? name+vals)
+                              #f
+                              (cons (cdr name+vals)
+                                    (car name+vals))))
+                        clefs))))
 
 (define-extra-display-method ContextSpeccedMusic (expr)
   "If @var{expr} is a clef change, return \"\\clef ...\".
