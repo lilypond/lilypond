@@ -65,7 +65,9 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper<Result, Args...>>
   {
   } // Private constructor, use only in get_callback_wrapper_smob
 public:
-  LY_DECLARE_STATIC_SMOB_PROC (call, sizeof...(Args), 0, 0)
+  // The unsigned {} cast works around a false conversion warning from g++ 9.3.0
+  // on x86_64.
+  LY_DECLARE_STATIC_SMOB_PROC (call, unsigned {sizeof...(Args)}, 0, 0)
   static SCM call (SCM self, force_scm_t<Args>... args)
   {
     if constexpr (std::is_same_v<Result, void>)
