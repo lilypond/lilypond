@@ -177,6 +177,9 @@ class Output_printer(object):
         self.dump(arg)
 
     def dump(self, s):
+        if not s:
+            return
+
         if self._skipspace:
             self._skipspace = False
             self.unformatted_output(s)
@@ -1929,20 +1932,50 @@ class NotestyleEvent(Event):
         self.filled = None
         self.color = None
 
+    notehead_styles_dict = {
+        'arrow down': None,  # TODO: Implement
+        'arrow up': None,  # TODO: Implement
+        'back slashed': None,  # TODO: Implement
+        'circle dot': None,  # TODO: Implement
+        'circle-x': "'xcircle",
+        'circled': None,  # TODO: Implement
+        'cluster': None,  # TODO: Implement
+        'cross': None,  # TODO: + shaped note head
+        'diamond': "'diamond",
+        'do': "'do",
+        'fa': "'fa",  # LilyPond automatically uses this for down-stem
+        'fa up': "'fa",  # LilyPond automatically uses this for up-stem
+        'inverted triangle': None,  # TODO: Implement
+        'la': "'la",
+        'left triangle': None,  # TODO: Implement
+        'mi': "'mi",
+        'none': '#f',
+        'normal': None,
+        're': "'re",
+        'rectangle': None,  # TODO: Implement
+        'slash': "'slash",
+        'slashed': None,  # TODO: Implement
+        'so': "'sol",
+        'square': "'la",  # TODO: Proper squared note head
+        'ti': "'ti",
+        'triangle': "'triangle",
+        'x': "'cross",
+    }
+
     def pre_chord_ly(self):
-        return_string = ''
-        if self.style:
-            return_string += (r" \once \override NoteHead.style = #%s"
-                              % self.style)
+        res = []
+        style = self.notehead_styles_dict.get(self.style, None)
+        if style is not None:
+            res.append(r'\tweak style #%s' % style)
         if self.color:
-            return_string += (r" \once \override NoteHead.color "
-                              "= #(rgb-color %s %s %s)"
-                              % (self.color[0], self.color[1], self.color[2]))
-        return return_string
+            res.append(r'\tweak color #(rgb-color %s %s %s)'
+                       % (self.color[0], self.color[1], self.color[2]))
+        return ' '.join(res)
 
     def pre_note_ly(self, is_chord_element):
-        if self.style and is_chord_element:
-            return r"\tweak style #%s" % self.style
+        style = self.notehead_styles_dict.get(self.style, None)
+        if style is not None and is_chord_element:
+            return r'\tweak style #%s' % style
         else:
             return ''
 

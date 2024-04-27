@@ -714,55 +714,26 @@ class Stem(Music_xml_node):
 
 
 class Notehead(Music_xml_node):
-    notehead_styles_dict = {
-        'arrow down': None,  # TODO: Implement
-        'arrow up': None,  # TODO: Implement
-        'back slashed': None,  # TODO: Implement
-        'circle dot': None,  # TODO: Implement
-        'circle-x': "'xcircle",
-        'circled': None,  # TODO: Implement
-        'cluster': None,  # TODO: Implement
-        'cross': None,  # TODO: + shaped note head
-        'diamond': "'diamond",
-        'do': "'do",
-        'fa': "'fa",  # LilyPond automatically uses this for down-stem
-        'fa up': "'fa",  # LilyPond automatically uses this for up-stem
-        'inverted triangle': None,  # TODO: Implement
-        'la': "'la",
-        'left triangle': None,  # TODO: Implement
-        'mi': "'mi",
-        'none': '#f',
-        'normal': None,
-        're': "'re",
-        'rectangle': None,  # TODO: Implement
-        'slash': "'slash",
-        'slashed': None,  # TODO: Implement
-        'so': "'sol",
-        'square': "'la",  # TODO: Proper squared note head
-        'ti': "'ti",
-        'triangle': "'triangle",
-        'x': "'cross",
-    }
-
-    def to_lily_object(self):  # function changed: additionally processcolor attribute
+    def to_lily_object(self):
         styles = []
-
         # Notehead style
-        key = self.get_text().strip()
-        style = self.notehead_styles_dict.get(key, None)
         event = musicexp.NotestyleEvent()
-        if style:
-            event.style = style
+
+        event.style = self.get_text().strip()
+
         filled = getattr(self, 'filled', None)
         if filled is not None:
             event.filled = (filled == 'yes')
+
         color = getattr(self, 'color', None)
         if color is not None:
             event.color = utilities.hex_to_color(color)
+
         if (event.style
                 or event.filled is not None
                 or event.color is not None):
             styles.append(event)
+
         # parentheses
         if getattr(self, 'parentheses', None) == 'yes':
             styles.append(musicexp.ParenthesizeEvent())
