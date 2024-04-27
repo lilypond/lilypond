@@ -686,30 +686,18 @@ class Partial(Measure_element):
 
 
 class Stem(Music_xml_node):
-    stem_value_dict = {
-        'down': 'stemDown',
-        'up': 'stemUp',
-        'double': None,  # TODO: Implement
-        'none': 'tweak Stem.transparent ##t'
-    }
-
     def to_stem_event(self):
-        text = self.get_text()
-        value = self.stem_value_dict.get(text)
-        if value is not None:
-            event = musicexp.StemEvent()
-            event.value = value
-            return (event, text)
-        return None
+        event = musicexp.StemEvent()
 
-    def to_stem_style_event(self):
+        event.value = self.get_text().strip()
+
         color = getattr(self, 'color', None)
         if color is not None:
-            color = utilities.hex_to_color(color)
-            if color is not None:
-                event = musicexp.StemstyleEvent()
-                event.color = color
-                return event
+            event.color = utilities.hex_to_color(color)
+
+        if event.value or event.color is not None:
+            return event
+
         return None
 
 
@@ -914,14 +902,10 @@ class Note(Measure_element):
 
         stem = self.get('stem')
         if stem is not None:
-            v = stem.to_stem_style_event()
+            v = stem.to_stem_event()
             if v is not None:
-                event.add_associated_event(v)
-            v_text = stem.to_stem_event()
-            if v_text is not None:
-                (v, text) = v_text
                 # Only catch 'up' and 'down' with the command-line option.
-                if convert_stem_directions or text == 'none':
+                if convert_stem_directions or v.value == 'none':
                     event.add_associated_event(v)
 
         return event

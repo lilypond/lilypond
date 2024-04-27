@@ -1904,18 +1904,30 @@ class ParenthesizeEvent(FunctionWrapperEvent):
 
 class StemEvent(Event):
     """"
-    A class to take care of stem values (up, down, double, none)
+    A class to take care of stem values (`up`, `down`, `double`, `none`).
     """
 
     def __init__(self):
         Event.__init__(self)
         self.value = None
+        self.color = None
+
+    stem_value_dict = {
+        'down': r'\stemDown',
+        'up': r'\stemUp',
+        'double': None,  # TODO: Implement
+        'none': r'\tweak Stem.transparent ##t'
+    }
 
     def pre_chord_ly(self):
-        if self.value:
-            return r"\%s" % self.value
-        else:
-            return ''
+        res = []
+        value = self.stem_value_dict.get(self.value, None)
+        if value is not None:
+            res.append(value)
+        if self.color:
+            res.append(r'\tweak Stem.color #(rgb-color %s %s %s)'
+                       % (self.color[0], self.color[1], self.color[2]))
+        return ' '.join(res)
 
     def pre_note_ly(self, is_chord_element):
         return ''
@@ -1978,25 +1990,6 @@ class NotestyleEvent(Event):
             return r'\tweak style #%s' % style
         else:
             return ''
-
-    def ly_expression(self):
-        return self.pre_chord_ly()
-
-
-class StemstyleEvent(Event):  # class added by DaLa
-    def __init__(self):
-        Event.__init__(self)
-        self.color = None
-
-    def pre_chord_ly(self):
-        if self.color:
-            return (r"\once \override Stem.color = #(rgb-color %s %s %s)"
-                    % (self.color[0], self.color[1], self.color[2]))
-        else:
-            return ''
-
-    def pre_note_ly(self, is_chord_element):
-        return ''
 
     def ly_expression(self):
         return self.pre_chord_ly()
