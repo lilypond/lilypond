@@ -2122,8 +2122,8 @@ class RestEvent(RhythmicEvent):
         self.pitch = None
 
     def ly_expression(self):
-        res = self.ly_expression_pre_note(False)
         if self.pitch:
+            res = self.ly_expression_pre_note(False)
             return res + r"%s%s\rest" % (self.pitch.ly_expression(),
                                          self.duration.ly_expression())
         else:
@@ -2132,6 +2132,7 @@ class RestEvent(RhythmicEvent):
     def print_ly(self, printer):
         for ev in self.associated_events:
             ev.print_ly(printer)
+
         if self.pitch:
             self.pitch.print_ly(printer)
             self.duration.print_ly(printer)
@@ -2173,17 +2174,17 @@ class NoteEvent(RhythmicEvent):
         return excl_question
 
     def ly_expression(self):
-        # obtain all stuff that needs to be printed before the note:
-        res = self.ly_expression_pre_note(True)
         if self.pitch:
+            # Obtain all stuff that needs to be printed before the note.
+            res = self.ly_expression_pre_note(True)
             return res + '%s%s%s' % (self.pitch.ly_expression(),
                                      self.pitch_mods(),
                                      self.duration.ly_expression())
 
     def chord_element_ly(self):
-        # obtain all stuff that needs to be printed before the note:
-        res = self.ly_expression_pre_note(True)
         if self.pitch:
+            # Obtain all stuff that needs to be printed before the note.
+            res = self.ly_expression_pre_note(True)
             return res + '%s%s' % (self.pitch.ly_expression(),
                                    self.pitch_mods())
 
