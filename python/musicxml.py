@@ -690,15 +690,16 @@ class Stem(Music_xml_node):
         'down': 'stemDown',
         'up': 'stemUp',
         'double': None,  # TODO: Implement
-        'none': 'stemNeutral'  # FIXME: 'none' should omit the stem
+        'none': 'tweak Stem.transparent ##t'
     }
 
     def to_stem_event(self):
-        value = self.stem_value_dict.get(self.get_text())
+        text = self.get_text()
+        value = self.stem_value_dict.get(text)
         if value is not None:
             event = musicexp.StemEvent()
             event.value = value
-            return event
+            return (event, text)
         return None
 
     def to_stem_style_event(self):
@@ -945,9 +946,11 @@ class Note(Measure_element):
             v = stem.to_stem_style_event()
             if v is not None:
                 event.add_associated_event(v)
-            if convert_stem_directions:
-                v = stem.to_stem_event()
-                if v is not None:
+            v_text = stem.to_stem_event()
+            if v_text is not None:
+                (v, text) = v_text
+                # Only catch 'up' and 'down' with the command-line option.
+                if convert_stem_directions or text == 'none':
                     event.add_associated_event(v)
 
         return event
