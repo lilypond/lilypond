@@ -714,28 +714,33 @@ class Stem(Music_xml_node):
 
 class Notehead(Music_xml_node):
     notehead_styles_dict = {
-        'slash': '\'slash',
-        'triangle': '\'triangle',
-        'diamond': '\'diamond',
-        'square': '\'la',  # TODO: Proper squared note head
-        'cross': None,  # TODO: + shaped note head
-        'x': '\'cross',
-        'circle-x': '\'xcircle',
-        'inverted triangle': None,  # TODO: Implement
         'arrow down': None,  # TODO: Implement
         'arrow up': None,  # TODO: Implement
-        'slashed': None,  # TODO: Implement
         'back slashed': None,  # TODO: Implement
-        'normal': None,
+        'circle dot': None,  # TODO: Implement
+        'circle-x': "'xcircle",
+        'circled': None,  # TODO: Implement
         'cluster': None,  # TODO: Implement
+        'cross': None,  # TODO: + shaped note head
+        'diamond': "'diamond",
+        'do': "'do",
+        'fa': "'fa",  # LilyPond automatically uses this for down-stem
+        'fa up': "'fa",  # LilyPond automatically uses this for up-stem
+        'inverted triangle': None,  # TODO: Implement
+        'la': "'la",
+        'left triangle': None,  # TODO: Implement
+        'mi': "'mi",
         'none': '#f',
-        'do': '\'do',
-        're': '\'re',
-        'mi': '\'mi',
-        'fa': '\'fa',
-        'so': None,
-        'la': '\'la',
-        'ti': '\'ti',
+        'normal': None,
+        're': "'re",
+        'rectangle': None,  # TODO: Implement
+        'slash': "'slash",
+        'slashed': None,  # TODO: Implement
+        'so': "'sol",
+        'square': "'la",  # TODO: Proper squared note head
+        'ti': "'ti",
+        'triangle': "'triangle",
+        'x': "'cross",
     }
 
     def to_lily_object(self):  # function changed: additionally processcolor attribute
