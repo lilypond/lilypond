@@ -2288,13 +2288,21 @@ class LilyPondVoiceBuilder:
         self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append(command)
 
-    def add_barline(self, barline, relevant=False):
-        # Insert only if we don't have a barline already
-        # TODO: Implement proper merging of default barline and custom bar line
+    def add_barline(self, barline, bar_number, relevant=False):
         has_relevant = self.has_relevant_elements
-        if (not self.elements
-                or not isinstance(self.elements[-1], musicexp.BarLine)
-                or self.pending_multibar > 0):
+
+        prev_barline = None
+        if self.elements:
+            if isinstance(self.elements[-1], musicexp.BarLine):
+                prev_barline = self.elements[-1]
+
+        if prev_barline is not None and self.pending_multibar == 0:
+            # If we have an existing bar line object and no pending
+            # multi-measure bar, set its bar number.
+            prev_barline.bar_number = bar_number
+        else:
+            # Otherwise add a new bar line object.
+            barline.bar_number = bar_number
             self.add_music(barline, 0)
 
         self.has_relevant_elements = has_relevant or relevant
@@ -2319,8 +2327,7 @@ class LilyPondVoiceBuilder:
         # (Re)store `has_relevant_elements` so that a barline alone does not
         # trigger output for figured bass or chord names.
         b = musicexp.BarLine()
-        b.bar_number = number
-        self.add_barline(b)
+        self.add_barline(b, number)
 
     def jumpto(self, moment):
         if self.stay_here:
@@ -2606,16 +2613,16 @@ def musicxml_voice_to_lily_voice(voice):
             curr_alterations = alterations.copy()
             for a in barlines:
                 if isinstance(a, musicexp.BarLine):
-                    voice_builder.add_barline(a)
-                    figured_bass_builder.add_barline(a, False)
-                    chordnames_builder.add_barline(a, False)
-                    fretboards_builder.add_barline(a, False)
+                    voice_builder.add_barline(a, 0)
+                    figured_bass_builder.add_barline(a, 0, False)
+                    chordnames_builder.add_barline(a, 0, False)
+                    fretboards_builder.add_barline(a, 0, False)
                 elif (isinstance(a, musicxml2ly_conversion.RepeatMarker)
                       or isinstance(a, musicxml2ly_conversion.EndingMarker)):
                     voice_builder.add_command(a)
-                    figured_bass_builder.add_barline(a, False)
-                    chordnames_builder.add_barline(a, False)
-                    fretboards_builder.add_barline(a, False)
+                    figured_bass_builder.add_barline(a, 0, False)
+                    chordnames_builder.add_barline(a, 0, False)
+                    fretboards_builder.add_barline(a, 0, False)
             continue
 
         if isinstance(n, musicxml.Print):
