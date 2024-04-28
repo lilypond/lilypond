@@ -1,6 +1,6 @@
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2020--2023  Jonas Hahnfeld <hahnjo@hahnjo.de>
+# Copyright (C) 2020--2024  Jonas Hahnfeld <hahnjo@hahnjo.de>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TZ=Etc/UTC
 RUN apt-get update && apt-get --no-install-recommends install -y \
@@ -25,6 +25,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         flex \
         fontconfig \
         fontforge \
+        fonts-dejavu-core \
         fonts-texgyre \
         fonts-urw-base35 \
         g++ \
@@ -54,7 +55,7 @@ RUN apt-get update && apt-get --no-install-recommends install -y \
         texlive-plain-generic \
         wget \
     && rm -rf /var/lib/apt/lists/* \
-    && find /usr/lib -name "*.a" ! -name "libgcc.a" ! -name "libc_nonshared.a" -delete \
+    && find /usr/lib -name "*.a" ! -name "libc_nonshared.a" ! -name "libdl.a" ! -name "libgcc.a" ! -name "libpthread.a" -delete \
     && rm -rf /usr/share/doc /usr/share/info /usr/share/man \
     && rm -rf /usr/share/icons /usr/share/mime /usr/share/zoneinfo \
     && git config --system --add safe.directory '*'
