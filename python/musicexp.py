@@ -2139,6 +2139,7 @@ class RestEvent(RhythmicEvent):
     def __init__(self):
         RhythmicEvent.__init__(self)
         self.pitch = None
+        self.visible = True
 
     def ly_expression(self):
         if self.pitch:
@@ -2148,9 +2149,18 @@ class RestEvent(RhythmicEvent):
         else:
             return 'r%s' % self.duration.ly_expression()
 
+    def pre_note_ly(self, is_chord_element):
+        if not self.visible:
+            return r'\hideNote'
+        else:
+            return ''
+
     def print_ly(self, printer):
         for ev in self.associated_events:
             ev.print_ly(printer)
+
+        if not self.visible:
+            printer(r'\hideNote')
 
         if self.pitch:
             self.pitch.print_ly(printer)
@@ -2174,6 +2184,7 @@ class NoteEvent(RhythmicEvent):
         self.editorial = False
         self.forced_accidental = False
         self.accidental_value = None
+        self.visible = True
 
     def get_properties(self):
         s = RhythmicEvent.get_properties(self)
@@ -2213,6 +2224,8 @@ class NoteEvent(RhythmicEvent):
             # We don't support both `editorial` and `cautionary` at the same
             # time, letting the former win.
             elements.append(r'\bracketAcc')
+        if not self.visible:
+            elements.append(r'\hideNote')
         return elements
 
     def print_ly(self, printer):
@@ -2229,6 +2242,8 @@ class NoteEvent(RhythmicEvent):
         if pitch is not None:
             if self.editorial:
                 printer(r'\bracketAcc')
+            if not self.visible:
+                printer(r'\hideNote')
             pitch.print_ly(printer, self.pitch_mods())
 
         self.duration.print_ly(printer)

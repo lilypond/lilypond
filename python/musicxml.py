@@ -908,6 +908,8 @@ class Note(Measure_element):
                 if convert_stem_directions or v.value == 'none':
                     event.add_associated_event(v)
 
+        event.visible = (getattr(self, 'print-object', 'yes') == 'yes')
+
         return event
 
 
@@ -1577,14 +1579,10 @@ class Part(Music_xml_node):
                 assign_to_next_note.append(n)
                 continue
 
-            if getattr(n, 'print-object', None) == 'no':
-                # Skip this note.
-                pass
-            else:
-                for i in assign_to_next_note:
-                    voices[id].add_element(i)
-                assign_to_next_note = []
-                voices[id].add_element(n)
+            for i in assign_to_next_note:
+                voices[id].add_element(i)
+            assign_to_next_note = []
+            voices[id].add_element(n)
 
         # Assign all remaining elements from assign_to_next_note to the voice
         # of the previous note:

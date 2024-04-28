@@ -178,6 +178,17 @@ additional_definitions = {
 bracketAcc =
   \\tweak AccidentalCautionary.parenthesized ##f
   \\tweak AccidentalCautionary.stencil #make-bracketed \\etc
+""",
+
+    "hide-note": """\
+hideNote =
+  \\tweak Dots.transparent ##t
+  \\tweak NoteHead.transparent ##t
+  \\tweak NoteHead.no-ledgers ##t
+  \\tweak Stem.transparent ##t
+  \\tweak Accidental.transparent ##t
+  \\tweak Rest.transparent ##t
+  \\tweak TabNoteHead.transparent ##t \\etc
 """
 }
 
@@ -2786,6 +2797,11 @@ def musicxml_voice_to_lily_voice(voice):
         main_event = n.to_lily_object(
             convert_stem_directions=conversion_settings.convert_stem_directions,
             convert_rest_positions=conversion_settings.convert_rest_positions)
+
+        if (isinstance(main_event, musicexp.NoteEvent)
+                or isinstance(main_event, musicexp.RestEvent)):
+            if not main_event.visible:
+                needed_additional_definitions.append("hide-note")
 
         if isinstance(main_event, musicexp.NoteEvent):
             if not (main_event.cautionary or main_event.editorial):
