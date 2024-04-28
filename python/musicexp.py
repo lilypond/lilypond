@@ -2136,7 +2136,7 @@ class RestEvent(RhythmicEvent):
         if self.pitch:
             self.pitch.print_ly(printer)
             self.duration.print_ly(printer)
-            printer(r'\rest')
+            printer.print_verbatim(r'\rest')
         else:
             printer('r')
             self.duration.print_ly(printer)
