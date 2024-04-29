@@ -784,6 +784,7 @@ class TimeScaledMusic(MusicWrapper):
         self.display_numerator = None
         self.display_denominator = None
         self.force_direction = 0
+        self.visible = True
 
     def print_ly(self, func):
         if self.display_bracket is None:
@@ -865,6 +866,9 @@ class TimeScaledMusic(MusicWrapper):
                      base_number_function)
                 func.newline()
 
+        if not self.visible:
+            func(r'\tweak TupletBracket.transparent ##t')
+            func(r'\tweak TupletNumber.transparent ##t')
         func(r'\times %d/%d' % (self.numerator, self.denominator))
         func.add_factor(Fraction(self.numerator, self.denominator))
         MusicWrapper.print_ly(self, func)
@@ -1388,6 +1392,7 @@ class SpanEvent(Event):
         self.span_type = 0  # e.g. cres/decrescendo, ottava up/down
         self.size = 0  # size of e.g. octave shift
         self.force_direction = 0  # for LilyPond's `^` and `_` modifier
+        self.visible = True
 
     def wait_for_note(self):
         return True
@@ -1397,6 +1402,12 @@ class SpanEvent(Event):
 
     def set_span_type(self, type):
         self.span_type = type
+
+    def not_visible(self):
+        if self.visible:
+            return ''
+        else:
+            return r'\tweak transparent ##t '
 
 
 class BreatheEvent(Event):
@@ -1444,7 +1455,8 @@ class SlurEvent(SpanEvent):
         val = self.slur_to_ly()
         if val:
             if self.span_direction == -1:
-                printer.dump('%s%s' % (self.direction_mod(), val))
+                printer.dump('%s%s%s' % (super().not_visible(),
+                                         self.direction_mod(), val))
             else:
                 printer.dump(val)
 
@@ -1502,18 +1514,22 @@ class TextSpannerEvent(SpanEvent):
 
     def ly_expression(self):
         (tweak, val) = self.text_spanner_to_ly()
+        not_visible = super().not_visible()
         if tweak:
-            return ('%s %s' % (tweak, val))
+            return '%s%s %s' % (not_visible, tweak, val)
         else:
-            return val
+            return '%s%s' % (not_visible, val)
 
     def print_ly(self, printer):
         (tweak, val) = self.text_spanner_to_ly()
+        not_visible = super().not_visible()
         if val:
             if tweak:
-                printer.dump('%s %s%s' % (tweak, self.direction_mod(), val))
+                printer.dump('%s%s %s%s' % (not_visible, tweak,
+                                            self.direction_mod(), val))
             else:
-                printer.dump('%s%s' % (self.direction_mod(), val))
+                printer.dump('%s%s%s' % (not_visible, self.direction_mod(),
+                                         val))
 
 
 class BracketSpannerEvent(SpanEvent):
@@ -1600,6 +1616,14 @@ class GlissandoEvent(SpanEvent):
     def ly_expression(self):
         return {-1: r'\glissando',
                 1: ''}.get(self.span_direction, '')
+
+    def print_ly(self, printer):
+        val = self.ly_expression()
+        if val:
+            if self.span_direction == -1:
+                printer.dump('%s%s' % (super().not_visible(), val))
+            else:
+                printer.dump(val)
 
 
 class ArpeggioEvent(Event):

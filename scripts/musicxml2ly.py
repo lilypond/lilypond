@@ -868,7 +868,7 @@ def group_tuplets(music_list, events):
     brackets = {}
 
     j = 0
-    for (ev_chord, tuplet_elt, time_modification) in events:
+    for (ev_chord, tuplet_elt, time_modification, visible) in events:
         while j < len(music_list):
             if music_list[j] == ev_chord:
                 break
@@ -877,6 +877,7 @@ def group_tuplets(music_list, events):
         if tuplet_elt.type == 'start':
             tuplet_object = musicxml_tuplet_to_lily(
                 tuplet_elt, time_modification)
+            tuplet_object.visible = visible
             tuplet_info = [j, None, tuplet_object]
             indices.append(tuplet_info)
             brackets[nr] = tuplet_info
@@ -2540,6 +2541,7 @@ def musicxml_voice_to_lily_voice(voice):
 
     clef_visible = True
     key_visible = True
+    note_visible = True
 
     # Track pitch alterations for cautionary accidentals without parentheses
     # (to be realized with LilyPond's `!` pitch modifier) that are not
@@ -2801,7 +2803,10 @@ def musicxml_voice_to_lily_voice(voice):
         if (isinstance(main_event, musicexp.NoteEvent)
                 or isinstance(main_event, musicexp.RestEvent)):
             if not main_event.visible:
+                note_visible = False
                 needed_additional_definitions.append("hide-note")
+            else:
+                note_visible = True
 
         if isinstance(main_event, musicexp.NoteEvent):
             if not (main_event.cautionary or main_event.editorial):
@@ -2932,7 +2937,8 @@ def musicxml_voice_to_lily_voice(voice):
             for tuplet_event in notations.get_tuplets():
                 time_mod = n.get_maybe_exist_typed_child(
                     musicxml.Time_modification)
-                tuplet_events.append((ev_chord, tuplet_event, time_mod))
+                tuplet_events.append(
+                    (ev_chord, tuplet_event, time_mod, note_visible))
 
             # First, close all open slurs, only then start any new slur
             # TODO: Record the number of the open slur to determine the correct
@@ -2963,12 +2969,15 @@ def musicxml_voice_to_lily_voice(voice):
                 # record the slur status for the next note in the loop
                 inside_slur = True
                 lily_ev = musicxml_spanner_to_lily_event(startslurs[0])
+                lily_ev.visible = note_visible
                 ev_chord.append(lily_ev)
 
             if not grace:
                 mxl_tie = notations.get_tie()
                 if mxl_tie and mxl_tie.type == 'start':
-                    ev_chord.append(musicexp.TieEvent())
+                    tie = musicexp.TieEvent()
+                    tie.visible = note_visible
+                    ev_chord.append(tie)
                     is_tied = True
                     tie_started = True
                 else:
@@ -2992,6 +3001,7 @@ def musicxml_voice_to_lily_voice(voice):
             def convert_and_append_all_child_articulations(mxl_node):
                 # Mark trill spanners where `start` and `stop` elements (in
                 # that order) happen at the same musical moment.
+                res = []
                 wavy_line_starts = []
                 for ch in mxl_node.get_named_children('wavy-line'):
                     id = ch._attribute_dict.get('number', 1)
@@ -3012,7 +3022,9 @@ def musicxml_voice_to_lily_voice(voice):
                         except AttributeError:
                             pass
 
-                        ev_chord.append(ev)
+                        res.append(ev)
+
+                return res
 
             def convert_and_append_all_child_dynamics(mxl_node):
                 for ch in mxl_node.get_all_children():
@@ -3037,8 +3049,12 @@ def musicxml_voice_to_lily_voice(voice):
                 handler = notation_handlers.get(a.get_name(), None)
                 if handler is not None:
                     ev = handler(a)
-                    if ev is not None:
-                        ev_chord.append(ev)
+                    if not isinstance(ev, list):
+                        ev = [ev]
+                    for e in ev:
+                        if isinstance(e, musicexp.SpanEvent):
+                            e.visible = note_visible
+                        ev_chord.append(e)
 
         mxl_beams = [b for b in n['beam']
                      if (b.get_type() in ('begin', 'end')

@@ -58,26 +58,26 @@ The files are categorized by their first two digits with the following meaning:
 @table @asis
 @item 01--03
 Basics: pitches, rests, rhythm.
-@item 11--13
-Staff attributes: time signatures, clefs, key signatures.
+@item 11--14
+Staff attributes: time signatures, clefs, key signatures, staff details.
 @item 21--24
-Note settings: chorded notes, note heads, tuplets, grace notes.
-@item 31--33
+Notes: chords, note settings, tuplets, grace notes.
+@item 31--34
 Notations and articulations: dynamics (staff-attached), notations
-(note-attached), spanners.
-@item 41--44
+(note-attached), spanners, print-object issues.
+@item 41--43
 Parts: multiple parts, multi-voice parts, multi-staff parts.
 @item 45--46
-Measure issues and repeats.
+Repeat and measure issues.
 @item 51--52
 Page issues: header fields, page layout.
 @item 55--59
 Exact positioning of items, offsets, etc.
-@item 61--69
-Vocal music.
+@item 61
+Lyrics.
 @item 71--75
 Instrument-specific: guitar (chord, fretboards), transposing
-instruments, percussion, figured Bass, others.
+instruments, percussion, figured bass, other instruments.
 @item 81--89
 MIDI generation (all sound-related issues).
 @item 90--99
