@@ -1192,7 +1192,8 @@ def musicxml_spanner_to_lily_event(mxl_event):
         ly.warning(_('unknown span type %s for %s') % (type, name))
 
     ev.set_span_type(type)
-    ev.line_type = getattr(mxl_event, 'line-type', 'solid')
+    ev.line_type = getattr(mxl_event, 'line-type',
+                           'wavy' if name == 'glissando' else 'solid')
     ev.start_stop = getattr(mxl_event, 'start_stop', False)
     ev.line_end_at_start = getattr(mxl_event, 'line_end_at_start', 'none')
     ev.line_end_at_stop = getattr(mxl_event, 'line_end_at_stop', 'none')
