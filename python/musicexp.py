@@ -1584,13 +1584,6 @@ class OctaveShiftEvent(SpanEvent):
             1: r'\ottava #0'}.get(self.span_direction, '')
 
 
-class TrillSpanEvent(SpanEvent):
-    def ly_expression(self):
-        return {-1: r'\startTrillSpan',
-                0: '',  # no need to write out anything for type='continue'
-                1: r'\stopTrillSpan'}.get(self.span_direction, '')
-
-
 class GlissandoEvent(SpanEvent):
     def print_before_note(self, printer):
         if self.span_direction == -1:
