@@ -54,7 +54,7 @@ def escape_instrument_string(input_string):
 
 class Output_stack_element:
     def __init__(self):
-        self.factor = 1
+        self.factor = 1  # For scaling tuplets and the like.
 
     def copy(self):
         o = Output_stack_element()
@@ -678,9 +678,6 @@ class Music:
     def get_properties(self):
         return ''
 
-    def has_children(self):
-        return False
-
     def get_index(self):
         if self.parent:
             return self.parent.elements.index(self)
@@ -883,9 +880,6 @@ class NestedMusic(Music):
     def append(self, what):
         if what:
             self.elements.append(what)
-
-    def has_children(self):
-        return self.elements
 
     def insert_around(self, succ, elt, dir):
         assert elt.parent is None
@@ -1217,8 +1211,8 @@ class ChordEvent(NestedMusic):
             self.after_grace_elements.append(element)
 
     def has_elements(self):
-        return [e for e in self.elements if
-                isinstance(e, NoteEvent) or isinstance(e, RestEvent)] != []
+        return [e for e in self.elements
+                if isinstance(e, NoteEvent) or isinstance(e, RestEvent)] != []
 
     def get_length(self):
         l = 0
@@ -1227,23 +1221,23 @@ class ChordEvent(NestedMusic):
         return l
 
     def get_duration(self):
-        note_events = [e for e in self.elements if
-                       isinstance(e, NoteEvent) or isinstance(e, RestEvent)]
+        note_events = [e for e in self.elements
+                       if isinstance(e, NoteEvent) or isinstance(e, RestEvent)]
         if note_events:
             return note_events[0].duration
         else:
             return None
 
     def print_ly(self, printer):
-        note_events = [e for e in self.elements if
-                       isinstance(e, NoteEvent)]
+        note_events = [e for e in self.elements
+                       if isinstance(e, NoteEvent)]
 
-        rest_events = [e for e in self.elements if
-                       isinstance(e, RhythmicEvent)
+        rest_events = [e for e in self.elements
+                       if isinstance(e, RhythmicEvent)
                        and not isinstance(e, NoteEvent)]
 
-        other_events = [e for e in self.elements if
-                        not isinstance(e, RhythmicEvent)]
+        other_events = [e for e in self.elements
+                        if not isinstance(e, RhythmicEvent)]
 
         if self.after_grace_elements:
             printer(r'\afterGrace {')
@@ -2081,6 +2075,7 @@ class ChordNameEvent(Event):
         return value
 
 
+# This is for single-stem tremolos.
 class TremoloEvent(ArticulationEvent):
     def __init__(self):
         Event.__init__(self)
@@ -2089,24 +2084,26 @@ class TremoloEvent(ArticulationEvent):
     def ly_expression(self):
         ly_str = ''
         if self.strokes and int(self.strokes) > 0:
-            # ly_dur is a global variable defined in class Duration
-            # ly_dur stores the value of the reciprocal values of notes
-            # ly_dur is used here to check the current note duration
-            # if the duration is smaller than 8, e.g.
-            # quarter, half and whole notes,
-            # `:(2 ** (2 + number of tremolo strokes))'
-            # should be appended to the pitch and duration, e.g.
-            # 1 stroke: `c4:8' or `c2:8' or `c1:8'
-            # 2 strokes: `c4:16' or `c2:16' or `c1:16'
-            # ...
-            # else (if ly_dur is equal to or greater than 8):
-            # we need to make sure that the tremolo value that is to
-            # be appended to the pitch and duration is twice the
-            # duration (if there is only one tremolo stroke.
-            # Each additional stroke doubles the tremolo value, e.g.:
-            # 1 stroke: `c8:16', `c16:32', `c32:64', ...
-            # 2 strokes: `c8:32', `c16:64', `c32:128', ...
-            # ...
+            # `ly_dur` is a global variable defined in class `Duration`,
+            # storing the value of the reciprocal values of notes.  Here it
+            # is used to check the current note duration.
+            #
+            # * If `ly_dur` is smaller than 8, e.g., quarter, half, and whole
+            #   notes, `:(2 ** (2 + number of tremolo strokes))` should be
+            #   appended to the pitch and duration.  Examples:
+            #
+            #     1 stroke: `c4:8`, `c2:8`, or `c1:8`
+            #     2 strokes: `c4:16`, `c2:16`, or `c1:16`
+            #     ...
+            #
+            # * If `ly_dur` is equal to or greater than 8, we need to make
+            #   sure that the tremolo value appended to the pitch and
+            #   duration is twice the duration for a single tremolo stroke.
+            #   Each additional stroke doubles the tremolo value.  Examples:
+            #
+            #     1 stroke: `c8:16`, `c16:32`, `c32:64`, ...
+            #     2 strokes: `c8:32`, `c16:64`, `c32:128`, ...
+            #     ...
             if ly_dur < 8:
                 ly_str += ':%s' % (2 ** (2 + int(self.strokes)))
             else:
@@ -2711,8 +2708,8 @@ class FiguredBassEvent(NestedMusic):
         self.real_duration = dur
 
     def print_ly(self, printer):
-        figured_bass_events = [e for e in self.elements if
-                               isinstance(e, FiguredBassNote)]
+        figured_bass_events = [e for e in self.elements
+                               if isinstance(e, FiguredBassNote)]
         if figured_bass_events:
             notes = []
             for x in figured_bass_events:

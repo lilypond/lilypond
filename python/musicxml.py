@@ -1551,10 +1551,10 @@ class Part(Music_xml_node):
             # We don't need backup/forward any more, since we have already
             # assigned the correct onset times.
             # TODO: Let Grouping through. Also: link, print, bokmark sound
-            if not (isinstance(n, Note) or isinstance(n, Attributes) or
-                    isinstance(n, Direction) or isinstance(n, Partial) or
-                    isinstance(n, Barline) or isinstance(n, Harmony) or
-                    isinstance(n, FiguredBass) or isinstance(n, Print)):
+            if not (isinstance(n, Note) or isinstance(n, Attributes)
+                    or isinstance(n, Direction) or isinstance(n, Partial)
+                    or isinstance(n, Barline) or isinstance(n, Harmony)
+                    or isinstance(n, FiguredBass) or isinstance(n, Print)):
                 continue
 
             if isinstance(n, Attributes) and not start_attr:

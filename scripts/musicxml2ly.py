@@ -941,9 +941,9 @@ def group_tuplets(music_list, events):
         seq = musicexp.SequentialMusic()
         last = i2 + 1
 
-        # At this point music_list[i1:last] encompasses all the notes of the
-        # tuplet. There might be dynamics following this range, however, which
-        # apply to the last note of the tuplet. Advance last to include them
+        # At this point, `music_list[i1:last]` encompasses all notes of the
+        # tuplet.  There might be dynamics following this range, however, which
+        # apply to the last note of the tuplet.  Advance `last` to include them
         # in the range.
         while (last < len(music_list)
                and isinstance(music_list[last], musicexp.DynamicsEvent)):
@@ -1550,8 +1550,8 @@ def musicxml_articulation_to_lily_event(mxl_event):
     # Some articulations use the type attribute, other the placement...
     if options.convert_directions:
         d = musicxml_direction_to_indicator(
-            getattr(mxl_event, 'type', None) or
-            getattr(mxl_event, 'placement', None))
+            getattr(mxl_event, 'type', None)
+            or getattr(mxl_event, 'placement', None))
         if d:
             ev.force_direction = d
 
@@ -2266,8 +2266,8 @@ class LilyPondVoiceBuilder:
 
     def _insert_multibar(self):
         layout_information.set_context_item('Score', 'skipBars = ##t')
-        layout_information.set_context_item('Staff',
-            r'\override MultiMeasureRest.expand-limit = 1')
+        layout_information.set_context_item(
+            'Staff', r'\override MultiMeasureRest.expand-limit = 1')
 
         # Doing `R1^\markup{...}` would center the markup over the
         # multi-measure rest, which is most certainly not intended.
@@ -2435,9 +2435,9 @@ class LilyPondVoiceBuilder:
         # if the position matches, find the last ChordEvent, do not cross a
         # bar line!
         at = len(self.elements) - 1
-        while (at >= 0 and
-               not isinstance(self.elements[at], musicexp.ChordEvent) and
-               not isinstance(self.elements[at], musicexp.BarLine)):
+        while (at >= 0
+               and not isinstance(self.elements[at], musicexp.ChordEvent)
+               and not isinstance(self.elements[at], musicexp.BarLine)):
             at -= 1
 
         if (self.elements
@@ -2887,6 +2887,9 @@ def musicxml_voice_to_lily_voice(voice):
         # ignore lyrics for notes inside a slur, tie, chord or beam
         ignore_lyrics = is_tied or is_chord  # or is_beamed or inside_slur
 
+        # `ev_chord` starts as an empty `ChordEvent` object that gets filled
+        # with items related to the current chord (notes, beams, etc.) while
+        # iterating over elements of `voice`.
         ev_chord = voice_builder.last_event_chord(n._when)
         if not ev_chord:
             ev_chord = musicexp.ChordEvent()
@@ -2981,8 +2984,6 @@ def musicxml_voice_to_lily_voice(voice):
             pending_fretboards = []
 
         notations_children = n['notations']
-        tuplet_event = None
-        span_events = []
 
         # The <notation> element can have the following children
         # (+ means implemented, ~ partially, - not):
@@ -3062,11 +3063,11 @@ def musicxml_voice_to_lily_voice(voice):
                 res = []
                 wavy_line_starts = []
                 for ch in mxl_node.get_named_children('wavy-line'):
-                    id = ch._attribute_dict.get('number', 1)
-                    type = spanner_type_dict.get(ch.type)
-                    if type == -1:
+                    id = getattr(ch, 'number', 1)
+                    type = getattr(ch, 'type', None)
+                    if type == 'start':
                         wavy_line_starts.append(id)
-                    elif type == 1:
+                    elif type == 'stop':
                         if id in wavy_line_starts:
                             ch.start_stop = True
 
