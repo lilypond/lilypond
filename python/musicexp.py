@@ -668,7 +668,12 @@ class Pitch:
         outputter('%s%s' % (self.ly_expression(), pitch_mods))
 
 
-class Music:
+class Base:
+    def contains(self, elem):
+        return self == elem
+
+
+class Music(Base):
     def __init__(self):
         self.parent = None
         self.start = 0
@@ -736,6 +741,9 @@ class MusicWrapper(Music):
     def __init__(self):
         Music.__init__(self)
         self.element = None
+
+    def contains(self, elem):
+        return self == elem or self.element.contains(elem)
 
     def print_ly(self, func):
         self.element.print_ly(func)
@@ -884,6 +892,14 @@ class NestedMusic(Music):
         if what:
             self.elements.append(what)
 
+    def contains(self, elem):
+        if self == elem:
+            return True
+        for e in self.elements:
+            if e.contains(elem):
+                return True
+        return False
+
     def insert_around(self, succ, elt, dir):
         assert elt.parent is None
         assert succ is None or succ in self.elements
@@ -983,7 +999,7 @@ class SequentialMusic(NestedMusic):
             start += e.get_length()
 
 
-class RepeatedMusic:
+class RepeatedMusic(Base):
     def __init__(self):
         self.repeat_type = "volta"
         self.repeat_count = 2
@@ -1005,6 +1021,9 @@ class RepeatedMusic:
     def add_ending(self, music):
         self.endings.append(music)
 
+    def contains(self, elem):
+        return self == elem or self.music.contains(elem)
+
     def print_ly(self, printer):
         if self.tremolo_strokes is not None:
             # We can't use `\tweak` here.
@@ -1024,7 +1043,7 @@ class RepeatedMusic:
             printer.dump('}')
 
 
-class Lyrics:
+class Lyrics(Base):
     def __init__(self):
         self.lyrics_syllables = []
         self.stanza_id = None
@@ -1055,7 +1074,7 @@ class Lyrics:
         return "%s %s %s" % self.lyrics_to_ly()
 
 
-class Header:
+class Header(Base):
     def __init__(self):
         self.header_fields = {}
 
@@ -1098,7 +1117,7 @@ class Header:
         printer.newline()
 
 
-class Paper:
+class Paper(Base):
     def __init__(self):
         self.global_staff_size = -1
         # page size
@@ -1168,7 +1187,7 @@ class Paper:
         printer.newline()
 
 
-class Layout:
+class Layout(Base):
     def __init__(self):
         self.context_dict = {}
 
@@ -2022,7 +2041,7 @@ class NotestyleEvent(Event):
         return self.pre_chord_ly()
 
 
-class ChordPitch:
+class ChordPitch(Base):
     def __init__(self):
         self.alteration = 0
         self.step = 0
@@ -2034,7 +2053,7 @@ class ChordPitch:
         return pitch_generating_function(self)
 
 
-class ChordModification:
+class ChordModification(Base):
     def __init__(self):
         self.alteration = 0
         self.step = 0
@@ -2766,7 +2785,7 @@ class EmptyChord(Music):
         printer.dump("<>")
 
 
-class StaffGroup:
+class StaffGroup(Base):
     def __init__(self, command="StaffGroup"):
         self.stafftype = command
         self.id = None
@@ -2783,6 +2802,14 @@ class StaffGroup:
         # where voicelist is a list with entries of the form
         #     [voiceid1, [lyricsid11, lyricsid12,...] ]
         self.part_information = None
+
+    def contains(self, elem):
+        if self == elem:
+            return True
+        for c in self.children:
+            if c.contains(elem):
+                return True
+        return False
 
     def append_staff(self, staff):
         self.children.append(staff)
@@ -3047,13 +3074,20 @@ class RhythmicStaff(Staff):
 #       printer.dump ("test")
 
 
-class Score:
+class Score(Base):
     def __init__(self):
         """
         Constructs a new Score object.
         """
         self.contents = None
         self.create_midi = False
+
+    def contains(self, elem):
+        if self == elem:
+            return True
+        if self.contents:
+            return self.contents.contains(elem)
+        return False
 
     def set_contents(self, contents):
         self.contents = contents

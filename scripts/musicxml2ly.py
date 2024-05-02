@@ -472,7 +472,7 @@ def extract_score_information(tree):
     return header
 
 
-class PartGroupInfo:
+class PartGroupInfo(musicexp.Base):
     def __init__(self):
         self.start = {}
         self.end = {}
@@ -2251,7 +2251,7 @@ class NegativeSkip:
         self.dest = dest
 
 
-class LilyPondVoiceBuilder:
+class LilyPondVoiceBuilder(musicexp.Base):
     def __init__(self):
         self.elements = []
         self.pending_dynamics = []
@@ -2263,6 +2263,14 @@ class LilyPondVoiceBuilder:
         self.has_relevant_elements = False
         self.measure_length = 1
         self.stay_here = False
+
+    def contains(self, elem):
+        if self == elem:
+            return True
+        for e in self.elements:
+            if e.contains(elem):
+                return True
+        return False
 
     def _insert_multibar(self):
         layout_information.set_context_item('Score', 'skipBars = ##t')
