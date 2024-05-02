@@ -988,6 +988,7 @@ class RepeatedMusic:
         self.repeat_type = "volta"
         self.repeat_count = 2
         self.endings = []
+        self.tremolo_strokes = None
         self.music = None
 
     def set_music(self, music):
@@ -1005,9 +1006,14 @@ class RepeatedMusic:
         self.endings.append(music)
 
     def print_ly(self, printer):
+        if self.tremolo_strokes is not None:
+            # We can't use `\tweak` here.
+            printer.dump(r'\once \override Beam.gap-count = %s'
+                         % self.tremolo_strokes)
         printer.dump(r'\repeat %s %s' % (self.repeat_type, self.repeat_count))
         if self.music:
-            self.music.print_ly(printer)
+            # No extra newlines for a tremolo group.
+            self.music.print_ly(printer, self.repeat_type != 'tremolo')
         else:
             ly.warning(_("encountered repeat without body"))
             printer.dump('{}')
