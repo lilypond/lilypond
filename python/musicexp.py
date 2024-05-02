@@ -301,7 +301,7 @@ class Duration:
         d.factor = self.factor
         return d
 
-    def get_length(self):
+    def get_length(self, with_factor=True):
         num = (1 << (1 + self.dots)) - 1
         dot_fact = Fraction(num, 1 << self.dots) if self.dots else num
 
@@ -310,7 +310,10 @@ class Duration:
         else:
             base = Fraction(1, 1 << self.duration_log)
 
-        return base * dot_fact * self.factor
+        if with_factor:
+            return base * dot_fact * self.factor
+        else:
+            return base * dot_fact
 
 
 def set_create_midi(option):
@@ -672,7 +675,7 @@ class Music:
         self.comment = ''
         self.identifier = None
 
-    def get_length(self):
+    def get_length(self, with_factor=True):
         return 0
 
     def get_properties(self):
@@ -1214,11 +1217,11 @@ class ChordEvent(NestedMusic):
         return [e for e in self.elements
                 if isinstance(e, NoteEvent) or isinstance(e, RestEvent)] != []
 
-    def get_length(self):
-        l = 0
-        for e in self.elements:
-            l = max(l, e.get_length())
-        return l
+    def get_length(self, with_factor=True):
+        if self.elements:
+            return max([e.get_length(with_factor) for e in self.elements])
+        else:
+            return 0
 
     def get_duration(self):
         note_events = [e for e in self.elements
@@ -2148,8 +2151,8 @@ class RhythmicEvent(Event):
             res = res + ' '
         return res
 
-    def get_length(self):
-        return self.duration.get_length()
+    def get_length(self, with_factor=True):
+        return self.duration.get_length(with_factor)
 
     def get_properties(self):
         return ("'duration %s"
