@@ -46,14 +46,13 @@ class Grob_interface
 public:
   Grob_interface () { add_scm_init_func (Grob_interface::init); }
 
+  static SCM symbol_scm () { return interface_symbol_; }
+
 private:
   static void init ()
   {
     interface_symbol_ = ::add_interface (cxx_name_, description_, variables_);
   }
-
-  template <class T>
-  friend bool has_interface (Grob const *);
 
 private:
   static Protected_scm interface_symbol_;

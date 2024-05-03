@@ -221,7 +221,7 @@ template <class T>
 inline bool
 has_interface (Grob const *g)
 {
-  return g && g->internal_has_interface (Grob_interface<T>::interface_symbol_);
+  return g && g->internal_has_interface (Grob_interface<T>::symbol_scm ());
 }
 
 /* unification */
