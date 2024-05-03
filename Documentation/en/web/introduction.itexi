@@ -1252,6 +1252,12 @@ In particular, don't link to:
 
 @end ignore
 
+@warning{The following programs and packages are developed outside
+the core of LilyPond, by enthusiastic users who have seen a need
+or a way to add LilyPond to their own workflow.  This means the
+packages may not reflect current LilyPond syntax, although their output
+can be brought up to date using @command{convert-ly}.}
+
 @divClass{column-center-top}
 @subheading Front-end Applications
 
@@ -1271,7 +1277,7 @@ with many features added and enhanced particularly for LilyPond. Major
 features include point-and-click links between the code and music views,
 detailed score wizards, built-in LilyPond documentation browser, syntax
 highlighting and automatic completion. Frescobaldi is written in
-Python, with PyQt4 for its user interface, and will run on all major
+Python, with PyQt5 for its user interface, and will run on all major
 operating systems (GNU/Linux, macOS and Windows).
 
 @subsubheading Denemo
@@ -1342,6 +1348,8 @@ An online sheet-music editor and publishing tool powered by LilyPond,
 with additional features such as autocompletion and contextual help.
 The underlying web hosting code is available under the AGPL license,
 on its own @uref{https://github.com/hacklily/hacklily,development page}.
+Hacklily uses LilyPond 2.18.2, and although there is an open issue for updating
+to version 2.24, it has not been updated since 2022.
 
 @subsubheading www.omet.ca
 @uref{http://www.omet.ca/}
@@ -1424,17 +1432,29 @@ to use a different editor for writing LilyPond input files.
 More information on setting up Vim can be found in
 @rprogram{Text editor support}.
 
+@subsubheading Neovim
+@uref{https://neovim.io}
+Neovim is a minimal text editor and fork of vim.  It is highly extensible
+and configurable through the vimscript and lua programming languages.
+LilyPond support is provided by the
+@uref{https://github.com/martineausimon/nvim-lilypond-suite,nvim-lilypond-suite plugin}.
+The plugin supports playback of MIDI files through external programs,
+point-and-click when using a supported PDF viewer, snippets and code
+completion when combined with other plugins, in addition to the full range of
+tools available in the neovim ecosystem.  For more details on how to set it up,
+consult the plugin's github page.  You will also want to spend some
+time with some of the numerous online tutorials for learning vim/neovim
+to get the most out of your editing experience.
+
 @sourceimage{logo-macosx,,}
 @subsubheading TeXShop
 @uref{https://pages.uoregon.edu/koch/texshop/}
 
 The TeXShop editor for macOS can be extended to run LilyPond,
 @command{lilypond-book} and @command{convert-ly} from within the editor,
-using the extensions available at:
-
-@example
-@uref{http://users.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
-@end example
+using the extensions contributed by Nicola Vitacolonna.  These must
+be moved from the TeXShop @qq{inactive} subdirectory to the @qq{Engines} one, in
+ortder to make them available for use.
 
 @divEnd
 
@@ -1446,7 +1466,7 @@ using the extensions available at:
 @itemize
 
 @item
-@uref{http://www.jezra.net/projects/bwwtolily,bwwtolily} attempts to
+@uref{http://www.jezra.net/projects/bwwtolily.html,bwwtolily} attempts to
 convert a @code{.bww} or @code{.bmw} file to LilyPond.  While not all of
 the embellishments may get converted properly (this is especially true
 with piobaireachd), the program will list them.
@@ -1463,7 +1483,7 @@ which converts an Encore music score into a LilyPond one.
 @uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} is a Go tool that
 converts Encore files to LilyPond.  It was created using Felipe Castro's
 research and reverse engineering by tweaking existing .enc files and
-loading them using the 4.55 demo version.
+loading them using the 4.55 demo version.  It was last updated in 2014.
 
 @item
 @uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
@@ -1477,7 +1497,8 @@ is a C# program which converts a NoteWorthy composer song into LilyPond.
 @item
 @uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple}
 is a program that helps create scores and parts, including a mode for
-mixing different musical works together in a single score or part.
+mixing different musical works together in a single score or part.  It was
+last updated in 2012.
 
 @item
 @uref{https://www.rosegardenmusic.com,Rosegarden}, an audio and MIDI
@@ -1490,7 +1511,7 @@ sequencer, which also has a score editor for single-staff editing.
 @itemize
 
 @item
-@uref{http://www.projectabjad.org/,Abjad}, a
+@uref{https://abjad.github.io,Abjad}, a
 @uref{https://www.python.org/,Python} API for Formalized Score Control
 designed to help composers build up complex pieces of LilyPond notation
 in an iterative and incremental way.
@@ -1502,9 +1523,9 @@ Lisp programming language, and has been tested in a variety of
 interpreters.  A C++ port is also available.
 
 @item
-@uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela},
-an environment built on top of the
-@uref{https://mozart.github.io/, The Mozart Programming System}.
+@uref{https://github.com/helge17/tuxguitar/,TuxGuitar}, a
+multitrack tablature editor and player, includes a score viewer and can
+export to LilyPond.
 
 @end itemize
 @divEnd
@@ -1525,19 +1546,12 @@ be hosted, has been discontinued, its source code continues to be
 freely available under the MIT license; it may be found on its
 @uref{https://github.com/LilyBin/LilyBin,GitHub page}.
 
-@item
-@uref{https://www.weblily.net/,WebLily} was one of the first web
-services based on LilyPond.
 
 @item
 @uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} was
 created as a plugin for the @uref{http://www.jedit.org,jEdit} text
 editor.
 
-@item
-@uref{https://lilykde.googlecode.com/,LilyKDE} has been replaced by
-@uref{https://www.frescobaldi.org/,Frescobaldi}, and exists as LilyKDE3
-for KDE 3.5 and lilypond-KDE4 for KDE 4.1 only.
 
 @item
 @uref{https://lilycomp.sourceforge.net, LilyComp} is a graphical note
@@ -1566,10 +1580,12 @@ Typeset your mini-scores directly online without needing to install
 LilyPond locally.  It allows trying out all the program's features using
 a convenient web interface.
 
+
 @item
-@uref{https://sourceforge.net/projects/tuxguitar/,TuxGuitar}, a
-multitrack tablature editor and player, includes a score viewer and can
-export to LilyPond.
+@uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela},
+an environment built on top of the
+@uref{https://mozart.github.io/, The Mozart Programming System}.
+
 
 @end itemize
 
