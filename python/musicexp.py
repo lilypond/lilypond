@@ -1488,11 +1488,6 @@ class BeamEvent(SpanEvent):
         return {-1: '[', 1: ']'}.get(self.span_direction, '')
 
 
-class TremoloSpannerEvent(SpanEvent):
-    def ly_expression(self):
-        return ''
-
-
 class PedalEvent(SpanEvent):
     # LilyPond's support for positioning pedal marks above or below a staff
     # is limited: if there is a series of `\sustainOn` and `\sustainOff`

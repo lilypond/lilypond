@@ -914,7 +914,9 @@ def group_tuplets(music_list, events):
     j = 0
     for (ev_chord, tuplet_elt, time_modification, visible) in events:
         while j < len(music_list):
-            if music_list[j] == ev_chord:
+            # Since its registration in `events` the `ChordEvent` object
+            # might be meanwhile wrapped into a two-stem tremolo.
+            if music_list[j].contains(ev_chord):
                 break
             j += 1
         nr = getattr(tuplet_elt, 'number', 0)
@@ -922,6 +924,25 @@ def group_tuplets(music_list, events):
             tuplet_object = musicxml_tuplet_to_lily(
                 tuplet_elt, time_modification)
             tuplet_object.visible = visible
+
+            if (isinstance(music_list[j], musicexp.RepeatedMusic)
+                    and music_list[j].repeat_type == 'tremolo'):
+                if (tuplet_object.actual_type
+                        and tuplet_object.normal_type
+                        and tuplet_object.display_numerator
+                        and tuplet_object.display_denominator):
+                    factor = ((tuplet_object.normal_type.get_length()
+                               * tuplet_object.display_numerator)
+                              / (tuplet_object.actual_type.get_length()
+                                 * tuplet_object.display_denominator))
+                    tuplet_object.numerator = factor.numerator
+                    tuplet_object.denominator = factor.denominator
+                else:
+                    # There are no explicitly specified numerator and
+                    # denumerator values, so adjust the time modification
+                    # for the double-note tremolo.
+                    tuplet_object.numerator *= 2
+
             tuplet_info = [j, None, tuplet_object]
             indices.append(tuplet_info)
             brackets[nr] = tuplet_info
@@ -930,6 +951,9 @@ def group_tuplets(music_list, events):
             if bracket_info:
                 bracket_info[1] = j  # Set the ending position to j
                 del brackets[nr]
+
+        # We don't increase `j` before the next loop since `music_list[j]`
+        # might contain the end of a tuplet, too.
 
     new_list = []
     last = 0
@@ -955,6 +979,107 @@ def group_tuplets(music_list, events):
 
         new_list.append(tsm)
         # TODO: Handle nested tuplets!!!!
+
+    new_list.extend(music_list[last:])
+    return new_list
+
+
+def group_tremolos(music_list, events):
+    left_idx = None
+    right_idx = None
+
+    num_beams = None
+    num_strokes = None
+
+    new_list = []
+
+    last = 0
+    j = 0
+    for (ev_chord, tremolo_elt) in events:
+        while j < len(music_list):
+            if music_list[j] == ev_chord:
+                break
+            j += 1
+
+        note = tremolo_elt.get_parent().get_parent().get_parent()
+
+        if tremolo_elt.type == 'start':
+            if left_idx is not None:
+                ly.warning(_("Ignoring double-note tremolo without end"))
+
+            left_idx = j
+
+            beams = [b for b in note['beam']
+                     if b.get_type() in ('begin', 'continue')]
+            if beams:
+                num_beams = max([int(b.number) for b in beams])
+            else:
+                num_beams = 0
+            num_strokes = int(tremolo_elt.get_text())
+            # `num_strokes` must be in the range [0;8]
+            num_strokes = max(0, min(num_strokes, 8))
+
+            continue
+        else:
+            if left_idx is None:
+                ly.warning(_("Ignoring double-note tremolo without start"))
+                continue
+
+            # We take all information on a double-stem tremolo from its left
+            # element.
+            right_idx = j
+
+        # We found a double-note tremolo.
+        #
+        # Compute the values of `count` and `dur` as used in
+        #
+        #   \repeat tremolo <count> { left<dur> right<dur> }
+        dur = 1 << (2 + num_beams + num_strokes)
+
+        # We need the duration without the factor (i.e., without the
+        # possible scaling caused by tuplets).
+        length = music_list[left_idx].get_length(False) * dur / 2
+        if length.denominator > 1:
+            ly.warning(_("Strange tremolo note length encountered"))
+        count = length.numerator
+
+        # Add the factor again since `TimeScaledMusic` compensates it while
+        # emitting durations.
+        factor = (music_list[left_idx].get_length(True) * dur) / length
+        duration = musicexp.Duration.from_fraction(Fraction(1, dur))
+        duration.factor = factor
+
+        # Adjust duration of chord notes.
+        for i in [left_idx, right_idx]:
+            chord = music_list[i]
+            notes = [e for e in chord.elements
+                     if isinstance(e, musicexp.NoteEvent)]
+            for n in notes:
+                n.duration = duration
+
+        # At this point, `music_list[left_idx:right_idx]` encompasses the
+        # two notes of the double-note tremolo.  There might be dynamics
+        # following this range, however, which apply to the right note of
+        # the tremolo (this doesn't make any sense under normal
+        # circumstances, but who knows what the dynamics get used for).
+        # Advance `right_idx` to include them in the range.
+        while (right_idx < len(music_list)
+               and isinstance(music_list[right_idx], musicexp.DynamicsEvent)):
+            right_idx += 1
+
+        new_list.extend(music_list[last:left_idx])
+
+        r = musicexp.RepeatedMusic()
+        r.repeat_type = "tremolo"
+        r.repeat_count = count
+        r.tremolo_strokes = num_strokes
+        r.set_music(music_list[left_idx:(right_idx + 1)])
+
+        new_list.append(r)
+
+        last = right_idx + 1
+        left_idx = None
+        right_idx = None
 
     new_list.extend(music_list[last:])
     return new_list
@@ -1343,14 +1468,6 @@ def musicxml_tremolo_to_lily_event(mxl_event):
     return ev
 
 
-# Double-note tremolo.
-#
-# TODO: Expand this stub implementation to actually support tremolo
-#       spanners.
-def musicxml_tremolo_spanner_to_lily_event(mxl_event):
-    return musicexp.TremoloSpannerEvent()
-
-
 def musicxml_falloff_to_lily_event(mxl_event):
     ev = musicexp.BendEvent()
     ev.alter = -4
@@ -1468,7 +1585,7 @@ articulations_dict = {
     "thumb-position": "thumb",
     # "toe": "?",
     "turn": "turn",
-    "tremolo": musicxml_tremolo_to_lily_event,  # can also be a spanner
+    "tremolo": musicxml_tremolo_to_lily_event,  # only the single-note symbol
     "trill-mark": "trill",
     # "triple-tongue": "?",
     # "unstress": "?"
@@ -1527,10 +1644,11 @@ def musicxml_articulation_to_lily_event(mxl_event):
         # articulation ornaments.
         return musicxml_spanner_to_lily_event(mxl_event)
     elif name == "tremolo":
-        # `tremolo` elements might be spanners, too, if they span two notes.
+        # At this point, double-note `tremolo` elements have already been
+        # handled.
         type = mxl_event.get_type()
         if type == 'start' or type == 'stop':
-            return musicxml_tremolo_spanner_to_lily_event(mxl_event)
+            return
 
     tmp_tp = articulations_dict.get(name)
     if OrnamenthasWavyline(mxl_event):
@@ -2600,6 +2718,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
 
 
 def musicxml_voice_to_lily_voice(voice):
+    tremolo_events = []
     tuplet_events = []
     lyrics = {}
     return_value = VoiceData()
@@ -2859,6 +2978,8 @@ def musicxml_voice_to_lily_voice(voice):
                       (n, 'Note', 'Attributes', 'Barline'))
             continue
 
+        is_double_note_tremolo = False
+
 #        if not hasattr(conversion_settings, 'convert_rest_positions'):
 #            conversion_settings.convert_rest_positions = True
 
@@ -3079,6 +3200,23 @@ def musicxml_voice_to_lily_voice(voice):
                         if id in wavy_line_starts:
                             ch.start_stop = True
 
+                # Double-note tremolos.
+                #
+                # Note that LilyPond can't handle tremolo beams if a beam
+                # has already started (issue #6706); the code output by
+                # `musicxml2ly` causes warnings and incorrect rendering
+                # results that have to be resolved manually.
+                for ch in mxl_node.get_named_children('tremolo'):
+                    type = getattr(ch, 'type', None)
+                    if type == 'start' or type == 'stop':
+                        # No need to take care of `<time-modification>`
+                        # elements; we always halve the duration of the
+                        # affected notes.
+                        tremolo_events.append((ev_chord, ch))
+
+                        nonlocal is_double_note_tremolo
+                        is_double_note_tremolo = True
+
                 for ch in mxl_node.get_all_children():
                     ev = musicxml_articulation_to_lily_event(ch)
                     if ev is not None:
@@ -3125,7 +3263,8 @@ def musicxml_voice_to_lily_voice(voice):
 
         mxl_beams = [b for b in n['beam']
                      if (b.get_type() in ('begin', 'end')
-                         and b.is_primary())]
+                         and b.is_primary()
+                         and not is_double_note_tremolo)]
         if mxl_beams and not conversion_settings.ignore_beaming:
             beam_ev = musicxml_spanner_to_lily_event(mxl_beams[0])
             if beam_ev:
@@ -3155,7 +3294,8 @@ def musicxml_voice_to_lily_voice(voice):
                     sd[i].set_shift_durations_parameters(event)
                 break
 
-    ly_voice = group_tuplets(voice_builder.elements, tuplet_events)
+    ly_voice = group_tremolos(voice_builder.elements, tremolo_events)
+    ly_voice = group_tuplets(ly_voice, tuplet_events)
     ly_voice = group_repeats(ly_voice)
 
     seq_music = musicexp.SequentialMusic()
