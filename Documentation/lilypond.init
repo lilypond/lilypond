@@ -183,7 +183,7 @@ sub lilypond_format_ref {
 
     my $file = '';
     if ($args->[3]) {
-        if ($texinfo_version lt '7.0.90') {
+        if ($texinfo_version lt '7.1') {
             if (defined($args->[3]->{'monospacetext'}) and
                 $args->[3]->{'monospacetext'} ne '') {
                 $file = $args->[3]->{'monospacetext'};
@@ -220,7 +220,7 @@ sub lilypond_format_ref {
 
     my $node_content;
     my $node_file;
-    if ($texinfo_version lt '7.0.90') {
+    if ($texinfo_version lt '7.1') {
         if ($element->{'extra'} and $element->{'extra'}->{'node_argument'} and
             $element->{'extra'}->{'node_argument'}->{'node_content'}) {
             $node_content = $element->{'extra'}->{'node_argument'}->{'node_content'};
@@ -441,7 +441,7 @@ sub format_navigation_button {
         $name = lilypond_from_element_direction($converter, $direction, 'section');
     }
     my $text;
-    if ($texinfo_version lt '7.0.90') {
+    if ($texinfo_version lt '7.1') {
         $text = $converter->get_conf('BUTTONS_TEXT')->{$direction};
     } else {
         $text = $converter->direction_string($direction, 'text');
@@ -462,7 +462,7 @@ sub format_navigation_button {
     # Copied and adapted from _direction_href_attributes / _default_format_button
     my $attributes = '';
     my $description;
-    if ($texinfo_version lt '7.0.90') {
+    if ($texinfo_version lt '7.1') {
         if ($converter->get_conf('BUTTONS_GOTO')) {
             $description = $converter->get_conf('BUTTONS_GOTO')->{$direction};
         }
@@ -474,7 +474,7 @@ sub format_navigation_button {
     }
     if ($converter->get_conf('USE_ACCESSKEY')) {
         my $accesskey;
-        if ($texinfo_version lt '7.0.90') {
+        if ($texinfo_version lt '7.1') {
             if ($converter->get_conf('BUTTONS_ACCESSKEY')) {
                 $accesskey = $converter->get_conf('BUTTONS_ACCESSKEY')->{$direction};
             }
@@ -487,7 +487,7 @@ sub format_navigation_button {
     }
     if ($converter->get_conf('USE_REL_REV')) {
         my $button_rel;
-        if ($texinfo_version lt '7.0.90') {
+        if ($texinfo_version lt '7.1') {
             if ($converter->get_conf('BUTTONS_REL')) {
                 $button_rel = $converter->get_conf('BUTTONS_REL')->{$direction};
             }
