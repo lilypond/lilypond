@@ -809,8 +809,8 @@ class Note(Measure_element):
                 return Duration.from_fraction(self._duration)
             else:
                 self.message(
-                    _("Encountered note at %s without type and duration(=%s)")
-                    % (mxl_note.start, mxl_note._duration))
+                    _("Encountered note at %s without type and duration (=%s)")
+                    % (self.start, self._duration))
                 return None
 
     def initialize_pitched_event(self):
