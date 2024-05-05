@@ -45,10 +45,6 @@
 
 @itemize
 
-@item Jean Abou Samra:
-@email{jean@@abou-samra.fr}, @uref{https://jean.abou-samra.fr},
-Factotum
-
 @item Colin Campbell:
 @email{cpkc.music@@shaw.ca},
 Patch Meister
@@ -94,6 +90,10 @@ Translation Meister
 @itemize
 
 @c use colons not commas for @item entries.
+
+@item Jean Abou Samra:
+@email{jean@@abou-samra.fr}, @uref{https://jean.abou-samra.fr},
+Factotum
 
 @item Mats Bengtsson:
 @email{mats.bengtsson@@ee.kth.se},
