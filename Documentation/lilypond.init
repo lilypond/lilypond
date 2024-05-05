@@ -43,6 +43,11 @@ sub lilypond_gdt {
 }
 
 our $texinfo_version = $Texinfo::Common::VERSION;
+if ($texinfo_version lt '7.0') {
+    # Create an alias with the function name used since Texinfo 7.0, to simplify
+    # the compatibility code.
+    *texinfo_set_from_init_file = \&set_from_init_file;
+}
 
 # Compatibility function for links to Top node and navigation buttons.
 sub lilypond_from_element_direction {
@@ -61,46 +66,26 @@ our $manual_name;
 ### Set customization variables.
 # Output the Table of Contents into a separate file. We will output the tocframe
 # ourselves in lilypond_format_end_file.
-if ($texinfo_version lt '7.0') {
-    set_from_init_file('CONTENTS_OUTPUT_LOCATION', 'separate_element');
-} else {
-    texinfo_set_from_init_file('CONTENTS_OUTPUT_LOCATION', 'separate_element');
-}
+texinfo_set_from_init_file('CONTENTS_OUTPUT_LOCATION', 'separate_element');
 
 # This gives us Texinfo menus as defined in the source.
-if ($texinfo_version lt '7.0') {
-    set_from_init_file('FORMAT_MENU', 'menu');
-} else {
-    texinfo_set_from_init_file('FORMAT_MENU', 'menu');
-}
+texinfo_set_from_init_file('FORMAT_MENU', 'menu');
 
 # Remove colon after index (before Texinfo 7.1) and menu entries (Texinfo 6.8
 # and later).
-if ($texinfo_version lt '7.0') {
-    set_from_init_file('INDEX_ENTRY_COLON', '');
-    set_from_init_file('MENU_ENTRY_COLON', '');
-} else {
-    texinfo_set_from_init_file('INDEX_ENTRY_COLON', '');
-    texinfo_set_from_init_file('MENU_ENTRY_COLON', '');
-}
+texinfo_set_from_init_file('INDEX_ENTRY_COLON', '');
+texinfo_set_from_init_file('MENU_ENTRY_COLON', '');
 
 # Use (translated) section names in the indices, the menus, and in the <title>
 # for split output.
-if ($texinfo_version lt '7.0') {
-    set_from_init_file('USE_NODES', '0');
-    set_from_init_file('NODE_NAME_IN_INDEX', '0');
-    set_from_init_file('NODE_NAME_IN_MENU', '0');
-    set_from_init_file('SECTION_NAME_IN_TITLE', '1');
-} else {
-    texinfo_set_from_init_file('USE_NODES', '0');
-    texinfo_set_from_init_file('NODE_NAME_IN_INDEX', '0');
-    texinfo_set_from_init_file('NODE_NAME_IN_MENU', '0');
-    texinfo_set_from_init_file('SECTION_NAME_IN_TITLE', '1');
-}
+texinfo_set_from_init_file('USE_NODES', '0');
+texinfo_set_from_init_file('NODE_NAME_IN_INDEX', '0');
+texinfo_set_from_init_file('NODE_NAME_IN_MENU', '0');
+texinfo_set_from_init_file('SECTION_NAME_IN_TITLE', '1');
 
 # Hide the title heading, which is the default since Texinfo 7.0.
 if ($texinfo_version lt '7.0') {
-    set_from_init_file('SHOW_TITLE', '0');
+    texinfo_set_from_init_file('SHOW_TITLE', '0');
 }
 
 
@@ -311,11 +296,7 @@ foreach my $command (keys(%$ref_commands)) {
 # We could register the function format_begin_file, but since we only statically
 # need to open one <div>, it is easier with AFTER_BODY_OPEN. We keep the setting
 # here for symmetry with format_end_file.
-if ($texinfo_version lt '7.0') {
-    set_from_init_file('AFTER_BODY_OPEN', "<div id=\"main\">\n");
-} else {
-    texinfo_set_from_init_file('AFTER_BODY_OPEN', "<div id=\"main\">\n");
-}
+texinfo_set_from_init_file('AFTER_BODY_OPEN', "<div id=\"main\">\n");
 
 sub lilypond_format_tocheader {
     my $converter = shift;
