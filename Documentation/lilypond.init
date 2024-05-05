@@ -49,21 +49,7 @@ sub lilypond_from_element_direction {
     my ($converter, $direction, $type) = @_;
     if ($texinfo_version lt '7.0') {
         my $element = $converter->{'current_element'};
-        if ($type ne 'section') {
-            return $converter->_element_direction($element, $direction, $type);
-        }
-
-        # Taken from the implementation of 'section' in Texinfo 6.8.
-        my $element_target = $element->{'extra'}->{'directions'}->{$direction};
-        if (defined($element_target)) {
-            my $section = $element_target->{'extra'}->{'section'};
-            if (defined($section)) {
-                return $converter->command_text($section, 'text_nonumber');
-            }
-        }
-
-        # Fall back to asking for $type = 'node'.
-        return $converter->_element_direction($element, $direction, 'node');
+        return $converter->_element_direction($element, $direction, $type);
     } else {
         return $converter->from_element_direction($direction, $type);
     }
@@ -75,18 +61,14 @@ our $manual_name;
 ### Set customization variables.
 # Output the Table of Contents into a separate file. We will output the tocframe
 # ourselves in lilypond_format_end_file.
-if ($texinfo_version lt '6.8') {
-    set_from_init_file('INLINE_CONTENTS', '0');
-} elsif ($texinfo_version lt '7.0') {
+if ($texinfo_version lt '7.0') {
     set_from_init_file('CONTENTS_OUTPUT_LOCATION', 'separate_element');
 } else {
     texinfo_set_from_init_file('CONTENTS_OUTPUT_LOCATION', 'separate_element');
 }
 
 # This gives us Texinfo menus as defined in the source.
-if ($texinfo_version lt '6.8') {
-    set_from_init_file('SHOW_MENU', '1');
-} elsif ($texinfo_version lt '7.0') {
+if ($texinfo_version lt '7.0') {
     set_from_init_file('FORMAT_MENU', 'menu');
 } else {
     texinfo_set_from_init_file('FORMAT_MENU', 'menu');
@@ -160,13 +142,6 @@ sub lilypond_handler_init {
     my $bodytext = $converter->get_conf('BODYTEXT');
     $bodytext .= " class=\"$manual_name\"";
     $converter->set_conf('BODYTEXT', $bodytext);
-
-    if ($texinfo_version lt '6.8') {
-        my $structuring = $converter->{'structuring'};
-        foreach my $section (@{$structuring->{'sections_list'}}) {
-            $converter->{'seenmenus'}{$section->{'extra'}->{'associated_node'}} = 1;
-        }
-    }
 
     if ($texinfo_version lt '7.0') {
         return 1;
@@ -457,10 +432,6 @@ $search_box
 ";
 }
 
-our $format_end_file = 'format_end_file';
-if ($texinfo_version lt '6.8') {
-    $format_end_file = 'end_file';
-}
 sub lilypond_format_end_file {
     my ($converter, $filename) = @_;
 
@@ -474,7 +445,7 @@ $tocframe
 </html>
 ";
 }
-texinfo_register_formatting_function($format_end_file,
+texinfo_register_formatting_function('format_end_file',
                                      \&lilypond_format_end_file);
 
 
@@ -551,9 +522,7 @@ sub format_navigation_button {
 }
 
 our $format_navigation_panel = 'format_navigation_panel';
-if ($texinfo_version lt '6.8') {
-    $format_navigation_panel = 'navigation_header_panel';
-} elsif ($texinfo_version lt '7.0') {
+if ($texinfo_version lt '7.0') {
     $format_navigation_panel = 'format_navigation_header_panel';
 }
 sub lilypond_format_navigation_panel {
