@@ -2280,6 +2280,8 @@ class KeySignatureChange(Music):
         self.tonic = None
         self.mode = 'major'
         self.non_standard_alterations = None
+        self.cancel_fifths = None
+        self.cancel_location = None
         self.visible = True
 
     def format_non_standard_alteration(self, a):
@@ -2331,9 +2333,16 @@ class KeySignatureChange(Music):
 
     def key_change_to_ly(self):
         if self.tonic:
-            return (r'\key %s \%s' % (self.tonic.ly_step_expression(),
-                                      self.mode),
-                    '')
+            str = ''
+            if self.cancel_fifths:
+                # We ignore the value of `cancel_fifths`.
+                str = {'left': r'\once \set Staff.printKeyCancellation = ##t',
+                       'right': r'\cancelAfterKey',
+                       'before-barline': r'\cancelBeforeBarline'
+                       }.get(self.cancel_location, '')
+            return (str,
+                    r'\key %s \%s' % (self.tonic.ly_step_expression(),
+                                      self.mode))
         elif self.non_standard_alterations:
             alterations = [self.format_non_standard_alteration(a) for
                            a in self.non_standard_alterations]

@@ -189,6 +189,50 @@ hideNote =
   \\tweak Accidental.transparent ##t
   \\tweak Rest.transparent ##t
   \\tweak TabNoteHead.transparent ##t \\etc
+""",
+
+    "insert-before": """\
+#(define (insert-before where what lst)
+   (cond ((null? lst)
+          (list what))
+         ((eq? where (car lst))
+          (cons what lst))
+         (else
+          (cons (car lst) (insert-before where what (cdr lst))))))
+""",
+
+    "cancel-before-barline": """\
+cancelBeforeBarline = {
+  \\once \\set Staff.printKeyCancellation = ##t
+  \\once \\override Score.BreakAlignment.break-align-orders =
+  #(grob-transformer
+    'break-align-orders
+    (lambda (grob orig)
+      (let* ((middle (vector-ref orig 1))
+             (middle (delq 'key-cancellation middle))
+             (middle (insert-before 'staff-bar 'key-cancellation middle)))
+        (vector
+         (vector-ref orig 0)
+         middle
+         (vector-ref orig 2)))))
+}
+""",
+
+    "cancel-after-key": """\
+cancelAfterKey = {
+  \\once \\set Staff.printKeyCancellation = ##t
+  \\once \\override Score.BreakAlignment.break-align-orders =
+  #(grob-transformer
+    'break-align-orders
+    (lambda (grob orig)
+      (let* ((middle (vector-ref orig 1))
+             (middle (delq 'key-signature middle))
+             (middle (insert-before 'key-cancellation 'key-signature middle)))
+        (vector
+         (vector-ref orig 0)
+         middle
+         (vector-ref orig 2)))))
+}
 """
 }
 
@@ -960,6 +1004,7 @@ def musicxml_key_to_lily(attributes):
     if not key_signature:
         ly.warning(_("Unable to extract key signature!"))
         return None
+    layout_information.set_context_item('Staff', 'printKeyCancellation = ##f')
 
     (key_sig, visible) = key_signature
 
@@ -1010,6 +1055,19 @@ def musicxml_key_to_lily(attributes):
             k[0] = musicxml2ly_conversion.musicxml_step_to_lily(k[0])
             alterations.append(k)
         change.non_standard_alterations = alterations
+
+    cancel = attributes.get_cancellation()
+    if cancel:
+        (change.cancel_fifths, change.cancel_location) = cancel
+
+        if change.cancel_location != 'left':
+            needed_additional_definitions.append('insert-before')
+
+        if change.cancel_location == 'before-barline':
+            needed_additional_definitions.append('cancel-before-barline')
+        elif change.cancel_location == 'right':
+            needed_additional_definitions.append('cancel-after-key')
+
     return change
 
 

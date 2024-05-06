@@ -575,7 +575,6 @@ class Attributes(Measure_element):
         alter, octave], [step, alter, octave], ...]` where the `octave`
         values are optional.
         """
-
         key = self.get_named_attribute('key')
         if not key:
             return None
@@ -591,7 +590,7 @@ class Attributes(Measure_element):
             if not mode or mode == '':
                 mode = 'major'
             fifths = int(fifths_elm.get_text())
-            # TODO: Shall we try to convert the key-octave and the cancel, too?
+            # TODO: Shall we try to convert the key-octave, too?
             key_sig = (fifths, mode)
         else:
             alterations = []
@@ -615,6 +614,18 @@ class Attributes(Measure_element):
             key_sig = alterations
 
         return (key_sig, visible)
+
+    def get_cancellation(self):
+        key = self.get_named_attribute('key')
+        if not key:
+            return None
+        cancel_elm = key.get_maybe_exist_named_child('cancel')
+        if cancel_elm:
+            cancel = int(cancel_elm.get_text())
+            location = getattr(cancel_elm, 'location', 'left')
+            return (cancel, location)
+        else:
+            return None
 
     def get_transposition(self):
         return self.get_named_attribute('transpose')
