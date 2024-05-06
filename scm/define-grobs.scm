@@ -1893,6 +1893,7 @@ before a @iref{KeySignature} grob if the key changes.")))))
         (sharp-positions . (4 5 4 2 3 2 3))
         (space-alist . (
                         (ambitus . (extra-space . 1.15))
+                        (key-cancellation . (extra-space . 0.3))
                         (time-signature . (extra-space . 1.15))
                         (signum-repetitionis . (extra-space . 1.1))
                         (staff-bar . (extra-space . 1.1))
