@@ -6,7 +6,7 @@ This directory contains scripts to build and package binaries of LilyPond.
 Usage
 -----
 
-1. Download and build all dependencies using `./build-dependencies`.
+1. Download and build all dependencies using `./build-dependencies`. 
 2. Build and package LilyPond by running `./build-lilypond <lilypond-X.Y.Z.tar.gz>`.
    The tarball may either be an official one or created via `make dist` for local testing.
 
@@ -27,6 +27,12 @@ Additionally, you need a few tools to build the dependencies:
 
 They should be available for the distribution you use, but some may not be recent enough.
 For `meson` in particular, try installing the latest version with `pip`.
+
+Mingw peculiarities
+-------------------
+
+In order to do cross-compilation to mingw, a previous successful Linux build is necessary,
+because Guile needs to bootstrap itself, which is not possible when host and target system differ.
 
 Goals and Non-Goals
 -------------------
