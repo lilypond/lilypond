@@ -181,7 +181,8 @@ steps.  Put it into a directory for the final upload step.
 
 @subheading Building the binaries and documentation
 
-These steps can be run in any order, or in parallel.
+These steps can be run in any order, or in parallel, with the exception of the
+Windows (mingw) build, that needs a run of the Linux build before.
 
 @itemize
 @item
