@@ -56,7 +56,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><text>slash, no stem</text></lyric>
+        <lyric number="1"><text>slash,</text></lyric>
+        <lyric number="2"><text>no stem |</text></lyric>
       </note>
       <note>
         <pitch>
@@ -87,7 +88,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><text>slash, with stem</text></lyric>
+        <lyric number="1"><text>slash,</text></lyric>
+        <lyric number="2"><text>with stem |</text></lyric>
       </note>
     </measure>
     <!--=======================================================-->
@@ -116,7 +118,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><text>hidden notes</text></lyric>
+        <lyric number="1"><text>hidden</text></lyric>
+        <lyric number="2"><text>notes |</text></lyric>
       </note>
       <note print-object="no">
         <pitch>
@@ -140,7 +143,8 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><text>hidden notes, staff lines</text></lyric>
+        <lyric number="1"><text>hidden notes,</text></lyric>
+        <lyric number="2"><text>hidden staff lines |</text></lyric>
       </note>
     </measure>
     <measure number="3">
@@ -166,7 +170,8 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>half</type>
-        <lyric number="1"><text>normal settings restored</text></lyric>
+        <lyric number="1"><text>normal</text></lyric>
+        <lyric number="2"><text>settings restored |</text></lyric>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
