@@ -2430,7 +2430,7 @@ class TimeSignatureChange(Music):
 
     def ly_expression(self):
         st = ''
-        # Print out the style if we have ome, but the '() should only be
+        # Print out the style if we have one, but the '() should only be
         # forced for 2/2 or 4/4, since in all other cases we'll get numeric
         # signatures anyway despite the default 'C signature style!
         is_common_signature = self.fractions in ([2, 2], [4, 4], [4, 2])
@@ -2439,7 +2439,7 @@ class TimeSignatureChange(Music):
                 st = r"\defaultTimeSignature"
             elif self.style != "'()":
                 st = (r"\once \override Staff.TimeSignature.style "
-                      "= #%s " % self.style)
+                      '= #%s' % self.style)
             elif self.style != "'()" or is_common_signature:
                 st = r"\numericTimeSignature"
 
@@ -2450,14 +2450,14 @@ class TimeSignatureChange(Music):
 
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
         if len(self.fractions) == 2 and isinstance(self.fractions[0], int):
-            return st + r'\time %d/%d ' % tuple(self.fractions) + omit
+            time = r'\time %d/%d' % tuple(self.fractions)
+            return ' '.join(filter(None, [st, time, omit]))
         elif self.fractions:
-            return (st
-                    + r"\compoundMeter #'%s"
-                      % self.format_fraction(self.fractions)
-                    + omit)
+            compound = (r"\compoundMeter #'%s"
+                        % self.format_fraction(self.fractions))
+            return ' '.join(filter(None, [st, compound, omit]))
         else:
-            return st + ''
+            return st
 
 
 class ClefChange(Music):
