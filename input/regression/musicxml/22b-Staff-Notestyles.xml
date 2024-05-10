@@ -43,7 +43,9 @@
       </note>
       <attributes>
         <measure-style>
-          <slash type="start" use-stems="no"/>
+          <slash type="start" use-stems="no">
+            <slash-type>quarter</slash-type>
+          </slash>
         </measure-style>
       </attributes>
       <note>
@@ -67,10 +69,14 @@
       </note>
       <attributes>
         <measure-style>
-          <slash type="stop"/>
+          <slash type="stop">
+            <slash-type>quarter</slash-type>
+          </slash>
         </measure-style>
         <measure-style>
-          <slash type="start" use-stems="yes"/>
+          <slash type="start" use-stems="yes">
+            <slash-type>quarter</slash-type>
+          </slash>
         </measure-style>
       </attributes>
       <note>
@@ -97,7 +103,9 @@
       </note>
       <attributes>
         <measure-style>
-          <slash type="stop"/>
+          <slash type="stop">
+            <slash-type>quarter</slash-type>
+          </slash>
         </measure-style>
       </attributes>
       <note print-object="no">
