@@ -18,7 +18,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#  Build html versions of sections of lilypond documentation
+#  Build HTML versions of sections of LilyPond documentation
 #
 #  Usage:  ./doc-section.sh MANUAL SECTION
 #
@@ -34,8 +34,7 @@
 #  At the end of the run, the user is prompted whether or not to
 #  remove the generated files.
 #
-#  According to https://sourceforge.net/p/testlilyissues/issues/1236/
-#  the location of the lilypond git tree is taken from $LILYPOND_GIT
+#  The location of the LilyPond git tree is taken from $LILYPOND_GIT
 #  if specified, otherwise it is auto-detected.
 #
 #  It is assumed that compilation takes place in the build/
@@ -93,7 +92,7 @@ fi
 : "${LILYPOND_BUILD_DIR:=$LILYPOND_GIT/build}"
 DOC_DIR="${LILYPOND_TEMPDOCS:-$LILYPOND_BUILD_DIR/tempdocs}"
 LILYPOND_BOOK="$LILYPOND_BUILD_DIR/out/bin/lilypond-book"
-TEXI2HTML="texi2html"
+TEXI2ANY="texi2any"
 REFCHECK="$LILYPOND_GIT/scripts/auxiliar/ref_check.py"
 
 MANUAL="$1"
@@ -104,6 +103,11 @@ SECTION_PATH="$MANUAL_PATH/$SECTION.itely"
 
 if test ! -d "$LILYPOND_BUILD_DIR"; then
     echo "$LILYPOND_BUILD_DIR did not exist; check your setting of LILYPOND_BUILD_DIR. Aborting." >&2
+    exit 1
+fi
+
+if test ! -x "$LILYPOND_BOOK"; then
+    echo "$LIYPOND_BOOK did not exist; did you configure and compile LilyPond?" >&2
     exit 1
 fi
 
@@ -124,9 +128,13 @@ fi
 if test ! -d "$OUTPUT_DIR/out"; then
     mkdir -p "$OUTPUT_DIR/out"
 fi
+if test ! -d "$OUTPUT_DIR/en"; then
+    mkdir -p "$OUTPUT_DIR/en"
+fi
 
-cp "$LILYPOND_GIT/Documentation/en/common-macros.itexi" "$OUTPUT_DIR/common-macros.itexi"
-cp "$LILYPOND_GIT/Documentation/en/macros.itexi" "$DOC_DIR/macros.itexi"
+cp "$LILYPOND_GIT/Documentation/en/common-macros.itexi" "$OUTPUT_DIR/en/common-macros.itexi"
+cp "$LILYPOND_GIT/Documentation/en/cyrillic.itexi" "$OUTPUT_DIR/en/cyrillic.itexi"
+cp "$LILYPOND_GIT/Documentation/en/macros.itexi" "$DOC_DIR/en/macros.itexi"
 cp "$DOC_DIR/version.itexi" "$OUTPUT_DIR/version.itexi"
 cp -r "$LILYPOND_GIT/Documentation/pictures/" "$OUTPUT_DIR/out/pictures"
 
@@ -158,12 +166,14 @@ python3 "$REFCHECK"
 
 cd "$DOC_DIR"
 if test -f "$OUTPUT_DIR/out/$SECTION.texi"; then
-    echo "Running $TEXI2HTML"
+    echo "Running $TEXI2ANY --html"
     cat "$DOC_DIR/macros.itexi" "$OUTPUT_DIR/out/$SECTION.texi" > "$OUTPUT_DIR/$SECTION.texi"
-    "$TEXI2HTML" \
+    "$TEXI2ANY" \
+        --html \
         --no-validate \
+        --no-split \
         --output="$OUTPUT_DIR/out/$SECTION.html" \
-        --I="$OUTPUT_DIR/out" \
+        -I="$OUTPUT_DIR/out" \
         "$OUTPUT_DIR/$SECTION.texi"
 fi
 

@@ -18,7 +18,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#  Build html versions of sections of LilyPond Contributor's Guide
+#  Build HTML versions of sections of LilyPond Contributor's Guide
 #
 #  Usage:  ./cg-section.sh SECTION
 #
@@ -42,9 +42,10 @@
 
 usage () {
     cat <<EOF >&2
-Usage: $0 SECTION
 
+Usage: $0 SECTION
 e.g. $0 doc-work
+
 EOF
     exit "$1"
 }
@@ -64,6 +65,13 @@ else
     echo "\$LILYPOND_GIT was not set; auto-detected source tree at $LILYPOND_GIT"
 fi
 
+if [ -n "$BROWSER" ]; then
+    echo "Using browser from \$BROWSER: $BROWSER"
+else
+    echo "\$BROWSER not set; using firefox as default"
+    BROWSER="firefox"
+fi
+
 if test ! -e "$LILYPOND_GIT/DEDICATION"; then
     echo "Error: $LILYPOND_GIT did not look like a LilyPond source tree; aborting." >&2
     exit 1
@@ -72,12 +80,22 @@ fi
 : "${LILYPOND_BUILD_DIR:=$LILYPOND_GIT/build}"
 DOC_DIR="${LILYPOND_TEMPDOCS:-$LILYPOND_BUILD_DIR/tempdocs}"
 LILYPOND_BOOK="$LILYPOND_BUILD_DIR/out/bin/lilypond-book"
-TEXI2HTML="texi2html"
+TEXI2ANY="texi2any"
 REFCHECK="$LILYPOND_GIT/scripts/auxiliar/ref_check.py"
 
 SECTION="$1"
 OUTPUT_DIR="$DOC_DIR/contributor"
 SECTION_PATH="$LILYPOND_GIT/Documentation/en/contributor/$SECTION.itexi"
+
+if test ! -d "$LILYPOND_BUILD_DIR"; then
+    echo "$LILYPOND_BUILD_DIR did not exist; check your setting of LILYPOND_BUILD_DIR. Aborting." >&2
+    exit 1
+fi
+
+if test ! -x "$LILYPOND_BOOK"; then
+    echo "$LIYPOND_BOOK did not exist; did you configure and compile LilyPond?" >&2
+    exit 1
+fi
 
 if test ! -e "$SECTION_PATH"; then
     echo "$SECTION_PATH did not exist; is $SECTION a valid section in the Contributor's Guide?" >&2
@@ -87,9 +105,12 @@ fi
 if test ! -d "$OUTPUT_DIR/out"; then
     mkdir -p "$OUTPUT_DIR/out"
 fi
+if test ! -d "$OUTPUT_DIR/en"; then
+    mkdir -p "$OUTPUT_DIR/en"
+fi
 
-cp "$LILYPOND_GIT/Documentation/en/common-macros.itexi" "$OUTPUT_DIR/common-macros.itexi"
-cp "$LILYPOND_GIT/Documentation/en/macros.itexi" "$DOC_DIR/macros.itexi"
+cp "$LILYPOND_GIT/Documentation/en/common-macros.itexi" "$OUTPUT_DIR/en/common-macros.itexi"
+cp "$LILYPOND_GIT/Documentation/en/cyrillic.itexi" "$OUTPUT_DIR/en/cyrillic.itexi"
 cp "$LILYPOND_BUILD_DIR/Documentation/out/version.itexi" "$OUTPUT_DIR"
 
 if test -e "$OUTPUT_DIR/$SECTION.html"; then
@@ -104,21 +125,22 @@ echo "Running RefCheck"
 python3 "$REFCHECK"
 
 cd "$DOC_DIR"
-echo "Running $TEXI2HTML"
+echo "Running $TEXI2ANY --html"
 cat "$DOC_DIR/macros.itexi" "$SECTION_PATH" > "$OUTPUT_DIR/$SECTION.texi"
-
-"$TEXI2HTML" \
+"$TEXI2ANY" \
+    --html \
     --no-validate \
+    --no-split \
     --output="$OUTPUT_DIR/out/$SECTION.html" \
-    --I="$LILYPOND_GIT/Documentation" \
-    --I="$OUTPUT_DIR/out" \
+    -I="$LILYPOND_GIT/Documentation" \
+    -I="$OUTPUT_DIR/out" \
     "$OUTPUT_DIR/$SECTION.texi"
 
+echo "Displaying output in $BROWSER; close browser window when done."
+
+$BROWSER $OUTPUT_DIR/out/$SECTION.html
+
 cat <<EOF
-
-The $SECTION section of the Contributor's Guide should now be viewable at
-
-  $OUTPUT_DIR/out/$SECTION.html
 
 If you want to keep the generated docs around for a while, answer
 'n' to the next question.  If you only needed them to quickly check
@@ -126,7 +148,8 @@ something, view them now and then answer 'y' when you're done.
 
 EOF
 
-read -p "rm -rf $OUTPUT_DIR ? (y/n): "
+echo "Delete temp files? [y/n]"
+read REPLY;
 if [ "$REPLY" = "y" ]; then
     echo "deleting files"
     rm -rf "$OUTPUT_DIR"
