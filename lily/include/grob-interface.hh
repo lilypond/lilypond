@@ -26,37 +26,42 @@
 class Grob;
 
 #define ADD_INTERFACE(cl, b, c)                                                \
+  Grob_interface<cl> cl##_interface_initializer;                               \
   template <>                                                                  \
-  Grob_interface<cl> Grob_interface<cl>::instance_                             \
-    = (add_scm_init_func (                                                     \
-         [] { Grob_interface<cl>::instance_.add_interface (#cl, b, c); }),     \
-       Grob_interface<cl> ())
+  char const *Grob_interface<cl>::cxx_name_ (#cl);                             \
+  template <>                                                                  \
+  char const *Grob_interface<cl>::description_ (b);                            \
+  template <>                                                                  \
+  char const *Grob_interface<cl>::variables_ (c);
+
+SCM add_interface (char const *cxx_name, char const *descr, char const *vars);
 
 SCM ly_add_interface (SCM, SCM, SCM);
 void internal_add_interface (SCM, SCM, SCM);
 SCM ly_all_grob_interfaces ();
 
-class Grob_interface_base
+template <class Interface>
+class Grob_interface
 {
-protected:
-  Protected_scm interface_symbol_;
+public:
+  Grob_interface () { add_scm_init_func (Grob_interface::init); }
 
-protected:
-  void add_interface (char const *cxx_name, char const *descr,
-                      char const *vars);
+  static SCM symbol_scm () { return interface_symbol_; }
+
+private:
+  static void init ()
+  {
+    interface_symbol_ = ::add_interface (cxx_name_, description_, variables_);
+  }
+
+private:
+  static Protected_scm interface_symbol_;
+  static char const *cxx_name_;
+  static char const *description_;
+  static char const *variables_;
 };
 
 template <class Interface>
-class Grob_interface : private Grob_interface_base
-{
-public:
-  static SCM symbol_scm () { return instance_.interface_symbol_; }
-
-private:
-  Grob_interface () = default;
-
-private:
-  static Grob_interface instance_;
-};
+Protected_scm Grob_interface<Interface>::interface_symbol_;
 
 #endif /* GROB_INTERFACE_HH */

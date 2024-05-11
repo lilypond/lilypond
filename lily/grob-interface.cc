@@ -26,9 +26,8 @@
 #include "warn.hh"
 #include "misc.hh"
 
-void
-Grob_interface_base::add_interface (char const *cxx_name, char const *descr,
-                                    char const *vars)
+SCM
+add_interface (char const *cxx_name, char const *descr, char const *vars)
 {
   std::string suffix ("-interface");
   std::string lispy_name = camel_case_to_lisp_identifier (cxx_name);
@@ -44,7 +43,7 @@ Grob_interface_base::add_interface (char const *cxx_name, char const *descr,
 
   internal_add_interface (s, d, l);
 
-  interface_symbol_ = s;
+  return s;
 }
 
 void
