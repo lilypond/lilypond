@@ -551,8 +551,8 @@ class Attributes(Measure_element):
     # Return clef information in the form `("cleftype", position,
     # octave-shift, print-object)`.
     def get_clef_information(self):
-        clefinfo = ['G', 2, 0, True]
-        mxl = self.get_named_attribute('clef')
+        clefinfo = [None, None, None, True]
+        mxl = self.get_maybe_exist_named_child('clef')
         if not mxl:
             return clefinfo
         sign = mxl.get_maybe_exist_named_child('sign')

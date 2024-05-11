@@ -2467,6 +2467,7 @@ class Clef_StaffLinesEvent(Music):
         self.position = None
         self.octave = None
         self.lines = None
+        self.line_details = None
         self.visible = True
 
     def octave_modifier(self):
@@ -2492,40 +2493,71 @@ class Clef_StaffLinesEvent(Music):
     }
 
     def ly_expression(self):
-        if self.type in self.supported_clefs:
-            clef_name = self.lily_clef_dict.get((self.type, self.position),
-                                                None)
-            if clef_name == 'tab':
-                clef_name = get_tab_clef()
-            elif not clef_name:
-                ly.warning(_("Non-standard clef positions are not supported "
-                             "yet, using 'treble' instead"))
-                clef_name = 'treble'
-        else:
-            if self.type == 'none':
-                # Deprecated in MusicXML version 4.0.
-                clef_name = 'treble'
-            else:
-                ly.warning(_("Unsupported clef '%s', using 'treble' instead")
-                           % self.type)
-                clef_name = 'treble'
+        clef = None
+        lines = None
+        details = None
 
-        pre = ''
-        post = ''
-        clef = ''
-        if self.lines is not None:
-            if self.lines != 5:
-                pre = r'\stopStaff'
-                post = (r'\override Staff.StaffSymbol.line-count '
-                        r'= #%s \startStaff' % self.lines)
-            else:
-                pre = r'\stopStaff'
-                post = (r'\revert Staff.StaffSymbol.line-count '
-                        r'\startStaff')
         if self.type is not None:
-            clef = r'\clef "%s%s"' % (clef_name, self.octave_modifier())
+            if not self.position:
+                # Set default position.
+                self.position = {'G': 2,
+                                 'F': 4,
+                                 'C': 3,
+                                 'percussion': 2,
+                                 'PERC': 2}.get(self.type, None)
 
-        return ' '.join(filter(None, [pre, clef, post]))
+            if self.type in self.supported_clefs:
+                clef_name = self.lily_clef_dict.get((self.type, self.position),
+                                                    None)
+                if clef_name == 'tab':
+                    clef_name = get_tab_clef()
+                elif not clef_name:
+                    ly.warning(_("Non-standard clef positions are not "
+                                 "supported yet, using 'treble' instead"))
+                    clef_name = 'treble'
+            else:
+                if self.type == 'none':
+                    # Deprecated in MusicXML version 4.0.
+                    clef_name = 'treble'
+                else:
+                    ly.warning(_("Unsupported clef '%s', "
+                                 "using 'treble' instead") % self.type)
+                    clef_name = 'treble'
+
+            clef = r'%s%s' % (clef_name, self.octave_modifier())
+
+        if self.lines is None:
+            lines = 5
+        else:
+            lines = self.lines
+
+        # TODO: Also handle `line-type` and `color` attributes of the
+        #       `<line-detail>` element, which unfortunately needs a much
+        #       more convoluted solution because LilyPond lacks direct
+        #       support (see LSR snippets #700 and #880).
+        use_line_details = False
+        if self.line_details is not None:
+            default_lines = list(range(1, lines + 1))
+            staff_lines = [e for e in default_lines
+                           if e not in self.line_details
+                               or self.line_details[e] != 'no']
+            if staff_lines != default_lines:
+                use_line_details = True
+        if use_line_details:
+            details = ' '.join(map(str, staff_lines))
+
+        # LilyPond handles a 'percussion' clef similar to an alto clef; we
+        # thus use `\staffLines` for this clef to get the right vertical
+        # offset.
+        if (clef is not None and clef != 'percussion'
+                and self.lines is None and details is None):
+            return r'\clef "%s"' % clef
+        if clef is None:
+            clef = ''
+        if details is None:
+            return r'\staffLines "%s" %s' % (clef, lines)
+        else:
+            return r'''\staffLines #'(%s) "%s" %s''' % (details, clef, lines)
 
     clef_dict = {
         "G": ("clefs.G", -2, -6),

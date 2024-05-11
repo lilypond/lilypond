@@ -233,6 +233,72 @@ cancelAfterKey = {
          middle
          (vector-ref orig 2)))))
 }
+""",
+
+    "staff-lines": """\
+% Change the number of staff lines to `num-lines`.
+%
+% The argument `clef` makes the function emit a clef with the given
+% name.  If `clef` contains the substring `"percussion"` or `"tab"`,
+% use both even and odd staff line positions.  If set to `""`, do the
+% same but don't set `Staff.clefPosition` (which means that no clef
+% gets triggered).  If `clef` is set to any other value, use even
+% staff line positions only and set `Staff.clefPosition`, which
+% triggers a clef if its value changes.
+%
+% The optional argument `lines` is a list of staff line numbers that
+% should be displayed.  An empty list suppresses any display of staff
+% lines; omitting the argument means to display all lines.
+%
+% \\staffLines [<lines>] <clef> <num-lines>
+
+staffLines =
+#(define-music-function (lines clef num-lines)
+                        ((number-list?) string? index?)
+   (let* ((lines (or lines (iota num-lines 1)))
+          (only-even-pos (not (or (equal? clef "")
+                                  (string-contains clef "percussion")
+                                  (string-contains clef "tab"))))
+          (offset (if only-even-pos
+                      (if (even? num-lines) 1 0)
+                      0))
+          ;; MusicXML counts staff lines from the bottom.
+          (delta (- -1 num-lines offset))
+          (positions (filter (lambda (x) (<= x num-lines))
+                             lines))
+          (positions (map (lambda (x) (+ delta (* x 2)))
+                      positions)))
+     #{
+       \\stopStaff
+
+       #(if (equal? clef "")
+            #{
+              \\unset Staff.middleCPosition
+              \\unset Staff.middleCClefPosition
+              % To suppress the clef inserted by default by LilyPond at the
+              % beginning of a piece.
+              \\once \\omit Staff.Clef
+            #}
+            #{ \\clef #clef #})
+
+       \\override Staff.StaffSymbol.line-positions = #positions
+
+       \\applyContext
+       #(lambda (ctx)
+          (let* ((c (ly:context-find ctx 'Staff))
+                 (clef-p (ly:context-property c 'clefPosition))
+                 (middle-c-p (ly:context-property c 'middleCPosition))
+                 (middle-c-clef-p (ly:context-property c 'middleCClefPosition))
+                 (use-offset (not (string-contains clef "percussion")))
+                 (delta (+ delta (if use-offset 6 0))))
+            (when only-even-pos
+              (ly:context-set-property! c 'clefPosition (+ clef-p delta))
+              (ly:context-set-property! c 'forceClef #t))
+            (ly:context-set-property! c 'middleCPosition (+ middle-c-p delta))
+            (ly:context-set-property! c 'middleCClefPosition
+                                      (+ middle-c-clef-p delta))))
+       \\startStaff
+     #}))
 """
 }
 
@@ -535,41 +601,29 @@ def staff_attributes_to_lily_staff(mxl_attr):
 
     (staff_id, attributes) = list(mxl_attr.items())[0]
 
-    # distinguish by clef:
-    # percussion(percussion and rhythmic), tab, and everything else
+    # We only distinguish between `TabStaff` and `Staff`.  Changing from a
+    # tablature to a normal staff (and vice versa) in the middle of a piece
+    # is allowed by MusicXML, but let's simplify the code by not supporting
+    # such peculiarities.
+    #
+    # Note that we can't use `RhythmicStaff` or `DrumStaff`.  For the
+    # former, there is no guarantee that notes are always placed on its
+    # single staff line (which `RhythmicStaff` enforces).  For the latter,
+    # MusicXML doesn't provide a set of pre-defined 'drums' that could be
+    # used in `\drummode`, and `DrumStaff` also squeezes normal pitches to
+    # be positioned on its middle staff line.
     clef_sign = None
     clef = attributes.get_maybe_exist_named_child('clef')
     if clef:
         sign = clef.get_maybe_exist_named_child('sign')
         if sign:
-            clef_sign = {"percussion": "percussion",
-                         "TAB": "tab"}.get(sign.get_text(), None)
+            clef_sign = sign.get_text()
 
-    lines = 5
-    details = attributes.get_named_children('staff-details')
-    for d in details:
-        staff_lines = d.get_maybe_exist_named_child('staff-lines')
-        if staff_lines:
-            lines = int(staff_lines.get_text())
-
-    # TODO: Handle other staff attributes like staff-space, etc.
-
-    staff = None
-    if clef_sign == "percussion" and lines == 1:
-        staff = musicexp.RhythmicStaff()
-    elif clef_sign == "percussion":
-        staff = musicexp.DrumStaff()
-        # staff.drum_style_table = ???
-    elif clef_sign == "tab":
+    if clef_sign == 'TAB':
         staff = musicexp.TabStaff()
         staff.string_tunings = staff_attributes_to_string_tunings(attributes)
-        # staff.tablature_format = ???
     else:
         staff = musicexp.Staff()
-        # TODO: Handle case with lines != 5!
-        if lines != 5:
-            staff.add_context_modification(
-                r"\override StaffSymbol.line-count = #%s" % lines)
 
     return staff
 
@@ -596,8 +650,8 @@ def extract_score_structure(part_list, staffinfo):
     def read_score_part(el):
         if not isinstance(el, musicxml.Score_part):
             return
-        # Depending on the attributes of the first measure, we create different
-        # types of staves (Staff, RhythmicStaff, DrumStaff, TabStaff, etc.)
+        # Depending on the attributes of the first measure we create
+        # different types of staves (`Staff` or `TabStaff`).
         staff = staff_attributes_to_lily_staff(staffinfo.get(el.id, None))
         if not staff:
             return None
@@ -1156,6 +1210,19 @@ def musicxml_clef_staff_details_to_lily(attributes):
         stafflines = details.get_maybe_exist_named_child('staff-lines')
         if stafflines:
             ev.lines = int(stafflines.get_text())
+
+            # TODO: Handle `color`, `line-type`.
+            line_details = details.get_named_children('line-detail')
+            if line_details:
+                ev.line_details = {}
+                for line_detail in line_details:
+                    line = int(getattr(line_detail, 'line', 1))
+                    print_object = getattr(line_detail, 'print-object', 'yes')
+                    ev.line_details[line] = print_object
+
+    # The percussion clef is a special case.
+    if ev.type == 'percussion' or ev.type == 'PERC' or details:
+        needed_additional_definitions.append('staff-lines')
 
     return ev
 
