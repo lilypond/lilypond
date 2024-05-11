@@ -2460,12 +2460,13 @@ class TimeSignatureChange(Music):
             return st
 
 
-class ClefChange(Music):
+class Clef_StaffLinesEvent(Music):
     def __init__(self):
         Music.__init__(self)
-        self.type = 'G'
-        self.position = 2
-        self.octave = 0
+        self.type = None
+        self.position = None
+        self.octave = None
+        self.lines = None
         self.visible = True
 
     def octave_modifier(self):
@@ -2509,7 +2510,22 @@ class ClefChange(Music):
                            % self.type)
                 clef_name = 'treble'
 
-        return r'\clef "%s%s"' % (clef_name, self.octave_modifier())
+        pre = ''
+        post = ''
+        clef = ''
+        if self.lines is not None:
+            if self.lines != 5:
+                pre = r'\stopStaff'
+                post = (r'\override Staff.StaffSymbol.line-count '
+                        r'= #%s \startStaff' % self.lines)
+            else:
+                pre = r'\stopStaff'
+                post = (r'\revert Staff.StaffSymbol.line-count '
+                        r'\startStaff')
+        if self.type is not None:
+            clef = r'\clef "%s%s"' % (clef_name, self.octave_modifier())
+
+        return ' '.join(filter(None, [pre, clef, post]))
 
     clef_dict = {
         "G": ("clefs.G", -2, -6),
@@ -2586,22 +2602,6 @@ class OmitEvent(Music):
         if self.undo:
             undo_str = r'\undo '
         return r'%s\omit %s' % (undo_str, self.context_prop)
-
-
-class StaffLinesEvent(Music):
-    def __init__(self, lines):
-        Music.__init__(self)
-        self.lines = lines
-
-    def ly_expression(self):
-        if self.lines > 0:
-            return (r"\stopStaff "
-                    r"\override Staff.StaffSymbol.line-count "
-                    r"= #%s \startStaff" % self.lines)
-        else:
-            return (r"\stopStaff "
-                    r"\revert Staff.StaffSymbol.line-count "
-                    r"\startStaff")
 
 
 class MeasureStyleEvent(Music):
@@ -3235,7 +3235,7 @@ def test_expr():
     evc.insert_around(None, n, 0)
     m.insert_around(None, evc, 0)
 
-    evc = ClefChange()
+    evc = Clef_StaffLinesEvent()
     evc.type = 'treble'
     m.insert_around(None, evc, 0)
 

@@ -1144,11 +1144,20 @@ def group_tremolos(music_list, events):
     return new_list
 
 
-def musicxml_clef_to_lily(attributes):
-    change = musicexp.ClefChange()
-    (change.type, change.position, change.octave, change.visible) = \
+def musicxml_clef_staff_details_to_lily(attributes):
+    ev = musicexp.Clef_StaffLinesEvent()
+
+    (ev.type, ev.position, ev.octave, ev.visible) = \
         attributes.get_clef_information()
-    return change
+
+    details = attributes.get_maybe_exist_named_child('staff-details')
+    if details:
+        # TODO: Handle staff-type, staff-tuning, capo, staff-size
+        stafflines = details.get_maybe_exist_named_child('staff-lines')
+        if stafflines:
+            ev.lines = int(stafflines.get_text())
+
+    return ev
 
 
 def musicxml_time_to_lily(attributes):
@@ -1288,23 +1297,6 @@ def musicxml_transpose_to_lily(attributes):
     return transposition
 
 
-def musicxml_staff_details_to_lily(attributes):
-    details = attributes.get_maybe_exist_named_child('staff-details')
-    if not details:
-        return None
-
-    # TODO: Handle staff-type, staff-lines, staff-tuning, capo, staff-size
-    ret = []
-
-    stafflines = details.get_maybe_exist_named_child('staff-lines')
-    if stafflines:
-        lines = int(stafflines.get_text())
-        lines_event = musicexp.StaffLinesEvent(lines)
-        ret.append(lines_event)
-
-    return ret
-
-
 def musicxml_measure_style_to_lily(attributes):
     details = attributes.get_named_children('measure-style')
     if not details:
@@ -1330,18 +1322,29 @@ def musicxml_measure_style_to_lily(attributes):
 
 def musicxml_attributes_to_lily(attrs):
     elts = []
+    # We handle `<clef>` and `<staff-details>` together for technical
+    # reasons.
     attr_dispatch = [
-        ('clef', musicxml_clef_to_lily),
+        (('clef', 'staff-details'), musicxml_clef_staff_details_to_lily),
         ('time', musicxml_time_to_lily),
         ('key', musicxml_key_to_lily),
         ('transpose', musicxml_transpose_to_lily),
-        ('staff-details', musicxml_staff_details_to_lily),
         ('measure-style', musicxml_measure_style_to_lily),
     ]
     for (k, func) in attr_dispatch:
-        children = attrs.get_named_children(k)
-        if children:
-            ev = func(attrs)
+        f = None
+        if type(k) == tuple:
+            children1 = attrs.get_named_children(k[0])
+            children2 = attrs.get_named_children(k[1])
+            if children1 or children2:
+                f = func
+        else:
+            children = attrs.get_named_children(k)
+            if children:
+                f = func
+
+        if f:
+            ev = f(attrs)
             if isinstance(ev, list):
                 elts.extend(ev)
             elif ev:
@@ -3002,7 +3005,7 @@ def musicxml_voice_to_lily_voice(voice):
 
                     key_visible = key_visible_new
 
-                elif isinstance(a, musicexp.ClefChange):
+                elif isinstance(a, musicexp.Clef_StaffLinesEvent):
                     clef_visible_new = a.visible
 
                     if a.type == 'none':
