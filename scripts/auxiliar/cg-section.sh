@@ -62,7 +62,7 @@ else
     cd "`dirname $0`"
     cd ../..
     LILYPOND_GIT="`pwd`"
-    echo "\$LILYPOND_GIT was not set; auto-detected source tree at $LILYPOND_GIT"
+    echo "\$LILYPOND_GIT is not set; auto-detected source tree at $LILYPOND_GIT"
 fi
 
 if [ -n "$BROWSER" ]; then
@@ -73,7 +73,7 @@ else
 fi
 
 if test ! -e "$LILYPOND_GIT/DEDICATION"; then
-    echo "Error: $LILYPOND_GIT did not look like a LilyPond source tree; aborting." >&2
+    echo "Error: $LILYPOND_GIT does not look like a LilyPond source tree; aborting." >&2
     exit 1
 fi
 
@@ -88,17 +88,17 @@ OUTPUT_DIR="$DOC_DIR/contributor"
 SECTION_PATH="$LILYPOND_GIT/Documentation/en/contributor/$SECTION.itexi"
 
 if test ! -d "$LILYPOND_BUILD_DIR"; then
-    echo "$LILYPOND_BUILD_DIR did not exist; check your setting of LILYPOND_BUILD_DIR. Aborting." >&2
+    echo "$LILYPOND_BUILD_DIR does not exist; check your setting of LILYPOND_BUILD_DIR. Aborting." >&2
     exit 1
 fi
 
 if test ! -x "$LILYPOND_BOOK"; then
-    echo "$LIYPOND_BOOK did not exist; did you configure and compile LilyPond?" >&2
+    echo "$LIYPOND_BOOK does not exist; did you configure and compile LilyPond?" >&2
     exit 1
 fi
 
 if test ! -e "$SECTION_PATH"; then
-    echo "$SECTION_PATH did not exist; is $SECTION a valid section in the Contributor's Guide?" >&2
+    echo "$SECTION_PATH does not exist; is $SECTION a valid section in the Contributor's Guide?" >&2
     exit 1
 fi
 
