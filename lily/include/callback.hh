@@ -92,8 +92,13 @@ template <auto trampoline>
 inline SCM
 get_callback_wrapper_smob ()
 {
-  static SCM res
-    = scm_permanent_object (Callback_wrapper (trampoline).smobbed_copy ());
+  // Work around issue in Clang before version 12 which refuses to do class
+  // argument deduction during construction of temporaries, as required for
+  // Callback_wrapper (trampoline).smobbed_copy ()
+  static SCM res = [] {
+    Callback_wrapper wrapper (trampoline);
+    return scm_permanent_object (wrapper.smobbed_copy ());
+  }();
   return res;
 }
 
