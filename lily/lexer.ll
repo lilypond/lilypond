@@ -87,10 +87,14 @@ RH 7 fix (?)
 // contains a std::streamsize to int conversion
 // ignore warning
 #pragma GCC diagnostic ignored "-Wconversion"
+
 // generated code contains some old-style casts
 #pragma GCC diagnostic ignored "-Wold-style-cast"
-// generated code also contains some useless casts
+
+// generated code contains some useless casts
+#if !defined(__clang__)
 #pragma GCC diagnostic ignored "-Wuseless-cast"
+#endif
 
 void strip_trailing_white (string&);
 void strip_leading_white (string&);

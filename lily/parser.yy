@@ -249,8 +249,13 @@ int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 // generated code contains some old-style casts
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 
+// generated `int yynerrs = 0;` triggers this in Clang >= 15
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+
 // generated code contains some useless casts
+#if !defined(__clang__)
 #pragma GCC diagnostic ignored "-Wuseless-cast"
+#endif
 
 %}
 

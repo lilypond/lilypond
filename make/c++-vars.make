@@ -1,10 +1,11 @@
 ALL_LDFLAGS = $(LDFLAGS) $(CONFIG_LDFLAGS) $(MODULE_LDFLAGS) $(CONFIG_LDFLAGS)
 
+# -Wno-sign-conversion is here for Clang.  It is the default for GCC.
 EXTRA_CXXFLAGS = \
 	-std=c++17 \
 	-fno-exceptions \
 	-Wall \
-	-Wconversion \
+	-Wconversion -Wno-sign-conversion \
 	-Wextra \
 	-Wold-style-cast \
 	-Woverloaded-virtual \
