@@ -915,7 +915,7 @@ def group_tuplets(music_list, events):
     for (ev_chord, tuplet_elt, time_modification, visible) in events:
         while j < len(music_list):
             # Since its registration in `events` the `ChordEvent` object
-            # might be meanwhile wrapped into a two-stem tremolo.
+            # might be meanwhile wrapped into a two-stem tremolo or tuplet.
             if music_list[j].contains(ev_chord):
                 break
             j += 1
@@ -925,12 +925,14 @@ def group_tuplets(music_list, events):
                 tuplet_elt, time_modification)
             tuplet_object.visible = visible
 
+            have_actual_normal = (tuplet_object.actual_type
+                                  and tuplet_object.normal_type
+                                  and tuplet_object.display_numerator
+                                  and tuplet_object.display_denominator)
+
             if (isinstance(music_list[j], musicexp.RepeatedMusic)
                     and music_list[j].repeat_type == 'tremolo'):
-                if (tuplet_object.actual_type
-                        and tuplet_object.normal_type
-                        and tuplet_object.display_numerator
-                        and tuplet_object.display_denominator):
+                if have_actual_normal:
                     factor = ((tuplet_object.normal_type.get_length()
                                * tuplet_object.display_numerator)
                               / (tuplet_object.actual_type.get_length()
@@ -942,12 +944,16 @@ def group_tuplets(music_list, events):
                     # denumerator values, so adjust the time modification
                     # for the double-note tremolo.
                     tuplet_object.numerator *= 2
+            elif have_actual_normal:
+                tuplet_object.numerator = tuplet_object.display_numerator
+                tuplet_object.denominator = tuplet_object.display_denominator
 
-            tuplet_info = [j, None, tuplet_object]
+            tuplet_info = [j, -1, tuplet_object]
             indices.append(tuplet_info)
             brackets[nr] = tuplet_info
         elif tuplet_elt.type == 'stop':
             bracket_info = brackets.get(nr, None)
+            # Ignore tuplet ends without corresponding starts.
             if bracket_info:
                 bracket_info[1] = j  # Set the ending position to j
                 del brackets[nr]
@@ -955,30 +961,83 @@ def group_tuplets(music_list, events):
         # We don't increase `j` before the next loop since `music_list[j]`
         # might contain the end of a tuplet, too.
 
+    # Sort `indices` by ascending start values as the primary and descending
+    # end values as the secondary key.  This allows us to walk the list from
+    # the start, processing the indices in linear order while popping off
+    # completed tuplet groups.
+    #
+    # Indices example for a list with 27 entries:
+    #
+    #   ( 3, 11)
+    #   ( 5,  9)
+    #   (13, 24)
+    #   (13, 17)
+    #   (20, 24)
+    #
+    #   0-2               12                   25-26
+    #      ↘             ↗  ↘                 ↗
+    #       3-4     10-11   ↓      18-19      ↑
+    #          ↘   ↗        ↘     ↗     ↘     ↗
+    #           5-9          13-17       20-24
+    from operator import itemgetter
+    indices.sort(key=itemgetter(1), reverse=True)
+    indices.sort(key=itemgetter(0))
+
     new_list = []
+    out_stack = []
+    out_stack.append(new_list)
+    out = out_stack[-1]
     last = 0
-    for (i1, i2, tsm) in indices:
+    idx = 0
+    while indices:
+        (i1, i2, tsm) = indices[idx]
         if i1 > i2:
+            # Ignore tuplet starts without corresponding ends.
+            if len(out_stack) > 1:
+                out_stack.pop()
+            out = out_stack[-1]
+            del indices[idx]
+            if idx > 0:
+                idx -= 1
             continue
 
-        new_list.extend(music_list[last:i1])
-        seq = musicexp.SequentialMusic()
-        last = i2 + 1
+        if last <= i1:
+            # We have a new tuplet.
+            out.extend(music_list[last:i1])
+            out_stack.append([])
+            out = out_stack[-1]
+            last = i1
 
-        # At this point, `music_list[i1:last]` encompasses all notes of the
-        # tuplet.  There might be dynamics following this range, however, which
-        # apply to the last note of the tuplet.  Advance `last` to include them
-        # in the range.
-        while (last < len(music_list)
-               and isinstance(music_list[last], musicexp.DynamicsEvent)):
-            last += 1
+        if idx + 1 < len(indices) and i2 > indices[idx + 1][0]:
+            # We have a nested tuplet.
+            idx += 1
+            continue
+        else:
+            i2 += 1
+            # At this point, `music_list[last:i2]` encompasses all
+            # (remaining) notes of the current tuplet.  There might be
+            # dynamics following this range, however, which apply to the
+            # last note of the tuplet.  Advance `i2` to include them in the
+            # range.
+            while (i2 < len(music_list)
+                   and isinstance(music_list[i2], musicexp.DynamicsEvent)):
+                i2 += 1
+            if last < i2:
+                out.extend(music_list[last:i2])
 
-        seq.elements = music_list[i1:last]
+            seq = musicexp.SequentialMusic()
+            seq.elements = out
+            tsm.element = seq
 
-        tsm.element = seq
+            out_stack.pop()
+            out = out_stack[-1]
 
-        new_list.append(tsm)
-        # TODO: Handle nested tuplets!!!!
+            out.append(tsm)
+
+            last = i2
+            del indices[idx]
+            if idx > 0:
+                idx -= 1
 
     new_list.extend(music_list[last:])
     return new_list
