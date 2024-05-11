@@ -783,12 +783,12 @@ class TimeScaledMusic(MusicWrapper):
         MusicWrapper.__init__(self)
         self.numerator = 1
         self.denominator = 1
-        self.display_number = "actual"  # valid values "actual" | "both" | None
-        # Display the basic note length for the tuplet:
-        self.display_type = None  # value values "actual" | "both" | None
-        self.display_bracket = "bracket"  # valid values "bracket" | "curved" | None
-        self.actual_type = None   # The actually played unit of the scaling
-        self.normal_type = None   # The basic unit of the scaling
+        self.display_number = "actual"  # valid: "actual" | "both" | None
+        # Display basic note length for the tuplet if set.
+        self.display_type = None  # valid: "actual" | "both" | None
+        self.display_bracket = "bracket"  # valid: "bracket" | "curved" | None
+        self.actual_type = None   # The actually played unit of the scaling.
+        self.normal_type = None   # The basic unit of the scaling.
         self.display_numerator = None
         self.display_denominator = None
         self.force_direction = 0
@@ -796,17 +796,16 @@ class TimeScaledMusic(MusicWrapper):
 
     def print_ly(self, func):
         if self.display_bracket is None:
-            func(r"\once \omit TupletBracket")
-            func.newline()
+            func(r"\tweak TupletBracket.stencil ##f")
         elif self.display_bracket == "curved":
-            func(r"\once \override TupletBracket.tuplet-slur = ##t")
-            func.newline()
+            func(r"\tweak TupletBracket.tuplet-slur ##t")
 
-        dir = {-1: r'\once \tupletDown',
-               1: r'\once \tupletUp'}.get(self.force_direction, '')
+        dir = {
+            -1: r'\tweak TupletBracket.direction #DOWN',
+            1: r'\tweak TupletBracket.direction #UP'
+        }.get(self.force_direction, '')
         if dir:
             func(dir)
-            func.newline()
 
         base_number_function = {
             None: "#f",
@@ -835,15 +834,13 @@ class TimeScaledMusic(MusicWrapper):
 
         if self.display_type == "actual" and self.normal_type:
             base_duration = self.normal_type.lisp_expression()
-            func(r"\once \override TupletNumber.text "
-                 "= #(tuplet-number::append-note-wrapper %s %s)"
+            func(r"\tweak TupletNumber.text")
+            func("#(tuplet-number::append-note-wrapper %s %s)"
                  % (base_number_function, base_duration))
-            func.newline()
         # TODO: Implement this using actual_type and normal_type!
         elif self.display_type == "both":
             if self.display_number is None:
-                func(r"\once \omit TupletNumber")
-                func.newline()
+                func(r"\tweak TupletNumber.stencil ##f")
             elif self.display_number == "both":
                 den_duration = self.normal_type.lisp_expression()
                 # If we don't have an actual type set, use the normal duration!
@@ -852,32 +849,29 @@ class TimeScaledMusic(MusicWrapper):
                 else:
                     num_duration = den_duration
                 if self.display_denominator or self.display_numerator:
-                    func(r"\once \override TupletNumber.text "
-                         "= #(tuplet-number::non-default-fraction-with-notes "
+                    func(r"\tweak TupletNumber.text")
+                    func("#(tuplet-number::non-default-fraction-with-notes "
                          "%s %s %s %s)"
                          % (self.display_denominator,
                             den_duration,
                             self.display_numerator,
                             num_duration))
-                    func.newline()
                 else:
-                    func(r"\once \override TupletNumber.text "
-                         "= #(tuplet-number::fraction-with-notes %s %s)"
+                    func(r"\tweak TupletNumber.text")
+                    func("#(tuplet-number::fraction-with-notes %s %s)"
                          % (den_duration, num_duration))
-                    func.newline()
         else:
             if self.display_number is None:
-                func(r"\once \omit TupletNumber")
-                func.newline()
+                func(r"\tweak TupletNumber.stencil ##f")
             elif self.display_number == "both":
-                func(r"\once \override TupletNumber.text = #%s" %
+                func(r"\tweak TupletNumber.text #%s" %
                      base_number_function)
-                func.newline()
 
         if not self.visible:
             func(r'\tweak TupletBracket.transparent ##t')
             func(r'\tweak TupletNumber.transparent ##t')
-        func(r'\times %d/%d' % (self.numerator, self.denominator))
+        func(r'\tuplet')
+        func.print_verbatim(' %d/%d' % (self.denominator, self.numerator))
         func.add_factor(Fraction(self.numerator, self.denominator))
         MusicWrapper.print_ly(self, func)
         func.revert()

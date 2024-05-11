@@ -7,7 +7,8 @@
       <miscellaneous-field name="description">Tuplets can be nested.  The first
           bar contains a 5:2 tuplet (with 16th notes) in the middle of a 3:2
           tuple (with eighth notes).  The second bar has a 5:2 tuplet at the
-          beginning and at the end of a 3:2 tuple.</miscellaneous-field>
+          beginning and at the end (with the tuplet number forced below) of a
+          3:2 tuple (with the bracket forced above).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -204,7 +205,7 @@
         <beam number="1">begin</beam>
         <beam number="2">begin</beam>
         <notations>
-          <tuplet type="start" number="1">
+          <tuplet type="start" number="1" placement="above">
             <tuplet-actual>
               <tuplet-number>3</tuplet-number>
               <tuplet-type>quarter</tuplet-type>
@@ -214,7 +215,7 @@
               <tuplet-type>quarter</tuplet-type>
             </tuplet-normal>
           </tuplet>
-          <tuplet type="start" number="2">
+          <tuplet type="start" number="2" placement="below">
             <tuplet-actual>
               <tuplet-number>5</tuplet-number>
               <tuplet-type>16th</tuplet-type>
@@ -334,7 +335,7 @@
         <beam number="1">begin</beam>
         <beam number="2">begin</beam>
         <notations>
-          <tuplet type="start" number="2">
+          <tuplet type="start" number="2" placement="below">
             <tuplet-actual>
               <tuplet-number>5</tuplet-number>
               <tuplet-type>16th</tuplet-type>
