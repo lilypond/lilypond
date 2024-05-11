@@ -2506,7 +2506,7 @@ class ClefChange(Music):
                 clef_name = 'treble'
             else:
                 ly.warning(_("Unsupported clef '%s', using 'treble' instead")
-                           % clef_name)
+                           % self.type)
                 clef_name = 'treble'
 
         return r'\clef "%s%s"' % (clef_name, self.octave_modifier())
