@@ -1996,7 +1996,7 @@ class NotestyleEvent(Event):
         'la': "'la",
         'left triangle': None,  # TODO: Implement
         'mi': "'mi",
-        'none': '#f',
+        'none': '',
         'normal': None,
         're': "'re",
         'rectangle': None,  # TODO: Implement
@@ -2012,7 +2012,9 @@ class NotestyleEvent(Event):
     def pre_chord_ly(self):
         res = []
         style = self.notehead_styles_dict.get(self.style, None)
-        if style is not None:
+        if style == '':
+            res.append(r'\tweak transparent ##t')
+        elif style is not None:
             res.append(r'\tweak style #%s' % style)
         if self.color:
             res.append(r'\tweak color #(rgb-color %s %s %s)'
@@ -2021,10 +2023,13 @@ class NotestyleEvent(Event):
 
     def pre_note_ly(self, is_chord_element):
         style = self.notehead_styles_dict.get(self.style, None)
-        if style is not None and is_chord_element:
-            return r'\tweak style #%s' % style
-        else:
-            return ''
+        res = ''
+        if is_chord_element:
+            if style == '':
+                res = r'\tweak transparent ##t'
+            elif style is not None:
+                res = r'\tweak style #%s' % style
+        return res
 
     def ly_expression(self):
         return self.pre_chord_ly()
