@@ -69,6 +69,16 @@
       <note>
         <chord/>
         <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>480</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
           <step>G</step>
           <octave>5</octave>
         </pitch>
