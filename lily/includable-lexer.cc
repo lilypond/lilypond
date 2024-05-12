@@ -69,7 +69,7 @@ void
 Includable_lexer::new_input (const std::string &name, std::string data,
                              Sources *sources)
 {
-  Source_file *file = new Source_file (name, data);
+  Source_file *file = new Source_file (name, std::move (data));
   sources->add (file);
   new_input (name, file);
 }

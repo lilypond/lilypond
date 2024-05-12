@@ -37,19 +37,21 @@ public:
 
 private:
   std::vector<char const *> newline_locations_;
-  std::istream *istream_;
+  std::istream *istream_ = nullptr;
 
-  std::string data_;
+  // newline_locations_ references elements of data_, so we mustn't do anything
+  // that could cause reallocation
+  const std::string data_;
 
-  void load_stdin ();
-  void init ();
-  void init_newlines ();
+  static std::string load_stdin ();
 
   typedef Interval_t<vsize> SourceSlice;
 
 public:
-  Source_file (const std::string &fn);
-  Source_file (const std::string &, const std::string &);
+  // Load the content of the named file (or standard input if "-").
+  Source_file (const std::string &name);
+  // Use the provided data rather than loading the content of the named file.
+  Source_file (const std::string &name, std::string data);
 
   char const *c_str () const;
   std::string quote_input (char const *pos_str0) const;
@@ -69,7 +71,7 @@ public:
   std::string name_;
 
 protected:
-  ssize_t line_offset_;
+  ssize_t line_offset_ = 0;
 };
 
 std::string gulp_file (const std::string &fn, size_t desired_size);

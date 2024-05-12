@@ -31,13 +31,14 @@
 #include <cstdio>
 #include <sstream>
 
-void
+std::string
 Source_file::load_stdin ()
 {
-  data_.clear ();
+  std::string data;
   int c;
   while ((c = fgetc (stdin)) != EOF)
-    data_.push_back (static_cast<char> (c));
+    data.push_back (static_cast<char> (c));
+  return data;
 }
 
 /*
@@ -82,45 +83,19 @@ gulp_file (const std::string &filename, size_t desired_size)
   return dest;
 }
 
-void
-Source_file::init ()
+Source_file::Source_file (const std::string &name, std::string data)
+  : data_ (std::move (data)),
+    name_ (name)
 {
-  istream_ = 0;
-  line_offset_ = 0;
   smobify_self ();
-}
-
-Source_file::Source_file (const std::string &filename, const std::string &data)
-{
-  init ();
-
-  name_ = filename;
-
-  data_ = data;
-
-  init_newlines ();
-}
-
-void
-Source_file::init_newlines ()
-{
   for (vsize i = 0; i < data_.size (); i++)
     if (data_[i] == '\n')
       newline_locations_.push_back (&data_[0] + i);
 }
 
-Source_file::Source_file (const std::string &filename_string)
+Source_file::Source_file (const std::string &name)
+  : Source_file (name, (name == "-") ? load_stdin () : gulp_file (name, -1))
 {
-  init ();
-
-  name_ = filename_string;
-
-  if (filename_string == "-")
-    load_stdin ();
-  else
-    data_ = gulp_file (filename_string, -1);
-
-  init_newlines ();
 }
 
 std::istream *
