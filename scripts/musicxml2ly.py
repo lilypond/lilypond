@@ -2133,10 +2133,10 @@ def musicxml_chordpitch_to_lily(mxl_cpitch):
 
 
 chordkind_dict = {
-    'major': ':5',
-    'minor': ':m5',
-    'augmented': ':aug5',
-    'diminished': ':dim5',
+    'major': '',
+    'minor': ':m',
+    'augmented': ':aug',
+    'diminished': ':dim',
     # Sevenths:
     'dominant': ':7',
     'dominant-seventh': ':7',
@@ -2144,8 +2144,8 @@ chordkind_dict = {
     'minor-seventh': ':m7',
     'diminished-seventh': ':dim7',
     'augmented-seventh': ':aug7',
-    'half-diminished': ':dim5m7',
-    'major-minor': ':maj7m5',
+    'half-diminished': ':m7.5-',
+    'major-minor': ':maj7m',
     # Sixths:
     'major-sixth': ':6',
     'minor-sixth': ':m6',
@@ -2286,7 +2286,7 @@ def musicxml_harmony_to_lily_chordname(n):
         kind = n.get_maybe_exist_named_child('kind')
         if kind:
             ev.kind = musicxml_chordkind_to_lily(kind.get_text())
-            if not ev.kind:
+            if ev.kind is None:
                 return res
         bass = n.get_maybe_exist_named_child('bass')
         if bass:

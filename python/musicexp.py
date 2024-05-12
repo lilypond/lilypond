@@ -2071,7 +2071,6 @@ class ChordNameEvent(Event):
         self.modifications.append(mod)
 
     def ly_expression(self):
-
         if not self.root:
             return ''
         value = self.root.ly_expression()
@@ -2079,11 +2078,20 @@ class ChordNameEvent(Event):
             value += self.duration.ly_expression()
         if self.kind:
             value = value + self.kind
-        # First print all additions/changes, and only afterwards all
-        # subtractions
+        # If there are modifications, we need a `:` (plain major chords
+        # don't have that).
+        if self.modifications and not ":" in value:
+            value += ":"
+        # First print all additions and changes, then handle all
+        # subtractions.
         for m in self.modifications:
             if m.type == 1:
-                value += m.ly_expression()
+                # Additions start with `.`, but that requires a trailing
+                # digit.  If none, omit the `.`.
+                if re.search(r':.*?\d$', value):
+                    value += m.ly_expression()
+                else:
+                    value += m.ly_expression()[1:]
         for m in self.modifications:
             if m.type == -1:
                 value += m.ly_expression()
