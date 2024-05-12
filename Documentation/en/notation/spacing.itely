@@ -385,14 +385,14 @@ default value is scaled accordingly.
 @item ragged-bottom
 @funindex ragged-bottom
 
-If this is set to true,
+If this is set to @code{#t},
 systems will be set at their natural spacing, neither compressed
 nor stretched vertically to fit the page.
 
 @item ragged-last-bottom
 @funindex ragged-last-bottom
 
-If this is set to false, then the last page,
+If this is set to @code{#f}, then the last page,
 and the last page in each section created with a @code{\bookpart} block,
 will be vertically justified in the same way as the earlier pages.
 
@@ -708,13 +708,13 @@ If this is true (the default value), print a warning if
 @code{left-margin}, @code{line-width}, and @code{right-margin} do not
 exactly add up to @code{paper-width}, and replace each of these
 (except @code{paper-width}) with their default values (scaled to the
-paper size if necessary).  If set to false, ignore any
+paper size if necessary).  If set to @code{#f}, ignore any
 inconsistencies and allow systems to run off the edge of the page.
 
 @item ragged-right
 @funindex ragged-right
 
-If set to true, systems will not fill the line width.  Instead,
+If set to @code{#t}, systems will not fill the line width.  Instead,
 systems end at their natural horizontal length.  Default:
 @code{#t} for scores with only one system, and @code{#f} for
 scores with two or more systems.  This variable can also be set in
@@ -723,7 +723,7 @@ a @code{\layout} block.
 @item ragged-last
 @funindex ragged-last
 
-If set to true, the last system in the score will not fill the
+If set to @code{#t}, the last system in the score will not fill the
 line width.  Instead the last system ends at its natural
 horizontal length.  Default: @code{#f}.  This variable can also be
 set in a @code{\layout} block.
@@ -757,7 +757,7 @@ Default values (before scaling) are defined in
 @cindex gutter
 @cindex binding gutter
 
-If set to true, use @code{inner-margin}, @code{outer-margin} and
+If set to @code{#t}, use @code{inner-margin}, @code{outer-margin} and
 @code{binding-offset} to determine margins depending on whether
 the page number is odd or even.  This overrides @code{left-margin}
 and @code{right-margin}.
@@ -768,7 +768,7 @@ and @code{right-margin}.
 The margin all pages have at the inner side if they are part of a
 book.  If the paper size is modified, this dimension's default
 value is scaled accordingly.  Works only with @code{two-sided} set
-to true.
+to @code{#t}.
 
 @item outer-margin
 @funindex outer-margin
@@ -776,7 +776,7 @@ to true.
 The margin all pages have at the outer side if they are part of a
 book.  If the paper size is modified, this dimension's default
 value is scaled accordingly.  Works only with @code{two-sided} set
-to true.
+to @code{#t}.
 
 @item binding-offset
 @funindex binding-offset
@@ -784,7 +784,7 @@ to true.
 The amount @code{inner-margin} is increased to make sure nothing
 will be hidden by the binding.  If the paper size is modified,
 this dimension's default value is scaled accordingly.  Works only
-with @code{two-sided} set to true.
+with @code{two-sided} set to @code{#t}.
 
 @end table
 
@@ -1023,7 +1023,7 @@ Default values not listed here are defined in
 @funindex auto-first-page-number
 
 The page breaking algorithm is affected by the first page number
-being odd or even.  If set to true, the page breaking algorithm
+being odd or even.  If set to @code{#t}, the page breaking algorithm
 will decide whether to start with an odd or even number.  This
 will result in the first page number remaining as is or being
 increased by one.  Default: @code{#f}.
@@ -1037,13 +1037,13 @@ The value of the page number on the first page.
 @item print-first-page-number
 @funindex print-first-page-number
 
-If set to true, a page number is printed on the first page.
+If set to @code{#t}, a page number is printed on the first page.
 
 @cindex page number, suppress
 @item print-page-number
 @funindex print-page-number
 
-If set to false, page numbers are not printed.
+If set to @code{#f}, page numbers are not printed.
 
 @cindex page number, in roman numerals
 @item page-number-type
@@ -1059,7 +1059,7 @@ The type of numerals used for page numbers.  Choices include
 @item bookpart-level-page-numbering
 @funindex bookpart-level-page-numbering
 
-If set to true, each book part has its independent sequence of
+If set to @code{#t}, each book part has its independent sequence of
 page numbers, starting at @code{first-page-number} (1 by default).
 
 This may also be used for one book part only.  The typical use case
@@ -1105,7 +1105,7 @@ of the cover page so that page@tie{}1 is on the right-hand side.
 @item print-all-headers
 @funindex print-all-headers
 
-If set to true, this will print all headers for each @code{\score}
+If set to @code{#t}, this will print all headers for each @code{\score}
 in the output.  Normally only the @code{piece} and @code{opus}
 header variables are printed.  For use cases see @ref{Titles and
 headers}.  Default: @code{#f}.
@@ -1113,7 +1113,7 @@ headers}.  Default: @code{#f}.
 @item reset-footnotes-on-new-page
 @funindex reset-footnotes-on-new-page
 
-If set to true, footnote numbers are reset on each page break.
+If set to @code{#t}, footnote numbers are reset on each page break.
 For footnotes numbered consecutively across page breaks, set to
 @code{#f}. Default: @code{#t}.
 
@@ -1619,8 +1619,8 @@ prevent some of the factors mentioned above from disabling breaks.
 @itemize
 @item
 @code{Bar_@/engraver} forbids breaks between bar lines when
-@code{forbidBreakBetweenBarLines} is set to true.  To inhibit
-this, set the property to false.
+@code{forbidBreakBetweenBarLines} is set to @code{#t}.  To inhibit
+this, set the property to @code{#f}.
 
 @lilypond[quote,ragged-right,line-width=50,verbatim]
 \layout {
@@ -1650,7 +1650,7 @@ from the @code{Voice} context.
 
 @item
 The presence of beams and other unbreakable spanners over bar lines
-is ignored if their @code{breakable} property is set to true.
+is ignored if their @code{breakable} property is set to @code{#t}.
 
 @lilypond[quote,ragged-right,line-width=50,verbatim]
 \relative c'' {
@@ -1681,7 +1681,7 @@ and @code{line-width}.  They are set in the @code{\layout} block.
 They control the indentation of the first line of music, and the
 lengths of the lines.
 
-If @code{ragged-right} is set to true in the @code{\layout} block,
+If @code{ragged-right} is set to @code{#t} in the @code{\layout} block,
 then systems end at their natural horizontal length, instead of
 being spread horizontally to fill the whole line.  This is useful
 for short fragments, and for checking how tight the natural
@@ -3654,7 +3654,7 @@ The most basic settings influencing the spacing are @code{indent} and
 control the indentation of the first line of music, and the lengths of
 the lines.
 
-If @code{ragged-right} is set to true in the @code{\layout} block, then
+If @code{ragged-right} is set to @code{#t} in the @code{\layout} block, then
 systems ends at their natural horizontal length, instead of being spread
 horizontally to fill the whole line.  This is useful for
 short fragments, and for checking how tight the natural spacing is.

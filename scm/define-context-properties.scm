@@ -126,8 +126,8 @@ printed.  @code{(#t . #f)} does not make sense.
 arguments, @var{context}, @var{dir} [start/@/stop (-1 or 1)], and
 @var{test} [shortest note in the beam].  A non-@code{#f} return value
 starts or stops the auto beam.")
-     (autoBeaming ,boolean? "If set to true then beams are generated
-automatically.  If set to false, auto-beaming is switched off as soon as the
+     (autoBeaming ,boolean? "If set to @code{#t} then beams are generated
+automatically.  If set to @code{#f}, auto-beaming is switched off as soon as the
 current beam (if any) is finished according to the auto-beaming rules.")
      (autoCautionaries ,list? "List similar to @code{autoAccidentals},
 but it controls cautionary accidentals rather than normal ones.  Both
@@ -405,7 +405,7 @@ staff switches by a thin line.")
      (fontSize ,number? "The relative size of all grobs in a context.")
      (forbidBreak ,boolean? "If set to @code{#t}, prevent a line break
 at this point, except if explicitly requested by the user.")
-     (forbidBreakBetweenBarLines ,boolean? "If set to true,
+     (forbidBreakBetweenBarLines ,boolean? "If set to @code{#t},
 @code{Bar_@/engraver} forbids line breaks where there is no bar line.")
      (forceClef ,boolean? "Show clef symbol, even if it has not
 changed.  Only active for the first clef after the property is set, not
@@ -699,7 +699,7 @@ context.  It should return a markup object.")
 each note head relative to the tonic (q.v.@:) of the scale.")
      (shortInstrumentName ,markup? "See @code{instrumentName}.")
      (shortVocalName ,markup? "Name of a vocal line, short version.")
-     (skipBars ,boolean? "If set to true, then skip the empty bars
+     (skipBars ,boolean? "If set to @code{#t}, then skip the empty bars
 that are produced by multimeasure notes and rests.  These bars will
 not appear on the printed output.  If not set (the default),
 multimeasure notes and rests expand into their full length, printing
@@ -763,9 +763,9 @@ accidentals are typeset as suggestions above the note.  Setting it to
 @code{TabStaff} will print micro-tones as @samp{2½}")
      (suspendMelodyDecisions ,boolean? "When using the @code{Melody_engraver},
 stop changing orientation of stems based on the melody when this is set
-to true.")
+to @code{#t}.")
      (suspendRestMerging ,boolean? "When using the Merge_rest_engraver do not
-merge rests when this is set to true.")
+merge rests when this is set to @code{#t}.")
      (systemStartDelimiter ,symbol? "Which grob to make for the start
 of the system/@/staff?  Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")

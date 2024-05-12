@@ -1256,7 +1256,7 @@ object in question.
 
 @item debug-beam-scoring
 
-If set to true, print demerits together with their cause,
+If set to @code{#t}, print demerits together with their cause,
 followed by the number of configurations that have been scored
 before concluding.  Default: unset.
 
@@ -1279,7 +1279,7 @@ for a list of tunable parameters.
 
 @item debug-slur-scoring
 
-If set to true, print demerits together with their cause,
+If set to @code{#t}, print demerits together with their cause,
 followed by the sum of all demerits and the index of the slur
 configuration finally chosen.  Default: unset.
 
@@ -1302,7 +1302,7 @@ list of tunable parameters.
 
 @item debug-tie-scoring
 
-If set to true, print the basic configuration of ties, followed by
+If set to @code{#t}, print the basic configuration of ties, followed by
 demerits and their corresponding causes and the total sum of demerits.
 Default: unset.
 

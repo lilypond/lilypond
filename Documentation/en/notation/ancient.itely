@@ -831,7 +831,7 @@ note.
 @cindex musica ficta
 
 Support for such suggested accidentals is included, and can be
-switched on by setting @code{suggestAccidentals} to true.
+switched on by setting @code{suggestAccidentals} to @code{#t}.
 
 @funindex suggestAccidentals
 

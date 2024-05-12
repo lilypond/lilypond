@@ -4693,8 +4693,8 @@ quantity is reset by subtracting @code{measureLength} whenever
 @code{currentBarNumber} is incremented.
 
 @item timing
-If set to true, the above variables are updated for every time
-step.  When set to false, the engraver stays in the current
+If set to @code{#t}, the above variables are updated for every time
+step.  When set to @code{#f}, the engraver stays in the current
 measure indefinitely.
 
 @end table

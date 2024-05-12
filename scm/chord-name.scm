@@ -105,7 +105,7 @@ other @var{language} is specified."
 
 (define-public (note-name->markup pitch lowercase?)
   "Return pitch markup for @var{pitch}, including accidentals
-printed as glyphs.  If @var{lowercase?} is set to false, the
+printed as glyphs.  If @var{lowercase?} is set to @code{#f}, the
 note names are capitalized."
   (let ((str (note-name->string pitch)))
     (make-line-markup

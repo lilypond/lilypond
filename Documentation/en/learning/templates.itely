@@ -95,7 +95,7 @@ TwoVoicesPerStaff = ##t
 \include "satb.ly"
 @end lilypond
 
-When @code{TwoVoicesPerStaff} is set to false or allowed to default,
+When @code{TwoVoicesPerStaff} is set to @code{#f} (false) or allowed to default,
 any of the music variables may be omitted to produce arrangements
 with fewer voices.  Here, for example, is how the input file for a
 Soprano-Bass duet might be written:

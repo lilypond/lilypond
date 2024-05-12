@@ -126,7 +126,7 @@ item that is not a bar line.")
 much edges of brackets should slant outward.  Value @code{0.0} means
 straight edges.")
      (bracket-visibility ,boolean-or-symbol? "This controls the
-visibility of the tuplet bracket.  Setting it to false prevents
+visibility of the tuplet bracket.  Setting it to @code{#f} prevents
 printing of the bracket.  Setting the property to @code{if-no-beam}
 makes it print only if there is no beam associated with this tuplet
 bracket.")
@@ -1032,7 +1032,7 @@ shortest note playing here.")
      (shortest-starter-duration ,ly:moment? "The duration of the
 shortest note that starts here.")
      (show-control-points ,boolean? "For grobs printing Bézier
-curves, setting this property to true causes the control points
+curves, setting this property to @code{#t} causes the control points
 and control polygon to be drawn on the page for ease of tweaking.")
      (show-horizontal-skylines ,boolean? "If true, print this
 grob's horizontal skylines.  This is meant for debugging purposes.")

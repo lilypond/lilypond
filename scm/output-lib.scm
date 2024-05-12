@@ -2043,7 +2043,7 @@ them as a pair."
 
 (define-public (bend::target-cautionary spanner)
   "Set @code{'display-cautionary} of all relevant note heads of spanners right
-bound to true.  As a result they appear parenthesized.
+bound to @code{#t}.  As a result they appear parenthesized.
 This procedure is the default value of @code{'before-line-breaking}."
   (let* ((all-right-note-heads (cdr (get-bound-note-heads spanner)))
          (right-note-heads

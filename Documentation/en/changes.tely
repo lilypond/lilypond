@@ -348,7 +348,7 @@ imperfections could be found in the results of automatic subdivision of
 many complex beaming patterns due to overreliance of the value of
 @code{baseMoment}.  Now, LilyPond can correctly subdivide most beaming
 patterns and no longer uses the value of @code{baseMoment} to limit beam
-subdivision.  Simply setting @code{subdivideBeams} to true now
+subdivision.  Simply setting @code{subdivideBeams} to @code{#t} now
 automatically subdivides all intervals by default.  3@tie{}new
 properties have been introduced to tune automatic beam subdivision:
 @code{minimumBeamSubdivisionInterval},
@@ -682,7 +682,7 @@ myText = \markup {
 
 The previous behavior can be restored by setting the global variables
 @code{legacy-figured-bass-markup-fontsize} and @code{legacy-finger-markup-fontsize}
-to true, respectively:
+to @code{#t}, respectively:
 
 @lilypond[quote,verbatim]
 #(set! legacy-figured-bass-markup-fontsize #t)

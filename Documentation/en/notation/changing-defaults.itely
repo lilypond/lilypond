@@ -3387,10 +3387,10 @@ As for the @code{minimum-length} property, it is often needed to set the
 @node Controlling spanner end points
 @unnumberedsubsubsec Controlling spanner end points
 
- The @code{to-barline} property of the @code{spanner-interface},
-usually defaulting to true, causes hairpins and other spanners
+The @code{to-barline} property of the @code{spanner-interface},
+usually defaulting to @code{#t}, causes hairpins and other spanners
 that are terminated on the first note of a measure to end instead
-on the immediately preceding bar line.  If set to false, the
+on the immediately preceding bar line.  If set to @code{#f}, the
 spanner extends beyond the bar line and end on the note itself:
 
 @lilypond[verbatim,quote]
