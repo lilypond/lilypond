@@ -1804,9 +1804,9 @@ class TextEvent(Event):
         # This is so that subsequent line breaking for the output file
         # using utilities.split_string_and_preserve_doublequoted_strings()
         # properly detects the opening quote.
-        base_string = '%s "%s"'
+        base_string = '%s %s'
         if self.markup:
-            base_string = r'%s\markup{ ' + self.markup + ' {%s} }'
+            base_string = r'%s\markup ' + self.markup + ' %s'
         return base_string % (self.direction_mod(), self.text)
 
 

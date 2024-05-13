@@ -1901,7 +1901,7 @@ def musicxml_words_to_lily_event(words):
     # Remove leading and trailing whitespace; reduce sequences of whitespace
     # characters to a single space.
     text = " ".join(words.get_text().split())
-    event.text = text
+    event.text = utilities.escape_ly_output_string(text)
 
     if options.convert_directions:
         offset = getattr(words, 'default-y', None)

@@ -23,9 +23,12 @@ import re
 
 def escape_ly_output_string(input_string):
     return_string = input_string
-    needs_quotes = not re.match("^[a-zA-ZäöüÜÄÖßñ]*$", return_string)
+    needs_quotes = not re.match("^[a-zA-ZäöüÜÄÖßñ]+$", return_string)
     if needs_quotes:
-        return_string = '"' + return_string.replace('"', r'\"') + '"'
+        return_string = ('"'
+                         + return_string.replace('\\', '\\\\')
+                                        .replace('"', r'\"')
+                         + '"')
     return return_string
 
 
