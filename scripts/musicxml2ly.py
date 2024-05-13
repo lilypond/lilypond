@@ -2908,10 +2908,16 @@ def musicxml_voice_to_lily_voice(voice):
         tie_started = False
         if n.get_name() == 'forward':
             continue
+
+        staff_change = None
         staff = n.get('staff')
         if staff:
-            if current_staff and staff != current_staff and ('chord' not in n):
-                voice_builder.add_command(musicexp.StaffChange(staff))
+            if current_staff and staff != current_staff:
+                staff_change = musicexp.StaffChange(staff)
+                # A check for `<note>` follows later.
+                if not isinstance(n, musicxml.Note):
+                    voice_builder.add_command(staff_change)
+                    staff_change = None
             current_staff = staff
 
         if isinstance(n, musicxml.Partial) and n.partial > 0:
@@ -3153,6 +3159,12 @@ def musicxml_voice_to_lily_voice(voice):
             ev_chord = musicexp.ChordEvent()
             voice_builder.add_music(ev_chord, n._duration)
 
+        # A staff change might happen anywhere; for this reason we have more
+        # checks here and below.
+        if staff_change and 'chord' in n:
+            # TODO: Handle cross-staff chords.
+            staff_change = None
+
         # For grace notes:
         grace = n.get('grace')
         if grace is not None:
@@ -3170,6 +3182,9 @@ def musicxml_voice_to_lily_voice(voice):
                         ev_chord.after_grace_elements.get_last_event_chord()
                 if not grace_chord:
                     grace_chord = musicexp.ChordEvent()
+                    if staff_change:
+                        ev_chord.append_after_grace(staff_change)
+                        staff_change = None
                     ev_chord.append_after_grace(grace_chord)
             else:
                 if ev_chord.grace_elements and is_chord:
@@ -3177,6 +3192,9 @@ def musicxml_voice_to_lily_voice(voice):
                         ev_chord.grace_elements.get_last_event_chord()
                 if not grace_chord:
                     grace_chord = musicexp.ChordEvent()
+                    if staff_change:
+                        ev_chord.append_grace(staff_change)
+                        staff_change = None
                     ev_chord.append_grace(grace_chord)
 
             if not is_after_grace:
@@ -3188,6 +3206,9 @@ def musicxml_voice_to_lily_voice(voice):
             ev_chord.append(main_event)
             ignore_lyrics = True
         else:
+            if staff_change:
+                ev_chord.append(staff_change)
+                staff_change = None
             ev_chord.append(main_event)
             # When a note/chord has grace notes (duration==0), the duration
             # of the event chord is not yet known, but the event chord was

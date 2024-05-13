@@ -1251,6 +1251,9 @@ class ChordEvent(NestedMusic):
             return None
 
     def print_ly(self, printer):
+        staff_changes = [e for e in self.elements
+                         if isinstance(e, StaffChange)]
+
         note_events = [e for e in self.elements
                        if isinstance(e, NoteEvent)]
 
@@ -1259,7 +1262,8 @@ class ChordEvent(NestedMusic):
                        and not isinstance(e, NoteEvent)]
 
         other_events = [e for e in self.elements
-                        if not isinstance(e, RhythmicEvent)]
+                        if not (isinstance(e, RhythmicEvent)
+                                or isinstance(e, StaffChange))]
 
         if self.after_grace_elements:
             printer(r'\afterGrace {')
@@ -1281,6 +1285,9 @@ class ChordEvent(NestedMusic):
                 printer(r'\grace')
             self.grace_elements.print_ly(printer, False)
             printer('{}')
+
+        if staff_changes:
+            staff_changes[0].print_ly(printer)
 
         # Print all overrides and other settings needed by the
         # articulations/ornaments before the note
