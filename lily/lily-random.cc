@@ -49,7 +49,7 @@ make_tmpfile_name (const std::string &file_name)
 {
   const auto file_id = file_id_dist (randgen);
   const auto tmpfile_name = String_convert::form_string (
-    "%s.%0*x", file_name.c_str (), hex_char_count, file_id);
+    "%s-%0*x", file_name.c_str (), hex_char_count, file_id);
   return tmpfile_name;
 }
 
