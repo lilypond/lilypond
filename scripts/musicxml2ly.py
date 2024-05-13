@@ -299,6 +299,14 @@ staffLines =
                                       (+ middle-c-clef-p delta))))
        \\startStaff
      #}))
+""",
+
+    "square": """\
+#(define-markup-command (square layout props arg)
+   (markup?)
+   (interpret-markup
+    layout props
+    #{ \\markup \\box \\with-dimension-from #Y \\rotate #90 #arg #arg #}))
 """
 }
 
@@ -2011,12 +2019,23 @@ def musicxml_rehearsal_to_ly_mark(mxl_event):
     text = mxl_event.get_text()
     if not text:
         return
-    # default is boxed rehearsal marks!
-    encl = {"none": None, "square": "box", "circle": "circle"}.get(
-        getattr(mxl_event, 'enclosure', 'square'), None)
+    # The default uses squared rehearsal marks.
+    (encl, need_def) = {
+        # TODO: Support more `enclosure` values.
+        'none': (None, False),
+        'square': ('square', True),
+        'rectangle': ('box', False),
+        'circle': ('circle', False),
+        'oval': ('ellipse', False),
+    }.get(getattr(mxl_event, 'enclosure', 'square'), (None, False))
+
+    if need_def:
+        needed_additional_definitions.append(encl)
+
+    text = utilities.escape_ly_output_string(text)
     if encl:
-        text = r"\%s { %s }" % (encl, text)
-    ev = musicexp.MarkEvent(r"\markup { %s }" % text)
+        text = r'\%s %s' % (encl, text)
+    ev = musicexp.MarkEvent(r'\markup %s' % text)
     return ev
 
 

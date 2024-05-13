@@ -1743,6 +1743,13 @@ class MarkEvent(Event):
     def ly_expression(self):
         return r'\mark %s' % self.ly_contents()
 
+    def print_ly(self, print):
+        dir = {1: "#UP",
+               -1: "#DOWN"}.get(self.force_direction, '')
+        if dir:
+            print(r'\once \override Score.RehearsalMark.direction = %s' % dir)
+        print(self.ly_expression())
+
 
 class MusicGlyphMarkEvent(MarkEvent):
     def ly_contents(self):
