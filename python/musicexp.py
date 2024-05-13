@@ -1269,9 +1269,9 @@ class ChordEvent(NestedMusic):
                 printer(r'\%s' % self.grace_type)
             else:
                 printer(r'\grace')
-            # don't print newlines after the { and } braces
+            # Don't print a newline after a braced grace group.
             self.grace_elements.print_ly(printer, False)
-        elif self.grace_elements:  # no self.elements!
+        elif self.grace_elements:  # No `self.elements`!
             ly.warning(_("Grace note with no following music: %s") %
                        self.grace_elements)
             if self.grace_type:

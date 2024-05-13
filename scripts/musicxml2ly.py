@@ -391,7 +391,7 @@ def extract_paper_information(score_partwise):
             # TODO: Do something with these values!
         nss = appearance.get_named_children('note-size')
         for ns in nss:
-            # Possible types are: cue, grace and large
+            # Possible types: `cue`, `grace`, `grace-cue`, `large`.
             tp = ns.type
             sz = from_tenths(ns.get_text())
             # TODO: Do something with these values!
@@ -3161,18 +3161,20 @@ def musicxml_voice_to_lily_voice(voice):
 
             grace_chord = None
 
-            # after-graces and other graces use different lists; Depending on
-            # whether we have a chord or not, obtain either a new ChordEvent or
-            # the previous one to create a chord
+            # After-graces and other graces use different lists; depending
+            # on whether we have a chord or not, obtain either a new
+            # `ChordEvent` or the previous one to create a chord.
             if is_after_grace:
                 if ev_chord.after_grace_elements and is_chord:
-                    grace_chord = ev_chord.after_grace_elements.get_last_event_chord()
+                    grace_chord = \
+                        ev_chord.after_grace_elements.get_last_event_chord()
                 if not grace_chord:
                     grace_chord = musicexp.ChordEvent()
                     ev_chord.append_after_grace(grace_chord)
             else:
                 if ev_chord.grace_elements and is_chord:
-                    grace_chord = ev_chord.grace_elements.get_last_event_chord()
+                    grace_chord = \
+                        ev_chord.grace_elements.get_last_event_chord()
                 if not grace_chord:
                     grace_chord = musicexp.ChordEvent()
                     ev_chord.append_grace(grace_chord)
@@ -3181,8 +3183,8 @@ def musicxml_voice_to_lily_voice(voice):
                 # TODO: use grace_type = "appoggiatura" for slurred grace notes
                 if getattr(grace, 'slash', None) == 'yes':
                     ev_chord.grace_type = "acciaccatura"
-            # now that we have inserted the chord into the grace music, insert
-            # everything into that chord instead of the ev_chord
+            # Now that we have inserted the chord into the grace music,
+            # insert everything into that chord instead of `ev_chord`.
             ev_chord = grace_chord
             ev_chord.append(main_event)
             ignore_lyrics = True

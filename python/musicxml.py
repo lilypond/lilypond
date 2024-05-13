@@ -807,7 +807,7 @@ class Note(Measure_element):
             d.dots = dur[1]
             # Grace notes by specification have duration 0, so no time
             # modification factor is possible.  It even messes up the output
-            # with *0/1
+            # with *0/1.
             if 'grace' not in self:
                 nominal_duration = d.get_length()
                 actual_duration = self._duration
@@ -1281,8 +1281,8 @@ class Part(Music_xml_node):
         measure_start_moment = now
         is_first_measure = True
         previous_measure = None
-        # Graces at the end of a measure need to have their position set to the
-        # previous number!
+        # Graces at the end of a measure need to have their position set to
+        # the previous number!
         pending_graces = []
         for m in measures:
             # implicit measures are used for artificial measures, e.g. when
@@ -1360,7 +1360,7 @@ class Part(Music_xml_node):
 
                     if n.get_name() == 'backup':
                         dur = -dur
-                        # reset all graces before the backup to after-graces:
+                        # Change all graces before the backup to after-graces.
                         self.graces_to_aftergraces(pending_graces)
                         pending_graces = []
                     if 'grace' in n:  # not expected to coexist with 'duration'
@@ -1380,16 +1380,16 @@ class Part(Music_xml_node):
                 n._when = now
                 n._measure_position = measure_position
 
-                # For all grace notes, store the previous note,  in case need
-                # to turn the grace note into an after-grace later on!
+                # For all grace notes, store the previous note in case we
+                # need to turn the grace note into an after-grace later on.
                 if 'grace' in n:
                     n._prev_when = last_moment
                     n._prev_measure_position = last_measure_position
                     # After-graces are placed at the same position as the
-                    # previous note
+                    # previous note.
                     if n.is_after_grace():
-                        # TODO: We should do the same for grace notes at the end
-                        # of a measure with no following note!!!
+                        # TODO: We should do the same for grace notes at the
+                        #       end of a measure with no following note!
                         n._when = last_moment
                         n._measure_position = last_measure_position
                     else:
@@ -1420,7 +1420,7 @@ class Part(Music_xml_node):
                     instr = instruments[0]
                     n.instrument_name = part_list.get_instrument(instr.id)
 
-            # reset all graces at the end of the measure to after-graces:
+            # Change all graces at the end of the measure to after-graces.
             self.graces_to_aftergraces(pending_graces)
             pending_graces = []
             # Incomplete first measures are not padded, but registered as
