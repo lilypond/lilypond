@@ -1915,6 +1915,21 @@ def musicxml_words_to_lily_event(words):
             except ValueError:
                 event.force_direction = 0
 
+    (encl, need_def) = {
+        # TODO: Support more `enclosure` values.
+        'none': (None, False),
+        'square': ('square', True),
+        'rectangle': ('box', False),
+        'circle': ('circle', False),
+        'oval': ('ellipse', False),
+    }.get(getattr(words, 'enclosure', 'none'), (None, False))
+
+    if need_def:
+        needed_additional_definitions.append(encl)
+
+    if encl:
+        event.markup += r'\%s' % encl
+
     font_weight = {"normal": '', "bold": r'\bold'}.get(
         getattr(words, 'font-weight', None), '')
     if font_weight:
