@@ -3180,9 +3180,8 @@ def musicxml_voice_to_lily_voice(voice):
                     ev_chord.append_grace(grace_chord)
 
             if not is_after_grace:
-                # TODO: use grace_type = "appoggiatura" for slurred grace notes
                 if getattr(grace, 'slash', None) == 'yes':
-                    ev_chord.grace_type = "acciaccatura"
+                    ev_chord.grace_type = "slashed"
             # Now that we have inserted the chord into the grace music,
             # insert everything into that chord instead of `ev_chord`.
             ev_chord = grace_chord

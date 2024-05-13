@@ -1265,8 +1265,9 @@ class ChordEvent(NestedMusic):
             printer(r'\afterGrace {')
 
         if self.grace_elements and self.elements:
+            # TODO: Support slashed grace beams.
             if self.grace_type:
-                printer(r'\%s' % self.grace_type)
+                printer(r'\slashedGrace')
             else:
                 printer(r'\grace')
             # Don't print a newline after a braced grace group.
