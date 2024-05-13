@@ -31,7 +31,7 @@
 
 ;; Guile defaults to fixed seed.
 (define-public (randomize-rand-seed)
-  (ly:randomize-rand-seed)
+  (ly:set-rand-seed (ly:make-rand-seed))
   (let*
       ((t (gettimeofday))
        ;; Guile's random initialization is clumsy (it converts the

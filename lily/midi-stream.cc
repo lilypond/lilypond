@@ -21,10 +21,10 @@
 
 #include "file-path.hh"
 #include "international.hh"
+#include "lily-random.hh"
 #include "midi-chunk.hh"
 #include "misc.hh"
 #include "program-option.hh"
-#include "string-convert.hh"
 #include "warn.hh"
 
 #include <cerrno>
@@ -45,7 +45,7 @@ Midi_stream::Midi_stream (const std::string &file_name)
   while (tries--)
     {
       tmp_file_name_
-        = String_convert::form_string ("%s.%8x", file_name.c_str (), rand ());
+        = LilyRandom::make_tmpfile_name (file_name);
       out_file_ = ::open (tmp_file_name_.c_str (), flags, 0666);
       if (out_file_ != -1)
         return;

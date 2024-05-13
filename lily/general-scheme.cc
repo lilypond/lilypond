@@ -106,18 +106,6 @@ cannot be deleted.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_randomize_rand_seed, "ly:randomize-rand-seed", 0, 0, 0, (),
-           R"(
-Randomize C random generator.
-           )")
-{
-  struct timeval tv = {};
-  pid_t pid = getpid ();
-  gettimeofday (&tv, NULL);
-  srand (static_cast<unsigned> (tv.tv_sec ^ tv.tv_usec ^ pid));
-  return SCM_UNSPECIFIED;
-}
-
 LY_DEFINE (ly_dir_p, "ly:dir?", 1, 0, 0, (SCM s),
            R"(
 Is @var{s} a direction?  Valid directions are @w{@code{-1}}, @code{0},
