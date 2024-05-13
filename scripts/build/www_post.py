@@ -42,7 +42,7 @@ target_dir = args[0]
 
 if options.target not in ("online", "offline"):
     sys.stderr.write("target must be 'online' or 'offline'")
-    os.exit(2)
+    sys.exit(2)
 
 # these redirection pages allow to go back to the documentation index
 # from HTML manuals/snippets page
@@ -64,9 +64,9 @@ if os.path.isdir(os.path.join(target_dir, 'Documentation/')):
 
     # need this for content negotiation with documentation index
     if options.target == 'online':
-        f = open(os.path.join(target_dir, 'Documentation/.htaccess'), 'w', encoding='utf-8')
-        f.write('#.htaccess\nDirectoryIndex index\n')
-        f.close()
+        fp = open(os.path.join(target_dir, 'Documentation/.htaccess'), 'w', encoding='utf-8')
+        fp.write('#.htaccess\nDirectoryIndex index\n')
+        fp.close()
 
 html_files = []
 for root, dirs, files in os.walk(target_dir):
