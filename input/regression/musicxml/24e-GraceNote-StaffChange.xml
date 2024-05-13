@@ -15,7 +15,7 @@
   </part-list>
   <!--=========================================================-->
   <part id="P1">
-    <measure number="25">
+    <measure number="1">
       <attributes>
         <divisions>32</divisions>
         <key>
@@ -43,7 +43,7 @@
         <staff>1</staff>
       </note>
       <note>
-        <grace/>
+        <grace slash="no"/>
         <pitch>
           <step>G</step>
           <octave>5</octave>
@@ -55,7 +55,7 @@
         <beam number="2">begin</beam>
       </note>
       <note>
-        <grace/>
+        <grace slash="no"/>
         <pitch>
           <step>A</step>
           <octave>5</octave>
