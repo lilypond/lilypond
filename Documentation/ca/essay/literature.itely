@@ -1,0 +1,112 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: d2a84c5798a7568cd3c73ca4f4a23bca704c8608
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.16.0"
+
+@node Literature list
+@chapter Llista de referències bibliogràfiques
+
+A continuació presentem algunes llistes de referències que es fan
+servir al LilyPond.
+
+@menu
+* Short literature list::
+* Long literature list::
+@end menu
+
+@node Short literature list
+@section Llista bibliogràfica resumida
+
+Si us cal aprendre més sobre la notació musical, li presentem a
+continuació alguns títols interessants que podeu llegir.
+
+@table @cite
+@item Ignatzek 1995
+Klaus Ignatzek, Die Jazzmethode für Klavier. Schott's Söhne
+1995. Mainz, Germany ISBN 3-7957-5140-3.
+
+Instructiva introducció a la interpretació de Jazz al piano.  Un
+dels primers capítols conté una panoràmica dels acords més comuns
+de la música de Jazz.
+
+@item Gerou 1996
+Tom Gerou and Linda Lusk, Essential Dictionary of Music
+Notation. Alfred Publishing, Van Nuys CA ISBN 0-88284-768-6.
+
+Una llista concisa i ordenada alfabèticament dels problemes de la
+composició tipogràfica i la notació musical, que abasta la major
+part dels casos més comuns.
+
+@item Gould 2011
+Elaine Gould, Behind Bars: the Definitive Guide to Music Notation.
+Faber Music Ltd. ISBN 0-571-51456-1.
+
+Hals über Kopf: Das Handbuch des Notensatzes.
+Edition Peters. ISBN 1843670488.
+
+Una completa guia de les regles i convencions de la notació
+musical que cobreix des dels temes bàsics fins les tècniques més
+complexes i ofereix una fonamentació exhaustiva dels principis notacionals.
+
+@item Read 1968
+Gardner Read, Music Notation: A Manual of Modern Practice.
+Taplinger Publishing, New York (2nd edition).
+
+Una obra estàndard sobre notació musical.
+
+@item Ross 1987
+Ted Ross, Teach yourself the art of music engraving and processing.
+Hansen House, Miami, Florida 1987.
+
+Aquest llibre tracta del gravat musical, és a dir, composició
+tipogràfica professional. Conté instruccions sobre l'estampat,
+l'ús de les plomes i les convencions notacionals. També són
+interessants les seccions sobre els tecnicismes i la història de
+la reproducció.
+
+@item Schirmer 2001
+The G.Schirmer/AMP Manual of Style and Usage. G.Schirmer/AMP, NY, 2001.
+(Aquest llibre es pot demanar al departament de lloguer).
+
+Aquest manual se centra específicament en la preparació dels
+manuscrits per a la publicació per Schirmer.  Discuteix molts
+detalls que no es poden trobar en altres llibres de notació més
+normals.  També proporciona una bona idea sobre el que cal per
+portar la impressió fins la qualitat editorial.
+
+
+@item Stone 1980
+
+Kurt Stone, Music Notation in the Twentieth Century.
+Norton, New York 1980.
+
+Aquest llibre descriu la notació musical per a la música seriosa
+moderna, però comença amb una àmplia panoràmica de les pràctiques
+existents de la notació tradicional.
+
+
+@end table
+
+
+@node Long literature list
+@section Llista bibliogràfica ampliada
+
+@subheading Bibliografia sobre edició de música de la Universitat de Colorado
+
+@include colorado.itexi
+
+@subheading Bibliografia sobre notació per ordinador
+
+@include computer-notation.itexi
+
+@subheading Bibliografia sobre gravat musical
+
+@include engravingbib.itexi
+

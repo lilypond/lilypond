@@ -1,0 +1,1779 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.23.7"
+
+@c Translator: Walter Garcia-Fontes
+
+@node Music engraving
+@chapter Gravat musical
+
+Aquest capítol descriu perquè es va crear el LilyPond i com pot
+produir partitures musical tan boniques.
+
+@c TODO:
+@c remove 3mm eps bounding box left padding for Sarabande (This will
+@c     require adding a new snippet option to lilypond-book.py
+@c check formatting of HTML output
+
+@menu
+* The LilyPond story::          la història del Lilypond
+* Engraving details::           detalls del gravat
+* Automated engraving::         gravat automàtic
+* Building software::           preparació de programari
+* Putting LilyPond to work::    posar el LilyPond a treballar
+* Engraved examples (BWV 861):: exemple de gravat (BWV 861)
+@end menu
+
+@node The LilyPond story
+@section La història del LilyPond
+
+Molt abans que el LilyPond s'hagués fet servir per gravar
+partitures boniques per a l'execució musical, abans que pogués
+crear apunts per a cursos universitaris o fins i tot simples
+melodies, abans que hi hagués una comunitat d'usuaris al voltant
+del món o fins i tot un assaig sobre el gravat musical, el
+LilyPond va començar a mab una pregunta:
+
+@quotation
+Perquè la major part de les partitures produïdes per ordinador
+fracassen d'aconseguir la bellesa i l'armonia de les partitures
+gravades a mà?
+@end quotation
+
+@noindent
+Algunes de les respostes es poden trobar examinant les dues
+partitures
+@ifnottex
+a sota.
+@end ifnottex
+@iftex
+de les pàgines següents.
+@end iftex
+La primera partitura és una bella partitura gravada a mà al 1950 i
+la segona és una edició moderna produïda per l'ordinador.
+
+@ifnottex
+@quotation
+@noindent
+Bärenreiter BA 320, @copyright{}1950:
+
+@sourceimage{baer-suite1-fullpage,,}
+@end quotation
+
+@quotation
+@noindent
+Henle no. 666, @copyright{}2000:
+
+@sourceimage{henle-suite1-fullpage,,}
+@end quotation
+@end ifnottex
+
+Les notes aquí són idèntiques, agafades de la primera Suite de
+Bach per a violoncel sol, però l'aspecte és diferent, especialment
+si les imprimiu i les mireu des d'una distància.
+@ifnottex
+(La versió PDF d'aquest manual té imatges d'alta resolució que són
+apropiades per a la impressió.)
+@end ifnottex
+Intenteu llegir o executar des de cadascuna d'aquestes partitures i
+trobareu que la partitura escrita a mà és més agradable d'usar.
+Té línies fluïdes i moviment, i se sent com una peça de música
+viva i que respira, mentre que l'edició més nova sembla freda i
+mecànica.
+
+És difícil veure immediatament perquè és diferent amb l'edició més
+nova.  Tot es veu net i ajustat, fins i tot possiblement
+@qq{millor} perquè és veu més mecànic i uniform.  Això ens va
+generar perplexitat per un temps.  Volíem millorar la notació per
+ordinador, però primer havíem d'esbrinar què és que no funcionava
+amb ella.
+
+La resposta radica en la uniformitat precisa i matemàtica de
+l'edició més nova.  Noteu la línia de compàs al mig de cada línia:
+a la partitura escrita a mà la posició d'aquestes línies de compàs
+té certa variació natural, mentre que en la versió més nova
+s'alineen gairebé de forma perfecta.  Això es mostra en aquests
+diagrames simplificats de la disposició de pàgina dibuixats des de
+la música escrita a mà (esquerra) i l'escrita amb ordinador (dret):
+
+@quotation
+@iftex
+@sourceimage{pdf/page-layout-comparison,,}
+@end iftex
+@ifnottex
+@sourceimage{page-layout-comparison,,}
+@end ifnottex
+@end quotation
+@noindent
+
+A la partitura produïda per l'ordinador, fins i tot els caps de
+les notes individuals estan alineats en columnes verticals, fent
+que el contorn de la melodia desaparegui dins d'una graella rígida
+de marcacions musicals.
+
+Hi ha també d'altres diferències: a l'edició gravada a mà les
+línies verticals són més fortes, les lligadures estan més a prop
+dels caps de les notes i hi ha més varietat en els pendents dels
+barrats.  Tot i que aquests detalls puguin semblar primmirats, el
+resultat és una partitura que és més fàcil de llegir.  A la
+partitura produïda per ordinador, cada línia és pràcticament
+idèntica i si la persona que ho llegeix desvia la vista per un
+moment, es perdrà a la pàgina.
+
+El LilyPond es va dissenyar per resoldre els problemes que trobem al
+programari existent i per crear música bonica que imita les
+millors partitures escrites a mà.
+
+@iftex
+@page
+@noindent
+Bärenreiter BA 320, @copyright{}1950:
+
+@sourceimage{baer-suite1-fullpage-hires,16cm,}
+@page
+@noindent
+Henle no. 666, @copyright{}2000:
+@sp 3
+@sourceimage{henle-suite1-fullpage-hires,16cm,}
+@page
+@end iftex
+
+@node Engraving details
+@section Detalls del gravat
+
+@cindex gravat
+@cindex tipografia, música
+@cindex tipografia musical
+@cindex gravat en planxes
+@cindex gravat musical
+
+L'art de la tipografia musical es coneix com @emph{gravació (en
+plaques)}, un terme que es deriva del procés manual de la
+impressió de música@footnote{Els impressors primerencs europeus
+exploraren diversos processos, incloent-hi blocs de fusta gravats
+a mà, tipus movibles i fulles gravades de metall fi. La composició
+tipogràfica tenia l'avantatge que es podia corregir més fàcilment
+i facilitava la inclusió de text i versos, però sols la gravació
+oferia l'habilitat de una disposició sense restriccions i una
+notació no anticipada. Al final, les partitures gravades a mà van
+convertir-se en estàndard per a tota la música impresa, amb
+l'excepció d'alguns himnes i cançoners on la composició
+tipogràfica estava justificada per la seva facilitat i economia,
+fins i tot durant el segle XX.}.  Sols fa unes dècades, les
+partitures es feien tallant i estampant la música a una placa de
+zinc o peltre en una imatge mirall.  A la placa se li posaria tinta,
+i les depressions causades pels talls i l'estampació contindrien
+tinta.  Per fer una imatge, es pressionava el paper contra la
+placa.  L'estampació i el tallat es feia completament a mà i fer
+una correcció era complex, per tant la gravació havia de ser
+pràcticament perfecta en un sol intent.  La gravació era una
+destresa molt especialitzada; un gravador havia de completar al
+voltant de cinc anys d'entrenament abans d'obtenir el títol de
+mestre gravador, i uns altres cinc anys d'experiència calien per
+convertir-se en un gravador realment competent.
+
+@quotation
+@iftex
+@sourceimage{hader-slaan,,7cm}
+@end iftex
+@ifnottex
+@sourceimage{hader-slaan,,}
+@end ifnottex
+@end quotation
+
+El LilyPond s'inspira per les gravacions manuals tradicional
+publicades per editors europeus de música durant la primera meitat
+del segle XX, incloent-hi Bärenreiter, Duhem, Durand,
+Hofmeister, Peters, i Schott.  Això es contempla a vegades com el
+cim de la pràctica tradicional de gravació musical.  A mesura que
+vam estudiar aquestes edicions vam aprendre molt sobre que és el
+que fa una partitura ben gravada, i els aspectes que volíem imitar
+al LilyPond.
+
+@c Now all newly printed music is produced with computers.  This has
+@c obvious advantages: prints are cheaper to make, editorial work can be
+@c delivered by email, and the original data can be easily stored.
+@c Unfortunately, computer-generated scores rarely match the quality of
+@c hand-engraved scores.  Instead, computer printouts have a bland,
+@c mechanical look, which makes them unpleasant to play from.
+
+@menu
+* Music fonts::
+* Optical spacing::
+* Ledger lines::
+* Optical sizing::
+* Why work so hard?::
+@end menu
+
+@node Music fonts
+@unnumberedsubsec Tipus de lletra per a música
+
+Les imatges a sota il·lustren algunes diferències entre la gravació
+tradicional i la sortida típica per ordinador.  La figura a l'esquerra
+mostra un símbol bemoll escanejat d'una edició Bärenreiter feta a mà,
+mentre que la figura de l'esquerra mostra un símbol d'una edició de la
+mateixa música publicada al 2000.  Tot i que les dues imatges
+s'imprimeixen amb la mateixa intensitat de tinta, la versió més antiga
+es veu més fosca: les línies de la partitura són més gruixudes, i el
+bemoll Bärenreiter té un aspecte pesat, gairebé voluptuosament
+arrodonit.  La figura escaneja de la dreta, per una altra part, té línies
+més primes i una disposició estilitzada amb cantons precisos.
+
+@multitable @columnfractions .25 .25 .25 .25
+@item @tab
+@ifnotinfo
+@iftex
+@sourceimage{baer-flat-gray,,4cm}
+@end iftex
+@ifnottex
+@sourceimage{baer-flat-gray,,}
+@end ifnottex
+
+@tab
+@iftex
+@sourceimage{henle-flat-gray,,4cm}
+@end iftex
+@ifnottex
+@sourceimage{henle-flat-gray,,}
+@end ifnottex
+
+@end ifnotinfo
+@ifinfo
+@sourceimage{henle-flat-bw,,}
+@sourceimage{baer-flat-bw,,}
+@sourceimage{lily-flat-bw,,}
+@end ifinfo
+
+
+@item @tab
+Bärenreiter (1950)
+@tab
+Henle (2000)
+
+@end multitable
+
+@cindex símbols musicals
+@cindex tipus de lletra
+@cindex foscor
+@cindex balanç
+
+Quan volíem escriure un programa d'ordinador per crear tipografia
+musical, no hi havia cap tipus de lletra per a música disponible de
+manera gratuïta que pogués concordar l'elegància de les nostres
+partitures favorites.  Sense que això ens frenés, vam crear un tipus de
+lletra de símbols musicals, basant-nos en impressions boniques de música
+gravada a mà. L'experiència ens va ajudar a desenvolupar un gust
+tipogràfic, i ens va fer apreciar detalls subtils de disseny.  Sense
+aquesta experiència no es hauríem pogut adonar del lleig que eren els
+tipus de lletra que havíem admirat a l'inici.
+
+A sota hi ha una mostra de dos tipus de lletra per a música: el conjunt
+superior és el tipus de lletra predeterminat del programa Sibelius (el
+tipus de lletra @emph{Opus}, i el conjunt de sota  és el nostre propi
+tipus de lletra LilyPond.
+
+@quotation
+@iftex
+@sourceimage{pdf/OpusAndFeta,,}
+@end iftex
+@ifnottex
+@sourceimage{OpusAndFeta,,}
+@end ifnottex
+@end quotation
+
+Els símbols LilyPond son més pesats i el seu pes és més consistent, cosa
+que fa que siguin més fàcil de llegir.  Els finals fins, com ara els que
+hi ha al costat del silenci de negra, no haurien de finalitzar com punts
+afilats, sinó en formes arrodonides.  Això és perquè els racons afilats
+dels tipus d'impremta són fràgils i es desgasten ràpidament quan
+s'utilitzen en metall.  Però en conjunt, la foscor del tipus de lletra
+s'ha d'ajustar amb cura amb el gruixut de les línies, pliques i
+lligadures per dona una impressió general forta però a l'hora
+balancejada.
+
+A més a més, noteu que el nostre cap de nota de les blanques no és
+el·líptic sinó amb una lleu forma de diamant. La plica vertical d'un
+símbol de bemoll està lleument dibuixat, fent-se més ampli en la part
+superior.  El sostingut i el natural són més fàcils de distingir des
+d'una distància ja que les seves línies angulades tenen diferents
+pendents i els traços verticals són més pesats.
+
+@node Optical spacing
+@unnumberedsubsec Espaiat òptic
+
+A l'espaiat, la distribució de l'espai hauria de reflectir les duracions
+entre notes.  No obstant, com hem vist a la Suite de Bach a dalt, moltes
+partitures s'adhereixen a les duracions amb precisió matemàtica, cosa
+que porta a pitjors resultats.  A l'exemple següent es presenta un motiu
+dos cops: el primer cop s'usa un espaiat matemàtic exacte, i el segon
+cop amb correccions. Quin preferiu?
+
+@cindex optical spacing
+
+@lilypond
+\paper {
+  ragged-right = ##t
+  indent = #0.0
+}
+
+music = {
+   c'4 e''4 e'4 b'4
+   \stemDown
+   b'8[ e'' a' e'']
+   \stemNeutral
+   e'8[ e'8 e'8 e'8]
+}
+\score
+{
+  \music
+  \layout {
+    \context {
+      \Staff
+      \override NoteSpacing.stem-spacing-correction = #0.0
+      \override NoteSpacing.same-direction-correction = #0.0
+      \override StaffSpacing.stem-spacing-correction = #0.0
+    }
+  }
+}
+@end lilypond
+
+@lilypond
+\paper {
+  ragged-right = ##t
+  indent = #0.0
+}
+
+music = {
+   c'4 e''4 e'4 b'4 |
+   \stemDown
+   b'8[ e'' a' e'']
+   \stemNeutral
+   e'8[ e'8 e'8 e'8]
+}
+
+\score
+{
+  \music
+  \layout {
+    \context {
+      \Staff
+      \override NoteSpacing.stem-spacing-correction = #0.6
+    }
+  }
+}
+@end lilypond
+
+@cindex ritmes regular
+@cindex espaiat regular
+@cindex espaiat, regular
+
+Cada compàs al fragment sols usa notes que s'executen a un ritme
+constant.  L'espaiat hauria de reflectir això.  Desafortunadament, la
+vista ens enganya una mica; no sols nota la distància entre els caps de
+nota, sinó que també pren en consideració la distància entre pliques
+consecutives.  Com a resultat, les notes d'una combinació de pliques
+cap amunt/@/cap avall s'haurien de posar més distants, i les nota d'una
+combinació cap avall/@/cap amunt s'haurien de posar més juntes, sempre
+depenent de les posicions verticals combinades de les notes. Els dos
+compassos inferiors s'imprimeixen amb aquesta correcció, els dos compassos
+superiors, en canvi, formen conjunts de notes de pliques Cap Avall/Cap
+Amunt.
+
+Els algoritmes d'espaiat al LilyPond fins i tot prenen la línia de
+compàs, cosa que fa la plica cap amunt final a l'exemple rebi un
+espaiat més gran perquè no es vegi atapeït. A una plica cap avall
+no li caldria aquest ajustament.
+
+@node Ledger lines
+@unnumberedsubsec Línies addicionals
+
+@cindex línies de sistemes
+@cindex col·lisions
+
+Les línies addicionals presenten un desafiament tipogràfic: fan
+més difícil col·locar els símbols musicals junts a prop i han de
+ser suficientment clars per identificar l'altura a primera
+vista. A l'exemple de sota veiem que les línies addicionals haurien
+de ser més gruixudes que les línies normals del pentagrama i que
+un gravador expert farà més curtes les línies addicionals per
+permetre una col·locació més propera amb les alteracions.  Hem
+inclòs aquesta funcionalitat al gravat del LilyPond.
+
+@multitable @columnfractions .25 .25 .25 .25
+@item @tab
+
+@iftex
+@sourceimage{baer-ledger,3cm,}
+@end iftex
+@ifnottex
+@sourceimage{baer-ledger,,}
+@end ifnottex
+
+@tab
+
+@iftex
+@sourceimage{lily-ledger,3cm,}
+@end iftex
+@ifnottex
+@sourceimage{lily-ledger,,}
+@end ifnottex
+
+@end multitable
+
+
+@node Optical sizing
+@unnumberedsubsec Dimensionament òptic
+
+Potser cal imprimir la música en una diversitat de mides.
+Originalment, això es va aconseguir creant matrius de punxó a
+cadascuna de les mides requerides, el que va significar que cada
+punxó es va dissenyar per veure's el millor possible a cada mida.
+Amb l'aparició de la tipografia digital, un esquema únic del tipus
+de lletra pot escalar-se matemàticament a qualsevol mida, cosa que
+és molt convenient, però a les mides més petites els glifs
+semblaran molt lleugers.
+
+Al LilyPond, hem creat tipografies amb una varietat de pesos, en
+correspondència amb una diversitat de mides musicals.  Això és un
+gravat del LilyPond a una mida del pentagrama de 26:
+
+@quotation
+@iftex
+@sourceimage{pdf/size26,,23mm}
+@end iftex
+@ifnottex
+@sourceimage{size26,,}
+@end ifnottex
+@end quotation
+
+@noindent
+i això és el mateix gravat establert a una mida de pentagrama de
+11, i després magnificat a 236% per imprimir a la mateixa mida de
+l'exemple anterior:
+
+@quotation
+@iftex
+@sourceimage{pdf/size11,,23mm}
+@end iftex
+@ifnottex
+@sourceimage{size11,,}
+@end ifnottex
+@end quotation
+
+@noindent
+A les mides més petites, el LilyPond usa línies proporcionalment
+més pesades de manera que la música encara es podrà llegir bé.
+
+Això permet que pentagrames de diferent mides convisquin en pau quan
+s'usen junts a la mateixa pàgina:
+
+@c Grieg's Violin Sonata Op. 45
+@lilypond[indent=1.5\cm]
+global = {
+  \time 6/8
+  \key c \minor
+}
+
+\score {
+  <<
+    \new Staff \with {
+      \magnifyStaff #2/3
+    }
+    \relative {
+      \global
+      \set Staff.instrumentName = "Violin"
+      c'8.(\f^> b16 c d) ees8.(^> d16 c b)
+      g8.(^> b16 c ees) g8-.^> r r
+      R2.
+    }
+    \new PianoStaff <<
+      \set PianoStaff.instrumentName = "Piano"
+      \new Staff \relative {
+        \global
+        s2.
+        s4. s8 r8 r16 <c' f aes c>
+        <c f aes c>4.^> <c ees g>8 r r
+      }
+      \new Staff \relative {
+        \global
+        \clef "bass"
+        <<
+        {
+          \once \override DynamicText.X-offset = #-3
+          <ees g c>2.~->^\f
+          <ees g c>4.~ <ees g c>8
+        } \\ {
+          <c g c,>2.~
+          <c g c,>4.~ <c g c,>8
+        }
+        >>
+        r8 r16 <f, c' aes'>16
+        <f c' aes'>4.-> <c' g'>8 r r
+      }
+    >>
+  >>
+}
+@end lilypond
+
+
+@node Why work so hard?
+@unnumberedsubsec Perquè treballar tan dur?
+
+Els músics normalment estan més absorbits amb l'execució que en
+l'estudi de l'aparença de una peça musical, i per això el detalls
+tipogràfics puntetossos poden semblar acadèmics.  Però no ho són.
+Les partitures musicals són material per a l'execució: tot es fa
+perquè els músics puguin tocar millor, i qualsevol cosa que sigui
+poc clara o poc agradable per llegir és un impediment.
+
+Tradicionalment, la música gravada utilitza símbols en negreta
+sobre pentagrames ben marcats per crear una aparença forta i ben
+balancejada que es destaqui bé quan la música estigui lluny dels
+lectors: per exemple, si està sobre un faristol.  Una distribució
+acurada d'espai blanc permet posar la música molt compacta sense
+amuntegar els símbols uns sobre els altres.  El resultat minimitza
+el nombre de passos de pàgina, cosa que és un gran avantatge.
+
+Això és una característica comuna de la tipografia.  La disposició
+hauria de ser bonica, no sols per la bellesa en si mateixa, sinó
+especialment perquè ajuda als lectors en les seves tasques.  Per a
+les partitures musicals això és d'una importància doble perquè els
+músics tenen una quantitat d'atenció limitada.  Quanta menys
+atenció els calgui per a la lectura, més es poden enfocar en tocar
+la música.  En altres paraules, una tipografia millor es tradueix
+en una execució millor.
+
+Aquests exemples demostren que la tipografia musical és un art que
+és subtil i complex, i que la seva producció requereix una
+expertesa considerable, cosa que els musics normalment no tenen.
+El LilyPond és el nostre esforç per portar l'excel·lència
+gràfica de la música gravada a mà a l'era digital, i fer-la
+accessible als músics normals.  Hem tunejat els nostres
+algoritmes, dissenys tipogràfics, i configuracions als programes
+per produir impressions que estan a l'alçada de la qualitat de les
+edicions antigues que estimem veure i usar per executar la música.
+
+@node Automated engraving
+@section Gravat automàtic
+
+@cindex gravat, automàtic
+@cindex gravat automàtic
+
+Aquí descrivim què cal per crear el programari que reprodueixi la
+disposició de les partitures gravades: un mètode per descriure
+disposicions correctes a l'ordinador i un munt de comparacions
+detallades de gravats reals.
+
+@menu
+* Beauty contests::
+* Improvement by benchmarking::
+* Getting things right::
+@end menu
+
+@node Beauty contests
+@unnumberedsubsec Concursos de bellesa
+
+Com fem en realitat les decisions de formatat?  En altres
+paraules, quines de les tres disposicions hauríem d'escollir par a
+la lligadura següent?
+
+@lilypond
+\relative {
+  \clef bass
+  \once \override Slur.positions = #'(1.5 . 1)
+  e8[( f] g[ a b d,)] r4
+  \once \override Slur.positions = #'(2 . 3)
+  e8[( f] g[ a b d,)] r4
+  e8[( f] g[ a b d,)] r4
+}
+@end lilypond
+
+Hi ha alguns llibres disponibles sobre l'art del gravat musical.
+Desafortunadament, contenen regles senzilles i alguns exemples.
+Aquestes regles poden ser instructives, però estan molt lluny d'un
+algoritme que podríem posar directament en pràctica a un
+ordinador.  Si seguim les instruccions de la literatura ens
+portaria a algoritmes amb moltes excepcions codificades a mà.  Fer
+tot aquesta anàlisi de cas és molta feina, i sovint no tots els
+casos queden completament coberts:
+
+@quotation
+@iftex
+@sourceimage{ross-beam-scan,7cm,}
+@end iftex
+@ifnottex
+@sourceimage{ross-beam-scan,,}
+@end ifnottex
+@end quotation
+
+(Font de la imatge: Ted Ross, @emph{The Art of Music Engraving})
+
+En comptes d'intentar escriure disposicions detallades per cada
+possible escenari, sols hem de descriure els objectius
+suficientment bé perquè el LilyPond jutgi l'atractiu de diverses
+alternatives.  Després, per a cada configuració possible calculem
+una nota de lletjor i escollim la configuració menys lletja.
+
+Per exemple, a continuació hi ha tres possibles configuracions de
+lligadura d'expressió, i el LilyPond els ha donat a cadascuna una
+nota en @q{punts de lletjor}.  El primer exemple rep 15.39 punts
+per ombrejar un dels caps de nota:
+
+@lilypond
+\relative {
+  \clef bass
+  \once \override Slur.positions = #'(1.5 . 1)
+  e8[(_"15.39" f] g[ a b d,)] r4
+}
+@end lilypond
+
+El segon és més bonic, però la lligadura d'expressió no comença o
+finalitza als caps de les notes. Rep 1.71 punts per la part
+esquerra i 9.37 punts per la part dreta, i 2 punts més perquè la
+lligadura puja mentre que la melodia baixa per un total de 13.08
+punts de lletjor:
+
+@lilypond
+\relative {
+  \clef bass
+  \once \override Slur.positions = #'(2 . 3)
+  e8[(_"13.08" f] g[ a b d,)] r4
+}
+@end lilypond
+
+La lligadura d'expressió final aconsegueix 10.04 punts per l'espai
+a la dreta i 2 punts pel pendent ascendent, però és la més
+atractiva de les tres configuracions, de manera que el LilyPond l'escull:
+
+@lilypond
+\relative {
+  \clef bass
+  e8[(_"12.04" f] g[ a b d,)] r4
+}
+@end lilypond
+
+Aquesta tècnica és força general, i es fa servir per fer decisions
+òptimes per a les configuracions de les pliques, les lligadures
+d'unió i els punts als acords, salts de línia, i salts de pàgina.
+Es poden jutjar els resultats d'aquestes decisions en comparació
+amb gravats reals.
+
+@node Improvement by benchmarking
+@unnumberedsubsec Millores per comparació
+
+La sortida del LilyPond ha millorat gradualment al llarg del
+temps, i continua millorant comparant la seva sortida amb
+partitures gravades a mà.
+
+Per exemple, aquí hi ha una línia d'una peça de comparació d'una
+edició gravada a mà (Bärenreiter BA320):
+
+@iftex
+@sourceimage{baer-sarabande-hires,16cm,}
+@end iftex
+@ifnottex
+@sourceimage{baer-sarabande,,}
+@end ifnottex
+
+@noindent
+i la mateixa cita tal com es va gravar amb una versió molt antiga
+del LilyPond (versió 1.4, Maig 2001):
+
+@iftex
+@sourceimage{pdf/lily14-sarabande,16cm,}
+@end iftex
+@ifnottex
+@sourceimage{lily14-sarabande,,}
+@end ifnottex
+
+@noindent La sortida del LilyPond 1.4 és certament llegible, però
+una comparació detallada amb la partitura gravada a mà va mostrar
+molts errors en els detalls de formatat:
+
+@iftex
+@sourceimage{lily14-sarabande-annotated-hires,16cm,}
+@end iftex
+@ifnottex
+@sourceimage{lily14-sarabande-annotated,,}
+@end ifnottex
+
+@itemize @bullet
+@item hi ha massa espai abans de l'indicador de temps
+@item les pliques de les notes enllaçades són massa llargues
+@item els compassos segon i quart són massa estrets
+@item la lligadura d'expressió es veu estranya
+@item les marques de trino són massa grans
+@item les pliques són massa fines
+@end itemize
+
+@noindent
+(També hi havia dos caps de nota que faltaven, diverses anotacions
+editorials que faltaven i una altura incorrecta!)
+
+Amb l'ajustament de les regles de disposició i el disseny dels
+tipus de lletra, la sortida ha millorat considerablement.
+Compareu la mateixa partitura de referència i la sortida de la
+versió actual del LilyPond (@version{}):
+
+@iftex
+@sourceimage{baer-sarabande-hires,16cm,}
+@end iftex
+@ifnottex
+@sourceimage{baer-sarabande,,}
+@end ifnottex
+
+@lilypond[staffsize=17.5,line-width=15.9\cm]
+\relative c {
+  \clef "bass"
+  \key d \minor
+  \time 3/4
+  \mergeDifferentlyDottedOn
+  <<
+    { \slurDashed d8.-\flageolet( e16) e4.-\trill( d16 e) }
+     \\
+    { d4_2 a2 }
+  >>
+  \slurDashed
+  <f' a, d,>4. e8( d c)
+  \slurSolid
+  bes8 g' f e16( f g_1 a_2 bes_3 d,_2)
+  \slurDashed
+  cis4.-\trill b8_3( a g)
+  <<
+    { \slurDashed d'8.( e16) e4.-\trill( d16 e) }
+     \\
+    { <f, a>4 a2 }
+  >>
+}
+@end lilypond
+
+@noindent
+La sortida actual no és idèntica a l'edició de referència, però
+està molt més a prop a la qualitat de publicació que la sortida
+anterior.
+
+@node Getting things right
+@unnumberedsubsec Aconseguint que les coses siguin correctes
+
+També podem mesurar la capacitat del LilyPond per fer decisions de
+gravació de música comparant la sortida del Lilypond amb la
+sortida d'un programari comercial.  En aquest cas hem escollit el
+Finale 2008, que és un dels processadors d'edició musical més
+populars, particularment als Estats Units.  Sibelius és el seu
+rival més important i és particularment fort al mercat europeu.
+
+Per a la nostra comparació hem seleccionat la Fuga en sol menor el Clau
+Ben Temperat, llibre I, BWV 861, de Bach. El tema inicial és:
+
+@lilypond
+\relative {
+  \key g \minor
+  \clef "treble_8"
+  r8 d' ees g, fis4 g
+  r8 a16 bes c8 bes16 a bes8
+}
+@end lilypond
+
+@noindent
+
+Vam fer la nostra comparació gravant els primers set compassos de
+l'obra (28--34 al Finale i al LilyPond.  Aquesta és la part de la
+peça on el tema retorna al stretto en tres parts i introdueix la
+secció de tancament.  A la versió del Finale, ens hem resistit a la
+temptació de fer ajustament a la sortida predeterminada atès que
+intentem mostrar les coses que cada programari fa correctament
+sense assistència.  Les úniques edicions importants que vam fer va
+ser ajustar la mida de la pàgina per concordar amb aquest assaig i
+forçar la música dins de dos sistemes per facilitar la
+comparació.  Per defecte, el Finale hauria gravat dos sistemes amb
+tres compassos cadascú i un sistema final d'amplada completa,
+contenint un compàs únic.
+
+Moltes de les diferències dels dos gravats són visibles als
+compassos 28--29, com es mostra aquí amb Finale primer i Lilypond
+segon:
+
+@iftex
+@sourceimage{pdf/bwv861mm28-29,14cm,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861mm28-29,,}
+@end ifnottex
+
+@lilypond[staffsize=19.5,line-width=14\cm]
+global = { \key g \minor }
+
+partI = \relative {
+  \voiceOne
+  fis'8 d' ees g, fis4 g
+  r8 a16 bes c8 bes16 a d8 r r4
+}
+
+partII = \relative {
+  \voiceTwo
+  d'4 r4 r8 d'16 c bes8 c16 d
+  ees8 d c ees a, r r4
+}
+
+partIII = \relative {
+  \voiceOne
+  r2 r8 d' ees g, fis4 g r8 a16 bes c8 bes16 a
+}
+
+partIV = \relative {
+  \voiceTwo
+  d4 r r2
+  r8 d ees g, fis4 a
+}
+
+\score {
+  <<
+    \set Score.currentBarNumber = #28
+    \new PianoStaff <<
+      \new Staff = "RH" <<
+        \global
+        \new Voice = "voiceI" { \partI }
+        \new Voice = "voiceII" { \partII }
+      >>
+      \new Staff = "LH"
+      <<
+        \clef "bass"
+        \global
+        \new Voice = "voiceIII" { \partIII }
+        \new Voice = "voiceIV" { \partIV }
+      >>
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove Time_signature_engraver
+    }
+    \context {
+      \PianoStaff
+      \override StaffGrouper.staff-staff-spacing.padding = #1
+    }
+  }
+}
+@end lilypond
+
+Entre les limitacions de la sortida no editada del Finale es pot
+incloure:
+@itemize @bullet
+@item La major part de les pliques s'estenen més lluny que el
+pentagrama. Una plica que apunta cap al centre del pentagrama
+hauria de tenir una longitud d'aproximadament un octau, però els
+gravadors ho fan més curt quan la plica apunta cap a fora del
+pentagrama a la música amb moltes veus.  La manera com el Finale
+gestiona les pliques es pot millorar fàcilment amb el seu
+connector Patterson Beams, però hem preferit saltar-nos aquest pas
+per a aquest example.
+@item Finale no ajusta les posicions dels caps de nota que se
+superposen, cosa que fa extremadament difícil llegir la música
+quen les veus superior i inferior canvien de posició temporalment:
+
+@lilypond
+collide = \once \override NoteColumn.force-hshift = #0
+
+\score {
+  <<
+    \new Voice = "sample" \relative c''{
+      \key g \minor
+      <<
+        { \voiceOne g4 \collide g4 }
+        \new Voice { \voiceTwo bes \collide bes }
+      >>
+    }
+    \new Lyrics \lyricsto "sample" { "good " " bad" }
+  >>
+}
+@end lilypond
+
+@item Finale ha posat tots els silencis a alçades fixes sobre la
+  partitura. L'usuari té la llibertat d'ajustar-ho com calgui,
+  però el programa no intenta considerar el contingut de l'altra
+  veu.  Per casualitat, no hi ha col·lisions de veritat enre les
+  notes i els silencis en aquest example, però això te més a veure
+  amb les posicions de les notes que les posicions dels
+  silencis. En altres paraules, Bach ha de rebre més crèdit per
+  evitar una col·lisió completa que el Finale.
+
+@end itemize
+
+La intenció d'aquest exemple no és suggerir que el Finale no es
+pot usar per prooduir resultats amb qualitat de publicació.  Al
+contrari, en mans d'un usuari qualificat, ho pot fer, però
+requereix coneixements professionals i temps. Una de les
+diferències fonamentals entre el LilyPond i els processadors de
+música comercials és que el LilyPond intenta reduir la quantitat
+d'intervenció humana a un mínim, mentre que altres paquets
+intenten proveir una interfície atractiva on fer aquest tipus
+d'edicins.
+
+Un omissió particularment destacable que hem trobat al Final és un
+bemoll faltant al compàs 33:
+
+@quotation
+@iftex
+@sourceimage{pdf/bwv861mm33-34-annotate,7.93cm,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861mm33-34-annotate,,}
+@end ifnottex
+@end quotation
+
+@noindent
+El símbol de bemoll cal per cancel·lar el bequadre al mateix
+compàs, però el Finale l'ignora perquè apareix a una altra veu. De
+mnera que, a més d'executar un connector de pliques i de verificar
+la separació entre els caps de nota i els silencis, l'usuari també
+ha de repassar cada compàs per alteracions entre veus per evitar
+que s'aturi una pràctica per culpa d'un error de gravat.
+
+Si teniu interès d'examinar aquests exemples amb més detall, el
+fragment complete amb set compassos es pot trobar al final
+d'aquest assaig amb quatre gravats diferents publicats. Una
+examinació propera mostra que hi ha una mica de variació
+acceptable entre els gravats a mans, però que el LilyPond es
+compara relativament bé amb aquest rang acceptable.  Encara hi ha
+algunes limitacions a la sortida del LilyPond, per exemple, sembla
+ser massa agressiva fent més curtes les pliques, de manera que hi
+ha lloc per més desenvolupament i ajustaments.
+
+Òbviament, el gravat depèn del judici humà sobre l'aparença, per
+tant la intervenció humana no es pot reemplaçar completament. No
+obstant, la major part del treball avorrit es pot automatitzar.
+Si el Lilypond resol la major part de les situacions comunes
+correctament, això serà una millora molt gran sobre el programari
+existent.  Al llarg dels anys, el programari es pot refinar per
+fer més i més coses automàticament, de manera que la intervenció
+manual es necessita cada cop menys.  Als llocs on cal l'ajustament
+manual, l'estructura del LilyPond s'ha dissenyat amb aquesta
+flexibilitat en ment.
+
+@node Building software
+@section Construcció de programari
+
+Aquesta secció descriu algunes de les decisions de programació que
+hem fet quan es va dissenyar el LilyPond.
+
+@menu
+* Music representation::
+* What symbols to engrave?::
+* Flexible architecture::
+@end menu
+
+
+@node Music representation
+@unnumberedsubsec Representació de la música
+
+@cindex syntaxi
+@cindex estructuras recursives
+
+Idealment, el format d'entrada per a qualsevol sistema de
+formatat d'alt nivell és una descripció abstracte del contingut.
+En aquest cas, això seria la música mateixa.  Això comporta un
+problema formidable: com podem definir el que és realment la
+música?  En comptes de provar de trobar una resposta, hem revertit
+la pregunta.  Creem un programa capaç de produir partitures de
+música, i ajustem el format perquè sigui el més apropiat
+possible.  Quan el format no es pot simplificar més, per definició
+ens queda amb el contingut en sí mateix. El programa serveix com
+una definició formal del document de música.
+
+La sintaxi és també la interfície d'usuari per al LilyPond, per
+tant és senzill d'escriure:
+
+@example
+@{
+  c'4 d'8
+@}
+@end example
+
+@noindent
+per crear una nota negra al C del mig (C1) i una corxera a la nota
+D per sobre de la C mitjana (D1).
+
+@lilypond[quote]
+{
+  c'4 d'8
+}
+@end lilypond
+
+A una escala microscòpica, una sintaxi així és fàcil d'usar.  A
+una escala més gran, a la sintaxi també li cal estructura.  De
+quina altra manera podeu escriure peces complexes com ara
+simfonies i òperes?  L'estructura es forma pel concepte
+d'expressions musicals: combinant petits fragments de música amb
+fragments més grans, es pot expressar música més complexa. Per
+exemple
+
+@lilypond[quote,verbatim,fragment]
+f'4
+@end lilypond
+
+@noindent
+Es poden construir notes simultànies envoltant-les amb
+@code{<<} and @code{>>}:
+
+@example
+<<c4 d4 e4>>
+@end example
+
+@lilypond[quote,fragment,relative=1]
+\new Voice { <<c4 d4 e>> }
+@end lilypond
+
+@noindent
+Aquesta expressió es posa en seqüència envoltant-les amb claus
+@code{@{@tie{}@dots{}@tie{}@}}:
+
+@example
+@{ f4 <<c4 d4 e4>> @}
+@end example
+
+@lilypond[quote,relative=1,fragment]
+{ f4 <<c d e4>> }
+@end lilypond
+
+@noindent
+Això de dalt també és una expressió, i per tant es pot combinar un
+altre cop amb una altra expressió simultània (una blanca) usant
+@code{<<}, @code{\\}, i @code{>>}:
+
+@example
+<< g2 \\ @{ f4 <<c4 d4 e4>> @} >>
+@end example
+
+@lilypond[quote,fragment,relative=2]
+\new Voice { << g2 \\ { f4 <<c d e>> } >> }
+@end lilypond
+
+Es poden especificar aquestes estructures recursives de manera
+neta i formal amb una gramàtica lliure de context.  El codi a
+processar també es pot generar a partir d'aquesta gramàtica.  En
+altres paraules, la sintaxi del LilyPond està definida de manera
+clara i no ambigua.
+
+Les interfícies d'usuari i la sintaxi és el que la gent més veu i
+gestiona.  Són en part una qüestió de gust, i també l'objecte de
+molta discussió.  Tot i que les discussions sobre els gustos tenen
+el seu mèrit, no són massa productives.  En la visió àmplia del
+LilyPond la importància de la sintaxi d'entrada és petita: la
+invenció de una sintaxi neta és fàcil, mentre que l'escriptura de
+un codi de formatat decent és molt més difícil.  Això també
+s'il·lustra pel nombre de línies del components respectius:
+l'anàlisi del codi i la representació ocupa menys del 10% del codi
+font.
+
+Quan es van dissenyar les estructures usades al LilyPond, vam
+prendre diverses decisions que són evident en altres
+programes. Considereu la naturalesa jeràrquica de la notació musical:
+
+@lilypond[quote,fragment]
+<<
+  \new Staff \relative {
+    \key g \major
+    \time 3/4
+    d''4 g,8 a b c d4 g, g
+  }
+  \new Staff \relative {
+    \clef "bass"
+    \key g \major
+    <g b d>2 a4 b2.
+  }
+>>
+@end lilypond
+
+En aquest cas, hi ha altures agrupades dins d'acords que pertanyen
+a compassos, que pertanyen a pautes de la partitura. Això recorda
+a una estructura de capses niuades:
+
+@quotation
+@iftex
+@sourceimage{pdf/nestedboxes,,4cm}
+@end iftex
+@ifnottex
+@sourceimage{nestedboxes,,}
+@end ifnottex
+@end quotation
+
+Desafortunadament l'estructura és rígida perquè està basada en
+alguns supòsits excessivament restrictius.  Això queda clar si
+considerem un exemple musical més complicat:
+
+@lilypond[quote]
+\layout {
+  \enablePolymeter
+}
+
+\new PianoStaff <<
+  \new Staff = "RH" <<
+    \new Voice = "I" \relative {
+      \time 3/4
+      \voiceOne
+      \tuplet 7/6 { g''8 g g g g g g }
+      \oneVoice
+      r4 <b,, fis' g bes> r4\fermata
+    }
+    \new Voice = "II" \relative {
+      \voiceTwo
+      c'4
+      \tuplet 5/4 {
+        <c ees>8 f g
+        \change Staff = "LH" \oneVoice
+        \stemUp g,( c}
+      r4
+      \override Stem.cross-staff = ##t
+      \override Stem.length = #12
+      <fis, b>) r\fermata
+    }
+  >>
+  \new Staff = "LH" <<
+    \new Voice = "III" \relative {
+      \time 2/4
+      \clef "bass"
+      g4 \stopStaff s
+      \startStaff s2*2
+    }
+  >>
+>>
+@end lilypond
+
+En aquest exemple, les pautes comencen i acaben arbitràriament,
+les veus salten entre pautes i les pautes tenen diferents
+indicacions de temps.  Molts programes de notació musical patirien
+per reproduir aquest exemple perquè estan construïts amb
+l'estructura de capses niuades.  Amb el Lilypond, en canvi, hem
+intentat mantenir el format d'entrada i l'estructura el més
+flexible que sigui possible.
+
+@node What symbols to engrave?
+@unnumberedsubsec Quins símbols s'han de gravar?
+
+@cindex gravat
+@cindex tipografia
+@cindex gravador
+@cindex connector
+
+El procés de donar format decideix on posar els símbols.  No
+obstant, això sols es pot fer un cop s'ha decidit @emph{quins}
+símbols s'han d'imprimir -- en altres paraules, quina notació
+usar.
+
+La notació musical comuna és un sistema de gravació de música que
+ha evolucionat al llarg dels últims 1000 anys.  La forma que es fa
+servir més habitualment data de principis del renaixement.  Tot i
+que la forma bàsica (o sigui caps de nota sobre una pauta de 5
+línies) no ha canviat, els detalls encara evolucionen per
+expressar les innovacions de la notació contemporània.  En
+conseqüència, la notació musical comuna compren 500 anys de
+música.  Les seves aplicacions van des de melodies monofòniques
+fins a contrapunts monstruosos per una gran orquestra.
+
+Com podem agafar una bèstia de set caps com aquesta, i forçar-la
+als confins d'un programa d'ordinador?  La nostra solució és
+dividir el problema de la notació (en comptes del gravat, és a dir
+la tipografia) en trossos digestibles i programables: cada tipus
+de símbol es gestionat en un mòdul separat, el que s'anomena un
+connector.  Cada connector és completament modular i independent,
+de manera que es pot desenvolupar i millorar separadament.
+Aquests connectors s'anomenen 
+@code{gravador}s, per analogia amb artesans que tradueixen les
+idees musicals a símbols gràfics.
+
+A l'exemple següent, comencem amb un connector per a caps de nota, el
+@code{Note_heads_engraver}.
+
+@lilypond[quote,ragged-right]
+\include "en/included/engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove Stem_engraver
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
+    }
+    \context {
+      \Staff
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Clef_engraver
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+      \remove Staff_symbol_engraver
+      \consists Pitch_squash_engraver
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Després un connector @code{Staff_symbol_engraver} afegeix la pauta:
+
+@lilypond[quote,ragged-right]
+\include "en/included/engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove Stem_engraver
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
+    }
+    \context {
+      \Staff
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Clef_engraver
+      \remove Bar_engraver
+      \consists Pitch_squash_engraver
+      \remove Time_signature_engraver
+    }
+  }
+}
+@end lilypond
+
+@noindent
+El gravador @code{Clef_engraver} defineix un punt de referència
+per a la pauta,
+
+@lilypond[quote,ragged-right]
+\include "en/included/engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove Stem_engraver
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
+    }
+    \context {
+      \Staff
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+    }
+  }
+}
+@end lilypond
+
+@noindent
+i el gravador@code{Stem_engraver} afegeix les pliques:
+
+@lilypond[quote,ragged-right]
+\include "en/included/engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove Phrasing_slur_engraver
+      \remove Slur_engraver
+      \remove Script_engraver
+      \remove New_fingering_engraver
+      \remove Beam_engraver
+      \remove Auto_beam_engraver
+    }
+    \context {
+      \Staff
+      \remove Accidental_engraver
+      \remove Key_engraver
+      \remove Bar_engraver
+      \remove Time_signature_engraver
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Es notifica al gravador @code{Stem_engraver} que qualsevol cap de
+nota que aparegui.  Cada cop que es veu un cap de nota (o més, per
+a un acord) es creat un objecte de plica i es connecta al cap de nota.
+Afegint gravadors per a les pliques, les lligadures, els accents,
+els accidents, les línies de barra, els indicadors de temps i de
+clau, aconseguim un conjunt complet de notació.
+
+@lilypond[quote,ragged-right]
+\include "en/included/engraver-example.ily"
+\score { \topVoice }
+@end lilypond
+
+@cindex polifonia
+@cindex gravat de veus múltiples
+@cindex contextos
+
+Aquest sistema funciona bé per a música monofònica, però que passa
+amb la polifonia?  A la notació polifònica, una pauta pot ser
+compartida per moltes veus.
+
+@lilypond[quote,ragged-right]
+\include "en/included/engraver-example.ily"
+\new Staff << \topVoice \\ \botVoice >>
+@end lilypond
+
+En aquesta situació, els accidents i la pauta es comparteixen,
+però les pliques, les lligadures, els ganxos, etc., són privats
+per a cada veu.  Consegüentment, s'haurien d'agrupar els
+gravadors.  Els gravadors per als caps de notes, les pliques, les
+lligadures, etc. van dins d'un grup anomenat @q{Context de veu},
+mentre que els gravadors per a la clau, accidents, barres, etc.,
+van en un grup anomenat @q{Context de pauta}.  En el cas de la
+polifonia, un context únic de pauta conté més d'un context de veu.
+De manera similar, es poden posar contextos múltiples de pauta
+dins d'un únic context de partitura.  El context de partitura és
+el context de nivell superior de la notació.
+
+@lilypond[quote,ragged-right]
+\include "en/included/engraver-example.ily"
+\score {
+   <<
+      \new Staff << \topVoice \\ \botVoice >>
+      \new Staff << \pah \\ \hoom >>
+   >>
+}
+@end lilypond
+
+@morerefs
+Referències internes:
+@rinternals{Contexts}.
+@endmorerefs
+
+@node Flexible architecture
+@unnumberedsubsec Arquitectura flexible
+
+Quan vam començar, vam escriure el programa LilyPond enterament en
+el llenguatge de programació C++; les funcionalitats del programa
+estaven gravades en pedra per als programadors.  Això va
+demostrar-se insatisfactori per un nombre de raons:
+
+@itemize
+
+@item Quan el LilyPond fa errors, els usuaris han de cancel·lar
+les decisions de format.  Consegüentment, l'usuari ha de tenir
+accés al motor de formatat.  En conseqüència, no podem fixar les
+regles i les configuracions al moment de la compilació sinó que
+han de ser accessibles per als usuaris al moment de l'execució.
+
+@item El gravat és una qüestió de judici visual, i consegüentment
+una qüestió de gustos.  Tot i que siguem coneixedors, els usuaris
+poden no estar d'acord amb les nostres decisions personals. Així,
+les definicions sobre l'estil de tipografia també han d'estar
+accessibles per a l'usuari.
+
+
+@item Finally, we continually refine the formatting algorithms, so
+we need a flexible approach to rules.  The C++ language forces a
+certain method of grouping rules that cannot readily be applied to
+formatting music notation.
+
+@end itemize
+
+@cindex Scheme programming language
+
+These problems have been addressed by integrating an interpreter
+for the Scheme programming language and rewriting parts of
+LilyPond in Scheme.  The current formatting architecture is built
+around the notion of graphical objects, described by Scheme
+variables and functions.  This architecture encompasses formatting
+rules, typographical style and individual formatting decisions.
+The user has direct access to most of these controls.
+
+Scheme variables control layout decisions.  For example, many
+graphical objects have a direction variable that encodes the
+choice between up and down (or left and right).  Here you see two
+chords, with accents and arpeggios.  In the first chord, the
+graphical objects have all directions down (or left).  The second
+chord has all directions up (right).
+
+@lilypond[quote,ragged-right]
+\score {
+  \relative {
+    \stemDown <e' g b>4_>-\arpeggio
+    \override Arpeggio.direction = #RIGHT
+    \stemUp <e g b>4^>-\arpeggio
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner.spacing-increment = #3
+      \hide TimeSignature
+    }
+  }
+}
+@end lilypond
+
+@cindex score formatting
+@cindex formatting a score
+@cindex formatting rules
+
+@noindent
+The process of formatting a score consists of reading and writing
+the variables of graphical objects.  Some variables have a preset
+value.  For example, the thickness of many lines -- a
+characteristic of typographical style -- is a variable with a
+preset value.  You are free to alter this value, giving your score
+a different typographical impression.
+
+@lilypond[quote,ragged-right]
+fragment = {
+   \clef bass f8 as8
+   c'4-~ c'16 as g f e16 g bes c' des'4
+}
+<<
+   \new Staff \fragment
+   \new Staff \with {
+      \override Beam.beam-thickness = #0.3
+      \override Stem.thickness = #0.5
+      \override Bar.thickness = #3.6
+      \override Tie.thickness = #2.2
+      \override StaffSymbol.thickness = #3.0
+      \override Tie.extra-offset = #'(0 .  0.3)
+      }
+      \fragment
+>>
+@end lilypond
+
+Formatting rules are also preset variables: each object has
+variables containing procedures.  These procedures perform the
+actual formatting, and by substituting different ones, we can
+change the appearance of objects.  In the following example, the
+rule governing which note head objects are used to produce the
+note head symbol is changed during the music fragment.
+
+@lilypond[quote,ragged-right]
+#(set-global-staff-size 30)
+
+#(define (mc-squared grob orig current)
+  (let* ((interfaces (ly:grob-interfaces grob))
+         (pos (ly:grob-property grob 'staff-position)))
+    (if (memq 'note-head-interface interfaces)
+        (begin
+          (ly:grob-set-property! grob 'stencil
+            (grob-interpret-markup grob
+              (make-lower-markup 0.5
+                (case pos
+                  ((-5) "m")
+                  ((-3) "c ")
+                  ((-2) (make-smaller-markup (make-bold-markup "2")))
+                  (else "bla")))))))))
+
+\new Voice \relative {
+  \stemUp
+  \set autoBeaming = ##f
+  \time 2/4
+  <d' f g>4
+  \once \override NoteHead.stencil = #note-head::brew-ez-stencil
+  \once \override NoteHead.font-size = #-7
+  \once \override NoteHead.font-family = #'sans
+  \once \override NoteHead.font-series = #'bold
+  <d f g>4
+  \once \override NoteHead.style = #'cross
+  <d f g>4
+  \applyOutput Voice #mc-squared
+  <d f g>4
+  <<
+    { d8[ es-( fis^^ g] fis2-) }
+    \repeat unfold 5 { \applyOutput Voice #mc-squared s8 }
+  >>
+}
+@end lilypond
+
+
+
+@node Putting LilyPond to work
+@section Putting LilyPond to work
+
+@cindex simple examples
+@cindex examples, simple
+
+We have written LilyPond as an experiment of how to condense the
+art of music engraving into a computer program.  Thanks to all
+that hard work, the program can now be used to perform useful
+tasks.  The simplest application is printing notes.
+
+@lilypond[quote,relative=1]
+{
+  \time 2/4
+  c4 c g'4 g a4 a g2
+}
+@end lilypond
+
+@noindent
+By adding chord names and lyrics we obtain a lead sheet.
+
+@lilypond[quote,ragged-right]
+<<
+   \chords { c2 c f2 c }
+   \new Staff
+   \relative {
+     \time 2/4
+     c'4 c g' g a a g2
+   }
+   \addlyrics { twin -- kle twin -- kle lit -- tle star }
+>>
+@end lilypond
+
+Polyphonic notation and piano music can also be printed.  The
+following example combines some more exotic constructs.
+
+@lilypond[quote,line-width=15.9\cm]
+\header {
+  title = "Screech and boink"
+  subtitle = "Random complex notation"
+  composer = "Han-Wen Nienhuys"
+}
+
+\score {
+  \context PianoStaff <<
+    \new Staff = "up" {
+      \time 4/8
+      \key c \minor
+      << {
+        \revert Stem.direction
+        \change Staff = down
+        \set subdivideBeams = ##t
+        g16.[
+          \change Staff = up
+          c'''32
+          \change Staff = down
+          g32
+          \change Staff = up
+          c'''32
+          \change Staff = down
+          g16]
+        \change Staff = up
+        \stemUp
+        \set followVoice = ##t
+        c'''32([ b''16 a''16 gis''16 g''32)]
+      } \\ {
+        s4 \tuplet 3/2 { d'16[ f' g'] } as'32[ b''32 e'' d'']
+      } \\ {
+        s4 \autoBeamOff d''8.. f''32
+      } \\ {
+        s4 es''4
+      } >>
+    }
+
+    \new Staff = "down" {
+      \clef bass
+      \key c \minor
+      \set subdivideBeams = ##f
+      \override Stem.french-beaming = ##t
+      \override Beam.beam-thickness = #0.3
+      \override Stem.thickness = #4.0
+      g'16[ b16 fis16 g16]
+      << \makeClusters {
+        as16 <as b>
+        <g b>
+        <g cis>
+      } \\ {
+        \override Staff.Arpeggio.arpeggio-direction =#down
+        <cis, e, gis, b, cis>4\arpeggio
+      }
+    >> }
+  >>
+  \midi {
+    \tempo 8 = 60
+  }
+  \layout {
+    \context {
+      \Staff
+      \consists Horizontal_bracket_engraver
+    }
+  }
+}
+@end lilypond
+
+The fragments shown above have all been written by hand, but that
+is not a requirement.  Since the formatting engine is mostly
+automatic, it can serve as an output means for other programs that
+manipulate music.  For example, it can also be used to convert
+databases of musical fragments to images for use on websites and
+multimedia presentations.
+
+This manual also shows an application: the input format is text, and can
+therefore be easily embedded in other text-based formats such as
+@LaTeX{}, HTML, or in the case of this manual, Texinfo.  Using the
+@command{lilypond-book} program, included with LilyPond, the input
+fragments can be replaced by music images in the resulting PDF or HTML
+output files.  Another example is the third-party OOoLilyPond extension
+for OpenOffice.org or LibreOffice, which makes it extremely easy to
+embed musical examples in documents.
+
+For more examples of LilyPond in action, full documentation, and the
+software itself, see our main website: www.lilypond.org.
+
+@page
+@node Engraved examples (BWV 861)
+@section Engraved examples (BWV 861)
+
+This section contains four reference engravings and two
+software-engraved versions of Bach's Fugue in G minor from the
+Well-Tempered Clavier, Book I, BWV 861 (the last seven measures).
+
+@noindent
+Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
+1989):
+
+@iftex
+@sourceimage{bwv861-baer,16cm,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-baer-small,,}
+@end ifnottex
+
+@noindent
+Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
+1989), an alternate musical source.  Aside from the textual differences,
+this demonstrates slight variations in the engraving decisions, even
+from the same publisher and edition:
+
+@iftex
+@sourceimage{bwv861-baer-alt,16cm,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-baer-alt-small,,}
+@end ifnottex
+
+@noindent
+Breitkopf & Härtel, edited by Ferruccio Busoni (Wiesbaden, 1894), also
+available from the Petrucci Music Library (IMSLP #22081).  The editorial
+markings (fingerings, articulations, etc.@:) have been removed for clearer
+comparison with the other editions here:
+
+@iftex
+@sourceimage{bwv861-breitkopf,16cm,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-breitkopf-small,,}
+@end ifnottex
+
+@noindent
+Bach-Gesellschaft edition (Leipzig, 1866), available from the Petrucci
+Music Library (IMSPL #02221):
+
+@iftex
+@sourceimage{bwv861-gesellschaft,16cm,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-gesellschaft-small,,}
+@end ifnottex
+
+@noindent
+Finale 2008:
+
+@iftex
+@sourceimage{pdf/bwv861-finale2008a,,}
+@end iftex
+@ifnottex
+@sourceimage{bwv861-finale2008a,,}
+@end ifnottex
+
+@sp 4
+@noindent
+LilyPond, version @version{}:
+
+@lilypond[staffsize=14.3,line-width=15.9\cm]
+global = {\key g \minor}
+
+partI = \relative {
+  \voiceOne
+  fis'8 d' ees g, fis4 g
+  r8 a16 bes c8 bes16 a d8 r r4
+  r2 r8 d16 ees f8 ees16 d
+  ees4 ~ 16 d c bes a4 r8 ees'16 d
+  c8 d16 ees d8 e16 fis g8 fis16 g a4 ~
+  8 d, g f ees d c bes
+  a2 g\fermata \bar "|."
+}
+
+partII = \relative {
+  \voiceTwo
+  d'4 r4 r8 d'16 c bes8 c16 d
+  ees8 d c ees a, r r4
+  r8 fis16 g a8 g16 fis g2 ~
+  2 r8 d' ees g,
+  fis4 g r8 a16 bes c8 bes16 a
+  bes4. <g b>8 <a c> r <d, g> r
+  <ees g>4 <d fis> d2
+}
+partIII = \relative {
+  \voiceOne
+  r2 r8 d' ees g, fis4 g r8 a16 bes c8 bes16 a
+  bes2 ~ 8 b16 a g8 a16 b
+  c4 r r2
+  R1
+  r8 d ees g, fis4 g
+  r8 a16 bes c8 bes16 a b2
+}
+partIV = \relative {
+  \voiceTwo
+  d4 r r2
+  r8 d ees g, fis4 a
+  d,8 d'16 c bes8 c16 d ees2 ~
+  8 ees16 d c8 d16 ees fis,8 a16 g fis8 g16 a
+  d,8 d'16 c bes8 c16 d ees8 c a fis'
+  g f ees d c bes a g
+  c a d d, g2\fermata
+}
+
+\score {
+  <<
+    \set Score.currentBarNumber = #28
+    \new PianoStaff <<
+      \new Staff = "RH" <<
+        \global
+        \new Voice = "voiceI" { \partI }
+        \new Voice = "voiceII" { \partII }
+      >>
+
+      \new Staff = "LH" <<
+        \clef "bass"
+        \global
+        \new Voice = "voiceIII" { \partIII }
+        \new Voice = "voiceIV" { \partIV }
+      >>
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \remove Time_signature_engraver
+    }
+    \context {
+      \PianoStaff
+      \override StaffGrouper.staff-staff-spacing.padding = #1
+    }
+  }
+}
+@end lilypond
