@@ -28,6 +28,7 @@ import sys
 import os
 import re
 import optparse
+import multiprocessing
 
 import postprocess_html
 
@@ -36,6 +37,7 @@ parser.add_option("--version", dest="version", action="store")
 parser.add_option("--target", dest="target", action="store")
 parser.add_option("--name", dest="name", action="store")
 parser.add_option("--dest-dir", dest="dest_dir", action="store", default="")
+parser.add_option("--job-count", dest="job_count", action="store", type="int", default=1)
 
 (options, args) = parser.parse_args()
 
@@ -77,10 +79,33 @@ for root, dirs, files in os.walk(target_dir):
 
 processor = postprocess_html.Processor(html_files)
 sys.stderr.write("Processing HTML pages for %s target...\n" % options.target)
-postprocess_html.process_html_files(
-    processor,
-    processor.todo_items(),
-    package_name=options.name,
-    package_version=options.version,
-    is_online=(options.target=="online"),
-    dest_dir=options.dest_dir)
+
+def consume(q):
+    while True:
+        todo = q.get()
+        if todo is None:
+            break
+        postprocess_html.process_html_files(
+            processor,
+            [todo],
+            package_name=options.name,
+            package_version=options.version,
+            is_online=(options.target=="online"),
+            dest_dir=options.dest_dir)
+
+todo_list = processor.todo_items()
+queue = multiprocessing.Queue()
+
+processes = []
+for _ in  range(0, options.job_count):
+    p = multiprocessing.Process(target=consume, args=(queue,))
+    p.start()
+    processes.append(p)
+
+for t in todo_list:
+    queue.put(t)
+for _ in range(options.job_count):
+    queue.put(None)
+
+for p in processes:
+    p.join()
