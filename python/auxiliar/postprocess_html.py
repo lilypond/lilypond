@@ -234,44 +234,43 @@ syntax_highlighting_code = '''
 
 
 def add_menu(page_content: str, prefix: str, lang_ext: str, available: List[langdefs.LanguageDef], translation) -> str:
-    if 1:
-        language_menu = ''
-        if lang_ext != '':
-            t = translation[lang_ext]
-        else:
-            t = _doc
-        for lang in available:
-            lang_file = lang.file_name(os.path.basename(prefix), '.html')
-            if language_menu != '':
-                language_menu += ', '
-            language_menu += '<a href="%s">%s</a>' % (lang_file, t(lang.name))
+    language_menu = ''
+    if lang_ext != '':
+        t = translation[lang_ext]
+    else:
+        t = _doc
+    for lang in available:
+        lang_file = lang.file_name(os.path.basename(prefix), '.html')
+        if language_menu != '':
+            language_menu += ', '
+        language_menu += '<a href="%s">%s</a>' % (lang_file, t(lang.name))
 
-        languages = ''
-        if language_menu:
-            browser_language = t(browser_lang) % browser_language_url
-            language_available = t(lang_available) % language_menu
-            languages = LANGUAGES_TEMPLATE % vars()
+    languages = ''
+    if language_menu:
+        browser_language = t(browser_lang) % browser_language_url
+        language_available = t(lang_available) % language_menu
+        languages = LANGUAGES_TEMPLATE % vars()
 
-        full_footer = ''
-        if 'web' not in prefix:
-            full_footer += footer
+    full_footer = ''
+    if 'web' not in prefix:
+        full_footer += footer
 
-        full_footer += languages
+    full_footer += languages
 
-        if 'web' not in prefix:
-            disable = t(syntax_highlighting_disable)
-            enable = t(syntax_highlighting_enable)
-            save = t(syntax_highlighting_save)
-            warn = t(syntax_highlighting_warn_local_storage)
-            code = syntax_highlighting_code % {"disable_text": disable,
-                                               "enable_text": enable,
-                                               "save_text": save,
-                                               "warn_local_storage_text": warn}
-            full_footer += code
+    if 'web' not in prefix:
+        disable = t(syntax_highlighting_disable)
+        enable = t(syntax_highlighting_enable)
+        save = t(syntax_highlighting_save)
+        warn = t(syntax_highlighting_warn_local_storage)
+        code = syntax_highlighting_code % {"disable_text": disable,
+                                           "enable_text": enable,
+                                           "save_text": save,
+                                           "warn_local_storage_text": warn}
+        full_footer += code
 
-        full_footer = '''<div id="footer">%s</div>''' % full_footer
+    full_footer = '''<div id="footer">%s</div>''' % full_footer
 
-        return add_footer(page_content, full_footer)
+    return add_footer(page_content, full_footer)
 
 def process_html_files(pages_dict: Dict[str, List[str]],
                        package_name='',
@@ -344,17 +343,16 @@ def process_html_files(pages_dict: Dict[str, List[str]],
             page_content = add_menu(
                 page_content, prefix, lang_ext, available, langdefs.translation)
 
-            if 1:
-                page_content = page_content % subst[lang_ext]
+            page_content = page_content % subst[lang_ext]
 
-                # Must write to tmp file to avoid touching hardlinked files.
-                dest = os.path.join(dest_dir, file_name)
-                if dest_dir:
-                    os.makedirs(os.path.dirname(dest), exist_ok=True)
-                out_f = open(dest + ".tmp", 'w', encoding='utf-8')
-                out_f.write(page_content)
-                out_f.close()
-                os.rename(dest + ".tmp", dest)
+            # Must write to tmp file to avoid touching hardlinked files.
+            dest = os.path.join(dest_dir, file_name)
+            if dest_dir:
+                os.makedirs(os.path.dirname(dest), exist_ok=True)
+            out_f = open(dest + ".tmp", 'w', encoding='utf-8')
+            out_f.write(page_content)
+            out_f.close()
+            os.rename(dest + ".tmp", dest)
 
         # if the page is translated, a .en.html symlink is necessary for content negotiation
         if is_online and ext_list != [''] and not os.path.lexists(prefix + '.en.html'):
