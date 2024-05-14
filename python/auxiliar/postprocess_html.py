@@ -169,21 +169,16 @@ def process_offline_link(pages_dict: Dict[str, List[str]], m: re.Match, prefix: 
             + '.html' + anchor + '"')
 
 
-# TODO: return val should really be Dict[str, Tuple[str,str]]
-def process_links(pages_dict: Dict[str, List[str]], content: str, prefix: str, lang_ext: str, file_name: str, is_online: bool) -> Dict[str,List[str]]:
-    page_flavors = {}
+def process_links(pages_dict: Dict[str, List[str]], content: str, prefix: str, lang_ext: str, is_online: bool) -> str:
     if is_online:
         # Strip .html, suffix for auto language selection (content
         # negotiation).  The menu must keep the full extension, so do
         # this before adding the menu.
-        page_flavors[file_name] = [lang_ext,
-                                   links_re.sub(process_online_link, content)]
+        return links_re.sub(process_online_link, content)
     else:
         def repl(m: re.Match):
             return process_offline_link(pages_dict, m, prefix, lang_ext)
-        page_flavors[file_name] = [lang_ext,
-                                   links_re.sub(repl, content)]
-    return page_flavors
+        return links_re.sub(repl, content)
 
 
 # About the @license comments, see
@@ -238,11 +233,11 @@ syntax_highlighting_code = '''
 '''
 
 
-def add_menu(page_flavors: Dict[str, List[str]], prefix: str, available: List[langdefs.LanguageDef], translation) -> Dict[str, List[str]]:
-    for k in page_flavors:
+def add_menu(page_content: str, prefix: str, lang_ext: str, available: List[langdefs.LanguageDef], translation) -> str:
+    if 1:
         language_menu = ''
-        if page_flavors[k][0] != '':
-            t = translation[page_flavors[k][0]]
+        if lang_ext != '':
+            t = translation[lang_ext]
         else:
             t = _doc
         for lang in available:
@@ -276,10 +271,7 @@ def add_menu(page_flavors: Dict[str, List[str]], prefix: str, available: List[la
 
         full_footer = '''<div id="footer">%s</div>''' % full_footer
 
-        page_flavors[k][1] = add_footer(page_flavors[k][1], full_footer)
-        
-    return page_flavors
-
+        return add_footer(page_content, full_footer)
 
 def process_html_files(pages_dict: Dict[str, List[str]],
                        package_name='',
@@ -346,21 +338,21 @@ def process_html_files(pages_dict: Dict[str, List[str]],
                 '<!-- Sidebar Version Tag -->', sidebar_version)
 
             available = find_translations(pages_dict, prefix, lang_ext)
-            page_flavors = process_links(pages_dict,
-                                         content, prefix, lang_ext, file_name, is_online)
+            page_content = process_links(pages_dict,
+                                         content, prefix, lang_ext, is_online)
             # Add menu after stripping: must not have autoselection for language menu.
-            page_flavors = add_menu(
-                page_flavors, prefix, available, langdefs.translation)
+            page_content = add_menu(
+                page_content, prefix, lang_ext, available, langdefs.translation)
 
-            for k in page_flavors:
-                page_flavors[k][1] = page_flavors[k][1] % subst[page_flavors[k][0]]
+            if 1:
+                page_content = page_content % subst[lang_ext]
 
                 # Must write to tmp file to avoid touching hardlinked files.
-                dest = os.path.join(dest_dir, k)
+                dest = os.path.join(dest_dir, file_name)
                 if dest_dir:
                     os.makedirs(os.path.dirname(dest), exist_ok=True)
                 out_f = open(dest + ".tmp", 'w', encoding='utf-8')
-                out_f.write(page_flavors[k][1])
+                out_f.write(page_content)
                 out_f.close()
                 os.rename(dest + ".tmp", dest)
 
