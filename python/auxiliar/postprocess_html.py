@@ -28,9 +28,10 @@ import sys
 import time
 
 import langdefs
+from typing import Dict, List, Tuple, Optional, Any
 
 
-def _doc(s):
+def _doc(s: str) -> str:
     return s
 
 
@@ -81,7 +82,7 @@ LANGUAGES_TEMPLATE = '''
 html_re = re.compile('(.*?)(?:[.]([^/.]*))?[.]html$')
 
 
-def build_pages_dict(filelist):
+def build_pages_dict(filelist: List[str]) -> Dict[str, List[str]]:
     """Build dictionary of available translations of each page.
 
     Returns: basename => list of languages dict"""
@@ -111,7 +112,7 @@ footer_insert_re = re.compile(r'<!--\s*FOOTER\s*-->')
 end_body_re = re.compile(r'(?i)</body>')
 
 
-def add_footer(s, footer_text):
+def add_footer(s: str, footer_text: str) -> str:
     """add footer"""
 
     # prefer inserting at FOOTER; this is necessary for the footer to
@@ -126,7 +127,7 @@ def add_footer(s, footer_text):
     return s
 
 
-def find_translations(pages_dict, prefix, lang_ext):
+def find_translations(pages_dict: Dict[str, List[str]], prefix: str, lang_ext: str) -> List[langdefs.LanguageDef]:
     """find available translations of a page"""
     available = []
     for l in langdefs.LANGUAGES:
@@ -140,35 +141,36 @@ def find_translations(pages_dict, prefix, lang_ext):
 links_re = re.compile(r'href="([^/]\.*[^".]*)\.html(#[^"]*|)"')
 
 
-def remove_unneeded_anchor(match):
-    file_no_ext = match.group(1)
-    anchor = match.group(2)
+def remove_unneeded_anchor(m: re.Match) -> str:
+    file_no_ext = m.group(1)
+    anchor = m.group(2)
     if anchor != '' and file_no_ext.endswith(anchor[1:]):
         return ''
     return anchor
 
 
-def process_online_link(match):
-    anchor = remove_unneeded_anchor(match)
-    return ('href="' + match.group(1) + anchor + '"')
+def process_online_link(m: re.Match) -> str:
+    anchor = remove_unneeded_anchor(m)
+    return ('href="' + m.group(1) + anchor + '"')
 
 
-def process_offline_link(pages_dict, match, prefix, lang_ext):
+def process_offline_link(pages_dict: Dict[str, List[str]], m: re.Match, prefix: str, lang_ext: str) -> str:
     destination_path = os.path.normpath(os.path.join(
         os.path.dirname(prefix),
-        match.group(1)))
+        m.group(1)))
     if not (destination_path in pages_dict and
             lang_ext in pages_dict[destination_path]):
         lang_ext = ''
 
-    anchor = remove_unneeded_anchor(match)
+    anchor = remove_unneeded_anchor(m)
     if lang_ext != '':
         lang_ext = '.' + lang_ext
-    return ('href="' + match.group(1) + lang_ext
+    return ('href="' + m.group(1) + lang_ext
             + '.html' + anchor + '"')
 
 
-def process_links(pages_dict, content, prefix, lang_ext, file_name, is_online):
+# TODO: return val should really be Dict[str, Tuple[str,str]]
+def process_links(pages_dict: Dict[str, List[str]], content: str, prefix: str, lang_ext: str, file_name: str, is_online: bool) -> Dict[str,List[str]]:
     page_flavors = {}
     if is_online:
         # Strip .html, suffix for auto language selection (content
@@ -177,8 +179,8 @@ def process_links(pages_dict, content, prefix, lang_ext, file_name, is_online):
         page_flavors[file_name] = [lang_ext,
                                    links_re.sub(process_online_link, content)]
     else:
-        def repl(match):
-            return process_offline_link(pages_dict, match, prefix, lang_ext)
+        def repl(m: re.Match):
+            return process_offline_link(pages_dict, m, prefix, lang_ext)
         page_flavors[file_name] = [lang_ext,
                                    links_re.sub(repl, content)]
     return page_flavors
@@ -236,7 +238,7 @@ syntax_highlighting_code = '''
 '''
 
 
-def add_menu(page_flavors, prefix, available, translation):
+def add_menu(page_flavors: Dict[str, List[str]], prefix: str, available: List[langdefs.LanguageDef], translation) -> Dict[str, List[str]]:
     for k in page_flavors:
         language_menu = ''
         if page_flavors[k][0] != '':
@@ -275,10 +277,11 @@ def add_menu(page_flavors, prefix, available, translation):
         full_footer = '''<div id="footer">%s</div>''' % full_footer
 
         page_flavors[k][1] = add_footer(page_flavors[k][1], full_footer)
+        
     return page_flavors
 
 
-def process_html_files(pages_dict,
+def process_html_files(pages_dict: Dict[str, List[str]],
                        package_name='',
                        package_version='',
                        is_online=False):
