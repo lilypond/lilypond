@@ -75,10 +75,11 @@ for root, dirs, files in os.walk(target_dir):
         if f.endswith(".html"):
             html_files.append(os.path.join(root, f))
 
-pages_dict = postprocess_html.build_pages_dict(html_files)
+processor = postprocess_html.Processor(html_files)
 sys.stderr.write("Processing HTML pages for %s target...\n" % options.target)
 postprocess_html.process_html_files(
-    pages_dict,
+    processor,
+    processor.todo_items(),
     package_name=options.name,
     package_version=options.version,
     is_online=(options.target=="online"),

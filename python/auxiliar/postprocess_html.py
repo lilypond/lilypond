@@ -82,16 +82,19 @@ LANGUAGES_TEMPLATE = '''
 html_re = re.compile('(.*?)(?:[.]([^/.]*))?[.]html$')
 
 
-def build_pages_dict(filelist: List[str]) -> Dict[str, List[str]]:
-    """Build dictionary of available translations of each page.
+class Processor:
+    """Encapsulates the list of translations, grouped by page."""
 
-    Returns: basename => list of languages dict"""
-    pages_dict = {}
+    def __init__(self, filelist: List[str]):
+        # basename => list of languages dict
+        self._pages_dict: Dict[str, List[str]] = {}
 
-    language_codes = set([l.webext for l in langdefs.LANGUAGES])
-    for f in filelist:
-        m = html_re.match(f)
-        if m:
+        language_codes = set([l.webext for l in langdefs.LANGUAGES])
+        for f in filelist:
+            m = html_re.match(f)
+            if not m:
+                continue
+
             g = m.groups()
             if len(g) <= 1 or g[1] is None:
                 e = ''
@@ -101,11 +104,48 @@ def build_pages_dict(filelist: List[str]) -> Dict[str, List[str]]:
             if e not in language_codes:
                 continue
 
-            if not g[0] in pages_dict:
-                pages_dict[g[0]] = [e]
+            if not g[0] in self._pages_dict:
+                self._pages_dict[g[0]] = [e]
             else:
-                pages_dict[g[0]].append(e)
-    return pages_dict
+                self._pages_dict[g[0]].append(e)
+
+    def todo_items(self) -> List[Tuple[str, List[str]]]:
+        return list(self._pages_dict.items())
+
+    def find_translations(self, prefix: str, lang_ext: str) -> List[langdefs.LanguageDef]:
+        """find available translations of a page"""
+        available = []
+        for l in langdefs.LANGUAGES:
+            e = l.webext
+            if lang_ext != e:
+                if e in self._pages_dict[prefix]:
+                    available.append(l)
+        return available
+
+    def process_links(self, content: str, prefix: str, lang_ext: str, is_online: bool) -> str:
+        if is_online:
+            # Strip .html, suffix for auto language selection (content
+            # negotiation).  The menu must keep the full extension, so do
+            # this before adding the menu.
+            return links_re.sub(process_online_link, content)
+        else:
+            def repl(m: re.Match):
+                return self._process_offline_link(m, prefix, lang_ext)
+            return links_re.sub(repl, content)
+
+    def _process_offline_link(self, m: re.Match, prefix: str, lang_ext: str) -> str:
+        destination_path = os.path.normpath(os.path.join(
+            os.path.dirname(prefix),
+            m.group(1)))
+        if not (destination_path in self._pages_dict and
+                lang_ext in self._pages_dict[destination_path]):
+            lang_ext = ''
+
+        anchor = remove_unneeded_anchor(m)
+        if lang_ext != '':
+            lang_ext = '.' + lang_ext
+        return ('href="' + m.group(1) + lang_ext
+                + '.html' + anchor + '"')
 
 
 footer_insert_re = re.compile(r'<!--\s*FOOTER\s*-->')
@@ -127,17 +167,6 @@ def add_footer(s: str, footer_text: str) -> str:
     return s
 
 
-def find_translations(pages_dict: Dict[str, List[str]], prefix: str, lang_ext: str) -> List[langdefs.LanguageDef]:
-    """find available translations of a page"""
-    available = []
-    for l in langdefs.LANGUAGES:
-        e = l.webext
-        if lang_ext != e:
-            if e in pages_dict[prefix]:
-                available.append(l)
-    return available
-
-
 links_re = re.compile(r'href="([^/]\.*[^".]*)\.html(#[^"]*|)"')
 
 
@@ -152,33 +181,6 @@ def remove_unneeded_anchor(m: re.Match) -> str:
 def process_online_link(m: re.Match) -> str:
     anchor = remove_unneeded_anchor(m)
     return ('href="' + m.group(1) + anchor + '"')
-
-
-def process_offline_link(pages_dict: Dict[str, List[str]], m: re.Match, prefix: str, lang_ext: str) -> str:
-    destination_path = os.path.normpath(os.path.join(
-        os.path.dirname(prefix),
-        m.group(1)))
-    if not (destination_path in pages_dict and
-            lang_ext in pages_dict[destination_path]):
-        lang_ext = ''
-
-    anchor = remove_unneeded_anchor(m)
-    if lang_ext != '':
-        lang_ext = '.' + lang_ext
-    return ('href="' + m.group(1) + lang_ext
-            + '.html' + anchor + '"')
-
-
-def process_links(pages_dict: Dict[str, List[str]], content: str, prefix: str, lang_ext: str, is_online: bool) -> str:
-    if is_online:
-        # Strip .html, suffix for auto language selection (content
-        # negotiation).  The menu must keep the full extension, so do
-        # this before adding the menu.
-        return links_re.sub(process_online_link, content)
-    else:
-        def repl(m: re.Match):
-            return process_offline_link(pages_dict, m, prefix, lang_ext)
-        return links_re.sub(repl, content)
 
 
 # About the @license comments, see
@@ -272,7 +274,9 @@ def add_menu(page_content: str, prefix: str, lang_ext: str, available: List[lang
 
     return add_footer(page_content, full_footer)
 
-def process_html_files(pages_dict: Dict[str, List[str]],
+
+def process_html_files(processor: Processor,
+                       todo_items: List[Tuple[str, List[str]]],
                        package_name='',
                        package_version='',
                        dest_dir='',
@@ -281,7 +285,7 @@ def process_html_files(pages_dict: Dict[str, List[str]],
     to a number of HTML files.
 
     Arguments:
-     pages_dict:               dict of filename => translations
+     processor :               Processor instance
      package_name=NAME         set package_name to NAME
      package_version=VERSION   set package version to VERSION
      is_online                 set page processing for HTTP webserving with content
@@ -324,7 +328,7 @@ def process_html_files(pages_dict: Dict[str, List[str]],
         for k in ['footer_name_version', 'footer_report_links']:
             subst[e][k] = subst[e][k] % subst[e]
 
-    for prefix, ext_list in list(pages_dict.items()):
+    for prefix, ext_list in todo_items:
         for lang_ext in ext_list:
             file_name = langdefs.lang_file_name(prefix, lang_ext, '.html')
             dest_time = 0
@@ -336,9 +340,9 @@ def process_html_files(pages_dict: Dict[str, List[str]],
             content = content.replace(
                 '<!-- Sidebar Version Tag -->', sidebar_version)
 
-            available = find_translations(pages_dict, prefix, lang_ext)
-            page_content = process_links(pages_dict,
-                                         content, prefix, lang_ext, is_online)
+            available = processor.find_translations(prefix, lang_ext)
+            page_content = processor.process_links(
+                content, prefix, lang_ext, is_online)
             # Add menu after stripping: must not have autoselection for language menu.
             page_content = add_menu(
                 page_content, prefix, lang_ext, available, langdefs.translation)
