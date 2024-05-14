@@ -27,12 +27,20 @@
 import sys
 import os
 import re
+import optparse
 
 import postprocess_html
 
-package_name, package_version, target_dir, target = sys.argv[1:]
+parser = optparse.OptionParser()
+parser.add_option("--version", dest="version", action="store")
+parser.add_option("--target", dest="target", action="store")
+parser.add_option("--name", dest="name", action="store")
 
-if target not in ("online", "offline"):
+(options, args) = parser.parse_args()
+
+target_dir = args[0]
+
+if options.target not in ("online", "offline"):
     sys.stderr.write("target must be 'online' or 'offline'")
     os.exit(2)
 
@@ -49,15 +57,14 @@ if os.path.isdir(os.path.join(target_dir, 'Documentation/')):
     <body>Redirecting to the documentation index...</body>
     </html>
     ''',
-        'VERSION': package_version + '\n',
+        'VERSION': options.version + '\n',
     }.items():
         open(os.path.join(target_dir, f), 'w',
              encoding='utf-8').write(contents)
 
     # need this for content negotiation with documentation index
-    if target == 'online':
-        f = open(os.path.join(target_dir, 'Documentation/.htaccess'),
-                 'w', encoding='utf-8')
+    if options.target == 'online':
+        f = open(os.path.join(target_dir, 'Documentation/.htaccess'), 'w', encoding='utf-8')
         f.write('#.htaccess\nDirectoryIndex index\n')
         f.close()
 
@@ -68,9 +75,9 @@ for root, dirs, files in os.walk(target_dir):
             html_files.append(os.path.join(root, f))
 
 pages_dict = postprocess_html.build_pages_dict(html_files)
-sys.stderr.write("Processing HTML pages for %s target...\n" % target)
+sys.stderr.write("Processing HTML pages for %s target...\n" % options.target)
 postprocess_html.process_html_files(
     pages_dict,
-    package_name=package_name,
-    package_version=package_version,
-    is_online=(target=="online"))
+    package_name=options.name,
+    package_version=options.version,
+    is_online=(options.target=="online"))

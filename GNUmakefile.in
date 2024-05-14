@@ -174,7 +174,7 @@ $(outdir)/%-root/index.html: doc-build
 	      $(dir $@)
 	# No link because the files come from the source directory.
 	cp $(addprefix $(src-dir)/,$(README_FILES)) $(dir $@)
-	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "$*"
+	$(PYTHON) $(buildscript-dir)/www_post.py --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION) --target "$*" $(dir $@)
 	find $(outdir)/$*-root -type l -delete
 	cd $(outdir)/$*-root && \
 	  find . \
@@ -215,7 +215,7 @@ $(outdir)/website-root/index.html: website-build
 	rsync -a Documentation/out-web/website/web/ $(dir $@)
 	$(foreach d,css misc pictures ly-examples,\
 	  rsync -a Documentation/out-web/website/$(d) $(dir $@) &&) true
-	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(dir $@) "offline"
+	$(PYTHON) $(buildscript-dir)/www_post.py --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION) --target offline $(dir $@)
 	$(call ly_progress,Fix up,links,to subdirectories)
 	$(PERL) \
 	  -i -p \
