@@ -35,6 +35,7 @@ parser = optparse.OptionParser()
 parser.add_option("--version", dest="version", action="store")
 parser.add_option("--target", dest="target", action="store")
 parser.add_option("--name", dest="name", action="store")
+parser.add_option("--dest-dir", dest="dest_dir", action="store", default="")
 
 (options, args) = parser.parse_args()
 
@@ -80,4 +81,5 @@ postprocess_html.process_html_files(
     pages_dict,
     package_name=options.name,
     package_version=options.version,
-    is_online=(options.target=="online"))
+    is_online=(options.target=="online"),
+    dest_dir=options.dest_dir)

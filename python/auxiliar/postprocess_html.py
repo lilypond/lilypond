@@ -284,6 +284,7 @@ def add_menu(page_flavors: Dict[str, List[str]], prefix: str, available: List[la
 def process_html_files(pages_dict: Dict[str, List[str]],
                        package_name='',
                        package_version='',
+                       dest_dir='',
                        is_online=False):
     """Add header, footer, syntax highlighting toggle, and tweak links
     to a number of HTML files.
@@ -294,6 +295,7 @@ def process_html_files(pages_dict: Dict[str, List[str]],
      package_version=VERSION   set package version to VERSION
      is_online                 set page processing for HTTP webserving with content
                                  negotiation rather filesystem browsing
+     dest_dir:                 where to write output; if unset, in-place editing..
     """
     versiontup = package_version.split('.')
     branch_str = _doc('stable-branch')
@@ -354,10 +356,13 @@ def process_html_files(pages_dict: Dict[str, List[str]],
                 page_flavors[k][1] = page_flavors[k][1] % subst[page_flavors[k][0]]
 
                 # Must write to tmp file to avoid touching hardlinked files.
-                out_f = open(k + ".tmp", 'w', encoding='utf-8')
+                dest = os.path.join(dest_dir, k)
+                if dest_dir:
+                    os.makedirs(os.path.dirname(dest), exist_ok=True)
+                out_f = open(dest + ".tmp", 'w', encoding='utf-8')
                 out_f.write(page_flavors[k][1])
                 out_f.close()
-                os.rename(k + ".tmp", k)
+                os.rename(dest + ".tmp", dest)
 
         # if the page is translated, a .en.html symlink is necessary for content negotiation
         if is_online and ext_list != [''] and not os.path.lexists(prefix + '.en.html'):
