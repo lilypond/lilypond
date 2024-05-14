@@ -236,7 +236,7 @@ syntax_highlighting_code = '''
 '''
 
 
-def add_menu(page_flavors, prefix, available, target, translation):
+def add_menu(page_flavors, prefix, available, translation):
     for k in page_flavors:
         language_menu = ''
         if page_flavors[k][0] != '':
@@ -289,7 +289,7 @@ def process_html_files(pages_dict,
      pages_dict:               dict of filename => translations
      package_name=NAME         set package_name to NAME
      package_version=VERSION   set package version to VERSION
-     targets=offline|online    set page processing depending on the target
+     target=offline|online    set page processing depending on the target
           offline is for reading HTML pages locally
           online is for hosting the HTML pages on a website with content
             negotiation
@@ -347,7 +347,7 @@ def process_html_files(pages_dict,
                                          content, prefix, lang_ext, file_name, target)
             # Add menu after stripping: must not have autoselection for language menu.
             page_flavors = add_menu(
-                page_flavors, prefix, available, target, langdefs.translation)
+                page_flavors, prefix, available, langdefs.translation)
 
             for k in page_flavors:
                 page_flavors[k][1] = page_flavors[k][1] % subst[page_flavors[k][0]]
