@@ -29,6 +29,7 @@ import time
 
 import langdefs
 
+
 def _doc(s):
     return s
 
@@ -138,6 +139,7 @@ def find_translations(pages_dict, prefix, lang_ext):
 
 links_re = re.compile(r'href="([^/]\.*[^".]*)\.html(#[^"]*|)"')
 
+
 def remove_unneeded_anchor(match):
     file_no_ext = match.group(1)
     anchor = match.group(2)
@@ -180,6 +182,7 @@ def process_links(pages_dict, content, prefix, lang_ext, file_name, target):
         page_flavors[file_name] = [lang_ext,
                                    links_re.sub(repl, content)]
     return page_flavors
+
 
 # About the @license comments, see
 # https://www.gnu.org/software/librejs/free-your-javascript.html
@@ -231,6 +234,7 @@ syntax_highlighting_code = '''
   <a href='javascript:save_preference()'>%(save_text)s</a>
 </div>
 '''
+
 
 def add_menu(page_flavors, prefix, available, target, translation):
     for k in page_flavors:
@@ -301,12 +305,12 @@ def process_html_files(pages_dict,
         'branch_str': branch_str,
         'help_us_url': 'https://lilypond.org/help-us.html',
         'bug_lilypond_url': 'https://lists.gnu.org/mailman/listinfo/bug-lilypond',
-        'footer_name_version':  _doc ('This page is for %(package_name)s-'
-                                      '%(package_version)s (%(branch_str)s).'),
-        'footer_report_links': _doc ('We welcome your aid; please '
-                                     '<a href="%(help_us_url)s">help us</a> by '
-                                     'reporting errors to our '
-                                     '<a href="%(bug_lilypond_url)s">bug list</a>.'),
+        'footer_name_version':  _doc('This page is for %(package_name)s-'
+                                     '%(package_version)s (%(branch_str)s).'),
+        'footer_report_links': _doc('We welcome your aid; please '
+                                    '<a href="%(help_us_url)s">help us</a> by '
+                                    'reporting errors to our '
+                                    '<a href="%(bug_lilypond_url)s">bug list</a>.'),
     }
 
     # language => (dict of str => str)
@@ -335,7 +339,8 @@ def process_html_files(pages_dict,
             content = content.replace('%', '%%')
 
             # add sidebar information
-            content = content.replace('<!-- Sidebar Version Tag -->', sidebar_version)
+            content = content.replace(
+                '<!-- Sidebar Version Tag -->', sidebar_version)
 
             available = find_translations(pages_dict, prefix, lang_ext)
             page_flavors = process_links(pages_dict,
