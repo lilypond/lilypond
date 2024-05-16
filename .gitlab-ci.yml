@@ -86,6 +86,19 @@ build:
       - "build/out/lybook-db/**"
     expire_in: 1 week
 
+build-clang:
+  stage: build
+  rules:
+    - <<: *if-default-branch
+      when: never
+    - <<: *if-mr-to-default
+    - <<: *if-stable-branch
+    - <<: *if-schedule-or-web
+  script:
+    - mkdir build && cd build
+    - ../autogen.sh $CONFIGURE_FLAGS CC=clang CXX=clang++
+    - make $MAKE_FLAGS
+
 test:
   stage: test
   rules:
