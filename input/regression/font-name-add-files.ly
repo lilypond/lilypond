@@ -211,7 +211,11 @@ DQAAAAEAAAAA2m42gAAAAADapnDnAAAAANqnrLQFlwAyBZcARQ==
 
 #(define (my-tmpnam)
   "like tmpnam but not deprecated"
-  (format #f "~a/font-name-add-file-~a" (or (getenv "TMPDIR") "/tmp") (random 1000000)))
+  (format
+    #f
+    "~a/~a"
+    (or (getenv "TMPDIR") "/tmp")
+    (ly:make-tmpfile-name "font-name-add-file")))
 
 #(define temp-dir (my-tmpnam))
 #(define subdir (string-append temp-dir "/subdir"))
