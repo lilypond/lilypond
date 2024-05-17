@@ -44,8 +44,6 @@
               (getpid))))
     (set! *random-state* (seed->random-state seed))))
 
-(randomize-rand-seed)
-
 ;; By default, we don't want scary backtraces.
 (debug-disable 'backtrace)
 
@@ -930,6 +928,7 @@ by the developers, LilyPond's safe mode was removed in
 version 2.23.12 in order not to provide a false sense of
 security.  If you need to compile an untrusted .ly file, please
 use an external tool to run LilyPond in a sandbox."))
+  (randomize-rand-seed)
   (eval-string (ly:command-line-code))
   (if (ly:get-option 'help)
       (begin (ly:option-usage (current-output-port) #f)
