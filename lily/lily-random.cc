@@ -74,3 +74,14 @@ Seed the internal pseudo-random generator with the specified value.
   LilyRandom::randgen.seed (seed_int);
   return SCM_UNSPECIFIED;
 }
+
+LY_DEFINE (ly_make_tmpfile_name, "ly:make-tmpfile-name", 1, 0, 0,
+           (SCM filename),
+           R"(
+Return @var{filename}, suffixed by a randomly generated, hexadecimal id.
+           )")
+{
+  LY_ASSERT_TYPE (scm_is_string, filename, 1);
+  auto tmpfile_name = LilyRandom::make_tmpfile_name (ly_scm2string (filename));
+  return ly_string2scm (tmpfile_name);
+}

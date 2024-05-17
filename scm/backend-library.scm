@@ -297,7 +297,7 @@ created."
         (let*
             ;; An all-ASCII name saves us the trouble of dealing with special
             ;; characters in the names of temporary files.
-            ((name (format #f "~a/lilypond-tmp-~a" dir (random 10000000)))
+            ((name (ly:make-tmpfile-name (format #f "~a/lilypond-tmp" dir)))
              (port (create-file-exclusive name #o666))
              (bport #f))
 
