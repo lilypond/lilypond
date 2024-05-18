@@ -24,16 +24,5 @@ beam. This is in disagreement with the current algorithm."
   c,,,16[ c c c
 	  b'''   b b b]
 
-  \transpose c' a, {
-    \relative {  g'16[  g'''16  
-			    g,,,16  g'''16 
-			    g,,,16  g'''16 	     	     
-			    g,,,16  g'''16
-			    g g,,,
-			    g''' g,,,
-			    g''' g,,,
-			    g''' g,,,]
-		   }
-  }
 }
 

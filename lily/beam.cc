@@ -63,6 +63,7 @@
 #include "font-interface.hh" // debug output.
 
 #include <algorithm>
+#include <array>
 #include <map>
 #include <vector>
 
@@ -257,7 +258,8 @@ Beam::calc_direction (SCM smob)
  */
 int
 position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
-                                    Direction left_dir, Direction right_dir)
+                                    Direction left_dir, Direction right_dir,
+                                    bool special_shift)
 {
   Slice lslice = int_list_to_slice (scm_cdr (left_beaming));
 
@@ -274,7 +276,11 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
             count++;
         }
 
-      if (count >= best_count)
+      /* TODO: consider flipping left_dir based on value of special_shift
+       * instead of the below conjunction and calculation of `new_beam_pos`
+       * in Beam::calc_beaming
+       */
+      if (count > best_count || (count == best_count && !special_shift))
         {
           best_count = count;
           best_start = i;
@@ -292,20 +298,45 @@ Beam::calc_beaming (SCM smob)
 
   extract_grob_set (me, "stems", stems);
 
-  Slice last_int;
-  last_int.set_empty ();
+  /* When a kneed beam alternates stem directions, the previous Slice
+   * of the same direction of the current direction (index 0) should be remembered
+   * should the current stem be specially treated as explained in the comment
+   * below. The previous Slice of the opposite direction (index 1) would shift
+   * to index 0 to prepare for a future possible direction flip
+   */
+  auto first_slice_of_prev_dirs = std::array {Slice (0), Slice (0)};
 
   SCM last_beaming = scm_cons (SCM_EOL, ly_list (to_scm (0)));
   Direction last_dir = CENTER;
+  int last_right_beam_count = 0;
   for (auto *const this_stem : stems)
     {
       SCM this_beaming = get_property (this_stem, "beaming");
       if (scm_is_pair (this_beaming))
         {
           Direction this_dir = get_grob_direction (this_stem);
-          int start_point = position_with_maximal_common_beams (
+
+          /* Gould's pg 316-317 explicitly allows beam corners
+           * when both cases of "outer notes of a subdivision [having]
+           * opposite stem direction" and "subdivided group [occuring]
+           * at the end of main beam." If special_shift is always false,
+           * then old behavior of "funky" beams that incrementally shift
+           * the main beam persists
+           */
+          int const right_beaming = Stem::get_beaming (this_stem, RIGHT);
+          bool special_shift
+            = directed_opposite (this_dir, last_dir)
+              // treat specially if left side of current stem is subdivided
+              && last_right_beam_count >= Stem::get_beaming (this_stem, LEFT)
+              // do not treat specially if previous stem had fractional beam
+              && last_right_beam_count < right_beaming;
+          int const start_point = position_with_maximal_common_beams (
             last_beaming, this_beaming, last_dir ? last_dir : this_dir,
-            this_dir);
+            this_dir, special_shift);
+          if (special_shift)
+            special_shift
+              = this_dir * (first_slice_of_prev_dirs[0][this_dir] - start_point)
+                > 0;
 
           Slice new_slice;
           for (const auto d : {LEFT, RIGHT})
@@ -313,20 +344,24 @@ Beam::calc_beaming (SCM smob)
               new_slice.set_empty ();
               for (SCM &s : ly_scm_list (index_get_cell (this_beaming, d)))
                 {
-                  const auto new_beam_pos
-                    = start_point - this_dir * from_scm<int> (s);
+                  int const new_beam_pos
+                    = special_shift
+                        ? first_slice_of_prev_dirs[1][-this_dir]
+                            + this_dir * from_scm<int> (s)
+                        : start_point - this_dir * from_scm<int> (s);
                   new_slice.add_point (new_beam_pos);
                   s = to_scm (new_beam_pos);
                 }
             }
 
-          if (!new_slice.is_empty ())
-            last_int = new_slice;
+          if (!new_slice.is_empty () && this_dir && this_dir != last_dir)
+            first_slice_of_prev_dirs = {first_slice_of_prev_dirs[1], new_slice};
 
           if (scm_ilength (scm_cdr (this_beaming)) > 0)
             {
               last_beaming = this_beaming;
               last_dir = this_dir;
+              last_right_beam_count = right_beaming;
             }
         }
     }
@@ -335,7 +370,7 @@ Beam::calc_beaming (SCM smob)
 }
 
 bool
-operator<(Beam_stem_segment const &a, Beam_stem_segment const &b)
+operator< (Beam_stem_segment const &a, Beam_stem_segment const &b)
 {
   return a.rank_ < b.rank_;
 }
