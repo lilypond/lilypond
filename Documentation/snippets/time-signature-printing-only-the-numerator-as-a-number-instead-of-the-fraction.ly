@@ -8,7 +8,7 @@
 %%
 %% Note: this file works from version 2.25.12.
 
-\version "2.25.13"
+\version "2.25.12"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
