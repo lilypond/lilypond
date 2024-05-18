@@ -2451,7 +2451,7 @@ created; see @ref{Setting automatic beam behavior}.
 @cindex beam, @code{\partCombine} with @code{\autoBeamOff}
 @cindex voice, @code{\partCombine} with @code{\autoBeamOff}
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
-{snippets/partcombine-and-autobeamoff.ly}
+{snippets/partcombine-and--autobeamoff.ly}
 
 
 @morerefs

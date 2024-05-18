@@ -2149,7 +2149,7 @@ quelli automatici predefiniti, come è spiegato in @ref{Setting automatic beam b
 @cindex travatura, @code{\partCombine} con @code{\autoBeamOff}
 @cindex voce, @code{\partCombine} con @code{\autoBeamOff}
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
-{snippets/partcombine-and-autobeamoff.ly}
+{snippets/partcombine-and--autobeamoff.ly}
 
 @morerefs
 Guida alla notazione:

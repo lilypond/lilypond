@@ -2168,7 +2168,7 @@ R1\fermata
 @cindex voice, @code{\partCombine} with @code{\autoBeamOff} (ボイスと @code{\autoBeamOff} を伴う @code{\partCombine})
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
-{snippets/partcombine-and-autobeamoff.ly}
+{snippets/partcombine-and--autobeamoff.ly}
 
 @morerefs
 記譜法リファレンス:

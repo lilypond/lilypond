@@ -2487,7 +2487,7 @@ possibles ; @pxref{Setting automatic beam behavior}.
 @cindex ligature, @code{\partCombine} et @code{\autoBeamOff}
 @cindex voix, @code{\autoBeamOff} et @code{\partCombine}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/partcombine-and-autobeamoff.ly}
+{snippets/partcombine-and--autobeamoff.ly}
 
 @morerefs
 Manuel de notation :

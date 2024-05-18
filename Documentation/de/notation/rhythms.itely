@@ -2034,7 +2034,7 @@ können erstellt werden, siehe @ref{Setting automatic beam behavior}.
 @cindex Stimmen, \autoBeamOff und \partCombine
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
-{snippets/partcombine-and-autobeamoff.ly}
+{snippets/partcombine-and--autobeamoff.ly}
 
 @morerefs
 Notationsreferenz:

@@ -2219,7 +2219,7 @@ automáticos predeterminados; véase
 @cindex barra, @code{\partCombine} con @code{\autoBeamOff}
 @cindex voz, @code{\partCombine} con @code{\autoBeamOff}
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
-{snippets/partcombine-and-autobeamoff.ly}
+{snippets/partcombine-and--autobeamoff.ly}
 
 
 @morerefs

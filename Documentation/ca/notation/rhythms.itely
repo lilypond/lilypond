@@ -2081,7 +2081,7 @@ automàtics predeterminats; vegeu
 @cindex voces, \partCombine con \autoBeamOff
 
 @lilypondfile [verbatim, quote, ragged-right, texidoc, doctitle]
-{snippets/partcombine-and-autobeamoff.ly}
+{snippets/partcombine-and--autobeamoff.ly}
 
 @morerefs
 Referència de la notació:
