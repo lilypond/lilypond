@@ -40,7 +40,7 @@ multi-measure-rest-length-control.ly
 multi-measure-rest-markup.ly
 non-default-tuplet-numbers.ly
 numbering-single-measure-rests.ly
-partcombine-and-autobeamoff.ly
+partcombine-and--autobeamoff.ly
 percussion-example.ly
 permitting-line-breaks-within-beamed-tuplets.ly
 positioning-grace-note-beams-at-the-height-of-normal-note-beams.ly
