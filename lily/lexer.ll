@@ -97,7 +97,6 @@ RH 7 fix (?)
 #endif
 
 void strip_trailing_white (string&);
-void strip_leading_white (string&);
 string lyric_fudge (string s);
 SCM lookup_markup_command (string s);
 SCM lookup_markup_list_command (string s);
@@ -1293,17 +1292,6 @@ Lily_lexer::YYText_utf8 ()
  urg, belong to string (_convert)
  and should be generalised
  */
-void
-strip_leading_white (string&s)
-{
-	ssize i = 0;
-	for (;  i < s.length (); i++)
-		if (!isspace (s[i]))
-			break;
-
-	s = s.substr (i);
-}
-
 void
 strip_trailing_white (string&s)
 {
