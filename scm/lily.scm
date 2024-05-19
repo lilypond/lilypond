@@ -898,6 +898,13 @@ PIDs or the number of the process."
         (let* ((pid (primitive-fork)))
           (if (= pid 0)
               (begin
+                ; When running with fixed random seed, change
+                ; the seed for the child processes.  This way
+                ; we reduce the probability of colliding
+                ; file ids.
+                (let ((seed (ly:get-option 'random-seed)))
+                  (if (number? seed)
+                      (ly:set-option 'random-seed (+ seed count))))
                 (randomize-rand-seed)
                 (1- count))
               (helper (1- count) (cons pid acc))))
