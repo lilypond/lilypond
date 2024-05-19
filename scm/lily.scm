@@ -29,19 +29,16 @@
              (lily curried-definitions)
              (ice-9 match))
 
-;; Guile defaults to fixed seed.
 (define-public (randomize-rand-seed)
-  (ly:set-rand-seed (ly:make-rand-seed))
-  (let*
-      ((t (gettimeofday))
-       ;; Guile's random initialization is clumsy (it converts the
-       ;; integer to decimal string, and then sums groups of 8 bytes
-       ;; as 64 bit integers.  Here we multiply to spread the entropy
-       ;; around a bit better.
-       (seed (*
-              (cdr t)
-              (car t)
-              (getpid))))
+  (let* ((fixed-seed (ly:get-option 'random-seed))
+         (seed (if (number? fixed-seed)
+                   fixed-seed
+                   ; If no fixed seed was given, calculate one, based
+                   ; on time and pid
+                   (ly:make-rand-seed))))
+    ;; seed C++ random generator (lily-random.cc)
+    (ly:set-rand-seed seed)
+    ;; seed Guile random generator.
     (set! *random-state* (seed->random-state seed))))
 
 ;; By default, we don't want scary backtraces.
@@ -415,6 +412,13 @@ images."
                               "Continue when errors in inline Scheme are caught
 in the parser.  If #f, halt on errors and print
 a stack trace.")
+    (random-seed #f
+                 "Seed all random generators used by LilyPond (e.g.,
+for generating temporary file names) with this
+value.  This allows for deterministic behavior
+and can be helpful for debugging."
+                 #:type ,positive-integer-or-false?
+                 #:internal? #t)
     (read-file-list #f
                     "Handle all command-line file arguments as lists
 of input files to be processed.")
