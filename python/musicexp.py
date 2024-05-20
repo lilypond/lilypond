@@ -105,7 +105,7 @@ class Output_printer(object):
             raise RuntimeError('empty stack')
 
     def duration_factor(self):
-        return self._output_state_stack[-1].factor
+        return Fraction(self._output_state_stack[-1].factor)
 
     def print_verbatim(self, s):
         self._line += s
