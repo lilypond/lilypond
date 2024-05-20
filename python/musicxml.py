@@ -587,7 +587,7 @@ class Attributes(Measure_element):
             mode = None
             if mode_node:
                 mode = mode_node.get_text()
-            if not mode or mode == '':
+            if not mode or mode == '' or mode == 'none':
                 mode = 'major'
             fifths = int(fifths_elm.get_text())
             # TODO: Shall we try to convert the key-octave, too?
