@@ -121,14 +121,6 @@ ly_is_symbol (SCM x)
   return scm_is_symbol (x);
 }
 
-// Is the given value an *integer* in the valid range of Unicode code points?
-// Note the difference between this and a *character*.
-inline bool
-ly_is_unicode_integer (SCM x)
-{
-  return scm_is_unsigned_integer (x, 0, 0x10FFFFL);
-}
-
 inline bool
 ly_is_equal (SCM x, SCM y)
 {

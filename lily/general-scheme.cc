@@ -249,44 +249,14 @@ numbers.
   return scm_number_p (d);
 }
 
-// TODO: When we drop Guile 1 support, remove this function
-// and simply use either escape sequences (\u, \U) and/or
-// integer->char.
+// TODO: Remove ly:wide-char->utf-8 and use either escape sequences (\u, \U)
+// and/or integer->char.
 LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8", 1, 0, 0, (SCM wc),
            R"(
 Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.
            )")
 {
-  char buf[5];
-
-  // TODO: The input to ly:wide-char->utf-8 is not a char.  Rename?
-  LY_ASSERT_TYPE (ly_is_unicode_integer, wc, 1);
-  const auto wide_char = from_scm<std::uint32_t> (wc);
-  char *p = buf;
-
-  if (wide_char < 0x0080)
-    *p++ = static_cast<char> (wide_char);
-  else if (wide_char < 0x0800)
-    {
-      *p++ = static_cast<char> (((wide_char >> 6)) | 0xC0);
-      *p++ = static_cast<char> (((wide_char) &0x3F) | 0x80);
-    }
-  else if (wide_char < 0x10000)
-    {
-      *p++ = static_cast<char> (((wide_char >> 12)) | 0xE0);
-      *p++ = static_cast<char> (((wide_char >> 6) & 0x3F) | 0x80);
-      *p++ = static_cast<char> (((wide_char) &0x3F) | 0x80);
-    }
-  else
-    {
-      *p++ = static_cast<char> (((wide_char >> 18)) | 0xF0);
-      *p++ = static_cast<char> (((wide_char >> 12) & 0x3F) | 0x80);
-      *p++ = static_cast<char> (((wide_char >> 6) & 0x3F) | 0x80);
-      *p++ = static_cast<char> (((wide_char) &0x3F) | 0x80);
-    }
-  *p = 0;
-
-  return scm_from_utf8_string (buf);
+  return scm_c_make_string (1, scm_integer_to_char (wc));
 }
 
 LY_DEFINE (ly_effective_prefix, "ly:effective-prefix", 0, 0, 0, (),
