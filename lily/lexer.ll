@@ -42,7 +42,6 @@
 
 
 #include <cstdio>
-#include <cctype>
 #include <cerrno>
 
 /* Flex >= 2.5.29 fix; FlexLexer.h's multiple include bracing breaks
@@ -96,7 +95,6 @@ RH 7 fix (?)
 #pragma GCC diagnostic ignored "-Wuseless-cast"
 #endif
 
-void strip_trailing_white (string&);
 string lyric_fudge (string s);
 SCM lookup_markup_command (string s);
 SCM lookup_markup_list_command (string s);
@@ -340,9 +338,8 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 	new_input (s, sources_);
 	yy_pop_state ();
 }
-<incl>\\{BLACK}*{WHITE}? { /* got the include identifier */
+<incl>\\{BLACK}* { /* got the include identifier */
 	string s = YYText_utf8 () + 1;
-	strip_trailing_white (s);
 	if (s.length () && (s[s.length () - 1] == ';'))
 	  s = s.substr (0, s.length () - 1);
 
@@ -1286,24 +1283,6 @@ Lily_lexer::YYText_utf8 ()
 	}
 	return p;
 }
-
-
-/*
- urg, belong to string (_convert)
- and should be generalised
- */
-void
-strip_trailing_white (string&s)
-{
-	ssize i = s.length ();
-	while (i--)
-		if (!isspace (s[i]))
-			break;
-
-	s = s.substr (0, i + 1);
-}
-
-
 
 /*
   substitute _
