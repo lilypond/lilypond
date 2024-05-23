@@ -2176,6 +2176,260 @@ directions_spanners = [
 ]
 
 
+def musicxml_direction_to_lily_new(n):
+    # TODO: Handle the `<staff>` element.
+    res = []
+
+    # The `placement` attribute applies to all children.
+    dir = None
+    if options.convert_directions:
+        placement = getattr(n, 'placement', None)
+        if placement is not None:
+            dir = musicxml_direction_to_indicator(placement)
+
+    directive = getattr(n, 'directive', 'no') == 'yes'
+
+    dirtype_children = []
+    attributes = {}
+
+    for dt in n.get_typed_children(musicxml.DirType):
+        dirtype_children += dt.get_all_children()
+    dirtype_children = [d for d in dirtype_children if d.get_name() != "#text"]
+
+    num_children = len(dirtype_children)
+    i = 0
+    while i < num_children:
+        # We apply some heuristics to convert children of `<direction>` into
+        # something meaningful.
+        #
+        # * In general, a `<dashes>` element, with `<words>` before a
+        #   'start' element or `<words>` after a 'stop' element, translates
+        #   to `\startTextSpan`.  However, if it is followed by
+        #   `<dynamics>`, or if the text before the 'start' element contains
+        #   either 'cresc', 'dim', or 'decresc', we translate it to a
+        #   dynamics line spanner.
+        #
+        # * A single `<dynamics>` element, with `<words>` before or after,
+        #   builds an argument to `make-dynamic-script`.
+        #
+        # * Multiple `<rehearsal>` elements in a row, with `<words>` before
+        #   or after, become a `\mark` command.
+        #
+        # * `<segno>` and `<coda>` elements, with `<words>` elements before,
+        #   inbetween, or after, build a `\textMark` markup.
+        #
+        # * A `<metronome>` element, with `<words>` before it, builds a
+        #   `\tempo` command.
+        #
+        # * A series of only `<words>` elements builds a `\markup` command,
+        #   except if `<direction>` has the attribute `directive="yes"`,
+        #   which then makes it a `\tempo` command instead.
+        #
+        # TODO: Find a way to do something similar for horizontal brackets.
+        # TODO: Handle `<symbol>` together with `<words>`.
+        state_dict = {
+            'cresc-spanner': musicxml_cresc_spanner_to_lily_event_new,
+            'dashes-start': musicxml_dashes_start_to_lily_event_new,
+            'dashes-stop': musicxml_dashes_stop_to_lily_event_new,
+            'dim-spanner': musicxml_dim_spanner_to_lily_event_new,
+            'dynamics': musicxml_dynamics_to_lily_event_new,
+            'mark': musicxml_mark_to_lily_event_new,
+            'metronome': musicxml_metronome_to_lily_event_new,
+            'textmark': musicxml_textmark_to_lily_event_new,
+            'words': musicxml_words_to_lily_event_new,
+        }
+        # Contrary to other parts of MusicXML, "for a series of
+        # `<direction-type>` children, non-positional formatting attributes
+        # are carried over from previous elements by default."
+        #
+        # Unfortunately, it is not defined what 'non-positional formatting
+        # attributes' actually means.  The following set of attributes to be
+        # ignored for this 'carry-over' is thus a heuristic guess, combined
+        # with attributes `musicxml2ly` doesn't handle.
+        attributes_to_ignore = {
+            'default-x',
+            'default-y',
+            'dir',  # not handled
+            'id',  # not handled
+            'relative-x',
+            'relative-y',
+            'smufl',
+            'type',
+            'xml:lang',  # not handled
+        }
+        direction_type_spanners = {
+            'bracket',
+            'octave-shift',
+            'pedal',
+            # 'principal-voice',
+            'wedge',
+        }
+        direction_type_dict = {
+            'accordion-registration': musicxml_accordion_to_ly,
+            # 'damp': TODO
+            # 'damp-all': TODO
+            'eyeglasses': musicxml_eyeglasses_to_ly,
+            'harp-pedals': musicxml_harp_pedals_to_ly,
+            # 'image': TODO
+            # 'other-direction': TODO
+            # 'percussion': TODO
+            # 'scordatura': TODO
+            # 'staff-divide': TODO
+            # 'string-mute': TODO
+        }
+
+        entry = dirtype_children[i]
+
+        # We store `<direction-type>` children together with the
+        # carried-over attributes.
+        elements = []
+
+        rehearsal_enclosure_default = True
+        maybe_dashes_stop_index = None
+        maybe_dynamics_spanner = None
+
+        n = i
+        state = 'words'
+        while n < num_children:
+            elem = dirtype_children[n]
+            name = elem.get_name()
+
+            # We use `None` as the default so that we can check whether the
+            # attribute is set at all.
+            enclosure = getattr(elem, 'enclosure', None)
+            if enclosure is not None:
+                rehearsal_enclosure_default = False
+
+            # Update attributes with data from current element.
+            for a in elem._attribute_dict:
+                if a not in attributes_to_ignore:
+                    attributes[a] = elem._attribute_dict[a]
+
+            if state == 'cresc-spanner':
+                break
+            elif state == 'dashes-start':
+                break
+            elif state == 'dashes-stop':
+                if name == 'words':
+                    pass
+                elif name == 'dynamics':
+                    n = maybe_dashes_stop_index + 1
+                    break
+                else:
+                    break
+            elif state == 'dim-spanner':
+                break
+            elif state == 'dynamics':
+                if name == 'words':
+                    pass
+                else:
+                    break
+            elif state == 'mark':
+                if name == 'words':
+                    if rehearsal_enclosure_default:
+                        del attributes['enclosure']
+                    state = 'post-mark'
+                elif name == 'rehearsal':
+                    pass
+                else:
+                    break
+            elif state == 'post-mark':
+                if name == 'words':
+                    pass
+                else:
+                    break
+            elif state == 'textmark':
+                if name == 'words' or name == 'segno' or name == 'coda':
+                    pass
+                else:
+                    break
+            elif state == 'metronome':
+                break
+            elif state == 'words':
+                if name == 'words':
+                    # This is awkward, but MusicXML doesn't make a
+                    # distinction whether dashes are used for, say, either
+                    # 'cresc.' or 'rit.'.
+                    cresc_re = r'(?x) (?<! \w) cresc'
+                    dim_re = r'(?x) (?<! \w) ( decr | dim )'
+
+                    text = elem.get_text()
+                    if re.search(cresc_re, text):
+                        maybe_dynamics_spanner = 'cresc'
+                    elif re.search(dim_re, text):
+                        maybe_dynamics_spanner = 'dim'
+
+                    pass
+                elif name == 'rehearsal':
+                    if rehearsal_enclosure_default:
+                        attributes['enclosure'] = 'square'
+                    state = 'mark'
+                elif name == 'segno' or name == 'coda':
+                    state = 'textmark'
+                elif name == 'dynamics':
+                    state = 'dynamics'
+                elif name == 'metronome':
+                    state = 'metronome'
+                elif name == 'dashes':
+                    if elem.type == 'start':
+                        if maybe_dynamics_spanner == 'cresc':
+                            state = 'cresc-spanner'
+                        elif maybe_dynamics_spanner == 'dim':
+                            state = 'dim-spanner'
+                        else:
+                            state = 'dashes-start'
+                    elif elem.type == 'stop':
+                        state = 'dashes-stop'
+                        maybe_dashes_stop_index = n
+                    else:
+                        break
+                else:
+                    break
+
+            elements.append((elem, attributes.copy()))
+            n += 1
+
+        if state == 'words' and directive:
+            state = 'metronome'
+        if state == 'post-mark':
+            state = 'mark'
+
+        if elements:
+            event = state_dict[state](elements)
+            if event:
+                event.force_direction = dir
+                res.append(event)
+            i = n
+            continue
+
+        # At this point, the `attributes` array is up to date since the
+        # start of the previous `while` loop gets always executed.
+
+        if entry.get_name() in direction_type_spanners:
+            event = musicxml_spanner_to_lily_event(entry)
+            # TODO: Use `attributes`.
+            if event:
+                if event.span_direction == -1:
+                    event.force_direction = dir
+                res.append(event)
+            i += 1
+            continue
+
+        # Everything else is taken as a single command (and ignored
+        # otherwise if `musicxml2ly` can't handle it).
+        dir_type_func = direction_type_dict.get(entry.get_name(), None)
+        if dir_type_func:
+            event = dir_type_func(entry)
+            # TODO: Use `attributes`.
+            if event:
+                event.force_direction = dir
+                res.append(event)
+
+        i += 1
+
+    return res
+
+
 def musicxml_direction_to_lily(n):
     # TODO: Handle the `<staff>` element.
     res = []
