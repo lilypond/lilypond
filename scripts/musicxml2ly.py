@@ -2086,6 +2086,108 @@ def next_non_hash_index(lst, pos):
     return pos
 
 
+def musicxml_metronome_to_lily_event_new(elements):
+    (maybe_metronome, attributes) = elements[-1]
+
+    tempo_with_metronome = False
+    children = None
+    if isinstance(maybe_metronome, musicxml.Metronome):
+        children = maybe_metronome.get_all_children()
+        if children:
+            tempo_with_metronome = True
+        else:
+            ly.warning(_("Empty metronome element"))
+
+    ev = musicexp.TempoMarkNew()
+
+    if tempo_with_metronome:
+        if attributes.get('parentheses', 'no') == 'yes':
+            ev.parentheses = True
+        if attributes.get('print-object', 'yes') == 'no':
+            ev.visible = False
+        # We extend MusicXML by accepting a carried-over `enclosure`
+        # attribute for the metronome mark.
+        enclosure_attribute = attributes.get('enclosure', 'none')
+        if enclosure_attribute != 'none':
+            ev.enclosure = enclosure_attribute
+
+        if len(elements) > 1:
+            ev.text_elements = elements[:-1]
+
+        num_children = len(children)
+        complex = False
+        index = -1
+        index = next_non_hash_index(children, index)
+        if (index < num_children
+                and isinstance(children[index], musicxml.BeatUnit)):
+            while True:  # For flow control.
+                d = None
+                newd = None
+                bpm = None
+
+                # The simple form of a metronome mark.
+                d = musicexp.Duration()
+                d.duration_log = utilities.musicxml_duration_to_log(
+                    children[index].get_text())
+                index = next_non_hash_index(children, index)
+                while (index < num_children
+                       and isinstance(children[index], musicxml.BeatUnitDot)):
+                    d.dots += 1
+                    index = next_non_hash_index(children, index)
+
+                if index >= num_children:
+                    break
+
+                if isinstance(children[index], musicxml.BeatUnitTied):
+                    complex = True
+                    break
+
+                if isinstance(children[index], musicxml.BeatUnit):
+                    # Form "note = newnote".
+                    newd = musicexp.Duration()
+                    newd.duration_log = utilities.musicxml_duration_to_log(
+                        children[index].get_text())
+                    index = next_non_hash_index(children, index)
+                    while (index < num_children
+                           and isinstance(children[index],
+                                          musicxml.BeatUnitDot)):
+                        newd.dots += 1
+                        index = next_non_hash_index(children, index)
+
+                    if (index < num_children
+                            and isinstance(children[index],
+                                           musicxml.BeatUnitTied)):
+                        complex = True
+                        break
+                elif isinstance(children[index], musicxml.PerMinute):
+                    # Form "note = bpm".
+                    try:
+                        bpm = int(children[index].get_text())
+                    except ValueError:
+                        ly.warning(_("Invalid bpm value in metronome mark"))
+                        bpm = 0
+                else:
+                    ly.warning(_("Unknown metronome mark, ignoring"))
+                    break
+
+                ev.baseduration = d
+                ev.newduration = newd
+                ev.bpm = bpm
+                break
+        else:
+            complex = True
+
+        if complex:
+            # TODO: Implement the other (more complex) way for tempo marks.
+            ly.warning(_("Metronome marks with complex relations "
+                         "(<metronome-note> in MusicXML) "
+                         "are not yet implemented."))
+    else:
+        ev.text_elements = elements
+
+    return ev
+
+
 def musicxml_metronome_to_ly(mxl_event, text_event=None):
     children = mxl_event.get_all_children()
     if not children:

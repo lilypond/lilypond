@@ -1624,6 +1624,10 @@ class BarStyle(Music_xml_node):
     pass
 
 
+class Metronome(Music_xml_node):
+    pass
+
+
 class BeatType(Music_xml_node):
     pass
 
@@ -1633,6 +1637,10 @@ class BeatUnit(Music_xml_node):
 
 
 class BeatUnitDot(Music_xml_node):
+    pass
+
+
+class BeatUnitTied(Music_xml_node):
     pass
 
 
@@ -1840,6 +1848,7 @@ class_dict = {
     'beat-type': BeatType,
     'beat-unit': BeatUnit,
     'beat-unit-dot': BeatUnitDot,
+    'beat-unit-tied': BeatUnitTied,
     'bend': Bend,
     'bracket': Bracket,
     'chord': Chord,
@@ -1865,6 +1874,7 @@ class_dict = {
     'key-step': KeyStep,
     'lyric': Lyric,
     'measure': Measure,
+    'metronome': Metronome,
     'notations': Notations,
     'note': Note,
     'notehead': Notehead,
