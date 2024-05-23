@@ -185,7 +185,6 @@ REAL		({INT}\.{N}*)|(-?\.{N}+)
 STRICTREAL      {UNSIGNED}\.{UNSIGNED}
 WHITE		[ \n\t\f\r]
 HORIZONTALWHITE		[ \t]
-BLACK		[^ \n\t\f\r]
 RESTNAME	[rs]
 ESCAPED		[nt\\''""]
 EXTENDER	__
@@ -338,11 +337,8 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 	new_input (s, sources_);
 	yy_pop_state ();
 }
-<incl>\\{BLACK}* { /* got the include identifier */
+<incl>{COMMAND} { /* got the include identifier */
 	string s = YYText_utf8 () + 1;
-	if (s.length () && (s[s.length () - 1] == ';'))
-	  s = s.substr (0, s.length () - 1);
-
 	SCM sid = lookup_identifier_symbol (ly_symbol2scm (s));
 	if (scm_is_string (sid)) {
 		new_input (ly_scm2string (sid), sources_);
