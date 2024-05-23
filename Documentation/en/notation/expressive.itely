@@ -771,12 +771,13 @@ sfzp = #(make-dynamic-script "sfzp")
 
 In general, @code{make-dynamic-script} takes any markup object as its
 argument.  The dynamic font only contains the characters
-@code{f,m,p,r,s} and @code{z}, so if a dynamic mark that includes
+@code{f}, @code{m}, @code{p}, @code{r}, @code{s}, @code{z}, and
+@code{n}; if a dynamic mark that includes
 plain text or punctuation symbols is desired, markup commands that
 reverts font family and font encoding to normal text should be used,
-for example @code{\normal-text}.  The interest of using
-@code{make-dynamic-script} instead of an ordinary markup is ensuring
-the vertical alignment of markup objects and hairpins that are
+for example @code{\normal-text}.  Using
+@code{make-dynamic-script} instead of an ordinary markup ensures
+vertical alignment of markup objects and hairpins that are
 attached to the same note head.
 
 @lilypond[verbatim,quote]
