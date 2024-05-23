@@ -2379,6 +2379,12 @@ def musicxml_direction_to_lily_new(n):
             # 'staff-divide': TODO
             # 'string-mute': TODO
         }
+        # A list of MusicXML enclosure types for which `musicxml2ly`
+        # provides additional support.  Enclosure types unsupported by
+        # LilyPond are filtered out in function `text_to_ly`.
+        extra_enclosures = (
+            'square'
+        )
 
         entry = dirtype_children[i]
 
@@ -2487,6 +2493,10 @@ def musicxml_direction_to_lily_new(n):
                         break
                 else:
                     break
+
+            enclosure = attributes.get('enclosure', None)
+            if enclosure is not None and enclosure in extra_enclosures:
+                needed_additional_definitions.append(enclosure)
 
             elements.append((elem, attributes.copy()))
             n += 1

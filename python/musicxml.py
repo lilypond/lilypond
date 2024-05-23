@@ -174,6 +174,15 @@ class Xml_node(object):
             return default
 
 
+# This class gets injected by `musicxml2ly` to handle chains of
+# `<direction-type>` children.
+class LilyPond_markup(Xml_node):
+    _name = 'lilypond-markup'
+
+    def __init__(self):
+        Xml_node.__init__(self)
+
+
 class Music_xml_node(Xml_node):
     def __init__(self):
         Xml_node.__init__(self)

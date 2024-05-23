@@ -1759,6 +1759,114 @@ class MusicGlyphMarkEvent(MarkEvent):
             return ''
 
 
+def text_to_ly(elements, init_markup=None):
+    font_weight_dict = {
+        'normal': '',
+        'bold': r'\bold',
+    }
+    font_style_dict = {
+        'normal': '',
+        'italic': r'\italic',
+    }
+    underline_dict = {
+        0: '',
+        1: r'\underline',
+        2: r'\underline \underline',
+        3: r'\underline \underline \underline',
+    }
+    # TODO: Support more `enclosure` values.
+    enclosure_dict = {
+        'none': '',
+        'square': r'\square',
+        'rectangle': r'\box',
+        'circle': r'\circle',
+        'oval': r'\ellipse',
+    }
+
+    # TODO: Handle `font-family` and other missing attributes.
+
+    if not elements:
+        return ''
+
+    markup = []
+
+    # The MusicXML standard doesn't specify whether a group of elements with
+    # `enclosure="foo"` should be enclosed by a single 'foo', or whether
+    # each element should get a separate enclosure by 'foo'.  Tests with
+    # Finale and MuseScore show that they do the former, and we follow.
+    enclosure_attribute = elements[0][1].get('enclosure', 'none')
+    enclosure = enclosure_dict.get(enclosure_attribute, '')
+    if enclosure:
+        markup.append(enclosure)
+    prev_enclosure = enclosure
+
+    if init_markup is not None:
+        markup.append(init_markup)
+
+    concat = (elements[0][0].get_name() == 'lilypond-markup'
+              or len(elements) > 1)
+    if concat:
+        markup.append(r'\concat {')
+
+    for (element, attributes) in elements:
+        enclosure_attribute = attributes.get('enclosure', 'none')
+        enclosure = enclosure_dict.get(enclosure_attribute, '')
+        if prev_enclosure != enclosure:
+            # At this point we certainly have more than one element.
+            markup.append('}')
+            if enclosure:
+                markup.append(enclosure)
+            markup.append(r'\concat {')
+
+            prev_enclosure = enclosure
+
+        font_weight_attribute = attributes.get('font-weight', 'normal')
+        font_weight = font_weight_dict.get(font_weight_attribute, '')
+        if font_weight:
+            markup.append(font_weight)
+
+        font_style_attribute = attributes.get('font-style', 'normal')
+        font_style = font_style_dict.get(font_style_attribute, '')
+        if font_style:
+            markup.append(font_style)
+
+        underline_attribute = int(attributes.get('underline', 0))
+        underline = underline_dict.get(underline_attribute, '')
+        if underline:
+            markup.append(underline)
+
+        text = ''
+        name = element.get_name()
+        if name == 'words' or name == 'rehearsal':
+            text = element.get_text()
+            if attributes.get('xml:space', 'default') != 'preserve':
+                # We use Python's special algorithm of `split()`, which
+                # kicks in if there is no separator argument, to eliminate
+                # runs of consecutive whitespace characters.  We also want
+                # this for leading and trailing whitespace, i.e., they
+                # should be treated similarly to in-between whitespace
+                # (instead of being removed completely).
+                text = '|' + text + '|'
+                text = ' '.join(text.split())
+                text = text[1:-1]
+            text = utilities.escape_ly_output_string(text)
+        elif name == 'segno':
+            text = r'\fontsize #2 \segno'
+        elif name == 'coda':
+            text = r'\fontsize #2 \coda'
+        elif name == 'lilypond-markup':
+            text = element.get_text()
+        else:
+            pass  # XXX
+
+        markup.append(text)
+
+    if concat:
+        markup.append('}')
+
+    return ' '.join(markup)
+
+
 class TextEvent(Event):
     def __init__(self):
         Event.__init__(self)
