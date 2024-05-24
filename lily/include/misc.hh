@@ -35,6 +35,7 @@ intlog2 (T d)
   // unqualified to_string().
   if (d <= 0)
     error ("intlog2 with negative argument: " + std::to_string (d));
+  // C++20: Would anything in <bit> simplify this?
   int i = 0;
   while ((d != 1))
     {
@@ -44,17 +45,6 @@ intlog2 (T d)
 
   assert (!(d / 2));
   return i;
-}
-
-inline int
-sign (int i)
-{
-  if (i < 0)
-    return -1;
-  else if (i)
-    return 1;
-  else
-    return 0;
 }
 
 // Shift value left by shiftamount; if shiftamount is negative, shift right
