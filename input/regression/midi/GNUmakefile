@@ -19,7 +19,10 @@ $(outdir)/%.ly:  %.midi
 $(outdir)/%.midi: %.ly $(LILYPOND_BINARY)
 	$(call ly_progress,Making,$@,< ly)
 	touch $(foreach f, $(HEADER_FIELDS), $(outdir)/$*.$f)
-	$(buildscript-dir)/run-and-check.sh "$(LILYPOND_BINARY) $(HEADER_FIELDS:%=-H %) -o $(outdir) $<" "$(outdir)/$*.buildlog"
+	$(buildscript-dir)/run-and-check.sh \
+	  "$(LILYPOND_BINARY) $(LOCAL_LILYPOND_FLAGS) \
+	    $(HEADER_FIELDS:%=-H %) -o $(outdir) $<" \
+	  "$(outdir)/$*.buildlog"
 	cp $< $(outdir)
 
 $(outdir)/recovered/%-midi.ly: $(outdir)/%.midi $(MIDI2LY)
