@@ -11,6 +11,7 @@
 * Warnings Errors Progress and Debug Output::
 * Debugging LilyPond::
 * Tracing object relationships::
+* Tracing processing time::
 * Adding or modifying features::
 * Iterator tutorial::
 * Engraver tutorial::
@@ -1489,6 +1490,20 @@ Then rebuild LilyPond with
 @example
 make clean && make
 @end example
+
+
+@node Tracing processing time
+@section Tracing processing time
+
+The @option{-dtime-trace-file} option causes LilyPond to log its
+internal processing in Google's Trace Event Format, also known as
+Chrome tracing format.  The resulting JSON file can be displayed
+as a timeline chart using a viewer such as
+@url{https://ui.perfetto.dev/}.
+
+The time-trace log includes many significant events during
+initialization, parsing, and output.  Other events may be added
+following existing uses of @code{tracer_global}.
 
 
 @node Adding or modifying features

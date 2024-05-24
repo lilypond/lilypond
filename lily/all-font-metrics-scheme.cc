@@ -22,6 +22,11 @@
 #include "main.hh"
 #include "open-type-font.hh"
 #include "protected-scm.hh"
+#include "time-tracer.hh"
+
+#include <string_view>
+
+using namespace std::literals;
 
 All_font_metrics *all_fonts_global = 0;
 Protected_scm all_fonts_global_scm;
@@ -31,6 +36,8 @@ LY_DEFINE (ly_reset_all_fonts, "ly:reset-all-fonts", 0, 0, 0, (),
 Forget all about previously loaded fonts.
            )")
 {
+  auto trace_slice = tracer_global.log_scope ("reset-all-fonts"sv);
+
   all_fonts_global = new All_font_metrics (global_path, all_fonts_global);
   all_fonts_global_scm = all_fonts_global->unprotect ();
 

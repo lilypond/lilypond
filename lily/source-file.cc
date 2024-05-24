@@ -23,13 +23,18 @@
 #include "source-file.hh"
 
 #include "international.hh"
+#include "main.hh"
 #include "misc.hh"
+#include "time-tracer.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
 
 #include <algorithm>
 #include <cstdio>
 #include <sstream>
+#include <string_view>
+
+using namespace std::literals;
 
 std::string
 Source_file::load_stdin ()
@@ -47,6 +52,8 @@ Source_file::load_stdin ()
 std::string
 gulp_file (const std::string &filename, size_t desired_size)
 {
+  auto trace_slice = tracer_global.log_scope ("Read file"sv, filename);
+
   /* "b" must ensure to open literally, avoiding text (CR/LF)
      conversions.  */
   FILE *f = fopen (filename.c_str (), "rb"); // TODO: RAII

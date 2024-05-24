@@ -465,6 +465,12 @@ previews.")
 lilypond-book.  The argument is a
 comma-separated string of formats."
                        #:type string-or-false)
+    (time-trace-file #f
+                     "Log internal events to a file for performance analysis.
+With string argument FOO, this creates FOO.json; otherwise, LilyPond chooses
+the file name."
+                     #:type string-or-boolean
+                     #:internal? #t)
     (use-paper-size-for-page #t
                              "Set page stencil size to paper size defined in
 \\paper.  If unset, the size of the page stencil
@@ -899,6 +905,7 @@ PIDs or the number of the process."
         (let* ((pid (primitive-fork)))
           (if (= pid 0)
               (begin
+                (ly:time-tracer-restart "lilypond (child)")
                 ; When running with fixed random seed, change
                 ; the seed for the child processes.  This way
                 ; we reduce the probability of colliding
@@ -911,6 +918,10 @@ PIDs or the number of the process."
               (helper (1- count) (cons pid acc))))
         acc))
 
+  ;; Forking gives each child process a copy of the parent's time-trace state.
+  ;; Although it would be nice for the child processes to begin with tracing in
+  ;; a clean initial state, it would be undesirable to end the parent's
+  ;; time-trace here.  Instead, we reinitialize tracing in the children.
   (helper count '()))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -924,6 +935,7 @@ PIDs or the number of the process."
         ((0) (ly:basic-progress (G_ "Success: compilation successfully completed")))
         ((1) (ly:warning (G_ "Compilation completed with warnings or errors")))
         (else (ly:message ""))))
+  (ly:time-tracer-stop)
   (exit status))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -968,6 +980,23 @@ use an external tool to run LilyPond in a sandbox."))
                         (if (number? (ly:get-option 'job-count))
                             (ly:get-option 'job-count)
                             1))))
+    (let ((t-base (ly:get-option 'time-trace-file)))
+      (when (eq? t-base #t) ; choose a file name automatically
+        (let ((log-file (ly:get-option 'log-file)))
+          (cond ((string-or-symbol? log-file)
+                 (ly:set-option
+                  'time-trace-file
+                  (format #f "~a-time-trace" log-file)))
+                ((and (pair? files) (not (pair? (cdr files)))) ; one input file
+                 (ly:set-option
+                  'time-trace-file
+                  (format #f "~a-time-trace"
+                          (ly:output-file-name-for-input-file-name
+                           (car files)))))
+                (else
+                 (ly:set-option
+                  'time-trace-file
+                  (format #f "lilypond-~a-time-trace" (getpid))))))))
     (when (>= job-count 2)
       (let* ((split-todo (split-list files job-count))
              (joblist (multi-fork job-count))
@@ -978,15 +1007,33 @@ use an external tool to run LilyPond in a sandbox."))
             (begin (ly:set-option
                     'log-file (format #f "~a-~a"
                                       (ly:get-option 'log-file) joblist))
+                   ;; Include the child's PID in the time-trace file name to
+                   ;; make it unique.  When the child exits, the parent will
+                   ;; copy the child's entries into its own file and remove the
+                   ;; child's file.
+                   (let ((base (ly:get-option 'time-trace-file)))
+                     (when (string-or-symbol? base)
+                       (ly:set-option
+                        'time-trace-file (format #f "~a-~a" base (getpid)))))
                    (set! files (vector-ref split-todo joblist)))
             (begin (ly:progress "\nForking into jobs:  ~a\n" joblist)
+                   (let ((base (ly:get-option 'time-trace-file)))
+                     (ly:time-tracer-set-file (and (string-or-symbol? base)
+                                                   (format #f "~a.json" base))))
                    (for-each
                     (lambda (pid)
-                      (let* ((stat (cdr (waitpid pid))))
-                        (if (not (= stat 0))
-                            (set! errors
-                                  (acons (list-element-index joblist pid)
-                                         stat errors)))))
+                      (let* ((stat (cdr (waitpid pid)))
+                             (child-index (list-element-index joblist pid)))
+                        (if (= stat 0)
+                            ;; child exited without error
+                            (let ((base (ly:get-option 'time-trace-file)))
+                              (when (string-or-symbol? base)
+                                (ly:time-tracer-include-and-remove-file
+                                 (format #f "~a-~a.json" base pid))))
+                            ;; child exited with error
+                            ;; TODO: Try to include the child's time-trace in
+                            ;; this case too, if it can be done robustly.
+                            (set! errors (acons child-index stat errors)))))
                     joblist)
                    (for-each
                     (lambda (x)
@@ -1016,6 +1063,9 @@ use an external tool to run LilyPond in a sandbox."))
 
   (if (string-or-symbol? (ly:get-option 'log-file))
       (ly:stderr-redirect (format #f "~a.log" (ly:get-option 'log-file)) "w"))
+  (let ((base (ly:get-option 'time-trace-file)))
+    (ly:time-tracer-set-file (and (string-or-symbol? base)
+                                  (format #f "~a.json" base))))
   (let ((log-file (and (ly:get-option 'separate-log-files) (dup 2)))
         (failed (lilypond-all files)))
     (if log-file (ly:stderr-redirect log-file))

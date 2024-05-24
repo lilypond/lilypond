@@ -30,12 +30,16 @@
 #include "source-file.hh"
 #include "warn.hh"
 #include "program-option.hh"
+#include "time-tracer.hh"
 #include "lily-imports.hh"
 #include "lily-parser.hh"
 #include "ly-module.hh"
 
 #include <cctype>
 #include <sstream>
+#include <string_view>
+
+using namespace std::literals;
 
 /* for the keyword table */
 struct Keyword_ent
@@ -153,6 +157,8 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
 void
 Lily_lexer::add_scope (SCM module)
 {
+  tracer_global.log_begin_event ("Parse scope"sv);
+
   if (!scm_is_pair (scopes_))
     start_module_ = scm_current_module ();
   else
@@ -177,6 +183,7 @@ Lily_lexer::remove_scope ()
   SCM sc = scm_car (scopes_);
   scopes_ = scm_cdr (scopes_);
   set_current_scope ();
+  tracer_global.log_end_event (); // Parse scope
   return sc;
 }
 

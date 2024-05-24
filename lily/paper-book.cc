@@ -34,9 +34,13 @@
 #include "std-vector.hh"
 #include "string-convert.hh"
 #include "text-interface.hh"
+#include "time-tracer.hh"
 #include "warn.hh"
 
 #include <set>
+#include <string_view>
+
+using namespace std::literals;
 
 Paper_book::Paper_book (Output_def *paper, Paper_book *parent_part)
 {
@@ -137,6 +141,7 @@ Paper_book::output_aux (SCM output_channel, bool is_last,
   long page_number = 0;
   if (scm_is_pair (performances_))
     {
+      auto trace_slice = tracer_global.log_scope ("midi"sv);
       Lily::write_performances_midis (performances (), output_channel,
                                       to_scm (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
@@ -221,6 +226,8 @@ all_formats ()
 void
 Paper_book::output (SCM output_channel)
 {
+  auto trace_slice
+    = tracer_global.log_scope ("Output " + get_output_backend_name ());
   long first_page_number
     = from_scm (paper_->c_variable ("first-page-number"), 1);
   long first_performance_number = 0;
@@ -291,6 +298,7 @@ Paper_book::classic_output_aux (SCM output, long *first_performance_number)
 {
   if (scm_is_pair (performances_))
     {
+      auto trace_slice = tracer_global.log_scope ("midi"sv);
       Lily::write_performances_midis (performances (), output,
                                       to_scm (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
@@ -321,6 +329,9 @@ Paper_book::dump_header_fields (SCM basename, bool classic)
 void
 Paper_book::classic_output (SCM output)
 {
+  auto trace_slice = tracer_global.log_scope (
+    "Output " + get_output_backend_name () + " (classic)");
+
   long first_performance_number = 0;
   classic_output_aux (output, &first_performance_number);
   dump_header_fields (output, true);
@@ -335,6 +346,8 @@ Paper_book::classic_output (SCM output)
 void
 Paper_book::output_stencil (SCM out_name, SCM stencil, SCM formats)
 {
+  auto trace_slice = tracer_global.log_scope ("output-stencil"sv);
+
   std::string mod_nm = "lily framework-" + get_output_backend_name ();
   SCM mod = scm_c_resolve_module (mod_nm.c_str ());
 
@@ -386,6 +399,8 @@ Paper_book::output_stencils (SCM out_name, SCM stencils, SCM formats)
     }
   else
     {
+      const auto trace_scope = tracer_global.log_scope ("output-stencils"sv);
+
       std::string format = get_output_backend_name ();
       std::string mod_nm = "lily framework-" + format;
 
@@ -695,6 +710,8 @@ Paper_book::systems ()
   if (scm_is_true (systems_))
     return systems_;
 
+  auto trace_slice = tracer_global.log_scope ("systems"sv);
+
   systems_ = SCM_EOL;
   SCM *systems_tail = &systems_;
   if (print_bookparts_)
@@ -744,17 +761,26 @@ Paper_book::pages ()
     }
   else if (scm_is_pair (print_elements_))
     {
-      SCM page_breaking = paper_->c_variable ("page-breaking");
-      pages_ = ly_call (page_breaking, self_scm ());
+      {
+        auto trace_slice = tracer_global.log_scope ("page-breaking"sv);
+        SCM page_breaking = paper_->c_variable ("page-breaking");
+        pages_ = ly_call (page_breaking, self_scm ());
+      }
 
       // Create all the page stencils.
-      for (SCM pages = pages_; scm_is_pair (pages); pages = scm_cdr (pages))
-        Page::page_stencil (scm_car (pages));
+      {
+        auto trace_slice = tracer_global.log_scope ("page-stencil(s)"sv);
+        for (SCM pages = pages_; scm_is_pair (pages); pages = scm_cdr (pages))
+          Page::page_stencil (scm_car (pages));
+      }
 
       // Perform any user-supplied post-processing.
       SCM post_process = paper_->c_variable ("page-post-process");
       if (ly_is_procedure (post_process))
-        ly_call (post_process, paper_->self_scm (), pages_);
+        {
+          auto trace_slice = tracer_global.log_scope ("page-post-process"sv);
+          ly_call (post_process, paper_->self_scm (), pages_);
+        }
 
       /* set systems_ from the pages */
       if (scm_is_false (systems_))
@@ -770,6 +796,7 @@ Paper_book::pages ()
             }
         }
     }
+
   return pages_;
 }
 

@@ -23,8 +23,14 @@
 #include "lily-guile.hh"
 #include "lily-imports.hh"
 #include "ly-scm-list.hh"
+#include "main.hh"
 #include "smobs.hh"
+#include "time-tracer.hh"
 #include "warn.hh"
+
+#include <string_view>
+
+using namespace std::literals;
 
 /*
   INIT
@@ -55,12 +61,18 @@ void
 ly_init_ly_module ()
 {
   // Start up type system first.
-  Scm_init::init ();
+  {
+    auto trace_slice = tracer_global.log_scope ("Scm_init::init"sv);
+    Scm_init::init ();
+  }
 
-  for (Void_fptr f : *scm_init_funcs_)
-    f ();
+  {
+    auto trace_slice = tracer_global.log_scope ("scm_init_funcs"sv);
+    for (Void_fptr f : *scm_init_funcs_)
+      f ();
+  }
 
-    /*
+  /*
      Guile tries to optimize code when byte-compiling.  Experimentally, this
      makes LilyPond's speed borderline worse, not better, and the compilation
      takes time.  Thus, we turn off all optimizations.  This is also used when
@@ -78,8 +90,12 @@ ly_init_ly_module ()
       debug_output ("]\n", false);
     }
 
-  scm_primitive_load_path (scm_from_latin1_string ("lily/lily"));
-  debug_output (_f ("(primitive-load-path lily): %.2f seconds", timer.read ()));
+  {
+    auto trace_slice = tracer_global.log_scope ("primitive-load-path lily"sv);
+    scm_primitive_load_path (scm_from_latin1_string ("lily/lily"));
+    debug_output (
+      _f ("(primitive-load-path lily): %.2f seconds", timer.read ()));
+  }
 }
 
 void
@@ -96,5 +112,9 @@ ly_c_init_guile ()
   Goops::module.import ();
   Hash_table::module.import ();
   Unicode::module.import ();
-  scm_c_use_module ("lily");
+
+  {
+    auto trace_slice = tracer_global.log_scope ("scm_c_use_module lily"sv);
+    scm_c_use_module ("lily");
+  }
 }

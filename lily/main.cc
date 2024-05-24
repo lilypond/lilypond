@@ -50,6 +50,7 @@
 #include "relocate.hh"
 #include "std-vector.hh"
 #include "string-convert.hh"
+#include "time-tracer.hh"
 #include "version.hh"
 #include "warn.hh"
 
@@ -62,6 +63,9 @@
 #include <clocale>
 #include <cstdio>
 #include <cstring>
+#include <string_view>
+
+using namespace std::literals;
 
 // Global options that can be overridden through command line.
 // Most variables are defined in file `global-vars.cc'.
@@ -444,6 +448,7 @@ main_with_guile (void *, int, char **)
     do_chroot_jail ();
 #endif
 
+  tracer_global.log_end_event (); // Boot Guile
   Lily::lilypond_main (files);
 
   /* Unreachable.  */
@@ -693,6 +698,8 @@ setup_guile_env ()
 int
 main (int argc, char **argv)
 {
+  tracer_global.log_first_begin_event ("lilypond"sv);
+
   /*
     Handle old-style environment equivalent to
     old-style -V or --verbose command arguments.
@@ -753,6 +760,7 @@ main (int argc, char **argv)
 #endif
 
   // Start up Guile API using main_with_guile as a callback.
+  tracer_global.log_begin_event ("Boot Guile"sv);
   scm_boot_guile (argc, argv, main_with_guile, 0);
 
   /* Only reachable if Guile exits.  That is an error.  */

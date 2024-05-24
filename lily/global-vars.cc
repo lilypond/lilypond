@@ -18,6 +18,7 @@
 */
 
 #include "file-path.hh"
+#include "time-tracer.hh"
 
 /*
  * Global options that can be overridden through command line.
@@ -41,6 +42,8 @@ std::string init_scheme_code_global;
 
 /* Command-line Scheme options (via `-d`).  */
 std::vector<std::pair<std::string, std::string>> init_scheme_variables_global;
+
+Time_tracer tracer_global;
 
 /*
  * Miscellaneous global stuff.

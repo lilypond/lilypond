@@ -25,12 +25,17 @@
 #include "grob-properties.hh"
 #include "international.hh"
 #include "ly-scm-list.hh"
+#include "main.hh"
 #include "music-iterator.hh"
 #include "music.hh"
 #include "output-def.hh"
+#include "time-tracer.hh"
 #include "warn.hh"
 
 #include <cstdio>
+#include <string_view>
+
+using namespace std::literals;
 
 Global_context::Global_context (Output_def *odef, Context_def *cdef)
   : Context (cdef, SCM_EOL)
@@ -130,6 +135,7 @@ Global_context::get_output ()
 bool
 Global_context::iterate (Music *music, bool force_found_music)
 {
+  auto trace_slice = tracer_global.log_scope ("Translate"sv);
   Cpu_timer timer;
 
   SCM protected_iter = Music_iterator::create_top_iterator (music);

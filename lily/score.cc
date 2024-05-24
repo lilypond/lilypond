@@ -27,10 +27,12 @@
 #include "international.hh"
 #include "lily-parser.hh"
 #include "ly-module.hh"
+#include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
 #include "paper-def.hh"
 #include "paper-score.hh"
+#include "time-tracer.hh"
 #include "warn.hh"
 
 Input *
@@ -126,8 +128,11 @@ Score::book_rendering (Output_def *layoutbook, Output_def *default_def)
   for (vsize i = 0; !i || i < outdef_count; i++)
     {
       Output_def *def = outdef_count ? defs_[i] : default_def;
-      SCM scaled = def->self_scm ();
+      SCM output_def_kind = def->c_variable ("output-def-kind");
+      auto trace_slice
+        = tracer_global.log_scope (ly_symbol2string (output_def_kind));
 
+      SCM scaled = def->self_scm ();
       if (scm_is_eq (def->c_variable ("output-def-kind"),
                      ly_symbol2scm ("layout")))
         {

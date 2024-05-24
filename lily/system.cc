@@ -29,6 +29,7 @@
 #include "international.hh"
 #include "lily-imports.hh"
 #include "lookup.hh"
+#include "main.hh"
 #include "output-def.hh"
 #include "page-layout-problem.hh"
 #include "paper-column.hh"
@@ -40,12 +41,16 @@
 #include "staff-symbol-referencer.hh"
 #include "system-start-delimiter.hh"
 #include "text-interface.hh"
+#include "time-tracer.hh"
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 
 #include <algorithm>
 #include <limits>
+#include <string_view>
 #include <vector>
+
+using namespace std::literals;
 
 Grob_array *
 System::all_elements ()
@@ -513,15 +518,19 @@ System::add_column (Paper_column *p)
 void
 System::pre_processing ()
 {
+  Grob_array *all = all_elements ();
+
   /*
     Each breakable Item calls back to this System to append two clones of
     itself (for before and after a break) to the vector.  We stop after
     breaking the originals and don't invite the clones to break themselves.
   */
-  Grob_array *all = all_elements ();
-  vsize num_original_grobs = all->size ();
-  for (vsize i = 0; i < num_original_grobs; i++)
-    all->grob (i)->break_breakable_item (this);
+  {
+    auto trace_slice = tracer_global.log_scope ("Break items"sv);
+    vsize num_original_grobs = all->size ();
+    for (vsize i = 0; i < num_original_grobs; i++)
+      all->grob (i)->break_breakable_item (this);
+  }
 
   debug_output (_f ("Grob count %zu", all->size ()));
 
@@ -530,23 +539,35 @@ System::pre_processing ()
     array, and should be processed before the original is potentially
     killed.
   */
-  for (vsize i = all->size (); i--;)
-    all->grob (i)->handle_prebroken_dependencies ();
+  {
+    auto trace_slice = tracer_global.log_scope ("Handle dependencies"sv);
+    for (vsize i = all->size (); i--;)
+      all->grob (i)->handle_prebroken_dependencies ();
+  }
 
-  for (Grob *g : all->array_reference ())
-    g->fixup_refpoint ();
+  {
+    auto trace_slice = tracer_global.log_scope ("Fix up refpoints"sv);
+    for (Grob *g : all->array_reference ())
+      g->fixup_refpoint ();
+  }
 
-  get_property (this, "before-line-breaking");
-  for (Grob *g : all->array_reference ())
-    {
-      (void) get_property (g, "before-line-breaking");
-    }
+  {
+    auto trace_slice = tracer_global.log_scope ("before-line-breaking"sv);
+    get_property (this, "before-line-breaking");
+    for (Grob *g : all->array_reference ())
+      {
+        (void) get_property (g, "before-line-breaking");
+      }
+  }
 
-  get_property (this, "springs-and-rods");
-  for (Grob *g : all->array_reference ())
-    {
-      (void) get_property (g, "springs-and-rods");
-    }
+  {
+    auto trace_slice = tracer_global.log_scope ("springs-and-rods"sv);
+    get_property (this, "springs-and-rods");
+    for (Grob *g : all->array_reference ())
+      {
+        (void) get_property (g, "springs-and-rods");
+      }
+  }
 }
 
 void

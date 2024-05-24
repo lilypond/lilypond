@@ -20,7 +20,13 @@
 #include "lily-modules.hh"
 #include "international.hh"
 #include "lily-imports.hh"
+#include "main.hh"
+#include "time-tracer.hh"
 #include "warn.hh"
+
+#include <string_view>
+
+using namespace std::literals;
 
 class Scm_module::Variable_record
 {
@@ -71,6 +77,8 @@ call_trampoline (void *self)
 void
 Scm_module::boot (void (*init) ())
 {
+  auto trace_slice = tracer_global.log_scope ("Boot module"sv, name_);
+
   assert (SCM_UNBNDP (module_));
   module_ = scm_c_define_module (name_, boot_init, static_cast<void *> (this));
   // Can't wrap the following in the scm_c_define_module call since
@@ -96,6 +104,8 @@ Scm_module::boot (void (*init) ())
 void
 Scm_module::import ()
 {
+  auto trace_slice = tracer_global.log_scope ("Import module"sv, name_);
+
   assert (SCM_UNBNDP (module_));
   SCM intrface = scm_c_resolve_module (name_);
   // Using only the public interface is a voluntary form of access

@@ -24,11 +24,16 @@
 #include "file-name.hh"
 #include "file-path.hh"
 #include "international.hh"
+#include "main.hh"
 #include "source-file.hh"
 #include "sources.hh"
+#include "time-tracer.hh"
 #include "warn.hh"
 
 #include <sstream>
+#include <string_view>
+
+using namespace std::literals;
 
 #ifndef YY_BUF_SIZE
 #define YY_BUF_SIZE 16384
@@ -77,6 +82,8 @@ Includable_lexer::new_input (const std::string &name, std::string data,
 void
 Includable_lexer::new_input (const std::string &name, Source_file *file)
 {
+  tracer_global.log_begin_event ("Parse file"sv);
+
   debug_output ("[" + name, false);
   file_name_strings_.push_back (name);
 
@@ -92,6 +99,10 @@ Includable_lexer::new_input (const std::string &name, Source_file *file)
 void
 Includable_lexer::close_input ()
 {
+  // It is useful to provide the name at the end in case it was changed with
+  // \sourcefile.
+  tracer_global.log_end_event (include_stack_.back ()->name_);
+
   include_stack_.pop_back ();
   char_count_stack_.pop_back ();
   debug_output ("]", false);

@@ -20,11 +20,13 @@
 #include "book.hh"
 
 #include "ly-smob-list.hh"
+#include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "score.hh"
 #include "text-interface.hh"
+#include "time-tracer.hh"
 #include "warn.hh"
 #include "performance.hh"
 #include "paper-score.hh"
@@ -32,6 +34,9 @@
 #include "ly-module.hh"
 
 #include <cstdio>
+#include <string_view>
+
+using namespace std::literals;
 
 Book::Book ()
 {
@@ -192,6 +197,7 @@ Book::error_found () const
 Paper_book *
 Book::process (Output_def *default_paper, Output_def *default_layout)
 {
+  auto trace_slice = tracer_global.log_scope ("Process book"sv);
   return process (default_paper, default_layout, 0);
 }
 
@@ -204,6 +210,7 @@ Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper,
     {
       if (book)
         {
+          auto trace_slice = tracer_global.log_scope ("bookpart"sv);
           Paper_book *paper_book_part
             = book->process (paper, layout, output_paper_book);
           if (paper_book_part)
@@ -222,6 +229,7 @@ Book::process_score (SCM score_scm, Paper_book *output_paper_book,
 {
   if (Score *score = unsmob<Score> (score_scm))
     {
+      auto trace_slice = tracer_global.log_scope ("score"sv);
       SCM outputs = score->book_rendering (output_paper_book->paper (), layout);
 
       while (scm_is_pair (outputs))

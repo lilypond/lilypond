@@ -22,8 +22,14 @@
 #include "bezier.hh"
 #include "lazy-skyline-pair.hh"
 #include "international.hh"
+#include "main.hh"
+#include "time-tracer.hh"
 #include "transform.hh"
 #include "warn.hh"
+
+#include <string_view>
+
+using namespace std::literals;
 
 #include FT_OUTLINE_H
 #include FT_BBOX_H
@@ -35,6 +41,7 @@ FT_Library freetype2_library;
 void
 init_freetype ()
 {
+  auto trace_slice = tracer_global.log_scope ("init_freetype"sv);
   FT_Error errorcode = FT_Init_FreeType (&freetype2_library);
   if (errorcode)
     error (_ ("cannot initialize FreeType"));
