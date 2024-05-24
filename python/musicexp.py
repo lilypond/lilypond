@@ -2782,6 +2782,97 @@ class MeasureStyleEvent(Music):
             printer(s)
 
 
+class TempoMarkNew(Music):
+    def __init__(self):
+        Music.__init__(self)
+        self.baseduration = None
+        self.newduration = None
+        self.bpm = None
+        self.text_elements = None
+        self.force_direction = None
+        self.parentheses = False
+        self.enclosure = None
+        self.visible = True
+
+    def wait_for_note(self):
+        return False
+
+    # Scheme function `format-metronome-markup` always uses bold face.
+    # Since we don't want to redefine this function we explicitly use
+    # `\normal-text` to reset the font.
+    def metronome_to_ly(self):
+        if (not self.visible
+                or not self.baseduration
+                or not (self.bpm or self.newduration)):
+            if self.text_elements:
+                return r'%s' % text_to_ly(self.text_elements, r'\normal-text')
+            else:
+                return ''
+
+        # All the following markup gets handled within a `\concat` block.
+        markup = []
+
+        # Both Finale and MuseScore automatically insert some horizontal
+        # space between the tempo and the metronome part, and we follow.
+        if self.text_elements:
+            elem = self.text_elements[-1][0]
+            if (elem.get_name() == 'words'
+                    and (elem.get_text())[-1] == ' '):
+                pass
+            else:
+                markup.append('" "')
+
+        markup.append(r'\normal-text \smaller {')
+
+        if self.parentheses:
+            markup.append(r'( \char ##x200A')  # U+200A HAIR SPACE
+        markup.append(r'\fontsize #-2 \rhythm { %s }'
+                      % self.baseduration.ly_expression())
+
+        markup.append(r'\char ##x2009 = \char ##x2009')  # U+2009 THIN SPACE
+
+        if self.bpm:
+            markup.append(r'%s' % self.bpm)
+            if self.parentheses:
+                markup.append(')')
+        else:
+            markup.append(r'\fontsize #-2 \rhythm { %s }'
+                          % self.newduration.ly_expression())
+            if self.parentheses:
+                markup.append(r'\char ##x200A )')
+
+        markup.append('}')
+
+        from musicxml import LilyPond_markup
+        markup_node = LilyPond_markup()
+        markup_node._data = ' '.join(markup)
+        markup_attributes = {}
+        if self.enclosure is not None:
+            markup_attributes['enclosure'] = self.enclosure
+
+        # We extend MusicXML by making the metronome number inherit the
+        # `enclosure` attribute – or rather, we simplify the code here by
+        # allowing this :-)
+        text_elements = []
+        if self.text_elements:
+            text_elements.extend(self.text_elements)
+        text_elements.append((markup_node, markup_attributes))
+
+        return text_to_ly(text_elements, r'\normal-text')
+
+    def print_ly(self, printer):
+        dir = {-1: '#DOWN',
+               1: '#UP'}.get(self.force_direction, '')
+        if dir:
+            override = r'\tweak direction '
+            printer('%s%s' % (override, dir))
+
+        markup = self.metronome_to_ly()
+        if markup:
+            printer(r'\tempo \markup')
+            printer(markup)
+
+
 class TempoMark(Music):
     def __init__(self):
         Music.__init__(self)
