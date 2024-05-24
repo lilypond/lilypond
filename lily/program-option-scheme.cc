@@ -230,6 +230,10 @@ example, @code{ly:duration?}).  In such cases, type checking should be performed
 manually later on.
 
 @item
+If set to symbol @code{string-or-boolean}, do the same as with @code{string} but
+convert strings @code{"#f"} and @code{"#t"} to Boolean values.
+
+@item
 If set to symbol @code{string-or-false}, do the same as with @code{string} but
 convert a string value @code{"#f"} to Boolean value @code{#f}.
 
@@ -279,6 +283,8 @@ last @option{-d} flag overwrite the others.
   if (SCM_UNBNDP (type))
     scm_set_object_property_x (sym, p_o_t, Guile_user::boolean_p);
   else if (scm_is_true (scm_eq_p (type, ly_symbol2scm ("string"))))
+    scm_set_object_property_x (sym, p_o_t, type);
+  else if (scm_is_true (scm_eq_p (type, ly_symbol2scm ("string-or-boolean"))))
     scm_set_object_property_x (sym, p_o_t, type);
   else if (scm_is_true (scm_eq_p (type, ly_symbol2scm ("string-or-false"))))
     scm_set_object_property_x (sym, p_o_t, type);

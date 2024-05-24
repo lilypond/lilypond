@@ -492,11 +492,12 @@ messages into errors.")
            ;; Handle `str-val` as a Scheme expression if not to be treated as a
            ;; string.  We also catch read errors.
            (read-val
-            (cond ((eq? type #f)
-                   ;; An unknown `-d` option, probably used privately by the
-                   ;; user.  Make `-dfoo`, `-dno-foo`, `-dfoo="#f"`, and
-                   ;; `-dfoo="#t"` work as expected; any other argument value is
-                   ;; handled as a string since we don't know the type.
+            (cond ((or (eq? type 'string-or-boolean) (eq? type #f))
+                   ;; Type #f means an unknown `-d` option, probably used
+                   ;; privately by the user.  Make `-dfoo`, `-dno-foo`,
+                   ;; `-dfoo="#f"`, and `-dfoo="#t"` work as expected; any other
+                   ;; argument value is handled as a string since we don't know
+                   ;; the type.
                    (cond ((string=? str-val "#t")
                           (cons #t #f))
                          ((string=? str-val "#f")
