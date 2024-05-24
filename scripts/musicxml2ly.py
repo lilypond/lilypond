@@ -1813,6 +1813,118 @@ def musicxml_articulation_to_lily_event(mxl_event):
     return ev
 
 
+def musicxml_dynamic_to_lily_new(element):
+    dynamics_name = element.get_name()
+    if dynamics_name == 'other-dynamics':
+        # TODO: Handle `smufl` attribute.
+        dynamics_name = element.get_text()
+    if not dynamics_name or dynamics_name == '#text':
+        return ''
+    else:
+        return dynamics_name
+
+
+def musicxml_dynamics_to_lily_event_new(elements):
+    # A list of dynamics LilyPond provides by default.
+    predefined_dynamics = (
+        'ppppp', 'pppp', 'ppp', 'pp', 'p',
+        'mp', 'mf',
+        'f', 'ff', 'fff', 'ffff', 'fffff',
+        'fp', 'sf', 'sfp', 'sff',
+        'sfz', 'fz', 'sp', 'spp', 'rfz',
+        'n'
+    )
+
+    dyn_index = next(i for i, e in enumerate(elements)
+                     if e[0].get_name() == 'dynamics')
+
+    before_text_elements = elements[:dyn_index]
+    after_text_elements = elements[(dyn_index + 1):]
+
+    (dynamics, attributes) = elements[dyn_index]
+
+    # Construct a name for the dynamics object.
+    #
+    # TODO: The code below is slightly problematic currently since we only
+    #       take the `enclosure` attribute into account.  While in 'normal'
+    #       scores it is unlikely to find, say, an 'f' in two different
+    #       fonts, this actually does happen in critical editions to make a
+    #       distinction between original dynamics written by the composer
+    #       and dynamics added by the editor.
+    dynamics_name = ''
+
+    before = ''
+    for (e, _) in before_text_elements:
+        before += e.get_text()
+    dynamics_name += before
+
+    dyns = ''
+    for d in dynamics.get_all_children():
+        dyns += musicxml_dynamic_to_lily_new(d)
+    dynamics_name += dyns
+
+    after = ''
+    for (e, _) in after_text_elements:
+        after += e.get_text()
+    dynamics_name += after
+
+    enclosure = attributes.get('enclosure', 'none')
+    if enclosure != 'none':
+        dynamics_name += ' (' + enclosure + ')'
+
+    dynamics_name = utilities.escape_ly_output_string(dynamics_name)
+    dynamics_string = utilities.escape_ly_output_string(dyns)
+
+    # TODO: Handle more `attributes` elements.
+    if dynamics_name not in predefined_dynamics:
+        if after or before or enclosure != 'none':
+            markup = []
+            if before:
+                markup.append(r'\dynamic')
+            markup.append(dynamics_string)
+            if after:
+                markup.append(r'\normal-text')
+
+            markup_node = musicxml.LilyPond_markup()
+            markup_node._data = ' '.join(markup)
+            markup_attributes = {}
+            if enclosure != 'none':
+                markup_attributes['enclosure'] = enclosure
+
+            text_elements = []
+            if before_text_elements:
+                text_elements.extend(before_text_elements)
+            text_elements.append((markup_node, markup_attributes))
+            if after_text_elements:
+                text_elements.extend(after_text_elements)
+
+            init_markup = None
+            if before:
+                init_markup = r'\normal-text'
+            dynamics_markup = musicexp.text_to_ly(text_elements, init_markup)
+
+            additional_definitions[dynamics_name] = (
+                dynamics_name + ' =\n'
+                + '#(make-dynamic-script #{\n'
+                + '  \\markup {\n'
+                + '    ' + dynamics_markup + '\n'
+                + '  }\n'
+                + '#})'
+            )
+        else:
+            additional_definitions[dynamics_name] = (
+                dynamics_name
+                + ' = #(make-dynamic-script "' + dynamics_string + '")'
+            )
+
+        needed_additional_definitions.append(dynamics_name)
+
+    ev = musicexp.DynamicsEvent()
+    ev.type = dynamics_name
+
+    return ev
+
+
 def musicxml_dynamics_to_lily_event(dynentry):
     # A list of dynamics LilyPond provides by default.
     dynamics_available = (
@@ -3801,10 +3913,15 @@ def musicxml_voice_to_lily_voice(voice):
                 return res
 
             def convert_and_append_all_child_dynamics(mxl_node):
-                for ch in mxl_node.get_all_children():
-                    ev = musicxml_dynamics_to_lily_event(ch)
-                    if ev is not None:
-                        ev_chord.append(ev)
+                element = (mxl_node, mxl_node._attribute_dict)
+                ev = musicxml_dynamics_to_lily_event_new([element])
+                if ev is not None:
+                    if options.convert_directions:
+                        dir = getattr(mxl_node, 'placement', None)
+                        if dir is not None:
+                            ev.force_direction = \
+                                musicxml_direction_to_indicator(dir)
+                    ev_chord.append(ev)
 
             notation_handlers = {
                 'accidental-mark': musicxml_articulation_to_lily_event,
