@@ -1452,9 +1452,9 @@ to get the most out of your editing experience.
 
 The TeXShop editor for macOS can be extended to run LilyPond,
 @command{lilypond-book} and @command{convert-ly} from within the editor,
-using the extensions contributed by Nicola Vitacolonna.  These must
-be moved from the TeXShop @qq{inactive} subdirectory to the @qq{Engines} one, in
-ortder to make them available for use.
+using the extensions contributed by Nicola Vitacolonna. These must be
+moved from the TeXShop @qq{inactive} subdirectory to the @qq{Engines}
+one, in order to make them available for use.
 
 @divEnd
 
