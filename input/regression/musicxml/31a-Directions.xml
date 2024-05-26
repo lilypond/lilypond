@@ -842,68 +842,6 @@
         <lyric number="1"><text>image</text></lyric>
       </note>
       <barline location="right">
-        <bar-style>light-light</bar-style>
-      </barline>
-    </measure>
-    <!-- Other issues: Multiple direction-type elements: "subito p", ppp<fff -->
-    <measure number="16">
-      <direction placement="below">
-        <direction-type>
-          <words default-y="-80" font-family="Times New Roman" font-size="10.25" font-style="italic">subito </words>
-        </direction-type>
-        <direction-type>
-          <dynamics default-y="-80">
-            <p/>
-          </dynamics>
-        </direction-type>
-      </direction>
-      <note>
-        <pitch><step>C</step><octave>4</octave></pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <lyric number="1"><text>p</text></lyric>
-        <lyric number="2"><text>subito</text></lyric>
-      </note>
-      <direction placement="below">
-        <direction-type>
-          <dynamics><ppp/></dynamics>
-        </direction-type>
-        <direction-type>
-          <wedge type="crescendo"/>
-        </direction-type>
-      </direction>
-      <note>
-        <pitch><step>C</step><octave>4</octave></pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <lyric number="1"><syllabic>begin</syllabic><text>ppp</text></lyric>
-        <lyric number="2"><syllabic>begin</syllabic><text>cresc.</text></lyric>
-      </note>
-      <direction placement="below">
-        <direction-type>
-          <wedge type="stop"/>
-        </direction-type>
-        <direction-type>
-          <dynamics><fff/></dynamics>
-        </direction-type>
-      </direction>
-      <note>
-        <pitch><step>C</step><octave>4</octave></pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <lyric number="1"><syllabic>end</syllabic><text>to</text></lyric>
-        <lyric number="2"><syllabic>end</syllabic><text>fff</text></lyric>
-      </note>
-      <note>
-        <rest/>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>
     </measure>
