@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 8c0a6ff91af8a80f426e0a34031e9de0de68f50b
+   Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1360,6 +1360,14 @@ C'est le cas, en particulier, pour :
 
 @end ignore
 
+@warning{Les programmes ou paquetages ci-après mentionnés sont
+développés indépendament de LilyPond, par des utilisateurs enthousiastes
+qui avaient un besoin particulier ou y voyaient un moyen d'intégrer
+LilyPond à leur flux de travail. Il se peut donc que ces paquetages ne
+disposent pas des dernières évolutions de la syntaxe de LilyPond, mais
+leur production peut toujours être mise à jour à l'aide de
+@command{convert-ly}.}
+
 @divClass{column-center-top}
 @subheading Applications avec interface graphique
 @c VO Front-end Applications
@@ -1379,7 +1387,7 @@ Frescobaldi est un éditeur de texte léger et puissant dédié à LilyPond.
 Il dispose d'une visionneuse PDF, d'un assistant de création de
 partition et beaucoup de fonctionnalités d'édition -- pointer-cliquer,
 coloration syntaxique et auto-complétion.  Frescobaldi est écrit en
-Python et PyQt4 ; il fonctionne actuellement sur la plupart des systèmes
+Python et PyQt5 ; il fonctionne actuellement sur la plupart des systèmes
 d'exploitation (GNU/Linux, macOS et Windows).
 
 
@@ -1458,6 +1466,9 @@ reposant sur LilyPond qui dispose de fonctionnalités supplémentaires
 telles que l'autocomplétion ou l'aide contextuelle. Le code sous-jascent
 permettant de gérer tout cela est disponible sous licence AGPL sur sa
 propre @uref{https://github.com/hacklily/hacklily,page de développement}.
+Hacklily repose sur la version 2.18.2 de LilyPond et, bien qu'un ticket
+soit ouvert concernant un passage en 2.24, il n'a pas fait l'objet de
+mise à jour depuis 2022.
 
 @subsubheading www.omet.ca
 @uref{http://www.omet.ca/}
@@ -1548,16 +1559,29 @@ Vous trouverez plus d'information quant au paramétrage de Vim au
 chapitre @rprogramnamed{Text editor support, LilyPond et les éditeurs de texte}.
 
 
+@subsubheading Neovim
+@uref{https://neovim.io}
+
+Neovim est un éditeur de texte minimal issu de Vim. Il est fortement
+extensible et configurable à l'aide des langages vimscript et lua. La
+prise en cahrge de LilyPond est assurée par le
+@uref{https://github.com/martineausimon/nvim-lilypond-suite,
+greffon nvim-lilypond-suite}. Ce greffon permet la lecture des fichiers
+MIDI par un programme externe, le pointer-cliquer si la visionneuse de
+PDF le supporte, la complétion de code en combinaison avec d'autres
+greffons, ainsi que tout un ensemble d'outils disponibles dans
+l'écosystème néovim. Plus de détails quant à sa mise en placce sont
+disponibles su la page github du greffon.
+
 @sourceimage{logo-macosx,,}
 @subsubheading TeXShop
 @uref{https://pages.uoregon.edu/koch/texshop/}
 
-L'éditeur TeXShop pour macOS peut être muni d'une extension pour
-lancer LilyPond, @command{lilypond-book} et @command{convert-ly},
-disponible à
-@example
-@uref{http://www.dimi.uniud.it/~nicola.vitacolonna/home/content/lilypond-scripts}
-@end example
+L'éditeur TeXShop pour macOS peut être muni d'extensions pour lancer
+LilyPond, @command{lilypond-book} et @command{convert-ly}, créées par
+Nicola Vitacolonna. Celles-ci doivent être déplacées du dossier
+« inactive » de TeXShop dans le dossier « Engines » pour être
+fonctionnelles.
 
 @divEnd
 
@@ -1572,11 +1596,11 @@ disponible à
 
 @itemize
 @item
-@uref{http://www.jezra.net/projects/bwwtolily,bwwtolily} a pour but de
-convertir les fichiers @code{.bww} ou @code{.bmw} -- format particulier
-pour la cornemuse -- en fichier source LilyPond.  Les ornements qui ne
-seraient pas correctement convertis -- en particulier le
-@emph{piobaireachd} -- sont listés par le programme.
+@uref{http://www.jezra.net/projects/bwwtolily.html,bwwtolily} a pour but
+de convertir les fichiers @code{.bww} ou @code{.bmw} -- format
+particulier pour la cornemuse -- en fichier source LilyPond. Les
+ornements qui ne seraient pas correctement convertis -- en particulier
+le @emph{piobaireachd} -- sont listés par le programme.
 
 @item
 @uref{https://canorus.org,Canorus}, éditeur de partitions, peut également
@@ -1593,7 +1617,7 @@ LilyPond.
 qui convertit des fichiers Encore au format LilyPond.  Il a été conçu à
 partir du travail d'ingénierie inverse de Felipe Castro en modifiant des
 fichiers @code{.enc} existant et en les chargeant avec la version de
-démonstration 4.55.
+démonstration 4.55. Sa dernière mise à jour date de 2014.
 
 @item
 @uref{https://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
@@ -1608,8 +1632,9 @@ NoteWorthy au format LilyPond.
 
 @item
 @uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple}
-est un assistant à la création de conducteur et parties.  Il permet de
-mixer plusieurs parties en un conducteur.
+est un assistant à la création de conducteur et parties. Il permet de
+mixer plusieurs parties en un conducteur. Sa dernière mise à jour date
+de 2012.
 
 @item
 @uref{https://www.rosegardenmusic.com,Rosegarden}, séquenceur audio et
@@ -1624,9 +1649,9 @@ MIDI, comporte aussi un éditeur pour portée unique.
 @itemize
 
 @item
-@uref{http://www.projectabjad.org/,Abjad}, API de contrôle
-formaliste de partition pour @uref{https://www.python.org/, Python},
-permet aux compositeurs de gérer du code LilyPond complexe.
+@uref{http://abjad.github.io,Abjad}, API de contrôle formaliste de
+partition pour @uref{https://www.python.org/, Python}, permet aux
+compositeurs de gérer du code LilyPond complexe.
 
 @item
 @uref{https://common-lisp.net/project/fomus/,FOMUS} -- pour @emph{FOrmat
@@ -1635,9 +1660,9 @@ générer de la notation.  Elle a été testée avec un certain nombre
 d'interpréteurs, et dispose d'un portage en C++.
 
 @item
-@uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela}
-est un système de composition musicale basé sur le
-@uref{https://mozart.github.io/, système de progammation Mozart}.
+@uref{http://github.com/helge17/tuxguitar/,TuxGuitar} est un éditeur de
+tablatures multi-pistes.  Il permet d'afficher tablatures et partitions,
+et il peut exporter du code LilyPond.
 
 @end itemize
 @divEnd
@@ -1656,22 +1681,12 @@ graphiquement des notes.  Il fonctionne comme un pavé numérique
 permettant de produire de la notation LilyPond.
 
 @item
-@uref{https://lilykde.googlecode.com/,LilyKDE} a été remplacé par
-@uref{https://www.frescobaldi.org/,Frescobaldi}.  Il reste cependant
-disponible en version LilyKDE3 pour KDE 3.5 et lilypond-KDE4 pour
-KDE 4.1.
-
-@item
 @uref{http://lilybin.com/; LilyBin} vous permet de saisir en ligne vos
 partitions sans avoir préalablement installé LilyPond sur votre
 oridnateur. Les lignes de code sont disponibles par une URL unique, à
 l'instar des sites « pastebin ». Son code est disponible sous licence
 MIT et se trouve sur la @uref{https://github.com/LilyBin/LilyBin, page
 de développement}.
-
-@item
-Initié en 2009, @uref{https://www.weblily.net/,WebLily} est l'un des
-premiers services internet basés sur LilyPond.
 
 @item
 @uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} a été
@@ -1700,9 +1715,9 @@ oridnateur. Vous pouvez ainsi tester toutes les fonctionnalités du
 programme dans une interface web.
 
 @item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar} est un éditeur de
-tablatures multi-pistes.  Il permet d'afficher tablatures et partitions,
-et il peut exporter du code LilyPond.
+@uref{http://strasheela.sourceforge.net/strasheela/doc/index.html,Strasheela}
+est un système de composition musicale basé sur le
+@uref{https://mozart.github.io/, système de progammation Mozart}.
 
 @end itemize
 

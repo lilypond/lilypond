@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
   texidocfr = "
 Partant du problème que l'on ignore quel @code{midiInstrument} serait le
 plus adapté à sa composition, voici un fichier LilyPond de démonstration.

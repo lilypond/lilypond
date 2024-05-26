@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
+%% Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la double
 croche ne sont pas subdivisées par défaut. Autrement dit, tous les

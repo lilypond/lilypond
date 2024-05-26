@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
   texidocfr = "
 La fonction @code{\\autoBeamOff} dans le cadre d'un @code{\\partCombine}
 agit de façon bien particulière ; c'est pourquoi il vaut mieux tout

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
+   Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -840,8 +840,8 @@ La gouttière, ou marge de reliure, permet d'augmenter en conséquence la
 valeur de la marge intérieure @code{inner-margin} de telle sorte que
 rien ne soit masqué par la reliure. Bien entendu, cette variable n'est
 effective que lorsque vous comptez générer un fichier imprimable en
-recto-verso -- propriété @code{two-sided} définie à vrai. La valeur par
-défaut est de @code{0} et s'ajustera selon le format du papier.
+recto-verso -- propriété @code{two-sided} définie à @code{#t}. La valeur
+par défaut est de @code{0} et s'ajustera selon le format du papier.
 
 @end table
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
+   Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1477,9 +1477,18 @@ Référence des propriétés internes :
 @funindex set-octavation
 @funindex \ottava
 
-Les marques d'octaviation, @emph{Ottava}, permettent d'introduire une
-transposition spécifique d'une octave pour la portée en cours. C'est la
-fonction @code{ottava} qui s'en charge.
+Les marques d'octaviation, @emph{Ottava}, haussent ou abaissent les
+notes affichées d'une ou plusieurs octaves, tout en présevant leur
+hauteur réelle. Le but des octaviations est de réduire le nombre de
+lignes supplémentaires nécessaires, tout particulièrement en présence
+d'un intervalle important à l'occasion d'un court passage. L'instruction
+@code{\ottava} prend en argument un entier positif lorsque les notes
+sont plus aiguës que les notes imprimées ; il sera négatif pour qu'elles
+soient jouées plus bas. Les effets d'un crochet d'octaviation durent
+tant que n'est pas explicitée une nouvelle octave de référence, ce qui
+peut s'obtenir à l'aide d'un @code{\ottava 0}.
+
+Dans l'exemple suivant, toutes les notes sonnent à la même hauteur.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -1504,9 +1513,9 @@ fonction @code{ottava} qui s'en charge.
 
 Par défaut s'imprimera un simple nombre en début de crochet. Ce réglage
 est modifiable afin d'obtenir un nombre ordinal dont l'abréviation peut
-se positionner en petite lettre haute ou en caractère normal (réglage
-par défaut auparavant) ; la graisse par défaut de ces caractères est
-elle aussi modifiable -- @pxref{Selecting font and font size}.
+se positionner en petite lettre haute ou en caractère normal ; la
+graisse par défaut de ces caractères est elle aussi modifiable --
+@pxref{Selecting font and font size}.
 
 L'exemple suivant illustre différentes options, ainsi que le moyen de
 retrouver le comportement par défaut.
