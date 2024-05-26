@@ -3979,7 +3979,7 @@ obtain the final volume included in the MIDI output for that particular
 dynamic marking.  The default fractions range from 0.25 for
 @notation{ppppp} to 0.95 for @notation{fffff}. The complete set of
 dynamic marks and their associated fractions can be found in
-@file{scm/midi.scm}.
+@file{ly/midi-init.ly}.
 
 
 @snippets
