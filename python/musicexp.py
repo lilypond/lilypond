@@ -1411,6 +1411,8 @@ class Event(Music):
 class SpanEvent(Event):
     def __init__(self):
         Event.__init__(self)
+        self.mxl_event = None  # For accessing the other part of the spanner.
+        self.mxl_attributes = None
         self.span_direction = 0  # start/stop
         self.line_type = 'solid'
         self.span_type = 0  # e.g. cres/decrescendo, ottava up/down
@@ -1432,6 +1434,26 @@ class SpanEvent(Event):
             return ''
         else:
             return r'\tweak transparent ##t '
+
+    def get_mxl_event_attribute(self, attribute, default):
+        ret = default
+        if self.mxl_attributes is not None:
+            ret = self.mxl_attributes.get(attribute, default)
+        elif self.mxl_event is not None:
+            ret = getattr(self.mxl_event, attribute, default)
+        return ret
+
+    def get_paired_mxl_event_attribute(self, attribute, default):
+        ret = default
+        if (self.mxl_event is not None
+                and self.mxl_event.paired_with is not None):
+            paired = self.mxl_event.paired_with.spanner_event
+            if paired is not None:
+                if paired.mxl_attributes is not None:
+                    ret = paired.mxl_attributes.get(attribute, default)
+                elif paired.mxl_event is not None:
+                    ret = getattr(paired.mxl_event, attribute, default)
+        return ret
 
 
 class BreatheEvent(Event):
@@ -1552,11 +1574,6 @@ class TextSpannerEvent(SpanEvent):
 
 
 class BracketSpannerEvent(SpanEvent):
-    def __init__(self):
-        SpanEvent.__init__(self)
-        self.line_end_at_start = None
-        self.line_end_at_stop = None
-
     # Ligature brackets use prefix notation for the start.
     def wait_for_note(self):
         if self.span_direction == -1:
@@ -1580,8 +1597,12 @@ class BracketSpannerEvent(SpanEvent):
                 if style:
                     printer.dump(r"\tweak style #'%s" % style)
 
+                line_end_at_start = \
+                    self.get_mxl_event_attribute('line-end', 'none')
+                line_end_at_stop = \
+                    self.get_paired_mxl_event_attribute('line-end', 'none')
                 printer.dump(r"\tweak edge-height #(make-edge-height '%s '%s)"
-                             % (self.line_end_at_start, self.line_end_at_stop))
+                             % (line_end_at_start, line_end_at_stop))
 
                 dir = {1: "#UP",
                        -1: "#DOWN"}.get(self.force_direction, '')

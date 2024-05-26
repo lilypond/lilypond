@@ -193,6 +193,11 @@ class Music_xml_node(Xml_node):
 
 
 class Music_xml_spanner(Music_xml_node):
+    def __init__(self):
+        Music_xml_node.__init__(self)
+        self.paired_with = None
+        self.spanner_event = None  # For linking with `musicexp` nodes.
+
     def get_type(self):
         # Most subclasses represent elements with a required 'type' attribute.
         return self.type
@@ -1463,6 +1468,33 @@ class Part(Music_xml_node):
             return attributes
 
     def extract_voices(part):
+        def link_spanners(elements, type):
+            # LilyPond needs to know properties of the end of some spanners
+            # before the spanner code gets actually emitted (and sometimes
+            # vice versa).  To enable that we set links between a spanner's
+            # start part and its end part.
+            spanner_starts = {}
+            for dir in elements:
+                if not isinstance(dir, Direction):
+                    continue
+
+                for dt in dir.get_typed_children(DirType):
+                    spanner = dt.get_named_child(type)
+                    if not spanner:
+                        continue
+
+                    nr = getattr(spanner, 'number', '1')
+                    if spanner.type == 'start':
+                        spanner_starts[nr] = spanner
+                    elif spanner.type == 'stop':
+                        if nr in spanner_starts:
+                            spanner_starts[nr].paired_with = spanner
+                            spanner.paired_with = spanner_starts[nr]
+                            del spanner_starts[nr]
+                        else:
+                            warnings.warn(_('%s end seen without %s start'
+                                            % (type, type)))
+
         # The last indentified voice
         last_voice = None
 
@@ -1474,37 +1506,7 @@ class Part(Music_xml_node):
                 elements.append(Partial(m.partial))
             elements.extend(m.get_all_children())
 
-        # LilyPond needs to know properties of the end of a spanner before
-        # the spanner actually starts.
-        bracket_starts = {}
-        for dir in elements:
-            if not isinstance(dir, Direction):
-                continue
-
-            for dt in dir.get_typed_children(DirType):
-                bracket = dt.get_named_child('bracket')
-                if not bracket:
-                    continue
-
-                line_end = getattr(bracket, 'line-end', None)
-                if bracket.type == 'start' or bracket.type == 'stop':
-                    if line_end is None:
-                        warnings.warn(_("bracket %s has no 'line-end' "
-                                        "attribute, setting to 'down'")
-                                      % bracket.type)
-                        line_end = "down"
-
-                nr = getattr(bracket, 'number', '1')
-                if bracket.type == 'start':
-                    bracket_starts[nr] = bracket
-                    bracket_starts[nr].line_end_at_start = line_end
-                elif bracket.type == 'stop':
-                    if nr in bracket_starts:
-                        bracket_starts[nr].line_end_at_stop = line_end
-                        del bracket_starts[nr]
-                    else:
-                        warnings.warn(_("bracket end seen without "
-                                        "bracket start"))
+        link_spanners(elements, 'bracket')
 
         # make sure we know all voices already so that dynamics, clefs, etc.
         # can be assigned to the correct voices
@@ -1658,10 +1660,7 @@ class Beats(Music_xml_node):
 
 
 class Bracket(Music_xml_spanner):
-    def __init__(self):
-        Music_xml_spanner.__init__(self)
-        self.line_end_at_start = None
-        self.line_end_at_stop = None
+    pass
 
 
 class Chord(Music_xml_node):

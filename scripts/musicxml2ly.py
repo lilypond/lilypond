@@ -1500,13 +1500,16 @@ spanner_type_dict = {
 }
 
 
-def musicxml_spanner_to_lily_event(mxl_event):
+def musicxml_spanner_to_lily_event(mxl_event, attributes=None):
     ev = None
 
     name = mxl_event.get_name()
     func = spanner_event_dict.get(name)
     if func:
         ev = func()
+        mxl_event.spanner_event = ev
+        ev.mxl_event = mxl_event
+        ev.mxl_attributes = attributes
     else:
         ly.warning(_('unknown span event %s') % mxl_event)
 
@@ -1524,17 +1527,20 @@ def musicxml_spanner_to_lily_event(mxl_event):
     else:
         ly.warning(_('unknown span type %s for %s') % (type, name))
 
+    if attributes is None:
+        attributes = mxl_event._attribute_dict
+
     ev.set_span_type(type)
-    ev.line_type = getattr(mxl_event, 'line-type',
-                           'wavy' if name == 'glissando' else 'solid')
+    ev.line_type = attributes.get('line-type',
+                                  'wavy' if name == 'glissando' else 'solid')
     ev.start_stop = getattr(mxl_event, 'start_stop', False)
-    ev.line_end_at_start = getattr(mxl_event, 'line_end_at_start', 'none')
-    ev.line_end_at_stop = getattr(mxl_event, 'line_end_at_stop', 'none')
+
+    # The `line-end` attribute gets handled in `BracketSpannerEvent`.
 
     ev.size = int(getattr(mxl_event, 'size', 0))  # attr of octave-shift
 
     if options.convert_directions:
-        dir = getattr(mxl_event, 'placement', None)
+        dir = attributes.get('placement', None)
         if dir is not None and span_direction == -1:
             ev.force_direction = musicxml_direction_to_indicator(dir)
 
