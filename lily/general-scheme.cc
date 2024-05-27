@@ -314,12 +314,26 @@ first parameter is an integer, or to file @var{file-name}, opened with
 
   std::string m = "w";
   std::string f = ly_scm2string (fd_or_file_name);
-  FILE *stderrfile;
   if (scm_is_string (mode))
     m = ly_scm2string (mode);
-  stderrfile = freopen (f.c_str (), m.c_str (), stderr);
-  if (!stderrfile)
-    error (_f ("failed redirecting stderr to `%s'", f.c_str ()));
+  int backup_fd = dup (fileno (stderr));
+  FILE *stderrfile = freopen (f.c_str (), m.c_str (), stderr);
+  if (stderrfile)
+    close (backup_fd);
+  else
+    {
+      // error () won't log because freopen () closed stderr, so we have to
+      // report the error the long way.
+      stderrfile = fdopen (backup_fd, "w");
+      if (stderrfile)
+        {
+          fputs (_f ("failed redirecting stderr to `%s'", f.c_str ()).c_str (),
+                 stderrfile);
+          fputc ('\n', stderrfile);
+          fflush (stderrfile);
+        }
+      exit (1);
+    }
   return SCM_UNSPECIFIED;
 }
 
