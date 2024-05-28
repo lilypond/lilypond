@@ -24,9 +24,6 @@ namespace Guile_user
 Scm_module module ("guile-user");
 
 Variable apply ("apply");
-#if SCM_MAJOR_VERSION == 3 && SCM_MINOR_VERSION == 0 && SCM_MICRO_VERSION < 3
-Variable p_auto_compilation_options ("%auto-compilation-options");
-#endif
 Variable boolean_p ("boolean?");
 Variable debug_options ("debug-options");
 Variable equal ("=");
@@ -46,26 +43,8 @@ namespace Compile
 Scm_module module ("system base compile");
 
 Variable compile ("compile");
-#if SCM_MAJOR_VERSION > 3 || SCM_MINOR_VERSION > 0 || SCM_MICRO_VERSION >= 3
 Variable default_optimization_level ("default-optimization-level");
-#endif
 } // namespace Compile
-
-#if SCM_MAJOR_VERSION == 3 && SCM_MINOR_VERSION == 0 && SCM_MICRO_VERSION < 3
-namespace Tree_il_optimize
-{
-Scm_module module ("language tree-il optimize");
-
-Variable tree_il_optimizations ("tree-il-optimizations");
-} // namespace Tree_il_optimize
-
-namespace Cps_optimize
-{
-Scm_module module ("language cps optimize");
-
-Variable cps_optimizations ("cps-optimizations");
-} // namespace Cps_optimize
-#endif
 
 namespace Hash_table
 {

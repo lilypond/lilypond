@@ -63,25 +63,9 @@ ly_init_ly_module ()
     /*
      Guile tries to optimize code when byte-compiling.  Experimentally, this
      makes LilyPond's speed borderline worse, not better, and the compilation
-     takes time.  Thus, we turn off all optimizations.  Guile 3.0.3 has a nice,
-     documented interface for doing this.  Before, we have to do it by hand --
-     the way of building the list of optimizations is modeled after
-     module/scripts/compile.scm in the sources.  This is also used when
+     takes time.  Thus, we turn off all optimizations.  This is also used when
      compiling Scheme code in user .ly files. */
-#if SCM_MAJOR_VERSION > 3 || SCM_MINOR_VERSION > 0 || SCM_MICRO_VERSION >= 3
   Compile::default_optimization_level (to_scm (0));
-#else
-  SCM tree_il_opts = Tree_il_optimize::tree_il_optimizations ();
-  SCM cps_opts = Cps_optimize::cps_optimizations ();
-  SCM available_optimizations = ly_append (tree_il_opts, cps_opts);
-  // available_optimizations is a list that looks like
-  // '(#:precolor-calls? #t #:rotate-loops? #t ...).  Set all booleans to #f.
-  SCM no_opts = SCM_EOL;
-  for (SCM elt : as_ly_scm_list (available_optimizations))
-    if (scm_is_keyword (elt))
-      no_opts = scm_cons (elt, scm_cons (SCM_BOOL_F, no_opts));
-  Guile_user::p_auto_compilation_options = no_opts;
-#endif
 
   Cpu_timer timer;
   if (is_loglevel (LOG_DEBUG))
@@ -103,10 +87,6 @@ ly_c_init_guile ()
 {
   Guile_user::module.import ();
   Compile::module.import ();
-#if SCM_MAJOR_VERSION == 3 && SCM_MINOR_VERSION == 0 && SCM_MICRO_VERSION < 3
-  Tree_il_optimize::module.import ();
-  Cps_optimize::module.import ();
-#endif
   Lily::module.boot (ly_init_ly_module);
   Loader::module.import ();
   Page::module.import ();
