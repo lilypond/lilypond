@@ -2023,6 +2023,12 @@ def get_font_size(size):
         return font_size_word_to_lily_command(size)
 
 
+def musicxml_words_to_lily_event_new(elements):
+    ev = musicexp.TextEventNew()
+    ev.text_elements = elements
+    return ev
+
+
 def musicxml_words_to_lily_event(words):
     event = musicexp.TextEvent()
     # Remove leading and trailing whitespace; reduce sequences of whitespace

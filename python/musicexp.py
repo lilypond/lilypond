@@ -1993,6 +1993,29 @@ def text_to_ly(elements, init_markup=None):
     return ' '.join(markup)
 
 
+class TextEventNew(Event):
+    def __init__(self):
+        Event.__init__(self)
+        self.text_elements = None
+        self.force_direction = None
+
+    def wait_for_note(self):
+        r""" This is problematic: LilyPond markup like `^"text"` requires
+        `wait_for_note` to be true, otherwise compilation will fail; we are
+        thus forced to return `True`.  However, this might lead to wrong
+        placement of text if derived from `<direction-type>` combinations
+        not handled specially in `musicxml_direction_to_lily_new`.
+        """
+        return True
+
+    def direction_mod(self):
+        return {1: '^', -1: '_', 0: '-'}.get(self.force_direction, '-')
+
+    def ly_expression(self):
+        return r'%s\markup %s' % (self.direction_mod(),
+                                  text_to_ly(self.text_elements))
+
+
 class TextEvent(Event):
     def __init__(self):
         Event.__init__(self)
