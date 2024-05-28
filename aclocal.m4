@@ -647,12 +647,7 @@ AC_DEFUN(STEPMAKE_PYTHON, [
     AC_MSG_CHECKING([for python])
     python="python"
     found="no"
-    for r in $PYTHON python python3 \
-             python3.10 \
-             python3.9 \
-             python3.8 \
-             python3.7 \
-             python3.6; do
+    for r in $PYTHON python python3; do
         exe=`STEPMAKE_GET_EXECUTABLE($r)`
         if ! $exe -V > /dev/null 2>&1 ; then
             continue
