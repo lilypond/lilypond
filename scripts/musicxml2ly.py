@@ -1469,6 +1469,7 @@ def musicxml_print_to_lily(el):
 spanner_event_dict = {
     'beam': musicexp.BeamEvent,
     'dashes': musicexp.TextSpannerEvent,
+    'dynamics-spanner': musicexp.DynamicsSpannerEventNew,
     'bracket': musicexp.BracketSpannerEvent,
     'glissando': musicexp.GlissandoEvent,
     'octave-shift': musicexp.OctaveShiftEvent,
@@ -1500,10 +1501,14 @@ spanner_type_dict = {
 }
 
 
-def musicxml_spanner_to_lily_event(mxl_event, attributes=None):
+def musicxml_spanner_to_lily_event(mxl_event, attributes=None,
+                                   spanner_name=None):
     ev = None
 
-    name = mxl_event.get_name()
+    if spanner_name is not None:
+        name = spanner_name
+    else:
+        name = mxl_event.get_name()
     func = spanner_event_dict.get(name)
     if func:
         ev = func()
@@ -2083,6 +2088,48 @@ def musicxml_words_to_lily_event(words):
     #       the number of lines
 
     return event
+
+
+def musicxml_dashes_start_to_lily_event_new(elements):
+    return musicxml_dashes_to_lily_event_new(elements, 'start')
+
+
+def musicxml_dashes_stop_to_lily_event_new(elements):
+    return musicxml_dashes_to_lily_event_new(elements, 'stop')
+
+
+def musicxml_dashes_to_lily_event_new(elements, type):
+    if type == 'start':
+        (dashes, attributes) = elements[-1]
+        elements = elements[:-1]
+    else:
+        (dashes, attributes) = elements[0]
+        elements = elements[1:]
+
+    ev = musicxml_spanner_to_lily_event(dashes, attributes)
+    ev.text_elements = elements
+
+    return ev
+
+
+def musicxml_cresc_spanner_to_lily_event_new(elements):
+    return musicxml_dynamics_spanner_to_lily_event_new(elements, 'cresc')
+
+
+def musicxml_dim_spanner_to_lily_event_new(elements):
+    return musicxml_dynamics_spanner_to_lily_event_new(elements, 'dim')
+
+
+def musicxml_dynamics_spanner_to_lily_event_new(elements, type):
+    (dynamics_spanner, attributes) = elements[-1]
+    elements = elements[:-1]
+
+    ev = musicxml_spanner_to_lily_event(dynamics_spanner, attributes,
+                                        'dynamics-spanner')
+    ev.text_elements = elements
+    ev.type = type
+
+    return ev
 
 
 # convert accordion-registration to lilypond.

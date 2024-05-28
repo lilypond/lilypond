@@ -1455,6 +1455,22 @@ class SpanEvent(Event):
                     ret = getattr(paired.mxl_event, attribute, default)
         return ret
 
+    def get_paired_event(self):
+        ret = None
+        if (self.mxl_event is not None
+                and self.mxl_event.paired_with is not None):
+            ret = self.mxl_event.paired_with.spanner_event
+        return ret
+
+    def get_paired_text_elements(self):
+        ret = None
+        if (self.mxl_event is not None
+                and self.mxl_event.paired_with is not None):
+            paired_event = self.mxl_event.paired_with.spanner_event
+            if paired_event is not None:
+                ret = paired_event.text_elements
+        return ret
+
 
 class BreatheEvent(Event):
     def __init__(self):
@@ -1529,6 +1545,7 @@ class PedalEvent(SpanEvent):
 class TextSpannerEvent(SpanEvent):
     def __init__(self):
         SpanEvent.__init__(self)
+        self.text_elements = None
         self.start_stop = False  # for single-note spanners
 
     def direction_mod(self):
@@ -1537,40 +1554,128 @@ class TextSpannerEvent(SpanEvent):
     def text_spanner_to_ly(self):
         global whatOrnament
         style = getattr(self, 'style', None)
+
         if style == 'ignore':
-            return ('', '')
+            return ([], '')
+
         if whatOrnament == "wave":
-            return {-1: (r"\tweak style #'trill", r'\startTextSpan'),
-                    1: ('', r'\stopTextSpan')}.get(self.span_direction,
-                                                   ('', ''))
+            return {-1: ([r"\tweak style #'trill"], r'\startTextSpan'),
+                    1: ([], r'\stopTextSpan')}.get(self.span_direction,
+                                                   ([], ''))
+
         elif style == "dashes":
-            return {-1: (r"\tweak style #'dashed-line", r'\startTextSpan'),
-                    1: ('', r'\stopTextSpan')}.get(self.span_direction,
-                                                   ('', ''))
+            val = ''
+            tweaks = []
+
+            if self.span_direction == -1:
+                val = r'\startTextSpan'
+                tweaks.append(r"\tweak style #'dashed-line")
+
+                start_markup = text_to_ly(self.text_elements,
+                                          r'\normal-text')
+                if start_markup:
+                    tweaks.append(r'\tweak bound-details.left.text '
+                                  + r'\markup ' + start_markup)
+
+                stop_markup = text_to_ly(self.get_paired_text_elements(),
+                                         r'\normal-text')
+                if stop_markup:
+                    tweaks.append(r'\tweak bound-details.right.text '
+                                  + r'\markup ' + stop_markup)
+            elif self.span_direction == 1:
+                if isinstance(self.get_paired_event(), DynamicsSpannerEventNew):
+                    val = r'\!'
+                else:
+                    val = r'\stopTextSpan'
+
+            return (tweaks, val)
+
         elif style == 'stop' and whatOrnament != 'trill':
-            return ('', '')
-        return {-1: ('', r'\startTrillSpan'),
-                1: ('', r'\stopTrillSpan')}.get(self.span_direction,
-                                                ('', ''))
+            return ([], '')
+
+        return {-1: ([], r'\startTrillSpan'),
+                1: ([], r'\stopTrillSpan')}.get(self.span_direction,
+                                                ([], ''))
 
     def ly_expression(self):
-        (tweak, val) = self.text_spanner_to_ly()
-        not_visible = super().not_visible()
-        if tweak:
-            return '%s%s %s' % (not_visible, tweak, val)
-        else:
-            return '%s%s' % (not_visible, val)
+        (tweaks, val) = self.text_spanner_to_ly()
+
+        ret = ''
+        if val:
+            not_visible = super().not_visible()
+            if tweaks:
+                ret = '%s%s %s' % (not_visible, ' '.join(tweaks), val)
+            else:
+                ret = '%s%s' % (not_visible, val)
+        return ret
 
     def print_ly(self, printer):
-        (tweak, val) = self.text_spanner_to_ly()
-        not_visible = super().not_visible()
+        (tweaks, val) = self.text_spanner_to_ly()
+
         if val:
-            if tweak:
-                printer.dump('%s%s %s%s' % (not_visible, tweak,
-                                            self.direction_mod(), val))
+            if self.span_direction == -1:
+                not_visible = super().not_visible()
+                if tweaks:
+                    printer('%s%s' % (not_visible, tweaks[0]))
+                    for tweak in tweaks[1:]:
+                        printer(tweak)
+                    printer('%s%s' % (self.direction_mod(), val))
+                else:
+                    printer('%s%s%s' % (not_visible,
+                                        self.direction_mod(), val))
             else:
-                printer.dump('%s%s%s' % (not_visible, self.direction_mod(),
-                                         val))
+                printer(val)
+
+
+# This class gets used only for the start part of a spanner; the
+# corresponding end part is always of type `TextSpannerEvent`.
+class DynamicsSpannerEventNew(SpanEvent):
+    def __init__(self):
+        SpanEvent.__init__(self)
+        self.text_elements = None
+        self.type = None
+
+    def wait_for_note(self):
+        return False
+
+    def direction_mod(self):
+        return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
+
+    def dynamics_spanner_to_ly(self):
+        text_markup = text_to_ly(self.text_elements, r'\normal-text')
+
+        # We can't use `\tweak` here.
+        overrides = []
+        if self.type == 'cresc':
+            overrides.append(r'\once \set crescendoText = \markup '
+                             + text_markup)
+            overrides.append(r"\once \set crescendoSpanner = #'text")
+        else:
+            overrides.append(r'\once \set decrescendoText = \markup '
+                             + text_markup)
+            overrides.append(r"\once \set decrescendoSpanner = #'text")
+
+        if not self.visible:
+            overrides.append(r'\once \override '
+                             r'DynamicTextSpanner.transparent = ##t')
+
+        val = {'cresc': r'\<',
+               'dim': r'\>'}.get(self.type, '')
+
+        return (overrides, val)
+
+    def ly_expression(self):
+        (overrides, val) = self.dynamics_spanner_to_ly()
+
+        return '%s <>%s' % (' '.join(overrides), val)
+
+    def print_ly(self, printer):
+        (overrides, val) = self.dynamics_spanner_to_ly()
+
+        for override in overrides:
+            printer('%s' % override)
+
+        printer('<>%s%s' % (self.direction_mod(), val))
 
 
 class BracketSpannerEvent(SpanEvent):

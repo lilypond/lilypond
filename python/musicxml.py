@@ -1507,6 +1507,7 @@ class Part(Music_xml_node):
             elements.extend(m.get_all_children())
 
         link_spanners(elements, 'bracket')
+        link_spanners(elements, 'dashes')
 
         # make sure we know all voices already so that dynamics, clefs, etc.
         # can be assigned to the correct voices
