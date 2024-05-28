@@ -502,14 +502,14 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
         PKG_CHECK_MODULES([GUILE], [$GUILE_FLAVOR],
                             [true], [GUILE_FLAVOR="missing"])
     else
-        PKG_CHECK_MODULES([GUILE], [guile-3.0],
+        PKG_CHECK_MODULES([GUILE], [guile-3.0 >= 3.0.7],
                             [GUILE_FLAVOR="guile-3.0"], [
             GUILE_FLAVOR="missing"
         ])
     fi
 
     if test "$GUILE_FLAVOR" = "missing"; then
-        STEPMAKE_ADD_ENTRY(REQUIRED, ["guile-devel >= 3.0"])
+        STEPMAKE_ADD_ENTRY(REQUIRED, ["guile-devel >= 3.0.7"])
     fi
 ])
 

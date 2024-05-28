@@ -241,7 +241,7 @@ part of either group, you can skip over this section.
 @itemize
 
 @item
-LilyPond now requires Guile 3.0.  As before, it is still strongly
+LilyPond now requires Guile 3.0.7.  As before, it is still strongly
 recommended to compile the @file{.scm} files into bytecode by first
 running @command{make bytecode} during compilation and then
 @command{make install-bytecode} in addition to @command{make install}.
