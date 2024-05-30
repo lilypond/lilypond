@@ -439,6 +439,9 @@ Internals Reference:
 
 @cindex fingering, glide
 @cindex gliding fingering
+@cindex fingering, line between
+@cindex shift, fingering
+@cindex line, between fingerings
 @funindex glide
 @funindex \glide
 
