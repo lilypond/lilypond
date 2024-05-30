@@ -2138,6 +2138,12 @@ def musicxml_dynamics_spanner_to_lily_event_new(elements, type):
     return ev
 
 
+def musicxml_mark_to_lily_event_new(elements):
+    ev = musicexp.MarkEventNew()
+    ev.text_elements = elements
+    return ev
+
+
 # convert accordion-registration to lilypond.
 # Since lilypond does not have any built-in commands, we need to create
 # the markup commands manually and define our own variables.
