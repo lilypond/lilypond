@@ -2144,6 +2144,15 @@ def musicxml_mark_to_lily_event_new(elements):
     return ev
 
 
+def musicxml_textmark_to_lily_event_new(elements):
+    layout_information.set_context_item(
+        'Score', r'\override TextMark.font-size = 2')
+
+    ev = musicexp.TextMarkEventNew()
+    ev.text_elements = elements
+    return ev
+
+
 # convert accordion-registration to lilypond.
 # Since lilypond does not have any built-in commands, we need to create
 # the markup commands manually and define our own variables.
@@ -2206,7 +2215,12 @@ def musicxml_accordion_to_markup(mxl_event):
 def musicxml_accordion_to_ly(mxl_event):
     txt = musicxml_accordion_to_markup(mxl_event)
     if txt:
-        ev = musicexp.MarkEvent(txt)
+        markup_node = musicxml.LilyPond_markup()
+        markup_node._data = txt
+
+        ev = musicexp.TextMarkEventNew()
+        ev.text_elements = [(markup_node, {})]
+
         return ev
     return
 
@@ -2253,7 +2267,14 @@ def musicxml_harp_pedals_to_ly(mxl_event):
 
 def musicxml_eyeglasses_to_ly(mxl_event):
     needed_additional_definitions.append("eyeglasses")
-    return musicexp.MarkEvent(r"\markup { \eyeglasses }")
+
+    markup_node = musicxml.LilyPond_markup()
+    markup_node._data = r'\eyeglasses'
+
+    ev = musicexp.TextMarkEventNew()
+    ev.text_elements = [(markup_node, {})]
+
+    return ev
 
 
 def next_non_hash_index(lst, pos):

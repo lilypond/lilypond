@@ -1897,6 +1897,26 @@ class MarkEvent(Event):
         print(self.ly_expression())
 
 
+class TextMarkEventNew(Event):
+    def __init__(self):
+        Event.__init__(self)
+        self.text_elements = None
+        self.force_direction = None
+
+    def wait_for_note(self):
+        return False
+
+    def ly_expression(self):
+        return r'\textMark \markup %s' % text_to_ly(self.text_elements)
+
+    def print_ly(self, print):
+        dir = {1: '#UP',
+               -1: '#DOWN'}.get(self.force_direction, '')
+        if dir:
+            print(r'\tweak direction %s' % dir)
+        print(self.ly_expression())
+
+
 class MusicGlyphMarkEvent(MarkEvent):
     def ly_contents(self):
         if self.mark:
