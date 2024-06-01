@@ -53,6 +53,12 @@
         <voice>1</voice>
         <type>quarter</type>
       </note>
+      <note>
+        <pitch><step>C</step><octave>5</octave></pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
       <direction>
         <direction-type>
           <metronome>
@@ -60,6 +66,38 @@
             <beat-unit-dot/>
             <beat-unit-dot/>
             <beat-unit>half</beat-unit>
+            <beat-unit-dot/>
+          </metronome>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch><step>C</step><octave>5</octave></pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="2">
+      <note>
+        <pitch><step>C</step><octave>5</octave></pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch><step>C</step><octave>5</octave></pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <direction>
+        <direction-type>
+          <metronome parentheses="yes">
+            <beat-unit>quarter</beat-unit>
+            <beat-unit-dot/>
+            <beat-unit>half</beat-unit>
+            <beat-unit-dot/>
             <beat-unit-dot/>
           </metronome>
         </direction-type>
@@ -78,24 +116,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="2">
-      <direction>
-        <direction-type>
-          <metronome parentheses="yes">
-            <beat-unit>quarter</beat-unit>
-            <beat-unit-dot/>
-            <beat-unit>half</beat-unit>
-            <beat-unit-dot/>
-            <beat-unit-dot/>
-          </metronome>
-        </direction-type>
-      </direction>
-      <note>
-        <pitch><step>C</step><octave>5</octave></pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
+    <measure number="3">
       <note>
         <pitch><step>C</step><octave>5</octave></pitch>
         <duration>1</duration>
@@ -111,6 +132,12 @@
           </metronome>
         </direction-type>
       </direction>
+      <note>
+        <pitch><step>C</step><octave>5</octave></pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
       <note>
         <pitch><step>C</step><octave>5</octave></pitch>
         <duration>1</duration>
