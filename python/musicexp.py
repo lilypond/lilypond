@@ -1872,31 +1872,6 @@ class MarkEventNew(Event):
         print(self.ly_expression())
 
 
-class MarkEvent(Event):
-    def __init__(self, text=r"\default"):
-        Event.__init__(self)
-        self.mark = text
-
-    def wait_for_note(self):
-        return False
-
-    def ly_contents(self):
-        if self.mark:
-            return '%s' % self.mark
-        else:
-            return '"ERROR"'
-
-    def ly_expression(self):
-        return r'\mark %s' % self.ly_contents()
-
-    def print_ly(self, print):
-        dir = {1: "#UP",
-               -1: "#DOWN"}.get(self.force_direction, '')
-        if dir:
-            print(r'\once \override Score.RehearsalMark.direction = %s' % dir)
-        print(self.ly_expression())
-
-
 class TextMarkEventNew(Event):
     def __init__(self):
         Event.__init__(self)
@@ -1915,14 +1890,6 @@ class TextMarkEventNew(Event):
         if dir:
             print(r'\tweak direction %s' % dir)
         print(self.ly_expression())
-
-
-class MusicGlyphMarkEvent(MarkEvent):
-    def ly_contents(self):
-        if self.mark:
-            return r'\markup { \musicglyph "scripts.%s" }' % self.mark
-        else:
-            return ''
 
 
 def text_to_ly(elements, init_markup=None):
@@ -2054,57 +2021,6 @@ class TextEventNew(Event):
     def ly_expression(self):
         return r'%s\markup %s' % (self.direction_mod(),
                                   text_to_ly(self.text_elements))
-
-
-class TextEvent(Event):
-    def __init__(self):
-        Event.__init__(self)
-        self.Text = None
-        self.force_direction = None
-        self.markup = ''
-
-    def wait_for_note(self):
-        r""" This is problematic: the lilypond-markup ^"text" requires
-        wait_for_note to be true.  Otherwise the compilation will fail.  So
-        we are forced to set return to True.  But in some cases this might
-        lead to a wrong placement of the text.  In case of words like
-        Allegro the text should be put in a '\tempo'-command.  In this case
-        we don't want to wait for the next note.  In some other cases the
-        text is supposed to be used in a r'\mark\markup' construct.  We
-        would not want to wait for the next note either.  There might be
-        other problematic situations.  In the long run we should
-        differentiate between various contexts in MusicXML, e.g., the
-        following markup should be interpreted as '\tempo "Allegretto"':
-
-          <direction placement="above">
-            <direction-type>
-              <words>Allegretto</words>
-            </direction-type>
-            <sound tempo="120"/>
-          </direction>
-
-        In the mean time arising problems have to be corrected manually
-        after the conversion.
-        """
-        return True
-
-    def direction_mod(self):
-        """1: placement="above"; -1: placement="below"; 0: no placement
-        attribute.  See musicxml_direction_to_indicator in
-        musicxml2ly_conversion.py.
-        """
-        return {1: '^', -1: '_', 0: '-'}.get(self.force_direction, '-')
-
-    def ly_expression(self):
-        # self.text will be enclosed by quotes, and the direction
-        # modifier must be separated from the opening quote by a space.
-        # This is so that subsequent line breaking for the output file
-        # using utilities.split_string_and_preserve_doublequoted_strings()
-        # properly detects the opening quote.
-        base_string = '%s %s'
-        if self.markup:
-            base_string = r'%s\markup ' + self.markup + ' %s'
-        return base_string % (self.direction_mod(), self.text)
 
 
 class ArticulationEvent(Event):
@@ -3060,70 +2976,6 @@ class TempoMarkNew(Music):
         if markup:
             printer(r'\tempo \markup')
             printer(markup)
-
-
-class TempoMark(Music):
-    def __init__(self):
-        Music.__init__(self)
-        self.baseduration = None
-        self.newduration = None
-        self.beats = None
-        self.parentheses = False
-        self.text = None
-
-    def set_base_duration(self, dur):
-        self.baseduration = dur
-
-    def set_new_duration(self, dur):
-        self.newduration = dur
-
-    def set_beats_per_minute(self, beats):
-        self.beats = beats
-
-    def set_parentheses(self, parentheses):
-        self.parentheses = parentheses
-
-    def set_text(self, text):
-        self.text = text
-
-    def wait_for_note(self):
-        return False
-
-    def duration_to_markup(self, dur):
-        if dur:
-            # Generate the markup to print the note
-            return (r"\general-align #Y #DOWN "
-                    r"\smaller \note {%s} #UP" % dur.ly_expression())
-        else:
-            return ''
-
-    def tempo_markup_template(self):
-        return r"\mark\markup { \fontsize #-2 \line { %s } }"
-
-    def ly_expression(self):
-        res = ''
-        if not self.baseduration:
-            return res
-        if self.beats:
-            if self.parentheses or self.text:
-                res += (r'\tempo "%s" %s=%s'
-                        % (self.text or '',
-                           self.baseduration.ly_expression(),
-                           self.beats))
-            else:
-                res += r"\tempo %s=%s" % (self.baseduration.ly_expression(),
-                                          self.beats)
-        elif self.newduration:
-            dm = self.duration_to_markup(self.baseduration)
-            ndm = self.duration_to_markup(self.newduration)
-            if self.parentheses:
-                contents = '"(" %s = %s ")"' % (dm, ndm)
-            else:
-                contents = " %s = %s " % (dm, ndm)
-            res += self.tempo_markup_template() % contents
-        else:
-            return ''
-        return res
 
 
 class FiguredBassNote(Music):

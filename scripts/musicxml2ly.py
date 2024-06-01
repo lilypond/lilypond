@@ -808,11 +808,10 @@ def musicxml_partial_to_lily(partial_len):
     else:
         return None
 
+
 # Detect repeats and alternative endings in the chord event list(music_list)
 # and convert them to the corresponding musicexp objects, containing nested
 # music
-
-
 def group_repeats(music_list):
     repeat_replaced = True
     music_start = 0
@@ -1936,33 +1935,6 @@ def musicxml_dynamics_to_lily_event_new(elements):
     return ev
 
 
-def musicxml_dynamics_to_lily_event(dynentry):
-    # A list of dynamics LilyPond provides by default.
-    dynamics_available = (
-        "ppppp", "pppp", "ppp", "pp", "p",
-        "mp", "mf",
-        "f", "ff", "fff", "ffff", "fffff",
-        "fp", "sf", "sfp", "sff",
-        "sfz", "fz", "sp", "spp", "rfz", "n")
-    dynamicsname = dynentry.get_name()
-    if dynamicsname == "other-dynamics":
-        dynamicsname = dynentry.get_text()
-    if not dynamicsname or dynamicsname == "#text":
-        return None
-
-    if dynamicsname not in dynamics_available:
-        # Get rid of `-` in command names, which are invalid in normal
-        # LilyPond input mode.
-        dynamicstext = dynamicsname
-        dynamicsname = dynamicsname.replace("-", "")
-        additional_definitions[dynamicsname] = dynamicsname + \
-            ' = #(make-dynamic-script "' + dynamicstext + '")'
-        needed_additional_definitions.append(dynamicsname)
-    event = musicexp.DynamicsEvent()
-    event.type = dynamicsname
-    return event
-
-
 # Convert single-color two-byte strings to numbers 0.0 - 1.0
 def hexcolorval_to_nr(hex_val):
     try:
@@ -2027,73 +1999,6 @@ def musicxml_words_to_lily_event_new(elements):
     ev = musicexp.TextEventNew()
     ev.text_elements = elements
     return ev
-
-
-def musicxml_words_to_lily_event(words):
-    event = musicexp.TextEvent()
-    # Remove leading and trailing whitespace; reduce sequences of whitespace
-    # characters to a single space.
-    text = " ".join(words.get_text().split())
-    event.text = utilities.escape_ly_output_string(text)
-
-    if options.convert_directions:
-        offset = getattr(words, 'default-y', None)
-        if offset is not None:
-            try:
-                off = int(offset)
-                if off > 0:
-                    event.force_direction = 1
-                else:
-                    event.force_direction = -1
-            except ValueError:
-                event.force_direction = 0
-
-    (encl, need_def) = {
-        # TODO: Support more `enclosure` values.
-        'none': (None, False),
-        'square': ('square', True),
-        'rectangle': ('box', False),
-        'circle': ('circle', False),
-        'oval': ('ellipse', False),
-    }.get(getattr(words, 'enclosure', 'none'), (None, False))
-
-    if need_def:
-        needed_additional_definitions.append(encl)
-
-    if encl:
-        event.markup += r'\%s' % encl
-
-    font_weight = {"normal": '', "bold": r'\bold'}.get(
-        getattr(words, 'font-weight', None), '')
-    if font_weight:
-        event.markup += font_weight
-
-    size = getattr(words, 'font-size', None)
-    if size is not None:
-        # font_size = font_size_dict.get(size, '')
-        font_size = get_font_size(size)
-        if font_size:
-            event.markup += font_size
-
-    color = getattr(words, 'color', None)
-    if color is not None:
-        rgb = hex_to_color(color)
-        if rgb:
-            event.markup += r"\with-color #(rgb-color %s %s %s)" % (
-                rgb[0], rgb[1], rgb[2])
-
-    font_style = {"italic": r'\italic'}.get(
-        getattr(words, 'font-style', None), '')
-    if font_style:
-        event.markup += font_style
-
-    # TODO: How should I best convert the font-family attribute?
-
-    # TODO: How can I represent the underline, overline and line-through
-    #       attributes in LilyPond? Values of these attributes indicate
-    #       the number of lines
-
-    return event
 
 
 def musicxml_dashes_start_to_lily_event_new(elements):
@@ -2223,30 +2128,6 @@ def musicxml_accordion_to_ly(mxl_event):
 
         return ev
     return
-
-
-def musicxml_rehearsal_to_ly_mark(mxl_event):
-    text = mxl_event.get_text()
-    if not text:
-        return
-    # The default uses squared rehearsal marks.
-    (encl, need_def) = {
-        # TODO: Support more `enclosure` values.
-        'none': (None, False),
-        'square': ('square', True),
-        'rectangle': ('box', False),
-        'circle': ('circle', False),
-        'oval': ('ellipse', False),
-    }.get(getattr(mxl_event, 'enclosure', 'square'), (None, False))
-
-    if need_def:
-        needed_additional_definitions.append(encl)
-
-    text = utilities.escape_ly_output_string(text)
-    if encl:
-        text = r'\%s %s' % (encl, text)
-    ev = musicexp.MarkEvent(r'\markup %s' % text)
-    return ev
 
 
 def musicxml_harp_pedals_to_ly(mxl_event):
@@ -2384,96 +2265,6 @@ def musicxml_metronome_to_lily_event_new(elements):
         ev.text_elements = elements
 
     return ev
-
-
-def musicxml_metronome_to_ly(mxl_event, text_event=None):
-    children = mxl_event.get_all_children()
-    if not children:
-        return
-
-    index = -1
-    index = next_non_hash_index(children, index)
-    if isinstance(children[index], musicxml.BeatUnit):
-        # first form of metronome-mark, using unit and beats/min or other unit
-        ev = musicexp.TempoMark()
-        if text_event:
-            ev.set_text(text_event.get_text().strip())
-
-        parentheses = getattr(mxl_event, 'parentheses', None)
-        if parentheses is not None:
-            ev.set_parentheses(parentheses == 'yes')
-
-        d = musicexp.Duration()
-        d.duration_log = utilities.musicxml_duration_to_log(
-            children[index].get_text())
-        index = next_non_hash_index(children, index)
-        if isinstance(children[index], musicxml.BeatUnitDot):
-            d.dots = 1
-            index = next_non_hash_index(children, index)
-        ev.set_base_duration(d)
-        if isinstance(children[index], musicxml.BeatUnit):
-            # Form "note = newnote"
-            newd = musicexp.Duration()
-            newd.duration_log = utilities.musicxml_duration_to_log(
-                children[index].get_text())
-            index = next_non_hash_index(children, index)
-            if isinstance(children[index], musicxml.BeatUnitDot):
-                newd.dots = 1
-                index = next_non_hash_index(children, index)
-            ev.set_new_duration(newd)
-        elif isinstance(children[index], musicxml.PerMinute):
-            # Form "note = bpm"
-            try:
-                beats = int(children[index].get_text())
-                ev.set_beats_per_minute(beats)
-            except ValueError:
-                pass
-        else:
-            ly.warning(_("Unknown metronome mark, ignoring"))
-            return
-        return ev
-    else:
-        # TODO: Implement the other (more complex) way for tempo marks!
-        ly.warning(_("Metronome marks with complex relations "
-                     "(<metronome-note> in MusicXML) "
-                     "are not yet implemented."))
-        return
-
-
-# Translate directions into Events.  Possible values:
-#
-#   -) string:        MarkEvent with that command
-#   -) function:      function(mxl_event) needs to return a full Event-derived
-#                     object
-#   -) (class, name): like string, only that a different class than MarkEvent
-#                     is used
-directions_dict = {
-    'accordion-registration': musicxml_accordion_to_ly,
-    'coda': (musicexp.MusicGlyphMarkEvent, "coda"),
-    #     'damp' : ???
-    #     'damp-all' : ???
-    'eyeglasses': musicxml_eyeglasses_to_ly,
-    'harp-pedals': musicxml_harp_pedals_to_ly,
-    #     'image' : ???
-    'metronome': musicxml_metronome_to_ly,
-    #     'other-direction' : ???
-    #     'percussion' : ???
-    'rehearsal': musicxml_rehearsal_to_ly_mark,
-    #     'scordatura' : ???
-    'segno': (musicexp.MusicGlyphMarkEvent, "segno"),
-    #     'staff-divide' : ???
-    #     'string-mute' : ???
-    #     'symbol' : ???
-    'words': musicxml_words_to_lily_event,
-}
-directions_spanners = [
-    'bracket',
-    'dashes',
-    'octave-shift',
-    'pedal',
-    # 'principal-voice',
-    'wedge',
-]
 
 
 def musicxml_direction_to_lily_new(n):
@@ -2736,76 +2527,6 @@ def musicxml_direction_to_lily_new(n):
                 res.append(event)
 
         i += 1
-
-    return res
-
-
-def musicxml_direction_to_lily(n):
-    # TODO: Handle the `<staff>` element.
-    res = []
-
-    # The `placement` attribute applies to all children.
-    dir = None
-    if options.convert_directions:
-        placement = getattr(n, 'placement', None)
-        if placement is not None:
-            dir = musicxml_direction_to_indicator(placement)
-
-    dirtype_children = []
-    # TODO: The direction-type is used for grouping (e.g. dynamics with text),
-    #       so we can't simply flatten them out!
-    for dt in n.get_typed_children(musicxml.DirType):
-        dirtype_children += dt.get_all_children()
-    dirtype_children = [d for d in dirtype_children if d.get_name() != "#text"]
-
-    for i, entry in enumerate(dirtype_children):
-        if not entry:
-            continue
-
-        # Brackets, dashes, octave shifts, pedal marks, hairpins, etc., are
-        # spanners.
-        if entry.get_name() in directions_spanners:
-            event = musicxml_spanner_to_lily_event(entry)
-            if event:
-                if event.span_direction == -1:
-                    event.force_direction = dir
-                res.append(event)
-            continue
-
-        # handle text+bpm marks like "Allegro moderato (♩ = 144)"
-        if entry.get_name() == 'words' and i < len(dirtype_children) - 1:
-            next_entry = dirtype_children[i + 1]
-            if next_entry.get_name() == 'metronome':
-                event = musicxml_metronome_to_ly(next_entry, entry)
-                if event:
-                    res.append(event)
-                    dirtype_children[i + 1] = None
-                    continue
-
-        # Everything else is taken as a single command.  We look up a
-        # dictionary to translate the element, ignoring it if no handler is
-        # available.
-        ev = None
-        tmp_tp = directions_dict.get(entry.get_name(), None)
-        if isinstance(tmp_tp, str):  # string means MarkEvent
-            ev = musicexp.MarkEvent(tmp_tp)
-        elif isinstance(tmp_tp, tuple):  # tuple means (EventClass, "text")
-            ev = tmp_tp[0](tmp_tp[1])
-        elif tmp_tp:
-            ev = tmp_tp(entry)
-        if ev:
-            # TODO: set the correct direction! Unfortunately, \mark in ly does
-            #       not seem to support directions!
-            ev.force_direction = dir
-            res.append(ev)
-            continue
-
-        if entry.get_name() == "dynamics":
-            for dynentry in entry.get_all_children():
-                ev = musicxml_dynamics_to_lily_event(dynentry)
-                if ev:
-                    ev.force_direction = dir
-                    res.append(ev)
 
     return res
 
@@ -3626,7 +3347,7 @@ def musicxml_voice_to_lily_voice(voice):
                     voice_builder.add_command(se)
                     pedal_is_line = new_pedal_is_line
 
-                for direction in musicxml_direction_to_lily(n):
+                for direction in musicxml_direction_to_lily_new(n):
                     if direction.wait_for_note():
                         voice_builder.add_dynamics(direction)
                     else:
