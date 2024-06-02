@@ -266,6 +266,10 @@ Installed Files:
 @node Simultaneous expressions
 @unnumberedsubsubsec Simultaneous expressions
 
+@funindex <<
+@funindex >>
+@funindex << ... >>
+
 One or more music expressions enclosed in double angle brackets are
 taken to be simultaneous.  If the first expression begins with a
 single note or if the whole simultaneous expression appears
@@ -561,6 +565,9 @@ mus =
 @end lilypond
 
 @subsubsubheading The double backslash construct
+
+@funindex << ... \\ ... >>
+@funindex @sortas{@bs{}@bs{}} \\
 
 The @code{<< @{@dots{}@} \\ @{@dots{}@} >>} construct, where the two (or
 more) expressions are separated by double backslashes, behaves
