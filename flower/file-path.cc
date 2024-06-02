@@ -246,7 +246,7 @@ File_path::find (const std::string &name) const
   where EXT is from EXTENSIONS.
 */
 std::string
-File_path::find (const std::string &name, char const *extensions[])
+File_path::find (const std::string &name, char const *const extensions[]) const
 {
   if (name.empty () || name == "-")
     return name;

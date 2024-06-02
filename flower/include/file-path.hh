@@ -35,7 +35,8 @@ class File_path
 public:
   std::vector<std::string> directories () const;
   std::string find (const std::string &name) const;
-  std::string find (const std::string &name, char const *extensions[]);
+  std::string find (const std::string &name,
+                    char const *const extensions[]) const;
   std::string to_string () const;
   bool try_append (std::string str);
   void append (const std::string &);
