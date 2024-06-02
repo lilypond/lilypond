@@ -1583,7 +1583,7 @@ class TextSpannerEvent(SpanEvent):
                     tweaks.append(r'\tweak bound-details.right.text '
                                   + r'\markup ' + stop_markup)
             elif self.span_direction == 1:
-                if isinstance(self.get_paired_event(), DynamicsSpannerEventNew):
+                if isinstance(self.get_paired_event(), DynamicsSpannerEvent):
                     val = r'\!'
                 else:
                     val = r'\stopTextSpan'
@@ -1629,7 +1629,7 @@ class TextSpannerEvent(SpanEvent):
 
 # This class gets used only for the start part of a spanner; the
 # corresponding end part is always of type `TextSpannerEvent`.
-class DynamicsSpannerEventNew(SpanEvent):
+class DynamicsSpannerEvent(SpanEvent):
     def __init__(self):
         SpanEvent.__init__(self)
         self.text_elements = None
@@ -1852,7 +1852,7 @@ class DynamicsEvent(Event):
             printer.dump(r'%s\%s' % (self.direction_mod(), self.type))
 
 
-class MarkEventNew(Event):
+class MarkEvent(Event):
     def __init__(self):
         Event.__init__(self)
         self.text_elements = None
@@ -1872,7 +1872,7 @@ class MarkEventNew(Event):
         print(self.ly_expression())
 
 
-class TextMarkEventNew(Event):
+class TextMarkEvent(Event):
     def __init__(self):
         Event.__init__(self)
         self.text_elements = None
@@ -2000,7 +2000,7 @@ def text_to_ly(elements, init_markup=None):
     return ' '.join(markup)
 
 
-class TextEventNew(Event):
+class TextEvent(Event):
     def __init__(self):
         Event.__init__(self)
         self.text_elements = None
@@ -2011,7 +2011,7 @@ class TextEventNew(Event):
         `wait_for_note` to be true, otherwise compilation will fail; we are
         thus forced to return `True`.  However, this might lead to wrong
         placement of text if derived from `<direction-type>` combinations
-        not handled specially in `musicxml_direction_to_lily_new`.
+        not handled specially in `musicxml_direction_to_lily`.
         """
         return True
 
@@ -2887,7 +2887,7 @@ class MeasureStyleEvent(Music):
             printer(s)
 
 
-class TempoMarkNew(Music):
+class TempoMark(Music):
     def __init__(self):
         Music.__init__(self)
         self.baseduration = None

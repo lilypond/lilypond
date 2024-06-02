@@ -1468,7 +1468,7 @@ def musicxml_print_to_lily(el):
 spanner_event_dict = {
     'beam': musicexp.BeamEvent,
     'dashes': musicexp.TextSpannerEvent,
-    'dynamics-spanner': musicexp.DynamicsSpannerEventNew,
+    'dynamics-spanner': musicexp.DynamicsSpannerEvent,
     'bracket': musicexp.BracketSpannerEvent,
     'glissando': musicexp.GlissandoEvent,
     'octave-shift': musicexp.OctaveShiftEvent,
@@ -1823,7 +1823,7 @@ def musicxml_articulation_to_lily_event(mxl_event):
     return ev
 
 
-def musicxml_dynamic_to_lily_new(element):
+def musicxml_dynamic_to_lily(element):
     dynamics_name = element.get_name()
     if dynamics_name == 'other-dynamics':
         # TODO: Handle `smufl` attribute.
@@ -1834,7 +1834,7 @@ def musicxml_dynamic_to_lily_new(element):
         return dynamics_name
 
 
-def musicxml_dynamics_to_lily_event_new(elements):
+def musicxml_dynamics_to_lily_event(elements):
     # A list of dynamics LilyPond provides by default.
     predefined_dynamics = (
         'ppppp', 'pppp', 'ppp', 'pp', 'p',
@@ -1870,7 +1870,7 @@ def musicxml_dynamics_to_lily_event_new(elements):
 
     dyns = ''
     for d in dynamics.get_all_children():
-        dyns += musicxml_dynamic_to_lily_new(d)
+        dyns += musicxml_dynamic_to_lily(d)
     dynamics_name += dyns
 
     after = ''
@@ -1995,21 +1995,21 @@ def get_font_size(size):
         return font_size_word_to_lily_command(size)
 
 
-def musicxml_words_to_lily_event_new(elements):
-    ev = musicexp.TextEventNew()
+def musicxml_words_to_lily_event(elements):
+    ev = musicexp.TextEvent()
     ev.text_elements = elements
     return ev
 
 
-def musicxml_dashes_start_to_lily_event_new(elements):
-    return musicxml_dashes_to_lily_event_new(elements, 'start')
+def musicxml_dashes_start_to_lily_event(elements):
+    return musicxml_dashes_to_lily_event(elements, 'start')
 
 
-def musicxml_dashes_stop_to_lily_event_new(elements):
-    return musicxml_dashes_to_lily_event_new(elements, 'stop')
+def musicxml_dashes_stop_to_lily_event(elements):
+    return musicxml_dashes_to_lily_event(elements, 'stop')
 
 
-def musicxml_dashes_to_lily_event_new(elements, type):
+def musicxml_dashes_to_lily_event(elements, type):
     if type == 'start':
         (dashes, attributes) = elements[-1]
         elements = elements[:-1]
@@ -2023,15 +2023,15 @@ def musicxml_dashes_to_lily_event_new(elements, type):
     return ev
 
 
-def musicxml_cresc_spanner_to_lily_event_new(elements):
-    return musicxml_dynamics_spanner_to_lily_event_new(elements, 'cresc')
+def musicxml_cresc_spanner_to_lily_event(elements):
+    return musicxml_dynamics_spanner_to_lily_event(elements, 'cresc')
 
 
-def musicxml_dim_spanner_to_lily_event_new(elements):
-    return musicxml_dynamics_spanner_to_lily_event_new(elements, 'dim')
+def musicxml_dim_spanner_to_lily_event(elements):
+    return musicxml_dynamics_spanner_to_lily_event(elements, 'dim')
 
 
-def musicxml_dynamics_spanner_to_lily_event_new(elements, type):
+def musicxml_dynamics_spanner_to_lily_event(elements, type):
     (dynamics_spanner, attributes) = elements[-1]
     elements = elements[:-1]
 
@@ -2043,17 +2043,17 @@ def musicxml_dynamics_spanner_to_lily_event_new(elements, type):
     return ev
 
 
-def musicxml_mark_to_lily_event_new(elements):
-    ev = musicexp.MarkEventNew()
+def musicxml_mark_to_lily_event(elements):
+    ev = musicexp.MarkEvent()
     ev.text_elements = elements
     return ev
 
 
-def musicxml_textmark_to_lily_event_new(elements):
+def musicxml_textmark_to_lily_event(elements):
     layout_information.set_context_item(
         'Score', r'\override TextMark.font-size = 2')
 
-    ev = musicexp.TextMarkEventNew()
+    ev = musicexp.TextMarkEvent()
     ev.text_elements = elements
     return ev
 
@@ -2123,7 +2123,7 @@ def musicxml_accordion_to_ly(mxl_event):
         markup_node = musicxml.LilyPond_markup()
         markup_node._data = txt
 
-        ev = musicexp.TextMarkEventNew()
+        ev = musicexp.TextMarkEvent()
         ev.text_elements = [(markup_node, {})]
 
         return ev
@@ -2152,7 +2152,7 @@ def musicxml_eyeglasses_to_ly(mxl_event):
     markup_node = musicxml.LilyPond_markup()
     markup_node._data = r'\eyeglasses'
 
-    ev = musicexp.TextMarkEventNew()
+    ev = musicexp.TextMarkEvent()
     ev.text_elements = [(markup_node, {})]
 
     return ev
@@ -2165,7 +2165,7 @@ def next_non_hash_index(lst, pos):
     return pos
 
 
-def musicxml_metronome_to_lily_event_new(elements):
+def musicxml_metronome_to_lily_event(elements):
     (maybe_metronome, attributes) = elements[-1]
 
     tempo_with_metronome = False
@@ -2177,7 +2177,7 @@ def musicxml_metronome_to_lily_event_new(elements):
         else:
             ly.warning(_("Empty metronome element"))
 
-    ev = musicexp.TempoMarkNew()
+    ev = musicexp.TempoMark()
 
     if tempo_with_metronome:
         if attributes.get('parentheses', 'no') == 'yes':
@@ -2267,7 +2267,7 @@ def musicxml_metronome_to_lily_event_new(elements):
     return ev
 
 
-def musicxml_direction_to_lily_new(n):
+def musicxml_direction_to_lily(n):
     # TODO: Handle the `<staff>` element.
     res = []
 
@@ -2319,15 +2319,15 @@ def musicxml_direction_to_lily_new(n):
         # TODO: Find a way to do something similar for horizontal brackets.
         # TODO: Handle `<symbol>` together with `<words>`.
         state_dict = {
-            'cresc-spanner': musicxml_cresc_spanner_to_lily_event_new,
-            'dashes-start': musicxml_dashes_start_to_lily_event_new,
-            'dashes-stop': musicxml_dashes_stop_to_lily_event_new,
-            'dim-spanner': musicxml_dim_spanner_to_lily_event_new,
-            'dynamics': musicxml_dynamics_to_lily_event_new,
-            'mark': musicxml_mark_to_lily_event_new,
-            'metronome': musicxml_metronome_to_lily_event_new,
-            'textmark': musicxml_textmark_to_lily_event_new,
-            'words': musicxml_words_to_lily_event_new,
+            'cresc-spanner': musicxml_cresc_spanner_to_lily_event,
+            'dashes-start': musicxml_dashes_start_to_lily_event,
+            'dashes-stop': musicxml_dashes_stop_to_lily_event,
+            'dim-spanner': musicxml_dim_spanner_to_lily_event,
+            'dynamics': musicxml_dynamics_to_lily_event,
+            'mark': musicxml_mark_to_lily_event,
+            'metronome': musicxml_metronome_to_lily_event,
+            'textmark': musicxml_textmark_to_lily_event,
+            'words': musicxml_words_to_lily_event,
         }
         # Contrary to other parts of MusicXML, "for a series of
         # `<direction-type>` children, non-positional formatting attributes
@@ -3347,7 +3347,7 @@ def musicxml_voice_to_lily_voice(voice):
                     voice_builder.add_command(se)
                     pedal_is_line = new_pedal_is_line
 
-                for direction in musicxml_direction_to_lily_new(n):
+                for direction in musicxml_direction_to_lily(n):
                     if direction.wait_for_note():
                         voice_builder.add_dynamics(direction)
                     else:
@@ -3721,7 +3721,7 @@ def musicxml_voice_to_lily_voice(voice):
 
             def convert_and_append_all_child_dynamics(mxl_node):
                 element = (mxl_node, mxl_node._attribute_dict)
-                ev = musicxml_dynamics_to_lily_event_new([element])
+                ev = musicxml_dynamics_to_lily_event([element])
                 if ev is not None:
                     if options.convert_directions:
                         dir = getattr(mxl_node, 'placement', None)
