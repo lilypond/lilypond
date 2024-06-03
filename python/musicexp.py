@@ -2179,6 +2179,7 @@ class StemEvent(Event):
     def __init__(self):
         Event.__init__(self)
         self.value = None
+        self.is_stemlet = False
 
     stem_value_dict = {
         'down': r'\once \stemDown',
@@ -2198,6 +2199,9 @@ class StemEvent(Event):
             color = color_to_ly(self.color)
             if color is not None:
                 res.append(r'\tweak Stem.color %s' % color)
+
+        if self.is_stemlet:
+            res.append(r'\tweak Stem.stemlet-length #1')
 
         return ' '.join(res)
 

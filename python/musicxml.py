@@ -745,19 +745,24 @@ class Partial(Measure_element):
 
 
 class Stem(Music_xml_node):
-    def to_stem_event(self, note_color=None, convert_stem_directions=True):
+    def to_stem_event(self, note_color=None, is_rest=False,
+                      convert_stem_directions=True):
         event = musicexp.StemEvent()
         # MusicXML 4.0 doesn't provide a means to control the color of the
         # flag separately.  In LilyPond, `Stem.color` by default controls
         # the color of the flag, too.
         event.color = getattr(self, 'color', note_color)
 
+        event.is_stemlet = is_rest
+
         value = self.get_text().strip()
         # Only catch 'up' and 'down' with the command-line option.
         if convert_stem_directions or value == 'none':
             event.value = value
 
-        if event.value is not None or event.color is not None:
+        if (event.value is not None
+                or event.color is not None
+                or event.is_stemlet):
             return event
 
         return None
@@ -980,7 +985,7 @@ class Note(Measure_element):
         if stem is None and color is not None:
             stem = Stem()
         if stem is not None:
-            v = stem.to_stem_event(color, convert_stem_directions)
+            v = stem.to_stem_event(color, is_rest, convert_stem_directions)
             if v is not None:
                 event.add_associated_event(v)
 
