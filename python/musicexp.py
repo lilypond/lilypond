@@ -677,6 +677,7 @@ class Music(Base):
         self.start = 0
         self.comment = ''
         self.identifier = None
+        self.color = None
 
     def get_length(self, with_factor=True):
         return 0
@@ -2171,7 +2172,6 @@ class StemEvent(Event):
     def __init__(self):
         Event.__init__(self)
         self.value = None
-        self.color = None
 
     stem_value_dict = {
         'down': r'\once \stemDown',
@@ -2197,13 +2197,11 @@ class StemEvent(Event):
         return self.pre_chord_ly()
 
 
-# class changed by DaLa: additional attribute color
 class NotestyleEvent(Event):
     def __init__(self):
         Event.__init__(self)
         self.style = None
         self.filled = None
-        self.color = None
 
     notehead_styles_dict = {
         'arrow down': None,  # TODO: Implement
