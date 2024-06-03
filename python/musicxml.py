@@ -745,43 +745,43 @@ class Partial(Measure_element):
 
 
 class Stem(Music_xml_node):
-    def to_stem_event(self):
+    def to_stem_event(self, note_color=None, convert_stem_directions=True):
         event = musicexp.StemEvent()
+        # MusicXML 4.0 doesn't provide a means to control the color of the
+        # flag separately.  In LilyPond, `Stem.color` by default controls
+        # the color of the flag, too.
+        event.color = getattr(self, 'color', note_color)
 
-        event.value = self.get_text().strip()
+        value = self.get_text().strip()
+        # Only catch 'up' and 'down' with the command-line option.
+        if convert_stem_directions or value == 'none':
+            event.value = value
 
-        color = getattr(self, 'color', None)
-        if color is not None:
-            event.color = utilities.hex_to_color(color)
-
-        if event.value or event.color is not None:
+        if event.value is not None or event.color is not None:
             return event
 
         return None
 
 
 class Notehead(Music_xml_node):
-    def to_lily_object(self):
+    def to_lily_object(self, note_color=None):
         styles = []
-        # Notehead style
-        event = musicexp.NotestyleEvent()
 
+        # Note head style.
+        event = musicexp.NotestyleEvent()
         event.style = self.get_text().strip()
+        event.color = getattr(self, 'color', note_color)
 
         filled = getattr(self, 'filled', None)
         if filled is not None:
             event.filled = (filled == 'yes')
-
-        color = getattr(self, 'color', None)
-        if color is not None:
-            event.color = utilities.hex_to_color(color)
 
         if (event.style
                 or event.filled is not None
                 or event.color is not None):
             styles.append(event)
 
-        # parentheses
+        # Parentheses.
         if getattr(self, 'parentheses', None) == 'yes':
             styles.append(musicexp.ParenthesizeEvent())
 
@@ -872,7 +872,7 @@ class Note(Measure_element):
                     % (self.start, self._duration))
                 return None
 
-    def initialize_pitched_event(self):
+    def initialize_pitched_event(self, note_color=None):
         pitch = self['pitch'].to_lily_object()
         event = musicexp.NoteEvent()
         event.pitch = pitch
@@ -914,9 +914,11 @@ class Note(Measure_element):
                 event.cautionary = True
             if bracket == 'yes':
                 event.editorial = True
-
         except KeyError:
-            pass
+            acc = []
+
+        event.accidental_color = getattr(acc, 'color', note_color)
+
         return event
 
     def initialize_unpitched_event(self, clef):
@@ -926,10 +928,13 @@ class Note(Measure_element):
         event.pitch = self['unpitched'].to_lily_object(clef)
         return event
 
-    def initialize_rest_event(self, convert_rest_positions=True):
+    def initialize_rest_event(self, note_color=None,
+                              convert_rest_positions=True):
         # rests can have display-octave and display-step, which are
         # treated like an ordinary note pitch
         event = musicexp.RestEvent()
+        event.color = getattr(self, 'color', note_color)
+
         if convert_rest_positions:
             pitch = self['rest'].to_lily_object()
             event.pitch = pitch
@@ -939,34 +944,45 @@ class Note(Measure_element):
                        clef,
                        convert_stem_directions=True,
                        convert_rest_positions=True):
-        pitch = None
-        duration = None
-        event = None
+        color = getattr(self, 'color', None)
 
+        is_rest = False
         if 'pitch' in self:
-            event = self.initialize_pitched_event()
+            event = self.initialize_pitched_event(color)
         elif 'unpitched' in self:
             event = self.initialize_unpitched_event(clef)
         elif 'rest' in self:
-            event = self.initialize_rest_event(convert_rest_positions)
+            event = self.initialize_rest_event(color, convert_rest_positions)
+            is_rest = True
         else:
             self.message(_("cannot find suitable event"))
+            return None
 
-        if event:
-            event.duration = self.initialize_duration()
+        event.duration = self.initialize_duration()
 
-        notehead = self.get('notehead')
-        if notehead is not None:
-            for v in notehead.to_lily_object():
-                event.add_associated_event(v)
+        # LilyPond handles all dots together; we thus only use the first
+        # dot's color.
+        dot = self['dot']
+        if dot:
+            event.dot_color = getattr(dot[0], 'color', color)
+
+        if not is_rest:
+            # Technically, rests can have a `<notehead>` element.  However,
+            # this doesn't make any sense...
+            notehead = self.get('notehead')
+            if notehead is None and color is not None:
+                notehead = Notehead()
+            if notehead is not None:
+                for v in notehead.to_lily_object(color):
+                    event.add_associated_event(v)
 
         stem = self.get('stem')
+        if stem is None and color is not None:
+            stem = Stem()
         if stem is not None:
-            v = stem.to_stem_event()
+            v = stem.to_stem_event(color, convert_stem_directions)
             if v is not None:
-                # Only catch 'up' and 'down' with the command-line option.
-                if convert_stem_directions or v.value == 'none':
-                    event.add_associated_event(v)
+                event.add_associated_event(v)
 
         event.visible = (getattr(self, 'print-object', 'yes') == 'yes')
 

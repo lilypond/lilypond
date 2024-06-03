@@ -52,6 +52,23 @@ def escape_instrument_string(input_string):
     return retstring
 
 
+def color_to_ly(hex_val):
+    if hex_val is None:
+        return None
+
+    # MusicXML uses ARGB notation, while LilyPond uses RGBA.
+    res = re.match(r'''(?xi)
+                       \# ( [0-9a-f] [0-9a-f] | )
+                          ( [0-9a-f] [0-9a-f]
+                            [0-9a-f] [0-9a-f]
+                            [0-9a-f] [0-9a-f] ) $
+                   ''', hex_val)
+    if res:
+        return '"#%s%s"' % res.group(2, 1)
+    else:
+        return None
+
+
 class Output_stack_element:
     def __init__(self):
         self.factor = 1  # For scaling tuplets and the like.
@@ -2182,12 +2199,16 @@ class StemEvent(Event):
 
     def pre_chord_ly(self):
         res = []
+
         value = self.stem_value_dict.get(self.value, None)
         if value is not None:
             res.append(value)
-        if self.color:
-            res.append(r'\tweak Stem.color #(rgb-color %s %s %s)'
-                       % (self.color[0], self.color[1], self.color[2]))
+
+        if value != 'none':
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak Stem.color %s' % color)
+
         return ' '.join(res)
 
     def pre_note_ly(self, is_chord_element):
@@ -2235,25 +2256,36 @@ class NotestyleEvent(Event):
 
     def pre_chord_ly(self):
         res = []
+
         style = self.notehead_styles_dict.get(self.style, None)
         if style == '':
             res.append(r'\tweak transparent ##t')
         elif style is not None:
             res.append(r'\tweak style #%s' % style)
-        if self.color:
-            res.append(r'\tweak color #(rgb-color %s %s %s)'
-                       % (self.color[0], self.color[1], self.color[2]))
+
+        if style != '':
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+
         return ' '.join(res)
 
     def pre_note_ly(self, is_chord_element):
-        style = self.notehead_styles_dict.get(self.style, None)
-        res = ''
+        res = []
+
         if is_chord_element:
+            style = self.notehead_styles_dict.get(self.style, None)
             if style == '':
-                res = r'\tweak transparent ##t'
+                res.append(r'\tweak transparent ##t')
             elif style is not None:
-                res = r'\tweak style #%s' % style
-        return res
+                res.append(r'\tweak style #%s' % style)
+
+            if style != '':
+                color = color_to_ly(self.color)
+                if color is not None:
+                    res.append(r'\tweak color %s' % color)
+
+        return ' '.join(res)
 
     def ly_expression(self):
         return self.pre_chord_ly()
@@ -2380,6 +2412,7 @@ class RhythmicEvent(Event):
     def __init__(self):
         Event.__init__(self)
         self.duration = Duration()
+        self.dot_color = None
         self.associated_events = []
 
     def add_associated_event(self, ev):
@@ -2422,10 +2455,19 @@ class RestEvent(RhythmicEvent):
             return 'r%s' % self.duration.ly_expression()
 
     def pre_note_ly(self, is_chord_element):
+        res = []
+
         if not self.visible:
-            return r'\hideNote'
+            res.append(r'\hideNote')
         else:
-            return ''
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+            dot_color = color_to_ly(self.dot_color)
+            if dot_color is not None:
+                res.append(r'\tweak Dots.color %s' % dot_color)
+
+        return ' '.join(res)
 
     def print_ly(self, printer):
         for ev in self.associated_events:
@@ -2433,6 +2475,13 @@ class RestEvent(RhythmicEvent):
 
         if not self.visible:
             printer(r'\hideNote')
+        else:
+            color = color_to_ly(self.color)
+            if color is not None:
+                printer(r'\tweak color %s' % color)
+            dot_color = color_to_ly(self.dot_color)
+            if dot_color is not None:
+                printer(r'\tweak Dots.color %s' % dot_color)
 
         if self.pitch:
             self.pitch.print_ly(printer)
@@ -2456,6 +2505,7 @@ class NoteEvent(RhythmicEvent):
         self.editorial = False
         self.forced_accidental = False
         self.accidental_value = None
+        self.accidental_color = None
         self.visible = True
 
     def get_properties(self):
@@ -2496,26 +2546,39 @@ class NoteEvent(RhythmicEvent):
             # We don't support both `editorial` and `cautionary` at the same
             # time, letting the former win.
             elements.append(r'\bracketAcc')
+
         if not self.visible:
             elements.append(r'\hideNote')
+        else:
+            accidental_color = color_to_ly(self.accidental_color)
+            if accidental_color is not None:
+                elements.append(r'\tweak Accidental.color %s'
+                                % accidental_color)
+            dot_color = color_to_ly(self.dot_color)
+            if dot_color is not None:
+                elements.append(r'\tweak Dots.color %s' % dot_color)
+
         return elements
 
     def print_ly(self, printer):
         for ev in self.associated_events:
             ev.print_ly(printer)
 
-        color = getattr(self, 'color', None)
-        if color is not None:
-            printer.print_note_color("NoteHead", color)
-            printer.print_note_color("Stem", color)
-            printer.print_note_color("Beam", color)
-
         pitch = getattr(self, "pitch", None)
         if pitch is not None:
             if self.editorial:
                 printer(r'\bracketAcc')
+
             if not self.visible:
                 printer(r'\hideNote')
+            else:
+                accidental_color = color_to_ly(self.accidental_color)
+                if accidental_color is not None:
+                    printer(r'\tweak Accidental.color %s' % accidental_color)
+                dot_color = color_to_ly(self.dot_color)
+                if dot_color is not None:
+                    printer(r'\tweak Dots.color %s' % dot_color)
+
             pitch.print_ly(printer, self.pitch_mods())
 
         self.duration.print_ly(printer)
