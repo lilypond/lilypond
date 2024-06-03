@@ -1950,28 +1950,6 @@ def musicxml_dynamics_to_lily_event(elements):
     return ev
 
 
-# Convert single-color two-byte strings to numbers 0.0 - 1.0
-def hexcolorval_to_nr(hex_val):
-    try:
-        v = int(hex_val, 16)
-        if v == 255:
-            v = 256
-        return v / 256.
-    except ValueError:
-        return 0.
-
-
-def hex_to_color(hex_val):
-    res = re.match(
-        r'#([0-9a-f][0-9a-f]|)([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])$',
-        hex_val,
-        re.IGNORECASE)
-    if res:
-        return [hexcolorval_to_nr(x) for x in res.group(2, 3, 4)]
-    else:
-        return None
-
-
 def font_size_number_to_lily_command(size):
     d = {
         (0, 8): r'\teeny',

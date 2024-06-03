@@ -153,16 +153,6 @@ class Output_printer(object):
 
         self.unformatted_output(s)
 
-#    def print_note_color(self, object, rgb=None):
-#        if rgb:
-#            str = (r"\once\override %s.color = #(rgb-color %s # %s %s)"
-#                  % (object, rgb[0], rgb[1], rgb[2]))
-#        else:
-#            str = r"\revert %s.color" % object
-#            self.newline()
-#            self.add_word(str)
-#            self.newline()
-
     def add_word(self, s):
         if len(s) + 1 + len(self._line) > self._line_len:
             self.newline()

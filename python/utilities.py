@@ -58,27 +58,6 @@ def musicxml_duration_to_log(dur):
             'long': -2}.get(dur, 0)
 
 
-def hexcolorval_to_nr(hex_val):
-    try:
-        v = int(hex_val, 16)
-        if v == 255:
-            v = 256
-        return v / 256.
-    except ValueError:
-        return 0.
-
-
-def hex_to_color(hex_val):
-    res = re.match(
-        r'#([0-9a-f][0-9a-f]|)([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])$',
-        hex_val,
-        re.IGNORECASE)
-    if res:
-        return [hexcolorval_to_nr(x) for x in res.group(2, 3, 4)]
-    else:
-        return None
-
-
 # Examples:
 #
 # r'"foo  \"bar  baz\"  urgh"'  ->  [r'"foo  \"bar  baz\"  urgh"']
