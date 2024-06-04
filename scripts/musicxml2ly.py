@@ -1563,27 +1563,27 @@ def musicxml_direction_to_indicator(direction):
 
 
 def musicxml_fermata_to_lily_event(mxl_event):
+    fermata_types = {
+        '': 'fermata',
+        'angled': 'shortfermata',
+        # 'curlew': TODO,
+        'double-angled': 'veryshortfermata',
+        'double-dot': 'henzelongfermata',
+        'double-squared': 'verylongfermata',
+        'half-curve': 'henzeshortfermata',
+        'normal': 'fermata',
+        'square': 'longfermata',
+    }
 
     ev = musicexp.ArticulationEvent()
+    ev.type = fermata_types.get(mxl_event.get_text(), 'fermata')
 
-    fermata_types = {"angled": "shortfermata",
-                     "square": "longfermata"}
-
-    # MusicXML fermata types can be specified in two different ways:
-    # 1. <fermata>angled</fermata> and
-    # 2. <fermata type="angled"/> -- both need to be handled.
-    #
-    # TODO: This needs further explanation because
-    # https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/fermata
-    # says that the 'type' attribute is either 'upright' or 'inverted'.  Is
-    # this intended to support XML files written by a non-compliant program?
     type_attr = getattr(mxl_event, 'type', None)
-    ev.type = fermata_types.get(type_attr or mxl_event.get_text(), 'fermata')
-
-    if options.convert_directions and (type_attr is not None):
+    if options.convert_directions and type_attr is not None:
         dir = musicxml_direction_to_indicator(type_attr)
         if dir:
             ev.force_direction = dir
+
     return ev
 
 
