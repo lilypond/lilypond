@@ -1693,9 +1693,12 @@ def musicxml_accidental_mark(mxl_event):
 articulations_dict = {
     "accent": (musicexp.ShortArticulationEvent, ">"),  # or "accent"
     "accidental-mark": musicxml_accidental_mark,
+    # "arrow": "?",
     "bend": musicxml_bend_to_lily_event,
+    # "brass-bend": "?",
     "breath-mark": musicxml_breath_mark_to_lily_event,
     "caesura": musicxml_caesura_to_lily_event,
+    # "delayed-inverted-turn": "?",
     # "delayed-turn": "?",
     "detached-legato": (musicexp.ShortArticulationEvent, "_"),  # or "portato"
     "doit": musicxml_doit_to_lily_event,
@@ -1704,24 +1707,36 @@ articulations_dict = {
     "falloff": musicxml_falloff_to_lily_event,
     "fingering": musicxml_fingering_event,
     # "fingernails": "?",
+    # "flip": "?",
     # "fret": "?",
+    # "golpe": "?",
+    # "half-muted": "?",
     # "hammer-on": "?",
+    # "handbell": "?",
+    # "harmon-mute": "?",
     "harmonic": "flageolet",
+    # "haydn": "?",
     # "heel": "?",
+    # "hole": "?",
     "inverted-mordent": "prall",
     "inverted-turn": "reverseturn",
+    # "inverted-vertical-turn": "?",
     "mordent": "mordent",
+    # "open": "?",
     "open-string": "open",
+    # "other-ornament": "?",
+    # "other-technical": "?",
     # "plop": "?",
     # "pluck": "?",
     # "pull-off": "?",
     # "schleifer": "?",
     # "scoop": "?",
     # "shake": "?",
+    # "smear": "?",
     "snap-pizzicato": "snappizzicato",
+    # "soft-accent": "?",
     # "spiccato": "?",
-    # or "staccatissimo"
-    "staccatissimo": (musicexp.ShortArticulationEvent, "!"),
+    "staccatissimo": (musicexp.ShortArticulationEvent, "!"),  # or "staccatissimo"
     "staccato": (musicexp.ShortArticulationEvent, "."),  # or "staccato"
     "stopped": (musicexp.ShortArticulationEvent, "+"),  # or "stopped"
     # "stress": "?",
@@ -3669,17 +3684,22 @@ def musicxml_voice_to_lily_voice(voice):
             #         accent | strong-accent | staccato | tenuto |
             #         detached-legato | staccatissimo | spiccato |
             #         scoop | plop | doit | falloff | breath-mark |
-            #         caesura | stress | unstress
+            #         caesura | stress | soft-accent | unstress
             # Technical can contain the following child elements:
             #         up-bow | down-bow | harmonic | open-string |
             #         thumb-position | fingering | pluck | double-tongue |
             #         triple-tongue | stopped | snap-pizzicato | fret |
             #         string | hammer-on | pull-off | bend | tap | heel |
-            #         toe | fingernails | other-technical
+            #         toe | fingernails | hole | arrow | handbell |
+            #         brass-bend | flip | smear | open | half-muted |
+            #         harmon-mute | golpe | other-technical
             # Ornaments can contain the following child elements:
             #         trill-mark | turn | delayed-turn | inverted-turn |
-            #         shake | wavy-line | mordent | inverted-mordent |
-            #         schleifer | tremolo | other-ornament, accidental-mark
+            #         delayed-inverted-turn | vertical-turn |
+            #         inverted-vertical-turn | shake | wavy-line |
+            #         mordent | inverted-mordent | schleifer | tremolo |
+            #         haydn | other-ornament,
+            #         accidental-mark
             def convert_and_append_all_child_articulations(mxl_node):
                 # Mark trill spanners where `start` and `stop` elements (in
                 # that order) happen at the same musical moment.
