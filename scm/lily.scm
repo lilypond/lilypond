@@ -1054,7 +1054,9 @@ use an external tool to run LilyPond in a sandbox."))
                (ly:stderr-redirect ping-log)
                (ly:message (G_ "Processing `~a'\n") x)))
          (if separate-logs
-             (ly:stderr-redirect (format #f "~a.log" base) "w"))
+             (ly:stderr-redirect
+              (format #f "~a.log"
+                      (ly:output-file-name-for-input-file-name base)) "w"))
          (lilypond-file handler x)
          (ly:check-expected-warnings)
          (session-terminate)

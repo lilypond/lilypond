@@ -31,36 +31,59 @@
 
 #include <unistd.h>
 
+static constexpr char const *input_extensions[] = {"ly", "", nullptr};
+
+static File_name
+output_file_name_for_input_file_name (std::string const &file_name)
+{
+  if (!output_name_global.empty ())
+    {
+      // Output name is treated simply as a file name because any directory part
+      // should have been handled in main ().
+      return File_name (output_name_global);
+    }
+  else
+    {
+      // By default, use the base of the input file name for the output file
+      // name and do not use the root or directory parts.
+      File_name out_file_name (file_name);
+
+      out_file_name.ext_ = "";
+      out_file_name.root_ = "";
+      if (from_scm<bool> (ly_get_option (ly_symbol2scm ("strip-output-dir"))))
+        {
+          out_file_name.dir_ = "";
+          out_file_name.is_absolute_ = false;
+        }
+
+      return out_file_name;
+    }
+}
+
+LY_DEFINE (ly_output_file_name_for_input_file_name,
+           "ly:output-file-name-for-input-file-name", 1, 0, 0, (SCM name),
+           R"(
+Convert the @var{name} of an input file (as provided on the command line) to the
+name of an output file without an extension, honoring command-line options such
+as @code{--output} and @code{-dstrip-output-dir}.
+           )")
+{
+  LY_ASSERT_TYPE (scm_is_string, name, 1);
+  const auto file = ly_scm2string (name);
+  const auto file_name = global_path.find (file, input_extensions);
+  const auto out_file_name = output_file_name_for_input_file_name (file_name);
+  return ly_string2scm (out_file_name.to_string ());
+}
+
 LY_DEFINE (ly_parse_file, "ly:parse-file", 1, 0, 0, (SCM name),
            R"(
 Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
-  std::string file = ly_scm2string (name);
-  char const *extensions[] = {"ly", "", 0};
-
-  std::string file_name = global_path.find (file, extensions);
-
-  /* By default, use base name of input file for output file name,
-     write output to cwd; do not use root and directory parts of input
-     file name.  */
-  File_name out_file_name (file_name);
-
-  out_file_name.ext_ = "";
-  out_file_name.root_ = "";
-  if (from_scm<bool> (ly_get_option (ly_symbol2scm ("strip-output-dir"))))
-    {
-      out_file_name.dir_ = "";
-      out_file_name.is_absolute_ = false;
-    }
-
-  if (!output_name_global.empty ())
-    {
-      // Output name is treated simply as a file name because any directory part
-      // should have been handled in main ().
-      out_file_name = File_name (output_name_global);
-    }
+  const auto file = ly_scm2string (name);
+  const auto file_name = global_path.find (file, input_extensions);
+  const auto out_file_name = output_file_name_for_input_file_name (file_name);
 
   std::string init;
   if (!init_name_global.empty ())
