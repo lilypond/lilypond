@@ -35,7 +35,7 @@ import lilylib as ly
 previous_pitch = None
 relative_pitches = False
 whatOrnament = ""
-ly_dur = None  # stores lilypond durations
+ly_dur = None  # For communication between `Duration` and `TremoloEvent`.
 
 
 def escape_instrument_string(input_string):
@@ -264,9 +264,11 @@ class Duration:
                                                 self.factor)
 
     def ly_expression(self, factor=None, scheme_mode=False):
-        global ly_dur  # stores lilypond durations
         if not factor:
             factor = self.factor
+
+        global ly_dur  # For communication with `TremoloEvent`.
+        ly_dur = self.duration_log
 
         if self.duration_log < 0:
             if scheme_mode:
@@ -281,10 +283,6 @@ class Duration:
         if factor != 1:
             dur_str += f'*{factor}'
 
-        if dur_str.isdigit():
-            ly_dur = int(dur_str)
-        # TODO: We need to deal with dotted notes and scaled durations
-        # otherwise ly_dur won't work in combination with tremolos.
         return dur_str
 
     def print_ly(self, outputter):
@@ -2343,10 +2341,9 @@ class TremoloEvent(ArticulationEvent):
         ly_str = ''
         if self.strokes and int(self.strokes) > 0:
             # `ly_dur` is a global variable defined in class `Duration`,
-            # storing the value of the reciprocal values of notes.  Here it
-            # is used to check the current note duration.
+            # storing the current duration log value.
             #
-            # * If `ly_dur` is smaller than 8, e.g., quarter, half, and whole
+            # * If `ly_dur` is smaller than 3, e.g., quarter, half, and whole
             #   notes, `:(2 ** (2 + number of tremolo strokes))` should be
             #   appended to the pitch and duration.  Examples:
             #
@@ -2354,7 +2351,7 @@ class TremoloEvent(ArticulationEvent):
             #     2 strokes: `c4:16`, `c2:16`, or `c1:16`
             #     ...
             #
-            # * If `ly_dur` is equal to or greater than 8, we need to make
+            # * If `ly_dur` is equal to or greater than 3, we need to make
             #   sure that the tremolo value appended to the pitch and
             #   duration is twice the duration for a single tremolo stroke.
             #   Each additional stroke doubles the tremolo value.  Examples:
@@ -2362,12 +2359,10 @@ class TremoloEvent(ArticulationEvent):
             #     1 stroke: `c8:16`, `c16:32`, `c32:64`, ...
             #     2 strokes: `c8:32`, `c16:64`, `c32:128`, ...
             #     ...
-            if ly_dur < 8:
+            if ly_dur < 3:
                 ly_str += ':%s' % (2 ** (2 + int(self.strokes)))
             else:
-                ly_str += ':%s' % (2 **
-                                   int((math.log(ly_dur, 2))
-                                       + int(self.strokes)))
+                ly_str += ':%s' % (2 ** (ly_dur + int(self.strokes)))
         return ly_str
 
 
