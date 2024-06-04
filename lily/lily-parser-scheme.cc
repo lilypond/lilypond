@@ -55,34 +55,11 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
       out_file_name.is_absolute_ = false;
     }
 
-  std::string output_name = output_name_global;
-  if (!output_name.empty ())
+  if (!output_name_global.empty ())
     {
-      /* Interpret --output=DIR to mean --output=DIR/BASE.  */
-      std::string dir;
-      if (is_dir (output_name))
-        {
-          dir = output_name;
-          output_name = "";
-        }
-      else
-        {
-          File_name out (output_name);
-          dir = out.dir_part ();
-          out_file_name = out.file_part ();
-        }
-
-      if (dir != "" && dir != "." && dir != get_working_directory ())
-        {
-          global_path.prepend (get_working_directory ());
-          message (_f ("Changing working directory to: `%s'", dir));
-          // If we can't change to the output dir (not existing, wrong
-          // permissions), exit lilypond
-          if (chdir (dir.c_str ()) != 0)
-            error (_f ("unable to change directory to: `%s'", dir));
-        }
-      else
-        out_file_name = File_name (output_name);
+      // Output name is treated simply as a file name because any directory part
+      // should have been handled in main ().
+      out_file_name = File_name (output_name_global);
     }
 
   std::string init;

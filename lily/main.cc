@@ -709,6 +709,42 @@ main (int argc, char **argv)
     identify (stderr);
 
   setup_paths (argv[0]);
+
+  // Change to the directory specified by the --output option.
+  if (!output_name_global.empty ())
+    {
+      // If the --output option names an existing directory, use it as such;
+      // otherwise, treat it as a path and split it.
+      std::string dir;
+      std::string file;
+      if (is_dir (output_name_global))
+        {
+          dir = output_name_global;
+        }
+      else
+        {
+          File_name fn (output_name_global);
+          dir = fn.dir_part ();
+          file = fn.file_part ();
+        }
+
+      if (!dir.empty () && (dir != "."))
+        {
+          if (const auto &wdir = get_working_directory (); dir != wdir)
+            {
+              global_path.prepend (wdir);
+              message (_f ("Changing working directory to: `%s'", dir));
+              if (chdir (dir.c_str ()) != 0)
+                {
+                  error (_f ("unable to change directory to: `%s'", dir));
+                }
+            }
+        }
+
+      // Having handled the directory part, remove it from the option value.
+      output_name_global = file;
+    }
+
   setup_guile_env (); // set up environment variables to pass into Guile API
 
 #if !GS_API
