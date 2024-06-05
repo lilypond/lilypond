@@ -1539,15 +1539,29 @@ class SlurEvent(SpanEvent):
         val = self.slur_to_ly()
         if val:
             if self.span_direction == -1:
-                printer.dump('%s%s%s' % (super().not_visible(),
-                                         self.direction_mod(), val))
+                if self.visible:
+                    color = color_to_ly(self.color)
+                    if color is not None:
+                        printer.dump(r'\tweak color %s' % color)
+                    printer.dump('%s%s' % (self.direction_mod(), val))
+                else:
+                    printer.dump('%s%s%s' % (super().not_visible(),
+                                             self.direction_mod(), val))
             else:
                 printer.dump(val)
 
 
 class BeamEvent(SpanEvent):
     def ly_expression(self):
-        return {-1: '[', 1: ']'}.get(self.span_direction, '')
+        res = []
+        if self.span_direction == -1:
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+            res.append('[')
+        elif self.span_direction == 1:
+            res.append(']')
+        return ' '.join(res)
 
 
 class PedalEvent(SpanEvent):
@@ -1559,9 +1573,23 @@ class PedalEvent(SpanEvent):
     # is not possible in general.  For this reason we ignore the `placement`
     # attribute.
     def ly_expression(self):
-        return {-1: r'\sustainOn',
-                0: r'\sustainOff\sustainOn',
-                1: r'\sustainOff'}.get(self.span_direction, '')
+        res = []
+
+        color = color_to_ly(self.color)
+
+        if self.span_direction == -1:
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+            res.append(r'\sustainOn')
+        elif self.span_direction == 0:
+            res.append(r'\sustainOff')
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+            res.append(r'\sustainOn')
+        else:
+            res.append(r'\sustainOff')
+
+        return ' '.join(res)
 
 
 class TextSpannerEvent(SpanEvent):
@@ -1575,20 +1603,27 @@ class TextSpannerEvent(SpanEvent):
 
     def text_spanner_to_ly(self):
         global whatOrnament
-        style = getattr(self, 'style', None)
 
-        if style == 'ignore':
+        style = getattr(self, 'style', None)
+        if style == 'ignore' or self.span_direction == 0:
             return ([], '')
 
+        val = ''
+        tweaks = []
+
+        if self.span_direction == -1:
+            color = color_to_ly(self.color)
+            if color is not None:
+                tweaks.append(r'\tweak color %s' % color)
+
         if whatOrnament == "wave":
-            return {-1: ([r"\tweak style #'trill"], r'\startTextSpan'),
-                    1: ([], r'\stopTextSpan')}.get(self.span_direction,
-                                                   ([], ''))
+            if self.span_direction == -1:
+                val = r'\startTextSpan'
+                tweaks.append(r"\tweak style #'trill")
+            else:
+                val = r'\stopTextSpan'
 
         elif style == "dashes":
-            val = ''
-            tweaks = []
-
             if self.span_direction == -1:
                 val = r'\startTextSpan'
                 tweaks.append(r"\tweak style #'dashed-line")
@@ -1610,14 +1645,16 @@ class TextSpannerEvent(SpanEvent):
                 else:
                     val = r'\stopTextSpan'
 
-            return (tweaks, val)
-
         elif style == 'stop' and whatOrnament != 'trill':
-            return ([], '')
+            pass
 
-        return {-1: ([], r'\startTrillSpan'),
-                1: ([], r'\stopTrillSpan')}.get(self.span_direction,
-                                                ([], ''))
+        else:
+            if self.span_direction == -1:
+                val = r'\startTrillSpan'
+            else:
+                val = r'\stopTrillSpan'
+
+        return (tweaks, val)
 
     def ly_expression(self):
         (tweaks, val) = self.text_spanner_to_ly()
@@ -1677,7 +1714,12 @@ class DynamicsSpannerEvent(SpanEvent):
                              + text_markup)
             overrides.append(r"\once \set decrescendoSpanner = #'text")
 
-        if not self.visible:
+        if self.visible:
+            color = color_to_ly(self.color)
+            if color is not None:
+                overrides.append(r'\once \override '
+                                 r'DynamicTextSpanner.color = %s' % color)
+        else:
             overrides.append(r'\once \override '
                              r'DynamicTextSpanner.transparent = ##t')
 
@@ -1731,6 +1773,10 @@ class BracketSpannerEvent(SpanEvent):
                 printer.dump(r"\tweak edge-height #(make-edge-height '%s '%s)"
                              % (line_end_at_start, line_end_at_stop))
 
+                color = color_to_ly(self.color)
+                if color is not None:
+                    printer.dump(r'\tweak color %s' % color)
+
                 dir = {1: "#UP",
                        -1: "#DOWN"}.get(self.force_direction, '')
                 if dir:
@@ -1761,12 +1807,17 @@ class OctaveShiftEvent(SpanEvent):
         return value
 
     def ly_expression(self):
+        value = []
+
         dir = self.ly_octave_shift_indicator()
-        value = ''
         if dir:
-            value = r'\ottava #%s' % dir
+            color = color_to_ly(self.color)
+            if color is not None:
+                value.append(r'\tweak color %s' % color)
+            value.append(r'\ottava #%s' % dir)
+
         return {
-            - 1: value,
+            -1: ' '.join(value),
             1: r'\ottava #0'}.get(self.span_direction, '')
 
 
@@ -1779,6 +1830,12 @@ class GlissandoEvent(SpanEvent):
             if style:
                 printer.dump(
                     r"\once \override Glissando.style = #'%s" % style)
+
+            if self.visible:
+                color = color_to_ly(self.color)
+                if color is not None:
+                    printer.dump(r'\once \override '
+                                 r'Glissando.color = %s' % color)
 
     def ly_expression(self):
         return {-1: r'\glissando',
@@ -1853,6 +1910,9 @@ class HairpinEvent(SpanEvent):
         val = self.hairpin_to_ly()
         if val:
             if self.span_direction == -1:
+                color = color_to_ly(self.color)
+                if color is not None:
+                    printer.dump(r'\tweak color %s' % color)
                 printer.dump('%s%s' % (self.direction_mod(), val))
             else:
                 printer.dump(val)
@@ -1996,6 +2056,11 @@ def text_to_ly(elements, init_markup=None):
         underline = underline_dict.get(underline_attribute, '')
         if underline:
             markup.append(underline)
+
+        color_attribute = attributes.get('color', None)
+        color = color_to_ly(color_attribute)
+        if color:
+            markup.append(r'\with-color %s' % color)
 
         text = ''
         name = element.get_name()

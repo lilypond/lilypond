@@ -1544,6 +1544,7 @@ def musicxml_spanner_to_lily_event(mxl_event, attributes=None,
     # The `line-end` attribute gets handled in `BracketSpannerEvent`.
 
     ev.size = int(getattr(mxl_event, 'size', 0))  # attr of octave-shift
+    ev.color = attributes.get('color', None)
 
     if options.convert_directions:
         dir = attributes.get('placement', None)
