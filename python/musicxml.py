@@ -470,14 +470,46 @@ class Unpitched(Music_xml_node):
         'display-step': 1,
     }
 
-    def to_lily_object(self):
-        p = None
+    def to_lily_object(self, clef):
+        p = musicexp.Pitch()
         step = self.get('display-step')
         if step:
-            p = musicexp.Pitch()
             p.step = musicxml2ly_conversion.musicxml_step_to_lily(step)
-            # if display-step is present, display-octave must be present too
+            # If `<display-step>` is present, `<display-octave>` must be
+            # present, too.
             p.octave = self['display-octave'] - 4
+        else:
+            # We have to position the note on the middle line (or gap) of
+            # the staff.
+            clef_middle_line_pitch = {
+                # The pitch of the middle line (i.e., line 3) if the clef is
+                # positioned on 'line 0'.
+                'G': (3, 1),
+                'C': (6, 0),
+                'F': (2, 0),
+                'percussion': (6, 0),
+                'PERC': (6, 0),
+            }
+            (step, octave) = clef_middle_line_pitch[clef.type]
+
+            if clef.position is not None:
+                step -= clef.position * 2
+            else:
+                step = 6
+
+            if clef.lines is not None:
+                step -= 5 - clef.lines
+
+            if step < 0:
+                p.step = step + 7
+                p.octave = octave - 1 + clef.octave
+            elif step > 6:
+                p.step = step - 7
+                p.octave = octave + 1 + clef.octave
+            else:
+                p.step = step
+                p.octave = octave + clef.octave
+
         return p
 
 
@@ -578,6 +610,8 @@ class Attributes(Measure_element):
         octave = mxl.get_maybe_exist_named_child('clef-octave-change')
         if octave:
             clefinfo[2] = int(octave.get_text())
+        else:
+            clefinfo[2] = 0
         clefinfo[3] = (getattr(mxl, 'print-object', 'yes') == 'yes')
         return clefinfo
 
@@ -885,11 +919,11 @@ class Note(Measure_element):
             pass
         return event
 
-    def initialize_unpitched_event(self):
-        # Unpitched elements have display-step and can also have
-        # display-octave.
+    def initialize_unpitched_event(self, clef):
+        # Unpitched elements can also have `<display-step>` and
+        # `<display-octave>` elements.
         event = musicexp.NoteEvent()
-        event.pitch = self['unpitched'].to_lily_object()
+        event.pitch = self['unpitched'].to_lily_object(clef)
         return event
 
     def initialize_rest_event(self, convert_rest_positions=True):
@@ -902,6 +936,7 @@ class Note(Measure_element):
         return event
 
     def to_lily_object(self,
+                       clef,
                        convert_stem_directions=True,
                        convert_rest_positions=True):
         pitch = None
@@ -911,7 +946,7 @@ class Note(Measure_element):
         if 'pitch' in self:
             event = self.initialize_pitched_event()
         elif 'unpitched' in self:
-            event = self.initialize_unpitched_event()
+            event = self.initialize_unpitched_event(clef)
         elif 'rest' in self:
             event = self.initialize_rest_event(convert_rest_positions)
         else:

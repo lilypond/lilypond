@@ -3194,6 +3194,9 @@ def musicxml_voice_to_lily_voice(voice):
     key_visible = True
     note_visible = True
 
+    # For `<unpitched>`.
+    curr_clef = None
+
     # Track pitch alterations for cautionary accidentals without parentheses
     # (to be realized with LilyPond's `!` pitch modifier) that are not
     # represented with `<accidental cautionary="yes" parentheses="no">`.
@@ -3416,6 +3419,8 @@ def musicxml_voice_to_lily_voice(voice):
                     key_visible = key_visible_new
 
                 elif isinstance(a, musicexp.Clef_StaffLinesEvent):
+                    curr_clef = a
+
                     clef_visible_new = a.visible
 
                     if a.type == 'none':
@@ -3456,6 +3461,7 @@ def musicxml_voice_to_lily_voice(voice):
 #            conversion_settings.convert_rest_positions = True
 
         main_event = n.to_lily_object(
+            curr_clef,
             convert_stem_directions=conversion_settings.convert_stem_directions,
             convert_rest_positions=conversion_settings.convert_rest_positions)
 
