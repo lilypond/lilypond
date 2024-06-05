@@ -2176,8 +2176,8 @@ class StemEvent(Event):
         self.color = None
 
     stem_value_dict = {
-        'down': r'\stemDown',
-        'up': r'\stemUp',
+        'down': r'\once \stemDown',
+        'up': r'\once \stemUp',
         'double': None,  # TODO: Implement
         'none': r'\tweak Stem.transparent ##t'
     }
