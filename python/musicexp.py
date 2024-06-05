@@ -1479,18 +1479,34 @@ class SpanEvent(Event):
 
 
 class BreatheEvent(Event):
-    def __init__(self):
+    def __init__(self, color):
         super().__init__()
-        self.after_note = r"\breathe"
+        self.color = color
+
+        after_note = []
+        clr = color_to_ly(color)
+        if clr is not None:
+            after_note.append(r'\tweak color %s' % clr)
+        after_note.append(r'\breathe')
+
+        self.after_note = ' '.join(after_note)
 
     def ly_expression(self):
         return ''
 
 
 class CaesuraEvent(Event):
-    def __init__(self):
+    def __init__(self, color):
         super().__init__()
-        self.after_note = r"\caesura"
+        self.color = color
+
+        after_note = []
+        clr = color_to_ly(color)
+        if clr is not None:
+            after_note.append(r'\tweak color %s' % clr)
+        after_note.append(r'\caesura')
+
+        self.after_note = ' '.join(after_note)
 
     def ly_expression(self):
         return ''
@@ -1800,7 +1816,14 @@ class ArpeggioEvent(Event):
             printer.dump(r"\arpeggioNormal")
 
     def ly_expression(self):
-        return r'\arpeggio'
+        res = []
+        color = color_to_ly(self.color)
+        if color is not None:
+            res.append(r'\tweak color %s' % color)
+
+        res.append(r'\arpeggio')
+
+        return ' '.join(res)
 
 
 class TieEvent(Event):
@@ -2042,7 +2065,14 @@ class ArticulationEvent(Event):
         return {1: '^', -1: '_', 0: '-'}.get(self.force_direction, '')
 
     def ly_expression(self):
-        return r'%s\%s' % (self.direction_mod(), self.type)
+        res = []
+        color = color_to_ly(self.color)
+        if color is not None:
+            res.append(r'\tweak color %s' % color)
+
+        res.append(r'%s\%s' % (self.direction_mod(), self.type))
+
+        return ' '.join(res)
 
 
 class ShortArticulationEvent(ArticulationEvent):
@@ -2051,18 +2081,28 @@ class ShortArticulationEvent(ArticulationEvent):
         return {1: '^', -1: '_', 0: '-'}.get(self.force_direction, '-')
 
     def ly_expression(self):
+        res = []
         if self.type:
-            return '%s%s' % (self.direction_mod(), self.type)
-        else:
-            return ''
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+
+            res.append(r'%s%s' % (self.direction_mod(), self.type))
+
+        return ' '.join(res)
 
 
 class NoDirectionArticulationEvent(ArticulationEvent):
     def ly_expression(self):
+        res = []
         if self.type:
-            return r'\%s' % self.type
-        else:
-            return ''
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+
+            res.append(r'\%s' % self.type)
+
+        return ' '.join(res)
 
 
 class MarkupEvent(ShortArticulationEvent):
@@ -2071,10 +2111,16 @@ class MarkupEvent(ShortArticulationEvent):
         self.contents = None
 
     def ly_expression(self):
+        res = []
         if self.contents:
-            return r"%s\markup { %s }" % (self.direction_mod(), self.contents)
-        else:
-            return ''
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+
+            res.append(r"%s\markup { %s }"
+                       % (self.direction_mod(), self.contents))
+
+        return ' '.join(res)
 
 
 class FretEvent(MarkupEvent):
@@ -2362,8 +2408,12 @@ class TremoloEvent(ArticulationEvent):
         self.strokes = 0
 
     def ly_expression(self):
-        ly_str = ''
+        res = []
         if self.strokes and int(self.strokes) > 0:
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+
             # `ly_dur` is a global variable defined in class `Duration`,
             # storing the current duration log value.
             #
@@ -2384,10 +2434,11 @@ class TremoloEvent(ArticulationEvent):
             #     2 strokes: `c8:32`, `c16:64`, `c32:128`, ...
             #     ...
             if ly_dur < 3:
-                ly_str += ':%s' % (2 ** (2 + int(self.strokes)))
+                res.append(':%s' % (2 ** (2 + int(self.strokes))))
             else:
-                ly_str += ':%s' % (2 ** (ly_dur + int(self.strokes)))
-        return ly_str
+                res.append(':%s' % (2 ** (ly_dur + int(self.strokes))))
+
+        return ' '.join(res)
 
 
 class BendEvent(ArticulationEvent):
@@ -2396,10 +2447,15 @@ class BendEvent(ArticulationEvent):
         self.alter = None
 
     def ly_expression(self):
+        res = []
         if self.alter is not None:
-            return r"-\bendAfter #%s" % self.alter
-        else:
-            return ''
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+
+            res.append(r'-\bendAfter #%s' % self.alter)
+
+        return ' '.join(res)
 
 
 class RhythmicEvent(Event):

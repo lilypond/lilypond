@@ -1501,7 +1501,9 @@ spanner_type_dict = {
 
 
 def musicxml_spanner_to_lily_event(mxl_event, attributes=None,
-                                   spanner_name=None):
+                                   spanner_name=None, note_color=None):
+    # The `note_color` argument gets ignored.
+
     ev = None
 
     if spanner_name is not None:
@@ -1562,7 +1564,7 @@ def musicxml_direction_to_indicator(direction):
             "inverted": -1}.get(direction, 0)
 
 
-def musicxml_fermata_to_lily_event(mxl_event):
+def musicxml_fermata_to_lily_event(mxl_event, note_color=None):
     fermata_types = {
         '': 'fermata',
         'angled': 'shortfermata',
@@ -1577,6 +1579,7 @@ def musicxml_fermata_to_lily_event(mxl_event):
 
     ev = musicexp.ArticulationEvent()
     ev.type = fermata_types.get(mxl_event.get_text(), 'fermata')
+    ev.color = getattr(mxl_event, 'color', note_color)
 
     type_attr = getattr(mxl_event, 'type', None)
     if options.convert_directions and type_attr is not None:
@@ -1587,15 +1590,17 @@ def musicxml_fermata_to_lily_event(mxl_event):
     return ev
 
 
-def musicxml_arpeggiate_to_lily_event(mxl_event):
+def musicxml_arpeggiate_to_lily_event(mxl_event, note_color=None):
     ev = musicexp.ArpeggioEvent()
+    ev.color = getattr(mxl_event, 'color', note_color)
     ev.direction = musicxml_direction_to_indicator(
         getattr(mxl_event, 'direction', None))
     return ev
 
 
-def musicxml_nonarpeggiate_to_lily_event(mxl_event):
+def musicxml_nonarpeggiate_to_lily_event(mxl_event, note_color=None):
     ev = musicexp.ArpeggioEvent()
+    ev.color = getattr(mxl_event, 'color', note_color)
     ev.non_arpeggiate = True
     ev.direction = musicxml_direction_to_indicator(
         getattr(mxl_event, 'direction', None))
@@ -1603,8 +1608,10 @@ def musicxml_nonarpeggiate_to_lily_event(mxl_event):
 
 
 # Single-note tremolo.
-def musicxml_tremolo_to_lily_event(mxl_event):
+def musicxml_tremolo_to_lily_event(mxl_event, note_color=None):
     ev = musicexp.TremoloEvent()
+    ev.color = getattr(mxl_event, 'color', note_color)
+
     txt = mxl_event.get_text()
     if txt:
         ev.strokes = txt
@@ -1615,49 +1622,62 @@ def musicxml_tremolo_to_lily_event(mxl_event):
     return ev
 
 
-def musicxml_falloff_to_lily_event(mxl_event):
+def musicxml_falloff_to_lily_event(mxl_event, note_color=None):
     ev = musicexp.BendEvent()
     ev.alter = -4
+    ev.color = getattr(mxl_event, 'color', note_color)
     return ev
 
 
-def musicxml_doit_to_lily_event(mxl_event):
+def musicxml_doit_to_lily_event(mxl_event, note_color=None):
     ev = musicexp.BendEvent()
     ev.alter = 4
+    ev.color = getattr(mxl_event, 'color', note_color)
     return ev
 
 
-def musicxml_bend_to_lily_event(mxl_event):
+def musicxml_bend_to_lily_event(mxl_event, note_color=None):
     ev = musicexp.BendEvent()
+    ev.color = getattr(mxl_event, 'color', note_color)
     ev.alter = mxl_event.bend_alter()
     return ev
 
 
-def musicxml_breath_mark_to_lily_event(mxl_event):
+def musicxml_breath_mark_to_lily_event(mxl_event, note_color=None):
     # TODO: Read the <breath-mark-value> child and override the type
     # of symbol: comma, tick, upbow, salzedo.
-    return musicexp.BreatheEvent()
+
+    # TODO: Shall the color of `<note>` be inherited?
+    color = getattr(mxl_event, 'color', None)
+    ev = musicexp.BreatheEvent(color)
+    return ev
 
 
-def musicxml_caesura_to_lily_event(mxl_event):
+def musicxml_caesura_to_lily_event(mxl_event, note_color=None):
     # TODO: Read the <caesura-value> child and override the type of
     # symbol: normal, thick, short, curved, single.
-    return musicexp.CaesuraEvent()
+
+    # TODO: Shall the color of `<note>` be inherited?
+    color = getattr(mxl_event, 'color', None)
+    ev = musicexp.CaesuraEvent(color)
+    return ev
 
 
-def musicxml_fingering_event(mxl_event):
+def musicxml_fingering_event(mxl_event, note_color=None):
     ev = musicexp.ShortArticulationEvent()
     ev.type = mxl_event.get_text()
+    ev.color = getattr(mxl_event, 'color', note_color)
     return ev
 
 
-def musicxml_string_event(mxl_event):
+def musicxml_string_event(mxl_event, note_color=None):
     ev = musicexp.NoDirectionArticulationEvent()
     ev.type = mxl_event.get_text()
+    ev.color = getattr(mxl_event, 'color', note_color)
     return ev
 
 
-def musicxml_accidental_mark(mxl_event):
+def musicxml_accidental_mark(mxl_event, note_color=None):
     ev = musicexp.MarkupEvent()
     contents = {"sharp": r"\sharp",
                 "natural": r"\natural",
@@ -1675,6 +1695,7 @@ def musicxml_accidental_mark(mxl_event):
                 }.get(mxl_event.get_text())
     if contents:
         ev.contents = contents
+        ev.color = getattr(mxl_event, 'color', note_color)
         return ev
     else:
         return None
@@ -1799,7 +1820,7 @@ def OrnamenthasWavyline(mxl_event):
     return False
 
 
-def musicxml_articulation_to_lily_event(mxl_event):
+def musicxml_articulation_to_lily_event(mxl_event, note_color=None):
     name = mxl_event.get_name()
     if name == "wavy-line":
         # `wavy-line` elements are treated as trill spanners, not as
@@ -1827,6 +1848,8 @@ def musicxml_articulation_to_lily_event(mxl_event):
     else:
         ev = tmp_tp(mxl_event)
 
+    ev.color = getattr(mxl_event, 'color', note_color)
+
     # Some articulations use the type attribute, other the placement...
     if options.convert_directions:
         d = musicxml_direction_to_indicator(
@@ -1849,7 +1872,7 @@ def musicxml_dynamic_to_lily(element):
         return dynamics_name
 
 
-def musicxml_dynamics_to_lily_event(elements):
+def musicxml_dynamics_to_lily_event(elements, note_color=None):
     # A list of dynamics LilyPond provides by default.
     predefined_dynamics = (
         'ppppp', 'pppp', 'ppp', 'pp', 'p',
@@ -1859,6 +1882,8 @@ def musicxml_dynamics_to_lily_event(elements):
         'sfz', 'fz', 'sp', 'spp', 'rfz',
         'n'
     )
+
+    # TODO: Shall the color of `<note>` be inherited?
 
     dyn_index = next(i for i, e in enumerate(elements)
                      if e[0].get_name() == 'dynamics')
@@ -1883,6 +1908,7 @@ def musicxml_dynamics_to_lily_event(elements):
         before += e.get_text()
     dynamics_name += before
 
+    # TODO: Handle color.
     dyns = ''
     for d in dynamics.get_all_children():
         dyns += musicxml_dynamic_to_lily(d)
@@ -3678,7 +3704,8 @@ def musicxml_voice_to_lily_voice(voice):
             #         mordent | inverted-mordent | schleifer | tremolo |
             #         haydn | other-ornament,
             #         accidental-mark
-            def convert_and_append_all_child_articulations(mxl_node):
+            def convert_and_append_all_child_articulations(mxl_node,
+                                                           note_color=None):
                 # Mark trill spanners where `start` and `stop` elements (in
                 # that order) happen at the same musical moment.
                 res = []
@@ -3710,7 +3737,7 @@ def musicxml_voice_to_lily_voice(voice):
                         is_double_note_tremolo = True
 
                 for ch in mxl_node.get_all_children():
-                    ev = musicxml_articulation_to_lily_event(ch)
+                    ev = musicxml_articulation_to_lily_event(ch, note_color)
                     if ev is not None:
                         try:
                             if ev.start_stop == True:
@@ -3723,9 +3750,10 @@ def musicxml_voice_to_lily_voice(voice):
 
                 return res
 
-            def convert_and_append_all_child_dynamics(mxl_node):
+            def convert_and_append_all_child_dynamics(mxl_node,
+                                                      note_color=None):
                 element = (mxl_node, mxl_node._attribute_dict)
-                ev = musicxml_dynamics_to_lily_event([element])
+                ev = musicxml_dynamics_to_lily_event([element], note_color)
                 if ev is not None:
                     if options.convert_directions:
                         dir = getattr(mxl_node, 'placement', None)
@@ -3747,10 +3775,12 @@ def musicxml_voice_to_lily_voice(voice):
                 'technical': convert_and_append_all_child_articulations,
             }
 
+            color = getattr(n, 'color', None)
+
             for a in notations.get_all_children():
                 handler = notation_handlers.get(a.get_name(), None)
                 if handler is not None:
-                    ev = handler(a)
+                    ev = handler(a, note_color=color)
                     if not isinstance(ev, list):
                         ev = [ev]
                     for e in ev:
