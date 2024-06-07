@@ -64,7 +64,7 @@ Staff attributes: time signatures, clefs, key signatures, staff details.
 Notes: chords, note settings, tuplets, grace notes.
 @item 31--34
 Notations and articulations: dynamics (staff-attached), notations
-(note-attached), spanners, print-object issues.
+(note-attached), spanners, print-object, and color issues.
 @item 41--43
 Parts: multiple parts, multi-voice parts, multi-staff parts.
 @item 45--46

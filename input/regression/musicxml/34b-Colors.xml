@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 0.6b Partwise//EN"
+                                "http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise>
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">Colors.  The elements in the first
+          bar have the `color' attribute set to red for &lt;note&gt;,
+          &lt;notehead&gt;, &lt;stem&gt;, &lt;dot&gt;, and &lt;accidental&gt;,
+          respectively.
+
+          The elements in the second bar have the `color' attribute set to red
+          for &lt;down-bow&gt;, &lt;tremolo&gt;, &lt;accent&gt;, and
+          &lt;note&gt; again (for the rest), respectively, followed by a red
+          unpitched note.
+
+          The third bar holds a red beamlet, a red beam, a red slur, a red pedal
+          marker that gets continued with a blue one, and a red octave shift.
+
+          Measure four contains a red trill with a black wavy line, a black
+          trill with a red wavy line, a red bracket, a red glissando, and a red
+          wedge.</miscellaneous-field>
+    </miscellaneous>
+  </identification>
+  <part-list>
+    <score-part id="P1"><part-name></part-name></score-part>
+  </part-list>
+  <part id="P1">
+    <measure number="1">
+      <attributes>
+        <divisions>2</divisions>
+        <key>
+          <fifths>0</fifths>
+        </key>
+        <time>
+          <beats>15</beats>
+          <beat-type>8</beat-type>
+        </time>
+        <staves>1</staves>
+        <clef number="1">
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <note color="#FF0000">
+        <pitch>
+          <step>G</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <technical>
+            <down-bow/>
+          </technical>
+          <ornaments>
+            <tremolo>3</tremolo>
+          </ornaments>
+          <articulations>
+            <accent/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notehead color="#FF0000">normal</notehead>
+        <notations>
+          <technical>
+            <down-bow/>
+          </technical>
+          <ornaments>
+            <tremolo>3</tremolo>
+          </ornaments>
+          <articulations>
+            <accent/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <stem color="#FF0000">up</stem>
+        <notations>
+          <technical>
+            <down-bow/>
+          </technical>
+          <ornaments>
+            <tremolo>3</tremolo>
+          </ornaments>
+          <articulations>
+            <accent/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot color="#FF0000"/>
+        <notations>
+          <technical>
+            <down-bow/>
+          </technical>
+          <ornaments>
+            <tremolo>3</tremolo>
+          </ornaments>
+          <articulations>
+            <accent/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <accidental color="#FF0000">sharp</accidental>
+        <notations>
+          <technical>
+            <down-bow/>
+          </technical>
+          <ornaments>
+            <tremolo>3</tremolo>
+          </ornaments>
+          <articulations>
+            <accent/>
+          </articulations>
+        </notations>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="2">
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <technical>
+            <down-bow color="#FF0000"/>
+          </technical>
+          <ornaments>
+            <tremolo>3</tremolo>
+          </ornaments>
+          <articulations>
+            <accent/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>-1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <technical>
+            <down-bow/>
+          </technical>
+          <ornaments>
+            <tremolo color="#FF0000">3</tremolo>
+          </ornaments>
+          <articulations>
+            <accent/>
+          </articulations>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <technical>
+            <down-bow/>
+          </technical>
+          <ornaments>
+            <tremolo>3</tremolo>
+          </ornaments>
+          <articulations>
+            <accent color="#FF0000"/>
+          </articulations>
+        </notations>
+      </note>
+      <note color="#FF0000">
+        <rest/>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+      </note>
+      <note color="#FF0000">
+        <unpitched/>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="3">
+      <print new-system="yes"/>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">begin</beam>
+      </note>
+      <note>
+        <rest/>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <stem color="#FF0000">up</stem>
+        <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1" color="#FF0000">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">begin</beam>
+        <notations>
+          <slur number="1" color="#FF0000" type="start"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">end</beam>
+        <notations>
+          <slur number="1" type="stop"/>
+        </notations>
+      </note>
+      <direction>
+        <direction-type>
+          <pedal type="start" color="#FF0000" line="yes"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">begin</beam>
+      </note>
+      <direction>
+        <direction-type>
+          <pedal type="change" color="#0000FF" line="yes"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">continue</beam>
+      </note>
+      <direction>
+        <direction-type>
+          <pedal type="stop" line="yes"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">end</beam>
+      </note>
+      <direction>
+        <direction-type>
+          <octave-shift size="8" color="#FF0000" type="down"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">end</beam>
+      </note>
+      <direction>
+        <direction-type>
+          <octave-shift size="8" type="stop"/>
+        </direction-type>
+      </direction>
+    </measure>
+    <!--=======================================================-->
+    <measure number="4">
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <ornaments>
+            <trill-mark color="#FF0000"/>
+            <wavy-line number="1" type="start"/>
+            <wavy-line number="1" type="stop"/>
+          </ornaments>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <ornaments>
+            <trill-mark/>
+            <wavy-line number="1" color="#FF0000" type="start"/>
+            <wavy-line number="1" type="stop"/>
+          </ornaments>
+        </notations>
+      </note>
+      <direction placement="below">
+        <direction-type>
+          <bracket type="start" color="#FF0000" line-end="up"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">continue</beam>
+      </note>
+      <direction placement="below">
+        <direction-type>
+          <bracket type="stop" line-end="up"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">end</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <glissando number="1" color="#FF0000" type="start"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <notations>
+          <glissando number="1" type="stop"/>
+        </notations>
+      </note>
+      <direction placement="above">
+        <direction-type>
+          <wedge spread="0" color="#FF0000" type="crescendo"/>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+      </note>
+      <direction>
+        <direction-type>
+          <wedge spread="15" type="stop"/>
+        </direction-type>
+      </direction>
+    </measure>
+  </part>
+</score-partwise>
