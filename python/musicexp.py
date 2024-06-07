@@ -34,7 +34,7 @@ import lilylib as ly
 # state variable
 previous_pitch = None
 relative_pitches = False
-whatOrnament = ""
+
 ly_dur = None  # For communication between `Duration` and `TremoloEvent`.
 
 
@@ -1597,16 +1597,21 @@ class TextSpannerEvent(SpanEvent):
         SpanEvent.__init__(self)
         self.text_elements = None
         self.start_stop = False  # for single-note spanners
+        self.mxl_ornament = None
 
     def direction_mod(self):
         return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
 
     def text_spanner_to_ly(self):
-        global whatOrnament
-
         style = getattr(self, 'style', None)
         if style == 'ignore' or self.span_direction == 0:
             return ([], '')
+
+        ornament_name = None
+        if self.mxl_ornament is not None:
+            ornament_name = self.mxl_ornament._name
+        elif self.get_paired_event().mxl_ornament is not None:
+            ornament_name = self.get_paired_event().mxl_ornament._name
 
         val = ''
         tweaks = []
@@ -1616,7 +1621,7 @@ class TextSpannerEvent(SpanEvent):
             if color is not None:
                 tweaks.append(r'\tweak color %s' % color)
 
-        if whatOrnament == "wave":
+        if ornament_name == 'wavy-line':
             if self.span_direction == -1:
                 val = r'\startTextSpan'
                 tweaks.append(r"\tweak style #'trill")
@@ -1645,7 +1650,7 @@ class TextSpannerEvent(SpanEvent):
                 else:
                     val = r'\stopTextSpan'
 
-        elif style == 'stop' and whatOrnament != 'trill':
+        elif style == 'stop' and ornament_name != 'trill-mark':
             pass
 
         else:
@@ -1692,6 +1697,7 @@ class DynamicsSpannerEvent(SpanEvent):
     def __init__(self):
         SpanEvent.__init__(self)
         self.text_elements = None
+        self.mxl_ornament = None
         self.type = None
 
     def wait_for_note(self):

@@ -1520,7 +1520,7 @@ def musicxml_spanner_to_lily_event(mxl_event, attributes=None,
         ly.warning(_('unknown span event %s') % mxl_event)
 
     if name == "wavy-line":
-        ev.style = OrnamenthasWhat(mxl_event)
+        ev.style = ornament_has_what(ev, mxl_event)
     elif name == "dashes":
         ev.style = "dashes"
     elif name == "bracket":
@@ -1778,13 +1778,20 @@ articulations_dict = {
 }
 
 
-def OrnamenthasWhat(mxl_event):
-    wavy = trilly = ignore = start = stop = False
+def ornament_has_what(event, mxl_event):
+    # In MusicXML, the trill symbol and the wavy line that follows are
+    # handled separately, while in LilyPond they form a single grob,
+    # `TrillSpanner`.  The code here checks whether `<trill-mark>` is
+    # followed by (a starting) `<wavy-line>`.
+
+    wave = trill = None
+    ignore = start = stop = False
+
     for i in mxl_event._parent._children:
         if i._name == "wavy-line":
-            wavy = True
+            wave = i
         elif i._name == "trill-mark":
-            trilly = True
+            trill = i
 
         try:
             if i.type == "continue":
@@ -1796,21 +1803,21 @@ def OrnamenthasWhat(mxl_event):
         except AttributeError:
             pass
 
-    if start == True:
-        if wavy == True and trilly == False:
-            musicexp.whatOrnament = "wave"
+    if start:
+        if wave is not None and trill is None:
+            event.mxl_ornament = wave
         else:
-            musicexp.whatOrnament = "trill"
+            event.mxl_ornament = trill
 
-    if ignore == True:
+    if ignore:
         return "ignore"
-    elif stop == True:
+    elif stop:
         return "stop"
-    elif wavy == True and trilly == True:
+    elif wave is not None and trill is not None:
         return "trill and wave"
-    elif wavy == True:
+    elif wave is not None:
         return "wave"
-    elif trilly == True:
+    elif trill is not None:
         return "trill"
 
 
@@ -1834,9 +1841,11 @@ def musicxml_articulation_to_lily_event(mxl_event, note_color=None):
         if type == 'start' or type == 'stop':
             return
 
-    tmp_tp = articulations_dict.get(name)
+    # A trill with a wavy line gets handled as a spanner a few lines above.
     if OrnamenthasWavyline(mxl_event):
         return
+
+    tmp_tp = articulations_dict.get(name)
     if not tmp_tp:
         return
 

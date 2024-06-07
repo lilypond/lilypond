@@ -1579,6 +1579,8 @@ class Part(Music_xml_node):
 
         link_spanners(elements, [Direction, DirType], 'bracket')
         link_spanners(elements, [Direction, DirType], 'dashes')
+        link_spanners(elements, [Note, Notations, Ornaments], 'wavy-line',
+                      one_child=False)
 
         # make sure we know all voices already so that dynamics, clefs, etc.
         # can be assigned to the correct voices
@@ -1830,6 +1832,10 @@ class Display_octave(Octave):
     pass
 
 
+class Ornaments(Music_xml_node):
+    pass
+
+
 class Part_group(Music_xml_node):
     pass
 
@@ -1960,6 +1966,7 @@ class_dict = {
     'notehead': Notehead,
     'octave': Octave,
     'octave-shift': Octave_shift,
+    'ornaments': Ornaments,
     'part': Part,
     'part-group': Part_group,
     'part-list': Part_list,
