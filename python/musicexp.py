@@ -1656,6 +1656,19 @@ class TextSpannerEvent(SpanEvent):
         else:
             if self.span_direction == -1:
                 val = r'\startTrillSpan'
+
+                spanner_color_attribute = self.color
+                if spanner_color_attribute is None:
+                    spanner_color_attribute = '#000000'
+                trill_color_attribute = getattr(self.mxl_ornament,
+                                                'color', '#000000')
+
+                if spanner_color_attribute != trill_color_attribute:
+                    trill_color = color_to_ly(trill_color_attribute)
+                    tweaks.append(r'\tweak bound-details.left.text '
+                                  r'\markup \with-color %s '
+                                  r'\with-true-dimension #X '
+                                  r'\musicglyph "scripts.trill"' % trill_color)
             else:
                 val = r'\stopTrillSpan'
 
