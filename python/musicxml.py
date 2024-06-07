@@ -1524,21 +1524,36 @@ class Part(Music_xml_node):
             return attributes
 
     def extract_voices(part):
-        def link_spanners(elements, type):
-            # LilyPond needs to know properties of the end of some spanners
-            # before the spanner code gets actually emitted (and sometimes
-            # vice versa).  To enable that we set links between a spanner's
-            # start part and its end part.
+        # LilyPond needs to know properties of the end of some spanners
+        # before the spanner code gets actually emitted (and sometimes vice
+        # versa).  To enable that we set links between a spanner's start
+        # part and its end part.
+        def link_spanners(elements, structure, type, one_child=True):
             spanner_starts = {}
-            for dir in elements:
-                if not isinstance(dir, Direction):
-                    continue
 
-                for dt in dir.get_typed_children(DirType):
-                    spanner = dt.get_named_child(type)
-                    if not spanner:
-                        continue
+            for e in elements:
+                link_spanners_(e, structure, type, one_child, spanner_starts)
 
+        def link_spanners_(element, structure, type, one_child,
+                           spanner_starts):
+            if not isinstance(element, structure[0]):
+                return
+
+            if len(structure) > 1:
+                for tc in element.get_typed_children(structure[1]):
+                    link_spanners_(tc, structure[1:], type, one_child,
+                                   spanner_starts)
+            else:
+                if one_child:
+                    spanners = element.get_named_child(type)
+                    if spanners is not None:
+                        spanners = [spanners]
+                else:
+                    spanners = element.get_named_children(type)
+                if spanners is None:
+                    return
+
+                for spanner in spanners:
                     nr = getattr(spanner, 'number', '1')
                     if spanner.type == 'start':
                         spanner_starts[nr] = spanner
@@ -1562,8 +1577,8 @@ class Part(Music_xml_node):
                 elements.append(Partial(m.partial))
             elements.extend(m.get_all_children())
 
-        link_spanners(elements, 'bracket')
-        link_spanners(elements, 'dashes')
+        link_spanners(elements, [Direction, DirType], 'bracket')
+        link_spanners(elements, [Direction, DirType], 'dashes')
 
         # make sure we know all voices already so that dynamics, clefs, etc.
         # can be assigned to the correct voices
