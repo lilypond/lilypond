@@ -3688,16 +3688,16 @@ def musicxml_voice_to_lily_voice(voice):
                 lily_ev.visible = note_visible
                 ev_chord.append(lily_ev)
 
-            if not grace:
-                mxl_tie = notations.get_tie()
-                if mxl_tie and mxl_tie.type == 'start':
-                    tie = musicexp.TieEvent()
-                    tie.visible = note_visible
-                    ev_chord.append(tie)
+            mxl_tie = notations.get_tie()
+            if mxl_tie and mxl_tie.type == 'start':
+                tie = musicexp.TieEvent()
+                tie.visible = note_visible
+                ev_chord.append(tie)
+                if not grace:
                     is_tied = True
-                    tie_started = True
-                else:
-                    is_tied = False
+                tie_started = True
+            else:
+                is_tied = False
 
             # Articulations can contain the following child elements:
             #         accent | strong-accent | staccato | tenuto |
