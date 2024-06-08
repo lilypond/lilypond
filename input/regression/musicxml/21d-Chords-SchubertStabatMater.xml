@@ -30,7 +30,7 @@
           <line>2</line>
         </clef>
       </attributes>
-      <direction placement="above">
+      <direction placement="above" directive="yes">
         <direction-type>
           <words font-weight="bold">Largo</words>
         </direction-type>
