@@ -2977,6 +2977,7 @@ class Clef_StaffLinesEvent(Music):
         self.octave = None
         self.lines = None
         self.line_details = None
+        self.lines_color = None
         self.visible = True
 
     def octave_modifier(self):
@@ -3060,13 +3061,31 @@ class Clef_StaffLinesEvent(Music):
         # offset.
         if (clef is not None and clef != 'percussion'
                 and self.lines is None and details is None):
-            return r'\clef "%s"' % clef
+            ret = []
+            if self.color is not None:
+                # We can't use `\tweak` here.
+                ret.append(r'\once \override Staff.Clef.color = %s'
+                           % color_to_ly(self.color))
+            ret.append(r'\clef "%s"' % clef)
+            return ' '.join(ret)
+
         if clef is None:
             clef = ''
-        if details is None:
-            return r'\staffLines "%s" %s' % (clef, lines)
+
+        properties = []
+        if details is not None:
+            properties.append('(details . (%s))' % details)
+        if self.color is not None:
+            properties.append('(clef-color . %s)' % color_to_ly(self.color))
+        if self.lines_color is not None:
+            properties.append('(staff-color . %s)'
+                              % color_to_ly(self.lines_color))
+
+        props = ' '.join(properties)
+        if props:
+            return r'''\staffLines #'(%s) "%s" %s''' % (props, clef, lines)
         else:
-            return r'''\staffLines #'(%s) "%s" %s''' % (details, clef, lines)
+            return r'\staffLines "%s" %s' % (clef, lines)
 
     clef_dict = {
         "G": ("clefs.G", -2, -6),

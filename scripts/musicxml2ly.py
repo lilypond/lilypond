@@ -246,16 +246,24 @@ cancelAfterKey = {
 % staff line positions only and set `Staff.clefPosition`, which
 % triggers a clef if its value changes.
 %
-% The optional argument `lines` is a list of staff line numbers that
-% should be displayed.  An empty list suppresses any display of staff
-% lines; omitting the argument means to display all lines.
+% The optional argument `properties` is an alist of properties to
+% control the appearance of both the staff and the clef:
 %
-% \\staffLines [<lines>] <clef> <num-lines>
+% * `details` is a list of staff line numbers that should be
+%   displayed.  An empty list suppresses any display of staff lines;
+%   omitting the argument means to display all lines.
+% * `staff-color` holds the color of the staff.
+% * `clef-color` holds the color of the clef.
+%
+% \\staffLines [<properties>] <clef> <num-lines>
 
 staffLines =
-#(define-music-function (lines clef num-lines)
-                        ((number-list?) string? index?)
-   (let* ((lines (or lines (iota num-lines 1)))
+#(define-music-function (properties clef num-lines)
+                        ((alist? '()) string? index?)
+   (let* ((details (assoc-get 'details properties #f))
+          (staff-color (assoc-get 'staff-color properties #f))
+          (clef-color (assoc-get 'clef-color properties #f))
+          (lines (or details (iota num-lines 1)))
           (only-even-pos (not (or (equal? clef "")
                                   (string-contains clef "percussion")
                                   (string-contains clef "tab"))))
@@ -270,6 +278,15 @@ staffLines =
                       positions)))
      #{
        \\stopStaff
+
+       #(if staff-color
+            #{
+              \\once \\override Staff.StaffSymbol.color = #staff-color
+            #})
+       #(if clef-color
+            #{
+              \\once \\override Staff.Clef.color = #clef-color
+            #})
 
        #(if (equal? clef "")
             #{
@@ -1227,7 +1244,7 @@ def group_tremolos(music_list, events):
 def musicxml_clef_staff_details_to_lily(attributes):
     ev = musicexp.Clef_StaffLinesEvent()
 
-    (ev.type, ev.position, ev.octave, ev.visible) = \
+    (ev.type, ev.position, ev.octave, ev.color, ev.visible) = \
         attributes.get_clef_information()
 
     details = attributes.get_maybe_exist_named_child('staff-details')
@@ -1237,13 +1254,16 @@ def musicxml_clef_staff_details_to_lily(attributes):
         if stafflines:
             ev.lines = int(stafflines.get_text())
 
-            # TODO: Handle `color`, `line-type`.
+            # TODO: Handle `color` attributes of staff lines individually.
+            #       Handle `line-type`.
             line_details = details.get_named_children('line-detail')
             if line_details:
                 ev.line_details = {}
                 for line_detail in line_details:
                     line = int(getattr(line_detail, 'line', 1))
                     print_object = getattr(line_detail, 'print-object', 'yes')
+                    if ev.lines_color is None:
+                        ev.lines_color = getattr(line_detail, 'color', None)
                     ev.line_details[line] = print_object
 
     # The percussion clef is a special case.
