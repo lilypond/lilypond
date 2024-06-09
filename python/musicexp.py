@@ -1926,8 +1926,22 @@ class ArpeggioEvent(Event):
 
 
 class TieEvent(Event):
+    def pre_chord_ly(self):
+        return ''
+
+    def pre_note_ly(self, is_chord_element):
+        return ''
+
+    def post_note_ly(self, is_chord_element):
+        res = []
+        color = color_to_ly(self.color)
+        if color is not None:
+            res.append(r'\tweak color %s' % color)
+        res.append('~')
+        return ' '.join(res)
+
     def ly_expression(self):
-        return '~'
+        self.post_note_ly(True)
 
 
 class HairpinEvent(SpanEvent):

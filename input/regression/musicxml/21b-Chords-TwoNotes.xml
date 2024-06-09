@@ -4,7 +4,8 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Some subsequent
-          (identical) two-note chords.</miscellaneous-field>
+          (identical) two-note chords.  In the second bar, the chords are tied
+          (top note, bottom note, both notes).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -12,17 +13,18 @@
       <part-name>MusicXML Part</part-name>
     </score-part>
   </part-list>
+  <!--=========================================================-->
   <part id="P0">
     <measure number="1">
       <attributes>
         <divisions>960</divisions>
         <time>
-        <beats>4</beats>
-        <beat-type>4</beat-type>
+          <beats>4</beats>
+          <beat-type>4</beat-type>
         </time>
         <clef>
-        <sign>G</sign>
-        <line>2</line>
+          <sign>G</sign>
+          <line>2</line>
         </clef>
       </attributes>
       <note>
@@ -102,7 +104,7 @@
         <type>quarter</type>
       </note>
     </measure>
-
+    <!--=========================================================-->
     <measure number="2">
       <note>
         <pitch>
@@ -112,6 +114,9 @@
         <duration>960</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <notations>
+          <tied type="start"/>
+        </notations>
       </note>
       <note>
         <chord/>
@@ -131,6 +136,9 @@
         <duration>960</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <notations>
+          <tied type="stop"/>
+        </notations>
       </note>
       <note>
         <chord/>
@@ -141,6 +149,9 @@
         <duration>960</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <notations>
+          <tied type="start"/>
+        </notations>
       </note>
       <note>
         <pitch>
@@ -150,6 +161,9 @@
         <duration>960</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <notations>
+          <tied type="start"/>
+        </notations>
       </note>
       <note>
         <chord/>
@@ -160,6 +174,10 @@
         <duration>960</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <notations>
+          <tied type="start"/>
+          <tied type="stop"/>
+        </notations>
       </note>
       <note>
         <pitch>
@@ -169,6 +187,9 @@
         <duration>960</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <notations>
+          <tied type="stop"/>
+        </notations>
       </note>
       <note>
         <chord/>
@@ -179,6 +200,9 @@
         <duration>960</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <notations>
+          <tied type="stop"/>
+        </notations>
       </note>
     </measure>
   </part>

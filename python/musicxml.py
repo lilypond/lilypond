@@ -1083,6 +1083,10 @@ class Notations(Music_xml_node):
         self._content['slur'] = []
 
     def get_tie(self):
+        # TODO: Support ties starting and stopping in the same `<notations>`
+        #       element (thus becoming either `\laissezVibrer` or
+        #       `\repeatTie`).
+        # TODO: Support `let-ring` attribute (becoming `\laissezVibrer`).
         ts = self.get_named_children('tied')
         starts = [t for t in ts if t.type == 'start']
         if starts:

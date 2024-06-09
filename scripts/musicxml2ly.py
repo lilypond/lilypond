@@ -3691,8 +3691,9 @@ def musicxml_voice_to_lily_voice(voice):
             mxl_tie = notations.get_tie()
             if mxl_tie and mxl_tie.type == 'start':
                 tie = musicexp.TieEvent()
+                tie.color = getattr(mxl_tie, 'color', None)
                 tie.visible = note_visible
-                ev_chord.append(tie)
+                main_event.add_associated_event(tie)
                 if not grace:
                     is_tied = True
                 tie_started = True
