@@ -2312,6 +2312,9 @@ class FunctionWrapperEvent(Event):
     def pre_chord_ly(self):
         return ''
 
+    def post_note_ly(self, is_chord_element):
+        return ''
+
     def ly_expression(self):
         if self.function_name:
             return r"\%s" % self.function_name
@@ -2359,6 +2362,9 @@ class StemEvent(Event):
         return ' '.join(res)
 
     def pre_note_ly(self, is_chord_element):
+        return ''
+
+    def post_note_ly(self, is_chord_element):
         return ''
 
     def ly_expression(self):
@@ -2420,6 +2426,9 @@ class NotestyleEvent(Event):
                     res.append(r'\tweak color %s' % color)
 
         return ' '.join(res)
+
+    def post_note_ly(self, is_chord_element):
+        return ''
 
     def ly_expression(self):
         return self.pre_chord_ly()
@@ -2560,11 +2569,13 @@ class RhythmicEvent(Event):
         # 'Associated events' are tightly connected with a (LilyPond) note
         # or rest.  Examples are stems or notehead styles.  Adjusting their
         # attributes must work within chords, too.  Classes that are used as
-        # associated events must provide two functions:
+        # associated events must provide three functions:
         #
         #   pre_chord_ly: return string of items to be added before a chord
         #                 (or a single note)
         #   pre_note_ly: return string of items to be added right before a
+        #                note
+        #   post_note_ly: return string of items to be added right after a
         #                note
         self.associated_events = []
 
@@ -2579,11 +2590,18 @@ class RhythmicEvent(Event):
         return [ev.pre_note_ly(is_chord_element)
                 for ev in self.associated_events]
 
+    def post_note_ly(self, is_chord_element):
+        return [ev.post_note_ly(is_chord_element)
+                for ev in self.associated_events]
+
     def ly_expression_pre_chord(self):
         return ' '.join(filter(None, self.pre_chord_ly()))
 
     def ly_expression_pre_note(self, is_chord_element):
         return ' '.join(filter(None, self.pre_note_ly(is_chord_element)))
+
+    def ly_expression_post_note(self, is_chord_element):
+        return ' '.join(filter(None, self.post_note_ly(is_chord_element)))
 
     def get_length(self, with_factor=True):
         return self.duration.get_length(with_factor)
@@ -2623,6 +2641,9 @@ class RestEvent(RhythmicEvent):
                 res.append(r'\tweak Dots.color %s' % dot_color)
 
         return ' '.join(res)
+
+    def post_note_ly(self, is_chord_element):
+        return ''
 
     def print_ly(self, printer):
         for ev in self.associated_events:
@@ -2682,21 +2703,25 @@ class NoteEvent(RhythmicEvent):
 
     def ly_expression(self):
         if self.pitch:
-            # Obtain all stuff that needs to be printed before the note.
+            # Obtain all stuff that needs to be printed before and after the
+            # note.
             res = []
             res.append(self.ly_expression_pre_note(True))
             res.append('%s%s%s' % (self.pitch.ly_expression(),
                                    self.pitch_mods(),
                                    self.duration.ly_expression()))
+            res.append(self.ly_expression_post_note(True))
             return ' '.join(filter(None, res))
 
     def chord_element_ly(self):
         if self.pitch:
-            # Obtain all stuff that needs to be printed before the note.
+            # Obtain all stuff that needs to be printed before and after the
+            # note.
             res = []
             res.append(self.ly_expression_pre_note(True))
             res.append('%s%s' % (self.pitch.ly_expression(),
                                  self.pitch_mods()))
+            res.append(self.ly_expression_post_note(True))
             return ' '.join(filter(None, res))
 
     def pre_note_ly(self, is_chord_element):
@@ -2719,6 +2744,10 @@ class NoteEvent(RhythmicEvent):
 
         return elements
 
+    def post_note_ly(self, is_chord_element):
+        elements = super().post_note_ly(is_chord_element)
+        return elements
+
     def print_ly(self, printer):
         pitch = getattr(self, "pitch", None)
         if pitch is not None:
@@ -2727,6 +2756,7 @@ class NoteEvent(RhythmicEvent):
             pitch.print_ly(printer, self.pitch_mods())
 
         self.duration.print_ly(printer)
+        printer(self.ly_expression_post_note(True))
 
 
 class KeySignatureChange(Music):
