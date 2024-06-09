@@ -1741,7 +1741,20 @@ class DynamicsSpannerEvent(SpanEvent):
         return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
 
     def dynamics_spanner_to_ly(self):
-        text_markup = text_to_ly(self.text_elements, r'\normal-text')
+        init_markup = []
+        init_markup.append(r'\normal-text')
+
+        spanner_color_attribute = self.color
+        if spanner_color_attribute is None:
+            spanner_color_attribute = '#000000'
+        dynamics_color_attribute = self.text_elements[0][1].get('color',
+                                                                '#000000')
+
+        if spanner_color_attribute != dynamics_color_attribute:
+            init_markup.append(r'\with-color %s'
+                               % color_to_ly(dynamics_color_attribute))
+
+        text_markup = text_to_ly(self.text_elements, ' '.join(init_markup))
 
         # We can't use `\tweak` here.
         overrides = []
