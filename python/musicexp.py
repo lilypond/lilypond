@@ -2860,14 +2860,24 @@ class KeySignatureChange(Music):
                        'right': r'\cancelAfterKey',
                        'before-barline': r'\cancelBeforeBarline'
                        }.get(self.cancel_location, '')
+
+            color = ''
+            if self.color:
+                color = r'\tweak color %s ' % color_to_ly(self.color)
+
             return (str,
-                    r'\key %s \%s' % (self.tonic.ly_step_expression(),
-                                      self.mode))
+                    r'%s\key %s \%s' % (color,
+                                        self.tonic.ly_step_expression(),
+                                        self.mode))
         elif self.non_standard_alterations:
             alterations = [self.format_non_standard_alteration(a) for
                            a in self.non_standard_alterations]
-            return (r"\set Staff.keyAlterations =",
-                    "#`(%s)" % " ".join(alterations))
+            color = ''
+            if self.color:
+                color = (r' \once \override Staff.KeySignature.color = %s'
+                         % color_to_ly(self.color))
+            return (r'\set Staff.keyAlterations =',
+                    r'#`(%s)%s' % (' '.join(alterations), color))
         else:
             return ('', '')
 

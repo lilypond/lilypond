@@ -617,16 +617,17 @@ class Attributes(Measure_element):
 
     def get_key_signature(self):
         """
-        Return `(key_sig, visible)`.  Value `key_sig` is a tuple `(fifths,
-        mode)` if the key signature is given as major/minor in the Circle of
-        Fifths.  Otherwise it is an alterations list of the form `[[step,
-        alter, octave], [step, alter, octave], ...]` where the `octave`
-        values are optional.
+        Return `(key_sig, color, visible)`.  Value `key_sig` is a tuple
+        `(fifths, mode)` if the key signature is given as major/minor in the
+        Circle of Fifths.  Otherwise it is an alterations list of the form
+        `[[step, alter, octave], [step, alter, octave], ...]` where the
+        `octave` values are optional.
         """
         key = self.get_named_attribute('key')
         if not key:
             return None
 
+        color = getattr(key, 'color', None)
         visible = (getattr(key, 'print-object', 'yes') == 'yes')
 
         fifths_elm = key.get_maybe_exist_named_child('fifths')
@@ -661,7 +662,7 @@ class Attributes(Measure_element):
                                   (nr, len(alterations)))
             key_sig = alterations
 
-        return (key_sig, visible)
+        return (key_sig, color, visible)
 
     def get_cancellation(self):
         key = self.get_named_attribute('key')
