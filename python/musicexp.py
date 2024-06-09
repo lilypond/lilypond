@@ -1727,8 +1727,6 @@ class TextSpannerEvent(SpanEvent):
                 printer(val)
 
 
-# This class gets used only for the start part of a spanner; the
-# corresponding end part is always of type `TextSpannerEvent`.
 class DynamicsSpannerEvent(SpanEvent):
     def __init__(self):
         SpanEvent.__init__(self)
@@ -1771,17 +1769,23 @@ class DynamicsSpannerEvent(SpanEvent):
         return (overrides, val)
 
     def ly_expression(self):
-        (overrides, val) = self.dynamics_spanner_to_ly()
+        if self.span_direction == -1:
+            (overrides, val) = self.dynamics_spanner_to_ly()
 
-        return '%s <>%s' % (' '.join(overrides), val)
+            return '%s <>%s' % (' '.join(overrides), val)
+        else:
+            return r'<>\!'
 
     def print_ly(self, printer):
-        (overrides, val) = self.dynamics_spanner_to_ly()
+        if self.span_direction == -1:
+            (overrides, val) = self.dynamics_spanner_to_ly()
 
-        for override in overrides:
-            printer('%s' % override)
+            for override in overrides:
+                printer('%s' % override)
 
-        printer('<>%s%s' % (self.direction_mod(), val))
+            printer('<>%s%s' % (self.direction_mod(), val))
+        else:
+            printer(r'<>\!')
 
 
 class BracketSpannerEvent(SpanEvent):

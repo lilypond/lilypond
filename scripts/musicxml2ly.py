@@ -2077,6 +2077,13 @@ def musicxml_dynamics_spanner_to_lily_event(elements, type):
     return ev
 
 
+def musicxml_cresc_dim_stop_to_lily_event(elements):
+    ev = musicexp.DynamicsSpannerEvent()
+    ev.text_elements = elements
+    ev.span_direction = 1
+    return ev
+
+
 def musicxml_mark_to_lily_event(elements):
     ev = musicexp.MarkEvent()
     ev.text_elements = elements
@@ -2353,6 +2360,7 @@ def musicxml_direction_to_lily(n):
         # TODO: Find a way to do something similar for horizontal brackets.
         # TODO: Handle `<symbol>` together with `<words>`.
         state_dict = {
+            'cresc-dim-stop': musicxml_cresc_dim_stop_to_lily_event,
             'cresc-spanner': musicxml_cresc_spanner_to_lily_event,
             'dashes-start': musicxml_dashes_start_to_lily_event,
             'dashes-stop': musicxml_dashes_stop_to_lily_event,
@@ -2455,6 +2463,8 @@ def musicxml_direction_to_lily(n):
                     pass
                 else:
                     break
+            elif state == 'cresc-dim-stop':
+                break
             elif state == 'mark':
                 if name == 'words':
                     if rehearsal_enclosure_default:
@@ -2512,6 +2522,12 @@ def musicxml_direction_to_lily(n):
                     elif elem.type == 'stop':
                         state = 'dashes-stop'
                         maybe_dashes_stop_index = n
+                        if elem.paired_with is not None:
+                            paired = elem.paired_with.spanner_event
+                            if type(paired) == musicexp.DynamicsSpannerEvent:
+                                # Don't add `<words>` at the right of a
+                                # dynamics spanner.
+                                state = 'cresc-dim-stop'
                     else:
                         break
                 else:
@@ -2524,9 +2540,10 @@ def musicxml_direction_to_lily(n):
             elements.append((elem, attributes.copy()))
             n += 1
 
-        if state == 'words' and directive:
-            state = 'metronome'
-        if state == 'post-mark':
+        if state == 'words':
+            if directive:
+                state = 'metronome'
+        elif state == 'post-mark':
             state = 'mark'
 
         if elements:
