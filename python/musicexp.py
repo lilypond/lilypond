@@ -2402,20 +2402,7 @@ class NotestyleEvent(Event):
     }
 
     def pre_chord_ly(self):
-        res = []
-
-        style = self.notehead_styles_dict.get(self.style, None)
-        if style == '':
-            res.append(r'\tweak transparent ##t')
-        elif style is not None:
-            res.append(r'\tweak style #%s' % style)
-
-        if style != '':
-            color = color_to_ly(self.color)
-            if color is not None:
-                res.append(r'\tweak color %s' % color)
-
-        return ' '.join(res)
+        return ''
 
     def pre_note_ly(self, is_chord_element):
         res = []
@@ -2570,6 +2557,15 @@ class RhythmicEvent(Event):
         Event.__init__(self)
         self.duration = Duration()
         self.dot_color = None
+        # 'Associated events' are tightly connected with a (LilyPond) note
+        # or rest.  Examples are stems or notehead styles.  Adjusting their
+        # attributes must work within chords, too.  Classes that are used as
+        # associated events must provide two functions:
+        #
+        #   pre_chord_ly: return string of items to be added before a chord
+        #                 (or a single note)
+        #   pre_note_ly: return string of items to be added right before a
+        #                note
         self.associated_events = []
 
     def add_associated_event(self, ev):
@@ -2582,6 +2578,9 @@ class RhythmicEvent(Event):
     def pre_note_ly(self, is_chord_element):
         return [ev.pre_note_ly(is_chord_element)
                 for ev in self.associated_events]
+
+    def ly_expression_pre_chord(self):
+        return ' '.join(filter(None, self.pre_chord_ly()))
 
     def ly_expression_pre_note(self, is_chord_element):
         return ' '.join(filter(None, self.pre_note_ly(is_chord_element)))
@@ -2721,24 +2720,10 @@ class NoteEvent(RhythmicEvent):
         return elements
 
     def print_ly(self, printer):
-        for ev in self.associated_events:
-            ev.print_ly(printer)
-
         pitch = getattr(self, "pitch", None)
         if pitch is not None:
-            if self.editorial:
-                printer(r'\bracketAcc')
-
-            if not self.visible:
-                printer(r'\hideNote')
-            else:
-                accidental_color = color_to_ly(self.accidental_color)
-                if accidental_color is not None:
-                    printer(r'\tweak Accidental.color %s' % accidental_color)
-                dot_color = color_to_ly(self.dot_color)
-                if dot_color is not None:
-                    printer(r'\tweak Dots.color %s' % dot_color)
-
+            printer(self.ly_expression_pre_chord())
+            printer(self.ly_expression_pre_note(True))
             pitch.print_ly(printer, self.pitch_mods())
 
         self.duration.print_ly(printer)
