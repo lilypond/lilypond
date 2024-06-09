@@ -1115,6 +1115,7 @@ def group_tremolos(music_list, events):
 
     num_beams = None
     num_strokes = None
+    tremolo_color = None
 
     new_list = []
 
@@ -1143,6 +1144,18 @@ def group_tremolos(music_list, events):
             num_strokes = int(tremolo_elt.get_text())
             # `num_strokes` must be in the range [0;8]
             num_strokes = max(0, min(num_strokes, 8))
+
+            # LilyPond can't set beam and tremolo stroke colors separately.
+            # We first check for beam color, then for tremolo color.
+            for b in beams:
+                color = getattr(b, 'color', None)
+                if color is not None:
+                    tremolo_color = color
+                    break
+            if tremolo_color is None:
+                color = getattr(tremolo_elt, 'color', None)
+                if color is not None:
+                    tremolo_color = color
 
             continue
         else:
@@ -1198,6 +1211,7 @@ def group_tremolos(music_list, events):
         r.repeat_type = "tremolo"
         r.repeat_count = count
         r.tremolo_strokes = num_strokes
+        r.color = tremolo_color
         r.set_music(music_list[left_idx:(right_idx + 1)])
 
         new_list.append(r)

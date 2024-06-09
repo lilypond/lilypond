@@ -1052,6 +1052,9 @@ class RepeatedMusic(Base):
             # We can't use `\tweak` here.
             printer.dump(r'\once \override Beam.gap-count = %s'
                          % self.tremolo_strokes)
+        if self.repeat_type == 'tremolo' and self.color is not None:
+            printer.dump(r'\once \override Beam.color = %s'
+                         % color_to_ly(self.color))
         printer.dump(r'\repeat %s %s' % (self.repeat_type, self.repeat_count))
         if self.music:
             # No extra newlines for a tremolo group.
