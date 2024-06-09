@@ -2927,35 +2927,36 @@ class TimeSignatureChange(Music):
             return "%s" % frac
 
     def ly_expression(self):
-        st = ''
+        ret = []
+
         # Print out the style if we have one, but the '() should only be
         # forced for 2/2 or 4/4, since in all other cases we'll get numeric
         # signatures anyway despite the default 'C signature style!
         is_common_signature = self.fractions in ([2, 2], [4, 4], [4, 2])
         if self.style and self.visible:
             if self.style == "common":
-                st = r"\defaultTimeSignature"
+                ret.append(r'\defaultTimeSignature')
             elif self.style != "'()":
-                st = (r"\once \override Staff.TimeSignature.style "
-                      '= #%s' % self.style)
+                ret.append(r'\once \override Staff.TimeSignature.style '
+                           r'= #%s' % self.style)
             elif self.style != "'()" or is_common_signature:
-                st = r"\numericTimeSignature"
+                ret.append(r'\numericTimeSignature')
 
-        if self.visible:
-            omit = ''
-        else:
-            omit = r'\omit Staff.TimeSignature'
+        if self.color and self.visible:
+            ret.append(r'\once \override Staff.TimeSignature.color '
+                       r'= %s' % color_to_ly(self.color))
+
+        if not self.visible:
+            ret.append(r'\omit Staff.TimeSignature')
 
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
         if len(self.fractions) == 2 and isinstance(self.fractions[0], int):
-            time = r'\time %d/%d' % tuple(self.fractions)
-            return ' '.join(filter(None, [st, time, omit]))
+            ret.append(r'\time %d/%d' % tuple(self.fractions))
         elif self.fractions:
-            compound = (r"\compoundMeter #'%s"
-                        % self.format_fraction(self.fractions))
-            return ' '.join(filter(None, [st, compound, omit]))
-        else:
-            return st
+            ret.append(r"\compoundMeter #'%s"
+                       % self.format_fraction(self.fractions))
+
+        return ' '.join(ret)
 
 
 class Clef_StaffLinesEvent(Music):
