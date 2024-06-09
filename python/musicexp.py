@@ -2584,10 +2584,7 @@ class RhythmicEvent(Event):
                 for ev in self.associated_events]
 
     def ly_expression_pre_note(self, is_chord_element):
-        res = ' '.join(self.pre_note_ly(is_chord_element))
-        if res != '':
-            res = res + ' '
-        return res
+        return ' '.join(filter(None, self.pre_note_ly(is_chord_element)))
 
     def get_length(self, with_factor=True):
         return self.duration.get_length(with_factor)
@@ -2605,9 +2602,11 @@ class RestEvent(RhythmicEvent):
 
     def ly_expression(self):
         if self.pitch:
-            res = self.ly_expression_pre_note(False)
-            return res + r"%s%s\rest" % (self.pitch.ly_expression(),
-                                         self.duration.ly_expression())
+            res = []
+            res.append(self.ly_expression_pre_note(False))
+            res.append(r'%s%s\rest' % (self.pitch.ly_expression(),
+                                       self.duration.ly_expression()))
+            return ' '.join(filter(None, res))
         else:
             return 'r%s' % self.duration.ly_expression()
 
@@ -2685,17 +2684,21 @@ class NoteEvent(RhythmicEvent):
     def ly_expression(self):
         if self.pitch:
             # Obtain all stuff that needs to be printed before the note.
-            res = self.ly_expression_pre_note(True)
-            return res + '%s%s%s' % (self.pitch.ly_expression(),
-                                     self.pitch_mods(),
-                                     self.duration.ly_expression())
+            res = []
+            res.append(self.ly_expression_pre_note(True))
+            res.append('%s%s%s' % (self.pitch.ly_expression(),
+                                   self.pitch_mods(),
+                                   self.duration.ly_expression()))
+            return ' '.join(filter(None, res))
 
     def chord_element_ly(self):
         if self.pitch:
             # Obtain all stuff that needs to be printed before the note.
-            res = self.ly_expression_pre_note(True)
-            return res + '%s%s' % (self.pitch.ly_expression(),
-                                   self.pitch_mods())
+            res = []
+            res.append(self.ly_expression_pre_note(True))
+            res.append('%s%s' % (self.pitch.ly_expression(),
+                                 self.pitch_mods()))
+            return ' '.join(filter(None, res))
 
     def pre_note_ly(self, is_chord_element):
         elements = super().pre_note_ly(is_chord_element)
