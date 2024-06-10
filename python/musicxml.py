@@ -719,7 +719,7 @@ class Barline(Measure_element):
                     repeat.times = int(times)
                 except ValueError:  # TODO: explain this choice
                     repeat.times = 2
-            repeat.event = self
+            repeat.mxl_event = repeat_element
             if repeat.direction == -1:
                 retval[3] = repeat
             else:
@@ -730,7 +730,7 @@ class Barline(Measure_element):
             ending = musicxml2ly_conversion.EndingMarker()
             ending.direction = {"start": -1, "stop": 1, "discontinue": 1}.get(
                 ending_type, 0)
-            ending.event = self
+            ending.mxl_event = ending_element
             if ending.direction == -1:
                 retval[4] = ending
             else:

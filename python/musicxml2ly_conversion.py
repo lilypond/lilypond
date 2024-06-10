@@ -32,7 +32,7 @@ def musicxml_step_to_lily(step):
 class Marker(musicexp.Music):
     def __init__(self):
         self.direction = 0
-        self.event = None
+        self.mxl_event = None
 
     def print_ly(self, printer):
         ly.warning(_("Encountered unprocessed marker %s\n") % self)
