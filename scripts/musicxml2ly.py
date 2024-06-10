@@ -918,10 +918,25 @@ def group_repeats(music_list):
                 if repeat_start == music_start:
                     start = music_start
                 r.set_music(music_list[start:repeat_end])
-                for (start, end) in endings:
+
+                # By storing the positions of `EndingMarker` elements in
+                # `endings`, the zero to three elements inbetween (as
+                # returned by function `musicxml.Barline.to_lily_object`)
+                # are removed after the following loop.  However, we have to
+                # append the bar line elements (if present) since they might
+                # further adjust the bars between endings by changing the
+                # color, for example.
+                last_index = len(endings) - 1
+                for i, (start, end) in enumerate(endings):
                     s = musicexp.SequentialMusic()
                     s.elements = music_list[start + 1:end]
+                    if i < last_index:
+                        for j in range(end + 1, endings[i + 1][0]):
+                            if isinstance(music_list[j], musicexp.BarLine):
+                                s.elements.append(music_list[j])
+                                break
                     r.add_ending(s)
+
                 del music_list[repeat_start:final_marker + 1]
                 music_list.insert(repeat_start, r)
                 repeat_replaced = True

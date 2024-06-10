@@ -704,8 +704,10 @@ class Barline(Measure_element):
         ending_element = self.get_maybe_exist_named_child("ending")
 
         bartype = None
+        barline_color = None
         if bartype_element:
             bartype = bartype_element.get_text()
+            barline_color = getattr(bartype_element, 'color', None)
 
         direction = getattr(repeat_element, 'direction', None)
         if direction is not None:
@@ -739,9 +741,10 @@ class Barline(Measure_element):
                 retval[0] = ending
             # TODO. ending number=""
 
-        if bartype:
+        if bartype is not None or barline_color is not None:
             b = musicexp.BarLine()
             b.type = bartype
+            b.color = barline_color
             retval[2] = b
 
         return [r for r in retval if r is not None]

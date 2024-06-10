@@ -1400,10 +1400,20 @@ class BarLine(Music):
             'regular': '|',
             'short': ',',
             'tick': "'"}.get(self.type, None)
+
+        val = []
+        if bar_symbol is None:
+            # This must be emitted before setting the color.
+            val.append('|')
+        if self.color is not None:
+            # We can't use `\tweak` here.
+            val.append(r'\once \override Staff.BarLine.color = %s'
+                       % color_to_ly(self.color))
         if bar_symbol is not None:
-            printer.dump(r'\bar "%s"' % bar_symbol)
-        else:
-            printer.dump("|")
+            val.append(r'\bar "%s"' % bar_symbol)
+
+        for v in val:
+            printer(v)
 
         # Emit a comment indicating the bar number to the left.
         if self.bar_number > 1:
