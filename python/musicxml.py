@@ -687,9 +687,16 @@ class Backup(Measure_element):
 
 class Barline(Measure_element):
     def to_lily_object(self):
-        # retval contains all possible markers in the order:
-        # 0..bw_ending, 1..bw_repeat, 2..barline, 3..fw_repeat, 4..fw_ending
-        retval = {}
+        # Return a list with at most five elements, in the following order.
+        #
+        #   backward-ending (EndingMarker)
+        #   backward-repeat (RepeatMarker)
+        #   bar-line (BarLine)
+        #   forward-repeat (RepeatMarker)
+        #   forward-ending (EndingMarker)
+        #
+        # Missing elements are omitted.
+        retval = [None, None, None, None, None]
         bartype_element = self.get_maybe_exist_named_child("bar-style")
         repeat_element = self.get_maybe_exist_named_child("repeat")
         ending_element = self.get_maybe_exist_named_child("ending")
@@ -735,7 +742,7 @@ class Barline(Measure_element):
             b.type = bartype
             retval[2] = b
 
-        return list(retval.values())
+        return [r for r in retval if r is not None]
 
 
 class Partial(Measure_element):
