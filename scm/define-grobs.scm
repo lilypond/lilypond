@@ -4060,7 +4060,7 @@ of a voice.")))))
         (baseline-skip . 1.7)
         (direction . ,UP)
         (edge-height . (2.0 . 2.0)) ;; staff-space;
-        (font-size . -4)
+        (font-size . -2)
         (range-collapse-threshold . 3)
         (shorten-pair . ,ly:volta-bracket::calc-shorten-pair)
         (stencil . ,ly:volta-bracket-interface::print)

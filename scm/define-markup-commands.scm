@@ -3519,7 +3519,7 @@ Additionally, it must be put into double quotes.
                     (cons '((font-encoding . fetaText)
                             (font-features . ("cv47" "ss01")))
                           props)
-                    arg))
+                    `(,fontsize-markup -2 ,arg)))
 
 
 (define-markup-command (abs-fontsize layout props size arg)

@@ -711,6 +711,15 @@ commands used to set the font style @emph{only if a normal text font
 was used} (not a musical font, such as for dynamics), but now they
 @emph{both} set the font style and make a normal text font used.
 
+
+@item
+The font size used by the @code{\volta-number} markup command has
+been reduced to make it better fit with surrounding text.  At the
+same time, the size for the volta bracket number (which uses
+@code{\volta-number} for formatting by default) has been increased
+by the opposite amount, thus compensating the change in the normal
+use case.
+
 @end itemize
 
 @node New for specialist notation
