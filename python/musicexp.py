@@ -79,6 +79,20 @@ class Output_stack_element:
         return o
 
 
+def split_into_paragraphs(s):
+    lines = s.splitlines()
+    paragraph = []
+
+    for line in lines:
+        if line.strip():
+            paragraph.append(line)
+        elif paragraph:
+            yield ' '.join(paragraph)
+            paragraph = []
+    if paragraph:
+        yield ' '.join(paragraph)
+
+
 class Output_printer(object):
     """
     A class that takes care of formatting (eg.: indenting) a
@@ -198,19 +212,28 @@ class Output_printer(object):
                 self.add_word(w)
 
     def dump_texidoc(self, s):
-        words = utilities.split_string_and_preserve_doublequoted_substrings(s)
-        if words:
-            words[0] = '"' + words[0]
-            words[-1] += '"'
+        self._nesting += 1
+        self.set_nesting_strings()
 
-            self._nesting += 1
-            self.set_nesting_strings()
+        start = True
+        for p in split_into_paragraphs(s):
+            words = \
+                utilities.split_string_and_preserve_doublequoted_substrings(p)
+
+            if start:
+                words[0] = '"' + words[0]
+                start = False
+            else:
+                self.print_verbatim('\n')
+                self.newline()
 
             for w in words:
                 self.add_word(w)
 
-            self._nesting -= 1
-            self.set_nesting_strings()
+        self.print_verbatim('"')
+
+        self._nesting -= 1
+        self.set_nesting_strings()
 
     def dump_lyrics(self, s):
         words = utilities.split_string_and_preserve_doublequoted_substrings(s)
