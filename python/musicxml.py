@@ -739,7 +739,7 @@ class Barline(Measure_element):
                 retval[4] = ending
             else:
                 retval[0] = ending
-            # TODO. ending number=""
+            # TODO: Handle `number` attribute.
 
         if bartype is not None or barline_color is not None:
             b = musicexp.BarLine()

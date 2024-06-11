@@ -926,10 +926,32 @@ def group_repeats(music_list):
                 # append the bar line elements (if present) since they might
                 # further adjust the bars between endings by changing the
                 # color, for example.
+                #
+                # In a similar vein, we have to prepend the data from
+                # `<ending>` start elements to set properties for the
+                # `VoltaSpanner` grobs.  Note that MusicXML doesn't provide
+                # a separate `color` attribute for the volta number text.
                 last_index = len(endings) - 1
                 for i, (start, end) in enumerate(endings):
                     s = musicexp.SequentialMusic()
-                    s.elements = music_list[start + 1:end]
+
+                    if isinstance(music_list[start],
+                                  musicxml2ly_conversion.EndingMarker):
+                        ending = music_list[start].mxl_event
+                        attributes = ending._attribute_dict.copy()
+                        attributes.pop('color', None)
+
+                        v = musicexp.VoltaStyleEvent()
+                        v.element = (ending, attributes)
+
+                        if getattr(ending, 'print-object', 'yes') == 'no':
+                            v.visible = False
+                        v.color = getattr(ending, 'color', None)
+
+                        s.elements.append(v)
+
+                    s.elements.extend(music_list[start + 1:end])
+
                     if i < last_index:
                         for j in range(end + 1, endings[i + 1][0]):
                             if isinstance(music_list[j], musicexp.BarLine):

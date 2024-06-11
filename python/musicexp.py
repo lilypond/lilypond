@@ -1022,6 +1022,44 @@ class SequentialMusic(NestedMusic):
             start += e.get_length()
 
 
+# This class holds attributes for both the volta number and the volta
+# bracket.
+class VoltaStyleEvent(Music):
+    def __init__(self):
+        Music.__init__(self)
+        self.element = None
+        self.visible = True
+
+    def volta_style_to_ly(self):
+        ret = []
+
+        # We can't use `\tweak` here.
+        text_markup = text_to_ly([self.element])
+        if text_markup != '""':
+            ret.append(r'\once \override Score.VoltaBracket.text = '
+                       r'\markup %s' % text_markup)
+        else:
+            pass  # TODO: Handle `number` attribute.
+
+        if self.visible:
+            color = color_to_ly(self.color)
+            if color is not None:
+                ret.append(r'\once \override Score.VoltaBracket.color = %s'
+                           % color)
+        else:
+            ret.append(r'\once \override '
+                       r'Score.VoltaBracket.transparent = ##t')
+
+        return ret
+
+    def ly_expression(self):
+        return ' '.join(self.volta_style_to_ly())
+
+    def print_ly(self, printer):
+        for vs in self.volta_style_to_ly():
+            printer(vs)
+
+
 class RepeatedMusic(Base):
     def __init__(self):
         self.repeat_type = "volta"
@@ -2150,7 +2188,7 @@ def text_to_ly(elements, init_markup=None):
 
         text = ''
         name = element.get_name()
-        if name == 'words' or name == 'rehearsal':
+        if name == 'words' or name == 'rehearsal' or name == 'ending':
             text = element.get_text()
             if attributes.get('xml:space', 'default') != 'preserve':
                 # We use Python's special algorithm of `split()`, which
