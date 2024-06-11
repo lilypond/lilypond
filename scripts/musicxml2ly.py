@@ -866,15 +866,20 @@ def group_repeats(music_list):
                     endings.append([ending_start, pos])
                     ending_start = -1
                     final_marker = pos
-            elif not isinstance(e, musicexp.BarLine):
-                # As soon as we encounter an element when repeat start and end
-                # is set and we are not inside an alternative ending,
-                # this whole repeat structure is finished => replace it
+            elif (not isinstance(e, musicexp.BarLine)
+                  or (isinstance(e, musicexp.BarLine)
+                      and e.type is not None)):
+                # As soon as we encounter an element when repeat start and
+                # end is set, and we are not inside an alternative ending
+                # (also ignoring `BarLine` nodes that only set the bar
+                # number), this whole repeat structure is finished, and we
+                # can replace it.
                 if repeat_start >= 0 and repeat_end > 0 and ending_start < 0:
                     repeat_finished = True
 
-            # Finish off all repeats without explicit ending bar(e.g. when
-            # we convert only one page of a multi-page score with repeats)
+            # Finish off all repeats without an explicit ending bar (e.g.,
+            # when we convert only one page of a multi-page score with
+            # repeats).
             if pos == last and repeat_start >= 0:
                 repeat_finished = True
                 final_marker = pos
