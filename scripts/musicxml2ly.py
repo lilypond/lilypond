@@ -2068,44 +2068,6 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None):
     return ev
 
 
-def font_size_number_to_lily_command(size):
-    d = {
-        (0, 8): r'\teeny',
-        (8, 10): r'\tiny',
-        (10, 12): r'\small',
-        (12, 16): r'',
-        (16, 24): r'\large',
-        (24, float('inf')): r'\huge',
-    }
-    result = None
-    for r in list(d.keys()):
-        if r[0] <= size < r[1]:
-            result = d[r]
-            break
-    return result
-
-
-def font_size_word_to_lily_command(size):
-    font_size_dict = {
-        "xx-small": r'\teeny',
-        "x-small": r'\tiny',
-        "small": r'\small',
-        "medium": '',
-        "large": r'\large',
-        "x-large": r'\huge',
-        "xx-large": r'\larger\huge'
-    }
-    return font_size_dict.get(size, '')
-
-
-def get_font_size(size):
-    try:
-        size = float(size)
-        return font_size_number_to_lily_command(size)
-    except ValueError:
-        return font_size_word_to_lily_command(size)
-
-
 def musicxml_words_to_lily_event(elements):
     ev = musicexp.TextEvent()
     ev.text_elements = elements
