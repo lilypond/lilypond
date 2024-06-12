@@ -336,40 +336,43 @@ def extract_paper_information(score_partwise):
     defaults = score_partwise.get_maybe_exist_named_child('defaults')
     if not defaults:
         return None
-    tenths = -1
+
+    one_tenth_in_mm = -1
+
     scaling = defaults.get_maybe_exist_named_child('scaling')
-    default_tenths_to_millimeters_ratio = 0.175
-    default_staff_size = 20
     if scaling:
-        mm = scaling.get_named_child('millimeters')
-        mm = float(mm.get_text())
-        tn = scaling.get_maybe_exist_named_child('tenths')
-        tn = float(tn.get_text())
-        # The variable 'tenths' is actually a ratio, NOT the value of <tenths>.
-        # TODO: rename and replace.
-        tenths = mm / tn
-        ratio = tenths / default_tenths_to_millimeters_ratio
-        staff_size = default_staff_size * ratio
+        millimeters_elem = scaling.get_named_child('millimeters')
+        millimeters = float(millimeters_elem.get_text())
 
-        if 1 < staff_size < 100:
-            paper.global_staff_size = staff_size
+        # A normal five-line staff measures 40 tenths vertically.
+        tenths_elem = scaling.get_maybe_exist_named_child('tenths')
+        tenths = float(tenths_elem.get_text())
+
+        one_tenth_in_mm = millimeters / tenths
+
+        # In LilyPond, 72.27 points equal one inch.
+        staff_size_in_mm = 40 * one_tenth_in_mm
+        staff_size_in_pt = staff_size_in_mm * 72.27 / 25.4
+        if 1 < staff_size_in_pt < 100:
+            paper.global_staff_size = staff_size_in_pt
         else:
-            msg = ("paper.global_staff_size %s is too large, "
-                   "using defaults=20" % staff_size)
-            warnings.warn(msg)
-            paper.global_staff_size = 20
+            size = 'small' if staff_size_in_pt <= 1 else 'large'
+            ly.warning(_('requested global staff size (%.2fmm=%.2fpt) '
+                         'is too %s, using %spt instead')
+                       % (staff_size_in_mm, staff_size_in_pt, size,
+                          paper.default_global_staff_size))
 
-    # We need the scaling(i.e. the size of staff tenths for everything!
-    if tenths < 0:
+    # We need a valid tenth value for the rest of this function.
+    if one_tenth_in_mm <= 0:
         return None
 
-    def from_tenths(txt):
-        return round_to_two_digits(float(txt) * tenths / 10)
+    def tenths_to_cm(txt):
+        return round_to_two_digits(float(txt) * one_tenth_in_mm / 10)
 
     def set_paper_variable(varname, parent, element_name):
         el = parent.get_maybe_exist_named_child(element_name)
-        if el:  # Convert to cm from tenths
-            setattr(paper, varname, from_tenths(el.get_text()))
+        if el:
+            setattr(paper, varname, tenths_to_cm(el.get_text()))
 
     pagelayout = defaults.get_maybe_exist_named_child('page-layout')
     if pagelayout:
@@ -412,13 +415,13 @@ def extract_paper_information(score_partwise):
             #    light barline, octave shift, pedal, slur middle, slur tip,
             #    staff, stem, tie middle, tie tip, tuplet bracket, and wedge
             tp = lw.type
-            w = from_tenths(lw.get_text())
+            w = tenths_to_cm(lw.get_text())
             # TODO: Do something with these values!
         nss = appearance.get_named_children('note-size')
         for ns in nss:
             # Possible types: `cue`, `grace`, `grace-cue`, `large`.
             tp = ns.type
-            sz = from_tenths(ns.get_text())
+            sz = tenths_to_cm(ns.get_text())
             # TODO: Do something with these values!
         # <other-appearance> elements have no specified meaning
 

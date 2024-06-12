@@ -1184,7 +1184,8 @@ class Header(Base):
 
 class Paper(Base):
     def __init__(self):
-        self.global_staff_size = -1
+        self.default_global_staff_size = 20
+        self.global_staff_size = self.default_global_staff_size
         # page size
         self.page_width = -1
         self.page_height = -1
@@ -1216,7 +1217,8 @@ class Paper(Base):
         return result
 
     def print_ly(self, printer):
-        if self.global_staff_size > 0:
+        if (self.global_staff_size > 0
+                and self.global_staff_size != self.default_global_staff_size):
             printer.dump('#(set-global-staff-size %s)' %
                          self.global_staff_size)
             printer.newline()
