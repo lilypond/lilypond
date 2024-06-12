@@ -1102,6 +1102,7 @@ class RepeatedMusic(Base):
             printer.dump('{}')
         if self.endings:
             printer.dump(r'\alternative {')
+            printer.newline()
             for e in self.endings:
                 e.print_ly(printer)
             printer.dump('}')
