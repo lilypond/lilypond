@@ -73,6 +73,7 @@ import zipfile
 
 import musicexp
 import musicxml
+import musicxml2ly_globvars as globvars
 import musicxml2ly_conversion as conversion
 import utilities
 
@@ -96,12 +97,6 @@ class Conversion_Settings:
 
 
 conversion_settings = Conversion_Settings()
-# Use a global variable to store the setting needed inside a \layout block.
-# Whenever we need to change a setting or add/remove an engraver, we can
-# access this layout and add the corresponding settings.
-layout_information = musicexp.Layout()
-# Use a global variable to store the setting needed inside a \paper block.
-paper = musicexp.Paper()
 
 needed_additional_definitions = []
 additional_definitions = {
@@ -354,13 +349,13 @@ def extract_paper_information(score_partwise):
         staff_size_in_mm = 40 * one_tenth_in_mm
         staff_size_in_pt = staff_size_in_mm * 72.27 / 25.4
         if 1 < staff_size_in_pt < 100:
-            paper.global_staff_size = staff_size_in_pt
+            globvars.paper.global_staff_size = staff_size_in_pt
         else:
             size = 'small' if staff_size_in_pt <= 1 else 'large'
             ly.warning(_('requested global staff size (%.2fmm=%.2fpt) '
                          'is too %s, using %spt instead')
                        % (staff_size_in_mm, staff_size_in_pt, size,
-                          paper.default_global_staff_size))
+                          globvars.paper.default_global_staff_size))
 
     # We need a valid tenth value for the rest of this function.
     if one_tenth_in_mm <= 0:
@@ -372,7 +367,7 @@ def extract_paper_information(score_partwise):
     def set_paper_variable(varname, parent, element_name):
         el = parent.get_maybe_exist_named_child(element_name)
         if el:
-            setattr(paper, varname, tenths_to_cm(el.get_text()))
+            setattr(globvars.paper, varname, tenths_to_cm(el.get_text()))
 
     pagelayout = defaults.get_maybe_exist_named_child('page-layout')
     if pagelayout:
@@ -438,7 +433,7 @@ def extract_paper_information(score_partwise):
         # TODO: Convert the font
         pass
 
-    return paper
+    return globvars.paper
 
 
 credit_dict = {
@@ -695,8 +690,9 @@ def extract_score_structure(part_list, staffinfo):
         if options.midi:
             staff.sound = extract_instrument_sound(el)
         if staff.instrument_name:
-            paper.indent = max(paper.indent, len(staff.instrument_name))
-            paper.instrument_names.append(staff.instrument_name)
+            globvars.paper.indent = max(globvars.paper.indent,
+                                       len(staff.instrument_name))
+            globvars.paper.instrument_names.append(staff.instrument_name)
         partdisplay = el.get_maybe_exist_named_child('part-abbreviation')
         if partdisplay:
             staff.short_instrument_name = partdisplay.get_text()
@@ -707,8 +703,8 @@ def extract_score_structure(part_list, staffinfo):
             staff.short_instrument_name = extract_display_text(partdisplay)
         # TODO: Read in the MIDI device / instrument
         if staff.short_instrument_name:
-            paper.short_indent = max(
-                paper.short_indent, len(staff.short_instrument_name))
+            globvars.paper.short_indent = max(globvars.paper.short_indent,
+                                             len(staff.short_instrument_name))
 
         return staff
 
@@ -1351,7 +1347,8 @@ def musicxml_key_to_lily(attributes):
     if not key_signature:
         ly.warning(_("Unable to extract key signature!"))
         return None
-    layout_information.set_context_item('Staff', 'printKeyCancellation = ##f')
+    globvars.layout_information.set_context_item(
+        'Staff', 'printKeyCancellation = ##f')
 
     (key_sig, color, visible) = key_signature
 
@@ -2129,7 +2126,7 @@ def musicxml_mark_to_lily_event(elements):
 
 
 def musicxml_textmark_to_lily_event(elements):
-    layout_information.set_context_item(
+    globvars.layout_information.set_context_item(
         'Score', r'\override TextMark.font-size = 2')
 
     ev = musicexp.TextMarkEvent()
@@ -2945,8 +2942,9 @@ class LilyPondVoiceBuilder(musicexp.Base):
         return False
 
     def _insert_multibar(self):
-        layout_information.set_context_item('Score', 'skipBars = ##t')
-        layout_information.set_context_item(
+        globvars.layout_information.set_context_item(
+            'Score', 'skipBars = ##t')
+        globvars.layout_information.set_context_item(
             'Staff', r'\override MultiMeasureRest.expand-limit = 1')
 
         # Doing `R1^\markup{...}` would center the markup over the
@@ -4380,10 +4378,12 @@ def update_score_setup(score_structure, part_list, voices, parts):
 
 # Set global values in the \layout block, like auto-beaming etc.
 def update_layout_information():
-    if not conversion_settings.ignore_beaming and layout_information:
-        layout_information.set_context_item('Score', 'autoBeaming = ##f')
+    if (not conversion_settings.ignore_beaming
+            and globvars.layout_information):
+        globvars.layout_information.set_context_item(
+            'Score', 'autoBeaming = ##f')
     if musicexp.get_string_numbers() == "f":
-        layout_information.set_context_item(
+        globvars.layout_information.set_context_item(
             'Score', r"\override StringNumber #'stencil = ##f")
 
 #  \n\t\t\t\t\\override StringNumber #\'stencil = ##f
@@ -4525,8 +4525,8 @@ def convert(filename, options):
         score_information.print_ly(printer)
     if paper_information and conversion_settings.convert_page_layout:
         paper_information.print_ly(printer)
-    if layout_information:
-        layout_information.print_ly(printer)
+    if globvars.layout_information:
+        globvars.layout_information.print_ly(printer)
     print_voice_definitions(printer, part_list, voices)
 
     printer.newline()
