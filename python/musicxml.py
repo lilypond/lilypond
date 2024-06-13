@@ -29,7 +29,7 @@ import warnings
 
 import lilylib as ly
 import musicexp
-import musicxml2ly_conversion
+import musicxml2ly_conversion as conversion
 import utilities
 
 
@@ -459,7 +459,7 @@ class Pitch(Music_xml_node):
     def to_lily_object(self):
         p = musicexp.Pitch()
         p.alteration = self.get('alter', 0)
-        p.step = musicxml2ly_conversion.musicxml_step_to_lily(self['step'])
+        p.step = conversion.musicxml_step_to_lily(self['step'])
         p.octave = self['octave'] - 4
         return p
 
@@ -474,7 +474,7 @@ class Unpitched(Music_xml_node):
         p = musicexp.Pitch()
         step = self.get('display-step')
         if step:
-            p.step = musicxml2ly_conversion.musicxml_step_to_lily(step)
+            p.step = conversion.musicxml_step_to_lily(step)
             # If `<display-step>` is present, `<display-octave>` must be
             # present, too.
             p.octave = self['display-octave'] - 4
@@ -711,7 +711,7 @@ class Barline(Measure_element):
 
         direction = getattr(repeat_element, 'direction', None)
         if direction is not None:
-            repeat = musicxml2ly_conversion.RepeatMarker()
+            repeat = conversion.RepeatMarker()
             repeat.direction = {'forward': -1, 'backward': 1}.get(direction, 0)
 
             if ((direction == 'forward' and bartype == 'heavy-light')
@@ -731,7 +731,7 @@ class Barline(Measure_element):
 
         ending_type = getattr(ending_element, 'type', None)
         if ending_type is not None:
-            ending = musicxml2ly_conversion.EndingMarker()
+            ending = conversion.EndingMarker()
             ending.direction = {"start": -1, "stop": 1, "discontinue": 1}.get(
                 ending_type, 0)
             ending.mxl_event = ending_element
@@ -1207,7 +1207,7 @@ class Rest(Music_xml_node):
         step = self.get('display-step')
         if step:
             p = musicexp.Pitch()
-            p.step = musicxml2ly_conversion.musicxml_step_to_lily(step)
+            p.step = conversion.musicxml_step_to_lily(step)
             # if display-step is present, display-octave must be present too
             p.octave = self['display-octave'] - 4
         return p

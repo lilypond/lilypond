@@ -73,7 +73,7 @@ import zipfile
 
 import musicexp
 import musicxml
-import musicxml2ly_conversion
+import musicxml2ly_conversion as conversion
 import utilities
 
 # Load translation and install _() into Python's builtins namespace.
@@ -609,7 +609,7 @@ def staff_attributes_to_string_tunings(mxl_attr):
 
         step = i.get_named_child('tuning-step')
         step = step.get_text().strip()
-        p.step = musicxml2ly_conversion.musicxml_step_to_lily(step)
+        p.step = conversion.musicxml_step_to_lily(step)
 
         octave = i.get_named_child('tuning-octave')
         octave = octave.get_text().strip()
@@ -856,7 +856,7 @@ def group_repeats(music_list):
         while pos < len(music_list) and not repeat_replaced:
             e = music_list[pos]
             repeat_finished = False
-            if isinstance(e, musicxml2ly_conversion.RepeatMarker):
+            if isinstance(e, conversion.RepeatMarker):
                 if not repeat_times and e.times:
                     repeat_times = e.times
                 if e.direction == -1:
@@ -873,7 +873,7 @@ def group_repeats(music_list):
                     if repeat_end < 0:
                         repeat_end = pos
                     final_marker = pos
-            elif isinstance(e, musicxml2ly_conversion.EndingMarker):
+            elif isinstance(e, conversion.EndingMarker):
                 if e.direction == -1:
                     if repeat_start < 0:
                         repeat_start = 0
@@ -938,8 +938,7 @@ def group_repeats(music_list):
                 for i, (start, end) in enumerate(endings):
                     s = musicexp.SequentialMusic()
 
-                    if isinstance(music_list[start],
-                                  musicxml2ly_conversion.EndingMarker):
+                    if isinstance(music_list[start], conversion.EndingMarker):
                         ending = music_list[start].mxl_event
                         attributes = ending._attribute_dict.copy()
                         attributes.pop('color', None)
@@ -1401,7 +1400,7 @@ def musicxml_key_to_lily(attributes):
         # MusicXML contains C,D,E,F,G,A,B as steps, lily uses 0-7, so convert
         alterations = []
         for k in key_sig:
-            k[0] = musicxml2ly_conversion.musicxml_step_to_lily(k[0])
+            k[0] = conversion.musicxml_step_to_lily(k[0])
             alterations.append(k)
         change.non_standard_alterations = alterations
 
@@ -2624,8 +2623,7 @@ def musicxml_direction_to_lily(n):
 def musicxml_chordpitch_to_lily(mxl_cpitch):
     r = musicexp.ChordPitch()
     r.alteration = mxl_cpitch.get_alteration()
-    r.step = musicxml2ly_conversion.musicxml_step_to_lily(
-        mxl_cpitch.get_step())
+    r.step = conversion.musicxml_step_to_lily(mxl_cpitch.get_step())
     return r
 
 
@@ -2696,7 +2694,7 @@ def musicxml_get_string_tunings(lines):
         string_tunings = [musicexp.Pitch()] * lines
         for i in range(0, lines):
             p = musicexp.Pitch()
-            p.step = musicxml2ly_conversion.musicxml_step_to_lily(
+            p.step = conversion.musicxml_step_to_lily(
                 ((("E", "A", "D", "G", "B") * (lines / 5 + 1))[0:lines])[i])
             p.octave = (([-2 + int(x % 5 > 1) + 2 * (x / 5)
                           for x in range(0, lines)][0:lines])[i])
@@ -3385,8 +3383,8 @@ def musicxml_voice_to_lily_voice(voice):
                     figured_bass_builder.add_barline(a, 0, False)
                     chordnames_builder.add_barline(a, 0, False)
                     fretboards_builder.add_barline(a, 0, False)
-                elif (isinstance(a, musicxml2ly_conversion.RepeatMarker)
-                      or isinstance(a, musicxml2ly_conversion.EndingMarker)):
+                elif (isinstance(a, conversion.RepeatMarker)
+                      or isinstance(a, conversion.EndingMarker)):
                     voice_builder.add_command(a)
                     figured_bass_builder.add_barline(a, 0, False)
                     chordnames_builder.add_barline(a, 0, False)
