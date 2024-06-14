@@ -4146,6 +4146,13 @@ information.""") % 'lilypond')
                  help=_("ignore stem directions from MusicXML, "
                         "use lilypond's automatic stemming instead"))
 
+    p.add_option('--afs', '--absolute-font-sizes',
+                 action="store_true",
+                 default=False,
+                 dest="absolute_font_sizes",
+                 help=_("use absolute font sizes in markup "
+                        "(default is to use font sizes based on score size)"))
+
     p.add_option('--nb', '--no-beaming',
                  action="store_false",
                  default=True,
@@ -4585,6 +4592,9 @@ def main():
     # string numbers option
     if options.string_numbers:
         musicexp.set_string_numbers(options.string_numbers)
+
+    if options.absolute_font_sizes:
+        musicexp.use_absolute_font_sizes(options.absolute_font_sizes)
 
     if options.language:
         musicexp.set_pitch_language(options.language)

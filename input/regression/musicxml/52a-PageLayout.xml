@@ -78,6 +78,16 @@
     </measure>
     <!--=======================================================-->
     <measure number="2" width="378">
+      <direction placement="above">
+        <direction-type>
+          <words font-size="medium">Medium size</words>
+        </direction-type>
+      </direction>
+      <direction placement="below">
+        <direction-type>
+          <words font-size="large">Large size</words>
+        </direction-type>
+      </direction>
       <note>
         <rest/>
         <duration>4</duration>

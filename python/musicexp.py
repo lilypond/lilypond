@@ -2108,42 +2108,98 @@ class TextMarkEvent(Event):
         print(self.ly_expression())
 
 
-def font_size_number_to_lily_command(size):
-    d = {
-        (0, 8): r'\teeny',
-        (8, 10): r'\tiny',
-        (10, 12): r'\small',
-        (12, 16): r'',
-        (16, 24): r'\large',
-        (24, float('inf')): r'\huge',
-    }
-    result = None
-    for r in list(d.keys()):
-        if r[0] <= size < r[1]:
-            result = d[r]
-            break
-    return result
+# Implement command-line option `--absolute-font-sizes`.
+def use_absolute_font_sizes(option):
+    global absolute_font_sizes_option
+    absolute_font_sizes_option = option
 
 
-def font_size_word_to_lily_command(size):
+def get_absolute_font_sizes_option():
+    try:
+        return absolute_font_sizes_option
+    except NameError:
+        return False
+
+
+def magnification_to_font_size(mag):
+    return math.log2(mag) * 6
+
+
+def font_size_to_magnification(size):
+    return 2 ** (size / 6)
+
+
+# MusicXML uses CSS-based font units, which means that 72 points equal one
+# inch.  On the other hand, LilyPond uses the traditional American
+# typesetting point (similar to TeX), with 72.27pt = 1in.  The former unit
+# is called 'bp' ('big points') in LilyPond.
+def bp_to_pt(size):
+    return size * 72.27 / 72
+
+
+def font_size_number_to_lily(size, ratio, command):
+    size = bp_to_pt(size)
+    if size > 1:
+        if command and get_absolute_font_sizes_option():
+            return r'\abs-fontsize #%.3f' % size
+        else:
+            # LilyPond uses 11pt as the default text font size.
+            ref_size = 11 * ratio
+            # TODO: Apply further scaling as soon as `<staff-size>` gets
+            #       handled.
+            scaled_size = magnification_to_font_size(size / ref_size)
+            if command:
+                return r'\fontsize #%.3f' % scaled_size
+            else:
+                return '#%.3f' % scaled_size
+    else:
+        return None
+
+
+def font_size_word_to_lily(size, ratio, command):
     font_size_dict = {
-        "xx-small": r'\teeny',
-        "x-small": r'\tiny',
-        "small": r'\small',
-        "medium": '',
-        "large": r'\large',
-        "x-large": r'\huge',
-        "xx-large": r'\larger\huge'
+        'xx-small': (r'\teeny', -3),
+        'x-small': (r'\tiny', -2),
+        'small': (r'\small', -1),
+        'medium': ('', 0),
+        'large': (r'\large', 1),
+        'x-large': (r'\huge', 2),
+        'xx-large': (r'\larger\huge', 3),
     }
-    return font_size_dict.get(size, '')
+    entry = font_size_dict.get(size, (None, None))
+
+    # The comparison values are heuristic – only if the scaling doesn't
+    # differ too much from LilyPond's default staff size it makes sense to
+    # use commands like `\teeny` since values like 'xx-small' are still
+    # absolute.
+    if command and 0.9 <= ratio <= 1.1:
+        return entry[0]
+    else:
+        unscaled_size = entry[1]
+        if unscaled_size is None:
+            return None
+
+        magstep = font_size_to_magnification(unscaled_size)
+        font_size = magnification_to_font_size(magstep / ratio)
+        # Intentionally use low precision.
+        if command:
+            return r'\fontsize #%.1f' % font_size
+        else:
+            return '#%.1f' % font_size
 
 
-def get_font_size(size):
+def get_font_size(size, command):
+    if size is None:
+        return None
+
+    from musicxml2ly_globvars import paper
+    ratio = paper.global_staff_size / paper.default_global_staff_size
+
     try:
         size = float(size)
-        return font_size_number_to_lily_command(size)
+        return font_size_number_to_lily(size, ratio, command)
     except ValueError:
-        return font_size_word_to_lily_command(size)
+        return font_size_word_to_lily(size, ratio, command)
 
 
 def text_to_ly(elements, init_markup=None):
@@ -2207,6 +2263,11 @@ def text_to_ly(elements, init_markup=None):
 
             prev_enclosure = enclosure
 
+        font_size_attribute = attributes.get('font-size', '')
+        font_size = get_font_size(font_size_attribute, command=True)
+        if font_size is not None:
+            markup.append(font_size)
+
         font_weight_attribute = attributes.get('font-weight', 'normal')
         font_weight = font_weight_dict.get(font_weight_attribute, '')
         if font_weight:
@@ -2224,7 +2285,7 @@ def text_to_ly(elements, init_markup=None):
 
         color_attribute = attributes.get('color', None)
         color = color_to_ly(color_attribute)
-        if color:
+        if color is not None:
             markup.append(r'\with-color %s' % color)
 
         text = ''
