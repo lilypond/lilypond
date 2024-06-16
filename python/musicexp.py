@@ -3167,21 +3167,29 @@ class TimeSignatureChange(Music):
         # Print out the style if we have one, but the '() should only be
         # forced for 2/2 or 4/4, since in all other cases we'll get numeric
         # signatures anyway despite the default 'C signature style!
-        is_common_signature = self.fractions in ([2, 2], [4, 4], [4, 2])
-        if self.style and self.visible:
-            if self.style == "common":
-                ret.append(r'\defaultTimeSignature')
-            elif self.style != "'()":
-                ret.append(r'\once \override Staff.TimeSignature.style '
-                           r'= #%s' % self.style)
-            elif self.style != "'()" or is_common_signature:
-                ret.append(r'\numericTimeSignature')
+        if self.visible:
+            if self.style:
+                is_common_signature = \
+                    self.fractions in ([2, 2], [4, 4], [4, 2])
 
-        if self.color and self.visible:
-            ret.append(r'\once \override Staff.TimeSignature.color '
-                       r'= %s' % color_to_ly(self.color))
+                if self.style == "common":
+                    ret.append(r'\defaultTimeSignature')
+                elif self.style != "'()":
+                    ret.append(r'\once \override Staff.TimeSignature.style '
+                               r'= #%s' % self.style)
+                elif self.style != "'()" or is_common_signature:
+                    ret.append(r'\numericTimeSignature')
 
-        if not self.visible:
+            color = color_to_ly(self.color)
+            if color is not None:
+                ret.append(r'\once \override Staff.TimeSignature.color '
+                           r'= %s' % color)
+
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                ret.append(r'\once \override Staff.TimeSignature.font-size '
+                           r'= %s' % font_size)
+        else:
             ret.append(r'\omit Staff.TimeSignature')
 
         # Easy case: self.fractions = [n,d] => normal \time n/d call:

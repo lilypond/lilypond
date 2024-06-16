@@ -1335,6 +1335,7 @@ def musicxml_time_to_lily(attributes):
         change.visible = False
 
     change.color = getattr(time_elm, 'color', None)
+    change.font_size = getattr(time_elm, 'font-size', None)
 
     # TODO: Handle senza-misura measures
     # TODO: What shall we do if the symbol clashes with the sig? e.g. "cut"
