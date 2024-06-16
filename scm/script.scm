@@ -67,7 +67,7 @@
 
     (downbow
      . (
-        (script-stencil . (feta . ("downbow" . "downbow")))
+        (script-stencil . (feta . ("ddownbow" . "udownbow")))
         (padding . 0.20)
         (skyline-horizontal-padding . 0.20)
         (avoid-slur . around)
@@ -373,7 +373,7 @@
 
     (upbow
      . (
-        (script-stencil . (feta . ("upbow" . "upbow")))
+        (script-stencil . (feta . ("dupbow" . "uupbow")))
         (avoid-slur . around)
         (padding . 0.20)
         (direction . ,UP)

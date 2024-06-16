@@ -460,8 +460,10 @@ emmentaler_glyphsets = [
         "scripts.slashturn",
         "scripts.haydnturn",
 
-        "scripts.downbow",
-        "scripts.upbow",
+        "scripts.udownbow",
+        "scripts.ddownbow",
+        "scripts.uupbow",
+        "scripts.dupbow",
         "scripts.dpedaltoe",
         "scripts.upedaltoe",
         "scripts.dpedalheel",

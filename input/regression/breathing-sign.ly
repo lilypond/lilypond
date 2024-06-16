@@ -33,7 +33,7 @@ ticks, vees and `railroad tracks' (caesura)."
       %% wedge
       %%
       \override BreathingSign.text =
-        #(make-musicglyph-markup "scripts.upbow")
+        #(make-musicglyph-markup "scripts.uupbow")
       c4 c \breathe c c |
 
       %% caesurae

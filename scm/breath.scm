@@ -66,7 +66,7 @@
     (upbow
      . (
         (outside-staff-priority . 40) ; same as MultiMeasureRestScript
-        (text . ,(make-musicglyph-markup "scripts.upbow"))
+        (text . ,(make-musicglyph-markup "scripts.uupbow"))
         ))
     (varcomma
      . (

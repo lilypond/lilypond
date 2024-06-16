@@ -834,6 +834,20 @@ auto-beamer engraver was still active.
 It is no longer necessary to switch off auto-beaming while using
 @code{\crossStaff}.
 
+@item
+The @code{\upbow} and @code{\downbow} signs are now properly
+inverted if used below a staff.  As a consequence, the glyphs
+@code{script.upbow} and @code{script.downbow} have been renamed to
+@code{script.uupbow} and @code{script.udownbow}, respectively, and
+the new inverted glyphs are named @code{script.dupbow} and
+@code{script.ddownbow}.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  f4^\downbow f^\upbow f_\downbow f_\upbow
+}
+@end lilypond
+
 @end itemize
 
 

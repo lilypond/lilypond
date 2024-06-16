@@ -901,7 +901,7 @@ fet_beginchar ("plus (stopped)", "stopped");
 fet_endchar;
 
 
-fet_beginchar ("upbow", "upbow");
+def draw_upbow =
   save ht, wd, thick;
 
   thick = 1.4 linethickness;
@@ -912,10 +912,21 @@ fet_beginchar ("upbow", "upbow");
 
   draw_accent ((-h, -w), (0, w), thick, 0.9);
   currentpicture := currentpicture rotated -90;
+enddef;
+
+
+fet_beginchar ("upbow up", "uupbow");
+  draw_upbow;
 fet_endchar;
 
 
-fet_beginchar ("downbow", "downbow");
+fet_beginchar ("upbow down", "dupbow");
+  draw_upbow;
+  y_mirror_char;
+fet_endchar;
+
+
+def draw_downbow =
   save stemthick, beamheight, wd;
   save pat;
   path pat;
@@ -954,9 +965,20 @@ fet_beginchar ("downbow", "downbow");
          -- cycle;
 
   fill pat;
+enddef;
 
+
+fet_beginchar ("downbow up", "udownbow");
+  draw_downbow;
   labels (1, 2, 3);
 fet_endchar;
+
+
+fet_beginchar ("downbow down", "ddownbow");
+  draw_downbow;
+  y_mirror_char;
+fet_endchar;
+
 
 %
 % Inspired by a computer-set version of Auf dem Strom by Baerenreiter.

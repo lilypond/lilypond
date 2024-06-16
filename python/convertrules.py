@@ -5334,6 +5334,17 @@ def conv(s):
     return s
 
 
+@rule((2, 25, 18), r"""
+script.upbow -> script.uupbow
+script.downbow -> script.udownbow
+""")
+def conv(s):
+  s = s.replace('script.upbow', 'script.uupbow')
+  s = s.replace('script.downbow', 'script.udownbow')
+  return s
+
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
