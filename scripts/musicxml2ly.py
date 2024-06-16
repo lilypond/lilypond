@@ -1625,6 +1625,10 @@ def musicxml_spanner_to_lily_event(mxl_event, attributes=None,
     ev.size = int(getattr(mxl_event, 'size', 0))  # attr of octave-shift
     ev.color = attributes.get('color', None)
 
+    # The font size is handled via `text_to_ly()` in dynamics spanners.
+    if name != 'dynamics-spanner':
+        ev.font_size = attributes.get('font-size', None)
+
     if options.convert_directions:
         dir = attributes.get('placement', None)
         if dir is not None and span_direction == -1:

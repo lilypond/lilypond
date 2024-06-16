@@ -1662,18 +1662,23 @@ class PedalEvent(SpanEvent):
         res = []
 
         color = color_to_ly(self.color)
+        font_size = get_font_size(self.font_size, command=False)
 
-        if self.span_direction == -1:
+        if self.span_direction == 1:
             if color is not None:
                 res.append(r'\tweak color %s' % color)
-            res.append(r'\sustainOn')
-        elif self.span_direction == 0:
+            if font_size is not None:
+                res.append(r'\tweak font-size %s' % font_size)
+
+        if self.span_direction == 0 or self.span_direction == 1:
             res.append(r'\sustainOff')
+
+        if self.span_direction == 0 or self.span_direction == -1:
             if color is not None:
                 res.append(r'\tweak color %s' % color)
+            if font_size is not None:
+                res.append(r'\tweak font-size %s' % font_size)
             res.append(r'\sustainOn')
-        else:
-            res.append(r'\sustainOff')
 
         return ' '.join(res)
 
@@ -1706,6 +1711,9 @@ class TextSpannerEvent(SpanEvent):
             color = color_to_ly(self.color)
             if color is not None:
                 tweaks.append(r'\tweak color %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                tweaks.append(r'\tweak font-size %s' % font_size)
 
         if ornament_name == 'wavy-line':
             if self.span_direction == -1:
@@ -1748,13 +1756,23 @@ class TextSpannerEvent(SpanEvent):
                     spanner_color_attribute = '#000000'
                 trill_color_attribute = getattr(self.mxl_ornament,
                                                 'color', '#000000')
-
+                trill_color = ''
                 if spanner_color_attribute != trill_color_attribute:
                     trill_color = color_to_ly(trill_color_attribute)
-                    tweaks.append(r'\tweak bound-details.left.text '
-                                  r'\markup \with-color %s '
-                                  r'\with-true-dimension #X '
-                                  r'\musicglyph "scripts.trill"' % trill_color)
+
+                trill_font_size_attribute = getattr(self.mxl_ornament,
+                                                    'font-size', None)
+                trill_font_size = get_font_size(trill_font_size_attribute,
+                                                command=True)
+
+                if trill_color or trill_font_size:
+                    tweaks.append(r'\tweak bound-details.left.text \markup')
+                    if trill_color:
+                        tweaks.append(r'\with-color %s' % trill_color)
+                    if trill_font_size:
+                        tweaks.append(trill_font_size)
+                    tweaks.append(r'\with-true-dimension #X '
+                                  r'\musicglyph "scripts.trill"')
             else:
                 val = r'\stopTrillSpan'
 
@@ -1835,6 +1853,11 @@ class DynamicsSpannerEvent(SpanEvent):
             if color is not None:
                 overrides.append(r'\once \override '
                                  r'DynamicTextSpanner.color = %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                overrides.append(r'\once \override '
+                                 r'DynamicTextSpanner.font-size = %s'
+                                 % font_size)
         else:
             overrides.append(r'\once \override '
                              r'DynamicTextSpanner.transparent = ##t')
@@ -1936,6 +1959,9 @@ class OctaveShiftEvent(SpanEvent):
             color = color_to_ly(self.color)
             if color is not None:
                 value.append(r'\tweak color %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                value.append(r'\tweak font-size %s' % font_size)
             value.append(r'\ottava #%s' % dir)
 
         return {
