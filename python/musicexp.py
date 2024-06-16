@@ -708,6 +708,7 @@ class Music(Base):
         self.comment = ''
         self.identifier = None
         self.color = None
+        self.font_size = None
 
     def get_length(self, with_factor=True):
         return 0
@@ -1556,14 +1557,18 @@ class SpanEvent(Event):
 
 
 class BreatheEvent(Event):
-    def __init__(self, color):
+    def __init__(self, color, font_size):
         super().__init__()
         self.color = color
+        self.font_size = font_size
 
         after_note = []
         clr = color_to_ly(color)
         if clr is not None:
             after_note.append(r'\tweak color %s' % clr)
+        font_size = get_font_size(font_size, command=False)
+        if font_size is not None:
+            after_note.append(r'\tweak font-size %s' % font_size)
         after_note.append(r'\breathe')
 
         self.after_note = ' '.join(after_note)
@@ -1573,14 +1578,18 @@ class BreatheEvent(Event):
 
 
 class CaesuraEvent(Event):
-    def __init__(self, color):
+    def __init__(self, color, font_size):
         super().__init__()
         self.color = color
+        self.font_size = font_size
 
         after_note = []
         clr = color_to_ly(color)
         if clr is not None:
             after_note.append(r'\tweak color %s' % clr)
+        font_size = get_font_size(font_size, command=False)
+        if font_size is not None:
+            after_note.append(r'\tweak font-size %s' % font_size)
         after_note.append(r'\caesura')
 
         self.after_note = ' '.join(after_note)
@@ -2360,6 +2369,9 @@ class ArticulationEvent(Event):
         color = color_to_ly(self.color)
         if color is not None:
             res.append(r'\tweak color %s' % color)
+        font_size = get_font_size(self.font_size, command=False)
+        if font_size is not None:
+            res.append(r'\tweak font-size %s' % font_size)
 
         res.append(r'%s\%s' % (self.direction_mod(), self.type))
 
@@ -2377,6 +2389,9 @@ class ShortArticulationEvent(ArticulationEvent):
             color = color_to_ly(self.color)
             if color is not None:
                 res.append(r'\tweak color %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                res.append(r'\tweak font-size %s' % font_size)
 
             res.append(r'%s%s' % (self.direction_mod(), self.type))
 
@@ -2390,6 +2405,9 @@ class NoDirectionArticulationEvent(ArticulationEvent):
             color = color_to_ly(self.color)
             if color is not None:
                 res.append(r'\tweak color %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                res.append(r'\tweak font-size %s' % font_size)
 
             res.append(r'\%s' % self.type)
 
@@ -2407,6 +2425,9 @@ class MarkupEvent(ShortArticulationEvent):
             color = color_to_ly(self.color)
             if color is not None:
                 res.append(r'\tweak color %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                res.append(r'\tweak font-size %s' % font_size)
 
             res.append(r"%s\markup { %s }"
                        % (self.direction_mod(), self.contents))
@@ -2608,6 +2629,9 @@ class NotestyleEvent(Event):
                 color = color_to_ly(self.color)
                 if color is not None:
                     res.append(r'\tweak color %s' % color)
+                font_size = get_font_size(self.font_size, command=False)
+                if font_size is not None:
+                    res.append(r'\tweak font-size %s' % font_size)
 
         return ' '.join(res)
 
@@ -2750,6 +2774,7 @@ class RhythmicEvent(Event):
         Event.__init__(self)
         self.duration = Duration()
         self.dot_color = None
+        self.dot_font_size = None
         # 'Associated events' are tightly connected with a (LilyPond) note
         # or rest.  Examples are stems or notehead styles.  Adjusting their
         # attributes must work within chords, too.  Classes that are used as
@@ -2820,9 +2845,16 @@ class RestEvent(RhythmicEvent):
             color = color_to_ly(self.color)
             if color is not None:
                 res.append(r'\tweak color %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                res.append(r'\tweak font-size %s' % font_size)
+
             dot_color = color_to_ly(self.dot_color)
             if dot_color is not None:
                 res.append(r'\tweak Dots.color %s' % dot_color)
+            dot_font_size = get_font_size(self.dot_font_size, command=False)
+            if dot_font_size is not None:
+                res.append(r'\tweak Dots.font-size %s' % dot_font_size)
 
         return ' '.join(res)
 
@@ -2839,9 +2871,16 @@ class RestEvent(RhythmicEvent):
             color = color_to_ly(self.color)
             if color is not None:
                 printer(r'\tweak color %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                printer(r'\tweak font-size %s' % font_size)
+
             dot_color = color_to_ly(self.dot_color)
             if dot_color is not None:
                 printer(r'\tweak Dots.color %s' % dot_color)
+            dot_font_size = get_font_size(self.dot_font_size, command=False)
+            if dot_font_size is not None:
+                printer(r'\tweak Dots.font-size %s' % dot_font_size)
 
         if self.pitch:
             self.pitch.print_ly(printer)
@@ -2866,6 +2905,7 @@ class NoteEvent(RhythmicEvent):
         self.forced_accidental = False
         self.accidental_value = None
         self.accidental_color = None
+        self.accidental_font_size = None
         self.visible = True
 
     def get_properties(self):
@@ -2922,9 +2962,18 @@ class NoteEvent(RhythmicEvent):
             if accidental_color is not None:
                 elements.append(r'\tweak Accidental.color %s'
                                 % accidental_color)
+            accidental_font_size = get_font_size(self.accidental_font_size,
+                                                 command=False)
+            if accidental_font_size is not None:
+                elements.append(r'\tweak Accidental.font-size %s'
+                                % accidental_font_size)
+
             dot_color = color_to_ly(self.dot_color)
             if dot_color is not None:
                 elements.append(r'\tweak Dots.color %s' % dot_color)
+            dot_font_size = get_font_size(self.dot_font_size, command=False)
+            if dot_font_size is not None:
+                elements.append(r'\tweak Dots.font-size %s' % dot_font_size)
 
         return elements
 

@@ -781,13 +781,14 @@ class Stem(Music_xml_node):
 
 
 class Notehead(Music_xml_node):
-    def to_lily_object(self, note_color=None):
+    def to_lily_object(self, note_color=None, note_font_size=None):
         styles = []
 
         # Note head style.
         event = musicexp.NotestyleEvent()
         event.style = self.get_text().strip()
         event.color = getattr(self, 'color', note_color)
+        event.font_size = getattr(self, 'font-size', note_font_size)
 
         filled = getattr(self, 'filled', None)
         if filled is not None:
@@ -795,7 +796,8 @@ class Notehead(Music_xml_node):
 
         if (event.style
                 or event.filled is not None
-                or event.color is not None):
+                or event.color is not None
+                or event.font_size is not None):
             styles.append(event)
 
         # Parentheses.
@@ -889,7 +891,7 @@ class Note(Measure_element):
                     % (self.start, self._duration))
                 return None
 
-    def initialize_pitched_event(self, note_color=None):
+    def initialize_pitched_event(self, note_color=None, note_font_size=None):
         pitch = self['pitch'].to_lily_object()
         event = musicexp.NoteEvent()
         event.pitch = pitch
@@ -935,6 +937,7 @@ class Note(Measure_element):
             acc = []
 
         event.accidental_color = getattr(acc, 'color', note_color)
+        event.accidental_font_size = getattr(acc, 'font-size', note_font_size)
 
         return event
 
@@ -945,12 +948,13 @@ class Note(Measure_element):
         event.pitch = self['unpitched'].to_lily_object(clef)
         return event
 
-    def initialize_rest_event(self, note_color=None,
+    def initialize_rest_event(self, note_color=None, note_font_size=None,
                               convert_rest_positions=True):
         # rests can have display-octave and display-step, which are
         # treated like an ordinary note pitch
         event = musicexp.RestEvent()
         event.color = getattr(self, 'color', note_color)
+        event.font_size = getattr(self, 'font-size', note_font_size)
 
         if convert_rest_positions:
             pitch = self['rest'].to_lily_object()
@@ -962,14 +966,16 @@ class Note(Measure_element):
                        convert_stem_directions=True,
                        convert_rest_positions=True):
         color = getattr(self, 'color', None)
+        font_size = getattr(self, 'font-size', None)
 
         is_rest = False
         if 'pitch' in self:
-            event = self.initialize_pitched_event(color)
+            event = self.initialize_pitched_event(color, font_size)
         elif 'unpitched' in self:
             event = self.initialize_unpitched_event(clef)
         elif 'rest' in self:
-            event = self.initialize_rest_event(color, convert_rest_positions)
+            event = self.initialize_rest_event(color, font_size,
+                                               convert_rest_positions)
             is_rest = True
         else:
             self.message(_("cannot find suitable event"))
@@ -978,19 +984,21 @@ class Note(Measure_element):
         event.duration = self.initialize_duration()
 
         # LilyPond handles all dots together; we thus only use the first
-        # dot's color.
+        # dot's attributes.
         dot = self['dot']
         if dot:
             event.dot_color = getattr(dot[0], 'color', color)
+            event.dot_font_size = getattr(dot[0], 'font-size', font_size)
 
         if not is_rest:
             # Technically, rests can have a `<notehead>` element.  However,
             # this doesn't make any sense...
             notehead = self.get('notehead')
-            if notehead is None and color is not None:
+            if (notehead is None
+                    and (color is not None or font_size is not None)):
                 notehead = Notehead()
             if notehead is not None:
-                for v in notehead.to_lily_object(color):
+                for v in notehead.to_lily_object(color, font_size):
                     event.add_associated_event(v)
 
         stem = self.get('stem')

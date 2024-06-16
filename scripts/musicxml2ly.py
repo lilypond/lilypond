@@ -1579,8 +1579,9 @@ spanner_type_dict = {
 
 
 def musicxml_spanner_to_lily_event(mxl_event, attributes=None,
-                                   spanner_name=None, note_color=None):
-    # The `note_color` argument gets ignored.
+                                   spanner_name=None, note_color=None,
+                                   note_font_size=None):
+    # The `note_color` and `note_font_size` arguments get ignored.
 
     ev = None
 
@@ -1643,7 +1644,8 @@ def musicxml_direction_to_indicator(direction):
             "inverted": -1}.get(direction, 0)
 
 
-def musicxml_fermata_to_lily_event(mxl_event, note_color=None):
+def musicxml_fermata_to_lily_event(mxl_event, note_color=None,
+                                   note_font_size=None):
     fermata_types = {
         '': 'fermata',
         'angled': 'shortfermata',
@@ -1659,6 +1661,7 @@ def musicxml_fermata_to_lily_event(mxl_event, note_color=None):
     ev = musicexp.ArticulationEvent()
     ev.type = fermata_types.get(mxl_event.get_text(), 'fermata')
     ev.color = getattr(mxl_event, 'color', note_color)
+    ev.font_size = getattr(mxl_event, 'font-size', note_font_size)
 
     type_attr = getattr(mxl_event, 'type', None)
     if options.convert_directions and type_attr is not None:
@@ -1669,7 +1672,9 @@ def musicxml_fermata_to_lily_event(mxl_event, note_color=None):
     return ev
 
 
-def musicxml_arpeggiate_to_lily_event(mxl_event, note_color=None):
+def musicxml_arpeggiate_to_lily_event(mxl_event, note_color=None,
+                                      note_font_size=None):
+    # The `note_font_size` argument gets ignored.
     ev = musicexp.ArpeggioEvent()
     ev.color = getattr(mxl_event, 'color', note_color)
     ev.direction = musicxml_direction_to_indicator(
@@ -1677,7 +1682,9 @@ def musicxml_arpeggiate_to_lily_event(mxl_event, note_color=None):
     return ev
 
 
-def musicxml_nonarpeggiate_to_lily_event(mxl_event, note_color=None):
+def musicxml_nonarpeggiate_to_lily_event(mxl_event, note_color=None,
+                                         note_font_size=None):
+    # The `note_font_size` argument gets ignored.
     ev = musicexp.ArpeggioEvent()
     ev.color = getattr(mxl_event, 'color', note_color)
     ev.non_arpeggiate = True
@@ -1687,9 +1694,13 @@ def musicxml_nonarpeggiate_to_lily_event(mxl_event, note_color=None):
 
 
 # Single-note tremolo.
-def musicxml_tremolo_to_lily_event(mxl_event, note_color=None):
+def musicxml_tremolo_to_lily_event(mxl_event, note_color=None,
+                                   note_font_size=None):
     ev = musicexp.TremoloEvent()
     ev.color = getattr(mxl_event, 'color', note_color)
+    # TODO: Support unmeasured tremolos by handling the `smufl` attribute
+    #       (which in turn would react to the currently unused `font-size`
+    #       attribute).
 
     txt = mxl_event.get_text()
     if txt:
@@ -1701,21 +1712,27 @@ def musicxml_tremolo_to_lily_event(mxl_event, note_color=None):
     return ev
 
 
-def musicxml_falloff_to_lily_event(mxl_event, note_color=None):
+def musicxml_falloff_to_lily_event(mxl_event, note_color=None,
+                                   note_font_size=None):
+    # The `note_font_size` argument gets ignored.
     ev = musicexp.BendEvent()
     ev.alter = -4
     ev.color = getattr(mxl_event, 'color', note_color)
     return ev
 
 
-def musicxml_doit_to_lily_event(mxl_event, note_color=None):
+def musicxml_doit_to_lily_event(mxl_event, note_color=None,
+                                note_font_size=None):
+    # The `note_font_size` argument gets ignored.
     ev = musicexp.BendEvent()
     ev.alter = 4
     ev.color = getattr(mxl_event, 'color', note_color)
     return ev
 
 
-def musicxml_bend_to_lily_event(mxl_event, note_color=None):
+def musicxml_bend_to_lily_event(mxl_event, note_color=None,
+                                note_font_size=None):
+    # The `note_font_size` argument gets ignored.
     ev = musicexp.BendEvent()
     ev.color = getattr(mxl_event, 'color', note_color)
     ev.alter = mxl_event.bend_alter()
@@ -1727,8 +1744,10 @@ def musicxml_breath_mark_to_lily_event(mxl_event, note_color=None):
     # of symbol: comma, tick, upbow, salzedo.
 
     # TODO: Shall the color of `<note>` be inherited?
+    # TODO: Shall the font size of `<note>` be inherited?
     color = getattr(mxl_event, 'color', None)
-    ev = musicexp.BreatheEvent(color)
+    font_size = getattr(mxl_event, 'font-size', None)
+    ev = musicexp.BreatheEvent(color, font_size)
     return ev
 
 
@@ -1737,26 +1756,30 @@ def musicxml_caesura_to_lily_event(mxl_event, note_color=None):
     # symbol: normal, thick, short, curved, single.
 
     # TODO: Shall the color of `<note>` be inherited?
+    # TODO: Shall the font size of `<note>` be inherited?
     color = getattr(mxl_event, 'color', None)
-    ev = musicexp.CaesuraEvent(color)
+    font_size = getattr(mxl_event, 'font-size', None)
+    ev = musicexp.CaesuraEvent(color, font_size)
     return ev
 
 
-def musicxml_fingering_event(mxl_event, note_color=None):
+def musicxml_fingering_event(mxl_event, note_color=None, note_font_size=None):
     ev = musicexp.ShortArticulationEvent()
     ev.type = mxl_event.get_text()
     ev.color = getattr(mxl_event, 'color', note_color)
+    ev.font_size = getattr(mxl_event, 'font-size', note_font_size)
     return ev
 
 
-def musicxml_string_event(mxl_event, note_color=None):
+def musicxml_string_event(mxl_event, note_color=None, note_font_size=None):
     ev = musicexp.NoDirectionArticulationEvent()
     ev.type = mxl_event.get_text()
     ev.color = getattr(mxl_event, 'color', note_color)
+    ev.font_size = getattr(mxl_event, 'font-size', note_font_size)
     return ev
 
 
-def musicxml_accidental_mark(mxl_event, note_color=None):
+def musicxml_accidental_mark(mxl_event, note_color=None, note_font_size=None):
     ev = musicexp.MarkupEvent()
     contents = {"sharp": r"\sharp",
                 "natural": r"\natural",
@@ -1775,6 +1798,7 @@ def musicxml_accidental_mark(mxl_event, note_color=None):
     if contents:
         ev.contents = contents
         ev.color = getattr(mxl_event, 'color', note_color)
+        ev.font_size = getattr(mxl_event, 'font-size', note_font_size)
         return ev
     else:
         return None
@@ -1906,7 +1930,8 @@ def OrnamenthasWavyline(mxl_event):
     return False
 
 
-def musicxml_articulation_to_lily_event(mxl_event, note_color=None):
+def musicxml_articulation_to_lily_event(mxl_event, note_color=None,
+                                        note_font_size=None):
     name = mxl_event.get_name()
     if name == "wavy-line":
         # `wavy-line` elements are treated as trill spanners, not as
@@ -1937,6 +1962,7 @@ def musicxml_articulation_to_lily_event(mxl_event, note_color=None):
         ev = tmp_tp(mxl_event)
 
     ev.color = getattr(mxl_event, 'color', note_color)
+    ev.font_size = getattr(mxl_event, 'font-size', note_font_size)
 
     # Some articulations use the type attribute, other the placement...
     if options.convert_directions:
@@ -1960,7 +1986,8 @@ def musicxml_dynamic_to_lily(element):
         return dynamics_name
 
 
-def musicxml_dynamics_to_lily_event(elements, note_color=None):
+def musicxml_dynamics_to_lily_event(elements, note_color=None,
+                                    note_font_size=None):
     # A list of dynamics LilyPond provides by default.
     predefined_dynamics = (
         'ppppp', 'pppp', 'ppp', 'pp', 'p',
@@ -1972,6 +1999,7 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None):
     )
 
     # TODO: Shall the color of `<note>` be inherited?
+    # TODO: Shall the font size of `<note>` be inherited?
 
     dyn_index = next(i for i, e in enumerate(elements)
                      if e[0].get_name() == 'dynamics')
@@ -1996,7 +2024,7 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None):
         before += e.get_text()
     dynamics_name += before
 
-    # TODO: Handle color.
+    # TODO: Handle font size.
     dyns = ''
     for d in dynamics.get_all_children():
         dyns += musicxml_dynamic_to_lily(d)
@@ -3772,8 +3800,8 @@ def musicxml_voice_to_lily_voice(voice):
             #         mordent | inverted-mordent | schleifer | tremolo |
             #         haydn | other-ornament,
             #         accidental-mark
-            def convert_and_append_all_child_articulations(mxl_node,
-                                                           note_color=None):
+            def convert_and_append_all_child_articulations(
+                    mxl_node, note_color=None, note_font_size=None):
                 # Mark trill spanners where `start` and `stop` elements (in
                 # that order) happen at the same musical moment.
                 res = []
@@ -3805,7 +3833,8 @@ def musicxml_voice_to_lily_voice(voice):
                         is_double_note_tremolo = True
 
                 for ch in mxl_node.get_all_children():
-                    ev = musicxml_articulation_to_lily_event(ch, note_color)
+                    ev = musicxml_articulation_to_lily_event(ch, note_color,
+                                                             note_font_size)
                     if ev is not None:
                         try:
                             if ev.start_stop == True:
@@ -3819,9 +3848,11 @@ def musicxml_voice_to_lily_voice(voice):
                 return res
 
             def convert_and_append_all_child_dynamics(mxl_node,
-                                                      note_color=None):
+                                                      note_color=None,
+                                                      note_font_size=None):
                 element = (mxl_node, mxl_node._attribute_dict)
-                ev = musicxml_dynamics_to_lily_event([element], note_color)
+                ev = musicxml_dynamics_to_lily_event([element], note_color,
+                                                     note_font_size)
                 if ev is not None:
                     if options.convert_directions:
                         dir = getattr(mxl_node, 'placement', None)
@@ -3844,11 +3875,13 @@ def musicxml_voice_to_lily_voice(voice):
             }
 
             color = getattr(n, 'color', None)
+            font_size = getattr(n, 'font-size', None)
 
             for a in notations.get_all_children():
                 handler = notation_handlers.get(a.get_name(), None)
                 if handler is not None:
-                    ev = handler(a, note_color=color)
+                    ev = handler(a, note_color=color,
+                                 note_font_size=font_size)
                     if not isinstance(ev, list):
                         ev = [ev]
                     for e in ev:
