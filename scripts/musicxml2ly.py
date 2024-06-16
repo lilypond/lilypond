@@ -1351,10 +1351,11 @@ def musicxml_key_to_lily(attributes):
     globvars.layout_information.set_context_item(
         'Staff', 'printKeyCancellation = ##f')
 
-    (key_sig, color, visible) = key_signature
+    (key_sig, color, font_size, visible) = key_signature
 
     change = musicexp.KeySignatureChange()
     change.color = color
+    change.font_size = font_size
     change.visible = visible
 
     if len(key_sig) == 2 and not isinstance(key_sig[0], list):

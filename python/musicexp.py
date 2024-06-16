@@ -3077,6 +3077,9 @@ class KeySignatureChange(Music):
         return alterations
 
     def key_change_to_ly(self):
+        color = color_to_ly(self.color)
+        font_size = get_font_size(self.font_size, command=False)
+
         if self.tonic:
             str = ''
             if self.cancel_fifths:
@@ -3086,23 +3089,42 @@ class KeySignatureChange(Music):
                        'before-barline': r'\cancelBeforeBarline'
                        }.get(self.cancel_location, '')
 
-            color = ''
-            if self.color:
-                color = r'\tweak color %s ' % color_to_ly(self.color)
+            if color is None:
+                color_tweak = ''
+            else:
+                color_tweak = r'\tweak color %s ' % color
+
+            if font_size is None:
+                font_size_tweak = ''
+            else:
+                font_size_tweak = r'\tweak font-size %s ' % font_size
 
             return (str,
-                    r'%s\key %s \%s' % (color,
-                                        self.tonic.ly_step_expression(),
-                                        self.mode))
+                    r'%s%s\key %s \%s' % (color_tweak,
+                                          font_size_tweak,
+                                          self.tonic.ly_step_expression(),
+                                          self.mode))
         elif self.non_standard_alterations:
             alterations = [self.format_non_standard_alteration(a) for
                            a in self.non_standard_alterations]
-            color = ''
-            if self.color:
-                color = (r' \once \override Staff.KeySignature.color = %s'
-                         % color_to_ly(self.color))
+
+            if color is None:
+                color_override = ''
+            else:
+                color_override = (r' \once \override '
+                                  r'Staff.KeySignature.color = %s' % color)
+
+            if font_size is None:
+                font_size_override = ''
+            else:
+                font_size_override = (r' \once \override '
+                                      r'Staff.KeySignature.font-size = %s'
+                                      % font_size)
+
             return (r'\set Staff.keyAlterations =',
-                    r'#`(%s)%s' % (' '.join(alterations), color))
+                    r'#`(%s)%s%s' % (' '.join(alterations),
+                                     color_override,
+                                     font_size_override))
         else:
             return ('', '')
 
