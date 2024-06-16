@@ -595,9 +595,9 @@ class Attributes(Measure_element):
             return (4, 4)
 
     # Return clef information in the form `("cleftype", position,
-    # octave-shift, color, print-object)`.
+    # octave-shift, color, font-size, print-object)`.
     def get_clef_information(self):
-        clefinfo = [None, None, None, None, True]
+        clefinfo = [None, None, None, None, None, True]
         mxl = self.get_maybe_exist_named_child('clef')
         if not mxl:
             return clefinfo
@@ -613,7 +613,8 @@ class Attributes(Measure_element):
         else:
             clefinfo[2] = 0
         clefinfo[3] = getattr(mxl, 'color', None)
-        clefinfo[4] = (getattr(mxl, 'print-object', 'yes') == 'yes')
+        clefinfo[4] = getattr(mxl, 'font-size', None)
+        clefinfo[5] = (getattr(mxl, 'print-object', 'yes') == 'yes')
         return clefinfo
 
     def get_key_signature(self):

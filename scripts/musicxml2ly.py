@@ -248,6 +248,7 @@ cancelAfterKey = {
 %   displayed.  An empty list suppresses any display of staff lines;
 %   omitting the argument means to display all lines.
 % * `staff-color` holds the color of the staff.
+% * `clef-font-size` holds the font size of the clef
 % * `clef-color` holds the color of the clef.
 %
 % \\staffLines [<properties>] <clef> <num-lines>
@@ -258,6 +259,7 @@ staffLines =
    (let* ((details (assoc-get 'details properties #f))
           (staff-color (assoc-get 'staff-color properties #f))
           (clef-color (assoc-get 'clef-color properties #f))
+          (clef-font-size (assoc-get 'clef-font-size properties #f))
           (lines (or details (iota num-lines 1)))
           (only-even-pos (not (or (equal? clef "")
                                   (string-contains clef "percussion")
@@ -281,6 +283,10 @@ staffLines =
        #(if clef-color
             #{
               \\once \\override Staff.Clef.color = #clef-color
+            #})
+       #(if clef-font-size
+            #{
+              \\once \\override Staff.Clef.font-size = #clef-font-size
             #})
 
        #(if (equal? clef "")
@@ -1279,7 +1285,7 @@ def group_tremolos(music_list, events):
 def musicxml_clef_staff_details_to_lily(attributes):
     ev = musicexp.Clef_StaffLinesEvent()
 
-    (ev.type, ev.position, ev.octave, ev.color, ev.visible) = \
+    (ev.type, ev.position, ev.octave, ev.color, ev.font_size, ev.visible) = \
         attributes.get_clef_information()
 
     details = attributes.get_maybe_exist_named_child('staff-details')

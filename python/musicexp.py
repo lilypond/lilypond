@@ -3311,30 +3311,41 @@ class Clef_StaffLinesEvent(Music):
         if use_line_details:
             details = ' '.join(map(str, staff_lines))
 
+        color = color_to_ly(self.color)
+        font_size = get_font_size(self.font_size, command=False)
+
         # LilyPond handles a 'percussion' clef similar to an alto clef; we
         # thus use `\staffLines` for this clef to get the right vertical
         # offset.
         if (clef is not None and clef != 'percussion'
                 and self.lines is None and details is None):
             ret = []
-            if self.color is not None:
+
+            if color is not None:
                 # We can't use `\tweak` here.
-                ret.append(r'\once \override Staff.Clef.color = %s'
-                           % color_to_ly(self.color))
+                ret.append(r'\once \override Staff.Clef.color = %s' % color)
+            if font_size is not None:
+                ret.append(r'\once \override Staff.Clef.font-size = %s'
+                           % font_size)
+
             ret.append(r'\clef "%s"' % clef)
             return ' '.join(ret)
 
         if clef is None:
             clef = ''
 
+        lines_color = color_to_ly(self.lines_color)
+
         properties = []
         if details is not None:
             properties.append('(details . (%s))' % details)
-        if self.color is not None:
-            properties.append('(clef-color . %s)' % color_to_ly(self.color))
-        if self.lines_color is not None:
-            properties.append('(staff-color . %s)'
-                              % color_to_ly(self.lines_color))
+        if color is not None:
+            properties.append('(clef-color . %s)' % color)
+        if font_size is not None:
+            # Skip the leading `#` character in `font_size`.
+            properties.append('(clef-font-size . %s)' % font_size[1:])
+        if lines_color is not None:
+            properties.append('(staff-color . %s)' % lines_color)
 
         props = ' '.join(properties)
         if props:
