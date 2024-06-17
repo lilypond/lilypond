@@ -2863,50 +2863,42 @@ class RestEvent(RhythmicEvent):
             return 'r%s' % self.duration.ly_expression()
 
     def pre_note_ly(self, is_chord_element):
-        res = []
+        elements = super().pre_note_ly(is_chord_element)
 
         if not self.visible:
-            res.append(r'\hideNote')
+            elements.append(r'\hideNote')
         else:
             color = color_to_ly(self.color)
             if color is not None:
-                res.append(r'\tweak color %s' % color)
+                elements.append(r'\tweak color %s' % color)
             font_size = get_font_size(self.font_size, command=False)
             if font_size is not None:
-                res.append(r'\tweak font-size %s' % font_size)
+                # See issue #6721 why we currently need this work-around.
+                if self.duration.dots:
+                    elements.insert(0, r'\once \override Rest.font-size = %s'
+                                    % font_size)
+                else:
+                    elements.append(r'\tweak font-size %s' % font_size)
 
             dot_color = color_to_ly(self.dot_color)
             if dot_color is not None:
-                res.append(r'\tweak Dots.color %s' % dot_color)
+                elements.append(r'\tweak Dots.color %s' % dot_color)
             dot_font_size = get_font_size(self.dot_font_size, command=False)
             if dot_font_size is not None:
-                res.append(r'\tweak Dots.font-size %s' % dot_font_size)
+                # See issue #6721 why we currently need this work-around.
+                # res.append(r'\tweak Dots.font-size %s' % dot_font_size)
+                elements.insert(0, r'\once \override Dots.font-size = %s'
+                                % font_size)
 
-        return ' '.join(res)
+        return elements
 
     def post_note_ly(self, is_chord_element):
-        return ''
+        elements = super().post_note_ly(is_chord_element)
+        return elements
 
     def print_ly(self, printer):
-        for ev in self.associated_events:
-            ev.print_ly(printer)
-
-        if not self.visible:
-            printer(r'\hideNote')
-        else:
-            color = color_to_ly(self.color)
-            if color is not None:
-                printer(r'\tweak color %s' % color)
-            font_size = get_font_size(self.font_size, command=False)
-            if font_size is not None:
-                printer(r'\tweak font-size %s' % font_size)
-
-            dot_color = color_to_ly(self.dot_color)
-            if dot_color is not None:
-                printer(r'\tweak Dots.color %s' % dot_color)
-            dot_font_size = get_font_size(self.dot_font_size, command=False)
-            if dot_font_size is not None:
-                printer(r'\tweak Dots.font-size %s' % dot_font_size)
+        printer(self.ly_expression_pre_chord())
+        printer(self.ly_expression_pre_note(True))
 
         if self.pitch:
             self.pitch.print_ly(printer)
@@ -2915,6 +2907,8 @@ class RestEvent(RhythmicEvent):
         else:
             printer('r')
             self.duration.print_ly(printer)
+
+        printer(self.ly_expression_post_note(True))
 
 
 class SkipEvent(RhythmicEvent):
