@@ -1571,7 +1571,6 @@ def musicxml_accidental_mark(mxl_event, note_color=None, note_font_size=None):
                 "flat": r"\flat",
                 "double-sharp": r"\doublesharp",
                 "sharp-sharp": r"\sharp\sharp",
-                "flat-flat": r"\flat\flat",
                 "flat-flat": r"\doubleflat",
                 "natural-sharp": r"\natural\sharp",
                 "natural-flat": r"\natural\flat",
@@ -1579,6 +1578,23 @@ def musicxml_accidental_mark(mxl_event, note_color=None, note_font_size=None):
                 "quarter-sharp": r"\semisharp",
                 "three-quarters-flat": r"\sesquiflat",
                 "three-quarters-sharp": r"\sesquisharp",
+                "sharp-down": r'\musicglyph "accidentals.sharp.arrowdown"',
+                "sharp-up": r'\musicglyph "accidentals.sharp.arrowup"',
+                "natural-down": r'\musicglyph "accidentals.natural.arrowdown"',
+                "natural-up": r'\musicglyph "accidentals.natural.arrowup"',
+                "flat-down": r'\musicglyph "accidentals.flat.arrowdown"',
+                "flat-up": r'\musicglyph "accidentals.flat.arrowup"',
+                "triple-sharp": r"\sharp\doublesharp",
+                "triple-flat": r"\flat\doubleflat",
+                "slash-quarter-sharp":
+                    r'\musicglyph "accidentals.sharp.slashslashslash.stem"',
+                "slash-sharp":
+                    r'\musicglyph "accidentals.sharp.slashslashslash.stemstem"',
+                "slash-flat": r'\musicglyph "accidentals.flat.slash"',
+                "double-slash-flat":
+                    r'\musicglyph "accidentals.flat.slashslash"',
+                "sori": r'\musicglyph "accidentals.sharp.sori"',
+                "koron": r'\musicglyph "accidentals.flat.koron"',
                 }.get(mxl_event.get_text())
     if contents:
         ev.contents = contents
