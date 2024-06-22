@@ -27,9 +27,7 @@
 typedef size_t ssize;
 #define NPOS std::string::npos
 
-// TODO: This should probably be renamed to avoid any possible confusion with
-// std::to_string.
-std::string to_string (char const *format, ...)
+std::string to_string_f (char const *format, ...)
   __attribute__ ((format (printf, 1, 2)));
 
 std::string &replace_all (std::string *str, std::string const &find,

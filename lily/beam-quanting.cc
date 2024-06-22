@@ -146,7 +146,7 @@ Beam_configuration::add (Real demerit, const std::string &reason)
   demerits += demerit;
 
   if (demerit != 0.0)
-    score_card_ += to_string (" %s %.2f", reason.c_str (), demerit);
+    score_card_ += to_string_f (" %s %.2f", reason.c_str (), demerit);
 }
 
 std::unique_ptr<Beam_configuration>
@@ -1089,7 +1089,7 @@ Beam_scoring_problem::solve () const
         }
 
       std::string card = best->score_card_
-                         + to_string (" c%d/%zu", completed, configs.size ());
+                         + to_string_f (" c%d/%zu", completed, configs.size ());
       set_property (beam_, "annotation", ly_string2scm (card));
     }
 

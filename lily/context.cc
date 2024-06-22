@@ -356,8 +356,8 @@ Context::create_context_from_event (SCM sev)
   if (path.size () != 1)
     {
       programming_error (
-        to_string ("Invalid CreateContext event: Cannot create %s context",
-                   type.c_str ()));
+        to_string_f ("Invalid CreateContext event: Cannot create %s context",
+                     type.c_str ()));
       return;
     }
   Context_def *cdef = path[0];

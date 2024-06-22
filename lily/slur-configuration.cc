@@ -224,7 +224,7 @@ Slur_configuration::add_score (Real s, const std::string &desc)
     {
       if (score_card_.length () > 0)
         score_card_ += ", ";
-      score_card_ += to_string ("%s=%.2f", desc.c_str (), s);
+      score_card_ += to_string_f ("%s=%.2f", desc.c_str (), s);
       score_ += s;
     }
 }

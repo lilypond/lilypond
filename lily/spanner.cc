@@ -114,7 +114,7 @@ Spanner::do_break_processing ()
 
           if (!ok)
             {
-              programming_error (to_string (
+              programming_error (to_string_f (
                 "Spanner `%s' is not fully contained in parent spanner."
                 "  Ignoring orphaned part",
                 name ().c_str ()));
@@ -247,8 +247,8 @@ Spanner::set_bound (Direction d, Grob *g)
   // that fits the type of the Grob.
   if (!g->internal_set_as_bound_of_spanner (this, d))
     {
-      programming_error (to_string ("cannot set %s as bound of %s",
-                                    g->name ().c_str (), name ().c_str ()));
+      programming_error (to_string_f ("cannot set %s as bound of %s",
+                                      g->name ().c_str (), name ().c_str ()));
       return;
     }
 

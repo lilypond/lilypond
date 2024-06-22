@@ -199,7 +199,7 @@ Grob::internal_get_property (SCM sym)
 
   if (scm_is_eq (val, ly_symbol2scm ("calculation-in-progress")))
     {
-      programming_error (to_string (
+      programming_error (to_string_f (
         "cyclic dependency: calculation-in-progress encountered for %s.%s",
         name ().c_str (), ly_symbol2string (sym).c_str ()));
       if (debug_property_callbacks)

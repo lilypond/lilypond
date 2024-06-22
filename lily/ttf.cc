@@ -431,7 +431,7 @@ print_trailer (std::ostream &stream, FT_Face face)
           output_count++;
         }
       else
-        programming_error (to_string ("no name for glyph %d", i));
+        programming_error (to_string_f ("no name for glyph %d", i));
 
       if (!(output_count % 5))
         stream << std::endl;

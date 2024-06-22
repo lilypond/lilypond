@@ -631,7 +631,7 @@ parse_argv (int argc, char **argv)
           break;
         default:
           programming_error (
-            to_string ("unhandled short option: %c", opt->shortname_char_));
+            to_string_f ("unhandled short option: %c", opt->shortname_char_));
           assert (false);
           break;
         }

@@ -95,7 +95,7 @@ Tie_configuration::add_score (Real s, const std::string &desc)
   assert (!scored_);
   score_ += s;
   if (s != 0.0)
-    score_card_ += to_string ("%s=%.2f ", desc.c_str (), s);
+    score_card_ += to_string_f ("%s=%.2f ", desc.c_str (), s);
 }
 
 Real
@@ -132,7 +132,7 @@ Ties_configuration::add_tie_score (Real s, vsize i, const std::string &desc)
       while (tie_score_cards_.size () < size ())
         tie_score_cards_.push_back ("");
 
-      tie_score_cards_[i] += to_string ("%s=%.2f ", desc.c_str (), s);
+      tie_score_cards_[i] += to_string_f ("%s=%.2f ", desc.c_str (), s);
     }
 }
 
@@ -142,7 +142,7 @@ Ties_configuration::add_score (Real s, const std::string &desc)
   assert (!scored_);
   score_ += s;
   if (s != 0.0)
-    score_card_ += to_string ("%s=%.2f ", desc.c_str (), s);
+    score_card_ += to_string_f ("%s=%.2f ", desc.c_str (), s);
 }
 
 Real
@@ -155,8 +155,8 @@ std::string
 Ties_configuration::complete_tie_card (vsize i) const
 {
   std::string s;
-  s += to_string ("%d (%.2f) %c: ", (*this)[i].position_, (*this)[i].delta_y_,
-                  ((*this)[i].dir_ == UP ? 'u' : 'd'))
+  s += to_string_f ("%d (%.2f) %c: ", (*this)[i].position_, (*this)[i].delta_y_,
+                    ((*this)[i].dir_ == UP ? 'u' : 'd'))
        + (*this)[i].card () + tie_card (i);
 
   /*
@@ -167,7 +167,7 @@ Ties_configuration::complete_tie_card (vsize i) const
     s += card ();
 
   if (i + 1 == size ())
-    s += to_string ("TOTAL=%.2f", score ());
+    s += to_string_f ("TOTAL=%.2f", score ());
 
   return s;
 }

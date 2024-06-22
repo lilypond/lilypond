@@ -24,7 +24,7 @@
 #include "std-vector.hh"
 
 std::string
-to_string (char const *format, ...)
+to_string_f (char const *format, ...)
 {
   va_list args;
   va_start (args, format);
