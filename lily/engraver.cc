@@ -112,10 +112,10 @@ Engraver::choose_grob_type (SCM classes, SCM props)
   const char *class_name = grob->class_name ();
   if (!scm_is_true (scm_memq (ly_symbol2scm (class_name), classes)))
     {
-      programming_error (_f ("grob %s created with disallowed class %s"
-                             " (expected any class in the list %s)",
-                             grob->name (), class_name,
-                             print_scm_val (classes)));
+      programming_error (to_string_f ("grob %s created with disallowed class "
+                                      "%s (expected any class in the list %s)",
+                                      grob->name ().c_str (), class_name,
+                                      print_scm_val (classes).c_str ()));
     }
   return grob;
 }
@@ -225,9 +225,10 @@ Engraver::internal_make_sticky (SCM x, Grob *host, SCM cause, char const *file,
   Grob *sticky = host->make_sticky_same_type (this, x, cause, file, line, fun);
   if (!sticky->internal_has_interface (ly_symbol2scm ("sticky-grob-interface")))
     {
-      programming_error (_f ("sticky grob %s created with a type that does"
-                             " not have the sticky-grob-interface",
-                             sticky->name ()));
+      programming_error (
+        to_string_f ("sticky grob %s created with a type that does not have"
+                     " the sticky-grob-interface",
+                     sticky->name ().c_str ()));
     }
   set_object (sticky, "sticky-host", host->self_scm ());
   sticky->set_x_parent (host);

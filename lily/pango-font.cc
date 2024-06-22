@@ -262,8 +262,11 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
       FT_Error errorcode
         = FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
       if (errorcode)
-        programming_error (_f ("FT_Get_Glyph_Name () error: %s",
-                               freetype_error_string (errorcode).c_str ()));
+        {
+          programming_error (
+            to_string_f ("FT_Get_Glyph_Name () error: %s",
+                         freetype_error_string (errorcode).c_str ()));
+        }
       else
         {
           // There are fonts like `Symbola.ttf` version 10.23 that have a
@@ -292,9 +295,9 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
   if (glyph_name[0] == '\0' && has_glyph_names)
     {
       programming_error (
-        _f ("Glyph has no name, but font supports glyph naming.\n"
-            "Skipping glyph U+%04X, file %s",
-            pg, file_name.c_str ()));
+        to_string_f ("Glyph has no name, but font supports glyph naming.\n"
+                     "Skipping glyph U+%04X, file %s",
+                     pg, file_name.c_str ()));
       return SCM_BOOL_F;
     }
 
@@ -317,10 +320,11 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
       FT_Error errorcode = FT_Get_CID_From_Glyph_Index (ftface, pg, &cid_id);
       if (errorcode)
         {
-          programming_error (_f ("FT_Get_CID_From_Glyph_Index () error: %s\n"
-                                 "Skipping glyph U+%04X, file %s",
-                                 freetype_error_string (errorcode).c_str (), pg,
-                                 file_name.c_str ()));
+          programming_error (
+            to_string_f ("FT_Get_CID_From_Glyph_Index () error: %s\n"
+                         "Skipping glyph U+%04X, file %s",
+                         freetype_error_string (errorcode).c_str (), pg,
+                         file_name.c_str ()));
           return SCM_BOOL_F;
         }
       char_id = scm_from_uint32 (cid_id);

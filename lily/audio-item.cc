@@ -24,6 +24,7 @@
 #include "lily-imports.hh"
 #include "midi-item.hh"
 #include "text-interface.hh"
+#include "warn.hh"
 
 Audio_instrument::Audio_instrument (std::string instrument_string)
 {
@@ -132,9 +133,9 @@ Audio_span_dynamic::set_end_moment (Moment mom)
 {
   if (mom < start_moment_)
     {
-      programming_error (_f ("end moment (%s) < start moment (%s)",
-                             mom.to_string ().c_str (),
-                             start_moment_.to_string ().c_str ()));
+      programming_error (to_string_f ("end moment (%s) < start moment (%s)",
+                                      mom.to_string ().c_str (),
+                                      start_moment_.to_string ().c_str ()));
       mom = start_moment_;
     }
 
@@ -146,13 +147,13 @@ Audio_span_dynamic::set_volume (Real start, Real target)
 {
   if (!(start >= 0))
     {
-      programming_error (_f ("invalid start volume: %f", start));
+      programming_error (to_string_f ("invalid start volume: %f", start));
       start = DEFAULT_VOLUME;
     }
 
   if (!(target >= 0))
     {
-      programming_error (_f ("invalid target volume: %f", target));
+      programming_error (to_string_f ("invalid target volume: %f", target));
       target = start;
     }
 
@@ -168,19 +169,21 @@ Audio_span_dynamic::get_volume (Moment mom) const
   if (when <= 0)
     {
       if (when < 0)
-        programming_error (_f ("asked to compute volume at %f for dynamic span "
-                               "of duration %f starting at %s",
-                               when, duration_,
-                               start_moment_.to_string ().c_str ()));
+        {
+          programming_error (
+            to_string_f ("asked to compute volume at %f for "
+                         "dynamic span of duration %f starting at %s",
+                         when, duration_, start_moment_.to_string ().c_str ()));
+        }
       return start_volume_;
     }
 
   if (when >= duration_)
     {
-      programming_error (_f ("asked to compute volume at +%f for dynamic span "
-                             "of duration %f starting at %s",
-                             when, duration_,
-                             start_moment_.to_string ().c_str ()));
+      programming_error (
+        to_string_f ("asked to compute volume at +%f for "
+                     "dynamic span of duration %f starting at %s",
+                     when, duration_, start_moment_.to_string ().c_str ()));
       return start_volume_ + gain_;
     }
 
