@@ -731,6 +731,23 @@ the font production chain.  This is fixed now; be warned, however,
 that you might experience typesetting differences because tighter
 bounding boxes often lead to tighter typesetting.
 
+@item
+New markup commands to print the textual representation of accidentals are
+added:
+@code{\text-doubleflat}, @code{\text-flat}, @code{\text-natural},
+@code{\text-sharp}, @code{\text-doublesharp} and the general
+@code{\text-accidental}.
+
+@lilypond[quote,verbatim]
+\markuplist \override #'(padding . 1) \table #'(-1 -1 -1 -1 -1 -1) {
+  "Accidentals for text:"
+   \text-doubleflat \text-flat \text-natural \text-sharp
+   \text-doublesharp
+  "Accidentals for music:"
+  \doubleflat \flat \natural \sharp \doublesharp
+}
+@end lilypond
+
 @end itemize
 
 @node New for specialist notation

@@ -3652,8 +3652,49 @@ This command sets the @code{font-family} property to @code{sans}.
   "Print @var{arg} using the (music) font for numbers.
 
 This font also contains symbols for figured bass, some punctuation, spaces of
-various widths, and text variants of accidentals.  Use @code{\\dynamic} to
-access the (very small number of) letters.
+various widths, some letters and text variants of accidentals.
+Use @code{\\dynamic} to access the (very small number of) letters.
+For accidentals you might use @code{\\number} in combination
+with Unicode characters to access the text representation
+forms of accidental glyphs, as the following table shows.
+
+@lilypond[quote]
+\\paper {
+  % Avoid that Fontconfig arbitrarily selects a font for the
+  % flat, which is not present in the URW typewriter font.
+  property-defaults.fonts.sans = \"DejaVu Sans Mono\"
+}
+
+\\markuplist {
+  \\override #'(padding . 2)
+  \\table #'(0 0) {
+    \"Unicode value\"          \"Unicode character\"
+    \\typewriter \"U+266D \"   \\tiny \\number ♭
+    \\typewriter \"U+266E \"   \\tiny \\number ♮
+    \\typewriter \"U+266F \"   \\tiny \\number ♯
+    \\typewriter \"U+1D12A\"   \\tiny \\number 𝄪
+    \\typewriter \"U+1D12B\"   \\tiny \\number 𝄫
+  }
+
+  \\vspace #0.5
+
+  \\override #'(baseline-skip . 3)
+  \\left-column {
+    Examples:
+    \\line { \\concat { \\typewriter \" \\\\number \" \\sans ♭ }
+            \\typewriter \" → \"
+            \\tiny \\number ♭ }
+    \\line { \\typewriter \" \\\\number { \\char ##x266F }\"
+            \\typewriter \" → \"
+            \\tiny \\number \\char ##x266F }
+  }
+}
+@end lilypond
+
+To get accidentals protected against overrides of @code{font-name} it is
+preferable to use @code{\\text-doubleflat}, @code{\\text-flat},
+@code{\\text-natural}, @code{\\text-sharp}, @code{\\text-doublesharp} or the
+general @code{\\text-accidental} for the text variants of accidentals.
 
 @cindex feature, OpenType font
 @cindex font feature, OpenType
@@ -4183,15 +4224,15 @@ names.
   #:properties ((alteration-glyph-name-alist))
   "Select an accidental glyph for @var{alteration}, given as a rational number.
 
-Use @code{\\number} instead if you need glyph representation forms that fit and
-align well with text.
+Use @code{\\text-accidental} instead if you need glyph representation forms that
+fit and align well with text.
 
 @lilypond[verbatim,quote]
 \\markup {
   text
   \\tiny { \\accidental #1/2 \\accidental #-1/2 }
   text
-  \\tiny \\number { \\char ##x266F \\char ##x266D }
+  \\tiny { \\text-accidental #1/2 \\text-accidental #-1/2 }
   text
 }
 @end lilypond"
@@ -4320,6 +4361,110 @@ align well with text.
 @end lilypond"
   (interpret-markup layout props
                     (make-accidental-markup -1)))
+
+(define-markup-command (text-accidental layout props alteration)
+  (exact-rational?)
+  #:category music
+  #:properties ((alteration-glyph-name-alist))
+  "Select an accidental glyph for @var{alteration} (given as a rational number)
+that aligns well with text.
+
+@lilypond[verbatim,quote]
+\\markup {
+  text
+  \\tiny { \\text-accidental #1/2 \\text-accidental #-1/2 }
+  text
+}
+@end lilypond"
+
+  (let* ((acc (assv-ref alteration-glyph-name-alist alteration)))
+    ;; If no accidental for current alteration can be found, warn and use
+    ;; a crossed note head as substitute. Otherwise try to get accidentals for
+    ;; text or fall back to music accidentals.
+    (if (not acc)
+        (begin
+          (ly:warning (G_ "no accidental glyph found for alteration ~a")
+                      alteration)
+          (interpret-markup layout props
+                            (make-musicglyph-markup "noteheads.s1cross")))
+        (let* ((text-acc (format #f "~a.figbass" acc))
+               ;; protect against overrides of 'font-name
+               (font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)
+                                                       (font-name . #f))
+                                                     props)))
+               (text-acc-stil (ly:font-get-glyph font text-acc)))
+
+          (if (ly:stencil-empty? text-acc-stil)
+              (begin
+                (ly:warning (G_ "no text accidental glyph found for alteration ~a, falling back to music accidental.")
+                            alteration)
+                (ly:font-get-glyph font acc))
+              text-acc-stil)))))
+
+(define-markup-command (text-doublesharp layout props)
+  ()
+  #:category music
+  "Draw a double sharp symbol for text.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\text-doublesharp
+}
+@end lilypond"
+  (interpret-markup layout props
+                    (make-text-accidental-markup 1)))
+
+(define-markup-command (text-sharp layout props)
+  ()
+  #:category music
+  "Draw a sharp symbol for text.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\text-sharp
+}
+@end lilypond"
+  (interpret-markup layout props
+                    (make-text-accidental-markup 1/2)))
+
+(define-markup-command (text-natural layout props)
+  ()
+  #:category music
+  "Draw a natural symbol for text.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\text-natural
+}
+@end lilypond"
+  (interpret-markup layout props
+                    (make-text-accidental-markup 0)))
+
+(define-markup-command (text-flat layout props)
+  ()
+  #:category music
+  "Draw a flat symbol for text.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\text-flat
+}
+@end lilypond"
+  (interpret-markup layout props
+                    (make-text-accidental-markup -1/2)))
+
+(define-markup-command (text-doubleflat layout props)
+  ()
+  #:category music
+  "Draw a double flat symbol for text.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\text-doubleflat
+}
+@end lilypond"
+  (interpret-markup layout props
+                    (make-text-accidental-markup -1)))
 
 (define-markup-command (with-color layout props col arg)
   (color? markup?)
