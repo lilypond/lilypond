@@ -245,5 +245,202 @@ staffLines =
    (interpret-markup
     layout props
     #{ \\markup \\box \\with-dimension-from #Y \\rotate #90 #arg #arg #}))
-"""
+""",
+
+    "accidental-marks": """\
+% \\accs-ornament
+% --------------
+%
+% Position the `above` and `below` markup lists as vertical stacks
+% above and below markup `script`, respectively.  `above` and `below`
+% are by default horizontally centered on `script` (controlled by the
+% property `acc-dir`), printed at a size given by the property
+% `acc-font-size` (default value -5), and a color given by the
+% property `acc-color` (default is black).  Between all markups a
+% vertical space given by the property `acc-padding` (default value
+% 0.2) is inserted.  The `above` stack grows from bottom to top, while
+% the `below` stack grows from top to bottom.
+%
+% If either `above` or `below` is an empty argument, or if `script` is
+% set to `#f`, the corresponding argument is not printed.
+%
+% If an element of `above`, `script`, or `below` is a plain string,
+% check the following.
+%
+% * If the string consists entirely of one or more characters from the
+%   accidental set '♮♭♯𝄪𝄫' (not counting a possible enclosure), add
+%   `\\number` internally as a prefix to use the Emmentaler font.
+%
+% * Otherwise the element is taken as a glyph name (again not counting
+%   a possible enclosure), to be internally accessed with the
+%   `\\musicglyph` command.
+%
+% * (Not for `script`.)  If an element of `above` or `below` is a
+%   plain string and the first and last character is `(` and `)`,
+%   respectively, the element gets enclosed in parentheses.  The same
+%   holds for `[` and `]`, enclosing the element in brackets.  The
+%   font size of the enclosure characters is controlled by the
+%   property `enclosure-font-size` (default value -2).
+%
+% Example:
+%
+% ```
+% \\markup \\override #'(acc-padding . 0.5)
+%         \\accs-ornament { "♭" "(♯)" } "scripts.haydnturn" {}
+% ```
+
+#(define-markup-command (accs-ornament layout props
+                                       above script below)
+   (markup-list? markup? markup-list?)
+   #:properties ((acc-font-size -5)
+                 (acc-color black)
+                 (acc-padding 0.3)
+                 (acc-dir CENTER)
+	         (enclosure-font-size -2))
+
+   (define enclosure-regex
+     ;; `(?(-3) ...)` is a 'conditional subpattern' that is only
+     ;; considered for matching if the subpattern three opening
+     ;; parentheses earlier (i.e., the first group) matches.
+     (ly:make-regex "(?x) ^ ( [([] ) ?
+                            ( [^]()[] + )
+                            ( (?(-3) [])] ) ) $"))
+
+   (define charset:accidentals (string->char-set "♮♭♯𝄪𝄫"))
+
+   (define (musicglyph-or-number-markup arg)
+     (if (string-every charset:accidentals arg)
+         (make-number-markup arg)
+         (make-musicglyph-markup arg)))
+
+   (define (with-enclosure-markup arg)
+     (let ((match (ly:regex-exec enclosure-regex arg)))
+       (if match
+           (let* (;; `left` is `#f` if there is no enclosure.
+                  (left (ly:regex-match-substring match 1))
+                  (left (if left
+                            (make-normalsize-markup
+                             (make-fontsize-markup
+                              enclosure-font-size left))
+                            #f))
+                  (glyph (ly:regex-match-substring match 2))
+                  ;; `right` is `""` if there is no enclosure.
+                  (right (ly:regex-match-substring match 3))
+                  (right (if (string-null? right)
+                             #f
+                             (make-normalsize-markup
+                              (make-fontsize-markup
+                               enclosure-font-size right)))))
+             (make-concat-markup
+              (list
+               (or left "")
+               (musicglyph-or-number-markup glyph)
+               (or right ""))))
+           #f)))
+
+   (define (to-markup arg enclosure)
+     (if (string? arg)
+	 (if (string-null? arg)
+             #f
+             (if enclosure
+                 (with-enclosure-markup arg)
+                 (musicglyph-or-number-markup arg)))
+         arg))
+
+   (define (make-acc-stencil arg)
+     (if arg
+         (interpret-markup
+          layout props
+          (make-halign-markup
+           acc-dir
+           (make-with-color-markup
+            acc-color
+            (make-fontsize-markup
+             acc-font-size arg))))
+         #f))
+
+   (let* ((above (map (lambda (x) (to-markup x #t)) above))
+          (above-stils (map (lambda (x)
+                              (make-acc-stencil x))
+                            above))
+
+          (script (to-markup script #f))
+          (script-stil (if script
+                           (interpret-markup layout props script)
+                           empty-stencil))
+
+          (below (map (lambda (x) (to-markup x #t)) below))
+          (below-stils (map (lambda (x)
+                              (make-acc-stencil x))
+                            below))
+
+          (script-stil (fold (lambda (elem previous)
+                               (ly:stencil-combine-at-edge
+                                previous Y UP elem acc-padding))
+                             script-stil
+                             above-stils))
+          (script-stil (fold (lambda (elem previous)
+                               (ly:stencil-combine-at-edge
+                                previous Y DOWN elem acc-padding))
+                             script-stil
+                             below-stils)))
+     script-stil))
+
+
+% \\acc-ornament
+% -------------
+%
+% This function behaves similar to `\\accs-ornament` with the
+% difference that `above` and `below` are single markups, not markup
+% lists.  If one of the arguments is an empty string, it is not
+% printed.
+%
+% Example:
+%
+% ```
+% \\markup \\acc-ornament "[♭]" "scripts.turn" ♯
+% ```
+
+#(define-markup-command (acc-ornament layout props
+                                      above script below)
+   (markup? markup? markup?)
+   #:properties (accs-ornament-markup)
+   (accs-ornament-markup layout props
+                         (if (and (string? above) (string-null? above))
+                             '()
+                             (list above))
+                         (if (and (string? script) (string-null? script))
+                             #f
+                             script)
+                         (if (and (string? below) (string-null? below))
+                             '()
+                             (list below))))
+
+
+% Some shorthands to make the usage of `\\acc-ornament` more
+% comfortable for simple cases.
+
+
+ornament =
+#(define-music-function (above script below)
+   (string? string? string?)
+   #{
+     \\tweak parent-alignment-X #CENTER
+     \\tweak self-alignment-X #CENTER
+     -\\markup \\acc-ornament #above #script #below
+   #})
+
+
+accTrill =
+#(define-music-function (above)
+   (string?)
+   #{
+     \\tweak parent-alignment-X #CENTER
+     \\tweak self-alignment-X #CENTER
+     -\\markup
+        \\override #'((acc-dir . -1.3)
+                     (acc-padding . -0.4))
+        \\acc-ornament #above "scripts.trill" ""
+   #})
+""",
 }

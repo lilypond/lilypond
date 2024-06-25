@@ -1606,13 +1606,15 @@ def musicxml_accidental_mark(mxl_event, note_color=None, note_font_size=None):
 
 
 # Translate articulations, ornaments, and other notations into
-# ArticulationEvents.  Possible values:
+# `ArticulationEvent` and similar objects.  Possible values:
 #
-#   -) string:        ArticulationEvent with that name
-#   -) function:      function(mxl_event) needs to return a full
-#                     ArticulationEvent-derived object
-#   -) (class, name): like string, only that a different class than
-#                     ArticulationEvent is used
+#   -) string:           `ArticulationEvent` with that name
+#   -) (string, string): `OrnamentEvent` with glyph name and its equivalent
+#                        command
+#   -) function:         `function(mxl_event)` needs to return a full
+#                        `ArticulationEvent`-derived object
+#   -) (class, name):    like 'string', only that a different class than
+#                        `ArticulationEvent` is used
 #
 # TODO: Some translations are missing!
 articulations_dict = {
@@ -1643,10 +1645,10 @@ articulations_dict = {
     # "haydn": "?",
     # "heel": "?",
     # "hole": "?",
-    "inverted-mordent": "prall",
-    "inverted-turn": "reverseturn",
+    "inverted-mordent": ("scripts.prall", "prall"),
+    "inverted-turn": ("scripts.reverseturn", "reverseturn"),
     # "inverted-vertical-turn": "?",
-    "mordent": "mordent",
+    "mordent": ("scripts.mordent", "mordent"),
     # "open": "?",
     "open-string": "open",
     # "other-ornament": "?",
@@ -1671,12 +1673,13 @@ articulations_dict = {
     "tenuto": (musicexp.ShortArticulationEvent, "-"),  # or "tenuto"
     "thumb-position": "thumb",
     # "toe": "?",
-    "turn": "turn",
+    "turn": ("scripts.turn", "turn"),
     "tremolo": musicxml_tremolo_to_lily_event,  # only the single-note symbol
-    "trill-mark": "trill",
+    "trill-mark": ("scripts.trill", "trill"),
     # "triple-tongue": "?",
     # "unstress": "?"
     "up-bow": "upbow",
+    # "vertical-turn": "?",
     # "wavy-line": handled as spanner
 }
 
@@ -1751,14 +1754,21 @@ def musicxml_articulation_to_lily_event(mxl_event, note_color=None,
 
     tmp_tp = articulations_dict.get(name)
     if not tmp_tp:
-        return
+        return 'unsupported'
 
     if isinstance(tmp_tp, str):
         ev = musicexp.ArticulationEvent()
         ev.type = tmp_tp
     elif isinstance(tmp_tp, tuple):
-        ev = tmp_tp[0]()
-        ev.type = tmp_tp[1]
+        if isinstance(tmp_tp[0], str):
+            ev = musicexp.OrnamentEvent()
+            # For accidental marks.
+            ev.note_color = note_color
+            ev.note_font_size = note_font_size
+            ev.type = tmp_tp
+        else:
+            ev = tmp_tp[0]()
+            ev.type = tmp_tp[1]
     else:
         ev = tmp_tp(mxl_event)
 
@@ -3634,10 +3644,30 @@ def musicxml_voice_to_lily_voice(voice):
                         nonlocal is_double_note_tremolo
                         is_double_note_tremolo = True
 
+                ev = None
                 for ch in mxl_node.get_all_children():
+                    if isinstance(ch, musicxml.Hash_text):
+                        continue
+
+                    if ch._name == 'accidental-mark':
+                        if ev == 'unsupported':
+                            # Silently ignore accidental marks attached to
+                            # unhandled ornaments.
+                            continue
+
+                        try:
+                            ev.accidental_marks.append(ch)
+                            needed_additional_definitions.append(
+                                'accidental-marks')
+                        except AttributeError:
+                            ly.warning(_('ignoring <accidental-mark> not '
+                                         'attached to proper <ornaments> '
+                                         'child'))
+                        continue
+
                     ev = musicxml_articulation_to_lily_event(ch, note_color,
                                                              note_font_size)
-                    if ev is not None:
+                    if ev is not None and ev != 'unsupported':
                         try:
                             if ev.start_stop == True:
                                 voice_builder.add_last(ev)

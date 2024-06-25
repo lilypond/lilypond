@@ -2403,6 +2403,212 @@ class ArticulationEvent(Event):
         return ' '.join(res)
 
 
+# The Unicode-encoded accidentals select text variants in the Emmentaler
+# font.  In the code we use `isascii()` to select whether `\number` or
+# `\musicglyph` gets used.
+accidental_values_dict = {
+    'sharp': '♯',
+    'natural': '♮',
+    'flat': '♭',
+    'double-sharp': '𝄪',
+    'sharp-sharp': '♯♯',
+    'flat-flat': '𝄫',
+    'natural-sharp': '♮♯',
+    'natural-flat': '♮♭',
+    'quarter-flat': 'accidentals.mirroredflat',
+    'quarter-sharp': 'accidentals.sharp.slashslash.stem',
+    'three-quarters-flat': 'accidentals.mirroredflat.flat',
+    'three-quarters-sharp': 'accidentals.sharp.slashslash.stemstemstem',
+    'sharp-down': 'accidentals.sharp.arrowdown',
+    'sharp-up': 'accidentals.sharp.arrowup',
+    'natural-down': 'accidentals.natural.arrowdown',
+    'natural-up': 'accidentals.natural.arrowup',
+    'flat-down': 'accidentals.flat.arrowdown',
+    'flat-up': 'accidentals.flat.arrowup',
+    # 'double-sharp-down': '???',
+    # 'double-sharp-up': '???',
+    # 'flat-flat-down': '???',
+    # 'flat-flat-up': '???',
+    # 'arrow-up': '???',
+    # 'arrow-down': '???',
+    'triple-sharp': '♯𝄪',
+    'triple-flat': '♭𝄫',
+    'slash-quarter-sharp': 'accidentals.sharp.slashslashslash.stem',
+    'slash-sharp': 'accidentals.sharp.slashslashslash.stemstem',
+    'slash-flat': 'accidentals.flat.slash',
+    'double-slash-flat': 'accidentals.flat.slashslash',
+    # 'sharp-1': '???',
+    # 'sharp-2': '???',
+    # 'sharp-3': '???',
+    # 'sharp-5': '???',
+    # 'flat-1': '???',
+    # 'flat-2': '???',
+    # 'flat-3': '???',
+    # 'flat-4': '???',
+    'sori': 'accidentals.sharp.sori',
+    'koron': 'accidentals.flat.koron',
+    # 'other': '???',
+}
+
+
+class OrnamentEvent(ArticulationEvent):
+    def __init__(self):
+        ArticulationEvent.__init__(self)
+        self.note_color = None
+        self.note_font_size = None
+        self.accidental_marks = []
+        self.force_direction = 1
+
+    def ly_expression(self):
+        res = []
+
+        color = color_to_ly(self.color)
+        if color is not None:
+            res.append(r'\tweak color %s' % color)
+        else:
+            color = '"#000000"'
+
+        font_size = get_font_size(self.font_size, command=False)
+        if font_size is not None:
+            res.append(r'\tweak font-size %s' % font_size)
+
+        # `<accidental-mark>` elements get mapped to the LilyPond markup
+        # command `\ornament` for 'simple' cases (i.e., there is at most one
+        # accidental mark above and below that both have the same color as
+        # the ornament, and there is no `font-size` attribute for the two
+        # accidental marks) or `\accs-ornament` for the general case.  If
+        # there are no accidental marks at all, use LilyPond's standard
+        # ornament command.
+        #
+        # For trills, we use `\accTrill` if there is a single accidental mark
+        # above the trill.
+
+        above_marks = []
+        below_marks = []
+        same_color = True
+        have_font_size = False
+
+        for a in self.accidental_marks:
+            a_value = accidental_values_dict.get(a.get_text(), None)
+            if a_value is None:
+                continue
+
+            # Color and font size gets inherited from `<note>`.
+            a_color = color_to_ly(getattr(a, 'color', self.note_color))
+            a_font_size = get_font_size(getattr(a, 'font-size',
+                                                self.note_font_size),
+                                        command=False)
+            a_placement = getattr(a, 'placement', 'above')
+
+            # Similar to normal accidentals, give brackets precedence over
+            # parentheses.
+            a_bracket = getattr(a, 'bracket', 'no')
+            a_parentheses = getattr(a, 'parentheses', 'no')
+            a_enclosure = None
+            if a_bracket == 'yes':
+                a_enclosure = '[]'
+            elif a_parentheses == 'yes':
+                a_enclosure = '()'
+
+            if a_color is None:
+                a_color = '"#000000"'
+
+            a_mark = (a_value, a_color, a_font_size, a_enclosure)
+            if a_placement == 'above':
+                above_marks.append(a_mark)
+            else:
+                below_marks.append(a_mark)
+
+            if a_color != color:
+                same_color = False
+            if a_font_size is not None:
+                have_font_size = True
+
+        dir = self.direction_mod()
+
+        if (same_color and not have_font_size
+                and len(above_marks) <= 1 and len(below_marks) <= 1):
+            # The 'simple' case.
+            above = ''
+            if above_marks:
+                (a_value, dummy, dummy, a_enclosure) = above_marks[0]
+                above = a_value
+                if a_enclosure:
+                    above = a_enclosure[0] + above + a_enclosure[1]
+
+            below = ''
+            if below_marks:
+                (b_value, dummy, dummy, b_enclosure) = below_marks[0]
+                below = b_value
+                if b_enclosure:
+                    below = b_enclosure[0] + below + b_enclosure[1]
+
+            if above or below:
+                if self.type[1] == 'trill' and not below:
+                    res.append(r'%s\accTrill "%s"' % (dir, above))
+                else:
+                    res.append(r'%s\ornament "%s" "%s" "%s"'
+                               % (dir, above, self.type[0], below))
+            else:
+                res.append(r'%s\%s' % (dir, self.type[1]))
+        else:
+            # The general case.
+            above = []
+            below = []
+            for (marks, acc) in [(above_marks, above), (below_marks, below)]:
+                for (a_value, a_color, a_font_size, a_enclosure) in marks:
+                    markup = []
+                    if color != '"#000000"' or a_color != '"#000000"':
+                        markup.append(r'\with-color %s' % a_color)
+                    if a_font_size is not None:
+                        markup.append(r'\normalsize \fontsize %s'
+                                      % a_font_size)
+
+                    if a_value.isascii():
+                        m = r'\musicglyph "%s"' % a_value
+                    else:
+                        m = r'\number "%s"' % a_value
+
+                    if a_enclosure:
+                        # We increase the font size of the enclosure by three
+                        # magnitudes (see `acc-font-size` and
+                        # `enclosure-font-size` properties of the
+                        # `\accs-ornament` markup command).  This is a bit
+                        # awkward since we have to hard-code it here.  Also be
+                        # careful not to change the precision.
+                        delta = 3
+                        if a_font_size:
+                            e = a_font_size[1:].split('.')
+                            enc_font_size = str(int(e[0]) + delta)
+                            if len(e) > 1:
+                                enc_font_size += e[1]
+
+                            command = (r'\normalsize \fontsize #%s'
+                                       % enc_font_size)
+                        else:
+                            command = r'\fontsize #%s' % delta
+
+                        m = (r'\concat { %s "%s" %s %s "%s" }'
+                             % (command, a_enclosure[0],
+                                m,
+                                command, a_enclosure[1]))
+
+                    markup.append(m)
+
+                    acc.append(' '.join(markup))
+
+            if self.type[0]:
+                ornament = r'\musicglyph "%s"' % self.type[0]
+            else:
+                ornament = '##f'
+            res.append(r'\tweak parent-alignment-X #CENTER')
+            res.append(r'\tweak self-alignment-X #CENTER')
+            res.append(r'%s\markup \accs-ornament { %s } %s { %s }'
+                       % (dir, ' '.join(above), ornament, ' '.join(below)))
+
+        return ' '.join(res)
+
+
 class ShortArticulationEvent(ArticulationEvent):
     def direction_mod(self):
         # default is -
