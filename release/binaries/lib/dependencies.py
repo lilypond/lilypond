@@ -628,7 +628,7 @@ libunistring = Libunistring()
 class Guile(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "3.0.9"
+        return "3.0.10"
 
     @property
     def major_version(self) -> str:
@@ -689,7 +689,7 @@ class Guile(ConfigurePackage):
         mini_gmp_h = os.path.join("libguile", "mini-gmp.h")
         self.patch_file(c, mini_gmp_h, patch_mini_gmp)
 
-        # Apply backported patches to make Guile 3.0.9 work on Windows, see also
+        # Apply backported patches to make Guile 3.0.10 work on Windows, see also
         # https://lists.gnu.org/archive/html/guile-devel/2023-10/msg00051.html
         root_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         for patch in [
@@ -711,21 +711,6 @@ class Guile(ConfigurePackage):
                 )
 
     def apply_patches(self, c: Config):
-        # Fix non-portable invocation of inplace sed.
-        def patch_inplace_sed(content: str) -> str:
-            return content.replace("$(SED) -i", "$(SED)")
-
-        libguile_makefile_in = os.path.join("libguile", "Makefile.in")
-        self.patch_file(c, libguile_makefile_in, patch_inplace_sed)
-
-        # Fix cross-compilation in out-of-tree-builds.
-        def patch_cross_include(content: str) -> str:
-            return re.sub(
-                "\\$\\(CC_FOR_BUILD\\).*-I\\$\\(top_builddir\\)", "\\g<0> -I.", content
-            )
-
-        self.patch_file(c, libguile_makefile_in, patch_cross_include)
-
         if c.is_mingw():
             self._apply_patches_mingw(c)
 

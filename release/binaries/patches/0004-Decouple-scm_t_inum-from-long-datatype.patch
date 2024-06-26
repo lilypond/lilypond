@@ -1,7 +1,7 @@
-From 42548c961ecf2e2e0823f94944a7111d27071b06 Mon Sep 17 00:00:00 2001
+From 31dbc71a3692d9eb0f36d89e3b25a1e45d5c4917 Mon Sep 17 00:00:00 2001
 From: Jonas Hahnfeld <hahnjo@hahnjo.de>
 Date: Sat, 2 Sep 2023 16:15:37 +0200
-Subject: [PATCH 4/5] Decouple scm_t_inum from long datatype
+Subject: [PATCH 4/6] Decouple scm_t_inum from long datatype
 
 Guile expects that scm_t_inum (a typedef to long before this patch)
 has the same size as pointers to get compatible bytecode on different
@@ -62,7 +62,7 @@ index b4090e5bf..23bd2c0d5 100644
    alias_bignum_to_mpz (x, zx);
    result = mpz_gcd_ui (NULL, zx, y);
 diff --git a/libguile/numbers.c b/libguile/numbers.c
-index 18fa21b6d..92c202c83 100644
+index fc598694a..2ef5faa07 100644
 --- a/libguile/numbers.c
 +++ b/libguile/numbers.c
 @@ -94,10 +94,10 @@ verify (FLT_RADIX == 2);
@@ -78,7 +78,7 @@ index 18fa21b6d..92c202c83 100644
  
  /* Some functions that use GMP's mpn functions assume that a
     non-negative fixnum will always fit in a 'mp_limb_t'.  */
-@@ -6857,7 +6857,26 @@ void
+@@ -6868,7 +6868,26 @@ void
  scm_to_mpz (SCM val, mpz_t rop)
  {
    if (SCM_I_INUMP (val))
@@ -128,7 +128,7 @@ index 84ad5466f..8bc87829a 100644
  
  /* SCM_SRS (X, Y) is signed right shift, defined as floor (X / 2^Y),
 diff --git a/libguile/scm.h b/libguile/scm.h
-index e69552893..c7dbd3d46 100644
+index 4d079b1a8..e053c9883 100644
 --- a/libguile/scm.h
 +++ b/libguile/scm.h
 @@ -843,6 +843,8 @@ typedef struct scm_thread scm_thread;
@@ -141,5 +141,5 @@ index e69552893..c7dbd3d46 100644
  
  /* Cast pointer through (void *) in order to avoid compiler warnings
 -- 
-2.42.1
+2.34.1
 

@@ -1,7 +1,7 @@
-From d9825cda45b7f6050404671979d305712b57a593 Mon Sep 17 00:00:00 2001
+From 6eb1a840e362e11c167427ea905945c1eda2e41d Mon Sep 17 00:00:00 2001
 From: Jonas Hahnfeld <hahnjo@hahnjo.de>
 Date: Sat, 2 Sep 2023 16:38:59 +0200
-Subject: [PATCH 3/5] Rename functions that should accept scm_t_inum
+Subject: [PATCH 3/6] Rename functions that should accept scm_t_inum
 
 * libguile/integers.c (long_to_bignum): Rename to inum_to_bignum.
 (long_to_scm): Rename to scm_from_inum.
@@ -238,5 +238,5 @@ index 81ee06206..b4090e5bf 100644
  
  SCM
 -- 
-2.42.1
+2.34.1
 

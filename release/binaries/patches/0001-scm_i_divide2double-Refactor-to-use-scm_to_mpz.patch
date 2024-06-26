@@ -1,7 +1,7 @@
-From aaa2246cb4b6e77c1227ab84c405738d918a7098 Mon Sep 17 00:00:00 2001
+From ed36fd82a8d189c57d4b7088de9069d8de512d76 Mon Sep 17 00:00:00 2001
 From: Jonas Hahnfeld <hahnjo@hahnjo.de>
 Date: Wed, 30 Aug 2023 17:07:10 +0200
-Subject: [PATCH 1/5] scm_i_divide2double: Refactor to use scm_to_mpz
+Subject: [PATCH 1/6] scm_i_divide2double: Refactor to use scm_to_mpz
 
 * libguile/numbers.c (scm_i_divide2double): Refactor to use scm_to_mpz.
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH 1/5] scm_i_divide2double: Refactor to use scm_to_mpz
  1 file changed, 3 insertions(+), 9 deletions(-)
 
 diff --git a/libguile/numbers.c b/libguile/numbers.c
-index 30a826f13..18fa21b6d 100644
+index ae2aa7766..fc598694a 100644
 --- a/libguile/numbers.c
 +++ b/libguile/numbers.c
 @@ -294,16 +294,11 @@ scm_i_divide2double (SCM n, SCM d)
@@ -41,5 +41,5 @@ index 30a826f13..18fa21b6d 100644
    mpz_mul (lo, dd, scm_i_divide2double_lo2b);
    if (e > 0)
 -- 
-2.42.1
+2.34.1
 

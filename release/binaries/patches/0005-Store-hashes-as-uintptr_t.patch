@@ -1,7 +1,7 @@
-From effa7aec1c799877ac7cd889a92d7d74308220b6 Mon Sep 17 00:00:00 2001
+From 6b5d96c59438df59999ec1251cf6fadd611b5d21 Mon Sep 17 00:00:00 2001
 From: Jonas Hahnfeld <hahnjo@hahnjo.de>
 Date: Tue, 24 Oct 2023 23:47:41 +0200
-Subject: [PATCH 5/5] Store hashes as uintptr_t
+Subject: [PATCH 5/6] Store hashes as uintptr_t
 
 As for scm_t_inum, Guile expects that hashes have the same size as
 pointers to get compatible bytecode (with respect to interned symbols)
@@ -26,10 +26,10 @@ Based on changes by Jan Nieuwenhuizen, Mike Gran, and Andy Wingo.
  6 files changed, 62 insertions(+), 62 deletions(-)
 
 diff --git a/libguile/hash.c b/libguile/hash.c
-index c192ac2e5..17ccab193 100644
+index a038a11bf..a6d327da5 100644
 --- a/libguile/hash.c
 +++ b/libguile/hash.c
-@@ -112,31 +112,31 @@ extern double floor();
+@@ -112,25 +112,25 @@ extern double floor();
         the hash on a 64-bit system are equal to the hash on a 32-bit    \
         system.  The low 32 bits just add more entropy.  */              \
      if (sizeof (ret) == 8)                                              \
@@ -60,14 +60,16 @@ index c192ac2e5..17ccab193 100644
    JENKINS_LOOKUP3_HASHWORD2 (str, len, ret);
    ret >>= 2; /* Ensure that it fits in a fixnum.  */
    return ret;
- }
+@@ -138,7 +138,7 @@ wide_string_hash (const scm_t_wchar *str, size_t len)
  
+ /* If you change this to a different hash, also update (language cps
+    guile-vm).  */
 -unsigned long
 +uintptr_t
  scm_i_string_hash (SCM str)
  {
    size_t len = scm_i_string_length (str);
-@@ -148,13 +148,13 @@ scm_i_string_hash (SCM str)
+@@ -150,13 +150,13 @@ scm_i_string_hash (SCM str)
      return wide_string_hash (scm_i_string_wide_chars (str), len);
  }
  
@@ -83,7 +85,7 @@ index c192ac2e5..17ccab193 100644
  scm_i_latin1_string_hash (const char *str, size_t len)
  {
    if (len == (size_t) -1)
-@@ -164,11 +164,11 @@ scm_i_latin1_string_hash (const char *str, size_t len)
+@@ -166,11 +166,11 @@ scm_i_latin1_string_hash (const char *str, size_t len)
  }
  
  /* A tricky optimization, but probably worth it.  */
@@ -97,7 +99,7 @@ index c192ac2e5..17ccab193 100644
  
    /* The length of the string in characters.  This name corresponds to
       Jenkins' original name.  */
-@@ -219,8 +219,8 @@ scm_i_utf8_string_hash (const char *str, size_t len)
+@@ -221,8 +221,8 @@ scm_i_utf8_string_hash (const char *str, size_t len)
  
    final (a, b, c);
  
@@ -108,7 +110,7 @@ index c192ac2e5..17ccab193 100644
    else
      ret = c;
  
-@@ -228,16 +228,16 @@ scm_i_utf8_string_hash (const char *str, size_t len)
+@@ -230,16 +230,16 @@ scm_i_utf8_string_hash (const char *str, size_t len)
    return ret;
  }
  
@@ -129,7 +131,7 @@ index c192ac2e5..17ccab193 100644
  
    struct_size = SCM_STRUCT_SIZE (obj);
  
-@@ -257,7 +257,7 @@ scm_i_struct_hash (SCM obj, size_t depth)
+@@ -259,7 +259,7 @@ scm_i_struct_hash (SCM obj, size_t depth)
  
  /* Thomas Wang's integer hasher, from
     http://www.cris.com/~Ttwang/tech/inthash.htm.  */
@@ -138,7 +140,7 @@ index c192ac2e5..17ccab193 100644
  scm_raw_ihashq (scm_t_bits key)
  {
    if (sizeof (key) < 8)
-@@ -283,7 +283,7 @@ scm_raw_ihashq (scm_t_bits key)
+@@ -285,7 +285,7 @@ scm_raw_ihashq (scm_t_bits key)
  }
  
  /* `depth' is used to limit recursion. */
@@ -147,7 +149,7 @@ index c192ac2e5..17ccab193 100644
  scm_raw_ihash (SCM obj, size_t depth)
  {
    if (SCM_IMP (obj))
-@@ -301,7 +301,7 @@ scm_raw_ihash (SCM obj, size_t depth)
+@@ -303,7 +303,7 @@ scm_raw_ihash (SCM obj, size_t depth)
            SCM n = SCM_I_MAKINUM (SCM_MOST_POSITIVE_FIXNUM);
            if (scm_is_inexact (obj))
              obj = scm_inexact_to_exact (obj);
@@ -156,7 +158,7 @@ index c192ac2e5..17ccab193 100644
          }
        else
          return scm_i_string_hash (scm_number_to_string (obj, scm_from_int (10)));
-@@ -318,7 +318,7 @@ scm_raw_ihash (SCM obj, size_t depth)
+@@ -320,7 +320,7 @@ scm_raw_ihash (SCM obj, size_t depth)
        {
  	size_t len = SCM_SIMPLE_VECTOR_LENGTH (obj);
          size_t i = depth / 2;
@@ -165,7 +167,7 @@ index c192ac2e5..17ccab193 100644
          if (len)
            while (i--)
              h ^= scm_raw_ihash (scm_c_vector_ref (obj, h % len), i);
-@@ -326,7 +326,7 @@ scm_raw_ihash (SCM obj, size_t depth)
+@@ -328,7 +328,7 @@ scm_raw_ihash (SCM obj, size_t depth)
        }
      case scm_tc7_syntax:
        {
@@ -174,7 +176,7 @@ index c192ac2e5..17ccab193 100644
          h = scm_raw_ihash (scm_syntax_expression (obj), depth);
          h ^= scm_raw_ihash (scm_syntax_wrap (obj), depth);
          h ^= scm_raw_ihash (scm_syntax_module (obj), depth);
-@@ -365,8 +365,8 @@ scm_raw_ihash (SCM obj, size_t depth)
+@@ -367,8 +367,8 @@ scm_raw_ihash (SCM obj, size_t depth)
  
  
  
@@ -185,7 +187,7 @@ index c192ac2e5..17ccab193 100644
  {
    return scm_raw_ihashq (SCM_UNPACK (obj)) % n;
  }
-@@ -386,8 +386,8 @@ SCM_DEFINE (scm_hashq, "hashq", 2, 0, 0,
+@@ -388,8 +388,8 @@ SCM_DEFINE (scm_hashq, "hashq", 2, 0, 0,
  	    "different values, since @code{foo} will be garbage collected.")
  #define FUNC_NAME s_scm_hashq
  {
@@ -196,7 +198,7 @@ index c192ac2e5..17ccab193 100644
  }
  #undef FUNC_NAME
  
-@@ -395,8 +395,8 @@ SCM_DEFINE (scm_hashq, "hashq", 2, 0, 0,
+@@ -397,8 +397,8 @@ SCM_DEFINE (scm_hashq, "hashq", 2, 0, 0,
  
  
  
@@ -207,7 +209,7 @@ index c192ac2e5..17ccab193 100644
  {
    if (SCM_NUMP(obj))
      return scm_raw_ihash (obj, 10) % n;
-@@ -419,8 +419,8 @@ SCM_DEFINE (scm_hashv, "hashv", 2, 0, 0,
+@@ -421,8 +421,8 @@ SCM_DEFINE (scm_hashv, "hashv", 2, 0, 0,
  	    "different values, since @code{foo} will be garbage collected.")
  #define FUNC_NAME s_scm_hashv
  {
@@ -218,7 +220,7 @@ index c192ac2e5..17ccab193 100644
  }
  #undef FUNC_NAME
  
-@@ -428,10 +428,10 @@ SCM_DEFINE (scm_hashv, "hashv", 2, 0, 0,
+@@ -430,10 +430,10 @@ SCM_DEFINE (scm_hashv, "hashv", 2, 0, 0,
  
  
  
@@ -232,7 +234,7 @@ index c192ac2e5..17ccab193 100644
  }
  
  SCM_DEFINE (scm_hash, "hash", 2, 0, 0,
-@@ -442,8 +442,8 @@ SCM_DEFINE (scm_hash, "hash", 2, 0, 0,
+@@ -444,8 +444,8 @@ SCM_DEFINE (scm_hash, "hash", 2, 0, 0,
  	    "integer in the range 0 to @var{size} - 1.")
  #define FUNC_NAME s_scm_hash
  {
@@ -305,7 +307,7 @@ index f28ef3246..aa6a601be 100644
  SCM_INTERNAL const scm_t_wchar *scm_i_symbol_wide_chars (SCM sym);
  SCM_INTERNAL size_t scm_i_symbol_length (SCM sym);
 diff --git a/libguile/symbols.c b/libguile/symbols.c
-index 02be7c1c4..1b5039ed1 100644
+index 292941e9d..b3ddab67d 100644
 --- a/libguile/symbols.c
 +++ b/libguile/symbols.c
 @@ -71,8 +71,8 @@ SCM_DEFINE (scm_sys_symbols, "%symbols", 0, 0, 0,
@@ -377,7 +379,7 @@ index 02be7c1c4..1b5039ed1 100644
  scm_i_str2symbol (SCM str)
  {
    SCM symbol;
--  size_t raw_hash = scm_i_string_hash (str);
+-  unsigned long raw_hash = scm_i_string_hash (str);
 +  uintptr_t raw_hash = scm_i_string_hash (str);
  
    symbol = lookup_interned_symbol (str, raw_hash);
@@ -386,12 +388,12 @@ index 02be7c1c4..1b5039ed1 100644
  static SCM
  scm_i_str2uninterned_symbol (SCM str)
  {
--  size_t raw_hash = scm_i_string_hash (str);
+-  unsigned long raw_hash = scm_i_string_hash (str);
 +  uintptr_t raw_hash = scm_i_string_hash (str);
  
    return scm_i_make_symbol (str, SCM_I_F_SYMBOL_UNINTERNED, raw_hash);
  }
-@@ -456,7 +456,7 @@ scm_from_latin1_symbol (const char *sym)
+@@ -416,7 +416,7 @@ scm_from_latin1_symbol (const char *sym)
  SCM
  scm_from_latin1_symboln (const char *sym, size_t len)
  {
@@ -400,7 +402,7 @@ index 02be7c1c4..1b5039ed1 100644
    SCM ret;
  
    if (len == (size_t) -1)
-@@ -482,7 +482,7 @@ scm_from_utf8_symbol (const char *sym)
+@@ -442,7 +442,7 @@ scm_from_utf8_symbol (const char *sym)
  SCM
  scm_from_utf8_symboln (const char *sym, size_t len)
  {
@@ -434,5 +436,5 @@ index e8bc3346f..f541f5126 100644
  SCM_INTERNAL void scm_symbols_prehistory (void);
  SCM_INTERNAL void scm_init_symbols (void);
 -- 
-2.42.1
+2.34.1
 
