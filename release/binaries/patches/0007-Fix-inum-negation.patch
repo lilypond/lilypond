@@ -1,0 +1,78 @@
+From 6f1ff1036bec220c0ade16d0ae37a82293a13c35 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Michael=20K=C3=A4ppler?= <xmichael-k@web.de>
+Date: Sat, 15 Jun 2024 22:18:56 +0200
+Subject: [PATCH 1/3] Fix inum negation
+
+The use of `negative_long` can lead to overflow if called
+on inums that do not fit into a `long`.  This led to
+problems when normalizing bignums on Windows.
+
+* libguile/integers.c: use new `negative_inum` for negating inums,
+  drop now unused function `negative_long`.
+---
+ libguile/integers.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
+
+diff --git a/libguile/integers.c b/libguile/integers.c
+index 380ff193c..aab49428e 100644
+--- a/libguile/integers.c
++++ b/libguile/integers.c
+@@ -109,13 +109,6 @@ long_magnitude (long l)
+   return l < 0 ? ~mag + 1 : mag;
+ }
+ 
+-static inline long
+-negative_long (unsigned long mag)
+-{
+-  ASSERT (mag <= (unsigned long) LONG_MIN);
+-  return ~mag + 1;
+-}
+-
+ static inline int64_t
+ negative_int64 (uint64_t mag)
+ {
+@@ -141,6 +134,14 @@ inum_magnitude (scm_t_inum i)
+   return mag;
+ }
+ 
++static inline scm_t_inum
++negative_inum (scm_t_bits mag)
++{
++  scm_t_inum i = ~mag + 1;
++  ASSERT (i >= SCM_MOST_NEGATIVE_FIXNUM);
++  return i;
++}
++
+ static struct scm_bignum *
+ allocate_bignum (size_t nlimbs)
+ {
+@@ -313,7 +314,7 @@ normalize_bignum (struct scm_bignum *z)
+     {
+     case -1:
+       if (bignum_limbs (z)[0] <= inum_magnitude (SCM_MOST_NEGATIVE_FIXNUM))
+-        return SCM_I_MAKINUM (negative_long (bignum_limbs (z)[0]));
++        return SCM_I_MAKINUM (negative_inum (bignum_limbs (z)[0]));
+       break;
+     case 0:
+       return SCM_INUM0;
+@@ -429,7 +430,7 @@ negative_uint32_to_int32 (uint32_t magnitude, int32_t *val)
+ {
+   if (magnitude > long_magnitude (INT32_MIN))
+     return 0;
+-  *val = negative_long (magnitude);
++  *val = -magnitude;
+   return 1;
+ }
+ 
+@@ -3070,7 +3071,7 @@ scm_integer_mul_ii (scm_t_inum x, scm_t_inum y)
+       if (negative)
+         {
+           if (lo <= inum_magnitude (SCM_MOST_NEGATIVE_FIXNUM))
+-            return SCM_I_MAKINUM (negative_long (lo));
++            return SCM_I_MAKINUM (negative_inum (lo));
+         }
+       else if (lo <= SCM_MOST_POSITIVE_FIXNUM)
+         return SCM_I_MAKINUM (lo);
+-- 
+2.34.1
+

@@ -699,6 +699,7 @@ class Guile(ConfigurePackage):
             "0004-Decouple-scm_t_inum-from-long-datatype.patch",
             "0005-Store-hashes-as-uintptr_t.patch",
             "0006-Use-inum_magnitude-for-inums.patch",
+            "0007-Fix-inum-negation.patch",
         ]:
             patch_path = os.path.join(root_path, "patches", patch)
             with open(patch_path) as patch_file:
