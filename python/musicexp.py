@@ -2666,6 +2666,40 @@ class MarkupEvent(ShortArticulationEvent):
         return ' '.join(res)
 
 
+class AccidentalMarkEvent(MarkupEvent):
+    def __init__(self):
+        ArticulationEvent.__init__(self)
+        self.force_direction = 1
+
+    def ly_expression(self):
+        contents = accidental_values_dict.get(self.contents, None)
+        if contents is None:
+            return ''
+
+        if contents.isascii():
+            contents = r'\musicglyph "%s"' % contents
+        else:
+            contents = r'\number "%s"' % contents
+
+        res = []
+
+        # Accidental marks should be horizontally centered on the note
+        # head.
+        res.append(r'\tweak parent-alignment-X #CENTER')
+        res.append(r'\tweak self-alignment-X #CENTER')
+
+        color = color_to_ly(self.color)
+        if color is not None:
+            res.append(r'\tweak color %s' % color)
+        font_size = get_font_size(self.font_size, command=False)
+        if font_size is not None:
+            res.append(r'\tweak font-size %s' % font_size)
+
+        res.append(r"%s\markup %s" % (self.direction_mod(), contents))
+
+        return ' '.join(res)
+
+
 class FretEvent(MarkupEvent):
     def __init__(self):
         MarkupEvent.__init__(self)
