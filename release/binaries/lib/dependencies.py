@@ -700,6 +700,8 @@ class Guile(ConfigurePackage):
             "0005-Store-hashes-as-uintptr_t.patch",
             "0006-Use-inum_magnitude-for-inums.patch",
             "0007-Fix-inum-negation.patch",
+            "0008-Avoid-using-long-integers-literals.patch",
+            "0009-mpz-integer-do-not-convert-to-bignum-if-inum-is-suff.patch",
         ]:
             patch_path = os.path.join(root_path, "patches", patch)
             with open(patch_path) as patch_file:

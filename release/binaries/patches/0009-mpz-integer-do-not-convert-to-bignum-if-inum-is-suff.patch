@@ -1,0 +1,37 @@
+From d637d8155566087243ee4afbbcd4296ad6f2480f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Michael=20K=C3=A4ppler?= <xmichael-k@web.de>
+Date: Tue, 25 Jun 2024 23:30:41 +0200
+Subject: [PATCH 3/3] mpz->integer: do not convert to bignum if inum is
+ sufficient
+
+Before, `take_mpz` would convert to bignum if the `mpz` value
+does not fit into a signed long, even though `scm_t_inum` is not
+coupled to `long` anymore.  This leads to problems with functions
+that expect values that numerically fit into a fixnum to be of
+inum type, e.g., during bytecode compilation of long-long-immediates,
+where `ash` returns a bignum, while the assembler requires an inum.
+
+Call `scm_integer_from_mpz` instead, which will convert back to inum
+if the number fits into an inum.
+
+* libguile/integers.c (take_mpz): use `scm_integer_from_mpz`
+---
+ libguile/integers.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libguile/integers.c b/libguile/integers.c
+index 1560c5d17..092345b1d 100644
+--- a/libguile/integers.c
++++ b/libguile/integers.c
+@@ -335,7 +335,7 @@ take_mpz (mpz_ptr mpz)
+   if (mpz_fits_slong_p (mpz))
+     ret = scm_from_inum (mpz_get_si (mpz));
+   else
+-    ret = scm_from_bignum (make_bignum_from_mpz (mpz));
++    ret = scm_integer_from_mpz (mpz);
+   mpz_clear (mpz);
+   return ret;
+ }
+-- 
+2.34.1
+
