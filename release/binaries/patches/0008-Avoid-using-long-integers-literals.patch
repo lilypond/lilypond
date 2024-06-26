@@ -1,0 +1,57 @@
+From 7d21acce0f94b8fd372e6bb3e55d8b04d964c85b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Michael=20K=C3=A4ppler?= <xmichael-k@web.de>
+Date: Wed, 19 Jun 2024 22:07:09 +0200
+Subject: [PATCH 2/3] Avoid using `long` integers literals
+
+Bit manipulation on `long` integer literals caused overflow in
+some cases (e.g., when calculating high powers of two) on Windows,
+where `long` is only 32 bit width.
+
+* libguile/integers.c (scm_integer_expt_ii, scm_integer_round_rsh_iu,
+  scm_integer_bit_extract_i): Use `scm_t_inum` type instead of `long`
+  in places where `long` could overflow.
+---
+ libguile/integers.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/libguile/integers.c b/libguile/integers.c
+index aab49428e..1560c5d17 100644
+--- a/libguile/integers.c
++++ b/libguile/integers.c
+@@ -2299,7 +2299,7 @@ scm_integer_expt_ii (scm_t_inum n, scm_t_inum k)
+   if (n == 2)
+     {
+       if (k < SCM_I_FIXNUM_BIT - 1)
+-        return SCM_I_MAKINUM (1L << k);
++        return SCM_I_MAKINUM (((scm_t_inum) 1) << k);
+       if (k < 64)
+         return scm_integer_from_uint64 (((uint64_t) 1) << k);
+       size_t nlimbs = k / (sizeof (mp_limb_t)*8) + 1;
+@@ -2458,12 +2458,12 @@ scm_integer_round_rsh_iu (scm_t_inum n, unsigned long count)
+     {
+       scm_t_inum q = SCM_SRS (n, count);
+ 
+-      if (0 == (n & (1L << (count-1))))
++      if (0 == (n & (((scm_t_inum) 1) << (count-1))))
+         return SCM_I_MAKINUM (q);                /* round down */
+-      else if (n & ((1L << (count-1)) - 1))
++      else if (n & ((((scm_t_inum) 1) << (count-1)) - 1))
+         return SCM_I_MAKINUM (q + 1);            /* round up */
+       else
+-        return SCM_I_MAKINUM ((~1L) & (q + 1));  /* round to even */
++        return SCM_I_MAKINUM (~((scm_t_inum) 1) & (q + 1));  /* round to even */
+     }
+ }
+ 
+@@ -2505,7 +2505,7 @@ scm_integer_bit_extract_i (scm_t_inum n, unsigned long start,
+ 
+   /* mask down to requisite bits */
+   bits = MIN (bits, SCM_I_FIXNUM_BIT);
+-  return SCM_I_MAKINUM (n & ((1L << bits) - 1));
++  return SCM_I_MAKINUM (n & ((((scm_t_inum) 1) << bits) - 1));
+ }
+ 
+ SCM
+-- 
+2.34.1
+
