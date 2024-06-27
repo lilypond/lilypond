@@ -1694,8 +1694,7 @@ class TextSpannerEvent(SpanEvent):
         return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
 
     def text_spanner_to_ly(self):
-        style = getattr(self, 'style', None)
-        if style == 'ignore' or self.span_direction == 0:
+        if self.style == 'ignore' or self.span_direction == 0:
             return ([], '')
 
         ornament_name = None
@@ -1722,7 +1721,7 @@ class TextSpannerEvent(SpanEvent):
             else:
                 val = r'\stopTextSpan'
 
-        elif style == "dashes":
+        elif self.style == "dashes":
             if self.span_direction == -1:
                 val = r'\startTextSpan'
                 tweaks.append(r"\tweak style #'dashed-line")
@@ -1744,7 +1743,7 @@ class TextSpannerEvent(SpanEvent):
                 else:
                     val = r'\stopTextSpan'
 
-        elif style == 'stop' and ornament_name != 'trill-mark':
+        elif self.style == 'stop' and ornament_name != 'trill-mark':
             pass
 
         else:
