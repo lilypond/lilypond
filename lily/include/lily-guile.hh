@@ -670,6 +670,9 @@ Skyline_pair from_scm<Skyline_pair> (const SCM &s);
 template <>
 SCM to_scm<Skyline_pair> (const Skyline_pair &skyp);
 
+template <class T>
+T *unsmob (SCM);
+
 // partial function specialisation is not allowed, partially
 // specialize helper class
 template <typename T>

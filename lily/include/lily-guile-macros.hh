@@ -354,26 +354,4 @@ void ly_check_name (const char *cxx, const char *fname);
       }                                                                        \
   }
 
-template <class T>
-std::string calc_smob_name ();
-
-template <class T>
-T *unsmob (SCM var);
-
-// Do not call this directly.
-// Use LY_ASSERT_SMOB() which supplies the function name automatically.
-template <class T>
-inline T *
-ly_assert_smob (SCM var, int number, const char *fun)
-{
-  if (auto *smob = unsmob<T> (var))
-    return smob;
-
-  scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (), number, var,
-                          calc_smob_name<T> ().c_str ());
-}
-
-#define LY_ASSERT_SMOB(klass, var, number)                                     \
-  ly_assert_smob<klass> (var, number, __FUNCTION__)
-
 #endif /* LILY_GUILE_MACROS_HH */

@@ -323,6 +323,24 @@ unsmob (SCM s)
   return T::is_smob (s) ? dynamic_cast<T *> (T::unchecked_unsmob (s)) : 0;
 }
 
+// Do not call this directly.
+// Use LY_ASSERT_SMOB(), which supplies the function name automatically.
+template <class T>
+inline T *
+ly_assert_smob (SCM var, int number, const char *fun)
+{
+  if (auto *smob = unsmob<T> (var))
+    return smob;
+
+  scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (), number, var,
+                          calc_smob_name<T> ().c_str ());
+}
+
+// This is a variation on LY_ASSERT_TYPE for smobs.  On success, this returns a
+// pointer to the smob so that the caller does not have to call unsmob again.
+#define LY_ASSERT_SMOB(klass, var, number)                                     \
+  ly_assert_smob<klass> (var, number, __FUNCTION__)
+
 // Simple smobs
 template <class Super>
 class Simple_smob : public Smob_base<Super>
