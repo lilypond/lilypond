@@ -427,6 +427,10 @@ them to more common shapes.
 }
 @end lilypond
 
+@item
+The wavy part of a @code{TrillSpanner} grob needs less vertical
+space now.
+
 @end itemize
 
 

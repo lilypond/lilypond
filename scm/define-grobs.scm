@@ -3825,12 +3825,20 @@ trill.  See also @iref{TrillPitchGroup}.")))))
         (after-line-breaking . ,ly:spanner::kill-zero-spanned-time)
         (bound-details
          . ((left . (
-                     ;; Need true X extent for chained trills not to overlap.
-                     ;; The trill glyph has a loop on its left, which sticks
-                     ;; out of its bounding box.
-                     (text . ,(make-with-true-dimension-markup
+                     ;; Need true X extent for chained trills not to overlap
+                     ;; since the trill glyph has a loop on its left, which
+                     ;; sticks out of its bounding box.  Also set up a straight
+                     ;; line as the vertical skyline for the trill glyph; this
+                     ;; avoids near-hits with stems and the like if positioned
+                     ;; below the staff.
+                     (text . ,(make-with-dimension-from-markup
                                X
-                               (make-musicglyph-markup "scripts.trill")))
+                               (make-with-true-dimension-markup
+                                X
+                                (make-musicglyph-markup "scripts.trill"))
+                               (make-with-true-dimension-markup
+                                X
+                                (make-musicglyph-markup "scripts.trill"))))
                      (stencil-offset . (0 . -1))
                      (attach-dir . ,CENTER)
                      ))
@@ -3848,6 +3856,7 @@ trill.  See also @iref{TrillPitchGroup}.")))))
         (stencil . ,ly:line-spanner::print)
         (style . trill)
         (to-barline . #t)
+        (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 horizontal-line-spanner-interface
