@@ -183,11 +183,15 @@ class Smob_base
   static void init (void);
   static std::string smob_name_;
 
-protected:
+public:
+  // Don't call this directly; call ::unsmob().  This is accessible to improve
+  // forward-declarations of ::unsmob().
   static Super *unchecked_unsmob (SCM s)
   {
     return reinterpret_cast<Super *> (SCM_SMOB_DATA (s));
   }
+
+protected:
   // reference scm_init_ in smob_tag which is sure to be called.  The
   // constructor, in contrast, may not be called at all in classes
   // like Smob1.
@@ -289,7 +293,8 @@ private:
   }
 
   template <class T>
-  friend T *unsmob (SCM s);
+  friend auto unsmob (SCM s)
+    -> decltype (static_cast<T *> (T::unchecked_unsmob (s)));
 
   template <class T>
   friend T *ly_assert_smob (SCM s, int number, const char *fun);
@@ -309,8 +314,8 @@ calc_smob_name ()
 }
 
 template <class T>
-inline T *
-unsmob (SCM s)
+inline auto
+unsmob (SCM s) -> decltype (static_cast<T *> (T::unchecked_unsmob (s)))
 {
   /* Any reference to a freed cell is a programming error.
 

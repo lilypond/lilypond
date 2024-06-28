@@ -671,7 +671,7 @@ template <>
 SCM to_scm<Skyline_pair> (const Skyline_pair &skyp);
 
 template <class T>
-T *unsmob (SCM);
+auto unsmob (SCM s) -> decltype (static_cast<T *> (T::unchecked_unsmob (s)));
 
 // partial function specialisation is not allowed, partially
 // specialize helper class
