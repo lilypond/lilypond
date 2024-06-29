@@ -482,8 +482,7 @@ Basic support for @code{~s} is also provided.
   for (const auto &r : results)
     result.append (r);
 
-  SCM ret = scm_from_utf8_stringn (result.data (), result.size ());
-  return ret;
+  return ly_string2scm (result);
 }
 
 int

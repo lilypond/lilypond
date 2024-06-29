@@ -61,8 +61,7 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
               if (scm_is_symbol (scm_caaar (s)))
                 {
                   if (SCM_UNBNDP (grobname))
-                    grobname
-                      = scm_from_utf8_symbol (info.grob ()->name ().c_str ());
+                    grobname = ly_symbol2scm (info.grob ()->name ());
                   if (scm_is_eq (scm_caaar (s), grobname))
                     {
                       if (scm_is_symbol (scm_cdaar (s)))
