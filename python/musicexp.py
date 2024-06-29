@@ -1697,11 +1697,11 @@ class TextSpannerEvent(SpanEvent):
         if self.style == 'ignore' or self.span_direction == 0:
             return ([], '')
 
-        ornament_name = None
+        ornament = None
         if self.mxl_ornament is not None:
-            ornament_name = self.mxl_ornament._name
+            ornament = self.mxl_ornament
         elif self.get_paired_event().mxl_ornament is not None:
-            ornament_name = self.get_paired_event().mxl_ornament._name
+            ornament = self.get_paired_event().mxl_ornament
 
         val = ''
         tweaks = []
@@ -1714,12 +1714,10 @@ class TextSpannerEvent(SpanEvent):
             if font_size is not None:
                 tweaks.append(r'\tweak font-size %s' % font_size)
 
-        if ornament_name == 'wavy-line':
+        if self.style == 'wave':
             if self.span_direction == -1:
                 val = r'\startTextSpan'
                 tweaks.append(r"\tweak style #'trill")
-            else:
-                val = r'\stopTextSpan'
 
         elif self.style == "dashes":
             if self.span_direction == -1:
@@ -1743,8 +1741,8 @@ class TextSpannerEvent(SpanEvent):
                 else:
                     val = r'\stopTextSpan'
 
-        elif self.style == 'stop' and ornament_name != 'trill-mark':
-            pass
+        elif self.style == 'stop' and ornament is None:
+            val = r'\stopTextSpan'
 
         else:
             if self.span_direction == -1:

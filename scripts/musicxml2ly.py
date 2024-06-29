@@ -1678,9 +1678,7 @@ def ornament_has_what(event, mxl_event):
             pass
 
     if start:
-        if wave is not None and trill is None:
-            event.mxl_ornament = wave
-        else:
+        if wave is not None and trill is not None:
             event.mxl_ornament = trill
 
     if ignore:
