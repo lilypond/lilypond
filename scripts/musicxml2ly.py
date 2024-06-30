@@ -1411,9 +1411,18 @@ def musicxml_spanner_to_lily_event(mxl_event, attributes=None,
         ev.font_size = attributes.get('font-size', None)
 
     if options.convert_directions:
-        dir = attributes.get('placement', None)
-        if dir is not None and span_direction == -1:
-            ev.force_direction = musicxml_direction_to_indicator(dir)
+        if span_direction == -1:
+            # If both an associated ornament and the spanner has a
+            # `placement` attribute, the former wins.
+            try:
+                dir = getattr(ev.mxl_ornament, 'placement', None)
+            except AttributeError:
+                dir = None
+
+            if dir is None:
+                dir = attributes.get('placement', None)
+            if dir is not None:
+                ev.force_direction = musicxml_direction_to_indicator(dir)
 
     return ev
 
@@ -1656,7 +1665,8 @@ def ornament_has_what(event, mxl_event):
     # In MusicXML, the trill symbol and the wavy line that follows are
     # handled separately, while in LilyPond they form a single grob,
     # `TrillSpanner`.  The code here checks whether `<trill-mark>` is
-    # followed by (a starting) `<wavy-line>`.
+    # followed by (a starting) `<wavy-line>` and sets `mxl_ornament`
+    # accordingly.
 
     wave = trill = None
     ignore = start = stop = False
