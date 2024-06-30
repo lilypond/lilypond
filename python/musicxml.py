@@ -1554,6 +1554,11 @@ class Part(Music_xml_node):
         # before the spanner code gets actually emitted (and sometimes vice
         # versa).  To enable that we set links between a spanner's start
         # part and its end part.
+        #
+        # Similarly, middle parts of spanners sometimes need to know details
+        # of the start spanner element (for example, accidental marks
+        # attached to a middle part of a wavy line need to know the
+        # `placement` attribute of the start part).
         def link_spanners(elements, structure, type, one_child=True):
             spanner_starts = {}
 
@@ -1583,6 +1588,9 @@ class Part(Music_xml_node):
                     nr = getattr(spanner, 'number', '1')
                     if spanner.type == 'start':
                         spanner_starts[nr] = spanner
+                    elif spanner.type == 'continue':
+                        if nr in spanner_starts:
+                            spanner.paired_with = spanner_starts[nr]
                     elif spanner.type == 'stop':
                         if nr in spanner_starts:
                             spanner_starts[nr].paired_with = spanner
