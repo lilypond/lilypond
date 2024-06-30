@@ -96,16 +96,14 @@ static_assert (std::is_same_v<                                   //
                const SCM &                                       //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                              //
                decltype (to_scm (std::declval<SCM &&> ())), //
-               const SCM &                                  //
+               SCM                                          //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                                    //
                decltype (to_scm (std::declval<const SCM &&> ())), //
-               const SCM &                                        //
+               SCM                                                //
                >);
 
 // `to_scm<reference_type> ()` shouldn't exist.  It probably wouldn't cause any
@@ -131,16 +129,14 @@ static_assert (std::is_same_v<                                          //
                const SCM &                                              //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                                     //
                decltype (from_scm<SCM> (std::declval<SCM &&> ())), //
-               const SCM &                                         //
+               SCM                                                 //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                                           //
                decltype (from_scm<SCM> (std::declval<const SCM &&> ())), //
-               const SCM &                                               //
+               SCM                                                       //
                >);
 
 // `from_scm<reference_type> (scm)` shouldn't exist.
@@ -167,18 +163,16 @@ static_assert (std::is_same_v<                                   //
                const SCM &                                       //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                               //
                decltype (from_scm (std::declval<SCM &&> (),  //
                                    std::declval<SCM &> ())), //
-               const SCM &                                   //
+               SCM                                           //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                                    //
                decltype (from_scm (std::declval<const SCM &&> (), //
                                    std::declval<SCM &> ())),      //
-               const SCM &                                        //
+               SCM                                                //
                >);
 
 //----------------------------------------------------------------------
@@ -195,18 +189,16 @@ static_assert (std::is_same_v<                                     //
                const SCM &                                         //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                                     //
                decltype (from_scm (std::declval<SCM &&> (),        //
                                    std::declval<const SCM &> ())), //
-               const SCM &                                         //
+               SCM                                                 //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                                     //
                decltype (from_scm (std::declval<const SCM &&> (),  //
                                    std::declval<const SCM &> ())), //
-               const SCM &                                         //
+               SCM                                                 //
                >);
 
 //----------------------------------------------------------------------
@@ -223,18 +215,16 @@ static_assert (std::is_same_v<                                   //
                const SCM &                                       //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                                //
                decltype (from_scm (std::declval<SCM &&> (),   //
                                    std::declval<SCM &&> ())), //
-               const SCM &                                    //
+               SCM                                            //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                                    //
                decltype (from_scm (std::declval<const SCM &&> (), //
                                    std::declval<SCM &&> ())),     //
-               const SCM &                                        //
+               SCM                                                //
                >);
 
 //----------------------------------------------------------------------
@@ -251,18 +241,16 @@ static_assert (std::is_same_v<                                      //
                const SCM &                                          //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                                      //
                decltype (from_scm (std::declval<SCM &&> (),         //
                                    std::declval<const SCM &&> ())), //
-               const SCM &                                          //
+               SCM                                                  //
                >);
 
-// TODO: This should not convert a `&&` to a `&`.  It should return `SCM`.
 static_assert (std::is_same_v<                                      //
                decltype (from_scm (std::declval<const SCM &&> (),   //
                                    std::declval<const SCM &&> ())), //
-               const SCM &                                          //
+               SCM                                                  //
                >);
 
 // `from_scm<reference_type> (scm, fallback)` shouldn't exist.

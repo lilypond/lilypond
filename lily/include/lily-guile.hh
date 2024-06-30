@@ -238,9 +238,11 @@ struct conv_scm_traits<SCM>
 {
   static const SCM &from (const SCM &);
   static SCM &from (SCM &);
+  static SCM from (const SCM &&);
 
   static const SCM &to (const SCM &);
   static SCM &to (SCM &);
+  static SCM to (const SCM &&);
 };
 
 // since partial template specialisation is not available for
@@ -269,6 +271,12 @@ from_scm (SCM &s) -> decltype (conv_scm_traits<T>::from (s))
   const auto &cs = s;
   return ::from_scm<T> (cs); // defer to the const & overload
 }
+template <typename T>
+inline auto
+from_scm (const SCM &&s) -> decltype (conv_scm_traits<T>::from (std::move (s)))
+{
+  return ::from_scm<T> (s); // defer to the const & overload
+}
 
 // "robust" variant with fallback
 template <typename T>
@@ -284,6 +292,13 @@ from_scm (SCM &s, T fallback) -> decltype (conv_scm_traits<T>::from (s))
   const auto &cs = s;
   return ::from_scm<T> (cs, fallback); // defer to the const & overload
 }
+template <typename T>
+inline auto
+from_scm (const SCM &&s, T fallback)
+  -> decltype (conv_scm_traits<T>::from (std::move (s)))
+{
+  return ::from_scm<T> (s, fallback); // defer to the const & overload
+}
 
 template <typename T>
 inline auto
@@ -297,6 +312,12 @@ to_scm (T &v) -> decltype (conv_scm_traits<T>::to (v))
 {
   const auto &cv = v;
   return ::to_scm (cv); // defer to the const & overload
+}
+template <typename T>
+inline auto
+to_scm (const T &&v) -> decltype (conv_scm_traits<T>::to (std::move (v)))
+{
+  return ::to_scm (std::as_const (v)); // defer to the const & overload
 }
 
 template <typename T>
