@@ -70,7 +70,7 @@ ly_add_function_documentation (SCM func, const char *fname, const char *varlist,
 
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),
                                 ly_string2scm (s));
-  SCM entry = scm_cons (ly_string2scm (varlist), ly_string2scm (doc));
+  SCM entry = scm_cons (to_scm (varlist), to_scm (doc));
   scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname), entry);
 }
 

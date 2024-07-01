@@ -79,7 +79,7 @@ check_error (GError *error, const char *func_name)
   if (error)
     {
       scm_misc_error (func_name, "the GLib regex engine signaled an error: ~a",
-                      ly_list (ly_string2scm (error->message)));
+                      ly_list (to_scm (error->message)));
     }
 }
 

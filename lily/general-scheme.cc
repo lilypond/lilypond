@@ -678,5 +678,5 @@ Encode the given bytevector as a base 64 string.
     = reinterpret_cast<unsigned char *> (SCM_BYTEVECTOR_CONTENTS (bv));
   unique_glib_ptr<char> base64 (g_base64_encode (contents, len));
   scm_remember_upto_here_1 (bv);
-  return ly_string2scm (base64.get ());
+  return to_scm (base64.get ());
 }
