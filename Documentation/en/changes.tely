@@ -724,6 +724,13 @@ same time, the size for the volta bracket number (which uses
 by the opposite amount, thus compensating the change in the normal
 use case.
 
+@item
+Some glyphs like @q{one} or @q{accidentals.hufnagelM1} in the
+Emmentaler font had too large glyph bounding boxes due to a bug in
+the font production chain.  This is fixed now; be warned, however,
+that you might experience typesetting differences because tighter
+bounding boxes often lead to tighter typesetting.
+
 @end itemize
 
 @node New for specialist notation

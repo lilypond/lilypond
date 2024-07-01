@@ -1006,9 +1006,9 @@ else {
 Open($1);
 SelectAll();
 RemoveOverlap();
-AddExtrema();
 Simplify(0, 2);
 CorrectDirection();
+AddExtrema(1);
 Simplify(0, 2);
 RoundToInt();
 AutoHint();
