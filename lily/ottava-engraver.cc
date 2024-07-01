@@ -100,7 +100,7 @@ Ottava_spanner_engraver::create_spanner ()
               warning (
                 _f ("Could not find ottavation markup for %d octaves up.",
                     from_scm<int> (ottavation_)));
-              ott = ly_string2scm ("");
+              ott = to_scm ("");
             }
         }
       set_property (span_, "text", ott);

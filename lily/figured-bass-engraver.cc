@@ -481,7 +481,7 @@ Figured_bass_engraver::create_grobs ()
             }
           else
             {
-              text = ly_string2scm ("0");
+              text = to_scm ("0");
             }
 
           set_property (group.figure_item_, "transparent", SCM_BOOL_T);

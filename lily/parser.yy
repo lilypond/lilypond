@@ -3027,7 +3027,7 @@ symbol:
 			parser->parser_error (@1, (_ ("symbol expected")));
 			// Generate a unique symbol in case it is used
 			// for an assignment or similar
-			$$ = scm_make_symbol (ly_string2scm ("undefined"));
+			$$ = scm_make_symbol (to_scm ("undefined"));
 		}
 	}
 	;

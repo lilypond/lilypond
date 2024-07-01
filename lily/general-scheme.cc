@@ -219,13 +219,14 @@ LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
 Return the current LilyPond version as a list, e.g., @code{(1 3 127 uu1)}.
            )")
 {
-  SCM major = scm_string_to_number (ly_string2scm (MAJOR_VERSION), to_scm (10));
-  SCM minor = scm_string_to_number (ly_string2scm (MINOR_VERSION), to_scm (10));
-  SCM patch = scm_string_to_number (ly_string2scm (PATCH_LEVEL), to_scm (10));
-  if (MY_PATCH_LEVEL[0] == '\0')
+  SCM ten = to_scm (10);
+  SCM major = scm_string_to_number (to_scm (MAJOR_VERSION), ten);
+  SCM minor = scm_string_to_number (to_scm (MINOR_VERSION), ten);
+  SCM patch = scm_string_to_number (to_scm (PATCH_LEVEL), ten);
+  if constexpr (MY_PATCH_LEVEL[0] == '\0')
     return ly_list (major, minor, patch);
   else
-    return ly_list (major, minor, patch, ly_symbol2scm (MY_PATCH_LEVEL));
+    return ly_list (major, minor, patch, to_scm (MY_PATCH_LEVEL));
 }
 
 LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
@@ -444,7 +445,7 @@ Basic support for @code{~s} is also provided.
             {
               programming_error (std::string (__FUNCTION__)
                                  + ": not enough arguments for format.");
-              return ly_string2scm ("");
+              return to_scm ("");
             }
 
           SCM arg = scm_car (rest);

@@ -57,8 +57,7 @@ Note_name_engraver::process_music ()
 
       if (i)
         markup_list = scm_cons (
-          Text_interface::is_markup (sep) ? sep : ly_string2scm (" "),
-          markup_list);
+          Text_interface::is_markup (sep) ? sep : to_scm (" "), markup_list);
 
       if (ly_is_procedure (proc))
         {

@@ -94,12 +94,11 @@ struct Parse_start
                 // This catches user .ly files, but not init files.
                 if (scm_is_true (scm_member (filename, source_files))
                     // ugh
-                    && !ly_is_equal (filename,
-                                     ly_string2scm ("<included string>"))
+                    && !ly_is_equal (filename, to_scm ("<included string>"))
                     // ly:parser-include-string uses "<included string>" but
                     // ly:parser-parse-string uses "<string>" (should this be
                     // harmonized?).
-                    && !ly_is_equal (filename, ly_string2scm ("<string>")))
+                    && !ly_is_equal (filename, to_scm ("<string>")))
                   {
                     error_source = source;
                     break;
@@ -130,9 +129,9 @@ struct Parse_start
         // work with Flex), whereas here we have the line/column and we want to
         // get the line from them.
         SCM port
-          = scm_open_file_with_encoding (filename, ly_string2scm ("r"),
+          = scm_open_file_with_encoding (filename, to_scm ("r"),
                                          SCM_BOOL_F, // don't guess encoding
-                                         ly_string2scm ("UTF8"));
+                                         to_scm ("UTF8"));
         // Wait until the relevant line
         while (!ly_is_eqv (scm_port_line (port), line))
           (void) scm_read_line (port);
@@ -342,7 +341,7 @@ internal_evaluate_embedded_scheme (void *p)
   // no compilation warning ever reaches us. (Guile's compilation
   // warnings are usually noise.)
   SCM port = scm_current_warning_port ();
-  static SCM devnull = scm_sys_make_void_port (ly_string2scm ("w"));
+  static SCM devnull = scm_sys_make_void_port (to_scm ("w"));
   scm_set_current_warning_port (devnull);
   SCM bytecode = Compile::compile (
     ps->form_, ly_keyword2scm ("to"), ly_symbol2scm ("bytecode"),

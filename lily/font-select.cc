@@ -144,13 +144,13 @@ select_font (Output_def *layout, SCM chain)
     {
       warning (_f ("no entry for font family %s in fonts alist",
                    ly_scm_write_string (family).c_str ()));
-      name_scm = ly_string2scm ("LilyPond Serif");
+      name_scm = to_scm ("LilyPond Serif");
     }
   else if (!scm_is_string (name_scm))
     {
       warning (_f ("expected string for value in fonts alist, found: %s",
                    ly_scm_write_string (name_scm).c_str ()));
-      name_scm = ly_string2scm ("LilyPond Serif");
+      name_scm = to_scm ("LilyPond Serif");
     }
 
   std::string name = ly_scm2string (name_scm);
@@ -188,7 +188,7 @@ select_font (Output_def *layout, SCM chain)
       // Unlike music fonts, text fonts are scaled automatically by Pango.
       PangoFontDescription *description;
       bool is_emmentaler;
-      SCM emmentaler_str = ly_string2scm ("emmentaler");
+      SCM emmentaler_str = to_scm ("emmentaler");
       if (scm_is_string (string_desc))
         {
           description = pango_font_description_from_string (

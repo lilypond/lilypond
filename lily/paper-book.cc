@@ -272,7 +272,7 @@ Paper_book::output (SCM output_channel)
         output_stencil (scm_caar (p), scm_cdar (p), all_formats ());
     }
 
-  SCM pngstr = ly_string2scm ("png");
+  SCM pngstr = to_scm ("png");
   if (scm_is_false (scm_member (pngstr, formats)))
     formats = scm_cons (pngstr, formats);
 
