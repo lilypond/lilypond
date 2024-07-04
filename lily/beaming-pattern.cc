@@ -171,9 +171,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
   }
 
   if (options.subdivide_beams_ && options.maximum_subdivision_interval_.num ()
-      && isfinite (options.minimum_subdivision_interval_)
-      && options.minimum_subdivision_interval_
-           <= options.maximum_subdivision_interval_)
+      && isfinite (options.minimum_subdivision_interval_))
     subdivide_beams (options);
 
   // stems at boundaries of tuplets should not have beamlets sticking out
@@ -431,39 +429,35 @@ Beaming_pattern::subdivide_beams (Beaming_options const &options)
              - intlog2 (options.minimum_subdivision_interval_.num ());
     }
 
-  if (!check_minimum_subdivision_count || !check_maximum_subdivision_count
-      || minimum_subdivision_count <= maximum_subdivision_count)
+  if (!check_minimum_subdivision_count || minimum_subdivision_count < 1)
+    minimum_subdivision_count = 1;
+  // beam counts will be set to at least
+  // minimum_subdivision_beam_count_level, whereas
+  // maximum_subdivision_beam_count_level is only used to
+  // compare rhythmic importance
+  for (vsize i = 1; i < infos_.size () - 1; ++i)
     {
-      if (!check_minimum_subdivision_count || minimum_subdivision_count < 1)
-        minimum_subdivision_count = 1;
-      // beam counts will be set to at least
-      // minimum_subdivision_beam_count_level, whereas
-      // maximum_subdivision_beam_count_level is only used to
-      // compare rhythmic importance
-      for (vsize i = 1; i < infos_.size () - 1; ++i)
-        {
-          unsigned const predicted_left_count
-            = static_cast<unsigned> (
-              std::max (static_cast<int> (infos_[i].rhythmic_importance_),
-                        minimum_subdivision_count)),
-            predicted_right_count = static_cast<unsigned> (
-              std::max (static_cast<int> (infos_[i + 1].rhythmic_importance_),
-                        minimum_subdivision_count));
+      unsigned const predicted_left_count
+        = static_cast<unsigned> (
+          std::max (static_cast<int> (infos_[i].rhythmic_importance_),
+                    minimum_subdivision_count)),
+        predicted_right_count = static_cast<unsigned> (
+          std::max (static_cast<int> (infos_[i + 1].rhythmic_importance_),
+                    minimum_subdivision_count));
 
-          // we can only chip off one side
-          if ((!check_maximum_subdivision_count
-               || infos_[i].rhythmic_importance_ <= maximum_subdivision_count)
-              && predicted_left_count < beamlet_count (i, LEFT)
-              && beamlet_count (i, RIGHT) == infos_[i].count ())
-            infos_[i].beam_count_drul_[LEFT] = predicted_left_count;
+      // we can only chip off one side
+      if ((!check_maximum_subdivision_count
+           || infos_[i].rhythmic_importance_ <= maximum_subdivision_count)
+          && predicted_left_count < beamlet_count (i, LEFT)
+          && beamlet_count (i, RIGHT) == infos_[i].count ())
+        infos_[i].beam_count_drul_[LEFT] = predicted_left_count;
 
-          else if ((!check_maximum_subdivision_count
-                    || infos_[i + 1].rhythmic_importance_
-                         <= maximum_subdivision_count)
-                   && predicted_right_count < beamlet_count (i, RIGHT)
-                   && beamlet_count (i, LEFT) == infos_[i].count ())
-            infos_[i].beam_count_drul_[RIGHT] = predicted_right_count;
-        }
+      else if ((!check_maximum_subdivision_count
+                || infos_[i + 1].rhythmic_importance_
+                     <= maximum_subdivision_count)
+               && predicted_right_count < beamlet_count (i, RIGHT)
+               && beamlet_count (i, LEFT) == infos_[i].count ())
+        infos_[i].beam_count_drul_[RIGHT] = predicted_right_count;
     }
 }
 
