@@ -442,5 +442,41 @@ accTrill =
                      (acc-padding . -0.4))
         \\acc-ornament #above "scripts.trill" ""
    #})
+
+
+#(define-markup-command (trill-acc-tweak layout props above)
+   (string?)
+   (interpret-markup
+    layout props
+    #{
+      \\markup
+        \\override #'((acc-dir . -1.3)
+                     (acc-padding . -0.4))
+        \\with-dimension-from #X
+          \\with-true-dimension #X \\musicglyph "scripts.trill"
+            \\acc-ornament
+              #above
+              \\with-true-dimension #X \\musicglyph "scripts.trill"
+          ""
+    #}))
+
+
+% `color` and `size` are optional.  If `size` is present, `color` must
+% be present, too.  `size` also sets the `enclosure-font-size`
+% property (three magsteps larger).
+trillTweak =
+#(define-music-function (acc color size music)
+   (string? (color? black) (number?) ly:music?)
+   (let* ((override (list `(acc-color . ,color)))
+          (override (if size
+                        (cons `(enclosure-font-size . ,(+ size 3))
+                         (cons `(acc-font-size . ,size) override))
+                        override)))
+     #{
+       \\tweak bound-details.left.text
+         \\markup \\override #override
+                   \\trill-acc-tweak #acc
+       #music
+     #}))
 """,
 }

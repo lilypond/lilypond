@@ -1724,9 +1724,10 @@ def musicxml_articulation_to_lily_event(mxl_event, note_color=None,
         if type == 'start' or type == 'stop':
             return
 
-    # A trill with a wavy line gets handled as a spanner a few lines above.
+    # A wavy line preceded by a trill mark gets handled as a spanner a few
+    # lines above; if we see the `<trill-mark>` element, we thus pass.
     if OrnamenthasWavyline(mxl_event):
-        return
+        return 'delayed'
 
     tmp_tp = articulations_dict.get(name)
     if not tmp_tp:
@@ -3621,6 +3622,8 @@ def musicxml_voice_to_lily_voice(voice):
                         is_double_note_tremolo = True
 
                 ev = None
+                delayed_accidental_marks = []
+
                 for ch in mxl_node.get_all_children():
                     if isinstance(ch, musicxml.Hash_text):
                         continue
@@ -3629,6 +3632,9 @@ def musicxml_voice_to_lily_voice(voice):
                         if ev == 'unsupported':
                             # Silently ignore accidental marks attached to
                             # unhandled ornaments.
+                            continue
+                        elif ev == 'delayed':
+                            delayed_accidental_marks.append(ch)
                             continue
 
                         try:
@@ -3643,7 +3649,17 @@ def musicxml_voice_to_lily_voice(voice):
 
                     ev = musicxml_articulation_to_lily_event(ch, note_color,
                                                              note_font_size)
-                    if ev is not None and ev != 'unsupported':
+                    if (ev is not None
+                            and ev != 'unsupported' and ev != 'delayed'):
+                        try:
+                            if delayed_accidental_marks:
+                                ev.accidental_marks.extend(
+                                    delayed_accidental_marks)
+                                needed_additional_definitions.append(
+                                    'accidental-marks')
+                        except AttributeError:
+                            pass
+
                         try:
                             if ev.start_stop == True:
                                 voice_builder.add_last(ev)

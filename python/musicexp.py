@@ -1689,13 +1689,37 @@ class TextSpannerEvent(SpanEvent):
         self.text_elements = None
         self.start_stop = False  # for single-note spanners
         self.mxl_ornament = None
+        self.accidental_marks = []  # for trill spanners
 
     def direction_mod(self):
         return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
 
     def text_spanner_to_ly(self):
-        if self.style == 'ignore' or self.span_direction == 0:
-            return ([], '')
+        if self.span_direction == 0:
+            if self.accidental_marks:
+                # A trill pitch change.  Being part of a spanner, we don't make
+                # it inherit attributes from `<note>`.
+                oe = OrnamentEvent()
+                oe.type = ("", "")
+                oe.accidental_marks = self.accidental_marks
+
+                # TODO: Find a possibility to 'attach' a trill pitch change
+                #       accidental mark to the spanner so that we can
+                #       actually obey its `placement` attribute.  LilyPond
+                #       doesn't support this currently; see issue #6724.
+                #       Here we heuristically implement the most common case,
+                #       which means an accidental above a trill spanner above
+                #       a staff.
+                dir = '^'
+                ly.warning(_('Correct vertical positioning of '
+                             'trill pitch change accidental marks '
+                             'might fail and need manual fixing.'))
+
+                (dummy, command, args) = oe.ly_expression()
+                command = dir + command
+                return ([], ' '.join([command, args]))
+            else:
+                return ([], '')
 
         ornament = None
         if self.mxl_ornament is not None:
@@ -1760,16 +1784,49 @@ class TextSpannerEvent(SpanEvent):
                 trill_font_size_attribute = getattr(self.mxl_ornament,
                                                     'font-size', None)
                 trill_font_size = get_font_size(trill_font_size_attribute,
-                                                command=True)
+                                                command=False)
 
+                general_case = 'optional'
                 if trill_color or trill_font_size:
-                    tweaks.append(r'\tweak bound-details.left.text \markup')
-                    if trill_color:
-                        tweaks.append(r'\with-color %s' % trill_color)
-                    if trill_font_size:
-                        tweaks.append(trill_font_size)
-                    tweaks.append(r'\with-true-dimension #X '
-                                  r'\musicglyph "scripts.trill"')
+                    general_case = 'mandatory'
+
+                accidental_marks_command = None
+                accidental_marks_args = ''
+                if self.accidental_marks:
+                    # Being part of a spanner, we don't make a trill pitch
+                    # accidental mark inherit attributes from `<note>`.
+                    oe = OrnamentEvent()
+                    oe.type = ("scripts.trill", "trill")
+                    oe.accidental_marks = self.accidental_marks
+                    oe.force_direction = 0
+                    (dummy, accidental_marks_command,
+                     accidental_marks_args) = oe.ly_expression(general_case)
+
+                if accidental_marks_command is None:
+                    if trill_color or trill_font_size:
+                        tweaks.append(r'\tweak bound-details.left.text '
+                                      r'\markup')
+                        if trill_color:
+                            tweaks.append(r'\with-color %s' % trill_color)
+                        if trill_font_size:
+                            tweaks.append(r'\normalsize \fontsize %s'
+                                          % trill_font_size)
+                        tweaks.append(r'\with-true-dimension #X '
+                                      r'\musicglyph "scripts.trill"')
+                else:
+                    if accidental_marks_command == r'\accTrill':
+                        val = (r'\trillTweak %s %s' % (accidental_marks_args,
+                                                       val))
+                    else:
+                        tweaks.append(r'\tweak bound-details.left.text '
+                                      r'\markup')
+                        if trill_color:
+                            tweaks.append(r'\with-color %s' % trill_color)
+                        if trill_font_size:
+                            tweaks.append(r'\normalsize \fontsize %s'
+                                          % trill_font_size)
+                        tweaks.append(r'\accs-ornament %s'
+                                      % accidental_marks_args)
             else:
                 val = r'\stopTrillSpan'
 
@@ -2457,18 +2514,20 @@ class OrnamentEvent(ArticulationEvent):
         self.accidental_marks = []
         self.force_direction = 1
 
-    def ly_expression(self):
-        res = []
+    def ly_expression(self, general_case=False):
+        tweaks = []
+        command = None
+        args = ''
 
         color = color_to_ly(self.color)
         if color is not None:
-            res.append(r'\tweak color %s' % color)
+            tweaks.append(r'\tweak color %s' % color)
         else:
             color = '"#000000"'
 
         font_size = get_font_size(self.font_size, command=False)
         if font_size is not None:
-            res.append(r'\tweak font-size %s' % font_size)
+            tweaks.append(r'\tweak font-size %s' % font_size)
 
         # `<accidental-mark>` elements get mapped to the LilyPond markup
         # command `\ornament` for 'simple' cases (i.e., there is at most one
@@ -2480,6 +2539,10 @@ class OrnamentEvent(ArticulationEvent):
         #
         # For trills, we use `\accTrill` if there is a single accidental mark
         # above the trill.
+        #
+        # If `general_case` is set to 'optional', only emit `\accTrill` or
+        # `\accs-ornament`; if set to 'mandatory', only emit
+        # `\accs-ornament`.
 
         above_marks = []
         below_marks = []
@@ -2491,7 +2554,8 @@ class OrnamentEvent(ArticulationEvent):
             if a_value is None:
                 continue
 
-            # Color and font size gets inherited from `<note>`.
+            # Color and font size gets inherited from `<note>` (if not part of a
+            # spanner).
             a_color = color_to_ly(getattr(a, 'color', self.note_color))
             a_font_size = get_font_size(getattr(a, 'font-size',
                                                 self.note_font_size),
@@ -2522,10 +2586,10 @@ class OrnamentEvent(ArticulationEvent):
             if a_font_size is not None:
                 have_font_size = True
 
-        dir = self.direction_mod()
-
         if (same_color and not have_font_size
-                and len(above_marks) <= 1 and len(below_marks) <= 1):
+                and len(above_marks) <= 1 and len(below_marks) <= 1
+                and general_case != 'mandatory'
+                and not (general_case == 'optional' and below_marks)):
             # The 'simple' case.
             above = ''
             if above_marks:
@@ -2543,12 +2607,15 @@ class OrnamentEvent(ArticulationEvent):
 
             if above or below:
                 if self.type[1] == 'trill' and not below:
-                    res.append(r'%s\accTrill "%s"' % (dir, above))
+                    command = r'\accTrill'
+                    args = '"%s"' % above
                 else:
-                    res.append(r'%s\ornament "%s" "%s" "%s"'
-                               % (dir, above, self.type[0], below))
+                    # This case doesn't happen for trill spanners.
+                    command = r'\ornament'
+                    args = r'"%s" "%s" "%s"' % (above, self.type[0], below)
             else:
-                res.append(r'%s\%s' % (dir, self.type[1]))
+                # This case doesn't happen for trill spanners.
+                command = r'\%s' % self.type[1]
         else:
             # The general case.
             above = []
@@ -2599,12 +2666,23 @@ class OrnamentEvent(ArticulationEvent):
                 ornament = r'\musicglyph "%s"' % self.type[0]
             else:
                 ornament = '##f'
-            res.append(r'\tweak parent-alignment-X #CENTER')
-            res.append(r'\tweak self-alignment-X #CENTER')
-            res.append(r'%s\markup \accs-ornament { %s } %s { %s }'
-                       % (dir, ' '.join(above), ornament, ' '.join(below)))
 
-        return ' '.join(res)
+            tweaks.append(r'\tweak parent-alignment-X #CENTER')
+            tweaks.append(r'\tweak self-alignment-X #CENTER')
+            command = r'\markup \accs-ornament'
+            args = (r'{ %s } %s { %s }'
+                    % (' '.join(above), ornament, ' '.join(below)))
+
+        return (tweaks, command, args)
+
+    def print_ly(self, printer):
+        dir = self.direction_mod()
+        (tweaks, command, args) = self.ly_expression()
+
+        for t in tweaks:
+            printer(t)
+        printer("%s%s" % (dir, command))
+        printer(args)
 
 
 class ShortArticulationEvent(ArticulationEvent):
