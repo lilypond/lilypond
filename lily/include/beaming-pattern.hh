@@ -74,6 +74,8 @@ public:
 
   Beaming_pattern (Rational const &);
 
+  void gc_mark () const;
+
 private:
   struct Beam_rhythmic_element;
   std::vector<Beam_rhythmic_element> infos_;

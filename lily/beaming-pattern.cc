@@ -65,6 +65,17 @@ Beaming_pattern::Beam_rhythmic_element::count () const
   return beam_count_;
 }
 
+void
+Beaming_pattern::gc_mark () const
+{
+  for (const auto &el : infos_)
+    {
+      const auto tuplet = el.tuplet_;
+      if (tuplet)
+        scm_gc_mark (tuplet->self_scm ());
+    }
+}
+
 static int
 rhythmic_importance_for_position (Rational const &r)
 {

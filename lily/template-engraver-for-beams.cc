@@ -31,6 +31,10 @@ Template_engraver_for_beams::derived_mark () const
 {
   beaming_options_.gc_mark ();
   finished_beaming_options_.gc_mark ();
+  if (beam_pattern_)
+    beam_pattern_->gc_mark ();
+  if (finished_beam_pattern_)
+    finished_beam_pattern_->gc_mark ();
 }
 
 void
