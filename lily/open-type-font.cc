@@ -323,7 +323,7 @@ Open_type_font::attachment_point (const std::string &glyph_name,
     return std::make_pair (o, false); // TODO: error out?
 
   SCM char_alist = entry;
-  SCM att_scm;
+  SCM att_scm = to_scm (Offset {});
   bool rotate = false;
   if (d == DOWN)
     {
