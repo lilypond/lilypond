@@ -106,5 +106,5 @@ effective length of the stream event when happening at @code{moment} is returned
 
   scm_remember_upto_here (event);
 
-  return to_scm<Moment> (len);
+  return to_scm (len);
 }
