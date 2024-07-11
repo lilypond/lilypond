@@ -173,7 +173,6 @@ Tuplet_engraver::process_music ()
       set_object (bracket, "tuplet-number", number->self_scm ());
       number->set_x_parent (bracket);
       number->set_y_parent (bracket);
-      tuplets_[i]->stop_moment_.grace_part_ = 0;
 
       if (i + 1 < tuplets_.size () && tuplets_[i + 1]->bracket_)
         Tuplet_bracket::add_tuplet_bracket (bracket, tuplets_[i + 1]->bracket_);

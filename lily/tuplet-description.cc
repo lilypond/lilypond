@@ -28,7 +28,11 @@ Tuplet_description::Tuplet_description (Stream_event *ev, const Moment &now)
 {
   smobify_self ();
   start_moment_ = now;
-  stop_moment_ = now + from_scm (get_property (ev, "length"), Moment (0));
+  Moment const length = from_scm (get_property (ev, "length"), Moment (0));
+  stop_moment_ = now
+                 + (start_moment_.grace_part_ && !length.grace_part_
+                      ? Moment (0, length.main_part_)
+                      : length);
   numerator_ = from_scm<unsigned> (get_property (ev, "numerator"));
   denominator_ = from_scm<unsigned> (get_property (ev, "denominator"));
 }

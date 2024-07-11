@@ -36,7 +36,7 @@ struct Tuplet_description : public Smob<Tuplet_description>
   bool full_length_note_ = false;
 
   Moment start_moment_;
-  Moment stop_moment_; // Tuplet_engraver needs to modify this for some reason
+  Moment stop_moment_;
 
   Tuplet_description *parent_ = nullptr;
 
