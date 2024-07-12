@@ -412,6 +412,20 @@ public:
   }
 };
 
+template <typename T>
+struct scm_conversions<T *>
+{
+  static bool is_scm (SCM s) { return unsmob<T> (s); }
+  static T *from_scm (SCM s) { return unsmob<T> (s); }
+  static T *from_scm (SCM s, T *fallback)
+  {
+    if (T *res = unsmob<T> (s))
+      return res;
+    return fallback;
+  }
+  static SCM to_scm (T *p) { return p->self_scm (); }
+};
+
 extern bool parsed_objects_should_be_dead;
 class parsed_dead
 {

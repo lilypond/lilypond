@@ -670,25 +670,6 @@ Skyline_pair from_scm<Skyline_pair> (const SCM &s);
 template <>
 SCM to_scm<Skyline_pair> (const Skyline_pair &skyp);
 
-template <class T>
-auto unsmob (SCM s) -> decltype (static_cast<T *> (T::unchecked_unsmob (s)));
-
-// partial function specialisation is not allowed, partially
-// specialize helper class
-template <typename T>
-struct scm_conversions<T *>
-{
-  static bool is_scm (SCM s) { return unsmob<T> (s); }
-  static T *from_scm (SCM s) { return unsmob<T> (s); }
-  static T *from_scm (SCM s, T *fallback)
-  {
-    if (T *res = unsmob<T> (s))
-      return res;
-    return fallback;
-  }
-  static SCM to_scm (T *p) { return p->self_scm (); }
-};
-
 template <typename T>
 struct scm_conversions<Drul_array<T>>
 {
