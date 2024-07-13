@@ -25,6 +25,8 @@
 #include "lily-guile.hh"
 #include "rational.hh"
 
+#include <utility>
+
 /**
    Musical timing (Main-timing, grace-timing) with glue for
    Guilification;
@@ -100,21 +102,34 @@ public:
 int compare (Moment const &, Moment const &);
 INSTANTIATE_COMPARE (Moment const &, Moment::compare);
 
+// TODO: Generalize this as the default for converting simple smob values.
 template <>
-inline Moment
-from_scm<Moment> (SCM const &s, Moment fallback)
+struct scm_conversions<Moment>
 {
-  if (auto *m = unsmob<Moment> (s))
-    return *m;
-  return fallback;
-}
+  static bool is_scm (SCM s) { return unsmob<Moment> (s); }
 
-template <>
-inline SCM
-to_scm<Moment> (Moment const &m)
-{
-  return m.smobbed_copy ();
-}
+  // It isn't clear that any implementation of `from_scm (s)` would improve on
+  // `from_scm (s, fallback)`.
+  static Moment from_scm (SCM) = delete;
+
+  template <typename F>
+  static Moment from_scm (SCM s, F &&fallback)
+  {
+    if (auto *m = unsmob<Moment> (s))
+      return *m;
+    return std::forward<F> (fallback);
+  }
+
+  static SCM to_scm (Moment const &m)
+  {
+    // TODO: Is there an easy way to tell whether a simple smob is already
+    // managed by the GC so that we could avoid copying in some instances?  If
+    // we had a `&&` overload, we could at least be confident that copying is
+    // necessary in that case because a temporary object is never GC-managed,
+    // and moving a GC-managed simple smob would be an error.
+    return m.smobbed_copy ();
+  }
+};
 
 bool moment_less (SCM a, SCM b);
 
