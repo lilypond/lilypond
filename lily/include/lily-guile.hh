@@ -452,164 +452,100 @@ to_scm<SCM> (SCM &s)
 }
 
 template <>
-inline bool
-is_scm<short> (SCM s)
+struct scm_conversions<short>
 {
-  using limits = std::numeric_limits<short>;
-  return scm_is_signed_integer (s, limits::min (), limits::max ());
-}
-template <>
-inline short
-from_scm<short> (const SCM &s)
-{
-  return scm_to_short (s);
-}
-template <>
-inline SCM
-to_scm<short> (const short &i)
-{
-  return scm_from_short (i);
-}
+  static bool is_scm (SCM s)
+  {
+    using limits = std::numeric_limits<short>;
+    return scm_is_signed_integer (s, limits::min (), limits::max ());
+  }
+  static short from_scm (SCM s) { return scm_to_short (s); }
+  static SCM to_scm (const short &i) { return scm_from_short (i); }
+};
 
 template <>
-inline bool
-is_scm<int> (SCM s)
+struct scm_conversions<int>
 {
-  using limits = std::numeric_limits<int>;
-  return scm_is_signed_integer (s, limits::min (), limits::max ());
-}
-template <>
-inline int
-from_scm<int> (const SCM &s)
-{
-  return scm_to_int (s);
-}
-template <>
-inline SCM
-to_scm<int> (const int &i)
-{
-  return scm_from_int (i);
-}
+  static bool is_scm (SCM s)
+  {
+    using limits = std::numeric_limits<int>;
+    return scm_is_signed_integer (s, limits::min (), limits::max ());
+  }
+  static int from_scm (SCM s) { return scm_to_int (s); }
+  static SCM to_scm (const int &i) { return scm_from_int (i); }
+};
 
 template <>
-inline bool
-is_scm<long> (SCM s)
+struct scm_conversions<long>
 {
-  using limits = std::numeric_limits<long>;
-  return scm_is_signed_integer (s, limits::min (), limits::max ());
-}
-template <>
-inline long
-from_scm<long> (const SCM &s)
-{
-  return scm_to_long (s);
-}
-template <>
-inline SCM
-to_scm<long> (const long &i)
-{
-  return scm_from_long (i);
-}
+  static bool is_scm (SCM s)
+  {
+    using limits = std::numeric_limits<long>;
+    return scm_is_signed_integer (s, limits::min (), limits::max ());
+  }
+  static long from_scm (SCM s) { return scm_to_long (s); }
+  static SCM to_scm (const long &i) { return scm_from_long (i); }
+};
 
 template <>
-inline bool
-is_scm<long long> (SCM s)
+struct scm_conversions<long long>
 {
-  using limits = std::numeric_limits<long long>;
-  return scm_is_signed_integer (s, limits::min (), limits::max ());
-}
-template <>
-inline long long
-from_scm<long long> (const SCM &s)
-{
-  return scm_to_long_long (s);
-}
-template <>
-inline SCM
-to_scm<long long> (const long long &i)
-{
-  return scm_from_long_long (i);
-}
+  static bool is_scm (SCM s)
+  {
+    using limits = std::numeric_limits<long long>;
+    return scm_is_signed_integer (s, limits::min (), limits::max ());
+  }
+  static long long from_scm (SCM s) { return scm_to_long_long (s); }
+  static SCM to_scm (const long long &i) { return scm_from_long_long (i); }
+};
 
 template <>
-inline bool
-is_scm<unsigned short> (SCM s)
+struct scm_conversions<unsigned short>
 {
-  using limits = std::numeric_limits<unsigned short>;
-  return scm_is_unsigned_integer (s, limits::min (), limits::max ());
-}
-template <>
-inline unsigned short
-from_scm<unsigned short> (const SCM &s)
-{
-  return scm_to_ushort (s);
-}
-template <>
-inline SCM
-to_scm<unsigned short> (const unsigned short &i)
-{
-  return scm_from_ushort (i);
-}
+  static bool is_scm (SCM s)
+  {
+    using limits = std::numeric_limits<unsigned short>;
+    return scm_is_unsigned_integer (s, limits::min (), limits::max ());
+  }
+  static unsigned short from_scm (SCM s) { return scm_to_ushort (s); }
+  static SCM to_scm (const unsigned short &i) { return scm_from_ushort (i); }
+};
 
 template <>
-inline bool
-is_scm<unsigned> (SCM s)
+struct scm_conversions<unsigned>
 {
-  using limits = std::numeric_limits<unsigned>;
-  return scm_is_unsigned_integer (s, limits::min (), limits::max ());
-}
-template <>
-inline unsigned
-from_scm<unsigned> (const SCM &s)
-{
-  return scm_to_uint (s);
-}
-template <>
-inline SCM
-to_scm<unsigned> (const unsigned &i)
-{
-  return scm_from_uint (i);
-}
+  static bool is_scm (SCM s)
+  {
+    using limits = std::numeric_limits<unsigned>;
+    return scm_is_unsigned_integer (s, limits::min (), limits::max ());
+  }
+  static unsigned from_scm (SCM s) { return scm_to_uint (s); }
+  static SCM to_scm (const unsigned &i) { return scm_from_uint (i); }
+};
 
 template <>
-inline bool
-is_scm<unsigned long> (SCM s)
+struct scm_conversions<unsigned long>
 {
-  using limits = std::numeric_limits<unsigned long>;
-  return scm_is_unsigned_integer (s, limits::min (), limits::max ());
-}
-template <>
-inline unsigned long
-from_scm<unsigned long> (const SCM &s)
-{
-  return scm_to_ulong (s);
-}
-template <>
-inline SCM
-to_scm<unsigned long> (const unsigned long &i)
-{
-  return scm_from_ulong (i);
-}
+  static bool is_scm (SCM s)
+  {
+    using limits = std::numeric_limits<unsigned long>;
+    return scm_is_unsigned_integer (s, limits::min (), limits::max ());
+  }
+  static unsigned long from_scm (SCM s) { return scm_to_ulong (s); }
+  static SCM to_scm (const unsigned long &i) { return scm_from_ulong (i); }
+};
 
 template <>
-inline bool
-is_scm<unsigned long long> (SCM s)
+struct scm_conversions<unsigned long long>
 {
-  using limits = std::numeric_limits<unsigned long long>;
-  return scm_is_unsigned_integer (s, limits::min (), limits::max ());
-}
-template <>
-inline unsigned long long
-from_scm<unsigned long long> (const SCM &s)
-{
-  return scm_to_ulong_long (s);
-}
-template <>
-inline SCM
-to_scm<unsigned long long> (const unsigned long long &i)
-{
-  return scm_from_ulong_long (i);
-}
+  static bool is_scm (SCM s)
+  {
+    using limits = std::numeric_limits<unsigned long long>;
+    return scm_is_unsigned_integer (s, limits::min (), limits::max ());
+  }
+  static unsigned long long from_scm (SCM s) { return scm_to_ulong_long (s); }
+  static SCM to_scm (unsigned long long i) { return scm_from_ulong_long (i); }
+};
 
 template <>
 struct scm_conversions<bool>
@@ -626,42 +562,26 @@ struct scm_conversions<bool>
 };
 
 template <>
-inline bool
-is_scm<double> (SCM s)
+struct scm_conversions<double>
 {
-  return scm_is_real (s);
-}
-template <>
-inline double
-from_scm<double> (const SCM &s)
-{
-  return scm_to_double (s);
-}
-template <>
-inline SCM
-to_scm<double> (const double &i)
-{
-  return scm_from_double (i);
-}
+  static bool is_scm (SCM s) { return scm_is_real (s); }
+  static double from_scm (SCM s) { return scm_to_double (s); }
+  static SCM to_scm (double i) { return scm_from_double (i); }
+};
 
 template <>
-inline bool
-is_scm<Axis> (SCM s)
+struct scm_conversions<Axis>
 {
-  return scm_is_unsigned_integer (s, X_AXIS, Y_AXIS);
-}
-template <>
-inline Axis
-from_scm<Axis> (const SCM &s)
-{
-  return Axis (scm_to_unsigned_integer (s, X_AXIS, Y_AXIS));
-}
-template <>
-inline SCM
-to_scm<Axis> (const Axis &d)
-{
-  return to_scm<int> (d);
-}
+  static bool is_scm (SCM s)
+  {
+    return scm_is_unsigned_integer (s, X_AXIS, Y_AXIS);
+  }
+  static Axis from_scm (SCM s)
+  {
+    return Axis (scm_to_unsigned_integer (s, X_AXIS, Y_AXIS));
+  }
+  static SCM to_scm (Axis d) { return ::to_scm<int> (d); }
+};
 
 template <>
 struct scm_conversions<Direction>
@@ -679,11 +599,12 @@ struct scm_conversions<Direction>
 class Rational;
 
 template <>
-bool is_scm<Rational> (SCM s);
-template <>
-Rational from_scm<Rational> (const SCM &s);
-template <>
-SCM to_scm<Rational> (const Rational &i);
+struct scm_conversions<Rational>
+{
+  static bool is_scm (SCM);
+  static Rational from_scm (SCM);
+  static SCM to_scm (const Rational &);
+};
 
 template <typename T>
 inline bool
@@ -700,30 +621,28 @@ is_scm_pair (SCM s)
 class Offset;
 
 template <>
-inline bool
-is_scm<Offset> (SCM s)
+struct scm_conversions<Offset>
 {
-  return is_scm_pair<Real> (s);
-}
+  static bool is_scm (SCM s) { return is_scm_pair<Real> (s); }
+  static Offset from_scm (SCM);
+  static SCM to_scm (const Offset &);
+};
 
 template <>
-Offset from_scm<Offset> (const SCM &s);
-template <>
-SCM to_scm<Offset> (const Offset &i);
+struct scm_conversions<Bezier>
+{
+  static bool is_scm (SCM);
+  static Bezier from_scm (SCM);
+  static SCM to_scm (const Bezier &);
+};
 
 template <>
-bool is_scm<Bezier> (SCM s);
-template <>
-Bezier from_scm<Bezier> (const SCM &s);
-template <>
-SCM to_scm<Bezier> (const Bezier &b);
-
-template <>
-bool is_scm<Skyline_pair> (SCM s);
-template <>
-Skyline_pair from_scm<Skyline_pair> (const SCM &s);
-template <>
-SCM to_scm<Skyline_pair> (const Skyline_pair &skyp);
+struct scm_conversions<Skyline_pair>
+{
+  static bool is_scm (SCM);
+  static Skyline_pair from_scm (SCM);
+  static SCM to_scm (const Skyline_pair &);
+};
 
 template <typename T>
 struct scm_conversions<Drul_array<T>>

@@ -151,18 +151,17 @@ is_number_pair (SCM p)
 /*
   OFFSET
 */
-template <>
 Offset
-from_scm<Offset> (const SCM &s)
+scm_conversions<Offset>::from_scm (SCM s)
 {
-  return Offset (from_scm<Real> (scm_car (s)), from_scm<Real> (scm_cdr (s)));
+  return Offset (::from_scm<Real> (scm_car (s)),
+                 ::from_scm<Real> (scm_cdr (s)));
 }
 
-template <>
 SCM
-to_scm<Offset> (const Offset &i)
+scm_conversions<Offset>::to_scm (const Offset &i)
 {
-  return scm_cons (to_scm (i[X_AXIS]), to_scm (i[Y_AXIS]));
+  return scm_cons (::to_scm (i[X_AXIS]), ::to_scm (i[Y_AXIS]));
 }
 
 /*
@@ -351,9 +350,8 @@ robust_scm2string (SCM k, const std::string &s)
   return s;
 }
 
-template <>
 SCM
-to_scm<Rational> (const Rational &r)
+scm_conversions<Rational>::to_scm (const Rational &r)
 {
   if (isinf (r))
     {
@@ -363,12 +361,11 @@ to_scm<Rational> (const Rational &r)
       return scm_difference (scm_inf (), SCM_UNDEFINED);
     }
 
-  return scm_divide (to_scm (r.numerator ()), to_scm (r.denominator ()));
+  return scm_divide (::to_scm (r.numerator ()), ::to_scm (r.denominator ()));
 }
 
-template <>
 Rational
-from_scm<Rational> (const SCM &r)
+scm_conversions<Rational>::from_scm (SCM r)
 {
   if (scm_is_true (scm_inf_p (r)))
     {
@@ -386,59 +383,53 @@ from_scm<Rational> (const SCM &r)
                    scm_to_int64 (scm_denominator (r)));
 }
 
-template <>
 bool
-is_scm<Rational> (SCM n)
+scm_conversions<Rational>::is_scm (SCM n)
 {
   return (scm_is_real (n)
           && (scm_is_true (scm_exact_p (n)) || scm_is_true (scm_inf_p (n))));
 }
 
-template <>
 bool
-is_scm<Bezier> (SCM s)
+scm_conversions<Bezier>::is_scm (SCM s)
 {
   for (int i = 0; i < 4; i++)
     {
       if (!scm_is_pair (s))
         return false;
       SCM next = scm_car (s);
-      if (!scm_is_pair (next) || !is_scm<Real> (scm_car (next))
-          || !is_scm<Real> (scm_cdr (next)))
+      if (!scm_is_pair (next) || !::is_scm<Real> (scm_car (next))
+          || !::is_scm<Real> (scm_cdr (next)))
         return false;
       s = scm_cdr (s);
     }
   return scm_is_null (s);
 }
 
-template <>
 Bezier
-from_scm<Bezier> (const SCM &s)
+scm_conversions<Bezier>::from_scm (SCM s)
 {
   return Bezier (as_ly_scm_list (s));
 }
 
-template <>
 SCM
-to_scm<Bezier> (const Bezier &b)
+scm_conversions<Bezier>::to_scm (const Bezier &b)
 {
   SCM result = SCM_EOL;
   for (int i : {3, 2, 1, 0})
-    result = scm_cons (to_scm (b.control_[i]), result);
+    result = scm_cons (::to_scm (b.control_[i]), result);
   return result;
 }
 
-template <>
 bool
-is_scm<Skyline_pair> (SCM s)
+scm_conversions<Skyline_pair>::is_scm (SCM s)
 {
   return scm_is_pair (s) && unsmob<Skyline> (scm_car (s))
          && unsmob<Skyline> (scm_cdr (s));
 }
 
-template <>
 Skyline_pair
-from_scm<Skyline_pair> (const SCM &s)
+scm_conversions<Skyline_pair>::from_scm (SCM s)
 {
   if (!scm_is_pair (s))
     return Skyline_pair ();
@@ -465,9 +456,8 @@ from_scm<Skyline_pair> (const SCM &s)
   return Skyline_pair (*left, *right);
 }
 
-template <>
 SCM
-to_scm<Skyline_pair> (const Skyline_pair &skyp)
+scm_conversions<Skyline_pair>::to_scm (const Skyline_pair &skyp)
 {
   return scm_cons (skyp[LEFT].smobbed_copy (), skyp[RIGHT].smobbed_copy ());
 }
