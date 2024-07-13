@@ -523,35 +523,18 @@ to_scm<unsigned long long> (const unsigned long long &i)
 }
 
 template <>
-inline bool
-is_scm<bool> (SCM s)
+struct scm_conversions<bool>
 {
-  return scm_is_bool (s);
-}
-// from_scm<bool> does not error out for a non-boolean but defaults to
-// #f as that's what we generally need for an undefined boolean.  This
-// differs from Scheme which interprets anything but #f as true.
-template <>
-inline bool
-from_scm<bool> (const SCM &s)
-{
-  return scm_is_eq (s, SCM_BOOL_T);
-}
-template <>
-inline bool
-from_scm<bool> (const SCM &s, bool fallback)
-{
-  if (fallback)
-    return scm_is_true (s);
-  else
-    return from_scm<bool> (s);
-}
-template <>
-inline SCM
-to_scm<bool> (const bool &i)
-{
-  return scm_from_bool (i);
-}
+  static bool is_scm (SCM s) { return scm_is_bool (s); }
+  // from_scm implicitly falls back on false as that's what we generally need
+  // for an undefined boolean.  This differs from Scheme which interprets
+  // anything but #f as true.
+  static bool from_scm (SCM s, bool fallback = false)
+  {
+    return fallback ? scm_is_true (s) : scm_is_eq (s, SCM_BOOL_T);
+  }
+  static SCM to_scm (bool i) { return scm_from_bool (i); }
+};
 
 template <>
 inline bool
@@ -592,34 +575,17 @@ to_scm<Axis> (const Axis &d)
 }
 
 template <>
-inline bool
-is_scm<Direction> (SCM s)
+struct scm_conversions<Direction>
 {
-  return scm_is_signed_integer (s, LEFT, RIGHT);
-}
-// from_scm<Direction> does not error out for a non-direction but
-// defaults to CENTER as that's what we generally need for an
-// undefined direction.  In order not to have to call
-// is_scm<Direction> more than once, we hard-code the defaulting
-// variant and implement the one-argument version based on it.
-template <>
-inline Direction
-from_scm<Direction> (const SCM &s, Direction fallback)
-{
-  return is_scm<Direction> (s) ? Direction (from_scm<int> (s)) : fallback;
-}
-template <>
-inline Direction
-from_scm<Direction> (const SCM &s)
-{
-  return from_scm<Direction> (s, CENTER);
-}
-template <>
-inline SCM
-to_scm<Direction> (const Direction &d)
-{
-  return to_scm<int> (d);
-}
+  static bool is_scm (SCM s) { return scm_is_signed_integer (s, LEFT, RIGHT); }
+  // from_scm implicitly falls back on CENTER as that's what we generally need
+  // for an undefined direction.
+  static Direction from_scm (SCM s, Direction fallback = CENTER)
+  {
+    return is_scm (s) ? Direction (::from_scm<int> (s)) : fallback;
+  }
+  static SCM to_scm (Direction d) { return ::to_scm<int> (d); }
+};
 
 class Rational;
 
