@@ -23,6 +23,7 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
+#include <cerrno>
 #include <chrono>
 #include <cstdint>
 #include <cstdio>
