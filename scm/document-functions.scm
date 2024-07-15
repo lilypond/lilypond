@@ -36,10 +36,7 @@
 
 ;; If there is `::` in the function name, insert a breakpoint to avoid
 ;; overlong index entries that would otherwise stick out to the right
-;; in the two-column output of the PDF documentation.  Alas, this
-;; triggers a bug in `texi2html` 1.82; we thus have to temporarily
-;; enclose `prettier-name` with `@code` until an upgrade to a recent
-;; `texi2any` version.
+;; in the two-column output of the PDF documentation.
 (define document-function
   (let ((double-colon-regex (ly:make-regex "::")))
     (lambda (name arguments doc-string is-macro)
@@ -47,7 +44,7 @@
              (str-name (symbol->string name))
              (prettier-name
               (ly:regex-replace double-colon-regex str-name "::@/")))
-        (format #f "@~a @code{~a} ~a\n~a\n@end ~a\n\n"
+        (format #f "@~a ~a ~a\n~a\n@end ~a\n\n"
                 cmd prettier-name arguments doc-string cmd)))))
 
 ;; Map function names (as strings) to full documentation entries
