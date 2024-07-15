@@ -45,7 +45,8 @@
              (prettier-name
               (ly:regex-replace double-colon-regex str-name "::@/")))
         (format #f "@~a ~a ~a\n~a\n@end ~a\n\n"
-                cmd prettier-name arguments doc-string cmd)))))
+                cmd prettier-name arguments
+                (string-trim-both doc-string) cmd)))))
 
 ;; Map function names (as strings) to full documentation entries
 ;; including signature and doc-string.
