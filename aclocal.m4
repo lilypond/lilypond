@@ -340,12 +340,7 @@ AC_DEFUN(STEPMAKE_END, [
         echo "ERROR: Please install required programs: $REQUIRED"
     fi
 
-    if test -n "$UNSUPPORTED"; then
-        echo
-        echo "ERROR: Please use older version of programs: $UNSUPPORTED"
-    fi
-
-    if test -n "$OPTIONAL$REQUIRED$UNSUPPORTED"; then
+    if test -n "$OPTIONAL$REQUIRED"; then
         echo
         echo "See INSTALL.txt for more information on how to build $PACKAGE_NAME"
         if test -f config.cache ; then
@@ -353,7 +348,7 @@ AC_DEFUN(STEPMAKE_END, [
         fi
     fi
 
-    if test -n "$REQUIRED$UNSUPPORTED"; then
+    if test -n "$REQUIRED"; then
         rm -f $srcdir/GNUmakefile
         exit 1
     fi
