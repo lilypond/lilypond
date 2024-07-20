@@ -30,9 +30,9 @@ class Matrix
   using size_type = typename Vector::size_type;
 
 public:
-  Matrix<T, A> () { rank_ = 0; }
+  Matrix () { rank_ = 0; }
 
-  Matrix<T, A> (size_type rows, size_type columns, T const &t)
+  Matrix (size_type rows, size_type columns, T const &t)
     : data_ (rows * columns, t)
   {
     rank_ = rows;
