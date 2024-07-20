@@ -9,6 +9,7 @@ brew "bison"
 brew "flex"
 
 brew "fontforge"
+brew "make"
 brew "meson"
 brew "ninja"
 brew "python"
