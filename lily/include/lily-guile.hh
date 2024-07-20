@@ -36,6 +36,7 @@
 #include "lily-guile-macros.hh"
 
 #include <functional>
+#include <type_traits>
 #include <utility>
 
 class Bezier;
@@ -245,11 +246,106 @@ struct conv_scm_traits<SCM>
   static SCM to (const SCM &&);
 };
 
+// x_scm_t chooses the canonical type T for a to/from SCM conversion based on a
+// function argument, e.g., `to_scm (value)`.  It allows an optional explicit
+// type to override the decision; this supports (e.g.) `to_scm<T> (value)`,
+// which may be needed to resolve ambiguity in some situations.
+template <typename Deduced, typename Explicit = void>
+struct x_scm_canonicalizer
+{
+  using type = std::remove_const_t<Explicit>;
+};
+template <typename Deduced>
+struct x_scm_canonicalizer<Deduced>
+{
+  using type = std::remove_const_t<Deduced>;
+};
+template <typename Deduced, typename Explicit = void>
+using x_scm_t = typename x_scm_canonicalizer<Deduced, Explicit>::type;
+
+template <typename Deduced>
+struct x_scm_canonicalizer<Deduced &> // remove deduced references
+{
+  using type = x_scm_t<Deduced>;
+};
+
+template <typename Deduced>
+struct x_scm_canonicalizer<const Deduced *> // remove const but leave pointer
+{
+  using type = x_scm_t<Deduced *>;
+};
+
 // since partial template specialisation is not available for
 // functions, we default to reflecting to a helper class for template
 // types like Drul_array
 template <typename T>
-struct scm_conversions;
+struct scm_conversions
+{
+};
+
+template <typename ExplicitT, typename S, typename DeducedT>
+decltype (auto) naive_robust_from_scm (S &&s, DeducedT &&fallback);
+
+// robust_scm_conversions<T> is a scm_conversions<T> with a robust overload of
+// from_scm().  It should not be customized.  scm_conversions may be customized
+// to provide a robust from_scm() itself, in which case robust_scm_conversions
+// uses it rather than overriding it.
+//
+// This default robust_scm_conversions is used when the base scm_conversions
+// does not have member functions.
+template <typename T, typename = void>
+struct robust_scm_conversions : public scm_conversions<T>
+{
+  // TODO: This default from_scm() is a stopgap for types that are still handled
+  // by overriding ::is_scm() and ::from_scm().  Remove this once
+  // scm_conversions is specialized for all such types.
+  template <typename S, typename F, typename T2 = T,
+            typename = std::enable_if_t<!std::is_reference_v<T2>>>
+  static decltype (auto) from_scm (S &&s, F &&fallback)
+  {
+    return naive_robust_from_scm<T> (std::forward<S> (s),
+                                     std::forward<F> (fallback));
+  }
+};
+
+// This specialization of robust_scm_conversions is used when the base
+// scm_conversions<T> has member functions.  For simplicity, we detect only
+// is_scm() and expect other requirements to be met if that is present.
+template <typename T>
+class robust_scm_conversions<
+  T, std::void_t<decltype (scm_conversions<T>::is_scm (SCM_EOL))>>
+  : public scm_conversions<T>
+{
+private:
+  using base_type = scm_conversions<T>;
+
+  // is_base_robust<S, F>::value is true if the base provides from_scm(S, F).
+  // C++20: Replace this detector with a `requires` on from_scm().
+  template <typename S, typename F, typename = void>
+  struct is_base_robust : public std::false_type
+  {
+  };
+  template <typename S, typename F>
+  struct is_base_robust<S, F,
+                        std::void_t<decltype (base_type::from_scm (
+                          std::declval<S> (), std::declval<F> ()))>>
+    : public std::true_type
+  {
+  };
+
+public:
+  using base_type::from_scm;
+  using base_type::is_scm;
+
+  // If the base does not provide from_scm(S, F)...
+  template <typename S, typename F,
+            typename = std::enable_if_t<!is_base_robust<S, F>::value>>
+  static decltype (auto) from_scm (S &&s, F &&fallback)
+  {
+    return base_type::is_scm (s) ? base_type::from_scm (std::forward<S> (s))
+                                 : std::forward<F> (fallback);
+  }
+};
 
 template <typename T>
 inline bool
@@ -278,26 +374,24 @@ from_scm (const SCM &&s) -> decltype (conv_scm_traits<T>::from (std::move (s)))
   return ::from_scm<T> (s); // defer to the const & overload
 }
 
+template <typename ExplicitT, typename S, typename DeducedT>
+inline decltype (auto)
+naive_robust_from_scm (S &&s, DeducedT &&fallback)
+{
+  return is_scm<ExplicitT> (s) ? from_scm<ExplicitT> (std::forward<S> (s))
+                               : std::forward<DeducedT> (fallback);
+}
+
 // "robust" variant with fallback
-template <typename T>
+template <typename ExplicitT = void, typename S, typename DeducedT,
+          typename Conv = robust_scm_conversions<x_scm_t<DeducedT, ExplicitT>>>
 inline auto
-from_scm (const SCM &s, T fallback) -> decltype (conv_scm_traits<T>::from (s))
+from_scm (S &&s, DeducedT &&fallback)
+  -> decltype (Conv::from_scm (std::forward<S> (s),
+                               std::forward<DeducedT> (fallback)))
 {
-  return scm_conversions<T>::from_scm (s, fallback);
-}
-template <typename T>
-inline auto
-from_scm (SCM &s, T fallback) -> decltype (conv_scm_traits<T>::from (s))
-{
-  const auto &cs = s;
-  return ::from_scm<T> (cs, fallback); // defer to the const & overload
-}
-template <typename T>
-inline auto
-from_scm (const SCM &&s, T fallback)
-  -> decltype (conv_scm_traits<T>::from (std::move (s)))
-{
-  return ::from_scm<T> (s, fallback); // defer to the const & overload
+  return Conv::from_scm (std::forward<S> (s),
+                         std::forward<DeducedT> (fallback));
 }
 
 template <typename T>
@@ -320,30 +414,7 @@ to_scm (const T &&v) -> decltype (conv_scm_traits<T>::to (std::move (v)))
   return ::to_scm (std::as_const (v)); // defer to the const & overload
 }
 
-template <typename T>
-struct scm_conversions
-{
-  // Add a default rule implementing robust_scm2T
-  //
-  // For better or worse, whenever we are specialising
-  // scm_conversions, we'll need to add this rule back in.
-  //
-  // An alternative would be to have a separate specialisation class
-  // just for the fallback
-  static T from_scm (SCM s, T fallback)
-  {
-    return ::is_scm<T> (s) ? ::from_scm<T> (s) : fallback;
-  }
-};
-
 // These pass-through conversions for SCM are useful in generic code.
-template <>
-inline bool
-is_scm<SCM> (SCM)
-{
-  return true;
-}
-
 template <>
 inline const SCM &
 from_scm<SCM> (const SCM &s)
@@ -358,17 +429,14 @@ from_scm<SCM> (SCM &s)
 }
 
 template <>
-inline const SCM &
-from_scm<SCM> (const SCM &s, SCM)
+struct scm_conversions<SCM>
 {
-  return s;
-}
-template <>
-inline SCM &
-from_scm<SCM> (SCM &s, SCM)
-{
-  return s;
-}
+  static bool is_scm (SCM) { return true; }
+
+  static SCM &from_scm (SCM &s, SCM) { return s; }
+  static const SCM &from_scm (const SCM &s, SCM) { return s; }
+  static SCM from_scm (const SCM &&s, SCM) { return s; }
+};
 
 template <>
 inline const SCM &
@@ -669,10 +737,6 @@ struct scm_conversions<Drul_array<T>>
   {
     return {::from_scm<T> (scm_car (s)), ::from_scm<T> (scm_cdr (s))};
   }
-  static Drul_array<T> from_scm (SCM s, Drul_array<T> fallback)
-  {
-    return is_scm (s) ? from_scm (s) : fallback;
-  }
   static SCM to_scm (const Drul_array<T> &s)
   {
     return scm_cons (::to_scm (s[LEFT]), ::to_scm (s[RIGHT]));
@@ -691,10 +755,6 @@ struct scm_conversions<Interval_t<T>>
   {
     return Interval_t<T> (::from_scm<T> (scm_car (s)),
                           ::from_scm<T> (scm_cdr (s)));
-  }
-  static Interval_t<T> from_scm (SCM s, Interval_t<T> fallback)
-  {
-    return is_scm (s) ? from_scm (s) : fallback;
   }
   static SCM to_scm (const Interval_t<T> &s)
   {

@@ -254,10 +254,9 @@ static_assert (std::is_same_v<                                      //
                >);
 
 // `from_scm<reference_type> (scm, fallback)` shouldn't exist.
-// TODO: Negate these tests and fix the problem.
-static_assert (is_robust_from_scm_detected_v<SCM &, SCM &, SCM &>);
+static_assert (!is_robust_from_scm_detected_v<SCM &, SCM &, SCM &>);
 static_assert (
-  is_robust_from_scm_detected_v<const SCM &, const SCM &, const SCM &>);
-static_assert (is_robust_from_scm_detected_v<SCM &&, SCM &&, SCM &&>);
+  !is_robust_from_scm_detected_v<const SCM &, const SCM &, const SCM &>);
+static_assert (!is_robust_from_scm_detected_v<SCM &&, SCM &&, SCM &&>);
 static_assert (
-  is_robust_from_scm_detected_v<const SCM &&, const SCM &&, const SCM &&>);
+  !is_robust_from_scm_detected_v<const SCM &&, const SCM &&, const SCM &&>);
