@@ -82,14 +82,14 @@ Major
 @tab
 Major third, @*perfect fifth
 @tab
-@code{5} or nothing
+(nothing)
 @tab
-@code{c1:5}
+@code{c1}
 @tab
 @lilypond[inline,line-width=2.1\cm,notime]
 <<
-  \chords { c1:5 }
-  \chordmode { c1:5 }
+  \chords { c1 }
+  \chordmode { c1 }
 >>
 @end lilypond
 
@@ -487,7 +487,10 @@ Perfect fifth
 @code{c1:5}
 @tab
 @lilypond[inline,line-width=2.1\cm,noragged-right,notime]
-\chordmode {c1:5 }
+<<
+  \chords { c1:5 }
+  \chordmode { c1:5 }
+>>
 @end lilypond
 
 @item
@@ -500,7 +503,10 @@ Perfect fifth, @*octave
 @code{c1:5.8}
 @tab
 @lilypond[inline,line-width=2.1\cm,noragged-right,notime]
-  \chordmode {c1:5.8 }
+<<
+  \chords { c1:5.8 }
+  \chordmode { c1:5.8 }
+>>
 @end lilypond
 
 @end multitable
