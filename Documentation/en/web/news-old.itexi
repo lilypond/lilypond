@@ -27,6 +27,118 @@ NOTE:
 @end ignore
 
 @newsItem
+@subheading LilyPond 2.25.17 released  @emph{June 15, 2024}
+
+We are happy to announce the release of LilyPond 2.25.17. This is
+termed a development release, but these are usually reliable for
+testing new features and recent bug fixes. However, if you require
+stability, we recommend using version 2.24.3, the current stable
+release.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.25.16 released  @emph{May 12, 2024}
+
+We are happy to announce the release of LilyPond 2.25.16. This is
+termed a development release, but these are usually reliable for
+testing new features and recent bug fixes. However, if you require
+stability, we recommend using version 2.24.3, the current stable
+release.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.25.15 released  @emph{April 20, 2024}
+
+We are happy to announce the release of LilyPond 2.25.15. This is
+termed a development release, but these are usually reliable for
+testing new features and recent bug fixes. However, if you require
+stability, we recommend using version 2.24.3, the current stable
+release.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.25.14 released  @emph{March 23, 2024}
+
+We are happy to announce the release of LilyPond 2.25.14. This is
+termed a development release, but these are usually reliable for
+testing new features and recent bug fixes. However, if you require
+stability, we recommend using version 2.24.3, the current stable
+release.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.25.13 released  @emph{Feburary 10, 2024}
+
+We are happy to announce the release of LilyPond 2.25.13. This is
+termed a development release, but these are usually reliable for
+testing new features and recent bug fixes. However, if you require
+stability, we recommend using version 2.24.3, the current stable
+release.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.25.12 released  @emph{January 7, 2024}
+
+We are happy to announce the release of LilyPond 2.25.12. This is
+termed a development release, but these are usually reliable for
+testing new features and recent bug fixes. However, if you require
+stability, we recommend using version 2.24.3, the current stable
+release.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.25.11 released  @emph{December 10, 2023}
+
+We are happy to announce the release of LilyPond 2.25.11. This is
+termed a development release, but these are usually reliable for
+testing new features and recent bug fixes. However, if you require
+stability, we recommend using version 2.24.3, the current stable
+release.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.24.3 released!  @emph{November 19, 2023}
+
+We are proud to announce the release of GNU LilyPond 2.24.3. LilyPond is a
+music engraving program devoted to producing the highest-quality sheet music
+possible. It brings the aesthetics of traditionally engraved music to computer
+printouts.
+
+This version contains a number of fixes since the release of the previous
+stable version in August 2023. We recommend all users to update.
+Scores converted to or written for 2.24.0 will continue to work with this
+release. A list of added features and other user-visible changes for 2.24
+can be found at @uref{https://lilypond.org/doc/v2.24/Documentation/changes/}.
+Among others, version 2.24.0 switched to Guile 2.2 and features a completely
+rewritten infrastructure for creating the official packages, finally allowing
+us to offer 64-bit binaries for macOS and Windows.
+
+For distributions, LilyPond 2.24.3 most notably includes a fix to restore PDF
+conversion with the recent Ghostscript 10.02.1. Also Guile 3.0 is now officially
+supported, even though the recommended version will remain Guile 2.2 for the
+LilyPond 2.24 series.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.25.10 released  @emph{November 11, 2023}
+
+We are happy to announce the release of LilyPond 2.25.10. This is
+termed a development release, but these are usually reliable for
+testing new features and recent bug fixes. However, if you require
+stability, we recommend using version 2.24.2, the current stable
+release.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.25.9 released  @emph{October 7, 2023}
 
 We are happy to announce the release of LilyPond 2.25.9. This is
@@ -68,6 +180,7 @@ rewritten infrastructure for creating the official packages, finally allowing
 us to offer 64-bit binaries for macOS and Windows.
 
 @newsEnd
+
 @newsItem
 @subheading LilyPond 2.25.7 released  @emph{July 30, 2023}
 
