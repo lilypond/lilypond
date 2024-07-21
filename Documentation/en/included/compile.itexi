@@ -441,7 +441,7 @@ Use version 2.5.29 or newer.
 
 @item
 @uref{https://fontforge.org, FontForge}@*
-Use version 20120731 or newer with enabled Python@tie{}3
+Use version 20200314 or newer with enabled Python@tie{}3
 scripting; it must also be compiled with the
 @option{--enable-double} switch, else this can lead to inaccurate
 intersection calculations, which in turn cause poorly-rendered

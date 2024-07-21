@@ -662,7 +662,7 @@ AC_DEFUN(STEPMAKE_PYTHON, [
 
 
 AC_DEFUN(STEPMAKE_FONTFORGE, [
-    STEPMAKE_PATH_PROG(FONTFORGE, fontforge, $1, 20110222)
+    STEPMAKE_PATH_PROG(FONTFORGE, fontforge, $1, 20200314)
     if test $? -eq 0; then
         min_quiet=`STEPMAKE_NUMERIC_VERSION(20220308)`
         # `num` comes from `STEPMAKE_PATH_PROG`; we compare it with the
