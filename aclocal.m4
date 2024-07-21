@@ -426,13 +426,6 @@ EOF
 ])
 
 
-AC_DEFUN(STEPMAKE_FLEX, [
-    # ugh, ugh
-    ac_cv_prog_lex_root=lex.yy
-    STEPMAKE_PROGS(FLEX, flex, $1)
-])
-
-
 AC_DEFUN(STEPMAKE_FLEXLEXER, [
     save_CPPFLAGS="$CPPFLAGS"
     if test -n "$FLEXLEXER_DIR"; then
