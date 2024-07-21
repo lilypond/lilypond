@@ -78,8 +78,17 @@ modules."
                   (page:page-number . ,page-number)
                   (page:page-number-string . ,(number-format number-type page-number))
                   (header:tagline . ,tagline)))
-               (props (cons extra-properties (append header-props basic-props))))
-          (interpret-markup layout props header-mkup))
+               (props (cons extra-properties (append header-props basic-props)))
+               (stil (interpret-markup layout props header-mkup)))
+          ;; A stencil that is merely Y-empty counts as horizontal spacing.
+          ;; Since we want those to register as lines of their own (is this a
+          ;; good idea?), we make them a separately visible line.
+          ;; See also comment in `stack-lines` from stencil.scm
+          (if (and (ly:stencil-empty? stil Y)
+                   (not (ly:stencil-empty? stil X)))
+              (ly:make-stencil
+                (ly:stencil-expr stil) (ly:stencil-extent stil X) '(0 . 0))
+              stil))
         empty-stencil)))
 
 (define-public ((marked-up-title what) layout scopes)
