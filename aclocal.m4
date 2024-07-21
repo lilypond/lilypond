@@ -588,11 +588,6 @@ AC_DEFUN(STEPMAKE_LOCALE, [
 ])
 
 
-AC_DEFUN(STEPMAKE_MSGFMT, [
-    STEPMAKE_PROGS(MSGFMT, msgfmt, $1)
-])
-
-
 # Check for program ($2).  If found, assign full path result to ($1).
 # If missing, add entry to missing-list ($3, one of 'OPTIONAL', 'REQUIRED')
 # and assign "false" to ($1).
