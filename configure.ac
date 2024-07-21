@@ -136,7 +136,8 @@ AC_SUBST(CXXABI_LIBS)
 
 STEPMAKE_FONTFORGE(REQUIRED)
 
-STEPMAKE_PATH_PROG(T1ASM, t1asm, REQUIRED)
+AC_PATH_PROG([T1ASM],[t1asm])
+AS_VAR_IF([T1ASM],[],[AC_MSG_ERROR([cannot find t1asm])])
 
 AC_CHECK_HEADERS([grp.h pwd.h sys/stat.h])
 AC_CHECK_FUNCS([chroot gettext])
