@@ -470,7 +470,7 @@ for most platforms.
 @item
 @uref{https://www.tug.org/metapost.html, MetaPost}@*
 The @command{mpost} binary is also usually packaged with
-@uref{https://tug.org/texlive, @TeX{}}.
+@uref{https://tug.org/texlive, @TeX{}}.  Use version 2.0 or newer.
 
 @item
 @uref{https://www.perl.org, Perl}@*
