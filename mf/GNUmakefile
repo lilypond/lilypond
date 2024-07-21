@@ -52,7 +52,7 @@ $(outdir)/mf2pt1.mem: mf2pt1.mp
 
 ifndef VERBOSE
   METAFONT_QUIET = >/dev/null
-  FONTFORGE_QUIET = $(FONTFORGE_QUIET_OPTION)
+  FONTFORGE_QUIET = -quiet
 else
   METAFONT_QUIET =
   FONTFORGE_QUIET =
