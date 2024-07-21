@@ -176,7 +176,8 @@ AC_SUBST(ZLIB_LIBS)
 STEPMAKE_WINDOWS
 
 # perl for help2man and for mf2pt1.pl
-STEPMAKE_PERL(REQUIRED)
+AC_PATH_PROG([PERL],[perl])
+AS_VAR_IF([PERL],[],[AC_MSG_ERROR([cannot find perl])])
 
 ## Optional tools for building documentation, website, extra fonts.
 if test "$DOCUMENTATION" = "yes"; then

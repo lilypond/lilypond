@@ -619,11 +619,6 @@ AC_DEFUN(STEPMAKE_PROGS, [
 ])
 
 
-AC_DEFUN(STEPMAKE_PERL, [
-    STEPMAKE_PATH_PROG(PERL, perl, $1)
-])
-
-
 # Check for python, between minimum ($2) and maximum version ($3).
 # If missing, add entry to missing-list ($1, one of 'OPTIONAL', 'REQUIRED')
 AC_DEFUN(STEPMAKE_PYTHON, [
