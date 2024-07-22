@@ -10,11 +10,15 @@ bracketed."
   indent = 0
 }
 
+#(for-each
+  (lambda (i) (ly:expect-warning "no accidental glyph found"))
+  (iota 6))
+
 <<
   \new Staff {
     \time 5/4
     \clef bass
-    \repeat unfold 14 d4
+    \repeat unfold 20 d4
   }
   \figures
   {
@@ -32,5 +36,8 @@ bracketed."
     [3   [!]]>
     <6 _ [ + ] >
     <  [ 6 _ [ -   ]   ] >
+
+    % 4) Not existing accidentals cause a warning and are replaced by "?".
+    <5+++> <[5+++]>  <5[+++]> <5---> <[5---]>  <5[---]>
   }
 >>

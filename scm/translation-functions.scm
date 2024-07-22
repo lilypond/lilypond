@@ -387,16 +387,19 @@ segni to avoid ambiguity."
          ;; or #f.
          (alt-markup
           (if (number? alt)
-              ((if alt-bracket make-bracket-markup identity)
-               (make-number-markup
-                (ly:wide-char->utf-8
-                 (or
-                  (assv-ref figbass-accidental-alist alt)
-                  (begin
-                    (ly:warning
-                     (G_ "no accidental glyph found for alteration ~a")
-                     alteration)
-                    #\?)))))
+              (let* ((acc (assoc-get alt figbass-accidental-alist))
+                     (acc-markup
+                       (if acc
+                           (make-number-markup (ly:wide-char->utf-8 acc))
+                           (begin
+                             (ly:warning
+                              (G_ "no accidental glyph found for alteration ~a")
+                              alt)
+                             ;; fallback
+                              "?"))))
+                (if alt-bracket
+                    (make-bracket-markup acc-markup)
+                    acc-markup))
               #f))
 
          (plus-markup (if (eq? #t augmented)
