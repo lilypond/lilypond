@@ -60,8 +60,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
 
   SCM parenthesized = get_property (me, "parenthesized");
 
-  std::string glyph_name
-    = robust_scm2string (get_property (me, "glyph-name"), "");
+  const auto glyph_name = from_scm (get_property (me, "glyph-name"), "");
 
   if ((glyph_name == "accidentals.flat" || glyph_name == "accidentals.flatflat")
       && !from_scm<bool> (parenthesized))
@@ -121,8 +120,7 @@ Accidental_interface::print (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Font_metric *fm = Font_interface::get_default_font (me);
-  std::string glyph_name
-    = robust_scm2string (get_property (me, "glyph-name"), "");
+  const auto glyph_name = from_scm (get_property (me, "glyph-name"), "");
   Stencil st = fm->find_by_name (glyph_name);
   if (st.is_empty ())
     me->warning (_f ("cannot find glyph %s", glyph_name));

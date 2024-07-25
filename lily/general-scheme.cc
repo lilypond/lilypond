@@ -313,10 +313,8 @@ first parameter is an integer, or to file @var{file-name}, opened with
 
   LY_ASSERT_TYPE (scm_is_string, fd_or_file_name, 1);
 
-  std::string m = "w";
   std::string f = ly_scm2string (fd_or_file_name);
-  if (scm_is_string (mode))
-    m = ly_scm2string (mode);
+  const auto m = from_scm (mode, "w");
   int backup_fd = dup (fileno (stderr));
   FILE *stderrfile = freopen (f.c_str (), m.c_str (), stderr);
   if (stderrfile)

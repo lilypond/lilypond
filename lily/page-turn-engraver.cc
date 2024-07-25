@@ -174,7 +174,7 @@ Page_turn_engraver::acknowledge_bar_line (Grob_info_t<Item> gi)
 {
   if (!found_special_bar_line_)
     {
-      auto glyph = robust_scm2string (get_property (gi.grob (), "glyph"), "");
+      auto glyph = from_scm (get_property (gi.grob (), "glyph"), "");
       found_special_bar_line_ = is_bar_line_special (glyph);
     }
 }
@@ -256,7 +256,7 @@ Page_turn_engraver::stop_translation_timestep ()
         {
           if (auto *bar = unsmob<Item> (get_property (this, "currentBarLine")))
             {
-              auto glyph = robust_scm2string (get_property (bar, "glyph"), "");
+              auto glyph = from_scm (get_property (bar, "glyph"), "");
               found_special_bar_line_ = is_bar_line_special (glyph);
             }
         }

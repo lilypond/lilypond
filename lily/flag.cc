@@ -132,8 +132,7 @@ Flag::print (SCM smob)
 
   char dir = (d == UP) ? 'u' : 'd';
   Font_metric *fm = Font_interface::get_default_font (me);
-  std::string font_char
-    = robust_scm2string (get_property (me, "glyph-name"), "");
+  const auto font_char = from_scm (get_property (me, "glyph-name"), "");
   Stencil flag = fm->find_by_name (font_char);
   if (flag.is_empty ())
     me->warning (_f ("flag `%s' not found", font_char));

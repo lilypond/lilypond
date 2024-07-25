@@ -361,9 +361,7 @@ Lyric_combine_music_iterator::do_quit ()
       if (!scm_is_symbol (voice_type))
         voice_type = ly_symbol2scm ("Voice");
 
-      std::string id
-        = robust_scm2string (get_property (m, "associated-context"), "");
-
+      auto id = from_scm (get_property (m, "associated-context"), "");
       Input *origin = m->origin ();
       origin->warning (_f ("cannot find context: %s",
                            Context::diagnostic_id (voice_type, id).c_str ()));

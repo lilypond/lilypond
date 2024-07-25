@@ -132,7 +132,7 @@ Quote_iterator::create_contexts ()
   if (scm_is_symbol (name))
     {
       SCM id = get_property (get_music (), "quoted-context-id");
-      std::string c_id = robust_scm2string (id, "");
+      const auto c_id = from_scm (id, "");
       cue_context
         = get_context ()->find_create_context (CENTER, name, c_id, SCM_EOL);
       if (!cue_context)

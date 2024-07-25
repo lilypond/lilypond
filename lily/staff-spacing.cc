@@ -80,8 +80,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
       SCM glyph = get_property (bar_grob, "glyph-name");
       Grob *staff_sym = Staff_symbol_referencer::get_staff_symbol (bar_grob);
 
-      std::string glyph_string
-        = scm_is_string (glyph) ? ly_scm2string (glyph) : "";
+      const auto glyph_string = from_scm (glyph, "");
       if (glyph_string.substr (0, 1) == "|"
           || glyph_string.substr (0, 1) == ".")
         {

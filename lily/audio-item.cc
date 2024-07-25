@@ -211,7 +211,7 @@ Audio_text::markup_to_string (SCM markup)
       markup = Lily::markup_to_string (markup);
     }
 
-  return robust_scm2string (markup, "");
+  return from_scm (markup, "");
 }
 
 Audio_control_change::Audio_control_change (int control, int value)
