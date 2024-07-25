@@ -1363,9 +1363,8 @@ class ChordEvent(NestedMusic):
         if staff_changes:
             staff_changes[0].print_ly(printer)
 
-        # Print all overrides and other settings needed by the
-        # articulations/ornaments before the note
-
+        # Print all overrides and other settings for articulations or
+        # ornaments that need to be inserted before the chord.
         for e in other_events:
             f = getattr(e, 'print_before_note', None)
             if f is not None:
@@ -1381,10 +1380,9 @@ class ChordEvent(NestedMusic):
             basepitch = None
             stem = None
             for x in note_events:
-                if x.associated_events:
-                    for aev in x.associated_events:
-                        if isinstance(aev, StemEvent) and aev.value:
-                            stem = aev
+                for aev in x.associated_events:
+                    if isinstance(aev, StemEvent) and aev.value:
+                        stem = aev
                 pitches.append(x.chord_element_ly())
                 if not basepitch:
                     basepitch = previous_pitch
