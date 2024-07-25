@@ -88,7 +88,7 @@ extern "C"
   STRINGS
  */
 std::string
-ly_scm2string (SCM str)
+scm_conversions<std::string>::from_scm (SCM str)
 {
   assert (scm_is_string (str));
 
@@ -107,12 +107,6 @@ ly_scm2string (SCM str)
       result.assign (c_string.get (), len);
     }
   return result;
-}
-
-SCM
-ly_string2scm (std::string const &str)
-{
-  return scm_from_utf8_stringn (str.c_str (), str.length ());
 }
 
 unique_stdlib_ptr<char>
@@ -341,14 +335,6 @@ ly_with_fluid (SCM fluid, SCM val, std::function<SCM ()> const &fn)
   };
 
   return scm_c_with_fluid (fluid, val, trampoline, const_cast<Fn *> (&fn));
-}
-
-std::string
-robust_scm2string (SCM k, const std::string &s)
-{
-  if (scm_is_string (k))
-    return ly_scm2string (k);
-  return s;
 }
 
 SCM

@@ -51,8 +51,6 @@ class Skyline_pair;
 std::string ly_scm_write_string (SCM s);
 SCM ly_deep_copy (SCM);
 
-SCM ly_string2scm (std::string const &s);
-std::string ly_scm2string (SCM s);
 std::string ly_symbol2string (SCM);
 std::string robust_symbol2string (SCM, const std::string &);
 SCM ly_chain_assoc (SCM key, SCM achain);
@@ -71,8 +69,6 @@ SCM ly_assoc_get (SCM key, SCM alist, SCM default_value,
 SCM ly_memv (SCM, SCM);
 Slice int_list_to_slice (SCM l);
 unique_stdlib_ptr<char> ly_scm2str0 (SCM str);
-
-std::string robust_scm2string (SCM, const std::string &);
 
 bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
 std::string print_scm_val (SCM val);
@@ -600,7 +596,7 @@ struct scm_conversions<std::string>
 public:
   static bool is_scm (SCM s) { return scm_is_string (s); }
 
-  static std::string from_scm (SCM s) { return ly_scm2string (s); }
+  static std::string from_scm (SCM s);
 
   // Special handling of char arrays of known length is intended to support
   // `to_scm ("literal")` and `from_scm (scm, "literal")` without decaying to
