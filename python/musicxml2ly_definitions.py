@@ -479,4 +479,21 @@ trillTweak =
        #music
      #}))
 """,
+
+    "harmonic": """\
+harmonicSmall =
+  \\tweak NoteHead.font-size #-3
+  \\tweak NoteHead.duration-log #4
+  \\etc
+
+harmonicParen =
+#(define-music-function (size offset music)
+   (number? number? ly:music?)
+   #{
+     \\tweak Parentheses.font-size #size
+     \\tweak Parentheses.Y-offset #offset
+     \\parenthesize
+     #music
+   #})
+""",
 }

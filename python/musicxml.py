@@ -941,6 +941,35 @@ class Note(Measure_element):
         event.accidental_color = getattr(acc, 'color', note_color)
         event.accidental_font_size = getattr(acc, 'font-size', note_font_size)
 
+        # Since `<harmonic>` can change the shape of a note head we have
+        # to do an early pass here to set some values.
+        for notation in self.get_typed_children(Notations):
+            for technical in notation.get_named_children('technical'):
+                for harmonic in technical.get_named_children('harmonic'):
+                    if harmonic.get_named_child('natural'):
+                        event.harmonic = 'natural'
+                    elif harmonic.get_named_child('artificial'):
+                        event.harmonic = 'artificial'
+                    else:
+                        event.harmonic = 'yes'
+
+                    if harmonic.get_named_child('base-pitch'):
+                        event.harmonic_type = 'base-pitch'
+                    elif harmonic.get_named_child('touching-pitch'):
+                        event.harmonic_type = 'touching-pitch'
+                    elif harmonic.get_named_child('sounding-pitch'):
+                        event.harmonic_type = 'sounding-pitch'
+
+                    # These attributes are used only for the circular
+                    # harmonic symbol.
+                    event.harmonic_visible = (getattr(harmonic,
+                                                      'print-object',
+                                                      'yes') == 'yes')
+                    event.harmonic_color = getattr(harmonic, 'color',
+                                                   note_color)
+                    event.harmonic_font_size = getattr(harmonic, 'font-size',
+                                                       note_font_size)
+
         return event
 
     def initialize_unpitched_event(self, clef):

@@ -1325,6 +1325,15 @@ class ChordEvent(NestedMusic):
             return None
 
     def print_ly(self, printer):
+        def notehead_is_changed(note_event):
+            for aev in note_event.associated_events:
+                if isinstance(aev, NotestyleEvent):
+                    if aev.style or aev.filled is not None:
+                        return True
+                elif isinstance(aev, ParenthesizeEvent):
+                    return True
+            return False
+
         staff_changes = [e for e in self.elements
                          if isinstance(e, StaffChange)]
 
@@ -1338,6 +1347,89 @@ class ChordEvent(NestedMusic):
         other_events = [e for e in self.elements
                         if not (isinstance(e, RhythmicEvent)
                                 or isinstance(e, StaffChange))]
+
+        # Depending on the `<harmonic>` elements in a chord we provide
+        # default renderings in case no attributes are set that change the
+        # appearance of note heads.
+        #
+        # We support the following combinations of harmonic-specific
+        # elements (for everything else we simply use `\flageolet` symbols).
+        #
+        #   harmonic  natural   base-pitch touching-pitch sounding-pitch
+        #   -----------------------------------------------------------------
+        #      x         x          x            x                        [1]
+        #      x         x                       x                        [2]
+        #      x         x                       x               x        [3]
+        #      x         x          x            x               x        [4]
+        #
+        #   harmonic artificial base-pitch touching-pitch sounding-pitch
+        #   -----------------------------------------------------------------
+        #      x         x          x            x                        [5]
+        #      x         x          x            x               x        [4]
+        #
+        # [1] small black note in parentheses (base pitch)
+        #     & hollow, diamond-shaped note (touching pitch)
+        # [2] hollow, diamond-shaped note
+        # [3] small hollow, diamond-shaped note in parentheses
+        #       (touching pitch)
+        #     & normal note with ring (sounding pitch)
+        # [4] small black note (base pitch)
+        #     & small hollow, diamond-shaped note (touching pitch)
+        #     & normal note with ring (sounding pitch),
+        #     & base and touching pitch are enclosed by a single pair of
+        #       parentheses
+        # [5] normal note (base pitch)
+        #     & hollow, diamond-shaped note (touching pitch)
+        #
+        # Note that this algorithm fails if there are two or more harmonic
+        # combinations in a single chord.  Consequently, we don't consider
+        # such combinations.
+        base = next((e for e in note_events
+                     if e.harmonic_type == 'base-pitch'), None)
+        if (base and (not base.harmonic_visible
+                      or notehead_is_changed(base))):
+            base = None
+        touch = next((e for e in note_events
+                      if e.harmonic_type == 'touching-pitch'), None)
+        if (touch and (not touch.harmonic_visible
+                       or notehead_is_changed(touch))):
+            touch = None
+        sound = next((e for e in note_events
+                      if e.harmonic_type == 'sounding-pitch'), None)
+        if (sound and (not sound.harmonic_visible
+                       or notehead_is_changed(sound))):
+            sound = None
+
+        # `harmonic_visible` is tested in `NoteEvent.post_note_ly()` to
+        # decide whether to draw a flageolet symbol.
+        if len(note_events) == 3 and base and touch and sound:
+            # Case 4.
+            base.harmonic_steps = touch.pitch.steps() - base.pitch.steps()
+            base.harmonic_type = ['small']
+            base.harmonic_visible = None
+            touch.harmonic_type = ['small', 'diamond']
+            touch.harmonic_visible = None
+        elif len(note_events) == 2:
+            if base:
+                if base.harmonic == 'artificial' and touch and not sound:
+                    # Case 5.
+                    base.harmonic_visible = None
+                    touch.harmonic_type = ['diamond']
+                    touch.harmonic_visible = None
+                elif base.harmonic == 'natural' and touch and not sound:
+                    # Case 1.
+                    base.harmonic_type = ['small', 'parentheses']
+                    base.harmonic_visible = None
+                    touch.harmonic_type = ['diamond']
+                    touch.harmonic_visible = None
+            elif touch and touch.harmonic == 'natural' and sound:
+                # Case 3.
+                touch.harmonic_type = ['small', 'diamond', 'parentheses']
+                touch.harmonic_visible = None
+        elif len(note_events) == 1 and touch and touch.harmonic == 'natural':
+            # Case 2.
+            touch.harmonic_type = ['diamond']
+            touch.harmonic_visible = None
 
         if self.after_grace_elements:
             printer(r'\afterGrace {')
@@ -3239,6 +3331,12 @@ class NoteEvent(RhythmicEvent):
         self.accidental_value = None
         self.accidental_color = None
         self.accidental_font_size = None
+        self.harmonic = None
+        self.harmonic_type = None
+        self.harmonic_visible = None
+        self.harmonic_color = None
+        self.harmonic_font_size = None
+        self.harmonic_steps = None  # between base pitch and touching pitch
         self.visible = True
 
     def get_properties(self):
@@ -3257,6 +3355,13 @@ class NoteEvent(RhythmicEvent):
             excl_question += '!'
 
         return excl_question
+
+    # Return a heuristic size and a vertical offset for Emmentaler's
+    # parentheses to enclose two notes in a chord with a separation given by
+    # `harmonic_steps`.
+    def harmonic_parentheses_tweaks(self):
+        return (-3.8 + abs(self.harmonic_steps) * 1.4,
+                self.harmonic_steps / 4)
 
     def ly_expression(self):
         if self.pitch:
@@ -3308,10 +3413,35 @@ class NoteEvent(RhythmicEvent):
             if dot_font_size is not None:
                 elements.append(r'\tweak Dots.font-size %s' % dot_font_size)
 
+            if self.harmonic_steps:
+                elements.append(r'\harmonicParen %.1f %.1f'
+                                % self.harmonic_parentheses_tweaks())
+
+            if type(self.harmonic_type) == list:
+                if 'small' in self.harmonic_type:
+                    elements.append(r'\harmonicSmall')
+                if 'parentheses' in self.harmonic_type:
+                    elements.append(r'\parenthesize')
+
         return elements
 
     def post_note_ly(self, is_chord_element):
         elements = super().post_note_ly(is_chord_element)
+
+        if type(self.harmonic_type) == list:
+            if 'diamond' in self.harmonic_type:
+                elements.append(r'\harmonic')
+        elif self.harmonic_visible:
+            # A circular harmonic symbol.
+            harmonic_color = color_to_ly(self.harmonic_color)
+            if harmonic_color is not None:
+                elements.append(r'\tweak color %s' % harmonic_color)
+            harmonic_font_size = get_font_size(self.harmonic_font_size,
+                                               command=False)
+            if harmonic_font_size is not None:
+                elements.append(r'\tweak font-size %s' % harmonic_font_size)
+            elements.append(r'\flageolet')
+
         return elements
 
     def print_ly(self, printer):

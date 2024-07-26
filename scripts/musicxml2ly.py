@@ -1618,7 +1618,7 @@ articulations_dict = {
     # "hammer-on": "?",
     # "handbell": "?",
     # "harmon-mute": "?",
-    "harmonic": "flageolet",
+    # "harmonic": handled by `NoteEvent`,
     # "haydn": "?",
     # "heel": "?",
     # "hole": "?",
@@ -1728,6 +1728,9 @@ def musicxml_articulation_to_lily_event(mxl_event, note_color=None,
     # lines above; if we see the `<trill-mark>` element, we thus pass.
     if OrnamenthasWavyline(mxl_event):
         return 'delayed'
+
+    if name == 'harmonic':
+        needed_additional_definitions.append('harmonic')
 
     tmp_tp = articulations_dict.get(name)
     if not tmp_tp:
