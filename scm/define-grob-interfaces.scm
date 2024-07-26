@@ -666,24 +666,18 @@ The maximum horizontal extent of a parenthesis.
 Move all tablature numbers horizontally.  The value is given as a multiple of a
 single-digit number width.
 
-@item repeat-tied-properties
-An alist with the following elements.
-
-@table @code
-@item note-head-visible
-If set to @code{#t}, show a number for a note with @code{\\repeatTie}.
-@item parenthesize
-If set to @code{#t}, parenthesize the number for a note with @code{\\repeatTie}.
-@end table
-
 @item tied-properties
 An alist with the following elements.
 
 @table @code
-@item break-visibility
-A vector of 3@tie{}booleans, @code{#(@var{end-of-line} @var{unbroken}
-@var{begin-of-line})}, to control the visibility of ties over a line break.
-@code{#t} means visible, @code{#f} means killed.
+@item tied
+Keep track whether a @code{Tie} ends at this note.
+@item repeat-tied
+Does this note hold a @code{RepeatTie}? @code{'repeat-tied} is also set if the
+note is part of a chord with set @code{RepeatTie}.
+@item note-head-visible
+If set to @code{#t}, show a number for a note with @code{\\repeatTie} or a
+note ending a @code{Tie}.
 @item parenthesize
 If set to @code{#t}, parenthesize the number for a tied note after a line break.
 @end table

@@ -1,4 +1,4 @@
-\version "2.15.19"
+\version "2.25.19"
 
 \header {
   texidoc = "If a @code{Slur} or a @code{Glissando} follows a @code{Tie}, the

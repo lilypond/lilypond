@@ -138,68 +138,6 @@ This markup command is used to implement @code{\\clef moderntab} within a
         -0.75
         0.75)))
 
-;; FIXME: some of the below routines have side effects that sound
-;; like they could cause dependency on callback order. --JeanAS
-
-;; the handler for ties in tablature; according to TabNoteHead #'details,
-;; the 'tied to' note is handled differently after a line break
-(define-public (tie::handle-tab-note-head grob)
-  (let* ((original (ly:grob-original grob))
-         (tied-tab-note-head (ly:spanner-bound grob RIGHT))
-         (spanner-start (ly:grob-property tied-tab-note-head 'span-start #f))
-         (siblings (if (ly:grob? original)
-                       (ly:spanner-broken-into original) '())))
-
-    (if spanner-start
-        ;; tab note head is right bound of a tie and left of spanner,
-        ;; -> parenthesize it at all events
-        (begin
-          (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
-          (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print))
-        ;; otherwise, check whether tie is split:
-        (if (and (>= (length siblings) 2)
-                 (eq? (car (last-pair siblings)) grob))
-            ;; tie is split -> get TabNoteHead #'details
-            (let* ((details (ly:grob-property tied-tab-note-head 'details))
-                   (tied-properties (assoc-get 'tied-properties details '()))
-                   (tab-note-head-parenthesized (assoc-get 'parenthesize tied-properties #t)))
-
-              (if tab-note-head-parenthesized
-                  (begin
-                    (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
-                    (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print))))
-
-            ;; tie is not split
-            (ly:grob-set-property! tied-tab-note-head 'transparent #t)))))
-
-
-
-;; repeat ties occur within alternatives in a repeat construct;
-;; TabNoteHead #'details handles the appearance in this case
-(define-public (repeat-tie::handle-tab-note-head grob)
-  (let* ((tied-tab-note-head (ly:grob-object grob 'note-head))
-         (spanner-start (ly:grob-property tied-tab-note-head 'span-start #f)))
-    (if spanner-start
-        ;; tab note head is between a tie and a slur/glissando
-        ;; -> parenthesize it at all events
-        (begin
-          (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
-          (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print))
-        ;; otherwise check 'details
-        (let* ((details (ly:grob-property tied-tab-note-head 'details))
-               (repeat-tied-properties (assoc-get 'repeat-tied-properties details '()))
-               (tab-note-head-visible (assoc-get 'note-head-visible repeat-tied-properties #t))
-               (tab-note-head-parenthesized (assoc-get 'parenthesize repeat-tied-properties #t)))
-
-          (if tab-note-head-visible
-              ;; tab note head is visible
-              (if tab-note-head-parenthesized
-                  (begin
-                    (ly:grob-set-property! tied-tab-note-head 'display-cautionary #t)
-                    (ly:grob-set-property! tied-tab-note-head 'stencil tab-note-head::print)))
-              ;; tab note head is invisible
-              (ly:grob-set-property! tied-tab-note-head 'transparent #t))))))
-
 ;; The slurs should not be too far apart from the corresponding fret number, so
 ;; we move the slur towards the TabNoteHeads.
 (define-public slur::move-closer-to-tab-note-heads
@@ -243,7 +181,48 @@ This markup command is used to implement @code{\\clef moderntab} within a
   (ly:grob-set-property! grob 'text (make-vcenter-markup fret))
   (tab-note-head::print grob))
 
+
+(define-public (tab-note-head::handle-ties grob)
+  "Handle tab note heads ending a @code{Tie}, deal with @code{RepeatTie}.
+
+If a @code{Slur} or @code{Glissando} starts at a tie-ending @code{TabNoteHead}
+always print the @code{TabNoteHead} parenthesized.
+
+If a tie-ending @code{TabNoteHead} occurs at the beginning of a line print it
+parenthesized unless sub-properties @code{note-head-visible} and
+@code{parenthesize} of @code{details.tied-properties} are set @code{#f}, which
+can be done manually or using @code{hideSplitTiedTabNotes}.
+
+A @code{TabNoteHead} with @code{\\repeatTie} is printed parenthesized as well,
+the same holds if @code{\\repeatTie} is applied to a chord. This is useful for
+seconda volta blocks. This behaviour can be switched off with
+@code{hideSplitTiedTabNotes}."
+;; TODO move behaviour for repeatTie and 'span-start to the stencil-procedure?
+  (let* (;; get PaperColumn
+         (pc (ly:item-get-column grob))
+         ;; get NonMusicalPaperColumn
+         (nmpc (ly:grob-object pc 'left-neighbor))
+         (at-line-begin? (positive? (ly:item-break-dir nmpc)))
+         (span-start? (ly:grob-property grob 'span-start #f))
+         (details (ly:grob-property grob 'details '()))
+         (tied-props (assoc-get 'tied-properties details '()))
+         (tied? (assoc-get 'tied tied-props #f))
+         (repeat-tied? (assoc-get 'repeat-tied tied-props #f))
+         (tied-visible? (assoc-get 'note-head-visible tied-props #t))
+         (tied-parenthesized? (assoc-get 'parenthesize tied-props #t)))
+
+    (cond ((or span-start?
+               (and repeat-tied? tied-visible? tied-parenthesized?)
+               (and tied? at-line-begin? tied-visible? tied-parenthesized?))
+             (ly:grob-set-property! grob 'display-cautionary #t)
+             ;; The stencil procedure needs to be run again, otherwise
+             ;; the 'display-cautionary would have no effect.
+             (ly:grob-set-property! grob 'stencil tab-note-head::print))
+          ((or tied? repeat-tied?)
+            (ly:grob-set-property! grob 'transparent #t)))))
+
 (define-public (tab-note-head::print grob)
+  "Print a tab note head."
   (define (is-harmonic? grob)
     (let ((arts (ly:event-property (event-cause grob) 'articulations)))
       (or (pair? (filter (lambda (a)
@@ -284,6 +263,7 @@ This markup command is used to implement @code{\\clef moderntab} within a
                                            cautionary-width
                                            cautionary-angularity
                                            cautionary-padding)))
+
     (ly:stencil-translate-axis
      (ly:stencil-aligned-to output-grob X CENTER)
      column-offset

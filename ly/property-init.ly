@@ -684,6 +684,8 @@ arabicStringNumbers = {
 
 % switch to full notation
 tabFullNotation = {
+  % signal we are using `tabFullNotation`
+  \set TabStaff.tabFullNotation = ##t
   % time signature
   \revert TabStaff.TimeSignature.stencil
   % stems (the half note gets a double stem)
@@ -702,9 +704,7 @@ tabFullNotation = {
   \revert TabStaff.StemTremolo.stencil
   \revert TabStaff.Dots.stencil
   \revert TabStaff.Tie.stencil
-  \revert TabStaff.Tie.after-line-breaking
   \revert TabStaff.RepeatTie.stencil
-  \revert TabStaff.RepeatTie.after-line-breaking
   \revert TabStaff.LaissezVibrerTie.stencil
   \revert TabStaff.Slur.control-points
   \revert TabStaff.PhrasingSlur.stencil
@@ -733,17 +733,13 @@ tabFullNotation = {
 
 %tie/repeat tie behavior
 hideSplitTiedTabNotes = {
-  \override TabVoice.TabNoteHead.details.tied-properties.break-visibility = #all-invisible
+  \override TabVoice.TabNoteHead.details.tied-properties.note-head-visible = ##f
   \override TabVoice.TabNoteHead.details.tied-properties.parenthesize = ##f
-  \override TabVoice.TabNoteHead.details.repeat-tied-properties.note-head-visible = ##f
-  \override TabVoice.TabNoteHead.details.repeat-tied-properties.parenthesize = ##f
 }
 
 showSplitTiedTabNotes = {
-  \override TabVoice.TabNoteHead.details.tied-properties.break-visibility = #begin-of-line-visible
+  \override TabVoice.TabNoteHead.details.tied-properties.note-head-visible = ##t
   \override TabVoice.TabNoteHead.details.tied-properties.parenthesize = ##t
-  \override TabVoice.TabNoteHead.details.repeat-tied-properties.note-head-visible = ##t
-  \override TabVoice.TabNoteHead.details.repeat-tied-properties.parenthesize = ##t
 }
 
 %% text length

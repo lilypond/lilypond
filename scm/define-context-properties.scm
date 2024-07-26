@@ -773,6 +773,7 @@ of the system/@/staff?  Set to @code{SystemStartBrace},
 the nesting of a start delimiters.")
 
 
+     (tabFullNotation ,boolean? "Flag whether @code{\\tabFullNotation} is used")
      (tablatureFormat ,procedure? "A function formatting a tablature
 note head.  Called with three arguments: context, string number and,
 fret number.  It returns the text as a markup.")

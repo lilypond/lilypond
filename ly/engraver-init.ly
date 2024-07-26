@@ -1253,9 +1253,6 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   \override LaissezVibrerTie.stencil = ##f
   \override Slur.control-points = #slur::move-closer-to-tab-note-heads
   \override PhrasingSlur.stencil = ##f
-  %% 'tied to' fret numbers become invisible or parenthesized, respectively)
-  \override Tie.after-line-breaking = #tie::handle-tab-note-head
-  \override RepeatTie.after-line-breaking = #repeat-tie::handle-tab-note-head
   %% ... and all kinds of markups, spanners etc.
   \override TupletBracket.stencil = ##f
   \override TupletNumber.stencil = ##f
