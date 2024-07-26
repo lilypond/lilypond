@@ -335,11 +335,12 @@ public:
   }
 };
 
-template <typename T>
-inline bool
-is_scm (SCM s)
+template <typename ExplicitT,
+          typename Conv = robust_scm_conversions<x_scm_t<void, ExplicitT>>>
+inline auto
+is_scm (SCM s) -> decltype (Conv::is_scm (s))
 {
-  return scm_conversions<T>::is_scm (s);
+  return Conv::is_scm (s);
 }
 
 template <typename ExplicitT, typename S,
