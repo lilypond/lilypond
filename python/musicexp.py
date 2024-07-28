@@ -2831,6 +2831,31 @@ class NoDirectionArticulationEvent(ArticulationEvent):
         return ' '.join(res)
 
 
+class FingeringEvent(ShortArticulationEvent):
+    def pre_chord_ly(self):
+        return ''
+
+    def pre_note_ly(self, is_chord_element):
+        return ''
+
+    def post_note_ly(self, is_chord_element):
+        res = []
+        if self.type:
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                res.append(r'\tweak font-size %s' % font_size)
+
+            res.append(r'%s%s' % (self.direction_mod(), self.type))
+
+        return ' '.join(res)
+
+    def ly_expression(self):
+        self.post_note_ly(True)
+
+
 class MarkupEvent(ShortArticulationEvent):
     def __init__(self):
         ArticulationEvent.__init__(self)

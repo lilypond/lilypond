@@ -1569,7 +1569,7 @@ def musicxml_caesura_to_lily_event(mxl_event, note_color=None):
 
 
 def musicxml_fingering_event(mxl_event, note_color=None, note_font_size=None):
-    ev = musicexp.ShortArticulationEvent()
+    ev = musicexp.FingeringEvent()
     ev.type = mxl_event.get_text()
     ev.color = getattr(mxl_event, 'color', note_color)
     ev.font_size = getattr(mxl_event, 'font-size', note_font_size)
@@ -3731,7 +3731,11 @@ def musicxml_voice_to_lily_voice(voice):
                     for e in ev:
                         if isinstance(e, musicexp.SpanEvent):
                             e.visible = note_visible
-                        ev_chord.append(e)
+
+                        if isinstance(e, musicexp.FingeringEvent):
+                            main_event.add_associated_event(e)
+                        else:
+                            ev_chord.append(e)
 
         mxl_beams = [b for b in n['beam']
                      if (b.get_type() in ('begin', 'end')
