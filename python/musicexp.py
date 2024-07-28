@@ -2834,7 +2834,7 @@ class MarkupEvent(ShortArticulationEvent):
 
 class AccidentalMarkEvent(MarkupEvent):
     def __init__(self):
-        ArticulationEvent.__init__(self)
+        MarkupEvent.__init__(self)
         self.force_direction = 1
 
     def ly_expression(self):
