@@ -24,13 +24,13 @@ def draw_paren =
 
   leftindent := .2 staff_space;
 
-  set_char_box (0, .5 staff_space# + stafflinethickness#,
+  set_char_box (0, .55 staff_space# + .5 stafflinethickness#,
                 staff_space#, staff_space#);
 
   d := d - feta_shift;
 
   z1 = (leftindent, h);
-  z2 = (w - stafflinethickness, .5 (h - d));
+  z2 = (w - .05 staff_space - .5 stafflinethickness, .5 (h - d));
   z3 = (leftindent, -d);
 
   penpos1 (stafflinethickness, 35);
@@ -46,7 +46,7 @@ def draw_paren =
 enddef;
 
 
-fet_beginchar ("right parenthesis", "rightparen");
+fet_beginchar ("right accidental parenthesis", "rightparen");
   draw_paren;
   penlabels (1, 2, 3);
 
@@ -54,7 +54,7 @@ fet_beginchar ("right parenthesis", "rightparen");
 fet_endchar;
 
 
-fet_beginchar ("left parenthesis", "leftparen");
+fet_beginchar ("left accidental parenthesis", "leftparen");
   draw_paren;
 
   currentpicture := currentpicture xscaled -1;
