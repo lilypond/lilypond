@@ -51,6 +51,7 @@
   ;; define all remaining groups
   (define numbers
     '("plus" "comma" "hyphen" "period" "figuredash" "endash"
+      "parenleft" "parenright"
 
       "zero" "one" "two"   "three"     "four"  "four.alt"
       "five" "six" "seven" "seven.alt" "eight" "nine"

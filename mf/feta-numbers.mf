@@ -1224,6 +1224,7 @@ fixed_width_advance# := max (width_zero#,
                              width_seven#,
                              width_eight#,
                              width_nine#);
+define_pixels (fixed_width_advance);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1701,6 +1702,27 @@ fet_beginchar ("en dash", "endash");
 
   draw_rounded_block ((-b + bearing, h / 3 - thin),
                       (w - bearing, h / 3 + thin), 2 thin);
+fet_endchar;
+
+
+fet_beginchar ("right parenthesis", "parenright");
+  draw_paren (.35 fixed_width_advance#,
+              .1 height#, 1.1 height#,
+              .15 fixed_width_advance, .1 fixed_width_advance,
+              35, .05 fixed_width_advance);
+  penlabels (1, 2, 3);
+
+  draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("left parenthesis", "parenleft");
+  draw_paren (.35 fixed_width_advance#,
+              .1 height#, 1.1 height#,
+              .15 fixed_width_advance, .1 fixed_width_advance,
+              35, .05 fixed_width_advance);
+
+  currentpicture := currentpicture xscaled -1 shifted (w - b, 0);
 fet_endchar;
 
 

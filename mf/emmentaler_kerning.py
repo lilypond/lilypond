@@ -148,7 +148,9 @@ def add_feature_kern(font):
         "hyphen": 0.0,
         "plus": 0.0,
         "period": 0.0,
-        "comma": 0.0
+        "comma": 0.0,
+        "parenleft": 0.0,
+        "parenright": 0.0
     }
 
     lsb_factors_keys = sorted(lsb_factors.keys())
@@ -168,12 +170,16 @@ def add_feature_kern(font):
     kern("zero", "nine", 0.1 * NKU)
     kern("zero", "hyphen", 0.1 * NKU)
     kern("zero", "plus", 0.1 * NKU)
+    kern("zero", "parenleft", 0.2 * NKU)
+    kern("zero", "parenright", 0.05 * NKU)
 
     kern("one", "zero", -0.1 * NKU)
     kern("one", "four", -0.1 * NKU)
     kern("one", "six", -0.1 * NKU)
     kern("one", "period", 0.1 * NKU)
     kern("one", "comma", 0.1 * NKU)
+    kern("one", "parenleft", 0.15 * NKU)
+    kern("one", "parenright", 0.1 * NKU)
 
     kern("two", "one", 0.1 * NKU)
     kern("two", "three", 0.1 * NKU)
@@ -183,6 +189,8 @@ def add_feature_kern(font):
     kern("two", "nine", 0.1 * NKU)
     kern("two", "period", 0.05 * NKU)
     kern("two", "comma", 0.05 * NKU)
+    kern("two", "parenleft", 0.2 * NKU)
+    kern("two", "parenright", 0.05 * NKU)
 
     kern("three", "one", 0.1 * NKU)
     kern("three", "zero", 0.1 * NKU)
@@ -196,10 +204,14 @@ def add_feature_kern(font):
     kern("three", "hyphen", 0.1 * NKU)
     kern("three", "period", 0.1 * NKU)
     kern("three", "comma", 0.1 * NKU)
+    kern("three", "parenleft", 0.2 * NKU)
+    kern("three", "parenright", 0.05 * NKU)
 
     kern("four", "hyphen", 0.1 * NKU)
     kern("four", "period", 0.1 * NKU)
     kern("four", "comma", 0.1 * NKU)
+    kern("four", "parenleft", 0.2 * NKU)
+    kern("four", "parenright", 0.05 * NKU)
 
     kern("five", "zero", 0.15 * NKU)
     kern("five", "one", 0.15 * NKU)
@@ -215,6 +227,8 @@ def add_feature_kern(font):
     kern("five", "hyphen", 0.1 * NKU)
     kern("five", "period", 0.1 * NKU)
     kern("five", "comma", 0.1 * NKU)
+    kern("five", "parenleft", 0.2 * NKU)
+    kern("five", "parenright", 0.1 * NKU)
 
     kern("six", "zero", 0.1 * NKU)
     kern("six", "one", 0.05 * NKU)
@@ -228,6 +242,8 @@ def add_feature_kern(font):
     kern("six", "hyphen", 0.1 * NKU)
     kern("six", "period", 0.1 * NKU)
     kern("six", "comma", 0.1 * NKU)
+    kern("six", "parenleft", 0.2 * NKU)
+    kern("six", "parenright", 0.1 * NKU)
 
     kern("seven", "four", -0.2 * NKU)
     kern("seven", "five", 0.1 * NKU)
@@ -236,6 +252,8 @@ def add_feature_kern(font):
     kern("seven", "hyphen", -0.05 * NKU)
     kern("seven", "period", -0.1 * NKU)
     kern("seven", "comma", -0.1 * NKU)
+    kern("seven", "parenleft", 0.2 * NKU)
+    kern("seven", "parenright", 0.05 * NKU)
 
     kern("eight", "zero", 0.1 * NKU)
     kern("eight", "one", 0.1 * NKU)
@@ -251,6 +269,8 @@ def add_feature_kern(font):
     kern("eight", "hyphen", 0.1 * NKU)
     kern("eight", "period", 0.1 * NKU)
     kern("eight", "comma", 0.1 * NKU)
+    kern("eight", "parenleft", 0.2 * NKU)
+    kern("eight", "parenright", 0.1 * NKU)
 
     kern("nine", "zero", 0.15 * NKU)
     kern("nine", "one", 0.15 * NKU)
@@ -262,6 +282,8 @@ def add_feature_kern(font):
     kern("nine", "nine", 0.1 * NKU)
     kern("nine", "plus", 0.1 * NKU)
     kern("nine", "hyphen", 0.1 * NKU)
+    kern("nine", "parenleft", 0.2 * NKU)
+    kern("nine", "parenright", 0.05 * NKU)
 
     kern("hyphen", "zero", 0.1 * NKU)
     kern("hyphen", "one", 0.1 * NKU)
@@ -272,11 +294,19 @@ def add_feature_kern(font):
     kern("hyphen", "seven", 0.1 * NKU)
     kern("hyphen", "eight", 0.1 * NKU)
     kern("hyphen", "nine", 0.1 * NKU)
+    kern("hyphen", "plus", 0.2 * NKU)
+    kern("hyphen", "comma", 0.1 * NKU)
+    kern("hyphen", "hyphen", 0.2 * NKU)
+    kern("hyphen", "parenleft", 0.2 * NKU)
 
     kern("plus", "zero", 0.1 * NKU)
     kern("plus", "one", 0.05 * NKU)
     kern("plus", "six", 0.05 * NKU)
     kern("plus", "seven", 0.1 * NKU)
+    kern("plus", "hyphen", 0.2 * NKU)
+    kern("plus", "plus", 0.2 * NKU)
+    kern("plus", "parenleft", 0.15 * NKU)
+    kern("plus", "parenright", -0.05 * NKU)
 
     kern("period", "one", 0.1 * NKU)
     kern("period", "two", 0.15 * NKU)
@@ -297,6 +327,36 @@ def add_feature_kern(font):
     kern("comma", "nine", 0.1 * NKU)
     kern("comma", "period", 0.15 * NKU)
     kern("comma", "comma", 0.15 * NKU)
+    kern("comma", "hyphen", 0.1 * NKU)
+    kern("comma", "parenright", 0.15 * NKU)
+
+    kern("parenleft", "zero", 0.05 * NKU)
+    kern("parenleft", "one", 0.1 * NKU)
+    kern("parenleft", "two", 0.05 * NKU)
+    kern("parenleft", "three", 0.05 * NKU)
+    kern("parenleft", "four", -0.05 * NKU)
+    kern("parenleft", "five", 0.05 * NKU)
+    kern("parenleft", "six", 0.05 * NKU)
+    kern("parenleft", "seven", 0.1 * NKU)
+    kern("parenleft", "eight", 0.05 * NKU)
+    kern("parenleft", "nine", 0.05 * NKU)
+    kern("parenleft", "plus", -0.05 * NKU)
+    kern("parenleft", "comma", 0.1 * NKU)
+    kern("parenleft", "parenright", 0.4 * NKU)
+
+    kern("parenright", "zero", 0.2 * NKU)
+    kern("parenright", "one", 0.2 * NKU)
+    kern("parenright", "two", 0.2 * NKU)
+    kern("parenright", "three", 0.2 * NKU)
+    kern("parenright", "four", 0.2 * NKU)
+    kern("parenright", "five", 0.2 * NKU)
+    kern("parenright", "six", 0.2 * NKU)
+    kern("parenright", "seven", 0.2 * NKU)
+    kern("parenright", "eight", 0.2 * NKU)
+    kern("parenright", "nine", 0.2 * NKU)
+    kern("parenright", "plus", 0.15 * NKU)
+    kern("parenright", "hyphen", 0.2 * NKU)
+    kern("parenright", "parenleft", 0.3 * NKU)
 
     # Kerning for alternative digits forms; they are identical to the
     # standard glyphs.

@@ -904,6 +904,11 @@ source files for the score, recordings, etc.
 @end lilypond
 
 @item
+Parentheses for text markup have been added to the Emmentaler
+fonts, which harmonize with digits (in contrast to the already
+available parentheses for accidentals).
+
+@item
 A figure-dash glyph (U+2012) and an en-dash glyph (U+2013) have
 been added to the Emmentaler fonts.
 

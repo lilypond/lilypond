@@ -775,6 +775,8 @@ emmentaler_glyphsets = [
         "plus",
         "figuredash",
         "endash",
+        "parenleft",
+        "parenright",
 
         # digits
         "zero",
