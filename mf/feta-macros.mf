@@ -485,6 +485,29 @@ def draw_bulb (expr turndir, zl, zr, bulb_rad, radius_factor) =
 enddef;
 
 
+def draw_paren (expr w_sharp, d_sharp, h_sharp,
+                     thick, thin, angle, leftindent) =
+  set_char_box (0, w_sharp, d_sharp, h_sharp);
+
+  d := d - feta_shift;
+
+  z1 = (leftindent, h);
+  z2 = (w - .5 thick, .5 (h - d));
+  z3 = (leftindent, -d);
+
+  penpos1 (thin, angle);
+  penpos2 (thick, 0);
+  penpos3 (thin, -angle);
+
+  fill z2l{down}
+       .. simple_serif (z3l, z3r, 90)
+       .. z2r{up}
+       .. simple_serif (z1r, z1l, 90)
+       .. z2l{down}
+       -- cycle;
+enddef;
+
+
 pi := 3.14159;
 
 

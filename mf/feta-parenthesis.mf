@@ -19,35 +19,11 @@
 % along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-def draw_paren =
-  save leftindent;
-
-  leftindent := .2 staff_space;
-
-  set_char_box (0, .55 staff_space# + .5 stafflinethickness#,
-                staff_space#, staff_space#);
-
-  d := d - feta_shift;
-
-  z1 = (leftindent, h);
-  z2 = (w - .05 staff_space - .5 stafflinethickness, .5 (h - d));
-  z3 = (leftindent, -d);
-
-  penpos1 (stafflinethickness, 35);
-  penpos2 (.1 staff_space + stafflinethickness, 0);
-  penpos3 (stafflinethickness, -35);
-
-  fill z2l{down}
-       .. simple_serif (z3l, z3r, 90)
-       .. z2r{up}
-       .. simple_serif (z1r, z1l, 90)
-       .. z2l{down}
-       -- cycle;
-enddef;
-
-
 fet_beginchar ("right accidental parenthesis", "rightparen");
-  draw_paren;
+  draw_paren (.55 staff_space# + .5 stafflinethickness#,
+              staff_space#, staff_space#,
+              .1 staff_space + stafflinethickness, stafflinethickness,
+              35, .2 staff_space);
   penlabels (1, 2, 3);
 
   draw_staff_if_debugging (-2, 2);
@@ -55,7 +31,10 @@ fet_endchar;
 
 
 fet_beginchar ("left accidental parenthesis", "leftparen");
-  draw_paren;
+  draw_paren (.55 staff_space# + .5 stafflinethickness#,
+              staff_space#, staff_space#,
+              .1 staff_space + stafflinethickness, stafflinethickness,
+              35, .2 staff_space);
 
   currentpicture := currentpicture xscaled -1;
 
