@@ -108,17 +108,16 @@ c4\5 e\4 g2\3
 @end lilypond
 
 When fingerings and string indications are used together, their
-placement can be controlled by the order in which the two items appear
-in the code @emph{only} if they appear inside of an explicit chord:
-applied to whole chords or single notes @emph{outside} of chords,
-fingerings are placed using a different mechanism.
+vertical placement can be controlled with the
+@code{script-priority} property, @pxref{controlling the vertical
+ordering of scripts} and @ref{Default values for script-priority};
+the ordering in the source code has no influence.
 
 @lilypond[verbatim,quote,fragment]
 \clef "treble_8"
 g4\3-0
 g-0\3
-<g\3-0>
-<g-0\3>
+g-\tweak script-priority 200 -0 \3
 @end lilypond
 
 @funindex \arabicStringNumbers

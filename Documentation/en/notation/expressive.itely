@@ -277,6 +277,7 @@ For more information about the ordering of @code{Script} and
 @cindex ordering, vertical, of scripts
 @cindex script, vertical ordering
 @funindex script-priority
+@anchor{controlling the vertical ordering of scripts}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/controlling-the-vertical-ordering-of-scripts.ly}
 @xref{Default values for script-priority}.
