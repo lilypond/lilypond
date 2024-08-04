@@ -2414,11 +2414,20 @@ def text_to_ly(elements, init_markup=None):
 
     # The MusicXML standard doesn't specify whether a group of elements with
     # `enclosure="foo"` should be enclosed by a single 'foo', or whether
-    # each element should get a separate enclosure by 'foo'.  Tests with
-    # Finale and MuseScore show that they do the former, and we follow.
+    # each element should get a separate enclosure by 'foo' (see
+    # https://github.com/w3c/musicxml/discussions/518 and
+    # https://github.com/w3c/musicxml/issues/519).  Tests with Finale and
+    # MuseScore show that they do the former, and we follow.
     enclosure_attribute = elements[0][1].get('enclosure', 'none')
     enclosure = enclosure_dict.get(enclosure_attribute, '')
     if enclosure:
+        # Another problem is that there is no way in MusicXML to style an
+        # enclosure (see https://github.com/w3c/musicxml/issues/536).  We
+        # use the first element's color attribute.
+        color_attribute = elements[0][1].get('color', None)
+        color = color_to_ly(color_attribute)
+        if color is not None:
+            markup.append(r'\with-color %s' % color)
         markup.append(enclosure)
     prev_enclosure = enclosure
 
