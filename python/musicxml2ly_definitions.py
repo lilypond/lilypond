@@ -216,9 +216,15 @@ staffLines =
     "square": """\
 #(define-markup-command (square layout props arg)
    (markup?)
-   (interpret-markup
-    layout props
-    #{ \\markup \\box \\with-dimension-from #Y \\rotate #90 #arg #arg #}))
+   (let* ((stil (interpret-markup layout props arg))
+          (x-size (interval-length (ly:stencil-extent stil X)))
+          (y-size (interval-length (ly:stencil-extent stil Y)))
+          (axis (if (> x-size y-size) Y X)))
+     (interpret-markup
+      layout props
+      #{
+        \\markup \\box \\with-dimension-from #axis \\rotate #90 #arg #arg
+      #})))
 """,
 
     "accidental-marks": """\
