@@ -101,6 +101,10 @@ conversion_settings = Conversion_Settings()
 
 needed_additional_definitions = []
 
+# This dictionary holds macros created dynamically by `musicxml2ly`, and
+# which might access elements from `definitions.additional_definitions`.
+additional_macros = {}
+
 
 def round_to_two_digits(val):
     return round(val * 100) / 100
@@ -1861,7 +1865,7 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
                 init_markup = r'\normal-text'
             dynamics_markup = musicexp.text_to_ly(text_elements, init_markup)
 
-            definitions.additional_definitions[dynamics_name] = (
+            additional_macros[dynamics_name] = (
                 dynamics_name + ' =\n'
                 + '#(make-dynamic-script #{\n'
                 + '  \\markup {\n'
@@ -1870,12 +1874,10 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
                 + '#})'
             )
         else:
-            definitions.additional_definitions[dynamics_name] = (
+            additional_macros[dynamics_name] = (
                 dynamics_name
                 + ' = #(make-dynamic-script "' + dynamics_string + '")'
             )
-
-        needed_additional_definitions.append(dynamics_name)
 
     ev = musicexp.DynamicsEvent()
     ev.type = dynamics_name
@@ -2007,9 +2009,7 @@ def musicxml_accordion_to_markup(mxl_event):
     command += r'\musicglyph "accordion.discant"'
     command = r"\markup { \normalsize %s }" % command
     # Define the newly built command \accReg[H][MMM][L]
-    definitions.additional_definitions[commandname] = \
-        "%s = %s" % (commandname, command)
-    needed_additional_definitions.append(commandname)
+    additional_macros[commandname] = '%s = %s' % (commandname, command)
     return r"\%s" % commandname
 
 
@@ -4267,18 +4267,31 @@ def print_ly_preamble(printer, filename):
         printer.newline()
         printer.dump(r'\include "articulate.ly"')
         printer.newline()
+    printer.newline()
 
 
-def print_ly_additional_definitions(printer, filename=None):
+def print_ly_additional_definitions(printer):
     if needed_additional_definitions:
-        printer.newline()
         printer.print_verbatim(
             '%% additional definitions required by the score:')
         printer.newline()
     for a in sorted(set(needed_additional_definitions)):
         printer.print_verbatim(definitions.additional_definitions.get(a, ''))
         printer.newline()
-    printer.newline()
+    if needed_additional_definitions:
+        printer.newline()
+
+
+def print_ly_additional_macros(printer):
+    if additional_macros:
+        printer.print_verbatim(
+            '%% additional macros required by the score:')
+        printer.newline()
+    for a in sorted(additional_macros):
+        printer.print_verbatim(additional_macros[a])
+        printer.newline()
+    if additional_macros:
+        printer.newline()
 
 
 # Read in the tree from the given I/O object (file name, file, or bytes) and
@@ -4387,7 +4400,8 @@ def convert(filename, options):
     else:
         printer.set_file(open(output_ly_name, 'w', encoding='utf-8'))
     print_ly_preamble(printer, filename)
-    print_ly_additional_definitions(printer, filename)
+    print_ly_additional_definitions(printer)
+    print_ly_additional_macros(printer)
     if score_information:
         score_information.print_ly(printer)
     if paper_information and conversion_settings.convert_page_layout:
