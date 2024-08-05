@@ -2233,18 +2233,22 @@ class DynamicsEvent(Event):
     def wait_for_note(self):
         return True
 
-    def ly_expression(self):
-        if self.type:
-            return r'\%s' % self.type
-        else:
-            return
-
     def direction_mod(self):
         return {1: '^', -1: '_', 0: '-'}.get(self.force_direction, '-')
 
-    def print_ly(self, printer):
+    def ly_expression(self):
+        res = []
         if self.type:
-            printer.dump(r'%s\%s' % (self.direction_mod(), self.type))
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'\tweak color %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                res.append(r'\tweak font-size %s' % font_size)
+
+            res.append(r'%s\%s' % (self.direction_mod(), self.type))
+
+        return ' '.join(res)
 
 
 class MarkEvent(Event):

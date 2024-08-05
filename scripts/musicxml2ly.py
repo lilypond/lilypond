@@ -1809,9 +1809,10 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
     # TODO: The code below is slightly problematic currently since we only
     #       take the `enclosure` attribute into account.  While in 'normal'
     #       scores it is unlikely to find, say, an 'f' in two different
-    #       fonts, this actually does happen in critical editions to make a
-    #       distinction between original dynamics written by the composer
-    #       and dynamics added by the editor.
+    #       fonts (or colors, or sizes), this actually does happen in
+    #       critical editions to make a distinction between original
+    #       dynamics written by the composer and dynamics added by the
+    #       editor.
     dynamics_name = ''
 
     before = ''
@@ -1837,19 +1838,27 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
     dynamics_name = utilities.escape_ly_output_string(dynamics_name)
     dynamics_string = utilities.escape_ly_output_string(dyns)
 
+    ev = musicexp.DynamicsEvent()
+
     # TODO: Handle more `attributes` elements.
-    if dynamics_name not in predefined_dynamics:
+    if dynamics_name in predefined_dynamics:
+        ev.color = attributes.get('color', None)
+        ev.font_size = attributes.get('font-size', None)
+    else:
         if after or before or enclosure != 'none':
             markup = []
+            markup_attributes = {}
+
             if before:
                 markup.append(r'\dynamic')
+            else:
+                markup_attributes.update(attributes)
             markup.append(dynamics_string)
             if after:
                 markup.append(r'\normal-text')
 
             markup_node = musicxml.LilyPond_markup()
             markup_node._data = ' '.join(markup)
-            markup_attributes = {}
             if enclosure != 'none':
                 markup_attributes['enclosure'] = enclosure
 
@@ -1878,8 +1887,9 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
                 dynamics_name
                 + ' = #(make-dynamic-script "' + dynamics_string + '")'
             )
+            ev.color = attributes.get('color', None)
+            ev.font_size = attributes.get('font-size', None)
 
-    ev = musicexp.DynamicsEvent()
     ev.type = dynamics_name
 
     return ev
