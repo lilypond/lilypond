@@ -476,4 +476,17 @@ harmonicParen =
      #music
    #})
 """,
+
+    "fingering-substitution": """\
+substFinger =
+#(define-music-function (start left right)
+   (markup? markup? markup?)
+   #{
+     \\tweak self-alignment-X #-0.6
+     -\\finger \\markup
+       \\concat {
+         #start
+         \\overtie \\concat { #left \\char ##x2009 #right } }
+   #})
+""",
 }

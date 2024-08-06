@@ -1341,6 +1341,122 @@ class ChordEvent(NestedMusic):
                     return True
             return False
 
+        # Combine multiple `<fingering>` elements of a note into a single
+        # fingering instruction, with its elements concatenated
+        # horizontally.  An alternate fingering gets enclosed in
+        # parentheses, a substitution fingering is connected with an overtie
+        # to the previous fingering.
+        def collect_fingerings(note_event, direction):
+            fingering_events = []
+            have_substitution = False
+            need_markup = False
+
+            for aev in note_event.associated_events:
+                if not isinstance(aev, FingeringEvent):
+                    continue
+
+                if not aev.visible:
+                    continue
+
+                # We collect `<fingering>` elements without `placement`
+                # attribute together with elements that have
+                # `placement="above"`.
+                if aev.force_direction is None:
+                    force_direction = 1
+                else:
+                    force_direction = aev.force_direction
+                if force_direction != direction:
+                    continue
+
+                # We support a single fingering substitution at the end; any
+                # other fingering afterwards is ignored.
+                if have_substitution:
+                    aev.type = None
+                    continue
+                else:
+                    fingering_events.append(aev)
+
+                if aev.color or aev.font_size:
+                    need_markup = True
+                if aev.substitution:
+                    have_substitution = True
+
+            if not fingering_events:
+                return
+            fingerings = []
+
+            if need_markup:
+                if have_substitution and len(fingering_events) == 1:
+                    fingerings.append('" "')
+
+                for fev in fingering_events:
+                    fingering = []
+
+                    color = color_to_ly(fev.color)
+                    if color is not None:
+                        fingering.append(r'\with-color %s' % color)
+                    font_size = get_font_size(fev.font_size, command=False)
+                    if font_size is not None:
+                        fingering.append(r'\normalsize \fontsize %s'
+                                         % font_size)
+
+                    f = fev.type
+                    fev.type = None
+                    if fev.alternate:
+                        f = '(%s)' % f
+                    fingering.append(utilities.escape_ly_output_string(f))
+
+                    fingerings.append(' '.join(fingering))
+
+                if have_substitution:
+                    start = ' '.join(fingerings[:-2])
+                    left = fingerings[-2]
+                    right = fingerings[-1]
+                    fingering_events[0].type = \
+                        (r'\substFinger \markup \concat { %s } '
+                         r'\markup %s \markup %s'
+                         % (start, left, right))
+                else:
+                    fingering_events[0].type = \
+                        (r'\finger \markup \concat { %s }'
+                         % ' '.join(fingerings))
+            else:
+                if have_substitution and len(fingering_events) == 1:
+                    fingerings.append(' ')
+
+                for fev in fingering_events:
+                    fingering = fev.type
+                    fev.type = None
+
+                    if fev.alternate:
+                        fingerings.append('(%s)' % fingering)
+                    else:
+                        fingerings.append(fingering)
+
+                if have_substitution:
+                    start = utilities.escape_ly_output_string(
+                                ''.join(fingerings[:-2]))
+                    left = utilities.escape_ly_output_string(
+                               fingerings[-2])
+                    right = utilities.escape_ly_output_string(
+                                fingerings[-1])
+                    fingering_events[0].type = (r'\substFinger %s %s %s'
+                                                % (start, left, right))
+                else:
+                    f = ''.join(fingerings)
+                    # In the construction `<note>-<fingering>` the fingering
+                    # is handled as an unsigned integer, with leading zeroes
+                    # stripped off, which we don't want.
+                    if f.isdigit():
+                        if len(f) > 1 and f[0] == '0':
+                            fingering_events[0].type = r'\finger "%s"' % f
+                        else:
+                            fingering_events[0].type = f
+                    else:
+                        fingering_events[0].type = \
+                            (r'\finger %s'
+                             % utilities.escape_ly_output_string(f))
+
         staff_changes = [e for e in self.elements
                          if isinstance(e, StaffChange)]
 
@@ -1354,6 +1470,10 @@ class ChordEvent(NestedMusic):
         other_events = [e for e in self.elements
                         if not (isinstance(e, RhythmicEvent)
                                 or isinstance(e, StaffChange))]
+
+        for x in note_events:
+            collect_fingerings(x, -1)
+            collect_fingerings(x, 1)
 
         # Depending on the `<harmonic>` elements in a chord we provide
         # default renderings in case no attributes are set that change the
@@ -2832,6 +2952,12 @@ class NoDirectionArticulationEvent(ArticulationEvent):
 
 
 class FingeringEvent(ShortArticulationEvent):
+    def __init__(self):
+        ArticulationEvent.__init__(self)
+        self.alternate = False
+        self.substitution = False
+        self.visible = True
+
     def pre_chord_ly(self):
         return ''
 
@@ -2841,13 +2967,7 @@ class FingeringEvent(ShortArticulationEvent):
     def post_note_ly(self, is_chord_element):
         res = []
         if self.type:
-            color = color_to_ly(self.color)
-            if color is not None:
-                res.append(r'\tweak color %s' % color)
-            font_size = get_font_size(self.font_size, command=False)
-            if font_size is not None:
-                res.append(r'\tweak font-size %s' % font_size)
-
+            # Color and font size gets handled by `ChordEvent.print_ly`.
             res.append(r'%s%s' % (self.direction_mod(), self.type))
 
         return ' '.join(res)
