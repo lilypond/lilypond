@@ -435,7 +435,7 @@ void
 Dynamic_performer::stop_translation_timestep ()
 {
   // link notes to the current dynamic
-  if (!open_span_.dynamic_ && !notes_.empty ())
+  if (!open_span_.dynamic_)
     programming_error ("no current dynamic");
   else
     {
