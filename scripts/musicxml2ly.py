@@ -1583,6 +1583,19 @@ def musicxml_fingering_event(mxl_event, note_color=None, note_font_size=None):
     return ev
 
 
+def musicxml_pluck_event(mxl_event, note_color=None, note_font_size=None):
+    ev = musicexp.FingeringEvent()
+    ev.is_pluck = True
+    ev.type = mxl_event.get_text()
+    ev.color = getattr(mxl_event, 'color', note_color)
+    ev.font_size = getattr(mxl_event, 'font-size', note_font_size)
+    ev.visible = getattr(mxl_event, 'print-object', 'yes') == 'yes'
+
+    needed_additional_definitions.append("pluck")
+
+    return ev
+
+
 def musicxml_string_event(mxl_event, note_color=None, note_font_size=None):
     ev = musicexp.NoDirectionArticulationEvent()
     ev.type = mxl_event.get_text()
@@ -1649,7 +1662,7 @@ articulations_dict = {
     # "other-ornament": "?",
     # "other-technical": "?",
     # "plop": "?",
-    # "pluck": "?",
+    "pluck": musicxml_pluck_event,
     # "pull-off": "?",
     # "schleifer": "?",
     # "scoop": "?",

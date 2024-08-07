@@ -489,4 +489,8 @@ substFinger =
          \\overtie \\concat { #left \\char ##x2009 #right } }
    #})
 """,
+
+    "pluck": """\
+RH = \\rightHandFinger \\etc
+""",
 }

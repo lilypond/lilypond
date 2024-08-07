@@ -1341,12 +1341,12 @@ class ChordEvent(NestedMusic):
                     return True
             return False
 
-        # Combine multiple `<fingering>` elements of a note into a single
-        # fingering instruction, with its elements concatenated
-        # horizontally.  An alternate fingering gets enclosed in
-        # parentheses, a substitution fingering is connected with an overtie
-        # to the previous fingering.
-        def collect_fingerings(note_event, direction):
+        # Combine multiple `<fingering>` or `<pluck>` elements of a note
+        # into a single fingering instruction, with its elements
+        # concatenated horizontally.  An alternate fingering gets enclosed
+        # in parentheses, a substitution fingering is connected with an
+        # overtie to the previous fingering.
+        def collect_fingerings(note_event, direction, pluck):
             fingering_events = []
             have_substitution = False
             need_markup = False
@@ -1355,12 +1355,15 @@ class ChordEvent(NestedMusic):
                 if not isinstance(aev, FingeringEvent):
                     continue
 
+                if aev.is_pluck != pluck:
+                    continue
+
                 if not aev.visible:
                     continue
 
                 # We collect `<fingering>` elements without `placement`
                 # attribute together with elements that have
-                # `placement="above"`.
+                # `placement="above"`.  Dito for `<pluck>`.
                 if aev.force_direction is None:
                     force_direction = 1
                 else:
@@ -1384,6 +1387,9 @@ class ChordEvent(NestedMusic):
             if not fingering_events:
                 return
             fingerings = []
+
+            if len(fingering_events) > 1 and pluck:
+                need_markup = True
 
             if need_markup:
                 if have_substitution and len(fingering_events) == 1:
@@ -1417,9 +1423,14 @@ class ChordEvent(NestedMusic):
                          r'\markup %s \markup %s'
                          % (start, left, right))
                 else:
-                    fingering_events[0].type = \
-                        (r'\finger \markup \concat { %s }'
-                         % ' '.join(fingerings))
+                    if pluck:
+                        fingering_events[0].type = \
+                            (r'\RH \markup \concat { %s }'
+                             % r' \char ##x200A '.join(fingerings))
+                    else:
+                        fingering_events[0].type = \
+                            (r'\finger \markup \concat { %s }'
+                             % ' '.join(fingerings))
             else:
                 if have_substitution and len(fingering_events) == 1:
                     fingerings.append(' ')
@@ -1444,6 +1455,11 @@ class ChordEvent(NestedMusic):
                                                 % (start, left, right))
                 else:
                     f = ''.join(fingerings)
+
+                    if pluck:
+                        fingering_events[0].type = r'\RH "%s"' % f
+                        return
+
                     # In the construction `<note>-<fingering>` the fingering
                     # is handled as an unsigned integer, with leading zeroes
                     # stripped off, which we don't want.
@@ -1472,8 +1488,10 @@ class ChordEvent(NestedMusic):
                                 or isinstance(e, StaffChange))]
 
         for x in note_events:
-            collect_fingerings(x, -1)
-            collect_fingerings(x, 1)
+            collect_fingerings(x, -1, False)
+            collect_fingerings(x, -1, True)
+            collect_fingerings(x, 1, False)
+            collect_fingerings(x, 1, True)
 
         # Depending on the `<harmonic>` elements in a chord we provide
         # default renderings in case no attributes are set that change the
@@ -2954,6 +2972,7 @@ class NoDirectionArticulationEvent(ArticulationEvent):
 class FingeringEvent(ShortArticulationEvent):
     def __init__(self):
         ArticulationEvent.__init__(self)
+        self.is_pluck = False
         self.alternate = False
         self.substitution = False
         self.visible = True
