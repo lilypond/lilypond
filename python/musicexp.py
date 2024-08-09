@@ -830,6 +830,13 @@ class TimeScaledMusic(MusicWrapper):
         elif self.display_bracket == "curved":
             func(r"\tweak TupletBracket.tuplet-slur ##t")
 
+        color = color_to_ly(self.color)
+        if color is not None:
+            func(r'\tweak TupletNumber.color %s' % color)
+        font_size = get_font_size(self.font_size, command=False)
+        if font_size is not None:
+            func(r'\tweak TupletNumber.font-size %s' % font_size)
+
         dir = {
             -1: r'\tweak TupletBracket.direction #DOWN',
             1: r'\tweak TupletBracket.direction #UP'

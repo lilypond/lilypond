@@ -1205,6 +1205,25 @@ class Tuplet(Music_xml_spanner):
         return self.get_tuplet_note_count(
             self.get_maybe_exist_named_child('tuplet-actual'))
 
+    # It is only possible to modify the appearance of the triplet number but
+    # not the appearance of the triplet bracket (see
+    # https://github.com/w3c/musicxml/issues/538 for more).  We only look at
+    # the `<tuplet-number>` child of the `<tuplet-actual>` element.
+    def get_tuplet_number_attributes(self):
+        color = None
+        font_size = None
+
+        tuplet_actual = self.get_maybe_exist_named_child('tuplet-actual')
+        if tuplet_actual:
+            tuplet_number = tuplet_actual.get_maybe_exist_named_child(
+                                'tuplet-number')
+            if tuplet_number:
+                color = getattr(tuplet_number, 'color', None)
+                font_size = getattr(tuplet_number, 'font-size', None)
+
+        return (color, font_size)
+
+
 
 class Slur(Music_xml_spanner):
     pass

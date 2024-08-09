@@ -758,6 +758,8 @@ def musicxml_tuplet_to_lily(tuplet_elt, time_modification):
     tsm.numerator = fraction[0]
     tsm.denominator = fraction[1]
 
+    (tsm.color, tsm.font_size) = tuplet_elt.get_tuplet_number_attributes()
+
     normal_type = tuplet_elt.get_normal_type()
     if not normal_type and time_modification:
         normal_type = time_modification.get_normal_type()
