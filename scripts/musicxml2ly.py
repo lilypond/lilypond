@@ -1242,9 +1242,14 @@ def musicxml_measure_style_to_lily(attributes):
     # TODO: Handle `measure-repeat`, `beat-repeat`, `slash`.
     ret = []
     for detail in details:
+        color = getattr(detail, 'color', None)
+        font_size = getattr(detail, 'font-size', None)
+
         multiple_rest = detail.get_maybe_exist_named_child('multiple-rest')
         if multiple_rest:
             measure_style_event = musicexp.MeasureStyleEvent()
+            measure_style_event.color = color
+            measure_style_event.font_size = font_size
 
             length = int(multiple_rest.get_text())
             measure_style_event.multiple_rest_length = length

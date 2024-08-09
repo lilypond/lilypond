@@ -3887,10 +3887,22 @@ class MeasureStyleEvent(Music):
         self.use_symbols = False
 
     def ly_expression(self):
+        ret = []
+
         if self.use_symbols:
-            return r'\tweak expand-limit 10'
-        else:
-            return ''
+            ret.append(r'\tweak expand-limit 10')
+
+        color = color_to_ly(self.color)
+        if color is not None:
+            ret.append(r'\tweak color %s' % color)
+            ret.append(r'\tweak MultiMeasureRestNumber.color %s' % color)
+        font_size = get_font_size(self.font_size, command=False)
+        if font_size is not None:
+            ret.append(r'\tweak font-size %s' % font_size)
+            ret.append(r'\tweak MultiMeasureRestNumber.font-size %s'
+                           % font_size)
+
+        return ' '.join(ret)
 
     def print_ly(self, printer):
         s = self.ly_expression()
