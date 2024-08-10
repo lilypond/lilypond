@@ -597,7 +597,7 @@ featherDurations=
         (if (< 0 (ly:moment-main-denominator (ly:music-length mus)))
             (begin
               (ly:music-compress mus multiplier)
-              (set! multiplier (* factor multiplier)))))
+              (set! multiplier (/ multiplier factor)))))
       (extract-named-music music '(EventChord NoteEvent RestEvent SkipEvent)))
      (ly:music-compress
       music
