@@ -784,7 +784,7 @@ extent of the grob to the extent of the staff."
   (let ((txt (and function (function grob))))
 
     (if txt
-        (make-line-markup
+        (make-concat-markup
          (list txt (make-fontsize-markup -5 (make-note-markup note UP))))
         (make-fontsize-markup -5 (make-note-markup note UP)))))
 
