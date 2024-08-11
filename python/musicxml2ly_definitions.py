@@ -20,32 +20,6 @@
 
 
 additional_definitions = {
-    "tuplet-note-wrapper": """\
-% A formatter function, which is simply a wrapper around an existing
-% tuplet formatter function.  It takes the value returned by the given
-% function and appends a note of given length.
-#(define-public ((tuplet-number::append-note-wrapper function note) grob)
-  (let* ((txt (if function (function grob) #f)))
-    (if txt
-      (markup txt #:fontsize -5 #:note note UP)
-      (markup #:fontsize -5 #:note note UP))))
-""",
-
-    "tuplet-non-default-denominator": """\
-#(define ((tuplet-number::non-default-tuplet-denominator-text denominator) grob)
-  (number->string (if denominator
-                      denominator
-                      (ly:event-property (event-cause grob) 'denominator))))
-""",
-
-    "tuplet-non-default-fraction": """\
-#(define ((tuplet-number::non-default-tuplet-fraction-text denominator numerator) grob)
-  (let* ((ev (event-cause grob))
-         (den (if denominator denominator (ly:event-property ev 'denominator)))
-         (num (if numerator numerator (ly:event-property ev 'numerator))))
-    (format #f "~a:~a" den num)))
-""",
-
     # TODO: Implement values `both` and `arrow` of `line-end` attribute.
     "make-edge-height": """\
 #(define edge-height-alist
