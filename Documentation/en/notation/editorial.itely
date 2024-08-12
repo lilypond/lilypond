@@ -552,6 +552,38 @@ If the @code{Finger_glide_engraver} is moved to @code{Staff} context
 }
 @end lilypond
 
+To connect different fingers or multiple instances of the same finger set the
+@code{id} property with @code{\iId} taking a symbol or @code{\tweak} the
+@code{text} property.
+
+@lilypond[verbatim,quote]
+{
+  b2 \glide \iId #'foo ^1
+     \glide \iId #'bar ^1
+     \glide _2
+     \glide _1
+  b' \iId #'foo ^2
+     \iId #'bar ^1
+     _2
+     _1
+
+  \set fingeringOrientations = #'(up)
+  <
+   b\glide \iId #'foo -1
+   f'\glide \iId #'bar -2
+   d''\glide \iId #'buzz -3
+   b''\glide \iId #'blub -4
+  >
+  <
+   b\iId #'blub -5
+   f'\iId #'buzz -6
+   d''\iId #'bar -7
+   b''\iId #'foo -8
+  >
+  b\glide -1 b\tweak text "2" -1
+}
+@end lilypond
+
 @morerefs
 Notation Reference:
 @ref{Direction and placement}.
@@ -563,19 +595,6 @@ Internals Reference:
 @rinternals{finger-glide-interface},
 @rinternals{FingerGlideSpanner}.
 @endmorerefs
-
-@knownissues
-Multiple glides with the same finger are not supported and lead to
-unexpected results.
-A workaround is to use different fingers and to use @code{\tweak text}.
-@lilypond[verbatim,quote]
-{
-    \clef "G_8"
-    <a\glide-1 cis'\glide-1>2 <bes-1 d'-1>
-    <a\glide-1 cis'\glide-\tweak text "1"-2>2
-    <bes-1 d'-\tweak text "1"-2>
-}
-@end lilypond
 
 
 @node Hidden notes

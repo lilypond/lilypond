@@ -657,6 +657,33 @@ rest as a post-event with @samp{-}.")
 
 
 
+glide =
+#(define-event-function (fingering) (ly:music?)
+   (_i "Take a @code{fingering-event} and create a @code{FingerGlideEvent}
+setting the @code{digit} property.  If the @code{fingering-event} has a tweak
+for @code{id} it as applied to the @code{FingerGlideEvent} as well.
+Both events are returned in @code{PostEvents}.")
+   (if (music-is-of-type? fingering 'fingering-event)
+       (let* ((finger-digit (ly:music-property fingering 'digit #f))
+              (finger-text (ly:music-property fingering 'text #f))
+              (id (ly:music-property fingering 'id #f)))
+         (make-music 'PostEvents 'elements
+           (cond (finger-digit
+                   (let ((finger-glide
+                           (make-music 'FingerGlideEvent 'digit finger-digit)))
+                     (when id (ly:music-set-property! finger-glide 'id id))
+                     (list finger-glide fingering)))
+                 (finger-text
+                   (let ((finger-glide
+                           (make-music 'FingerGlideEvent 'text finger-digit)))
+                     (when id (ly:music-set-property! finger-glide 'id id))
+                     (list finger-glide fingering)))
+                 (else fingering))))
+       (begin
+         (ly:warning "Need FingeringEvent, got ~a. Ignoring."
+           (ly:music-property fingering 'name))
+         (make-music 'PostEvents 'elements '()))))
+
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic
    (_i "Insert @var{music} as grace notes."))
@@ -668,6 +695,27 @@ grobdescriptions =
 The argument is a list
 in the format of @code{all-grob-descriptions}.")
    (ly:make-context-mod `((grob-descriptions ,descriptions))))
+
+
+
+%% Todo
+%% Join this and "\\=" from spanners-init.ly
+%% NB currently 'id accepts only symbols,
+%%    but 'spanner-id accepts non-negative integers or symbols.
+iId =
+#(define-event-function (id event) (symbol? ly:event?)
+   (_i "Assign an ID to an item.
+
+This sets the @code{id} property of @var{event} to the given @var{id}, which is
+a symbol.  This can be used, for example, to tell LilyPond how to connect a
+@code{FingerGlideSpanner} with non-matching fingers.
+
+@lilypond[quote,verbatim]
+\\fixed c' { c\\glide \\iId #'foo -1 d\\iId #'foo -2 }
+@end lilypond
+")
+   (set! (ly:music-property event 'id) id)
+   event)
 
 
 

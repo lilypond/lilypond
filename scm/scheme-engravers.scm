@@ -919,39 +919,22 @@ Engraver to print a BendSpanner.")))
       (make-engraver
        (listeners
         ((note-event this-engraver event)
-         (let* ((event-arts (ly:event-property event 'articulations))
-                (music-cause (ly:event-property event 'music-cause))
-                (music-arts (ly:prob-property music-cause 'articulations))
-                (digit #f)
-                (glide-event #f))
-           ;; Find FingeringEvent and catch its digit.
-           (for-each
-            (lambda (art)
-              (let* ((name (ly:prob-property art 'name)))
-                (when (eq? name 'FingeringEvent)
-                  (set! digit (ly:prob-property art 'digit #f)))))
-            music-arts)
-           ;; Find FingerGlideEvent
+         (let* ((event-arts (ly:event-property event 'articulations)))
+           ;; Find FingerGlideEvents with its digit and store them.
            (for-each
             (lambda (art-ev)
               (when (memq 'finger-glide-event (ly:event-property art-ev 'class))
-                (set! glide-event art-ev)))
-            event-arts)
-           (cond ((and digit glide-event)
+                (let ((digit (ly:event-property art-ev 'digit))
+                      (id (ly:event-property art-ev 'id #f)))
                   (set! digit-glide-event
-                        (assv-set! digit-glide-event digit glide-event)))
-                 ((and glide-event (not digit))
-                  (ly:event-warning
-                   glide-event
-                   (G_ "no finger found to start this glide, ignoring.")))
-                 ((and digit (not glide-event))
-                  (set! digit-glide-event
-                        (assv-remove! digit-glide-event digit)))))))
+                        (cons (cons (or id digit) art-ev) digit-glide-event)))))
+            event-arts))))
        (acknowledgers
         ((finger-interface this-engraver grob source-engraver)
          (let* ((cause (ly:grob-property grob 'cause))
                 (digit (ly:prob-property cause 'digit))
-                (digit-glide-evt (assoc-get digit digit-glide-event))
+                (id (ly:prob-property cause 'id #f))
+                (digit-glide-evt (assoc-get (or id digit) digit-glide-event))
                 (new-glide-grob
                  (if digit-glide-evt
                      (ly:engraver-make-grob
@@ -959,19 +942,21 @@ Engraver to print a BendSpanner.")))
                       'FingerGlideSpanner
                       digit-glide-evt)
                      #f)))
-           ;; Set right bound, select the grob via its digit from
-           ;; `glide-grobs`
-           (let* ((relevant-grob (assoc-get digit glide-grobs)))
+           ;; Set right bound, select the grob via its 'id or digit from
+           ;; `glide-grobs`, 'id is preferred.
+           (let* ((relevant-grob (assoc-get (or id digit) glide-grobs)))
              (when relevant-grob
                (ly:spanner-set-bound! relevant-grob RIGHT grob)
                (ly:engraver-announce-end-grob this-engraver relevant-grob grob)
-               (set! glide-grobs (assv-remove! glide-grobs digit))))
-           ;; Set left bound and store the digit with the created grob as a
-           ;; pair in local `glide-grobs`
-           (if new-glide-grob
-               (begin
-                 (set! glide-grobs (acons digit new-glide-grob glide-grobs))
-                 (ly:spanner-set-bound! new-glide-grob LEFT grob))))))
+               (set! glide-grobs (assv-remove! glide-grobs (or id digit)))))
+           ;; Set left bound and store the 'id or digit with the created grob as
+           ;; a pair in local `glide-grobs`, 'id is preferred.
+           (when new-glide-grob
+             (set! glide-grobs
+                   (acons (or id digit) new-glide-grob glide-grobs))
+             (ly:spanner-set-bound! new-glide-grob LEFT grob)
+             (set! digit-glide-event
+                   (assv-remove! digit-glide-event (or id digit)))))))
        ((finalize this-engraver)
         ;; Warn for a created grob without right bound, suicide the grob.
         (for-each
