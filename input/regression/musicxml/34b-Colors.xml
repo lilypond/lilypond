@@ -14,30 +14,41 @@
           &lt;note&gt; again (for the rest), respectively, followed by a red
           unpitched note.
 
-          The third bar holds a red beamlet, a red beam, a red slur, a red pedal
+          The third and fourth bar consists of a red two-bar rest.
+
+          The fifth bar has a red rehearsal mark on its starting bar line.  The
+          first note has three fingerings, with the middle one in red; also
+          attached is a red `ff' sign.  The second note has three plucks, with
+          the first one in red.  A red `Adagio' tempo indication is on top of
+          the third beat, which consists of a quadruplet with a red number.  The
+          fourth beat holds a red arpeggio, and the fifth beat demonstrates
+          lyrics in red.
+
+          The sixth bar holds a red beamlet, a red beam, a red slur, a red pedal
           marker that gets continued with a blue one, and a red octave shift.
 
-          Measure four contains a red trill with a black wavy line, a black
+          Measure seven contains a red trill with a black wavy line, a black
           trill with a red wavy line, a red bracket, a red glissando, and a red
           wedge.
 
-          Bar five starts with a red and black tie connecting two chords,
+          Bar eight starts with a red and black tie connecting two chords,
           followed by 'cresc.' and dashes in red, followed by 'dim.' in black
           with red dashes.
 
-          The sixth measure demonstrates a red 6/8 time signature, followed by a
+          The ninth measure demonstrates a red 6/8 time signature, followed by a
           red two-stem tremolo, a red breath mark.
 
-          Bar seven begins with a red, non-traditional key change, followed by a
+          Bar ten begins with a red, non-traditional key change, followed by a
           red, traditional one.
 
-          The eighth bar starts with a red bass clef (actually, still in bar
+          The eleventh bar starts with a red bass clef (actually, still in bar
           seven), followed by a blue percussion clef on a red two-line staff
           (where the middle line is omitted).
 
-          Measures 9 to 11 holds a repeat structure with two endings, with red
-          bar lines at the beginning of measures 9 and 11, and a blue bar line
-          at the beginning of measure 10.</miscellaneous-field>
+          Measures 12 to 14 holds a repeat structure with two endings, with red
+          bar lines at the beginning of measures 12 and 14, a blue bar line at
+          the beginning of measure 13, and a red prima-volta bracket and
+          number.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -46,7 +57,7 @@
   <part id="P1">
     <measure number="1">
       <attributes>
-        <divisions>2</divisions>
+        <divisions>8</divisions>
         <key>
           <fifths>0</fifths>
         </key>
@@ -66,7 +77,7 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -88,7 +99,7 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -111,7 +122,7 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -134,7 +145,7 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot color="#FF0000"/>
@@ -156,7 +167,7 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -182,7 +193,7 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -204,7 +215,7 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -226,7 +237,7 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -244,14 +255,14 @@
       </note>
       <note color="#FF0000">
         <rest/>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
       </note>
       <note color="#FF0000">
         <unpitched/>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -259,19 +270,208 @@
     </measure>
     <!--=======================================================-->
     <measure number="3">
+      <attributes>
+        <measure-style color="#FF0000">
+          <multiple-rest>2</multiple-rest>
+        </measure-style>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>60</duration>
+        <voice>1</voice>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="4">
+      <note>
+        <rest/>
+        <duration>60</duration>
+        <voice>1</voice>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="5">
+      <direction>
+        <direction-type>
+          <rehearsal color="#FF0000">A</rehearsal>
+        </direction-type>
+      </direction>
+      <direction>
+        <direction-type>
+          <dynamics color="#FF0000"><ff/></dynamics>
+        </direction-type>
+      </direction>
       <note>
         <pitch>
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <technical>
+            <fingering>0</fingering>
+            <fingering color="#FF0000">1</fingering>
+            <fingering>2</fingering>
+          </technical>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <technical>
+            <pluck color="#FF0000" placement="above">a</pluck>
+            <pluck placement="above">m</pluck>
+            <pluck placement="above">i</pluck>
+          </technical>
+        </notations>
+      </note>
+      <direction placement="above">
+        <direction-type>
+          <words font-weight="bold" color="#FF0000">Adagio</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">begin</beam>
+        <time-modification>
+          <actual-notes>4</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
+        <notations>
+          <tuplet number="1" type="start">
+            <tuplet-actual>
+              <tuplet-number color="#FF0000">4</tuplet-number>
+            </tuplet-actual>
+          </tuplet>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">continue</beam>
+        <time-modification>
+          <actual-notes>4</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">continue</beam>
+        <time-modification>
+          <actual-notes>4</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>3</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <beam number="1">end</beam>
+        <time-modification>
+          <actual-notes>4</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
+        <notations>
+          <tuplet number="1" type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step><octave>4</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <arpeggiate color="#FF0000"/>
+        </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <arpeggiate/>
+        </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>F</step><octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <arpeggiate/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step><octave>4</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1" color="#FF0000">
+          <text>lyrics</text>
+        </lyric>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="6">
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">begin</beam>
       </note>
       <note>
         <rest/>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <stem color="#FF0000">up</stem>
@@ -282,7 +482,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">end</beam>
@@ -292,7 +492,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1" color="#FF0000">begin</beam>
@@ -302,7 +502,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">continue</beam>
@@ -312,7 +512,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">end</beam>
@@ -322,7 +522,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">begin</beam>
@@ -335,7 +535,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">continue</beam>
@@ -345,7 +545,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">end</beam>
@@ -363,7 +563,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">begin</beam>
@@ -378,7 +578,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">continue</beam>
@@ -393,7 +593,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">end</beam>
@@ -408,7 +608,7 @@
           <step>F</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">begin</beam>
@@ -418,7 +618,7 @@
           <step>F</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">continue</beam>
@@ -428,7 +628,7 @@
           <step>F</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">end</beam>
@@ -440,14 +640,13 @@
       </direction>
     </measure>
     <!--=======================================================-->
-    <measure number="4">
-      <print new-system="yes"/>
+    <measure number="7">
       <note>
         <pitch>
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -464,7 +663,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -486,7 +685,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">begin</beam>
@@ -496,7 +695,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">continue</beam>
@@ -511,7 +710,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">end</beam>
@@ -521,7 +720,7 @@
           <step>B</step>
           <octave>4</octave>
         </pitch>
-        <duration>2</duration>
+        <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
         <notations>
@@ -533,7 +732,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <notations>
@@ -550,7 +749,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>2</duration>
+        <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
       </note>
@@ -559,7 +758,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
       </note>
@@ -570,13 +769,13 @@
       </direction>
     </measure>
     <!--=======================================================-->
-    <measure number="5">
+    <measure number="8">
       <note>
         <pitch>
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>2</duration>
+        <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
         <notations>
@@ -589,7 +788,7 @@
           <step>A</step>
           <octave>4</octave>
         </pitch>
-        <duration>2</duration>
+        <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
         <notations>
@@ -601,7 +800,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <notations>
@@ -614,7 +813,7 @@
           <step>A</step>
           <octave>4</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <notations>
@@ -634,7 +833,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -644,7 +843,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -665,7 +864,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -675,7 +874,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -687,7 +886,7 @@
       </direction>
     </measure>
     <!--=======================================================-->
-    <measure number="6">
+    <measure number="9">
       <attributes>
         <time color="#FF0000">
           <beats>6</beats>
@@ -699,7 +898,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>half</type>
         <dot/>
@@ -719,7 +918,7 @@
           <step>F</step>
           <octave>5</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>half</type>
         <dot/>
@@ -739,8 +938,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="7">
-      <print new-system="yes"/>
+    <measure number="10">
       <attributes>
         <key color="#FF0000">
           <key-step>D</key-step>
@@ -756,7 +954,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -771,14 +969,14 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="8">
+    <measure number="11">
       <attributes>
         <clef number="1" color="#FF0000">
           <sign>F</sign>
@@ -790,7 +988,7 @@
           <step>F</step>
           <octave>3</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -808,14 +1006,14 @@
       </attributes>
       <note>
         <unpitched/>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="9">
+    <measure number="12">
       <attributes>
         <clef number="1">
           <sign>G</sign>
@@ -834,14 +1032,14 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>6</duration>
+        <duration>24</duration>
         <voice>1</voice>
         <type>half</type>
         <dot/>
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="10">
+    <measure number="13">
       <barline location="left">
         <bar-style color="#0000FF">regular</bar-style>
         <ending number="1" color="#FF0000" type="start">1.</ending>
@@ -851,7 +1049,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>6</duration>
+        <duration>24</duration>
         <voice>1</voice>
         <type>half</type>
         <dot/>
@@ -863,7 +1061,7 @@
       </barline>
     </measure>
     <!--=======================================================-->
-    <measure number="11">
+    <measure number="14">
       <barline location="left">
         <ending number="2" type="start">2.</ending>
       </barline>
@@ -872,7 +1070,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>6</duration>
+        <duration>24</duration>
         <voice>1</voice>
         <type>half</type>
         <dot/>

@@ -14,11 +14,21 @@
           &lt;accent&gt;, and &lt;note&gt; again (for the rest), respectively,
           followed by a larger percussion clef and a larger unpitched note.
 
-          The third bar holds an oversized pedal marker with an oversized octave
+          The third and fourth bar consists of an oversized two-bar rest.
+
+          The fifth bar has an oversized rehearsal mark on its starting bar
+          line.  The first note has three fingerings, with the middle one
+          oversized; also attached is an oversized `ff' sign.  The second note
+          has three plucks, with the first one oversized.  An oversized `Adagio'
+          tempo indication is on top of the third and fourth beats, which
+          consist of a quadruplet with an oversized number.  The fifth beat
+          demonstrates oversized lyrics.
+
+          The sixth bar holds an oversized pedal marker with an oversized octave
           shift, an oversized trill with a wavy line, and an oversized `cresc.'
           with dashes.
 
-          The fourth measure demonstrates an oversized, non-traditional key
+          The seventh measure demonstrates an oversized, non-traditional key
           change, followed by an oversized 6/8 time signature, an oversized
           breath mark, an oversized bass clef, and an oversized, traditional key
           change.</miscellaneous-field>
@@ -30,7 +40,7 @@
   <part id="P1">
     <measure number="1">
       <attributes>
-        <divisions>2</divisions>
+        <divisions>8</divisions>
         <key>
           <fifths>0</fifths>
         </key>
@@ -50,7 +60,7 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -73,7 +83,7 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -97,7 +107,7 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -121,7 +131,7 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot font-size="30"/>
@@ -144,7 +154,7 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -171,7 +181,7 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -194,7 +204,7 @@
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -218,7 +228,7 @@
           <alter>1</alter>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -237,7 +247,7 @@
       </note>
       <note font-size="30">
         <rest/>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -249,7 +259,7 @@
       </attributes>
       <note font-size="30">
         <unpitched/>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -259,11 +269,165 @@
     <measure number="3">
       <print new-system="yes"/>
       <attributes>
+        <measure-style font-size="30">
+          <multiple-rest>2</multiple-rest>
+        </measure-style>
+      </attributes>
+      <note>
+        <rest/>
+        <duration>60</duration>
+        <voice>1</voice>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="4">
+      <note>
+        <rest/>
+        <duration>60</duration>
+        <voice>1</voice>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="5">
+      <attributes>
         <clef number="1">
           <sign>G</sign>
           <line>2</line>
         </clef>
       </attributes>
+      <direction>
+        <direction-type>
+          <rehearsal font-size="30">A</rehearsal>
+        </direction-type>
+      </direction>
+      <direction>
+        <direction-type>
+          <dynamics font-size="30"><ff/></dynamics>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <technical>
+            <fingering>0</fingering>
+            <fingering font-size="30">1</fingering>
+            <fingering>2</fingering>
+          </technical>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <notations>
+          <technical>
+            <pluck font-size="30" placement="above">a</pluck>
+            <pluck placement="above">m</pluck>
+            <pluck placement="above">i</pluck>
+          </technical>
+        </notations>
+      </note>
+      <direction placement="above">
+        <direction-type>
+          <words font-weight="bold" font-size="30">Adagio</words>
+        </direction-type>
+      </direction>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>6</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>4</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
+        <notations>
+          <tuplet number="1" show-number="both" show-type="actual" type="start">
+            <tuplet-actual>
+              <tuplet-number font-size="30">4</tuplet-number>
+              <tuplet-type>quarter</tuplet-type>
+            </tuplet-actual>
+            <tuplet-normal>
+              <tuplet-number>2</tuplet-number>
+              <tuplet-type>quarter</tuplet-type>
+              <tuplet-dot/>
+            </tuplet-normal>
+          </tuplet>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>6</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>4</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>6</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>4</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>6</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>4</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
+        <notations>
+          <tuplet number="1" type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step><octave>4</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1" font-size="30">
+          <text>lyrics</text>
+        </lyric>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="6">
+      <print new-system="yes"/>
       <direction>
         <direction-type>
           <pedal type="start" font-size="30" line="no"/>
@@ -277,7 +441,7 @@
           <step>F</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">begin</beam>
@@ -287,7 +451,7 @@
           <step>F</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">continue</beam>
@@ -297,7 +461,7 @@
           <step>F</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
         <beam number="1">end</beam>
@@ -315,7 +479,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -331,7 +495,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -354,7 +518,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -364,14 +528,14 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="4">
+    <measure number="7">
       <attributes>
         <key font-size="30">
           <key-step>D</key-step>
@@ -396,7 +560,7 @@
           <step>F</step>
           <octave>4</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
@@ -420,7 +584,7 @@
           <step>F</step>
           <octave>3</octave>
         </pitch>
-        <duration>3</duration>
+        <duration>12</duration>
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
