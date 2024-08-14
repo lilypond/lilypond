@@ -420,8 +420,8 @@
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
-        <lyric number="1" font-size="30">
-          <text>lyrics</text>
+        <lyric number="1">
+          <text font-size="30">lyrics</text>
         </lyric>
       </note>
     </measure>

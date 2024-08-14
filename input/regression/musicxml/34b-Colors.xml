@@ -291,6 +291,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="5">
+      <print new-system="yes"/>
       <direction>
         <direction-type>
           <rehearsal color="#FF0000">A</rehearsal>
@@ -348,11 +349,11 @@
         <duration>3</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <beam number="1">begin</beam>
         <time-modification>
           <actual-notes>4</actual-notes>
           <normal-notes>3</normal-notes>
         </time-modification>
+        <beam number="1">begin</beam>
         <notations>
           <tuplet number="1" type="start">
             <tuplet-actual>
@@ -369,11 +370,11 @@
         <duration>3</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <beam number="1">continue</beam>
         <time-modification>
           <actual-notes>4</actual-notes>
           <normal-notes>3</normal-notes>
         </time-modification>
+        <beam number="1">continue</beam>
       </note>
       <note>
         <pitch>
@@ -383,11 +384,11 @@
         <duration>3</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <beam number="1">continue</beam>
         <time-modification>
           <actual-notes>4</actual-notes>
           <normal-notes>3</normal-notes>
         </time-modification>
+        <beam number="1">continue</beam>
       </note>
       <note>
         <pitch>
@@ -397,11 +398,11 @@
         <duration>3</duration>
         <voice>1</voice>
         <type>eighth</type>
+        <time-modification>
+          <actual-notes>4</actual-notes>
+          <normal-notes>3</normal-notes>
+        </time-modification>
         <beam number="1">end</beam>
-        <time-modification>
-          <actual-notes>4</actual-notes>
-          <normal-notes>3</normal-notes>
-        </time-modification>
         <notations>
           <tuplet number="1" type="stop"/>
         </notations>
@@ -641,6 +642,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="7">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>F</step>
@@ -887,6 +889,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="9">
+      <print new-system="yes"/>
       <attributes>
         <time color="#FF0000">
           <beats>6</beats>
