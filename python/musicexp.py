@@ -1331,6 +1331,12 @@ class ChordEvent(NestedMusic):
         else:
             return None
 
+    def arpeggio_pre_chord(self, printer):
+        pass
+
+    def arpeggio_post_chord(self, printer):
+        pass
+
     def print_ly(self, printer):
         def notehead_is_changed(note_event):
             for aev in note_event.associated_events:
@@ -1610,6 +1616,7 @@ class ChordEvent(NestedMusic):
         if rest_events:
             rest_events[0].print_ly(printer)
         elif len(note_events) == 1:
+            # We don't print an arpeggio line or bracket for a single note.
             note_events[0].print_ly(printer)
         elif note_events:
             global previous_pitch
@@ -1625,11 +1632,16 @@ class ChordEvent(NestedMusic):
                     basepitch = previous_pitch
             if stem:
                 printer(stem.ly_expression())
+
+            self.arpeggio_pre_chord(printer)
+
             printer('<%s>' % ' '.join(pitches))
             previous_pitch = basepitch
             duration = self.get_duration()
             if duration:
                 duration.print_ly(printer)
+
+            self.arpeggio_post_chord(printer)
         else:
             pass
 
@@ -1646,6 +1658,55 @@ class ChordEvent(NestedMusic):
             self.after_grace_elements.print_ly(printer, False)
 
         self.print_comment(printer)
+
+
+class ArpeggioChordEvent(ChordEvent):
+    # Don't provide a default constructor: In `musicxml2ly.py` we are not
+    # creating an `ArpeggioChordEvent` object but rather converting a
+    # `ChordEvent` object by changing its `__class__` attribute and thus
+    # initialize the class variables manually.
+    def init(self):
+        self.arpeggio = None
+        self.arpeggio_dir = None
+        self.arpeggio_color = None
+        self.arpeggio_min_pitch = 1000
+        self.arpeggio_max_pitch = -1000
+
+    def offset(self, printer):
+        min_pitch = 1000
+        max_pitch = -1000
+        for e in self.elements:
+            if isinstance(e, NoteEvent):
+                min_pitch = min(min_pitch, e.pitch.steps())
+                max_pitch = max(max_pitch, e.pitch.steps())
+
+        min_offset = self.arpeggio_min_pitch - min_pitch
+        max_offset = self.arpeggio_max_pitch - max_pitch
+        if min_offset != 0 or max_offset != 0:
+            printer(r"\offset positions #'(%s . %s)"
+                    % (min_offset / 2, max_offset / 2))
+
+    def arpeggio_pre_chord(self, printer):
+        if self.arpeggio == 'non-arpeggiate':
+            printer(r'\arpeggioBracket')
+        elif self.arpeggio == 'arpeggiate':
+            dir = {'down': r'\arpeggioArrowDown',
+                   'up': r'\arpeggioArrowUp'}.get(self.arpeggio_dir, '')
+            if dir:
+                printer(dir)
+
+    def arpeggio_post_chord(self, printer):
+        if self.arpeggio is not None:
+            color = color_to_ly(self.arpeggio_color)
+            if color is not None:
+                printer(r'\tweak color %s' % color)
+            self.offset(printer)
+
+            printer(r'\arpeggio')
+
+            if (self.arpeggio == 'non-arpeggiate'
+                    or self.arpeggio_dir is not None):
+                printer(r'\arpeggioNormal')
 
 
 class Partial(Music):
@@ -2285,39 +2346,6 @@ class GlissandoEvent(SpanEvent):
                 printer.dump('%s%s' % (super().not_visible(), val))
             else:
                 printer.dump(val)
-
-
-class ArpeggioEvent(Event):
-    def __init__(self):
-        Event.__init__(self)
-        self.direction = 0
-        self.non_arpeggiate = False
-
-    def wait_for_note(self):
-        return True
-
-    def print_before_note(self, printer):
-        if self.non_arpeggiate:
-            printer.dump(r"\arpeggioBracket")
-        else:
-            dir = {-1: r"\arpeggioArrowDown",
-                   1: r"\arpeggioArrowUp"}.get(self.direction, '')
-            if dir:
-                printer.dump(dir)
-
-    def print_after_note(self, printer):
-        if self.non_arpeggiate or self.direction:
-            printer.dump(r"\arpeggioNormal")
-
-    def ly_expression(self):
-        res = []
-        color = color_to_ly(self.color)
-        if color is not None:
-            res.append(r'\tweak color %s' % color)
-
-        res.append(r'\arpeggio')
-
-        return ' '.join(res)
 
 
 class TieEvent(Event):

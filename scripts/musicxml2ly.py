@@ -1477,27 +1477,6 @@ def musicxml_fermata_to_lily_event(mxl_event, note_color=None,
     return ev
 
 
-def musicxml_arpeggiate_to_lily_event(mxl_event, note_color=None,
-                                      note_font_size=None):
-    # The `note_font_size` argument gets ignored.
-    ev = musicexp.ArpeggioEvent()
-    ev.color = getattr(mxl_event, 'color', note_color)
-    ev.direction = musicxml_direction_to_indicator(
-        getattr(mxl_event, 'direction', None))
-    return ev
-
-
-def musicxml_nonarpeggiate_to_lily_event(mxl_event, note_color=None,
-                                         note_font_size=None):
-    # The `note_font_size` argument gets ignored.
-    ev = musicexp.ArpeggioEvent()
-    ev.color = getattr(mxl_event, 'color', note_color)
-    ev.non_arpeggiate = True
-    ev.direction = musicxml_direction_to_indicator(
-        getattr(mxl_event, 'direction', None))
-    return ev
-
-
 # Single-note tremolo.
 def musicxml_tremolo_to_lily_event(mxl_event, note_color=None,
                                    note_font_size=None):
@@ -3549,6 +3528,9 @@ def musicxml_voice_to_lily_voice(voice):
                 fretboards_builder.add_music(fb, ev_chord.get_length())
             pending_fretboards = []
 
+        color = getattr(n, 'color', None)
+        font_size = getattr(n, 'font-size', None)
+
         notations_children = n['notations']
 
         # The <notation> element can have the following children
@@ -3564,6 +3546,35 @@ def musicxml_voice_to_lily_voice(voice):
                     musicxml.Time_modification)
                 tuplet_events.append(
                     (ev_chord, tuplet_event, time_mod, note_visible))
+
+            for arpeggiate in ['arpeggiate', 'non-arpeggiate']:
+                for a in notations[arpeggiate]:
+                    if not isinstance(ev_chord, musicexp.ArpeggioChordEvent):
+                        ev_chord.__class__ = musicexp.ArpeggioChordEvent
+                        ev_chord.init()
+
+                        # Use first occurrence of the element to set
+                        # attributes.
+                        ev_chord.arpeggio = arpeggiate
+                        ev_chord.arpeggio_dir = getattr(a, 'direction', None)
+                        ev_chord.arpeggio_color = getattr(a, 'color', color)
+
+                    # Setting a vertical minimum and a maximum position for
+                    # the arpeggio is a subset of the theoretically possible
+                    # chord configurations with `<arpeggiate>`.  However, it
+                    # is already very rare that an arpeggio covers only a
+                    # part of a chord so we keep it simple.
+                    #
+                    # The same holds (more or less) for `<non-arpeggiate>`.
+                    # We only support one arpeggio bracket per chord (having
+                    # more can be problematic as discussed in
+                    # https://github.com/w3c/musicxml/discussions/540).
+                    ev_chord.arpeggio_min_pitch = \
+                        min(ev_chord.arpeggio_min_pitch,
+                            main_event.pitch.steps())
+                    ev_chord.arpeggio_max_pitch = \
+                        max(ev_chord.arpeggio_max_pitch,
+                            main_event.pitch.steps())
 
             # First, close all open slurs, only then start any new slur
             # TODO: Record the number of the open slur to determine the correct
@@ -3727,19 +3738,14 @@ def musicxml_voice_to_lily_voice(voice):
 
             notation_handlers = {
                 'accidental-mark': musicxml_articulation_to_lily_event,
-                'arpeggiate': musicxml_arpeggiate_to_lily_event,
                 'articulations': convert_and_append_all_child_articulations,
                 'dynamics': convert_and_append_all_child_dynamics,
                 'fermata': musicxml_fermata_to_lily_event,
                 'glissando': musicxml_spanner_to_lily_event,
-                'non-arpeggiate': musicxml_nonarpeggiate_to_lily_event,
                 'ornaments': convert_and_append_all_child_articulations,
                 'slide': musicxml_spanner_to_lily_event,
                 'technical': convert_and_append_all_child_articulations,
             }
-
-            color = getattr(n, 'color', None)
-            font_size = getattr(n, 'font-size', None)
 
             for a in notations.get_all_children():
                 handler = notation_handlers.get(a.get_name(), None)

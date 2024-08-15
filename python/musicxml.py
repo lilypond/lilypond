@@ -517,6 +517,10 @@ class Alter(Music_xml_node):
     minidom_demarshal_to_value = minidom_demarshal_text_to_int_or_float
 
 
+class Arpeggiate(Music_xml_node):
+    pass
+
+
 class Attributes(Measure_element):
     def __init__(self):
         Measure_element.__init__(self)
@@ -780,6 +784,10 @@ class Stem(Music_xml_node):
             return event
 
         return None
+
+
+class NonArpeggiate(Music_xml_node):
+    pass
 
 
 class Notehead(Music_xml_node):
@@ -1119,11 +1127,15 @@ class Sound(Music_xml_node):
 
 class Notations(Music_xml_node):
     max_occurs_by_child = {
+        'arpeggiate': 2,
+        'non-arpeggiate': 2,
         'slur': 2,
     }
 
     def __init__(self):
         Music_xml_node.__init__(self)
+        self._content['arpeggiate'] = []
+        self._content['non-arpeggiate'] = []
         self._content['slur'] = []
 
     def get_tie(self):
@@ -2006,6 +2018,7 @@ class_dict = {
     '#text': Hash_text,
     'accidental': Accidental,
     'alter': Alter,
+    'arpeggiate': Arpeggiate,
     'attributes': Attributes,
     'backup': Backup,
     'barline': Barline,
@@ -2043,6 +2056,7 @@ class_dict = {
     'lyric': Lyric,
     'measure': Measure,
     'metronome': Metronome,
+    'non-arpeggiate': NonArpeggiate,
     'notations': Notations,
     'note': Note,
     'notehead': Notehead,
