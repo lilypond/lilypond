@@ -4,6 +4,7 @@
 ;;;;
 ;;;; Copyright (C) 2002--2023 Han-Wen Nienhuys <hanwen@xs4all.nl>,
 ;;;; Copyright (C) 2003--2023 Heikki Junes <hjunes@cc.hut.fi>
+;;;; Copyright (C) 2024 Yiyu Zhou <yiyu@yiyuzhou.io>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -32,86 +33,86 @@
 ;;;    * currently, in bracket matching one may need a non-bracket
 ;;;      chararacter between the bracket characters, like ( ( ) )
 
-(defcustom LilyPond-indent-level 2
+(defcustom lilypond-indent-level 2
   "*Indentation of lilypond statements with respect to containing block."
   :group 'LilyPond
   :type 'integer)
 
-(defcustom LilyPond-brace-offset 0
+(defcustom lilypond-brace-offset 0
   "*Extra indentation for open braces.
 Compares with other text in same context."
   :group 'LilyPond
   :type 'integer)
 
-(defcustom LilyPond-angle-offset 0
+(defcustom lilypond-angle-offset 0
   "*Extra indentation for open angled brackets.
 Compares with other text in same context."
   :group 'LilyPond
   :type 'integer)
 
-(defcustom LilyPond-square-offset 0
+(defcustom lilypond-square-offset 0
   "*Extra indentation for open square brackets.
 Compares with other text in same context."
   :group 'LilyPond
   :type 'integer)
 
-(defcustom LilyPond-scheme-paren-offset 0
+(defcustom lilypond-scheme-paren-offset 0
   "*Extra indentation for open scheme parens.
 Compares with other text in same context."
   :group 'LilyPond
   :type 'integer)
 
-(defcustom LilyPond-close-brace-offset 0
+(defcustom lilypond-close-brace-offset 0
   "*Extra indentation for closing braces."
   :group 'LilyPond
   :type 'integer)
 
-(defcustom LilyPond-close-angle-offset 0
+(defcustom lilypond-close-angle-offset 0
   "*Extra indentation for closing angle brackets."
   :group 'LilyPond
   :type 'integer)
 
-(defcustom LilyPond-close-square-offset 0
+(defcustom lilypond-close-square-offset 0
   "*Extra indentation for closing square brackets."
   :group 'LilyPond
   :type 'integer)
 
-(defcustom LilyPond-close-scheme-paren-offset 0
+(defcustom lilypond-close-scheme-paren-offset 0
   "*Extra indentation for closing scheme parens."
   :group 'LilyPond
   :type 'integer)
 
-(defcustom LilyPond-fancy-comments t
+(defcustom lilypond-fancy-comments t
   "*Non-nil means distiguish between %, %%, and %%% for indentation."
   :group 'LilyPond
   :type 'boolean)
 
-(defcustom LilyPond-comment-region "%%%"
-  "*String inserted by \\[LilyPond-comment-region]\
+(defcustom lilypond-comment-region "%%%"
+  "*String inserted by \\[lilypond-comment-region]\
  at start of each line in region."
   :group 'LilyPond
   :type 'string)
 
-(defun LilyPond-comment-region (beg-region end-region)
+(defun lilypond-comment-region (beg-region end-region)
   "Comment/uncomment every line in the region.
-Insert LilyPond-comment-region at the beginning of every line in the region
+Insert lilypond-comment-region at the beginning of every line in the region
 or, if already present, remove it."
   (interactive "*r")
   (let ((end (make-marker)))
     (set-marker end end-region)
     (goto-char beg-region)
     (beginning-of-line)
-    (if (looking-at (regexp-quote LilyPond-comment-region))
+    (if (looking-at (regexp-quote lilypond-comment-region))
 	(delete-region (point) (match-end 0))
-      (insert LilyPond-comment-region))
+      (insert lilypond-comment-region))
     (while (and  (zerop (forward-line 1))
 		 (< (point) (marker-position end)))
-      (if (looking-at (regexp-quote LilyPond-comment-region))
+      (if (looking-at (regexp-quote lilypond-comment-region))
 	  (delete-region (point) (match-end 0))
-	(insert LilyPond-comment-region)))
+	(insert lilypond-comment-region)))
     (set-marker end nil)))
 
-(defun LilyPond-calculate-indent ()
+(defun lilypond-calculate-indent ()
   "Return appropriate indentation for current line as lilypond code.
 In usual case returns an integer: the column to indent to.
 Returns nil if line starts inside a string"
@@ -120,7 +121,7 @@ Returns nil if line starts inside a string"
     (let ((indent-point (point))
 	  (case-fold-search nil)
 	  state)
-      (setq containing-sexp (save-excursion (LilyPond-scan-containing-sexp)))
+      (setq containing-sexp (save-excursion (lilypond-scan-containing-sexp)))
       (beginning-of-defun)
       (while (< (point) indent-point)
 	(setq state (parse-partial-sexp (point) indent-point 0)))
@@ -131,7 +132,7 @@ Returns nil if line starts inside a string"
 	     nil)
 	    ((nth 4 state)
 	     ;; point is in the middle of a block comment
-	     (LilyPond-calculate-indent-within-blockcomment))
+	     (lilypond-calculate-indent-within-blockcomment))
 	    ((null containing-sexp)
 	     ;; Line is at top level - no indent
 	     (beginning-of-line)
@@ -139,7 +140,7 @@ Returns nil if line starts inside a string"
 	    (t
 	     ;; Find previous non-comment character.
 	     (goto-char indent-point)
-	     (LilyPond-backward-to-noncomment containing-sexp)
+	     (lilypond-backward-to-noncomment containing-sexp)
 	     ;; Now we get the answer.
 	     ;; Position following last unclosed open.
 	     (goto-char containing-sexp)
@@ -169,29 +170,29 @@ Returns nil if line starts inside a string"
 	      ;; If no previous statement,
 	      ;; indent it relative to line brace is on.
 	      ;; For open brace in column zero, don't let statement
-	      ;; start there too.  If LilyPond-indent-level is zero, use
-	      ;; LilyPond-brace-offset instead
-	      (+ (if (and (bolp) (zerop LilyPond-indent-level))
+	      ;; start there too.  If lilypond-indent-level is zero, use
+	      ;; lilypond-brace-offset instead
+	      (+ (if (and (bolp) (zerop lilypond-indent-level))
 		     (cond ((= (following-char) ?{)
-			    LilyPond-brace-offset)
+			    lilypond-brace-offset)
 			   ((= (following-char) ?<)
-			    LilyPond-angle-offset)
+			    lilypond-angle-offset)
 			   ((= (following-char) ?\[)
-			    LilyPond-square-offset)
+			    lilypond-square-offset)
 			   ((= (following-char) ?\))
-			    LilyPond-scheme-paren-offset)
+			    lilypond-scheme-paren-offset)
 			   (t
 			    0))
-		   LilyPond-indent-level)
+		   lilypond-indent-level)
 		 (progn
 		   (skip-chars-backward " \t")
 		   (current-indentation)))))))))
 
 
-(defun LilyPond-indent-line ()
+(defun lilypond-indent-line ()
   "Indent current line as lilypond code.
 Return the amount the indentation changed by."
-  (let ((indent (LilyPond-calculate-indent))
+  (let ((indent (lilypond-calculate-indent))
 	beg shift-amt
 	(case-fold-search nil)
 	(pos (- (point-max) (point))))
@@ -201,9 +202,9 @@ Return the amount the indentation changed by."
 	   (setq indent (current-indentation)))
 	  (t
 	   (skip-chars-forward " \t")
-	   (if (and LilyPond-fancy-comments (looking-at "%%%\\|%{\\|%}"))
+	   (if (and lilypond-fancy-comments (looking-at "%%%\\|%{\\|%}"))
 	       (setq indent 0))
-	   (if (and LilyPond-fancy-comments
+	   (if (and lilypond-fancy-comments
 		    (looking-at "%")
 		    (not (looking-at "%%\\|%{\\|%}")))
 	       (setq indent comment-column)
@@ -211,21 +212,21 @@ Return the amount the indentation changed by."
 	     (if (listp indent) (setq indent (car indent)))
 	     (cond
 	      ((= (following-char) ?})
-	       (setq indent  (+ indent (- LilyPond-close-brace-offset LilyPond-indent-level))))
+	       (setq indent  (+ indent (- lilypond-close-brace-offset lilypond-indent-level))))
 	      ((= (following-char) ?>)
-	       (setq indent  (+ indent (- LilyPond-close-angle-offset LilyPond-indent-level))))
+	       (setq indent  (+ indent (- lilypond-close-angle-offset lilypond-indent-level))))
 	      ((= (following-char) ?\])
-	       (setq indent  (+ indent (- LilyPond-close-square-offset LilyPond-indent-level))))
-	      ((and (= (following-char) ?\)) (LilyPond-inside-scheme-p))
-	       (setq indent  (+ indent (- LilyPond-close-scheme-paren-offset LilyPond-indent-level))))
+	       (setq indent  (+ indent (- lilypond-close-square-offset lilypond-indent-level))))
+	      ((and (= (following-char) ?\)) (lilypond-inside-scheme-p))
+	       (setq indent  (+ indent (- lilypond-close-scheme-paren-offset lilypond-indent-level))))
 	      ((= (following-char) ?{)
-	       (setq indent  (+ indent LilyPond-brace-offset)))
+	       (setq indent  (+ indent lilypond-brace-offset)))
 	      ((= (following-char) ?<)
-	       (setq indent  (+ indent LilyPond-angle-offset)))
+	       (setq indent  (+ indent lilypond-angle-offset)))
 	      ((= (following-char) ?\[)
-	       (setq indent  (+ indent LilyPond-square-offset)))
-	      ((and (= (following-char) ?\() (LilyPond-inside-scheme-p))
-	       (setq indent  (+ indent LilyPond-scheme-paren-offset)))
+	       (setq indent  (+ indent lilypond-square-offset)))
+	      ((and (= (following-char) ?\() (lilypond-inside-scheme-p))
+	       (setq indent  (+ indent lilypond-scheme-paren-offset)))
 	      ))))
     (skip-chars-forward " \t")
     (setq shift-amt (- indent (current-column)))
@@ -242,7 +243,7 @@ Return the amount the indentation changed by."
     shift-amt))
 
 
-(defun LilyPond-inside-comment-p ()
+(defun lilypond-inside-comment-p ()
   "Return non-nil if point is inside a line or block comment"
   (setq this-point (point))
   (or (save-excursion (beginning-of-line)
@@ -262,7 +263,7 @@ Return the amount the indentation changed by."
       ))
 
 
-(defun LilyPond-inside-string-or-comment-p ()
+(defun lilypond-inside-string-or-comment-p ()
   "Test if point is inside a string or a comment"
   (setq this-point (point))
   (or (save-excursion (beginning-of-line)
@@ -282,7 +283,7 @@ Return the amount the indentation changed by."
 	       nil)))))
 
 
-(defun LilyPond-backward-over-blockcomments (lim)
+(defun lilypond-backward-over-blockcomments (lim)
   "Move point back to closest non-whitespace character not part of a block comment"
   (setq lastopen  (save-excursion (re-search-backward "%{[ \\t]*" lim t)))
   (setq lastclose (save-excursion (re-search-backward "%}[ \\t]*" lim t)))
@@ -294,7 +295,7 @@ Return the amount the indentation changed by."
   (skip-chars-backward " %\t\n\f"))
 
 
-(defun LilyPond-backward-over-linecomments (lim)
+(defun lilypond-backward-over-linecomments (lim)
   "Move point back to the closest non-whitespace character not part of a line comment.
 Argument LIM limit."
   (let (opoint stop)
@@ -309,13 +310,13 @@ Argument LIM limit."
 	(beginning-of-line)))))
 
 
-(defun LilyPond-backward-to-noncomment (lim)
+(defun lilypond-backward-to-noncomment (lim)
   "Move point back to closest non-whitespace character not part of a comment"
-  (LilyPond-backward-over-linecomments lim)
-  (LilyPond-backward-over-blockcomments lim))
+  (lilypond-backward-over-linecomments lim)
+  (lilypond-backward-over-blockcomments lim))
 
 
-(defun LilyPond-calculate-indent-within-blockcomment ()
+(defun lilypond-calculate-indent-within-blockcomment ()
   "Return the indentation amount for line inside a block comment."
   (let (end percent-start)
     (save-excursion
@@ -336,7 +337,7 @@ Argument LIM limit."
 ;; Value: Pair of regexps representing the corresponding open and close bracket
 ;; () are treated specially (need to indent in Scheme but not in music)
 
-(defconst LilyPond-parens-regexp-alist
+(defconst lilypond-parens-regexp-alist
   `( ( ?>  .  ("\\([^\\]\\|^\\)<" . "\\([^ \\n\\t_^-]\\|[_^-][-^]\\|\\s-\\)\\s-*>"))
      ;; a b c->, a b c^> and a b c_> are not close-angle-brackets, they're accents
      ;; but a b c^-> and a b c^^> are close brackets with tenuto/marcato before them
@@ -350,7 +351,7 @@ Argument LIM limit."
      ))
 
 
-(defconst LilyPond-parens-alist
+(defconst lilypond-parens-alist
   `( ( ?<  .  ?> )    
      ( ?{  .  ?} )    
      ( ?\[  .  ?\] )
@@ -360,16 +361,16 @@ Argument LIM limit."
      ))
 
 
-(defun LilyPond-matching-paren (bracket-type)
+(defun lilypond-matching-paren (bracket-type)
   "Returns the open corresponding to the close specified by bracket-type, or vice versa"
-  (cond ( (member bracket-type (mapcar 'car LilyPond-parens-alist))
-	  (cdr (assoc bracket-type LilyPond-parens-alist)) )
-	( (member bracket-type (mapcar 'cdr LilyPond-parens-alist))
-	  (car (rassoc bracket-type LilyPond-parens-alist)) )
+  (cond ( (member bracket-type (mapcar 'car lilypond-parens-alist))
+	  (cdr (assoc bracket-type lilypond-parens-alist)) )
+	( (member bracket-type (mapcar 'cdr lilypond-parens-alist))
+	  (car (rassoc bracket-type lilypond-parens-alist)) )
 	nil))
 
 
-(defun LilyPond-scan-containing-sexp (&optional bracket-type slur-paren-p dir)
+(defun lilypond-scan-containing-sexp (&optional bracket-type slur-paren-p dir)
   "Move point to the beginning of the deepest parenthesis pair enclosing point. 
 
 If the optional argument bracket-type, a character representing a
@@ -384,11 +385,11 @@ slur-paren-p defaults to nil.
 ;;; An user does not call this function directly, or by a key sequence.
   ;;  (interactive)
   (let ( (level (if (not (eq dir 1)) 1 -1))
-	 (regexp-alist LilyPond-parens-regexp-alist) 
+	 (regexp-alist lilypond-parens-regexp-alist) 
 	 (oldpos (point))
-	 (assoc-bracket-type (if (not (eq dir 1)) bracket-type (LilyPond-matching-paren bracket-type))))
+	 (assoc-bracket-type (if (not (eq dir 1)) bracket-type (lilypond-matching-paren bracket-type))))
     
-    (if (LilyPond-inside-scheme-p)
+    (if (lilypond-inside-scheme-p)
 	(setq paren-regexp "(\\|)")
       (if slur-paren-p
 	  ;; expressional slurs  '\( ... \)' are not taken into account
@@ -406,7 +407,7 @@ slur-paren-p defaults to nil.
 	;; anyway do not count open slur, since already level = -1
         (progn (forward-char 1)
 	       (if (eq (following-char) 
-		       (LilyPond-matching-paren (char-after oldpos)))
+		       (lilypond-matching-paren (char-after oldpos)))
 		   ;; matching char found, go after it and set level = 0
 		   (progn (forward-char 1)
 			  (setq level 0)))))
@@ -423,7 +424,7 @@ slur-paren-p defaults to nil.
 ;;;      (message "%d" level) (sit-for 0 300)
       (if (not (save-excursion (goto-char (match-end 0))
 			       ;; skip over strings and comments
-			       (LilyPond-inside-string-or-comment-p)))
+			       (lilypond-inside-string-or-comment-p)))
 	  (if (memq match '(?} ?> ?\] ?\)))
 	      ;; count closing brackets
 	      (progn (setq level (1+ level))
@@ -463,7 +464,7 @@ slur-paren-p defaults to nil.
 	     nil))))
 
 
-(defun LilyPond-inside-scheme-p ()
+(defun lilypond-inside-scheme-p ()
   "Tests if point is inside embedded Scheme code"
 ;;; An user does not call this function directly, or by a key sequence.
   ;;  (interactive)
@@ -493,7 +494,7 @@ slur-paren-p defaults to nil.
 ;;; Largely taken from the 'blink-matching-open' in lisp/simple.el in
 ;;; the Emacs distribution.
 
-(defun LilyPond-blink-matching-paren (&optional dir)
+(defun lilypond-blink-matching-paren (&optional dir)
   "Move cursor momentarily to the beginning of the sexp before
 point. In lilypond files this is used for closing ), ], } and >, whereas the
 builtin 'blink-matching-open' is not used. In syntax table, see
@@ -503,7 +504,7 @@ builtin 'blink-matching-open' is not used. In syntax table, see
   (let ( (oldpos (point))
 	 (level 0) 
 	 (mismatch) )
-    (if (not (or (equal this-command 'LilyPond-electric-close-paren)
+    (if (not (or (equal this-command 'lilypond-electric-close-paren)
 		 (eq dir 1)))
 	(goto-char (setq oldpos (- oldpos 1))))
     ;; Test if a ligature \] or expressional slur \) was encountered
@@ -520,22 +521,22 @@ builtin 'blink-matching-open' is not used. In syntax table, see
       (narrow-to-region
        (max (point-min) (- (point) blink-matching-paren-distance))
        (min (point-max) (+ (point) blink-matching-paren-distance))))
-    (if (and (equal this-command 'LilyPond-electric-close-paren)
+    (if (and (equal this-command 'lilypond-electric-close-paren)
 	     (memq bracket-type '(?> ?} ?< ?{)))
 	;; < { need to be mutually balanced and nested, so search backwards for both of these bracket types 
-	(LilyPond-scan-containing-sexp nil nil dir)  
+	(lilypond-scan-containing-sexp nil nil dir)  
       ;; whereas ( ) slurs within music don't, so only need to search for ( )
       ;; use same mechanism for [ ] slurs
-      (LilyPond-scan-containing-sexp bracket-type t dir))
+      (lilypond-scan-containing-sexp bracket-type t dir))
     (setq blinkpos (point))
     (setq mismatch
-	  (or (null (LilyPond-matching-paren (char-after blinkpos)))
+	  (or (null (lilypond-matching-paren (char-after blinkpos)))
 	      (/= (char-after oldpos)
-		  (LilyPond-matching-paren (char-after blinkpos)))))
+		  (lilypond-matching-paren (char-after blinkpos)))))
     (if mismatch (progn (setq blinkpos nil)
 			(message "Mismatched parentheses")))
     (if (and blinkpos
-	     (equal this-command 'LilyPond-electric-close-paren))
+	     (equal this-command 'lilypond-electric-close-paren))
 	(if (pos-visible-in-window-p)
 	    (and blink-matching-paren-on-screen
 		 (sit-for blink-matching-delay))
@@ -572,7 +573,7 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 		    (buffer-substring blinkpos (1+ blinkpos)))
 		 ;; There is nothing to show except the char itself.
 		 (buffer-substring blinkpos (1+ blinkpos))))))))
-    (if (not (equal this-command 'LilyPond-electric-close-paren))
+    (if (not (equal this-command 'lilypond-electric-close-paren))
 	(goto-char (setq oldpos (+ oldpos 1)))
       (goto-char oldpos))
     (if (not (eq dir 1))
@@ -580,7 +581,7 @@ builtin 'blink-matching-open' is not used. In syntax table, see
       (+ blinkpos 1))))
 
 
-(defun LilyPond-electric-close-paren ()
+(defun lilypond-electric-close-paren ()
   "Blink on the matching open paren when a >, ), } or ] is inserted"
   (interactive)
   (let ((oldpos (point)))
@@ -591,15 +592,15 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 	(font-lock-fontify-buffer)
       ;; Match paren if the cursor is not inside string or comment.
       (if (and blink-matching-paren
-	       (not (LilyPond-inside-string-or-comment-p))
+	       (not (lilypond-inside-string-or-comment-p))
 	       (save-excursion (re-search-backward 
-				(concat (mapconcat 'cdr (mapcar 'cdr LilyPond-parens-regexp-alist) "\\|") "\\|)") nil t)
+				(concat (mapconcat 'cdr (mapcar 'cdr lilypond-parens-regexp-alist) "\\|") "\\|)") nil t)
 			       (eq oldpos (1- (match-end 0)))))
 	  (progn (backward-char 1)
-		 (LilyPond-blink-matching-paren)
+		 (lilypond-blink-matching-paren)
 		 (forward-char 1))))))
 
-(defun LilyPond-scan-sexps (pos dir) 
+(defun lilypond-scan-sexps (pos dir) 
   "This function is redefined to be used in Emacs' show-paren-function and
 in XEmacs' paren-highlight."
-  (LilyPond-blink-matching-paren dir))
+  (lilypond-blink-matching-paren dir))

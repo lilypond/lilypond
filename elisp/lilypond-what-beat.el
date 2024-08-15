@@ -3,6 +3,7 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
 ;;;; Copyright (C) 2011--2023 Trevor Daniels <t.daniels@treda.co.uk>
+;;;; Copyright (C) 2024 Yiyu Zhou <yiyu@yiyuzhou.io>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -257,7 +258,7 @@ If next note has no duration, returns t"
 
 	  result)))))
 
-(defun LilyPond-what-beat ()
+(defun lilypond-what-beat ()
   "Returns how much of a measure lies between last measaure '|' and point.
 Recognizes chords, and triples."
   (interactive)
@@ -265,14 +266,14 @@ Recognizes chords, and triples."
     (message "Beat: %d/%d" (car beat) (cadr beat)))
 )
 
-(defun LilyPond-electric-bar ()
+(defun lilypond-electric-bar ()
   "Indicate the number of beats in last measure when a | is inserted"
   (interactive)
   (self-insert-command 1)
   (save-excursion
     (save-restriction
       (backward-char)
-      (LilyPond-what-beat)
+      (lilypond-what-beat)
       (forward-char)
 )))
 

@@ -7,6 +7,8 @@
 ;;;;    * Keyboard shortcuts (12th Sep 2001)
 ;;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
 ;;;;    * Autocompletion & Info (23rd Nov 2002)
+;;;; Changed 2024 Yiyu Zhou <yiyu@yiyuzhou.io>
+;;;;    * Change all prefixes to lowercase to follow the Elisp convention
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -30,46 +32,46 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "2.5.20"
-  "`LilyPond-mode' version number.")
+(defconst lilypond-version "2.5.20"
+  "`lilypond-mode' version number.")
 
-(defconst LilyPond-help-address "bug-lilypond@gnu.org"
+(defconst lilypond-help-address "bug-lilypond@gnu.org"
   "Address accepting submission of bug reports.")
 
-(defvar LilyPond-mode-hook nil
-  "*Hook called by `LilyPond-mode'.")
+(defvar lilypond-mode-hook nil
+  "*Hook called by `lilypond-mode'.")
 
-(defvar LilyPond-region-file-prefix "emacs-lily"
+(defvar lilypond-region-file-prefix "emacs-lily"
   "File prefix for commands on buffer or region.")
 
-(defvar LilyPond-master-file nil
+(defvar lilypond-master-file nil
   "Master file that LilyPond will be run on.")
 
 ;; FIXME: find ``\score'' in buffers / make settable?
-(defun LilyPond-get-master-file ()
-  (or LilyPond-master-file
+(defun lilypond-get-master-file ()
+  (or lilypond-master-file
       (buffer-file-name)))
 
-(defvar LilyPond-kick-xdvi nil
+(defvar lilypond-kick-xdvi nil
   "If true, no simultaneous xdvi's are started, but reload signal is sent.")
 
-(defvar LilyPond-command-history nil
+(defvar lilypond-command-history nil
   "Command history list.")
 
-(defvar LilyPond-regexp-alist
+(defvar lilypond-regexp-alist
   '(("\\([a-zA-Z]?:?[^:( \t\n]+\\)[:( \t]+\\([0-9]+\\)[:) \t]" 1 2))
   "Regexp used to match LilyPond errors.  See `compilation-error-regexp-alist'.")
 
-(defvar LilyPond-imenu nil
-  "A flag to tell whether LilyPond-imenu is turned on.")
-(make-variable-buffer-local 'LilyPond-imenu)
+(defvar lilypond-imenu nil
+  "A flag to tell whether lilypond-imenu is turned on.")
+(make-variable-buffer-local 'lilypond-imenu)
 
-(defcustom LilyPond-include-path ".:/tmp"
+(defcustom lilypond-include-path ".:/tmp"
   "* LilyPond include path."
   :type 'string
   :group 'LilyPond)
 
-(defun LilyPond-words-filename ()
+(defun lilypond-words-filename ()
   "The file containing LilyPond \keywords \Identifiers and ReservedWords.
 Finds file lilypond-words.el from load-path."
   (let ((fn nil)
@@ -84,7 +86,7 @@ Finds file lilypond-words.el from load-path."
 	       (sit-for 5 0)))
     fn))
 
-(defun LilyPond-add-dictionary-word (x)
+(defun lilypond-add-dictionary-word (x)
   "Contains all words: \keywords \Identifiers and ReservedWords."
   (nconc '(("" . 1)) x))
 
@@ -99,25 +101,25 @@ Finds file lilypond-words.el from load-path."
     )))
 
 ;; creates dictionary if empty
-(if (and (eq (length (LilyPond-add-dictionary-word ())) 1)
-	 (not (eq (LilyPond-words-filename) nil)))
+(if (and (eq (length (lilypond-add-dictionary-word ())) 1)
+	 (not (eq (lilypond-words-filename) nil)))
     (progn
-      (setq b (find-file-noselect (LilyPond-words-filename) t t))
+      (setq b (find-file-noselect (lilypond-words-filename) t t))
       (setq m (set-marker (make-marker) 1 (get-buffer b)))
       (setq i 1)
       (while (> (get-buffer-size b) (marker-position m))
 	(setq i (+ i 1))
 	(setq copy (copy-alist (list (eval (symbol-name (read m))))))
 	(setcdr copy i)
-	(LilyPond-add-dictionary-word (list copy)))
+	(lilypond-add-dictionary-word (list copy)))
       (kill-buffer b)))
 
-(defvar LilyPond-insert-tag-current ""
-  "The last command selected from the LilyPond-Insert -menu.")
+(defvar lilypond-insert-tag-current ""
+  "The last command selected from the lilypond-Insert -menu.")
 
-(defconst LilyPond-menu-keywords
+(defconst lilypond-menu-keywords
   (let ((wordlist '())
-	(co (all-completions "" (LilyPond-add-dictionary-word ())))
+	(co (all-completions "" (lilypond-add-dictionary-word ())))
 	(currword ""))
     (progn
       (while (> (length co) 0)
@@ -128,11 +130,11 @@ Finds file lilypond-words.el from load-path."
 	      (while (and (> (length co) 0)
 			  (not (string-equal "-" (car (setq co (cdr co))))))))))
       (reverse wordlist)))
-  "Keywords inserted from LilyPond-Insert-menu.")
+  "Keywords inserted from lilypond-Insert-menu.")
 
-(defconst LilyPond-keywords
+(defconst lilypond-keywords
   (let ((wordlist '("\\score"))
-	(co (all-completions "" (LilyPond-add-dictionary-word ())))
+	(co (all-completions "" (lilypond-add-dictionary-word ())))
 	(currword ""))
     (progn
       (while (> (length co) 0)
@@ -153,9 +155,9 @@ Finds file lilypond-words.el from load-path."
       (reverse wordlist)))
   "LilyPond \\keywords")
 
-(defconst LilyPond-identifiers
+(defconst lilypond-identifiers
   (let ((wordlist '("\\voiceOne"))
-	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
+	(co (all-completions "" (lilypond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
 	(setq currword (car co))
@@ -172,9 +174,9 @@ Finds file lilypond-words.el from load-path."
       (reverse wordlist)))
   "LilyPond \\Identifiers")
 
-(defconst LilyPond-Capitalized-Reserved-Words
+(defconst lilypond-Capitalized-Reserved-Words
   (let ((wordlist '("StaffContext"))
-	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
+	(co (all-completions "" (lilypond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
 	(setq currword (car co))
@@ -190,9 +192,9 @@ Finds file lilypond-words.el from load-path."
       (reverse wordlist)))
   "LilyPond ReservedWords")
 
-(defconst LilyPond-non-capitalized-reserved-words
+(defconst lilypond-non-capitalized-reserved-words
   (let ((wordlist '("cessess"))
-	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
+	(co (all-completions "" (lilypond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
 	(setq currword (car co))
@@ -208,15 +210,15 @@ Finds file lilypond-words.el from load-path."
       (reverse wordlist)))
   "LilyPond notenames")
 
-(defun LilyPond-check-files (derived originals extensions)
+(defun lilypond-check-files (derived originals extensions)
   "Check that DERIVED is newer than any of the ORIGINALS.
 Try each original with each member of EXTENSIONS, in all directories
-in LilyPond-include-path."
+in lilypond-include-path."
   (let ((found nil)
 	(regexp (concat "\\`\\("
 			(mapconcat (function (lambda (dir)
 				      (regexp-quote (expand-file-name dir))))
-				   LilyPond-include-path "\\|")
+				   lilypond-include-path "\\|")
 			"\\).*\\("
 			(mapconcat 'regexp-quote originals "\\|")
 			"\\)\\.\\("
@@ -230,7 +232,7 @@ in LilyPond-include-path."
 	(if (and name (string-match regexp name))
 	    (progn
 	      (and (buffer-modified-p buffer)
-		   (or (not LilyPond-save-query)
+		   (or (not lilypond-save-query)
 		       (y-or-n-p (concat "Save file "
 					 (buffer-file-name buffer)
 					 "? ")))
@@ -239,7 +241,7 @@ in LilyPond-include-path."
 		  (setq found t))))))
     found))
 
-(defun LilyPond-running ()
+(defun lilypond-running ()
   "Check the currently running LilyPond compiling jobs."
   (let ((process-names (list "lilypond" "tex" "2ps" "2midi"
 			     "book" "latex"))
@@ -251,7 +253,7 @@ in LilyPond-include-path."
 	  (push process-name running)))
     running)) ; return the running jobs
 
-(defun LilyPond-midi-running ()
+(defun lilypond-midi-running ()
   "Check the currently running Midi processes."
   (let ((process-names (list "midi" "midiall"))
 	(running nil))
@@ -262,44 +264,44 @@ in LilyPond-include-path."
 	  (push process-name running)))
     running)) ; return the running jobs
 
-(defun LilyPond-kill-jobs ()
+(defun lilypond-kill-jobs ()
   "Kill the currently running LilyPond compiling jobs."
   (interactive)
-  (let ((process-names (LilyPond-running))
+  (let ((process-names (lilypond-running))
 	(killed nil))
     (while (setq process-name (pop process-names))
       (quit-process (get-process process-name) t)
       (push process-name killed))
     killed)) ; return the killed jobs
 
-(defun LilyPond-kill-midi ()
+(defun lilypond-kill-midi ()
   "Kill the currently running midi processes."
-  (let ((process-names (LilyPond-midi-running))
+  (let ((process-names (lilypond-midi-running))
 	(killed nil))
     (while (setq process-name (pop process-names))
       (quit-process (get-process process-name) t)
       (push process-name killed))
     killed)) ; return the killed jobs
 
-;; URG, should only run LilyPond-compile for LilyPond
+;; URG, should only run lilypond-compile for LilyPond
 ;; not for tex,xdvi (lilypond?)
-(defun LilyPond-compile-file (command name)
+(defun lilypond-compile-file (command name)
   ;; We maybe should know what we run here (Lily, lilypond, tex)
   ;; and adjust our error-matching regex ?
   (compilation-start
-   (if (eq LilyPond-command-current 'LilyPond-command-master)
+   (if (eq lilypond-command-current 'lilypond-command-master)
        command
      ;; use temporary directory for Commands on Buffer/Region
      ;; hm.. the directory is set twice, first to default-dir
-     (concat "cd " (LilyPond-temp-directory) "; " command))))
+     (concat "cd " (lilypond-temp-directory) "; " command))))
 
 ;; do we still need this, now that we're using compilation-start?
-(defun LilyPond-save-buffer ()
+(defun lilypond-save-buffer ()
   "Save buffer and set default command for compiling."
   (interactive)
   (if (buffer-modified-p)
       (progn (save-buffer)
-	     (setq LilyPond-command-next LilyPond-command-default))))
+	     (setq lilypond-command-next lilypond-command-default))))
 
 ;;; return (dir base ext)
 (defun split-file-name (name)
@@ -315,61 +317,61 @@ in LilyPond-include-path."
 
 
 ;; Should check whether in command-alist?
-(defcustom LilyPond-command-default "LilyPond"
-  "Default command. Must identify a member of LilyPond-command-alist."
+(defcustom lilypond-command-default "LilyPond"
+  "Default command. Must identify a member of lilypond-command-alist."
 
   :group 'LilyPond
   :type 'string)
-;;;(make-variable-buffer-local 'LilyPond-command-last)
+;;;(make-variable-buffer-local 'lilypond-command-last)
 
-(defvar LilyPond-command-next LilyPond-command-default)
+(defvar lilypond-command-next lilypond-command-default)
 
-(defvar LilyPond-command-current 'LilyPond-command-master)
-;;;(make-variable-buffer-local 'LilyPond-command-master)
+(defvar lilypond-command-current 'lilypond-command-master)
+;;;(make-variable-buffer-local 'lilypond-command-master)
 
 
-;; If non-nil, LilyPond-command-query will return the value of this
+;; If non-nil, lilypond-command-query will return the value of this
 ;; variable instead of querying the user.
-(defvar LilyPond-command-force nil)
+(defvar lilypond-command-force nil)
 
-(defcustom LilyPond-lilypond-command "lilypond"
+(defcustom lilypond-lilypond-command "lilypond"
   "Command used to compile LY files."
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-ps-command "gv --watch"
+(defcustom lilypond-ps-command "gv --watch"
   "Command used to display PS files."
 
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-pdf-command "xpdf"
+(defcustom lilypond-pdf-command "xpdf"
   "Command used to display PDF files."
 
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-midi-command "timidity"
+(defcustom lilypond-midi-command "timidity"
   "Command used to play MIDI files."
 
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-all-midi-command "timidity -ia"
+(defcustom lilypond-all-midi-command "timidity -ia"
   "Command used to play MIDI files."
 
   :group 'LilyPond
   :type 'string)
 
-(defun LilyPond-command-current-midi ()
+(defun lilypond-command-current-midi ()
   "Play midi corresponding to the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-get-master-file))
+  (lilypond-command (lilypond-command-menu "Midi") 'lilypond-get-master-file))
 
-(defun LilyPond-command-all-midi ()
+(defun lilypond-command-all-midi ()
   "Play midi corresponding to the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "MidiAll") 'LilyPond-get-master-file))
+  (lilypond-command (lilypond-command-menu "MidiAll") 'lilypond-get-master-file))
 
 (defun count-matches-as-number (re)
   "Count-matches in emacs 22 backwards-incompatibly returns a number"
@@ -389,21 +391,21 @@ in LilyPond-include-path."
 
 (defun count-midi-words ()
   "Check number of midi-scores before the curser."
-  (if (eq LilyPond-command-current 'LilyPond-command-region)
+  (if (eq lilypond-command-current 'lilypond-command-region)
       (count-rexp (mark t) (point) "\\\\midi")
     (count-rexp (point-min) (point-max) "\\\\midi")))
 
 (defun count-midi-words-backwards ()
   "Check number of midi-scores before the curser."
-  (if (eq LilyPond-command-current 'LilyPond-command-region)
+  (if (eq lilypond-command-current 'lilypond-command-region)
       (count-rexp (mark t) (point) "\\\\midi")
     (count-rexp (point-min) (point) "\\\\midi")))
 
-(defun LilyPond-string-current-midi ()
+(defun lilypond-string-current-midi ()
   "Check the midi file of the following midi-score in the current document."
-  (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
-			 (substring (LilyPond-get-master-file) 0 -3); suppose ".ly"
-		       LilyPond-region-file-prefix))
+  (let ((fnameprefix (if (eq lilypond-command-current 'lilypond-command-master)
+			 (substring (lilypond-get-master-file) 0 -3); suppose ".ly"
+		       lilypond-region-file-prefix))
 	(allcount (count-midi-words))
 	(count (count-midi-words-backwards)))
     (concat  fnameprefix
@@ -413,11 +415,11 @@ in LilyPond-include-path."
 		   (concat "-" (number-to-string count))))
 	     ".midi")))
 
-(defun LilyPond-string-all-midi ()
+(defun lilypond-string-all-midi ()
   "Return the midi files of the current document in ascending order."
-  (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
-			 (substring (LilyPond-get-master-file) 0 -3); suppose ".ly"
-		       LilyPond-region-file-prefix))
+  (let ((fnameprefix (if (eq lilypond-command-current 'lilypond-command-master)
+			 (substring (lilypond-get-master-file) 0 -3); suppose ".ly"
+		       lilypond-region-file-prefix))
 	(allcount (count-midi-words)))
     (concat (if (> allcount 0)  ; at least one midi-score
 		(concat fnameprefix ".midi "))
@@ -429,21 +431,21 @@ in LilyPond-include-path."
 		(concat fnameprefix "-[1-9][0-9][0-9].midi")))))
 
 ;; This is the major configuration variable.
-(defcustom LilyPond-command-alist
+(defcustom lilypond-command-alist
   ;; Should expand this to include possible keyboard shortcuts which
   ;; could then be mapped to define-key and menu.
   '(
-    ("LilyPond" . ((LilyPond-lilypond-command " %s") "%s" "%l" "View"))
-    ("2PS" . ((LilyPond-lilypond-command " -f ps %s") "%s" "%p" "ViewPS"))
+    ("LilyPond" . ((lilypond-lilypond-command " %s") "%s" "%l" "View"))
+    ("2PS" . ((lilypond-lilypond-command " -f ps %s") "%s" "%p" "ViewPS"))
     ("Book" . ("lilypond-book %x" "%x" "%l" "LaTeX"))
     ("LaTeX" . ("latex '\\nonstopmode\\input %l'" "%l" "%d" "ViewDVI"))
 
     ;; refreshes when kicked USR1
-    ("View" . ((LilyPond-pdf-command " %f")))
-    ("ViewPDF" . ((LilyPond-pdf-command " %f")))
-    ("ViewPS" . ((LilyPond-ps-command " %p")))
+    ("View" . ((lilypond-pdf-command " %f")))
+    ("ViewPDF" . ((lilypond-pdf-command " %f")))
+    ("ViewPS" . ((lilypond-ps-command " %p")))
 
-    ;; The following are refreshed in LilyPond-command:
+    ;; The following are refreshed in lilypond-command:
     ;; - current-midi depends on cursor position and
     ("Midi" . ("")) ;
     ;; - all-midi depends on number of midi-score.
@@ -456,7 +458,7 @@ The key is the name of the command as it will be presented to the
 user, the value is a cons of the command string handed to the shell
 after being expanded, and the next command to be executed upon
 success.  The expansion is done using the information found in
-LilyPond-expand-list.
+lilypond-expand-list.
 "
   :group 'LilyPond
   :type '(repeat (cons :tag "Command Item"
@@ -466,13 +468,13 @@ LilyPond-expand-list.
 			(string :tag "Next Key")))))
 
 ;; drop this?
-(defcustom LilyPond-file-extension ".ly"
+(defcustom lilypond-file-extension ".ly"
   "*File extension used in LilyPond sources."
   :group 'LilyPond
   :type 'string)
 
 
-(defcustom LilyPond-expand-alist
+(defcustom lilypond-expand-alist
   '(
     ("%s" . ".ly")
     ("%t" . ".tex")
@@ -491,141 +493,141 @@ LilyPond-expand-list.
 		  (string :tag "Expansion"))))
 
 
-(defcustom LilyPond-command-Show "View"
+(defcustom lilypond-command-Show "View"
   "*The default command to show (view or print) a LilyPond file.
-Must be the car of an entry in `LilyPond-command-alist'."
+Must be the car of an entry in `lilypond-command-alist'."
   :group 'LilyPond
   :type 'string)
-  (make-variable-buffer-local 'LilyPond-command-Show)
+  (make-variable-buffer-local 'lilypond-command-Show)
 
-(defcustom LilyPond-command-Print "Print"
-  "The name of the Print entry in LilyPond-command-Print."
+(defcustom lilypond-command-Print "Print"
+  "The name of the Print entry in lilypond-command-Print."
   :group 'LilyPond
   :type 'string)
 
-(defun LilyPond-find-required-command (command file)
+(defun lilypond-find-required-command (command file)
   "Find the first command in the chain that is needed to run
  (input file is newer than the output file)"
-  (let* ((entry (cdr (assoc command LilyPond-command-alist)))
+  (let* ((entry (cdr (assoc command lilypond-command-alist)))
 	(next-command (nth 3 entry)))
     (if (null next-command)
 	command
       (let* ((src-string (nth 1 entry))
-	    (input (LilyPond-command-expand src-string file))
-	    (output (LilyPond-command-expand (nth 2 entry) file)))
+	    (input (lilypond-command-expand src-string file))
+	    (output (lilypond-command-expand (nth 2 entry) file)))
 	(if (or (file-newer-than-file-p input output)
 		(and (equal "%s" src-string)
 		     (not (equal (buffer-name) file))
 		     (file-newer-than-file-p (buffer-name)
 					     output)))
 	    command
-	  (LilyPond-find-required-command next-command file))))))
+	  (lilypond-find-required-command next-command file))))))
 
-(defun LilyPond-command-query (name)
+(defun lilypond-command-query (name)
   "Query the user for what LilyPond command to use."
-  (cond ((string-equal name LilyPond-region-file-prefix)
-	 (LilyPond-check-files (concat name ".tex")
+  (cond ((string-equal name lilypond-region-file-prefix)
+	 (lilypond-check-files (concat name ".tex")
 			       (list name)
-			       (list LilyPond-file-extension)))
+			       (list lilypond-file-extension)))
 	((verify-visited-file-modtime (current-buffer))
 	 (and (buffer-modified-p)
 	      (y-or-n-p "Save buffer before next command? ")
-	      (LilyPond-save-buffer)))
+	      (lilypond-save-buffer)))
 	((y-or-n-p "The command will be invoked to an already saved buffer. Revert it? ")
 	 (revert-buffer t t)))
 
-  (let* ((default (LilyPond-find-required-command LilyPond-command-next name))
+  (let* ((default (lilypond-find-required-command lilypond-command-next name))
 	 (completion-ignore-case t)
-	 (answer (or LilyPond-command-force
+	 (answer (or lilypond-command-force
 		     (completing-read
 		      (concat "Command: (default " default ") ")
-		      LilyPond-command-alist nil t nil 'LilyPond-command-history))))
+		      lilypond-command-alist nil t nil 'lilypond-command-history))))
 
     ;; If the answer is "LilyPond" it will not be expanded to "LilyPond"
-    (let ((answer (car-safe (assoc answer LilyPond-command-alist))))
+    (let ((answer (car-safe (assoc answer lilypond-command-alist))))
       (if (and answer
 	       (not (string-equal answer "")))
 	  answer
 	default))))
 
-(defun LilyPond-command-master ()
+(defun lilypond-command-master ()
   "Run command on the current document."
   (interactive)
-  (LilyPond-command-select-master)
-  (LilyPond-command (LilyPond-command-query (LilyPond-get-master-file))
-		    'LilyPond-get-master-file))
+  (lilypond-command-select-master)
+  (lilypond-command (lilypond-command-query (lilypond-get-master-file))
+		    'lilypond-get-master-file))
 
-(defun LilyPond-command-lilypond ()
+(defun lilypond-command-lilypond ()
   "Run lilypond for the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "LilyPond") 'LilyPond-get-master-file)
+  (lilypond-command (lilypond-command-menu "LilyPond") 'lilypond-get-master-file)
 )
 
-(defun LilyPond-command-formatps ()
+(defun lilypond-command-formatps ()
   "Format the ps output of the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-get-master-file)
+  (lilypond-command (lilypond-command-menu "2PS") 'lilypond-get-master-file)
 )
 
-(defun LilyPond-command-formatmidi ()
+(defun lilypond-command-formatmidi ()
   "Format the midi output of the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "2Midi") 'LilyPond-get-master-file))
+  (lilypond-command (lilypond-command-menu "2Midi") 'lilypond-get-master-file))
 
-(defun LilyPond-command-view ()
+(defun lilypond-command-view ()
   "View the output of current document."
   (interactive)
-  (LilyPond-command-viewpdf))
+  (lilypond-command-viewpdf))
 
-(defun LilyPond-command-viewpdf ()
+(defun lilypond-command-viewpdf ()
   "View the ps output of current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "ViewPDF") 'LilyPond-get-master-file))
+  (lilypond-command (lilypond-command-menu "ViewPDF") 'lilypond-get-master-file))
 
-(defun LilyPond-command-viewps ()
+(defun lilypond-command-viewps ()
   "View the ps output of current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-get-master-file))
+  (lilypond-command (lilypond-command-menu "ViewPS") 'lilypond-get-master-file))
 
 ;; FIXME, this is broken
-(defun LilyPond-region-file (begin end)
+(defun lilypond-region-file (begin end)
   (let (
 	;; (dir "./")
- 	(dir (LilyPond-temp-directory))
-	(base LilyPond-region-file-prefix)
-	(ext LilyPond-file-extension))
+ 	(dir (lilypond-temp-directory))
+	(base lilypond-region-file-prefix)
+	(ext lilypond-file-extension))
     (concat dir base ext)))
 
 ;;; Commands on Region work if there is an appropriate '\score'.
-(defun LilyPond-command-region (begin end)
+(defun lilypond-command-region (begin end)
   "Run LilyPond on the current region."
   (interactive "r")
   (if (or (> begin (point-min)) (< end (point-max)))
-      (LilyPond-command-select-region))
-  (write-region begin end (LilyPond-region-file begin end) nil 'nomsg)
-  (LilyPond-command (LilyPond-command-query
-		     (LilyPond-region-file begin end))
-		    '(lambda () (LilyPond-region-file begin end)))
+      (lilypond-command-select-region))
+  (write-region begin end (lilypond-region-file begin end) nil 'nomsg)
+  (lilypond-command (lilypond-command-query
+		     (lilypond-region-file begin end))
+		    '(lambda () (lilypond-region-file begin end)))
   ;; Region may deactivate even if buffer was intact, reactivate?
   ;; Currently, also deactived regions are used.
   )
 
-(defun LilyPond-command-buffer ()
+(defun lilypond-command-buffer ()
   "Run LilyPond on buffer."
   (interactive)
-  (LilyPond-command-select-buffer)
-  (LilyPond-command-region (point-min) (point-max)))
+  (lilypond-command-select-buffer)
+  (lilypond-command-region (point-min) (point-max)))
 
-(defun LilyPond-command-expand (arg file)
+(defun lilypond-command-expand (arg file)
   (cond
    ((listp arg)
-    (mapconcat (lambda (arg) (LilyPond-command-expand arg file))
+    (mapconcat (lambda (arg) (lilypond-command-expand arg file))
 	       arg
 	       ""))
    ((and (symbolp arg) (boundp arg)
 	 ;; Avoid self-quoting symbols
 	 (not (eq (symbol-value arg) arg)))
-    (LilyPond-command-expand (symbol-value arg) file))
+    (lilypond-command-expand (symbol-value arg) file))
    ((stringp arg)
     (let ((case-fold-search nil))
       (if (string-match "%" arg)
@@ -636,17 +638,17 @@ Must be the car of an entry in `LilyPond-command-alist'."
 		 (base (cadr l)))
 	    (concat (substring arg 0 b)
 		    (shell-quote-argument (concat dir base))
-		    (LilyPond-command-expand
+		    (lilypond-command-expand
 		     (concat
 		      (let ((entry (assoc (substring arg b e)
-					  LilyPond-expand-alist)))
+					  lilypond-expand-alist)))
 			(if entry (cdr entry) ""))
 		      (substring arg e))
 		     file)))
 	arg)))
    (t (error "Bad expansion `%S'" arg))))
 
-(defun LilyPond-shell-process (name buffer command)
+(defun lilypond-shell-process (name buffer command)
   (let ((old (current-buffer)))
     (switch-to-buffer-other-window buffer)
     ;; If we empty the buffer don't see messages scroll by.
@@ -656,18 +658,18 @@ Must be the car of an entry in `LilyPond-command-alist'."
     (switch-to-buffer-other-window old)))
 
 
-(defun LilyPond-command (name file)
+(defun lilypond-command (name file)
   "Run command NAME on the file you get by calling FILE.
 
 FILE is a function return a file name.  It has one optional argument,
 the extension to use on the file.
 
-Use the information in LilyPond-command-alist to determine how to run the
+Use the information in lilypond-command-alist to determine how to run the
 command."
 
-  (let ((entry (assoc name LilyPond-command-alist)))
+  (let ((entry (assoc name lilypond-command-alist)))
     (if entry
-	(let ((command (LilyPond-command-expand (cadr entry)
+	(let ((command (lilypond-command-expand (cadr entry)
 						(apply file nil)))
 	      (jobs nil)
 	      (job-string "no jobs"))
@@ -677,35 +679,35 @@ command."
 		;; what if XEDITOR is set to gedit or so, should we steal it?
 		(if (not (getenv "XEDITOR"))
 		    (setenv "XEDITOR" "emacsclient --no-wait +%l:%c %f"))
-		(if LilyPond-kick-xdvi
+		(if lilypond-kick-xdvi
 		  (let ((process-xdvi (get-buffer-process buffer-xdvi)))
 		    (if process-xdvi
 			(signal-process (process-id process-xdvi) 'SIGUSR1)
-		      (LilyPond-shell-process name buffer-xdvi command)))
-		  (LilyPond-shell-process name buffer-xdvi command)))
+		      (lilypond-shell-process name buffer-xdvi command)))
+		  (lilypond-shell-process name buffer-xdvi command)))
 	    (progn
 	      (if (string-equal name "Midi")
 		  (progn
-		    (setq command (concat LilyPond-midi-command " " (LilyPond-string-current-midi)))
-		    (if (LilyPond-kill-midi)
+		    (setq command (concat lilypond-midi-command " " (lilypond-string-current-midi)))
+		    (if (lilypond-kill-midi)
 			(setq job-string nil)))) ; either stop or start playing
 	      (if (string-equal name "MidiAll")
 		  (progn
-		    (setq command (concat LilyPond-all-midi-command " " (LilyPond-string-all-midi)))
-		    (LilyPond-kill-midi))) ; stop and start playing
+		    (setq command (concat lilypond-all-midi-command " " (lilypond-string-all-midi)))
+		    (lilypond-kill-midi))) ; stop and start playing
 	      (if (and (member name (list "Midi" "MidiAll")) job-string)
 		  (if (file-newer-than-file-p
-		       (LilyPond-get-master-file)
-		       (concat (substring (LilyPond-get-master-file) 0 -3) ".midi"))
+		       (lilypond-get-master-file)
+		       (concat (substring (lilypond-get-master-file) 0 -3) ".midi"))
 		      (if (y-or-n-p "Midi older than source. Reformat midi?")
 			  (progn
-			    (LilyPond-command-formatmidi)
-			    (while (LilyPond-running)
+			    (lilypond-command-formatmidi)
+			    (while (lilypond-running)
 			      (message "Starts playing midi once it is built.")
 			      (sit-for 0 100))))))
 	      (if (member name (list "LilyPond" "TeX" "2Midi" "2PS"
 				     "Book" "LaTeX"))
-		  (if (setq jobs (LilyPond-running))
+		  (if (setq jobs (lilypond-running))
 		      (progn
 			(setq job-string "Process") ; could also suggest compiling after process has ended
 			(while jobs
@@ -714,26 +716,26 @@ command."
 			(if (y-or-n-p job-string)
 			    (progn
 			      (setq job-string "no jobs")
-			      (LilyPond-kill-jobs)
-			      (while (LilyPond-running)
+			      (lilypond-kill-jobs)
+			      (while (lilypond-running)
 				(sit-for 0 100)))
 			  (setq job-string nil)))))
 
-	      (setq LilyPond-command-next
-		    (let* ((entry (assoc name LilyPond-command-alist))
+	      (setq lilypond-command-next
+		    (let* ((entry (assoc name lilypond-command-alist))
 			   (next-command (nth 3 (cdr entry))))
 		      (or next-command
-			  LilyPond-command-default)))
+			  lilypond-command-default)))
 
 	      (if (string-equal job-string "no jobs")
-		  (LilyPond-compile-file command name))))))))
+		  (lilypond-compile-file command name))))))))
 
-(defun LilyPond-mark-active ()
+(defun lilypond-mark-active ()
   "Check if there is an active mark."
   (and transient-mark-mode
        (if (string-match "XEmacs\\|Lucid" emacs-version) (mark) mark-active)))
 
-(defun LilyPond-temp-directory ()
+(defun lilypond-temp-directory ()
   "Temporary file directory for Commands on Region."
   (interactive)
   (if (string-match "XEmacs\\|Lucid" emacs-version)
@@ -742,55 +744,55 @@ command."
 
 ;;; Keymap
 
-(defvar LilyPond-mode-map ()
-  "Keymap used in `LilyPond-mode' buffers.")
+(defvar lilypond-mode-map ()
+  "Keymap used in `lilypond-mode' buffers.")
 
 ;; Note:  if you make changes to the map, you must do
-;;    M-x set-variable LilyPond-mode-map nil
+;;    M-x set-variable lilypond-mode-map nil
 ;;    M-x eval-buffer
-;;    M-x LilyPond-mode
+;;    M-x lilypond-mode
 ;; to let the changest take effect
 
-(if LilyPond-mode-map
+(if lilypond-mode-map
     ()
-  (setq LilyPond-mode-map (make-sparse-keymap))
-  ;; Put keys to LilyPond-command-alist and fetch them from there somehow.
-  (define-key LilyPond-mode-map "\C-c\C-l" 'LilyPond-command-lilypond)
-  (define-key LilyPond-mode-map "\C-c\C-r" 'LilyPond-command-region)
-  (define-key LilyPond-mode-map "\C-c\C-b" 'LilyPond-command-buffer)
-  (define-key LilyPond-mode-map "\C-c\C-k" 'LilyPond-kill-jobs)
-  (define-key LilyPond-mode-map "\C-c\C-c" 'LilyPond-command-master)
-  (define-key LilyPond-mode-map "\C-cm" 'LilyPond-command-formatmidi)
-  (define-key LilyPond-mode-map "\C-c\C-f" 'LilyPond-command-formatps)
-  (define-key LilyPond-mode-map "\C-c\C-s" 'LilyPond-command-view)
-  (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)
-  (define-key LilyPond-mode-map [(control c) return] 'LilyPond-command-current-midi)
-  (define-key LilyPond-mode-map [(control c) (control return)] 'LilyPond-command-all-midi)
-  (define-key LilyPond-mode-map "\C-x\C-s" 'LilyPond-save-buffer)
-  (define-key LilyPond-mode-map "\C-cb" 'LilyPond-what-beat)
-  (define-key LilyPond-mode-map "\C-cf" 'font-lock-fontify-buffer)
-  (define-key LilyPond-mode-map "\C-ci" 'LilyPond-insert-tag-current)
+  (setq lilypond-mode-map (make-sparse-keymap))
+  ;; Put keys to lilypond-command-alist and fetch them from there somehow.
+  (define-key lilypond-mode-map "\C-c\C-l" 'lilypond-command-lilypond)
+  (define-key lilypond-mode-map "\C-c\C-r" 'lilypond-command-region)
+  (define-key lilypond-mode-map "\C-c\C-b" 'lilypond-command-buffer)
+  (define-key lilypond-mode-map "\C-c\C-k" 'lilypond-kill-jobs)
+  (define-key lilypond-mode-map "\C-c\C-c" 'lilypond-command-master)
+  (define-key lilypond-mode-map "\C-cm" 'lilypond-command-formatmidi)
+  (define-key lilypond-mode-map "\C-c\C-f" 'lilypond-command-formatps)
+  (define-key lilypond-mode-map "\C-c\C-s" 'lilypond-command-view)
+  (define-key lilypond-mode-map "\C-c\C-p" 'lilypond-command-viewps)
+  (define-key lilypond-mode-map [(control c) return] 'lilypond-command-current-midi)
+  (define-key lilypond-mode-map [(control c) (control return)] 'lilypond-command-all-midi)
+  (define-key lilypond-mode-map "\C-x\C-s" 'lilypond-save-buffer)
+  (define-key lilypond-mode-map "\C-cb" 'lilypond-what-beat)
+  (define-key lilypond-mode-map "\C-cf" 'font-lock-fontify-buffer)
+  (define-key lilypond-mode-map "\C-ci" 'lilypond-insert-tag-current)
   ;; the following will should be overridden by LilyPond Quick Insert Mode
-  (define-key LilyPond-mode-map "\C-cq" 'LilyPond-quick-insert-mode)
-  (define-key LilyPond-mode-map "\C-c;" 'LilyPond-comment-region)
-  (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
-  (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
-  (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
-  (define-key LilyPond-mode-map "]" 'LilyPond-electric-close-paren)
-  (define-key LilyPond-mode-map "|" 'LilyPond-electric-bar)
+  (define-key lilypond-mode-map "\C-cq" 'lilypond-quick-insert-mode)
+  (define-key lilypond-mode-map "\C-c;" 'lilypond-comment-region)
+  (define-key lilypond-mode-map ")" 'lilypond-electric-close-paren)
+  (define-key lilypond-mode-map ">" 'lilypond-electric-close-paren)
+  (define-key lilypond-mode-map "}" 'lilypond-electric-close-paren)
+  (define-key lilypond-mode-map "]" 'lilypond-electric-close-paren)
+  (define-key lilypond-mode-map "|" 'lilypond-electric-bar)
   (if (string-match "XEmacs\\|Lucid" emacs-version)
-      (define-key LilyPond-mode-map [iso-left-tab] 'LilyPond-autocompletion)
-    (define-key LilyPond-mode-map [(shift iso-lefttab)] 'LilyPond-autocompletion))
-  (define-key LilyPond-mode-map "\C-c\t" 'LilyPond-info-index-search)
+      (define-key lilypond-mode-map [iso-left-tab] 'lilypond-autocompletion)
+    (define-key lilypond-mode-map [(shift iso-lefttab)] 'lilypond-autocompletion))
+  (define-key lilypond-mode-map "\C-c\t" 'lilypond-info-index-search)
   )
 
 ;;; Menu Support
 
-;;; This mode was originally LilyPond-quick-note-insert by Heikki Junes.
+;;; This mode was originally lilypond-quick-note-insert by Heikki Junes.
 ;;; The original version has been junked since CVS-1.97,
 ;;; in order to merge the efforts done by Nicolas Sceaux.
 ;;; LilyPond Quick Insert Mode is a major mode, toggled by C-c q.
-(defun LilyPond-quick-insert-mode ()
+(defun lilypond-quick-insert-mode ()
   "Insert notes with fewer key strokes by using a simple keyboard piano."
   (interactive)
   (progn
@@ -804,7 +806,7 @@ command."
     (message "")
     ))
 
-(defun LilyPond-pre-word-search ()
+(defun lilypond-pre-word-search ()
   "Fetch the alphabetic characters and \\ in front of the cursor."
   (let ((pre "")
 	(prelen 0)
@@ -817,7 +819,7 @@ command."
       (setq ch (char-before (- (point) prelen))))
     pre))
 
-(defun LilyPond-post-word-search ()
+(defun lilypond-post-word-search ()
   "Fetch the alphabetic characters behind the cursor."
   (let ((post "")
 	(postlen 0)
@@ -829,16 +831,16 @@ command."
       (setq ch (char-after (+ (point) postlen))))
     post))
 
-(defun LilyPond-autocompletion ()
+(defun lilypond-autocompletion ()
   "Show completions in mini-buffer for the given word."
   (interactive)
-  (let ((pre (LilyPond-pre-word-search))
-	(post (LilyPond-post-word-search))
+  (let ((pre (lilypond-pre-word-search))
+	(post (lilypond-post-word-search))
 	(compsstr ""))
     ;; insert try-completion and show all-completions
     (if (> (length pre) 0)
 	(progn
-	  (setq trycomp (try-completion pre (LilyPond-add-dictionary-word ())))
+	  (setq trycomp (try-completion pre (lilypond-add-dictionary-word ())))
 	  (if (char-or-string-p trycomp)
 	      (if (string-equal (concat pre post) trycomp)
 		  (goto-char (+ (point) (length post)))
@@ -849,61 +851,61 @@ command."
 	      (delete-region (point) (+ (point) (length post)))
 	      (font-lock-fontify-buffer))) ; only inserting fontifies
 
-	(setq complist (all-completions pre (LilyPond-add-dictionary-word ())))
+	(setq complist (all-completions pre (lilypond-add-dictionary-word ())))
 	(while (> (length complist) 0)
 	  (setq compsstr (concat compsstr "\"" (car complist) "\" "))
 	  (setq complist (cdr complist)))
 	(message compsstr)
 	(sit-for 0 100)))))
 
-(defun LilyPond-info ()
+(defun lilypond-info ()
   "Launch Info for lilypond."
   (interactive)
   (info "lilypond-notation"))
 
-(defun LilyPond-music-glossary-info ()
+(defun lilypond-music-glossary-info ()
   "Launch Info for music-glossary."
   (interactive)
   (info "music-glossary"))
 
-(defun LilyPond-internals-info ()
+(defun lilypond-internals-info ()
   "Launch Info for lilypond-internals."
   (interactive)
   (info "lilypond-internals"))
 
-(defun LilyPond-info-index-search ()
+(defun lilypond-info-index-search ()
   "In `*info*'-buffer, launch `info lilypond --index-search word-under-cursor'"
   (interactive)
-  (let ((str (concat (LilyPond-pre-word-search) (LilyPond-post-word-search))))
+  (let ((str (concat (lilypond-pre-word-search) (lilypond-post-word-search))))
     (if (and (> (length str) 0)
 	     (string-equal (substring str 0 1) "\\"))
 	(setq str (substring str 1 nil)))
-    (LilyPond-info)
+    (lilypond-info)
     (Info-index str)))
 
-(defun LilyPond-insert-tag-current (&optional word)
+(defun lilypond-insert-tag-current (&optional word)
   "Set the current tag to be inserted."
   (interactive)
   (if word
-      (setq LilyPond-insert-tag-current word))
-  (if (memq LilyPond-insert-tag-current LilyPond-menu-keywords)
-      (LilyPond-insert-tag)
-    (message "No tag was selected from LilyPond->Insert tag-menu.")))
+      (setq lilypond-insert-tag-current word))
+  (if (memq lilypond-insert-tag-current lilypond-menu-keywords)
+      (lilypond-insert-tag)
+    (message "No tag was selected from lilypond->Insert tag-menu.")))
 
-(defun LilyPond-insert-tag ()
-  "Insert syntax for given tag. The definitions are in LilyPond-words-filename."
+(defun lilypond-insert-tag ()
+  "Insert syntax for given tag. The definitions are in lilypond-words-filename."
   (interactive)
-  (setq b (find-file-noselect (LilyPond-words-filename) t t))
-  (let ((word LilyPond-insert-tag-current)
+  (setq b (find-file-noselect (lilypond-words-filename) t t))
+  (let ((word lilypond-insert-tag-current)
 	(found nil)
 	(p nil)
 	(query nil)
         (m (set-marker (make-marker) 1 (get-buffer b)))
-        (distance (if (LilyPond-mark-active)
+        (distance (if (lilypond-mark-active)
 		      (abs (- (mark-marker) (point-marker))) 0))
        )
    ;; find the place first
-   (if (LilyPond-mark-active)
+   (if (lilypond-mark-active)
        (goto-char (min (mark-marker) (point-marker))))
    (while (and (not found) (> (get-buffer-size b) (marker-position m)))
     (setq copy (car (copy-alist (list (eval (symbol-name (read m)))))))
@@ -928,7 +930,7 @@ command."
      ((string-equal "\!" copy) (setq query nil))
      ((string-equal "\\n" copy)
       (if (not query)
-       (progn (LilyPond-indent-line) (insert "\n") (LilyPond-indent-line))))
+       (progn (lilypond-indent-line) (insert "\n") (lilypond-indent-line))))
      ((string-equal "{" copy)
       (if (not query)
 	  (progn (insert " { "))))
@@ -945,69 +947,69 @@ command."
    (kill-buffer b))
 )
 
-(defun LilyPond-command-menu-entry (entry)
-  ;; Return LilyPond-command-alist ENTRY as a menu item.
+(defun lilypond-command-menu-entry (entry)
+  ;; Return lilypond-command-alist ENTRY as a menu item.
   (let ((name (car entry)))
-    (cond ((and (string-equal name LilyPond-command-Print)
-		LilyPond-printer-list)
-	   (let ((command LilyPond-print-command)
+    (cond ((and (string-equal name lilypond-command-Print)
+		lilypond-printer-list)
+	   (let ((command lilypond-print-command)
 		 (lookup 1))
-	     (append (list LilyPond-command-Print)
-		     (mapcar 'LilyPond-command-menu-printer-entry
-			     LilyPond-printer-list))))
+	     (append (list lilypond-command-Print)
+		     (mapcar 'lilypond-command-menu-printer-entry
+			     lilypond-printer-list))))
 	  (t
-	   (vector name (list 'LilyPond-command-menu name) t)))))
+	   (vector name (list 'lilypond-command-menu name) t)))))
 
 
-(easy-menu-define LilyPond-command-menu
-  LilyPond-mode-map
+(easy-menu-define lilypond-command-menu
+  lilypond-mode-map
   "Menu used in LilyPond mode."
   (append '("Command")
 	  '(("Command on"
-	     [ "Master File" LilyPond-command-select-master
+	     [ "Master File" lilypond-command-select-master
 	       :keys "C-c C-c" :style radio
-	       :selected (eq LilyPond-command-current 'LilyPond-command-master) ]
-	     [ "Buffer" LilyPond-command-select-buffer
+	       :selected (eq lilypond-command-current 'lilypond-command-master) ]
+	     [ "Buffer" lilypond-command-select-buffer
 	       :keys "C-c C-b" :style radio
-	       :selected (eq LilyPond-command-current 'LilyPond-command-buffer) ]
-	     [ "Region" LilyPond-command-select-region
+	       :selected (eq lilypond-command-current 'lilypond-command-buffer) ]
+	     [ "Region" lilypond-command-select-region
 	       :keys "C-c C-r" :style radio
-	       :selected (eq LilyPond-command-current 'LilyPond-command-region) ]))
-;;;	  (let ((file 'LilyPond-command-on-current))
-;;;	    (mapcar 'LilyPond-command-menu-entry LilyPond-command-alist))
+	       :selected (eq lilypond-command-current 'lilypond-command-region) ]))
+;;;	  (let ((file 'lilypond-command-on-current))
+;;;	    (mapcar 'lilypond-command-menu-entry lilypond-command-alist))
 ;;; Some kind of mapping which includes :keys might be more elegant
-;;; Put keys to LilyPond-command-alist and fetch them from there somehow.
-	  '([ "LilyPond" LilyPond-command-lilypond t])
-	  '([ "2PS" LilyPond-command-formatps t])
-	  '([ "2Midi" LilyPond-command-formatmidi t])
-	  '([ "Book" (LilyPond-command (LilyPond-command-menu "Book") 'LilyPond-get-master-file) ])
-	  '([ "LaTeX" (LilyPond-command (LilyPond-command-menu "LaTeX") 'LilyPond-get-master-file) ])
-	  '([ "Kill jobs" LilyPond-kill-jobs t])
+;;; Put keys to lilypond-command-alist and fetch them from there somehow.
+	  '([ "LilyPond" lilypond-command-lilypond t])
+	  '([ "2PS" lilypond-command-formatps t])
+	  '([ "2Midi" lilypond-command-formatmidi t])
+	  '([ "Book" (lilypond-command (lilypond-command-menu "Book") 'lilypond-get-master-file) ])
+	  '([ "LaTeX" (lilypond-command (lilypond-command-menu "LaTeX") 'lilypond-get-master-file) ])
+	  '([ "Kill jobs" lilypond-kill-jobs t])
 	  '("-----")
-	  '([ "View" LilyPond-command-view t])
-	  '([ "ViewPS" LilyPond-command-viewps t])
+	  '([ "View" lilypond-command-view t])
+	  '([ "ViewPS" lilypond-command-viewps t])
 	  '("-----")
-	  '([ "Midi (toggle)" LilyPond-command-current-midi t])
-	  '([ "Midi all" LilyPond-command-all-midi t])
+	  '([ "Midi (toggle)" lilypond-command-current-midi t])
+	  '([ "Midi all" lilypond-command-all-midi t])
 	  ))
 
-(defun LilyPond-menu-keywords-item (arg)
-  "Make vector for LilyPond-mode-keywords."
-  (vector arg (list 'LilyPond-insert-tag-current arg) :style 'radio :selected (list 'eq 'LilyPond-insert-tag-current arg)))
+(defun lilypond-menu-keywords-item (arg)
+  "Make vector for lilypond-mode-keywords."
+  (vector arg (list 'lilypond-insert-tag-current arg) :style 'radio :selected (list 'eq 'lilypond-insert-tag-current arg)))
 
-(defun LilyPond-menu-keywords ()
+(defun lilypond-menu-keywords ()
   "Make Insert Tag menu.
 
 The Insert Tag -menu is split into parts if it is long enough."
 
-  (let ((li (mapcar 'LilyPond-menu-keywords-item LilyPond-menu-keywords))
-	(w (round (sqrt (length LilyPond-menu-keywords))))
+  (let ((li (mapcar 'lilypond-menu-keywords-item lilypond-menu-keywords))
+	(w (round (sqrt (length lilypond-menu-keywords))))
 	(split '())
 	(imin 0) imax lw rw)
-    (while (< imin (length LilyPond-menu-keywords))
-      (setq imax (- (min (+ imin w) (length LilyPond-menu-keywords)) 1))
-      (setq lw (nth imin LilyPond-menu-keywords))
-      (setq rw (nth imax LilyPond-menu-keywords))
+    (while (< imin (length lilypond-menu-keywords))
+      (setq imax (- (min (+ imin w) (length lilypond-menu-keywords)) 1))
+      (setq lw (nth imin lilypond-menu-keywords))
+      (setq rw (nth imax lilypond-menu-keywords))
       (add-to-list 'split
          (let ((l (list (concat (substring lw 0 (min 7 (length lw)))
 				" ... "
@@ -1016,78 +1018,78 @@ The Insert Tag -menu is split into parts if it is long enough."
 	     (add-to-list 'l (nth imin li))
 	     (setq imin (1+ imin)))
 	   (reverse l))))
-    (if (> (length LilyPond-menu-keywords) 12) (reverse split) li)))
+    (if (> (length lilypond-menu-keywords) 12) (reverse split) li)))
 
-;;; LilyPond-mode-menu should not be interactive, via "M-x LilyPond-<Tab>"
-(easy-menu-define LilyPond-mode-menu
-  LilyPond-mode-map
+;;; lilypond-mode-menu should not be interactive, via "M-x lilypond-<Tab>"
+(easy-menu-define lilypond-mode-menu
+  lilypond-mode-map
   "Menu used in LilyPond mode."
   (append '("LilyPond")
-	  '(["Add index menu" LilyPond-add-imenu-menu])
+	  '(["Add index menu" lilypond-add-imenu-menu])
 	  (list (cons "Insert tag"
-                (cons ["Previously selected" LilyPond-insert-tag-current t]
+                (cons ["Previously selected" lilypond-insert-tag-current t]
                 (cons "-----"
-		      (LilyPond-menu-keywords)))))
+		      (lilypond-menu-keywords)))))
 	  '(("Miscellaneous"
-	     ["Autocompletion"   LilyPond-autocompletion t]
-	     ["(Un)comment Region" LilyPond-comment-region t]
+	     ["Autocompletion"   lilypond-autocompletion t]
+	     ["(Un)comment Region" lilypond-comment-region t]
 	     ["Refontify buffer" font-lock-fontify-buffer t]
 	     "-----"
-	     ["Quick Insert Mode"  LilyPond-quick-insert-mode :keys "C-c q"]
+	     ["Quick Insert Mode"  lilypond-quick-insert-mode :keys "C-c q"]
  	     ))
 	  '(("Info"
-	     ["LilyPond" LilyPond-info t]
-	     ["LilyPond index-search" LilyPond-info-index-search t]
-	     ["Music Glossary" LilyPond-music-glossary-info t]
-	     ["LilyPond internals" LilyPond-internals-info t]
+	     ["LilyPond" lilypond-info t]
+	     ["LilyPond index-search" lilypond-info-index-search t]
+	     ["Music Glossary" lilypond-music-glossary-info t]
+	     ["LilyPond internals" lilypond-internals-info t]
 	     ))
 	  ))
 
-(defconst LilyPond-imenu-generic-re "^\\([a-zA-Z]+\\) *="
+(defconst lilypond-imenu-generic-re "^\\([a-zA-Z]+\\) *="
   "Regexp matching Identifier definitions.")
 
-(defvar LilyPond-imenu-generic-expression
-  (list (list nil LilyPond-imenu-generic-re 1))
+(defvar lilypond-imenu-generic-expression
+  (list (list nil lilypond-imenu-generic-re 1))
   "Expression for imenu")
 
-(defun LilyPond-command-select-master ()
+(defun lilypond-command-select-master ()
   (interactive)
   (message "Next command will be on the master file")
-  (setq LilyPond-command-current 'LilyPond-command-master))
+  (setq lilypond-command-current 'lilypond-command-master))
 
-(defun LilyPond-command-select-buffer ()
+(defun lilypond-command-select-buffer ()
   (interactive)
   (message "Next command will be on the buffer")
-  (setq LilyPond-command-current 'LilyPond-command-buffer))
+  (setq lilypond-command-current 'lilypond-command-buffer))
 
-(defun LilyPond-command-select-region ()
+(defun lilypond-command-select-region ()
   (interactive)
   (message "Next command will be on the region")
-  (setq LilyPond-command-current 'LilyPond-command-region))
+  (setq lilypond-command-current 'lilypond-command-region))
 
-(defun LilyPond-command-menu (name)
-  ;; Execute LilyPond-command-alist NAME from a menu.
-  (let ((LilyPond-command-force name))
-    (if (eq LilyPond-command-current 'LilyPond-command-region)
+(defun lilypond-command-menu (name)
+  ;; Execute lilypond-command-alist NAME from a menu.
+  (let ((lilypond-command-force name))
+    (if (eq lilypond-command-current 'lilypond-command-region)
 	(if (eq (mark t) nil)
 	    (progn (message "The mark is not set now") (sit-for 0 500))
-	  (progn (if (not (not (LilyPond-mark-active)))
+	  (progn (if (not (not (lilypond-mark-active)))
 		     (progn (message "Region is not active, using region between inactive mark and current point.") (sit-for 0 500)))
-		 (LilyPond-command-region (mark t) (point))))
-      (funcall LilyPond-command-current))))
+		 (lilypond-command-region (mark t) (point))))
+      (funcall lilypond-command-current))))
 
-(defun LilyPond-add-imenu-menu ()
+(defun lilypond-add-imenu-menu ()
   (interactive)
   "Add an imenu menu to the menubar."
-  (if (not LilyPond-imenu)
+  (if (not lilypond-imenu)
       (progn
 	(imenu-add-to-menubar "Index")
 	(redraw-frame (selected-frame))
-	(setq LilyPond-imenu t))
-    (message "%s" "LilyPond-imenu already exists.")))
-(put 'LilyPond-add-imenu-menu 'menu-enable '(not LilyPond-imenu))
+	(setq lilypond-imenu t))
+    (message "%s" "lilypond-imenu already exists.")))
+(put 'lilypond-add-imenu-menu 'menu-enable '(not lilypond-imenu))
 
-(define-derived-mode LilyPond-mode prog-mode "LilyPond-mode"
+(define-derived-mode lilypond-mode prog-mode "lilypond-mode"
   "Major mode for editing LilyPond music files.
 
 This mode knows about LilyPond keywords and line comments, not about
@@ -1095,15 +1097,15 @@ indentation or block comments.  It features easy compilation, error
 finding and viewing of a LilyPond source buffer or region.
 
 COMMANDS
-\\{LilyPond-mode-map}
+\\{lilypond-mode-map}
 VARIABLES
 
-LilyPond-command-alist\t\talist from name to command"
+lilypond-command-alist\t\talist from name to command"
   ;; set up local variables
   (kill-all-local-variables)
 
   (make-local-variable 'font-lock-defaults)
-  (setq font-lock-defaults '(LilyPond-font-lock-keywords))
+  (setq font-lock-defaults '(lilypond-font-lock-keywords))
 
   ;; string and comments are fontified explicitly
   (make-local-variable 'font-lock-keywords-only)
@@ -1136,24 +1138,24 @@ LilyPond-command-alist\t\talist from name to command"
   (setq block-comment-end   "%}")
 
   (make-local-variable 'indent-line-function)
-  (setq indent-line-function 'LilyPond-indent-line)
+  (setq indent-line-function 'lilypond-indent-line)
 
-  (LilyPond-mode-set-syntax-table '(?\< ?\> ?\{ ?\}))
-  (setq major-mode 'LilyPond-mode)
+  (lilypond-mode-set-syntax-table '(?\< ?\> ?\{ ?\}))
+  (setq major-mode 'lilypond-mode)
   (setq mode-name "LilyPond")
-  (setq local-abbrev-table LilyPond-mode-abbrev-table)
-  (use-local-map LilyPond-mode-map)
+  (setq local-abbrev-table lilypond-mode-abbrev-table)
+  (use-local-map lilypond-mode-map)
 
   ;; In XEmacs imenu was synched up with: FSF 20.4
   (make-local-variable 'imenu-generic-expression)
-  (setq imenu-generic-expression LilyPond-imenu-generic-expression)
-  ;; (imenu-add-to-menubar "Index") ; see LilyPond-add-imenu-menu
+  (setq imenu-generic-expression lilypond-imenu-generic-expression)
+  ;; (imenu-add-to-menubar "Index") ; see lilypond-add-imenu-menu
 
   ;; In XEmacs one needs to use 'easy-menu-add'.
   (if (string-match "XEmacs\\|Lucid" emacs-version)
       (progn
-	(easy-menu-add LilyPond-mode-menu)
-	(easy-menu-add LilyPond-command-menu)))
+	(easy-menu-add lilypond-mode-menu)
+	(easy-menu-add lilypond-command-menu)))
 
   ;; Use Command on Region even for inactive mark (region).
   (if (string-match "XEmacs\\|Lucid" emacs-version)
@@ -1162,10 +1164,10 @@ LilyPond-command-alist\t\talist from name to command"
 	(make-local-hook 'post-command-hook)) ; XEmacs requires
     (setq mark-even-if-inactive t))
 
-  ;; Context dependent syntax tables in LilyPond-mode
-  (add-hook 'post-command-hook 'LilyPond-mode-context-set-syntax-table nil t)
+  ;; Context dependent syntax tables in lilypond-mode
+  (add-hook 'post-command-hook 'lilypond-mode-context-set-syntax-table nil t)
 
-  ;; Turn on paren-mode buffer-locally, i.e., in LilyPond-mode
+  ;; Turn on paren-mode buffer-locally, i.e., in lilypond-mode
   (if (string-match "XEmacs\\|Lucid" emacs-version)
       (progn
 	(make-local-variable 'paren-mode)
@@ -1178,23 +1180,23 @@ LilyPond-command-alist\t\talist from name to command"
       (setq blink-matching-paren-on-screen t)
      ))
 
-  ;; run the mode hook. LilyPond-mode-hook use is deprecated
-  (run-hooks 'LilyPond-mode-hook))
+  ;; run the mode hook. lilypond-mode-hook use is deprecated
+  (run-hooks 'lilypond-mode-hook))
 
-(defun LilyPond-version ()
-  "Echo the current version of `LilyPond-mode' in the minibuffer."
+(defun lilypond-version ()
+  "Echo the current version of `lilypond-mode' in the minibuffer."
   (interactive)
-  (message "Using `LilyPond-mode' version %s" LilyPond-version))
+  (message "Using `lilypond-mode' version %s" lilypond-version))
 
 (load-library "lilypond-font-lock")
 (load-library "lilypond-indent")
 (load-library "lilypond-what-beat")
 
-(defun LilyPond-guile ()
+(defun lilypond-guile ()
   (interactive)
   (require 'ilisp)
-  (guile "lilyguile" (LilyPond-command-expand (cadr (assoc "LilyPond" LilyPond-command-alist))
-                                              (funcall 'LilyPond-get-master-file)))
+  (guile "lilyguile" (lilypond-command-expand (cadr (assoc "LilyPond" lilypond-command-alist))
+                                              (funcall 'lilypond-get-master-file)))
   (comint-default-send (ilisp-process) "(define-module (*anonymous-ly-0*))")
   (comint-default-send (ilisp-process) "(set! %load-path (cons \"/usr/share/ilisp/\" %load-path))")
   (comint-default-send (ilisp-process) "(use-modules (guile-user) (guile-ilisp))")

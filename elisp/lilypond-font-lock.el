@@ -4,6 +4,7 @@
 ;;;;
 ;;;; Copyright (C) 1997--2023 Han-Wen Nienhuys <hanwen@xs4all.nl>,
 ;;;; Copyright (C) 2001--2023 Heikki Junes <hjunes@cc.hut.fi>
+;;;; Copyright (C) 2024 Yiyu Zhou <yiyu@yiyuzhou.io>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -37,11 +38,11 @@
 ;; TODO:
 ;;   - handle lexer modes (\header, \melodic) etc.
 
-(defconst LilyPond-font-lock-keywords
-  (let* ((kwregex (mapconcat (lambda (x) (concat "\\" x))  LilyPond-keywords "\\|"))
-	 (iregex (mapconcat (lambda (x) (concat "\\" x))  LilyPond-identifiers "\\|"))
-	 (ncrwregex (mapconcat (lambda (x) (concat "" x))  LilyPond-non-capitalized-reserved-words "\\|"))
-	 (rwregex (mapconcat (lambda (x) (concat "" x))  LilyPond-Capitalized-Reserved-Words "\\|"))
+(defconst lilypond-font-lock-keywords
+  (let* ((kwregex (mapconcat (lambda (x) (concat "\\" x))  lilypond-keywords "\\|"))
+	 (iregex (mapconcat (lambda (x) (concat "\\" x))  lilypond-identifiers "\\|"))
+	 (ncrwregex (mapconcat (lambda (x) (concat "" x))  lilypond-non-capitalized-reserved-words "\\|"))
+	 (rwregex (mapconcat (lambda (x) (concat "" x))  lilypond-Capitalized-Reserved-Words "\\|"))
 	 (duration "\\([ \t]*\\(128\\|6?4\\|3?2\\|16?\\|8\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)") 
 	 (longduration "\\([ \t]*\\(\\\\\\(longa\\|breve\\|maxima\\)\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)") 
 )
@@ -130,18 +131,18 @@
   "Additional expressions to fontify in LilyPond mode.")
 
 ;; define a mode-specific abbrev table for those who use such things
-(defvar LilyPond-mode-abbrev-table nil
-  "Abbrev table in use in `LilyPond-mode' buffers.")
+(defvar lilypond-mode-abbrev-table nil
+  "Abbrev table in use in `lilypond-mode' buffers.")
 
-(define-abbrev-table 'LilyPond-mode-abbrev-table nil)
+(define-abbrev-table 'lilypond-mode-abbrev-table nil)
 
-(defvar LilyPond-mode-syntax-table nil
-  "Syntax table used in `LilyPond-mode' buffers.")
+(defvar lilypond-mode-syntax-table nil
+  "Syntax table used in `lilypond-mode' buffers.")
 
-(defun LilyPond-mode-set-syntax-table (&optional not-punct)
+(defun lilypond-mode-set-syntax-table (&optional not-punct)
   "Change syntax table according to the argument `not-punct' which contains characters which are given a context dependent non-punctuation syntax: parentheses may be set to parenthesis syntax and characters `-', `^' and `_' may be set to escape syntax."
   (if (not not-punct) (setq not-punct '()))
-  (setq LilyPond-mode-syntax-table (make-syntax-table))
+  (setq lilypond-mode-syntax-table (make-syntax-table))
   (let ((defaults 	  
 	  '(
 	    ;; NOTE: Emacs knows only "13"-style (used), XEmacs knows also "1b3b", etc.
@@ -177,15 +178,15 @@
     (setq defaults (cons (if (memq ?\_ not-punct) '( ?\_ . "\\" ) '( ?\_ . "." ) ) defaults))
     (mapcar (function
 	     (lambda (x) (modify-syntax-entry
-			  (car x) (cdr x) LilyPond-mode-syntax-table)))
+			  (car x) (cdr x) lilypond-mode-syntax-table)))
 	    defaults)
-    (set-syntax-table LilyPond-mode-syntax-table)))
+    (set-syntax-table lilypond-mode-syntax-table)))
 
-(defun LilyPond-mode-context-set-syntax-table ()
+(defun lilypond-mode-context-set-syntax-table ()
   "Change syntax table according to current context."
   (interactive)
   ;; default syntax table sets parentheses to punctuation characters
-  (LilyPond-mode-set-syntax-table) 
+  (lilypond-mode-set-syntax-table) 
   ;; find current context
   (setq context (parse-partial-sexp (point-min) (point)))
   (cond ((nth 3 context)) ; inside string
@@ -194,15 +195,15 @@
 	((and (eq (char-syntax (or (char-before (- (point) 1)) 0)) ?\\)
 	      (memq (char-before (point)) '( ?\) ?\] )))) ; found escape-char
 	((memq (char-before (point)) '( ?\) ))
-	 (LilyPond-mode-set-syntax-table '( ?\( ?\) )))
+	 (lilypond-mode-set-syntax-table '( ?\( ?\) )))
 	((memq (char-before (point)) '( ?\] ))
-	 (LilyPond-mode-set-syntax-table '( ?\[ ?\] )))
+	 (lilypond-mode-set-syntax-table '( ?\[ ?\] )))
 	((memq (char-before (point)) '( ?\> ?\} ))
-	 (LilyPond-mode-set-syntax-table '( ?\< ?\> ?\{ ?\} ?\^ ?\- ?\_ )))
+	 (lilypond-mode-set-syntax-table '( ?\< ?\> ?\{ ?\} ?\^ ?\- ?\_ )))
 	((memq (char-after (point)) '( ?\( ))
-	 (LilyPond-mode-set-syntax-table '( ?\( ?\) )))
+	 (lilypond-mode-set-syntax-table '( ?\( ?\) )))
 	((memq (char-after (point)) '( ?\[ ))
-	 (LilyPond-mode-set-syntax-table '( ?\[ ?\] )))
+	 (lilypond-mode-set-syntax-table '( ?\[ ?\] )))
 	((memq (char-after (point)) '( ?\< ?\{ ))
-	 (LilyPond-mode-set-syntax-table '( ?\< ?\> ?\{ ?\} ?\^ ?\- ?\_ )))
+	 (lilypond-mode-set-syntax-table '( ?\< ?\> ?\{ ?\} ?\^ ?\- ?\_ )))
 	))

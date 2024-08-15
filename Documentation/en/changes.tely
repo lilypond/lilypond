@@ -229,6 +229,29 @@ reason, add
 @noindent
 to your score.
 
+@item
+The LilyPond major mode for the GNU Emacs text editor provided by the
+Emacs Lisp package @code{lilypond-mode.el} has been renamed from
+@code{LilyPond-mode} to @code{lilypond-mode}.  The namespace prefix for
+the package is changed to all lowercase @code{lilypond-} from
+@code{LilyPond-}, meaning all its functions, variables, etc., now have
+the all-lowercase prefix.  This change is made to comply with the
+idiomatic Emacs naming convention, most importantly, having the major
+mode name be the same as the package name that provides it.  Therefore,
+this also makes it easier for new users to set up LilyPond in Emacs.
+
+As a result, this will break some existing Emacs configurations for the
+end users.  However, it only requires minimal changes to the Emacs
+initialization file.  Here's an example of setting up
+@code{lilypond-mode} using the built-in @code{use-package} macro in
+Emacs:
+
+@example
+(use-package lilypond-mode
+  :ensure nil
+  :mode "\\.\\(ly\\|ily\\)$")
+@end example
+
 @end itemize
 
 @node Notes for source compilation and packagers
