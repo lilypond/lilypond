@@ -665,6 +665,9 @@ one voice.")))
             (set! skip #f)
             (set! dur-event #f))))
      ((stop-translation-timestep this-engraver)
+      ;: If no duration-line is active clear local `tie`.
+      (when (and (not start-duration-line) (not stop-duration-line))
+        (set! tie #f))
       ;; If a context dies or "pauses" (i.e. no rhythmic-event for some time,
       ;; because other contexts are active), set right bound to
       ;; NonMusicalPaperColumn.
