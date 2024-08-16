@@ -1493,6 +1493,9 @@ class ChordEvent(NestedMusic):
                         if not (isinstance(e, RhythmicEvent)
                                 or isinstance(e, StaffChange))]
 
+        harmonic_note_events = [e for e in note_events
+                                if isinstance(e, HarmonicNoteEvent)]
+
         for x in note_events:
             collect_fingerings(x, -1, False)
             collect_fingerings(x, -1, True)
@@ -1535,24 +1538,25 @@ class ChordEvent(NestedMusic):
         # Note that this algorithm fails if there are two or more harmonic
         # combinations in a single chord.  Consequently, we don't consider
         # such combinations.
-        base = next((e for e in note_events
+        base = next((e for e in harmonic_note_events
                      if e.harmonic_type == 'base-pitch'), None)
         if (base and (not base.harmonic_visible
                       or notehead_is_changed(base))):
             base = None
-        touch = next((e for e in note_events
+        touch = next((e for e in harmonic_note_events
                       if e.harmonic_type == 'touching-pitch'), None)
         if (touch and (not touch.harmonic_visible
                        or notehead_is_changed(touch))):
             touch = None
-        sound = next((e for e in note_events
+        sound = next((e for e in harmonic_note_events
                       if e.harmonic_type == 'sounding-pitch'), None)
         if (sound and (not sound.harmonic_visible
                        or notehead_is_changed(sound))):
             sound = None
 
-        # `harmonic_visible` is tested in `NoteEvent.post_note_ly()` to
-        # decide whether to draw a flageolet symbol.
+        # `harmonic_visible` is tested in
+        # `HarmonicNoteEvent.harmonic_post_note_ly()` to decide whether to
+        # draw a flageolet symbol.
         if len(note_events) == 3 and base and touch and sound:
             # Case 4.
             base.harmonic_steps = touch.pitch.steps() - base.pitch.steps()
@@ -3543,12 +3547,6 @@ class NoteEvent(RhythmicEvent):
         self.accidental_value = None
         self.accidental_color = None
         self.accidental_font_size = None
-        self.harmonic = None
-        self.harmonic_type = None
-        self.harmonic_visible = None
-        self.harmonic_color = None
-        self.harmonic_font_size = None
-        self.harmonic_steps = None  # between base pitch and touching pitch
         self.visible = True
 
     def get_properties(self):
@@ -3567,13 +3565,6 @@ class NoteEvent(RhythmicEvent):
             excl_question += '!'
 
         return excl_question
-
-    # Return a heuristic size and a vertical offset for Emmentaler's
-    # parentheses to enclose two notes in a chord with a separation given by
-    # `harmonic_steps`.
-    def harmonic_parentheses_tweaks(self):
-        return (-3.8 + abs(self.harmonic_steps) * 1.4,
-                self.harmonic_steps / 4)
 
     def ly_expression(self):
         if self.pitch:
@@ -3597,6 +3588,12 @@ class NoteEvent(RhythmicEvent):
                                  self.pitch_mods()))
             res.append(self.ly_expression_post_note(True))
             return ' '.join(filter(None, res))
+
+    def harmonic_pre_note_ly(self, elements):
+        pass
+
+    def harmonic_post_note_ly(self, elements):
+        pass
 
     def pre_note_ly(self, is_chord_element):
         elements = super().pre_note_ly(is_chord_element)
@@ -3625,21 +3622,60 @@ class NoteEvent(RhythmicEvent):
             if dot_font_size is not None:
                 elements.append(r'\tweak Dots.font-size %s' % dot_font_size)
 
-            if self.harmonic_steps:
-                elements.append(r'\harmonicParen %.1f %.1f'
-                                % self.harmonic_parentheses_tweaks())
-
-            if type(self.harmonic_type) == list:
-                if 'small' in self.harmonic_type:
-                    elements.append(r'\harmonicSmall')
-                if 'parentheses' in self.harmonic_type:
-                    elements.append(r'\parenthesize')
+            self.harmonic_pre_note_ly(elements)
 
         return elements
 
     def post_note_ly(self, is_chord_element):
         elements = super().post_note_ly(is_chord_element)
 
+        self.harmonic_post_note_ly(elements)
+
+        return elements
+
+    def print_ly(self, printer):
+        pitch = getattr(self, "pitch", None)
+        if pitch is not None:
+            printer(self.ly_expression_pre_chord())
+            printer(self.ly_expression_pre_note(True))
+            pitch.print_ly(printer, self.pitch_mods())
+
+        self.duration.print_ly(printer)
+        printer(self.ly_expression_post_note(True))
+
+
+class HarmonicNoteEvent(NoteEvent):
+    # Don't provide a default constructor: In `musicxml.py` we are not
+    # creating a `HarmonicNoteEvent` object but rather converting a
+    # `NoteEvent` object by changing its `__class__` attribute and thus
+    # initialize the class variables manually.
+    def init(self):
+        self.harmonic = None
+        self.harmonic_type = None
+        self.harmonic_visible = None
+        self.harmonic_color = None
+        self.harmonic_font_size = None
+        self.harmonic_steps = None  # between base pitch and touching pitch
+
+    # Return a heuristic size and a vertical offset for Emmentaler's
+    # parentheses to enclose two notes in a chord with a separation given by
+    # `harmonic_steps`.
+    def harmonic_parentheses_tweaks(self):
+        return (-3.8 + abs(self.harmonic_steps) * 1.4,
+                self.harmonic_steps / 4)
+
+    def harmonic_pre_note_ly(self, elements):
+        if self.harmonic_steps:
+            elements.append(r'\harmonicParen %.1f %.1f'
+                            % self.harmonic_parentheses_tweaks())
+
+        if type(self.harmonic_type) == list:
+            if 'small' in self.harmonic_type:
+                elements.append(r'\harmonicSmall')
+            if 'parentheses' in self.harmonic_type:
+                elements.append(r'\parenthesize')
+
+    def harmonic_post_note_ly(self, elements):
         if type(self.harmonic_type) == list:
             if 'diamond' in self.harmonic_type:
                 elements.append(r'\harmonic')
@@ -3653,18 +3689,6 @@ class NoteEvent(RhythmicEvent):
             if harmonic_font_size is not None:
                 elements.append(r'\tweak font-size %s' % harmonic_font_size)
             elements.append(r'\flageolet')
-
-        return elements
-
-    def print_ly(self, printer):
-        pitch = getattr(self, "pitch", None)
-        if pitch is not None:
-            printer(self.ly_expression_pre_chord())
-            printer(self.ly_expression_pre_note(True))
-            pitch.print_ly(printer, self.pitch_mods())
-
-        self.duration.print_ly(printer)
-        printer(self.ly_expression_post_note(True))
 
 
 class KeySignatureChange(Music):

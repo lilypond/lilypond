@@ -954,6 +954,10 @@ class Note(Measure_element):
         for notation in self.get_typed_children(Notations):
             for technical in notation.get_named_children('technical'):
                 for harmonic in technical.get_named_children('harmonic'):
+                    if not isinstance(event, musicexp.HarmonicNoteEvent):
+                        event.__class__ = musicexp.HarmonicNoteEvent
+                        event.init()
+
                     if harmonic.get_named_child('natural'):
                         event.harmonic = 'natural'
                     elif harmonic.get_named_child('artificial'):
