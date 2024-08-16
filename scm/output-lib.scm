@@ -2042,15 +2042,15 @@ them as a pair."
     (cons sorted-left-pitches sorted-right-pitches)))
 
 (define-public (bend::target-cautionary spanner)
-  "Set @code{'display-cautionary} of all relevant note heads of spanners right
-bound to @code{#t}.  As a result they appear parenthesized.
-This procedure is the default value of @code{'before-line-breaking}."
+  "Set @code{'parenthesized} of all relevant note heads of spanners right
+bound to @code{#t}.  This procedure is the default value of
+@code{'before-line-breaking}."
   (let* ((all-right-note-heads (cdr (get-bound-note-heads spanner)))
          (right-note-heads
           (bend::remove-certain-tab-note-heads all-right-note-heads)))
     (for-each
      (lambda (right-tab-nh)
-       (ly:grob-set-property! right-tab-nh 'display-cautionary #t))
+       (ly:grob-set-property! right-tab-nh 'parenthesized #t))
      right-note-heads)))
 
 (define-public (bend::text-string spanner)
@@ -2537,8 +2537,7 @@ representing the amount a string is bent."
         ;; For up-bends, make target note heads transparent.
         ;; If details.target-visibility is set #t they will be parenthesized
         ;;
-        ;; Down-bends will get their target note-heads parenthesized via
-        ;; 'display-cautionary.
+        ;; Down-bends will get their target note-heads parenthesized.
         ;;
         ;; For tied notes all notes except the ones from the first
         ;; note-column become transparent

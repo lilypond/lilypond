@@ -2,7 +2,8 @@
 
 \header {
   texidoc = "When @code{\parenthesize} applies to a chord, the
-parentheses enclose all notes in the chord."
+parentheses enclose all notes in the chord.  In tablature one needs to enter
+@code{\parenthesize NoteColumn}"
 }
 
 \new Voice \relative c {
@@ -15,5 +16,7 @@ parentheses enclose all notes in the chord."
 }
 
 \new TabVoice {
-  \tweak Parentheses.font-size 0 \parenthesize <f g>
+  \override Parentheses.font-size = 0
+  \parenthesize <f g>
+  \parenthesize NoteColumn <f g>
 }

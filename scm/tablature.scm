@@ -160,7 +160,7 @@ This markup command is used to implement @code{\\clef moderntab} within a
 (define-public (glissando::draw-tab-glissando grob)
   (let* ((original (ly:grob-original grob))
          (left-tab-note-head (ly:spanner-bound original LEFT))
-         (cautionary (ly:grob-property left-tab-note-head 'display-cautionary #f)))
+         (cautionary (ly:grob-property left-tab-note-head 'parenthesized #f)))
 
     (and cautionary
          ;; increase left padding to avoid collision between
@@ -214,9 +214,9 @@ seconda volta blocks. This behaviour can be switched off with
     (cond ((or span-start?
                (and repeat-tied? tied-visible? tied-parenthesized?)
                (and tied? at-line-begin? tied-visible? tied-parenthesized?))
-             (ly:grob-set-property! grob 'display-cautionary #t)
+             (ly:grob-set-property! grob 'parenthesized #t)
              ;; The stencil procedure needs to be run again, otherwise
-             ;; the 'display-cautionary would have no effect.
+             ;; 'dparenthesized would have no effect.
              (ly:grob-set-property! grob 'stencil tab-note-head::print))
           ((or tied? repeat-tied?)
             (ly:grob-set-property! grob 'transparent #t)))))
@@ -230,7 +230,7 @@ seconda volta blocks. This behaviour can be switched off with
                          arts))
           (eq? (ly:grob-property grob 'style) 'harmonic))))
 
-  (let* ((cautionary (ly:grob-property grob 'display-cautionary #f))
+  (let* ((cautionary (ly:grob-property grob 'parenthesized #f))
          (details (ly:grob-property grob 'details '()))
          (harmonic-props (assoc-get 'harmonic-properties details '()))
          (harmonic-angularity (assoc-get 'angularity harmonic-props 2))

@@ -1029,7 +1029,17 @@ construct @code{<< @dots{} >>}.
 }
 @end lilypond
 
-A second form of the @code{\parenthesize} command involves
+In tablature specify @code{NoteColumn} to parenthesize the chord.
+
+@lilypond[verbatim,quote]
+\new TabVoice {
+  \override Parentheses.font-size = 0
+  \parenthesize <f g>
+  \parenthesize NoteColumn <f g>
+}
+@end lilypond
+
+This second form of the @code{\parenthesize} command involves
 a grob path: either @code{\parenthesize @var{ContextName}.@var{GrobName}}
 or just @code{\parenthesize @var{GrobName}} (the latter implying
 the bottommost context, typically @code{Voice}).  This should be

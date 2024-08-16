@@ -683,7 +683,7 @@ If set to @code{#t}, parenthesize the number for a tied note after a line break.
 @end table
 @end table
 "
- '(details display-cautionary span-start))
+ '(details parenthesized span-start))
 
 (ly:add-interface
  'text-mark-interface
