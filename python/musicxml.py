@@ -1098,15 +1098,6 @@ class Syllabic(Music_xml_node):
         text = self.get_text()
         return text == "begin" or text == "middle"
 
-    def begin(self):
-        return text == "begin"
-
-    def middle(self):
-        return text == "middle"
-
-    def end(self):
-        return text == "end"
-
 
 class Lyric(Music_xml_node):
     pass
