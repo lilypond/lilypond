@@ -110,7 +110,7 @@ property, e.g., @code{(beamed-lengths details)}.")
      (horizontal-direction ,ly:dir? "This is @code{RIGHT} for
 @code{\\textMark}, and @code{LEFT} for @code{\\textEndMark}.")
 
-     (id ,symbol? "The ID of an event.")
+     (id ,key? "The ID of an event.")
      (input-tag ,scheme? "Arbitrary marker to relate input and output.")
      (inversion ,boolean? "If set, this chord note is inverted.")
      (iterator-ctor ,procedure? "Function to construct a

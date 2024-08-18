@@ -553,32 +553,32 @@ If the @code{Finger_glide_engraver} is moved to @code{Staff} context
 @end lilypond
 
 To connect different fingers or multiple instances of the same finger set the
-@code{id} property with @code{\iId} taking a symbol or @code{\tweak} the
-@code{text} property.
+@code{id} property with @code{\=} taking a non-negative integer or a symbol or
+@code{\tweak} the @code{text} property.
 
 @lilypond[verbatim,quote]
 {
-  b2 \glide \iId #'foo ^1
-     \glide \iId #'bar ^1
+  b2 \glide \= #'foo ^1
+     \glide \= #'bar ^1
      \glide _2
      \glide _1
-  b' \iId #'foo ^2
-     \iId #'bar ^1
+  b' \= #'foo ^2
+     \= #'bar ^1
      _2
      _1
 
   \set fingeringOrientations = #'(up)
   <
-   b\glide \iId #'foo -1
-   f'\glide \iId #'bar -2
-   d''\glide \iId #'buzz -3
-   b''\glide \iId #'blub -4
+   b\glide \=1 -1
+   f'\glide \=2 -2
+   d''\glide \=3 -3
+   b''\glide \=4 -4
   >
   <
-   b\iId #'blub -5
-   f'\iId #'buzz -6
-   d''\iId #'bar -7
-   b''\iId #'foo -8
+   b\=4 -5
+   f'\=3 -6
+   d''\=2 -7
+   b''\=1 -8
   >
   b\glide -1 b\tweak text "2" -1
 }

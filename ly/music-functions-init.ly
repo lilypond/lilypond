@@ -698,24 +698,30 @@ in the format of @code{all-grob-descriptions}.")
 
 
 
-%% Todo
-%% Join this and "\\=" from spanners-init.ly
-%% NB currently 'id accepts only symbols,
-%%    but 'spanner-id accepts non-negative integers or symbols.
-iId =
-#(define-event-function (id event) (symbol? ly:event?)
-   (_i "Assign an ID to an item.
+"\\=" =
+#(define-event-function (id event) (key? ly:event?)
+   (_i "Assign an ID to a spanner or an item.
 
-This sets the @code{id} property of @var{event} to the given @var{id}, which is
-a symbol.  This can be used, for example, to tell LilyPond how to connect a
+This sets the @code{spanner-id} or @code{id} property of @var{event} to the
+given @var{id}, which is a non-negative integer or a symbol.
+
+For spanners this can be used to tell LilyPond how to connect overlapping or
+parallel slurs or phrasing slurs within a single @code{Voice} context.
+
+@lilypond[quote,verbatim]
+\\fixed c' { c\\=1( d\\=2( e\\=1) f\\=2) }
+@end lilypond
+
+For itmes this can be used, for example, to tell LilyPond how to connect a
 @code{FingerGlideSpanner} with non-matching fingers.
 
 @lilypond[quote,verbatim]
-\\fixed c' { c\\glide \\iId #'foo -1 d\\iId #'foo -2 }
+\\fixed c' { c\\glide \\= #'foo -1 d\\= #'foo -2 }
 @end lilypond
 ")
-   (set! (ly:music-property event 'id) id)
-   event)
+   (let ((spanner? (memq 'span-event (ly:prob-property event 'types))))
+     (set! (ly:music-property event (if spanner? 'spanner-id 'id)) id)
+     event))
 
 
 
