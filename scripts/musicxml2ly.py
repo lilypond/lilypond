@@ -2701,54 +2701,148 @@ def musicxml_figured_bass_to_lily(n):
 
 
 def musicxml_lyrics_to_text(lyrics, ignoremelismata):
-    # TODO: Implement text styles for lyrics syllables
+    # TODO: Handle `print-object`.
     continued = False
-    extended = False
-    text = ''
-    for e in lyrics.get_all_children():
-        if isinstance(e, musicxml.Syllabic):
-            continued = e.continued()
-        elif isinstance(e, musicxml.Text):
-            # We need to convert soft hyphens to -, otherwise the ascii codec
-            # as well as lilypond will barf on that character
-            text += e.get_text().replace('\xad', '-')
-        elif isinstance(e, musicxml.Elision):
-            if text:
-                text += " "
-            continued = False
-            extended = False
-        elif isinstance(e, musicxml.Extend):
-            extended = True
+    extended = None
 
-    if text == "-" and continued:
-        return "--"
-    elif text == "_" and extended:
-        return "__"
-    elif continued and text:
+    lyric_color = getattr(lyrics, 'color', None)
+
+    text = ''
+
+    need_markup = False
+    for e in lyrics.get_all_children():
+        if ((isinstance(e, musicxml.Text) or isinstance(e, musicxml.Elision))
+                and e._attribute_dict):
+            need_markup = True
+            break
+
+    if need_markup:
+        # Prepare input for `text_to_ly`.
+        text_elements = []
+
+        for e in lyrics.get_all_children():
+            if isinstance(e, musicxml.Syllabic):
+                continued = e.continued()
+            elif isinstance(e, musicxml.Text):
+                a = e._attribute_dict.copy()
+                if 'color' not in a and lyric_color:
+                    a['color'] = lyric_color
+
+                w = musicxml.Words()
+                # Convert soft hyphens to normal hyphens.
+                w._data = e.get_text().replace('\u00AD', '-')
+
+                text_elements.append((w, a))
+            elif isinstance(e, musicxml.Elision):
+                if text_elements:
+                    if e.get_text() == '‿':  # U+203F UNDERTIE
+                        a = e._attribute_dict.copy()
+                        if 'color' not in a and lyric_color:
+                            a['color'] = lyric_color
+
+                        # LilyPond's support for `~` being replaced by a
+                        # special undertie only works with text strings, not
+                        # with markups.  Theoretically, we could implement
+                        # the undertie construction in `musicxml2ly`, but...
+                        w = musicxml.Words()
+                        w._data = '‿'
+
+                        text_elements.append((w, a))
+                    else:
+                        text_elements[-1][0]._data += ' '
+                continued = False
+            elif isinstance(e, musicxml.Extend):
+                # If present it is the last element in `<lyric>`.
+                extended = e
+                break
+
+        text = musicexp.text_to_ly(text_elements)
+    else:
+        for e in lyrics.get_all_children():
+            if isinstance(e, musicxml.Syllabic):
+                continued = e.continued()
+            elif isinstance(e, musicxml.Text):
+                # Convert soft hyphens to normal hyphens.
+                text += e.get_text().replace('\u00AD', '-')
+            elif isinstance(e, musicxml.Elision):
+                if text:
+                    if e.get_text() == '‿':  # U+203F UNDERTIE
+                        text += '~'
+                    else:
+                        text += ' '
+                continued = False
+            elif isinstance(e, musicxml.Extend):
+                # If present it is the last element in `<lyric>`.
+                extended = e
+                break
+
+        w = musicxml.Words()
+        w._data = text
+        if lyric_color:
+            a = {'color': lyric_color}
+            need_markup = True
+        else:
+            a = {}
+        text = musicexp.text_to_ly([(w, a)])
+
+    # MusicXML 4.0 doesn't provide a way to change the appearance of hyphens
+    # between syllables.
+    hyphen = '--'
+    extend = '__'
+
+    if extended is not None:
+        # Ignore 'continue' and 'stop' types (also for backward
+        # compatibility with MusicXML 3.0).
+        type = getattr(extended, 'type', None)
+        if type == 'continue' or type == 'stop':
+            extended = None
+        else:
+            extend_color = getattr(extended, 'color', lyric_color)
+            color = musicexp.color_to_ly(extend_color)
+            if color:
+                extend = r'\tweak color %s __' % color
+
+    # Using `-` and `_` as 'text markers' in addition to MusicXML elements
+    # to indicate hyphens and extender lines for melismata, respectively, is
+    # neither necessary nor covered by the standard.  However, it doesn't
+    # harm to emit more `--` or `__` elements just in case since LilyPond
+    # simply ignores them.
+    if text == '"-"' and continued:
+        return hyphen
+    if text == '"_"' and extended:
+        return extend
+
+    if text == '""':
+        text = ''
+
+    if need_markup and text:
+        text = r'\markup %s' % text
+
+    if continued and text:
         if options.convert_beaming:
             if ignoremelismata == "on":
-                return r" \set ignoreMelismata = ##t " + \
-                    utilities.escape_ly_output_string(text)
+                return r' \set ignoreMelismata = ##t %s' % text
             elif ignoremelismata == "off":
-                return " " + utilities.escape_ly_output_string(text) + \
-                    r" -- \unset ignoreMelismata"
+                return r' %s %s \unset ignoreMelismata' % (text, hyphen)
             else:
-                return " " + utilities.escape_ly_output_string(text) + " --"
+                return r' %s %s' % (text, hyphen)
         else:
-            return " " + utilities.escape_ly_output_string(text) + " -- "
-    elif continued:
-        return "--"
-    elif extended and text:
-        return " " + utilities.escape_ly_output_string(text) + " __"
-    elif extended:
-        return "__"
-    elif text:
-        return " " + utilities.escape_ly_output_string(text)
-    else:
-        return ""
+            return r' %s %s' % (text, hyphen)
+    if continued:
+        return hyphen
+
+    if extended is not None and text:
+        return r' %s %s' % (text, extend)
+    if extended is not None:
+        return extend
+
+    if text:
+        return r' %s' % text
+
+    return ''
+
 
 # TODO
-
 
 class NegativeSkip:
     def __init__(self, here, dest):
