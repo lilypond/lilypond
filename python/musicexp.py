@@ -3885,7 +3885,7 @@ class TimeSignatureChange(Music):
                 ret.append(r'\once \override Staff.TimeSignature.font-size '
                            r'= %s' % font_size)
         else:
-            ret.append(r'\omit Staff.TimeSignature')
+            ret.append(r'\once \omit Staff.TimeSignature')
 
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
         if len(self.fractions) == 2 and isinstance(self.fractions[0], int):
