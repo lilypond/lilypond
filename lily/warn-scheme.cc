@@ -154,13 +154,24 @@ location in an input file.  The message is formatted with @code{format};
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_expect_warning, "ly:expect-warning", 1, 0, 1, (SCM str, SCM rest),
-           R"(
-A Scheme callable function to register a warning to be expected and
-subsequently suppressed.  If the warning is not encountered, a warning about
-the missing warning is shown.  The message should be translated with @code{(_
-...)} and changing parameters given after the format string.
-           )")
+LY_DEFINE (ly_expect_warning, "ly:expect-warning", 1, 0, 1,
+           (SCM str, SCM rest),
+           R"delim(
+Register @var{str} as an expected warning that should be suppressed.
+
+If this Scheme-callable function does not encounter the given warning, a
+warning about the missing warning is shown.  If the same warning occurs
+multiple times, this function must be called multiple times, too.
+
+@var{str} should usually be tagged as being translated with @code{(G_ ...)},
+and @var{rest} holds the expected parameter values.
+
+Example:
+
+@example
+(ly:expect-warning (G_ "Bar number is ~a; expected ~a") 3 15)
+@end example
+           )delim")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
