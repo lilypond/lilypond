@@ -127,6 +127,14 @@ Performance::write_output (std::string out,
   File_name file_name (out);
   out = file_name.to_string ();
 
+  if (audio_staffs_.empty ())
+    {
+      // The only known way to get here is to skip the entire piece with
+      // skipTypesetting.
+      warning (_f ("cannot create a zero-track MIDI file; skipping `%s'", out));
+      return;
+    }
+
   Midi_stream midi_stream (out);
   message (_f ("MIDI output to `%s'...\n", out));
 

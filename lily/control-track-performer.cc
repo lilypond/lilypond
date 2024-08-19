@@ -34,7 +34,7 @@ class Control_track_performer final : public Performer
   TRANSLATOR_DECLARATIONS (Control_track_performer);
 
 protected:
-  void initialize () override;
+  void process_music ();
   void acknowledge_audio_element (Audio_element_info info) override;
   void finalize () override;
 };
@@ -73,8 +73,11 @@ Control_track_performer::add_text (Audio_text::Type text_type,
 }
 
 void
-Control_track_performer::initialize ()
+Control_track_performer::process_music ()
 {
+  if (control_track_)
+    return;
+
   control_track_ = new Audio_control_track_staff;
   announce_element (Audio_element_info (control_track_, 0));
 
@@ -95,8 +98,15 @@ Control_track_performer::initialize ()
 void
 Control_track_performer::finalize ()
 {
-  control_track_->end_mom_
-    = now_mom () + from_scm (get_property (this, "midiSkipOffset"), Moment ());
+  // There should almost always be a control track here.  There won't be a
+  // control track if skipTypesetting has skipped the entire score, preventing
+  // process_music() from ever being called.
+  if (control_track_)
+    {
+      control_track_->end_mom_
+        = now_mom ()
+          + from_scm (get_property (this, "midiSkipOffset"), Moment ());
+    }
 }
 
 void

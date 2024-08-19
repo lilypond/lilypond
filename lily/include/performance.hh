@@ -45,11 +45,13 @@ public:
 
   void add_element (Audio_element *p);
   void process () override;
-  void output (Midi_stream &midi_stream,
-               const std::string &performance_name) const;
 
   void write_output (std::string filename,
                      const std::string &performance_name) const;
+
+private:
+  void output (Midi_stream &midi_stream,
+               const std::string &performance_name) const;
 
 public:
   std::vector<Audio_staff *> audio_staffs_;
