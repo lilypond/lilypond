@@ -551,20 +551,29 @@ class Attributes(Measure_element):
         if not sig or len(sig) == 0:
             return 1
         if isinstance(sig[0], list):
-            # Complex compound time signature
+            # Complex compound time signature.
             l = 0
             for i in sig:
                 l += self.single_time_sig_to_fraction(i)
             return l
         else:
-           # Simple(maybe compound) time signature of the form(beat, ..., type)
+            # Simple (maybe compound) time signature of the form
+            # `[beat, ..., type]`.
             return self.single_time_sig_to_fraction(sig)
         return 0
 
+    # Return time signature as a
+    #
+    #   [beat, beat-type]
+    #
+    # list.  For compound signatures, return either
+    #
+    #   [beat, beat, ..., beat-type]
+    #
+    # or
+    #
+    #   [[beat, ..., beat-type], [beat, ..., beat-type], ...]
     def get_time_signature(self):
-        "Return time sig as a(beat, beat-type) tuple. For compound signatures,"
-        "return either(beat, beat,..., beat-type) or((beat,..., type), "
-        "(beat,..., type), ...)."
         if self._time_signature_cache:
             return self._time_signature_cache
 
@@ -577,7 +586,7 @@ class Attributes(Measure_element):
                 # TODO: Handle pieces without a time signature!
                 ly.warning(
                     _("Senza-misura time signatures are not yet supported!"))
-                return (4, 4)
+                return [4, 4]
             else:
                 signature = []
                 current_sig = []
@@ -596,7 +605,7 @@ class Attributes(Measure_element):
         except (KeyError, ValueError):
             self.message(
                 _("Unable to interpret time signature! Falling back to 4/4."))
-            return (4, 4)
+            return [4, 4]
 
     # Return clef information in the form `("cleftype", position,
     # octave-shift, color, font-size, print-object)`.
@@ -1415,10 +1424,9 @@ class Part(Music_xml_node):
             gr._measure_position = gr._prev_measure_position
             gr._after_grace = True
 
+    # Set durations and starting points of all notes and measures.  Note
+    # that the starting point of the very first note is 0.
     def interpret(self):
-        """Set durations and starting points."""
-        """The starting point of the very first note is 0!"""
-
         part_list = self.get_part_list()
 
         now = 0
@@ -1436,15 +1444,18 @@ class Part(Music_xml_node):
         # the previous number!
         pending_graces = []
         for m in measures:
-            # implicit measures are used for artificial measures, e.g. when
-            # a repeat bar line splits a bar into two halves. In this case,
-            # don't reset the measure position to 0. They are also used for
-            # upbeats(initial value of 0 fits these, too).
-            # Also, don't reset the measure position at the end of the loop,
-            # but rather when starting the next measure(since only then do we
-            # know if the next measure is implicit and continues that measure)
+            # Implicit measures are used for artificial measures, for
+            # example, when a repeat bar line splits a bar into two halves.
+            # In this case, don't reset the measure position to 0.
+            #
+            # They are also used for upbeats (initial value of 0 fits these,
+            # too).  Also, don't reset the measure position at the end of
+            # the loop, but rather when starting the next measure (since
+            # only then do we know whether the next measure is implicit and
+            # continues that measure).
             if not m.is_implicit():
-                # Warn about possibly overfull measures and reset the position
+                # Warn about possibly incomplete or overfull measures and
+                # reset the position.
                 if (attributes_object
                         and previous_measure
                         and previous_measure.partial == 0):
@@ -1454,7 +1465,7 @@ class Part(Music_xml_node):
                         problem = 'incomplete'
                         if now > new_now:
                             problem = 'overfull'
-                        # only for verbose operation.
+                        # Only for verbose operation.
                         if problem != 'incomplete' and previous_measure:
                             previous_measure.message(
                                 '%s measure? Expected: %s, Difference: %s' %
@@ -1482,7 +1493,7 @@ class Part(Music_xml_node):
                         else:
                             assign_to_next_voice.append(n)
 
-                # figured bass has a duration, but applies to the next note
+                # Figured bass has a duration but it applies to the next note
                 # and should not change the current measure position!
                 if isinstance(n, FiguredBass):
                     n._divisions = factor.denominator
@@ -1521,9 +1532,9 @@ class Part(Music_xml_node):
                     if (rest
                             and attributes_object
                             and attributes_object.get_measure_length() == dur):
-
                         rest._is_whole_measure = True
 
+                # Use main note duration for chord notes.
                 if dur > 0 and 'chord' in n:
                     now = last_moment
                     measure_position = last_measure_position
@@ -1564,6 +1575,7 @@ class Part(Music_xml_node):
                         measure_position = 0
                     last_moment = now
                     last_measure_position = measure_position
+
                 instruments = n.get('instrument', [])  # only in <note>
                 if len(instruments) > 0:
                     # TODO: <note> can contain any number of <instrument> but
@@ -1574,8 +1586,9 @@ class Part(Music_xml_node):
             # Change all graces at the end of the measure to after-graces.
             self.graces_to_aftergraces(pending_graces)
             pending_graces = []
-            # Incomplete first measures are not padded, but registered as
-            # partial
+
+            # Incomplete first measures are not padded but registered as
+            # partial.
             if is_first_measure:
                 is_first_measure = False
                 # upbeats are marked as implicit measures
