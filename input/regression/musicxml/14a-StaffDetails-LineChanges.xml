@@ -12,8 +12,8 @@
           second part has 5 lines initially, 4 at the beginning of the second
           measure, and 3 starting in the middle of the third measure).  The
           fourth measure in the lower staff has five lines again but uses
-          `print-object="no"` in the `line-detail' object to suppress the second
-          and fourth staff line</miscellaneous-field>
+          `print-object="no"' in the `line-detail' element to suppress the
+          second and fourth staff line.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -4,7 +4,8 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">No divisions attribute</miscellaneous-field>
+      <miscellaneous-field name="description">No &lt;divisions&gt;
+          element.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

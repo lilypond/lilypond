@@ -4,9 +4,9 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A score without
-          any key or clef defined. The default (4/4 in treble
-          clef) should be used.</miscellaneous-field>
+      <miscellaneous-field name="description">A score without a &lt;key&gt; or
+          &lt;clef&gt; element (but with &lt;time&gt;).  The default (4/4 in
+          treble clef) should be used.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

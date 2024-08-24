@@ -6,7 +6,7 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">All different rest lengths: A
-          two-bar multi-measure rest, a whole rest, a half, etc. until a
+          two-bar multi-measure rest, a whole rest, a half, etc., until a
           1024th-rest, then the same with dotted
           durations.</miscellaneous-field>
     </miscellaneous>
@@ -25,9 +25,9 @@
           <fifths>0</fifths>
           <mode>major</mode>
         </key>
-        <time symbol="common">
-          <beats>4</beats>
-          <beat-type>4</beat-type>
+        <time>
+          <beats>2</beats>
+          <beat-type>2</beat-type>
         </time>
         <clef>
           <sign>G</sign>
@@ -133,27 +133,18 @@
     </measure>
     <!--=======================================================-->
     <measure number="5">
+      <attributes>
+        <time>
+          <beats>3</beats>
+          <beat-type>2</beat-type>
+        </time>
+      </attributes>
       <note>
         <rest/>
         <duration>1536</duration>
         <voice>1</voice>
         <type>half</type>
         <dot/>
-      </note>
-      <note>
-        <rest/>
-        <duration>512</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="6">
-      <note>
-        <rest/>
-        <duration>512</duration>
-        <voice>1</voice>
-        <type>quarter</type>
       </note>
       <note>
         <rest/>

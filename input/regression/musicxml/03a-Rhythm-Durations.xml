@@ -5,8 +5,8 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">All note durations, from long,
-          brevis, whole, until 1024th.  First with their plain values, then
-          dotted, and finally doubly-dotted.</miscellaneous-field>
+          brevis, whole, etc., until 1024th.  First with their plain values,
+          then dotted, and finally double-dotted.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -4,9 +4,9 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Staff-connected note styles:
-        slash notation, hidden notes (with and without hidden staff
-        lines)</miscellaneous-field>
+      <miscellaneous-field name="description">Staff-connected note styles: slash
+          notation, hidden notes (with and without hidden staff
+          lines).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -40,7 +40,38 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <lyric number="1"><text>normal</text></lyric>
       </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="2">
       <attributes>
         <measure-style>
           <slash type="start" use-stems="no">
@@ -56,12 +87,30 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><text>slash,</text></lyric>
-        <lyric number="2"><text>no stem |</text></lyric>
+        <lyric number="1"><text>slashes,</text></lyric>
+        <lyric number="2"><text>no stem</text></lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
       </note>
       <note>
         <pitch>
           <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
           <octave>5</octave>
         </pitch>
         <duration>1</duration>
@@ -74,6 +123,11 @@
             <slash-type>quarter</slash-type>
           </slash>
         </measure-style>
+      </attributes>
+    </measure>
+    <!--=======================================================-->
+    <measure number="3">
+      <attributes>
         <measure-style>
           <slash type="start" use-stems="yes">
             <slash-type>quarter</slash-type>
@@ -88,15 +142,30 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><text>slash,</text></lyric>
-        <lyric number="2"><text>with stem |</text></lyric>
+        <lyric number="1"><text>slashes,</text></lyric>
+        <lyric number="2"><text>with stem</text></lyric>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2">
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
       <note>
         <pitch>
           <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
           <octave>5</octave>
         </pitch>
         <duration>1</duration>
@@ -110,6 +179,10 @@
           </slash>
         </measure-style>
       </attributes>
+    </measure>
+    <!--=======================================================-->
+    <measure number="4">
+      <print new-system="yes"/>
       <note print-object="no">
         <pitch>
           <step>A</step>
@@ -119,7 +192,16 @@
         <voice>1</voice>
         <type>quarter</type>
         <lyric number="1"><text>hidden</text></lyric>
-        <lyric number="2"><text>notes |</text></lyric>
+        <lyric number="2"><text>notes</text></lyric>
+      </note>
+      <note print-object="no">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
       </note>
       <note print-object="no">
         <pitch>
@@ -130,6 +212,18 @@
         <voice>1</voice>
         <type>quarter</type>
       </note>
+      <note print-object="no">
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="5">
       <attributes>
         <staff-details>
           <staff-lines>0</staff-lines>
@@ -137,26 +231,46 @@
       </attributes>
       <note print-object="no">
         <pitch>
-          <step>C</step>
+          <step>A</step>
           <octave>4</octave>
         </pitch>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
         <lyric number="1"><text>hidden notes,</text></lyric>
-        <lyric number="2"><text>hidden staff lines |</text></lyric>
+        <lyric number="2"><text>hidden</text></lyric>
+        <lyric number="3"><text>staff lines</text></lyric>
       </note>
-    </measure>
-    <measure number="3">
+      <note print-object="no">
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note print-object="no">
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
       <note print-object="no">
         <pitch>
           <step>D</step>
-          <octave>4</octave>
+          <octave>5</octave>
         </pitch>
-        <duration>2</duration>
+        <duration>1</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
       </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="6">
       <attributes>
         <staff-details>
           <staff-lines>5</staff-lines>
@@ -164,14 +278,42 @@
       </attributes>
       <note>
         <pitch>
-          <step>G</step>
+          <step>A</step>
           <octave>4</octave>
         </pitch>
-        <duration>2</duration>
+        <duration>1</duration>
         <voice>1</voice>
-        <type>half</type>
+        <type>quarter</type>
         <lyric number="1"><text>normal</text></lyric>
-        <lyric number="2"><text>settings restored |</text></lyric>
+        <lyric number="2"><text>settings</text></lyric>
+        <lyric number="3"><text>restored</text></lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
