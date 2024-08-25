@@ -344,6 +344,19 @@ class Duration:
             return base * dot_fact
 
 
+# Implement command-line option `--shift-durations`.
+def set_shift_durations(option):
+    global shift_durations_option
+    shift_durations_option = option
+
+
+def get_shift_durations():
+    try:
+        return shift_durations_option
+    except NameError:
+        return 0
+
+
 def set_create_midi(option):
     """
     Implement the midi command-line option '-m' and '--midi'.
@@ -3813,13 +3826,9 @@ class KeySignatureChange(Music):
 class ShiftDurations(MusicWrapper):
     def __init__(self):
         MusicWrapper.__init__(self)
-        self.params = [0, 0]
-
-    def set_shift_durations_parameters(self, timeSigChange):
-        self.params = timeSigChange.get_shift_durations_parameters()
 
     def print_ly(self, func):
-        func(r' \shiftDurations #%d #%d ' % tuple(self.params))
+        func(r' \shiftDurations %d 0' % get_shift_durations())
         MusicWrapper.print_ly(self, func)
 
 
@@ -3828,26 +3837,7 @@ class TimeSignatureChange(Music):
         Music.__init__(self)
         self.fractions = [4, 4]
         self.style = None
-        # Used for the --time-signature option of musicxml2ly
-        self.originalFractions = [4, 4]
         self.visible = True
-
-    def get_fractions_ratio(self):
-        """
-        Calculate the ratio between the original time fraction and the new one.
-        Used for the "--time-signature" option.
-
-        @return: The ratio between the two time fractions.
-        @rtype: float
-        """
-        return ((float(self.originalFractions[0]) / self.originalFractions[1])
-                * (float(self.fractions[1]) / self.fractions[0]))
-
-    def get_shift_durations_parameters(self):
-        dur = math.ceil(math.log(self.get_fractions_ratio(), 2))
-        dots = (1 / self.get_fractions_ratio()) / (math.pow(2, -dur))
-        dots = int(math.log(2 - dots, 0.5))
-        return [dur, dots]
 
     def format_fraction(self, frac):
         if isinstance(frac, list):

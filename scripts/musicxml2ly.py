@@ -56,6 +56,7 @@
 
 from collections import OrderedDict
 from fractions import Fraction
+from math import gcd
 from functools import reduce
 import gettext
 import io
@@ -1096,14 +1097,46 @@ def musicxml_clef_staff_details_to_lily(attributes):
 def musicxml_time_to_lily(attributes):
     change = musicexp.TimeSignatureChange()
     # time signature function
-    if options.shift_meter:
-        tmp_meter = options.shift_meter.split("/", 1)
-        sig = [int(tmp_meter[0]), int(tmp_meter[1])]
-        change.originalFractions = attributes.get_time_signature()
-    else:
-        sig = attributes.get_time_signature()
+    sig = attributes.get_time_signature().copy()
     if not sig:
         return None
+
+    if options.shift_durations:
+        if not isinstance(sig[0], list):
+            sig = [sig]
+
+        denominators = []
+        for s in sig:
+            denominators.append(s[-1])
+
+        # Starting with python 3.9, `gcd` allows an arbitrary number of
+        # arguments.
+        gcd_denominator = gcd(*denominators)
+
+        shift = options.shift_durations
+        if shift < 0:
+            denominator_shift = 0
+            while shift < 0:
+                # Only make the nominator larger if we no longer can make
+                # the denominator smaller.
+                if gcd_denominator % 2:
+                    break
+                gcd_denominator >>= 1
+                denominator_shift += 1
+                shift += 1
+
+            nominator_shift = -shift
+
+            for s in sig:
+                s[:-1] = map(lambda x: x << nominator_shift, s[:-1])
+                s[-1] >>= denominator_shift
+        else:
+            for s in sig:
+                s[-1] <<= shift
+
+        if isinstance(sig[0], list) and len(sig) == 1:
+            sig = sig[0]
+
     change.fractions = sig
 
     time_elm = attributes.get_maybe_exist_named_child('time')
@@ -3881,15 +3914,6 @@ def musicxml_voice_to_lily_voice(voice):
     # force trailing mm rests to be written out.
     voice_builder.add_music(musicexp.ChordEvent(), 0)
 
-    if options.shift_meter:
-        for event in voice_builder.elements:
-            if isinstance(event, musicexp.TimeSignatureChange):
-                sd = []
-                for i in range(0, 5):
-                    sd.append(musicexp.ShiftDurations())
-                    sd[i].set_shift_durations_parameters(event)
-                break
-
     ly_voice = group_tremolos(voice_builder.elements, tremolo_events)
     ly_voice = group_tuplets(ly_voice, tuplet_events)
     ly_voice = group_repeats(ly_voice)
@@ -3903,10 +3927,10 @@ def musicxml_voice_to_lily_voice(voice):
         ev.stanza_id = v[1]
         return_value.lyrics_dict[k] = ev
 
-    if options.shift_meter:
-        sd[-1].element = seq_music
-        seq_music = sd[-1]
-        sd.pop()
+    if options.shift_durations:
+        sd = musicexp.ShiftDurations()
+        sd.element = seq_music
+        seq_music = sd
 
     if options.relative:
         v = musicexp.RelativeMusic()
@@ -3923,10 +3947,10 @@ def musicxml_voice_to_lily_voice(voice):
         v = musicexp.ModeChangingMusicWrapper()
         v.mode = 'figuremode'
         v.element = fbass_music
-        if options.shift_meter:
-            sd[-1].element = v
-            v = sd[-1]
-            sd.pop()
+        if options.shift_durations:
+            sd = musicexp.ShiftDurations()
+            sd.element = v
+            v = sd
         return_value.figured_bass = v
 
     # create \chordmode { chords }
@@ -3936,10 +3960,10 @@ def musicxml_voice_to_lily_voice(voice):
         v = musicexp.ModeChangingMusicWrapper()
         v.mode = 'chordmode'
         v.element = cname_music
-        if options.shift_meter:
-            sd[-1].element = v
-            v = sd[-1]
-            sd.pop()
+        if options.shift_durations:
+            sd = musicexp.ShiftDurations()
+            sd.element = v
+            v = sd
         return_value.chordnames = v
 
     # create diagrams for FretBoards engraver
@@ -3948,10 +3972,10 @@ def musicxml_voice_to_lily_voice(voice):
         fboard_music.elements = group_repeats(fretboards_builder.elements)
         v = musicexp.MusicWrapper()
         v.element = fboard_music
-        if options.shift_meter:
-            sd[-1].element = v
-            v = sd[-1]
-            sd.pop()
+        if options.shift_durations:
+            sd = musicexp.ShiftDurations()
+            sd.element = v
+            v = sd
         return_value.fretboards = v
 
     # coll = []
@@ -4184,13 +4208,25 @@ information.""") % 'lilypond')
                         "between pitch 'c' and TOPITCH"))
 
     # time signature changing function
+    p.add_option('--sd', '--shift-durations',
+                 metavar=_('VALUE'),
+                 action='store',
+                 dest='shift_durations',
+                 default=0,
+                 type='int',
+                 help=_('shift durations and time signatures by VALUE; '
+                        'for example, value -1 doubles all durations, '
+                        'and value 1 halves them'))
+
     p.add_option('--sm', '--shift-meter',
                  metavar=_("BEATS/BEATTYPE"),
-                 action="store",
-                 dest="shift_meter",
-                 help=_("change the length|duration of notes as a function "
-                        "of a given time signature to make the score look "
-                        "faster or slower (e.g., '4/4' or '2/2')"))
+                 action='callback',
+                 dest='shift_meter',
+                 type='string',
+                 callback=lambda option, opt_str, value, parser:
+                 ly.warning(_('`--shift-meter` is obsolete and ignored, '
+                              'use `--shift-duration` instead')),
+                 help=_('ignored; use `--shift-duration` instead'))
 
     # switch tabstaff clef
     p.add_option('--tc', '--tab-clef',
@@ -4599,6 +4635,10 @@ def main():
     # transpose function
     if options.transpose:
         musicexp.set_transpose(options.transpose)
+
+    # duration shift function
+    if options.shift_durations:
+        musicexp.set_shift_durations(options.shift_durations)
 
     # tab clef option
     if options.tab_clef:
