@@ -550,6 +550,9 @@ class Attributes(Measure_element):
         sig = self.get_time_signature()
         if not sig or len(sig) == 0:
             return 1
+        if not isinstance(sig[0], list) and sig[0] < 0:
+            return -1
+
         if isinstance(sig[0], list):
             # Complex compound time signature.
             l = 0
@@ -566,7 +569,8 @@ class Attributes(Measure_element):
     #
     #   [beat, beat-type]
     #
-    # list.  For compound signatures, return either
+    # list (a negative value for `beat` indicates a 'senza misura' time
+    # signature).  For compound signatures, return either
     #
     #   [beat, beat, ..., beat-type]
     #
@@ -583,10 +587,9 @@ class Attributes(Measure_element):
                 return None
 
             if mxl.get_maybe_exist_named_child('senza-misura'):
-                # TODO: Handle pieces without a time signature!
                 ly.warning(
                     _("Senza-misura time signatures are not yet supported!"))
-                return [4, 4]
+                return [-4, 4]
             else:
                 signature = []
                 current_sig = []
@@ -1460,17 +1463,21 @@ class Part(Music_xml_node):
                         and previous_measure
                         and previous_measure.partial == 0):
                     length = attributes_object.get_measure_length()
-                    new_now = measure_start_moment + length
-                    if now != new_now:
-                        problem = 'incomplete'
-                        if now > new_now:
-                            problem = 'overfull'
-                        # Only for verbose operation.
-                        if problem != 'incomplete' and previous_measure:
-                            previous_measure.message(
-                                '%s measure? Expected: %s, Difference: %s' %
-                                (problem, now, new_now - now))
-                    now = new_now
+                    # Only check if we are not in 'senza misura' mode.
+                    if length >= 0:
+                        new_now = measure_start_moment + length
+                        if now != new_now:
+                            problem = _('Incomplete')
+                            if now > new_now:
+                                problem = _('Overfull')
+                            # Only for verbose operation.
+                            if problem != _('Incomplete') and previous_measure:
+                                previous_measure.message(
+                                    _('%s measure? '
+                                      'Expected: %s, difference: %s')
+                                    % (problem, now, new_now - now))
+                        now = new_now
+
                 measure_start_moment = now
                 measure_position = 0
 

@@ -1100,6 +1100,9 @@ def musicxml_time_to_lily(attributes):
     sig = attributes.get_time_signature().copy()
     if not sig:
         return None
+    # 'Senza misura' time signature.
+    if not isinstance(sig[0], list) and sig[0] < 0:
+        return None
 
     if options.shift_durations:
         if not isinstance(sig[0], list):
@@ -2893,7 +2896,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.pending_multibar = 0
         self.ignore_skips = False
         self.has_relevant_elements = False
-        self.measure_length = 1
+        self.measure_length = 1  # As given by the measure's time signature.
         self.stay_here = False
 
     def contains(self, elem):
@@ -2929,6 +2932,9 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.pending_multibar = 0
 
     def set_measure_length(self, mlen):
+        # `measure_length`, which is used to handle multi-measure rests,
+        # completely ignores 'senza misura' time signatures – multi-measure
+        # rests don't make sense with them.
         if mlen != self.measure_length and self.pending_multibar:
             self._insert_multibar()
         self.measure_length = mlen
@@ -3112,7 +3118,7 @@ class VoiceData:
 
 def measure_length_from_attributes(attr, current_measure_length):
     len = attr.get_measure_length()
-    if not len:
+    if not len or len < 0:
         len = current_measure_length
     return len
 
@@ -3279,7 +3285,7 @@ def musicxml_voice_to_lily_voice(voice):
     figured_bass_builder = LilyPondVoiceBuilder()
     chordnames_builder = LilyPondVoiceBuilder()
     fretboards_builder = LilyPondVoiceBuilder()
-    current_measure_length = 1
+    current_measure_length = 1  # As given by the measure's time signature.
     voice_builder.set_measure_length(current_measure_length)
     in_slur = False
 
