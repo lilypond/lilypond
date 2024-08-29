@@ -479,6 +479,12 @@ Syntax: @code{\\override} [ @var{context} @code{.} ]
         (types . (partial-set))
         ))
 
+    (PartCombineEvent
+     . ((description . "Announce partcombine status change, such as @code{aDue},
+@code{soloI}, or @code{soloII}, based on value of property
+@code{part-combine-status}.")
+        (types . (event part-combine-event))))
+
     (PartCombineMusic
      . ((description . "Combine two parts on a staff, either merged or
 as separate voices.")
@@ -699,18 +705,6 @@ Syntax: @var{note}@code{(} and @var{note}@code{)}")
         (types . (post-event span-event event slur-event))
         ))
 
-    (SoloOneEvent
-     . ((description . "Print @q{Solo@tie{}1}.")
-        (part-combine-status . solo1)
-        (types . (event part-combine-event solo-one-event))
-        ))
-
-    (SoloTwoEvent
-     . ((description . "Print @q{Solo@tie{}2}.")
-        (part-combine-status . solo2)
-        (types . (event part-combine-event solo-two-event))
-        ))
-
     (SostenutoEvent
      . ((description . "Depress or release sostenuto pedal.")
         (types . (post-event event pedal-event sostenuto-event))
@@ -871,11 +865,6 @@ played) out.")
         (length . ,ZERO-MOMENT)
         (types . (unfolded-specification music-wrapper-music))
         ))
-
-    (UnisonoEvent
-     . ((description . "Print @q{a@tie{}2}.")
-        (part-combine-status . unisono)
-        (types . (event part-combine-event unisono-event))))
 
     (UnrelativableMusic
      . ((description . "Music that cannot be converted from relative

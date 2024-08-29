@@ -408,9 +408,7 @@ are reported on the stderr of this run."
 \ignoreMusicType MultiMeasureRestEvent
 \ignoreMusicType PartialEvent % in computed elements of PartialSet
 \ignoreMusicType ScriptEvent % unused?
-\ignoreMusicType UnisonoEvent
-\ignoreMusicType SoloOneEvent
-\ignoreMusicType SoloTwoEvent
+\ignoreMusicType PartCombineEvent
 \ignoreMusicType TupletSpanEvent
 \ignoreMusicType TimeSignatureEvent % in computed elements of TimeSignatureMusic
 

@@ -789,22 +789,22 @@ the mark when there are no spanners active.
 
 (define-public default-part-combine-mark-state-machine
   ;; (current-state . ((split-state-event .
-  ;;                      (output-voice output-event next-state)) ...))
-  '((Initial . ((solo1   . (solo   SoloOneEvent Solo1))
-                (solo2   . (solo   SoloTwoEvent Solo2))
-                (unisono . (shared UnisonoEvent Unisono))))
-    (Solo1   . ((apart   . (#f     #f           Initial))
-                (chords  . (#f     #f           Initial))
-                (solo2   . (solo   SoloTwoEvent Solo2))
-                (unisono . (shared UnisonoEvent Unisono))))
-    (Solo2   . ((apart   . (#f     #f           Initial))
-                (chords  . (#f     #f           Initial))
-                (solo1   . (solo   SoloOneEvent Solo1))
-                (unisono . (shared UnisonoEvent Unisono))))
-    (Unisono . ((apart   . (#f     #f           Initial))
-                (chords  . (#f     #f           Initial))
-                (solo1   . (solo   SoloOneEvent Solo1))
-                (solo2   . (solo   SoloTwoEvent Solo2))))))
+  ;;                      (output-voice output-event-status next-state)) ...))
+  '((Initial . ((solo1   . (solo   solo1   Solo1))
+                (solo2   . (solo   solo2   Solo2))
+                (unisono . (shared unisono Unisono))))
+    (Solo1   . ((apart   . (#f     #f      Initial))
+                (chords  . (#f     #f      Initial))
+                (solo2   . (solo   solo2   Solo2))
+                (unisono . (shared unisono Unisono))))
+    (Solo2   . ((apart   . (#f     #f      Initial))
+                (chords  . (#f     #f      Initial))
+                (solo1   . (solo   solo1   Solo1))
+                (unisono . (shared unisono Unisono))))
+    (Unisono . ((apart   . (#f     #f      Initial))
+                (chords  . (#f     #f      Initial))
+                (solo1   . (solo   solo1   Solo1))
+                (solo2   . (solo   solo2   Solo2))))))
 
 (define-public (make-part-combine-marks state-machine split-list)
   "Generate a sequence of part combiner events from a split list."
@@ -834,9 +834,9 @@ the mark when there are no spanners active.
              (action (assq-ref state (cdr split))))
         (if action
             (let ((voice (car action))
-                  (part-combine-event (cadr action))
+                  (output-event-status (cadr action))
                   (next-state-name (caddr action)))
-              (if part-combine-event
+              (if output-event-status
                   (let ((dur (ly:moment-sub moment prev-moment)))
                     ;; start a new segment when the voice changes
                     (if (not (eq? voice prev-voice))
@@ -846,7 +846,8 @@ the mark when there are no spanners active.
                     (if (not (equal? dur ZERO-MOMENT))
                         (set! segment (cons (make-music 'SkipEvent
                                                         'duration (make-duration-of-length dur)) segment)))
-                    (set! segment (cons (make-music part-combine-event) segment))
+                    (set! segment (cons (make-music 'PartCombineEvent
+                                                    'part-combine-status output-event-status) segment))
 
                     (set! prev-moment moment)))
               (set! state (get-state next-state-name))))))
