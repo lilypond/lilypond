@@ -914,12 +914,13 @@ fold transforms it into a segment list ordered beginning->end."
      ;; don't bother creating zero-duration skips
      (else #f))))
 
-(define-public (make-part-combine-marks state-machine split-list)
+(define*-public (make-part-combine-marks split-list
+                 #:optional (get-next-state (traverse-state-machine
+                                              default-part-combine-mark-state-machine)))
   "Generate a sequence of segments alternating skips and part-combine-events for
 each active voice. There may be an initial skip that is not specced to any
 Voice context."
-  (let* ((get-next-state (traverse-state-machine state-machine))
-         (state-list (fold (splits-to-states-using get-next-state #t)
+  (let* ((state-list (fold (splits-to-states-using get-next-state #t)
                            '() split-list))
          (stripped-labels (map cdr state-list))
          (segment-list (fold states-to-segments '() stripped-labels))

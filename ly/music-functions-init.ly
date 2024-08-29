@@ -1593,8 +1593,7 @@ parenthesize =
           \context Voice = "solo" { #skip }
           \context NullVoice = "null" { #skip }
           #pc-music
-          #(make-part-combine-marks
-            default-part-combine-mark-state-machine split-list)
+          #(make-part-combine-marks split-list)
         >> #} ))
 
 partCombine =
