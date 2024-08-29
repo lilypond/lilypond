@@ -3309,6 +3309,10 @@ def musicxml_voice_to_lily_voice(voice):
                     staff_change = None
             current_staff = staff
 
+        if isinstance(n, musicxml.Measure):
+            # Not used yet.
+            continue
+
         if isinstance(n, musicxml.Partial) and n.partial > 0:
             a = musicxml_partial_to_lily(n.partial)
             if a:
@@ -3368,7 +3372,10 @@ def musicxml_voice_to_lily_voice(voice):
             continue
 
         # Print bar checks between measures.
-        if n._measure_position == 0 and n != voice._elements[0]:
+        #
+        # `_elements[0]` is always a `Measure` element that gets filtered
+        # out above.
+        if n._measure_position == 0 and n != voice._elements[1]:
             curr_alterations = alterations.copy()
             try:
                 num = int(n.get_parent().number)

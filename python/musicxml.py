@@ -1675,6 +1675,7 @@ class Part(Music_xml_node):
         measures = part.get_typed_children(Measure)
         elements = []
         for m in measures:
+            elements.append(m)
             if m.partial > 0:
                 elements.append(Partial(m.partial))
             elements.extend(m.get_all_children())
@@ -1738,10 +1739,15 @@ class Part(Music_xml_node):
             # We don't need backup/forward any more, since we have already
             # assigned the correct onset times.
             # TODO: Let Grouping through. Also: link, print, bokmark sound
-            if not (isinstance(n, Note) or isinstance(n, Attributes)
-                    or isinstance(n, Direction) or isinstance(n, Partial)
-                    or isinstance(n, Barline) or isinstance(n, Harmony)
-                    or isinstance(n, FiguredBass) or isinstance(n, Print)):
+            if not (isinstance(n, Note)
+                    or isinstance(n, Attributes)
+                    or isinstance(n, Direction)
+                    or isinstance(n, Measure)
+                    or isinstance(n, Partial)
+                    or isinstance(n, Barline)
+                    or isinstance(n, Harmony)
+                    or isinstance(n, FiguredBass)
+                    or isinstance(n, Print)):
                 continue
 
             if isinstance(n, Attributes) and not start_attr:
@@ -1757,7 +1763,8 @@ class Part(Music_xml_node):
                             voices[v].add_element(staff_attributes)
                 continue
 
-            if (isinstance(n, Partial)
+            if (isinstance(n, Measure)
+                    or isinstance(n, Partial)
                     or isinstance(n, Barline)
                     or isinstance(n, Print)):
                 for v in list(voices.keys()):
@@ -1795,8 +1802,9 @@ class Part(Music_xml_node):
                 staff_attributes.read_self()
                 part._staff_attributes_dict[s] = staff_attributes
                 for v in vids:
-                    voices[v].insert(0, staff_attributes)
-                    voices[v]._elements[0].read_self()
+                    # Element 0 is a `Measure` object.
+                    voices[v].insert(1, staff_attributes)
+                    voices[v]._elements[1].read_self()
 
         part._voices = voices
 
