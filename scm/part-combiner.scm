@@ -788,8 +788,16 @@ the mark when there are no spanners active.
     result))
 
 (define-public default-part-combine-mark-state-machine
-  ;; (current-state . ((split-state-event .
-  ;;                      (next-state output-voice output-event-status)) ...))
+  ;; This table illustrates the format template for a state machine used to
+  ;; control the broadcasting of PartCombineEvents, which trigger text to print.
+  ;; The configuration of this table is functionally equivalent to
+  ;; default-part-combine-mark-alist, but the same structure could be
+  ;; modified to allow for events/text dependent on both the current state and
+  ;; preceding state. The simpler setup should be preferred as long as the text
+  ;; to be printed depends only on the current state.
+  ;;
+  ;; (current-label . ((split-state-event .
+  ;;                      (next-label output-voice output-event-status)) ...))
   '((Initial . ((apart   . (Initial one    apart))
                 (chords  . (Initial shared chords))
                 (solo1   . (Solo1   solo   solo1))
@@ -812,6 +820,22 @@ the mark when there are no spanners active.
   (assq-ref (assq-ref machine prev-label)
             curr-split-state))
 
+(define-public default-part-combine-mark-alist
+  ;; Note that the state labels in the first column function for detection of
+  ;; duplicates, even though they don't work as alist keys as in the full state
+  ;; machine above. Setting the same label in multiple rows will cause no event
+  ;; to be sent/text to be printed when the state switches between them.
+  ;;
+  ;; ((split-state-event . (label output-voice output-event-status)) ...)
+  '((apart   . (Divisi  one    apart))
+    (chords  . (Divisi  shared chords))
+    (solo1   . (Solo1   solo   solo1))
+    (solo2   . (Solo2   solo   solo2))
+    (unisono . (Unisono shared unisono))))
+
+(define*-public ((simple-split->state table) prev-label curr-split-state)
+  (assq-ref table curr-split-state))
+
 (define (state+moment state split)
   (let ((state-label (car state))
         (voice (cadr state))
@@ -829,6 +853,13 @@ Accepts next-state-proc: a procedure taking two symbols <label, split-state>
 as arguments, and returning a state (label voice-id [rest...]). If
 next-state-proc traverses a state machine table, this flattens the depedencies
 between elements.
+
+Provide (simple-split->state mapping-alist) if each split-state should
+always trigger the same musical output, regardless of the previous split-state.
+
+Provide (traverse-state-machine state-machine-table) if the musical output should
+depend on both the current split-state and the previous split-state. When
+next-state-proc is called, label is taken from the previously processed split.
 
 Unless merge-same-label is #f, states with the same label as the previous state
 are skipped.
@@ -915,8 +946,8 @@ fold transforms it into a segment list ordered beginning->end."
      (else #f))))
 
 (define*-public (make-part-combine-marks split-list
-                 #:optional (get-next-state (traverse-state-machine
-                                              default-part-combine-mark-state-machine)))
+                 #:optional (get-next-state (simple-split->state
+                                              default-part-combine-mark-alist)))
   "Generate a sequence of segments alternating skips and part-combine-events for
 each active voice. There may be an initial skip that is not specced to any
 Voice context."
