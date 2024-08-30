@@ -33,6 +33,8 @@ public:
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_in_y_parent_callback, (SCM));
   static bool request_suicide (Grob *me, vsize start, vsize end);
   static bool request_suicide_alone (Grob *me, vsize start, vsize end);
+  static bool unpure_request_suicide (Grob *me);
+  static bool unpure_request_suicide_alone (Grob *me);
   static void consider_suicide (Grob *me);
   static void add_interesting_item (Grob *me, Grob *n);
 };

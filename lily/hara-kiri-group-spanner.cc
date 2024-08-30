@@ -145,17 +145,53 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start,
   return true;
 }
 
+bool
+Hara_kiri_group_spanner::unpure_request_suicide (Grob *me)
+{
+  extract_grob_set (me, "make-dead-when", foes);
+  for (vsize i = 0; i < foes.size (); i++)
+    if (foes[i]->is_live () && !unpure_request_suicide_alone (foes[i]))
+      return true;
+
+  if (!unpure_request_suicide_alone (me))
+    return false;
+
+  extract_grob_set (me, "keep-alive-with", friends);
+  for (vsize i = 0; i < friends.size (); ++i)
+    if (friends[i]->is_live () && !unpure_request_suicide_alone (friends[i]))
+      return false;
+
+  return true;
+}
+
+bool
+Hara_kiri_group_spanner::unpure_request_suicide_alone (Grob *me)
+{
+  if (!from_scm<bool> (get_property (me, "remove-empty")))
+    return false;
+
+  bool remove_first = from_scm<bool> (get_property (me, "remove-first"));
+  if (!remove_first) {
+    auto *sp = dynamic_cast<Spanner *> (me);
+    vsize left = 0;
+    if (Item *l = sp->get_bound (LEFT))
+      left = l->get_column ()->get_rank ();
+    if (left <= 0)
+      return false;
+  }
+
+  extract_grob_set (me, "items-worth-living", worth);
+  for (auto *worth_item : worth)
+    if (worth_item->is_live ())
+      return false;
+
+  return true;
+}
+
 void
 Hara_kiri_group_spanner::consider_suicide (Grob *me)
 {
-  Spanner *sp = dynamic_cast<Spanner *> (me);
-  vsize left = 0;
-  vsize right = INT_MAX;
-  if (Item *l = sp->get_bound (LEFT))
-    left = l->get_column ()->get_rank ();
-  if (Item *r = sp->get_bound (RIGHT))
-    right = r->get_column ()->get_rank ();
-  if (!request_suicide (me, left, right))
+  if (!unpure_request_suicide (me))
     return;
 
   std::vector<Grob *> childs;
