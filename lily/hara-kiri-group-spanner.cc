@@ -116,7 +116,10 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start,
   if (scm_is_vector (important))
     {
       vsize len = scm_c_vector_length (important);
-      if (find_in_range (important, 0, len, start, end))
+       /* interval too small to find any relevant columns */
+      if (end < 2 || end - start < 2)
+        return true;
+      if (find_in_range (important, 0, len, start + 1, end - 1))
         return false;
     }
   else /* build the important-columns-cache */
