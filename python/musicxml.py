@@ -586,7 +586,14 @@ class Attributes(Measure_element):
             if not mxl:
                 return None
 
-            if mxl.get_maybe_exist_named_child('senza-misura'):
+            # `senza_misura_length` is set by `Part.interpret()`; if not set
+            # yet we use a dummy value.
+            sml = [-mxl.senza_misura_length.numerator,
+                   mxl.senza_misura_length.denominator]
+            if sml[0]:
+                self._time_signature_cache = sml
+                return sml
+            elif mxl.get_maybe_exist_named_child('senza-misura'):
                 ly.warning(
                     _("Senza-misura time signatures are not yet supported!"))
                 return [-4, 4]
@@ -1101,6 +1108,7 @@ class Measure(Music_xml_node):
     def __init__(self):
         Music_xml_node.__init__(self)
         self.partial = 0
+        self.senza_misura_length = 0
 
     def is_implicit(self):
         return getattr(self, 'implicit', None) == 'yes'
@@ -1159,6 +1167,12 @@ class Notations(Music_xml_node):
 
     def get_tuplets(self):
         return self.get_typed_children(Tuplet)
+
+
+class Time(Music_xml_node):
+    def __init__(self):
+        Music_xml_node.__init__(self)
+        self.senza_misura_length = 0
 
 
 class Time_modification(Music_xml_node):
@@ -1443,10 +1457,30 @@ class Part(Music_xml_node):
         measure_start_moment = now
         is_first_measure = True
         previous_measure = None
+
         # Graces at the end of a measure need to have their position set to
         # the previous number!
         pending_graces = []
+
+        # In 'senza misura' mode we have to use actual note and rest lengths
+        # to insert (hidden) time signatures so that bar checks for LilyPond
+        # work properly.  For both measures and 'senza misura' time
+        # signatures, `senza_misura_length` holds the distance to the next
+        # time signature (or end of measure).
+        senza_misura_mode = False
+        senza_misura_in_previous_measure = False
+        senza_misura_moment = 0
+        previous_senza_misura = None  # `Measure` or `Time_modification`
+
         for m in measures:
+            if senza_misura_mode:
+                if previous_senza_misura:
+                    previous_senza_misura.senza_misura_length = \
+                        now - senza_misura_moment
+                    senza_misura_moment = now
+                previous_senza_misura = m
+                senza_misura_in_previous_measure = True
+
             # Implicit measures are used for artificial measures, for
             # example, when a repeat bar line splits a bar into two halves.
             # In this case, don't reset the measure position to 0.
@@ -1462,9 +1496,8 @@ class Part(Music_xml_node):
                 if (attributes_object
                         and previous_measure
                         and previous_measure.partial == 0):
-                    length = attributes_object.get_measure_length()
-                    # Only check if we are not in 'senza misura' mode.
-                    if length >= 0:
+                    if not senza_misura_in_previous_measure:
+                        length = attributes_object.get_measure_length()
                         new_now = measure_start_moment + length
                         if now != new_now:
                             problem = _('Incomplete')
@@ -1480,6 +1513,7 @@ class Part(Music_xml_node):
 
                 measure_start_moment = now
                 measure_position = 0
+                senza_misura_in_previous_measure = False
 
             voice_id = None
             assign_to_next_voice = []
@@ -1510,6 +1544,7 @@ class Part(Music_xml_node):
 
                 if isinstance(n, Hash_text):
                     continue
+
                 dur = 0
 
                 if n.__class__ == Attributes:
@@ -1521,8 +1556,21 @@ class Part(Music_xml_node):
                     # default to <divisions>1</divisions>
                     divisions = (int(attributes_dict['divisions'].get_text())
                                  if 'divisions' in attributes_dict else 1)
-
                     factor = Fraction(1, divisions)
+
+                    if 'time' in attributes_dict:
+                        if senza_misura_mode and previous_senza_misura:
+                            previous_senza_misura.senza_misura_length = \
+                                now - senza_misura_moment
+                            senza_misura_moment = now
+
+                        if attributes_object.get_measure_length() < 0:
+                            senza_misura_mode = True
+                            senza_misura_in_previous_measure = True
+                            previous_senza_misura = attributes_dict['time']
+                        else:
+                            senza_misura_mode = False
+                            previous_senza_misura = None
 
                 if 'duration' in n:
                     dur = Fraction(n['duration'], 4) * factor
@@ -1605,6 +1653,10 @@ class Part(Music_xml_node):
                     if measure_end != now:
                         m.partial = now
             previous_measure = m
+
+        if senza_misura_mode and previous_senza_misura:
+            previous_senza_misura.senza_misura_length = \
+                now - senza_misura_moment
 
     # modify attributes so that only those applying to the given staff remain
     def extract_attributes_for_staff(part, attr, staff):
@@ -2104,6 +2156,7 @@ class_dict = {
     'step': Step,
     'syllabic': Syllabic,
     'text': Text,
+    'time': Time,
     'time-modification': Time_modification,
     'tied': Tied,
     'tremolo': Tremolo,
