@@ -594,8 +594,6 @@ class Attributes(Measure_element):
                 self._time_signature_cache = sml
                 return sml
             elif mxl.get_maybe_exist_named_child('senza-misura'):
-                ly.warning(
-                    _("Senza-misura time signatures are not yet supported!"))
                 return [-4, 4]
             else:
                 signature = []

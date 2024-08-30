@@ -1100,9 +1100,12 @@ def musicxml_time_to_lily(attributes):
     sig = attributes.get_time_signature().copy()
     if not sig:
         return None
+
     # 'Senza misura' time signature.
     if not isinstance(sig[0], list) and sig[0] < 0:
-        return None
+        change.fractions = [-sig[0], sig[1]]
+        change.visible = False
+        return change
 
     if options.shift_durations:
         if not isinstance(sig[0], list):
@@ -1158,7 +1161,7 @@ def musicxml_time_to_lily(attributes):
     change.color = getattr(time_elm, 'color', None)
     change.font_size = getattr(time_elm, 'font-size', None)
 
-    # TODO: Handle senza-misura measures
+    # TODO: Handle 'senza misura' symbol.
     # TODO: What shall we do if the symbol clashes with the sig? e.g. "cut"
     #       with 3/8 or "single-number" with(2+3)/8 or 3/8+2/4?
     return change
@@ -3299,6 +3302,7 @@ def musicxml_voice_to_lily_voice(voice):
         extract_lyrics(voice, number, lyrics)
 
     last_bar_check = -1
+    senza_misura_time_signature = None
     for n in voice._elements:
         tie_started = False
         if n.get_name() == 'forward':
@@ -3316,7 +3320,14 @@ def musicxml_voice_to_lily_voice(voice):
             current_staff = staff
 
         if isinstance(n, musicxml.Measure):
-            # Not used yet.
+            if n.senza_misura_length:
+                # Emission of this element must be delayed after a bar check
+                # gets emitted.
+                senza_misura_time_signature = musicexp.TimeSignatureChange()
+                senza_misura_time_signature.visible = False
+                senza_misura_time_signature.fractions = \
+                    [n.senza_misura_length.numerator,
+                     n.senza_misura_length.denominator]
             continue
 
         if isinstance(n, musicxml.Partial) and n.partial > 0:
@@ -3396,6 +3407,12 @@ def musicxml_voice_to_lily_voice(voice):
                 chordnames_builder.add_bar_check(num)
                 fretboards_builder.add_bar_check(num)
                 last_bar_check = num
+
+        if (n._measure_position == 0
+                and n != voice._elements[1]
+                and senza_misura_time_signature):
+            voice_builder.add_command(senza_misura_time_signature)
+            senza_misura_time_signature = None
 
         if isinstance(n, musicxml.Direction):
             # check if Direction already has been converted in another voice.
