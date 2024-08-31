@@ -3488,13 +3488,17 @@ class RestEvent(RhythmicEvent):
 
     def ly_expression(self):
         if self.pitch:
+            # TODO: Support pitched full-measure rests.
             res = []
             res.append(self.ly_expression_pre_note(False))
             res.append(r'%s%s\rest' % (self.pitch.ly_expression(),
                                        self.duration.ly_expression()))
             return ' '.join(filter(None, res))
         else:
-            return 'r%s' % self.duration.ly_expression()
+            if self.full_measure_glyph:
+                return 'R%s' % self.duration.ly_expression()
+            else:
+                return 'r%s' % self.duration.ly_expression()
 
     def pre_note_ly(self, is_chord_element):
         elements = super().pre_note_ly(is_chord_element)
@@ -3535,11 +3539,15 @@ class RestEvent(RhythmicEvent):
         printer(self.ly_expression_pre_note(True))
 
         if self.pitch:
+            # TODO: Support pitched full-measure rests.
             self.pitch.print_ly(printer)
             self.duration.print_ly(printer)
             printer.print_verbatim(r'\rest')
         else:
-            printer('r')
+            if self.full_measure_glyph:
+                printer('R')
+            else:
+                printer('r')
             self.duration.print_ly(printer)
 
         printer(self.ly_expression_post_note(True))

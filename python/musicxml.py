@@ -1013,6 +1013,8 @@ class Note(Measure_element):
         # rests can have display-octave and display-step, which are
         # treated like an ordinary note pitch
         event = musicexp.RestEvent()
+        event.full_measure_glyph = \
+            getattr(self['rest'], 'measure', 'no') == 'yes'
         event.color = getattr(self, 'color', note_color)
         event.font_size = getattr(self, 'font-size', note_font_size)
 
