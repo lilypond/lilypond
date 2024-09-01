@@ -615,13 +615,17 @@ class Attributes(Measure_element):
                 _("Unable to interpret time signature! Falling back to 4/4."))
             return [4, 4]
 
-    # Return clef information in the form `("cleftype", position,
-    # octave-shift, color, font-size, print-object)`.
+    # Return clef information in the form
+    #
+    #   ["cleftype", position, octave-shift, color, font-size, print-object]
+    #
+    # or `None` if there is no `<clef>` element.
     def get_clef_information(self):
-        clefinfo = [None, None, None, None, None, True]
         mxl = self.get_maybe_exist_named_child('clef')
         if not mxl:
-            return clefinfo
+            return None
+
+        clefinfo = [None, None, None, None, None, True]
         sign = mxl.get_maybe_exist_named_child('sign')
         if sign:
             clefinfo[0] = sign.get_text()

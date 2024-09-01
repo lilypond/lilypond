@@ -1065,8 +1065,12 @@ def group_tremolos(music_list, events):
 def musicxml_clef_staff_details_to_lily(attributes):
     ev = musicexp.Clef_StaffLinesEvent()
 
-    (ev.type, ev.position, ev.octave, ev.color, ev.font_size, ev.visible) = \
-        attributes.get_clef_information()
+    clef_information = attributes.get_clef_information()
+    if clef_information is not None:
+        (ev.type, ev.position, ev.octave, ev.color,
+         ev.font_size, ev.visible) = clef_information
+
+    stafflines = None
 
     details = attributes.get_maybe_exist_named_child('staff-details')
     if details:
@@ -1087,8 +1091,11 @@ def musicxml_clef_staff_details_to_lily(attributes):
                         ev.lines_color = getattr(line_detail, 'color', None)
                     ev.line_details[line] = print_object
 
+    if clef_information is None and stafflines is None:
+        return None
+
     # The percussion clef is a special case.
-    if ev.type == 'percussion' or ev.type == 'PERC' or details:
+    if ev.type == 'percussion' or ev.type == 'PERC' or stafflines:
         needed_additional_definitions.append('staff-lines')
 
     return ev
@@ -1328,6 +1335,8 @@ def musicxml_attributes_to_lily(attrs):
 
         if f:
             ev = f(attrs)
+            if ev is None:
+                continue
             if isinstance(ev, list):
                 elts.extend(ev)
             elif ev:
