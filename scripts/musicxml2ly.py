@@ -3557,7 +3557,8 @@ def musicxml_voice_to_lily_voice(voice):
                 or isinstance(main_event, musicexp.RestEvent)):
             if not main_event.visible:
                 note_visible = False
-                needed_additional_definitions.append("hide-note")
+                if main_event.spacing:
+                    needed_additional_definitions.append("hide-note")
             else:
                 note_visible = True
 

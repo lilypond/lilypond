@@ -1076,6 +1076,7 @@ class Note(Measure_element):
                 event.add_associated_event(v)
 
         event.visible = (getattr(self, 'print-object', 'yes') == 'yes')
+        event.spacing = (getattr(self, 'print-spacing', 'yes') == 'yes')
 
         return event
 

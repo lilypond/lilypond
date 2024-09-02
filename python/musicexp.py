@@ -3485,6 +3485,7 @@ class RestEvent(RhythmicEvent):
         RhythmicEvent.__init__(self)
         self.pitch = None
         self.visible = True
+        self.spacing = True
 
     def ly_expression(self):
         if self.pitch:
@@ -3569,6 +3570,7 @@ class NoteEvent(RhythmicEvent):
         self.accidental_color = None
         self.accidental_font_size = None
         self.visible = True
+        self.spacing = True
 
     def get_properties(self):
         s = RhythmicEvent.get_properties(self)
@@ -3655,11 +3657,16 @@ class NoteEvent(RhythmicEvent):
         return elements
 
     def print_ly(self, printer):
-        pitch = getattr(self, "pitch", None)
-        if pitch is not None:
-            printer(self.ly_expression_pre_chord())
-            printer(self.ly_expression_pre_note(True))
-            pitch.print_ly(printer, self.pitch_mods())
+        if self.spacing:
+            pitch = getattr(self, "pitch", None)
+            if pitch is not None:
+                printer(self.ly_expression_pre_chord())
+                printer(self.ly_expression_pre_note(True))
+                pitch.print_ly(printer, self.pitch_mods())
+        else:
+            # We completely ignore objects without spacing; their purpose is
+            # not typesetting but providing better MIDI support.
+            printer('s')
 
         self.duration.print_ly(printer)
         printer(self.ly_expression_post_note(True))
