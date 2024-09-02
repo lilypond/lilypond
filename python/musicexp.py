@@ -748,11 +748,6 @@ class Music(Base):
     def set_start(self, start):
         self.start = start
 
-    def find_first(self, predicate):
-        if predicate(self):
-            return self
-        return None
-
     def print_comment(self, printer, text=None):
         if not text:
             text = self.comment
@@ -990,17 +985,6 @@ class NestedMusic(Music):
         self.start = start
         for e in self.elements:
             e.set_start(start)
-
-    def find_first(self, predicate):
-        r = Music.find_first(self, predicate)
-        if r:
-            return r
-
-        for e in self.elements:
-            r = e.find_first(predicate)
-            if r:
-                return r
-        return None
 
 
 class SequentialMusic(NestedMusic):
@@ -4134,7 +4118,7 @@ class MeasureStyleEvent(Music):
         if font_size is not None:
             ret.append(r'\tweak font-size %s' % font_size)
             ret.append(r'\tweak MultiMeasureRestNumber.font-size %s'
-                           % font_size)
+                       % font_size)
 
         return ' '.join(ret)
 

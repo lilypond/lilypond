@@ -475,7 +475,7 @@ def extract_score_structure(part_list, staffinfo):
             staff.sound = extract_instrument_sound(el)
         if staff.instrument_name:
             globvars.paper.indent = max(globvars.paper.indent,
-                                       len(staff.instrument_name))
+                                        len(staff.instrument_name))
             globvars.paper.instrument_names.append(staff.instrument_name)
         partdisplay = el.get_maybe_exist_named_child('part-abbreviation')
         if partdisplay:
@@ -488,7 +488,7 @@ def extract_score_structure(part_list, staffinfo):
         # TODO: Read in the MIDI device / instrument
         if staff.short_instrument_name:
             globvars.paper.short_indent = max(globvars.paper.short_indent,
-                                             len(staff.short_instrument_name))
+                                              len(staff.short_instrument_name))
 
         return staff
 
@@ -3330,7 +3330,7 @@ def musicxml_voice_to_lily_voice(voice):
 
         if isinstance(n, musicxml.Measure):
             if n.senza_misura_length:
-                # Emission of this element must be delayed after a bar check
+                # Emission of this element must be delayed until a bar check
                 # gets emitted.
                 senza_misura_time_signature = musicexp.TimeSignatureChange()
                 senza_misura_time_signature.visible = False

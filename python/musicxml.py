@@ -1261,7 +1261,6 @@ class Tuplet(Music_xml_spanner):
         return (color, font_size)
 
 
-
 class Slur(Music_xml_spanner):
     pass
 
@@ -1463,7 +1462,7 @@ class Part(Music_xml_node):
         previous_measure = None
 
         # Graces at the end of a measure need to have their position set to
-        # the previous number!
+        # the previous moment.
         pending_graces = []
 
         # In 'senza misura' mode we have to use actual note and rest lengths
