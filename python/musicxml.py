@@ -820,10 +820,8 @@ class Notehead(Music_xml_node):
         event.style = self.get_text().strip()
         event.color = getattr(self, 'color', note_color)
         event.font_size = getattr(self, 'font-size', note_font_size)
-
-        filled = getattr(self, 'filled', None)
-        if filled is not None:
-            event.filled = (filled == 'yes')
+        event.duration = self._duration
+        event.filled = getattr(self, 'filled', None)
 
         if (event.style
                 or event.filled is not None
@@ -1064,6 +1062,7 @@ class Note(Measure_element):
                     and (color is not None or font_size is not None)):
                 notehead = Notehead()
             if notehead is not None:
+                notehead._duration = self._duration
                 for v in notehead.to_lily_object(color, font_size):
                     event.add_associated_event(v)
 

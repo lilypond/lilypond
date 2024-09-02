@@ -3239,6 +3239,7 @@ class StemEvent(Event):
 class NotestyleEvent(Event):
     def __init__(self):
         Event.__init__(self)
+        self.duration = None
         self.style = None
         self.filled = None
 
@@ -3286,6 +3287,11 @@ class NotestyleEvent(Event):
                 res.append(r'\tweak style #%s' % style)
 
             if style != '':
+                if self.duration < 0.5 and self.filled == 'no':
+                    res.append(r'\tweak duration-log #1')
+                elif self.duration >= 0.5 and self.filled == 'yes':
+                    res.append(r'\tweak duration-log #2')
+
                 color = color_to_ly(self.color)
                 if color is not None:
                     res.append(r'\tweak color %s' % color)
