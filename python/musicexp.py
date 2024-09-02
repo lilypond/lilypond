@@ -3251,7 +3251,7 @@ class NotestyleEvent(Event):
         'circled': None,  # TODO: Implement
         'cluster': None,  # TODO: Implement
         'cross': None,  # TODO: + shaped note head
-        'diamond': "'diamond",
+        'diamond': "'harmonic-mixed",
         'do': "'do",
         'fa': "'fa",  # LilyPond automatically uses this for down-stem
         'fa up': "'fa",  # LilyPond automatically uses this for up-stem
@@ -3268,7 +3268,7 @@ class NotestyleEvent(Event):
         'so': "'sol",
         'square': "'la",  # TODO: Proper squared note head
         'ti': "'ti",
-        'triangle': "'triangle",
+        'triangle': "'do",
         'x': "'cross",
     }
 
