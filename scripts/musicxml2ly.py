@@ -4079,7 +4079,8 @@ def get_all_voices(parts):
     for p, (name_voice, staff_info) in list(all_voices.items()):
         part_ly_voices = OrderedDict()
         for n, v in list(name_voice.items()):
-            ly.progress(_("Converting to LilyPond expressions..."), True)
+            ly.progress(_("Converting part '%s' (voice %s) "
+                          "to LilyPond expressions...") % (p, n), True)
             # musicxml_voice_to_lily_voice returns
             # (lily_voice, {nr->lyrics, nr->lyrics})
             voice = musicxml_voice_to_lily_voice(v)
