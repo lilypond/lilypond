@@ -323,6 +323,7 @@ private:
 public:
   using base_type::from_scm;
   using base_type::is_scm;
+  using base_type::to_scm;
 
   // If the base does not provide from_scm(S, F)...
   template <typename S, typename F,
@@ -361,24 +362,12 @@ from_scm (S &&s, DeducedT &&fallback)
                          std::forward<DeducedT> (fallback));
 }
 
-template <typename T>
+template <typename ExplicitT = void, typename DeducedT,
+          typename Conv = robust_scm_conversions<x_scm_t<DeducedT, ExplicitT>>>
 inline auto
-to_scm (const T &v) -> decltype (conv_scm_traits<T>::to (v))
+to_scm (DeducedT &&v) -> decltype (Conv::to_scm (std::forward<DeducedT> (v)))
 {
-  return scm_conversions<T>::to_scm (v);
-}
-template <typename T>
-inline auto
-to_scm (T &v) -> decltype (conv_scm_traits<T>::to (v))
-{
-  const auto &cv = v;
-  return ::to_scm (cv); // defer to the const & overload
-}
-template <typename T>
-inline auto
-to_scm (const T &&v) -> decltype (conv_scm_traits<T>::to (std::move (v)))
-{
-  return ::to_scm (std::as_const (v)); // defer to the const & overload
+  return Conv::to_scm (std::forward<DeducedT> (v));
 }
 
 // These pass-through conversions for SCM are useful in generic code.
@@ -390,20 +379,11 @@ struct scm_conversions<SCM>
   static SCM &from_scm (SCM &s, SCM = SCM_UNDEFINED) { return s; }
   static const SCM &from_scm (const SCM &s, SCM = SCM_UNDEFINED) { return s; }
   static SCM from_scm (const SCM &&s, SCM = SCM_UNDEFINED) { return s; }
-};
 
-template <>
-inline const SCM &
-to_scm<SCM> (const SCM &s)
-{
-  return s;
-}
-template <>
-inline SCM &
-to_scm<SCM> (SCM &s)
-{
-  return s;
-}
+  static SCM &to_scm (SCM &s) { return s; }
+  static const SCM &to_scm (const SCM &s) { return s; }
+  static SCM to_scm (const SCM &&s) { return s; }
+};
 
 template <>
 struct scm_conversions<short>

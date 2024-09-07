@@ -109,11 +109,10 @@ static_assert (std::is_same_v<                                    //
 // `to_scm<reference_type> ()` shouldn't exist.  It probably wouldn't cause any
 // problem if it instead just ignored the reference, but consistency with
 // from_scm makes more sense.
-// TODO: Add `!` to the three cases without it and fix the problem.
-static_assert (is_to_scm_detected_v<SCM &, SCM &>);
-static_assert (is_to_scm_detected_v<const SCM &, const SCM &>);
+static_assert (!is_to_scm_detected_v<SCM &, SCM &>);
+static_assert (!is_to_scm_detected_v<const SCM &, const SCM &>);
 static_assert (!is_to_scm_detected_v<SCM &&, SCM &&>);
-static_assert (is_to_scm_detected_v<const SCM &&, const SCM &&>);
+static_assert (!is_to_scm_detected_v<const SCM &&, const SCM &&>);
 
 //======================================================================
 // from_scm (scm)
