@@ -341,24 +341,12 @@ is_scm (SCM s)
   return scm_conversions<T>::is_scm (s);
 }
 
-template <typename T>
+template <typename ExplicitT, typename S,
+          typename Conv = robust_scm_conversions<x_scm_t<void, ExplicitT>>>
 inline auto
-from_scm (const SCM &s) -> decltype (conv_scm_traits<T>::from (s))
+from_scm (S &&s) -> decltype (Conv::from_scm (std::forward<S> (s)))
 {
-  return scm_conversions<T>::from_scm (s);
-}
-template <typename T>
-inline auto
-from_scm (SCM &s) -> decltype (conv_scm_traits<T>::from (s))
-{
-  const auto &cs = s;
-  return ::from_scm<T> (cs); // defer to the const & overload
-}
-template <typename T>
-inline auto
-from_scm (const SCM &&s) -> decltype (conv_scm_traits<T>::from (std::move (s)))
-{
-  return ::from_scm<T> (s); // defer to the const & overload
+  return Conv::from_scm (std::forward<S> (s));
 }
 
 // "robust" variant with fallback
@@ -395,26 +383,13 @@ to_scm (const T &&v) -> decltype (conv_scm_traits<T>::to (std::move (v)))
 
 // These pass-through conversions for SCM are useful in generic code.
 template <>
-inline const SCM &
-from_scm<SCM> (const SCM &s)
-{
-  return s;
-}
-template <>
-inline SCM &
-from_scm<SCM> (SCM &s)
-{
-  return s;
-}
-
-template <>
 struct scm_conversions<SCM>
 {
   static bool is_scm (SCM) { return true; }
 
-  static SCM &from_scm (SCM &s, SCM) { return s; }
-  static const SCM &from_scm (const SCM &s, SCM) { return s; }
-  static SCM from_scm (const SCM &&s, SCM) { return s; }
+  static SCM &from_scm (SCM &s, SCM = SCM_UNDEFINED) { return s; }
+  static const SCM &from_scm (const SCM &s, SCM = SCM_UNDEFINED) { return s; }
+  static SCM from_scm (const SCM &&s, SCM = SCM_UNDEFINED) { return s; }
 };
 
 template <>

@@ -140,11 +140,10 @@ static_assert (std::is_same_v<                                           //
                >);
 
 // `from_scm<reference_type> (scm)` shouldn't exist.
-// TODO: Negate these tests and fix the problem.
-static_assert (is_from_scm_detected_v<SCM &, SCM &>);
-static_assert (is_from_scm_detected_v<const SCM &, const SCM &>);
-static_assert (is_from_scm_detected_v<SCM &&, SCM &&>);
-static_assert (is_from_scm_detected_v<const SCM &&, const SCM &&>);
+static_assert (!is_from_scm_detected_v<SCM &, SCM &>);
+static_assert (!is_from_scm_detected_v<const SCM &, const SCM &>);
+static_assert (!is_from_scm_detected_v<SCM &&, SCM &&>);
+static_assert (!is_from_scm_detected_v<const SCM &&, const SCM &&>);
 
 //======================================================================
 // from_scm (scm, fallback): For SCM->SCM passthrough, the fallback will
