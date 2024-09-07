@@ -6,8 +6,8 @@
     <miscellaneous>
       <miscellaneous-field name="description">Between the individual notes of a
           chord there can be &lt;direction&gt; elements, which already belong to
-          the next &lt;note&gt;element after the current one.  The segno and the
-          piano sign should be attached to the rest after the
+          the next &lt;note&gt; element after the current one.  The segno and
+          the piano sign should be attached to the rest after the
           chord.</miscellaneous-field>
     </miscellaneous>
   </identification>
