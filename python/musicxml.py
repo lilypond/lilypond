@@ -110,12 +110,12 @@ class Xml_node(object):
         p = self
         while p:
             ly.progress('  In: <%s %s>' % (p._name, ' '.join(
-                ['%s=%s' % item for item in list(p._attribute_dict.items())])))
+                ['%s=%s' % item for item in p._attribute_dict.items()])))
             p = p.get_parent()
 
     def dump(self, indent=''):
         ly.debug_output('%s<%s%s>' % (indent, self._name, ''.join(
-            [' %s=%s' % item for item in list(self._attribute_dict.items())])))
+            [' %s=%s' % item for item in self._attribute_dict.items()])))
         non_text_children = [
             c for c in self._children if not isinstance(c, Hash_text)]
         if non_text_children:
@@ -1780,7 +1780,7 @@ class Part(Music_xml_node):
         # all the correct voices. This will never work entirely correct due
         # to staff-switches, but that's the best we can do!
         staff_to_voice_dict = {}
-        for (v, s) in list(voice_to_staff_dict.items()):
+        for (v, s) in voice_to_staff_dict.items():
             if s not in staff_to_voice_dict:
                 staff_to_voice_dict[s] = [v]
             else:
@@ -1818,7 +1818,7 @@ class Part(Music_xml_node):
 
             if isinstance(n, Attributes):
                 # assign these only to the voices they really belong to!
-                for (s, vids) in list(staff_to_voice_dict.items()):
+                for (s, vids) in staff_to_voice_dict.items():
                     staff_attributes = part.extract_attributes_for_staff(n, s)
                     if staff_attributes:
                         for v in vids:
@@ -1829,7 +1829,7 @@ class Part(Music_xml_node):
                     or isinstance(n, Partial)
                     or isinstance(n, Barline)
                     or isinstance(n, Print)):
-                for v in list(voices.keys()):
+                for v in voices.keys():
                     voices[v].add_element(n)
                 continue
 
@@ -1858,7 +1858,7 @@ class Part(Music_xml_node):
         assign_to_next_note = []
 
         if start_attr:
-            for (s, vids) in list(staff_to_voice_dict.items()):
+            for (s, vids) in staff_to_voice_dict.items():
                 staff_attributes = part.extract_attributes_for_staff(
                     start_attr, s)
                 staff_attributes.read_self()

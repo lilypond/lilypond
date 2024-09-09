@@ -964,7 +964,7 @@ class NestedMusic(Music):
     def get_subset_properties(self, predicate):
         return ("'elements (list %s)"
                 % " ".join([x.lisp_expression() for x
-                            in list(filter(predicate, self.elements))]))
+                            in filter(predicate, self.elements)]))
 
     def get_neighbor(self, music, dir):
         assert music.parent == self
@@ -1178,7 +1178,7 @@ class Header(Base):
     def print_ly(self, printer):
         printer.dump(r"\header {")
         printer.newline()
-        for (k, v) in list(self.header_fields.items()):
+        for (k, v) in self.header_fields.items():
             if v:
                 self.format_header_strings(k, v, printer)
         # printer.newline()
@@ -1276,7 +1276,7 @@ class Layout(Base):
         if list(self.context_dict.items()):
             printer.dump(r'\layout {')
             printer.newline()
-            for (context, defs) in list(self.context_dict.items()):
+            for (context, defs) in self.context_dict.items():
                 printer.dump(r'\context {')
                 printer.newline()
                 printer.dump(r'\%s' % context)

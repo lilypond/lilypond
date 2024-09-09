@@ -551,8 +551,8 @@ def extract_score_structure(part_list, staffinfo):
             elif len(el.end) > 0:  # no group to end here
                 el.end = {}
             if len(el.end) > 0:  # closes an existing group
-                ends = list(el.end.keys())
-                prev_started = list(staves[prev_start].start.keys())
+                ends = el.end.keys()
+                prev_started = staves[prev_start].start.keys()
                 grpid = None
                 intersection = [x for x in prev_started if x in ends]
                 if len(intersection) > 0:
@@ -4076,9 +4076,9 @@ def get_all_voices(parts):
 
     all_ly_voices = {}
     all_ly_staffinfo = {}
-    for p, (name_voice, staff_info) in list(all_voices.items()):
+    for p, (name_voice, staff_info) in all_voices.items():
         part_ly_voices = OrderedDict()
-        for n, v in list(name_voice.items()):
+        for n, v in name_voice.items():
             ly.progress(_("Converting part '%s' (voice %s) "
                           "to LilyPond expressions...") % (p, n), True)
             # musicxml_voice_to_lily_voice returns
@@ -4304,7 +4304,7 @@ def print_voice_definitions(printer, part_list, voices):
     for part in part_list:
         part_id = part.id
         nv_dict = voices.get(part_id, {})
-        for (name, voice) in list(nv_dict.items()):
+        for (name, voice) in nv_dict.items():
             k = music_xml_voice_name_to_lily_name(part_id, name)
             printer.dump('%s =' % k)
             voice.ly_voice.print_ly(printer)
@@ -4404,7 +4404,7 @@ def update_score_setup(score_structure, part_list, voices, parts):
 
         staves = reduce(lambda x, y: x + y,
                         [list(voice.voicedata._staves.keys())
-                         for voice in list(nv_dict.values())],
+                         for voice in nv_dict.values()],
                         [])
         staves_info = []
         if len(staves) > 1:
@@ -4413,7 +4413,7 @@ def update_score_setup(score_structure, part_list, voices, parts):
 
             for s in staves:
                 thisstaff_raw_voices = []
-                for (voice_name, voice) in list(nv_dict.items()):
+                for (voice_name, voice) in nv_dict.items():
                     if voice.voicedata._start_staff == s:
                         order = []
                         for i in voice.lyrics_order:
@@ -4429,7 +4429,7 @@ def update_score_setup(score_structure, part_list, voices, parts):
                     part_id, s, thisstaff_raw_voices))
         else:
             thisstaff_raw_voices = []
-            for (voice_name, voice) in list(nv_dict.items()):
+            for (voice_name, voice) in nv_dict.items():
                 order = []
                 for i in voice.lyrics_order:
                     order.append((i, voice.lyrics_dict[i].stanza_id))
