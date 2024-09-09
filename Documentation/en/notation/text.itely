@@ -390,7 +390,7 @@ may be used alone.
   \sectionLabel "Verse"
   c2 g
   \section
-  \sectionLabel "Chorus"
+  \sectionLabel \markup { \rounded-box { Chorus } }
   g2 c
   \bar "|."
 }
