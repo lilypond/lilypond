@@ -702,6 +702,7 @@ class Guile(ConfigurePackage):
             "0007-Fix-inum-negation.patch",
             "0008-Avoid-using-long-integers-literals.patch",
             "0009-mpz-integer-do-not-convert-to-bignum-if-inum-is-suff.patch",
+            "0010-Fix-setjmp-longjmp-related-crashes-on-Windows.patch",
         ]:
             patch_path = os.path.join(root_path, "patches", patch)
             with open(patch_path) as patch_file:
