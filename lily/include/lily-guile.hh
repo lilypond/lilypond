@@ -36,6 +36,8 @@
 #include "lily-guile-macros.hh"
 
 #include <functional>
+#include <string>
+#include <string_view>
 #include <type_traits>
 #include <utility>
 
@@ -590,6 +592,97 @@ struct scm_conversions<Interval_t<T>>
   {
     return scm_cons (::to_scm (s[LEFT]), ::to_scm (s[RIGHT]));
   }
+};
+
+template <>
+struct scm_conversions<std::string>
+{
+public:
+  static bool is_scm (SCM s) { return scm_is_string (s); }
+
+  static std::string from_scm (SCM s) { return ly_scm2string (s); }
+
+  // Special handling of char arrays of known length is intended to support
+  // `to_scm ("literal")` and `from_scm (scm, "literal")` without decaying to
+  // `const char *` and requiring Guile to find the length of the string at run
+  // time.
+  //
+  // The price is that these functions will also accept char arrays that do not
+  // hold string literals, and mishandle them.  If this ever causes problems,
+  // consider requiring `"literal"sv` or just allowing the decay -- maybe the
+  // run-time cost of strlen is negligible.
+
+  template <typename F>
+  static std::string from_scm (SCM s, F &&fallback)
+  {
+    if (is_scm (s))
+      {
+        return from_scm (s);
+      }
+
+    using F_value = std::remove_reference_t<F>;
+    constexpr auto array_len = std::extent_v<F_value>;
+    if constexpr (array_len > 0)
+      {
+        using Element = std::remove_extent_t<F_value>;
+        static_assert (std::is_same_v<Element, const char>, "unsupported");
+        return std::string (fallback, array_len - 1); // -1 null terminator
+      }
+    else
+      {
+        return std::string (std::forward<F> (fallback));
+      }
+  }
+
+  template <typename T>
+  static SCM to_scm (T &&s)
+  {
+    using T_value = std::remove_reference_t<T>;
+    constexpr auto array_len = std::extent_v<T_value>;
+    if constexpr (array_len > 0)
+      {
+        using Element = std::remove_extent_t<T_value>;
+        static_assert (std::is_same_v<Element, const char>, "unsupported");
+        return scm_from_utf8_stringn (s, array_len - 1); // -1 null terminator
+      }
+    else if constexpr (std::is_same_v<
+                         T_value,
+                         const char *> || std::is_same_v<T_value, char *>)
+      {
+        return scm_from_utf8_string (s);
+      }
+    else // std::string, std::string_view, or similar
+      {
+        return scm_from_utf8_stringn (s.data (), s.size ());
+      }
+  }
+};
+
+// This supports `to_scm (std::string_view)` and `from_scm (SCM,
+// std::string_view)` without having to specify `<std::string>`.
+//
+// Please don't abuse this by writing confusing stuff like
+// `from_scm<std::string_view> (scm, fallback)`.
+template <>
+struct scm_conversions<std::string_view> : public scm_conversions<std::string>
+{
+};
+
+// This supports `to_scm (const char *)` and `from_scm (SCM, const char *)`
+// without having to specify `<std::string>`.
+//
+// Please don't abuse this by writing confusing stuff like `from_scm<char *>
+// (scm, fallback)`.
+template <>
+struct scm_conversions<char *> : public scm_conversions<std::string>
+{
+};
+
+// This supports `to_scm ("literal")` and `from_scm (SCM, "literal")` without
+// having to specify `<std::string>`.  See caveats documented in the base class.
+template <std::size_t N>
+struct scm_conversions<char[N]> : public scm_conversions<std::string>
+{
 };
 
 // Convert the given SCM list to a container.
