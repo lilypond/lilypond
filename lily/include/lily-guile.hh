@@ -283,9 +283,6 @@ struct scm_conversions
 {
 };
 
-template <typename ExplicitT, typename S, typename DeducedT>
-decltype (auto) naive_robust_from_scm (S &&s, DeducedT &&fallback);
-
 // robust_scm_conversions<T> is a scm_conversions<T> with a robust overload of
 // from_scm().  It should not be customized.  scm_conversions may be customized
 // to provide a robust from_scm() itself, in which case robust_scm_conversions
@@ -296,16 +293,6 @@ decltype (auto) naive_robust_from_scm (S &&s, DeducedT &&fallback);
 template <typename T, typename = void>
 struct robust_scm_conversions : public scm_conversions<T>
 {
-  // TODO: This default from_scm() is a stopgap for types that are still handled
-  // by overriding ::is_scm() and ::from_scm().  Remove this once
-  // scm_conversions is specialized for all such types.
-  template <typename S, typename F, typename T2 = T,
-            typename = std::enable_if_t<!std::is_reference_v<T2>>>
-  static decltype (auto) from_scm (S &&s, F &&fallback)
-  {
-    return naive_robust_from_scm<T> (std::forward<S> (s),
-                                     std::forward<F> (fallback));
-  }
 };
 
 // This specialization of robust_scm_conversions is used when the base
@@ -372,14 +359,6 @@ inline auto
 from_scm (const SCM &&s) -> decltype (conv_scm_traits<T>::from (std::move (s)))
 {
   return ::from_scm<T> (s); // defer to the const & overload
-}
-
-template <typename ExplicitT, typename S, typename DeducedT>
-inline decltype (auto)
-naive_robust_from_scm (S &&s, DeducedT &&fallback)
-{
-  return is_scm<ExplicitT> (s) ? from_scm<ExplicitT> (std::forward<S> (s))
-                               : std::forward<DeducedT> (fallback);
 }
 
 // "robust" variant with fallback
