@@ -222,30 +222,6 @@ ly_scm_hash_fold (SCM (*fn) (void *closure, SCM key, SCM val, SCM result),
 // C++ version of scm_with_fluid
 SCM ly_with_fluid (SCM fluid, SCM val, std::function<SCM ()> const &);
 
-// These are patterns for conversion functions.  We currently use them to
-// predict the return types of overloaded functions before they are defined,
-// but other things could be added here, if necessary.
-template <typename T>
-struct conv_scm_traits
-{
-  static T from (SCM);
-
-  static SCM to (const T &);
-};
-
-// specialization for SCM passthrough, which is convenient in generic code
-template <>
-struct conv_scm_traits<SCM>
-{
-  static const SCM &from (const SCM &);
-  static SCM &from (SCM &);
-  static SCM from (const SCM &&);
-
-  static const SCM &to (const SCM &);
-  static SCM &to (SCM &);
-  static SCM to (const SCM &&);
-};
-
 // x_scm_t chooses the canonical type T for a to/from SCM conversion based on a
 // function argument, e.g., `to_scm (value)`.  It allows an optional explicit
 // type to override the decision; this supports (e.g.) `to_scm<T> (value)`,
