@@ -416,7 +416,7 @@ def get_tab_clef():
         return "tab"
 
 
-# definitions of the command-line option '--string-numbers'
+# Implement the command-line option `--string-numbers`.
 def set_string_numbers(option):
     global string_numbers_option
     string_numbers_option = option
@@ -424,8 +424,12 @@ def set_string_numbers(option):
 
 def get_string_numbers():
     try:
-        return ("t", string_numbers_option)[string_numbers_option == "t"
-                                            or string_numbers_option == "f"]
+        if string_numbers_option[0] == 't':
+            return 't'
+        elif string_numbers_option[0] == 'f':
+            return 'f'
+        else:
+            return 't'
     except NameError:
         return "t"
 

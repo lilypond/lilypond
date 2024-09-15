@@ -4277,15 +4277,15 @@ information.""") % 'lilypond')
                  help=_("switch between two versions of tab clefs "
                         '("tab" and "moderntab")'))
 
-    # StringNumber stencil on/off
+    # string numbers on/off
     p.add_option('--sn', '--string-numbers',
                  metavar=_("t[rue]/f[alse]"),
                  action="store",
                  dest="string_numbers",
-                 help=_("deactivate string number stencil with "
-                        "--string-numbers f[alse]. Default is t[rue]"))
+                 help=_("control output of string numbers; value f[alse] "
+                        "disables them. Default is t[rue]"))
 
-    # StringNumber stencil on/off
+    # separate FretBoards voice
     p.add_option('--fb', '--fretboards',
                  action="store_true",
                  default=False,
@@ -4470,8 +4470,6 @@ def update_layout_information():
     if musicexp.get_string_numbers() == "f":
         globvars.layout_information.set_context_item(
             'Score', r"\override StringNumber #'stencil = ##f")
-
-#  \n\t\t\t\t\\override StringNumber #\'stencil = ##f
 
 
 def print_ly_preamble(printer, filename):
