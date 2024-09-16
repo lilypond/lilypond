@@ -317,6 +317,9 @@ def extract_score_information(tree):
                              "information in the MusicXML file will be "
                              "ignored") % app_description)
 
+            if 'Finale' in s:
+                musicexp.set_ottavas_end_early('t')
+
     credits = tree.get_named_children('credit')
     has_composer = False
     for cred in credits:
@@ -2990,8 +2993,9 @@ class LilyPondVoiceBuilder(musicexp.Base):
         if isinstance(music, musicexp.BarLine):
             if self.pending_dynamics:
                 for d in self.pending_dynamics:
-                    if not isinstance(
-                            d, (musicexp.SpanEvent, musicexp.DynamicsEvent)):
+                    if (isinstance(d, musicexp.OctaveShiftEvent)  # for Finale
+                            or not isinstance(d, (musicexp.SpanEvent,
+                                                  musicexp.DynamicsEvent))):
                         index = self.pending_dynamics.index(d)
                         dyn = self.pending_dynamics.pop(index)
                         self.elements.append(dyn)
@@ -4173,6 +4177,14 @@ information.""") % 'lilypond')
                  callback=ly.handle_loglevel_option,
                  type='string')
 
+    p.add_option('--oe', '--ottavas-end-early',
+                 metavar=_('t[rue]/f[alse]'),
+                 action='store',
+                 dest='ottavas_end_early',
+                 help=_('expect <octave-shift> end elements before '
+                        'the associated <note> (as in Finale). '
+                        'Default is f[alse]'))
+
     p.add_option('--nd', '--no-articulation-directions',
                  action="store_false",
                  default=True,
@@ -4676,6 +4688,10 @@ def main():
     # midi-block option
     if options.midi:
         musicexp.set_create_midi(options.midi)
+
+    # ottavas end early option
+    if options.ottavas_end_early:
+        musicexp.set_ottavas_end_early(options.ottavas_end_early)
 
     # transpose function
     if options.transpose:

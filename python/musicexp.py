@@ -416,6 +416,24 @@ def get_tab_clef():
         return "tab"
 
 
+# Implement the command-line option `--ottavas-end-early`.
+def set_ottavas_end_early(option):
+    global ottavas_end_early_option
+    ottavas_end_early_option = option
+
+
+def get_ottavas_end_early():
+    try:
+        if ottavas_end_early_option[0] == 't':
+            return 't'
+        elif ottavas_end_early_option[0] == 'f':
+            return 'f'
+        else:
+            return 'f'
+    except NameError:
+        return 'f'
+
+
 # Implement the command-line option `--string-numbers`.
 def set_string_numbers(option):
     global string_numbers_option
@@ -2288,7 +2306,10 @@ class BracketSpannerEvent(SpanEvent):
 
 class OctaveShiftEvent(SpanEvent):
     def wait_for_note(self):
-        return False
+        if self.span_direction == 1 and get_ottavas_end_early() == 't':
+            return True
+        else:
+            return False
 
     def set_span_type(self, type):
         self.span_type = {'up': 1, 'down': -1}.get(type, 0)

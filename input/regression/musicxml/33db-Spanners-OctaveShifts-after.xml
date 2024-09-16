@@ -181,6 +181,18 @@
         </direction-type>
         <offset>-1</offset>
       </direction>
+    </measure>
+    <!--=======================================================-->
+    <measure number="2">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>32</duration>
+        <voice>1</voice>
+        <type>whole</type>
+      </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>
