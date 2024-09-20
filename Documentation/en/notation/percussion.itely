@@ -236,13 +236,17 @@ following variables have been predefined:
 This is the default.  It typesets a typical drum kit on a
 five-line staff:
 
-@lilypond[quote,line-width=10.0\cm]
+@lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
-  cymc cyms cymr hh hhc hho hhho hhp
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+  cymc cyms cymr
+  hh hhc hho hhho hhp
+  cb hc bd sn ss
+  tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
-  cymc cyms cymr hh hhc hho hhho hhp \break
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+  cymc cyms cymr \break
+  hh hhc hho hhho hhp \break
+  cb hc bd sn ss \break
+  tomh tommh tomml toml tomfh tomfl }
 \score {
   << \new DrumStaff \with {
        \remove Bar_engraver
@@ -256,7 +260,8 @@ mus = \drummode {
     \context {
       \Score
       \override LyricText.font-family = #'typewriter
-      \override BarNumber.transparent =##T
+      \override LyricText.font-features = #'("-liga")
+      \override BarNumber.transparent = ##t
     }
   }
 }
@@ -271,13 +276,17 @@ example, to get toms on the three middle lines you use
 Invented by the French percussionist Dante Agostini in 1965, this notation is
 commonly employed in France but also elsewhere.
 
-@lilypond[quote,line-width=10.0\cm]
+@lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
-  cymc cyms cymr hh hhc hho hhho hhp
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+  cymc cyms cymr
+  hh hhc hho hhho hhp
+  cb hc bd sn ss
+  tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
-  cymc cyms cymr hh hhc hho hhho hhp \break
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+  cymc cyms cymr \break
+  hh hhc hho hhho hhp \break
+  cb hc bd sn ss \break
+  tomh tommh tomml toml tomfh tomfl }
 \score {
   << \new DrumStaff \with {
        \remove Bar_engraver
@@ -292,26 +301,28 @@ mus = \drummode {
     \context {
       \Score
       \override LyricText.font-family = #'typewriter
-      \override BarNumber.transparent =##T
+      \override LyricText.font-features = #'("-liga")
+      \override BarNumber.transparent = ##t
     }
   }
 }
 @end lilypond
 
 @item weinberg-drums-style
-Based on the work of Norman Weinberg, published in his 
+Based on the work of Norman Weinberg, published in his
 @emph{Guidelines for Drumset Notation}.
 
-@lilypond[quote,line-width=10.0\cm]
+@lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
-  bd bda hh hhc hho hhp \break
-  ss sn tomh tommh tomml toml tomfh tomfl \break
-  cymc cymr rb cymra cymch cb }
+  cymc cymr cymra cymch
+  hh hhc hho hhp
+  cb bd bda ss sn rb
+  tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
-  bd bda hh hhc hho hhp \break
-  ss sn tomh tommh tomml toml tomfh tomfl \break
-  cymc cymr rb cymra cymch cb
-  }
+  cymc cymr cymra cymch \break
+  hh hhc hho hhp \break
+  cb bd bda ss sn rb \break
+  tomh tommh tomml toml tomfh tomfl }
 \score {
   << \new DrumStaff \with {
        \remove Bar_engraver
@@ -326,7 +337,8 @@ mus = \drummode {
     \context {
       \Score
       \override LyricText.font-family = #'typewriter
-      \override BarNumber.transparent =##T
+      \override LyricText.font-features = #'("-liga")
+      \override BarNumber.transparent = ##t
     }
   }
 }
