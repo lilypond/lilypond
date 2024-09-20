@@ -171,7 +171,7 @@ All_font_metrics::find_otf_font (const std::string &name)
 
       debug_output ("]", false);
 
-      SCM name_string = ly_string2scm (name);
+      SCM name_string = to_scm (name);
       ret->description_ = scm_cons (name_string, to_scm (1.0));
       otf_dict_->set (sname, ret->self_scm ());
       ret->unprotect ();
@@ -273,8 +273,7 @@ All_font_metrics::display_fonts (SCM port)
 {
   std::string str = display_list (font_config_.get ());
   str += display_config (font_config_.get ());
-  // `str` might contain non-UTF8 characters; we thus can't use
-  // `ly_string2scm`.
+  // `str` might contain non-UTF8 characters; we thus can't use `to_scm`.
   scm_c_write (port, str.c_str (), str.length ());
 }
 

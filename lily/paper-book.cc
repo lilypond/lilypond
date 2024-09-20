@@ -186,7 +186,7 @@ ly_output_formats ()
 {
   SCM lst = SCM_EOL;
   for (std::string const &fmt : output_formats_global)
-    lst = scm_cons (ly_string2scm (fmt), lst);
+    lst = scm_cons (to_scm (fmt), lst);
 
   return lst;
 }
@@ -202,7 +202,7 @@ lilypond_book_output_formats (SCM sym)
 
   SCM lst = SCM_EOL;
   for (std::string const &fmt : formats)
-    lst = scm_cons (ly_string2scm (fmt), lst);
+    lst = scm_cons (to_scm (fmt), lst);
 
   return lst;
 }
@@ -279,13 +279,13 @@ Paper_book::output (SCM output_channel)
   std::string basename = ly_scm2string (output_channel);
   if (get_program_option ("preview"))
     {
-      output_stencil (ly_string2scm (basename + ".preview"),
+      output_stencil (to_scm (basename + ".preview"),
                       Lily::generate_preview_stencil (self_scm ()), formats);
     }
 
   if (get_program_option ("crop"))
     {
-      output_stencil (ly_string2scm (basename + ".cropped"),
+      output_stencil (to_scm (basename + ".cropped"),
                       Lily::generate_crop_stencil (self_scm ()), formats);
     }
 
@@ -392,7 +392,7 @@ Paper_book::output_stencils (SCM out_name, SCM stencils, SCM formats)
           int i = 1;
           for (SCM s = stencils; scm_is_pair (s); s = scm_cdr (s), i++)
             {
-              output_stencil (ly_string2scm (base + "-" + std::to_string (i)),
+              output_stencil (to_scm (base + "-" + std::to_string (i)),
                               scm_car (s), separate_formats);
             }
         }

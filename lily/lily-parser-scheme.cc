@@ -72,7 +72,7 @@ as @code{--output} and @code{-dstrip-output-dir}.
   const auto file = ly_scm2string (name);
   const auto file_name = global_path.find (file, input_extensions);
   const auto out_file_name = output_file_name_for_input_file_name (file_name);
-  return ly_string2scm (out_file_name.to_string ());
+  return to_scm (out_file_name.to_string ());
 }
 
 LY_DEFINE (ly_parse_file, "ly:parse-file", 1, 0, 0, (SCM name),
@@ -128,8 +128,7 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
   */
   if (error)
     /* TODO: pass renamed input file too.  */
-    scm_throw (ly_symbol2scm ("ly-file-failed"),
-               ly_list (ly_string2scm (file_name)));
+    scm_throw (ly_symbol2scm ("ly-file-failed"), ly_list (to_scm (file_name)));
 
   return SCM_UNSPECIFIED;
 }
@@ -159,8 +158,7 @@ Parse the init file @var{name}.
   parser->unprotect ();
 
   if (error)
-    scm_throw (ly_symbol2scm ("ly-file-failed"),
-               ly_list (ly_string2scm (file_name)));
+    scm_throw (ly_symbol2scm ("ly-file-failed"), ly_list (to_scm (file_name)));
 
   return SCM_UNSPECIFIED;
 }
@@ -320,7 +318,7 @@ currently active parser.
 
   auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
-  return ly_string2scm (p->output_basename_);
+  return to_scm (p->output_basename_);
 }
 
 LY_DEFINE (ly_parser_error, "ly:parser-error", 1, 1, 0, (SCM msg, SCM input),

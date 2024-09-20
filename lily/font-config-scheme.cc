@@ -29,7 +29,7 @@ Get the file for font @var{name}, as found by FontConfig.
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   std::string n = ly_scm2string (name);
-  return ly_string2scm (all_fonts_global->get_font_file (n));
+  return to_scm (all_fonts_global->get_font_file (n));
 }
 
 LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 1,

@@ -141,7 +141,7 @@ Convert @var{dur} to a string.
            )")
 {
   auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);
-  return ly_string2scm (a->to_string ());
+  return to_scm (a->to_string ());
 }
 
 LY_DEFINE (ly_duration_factor, "ly:duration-factor", 1, 0, 0, (SCM dur),

@@ -231,7 +231,7 @@ Lily_lexer::start_main_input ()
   new_input (main_input_name_, sources_);
 
   scm_module_define (scm_car (scopes_), ly_symbol2scm ("input-file-name"),
-                     ly_string2scm (main_input_name_));
+                     to_scm (main_input_name_));
 }
 
 // PATH is either a single symbol (or string) or a list of symbols

@@ -83,5 +83,5 @@ Return @var{filename}, suffixed by a randomly generated, hexadecimal id.
 {
   LY_ASSERT_TYPE (scm_is_string, filename, 1);
   auto tmpfile_name = LilyRandom::make_tmpfile_name (ly_scm2string (filename));
-  return ly_string2scm (tmpfile_name);
+  return to_scm (tmpfile_name);
 }

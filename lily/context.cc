@@ -430,7 +430,7 @@ Context::create_context (Context_def *cdef, const std::string &id, SCM ops)
      infant_event_ to create a return value. */
   send_stream_event (this, "CreateContext", 0, ly_symbol2scm ("ops"), ops,
                      ly_symbol2scm ("type"), cdef->get_context_name (),
-                     ly_symbol2scm ("id"), ly_string2scm (id));
+                     ly_symbol2scm ("id"), to_scm (id));
   event_source_->remove_listener (GET_LISTENER (this, acknowledge_infant),
                                   ly_symbol2scm ("AnnounceNewContext"));
 

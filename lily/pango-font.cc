@@ -126,8 +126,8 @@ void
 Pango_font::register_font_file (const std::string &filename,
                                 const std::string &ps_name, int face_index)
 {
-  scm_hash_set_x (physical_font_tab_, ly_string2scm (ps_name),
-                  ly_list (ly_string2scm (filename), to_scm (face_index)));
+  scm_hash_set_x (physical_font_tab_, to_scm (ps_name),
+                  ly_list (to_scm (filename), to_scm (face_index)));
 }
 
 size_t
@@ -495,11 +495,10 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
         = text.substr (glyph_item->item->offset, glyph_item->item->length);
       // See function `glyph-string` in file `output-ps.scm` for documentation
       // of the arguments.
-      SCM expr
-        = ly_list (ly_symbol2scm ("glyph-string"), self_scm (),
-                   ly_string2scm (ps_name), to_scm (size), to_scm (cid_keyed),
-                   glyph_exprs, ly_string2scm (file_name), to_scm (face_index),
-                   ly_string2scm (substr), clusters);
+      SCM expr = ly_list (ly_symbol2scm ("glyph-string"), self_scm (),
+                          to_scm (ps_name), to_scm (size), to_scm (cid_keyed),
+                          glyph_exprs, to_scm (file_name), to_scm (face_index),
+                          to_scm (substr), clusters);
 
       return Stencil (string_extent, expr);
     }
@@ -576,9 +575,9 @@ Pango_font::text_stencil (Output_def * /* state */, const std::string &str,
     {
       // Encapsulate to allow a short-cut for backends that also use
       // Pango for rendering.
-      SCM exp = ly_list (ly_symbol2scm ("utf-8-string"),
-                         ly_string2scm (description_string ()),
-                         ly_string2scm (str), dest.expr ());
+      SCM exp
+        = ly_list (ly_symbol2scm ("utf-8-string"),
+                   to_scm (description_string ()), to_scm (str), dest.expr ());
       dest = Stencil (dest.extent_box (), exp);
     }
   return dest;

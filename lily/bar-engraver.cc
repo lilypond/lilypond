@@ -285,7 +285,7 @@ Bar_engraver::calc_bar_type () const
 
       if (has_underlying_bar)
         {
-          glyphs_tail = glyphs.insert_before (glyphs_tail, ly_string2scm (ub));
+          glyphs_tail = glyphs.insert_before (glyphs_tail, to_scm (ub));
           ++glyphs_tail;
         }
     }

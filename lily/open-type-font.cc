@@ -122,7 +122,7 @@ load_scheme_table (const char *tag_str, FT_Face face)
       contents = "(quote (" + inflated + "))";
     }
 
-  return scm_eval_string (ly_string2scm (contents));
+  return scm_eval_string (to_scm (contents));
 }
 
 Open_type_font::~Open_type_font ()

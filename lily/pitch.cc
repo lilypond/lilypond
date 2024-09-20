@@ -238,7 +238,7 @@ int
 Pitch::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Pitch ", port);
-  scm_display (ly_string2scm (to_string ()), port);
+  scm_display (to_scm (to_string ()), port);
   scm_puts (" >", port);
   return 1;
 }

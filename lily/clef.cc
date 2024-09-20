@@ -42,7 +42,7 @@ Clef::calc_glyph_name (SCM smob)
           str += "_change";
         }
 
-      return ly_string2scm (str);
+      return to_scm (str);
     }
 
   s->suicide ();

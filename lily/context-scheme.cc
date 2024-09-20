@@ -43,7 +43,7 @@ Return the ID string of @var{context}, i.e., for @code{\context Voice = "one"
 {
   auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
 
-  return ly_string2scm (tr->id_string ());
+  return to_scm (tr->id_string ());
 }
 
 LY_DEFINE (ly_context_name, "ly:context-name", 1, 0, 0, (SCM context),

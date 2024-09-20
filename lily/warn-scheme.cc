@@ -241,5 +241,5 @@ Scheme formatting.
         }
       pos++;
     }
-  return ly_string2scm (result);
+  return to_scm (result);
 }

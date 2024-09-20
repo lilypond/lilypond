@@ -141,7 +141,7 @@ from the property alist chain @var{props}.
 
           const std::string before
             = str.substr (last_replacement_end, i - last_replacement_end);
-          acc = scm_cons (ly_string2scm (before), acc);
+          acc = scm_cons (to_scm (before), acc);
           SCM replacement = it->second;
           acc = scm_cons (replacement, acc);
           // Stop doing replacements at this position and advance in the
@@ -155,7 +155,7 @@ from the property alist chain @var{props}.
     }
   const std::string last
     = str.substr (last_replacement_end, i - last_replacement_end);
-  acc = scm_cons (ly_string2scm (last), acc);
+  acc = scm_cons (to_scm (last), acc);
   return Lily::make_concat_markup (scm_reverse_x (acc, SCM_EOL));
 }
 
@@ -186,8 +186,8 @@ Text_interface::interpret_string (Output_def *layout, SCM props,
       SCM rev_transformers = scm_reverse (transformers);
       SCM outer_transformer = scm_car (rev_transformers);
       SCM inner_transformers = scm_reverse (scm_cdr (rev_transformers));
-      SCM transformed = ly_call (outer_transformer, layout->self_scm (), props,
-                                 ly_string2scm (str));
+      SCM transformed
+        = ly_call (outer_transformer, layout->self_scm (), props, to_scm (str));
       SCM props_no_outer_transform
         = scm_cons (scm_acons (ly_symbol2scm ("string-transformers"),
                                inner_transformers, SCM_EOL),

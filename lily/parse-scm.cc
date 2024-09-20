@@ -224,8 +224,8 @@ internal_parse_embedded_scheme (void *p)
 
   SCM port = overlay.as_port ();
   scm_set_port_line_x (port, scm_from_ssize_t (line_number - 1));
-  scm_set_port_filename_x (
-    port, ly_string2scm (start.get_source_file ()->name_string ()));
+  scm_set_port_filename_x (port,
+                           to_scm (start.get_source_file ()->name_string ()));
   // TODO: Do Guile ports count in characters or bytes? Do they do tab
   // expansion for column counts?
   scm_set_port_column_x (port, scm_from_ssize_t (column - 1));

@@ -68,7 +68,7 @@ Return input location in @var{sip} as @code{(file-name line char column)}.
 
   ssize_t l, ch, col, offset = 0;
   ip->get_counts (&l, &ch, &col, &offset);
-  return ly_list (ly_string2scm (ip->file_string ()), scm_from_ssize_t (l),
+  return ly_list (to_scm (ip->file_string ()), scm_from_ssize_t (l),
                   scm_from_ssize_t (ch), scm_from_ssize_t (col));
 }
 
@@ -84,7 +84,7 @@ Return input location in @var{sip} as
 
   auto *const ip = LY_ASSERT_SMOB (Input, sip, 1);
 
-  return ly_list (ly_string2scm (ip->file_string ()),
+  return ly_list (to_scm (ip->file_string ()),
                   scm_from_ssize_t (ip->line_number ()),
                   scm_from_ssize_t (ip->column_number ()),
                   scm_from_ssize_t (ip->end_line_number ()),

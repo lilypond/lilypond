@@ -1090,7 +1090,7 @@ Beam_scoring_problem::solve () const
 
       std::string card = best->score_card_
                          + to_string_f (" c%d/%zu", completed, configs.size ());
-      set_property (beam_, "annotation", ly_string2scm (card));
+      set_property (beam_, "annotation", to_scm (card));
     }
 
   configs.clear ();

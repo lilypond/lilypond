@@ -309,9 +309,8 @@ Paper_column::print (SCM p)
   std::string when = mom ? mom->to_string () : "?/?";
 
   Font_metric *musfont = Font_interface::get_default_font (me);
-  auto t = Text_interface::grob_interpret_markup (me, ly_string2scm (r));
-  auto when_mol
-    = Text_interface::grob_interpret_markup (me, ly_string2scm (when));
+  auto t = Text_interface::grob_interpret_markup (me, to_scm (r));
+  auto when_mol = Text_interface::grob_interpret_markup (me, to_scm (when));
   t.scale (1.2, 1.4);
   t.add_at_edge (Y_AXIS, DOWN, when_mol, 0.1);
   t.align_to (X_AXIS, LEFT);
@@ -342,7 +341,7 @@ Paper_column::print (SCM p)
       arrowhead.scale (1, 1.66);
       Real head_len = arrowhead.extent (X_AXIS).length ();
 
-      SCM number_markup = ly_string2scm (
+      SCM number_markup = to_scm (
         String_convert::form_string ("%5.2lf", sp->ideal_distance ()));
       auto number_stc
         = Text_interface::grob_interpret_markup (me, number_markup);
@@ -387,8 +386,7 @@ Paper_column::print (SCM p)
       arrowhead.scale (1, 1.66);
       Real head_len = arrowhead.extent (X_AXIS).length ();
 
-      SCM number_markup
-        = ly_string2scm (String_convert::form_string ("%5.2lf", dist));
+      SCM number_markup = to_scm (String_convert::form_string ("%5.2lf", dist));
       auto number_stc
         = Text_interface::grob_interpret_markup (me, number_markup);
       number_stc.scale (1, 1.1);

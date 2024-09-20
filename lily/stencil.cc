@@ -400,7 +400,7 @@ Stencil::in_color (Real r, Real g, Real b, Real a) const
 Stencil
 Stencil::in_color (std::string const &css_color) const
 {
-  SCM color = ly_string2scm (css_color);
+  SCM color = to_scm (css_color);
   SCM new_stil = Lily::stencil_with_color (smobbed_copy (), color);
   return *LY_ASSERT_SMOB (const Stencil, new_stil, 0);
 }

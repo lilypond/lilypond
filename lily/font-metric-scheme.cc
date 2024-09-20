@@ -107,7 +107,7 @@ Given the font metric @var{font}, return the corresponding name.
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  return ly_string2scm (fm->font_name ());
+  return to_scm (fm->font_name ());
 }
 
 LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0, (SCM font),

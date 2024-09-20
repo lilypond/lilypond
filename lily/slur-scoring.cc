@@ -389,7 +389,7 @@ Slur::calc_control_points (SCM smob)
       std::string total = best->card ();
       total
         += to_string_f (" TOTAL=%.2f idx=%zu", best->score (), best->index_);
-      set_property (me, "annotation", ly_string2scm (total));
+      set_property (me, "annotation", to_scm (total));
     }
 
   SCM controls = SCM_EOL;

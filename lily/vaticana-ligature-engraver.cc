@@ -672,8 +672,7 @@ Vaticana_ligature_engraver::transform_heads (
         }
 
       if (prev_primitive)
-        set_property (prev_primitive, "glyph-name",
-                      ly_string2scm (prev_glyph_name));
+        set_property (prev_primitive, "glyph-name", to_scm (prev_glyph_name));
 
       /*
        * In the backend, flexa shapes and joins need to know about line
@@ -690,7 +689,7 @@ Vaticana_ligature_engraver::transform_heads (
       prev_glyph_name = glyph_name;
     }
 
-  set_property (prev_primitive, "glyph-name", ly_string2scm (prev_glyph_name));
+  set_property (prev_primitive, "glyph-name", to_scm (prev_glyph_name));
 
   align_heads (primitives, flexa_width, thickness);
 

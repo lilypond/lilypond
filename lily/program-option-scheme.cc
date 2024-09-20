@@ -102,7 +102,7 @@ internal_set_option (SCM var, SCM val)
   else if (varstr == "datadir")
     {
       /* ignore input value. */
-      val = ly_string2scm (lilypond_datadir);
+      val = to_scm (lilypond_datadir);
     }
   else if (varstr == "relative-includes")
     {
@@ -201,7 +201,7 @@ for internal options.
         alist = scm_cons (scm_car (s), alist);
     }
 
-  SCM str = ly_string2scm (get_help_string (alist));
+  SCM str = to_scm (get_help_string (alist));
   scm_write_line (str, port);
 
   return SCM_UNSPECIFIED;
@@ -428,8 +428,8 @@ Return a key-value alist, with keys being symbols and values being strings.
   SCM options = SCM_EOL;
   for (const auto &keyval : init_scheme_variables_global)
     {
-      options = scm_acons (ly_symbol2scm (keyval.first),
-                           ly_string2scm (keyval.second), options);
+      options = scm_acons (ly_symbol2scm (keyval.first), to_scm (keyval.second),
+                           options);
     }
   return scm_reverse_x (options, SCM_EOL);
 }
@@ -439,7 +439,7 @@ LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
 The Scheme code specified on the command line with option @option{-e}.
            )")
 {
-  return ly_string2scm (init_scheme_code_global);
+  return to_scm (init_scheme_code_global);
 }
 
 LY_DEFINE (ly_verbose_output_p, "ly:verbose-output?", 0, 0, 0, (),

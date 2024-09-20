@@ -246,7 +246,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 
 	yy_pop_state ();
 
-	SCM parsed_version = Lily::parse_and_check_version (ly_string2scm (s));
+	SCM parsed_version = Lily::parse_and_check_version (to_scm (s));
 	// from_scm<bool> would return false for a non-boolean value, which
 	// is not what we want here.
 	bool parsed_version_valid = scm_is_true (parsed_version);
@@ -276,7 +276,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 	message (_f ("Renaming input to: `%s'", s.c_str ()));
 	scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
-		     ly_string2scm (s));
+		     to_scm (s));
 
 }
 
@@ -607,7 +607,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 		if (s == "--")
 			return HYPHEN;
 		s = lyric_fudge (s);
-		yylval = ly_string2scm (s);
+		yylval = to_scm (s);
 
 		return SYMBOL;
 	}
@@ -717,7 +717,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 	[^$#{}\"\\ \t\n\r\f]+ {
 		string s (YYText_utf8 ());
 
-		yylval = ly_string2scm (s);
+		yylval = to_scm (s);
 		return SYMBOL;
 	}
 	[{}]  {
@@ -966,7 +966,7 @@ Lily_lexer::scan_escaped_word (const string &str)
 	string msg (_f ("unknown command: `\\%s'", str));
 	LexerError (msg.c_str ());
 
-	yylval = ly_string2scm (str);
+	yylval = to_scm (str);
 
 	return STRING; // SYMBOL would cause additional processing
 }
@@ -986,7 +986,7 @@ Lily_lexer::scan_shorthand (const string &str)
 	string msg (_f ("undefined character or shorthand: %s", str));
 	LexerError (msg.c_str ());
 
-	yylval = ly_string2scm (str);
+	yylval = to_scm (str);
 
 	return STRING;
 }
@@ -1078,7 +1078,7 @@ Lily_lexer::scan_bare_word (const string &str)
 	{
 		return state;
 	}
-	yylval = ly_string2scm (str);
+	yylval = to_scm (str);
 	return SYMBOL;
 }
 
@@ -1312,13 +1312,13 @@ scan_fraction (string frac)
 SCM
 lookup_markup_command (string s)
 {
-	return Lily::lookup_markup_command (ly_string2scm (s));
+	return Lily::lookup_markup_command (to_scm (s));
 }
 
 SCM
 lookup_markup_list_command (string s)
 {
-	return Lily::lookup_markup_list_command (ly_string2scm (s));
+	return Lily::lookup_markup_list_command (to_scm (s));
 }
 
 /* Shut up lexer warnings.  */

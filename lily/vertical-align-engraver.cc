@@ -143,7 +143,7 @@ Vertical_align_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
       auto *const origin_ctx = i.origin_engraver ()->context ();
       const auto &id = origin_ctx->id_string ();
 
-      scm_hash_set_x (id_to_group_hashtab_, ly_string2scm (id),
+      scm_hash_set_x (id_to_group_hashtab_, to_scm (id),
                       i.grob ()->self_scm ());
 
       SCM before_id = get_property (origin_ctx, "alignAboveContext");

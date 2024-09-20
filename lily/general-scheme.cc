@@ -79,7 +79,7 @@ instead.
   debug_output (String_convert::form_string (
     "Found file in search path: %s -> %s", nm.c_str (), file_name.c_str ()));
 
-  return ly_string2scm (file_name);
+  return to_scm (file_name);
 }
 
 LY_DEFINE (ly_rename_file, "ly:rename-file", 2, 0, 0,
@@ -166,7 +166,7 @@ Replace string@tie{}@var{a} by string@tie{}@var{b} in string@tie{}@var{s}.
   std::string ss = ly_scm2string (s);
   replace_all (&ss, ly_scm2string (a), ly_scm2string (b));
 
-  return ly_string2scm (ss);
+  return to_scm (ss);
 }
 
 LY_DEFINE (ly_string_percent_encode, "ly:string-percent-encode", 1, 0, 0,
@@ -182,7 +182,7 @@ characters in ranges @code{0-9}, @code{A-Z}, and @code{a-z}.
   std::string orig_str = ly_scm2string (str);
   std::string new_str = String_convert::percent_encode (orig_str);
 
-  return ly_string2scm (new_str);
+  return to_scm (new_str);
 }
 
 LY_DEFINE (ly_number_2_string, "ly:number->string", 1, 0, 0, (SCM s),
@@ -255,7 +255,7 @@ directory @file{/foo/bar/scm} and PS files in @file{/foo/bar/ps}, the effective
 prefix is @file{/foo/bar}.
            )")
 {
-  return ly_string2scm (lilypond_datadir);
+  return to_scm (lilypond_datadir);
 }
 
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get", 2, 2, 0,
@@ -483,7 +483,7 @@ Basic support for @code{~s} is also provided.
   for (const auto &r : results)
     result.append (r);
 
-  return ly_string2scm (result);
+  return to_scm (result);
 }
 
 int

@@ -1273,7 +1273,7 @@ Tie_formatting_problem::set_debug_scoring (Ties_configuration const &base)
         {
           std::string card = base.complete_tie_card (i);
           set_property (specifications_[i].tie_grob_, "annotation",
-                        ly_string2scm (card));
+                        to_scm (card));
         }
     }
 }

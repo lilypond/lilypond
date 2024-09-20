@@ -121,7 +121,7 @@ optionally be specified.
        = lex->file_name_strings_.begin ();
        i != lex->file_name_strings_.end (); ++i)
     {
-      lst = scm_cons (ly_string2scm (*i), lst);
+      lst = scm_cons (to_scm (*i), lst);
     }
   return scm_reverse_x (lst, SCM_EOL);
 }
