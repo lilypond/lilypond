@@ -347,6 +347,7 @@ midiDrumPitches =
      (closedhihat cross stopped 5)
      (openhihat cross open 5)
      (hihat cross #f 5)
+     (halfopenhihat cross halfopen 5)
      (ridecymbal cross #f 4)
      (ridebell diamond #f 4)
      (hightom () #f 4)
