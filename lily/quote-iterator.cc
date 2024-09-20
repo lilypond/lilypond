@@ -243,7 +243,8 @@ Quote_iterator::process (Moment m)
           me_pitch = &temp_pitch;
         }
       SCM cid = get_property (get_music (), "quoted-context-id");
-      bool is_cue = scm_is_string (cid) && (ly_scm2string (cid) == "cue");
+      bool is_cue
+        = scm_is_string (cid) && (from_scm<std::string> (cid) == "cue");
 
       for (SCM s = scm_cdr (entry); scm_is_pair (s); s = scm_cdr (s))
         {

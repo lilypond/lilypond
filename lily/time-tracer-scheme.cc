@@ -38,7 +38,7 @@ the new trace.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
-  tracer_global.log_first_begin_event (ly_scm2string (name));
+  tracer_global.log_first_begin_event (from_scm<std::string> (name));
   return SCM_UNSPECIFIED;
 }
 
@@ -53,7 +53,7 @@ Direct time-trace output to file @var{file-name}.  If @var{file-name} is
     {
       LY_ASSERT_TYPE (scm_is_string, file_name, 1);
 
-      std::string f = ly_scm2string (file_name);
+      const auto f = from_scm<std::string> (file_name);
       if (!tracer_global.set_file (f.c_str ()))
         {
           error (_f ("failed redirecting time-trace output to `%s'", f.c_str ())
@@ -87,7 +87,7 @@ from child processes into the parent's trace.
 {
   LY_ASSERT_TYPE (scm_is_string, file_name, 1);
 
-  const auto f = ly_scm2string (file_name);
+  const auto f = from_scm<std::string> (file_name);
   auto trace_slice = tracer_global.log_scope (
     String_convert::form_string ("Include time-trace %s", f.c_str ()));
 

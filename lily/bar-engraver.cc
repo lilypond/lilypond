@@ -175,7 +175,7 @@ Bar_engraver::calc_bar_type () const
         SCM s = get_property (this, context_prop_sym);
         if (scm_is_string (s))
           {
-            ub = ly_scm2string (s);
+            ub = from_scm<std::string> (s);
             has_underlying_bar = true;
           }
       };
@@ -187,7 +187,7 @@ Bar_engraver::calc_bar_type () const
             SCM s = scm_assq_ref (caesura_type, subprop_sym);
             if (scm_is_string (s))
               {
-                ub = ly_scm2string (s);
+                ub = from_scm<std::string> (s);
                 has_underlying_bar = true;
               }
           };

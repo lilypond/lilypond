@@ -56,7 +56,7 @@ ly_scm_write_string (SCM s)
     = scm_mkstrport (SCM_INUM0, scm_make_string (SCM_INUM0, SCM_UNDEFINED),
                      SCM_OPN | SCM_WRTNG, "ly_write2string");
   scm_write (s, port);
-  return ly_scm2string (scm_strport_to_string (port));
+  return from_scm<std::string> (scm_strport_to_string (port));
 }
 
 std::string
@@ -65,7 +65,7 @@ ly_symbol2string (SCM s)
   /*
     Ugh. this is not very efficient.
   */
-  return ly_scm2string (scm_symbol_to_string (s));
+  return from_scm<std::string> (scm_symbol_to_string (s));
 }
 
 std::string
@@ -281,7 +281,8 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
       warning (_f (
         "the property '%s' must be of type '%s', ignoring invalid value '%s'",
-        ly_symbol2string (sym).c_str (), ly_scm2string (type_name).c_str (),
+        ly_symbol2string (sym).c_str (),
+        from_scm<std::string> (type_name).c_str (),
         print_scm_val (val).c_str ()));
       return false;
     }

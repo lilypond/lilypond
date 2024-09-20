@@ -63,7 +63,7 @@ populate_cache (SCM alist)
       if (!scm_is_string (k))
         continue;
 
-      std::string orig = ly_scm2string (k);
+      const auto orig = from_scm<std::string> (k);
       if (orig.empty ())
         continue;
 
@@ -95,7 +95,7 @@ A string transformer to perform text replacements using the @code{replacement-al
 from the property alist chain @var{props}.
            )")
 {
-  std::string str = ly_scm2string (input_string);
+  const auto str = from_scm<std::string> (input_string);
   SCM replacement_alist
     = ly_chain_assoc_get (ly_symbol2scm ("replacement-alist"), props, SCM_EOL);
 
@@ -221,7 +221,7 @@ Text_interface::interpret_string (Output_def *layout, SCM props,
                 {
                   features_str += ",";
                 }
-              features_str += ly_scm2string (feature);
+              features_str += from_scm<std::string> (feature);
             }
           else
             {
@@ -275,7 +275,7 @@ Text_interface::interpret_markup (Output_def *layout, SCM props, SCM markup)
 {
   if (scm_is_string (markup))
     {
-      std::string str = ly_scm2string (markup); // NB not const
+      auto str = from_scm<std::string> (markup); // NB not const
       return interpret_string (layout, props, str);
     }
   else if (is_markup (markup))

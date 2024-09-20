@@ -41,6 +41,7 @@ performance in the file metadata.
   LY_ASSERT_TYPE (scm_is_string, filename, 2);
   LY_ASSERT_TYPE (scm_is_string, name, 3);
 
-  p->write_output (ly_scm2string (filename), ly_scm2string (name));
+  p->write_output (from_scm<std::string> (filename),
+                   from_scm<std::string> (name));
   return SCM_UNSPECIFIED;
 }

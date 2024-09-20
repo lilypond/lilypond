@@ -31,7 +31,7 @@ Clef_modifier::calc_parent_alignment (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *clef = me->get_x_parent ();
-  std::string full_clef_name = ly_scm2string (get_property (clef, "glyph"));
+  auto full_clef_name = from_scm<std::string> (get_property (clef, "glyph"));
   std::string clef_name = replace_all (&full_clef_name, "clefs.", "");
 
   // find entry with keyname clef_type in clef-alignments

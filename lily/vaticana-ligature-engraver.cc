@@ -232,7 +232,7 @@ Vaticana_ligature_engraver::align_heads (std::vector<Item *> const &primitives,
                                         " ignoring grob");
           continue;
         }
-      std::string glyph_name = ly_scm2string (glyph_name_scm);
+      const auto glyph_name = from_scm<std::string> (glyph_name_scm);
 
       int delta_pitch = 0;
       if (prev_primitive) /* urgh, need prev_primitive only here */

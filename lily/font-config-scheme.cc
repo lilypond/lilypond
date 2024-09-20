@@ -28,7 +28,7 @@ Get the file for font @var{name}, as found by FontConfig.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
-  std::string n = ly_scm2string (name);
+  const auto n = from_scm<std::string> (name);
   return to_scm (all_fonts_global->get_font_file (n));
 }
 
@@ -58,7 +58,7 @@ Add directory @var{dir} to FontConfig.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, dir, 1);
-  std::string d = ly_scm2string (dir);
+  const auto d = from_scm<std::string> (dir);
   all_fonts_global->add_font_directory (d);
   return SCM_UNSPECIFIED;
 }
@@ -70,7 +70,7 @@ Add font @var{font} to FontConfig.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, font, 1);
-  std::string f = ly_scm2string (font);
+  const auto f = from_scm<std::string> (font);
   all_fonts_global->add_font_file (f);
   return SCM_UNSPECIFIED;
 }

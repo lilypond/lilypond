@@ -153,9 +153,10 @@ struct Parse_start
         SCM context = scm_make_string (column, space);
         non_fatal_error (
           _ ("Guile signaled an error for the expression beginning here") + "\n"
-            + ly_scm2string (before_substring) + "\n" + ly_scm2string (context)
-            + ly_scm2string (after_substring),
-          ly_scm2string (filename) + ":"
+            + from_scm<std::string> (before_substring) + "\n"
+            + from_scm<std::string> (context)
+            + from_scm<std::string> (after_substring),
+          from_scm<std::string> (filename) + ":"
             + ly_scm_write_string (scm_oneplus (line)) + ":"
             + ly_scm_write_string (scm_oneplus (column)));
       }

@@ -78,7 +78,7 @@ Key_signature_interface::print (SCM smob)
           continue;
         }
 
-      std::string glyph_name = ly_scm2string (glyph_name_scm);
+      const auto glyph_name = from_scm<std::string> (glyph_name_scm);
 
       Stencil acc (fm->find_by_name (glyph_name));
 

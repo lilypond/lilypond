@@ -102,7 +102,7 @@ get_voice_to_lyrics (Context *lyrics)
   std::string nm = lyrics->id_string ();
 
   if (scm_is_string (voice_name))
-    nm = ly_scm2string (voice_name);
+    nm = from_scm<std::string> (voice_name);
   else if (nm == "" || !searchForVoice)
     return 0;
   else

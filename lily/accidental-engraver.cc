@@ -157,7 +157,7 @@ check_pitch_against_rules (Pitch const &pitch, Context *origin, SCM rules,
 
   if (scm_is_pair (rules) && !scm_is_symbol (scm_car (rules)))
     warning (_f ("accidental typesetting list must begin with context-name: %s",
-                 ly_scm2string (scm_car (rules)).c_str ()));
+                 from_scm<std::string> (scm_car (rules)).c_str ()));
 
   for (; scm_is_pair (rules) && origin; rules = scm_cdr (rules))
     {

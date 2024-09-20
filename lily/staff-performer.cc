@@ -242,10 +242,11 @@ Staff_performer::new_instrument_string ()
   // mustn't ask Score for instrument: it will return piano!
   SCM minstr = get_property (this, "midiInstrument");
 
-  if (!scm_is_string (minstr) || ly_scm2string (minstr) == instrument_string_)
+  if (!scm_is_string (minstr)
+      || from_scm<std::string> (minstr) == instrument_string_)
     return "";
 
-  instrument_string_ = ly_scm2string (minstr);
+  instrument_string_ = from_scm<std::string> (minstr);
 
   return instrument_string_;
 }

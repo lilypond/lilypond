@@ -147,9 +147,8 @@ get_help_string (SCM alist)
       if (scm_is_false (type))
         continue;
 
-      std::string opt_spec = std::string (INDENT, ' ') + ly_symbol2string (sym)
-                             + " (" + ly_scm2string (Lily::scm_to_string (val))
-                             + ")";
+      auto opt_spec = std::string (INDENT, ' ') + ly_symbol2string (sym) + " ("
+                      + from_scm<std::string> (Lily::scm_to_string (val)) + ")";
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)
         opt_spec += '\n' + std::string (HELP_INDENT, ' ');
@@ -158,7 +157,7 @@ get_help_string (SCM alist)
 
       SCM opt_help_scm = scm_object_property (
         sym, ly_symbol2scm ("program-option-documentation"));
-      std::string opt_help = ly_scm2string (opt_help_scm);
+      auto opt_help = from_scm<std::string> (opt_help_scm);
       replace_all (&opt_help, std::string ("\n"),
                    std::string ("\n") + std::string (HELP_INDENT, ' '));
 
@@ -322,10 +321,10 @@ check_value_type (SCM key, SCM val)
     {
       if (scm_is_false (ly_call (type, val)))
         {
-          std::string key_str
-            = ly_scm2string (scm_object_to_string (key, SCM_UNDEFINED));
-          std::string val_str
-            = ly_scm2string (scm_object_to_string (val, SCM_UNDEFINED));
+          const auto key_str
+            = from_scm<std::string> (scm_object_to_string (key, SCM_UNDEFINED));
+          const auto val_str
+            = from_scm<std::string> (scm_object_to_string (val, SCM_UNDEFINED));
           warning (_f ("ignoring option -d%s=\"%s\": value has wrong type",
                        key_str, val_str));
           return false;
@@ -335,12 +334,12 @@ check_value_type (SCM key, SCM val)
     {
       if (scm_is_false (scm_member (val, type)))
         {
-          std::string key_str
-            = ly_scm2string (scm_object_to_string (key, SCM_UNDEFINED));
-          std::string val_str
-            = ly_scm2string (scm_object_to_string (val, SCM_UNDEFINED));
-          std::string type_str
-            = ly_scm2string (scm_object_to_string (type, SCM_UNDEFINED));
+          const auto key_str
+            = from_scm<std::string> (scm_object_to_string (key, SCM_UNDEFINED));
+          const auto val_str
+            = from_scm<std::string> (scm_object_to_string (val, SCM_UNDEFINED));
+          const auto type_str = from_scm<std::string> (
+            scm_object_to_string (type, SCM_UNDEFINED));
           warning (_f ("ignoring option -d%s=\"%s\":\n"
                        "  invalid value; possible values are %s",
                        key_str, val_str, type_str));

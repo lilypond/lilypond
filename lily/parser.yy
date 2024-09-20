@@ -3290,7 +3290,7 @@ direction_reqd_event:
 		$$ = $1;
 	}
 	| script_abbreviation {
-		SCM sym = ly_symbol2scm ("dash" + ly_scm2string ($1));
+		SCM sym = ly_symbol2scm ("dash" + from_scm<std::string> ($1));
 		SCM s = parser->lexer_->lookup_identifier_symbol (sym);
 		Music *original = unsmob<Music> (s);
 		if (original && original->is_mus_type ("post-event")) {
@@ -3596,7 +3596,7 @@ bass_figure:
 		if (scm_is_number (get_property (m, "alteration")))
 			m->warning (_f ("Dropping surplus alteration symbols for bass figure."));
 		else {
-			string alter_expr = ly_scm2string ($2);
+			auto alter_expr = from_scm<std::string> ($2);
 			Rational alter (0);
 			bool bracket = false;
 
@@ -3758,7 +3758,7 @@ simple_element:
 	}
  	| RESTNAME optional_notemode_duration		{
 		Music *ev = 0;
- 		if (ly_scm2string ($1) == "s") {
+ 		if (from_scm<std::string> ($1) == "s") {
 			/* Space */
 			ev = MY_MAKE_MUSIC ("SkipEvent", @$);
 		  }
@@ -3779,7 +3779,7 @@ lyric_element:
 	}
 	| SYMBOL {
 		if (!parser->lexer_->is_lyric_state ())
-			parser->parser_error (@1, _f ("not a note name: %s", ly_scm2string ($1)));
+			parser->parser_error (@1, _f ("not a note name: %s", from_scm<std::string> ($1)));
 		$$ = $1;
 	}
 	| STRING {
@@ -4526,7 +4526,7 @@ is_regular_identifier (SCM id, bool multiple)
   if (!scm_is_string (id))
 	  return false;
 
-  string str = ly_scm2string (id);
+  auto str = from_scm<std::string> (id);
 
   bool middle = false;
 

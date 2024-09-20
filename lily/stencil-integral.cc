@@ -538,7 +538,7 @@ add_named_glyph_segments (Lazy_skyline_pair *skyline,
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
   expr = scm_cdr (expr);
   SCM glyph = scm_car (expr);
-  std::string glyph_s = ly_scm2string (glyph);
+  const auto glyph_s = from_scm<std::string> (glyph);
 
   Open_type_font *open_fm = dynamic_cast<Open_type_font *> (
     dynamic_cast<Modified_font_metric *> (fm)->original_font ());

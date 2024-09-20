@@ -38,7 +38,7 @@ and @code{fetaBraces}, respectively.
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
 
-  Stencil m = fm->find_by_name (ly_scm2string (name));
+  Stencil m = fm->find_by_name (from_scm<std::string> (name));
 
   /* TODO: make optional argument for default if not found.  */
   return m.smobbed_copy ();
@@ -58,7 +58,7 @@ and @code{fetaBraces}, respectively.
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
 
-  size_t glyph_index = fm->name_to_index (ly_scm2string (name));
+  size_t glyph_index = fm->name_to_index (from_scm<std::string> (name));
   if (glyph_index != GLYPH_INDEX_INVALID)
     return to_scm (glyph_index);
   else

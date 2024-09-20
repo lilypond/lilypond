@@ -141,6 +141,6 @@ In general, this function can embed arbitrary files into LilyPond's PDF output
   if (SCM_UNBNDP (parser))
     parser = scm_fluid_ref (Lily::f_parser);
   auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 2);
-  p->lexer_->file_name_strings_.push_back (ly_scm2string (filename));
+  p->lexer_->file_name_strings_.push_back (from_scm<std::string> (filename));
   return SCM_UNSPECIFIED;
 }

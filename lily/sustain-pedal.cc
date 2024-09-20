@@ -55,7 +55,7 @@ Sustain_pedal::print (SCM smob)
   if (!scm_is_string (glyph))
     return mol.smobbed_copy ();
 
-  std::string text = ly_scm2string (glyph);
+  const auto text = from_scm<std::string> (glyph);
 
   for (ssize i = 0; i < text.length (); i++)
     {

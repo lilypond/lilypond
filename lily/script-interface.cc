@@ -65,7 +65,7 @@ Script_interface::get_stencil (Grob *me, Direction d)
       else
         str = name_entry;
       return Font_interface::get_default_font (me)->find_by_name (
-        "scripts." + ly_scm2string (str));
+        "scripts." + from_scm<std::string> (str));
     }
   else
     {

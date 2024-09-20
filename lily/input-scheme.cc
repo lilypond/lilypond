@@ -33,7 +33,7 @@ Print @var{msg} as a GNU compliant warning message, pointing to the location in
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
 
-  std::string m = ly_scm2string (msg);
+  const auto m = from_scm<std::string> (msg);
   ip->warning (m);
 
   return SCM_UNSPECIFIED;
@@ -52,7 +52,7 @@ Print @var{msg} as a GNU compliant error message, pointing to the location in
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
 
-  std::string m = ly_scm2string (msg);
+  const auto m = from_scm<std::string> (msg);
   ip->message (m);
 
   return SCM_UNSPECIFIED;

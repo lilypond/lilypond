@@ -63,7 +63,7 @@ instead.
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
 
-  std::string nm = ly_scm2string (name);
+  const auto nm = from_scm<std::string> (name);
   std::string file_name = global_path.find (nm);
   if (file_name.empty ())
     {
@@ -73,7 +73,7 @@ instead.
       error (std::string (_f ("cannot find file '%s'", nm)) + " "
              + _f ("(load path: '%s', cwd: '%s')",
                    global_path.to_string ().c_str (),
-                   ly_scm2string (scm_getcwd ()).c_str ()));
+                   from_scm<std::string> (scm_getcwd ()).c_str ()));
     }
 
   debug_output (String_convert::form_string (
@@ -94,8 +94,8 @@ cannot be deleted.
   LY_ASSERT_TYPE (scm_is_string, oldname, 1);
   LY_ASSERT_TYPE (scm_is_string, newname, 1);
 
-  std::string oldname_s = ly_scm2string (oldname);
-  std::string newname_s = ly_scm2string (newname);
+  const auto oldname_s = from_scm<std::string> (oldname);
+  const auto newname_s = from_scm<std::string> (newname);
 
   if (!rename_file (oldname_s.c_str (), newname_s.c_str ()))
     {
@@ -141,10 +141,10 @@ Return value if @var{key} in @var{alist}, else @var{default-value} (or
 
   if (from_scm<bool> (strict_checking))
     {
-      std::string key_string
-        = ly_scm2string (scm_object_to_string (key, SCM_UNDEFINED));
-      std::string default_value_string
-        = ly_scm2string (scm_object_to_string (default_value, SCM_UNDEFINED));
+      const auto key_string
+        = from_scm<std::string> (scm_object_to_string (key, SCM_UNDEFINED));
+      const auto default_value_string = from_scm<std::string> (
+        scm_object_to_string (default_value, SCM_UNDEFINED));
       programming_error ("Cannot find key `" + key_string
                          + "' in alist, setting to `" + default_value_string
                          + "'.");
@@ -163,8 +163,8 @@ Replace string@tie{}@var{a} by string@tie{}@var{b} in string@tie{}@var{s}.
   LY_ASSERT_TYPE (scm_is_string, b, 2);
   LY_ASSERT_TYPE (scm_is_string, s, 3);
 
-  std::string ss = ly_scm2string (s);
-  replace_all (&ss, ly_scm2string (a), ly_scm2string (b));
+  auto ss = from_scm<std::string> (s);
+  replace_all (&ss, from_scm<std::string> (a), from_scm<std::string> (b));
 
   return to_scm (ss);
 }
@@ -179,7 +179,7 @@ characters in ranges @code{0-9}, @code{A-Z}, and @code{a-z}.
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 
-  std::string orig_str = ly_scm2string (str);
+  const auto orig_str = from_scm<std::string> (str);
   std::string new_str = String_convert::percent_encode (orig_str);
 
   return to_scm (new_str);
@@ -279,10 +279,10 @@ output in such cases.
 
   if (from_scm<bool> (strict_checking))
     {
-      std::string key_string
-        = ly_scm2string (scm_object_to_string (key, SCM_UNDEFINED));
-      std::string default_value_string
-        = ly_scm2string (scm_object_to_string (default_value, SCM_UNDEFINED));
+      const auto key_string
+        = from_scm<std::string> (scm_object_to_string (key, SCM_UNDEFINED));
+      const auto default_value_string = from_scm<std::string> (
+        scm_object_to_string (default_value, SCM_UNDEFINED));
       programming_error ("Cannot find key `" + key_string
                          + "' in achain, setting to `" + default_value_string
                          + "'.");
@@ -313,7 +313,7 @@ first parameter is an integer, or to file @var{file-name}, opened with
 
   LY_ASSERT_TYPE (scm_is_string, fd_or_file_name, 1);
 
-  std::string f = ly_scm2string (fd_or_file_name);
+  const auto f = from_scm<std::string> (fd_or_file_name);
   const auto m = from_scm (mode, "w");
   int backup_fd = dup (fileno (stderr));
   FILE *stderrfile = freopen (f.c_str (), m.c_str (), stderr);
@@ -386,7 +386,7 @@ format_single_argument (SCM arg, int precision, bool escape = false)
     }
   else if (scm_is_string (arg))
     {
-      std::string s = ly_scm2string (arg);
+      auto s = from_scm<std::string> (arg);
       if (escape)
         {
           // Escape backslashes and double quotes, wrap it in double quotes
@@ -419,7 +419,7 @@ Basic support for @code{~s} is also provided.
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 
-  std::string format = ly_scm2string (str);
+  const auto format = from_scm<std::string> (str);
   std::vector<std::string> results;
 
   vsize i = 0;
@@ -646,7 +646,7 @@ Use GhostScript started with @var{args}, and run @var{run_string}
   }
 
   // Construct the command.
-  std::string command = ly_scm2string (run_string);
+  const auto command = from_scm<std::string> (run_string);
 
   debug_output (_f ("Running GhostScript command: %s\n", command.c_str ()));
 

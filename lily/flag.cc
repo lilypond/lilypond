@@ -144,7 +144,7 @@ Flag::print (SCM smob)
   SCM stroke_style_scm = get_property (me, "stroke-style");
   if (scm_is_string (stroke_style_scm))
     {
-      std::string stroke_style = ly_scm2string (stroke_style_scm);
+      const auto stroke_style = from_scm<std::string> (stroke_style_scm);
       if (!stroke_style.empty ())
         {
           std::string font_char = flag_style + dir + stroke_style;

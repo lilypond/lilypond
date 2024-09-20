@@ -45,7 +45,7 @@ only; it specifies the font index within the OTC.  The default value of
         }
     }
 
-  std::string file_name = ly_scm2string (otf_file_name);
+  const auto file_name = from_scm<std::string> (otf_file_name);
   debug_output ("[" + file_name); // start message on a new line
 
   FT_Face face;

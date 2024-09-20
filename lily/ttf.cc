@@ -490,7 +490,7 @@ index within the TTC.  The default value of @var{idx} is@tie{}0.
         }
     }
 
-  std::string file_name = ly_scm2string (ttf_file_name);
+  const auto file_name = from_scm<std::string> (ttf_file_name);
   debug_output ("\n[" + file_name, false);
 
   FT_Face face;
@@ -539,7 +539,7 @@ The default value of @var{idx} is@tie{}0.
         }
     }
 
-  std::string file_name = ly_scm2string (ttf_file_name);
+  const auto file_name = from_scm<std::string> (ttf_file_name);
   debug_output ("[" + file_name); // Debug message should start on a new line
 
   std::ostringstream stream;

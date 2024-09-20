@@ -37,5 +37,5 @@ Get attachment in @var{font-metric} for attaching a stem to notehead
     LY_ASSERT_TYPE (is_scm<Direction>, direction, 3);
 
   return to_scm (Note_head::get_stem_attachment (
-    fm, ly_scm2string (glyph_name), from_scm<Direction> (direction)));
+    fm, from_scm<std::string> (glyph_name), from_scm<Direction> (direction)));
 }

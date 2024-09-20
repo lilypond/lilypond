@@ -341,7 +341,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 	string s = YYText_utf8 () + 1;
 	SCM sid = lookup_identifier_symbol (ly_symbol2scm (s));
 	if (scm_is_string (sid)) {
-		new_input (ly_scm2string (sid), sources_);
+		new_input (from_scm<std::string> (sid), sources_);
 		yy_pop_state ();
 	} else {
 	    string msg (_f ("wrong or undefined identifier: `%s'", s ));
@@ -362,7 +362,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 	skip_chars (parsed.size ());
 
 	if (scm_is_string (sval)) {
-		new_input (ly_scm2string (sval), sources_);
+		new_input (from_scm<std::string> (sval), sources_);
 		yy_pop_state ();
 	} else {
 		LexerError (_ ("string expected after \\include").c_str ());
@@ -552,7 +552,7 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 
 		if (get_state () == commandquote) {
 			yy_pop_state ();
-			return scan_escaped_word (ly_scm2string (yylval));
+			return scan_escaped_word (from_scm<std::string> (yylval));
 		}
 
 		yy_pop_state ();

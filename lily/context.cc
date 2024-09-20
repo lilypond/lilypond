@@ -346,7 +346,7 @@ Context::create_context_from_event (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
 
-  std::string id = ly_scm2string (get_property (ev, "id"));
+  const auto id = from_scm<std::string> (get_property (ev, "id"));
   SCM ops = get_property (ev, "ops");
   SCM type_scm = get_property (ev, "type");
   std::string type = ly_symbol2string (type_scm);

@@ -74,7 +74,8 @@ void
 Change_iterator::process (Moment m)
 {
   SCM to_type = get_property (get_music (), "change-to-type");
-  auto to_id = ly_scm2string (get_property (get_music (), "change-to-id"));
+  const auto to_id
+    = from_scm<std::string> (get_property (get_music (), "change-to-id"));
 
   // Find the context to change from.
   auto *const last = get_context ()->find_context (UP, to_type, "");

@@ -406,7 +406,7 @@ void
 Cairo_outputter::show_named_glyph (SCM scaled_font, SCM glyphname)
 {
   auto *const mfm = LY_ASSERT_SMOB (Modified_font_metric, scaled_font, 1);
-  std::string g = ly_scm2string (glyphname);
+  const auto g = from_scm<std::string> (glyphname);
 
   Font_metric *orig = mfm->original_font ();
   auto otf = dynamic_cast<Open_type_font *> (orig);
@@ -449,7 +449,7 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
   cairo_get_current_point (context (), &startx, &starty);
 
   FT_Face ft_face
-    = ft_font (ly_scm2string (filename), from_scm<int> (face_index));
+    = ft_font (from_scm<std::string> (filename), from_scm<int> (face_index));
   cairo_set_font_face (context (), cairo_font_for_ft_font (ft_face));
 
   // TODO - why do we need to scale with scale_factor here?
@@ -481,7 +481,7 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
       sumw = sumw + w;
     }
 
-  std::string text_str = ly_scm2string (text);
+  const auto text_str = from_scm<std::string> (text);
   if (scm_is_false (clusters))
     {
       cairo_show_glyphs (context (), cairo_glyphs.data (),
@@ -988,7 +988,7 @@ Cairo_outputter::eps_file (SCM content, SCM bbox_scm, SCM scale)
     bbox.push_back (from_scm<int> (scm_car (b)));
 
   assert (bbox.size () == 4);
-  eps_file (ly_scm2string (content), bbox, from_scm<Real> (scale));
+  eps_file (from_scm<std::string> (content), bbox, from_scm<Real> (scale));
 }
 
 void
@@ -1003,7 +1003,7 @@ Cairo_outputter::embedded_ps (SCM arg)
       warned = true;
       return;
     }
-  std::string command = ly_scm2string (arg);
+  const auto command = from_scm<std::string> (arg);
 
   Offset sz = surface_->original_extent ();
   Real x, y;
@@ -1049,7 +1049,7 @@ void
 Cairo_outputter::png_file (SCM file_name, SCM factor, SCM background_color)
 {
   LY_ASSERT_TYPE (scm_is_string, file_name, 0);
-  std::string fn = ly_scm2string (file_name);
+  const auto fn = from_scm<std::string> (file_name);
   LY_ASSERT_TYPE (is_scm<Real>, factor, 0);
   Real f = from_scm<Real> (factor);
   cairo_surface_t *surface = read_png_to_surface (fn);
@@ -1097,12 +1097,12 @@ Cairo_outputter::textedit_link (Real llx, Real lly, Real w, Real h,
 void
 Cairo_outputter::url_link (SCM target, SCM x_interval, SCM y_interval)
 {
-  std::string url = ly_scm2string (target);
+  const auto url = from_scm<std::string> (target);
   auto x = from_scm<Interval> (x_interval);
   auto y = from_scm<Interval> (y_interval);
 
-  url_link (ly_scm2string (target), x[LEFT], y[LEFT], x.length (), y.length (),
-            true);
+  url_link (from_scm<std::string> (target), x[LEFT], y[LEFT], x.length (),
+            y.length (), true);
 }
 
 std::string
@@ -1341,7 +1341,7 @@ Cairo_outputter::handle_metadata (SCM module)
         }
 
       if (scm_is_string (val))
-        metadata (k, ly_scm2string (val));
+        metadata (k, from_scm<std::string> (val));
     }
 }
 
@@ -1413,7 +1413,7 @@ Cairo_outputter::handle_outline (Output_def *paper)
           int page_number = from_scm<int> (scm_cdr (entry));
 
           SCM alist = ly_assoc_get (id_sym, toc_alist, SCM_EOL);
-          std::string toc_text = ly_scm2string (Lily::markup_to_string (
+          const auto toc_text = from_scm<std::string> (Lily::markup_to_string (
             ly_assoc_get (ly_symbol2scm ("text"), alist, SCM_BOOL_F)));
 
           SCM parent
@@ -1522,7 +1522,7 @@ parse_formats (const char *funcname, int format_arg, SCM formats)
         scm_wrong_type_arg_msg (funcname, format_arg, formats,
                                 "list of string");
 
-      std::string fmt = ly_scm2string (scm_car (fmt_scm));
+      const auto fmt = from_scm<std::string> (scm_car (fmt_scm));
       Cairo_output_format f = parse_format (fmt);
       if (f == UNKNOWN)
         {
@@ -1563,7 +1563,7 @@ dump book through cairo backend
   for (auto const format :
        parse_formats ("ly:cairo-output-stencils", 5, formats))
     {
-      std::string base = ly_scm2string (basename);
+      const auto base = from_scm<std::string> (basename);
       if (format == EPS || format == PNG || format == SVG)
         {
           int page = 1;
@@ -1638,7 +1638,7 @@ dump a single stencil through the Cairo backend
       // relationship between document pages and output file pages.  Therefore,
       // we disable page links in this case (e.g., when using
       // -dseparate-page-formats, they would have to refer to another file).
-      output_stencil_format (ly_scm2string (basename), stc, odef, f,
+      output_stencil_format (from_scm<std::string> (basename), stc, odef, f,
                              /* use left margin */ true,
                              /* no page links */ false);
     }
@@ -1653,7 +1653,7 @@ is printed in this case).
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, file_name, 1);
-  const std::string fn = ly_scm2string (file_name);
+  const auto fn = from_scm<std::string> (file_name);
   cairo_surface_t *surface = read_png_to_surface (fn);
   if (!surface)
     return SCM_BOOL_F;
@@ -1682,7 +1682,7 @@ dumping the output onto @var{port}.  @var{r}, @var{g}, @var{b} and
 {
   LY_ASSERT_TYPE (scm_is_string, file_name, 1);
   LY_ASSERT_TYPE (ly_is_port, port, 2);
-  const std::string fn = ly_scm2string (file_name);
+  const auto fn = from_scm<std::string> (file_name);
   LY_ASSERT_TYPE (is_scm<Real>, r, 1);
   Real r_real = from_scm<Real> (r);
   LY_ASSERT_TYPE (is_scm<Real>, g, 2);

@@ -45,7 +45,7 @@ Context_specced_music_iterator::create_contexts ()
   std::string c_id;
   SCM ci = get_property (get_music (), "context-id");
   if (scm_is_string (ci))
-    c_id = ly_scm2string (ci);
+    c_id = from_scm<std::string> (ci);
   SCM ops = get_property (get_music (), "property-operations");
   Direction dir
     = from_scm (get_property (get_music (), "search-direction"), CENTER);

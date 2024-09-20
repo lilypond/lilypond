@@ -243,13 +243,13 @@ Pango_font::get_glyph_desc (PangoGlyphInfo const &pgi,
     {
       PangoGlyph char_cpp = pg & ~PANGO_GLYPH_UNKNOWN_FLAG;
       SCM char_scm = scm_integer_to_char (to_scm<uint64_t> (char_cpp));
-      // Use scm_to_locale_string here, not ly_scm2string (which would encode in
+      // Use scm_to_locale_string here, not from_scm<std::string> (which would encode in
       // UTF-8) because we're going to output to a console.
       unique_stdlib_ptr<char> str (
         scm_to_locale_string (scm_string (ly_list (char_scm))));
       SCM name = Unicode::char_2_formal_name (char_scm);
-      std::string formal_name
-        = scm_is_string (name) ? " " + ly_scm2string (name) : "";
+      const auto formal_name
+        = scm_is_string (name) ? " " + from_scm<std::string> (name) : "";
       warning (_f ("no glyph for character '%s' (U+%04X%s) in font `%s'",
                    str.get (), char_cpp, formal_name.c_str (),
                    file_name.c_str ()));

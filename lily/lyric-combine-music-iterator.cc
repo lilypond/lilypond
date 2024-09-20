@@ -281,11 +281,11 @@ Lyric_combine_music_iterator::find_voice ()
 
   if (scm_is_string (voice_name)
       && (!music_context_
-          || ly_scm2string (voice_name) != music_context_->id_string ())
+          || from_scm<std::string> (voice_name) != music_context_->id_string ())
       && scm_is_symbol (voice_type))
     {
       return find_context_below (find_top_context (get_context ()), voice_type,
-                                 ly_scm2string (voice_name));
+                                 from_scm<std::string> (voice_name));
     }
 
   return 0;

@@ -69,7 +69,7 @@ as @code{--output} and @code{-dstrip-output-dir}.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
-  const auto file = ly_scm2string (name);
+  const auto file = from_scm<std::string> (name);
   const auto file_name = global_path.find (file, input_extensions);
   const auto out_file_name = output_file_name_for_input_file_name (file_name);
   return to_scm (out_file_name.to_string ());
@@ -81,7 +81,7 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
-  const auto file = ly_scm2string (name);
+  const auto file = from_scm<std::string> (name);
   const auto file_name = global_path.find (file, input_extensions);
   const auto out_file_name = output_file_name_for_input_file_name (file_name);
 
@@ -139,7 +139,7 @@ Parse the init file @var{name}.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
-  std::string file = ly_scm2string (name);
+  const auto file = from_scm<std::string> (name);
 
   std::string file_name = global_path.find (file);
 
@@ -232,7 +232,7 @@ Parse the string @var{ly-code} with @var{parser-smob}.  Upon failure, throw
       _ ("ly:parser-parse-string is only valid with a new parser."
          "  Use ly:parser-include-string instead."));
   else
-    parser->parse_string (ly_scm2string (ly_code));
+    parser->parse_string (from_scm<std::string> (ly_code));
 
   return SCM_UNSPECIFIED;
 }
@@ -251,7 +251,7 @@ indicators.
   if (SCM_UNBNDP (filename) || !scm_is_string (filename))
     fn = "<string>";
   else
-    fn = ly_scm2string (filename);
+    fn = from_scm<std::string> (filename);
   int ln;
   if (SCM_UNBNDP (line) || !scm_is_integer (line))
     ln = 0;
@@ -266,7 +266,8 @@ indicators.
       return SCM_UNSPECIFIED;
     }
 
-  return parser->parse_string_expression (ly_scm2string (ly_code), fn, ln);
+  return parser->parse_string_expression (from_scm<std::string> (ly_code), fn,
+                                          ln);
 }
 
 LY_DEFINE (ly_parser_include_string, "ly:parser-include-string", 1, 0, 0,
@@ -281,7 +282,7 @@ only be used in immediate Scheme expressions (@code{$} instead of @code{#}).
 
   LY_ASSERT_TYPE (scm_is_string, ly_code, 1);
 
-  p->include_string (ly_scm2string (ly_code));
+  p->include_string (from_scm<std::string> (ly_code));
 
   return SCM_UNSPECIFIED;
 }
@@ -332,7 +333,7 @@ parser, trigger an ordinary error.
   Lily_parser *p = unsmob<Lily_parser> (parser);
 
   LY_ASSERT_TYPE (scm_is_string, msg, 1);
-  std::string s = ly_scm2string (msg);
+  const auto s = from_scm<std::string> (msg);
 
   Input *i = unsmob<Input> (input);
   if (p)

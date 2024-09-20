@@ -177,7 +177,7 @@ Grob::get_print_stencil ()
       SCM color = get_property (this, "color");
       if (scm_is_string (color))
         {
-          retval = retval.in_color (ly_scm2string (color));
+          retval = retval.in_color (from_scm<std::string> (color));
         }
       else if (scm_is_pair (color))
         {

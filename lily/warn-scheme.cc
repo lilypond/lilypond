@@ -38,7 +38,7 @@ any).
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  error (ly_scm2string (str));
+  error (from_scm<std::string> (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -54,7 +54,7 @@ eventually result in a nonzero return code.
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  non_fatal_error (ly_scm2string (str));
+  non_fatal_error (from_scm<std::string> (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -68,7 +68,7 @@ arguments (if any).
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  programming_error (ly_scm2string (str));
+  programming_error (from_scm<std::string> (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -81,7 +81,7 @@ any).
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  warning (ly_scm2string (str));
+  warning (from_scm<std::string> (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -95,7 +95,7 @@ any).
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
   // Calls to ly:progress should in general not start a new line
-  progress_indication (ly_scm2string (str), false);
+  progress_indication (from_scm<std::string> (str), false);
   return SCM_UNSPECIFIED;
 }
 
@@ -108,7 +108,7 @@ arguments (if any).
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  basic_progress (ly_scm2string (str));
+  basic_progress (from_scm<std::string> (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -121,7 +121,7 @@ any).
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  message (ly_scm2string (str));
+  message (from_scm<std::string> (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -135,7 +135,7 @@ any).
   // TODO: Add the newline flag!
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  debug_output (ly_scm2string (str));
+  debug_output (from_scm<std::string> (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -150,7 +150,7 @@ location in an input file.  The message is formatted with @code{format};
   LY_ASSERT_TYPE (scm_is_string, location, 1);
   LY_ASSERT_TYPE (scm_is_string, str, 2);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  warning (ly_scm2string (str), ly_scm2string (location));
+  warning (from_scm<std::string> (str), from_scm<std::string> (location));
   return SCM_UNSPECIFIED;
 }
 
@@ -175,7 +175,7 @@ Example:
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  expect_warning (ly_scm2string (str));
+  expect_warning (from_scm<std::string> (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -197,7 +197,7 @@ Scheme formatting.
            )")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
-  std::string s = _ (ly_scm2string (str).c_str ());
+  const auto s = _ (from_scm<std::string> (str).c_str ());
 
   /* Now replace all printf placeholders by scheme placeholders (~a).
    * Guile's format syntax is pretty similar to C's printf, only with

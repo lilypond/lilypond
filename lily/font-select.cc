@@ -153,7 +153,7 @@ select_font (Output_def *layout, SCM chain)
       name_scm = to_scm ("LilyPond Serif");
     }
 
-  std::string name = ly_scm2string (name_scm);
+  auto name = from_scm<std::string> (name_scm);
 
   vsize rounded_size = 0;
   Real actual_size = 0; // dummy init value
@@ -192,7 +192,7 @@ select_font (Output_def *layout, SCM chain)
       if (scm_is_string (string_desc))
         {
           description = pango_font_description_from_string (
-            ly_scm2string (string_desc).c_str ());
+            from_scm<std::string> (string_desc).c_str ());
           is_emmentaler
             = ly_is_equal (scm_string_downcase (string_desc), emmentaler_str);
         }

@@ -59,7 +59,7 @@ non-existent @var{tag}.
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
   LY_ASSERT_TYPE (scm_is_string, tag, 2);
-  std::string tag_string = ly_scm2string (tag);
+  auto tag_string = from_scm<std::string> (tag);
   if (tag_string.length () > 4)
     {
       scm_misc_error ("ly:otf-font-table-data",
@@ -147,7 +147,7 @@ TTC/OTC. The default value of @var{idx} is@tie{}0.
         }
     }
 
-  std::string file_name = ly_scm2string (font_file_name);
+  const auto file_name = from_scm<std::string> (font_file_name);
 
   FT_Face face;
   /* check whether font index is valid */
@@ -194,7 +194,7 @@ default value of @var{idx} is@tie{}0.
         }
     }
 
-  std::string file_name = ly_scm2string (font_file_name);
+  const auto file_name = from_scm<std::string> (font_file_name);
 
   FT_Face face;
   /* check whether font index is valid */
@@ -240,7 +240,7 @@ default value of @var{idx} is@tie{}0.
         }
     }
 
-  std::string file_name = ly_scm2string (font_file_name);
+  const auto file_name = from_scm<std::string> (font_file_name);
 
   FILE *fp = fopen (file_name.c_str (), "rb");
   if (!fp)
@@ -389,8 +389,8 @@ file @var{subfont-file-name}.
       i = 0;
     }
 
-  std::string collection = ly_scm2string (collection_file_name);
-  std::string subfont = ly_scm2string (subfont_file_name);
+  const auto collection = from_scm<std::string> (collection_file_name);
+  const auto subfont = from_scm<std::string> (subfont_file_name);
 
   FILE *fi = fopen (collection.c_str (), "rb");
   if (!fi)

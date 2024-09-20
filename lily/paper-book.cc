@@ -276,7 +276,7 @@ Paper_book::output (SCM output_channel)
   if (scm_is_false (scm_member (pngstr, formats)))
     formats = scm_cons (pngstr, formats);
 
-  std::string basename = ly_scm2string (output_channel);
+  const auto basename = from_scm<std::string> (output_channel);
   if (get_program_option ("preview"))
     {
       output_stencil (to_scm (basename + ".preview"),
@@ -375,7 +375,7 @@ Paper_book::output_stencils (SCM out_name, SCM stencils, SCM formats)
   if (scm_is_pair (tall_formats) || scm_is_pair (separate_formats))
     {
       Stencil acc;
-      std::string base = ly_scm2string (out_name);
+      const auto base = from_scm<std::string> (out_name);
       if (scm_is_pair (tall_formats))
         {
           for (SCM s = stencils; scm_is_pair (s); s = scm_cdr (s))
