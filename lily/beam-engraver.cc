@@ -203,6 +203,7 @@ Beam_engraver::finalize ()
         out. Reason unknown) */
       beam_->suicide ();
       delete beam_pattern_;
+      beam_pattern_ = nullptr;
     }
 }
 
