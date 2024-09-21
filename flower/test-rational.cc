@@ -466,6 +466,68 @@ TEST (Rational_test, modulo)
     }
 }
 
+TEST (Rational_test, euclidean_remainder_test)
+{
+  const struct
+  {
+    Rational dividend;
+    Rational divisor;
+    Rational remainder;
+  } cases[] = {
+    // basic
+    {52, 17, 1},
+    {Rational (5, 4), Rational (1, 5), Rational (1, 20)},
+    {Rational (-1, 4), Rational (1), Rational (3, 4)},
+    // negative divisor (ignore the sign)
+    {Rational (5, 4), Rational (-1, 5), Rational (1, 20)},
+    {Rational (-1, 4), Rational (-1), Rational (3, 4)},
+    // zero % nonzero = 0
+    {0, 123, 0},
+    // finite % infinity = nan
+    {-2, -Rational::infinity (), Rational::nan ()},
+    {-2, Rational::infinity (), Rational::nan ()},
+    {0, -Rational::infinity (), Rational::nan ()},
+    {0, Rational::infinity (), Rational::nan ()},
+    {3, -Rational::infinity (), Rational::nan ()},
+    {3, Rational::infinity (), Rational::nan ()},
+    // with NaN
+    {Rational::nan (), Rational::nan (), Rational::nan ()},
+    {Rational::nan (), -Rational::infinity (), Rational::nan ()},
+    {Rational::nan (), -10, Rational::nan ()},
+    {Rational::nan (), 0, Rational::nan ()},
+    {Rational::nan (), 10, Rational::nan ()},
+    {Rational::nan (), Rational::infinity (), Rational::nan ()},
+    {-Rational::infinity (), Rational::nan (), Rational::nan ()},
+    {-10, Rational::nan (), Rational::nan ()},
+    {0, Rational::nan (), Rational::nan ()},
+    {10, Rational::nan (), Rational::nan ()},
+    {Rational::infinity (), Rational::nan (), Rational::nan ()},
+  };
+
+  for (const auto &c : cases)
+    {
+      try
+        {
+          const auto actual = euclidean_remainder (c.dividend, c.divisor);
+          if (!isnan (c.remainder))
+            {
+              EQUAL (actual, c.remainder);
+            }
+          else // NaN is not comparable
+            {
+              CHECK (isnan (actual));
+            }
+        }
+      catch (yaffut::failure &)
+        {
+          std::cout << '\n'
+                    << "dividend = " << c.dividend << '\n'
+                    << "divisor = " << c.divisor << '\n';
+          throw;
+        }
+    }
+}
+
 TEST (Rational_test, trunc_int)
 {
   for (int i = -6; i <= 6; ++i)

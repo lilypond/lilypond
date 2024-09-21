@@ -100,6 +100,21 @@ Rational::mod_rat (Rational div) const
   return r;
 }
 
+Rational
+euclidean_remainder (Rational dividend, Rational divisor)
+{
+  if (isfinite (divisor))
+    {
+      divisor = !signbit (divisor) ? divisor : -divisor; // abs
+      auto remainder = dividend.mod_rat (divisor);
+      if (remainder < 0)
+        remainder += divisor;
+      return remainder;
+    }
+
+  return Rational::nan ();
+}
+
 void
 Rational::normalize ()
 {

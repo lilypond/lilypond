@@ -147,6 +147,7 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Rational, %);
 INSTANTIATE_COMPARE (Rational const &, Rational::compare);
 
 int compare (Rational const &, Rational const &);
+Rational euclidean_remainder (Rational dividend, Rational divisor);
 
 inline std::string
 to_string (Rational const &r)
