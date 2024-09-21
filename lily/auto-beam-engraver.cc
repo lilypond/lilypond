@@ -34,6 +34,8 @@
 
 #include "translator.icc"
 
+#include <utility>
+
 class Auto_beam_engraver : public Template_engraver_for_beams
 {
 public:
@@ -211,8 +213,7 @@ Auto_beam_engraver::junk_beam ()
   beam_start_context_ = nullptr;
   beam_start_moment_ = Moment::infinity ();
   stems_.clear ();
-  delete beam_pattern_;
-  beam_pattern_ = nullptr;
+  beam_pattern_.reset ();
   beam_settings_ = SCM_EOL;
 
   shortest_dur_ = Rational (1, 4);
@@ -240,15 +241,13 @@ Auto_beam_engraver::end_beam ()
           Grob_info i = make_grob_info (finished_beam_, SCM_EOL);
 
           announce_end_grob (i, beam_start_context_.get ());
-          finished_beam_pattern_ = beam_pattern_;
+          finished_beam_pattern_ = std::move (beam_pattern_);
           finished_beaming_options_ = beaming_options_;
         }
-      else
-        delete beam_pattern_;
 
       beam_start_moment_ = Moment::infinity ();
       stems_.clear ();
-      beam_pattern_ = nullptr;
+      beam_pattern_.reset ();
       beam_settings_ = SCM_EOL;
     }
 
@@ -407,7 +406,7 @@ Auto_beam_engraver::recheck_beam ()
 
           /* Eliminate (and save) the items no longer part of the first beam */
 
-          auto *const new_grouping_ = beam_pattern_->split_pattern (
+          auto new_grouping = beam_pattern_->split_pattern (
             i, beaming_options_.measure_length_);
           std::vector<Item *> new_stems (stems_.begin () + (i + 1),
                                          stems_.end ());
@@ -418,7 +417,7 @@ Auto_beam_engraver::recheck_beam ()
 
           /* now recreate the unbeamed data structures */
           stems_ = new_stems;
-          beam_pattern_ = new_grouping_;
+          beam_pattern_ = std::move (new_grouping);
           shortest_dur_ = saved_shortest_dur;
           beam_settings_ = saved_beam_settings;
           beam_start_moment_ = now_mom ();

@@ -25,6 +25,8 @@
 #include "moment.hh"
 #include "spanner.hh"
 
+#include <memory>
+
 class Template_engraver_for_beams : public Engraver
 {
 protected:
@@ -32,8 +34,8 @@ protected:
 
   Spanner *finished_beam_ = nullptr;
 
-  Beaming_pattern *beam_pattern_ = nullptr;
-  Beaming_pattern *finished_beam_pattern_ = nullptr;
+  std::unique_ptr<Beaming_pattern> beam_pattern_;
+  std::unique_ptr<Beaming_pattern> finished_beam_pattern_;
 
   // position within measure where beam started.
   Moment beam_start_position_;

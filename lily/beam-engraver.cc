@@ -36,6 +36,8 @@
 
 #include "translator.icc"
 
+#include <utility>
+
 class Beam_engraver : public Template_engraver_for_beams
 {
 public:
@@ -178,12 +180,11 @@ Beam_engraver::stop_translation_timestep ()
   if (stop_ev_)
     {
       finished_beam_ = beam_;
-      finished_beam_pattern_ = beam_pattern_;
+      finished_beam_pattern_ = std::move (beam_pattern_);
       finished_beaming_options_ = beaming_options_;
 
       stop_ev_ = nullptr;
       beam_ = nullptr;
-      beam_pattern_ = nullptr;
       typeset_beam ();
       set_melisma (false);
     }
@@ -202,8 +203,7 @@ Beam_engraver::finalize ()
         we don't typeset it, (we used to, but it was commented
         out. Reason unknown) */
       beam_->suicide ();
-      delete beam_pattern_;
-      beam_pattern_ = nullptr;
+      beam_pattern_.reset ();
     }
 }
 

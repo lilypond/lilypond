@@ -60,7 +60,7 @@ Template_engraver_for_beams::begin_beam ()
       if (measure_offset < 0)
         measure_offset += measure_length;
     }
-  beam_pattern_ = new Beaming_pattern (measure_offset);
+  beam_pattern_ = std::make_unique<Beaming_pattern> (measure_offset);
 }
 
 void
@@ -70,11 +70,10 @@ Template_engraver_for_beams::typeset_beam ()
     {
       finished_beam_pattern_->beamify (finished_beaming_options_);
 
-      Beam::set_beaming (finished_beam_, finished_beam_pattern_);
+      Beam::set_beaming (finished_beam_, finished_beam_pattern_.get ());
       finished_beam_ = nullptr;
 
-      delete finished_beam_pattern_;
-      finished_beam_pattern_ = nullptr;
+      finished_beam_pattern_.reset ();
     }
 }
 

@@ -551,12 +551,12 @@ Beaming_pattern::at_span_stop (vsize i) const
     Split a beaming pattern at index i and return a new
     Beaming_pattern containing the removed elements
 */
-Beaming_pattern *
+std::unique_ptr<Beaming_pattern>
 Beaming_pattern::split_pattern (vsize i, Rational const &measure_length)
 {
-  std::unique_ptr<Beaming_pattern> new_pattern (new Beaming_pattern (
+  auto new_pattern = std::make_unique<Beaming_pattern> (
     (end_moment (i) - (infos_[0].start_moment_ - measure_offset_))
-      .mod_rat (measure_length)));
+      .mod_rat (measure_length));
 
   for (vsize j = i + 1; j < infos_.size (); j++)
     new_pattern->add_stem (infos_[j].start_moment_, infos_[j].invisible_,
@@ -565,7 +565,7 @@ Beaming_pattern::split_pattern (vsize i, Rational const &measure_length)
   while (infos_.size () > i + 1)
     infos_.pop_back ();
 
-  return new_pattern.release ();
+  return new_pattern;
 }
 
 void

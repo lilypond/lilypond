@@ -67,7 +67,7 @@ public:
   void beamify (Beaming_options const &);
   void add_stem (Rational const &, bool, Duration const &,
                  Tuplet_description const *);
-  Beaming_pattern *split_pattern (vsize, Rational const &);
+  std::unique_ptr<Beaming_pattern> split_pattern (vsize, Rational const &);
   unsigned beamlet_count (vsize, Direction) const;
   Rational const &start_moment (vsize) const;
   Rational end_moment (vsize) const;
