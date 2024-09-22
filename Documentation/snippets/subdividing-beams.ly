@@ -30,11 +30,14 @@ interval respectively.  If the numerator of
 smaller rhythmic intervals considered for subdivision are
 @code{maximumBeamSubdivisionInterval} divided by powers of@tie{}2 and
 stay greater than or equal to @code{minimumBeamSubdivisionInterval}.  If
-@code{respectIncompletBeams} is set to true (@code{##t}), the depth of
-the subdivision (number of beams) reflects the longest possible
-subdivision interval within the remaining length of the beam from the
-current stem.  However, the last two stems of the beam are exempt from
-this rule.
+@code{maximumBeamSubdivisionInterval} < @code{minimumBeamSubdivisionInterval},
+then the depths of beam subdivision are limited to
+@code{maximumBeamSubdivisionInterval}, but not the frequency/intervals,
+therefore possibly deviating from the correct expected metric value.  If
+@code{respectIncompleteBeams} is set to true (@code{##t}), the depth of the
+subdivision (number of beams) reflects the longest possible subdivision interval
+within the remaining length of the beam from the current stem.  However, the
+last two stems of the beam are exempt from this rule.
 "
 
   doctitle = "Subdividing beams"
@@ -57,9 +60,13 @@ this rule.
 
   % Set maximum beam subdivision interval to 3/8 just for this beam
   \once \set maximumBeamSubdivisionInterval = \musicLength 8*3
-  c64[ c c c c c c c c c c c c c c c]
+  [ \repeat unfold 16 c64 ] r2.
 
-  r2.
+  % Set maximum beam subdivision interval to 1/64 to limit subdivision depth,
+  % despite not being metrically correct
+  \once \set minimumBeamSubdivisionInterval = \musicLength 32
+  \once \set maximumBeamSubdivisionInterval = \musicLength 64
+  [ \repeat unfold 32 c128 ] r2.
 
   % Shorten beam by 1/32
   c32[ c c c c c c] r32

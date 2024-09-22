@@ -17,7 +17,7 @@
 Slides for chords are indicated by default in both @code{Staff} and
 @code{TabStaff}.
 
-String numbers are necessary for @code{TabStaff} because automatic
+String numbers may be necessary for @code{TabStaff} because automatic
 string calculations are different for chords and for single notes.
 "
 
@@ -27,12 +27,15 @@ string calculations are different for chords and for single notes.
 
 myMusic = \relative c' {
   <c e g>1 \glissando <f a c>
+  <cis, eis gis>1 \glissando <f a c>
+  <cis eis gis>1 \glissando <f a c\3>
 }
 
 \score {
   <<
     \new Staff {
       \clef "treble_8"
+      \omit StringNumber
       \myMusic
     }
     \new TabStaff \myMusic
@@ -43,6 +46,7 @@ myMusic = \relative c' {
   <<
     \new Staff {
       \clef "treble_8"
+      \omit StringNumber
       \myMusic
     }
     \new TabStaff \with { \override Glissando.style = #'none } {

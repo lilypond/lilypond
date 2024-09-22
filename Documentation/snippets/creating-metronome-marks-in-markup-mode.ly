@@ -26,9 +26,9 @@ change the tempo in MIDI output.
   \tempo \markup {
     \concat {
       (
-      \smaller \general-align #Y #DOWN \note {16.} #1
+      \smaller \general-align #Y #DOWN \note { 16. } #UP
       " = "
-      \smaller \general-align #Y #DOWN \note {8} #1
+      \smaller \general-align #Y #DOWN \note { 8 } #UP
       )
     }
   }

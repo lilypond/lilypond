@@ -54,7 +54,6 @@ trillFlat =
 }
 
 \new PianoStaff <<
-
   % RH
   \new Staff <<
     \clef treble
@@ -71,43 +70,33 @@ trillFlat =
       g''8.[ g''8. g''8.] \pp |
       g''8.[ af''8.af''8.] |
       af''8.[ af''8.af''8.] |
-      \trillFlat
-      af''4.~ \startTrillSpan
-      af''8.~ |
+      \trillFlat af''4.~ \startTrillSpan af''8.~ |
       af''4.~ af''8.~ |
       \oneVoice
       <af'' d''>8.[ a''8. \p \< bf''8.]~ |
       bf''8.[ b''8. c'''8.]~
       \bar "||"
       \key ef \major
-      c'''8.[ cs'''8.] \f \stopTrillSpan
-      r8.
+      c'''8.[ cs'''8.] \f \stopTrillSpan r8.
     }
 
     % RH voice 2
     \new Voice {
       \voiceTwo
       \override Voice.TrillSpanner.direction = #DOWN
-      d''4.~ \f \startTrillSpan
-      d''8.~ |
+      d''4.~ \f \startTrillSpan d''8.~ |
       d''4.~ d''8.~ |
-      d''8. \stopTrillSpan
-      \trillFlat
-      d''4.~ \startTrillSpan |
+      d''8. <>\stopTrillSpan \trillFlat d''4.~ \startTrillSpan |
       d''4.~ d''8.~ |
       d''4.~ d''8.~ |
-      d''4.~ d''8.~ \stopTrillSpan |
-      \trillFlat
-      d''4.~ \startTrillSpan
-      d''8. ~ |
+      d''4.~ d''8.~ <> \stopTrillSpan |
+      \trillFlat d''4.~ \startTrillSpan d''8. ~ |
       d''4.~ d''8.~ |
       \once \override NoteColumn.ignore-collision = ##t
       \hideNotes
-      d''8. \stopTrillSpan
-      s4. |
+      d''8. \stopTrillSpan s4. |
       s8. s8.
     }
-
   >>
 
   % LH staff
@@ -116,25 +105,18 @@ trillFlat =
     \key c \major
     \time 9/16
     r8. r8. <c! c,!>8[( <g, g,,>16]) |
-    <g, g,,>4.
-    \clef treble
-    c''8[( b'16]) |
+    <g, g,,>4. \clef treble c''8[( b'16]) |
     b'4. c''8[( b'16]) |
     b'8.[ b'8. b'8.] |
-    b'8.[ bf'8.]
-    \clef bass
-    <f f,>8[( <bf, bf,,>16]) |
-    <bf, bf,,>4.
-    \clef treble
-    f'8[( bf16]) |
+    b'8.[ bf'8.] \clef bass <f f,>8[( <bf, bf,,>16]) |
+    <bf, bf,,>4. \clef treble f'8[( bf16]) |
     <<
       \new Voice {
         \voiceOne
         \override Voice.TrillSpanner.direction = #UP
-        f'4.~ \startTrillSpan
-        f'8.~ |
+        f'4.~ \startTrillSpan f'8.~ |
         f'4.~ f'8.~ |
-        f'8. \stopTrillSpan
+        f'8. <> \stopTrillSpan
       }
       \new Voice {
         \voiceTwo
@@ -146,9 +128,7 @@ trillFlat =
     >>
     \oneVoice
     r8. r8. |
-    r8. r8. r8.
-    \clef bass
-    |
+    r8. r8. r8. \clef bass |
     \key ef \major
     r8. r8. r8.
   }
