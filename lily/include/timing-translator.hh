@@ -45,7 +45,6 @@ protected:
 
 private:
   Moment measure_start_mom_ = Moment::infinity ();
-  Rational carried_measure_position_;
   bool warned_for_bar_check_ = false;
 
   // alt_... members pertain to bar numbering for repeat alternatives

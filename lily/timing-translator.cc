@@ -124,6 +124,42 @@ Timing_translator::listen_partial (Stream_event *ev)
 void
 Timing_translator::pre_process_music ()
 {
+  const auto &now = now_mom ();
+
+  if (partial_event_)
+    {
+      const auto mlen = measure_length (context ());
+
+      if (!isfinite (mlen))
+        {
+          partial_event_->warning (
+            _ ("cannot calculate a finite measurePosition from an infinite"
+               " measureLength"));
+          // We could try to handle this more gracefully by setting a
+          // calculated measureLength here, but there might be side effects
+          // that are hard to foresee, so we don't bother.
+        }
+
+      // Handle \partial in mid piece.  \partial at the start is handled in
+      // listen_partial () so that measureStartNow can be updated accordingly
+      // before any translator's pre_process_music () is called for the first
+      // time.
+      if (context ()->init_mom () < now_mom ())
+        {
+          auto *const dur
+            = unsmob<Duration> (get_property (partial_event_, "duration"));
+          if (dur) // paranoia: listen_partial() should have rejected this event
+            {
+              if (isfinite (mlen))
+                {
+                  auto mp = mlen - dur->get_length ();
+                  set_property (context (), "measurePosition",
+                                Moment (mp, now.grace_part_).smobbed_copy ());
+                }
+            }
+        }
+    }
+
   // We can't assume that measurePosition and measureStartNow have the same
   // values as at the start of the timestep.  A partial-event or
   // Alternative_sequence_iterator might have changed them.
@@ -143,7 +179,6 @@ Timing_translator::pre_process_music ()
   // different amounts of grace time, which makes iteration interesting (see
   // issue #34).  The measure starts with the earliest grace note, but we don't
   // want to fail later bar checks when the only difference is grace notes.
-  const auto &now = now_mom ();
   bool bar_check_ok = (now.main_part_ == measure_start_mom_.main_part_);
   if (from_scm<bool> (get_property (context (), "measureStartNow")))
     {
@@ -162,18 +197,6 @@ Timing_translator::pre_process_music ()
       bar_check_event_->warning (
         _f ("bar check failed at: %s", to_string (mp)));
       warned_for_bar_check_ = true;
-    }
-
-  if (partial_event_ && (context ()->init_mom () == now)) // start of piece
-    {
-      if (!isfinite (measure_length (context ())))
-        {
-          // This is the same warning as for \partial in mid piece.
-          // See listen_partial() for more information.
-          partial_event_->warning (
-            _ ("cannot calculate a finite measurePosition from an infinite"
-               " measureLength"));
-        }
     }
 }
 
@@ -244,44 +267,18 @@ Timing_translator::process_music ()
 void
 Timing_translator::stop_translation_timestep ()
 {
-  // Defer setting measurePosition (etc.) until the beginning of the next
-  // timestep so that translators can read a consisent value from the beginning
-  // of pre_process_music() to the end of stop_translation_timestep().
-  carried_measure_position_
-    = from_scm (get_property (this, "measurePosition"), Moment (0)).main_part_;
-
-  // Handle \partial in mid piece.
-  if (partial_event_ && (context ()->init_mom () < now_mom ()))
-    {
-      auto *const dur
-        = unsmob<Duration> (get_property (partial_event_, "duration"));
-      if (dur) // paranoia: listen_partial() should have rejected this event
-        {
-          const auto mlen = measure_length (context ());
-          if (isfinite (mlen))
-            {
-              carried_measure_position_ = mlen - dur->get_length ();
-            }
-          else
-            {
-              partial_event_->warning (
-                _ ("cannot calculate a finite measurePosition from an infinite"
-                   " measureLength"));
-              // We could try to handle this more gracefully by setting a
-              // calculated measureLength here, but there might be side effects
-              // that are hard to foresee, so we don't bother.
-            }
-        }
-    }
-
   if (from_scm<bool> (get_property (this, "timing"))
       && !from_scm<bool> (get_property (this, "skipBars")))
     {
+      const auto mp
+        = from_scm (get_property (this, "measurePosition"), Moment (0))
+            .main_part_;
+
       Rational barleft = 0;
-      if (carried_measure_position_ < 0)
-        barleft = -carried_measure_position_;
+      if (mp < 0)
+        barleft = -mp;
       else
-        barleft = measure_length (context ()) - carried_measure_position_;
+        barleft = measure_length (context ()) - mp;
 
       if ((barleft > 0) && isfinite (barleft))
         {
@@ -429,7 +426,9 @@ Timing_translator::start_translation_timestep ()
       partial_event_ = nullptr;
     }
 
-  Rational mp = carried_measure_position_;
+  auto mp
+    = from_scm (get_property (this, "measurePosition"), Moment (0)).main_part_;
+
   SCM measure_start_now = SCM_EOL;
 
   if (from_scm<bool> (get_property (this, "timing")))
