@@ -102,6 +102,9 @@ Multi_measure_rest::height (SCM smob)
 int
 calc_measure_duration_log (Spanner *me)
 {
+  // TODO: Getting the measure length from a Paper_column, which is engraved in
+  // Score context, is bogus in polymetric scores, where the Timing_translator
+  // operates in Staff context rather than Score context.  See issue #4633.
   SCM sml = get_property (me->get_bound (LEFT), "measure-length");
   Rational ml
     = (unsmob<Moment> (sml)) ? unsmob<Moment> (sml)->main_part_ : Rational (1);

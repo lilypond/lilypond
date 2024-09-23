@@ -114,6 +114,14 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
 void
 Paper_column_engraver::pre_process_music ()
 {
+  if (first_time_)
+    {
+      // internalBarNumber is evidence that Timing_translator is working in this
+      // context.  Not finding it means that we are processing a polymetric
+      // score.
+      have_timing_ = where_defined (context (), "internalBarNumber");
+    }
+
   /* Use the value of skipTypesetting at the start of this time step.
      The effect is that columns are created at the beginning of a
      skipped section, and when music stops being skipped, the columns
@@ -151,11 +159,30 @@ Paper_column_engraver::process_music ()
       set_property (command_column_, "labels", scm_cons (label, labels));
     }
 
-  /*
-    We can't do this in start_translation_timestep (), since time sig
-    changes won't have happened by then.
-  */
-  if (!measure_position (context ()).main_part_)
+  // Record the measure length in the first command column of every measure.
+  //
+  // We can't do this in start_translation_timestep () because meter changes may
+  // occur between there and here.
+  //
+  // TODO: In normal scores, this achieves a goal.  In polymetric scores, there
+  // is probably more than one measure length in effect at any moment, and there
+  // is certainly no Timing_translator maintaining properties in Score context
+  // (where we are looking for them).  This is the reason for Issue #4633 and
+  // maybe other issues.
+  //
+  // In polymetric scores, measureStartNow will never be set in this context,
+  // and that happens to make some things look worse, so we check a legacy
+  // condition.
+  //
+  // Fixing the issues might involve changing this to use measureStartNow
+  // unconditionally and revising downstream logic to cope better without
+  // measure length, or it might involve removing this entirely and
+  // communicating measure length via a path that works in all cases.
+  const bool measure_start_now
+    = have_timing_
+        ? from_scm<bool> (get_property (context (), "measureStartNow"))
+        : !measure_position (context ()).main_part_;
+  if (measure_start_now)
     {
       Moment mlen = Moment (measure_length (context ()));
       Grob *column = unsmob<Grob> (get_property (this, "currentCommandColumn"));
@@ -195,6 +222,8 @@ Paper_column_engraver::acknowledge_break_alignment (Grob_info gi)
 void
 Paper_column_engraver::stop_translation_timestep ()
 {
+  first_time_ = false;
+
   if (from_scm<bool> (get_property (this, "skipTypesetting")))
     return;
 

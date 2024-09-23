@@ -55,6 +55,8 @@ private:
   Paper_column *command_column_ = nullptr;
   Paper_column *musical_column_ = nullptr;
   std::vector<Item *> items_;
+  bool first_time_ = true;
+  bool have_timing_ = false;
   bool skiptypesetting_at_start_of_timestep_ = false;
 };
 
