@@ -42,6 +42,7 @@ public:
   TRANSLATOR_DECLARATIONS (Auto_beam_engraver);
 
 protected:
+  void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_acknowledged ();
 
@@ -58,8 +59,8 @@ protected:
 private:
   virtual bool test_moment (Direction, Moment const &, Rational const &) const;
   bool busy () const;
-  void consider_begin (Moment const &, Rational const &);
-  void consider_end (Moment const &, Rational const &);
+  void consider_begin (Rational const &);
+  void consider_end (Rational const &);
   Spanner *create_beam ();
   void begin_beam ();
   void end_beam ();
@@ -70,6 +71,7 @@ private:
   void typeset_beam ();
 
   Stream_event *forbid_ = nullptr;
+  Moment measure_position_at_start_of_timestep_;
   bool force_end_ = false;
   bool considered_bar_ = false;
   /*
@@ -100,6 +102,12 @@ Auto_beam_engraver::derived_mark () const
 {
   Template_engraver_for_beams::derived_mark ();
   scm_gc_mark (beam_settings_);
+}
+
+void
+Auto_beam_engraver::start_translation_timestep ()
+{
+  measure_position_at_start_of_timestep_ = measure_position (context ());
 }
 
 void
@@ -145,21 +153,26 @@ Auto_beam_engraver::busy () const
 }
 
 void
-Auto_beam_engraver::consider_begin (Moment const &test_mom, Rational const &dur)
+Auto_beam_engraver::consider_begin (Rational const &dur)
 {
   if (!busy () && !forbid_
       && from_scm<bool> (get_property (this, "autoBeaming"))
-      && test_moment (START, test_mom, dur))
+      && test_moment (START, measure_position (context ()), dur))
     begin_beam ();
 }
 
 void
-Auto_beam_engraver::consider_end (Moment const &test_mom, Rational const &dur)
+Auto_beam_engraver::consider_end (Rational const &dur)
 {
-  /* Allow already started autobeam to end:
-     don't check for autoBeaming */
-  if (busy () && test_moment (STOP, test_mom, dur))
-    end_beam ();
+  // Allow an autobeam to end when necessary: don't check for autoBeaming.
+  //
+  // measurePosition might have changed, e.g., at a transition between volta
+  // alternatives.  Base this decision on the previous value.
+  if (busy ()
+      && test_moment (STOP, measure_position_at_start_of_timestep_, dur))
+    {
+      end_beam ();
+    }
 }
 
 Spanner *
@@ -349,7 +362,6 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
     return;
 
   const auto dur = stem_duration.get_length ();
-  const auto measure_now = measure_position (context ());
   bool recheck_needed = false;
 
   if (dur < shortest_dur_)
@@ -361,8 +373,8 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
 
   /* end should be based on shortest_dur_, begin should be
      based on current duration  */
-  consider_end (measure_now, shortest_dur_);
-  consider_begin (measure_now, dur);
+  consider_end (shortest_dur_);
+  consider_begin (dur);
 
   if (!busy ())
     return;
@@ -450,7 +462,7 @@ Auto_beam_engraver::process_acknowledged ()
 
       if (busy () && unsmob<Grob> (get_property (this, "currentBarLine")))
         {
-          consider_end (measure_position (context ()), shortest_dur_);
+          consider_end (shortest_dur_);
           junk_beam ();
         }
     }
@@ -469,7 +481,7 @@ Auto_beam_engraver::process_acknowledged ()
     {
       if (!process_acknowledged_count_)
         {
-          consider_end (measure_position (context ()), shortest_dur_);
+          consider_end (shortest_dur_);
         }
       else if (process_acknowledged_count_ > 1)
         {
