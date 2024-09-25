@@ -40,7 +40,6 @@ protected:
 private:
   int done_count_ = 0;
   int rep_count_ = 0;
-  int starting_bar_ = -1;
   Moment body_length_;
   SCM event_type_ = SCM_UNDEFINED;
   SCM slash_count_ = SCM_UNDEFINED;
@@ -67,9 +66,6 @@ Percent_repeat_iterator::create_contexts ()
   Sequential_iterator::create_contexts ();
 
   descend_to_bottom_context ();
-  if (!measure_position (get_context ()).main_part_)
-    starting_bar_
-      = from_scm (get_property (get_context (), "internalBarNumber"), 0);
 }
 
 // Arrive here for the first time after the original percent expression is
@@ -87,16 +83,10 @@ Percent_repeat_iterator::next_element ()
       Music *mus = get_music ();
       if (done_count_ == 1)
         {
-          int current_bar = -1;
-          if (!measure_position (get_context ()).main_part_)
-            {
-              current_bar = from_scm (
-                get_property (get_context (), "internalBarNumber"), 0);
-            }
-
-          if (starting_bar_ >= 0 && current_bar == starting_bar_ + 1)
+          const auto mlen = measure_length (get_context ());
+          if (body_length_.main_part_ == mlen)
             event_type_ = ly_symbol2scm ("PercentEvent");
-          else if (starting_bar_ >= 0 && current_bar == starting_bar_ + 2)
+          else if (body_length_.main_part_ == (mlen * 2))
             event_type_ = ly_symbol2scm ("DoublePercentEvent");
           else
             {
