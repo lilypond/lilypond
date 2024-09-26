@@ -201,8 +201,8 @@ seconda volta blocks. This behaviour can be switched off with
   (let* (;; get PaperColumn
          (pc (ly:item-get-column grob))
          ;; get NonMusicalPaperColumn
-         (nmpc (ly:grob-object pc 'left-neighbor))
-         (at-line-begin? (positive? (ly:item-break-dir nmpc)))
+         (nmpc (ly:grob-object pc 'left-neighbor #f))
+         (at-line-begin? (and nmpc (positive? (ly:item-break-dir nmpc))))
          (span-start? (ly:grob-property grob 'span-start #f))
          (details (ly:grob-property grob 'details '()))
          (tied-props (assoc-get 'tied-properties details '()))
