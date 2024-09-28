@@ -444,14 +444,6 @@ Auto_beam_engraver::recheck_beam ()
 void
 Auto_beam_engraver::process_acknowledged ()
 {
-  if (force_end_)
-    {
-      force_end_ = false;
-
-      if (busy ())
-        end_beam ();
-    }
-
   // This engraver can't observe bar lines with acknowledge_bar_line ()
   // because the Bar_engraver operates in Staff context.
   // process_acknowledged () can be called more than once, but
@@ -460,11 +452,19 @@ Auto_beam_engraver::process_acknowledged ()
     {
       considered_bar_ = true;
 
-      if (busy () && unsmob<Grob> (get_property (this, "currentBarLine")))
+      if (!force_end_ && busy ())
         {
-          consider_end (shortest_dur_);
-          junk_beam ();
+          if (unsmob<Grob> (get_property (this, "currentBarLine")))
+            force_end_ = true;
         }
+    }
+
+  if (force_end_)
+    {
+      force_end_ = false;
+
+      if (busy ())
+        end_beam ();
     }
 
   if (current_stem_)

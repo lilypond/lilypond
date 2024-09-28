@@ -1,12 +1,13 @@
-
-\version "2.17.5"
+\version "2.25.21"
 
 \header{
-texidoc="No auto beams will be put over (manual) repeat bars."
+  texidoc = "Automatic beams do not cross bar lines."
 }
-\layout{ ragged-right = ##t }
 
 {
   \time 3/4
-  a'4 b' c''8 \bar ":..:" d''8
+  \partial 8*3
+  8 8 8 |
+  8 8 8 16 16 16 16 16 16 |
+  8 8 8 \section 16 16 16 16 16 16 |
 }
