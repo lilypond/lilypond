@@ -92,6 +92,8 @@ private:
     Handle on the starting staff keeps it alive until beam is complete
   */
   Context_handle beam_start_context_;
+  // global time when beam started
+  Moment beam_start_moment_ = Moment::infinity ();
 
   // We act as if beam were created, and start a grouping anyway.
   SCM beam_settings_ = SCM_EOL;
@@ -126,7 +128,6 @@ Auto_beam_engraver::process_music ()
 Auto_beam_engraver::Auto_beam_engraver (Context *c)
   : Template_engraver_for_beams (c)
 {
-  beam_start_moment_ = Moment::infinity ();
 }
 
 void
@@ -212,6 +213,7 @@ Auto_beam_engraver::begin_beam ()
   stems_.clear ();
 
   beam_start_context_ = context ()->get_parent ();
+  beam_start_moment_ = now_mom ();
   Template_engraver_for_beams::begin_beam ();
   beam_settings_
     = Grob_property_info (context (), ly_symbol2scm ("Beam")).updated ();
@@ -358,7 +360,7 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
     ignore interspersed grace notes.
   */
   auto const now = now_mom ();
-  if (!is_same_grace_state (beam_start_position_, now))
+  if (!is_same_grace_state (beam_start_moment_, now))
     return;
 
   const auto dur = stem_duration.get_length ();
@@ -433,8 +435,6 @@ Auto_beam_engraver::recheck_beam ()
           shortest_dur_ = saved_shortest_dur;
           beam_settings_ = saved_beam_settings;
           beam_start_moment_ = now_mom ();
-          beam_start_position_
-            = from_scm (get_property (this, "measurePosition"), Moment (0));
 
           i = 0;
         }

@@ -37,12 +37,6 @@ protected:
   std::unique_ptr<Beaming_pattern> beam_pattern_;
   std::unique_ptr<Beaming_pattern> finished_beam_pattern_;
 
-  // position within measure where beam started.
-  Moment beam_start_position_;
-
-  // moment (global time) where beam started.
-  Moment beam_start_moment_;
-
   Moment last_added_moment_;
 
   Beaming_options beaming_options_;

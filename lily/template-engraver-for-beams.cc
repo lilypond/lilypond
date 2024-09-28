@@ -40,14 +40,13 @@ Template_engraver_for_beams::derived_mark () const
 void
 Template_engraver_for_beams::begin_beam ()
 {
-  beam_start_position_
+  auto beam_start_position
     = from_scm (get_property (this, "measurePosition"), Moment (0));
-  beam_start_moment_ = now_mom ();
 
   beaming_options_.from_context (context ());
-  Rational measure_offset = beam_start_position_.grace_part_
-                              ? beam_start_position_.grace_part_
-                              : beam_start_position_.main_part_;
+  Rational measure_offset = beam_start_position.grace_part_
+                              ? beam_start_position.grace_part_
+                              : beam_start_position.main_part_;
 
   // measure_offset is not allowed to be negative, so modulo
   if (measure_offset < 0)
