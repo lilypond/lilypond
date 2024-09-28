@@ -4,16 +4,16 @@
 <score-partwise version="4.0">
   <identification>
     <encoding>
-      <software>Sibelius</software>
+      <software>Finale</software>
     </encoding>
     <miscellaneous>
       <miscellaneous-field name="description">All types of octave shifts (15ma
           on the third eighth note, 15mb on the fourth and fifth, 8va on the
           sixth and seventh, and 8vb on the last two 16th notes).  This test
           file positions &lt;octave-shift type="stop"/>&gt; before the
-          associated note, as expected in MusicXML import of Finale and
-          Sibelius, for example.  Consequently, it contains `Sibelius' as the
-          &lt;software&gt; tag.
+          associated note, as expected in MusicXML import of Finale, for
+          example.  Consequently, it contains `Finale' as the &lt;software&gt;
+          tag.
 
           Note that the end of the last octave shift is anchored at the
           following bar line.</miscellaneous-field>
