@@ -893,11 +893,7 @@ measure_position (Context const *context)
       const auto length (measure_length (context));
       if (isfinite (length))
         {
-          // This seems to calculate the "euclidean remainder" of pos/len.
-          // Should Rational's (or Moment's) modulo operation work this way?
-          do
-            m.main_part_ += length;
-          while (m.main_part_ < 0);
+          m.main_part_ = euclidean_remainder (m.main_part_, length);
         }
       else // senza misura
         {

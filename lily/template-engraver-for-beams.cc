@@ -55,9 +55,7 @@ Template_engraver_for_beams::begin_beam ()
         = isfinite (beaming_options_.measure_length_)
             ? beaming_options_.measure_length_
             : Rational (1);
-      measure_offset = measure_offset.mod_rat (measure_length);
-      if (measure_offset < 0)
-        measure_offset += measure_length;
+      measure_offset = euclidean_remainder (measure_offset, measure_length);
     }
   beam_pattern_ = std::make_unique<Beaming_pattern> (measure_offset);
 }
