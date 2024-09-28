@@ -10,7 +10,14 @@
 #(ly:expect-warning "Cannot find glyph timesig.neomensural11")
 #(ly:expect-warning "Cannot find glyph timesig.neomensural11")
 
-\layout { indent = 0 }
+\layout {
+  indent = 0
+
+  \context {
+    \Score
+    \remove Bar_number_engraver % avoid noise from unconventional test music
+  }
+}
 
 testMusic = \relative {
     \time 4/4 \partial 4 f'4
