@@ -44,20 +44,12 @@ Template_engraver_for_beams::begin_beam ()
     = from_scm (get_property (this, "measurePosition"), Moment (0));
 
   beaming_options_.from_context (context ());
-  Rational measure_offset = beam_start_position.grace_part_
-                              ? beam_start_position.grace_part_
-                              : beam_start_position.main_part_;
-
-  // measure_offset is not allowed to be negative, so modulo
-  if (measure_offset < 0)
-    {
-      Rational const measure_length
-        = isfinite (beaming_options_.measure_length_)
-            ? beaming_options_.measure_length_
-            : Rational (1);
-      measure_offset = euclidean_remainder (measure_offset, measure_length);
-    }
-  beam_pattern_ = std::make_unique<Beaming_pattern> (measure_offset);
+  if (beam_start_position.grace_part_)
+    beam_start_position.main_part_ = beam_start_position.grace_part_;
+  beam_pattern_ = std::make_unique<Beaming_pattern> (
+    measure_position (context (), beam_start_position,
+                      beaming_options_.measure_length_)
+      .main_part_);
 }
 
 void
