@@ -272,7 +272,23 @@ Context *get_voice_to_lyrics (Context *lyrics);
 Grob *get_current_note_head (Context *voice);
 Grob *get_current_rest (Context *voice);
 
+// Return the Euclidean remainder of the given measure position after division
+// by the given measure length.  The grace part of the position is not modified.
+// The context argument is necessary to deal robustly with unexpected values.
+Moment measure_position (Context const *context, Moment measure_position,
+                         Rational const &measure_length);
+
+// Return the Euclidean remainder of the current value of the measurePosition
+// property after division by the given measure length.  The grace part of the
+// position is not modified.
+Moment measure_position (Context const *context,
+                         Rational const &measure_length);
+
+// Return the Euclidean remainder of the current value of the measurePosition
+// property after division by the current value of the measureLength property.
+// The grace part of the position is not modified.
 Moment measure_position (Context const *context);
+
 Moment note_end_mom (Context const *context, Duration const *dur);
 Rational measure_length (Context const *context);
 int measure_number (Context const *context);

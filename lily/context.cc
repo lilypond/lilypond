@@ -881,21 +881,35 @@ measure_length (Context const *context)
 }
 
 Moment
-measure_position (Context const *context)
+measure_position (Context const *context, Moment position,
+                  Rational const &length)
 {
-  auto m = from_scm (get_property (context, "measurePosition"), Moment ());
-
-  if (m.main_part_ < 0)
+  // The property infrastructure is supposed to prevent the actual measureLength
+  // property from being set <= 0, but in case the provided length came from
+  // elsewhere ...
+  if (length == 0)
     {
-      // A negative measurePosition is the effect of \partial at the start of a
-      // piece or (less likely) a \partial with a length longer than the measure
-      // length.
-      const auto length (measure_length (context));
-      if (isfinite (length))
+      programming_error ("cannot divide by zero measure length");
+      position.main_part_ = 0; // not really in [0, length), but pretty close
+      return position;
+    }
+
+  // A negative measurePosition is the effect of \partial at the start of a
+  // piece or (less likely) a \partial with a length longer than the measure
+  // length.  Using the Euclidean remainder is good for things that should work
+  // as if they are completing the latter part of a measure (e.g., automatic
+  // beaming).
+  if (isfinite (length))
+    {
+      position.main_part_ = euclidean_remainder (position.main_part_, length);
+    }
+  else // senza misura
+    {
+      if (position.main_part_ >= 0)
         {
-          m.main_part_ = euclidean_remainder (m.main_part_, length);
+          // OK: There's no upper limit on measurePosition.
         }
-      else // senza misura
+      else
         {
           // We can't be sure what is intended from \partial when there is no
           // measureLength.  Timing_translator warns if it is seen.  In mid
@@ -908,7 +922,21 @@ measure_position (Context const *context)
         }
     }
 
-  return m;
+  return position;
+}
+
+Moment
+measure_position (Context const *context, Rational const &length)
+{
+  return measure_position (
+    context, from_scm (get_property (context, "measurePosition"), Moment ()),
+    length);
+}
+
+Moment
+measure_position (Context const *context)
+{
+  return measure_position (context, measure_length (context));
 }
 
 // Find the moment where a note of duration dur happening now will end.
