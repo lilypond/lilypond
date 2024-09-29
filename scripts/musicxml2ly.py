@@ -3509,6 +3509,12 @@ def musicxml_voice_to_lily_voice(voice):
                 elif isinstance(a, musicexp.Clef_StaffLinesEvent):
                     curr_clef = a
 
+                    if current_staff and current_staff != voice._start_staff:
+                        # `\change` must be emitted before `\clef`.
+                        staff_change = musicexp.StaffChange(voice._start_staff)
+                        voice_builder.add_command(staff_change)
+                        current_staff = voice._start_staff
+
                     clef_visible_new = a.visible
 
                     if a.type == 'none':

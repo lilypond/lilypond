@@ -5,9 +5,9 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Staff changes in a piano staff.
-          The voice from the second staff has some notes/chords on the first
-          staff. The final two chords have some notes on the first, some on
-          the second staff.</miscellaneous-field>
+          In the first measure, the voice from the second staff has some notes
+          on the first staff.  In the second measure, the voice from the second
+          staff has some chords on the first staff.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -34,8 +34,8 @@
           <line>2</line>
         </clef>
         <clef number="2">
-          <sign>F</sign>
-          <line>4</line>
+          <sign>G</sign>
+          <line>2</line>
         </clef>
       </attributes>
       <note>
@@ -123,12 +123,18 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>eighth</type>
-        <staff>2</staff>
+        <staff>1</staff>
         <beam number="1">end</beam>
       </note>
     </measure>
     <!--=======================================================-->
     <measure number="2">
+      <attributes>
+        <clef number="2">
+          <sign>F</sign>
+          <line>4</line>
+        </clef>
+      </attributes>
       <note>
         <rest/>
         <duration>8</duration>
