@@ -3611,6 +3611,10 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         if not ev_chord:
             ev_chord = musicexp.ChordEvent()
             voice_builder.add_music(ev_chord, n._duration)
+        else:
+            # This catches '<grace note> <dynamics> <main note>'.
+            if voice_builder.pending_dynamics and 'chord' not in n:
+                voice_builder.add_pending_dynamics()
 
         # A staff change might happen anywhere; for this reason we have more
         # checks here and below.
