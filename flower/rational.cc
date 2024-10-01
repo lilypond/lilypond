@@ -180,7 +180,10 @@ Rational::operator+= (Rational r) &
   else if (sign_ == 0)
     *this = r;
   else if (isinf (*this))
-    ;
+    {
+      if (sign_ == -r.sign_)
+        *this = Rational::nan ();
+    }
   else if (isinf (r))
     *this = r;
   else

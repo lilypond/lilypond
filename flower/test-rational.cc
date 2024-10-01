@@ -263,11 +263,13 @@ TEST (Rational_test, addition)
   Rational z (0);
   Rational inf (INFINITY);
 
-  CHECK (r + s == Rational (7, 6));
-  CHECK (r + z == r);
-  CHECK (z + r == r);
-  CHECK (z + inf == inf);
-  CHECK (inf + z == inf);
+  EQUAL (r + s, Rational (7, 6));
+  EQUAL (r + z, r);
+  EQUAL (z + r, r);
+  EQUAL (z + inf, inf);
+  EQUAL (inf + z, inf);
+  CHECK (isnan (-inf + inf));
+  CHECK (isnan (inf + -inf));
 }
 
 TEST (Rational_test, multiplication)
