@@ -55,7 +55,7 @@ Rational::trunc_int () const
 Rational
 Rational::trunc_rat () const
 {
-  if (isinf (*this))
+  if (!isfinite (*this))
     return *this;
   return Rational ((num_ - (num_ % den_)) * sign_, den_);
 }

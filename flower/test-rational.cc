@@ -453,7 +453,7 @@ TEST (Rational_test, modulo)
             {
               CHECK (std::isnan (expected_double));
               CHECK (isnan (c.modulus));
-              CHECK (isnan (c.dividend / c.divisor));
+              CHECK (isnan (c.dividend % c.divisor));
             }
         }
       catch (yaffut::failure &)
@@ -464,8 +464,6 @@ TEST (Rational_test, modulo)
           throw;
         }
     }
-
-  CHECK (isnan (Rational (0) / Rational (0)));
 }
 
 TEST (Rational_test, trunc_int)
