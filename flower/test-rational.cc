@@ -270,6 +270,17 @@ TEST (Rational_test, addition)
   EQUAL (inf + z, inf);
   CHECK (isnan (-inf + inf));
   CHECK (isnan (inf + -inf));
+
+  Rational nan (Rational::nan ());
+  CHECK (isnan (nan + r));
+  CHECK (isnan (r + nan));
+  CHECK (isnan (nan + z));
+  CHECK (isnan (z + nan));
+  CHECK (isnan (nan + -inf));
+  CHECK (isnan (-inf + nan));
+  CHECK (isnan (nan + inf));
+  CHECK (isnan (inf + nan));
+  CHECK (isnan (nan + nan));
 }
 
 TEST (Rational_test, multiplication)

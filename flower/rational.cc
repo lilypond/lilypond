@@ -175,7 +175,11 @@ Rational::operator%= (Rational r) &
 Rational &
 Rational::operator+= (Rational r) &
 {
-  if (r.sign_ == 0)
+  if (isnan (*this))
+    ;
+  else if (isnan (r))
+    *this = r;
+  else if (r.sign_ == 0)
     ;
   else if (sign_ == 0)
     *this = r;
