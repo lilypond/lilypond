@@ -1014,8 +1014,7 @@ class SequentialMusic(NestedMusic):
         value = None
         at = len(self.elements) - 1
         while (at >= 0
-               and not isinstance(self.elements[at], ChordEvent)
-               and not isinstance(self.elements[at], BarLine)):
+               and not isinstance(self.elements[at], (ChordEvent, BarLine))):
             at -= 1
 
         if at >= 0 and isinstance(self.elements[at], ChordEvent):
@@ -1334,7 +1333,7 @@ class ChordEvent(NestedMusic):
 
     def has_elements(self):
         return [e for e in self.elements
-                if isinstance(e, NoteEvent) or isinstance(e, RestEvent)] != []
+                if isinstance(e, (NoteEvent, RestEvent))] != []
 
     def get_length(self, with_factor=True):
         if self.elements:
@@ -1344,7 +1343,7 @@ class ChordEvent(NestedMusic):
 
     def get_duration(self):
         note_events = [e for e in self.elements
-                       if isinstance(e, NoteEvent) or isinstance(e, RestEvent)]
+                       if isinstance(e, (NoteEvent, RestEvent))]
         if note_events:
             return note_events[0].duration
         else:
@@ -1509,8 +1508,7 @@ class ChordEvent(NestedMusic):
                        and not isinstance(e, NoteEvent)]
 
         other_events = [e for e in self.elements
-                        if not (isinstance(e, RhythmicEvent)
-                                or isinstance(e, StaffChange))]
+                        if not isinstance(e, (RhythmicEvent, StaffChange))]
 
         harmonic_note_events = [e for e in note_events
                                 if isinstance(e, HarmonicNoteEvent)]

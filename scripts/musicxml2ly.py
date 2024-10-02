@@ -2762,7 +2762,7 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
 
     need_markup = False
     for e in lyrics.get_all_children():
-        if ((isinstance(e, musicxml.Text) or isinstance(e, musicxml.Elision))
+        if (isinstance(e, (musicxml.Text, musicxml.Elision))
                 and e._attribute_dict):
             need_markup = True
             break
@@ -3099,8 +3099,8 @@ class LilyPondVoiceBuilder(musicexp.Base):
         # bar line!
         at = len(self.elements) - 1
         while (at >= 0
-               and not isinstance(self.elements[at], musicexp.ChordEvent)
-               and not isinstance(self.elements[at], musicexp.BarLine)):
+               and not isinstance(self.elements[at], (musicexp.ChordEvent,
+                                                      musicexp.BarLine))):
             at -= 1
 
         if (self.elements
@@ -3378,8 +3378,8 @@ def musicxml_voice_to_lily_voice(voice):
                     figured_bass_builder.add_barline(a, 0, False)
                     chordnames_builder.add_barline(a, 0, False)
                     fretboards_builder.add_barline(a, 0, False)
-                elif (isinstance(a, conversion.RepeatMarker)
-                      or isinstance(a, conversion.EndingMarker)):
+                elif isinstance(a, (conversion.RepeatMarker,
+                                    conversion.EndingMarker)):
                     voice_builder.add_command(a)
                     figured_bass_builder.add_barline(a, 0, False)
                     chordnames_builder.add_barline(a, 0, False)
@@ -3563,8 +3563,7 @@ def musicxml_voice_to_lily_voice(voice):
             convert_stem_directions=conversion_settings.convert_stem_directions,
             convert_rest_positions=conversion_settings.convert_rest_positions)
 
-        if (isinstance(main_event, musicexp.NoteEvent)
-                or isinstance(main_event, musicexp.RestEvent)):
+        if isinstance(main_event, (musicexp.NoteEvent, musicexp.RestEvent)):
             if not main_event.visible:
                 note_visible = False
                 if main_event.spacing:

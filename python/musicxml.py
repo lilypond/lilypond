@@ -1801,15 +1801,15 @@ class Part(Music_xml_node):
             # We don't need backup/forward any more, since we have already
             # assigned the correct onset times.
             # TODO: Let Grouping through. Also: link, print, bokmark sound
-            if not (isinstance(n, Note)
-                    or isinstance(n, Attributes)
-                    or isinstance(n, Direction)
-                    or isinstance(n, Measure)
-                    or isinstance(n, Partial)
-                    or isinstance(n, Barline)
-                    or isinstance(n, Harmony)
-                    or isinstance(n, FiguredBass)
-                    or isinstance(n, Print)):
+            if not isinstance(n, (Note,
+                                  Attributes,
+                                  Direction,
+                                  Measure,
+                                  Partial,
+                                  Barline,
+                                  Harmony,
+                                  FiguredBass,
+                                  Print)):
                 continue
 
             if isinstance(n, Attributes) and not start_attr:
@@ -1825,10 +1825,10 @@ class Part(Music_xml_node):
                             voices[v].add_element(staff_attributes)
                 continue
 
-            if (isinstance(n, Measure)
-                    or isinstance(n, Partial)
-                    or isinstance(n, Barline)
-                    or isinstance(n, Print)):
+            if isinstance(n, (Measure,
+                              Partial,
+                              Barline,
+                              Print)):
                 for v in voices.keys():
                     voices[v].add_element(n)
                 continue
@@ -1840,7 +1840,7 @@ class Part(Music_xml_node):
                     assign_to_next_note.append(n)
                 continue
 
-            if isinstance(n, Harmony) or isinstance(n, FiguredBass):
+            if isinstance(n, (Harmony, FiguredBass)):
                 # store the harmony or figured bass element until we encounter
                 # the next note and assign it only to that one voice.
                 assign_to_next_note.append(n)
