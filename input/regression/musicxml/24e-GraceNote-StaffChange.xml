@@ -4,8 +4,8 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A grace note on a different
-          staff than the actual note.</miscellaneous-field>
+      <miscellaneous-field name="description">Grace notes on a different
+          staff than the actual notes.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -32,6 +32,16 @@
           <line>2</line>
         </clef>
       </attributes>
+      <note>
+        <grace slash="no"/>
+        <pitch>
+          <step>G</step>
+          <octave>5</octave>
+        </pitch>
+        <voice>1</voice>
+        <type>16th</type>
+        <staff>2</staff>
+      </note>
       <note>
         <pitch>
           <step>E</step>
@@ -75,6 +85,15 @@
         <voice>1</voice>
         <type>half</type>
         <staff>1</staff>
+      </note>
+      <backup>
+        <duration>128</duration>
+      </backup>
+      <note>
+        <rest measure="yes"/>
+        <duration>128</duration>
+        <voice>2</voice>
+        <staff>2</staff>
       </note>
     </measure>
   </part>

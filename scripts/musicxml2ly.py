@@ -3323,10 +3323,18 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         staff_change = None
         staff = n.get('staff')
         if staff:
-            if current_staff and staff != current_staff:
+            if ((current_staff is not None and staff != current_staff)
+                    or (current_staff is None
+                        and staff != voice._start_staff)):
                 staff_change = musicexp.StaffChange(staff)
-                # A check for `<note>` follows later.
-                if not is_note:
+                if isinstance(n, musicxml.Direction):
+                    # Check whether we are in 'grace mode'.
+                    evc = voice_builder.last_event_chord(n._when)
+                    if not evc.elements and evc.grace_elements:
+                        evc.append_grace(staff_change)
+                        staff_change = None
+                elif not is_note:
+                    # A check for `<note>` follows later.
                     voice_builder.add_command(staff_change)
                     staff_change = None
             current_staff = staff
