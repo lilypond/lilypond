@@ -839,7 +839,7 @@ class Notehead(Music_xml_node):
 class Note(Measure_element):
     max_occurs_by_child = {
         'accidental': 1,
-        'beam': 2,  # actually 8
+        'beam': 2,
         'chord': 1,
         'dot': 2,
         'duration': 1,
@@ -1491,7 +1491,7 @@ class Part(Music_xml_node):
             # They are also used for upbeats (initial value of 0 fits these,
             # too).  Also, don't reset the measure position at the end of
             # the loop, but rather when starting the next measure (since
-            # only then do we know whether the next measure is implicit and
+            # only then we know whether the next measure is implicit and
             # continues that measure).
             if not m.is_implicit():
                 # Warn about possibly incomplete or overfull measures and
@@ -1730,7 +1730,7 @@ class Part(Music_xml_node):
                             warnings.warn(_('%s end seen without %s start'
                                             % (type, type)))
 
-        # The last indentified voice
+        # The last identified voice.
         last_voice = None
 
         voices = OrderedDict()
@@ -1775,10 +1775,10 @@ class Part(Music_xml_node):
                 if vid not in voice_to_staff_dict:
                     voice_to_staff_dict[vid] = sid
 
-        # invert the voice_to_staff_dict into a staff_to_voice_dict(since we
-        # need to assign staff-assigned objects like clefs, times, etc. to
-        # all the correct voices. This will never work entirely correct due
-        # to staff-switches, but that's the best we can do!
+        # Invert the `voice_to_staff_dict` into a `staff_to_voice_dict`
+        # (since we need to assign staff-related objects like clefs, times,
+        # etc., to the correct voices).  This will never be entirely correct
+        # due to staff switches, but it is the best we can do.
         staff_to_voice_dict = {}
         for (v, s) in voice_to_staff_dict.items():
             if s not in staff_to_voice_dict:
@@ -1798,9 +1798,10 @@ class Part(Music_xml_node):
             if id != "None":
                 last_voice = id
 
-            # We don't need backup/forward any more, since we have already
-            # assigned the correct onset times.
-            # TODO: Let Grouping through. Also: link, print, bokmark sound
+            # We don't need `<backup>` and `<forward>` any more since we
+            # have already assigned the correct onset times.
+            #
+            # TODO: Pass `<grouping>`, `<link>`, `<bookmark>`, `<sound>`.
             if not isinstance(n, (Note,
                                   Attributes,
                                   Direction,
