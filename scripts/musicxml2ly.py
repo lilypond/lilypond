@@ -3318,6 +3318,8 @@ def musicxml_voice_to_lily_voice(voice):
     senza_misura_time_signature = None
     for n in voice._elements:
         tie_started = False
+        is_note = isinstance(n, musicxml.Note)
+
         if n.get_name() == 'forward':
             continue
 
@@ -3327,7 +3329,7 @@ def musicxml_voice_to_lily_voice(voice):
             if current_staff and staff != current_staff:
                 staff_change = musicexp.StaffChange(staff)
                 # A check for `<note>` follows later.
-                if not isinstance(n, musicxml.Note):
+                if not is_note:
                     voice_builder.add_command(staff_change)
                     staff_change = None
             current_staff = staff
@@ -3353,7 +3355,8 @@ def musicxml_voice_to_lily_voice(voice):
             continue
 
         is_chord = 'chord' in n
-        is_after_grace = (isinstance(n, musicxml.Note) and n.is_after_grace())
+        is_after_grace = (is_note and n.is_after_grace())
+
         if not is_chord and not is_after_grace:
             try:
                 voice_builder.jumpto(n._when)
@@ -3609,9 +3612,6 @@ def musicxml_voice_to_lily_voice(voice):
         # For grace notes:
         grace = n.get('grace')
         if grace is not None:
-            is_after_grace = ev_chord.has_elements() or n.is_after_grace()
-            is_chord = 'chord' in n
-
             grace_chord = None
 
             # After-graces and other graces use different lists; depending
