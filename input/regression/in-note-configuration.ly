@@ -1,4 +1,4 @@
-\version "2.23.9"
+\version "2.25.9"
 
 \header {
   texidoc = "In-notes can be controlled via @code{\paper} variables.
