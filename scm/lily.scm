@@ -33,8 +33,8 @@
   (let* ((fixed-seed (ly:get-option 'random-seed))
          (seed (if (number? fixed-seed)
                    fixed-seed
-                   ; If no fixed seed was given, calculate one, based
-                   ; on time and pid
+                   ;; If no fixed seed was given, calculate one, based
+                   ;; on time and pid
                    (ly:make-rand-seed))))
     ;; seed C++ random generator (lily-random.cc)
     (ly:set-rand-seed seed)
@@ -906,10 +906,10 @@ PIDs or the number of the process."
           (if (= pid 0)
               (begin
                 (ly:time-tracer-restart "lilypond (child)")
-                ; When running with fixed random seed, change
-                ; the seed for the child processes.  This way
-                ; we reduce the probability of colliding
-                ; file ids.
+                ;; When running with fixed random seed, change
+                ;; the seed for the child processes.  This way
+                ;; we reduce the probability of colliding
+                ;; file ids.
                 (let ((seed (ly:get-option 'random-seed)))
                   (if (number? seed)
                       (ly:set-option 'random-seed (+ seed count))))

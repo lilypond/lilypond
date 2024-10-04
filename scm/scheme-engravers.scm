@@ -665,7 +665,7 @@ one voice.")))
             (set! skip #f)
             (set! dur-event #f))))
      ((stop-translation-timestep this-engraver)
-      ;: If no duration-line is active clear local `tie`.
+      ;; If no duration-line is active clear local `tie`.
       (when (and (not start-duration-line) (not stop-duration-line))
         (set! tie #f))
       ;; If a context dies or "pauses" (i.e. no rhythmic-event for some time,
@@ -1933,7 +1933,7 @@ adapted for typesetting within a chord grid.")))
              (ly:grob-set-property! grob 'after-line-breaking '())
              (begin
                ;; In-chord repeat ties and those at stand-alone note heads are
-               ;, in tab-note-head's 'articulations, thus affect tab-note-head
+               ;; in tab-note-head's 'articulations, thus affect tab-note-head
                ;; here, setting the `repeat-tied` sub-property.
                ;; Otherwise tab-note-head may be part of an event-chord with
                ;; \repeatTie in 'elements, thus store and accumulate them and
@@ -1942,8 +1942,8 @@ adapted for typesetting within a chord grid.")))
                       (repeat-tie?
                         (event-has-articulation? 'repeat-tie-event cause)))
                  (when repeat-tie?
-                   (ly:grob-set-nested-property! grob
-                     '(details tied-properties repeat-tied) #t)))
+                   (ly:grob-set-nested-property!
+                    grob '(details tied-properties repeat-tied) #t)))
                (set! tab-note-heads (cons grob tab-note-heads))
                ;; accumulate tab-note-heads where a Tie ends
                ;; in `left-bound-tab-nhds`
@@ -1968,8 +1968,8 @@ adapted for typesetting within a chord grid.")))
                   (= (length repeat-ties) (length tab-note-heads)))
          (for-each
            (lambda (tnhd)
-             (ly:grob-set-nested-property! tnhd
-               '(details tied-properties repeat-tied) #t))
+             (ly:grob-set-nested-property!
+              tnhd '(details tied-properties repeat-tied) #t))
            tab-note-heads))
 
        ;;;; Ties
