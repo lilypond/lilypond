@@ -66,7 +66,8 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
       // way to merge the two.
       && !has_interface<Accidental_interface> (g)
       // Similar for TabNoteHead
-      && !(g->internal_has_interface (ly_symbol2scm ("tab-note-head-interface"))))
+      && !(
+        g->internal_has_interface (ly_symbol2scm ("tab-note-head-interface"))))
     {
       SCM id = get_property (g, "parenthesis-id");
       bool must_add_to_alist = false;

@@ -271,8 +271,7 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
             continue;
           if (pos == end && item->break_status_dir () != LEFT)
             continue;
-          if (pos != end && pos != start
-              && item->break_status_dir () != CENTER)
+          if (pos != end && pos != start && item->break_status_dir () != CENTER)
             continue;
         }
 

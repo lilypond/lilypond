@@ -27,7 +27,8 @@
 
 struct Self_alignment_interface
 {
-  static Real aligned_on_self (Grob *me, Axis a, bool pure, vsize start, vsize end);
+  static Real aligned_on_self (Grob *me, Axis a, bool pure, vsize start,
+                               vsize end);
   static Real centered_on_self (Grob *me, Axis a);
   static Real aligned_on_parent (Grob *me, Axis a);
   static void set_aligned_on_parent (Grob *me, Axis a);

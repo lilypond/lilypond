@@ -61,7 +61,8 @@ Staff_grouper_interface::get_extremal_staff (Grob *me, Grob *refpoint,
 */
 bool
 Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child,
-                                                  bool pure, vsize start, vsize end)
+                                                  bool pure, vsize start,
+                                                  vsize end)
 {
   extract_grob_set (me, "elements", elts);
 

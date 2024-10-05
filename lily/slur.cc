@@ -237,8 +237,8 @@ SCM
 Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm,
                                   SCM offset_scm)
 {
-  auto start = from_scm (start_scm, vsize{0});
-  auto end = from_scm (end_scm, vsize{0});
+  auto start = from_scm (start_scm, vsize {0});
+  auto end = from_scm (end_scm, vsize {0});
   auto *const script = LY_ASSERT_SMOB (Grob, grob, 1);
   Grob *slur = unsmob<Grob> (get_object (script, "slur"));
   if (!slur)

@@ -370,7 +370,7 @@ Beam::calc_beaming (SCM smob)
 }
 
 bool
-operator< (Beam_stem_segment const &a, Beam_stem_segment const &b)
+operator<(Beam_stem_segment const &a, Beam_stem_segment const &b)
 {
   return a.rank_ < b.rank_;
 }

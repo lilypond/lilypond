@@ -209,8 +209,9 @@ public:
   bool check_cross_staff (Grob *common);
   static bool less (Grob *g1, Grob *g2);
   static SCM maybe_pure_internal_simple_skylines_from_extents (Grob *, Axis,
-                                                               bool, vsize, vsize,
-                                                               bool, bool);
+                                                               bool, vsize,
+                                                               vsize, bool,
+                                                               bool);
   static SCM internal_skylines_from_element_stencils (Grob *me, Axis a,
                                                       bool pure, vsize beg,
                                                       vsize end);

@@ -196,8 +196,8 @@ SCM
 Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  auto start = from_scm (start_scm, vsize{0});
-  auto end = from_scm (end_scm, vsize{INT_MAX});
+  auto start = from_scm (start_scm, vsize {0});
+  auto end = from_scm (end_scm, vsize {INT_MAX});
   return to_scm (pure_group_height (me, start, end));
 }
 
@@ -271,7 +271,8 @@ Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 }
 
 Interval
-Axis_group_interface::sum_partial_pure_heights (Grob *me, vsize start, vsize end)
+Axis_group_interface::sum_partial_pure_heights (Grob *me, vsize start,
+                                                vsize end)
 {
   Interval iv = begin_of_line_pure_height (me, start);
   iv.unite (rest_of_line_pure_height (me, start, end));
@@ -1004,7 +1005,8 @@ Axis_group_interface::calc_staff_staff_spacing (SCM smob)
 
 SCM
 Axis_group_interface::calc_maybe_pure_staff_staff_spacing (Grob *me, bool pure,
-                                                           vsize start, vsize end)
+                                                           vsize start,
+                                                           vsize end)
 {
   Grob *grouper = unsmob<Grob> (get_object (me, "staff-grouper"));
 

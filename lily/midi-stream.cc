@@ -44,8 +44,7 @@ Midi_stream::Midi_stream (const std::string &file_name)
 
   while (tries--)
     {
-      tmp_file_name_
-        = LilyRandom::make_tmpfile_name ("lilypond-tmp-midi");
+      tmp_file_name_ = LilyRandom::make_tmpfile_name ("lilypond-tmp-midi");
       out_file_ = ::open (tmp_file_name_.c_str (), flags, 0666);
       if (out_file_ != -1)
         return;

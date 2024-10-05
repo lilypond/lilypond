@@ -55,8 +55,8 @@ SCM
 Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  auto start = from_scm (start_scm, vsize{0});
-  auto end = from_scm (end_scm, vsize{INT_MAX});
+  auto start = from_scm (start_scm, vsize {0});
+  auto end = from_scm (end_scm, vsize {INT_MAX});
 
   if (request_suicide (me, start, end))
     return to_scm (Interval ());
@@ -116,7 +116,7 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, vsize start,
   if (scm_is_vector (important))
     {
       vsize len = scm_c_vector_length (important);
-       /* interval too small to find any relevant columns */
+      /* interval too small to find any relevant columns */
       if (end < 2 || end - start < 2)
         return true;
       if (find_in_range (important, 0, len, start + 1, end - 1))
@@ -174,14 +174,15 @@ Hara_kiri_group_spanner::unpure_request_suicide_alone (Grob *me)
     return false;
 
   bool remove_first = from_scm<bool> (get_property (me, "remove-first"));
-  if (!remove_first) {
-    auto *sp = dynamic_cast<Spanner *> (me);
-    vsize left = 0;
-    if (Item *l = sp->get_bound (LEFT))
-      left = l->get_column ()->get_rank ();
-    if (left <= 0)
-      return false;
-  }
+  if (!remove_first)
+    {
+      auto *sp = dynamic_cast<Spanner *> (me);
+      vsize left = 0;
+      if (Item *l = sp->get_bound (LEFT))
+        left = l->get_column ()->get_rank ();
+      if (left <= 0)
+        return false;
+    }
 
   extract_grob_set (me, "items-worth-living", worth);
   for (auto *worth_item : worth)
