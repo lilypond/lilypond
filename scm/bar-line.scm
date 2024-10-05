@@ -370,10 +370,10 @@ is not used within the routine."
           '()))
 
     (define (add! init ls rl)
-    ;; Returns the list @code{rl} where the elements from @code{ls} are added to
-    ;; the previous one, starting at @code{(+ init (car ls))}. Example:
-    ;;   (add! 1.23 '(1 2 3) '())
-    ;;   --> '(2.23 4.23 7.23)
+      ;; Returns the list @code{rl} where the elements from @code{ls} are added to
+      ;; the previous one, starting at @code{(+ init (car ls))}. Example:
+      ;;   (add! 1.23 '(1 2 3) '())
+      ;;   --> '(2.23 4.23 7.23)
       (if (null? ls)
           (reverse rl)
           (let ((new-init ((if (negative? init) - +) init (car ls))))
@@ -404,20 +404,20 @@ is not used within the routine."
              ;; easier, though.
              ;; -Harm
              (ls
-               (if (zero? dot-count)
-                   '()
-                   (cons
-                     (/ space 2)
-                     (append
-                       (make-list
-                         (inexact->exact (1- dot-count))
-                         space)
-                       (list (/ space 2)))))))
+              (if (zero? dot-count)
+                  '()
+                  (cons
+                   (/ space 2)
+                   (append
+                    (make-list
+                     (inexact->exact (1- dot-count))
+                     space)
+                    (list (/ space 2)))))))
         (set! dots-pos
               (if (pair? ls)
                   (map
-                    (lambda (x) (* (/ x staff-space) 2))
-                    (drop-right (add! (interval-end extent) ls '()) 1))
+                   (lambda (x) (* (/ x staff-space) 2))
+                   (drop-right (add! (interval-end extent) ls '()) 1))
                   '()))))
 
     (when (not is-span)
@@ -437,10 +437,10 @@ is not used within the routine."
         ;; If a dot is out of bounds due to rounding, bring it in.
         (when (> (+ top-pos staff-line-thick blot)
                  (/ (interval-end extent-less-dot) staff-space))
-            (set! top-pos (1- top-pos)))
+          (set! top-pos (1- top-pos)))
         (when (< (- bottom-pos staff-line-thick blot)
                  (/ (interval-start extent-less-dot) staff-space))
-            (set! bottom-pos (1+ bottom-pos))))
+          (set! bottom-pos (1+ bottom-pos))))
 
       ;; The dots will be separated by one staff space center to
       ;; center, so they will be placed all in even or all in odd
@@ -483,12 +483,12 @@ is not used within the routine."
                 (set! dots-pos even-dots-pos)))))
 
     (apply
-      ly:stencil-add
-      empty-stencil
-      (map
-        (lambda (pos)
-          (ly:stencil-translate-axis dot (/ (* staff-space pos) 2) Y))
-        dots-pos))))
+     ly:stencil-add
+     empty-stencil
+     (map
+      (lambda (pos)
+        (ly:stencil-translate-axis dot (/ (* staff-space pos) 2) Y))
+      dots-pos))))
 
 
 (define (make-dashed-bar-line is-span grob extent)
@@ -501,7 +501,7 @@ is not used within the routine."
          (half-space (/ (if is-span
                             layout-staff-space
                             staff-space)
-                         2.0))
+                        2.0))
          (blot (layout-blot-diameter grob))
          (line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
@@ -530,7 +530,7 @@ is not used within the routine."
                                               blot)))))
               (iota (1+ rounded-amount) rounded-amount (- 2)))
     (ly:stencil-translate-axis
-       stencil
+     stencil
      (interval-center extent)
      Y)))
 

@@ -1914,18 +1914,18 @@ adapted for typesetting within a chord grid.")))
           (left-bound-tab-nhds '())
           (spanners '()))
 
-    (make-engraver
-     (acknowledgers
-       ((semi-tie-interface this-engraver grob source-engraver)
+      (make-engraver
+       (acknowledgers
+        ((semi-tie-interface this-engraver grob source-engraver)
          (when (positive? (ly:grob-property grob 'head-direction))
            (set! repeat-ties (cons grob repeat-ties))))
-       ((spanner-interface this-engraver grob source-engraver)
+        ((spanner-interface this-engraver grob source-engraver)
          (when (grob::has-interface grob 'tie-interface)
            (set! ties (cons grob ties)))
          (when (or (grob::has-interface grob 'slur-interface)
                    (grob::has-interface grob 'glissando-interface))
            (set! spanners (cons grob spanners))))
-       ((tab-note-head-interface this-engraver grob source-engraver)
+        ((tab-note-head-interface this-engraver grob source-engraver)
          ;; Only sort TabNoteHead grobs if `tabFullNotation` is not used.
          ;; If `tabFullNotation` is used unset 'after-line-breaking, in order
          ;; to avoid printing transparent and parenthesized.
@@ -1940,7 +1940,7 @@ adapted for typesetting within a chord grid.")))
                ;; check for RepeaTie later
                (let* ((cause (ly:grob-property grob 'cause))
                       (repeat-tie?
-                        (event-has-articulation? 'repeat-tie-event cause)))
+                       (event-has-articulation? 'repeat-tie-event cause)))
                  (when repeat-tie?
                    (ly:grob-set-nested-property!
                     grob '(details tied-properties repeat-tied) #t)))
@@ -1949,67 +1949,67 @@ adapted for typesetting within a chord grid.")))
                ;; in `left-bound-tab-nhds`
                (when (pair? ties)
                  (for-each
-                   (lambda (tie)
-                     (when (equal? grob (ly:spanner-bound tie RIGHT))
-                       (set! left-bound-tab-nhds
-                             (cons grob left-bound-tab-nhds))))
-                   ties))))))
+                  (lambda (tie)
+                    (when (equal? grob (ly:spanner-bound tie RIGHT))
+                      (set! left-bound-tab-nhds
+                            (cons grob left-bound-tab-nhds))))
+                  ties))))))
 
-     ((stop-translation-timestep this-engraver)
+       ((stop-translation-timestep this-engraver)
        ;;;; RepeatTies, attached to an event-chord or stand-alone TabNoteHead.
-       ;;
-       ;; TODO Stand-alone TabNoteHead are already done in `acknowledgers`,
-       ;; should we filter for them?
-       ;;
-       ;; Equal lengths means, \repeatTie was applied to an
-       ;; event-chord or a stand-alone note-head. Set the `repeat-tied`
-       ;; sub-property.
-       (when (and (pair? repeat-ties) (pair? tab-note-heads)
-                  (= (length repeat-ties) (length tab-note-heads)))
-         (for-each
+        ;;
+        ;; TODO Stand-alone TabNoteHead are already done in `acknowledgers`,
+        ;; should we filter for them?
+        ;;
+        ;; Equal lengths means, \repeatTie was applied to an
+        ;; event-chord or a stand-alone note-head. Set the `repeat-tied`
+        ;; sub-property.
+        (when (and (pair? repeat-ties) (pair? tab-note-heads)
+                   (= (length repeat-ties) (length tab-note-heads)))
+          (for-each
            (lambda (tnhd)
              (ly:grob-set-nested-property!
               tnhd '(details tied-properties repeat-tied) #t))
            tab-note-heads))
 
        ;;;; Ties
-       ;;
-       ;; Set the `tied` subproperty for TabNoteHeads ending a Tie.
-       (when (pair? left-bound-tab-nhds)
-         (for-each
+        ;;
+        ;; Set the `tied` subproperty for TabNoteHeads ending a Tie.
+        (when (pair? left-bound-tab-nhds)
+          (for-each
            (lambda (grob)
              (ly:grob-set-nested-property! grob
-               '(details tied-properties tied) #t))
+                                           '(details tied-properties tied) #t))
            left-bound-tab-nhds))
-       ;; `ties` can not be cleared at this stage, because a Tie may be broken,
-       ;; and we are interested in the *final* right bound TabNoteHead.
+        ;; `ties` can not be cleared at this stage, because a Tie may be broken,
+        ;; and we are interested in the *final* right bound TabNoteHead.
 
        ;;;; Slur and Glissando
-       ;;
-       ;; Set the `span-start` property for TabNoteHeads starting a Slur or
-       ;; Glissando
-       ;; NB Slur is bound by note-column, Glissando by note-head
-       (when (pair? spanners)
-         (for-each
+        ;;
+        ;; Set the `span-start` property for TabNoteHeads starting a Slur or
+        ;; Glissando
+        ;; NB Slur is bound by note-column, Glissando by note-head
+        (when (pair? spanners)
+          (for-each
            (lambda (sp)
              (let* ((left-bound (ly:spanner-bound sp LEFT))
                     (left-bounds-array
-                      (ly:grob-object left-bound 'note-heads #f)))
+                     (ly:grob-object left-bound 'note-heads #f)))
                (for-each
-                 (lambda (g)
-                   (when (memv g left-bound-tab-nhds)
-                     (ly:grob-set-property! g 'span-start #t)))
-                 (if left-bounds-array
-                     (ly:grob-array->list left-bounds-array)
-                     (list left-bound)))))
+                (lambda (g)
+                  (when (memv g left-bound-tab-nhds)
+                    (ly:grob-set-property! g 'span-start #t)))
+                (if left-bounds-array
+                    (ly:grob-array->list left-bounds-array)
+                    (list left-bound)))))
            spanners))
 
-       (set! left-bound-tab-nhds '())
-       (set! spanners '())
-       (set! tab-note-heads '())
-       (set! repeat-ties '()))
+        (set! left-bound-tab-nhds '())
+        (set! spanners '())
+        (set! tab-note-heads '())
+        (set! repeat-ties '()))
 
-      ((finalize trans)
+       ((finalize trans)
         (set! ties '()))))))
 
 (ly:register-translator

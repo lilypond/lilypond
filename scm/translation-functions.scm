@@ -389,14 +389,14 @@ segni to avoid ambiguity."
           (if (number? alt)
               (let* ((acc (assoc-get alt figbass-accidental-alist))
                      (acc-markup
-                       (if acc
-                           (make-number-markup (ly:wide-char->utf-8 acc))
-                           (begin
-                             (ly:warning
-                              (G_ "no accidental glyph found for alteration ~a")
-                              alt)
-                             ;; fallback
-                              "?"))))
+                      (if acc
+                          (make-number-markup (ly:wide-char->utf-8 acc))
+                          (begin
+                            (ly:warning
+                             (G_ "no accidental glyph found for alteration ~a")
+                             alt)
+                            ;; fallback
+                            "?"))))
                 (if alt-bracket
                     (make-bracket-markup acc-markup)
                     acc-markup))

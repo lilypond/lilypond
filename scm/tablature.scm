@@ -197,7 +197,7 @@ A @code{TabNoteHead} with @code{\\repeatTie} is printed parenthesized as well,
 the same holds if @code{\\repeatTie} is applied to a chord. This is useful for
 seconda volta blocks. This behaviour can be switched off with
 @code{hideSplitTiedTabNotes}."
-;; TODO move behaviour for repeatTie and 'span-start to the stencil-procedure?
+  ;; TODO move behaviour for repeatTie and 'span-start to the stencil-procedure?
   (let* (;; get PaperColumn
          (pc (ly:item-get-column grob))
          ;; get NonMusicalPaperColumn
@@ -214,12 +214,12 @@ seconda volta blocks. This behaviour can be switched off with
     (cond ((or span-start?
                (and repeat-tied? tied-visible? tied-parenthesized?)
                (and tied? at-line-begin? tied-visible? tied-parenthesized?))
-             (ly:grob-set-property! grob 'parenthesized #t)
-             ;; The stencil procedure needs to be run again, otherwise
-             ;; 'dparenthesized would have no effect.
-             (ly:grob-set-property! grob 'stencil tab-note-head::print))
+           (ly:grob-set-property! grob 'parenthesized #t)
+           ;; The stencil procedure needs to be run again, otherwise
+           ;; 'dparenthesized would have no effect.
+           (ly:grob-set-property! grob 'stencil tab-note-head::print))
           ((or tied? repeat-tied?)
-            (ly:grob-set-property! grob 'transparent #t)))))
+           (ly:grob-set-property! grob 'transparent #t)))))
 
 (define-public (tab-note-head::print grob)
   "Print a tab note head."

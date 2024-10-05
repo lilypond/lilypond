@@ -87,7 +87,7 @@ modules."
           (if (and (ly:stencil-empty? stil Y)
                    (not (ly:stencil-empty? stil X)))
               (ly:make-stencil
-                (ly:stencil-expr stil) (ly:stencil-extent stil X) '(0 . 0))
+               (ly:stencil-expr stil) (ly:stencil-extent stil X) '(0 . 0))
               stil))
         empty-stencil)))
 
