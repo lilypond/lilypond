@@ -2893,14 +2893,6 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
     return ''
 
 
-# TODO
-
-class NegativeSkip:
-    def __init__(self, here, dest):
-        self.here = here
-        self.dest = dest
-
-
 class LilyPondVoiceBuilder(musicexp.Base):
     def __init__(self):
         self.elements = []
@@ -3112,12 +3104,6 @@ class LilyPondVoiceBuilder(musicexp.Base):
             self.jumpto(starting_at)
             value = None
         return value
-
-    def correct_negative_skip(self, goto):
-        self.end_moment = goto
-        self.begin_moment = goto
-        evc = musicexp.ChordEvent()
-        self.elements.append(evc)
 
 
 class VoiceData:
@@ -3358,19 +3344,10 @@ def musicxml_voice_to_lily_voice(voice):
         is_after_grace = (is_note and n.is_after_grace())
 
         if not is_chord and not is_after_grace:
-            try:
-                voice_builder.jumpto(n._when)
-                figured_bass_builder.jumpto(n._when)
-                chordnames_builder.jumpto(n._when)
-                fretboards_builder.jumpto(n._when)
-            except NegativeSkip as neg:
-                voice_builder.correct_negative_skip(n._when)
-                figured_bass_builder.correct_negative_skip(n._when)
-                chordnames_builder.correct_negative_skip(n._when)
-                fretboards_builder.correct_negative_skip(n._when)
-                n.message(
-                    _("Negative skip found: from %s to %s, difference is %s") %
-                    (neg.here, neg.dest, neg.dest - neg.here))
+            voice_builder.jumpto(n._when)
+            figured_bass_builder.jumpto(n._when)
+            chordnames_builder.jumpto(n._when)
+            fretboards_builder.jumpto(n._when)
 
         if isinstance(n, musicxml.Barline):
             barlines = n.to_lily_object()
@@ -3661,12 +3638,10 @@ def musicxml_voice_to_lily_voice(voice):
         # if we have a figured bass, set its voice builder to the correct
         # position and insert the pending figures
         if pending_figured_bass:
-            try:
-                figured_bass_builder.jumpto(n._when)
-                if figured_bass_builder.stay_here:
-                    figured_bass_builder.stay_here = False
-            except NegativeSkip as neg:
-                pass
+            figured_bass_builder.jumpto(n._when)
+            if figured_bass_builder.stay_here:
+                figured_bass_builder.stay_here = False
+
             for fb in pending_figured_bass:
                 # if a duration is given, use that, otherwise the one of the
                 # note
@@ -3679,12 +3654,10 @@ def musicxml_voice_to_lily_voice(voice):
             pending_figured_bass = []
 
         if pending_chordnames:
-            try:
-                chordnames_builder.jumpto(n._when)
-                if chordnames_builder.stay_here:
-                    chordnames_builder.stay_here = False
-            except NegativeSkip as neg:
-                pass
+            chordnames_builder.jumpto(n._when)
+            if chordnames_builder.stay_here:
+                chordnames_builder.stay_here = False
+
             for cn in pending_chordnames:
                 # Assign the duration of the EventChord
                 cn.duration = ev_chord.get_duration()
@@ -3692,12 +3665,10 @@ def musicxml_voice_to_lily_voice(voice):
             pending_chordnames = []
 
         if pending_fretboards:
-            try:
-                fretboards_builder.jumpto(n._when)
-                if fretboards_builder.stay_here:
-                    fretboards_builder.stay_here = False
-            except NegativeSkip as neg:
-                pass
+            fretboards_builder.jumpto(n._when)
+            if fretboards_builder.stay_here:
+                fretboards_builder.stay_here = False
+
             for fb in pending_fretboards:
                 # Assign the duration of the EventChord
                 fb.duration = ev_chord.get_duration()
