@@ -755,8 +755,9 @@ one).")
      (strokeFingerOrientations ,list? "See
 @code{fingeringOrientations}.")
      (subdivideBeams ,boolean? "If set, beams of mulitple stems may be
-subdivided by omitting a number of beamlets, dependent on @code{maxSubdivideInterval},
-between beats at mulitiples of @code{minSubdivideInterval}.")
+subdivided by omitting a number of beamlets, dependent on
+@code{maximumBeamSubdivisionInterval}, between beats at mulitiples of
+@code{minimumBeamSubdivisionInterval}.")
      (suggestAccidentals ,boolean-or-symbol? "If set to @code{#t},
 accidentals are typeset as suggestions above the note.  Setting it to
 @code{'cautionary} only applies that to cautionary accidentals.")
