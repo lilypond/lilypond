@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.25.2"
 
 @node World music
 @section Músicas del mundo
@@ -193,6 +193,7 @@ ingleses.  He aquí una escala @code{rast} que usa
 
 @lilypond[quote,verbatim]
 \include "hel-arabic.ly"
+\language "arabic"
 \language "english"
 \relative {
 \key c \rast

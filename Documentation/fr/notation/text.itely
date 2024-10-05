@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.5"
+@c \version "2.25.6"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, John Mandereau
@@ -2150,7 +2150,7 @@ la police par défaut (de la famille @code{music}).
 
 @lilypond[verbatim,quote]
 \layout {
-  \override TabVoice.TabNoteHead.fonts.serif = "Linux Libertine O"
+  \override TabVoice.TabNoteHead.property-defaults.fonts.serif = "Linux Libertine O"
 }
 
 \new TabStaff { c' d' e' \deadNote c' }

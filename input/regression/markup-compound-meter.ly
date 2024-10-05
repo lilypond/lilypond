@@ -1,4 +1,4 @@
-\version "2.19.16"
+\version "2.25.12"
 
 \header {
   texidoc = "The @code{\\compound-meter} markup command can produce various kinds of numeric time signature."
@@ -15,7 +15,7 @@
 
 \markup {
   \vspace #2
-  This is single-digit compound time signature:
+  This is single-number compound time signature:
   \compound-meter #'((2) (3))
   (Isn't it pretty?)
 }
