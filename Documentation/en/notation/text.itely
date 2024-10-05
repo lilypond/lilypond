@@ -2100,7 +2100,8 @@ default font for those that are drawn as a cross (which use the
 
 @lilypond[verbatim,quote]
 \layout {
-  \override TabVoice.TabNoteHead.property-defaults.fonts.serif = "Linux Libertine O"
+  \override TabVoice.TabNoteHead.property-defaults.fonts.serif =
+    "Linux Libertine O"
 }
 
 \new TabStaff { c' d' e' \deadNote c' }

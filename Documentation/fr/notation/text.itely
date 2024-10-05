@@ -2150,7 +2150,8 @@ la police par défaut (de la famille @code{music}).
 
 @lilypond[verbatim,quote]
 \layout {
-  \override TabVoice.TabNoteHead.property-defaults.fonts.serif = "Linux Libertine O"
+  \override TabVoice.TabNoteHead.property-defaults.fonts.serif =
+    "Linux Libertine O"
 }
 
 \new TabStaff { c' d' e' \deadNote c' }
