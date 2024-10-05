@@ -317,68 +317,69 @@ Timing_translator::initialize ()
         }
     }
 
-  SCM barnumber = get_property (this, "currentBarNumber");
-  if (!scm_is_integer (barnumber))
-    barnumber = to_scm (1);
-  set_property (context (), "currentBarNumber", barnumber);
-  set_property (context (), "internalBarNumber", barnumber);
+  SCM bar_number = get_property (this, "currentBarNumber");
+  if (!scm_is_integer (bar_number))
+    bar_number = to_scm (1);
+  set_property (context (), "currentBarNumber", bar_number);
+  set_property (context (), "internalBarNumber", bar_number);
 
-  SCM timeSignatureFraction = get_property (this, "timeSignatureFraction");
+  SCM time_signature_fraction = get_property (this, "timeSignatureFraction");
 
-  if (!scm_is_pair (timeSignatureFraction)
-      && !scm_is_false (timeSignatureFraction))
+  if (!scm_is_pair (time_signature_fraction)
+      && !scm_is_false (time_signature_fraction))
     {
       programming_error ("missing timeSignatureFraction");
-      timeSignatureFraction = SCM_BOOL_F;
+      time_signature_fraction = SCM_BOOL_F;
     }
-  set_property (context (), "timeSignatureFraction", timeSignatureFraction);
+  set_property (context (), "timeSignatureFraction", time_signature_fraction);
 
-  SCM measureLength = get_property (this, "measureLength");
+  SCM measure_length = get_property (this, "measureLength");
 
-  if (!unsmob<Moment> (measureLength))
+  if (!unsmob<Moment> (measure_length))
     {
-      measureLength = Lily::calc_measure_length (timeSignatureFraction);
+      measure_length = Lily::calc_measure_length (time_signature_fraction);
     }
-  set_property (context (), "measureLength", measureLength);
+  set_property (context (), "measureLength", measure_length);
   {
     const auto mp = Moment (0, now_mom ().grace_part_);
     set_property (context (), "measurePosition", mp.smobbed_copy ());
   }
   set_property (context (), "measureStartNow", SCM_BOOL_T);
 
-  SCM timeSignatureSettings = get_property (this, "timeSignatureSettings");
-  if (!scm_is_pair (timeSignatureSettings))
+  SCM time_signature_settings = get_property (this, "timeSignatureSettings");
+  if (!scm_is_pair (time_signature_settings))
     {
       programming_error ("missing timeSignatureSettings");
-      timeSignatureSettings = Lily::default_time_signature_settings;
+      time_signature_settings = Lily::default_time_signature_settings;
     }
-  set_property (context (), "timeSignatureSettings", timeSignatureSettings);
+  set_property (context (), "timeSignatureSettings", time_signature_settings);
 
-  SCM beamExceptions = get_property (this, "beamExceptions");
-  if (!scm_is_pair (beamExceptions))
+  SCM beam_exceptions = get_property (this, "beamExceptions");
+  if (!scm_is_pair (beam_exceptions))
     {
-      beamExceptions
-        = Lily::beam_exceptions (timeSignatureFraction, timeSignatureSettings);
+      beam_exceptions = Lily::beam_exceptions (time_signature_fraction,
+                                               time_signature_settings);
     }
-  set_property (context (), "beamExceptions", beamExceptions);
+  set_property (context (), "beamExceptions", beam_exceptions);
 
-  SCM baseMoment = get_property (this, "baseMoment");
-  if (!unsmob<Moment> (baseMoment))
+  SCM base_moment = get_property (this, "baseMoment");
+  if (!unsmob<Moment> (base_moment))
     {
-      baseMoment = Moment (from_scm<Rational> (Lily::base_length (
-                             timeSignatureFraction, timeSignatureSettings)))
-                     .smobbed_copy ();
+      base_moment
+        = Moment (from_scm<Rational> (Lily::base_length (
+                    time_signature_fraction, time_signature_settings)))
+            .smobbed_copy ();
     }
-  set_property (context (), "baseMoment", baseMoment);
+  set_property (context (), "baseMoment", base_moment);
 
-  SCM beatStructure = get_property (this, "beatStructure");
-  if (!scm_is_pair (beatStructure))
+  SCM beat_structure = get_property (this, "beatStructure");
+  if (!scm_is_pair (beat_structure))
     {
-      beatStructure = Lily::beat_structure (
-        to_scm (unsmob<Moment> (baseMoment)->main_part_), timeSignatureFraction,
-        timeSignatureSettings);
+      beat_structure = Lily::beat_structure (
+        to_scm (unsmob<Moment> (base_moment)->main_part_),
+        time_signature_fraction, time_signature_settings);
     }
-  set_property (context (), "beatStructure", beatStructure);
+  set_property (context (), "beatStructure", beat_structure);
 
   set_property (context (), "beamHalfMeasure",
                 get_property (this, "beamHalfMeasure"));
