@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
+   Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -118,18 +118,17 @@ c4\5 e\4 g2\3
 @end lilypond
 
 Quand les indications de doigté et de numéro de corde sont attachées à
-une même note, leur positionnement se fera en fonction de l'ordre dans
-lequel elles apparaissent dans le code, mais @strong{uniquement} si
-elles interviennent au sein d'une construction d'accord. En effet, le
-positionnement des doigtés est géré différemment lorsqu'ils sont
-attachés à des notes isolées indépendantes d'un accord.
+une même note, leur positionnement respectif peut se gérer à l'aide de
+la propriété @code{script-priority} property -- @pxref{Contrôle de
+l'ordre vertical des articulations et ornements} et @ref{Default values
+for script-priority}. Leur ordre d'apparition dans la source n'a donc
+aucune importance.
 
 @lilypond[verbatim,quote,fragment]
 \clef "treble_8"
 g4\3-0
 g-0\3
-<g\3-0>2
-<g-0\3>
+g-\tweak script-priority 200 -0 \3
 @end lilypond
 
 @funindex \arabicStringNumbers

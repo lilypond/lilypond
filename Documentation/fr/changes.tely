@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+    Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -227,13 +227,14 @@ musicD = {
 }
 @end lilypond
 
-Note that, as before, the widest clef in a staff group determines
-the horizontal position of all clefs in a system; this means, for
-example, that a piano score containing a treble and an alto clef
-doesn't change at all.
+Notez bien que, comme précédemment, c'est la clef la plus large d'un
+regroupement de portées qui détermine le positionnement horizontal de
+toutes les clefs d'un système. Ceci signifie, par exemple, qu'une
+partiition pour piano comprtant une clef de sol et une clef d'alto ne
+sera en rien modifiée.
 
-If you want to restore the previous default values for whatever
-reason, add
+Pour retrouver les valeurs par défaut antérieures, quelle qu'en soit la
+raison, il suffit d'ajouter
 
 @example
 \override Staff.Clef.space-alist.time-signature =
@@ -245,7 +246,30 @@ reason, add
 @end example
 
 @noindent
-to your score.
+à la partition.
+
+@item
+Le mode majeur LilyPond de l'éditeur de texte GNU Emacs fourni au
+travers du paquetage Emacs Lisp @code{lilypond-mode.el} a été renommé de
+@code{LilyPond-mode} en @code{lilypond-mode}. Le préfixe d'espace de
+noms est désormais tout en minuscules, passant de @code{LilyPond-} à
+@code{lilypond-} et, par conséquent, toutes les fonctions, variables,
+etc. ont toutes leur préfixe en minuscules. Ce changement est apporté
+pour se conformer aux conventions de nommage d'Emacs et, plus
+particilièrement, afin que le nom du mode corresponde au paquetage qui
+le fournit. Il en sera ainsi plus facile aux nouveaux utilisateurs
+d'utiliser LilyPond au sein d'Emacs.
+
+Ceci pourrait perturber certaines configurations d'Emacs existantes sans
+une simple adaptation du fichier d'initialisation d'Emacs. Voisci
+comment, par exemple, spécifier l'utilissation du @code{lilypond-mode} à
+l'aide de la macro @code{use-package} d'Emacs :
+
+@example
+(use-package lilypond-mode
+  :ensure nil
+  :mode "\\.\\(ly\\|ily\\)$")
+@end example
 
 @end itemize
 
@@ -260,7 +284,7 @@ groupes, vous pouvez aisément passer ce qui suit.
 
 @itemize
 @item
-LilyPond requiert désormais Guile 3.0. Comme précédemment, il est
+LilyPond requiert désormais Guile 3.0.7. Comme précédemment, il est
 fortement recommandé de générer le @emph{bytecode} des fichiers
 @file{.scm} lors de la compilation en lançant @command{make
 install-bytecode} avant @command{make install}.
@@ -451,6 +475,10 @@ changement pour un galbe plus courant.
   f'2 \breathe f' |
 }
 @end lilypond
+
+@item
+L'ondulation d'un objet @code{TrillSpanner} requiert désormais moins
+d'espace vertical.
 
 @end itemize
 
@@ -746,6 +774,38 @@ une fonte musicale comme pour les nuances), elles déterminent désormais
 @emph{à la fois} le style de fonte et l'utilisation d'une fonte
 textuelle.
 
+@item
+La taille de la police utilisée par la commande de @emph{markup}
+@code{\volta-number} a été réduite afin de mieux s'harmoniser avec le
+texte environnant. Par la même occasion, la taille du crochet de reprise
+(qui utilise @code{\volta-number} pour son formatage par défaut) a été
+augmentée en proportion inverse afin de compenser dans les cas habituels.
+
+@item
+Certains glyphes, tels que « one » ou « accidentals.hufnagelM1 », de la
+fonte Emmentaler avaient une boîte englobante trop larhe en raison d'un
+bogue dans la chaîne de production des fontes. Ceci est désormais
+corrigé, mais certaines différences pourraient apparaître dans la
+typographie puisque des boîtes englobantes plus étroites peuvent
+entraîner une typographie plus resserrée.
+
+@item
+De nouvelles commandes pour imprimer une reprrésentation textuelle des
+altérations ont été ajoutées : @code{\text-doubleflat},
+@code{\text-flat}, @code{\text-natural}, @code{\text-sharp},
+@code{\text-doublesharp} ainsi que de manière plus générale
+@code{\text-accidental}.
+
+@lilypond[quote,verbatim]
+\markuplist \override #'(padding . 1) \table #'(-1 -1 -1 -1 -1 -1) {
+  "Accidentals for text:"
+   \text-doubleflat \text-flat \text-natural \text-sharp
+   \text-doublesharp
+  "Accidentals for music:"
+  \doubleflat \flat \natural \sharp \doublesharp
+}
+@end lilypond
+
 @end itemize
 
 
@@ -860,8 +920,8 @@ devrait devenir
 @item
 La langue de saisie @q{arabic} est dépréciée. Bien que toujours
 fonctionnelle pour des raisons de rétrocompatiblité -- si l'on charge
-@file{hel-arabic} --, il est recommandé d'utiliser @q{english},
-@q{italiano} ou votre langue de saisie préférée.
+@file{hel-arabic} --, il est recommandé d'utiliser « english »,
+« italiano » ou votre langue de saisie préférée.
 
 @item
 Les réglages par défaut des étiquettes de diagramme de fret ont changé.
@@ -886,6 +946,20 @@ graveur de ligature automatique était actif.
 @item
 Il n'est désormais plus nécessaire de désactiver les ligatures
 automatiques dans le cadre d'un @code{\crossStaff}.
+
+@item
+Les indications @code{\upbow} et @code{\downbow} sont désormais
+correctement inversées lorsque placées sous la portée. En consésquence,
+les glyphes @code{script.upbow} et @code{script.downbow} ont été
+respectivement renommés en @code{script.uupbow} et
+@code{script.udownbow}, et les glyphes inversés nommés
+@code{script.dupbow} et @code{script.ddownbow}.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  f4^\downbow f^\upbow f_\downbow f_\upbow
+}
+@end lilypond
 
 @end itemize
 
@@ -916,6 +990,11 @@ bien vers les sources LilyPond ou des enregistrements, etc.
 @lilypond[verbatim,quote]
 \markup \qr-code #10 "https://lilypond.org"
 @end lilypond
+
+@item
+Des parenthèses pour texte de @emph{markup} ont été ajoutés aux fontes
+Emmentaler, pour s'harmoniser avec les nombres (contrairement à celles
+déjà disponibles pour les altérations).
 
 @item
 Ont été ajoutés à la fonte Emmentaler les glyphes figure-dash (U+2012)

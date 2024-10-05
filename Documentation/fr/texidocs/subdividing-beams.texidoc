@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+%% Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la double
 croche ne sont pas subdivisées par défaut. Autrement dit, tous les
@@ -17,6 +17,11 @@ selon cet intervalle. Lorsque le nombre fourni à
 plus petite durée pour subdiviser sera de
 @code{maximumBeamSubdivisionInterval} divisé par une puissance de 2 tout
 en restant supérieur ou égal à @code{minimumBeamSubdivisionInterval}.
+Dès lors que @code{maximumBeamSubdivisionInterval} est inférieur à
+@code{minimumBeamSubdivisionInterval}, la profondeur de subdivision se
+limite à @code{maximumBeamSubdivisionInterval} mais pas la fréquence ou
+l'intervalle, ce qui peut dévier de la valeur métrique à laquelle on est
+en droit de s'attendre.
 
 Lorsque la propriété @code{respectIncompletBeams} est activée, la
 profondeur de la subdivision (le nombre de traits de ligature)

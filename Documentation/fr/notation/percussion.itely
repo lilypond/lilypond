@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
+    Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -255,13 +255,17 @@ Quelques variables prédéfinies sont disponibles :
 La notation par défaut : une batterie standard, sur une portée de cinq
 lignes.
 
-@lilypond[quote,line-width=10.0\cm]
+@lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
-  cymc cyms cymr hh hhc hho hhho hhp
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+  cymc cyms cymr
+  hh hhc hho hhho hhp
+  cb hc bd sn ss
+  tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
-  cymc cyms cymr hh hhc hho hhho hhp \break
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+  cymc cyms cymr \break
+  hh hhc hho hhho hhp \break
+  cb hc bd sn ss \break
+  tomh tommh tomml toml tomfh tomfl }
 \score {
   << \new DrumStaff \with {
        \remove Bar_engraver
@@ -275,7 +279,8 @@ mus = \drummode {
     \context {
       \Score
       \override LyricText.font-family = #'typewriter
-      \override BarNumber.transparent =##T
+      \override LyricText.font-features = #'("-liga")
+      \override BarNumber.transparent = ##t
     }
   }
 }
@@ -293,11 +298,15 @@ notation s'est répandue au-delà de l'hexagone.
 
 @lilypond[quote,line-width=10.0\cm]
 nam = \lyricmode {
-  cymc cyms cymr hh hhc hho hhho hhp
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+  cymc cyms cymr
+  hh hhc hho hhho hhp
+  cb hc bd sn ss
+  tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
-  cymc cyms cymr hh hhc hho hhho hhp \break
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+  cymc cyms cymr \break
+  hh hhc hho hhho hhp \break
+  cb hc bd sn ss \break
+  tomh tommh tomml toml tomfh tomfl }
 \score {
   << \new DrumStaff \with {
        \remove Bar_engraver
@@ -312,7 +321,8 @@ mus = \drummode {
     \context {
       \Score
       \override LyricText.font-family = #'typewriter
-      \override BarNumber.transparent =##T
+      \override LyricText.font-features = #'("-liga")
+      \override BarNumber.transparent = ##t
     }
   }
 }
@@ -322,16 +332,17 @@ mus = \drummode {
 Cette notation est basée sur les travaux de Norman Weinberg, publiés
 dans son @emph{Guidelines for Drumset Notation}.
 
-@lilypond[quote,line-width=10.0\cm]
+@lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
-  bd bda hh hhc hho hhp \break
-  ss sn tomh tommh tomml toml tomfh tomfl \break
-  cymc cymr rb cymra cymch cb }
+  cymc cymr cymra cymch
+  hh hhc hho hhho hhp
+  cb bd bda ss sn rb
+  tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
-  bd bda hh hhc hho hhp \break
-  ss sn tomh tommh tomml toml tomfh tomfl \break
-  cymc cymr rb cymra cymch cb
-  }
+  cymc cymr cymra cymch \break
+  hh hhc hho hhho hhp \break
+  cb bd bda ss sn rb \break
+  tomh tommh tomml toml tomfh tomfl }
 \score {
   << \new DrumStaff \with {
        \remove Bar_engraver
@@ -346,7 +357,8 @@ mus = \drummode {
     \context {
       \Score
       \override LyricText.font-family = #'typewriter
-      \override BarNumber.transparent =##T
+      \override LyricText.font-features = #'("-liga")
+      \override BarNumber.transparent = ##t
     }
   }
 }

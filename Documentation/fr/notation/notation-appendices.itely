@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
+  Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -84,14 +84,14 @@ Accord parfait @*majeur @*(triade majeure)
 @tab
 Tierce majeure @*et quinte juste
 @tab
-@code{5} ou rien
+(rien)
 @tab
-@code{c1:5}
+@code{c1}
 @tab
 @lilypond[inline,line-width=2.1\cm,notime]
 <<
-  \chords { c1:5 }
-  \chordmode { c1:5 }
+  \chords { c1 }
+  \chordmode { c1 }
 >>
 @end lilypond
 
@@ -489,7 +489,10 @@ Quinte juste
 @code{c1:5}
 @tab
 @lilypond[inline,line-width=2.1\cm,noragged-right,notime]
-\chordmode { c1:5 }
+<<
+  \chords { c1:5 }
+  \chordmode { c1:5 }
+>>
 @end lilypond
 
 @item
@@ -502,7 +505,10 @@ Quinte juste @*et octave
 @code{c1:5.8}
 @tab
 @lilypond[inline,line-width=2.1\cm,noragged-right,notime]
+<<
+  \chords { c1:5.8 }
   \chordmode { c1:5.8 }
+>>
 @end lilypond
 
 @end multitable

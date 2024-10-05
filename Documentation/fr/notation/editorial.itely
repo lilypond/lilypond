@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
+   Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -563,6 +563,39 @@ contextes @code{Voice} pourront être reliés.
 }
 @end lilypond
 
+La connection entre différents doigtés ou entre plusieurs instances d'un
+même doigt s'obtient en réglant la propriété @code{id} à l'aide d'un
+@code{\=} qui prend en argument un entier positif ou un symbole, ou bien
+en appliquant un @code{\tweak} à la propriété @code{text}.
+
+@lilypond[verbatim,quote]
+{
+  b2 \glide \= #'foo ^1
+     \glide \= #'bar ^1
+     \glide _2
+     \glide _1
+  b' \= #'foo ^2
+     \= #'bar ^1
+     _2
+     _1
+
+  \set fingeringOrientations = #'(up)
+  <
+   b\glide \=1 -1
+   f'\glide \=2 -2
+   d''\glide \=3 -3
+   b''\glide \=4 -4
+  >
+  <
+   b\=4 -5
+   f'\=3 -6
+   d''\=2 -7
+   b''\=1 -8
+  >
+  b\glide -1 b\tweak text "2" -1
+}
+@end lilypond
+
 @morerefs
 Manuel de notation :
 @ref{Direction and placement}.
@@ -574,20 +607,6 @@ Manuel des références internes :
 @rinternals{finger-glide-interface},
 @rinternals{FingerGlideSpanner}.
 @endmorerefs
-
-@knownissues
-Un glissé mutiple sur un même doigt n'est pas autorisé et peut entraîner
-un résultat inattendu. Une méthode de contournement consiste à utiliser
-des doigts différents alliés à l'instruction @code{\tweak text}.
-
-@lilypond[verbatim,quote]
-{
-    \clef "G_8"
-    <a\glide-1 cis'\glide-1>2 <bes-1 d'-1>
-    <a\glide-1 cis'\glide-\tweak text "1"-2>2
-    <bes-1 d'-\tweak text "1"-2>
-}
-@end lilypond
 
 
 @node Hidden notes
@@ -1040,14 +1059,25 @@ parenthèses, est requise l'utilisation d'une contruction en parallèle
 }
 @end lilypond
 
-Une deuxième forme de la commande @code{\parenthesize} implique un
+Dans le cas d'un tablature devra être spécifié @code{NoteColumn} pour
+mettre un accord entre parenthèses.
+
+@lilypond[verbatim,quote]
+\new TabVoice {
+  \override Parentheses.font-size = 0
+  \parenthesize <f g>
+  \parenthesize NoteColumn <f g>
+}
+@end lilypond
+
+Cette deuxième forme de la commande @code{\parenthesize} implique un
 chemin vers un objet graphique : @code{\parenthesize
 @var{NomContexte}.@var{NomGrob}}, voire même @code{\parenthesize
-@var{NomGrob}} dès lors que l'objet à parenthéser est créé dans le contexte le plus bas
-(typiquement @code{Voice}). La commande doit alors se libeller avant le
-moment musical, à l'instar d'un @code{\once \override}. Cette forme rend
-possible la mise entre parenthèses des objets dont l'origine n'est pas
-directement liée à un événement.
+@var{NomGrob}} dès lors que l'objet à parenthéser est créé dans le
+contexte le plus bas (typiquement @code{Voice}). La commande doit alors
+se libeller avant le moment musical, à l'instar d'un @code{\once
+\override}. Cette forme rend possible la mise entre parenthèses des
+objets dont l'origine n'est pas directement liée à un événement.
 
 @lilypond[verbatim,quote]
 \new Staff \relative <<
