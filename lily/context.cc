@@ -714,7 +714,11 @@ Context::internal_set_property (SCM sym, SCM val)
 void
 Context::unset_property (SCM sym)
 {
-  properties_dict ()->remove (sym);
+  bool type_check_ok
+    = type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
+
+  if (type_check_ok)
+    properties_dict ()->remove (sym);
 }
 
 void
