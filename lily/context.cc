@@ -315,7 +315,10 @@ Context::set_property_from_event (SCM sev)
         {
           if (from_scm<bool> (get_property (ev, "once")))
             add_global_finalization (make_revert_finalization (sym));
-          set_property (this, sym, val);
+          // Bypassing set_property() avoids repeating checks.  It would also
+          // bypass instrumentation, but that is no loss because there isn't any
+          // at present.
+          properties_dict ()->set (sym, val);
         }
     }
 }
@@ -333,7 +336,10 @@ Context::unset_property_from_event (SCM sev)
     {
       if (from_scm<bool> (get_property (ev, "once")))
         add_global_finalization (make_revert_finalization (sym));
-      unset_property (sym);
+      // Bypassing unset_property() avoids repeating checks.  It would also
+      // bypass instrumentation, but that is no loss because there isn't any at
+      // present.
+      properties_dict ()->remove (sym);
     }
 }
 
