@@ -603,19 +603,8 @@ Context::internal_here_defined (SCM sym, SCM *value) const
 SCM
 Context::internal_get_property (SCM sym) const
 {
-  if constexpr (CHECKING)
-    {
-      if (profile_property_accesses)
-        note_property_access (&context_property_lookup_table, sym);
-    }
-
   SCM val = SCM_EOL;
-  if (properties_dict ()->try_retrieve (sym, &val))
-    return val;
-
-  if (parent_)
-    return parent_->internal_get_property (sym);
-
+  internal_where_defined (sym, &val);
   return val;
 }
 
