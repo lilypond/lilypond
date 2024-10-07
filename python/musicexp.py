@@ -3568,8 +3568,18 @@ class RestEvent(RhythmicEvent):
 
 
 class SkipEvent(RhythmicEvent):
+    def __init__(self):
+        RhythmicEvent.__init__(self)
+        self.grace_skip = None
+
     def ly_expression(self):
-        return 's%s' % self.duration.ly_expression()
+        res = []
+
+        if self.grace_skip is not None:
+            res.append(r'\grace { s%s }' % self.grace_skip.ly_expression())
+        res.append('s%s' % self.duration.ly_expression())
+
+        return ' '.join(res)
 
 
 class NoteEvent(RhythmicEvent):
@@ -4303,6 +4313,10 @@ class FiguredBassEvent(NestedMusic):
 
 
 class MultiMeasureRest(Music):
+    def __init__(self):
+        Music.__init__(self)
+        self.grace_skip = None
+
     def lisp_expression(self):
         return """
 (make-music
@@ -4320,7 +4334,13 @@ class MultiMeasureRest(Music):
 """ % self.duration.lisp_expression()
 
     def ly_expression(self):
-        return 'R%s' % self.duration.ly_expression()
+        res = []
+
+        if self.grace_skip is not None:
+            res.append(r'\grace { s%s }' % self.grace_skip.ly_expression())
+        res.append('R%s' % self.duration.ly_expression())
+
+        return ' '.join(res)
 
 
 class Break(Music):
