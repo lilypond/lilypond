@@ -3056,7 +3056,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
         b = musicexp.BarLine()
         self.add_barline(b, number)
 
-    def jumpto(self, moment):
+    def jumpto(self, moment, grace_skip=None):
         if self.stay_here:
             return
 
@@ -3075,6 +3075,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
             #       skip might not start at a measure boundary!
             skip = musicexp.SkipEvent()
             skip.duration.set_from_fraction(diff)
+            skip.grace_skip = grace_skip
 
             evc = musicexp.ChordEvent()
             evc.elements.append(skip)
@@ -3360,7 +3361,7 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                 starting_grace_skip = None
 
         if not is_chord and not is_after_grace:
-            voice_builder.jumpto(n._when)
+            voice_builder.jumpto(n._when, skip_grace_skip)
             figured_bass_builder.jumpto(n._when)
             chordnames_builder.jumpto(n._when)
             fretboards_builder.jumpto(n._when)
