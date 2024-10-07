@@ -3302,9 +3302,12 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
     last_bar_check = -1
     senza_misura_time_signature = None
+
     for n in voice._elements:
         tie_started = False
         is_note = isinstance(n, musicxml.Note)
+        note_grace_skip = None
+        skip_grace_skip = None
 
         if n.get_name() == 'forward':
             continue
@@ -3342,6 +3345,19 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
         is_chord = 'chord' in n
         is_after_grace = (is_note and n.is_after_grace())
+
+        # We have to check whether we must insert a grace skip for
+        # synchronization with other staves.
+        if starting_grace_skip is not None:
+            # Either a note at the beginning of the music ...
+            if n._when == 0:
+                if is_note:
+                    note_grace_skip = starting_grace_skip
+                    starting_grace_skip = None
+            # ... or the staff starts with a skip.
+            else:
+                skip_grace_skip = starting_grace_skip
+                starting_grace_skip = None
 
         if not is_chord and not is_after_grace:
             voice_builder.jumpto(n._when)
