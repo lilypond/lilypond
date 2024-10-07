@@ -3240,7 +3240,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
     lyrics_dict[lyric_key] = (result, stanza_id)
 
 
-def musicxml_voice_to_lily_voice(voice):
+def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
     tremolo_events = []
     tuplet_events = []
     lyrics = {}
@@ -4048,6 +4048,11 @@ def voices_in_part_in_parts(parts):
         # TODO: extract correct part id from other sources
         part_id = getattr(p, 'id', None)
         dictionary[part_id] = voices
+
+    if musicxml.starting_grace_lengths:
+        musicxml.max_starting_grace_length = \
+            max(musicxml.starting_grace_lengths.values())
+
     return dictionary
 
 
@@ -4061,9 +4066,17 @@ def get_all_voices(parts):
         for n, v in name_voice.items():
             ly.progress(_("Converting part '%s' (voice %s) "
                           "to LilyPond expressions...") % (p, n), True)
-            # musicxml_voice_to_lily_voice returns
-            # (lily_voice, {nr->lyrics, nr->lyrics})
-            voice = musicxml_voice_to_lily_voice(v)
+
+            starting_grace_length = \
+                musicxml.starting_grace_lengths.get((p, n), 0)
+            len = musicxml.max_starting_grace_length - starting_grace_length
+            if len:
+                starting_grace_skip = musicexp.Duration.from_fraction(len)
+            else:
+                starting_grace_skip = None
+
+            # `musicxml_voice_to_lily_voice` returns a `VoiceData` object.
+            voice = musicxml_voice_to_lily_voice(v, starting_grace_skip)
             part_ly_voices[n] = voice
 
         all_ly_voices[p] = part_ly_voices

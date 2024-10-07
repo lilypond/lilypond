@@ -33,6 +33,13 @@ import musicxml2ly_conversion as conversion
 import utilities
 
 
+# To work around LilyPond's infamous issue #34, store the (musical) lengths
+# of grace note sequences at the beginning of a voice (i.e., at moment zero)
+# in a global dictionary.
+starting_grace_lengths = {}
+max_starting_grace_length = 0
+
+
 def minidom_demarshal_text_to_int(node):
     text = ''.join([n.data for n in node.childNodes
                     if n.nodeType == node.TEXT_NODE])
@@ -1520,6 +1527,9 @@ class Part(Music_xml_node):
 
             voice_id = None
             assign_to_next_voice = []
+            grace_length = 0
+            last_voice_id = None
+
             for n in m.get_all_children():
                 # assign a voice to all measure elements
                 if n.get_name() == 'backup':
@@ -1600,9 +1610,28 @@ class Part(Music_xml_node):
                 n._when = now
                 n._measure_position = measure_position
 
-                # For all grace notes, store the previous note in case we
-                # need to turn the grace note into an after-grace later on.
+                if last_voice_id != voice_id or now > 0:
+                    if grace_length > 0:
+                        starting_grace_lengths[(self.id,
+                                                last_voice_id)] = grace_length
+                        grace_length = 0
+                    last_voice_id = voice_id
+
                 if 'grace' in n:
+                    if now == 0 and 'chord' not in n:
+                        # TODO: Handle other situations, too, where grace
+                        #       synchronization is necessary.
+                        from musicexp import Duration
+                        duration_info = n.get_duration_info()
+                        d = Duration()
+                        d.duration_log = duration_info[0]
+                        d.dots = duration_info[1]
+
+                        grace_length += d.get_length()
+
+                    # For all grace notes, store the previous note in case
+                    # we need to turn the grace note into an after-grace
+                    # later on.
                     n._prev_when = last_moment
                     n._prev_measure_position = last_measure_position
                     # After-graces are placed at the same position as the
@@ -1640,6 +1669,9 @@ class Part(Music_xml_node):
                     # we are only paying attention to the first.
                     instr = instruments[0]
                     n.instrument_name = part_list.get_instrument(instr.id)
+
+            if grace_length > 0:
+                starting_grace_lengths[(self.id, voice_id)] = grace_length
 
             # Change all graces at the end of the measure to after-graces.
             self.graces_to_aftergraces(pending_graces)
