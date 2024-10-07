@@ -3612,7 +3612,7 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
         # For grace notes:
         grace = n.get('grace')
-        if grace is not None:
+        if grace is not None or note_grace_skip is not None:
             grace_chord = None
 
             # After-graces and other graces use different lists; depending
@@ -3637,15 +3637,22 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                     if staff_change:
                         ev_chord.append_grace(staff_change)
                         staff_change = None
+                    if note_grace_skip is not None:
+                        skip = musicexp.SkipEvent()
+                        skip.duration = note_grace_skip
+                        ev_chord.append_grace(skip)
                     ev_chord.append_grace(grace_chord)
 
-            if not is_after_grace:
+            if not is_after_grace and grace is not None:
                 if getattr(grace, 'slash', None) == 'yes':
                     ev_chord.grace_type = "slashed"
-            # Now that we have inserted the chord into the grace music,
-            # insert everything into that chord instead of `ev_chord`.
-            ev_chord = grace_chord
+
+            if grace is not None:
+                # Now that we have inserted the chord into the grace music,
+                # insert everything into that chord instead of `ev_chord`.
+                ev_chord = grace_chord
             ev_chord.append(main_event)
+
             ignore_lyrics = True
         else:
             if staff_change:
