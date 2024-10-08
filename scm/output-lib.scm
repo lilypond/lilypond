@@ -592,7 +592,8 @@ and duration log @var{log}."
                             (integer->char
                              (+ (modulo (+ pitch-index 2) 7)
                                 (char->integer #\A))))))
-         (staff-space (ly:staff-symbol-staff-space grob))
+         (grob-layout (ly:grob-layout grob))
+         (layout-staff-space (ly:output-def-lookup grob-layout 'staff-space))
          (line-thickness (ly:staff-symbol-line-thickness grob))
          (stem (ly:grob-object grob 'stem #f))
          (stem-thickness (* (if stem
@@ -600,12 +601,17 @@ and duration log @var{log}."
                                 1.3)
                             line-thickness))
          (font-size (ly:grob-property grob 'font-size 0))
-         (radius (* (magstep font-size) (/ (+ staff-space line-thickness) 2)))
+         (radius
+           (*
+              ;; To get a proper radius for easy note heads, we use half of the
+              ;; grob-layout's staff space plus line-thickness scaled with
+              ;; font-size.
+              (magstep font-size)
+              (/ (+ layout-staff-space line-thickness) 2)))
          (letter (make-fontsize-markup
                   -8
                   (make-center-align-markup (make-vcenter-markup pitch-string))))
          (filled-circle (make-draw-circle-markup radius 0 #t)))
-
     (ly:stencil-translate-axis
      (grob-interpret-markup
       grob
