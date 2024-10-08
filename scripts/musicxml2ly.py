@@ -2900,12 +2900,8 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.pending_last = []
         self.end_moment = 0
         self.begin_moment = 0
-        self.pending_multibar = 0
-        self.pending_grace_skip = None
         self.ignore_skips = False
         self.has_relevant_elements = False
-        self.measure_length = 1  # As given by the measure's time signature.
-        self.stay_here = False
 
     def contains(self, elem):
         if self == elem:
@@ -2914,47 +2910,6 @@ class LilyPondVoiceBuilder(musicexp.Base):
             if e.contains(elem):
                 return True
         return False
-
-    def _insert_multibar(self):
-        globvars.layout_information.set_context_item(
-            'Score', 'skipBars = ##t')
-        globvars.layout_information.set_context_item(
-            'Staff', r'\override MultiMeasureRest.expand-limit = 1')
-
-        # Doing `R1^\markup{...}` would center the markup over the
-        # multi-measure rest, which is most certainly not intended.
-        # Instead, do `<>^\markup{...} R1`.  Since it doesn't cause a
-        # problem, we do this for the remaining pending elements also.
-        if self.pending_dynamics:
-            self.elements.append(musicexp.EmptyChord())
-            self.elements.extend(self.pending_dynamics)
-            self.pending_dynamics = []
-
-        r = musicexp.MultiMeasureRest()
-        lenfrac = self.measure_length
-        r.duration = musicexp.Duration.from_fraction(lenfrac)
-        r.duration.factor *= self.pending_multibar / lenfrac
-        r.grace_skip = self.pending_grace_skip
-
-        self.elements.append(r)
-        self.begin_moment = self.end_moment
-        self.end_moment = self.begin_moment + self.pending_multibar
-        self.pending_multibar = 0
-        self.pending_grace_skip = None
-
-    def set_measure_length(self, mlen):
-        # `measure_length`, which is used to handle multi-measure rests,
-        # completely ignores 'senza misura' time signatures – multi-measure
-        # rests don't make sense with them.
-        if mlen != self.measure_length and self.pending_multibar:
-            self._insert_multibar()
-        self.measure_length = mlen
-
-    def add_multibar_rest(self, duration, grace_skip=None):
-        self.pending_multibar += duration
-        if grace_skip is not None:
-            # TODO: Handle case where `pending_grace_skip` is already set.
-            self.pending_grace_skip = grace_skip
 
     def set_duration(self, duration):
         self.end_moment = self.begin_moment + duration
@@ -2984,8 +2939,6 @@ class LilyPondVoiceBuilder(musicexp.Base):
 
     def add_music(self, music, duration, relevant=True, grace=None):
         assert isinstance(music, musicexp.Music)
-        if self.pending_multibar > 0:
-            self._insert_multibar()
 
         self.has_relevant_elements = self.has_relevant_elements or relevant
 
@@ -3019,8 +2972,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
     # measure.
     def add_command(self, command, relevant=True):
         assert isinstance(command, musicexp.Music)
-        if self.pending_multibar > 0:
-            self._insert_multibar()
+
         self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append(command)
 
@@ -3032,9 +2984,8 @@ class LilyPondVoiceBuilder(musicexp.Base):
             if isinstance(self.elements[-1], musicexp.BarLine):
                 prev_barline = self.elements[-1]
 
-        if prev_barline is not None and self.pending_multibar == 0:
-            # If we have an existing bar line object and no pending
-            # multi-measure bar, set its bar number.
+        if prev_barline is not None:
+            # If we have an existing bar line object, set its bar number.
             prev_barline.bar_number = bar_number
         else:
             # Otherwise add a new bar line object.
@@ -3066,10 +3017,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.add_barline(b, number)
 
     def jumpto(self, moment, grace_skip=None):
-        if self.stay_here:
-            return
-
-        current_end = self.end_moment + self.pending_multibar
+        current_end = self.end_moment
         diff = moment - current_end
         if diff > 0:
             if self.ignore_skips and (moment == 0):
@@ -3126,13 +3074,6 @@ class VoiceData:
         self.fretboards = None
         self.lyrics_dict = {}
         self.lyrics_order = []
-
-
-def measure_length_from_attributes(attr, current_measure_length):
-    len = attr.get_measure_length()
-    if not len or len < 0:
-        len = current_measure_length
-    return len
 
 
 def music_xml_voice_name_to_lily_name(part_id, name):
@@ -3287,7 +3228,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
     pedal_is_line = False
 
     current_staff = None
-    multibar_count = 0
 
     pending_figured_bass = []
     pending_chordnames = []
@@ -3297,8 +3237,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
     figured_bass_builder = LilyPondVoiceBuilder()
     chordnames_builder = LilyPondVoiceBuilder()
     fretboards_builder = LilyPondVoiceBuilder()
-    current_measure_length = 1  # As given by the measure's time signature.
-    voice_builder.set_measure_length(current_measure_length)
     in_slur = False
 
     # Make sure that the keys in the dict don't get reordered, since
@@ -3402,16 +3340,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                 voice_builder.add_command(a, False)
             continue
 
-        # Continue any multimeasure-rests before trying to add bar checks!
-        # Don't handle new MM rests yet, because for them we want bar checks!
-        rest = n.get('rest')
-        if (rest and rest.is_whole_measure()
-                and multibar_count > 0
-                and voice_builder.pending_multibar > 0):
-            voice_builder.add_multibar_rest(n._duration)
-            multibar_count -= 1
-            continue
-
         # Print bar checks between measures.
         #
         # `_elements[0]` is always a `Measure` element that gets filtered
@@ -3459,22 +3387,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                     else:
                         voice_builder.add_command(direction)
                 continue
-
-        # Start any new multimeasure rests
-        if rest and rest.is_whole_measure():
-            if pending_chordnames:
-                chordnames_builder.jumpto(n._when)
-                chordnames_builder.stay_here = True
-            if pending_figured_bass:
-                figured_bass_builder.jumpto(n._when)
-                figured_bass_builder.stay_here = True
-            if pending_fretboards:
-                fretboards_builder.jumpto(n._when)
-                fretboards_builder.stay_here = True
-            voice_builder.add_multibar_rest(n._duration, note_grace_skip)
-            if multibar_count:
-                multibar_count -= 1
-            continue
 
         if isinstance(n, musicxml.Harmony):
             if options.fretboards:
@@ -3547,16 +3459,7 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
                     clef_visible = clef_visible_new
 
-                elif isinstance(a, musicexp.MeasureStyleEvent):
-                    multibar_count = a.multiple_rest_length
-
                 voice_builder.add_command(a)
-
-            measure_length = measure_length_from_attributes(
-                n, current_measure_length)
-            if current_measure_length != measure_length:
-                current_measure_length = measure_length
-                voice_builder.set_measure_length(current_measure_length)
             continue
 
         if not n.__class__.__name__ == 'Note':
@@ -3687,8 +3590,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         # position and insert the pending figures
         if pending_figured_bass:
             figured_bass_builder.jumpto(n._when)
-            if figured_bass_builder.stay_here:
-                figured_bass_builder.stay_here = False
 
             for fb in pending_figured_bass:
                 # if a duration is given, use that, otherwise the one of the
@@ -3703,8 +3604,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
         if pending_chordnames:
             chordnames_builder.jumpto(n._when)
-            if chordnames_builder.stay_here:
-                chordnames_builder.stay_here = False
 
             for cn in pending_chordnames:
                 # Assign the duration of the EventChord
@@ -3714,8 +3613,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
         if pending_fretboards:
             fretboards_builder.jumpto(n._when)
-            if fretboards_builder.stay_here:
-                fretboards_builder.stay_here = False
 
             for fb in pending_fretboards:
                 # Assign the duration of the EventChord

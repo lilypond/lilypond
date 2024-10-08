@@ -4312,37 +4312,6 @@ class FiguredBassEvent(NestedMusic):
             self.duration.print_ly(printer)
 
 
-class MultiMeasureRest(Music):
-    def __init__(self):
-        Music.__init__(self)
-        self.grace_skip = None
-
-    def lisp_expression(self):
-        return """
-(make-music
-  'MultiMeasureRestMusicGroup
-  'elements
-  (list (make-music (quote BarCheckEvent))
-        (make-music
-          'ChordEvent
-          'elements
-          (list (make-music
-                  'MultiMeasureRestEvent
-                  'duration
-                  %s)))
-        (make-music (quote BarCheckEvent))))
-""" % self.duration.lisp_expression()
-
-    def ly_expression(self):
-        res = []
-
-        if self.grace_skip is not None:
-            res.append(r'\grace { s%s }' % self.grace_skip.ly_expression())
-        res.append('R%s' % self.duration.ly_expression())
-
-        return ' '.join(res)
-
-
 class Break(Music):
     def __init__(self, tp="break"):
         Music.__init__(self)
