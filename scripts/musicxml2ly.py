@@ -2982,7 +2982,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.elements.extend(self.pending_last)
         self.pending_last = []
 
-    def add_music(self, music, duration, relevant=True):
+    def add_music(self, music, duration, relevant=True, grace=None):
         assert isinstance(music, musicexp.Music)
         if self.pending_multibar > 0:
             self._insert_multibar()
@@ -3009,9 +3009,11 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.begin_moment = self.end_moment
         self.set_duration(duration)
 
-        # Insert all pending dynamics right after the note/rest:
-        if isinstance(music, musicexp.ChordEvent) and self.pending_dynamics:
-            self.add_pending_dynamics()
+        # Insert all pending dynamics right after the note or rest if it is
+        # not a grace note or rest (which we handle separately).
+        if isinstance(music, musicexp.ChordEvent) and grace is None:
+            if self.pending_dynamics:
+                self.add_pending_dynamics()
 
     # Insert some music command that does not affect the position in the
     # measure.
@@ -3327,10 +3329,10 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                 if isinstance(n, musicxml.Direction):
                     # Check whether we are in 'grace mode'.
                     evc = voice_builder.last_event_chord(n._when)
-                    if not evc.elements and evc.grace_elements:
+                    if evc and not evc.elements and evc.grace_elements:
                         evc.append_grace(staff_change)
                         staff_change = None
-                elif not is_note:
+                if staff_change and not is_note:
                     # A check for `<note>` follows later.
                     voice_builder.add_command(staff_change)
                     staff_change = None
@@ -3601,13 +3603,15 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         # ignore lyrics for notes inside a slur, tie, chord or beam
         ignore_lyrics = is_tied or is_chord  # or is_beamed or inside_slur
 
+        grace = n.get('grace')
+
         # `ev_chord` starts as an empty `ChordEvent` object that gets filled
         # with items related to the current chord (notes, beams, etc.) while
         # iterating over elements of `voice`.
         ev_chord = voice_builder.last_event_chord(n._when)
         if not ev_chord:
             ev_chord = musicexp.ChordEvent()
-            voice_builder.add_music(ev_chord, n._duration)
+            voice_builder.add_music(ev_chord, n._duration, grace=grace)
         else:
             # This catches '<grace note> <dynamics> <main note>'.
             if voice_builder.pending_dynamics and 'chord' not in n:
@@ -3619,8 +3623,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
             # TODO: Handle cross-staff chords.
             staff_change = None
 
-        # For grace notes:
-        grace = n.get('grace')
         if grace is not None or note_grace_skip is not None:
             grace_chord = None
 
@@ -3637,6 +3639,9 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                         ev_chord.append_after_grace(staff_change)
                         staff_change = None
                     ev_chord.append_after_grace(grace_chord)
+                    for pd in voice_builder.pending_dynamics:
+                        ev_chord.append_after_grace(pd)
+                    voice_builder.pending_dynamics = []
             else:
                 if ev_chord.grace_elements and is_chord:
                     grace_chord = \
@@ -3651,6 +3656,9 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                         skip.duration = note_grace_skip
                         ev_chord.append_grace(skip)
                     ev_chord.append_grace(grace_chord)
+                    for pd in voice_builder.pending_dynamics:
+                        ev_chord.append_grace(pd)
+                    voice_builder.pending_dynamics = []
 
             if not is_after_grace and grace is not None:
                 if getattr(grace, 'slash', None) == 'yes':
