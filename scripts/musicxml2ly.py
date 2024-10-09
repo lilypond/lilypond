@@ -3317,9 +3317,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         note_grace_skip = None
         skip_grace_skip = None
 
-        if n.get_name() == 'forward':
-            continue
-
         staff_change = None
         staff = n.get('staff')
         if staff:
