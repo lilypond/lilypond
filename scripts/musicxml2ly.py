@@ -2902,6 +2902,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.begin_moment = 0
         self.ignore_skips = False
         self.has_relevant_elements = False
+        self.bar_number = 0
 
     def contains(self, elem):
         if self == elem:
@@ -2976,8 +2977,10 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append(command)
 
-    def add_barline(self, barline, bar_number, relevant=False):
+    def add_barline(self, barline, relevant=False, no_bar_number=True):
         has_relevant = self.has_relevant_elements
+
+        bar_number = 0 if no_bar_number else self.bar_number
 
         prev_barline = None
         if self.elements:
@@ -3010,11 +3013,11 @@ class LilyPondVoiceBuilder(musicexp.Base):
         # Store items that come right before the next note (or bar line).
         self.pending_last.append(last)
 
-    def add_bar_check(self, number):
+    def add_bar_check(self):
         # (Re)store `has_relevant_elements` so that a barline alone does not
         # trigger output for figured bass or chord names.
         b = musicexp.BarLine()
-        self.add_barline(b, number)
+        self.add_barline(b, no_bar_number=False)
 
     def jumpto(self, moment, grace_skip=None):
         current_end = self.end_moment
@@ -3277,6 +3280,16 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
             current_staff = staff
 
         if isinstance(n, musicxml.Measure):
+            try:
+                num = int(n.number)
+            except ValueError:
+                num = 0
+
+            voice_builder.bar_number = num
+            figured_bass_builder.bar_number = num
+            chordnames_builder.bar_number = num
+            fretboards_builder.bar_number = num
+
             if n.senza_misura_length:
                 # Emission of this element must be delayed until a bar check
                 # gets emitted.
@@ -3323,16 +3336,16 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
             curr_alterations = alterations.copy()
             for a in barlines:
                 if isinstance(a, musicexp.BarLine):
-                    voice_builder.add_barline(a, 0)
-                    figured_bass_builder.add_barline(a, 0, False)
-                    chordnames_builder.add_barline(a, 0, False)
-                    fretboards_builder.add_barline(a, 0, False)
+                    voice_builder.add_barline(a)
+                    figured_bass_builder.add_barline(a, False)
+                    chordnames_builder.add_barline(a, False)
+                    fretboards_builder.add_barline(a, False)
                 elif isinstance(a, (conversion.RepeatMarker,
                                     conversion.EndingMarker)):
                     voice_builder.add_command(a)
-                    figured_bass_builder.add_barline(a, 0, False)
-                    chordnames_builder.add_barline(a, 0, False)
-                    fretboards_builder.add_barline(a, 0, False)
+                    figured_bass_builder.add_barline(a, False)
+                    chordnames_builder.add_barline(a, False)
+                    fretboards_builder.add_barline(a, False)
             continue
 
         if isinstance(n, musicxml.Print):
@@ -3340,24 +3353,24 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                 voice_builder.add_command(a, False)
             continue
 
-        # Print bar checks between measures.
+        # Print bar checks between measures.  We do this after `jumpto()`
+        # calls so that a skip filling up the previous bar (if any) has
+        # already been emitted.
         #
         # `_elements[0]` is always a `Measure` element that gets filtered
         # out above.
         if n._measure_position == 0 and n != voice._elements[1]:
             curr_alterations = alterations.copy()
-            try:
-                num = int(n.get_parent().number)
-            except ValueError:
-                num = 0
+
             # When we reach this point in the loop we are at the beginning
             # of a MusicXML measure.  However, we want to emit a bar check
             # *after* the measure, so we start with num == 2.
+            num = voice_builder.bar_number
             if num > 1 and num > last_bar_check:
-                voice_builder.add_bar_check(num)
-                figured_bass_builder.add_bar_check(num)
-                chordnames_builder.add_bar_check(num)
-                fretboards_builder.add_bar_check(num)
+                voice_builder.add_bar_check()
+                figured_bass_builder.add_bar_check()
+                chordnames_builder.add_bar_check()
+                fretboards_builder.add_bar_check()
                 last_bar_check = num
 
         if (n._measure_position == 0
