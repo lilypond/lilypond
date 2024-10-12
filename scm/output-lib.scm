@@ -698,6 +698,13 @@ extent of the grob to the extent of the staff."
           (pair-map (cons min max) '(0 . 0) to-staff))
         '(0 . 0))))
 
+(define-public ((direction-scaled val) grob)
+    "Returns @var{val}, scaled by @code{'direction} of @var{grob}.  The return
+value is used for @code{extra-spacing-height} to push note columns right in
+@code{markLengthOn}."
+    (let ((dir (ly:grob-property grob 'direction)))
+      (cons (* (car val) dir) (* (cdr val) dir))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; neighbor-interface routines
 

@@ -760,9 +760,12 @@ markLengthOn = {
   \override Score.RehearsalMark.extra-spacing-width = #'(-0.5 . 0.5)
   \override Score.TextMark.extra-spacing-width = #'(-0.5 . 0.5)
   % Raise as much as four staff-spaces before pushing notecolumns right
-  \override Score.MetronomeMark.extra-spacing-height = #'(4 . 4)
-  \override Score.RehearsalMark.extra-spacing-height = #'(4 . 4)
-  \override Score.TextMark.extra-spacing-height = #'(4 . 4)
+  \override Score.MetronomeMark.extra-spacing-height =
+    #(direction-scaled '(4 . 4))
+  \override Score.RehearsalMark.extra-spacing-height =
+    #(direction-scaled '(4 . 4))
+  \override Score.TextMark.extra-spacing-height =
+    #(direction-scaled '(4 . 4))
 }
 
 markLengthOff = {
