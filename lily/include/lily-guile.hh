@@ -71,6 +71,8 @@ Slice int_list_to_slice (SCM l);
 unique_stdlib_ptr<char> ly_scm2str0 (SCM str);
 
 bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
+bool type_check_unset (SCM sym, SCM type_symbol);
+
 std::string print_scm_val (SCM val);
 SCM ly_number2string (SCM s);
 

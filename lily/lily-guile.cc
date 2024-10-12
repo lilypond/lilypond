@@ -229,12 +229,9 @@ print_scm_val (SCM val)
   return realval;
 }
 
-bool
-type_check_assignment (SCM sym, SCM val, SCM type_symbol)
+static bool
+internal_type_check (SCM sym, SCM val, SCM type_symbol)
 {
-
-  // If undefined, some internal function caused it...should never happen.
-  assert (!SCM_UNBNDP (val));
   if (!scm_is_symbol (sym))
     return false;
 
@@ -246,6 +243,9 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
                    ly_symbol2string (sym).c_str ()));
       return false;
     }
+
+  if (SCM_UNBNDP (val)) // for an unset, it is enough that the property exists
+    return true;
 
   // '(), #f and *unspecified* always succeed.
   if (scm_is_null (val) || scm_is_false (val)
@@ -281,6 +281,20 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
       return false;
     }
   return true;
+}
+
+bool
+type_check_assignment (SCM sym, SCM val, SCM type_symbol)
+{
+  // If undefined, some internal function caused it...should never happen.
+  assert (!SCM_UNBNDP (val));
+  return internal_type_check (sym, val, type_symbol);
+}
+
+bool
+type_check_unset (SCM sym, SCM type_symbol)
+{
+  return internal_type_check (sym, SCM_UNDEFINED, type_symbol);
 }
 
 /*

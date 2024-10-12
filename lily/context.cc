@@ -329,8 +329,7 @@ Context::unset_property_from_event (SCM sev)
   Stream_event *ev = unsmob<Stream_event> (sev);
 
   SCM sym = get_property (ev, "symbol");
-  bool ok
-    = type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
+  bool ok = type_check_unset (sym, ly_symbol2scm ("translation-type?"));
 
   if (ok)
     {
@@ -715,7 +714,7 @@ void
 Context::unset_property (SCM sym)
 {
   bool type_check_ok
-    = type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
+    = type_check_unset (sym, ly_symbol2scm ("translation-type?"));
 
   if (type_check_ok)
     properties_dict ()->remove (sym);
