@@ -154,6 +154,10 @@ check:
     # $CI_PAGES_DOMAIN to construct it because that is only available if GitLab
     # Pages are enabled for the repository (which may be a user's fork).
     - echo "Results can be viewed at https://$CI_PROJECT_ROOT_NAMESPACE.gitlab.io/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/test-results/index.html"
+  after_script:
+    - if [ "$CI_JOB_STATUS" != "failed" ]; then exit 0; fi
+    - cd build
+    - ../scripts/build/summarize-regtest-failure.sh
   artifacts:
     name: "test-results"
     when: always
