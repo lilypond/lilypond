@@ -20,8 +20,10 @@
 
 #include "context.hh"
 #include "context-def.hh"
+#include "deprecated-property.hh"
 #include "dispatcher.hh"
 #include "grob-properties.hh"
+#include "lily-imports.hh"
 #include "output-def.hh"
 
 LY_DEFINE (ly_context_current_moment, "ly:context-current-moment", 1, 0, 0,
@@ -114,6 +116,30 @@ Set value of property @var{name} in context @var{context} to @var{val}.
   return SCM_UNSPECIFIED;
 }
 
+static Context *
+where_defined_with_deprecation_check (Context *ctx, SCM sym, SCM *val)
+{
+  auto *found = where_defined (ctx, sym, val);
+  if (!found)
+    {
+      SCM desc = Deprecated_property::getter_desc (
+        sym, Lily::deprecated_translation_getter_description);
+      if (!scm_is_false (desc))
+        {
+          // desc is ('newSymbol new->old-value-function)
+          sym = scm_car (desc);
+          desc = scm_cdr (desc);
+          found = where_defined (ctx, sym, val);
+          if (found && val)
+            {
+              SCM new_to_old = scm_car (desc);
+              *val = ly_call (new_to_old, *val);
+            }
+        }
+    }
+  return found;
+}
+
 LY_DEFINE_WITH_SETTER (ly_context_property, "ly:context-property",
                        ly_context_set_property_x, 2, 1, 0,
                        (SCM context, SCM sym, SCM def),
@@ -125,7 +151,8 @@ given, and property value is @code{'()}, return @var{def}.
   auto *const t = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
-  SCM result = get_property (t, sym);
+  SCM result = SCM_EOL;
+  where_defined_with_deprecation_check (t, sym, &result);
   return !SCM_UNBNDP (def) && scm_is_null (result) ? def : result;
 }
 
@@ -140,7 +167,8 @@ or @var{def} (defaulting to @code{'()}) if no such context is found.
   auto *tr = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
-  tr = where_defined (tr, name);
+  SCM value;
+  tr = where_defined_with_deprecation_check (tr, name, &value);
   if (tr)
     return tr->self_scm ();
   if (SCM_UNBNDP (def))

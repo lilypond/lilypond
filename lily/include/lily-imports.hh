@@ -97,6 +97,8 @@ extern Variable construct_chord_elements;
 extern Variable default_global_scale;
 extern Variable default_time_signature_settings;
 extern Variable define_markup_command_internal;
+extern Variable deprecated_translation_getter_description;
+extern Variable deprecated_setter_object_property;
 extern Variable feta_design_size_mapping;
 extern Variable generate_crop_stencil;
 extern Variable generate_preview_stencil;

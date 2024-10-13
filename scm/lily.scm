@@ -645,6 +645,53 @@ determines the number of scale steps that make up an octave.  Usually the
       (ly:error (G_ "note scale expected: ~S" scale))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Access to deprecated properties
+;;
+;; Changes that can be handled with convert-ly should be handled with
+;; convert-ly.  For others that are more difficult to manage, we support keeping
+;; an old property symbol around and converting values to and from a new
+;; property on demand.  To deprecate a property, remove it from its property
+;; table and instead set the following object properties on the symbol via
+;; define-deprecated-property.
+
+;; Parameters for getting a deprecated translation property.  The value is a
+;; list: ('newSymbol new->old-value-conversion-function).
+(define deprecated-translation-getter-description (make-object-property))
+
+;; Parameters for setting a deprecated translation property.  The value is a
+;; list: (old-type? old->new-value-conversion-function 'newSymbol).
+(define deprecated-translation-setter-description (make-object-property))
+
+;; This leads the type checker from 'translation-type? to
+;; deprecated-translation-setter-description.  Similar links would need to be
+;; set for 'backend-type? and 'music-type? if we needed to handle deprecated
+;; properties in those categories.
+(define deprecated-setter-object-property (make-object-property))
+(set! (deprecated-setter-object-property 'translation-type?)
+      deprecated-translation-setter-description)
+
+;; This is as for the setter, but is used in other circumstances.
+(define deprecated-getter-object-property (make-object-property))
+(set! (deprecated-getter-object-property 'translation-type?)
+      deprecated-translation-getter-description)
+
+(define*-public (define-deprecated-property
+                  category-type-symbol deprecated-symbol deprecated-type?
+                  #:key new-symbol
+                  (new->old (lambda (x) (error "missing new->old function")))
+                  (old->new (lambda (x) (error "missing old->new function"))))
+  ;; TODO: Guile raises an error if compilation is disabled and the category
+  ;; type symbol does not appear literally somewhere in this procedure.  It
+  ;; smells like a bug in Guile (3.0.9).
+  'translation-type?
+  (let ((getr (deprecated-getter-object-property category-type-symbol))
+        (setr (deprecated-setter-object-property category-type-symbol)))
+    (set! (getr deprecated-symbol)
+          (list new-symbol new->old))
+    (set! (setr deprecated-symbol)
+          (list deprecated-type? old->new new-symbol))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
 
 ;;

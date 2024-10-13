@@ -21,6 +21,7 @@
 #include "lily-guile.hh"
 
 #include "bezier.hh"
+#include "deprecated-property.hh"
 #include "dimensions.hh"
 #include "direction.hh"
 #include "file-path.hh"
@@ -284,8 +285,38 @@ internal_type_check (SCM sym, SCM val, SCM type_symbol)
       return {SCM_BOOL_F, SCM_UNSPECIFIED};
     }
 
-  // TODO: If the check failed because sym identifies a deprecated property,
-  // redirect to the new property.
+  // For the given category of property (backend, music, translation), which
+  // object property do we expect to find on a deprecated property symbol?
+  SCM obj_prop = Lily::deprecated_setter_object_property (type_symbol);
+  if (scm_is_true (scm_procedure_with_setter_p (obj_prop)))
+    {
+      // Does that property tell us how to handle sets for the given symbol?
+      SCM desc = Deprecated_property::setter_desc (sym, obj_prop);
+      if (!scm_is_false (desc)) // desc is (old-type? old->new 'newSymbol)
+        {
+          if (unset) // no value to convert; just return the new symbol
+            {
+              SCM new_sym = scm_caddr (desc);
+              return {new_sym, val};
+            }
+
+          // First, check that the given value is the right type for the
+          // deprecated property.  Then, convert the given value and check that
+          // the converted value is the right type for the new property.
+          SCM old_type_p = scm_car (desc);
+          desc = scm_cdr (desc);
+          if (value_type_check (sym, val, type_symbol, old_type_p))
+            {
+              SCM old_to_new = scm_car (desc);
+              desc = scm_cdr (desc);
+              SCM new_val = ly_call (old_to_new, val);
+              SCM new_sym = scm_car (desc);
+              return type_check_assignment (new_sym, new_val, type_symbol);
+            }
+
+          return {SCM_BOOL_F, SCM_UNSPECIFIED};
+        }
+    }
 
   warning (_f ("the property '%s' does not exist "
                "(perhaps a typing error)",

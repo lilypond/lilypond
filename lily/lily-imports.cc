@@ -87,6 +87,10 @@ Variable construct_chord_elements ("construct-chord-elements");
 Variable default_global_scale ("default-global-scale");
 Variable default_time_signature_settings ("default-time-signature-settings");
 Variable define_markup_command_internal ("define-markup-command-internal");
+Variable deprecated_translation_getter_description (
+  "deprecated-translation-getter-description");
+Variable
+  deprecated_setter_object_property ("deprecated-setter-object-property");
 Variable feta_design_size_mapping ("feta-design-size-mapping");
 Variable generate_crop_stencil ("generate-crop-stencil");
 Variable generate_preview_stencil ("generate-preview-stencil");
