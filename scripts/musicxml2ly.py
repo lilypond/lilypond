@@ -3316,6 +3316,17 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
             chordnames_builder.bar_number = num
             fretboards_builder.bar_number = num
 
+            if voice_builder.pending_dynamics:
+                # This handles the corner case of having elements like
+                # `<direction>` between `<note>` and `<measure>`, and which
+                # already belong to the next bar.  Such elements should
+                # actually be aligned at the bar line (at least this is what
+                # other programs like Finale or MuseScore do); however, it
+                # is not worth the trouble to actually support that.
+                voice_builder.elements.append(musicexp.EmptyChord())
+                voice_builder.elements.extend(voice_builder.pending_dynamics)
+                voice_builder.pending_dynamics = []
+
             if n.senza_misura_length:
                 is_senza_misura = True
 
@@ -3978,8 +3989,18 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
     # For getting a correct value in the last bar check comment.
     voice_builder.bar_number += 1
 
-    # force trailing mm rests to be written out.
-    voice_builder.add_music(musicexp.ChordEvent(), 0)
+    # Force trailing multi-measure rests and/or pending elements to be
+    # written out.
+    ce = musicexp.ChordEvent()
+    if (voice_builder.multi_measure_rest is None
+            and voice_builder.pending_dynamics):
+        # We have elements that are positioned after the last `<note>`,
+        # i.e., after the music has finished.  To make LilyPond output them
+        # we need an 'anchor', so we append a skip with a very short length.
+        s = musicexp.SkipEvent()
+        s.duration.set_from_fraction(Fraction(1, 1024))
+        ce.append(s)
+    voice_builder.add_music(ce, 0)
 
     ly_voice = group_tremolos(voice_builder.elements, tremolo_events)
     ly_voice = group_tuplets(ly_voice, tuplet_events)
