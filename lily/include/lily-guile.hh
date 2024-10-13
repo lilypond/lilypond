@@ -39,6 +39,7 @@
 #include <string>
 #include <string_view>
 #include <type_traits>
+#include <tuple>
 #include <utility>
 
 class Bezier;
@@ -70,8 +71,18 @@ SCM ly_memv (SCM, SCM);
 Slice int_list_to_slice (SCM l);
 unique_stdlib_ptr<char> ly_scm2str0 (SCM str);
 
-bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
-bool type_check_unset (SCM sym, SCM type_symbol);
+// The result of type_check_assignment() is {Symbol, Value}.
+//
+// If Symbol is not a symbol, the check has failed, and Value is undefined.
+//
+// If the check has passed, the returned Symbol and Value usually have the
+// values provided by the caller, except that if the property is deprecated,
+// they instead refer to the replacement symbol and a converted value.
+std::tuple<SCM, SCM> type_check_assignment (SCM sym, SCM val, SCM type_symbol);
+
+// This is like type_check_assignment() without a value.  It checks whether the
+// property exists and may redirect a deprecated property to a new property.
+SCM type_check_unset (SCM sym, SCM type_symbol);
 
 std::string print_scm_val (SCM val);
 SCM ly_number2string (SCM s);

@@ -50,7 +50,9 @@ Set @var{sym} in grob @var{grob} to value @var{val}.
   auto *const sc = LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
-  if (type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
+  std::tie (sym, val)
+    = type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
+  if (scm_is_symbol (sym))
     set_property (sc, sym, val);
   return SCM_UNSPECIFIED;
 }

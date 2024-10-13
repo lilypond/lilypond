@@ -230,23 +230,8 @@ print_scm_val (SCM val)
 }
 
 static bool
-internal_type_check (SCM sym, SCM val, SCM type_symbol)
+value_type_check (SCM sym, SCM val, SCM type_symbol, SCM type)
 {
-  if (!scm_is_symbol (sym))
-    return false;
-
-  SCM type = scm_object_property (sym, type_symbol);
-
-  if (!ly_is_procedure (type))
-    {
-      warning (_f ("the property '%s' does not exist (perhaps a typing error)",
-                   ly_symbol2string (sym).c_str ()));
-      return false;
-    }
-
-  if (SCM_UNBNDP (val)) // for an unset, it is enough that the property exists
-    return true;
-
   // '(), #f and *unspecified* always succeed.
   if (scm_is_null (val) || scm_is_false (val)
       || scm_is_eq (val, SCM_UNSPECIFIED))
@@ -264,8 +249,8 @@ internal_type_check (SCM sym, SCM val, SCM type_symbol)
       if (auto *upc = unsmob<Unpure_pure_container> (val))
         {
           return (
-            type_check_assignment (sym, upc->unpure_part (), type_symbol)
-            && type_check_assignment (sym, upc->pure_part (), type_symbol));
+            value_type_check (sym, upc->unpure_part (), type_symbol, type)
+            && value_type_check (sym, upc->pure_part (), type_symbol, type));
         }
     }
 
@@ -283,7 +268,32 @@ internal_type_check (SCM sym, SCM val, SCM type_symbol)
   return true;
 }
 
-bool
+static std::tuple<SCM, SCM>
+internal_type_check (SCM sym, SCM val, SCM type_symbol)
+{
+  const bool unset = SCM_UNBNDP (val);
+
+  if (!scm_is_symbol (sym))
+    return {SCM_BOOL_F, SCM_UNSPECIFIED};
+
+  if (SCM type = scm_object_property (sym, type_symbol); ly_is_procedure (type))
+    {
+      if (unset || value_type_check (sym, val, type_symbol, type))
+        return {sym, val};
+
+      return {SCM_BOOL_F, SCM_UNSPECIFIED};
+    }
+
+  // TODO: If the check failed because sym identifies a deprecated property,
+  // redirect to the new property.
+
+  warning (_f ("the property '%s' does not exist "
+               "(perhaps a typing error)",
+               ly_symbol2string (sym).c_str ()));
+  return {SCM_BOOL_F, SCM_UNSPECIFIED};
+}
+
+std::tuple<SCM, SCM>
 type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 {
   // If undefined, some internal function caused it...should never happen.
@@ -291,10 +301,10 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
   return internal_type_check (sym, val, type_symbol);
 }
 
-bool
+SCM
 type_check_unset (SCM sym, SCM type_symbol)
 {
-  return internal_type_check (sym, SCM_UNDEFINED, type_symbol);
+  return std::get<0> (internal_type_check (sym, SCM_UNDEFINED, type_symbol));
 }
 
 /*

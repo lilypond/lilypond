@@ -186,13 +186,24 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
   if (scm_is_pair (rest))
     {
       // poor man's typechecking
-      if (type_check_assignment (symbol, nested_create_alist (rest, new_value),
-                                 ly_symbol2scm ("backend-type?")))
+      auto [checked_sym, checked_val]
+        = type_check_assignment (symbol, nested_create_alist (rest, new_value),
+                                 ly_symbol2scm ("backend-type?"));
+      if (scm_is_symbol (checked_sym))
         {
-          SCM cell = scm_cons (grob_property_path, new_value);
-          props_->alist_ = scm_cons (cell, props_->alist_);
-          props_->nested_++;
-          return cell;
+          if (scm_is_eq (checked_sym, symbol))
+            {
+              SCM cell = scm_cons (grob_property_path, new_value);
+              props_->alist_ = scm_cons (cell, props_->alist_);
+              props_->nested_++;
+              return cell;
+            }
+          else
+            {
+              // How should conversion be handled, since the above code checks
+              // an invented value instead of the value it intends to use?
+              programming_error ("deprecation not supported in this case");
+            }
         }
       return SCM_EOL;
     }
@@ -202,8 +213,9 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
    \revert back to it.
   */
 
-  if (type_check_assignment (symbol, new_value,
-                             ly_symbol2scm ("backend-type?")))
+  std::tie (symbol, new_value) = type_check_assignment (
+    symbol, new_value, ly_symbol2scm ("backend-type?"));
+  if (scm_is_symbol (symbol))
     {
       SCM cell = scm_cons (symbol, new_value);
       props_->alist_ = scm_cons (cell, props_->alist_);

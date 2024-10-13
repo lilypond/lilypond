@@ -307,11 +307,9 @@ Context::set_property_from_event (SCM sev)
   if (scm_is_symbol (sym))
     {
       SCM val = get_property (ev, "value");
-      bool ok = true;
-      ok
+      std::tie (sym, val)
         = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
-
-      if (ok)
+      if (scm_is_symbol (sym))
         {
           if (from_scm<bool> (get_property (ev, "once")))
             add_global_finalization (make_revert_finalization (sym));
@@ -329,9 +327,8 @@ Context::unset_property_from_event (SCM sev)
   Stream_event *ev = unsmob<Stream_event> (sev);
 
   SCM sym = get_property (ev, "symbol");
-  bool ok = type_check_unset (sym, ly_symbol2scm ("translation-type?"));
-
-  if (ok)
+  sym = type_check_unset (sym, ly_symbol2scm ("translation-type?"));
+  if (scm_is_symbol (sym))
     {
       if (from_scm<bool> (get_property (ev, "once")))
         add_global_finalization (make_revert_finalization (sym));
@@ -700,10 +697,9 @@ Context::instrumented_set_property (SCM sym, SCM val, const char *, int,
 void
 Context::internal_set_property (SCM sym, SCM val)
 {
-  bool type_check_ok
+  std::tie (sym, val)
     = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
-
-  if (type_check_ok)
+  if (scm_is_symbol (sym))
     properties_dict ()->set (sym, val);
 }
 
@@ -713,10 +709,8 @@ Context::internal_set_property (SCM sym, SCM val)
 void
 Context::unset_property (SCM sym)
 {
-  bool type_check_ok
-    = type_check_unset (sym, ly_symbol2scm ("translation-type?"));
-
-  if (type_check_ok)
+  sym = type_check_unset (sym, ly_symbol2scm ("translation-type?"));
+  if (scm_is_symbol (sym))
     properties_dict ()->remove (sym);
 }
 
