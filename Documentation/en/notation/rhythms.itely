@@ -2373,6 +2373,7 @@ Internals Reference:
 * Setting automatic beam behavior::
 * Manual beams::
 * Feathered beams::
+* Slashed beams::
 @end menu
 
 @node Automatic beams
@@ -3056,6 +3057,50 @@ Snippets:
 @knownissues
 The @code{\featherDurations} command only works with very short
 music snippets, and when numbers in the fraction are small.
+
+
+@node Slashed beams
+@unnumberedsubsubsec Slashed beams
+
+@cindex beam, slashed
+@cindex slashed beam
+
+Slashed beams are printed by using the special stencil procedure
+@code{beam::slashed-stencil}.  The slash may be printed at the left or right
+side of the beam and is further customizable by overrides of the @code{details}
+subproperties @code{over-beam-height}, @code{slash-slope}, @code{slash-side},
+@code{slash-stem-fraction}, @code{slash-thickness}, and
+@code{slash-X-positions}.
+Note that those subproperties negotiate with each other to get a pleasing
+output, i.e., changing one of them may have impact on others.
+
+@lilypond[verbatim,quote]
+mus = \repeat unfold 4 a16
+
+{
+  \override TextScript.rotation = #'(15 1 0)
+  \override Beam.stencil = #beam::slashed-stencil
+  \mus
+  <>^"slash-side" %% default: LEFT
+  \once \override Beam.details.slash-side = #RIGHT
+  \mus
+  <>^"over-beam-height" %% default: 0.75
+  \once \override Beam.details.over-beam-height = #1.5
+  \mus
+  <>^"slash-slope" %% default: 2
+  \once \override Beam.details.slash-slope = #1.0
+  \mus
+  <>^"slash-stem-fraction" %% default: 0.3
+  \once \override Beam.details.slash-stem-fraction = #0.6
+  \mus
+  <>^"slash-thickness" %% default: 0.1
+  \once \override Beam.details.slash-thickness = #0.2
+  \mus
+  <>^"slash-X-positions" %% default: (-0.5 . 1)
+  \once \override Beam.details.slash-X-positions = #'(-1 . 2)
+  \mus
+}
+@end lilypond
 
 
 @node Bars

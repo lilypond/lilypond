@@ -302,6 +302,152 @@
           (ly:programming-error "beam without stems")
           #f))))
 
+(define (beam::calc-right-extreme-vertical-count grob)
+  "Calculate the most extreme value of @code{vertical-count} at right end of a
+beam.  This value serves to get the y-coordinate of the top or bottom right
+corner of the beam later on."
+
+  ;; A Beam may have several beam-segments.
+  ;; Their vertical appearence is numbered as (vertical-count . <integer>) in
+  ;; 'beam-segments.
+  ;; The beam-segment at first Stem with the greatest distance to the NoteHead
+  ;; has (vertical-count . 0).
+  ;; Additional beam-segments at first Stem take positive integers, if this Stem
+  ;; points down; negative integers if it points up.
+  ;; See 'beam-segments of: { c''32[ c'' c''] c'32[ c' c'] }
+  ;; Ofcourse NoteHeads with different durations may be beamed. In case of
+  ;; a kneed Beam this may lead to beam-segments above *and/or* below the
+  ;; beam-segment with (vertical-count . 0).
+  ;; See 'beam-segments of: {  c16[ c'''64 c] c16[ c''' c64] }
+  ;; We want to get this most extreme vertical-count value in non-default
+  ;; direction.
+
+  (let ((kneed? (ly:grob-property grob 'knee #f)))
+    (if kneed?
+        (let* ((stems-array (ly:grob-object grob 'stems))
+               (stems (ly:grob-array->list stems-array))
+               (last-stem (last stems))
+               (last-stem-dir (ly:grob-property last-stem 'direction))
+               (x-positions (ly:grob-property grob 'X-positions))
+               (beam-segments (ly:grob-property grob 'beam-segments))
+               (segments-at-last-stem
+                 (filter
+                   (lambda (beam-sgmnt)
+                     (eqv? (cdr (assoc-get 'horizontal beam-sgmnt))
+                           (cdr x-positions)))
+                   beam-segments))
+               (last-vertical-counts
+                 (map
+                   (lambda (beam-sgmnt)
+                     (assoc-get 'vertical-count beam-sgmnt))
+                   segments-at-last-stem)))
+
+          (if (positive? last-stem-dir)
+              (apply max last-vertical-counts)
+              (apply min last-vertical-counts)))
+        0)))
+
+(define-public beam::slashed-stencil
+  (lambda (grob)
+    (let* ((staff-space (ly:staff-symbol-staff-space grob))
+           (details (ly:grob-property grob 'details '()))
+           (slash-side
+             (assoc-get 'slash-side details LEFT))
+           (stems-array (ly:grob-object grob 'stems))
+           (stems (ly:grob-array->list stems-array))
+           (relevant-stem ((if (negative? slash-side) car last) stems))
+           (stem-begin
+             ;; We need half-staff-space units, thus divide by 2
+             (/ (ly:grob-property relevant-stem 'stem-begin-position) 2))
+           ;; If kneed, 'direction from Beam is not sufficient , get it from
+           ;; the relevant Stem instead.
+           (stem-dir (ly:grob-property relevant-stem 'direction))
+           (slash-stem-fraction
+             (assoc-get 'slash-stem-fraction details 0.3))
+           (over-beam-height
+             (* stem-dir
+                (assoc-get 'over-beam-height details 0.75)))
+           (slash-X-positions
+             (assoc-get 'slash-X-positions details '(-0.5 . 1)))
+           (slash-slope
+             (* stem-dir
+                (assoc-get 'slash-slope details 2)))
+           (y-positions (ly:grob-property grob 'positions))
+           (y-pos ((if (negative? slash-side) car cdr) y-positions))
+           (x-positions (ly:grob-property grob 'X-positions))
+           (x-pos ((if (negative? slash-side) car cdr) x-positions))
+           (beam-width (interval-length x-positions))
+           (beam-slope
+             (/ (- (cdr y-positions) (car y-positions))
+                (- (cdr x-positions) (car x-positions))))
+           ;; Try to get 'slash-thickness from 'details. As fallback
+           ;; use the same method as for slashed straight Flags in
+           ;; flag-styles.scm
+           (line-thickness
+             (ly:output-def-lookup
+               (ly:grob-layout relevant-stem)
+               'line-thickness))
+           (slash-thickness
+             (* staff-space
+                (assoc-get 'slash-thickness details
+                  (let* ((grob-stem-thickness
+                           (ly:grob-property relevant-stem 'thickness)))
+                    (* grob-stem-thickness line-thickness)))))
+           (beam-thick (ly:grob-property grob 'beam-thickness))
+           (beam-dir (ly:grob-property grob 'direction))
+           (extra-vertical-count
+             (if (and (ly:grob-property grob 'knee #f)
+                      (positive? slash-side))
+                 (beam::calc-right-extreme-vertical-count grob)
+                 0))
+           (x-left
+             (* (- slash-side) (car slash-X-positions)))
+           (x-right
+             (* (- slash-side) (cdr slash-X-positions)))
+           (stem-y-part
+             (* (- y-pos stem-begin)
+                slash-stem-fraction
+                (- stem-dir)))
+           (x-start
+             (if (negative? slash-side)
+                 x-left
+                 (+ x-left beam-width)))
+           (y-start
+             (if (and (positive? slash-side)
+                      (ly:grob-property grob 'cross-staff #f))
+                 (* staff-space
+                    (+ (* x-left (* -1 slash-side slash-slope))
+                       y-pos))
+                 (* staff-space
+                    (+ (* x-left (* -1 slash-side slash-slope))
+                         y-pos
+                       (* stem-dir stem-y-part)
+                       extra-vertical-count))))
+           (x-end
+             (if (negative? slash-side)
+                 x-right
+                 (+ x-right beam-width)))
+           (y-end
+             (* staff-space
+                (+ (* x-right beam-slope)
+                   over-beam-height
+                   extra-vertical-count
+                   y-pos)))
+           (slash-stencil
+             (make-line-stencil
+               ;; thick
+               slash-thickness
+               ;; start-coords
+               x-start
+               y-start
+               ;; end-coords
+               x-end
+               y-end)))
+
+      (ly:stencil-add
+        (ly:beam::print grob)
+        slash-stencil))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cross-staff stuff
 

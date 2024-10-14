@@ -48,9 +48,11 @@ stopAcciaccaturaMusic =  {
 }
 
 startSlashedGraceMusic =  {
+  \temporary \override Beam.stencil = #beam::slashed-stencil
   \temporary \override Flag.stroke-style = "grace"
 }
 
 stopSlashedGraceMusic =  {
+  \revert Beam.stencil
   \revert Flag.stroke-style
 }

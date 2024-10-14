@@ -309,6 +309,41 @@ Certain spurious change clefs have been fixed.
 @itemize
 
 @item
+@code{\slashedGrace} now prints slashed beams.
+
+@lilypond[quote,verbatim]
+{
+  \slashedGrace { d'16 e' d' } c'1
+  \slashedGrace { d16 e'' d' } c'1
+}
+@end lilypond
+
+Using @code{beam::slashed-stencil} arbitrary beams may be slashed.  Setting
+@code{details.slash-side} to @code{RIGHT} the slash is printed at right side
+of the beam.
+
+@lilypond[quote,verbatim]
+{
+  \override Beam.stencil = #beam::slashed-stencil
+  \cadenzaOn
+  c'16^[ a' c'']
+  c''^[ a' c']
+  c'_[ a' c'']
+  c''_[ a' c']
+  \override Beam.details.slash-side = #RIGHT
+  c'16^[ a' c'']
+  c''^[ a' c']
+  c'_[ a' c'']
+  c''_[ a' c']
+}
+@end lilypond
+
+The appearence of the slash may be customized by overrides of the
+@code{details} subproperties @code{over-beam-height}, @code{slash-slope},
+@code{slash-side}, @code{slash-stem-fraction}, @code{slash-thickness}, and
+@code{slash-X-positions}.
+
+@item
 It is now possible to right-align different types of bar lines.
 
 @lilypond[quote,verbatim]
