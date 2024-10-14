@@ -173,18 +173,49 @@ print_message (int level, const std::string &location, std::string s,
     message_newline = s[s.length () - 1] == '\n';
 }
 
+unsigned WarningAsErrorExitDeferrer::deferral_enabled_ = 0;
+bool WarningAsErrorExitDeferrer::exit_deferred_ = false;
+
+WarningAsErrorExitDeferrer::WarningAsErrorExitDeferrer ()
+{
+  ++deferral_enabled_;
+}
+
+WarningAsErrorExitDeferrer::~WarningAsErrorExitDeferrer ()
+{
+  if (exit_deferred_)
+    exit (1);
+  --deferral_enabled_;
+}
+
+static void
+print_error (const std::string &s, const std::string &location)
+{
+  print_message (LOG_ERROR, location, _f ("fatal error: %s", s) + "\n");
+}
+
+void
+WarningAsErrorExitDeferrer::deferrable_error (const std::string &s,
+                                              const std::string &location)
+{
+  if (!deferral_enabled_)
+    non_deferrable_error (s, location);
+  exit_deferred_ = true;
+  print_error (s, location);
+}
+
+[[noreturn]] void
+WarningAsErrorExitDeferrer::non_deferrable_error (const std::string &s,
+                                                  const std::string &location)
+{
+  print_error (s, location);
+  exit (1);
+}
+
 /** The actual output functions to be called in lilypond code.
  *  Sorted in descending order of importance (errors, warnings, progress, info,
  *  debug). Each prints a message on a separate line.
  */
-
-/* Display a fatal error message.  Also exits lilypond.  */
-[[noreturn]] void
-error (std::string s, const std::string &location)
-{
-  print_message (LOG_ERROR, location, _f ("fatal error: %s", s) + "\n");
-  exit (1);
-}
 
 /* Display a severe programming error message, but don't exit.  */
 void
@@ -194,7 +225,7 @@ programming_error (const std::string &s, const std::string &location)
     print_message (LOG_DEBUG, location,
                    _f ("suppressed programming error: %s", s) + "\n");
   else if (warning_as_error)
-    error (s, location);
+    WarningAsErrorExitDeferrer::deferrable_error (s, location);
   else
     {
       print_message (LOG_ERROR, location,
@@ -211,7 +242,7 @@ non_fatal_error (const std::string &s, const std::string &location)
   if (is_expected (s))
     print_message (LOG_DEBUG, location, _f ("suppressed error: %s", s) + "\n");
   else if (warning_as_error)
-    error (s, location);
+    WarningAsErrorExitDeferrer::deferrable_error (s, location);
   else
     print_message (LOG_ERROR, location, _f ("error: %s", s) + "\n");
 }
@@ -224,7 +255,7 @@ warning (const std::string &s, const std::string &location)
     print_message (LOG_DEBUG, location,
                    _f ("suppressed warning: %s", s) + "\n");
   else if (warning_as_error)
-    error (s, location);
+    WarningAsErrorExitDeferrer::deferrable_error (s, location);
   else
     print_message (LOG_WARN, location, _f ("warning: %s", s) + "\n");
 }

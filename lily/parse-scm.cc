@@ -59,6 +59,7 @@ struct Parse_start
   static SCM handle_error_before_unwinding (void *data, SCM tag, SCM args)
   {
     const auto *const ps = reinterpret_cast<Parse_start *> (data);
+    WarningAsErrorExitDeferrer deferrer;
 
     // Capture the call stack.
     SCM call_stack = scm_make_stack (SCM_BOOL_T, SCM_EOL);

@@ -44,9 +44,32 @@
 extern int loglevel;
 extern bool warning_as_error;
 
+// When warning_as_error is set, it can sometimes be undesirable to exit
+// immediately on the first warning.  Declare a variable of this type to defer
+// exiting until it goes out of scope.
+struct WarningAsErrorExitDeferrer
+{
+private:
+  static unsigned deferral_enabled_;
+  static bool exit_deferred_;
+
+public:
+  WarningAsErrorExitDeferrer ();
+  ~WarningAsErrorExitDeferrer ();
+
+  static void deferrable_error (const std::string &s,
+                                const std::string &location);
+
+  [[noreturn]] static void non_deferrable_error (const std::string &s,
+                                                 const std::string &location);
+};
+
 /* output messages, in decreasing order of importance */
-[[noreturn]] void error (std::string s, const std::string &location
-                                        = ""); // Fatal error, exits lilypond!
+[[noreturn]] inline void
+error (std::string s, const std::string &location = "")
+{
+  WarningAsErrorExitDeferrer::non_deferrable_error (s, location);
+}
 void programming_error (const std::string &s, const std::string &location = "");
 void non_fatal_error (const std::string &, const std::string &location = "");
 void warning (const std::string &s, const std::string &location = "");
