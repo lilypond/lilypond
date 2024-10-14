@@ -252,6 +252,7 @@ class Duration:
         self.duration_log = 0
         self.dots = 0
         self.factor = 1
+        self.repeat = 1  # For multi-measure rests.
 
     @classmethod
     def from_fraction(cls, length):
@@ -312,6 +313,8 @@ class Duration:
 
         if factor != 1:
             dur_str += f'*{factor}'
+        if self.repeat != 1:
+            dur_str += f'*{self.repeat}'
 
         return dur_str
 
