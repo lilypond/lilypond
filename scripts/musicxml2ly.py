@@ -2977,7 +2977,9 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append(command)
 
-    def add_barline(self, barline, relevant=False, no_bar_number=True):
+    def add_barline(self, barline, no_bar_number=True):
+        # (Re)store `has_relevant_elements` so that a barline alone does not
+        # trigger output for figured bass or chord names.
         has_relevant = self.has_relevant_elements
 
         bar_number = 0 if no_bar_number else self.bar_number
@@ -2995,7 +2997,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
             barline.bar_number = bar_number
             self.add_music(barline, 0)
 
-        self.has_relevant_elements = has_relevant or relevant
+        self.has_relevant_elements = has_relevant
 
     def add_partial(self, command):
         self.ignore_skips = True
@@ -3014,10 +3016,8 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.pending_last.append(last)
 
     def add_bar_check(self):
-        # (Re)store `has_relevant_elements` so that a barline alone does not
-        # trigger output for figured bass or chord names.
         b = musicexp.BarLine()
-        self.add_barline(b, no_bar_number=False)
+        self.add_barline(b, False)
 
     def jumpto(self, moment, grace_skip=None):
         current_end = self.end_moment
@@ -3337,15 +3337,13 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
             for a in barlines:
                 if isinstance(a, musicexp.BarLine):
                     voice_builder.add_barline(a)
-                    figured_bass_builder.add_barline(a, False)
-                    chordnames_builder.add_barline(a, False)
-                    fretboards_builder.add_barline(a, False)
                 elif isinstance(a, (conversion.RepeatMarker,
                                     conversion.EndingMarker)):
                     voice_builder.add_command(a)
-                    figured_bass_builder.add_barline(a, False)
-                    chordnames_builder.add_barline(a, False)
-                    fretboards_builder.add_barline(a, False)
+
+                figured_bass_builder.add_barline(a)
+                chordnames_builder.add_barline(a)
+                fretboards_builder.add_barline(a)
             continue
 
         if isinstance(n, musicxml.Print):
