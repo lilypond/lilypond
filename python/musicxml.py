@@ -1019,11 +1019,9 @@ class Note(Measure_element):
 
     def initialize_rest_event(self, note_color=None, note_font_size=None,
                               convert_rest_positions=True):
-        # rests can have display-octave and display-step, which are
-        # treated like an ordinary note pitch
+        # Rests can have `<display-octave>` and `<display-step>`, which are
+        # treated like an ordinary note pitch.
         event = musicexp.RestEvent()
-        event.full_measure_glyph = \
-            getattr(self['rest'], 'measure', 'no') == 'yes'
         event.color = getattr(self, 'color', note_color)
         event.font_size = getattr(self, 'font-size', note_font_size)
 

@@ -2903,6 +2903,8 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.ignore_skips = False
         self.has_relevant_elements = False
         self.bar_number = 0
+        self.multi_measure_rest = None
+        self.multi_measure_ev_chord = None  # Containing `multi_measure_rest`.
 
     def contains(self, elem):
         if self == elem:
@@ -2911,6 +2913,24 @@ class LilyPondVoiceBuilder(musicexp.Base):
             if e.contains(elem):
                 return True
         return False
+
+    def emit_multi_measure_rest(self, bar_check=True):
+        if self.multi_measure_rest:
+            # Doing `R1^\markup{...}` would center the markup over the
+            # multi-measure rest, which is most certainly not intended.
+            # Instead, do `<>^\markup{...} R1`.  Since it doesn't cause a
+            # problem, we do this for the remaining pending elements also.
+            if self.pending_dynamics:
+                self.elements.append(musicexp.EmptyChord())
+                self.elements.extend(self.pending_dynamics)
+                self.pending_dynamics = []
+
+            self.elements.append(self.multi_measure_ev_chord)
+            self.multi_measure_rest = None
+            self.multi_measure_ev_chord = None
+
+            if bar_check:
+                self.add_bar_check()
 
     def set_duration(self, duration):
         self.end_moment = self.begin_moment + duration
@@ -2943,15 +2963,8 @@ class LilyPondVoiceBuilder(musicexp.Base):
 
         self.has_relevant_elements = self.has_relevant_elements or relevant
 
-        if isinstance(music, musicexp.BarLine):
-            if self.pending_dynamics:
-                for d in self.pending_dynamics:
-                    if (isinstance(d, musicexp.OctaveShiftEvent)  # for Finale
-                            or not isinstance(d, (musicexp.SpanEvent,
-                                                  musicexp.DynamicsEvent))):
-                        index = self.pending_dynamics.index(d)
-                        dyn = self.pending_dynamics.pop(index)
-                        self.elements.append(dyn)
+        is_barline = isinstance(music, musicexp.BarLine)
+        self.emit_multi_measure_rest(not is_barline)
 
         # The elements in `pending_last` were added while processing the
         # previous `<note>` element and must be emitted before the current
@@ -2974,6 +2987,8 @@ class LilyPondVoiceBuilder(musicexp.Base):
     def add_command(self, command, relevant=True):
         assert isinstance(command, musicexp.Music)
 
+        self.emit_multi_measure_rest()
+
         self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append(command)
 
@@ -2984,13 +2999,21 @@ class LilyPondVoiceBuilder(musicexp.Base):
 
         bar_number = 0 if no_bar_number else self.bar_number
 
+        # Ignore staff and page breaks together with volta-related repeat
+        # markers while checking for a bar line right before.
         prev_barline = None
-        if self.elements:
-            if isinstance(self.elements[-1], musicexp.BarLine):
-                prev_barline = self.elements[-1]
+        elem = None
+        for elem in reversed(self.elements):
+            if not (isinstance(elem, musicexp.Break)
+                    or isinstance(elem, conversion.RepeatMarker)
+                    or isinstance(elem, conversion.EndingMarker)):
+                break
+        if isinstance(elem, musicexp.BarLine):
+            prev_barline = elem
 
-        if prev_barline is not None:
-            # If we have an existing bar line object, set its bar number.
+        if prev_barline is not None and self.multi_measure_rest is None:
+            # If we have an existing bar line object and no pending
+            # multi-measure rest, set its bar number.
             prev_barline.bar_number = bar_number
         else:
             # Otherwise add a new bar line object.
@@ -3016,8 +3039,9 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.pending_last.append(last)
 
     def add_bar_check(self):
-        b = musicexp.BarLine()
-        self.add_barline(b, False)
+        if self.multi_measure_rest is None:
+            b = musicexp.BarLine()
+            self.add_barline(b, False)
 
     def jumpto(self, moment, grace_skip=None):
         current_end = self.end_moment
@@ -3253,6 +3277,8 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
     last_bar_check = -1
     senza_misura_time_signature = None
+    is_senza_misura = False
+    multi_measure_count = 0
 
     for n in voice._elements:
         tie_started = False
@@ -3291,6 +3317,8 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
             fretboards_builder.bar_number = num
 
             if n.senza_misura_length:
+                is_senza_misura = True
+
                 # Emission of this element must be delayed until a bar check
                 # gets emitted.
                 senza_misura_time_signature = musicexp.TimeSignatureChange()
@@ -3298,6 +3326,8 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                 senza_misura_time_signature.fractions = \
                     [n.senza_misura_length.numerator,
                      n.senza_misura_length.denominator]
+            else:
+                is_senza_misura = False
             continue
 
         if isinstance(n, musicxml.Partial) and n.partial > 0:
@@ -3383,6 +3413,8 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                 continue
             else:
                 n.converted = True
+
+                voice_builder.emit_multi_measure_rest()
 
                 new_pedal_is_line = n.pedal_is_line()
                 if (new_pedal_is_line is not None
@@ -3470,6 +3502,15 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
                     clef_visible = clef_visible_new
 
+                elif isinstance(a, musicexp.MeasureStyleEvent):
+                    multi_measure_count = a.multiple_rest_length
+
+                    globvars.layout_information.set_context_item(
+                        'Score', 'skipBars = ##t')
+                    globvars.layout_information.set_context_item(
+                        'Staff',
+                        r'\override MultiMeasureRest.expand-limit = 1')
+
                 voice_builder.add_command(a)
             continue
 
@@ -3518,6 +3559,44 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         ignore_lyrics = is_tied or is_chord  # or is_beamed or inside_slur
 
         grace = n.get('grace')
+        notations_children = n['notations']
+        rest = n.get('rest')
+        is_whole_measure_rest = (rest is not None and rest.is_whole_measure())
+
+        if voice_builder.multi_measure_rest is not None:
+            if (is_whole_measure_rest
+                    and multi_measure_count
+                    and grace is None
+                    and not notations_children):
+                voice_builder.multi_measure_rest.duration.repeat += 1
+                multi_measure_count -= 1
+
+                voice_builder.begin_moment = voice_builder.end_moment
+                voice_builder.set_duration(n._duration)
+                continue
+            else:
+                voice_builder.emit_multi_measure_rest()
+
+        # At this point we don't have an active multi-measure rest.
+        if multi_measure_count:
+            if not is_whole_measure_rest:
+                ly.warning(_('Not enough rests for multi-measure rest count'))
+                multi_measure_count = 0
+            else:
+                # We ignore the rest's `measure` attribute if we have an
+                # explicit multi-measure rest.
+                main_event.full_measure_glyph = True
+        else:
+            full_measure_glyph = getattr(rest, 'measure', None)
+
+            if is_whole_measure_rest:
+                multi_measure_count = 1
+
+                if full_measure_glyph != 'no':
+                    main_event.full_measure_glyph = True
+            elif is_senza_misura and full_measure_glyph == 'yes':
+                multi_measure_count = 1
+                main_event.full_measure_glyph = True
 
         # `ev_chord` starts as an empty `ChordEvent` object that gets filled
         # with items related to the current chord (notes, beams, etc.) while
@@ -3525,7 +3604,13 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         ev_chord = voice_builder.last_event_chord(n._when)
         if not ev_chord:
             ev_chord = musicexp.ChordEvent()
-            voice_builder.add_music(ev_chord, n._duration, grace=grace)
+            if multi_measure_count:
+                voice_builder.multi_measure_ev_chord = ev_chord
+                voice_builder.multi_measure_rest = main_event
+                voice_builder.begin_moment = voice_builder.end_moment
+                voice_builder.set_duration(n._duration)
+            else:
+                voice_builder.add_music(ev_chord, n._duration, grace=grace)
         else:
             # This catches '<grace note> <dynamics> <main note>'.
             if voice_builder.pending_dynamics and 'chord' not in n:
@@ -3590,12 +3675,17 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                 ev_chord.append(staff_change)
                 staff_change = None
             ev_chord.append(main_event)
-            # When a note/chord has grace notes (duration==0), the duration
-            # of the event chord is not yet known, but the event chord was
-            # already added with duration 0.  The following corrects this
-            # when we hit the real note!
-            if voice_builder.current_duration() == 0 and n._duration > 0:
-                voice_builder.set_duration(n._duration)
+
+            if multi_measure_count:
+                multi_measure_count -= 1
+            else:
+                # When a note or chord has grace notes (which have no
+                # duration), the duration of the event chord is not yet
+                # known.  However, the event chord was already added with
+                # duration 0, so we have to correct this when we process the
+                # main note.
+                if voice_builder.current_duration() == 0 and n._duration > 0:
+                    voice_builder.set_duration(n._duration)
 
         # if we have a figured bass, set its voice builder to the correct
         # position and insert the pending figures
@@ -3633,8 +3723,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
         color = getattr(n, 'color', None)
         font_size = getattr(n, 'font-size', None)
-
-        notations_children = n['notations']
 
         # The <notation> element can have the following children
         # (+ means implemented, ~ partially, - not):
@@ -3886,6 +3974,9 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         # most cases and fixes broken files, which have the end tag missing
         if is_tied and not tie_started:
             is_tied = False
+
+    # For getting a correct value in the last bar check comment.
+    voice_builder.bar_number += 1
 
     # force trailing mm rests to be written out.
     voice_builder.add_music(musicexp.ChordEvent(), 0)

@@ -3500,6 +3500,7 @@ class RestEvent(RhythmicEvent):
     def __init__(self):
         RhythmicEvent.__init__(self)
         self.pitch = None
+        self.full_measure_glyph = False
         self.visible = True
         self.spacing = True
 

@@ -6,8 +6,11 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">All &lt;notation&gt; elements
-          defined in MusicXML. The lyrics show the notation assigned to each
-          note.</miscellaneous-field>
+          defined in MusicXML.  The lyrics show the notation assigned to each
+          note.
+
+          The third-last bar is a full-measure rest with a
+          fermata.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -83,6 +86,7 @@
         <lyric number="2"><text>fermata</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="2">
       <note>
         <pitch>
@@ -231,6 +235,7 @@
         <lyric number="1"><text>tenuto</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="4">
       <note>
         <pitch>
@@ -283,6 +288,7 @@
         <lyric number="1"><text>scoop</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="5">
       <note>
         <pitch>
@@ -334,6 +340,7 @@
         <lyric number="2"><text>mark</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="6">
       <note>
         <pitch>
@@ -447,6 +454,7 @@
         <lyric number="2"><text>turn</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="8">
       <note>
         <pitch>
@@ -503,6 +511,7 @@
         <lyric number="1"><syllabic>end</syllabic><text>line</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="9">
       <note>
         <pitch>
@@ -554,6 +563,7 @@
         <lyric number="1"><text>tremolo</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="10">
       <note>
         <pitch>
@@ -692,6 +702,7 @@
         <lyric number="2"><text>harmonic</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="12">
       <note>
         <pitch>
@@ -785,6 +796,7 @@
         </notations>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="13">
       <note>
         <pitch>
@@ -918,6 +930,7 @@
         <lyric number="2"><text>string</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="14">
       <note>
         <pitch>
@@ -1016,6 +1029,7 @@
         <lyric number="3"><text>3,4,5↓</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="15">
       <note>
         <pitch>
@@ -1080,6 +1094,7 @@
         <lyric number="2"><text>a,m,i↓</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="16">
       <note>
         <pitch>
@@ -1133,6 +1148,7 @@
         <lyric number="2"><text>pizz.</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="17">
       <note>
         <pitch>
@@ -1191,6 +1207,7 @@
         <lyric number="1"><syllabic>end</syllabic><text>on</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="18">
       <note>
         <pitch>
@@ -1250,6 +1267,7 @@
         <lyric number="2"><text>with bar</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="19">
       <note>
         <pitch>
@@ -1307,6 +1325,7 @@
         <lyric number="2"><text>T</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="20">
       <note>
         <pitch>
@@ -1356,8 +1375,21 @@
       </barline>
     </measure>
 
-    <!-- Dynamics, attached to notes by putting them inside <notations> tags -->
+    <!-- Dynamics, attached to notes or rests by putting them inside
+         <notations> tags -->
     <measure number="21">
+      <note>
+        <rest measure="yes"/>
+        <duration>4</duration>
+        <voice>1</voice>
+        <type>whole</type>
+        <notations>
+          <fermata type="upright"/>
+        </notations>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="22">
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -1378,18 +1410,6 @@
         <voice>1</voice>
         <type>quarter</type>
         <notations>
-          <dynamics><ppp/></dynamics>
-        </notations>
-        <lyric number="1"><text>ppp</text></lyric>
-      </note>
-      <note>
-        <pitch>
-          <step>C</step><octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <notations>
           <dynamics><sfp/></dynamics>
         </notations>
         <lyric number="1"><text>sfp</text></lyric>
@@ -1398,9 +1418,9 @@
         <pitch>
           <step>C</step><octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>2</duration>
         <voice>1</voice>
-        <type>quarter</type>
+        <type>half</type>
         <notations>
           <dynamics><other-dynamics>sfffz</other-dynamics></dynamics>
         </notations>
@@ -1410,7 +1430,7 @@
     </measure>
 
     <!-- General tests: multiple notations, directions, etc. -->
-    <measure number="22">
+    <measure number="23">
       <note>
         <pitch>
           <step>G</step>
