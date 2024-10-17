@@ -3532,13 +3532,10 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
         is_double_note_tremolo = False
 
-#        if not hasattr(conversion_settings, 'convert_rest_positions'):
-#            conversion_settings.convert_rest_positions = True
-
         main_event = n.to_lily_object(
             curr_clef,
-            convert_stem_directions=conversion_settings.convert_stem_directions,
-            convert_rest_positions=conversion_settings.convert_rest_positions)
+            conversion_settings.convert_stem_directions,
+            conversion_settings.convert_rest_positions)
 
         if isinstance(main_event, (musicexp.NoteEvent, musicexp.RestEvent)):
             if not main_event.visible:

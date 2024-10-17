@@ -398,7 +398,7 @@ def get_transpose(optType):
         elif optType == "integer":
             p = generic_tone_to_pitch(transpose_option)
             return p.semitones()
-    except Exception:  # TODO: find out what the possible exception is here.
+    except NameError:
         if optType == "string":
             return ""
         elif optType == "integer":
@@ -456,6 +456,8 @@ def get_string_numbers():
 
 
 def generic_tone_to_pitch(tone):
+    # TODO: Support different note name languages as given by the
+    #       `--language` command-line option.
     accidentals_dict = {
         "": 0,
         "es": -1,
@@ -465,12 +467,18 @@ def generic_tone_to_pitch(tone):
         "is": 1,
         "isis": 2
     }
-    p = Pitch()
+
+    # TODO: `tone` might be given as a command-line argument; while the code
+    #       below works just fine with ill-formed input, add a check
+    #       (probably in `musicxml2ly.py`) to reject it with a user warning.
     tone_ = tone.strip().lower()
     p.octave = tone_.count("'") - tone_.count(",")
     tone_ = tone_.replace(",", "").replace("'", "")
-    p.step = ((ord(tone_[0]) - ord('a') + 5) % 7)
+
+    p = Pitch()
+    p.step = (ord(tone_[0]) - ord('a') + 5) % 7
     p.alteration = accidentals_dict.get(tone_[1:], 0)
+
     return p
 
 
@@ -3503,20 +3511,6 @@ class RestEvent(RhythmicEvent):
         self.full_measure_glyph = False
         self.visible = True
         self.spacing = True
-
-    def ly_expression(self):
-        if self.pitch:
-            # TODO: Support pitched full-measure rests.
-            res = []
-            res.append(self.ly_expression_pre_note(False))
-            res.append(r'%s%s\rest' % (self.pitch.ly_expression(),
-                                       self.duration.ly_expression()))
-            return ' '.join(filter(None, res))
-        else:
-            if self.full_measure_glyph:
-                return 'R%s' % self.duration.ly_expression()
-            else:
-                return 'r%s' % self.duration.ly_expression()
 
     def pre_note_ly(self, is_chord_element):
         elements = super().pre_note_ly(is_chord_element)

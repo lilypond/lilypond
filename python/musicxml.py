@@ -1030,10 +1030,8 @@ class Note(Measure_element):
             event.pitch = pitch
         return event
 
-    def to_lily_object(self,
-                       clef,
-                       convert_stem_directions=True,
-                       convert_rest_positions=True):
+    def to_lily_object(self, clef,
+                       convert_stem_directions, convert_rest_positions):
         color = getattr(self, 'color', None)
         font_size = getattr(self, 'font-size', None)
 
