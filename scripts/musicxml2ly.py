@@ -2942,6 +2942,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.ignore_skips = False
         self.has_relevant_elements = False
         self.bar_number = 0
+        self.multi_measure_count = 0
         self.multi_measure_rest = None
         self.multi_measure_ev_chord = None  # Containing `multi_measure_rest`.
 
@@ -2965,6 +2966,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
                 self.pending_dynamics = []
 
             self.elements.append(self.multi_measure_ev_chord)
+            self.multi_measure_count = 0
             self.multi_measure_rest = None
             self.multi_measure_ev_chord = None
 
@@ -3317,7 +3319,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
     last_bar_check = -1
     senza_misura_time_signature = None
     is_senza_misura = False
-    multi_measure_count = 0
 
     for n in voice._elements:
         tie_started = False
@@ -3505,6 +3506,8 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
         if isinstance(n, musicxml.Attributes):
             for a in musicxml_attributes_to_lily(n):
+                mm_count = 0
+
                 if isinstance(a, musicexp.KeySignatureChange):
                     alterations = a.get_alterations()
                     current_alterations = alterations
@@ -3553,7 +3556,7 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                     clef_visible = clef_visible_new
 
                 elif isinstance(a, musicexp.MeasureStyleEvent):
-                    multi_measure_count = a.multiple_rest_length
+                    mm_count = a.multiple_rest_length
 
                     globvars.layout_information.set_context_item(
                         'Score', 'skipBars = ##t')
@@ -3562,6 +3565,13 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                         r'\override MultiMeasureRest.expand-limit = 1')
 
                 voice_builder.add_command(a)
+
+                if mm_count:
+                    # `add_command` might emit a previous multi-measure
+                    # rest, which also sets `multi_measure_count` to zero,
+                    # so we set this variable after the call.
+                    voice_builder.multi_measure_count = mm_count
+
             continue
 
         if not n.__class__.__name__ == 'Note':
@@ -3610,11 +3620,11 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
 
         if voice_builder.multi_measure_rest is not None:
             if (is_whole_measure_rest
-                    and multi_measure_count
+                    and voice_builder.multi_measure_count
                     and grace is None
                     and not notations_children):
                 voice_builder.multi_measure_rest.duration.repeat += 1
-                multi_measure_count -= 1
+                voice_builder.multi_measure_count -= 1
 
                 voice_builder.begin_moment = voice_builder.end_moment
                 voice_builder.set_duration(n._duration)
@@ -3623,10 +3633,10 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                 voice_builder.emit_multi_measure_rest()
 
         # At this point we don't have an active multi-measure rest.
-        if multi_measure_count:
+        if voice_builder.multi_measure_count:
             if not is_whole_measure_rest:
                 ly.warning(_('Not enough rests for multi-measure rest count'))
-                multi_measure_count = 0
+                voice_builder.multi_measure_count = 0
             else:
                 # We ignore the rest's `measure` attribute if we have an
                 # explicit multi-measure rest.
@@ -3635,15 +3645,15 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
             full_measure_glyph = getattr(rest, 'measure', None)
 
             if is_whole_measure_rest:
-                multi_measure_count = 1
+                voice_builder.multi_measure_count = 1
 
                 if full_measure_glyph != 'no':
                     main_event.full_measure_glyph = True
             elif is_senza_misura and full_measure_glyph == 'yes':
-                multi_measure_count = 1
+                voice_builder.multi_measure_count = 1
                 main_event.full_measure_glyph = True
 
-        if multi_measure_count and main_event.pitch is not None:
+        if voice_builder.multi_measure_count and main_event.pitch is not None:
             main_event.y_offset = \
                 (main_event.pitch.steps() - curr_clef.pitch.steps()) / 2
 
@@ -3661,7 +3671,7 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         ev_chord = voice_builder.last_event_chord(n._when)
         if not ev_chord:
             ev_chord = musicexp.ChordEvent()
-            if multi_measure_count:
+            if voice_builder.multi_measure_count:
                 voice_builder.multi_measure_ev_chord = ev_chord
                 voice_builder.multi_measure_rest = main_event
                 voice_builder.begin_moment = voice_builder.end_moment
@@ -3733,8 +3743,8 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                 staff_change = None
             ev_chord.append(main_event)
 
-            if multi_measure_count:
-                multi_measure_count -= 1
+            if voice_builder.multi_measure_count:
+                voice_builder.multi_measure_count -= 1
             else:
                 # When a note or chord has grace notes (which have no
                 # duration), the duration of the event chord is not yet
