@@ -5,9 +5,11 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Rests can have explicit pitches to
-          position them vertically.  The first rest has no explicit pitch and
-          should use the default position, all others are explicitly positioned
-          somewhere else (E4, F5, A3, C6).</miscellaneous-field>
+          position them vertically.  In the first bar, the first rest has no
+          explicit pitch and should use the default position, while the
+          remaining rests are explicitly positioned at pitches E4, F5, A3, and
+          C6.  The second bar holds a full-measure rest at pitch G4 (within an
+          alto clef).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -75,6 +77,23 @@
         <duration>96</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <staff>1</staff>
+      </note>
+    </measure>
+    <measure number="2">
+      <attributes>
+        <clef>
+          <sign>C</sign>
+          <line>3</line>
+        </clef>
+      </attributes>
+      <note>
+        <rest measure="yes">
+          <display-step>G</display-step>
+          <display-octave>4</display-octave>
+        </rest>
+        <duration>480</duration>
+        <voice>1</voice>
         <staff>1</staff>
       </note>
     </measure>

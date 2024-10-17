@@ -3508,6 +3508,7 @@ class RestEvent(RhythmicEvent):
     def __init__(self):
         RhythmicEvent.__init__(self)
         self.pitch = None
+        self.y_offset = 0  # For pitched full-measure rests.
         self.full_measure_glyph = False
         self.visible = True
         self.spacing = True
@@ -3521,6 +3522,7 @@ class RestEvent(RhythmicEvent):
             color = color_to_ly(self.color)
             if color is not None:
                 elements.append(r'\tweak color %s' % color)
+
             font_size = get_font_size(self.font_size, command=False)
             if font_size is not None:
                 # See issue #6721 why we currently need this work-around.
@@ -3540,6 +3542,9 @@ class RestEvent(RhythmicEvent):
                 elements.insert(0, r'\once \override Dots.font-size = %s'
                                 % font_size)
 
+            if self.y_offset != 0:
+                elements.append(r'\tweak Y-offset #%s' % self.y_offset)
+
         return elements
 
     def post_note_ly(self, is_chord_element):
@@ -3551,7 +3556,6 @@ class RestEvent(RhythmicEvent):
         printer(self.ly_expression_pre_note(True))
 
         if self.pitch:
-            # TODO: Support pitched full-measure rests.
             self.pitch.print_ly(printer)
             self.duration.print_ly(printer)
             printer.print_verbatim(r'\rest')

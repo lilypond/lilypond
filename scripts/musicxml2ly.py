@@ -3268,7 +3268,7 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
     key_visible = True
     note_visible = True
 
-    # For `<unpitched>`.
+    # For `<unpitched>` and pitched full-measure rests.
     curr_clef = None
 
     # Track pitch alterations for cautionary accidentals without parentheses
@@ -3600,8 +3600,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         if getattr(main_event, 'editorial', False):
             needed_additional_definitions.append("make-bracketed")
 
-        if main_event and not first_pitch:
-            first_pitch = main_event.pitch
         # ignore lyrics for notes inside a slur, tie, chord or beam
         ignore_lyrics = is_tied or is_chord  # or is_beamed or inside_slur
 
@@ -3644,6 +3642,18 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
             elif is_senza_misura and full_measure_glyph == 'yes':
                 multi_measure_count = 1
                 main_event.full_measure_glyph = True
+
+        if multi_measure_count and main_event.pitch is not None:
+            main_event.y_offset = \
+                (main_event.pitch.steps() - curr_clef.pitch.steps()) / 2
+
+            # LilyPond uses a different mechanism to control the vertical
+            # position of a multi-measure (or full-measure) rest; its
+            # (MusicXML) pitch thus must not affect `\relative`.
+            main_event.pitch = None
+
+        if main_event and not first_pitch:
+            first_pitch = main_event.pitch
 
         # `ev_chord` starts as an empty `ChordEvent` object that gets filled
         # with items related to the current chord (notes, beams, etc.) while
