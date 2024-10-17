@@ -1066,6 +1066,43 @@ def group_tremolos(music_list, events):
 
 
 def musicxml_clef_staff_details_to_lily(attributes):
+    def get_clef_pitch(clef_stafflines):
+        clef_middle_line_pitch = {
+            # The pitch of the middle line (i.e., line 3) if the clef is
+            # positioned on 'line 0'.
+            'G': (3, 1),
+            'C': (6, 0),
+            'F': (2, 0),
+            'percussion': (6, 0),
+            'PERC': (6, 0),
+        }
+        if clef_stafflines.type not in clef_middle_line_pitch.keys():
+            return None
+
+        p = musicexp.Pitch()
+
+        (step, octave) = clef_middle_line_pitch[clef_stafflines.type]
+
+        if clef_stafflines.position is not None:
+            step -= clef_stafflines.position * 2
+        else:
+            step = 6
+
+        if clef_stafflines.lines is not None:
+            step -= 5 - clef_stafflines.lines
+
+        if step < 0:
+            p.step = step + 7
+            p.octave = octave - 1 + clef_stafflines.octave
+        elif step > 6:
+            p.step = step - 7
+            p.octave = octave + 1 + clef_stafflines.octave
+        else:
+            p.step = step
+            p.octave = octave + clef_stafflines.octave
+
+        return p
+
     ev = musicexp.Clef_StaffLinesEvent()
 
     clef_information = attributes.get_clef_information()
@@ -1093,6 +1130,8 @@ def musicxml_clef_staff_details_to_lily(attributes):
                     if ev.lines_color is None:
                         ev.lines_color = getattr(line_detail, 'color', None)
                     ev.line_details[line] = print_object
+
+    ev.pitch = get_clef_pitch(ev)
 
     if clef_information is None and stafflines is None:
         return None

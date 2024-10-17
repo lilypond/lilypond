@@ -3928,6 +3928,7 @@ class Clef_StaffLinesEvent(Music):
         Music.__init__(self)
         self.type = None
         self.position = None
+        self.pitch = None  # The pitch of the middle line (if applicable).
         self.octave = None
         self.lines = None
         self.line_details = None

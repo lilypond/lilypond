@@ -488,35 +488,7 @@ class Unpitched(Music_xml_node):
         else:
             # We have to position the note on the middle line (or gap) of
             # the staff.
-            clef_middle_line_pitch = {
-                # The pitch of the middle line (i.e., line 3) if the clef is
-                # positioned on 'line 0'.
-                'G': (3, 1),
-                'C': (6, 0),
-                'F': (2, 0),
-                'percussion': (6, 0),
-                'PERC': (6, 0),
-            }
-            (step, octave) = clef_middle_line_pitch[clef.type]
-
-            if clef.position is not None:
-                step -= clef.position * 2
-            else:
-                step = 6
-
-            if clef.lines is not None:
-                step -= 5 - clef.lines
-
-            if step < 0:
-                p.step = step + 7
-                p.octave = octave - 1 + clef.octave
-            elif step > 6:
-                p.step = step - 7
-                p.octave = octave + 1 + clef.octave
-            else:
-                p.step = step
-                p.octave = octave + clef.octave
-
+            p = clef.pitch
         return p
 
 
