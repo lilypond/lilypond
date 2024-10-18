@@ -1927,6 +1927,10 @@ class CaesuraEvent(Event):
 
 
 class SlurEvent(SpanEvent):
+    def __init__(self):
+        SpanEvent.__init__(self)
+        self.number = 1  # Needed for overlapping slurs.
+
     def print_before_note(self, printer):
         command = {'dotted': r'\slurDotted',
                    'dashed': r'\slurDashed'}.get(self.line_type, '')
@@ -1944,7 +1948,10 @@ class SlurEvent(SpanEvent):
         return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
 
     def slur_to_ly(self):
-        return {-1: '(', 1: ')'}.get(self.span_direction, '')
+        ret = {-1: '(', 1: ')'}.get(self.span_direction, '')
+        if ret and self.number != 1:
+            ret = r'\=%d%s' % (self.number, ret)
+        return ret
 
     def ly_expression(self):
         return self.slur_to_ly()

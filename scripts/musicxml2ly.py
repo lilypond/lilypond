@@ -1511,6 +1511,9 @@ def musicxml_spanner_to_lily_event(mxl_event, attributes=None,
     if name != 'dynamics-spanner':
         ev.font_size = attributes.get('font-size', None)
 
+    if name == 'slur':
+        ev.number = int(attributes.get('number', 1))
+
     if options.convert_directions:
         if span_direction == -1:
             # If both an associated ornament and the spanner has a
@@ -3285,8 +3288,10 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
     # options)
     first_pitch = None
 
+    # For slur management.
+    slur_count = 0
+
     # Needed for melismata detection (ignore lyrics on those notes!):
-    inside_slur = False
     is_tied = False
     is_chord = False
     is_beamed = False
@@ -3305,7 +3310,6 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
     figured_bass_builder = LilyPondVoiceBuilder()
     chordnames_builder = LilyPondVoiceBuilder()
     fretboards_builder = LilyPondVoiceBuilder()
-    in_slur = False
 
     # Make sure that the keys in the dict don't get reordered, since
     # we need the correct ordering of the lyrics stanzas! By default,
@@ -3610,8 +3614,8 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
         if getattr(main_event, 'editorial', False):
             needed_additional_definitions.append("make-bracketed")
 
-        # ignore lyrics for notes inside a slur, tie, chord or beam
-        ignore_lyrics = is_tied or is_chord  # or is_beamed or inside_slur
+        # ignore lyrics for notes inside a tie or chord
+        ignore_lyrics = is_tied or is_chord
 
         grace = n.get('grace')
         notations_children = n['notations']
@@ -3834,35 +3838,23 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                         max(ev_chord.arpeggio_max_pitch,
                             main_event.pitch.steps())
 
-            # First, close all open slurs, only then start any new slur
-            # TODO: Record the number of the open slur to determine the correct
-            #       closing slur!
             endslurs = [s for s in notations['slur']
                         if s.get_type() in ('stop')]
-            if endslurs and not inside_slur:
-                endslurs[0].message(
-                    _('Encountered closing slur, but no slur is open'))
-            elif endslurs:
-                if len(endslurs) > 1:
-                    endslurs[0].message(
-                        _('Cannot have two simultaneous (closing) slurs'))
-                # record the slur status for the next note in the loop
-                inside_slur = False
-                lily_ev = musicxml_spanner_to_lily_event(endslurs[0])
+            for es in endslurs:
+                if slur_count == 0:
+                    es.message(_('Encountered closing slur, '
+                                 'but no slur is open'))
+                else:
+                    slur_count -= 1
+
+                lily_ev = musicxml_spanner_to_lily_event(es)
                 ev_chord.append(lily_ev)
 
             startslurs = [s for s in notations['slur']
                           if s.get_type() in ('start')]
-            if startslurs and inside_slur:
-                startslurs[0].message(
-                    _('Cannot have a slur inside another slur'))
-            elif startslurs:
-                if len(startslurs) > 1:
-                    startslurs[0].message(
-                        _('Cannot have two simultaneous slurs'))
-                # record the slur status for the next note in the loop
-                inside_slur = True
-                lily_ev = musicxml_spanner_to_lily_event(startslurs[0])
+            for ss in startslurs:
+                slur_count += 1
+                lily_ev = musicxml_spanner_to_lily_event(ss)
                 lily_ev.visible = note_visible
                 ev_chord.append(lily_ev)
 
