@@ -327,6 +327,53 @@ expression."
                                                                 span-direction STOP))))))
                                            (format #f "\\acciaccatura ~a" (music->lily-string ?music))))))
 
+
+(define-extra-display-method GraceMusic (expr)
+  "Display method for slashedGrace."
+  (with-music-match (expr (music
+                           'GraceMusic
+                           element (music
+                                    'SequentialMusic
+                                    elements (?init-context
+                                              ?start
+                                              ?music
+                                              ?stop))))
+                    ;; we check whether ?start and ?stop look like
+                    ;; startSlashedGraceMusic stopSlashedGraceMusic
+                    (and (with-music-match (?start (music
+                                                    'SequentialMusic
+                                                    elements ((music
+                                                               'ContextSpeccedMusic
+                                                               element (music
+                                                                        'OverrideProperty
+                                                                        grob-property-path '(stencil)
+                                                                        grob-value beam::slashed-stencil
+                                                                        symbol 'Beam))
+                                                              (music
+                                                               'ContextSpeccedMusic
+                                                               element (music
+                                                                        'OverrideProperty
+                                                                        grob-property-path '(stroke-style)
+                                                                        grob-value "grace"
+                                                                        symbol 'Flag)))))
+                                           #t)
+                         (with-music-match (?stop (music
+                                                   'SequentialMusic
+                                                   elements ((music
+                                                              'ContextSpeccedMusic
+                                                              element (music
+                                                                       'RevertProperty
+                                                                       grob-property-path '(stencil)
+                                                                       symbol 'Beam))
+                                                             (music
+                                                              'ContextSpeccedMusic
+                                                              element (music
+                                                                       'RevertProperty
+                                                                       grob-property-path '(stroke-style)
+                                                                       symbol 'Flag)))))
+                                           (format #f "\\slashedGrace ~a" (music->lily-string ?music))))))
+
+
 (define-extra-display-method GraceMusic (expr)
   "Display method for grace."
   (with-music-match (expr (music
