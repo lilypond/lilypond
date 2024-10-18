@@ -4433,11 +4433,12 @@ class StaffGroup(Base):
             for [staff_id, voices] in self.part_information:
                 for [v, lyrics, figuredbass, chordnames, fretboards] in voices:
                     if chordnames:
-                        printer(r'\context ChordNames = "%s" {' % chordnames)
-                        printer.newline()
+                        printer(r'\context ChordNames = "%s"' % chordnames)
                         transpose = get_transpose("string")
                         if transpose:
                             printer.dump(transpose)
+                        printer.dump('{')
+                        printer.newline()
                         printer.dump(r'\%s' % chordnames)
                         printer.newline()
                         printer.dump('}')
@@ -4450,11 +4451,12 @@ class StaffGroup(Base):
             for [staff_id, voices] in self.part_information:
                 for [v, lyrics, figuredbass, chordnames, fretboards] in voices:
                     if fretboards:
-                        printer(r'\context FretBoards = "%s" {' % fretboards)
-                        printer.newline()
+                        printer(r'\context FretBoards = "%s"' % fretboards)
                         transpose = get_transpose("string")
                         if transpose:
                             printer.dump(transpose)
+                        printer.dump('{')
+                        printer.newline()
                         printer.dump(r'\%s' % fretboards)
                         printer.newline()
                         printer.dump('}')
@@ -4543,11 +4545,12 @@ This causes wrong stem directions and collisions.
                         2: r'\voiceTwo ',
                         3: r'\voiceThree '}.get(n, r'\voiceFour ')
 
-                printer(r'\context %s = "%s" {' % (self.voice_command, v))
-                printer.newline()
+                printer(r'\context %s = "%s"' % (self.voice_command, v))
                 transpose = get_transpose("string")
                 if transpose:
                     printer.dump(transpose)
+                printer.dump('{')
+                printer.newline()
                 printer.dump(r'%s\%s' % (voice_count_text, v))
                 printer.newline()
                 printer.dump('}')
