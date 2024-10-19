@@ -181,7 +181,7 @@ Midi_time_signature::to_string () const
                    0x04,
                    uint8_t (num),
                    uint8_t (intlog2 (den)),
-                   uint8_t (audio_->base_moment_clocks_),
+                   uint8_t (audio_->beat_base_clocks_),
                    8};
   return std::string (reinterpret_cast<char *> (out), sizeof (out));
 }

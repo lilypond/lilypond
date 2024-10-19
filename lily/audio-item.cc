@@ -196,11 +196,11 @@ Audio_tempo::Audio_tempo (int per_minute_4)
 }
 
 Audio_time_signature::Audio_time_signature (int beats, int one_beat,
-                                            int base_moment_clocks)
+                                            int beat_base_clocks)
 {
   beats_ = beats;
   one_beat_ = one_beat;
-  base_moment_clocks_ = base_moment_clocks;
+  beat_base_clocks_ = beat_base_clocks;
 }
 
 std::string

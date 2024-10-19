@@ -159,11 +159,11 @@ public:
 class Audio_time_signature final : public Audio_item
 {
 public:
-  Audio_time_signature (int beats, int one_beat, int base_moment_clocks);
+  Audio_time_signature (int beats, int one_beat, int beat_base_clocks);
 
   int beats_;
   int one_beat_;
-  int base_moment_clocks_;
+  int beat_base_clocks_;
 };
 
 class Audio_control_change final : public Audio_item

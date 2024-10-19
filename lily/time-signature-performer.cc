@@ -78,17 +78,17 @@ Time_signature_performer::process_music ()
       static const Moment quarter = Moment (Rational (1, 4));
       const auto base_moment
         = from_scm (get_property (this, "baseMoment"), quarter);
-      Rational base_moment_clocks = 96 * base_moment.main_part_;
+      Rational beat_base_clocks = 96 * base_moment.main_part_;
       SCM common_beat = SCM_INUM0;
       for (SCM p = get_property (this, "beatStructure"); scm_is_pair (p);
            p = scm_cdr (p))
         common_beat = scm_gcd (common_beat, scm_car (p));
       if (is_scm<Rational> (common_beat)
           && scm_is_false (scm_zero_p (common_beat)))
-        base_moment_clocks *= from_scm<Rational> (common_beat);
-      if (base_moment_clocks.denominator () != 1
-          || base_moment_clocks.numerator () < 1
-          || base_moment_clocks.numerator () > 255)
+        beat_base_clocks *= from_scm<Rational> (common_beat);
+      if (beat_base_clocks.denominator () != 1
+          || beat_base_clocks.numerator () < 1
+          || beat_base_clocks.numerator () > 255)
         {
           const auto &msg = _ ("bad baseMoment/beatStructure"
                                " for MIDI time signature");
@@ -98,11 +98,11 @@ Time_signature_performer::process_music ()
             warning (msg);
 
           // Use a quarter note, 24 MIDI clocks
-          base_moment_clocks = 24;
+          beat_base_clocks = 24;
         }
 
       audio_ = new Audio_time_signature (
-        b, o, static_cast<int> (base_moment_clocks.numerator ()));
+        b, o, static_cast<int> (beat_base_clocks.numerator ()));
       Audio_element_info info (audio_, 0);
       announce_element (info);
     }
