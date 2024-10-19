@@ -175,8 +175,8 @@ for bars 2, 4, 6, etc.
 If bar numbers 1, 4, 7, etc., should be enabled, @var{n}@tie{}(the modulo)
 must be set to@tie{}3 and @var{m}@tie{}(the division remainder) to@tie{}1.
 @end table")
-     (baseMoment ,positive-musical-length? "Smallest unit of time that will
-stand on its own as a subdivided section.")
+     (baseMoment ,positive-musical-length-as-moment? "Smallest unit of time that
+will stand on its own as a subdivided section.")
      (beamExceptions ,list? "An alist of exceptions to autobeam rules
 that normally end on beats.")
      (beamHalfMeasure ,boolean? "Whether to allow a beam to begin
@@ -266,7 +266,8 @@ each duration being split.
 
 If set to a callback procedure, that procedure is called with the
 context of the completion engraver, and the duration to be split.")
-     (completionUnit ,positive-musical-length? "Sub-bar unit of completion.")
+     (completionUnit ,positive-musical-length-as-moment? "Sub-bar unit of
+completion.")
      (connectArpeggios ,boolean? "If set, connect arpeggios across
 piano staff.")
      (countPercentRepeats ,boolean? "If set, produce counters for
@@ -423,8 +424,8 @@ The value '() will default to
 '((0 . 0) (1 . 1) (n . n)),
 where n is the minimal number of note-heads in
 the two note columns between which the glissandi occur.")
-     (gridInterval ,positive-musical-length? "Interval for which to generate
-@code{GridPoint}s.")
+     (gridInterval ,positive-musical-length-as-moment? "Interval for which to
+generate @code{GridPoint}s.")
 
 
      (handleNegativeFrets ,symbol? "How the automatic fret calculator
@@ -500,15 +501,15 @@ no grob is created.")
 @code{\\magnifyStaff}.")
      (majorSevenSymbol ,markup? "How should the major 7th be formatted
 in a chord name?")
-     (maximumBeamSubdivisionInterval ,musical-length? "Maximum interval
-to subdivide beams, limiting the depth of beamlets removed from
-subdivision. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no
-subdivision, @code{+inf.0}=no limit).")
+     (maximumBeamSubdivisionInterval ,musical-length-as-moment? "Maximum
+interval to subdivide beams, limiting the depth of beamlets removed from
+subdivision. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no subdivision,
+@code{+inf.0}=no limit).")
      (maximumFretStretch ,number? "Don't allocate frets further than
 this from specified frets.")
      (measureBarType ,string? "Bar line to insert at a measure boundary.")
-     (measureLength ,positive-musical-length? "Length of one measure in the
-current time signature.")
+     (measureLength ,positive-musical-length-as-moment? "Length of one measure
+in the current time signature.")
      (measurePosition ,ly:moment? "How much of the current measure have
 we had.  This can be set manually to create incomplete measures.")
      (measureStartNow ,boolean? "True at the beginning of a measure.")
@@ -568,8 +569,8 @@ mechanism selects the highest string with a fret at least
 page turn to be allowed.")
      (minimumRepeatLengthForPageTurn ,ly:moment? "Minimum length of a
 repeated section for a page turn to be allowed within that section.")
-     (minimumBeamSubdivisionInterval ,musical-length? "Minimum interval
-to subdivide beams, ignoring beamlets whose subdivision depth is too
+     (minimumBeamSubdivisionInterval ,musical-length-as-moment? "Minimum
+interval to subdivide beams, ignoring beamlets whose subdivision depth is too
 shallow. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no limit,
 @code{+inf.0}=no subdivision).")
      (minorChordModifier ,markup? "Markup displayed following the root
@@ -783,8 +784,8 @@ fret number.  It returns the text as a markup.")
 staff position of a tablature note head.  Called with two arguments:
 the context and the string.")
      (tempoHideNote ,boolean? "Hide the note = count in tempo marks.")
-     (tempoWholesPerMinute ,positive-musical-length? "The tempo in whole notes
-per minute.")
+     (tempoWholesPerMinute ,positive-musical-length-as-moment? "The tempo in
+whole notes per minute.")
      (tieWaitForNote ,boolean? "If true, tied notes do not have to
 follow each other directly.  This can be used for writing out
 arpeggios.")
@@ -805,8 +806,8 @@ will create a @var{VerticalAlignment}; otherwise, it will create a
 the start of the next note.")
      (tupletFullLengthNote ,boolean? "If set, end at the next note,
 otherwise end on the matter (time signatures, etc.@:) before the note.")
-     (tupletSpannerDuration ,musical-length? "Normally, a tuplet bracket is
-as wide as the @code{\\times} expression that gave rise to it.  This
+     (tupletSpannerDuration ,musical-length-as-moment? "Normally, a tuplet
+bracket is as wide as the @code{\\times} expression that gave rise to it.  This
 property can shorten the bracket.
 
 @example
@@ -828,9 +829,9 @@ for repeated bass figures.")
 
 
      (vocalName ,markup? "Name of a vocal line.")
-     (voltaSpannerDuration ,musical-length? "The maximum musical length of
-a @code{VoltaBracket} when its @code{musical-@/length} property is
-not set.
+     (voltaSpannerDuration ,musical-length-as-moment? "The maximum musical
+length of a @code{VoltaBracket} when its @code{musical-@/length} property is not
+set.
 
 This property is deprecated; overriding the @code{musical-@/length}
 property of @code{VoltaBracket} is recommended.")

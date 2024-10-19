@@ -68,12 +68,12 @@
 (define-public (number-list? x)
   (and (list? x) (every number? x)))
 
-(define-public (musical-length? x)
+(define-public (musical-length-as-moment? x)
   (and (ly:moment? x)
        (zero? (ly:moment-grace x))
        (not (negative? (ly:moment-main x)))))
 
-(define-public (positive-musical-length? x)
+(define-public (positive-musical-length-as-moment? x)
   (and (ly:moment? x)
        (zero? (ly:moment-grace x))
        (positive? (ly:moment-main x))))
