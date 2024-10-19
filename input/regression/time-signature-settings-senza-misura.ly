@@ -13,7 +13,7 @@ no time signature or bar lines.  The first 15 notes should be grouped
   forbidBreakBetweenBarLines = ##f
   \overrideTimeSignatureSettings
     ##f       % timeSignatureFraction
-    1/8       % baseMomentFraction
+    1/8       % baseMoment
     1,2,3,4,5 % beatStructure
     #'()      % beamExceptions
   timeSignatureFraction = ##f
