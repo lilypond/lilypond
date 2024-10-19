@@ -84,13 +84,56 @@ for x in optlist:
         doclang = '; documentlanguage: ' + x[1]
 
 texinfo_with_menus_re = re.compile(
-    r"^(\*) +([^:\n]+)::.*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.*?)$|@(rglos){(.+?)}", re.M)
-
+    r'''(?mx)
+            ^ ([*]) [ ]+ ([^:\n]+) :: .*? $      # menu entries
+          |
+            ^ @
+            (include
+             | menu
+             | end [ ]+ menu
+             | node
+             | (?: unnumbered | appendix) (?: (?: sub){0,2} sec)?
+             | top
+             | chapter
+             | (?: sub){0,2} section
+             | (?: major | chap | (?: sub){0,2}) heading
+            )
+            [ ]* (.*?) $                       # structuring commands
+          |
+            @ (rglos) { (.+?) }                # glossary references
+    ''')
 texinfo_re = re.compile(
-    r"^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.+?)$|@(rglos){(.+?)}", re.M)
-
+    r'''(?mx)
+            ^ @
+            (include
+             | node
+             | (?: unnumbered | appendix) (?: (?: sub){0,2} sec)?
+             | top
+             | chapter
+             | (?: sub){0,2} section
+             | (?: major | chap | (?: sub){0,2}) heading
+            )
+            [ ]* (.+?) $                       # structuring commands
+          |
+            @ (rglos) { (.+?) }                # glossary references
+    ''')
 ly_string_re = re.compile(
-    r'^([a-zA-Z]+)[\t ]*=|%+[\t ]*(.*)$|\\(?:new|context)\s+(?:[a-zA-Z]*?(?:Staff(?:Group)?|Voice|FiguredBass|FretBoards|Names|Devnull))\s+=\s+"?([a-zA-Z]+)"?\s+')
+    r'''(?x)
+            ^ ([a-zA-Z]+) [\t ]* =             # variable definition starts
+          |
+            %+ [\t ]* (.*) $                   # comments
+          |
+            \\ (?: new | context ) \s+
+            [a-zA-Z]*?
+            (?: Staff (?: Group)?
+             | Voice
+             | FiguredBass
+             | FretBoards
+             | Names
+             | Devnull) \s+
+            = \s+
+            "? ([a-zA-Z]+) "? \s+              # context identifiers
+    ''')
 lsr_verbatim_ly_re = re.compile(r'% begin verbatim$')
 texinfo_verbatim_ly_re = re.compile(r'^@lilypond\[.*?verbatim')
 
