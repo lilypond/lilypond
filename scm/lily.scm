@@ -785,7 +785,10 @@ determines the number of scale steps that make up an octave.  Usually the
     (,markup-command-list? . "markup command list")
     (,markup-list? . "markup list")
     (,moment-pair? . "pair of moment objects")
+    (,musical-length?
+     . "non-negative exact rational, fraction (as pair), moment, or +inf.0")
     (,musical-length-as-moment? . "non-negative moment with no grace part")
+    (,musical-length-as-number? . "non-negative exact rational or +inf.0")
     (,non-negative-number? . "non-negative number")
     (,number-list? . "number list")
     (,number-or-grob? . "number or grob")
@@ -794,7 +797,10 @@ determines the number of scale steps that make up an octave.  Usually the
     (,number-pair? . "pair of numbers")
     (,number-pair-list? . "list of number pairs")
     (,positive-fraction? . "positive, finite fraction, as pair")
+    (,positive-musical-length?
+     . "positive exact rational, fraction (as pair), moment, or +inf.0")
     (,positive-musical-length-as-moment? . "positive moment with no grace part")
+    (,positive-musical-length-as-number? . "positive exact rational or +inf.0")
     (,positive-number? . "positive number")
     (,exact-rational? . "an exact rational number")
     (,rational-or-procedure? . "an exact rational or procedure")

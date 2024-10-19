@@ -68,15 +68,48 @@
 (define-public (number-list? x)
   (and (list? x) (every number? x)))
 
+(define-public (musical-length-as-number? x)
+  (or (and (exact-rational? x) (not (negative? x)))
+      (and (real? x) (= x +inf.0))))
+
+(define-public (positive-musical-length-as-number? x)
+  (or (and (exact-rational? x) (positive? x))
+      (and (real? x) (= x +inf.0))))
+
+;; For musical-length properties that have historically been stored as moments.
 (define-public (musical-length-as-moment? x)
   (and (ly:moment? x)
        (zero? (ly:moment-grace x))
-       (not (negative? (ly:moment-main x)))))
+       (musical-length-as-number? (ly:moment-main x))))
 
+;; For musical-length properties that have historically been stored as moments.
 (define-public (positive-musical-length-as-moment? x)
   (and (ly:moment? x)
        (zero? (ly:moment-grace x))
-       (positive? (ly:moment-main x))))
+       (positive-musical-length-as-number? (ly:moment-main x))))
+
+;; This allows tolerant input to music functions.  A function that receives a
+;; musical-length? argument should normalize it with musical-length->number
+;; rather than handle each different type itself.
+(define-public (musical-length? x)
+  (or (musical-length-as-number? x)
+      (musical-length-as-moment? x)
+      (and (fraction? x) (not (zero? (cdr x))))))
+
+;; This allows tolerant input to music functions.  A function that receives a
+;; positive-musical-length? argument should normalize it with
+;; musical-length->number rather than handle each different type itself.
+(define-public (positive-musical-length? x)
+  (or (positive-musical-length-as-number? x)
+      (positive-musical-length-as-moment? x)
+      (positive-fraction? x)))
+
+(define-public (musical-length->number x)
+  ;; assumes valid input
+  (cond ((number? x) x)
+        ((pair? x) (/ (car x) (cdr x)))
+        ((ly:moment? x) (ly:moment-main x))
+        (else #f)))
 
 (define-public (moment-pair? x)
   (and (pair? x)
