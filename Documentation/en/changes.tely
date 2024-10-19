@@ -530,6 +530,19 @@ now be adjusted with the @code{volta-number-offset} property of
 @unnumberedsec Editorial annotation improvements
 
 @itemize
+
+@item
+The @code{FingerGlideSpanner} may now connect @code{StringNumber} and
+@code{StrokeFinger} grobs.
+
+@lilypond[verbatim,quote]
+{
+  \set strokeFingerOrientations = #'(down)
+  b2 \glide -\rightHandFinger #1 \glide -2 \glide \5
+  e'-\rightHandFinger #1 -2 \5
+}
+@end lilypond
+
 @item @code{NoteName} grobs are now horizontally centered by default.
 
 @end itemize

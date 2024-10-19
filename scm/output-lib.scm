@@ -1400,12 +1400,13 @@ If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
 
 (define-public (stroke-finger::calc-text grob)
   (let ((event (event-cause grob)))
-    (or (ly:event-property event 'text #f)
+    (or (ly:event-property event 'stroke-finger-text #f)
         (let ((digit-names (ly:grob-property grob 'digit-names)))
-          (vector-ref digit-names
-                      (1- (max 1
-                               (min (vector-length digit-names)
-                                    (ly:event-property event 'digit)))))))))
+          (vector-ref
+            digit-names
+            (1- (max 1
+                     (min (vector-length digit-names)
+                          (ly:event-property event 'stroke-finger-digit)))))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3205,8 +3206,11 @@ which is the default."
                  (right-stub-x-y
                   (ly:directed (cons x-length y-height) right-info-stub-length))
                  (left-stub-stil
-                  (if (and (grob::has-interface left-bound 'finger-interface)
-                           (member style '(stub-left stub-both)))
+                   (if (and (not
+                              (grob::has-interface
+                                left-bound
+                                'non-musical-paper-column-interface))
+-                           (member style '(stub-left stub-both)))
                       (make-line-stencil
                        (* line-thick thick)
                        x-start
@@ -3215,8 +3219,11 @@ which is the default."
                        (+ y-start (cdr left-stub-x-y)))
                       empty-stencil))
                  (right-stub-stil
-                  (if (and (grob::has-interface right-bound 'finger-interface)
-                           (member style '(stub-right stub-both)))
+                   (if (and (not
+                              (grob::has-interface
+                                right-bound
+                                'non-musical-paper-column-interface))
+-                           (member style '(stub-right stub-both)))
                       (make-line-stencil
                        (* line-thick thick)
                        (- x-end (car right-stub-x-y))

@@ -657,33 +657,6 @@ rest as a post-event with @samp{-}.")
 
 
 
-glide =
-#(define-event-function (fingering) (ly:music?)
-   (_i "Take a @code{fingering-event} and create a @code{FingerGlideEvent}
-setting the @code{digit} property.  If the @code{fingering-event} has a tweak
-for @code{id} it as applied to the @code{FingerGlideEvent} as well.
-Both events are returned in @code{PostEvents}.")
-   (if (music-is-of-type? fingering 'fingering-event)
-       (let* ((finger-digit (ly:music-property fingering 'digit #f))
-              (finger-text (ly:music-property fingering 'text #f))
-              (id (ly:music-property fingering 'id #f)))
-         (make-music 'PostEvents 'elements
-           (cond (finger-digit
-                   (let ((finger-glide
-                           (make-music 'FingerGlideEvent 'digit finger-digit)))
-                     (when id (ly:music-set-property! finger-glide 'id id))
-                     (list finger-glide fingering)))
-                 (finger-text
-                   (let ((finger-glide
-                           (make-music 'FingerGlideEvent 'text finger-digit)))
-                     (when id (ly:music-set-property! finger-glide 'id id))
-                     (list finger-glide fingering)))
-                 (else fingering))))
-       (begin
-         (ly:warning "Need FingeringEvent, got ~a. Ignoring."
-           (ly:music-property fingering 'name))
-         (make-music 'PostEvents 'elements '()))))
-
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic
    (_i "Insert @var{music} as grace notes."))
@@ -1999,7 +1972,8 @@ rightHandFinger =
 
    (make-music
             'StrokeFingerEvent
-            (if (index? finger) 'digit 'text) finger))
+            (if (index? finger) 'stroke-finger-digit 'stroke-finger-text)
+            finger))
 
 
 

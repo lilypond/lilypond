@@ -215,7 +215,7 @@ expression."
   (format #f "\\~a" (ly:music-property event 'text)))
 
 (define-post-event-display-method StrokeFingerEvent (event) #f
-  (format #f "\\rightHandFinger #~a " (ly:music-property event 'digit)))
+  (format #f "\\rightHandFinger #~a " (ly:music-property event 'stroke-finger-digit)))
 
 (define-span-event-display-method BeamEvent (event) #f "[" "]")
 (define-span-event-display-method SlurEvent (event) #f "(" ")")

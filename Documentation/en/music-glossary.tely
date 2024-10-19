@@ -110,6 +110,7 @@ Languages in this order.
 * andante::
 * appoggiatura::
 * arpeggio::
+* arrastre::
 * articulation::
 * ascending interval::
 * augmentation::
@@ -1047,6 +1048,51 @@ FI: arpeggio, murtosointu.
 
 @morerefs
 No cross-references.
+@endmorerefs
+
+
+@node arrastre
+@section arrastre
+
+ES: arrastre,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+A playing technique for flamenco guitar where the the right hand ring finger
+drags across the strings from highest to lowest, creating a rapid arpeggio.
+
+Frequently used in the Tarantas flamenco style.
+
+@lilypond[quote]
+{
+  \clef "G_8"
+  \key fis \phrygian
+
+  \omit TupletNumber
+  \set fingeringOrientations = #'(left)
+
+  \tuplet 5/4 4 {
+    \set strokeFingerOrientations = #'(down)
+    <fis,-1 \glide \rightHandFinger #1 >16
+    <cis-3>
+    <fis -4 \rightHandFinger #1 >
+    \set strokeFingerOrientations = #'(up)
+    g\rightHandFinger #2
+    b\rightHandFinger #3
+    e'\glide \rightHandFinger #4
+    b a fis cis
+  }
+  fis,2\rightHandFinger #4
+}
+@end lilypond
+
+@morerefs
+@ref{arpeggio}.
 @endmorerefs
 
 

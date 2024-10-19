@@ -1535,8 +1535,9 @@ vertical axis only."))))))
                                 font-interface ; style might be 'trill
                                 line-spanner-interface))
                  (description . "A line connecting two
-@iref{Fingering} grobs, usually indicating a gliding finger
-for stringed instruments.")))))
+@iref{Fingering}, @iref{StringNumber} or @iref{StrokeFinger} grobs, usually
+indicating a gliding finger, the same string, or the same stroking finger for
+stringed instruments .")))))
 
     (Flag
      . (
