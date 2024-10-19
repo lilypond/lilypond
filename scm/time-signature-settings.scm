@@ -175,13 +175,11 @@
          (assoc-get time-signature time-signature-settings '())))
     (assoc-get my-symbol my-time-signature-settings '())))
 
-(define-public (make-setting base-fraction
+(define-public (make-setting beat-base
                              beat-structure
                              beam-exceptions)
   (list
-   (cons 'baseMoment (if (pair? base-fraction)
-                         (/ (car base-fraction) (cdr base-fraction))
-                         base-fraction))
+   (cons 'baseMoment (musical-length->number beat-base))
    (cons 'beatStructure beat-structure)
    (cons 'beamExceptions beam-exceptions)))
 

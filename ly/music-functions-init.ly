@@ -1276,7 +1276,7 @@ value @var{n}@tie{}octaves lower, and value@tie{}0 means no octavation.")
 overrideTimeSignatureSettings =
 #(define-music-function
    (time-signature base-moment beat-structure beam-exceptions)
-   (boolean-or-fraction? fraction? list? list?)
+   (boolean-or-fraction? positive-musical-length? list? list?)
    (_i "Override time signature settings.
 
 This function sets @code{timeSignatureSettings} for time signatures equal to
