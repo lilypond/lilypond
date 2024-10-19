@@ -23,40 +23,18 @@
 
 import sys
 import re
-import getopt
+import argparse
 import os
 
+from argparse import HelpFormatter
+from operator import attrgetter
 
-def read_pipe(command):
-    print(command)
-    pipe = os.popen(command)
-    output = pipe.read()
-    if pipe.close():
-        print("pipe failed: %(command)s" % locals())
-    return output
-
-
-optlist, texi_files = getopt.getopt(sys.argv[1:], 'no:d:b:i:l:',
-                                    ['skeleton', 'gettext', 'head-only'])
-# -n   don't process @include's in texinfo files
-process_includes = not ('-n', '') in optlist
-
-# --gettext    generate a node list from a Texinfo source
-make_gettext = ('--gettext', '') in optlist
-# --skeleton   extract the node tree from a Texinfo source
-make_skeleton = ('--skeleton', '') in optlist
-# --head-only  only write first node in included Texinfo skeletons
-head_only = ('--head-only', '') in optlist
-
-output_name = 'doc.pot'
 
 # `@untranslated` should be defined as a macro in the Texinfo source.
-node_blurb = '''\
+node_blurb_default = '''\
 @untranslated
 '''
-doclang = ''
-head_committish = read_pipe('git rev-parse HEAD')
-intro_blurb = r'''\
+intro_blurb_default = r'''\
 \input texinfo @c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
 @c This file is part of %(topfile)s
 @ignore
@@ -68,20 +46,6 @@ intro_blurb = r'''\
 end_blurb = '''\
 @c -- SKELETON FILE --
 '''
-
-for x in optlist:
-    if x[0] == '-o':  # -o NAME   set PO output file name to NAME
-        output_name = x[1]
-    elif x[0] == '-d':  # -d DIR    set working directory to DIR
-        print('FIXME: this is evil.  use cd DIR && texi-langutils ...')
-        # even better, add a sane -o option
-        os.chdir(x[1])
-    elif x[0] == '-b':  # -b BLURB  set blurb written at each node to BLURB
-        node_blurb = x[1]
-    elif x[0] == '-i':  # -i BLURB  set blurb written at beginning of each file to BLURB
-        intro_blurb = x[1]
-    elif x[0] == '-l':  # -l ISOLANG  set documentlanguage to ISOLANG
-        doclang = '; documentlanguage: ' + x[1]
 
 texinfo_with_menus_re = re.compile(
     r'''(?mx)
@@ -136,6 +100,15 @@ ly_string_re = re.compile(
     ''')
 lsr_verbatim_ly_re = re.compile(r'% begin verbatim$')
 texinfo_verbatim_ly_re = re.compile(r'^@lilypond\[.*?verbatim')
+
+
+def read_pipe(command):
+    print(command)
+    pipe = os.popen(command)
+    output = pipe.read()
+    if pipe.close():
+        print("pipe failed: %(command)s" % locals())
+    return output
 
 
 def process_texi(texifilename,
@@ -201,7 +174,7 @@ def process_texi(texifilename,
                 elif item[2] == 'end menu':
                     g.write('@end menu\n\n')
                 elif item[2] == 'documentlanguage':
-                    g.write('@documentlanguage ' + doclang + '\n')
+                    g.write('@documentlanguage ' + options.language + '\n')
                 else:
                     space = ' '
                     if item[3].startswith('{') or not item[3].strip():
@@ -211,7 +184,7 @@ def process_texi(texifilename,
                         g.write('@translationof ' + node_just_defined + '\n')
                         g.write(n_blurb)
                         node_just_defined = ''
-                        if head_only and inclusion_level == 1:
+                        if options.head_only and inclusion_level == 1:
                             break
                     elif item[2] == 'include':
                         includes.append(item[3])
@@ -223,7 +196,7 @@ def process_texi(texifilename,
                                 '\n_(r"' + item[3].strip() + '")\n')
                         if item[2] == 'node':
                             node_just_defined = item[3].strip()
-            if not head_only:
+            if not options.head_only:
                 g.write(end_blurb)
             g.close()
 
@@ -242,7 +215,8 @@ def process_texi(texifilename,
                         '# @' + item[0] + ' in ' + printedfilename +
                         '\n_(r"' + stripped_item + '")\n')
 
-        if process_includes and (not head_only or inclusion_level < 1):
+        if (options.process_includes
+                and (not options.head_only or inclusion_level < 1)):
             dir = os.path.dirname(texifilename)
             for item in includes:
                 process_texi(os.path.join(dir, item.strip()),
@@ -255,15 +229,78 @@ def process_texi(texifilename,
                          (errno, texifilename, strerror))
 
 
-if intro_blurb != '':
-    intro_blurb += '\n\n'
-if node_blurb != '':
-    node_blurb = '\n' + node_blurb + '\n\n'
-if make_gettext:
+class SortingHelpFormatter(HelpFormatter):
+    def add_arguments(self, actions):
+        actions = sorted(actions, key=attrgetter('option_strings'))
+        super(SortingHelpFormatter, self).add_arguments(actions)
+
+
+p = argparse.ArgumentParser(
+        description='Translation tool for Texinfo files.',
+        formatter_class=SortingHelpFormatter,
+        usage='%(prog)s [OPTION]... [FILE]...')
+
+p.add_argument('-b', '--node-blurb',
+               type=str,
+               default=node_blurb_default,
+               metavar='BLURB',
+               help='change blurb written at each node to BLURB')
+p.add_argument('-d', '--working-dir',
+               type=str,
+               metavar='DIR',
+               help='change working directory to DIR')
+p.add_argument('--gettext',
+               action='store_true',
+               help='generate node list file from Texinfo source')
+p.add_argument('--head-only',
+               action='store_true',
+               help='only write first node in included Texinfo skeletons')
+p.add_argument('-i', '--intro-blurb',
+               type=str,
+               default=intro_blurb_default,
+               metavar='BLURB',
+               help='change blurb written at beginning of each file to BLURB')
+p.add_argument('-l', '--language',
+               type=str,
+               default='',
+               metavar='ISOLANG',
+               help='set document language to ISOLANG')
+p.add_argument('-n', '--process-includes',
+               action='store_false',
+               help='do not process @include commands in Texinfo source')
+p.add_argument('-o', '--output-po',
+               type=str,
+               default='doc.pot',
+               metavar='NAME',
+               help='set PO output file name to NAME (default: %(default)s)')
+p.add_argument('--skeleton',
+               action='store_true',
+               help='extract node tree files from Texinfo source')
+
+p.add_argument('texi_files',
+               nargs='*',
+               metavar='FILEs',
+               help='Texinfo source files')
+
+options = p.parse_args()
+
+head_committish = read_pipe('git rev-parse HEAD')
+
+if options.working_dir:
+    print('FIXME: This is evil.  Use `cd DIR && texi-langutils ...` instead')
+    # Even better, add a sane `-o` option.
+    os.chdir(options.working_dir)
+if options.intro_blurb != '':
+    options.intro_blurb += '\n\n'
+if options.node_blurb != '':
+    options.node_blurb = '\n' + options.node_blurb + '\n\n'
+if options.language:
+    doclang = '; documentlanguage: ' + options.language
+if options.gettext:
     node_list_filename = 'node_list'
     node_list = open(node_list_filename, 'w', encoding='utf-8')
     node_list.write('# -*- coding: utf-8 -*-\n')
-    for texi_file in texi_files:
+    for texi_file in options.texi_files:
         # Ugly: scan ly comments and variable names only in English doco
         is_english_doc = (
             True
@@ -281,17 +318,17 @@ if make_gettext:
             and 'Documentation/zh/' not in texi_file
         )
         process_texi(texi_file,
-                     intro_blurb, node_blurb,
-                     make_skeleton, os.path.basename(texi_file),
+                     options.intro_blurb, options.node_blurb,
+                     options.skeleton, os.path.basename(texi_file),
                      output_file=node_list, scan_ly=is_english_doc)
     for word in ('Up:', 'Next:', 'Previous:',
                  'Appendix ', 'Footnotes', 'Table of Contents'):
         node_list.write('_(r"' + word + '")\n')
     node_list.close()
     os.system('xgettext --keyword=_doc -c -L Python --no-location -o ' +
-              output_name + ' ' + node_list_filename)
+              options.output_po + ' ' + node_list_filename)
 else:
-    for texi_file in texi_files:
+    for texi_file in options.texi_files:
         process_texi(texi_file,
-                     intro_blurb, node_blurb,
-                     make_skeleton, os.path.basename(texi_file))
+                     options.intro_blurb, options.node_blurb,
+                     options.skeleton, os.path.basename(texi_file))
