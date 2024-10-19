@@ -36,8 +36,8 @@ def read_pipe(command):
     return output
 
 
-optlist, texi_files = getopt.getopt(sys.argv[1:], 'no:d:b:i:l:', [
-                                    'skeleton', 'gettext', 'head-only'])
+optlist, texi_files = getopt.getopt(sys.argv[1:], 'no:d:b:i:l:',
+                                    ['skeleton', 'gettext', 'head-only'])
 # -n   don't process @include's in texinfo files
 process_includes = not ('-n', '') in optlist
 
@@ -50,12 +50,14 @@ head_only = ('--head-only', '') in optlist
 
 output_name = 'doc.pot'
 
-# @untranslated should be defined as a macro in Texinfo source
-node_blurb = '''@untranslated
+# `@untranslated` should be defined as a macro in the Texinfo source.
+node_blurb = '''\
+@untranslated
 '''
 doclang = ''
 head_committish = read_pipe('git rev-parse HEAD')
-intro_blurb = '''\\input texinfo @c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
+intro_blurb = r'''\
+\input texinfo @c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
 @c This file is part of %(topfile)s
 @ignore
     Translation of GIT committish: %(head_committish)s
@@ -63,10 +65,9 @@ intro_blurb = '''\\input texinfo @c -*- coding: utf-8; mode: texinfo%(doclang)s 
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 '''
-
-end_blurb = """
+end_blurb = '''\
 @c -- SKELETON FILE --
-"""
+'''
 
 for x in optlist:
     if x[0] == '-o':  # -o NAME   set PO output file name to NAME
@@ -94,7 +95,9 @@ lsr_verbatim_ly_re = re.compile(r'% begin verbatim$')
 texinfo_verbatim_ly_re = re.compile(r'^@lilypond\[.*?verbatim')
 
 
-def process_texi(texifilename, i_blurb, n_blurb, write_skeleton, topfile,
+def process_texi(texifilename,
+                 i_blurb, n_blurb,
+                 write_skeleton, topfile,
                  output_file=None, scan_ly=False, inclusion_level=0):
     try:
         f = open(texifilename, 'r', encoding='utf-8')
@@ -118,18 +121,22 @@ def process_texi(texifilename, i_blurb, n_blurb, write_skeleton, topfile,
                 elif lines[i].startswith('@end lilypond'):
                     in_verb_ly_block = False
                 elif in_verb_ly_block:
-                    for (var, comment, context_id) in ly_string_re.findall(lines[i]):
+                    line_id = '# ' + printedfilename + ':' + str(i + 1)
+                    for (var, comment, context_id) \
+                            in ly_string_re.findall(lines[i]):
                         if var:
-                            output_file.write('# ' + printedfilename + ':' +
-                                              str(i + 1) + ' (variable)\n_(r"' + var + '")\n')
+                            output_file.write(
+                                line_id +
+                                ' (variable)\n_(r"' + var + '")\n')
                         elif comment:
-                            output_file.write('# ' + printedfilename + ':' +
-                                              str(i + 1) + ' (comment)\n_(r"' +
-                                              comment.replace('"', '\\"') + '")\n')
+                            comment = comment.replace('"', '\\"')
+                            output_file.write(
+                                line_id +
+                                ' (comment)\n_(r"' + comment + '")\n')
                         elif context_id:
-                            output_file.write('# ' + printedfilename + ':' +
-                                              str(i + 1) + ' (context id)\n_(r"' +
-                                              context_id + '")\n')
+                            output_file.write(
+                                line_id +
+                                ' (context id)\n_(r"' + context_id + '")\n')
 
         # process Texinfo node names and section titles
         if write_skeleton:
@@ -144,7 +151,8 @@ def process_texi(texifilename, i_blurb, n_blurb, write_skeleton, topfile,
                     g.write('* ' + item[1] + '::\n')
                 elif output_file and item[4] == 'rglos':
                     output_file.write(
-                        '_(r"' + item[5] + '") # @rglos in ' + printedfilename + '\n')
+                        '_(r"' + item[5] + '") ' +
+                        '# @rglos in ' + printedfilename + '\n')
                 elif item[2] == 'menu':
                     g.write('@menu\n')
                 elif item[2] == 'end menu':
@@ -166,8 +174,10 @@ def process_texi(texifilename, i_blurb, n_blurb, write_skeleton, topfile,
                         includes.append(item[3])
                     else:
                         if output_file:
-                            output_file.write('# @' + item[2] + ' in ' +
-                                              printedfilename + '\n_(r"' + item[3].strip() + '")\n')
+                            output_file.write(
+                                '# @' + item[2] +
+                                ' in ' + printedfilename +
+                                '\n_(r"' + item[3].strip() + '")\n')
                         if item[2] == 'node':
                             node_just_defined = item[3].strip()
             if not head_only:
@@ -181,16 +191,21 @@ def process_texi(texifilename, i_blurb, n_blurb, write_skeleton, topfile,
                     includes.append(item[1])
                 elif item[2] == 'rglos':
                     output_file.write(
-                        '# @rglos in ' + printedfilename + '\n_(r"' + item[3] + '")\n')
+                        '# @rglos in ' + printedfilename +
+                        '\n_(r"' + item[3] + '")\n')
                 else:
-                    output_file.write('# @' + item[0] + ' in ' + printedfilename +
-                                      '\n_(r"' + item[1].strip().replace('\\', r'\\') + '")\n')
+                    stripped_item = item[1].strip().replace('\\', r'\\')
+                    output_file.write(
+                        '# @' + item[0] + ' in ' + printedfilename +
+                        '\n_(r"' + stripped_item + '")\n')
 
         if process_includes and (not head_only or inclusion_level < 1):
             dir = os.path.dirname(texifilename)
             for item in includes:
-                process_texi(os.path.join(dir, item.strip()), i_blurb, n_blurb,
-                             write_skeleton, topfile, output_file, scan_ly, inclusion_level + 1)
+                process_texi(os.path.join(dir, item.strip()),
+                             i_blurb, n_blurb,
+                             write_skeleton, topfile,
+                             output_file, scan_ly, inclusion_level + 1)
     except IOError as xxx_todo_changeme:
         (errno, strerror) = xxx_todo_changeme.args
         sys.stderr.write("I/O error(%s): %s: %s\n" %
@@ -206,31 +221,34 @@ if make_gettext:
     node_list = open(node_list_filename, 'w', encoding='utf-8')
     node_list.write('# -*- coding: utf-8 -*-\n')
     for texi_file in texi_files:
-        # Urgly: scan ly comments and variable names only in English doco
+        # Ugly: scan ly comments and variable names only in English doco
         is_english_doc = (
             True
-            and not 'Documentation/ca/' in texi_file
-            and not 'Documentation/cs/' in texi_file
-            and not 'Documentation/de/' in texi_file
-            and not 'Documentation/es/' in texi_file
-            and not 'Documentation/fr/' in texi_file
-            and not 'Documentation/hu/' in texi_file
-            and not 'Documentation/ja/' in texi_file
-            and not 'Documentation/it/' in texi_file
-            and not 'Documentation/nl/' in texi_file
-            and not 'Documentation/po/' in texi_file
-            and not 'Documentation/pt/' in texi_file
-            and not 'Documentation/zh/' in texi_file
+            and 'Documentation/ca/' not in texi_file
+            and 'Documentation/cs/' not in texi_file
+            and 'Documentation/de/' not in texi_file
+            and 'Documentation/es/' not in texi_file
+            and 'Documentation/fr/' not in texi_file
+            and 'Documentation/hu/' not in texi_file
+            and 'Documentation/ja/' not in texi_file
+            and 'Documentation/it/' not in texi_file
+            and 'Documentation/nl/' not in texi_file
+            and 'Documentation/po/' not in texi_file
+            and 'Documentation/pt/' not in texi_file
+            and 'Documentation/zh/' not in texi_file
         )
-        process_texi(texi_file, intro_blurb, node_blurb, make_skeleton,
-                     os.path.basename(texi_file), node_list,
-                     scan_ly=is_english_doc)
-    for word in ('Up:', 'Next:', 'Previous:', 'Appendix ', 'Footnotes', 'Table of Contents'):
+        process_texi(texi_file,
+                     intro_blurb, node_blurb,
+                     make_skeleton, os.path.basename(texi_file),
+                     output_file=node_list, scan_ly=is_english_doc)
+    for word in ('Up:', 'Next:', 'Previous:',
+                 'Appendix ', 'Footnotes', 'Table of Contents'):
         node_list.write('_(r"' + word + '")\n')
     node_list.close()
     os.system('xgettext --keyword=_doc -c -L Python --no-location -o ' +
               output_name + ' ' + node_list_filename)
 else:
     for texi_file in texi_files:
-        process_texi(texi_file, intro_blurb, node_blurb, make_skeleton,
-                     os.path.basename(texi_file))
+        process_texi(texi_file,
+                     intro_blurb, node_blurb,
+                     make_skeleton, os.path.basename(texi_file))
