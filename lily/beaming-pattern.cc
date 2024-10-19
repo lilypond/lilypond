@@ -137,7 +137,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
 
                 cur_beat = next_beat;
                 next_beat += from_scm<unsigned> (scm_car (remaining_beats))
-                             * options.base_moment_;
+                             * options.beat_base_;
                 remaining_beats = scm_cdr (remaining_beats);
               }
 
@@ -207,7 +207,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
 class Span_position
 {
 private:
-  Rational const base_moment_;
+  Rational const beat_base_;
   unsigned beat_length_; // stays constant
   Rational current_moment_, next_moment_;
   int moment_num_ = -1;
@@ -230,8 +230,8 @@ public:
 // be set to same value of next_moment_ to be safe.
 // If we have a sextuplet, beat_length_ should be 3
 Span_position::Span_position (Tuplet_description const &tuplet)
-  : base_moment_ ((tuplet.tuplet_stop () - tuplet.tuplet_start ())
-                  / tuplet.denominator_),
+  : beat_base_ ((tuplet.tuplet_stop () - tuplet.tuplet_start ())
+                / tuplet.denominator_),
     beat_length_ (tuplet.denominator_
                   // last set bit of tuplet.denominator_
                   / (tuplet.denominator_ & -tuplet.denominator_)),
@@ -241,9 +241,9 @@ Span_position::Span_position (Tuplet_description const &tuplet)
     tuplet_ (&tuplet)
 {
 }
-Span_position::Span_position (Rational const &base_moment, unsigned beat_length,
+Span_position::Span_position (Rational const &beat_base, unsigned beat_length,
                               Rational const &start, Rational const &end)
-  : base_moment_ (base_moment),
+  : beat_base_ (beat_base),
     beat_length_ (beat_length),
     current_moment_ (start),
     next_moment_ (start),
@@ -259,7 +259,7 @@ Span_position::update (Rational const &pos)
   while (next_moment_ <= pos)
     {
       current_moment_ = next_moment_;
-      next_moment_ += base_moment_;
+      next_moment_ += beat_base_;
       ++moment_num_;
     }
 }
@@ -578,7 +578,7 @@ Beaming_options::from_context (Context const *context)
     = from_scm<bool> (get_property (context, "respectIncompleteBeams"));
 
   beat_structure_ = get_property (context, "beatStructure");
-  base_moment_
+  beat_base_
     = from_scm (get_property (context, "baseMoment"), Moment (1, 4)).main_part_;
   measure_length_
     = from_scm (get_property (context, "measureLength"), Moment (4, 4))

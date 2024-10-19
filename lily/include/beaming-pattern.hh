@@ -40,7 +40,7 @@ struct Beaming_options
   bool respect_incomplete_beams_;
 
   SCM beat_structure_;
-  Rational base_moment_;
+  Rational beat_base_;
   Rational measure_length_;
 
   SCM time_signature_;
