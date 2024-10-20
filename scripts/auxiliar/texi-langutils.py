@@ -172,56 +172,62 @@ def process_texi(texifilename,
         if write_skeleton:
             p = os.path.join(options.output_dir, texifilename)
             os.makedirs(os.path.dirname(p), exist_ok=True)
-            g = open(p, 'w', encoding='utf-8')
 
-            if inclusion_level == 0:
-                input_texinfo = r'\input texinfo '
+            if os.path.isfile(p):
+                print('file %s already exists, skipping' % p)
             else:
-                input_texinfo = ''
+                g = open(p, 'w', encoding='utf-8')
 
-            subst = globals()
-            subst.update(locals())
-            g.write(i_blurb % subst)
-
-            tutu = texinfo_with_menus_re.findall(texifile)
-            node_just_defined = ''
-            for item in tutu:
-                if item[0] == '*':
-                    g.write('* ' + item[1] + '::\n')
-                elif output_file and item[4] == 'rglos':
-                    output_file.write(
-                        '_(r"' + item[5] + '") ' +
-                        '# @rglos in ' + printedfilename + '\n')
-                elif item[2] == 'menu':
-                    g.write('@menu\n')
-                elif item[2] == 'end menu':
-                    g.write('@end menu\n\n')
-                elif item[2] == 'documentlanguage':
-                    g.write('@documentlanguage ' + options.language + '\n')
+                if inclusion_level == 0:
+                    input_texinfo = r'\input texinfo '
                 else:
-                    space = ' '
-                    if item[3].startswith('{') or not item[3].strip():
-                        space = ''
-                    g.write('@' + item[2] + space + item[3] + '\n')
-                    if node_just_defined:
-                        g.write('@translationof ' + node_just_defined + '\n')
-                        g.write(n_blurb)
-                        node_just_defined = ''
-                        if options.head_only and inclusion_level == 1:
-                            break
-                    elif item[2] == 'include':
-                        includes.append(item[3])
+                    input_texinfo = ''
+
+                subst = globals()
+                subst.update(locals())
+                g.write(i_blurb % subst)
+
+                tutu = texinfo_with_menus_re.findall(texifile)
+                node_just_defined = ''
+                for item in tutu:
+                    if item[0] == '*':
+                        g.write('* ' + item[1] + '::\n')
+                    elif output_file and item[4] == 'rglos':
+                        output_file.write(
+                            '_(r"' + item[5] + '") ' +
+                            '# @rglos in ' + printedfilename + '\n')
+                    elif item[2] == 'menu':
+                        g.write('@menu\n')
+                    elif item[2] == 'end menu':
+                        g.write('@end menu\n\n')
+                    elif item[2] == 'documentlanguage':
+                        g.write(
+                            '@documentlanguage ' + options.language + '\n')
                     else:
-                        if output_file:
-                            output_file.write(
-                                '# @' + item[2] +
-                                ' in ' + printedfilename +
-                                '\n_(r"' + item[3].strip() + '")\n')
-                        if item[2] == 'node':
-                            node_just_defined = item[3].strip()
-            if not options.head_only:
-                g.write(end_blurb)
-            g.close()
+                        space = ' '
+                        if item[3].startswith('{') or not item[3].strip():
+                            space = ''
+                        g.write('@' + item[2] + space + item[3] + '\n')
+                        if node_just_defined:
+                            g.write(
+                                '@translationof ' + node_just_defined + '\n')
+                            g.write(n_blurb)
+                            node_just_defined = ''
+                            if options.head_only and inclusion_level == 1:
+                                break
+                        elif item[2] == 'include':
+                            includes.append(item[3])
+                        else:
+                            if output_file:
+                                output_file.write(
+                                    '# @' + item[2] +
+                                    ' in ' + printedfilename +
+                                    '\n_(r"' + item[3].strip() + '")\n')
+                            if item[2] == 'node':
+                                node_just_defined = item[3].strip()
+                if not options.head_only:
+                    g.write(end_blurb)
+                g.close()
 
         elif output_file and scan_ly:
             toto = texinfo_re.findall(texifile)
