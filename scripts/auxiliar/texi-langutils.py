@@ -134,7 +134,7 @@ def find_file(name, prior_directory='.'):
 def process_texi(texifilename,
                  i_blurb, n_blurb,
                  write_skeleton, topfile,
-                 output_file=None, scan_ly=False, inclusion_level=0):
+                 output_file=None, inclusion_level=0):
     print('%s%s' % ('  ' * inclusion_level, texifilename))
 
     try:
@@ -145,7 +145,7 @@ def process_texi(texifilename,
         includes = []
 
         # process ly var names and comments
-        if output_file and (scan_ly or texifilename.endswith('.ly')):
+        if output_file and texifilename.endswith('.ly'):
             lines = texifile.splitlines()
             i = 0
             in_verb_ly_block = False
@@ -239,7 +239,7 @@ def process_texi(texifilename,
                     g.write(end_blurb)
                 g.close()
 
-        elif output_file and scan_ly:
+        elif output_file:
             toto = texinfo_re.findall(texifile)
             for item in toto:
                 if item[0] == 'include':
@@ -269,7 +269,7 @@ def process_texi(texifilename,
                     process_texi(file,
                                  i_blurb, n_blurb,
                                  write_skeleton, topfile,
-                                 output_file, scan_ly, inclusion_level + 1)
+                                 output_file, inclusion_level + 1)
     except IOError as xxx_todo_changeme:
         (errno, strerror) = xxx_todo_changeme.args
         sys.stderr.write("I/O error(%s): %s: %s\n" %
@@ -362,26 +362,10 @@ if options.gettext:
                 print('cannot find input file %s, skipping' % texi_file)
                 skipped_files.add(texi_file)
         else:
-            # Ugly: scan ly comments and variable names only in English doco
-            is_english_doc = (
-                True
-                and 'Documentation/ca/' not in texi_file
-                and 'Documentation/cs/' not in texi_file
-                and 'Documentation/de/' not in texi_file
-                and 'Documentation/es/' not in texi_file
-                and 'Documentation/fr/' not in texi_file
-                and 'Documentation/hu/' not in texi_file
-                and 'Documentation/ja/' not in texi_file
-                and 'Documentation/it/' not in texi_file
-                and 'Documentation/nl/' not in texi_file
-                and 'Documentation/po/' not in texi_file
-                and 'Documentation/pt/' not in texi_file
-                and 'Documentation/zh/' not in texi_file
-            )
             process_texi(texi_file,
                          options.intro_blurb, options.node_blurb,
                          options.skeleton, os.path.basename(texi_file),
-                         output_file=node_list, scan_ly=is_english_doc)
+                         output_file=node_list)
     for word in ('Up:', 'Next:', 'Previous:',
                  'Appendix ', 'Footnotes', 'Table of Contents'):
         node_list.write('_(r"' + word + '")\n')
