@@ -19,8 +19,6 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-# WARNING: this script can't find files included in a different directory
-
 import sys
 import re
 import argparse
@@ -109,6 +107,22 @@ def read_pipe(command):
     if pipe.close():
         print("pipe failed: %(command)s" % locals())
     return output
+
+
+# Find a file using `texi2any`'s algorithm.
+def find_file(name, prior_directory='.'):
+    # First, try to open the file relative to `prior_directory`.
+    p = os.path.join(prior_directory, name)
+    if os.path.isfile(p):
+        return p
+
+    # Then search the file in the include path.
+    for d in options.include_path:
+        p = os.path.join(d, name)
+        if os.path.isfile(p):
+            return p
+
+    return None
 
 
 def process_texi(texifilename,
@@ -226,10 +240,15 @@ def process_texi(texifilename,
                 and (not options.head_only or inclusion_level < 1)):
             dir = os.path.dirname(texifilename)
             for item in includes:
-                process_texi(os.path.join(dir, item.strip()),
-                             i_blurb, n_blurb,
-                             write_skeleton, topfile,
-                             output_file, scan_ly, inclusion_level + 1)
+                file_name = item.strip()
+                file = find_file(file_name, dir)
+                if file is None:
+                    print('cannot find include file %s, skipping' % file_name)
+                else:
+                    process_texi(file,
+                                 i_blurb, n_blurb,
+                                 write_skeleton, topfile,
+                                 output_file, scan_ly, inclusion_level + 1)
     except IOError as xxx_todo_changeme:
         (errno, strerror) = xxx_todo_changeme.args
         sys.stderr.write("I/O error(%s): %s: %s\n" %
@@ -267,6 +286,12 @@ p.add_argument('-i', '--intro-blurb',
                default=intro_blurb_default,
                metavar='BLURB',
                help='change blurb written at beginning of each file to BLURB')
+p.add_argument('-I', '--include',
+               action='append',
+               default=['.'],
+               dest='include_path',
+               metavar='DIR',
+               help='append DIR to include path (default: %(default)s)')
 p.add_argument('-l', '--language',
                type=str,
                default='',
@@ -308,26 +333,30 @@ if options.gettext:
     node_list = open(node_list_filename, 'w', encoding='utf-8')
     node_list.write('# -*- coding: utf-8 -*-\n')
     for texi_file in options.texi_files:
-        # Ugly: scan ly comments and variable names only in English doco
-        is_english_doc = (
-            True
-            and 'Documentation/ca/' not in texi_file
-            and 'Documentation/cs/' not in texi_file
-            and 'Documentation/de/' not in texi_file
-            and 'Documentation/es/' not in texi_file
-            and 'Documentation/fr/' not in texi_file
-            and 'Documentation/hu/' not in texi_file
-            and 'Documentation/ja/' not in texi_file
-            and 'Documentation/it/' not in texi_file
-            and 'Documentation/nl/' not in texi_file
-            and 'Documentation/po/' not in texi_file
-            and 'Documentation/pt/' not in texi_file
-            and 'Documentation/zh/' not in texi_file
-        )
-        process_texi(texi_file,
-                     options.intro_blurb, options.node_blurb,
-                     options.skeleton, os.path.basename(texi_file),
-                     output_file=node_list, scan_ly=is_english_doc)
+        file = find_file(texi_file)
+        if file is None:
+            print('cannot find input file %s, skipping' % texi_file)
+        else:
+            # Ugly: scan ly comments and variable names only in English doco
+            is_english_doc = (
+                True
+                and 'Documentation/ca/' not in texi_file
+                and 'Documentation/cs/' not in texi_file
+                and 'Documentation/de/' not in texi_file
+                and 'Documentation/es/' not in texi_file
+                and 'Documentation/fr/' not in texi_file
+                and 'Documentation/hu/' not in texi_file
+                and 'Documentation/ja/' not in texi_file
+                and 'Documentation/it/' not in texi_file
+                and 'Documentation/nl/' not in texi_file
+                and 'Documentation/po/' not in texi_file
+                and 'Documentation/pt/' not in texi_file
+                and 'Documentation/zh/' not in texi_file
+            )
+            process_texi(texi_file,
+                         options.intro_blurb, options.node_blurb,
+                         options.skeleton, os.path.basename(texi_file),
+                         output_file=node_list, scan_ly=is_english_doc)
     for word in ('Up:', 'Next:', 'Previous:',
                  'Appendix ', 'Footnotes', 'Table of Contents'):
         node_list.write('_(r"' + word + '")\n')
@@ -336,6 +365,10 @@ if options.gettext:
               options.output_po + ' ' + node_list_filename)
 else:
     for texi_file in options.texi_files:
-        process_texi(texi_file,
-                     options.intro_blurb, options.node_blurb,
-                     options.skeleton, os.path.basename(texi_file))
+        file = find_file(texi_file)
+        if file is None:
+            print('cannot find input file %s, skipping' % texi_file)
+        else:
+            process_texi(file,
+                         options.intro_blurb, options.node_blurb,
+                         options.skeleton, os.path.basename(texi_file))
