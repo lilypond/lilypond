@@ -34,8 +34,8 @@ from operator import attrgetter
 node_blurb_default = '''\
 @untranslated
 '''
-intro_blurb_default = r'''\
-\input texinfo @c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
+intro_blurb_default = '''\
+%(input_texinfo)s@c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
 @c This file is part of %(topfile)s
 @ignore
     Translation of GIT committish: %(head_committish)s
@@ -157,9 +157,16 @@ def process_texi(texifilename,
         # process Texinfo node names and section titles
         if write_skeleton:
             g = open(os.path.basename(texifilename), 'w', encoding='utf-8')
+
+            if inclusion_level == 0:
+                input_texinfo = r'\input texinfo '
+            else:
+                input_texinfo = ''
+
             subst = globals()
             subst.update(locals())
             g.write(i_blurb % subst)
+
             tutu = texinfo_with_menus_re.findall(texifile)
             node_just_defined = ''
             for item in tutu:
