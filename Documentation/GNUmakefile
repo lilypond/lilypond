@@ -678,43 +678,46 @@ ifneq ($(NO_COLOR),)
 endif
 
 ifneq ($(ISOLANG),)
-  new-lang-dir:
-	  mkdir -p $(ISOLANG)/$(DIR)
-	  rm -f $(outdir)/*.*tely $(outdir)/*.*texi
+  # Also for updating/adding missing files.
+  new-lang:
+	  mkdir -p $(ISOLANG)/en
+	  cp $(TRANSLATION_UNPROCESSED_FILES:%=en/%) $(ISOLANG)/en
 	  $(PYTHON) $(auxscript-dir)/texi-langutils.py \
-	    -d $(outdir) \
-	    -l $(ISOLANG) \
-	    -o doc.pot \
+	    --output-dir $(ISOLANG) \
+	    --language $(ISOLANG) \
+	    --output-po doc.pot \
 	    --skeleton \
 	    --gettext \
-	    $$(cd $(ISOLANG) && ls -1 ../$(DIR).tely ../$(DIR).texi)
-	  for i in $$(cd $(outdir) && ls -1 $(DIR).tely $(DIR).texi); do \
-	    test -e $(ISOLANG)/$$i || mv $(outdir)/$$i $(ISOLANG)/$$i; \
-	  done
-	  rm -f $(outdir)/$(DIR).tely $(outdir)/$(DIR).texi
-	  for i in $$(cd $(outdir) && ls -1 *.*tely *.*texi); do \
-	    test -e $(ISOLANG)/$(DIR)/$$i \
-	      || test -e $(ISOLANG)/$$i \
-	      || mv $(outdir)/$$i $(ISOLANG)/$(DIR)/$$i; \
-	  done
-
-  new-lang:
-  # Also for updating/adding missing files.
-	  mkdir -p $(ISOLANG)/included
-	  if test -z "`ls $(ISOLANG)/included`"; then \
-	    touch $(ISOLANG)/included/.gitignore; \
-	  fi
-	  $(foreach i, \
-	            $(TRANSLATION_DIRS), \
-	            $(MAKE) new-lang-dir DIR=$(i) &&) :
-	  msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
+	    -I DOCUMENTATION_INCLUDES \
+	    $(TRANSLATION_DOCS)
+	  mv $(ISOLANG)/en/* $(ISOLANG)
+	  rmdir $(ISOLANG)/en
+	  msgmerge -U po/lilypond-doc.pot $(ISOLANG)/doc.pot
 	  test -e po/$(ISOLANG).po || cp po/lilypond-doc.pot po/$(ISOLANG).po
-	  @echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
+	  @echo "***  Please add language entries for $(ISOLANG) to the following files:"
+	  @echo "***    python/langdefs.py"
+	  @echo "***    Documentation/lilypond-lang.init"
+	  @echo "***    Documentation/webserver/lilypond.org.htaccess"
+	  @echo "***    scripts/build/create-weblinks-itexi.py"
+	  @echo "***    ROADMAP"
+	  @echo "***"
+	  @echo "***  Please add a Texinfo language definition file"
+	  @echo "***    (Documentation/tex/txi-$(ISOLANG).tex)"
 
-  TRANSLATION_DIRS = web texidocs
-  TRANSLATION_FILES = $(shell git ls-files $(ISOLANG))
+  EN_TELY_FILES = $(call src-wildcard,en/*.tely)
+  EN_TEXI_FILES = $(call src-wildcard,en/*.texi)
 
-  TELY_FILES = $(call src-wildcard,$(ISOLANG)/*.tely)
+  TRANSLATION_DOCS = $(filter-out en/contributor.%, \
+                       $(EN_TELY_FILES) $(EN_TEXI_FILES))
+  TRANSLATED_FILES = $(shell git ls-files $(ISOLANG))
+
+  TRANSLATION_UNPROCESSED_FILES = \
+    cyrillic.itexi \
+    common-macros.itexi \
+    fdl.itexi \
+    gpl.itexi \
+    macros.itexi \
+    search-box.ihtml
 
   snippet-update:
 	  $(PYTHON) $(auxscript-dir)/update-snippets.py \
@@ -733,13 +736,13 @@ check-translation:
 	cd $(src-dir) \
 	  && ISOLANG=$(ISOLANG) \
 	     $(PYTHON) $(auxscript-dir)/check_translation.py \
-	       $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
+	       $(CHECK_TRANSLATION_FLAGS) $(TRANSLATED_FILES)
 
 update-translation:
 	cd $(src-dir) \
 	  && ISOLANG=$(ISOLANG) \
 	     $(PYTHON) $(auxscript-dir)/check_translation.py \
-	       --update $(CHECK_TRANSLATION_FLAGS) $(TRANSLATION_FILES)
+	       --update $(CHECK_TRANSLATION_FLAGS) $(TRANSLATED_FILES)
 
 
 #########
