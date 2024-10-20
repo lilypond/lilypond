@@ -37,11 +37,13 @@ node_blurb_default = '''\
 '''
 intro_blurb_default = '''\
 %(input_texinfo)s@c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
-@c This file is part of %(topfile)s
+%(part_of)s
 @ignore
     Translation of GIT committish: %(head_committish)s
+
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node 'Updating translation committishes'.
 @end ignore
 '''
 end_blurb = '''\
@@ -62,8 +64,10 @@ texinfo_with_menus_re = re.compile(
              | chapter
              | (?: sub){0,2} section
              | (?: major | chap | (?: sub){0,2}) heading
+             | documentlanguage
+             | documentencoding
             )
-            [ ]* (.*?) $                       # structuring commands
+            [ ]* (.*?) $                       # structuring and meta commands
           |
             @ (rglos) { (.+?) }                # glossary references
     ''')
@@ -104,7 +108,6 @@ texinfo_verbatim_ly_re = re.compile(r'^@lilypond\[.*?verbatim')
 
 
 def read_pipe(command):
-    print(command)
     pipe = os.popen(command)
     output = pipe.read()
     if pipe.close():
@@ -132,11 +135,13 @@ def process_texi(texifilename,
                  i_blurb, n_blurb,
                  write_skeleton, topfile,
                  output_file=None, scan_ly=False, inclusion_level=0):
+    print('%s%s' % ('  ' * inclusion_level, texifilename))
+
     try:
         f = open(texifilename, 'r', encoding='utf-8')
         texifile = f.read()
         f.close()
-        printedfilename = texifilename.replace('../', '')
+        printedfilename = texifilename.replace('./', '')
         includes = []
 
         # process ly var names and comments
@@ -185,8 +190,10 @@ def process_texi(texifilename,
 
                 if inclusion_level == 0:
                     input_texinfo = r'\input texinfo '
+                    part_of = ''
                 else:
                     input_texinfo = ''
+                    part_of = '@c This file is part of ' + topfile + '\n'
 
                 subst = globals()
                 subst.update(locals())
@@ -207,15 +214,13 @@ def process_texi(texifilename,
                         g.write('@end menu\n\n')
                     elif item[2] == 'documentlanguage':
                         g.write(
-                            '@documentlanguage ' + options.language + '\n')
+                            '@documentlanguage ' + options.language + '\n\n')
                     else:
                         space = ' '
                         if item[3].startswith('{') or not item[3].strip():
                             space = ''
                         g.write('@' + item[2] + space + item[3] + '\n')
                         if node_just_defined:
-                            g.write(
-                                '@translationof ' + node_just_defined + '\n')
                             g.write(n_blurb)
                             node_just_defined = ''
                             if options.head_only and inclusion_level == 1:
@@ -332,7 +337,7 @@ p.add_argument('texi_files',
 
 options = p.parse_args()
 
-head_committish = read_pipe('git rev-parse HEAD')
+head_committish = read_pipe('git rev-parse HEAD').strip()
 
 if options.intro_blurb != '':
     options.intro_blurb += '\n\n'
