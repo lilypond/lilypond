@@ -21,14 +21,14 @@
     (let* ((mp (ly:moment-main mp))
            (tf (ly:context-property ctx 'timeSignatureFraction '(4 . 4)))
            (bmm (ly:context-property ctx 'baseMoment))
-           (bm (if (ly:moment? bmm)
+           (bb (if (ly:moment? bmm)
                    (ly:moment-main bmm)
                    (/ (cdr tf))))
            (bs (ly:context-property ctx 'beatStructure)))
       (let loop ((pos 0) (bs bs))
         (cond ((>= pos mp) (ly:make-moment pos))
               ((pair? bs)
-               (loop (+ pos (* bm (car bs))) (cdr bs)))
+               (loop (+ pos (* bb (car bs))) (cdr bs)))
               (else
                ;; pos is an integral multiple of baseMoment and
                ;; still smaller than measurePosition, so after
@@ -38,7 +38,7 @@
                ;; baseMoment will be the correct answer without
                ;; requiring us to loop or to even consider the
                ;; iteration variable pos
-               (ly:make-moment (* bm (ceiling (/ mp bm)))))))))
+               (ly:make-moment (* bb (ceiling (/ mp bb)))))))))
   (define fired #f)
   (define timeout #f)
   (define (emit ctx strong?)

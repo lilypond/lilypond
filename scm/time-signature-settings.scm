@@ -451,9 +451,14 @@ make a numbered time signature instead."
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-;;; Base beat length: Use the smallest denominator from all fraction
+;;; Beat base: Use the largest denominator (corresponding to the shortest
+;;; musical length) of all the fractions.
+;;;
+;;; TODO: Shouldn't this compute the least common multiple?  For example,
+;;; denominators {8, 20} would call for a beat base of 1/40: 5/40 per 1/8, 2/40
+;;; per 1/20.  (If not, why not?)
 
-(define (calculate-compound-base-beat-full time-sig)
+(define (calculate-compound-beat-base-full time-sig)
   (apply max (map last time-sig)))
 
 (define-public (calculate-compound-base-beat time-sig)
@@ -461,8 +466,8 @@ make a numbered time signature instead."
    1
    (cond
     ((not (pair? time-sig)) 4)
-    ((pair? (car time-sig)) (calculate-compound-base-beat-full time-sig))
-    (else (calculate-compound-base-beat-full (list time-sig))))))
+    ((pair? (car time-sig)) (calculate-compound-beat-base-full time-sig))
+    (else (calculate-compound-beat-base-full (list time-sig))))))
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -475,7 +480,7 @@ make a numbered time signature instead."
 
 (define (beat-grouping-internal time-sig)
   ;; Normalize to given beat, extract the beats and join them to one list
-  (let* ((beat (calculate-compound-base-beat-full time-sig))
+  (let* ((beat (calculate-compound-beat-base-full time-sig))
          (normalized (map (lambda (f) (normalize-fraction f beat)) time-sig))
          (beats (map (lambda (f) (drop-right f 1)) normalized)))
     (concatenate beats)))

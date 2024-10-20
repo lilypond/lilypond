@@ -214,11 +214,11 @@ depth-first through MUSIC."
             (lambda (context)
               (let* ((time-signature-settings
                       (ly:context-property context 'timeSignatureSettings))
-                     (my-base-length
+                     (my-beat-base
                       (base-length fraction time-signature-settings))
                      (my-beat-structure
                       (if (null? structure)
-                          (beat-structure my-base-length
+                          (beat-structure my-beat-base
                                           fraction
                                           time-signature-settings)
                           structure))
@@ -229,7 +229,7 @@ depth-first through MUSIC."
                 (ly:context-set-property!
                  context 'timeSignatureFraction fraction)
                 (ly:context-set-property!
-                 context 'baseMoment (ly:make-moment my-base-length))
+                 context 'baseMoment (ly:make-moment my-beat-base))
                 (ly:context-set-property!
                  context 'beatStructure my-beat-structure)
                 (ly:context-set-property!

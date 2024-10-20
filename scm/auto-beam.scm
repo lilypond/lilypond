@@ -38,11 +38,11 @@
     (let ((value (ly:context-property context name)))
       (if (not (null? value)) value default)))
 
-  (define (ending-moments group-list base-length)
+  (define (ending-moments group-list beat-base)
     (let ((beat 0))
       (map-in-order (lambda (x)
                       (set! beat (+ beat x))
-                      (* base-length beat))
+                      (* beat-base beat))
                     group-list)))
 
   (define (larger-setting type sorted-alist)
@@ -57,14 +57,14 @@
   ;; Don't start auto beams on grace notes
   (and (or (zero? (ly:moment-grace (ly:context-current-moment context)))
            (!= dir START))
-       (let* ((base-length (cond ((get 'baseMoment #f) => ly:moment-main)
-                                 (else 1/4)))
+       (let* ((beat-base (cond ((get 'baseMoment #f) => ly:moment-main)
+                               (else 1/4)))
               (measure-length (cond ((get 'measureLength #f) => ly:moment-main)
                                     (else 1)))
               (time-signature-fraction
                (get 'timeSignatureFraction '(4 . 4)))
               (beat-structure (get 'beatStructure '(1 1 1 1)))
-              (beat-endings (ending-moments beat-structure base-length))
+              (beat-endings (ending-moments beat-structure beat-base))
               (exceptions (sort (map
                                  (lambda (a)
                                    (if (pair? (car a))

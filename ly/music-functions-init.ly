@@ -422,16 +422,16 @@ single list.  For example, a time signature of (3+1)/8 + 2/4 can be created with
 either @code{\\compoundMeter #'((3 2 8))} or the shorter version
 @code{\\compoundMeter #'(3 2 8)}.")
   (let* ((mlen (calculate-compound-measure-length args))
-         (beat (calculate-compound-base-beat args))
-         (beatGrouping (calculate-compound-beat-grouping args))
-         (timesig (cons (ly:moment-main-numerator mlen)
-                        (ly:moment-main-denominator mlen))))
+         (base-moment (calculate-compound-base-beat args))
+         (beat-structure (calculate-compound-beat-grouping args))
+         (time-sig (cons (ly:moment-main-numerator mlen)
+                         (ly:moment-main-denominator mlen))))
   #{
     \once \override Timing.TimeSignature.stencil = #(lambda (grob)
       (grob-interpret-markup grob (make-compound-meter-markup args)))
-    \set Timing.timeSignatureFraction = #timesig
-    \set Timing.baseMoment = #beat
-    \set Timing.beatStructure = #beatGrouping
+    \set Timing.timeSignatureFraction = #time-sig
+    \set Timing.baseMoment = #base-moment
+    \set Timing.beatStructure = #beat-structure
     \set Timing.beamExceptions = #'()
     \set Timing.measureLength = #mlen
   #} ))
