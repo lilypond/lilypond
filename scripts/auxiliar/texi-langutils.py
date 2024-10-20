@@ -28,6 +28,9 @@ from argparse import HelpFormatter
 from operator import attrgetter
 
 
+processed_files = set()
+skipped_files = set()
+
 # `@untranslated` should be defined as a macro in the Texinfo source.
 node_blurb_default = '''\
 @untranslated
@@ -174,7 +177,9 @@ def process_texi(texifilename,
             os.makedirs(os.path.dirname(p), exist_ok=True)
 
             if os.path.isfile(p):
-                print('file %s already exists, skipping' % p)
+                if p not in processed_files:
+                    print('file %s already exists, skipping' % p)
+                    processed_files.add(p)
             else:
                 g = open(p, 'w', encoding='utf-8')
 
@@ -251,7 +256,10 @@ def process_texi(texifilename,
                 file_name = item.strip()
                 file = find_file(file_name, dir)
                 if file is None:
-                    print('cannot find include file %s, skipping' % file_name)
+                    if file_name not in skipped_files:
+                        print('cannot find include file %s, skipping' %
+                              file_name)
+                        skipped_files.add(file_name)
                 else:
                     process_texi(file,
                                  i_blurb, n_blurb,
@@ -341,10 +349,13 @@ if options.gettext:
 
     node_list = open(node_list_filename, 'w', encoding='utf-8')
     node_list.write('# -*- coding: utf-8 -*-\n')
+
     for texi_file in options.texi_files:
         file = find_file(texi_file)
         if file is None:
-            print('cannot find input file %s, skipping' % texi_file)
+            if texi_file not in skipped_files:
+                print('cannot find input file %s, skipping' % texi_file)
+                skipped_files.add(texi_file)
         else:
             # Ugly: scan ly comments and variable names only in English doco
             is_english_doc = (
@@ -377,7 +388,9 @@ else:
     for texi_file in options.texi_files:
         file = find_file(texi_file)
         if file is None:
-            print('cannot find input file %s, skipping' % texi_file)
+            if texi_file not in skipped_files:
+                print('cannot find input file %s, skipping' % texi_file)
+                skipped_files.add(texi_file)
         else:
             process_texi(file,
                          options.intro_blurb, options.node_blurb,
