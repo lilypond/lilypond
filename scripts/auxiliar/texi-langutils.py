@@ -170,7 +170,9 @@ def process_texi(texifilename,
 
         # process Texinfo node names and section titles
         if write_skeleton:
-            g = open(os.path.basename(texifilename), 'w', encoding='utf-8')
+            p = os.path.join(options.output_dir, texifilename)
+            os.makedirs(os.path.dirname(p), exist_ok=True)
+            g = open(p, 'w', encoding='utf-8')
 
             if inclusion_level == 0:
                 input_texinfo = r'\input texinfo '
@@ -271,10 +273,6 @@ p.add_argument('-b', '--node-blurb',
                default=node_blurb_default,
                metavar='BLURB',
                help='change blurb written at each node to BLURB')
-p.add_argument('-d', '--working-dir',
-               type=str,
-               metavar='DIR',
-               help='change working directory to DIR')
 p.add_argument('--gettext',
                action='store_true',
                help='generate node list file from Texinfo source')
@@ -300,7 +298,11 @@ p.add_argument('-l', '--language',
 p.add_argument('-n', '--process-includes',
                action='store_false',
                help='do not process @include commands in Texinfo source')
-p.add_argument('-o', '--output-po',
+p.add_argument('-o', '--output-dir',
+               type=str,
+               metavar='DIR',
+               help='use DIR as output directory')
+p.add_argument('-p', '--output-po',
                type=str,
                default='doc.pot',
                metavar='NAME',
@@ -318,10 +320,6 @@ options = p.parse_args()
 
 head_committish = read_pipe('git rev-parse HEAD')
 
-if options.working_dir:
-    print('FIXME: This is evil.  Use `cd DIR && texi-langutils ...` instead')
-    # Even better, add a sane `-o` option.
-    os.chdir(options.working_dir)
 if options.intro_blurb != '':
     options.intro_blurb += '\n\n'
 if options.node_blurb != '':
@@ -329,7 +327,12 @@ if options.node_blurb != '':
 if options.language:
     doclang = '; documentlanguage: ' + options.language
 if options.gettext:
-    node_list_filename = 'node_list'
+    node_list_filename_default = 'node_list'
+
+    node_list_filename = os.path.join(options.output_dir,
+                                      node_list_filename_default)
+    os.makedirs(os.path.dirname(node_list_filename), exist_ok=True)
+
     node_list = open(node_list_filename, 'w', encoding='utf-8')
     node_list.write('# -*- coding: utf-8 -*-\n')
     for texi_file in options.texi_files:
@@ -361,8 +364,9 @@ if options.gettext:
                  'Appendix ', 'Footnotes', 'Table of Contents'):
         node_list.write('_(r"' + word + '")\n')
     node_list.close()
+    p = os.path.join(options.output_dir, options.output_po)
     os.system('xgettext --keyword=_doc -c -L Python --no-location -o ' +
-              options.output_po + ' ' + node_list_filename)
+              p + ' ' + node_list_filename)
 else:
     for texi_file in options.texi_files:
         file = find_file(texi_file)
