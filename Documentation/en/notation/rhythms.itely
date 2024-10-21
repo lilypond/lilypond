@@ -1512,8 +1512,8 @@ or use an explicit @code{\override}:
 }
 @end lilypond
 
-@findex volta repeat, and time signatures
-@findex time signature, and volta repeats
+@cindex volta repeat, and time signatures
+@cindex time signature, and volta repeats
 
 If there is more than a single staff, and a time signature starts
 a prima volta but not the seconda volta, it is necessary to help

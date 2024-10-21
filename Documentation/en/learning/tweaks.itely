@@ -2405,9 +2405,9 @@ specifying @code{DOWN} and @code{UP}:
 }
 @end lilypond
 
-@findex -
-@findex ^
-@findex _
+@funindex -
+@funindex ^
+@funindex _
 
 However, overriding the @code{direction} property is not the
 easiest way of manually setting the fingering above or below

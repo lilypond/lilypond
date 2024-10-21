@@ -1002,7 +1002,7 @@ Custom dash patterns for slurs can be defined:
 
 @cindex slurs, double, for legato chords
 @cindex double slurs, for legato chords
-@findex doubleSlurs
+@funindex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/using-double-slurs-for-legato-chords.ly}
 
