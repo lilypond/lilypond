@@ -1748,8 +1748,6 @@ adapted for typesetting within a chord grid.")))
 
 (define-public Measure_grouping_engraver
   (lambda (ctx)
-    (define (moment-scalmul mom factor)
-      (ly:moment-mul mom (ly:make-moment factor)))
     (let ((grouping-spanner #f)
           (stop-grouping-moment #f))
       (make-engraver
@@ -1765,7 +1763,8 @@ adapted for typesetting within a chord grid.")))
               (set! grouping-spanner #f))
 
             (let*
-                ((base-moment (ly:context-property ctx 'baseMoment))
+                ((beat-base
+                  (ly:moment-main (ly:context-property ctx 'baseMoment)))
                  (measure-position (ly:context-property ctx 'measurePosition)))
               (let loop ((where ZERO-MOMENT)
                          (grouping (ly:context-property ctx 'beatStructure)))
@@ -1775,8 +1774,7 @@ adapted for typesetting within a chord grid.")))
                    ;; make sure the next grouping step will be encountered
                    ;; by engravers (i.e. by this one)
                    ctx
-                   (ly:moment-add now
-                                  (moment-scalmul base-moment (car grouping))))
+                   (+ now (ly:make-moment (* beat-base (car grouping)))))
                   (if grouping-spanner
                       (ly:programming-error
                        "last grouping-spanner not finished yet")
@@ -1787,9 +1785,8 @@ adapted for typesetting within a chord grid.")))
                          grouping-spanner LEFT
                          (ly:context-property ctx 'currentMusicalColumn))
                         (set! stop-grouping-moment
-                              (ly:moment-add
-                               now
-                               (moment-scalmul base-moment (1- (car grouping)))))
+                              (+ now (ly:make-moment
+                                      (* beat-base (1- (car grouping))))))
                         (ly:context-schedule-moment ctx stop-grouping-moment)
                         (ly:grob-set-property!
                          grouping-spanner 'style
@@ -1797,8 +1794,7 @@ adapted for typesetting within a chord grid.")))
                         (set! grouping '()))))
                 (when (pair? grouping)
                   (loop
-                   (ly:moment-add where
-                                  (moment-scalmul base-moment (car grouping)))
+                   (+ where (ly:make-moment (* beat-base (car grouping))))
                    (cdr grouping))))))))
        (acknowledgers
         ((note-column-interface engraver grob source-engraver)
