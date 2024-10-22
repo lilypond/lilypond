@@ -56,9 +56,11 @@ texinfo_with_menus_re = re.compile(
           |
             ^ @
             (include
-             | menu
-             | end [ ]+ menu
+             | verbatiminclude
+             | macro
              | node
+             | if (?: clear | set)
+             | (?: clear | set)
              | (?: unnumbered | appendix) (?: (?: sub){0,2} sec)?
              | top
              | chapter
@@ -66,10 +68,25 @@ texinfo_with_menus_re = re.compile(
              | (?: major | chap | (?: sub){0,2}) heading
              | documentlanguage
              | documentencoding
+             | printindex
             )
-            [ ]* (.*?) $                       # structuring and meta commands
+            [ ]+ (.*?) $                       # structuring and meta commands
+                                               # (with argument)
           |
             @ (rglos) { (.+?) }                # glossary references
+          |
+            ^ @
+            (| end [ ]+ macro
+             | menu
+             | end [ ]+ menu
+             | if (?: not)? (?: info | tex | html)
+             | end [ ]+ if (?: not)? (?: info | tex | html)
+             | end [ ]+ if (?: clear | set)
+             | top
+             | bye
+            )
+            [ ]* $                             # structuring and meta commands
+                                               # (without argument)
     ''')
 texinfo_re = re.compile(
     r'''(?mx)
@@ -202,16 +219,20 @@ def process_texi(texifilename,
                 tutu = texinfo_with_menus_re.findall(texifile)
                 node_just_defined = ''
                 for item in tutu:
+                    # Replace consecutive spaces with a single one to catch
+                    # 'end  menu' and the like.
+                    item_6 = ' '.join(item[6].split())
+
                     if item[0] == '*':
                         g.write('* ' + item[1] + '::\n')
                     elif output_file and item[4] == 'rglos':
                         output_file.write(
                             '_(r"' + item[5] + '") ' +
                             '# @rglos in ' + printedfilename + '\n')
-                    elif item[2] == 'menu':
-                        g.write('@menu\n')
-                    elif item[2] == 'end menu':
+                    elif item_6 == 'end menu':
                         g.write('@end menu\n\n')
+                    elif item_6:
+                        g.write('@%s\n' % item_6)
                     elif item[2] == 'documentlanguage':
                         g.write(
                             '@documentlanguage ' + options.language + '\n\n')
@@ -225,7 +246,8 @@ def process_texi(texifilename,
                             node_just_defined = ''
                             if options.head_only and inclusion_level == 1:
                                 break
-                        elif item[2] == 'include':
+                        elif (item[2] == 'include'
+                              or item[2] == 'verbatiminclude'):
                             includes.append(item[3])
                         else:
                             if output_file:
