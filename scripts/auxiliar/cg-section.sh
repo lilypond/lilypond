@@ -24,7 +24,7 @@
 #
 #    where SECTION is the section to be built.
 #
-#  For example, CG 4 would be built by
+#  For example, CG 5 would be built by
 #       ./cg-section.sh doc-work
 #
 #  At the end of the run, the user is prompted whether or not to
@@ -78,40 +78,52 @@ if test ! -e "$LILYPOND_GIT/DEDICATION"; then
 fi
 
 : "${LILYPOND_BUILD_DIR:=$LILYPOND_GIT/build}"
-DOC_DIR="${LILYPOND_TEMPDOCS:-$LILYPOND_BUILD_DIR/tempdocs}"
-LILYPOND_BOOK="$LILYPOND_BUILD_DIR/out/bin/lilypond-book"
-TEXI2ANY="texi2any"
-REFCHECK="$LILYPOND_GIT/scripts/auxiliar/ref_check.py"
-
-SECTION="$1"
-OUTPUT_DIR="$DOC_DIR/contributor"
-SECTION_PATH="$LILYPOND_GIT/Documentation/en/contributor/$SECTION.itexi"
-
 if test ! -d "$LILYPOND_BUILD_DIR"; then
     echo "$LILYPOND_BUILD_DIR does not exist; check your setting of LILYPOND_BUILD_DIR. Aborting." >&2
     exit 1
 fi
+# Make path absolute.
+LILYPOND_BUILD_DIR=`cd "$LILYPOND_BUILD_DIR"; pwd`
 
-if test ! -x "$LILYPOND_BOOK"; then
-    echo "$LIYPOND_BOOK does not exist; did you configure and compile LilyPond?" >&2
-    exit 1
+DOC_DIR="${LILYPOND_TEMPDOCS:-$LILYPOND_BUILD_DIR/tempdocs}"
+mkdir -p "$DOC_DIR"
+MKDIRRC=$?
+if [ $MKDIRRC != 0 ]; then
+    echo "Cannot create \$LILYPOND_BUILD_DIR: $LILYPOND_BUILD_DIR"
+    exit $MKDIRRC
+else
+    cp "$LILYPOND_BUILD_DIR/Documentation/out/version.itexi" "$DOC_DIR"
 fi
+# Make path absolute.
+DOC_DIR=`cd "$DOC_DIR"; pwd`
+
+TEXI2ANY="texi2any"
+REFCHECK="$LILYPOND_GIT/scripts/auxiliar/ref_check.py"
+
+SECTION="$1"
+OUTPUT_DIR="$DOC_DIR/$SECTION"
+SECTION_PATH="$LILYPOND_GIT/Documentation/en/contributor/$SECTION.itexi"
 
 if test ! -e "$SECTION_PATH"; then
     echo "$SECTION_PATH does not exist; is $SECTION a valid section in the Contributor's Guide?" >&2
     exit 1
 fi
 
-if test ! -d "$OUTPUT_DIR/out"; then
-    mkdir -p "$OUTPUT_DIR/out"
+mkdir -p "$OUTPUT_DIR/out"
+MKDIRRC=$?
+if [ $MKDIRRC != 0 ]; then
+    echo "Cannot create \$OUTPUT_DIR/out: $OUTPUT_DIR_OUT/out"
+    exit $MKDIRRC
 fi
-if test ! -d "$OUTPUT_DIR/en"; then
-    mkdir -p "$OUTPUT_DIR/en"
+mkdir -p "$OUTPUT_DIR/en"
+MKDIRRC=$?
+if [ $MKDIRRC != 0 ]; then
+    echo "Cannot create \$OUTPUT_DIR/en: $OUTPUT_DIR_OUT/en"
+    exit $MKDIRRC
 fi
 
-cp "$LILYPOND_GIT/Documentation/en/common-macros.itexi" "$OUTPUT_DIR/en/common-macros.itexi"
-cp "$LILYPOND_GIT/Documentation/en/cyrillic.itexi" "$OUTPUT_DIR/en/cyrillic.itexi"
-cp "$LILYPOND_BUILD_DIR/Documentation/out/version.itexi" "$OUTPUT_DIR"
+cp "$LILYPOND_GIT/Documentation/en/macros.itexi" "$OUTPUT_DIR/en/macros.itexi"
+cp "$DOC_DIR/version.itexi" "$OUTPUT_DIR/version.itexi"
 
 if test -e "$OUTPUT_DIR/$SECTION.html"; then
     rm "$OUTPUT_DIR/$SECTION.html"
@@ -121,19 +133,21 @@ if test -e "$OUTPUT_DIR/out/$SECTION.texi"; then
     rm "$OUTPUT_DIR/out/$SECTION.texi"
 fi
 
+cp "$SECTION_PATH" "$OUTPUT_DIR/out/$SECTION.itexi"
+
 echo "Running RefCheck"
 python3 "$REFCHECK"
 
 cd "$DOC_DIR"
 echo "Running $TEXI2ANY --html"
-cat "$DOC_DIR/macros.itexi" "$SECTION_PATH" > "$OUTPUT_DIR/$SECTION.texi"
+cat "$OUTPUT_DIR/en/macros.itexi" "$OUTPUT_DIR/out/$SECTION.itexi" > "$OUTPUT_DIR/$SECTION.texi"
 "$TEXI2ANY" \
     --html \
     --no-validate \
     --no-split \
     --output="$OUTPUT_DIR/out/$SECTION.html" \
-    -I="$LILYPOND_GIT/Documentation" \
-    -I="$OUTPUT_DIR/out" \
+    -I "$OUTPUT_DIR/out" \
+    -I "$LILYPOND_GIT/Documentation" \
     "$OUTPUT_DIR/$SECTION.texi"
 
 echo "Displaying output in $BROWSER; close browser window when done."
