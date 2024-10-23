@@ -366,9 +366,6 @@ Referència de la notació:
 Fragments de codi:
 @rlsr{Keyboards}.
 
-Referència de funcionament intern:
-@rinternals{AutoChangeMusic}.
-
 @knownissues
 @cindex acords, divisió entre pentagrames amb \autoChange
 

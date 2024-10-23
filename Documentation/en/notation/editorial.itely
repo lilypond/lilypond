@@ -589,8 +589,8 @@ Notation Reference:
 @ref{Direction and placement}.
 
 Internals Reference:
-@rinternals{FingeringGlideEvent},
-@rinternals{fingering-glide-event},
+@rinternals{FingerGlideEvent},
+@rinternals{finger-glide-event},
 @rinternals{Finger_glide_engraver},
 @rinternals{finger-glide-interface},
 @rinternals{FingerGlideSpanner}.

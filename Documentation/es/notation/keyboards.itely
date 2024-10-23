@@ -385,9 +385,6 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Keyboards}.
 
-Referencia de funcionamiento interno:
-@rinternals{AutoChangeMusic}.
-
 @knownissues
 @cindex acorde, división entre pentagramas con @code{\autoChange}
 

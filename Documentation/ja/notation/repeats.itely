@@ -374,7 +374,6 @@ c'4 e g
 
 内部リファレンス:
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}
 
@@ -550,7 +549,6 @@ voltaAdLib = \markup { \volta-number { 1. 2. 3... } \italic { ad lib. } }
 
 内部リファレンス:
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}
 
 
@@ -675,7 +673,6 @@ a'4 b c | a'4 b c
 @rlsr{Repeats}
 
 内部リファレンス:
-@rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}
 
 

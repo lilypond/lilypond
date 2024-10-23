@@ -3472,7 +3472,7 @@ gauche.
 
 Voir aussi :
 @ref{Spanners}.@*
-@rinternals{all-layout-objects},
+@rinternals{All layout objects},
 @rinternals{spanner-interface}.
 
 @item stencil

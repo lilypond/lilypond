@@ -360,9 +360,6 @@ Notationsreferenz:
 Schnipsel:
 @rlsr{Keyboards}.
 
-Referenz der Interna:
-@rinternals{AutoChangeMusic}.
-
 @knownissues
 
 @cindex Akkorde, zwischen Systemen mit \autoChange

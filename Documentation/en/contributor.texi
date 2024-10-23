@@ -19,7 +19,7 @@ contributors should follow.
 
 This manual is not intended to be read sequentially; new contributors
 should only read the sections which are relevant to them.  For more
-information about different jobs, see @rcontrib{Help us}.
+information about different jobs, @pxref{Help us}.
 @end macro
 
 @c 'Contributor's Guide' was born 2007-09-15 with this commit:

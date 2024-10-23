@@ -377,7 +377,6 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
@@ -565,7 +564,6 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}.
 
 
@@ -696,7 +694,6 @@ Fragmentos de código:
 @rlsr{Repeats}.
 
 Referencia de funcionamiento interno:
-@rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
 

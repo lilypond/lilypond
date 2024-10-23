@@ -131,7 +131,6 @@ Snippets:
 @rlsr{Repeats}.
 
 Internals Reference:
-@rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 @endmorerefs
 
@@ -883,7 +882,6 @@ Snippets:
 
 Internals Reference:
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 @endmorerefs

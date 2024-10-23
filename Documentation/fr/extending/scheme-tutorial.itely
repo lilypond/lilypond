@@ -1214,7 +1214,7 @@ s'il n'y a qu'un seul objet « enfant », il sera stocké dans la propriété
 @rinternals{SequentialMusic} iront dans @code{elements}, alors que
 l'argument unique de @rinternals{GraceMusic} ira dans @code{element}. De
 même, le corps d'une répétition ira dans la propriété @code{element}
-d'un @rinternals{RepeatedMusic}, les alternatives quant à elles dans la
+d'un @rinternals{VoltaRepeatedMusic}, les alternatives quant à elles dans la
 propriété @code{elements}.
 
 

@@ -3585,7 +3585,7 @@ Notation Reference:
 @ref{Score - the master of all contexts}.
 
 Internals Reference:
-@rinternals{All context properties}.
+@rinternals{Tunable context properties}.
 @endmorerefs
 
 

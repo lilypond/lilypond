@@ -1062,7 +1062,7 @@ Musikobjekte als Eigenschaften enthält.  Eine Liste an Objekten kann in der
 Ableger-Musikelement in der @code{element}-Eigenschaft gespeichert werden.
 @rinternals{SequentialMusic} beispielsweise hat sein einziges Argument in
 @code{element}.  Der Körper einer Wiederholung wird in der @code{element}-Eigenschaft
-von @rinternals{RepeatedMusic} gespeichert, und die alternativen Endungen
+von @rinternals{VoltaRepeatedMusic} gespeichert, und die alternativen Endungen
 in @code{elements}.
 
 

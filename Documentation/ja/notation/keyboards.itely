@@ -367,9 +367,6 @@ music = {
 コード断片集:
 @rlsr{Keyboards}
 
-内部リファレンス:
-@rinternals{AutoChangeMusic}
-
 
 @knownissues
 @cindex chord, splitting across staves with @code{\autoChange} (@code{\autoChange} で譜を跨ぐ和音)

@@ -251,7 +251,7 @@ ENGRAVER \"*\"', without space inbetween."
       \bold "Legend:"
       \line {
         "  "
-        \with-url #(format #f internals-format "all-layout-objects")
+        \with-url #(format #f internals-format "All layout objects")
           \with-color #(universal-color "blue") "GraphicalObject (Grob)" }
       \vspace #-0.05
       \line {

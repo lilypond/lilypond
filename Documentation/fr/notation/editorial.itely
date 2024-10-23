@@ -601,8 +601,8 @@ Manuel de notation :
 @ref{Direction and placement}.
 
 Manuel des références internes :
-@rinternals{FingeringGlideEvent},
-@rinternals{fingering-glide-event},
+@rinternals{FingerGlideEvent},
+@rinternals{finger-glide-event},
 @rinternals{Finger_glide_engraver},
 @rinternals{finger-glide-interface},
 @rinternals{FingerGlideSpanner}.

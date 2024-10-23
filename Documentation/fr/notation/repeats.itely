@@ -141,7 +141,6 @@ Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
 
 Référence des propriétés internes :
-@rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 @endmorerefs
 
@@ -873,7 +872,6 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 @endmorerefs

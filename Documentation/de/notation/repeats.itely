@@ -322,7 +322,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
@@ -488,7 +487,6 @@ Schnipsel:
 
 Referenz der Interna:
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}.
 
 
@@ -621,7 +619,6 @@ Schnipsel:
 @rlsr{Repeats}.
 
 Referenz der Interna:
-@rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
 

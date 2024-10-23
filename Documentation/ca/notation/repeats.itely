@@ -371,7 +371,6 @@ Fragments de codi:
 
 Referència de funcionament intern:
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
@@ -556,7 +555,6 @@ Fragments de codi:
 
 Referència de funcionament intern:
 @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic},
 @rinternals{VoltaRepeatedMusic}.
 
 
@@ -688,7 +686,6 @@ Fragments de codi:
 @rlsr{Repeats}.
 
 Referència de funcionament intern:
-@rinternals{RepeatedMusic},
 @rinternals{UnfoldedRepeatedMusic}.
 
 

@@ -1939,7 +1939,7 @@ will be handled by someone who will translate it to English and send it
 on bug-lilypond or add an issue in the tracker, then translate back the
 reply from developers.
 
-@item @rcontrib{Help us}: this page should be translated very freely,
+@item @rweb{Help us}: this page should be translated very freely,
 and possibly not at all: ask help for contributing to LilyPond for tasks
 that LilyPond community in your language is able and going to handle.
 @end itemize

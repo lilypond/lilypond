@@ -532,8 +532,8 @@ Guida alla notazione:
 @ref{Direction and placement}.
 
 Guida al funzionamento interno:
-@rinternals{FingeringGlideEvent},
-@rinternals{fingering-glide-event},
+@rinternals{FingerGlideEvent},
+@rinternals{finger-glide-event},
 @rinternals{Finger_glide_engraver},
 @rinternals{finger-glide-interface},
 @rinternals{FingerGlideSpanner}.

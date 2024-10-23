@@ -3709,7 +3709,7 @@ Guida alla notazione:
 @ref{Spanners}.
 
 Guida al funzionamento interno:
-@rinternals{all-layout-objects},
+@rinternals{All layout objects},
 @rinternals{spanner-interface}.
 @endmorerefs
 

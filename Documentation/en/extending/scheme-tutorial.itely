@@ -1117,7 +1117,7 @@ music object in the @code{element} property.  For example,
 @rinternals{SequentialMusic} has its children in @code{elements},
 and @rinternals{GraceMusic} has its single argument in
 @code{element}.  The body of a repeat is stored in the @code{element}
-property of @rinternals{RepeatedMusic}, and the alternatives in
+property of @rinternals{VoltaRepeatedMusic}, and the alternatives in
 @code{elements}.
 
 @node Building complicated functions
@@ -1173,7 +1173,7 @@ If you want to manipulate the default stencil you have to find
 information about it.
 
 The espressivo sign is a @code{Script} grob.  Looking this up in
-the IR (@rinternals{script}), we see
+the IR (@rinternals{Script}), we see
 
 @example
 ‘stencil’ (stencil):

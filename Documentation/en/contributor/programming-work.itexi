@@ -266,7 +266,7 @@ vi and other programs.
 
 To generate these cross-reference data files the source code must
 be installed, but it is not necessary to compile LilyPond. Follow
-the instructions found in @rcontrib{Getting the source code}
+the instructions found in @ref{Getting the source code}
 through @q{Checking build dependencies}.  Once the
 @command{configure} command has run successfully, invoke the
 following command in the @file{build} directory.

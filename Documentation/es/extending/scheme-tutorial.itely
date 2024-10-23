@@ -1190,7 +1190,7 @@ almacenar una lista de objetos dentro de la propiedad
 @code{elements}, y @rinternals{GraceMusic} tiene su argumento
 único dentro de @code{element}.  El cuerpo de una repetición se
 almacena dentro de la propiedad @code{element} de
-@rinternals{RepeatedMusic}, y las alternativas dentro de
+@rinternals{VoltaRepeatedMusic}, y las alternativas dentro de
 @code{elements}.
 
 @node Building complicated functions

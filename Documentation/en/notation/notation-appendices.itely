@@ -3327,7 +3327,7 @@ a spanner has little musical sense, but is usually set to the left
 bound.
 
 See also: @ref{Spanners}.@*
-@rinternals{all-layout-objects},
+@rinternals{All layout objects},
 @rinternals{spanner-interface}.
 
 @cindex stencil

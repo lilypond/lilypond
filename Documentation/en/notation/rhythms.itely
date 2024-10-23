@@ -1231,8 +1231,7 @@ Internals Reference:
 @rinternals{Caesura_engraver},
 @rinternals{CaesuraEvent},
 @rinternals{CaesuraScript},
-@rinternals{caesuraTypeTransform},
-@rinternals{caesuraType}.
+@rinternals{Tunable context properties}.
 @endmorerefs
 
 
