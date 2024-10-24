@@ -189,7 +189,7 @@
       (ly:make-moment (car time-signature) (cdr time-signature))
       INF-MOMENT))
 
-(define-public (base-length time-signature time-signature-settings)
+(define-public (beat-base time-signature time-signature-settings)
   "Get @code{baseMoment} rational value for @var{time-signature} from
 @var{time-signature-settings}."
   (let ((return-value (get-setting 'baseMoment
@@ -203,9 +203,9 @@
             +inf.0) ; senza misura
         return-value)))
 
-(define-public (beat-structure base-length time-signature time-signature-settings)
-  "Get @code{beatStructure} value in @var{base-length} units
-for @var{time-signature} from @var{time-signature-settings}."
+(define-public (beat-structure beat-base time-signature time-signature-settings)
+  "Get @code{beatStructure} value in @var{beat-base} units for
+@var{time-signature} from @var{time-signature-settings}."
 
   (let ((return-value (get-setting 'beatStructure
                                    time-signature
@@ -221,7 +221,7 @@ for @var{time-signature} from @var{time-signature-settings}."
                               (if (zero? (cdr time-signature))
                                   0.0 ; avoid integer div error
                                   (cdr time-signature))
-                              base-length
+                              beat-base
                               group-size)))
           (if (integer? beat-count)
               (make-list beat-count group-size)

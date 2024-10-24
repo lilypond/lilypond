@@ -5344,6 +5344,14 @@ def conv(s):
   return s
 
 
+@rule((2, 25, 22), r"""
+(base-length ... -> (beat-base ...
+""")
+def conv(s):
+    s = re.sub(r'(\(\s*)base-length(\s)', r'\1beat-base\2', s)
+    return s
+
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

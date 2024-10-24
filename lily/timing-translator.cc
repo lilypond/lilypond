@@ -366,7 +366,7 @@ Timing_translator::initialize ()
   if (!unsmob<Moment> (base_moment))
     {
       base_moment
-        = Moment (from_scm<Rational> (Lily::base_length (
+        = Moment (from_scm<Rational> (Lily::beat_base (
                     time_signature_fraction, time_signature_settings)))
             .smobbed_copy ();
     }

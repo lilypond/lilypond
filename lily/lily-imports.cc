@@ -76,8 +76,8 @@ Variable alterations_in_key ("alterations-in-key");
 Variable bar_glyph_alist ("bar-glyph-alist");
 Variable bar_line_calc_glyph_name_for_direction (
   "bar-line::calc-glyph-name-for-direction");
-Variable base_length ("base-length");
 Variable beam_exceptions ("beam-exceptions");
+Variable beat_base ("beat-base");
 Variable beat_structure ("beat-structure");
 Variable calc_measure_length ("calc-measure-length");
 Variable calc_repeat_slash_count ("calc-repeat-slash-count");
