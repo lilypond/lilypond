@@ -206,10 +206,17 @@ ref_re = re.compile(
     ''')
 node_include_re = re.compile(
     r'''(?mx)
-        ^ @ (node | include)
-        \s+
-        (.+?)
-        $
+        (?:   ^
+              @ (node | include)
+              \s+
+              (.+?)
+              $
+            |
+              @ (anchor)
+              [{]
+              ([^\\}]+?)
+              [}]
+        )
     ''')
 whitespace_re = re.compile(r'\s+')
 line_start_re = re.compile('(?m)^')
@@ -279,9 +286,12 @@ def read_file(f, d):
         d['comments_boundaries'][f] = calc_comments_boundaries(s)
 
     for m in node_include_re.finditer(s):
-        if m.group(1) == 'node':
+        is_node = (m.group(1) == 'node')
+
+        if is_node or m.group(3) == 'anchor':
             line = which_line(m.start(), d['newline_indices'][f])
-            d['nodes'][m.group(2)] = (f, line)
+            arg = m.group(2) if is_node else m.group(4)
+            d['nodes'][arg] = (f, line)
 
         elif m.group(1) == 'include':
             try:
