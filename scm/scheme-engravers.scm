@@ -1986,8 +1986,7 @@ adapted for typesetting within a chord grid.")))
               (set! grouping-spanner #f))
 
             (let*
-                ((beat-base
-                  (ly:moment-main (ly:context-property ctx 'baseMoment)))
+                ((beat-base (ly:context-property ctx 'beatBase))
                  (measure-position (ly:context-property ctx 'measurePosition)))
               (let loop ((where ZERO-MOMENT)
                          (grouping (ly:context-property ctx 'beatStructure)))
@@ -2037,7 +2036,7 @@ adapted for typesetting within a chord grid.")))
  Measure_grouping_engraver 'Measure_grouping_engraver
  '((events-accepted . ())
    (grobs-created . (MeasureGrouping))
-   (properties-read . (baseMoment
+   (properties-read . (beatBase
                        beatStructure
                        currentMusicalColumn
                        measurePosition))

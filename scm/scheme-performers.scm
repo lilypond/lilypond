@@ -20,22 +20,19 @@
     ;; return the first on-beat measure position not before mp
     (let* ((mp (ly:moment-main mp))
            (tf (ly:context-property ctx 'timeSignatureFraction '(4 . 4)))
-           (bmm (ly:context-property ctx 'baseMoment))
-           (bb (if (ly:moment? bmm)
-                   (ly:moment-main bmm)
-                   (/ (cdr tf))))
+           (bb (ly:context-property ctx 'beatBase (/ (cdr tf))))
            (bs (ly:context-property ctx 'beatStructure)))
       (let loop ((pos 0) (bs bs))
         (cond ((>= pos mp) (ly:make-moment pos))
               ((pair? bs)
                (loop (+ pos (* bb (car bs))) (cdr bs)))
               (else
-               ;; pos is an integral multiple of baseMoment and
+               ;; pos is an integral multiple of beatBase and
                ;; still smaller than measurePosition, so after
                ;; having exhausted any possible beatStructure
                ;; without passing measurePosition, just rounding
                ;; measurePosition up to the next multiple of
-               ;; baseMoment will be the correct answer without
+               ;; beatBase will be the correct answer without
                ;; requiring us to loop or to even consider the
                ;; iteration variable pos
                (ly:make-moment (* bb (ceiling (/ mp bb)))))))))
@@ -90,7 +87,7 @@
  '((events-accepted . (note-event articulation-event))
    (properties-read . (timing
                        measurePosition
-                       baseMoment
+                       beatBase
                        beatStructure
                        timeSignatureFraction
                        barExtraVelocity
@@ -114,7 +111,7 @@ autogeneration of the next on-beat accent to be skipped.")))
  '((events-accepted . (note-event articulation-event))
    (properties-read . (timing
                        measurePosition
-                       baseMoment
+                       beatBase
                        beatStructure
                        timeSignatureFraction
                        barExtraVelocity

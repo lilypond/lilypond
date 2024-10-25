@@ -422,7 +422,7 @@ single list.  For example, a time signature of (3+1)/8 + 2/4 can be created with
 either @code{\\compoundMeter #'((3 2 8))} or the shorter version
 @code{\\compoundMeter #'(3 2 8)}.")
   (let* ((mlen (calculate-compound-measure-length args))
-         (base-moment (calculate-compound-base-beat args))
+         (beat-base (calculate-compound-beat-base args))
          (beat-structure (calculate-compound-beat-grouping args))
          (time-sig (cons (ly:moment-main-numerator mlen)
                          (ly:moment-main-denominator mlen))))
@@ -430,7 +430,7 @@ either @code{\\compoundMeter #'((3 2 8))} or the shorter version
     \once \override Timing.TimeSignature.stencil = #(lambda (grob)
       (grob-interpret-markup grob (make-compound-meter-markup args)))
     \set Timing.timeSignatureFraction = #time-sig
-    \set Timing.baseMoment = #base-moment
+    \set Timing.beatBase = #beat-base
     \set Timing.beatStructure = #beat-structure
     \set Timing.beamExceptions = #'()
     \set Timing.measureLength = #mlen
@@ -1248,17 +1248,17 @@ value @var{n}@tie{}octaves lower, and value@tie{}0 means no octavation.")
 
 overrideTimeSignatureSettings =
 #(define-music-function
-   (time-signature base-moment beat-structure beam-exceptions)
+   (time-signature beat-base beat-structure beam-exceptions)
    (boolean-or-fraction? positive-musical-length? list? list?)
    (_i "Override time signature settings.
 
 This function sets @code{timeSignatureSettings} for time signatures equal to
-@var{time-signature} to have settings of @var{base-moment},
-@var{beat-structure}, and @var{beam-exceptions}.")
+@var{time-signature} to have settings of @var{beat-base}, @var{beat-structure},
+and @var{beam-exceptions}.")
 
    ;; TODO -- add warning if largest value of grouping is
    ;;       greater than time-signature.
-  (let ((setting (make-setting base-moment beat-structure beam-exceptions)))
+  (let ((setting (make-setting beat-base beat-structure beam-exceptions)))
     (override-time-signature-setting time-signature setting)))
 
 overrideProperty =

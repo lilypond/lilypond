@@ -75,10 +75,9 @@ Time_signature_performer::process_music ()
       last_time_fraction_ = fr;
       int b = from_scm<int> (scm_car (fr));
       int o = from_scm<int> (scm_cdr (fr));
-      static const Moment quarter = Moment (Rational (1, 4));
-      const auto base_moment
-        = from_scm (get_property (this, "baseMoment"), quarter);
-      Rational beat_base_clocks = 96 * base_moment.main_part_;
+      const auto beat_base
+        = from_scm (get_property (this, "beatBase"), Rational (1, 4));
+      Rational beat_base_clocks = 96 * beat_base;
       SCM common_beat = SCM_INUM0;
       for (SCM p = get_property (this, "beatStructure"); scm_is_pair (p);
            p = scm_cdr (p))
@@ -90,7 +89,7 @@ Time_signature_performer::process_music ()
           || beat_base_clocks.numerator () < 1
           || beat_base_clocks.numerator () > 255)
         {
-          const auto &msg = _ ("bad baseMoment/beatStructure"
+          const auto &msg = _ ("bad beatBase/beatStructure"
                                " for MIDI time signature");
           if (event_)
             event_->warning (msg);

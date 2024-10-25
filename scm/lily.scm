@@ -680,9 +680,10 @@ determines the number of scale steps that make up an octave.  Usually the
                   #:key new-symbol
                   (new->old (lambda (x) (error "missing new->old function")))
                   (old->new (lambda (x) (error "missing old->new function"))))
-  ;; TODO: Guile raises an error if compilation is disabled and the category
-  ;; type symbol does not appear literally somewhere in this procedure.  It
-  ;; smells like a bug in Guile (3.0.9).
+  ;; TODO: Guile raises errors if compilation is disabled and these symbols do
+  ;; not appear literally somewhere in this procedure.  It smells like a bug in
+  ;; Guile (3.0.9).
+  'baseMoment
   'translation-type?
   (let ((getr (deprecated-getter-object-property category-type-symbol))
         (setr (deprecated-setter-object-property category-type-symbol)))

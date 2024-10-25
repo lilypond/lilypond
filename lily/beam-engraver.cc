@@ -292,8 +292,8 @@ Beam
 
                 /* read */
                 R"(
-baseMoment
 beamMelismaBusy
+beatBase
 beatStructure
 subdivideBeams
                 )",
@@ -352,8 +352,8 @@ Beam
 
                 /* read */
                 R"(
-baseMoment
 beamMelismaBusy
+beatBase
 beatStructure
 subdivideBeams
                 )",

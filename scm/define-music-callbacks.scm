@@ -228,7 +228,7 @@ depth-first through MUSIC."
                 (ly:context-set-property!
                  context 'timeSignatureFraction fraction)
                 (ly:context-set-property!
-                 context 'baseMoment (ly:make-moment my-beat-base))
+                 context 'beatBase my-beat-base)
                 (ly:context-set-property!
                  context 'beatStructure my-beat-structure)
                 (ly:context-set-property!

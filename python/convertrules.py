@@ -20,6 +20,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
+from fractions import Fraction
 import re
 import string
 import sys
@@ -5344,11 +5345,42 @@ def conv(s):
   return s
 
 
+# Non-numeric durations like \breve seem unlikely, so we'll ignore them for
+# simplicity and revise this if we receive any complaints.
+base_moment_re = (r'\bbaseMoment'
+                  r'(?P<assignment>\s*=\s*)'
+                  r'\\musicLength\s+'
+                  r'(?P<head>\d+)'
+                  r'(\*(?P<factor_num>\d+)(/(?P<factor_den>\d+))?)?')
+
+def base_moment_to_beat_base(match):
+    eq = match.group('assignment')
+    h = int(match.group('head'))
+    n = int(match.group('factor_num') or 1)
+    d = int(match.group('factor_den') or 1)
+    if d == 1:
+        if h == 1:
+            return f'beatBase{eq}{n}'
+        # There might be some explanatory value in fractions that are not
+        # reduced, so for example, we turn `8*4` into `#4/8` rather than `#1/2`.
+        return f'beatBase{eq}#{n}/{h}'
+    # We're losing the basic duration (h) anyway, so reduce it.
+    f = Fraction(1, h) * Fraction(n, d)
+    if f.is_integer():
+        return f'beatBase{eq}{f}'
+    return f'beatBase{eq}#{f}'
+
 @rule((2, 25, 22), r"""
 (base-length ... -> (beat-base ...
+baseMoment = \musicLength <duration> -> beatBase = #<rational>
 """)
 def conv(s):
     s = re.sub(r'(\(\s*)base-length(\s)', r'\1beat-base\2', s)
+    s = re.sub(base_moment_re, base_moment_to_beat_base, s)
+    # This isn't necessary, but add `#` in this case for consistency with the
+    # beatBase = ... requirement.
+    s = re.sub(r'(\\overrideTimeSignatureSettings\s+\d+/\d+\s+)(\d+/\d+)\b',
+               r'\1#\2', s)
     return s
 
 

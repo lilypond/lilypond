@@ -175,16 +175,16 @@ for bars 2, 4, 6, etc.
 If bar numbers 1, 4, 7, etc., should be enabled, @var{n}@tie{}(the modulo)
 must be set to@tie{}3 and @var{m}@tie{}(the division remainder) to@tie{}1.
 @end table")
-     (baseMoment ,positive-musical-length-as-moment? "Smallest unit of time that
-will stand on its own as a subdivided section.")
      (beamExceptions ,list? "An alist of exceptions to autobeam rules
 that normally end on beats.")
      (beamHalfMeasure ,boolean? "Whether to allow a beam to begin
 halfway through the measure in triple time, which could look like 6/8.")
+     (beatBase ,positive-musical-length-as-number? "The musical length
+corresponding to one unit of @code{beatStructure}.")
      (beatExtraVelocity ,integer? "Extra MIDI velocity added by the
 @samp{Beat_performer} at the start of each beat.")
-     (beatStructure ,list? "List of @code{baseMoment}s that are combined
-to make beats.")
+     (beatStructure ,list? "A sequence describing the length of each beat in the
+measure in units of @code{beatBase}.")
      (breathMarkType ,symbol? "The type of @code{BreathingSign} to create at
 @code{\\breathe}.")
 
@@ -969,3 +969,13 @@ finger to use")
 
 (define-public default-melisma-properties
   '(melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy completionBusy))
+
+
+;; TODO: Stop suppressing the deprecation warning once all internal Scheme code
+;; is updated to use beatBase instead of baseMoment.
+(set-object-property! 'baseMoment 'warned-for-deprecated-access #t)
+(define-deprecated-property
+  'translation-type? 'baseMoment positive-musical-length-as-moment?
+  #:new-symbol 'beatBase
+  #:old->new ly:moment-main
+  #:new->old ly:make-moment)

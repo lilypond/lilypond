@@ -362,22 +362,19 @@ Timing_translator::initialize ()
     }
   set_property (context (), "beamExceptions", beam_exceptions);
 
-  SCM base_moment = get_property (this, "baseMoment");
-  if (!unsmob<Moment> (base_moment))
+  SCM beat_base = get_property (this, "beatBase");
+  if (!is_scm<Rational> (beat_base))
     {
-      base_moment
-        = Moment (from_scm<Rational> (Lily::beat_base (
-                    time_signature_fraction, time_signature_settings)))
-            .smobbed_copy ();
+      beat_base
+        = Lily::beat_base (time_signature_fraction, time_signature_settings);
     }
-  set_property (context (), "baseMoment", base_moment);
+  set_property (context (), "beatBase", beat_base);
 
   SCM beat_structure = get_property (this, "beatStructure");
   if (!scm_is_pair (beat_structure))
     {
-      beat_structure = Lily::beat_structure (
-        to_scm (unsmob<Moment> (base_moment)->main_part_),
-        time_signature_fraction, time_signature_settings);
+      beat_structure = Lily::beat_structure (beat_base, time_signature_fraction,
+                                             time_signature_settings);
     }
   set_property (context (), "beatStructure", beat_structure);
 
@@ -526,7 +523,7 @@ removed from @code{Score} and placed in @code{Staff}.
                 /* read */
                 R"(
 alternativeNumberingStyle
-baseMoment
+beatBase
 currentBarNumber
 internalBarNumber
 measureLength
@@ -537,7 +534,7 @@ timeSignatureFraction
                 /* write */
                 R"(
 alternativeNumber
-baseMoment
+beatBase
 currentBarNumber
 internalBarNumber
 measureLength

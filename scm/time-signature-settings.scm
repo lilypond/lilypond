@@ -461,14 +461,16 @@ make a numbered time signature instead."
 (define (calculate-compound-beat-base-full time-sig)
   (apply max (map last time-sig)))
 
-(define-public (calculate-compound-base-beat time-sig)
-  (ly:make-moment
-   1
+(define-public (calculate-compound-beat-base time-sig)
+  (/
    (cond
     ((not (pair? time-sig)) 4)
     ((pair? (car time-sig)) (calculate-compound-beat-base-full time-sig))
     (else (calculate-compound-beat-base-full (list time-sig))))))
 
+;; TODO: convert-ly
+(define-public (calculate-compound-base-beat time-sig)
+  (ly:make-moment (calculate-compound-beat-base time-sig)))
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Beat Grouping
