@@ -2,7 +2,8 @@
 
 """
 check_texi_refs.py
-Interactive Texinfo cross-references checking and fixing tool
+Interactive Texinfo cross-references checking and fixing tool for LilyPond
+manuals
 """
 
 # This file is part of LilyPond, the GNU music typesetter.
@@ -38,10 +39,10 @@ file_not_found = 'file not found in include path'
 warn_not_fixed = \
     '*** Warning: this broken cross-reference has not been fixed!\n'
 
-opt_parser = optparse.OptionParser(usage='check_texi_refs.py [OPTION]... FILE',
+opt_parser = optparse.OptionParser(usage='check_texi_refs.py [OPTION]...',
                                    description='''\
-Check and fix cross-references in a collection of Texinfo
-documents heavily cross-referencing each other.
+Check and optionally fix both intra- and inter-manual cross-references in
+all LilyPond manuals.
 ''')
 
 opt_parser.add_option('-a', '--auto-fix',
@@ -70,7 +71,7 @@ opt_parser.add_option("-I", '--include',
                       dest='include_path',
                       default=[])
 
-(options, files) = opt_parser.parse_args()
+(options, _) = opt_parser.parse_args()
 options.include_path.append(os.path.abspath(os.getcwd()))
 
 
