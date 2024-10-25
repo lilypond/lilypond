@@ -97,6 +97,7 @@ references_dict = {
     'usage': 'rprogram',
     'web': 'rweb',
 }
+inv_references_dict = {v: k for k, v in references_dict.items()}
 
 manuals = {}
 
@@ -468,8 +469,7 @@ def check_ref(manual, file, m):
 
     # check punctuation after cross-reference
     if options.check_punctuation and next_char not in '.,;:!?':
-        stdout.write("Warning: %s: %d: '%s': "
-                     "cross-reference not followed by punctuation\n"
+        stdout.write("Warning:%s: %d: `@%s` not followed by punctuation\n"
                      % (file, line, name))
 
     # validate cross-reference
@@ -480,8 +480,7 @@ def check_ref(manual, file, m):
         if useful_fix:
             fixed = False
             bad_ref = True
-            stdout.write("\n%s: %d: '%s': "
-                         "external %s cross-reference should be internal\n"
+            stdout.write("%s:%d: '%s': `@%s` should be `@ref`\n"
                          % (file, line, name, type))
             if options.auto_fix or yes_prompt("Fix this?"):
                 type = 'ref'
@@ -495,12 +494,10 @@ def check_ref(manual, file, m):
 
         stdout.write('\n')
         if type == 'ref':
-            stdout.write("[1;31m%s: %d: '%s': "
-                         "wrong internal cross-reference[0m\n"
+            stdout.write("[1;31m%s:%d: '%s': wrong `@ref`[0m\n"
                          % (file, line, name))
         else:
-            stdout.write("[1;31m%s: %d: '%s': "
-                         "wrong external '%s' cross-reference[0m\n"
+            stdout.write("[1;31m%s:%d: '%s': wrong `@%s`[0m\n"
                          % (file, line, name, type))
 
         # print context
@@ -516,13 +513,17 @@ def check_ref(manual, file, m):
             if name in manuals[k]['nodes']:
                 if k == manual:
                     found = ['ref']
-                    stdout.write(
-                        "[1;32m  found as internal cross-reference[0m\n")
+                    stdout.write("[1;32m  should be @ref[0m\n")
                     break
                 else:
                     found.append(k)
-                    stdout.write(
-                        "[1;32m  found as '%s' cross-reference[0m\n" % k)
+
+        if len(found) and found[0] != 'ref':
+            stdout.write("[1;32m  possible origin%s: "
+                         % ('s' if len(found) > 1 else ''))
+            for r in found[:-1]:
+                stdout.write("%s, " % inv_references_dict[r])
+            stdout.write("%s[0m\n" % inv_references_dict[found[-1]])
 
         if (len(found) == 1
                 and (options.auto_fix
