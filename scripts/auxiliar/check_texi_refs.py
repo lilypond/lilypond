@@ -3,7 +3,6 @@
 """
 check_texi_refs.py
 Interactive Texinfo cross-references checking and fixing tool
-
 """
 
 # This file is part of LilyPond, the GNU music typesetter.
@@ -36,42 +35,45 @@ stdout = sys.stdout
 
 file_not_found = 'file not found in include path'
 
-warn_not_fixed = '*** Warning: this broken x-ref has not been fixed!\n'
+warn_not_fixed = \
+    '*** Warning: this broken cross-reference has not been fixed!\n'
 
 opt_parser = optparse.OptionParser(usage='check_texi_refs.py [OPTION]... FILE',
-                                   description='''Check and fix \
-cross-references in a collection of Texinfo
-documents heavily cross-referenced each other.
+                                   description='''\
+Check and fix cross-references in a collection of Texinfo
+documents heavily cross-referencing each other.
 ''')
 
 opt_parser.add_option('-a', '--auto-fix',
-                      help="Automatically fix cross-references whenever \
-it is possible",
+                      help="automatically fix cross-references whenever "
+                           "it is possible",
                       action='store_true',
                       dest='auto_fix',
                       default=False)
 
 opt_parser.add_option('-b', '--batch',
-                      help="Do not run interactively",
+                      help="do not run interactively",
                       action='store_false',
                       dest='interactive',
                       default=True)
 
 opt_parser.add_option('-c', '--check-comments',
-                      help="Also check commented out x-refs",
+                      help="also check commented-out cross-references",
                       action='store_true',
                       dest='check_comments',
                       default=False)
 
 opt_parser.add_option('-p', '--check-punctuation',
-                      help="Check punctuation after x-refs",
+                      help="check punctuation after cross-references",
                       action='store_true',
                       dest='check_punctuation',
                       default=False)
 
-opt_parser.add_option("-I", '--include', help="add DIR to include path",
+opt_parser.add_option("-I", '--include',
+                      help="add DIR to include path",
                       metavar="DIR",
-                      action='append', dest='include_path',
+                      action='append',
+                      dest='include_path',
                       default=[])
 
 (options, files) = opt_parser.parse_args()
@@ -80,6 +82,7 @@ options.include_path.append(os.path.abspath(os.getcwd()))
 
 class InteractionError (Exception):
     pass
+
 
 references_dict = {
     'changes': 'rchanges',
@@ -96,6 +99,7 @@ references_dict = {
 
 manuals = {}
 
+
 def find_file(name, prior_directory='.'):
     p = os.path.join(prior_directory, name)
     out_p = os.path.join(prior_directory, outdir, name)
@@ -110,7 +114,7 @@ def find_file(name, prior_directory='.'):
         if os.path.isfile(p):
             return p
 
-    # file not found in include_path: looking in `outdir' subdirs
+    # file not found in include_path: looking in `outdir` subdirs
     for d in options.include_path:
         p = os.path.join(d, outdir, name)
         if os.path.isfile(p):
@@ -142,14 +146,14 @@ if options.interactive:
             retries -= 1
 
     def search_prompt():
-        """Prompt user for a substring to look for in node names.
+        """\
+Prompt user for a substring to look for in node names.
 
-If user input is empty or matches no node name, return None,
-otherwise return a list of (manual, node name, file) tuples.
-
+If user input is empty or matches no node name, return `None`, otherwise
+return a list of `(manual, node name, file)` tuples.
 """
-        substring = input("Enter a substring to search in node names \
-(press Enter to skip this x-ref):\n")
+        substring = input("Enter a substring to search in node names "
+                          "(press Enter to skip this cross-reference):\n")
         if not substring:
             return None
         substring = substring.lower()
@@ -168,9 +172,9 @@ else:
         return None
 
 
-ref_re = re.compile('@((?:ressay|rgloss|rinternals|rlearning|rslr|rprogram|rnotation|ref)|named)(?:\\{(?P<ref>[^,\\\\\\}]+?)|\
-named\\{(?P<refname>[^,\\\\]+?),(?P<display>[^,\\\\\\}]+?))\\}(?P<last>.)',
-                    re.DOTALL)
+ref_re = re.compile(
+    '@((?:ressay|rgloss|rinternals|rlearning|rslr|rprogram|rnotation|ref)|named)(?:\\{(?P<ref>[^,\\\\\\}]+?)|\
+named\\{(?P<refname>[^,\\\\]+?),(?P<display>[^,\\\\\\}]+?))\\}(?P<last>.)', re.DOTALL)
 node_include_re = re.compile(r'(?m)^@(node|include)\s+(.+?)$')
 
 whitespace_re = re.compile(r'\s+')
@@ -178,10 +182,11 @@ line_start_re = re.compile('(?m)^')
 
 
 def which_line(index, newline_indices):
-    """Calculate line number of a given string index
+    """\
+Calculate line number of a given string index.
 
-Return line number of string index index, where
-newline_indices is an ordered iterable of all newline indices.
+Return line number of string index `index`, where `newline_indices` is an
+ordered iterable of all newline indices.
 """
     inf = 0
     sup = len(newline_indices) - 1
@@ -221,6 +226,7 @@ def read_file(f, d):
     d['contents'][f] = s
 
     d['newline_indices'][f] = [m.end() for m in line_start_re.finditer(s)]
+
     if options.check_comments:
         d['comments_boundaries'][f] = []
     else:
@@ -244,31 +250,36 @@ def read_file(f, d):
 
 
 def read_manual(name):
-    """Look for all node names and cross-references in a Texinfo document
+    """\
+Look for all node names and cross-references in a Texinfo document.
 
-Return a (manual, dictionary) tuple where manual is the cross-reference
-macro name defined by references_dict[name], and dictionary
-has the following keys:
+Return a `(manual, dictionary)` tuple where `manual` is the cross-reference
+macro name defined by `references_dict[name]`, and `dictionary` has the
+following keys:
 
-  'nodes' is a dictionary of `node name':(file name, line number),
+  'nodes':
+    a dictionary of 'node name': `(file name, line number)`
 
-  'contents' is a dictionary of file:`full file contents',
+  'contents':
+    a dictionary of file: `full file contents`
 
-  'newline_indices' is a dictionary of
-file:[list of beginning-of-line string indices],
+  'newline_indices':
+    a dictionary of file: `[list of beginning-of-line string indices]`
 
-  'comments_boundaries' is a list of (start, end) tuples,
-which contain string indices of start and end of each comment.
+  'comments_boundaries':
+    a list of `(start, end)` tuples, which contain start and end string
+    indices of each comment
 
 Included files that can be found in the include path are processed too.
-
 """
     d = {}
     d['nodes'] = {}
     d['contents'] = {}
     d['newline_indices'] = {}
     d['comments_boundaries'] = {}
+
     manual = references_dict.get(name, '')
+
     try:
         f = find_file(name + '.tely')
     except EnvironmentError as xxx_todo_changeme2:
@@ -294,8 +305,7 @@ Included files that can be found in the include path are processed too.
 
 log.write("Reading files...\n")
 
-manuals = dict([read_manual(name)
-                for name in list(references_dict.keys())])
+manuals = dict([read_manual(name) for name in references_dict.keys()])
 
 ref_fixes = set()
 bad_refs_count = 0
@@ -332,6 +342,7 @@ def choose_in_numbered_list(message, string_list, sep=' ', retries=3):
     string_list = list(S)
     numbered_list = sep.join([str(j + 1) + '. ' + string_list[j]
                               for j in range(len(string_list))]) + '\n'
+
     t = retries
     while t > 0:
         value = ''
@@ -340,6 +351,7 @@ def choose_in_numbered_list(message, string_list, sep=' ', retries=3):
         response = input(numbered_list)
         if not response:
             return ''
+
         try:
             value = string_list[int(response) - 1]
         except IndexError:
@@ -350,13 +362,15 @@ def choose_in_numbered_list(message, string_list, sep=' ', retries=3):
             if n == 0:
                 stdout.write("Error: input matches no item in the list\n")
             elif n > 1:
-                stdout.write("Error: ambiguous input (matches several items \
-in the list)\n")
+                stdout.write("Error: ambiguous input "
+                             "(matches several items in the list)\n")
             else:
                 value = string_list[matches.index(True)]
+
         if value:
             return value
         t -= 1
+
     raise InteractionError("%d retries limit exceeded" % retries)
 
 
@@ -365,30 +379,40 @@ refs_count = 0
 
 def check_ref(manual, file, m):
     global fixes_count, bad_refs_count, refs_count
+
     refs_count += 1
     bad_ref = False
     fixed = True
+
     type = m.group(1)
+
     original_name = m.group('ref') or m.group('refname')
-    name = whitespace_re.sub(' ', original_name). strip()
+    name = whitespace_re.sub(' ', original_name).strip()
+
     newline_indices = manuals[manual]['newline_indices'][file]
     line = which_line(m.start(), newline_indices)
+
     linebroken = '\n' in original_name
+
     original_display_name = m.group('display')
     next_char = m.group('last')
-    if original_display_name:  # the xref has an explicit display name
+
+    if original_display_name:  # cross-reference has explicit display name
         display_linebroken = '\n' in original_display_name
-        display_name = whitespace_re.sub(' ', original_display_name). strip()
+        display_name = whitespace_re.sub(' ', original_display_name).strip()
+
     commented_out = is_commented_out(
         m.start(), m.end(), manuals[manual]['comments_boundaries'][file])
-    useful_fix = not outdir in file
 
-    # check puncuation after x-ref
-    if options.check_punctuation and not next_char in '.,;:!?':
-        stdout.write("Warning: %s: %d: `%s': x-ref \
-not followed by punctuation\n" % (file, line, name))
+    useful_fix = outdir not in file
 
-    # validate xref
+    # check punctuation after cross-reference
+    if options.check_punctuation and next_char not in '.,;:!?':
+        stdout.write("Warning: %s: %d: '%s': "
+                     "cross-reference not followed by punctuation\n"
+                     % (file, line, name))
+
+    # validate cross-reference
     explicit_type = type
     new_name = name
 
@@ -396,7 +420,8 @@ not followed by punctuation\n" % (file, line, name))
         if useful_fix:
             fixed = False
             bad_ref = True
-            stdout.write("\n%s: %d: `%s': external %s x-ref should be internal\n"
+            stdout.write("\n%s: %d: '%s': "
+                         "external %s cross-reference should be internal\n"
                          % (file, line, name, type))
             if options.auto_fix or yes_prompt("Fix this?"):
                 type = 'ref'
@@ -404,21 +429,25 @@ not followed by punctuation\n" % (file, line, name))
     if type == 'ref':
         explicit_type = manual
 
-    if not name in manuals[explicit_type]['nodes'] and not commented_out:
+    if name not in manuals[explicit_type]['nodes'] and not commented_out:
         bad_ref = True
         fixed = False
+
         stdout.write('\n')
         if type == 'ref':
-            stdout.write("[1;31m%s: %d: `%s': wrong internal x-ref[0m\n"
+            stdout.write("[1;31m%s: %d: '%s': "
+                         "wrong internal cross-reference[0m\n"
                          % (file, line, name))
         else:
-            stdout.write("[1;31m%s: %d: `%s': wrong external `%s' x-ref[0m\n"
+            stdout.write("[1;31m%s: %d: '%s': "
+                         "wrong external '%s' cross-reference[0m\n"
                          % (file, line, name, type))
+
         # print context
-        stdout.write('--\n' + manuals[manual]['contents'][file]
-                     [newline_indices[max(0, line - 2)]:
-                      newline_indices[min(line + 3,
-                                          len(newline_indices) - 1)]] +
+        line_from = newline_indices[max(0, line - 2)]
+        line_to = newline_indices[min(line + 3, len(newline_indices) - 1)]
+        stdout.write('--\n' +
+                     manuals[manual]['contents'][file][line_from:line_to] +
                      '--\n')
 
         # try to find the reference in other manuals
@@ -427,25 +456,29 @@ not followed by punctuation\n" % (file, line, name))
             if name in manuals[k]['nodes']:
                 if k == manual:
                     found = ['ref']
-                    stdout.write("[1;32m  found as internal x-ref[0m\n")
+                    stdout.write(
+                        "[1;32m  found as internal cross-reference[0m\n")
                     break
                 else:
                     found.append(k)
-                    stdout.write("[1;32m  found as `%s' x-ref[0m\n" % k)
+                    stdout.write(
+                        "[1;32m  found as '%s' cross-reference[0m\n" % k)
 
         if (len(found) == 1
-                and (options.auto_fix or yes_prompt("Fix this x-ref?"))):
+                and (options.auto_fix
+                     or yes_prompt("Fix this cross-reference?"))):
             add_fix(type, name, found[0], name)
             type = found[0]
             fixed = True
 
         elif len(found) > 1 and useful_fix:
             if options.interactive or options.auto_fix:
-                stdout.write("* Several manuals contain this node name, \
-cannot determine manual automatically.\n")
+                stdout.write("* Several manuals contain this node name, "
+                             "cannot determine manual automatically.\n")
             if options.interactive:
-                t = choose_in_numbered_list("Choose manual for this x-ref by \
-index number or beginning of name:\n", found)
+                t = choose_in_numbered_list(
+                    "Choose manual for this cross-reference by "
+                    "index number or beginning of name:\n", found)
                 if t:
                     add_fix(type, name, t, name)
                     type = t
@@ -456,19 +489,21 @@ index number or beginning of name:\n", found)
             found = lookup_fix(name)
 
             if len(found) == 1:
-                stdout.write("Found one previous fix: %s `%s'\n" % found[0])
+                stdout.write("Found one previous fix: %s '%s'\n" % found[0])
                 if options.auto_fix or yes_prompt("Apply this fix?"):
                     type, new_name = found[0]
                     fixed = True
 
             elif len(found) > 1:
                 if options.interactive or options.auto_fix:
-                    stdout.write("* Several previous fixes match \
-this node name, cannot fix automatically.\n")
+                    stdout.write(
+                        "* Several previous fixes match this node name, "
+                        "cannot fix automatically.\n")
                 if options.interactive:
-                    concatened = choose_in_numbered_list("Choose new manual \
-and x-ref by index number or beginning of name:\n", [''.join([i[0], ' ', i[1]])
-                                                     for i in found],
+                    concatened = choose_in_numbered_list(
+                        "Choose new manual and cross-reference "
+                        "by index number or beginning of name:\n",
+                        [''.join([i[0], ' ', i[1]]) for i in found],
                         sep='\n')
                     if concatened:
                         type, new_name = concatenated.split(' ', 1)
@@ -486,11 +521,12 @@ and x-ref by index number or beginning of name:\n", [''.join([i[0], ' ', i[1]])
                 elif not node_list:
                     stdout.write("No matched node names.\n")
                 else:
-                    concatenated = choose_in_numbered_list("Choose \
-node name and manual for this x-ref by index number or beginning of name:\n",
-                                                           [' '.join([i[0], i[1], '(in %s)' % i[2]])
-                                                            for i in node_list],
-                                                           sep='\n')
+                    concatenated = choose_in_numbered_list(
+                        "Choose node name and manual for this cross-reference "
+                        "by index number or beginning of name:\n",
+                        [' '.join([i[0], i[1], '(in %s)' % i[2]])
+                         for i in node_list],
+                        sep='\n')
                     if concatenated:
                         t, z = concatenated.split(' ', 1)
                         new_name = z.split(' (in ', 1)[0]
@@ -503,8 +539,9 @@ node name and manual for this x-ref by index number or beginning of name:\n",
         type = 'ref'
     bad_refs_count += int(bad_ref)
     if bad_ref and not useful_fix:
-        stdout.write("*** Warning: this file is automatically generated, \
-please fix the code source instead of generated documentation.\n")
+        stdout.write("*** Warning: this file is automatically generated, "
+                     "please fix the code source "
+                     "instead of generated documentation.\n")
 
     # compute returned string
     if new_name == name:
@@ -512,7 +549,8 @@ please fix the code source instead of generated documentation.\n")
             # only the type of the ref was fixed
             fixes_count += int(fixed)
         if original_display_name:
-            return ('@%snamed{%s,%s}' % (type, original_name, original_display_name)) + next_char
+            return ('@%snamed{%s,%s}'
+                    % (type, original_name, original_display_name)) + next_char
         else:
             return ('@%s{%s}' % (type, original_name)) + next_char
     else:
@@ -520,11 +558,13 @@ please fix the code source instead of generated documentation.\n")
         (ref, n) = preserve_linebreak(new_name, linebroken)
         if original_display_name:
             if bad_ref:
-                stdout.write("Current display name is `%s'\n")
-                display_name = input("Enter a new display name or press enter to keep the existing name:\n") \
-                    or display_name
-                (display_name, n) = preserve_linebreak(
-                    display_name, display_linebroken)
+                stdout.write("Current display name is '%s'\n")
+                display_name = (
+                    input("Enter a new display name "
+                          "or press enter to keep the existing name:\n")
+                    or display_name)
+                (display_name, n) = preserve_linebreak(display_name,
+                                                       display_linebroken)
             else:
                 display_name = original_display_name
             return ('@%snamed{%s,%s}' % (type, ref, display_name)) + \
@@ -549,5 +589,6 @@ except InteractionError as instance:
     log.write("Operation refused by user: %s\nExiting.\n" % instance)
     sys.exit(3)
 
-log.write("[1;36mDone: %d x-refs found, %d bad x-refs found, fixed %d.[0m\n" %
+log.write("[1;36mDone: %d cross-references found; "
+          "%d are bad, %d are fixed[0m\n" %
           (refs_count, bad_refs_count, fixes_count))
