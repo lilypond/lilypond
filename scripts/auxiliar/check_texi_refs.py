@@ -89,12 +89,13 @@ references_dict = {
     'contributor': 'rcontrib',
     'essay': 'ressay',
     'extending': 'rextend',
+    'internals': 'rinternals',
     'learning': 'rlearning',
     'music-glossary': 'rglos',
     'notation': 'rnotation',
     'snippets': 'rlsr',
     'usage': 'rprogram',
-    'internals': 'rinternals',
+    'web': 'rweb',
 }
 
 manuals = {}
@@ -172,17 +173,24 @@ else:
         return None
 
 
+# TODO: `@rlsrsnippet` cannot be handled with the current algorithm.
 ref_re = re.compile(
     r'''(?sx)
         @
-        (ressay
-         | rgloss
+        (  pxref        # no `@pxrefnamed`
+         | rchanges
+         | rcontrib
+         | ref          # no `@refnamed`
+         | ressay
+         | rextend
+         | rglos
          | rinternals
          | rlearning
-         | rslr
-         | rprogram
+         | rlsr
          | rnotation
-         | ref
+         | rprogram
+         | rweb
+         | xref         # no `@xrefnamed`
         )
         (?:   [{]
               (?P<ref> [^\\,}]+?)
@@ -421,8 +429,12 @@ def check_ref(manual, file, m):
     refs_count += 1
     bad_ref = False
     fixed = True
+    ref_flavour = None
 
     type = m.group(1)
+    if type == 'pxref' or type == 'xref':
+        ref_flavour = type
+        type = 'ref'
 
     original_name = m.group('ref') or m.group('refname')
     name = whitespace_re.sub(' ', original_name).strip()
@@ -583,6 +595,8 @@ def check_ref(manual, file, m):
 
     # compute returned string
     if new_name == name:
+        if type == 'ref' and ref_flavour is not None:
+            type = ref_flavour
         if bad_ref and (options.interactive or options.auto_fix):
             # only the type of the ref was fixed
             fixes_count += int(fixed)
