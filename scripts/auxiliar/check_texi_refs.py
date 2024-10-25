@@ -173,10 +173,36 @@ else:
 
 
 ref_re = re.compile(
-    '@((?:ressay|rgloss|rinternals|rlearning|rslr|rprogram|rnotation|ref)|named)(?:\\{(?P<ref>[^,\\\\\\}]+?)|\
-named\\{(?P<refname>[^,\\\\]+?),(?P<display>[^,\\\\\\}]+?))\\}(?P<last>.)', re.DOTALL)
-node_include_re = re.compile(r'(?m)^@(node|include)\s+(.+?)$')
-
+    r'''(?sx)
+        @
+        (ressay
+         | rgloss
+         | rinternals
+         | rlearning
+         | rslr
+         | rprogram
+         | rnotation
+         | ref
+        )
+        (?:   [{]
+              (?P<ref> [^\\,}]+?)
+            | named
+              [{]
+              (?P<refname> [^\\,}]+?)
+              \s+
+              ,
+              (?P<display> [^\\,}]+?)
+        )
+        [}]
+        (?P<last> .)
+    ''')
+node_include_re = re.compile(
+    r'''(?mx)
+        ^ @ (node | include)
+        \s+
+        (.+?)
+        $
+    ''')
 whitespace_re = re.compile(r'\s+')
 line_start_re = re.compile('(?m)^')
 
@@ -200,8 +226,20 @@ ordered iterable of all newline indices.
     return inf + 1
 
 
-comments_re = re.compile('(?<!@)(@c(?:omment)? \
-.*?\\n|^@ignore\\n.*?\\n@end ignore\\n)', re.M | re.S)
+comments_re = re.compile(
+    r'''(?msx)
+        (
+          (?<! @)
+          @ c (?: omment)?
+          [ ]
+          .*? \n
+        |
+          ^
+          @ignore \n
+          .*? \n
+          @end [ ]+ ignore \n
+        )
+    ''')
 
 
 def calc_comments_boundaries(texinfo_doc):
