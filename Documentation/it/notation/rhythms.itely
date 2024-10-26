@@ -1177,7 +1177,7 @@ specificata nelle nuove impostazioni:
     \relative c' {
       \overrideTimeSignatureSettings
         4/4        % timeSignatureFraction
-        1/4        % baseMoment
+        #1/4       % beatBase
         3,1        % beatStructure
         #'()       % beamExceptions
       \time 4/4
@@ -1196,7 +1196,7 @@ specificata nelle nuove impostazioni:
 di tempo a cui questi valori si riferiscono.
 
 @item
-@code{@var{baseMoment}}, una frazione che contiene il numeratore e
+@code{@var{beatBase}}, una frazione che contiene il numeratore e
 il denominatore dell'unità di tempo.
 
 @item
@@ -1223,7 +1223,7 @@ essere ripristinati ai valori originali:
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
-      1/4        % baseMoment
+      #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1246,7 +1246,7 @@ di tempo per righi diversi spostando @code{Timing_translator} e
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          #1/4       % beatBase
           3,1        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1255,7 +1255,7 @@ di tempo per righi diversi spostando @code{Timing_translator} e
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          #1/4       % beatBase
           1,3        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -2561,7 +2561,7 @@ descritte in @ref{Time signature}.
   \new Staff {
     \overrideTimeSignatureSettings
       3/4               % timeSignatureFraction
-      1/8               % baseMoment
+      #1/8              % beatBase
       1,5               % beatStructure
       #'()		% beamExceptions
     \time 3/4

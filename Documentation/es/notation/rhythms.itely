@@ -1232,7 +1232,7 @@ con el mismo valor del tipo de compás:
     \relative c' {
       \overrideTimeSignatureSettings
         4/4        % timeSignatureFraction
-        1/4        % baseMoment
+        #1/4       % beatBase
         3,1        % beatStructure
         #'()       % beamExceptions
       \time 4/4
@@ -1251,7 +1251,7 @@ con el mismo valor del tipo de compás:
 tipo de compás al que se aplican estos valores.
 
 @item
-@code{@var{baseMoment}}, una fracción que contiene el
+@code{@var{beatBase}}, una fracción que contiene el
 numerador y denominador de la unidad de medida básica de ese tipo
 de compás.
 
@@ -1280,7 +1280,7 @@ tipo de compás se pueden restaurar a los valores originales:
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
-      1/4        % baseMoment
+      #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1304,7 +1304,7 @@ contexto @code{Staff}.
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          #1/4       % beatBase
           3,1        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1313,7 +1313,7 @@ contexto @code{Staff}.
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          #1/4       % beatBase
           1,3        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -2657,7 +2657,7 @@ barrado automático para una indicación de compás se describe en
   \new Staff {
     \overrideTimeSignatureSettings
       3/4               % timeSignatureFraction
-      1/8               % baseMoment
+      #1/8              % beatBase
       1,5               % beatStructure
       #'()		% beamExceptions
     \time 3/4

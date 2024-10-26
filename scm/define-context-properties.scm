@@ -794,7 +794,7 @@ signifying the time signature.  For example, @code{'(4 . 4)} is a
 4/4 time signature.")
      (timeSignatureSettings ,cheap-list? "A nested alist of settings for
 time signatures.  Contains elements for various time signatures.  The
-element for each time signature contains entries for @code{baseMoment},
+element for each time signature contains entries for @code{beatBase},
 @code{beatStructure}, and @code{beamExceptions}.")
      (timing ,boolean? "Keep administration of measure length,
 position, bar number, etc.?  Switch off for cadenzas.")

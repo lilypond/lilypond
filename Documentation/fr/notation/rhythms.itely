@@ -1391,7 +1391,7 @@ de métrique correspondante :
   \relative c' {
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
-      1/4        % baseMoment
+      #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1409,7 +1409,7 @@ de métrique correspondante :
 métrique pour laquelle ces valeurs doivent s'appliquer,
 
 @item
-@code{@var{baseMoment}}, une fraction comprenant les numérateur
+@code{@var{beatBase}}, une fraction comprenant les numérateur
 et dénominateur de la fraction indiquant la base de la pulsation,
 
 @item
@@ -1435,7 +1435,7 @@ métrique :
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
-      1/4        % baseMoment
+      #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1457,7 +1457,7 @@ réglages particuliers pour les différentes portées d'un regroupement --
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          #1/4       % beatBase
           3,1        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1466,7 +1466,7 @@ réglages particuliers pour les différentes portées d'un regroupement --
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          #1/4       % beatBase
           1,3        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -2906,7 +2906,7 @@ automatiques est abordée au chapitre @ref{Time signature}.
   \new Staff {
     \overrideTimeSignatureSettings
       3/4               % timeSignatureFraction
-      1/8               % baseMoment
+      #1/8              % beatBase
       1,5               % beatStructure
       #'()		% beamExceptions
     \time 3/4

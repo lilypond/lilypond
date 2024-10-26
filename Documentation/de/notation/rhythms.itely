@@ -1115,7 +1115,7 @@ werden.
     \relative c' {
       \overrideTimeSignatureSettings
         4/4        % timeSignatureFraction
-        1/4        % baseMoment
+        #1/4       % beatBase
         3,1        % beatStructure
         #'()       % beamExceptions
       \time 4/4
@@ -1134,7 +1134,7 @@ werden.
 der den Takt beschreibt.
 
 @item
-@code{@var{baseMoment}} (Grundmoment-Bruch), ein Bruch, der
+@code{@var{beatBase}} (Grundmoment-Bruch), ein Bruch, der
 den Zähler und Nenner der Grundschlageinheit der Taktart enhält.
 
 @item
@@ -1159,7 +1159,7 @@ Noten in dem Kontext befinen müssen, bevor
     % This call will fail because the context isn't yet instantiated
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
-      1/4        % baseMoment
+      #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1168,7 +1168,7 @@ Noten in dem Kontext befinen müssen, bevor
     % This call will succeed
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
-      1/4        % baseMoment
+      #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1193,7 +1193,7 @@ Standard zurückgesetzt werden:
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
-      1/4        % baseMoment
+      #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1216,7 +1216,7 @@ Notensysteme können eingerichtet werden, indem man den
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          #1/4       % beatBase
           3,1        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1225,7 +1225,7 @@ Notensysteme können eingerichtet werden, indem man den
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          #1/4       % beatBase
           1,3        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -2446,7 +2446,7 @@ der automatischen Bebalkungsregeln für eine Taktart sind in
   \new Staff {
     \overrideTimeSignatureSettings
       3/4               % timeSignatureFraction
-      1/8               % baseMoment
+      #1/8              % beatBase
       1,5               % beatStructure
       #'()		% beamExceptions
     \time 3/4

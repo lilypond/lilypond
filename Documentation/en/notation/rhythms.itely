@@ -1356,7 +1356,7 @@ signature is executed:
     \relative c' {
       \overrideTimeSignatureSettings
         4/4        % timeSignatureFraction
-        1/4        % baseMoment
+        #1/4       % beatBase
         3,1        % beatStructure
         #'()       % beamExceptions
       \time 4/4
@@ -1375,12 +1375,12 @@ signature is executed:
 time signature to which these values apply.
 
 @item
-@code{@var{baseMoment}}, a fraction containing the numerator
-and denominator of the basic timing unit for the time signature.
+@code{@var{beatBase}}, the musical length corresponding to one
+unit of @var{beatStructure}.
 
 @item
-@code{@var{beatStructure}}, a Scheme list indicating the structure
-of the beats in the measure, in units of the base moment.
+@code{@var{beatStructure}}, a Scheme list describing the length of
+each beat in the measure in units of @var{beatBase}.
 
 @item
 @code{@var{beamExceptions}}, an alist containing any beaming rules
@@ -1402,7 +1402,7 @@ to the original values:
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
-      1/4        % baseMoment
+      #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
@@ -1424,7 +1424,7 @@ established for different staves by enabling polymetric notation
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          #1/4       % beatBase
           3,1        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -1433,7 +1433,7 @@ established for different staves by enabling polymetric notation
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          #1/4       % beatBase
           1,3        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -2867,7 +2867,7 @@ beaming settings for a time signature are described in
   \new Staff {
     \overrideTimeSignatureSettings
       3/4               % timeSignatureFraction
-      1/8               % baseMoment
+      #1/8              % beatBase
       1,5               % beatStructure
       #'()		% beamExceptions
     \time 3/4

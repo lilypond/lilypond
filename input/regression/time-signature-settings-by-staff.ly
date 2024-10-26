@@ -12,7 +12,7 @@ staff if the @code{Timing_translator} is moved from @code{Score} to
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          1/4        % baseMoment
+          1/4        % beatBase
           3,1        % beatStructure
           #'()       % beamExceptions
         \time 4/4
@@ -21,7 +21,7 @@ staff if the @code{Timing_translator} is moved from @code{Score} to
      \new Staff {
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
-          #1/4       % baseMoment
+          #1/4       % beatBase
           1,3        % beatStructure
           #'()       % beamExceptions
         \time 4/4

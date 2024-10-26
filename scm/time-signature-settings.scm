@@ -26,7 +26,7 @@
 ;;; time signature.  Each default-properties set can contain the
 ;;; following entries:
 ;;;
-;;;   (baseMoment . (/ numerator denominator))
+;;;   (beatBase . (/ numerator denominator))
 ;;;   (beatStructure . structure-list)
 ;;;   (beamExceptions . (alist of beam exceptions that don't follow beats))
 ;;;
@@ -41,7 +41,7 @@
 ;;;     grouping-list is a list that specifies the
 ;;;     number of stems of the given duration that are grouped in a beamed unit.
 ;;;     For an exception, the duration used is beam-type.  For measureBeats,
-;;;     the duration used is baseMoment.
+;;;     the duration used is beatBase.
 ;;;
 ;;;     If an exception is specified for a given beam-type, it will apply to all
 ;;;     beams of shorter durations that don't have an individual exception, so
@@ -56,9 +56,9 @@
 ;;;     a 3/2 tuplet of the 1/8 kind would get exceptions looked up
 ;;;     under 1/12.
 ;;;
-;;; If no values are given for baseMoment and measureBeats, default values
+;;; If no values are given for beatBase and measureBeats, default values
 ;;;   will be assigned:
-;;;   baseMoment gets the value (/ time-signature-denominator)
+;;;   beatBase gets the value (/ time-signature-denominator)
 ;;;   beatStructure gets a list of (3 3 3 ...), where the number of entries is the
 ;;;     number of beats, each containing 3 base-moments, if the time
 ;;;     signature numerator is greater than 3 and divisible by 3, and
@@ -179,7 +179,7 @@
                              beat-structure
                              beam-exceptions)
   (list
-   (cons 'baseMoment (musical-length->number beat-base))
+   (cons 'beatBase (musical-length->number beat-base))
    (cons 'beatStructure beat-structure)
    (cons 'beamExceptions beam-exceptions)))
 
@@ -190,9 +190,9 @@
       INF-MOMENT))
 
 (define-public (beat-base time-signature time-signature-settings)
-  "Get @code{baseMoment} rational value for @var{time-signature} from
+  "Get @code{beatBase} rational value for @var{time-signature} from
 @var{time-signature-settings}."
-  (let ((return-value (get-setting 'baseMoment
+  (let ((return-value (get-setting 'beatBase
                                    time-signature
                                    time-signature-settings)))
     (if (null? return-value)
