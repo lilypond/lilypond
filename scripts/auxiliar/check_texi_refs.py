@@ -98,24 +98,27 @@ manuals = {}
 
 
 def find_file(name, prior_directory='.'):
+    # look for file relative to current directory
     p = os.path.join(prior_directory, name)
-    out_p = os.path.join(prior_directory, outdir, name)
     if os.path.isfile(p):
-        return p
-    elif os.path.isfile(out_p):
-        return out_p
+        return os.path.normpath(p)
 
-    # looking for file in include_path
+    # look for file in `outdir` (relative to current directory)
+    out_p = os.path.join(outdir, prior_directory, name)
+    if os.path.isfile(out_p):
+        return os.path.normpath(out_p)
+
+    # look for file in `include_path`
     for d in options.include_path:
         p = os.path.join(d, name)
         if os.path.isfile(p):
-            return p
+            return os.path.normpath(p)
 
-    # file not found in include_path: looking in `outdir` subdirs
+    # look for file in `include_path` within `outdir`
     for d in options.include_path:
-        p = os.path.join(d, outdir, name)
+        p = os.path.join(outdir, d, name)
         if os.path.isfile(p):
-            return p
+            return os.path.normpath(p)
 
     raise EnvironmentError(1, file_not_found, name)
 
@@ -269,7 +272,6 @@ def is_commented_out(start, end, comments_boundaries):
 
 def read_file(f, d):
     s = open(f, encoding='utf-8').read()
-    base = os.path.basename(f)
     dir = os.path.dirname(f)
 
     d['contents'][f] = s
