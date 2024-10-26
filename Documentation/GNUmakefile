@@ -188,6 +188,15 @@ DOCUMENTATION_INCLUDE_DIRS = \
 
 DOCUMENTATION_INCLUDES = $(addprefix -I ,$(DOCUMENTATION_INCLUDE_DIRS))
 
+# `check_texi_refs.py` wants `.tely` files first.
+ifneq ($(ISOLANG),)
+  XREF_INCLUDE_DIRS = $(ISOLANG) en .
+else
+  XREF_INCLUDE_DIRS = en .
+endif
+
+XREF_INCLUDES = $(addprefix -I ,$(XREF_INCLUDE_DIRS))
+
 ifeq ($(WEB_VERSION),yes)
   TEXI2ANY_HTML_FLAGS += -D web_version
   TEXI2PDF_LOCAL_FLAGS += -D web_version
@@ -726,11 +735,11 @@ endif # ISOLANG
 
 check-xrefs:
 	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --batch \
-	  $(DOCUMENTATION_INCLUDES)
+	  $(XREF_INCLUDES)
 
 fix-xrefs:
 	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --auto-fix \
-	  $(DOCUMENTATION_INCLUDES)
+	  $(XREF_INCLUDES)
 
 check-translation:
 	cd $(src-dir) \
