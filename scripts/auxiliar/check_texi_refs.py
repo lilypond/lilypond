@@ -95,6 +95,7 @@ references_dict = {
 inv_references_dict = {v: k for k, v in references_dict.items()}
 
 manuals = {}
+files = {}
 
 
 def find_file(name, prior_directory='.'):
@@ -274,6 +275,15 @@ def read_file(f, d):
     s = open(f, encoding='utf-8').read()
     dir = os.path.dirname(f)
 
+    if f in files:
+        files[f][0] += 1
+        # Read files only once.
+        return
+    else:
+        # Count how often a file gets included and collect the file's node
+        # names.
+        files[f] = [1, set()]
+
     d['contents'][f] = s
     d['newline_indices'][f] = [m.end() for m in line_start_re.finditer(s)]
     d['comments_boundaries'][f] = calc_comments_boundaries(s)
@@ -285,6 +295,7 @@ def read_file(f, d):
             line = which_line(m.start(), d['newline_indices'][f])
             arg = m.group(2) if is_node else m.group(4)
             d['nodes'][arg] = (f, line)
+            files[f][1].add(arg)
 
         elif m.group(1) == 'include':
             try:
@@ -426,7 +437,7 @@ def choose_in_numbered_list(message, string_list, sep=' ', retries=3):
 refs_count = 0
 
 
-def check_ref(manual, file, m):
+def check_ref(manual, file, file_count, file_nodes, m):
     global fixes_count, bad_refs_count, refs_count
 
     refs_count += 1
@@ -469,7 +480,13 @@ def check_ref(manual, file, m):
     explicit_type = type
     new_name = name
 
-    if type != 'ref' and type == manual:
+    # Check whether an inter-manual cross-reference command (with two
+    # arguments) can be converted to an intra-manual command (with a single
+    # argument).  For a command in a file that is included more than once,
+    # do this only if the first argument is a node name in this file.
+    if (type != 'ref'
+            and type == manual
+            and (file_count == 1 or name in file_nodes)):
         if useful_fix:
             fixed = False
             bad_ref = True
@@ -481,7 +498,19 @@ def check_ref(manual, file, m):
     if type == 'ref':
         explicit_type = manual
 
-    if name not in manuals[explicit_type]['nodes']:
+    # The check for existing node names in files included more than once is
+    # stricter: We only accept `@ref` (and its siblings) if its argument is
+    # a node name in the file.
+    if file_count == 1 or type != 'ref':
+        nodes = manuals[explicit_type]['nodes']
+    else:
+        nodes = file_nodes
+
+    # Currently, the `@node Top` line of the master file is added in the
+    # included file `macros.itexi`.  Since we read included files only once
+    # we suppress a check for 'Top' (in case this node is really missing,
+    # `texi2any` emits a warning).
+    if name != 'Top' and name not in nodes:
         bad_ref = True
         fixed = False
 
@@ -504,7 +533,7 @@ def check_ref(manual, file, m):
         found = []
         for k in [k for k in manuals if k != explicit_type]:
             if name in manuals[k]['nodes']:
-                if k == manual:
+                if k == manual and file_count == 1:
                     found = ['ref']
                     stdout.write("[1;32m  should be @ref[0m\n")
                     break
@@ -589,7 +618,9 @@ def check_ref(manual, file, m):
                         fixed = True
                         break
 
-    if fixed and type == manual:
+    if (fixed
+            and type == manual
+            and (file_count == 1 or new_name in file_nodes)):
         type = 'ref'
 
     bad_refs_count += int(bad_ref)
@@ -635,7 +666,10 @@ log.write("Checking cross-references...\n")
 try:
     for key in manuals:
         for file in manuals[key]['contents']:
-            s = ref_re.sub(lambda m: check_ref(key, file, m),
+            file_count = files[file][0]
+            file_nodes = files[file][1]
+            s = ref_re.sub(lambda m:
+                           check_ref(key, file, file_count, file_nodes, m),
                            manuals[key]['contents'][file])
             if s != manuals[key]['contents'][file]:
                 open(file, 'w', encoding='utf-8').write(s)
