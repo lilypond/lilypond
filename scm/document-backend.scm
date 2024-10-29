@@ -289,7 +289,9 @@ It supports the following interfaces conditionally depending on the class: ~a."
 (define (backend-properties-doc-string lst)
   (let* ((ps (sort (map symbol->string lst) ly:string-ci<?))
          (descs (map (lambda (prop)
-                       (property->texi 'backend (string->symbol prop) '())) ps))
+                       (property->texi 'backend
+                                       (string->symbol prop) '() #t))
+                     ps))
          (texi (description-list->texi descs #f)))
     texi))
 

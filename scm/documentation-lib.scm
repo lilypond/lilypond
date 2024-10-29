@@ -180,10 +180,10 @@ environment."
                 where))
   (type-name type))
 
-(define* (property->texi where sym #:optional alist)
+(define* (property->texi where sym #:optional alist (anchor #f))
   "Document SYM for WHERE (which can be translation, backend, music),
-with init values from ALIST (1st optional argument)
-"
+with init values from ALIST (1st optional argument).  If ANCHOR is set to #t,
+also emit `@anchor` for SYM."
   (let* ((name (symbol->string sym))
          (type?-name (string->symbol
                       (string-append (symbol->string where) "-type?")))
@@ -198,7 +198,10 @@ with init values from ALIST (1st optional argument)
         (ly:error (G_ "cannot find description for property ~S (~S)") sym where))
 
     (cons
-     (string-append "@code{" name "} (" typename ")"
+     (string-append (if anchor
+                        (string-append "@anchor{" name "}")
+                        "")
+                    "@code{" name "} (" typename ")"
                     (if init-value-pair
                         (string-append ":"
                                        (scm->texi (cdr init-value-pair))

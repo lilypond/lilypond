@@ -292,7 +292,7 @@
          (sortedsyms (map string->symbol ps))
          (propdescs
           (map
-           (lambda (x) (property->texi 'translation  x '()))
+           (lambda (x) (property->texi 'translation  x '() #t))
            sortedsyms))
          (texi (description-list->texi propdescs #f)))
     texi))
