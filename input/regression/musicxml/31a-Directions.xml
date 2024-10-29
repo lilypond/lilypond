@@ -829,9 +829,10 @@
     </measure>
     <measure number="15">
       <print new-system="yes"/>
-      <direction placement="above">
+      <direction placement="below">
         <direction-type>
-          <image source="nestedboxes.png" type="image/png" height="50" width="78"/>
+          <image source="nestedboxes.png" type="image/png"
+                 height="100" width="200" default-y="-200"/>
         </direction-type>
       </direction>
       <note>
