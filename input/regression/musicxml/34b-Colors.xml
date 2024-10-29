@@ -5,11 +5,11 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Colors.  The elements in the first
-          bar have the `color' attribute set to red for &lt;note&gt;,
+          bar have the ‘color’ attribute set to red for &lt;note&gt;,
           &lt;notehead&gt;, &lt;stem&gt;, &lt;dot&gt;, and &lt;accidental&gt;,
           respectively.
 
-          The elements in the second bar have the `color' attribute set to red
+          The elements in the second bar have the ‘color’ attribute set to red
           for &lt;down-bow&gt;, &lt;tremolo&gt;, &lt;accent&gt;, and
           &lt;note&gt; again (for the rest), respectively, followed by a red
           unpitched note.
@@ -18,8 +18,8 @@
 
           The fifth bar has a red rehearsal mark on its starting bar line.  The
           first note has three fingerings, with the middle one in red; also
-          attached is a red `ff' sign.  The second note has three plucks, with
-          the first one in red.  A red `Adagio' tempo indication is on top of
+          attached is a red ‘ff’ sign.  The second note has three plucks, with
+          the first one in red.  A red ‘Adagio’ tempo indication is on top of
           the third beat, which consists of a quadruplet with a red number.  The
           fourth beat holds a red arpeggio, and the fifth beat demonstrates
           lyrics in red.
@@ -32,7 +32,7 @@
           wedge.
 
           Bar eight starts with a red and black tie connecting two chords,
-          followed by 'cresc.' and dashes in red, followed by 'dim.' in black
+          followed by ‘cresc.’ and dashes in red, followed by ‘dim.’ in black
           with red dashes.
 
           The ninth measure demonstrates a red 6/8 time signature, followed by a

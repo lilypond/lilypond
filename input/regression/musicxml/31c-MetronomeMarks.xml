@@ -4,9 +4,9 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Tempo Markings: 'quarter.=100',
-          'quarter..=half.', '(quarter.=half..)',
-          '(quarter.=77)'.</miscellaneous-field>
+      <miscellaneous-field name="description">Tempo Markings: ‘quarter.=100’,
+          ‘quarter..=half.’, ‘(quarter.=half..)’,
+          ‘(quarter.=77)’.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

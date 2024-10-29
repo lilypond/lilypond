@@ -4,7 +4,7 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Test the `print-object' attribute
+      <miscellaneous-field name="description">Test the ‘print-object’ attribute
           of key signatures.  The signature at the beginning of the second bar
           is a flat major and should be invisible; the following notes d flat, e
           flat, a flat, and b flat shouldn't have a flat

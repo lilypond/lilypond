@@ -7,11 +7,11 @@
       <miscellaneous-field name="description">Simultaneous grace notes and grace
           note groups of different length starting a part or a voice.
 
-          The topmost three staves are voices one to three of part `P1', with no
+          The topmost three staves are voices one to three of part ‘P1’, with no
           grace notes in the third staff and music starting on the second beat.
-          There is also an `fp' on the main note of the first staff.
+          There is also an ‘fp’ on the main note of the first staff.
 
-          The bottommost two staves are voices one and two of part `P2', with no
+          The bottommost two staves are voices one and two of part ‘P2’, with no
           grace notes in the lowest staff.</miscellaneous-field>
     </miscellaneous>
   </identification>

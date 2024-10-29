@@ -5,9 +5,9 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Text markup with different CSS
-          font sizes, weights, horizontal positions (using 'default-x'), and
-          vertical positions (using 'default-y').  Strings below the staff are
-          positioned right before the `&lt;measure&gt;'; the last one is also
+          font sizes, weights, horizontal positions (using ‘default-x’), and
+          vertical positions (using ‘default-y’).  Strings below the staff are
+          positioned right before the &lt;measure&gt;; the last one is also
           drawn in red.</miscellaneous-field>
     </miscellaneous>
   </identification>

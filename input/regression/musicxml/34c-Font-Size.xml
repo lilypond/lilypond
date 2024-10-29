@@ -5,11 +5,11 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Font sizes.  The elements in the
-          first bar have the `font-size' attribute set to a larger value for
+          first bar have the ‘font-size’ attribute set to a larger value for
           &lt;note&gt;, &lt;notehead&gt;, &lt;trill-mark&gt;, &lt;dot&gt;, and
           &lt;accidental&gt;, respectively.
 
-          The elements in the second bar have the `font-size' attribute set to a
+          The elements in the second bar have the ‘font-size’ attribute set to a
           larger value for &lt;down-bow&gt;, &lt;accidental-mark&gt;,
           &lt;accent&gt;, and &lt;note&gt; again (for the rest), respectively,
           followed by a larger percussion clef and a larger unpitched note.
@@ -18,14 +18,14 @@
 
           The fifth bar has an oversized rehearsal mark on its starting bar
           line.  The first note has three fingerings, with the middle one
-          oversized; also attached is an oversized `ff' sign.  The second note
-          has three plucks, with the first one oversized.  An oversized `Adagio'
+          oversized; also attached is an oversized ‘ff’ sign.  The second note
+          has three plucks, with the first one oversized.  An oversized ‘Adagio’
           tempo indication is on top of the third and fourth beats, which
           consist of a quadruplet with an oversized number.  The fifth beat
           demonstrates oversized lyrics.
 
           The sixth bar holds an oversized pedal marker with an oversized octave
-          shift, an oversized trill with a wavy line, and an oversized `cresc.'
+          shift, an oversized trill with a wavy line, and an oversized ‘cresc.’
           with dashes.
 
           The seventh measure demonstrates an oversized, non-traditional key

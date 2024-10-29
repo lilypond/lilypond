@@ -12,7 +12,7 @@
           sixth and seventh, and 8vb on the last two 16th notes).  This test
           file positions &lt;octave-shift type="stop"/>&gt; before the
           associated note, as expected in MusicXML import of Finale, for
-          example.  Consequently, it contains `Finale' as the &lt;software&gt;
+          example.  Consequently, it contains ‘Finale’ as the &lt;software&gt;
           tag.
 
           Note that the end of the last octave shift is anchored at the

@@ -6,7 +6,7 @@
     <miscellaneous>
       <miscellaneous-field name="description">Test various spanner elements
           (mostly from &lt;notations&gt;) starting from a &lt;note&gt; object
-          with `print-object' set to `no', then test spanners ending with such
+          with ‘print-object’ set to ‘no’, then test spanners ending with such
           a note object: beam, tuplet, slur, trill + wavy-line, glissando
           (wavy), slide (solid), two-note tremolo, hammer-on, pull-off.
           Spanners starting from an invisible object should be
