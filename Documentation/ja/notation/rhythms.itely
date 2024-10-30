@@ -2316,7 +2316,7 @@ R1\fermata
 \time 7/8
 % リズム 3-1-1-2
 % デフォルトで連桁設定の変更は Voice に適用され、うまくいきません
-% なぜなら、自動生成されるボイスで、すべての拍は baseMoment (1 . 8) だからです
+% なぜなら、自動生成されるボイスで、すべての拍は beatBase #1/8 だからです
 \set beatStructure = 3,1,1,2
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 

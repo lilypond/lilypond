@@ -2303,7 +2303,7 @@ rigo:
 \time 7/8
 % ritmo 3-1-1-2
 % Se non si specifica il contesto, la modifica viene applicata a Voice e quindi non funziona correttamente
-% Dato che le voci sono autogenerate, tutto il ritmo avrà come baseMoment (1 . 8)
+% Dato che le voci sono autogenerate, tutto il ritmo avrà come beatBase #1/8
 \set beatStructure = 3,1,1,2
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 

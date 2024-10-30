@@ -2642,7 +2642,7 @@ ces règles affectent le contexte @code{Staff} :
 % rhythm 3-1-1-2
 % Change applied to Voice by default --  does not work correctly
 % Because of auto-generated voices, all beating will
-% be at baseMoment (1 . 8)
+% be at beatBase #1/8
 \set beatStructure = 3,1,1,2
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 
