@@ -4200,16 +4200,16 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 
 @morerefs
 記譜法リファレンス:
-@ref{Using the @code{break-alignable-interface}},
+@ref{Using the break-alignable-interface},
 
 拡張:
 @rextend{Callback functions}
 
 @menu
 * Setting X-offset and Y-offset directly::
-* Using the @code{side-position-interface}::
-* Using the @code{self-alignment-interface}::
-* Using the @code{break-alignable-interface}::
+* Using the side-position-interface::
+* Using the self-alignment-interface::
+* Using the break-alignable-interface::
 @end menu
 
 @node Setting X-offset and Y-offset directly
@@ -4234,7 +4234,7 @@ a'
 
 @c TODO write more
 
-@node Using the @code{side-position-interface}
+@node Using the side-position-interface
 @unnumberedsubsubsec @code{side-position-interface} を使用する
 
 @code{side-position-interface} をサポートするオブジェクトは、@c
@@ -4279,7 +4279,7 @@ a'
 
 @c TODO Add examples
 
-@node Using the @code{self-alignment-interface}
+@node Using the self-alignment-interface
 @unnumberedsubsubsec @code{self-alignment-interface} を使用する
 
 @subsubsubheading オブジェクトを自動的に水平方向に揃える
@@ -4383,7 +4383,7 @@ example shows the difference:
 
 @c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
-@node Using the @code{break-alignable-interface}
+@node Using the break-alignable-interface
 @unnumberedsubsubsec @code{break-alignable-interface} を使用する
 
 @cindex align to object (オブジェクトに揃える)

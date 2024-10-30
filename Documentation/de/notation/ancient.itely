@@ -1052,7 +1052,7 @@ Versetzungszeichen können mit vorhergehenden Noten kollidieren.
 * Gregorian accidentals and key signatures::
 * Divisiones::
 * Gregorian articulation signs::
-* Augmentum dots (@emph{morae})::
+* Augmentum dots (morae)::
 * Gregorian square neume ligatures::
 @end menu
 
@@ -1457,7 +1457,7 @@ entsprechenden Notenköpfen gesetzt.
 
 
 @c {{{2Augmentum dots (@emph{morae})
-@node Augmentum dots (@emph{morae})
+@node Augmentum dots (morae)
 @unnumberedsubsubsec Augmentationspunkte (@emph{morae})
 
 Verlängerungspunkte, auch als @emph{morae} bezeichnet, werden

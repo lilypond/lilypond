@@ -634,7 +634,7 @@ download and install the free-software
 
 @menu
 * Build modes::
-* Running autogen.sh::
+* Running autogen::
 * Running configure::
 @end menu
 
@@ -663,7 +663,7 @@ directory; the following instructions expect exactly that.
 @end itemize
 
 
-@node Running autogen.sh
+@node Running autogen
 @subsection Running @command{autogen.sh}
 
 (If you use a tarball, follow the instructions in this subsection

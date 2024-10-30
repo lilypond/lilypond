@@ -952,7 +952,7 @@ Le alterazioni potrebbero entrare in collisione con le note precedenti.
 * Gregorian accidentals and key signatures::
 * Divisiones::
 * Gregorian articulation signs::
-* Augmentum dots (@emph{morae})::
+* Augmentum dots (morae)::
 * Gregorian square neume ligatures::
 @end menu
 
@@ -1380,7 +1380,7 @@ Alcune articolazioni sono posizionate troppo vicine verticalmente alle teste
 di nota corrispondenti.
 
 
-@node Augmentum dots (@emph{morae})
+@node Augmentum dots (morae)
 @unnumberedsubsubsec Punti di aumentazione (morae)
 
 I punti di aumentazione, chiamati anche @emph{morae}, si aggiungono con la

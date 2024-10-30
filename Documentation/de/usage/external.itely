@@ -631,7 +631,7 @@ automatisiert geschieht.
 
 @menu
 * Many quotes from a large score::
-* Inserting LilyPond output into OpenOffice.org::
+* Inserting LilyPond output into OpenOffice::
 * Inserting LilyPond output into other programs::
 @end menu
 
@@ -643,7 +643,7 @@ werden sollen, kann dazu das @q{clip systems} Feature benutzt werden.
 Siehe @rnotationnamed{Extracting fragments of music, Notationsfragmente extrahieren}.
 
 
-@node Inserting LilyPond output into OpenOffice.org
+@node Inserting LilyPond output into OpenOffice
 @unnumberedsubsec LilyPond-Noten in OpenOffice.org integrieren
 
 @cindex OpenOffice.org

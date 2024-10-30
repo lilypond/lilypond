@@ -1521,7 +1521,7 @@ for feature addition and modification.
 * Write convert-ly rule::
 * Automatically update documentation::
 * Manually update documentation::
-* Edit changes.tely::
+* Edit the Changes file::
 * Verify successful build::
 * Verify regression tests::
 * Post patch for comments::
@@ -1658,7 +1658,7 @@ Any text that is added to or removed from the documentation should
 be changed only in the English version.
 
 
-@node Edit changes.tely
+@node Edit the Changes file
 @subsection Edit changes.tely
 
 An entry should be added to Documentation/changes.tely to describe

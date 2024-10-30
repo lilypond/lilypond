@@ -2265,7 +2265,7 @@ il posizionamento desiderato, è possibile sovrascrivere la priorità di
 qualsiasi oggetto.  Immaginiamo di voler posizionare l'estensione del segno d'ottava
 sotto l'estensore del testo nell'esempio precedente.  Basta controllare la
 priorità dell'oggetto @code{OttavaBracket} nella tabella in
-@rnotationnamed{Default values for @code{outside-staff-priority}, Valori predefiniti di outside-staff-priority} o nella Guida al
+@rnotationnamed{Default values for outside-staff-priority, Valori predefiniti di outside-staff-priority} o nella Guida al
 funzionamento interno e ridurla a un valore inferiore a quello di un
 oggetto @code{TextSpanner}, ricordando che @code{OttavaBracket} è creato
 nel contesto @code{Staff}:

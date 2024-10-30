@@ -889,7 +889,7 @@ der Fehler einmal verstanden ist, kann er einfach behoben werden.
 @menu
 * Music runs off the page::
 * An extra staff appears::
-* Apparent error in @code{../ly/init.ly}::
+* Apparent error in init file::
 * Error message Unbound variable %::
 * Error message FT_Get_Glyph_Name::
 * Warning staff affinities should only decrease::
@@ -979,7 +979,7 @@ umgangen werden.
 @end lilypond
 
 
-@node Apparent error in @code{../ly/init.ly}
+@node Apparent error in init file
 @unnumberedsubsec Offensichtlicher Fehler in ../ly/init.ly
 
 Verschiedene seltsame Fehlermeldungen können über Syntax-Fehler in

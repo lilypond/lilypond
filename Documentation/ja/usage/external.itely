@@ -24,7 +24,7 @@ LilyPond は様々な方法で他のプログラムと連携することがで�
 * Text editor support::
 * Converting from other formats::
 * LilyPond output in other programs::
-* Independent @code{include}s::
+* Independent includes::
 @end menu
 
 @node Point and click
@@ -431,15 +431,15 @@ LilyPond 入力を作り出すツールは他にもあります。@c
 パッチは適用されていますが、バグ レポートはほとんど解決されていません。
 
 @menu
-* Invoking @command{midi2ly}::            MIDI をインポートする
-* Invoking @code{musicxml2ly}::        MusicXML をインポートする
-* Invoking @code{abc2ly}::             ABC をインポートする
-* Invoking @command{etf2ly}::             Finale をインポートする
+* Invoking midi2ly::            MIDI をインポートする
+* Invoking musicxml2ly::        MusicXML をインポートする
+* Invoking abc2ly::             ABC をインポートする
+* Invoking etf2ly::             Finale をインポートする
 * Other formats::
 @end menu
 
 
-@node Invoking @command{midi2ly}
+@node Invoking midi2ly
 @subsection @command{midi2ly} を呼び出す
 
 @cindex MIDI
@@ -530,7 +530,7 @@ Verbose モード (ログ等が詳細) で実行します。
 フレーズ記号かペダル指示記号を追加してください。
 
 
-@node Invoking @code{musicxml2ly}
+@node Invoking musicxml2ly
 @subsection @code{musicxml2ly} を呼び出す
 
 @cindex MusicXML
@@ -647,7 +647,7 @@ Verbose モード (ログ等が詳細) で実行します。
 @end table
 
 
-@node Invoking @code{abc2ly}
+@node Invoking abc2ly
 @subsection @code{abc2ly} を呼び出す
 
 @warning{このプログラムは現在サポートされていません。@c
@@ -720,7 +720,7 @@ ABC は行の先頭で単語と音符との同期をとりますが、@c
 @command{abc2ly} は ABC の連桁を無視します。
 
 
-@node Invoking @command{etf2ly}
+@node Invoking etf2ly
 @subsection @command{etf2ly} を呼び出す
 
 @warning{このプログラムはサポートされていません。@c
@@ -866,7 +866,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 できます。@rnotationnamed{Extracting fragments of music, 音楽の断片を抽出する} を参照してください。
 
 
-@node Independent @code{include}s
+@node Independent includes
 @section 独立した @code{include}
 
 出力にある効果を生み出すために、LilyPond に @code{\include} することのできる@c

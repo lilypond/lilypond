@@ -31,7 +31,7 @@
 * List of articulations::
 * List of breath marks::
 * Percussion notes::
-* Default values for @code{outside-staff-priority}::
+* Default values for outside-staff-priority::
 * Technical glossary::
 * Available music functions::
 * Context modification identifiers::
@@ -3341,7 +3341,7 @@ b4 4 \breathe 4
 @end multitable
 
 
-@node Default values for @code{outside-staff-priority}
+@node Default values for outside-staff-priority
 @appendixsec Valori predefiniti di outside-staff-priority
 
 La tabella seguente mostra il valore predefinito di @code{outside-staff-priority}
