@@ -1,4 +1,4 @@
-\version "2.25.8"
+\version "2.25.22"
 
 \header {
   doctitle = "Beam subdivision inside a compound meter"
@@ -14,7 +14,7 @@ subdivision should not defect"
 \relative c'' {
   \omit Staff.Clef
   \compoundMeter #'((2 4) (5 32))
-  \set baseMoment = \musicLength 32
+  \set beatBase = #1/32
   \set beatStructure = #'(8 8 5)
   \set subdivideBeams = ##t
 

@@ -1,4 +1,4 @@
-\version "2.25.18"
+\version "2.25.22"
 
 \header {
   texidoc = "When @code{maximumBeamSubdivisionInterval} <
@@ -20,7 +20,7 @@ even if it is not metrically correct.
 
   \set Timing.beamExceptions = #'()
   \set Timing.beatStructure = 1
-  \set Timing.baseMoment = \musicLength 1
+  \set Timing.beatBase = 1
 
   \set subdivideBeams = ##t
   \set minimumBeamSubdivisionInterval = \musicLength 8

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.22"
 
 @c Translators: Till Paala
 
@@ -2132,12 +2132,12 @@ werden, wenn die Bebalkung von @code{beatStructure} bestimmt werden soll.
 \time 4/4
 a8^"default" a a a a a a a
 
-\set Timing.baseMoment = \musicLength 4
+\set Timing.beatBase = #1/4
 \set Timing.beatStructure = 1,1,1,1
 a8^"no change" a a a a a a a
 
 \set Timing.beamExceptions = #'()
-\set Timing.baseMoment = \musicLength 4
+\set Timing.beatBase = #1/4
 \set Timing.beatStructure = 1,1,1,1
 a8^"changed" a a a a a a a
 @end lilypond
@@ -2191,7 +2191,7 @@ er kompatibel mit dem neuen Wert von @code{baseMoment} ist.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
-\set Timing.baseMoment = \musicLength 16
+\set Timing.beatBase = #1/16
 \set Timing.beatStructure = 7,3
 \repeat unfold 10 { a16 }
 @end lilypond
@@ -2281,7 +2281,7 @@ Die @code{beamExceptions}-Regel kann die @code{beatStructure}-Einstellung
 
 @lilypond[quote,verbatim,fragment]
 \time 4/4
-\set Timing.baseMoment = \musicLength 8
+\set Timing.beatBase = #1/8
 \set Timing.beatStructure = 3,3,2
 % This won't beam (3 3 2) because of beamExceptions
 \repeat unfold 8 {c''8} |
@@ -2421,7 +2421,7 @@ vermeiden, ist es, die Taktart nur in einem System zu setzen.
 <<
   \new Staff {
     \time 3/4
-    \set Timing.baseMoment = \musicLength 8
+    \set Timing.beatBase = #1/8
     \set Timing.beatStructure = 1,5
     \repeat unfold 6 { a8 }
   }

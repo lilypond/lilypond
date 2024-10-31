@@ -13,7 +13,7 @@
 % - Links are not clickable in SVG output
 
 
-\version "2.25.8"
+\version "2.25.22"
 
 #(set-default-paper-size "a4")
 % #(set-default-paper-size '(cons (* 160 mm) (* (+ 673.2 4) pt)))
@@ -1725,7 +1725,7 @@ VariousMarkup =
 
         \balloon MeasureGrouping -1 -6 -0.2 ##f 0 ##f \markup
           \docengraverlink "MeasureGrouping" "Measure_grouping"
-        \set Timing.baseMoment = \musicLength 4
+        \set Timing.beatBase = #1/4
         \set Timing.beatStructure = 3,3,2
         s1 s
       }

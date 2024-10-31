@@ -1,4 +1,4 @@
-\version "2.25.21"
+\version "2.25.22"
 
 \header {
   texidoc = "@code{\\partial} can be can be called in mid piece in multiple
@@ -25,7 +25,7 @@ chordsOne = \chordmode {
   <<
     \set Score.barNumberVisibility = #all-bar-numbers-visible
     \override Score.BarNumber.break-visibility = #all-visible
-    \overrideTimeSignatureSettings 2/4 1/8 1,1,2 #'()
+    \overrideTimeSignatureSettings 2/4 #1/8 1,1,2 #'()
     \new ChordNames { \chordsOne }
     \new Staff { \melodyOne }
   >>
