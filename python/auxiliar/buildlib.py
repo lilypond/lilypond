@@ -25,16 +25,20 @@ import sys
 verbose = False
 
 
-def read_pipe(command):
-    child = subprocess.Popen(command,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.PIPE,
-                             shell=True)
+def read_pipe(command, capture=True):
+    if capture:
+        child = subprocess.Popen(command,
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE,
+                                 shell=True)
+    else:
+        child = subprocess.Popen(command, shell=True)
     (output, error) = child.communicate()
     code = str(child.wait())
-    if not child.stdout or child.stdout.close():
-        print("pipe failed: %(command)s" % locals())
-    (output, error) = (output.decode('utf-8'), error.decode('utf-8'))
+    if capture:
+        if not child.stdout or child.stdout.close():
+            print("pipe failed: %(command)s" % locals())
+        (output, error) = (output.decode('utf-8'), error.decode('utf-8'))
     if code != '0':
         error = code + ' ' + error
     return (output, error)

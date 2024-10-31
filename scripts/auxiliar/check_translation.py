@@ -91,13 +91,15 @@ def do_file(file_name, lang_codes):
 
     if update_mode:
         if error or len(diff_string) >= os.path.getsize(original):
-            buildlib.read_pipe(text_editor + ' ' + file_name + ' ' + original)
+            cmd = text_editor + ' ' + file_name + ' ' + original
+            buildlib.read_pipe(cmd, capture=False)
         elif diff_string:
             diff_file = original + '.diff'
             f = open(diff_file, 'w', encoding='utf-8')
             f.write(diff_string)
             f.close()
-            buildlib.read_pipe(text_editor + ' ' + file_name + ' ' + diff_file)
+            cmd = text_editor + ' ' + file_name + ' ' + diff_file
+            buildlib.read_pipe(cmd, capture=False)
             os.remove(diff_file)
     else:
         sys.stdout.write(diff_string)
