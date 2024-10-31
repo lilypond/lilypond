@@ -49,6 +49,15 @@ if ($texinfo_version lt '7.0') {
     *texinfo_set_from_init_file = \&set_from_init_file;
 }
 
+my $BODY_ELEMENT_ATTRIBUTES_name;
+if ($texinfo_version lt '7.1.90') {
+    *convert_to_identifier = \&Texinfo::Convert::NodeNameNormalization::normalize_node;
+    $BODY_ELEMENT_ATTRIBUTES_name = 'BODYTEXT';
+} else {
+    *convert_to_identifier = \&Texinfo::Convert::NodeNameNormalization::convert_to_identifier;
+    $BODY_ELEMENT_ATTRIBUTES_name = 'BODY_ELEMENT_ATTRIBUTES';
+}
+
 # Compatibility function for links to Top node and navigation buttons.
 sub lilypond_from_element_direction {
     my ($converter, $direction, $type) = @_;
@@ -124,9 +133,9 @@ sub lilypond_handler_init {
     my $converter = shift;
 
     # Make current manual name available as class in the <body> tag for CSS.
-    my $bodytext = $converter->get_conf('BODYTEXT');
+    my $bodytext = $converter->get_conf($BODY_ELEMENT_ATTRIBUTES_name);
     $bodytext .= " class=\"$manual_name\"";
-    $converter->set_conf('BODYTEXT', $bodytext);
+    $converter->set_conf($BODY_ELEMENT_ATTRIBUTES_name, $bodytext);
 
     if ($texinfo_version lt '7.0') {
         return 1;
@@ -223,22 +232,25 @@ sub lilypond_format_ref {
     if ($texinfo_version lt '7.1') {
         if ($element->{'extra'} and $element->{'extra'}->{'node_argument'} and
             $element->{'extra'}->{'node_argument'}->{'node_content'}) {
-            $node_content = $element->{'extra'}->{'node_argument'}->{'node_content'};
+            $node_content = {'contents'
+                   => $element->{'extra'}->{'node_argument'}->{'node_content'}};
         }
     } else {
         my $node_arg = $element->{'args'}->[0];
         if ($node_arg->{'extra'} and $node_arg->{'extra'}->{'node_content'}) {
             $node_content = $node_arg->{'extra'}->{'node_content'};
+            if (ref($node_content) ne 'HASH') {
+                $node_content = {'contents' => $node_content};
+            }
         }
     }
 
     if (defined($node_content)) {
-        $node_file = Texinfo::Convert::NodeNameNormalization::normalize_node(
-            {'contents' => $node_content});
+        $node_file = convert_to_identifier($node_content);
         $node_file = lc($node_file);
 
         if (!defined($name)) {
-            my $node_tree = {'type' => '_code', 'contents' => [@$node_content]};
+            my $node_tree = {'type' => '_code', 'contents' => [$node_content]};
             my $node_name = $converter->convert_tree($node_tree, 'node in ref');
             if (defined($node_name) and $node_name ne 'Top') {
                 $name = $node_name;
@@ -327,7 +339,12 @@ sub lilypond_format_tocheader {
     }
     my $top_href = lilypond_from_element_direction($converter, 'Top', 'href');
     # Here we use the already translated text of the 'Top' navigation button.
-    my $top_title = $converter->gdt('Cover (top) of document');
+    my $top_title;
+    if ($converter->can('cdt')) {
+      $top_title = $converter->cdt('Cover (top) of document');
+    } else {
+      $top_title = $converter->gdt('Cover (top) of document');
+    }
     $top_title = $converter->convert_tree($top_title);
 
     return "
@@ -369,8 +386,13 @@ sub lilypond_format_tocframe {
         $parentelements{$toc_id} = 1;
         if ($texinfo_version lt '7.0') {
             $element = $element->{'section_up'};
-        } else {
+        } elsif ($element->{'extra'}
+                 and $element->{'extra'}->{'section_directions'}) {
+            $element = $element->{'extra'}->{'section_directions'}->{'up'};
+        } elsif ($element->{'structure'}) {
             $element = $element->{'structure'}->{'section_up'};
+        } else {
+            last;
         }
     }
 
