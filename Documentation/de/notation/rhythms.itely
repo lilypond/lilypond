@@ -2196,11 +2196,6 @@ er kompatibel mit dem neuen Wert von @code{baseMoment} ist.
 \repeat unfold 10 { a16 }
 @end lilypond
 
-@code{baseMoment} ist ein @i{Moment}, eine Einheit an musikalischer
-Dauer.  Eine Anzahl vom Typus @i{Moment} wird durch die Scheme-Funktion
-@code{ly:make-moment} erstellt.  Zu mehr Information über diese Funktion
-siehe @ref{Time administration}.
-
 Der Standardwert von @code{baseMoment} ist Eins durch den Denominator
 der Taktangabe.  Alle Ausnahmen dieses Standards finden sich in der Datei
 @file{scm/time-signature-settings.scm}.

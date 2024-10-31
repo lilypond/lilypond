@@ -2628,9 +2628,6 @@ compatible with the new value of @code{baseMoment}.
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-@code{baseMoment} is a @dfn{moment}; a unit of musical duration.
-For more information about this type, @pxref{Time administration}.
-
 By default @code{baseMoment} is set to one over the denominator of
 the time signature.  Any exceptions to this default can be found in
 @file{scm/time-@/signature-@/settings.scm}.

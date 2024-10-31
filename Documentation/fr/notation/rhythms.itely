@@ -2665,10 +2665,6 @@ valeur de @code{baseMoment}.
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-@code{baseMoment} constitue un @dfn{moment}, autrement dit une unité de
-durée musicale. Pour plus de précisions sur la quantité de type
-« moment », @pxref{Time administration}.
-
 La pulsation -- @emph{baseMoment} en anglais -- découle directement de
 la métrique telle que définie par la commande @code{\time}. Elle est par
 défaut égale à un sur le dénominateur de la métrique. Les exceptions à

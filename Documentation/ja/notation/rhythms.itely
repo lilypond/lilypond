@@ -2341,11 +2341,6 @@ R1\fermata
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-@code{beatLength} は @i{moment} -- 演奏時間の単位 -- です。@c
-タイプ @i{moment} の量は
-Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
-この関数についての更なる情報は @ref{Time administration} を参照してください。
-
 デフォルトでは、@code{baseMoment} には「1/拍子の分母」がセットされています。@c
 このデフォルトの例外は @file{scm/time-signature-settings.scm} で見つかります。
 

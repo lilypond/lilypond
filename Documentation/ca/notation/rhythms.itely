@@ -2262,12 +2262,6 @@ compatible amb el nou valor de @code{baseMoment}.
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-@code{baseMoment} és un @i{moment}, una unitat de duració
-musical.  Es crea una quantitat del tipus @i{moment} per mitjà de
-la funció d'Scheme @code{ly:make-moment}.  Per veure més
-informació sobre aquest funció, consulteu
-@ref{Time administration}.
-
 De forma predeterminada @code{baseMoment} està fixat a una unitat
 més que el denominador del compàs.  Totes les excepcions a aquest
 valor predeterminat estan a
