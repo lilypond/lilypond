@@ -3,9 +3,9 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2023-09-19.19}
+\def\texinfoversion{2024-11-02.11}
 %
-% Copyright 1985, 1986, 1988, 1990-2023 Free Software Foundation, Inc.
+% Copyright 1985, 1986, 1988, 1990-2024 Free Software Foundation, Inc.
 %
 % This texinfo.tex file is free software: you can redistribute it and/or
 % modify it under the terms of the GNU General Public License as
@@ -3126,11 +3126,12 @@ end
 % at the end of the line, or no break at all here.
 %   Changing the value of the penalty and/or the amount of stretch affects how 
 % preferable one choice is over the other.
+%   Check test cases in doc/texinfo-tex-test.texi before making any changes.
 \def\urefallowbreak{%
   \penalty0\relax
-  \hskip 0pt plus 2 em\relax
+  \hskip 0pt plus 3 em\relax
   \penalty1000\relax
-  \hskip 0pt plus -2 em\relax
+  \hskip 0pt plus -3 em\relax
 }
 
 \urefbreakstyle after
@@ -5238,14 +5239,14 @@ $$%
 % the current value of \escapechar.
 \def\escapeisbackslash{\escapechar=`\\}
 
-% Use \ in index files by default.  texi2dvi didn't support @ as the escape 
-% character (as it checked for "\entry" in the files, and not "@entry").  When 
-% the new version of texi2dvi has had a chance to become more prevalent, then 
-% the escape character can change back to @ again.  This should be an easy 
-% change to make now because both @ and \ are only used as escape characters in 
-% index files, never standing for themselves. 
+% Uncomment to use \ in index files by default.  Old texi2dvi (before 2019)
+% didn't support @ as the escape character (as it checked for "\entry" in
+% the files, and not "@entry").
+%   In the future we can remove this flag and simplify the code for
+% index files and backslashes, once the support is no longer likely to be
+% useful.
 %
-\set txiindexescapeisbackslash
+% \set txiindexescapeisbackslash
 
 % Write the entry in \indextext to the index file.
 %
@@ -5277,7 +5278,7 @@ $$%
   % sorted result.
   %
   \edef\temp{%
-    \write\writeto{%
+    \immediate\write\writeto{%
       \string\entry{\fullindexsortkey}%
         {\ifx\pagenumbertext\empty\noexpand\folio\else\pagenumbertext\fi}%
         \bracedtext}%
@@ -5567,7 +5568,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % \entry typesets a paragraph consisting of the text (#1), dot leaders, and
 % then page number (#2) flushed to the right margin.  It is used for index
 % and table of contents entries.  The paragraph is indented by \leftskip.
-%
+% If \tocnodetarget is set, link text to the referenced node.
 \def\entry{%
   \begingroup
     %
@@ -5608,7 +5609,13 @@ might help (with 'rm \jobname.?? \jobname.??s')%
     \global\setbox\boxA=\hbox\bgroup
       \ifpdforxetex
         \iflinkentrytext
-          \pdflinkpage{#1}{\unhbox\boxA}%
+          \ifx\tocnodetarget\empty
+            \unhbox\boxA
+          \else
+            \startxreflink{\tocnodetarget}{}%
+            \unhbox\boxA
+            \endlink
+          \fi
         \else
           \unhbox\boxA
         \fi
@@ -5625,11 +5632,18 @@ might help (with 'rm \jobname.?? \jobname.??s')%
         %
         \null\nobreak\indexdotfill % Have leaders before the page number.
         %
+        \hskip\skip\thinshrinkable
         \ifpdforxetex
-          \pdfgettoks#1.%
-          \hskip\skip\thinshrinkable\the\toksA
+          \ifx\tocnodetarget\empty
+            \pdfgettoks#1.%
+            \the\toksA
+          \else
+            % Should just be a single page number in toc
+            \startxreflink{\tocnodetarget}{}%
+            #1\endlink
+          \fi
         \else
-          \hskip\skip\thinshrinkable #1%
+          #1%
         \fi
       \fi
     \egroup % end \boxA
@@ -6137,8 +6151,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % normally unnmhead0 calls unnumberedzzz:
 \outer\parseargdef\unnumbered{\unnmhead0{#1}}
 \def\unnumberedzzz#1{%
-  \global\secno=0 \global\subsecno=0 \global\subsubsecno=0
-    \global\advance\unnumberedno by 1
+  \global\advance\unnumberedno by 1
   %
   % Since an unnumbered has no number, no prefix for figures.
   \global\let\chaplevelprefix = \empty
@@ -6194,8 +6207,8 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % normally calls unnumberedseczzz:
 \outer\parseargdef\unnumberedsec{\unnmhead1{#1}}
 \def\unnumberedseczzz#1{%
-  \global\subsecno=0 \global\subsubsecno=0  \global\advance\secno by 1
-  \sectionheading{#1}{sec}{Ynothing}{\the\unnumberedno.\the\secno}%
+  \global\advance\unnumberedno by 1
+  \sectionheading{#1}{sec}{Ynothing}{\the\unnumberedno}%
 }
 
 % Subsections.
@@ -6218,9 +6231,8 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % normally calls unnumberedsubseczzz:
 \outer\parseargdef\unnumberedsubsec{\unnmhead2{#1}}
 \def\unnumberedsubseczzz#1{%
-  \global\subsubsecno=0  \global\advance\subsecno by 1
-  \sectionheading{#1}{subsec}{Ynothing}%
-                 {\the\unnumberedno.\the\secno.\the\subsecno}%
+  \global\advance\unnumberedno by 1
+  \sectionheading{#1}{subsec}{Ynothing}{\the\unnumberedno}%
 }
 
 % Subsubsections.
@@ -6244,9 +6256,8 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % normally unnumberedsubsubseczzz:
 \outer\parseargdef\unnumberedsubsubsec{\unnmhead3{#1}}
 \def\unnumberedsubsubseczzz#1{%
-  \global\advance\subsubsecno by 1
-  \sectionheading{#1}{subsubsec}{Ynothing}%
-                 {\the\unnumberedno.\the\secno.\the\subsecno.\the\subsubsecno}%
+  \global\advance\unnumberedno by 1
+  \sectionheading{#1}{subsubsec}{Ynothing}{\the\unnumberedno}%
 }
 
 % These macros control what the section commands do, according
@@ -6895,7 +6906,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \vskip 0pt plus 5\baselineskip
   \penalty-300
   \vskip 0pt plus -5\baselineskip
-  \dochapentry{#1}{\numeralbox}{}%
+  \dochapentry{#1}{\numeralbox}{#3}{}%
 }
 %
 % Parts, in the short toc.
@@ -6908,12 +6919,12 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % Chapters, in the main contents.
 \def\numchapentry#1#2#3#4{%
   \retrievesecnowidth\secnowidthchap{#2}%
-  \dochapentry{#1}{#2}{#4}%
+  \dochapentry{#1}{#2}{#3}{#4}%
 }
 
 % Chapters, in the short toc.
 \def\shortchapentry#1#2#3#4{%
-  \tocentry{#1}{\shortchaplabel{#2}}{#4}%
+  \tocentry{#1}{\shortchaplabel{#2}}{#3}{#4}%
 }
 
 % Appendices, in the main contents.
@@ -6926,79 +6937,77 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 %
 \def\appentry#1#2#3#4{%
   \retrievesecnowidth\secnowidthchap{#2}%
-  \dochapentry{\appendixbox{#2}\hskip.7em#1}{}{#4}%
+  \dochapentry{\appendixbox{#2}\hskip.7em#1}{}{#3}{#4}%
 }
 
 % Unnumbered chapters.
-\def\unnchapentry#1#2#3#4{\dochapentry{#1}{}{#4}}
-\def\shortunnchapentry#1#2#3#4{\tocentry{#1}{}{#4}}
+\def\unnchapentry#1#2#3#4{\dochapentry{#1}{}{#3}{#4}}
+\def\shortunnchapentry#1#2#3#4{\tocentry{#1}{}{#3}{#4}}
 
 % Sections.
-\def\numsecentry#1#2#3#4{\dosecentry{#1}{#2}{#4}}
-
 \def\numsecentry#1#2#3#4{%
   \retrievesecnowidth\secnowidthsec{#2}%
-  \dosecentry{#1}{#2}{#4}%
+  \dosecentry{#1}{#2}{#3}{#4}%
 }
 \let\appsecentry=\numsecentry
 \def\unnsecentry#1#2#3#4{%
   \retrievesecnowidth\secnowidthsec{#2}%
-  \dosecentry{#1}{}{#4}%
+  \dosecentry{#1}{}{#3}{#4}%
 }
 
 % Subsections.
 \def\numsubsecentry#1#2#3#4{%
   \retrievesecnowidth\secnowidthssec{#2}%
-  \dosubsecentry{#1}{#2}{#4}%
+  \dosubsecentry{#1}{#2}{#3}{#4}%
 }
 \let\appsubsecentry=\numsubsecentry
 \def\unnsubsecentry#1#2#3#4{%
   \retrievesecnowidth\secnowidthssec{#2}%
-  \dosubsecentry{#1}{}{#4}%
+  \dosubsecentry{#1}{}{#3}{#4}%
 }
 
 % And subsubsections.
-\def\numsubsubsecentry#1#2#3#4{\dosubsubsecentry{#1}{#2}{#4}}
+\def\numsubsubsecentry#1#2#3#4{\dosubsubsecentry{#1}{#2}{#3}{#4}}
 \let\appsubsubsecentry=\numsubsubsecentry
-\def\unnsubsubsecentry#1#2#3#4{\dosubsubsecentry{#1}{}{#4}}
+\def\unnsubsubsecentry#1#2#3#4{\dosubsubsecentry{#1}{}{#3}{#4}}
 
 % This parameter controls the indentation of the various levels.
 % Same as \defaultparindent.
 \newdimen\tocindent \tocindent = 15pt
 
 % Now for the actual typesetting. In all these, #1 is the text, #2 is
-% a section number if present, and #3 is the page number.
+% a section number if present, #3 is the node, and #4 is the page number.
 %
 % If the toc has to be broken over pages, we want it to be at chapters
 % if at all possible; hence the \penalty.
-\def\dochapentry#1#2#3{%
+\def\dochapentry#1#2#3#4{%
    \penalty-300 \vskip1\baselineskip plus.33\baselineskip minus.25\baselineskip
    \begingroup
      % Move the page numbers slightly to the right
      \advance\entryrightmargin by -0.05em
      \chapentryfonts
      \extrasecnoskip=0.4em % separate chapter number more
-     \tocentry{#1}{#2}{#3}%
+     \tocentry{#1}{#2}{#3}{#4}%
    \endgroup
    \nobreak\vskip .25\baselineskip plus.1\baselineskip
 }
 
-\def\dosecentry#1#2#3{\begingroup
+\def\dosecentry#1#2#3#4{\begingroup
   \secnowidth=\secnowidthchap
   \secentryfonts \leftskip=\tocindent
-  \tocentry{#1}{#2}{#3}%
+  \tocentry{#1}{#2}{#3}{#4}%
 \endgroup}
 
-\def\dosubsecentry#1#2#3{\begingroup
+\def\dosubsecentry#1#2#3#4{\begingroup
   \secnowidth=\secnowidthsec
   \subsecentryfonts \leftskip=2\tocindent
-  \tocentry{#1}{#2}{#3}%
+  \tocentry{#1}{#2}{#3}{#4}%
 \endgroup}
 
-\def\dosubsubsecentry#1#2#3{\begingroup
+\def\dosubsubsecentry#1#2#3#4{\begingroup
   \secnowidth=\secnowidthssec
   \subsubsecentryfonts \leftskip=3\tocindent
-  \tocentry{#1}{#2}{#3}%
+  \tocentry{#1}{#2}{#3}{#4}%
 \endgroup}
 
 % Used for the maximum width of a section number so we can align
@@ -7008,12 +7017,15 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 \newdimen\extrasecnoskip
 \extrasecnoskip=0pt
 
-% \tocentry{TITLE}{SEC NO}{PAGE}
+\let\tocnodetarget\empty
+
+% \tocentry{TITLE}{SEC NO}{NODE}{PAGE}
 %
-\def\tocentry#1#2#3{%
+\def\tocentry#1#2#3#4{%
+  \def\tocnodetarget{#3}%
   \def\secno{#2}%
   \ifx\empty\secno
-    \entry{#1}{#3}%
+    \entry{#1}{#4}%
   \else
     \ifdim 0pt=\secnowidth
       \setbox0=\hbox{#2\hskip\labelspace\hskip\extrasecnoskip}%
@@ -7024,7 +7036,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
         #2\hskip\labelspace\hskip\extrasecnoskip\hfill}%
     \fi
     \entrycontskip=\wd0
-    \entry{\box0 #1}{#3}%
+    \entry{\box0 #1}{#4}%
   \fi
 }
 \newdimen\labelspace
@@ -8205,8 +8217,6 @@ might help (with 'rm \jobname.?? \jobname.??s')%
       \let\commondummyword\unmacrodo
       \xdef\macrolist{\macrolist}%
     \endgroup
-  \else
-    \errmessage{Macro #1 not defined}%
   \fi
 }
 
@@ -10520,6 +10530,16 @@ directory should work if nowhere else does.}
   \catcode"#1=\other
 }
 
+% Suppress ligature creation from adjacent characters.
+\ifx\luatexversion\thisisundefined
+  \def\nolig{{}}
+\else
+  % Braces do not suppress ligature creation in LuaTeX, e.g. in of{}fice
+  % to suppress the "ff" ligature.  Using a kern appears to be the only
+  % workaround.
+  \def\nolig{\kern0pt{}}
+\fi
+
 % https://en.wikipedia.org/wiki/Plane_(Unicode)#Basic_M
 % U+0000..U+007F = https://en.wikipedia.org/wiki/Basic_Latin_(Unicode_block)
 % U+0080..U+00FF = https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)
@@ -11137,8 +11157,8 @@ directory should work if nowhere else does.}
   % Punctuation
   \DeclareUnicodeCharacter{2013}{--}%
   \DeclareUnicodeCharacter{2014}{---}%
-  \DeclareUnicodeCharacter{2018}{\quoteleft{}}%
-  \DeclareUnicodeCharacter{2019}{\quoteright{}}%
+  \DeclareUnicodeCharacter{2018}{\quoteleft\nolig}%
+  \DeclareUnicodeCharacter{2019}{\quoteright\nolig}%
   \DeclareUnicodeCharacter{201A}{\quotesinglbase{}}%
   \DeclareUnicodeCharacter{201C}{\quotedblleft{}}%
   \DeclareUnicodeCharacter{201D}{\quotedblright{}}%
@@ -11173,7 +11193,7 @@ directory should work if nowhere else does.}
   \DeclareUnicodeCharacter{2287}{\ensuremath\supseteq}%
   %
   \DeclareUnicodeCharacter{2016}{\ensuremath\Vert}%
-  \DeclareUnicodeCharacter{2032}{\ensuremath\prime}%
+  \DeclareUnicodeCharacter{2032}{\ensuremath{^\prime}}%
   \DeclareUnicodeCharacter{210F}{\ensuremath\hbar}%
   \DeclareUnicodeCharacter{2111}{\ensuremath\Im}%
   \DeclareUnicodeCharacter{2113}{\ensuremath\ell}%
