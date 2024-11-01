@@ -734,11 +734,15 @@ ifneq ($(ISOLANG),)
 endif # ISOLANG
 
 check-xrefs:
-	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --batch \
+	$(PYTHON) $(auxscript-dir)/check_texi_refs.py \
+	  --batch \
+	  --language=$(ISOLANG) \
 	  $(XREF_INCLUDES)
 
 fix-xrefs:
-	$(PYTHON) $(auxscript-dir)/check_texi_refs.py --auto-fix \
+	$(PYTHON) $(auxscript-dir)/check_texi_refs.py \
+	  --auto-fix \
+	  --language=$(ISOLANG) \
 	  $(XREF_INCLUDES)
 
 check-translation:

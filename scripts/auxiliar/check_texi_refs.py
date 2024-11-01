@@ -69,6 +69,11 @@ p.add_argument('-b', '--batch',
                dest='interactive',
                default=True)
 
+p.add_argument('-l', '--language',
+               help="only check files in language subdirectory %(metavar)s",
+               metavar="LL",
+               action='store')
+
 p.add_argument('-p', '--check-punctuation',
                help="check punctuation after cross-references",
                action='store_true',
@@ -676,6 +681,12 @@ log.write("Checking cross-references...\n")
 try:
     for key in manuals:
         for file in manuals[key]['contents']:
+            if options.language:
+                path = os.path.normpath(file)
+                path_elements = path.split(os.sep)
+                if options.language not in path_elements:
+                    continue
+
             file_count = files[file][0]
             file_nodes = files[file][1]
             s = ref_re.sub(lambda m:
