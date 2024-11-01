@@ -23,11 +23,14 @@ manuals
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-
 import sys
 import re
 import os
-import optparse
+import argparse
+
+from argparse import HelpFormatter
+from operator import attrgetter
+
 
 outdir = 'out-www'
 
@@ -39,39 +42,46 @@ file_not_found = 'file not found in include path'
 warn_not_fixed = \
     '*** Warning: this broken cross-reference has not been fixed!\n'
 
-opt_parser = optparse.OptionParser(usage='check_texi_refs.py [OPTION]...',
-                                   description='''\
+
+class SortingHelpFormatter(HelpFormatter):
+    def add_arguments(self, actions):
+        actions = sorted(actions, key=attrgetter('option_strings'))
+        super(SortingHelpFormatter, self).add_arguments(actions)
+
+
+p = argparse.ArgumentParser(
+        description='''\
 Check and optionally fix both intra- and inter-manual cross-references in
 all LilyPond manuals.
-''')
+''',
+        formatter_class=SortingHelpFormatter,
+        usage='%(prog)s [OPTION]...')
 
-opt_parser.add_option('-a', '--auto-fix',
-                      help="automatically fix cross-references whenever "
-                           "it is possible",
-                      action='store_true',
-                      dest='auto_fix',
-                      default=False)
+p.add_argument('-a', '--auto-fix',
+               help="automatically fix cross-references whenever "
+                    "it is possible",
+               action='store_true',
+               default=False)
 
-opt_parser.add_option('-b', '--batch',
-                      help="do not run interactively",
-                      action='store_false',
-                      dest='interactive',
-                      default=True)
+p.add_argument('-b', '--batch',
+               help="do not run interactively",
+               action='store_false',
+               dest='interactive',
+               default=True)
 
-opt_parser.add_option('-p', '--check-punctuation',
-                      help="check punctuation after cross-references",
-                      action='store_true',
-                      dest='check_punctuation',
-                      default=False)
+p.add_argument('-p', '--check-punctuation',
+               help="check punctuation after cross-references",
+               action='store_true',
+               default=False)
 
-opt_parser.add_option("-I", '--include',
-                      help="add DIR to include path",
-                      metavar="DIR",
-                      action='append',
-                      dest='include_path',
-                      default=[])
+p.add_argument("-I", '--include',
+               help="add %(metavar)s to include path",
+               metavar="DIR",
+               action='append',
+               dest='include_path',
+               default=[])
 
-(options, _) = opt_parser.parse_args()
+options = p.parse_args()
 options.include_path.append(os.path.abspath(os.getcwd()))
 
 
