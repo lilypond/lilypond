@@ -1103,7 +1103,7 @@ werden behandelt unter @ref{Mensural time signatures}.
 
 Zusätzlich zu der gedruckten Taktart werden mit der Definition des
 Befehls @code{\time} auch die Standardwerte fürt die Eigenschaften
-@code{baseMoment}, @code{beatStructure} und @code{beamExtensions}
+@code{beatBase}, @code{beatStructure} und @code{beamExtensions}
 gesetzt.  Die vordefinierten Standardwerte für diese Eigenschaften
 finden sich in @file{scm/time-signature-settings.scm}.  Die existierenden
 Standardwerte können verändert oder neue Standardwerte hinzugefügt
@@ -2078,22 +2078,22 @@ Balken beginnt.
 @funindex beatStructure
 @funindex beamExceptions
 @funindex measureLength
-@funindex baseMoment
+@funindex beatBase
 @funindex \time
 @funindex \set
 
 Wenn die automatischen Balken angeschaltet sind, wird die Platzierung der
 automatischen Balken von drei Kontexteigenschaften bestimmt:
-@code{baseMoment}, @code{beatStructure} und @code{beamExceptions}.
+@code{beatBase}, @code{beatStructure} und @code{beamExceptions}.
 Wenn eine @code{beamExceptions}-Regel für die aktuelle Taktart definiert ist,
 wird diese Regel zur Bestimmmung der Balkenplatzierung herangezogen.  Wenn keine
 @code{beamExceptions}-Regel für die aktuelle Taktart vorhanden ist, wird
-die Platzierung der Balken durch die Einstellungen von @code{baseMoment}
+die Platzierung der Balken durch die Einstellungen von @code{beatBase}
 und @code{beatStructure} bestimmt.
 
 Standardmäßig sind @code{beamExceptions}-Regel für alle häufigen Taktarten
 vordefiniert, sodass die @code{beamExceptions}-Regeln deaktiviert werden
-müssen, wenn die Balkenplatzierung aufgrund von @code{baseMoment} und
+müssen, wenn die Balkenplatzierung aufgrund von @code{beatBase} und
 @code{beatStructure} stattfinden soll.  Die @code{beamExceptions}-Regeln werden
 deaktiviert durch
 
@@ -2102,15 +2102,15 @@ deaktiviert durch
 @end example
 
 
-@subsubheading @i{Bebalkung basierend auf @code{baseMoment} und @code{beatStructure}}
+@subsubheading @i{Bebalkung basierend auf @code{beatBase} und @code{beatStructure}}
 
 In den meisten Fällen enden automatische Balken am Ende eines Taktes.
 Die Endpunkte für Schläge werden durch die Kontexteigenschaften
-@code{baseMoment} und @code{beatStructure} bestimmt.  @code{beatStructure}
+@code{beatBase} und @code{beatStructure} bestimmt.  @code{beatStructure}
 ist eine Scheme-Liste, die die Länge jedes Schlages im Takt in
-Einheiten von @code{baseMoment} angibt.  Der Standard von
-@code{baseMoment} ist Eins durch den Numerator der Taktangabe.  Der
-Standardwert jeder Längeneinheit @code{baseMoment} ist ein
+Einheiten von @code{beatBase} angibt.  Der Standard von
+@code{beatBase} ist Eins durch den Numerator der Taktangabe.  Der
+Standardwert jeder Längeneinheit @code{beatBase} ist ein
 einzelner Taktschlag.
 
 
@@ -2184,10 +2184,10 @@ Systems angewendet werden sollen:
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
-Der Wert von @code{baseMoment} kann angepasst werden, um das
+Der Wert von @code{beatBase} kann angepasst werden, um das
 Bebalkungsverhalten zu ändern, wenn gewünscht.  In diesem Fall
 muss der Wert von @code{beatStructure} so gesetzt werden, dass
-er kompatibel mit dem neuen Wert von @code{baseMoment} ist.
+er kompatibel mit dem neuen Wert von @code{beatBase} ist.
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
@@ -2196,7 +2196,7 @@ er kompatibel mit dem neuen Wert von @code{baseMoment} ist.
 \repeat unfold 10 { a16 }
 @end lilypond
 
-Der Standardwert von @code{baseMoment} ist Eins durch den Denominator
+Der Standardwert von @code{beatBase} ist Eins durch den Denominator
 der Taktangabe.  Alle Ausnahmen dieses Standards finden sich in der Datei
 @file{scm/time-signature-settings.scm}.
 
@@ -2250,7 +2250,7 @@ Das mag seltsam erscheinen, bedeutet aber, dass die aktuellen
 Balkenregeln bekann sein müssen, um ein neues Bebalkungsmuster definieren zu können.}
 
 Wenn die Taktart geändert wird, werden neue Standardwerte für
-@code{Timing.baseMoment}, @code{Timing.beatStructure} und
+@code{Timing.beatBase}, @code{Timing.beatStructure} und
 @code{Timing.beamExceptions} definiert.  Wenn die Taktart
 definiert wird, werden die automatischen Bebalkungsregeln für den
 @code{Timing}-Kontext auf den Standard zurückgesetzt.
@@ -2324,7 +2324,7 @@ Takte mit einer 3 im Zähler auswirkt:
 
 Wenn die automatische Bebalkung aktiviert ist, wird die Platzierung
 der automatischen Balken durch die Kontexteigenschaften
-@code{baseMoment}, @code{beatStructure} und @code{beamExceptions}
+@code{beatBase}, @code{beatStructure} und @code{beamExceptions}
 bestimmt.
 
 Die folgenden Regeln, in der Reihenfolge ihrer Priorität, gelten, wenn das Aussehen der Balken bestimmt wird:
@@ -2345,7 +2345,7 @@ in @code{beamExceptions} definiert ist, wird sie verwendet,
 um die gültigen Plätze für Balkenenden zu berechnen, andernfalls
 
 @item
-benutze die Werte von @code{baseMoment} und @code{beatStructure},
+benutze die Werte von @code{beatBase} und @code{beatStructure},
 um die Enden der Balken im Takt zu definieren und beende Balken
 am Ende jedes Taktes.
 

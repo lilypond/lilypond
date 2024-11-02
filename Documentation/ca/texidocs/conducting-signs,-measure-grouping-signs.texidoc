@@ -11,7 +11,7 @@ interna de les pulsacions del compàs com una llista de nombres (en la
 sintaxi de l'Scheme) abans de la indicació del compàs.
 
 @code{\\time} s'aplica al context @code{Timing}, per la qual cosa no
-restableix els valors de @code{beatStructure} ni de @code{baseMoment}
+restableix els valors de @code{beatStructure} ni de @code{beatBase}
 que s'estableixen en altres contextos de nivell inferior, com
 @code{Voice}.
 

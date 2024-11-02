@@ -1321,7 +1321,7 @@ Mensural time signatures are covered in
 
 In addition to setting the printed time signature, the @code{\time}
 command also sets the values of the time-signature-based properties
-@code{baseMoment}, @code{beatStructure}, and @code{beamExceptions}.
+@code{beatBase}, @code{beatStructure}, and @code{beamExceptions}.
 The predefined default values for these properties can be found in
 @file{scm/time-signature-settings.scm}.
 
@@ -1343,7 +1343,7 @@ argument:
 @end lilypond
 
 Alternatively, the default values of all these time-signature-based
-variables, including @code{baseMoment} and @code{beamExceptions},
+variables, including @code{beatBase} and @code{beamExceptions},
 can be set together.  The values can be set independently for several
 different time signatures.  The new values take effect when a
 subsequent @code{\time} command with the same value of the time
@@ -2489,7 +2489,7 @@ new beam starts.
 @cindex lyrics, with beam
 
 @funindex autoBeaming
-@funindex baseMoment
+@funindex beatBase
 @funindex \beamExceptions
 @funindex beatStructure
 @funindex measureLength
@@ -2498,25 +2498,25 @@ new beam starts.
 
 When automatic beaming is enabled, the placement of automatic beams
 is determined by three context properties:
-@code{baseMoment}, @code{beatStructure}, and @code{beamExceptions}.
+@code{beatBase}, @code{beatStructure}, and @code{beamExceptions}.
 The default values of these variables may be overridden as described
 below, or alternatively the default values themselves may be changed
 as explained in @ref{Time signature}.
 
 If a @code{beamExceptions} rule is defined for the time signature in
 force, that rule alone is used to determine the beam placement; the
-values of @code{baseMoment} and @code{beatStructure} are ignored.
+values of @code{beatBase} and @code{beatStructure} are ignored.
 
 If no @code{beamExceptions} rule is defined for the time signature
 in force, the beam placement is determined by the values of
-@code{baseMoment} and @code{beatStructure}.
+@code{beatBase} and @code{beatStructure}.
 
 
-@subsubsubheading Beaming based on @code{baseMoment} and @code{beatStructure}
+@subsubsubheading Beaming based on @code{beatBase} and @code{beatStructure}
 
 By default, @code{beamExceptions} rules are defined for most common
 time signatures, so the @code{beamExceptions} rules must be disabled
-if automatic beaming is to be based on @code{baseMoment} and
+if automatic beaming is to be based on @code{beatBase} and
 @code{beatStructure}.  The @code{beamExceptions} rules are disabled
 by
 
@@ -2528,13 +2528,13 @@ When @code{beamExceptions} is set to @code{#'()}, either due to an
 explicit setting or because no @code{beamExceptions} rules are defined
 internally for the time signature in force, the ending points for
 beams are on beats as specified by the context properties
-@code{baseMoment} and @code{beatStructure}.  @code{beatStructure} is
+@code{beatBase} and @code{beatStructure}.  @code{beatStructure} is
 a Scheme list that defines the length of each beat in the measure in
-units of @code{baseMoment}.  By default, @code{baseMoment} is one
+units of @code{beatBase}.  By default, @code{beatBase} is one
 over the denominator of the time signature.  By default, each unit of
-length @code{baseMoment} is a single beat.
+length @code{beatBase} is a single beat.
 
-Note that there are separate @code{beatStructure} and @code{baseMoment}
+Note that there are separate @code{beatStructure} and @code{beatBase}
 values for each time signature.  Changes to these variables apply only
 to the time signature that is currently in force, hence those changes
 must be placed after the @code{\time} command which starts a new time
@@ -2614,10 +2614,10 @@ staff:
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 @end lilypond
 
-The value of @code{baseMoment} can be adjusted to change
+The value of @code{beatBase} can be adjusted to change
 the beaming behavior, if desired. When this is done,
 the value of @code{beatStructure} must be set to be
-compatible with the new value of @code{baseMoment}.
+compatible with the new value of @code{beatBase}.
 
 @lilypond[quote,verbatim,fragment]
 \time 5/8
@@ -2628,7 +2628,7 @@ compatible with the new value of @code{baseMoment}.
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-By default @code{baseMoment} is set to one over the denominator of
+By default @code{beatBase} is set to one over the denominator of
 the time signature.  Any exceptions to this default can be found in
 @file{scm/time-@/signature-@/settings.scm}.
 
@@ -2664,7 +2664,7 @@ it means that the current beaming settings need not be known in order
 to specify a new beaming pattern.}
 
 When the time signature is changed, default values of
-@code{Timing@/.baseMoment}, @code{Timing@/.beatStructure},
+@code{Timing@/.beatBase}, @code{Timing@/.beatStructure},
 and @code{Timing@/.beamExceptions} are set.  Setting the time signature
 will reset the automatic beaming settings for the @code{Timing}
 context to the default behavior.
@@ -2712,7 +2712,7 @@ reset @code{beamExceptions}.
 \time 3/4
 % by default we beam in (6) due to beamExceptions
 \repeat unfold 6 {a'8} |
-% This will beam (1 1 1) due to default baseMoment and beatStructure
+% This will beam (1 1 1) due to default beatBase and beatStructure
 \set Timing.beamExceptions = #'()
 \repeat unfold 6 {a'8}
 @end lilypond
@@ -2737,7 +2737,7 @@ which has effect only in time signatures with 3 in the numerator:
 
 When automatic beaming is enabled, the placement of automatic beams
 is determined by the context properties
-@code{baseMoment}, @code{beatStructure}, and @code{beamExceptions}.
+@code{beatBase}, @code{beatStructure}, and @code{beamExceptions}.
 
 The following rules, in order of priority, apply when determining
 the appearance of beams:
@@ -2758,7 +2758,7 @@ for a longer beam type, use it to determine the valid places
 where beams may end, otherwise
 
 @item
-use the values of @code{baseMoment} and @code{beatStructure} to
+use the values of @code{beatBase} and @code{beatStructure} to
 determine the ends of the beats in the measure, and
 end beams at the end of beats.
 
@@ -2776,7 +2776,7 @@ The default beaming rules can be found in
 @cindex beam, subdividing
 @cindex subdividing beams
 @funindex subdivideBeams
-@funindex baseMoment
+@funindex beatBase
 @funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/subdividing-beams.ly}

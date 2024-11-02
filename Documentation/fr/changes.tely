@@ -391,9 +391,9 @@ comme recommandé par Gould et Ross.
 La subdivision des ligatures automatiques a été retravaillée. Jusqu'à
 présent, on pouvait constater de nombreuses imperfections dans la
 manière de subdiviser automatiquement des motifs de ligature complexes
-en raison de surestimations de la valeur de @code{baseMoment}. LilyPond
+en raison de surestimations de la valeur de @code{beatBase}. LilyPond
 est désormais capable de subdiviser correctement la plupart des motifs
-de ligature sans utiliser la valeur de @code{baseMoment} pour limiter la
+de ligature sans utiliser la valeur de @code{beatBase} pour limiter la
 subdivision d'une ligature. La simple activation de
 @code{subdivideBeams} divise automatiquement tous les intervalles par
 défaut. Trois nouvelles propriétés ont été introduites pour permettre
@@ -401,14 +401,14 @@ d'affiner la subdivision automatique des ligatures :
 @code{minimumBeamSubdivisionInterval},
 @code{maximumBeamSubdivisionInterval} et @code{respectIncompleteBeams}.
 @code{minimumBeamSubdivisionInterval} limite les intervalles de
-subdivision de manière identique à ce que @code{baseMoment} faisait
+subdivision de manière identique à ce que @code{beatBase} faisait
 auparavant (réduction de la fréquence des subdivisions de ligatures).
 @code{maximumBeamSubdivisionInterval} limite globalement le nombre de
 tronçons supprimés aux emplacements de subdivision.
 @code{respectIncompleteBeams} limite le nombre de moignons lorsque le
 temps restant ne complèterait pas la métrique de la subdivision. Régler
-@code{minimumBeamSubdivisionInterval} à la valeur de @code{baseMoment}
-dans tous les cas, y compris lorsque @code{baseMoment} varie
+@code{minimumBeamSubdivisionInterval} à la valeur de @code{beatBase}
+dans tous les cas, y compris lorsque @code{beatBase} varie
 implicitement, préserve le comportement antérieur.
 
 @item

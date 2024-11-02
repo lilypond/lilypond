@@ -11,7 +11,7 @@ agrupación interna de los pulsos del compás como una lista de números
 (en la sintaxis de Scheme) antes de la indicación de compás.
 
 @code{\\time} se aplica al contexto @code{Timing}, por lo que no
-restablece los valores de @code{beatStructure} ni de @code{baseMoment}
+restablece los valores de @code{beatStructure} ni de @code{beatBase}
 que se establezcan en otros contextos de nivel inferior, como
 @code{Voice}.
 

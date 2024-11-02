@@ -11,7 +11,7 @@ arguments : le nombre de pulsations, la durée de la pulsation et le
 regroupement des pulsations dans la mesure. @code{\\time} et
 @code{set-time-signature} s'appliquent tous deux au contexte
 @code{Timing} ; ils ne redéfiniront donc pas les valeurs de
-@code{beatStructure} ou @code{baseMoment} lorsqu'elles sont modifiées
+@code{beatStructure} ou @code{beatBase} lorsqu'elles sont modifiées
 dans un contexte de niveau inférieur comme @code{Voice} par exemple.
 
 Si l'on fait appel au @code{Measure_grouping_engraver}, la fonction

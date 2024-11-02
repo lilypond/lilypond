@@ -10,7 +10,7 @@
 
 @code{\\time} は @code{Timing} コンテキストに適用されるため、@c
 @code{Voice} のような他のより低いレベルのコンテキストにセットされた
-@code{beatStructure} や @code{baseMoment} の値を上書きしません。
+@code{beatStructure} や @code{beatBase} の値を上書きしません。
 
 @code{Measure_grouping_engraver} がコンテキストに含まれている場合、@c
 拍のグループを示す記号が表示されます。この記号はリズムが複雑な現代音楽を@c

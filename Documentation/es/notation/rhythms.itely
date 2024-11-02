@@ -1196,7 +1196,7 @@ Las indicaciones de compás de la música mensural se tratan en
 
 Además de ajustar la indicación de compás que se imprime, la
 instrucción @code{\time} establece también los valores de las
-propiedades basadas en el tipo de compás @code{baseMoment},
+propiedades basadas en el tipo de compás @code{beatBase},
 @code{beatStructure} y @code{beamExceptions}.  Los valores
 predefinidos de estas propiedades están en
 @file{scm/time-signature-settings.scm}.
@@ -1220,7 +1220,7 @@ escribiéndolo como primer argumento opcional:
 
 De forma alternativa, los valores predeterminados de todoas estas
 variables basadas en la indicación de compás, incluidas
-@code{baseMoment} y @code{beamExceptions}, se pueden establecer
+@code{beatBase} y @code{beamExceptions}, se pueden establecer
 juntas.  Los valores se pueden fijar independientemente para
 varios tipos de compás distintos.  Los nuevos valores tienen
 efecto cuando se ejecuta una instrucción @code{\time} posterior
@@ -2257,7 +2257,7 @@ se ha completado no tendrá efecto hasta que inicie la
 @cindex letra, y barras
 
 @funindex autoBeaming
-@funindex baseMoment
+@funindex beatBase
 @funindex \beamExceptions
 @funindex beatStructure
 @funindex measureLength
@@ -2266,7 +2266,7 @@ se ha completado no tendrá efecto hasta que inicie la
 
 Cuando está habilitado el barrado automático, la colocación de las
 barras automáticas viene determinada por tres propiedades de
-contexto: @code{baseMoment}, @code{beatStructure} y
+contexto: @code{beatBase}, @code{beatStructure} y
 @code{beamExceptions}.  Los valores predeterminados de estas
 variables se pueden sobreescribir como se describe más abajo, o de
 forma alternativa los propios valores predeterminados se pueden
@@ -2274,20 +2274,20 @@ cambiar como se explica en @ref{Time signature}.
 
 Si hay definida una regla de @code{beamExceptions} para el compás
 en curso, se usa dicha regla para determinar la colocación de las
-barras; se ignoran los valores de @code{baseMoment} y
+barras; se ignoran los valores de @code{beatBase} y
 @code{beatStructure}.
 
 Si no está definida ninguna regla de @code{beamExceptions} para el
 tipo de compás en curso, la colocación de las barras está
-determinada por los valores de @code{baseMoment} y
+determinada por los valores de @code{beatBase} y
 @code{beatStructure}.
 
-@subsubsubheading Barrado basado en @code{baseMoment} y @code{beatStructure}
+@subsubsubheading Barrado basado en @code{beatBase} y @code{beatStructure}
 
 De forma predeterminada, las reglas de @code{beamExceptions} están
 definidas para los compases más comunes, y así las reglas de
 @code{beamExceptions} se deben desactivar si pretendemos que el
-barrado automático esté basado en @code{baseMoment} y
+barrado automático esté basado en @code{beatBase} y
 @code{beatStructure}.  Las reglas de @code{beamExceptions} se
 desactivan mediante
 
@@ -2300,15 +2300,15 @@ Cuando el valor de @code{beamExceptions} se ha fijado a
 no hay ninguna regla de @code{beamExceptions} definida
 internamente para el compás actual, los puntos finales de las
 barras están en los pulsos según viene determinado por las
-propiedades de contexto @code{baseMoment} y @code{beatStructure}.
+propiedades de contexto @code{beatBase} y @code{beatStructure}.
 @code{beatStructure} es una lista de Scheme que define la longitud
-de cada pulso dentro del compás en unidades de @code{baseMoment}.
-De forma predeterminada, @code{baseMoment} es una unidad más que
+de cada pulso dentro del compás en unidades de @code{beatBase}.
+De forma predeterminada, @code{beatBase} es una unidad más que
 el denominador del compás.  De forma predeterminada también, cada
-unidad de longitud @code{baseMoment} es un único pulso.
+unidad de longitud @code{beatBase} es un único pulso.
 
 Observe que existen valores de @code{beatStructure} y de
-@code{baseMoment} diferentes para cada indicación de compás.  Los
+@code{beatBase} diferentes para cada indicación de compás.  Los
 cambios que se hacen a estas variables se aplican solamente al
 tipo de compás en vigor, por lo que dichos cambios se deben
 escribir después de la instrucción @code{\time} que da comienzo a
@@ -2390,10 +2390,10 @@ pentagrama:
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 @end lilypond
 
-El valor de @code{baseMoment} se puede ajustar para cambiar el
+El valor de @code{beatBase} se puede ajustar para cambiar el
 comportamiento de las barras, si se desea.  Cuando se hace, el
 valor de @code{beatStructure} se debe fijar de manera que sea
-compatible con el nuevo valor de @code{baseMoment}.
+compatible con el nuevo valor de @code{beatBase}.
 
 @lilypond[quote,verbatim,fragment]
 \time 5/8
@@ -2404,7 +2404,7 @@ compatible con el nuevo valor de @code{baseMoment}.
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-De forma predeterminada @code{baseMoment} está fijado a una unidad
+De forma predeterminada @code{beatBase} está fijado a una unidad
 más que el denominador del compás.  Todas las excepciones a este
 valor predeterminado están en
 @file{scm/time-signature-settings.scm}.
@@ -2443,7 +2443,7 @@ conocer los ajustes de barrado actuales para poder especificar un
 patrón de barrado nuevo.}
 
 Cuando cambia el compás, se fijan los valores predeterminados de
-@code{Timing.baseMoment}, @code{Timing.beatStructure} y
+@code{Timing.beatBase}, @code{Timing.beatStructure} y
 @code{Timing.beamExceptions}.  Un ajuste en el tipo de compás da
 como resultado un reinicio de los ajustes de barrado automático
 para el contexto @code{Timing} al comportamiento predeterminado.
@@ -2494,7 +2494,7 @@ reinicie @code{beamExceptions}.
 \time 3/4
 % by default we beam in (6) due to beamExceptions
 \repeat unfold 6 {a'8} |
-% This will beam (1 1 1) due to default baseMoment and beatStructure
+% This will beam (1 1 1) due to default beatBase and beatStructure
 \set Timing.beamExceptions = #'()
 \repeat unfold 6 {a'8}
 @end lilypond
@@ -2521,7 +2521,7 @@ numerador:
 
 Cuando se habilita el barrado automático, la colocación de las
 barras de corchea automáticas viene determinada por las
-propiedades de contexto @code{baseMoment}, @code{beatStructure} y
+propiedades de contexto @code{beatBase}, @code{beatStructure} y
 @code{beamExceptions}.
 
 Son de aplicación las siguientes reglas, en orden de prioridad,
@@ -2544,7 +2544,7 @@ los lugares válidos en que pueden terminar las barras; en caso
 contrario,
 
 @item
-usar los valores de @code{baseMoment} y de @code{beatStructure}
+usar los valores de @code{beatBase} y de @code{beatStructure}
 para determinar los finales de los pulsos dentro del compás, y
 terminar las barras al final de los pulsos.
 
@@ -2563,7 +2563,7 @@ Las reglas de barrado predefinidas están en el archivo
 @cindex barra, subdivisión
 @cindex subdivisión, de barra
 @funindex subdivideBeams
-@funindex baseMoment
+@funindex beatBase
 @funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/subdividing-beams.ly}

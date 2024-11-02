@@ -1118,7 +1118,7 @@ Les indicacions de compàs de la música mensural s'estudien a
 
 A més d'ajustar la indicació de compàs que s'imprimeix, l'ordre
 @code{\time} estableix els valors de les propietats basades en el
-tipus de compàs @code{baseMoment}, @code{beatStructure} i
+tipus de compàs @code{beatBase}, @code{beatStructure} i
 @code{beamExceptions}.  Els valors predefinits d'aquestes
 propietats estan a
 @file{scm/time-signature-settings.scm}.
@@ -1142,7 +1142,7 @@ argument opcional:
 
 De forma alternativa, els valors predeterminats de totes aquestes
 variables basades en la indicació de compàs, incloses
-@code{baseMoment} i @code{beamExceptions}, es poden establir totes
+@code{beatBase} i @code{beamExceptions}, es poden establir totes
 a l'hora.  Els valors es poden fixar independentment per a
 diversos tipus de compàs diferents.  Els nous valors tenen efecte
 quan s'executa una ordre @code{\time} posterior amb el mateix
@@ -2118,7 +2118,7 @@ que la barra s'hagi completat no tindrà efecte fins que inicieu la
 @cindex lletra i barres
 
 @funindex autoBeaming
-@funindex baseMoment
+@funindex beatBase
 @funindex \beamExceptions
 @funindex beatStructure
 @funindex measureLength
@@ -2127,7 +2127,7 @@ que la barra s'hagi completat no tindrà efecte fins que inicieu la
 
 Quan està habilitat el barrat automàtic, la col·locació de les
 barres automàtiques ve determinada per tres propietats de context:
-@code{baseMoment}, @code{beatStructure} i @code{beamExceptions}.
+@code{beatBase}, @code{beatStructure} i @code{beamExceptions}.
 Els valores predeterminats d'aquestes variables es poden
 sobreescriure com es descriu més a baix, o de forma alternativa
 els propis valors predeterminats es poden canviar com s'explica a
@@ -2135,20 +2135,20 @@ els propis valors predeterminats es poden canviar com s'explica a
 
 Si hi ha definida una regla de @code{beamExceptions} per al compàs
 en curs, s'usa aquesta regla per determinar la col·locació de les
-barres; s'ignoren els valores de @code{baseMoment} i
+barres; s'ignoren els valores de @code{beatBase} i
 @code{beatStructure}.
 
 Si no hi ha definida cap regla de @code{beamExceptions} per al
 tipus de compàs en curs, la col·locació de les barres està
-determinada pels valors de @code{baseMoment} i
+determinada pels valors de @code{beatBase} i
 @code{beatStructure}.
 
-@subsubsubheading Barrat basat en @code{baseMoment} i @code{beatStructure}
+@subsubsubheading Barrat basat en @code{beatBase} i @code{beatStructure}
 
 De forma predeterminada, les regles de @code{beamExceptions} estan
 definides per als compassos més comuns, i les regles de
 @code{beamExceptions} s'han de desactivar si pretenem que el
-barrat automàtic estigui basat en @code{baseMoment} i
+barrat automàtic estigui basat en @code{beatBase} i
 @code{beatStructure}.  Les regles de @code{beamExceptions} es
 desactiven mitjançant
 
@@ -2161,14 +2161,14 @@ Quan el valor de @code{beamExceptions} s'ha establert a
 hi ha cap regla de @code{beamExceptions} definida internament per
 al compàs actual, els punts finals de les barres estan en les
 pulsacions segons vingui determinat per les propietats de context
-@code{baseMoment} i @code{beatStructure}.
+@code{beatBase} i @code{beatStructure}.
 @code{beatStructure} és una llista d'Scheme que defineix la
 longitud de cada pulsació dins del compàs en unitats de
-@code{baseMoment}.   De forma predeterminada, cada unitat de
-longitud @code{baseMoment} és una única pulsació.
+@code{beatBase}.   De forma predeterminada, cada unitat de
+longitud @code{beatBase} és una única pulsació.
 
 Observeu que hi ha valors de @code{beatStructure} i de
-@code{baseMoment} diferents per a cada indicació de compàs.  Els
+@code{beatBase} diferents per a cada indicació de compàs.  Els
 canvis que es fan a aquestes variables s'apliquen sols al tipus de
 compàs vigent, per la qual cosa aquests canvis s'han d'escriure
 després de l'ordre @code{\time} que dóna començament a una secció
@@ -2248,10 +2248,10 @@ pentagrama:
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 @end lilypond
 
-El valor de @code{baseMoment} es pot ajustar per canviar el
+El valor de @code{beatBase} es pot ajustar per canviar el
 comportament de les barres, si es desitja.  Quan es fa, el
 valor de @code{beatStructure} s'ha de fixar de manera que sigui
-compatible amb el nou valor de @code{baseMoment}.
+compatible amb el nou valor de @code{beatBase}.
 
 @lilypond[quote,verbatim,fragment]
 \time 5/8
@@ -2262,7 +2262,7 @@ compatible amb el nou valor de @code{baseMoment}.
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-De forma predeterminada @code{baseMoment} està fixat a una unitat
+De forma predeterminada @code{beatBase} està fixat a una unitat
 més que el denominador del compàs.  Totes les excepcions a aquest
 valor predeterminat estan a
 @file{scm/time-signature-settings.scm}.
@@ -2301,7 +2301,7 @@ els ajustaments de barrat actuals per poder especificar un patró
 de barrat nou.}
 
 Quan canvia el compàs es fixen els valors predeterminats de
-@code{Timing.baseMoment}, @code{Timing.beatStructure} i
+@code{Timing.beatBase}, @code{Timing.beatStructure} i
 @code{Timing.beamExceptions}.  Un ajustament en el tipus de compàs
 dóna com a resultat un reinici dels ajustaments de barrat
 automàtic per al context @code{Timing} al comportament predeterminat.
@@ -2352,7 +2352,7 @@ a cada part, reinicieu @code{beamExceptions}.
 \time 3/4
 % per defecte barrem a (6) degut a beamExceptions
 \repeat unfold 6 {a'8} |
-% Això barrarà (1 1 1) degut a baseMoment i beatStructure predeterminats
+% Això barrarà (1 1 1) degut a beatBase i beatStructure predeterminats
 \set Timing.beamExceptions = #'()
 \repeat unfold 6 {a'8}
 @end lilypond
@@ -2378,7 +2378,7 @@ compàs que tenen la xifra 3 al numerador:
 
 Quan s'habilita el barrat automàtic, la col·locació de les barres
 de corxera automàtiques es determinen per les propietats de
-context @code{baseMoment}, @code{beatStructure} i
+context @code{beatBase}, @code{beatStructure} i
 @code{beamExceptions}.
 
 Són d'aplicació les següents regles, en ordre de prioritat, quan
@@ -2402,7 +2402,7 @@ determinar els llocs vàlids en els quals poden acabar les barres;
 en cas contrari,
 
 @item
-usar els valors de @code{baseMoment} i de @code{beatStructure}
+usar els valors de @code{beatBase} i de @code{beatStructure}
 per determinar els finals de les pulsacions del compàs, i terminar
 les barres al final de les pulsacions.
 

@@ -2,6 +2,6 @@
   texidocja = "
 連桁の細分は自動で行われます。@c
 プロパティ @code{subdivideBeams} をセットすることで、@c
-(@code{baseMoment} で指定できるような) 拍の位置で連桁が細分されます。
+(@code{beatBase} で指定できるような) 拍の位置で連桁が細分されます。
 "
   doctitleja = "自動的な連桁細分"

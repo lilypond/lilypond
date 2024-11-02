@@ -10,7 +10,7 @@ una misura in una lista di numeri (nella sintassi di Scheme) prima dell'indicazi
 di tempo.
 
 @code{\\time} agisce nel contesto @code{Timing}, dunque non reimposterà i
-i valori di @code{beatStructure} e @code{baseMoment} che sono impostati in
+i valori di @code{beatStructure} e @code{beatBase} che sono impostati in
 altri contesti di più basso livello, come @code{Voice}.
 
 Se si include l'incisore @code{Measure_grouping_engraver} in uno dei

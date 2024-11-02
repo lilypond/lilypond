@@ -7,21 +7,21 @@ Questo comportamento può essere modificato in modo da suddividere le
 travature in sottogruppi attraverso la proprietà
 @code{subdivideBeams}. Se impostata, le travature che comprendono più
 sottogruppi verranno suddivise a intervalli definiti dal
-valore attuale di @code{baseMoment}, riducendo le travature multiple
+valore attuale di @code{beatBase}, riducendo le travature multiple
 al numero di travature che indica il valore metrico della suddivisione.
 Se il gruppo successivo alla suddivisione è più breve del valore
 metrico corrente (di solito perché la travatura è incompleta), il
 numero di travature riflette il gruppo di suddivisione più lungo
 possibile.  Tuttavia, se rimane una sola nota dopo la divisione, questa
 restrizione non viene applicata.
-Si noti che @code{baseMoment}, se non impostata
+Si noti che @code{beatBase}, se non impostata
 esplicitamente, equivale a uno fratto il denominatore dell'attuale
 indicazione di tempo.  Deve quindi essere impostata su una frazione
 che stabilisca la durata del sottogruppo di travature; lo si può fare
 usando la funzione @code{ly:make-moment}, come è mostrato in questo
-frammento di codice.  Inoltre quando @code{baseMoment} cambia, anche
+frammento di codice.  Inoltre quando @code{beatBase} cambia, anche
 @code{beatStructure} deve essere modificato per accordarsi con
-@code{baseMoment}:
+@code{beatBase}:
 
 "
   doctitleit = "Suddividere le travature"

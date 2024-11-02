@@ -404,22 +404,22 @@ recommended by Gould and Ross.
 Automatic beam subdivision has been reworked.  Previously, many
 imperfections could be found in the results of automatic subdivision of
 many complex beaming patterns due to overreliance of the value of
-@code{baseMoment}.  Now, LilyPond can correctly subdivide most beaming
-patterns and no longer uses the value of @code{baseMoment} to limit beam
+@code{beatBase}.  Now, LilyPond can correctly subdivide most beaming
+patterns and no longer uses the value of @code{beatBase} to limit beam
 subdivision.  Simply setting @code{subdivideBeams} to @code{#t} now
 automatically subdivides all intervals by default.  3@tie{}new
 properties have been introduced to tune automatic beam subdivision:
 @code{minimumBeamSubdivisionInterval},
 @code{maximumBeamSubdivisionInterval} and @code{respectIncompleteBeams}.
 @code{minimumBeamSubdivisionInterval} limits subdivision intervals the
-same way as how @code{baseMoment} previously did (reducing frequency of
+same way as how @code{beatBase} previously did (reducing frequency of
 subdivided beams). @code{maximumBeamSubdivisionInterval} limits the
 number of beamlets removed at subdivisions in general.
 @code{respectIncompleteBeams} limits the number of beamlets at
 subdivisions where the remaining length would not complete the metric
 value of the subdivision. Setting @code{minimumBeamSubdivisionInterval}
-to the value of @code{baseMoment} at all times, even when
-@code{baseMoment} implicitly changes, preserves old behavior.
+to the value of @code{beatBase} at all times, even when
+@code{beatBase} implicitly changes, preserves old behavior.
 
 @item
 New @q{stacked} flag glyphs are available.  All flag elements of a
@@ -957,7 +957,7 @@ the new inverted glyphs are named @code{script.dupbow} and
 @item
 The value of the @code{timeSignatureSettings} context property
 uses the symbol @code{beatBase} where it formerly used
-@code{baseMoment}.  @command{convert-ly} does not address this
+@code{beatBase}.  @command{convert-ly} does not address this
 change.
 
 @item

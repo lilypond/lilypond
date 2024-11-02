@@ -1144,7 +1144,7 @@ Le indicazioni di tempo mensurali sono trattate in
 
 Oltre a impostare l'indicazione di tempo che appare nel pentagramma, il comando
 @code{\time} imposta anche i valori delle proprietà basate sull'indicazione di
-tempo, ovvero @code{baseMoment}, @code{beatStructure} e @code{beamExceptions}.
+tempo, ovvero @code{beatBase}, @code{beatStructure} e @code{beamExceptions}.
 I valori predefiniti di queste proprietà si trovano in
 @file{scm/time-signature-settings.scm}.
 
@@ -1165,7 +1165,7 @@ Si può sovrascrivere il valore predefinito di @code{beatStructure} nel comando
 @end lilypond
 
 Oppure si possono impostare tutti i valori predefiniti di queste variabili relative
-all'indicazione di tempo, incluse @code{baseMoment} e @code{beamExceptions}.
+all'indicazione di tempo, incluse @code{beatBase} e @code{beamExceptions}.
 I valori possono essere impostati in modo indipendente per diverse indicazioni
 di tempo.  I nuovi valori hanno effetto appena viene eseguito un nuovo
 comando @code{\time} che abbia lo stesso valore dell'indicazione di tempo
@@ -1201,7 +1201,7 @@ il denominatore dell'unità di tempo.
 
 @item
 @code{@var{beatStructure}}, una lista Scheme che indica la struttura dei
-battiti nella misura, nell'unità di @code{@var{baseMoment}}.
+battiti nella misura, nell'unità di @code{@var{beatBase}}.
 
 @item
 @code{@var{beamExceptions}}, una lista di associazione (@emph{alist}) che contiene
@@ -2186,7 +2186,7 @@ non inizia la @emph{successiva}, nuova travatura.
 @cindex testo vocale, con travatura
 
 @funindex autoBeaming
-@funindex baseMoment
+@funindex beatBase
 @funindex \beamExceptions
 @funindex beatStructure
 @funindex measureLength
@@ -2195,24 +2195,24 @@ non inizia la @emph{successiva}, nuova travatura.
 
 Quando la disposizione automatica delle travature è abilitata, la disposizione
 delle travature è determinata da tre proprietà di contesto:
-@code{baseMoment}, @code{beatStructure} e @code{beamExceptions}.
+@code{beatBase}, @code{beatStructure} e @code{beamExceptions}.
 I valori predefiniti di queste variabili possono essere sovrascritti, come
 vedremo tra breve, oppure si possono anche cambiare i valori predefiniti stessi,
 come è spiegato in @ref{Time signature}.
 
 Se è definita una regola @code{beamExceptions} per l'indicazione di
 tempo corrente, tale regola soltanto determina la
-disposizione delle travature; i valori di @code{baseMoment} e
+disposizione delle travature; i valori di @code{beatBase} e
 @code{beatStructure} vengono ignorati.  Se non è definita
 alcuna regola @code{beamExceptions} per l'indicazione di tempo
 corrente, la disposizione delle travature è determinata dai
-valori di @code{baseMoment} e @code{beatStructure}.
+valori di @code{beatBase} e @code{beatStructure}.
 
-@subsubsubheading Disposizione delle travature basata su @code{baseMoment} e @code{beatStructure}
+@subsubsubheading Disposizione delle travature basata su @code{beatBase} e @code{beatStructure}
 
 Dato che le indicazioni di tempo più comuni hanno delle regole @code{beamExceptions}
 già definite, occorre disabilitarle se la disposizione automatica deve basarsi
-su @code{baseMoment} e @code{beatStructure}.  Le regole @code{beamExceptions} si
+su @code{beatBase} e @code{beatStructure}.  Le regole @code{beamExceptions} si
 disabilitano con questo comando
 
 @example
@@ -2223,15 +2223,15 @@ Quando @code{beamExceptions} è impostato su @code{#'()}, o per
 impostazione esplicita o perché non sono state definite internamente
 le @code{beamExceptions} per l'indicazione di tempo corrente, le
 estremità delle travature si trovano sulle suddivisioni come specificato
-dalle proprietà di contesto @code{baseMoment} e
+dalle proprietà di contesto @code{beatBase} e
 @code{beatStructure}.  @code{beatStructure} è una lista @emph{Scheme}
 che definisce la lunghezza di ogni suddivisione in rapporto alla misura in unità
-di @code{baseMoment}.  Per impostazione predefinita, @code{baseMoment}
+di @code{beatBase}.  Per impostazione predefinita, @code{beatBase}
 è uno fratto il denominatore dell'indicazione di tempo e ogni unità
-di @code{baseMoment} corrisponde a una singola suddivisione.
+di @code{beatBase} corrisponde a una singola suddivisione.
 
 Per ogni indicazione di tempo esistono valori separati per @code{beatStructure}
-e @code{baseMoment}. Le modifiche di queste variabili hanno effetto solo
+e @code{beatBase}. Le modifiche di queste variabili hanno effetto solo
 sulle indicazioni di tempo attive, dunque tali modifiche devono essere
 poste dopo il comando @code{\time} che inizia una nuova indicazione di
 tempo, non prima. I nuovi valori assegnati a una certa indicazione di
@@ -2312,10 +2312,10 @@ rigo:
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 @end lilypond
 
-Il valore di @code{baseMoment} può essere regolato in modo da
+Il valore di @code{beatBase} può essere regolato in modo da
 cambiare il comportamento delle travature, se si vuole. In questo caso
 occorre cambiare anche il valore di @code{beatStructure} così che sia
-compatibile col nuovo valore di @code{baseMoment}.
+compatibile col nuovo valore di @code{beatBase}.
 
 @lilypond[quote,verbatim,fragment]
 \time 5/8
@@ -2325,7 +2325,7 @@ compatibile col nuovo valore di @code{baseMoment}.
 \repeat unfold 10 { a16 }
 @end lilypond
 
-Per impostazione predefinita, @code{baseMoment} ha un valore di uno fratto il
+Per impostazione predefinita, @code{beatBase} ha un valore di uno fratto il
 denominatore dell'indicazione di tempo.  Le eccezioni a questa regola si
 trovano in @file{scm/time-signature-settings.scm}.
 
@@ -2361,7 +2361,7 @@ non c'è bisogno di conoscere le attuali impostazioni delle travature per
 poter specificare un nuovo modello di disposizione delle travature.}
 
 Quando cambia l'indicazione di tempo, vengono impostati i valori predefiniti
-di @code{Timing.baseMoment}, @code{Timing.beatStructure} e
+di @code{Timing.beatBase}, @code{Timing.beatStructure} e
 @code{Timing.beamExceptions}.  L'impostazione dell'indicazione di tempo
 ripristina le impostazioni automatiche delle travature del contesto @code{Timing}
 ai valori predefiniti.
@@ -2407,7 +2407,7 @@ un'unica travatura.  Per raggrupparle secondo le suddivisioni, azzera @code{beam
 \time 3/4
 % il comportamento predefinito è un gruppo di (6) a causa di beamExceptions
 \repeat unfold 6 {a8} |
-% Le travature saranno raggruppate in (1 1 1) a causa dei valori predefiniti di baseMoment e beatStructure
+% Le travature saranno raggruppate in (1 1 1) a causa dei valori predefiniti di beatBase e beatStructure
 \set Timing.beamExceptions = #'()
 \repeat unfold 6 {a8}
 @end lilypond
@@ -2432,7 +2432,7 @@ soltanto sulle indicazioni di tempo che hanno 3 come numeratore:
 
 Quando la disposizione automatica delle travature è abilitata, la disposizione
 delle travature è determinata dalle proprietà di contesto
-@code{baseMoment}, @code{beatStructure} e @code{beamExceptions}.
+@code{beatBase}, @code{beatStructure} e @code{beamExceptions}.
 
 Nel determinare l'aspetto delle travature vengono applicate le seguenti regole,
 in ordine di priorità:
@@ -2453,7 +2453,7 @@ per un tipo di travatura più lunga, la usa per determinare i punti corretti
 in cui le travature possono terminare, altrimenti
 
 @item
-usa i valori di @code{baseMoment} e @code{beatStructure} per
+usa i valori di @code{beatBase} e @code{beatStructure} per
 determinare l'estensione delle suddivisioni della misura e terminare
 le travature alla fine delle suddivisioni.
 
@@ -2470,7 +2470,7 @@ Le regole predefinite per le travature si trovano in
 @cindex travatura, suddivisione
 @cindex suddividere le travature
 @funindex subdivideBeams
-@funindex baseMoment
+@funindex beatBase
 @funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/subdividing-beams.ly}

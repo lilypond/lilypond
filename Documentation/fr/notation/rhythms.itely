@@ -1357,7 +1357,7 @@ Les métriques anciennes font l'objet d'un
 
 En plus de déterminer la métrique qui sera imprimée, la commande
 @code{\time} réglera aussi les valeurs par défaut des propriétés
-@code{baseMoment}, @code{beatStructure} et @code{beamExceptions}
+@code{beatBase}, @code{beatStructure} et @code{beamExceptions}
 correspondant à la métrique. Les valeurs prédéterminées par défaut de
 ces différentes propriétés sont inscrites dans le fichier
 @file{scm/time-signature-settings.scm}.
@@ -1379,7 +1379,7 @@ la commande @code{\time} à l'aide d'un premier argument :
 @end lilypond
 
 Les valeurs par défaut de toutes ces variables associées à la métrique,
-y compris @code{baseMoment} et @code{beamExceptions}, peuvent se définir
+y compris @code{beatBase} et @code{beamExceptions}, peuvent se définir
 en même temps. Ces valeurs peuvent se régler indépendamment pour
 différentes métriques. Les valeurs adaptées ne seront effectives qu'à
 partir du moment où interviendra une commande @code{\time} de la valeur
@@ -2523,7 +2523,7 @@ terminaison ne sera prise en compte qu'à l'occasion de la
 @cindex paroles et ligature
 
 @funindex autoBeaming
-@funindex baseMoment
+@funindex beatBase
 @funindex beamExceptions
 @funindex beatStructure
 @funindex measureLength
@@ -2532,26 +2532,26 @@ terminaison ne sera prise en compte qu'à l'occasion de la
 
 Lorsque la fonction de ligature automatique est active, le
 positionnement des ligatures dépend des trois propriétés
-@code{baseMoment}, @code{beatStructure} et @code{beamExceptions}. Les
+@code{beatBase}, @code{beatStructure} et @code{beamExceptions}. Les
 valeurs par défaut de ces variables peuvent s'adapter, comme indiqué
 ci-après, ou bien carrément être modifiées --@pxref{Time signature}.
 
 Dès lors qu'une règle affectant @code{beamExceptions} est définie pour
 la métrique en vigueur, c'est cette règle qui servira à déterminer le
-placement des ligatures, ignorant les valeurs de @code{baseMoment} et
+placement des ligatures, ignorant les valeurs de @code{beatBase} et
 @code{beatStructure}.
 
 En l'absence de règle affectant @code{beamExceptions} pour la métrique
 en vigueur, les ligatures seront déterminées par les réglages conjoints
-de @code{baseMoment} et @code{beatStructure}.
+de @code{beatBase} et @code{beatStructure}.
 
 
-@subsubsubheading Ligature basée sur @code{baseMoment} et @code{beatStructure}
-@c VO Beaming based on @code{baseMoment} and @code{beatStructure}
+@subsubsubheading Ligature basée sur @code{beatBase} et @code{beatStructure}
+@c VO Beaming based on @code{beatBase} and @code{beatStructure}
 
 @code{beamExceptions} dispose par défaut de règles pour les métriques
 les plus courantes ; il est donc impératif de les invalider pour gérer
-les ligatures automatiques à l'aide de @code{baseMoment} et
+les ligatures automatiques à l'aide de @code{beatBase} et
 @code{beatStructure}. Les règles de @code{beamExceptions} se désactivent
 par un
 
@@ -2563,15 +2563,15 @@ Lorsque @code{beamExceptions} est défini à @code{#'()}, que ce soit
 explicitement ou en raison de l'absence de règles par défaut de
 @code{beamExceptions} pour la métrique en vigueur, la terminaison des
 ligatures est directement liée à la pulsation telle que spécifiée par
-les propriétés @code{baseMoment} et @code{beatStructure}. La propriété
+les propriétés @code{beatBase} et @code{beatStructure}. La propriété
 @code{beatStructure} est constituée d'une liste d'éléments Scheme qui
-définit la longueur de chaque pulsation, prenant @code{baseMoment} comme
-unité. L'unité de base (le @code{baseMoment}) correspond par défaut à
+définit la longueur de chaque pulsation, prenant @code{beatBase} comme
+unité. L'unité de base (le @code{beatBase}) correspond par défaut à
 l'inverse du dénominateur de la métrique. D'autre part, chaque unité de
-@code{baseMoment} constitue par défaut une seule pulsation.
+@code{beatBase} constitue par défaut une seule pulsation.
 
 Notez bien la présence de valeurs distinctes de @code{beatStructure} et
-@code{baseMoment} pour chaque métrique. Toute modification de ces
+@code{beatBase} pour chaque métrique. Toute modification de ces
 variables ne s'applique qu'à la métrique alors en vigueur, raison pour
 laquelle elles doivent se placer à la suite de la commande @code{\time}
 qui entame un fragment ayant une nouvelle métrique, non au préalable.
@@ -2651,10 +2651,10 @@ ces règles affectent le contexte @code{Staff} :
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 @end lilypond
 
-Vous pouvez ajuster la valeur de @code{baseMoment} afin d'obtenir des
+Vous pouvez ajuster la valeur de @code{beatBase} afin d'obtenir des
 ligatures selon vos besoin. Notez cependant que la valeur de
 @code{beatStructure} devra être en corrélation avec cette nouvelle
-valeur de @code{baseMoment}.
+valeur de @code{beatBase}.
 
 @lilypond[quote,verbatim,fragment]
 \time 5/8
@@ -2665,12 +2665,12 @@ valeur de @code{baseMoment}.
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-La pulsation -- @emph{baseMoment} en anglais -- découle directement de
+La pulsation -- @emph{beatBase} en anglais -- découle directement de
 la métrique telle que définie par la commande @code{\time}. Elle est par
 défaut égale à un sur le dénominateur de la métrique. Les exceptions à
 cette règle par défaut sont répertoriées dans le fichier
 @file{scm/time-signature-settings.scm}. Pour savoir comment jouer avec
-la valeur de @code{baseMoment} selon la métrique, reportez vous au
+la valeur de @code{beatBase} selon la métrique, reportez vous au
 chapitre @ref{Time signature}.
 
 Les règles de ligature et de subdivision spécifiques sont enregistrées
@@ -2703,7 +2703,7 @@ fastidieux, mais toutes les règles de ligature devraient être appréciées
 avant de les spécifier.}
 
 Lorsqu'intervient un changement de métrique, les valeurs par défaut de
-@code{Timing@/.baseMoment}, @code{Timing@/.beatStructure} et
+@code{Timing@/.beatBase}, @code{Timing@/.beatStructure} et
 @code{Timing@/.beamExceptions} sont réinitialisées. Il suffit donc, pour
 revenir aux règles de ligature par défaut d'un contexte @code{Timing},
 de spécifier à nouveau la métrique.
@@ -2752,7 +2752,7 @@ la mesure par défaut. Ligaturer sur le temps requiert un appel à
 \time 3/4
 % by default we beam in (6) due to beamExceptions
 \repeat unfold 6 {a'8} |
-% This will beam (1 1 1) due to default baseMoment and beatStructure
+% This will beam (1 1 1) due to default beatBase and beatStructure
 \set Timing.beamExceptions = #'()
 \repeat unfold 6 {a'8}
 @end lilypond
@@ -2780,7 +2780,7 @@ numérateur de la métrique est un 3.
 @c VO How automatic beaming works
 
 Lorsqu'elle est activée, la gestion automatisée des ligatures est
-directement liée aux propriétés @code{baseMoment}, @code{beatStructure}
+directement liée aux propriétés @code{beatBase}, @code{beatStructure}
 et @code{beamExceptions}.
 
 Les règles déterminant le positionnement des ligatures automatiques
@@ -2802,7 +2802,7 @@ si une règle explicite de terminaison a été définie grâce à la propriété
 qui s'appliquera ; sinon
 
 @item
-utilisation des valeurs de @code{baseMoment} et @code{beatStructure}
+utilisation des valeurs de @code{beatBase} et @code{beatStructure}
 pour regrouper les notes par des ligatures.
 
 @end itemize
@@ -2819,7 +2819,7 @@ Les règles de ligature par défaut sont répertoriées dans le fichier
 @cindex subdivision de ligature
 @cindex subdividing beams
 @funindex subdivideBeams
-@funindex baseMoment
+@funindex beatBase
 @funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/subdividing-beams.ly}

@@ -1165,7 +1165,7 @@ R1\fermata
 
 譜刻される拍子を設定することに加えて、@c
 @code{\time} コマンドは拍子に基づくプロパティ
-@code{baseMoment}, @code{beatStructure}, それに @code{beamExceptions}
+@code{beatBase}, @code{beatStructure}, それに @code{beamExceptions}
 の値も設定します。@c
 これらのプロパティにあらかじめ定義されているデフォルト値は
 @file{scm/time-signature-settings.scm} で見つかります。@c
@@ -1186,7 +1186,7 @@ R1\fermata
 }
 @end lilypond
 
-また、@code{baseMoment} と @code{beamExceptions} も含めた、全ての拍子に基づく@c
+また、@code{beatBase} と @code{beamExceptions} も含めた、全ての拍子に基づく@c
 プロパティのデフォルトの値を一度にセットすることができます。@c
 値は異なる拍子記号について独立に設定できます。@c
 新しい値は同じ拍子記号の @code{\time} コマンドが続く時に有効となります。
@@ -2203,7 +2203,7 @@ R1\fermata
 @cindex lyrics, with beam (歌詞と連桁)
 
 @funindex autoBeaming
-@funindex baseMoment
+@funindex beatBase
 @funindex \beamExceptions
 @funindex beatStructure
 @funindex measureLength
@@ -2212,23 +2212,23 @@ R1\fermata
 
 自動連桁が有効な場合、連桁の配置は以下の 3 つのコンテキスト プロパティによって@c
 決定されます:
-@code{baseMoment}, @code{beatStructure}, @code{beamExceptions}。@c
+@code{beatBase}, @code{beatStructure}, @code{beamExceptions}。@c
 これらの値は以下で示すようにオーバライドすることができますが、@c
 @ref{Time signature} で説明しているように、デフォルトの値そのものを変更することも@c
 できます。
 
 @code{beamExceptions} が現在の拍子記号に対して定義されている時、@c
 そのルールのみが連桁の配置の決定に使用されます。
-@code{baseMoment} や @code{beatStructure} の値は使用されません。
+@code{beatBase} や @code{beatStructure} の値は使用されません。
 
 @code{beamExceptions} が現在の拍子記号に対して定義されていない時、@c
-@code{baseMoment} と @code{beatStructure} の値によって連桁の配置が決定されます。
+@code{beatBase} と @code{beatStructure} の値によって連桁の配置が決定されます。
 
 
-@subsubsubheading @code{baseMoment} と @code{beatStructure} による連桁
+@subsubsubheading @code{beatBase} と @code{beatStructure} による連桁
 
 デフォルトで、非常によく使われる拍子に対しては @code{beamExceptions} の@c
-ルールが定義されているため、自動連桁に @code{baseMoment} と
+ルールが定義されているため、自動連桁に @code{beatBase} と
 @code{beatStructure} の値を使用させるためには、@code{beamExceptions} の@c
 ルールを無効化しなければいけません。@code{beamExceptions} はこのようにして@c
 無効化します:
@@ -2239,12 +2239,12 @@ R1\fermata
 
 @code{beamExceptions} が @code{#'()} にセットされた場合 (明示的にセットされた@c
 場合と、現在の拍子記号に対してルールが定義されていない場合の両方を含みます)、@c
-連桁の終了点は @code{baseMoment} と @code{beatStructure}
+連桁の終了点は @code{beatBase} と @code{beatStructure}
 コンテキスト プロパティで指定された拍に従います。@code{beatStructure} は@c
-小節内の各拍の長さが @code{baseMoment} の単位で定義された Scheme リストです。@c
-デフォルトでは、@code{baseMoment} は 1/拍子の分母です。
+小節内の各拍の長さが @code{beatBase} の単位で定義された Scheme リストです。@c
+デフォルトでは、@code{beatBase} は 1/拍子の分母です。
 
-@code{beatStructure} と @code{baseMoment} の値はそれぞれの拍子記号に対して@c
+@code{beatStructure} と @code{beatBase} の値はそれぞれの拍子記号に対して@c
 別々に存在するということに注意してください。これらの値を変更しても、影響が@c
 及ぶのは現在有効な拍子記号に対してのみです。そのため、これらの変更は@c
 新しい拍子記号のセクションが始まる @code{\time} コマンドの前ではなく後に@c
@@ -2325,10 +2325,10 @@ R1\fermata
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 @end lilypond
 
-@code{baseMoment} の値を調整することで、@c
+@code{beatBase} の値を調整することで、@c
 連桁の振る舞いを変更することができます。@c
-@code{baseMoment} の値を変更した場合、@c
-@code{beatStructure} に新しい @code{baseMoment} と矛盾しない値を@c
+@code{beatBase} の値を変更した場合、@c
+@code{beatStructure} に新しい @code{beatBase} と矛盾しない値を@c
 設定する必要があります。
 
 @c KEEP LY
@@ -2341,7 +2341,7 @@ R1\fermata
 \repeat unfold 10 { a'16 }
 @end lilypond
 
-デフォルトでは、@code{baseMoment} には「1/拍子の分母」がセットされています。@c
+デフォルトでは、@code{beatBase} には「1/拍子の分母」がセットされています。@c
 このデフォルトの例外は @file{scm/time-signature-settings.scm} で見つかります。
 
 @subsubsubheading @code{beamExceptions} に基づいた連桁
@@ -2374,7 +2374,7 @@ R1\fermata
 新しい連桁パターンを指定する際に現在の連桁設定を知る必要がないということを@c
 意味します。}
 
-拍子が変更されると、@code{Timing.baseMoment}, @code{Timing.beatStructure},
+拍子が変更されると、@code{Timing.beatBase}, @code{Timing.beatStructure},
 それに @code{Timing.beamExceptions} のデフォルト値が設定されます。@c
 拍子を設定すると、その @code{Timing} コンテキストの自動連桁設定は@c
 デフォルトの振る舞いにリセットされます。
@@ -2451,7 +2451,7 @@ R1\fermata
 @subsubsubheading 自動連桁はどのように機能するのか
 
 自動連桁が有効である場合、自動連桁の配置はコンテキスト プロパティ
-@code{baseMoment}, @code{beatStructure}, それに @code{beamExceptions}
+@code{beatBase}, @code{beatStructure}, それに @code{beamExceptions}
 によって決定されます。
 
 連桁の配置を決定する際、以下の規則が並び順の優先度で適用されます:
@@ -2475,7 +2475,7 @@ R1\fermata
 連桁終了規則が定義されていない場合、
 
 @item
-@code{baseMoment} と @code{beatStructure} の値を用いて@c
+@code{beatBase} と @code{beatStructure} の値を用いて@c
 その小節での拍の終わりを決定し、@c
 拍の終わりで連桁を終了させます。
 
@@ -2490,7 +2490,7 @@ R1\fermata
 @cindex beam, subdividing (連桁をサブ グループ化する)
 @cindex subdividing beams (連桁をサブ グループ化する)
 @funindex subdivideBeams
-@funindex baseMoment
+@funindex beatBase
 @funindex beatStructure
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/subdividing-beams.ly}
