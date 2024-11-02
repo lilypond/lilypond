@@ -955,9 +955,14 @@ the new inverted glyphs are named @code{script.dupbow} and
 
 @itemize
 @item
+The @code{baseMoment} context property is deprecated in favor of
+@code{beatBase}.  Using @code{baseMoment} transparently accesses
+@code{beatBase} and triggers a warning.
+
+@item
 The value of the @code{timeSignatureSettings} context property
 uses the symbol @code{beatBase} where it formerly used
-@code{beatBase}.  @command{convert-ly} does not address this
+@code{baseMoment}.  @command{convert-ly} does not address this
 change.
 
 @item

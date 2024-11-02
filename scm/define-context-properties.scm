@@ -971,9 +971,6 @@ finger to use")
   '(melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy completionBusy))
 
 
-;; TODO: Stop suppressing the deprecation warning once all internal Scheme code
-;; is updated to use beatBase instead of baseMoment.
-(set-object-property! 'baseMoment 'warned-for-deprecated-access #t)
 (define-deprecated-property
   'translation-type? 'baseMoment positive-musical-length-as-moment?
   #:new-symbol 'beatBase

@@ -6,11 +6,10 @@ value of @code{beatBase}."
 }
 
 #(ly:set-option 'warning-as-error #t)
-%% TODO: do expect this warning
-%% #(ly:expect-warning
-%%   (ly:translate-cpp-warning-scheme
-%%    "the property '%s' is deprecated; use '%s'")
-%%   "baseMoment" "beatBase")
+#(ly:expect-warning
+  (ly:translate-cpp-warning-scheme
+   "the property '%s' is deprecated; use '%s'")
+  "baseMoment" "beatBase")
 
 %% It is unnecessary to test every available access method: there are other
 %% tests covering them.  It is enough to cover this property's old->new and
