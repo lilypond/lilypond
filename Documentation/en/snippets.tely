@@ -49,13 +49,6 @@ Copyright @copyright{} 1999--2023 by the authors.
 @unnumberedsec \TEXT\
 @end macro
 
-@c Due to a bug in `texinfo.tex` it is not possible to call
-@c `@unmacro` with an undefined macro (which is explicitly allowed
-@c in the documentation); we thus provide a dummy definition for
-@c `@lsrnode`.
-@macro lsrnode{TEXT}
-@end macro
-
 
 @lilyTitlePage{Snippets}
 
