@@ -1958,7 +1958,7 @@ class FiguredBass(Music_xml_node):
     }
 
 
-class Forward(Music_xml_node):
+class Forward(Measure_element):
     max_occurs_by_child = {
         'duration': 1,
         'staff': 1,
@@ -2122,6 +2122,7 @@ class_dict = {
     'duration': Duration,
     'elision': Elision,
     'extend': Extend,
+    'forward': Forward,
     'frame': Frame,
     'frame-note': Frame_Note,
     'figured-bass': FiguredBass,
