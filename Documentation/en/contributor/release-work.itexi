@@ -222,8 +222,9 @@ everything is ready before proceeding.
 @enumerate
 @item
 Create a personal access token at
-@uref{https://gitlab.com/-/profile/personal_access_tokens}.
-This can be limited to auto-expire the next day.
+@uref{https://gitlab.com/-/user_settings/personal_access_tokens}
+and select the @q{api} scope (complete read/write access).
+The token can be limited to auto-expire the next day.
 
 @item
 Upload the source tarball to @code{lilypond.org}:
