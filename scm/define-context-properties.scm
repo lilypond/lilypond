@@ -563,10 +563,10 @@ to@tie{}1 (0=off,@tie{}1=full effect).")
      (minimumFret ,number? "The tablature auto string-selecting
 mechanism selects the highest string with a fret at least
 @code{minimumFret}.")
-     (minimumPageTurnLength ,ly:moment? "Minimum length of a rest for a
-page turn to be allowed.")
-     (minimumRepeatLengthForPageTurn ,ly:moment? "Minimum length of a
-repeated section for a page turn to be allowed within that section.")
+     (minimumPageTurnLength ,musical-length-as-moment? "Minimum length of a rest
+for a page turn to be allowed.")
+     (minimumRepeatLengthForPageTurn ,musical-length-as-moment? "Minimum length
+of a repeated section for a page turn to be allowed within that section.")
      (minimumBeamSubdivisionInterval ,musical-length-as-moment? "Minimum
 interval to subdivide beams, ignoring beamlets whose subdivision depth is too
 shallow. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no limit,

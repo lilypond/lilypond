@@ -304,9 +304,8 @@ Page_turn_engraver::stop_translation_timestep ()
       Real pen = penalty ((now_mom () - rest_begin_).main_part_
                           + repeat_begin_rest_length_);
 
-      const auto minimumRepeatLengthForPageTurn
-        = from_scm (get_property (this, "minimumRepeatLengthForPageTurn"),
-                    -Moment::infinity ());
+      const auto minimumRepeatLengthForPageTurn = from_scm (
+        get_property (this, "minimumRepeatLengthForPageTurn"), Moment (0));
       if (minimumRepeatLengthForPageTurn > (now_mom () - repeat_begin_))
         pen = infinity_f;
 
