@@ -193,8 +193,8 @@ class LilyPond_markup(Xml_node):
 class Music_xml_node(Xml_node):
     def __init__(self):
         Xml_node.__init__(self)
-        self.duration = 0
-        self.start = 0
+        self._when = None
+        self._duration = None
         self.converted = False
         self.voice_id = None
 
@@ -896,7 +896,7 @@ class Note(Measure_element):
             else:
                 self.message(
                     _("Encountered note at %s without type and duration (=%s)")
-                    % (self.start, self._duration))
+                    % (self._when, self._duration))
                 return None
 
     def initialize_pitched_event(self, note_color=None, note_font_size=None):
