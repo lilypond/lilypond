@@ -201,7 +201,7 @@ class Note:
         #
         #  --jcn
 
-        o = self.pitch / 12 - 4
+        o = self.pitch // 12 - 4
 
         if key.minor:
             # as -> gis
