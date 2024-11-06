@@ -103,8 +103,8 @@ class Duration:
         (self.dur, self.num, self.den) = self.dur_num_den(clocks)
 
     def dur_num_den(self, clocks):
-        for i in range(len(allowed_tuplet_clocks)):
-            if clocks == allowed_tuplet_clocks[i]:
+        for i, allowed_clocks in enumerate(allowed_tuplet_clocks):
+            if clocks == allowed_clocks:
                 return global_options.allowed_tuplets[i]
 
         dur = 0
@@ -113,7 +113,7 @@ class Duration:
         g = math.gcd(int(clocks), clocks_per_1)
         if g:
             (dur, num) = (clocks_per_1 / g, clocks / g)
-        if not dur in self.allowed_durs:
+        if dur not in self.allowed_durs:
             dur = 4
             num = clocks
             den = clocks_per_4
@@ -141,10 +141,7 @@ class Duration:
 
 
 def sign(x):
-    if x >= 0:
-        return 1
-    else:
-        return -1
+    return 1 if x >= 0 else -1
 
 
 class Note:
@@ -326,8 +323,8 @@ class Tempo:
 class Clef:
     clefs = ('"bass_8"', 'bass', 'violin', '"violin^8"')
 
-    def __init__(self, type):
-        self.type = type
+    def __init__(self, cleftype):
+        self.type = cleftype
 
     def __repr__(self):
         return 'Clef(%s)' % self.clefs[self.type]
@@ -403,15 +400,14 @@ class Text:
         'DEVICE_NAME', )
 
     @staticmethod
-    def _text_only(chr):
-        if ((' ' <= chr <= '~') or chr in ['\n', '\r']):
-            return chr
-        else:
-            return '~'
+    def _text_only(char):
+        if (' ' <= char <= '~') or char in ['\n', '\r']:
+            return char
+        return '~'
 
-    def __init__(self, type, text):
+    def __init__(self, texttype, text):
         self.clocks = 0
-        self.type = type
+        self.type = texttype
         self.text = ''.join(map(self._text_only, text))
 
     def dump(self):
@@ -426,7 +422,7 @@ class Text:
             s = s + ' '
         elif (self.text.strip()
               and self.type == midi.SEQUENCE_TRACK_NAME
-              and not self.text == 'control track'
+              and self.text != 'control track'
               and not self.track.lyrics_p_):
             text = self.text.replace('(MIDI)', '').strip()
             if text:
@@ -509,13 +505,13 @@ class Channel:
                     end_of_track_time = t
                     break
 
-                elif e[1][1] == midi.SET_TEMPO:
+                if e[1][1] == midi.SET_TEMPO:
                     (u0, u1, u2) = list(map(ord, e[1][2]))
                     us_per_4 = u2 + 256 * (u1 + 256 * u0)
                     seconds_per_1 = us_per_4 * 4 / 1e6
                     music.append((t, Tempo(seconds_per_1)))
                 elif e[1][1] == midi.TIME_SIGNATURE:
-                    (num, dur, clocks4, count32) = list(map(ord, e[1][2]))
+                    num, dur, _, _ = list(map(ord, e[1][2]))
                     den = 2 ** dur
                     music.append((t, Time(num, den)))
                 elif e[1][1] == midi.KEY_SIGNATURE:
@@ -548,8 +544,7 @@ class Channel:
                     last_time = t
                     last_lyric = Text(midi.LYRIC, e[1][2])
 
-                elif (e[1][1] >= midi.SEQUENCE_NUMBER
-                      and e[1][1] <= midi.CUE_POINT):
+                elif midi.SEQUENCE_NUMBER <= e[1][1] <= midi.CUE_POINT:
                     text = Text(e[1][1], e[1][2])
                     text.track = self
                     music.append((t, text))
@@ -570,9 +565,9 @@ class Channel:
             last_lyric = 0
 
         i = 0
-        while len(notes):
+        while notes:
             if i < len(music) and notes[0][0] >= music[i][0]:
-                i = i + 1
+                i += 1
             else:
                 music.insert(i, notes[0])
                 del notes[0]
@@ -611,7 +606,7 @@ def create_track(events):
     track = Track()
     for e in events:
         data = list(e[1])
-        if data[0] > 0x7f and data[0] < 0xf0:
+        if 0x7f < data[0] < 0xf0:
             channel = data[0] & 0x0f
             e = (e[0], tuple([data[0] & 0xf0] + data[1:]))
             track.add(e, channel)
@@ -648,8 +643,7 @@ def end_note(pitches, notes, t, e):
             if not d:
                 d = duration_quant_clocks
 
-        notes.insert(i + 1,
-                     (lt, Note(d, e, vel)))
+        notes.insert(i + 1, (lt, Note(d, e, vel)))
 
     except KeyError:
         pass
@@ -671,11 +665,7 @@ def unthread_notes(channel):
                 thread.append(e)
                 start_busy_t = t
                 end_busy_t = t + e[1].clocks
-            elif (e[1].__class__ == Time
-                  or e[1].__class__ == Key
-                  or e[1].__class__ == Text
-                  or e[1].__class__ == Tempo
-                  or e[1].__class__ == EndOfTrack):
+            elif e[1].__class__ in (Time, Key, Text, Tempo, EndOfTrack):
                 thread.append(e)
             else:
                 todo.append(e)
@@ -686,7 +676,6 @@ def unthread_notes(channel):
 
 
 def dump_skip(skip, clocks):
-    global reference_note
     saved_duration = reference_note.duration
     result = skip + Duration(clocks).dump() + ' '
     # "\skip D" does not change the reference duration like "sD",
@@ -744,14 +733,14 @@ def dump_bar_line(last_bar_t, t, bar_count):
 
 
 def dump_voice(thread, skip):
-    global reference_note, time
+    global reference_note
     ref = Note(0, 4*12, 0)
     if not reference_note:
         reference_note = ref
     else:
         ref.duration = reference_note.duration
         reference_note = ref
-    last_e = None
+    last_e = []
     chs = []
     ch = []
 
@@ -759,7 +748,7 @@ def dump_voice(thread, skip):
         if last_e and last_e[0] == e[0]:
             ch.append(e[1])
         else:
-            if ch:
+            if ch and last_e:
                 chs.append((last_e[0], ch))
 
             ch = [e[1]]
@@ -798,10 +787,7 @@ def dump_voice(thread, skip):
         lines[-1] = lines[-1] + s
         lines[-1] = lines[-1] + dump_chord(ch[1])
 
-        clocks = 0
-        for i in ch[1]:
-            if i.clocks > clocks:
-                clocks = i.clocks
+        clocks = max([i.clocks for i in ch[1]], default=0)
 
         last_t = t + clocks
 
@@ -843,8 +829,8 @@ def lst_append(lst, x):
 
 def get_voice_layout(average_pitch):
     d = {}
-    for i in range(len(average_pitch)):
-        d[average_pitch[i]] = lst_append(d.get(average_pitch[i], []), i)
+    for i, pitch in enumerate(average_pitch):
+        d[pitch] = lst_append(d.get(pitch, []), i)
     s = list(reversed(sorted(average_pitch)))
     non_empty = len([x for x in s if x])
     names = ['One', 'Two']
@@ -986,9 +972,9 @@ def get_best_clef(average_pitch):
     if average_pitch:
         if average_pitch <= 3*12:
             return Clef(0)
-        elif average_pitch <= 5*12:
+        if average_pitch <= 5*12:
             return Clef(1)
-        elif average_pitch >= 7*12:
+        if average_pitch >= 7*12:
             return Clef(3)
     return Clef(2)
 
@@ -1005,15 +991,15 @@ def convert_midi(in_file, out_file):
     global midi
     import midi
 
-    global clocks_per_1, clocks_per_4, key
+    global clocks_per_1, clocks_per_4
     global start_quant_clocks
     global duration_quant_clocks
     global allowed_tuplet_clocks
     global time
 
-    full_content = open(in_file, 'rb').read()
     clocks_max = bar_max * clocks_per_1 * 2
-    midi_dump = midi.parse(full_content, clocks_max)
+    with open(in_file, 'rb') as full_content:
+        midi_dump = midi.parse(full_content.read(), clocks_max)
 
     clocks_per_1 = midi_dump[0][1]
     clocks_per_4 = clocks_per_1 / 4
@@ -1025,9 +1011,10 @@ def convert_midi(in_file, out_file):
     if global_options.duration_quant:
         duration_quant_clocks = clocks_per_1 / global_options.duration_quant
 
-    allowed_tuplet_clocks = []
-    for (dur, num, den) in global_options.allowed_tuplets:
-        allowed_tuplet_clocks.append(clocks_per_1 / dur * num / den)
+    allowed_tuplet_clocks = [
+        clocks_per_1 / dur * num / den
+        for dur, num, den in global_options.allowed_tuplets
+    ]
 
     if global_options.verbose:
         print('allowed tuplet clocks:', allowed_tuplet_clocks)
@@ -1096,7 +1083,7 @@ def convert_midi(in_file, out_file):
         if not i and not item and len(staves) > 1:
             control_track = track_name
             continue
-        elif (item and item.__class__ == Note):
+        if item and item.__class__ == Note:
             context = 'Staff'
             if control_track:
                 s += '    \\context %(context)s=%(staff_name)s \\%(control_track)s\n' % locals()
@@ -1121,12 +1108,10 @@ def convert_midi(in_file, out_file):
         ly.progress(_("%s output to `%s'...") % ('LY', out_file))
 
     if out_file == '-':
-        handle = sys.stdout
+        print(s)
     else:
-        handle = open(out_file, 'w', encoding='utf-8')
-
-    handle.write(s)
-    handle.close()
+        with open(out_file, 'w', encoding='utf-8') as file:
+            file.write(s)
 
 
 def get_option_parser():
@@ -1157,7 +1142,7 @@ def get_option_parser():
                  metavar=_('FILE'))
     p.add_option('-k', '--key', help=_('set key: ALT=+sharps|-flats; MINOR=1'),
                  metavar=_('ALT[:MINOR]'),
-                 default=None),
+                 default=None)
     p.add_option('-o', '--output', help=_('write output to FILE'),
                  metavar=_('FILE'),
                  action='store')
