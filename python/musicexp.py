@@ -4490,6 +4490,13 @@ class StaffGroup(Base):
             printer.newline()
 
 
+voice_text_dict = {
+    1: r'\voiceOne',
+    2: r'\voiceTwo',
+    3: r'\voiceThree',
+    4: r'\voiceFour',
+}
+
 class Staff(StaffGroup):
     def __init__(self, command="Staff"):
         StaffGroup.__init__(self, command)
@@ -4529,20 +4536,46 @@ class Staff(StaffGroup):
             printer.newline()
             n = 0
             nr_voices = len(voices)
+
+            voice_warning = False
+
             for [v, lyrics, figuredbass, chordnames, fretboards] in voices:
                 n += 1
-                voice_count_text = ''
+                voice_text = ''
                 if nr_voices > 1:
-                    r"""
-The next line contains a bug: The voices might not appear in numerical order!
-Some voices might be missing, e.g., if the xml file contains only voice one,
-three, and four, this would result in: \voiceOne, \voiceTwo, and \voiceThree.
-This causes wrong stem directions and collisions.
-                    """
-                    voice_count_text = {
-                        1: r'\voiceOne ',
-                        2: r'\voiceTwo ',
-                        3: r'\voiceThree '}.get(n, r'\voiceFour ')
+                    # TODO: Support more voices.
+                    voice_number = n
+                    if voice_number > 4:
+                        if not voice_warning:
+                            ly.warning(_('Only up to 4 voices per staff are '
+                                         'supported; expect wrong stem '
+                                         'directions and collisions'))
+                            voice_warning = True
+                        voice_number = 4
+
+                    # TODO: Voices might not appear in LilyPond order, i.e.,
+                    #       some voices might be missing!  For example, if
+                    #       the MusicXML file contains only voices one,
+                    #       three, and four (in LilyPond order), this
+                    #       currently still results in `\voiceOne`,
+                    #       `\voiceTwo`, and `\voiceThree`, causing wrong
+                    #       stem directions and possibly collisions.
+                    #
+                    #       A solution might be to add some heuristics while
+                    #       mapping MusicXML voices to LilyPond voices,
+                    #       checking stem directions (irrespective of option
+                    #       `--no-stem-directions`).  Unfortunately, this
+                    #       might fail spectacularly, especially in piano
+                    #       music with its ad-hoc polyphony, where there is
+                    #       no guarantee that the voice order stays the same
+                    #       during the whole piece.
+                    #
+                    #       To better support piano music and the like a
+                    #       completely different paradigm would be necessary,
+                    #       also using ad-hoc polyphony on the LilyPond side
+                    #       (i.e., replacing global voices with local
+                    #       `<<...\\...>>` constructs).
+                    voice_text = '%s ' % voice_text_dict[voice_number]
 
                 printer(r'\context %s = "%s"' % (self.voice_command, v))
                 transpose = get_transpose("string")
@@ -4550,7 +4583,7 @@ This causes wrong stem directions and collisions.
                     printer.dump(transpose)
                 printer.dump('{')
                 printer.newline()
-                printer.dump(r'%s\%s' % (voice_count_text, v))
+                printer.dump(r'%s\%s' % (voice_text, v))
                 printer.newline()
                 printer.dump('}')
                 printer.newline()
