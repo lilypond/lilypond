@@ -4147,6 +4147,7 @@ def musicxml_id_to_lily(id):
 def voices_in_part(part):
     """Return a Name -> Voice dictionary for PART"""
     part.interpret()
+    part.tag_single_voices()
     part.extract_voices()
     voices = part.get_voices()
     part_info = part.get_staff_attributes()

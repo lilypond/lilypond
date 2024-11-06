@@ -32,6 +32,8 @@ import musicexp
 import musicxml2ly_conversion as conversion
 import utilities
 
+from dllist import dllist
+
 
 # To work around LilyPond's infamous issue #34, store the (musical) lengths
 # of grace note sequences at the beginning of a voice (i.e., at moment zero)
@@ -839,6 +841,7 @@ class Note(Measure_element):
     def __init__(self):
         Measure_element.__init__(self)
         self.instrument_name = ''
+        self.single_voice = None  # Not set for invisible and/or chord notes.
         self._after_grace = False
         self._duration = 1
         self._content['beam'] = []
@@ -1266,6 +1269,7 @@ class Rest(Music_xml_node):
 
     def __init__(self):
         Music_xml_node.__init__(self)
+        self.single_voice = None  # Not set for invisible rests.
         self._is_whole_measure = False
 
     def is_whole_measure(self):
@@ -1660,6 +1664,91 @@ class Part(Music_xml_node):
         if senza_misura_mode and previous_senza_misura:
             previous_senza_misura.senza_misura_length = \
                 now - senza_misura_moment
+
+    def add_note(self, intervals, note):
+        start = note._when
+        end = start + note._duration
+
+        new_count = 0
+
+        # `start` and `end` span an interval.  Either create the union of
+        # this interval with existing ones or insert it if there is no
+        # overlap.
+        node = intervals.first
+        while node is not None:
+            (left, right, count) = node.value
+
+            if start < left and end <= left:
+                # New interval is left of current interval.
+                intervals.insert([start, end, 0], node)
+                return
+            if start >= right and end > right:
+                # New interval is right of current interval.
+                node = node.next
+                continue
+            if start >= left and end <= right:
+                # New interval is enclosed in current interval.
+                node.value[2] = 1
+                return
+            if start <= left and end >= right:
+                # New interval encloses current interval.
+                curr_node = node
+                node = node.next
+                intervals.remove(curr_node)
+                new_count = 1
+                continue
+            if start < left and end <= right:
+                # New interval is left of current interval and overlaps.
+                node.value[0] = start
+                node.value[2] = 1
+                return
+            if start >= left and end > right:
+                # New interval is right of current interval and overlaps.
+                node.value[1] = end
+                node.value[2] = 1
+                return
+
+        intervals.append([start, end, new_count])
+
+    # If `note` is in an interval with its counter equal to zero, we have a
+    # hit.
+    def is_single_voice(self, intervals, note):
+        pos = note._when
+
+        node = intervals.first
+        while node is not None:
+            # All intervals are non-intersecting, and `note` is certainly in
+            # one of the `intervals` elements.  It is thus sufficient to
+            # find the first interval end larger than `pos`.
+            if pos < node.value[1]:
+                return node.value[2] == 0
+            node = node.next
+
+    # Walk over all measures and mark `<note>` objects that are 'single
+    # voice', i.e., no other voice (in a particular staff) produces visible
+    # output while such an object is active.
+    def tag_single_voices(self):
+        measures = self.get_typed_children(Measure)
+        for m in measures:
+            intervals = {}
+
+            # Use all notes of the measure to find overlapping intervals,...
+            for n in m.get_all_children():
+                if (isinstance(n, Note)
+                        and getattr(n, 'print-object', 'yes') == 'yes'
+                        and 'chord' not in n):
+                    sid = n.get('staff', 'None')
+                    if sid not in intervals:
+                        intervals[sid] = dllist()
+                    self.add_note(intervals[sid], n)
+
+            # ... then pass the result back to the notes.
+            for n in m.get_all_children():
+                if (isinstance(n, Note)
+                        and getattr(n, 'print-object', 'yes') == 'yes'
+                        and 'chord' not in n):
+                    sid = n.get('staff', 'None')
+                    n.single_voice = self.is_single_voice(intervals[sid], n)
 
     # modify attributes so that only those applying to the given staff remain
     def extract_attributes_for_staff(part, attr, staff):
