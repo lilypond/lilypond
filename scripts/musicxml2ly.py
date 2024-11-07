@@ -3262,7 +3262,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
     lyrics_dict[lyric_key] = (result, stanza_id)
 
 
-def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
+def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
     tremolo_events = []
     tuplet_events = []
     lyrics = {}
@@ -3305,6 +3305,8 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
     pending_figured_bass = []
     pending_chordnames = []
     pending_fretboards = []
+
+    is_single_voice = (voice_number == 0)
 
     voice_builder = LilyPondVoiceBuilder()
     figured_bass_builder = LilyPondVoiceBuilder()
@@ -3597,6 +3599,17 @@ def musicxml_voice_to_lily_voice(voice, starting_grace_skip):
                     needed_additional_definitions.append("hide-note")
             else:
                 note_visible = True
+
+            # In cross-staff situations it can happen that `n.single_voice`
+            # is set while `voice_number` is zero, so we test for the
+            # latter, too.
+            if voice_number and n.single_voice is not None:
+                if is_single_voice != n.single_voice:
+                    is_single_voice = n.single_voice
+
+                    vn = 0 if is_single_voice else voice_number
+                    voice_selector = musicexp.VoiceSelector(vn)
+                    voice_builder.add_command(voice_selector)
 
         if isinstance(main_event, musicexp.NoteEvent):
             if not (main_event.cautionary or main_event.editorial):
@@ -4179,7 +4192,18 @@ def get_all_voices(parts):
     all_ly_voices = {}
     all_ly_staffinfo = {}
     for p, (name_voice, staff_info) in all_voices.items():
+        num_voices = len(name_voice)
         part_ly_voices = OrderedDict()
+
+        if num_voices:
+            voices_in_staves_counter = {}
+            staves_counter = {}
+            for n, v in name_voice.items():
+                staff = v._start_staff
+                if staff not in staves_counter:
+                    staves_counter[staff] = 0
+                staves_counter[staff] += 1
+
         for n, v in name_voice.items():
             ly.progress(_("Converting part '%s' (voice %s) "
                           "to LilyPond expressions...") % (p, n), True)
@@ -4192,8 +4216,24 @@ def get_all_voices(parts):
             else:
                 starting_grace_skip = None
 
+            if num_voices > 1:
+                # The code to get the voice number in a staff should stay in
+                # sync with `update_score_setup`.
+                staff = v._start_staff
+                if staves_counter[staff] > 1:
+                    if staff not in voices_in_staves_counter:
+                        voices_in_staves_counter[staff] = 0
+                    voices_in_staves_counter[staff] += 1
+                    voice_in_staff = voices_in_staves_counter[staff]
+                else:
+                    voice_in_staff = 0
+            else:
+                voice_in_staff = 0
+
             # `musicxml_voice_to_lily_voice` returns a `VoiceData` object.
-            voice = musicxml_voice_to_lily_voice(v, starting_grace_skip)
+            voice = musicxml_voice_to_lily_voice(v,
+                                                 voice_in_staff,
+                                                 starting_grace_skip)
             part_ly_voices[n] = voice
 
         all_ly_voices[p] = part_ly_voices

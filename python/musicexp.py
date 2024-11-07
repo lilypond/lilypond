@@ -1059,6 +1059,17 @@ class SequentialMusic(NestedMusic):
             start += e.get_length()
 
 
+class VoiceSelector(Music):
+    def __init__(self, voice):
+        Music.__init__(self)
+        # This code to limit the number allowed voices should stay in sync
+        # with similar code in function `Staff.print_ly_contents`.
+        self.voice = min(voice, 4)
+
+    def ly_expression(self):
+        return voice_text_dict[self.voice]
+
+
 # This class holds attributes for both the volta number and the volta
 # bracket.
 class VoltaStyleEvent(Music):
@@ -4491,6 +4502,7 @@ class StaffGroup(Base):
 
 
 voice_text_dict = {
+    0: r'\oneVoice',
     1: r'\voiceOne',
     2: r'\voiceTwo',
     3: r'\voiceThree',
