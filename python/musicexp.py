@@ -4349,10 +4349,9 @@ class StaffGroup(Base):
         self.children = []
         self.is_group = True
         self.context_modifications = []
-        # part_information is a list with entries of the form
-        #     [staffid, voicelist]
-        # where voicelist is a list with entries of the form
-        #     [voiceid1, [lyricsid11, lyricsid12,...] ]
+        # See the comment before function `format_staff_info` together with
+        # function `update_score_setup` (both in file `musicxml2ly.py`) how
+        # entries look like.
         self.part_information = None
 
     def contains(self, elem):

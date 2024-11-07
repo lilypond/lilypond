@@ -4185,9 +4185,9 @@ def get_all_voices(parts):
 
             starting_grace_length = \
                 musicxml.starting_grace_lengths.get((p, n), 0)
-            len = musicxml.max_starting_grace_length - starting_grace_length
-            if len:
-                starting_grace_skip = musicexp.Duration.from_fraction(len)
+            length = musicxml.max_starting_grace_length - starting_grace_length
+            if length:
+                starting_grace_skip = musicexp.Duration.from_fraction(length)
             else:
                 starting_grace_skip = None
 
