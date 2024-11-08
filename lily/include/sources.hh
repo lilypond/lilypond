@@ -50,6 +50,7 @@ public:
   Source_file *get_file (std::string file_name, std::string const &currentpath);
   void add (Source_file *sourcefile);
   std::string search_path () const;
+  void append_to_path (std::string const &path) { path_.append (path); }
 };
 
 SCM ly_source_files (SCM parser_smob);

@@ -332,6 +332,8 @@ test: test-pre
 	$(MAKE) -C input/regression out=test lysdoc-test
 	$(buildscript-dir)/print-gittxt.sh $(top-src-dir) > input/regression/out-test/tree.gittxt
 	$(MAKE) -C input/regression/abc2ly out=test lysdoc-test
+	$(MAKE) -C input/regression/include-path-modification \
+		out=test lysdoc-test
 	$(MAKE) -C input/regression/lilypond-book out=test local-test
 	$(MAKE) -C input/regression/midi out=test lysdoc-test
 	$(MAKE) -C input/regression/musicxml out=test lysdoc-test

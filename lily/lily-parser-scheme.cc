@@ -215,6 +215,21 @@ defined.
     return SCM_EOL;
 }
 
+LY_DEFINE (ly_parser_append_to_include_path, "ly:parser-append-to-include-path",
+           1, 0, 0, (SCM path),
+           R"(
+Append @var{path} to the current parser's include path.
+           )")
+{
+  SCM parser = scm_fluid_ref (Lily::f_parser);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
+
+  LY_ASSERT_TYPE (scm_is_string, path, 1);
+
+  p->sources_->append_to_path (from_scm<std::string> (path));
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string", 2, 0, 0,
            (SCM parser_smob, SCM ly_code),
            R"(

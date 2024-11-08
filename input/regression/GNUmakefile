@@ -9,6 +9,7 @@ include $(depth)/make/lilypond.make
 TITLE=LilyPond Regression Tests
 SUBDIRS := \
 	abc2ly \
+	include-path-modification \
 	lilypond-book \
 	midi \
 	musicxml \
