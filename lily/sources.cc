@@ -23,17 +23,6 @@
 #include "file-name.hh"
 #include "file-path.hh"
 
-Sources::Sources ()
-{
-  path_ = 0;
-}
-
-void
-Sources::set_path (File_path *f)
-{
-  path_ = f;
-}
-
 /**
    Open a file. If the name is not absolute, look in CURRENT_DIR first.
    Afterwards, check the rest of the path_.
@@ -72,17 +61,13 @@ Sources::find_full_path (std::string file_string,
     file_string = current_dir + '/' + file_string;
 
   // Otherwise, check the rest of the path.
-  else if (path_)
-    {
-      return path_->find (file_string);
-    }
-  return file_string;
+  return path_.find (file_string);
 }
 
 std::string
 Sources::search_path () const
 {
-  return path_->to_string ();
+  return path_.to_string ();
 }
 
 void

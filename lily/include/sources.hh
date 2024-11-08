@@ -20,13 +20,12 @@
 #ifndef SOURCES_HH
 #define SOURCES_HH
 
+#include "file-path.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 
 #include <string>
 #include <vector>
-
-class File_path;
 
 /** holds a list of Source_files, which are assumed to be protected
     objects. On destruction, unprotect the objects.
@@ -37,18 +36,20 @@ class Sources
   Sources &operator= (Sources const &) = delete;
 
   std::vector<Source_file *> sourcefiles_;
-  const File_path *path_;
+  File_path path_;
   std::string find_full_path (std::string file_string,
                               const std::string &dir) const;
 
 public:
-  Sources ();
+  explicit Sources (File_path const &path)
+    : path_ (path)
+  {
+  }
   ~Sources ();
 
   Source_file *get_file (std::string file_name, std::string const &currentpath);
   void add (Source_file *sourcefile);
   std::string search_path () const;
-  void set_path (File_path *);
 };
 
 SCM ly_source_files (SCM parser_smob);

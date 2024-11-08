@@ -107,8 +107,7 @@ Parse a single @code{.ly} file.  Upon failure, throw @code{ly-file-failed} key.
     }
   else
     {
-      Sources sources;
-      sources.set_path (&global_path);
+      Sources sources (global_path);
 
       basic_progress (_f ("Processing `%s'", file_name.c_str ()));
 
@@ -145,8 +144,7 @@ Parse the init file @var{name}.
 
   bool error = false;
 
-  Sources sources;
-  sources.set_path (&global_path);
+  Sources sources (global_path);
 
   Lily_parser *parser = new Lily_parser (&sources);
 
