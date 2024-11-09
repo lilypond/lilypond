@@ -35,6 +35,7 @@ extern Variable f_default_port_encoding;
 extern Variable less;
 extern Variable plus;
 extern Variable make_module;
+extern Variable min;
 extern Variable module_export_all_x;
 extern Variable module_export_x;
 extern Variable module_public_interface;

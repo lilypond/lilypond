@@ -63,10 +63,8 @@ vertical alignment.")
      (alterationGlyphs ,list? "Alist mapping alterations to accidental glyphs.
 Alterations are given as exact numbers, e.g., -1/2 for flat.  This applies
 to all grobs that can print accidentals.")
-     (alternativeNumber ,index? "When set, the index of the current
-@code{\\alternative} element, starting from one.  Not set outside of
-alternatives.  Note the distinction from volta number: an alternative
-may pertain to multiple volte.")
+     (alternativeNumber ,index? "When set, the first volta number for the
+current @code{\\alternative} element.  Not set outside of alternatives.")
      (alternativeNumberingStyle ,symbol? "The scheme and style for
 numbering bars in repeat alternatives.  If not set (the default), bar
 numbers continue through alternatives.  Can be set to @code{numbers}

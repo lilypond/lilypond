@@ -227,8 +227,6 @@ Timing_translator::process_music ()
                 alt_starting_bar_number_
                   = from_scm (get_property (this, "currentBarNumber"), 0);
               }
-
-            alt_number_ = 1;
             break;
           }
 
@@ -238,7 +236,6 @@ Timing_translator::process_music ()
               set_property (context (), "currentBarNumber",
                             to_scm (alt_starting_bar_number_));
             }
-          alt_number_ += alt_number_increment_;
           break;
 
         default:
@@ -246,16 +243,19 @@ Timing_translator::process_music ()
           [[fallthrough]];
 
         case RIGHT:
-          alt_number_ = 0;
           break;
         }
 
+      alt_number_ = 0;
       if (alt_dir < RIGHT)
         {
+          SCM nums = get_property (alt_event_, "volta-numbers");
+          if (scm_is_pair (nums)) // paranoia: there should always be a number
+            {
+              SCM num = Guile_user::apply (Guile_user::min, nums);
+              alt_number_ = from_scm (num, alt_number_);
+            }
           set_property (context (), "alternativeNumber", to_scm (alt_number_));
-          // will need to add this on the next alternative
-          alt_number_increment_
-            = scm_ilength (get_property (alt_event_, "volta-numbers"));
         }
       else
         {

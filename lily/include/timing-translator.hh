@@ -51,7 +51,6 @@ private:
   Stream_event *alt_event_ = nullptr;
   int alt_starting_bar_number_ = 0;
   long alt_number_ = 0;
-  long alt_number_increment_ = 0;
   bool alt_reset_enabled_ = false;
 
   Stream_event *bar_check_event_ = nullptr;

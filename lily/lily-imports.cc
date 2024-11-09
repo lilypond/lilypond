@@ -30,6 +30,7 @@ Variable equal ("=");
 Variable less ("<");
 Variable plus ("+");
 Variable make_module ("make-module");
+Variable min ("min");
 Variable module_export_all_x ("module-export-all!");
 Variable module_export_x ("module-export!");
 Variable module_public_interface ("module-public-interface");
