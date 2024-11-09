@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
+   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -596,7 +596,54 @@ en appliquant un @code{\tweak} à la propriété @code{text}.
 }
 @end lilypond
 
+@cindex Arrastre
+
+Le @code{FingerGlideSpanner} peut aussi relier des numéros de cordes,
+indiquant ainsi de jouer sur la même corde, ou bien un glissement de
+doigts indiquant un @dfn{Arrastre}.
+
+@lilypond[verbatim,quote]
+{
+  \override StringNumber.staff-padding = 7
+  \omit TupletNumber
+  \set fingeringOrientations = #'(left)
+  \tuplet 5/4 4 {
+    \set strokeFingerOrientations = #'(down)
+    <
+     g-\tweak style #'stub-right \glide-1
+       \glide \rightHandFinger #1
+       -\tweak style #'dashed-line \glide _\6
+    >16
+    <d'-\tweak style #'stub-right \glide -3 >
+    <g'-\tweak style #'stub-right \glide -4 \rightHandFinger #1 >
+    \set strokeFingerOrientations = #'(up)
+    <b'-\tweak style #'stub-right \glide -2 \rightHandFinger #2 >
+    <b'-0\rightHandFinger #3 >
+    e''\glide \rightHandFinger #4
+    b' a' f' c'
+  }
+  g2\rightHandFinger #4
+
+  \tuplet 5/4 4 {
+    \set strokeFingerOrientations = #'(down)
+    <f-1 \glide \rightHandFinger #1 _\6 >16
+    %% Raise a bit, otherwise the stub-line would be hidden by the ledger line.
+    <c'\tweak Y-offset #0.5 -3>
+    <f' -4 \rightHandFinger #1 >
+    \set strokeFingerOrientations = #'(up)
+    <a'-2\rightHandFinger #2 >
+    b'\rightHandFinger #3
+    e''\glide \rightHandFinger #4
+    b' a' f' c'
+  }
+  f2\rightHandFinger #4
+}
+@end lilypond
+
 @morerefs
+Glossaire musicologique :
+@rglos{arrastre}.
+
 Manuel de notation :
 @ref{Direction and placement}.
 

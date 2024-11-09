@@ -1,18 +1,18 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
   texidocfr = "
-Les règles de ligature par mesure sont gérées par la propriété de
-contexte @code{beatStructure}. Ses valeurs par défaut sont répertoriées,
-par métrique, dans le fichier @code{scm/time-@/signature-@/settings.scm}.
-Elles sont modifiables grâce à la commande @code{\\set}.
 
-La fonction Scheme @code{set-time-signature} permet quant à elle de
-définir à la fois la métrique et la pulsation. Celle-ci prend trois
-arguments : le nombre de pulsations, la durée de la pulsation et le
-regroupement des pulsations dans la mesure. @code{\\time} et
-@code{set-time-signature} s'appliquent tous deux au contexte
-@code{Timing} ; ils ne redéfiniront donc pas les valeurs de
-@code{beatStructure} ou @code{beatBase} lorsqu'elles sont modifiées
-dans un contexte de niveau inférieur comme @code{Voice} par exemple.
+Les regroupement par temps au sein d'une mesure sont contrôlés par des
+propriétés de contexte : @code{beatStructure} liste la longueur de
+chaque temps, en unités de @code{beatBase}. Les valeurs par défaut sont
+répertoriées dans le fichier @code{scm/time-@/signature-@/settings.scm}.
+Ces propriétés sont modifiables grâce à la commande @code{\\set}.
+
+Par ailleurs, l'instruction @code{\\time} accepte des règles de
+pulsation différentes des valeurs par défaut. Dans la mesure où
+@code{\\time} s'applique au contexte @code{Timing}, elle ne redéfinira
+pas les valeurs de @code{beatStructure} ou @code{beatBase} lorsqu'elles
+sont modifiées dans un contexte de niveau inférieur comme @code{Voice}
+par exemple.
 
 Si l'on fait appel au @code{Measure_grouping_engraver}, la fonction
 @code{set-time-signature} créera aussi des symboles

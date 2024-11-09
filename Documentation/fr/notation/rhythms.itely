@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1264,7 +1264,8 @@ Référence des propriétés internes :
 @rinternals{Caesura_engraver},
 @rinternals{CaesuraEvent},
 @rinternals{CaesuraScript},
-@rinternals{Tunable context properties}.
+@rinternalsnamed{Tunable context properties,
+Propriétés de contexte ajustables}.
 @endmorerefs
 
 
@@ -1408,12 +1409,12 @@ de métrique correspondante :
 métrique pour laquelle ces valeurs doivent s'appliquer,
 
 @item
-@code{@var{beatBase}}, une fraction comprenant les numérateur
-et dénominateur de la fraction indiquant la base de la pulsation,
+@code{@var{beatBase}}, durée musicale correspondant à une unité de
+@code{beatStructure},
 
 @item
-@code{@var{beatStructure}}, une liste Scheme indiquant la structure de
-cette pulsation, en unité de base,
+@code{@var{beatStructure}}, une liste Scheme décrivant la structure de
+cette pulsation, en unité de @code{beatBase},
 
 @item
 @code{@var{beamExceptions}}, une liste associative des règles de
@@ -1542,8 +1543,8 @@ soit de recourir explicitement à un @code{\override} :
 }
 @end lilypond
 
-@findex reprise et métrique
-@findex métrique et reprise
+@cindex reprise et métrique
+@cindex métrique et reprise
 
 Lorsqu'il y a plus d'une portée et qu'un changement de métrique
 intervient lors d'une première fois, mais pas dans la suivante, il est
@@ -2405,6 +2406,7 @@ Référence des propriétés internes :
 * Setting automatic beam behavior::
 * Manual beams::
 * Feathered beams::
+* Slashed beams::
 @end menu
 
 
@@ -3089,6 +3091,51 @@ Morceaux choisis :
 @knownissues
 La commande @code{\featherDurations} ne permet de traiter que de très
 courts extraits, avec une faible amplitude.
+
+
+@node Slashed beams
+@unnumberedsubsubsec Ligatures barrées
+
+@cindex ligature barrée
+@cindex barrée, ligature
+
+Les ligatures peuvent apparaître barrées à l'aide de la procédure de
+stencil spécifique @code{beam::slashed-stencil}. La barre peut
+s'imprimer sur la gauche ou sur la droite de la ligature, et peut
+s'ajuster grâce aux sous-propriétés @code{details}
+@code{over-beam-height}, @code{slash-slope}, @code{slash-side},
+@code{slash-stem-fraction}, @code{slash-thickness} et
+@code{slash-X-positions}. Il est à noter que ces sous-propriétés
+s'accomodent entre elles afin d'obtenir un meilleur rendu ; autrement
+dit, modifier l'une peut avoir un impact sur les autres.
+
+@lilypond[verbatim,quote]
+mus = \repeat unfold 4 a16
+
+{
+  \override TextScript.rotation = #'(15 1 0)
+  \override Beam.stencil = #beam::slashed-stencil
+  \mus
+  <>^"slash-side" %% default: LEFT
+  \once \override Beam.details.slash-side = #RIGHT
+  \mus
+  <>^"over-beam-height" %% default: 0.75
+  \once \override Beam.details.over-beam-height = #1.5
+  \mus
+  <>^"slash-slope" %% default: 2
+  \once \override Beam.details.slash-slope = #1.0
+  \mus
+  <>^"slash-stem-fraction" %% default: 0.3
+  \once \override Beam.details.slash-stem-fraction = #0.6
+  \mus
+  <>^"slash-thickness" %% default: 0.1
+  \once \override Beam.details.slash-thickness = #0.2
+  \mus
+  <>^"slash-X-positions" %% default: (-0.5 . 1)
+  \once \override Beam.details.slash-X-positions = #'(-1 . 2)
+  \mus
+}
+@end lilypond
 
 
 @node Bars

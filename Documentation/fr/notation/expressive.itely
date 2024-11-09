@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
+   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -983,7 +983,7 @@ Vous pouvez même personnaliser la densité des tirets d'une liaison :
 
 @cindex liaison doublée, pour legato d'accords
 @cindex doublée, legato d'accords
-@findex doubleSlurs
+@funindex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/using-double-slurs-for-legato-chords.ly}
 

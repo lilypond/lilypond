@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 29a37692dfd868892b892d917a963a30bc5de87a
+   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -362,6 +362,12 @@ litige.
 @item
 N'utilisez pas les commandes @code{\override} ou @code{\set} à moins que
 le problème ne soit directement lié à leur utilisation.
+
+@item
+Transmettez votre code sous la forme d'une pièce jointe à votre courriel
+-- de nombreux courrieleurs ne gèrent pas correctement le code LilyPond,
+supprimant les sauts de ligne (ce qui le rend illisible) ou insérant des
+espaces insécables (ce qui rend le code incompilable).
 
 @item
 Le cas échéant, joignez une image de ce à quoi vous voulez arriver.

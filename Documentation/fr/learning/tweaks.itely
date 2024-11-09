@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
+   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2493,9 +2493,9 @@ les deux suivantes montrent l'effet lorsqu'on indique @code{DOWN} et
 }
 @end lilypond
 
-@findex -
-@findex ^
-@findex _
+@funindex -
+@funindex ^
+@funindex _
 
 Le fait d'intervenir sur la propriété @code{direction} n'est sûrement
 pas la façon la plus simple de placer manuellement les doigtés au-dessus

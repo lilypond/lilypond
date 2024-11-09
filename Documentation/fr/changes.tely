@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
+    Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -328,6 +328,42 @@ Certains faux changements de clefs ont été réglés.
 @unnumberedsec Améliorations en matière de rythme
 
 @itemize
+
+@item
+@code{\slashedGrace} imprime désormais des ligatures barrées.
+
+@lilypond[quote,verbatim]
+{
+  \slashedGrace { d'16 e' d' } c'1
+  \slashedGrace { d16 e'' d' } c'1
+}
+@end lilypond
+
+L'utilisation de @code{beam::slashed-stencil} permet de barrer des
+ligatures de façon arbitraire. Définir @code{details.slash-side} à
+@code{RIGHT} placera la barre sur la droite de la ligature.
+
+@lilypond[quote,verbatim]
+{
+  \override Beam.stencil = #beam::slashed-stencil
+  \cadenzaOn
+  c'16^[ a' c'']
+  c''^[ a' c']
+  c'_[ a' c'']
+  c''_[ a' c']
+  \override Beam.details.slash-side = #RIGHT
+  c'16^[ a' c'']
+  c''^[ a' c']
+  c'_[ a' c'']
+  c''_[ a' c']
+}
+@end lilypond
+
+L'apparence de la barre peut se personnaliser par dérogations aux
+sous-propriétés @code{details} @code{over-beam-height},
+@code{slash-slope}, @code{slash-side}, @code{slash-stem-fraction},
+@code{slash-thickness} et @code{slash-X-positions}.
+
 @item
 Il est désormais possible d'aligner par la droite différents types de
 barre de mesure.
@@ -520,6 +556,19 @@ reprise peut désormais s'ajuster à l'aide de la propriété
 @unnumberedsec Améliorations en matière d'annotations éditoriales
 
 @itemize
+
+@item
+Le @code{FingerGlideSpanner} permet maintenant de connecter des objets
+@code{StringNumber} et @code{StrokeFinger}.
+
+@lilypond[verbatim,quote]
+{
+  \set strokeFingerOrientations = #'(down)
+  b2 \glide -\rightHandFinger #1 \glide -2 \glide \5
+  e'-\rightHandFinger #1 -2 \5
+}
+@end lilypond
+
 @item
 Les objets graphiques @code{NoteName} sont désormais centrés
 horizontalement par défaut.
@@ -972,6 +1021,17 @@ respectivement renommés en @code{script.uupbow} et
 @unnumbered Autres améliorations diverses
 
 @itemize
+@item
+La propriété de contexte @code{baseMoment} est abandonnée au profit de
+@code{beatBase}. L'utilisation de @code{baseMoment} accède de manière
+transparente à @code{beatBase} et génère un message d'avertissement.
+
+@item
+La valeur de la propriété de contexte @code{timeSignatureSettings}
+utilise désormais le symbole @code{beatBase} en remplacemeent de
+@code{baseMoment}. @command{convert-ly} n'est pas en mesure de traiter
+ce changement.
+
 @item
 L'inclusion d'images PNG est désormais possible à l'aide de la commande
 de @emph{markup} @code{\image}. Ceci vient en supplement de la commande
