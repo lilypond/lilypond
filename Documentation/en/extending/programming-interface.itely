@@ -684,8 +684,8 @@ useful when defining new markup commands (see
 @knownissues
 
 The markup-list argument of commands such as @code{#:line},
-@code{#:center}, and @code{#:column} cannot be a variable or
-the result of a function call.
+@code{#:center-column}, and @code{#:column} cannot be a variable
+or the result of a function call.
 
 @lisp
 (markup #:line (function-that-returns-markups))
@@ -693,8 +693,8 @@ the result of a function call.
 
 @noindent
 is invalid.  One should use the @code{make-line-markup},
-@code{make-center-markup}, or @code{make-column-markup} functions
-instead,
+@code{make-center-column-markup}, or @code{make-column-markup}
+functions instead,
 
 @lisp
 (markup (make-line-markup (function-that-returns-markups)))
