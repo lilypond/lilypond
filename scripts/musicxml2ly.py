@@ -2292,6 +2292,12 @@ def musicxml_direction_to_lily(n):
 
     for dt in n.get_typed_children(musicxml.DirType):
         dirtype_children += dt.get_all_children()
+
+    # Also handle children of 'chained' `<direction>` element.
+    if n.next is not None:
+        for dt in n.next.get_typed_children(musicxml.DirType):
+            dirtype_children += dt.get_all_children()
+
     dirtype_children = [d for d in dirtype_children if d.get_name() != "#text"]
 
     num_children = len(dirtype_children)
@@ -3465,8 +3471,10 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             senza_misura_time_signature = None
 
         if isinstance(n, musicxml.Direction):
-            # check if Direction already has been converted in another voice.
-            if n.converted:
+            # Check whether `<direction>` has already been converted in
+            # another voice, or whether it is chained with another
+            # `<direction>` element.
+            if n.converted or n.prev is not None:
                 continue
             else:
                 n.converted = True

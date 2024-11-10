@@ -453,7 +453,6 @@ class Duration(Music_xml_node):
 
 
 class Hash_text(Music_xml_node):
-
     def dump(self, indent=''):
         ly.debug_output(self._data.strip())
 
@@ -1877,7 +1876,15 @@ class Part(Music_xml_node):
         start_attr = None
         assign_to_next_note = []
         id = None
-        for n in elements:
+
+        def prev_curr_iter(elems):
+            prev_e = None
+            for e in elems:
+                yield (prev_e, e)
+                if not isinstance(e, Hash_text):
+                    prev_e = e
+
+        for (prev_n, n) in prev_curr_iter(elements):
             try:
                 id = n['voice']
             except KeyError:
@@ -1934,6 +1941,85 @@ class Part(Music_xml_node):
                 continue
 
             if isinstance(n, Direction):
+                if isinstance(prev_n, Direction):
+                    # If there are two `<direction>` elements 'A' and 'B' in
+                    # succession we do some heuristic checks to find out
+                    # whether they are connected and can be 'chained' and
+                    # concatenated later on.
+                    #
+                    # (1) The first `<direction-type>` child of 'A' and
+                    #     'B' have both approximately the same `default-y`
+                    #     value.  We don't inspect other children for
+                    #     simplicity.
+                    #
+                    # (2) Neither 'A' nor 'B' has a `<staff>` child, or both
+                    #     'A' and 'B' have a `<staff>` child with the same
+                    #     value.
+                    #
+                    # (3) The `<offset>` child in 'A' and 'B' have different
+                    #     values (a missing `<offset>` child is interpreted
+                    #     as value zero).
+                    #
+                    # Example: `<words>` in 'A' contains 'Allegro' and
+                    # `<metronome>` in 'B' contains '<quarter> = 120'.
+                    #
+                    # TODO: The above algorithm could be generalized to
+                    #       chain more than two successive `<direction>`
+                    #       elements; investigate whether this happens in
+                    #       real-world scores.
+                    #
+                    # TODO: Properly handle successive `<direction>`
+                    #       elements at different vertical positions.  Right
+                    #       now this causes LilyPond warnings (and the
+                    #       omission of events) since it doesn't support
+                    #       multiple occurrences of `\mark` or `\tempo` at a
+                    #       given musical moment.
+                    prev_dirtype = \
+                        next(c for c in prev_n.get_typed_children(DirType))
+                    prev_first_child = \
+                        next(c for c in prev_dirtype.get_all_children()
+                             if not isinstance(c, Hash_text))
+                    prev_default_y = \
+                        getattr(prev_first_child, 'default-y', None)
+
+                    dirtype = next(c for c in n.get_typed_children(DirType))
+                    first_child = next(c for c in dirtype.get_all_children()
+                                       if not isinstance(c, Hash_text))
+                    default_y = getattr(first_child, 'default-y', None)
+
+                    # Condition (1).  We use half an interline staff space
+                    # as a heuristic threshold.
+                    if (prev_default_y is not None
+                            and default_y is not None
+                            and abs(int(prev_default_y) - int(default_y)) < 5):
+                        prev_staff = prev_n.get('staff', '0')
+                        staff = n.get('staff', '0')
+
+                        # Condition (2).
+                        if prev_staff == staff:
+                            prev_offset_elem = prev_n.get_named_child('offset')
+                            prev_offset = 0
+                            if prev_offset_elem is not None:
+                                prev_offset = int(prev_offset_elem.get_text())
+
+                            offset_elem = n.get_named_child('offset')
+                            offset = 0
+                            if offset_elem is not None:
+                                offset = int(offset_elem.get_text())
+
+                            # Condition (3).
+                            if prev_offset == offset:
+                                n.message(_('Found overlapping '
+                                            '<direction> elements'))
+                                offset += 1  # Arbitrary choice.
+
+                            if prev_offset > offset:
+                                n.next = prev_n
+                                prev_n.prev = n
+                            else:
+                                prev_n.next = n
+                                n.prev = prev_n
+
                 if n.voice_id:
                     voices[n.voice_id].add_element(n)
                 else:
@@ -2029,6 +2115,12 @@ class Direction(Measure_element):
         'staff': 1,
         'voice': 1,
     }
+
+    def __init__(self):
+        Measure_element.__init__(self)
+        # For chaining with another `<direction>` element.
+        self.prev = None
+        self.next = None
 
     # We assume there is only a single pedal spanner in the `<Direction>`
     # element.  Additionally, we only consider the `line` attribute at the
