@@ -2940,7 +2940,7 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
 class LilyPondVoiceBuilder(musicexp.Base):
     def __init__(self):
         self.elements = []
-        self.pending_dynamics = []
+        self.pending_elements = []
         self.pending_last = []
         self.end_moment = 0
         self.begin_moment = 0
@@ -2965,10 +2965,10 @@ class LilyPondVoiceBuilder(musicexp.Base):
             # multi-measure rest, which is most certainly not intended.
             # Instead, do `<>^\markup{...} R1`.  Since it doesn't cause a
             # problem, we do this for the remaining pending elements also.
-            if self.pending_dynamics:
+            if self.pending_elements:
                 self.elements.append(musicexp.EmptyChord())
-                self.elements.extend(self.pending_dynamics)
-                self.pending_dynamics = []
+                self.elements.extend(self.pending_elements)
+                self.pending_elements = []
 
             self.elements.append(self.multi_measure_ev_chord)
             self.multi_measure_count = 0
@@ -2984,9 +2984,9 @@ class LilyPondVoiceBuilder(musicexp.Base):
     def current_duration(self):
         return self.end_moment - self.begin_moment
 
-    def add_pending_dynamics(self):
-        self.elements.extend(self.pending_dynamics)
-        self.pending_dynamics = []
+    def add_pending_elements(self):
+        self.elements.extend(self.pending_elements)
+        self.pending_elements = []
 
     def add_pending_last(self):
         # The elements in `pending_last` are separated from the previous
@@ -3025,8 +3025,8 @@ class LilyPondVoiceBuilder(musicexp.Base):
         # Insert all pending dynamics right after the note or rest if it is
         # not a grace note or rest (which we handle separately).
         if isinstance(music, musicexp.ChordEvent) and grace is None:
-            if self.pending_dynamics:
-                self.add_pending_dynamics()
+            if self.pending_elements:
+                self.add_pending_elements()
 
     # Insert some music command that does not affect the position in the
     # measure.
@@ -3078,7 +3078,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
 
     def add_dynamics(self, dynamic):
         # store the dynamic item(s) until we encounter the next note/rest:
-        self.pending_dynamics.append(dynamic)
+        self.pending_elements.append(dynamic)
 
     def add_last(self, last):
         # Store items that come right before the next note (or bar line).
@@ -3364,7 +3364,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             chordnames_builder.bar_number = num
             fretboards_builder.bar_number = num
 
-            if voice_builder.pending_dynamics:
+            if voice_builder.pending_elements:
                 # This handles the corner case of having elements like
                 # `<direction>` between `<note>` and `<measure>`, and which
                 # already belong to the next bar.  Such elements should
@@ -3372,8 +3372,8 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 # other programs like Finale or MuseScore do); however, it
                 # is not worth the trouble to actually support that.
                 voice_builder.elements.append(musicexp.EmptyChord())
-                voice_builder.elements.extend(voice_builder.pending_dynamics)
-                voice_builder.pending_dynamics = []
+                voice_builder.elements.extend(voice_builder.pending_elements)
+                voice_builder.pending_elements = []
 
             if n.senza_misura_length:
                 is_senza_misura = True
@@ -3699,8 +3699,8 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 voice_builder.add_music(ev_chord, n._duration, grace=grace)
         else:
             # This catches '<grace note> <dynamics> <main note>'.
-            if voice_builder.pending_dynamics and 'chord' not in n:
-                voice_builder.add_pending_dynamics()
+            if voice_builder.pending_elements and 'chord' not in n:
+                voice_builder.add_pending_elements()
 
         # A staff change might happen anywhere; for this reason we have more
         # checks here and below.
@@ -3724,9 +3724,9 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                         ev_chord.append_after_grace(staff_change)
                         staff_change = None
                     ev_chord.append_after_grace(grace_chord)
-                    for pd in voice_builder.pending_dynamics:
+                    for pd in voice_builder.pending_elements:
                         ev_chord.append_after_grace(pd)
-                    voice_builder.pending_dynamics = []
+                    voice_builder.pending_elements = []
             else:
                 if ev_chord.grace_elements and is_chord:
                     grace_chord = \
@@ -3741,9 +3741,9 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                         skip.duration = note_grace_skip
                         ev_chord.append_grace(skip)
                     ev_chord.append_grace(grace_chord)
-                    for pd in voice_builder.pending_dynamics:
+                    for pd in voice_builder.pending_elements:
                         ev_chord.append_grace(pd)
-                    voice_builder.pending_dynamics = []
+                    voice_builder.pending_elements = []
 
             if not is_after_grace and grace is not None:
                 if getattr(grace, 'slash', None) == 'yes':
@@ -4056,7 +4056,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
     # written out.
     ce = musicexp.ChordEvent()
     if (voice_builder.multi_measure_rest is None
-            and voice_builder.pending_dynamics):
+            and voice_builder.pending_elements):
         # We have elements that are positioned after the last `<note>`,
         # i.e., after the music has finished.  To make LilyPond output them
         # we need an 'anchor', so we append a skip with a very short length.
