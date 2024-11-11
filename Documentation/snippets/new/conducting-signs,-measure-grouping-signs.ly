@@ -20,7 +20,9 @@ display contexts, measure grouping signs will be created.  Such signs
 ease reading rhythmically complex modern music. In the example, the 9/8
 measure is grouped in two different patterns using the two different
 methods, while the 5/8 measure is grouped according to the default
-setting in @code{scm/time-signature-settings.scm}:
+setting in @code{scm/time-signature-settings.scm}.  For the 4/4 measure
+you have to explicitly set @code{beatBase} to eighths so that the bar's
+irregular pattern gets displayed.
 "
 
   doctitle = "Conducting signs, measure grouping signs"
@@ -37,6 +39,9 @@ setting in @code{scm/time-signature-settings.scm}:
     g8 g d d g g a( bes g) |
     \time 5/8
     a4. g4 |
+    \time 3,3,2 4/4
+    \set Timing.beatBase = #1/8
+    f4 d8 f4 d8 g4
   }
   \layout {
     \context {
