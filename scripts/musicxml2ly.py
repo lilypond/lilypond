@@ -2966,9 +2966,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
             # Instead, do `<>^\markup{...} R1`.  Since it doesn't cause a
             # problem, we do this for the remaining pending elements also.
             if self.pending_elements:
-                self.elements.append(musicexp.EmptyChord())
-                self.elements.extend(self.pending_elements)
-                self.pending_elements = []
+                self.add_pending_elements(True)
 
             self.elements.append(self.multi_measure_ev_chord)
             self.multi_measure_count = 0
@@ -2984,7 +2982,9 @@ class LilyPondVoiceBuilder(musicexp.Base):
     def current_duration(self):
         return self.end_moment - self.begin_moment
 
-    def add_pending_elements(self):
+    def add_pending_elements(self, with_empty_chord=False):
+        if with_empty_chord:
+            self.elements.append(musicexp.EmptyChord())
         self.elements.extend(self.pending_elements)
         self.pending_elements = []
 
@@ -3050,9 +3050,9 @@ class LilyPondVoiceBuilder(musicexp.Base):
         prev_barline = None
         elem = None
         for elem in reversed(self.elements):
-            if not (isinstance(elem, musicexp.Break)
-                    or isinstance(elem, conversion.RepeatMarker)
-                    or isinstance(elem, conversion.EndingMarker)):
+            if not isinstance(elem, (musicexp.Break,
+                                     conversion.RepeatMarker,
+                                     conversion.EndingMarker)):
                 break
         if isinstance(elem, musicexp.BarLine):
             prev_barline = elem
@@ -3371,9 +3371,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 # actually be aligned at the bar line (at least this is what
                 # other programs like Finale or MuseScore do); however, it
                 # is not worth the trouble to actually support that.
-                voice_builder.elements.append(musicexp.EmptyChord())
-                voice_builder.elements.extend(voice_builder.pending_elements)
-                voice_builder.pending_elements = []
+                voice_builder.add_pending_elements(True)
 
             if n.senza_misura_length:
                 is_senza_misura = True
