@@ -491,7 +491,7 @@ Custom percussion styles may be defined, to which the
 @code{drumStyleTable} property may then be set.
 Existing notations may be redefined as an association list
 where each entry has to be comprised of four items:
-a name, the note head style (or @code{default}), an
+a name, the note head style (or @samp{()} to indicate the default), an
 articulation sign if needed (or @code{#f} if not), and
 the note head's position on the staff.  That list must then
 be converted into a Scheme hash table, using the
@@ -506,12 +506,12 @@ be converted into a Scheme hash table, using the
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
-         (bassdrum        default   #f           -1)
-         (snare           default   #f           0)
-         (hihat           cross     #f           1)
-         (halfopenhihat   cross     halfopen     1)
-         (pedalhihat      xcircle   stopped      2)
-         (lowtom          diamond   #f           3)))
+         (bassdrum        ()        #f         -1)
+         (snare           ()        #f         0)
+         (hihat           cross     #f         1)
+         (halfopenhihat   cross     halfopen   1)
+         (pedalhihat      xcircle   stopped    2)
+         (lowtom          diamond   #f         3)))
 
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
@@ -564,25 +564,25 @@ notation set with its own input syntax, custom notations and
 corresponding MIDI output.
 
 @lilypond[quote,verbatim]
-drumPitchNames.dbass      = #'dbass
-drumPitchNames.dba        = #'dbass  % 'db is in use already
-drumPitchNames.dbassmute  = #'dbassmute
-drumPitchNames.dbm        = #'dbassmute
-drumPitchNames.do         = #'dopen
-drumPitchNames.dopenmute  = #'dopenmute
-drumPitchNames.dom        = #'dopenmute
-drumPitchNames.dslap      = #'dslap
-drumPitchNames.ds         = #'dslap
-drumPitchNames.dslapmute  = #'dslapmute
-drumPitchNames.dsm        = #'dslapmute
+drumPitchNames.dbass     = #'dbass
+drumPitchNames.dba       = #'dbass  % 'db is in use already
+drumPitchNames.dbassmute = #'dbassmute
+drumPitchNames.dbm       = #'dbassmute
+drumPitchNames.do        = #'dopen
+drumPitchNames.dopenmute = #'dopenmute
+drumPitchNames.dom       = #'dopenmute
+drumPitchNames.dslap     = #'dslap
+drumPitchNames.ds        = #'dslap
+drumPitchNames.dslapmute = #'dslapmute
+drumPitchNames.dsm       = #'dslapmute
 
 #(define djembe-style
-  '((dbass      default  #f         -2)
-    (dbassmute  default  stopped    -2)
-    (dopen      default  #f          0)
-    (dopenmute  default  stopped     0)
-    (dslap      default  #f          2)
-    (dslapmute  default  stopped     2)))
+  '((dbass       ()   #f        -2)
+    (dbassmute   ()   stopped   -2)
+    (dopen       ()   #f        0)
+    (dopenmute   ()   stopped   0)
+    (dslap       ()   #f        2)
+    (dslapmute   ()   stopped   2)))
 
 midiDrumPitches.dbass     = g
 midiDrumPitches.dbassmute = fis
