@@ -56,12 +56,11 @@
             -7/2)))
 
 (define-public (alteration->text-accidental-markup alteration)
-
   (make-smaller-markup
-   (make-raise-markup
+   (make-translate-scaled-markup
     (if (short-glyph? alteration)
-        0.3
-        0.6)
+        '(0 . 0.3)
+        '(0 . 0.6))
     (make-accidental-markup alteration))))
 
 (define (accidental->markup alteration)
@@ -80,7 +79,9 @@
        (list
         ;; FIXME -- see issue 3330.
         (make-hspace-markup (if (= alteration FLAT) 0.57285385 0.5))
-        (make-raise-markup 0.7 (alteration->text-accidental-markup alteration))
+        (make-translate-scaled-markup
+         '(0 . 0.7)
+         (alteration->text-accidental-markup alteration))
         (make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
         ))))
 
