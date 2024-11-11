@@ -528,7 +528,12 @@ Text may be added to your scores:
 \relative { c''2^"espr" a_"legato" }
 @end lilypond
 
-Extra formatting may be added with the @code{\markup} command:
+Extra formatting may be added with the @code{\markup}
+command:@footnote{Users of right-to-left scripts like Hebrew or
+Arabic should replace @code{\markup @{ ... @}} with @code{\markup
+\override #'(text-direction . LEFT) \line @{ ... @}}.  Within
+double quotes, however, this is not necessary since LilyPond can
+automatically recognize the writing direction.}
 
 @lilypond[verbatim,quote]
 \relative {
