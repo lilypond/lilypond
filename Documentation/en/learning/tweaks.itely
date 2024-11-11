@@ -1388,6 +1388,10 @@ removes the object entirely; making the object @code{transparent}
 (which can be done using @code{\hide})
 leaves it where it is, but makes it invisible.
 
+@xref{Simulating a fermata in MIDI}, for another example
+demonstrating the difference between @code{\omit} and
+@code{\hide}.
+
 @node The color property
 @unnumberedsubsubsec The @code{color} property
 
