@@ -461,6 +461,11 @@ vertically.")))))
 
     (Beam
      . (
+        ;; The value of `beam-thickness` should stay in sync with the
+        ;; definition of straight flag styles in file `flag-styles.scm` and
+        ;; markup function `\note-by-number` (in file
+        ;; `define-markup-commands.scm`).
+        ;;
         ;; todo: clean this up a bit: the list is getting
         ;; rather long.
         (accidental-padding . 1.0)

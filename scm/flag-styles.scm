@@ -87,13 +87,16 @@ This is an auxiliary function for @code{modern-straight-flag},
          (dir (ly:grob-property stem-grob 'direction))
          (stem-up (eqv? dir UP))
          (layout (ly:grob-layout grob))
-         (staff-space (ly:output-def-lookup layout 'staff-space))
-         ;; scale with font-size and staff-space (e.g., for grace notes)
-         (factor (* staff-space
+         (layout-staff-space (ly:output-def-lookup layout 'staff-space))
+         (staff-space (ly:staff-symbol-staff-space grob))
+         (blot (ly:output-def-lookup layout 'blot-diameter))
+         (factor (* layout-staff-space
                     (magstep (ly:grob-property grob 'font-size 0))))
          (grob-stem-thickness (ly:grob-property stem-grob 'thickness))
          (line-thickness (ly:output-def-lookup layout 'line-thickness))
-         (half-stem-thickness (/ (* grob-stem-thickness line-thickness) 2))
+         (half-stem-thickness
+          (/ (* staff-space grob-stem-thickness line-thickness) 2))
+         (half-stem-offset (cons half-stem-thickness 0))
          (raw-length (if stem-up upflag-length downflag-length))
          (angle (if stem-up upflag-angle downflag-angle))
          (flag-length (+ (* raw-length factor) half-stem-thickness))
@@ -101,10 +104,17 @@ This is an auxiliary function for @code{modern-straight-flag},
          (thickness (* flag-thickness factor))
          (thickness-offset (cons 0 (* -1 thickness dir)))
          (spacing (* -1 flag-spacing factor dir))
-         (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
+         (start (cons (- half-stem-thickness) (* (/ blot 2) dir)))
+         ;; Both stems and straight flags are rounded boxes.  To avoid a tiny
+         ;; gap at the connection between stem and flag (where the rounded
+         ;; corners would become visible) the straight flag, drawn as a polygon,
+         ;; starts with a very tiny horizontal part at the middle of the stem,
+         ;; followed by the actual flag part (which might be slanted).
          (raw-points (list '(0 . 0)
+                           half-stem-offset
                            flag-end
                            (offset-add flag-end thickness-offset)
+                           (offset-add half-stem-offset thickness-offset)
                            thickness-offset))
          (points (map (lambda (coord) (offset-add coord start)) raw-points))
          (stencil (ly:round-polygon points half-stem-thickness -1.0))
@@ -133,7 +143,7 @@ sets the @code{stroke-style} property of @var{grob} to the string
 @code{\"grace\"}, add a slash through the flag.
 
 This function returns a stencil."
-  ((straight-flag 0.55 1 -18 1.1 22 1.2) grob))
+  ((straight-flag 0.48 1 -18 1.1 22 1.2) grob))
 
 (define-public (old-straight-flag grob)
   "A callback function for @code{Flag.stencil} to get an old straight flag.
@@ -145,7 +155,7 @@ caller sets the @code{stroke-style} property of @var{grob} to the string
 @code{\"grace\"}, add a slash through the flag.
 
 This function returns a stencil."
-  ((straight-flag 0.55 1 -45 1.2 45 1.4) grob))
+  ((straight-flag 0.48 1 -45 1.2 45 1.4) grob))
 
 (define-public (flat-flag grob)
   "A callback function for @code{Flag.stencil} to get a flat flag.
@@ -155,7 +165,7 @@ caller sets the @code{stroke-style} property of @var{grob} to the string
 @code{\"grace\"}, add a slash through the flag.
 
 This function returns a stencil."
-  ((straight-flag 0.55 1.0 0 1.0 0 1.0) grob))
+  ((straight-flag 0.48 1 0 1.0 0 1.0) grob))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
