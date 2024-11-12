@@ -5370,9 +5370,9 @@ provided for convenience.
                                    dot (* 2 x dotwid) X))
                                 (iota dot-count)))))
          ;; Straight-flags. Values taken from /scm/flag-style.scm
-         (modern-straight-flag (straight-flag-mrkp 0.55 1 -18 1.1 22 1.2 dir))
-         (old-straight-flag (straight-flag-mrkp 0.55 1 -45 1.2 45 1.4 dir))
-         (flat-flag (straight-flag-mrkp 0.55 1.0 0 1.0 0 1.0 dir))
+         (modern-straight-flag (straight-flag-mrkp 0.48 1 -18 1.1 22 1.2 dir))
+         (old-straight-flag (straight-flag-mrkp 0.48 1 -45 1.2 45 1.4 dir))
+         (flat-flag (straight-flag-mrkp 0.48 1.0 0 1.0 0 1.0 dir))
          ;; Calculate a corrective to avoid a gap between
          ;; straight-flags and the stem.
          (flag-style-Y-corr (if (or (eq? flag-style 'modern-straight-flag)
