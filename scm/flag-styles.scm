@@ -38,7 +38,6 @@ This function simply returns an empty stencil."
 
 This is an auxiliary function for @code{straight-flag}."
 
-
   ;; The stroke starts for up-flags at `upper-end-of-flag + (0,length/2)' and
   ;; ends at `(0, vertical-center-of-flag-end) - (flag-x-width/2, flag-x-width +
   ;; flag-thickness)'.  Here `length' is the whole length, while `flag-x-width'
@@ -48,16 +47,20 @@ This is an auxiliary function for @code{straight-flag}."
   ;; For down-stems the y-coordinates are simply mirrored.
   (let* ((start (offset-add offset (cons 0  (* (/ length 2) dir))))
          (end (offset-add (cons 0 (cdr offset))
-                          (cons (- (/ (car offset) 2)) (* (- (+ thickness (car offset))) dir))))
-         (stroke (make-line-stencil stroke-thickness (car start) (cdr start) (car end) (cdr end))))
+                          (cons (- (/ (car offset) 2))
+                                (* (- (+ thickness (car offset))) dir))))
+         (stroke (make-line-stencil stroke-thickness
+                                    (car start) (cdr start)
+                                    (car end) (cdr end))))
     (ly:stencil-add stencil stroke)))
 
 (define (buildflag flag-stencil remain curr-stencil spacing)
   "Internal function to recursively create a stencil with @var{remain} flags
-   from the single-flag stencil @var{curr-stencil}, which is already translated
-to the position of the previous flag position."
+from the single-flag stencil @var{curr-stencil}, which is already translated to
+the position of the previous flag position."
   (if (> remain 0)
-      (let* ((translated-stencil (ly:stencil-translate-axis curr-stencil spacing Y))
+      (let* ((translated-stencil
+              (ly:stencil-translate-axis curr-stencil spacing Y))
              (new-stencil (ly:stencil-add flag-stencil translated-stencil)))
         (buildflag new-stencil (- remain 1) translated-stencil spacing))
       flag-stencil))
@@ -85,10 +88,9 @@ This is an auxiliary function for @code{modern-straight-flag},
          (stem-up (eqv? dir UP))
          (layout (ly:grob-layout grob))
          (staff-space (ly:output-def-lookup layout 'staff-space))
-         ;; scale with font size-and staff-space (e.g. for grace notes)
-         (factor
-          (* staff-space
-             (magstep (ly:grob-property grob 'font-size 0))))
+         ;; scale with font-size and staff-space (e.g., for grace notes)
+         (factor (* staff-space
+                    (magstep (ly:grob-property grob 'font-size 0))))
          (grob-stem-thickness (ly:grob-property stem-grob 'thickness))
          (line-thickness (ly:output-def-lookup layout 'line-thickness))
          (half-stem-thickness (/ (* grob-stem-thickness line-thickness) 2))
@@ -98,14 +100,12 @@ This is an auxiliary function for @code{modern-straight-flag},
          (flag-end (polar->rectangular flag-length angle))
          (thickness (* flag-thickness factor))
          (thickness-offset (cons 0 (* -1 thickness dir)))
-         (spacing (* -1 flag-spacing factor dir ))
+         (spacing (* -1 flag-spacing factor dir))
          (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
-         (raw-points
-          (list
-           '(0 . 0)
-           flag-end
-           (offset-add flag-end thickness-offset)
-           thickness-offset))
+         (raw-points (list '(0 . 0)
+                           flag-end
+                           (offset-add flag-end thickness-offset)
+                           thickness-offset))
          (points (map (lambda (coord) (offset-add coord start)) raw-points))
          (stencil (ly:round-polygon points half-stem-thickness -1.0))
          ;; Log for 1/8 is 3, so we need to subtract 3
@@ -186,7 +186,8 @@ This is an auxiliary function for @code{create-glyph-flag}."
                                  tmpstencil)))
         (if (ly:stencil-empty? stroke-stencil)
             (begin
-              (ly:warning (G_ "flag stroke `~a' or `~a' not found") font-char alt-font-char)
+              (ly:warning (G_ "flag stroke `~a' or `~a' not found")
+                          font-char alt-font-char)
               stencil)
             (ly:stencil-add stencil stroke-stencil)))))
 
@@ -198,7 +199,9 @@ This is an auxiliary function for @code{create-glyph-flag}."
   (let* ((stem-grob (ly:grob-parent grob X))
          (log (ly:grob-property stem-grob 'duration-log))
          (font (ly:grob-default-font grob))
-         (font-char (string-append "flags." flag-style dir dir-modifier (number->string log)))
+         (font-char (string-append "flags."
+                                   flag-style dir dir-modifier
+                                   (number->string log)))
          (flag (ly:font-get-glyph font font-char)))
     (if (ly:stencil-empty? flag)
         (ly:warning (G_ "flag ~a not found") font-char))
