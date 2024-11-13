@@ -2971,6 +2971,19 @@ the group as a whole.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/flat-flags-and-beam-nibs.ly}
 
+@cindex beam-like flags
+@cindex flag, beam-like
+@cindex stacked flags
+@cindex flag, stacked
+@cindex straight flags, modern
+@cindex flag, modern straight
+@cindex straight flags, old
+@cindex flag, old straight
+@funindex \flagStyleStacked
+@funindex \flagStyleDefault
+@lilypondfile[verbatim,ragged-right,texidoc,doctitle]
+{snippets/using-alternative-flag-styles.ly}
+
 
 @morerefs
 Notation Reference:
