@@ -193,7 +193,9 @@ these files end with @file{.ly}.
 @funindex \score
 
 A @code{\score} block must contain a single music expression
-delimited by curly brackets:
+delimited by curly brackets.@footnote{Note that there also exists
+a markup command called @code{\score}, @pxref{Scores within
+markup}.}
 
 @example
 \score @{
@@ -3889,7 +3891,10 @@ value
 @cindex MIDI, block
 
 To create a MIDI output file from a LilyPond input file, insert a
-@code{\midi} block, which can be empty, within the @code{\score} block;
+@code{\midi} block, which can be empty, within the @code{\score}
+block.@footnote{Note that there also exists a markup command
+called @code{\score} that doesn't produce MIDI output, even if a
+@code{\midi} block is present.  @xref{Scores within markup}.}
 
 @example
 \score @{

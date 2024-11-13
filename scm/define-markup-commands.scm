@@ -1717,10 +1717,14 @@ Like @code{\\score} but return a list of lines instead of a single markup."
   "
 @cindex inserting music, into text
 
+@anchor{Scores within markup}
 Inline an image of music as specified by @var{score}.
 
 The reference point (usually the middle staff line) of the lowest staff in the
 top system is placed on the baseline.
+
+No page breaks and no MIDI output, i.e., both @code{\\pageBreak} commands and
+@code{\\midi@{@}} blocks get ignored.
 
 @lilypond[verbatim,quote,line-width=14\\cm,staffsize=16]
 \\markup {
