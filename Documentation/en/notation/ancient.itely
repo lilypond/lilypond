@@ -697,7 +697,7 @@ Notation Reference:
 @cindex flag, mensural
 @cindex mensural flag
 
-Use the @code{flag-style} property of grob @code{Stem} to
+Use the @code{style} property of grob @code{Flag} to
 select ancient flags.  Besides the @code{default} flag style,
 only the @code{mensural} style is supported.
 

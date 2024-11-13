@@ -101,7 +101,7 @@ mus =
   \with {
     instrumentName =
       \markup \column { "diamond-note-head"
-                        "modern-straight-flag" }
+                        "stacked" }
   }
   \mus
 
@@ -109,7 +109,7 @@ mus =
     \context {
       \Score
       \override MetronomeMark.style = #'diamond
-      \override MetronomeMark.flag-style = #'modern-straight-flag
+      \override MetronomeMark.flag-style = #'stacked
     }
   }
 }

@@ -322,10 +322,11 @@ have different stem directions, enforce this note head direction
 for display.")
      (filled ,boolean? "Whether an object is filled with ink.")
      (flag-count ,number? "The number of tremolo beams.")
-     (flag-style ,symbol? "The style of the flag to be used with
-@code{MetronomeMark}. Available are @code{'modern-straight-flag},
-@code{'old-straight-flag}, @code{'flat-flag}, @code{'mensural},
-@code{'stacked}, and @code{'default}.")
+     (flag-style ,symbol? "The style of flags to be displayed within
+markups (via @code{\\note-by-number}).  Available are
+@code{'modern-straight-flag}, @code{'old-straight-flag},
+@code{'flat-flag}, @code{'mensural}, @code{'stacked},
+and @code{'default}.")
      (flat-positions ,list? "Flats in key signatures are placed
 within the specified ranges of staff positions.  The general form
 is a list of pairs, with one pair for each type of clef, in order
