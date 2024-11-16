@@ -225,7 +225,7 @@ Extract the duration field from @var{mus} and return the length.
   Moment len;
 
   if (d)
-    len = Moment (d->get_length ());
+    len = Moment (Rational (*d));
   else
     programming_error ("music has no duration");
   return to_scm (len);

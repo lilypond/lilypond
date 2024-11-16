@@ -215,16 +215,16 @@ Completion_heads_engraver::process_music ()
         factor
           = ly_call (factor, context ()->self_scm (), note_dur.smobbed_copy ());
       factor_ = from_scm<Rational> (factor, note_dur.factor ());
-      left_to_do_ = orig->get_length ();
+      left_to_do_ = Rational (*orig);
     }
 
-  if (const auto &nb = next_moment (note_dur.get_length ()))
+  if (const auto &nb = next_moment (Rational (note_dur)))
     {
-      if (nb < note_dur.get_length ())
+      if (nb < Rational (note_dur))
         note_dur = Duration (nb / factor_, false).compressed (factor_);
     }
 
-  do_nothing_until_ = now.main_part_ + note_dur.get_length ();
+  do_nothing_until_ = now.main_part_ + Rational (note_dur);
 
   for (vsize i = 0; left_to_do_ && i < note_events_.size (); i++)
     {
@@ -237,7 +237,7 @@ Completion_heads_engraver::process_music ()
       SCM pits = get_property (note_events_[i], "pitch");
       set_property (event, "pitch", pits);
       set_property (event, "duration", note_dur.smobbed_copy ());
-      set_property (event, "length", to_scm (Moment (note_dur.get_length ())));
+      set_property (event, "length", to_scm (Moment (Rational (note_dur))));
       set_property (event, "duration-log", to_scm (note_dur.duration_log ()));
 
       /*
@@ -247,7 +247,7 @@ Completion_heads_engraver::process_music ()
         tie event should be processed.
       */
       set_property (event, "autosplit-end",
-                    to_scm (left_to_do_ > note_dur.get_length ()));
+                    to_scm (left_to_do_ > Rational (note_dur)));
 
       Item *note = make_note_head (event);
       if (need_clone)
@@ -268,11 +268,11 @@ Completion_heads_engraver::process_music ()
     for (vsize i = ties_.size (); i--;)
       Tie_column::add_tie (tie_column_, ties_[i]);
 
-  left_to_do_ -= note_dur.get_length ();
+  left_to_do_ -= Rational (note_dur);
   if (left_to_do_)
     {
       find_global_context ()->add_moment_to_process (
-        Moment (now.main_part_ + note_dur.get_length ()));
+        Moment (now.main_part_ + Rational (note_dur)));
     }
   /*
     don't do complicated arithmetic with grace notes.

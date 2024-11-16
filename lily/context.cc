@@ -936,7 +936,7 @@ Moment
 note_end_mom (Context const *context, Duration const *dur)
 {
   const auto now = context->now_mom ();
-  Rational dur_length = dur ? dur->get_length () : Rational (0);
+  const auto dur_length = dur ? Rational (*dur) : Rational (0);
 
   Moment end_pos = now.grace_part_ < Rational (0)
                      ? Moment (now.main_part_, now.grace_part_ + dur_length)

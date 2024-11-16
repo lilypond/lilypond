@@ -35,10 +35,12 @@ struct Duration : public Simple_smob<Duration>
   Duration ();
   Duration (int, int);
   Duration (Rational, bool scale);
+
+  // Convert the Duration to the equivalent number of whole notes.
+  explicit operator Rational () const;
   std::string to_string () const;
 
   Duration compressed (Rational) const;
-  Rational get_length () const;
   Rational factor () const { return factor_; }
   int duration_log () const;
   int dot_count () const;

@@ -95,7 +95,7 @@ Tuplet_iterator::process (Moment m)
     {
       if (auto *d = unsmob<Duration> (get_property (get_music (), "duration")))
         {
-          spanner_duration_ = Moment (d->get_length ());
+          spanner_duration_ = Moment (Rational (*d));
         }
       else
         {

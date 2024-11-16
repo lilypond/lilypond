@@ -303,7 +303,7 @@ Music::duration_length_callback (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
   Duration *d = unsmob<Duration> (get_property (me, "duration"));
-  return to_scm (Moment (d ? d->get_length () : 0));
+  return to_scm (Moment (d ? Rational (*d) : 0));
 }
 
 SCM

@@ -363,7 +363,7 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
   if (!is_same_grace_state (beam_start_moment_, now))
     return;
 
-  const auto dur = stem_duration.get_length ();
+  const auto dur = Rational (stem_duration);
   bool recheck_needed = false;
 
   if (dur < shortest_dur_)

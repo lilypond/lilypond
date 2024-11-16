@@ -107,7 +107,7 @@ Music_sequence::event_chord_length_callback (SCM m)
   // Preset duration is used in chord repetitions.
   if (d)
     {
-      return to_scm (Moment (d->get_length ()));
+      return to_scm (Moment (Rational (*d)));
     }
   return to_scm (maximum_length (get_property (me, "elements")));
 }

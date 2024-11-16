@@ -132,7 +132,7 @@ The length of the duration as a @code{moment}.
            )")
 {
   auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);
-  return to_scm (Moment (a->get_length ()));
+  return to_scm (Moment (Rational (*a)));
 }
 
 LY_DEFINE (ly_duration_2_string, "ly:duration->string", 1, 0, 0, (SCM dur),

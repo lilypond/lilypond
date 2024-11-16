@@ -26,7 +26,7 @@
 int
 Duration::compare (Duration const &left, Duration const &right)
 {
-  return Rational::compare (left.get_length (), right.get_length ());
+  return Rational::compare (Rational (left), Rational (right));
 }
 
 Duration::Duration ()
@@ -96,7 +96,7 @@ Duration::Duration (Rational r, bool scale)
         durlog_ = k;
 
       if (scale || k > 6)
-        factor_ = r / get_length ();
+        factor_ = r / Rational (*this);
     }
 }
 
@@ -108,8 +108,7 @@ Duration::compressed (Rational m) const
   return d;
 }
 
-Rational
-Duration::get_length () const
+Duration::operator Rational () const
 {
   Rational mom (1 << std::abs (durlog_));
 

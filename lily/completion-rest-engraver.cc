@@ -210,16 +210,16 @@ Completion_rest_engraver::process_music ()
         factor
           = ly_call (factor, context ()->self_scm (), rest_dur.smobbed_copy ());
       factor_ = from_scm<Rational> (factor, rest_dur.factor ());
-      left_to_do_ = orig->get_length ();
+      left_to_do_ = Rational (*orig);
     }
 
-  if (const auto &nb = next_moment (rest_dur.get_length ()))
+  if (const auto &nb = next_moment (Rational (rest_dur)))
     {
-      if (nb < rest_dur.get_length ())
+      if (nb < Rational (rest_dur))
         rest_dur = Duration (nb / factor_, false).compressed (factor_);
     }
 
-  do_nothing_until_ = now.main_part_ + rest_dur.get_length ();
+  do_nothing_until_ = now.main_part_ + Rational (rest_dur);
 
   for (vsize i = 0; left_to_do_ && i < rest_events_.size (); i++)
     {
@@ -232,7 +232,7 @@ Completion_rest_engraver::process_music ()
       SCM pits = get_property (rest_events_[i], "pitch");
       set_property (event, "pitch", pits);
       set_property (event, "duration", rest_dur.smobbed_copy ());
-      set_property (event, "length", to_scm (Moment (rest_dur.get_length ())));
+      set_property (event, "length", to_scm (Moment (Rational (rest_dur))));
       set_property (event, "duration-log", to_scm (rest_dur.duration_log ()));
 
       Item *rest = make_rest (event);
@@ -241,11 +241,11 @@ Completion_rest_engraver::process_music ()
       rests_.push_back (rest);
     }
 
-  left_to_do_ -= rest_dur.get_length ();
+  left_to_do_ -= Rational (rest_dur);
   if (left_to_do_)
     {
       find_global_context ()->add_moment_to_process (
-        Moment (now.main_part_ + rest_dur.get_length ()));
+        Moment (now.main_part_ + Rational (rest_dur)));
     }
   /*
     don't do complicated arithmetic with grace rests.

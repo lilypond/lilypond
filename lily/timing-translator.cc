@@ -110,9 +110,8 @@ Timing_translator::listen_partial (Stream_event *ev)
       // using measureLength as a modulus; however, even if we caught it here,
       // measureLength could be changed immediately afterward, so there is no
       // point in trying.  We will detect it and warn in pre_process_music().
-      const auto length = dur->get_length ();
       auto mp = from_scm (get_property (this, "measurePosition"), Moment (0));
-      mp.main_part_ = -length;
+      mp.main_part_ = -Rational (*dur);
       set_property (context (), "measurePosition", to_scm (mp));
       if (mp)
         {
@@ -152,7 +151,7 @@ Timing_translator::pre_process_music ()
             {
               if (isfinite (mlen))
                 {
-                  auto mp = mlen - dur->get_length ();
+                  auto mp = mlen - Rational (*dur);
                   set_property (context (), "measurePosition",
                                 to_scm (Moment (mp, now.grace_part_)));
                 }

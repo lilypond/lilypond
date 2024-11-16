@@ -201,7 +201,7 @@ Page_turn_engraver::acknowledge_note_head (Grob_info gi)
 
   if (rest_begin_ <= repeat_begin_)
     repeat_begin_rest_length_ = (now_mom () - repeat_begin_).main_part_;
-  note_end_ = now_mom () + dur_ptr->get_length ();
+  note_end_ = now_mom () + Rational (*dur_ptr);
 }
 
 void

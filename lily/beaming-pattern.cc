@@ -527,7 +527,7 @@ Beaming_pattern::start_moment (vsize i) const
 Rational
 Beaming_pattern::end_moment (vsize i) const
 {
-  return infos_[i].start_moment_ + infos_[i].duration_.get_length ();
+  return infos_[i].start_moment_ + Rational (infos_[i].duration_);
 }
 
 bool
