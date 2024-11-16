@@ -91,7 +91,7 @@
 %%
 %%   will result in timing corresponding to \times 2/3 { c4 c16 c }.
 
-\version "2.21.0"
+\version "2.25.22"
 
 %%% Helper functions
 
@@ -310,7 +310,7 @@ as the second.
 @var{music} must start on-beat, i.e. the earliest event in @var{music}
 also marks the beginning of the first swing cycle.")
   (apply-swing
-   (duration-length swingDiv)
+   (ly:duration->number swingDiv)
    weightList
    ZERO-MOMENT
    music))
@@ -326,7 +326,7 @@ applySwingWithOffset =
 Use the argument @var{offset} to specify the start time (as a moment)
 of @var{music} relative to the start of the first swing cycle.")
   (apply-swing
-   (duration-length swingDiv)
+   (ly:duration->number swingDiv)
    weightList
    offset
    music))
@@ -339,7 +339,7 @@ tripletFeel =
 duration @var{swingDiv}. Equivalent to @code{\\applySwing
 swingDiv #'(2 1) music}.")
   (apply-swing
-   (duration-length swingDiv)
+   (ly:duration->number swingDiv)
    '(2 1)
    ZERO-MOMENT
    music))

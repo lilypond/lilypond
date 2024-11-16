@@ -5373,6 +5373,7 @@ def base_moment_to_beat_base(match):
 @rule((2, 25, 22), r"""
 (base-length ... -> (beat-base ...
 baseMoment = \musicLength <duration> -> beatBase = #<rational>
+(duration-length ... -> (ly:duration->number ...
 """)
 def conv(s):
     s = re.sub(r'(\(\s*)base-length(\s)', r'\1beat-base\2', s)
@@ -5381,6 +5382,7 @@ def conv(s):
     # beatBase = ... requirement.
     s = re.sub(r'(\\overrideTimeSignatureSettings\s+\d+/\d+\s+)(\d+/\d+)\b',
                r'\1#\2', s)
+    s = re.sub(r'(\(\s*)duration-length(\s)', r'\1ly:duration->number\2', s)
     return s
 
 

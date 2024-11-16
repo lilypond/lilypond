@@ -135,6 +135,15 @@ The length of the duration as a @code{moment}.
   return to_scm (Moment (Rational (*a)));
 }
 
+LY_DEFINE (ly_duration_2_number, "ly:duration->number", 1, 0, 0, (SCM dur),
+           R"(
+Convert @var{dur} to the equivalent number of whole notes.
+           )")
+{
+  auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);
+  return to_scm (Rational (*a));
+}
+
 LY_DEFINE (ly_duration_2_string, "ly:duration->string", 1, 0, 0, (SCM dur),
            R"(
 Convert @var{dur} to a string.

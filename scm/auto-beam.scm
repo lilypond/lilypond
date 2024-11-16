@@ -139,7 +139,7 @@
                 (and (music-is-of-type? art 'beam-event)
                      (= (ly:music-property art 'span-direction START) STOP)))
               (ly:music-property m 'articulations))
-             (let* ((len (duration-length (ly:music-property m 'duration)))
+             (let* ((len (ly:duration->number (ly:music-property m 'duration)))
                     (pos (+ pos len))
                     (ass (assv len res)))
                (cond ((or (zero? len) (not (integer? (/ pos len))))
@@ -150,7 +150,7 @@
                       (set! res (cons (list len (/ pos len)) res))))
                pos))
             (else
-             (+ pos (duration-length (ly:music-property m 'duration))))))
+             (+ pos (ly:duration->number (ly:music-property m 'duration))))))
 
     ;; takes the output from the loop, generates actual beam exceptions
     (list

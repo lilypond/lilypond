@@ -123,12 +123,6 @@ the numeric factor by which they increase the duration."
       (scm-error 'wrong-type-arg "duration-dot-factor" "Not a count: ~S" (list dotcount) #f))
   (- 2 (/ (ash 1 dotcount))))
 
-(define-public (duration-length dur)
-  "Return the overall length of a duration, as a number of whole
-notes.  (Not to be confused with @code{ly:duration-length}, which returns a
-less useful @code{Moment} object.)"
-  (ly:moment-main (ly:duration-length dur)))
-
 (define-public (duration-visual dur)
   "Given a duration object, return the visual part of the duration (base
 note length and dot count), in the form of a duration object with
@@ -138,7 +132,7 @@ non-visual scale factor 1."
 (define-public (duration-visual-length dur)
   "Given a duration object, return the length of the visual part of the
 duration (base note length and dot count), as a number of whole notes."
-  (duration-length (duration-visual dur)))
+  (ly:duration->number (duration-visual dur)))
 
 (define-public (unity-if-multimeasure context dur)
   "Given a context and a duration, return @code{1} if the duration is
