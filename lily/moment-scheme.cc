@@ -124,13 +124,14 @@ Divide moment @var{a} by a number @var{b} (or by the main part of another moment
   return to_scm (*ma / from_scm<Rational> (b));
 }
 
+// TODO: Formally deprecate ly:moment-mod.
 LY_DEFINE (ly_moment_mod, "ly:moment-mod", 2, 0, 0, (SCM a, SCM b),
            R"(
 Modulo of two moments.
            )")
 {
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
-  auto *const mb = LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
+  auto *const mb = LY_ASSERT_SMOB (Moment, b, 2);
 
   auto result = *ma;
   result.main_part_ %= mb->main_part_;

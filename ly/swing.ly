@@ -95,18 +95,16 @@
 
 %%% Helper functions
 
-#(define (moment-abs mom)
-   (if (ly:moment<? mom ZERO-MOMENT) (- mom) mom))
-
 #(define (chord-or-with-duration? music)
    (or
     (eq? (ly:music-property music 'name) 'EventChord)
     (ly:duration? (ly:music-property music 'duration))))
 
-#(define (music-lengthen music add-moment)
+#(define (music-lengthen music add-length)
    "Uniformly scale durations in @var{music} such that it takes
-@var{add-moment} more time in total."
-   (ly:music-compress music (1+ (/ add-moment (ly:music-length music)))))
+@var{add-length} more time in total."
+   (ly:music-compress music (1+ (/ add-length
+                                   (ly:moment-main (ly:music-length music))))))
 
 #(define* (map-events-with-timing
            function
@@ -202,13 +200,11 @@ Return a list of n-1 numbers."
              (cons next-delta (to-deltas (cdr adjs) next-delta)))))))
 
 #(define (calculate-delta-alist wlist swing-div)
-   "Based on a pulse of n = length(wlist) notes of original duration
-swing-div (a moment), calculate the necessary shifts of the note
-boundaries (as moments, again) to make the relative length of the
-notes correspond to the ratios of the numbers in wlist.
+   "Based on a pulse of n = length(wlist) notes of original duration swing-div,
+calculate the necessary shifts of the note boundaries to make the relative
+length of the notes correspond to the ratios of the numbers in wlist.
 
-Return an alist associating old boundary positions with required
-shifts, both given as moments."
+Return an alist associating old boundary positions with required shifts."
    (let* ((n (length wlist))
           (old-boundaries (iota n swing-div swing-div))
           (deltas (map (lambda (ndelta)
@@ -239,20 +235,21 @@ shifts, both given as moments."
 #(define (apply-swing swing-div wlist start-time music)
    (let* ((swing-unit (* swing-div (length wlist)))
           (delta-alist (calculate-delta-alist wlist swing-div))
-          (prev-lengthening ZERO-MOMENT)
-          (rem-lengthening ZERO-MOMENT))
+          (prev-lengthening 0)
+          (rem-lengthening 0))
      (ly:debug "apply-swing: delta-alist: ~a" delta-alist)
      (map-events-with-timing
-      (lambda (evt evt-time)
-        (let* ((evt-duration (ly:music-length evt))
-               (grid-pos-start (ly:moment-mod evt-time swing-unit))
-               (grid-pos-end (ly:moment-mod
-                              (+ evt-time evt-duration)
+      (lambda (evt evt-start-moment)
+        (let* ((evt-start (ly:moment-main evt-start-moment))
+               (evt-duration (ly:moment-main (ly:music-length evt)))
+               (grid-pos-start (euclidean-remainder evt-start swing-unit))
+               (grid-pos-end (euclidean-remainder
+                              (+ evt-start evt-duration)
                               swing-unit)))
           (ly:debug
            "apply-swing: check ~a at ~a (gridpos ~a), length ~a, end gridpos ~a"
            (ly:music-property evt 'name)
-           evt-time
+           evt-start-moment
            grid-pos-start
            evt-duration
            grid-pos-end)
@@ -262,8 +259,8 @@ shifts, both given as moments."
           ;; of prev-lengthening. (Notice that the formulae must also
           ;; work for negative previous lengthening.)
           (if
-           (and (ly:moment<? ZERO-MOMENT (moment-abs rem-lengthening))
-                (ly:moment<? ZERO-MOMENT evt-duration))
+           (and (< 0 (abs rem-lengthening))
+                (< 0 evt-duration))
            (let* ((max-shorten (* prev-lengthening
                                   (/ evt-duration swing-div)))
                   (shorten-by
@@ -280,7 +277,7 @@ shifts, both given as moments."
           ;; corresponding delta, if they are long enough
           (if
            (and (assoc grid-pos-end delta-alist)
-                (not (ly:moment<? evt-duration swing-div)))
+                (not (< evt-duration swing-div)))
            (let ((delta (assoc-ref delta-alist grid-pos-end)))
              (ly:debug "apply-swing:       lengthen by ~a" delta)
              (music-lengthen evt delta)
@@ -313,7 +310,7 @@ as the second.
 @var{music} must start on-beat, i.e. the earliest event in @var{music}
 also marks the beginning of the first swing cycle.")
   (apply-swing
-   (ly:duration-length swingDiv)
+   (duration-length swingDiv)
    weightList
    ZERO-MOMENT
    music))
@@ -329,7 +326,7 @@ applySwingWithOffset =
 Use the argument @var{offset} to specify the start time (as a moment)
 of @var{music} relative to the start of the first swing cycle.")
   (apply-swing
-   (ly:duration-length swingDiv)
+   (duration-length swingDiv)
    weightList
    offset
    music))
@@ -342,7 +339,7 @@ tripletFeel =
 duration @var{swingDiv}. Equivalent to @code{\\applySwing
 swingDiv #'(2 1) music}.")
   (apply-swing
-   (ly:duration-length swingDiv)
+   (duration-length swingDiv)
    '(2 1)
    ZERO-MOMENT
    music))
