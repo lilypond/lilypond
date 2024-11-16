@@ -84,13 +84,11 @@ public:
   }
   Moment &operator*= (Rational const &) &; // affects main and grace parts
   Moment &operator/= (Rational const &) &; // affects main and grace parts
-  Moment &operator%= (Rational const &) &; // affects main and grace parts
 
   friend Moment operator+ (Moment m, Rational const &r) { return m += r; }
   friend Moment operator- (Moment m, Rational const &r) { return m -= r; }
   friend Moment operator* (Moment m, Rational const &r) { return m *= r; }
   friend Moment operator/ (Moment m, Rational const &r) { return m /= r; }
-  friend Moment operator% (Moment m, Rational const &r) { return m %= r; }
 
   Rational main_part_;
   Rational grace_part_;

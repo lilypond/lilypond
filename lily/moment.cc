@@ -91,14 +91,6 @@ Moment::operator/= (Rational const &r) &
   return *this;
 }
 
-Moment &
-Moment::operator%= (Rational const &r) &
-{
-  main_part_ %= r;
-  grace_part_ %= r;
-  return *this;
-}
-
 std::string
 Moment::to_string () const
 {

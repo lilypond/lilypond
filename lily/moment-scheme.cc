@@ -132,7 +132,10 @@ Modulo of two moments.
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
   auto *const mb = LY_ASSERT_SMOB (Moment, b, 2); // TODO: should be Rational
 
-  return to_scm (*ma % mb->main_part_);
+  auto result = *ma;
+  result.main_part_ %= mb->main_part_;
+  result.grace_part_ %= mb->main_part_;
+  return to_scm (result);
 }
 
 LY_DEFINE (ly_moment_grace, "ly:moment-grace", 1, 0, 0, (SCM mom),
