@@ -1757,7 +1757,7 @@ class Part(Music_xml_node):
         attributes._dict = attr._dict.copy()
         attributes._original_tag = attr
         # copy only the relevant children over for the given staff
-        if staff == "None":
+        if staff is None:
             staff = "1"
         for c in attr._children:
             if (getattr(c, 'number', staff) == staff
@@ -1819,10 +1819,6 @@ class Part(Music_xml_node):
                             warnings.warn(_('%s end seen without %s start'
                                             % (type, type)))
 
-        # The last identified voice.
-        last_voice = None
-
-        voices = OrderedDict()
         measures = part.get_typed_children(Measure)
         elements = []
         for m in measures:
@@ -1836,9 +1832,12 @@ class Part(Music_xml_node):
         link_spanners(elements, [Note, Notations, Ornaments], 'wavy-line',
                       one_child=False)
 
-        # make sure we know all voices already so that dynamics, clefs, etc.
-        # can be assigned to the correct voices
+        voices = OrderedDict()
+        last_voice = None
         voice_to_staff_dict = {}
+
+        # We now do a pre-pass to collect all voice IDs so that dynamics,
+        # clefs, etc., can be assigned to the correct voices.
         for n in elements:
             try:
                 vid = n['voice']
@@ -1846,23 +1845,23 @@ class Part(Music_xml_node):
                 if isinstance(n, Note):
                     vid = last_voice if 'chord' in n else "1"
                 else:
-                    # TODO: Check whether we shall really use "None" here, or
-                    #       rather use "1" as the default?
                     vid = None
 
             if vid is not None:
                 last_voice = vid
 
-            # TODO: Check whether we shall really use "None" here, or
-            #       rather use "1" as the default?
-            #       If this is changed, need to change the corresponding
-            #       check in extract_attributes_for_staff, too.
-            sid = n.get('staff', 'None')
-            if vid and vid not in voices:
+            sid = n.get('staff', None)
+            if vid is not None and vid not in voices:
                 voices[vid] = Musicxml_voice()
-            if vid and sid and ('grace' not in n):
+            if vid is not None and sid is not None and 'grace' not in n:
                 if vid not in voice_to_staff_dict:
                     voice_to_staff_dict[vid] = sid
+
+        # We need at least one voice and one staff ID.
+        if not voices:
+            voices['1'] = Musicxml_voice()
+        if not voice_to_staff_dict:
+            voice_to_staff_dict = {v: '1' for v in voices}
 
         # Invert the `voice_to_staff_dict` into a `staff_to_voice_dict`
         # (since we need to assign staff-related objects like clefs, times,
@@ -1882,9 +1881,10 @@ class Part(Music_xml_node):
             try:
                 id = n['voice']
             except KeyError:
-                id = last_voice if 'chord' in n else "1"
+                if isinstance(n, Note):
+                    id = last_voice if 'chord' in n else '1'
 
-            if id != "None":
+            if id is not None:
                 last_voice = id
 
             # We don't need `<backup>` and `<forward>` any more since we
@@ -1936,17 +1936,20 @@ class Part(Music_xml_node):
                 assign_to_next_note.append(n)
                 continue
 
+            # At this point, `n` is a `<note>` element.
             for i in assign_to_next_note:
                 voices[id].add_element(i)
             assign_to_next_note = []
             voices[id].add_element(n)
 
-        # Assign all remaining elements from assign_to_next_note to the voice
-        # of the previous note:
+        # Assign all remaining elements from `assign_to_next_note` to the
+        # voice of the previous note (if any).
+        if id == None:
+            id = '1'
         for i in assign_to_next_note:
             voices[id].add_element(i)
-        assign_to_next_note = []
 
+        # Insert start attributes into all staves of the current part.
         if start_attr:
             for (s, vids) in staff_to_voice_dict.items():
                 staff_attributes = part.extract_attributes_for_staff(
