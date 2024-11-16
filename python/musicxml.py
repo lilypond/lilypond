@@ -1917,8 +1917,18 @@ class Part(Music_xml_node):
 
             if isinstance(n, (Measure,
                               Partial,
-                              Barline,
-                              Print)):
+                              Barline)):
+                if id == None:
+                    id = '1'
+                for i in assign_to_next_note:
+                    voices[id].add_element(i)
+                assign_to_next_note = []
+
+                for v in voices.keys():
+                    voices[v].add_element(n)
+                continue
+
+            if isinstance(n, Print):
                 for v in voices.keys():
                     voices[v].add_element(n)
                 continue
