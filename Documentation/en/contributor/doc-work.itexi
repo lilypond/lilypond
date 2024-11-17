@@ -719,8 +719,12 @@ the braces (for example, @code{@@ref@{Syntax@tie{}survey@}}).
 
 All these commands also have a @code{@@...named} version, which
 allows to specify the displayed text for the reference as a second
-argument, for example @code{@@rnotationnamed@{Top,Notation@}}.
-Normally, you won't need them.
+argument.  This is mainly used in translations, for example
+@code{@@rlearningnamed@{I'm hearing voices, J'entends des voix@}}.
+
+If you want to refer to an external manual as a whole instead of a
+specific section, use @q{Top} as an argument.  Example:
+@code{@@rinternals@{Top@}}.
 
 
 @node External links

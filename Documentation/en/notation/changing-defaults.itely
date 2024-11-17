@@ -25,8 +25,8 @@ in a style more appropriate to a reference manual.
 @cindex Internals Reference
 
 The definitive description of the controls available for tuning can
-be found in a separate document: @rinternalsnamed{Top,the Internals
-Reference}.  That manual lists all the variables, functions and
+be found in a separate document: @rinternals{Top}.
+That manual lists all the variables, functions and
 options available in LilyPond.  It is written as a HTML document,
 which is available
 @c leave the @uref as one long line.
