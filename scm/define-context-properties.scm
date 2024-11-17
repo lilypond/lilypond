@@ -633,8 +633,8 @@ before a key signature change.")
 in the part combiner?")
      (printTrivialVoltaRepeats ,boolean? "Notate volta-style repeats even when
 the repeat count is@tie{}1.")
-     (proportionalNotationDuration ,ly:moment? "Global override for
-shortest-playing duration.  This is used for switching on proportional
+     (proportionalNotationDuration ,musical-length-as-moment? "Global override
+for shortest-playing duration.  This is used for switching on proportional
 notation.")
 
 
