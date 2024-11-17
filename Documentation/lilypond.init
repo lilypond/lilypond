@@ -239,7 +239,7 @@ sub lilypond_format_ref {
         my $node_arg = $element->{'args'}->[0];
         if ($node_arg->{'extra'} and $node_arg->{'extra'}->{'node_content'}) {
             $node_content = $node_arg->{'extra'}->{'node_content'};
-            if (ref($node_content) ne 'HASH') {
+            if ($texinfo_version lt '7.1.90') {
                 $node_content = {'contents' => $node_content};
             }
         }
@@ -386,13 +386,10 @@ sub lilypond_format_tocframe {
         $parentelements{$toc_id} = 1;
         if ($texinfo_version lt '7.0') {
             $element = $element->{'section_up'};
-        } elsif ($element->{'extra'}
-                 and $element->{'extra'}->{'section_directions'}) {
-            $element = $element->{'extra'}->{'section_directions'}->{'up'};
-        } elsif ($element->{'structure'}) {
+        } elsif ($texinfo_version lt '7.1.90') {
             $element = $element->{'structure'}->{'section_up'};
         } else {
-            last;
+            $element = $element->{'extra'}->{'section_directions'}->{'up'};
         }
     }
 
