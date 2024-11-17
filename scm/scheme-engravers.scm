@@ -442,7 +442,7 @@ and the others are hidden.")))
             (durs
              (map
               (lambda (g)
-                (ly:duration-length
+                (ly:duration->moment
                  (ly:prob-property
                   (ly:grob-property g 'cause)
                   'duration)))

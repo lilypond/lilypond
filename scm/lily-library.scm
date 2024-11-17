@@ -140,7 +140,7 @@ longer than the @code{measureLength} in that context, and @code{#f} otherwise.
 This supports historic use of @code{Completion_heads_engraver} to split
 @code{c1*3} into three whole notes."
   (if (ly:moment<? (ly:context-property context 'measureLength)
-                   (ly:duration-length dur))
+                   (ly:duration->moment dur))
       1
       #f))
 

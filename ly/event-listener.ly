@@ -32,7 +32,7 @@
 
 
 
-\version "2.16.0"
+\version "2.25.22"
 
 %%%% Helper functions
 
@@ -117,7 +117,7 @@ as an engraver for convenience."
                "rest"
                (ly:duration->string
                 (ly:event-property event 'duration))
-               (format-moment (ly:duration-length
+               (format-moment (ly:duration->moment
                                (ly:event-property event 'duration)))))
 
 #(define (format-note engraver event)
@@ -136,7 +136,7 @@ as an engraver for convenience."
                      drum-type)
                  (ly:duration->string
                   (ly:event-property event 'duration))
-                 (format-moment (ly:duration-length
+                 (format-moment (ly:duration->moment
                                  (ly:event-property event 'duration)))
                  ;; point and click info
                  (ly:format "point-and-click ~a ~a"
@@ -148,9 +148,9 @@ as an engraver for convenience."
                "tempo"
                ; get length of quarter notes, in seconds
                (/ (ly:event-property event 'metronome-count)
-                   (format-moment (ly:duration-length (ly:event-property
-                                                       event
-                                                       'tempo-unit))))))
+                   (format-moment (ly:duration->moment (ly:event-property
+                                                        event
+                                                        'tempo-unit))))))
 
 
 #(define (format-breathe engraver event)

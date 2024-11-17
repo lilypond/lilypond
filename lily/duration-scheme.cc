@@ -126,9 +126,9 @@ The 2-logarithm of 1/@var{d}.
   return to_scm (log);
 }
 
-LY_DEFINE (ly_duration_length, "ly:duration-length", 1, 0, 0, (SCM dur),
+LY_DEFINE (ly_duration_2_moment, "ly:duration->moment", 1, 0, 0, (SCM dur),
            R"(
-The length of the duration as a @code{moment}.
+Convert @var{dur} to a @code{moment} with no grace part.
            )")
 {
   auto *const a = LY_ASSERT_SMOB (Duration, dur, 1);

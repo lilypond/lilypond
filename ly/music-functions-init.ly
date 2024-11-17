@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.21.0"
+\version "2.25.22"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -70,7 +70,7 @@ after =
   (if (and (not (empty-chord? mus))
            (ly:moment<?
             (ly:music-length mus)
-            (+ (ly:music-length ev) (ly:duration-length delta))))
+            (+ (ly:music-length ev) (ly:duration->moment delta))))
       (ly:warning (G_ "\\after expression longer than main music argument.")))
   #{ \context Bottom << { \skip $delta <> $ev } #mus >> #})
 
@@ -2283,7 +2283,7 @@ an explicit tuplet span argument, use
 @end example
 ")
    (if tuplet-span
-       #{ \set tupletSpannerDuration = #(ly:duration-length tuplet-span) #}
+       #{ \set tupletSpannerDuration = #(ly:duration->moment tuplet-span) #}
        #{ \unset tupletSpannerDuration #}))
 
 tweak =

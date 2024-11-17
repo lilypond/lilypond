@@ -183,7 +183,7 @@
                                                    2))
                                          count)
                                      1)
-                                    (ly:duration-length unit)))
+                                    (ly:duration->moment unit)))
                 'Score))))
 
     (if tempo-set

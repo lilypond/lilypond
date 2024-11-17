@@ -1,4 +1,4 @@
-\version "2.21.5"
+\version "2.25.22"
 
 \header {
   texidoc = "Isolated percent-repeat signs can be printed."
@@ -13,7 +13,7 @@ percent =
 #(define-music-function (dur) (ly:duration?)
    "Make a percent repeat."
    (make-music 'PercentEvent
-               'length (ly:duration-length dur)))
+               'length (ly:duration->moment dur)))
 
 \relative c'' <<
   \new Staff { \percent 1 }
