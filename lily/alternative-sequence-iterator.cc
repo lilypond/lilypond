@@ -182,8 +182,7 @@ Alternative_sequence_iterator::restore_context_properties ()
         {
           Moment mp (unsmob<Moment> (scm_caddr (ls))->main_part_,
                      get_context ()->now_mom ().grace_part_);
-          Lily::ly_context_set_property_x (scm_car (ls), mp_sym,
-                                           mp.smobbed_copy ());
+          Lily::ly_context_set_property_x (scm_car (ls), mp_sym, to_scm (mp));
         }
       else
         {

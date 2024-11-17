@@ -32,7 +32,5 @@ SCM
 Grace_music::start_callback (SCM m)
 {
   Moment *l = unsmob<Moment> (Music_wrapper::length_callback (m));
-  Moment gl;
-  gl.grace_part_ = -(l->main_part_ + l->grace_part_);
-  return gl.smobbed_copy ();
+  return to_scm (Moment (0, -(l->main_part_ + l->grace_part_)));
 }

@@ -85,8 +85,7 @@ Drum_note_performer::process_music ()
               if (ly_is_procedure (f))
                 {
                   len = from_scm (
-                    ly_call (f, len.smobbed_copy (), context ()->self_scm ()),
-                    len);
+                    ly_call (f, to_scm (len), context ()->self_scm ()), len);
                 }
               velocity
                 += from_scm (get_property (ev, "midi-extra-velocity"), 0);

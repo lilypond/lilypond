@@ -190,8 +190,8 @@ Quote_iterator::process (Moment m)
           // main part) before the first call to pending_moment ().  It
           // possibly also requires improvements to handle music where the
           // grace part of the start moment is unknown prior to iteration.
-          event_idx_ = binsearch_scm_vector (
-            event_vector_, start_mom.smobbed_copy (), moment_less);
+          event_idx_ = binsearch_scm_vector (event_vector_, to_scm (start_mom),
+                                             moment_less);
 
           // end moment of this music, excluding any grace notes leading to an
           // unquoted note
@@ -199,8 +199,8 @@ Quote_iterator::process (Moment m)
                                   + music_get_length ().main_part_,
                                 -Rational::infinity ());
 
-          end_idx_ = binsearch_scm_vector (
-            event_vector_, end_mom.smobbed_copy (), moment_less);
+          end_idx_ = binsearch_scm_vector (event_vector_, to_scm (end_mom),
+                                           moment_less);
         }
     }
 

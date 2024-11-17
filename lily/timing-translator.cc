@@ -113,7 +113,7 @@ Timing_translator::listen_partial (Stream_event *ev)
       const auto length = dur->get_length ();
       auto mp = from_scm (get_property (this, "measurePosition"), Moment (0));
       mp.main_part_ = -length;
-      set_property (context (), "measurePosition", mp.smobbed_copy ());
+      set_property (context (), "measurePosition", to_scm (mp));
       if (mp)
         {
           set_property (context (), "measureStartNow", SCM_EOL);
@@ -154,7 +154,7 @@ Timing_translator::pre_process_music ()
                 {
                   auto mp = mlen - dur->get_length ();
                   set_property (context (), "measurePosition",
-                                Moment (mp, now.grace_part_).smobbed_copy ());
+                                to_scm (Moment (mp, now.grace_part_)));
                 }
             }
         }
@@ -342,7 +342,7 @@ Timing_translator::initialize ()
   set_property (context (), "measureLength", measure_length);
   {
     const auto mp = Moment (0, now_mom ().grace_part_);
-    set_property (context (), "measurePosition", mp.smobbed_copy ());
+    set_property (context (), "measurePosition", to_scm (mp));
   }
   set_property (context (), "measureStartNow", SCM_BOOL_T);
 
@@ -481,7 +481,7 @@ Timing_translator::start_translation_timestep ()
   // constantly at zero anyway?
 
   set_property (context (), "measurePosition",
-                Moment (mp, now.grace_part_).smobbed_copy ());
+                to_scm (Moment (mp, now.grace_part_)));
   set_property (context (), "measureStartNow", measure_start_now);
 
   // We set whichBar at each timestep because the user manuals used to suggest

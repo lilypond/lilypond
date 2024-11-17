@@ -237,8 +237,7 @@ Completion_heads_engraver::process_music ()
       SCM pits = get_property (note_events_[i], "pitch");
       set_property (event, "pitch", pits);
       set_property (event, "duration", note_dur.smobbed_copy ());
-      set_property (event, "length",
-                    Moment (note_dur.get_length ()).smobbed_copy ());
+      set_property (event, "length", to_scm (Moment (note_dur.get_length ())));
       set_property (event, "duration-log", to_scm (note_dur.duration_log ()));
 
       /*

@@ -173,7 +173,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
   if (max_idx != VPOS)
     d = std::min (d, durations[max_idx]);
 
-  return Moment (d).smobbed_copy ();
+  return to_scm (Moment (d));
 }
 
 void

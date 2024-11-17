@@ -71,7 +71,7 @@ Tuplet_iterator::create_event (Direction d)
       set_property (ev, "numerator", get_property (mus, "numerator"));
       set_property (ev, "denominator", get_property (mus, "denominator"));
       set_property (ev, "tweaks", get_property (mus, "tweaks"));
-      set_property (ev, "length", spanner_duration_.smobbed_copy ());
+      set_property (ev, "length", to_scm (spanner_duration_));
     }
 
   return ev_scm;

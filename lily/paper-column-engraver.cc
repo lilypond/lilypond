@@ -187,7 +187,7 @@ Paper_column_engraver::process_music ()
       Moment mlen = Moment (measure_length (context ()));
       Grob *column = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       if (column)
-        set_property (column, "measure-length", mlen.smobbed_copy ());
+        set_property (column, "measure-length", to_scm (mlen));
       else
         programming_error ("No command column?");
     }
@@ -228,7 +228,7 @@ Paper_column_engraver::stop_translation_timestep ()
     return;
 
   // It would be safe to set "when" earlier, but there is no obvious need.
-  SCM m = now_mom ().smobbed_copy ();
+  SCM m = to_scm (now_mom ());
   set_property (command_column_, "when", m);
   set_property (musical_column_, "when", m);
 

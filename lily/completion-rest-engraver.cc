@@ -232,8 +232,7 @@ Completion_rest_engraver::process_music ()
       SCM pits = get_property (rest_events_[i], "pitch");
       set_property (event, "pitch", pits);
       set_property (event, "duration", rest_dur.smobbed_copy ());
-      set_property (event, "length",
-                    Moment (rest_dur.get_length ()).smobbed_copy ());
+      set_property (event, "length", to_scm (Moment (rest_dur.get_length ())));
       set_property (event, "duration-log", to_scm (rest_dur.duration_log ()));
 
       Item *rest = make_rest (event);

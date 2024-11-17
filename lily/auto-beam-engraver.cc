@@ -142,9 +142,9 @@ Auto_beam_engraver::test_moment (Direction dir, Moment const &test_mom,
                                  Rational const &dur) const
 {
   // TODO: Scale test_mom to accumulate tuplet ratios
-  return scm_is_true (ly_call (
-    get_property (this, "autoBeamCheck"), context ()->self_scm (), to_scm (dir),
-    test_mom.smobbed_copy (), Moment (dur).smobbed_copy ()));
+  return scm_is_true (ly_call (get_property (this, "autoBeamCheck"),
+                               context ()->self_scm (), to_scm (dir),
+                               to_scm (test_mom), to_scm (Moment (dur))));
 }
 
 bool

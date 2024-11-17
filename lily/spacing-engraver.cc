@@ -245,8 +245,8 @@ Spacing_engraver::stop_translation_timestep ()
   shortest_playing = std::min (shortest_playing, starter);
 
   assert (starter);
-  SCM sh = shortest_playing.smobbed_copy ();
-  SCM st = starter.smobbed_copy ();
+  SCM sh = to_scm (shortest_playing);
+  SCM st = to_scm (starter);
 
   set_property (musical_column, "shortest-playing-duration", sh);
   set_property (musical_column, "shortest-starter-duration", st);

@@ -253,7 +253,7 @@ Music::to_event () const
                                       mutable_property_alist_);
   Moment length = get_length ();
   if (length)
-    set_property (e, "length", length.smobbed_copy ());
+    set_property (e, "length", to_scm (length));
 
   // articulations as events.
   SCM art_mus = get_property (e, "articulations");
@@ -303,8 +303,7 @@ Music::duration_length_callback (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
   Duration *d = unsmob<Duration> (get_property (me, "duration"));
-  Moment mom (d ? d->get_length () : 0);
-  return mom.smobbed_copy ();
+  return to_scm (Moment (d ? d->get_length () : 0));
 }
 
 SCM

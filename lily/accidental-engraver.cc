@@ -392,7 +392,7 @@ Accidental_engraver::stop_translation_timestep ()
 
       Duration *dur = unsmob<Duration> (get_property (note, "duration"));
       Moment end_mom = note_end_mom (context (), dur);
-      SCM position = scm_cons (to_scm (barnum), end_mom.smobbed_copy ());
+      SCM position = scm_cons (to_scm (barnum), to_scm (end_mom));
 
       SCM localsig = SCM_EOL;
       while (origin && where_defined (origin, "localAlterations", &localsig))

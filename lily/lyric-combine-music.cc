@@ -32,5 +32,5 @@ Lyric_combine_music::length_callback (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
   Music *melody = unsmob<Music> (scm_car (get_property (me, "elements")));
-  return melody->get_length ().smobbed_copy ();
+  return to_scm (melody->get_length ());
 }

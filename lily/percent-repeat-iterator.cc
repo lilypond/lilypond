@@ -101,7 +101,7 @@ Percent_repeat_iterator::next_element ()
 
       Music *percent = make_music_by_name (event_type_);
       percent->set_spot (*mus->origin ());
-      set_property (percent, "length", body_length_.smobbed_copy ());
+      set_property (percent, "length", to_scm (body_length_));
       set_property (percent, "repeat-count", to_scm (done_count_ + 1));
       if (!SCM_UNBNDP (slash_count_))
         set_property (percent, "slash-count", slash_count_);

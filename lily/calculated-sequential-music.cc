@@ -42,8 +42,7 @@ SCM
 Calculated_sequential_music::length (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
-  const auto &result = Music_sequence::cumulative_length (calc_elements (me));
-  return result.smobbed_copy ();
+  return to_scm (Music_sequence::cumulative_length (calc_elements (me)));
 }
 
 MAKE_SCHEME_CALLBACK (Calculated_sequential_music, start,
@@ -52,6 +51,5 @@ SCM
 Calculated_sequential_music::start (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
-  const auto &result = Music_sequence::first_start (calc_elements (me));
-  return result.smobbed_copy ();
+  return to_scm (Music_sequence::first_start (calc_elements (me)));
 }

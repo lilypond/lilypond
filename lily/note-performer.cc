@@ -87,8 +87,7 @@ Note_performer::process_music ()
               if (ly_is_procedure (f))
                 {
                   len = from_scm (
-                    ly_call (f, len.smobbed_copy (), context ()->self_scm ()),
-                    len);
+                    ly_call (f, to_scm (len), context ()->self_scm ()), len);
                 }
               velocity
                 += from_scm (get_property (ev, "midi-extra-velocity"), 0);
@@ -166,8 +165,7 @@ Note_performer::listen_breathing (Stream_event *ev)
         const auto start = last_notes_[i]->audio_column_->when ();
         const auto available = now_mom () - start;
         auto len = from_scm (
-          ly_call (f, available.smobbed_copy (), context ()->self_scm ()),
-          available);
+          ly_call (f, to_scm (available), context ()->self_scm ()), available);
         //Take time from the first note of the tie, since it has all the length.
         Audio_note *tie_head = last_notes_[i]->tie_head ();
         len += start - tie_head->audio_column_->when ();

@@ -188,7 +188,7 @@ Global_context::iterate (Music *music, bool force_found_music)
             }
 
           send_stream_event (this, "Prepare", 0, ly_symbol2scm ("moment"),
-                             w.smobbed_copy ());
+                             to_scm (w));
 
           if (first)
             iter->init_context (this);

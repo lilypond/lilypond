@@ -34,7 +34,7 @@ Return the current moment of @var{context}.
 {
   auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
 
-  return tr->now_mom ().smobbed_copy ();
+  return to_scm (tr->now_mom ());
 }
 
 LY_DEFINE (ly_context_id, "ly:context-id", 1, 0, 0, (SCM context),

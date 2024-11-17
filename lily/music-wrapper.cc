@@ -28,10 +28,7 @@ Music_wrapper::start_callback (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
   Music *elt = unsmob<Music> (get_property (me, "element"));
-  if (elt)
-    return elt->start_mom ().smobbed_copy ();
-  else
-    return Moment ().smobbed_copy ();
+  return to_scm (elt ? elt->start_mom () : Moment (0));
 }
 
 MAKE_SCHEME_CALLBACK (Music_wrapper, length_callback,
@@ -41,8 +38,5 @@ Music_wrapper::length_callback (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
   Music *elt = unsmob<Music> (get_property (me, "element"));
-  if (elt)
-    return elt->get_length ().smobbed_copy ();
-  else
-    return Moment (0).smobbed_copy ();
+  return to_scm (elt ? elt->get_length () : Moment (0));
 }

@@ -102,7 +102,7 @@ Grob_pq_engraver::process_acknowledged ()
   SCM *tail = &lst;
   for (vsize i = 0; i < started_now_.size (); i++)
     {
-      *tail = scm_acons (started_now_[i].end_.smobbed_copy (),
+      *tail = scm_acons (to_scm (started_now_[i].end_),
                          started_now_[i].grob_->self_scm (), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }

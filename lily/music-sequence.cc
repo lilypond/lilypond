@@ -94,7 +94,7 @@ SCM
 Music_sequence::maximum_length_callback (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
-  return maximum_length (get_property (me, "elements")).smobbed_copy ();
+  return to_scm (maximum_length (get_property (me, "elements")));
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_length_callback,
@@ -107,10 +107,9 @@ Music_sequence::event_chord_length_callback (SCM m)
   // Preset duration is used in chord repetitions.
   if (d)
     {
-      Moment mom (d->get_length ());
-      return mom.smobbed_copy ();
+      return to_scm (Moment (d->get_length ()));
     }
-  return maximum_length (get_property (me, "elements")).smobbed_copy ();
+  return to_scm (maximum_length (get_property (me, "elements")));
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, cumulative_length_callback,
@@ -119,7 +118,7 @@ SCM
 Music_sequence::cumulative_length_callback (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
-  return cumulative_length (get_property (me, "elements")).smobbed_copy ();
+  return to_scm (cumulative_length (get_property (me, "elements")));
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, minimum_start_callback,
@@ -128,7 +127,7 @@ SCM
 Music_sequence::minimum_start_callback (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
-  return minimum_start (get_property (me, "elements")).smobbed_copy ();
+  return to_scm (minimum_start (get_property (me, "elements")));
 }
 
 MAKE_SCHEME_CALLBACK (Music_sequence, first_start_callback,
@@ -137,7 +136,7 @@ SCM
 Music_sequence::first_start_callback (SCM m)
 {
   auto *const me = LY_ASSERT_SMOB (Music, m, 1);
-  return first_start (get_property (me, "elements")).smobbed_copy ();
+  return to_scm (first_start (get_property (me, "elements")));
 }
 
 Pitch
