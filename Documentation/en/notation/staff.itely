@@ -211,25 +211,17 @@ lines are connected between the staves.
 @end lilypond
 
 The @code{PianoStaff} is identical to a @code{GrandStaff}, except
-that it supports printing the instrument name directly.  For
-details, see @ref{Instrument names}.
-
-@lilypond[verbatim,quote]
-\new PianoStaff \with { instrumentName = "Piano" }
-<<
-  \new Staff \relative { c''1 c }
-  \new Staff \relative { \clef bass c1 c }
->>
-@end lilypond
+that its staves are only removed together, never separately;
+@pxref{Hiding staves}.
 
 @funindex OneStaff
 @cindex overlaying contexts
 @cindex contexts, overlaying
 The @code{OneStaff} is a staff group that places separate contexts
 in the same vertical alignment.  This example shows three staves
-sharing the same space.  Here, the Time_signature_engraver has
-been moved from the staves to the OneStaff context to prevent it
-from being repeated for each staff.
+sharing the same space.  Here, the @code{Time_signature_engraver}
+has been moved from the staves to the @code{OneStaff} context to
+prevent it from being repeated for each staff.
 
 @lilypond[verbatim,quote]
 \layout {
