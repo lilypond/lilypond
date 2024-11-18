@@ -15,30 +15,27 @@
 
 The purpose of LilyPond's design is to provide the finest quality
 output by default.  Nevertheless, it may happen that you need to
-change this default layout.  The layout is controlled through a large
-number of @q{knobs and switches} collectively called @q{properties}.
-A tutorial introduction to accessing and modifying these properties
-can be found in the Learning Manual, see @rlearning{Tweaking output}.
-This should be read first.  This chapter covers similar ground, but
-in a style more appropriate to a reference manual.
+change this default layout.  The layout is controlled through a
+large number of @q{knobs and switches} collectively called
+@dfn{properties}.  A tutorial introduction to accessing and
+modifying these properties can be found in the Learning Manual,
+see @rlearning{Tweaking output}.  This should be read first.  This
+chapter covers similar ground, but in a style more appropriate to
+a reference manual.
 
 @cindex Internals Reference
 
-The definitive description of the controls available for tuning can
-be found in a separate document: @rinternals{Top}.
-That manual lists all the variables, functions and
-options available in LilyPond.  It is written as a HTML document,
-which is available
-@c leave the @uref as one long line.
-@uref{https://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,on@/-line},
-and is also included with the LilyPond documentation package.
+The definitive description of the controls available for tuning
+can be found in a separate document: the @rinternals{Top}.  That
+manual lists all the variables, functions, and options available
+in LilyPond.
 
-Internally, LilyPond uses Scheme (a LISP dialect) to provide
-infrastructure.  Overriding layout decisions in effect accesses the
-program internals, which requires Scheme input.  Scheme elements are
-introduced in a @file{.ly} file with the hash
-mark @samp{#}.@footnote{@rextend{Scheme tutorial}, contains a
-short tutorial on entering numbers, lists, strings, and symbols in
+Internally, LilyPond uses Scheme (a Lisp dialect) to provide
+infrastructure.  Overriding layout decisions in effect accesses
+the program internals, which requires Scheme input.  Scheme
+elements are introduced in a @file{.ly} file with the hash mark
+@samp{#}.@footnote{@rextend{Scheme tutorial}, contains a short
+tutorial on entering numbers, lists, strings, and symbols in
 Scheme.}
 
 
@@ -85,26 +82,7 @@ Internals Reference:
 @node Contexts explained
 @subsection Contexts explained
 
-@ignore
-@c TODO Rethink and rewrite
-
->> > > - list of contexts: my *danger unmaintainable*
->> > > alarm just went off.  I'm
-I knew it would... And leaving out some of them is perfectly fine
-with me. I do think that a list like this, with the main contexts and a
-brief description of what they do (perhaps also with a note about what
-default behavior is associated with each of them, but this may be
-unmanageable), should be there, and then we could simply list the
-remaining ones without further explanation and with links to the IR.
-@end ignore
-
-@c TODO Improve layout, order and consistency of wording -td
-
-@c TODO Add introduction which explains contexts in generality  -td
-
-@c TODO Describe propagation of property values -td
-
-Contexts are arranged hierarchically:
+Contexts are arranged hierarchically.
 
 @menu
 * Output definitions - blueprints for contexts::
@@ -118,40 +96,40 @@ Contexts are arranged hierarchically:
 @unnumberedsubsubsec Output definitions -- blueprints for contexts
 
 This section explains the relevance of output definitions when
-working with contexts.  Examples for actual output definitions are
-given later (see @ref{Changing all contexts of the same type}).
+working with @dfn{contexts}.  Examples for actual output
+definitions are given later (@pxref{Changing all contexts of the
+same type}).
 
 @cindex output definition
 @funindex \layout
 While music written in a file may refer to context types and
 names, contexts are created only when the music is actually being
 interpreted.  LilyPond interprets music under control of an
-@q{output definition} and may do so for several different output
+@dfn{output definition} and may do so for several different output
 definitions, resulting in different output.  The output definition
 relevant for printing music is specified using @code{\layout}.
 
 @funindex \midi
-A much simpler output definition used for producing Midi output is
+A much simpler output definition used for producing MIDI output is
 specified using @code{\midi}.  Several other output definitions
 are used by LilyPond internally, like when using the part combiner
 (@ref{Automatic part combining}) or creating music quotes
 (@ref{Quoting other voices}).
 
 Output definitions define the relation between contexts as well as
-their respective default settings.  While most changes will
-usually be made inside of a @code{\layout} block, Midi-related
-settings will only have an effect when made within a @code{\midi}
-block.
+their respective default settings.  While most changes are usually
+made inside of a @code{\layout} block, MIDI-related settings only
+have an effect when made within a @code{\midi} block.
 
 @funindex autoBeaming
 Some settings affect several outputs: for example, if
 @code{autoBeaming} is turned off in some context, beams count as
-melismata for the purpose of matching music to lyrics as described
-in @ref{Automatic syllable durations}.  This matching is done both
-for printed output as well as for Midi.  If changes made to
+melismata for the purpose of matching music to lyrics,
+@pxref{Automatic syllable durations}.  This matching is done both
+for printed output as well as for MIDI -- if changes made to
 @code{autoBeaming} within a context definition of a @code{\layout}
 block are not repeated in the corresponding @code{\midi} block,
-lyrics and music will get out of sync in Midi.
+lyrics and music will get out of sync in MIDI output.
 
 @morerefs
 Installed Files:
@@ -160,155 +138,283 @@ Installed Files:
 @endmorerefs
 
 
-@node Score - the master of all contexts
-@unnumberedsubsubsec Score -- the master of all contexts
+@c The context descriptions should be harmonized with the
+@c descriptions in `engraver-init.ly`.
 
-This is the top level notation context.  No other context can
-contain a Score context.  By default the Score context handles
-the administration of time signatures and makes sure that items
+@node Score - the master of all contexts
+@unnumberedsubsubsec @code{Score} -- the master of all contexts
+
+@funindex Score
+@funindex Global
+This is the top-level notation context.@footnote{There exists a
+context called @code{Global} that is even one level higher than
+@code{Score}, and which is the hard-coded entry point for
+LilyPond.  However, this is not meant to be modified; you will
+need this context only if you are going to implement an engraver
+in Scheme and can be safely ignored otherwise.}  No other context
+can contain a @code{Score} context.  This context handles the
+administration of time signatures.  It also makes sure that items
 such as clefs, time signatures, and key signatures are aligned
 across staves.
 
-A Score context is instantiated implicitly when a
-@code{\score @{@dots{}@}} block is processed.
+You cannot explicitly instantiate a @code{Score} context (since it
+is not contained in any other context).  It is instantiated
+automatically when an output definition (a @code{\score} or
+@code{\layout} block) is processed.
+
+@funindex Timing
+An alias called @code{Timing} is established by the
+@code{Timing_translator} in whatever context it is initialized,
+and the timing variables are then copied from wherever
+@code{Timing} had been previously established.  The alias at
+@code{Score} level provides a target for initializing
+@code{Timing} variables in layout definitions before any
+@code{Timing_translator} has been run.
+
 
 @node Top-level contexts - staff containers
 @unnumberedsubsubsec Top-level contexts -- staff containers
 
-@strong{@emph{StaffGroup}}
+@table @code
+@funindex StaffGroup
+@item StaffGroup
+Connect staves vertically by adding a bracket on the left side.
+The bar lines of the contained staves are connected vertically,
+too.
 
-Groups staves while adding a bracket on the left side, grouping
-the staves together.  The bar lines of the contained staves are
-connected vertically.  @code{StaffGroup} only consists of a collection
-of staves, with a bracket in front and spanning bar lines.
-
-@strong{@emph{ChoirStaff}}
-
+@item ChoirStaff
+@funindex ChoirStaff
 Identical to @code{StaffGroup} except that the bar lines of the
 contained staves are not connected vertically.
 
-@strong{@emph{GrandStaff}}
+@item GrandStaff
+@funindex GrandStaff
+Connect staves vertically by adding a brace on the left side.  The
+bar lines of the contained staves are connected vertically, too.
 
-A group of staves, with a brace on the left side, grouping the
-staves together.  The bar lines of the contained staves are
-connected vertically.
+@item PianoStaff
+@funindex PianoStaff
+Just like @code{GrandStaff}, but the staves are only removed
+together, never separately.
 
-@strong{@emph{PianoStaff}}
+@item OneStaff
+@funindex OneStaff
+@funindex \startStaff
+@funindex \stopStaff
+Provides a common axis for the contained staves, making all of
+them appear in the same vertical space.  This can be useful for
+typesetting staves of different types in immediate succession or
+for temporarily changing the character of one staff or overlaying
+it with a different one.  Often used with @code{\stopStaff} and
+@code{\startStaff} for best results.
 
-Just like @code{GrandStaff}, but with support for instrument names
-to the left of each system.
+@item VaticanaScore
+@funindex VaticanaScore
+Top-level context replacing @code{Score} for Gregorian chant
+notated in Vaticana style.  Compared to @code{Score}, it changes
+the staff line color to red, uses packed spacing, and removes bar
+numbers.
+
+@item ChordGridScore
+@funindex ChordGridScore
+Top-level context replacing @code{Score} in chord grid notation.
+Compared to @code{Score}, it uses proportional notation, and has a
+few other settings like removing bar numbers.
+
+@item StandaloneRhythmScore
+@funindex StandaloneRhythmScore
+@funindex \rhythm
+A @code{Score}-level context for use by @code{\markup \rhythm}.
+@end table
+
 
 @node Intermediate-level contexts - staves
 @unnumberedsubsubsec Intermediate-level contexts -- staves
 
-@strong{@emph{Staff}}
-
+@table @code
+@item Staff
+@funindex Staff
 Handles clefs, bar lines, keys, accidentals.  It can contain
 @code{Voice} contexts.
 
-@strong{@emph{RhythmicStaff}}
-
+@item RhythmicStaff
+@funindex RhythmicStaff
 Like @code{Staff} but for printing rhythms.  Pitches are ignored
 when engraving; the notes are printed on one line.  The MIDI
 rendition retains pitches unchanged.
 
-@strong{@emph{TabStaff}}
+@item TabStaff
+@funindex TabStaff
+Context for generating tablature.  It accepts only @code{TabVoice}
+contexts and handles the line spacing, the tablature clef, etc.,
+properly.
 
-Context for generating tablature.  By default lays the music
-expression out as a guitar tablature, printed on six lines.
-
-@strong{@emph{DrumStaff}}
-
+@item DrumStaff
+@funindex DrumStaff
 Handles typesetting for percussion.  Can contain @code{DrumVoice}.
 
-@strong{@emph{VaticanaStaff}}
+@item VaticanaStaff
+@funindex VaticanaStaff
+A kind of @code{Staff} for typesetting Gregorian chant in a
+notational style approximating @cite{Editio Vaticana}.
 
-Same as @code{Staff}, except that it is designed for typesetting
-a piece in Gregorian style.
+@item MensuralStaff
+@funindex MensuralStaff
+Same as @code{Staff} context, except that it is accommodated for
+typesetting a piece in mensural style.
 
-@strong{@emph{MensuralStaff}}
+@item PetrucciStaff
+@funindex PetrucciStaff
+A kind of @code{Staff} approximating the mensural typesetting of
+Ottaviano Petrucci's @cite{Harmonices Musices Odhecaton} (Venice,
+1501).
 
-Same as @code{Staff}, except that it is designed for typesetting
-a piece in mensural style.
+@item KievanStaff
+@funindex KievanStaff
+Same as @code{Staff} context, except that it is accommodated for
+typesetting a piece in Kievan style.
+
+@item GregorianTranscriptionStaff
+@funindex GregorianTranscriptionStaff
+A staff for notating Gregorian chant in modern style.
+
+@item ChordGrid
+@funindex ChordGrid
+Creates chord grid notation.  This context is always part of a
+@code{ChordGridScore} context.
+
+@item StandaloneRhythmStaff
+@funindex StandaloneRhythmStaff
+@funindex \rhythm
+A @code{Staff}-level context for use by @code{\markup \rhythm}.
+
+@item FretBoards
+@funindex FretBoards
+A context for displaying fret diagrams.
+
+@c TODO: Add or reference an example or snippet.
+@item Devnull
+@funindex Devnull
+Silently discard all musical information given to this context.
+@end table
+
 
 @node Bottom-level contexts - voices
 @unnumberedsubsubsec Bottom-level contexts -- voices
 
-@code{Voice}-level contexts initialize certain properties and start
-appropriate engravers.  A bottom-level context is one without
-@code{defaultchild}.  While it is possible to let it
+@funindex \defaultchild
+@code{Voice}-level contexts initialize certain properties and
+start appropriate engravers.  A bottom-level context is one
+without @code{\defaultchild}.  While it is possible to let it
 accept/@/contain subcontexts, they can only be created and entered
 explicitly.
 
-@strong{@emph{Voice}}
-
+@table @code
+@item Voice
+@funindex Voice
 Corresponds to a voice on a staff.  This context handles the
 conversion of dynamic signs, stems, beams, super- and subscripts,
-slurs, ties, and rests.  You have to instantiate this explicitly
-if you require multiple voices on the same staff.
+slurs, ties, and rests.
 
-@strong{@emph{VaticanaVoice}}
+You have to instantiate this explicitly if you require multiple
+voices on the same staff.
 
-Same as @code{Voice}, except that it is designed for typesetting
-a piece in Gregorian style.
+@item VaticanaVoice
+@funindex VaticanaVoice
+A kind of @code{Voice} for typesetting Gregorian chant in a
+notational style approximating @cite{Editio Vaticana}.
 
-@strong{@emph{MensuralVoice}}
+@item MensuralVoice
+@funindex MensuralVoice
+Same as @code{Voice} context, except that it is accommodated for
+typesetting a piece in mensural style.
 
-Same as @code{Voice}, with modifications for typesetting a piece in
-mensural style.
+@item PetrucciVoice
+@funindex PetrucciVoice
+A kind of @code{Voice} approximating the mensural typesetting of
+Ottaviano Petrucci's @cite{Harmonices Musices Odhecaton} (Venice,
+1501).
 
-@strong{@emph{Lyrics}}
+@item KievanVoice
+@funindex KievanVoice
+Same as @code{Voice} context, except that it is accommodated for
+typesetting a piece in Kievan style.
 
+@item GregorianTranscriptionVoice
+@funindex GregorianTranscriptionVoice
+A voice for notating Gregorian chant in modern style.
+
+@item Lyrics
+@funindex Lyrics
 Corresponds to a voice with lyrics.  Handles the printing of a
 single line of lyrics.
 
-@strong{@emph{DrumVoice}}
+@item VaticanaLyrics
+@funindex VaticanaLyrics
+Same as @code{Lyrics} context, except that it provides a
+hyphenation style (a single, flush-left hyphen between two
+syllables) as used in the notational style of @cite{Editio
+Vaticana}.
 
-The voice context used in a percussion staff.
+@item GregorianTranscriptionLyrics
+@funindex GregorianTranscriptionLyrics
+A lyrics context for notating Gregorian chant in modern style.
 
-@strong{@emph{FiguredBass}}
+@item DrumVoice
+@funindex DrumVoice
+A voice on a percussion staff.
 
-The context in which @code{BassFigure} objects are created from
+@item FiguredBass
+@funindex FiguredBass
+The context in which @code{BassFigure} grobs are created from
 input entered in @code{\figuremode} mode.
 
-@strong{@emph{TabVoice}}
-
+@item TabVoice
+@funindex TabVoice
 The voice context used within a @code{TabStaff} context.  Usually
 left to be created implicitly.
 
-@strong{@emph{CueVoice}}
-
+@item CueVoice
+@funindex CueVoice
 A voice context used to render notes of a reduced size, intended
 primarily for adding cue notes to a staff, see @ref{Formatting
 cue notes}.  Usually left to be created implicitly.
 
-@strong{@emph{ChordNames}}
-
+@item ChordNames
+@funindex ChordNames
 Typesets chord names.
 
-@ignore
-TODO
+@item NoteNames
+@funindex NoteNames
+Typesets note names.
 
-Then the following, which I don't know what to do with:
+@item NullVoice
+@funindex NullVoice
+For aligning lyrics without printing notes.
 
-    * GregorianTranscriptionVoice
-    * GregorianTranscriptionStaff
+@c TODO: Add or reference an example or snippet.
+@item Devnull
+@funindex Devnull
+Silently discard all musical information given to this context.
 
-    * FretBoards
-        Engraves fretboards from chords. Not easy... Not
-documented.
-        There is now some documentation on FretBoards in the NR, under
-         instrument-specific notation -- cds.
+@item Dynamics
+@funindex Dynamics
+Holds a single line of dynamics centered between the staves
+surrounding this context.
 
-    * NoteNames
+@item StandaloneRhythmVoice
+@funindex StandaloneRhythmVoice
+@funindex \rhythm
+A @code{Voice}-level context for use by @code{\markup \rhythm}.
 
-    * Global
-        Hard coded entry point for LilyPond. Cannot be tuned.
-    * Devnull
-        Silently discards all musical information given to this
-context.
+@item Bottom
+@funindex Bottom
+This is a generic bottom-level context, accepted by all
+intermediate-level contexts.  It can be used for situations where
+the same music should appear, say, in a @code{Staff} and a
+@code{TabStaff} context.
+@end table
 
-@end ignore
 
 @node Creating and referencing contexts
 @subsection Creating and referencing contexts
@@ -319,25 +425,25 @@ context.
 @cindex referencing context
 @cindex context, creating and referencing
 
-LilyPond will create lower-level contexts automatically if a music
-expression is encountered before a suitable context exists, but this
-is usually successful only for simple scores or music fragments like
-the ones in the documentation.  For more complex scores it is
-advisable to specify all contexts explicitly with either the
-@code{\new} or @code{\context} command.  The syntax of
+LilyPond creates lower-level contexts automatically if a music
+expression is encountered before a suitable context exists, but
+this is usually successful only for simple scores or music
+fragments like the ones in the documentation.  For more complex
+scores it is advisable to specify all contexts explicitly with
+either the @code{\new} or @code{\context} command.  The syntax of
 these two commands is very similar:
 
 @example
-[\new | \context] @var{Context} [ = @var{name}] [@var{music-expression}]
+[\new | \context] @var{Context} [= @var{name}] [@var{music-expression}]
 @end example
 
 @noindent
 where either @code{\new} or @code{\context} may be specified.
 @var{Context} is the type of context which is to be created,
-@var{name} is an optional name to be given to the particular context
-being created and @var{music-expression} is a single music expression
-that is to be interpreted by the engravers and performers in this
-context.
+@var{name} is an optional name to be given to the particular
+context being created, and @var{music-expression} is a single
+music expression that is to be interpreted by the engravers and
+performers in this context.
 
 The @code{\new} prefix without a name is commonly used to create
 scores with many staves:
@@ -360,12 +466,10 @@ and to place several voices into one staff:
 @lilypond[quote,verbatim]
 \new Staff <<
   \new Voice \relative {
-    \voiceOne
-    c''8 c c4 c c
+    \voiceOne c''8 c c4 c c
   }
   \new Voice \relative {
-    \voiceTwo
-    g'4 g g g
+    \voiceTwo g'4 g g g
   }
 >>
 @end lilypond
@@ -378,36 +482,33 @@ action taken:
 
 @itemize
 @item
-@code{\new} with or without a name will always create a fresh,
-distinct, context, even if one with the same name already exists:
+@code{\new} with or without a name always creates a fresh,
+distinct context, even if one with the same name already exists:
 
 @lilypond[quote,verbatim]
 \new Staff <<
   \new Voice = "A" \relative {
-    \voiceOne
-    c''8 c c4 c c
+    \voiceOne c''8 c c4 c c
   }
   \new Voice = "A" \relative {
-    \voiceTwo
-    g'4 g g g
+    \voiceTwo g'4 g g g
   }
 >>
 @end lilypond
 
 @item
-@code{\context} with a name specified will create a distinct context
+@code{\context} with a name specified creates a distinct context
 only if a context of the same type with the same name in the same
-context hierarchy does not already exist.  Otherwise it will be taken
+context hierarchy does not already exist.  Otherwise it is taken
 as a reference to that previously created context, and its music
-expression will be passed to that context for interpretation.
+expression is passed to that context for interpretation.
 
-Named contexts may be useful in special cases such as
-lyrics or figured bass, as demonstrated in
-@ref{Working with lyrics and variables} and
-@rlearning{Vocal ensembles templates} for the former and
-@ref{Displaying figured bass} for the latter.
-More generally, one application of named contexts is in separating the
-score layout from the musical content.  Either of these two forms is valid:
+Named contexts may be useful in special cases such as lyrics or
+figured bass, @pxref{Working with lyrics and variables} and
+@rlearning{Vocal ensembles templates} for the former, and
+@ref{Displaying figured bass} for the latter.  More generally, one
+application of named contexts is in separating the score layout
+from the musical content.  Either of these two forms is valid:
 
 @lilypond[quote,verbatim]
 \score {
@@ -471,21 +572,21 @@ Alternatively, variables may be employed to similar effect.  See
 
 @item
 @funindex \applyContext
-@code{\context} with no name will match the first of any previously
+@code{\context} with no name matches the first of any previously
 created contexts of the same type in the same context hierarchy,
-even one that has been given a name, and its music expression will be
+even one that has been given a name, and its music expression is
 passed to that context for interpretation.  This form is rarely
-useful.  However, @code{\context} with no name and no music expression
-is used to set the context in which a Scheme procedure specified with
-@code{\applyContext} is executed:
+useful.  However, @code{\context} with no name and no music
+expression is used to set the context in which a Scheme procedure
+specified with @code{\applyContext} is executed:
 
 @example
 \new Staff \relative @{
   c'1
   \context Timing
-  \applyContext #(lambda (ctx)
-                   (newline)
-                   (display (ly:context-current-moment ctx)))
+    \applyContext #(lambda (ctx)
+                     (newline)
+                     (display (ly:context-current-moment ctx)))
   c1
 @}
 @end example
@@ -502,15 +603,16 @@ when lyrics are associated with music:
 @end example
 
 @noindent
-For details of associating lyrics with music see
-@ref{Automatic syllable durations}.
+For details of associating lyrics with music, @pxref{Automatic
+syllable durations}.
 
-The properties of all contexts of a particular type can be modified
-in a @code{\layout} block (with a different syntax), see
-@ref{Changing all contexts of the same type}.  This construct also
-provides a means of keeping layout instructions separate from the
-musical content.  If a single context is to be modified, a @code{\with}
-block must be used, see @ref{Changing just one specific context}.
+The properties of all contexts of a particular type can be
+modified in a @code{\layout} block (with a different syntax),
+@pxref{Changing all contexts of the same type}.  This construct
+also provides a means of keeping layout instructions separate from
+the musical content.  If a single context is to be modified, a
+@code{\with} block must be used, @pxref{Changing just one specific
+context}.
 
 @morerefs
 Learning Manual:
@@ -538,19 +640,20 @@ have to be referenced, for example, when changing staves with
 @code{\lyricsto} commands, or when adding further musical events to
 an earlier context.
 
-There is an exception to this general rule: inside of an
+There is an exception to this general rule: inside of a
 @code{@{@dots{}@}} construct (sequential music), the construct's
-notion of the @qq{current context} will descend whenever an element
-of the sequence ends in a subcontext of the previous current
-context.  This avoids spurious creation of implicit contexts in a
-number of situations but means that the first context descended
-into will be kept alive until the end of the expression.
+notion of the @qq{current context} will descend whenever an
+element of the sequence ends in a subcontext of the previous
+current context.  This avoids spurious creation of implicit
+contexts in a number of situations but means that the first
+context descended into will be kept alive until the end of the
+expression.
 
 In contrast, the contexts of a @code{<<@dots{}>>} construct's
 (simultaneous music) expression are not carried forth, so
-enclosing a context creating command in an extra pair of
-@code{<<@dots{}>>} will keep the context from persisting through
-all of the enclosing @code{@{@dots{}@}} sequence.
+enclosing a context-creating command in an extra pair of
+@code{<<@dots{}>>} keeps the context from persisting through all
+of the enclosing @code{@{@dots{}@}} sequence.
 
 Any context can be kept alive by ensuring it has something to do at
 every musical moment.  @code{Staff} contexts are kept alive by
@@ -569,19 +672,17 @@ musicA = \relative { d''4 d d d }
 musicB = \relative { g'4 g g g }
 keepVoicesAlive = {
   <<
-    \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
-    \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
+    \new Voice = "A" { s1*5 }  % keep voice 'A' alive for 5 bars
+    \new Voice = "B" { s1*5 }  % keep voice 'B' alive for 5 bars
   >>
 }
 
 music = {
   \context Voice = "A" {
-    \voiceOneStyle
-    \musicA
+    \voiceOneStyle \musicA
   }
   \context Voice = "B" {
-    \voiceTwoStyle
-    \musicB
+    \voiceTwoStyle \musicB
   }
   \context Voice = "A" { \musicA }
   \context Voice = "B" { \musicB }
@@ -607,18 +708,17 @@ sections, of course.
 melody = \relative { a'4 a a a }
 accompaniment = \relative { d'4 d d d }
 words = \lyricmode { These words fol -- low the mel -- o -- dy }
+
 \score {
   <<
     \new Staff = "music" {
       <<
         \new Voice = "melody" {
-          \voiceOne
-          s1*4  % Keep Voice "melody" alive for 4 bars
+          \voiceOne s1*4  % keep voice 'melody' alive for 4 bars
         }
         {
           \new Voice = "accompaniment" {
-            \voiceTwo
-            \accompaniment
+            \voiceTwo \accompaniment
           }
           <<
             \context Voice = "melody" { \melody }
@@ -662,12 +762,10 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
     \new Staff = "music" {
       <<
         \new Voice = "melody" {
-          \voiceOne
-          \melody
+          \voiceOne \melody
         }
         \new Voice = "accompaniment" {
-          \voiceTwo
-          \accompaniment
+          \voiceTwo \accompaniment
         }
       >>
     }
@@ -681,34 +779,19 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 @node Modifying context plug-ins
 @subsection Modifying context plug-ins
 
-@c TODO Should this be Modifying engravers or Modifying contexts?
-
-Notation contexts (like @code{Score} and @code{Staff}) not only store
-properties, they also contain plug-ins called @q{engravers} that create
-notation elements.  For example, the @code{Voice} context contains a
-@code{Note_heads_engraver} and the @code{Staff} context contains a
-@code{Key_engraver}.
+Notation contexts (like @code{Score} and @code{Staff}) not only
+store properties, they also contain plug-ins called
+@dfn{engravers} that create notation elements.  For example, the
+@code{Voice} context contains a @code{Note_heads_engraver} and the
+@code{Staff} context contains a @code{Key_engraver}.
 
 For a full a description of each plug-in, see
-@ifhtml
-@rinternals{Engravers and Performers}.
-@end ifhtml
-@ifnothtml
-Internals Reference @expansion{} Translation @expansion{} Engravers.
-@end ifnothtml
-Every context described in
-@ifhtml
-@rinternals{Contexts}
-@end ifhtml
-@ifnothtml
-Internals Reference @expansion{} Translation @expansion{} Context.
-@end ifnothtml
-lists the engravers used for that context.
+@rinternals{Engravers and Performers}.  Every context described in
+@rinternals{Contexts} lists the engravers used for that context.
 
-
-It can be useful to shuffle around these plug-ins.  This is done by
-starting a new context with @code{\new} or @code{\context}, and
-modifying it,
+It can be useful to shuffle around these plug-ins.  This is done
+by starting a new context with @code{\new} or @code{\context}, and
+modifying it.
 
 @funindex \with
 @funindex \consists
@@ -728,9 +811,9 @@ modifying it,
 @end example
 
 @noindent
-where each @dots{} should be the name of an engraver.  Here is a simple
-example which removes @code{Time_signature_engraver} and
-@code{Clef_engraver} from a @code{Staff} context,
+where each @samp{@dots{}} should be the name of an engraver.  Here
+is a simple example that removes @code{Time_signature_engraver}
+and @code{Clef_engraver} from a @code{Staff} context.
 
 @lilypond[quote,verbatim]
 <<
@@ -746,11 +829,12 @@ example which removes @code{Time_signature_engraver} and
 >>
 @end lilypond
 
-In the second staff there are no time signature or clef symbols.  This
-is a rather crude method of making objects disappear since it will affect
-the entire staff.  This method also influences the spacing, which may or
-may not be desirable.  More sophisticated methods of blanking objects
-are shown in @rlearning{Visibility and color of objects}.
+In the second staff there are no time signature or clef symbols.
+This is a rather crude method of making objects disappear since it
+affects the entire staff.  This method also influences the
+spacing, which may or may not be desirable.  More sophisticated
+methods of blanking objects are shown in @rlearning{Visibility and
+color of objects}.
 
 
 @knownissues
@@ -790,11 +874,10 @@ Installed Files:
 @cindex default context property, changing
 @cindex context property, changing default
 
-Context and grob properties can be changed with @code{\set}
-and @code{\override} commands, as described in
-@ref{Modifying properties}.  These commands create music events,
-making the changes take effect at the point in time the music
-is being processed.
+Context and grob properties can be changed with @code{\set} and
+@code{\override} commands, @pxref{Modifying properties}.  These
+commands create music events, making the changes take effect at
+the point in time the music is being processed.
 
 In contrast, this section explains how to change the @emph{default}
 values of context and grob properties at the time the context is
@@ -815,12 +898,12 @@ default values in just one particular instance of a context.
 @funindex \context
 @funindex \layout
 
-The default context settings which are to be used for typesetting in
-@code{Score}, @code{Staff}, @code{Voice} and other contexts may be
-specified in a @code{\context} block within any @code{\layout}
-block.
+The default context settings which are to be used for typesetting
+in @code{Score}, @code{Staff}, @code{Voice}, and other contexts
+may be specified in a @code{\context} block within any
+@code{\layout} block.
 
-Settings for Midi output as opposed to typesetting will have to be
+Settings for MIDI output as opposed to typesetting has to be
 separately specified in @code{\midi} blocks (@pxref{Output
 definitions - blueprints for contexts}).
 
@@ -844,7 +927,7 @@ The following types of settings may be specified:
 
 @itemize
 @item
-An @code{\override} command, but with the context name omitted
+An @code{\override} command, but with the context name omitted.
 
 @lilypond[quote,verbatim]
 \score {
@@ -862,7 +945,7 @@ An @code{\override} command, but with the context name omitted
 @end lilypond
 
 @item
-Directly setting a context property
+Directly setting a context property.
 
 @lilypond[quote,verbatim]
 \score {
@@ -881,7 +964,7 @@ Directly setting a context property
 
 @item
 A predefined command such as @code{\dynamicUp} or a music
-expression like @code{\accidentalStyle dodecaphonic}
+expression like @code{\accidentalStyle dodecaphonic}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -903,9 +986,9 @@ expression like @code{\accidentalStyle dodecaphonic}
 @end lilypond
 
 @item
-A user-defined variable containing a @code{\with} block; for details
-of the @code{\with} block see
-@ref{Changing just one specific context}.
+A user-defined variable containing a @code{\with} block; for
+details of the @code{\with} block, @pxref{Changing just one
+specific context}.
 
 @lilypond[quote,verbatim]
 StaffDefaults = \with {
@@ -976,10 +1059,10 @@ command:
 @}
 @end example
 
-Alternatively, if the music is being entered using the short form of the
-input mode-specifying commands, e.g. @code{\chords} rather than
-@code{\chordmode}, the @code{\with} command must be placed immediately
-after the mode-specifying command:
+Alternatively, if the music is being entered using the short form
+of the input mode-specifying commands, e.g., @code{\chords} rather
+than @code{\chordmode}, the @code{\with} command must be placed
+immediately after the mode-specifying command:
 
 @example
 \chords \with @{
@@ -990,26 +1073,26 @@ after the mode-specifying command:
 @end example
 
 @noindent
-as it is the implicit context created by these short forms which should
-be modified.  The same consideration applies to the other input
-mode-specifying short forms (@code{\drums}, @code{\figures}), see
-@ref{Input modes}.
+as it is the implicit context created by these short forms which
+should be modified.  The same consideration applies to the other
+input mode-specifying short forms (@code{\drums},
+@code{\figures}), @pxref{Input modes}.
 
-Since context modifications specified in @code{\with} blocks are inside
-music, they will affect @emph{all} outputs (typesetting @emph{and}
-Midi) as opposed to changes within an output definition.
+Since context modifications specified in @code{\with} blocks are
+inside music, they affect @emph{all} outputs (typesetting
+@emph{and} MIDI) as opposed to changes within an output
+definition.
 
 The following types of settings may be specified:
 
 @itemize
 @item
-An @code{\override} command, but with the context name omitted
+An @code{\override} command, but with the context name omitted.
 
 @lilypond[quote,verbatim]
 \score {
   \new Staff {
-    \new Voice \with { \override Stem.thickness = 4.0 }
-    {
+    \new Voice \with { \override Stem.thickness = 4.0 } {
       \relative {
         a'4^"Thick stems" a a a
         a4 a a a
@@ -1020,7 +1103,7 @@ An @code{\override} command, but with the context name omitted
 @end lilypond
 
 @item
-Directly setting a context property
+Directly setting a context property.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1031,8 +1114,7 @@ Directly setting a context property
         a4 a a a
       }
     }
-    \new Staff \with { fontSize = -4 }
-    {
+    \new Staff \with { fontSize = -4 } {
       \relative {
         a'4^"Smaller font" a a a
         a4 a a a
@@ -1043,7 +1125,7 @@ Directly setting a context property
 @end lilypond
 
 @item
-A predefined command such as @code{\dynamicUp}
+A predefined command such as @code{\dynamicUp}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1056,10 +1138,8 @@ A predefined command such as @code{\dynamicUp}
         }
       }
     }
-    \new Staff \with { \accidentalStyle dodecaphonic }
-    {
-      \new Voice \with { \dynamicUp }
-      {
+    \new Staff \with { \accidentalStyle dodecaphonic } {
+      \new Voice \with { \dynamicUp } {
         \relative {
           a'4^"Dynamics above" a a a
           a4 a a\ff a
@@ -1099,7 +1179,7 @@ otherwise the default value taken from the most recent appropriate
 is used,
 
 @item
-otherwise the LilyPond built-in default is used.
+otherwise LilyPond's built-in default is used.
 @end itemize
 
 @morerefs
@@ -1136,8 +1216,8 @@ contexts with different combinations of engraver plug-ins.
 
 The next example shows how to build a different type of
 @code{Voice} context from scratch.  It will be similar to
-@code{Voice}, but only prints centered slash note heads.  It can be used
-to indicate improvisation in jazz pieces,
+@code{Voice}, but only prints centered slash note heads.  It can
+be used to indicate improvisation in jazz pieces.
 
 @lilypond[quote,ragged-right]
 \layout {
@@ -1166,9 +1246,8 @@ to indicate improvisation in jazz pieces,
 }
 @end lilypond
 
-
 These settings are defined within a @code{\context} block inside a
-@code{\layout} block,
+@code{\layout} block.
 
 @example
 \layout @{
@@ -1178,8 +1257,8 @@ These settings are defined within a @code{\context} block inside a
 @}
 @end example
 
-In the following discussion, the example input shown should go in place
-of the @dots{} in the previous fragment.
+In the following discussion, the example input shown should go in
+place of the @samp{@dots{}} in the previous fragment.
 
 @funindex \name
 First it is necessary to define a name for the new context:
@@ -1199,10 +1278,10 @@ achieved by giving the new context an alias of @code{Voice},
 @end example
 
 @funindex \consists
-The context will print notes and instructive texts, so we need to add
-the engravers which provide this functionality, plus the engraver which
-groups notes, stems and rests which occur at the same musical moment
-into columns,
+The context will print notes and instructive texts, so we need to
+add the engravers that provide this functionality, plus the
+engraver that groups notes, stems, and rests occurring at the same
+musical moment into columns.
 
 @example
 \consists Note_heads_engraver
@@ -1210,7 +1289,7 @@ into columns,
 \consists Rhythmic_column_engraver
 @end example
 
-The note heads should all be placed on the center line,
+The note heads should all be placed on the center line.
 
 @example
 \consists Pitch_squash_engraver
@@ -1222,7 +1301,7 @@ by the @code{Note_heads_engraver}) and sets their vertical
 position to the value of @code{squashedPosition}, in this
 case@tie{}@code{0}, the center line.
 
-The notes look like a slash, and have no stem,
+The notes should look like a slash without a stem.
 
 @example
 \override NoteHead.style = #'slash
@@ -1234,7 +1313,7 @@ The notes look like a slash, and have no stem,
 All these plug-ins have to communicate under the control of the
 context.  The mechanisms with which contexts communicate are
 established by declaring the context @code{\type}.  Within a
-@code{\layout} block, most contexts will be of type
+@code{\layout} block, most contexts are of type
 @code{Engraver_@/group}.  Some special contexts use other context
 types.  Copying and modifying an existing context definition will
 also fill in the type.  Since this example creates a definition
@@ -1265,7 +1344,7 @@ Put together, we get
 Contexts form hierarchies.  We want to place the @code{ImproVoice}
 context within the @code{Staff} context, just like normal @code{Voice}
 contexts.  Therefore, we modify the @code{Staff} definition with the
-@code{\accepts} command,
+@code{\accepts} command.
 
 @example
 \context @{
@@ -1277,7 +1356,7 @@ contexts.  Therefore, we modify the @code{Staff} definition with the
 @funindex \inherit-acceptability
 Often when reusing an existing context definition, the resulting
 context can be used anywhere where the original context would have
-been useful.
+been useful.  Doing
 
 @example
 \layout @{
@@ -1287,7 +1366,7 @@ been useful.
 @end example
 
 @noindent
-will arrange to have contexts of type @var{to} accepted by all
+arranges to have contexts of type @var{to} accepted by all
 contexts also accepting @var{from}.  For example, using
 
 @example
@@ -1298,8 +1377,8 @@ contexts also accepting @var{from}.  For example, using
 @end example
 
 @noindent
-will add an @code{\accepts} for @code{ImproVoice} to both
-@code{Staff} and @code{RhythmicStaff} definitions.
+adds an @code{\accepts} for @code{ImproVoice} to both @code{Staff}
+and @code{RhythmicStaff} definitions.
 
 @funindex \denies
 The opposite of @code{\accepts} is @code{\denies},
@@ -1348,13 +1427,13 @@ Internals Reference:
 In MIDI output, the syntax for defining new context types is the
 same, except that the @code{\context} block should be placed
 inside a @code{\midi} block, and the @code{\type} should normally
-be @code{Performer_@/group} rather than @code{Engraver_@/group}.  The
-term @qq{engraver} refers to a context plug-in that creates visual
-output.  A @qq{performer}, on the other hand, is relevant in MIDI
-output only.  When plug-ins have @qq{translator} in their name
-rather than @qq{engraver} or @qq{performer}, they are relevant for
-both graphical and audio output.  Thus, when adapting a context
-definition for the @code{\midi} block, you need to
+be @code{Performer_@/group} rather than @code{Engraver_@/group}.
+The term @dfn{engraver} refers to a context plug-in that creates
+visual output.  A @dfn{performer}, on the other hand, is relevant
+in MIDI output only.  When plug-ins have @qq{translator} in their
+name rather than @qq{engraver} or @qq{performer}, they are
+relevant for both graphical and audio output.  Thus, when adapting
+a context definition for the @code{\midi} block, you need to
 
 @itemize
 @item
@@ -1370,8 +1449,9 @@ Please note that, in order to maintain consistent interpretation
 between graphical and MIDI output, it is recommended to copy any
 custom context definition in a @code{\midi} block.  It should at
 the minimum include those commands that specify the context
-hierarchy, such as @code{\accepts}, @code{\defaultchild} and
-@code{\inherit-@/acceptability}. Copying aliases is advised as well.
+hierarchy, such as @code{\accepts}, @code{\defaultchild}, and
+@code{\inherit-@/acceptability}.  Copying aliases is advised as
+well.
 
 Thus, to complete the example above, the following can be added:
 
@@ -1419,12 +1499,15 @@ proportional notation is enabled (@pxref{Proportional notation}).
     \Score
     \name ProportionalScore
     \alias Score
-    proportionalNotationDuration = \musicLength 4
+    proportionalNotationDuration = \musicLength 8
   }
   \inherit-acceptability ProportionalScore Score
 }
 
-\new ProportionalScore { c'1 2 4 8 16 32 64 64 }
+music = { c'1 2 4 8 16 16 }
+
+\new Score \music
+\new ProportionalScore \music
 @end lilypond
 
 @funindex Score_engraver
@@ -1447,14 +1530,14 @@ of engravers need to access the topmost context using its alias.
 @funindex \accepts
 @funindex \denies
 
-Contexts are normally positioned in a system from top to bottom
-in the order in which they are encountered in the input file.  When
-contexts are nested, the outer context will include inner nested
-contexts as specified in the input file, provided the inner contexts
-are included in the outer context's @qq{accepts} list.  Nested
-contexts which are not included in the outer context's @qq{accepts}
-list will be repositioned below the outer context rather than nested
-within it.
+Contexts are normally positioned in a system from top to bottom in
+the order in which they are encountered in the input file.  When
+contexts are nested, the outer context includes inner nested
+contexts as specified in the input file, provided the inner
+contexts are included in the outer context's @qq{accepts} list.
+Nested contexts which are not included in the outer context's
+@qq{accepts} list are repositioned below the outer context rather
+than nested within it.
 
 The @qq{accepts} list of a context can be changed with the
 @code{\accepts} or @code{\denies} commands.  @code{\accepts} adds a
@@ -1471,25 +1554,26 @@ it would be set on a separate staff.
   \new TabStaff <<
     \new TabVoice { c'1 }
     \new Voice { d'1 }
-    >>
+  >>
 }
 @end lilypond
 
-However, by using the @code{\accepts} command, the @code{Voice}
-context can be forced onto the @code{TabStaff}
+However, by using the @code{\accepts} command, @code{Voice} can be
+forced onto the @code{TabStaff} context.
 
 @lilypond[verbatim,quote]
 \score {
   \new TabStaff <<
     \new TabVoice { c'1 }
     \new Voice { d'1 }
-    >>
-    \layout {
-      \context {
-        \TabStaff
-        \accepts Voice
-      }
+  >>
+
+\layout {
+    \context {
+      \TabStaff
+      \accepts Voice
     }
+  }
 }
 @end lilypond
 
@@ -1503,15 +1587,15 @@ context in the @qq{accepts} list.
 @cindex implicit context
 @funindex \defaultchild
 
-Note that a context will be silently created implicitly if a
-command is encountered when there is no suitable context available
-to contain it.
+Note that a context is silently created implicitly if a command is
+encountered when there is no suitable context available to contain
+it.
 
 Within a context definition, the type of subcontext to be
 implicitly created is specified using @code{\defaultchild}.  A
-number of music events require a @samp{Bottom} context: when such
+number of music events require a bottom-level context: when such
 an event is encountered, subcontexts are created recursively until
-reaching a context with no @samp{defaultchild} setting.
+reaching a context with no @code{\defaultchild} setting.
 
 Implicit context creation can at times give rise to unexpected new
 staves or scores.  Using @code{\new} to create contexts explicitly
@@ -1520,12 +1604,12 @@ avoids those problems.
 @funindex alignAboveContext
 @funindex alignBelowContext
 
-Sometimes a context is required to exist for just a brief period, a
-good example being the staff context for an ossia.  This is usually
-achieved by introducing the context definition at the appropriate
-place in parallel with corresponding section of the main music.
-By default, the temporary context will be placed below all the
-existing contexts.  To reposition it above the context called
+Sometimes a context is required to exist for just a brief period,
+a good example being the staff context for an ossia.  This is
+usually achieved by introducing the context definition at the
+appropriate place in parallel with corresponding section of the
+main music.  By default, the temporary context is placed below all
+the existing contexts.  To reposition it above the context called
 @qq{main}, it should be defined like this:
 
 @example
@@ -1534,15 +1618,16 @@ existing contexts.  To reposition it above the context called
 
 A similar situation arises when positioning a temporary lyrics
 context within a multi-staff layout such as a @code{ChoirStaff},
-for example, when adding a second verse to a repeated section.
-By default the temporary lyrics context will be placed beneath the
-lower staves.  By defining the temporary lyrics context with
+for example, when adding a second verse to a repeated section.  By
+default the temporary lyrics context is placed beneath the lower
+staves.  By defining the temporary lyrics context with
 @code{alignBelowContext} it can be positioned correctly beneath
 the (named) lyrics context containing the first verse.
 
 Examples showing this repositioning of temporary contexts can be
 found elsewhere -- see @rlearning{Nesting music expressions},
-@ref{Modifying single staves} and @ref{Techniques specific to lyrics}.
+@ref{Modifying single staves}, and @ref{Techniques specific to
+lyrics}.
 
 @morerefs
 Learning Manual:

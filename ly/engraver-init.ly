@@ -294,7 +294,8 @@ multiple variants of mensural notation."
   \remove Key_engraver
   \remove Piano_pedal_engraver
 
-  \description "Handles typesetting for percussion."
+  \description "Handles typesetting for percussion.  Can contain
+@code{DrumVoice}."
 
   \denies Voice
   \accepts DrumVoice
@@ -344,8 +345,9 @@ multiple variants of mensural notation."
   \accepts Voice
   \defaultchild Voice
 
-  \description "A context like @code{Staff} but for printing rhythms.
-Pitches are ignored; the notes are printed on one line."
+  \description "Like @code{Staff} but for printing rhythms.  Pitches are
+ignored when engraving; the notes are printed on one line.  The MIDI
+rendition retains pitches unchanged."
 }
 
 
@@ -431,6 +433,10 @@ multiple voices on the same staff."
   \override Beam.length-fraction = #(magstep -4)
   \override Beam.beam-thickness = #0.35
   \override StemTremolo.beam-thickness = #0.35
+
+  \description "A voice context used to render notes of a reduced size,
+intended primarily for adding cue notes to a staff.  Usually left to be
+created implicitly."
 }
 
 \context {
@@ -504,10 +510,9 @@ multiple voices on the same staff."
 
   localAlterations = #'()
 
-  \description "Groups staves while adding a bracket on the left
-side, grouping the staves together.  The bar lines of the contained
-staves are connected vertically.  @code{StaffGroup} only consists of
-a collection of staves, with a bracket in front and spanning bar lines."
+  \description "Connect staves vertically by adding a bracket on the
+left side.  The bar lines of the contained staves are connected
+vertically, too."
 }
 
 \context{
@@ -517,6 +522,10 @@ a collection of staves, with a bracket in front and spanning bar lines."
   systemStartDelimiter = #'SystemStartBrace
 
   localAlterations = #'()
+
+  \description "Connect staves vertically by adding a brace on the
+left side.  The bar lines of the contained staves are connected
+vertically, too."
 }
 
 \context{
@@ -604,8 +613,8 @@ it with a different one.  Often used with @code{\\stopStaff} and
   \override DynamicText.outside-staff-priority = ##f
   \override Hairpin.outside-staff-priority = ##f
 
-  \description "Holds a single line of dynamics, which will be
-centered between the staves surrounding this context."
+  \description "Holds a single line of dynamics centered between the staves
+surrounding this context."
 }
 
 
@@ -665,7 +674,7 @@ printing of a single line of lyrics."
   \name NoteNames
   \alias Staff			% Catch Staff-level overrides like
 				% \key, \transposition
-  \description "A context for printing the names of notes."
+  \description "Typesets note names."
   \consists Axis_group_engraver
 
   \override VerticalAxisGroup.staff-affinity = #UP
@@ -714,7 +723,7 @@ printing of a single line of lyrics."
   \type Score_engraver
   \name Score
 
-  \description "This is the top level notation context.  No
+  \description "This is the top-level notation context.  No
 other context can contain a @code{Score} context.  This context
 handles the administration of time signatures.  It also makes sure
 that items such as clefs, time signatures, and key-signatures are
@@ -726,7 +735,7 @@ automatically when an output definition (a @code{\\score} or
 @code{\\layout} block) is processed.
 
 @anchor{Timing}
-An alias for @code{Timing} is established by the
+An alias called @code{Timing} is established by the
 @code{Timing_translator} in whatever context it is initialized, and
 the timing variables are then copied from wherever @code{Timing}
 had been previously established.  The alias at @code{Score} level
@@ -1090,7 +1099,8 @@ a @code{ChordGridScore} context."
 \context {
   \type Engraver_group
   \name FiguredBass
-  \description "A context for printing a figured bass line."
+  \description "The context in which @code{BassFigure} grobs are created
+from input entered in @code{\\figuremode} mode."
 
   \consists Figured_bass_engraver
   \consists Separating_line_group_engraver
@@ -1110,14 +1120,14 @@ a @code{ChordGridScore} context."
   %% don't want to route anything out of here:
   \alias Staff
   \alias Voice
-  \description "Silently discards all musical information given to this
+  \description "Silently discard all musical information given to this
 context."
 }
 
 \context {
   \name NullVoice
   \type Engraver_group
-  \description "For aligning lyrics without printing notes"
+  \description "For aligning lyrics without printing notes."
 
   %% don't route anything out of here
   \alias Staff
@@ -1163,7 +1173,8 @@ context."
   \remove New_fingering_engraver
   \remove Pitched_trill_engraver
 
-  \description "Context for drawing notes in a Tab staff."
+  \description "The voice context used within a @code{TabStaff} context.
+Usually left to be created implicitly."
 
   %% No accidental in tablature !
   \remove Accidental_engraver
@@ -1176,8 +1187,9 @@ context."
   \denies Voice
   \consists Tab_staff_symbol_engraver
 
-  \description "Context for generating tablature. It accepts only @code{TabVoice}
-contexts and handles the line spacing, the tablature clef etc. properly."
+  \description "Context for generating tablature.  It accepts only
+@code{TabVoice} contexts and handles the line spacing, the tablature clef,
+etc., properly."
 
   \accepts TabVoice
   \defaultchild TabVoice
@@ -1420,7 +1432,7 @@ in a notational style approximating @cite{Editio Vaticana}."
 
   \description "Same as @code{Lyrics} context, except that it
 provides a hyphenation style (a single, flush-left hyphen between
-two syllables) as used in the notational style of Editio Vaticana."
+two syllables) as used in the notational style of @cite{Editio Vaticana}."
 }
 
 \context {
@@ -1432,6 +1444,8 @@ two syllables) as used in the notational style of Editio Vaticana."
   \remove Ligature_bracket_engraver
   %% There are no beams in Gregorian Chant notation.
   autoBeaming = ##f
+
+  \description "A voice for notating Gregorian chant in modern style."
 }
 
 \context {
