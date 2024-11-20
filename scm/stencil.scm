@@ -716,17 +716,24 @@ color formats."
 (define*-public (stencil-whiteout-outline
                  stil #:optional (thickness 0.3) (color white)
                  (angle-increments 16) (radial-increments 1))
-  "White-out a stencil by surrounding it with white (or @var{color}) around
-its outline.
+  "White-out stencil @var{stil} by surrounding its outline with white.
 
-This function works by creating a series of white or @var{color}
-stencils radially offset from the original stencil with angles from
-0 to 2*pi, at an increment of @code{angle-inc}, and with radii
-from @code{radial-inc} to @var{thickness}.  @var{thickness} is how big
-the white outline is, as a multiple of @code{line-thickness}.
-@var{radial-increments} is how many copies of the white stencil we make
-on our way out to thickness.  @var{angle-increments} is how many copies
-of the white stencil we make between 0 and 2*pi."
+This function works by creating a series of white stencils radially offset from
+the original stencil with angles from 0° to 360°.
+
+Optional argument @var{thickness} (default value 0.3) specifies how big the
+white outline is.
+
+The number of angle increments can be controlled with optional argument
+@var{angle-increments}, defaulting to value 16 (corresponding to 22.5°).  The
+number of radius increments (from zero to @var{thickness}) can be controlled
+with optional argument @var{radial-increments}, defaulting to value@tie{}1.
+Thus @var{radial-increments} specifies how many copies of the white stencil we
+make on our way out to @var{thickness}, and @var{angle-increments} how many
+copies of the white stencil we make between 0° and 360°.  In total,
+@var{radial-increments}*@var{angle-increments} copies are drawn.
+
+Optional argument @var{color} changes the white-out color (defaulting to white)."
   (if (or (not (positive? angle-increments))
           (not (positive? radial-increments)))
       (begin
@@ -768,11 +775,14 @@ of the white stencil we make between 0 and 2*pi."
 (define*-public (stencil-whiteout-box stil
                                       #:optional (thickness 0) (blot 0)
                                       (color white))
-  "White-out a stencil by printing it on top of a white (or @var{color})
-rectangle.
+  "White-out stencil @var{stil} by printing it on top of a white rectangle.
 
-@var{thickness} is how far, as a multiple of @code{line-thickness},
-the white outline extends past the extents of stencil @var{stil}."
+By default, the white background rectangle encloses @var{stil} without any
+borders; this can be changed by setting optional argument @var{thickness}
+(defaulting to value zero).  Optional argument @var{blot} gives the blot
+diameter for rounding the corners of the background rectangle (default value is
+zero, making sharp corners).  Optional argument @var{color} changes the
+background color (defaulting to white)."
   (let*
       ((x-ext (interval-widen (ly:stencil-extent stil X) thickness))
        (y-ext (interval-widen (ly:stencil-extent stil Y) thickness)))
@@ -784,19 +794,21 @@ the white outline extends past the extents of stencil @var{stil}."
 (define*-public (stencil-whiteout stil
                                   #:optional style thickness
                                   (line-thickness 0.1))
-  "White-out a stencil (i.e., add a white background around it).
+  "White-out stencil @var{stil} (i.e., add a white background around it).
 
-@var{style}, @var{thickness} and @var{line-thickness} are optional
-arguments.  If set, @var{style} determines the shape of the white
-background.  Given @code{'outline} the white background is produced
-by @code{stencil-whiteout-outline}, given @code{'rounded-box} it is
-produced by @code{stencil-whiteout-box} with rounded corners, given
-other arguments (e.g., @code{'box}) or when unspecified it defaults to
-@code{stencil-whiteout-box} with square corners.  If @var{thickness} is
-specified it determines how far, as a multiple of @var{line-thickness},
-the white background extends past the extents of stencil @var{stil}.  If
-@var{thickness} has not been specified, an appropriate default is chosen
-based on @var{style}."
+If set, optional argument @var{style} determines the shape of the white
+background: value @code{'outline} makes the function use
+@code{stencil-whiteout-outline} to produce the white background, value
+@code{'rounded-box} applies @code{stencil-whiteout-box} to produce a white
+background with rounded corners.  If other values are given (e.g., @code{'box})
+or when unspecified, @code{stencil-whiteout-box} is used to produce a white
+background with square corners.
+
+If optional argument @var{thickness} is specified it determines how far, as a
+multiple of @var{line-thickness} (which is an optional argument, too, defaulting
+to value 0.1), the white background extends past the extents of @var{stil}.  If
+@var{thickness} is not specified, an appropriate default is chosen based on
+@var{style}."
   (let ((thick (* line-thickness
                   (if (number? thickness)
                       thickness
