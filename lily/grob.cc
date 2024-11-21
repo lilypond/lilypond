@@ -148,9 +148,15 @@ Grob::get_print_stencil ()
         {
           Real line_thickness
             = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+          SCM whiteout_color = get_property (this, "whiteout-color");
+          if (!(scm_is_string (whiteout_color) || scm_is_pair (whiteout_color)))
+            {
+              whiteout_color = to_scm ("white");
+            }
           retval = *unsmob<const Stencil> (Lily::stencil_whiteout (
             retval.smobbed_copy (), get_property (this, "whiteout-style"),
-            get_property (this, "whiteout"), to_scm (line_thickness)));
+            get_property (this, "whiteout"), to_scm (line_thickness),
+            whiteout_color));
         }
 
       if (transparent)
@@ -860,6 +866,7 @@ stencil
 transparent
 vertical-skylines
 whiteout
+whiteout-color
 whiteout-style
                )");
 

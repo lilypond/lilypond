@@ -30,10 +30,11 @@
 ;; ensure we only call note head callback when
 ;; style is set to a known value
 (define-public (tab-note-head::whiteout-if-style-set grob)
-  (let ((style (ly:grob-property grob 'style)))
-
+  (let* ((style (ly:grob-property grob 'style))
+         (whiteout-color (ly:grob-property grob 'whiteout-color white)))
     (case style
-      ((cross slash) (stencil-whiteout-box (ly:note-head::print grob)))
+      ((cross slash) (stencil-whiteout-box
+                      (ly:note-head::print grob) 0 0 whiteout-color))
       (else (tab-note-head::print grob)))))
 
 ;; definitions for the "moderntab" clef:

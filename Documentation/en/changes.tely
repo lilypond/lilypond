@@ -1233,6 +1233,12 @@ restore the previous value.
 }
 @end lilypond
 
+@item
+A new grob property @code{whiteout-color} is available to set the
+color used for white-out operations.  Similarly, the
+@code{\whiteout} markup command now listens to a @code{color}
+property to do the same.
+
 @end itemize
 
 

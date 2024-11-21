@@ -793,7 +793,8 @@ background color (defaulting to white)."
 
 (define*-public (stencil-whiteout stil
                                   #:optional style thickness
-                                  (line-thickness 0.1))
+                                  (line-thickness 0.1)
+                                  (color white))
   "White-out stencil @var{stil} (i.e., add a white background around it).
 
 If set, optional argument @var{style} determines the shape of the white
@@ -808,7 +809,10 @@ If optional argument @var{thickness} is specified it determines how far, as a
 multiple of @var{line-thickness} (which is an optional argument, too, defaulting
 to value 0.1), the white background extends past the extents of @var{stil}.  If
 @var{thickness} is not specified, an appropriate default is chosen based on
-@var{style}."
+@var{style}.
+
+Optional argument @var{color} sets the color of the white-out, defaulting to
+white."
   (let ((thick (* line-thickness
                   (if (number? thickness)
                       thickness
@@ -818,9 +822,10 @@ to value 0.1), the white background extends past the extents of @var{stil}.  If
                        (else 0))))))
     (cond
      ((eq? style 'special) stil)
-     ((eq? style 'outline) (stencil-whiteout-outline stil thick))
-     ((eq? style 'rounded-box) (stencil-whiteout-box stil thick (* 2 thick)))
-     (else (stencil-whiteout-box stil thick)))))
+     ((eq? style 'outline) (stencil-whiteout-outline stil thick color))
+     ((eq? style 'rounded-box) (stencil-whiteout-box
+                                stil thick (* 2 thick) color))
+     (else (stencil-whiteout-box stil thick 0 color)))))
 
 (define-public (arrow-stencil-maker start? end?)
   "Return a function drawing a line from current point to @code{destination},

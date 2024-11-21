@@ -74,6 +74,27 @@ Lyric_hyphen::print (SCM smob)
   Real padding = from_scm<double> (get_property (me, "padding"), 0.1);
   Real whiteout = from_scm<double> (get_property (me, "whiteout"), -1);
 
+  Real whiteout_color_r = 1.0;
+  Real whiteout_color_g = 1.0;
+  Real whiteout_color_b = 1.0;
+  Real whiteout_color_a = 1.0;
+  std::string whiteout_color_string = "";
+
+  SCM whiteout_color = get_property (me, "whiteout-color");
+  if (scm_is_string (whiteout_color))
+    {
+      whiteout_color_string = from_scm<std::string> (whiteout_color);
+    }
+  else if (scm_is_pair (whiteout_color))
+    {
+      whiteout_color_r = from_scm<Real> (scm_car (whiteout_color));
+      whiteout_color_g = from_scm<Real> (scm_cadr (whiteout_color));
+      whiteout_color_b = from_scm<Real> (scm_caddr (whiteout_color));
+      whiteout_color_a = scm_is_pair (scm_cdddr (whiteout_color))
+                           ? from_scm<Real> (scm_cadddr (whiteout_color))
+                           : 1.0;
+    }
+
   if (dash_period < dash_length)
     dash_period = 1.5 * dash_length;
 
@@ -116,7 +137,15 @@ Lyric_hyphen::print (SCM smob)
           Box c (Interval (0, dash_length + 2 * whiteout * lt),
                  Interval (h - whiteout * lt, h + th + whiteout * lt));
           Stencil w (Lookup::round_filled_box (c, 0.8 * lt));
-          w = w.in_color (1.0, 1.0, 1.0);
+          if (!whiteout_color_string.empty ())
+            {
+              w = w.in_color (whiteout_color_string);
+            }
+          else
+            {
+              w = w.in_color (whiteout_color_r, whiteout_color_g,
+                              whiteout_color_b, whiteout_color_a);
+            }
           w.translate_axis (span_points[LEFT] + i * dash_period + space_left / 2
                               - whiteout * lt,
                             X_AXIS);

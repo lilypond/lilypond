@@ -1179,7 +1179,8 @@ Rotate @var{arg} by @var{ang} degrees around its center.
   (markup?)
   #:category other
   #:properties ((style 'box)
-                (thickness '()))
+                (thickness '())
+                (color "white"))
   "
 @cindex adding white background, to text
 
@@ -1190,31 +1191,32 @@ The default is @code{box} which produces a rectangle.  @code{rounded-box}
 produces a rounded rectangle, and @code{outline} approximates the outline of the
 markup.
 
+The color of the background can be controlled with the @code{color} property,
+defaulting to @code{\"white\"}.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\combine
-    \\filled-box #'(-1 . 15) #'(-3 . 4) #1
-    \\override #'(thickness . 1.5)
-    \\whiteout whiteout-box
-}
-\\markup {
-  \\combine
-    \\filled-box #'(-1 . 24) #'(-3 . 4) #1
-    \\override #'((style . rounded-box) (thickness . 3))
-    \\whiteout whiteout-rounded-box
-}
-\\markup {
-  \\combine
-    \\filled-box #'(-1 . 18) #'(-3 . 4) #1
-    \\override #'((style . outline) (thickness . 3))
-    \\whiteout whiteout-outline
+    \\filled-box #'(-1 . 62) #'(-3 . 4) #1
+    \\override #'(line-width . 60)
+      \\fill-line {
+        \\override #'(thickness . 1.5)
+          \\whiteout box
+        \\override #'((style . rounded-box) (thickness . 3))
+          \\whiteout rounded-box
+        \\override #'((style . outline) (thickness . 3))
+          \\whiteout outline
+        \\override #'((color . \"red\") (style . outline))
+          \\whiteout red-outline
+      }
 }
 @end lilypond"
   (stencil-whiteout
    (interpret-markup layout props arg)
    style
    thickness
-   (ly:output-def-lookup layout 'line-thickness)))
+   (ly:output-def-lookup layout 'line-thickness)
+   color))
 
 (define-markup-command (pad-markup layout props amount arg)
   (number? markup?)
