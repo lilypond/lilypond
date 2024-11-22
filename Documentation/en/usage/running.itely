@@ -50,6 +50,23 @@ Describing how to use this part of an operating system is outside the
 scope of this manual; please consult other documentation on this topic
 if you are unfamiliar with the command line.
 
+You should use a command line that reads and writes Unicode in
+UTF-8 encoding.  Today, this is the standard on Unix-like
+operating systems including macOS and GNU/Linux.  On Windows, you
+can select UTF-8 by selecting an appropriate codepage: call
+
+@example
+chcp 65001
+@end example
+
+@noindent
+once on the command line before running @command{lilypond.exe}.
+Please consult the internet how to permanently activate UTF-8 for
+the Windows
+console.@footnote{@uref{https://stackoverflow.com/a/57134096/1276195}
+for example gives a pretty exhaustive answer.}
+
+
 @menu
 * The PATH environment variable::
 * Invoking LilyPond::
