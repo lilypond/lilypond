@@ -955,6 +955,12 @@ the new inverted glyphs are named @code{script.dupbow} and
 
 @itemize
 @item
+The Scheme functions @code{duration-length} and
+@code{ly:duration-length} are renamed to
+@code{ly:duration->number} and @code{ly:duration->moment},
+respectively.
+
+@item
 The new Scheme function @code{ly:parser-append-to-include-path}
 appends its argument to the current parser's include path.
 
