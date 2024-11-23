@@ -1997,6 +1997,12 @@ class BeamEvent(SpanEvent):
 
 
 class PedalEvent(SpanEvent):
+    def wait_for_note(self):
+        if self.span_direction == 1:
+            return False
+        else:
+            return True
+
     # LilyPond's support for positioning pedal marks above or below a staff
     # is limited: if there is a series of `\sustainOn` and `\sustainOff`
     # commands without any intermediate stop, all of them are positioned
@@ -2011,6 +2017,7 @@ class PedalEvent(SpanEvent):
         font_size = get_font_size(self.font_size, command=False)
 
         if self.span_direction == 1:
+            res.append('<>')
             if color is not None:
                 res.append(r'\tweak color %s' % color)
             if font_size is not None:
