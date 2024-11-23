@@ -5347,28 +5347,46 @@ def conv(s):
 
 # Non-numeric durations like \breve seem unlikely, so we'll ignore them for
 # simplicity and revise this if we receive any complaints.
-base_moment_re = (r'\bbaseMoment'
-                  r'(?P<assignment>\s*=\s*)'
-                  r'\\musicLength\s+'
-                  r'(?P<head>\d+)'
-                  r'(\*(?P<factor_num>\d+)(/(?P<factor_den>\d+))?)?')
+def make_mom_assign_re(old_property_name):
+    return (r'\b'
+            + old_property_name +
+            r'(?P<assignment>\s*=\s*)'
+            r'('
+            r'\\musicLength\s+'
+            r'(?P<head>\d+)'
+            r'(?P<dots>\.*)'
+            r'(\*(?P<factor_num>\d+)(/(?P<factor_den>\d+))?)?'
+            r'|'
+            r'#(?P<special_value>(INF-MOMENT|ZERO-MOMENT))'
+            r')'
+            )
 
-def base_moment_to_beat_base(match):
-    eq = match.group('assignment')
-    h = int(match.group('head'))
-    n = int(match.group('factor_num') or 1)
-    d = int(match.group('factor_den') or 1)
-    if d == 1:
-        if h == 1:
-            return f'beatBase{eq}{n}'
-        # There might be some explanatory value in fractions that are not
-        # reduced, so for example, we turn `8*4` into `#4/8` rather than `#1/2`.
-        return f'beatBase{eq}#{n}/{h}'
-    # We're losing the basic duration (h) anyway, so reduce it.
-    f = Fraction(1, h) * Fraction(n, d)
-    if f.is_integer():
-        return f'beatBase{eq}{f}'
-    return f'beatBase{eq}#{f}'
+def make_mom_assign_replacer(new_property_name):
+    def replacer(match):
+        eq = match.group('assignment')
+        if match.group('special_value') == "INF-MOMENT":
+            return f'{new_property_name}{eq}#+inf.0'
+        elif match.group('special_value') == "ZERO-MOMENT":
+            return f'{new_property_name}{eq}0'
+        head = int(match.group('head'))
+        dots = len(match.group('dots'))
+        num = int(match.group('factor_num') or 1)
+        den = int(match.group('factor_den') or 1)
+        if (dots == 0) and (den == 1):
+            if head == 1:
+                return f'{new_property_name}{eq}{num}'
+            # There might be some explanatory value in fractions that are not
+            # reduced, so for example, we turn `8*4` into `#4/8` rather than
+            # `#1/2`.
+            return f'{new_property_name}{eq}#{num}/{head}'
+        # We're losing the basic duration (h) anyway, so reduce it.
+        f = Fraction(1, head) * Fraction(num, den)
+        if dots:
+            f *= Fraction((1 << (dots + 1)) - 1, 1 << dots)
+        if f.is_integer():
+            return f'{new_property_name}{eq}{f}'
+        return f'{new_property_name}{eq}#{f}'
+    return replacer
 
 @rule((2, 25, 22), r"""
 (base-length ... -> (beat-base ...
@@ -5378,7 +5396,8 @@ baseMoment = \musicLength <duration> -> beatBase = #<rational>
 """)
 def conv(s):
     s = re.sub(r'(\(\s*)base-length(\s)', r'\1beat-base\2', s)
-    s = re.sub(base_moment_re, base_moment_to_beat_base, s)
+    s = re.sub(make_mom_assign_re('baseMoment'),
+               make_mom_assign_replacer('beatBase'), s)
     # This isn't necessary, but add `#` in this case for consistency with the
     # beatBase = ... requirement.
     s = re.sub(r'(\\overrideTimeSignatureSettings\s+\d+/\d+\s+)(\d+/\d+)\b',
