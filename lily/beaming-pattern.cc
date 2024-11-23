@@ -579,9 +579,7 @@ Beaming_options::from_context (Context const *context)
 
   beat_structure_ = get_property (context, "beatStructure");
   beat_base_ = from_scm (get_property (context, "beatBase"), Rational (1, 4));
-  measure_length_
-    = from_scm (get_property (context, "measureLength"), Moment (4, 4))
-        .main_part_;
+  measure_length_ = measure_length (context);
   time_signature_ = get_property (context, "timeSignatureFraction");
 
   minimum_subdivision_interval_
