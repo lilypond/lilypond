@@ -5418,6 +5418,8 @@ completionUnit = \musicLength <duration> -> completionUnit = #<rational>
 gridInterval = \musicLength <duration> -> ... = #<rational>
 proportionalNotationDuration = \musicLength <duration> -> ... = #<rational>
 tupletSpannerDuration = \musicLength <duration> -> ... = #<rational>
+(calculate-compound-base-beat -> (...-as-moment
+(calculate-compound-measure-length -> (...-as-moment
 """)
 def conv(s):
     s = re.sub(make_mom_assign_re('maximumBeamSubdivisionInterval'),
@@ -5452,6 +5454,10 @@ def conv(s):
                r'tupletSpannerDurationAsMoment', s)
     s = re.sub(make_mom_assign_re('tupletSpannerDurationAsMoment'),
                make_mom_assign_replacer('tupletSpannerDuration'), s)
+    s = re.sub(r'(\(\s*)calculate-compound-base-beat(\s)',
+               r'\1calculate-compound-beat-base-as-moment\2', s)
+    s = re.sub(r'(\(\s*)calculate-compound-measure-length(\s)',
+               r'\1calculate-compound-measure-length-as-moment\2', s)
     return s
 
 

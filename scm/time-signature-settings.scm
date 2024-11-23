@@ -186,11 +186,11 @@
 (define-public (calc-measure-length time-signature)
   "Calculate the measure length for @var{time-signature}."
   (if (pair? time-signature)
-      (ly:make-moment (/ (car time-signature)
-                         (if (zero? (cdr time-signature))
-                             0.0 ; avoid integer div error
-                             (cdr time-signature))))
-      INF-MOMENT))
+      (/ (car time-signature)
+         (if (zero? (cdr time-signature))
+             0.0 ; avoid integer div error
+             (cdr time-signature)))
+      +inf.0)) ;; senza misura
 
 (define-public (beat-base time-signature time-signature-settings)
   "Get @code{beatBase} rational value for @var{time-signature} from
@@ -446,14 +446,15 @@ make a numbered time signature instead."
         (accumulate (+ sum (car remaining)) (cdr remaining))
         sum)))
 
-(define (calculate-compound-measure-length-as-number time-sig)
+(define-public (calculate-compound-measure-length time-sig)
   (cond
    ((not (pair? time-sig)) 4/4)
    ((pair? (car time-sig)) (calculate-complex-compound-time time-sig))
    (else (calculate-time-fraction time-sig))))
 
-(define-public (calculate-compound-measure-length time-sig)
-  (ly:make-moment (calculate-compound-measure-length-as-number time-sig)))
+;; TODO: print a deprecation warning when this is called (once per process)
+(define-public (calculate-compound-measure-length-as-moment time-sig)
+  (ly:make-moment (calculate-compound-measure-length time-sig)))
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -474,8 +475,8 @@ make a numbered time signature instead."
     ((pair? (car time-sig)) (calculate-compound-beat-base-full time-sig))
     (else (calculate-compound-beat-base-full (list time-sig))))))
 
-;; TODO: convert-ly
-(define-public (calculate-compound-base-beat time-sig)
+;; TODO: print a deprecation warning when this is called (once per process)
+(define-public (calculate-compound-beat-base-as-moment time-sig)
   (ly:make-moment (calculate-compound-beat-base time-sig)))
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

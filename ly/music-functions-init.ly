@@ -424,8 +424,7 @@ either @code{\\compoundMeter #'((3 2 8))} or the shorter version
   (let* ((mlen (calculate-compound-measure-length args))
          (beat-base (calculate-compound-beat-base args))
          (beat-structure (calculate-compound-beat-grouping args))
-         (time-sig (cons (ly:moment-main-numerator mlen)
-                         (ly:moment-main-denominator mlen))))
+         (time-sig (cons (numerator mlen) (denominator mlen))))
   #{
     \once \override Timing.TimeSignature.stencil = #(lambda (grob)
       (grob-interpret-markup grob (make-compound-meter-markup args)))
@@ -433,7 +432,7 @@ either @code{\\compoundMeter #'((3 2 8))} or the shorter version
     \set Timing.beatBase = #beat-base
     \set Timing.beatStructure = #beat-structure
     \set Timing.beamExceptions = #'()
-    \set Timing.measureLength = #mlen
+    \set Timing.measureLength = #(ly:make-moment mlen)
   #} ))
 
 compressMMRests =
