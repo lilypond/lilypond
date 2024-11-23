@@ -955,6 +955,10 @@ the new inverted glyphs are named @code{script.dupbow} and
 
 @itemize
 @item
+The new Scheme function @code{ly:parser-append-to-include-path}
+appends its argument to the current parser's include path.
+
+@item
 The @code{baseMoment} context property is deprecated in favor of
 @code{beatBase}.  Using @code{baseMoment} transparently accesses
 @code{beatBase} and triggers a warning.
