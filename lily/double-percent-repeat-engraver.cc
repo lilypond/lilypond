@@ -53,16 +53,11 @@ Double_percent_repeat_engraver::Double_percent_repeat_engraver (Context *c)
 void
 Double_percent_repeat_engraver::listen_double_percent (Stream_event *ev)
 {
-  if (!percent_event_)
+  if (assign_event_once (percent_event_, ev))
     {
-      const auto meas_len (
-        from_scm (get_property (this, "measureLength"), Moment (1)));
-      start_mom_ = now_mom () + meas_len;
+      start_mom_ = now_mom () + measure_length (context ());
       find_global_context ()->add_moment_to_process (start_mom_);
-      percent_event_ = ev;
     }
-  else
-    assign_event_once (percent_event_, ev);
 }
 
 void
