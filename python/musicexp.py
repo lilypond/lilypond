@@ -2286,9 +2286,6 @@ class BracketSpannerEvent(SpanEvent):
     def bracket_to_ly(self):
         return {1: r'\]', -1: r'\['}.get(self.span_direction, '')
 
-    def ly_expression(self):
-        return self.bracket_to_ly()
-
     def print_ly(self, printer):
         val = self.bracket_to_ly()
         if val:
@@ -2297,26 +2294,25 @@ class BracketSpannerEvent(SpanEvent):
                          "dotted": "dotted-line",
                          "wavy": "trill"}.get(self.line_type, None)
                 if style:
-                    printer.dump(r"\tweak style #'%s" % style)
+                    printer(r"\tweak style #'%s" % style)
 
                 line_end_at_start = \
                     self.get_mxl_event_attribute('line-end', 'none')
                 line_end_at_stop = \
                     self.get_paired_mxl_event_attribute('line-end', 'none')
-                printer.dump(r"\tweak edge-height #(make-edge-height '%s '%s)"
-                             % (line_end_at_start, line_end_at_stop))
+                printer(r"\tweak edge-height #(make-edge-height '%s '%s)"
+                        % (line_end_at_start, line_end_at_stop))
 
                 color = color_to_ly(self.color)
                 if color is not None:
-                    printer.dump(r'\tweak color %s' % color)
+                    printer(r'\tweak color %s' % color)
 
                 dir = {1: "#UP",
                        -1: "#DOWN"}.get(self.force_direction, '')
                 if dir:
-                    override = r"\tweak direction "
-                    printer.dump('%s%s' % (override, dir))
+                    printer(r'\tweak direction %s' % dir)
 
-            printer.dump(val)
+            printer(val)
 
 
 class OctaveShiftEvent(SpanEvent):
