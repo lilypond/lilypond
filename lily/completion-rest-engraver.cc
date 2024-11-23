@@ -109,21 +109,10 @@ Completion_rest_engraver::next_moment (Rational const &note_len)
       return result;
     }
 
-  auto *const mpos = unsmob<Moment> (get_property (this, "measurePosition"));
-  auto *const mlen = unsmob<Moment> (get_property (this, "measureLength"));
-  if (!mpos || !mlen)
-    {
-      return result; // programming error?
-    }
+  auto const mlen = measure_length (context ());
+  auto const mpos = measure_position (context (), mlen);
 
-  if (*mpos > *mlen)
-    {
-      programming_error ("invalid measure position: " + to_string (*mpos)
-                         + " of " + to_string (*mlen));
-      return result;
-    }
-
-  result = mlen->main_part_ - mpos->main_part_;
+  result = mlen - mpos.main_part_;
 
   Rational unit;
   if (auto *const u = unsmob<Moment> (get_property (this, "completionUnit")))
@@ -135,7 +124,7 @@ Completion_rest_engraver::next_moment (Rational const &note_len)
       return result;
     }
 
-  Rational const now_unit = mpos->main_part_ / unit;
+  Rational const now_unit = mpos.main_part_ / unit;
   if (now_unit.den () > 1)
     {
       /*
