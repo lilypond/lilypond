@@ -186,7 +186,10 @@
 (define-public (calc-measure-length time-signature)
   "Calculate the measure length for @var{time-signature}."
   (if (pair? time-signature)
-      (ly:make-moment (car time-signature) (cdr time-signature))
+      (ly:make-moment (/ (car time-signature)
+                         (if (zero? (cdr time-signature))
+                             0.0 ; avoid integer div error
+                             (cdr time-signature))))
       INF-MOMENT))
 
 (define-public (beat-base time-signature time-signature-settings)
