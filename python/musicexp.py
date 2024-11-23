@@ -2216,7 +2216,10 @@ class DynamicsSpannerEvent(SpanEvent):
         self.type = None
 
     def wait_for_note(self):
-        return False
+        if self.span_direction == -1:
+            return True
+        else:
+            return False
 
     def direction_mod(self):
         return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
@@ -2237,53 +2240,38 @@ class DynamicsSpannerEvent(SpanEvent):
 
         text_markup = text_to_ly(self.text_elements, ' '.join(init_markup))
 
-        # We can't use `\tweak` here.
-        overrides = []
+        val = ''
+        tweaks = []
+
         if self.type == 'cresc':
-            overrides.append(r'\once \set crescendoText = \markup '
-                             + text_markup)
-            overrides.append(r"\once \set crescendoSpanner = #'text")
+            val = r'\Cresc'
         else:
-            overrides.append(r'\once \set decrescendoText = \markup '
-                             + text_markup)
-            overrides.append(r"\once \set decrescendoSpanner = #'text")
+            val = r'\Decresc'
 
-        if self.visible:
-            color = color_to_ly(self.color)
-            if color is not None:
-                overrides.append(r'\once \override '
-                                 r'DynamicTextSpanner.color = %s' % color)
-            font_size = get_font_size(self.font_size, command=False)
-            if font_size is not None:
-                overrides.append(r'\once \override '
-                                 r'DynamicTextSpanner.font-size = %s'
-                                 % font_size)
-        else:
-            overrides.append(r'\once \override '
-                             r'DynamicTextSpanner.transparent = ##t')
+        color = color_to_ly(self.color)
+        if color is not None:
+            tweaks.append(r'\tweak color %s' % color)
+        font_size = get_font_size(self.font_size, command=False)
+        if font_size is not None:
+            tweaks.append(r'\tweak font-size %s' % font_size)
 
-        val = {'cresc': r'\<',
-               'dim': r'\>'}.get(self.type, '')
+        tweaks.append(r'\tweak text \markup ' + text_markup)
 
-        return (overrides, val)
-
-    def ly_expression(self):
-        if self.span_direction == -1:
-            (overrides, val) = self.dynamics_spanner_to_ly()
-
-            return '%s <>%s' % (' '.join(overrides), val)
-        else:
-            return r'<>\!'
+        return (tweaks, val)
 
     def print_ly(self, printer):
         if self.span_direction == -1:
-            (overrides, val) = self.dynamics_spanner_to_ly()
+            (tweaks, val) = self.dynamics_spanner_to_ly()
+            not_visible = super().not_visible()
 
-            for override in overrides:
-                printer('%s' % override)
-
-            printer('<>%s%s' % (self.direction_mod(), val))
-        else:
+            if tweaks:
+                printer('%s%s' % (not_visible, tweaks[0]))
+                for tweak in tweaks[1:]:
+                    printer(tweak)
+                printer('%s%s' % (self.direction_mod(), val))
+            else:
+                printer('%s%s%s' % (not_visible, self.direction_mod(), val))
+        elif self.span_direction == 1:
             printer(r'<>\!')
 
 

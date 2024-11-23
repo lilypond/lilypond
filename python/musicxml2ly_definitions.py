@@ -493,4 +493,14 @@ substFinger =
     "pluck": """\
 RH = \\rightHandFinger \\etc
 """,
+
+   "crescendo": """\
+Cresc = #(make-music 'CrescendoEvent 'span-direction START
+                                     'span-type 'text)
+""",
+
+   "decrescendo": """\
+Decresc = #(make-music 'DecrescendoEvent 'span-direction START
+                                         'span-type 'text)
+""",
 }

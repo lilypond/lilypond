@@ -2023,10 +2023,12 @@ def musicxml_dashes_to_lily_event(elements, type):
 
 
 def musicxml_cresc_spanner_to_lily_event(elements):
+    needed_additional_definitions.append("crescendo")
     return musicxml_dynamics_spanner_to_lily_event(elements, 'cresc')
 
 
 def musicxml_dim_spanner_to_lily_event(elements):
+    needed_additional_definitions.append("decrescendo")
     return musicxml_dynamics_spanner_to_lily_event(elements, 'dim')
 
 
