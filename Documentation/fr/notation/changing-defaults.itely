@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+   Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -33,13 +33,9 @@ ou tel effet en particulier.
 Les moyens de contrôle des différents réglages sont décrits dans un
 document séparé, @rinternalsnamed{Top,la référence des propriétés
 internes}. Ce guide répertorie toutes les variables, fonctions et autres
-options que LilyPond met à votre disposition. Il est consultable
-@c leave the @uref as one long line.
-@uref{https://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,en ligne},
-au format HTML ; il est également inclus dans la documentation fournie
-avec le logiciel.
+options que LilyPond met à votre disposition.
 
-En sous-main, LilyPond se sert du langage Scheme (un dérivé du LISP)
+En sous-main, LilyPond se sert du langage Scheme (un dérivé du Lisp)
 comme infrastructure. Modifier les choix de mise en page revient à
 pénétrer dans les entrailles du programme, et de ce fait requiert
 l'emploi du Scheme. Les fragments de Scheme, dans un fichier @file{.ly},
@@ -91,27 +87,7 @@ Référence des propriétés internes :
 @node Contexts explained
 @subsection Tout savoir sur les contextes
 
-@ignore
-@c TODO Rethink and rewrite
-
->> > > - list of contexts: my *danger unmaintainable*
->> > > alarm just went off.  I'm
-
-I knew it would... And leaving out some of them is perfectly fine with
-me. I do think that a list like this, with the main contexts and a brief
-description of what they do (perhaps also with a note about what default
-behavior is associated with each of them, but this may be unmanageable),
-should be there, and then we could simply list the remaining ones
-without further explanation and with links to the IR.
-@end ignore
-
-@c TODO Improve layout, order and consistency of wording -td
-
-@c TODO Add introduction which explains contexts in generality  -td
-
-@c TODO Describe propagation of property values -td
-
-Les contextes sont hiérarchisés :
+Les contextes sont hiérarchisés.
 
 @menu
 * Output definitions - blueprints for contexts::
@@ -126,9 +102,9 @@ Les contextes sont hiérarchisés :
 @unnumberedsubsubsec Définitions de la sortie -- hiérarchie des contextes
 
 Les lignes qui suivent traitent de l'intérêt des définitions de sorties
-lorsque l'on travaille avec les contextes. Des exemples de définitions
-seront présentés plus avant -- @pxref{Changing all contexts of the same
-type}.
+lorsque l'on travaille avec les @dfn{contextes}. Des exemples de
+définitions seront présentés plus avant -- @pxref{Changing all contexts
+of the same type}.
 
 @cindex définition de sortie
 @cindex sortie, définition
@@ -137,8 +113,8 @@ type}.
 Alors que la musique écrite dans un fichier fait référence à des types
 ou noms de contexte, les contextes ne sont effectivement créés que
 lorsque la musique est interprétée. LilyPond interprète la musique sous
-le contrôle d'une « définition de sortie », voire différemment selon le
-cas, et génère ainsi différents résultats. La définition de sortie
+le contrôle d'une @dfn{définition de sortie}, voire différemment selon
+le cas, et génère ainsi différents résultats. La définition de sortie
 appropriée pour une sortie imprimable est spécifiée à l'aide d'un
 @code{\layout}.
 
@@ -154,7 +130,7 @@ voices}).
 Les définitions de sortie ont pour objet non seulement de définir la
 relation entre les contextes, mais aussi leurs réglages par défaut. Si
 la plupart des adaptations prennent habituellement place au sein d'un
-bloc @code{\layout}, les réglages affectant le Midi ne seront effectifs
+bloc @code{\layout}, les réglages affectant le MIDI ne seront effectifs
 que s'ils interviennent au sein d'un bloc @code{\midi}.
 
 
@@ -168,7 +144,7 @@ durations}. Cette correspondance est respectée autant à l'écrit qu'à
 l'oral. Des modifications apportées à @code{autoBeaming} par une
 définition de contexte au sein d'un bloc @code{\layout} ne seront pas
 reportées dans le bloc @code{\midi} correspondant ; paroles et musique
-ne seront alors plus synchrones dans le fichier Midi.
+ne seront alors plus synchrones dans le fichier MIDI.
 
 @morerefs
 Fichiers d'initialisation :
@@ -177,166 +153,290 @@ Fichiers d'initialisation :
 @endmorerefs
 
 
+@c The context descriptions should be harmonized with the
+@c descriptions in `engraver-init.ly`.
+
 @node Score - the master of all contexts
 @unnumberedsubsubsec Score -- le père de tous les contextes
 
+@funindex Score
+@funindex Global
 Il s'agit en l'occurrence du contexte le plus élevé, autrement dit le
-plus important, en matière de notation. En effet, c'est au niveau de la
-partition -- @emph{score} en anglais -- que se gèrent le temps et la
-tonalité ; c'est donc là qu'il faut s'assurer que les différents
-éléments, tels les clefs, métriques et armures sont bien répercutés sur
-toutes les portées.
+plus important, en matière de notation.@footnote{Il existe bien un
+contexte nommé @code{Global} au-dessus de @code{Score}, codé en dur et
+point d'entrée pour LilyPond. Néanmoins, il n'est pas destiné à être
+modifié, et sera utile uniquement pour la construction d'un graveur en
+Scheme. On peut donc l'ignorer en règle générale.} En effet, c'est au
+niveau de la partition -- @emph{score} en anglais -- que se gèrent le
+temps et la tonalité ; c'est donc là qu'il faut s'assurer que les
+différents éléments, tels les clefs, métriques et armures sont bien
+répercutés sur toutes les portées.
 
-Dès lors que LilyPond rencontre un bloc @code{\score @{@dots{}@}} se
-crée implicitement un contexte @code{Score}.
+On ne peut créer explicitement de contexte @code{Score} dans la mesure
+où il n'est contenu dans aucun autre contexte. Dès lors que LilyPond
+rencontre un bloc @code{\score @{@dots{}@}} se crée implicitement un
+contexte @code{Score}.
+
+@funindex Timing
+Un alias nommé @code{Timing} est établi par le @code{Timing_translator}
+quel que soit le contexte qui l'initialise, et les variables de temps
+sont alors recopiées de là où @code{Timing} a précédemment été établi.
+L'alias au niveau de @code{Score} fournit une cible pour
+l'initialisation des variables de @code{Timing} dans les définitions de
+mise en forme avant même qu'un quelconque @code{Timing_translator} ne
+soit lancé.
 
 
 @node Top-level contexts - staff containers
 @unnumberedsubsubsec Contextes de haut niveau -- les systèmes
 
-De nombreuses partitions sont écrites sur plus d'une portée. Ces portées
-peuvent être regroupées de différentes manières.
-
-@strong{@emph{StaffGroup}}
-
+@table @code
+@funindex StaffGroup
+@item StaffGroup
 Le groupe de portées est attaché par un crochet et les barres de mesure
-sont d'un seul tenant, de la première à la dernière portée. Le
-@code{StaffGroup} constitue le regroupement le plus simple.
+sont d'un seul tenant, de la première à la dernière portée.
 
-@strong{@emph{ChoirStaff}}
-
+@item ChoirStaff
+@funindex ChoirStaff
 Ce regroupement est identique au @code{StaffGroup}, à ceci près que les
 barres de mesure ne traversent pas l'espace inter-portées.
 
-@strong{@emph{GrandStaff}}
-
+@item GrandStaff
+@funindex GrandStaff
 Le groupe de portées est attaché par une accolade sur la gauche et les
 barres de mesure sont d'un seul tenant.
 
-@strong{@emph{PianoStaff}}
+@item PianoStaff
+@funindex PianoStaff
+Ce regroupement est identique au @code{GrandStaff}, à ceci près que ses
+portées ne pourront être masquées que conjointement, jamais
+individuellement.
 
-Ce regroupement est identique au @code{GrandStaff}, à ceci près que le
-nom de l'instrument sera directement attaché au système.
+@item OneStaff
+@funindex OneStaff
+@funindex \startStaff
+@funindex \stopStaff
+Ce regroupement fournit un axe commun pour les portées qu'il englobe,
+les faisant ainsi apparaître dans un même espace vertical. Ceci peut
+s'avérer utile dans le cas d'un succession de portées d'aspect différent
+ou pour temporairement changer l'aspect d'une portée ou la recouvrir
+d'une autre. On l'utilise souvent en combinaison avec @code{\stopStaff}
+et @code{\startStaff} pour de meilleurs résultats.
+
+@item VaticanaScore
+@funindex VaticanaScore
+Contexte de plus haut niveau remplaçant @code{Score} pour noter du
+grégorien selon le style vatican. Par rapport à @code{Score}, les lignes
+apparaissent en rouge, l'espacement est plus resserré et les mesures ne
+sont pas numérotées.
+
+@item ChordGridScore
+@funindex ChordGridScore
+Contexte de plus haut niveau remplaçant @code{Score} pour noter des
+grilles harmoniques. Par rapport à @code{Score}, il utilise la notation
+proportionnelle et dispose de quelques réglages particuliers tels que la
+suppression des numéros de mesure.
+
+@item StandaloneRhythmScore
+@funindex StandaloneRhythmScore
+@funindex \rhythm
+Contexte de niveau @code{Score} dévolu à @code{\markup \rhythm}.
+@end table
 
 
 @node Intermediate-level contexts - staves
 @unnumberedsubsubsec Contextes de niveau intermédiaire -- les portées
 
-@strong{@emph{Staff}}
-
+@table @code
+@item Staff
+@funindex Staff
 La portée prend en charge les clefs, barres de mesure, armures et les
 altérations accidentelles. Un contexte @code{Staff} peut contenir
 plusieurs contextes @code{Voice}.
 
-@strong{@emph{RhythmicStaff}}
-
+@item RhythmicStaff
+@funindex RhythmicStaff
 De même nature qu'un @code{Staff}, ce contexte est destiné à n'imprimer
 que du rythme. Quelle que soit la hauteur, les notes seront imprimées
 sur une même et unique ligne ; la sortie MIDI rendra les hauteurs
 saisies.
 
-@strong{@emph{TabStaff}}
-
+@item TabStaff
+@funindex TabStaff
 Ce contexte permet de générer des tablatures. La mise en forme par
-défaut correspond à une tablature pour guitare, sur six lignes.
+défaut correspond à une tablature pour guitare, sur six lignes. Un
+contexte @code{TabStaff} ne peut contenir que des contextes
+@code{TabVoice}.
 
-@strong{@emph{DrumStaff}}
-
+@item DrumStaff
+@funindex DrumStaff
 Contexte dévolu tout spécialement aux parties de percussion ; il
 peut contenir plusieurs @code{DrumVoice}.
 
-@strong{@emph{VaticanaStaff}}
-
+@item VaticanaStaff
+@funindex VaticanaStaff
 Identique au contexte @code{Staff}, à ceci près qu'il est tout
 particulièrement adapté au grégorien.
 
-@strong{@emph{MensuralStaff}}
-
+@item MensuralStaff
+@funindex MensuralStaff
 Identique au contexte @code{Staff}, à ceci près qu'il est tout
 particulièrement adapté au style mensural de musique ancienne.
+
+@item PetrucciStaff
+@funindex PetrucciStaff
+Un type de @code{Staff} cherchant à reproduire les préceptes édictés par
+Ottaviano Petrucci dans @cite{Harmonices Musices Odhecaton} (Venise,
+1501).
+
+@item KievanStaff
+@funindex KievanStaff
+Identique au contexte @code{Staff}, à ceci près qu'il est tout
+particulièrement adapté au style de notation kiévienne.
+
+@item GregorianTranscriptionStaff
+@funindex GregorianTranscriptionStaff
+Portée destinée à noter du grégorien dans un style moderne.
+
+@item ChordGrid
+@funindex ChordGrid
+Crée une otation en grilles harmoniques. Ce contexte est toujours
+attaché à un contexte @code{ChordGridScore}.
+
+@item StandaloneRhythmStaff
+@funindex StandaloneRhythmStaff
+@funindex \rhythm
+Contexte de niveau @code{Staff} dévolu à @code{\markup \rhythm}.
+
+@item FretBoards
+@funindex FretBoards
+Contexte permettant d'afficher des diagrammes de fret.
+
+@c TODO: Add or reference an example or snippet.
+@item Devnull
+@funindex Devnull
+Passe sous silence toutes les informations musicales contenues dans ce
+contexte.
+@end table
 
 
 @node Bottom-level contexts - voices
 @unnumberedsubsubsec Contextes de bas niveau -- les voix
 
+@funindex \defaultchild
 Les contextes de niveau « voix » initialisent un certain nombre de
 propriétés et activent les graveurs appropriés. Un contexte de bas
 niveau est un contexte n'ayant aucun contexte enfant -- ou
-@code{defaultchild}. Bien qu'ils puissent accepter ou contenir des
+@code{\defaultchild}. Bien qu'ils puissent accepter ou contenir des
 sous-contextes, ceux-ci devront être libellés et créés explicitement.
 
-@strong{@emph{Voice}}
-
+@table @code
+@item Voice
+@funindex Voice
 Correspond à une voix positionnée sur une portée. Le contexte
 @code{Voice} s'occupe des indications de nuance, des hampes, des
 ligatures, des scripts placés au-dessus ou au-dessous de la portée, des
-différentes liaisons et des silences. Lorsque plusieurs voix doivent
-cohabiter sur la même portée, il est indispensable de les instancier
-explicitement.
+différentes liaisons et des silences.
 
-@strong{@emph{VaticanaVoice}}
+Lorsque plusieurs voix doivent cohabiter sur la même portée, il est
+indispensable de les instancier explicitement.
 
+@item VaticanaVoice
+@funindex VaticanaVoice
 Fonctionnant comme le contexte @code{Voice}, il est tout
 particulièrement destiné à gérer le grégorien.
 
-@strong{@emph{MensuralVoice}}
-
+@item MensuralVoice
+@funindex MensuralVoice
 Fonctionnant comme le contexte @code{Voice}, il est tout
 particulièrement adapté aux musiques anciennes.
 
-@strong{@emph{Lyrics}}
+@item PetrucciVoice
+@funindex PetrucciVoice
+Un type de @code{Voice} cherchant à reproduire les préceptes édictés par
+Ottaviano Petrucci dans @cite{Harmonices Musices Odhecaton} (Venise,
+1501).
 
+@item KievanVoice
+@funindex KievanVoice
+Identique au contexte @code{Voice}, à ceci près qu'il est tout
+particulièrement adapté au style de notation kiévienne.
+
+@item GregorianTranscriptionVoice
+@funindex GregorianTranscriptionVoice
+Voix destinée à noter du grégorien dans un style moderne.
+
+@item Lyrics
+@funindex Lyrics
 Correspond à une voix contenant des paroles. Le contexte @code{Lyrics}
 gère l'impression d'une ligne de paroles.
 
-@strong{@emph{DrumVoice}}
+@item VaticanaLyrics
+@funindex VaticanaLyrics
+Identique au contexte @code{Lyrics}, à ceci près qu'il fournit un style
+d'hyphénation (trait d'union simple aligné sur la syllabe de gauche)
+tels qu'utilisé end @cite{Editio Vaticana}.
 
+@item GregorianTranscriptionLyrics
+@funindex GregorianTranscriptionLyrics
+Contexte de paroles pour noter du grégorien dans un style moderne.
+
+@item DrumVoice
+@funindex DrumVoice
 Contexte de voix dévolu à une portée de percussions.
 
-@strong{@emph{FiguredBass}}
-
+@item FiguredBass
+@funindex FiguredBass
 Contexte prenant en charge les objets @code{BassFigure} -- la basse
 chiffrée -- créés à partir de ce qui a été saisi en mode
 @code{\figuremode}.
 
-@strong{@emph{TabVoice}}
-
+@item TabVoice
+@funindex TabVoice
 Contexte de voix dévolu au contexte @code{TabStaff}, il est
 habituellement créé implicitement.
 
-@strong{@emph{CueVoice}}
-
+@item CueVoice
+@funindex CueVoice
 Contexte de voix utilisé essentiellement dans le cadre de citations
-ajoutées à une portée -- voir @ref{Formatting cue notes} --, il est
+ajoutées à une portée -- @pxref{Formatting cue notes} --, il est
 habituellement créé implicitement.
 
-@strong{@emph{ChordNames}}
-
+@item ChordNames
+@funindex ChordNames
 Permet d'imprimer des noms d'accord.
 
-@ignore
-TODO
+@item NoteNames
+@funindex NoteNames
+Permet d'imprimer le nom des notes.
 
-Then the following, which I don't know what to do with:
+@item NullVoice
+@funindex NullVoice
+Permat d'aligner des paroles san afficher les notes.
 
-    * GregorianTranscriptionVoice
-    * GregorianTranscriptionStaff
+@c TODO: Add or reference an example or snippet.
+@item Devnull
+@funindex Devnull
+Passe sous silence toutes les informations musicales contenues dans ce
+contexte.
 
-    * FretBoards
-        Engraves fretboards from chords. Not easy... Not
-documented.
-        There is now some documentation on FretBoards in the NR, under
-         instrument-specific notation -- cds.
+@item Dynamics
+@funindex Dynamics
+Gère les nuances sur une même ligne, centrée entre les portées qui
+entourent ce contexte.
 
-    * NoteNames
+@item StandaloneRhythmVoice
+@funindex StandaloneRhythmVoice
+@funindex \rhythm
+Contexte de niveau @code{Voice} dévolu à @code{\markup \rhythm}.
 
-    * Global
-        Hard coded entry point for LilyPond. Cannot be tuned.
-    * Devnull
-        Silently discards all musical information given to this
-context.
-
-@end ignore
+@item Bottom
+@funindex Bottom
+Il s'agit d'un contexte du plus bas niveau, accepté par tous les
+contextes intermédiaires. Il s'avère utile dans des situations où la
+même musique est utilisée, par exemple, à la fois dans des contextes
+@code{Staff} et @code{TabStaff}.
+@end table
 
 
 @node Creating and referencing contexts
@@ -357,7 +457,7 @@ les contextes, à l'aide des commandes @code{\new} ou @code{\context}.
 Leur syntaxe est très similaire :
 
 @example
-[\new | \context] @var{Contexte} [ = @var{nom}] [@var{musique}]
+[\new | \context] @var{Contexte} [= @var{nom}] [@var{musique}]
 @end example
 
 @noindent
@@ -388,12 +488,10 @@ et pour regrouper des voix sur une même portée :
 @lilypond[quote,verbatim]
 \new Staff <<
   \new Voice \relative {
-    \voiceOne
-    c''8 c c4 c c
+    \voiceOne c''8 c c4 c c
   }
   \new Voice \relative {
-    \voiceTwo
-    g'4 g g g
+    \voiceTwo g'4 g g g
   }
 >>
 @end lilypond
@@ -412,21 +510,19 @@ contexte même s'il en existe déjà un portant le même nom :
 @lilypond[quote,verbatim]
 \new Staff <<
   \new Voice = "A" \relative {
-    \voiceOne
-    c''8 c c4 c c
+    \voiceOne c''8 c c4 c c
   }
   \new Voice = "A" \relative {
-    \voiceTwo
-    g'4 g g g
+    \voiceTwo g'4 g g g
   }
 >>
 @end lilypond
 
 @item
-La commande @code{\context} avec nommage créera un contexte distinct
+La commande @code{\context} avec nommage crée un contexte distinct
 uniquement dans le cas où ne préexiste aucun contexte du même nom dans
-la même hiérarchie de contextes. Dans le cas contraire, il servira de
-référence au contexte précédemment créé, et son expression musicale sera
+la même hiérarchie de contextes. Dans le cas contraire, il sert de
+référence au contexte précédemment créé, et son expression musicale est
 transmise dans ce contexte pour interprétation.
 
 Le nommage des contextes se révèle fort utile dans le cadre des paroles
@@ -500,9 +596,9 @@ code source avec des variables}.
 
 @item
 @funindex \applyContext
-La commande @code{\context} utilisée sans nommage recherchera le premier
+La commande @code{\context} utilisée sans nommage recherche le premier
 de tous les contextes du même type précédemment créés dans la même
-hiérarchie de contextes ; l'expression musicale lui sera alors transmise
+hiérarchie de contextes ; l'expression musicale lui est alors transmise
 pour interprétation. Bien que rarement utilisée, cette formulation de
 @code{\context} sans nommage ni expression musicale permet de définir le
 contexte dans lequel une procédure Scheme comportant une clause
@@ -512,9 +608,9 @@ contexte dans lequel une procédure Scheme comportant une clause
 \new Staff \relative @{
   c'1
   \context Timing
-  \applyContext #(lambda (ctx)
-                   (newline)
-                   (display (ly:context-current-moment ctx)))
+    \applyContext #(lambda (ctx)
+                     (newline)
+                     (display (ly:context-current-moment ctx)))
   c1
 @}
 @end example
@@ -569,13 +665,21 @@ introduit par la commande @code{\change}, l'association de paroles à
 l'aide de la commande @code{\lyricsto} ou si des événements surviennent
 à nouveau pour ce contexte précédemment actif.
 
-Une exception cependant à cette règle : en présence d'un contexte
-@code{Staff} ou dans une construction @code{<< @dots{} >>}, un seul des
-contextes @code{Voice} inclus restera actif jusqu'à la fin du contexte
-@code{Staff} ou de la construction @code{<< @dots{} >>}, y compris s'il
-y a des « trous ». Le contexte alors persistant sera le premier
-rencontré dans la construction @code{@{ @dots{} @}} sans tenir compte
-des éventuels @code{<< @dots{} >>} qu'elle pourrait contenir.
+Une exception cependant à cette règle : à l'intérieur d'une construction
+@code{@{@dots{}@}} (séquence musicale), la notion de construction du
+« contexte en cours » descendra dès lors qu'un élément de la séquence se
+trouve dans un sous-contexte par rapport au contexte courrant. Ceci
+évite la création intempestive de contextes implicites dans nombre de
+situations, mais signifie que le premier contexte dans lequel on descend
+sera gardé actif jusqu'à la fin de l'expression.
+
+Par contre, en présence d'un contexte @code{Staff} ou dans une
+construction @code{<< @dots{} >>}, un seul des contextes @code{Voice}
+inclus restera actif jusqu'à la fin du contexte @code{Staff} ou de la
+construction @code{<< @dots{} >>}, y compris s'il y a des « trous ». Le
+contexte alors persistant sera le premier rencontré dans la construction
+@code{@{ @dots{} @}} sans tenir compte des éventuels
+@code{<< @dots{} >>} qu'elle pourrait contenir.
 
 Un contexte restera actif dès lors qu'il s'y passera toujours quelque
 chose. Un contexte @code{Staff} restera actif si l'une des voix qu'il
@@ -594,19 +698,17 @@ musicA = \relative { d''4 d d d }
 musicB = \relative { g'4 g g g }
 keepVoicesAlive = {
   <<
-    \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
-    \new Voice = "B" { s1*5 }  % Keep Voice "B" alive for 5 bars
+    \new Voice = "A" { s1*5 }  % keep voice 'A' alive for 5 bars
+    \new Voice = "B" { s1*5 }  % keep voice 'B' alive for 5 bars
   >>
 }
 
 music = {
   \context Voice = "A" {
-    \voiceOneStyle
-    \musicA
+    \voiceOneStyle \musicA
   }
   \context Voice = "B" {
-    \voiceTwoStyle
-    \musicB
+    \voiceTwoStyle \musicB
   }
   \context Voice = "A" { \musicA }
   \context Voice = "B" { \musicB }
@@ -631,18 +733,17 @@ réalité, mélodie et accompagnement feraient l'objet de portées séparées.
 melody = \relative { a'4 a a a }
 accompaniment = \relative { d'4 d d d }
 words = \lyricmode { These words fol -- low the mel -- o -- dy }
+
 \score {
   <<
     \new Staff = "music" {
       <<
         \new Voice = "melody" {
-          \voiceOne
-          s1*4  % Keep Voice "melody" alive for 4 bars
+          \voiceOne s1*4  % Keep Voice "melody" alive for 4 bars
         }
         {
           \new Voice = "accompaniment" {
-            \voiceTwo
-            \accompaniment
+            \voiceTwo \accompaniment
           }
           <<
             \context Voice = "melody" { \melody }
@@ -686,12 +787,10 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
     \new Staff = "music" {
       <<
         \new Voice = "melody" {
-          \voiceOne
-          \melody
+          \voiceOne \melody
         }
         \new Voice = "accompaniment" {
-          \voiceTwo
-          \accompaniment
+          \voiceTwo \accompaniment
         }
       >>
     }
@@ -705,8 +804,6 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 @node Modifying context plug-ins
 @subsection Modification des greffons de contexte
 
-@c TODO Should this be Modifying engravers or Modifying contexts?
-
 Les contextes, tels que @code{Score} ou @code{Staff}, ne contiennent pas
 que des propriétés ; ils mettent également en œuvre certains
 sous-programmes (@emph{plug-ins} pour employer le terme consacré) nommés
@@ -718,20 +815,8 @@ contexte @code{Staff}, un graveur @code{Key_engraver}, chargé de
 l'armure.
 
 Vous trouverez une description exhaustive de chaque graveur dans
-@ifhtml
-@rinternals{Engravers and Performers}.
-@end ifhtml
-@ifnothtml
-Référence des propriétés internes @expansion{} Translation @expansion{} Engravers.
-@end ifnothtml
-Chaque contexte mentionné dans
-@ifhtml
-@rinternals{Contexts}
-@end ifhtml
-@ifnothtml
-Référence des propriétés internes @expansion{} Translation @expansion{} Context.
-@end ifnothtml
-répertorie les graveurs mis en œuvre.
+@rinternals{Engravers and Performers}. Chaque contexte mentionné dans
+@rinternals{Contexts} répertorie les graveurs mis en œuvre.
 
 On peut faire, au moyen de ces graveurs, sa propre « cuisine », en
 modifiant les contextes à volonté.
@@ -759,9 +844,9 @@ Lorsqu'un contexte est créé, par la commande @code{\new} ou
 @end example
 
 @noindent
-Ici chacun des points de suspension @dots{} devront être remplacés par
-le nom des graveurs désirés. Dans l'exemple suivant, on enlève du
-contexte @code{Staff} la métrique (graveur
+Ici chacun des points de suspension @samp{@dots{}} devront être
+remplacés par le nom des graveurs désirés. Dans l'exemple suivant, on
+enlève du contexte @code{Staff} la métrique (graveur
 @code{Time_signature_engraver}) et la clef (graveur
 @code{Clef_engraver}).
 
@@ -826,10 +911,10 @@ Fichiers d'initialisation :
 @cindex contexte, modification des propriétés par défaut
 
 Les propriétés des contextes et objets graphiques se modifient à l'aide
-des commandes @code{\set} et @code{\override}, comme indiqué à la
-rubrique @ref{Modifying properties}. Ces commandes créent des événements
-musicaux qui feront que la modification produira ses effets dès
-l'instant où la musique est traitée.
+des commandes @code{\set} et @code{\override} -- @pxref{Modifying
+properties}. Ces commandes créent des événements musicaux qui feront que
+la modification produira ses effets dès l'instant où la musique est
+traitée.
 
 Le propos est ici de voir comment modifier les valeurs @emph{par défaut}
 des propriétés de contexte ou d'objet graphique dès la création de ces
@@ -1036,11 +1121,11 @@ spécifiant le mode :
 puisque c'est le contexte implicite alors créé qui devra être modifié.
 Cette manière de procéder s'applique à toutes les autres formes abrégées
 de spécification du mode de saisie (@code{\drums}, @code{\figures}) --
-voir @ref{Input modes}.
+@pxref{Input modes}.
 
 Dans la mesure où une telle « modification de contexte » est spécifiée
 au sein même de la musique, ses effets toucheront @b{toutes} les sorties
-(imprimable @strong{et} Midi), contrairement à ce qui se passe lorsque
+(imprimable @strong{et} MIDI), contrairement à ce qui se passe lorsque
 les adaptations sont réalisées dans la définition d'une sortie.
 
 La spécification des adaptations peut se faire de différentes manières :
@@ -1054,8 +1139,7 @@ contexte :
 @lilypond[quote,verbatim]
 \score {
   \new Staff {
-    \new Voice \with { \override Stem.thickness = 4.0 }
-    {
+    \new Voice \with { \override Stem.thickness = 4.0 } {
       \relative {
         a'4^"Hampes épaisses" a a a
         a4 a a a
@@ -1077,8 +1161,7 @@ en définissant directement une propriété de contexte :
         a4 a a a
       }
     }
-    \new Staff \with { fontSize = -4 }
-    {
+    \new Staff \with { fontSize = -4 } {
       \relative {
         a'4^"Smaller font" a a a
         a4 a a a
@@ -1103,10 +1186,8 @@ en définissant directement une propriété de contexte :
         }
       }
     }
-    \new Staff \with { \accidentalStyle dodecaphonic }
-    {
-      \new Voice \with { \dynamicUp }
-      {
+    \new Staff \with { \accidentalStyle dodecaphonic } {
+      \new Voice \with { \dynamicUp } {
         \relative {
           a'4^"Nuances en surplomb" a a a
           a4 a a\ff a
@@ -1152,7 +1233,8 @@ en l'absence de quoi s'appliqueront les réglages prédéfinis de LilyPond.
 
 @morerefs
 Manuel d'initiation :
-@rlearningnamed{Modifying context properties, Modification des propriétés d'un contexte}.
+@rlearningnamed{Modifying context properties,
+Modification des propriétés d'un contexte}.
 
 Manuel de notation :
 @ref{Bottom-level contexts - voices},
@@ -1282,7 +1364,7 @@ hampe :
 Tous ces modules doivent communiquer sous le contrôle du contexte. Les
 mécanismes permettant aux contextes de communiquer sont établis dès lors
 que le mot-clé @code{\type} précède le contexte. La plupart des
-contextes mentionnés au sein d'un bloc @code{\layout} seront de type
+contextes mentionnés au sein d'un bloc @code{\layout} sont de type
 @code{Engraver@/_group}. Certains contextes spécifiques reposent sur
 d'autres types de contexte. Recopier un contexte préexistant pour en
 modifier la définition lui affecte le type adéquat. Dans la mesure où
@@ -1328,7 +1410,7 @@ moyen de la commande @code{\accepts} :
 @funindex \inherit-acceptability
 Souvent, lorsque l'on réutilise le définition d'un contexte, le contexte
 qui en résultera devrait pouvoir s'utiliser partout où le contexte
-originel serait utile.
+originel serait utile. Écrire
 
 @example
 \layout @{
@@ -1338,7 +1420,7 @@ originel serait utile.
 @end example
 
 @noindent
-fera en sorte que les contextes de type @var{résultant} soient acceptés
+fait en sorte que les contextes de type @var{résultant} soient acceptés
 par le contextes qui acceptent @var{originel}. Par exemple, libeller
 
 @example
@@ -1349,7 +1431,7 @@ par le contextes qui acceptent @var{originel}. Par exemple, libeller
 @end example
 
 @noindent
-aura pour effet d'ajouter un @code{\accepts} pour @code{ImproVoice} à la
+a pour effet d'ajouter un @code{\accepts} pour @code{ImproVoice} à la
 fois aux définitions de @code{Staff} et @code{RhythmicStaff}.
 
 @funindex \denies
@@ -1404,9 +1486,9 @@ En matière de sortie MIDI, la syntaxe permettant de définir de nouveaux
 types de contextes est identique, à ceci près que la section
 @code{\context} viendra se placer au sein du bloc @code{\midi} et le
 @code{\type} sera @code{Performer_@/group} au lieu de
-@code{Engraver_@/group}. Le terme @emph{engraver} (graveur) fait
+@code{Engraver_@/group}. Le terme @dfn{engraver} (graveur) fait
 référence à un module de contexte chargé de générer une sotie visuelle,
-alors qu'un @emph{performer} (exécutant) est dévolu exclusivement à une
+alors qu'un @dfn{performer} (exécutant) est dévolu exclusivement à une
 sortie MIDI. Lorsque les noms de modules comportent @emph{translator}
 (traducteur) au lieu de @emph{engraver} ou @emph{performer}, ils sont
 alors fonctionnels tant pour des sorties graphiques qu'audio. Afin
@@ -1479,12 +1561,15 @@ proportionnelle est activée (cf. @ref{Proportional notation}).
     \Score
     \name ProportionalScore
     \alias Score
-    proportionalNotationDuration = \musicLength 4
+    proportionalNotationDuration = \musicLength 8
   }
   \inherit-acceptability ProportionalScore Score
 }
 
-\new ProportionalScore { c'1 2 4 8 16 32 64 64 }
+music = { c'1 2 4 8 16 16 }
+
+\new Score \music
+\new ProportionalScore \music
 @end lilypond
 
 @funindex Score_engraver
@@ -1530,7 +1615,7 @@ repositionné sur une portée séparée.
   \new TabStaff <<
     \new TabVoice { c'1 }
     \new Voice { d'1 }
-    >>
+  >>
 }
 @end lilypond
 
@@ -1542,11 +1627,11 @@ Néanmoins, et grâce à une instruction @code{\accepts}, un contexte
   \new TabStaff <<
     \new TabVoice { c'1 }
     \new Voice { d'1 }
-    >>
-  \layout {
-    \context {
-      \TabStaff
-      \accepts Voice
+  >>
+\layout {
+  \context {
+    \TabStaff
+    \accepts Voice
     }
   }
 }
@@ -1563,7 +1648,7 @@ se substitue au contexte @code{Voice} dans la « liste d'agrément ».
 @funindex \defaultchild
 
 Gardez à l'esprit que, face à une instruction qui ne s'appliquerait à
-aucun contexte déjà existant, LilyPond créera un nouveau contexte
+aucun contexte déjà existant, LilyPond crée un nouveau contexte
 implicite.
 
 Lors de la définition d'un contexte, les types de contextes sous-jacents
@@ -1571,7 +1656,7 @@ susceptibles d'être créés implicitement sont spécifiés à l'aide d'une
 commande @code{\defaultchild}. Un certain nombre d'événements musicaux
 requièrent un contexte de plus bas niveau ; face à un tel événement,
 LilyPond crée autant de « sous-contextes » que nécessaire, jusqu'au
-contexte ne comportant aucun @emph{defaultchild}.
+contexte ne comportant aucun @code{\defaultchild}.
 
 La création implicite de contexte peut donc finir par engendrer de
 manière intempestive une nouvelle portée ou une autre partition.

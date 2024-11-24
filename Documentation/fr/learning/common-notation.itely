@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: dc7cd6d41c4dd62eb9db709658eb1e60ec90b2ad
+   Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -573,7 +573,12 @@ On peut ajouter du texte à une partition :
 \relative { c''2^"espr" a'_"legato" }
 @end lilypond
 
-Pour mettre en forme du texte, on utilise la commande @code{\markup} :
+Pour mettre en forme du texte, on utilise la commande
+@code{\markup}.@footnote{Pour les langues qui s'écrivent de droite à
+gauche, il faudra remplacer @code{\markup @{ ... @}} par @code{\markup
+\override #'(text-direction . LEFT) \line @{ ... @}}. Ceci ne sera
+toutefois pas nécessaire si les texte est placé entre guillemets dans la
+mesure où LilyPond sait reconnaître automatiquement le sens d'écriture.}
 
 @lilypond[verbatim,quote]
 \relative {

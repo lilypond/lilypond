@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
+    Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -515,20 +515,20 @@ LilyPond offre la possibilité de construire son propre style de
 percussion grâce à une définition de la propriété @code{drumStyleTable}.
 Les notations existantes peuvent se redéfinir au travers d'une liste
 associative dans laquelle chaque entrée doit comporter quatre éléments :
-un nom, le style de tête de note (ou @code{default}), un éventuel signe
-d'articulation (ou @code{#f} dans le cas contraire) et, enfin, le
-positionnement de la tête de note sur la portée. Cette liste devra alors
-être convertie en table de hachage à l'aide de la fonction
-@code{alist->hash-table}.
+un nom, le style de tête de note (ou @samp{()} pour adopter la valeur
+par défaut), un éventuel signe d'articulation (ou @code{#f} dans le cas
+contraire) et, enfin, le positionnement de la tête de note sur la
+portée. Cette liste devra alors être convertie en table de hachage à
+l'aide de la fonction @code{alist->hash-table}.
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
-         (bassdrum        default   #f           -1)
-         (snare           default   #f           0)
-         (hihat           cross     #f           1)
-         (halfopenhihat   cross     halfopen     1)
-         (pedalhihat      xcircle   stopped      2)
-         (lowtom          diamond   #f           3)))
+         (bassdrum        ()        #f         -1)
+         (snare           ()        #f         0)
+         (hihat           cross     #f         1)
+         (halfopenhihat   cross     halfopen   1)
+         (pedalhihat      xcircle   stopped    2)
+         (lowtom          diamond   #f         3)))
 
 up = \drummode { hh8 hh hhho hhho hhp4 hhp }
 down = \drummode { bd4 sn bd toml8 toml }
@@ -581,25 +581,25 @@ notation, avec sa propre syntaxe de saisie, sa notation personnalisée et
 les instruments MIDI correspondants.
 
 @lilypond[quote,verbatim]
-drumPitchNames.dbass      = #'dbass
-drumPitchNames.dba        = #'dbass  % 'db is in use already
-drumPitchNames.dbassmute  = #'dbassmute
-drumPitchNames.dbm        = #'dbassmute
-drumPitchNames.do         = #'dopen
-drumPitchNames.dopenmute  = #'dopenmute
-drumPitchNames.dom        = #'dopenmute
-drumPitchNames.dslap      = #'dslap
-drumPitchNames.ds         = #'dslap
-drumPitchNames.dslapmute  = #'dslapmute
-drumPitchNames.dsm        = #'dslapmute
+drumPitchNames.dbass     = #'dbass
+drumPitchNames.dba       = #'dbass  % 'db is in use already
+drumPitchNames.dbassmute = #'dbassmute
+drumPitchNames.dbm       = #'dbassmute
+drumPitchNames.do        = #'dopen
+drumPitchNames.dopenmute = #'dopenmute
+drumPitchNames.dom       = #'dopenmute
+drumPitchNames.dslap     = #'dslap
+drumPitchNames.ds        = #'dslap
+drumPitchNames.dslapmute = #'dslapmute
+drumPitchNames.dsm       = #'dslapmute
 
 #(define djembe-style
-  '((dbass      default  #f         -2)
-    (dbassmute  default  stopped    -2)
-    (dopen      default  #f          0)
-    (dopenmute  default  stopped     0)
-    (dslap      default  #f          2)
-    (dslapmute  default  stopped     2)))
+  '((dbass       ()   #f        -2)
+    (dbassmute   ()   stopped   -2)
+    (dopen       ()   #f        0)
+    (dopenmute   ()   stopped   0)
+    (dslap       ()   #f        2)
+    (dslapmute   ()   stopped   2)))
 
 midiDrumPitches.dbass     = g
 midiDrumPitches.dbassmute = fis

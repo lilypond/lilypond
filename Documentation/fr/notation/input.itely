@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+   Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -209,7 +209,9 @@ convention une extension @code{.ly}.
 @funindex \score
 
 Un bloc @code{\score} contient obligatoirement une seule expression
-musicale délimitée par des accolades :
+musicale délimitée par des accolades@footnote{Il existe aussi une
+commande de @emph{markup} @code{\score} -- @pxref{Scores within
+markup}.} :
 
 @example
 \score @{
@@ -4057,7 +4059,10 @@ et portato,
 @cindex MIDI, le bloc
 
 LilyPond générera un fichier MIDI dès que vous ajouterez un bloc
-@code{\midi}, même vide, au sein du bloc @code{\score} :
+@code{\midi}, même vide, au sein du bloc @code{\score}@footnote{Il
+existe aussi une commande de @emph{markup} @code{\score}, qui ne produit
+pas de MIDI, même en présence d'un bloc @code{\midi} -- @pxref{Scores
+within markup}.} :
 
 @example
 \score @{
@@ -4470,10 +4475,10 @@ symboles de pourcentage. Par exemple
 
 Dans une partition comportant plusieurs voix, le développement des
 reprises ne sera effectif en MIDI qu'à la condition que ces reprises
-soient mentionnée correctement dans @strong{toutes} les voix.
+soient mentionnées correctement dans @strong{toutes} les voix.
 
 @morerefs
-Manuel de notation  :
+Manuel de notation :
 @ref{Repeats}.
 @endmorerefs
 

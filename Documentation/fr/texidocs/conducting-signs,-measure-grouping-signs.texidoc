@@ -1,6 +1,5 @@
-%% Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+%% Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
   texidocfr = "
-
 Les regroupement par temps au sein d'une mesure sont contrôlés par des
 propriétés de contexte : @code{beatStructure} liste la longueur de
 chaque temps, en unités de @code{beatBase}. Les valeurs par défaut sont
@@ -20,7 +19,9 @@ Si l'on fait appel au @code{Measure_grouping_engraver}, la fonction
 modernes à la rythmique complexe. Dans l'exemple qui suit, la mesure à
 9/8 est divisée en 2, 2, 2 et 3, alors que la mesure à 5/8 répond aux
 règles par défaut contenues dans le fichier
-@file{scm/time-signature-settings.scm}.
+@file{scm/time-signature-settings.scm}. Pour une mesure à 4/4, il faudra
+explicitement définir @code{beatBase} en croches afin que le motif
+irrégulier de la mesure soit correctement rendu.
 "
 
   doctitlefr = "Signes de direction, signes de sous-groupe"

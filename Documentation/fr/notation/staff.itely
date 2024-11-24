@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0c2151c56c7d7bdd74aca44b209dc0845dfec23d
+   Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -222,8 +222,8 @@ accolade sur la gauche, et les barres de mesure sont d'un seul tenant.
 @end lilypond
 
 Le contexte @code{PianoStaff} est identique au @code{GrandStaff}, sauf
-qu'il gère automatiquement l'affichage du nom d'instrument -- voir
-@ref{Instrument names} pour plus de détails.
+que ses portées ne peuvent être masquées que conjointement, jamais
+individuellement -- @pxref{Hiding staves}.
 
 @lilypond[verbatim,quote]
 \new PianoStaff \with { instrumentName = "Piano" }

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+   Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -749,16 +749,16 @@ particulièrement pratique lorsque vous créez votre propre commande de
 
 @knownissues
 L'argument @var{markup-list} des commandes @code{#:line},
-@code{#:center} ou @code{#:column} ne saurait être une variable ni le
-résultat de l'appel à une fonction.
+@code{#:center-column} ou @code{#:column} ne saurait être une variable
+ni le résultat de l'appel à une fonction.
 
 @lisp
 (markup #:line (fonction-qui-retourne-des-markups))
 @end lisp
 
 @noindent
-n'est pas valide.  Il vaut mieux, en pareil cas, utiliser les fonctions
-@code{make-line-markup}, @code{make-center-markup} ou
+n'est pas valide. Il vaut mieux, en pareil cas, utiliser les fonctions
+@code{make-line-markup}, @code{make-center-column-markup} ou
 @code{make-column-markup} :
 
 @lisp

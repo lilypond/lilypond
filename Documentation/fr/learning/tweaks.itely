@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+   Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1456,6 +1456,9 @@ La différence est flagrante : le fait d'attribuer au stencil la valeur
 que le fait de le rendre @code{transparent} -- ce qui s'obtient aussi
 par la commande @code{\hide} -- le laisse en place, mais de façon
 invisible.
+
+@xref{Simulating a fermata in MIDI} pour une autre illustration de
+la différence entre @code{\omit} et @code{\hide}.
 
 
 @node The color property
