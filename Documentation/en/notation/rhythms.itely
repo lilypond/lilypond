@@ -2969,7 +2969,7 @@ the group as a whole.
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/flat-flags-and-beam-nibs.ly}
+{snippets/beam-nibs.ly}
 
 @cindex beam-like flags
 @cindex flag, beam-like

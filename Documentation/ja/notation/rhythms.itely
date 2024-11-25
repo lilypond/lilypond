@@ -2679,7 +2679,7 @@ R1\fermata
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/flat-flags-and-beam-nibs.ly}
+{snippets/beam-nibs.ly}
 
 @morerefs
 記譜法リファレンス:

@@ -83,6 +83,7 @@ rhythmic-slashes.ly
 separating-key-cancellations-from-key-signature-changes.ly
 setting-hairpin-behavior-at-bar-lines.ly
 setting-system-separators.ly
+shape-individual-ties-in-chords.ly
 showing-the-same-articulation-above-and-below-a-note-or-chord.ly
 string-number-extender-lines.ly
 suppressing-warnings-for-clashing-note-columns.ly
@@ -98,4 +99,5 @@ using-postscript-to-generate-special-note-head-shapes.ly
 using-the--tweak-command-to-tweak-individual-grobs.ly
 vertically-aligned-dynamics-and-textscripts.ly
 vertically-aligning-ossias-and-lyrics.ly
+vertically-aligning-stanza-numbers-of-different-staves.ly
 vertically-centering-paired-figured-bass-extenders.ly

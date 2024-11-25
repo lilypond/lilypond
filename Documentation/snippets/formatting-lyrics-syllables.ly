@@ -22,9 +22,9 @@ Markup mode may be used to format individual syllables in lyrics.
 
 
 
-mel = \relative c'' { c4 c c c }
+mel = \relative c'' { c4 c c c c1 }
 lyr = \lyricmode {
-  Lyrics \markup { \italic can } \markup { \with-color #red contain }
+  Your lyrics \markup { \italic can } \markup { \with-color #red contain }
   \markup { \fontsize #8 \bold Markup! }
 }
 

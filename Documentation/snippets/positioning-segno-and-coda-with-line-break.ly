@@ -25,6 +25,17 @@ line.
 } % begin verbatim
 
 
+%% Updating this snippet with convert-ly to 2.25. returns:
+%%
+%% "Not smart enough to convert music following \fine.
+%%
+%% Warning: \fine no longer enforces the end of the music.  If your piece
+%% has music following \fine that you want to exclude when it is
+%% unfolded, use \volta to exclude it.
+%% Please refer to the manual for details, and update manually."
+%%
+%% Alas, the use of \fine here is not problematic here --harm
+
 {
   \relative c'' {
     c4 c c c c c c c c c c c

@@ -2602,7 +2602,7 @@ grup com un tot.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/flat-flags-and-beam-nibs.ly}
+{snippets/beam-nibs.ly}
 
 @morerefs
 Referència de la notació:

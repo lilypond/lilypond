@@ -2536,7 +2536,7 @@ Gruppe gewertet wird).
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/flat-flags-and-beam-nibs.ly}
+{snippets/beam-nibs.ly}
 
 @morerefs
 Notationsreferenz:

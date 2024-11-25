@@ -3008,7 +3008,7 @@ importante.
 @cindex crochet rectiligne
 @cindex rectiligne, crochet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/flat-flags-and-beam-nibs.ly}
+{snippets/beam-nibs.ly}
 
 @morerefs
 Manuel de notation :

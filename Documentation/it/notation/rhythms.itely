@@ -2663,7 +2663,7 @@ all'interno dell'intero raggruppamento.
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/flat-flags-and-beam-nibs.ly}
+{snippets/beam-nibs.ly}
 
 @morerefs
 Guida alla notazione:
