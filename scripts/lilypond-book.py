@@ -657,7 +657,11 @@ use an external tool to run LilyPond in a sandbox.""")
     for i, path in enumerate(global_options.include_path):
         global_options.include_path[i] = os.path.abspath(path)
 
-    # Append the current directory.
+    # While the `lilypond` subprocess is called the current working
+    # directory is temporarily set to `lily_output_dir`.  Files in this
+    # directory (probably created in a previous run) must be found before
+    # `lilypond-book`'s current working directory.
+    global_options.include_path.append('.')
     global_options.include_path.append(os.getcwd())
 
     if global_options.warranty:
