@@ -5336,12 +5336,12 @@ def conv(s):
 
 
 @rule((2, 25, 18), r"""
-script.upbow -> script.uupbow
-script.downbow -> script.udownbow
+scripts.upbow -> scripts.uupbow
+scripts.downbow -> scripts.udownbow
 """)
 def conv(s):
-  s = s.replace('script.upbow', 'script.uupbow')
-  s = s.replace('script.downbow', 'script.udownbow')
+  s = s.replace('scripts.upbow', 'scripts.uupbow')
+  s = s.replace('scripts.downbow', 'scripts.udownbow')
   return s
 
 

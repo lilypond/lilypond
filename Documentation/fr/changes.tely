@@ -999,10 +999,10 @@ automatiques dans le cadre d'un @code{\crossStaff}.
 @item
 Les indications @code{\upbow} et @code{\downbow} sont désormais
 correctement inversées lorsque placées sous la portée. En consésquence,
-les glyphes @code{script.upbow} et @code{script.downbow} ont été
+les glyphes @code{scripts.upbow} et @code{scripts.downbow} ont été
 respectivement renommés en @code{script.uupbow} et
-@code{script.udownbow}, et les glyphes inversés nommés
-@code{script.dupbow} et @code{script.ddownbow}.
+@code{scripts.udownbow}, et les glyphes inversés nommés
+@code{scripts.dupbow} et @code{scripts.ddownbow}.
 
 @lilypond[quote,verbatim]
 \relative c' {

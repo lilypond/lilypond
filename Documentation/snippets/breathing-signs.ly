@@ -6,9 +6,9 @@
 %%
 %% This file is in the public domain.
 %%
-%% Note: this file works from version 2.25.0.
+%% Note: this file works from version 2.25.18.
 
-\version "2.25.0"
+\version "2.25.18"
 
 \header {
   lsrtags = "expressive-marks, symbols-and-glyphs"
@@ -48,7 +48,7 @@ ticks, vees and @qq{railroad tracks} (caesura).
 
   % vee
   \override BreathingSign.text =
-    \markup { \musicglyph "scripts.upbow" }
+    \markup { \musicglyph "scripts.uupbow" }
   es8[ d es f g] \breathe f |
 
   % caesura

@@ -6,9 +6,9 @@
 %%
 %% This file is in the public domain.
 %%
-%% Note: this file works from version 2.25.6.
+%% Note: this file works from version 2.25.18.
 
-\version "2.25.6"
+\version "2.25.18"
 
 \header {
   lsrtags = "headword"
@@ -48,62 +48,70 @@ Unfretted headword
 %%% Abbreviations
 %%%
 
-db         = \markup { \musicglyph "scripts.downbow" }
-dub        = \markup { \line { \musicglyph "scripts.downbow" " " \musicglyph "scripts.upbow" } }
-dubetc     = \markup { \line { \musicglyph "scripts.downbow" " " \musicglyph "scripts.upbow" "..." } }
+db     = \markup { \musicglyph "scripts.udownbow" }
+dub    = \markup { \line { \musicglyph "scripts.udownbow"
+                           " "
+                           \musicglyph "scripts.uupbow" } }
+dubetc = \markup { \line { \musicglyph "scripts.udownbow"
+                           " "
+                           \musicglyph "scripts.uupbow" "..." } }
 
-ub         = \markup { \musicglyph "scripts.upbow" }
-udb        = \markup { \line { \musicglyph "scripts.upbow" " " \musicglyph "scripts.downbow" } }
-udbetc     = \markup { \line { \musicglyph "scripts.upbow" " " \musicglyph "scripts.downbow" "..." } }
+ub     = \markup { \musicglyph "scripts.uupbow" }
+udb    = \markup { \line { \musicglyph "scripts.uupbow"
+                   " "
+                   \musicglyph "scripts.udownbow" } }
+udbetc = \markup { \line { \musicglyph "scripts.uupbow"
+                   " "
+                   \musicglyph "scripts.udownbow" "..." } }
 
-accel   = \markup \tiny \italic \bold "accel..."
-ritar   = \markup \tiny \italic \bold "ritar..."
+accel = \markup \tiny \italic \bold "accel..."
+ritar = \markup \tiny \italic \bold "ritar..."
 
-ignore     = \override NoteColumn.ignore-collision = ##t
+ignore = \override NoteColumn.ignore-collision = ##t
 
 
 %%
 %% Strings
 %%
 
-svib           = \markup \small "s. vib."
-pvib           = \markup \small "p. vib."
-mvib           = \markup \small "m. vib."
-sulp           = \markup \small "s.p."
-norm           = \markup \small "n."
+svib = \markup \small "s. vib."
+pvib = \markup \small "p. vib."
+mvib = \markup \small "m. vib."
+sulp = \markup \small "s.p."
+norm = \markup \small "n."
 
-quatre         = \markup \teeny "IV"
+quatre = \markup \teeny "IV"
 
 
 %%
 %% Shifting Notes
 %%
 
-shift      = \once \override NoteColumn.force-hshift = 0.9
-shifta     = \once \override NoteColumn.force-hshift = 1.2
-shiftb     = \once \override NoteColumn.force-hshift = 1.4
+shift  = \once \override NoteColumn.force-hshift = 0.9
+shifta = \once \override NoteColumn.force-hshift = 1.2
+shiftb = \once \override NoteColumn.force-hshift = 1.4
 
 
 %%
 %% Hairpin
 %%
 
-% aniente        = "a niente"
-aniente        = \once \override Hairpin.circled-tip = ##t
+% aniente = "a niente"
+aniente   = \once \override Hairpin.circled-tip = ##t
 
 
 %%
 %% Tuplets
 %%
 
-tupletbp       = \once \override Staff.TupletBracket.padding = 2.25
+tupletbp = \once \override Staff.TupletBracket.padding = 2.25
 
 
 %%
 %% Flag [Note Head - Stem]
 %%
 
-noflag         = \once \override Flag.style = #'no-flag
+noflag = \once \override Flag.style = #'no-flag
 
 %%%
 %%% Functions
