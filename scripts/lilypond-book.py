@@ -388,8 +388,6 @@ def process_snippets(cmd, outdated_dict,
         checksum.update(name.encode('ascii'))
     checksum = checksum.hexdigest()
 
-    lily_output_dir = global_options.lily_output_dir
-
     # Write list of snippet names.
     snippet_names_file = 'snippet-names-%s.ly' % checksum
     snippet_names_path = os.path.join(lily_output_dir, snippet_names_file)

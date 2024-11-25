@@ -761,9 +761,9 @@ printing diff against existing file." % filename)
         return result
 
     def all_output_files(self, output_dir):
-        """Return all files generated in lily_output_dir, a set.
+        """Compute all files generated and missing in `output_dir`.
 
-        output_dir_files is the list of files in the output directory.
+        Return them as a pair of sets.
         """
         result = set()
         missing = set()
@@ -803,7 +803,6 @@ printing diff against existing file." % filename)
                       base + '.doctitle' + self.formatter.document_language]:
                 consider_file(f)
 
-
         required_files = self.formatter.required_files(
             self, base, full, result)
         for f in required_files:
@@ -819,7 +818,7 @@ printing diff against existing file." % filename)
             consider_file(systemfile + '.pdf')
             consider_file(systemfile + '.png')
 
-        for f in  self.additional_files_to_consider(base, full):
+        for f in self.additional_files_to_consider(base, full):
             consider_file(f)
 
         for f in self.additional_files_required(base, full):
