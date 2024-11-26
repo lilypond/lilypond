@@ -130,9 +130,9 @@ class _NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
         if option.takes_value():
             metavar = '=%s' % option.metavar or option.dest.upper()
 
-        return "%3s%s %s%s" % (" ".join(option._short_opts),
+        return "%2s%s %s%s" % (", ".join(option._short_opts),
                                sep,
-                               " ".join(option._long_opts),
+                               ", ".join(option._long_opts),
                                metavar)
 
     # Only use one level of indentation (even for groups and nested groups),
