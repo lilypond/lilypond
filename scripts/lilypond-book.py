@@ -231,7 +231,7 @@ def get_option_parser():
                  default='')
 
     p.add_option('--redirect-lilypond-output',
-                 help=_("redirect the lilypond output"),
+                 help=_("redirect lilypond output messages to log files"),
                  action='store_true',
                  dest='redirect_output',
                  default=False)
@@ -356,6 +356,7 @@ def command_name(cmd):
 def system_in_directory(cmd_str, directory, log_file):
     """Execute a command in a different directory."""
 
+    ly.progress(_("Changing directory to '%s'" % directory))
     if ly.is_verbose():
         ly.progress(_("Invoking `%s\'") % cmd_str)
     elif global_options.redirect_output:
@@ -500,8 +501,9 @@ def do_process_cmd_locked(snippets, options):
     else:
         progress(_("All snippets are up to date..."))
 
-    progress(_("Linking files..."))
     if options.lily_output_dir != options.output_dir:
+        progress(_("Linking files from '%s/' to '%s/'..."
+                   % (options.lily_output_dir, options.output_dir)))
         for snippet in snippets:
             snippet.link_all_output_files(options.lily_output_dir,
                                           options.output_dir)
