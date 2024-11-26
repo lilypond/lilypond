@@ -4257,6 +4257,9 @@ Convert FILE with MusicXML data to a LilyPond input file.
 
 By default, the output file is called 'FILE.ly' for input file 'FILE.xml'.
 If FILE is '-', read from standard input (and write to standard output).
+
+If FILE cannot be found, 'FILE.xml', 'FILE.musicxml', and 'FILE.mxl' are
+also tried as input files.
 """),
                              add_help_option=False)
 
@@ -4810,9 +4813,6 @@ def get_existing_filename_with_extension(filename, ext):
     newfilename = filename + "." + ext
     if os.path.exists(newfilename):
         return newfilename
-    newfilename = filename + ext
-    if os.path.exists(newfilename):
-        return newfilename
     return ''
 
 
@@ -4880,12 +4880,15 @@ def main():
     conversion_settings.convert_stem_directions = options.convert_stem_directions
     conversion_settings.convert_rest_positions = options.convert_rest_positions
 
-    # Allow the user to leave out the .xml or xml on the filename
+    # Allow the user to leave out the extension of the filename.
     basefilename = args[0]
     if basefilename == "-":  # Read from stdin
         filename = "-"
     else:
         filename = get_existing_filename_with_extension(basefilename, "xml")
+        if not filename:
+            filename = get_existing_filename_with_extension(
+                basefilename, 'musicxml')
         if not filename:
             filename = get_existing_filename_with_extension(
                 basefilename, "mxl")
