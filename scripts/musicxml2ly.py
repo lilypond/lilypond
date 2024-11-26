@@ -4251,10 +4251,12 @@ def get_all_voices(parts):
 
 
 def option_parser():
-    p = ly.get_option_parser(usage=_("musicxml2ly [OPTION]... FILE.xml"),
+    p = ly.get_option_parser(usage=_("musicxml2ly [OPTION]... FILE"),
                              description=_("""\
-Convert MusicXML from FILE.xml to LilyPond input.
-If the given filename is -, musicxml2ly reads from the command line.
+Convert FILE with MusicXML data to a LilyPond input file.
+
+By default, the output file is called 'FILE.ly' for input file 'FILE.xml'.
+If FILE is '-', read from standard input (and write to standard output).
 """),
                              add_help_option=False)
 
@@ -4266,9 +4268,10 @@ If the given filename is -, musicxml2ly reads from the command line.
                  +
                  _("""Copyright (c) 2005--2023 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
-    Jan Nieuwenhuizen <janneke@gnu.org> and
-    Reinhold Kainhofer <reinhold@kainhofer.com>
-    Patrick L. Schmidt <pls@philomelos.net>
+    Jan Nieuwenhuizen <janneke@gnu.org>,
+    Reinhold Kainhofer <reinhold@kainhofer.com>,
+    Patrick L. Schmidt <pls@philomelos.net>, and
+    Werner Lemberg <wl@gnu.org>
 """
                    +
                    """
