@@ -1291,7 +1291,7 @@
     ))
 
 
-;; add native utf-8 aliases. Pairs obey cp-like order: '(old new)
+;; Add some historic aliases.  Pairs obey cp-like order: '(name alias)
 (for-each
  (lambda (pair)
    (set! language-pitch-names
