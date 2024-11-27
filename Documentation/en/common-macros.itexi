@@ -665,6 +665,39 @@ UNTRANSLATED NODE: IGNORE ME
   \endgroup
   \null}
 
+% The macros `\stripPT` and `\slantshift` have been adapted from `plain.tex`.
+
+% Strip off 'pt' from a font dimension returned by the `\the` command so
+% that its value can be used as a dimension-less scaling factor.
+\global\let\oldbb = \\
+{\catcode`p=12 %
+ \catcode`t=12 %
+ \gdef\\#1pt{#1}}
+\global\let\stripPT = \\
+\global\let\\ = \oldbb
+
+% Insert a kern scaled by the slant of the font.
+\gdef\slantshift#1{%
+  \dimen1 = #1\relax
+  \kern \expandafter\stripPT\the\fontdimen1\font \dimen1}
+
+% Latin Modern's typewriter tilde character has a different vertical
+% position in comparison to Computer Modern – being a modern font, this
+% glyph is not intended to be used as an accent character by TeX.  As a
+% result, TeX's `\accent` command fails: it causes an overlap of the base
+% glyph with the tilde.  We thus redefine the `@~` macro, shifting the tilde
+% glyph both vertically and horizontally (the latter mainly to provide a
+% proper offset for slanted base glyphs) if a typewriter font is detected.
+\gdef\~#1{{%
+  \ifusingtt
+    {\leavevmode
+     \setbox0 = \hbox{#1}%
+     \dimen0 = \ht0 %
+     \advance\dimen0 \string-.35ex%
+     {\rlap{\slantshift{\dimen0}\raise \dimen0 \hbox{\char "7E}}#1}}%
+    {\accent "7E #1}%
+}}
+
 @end tex
 
 
