@@ -536,7 +536,7 @@ suivantes :
   @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{norsk}
   @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
-@item @code{português} or@*@ @code{portugues}
+@item @code{português} ou@*@ @code{portugues}
   @tab @code{do} @code{re} @code{mi} @code{fa} @code{sol} @code{la} @code{sib} @code{si}
 @item @code{suomi}
   @tab @code{c} @code{d} @code{e} @code{f} @code{g} @code{a} @code{b} @code{h}
@@ -574,7 +574,7 @@ et les suffixes d'altération correspondants :
 @item @code{norsk}
   @tab @code{iss}/@code{is} @tab @code{ess}/@code{es}
     @tab @code{ississ}/@code{isis} @tab @code{essess}/@code{eses}
-@item @code{português} or@*@ @code{portugues}
+@item @code{português} ou@*@ @code{portugues}
   @tab @code{s} @tab @code{b} @tab @code{ss} @tab @code{bb}
 @item @code{suomi}
   @tab @code{is} @tab @code{es} @tab @code{isis} @tab @code{eses}
@@ -619,14 +619,14 @@ dans les fichiers linguistiques. Les préfixes @emph{semi-} et
   @tab semi-dièse @tab semi-bémol @tab sesqui-dièse @tab sesqui-bémol
 @item @code{nederlands}
   @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
-@item @code{català} or@*@ @code{catalan}
+@item @code{català} ou@*@ @code{catalan}
   @tab @code{qd}/@code{qs} @tab @code{qb} @tab @code{tqd}/@code{tqs}
    @tab @code{tqb}
 @item @code{deutsch}
   @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
 @item @code{english}
   @tab @code{qs} @tab @code{qf} @tab @code{tqs} @tab @code{tqf}
-@item @code{español} or@*@ @code{espanol}
+@item @code{español} ou@*@ @code{espanol}
   @tab @code{cs} @tab @code{cb} @tab @code{tcs} @tab @code{tcb}
 @item @code{français}
   @tab @code{sd} @tab @code{sb} @tab @code{dsd} @tab @code{bsb}
@@ -635,7 +635,7 @@ dans les fichiers linguistiques. Les préfixes @emph{semi-} et
 @item @code{norsk}
   @tab @code{ih} @tab @code{eh} @tab @code{issih}/@code{isih}
    @tab @code{esseh}/@code{eseh}
-@item @code{português} or@*@ @code{portugues}
+@item @code{português} ou@*@ @code{portugues}
   @tab @code{sqt} @tab @code{bqt} @tab @code{stqt} @tab @code{btqt}
 @item @code{suomi}
   @tab @code{ih} @tab @code{eh} @tab @code{isih} @tab @code{eseh}
