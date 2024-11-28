@@ -212,7 +212,8 @@ bassi = {
 
 global = {
   \key c \minor
-  \set Score . tempoWholesPerMinute = #(ly:make-moment (/ 80 4) 1 0 1)
+  \set Score.tempoHideNote = ##t
+  \tempo 4 = 80
   \time 4/4
 %s1*34 \bar "|."
 }
