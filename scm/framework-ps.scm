@@ -322,7 +322,7 @@
             (ly:debug (G_ "File `~a' already exists, skipping...") newpath))))
      (else
       (ly:warning (G_ "Font ~a cannot be used in PostScript resource directory\
- because it is unknown format." name))))))
+ because it is unknown format.") name)))))
 
 (define (write-preamble paper load-fonts? port)
   (define (internal-font? font-name-filename)
