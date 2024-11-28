@@ -1573,6 +1573,7 @@ def musicxml_fermata_to_lily_event(mxl_event, note_color=None,
 # Single-note tremolo.
 def musicxml_tremolo_to_lily_event(mxl_event, note_color=None,
                                    note_font_size=None):
+    # The `note_font_size` argument gets ignored.
     ev = musicexp.TremoloEvent()
     ev.color = getattr(mxl_event, 'color', note_color)
     # TODO: Support unmeasured tremolos by handling the `smufl` attribute
@@ -1882,6 +1883,8 @@ def musicxml_dynamic_to_lily(element):
 
 def musicxml_dynamics_to_lily_event(elements, note_color=None,
                                     note_font_size=None):
+    # The `note_font_size` argument gets ignored.
+
     # A list of dynamics LilyPond provides by default.
     predefined_dynamics = (
         'ppppp', 'pppp', 'ppp', 'pp', 'p',
@@ -1903,6 +1906,15 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
 
     (dynamics, attributes) = elements[dyn_index]
 
+    # At this point, the attributes for all elements have already been set
+    # or derived from previous elements.  We thus can manipulate a single
+    # element's attributes without having side effects.
+    if options.dynamics_scale is not None:
+        if options.dynamics_scale == 0:
+            attributes.pop('font-size', None)
+        else:
+            attributes['font-size-scale'] = options.dynamics_scale
+
     # Construct a name for the dynamics object.
     #
     # TODO: The code below is slightly problematic currently since we only
@@ -1919,7 +1931,6 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
         before += e.get_text()
     dynamics_name += before
 
-    # TODO: Handle font size.
     dyns = ''
     for d in dynamics.get_all_children():
         dyns += musicxml_dynamic_to_lily(d)
@@ -1943,6 +1954,7 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
     if dynamics_name in predefined_dynamics:
         ev.color = attributes.get('color', None)
         ev.font_size = attributes.get('font-size', None)
+        ev.font_size_scale = attributes.get('font-size-scale', 1.0)
     else:
         if after or before or enclosure != 'none':
             markup = []
@@ -1988,6 +2000,7 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
             )
             ev.color = attributes.get('color', None)
             ev.font_size = attributes.get('font-size', None)
+            ev.font_size_scale = attributes.get('font-size-scale', 1.0)
 
     ev.type = dynamics_name
 
@@ -4384,6 +4397,16 @@ information.""") % 'lilypond')
                  help=_("ignore stem directions from MusicXML, "
                         "use lilypond's automatic stemming instead"))
 
+    p.add_option('--ds', '--dynamics-scale',
+                 metavar=_("FACTOR"),
+                 action='store',
+                 default=None,
+                 type='float',
+                 dest='dynamics_scale',
+                 help=_("scale <dynamics> elements by a non-negative FACTOR; "
+                        "value 0 means to use lilypond's standard size for "
+                        "dynamics"))
+
     p.add_option('--afs', '--absolute-font-sizes',
                  action="store_true",
                  default=False,
@@ -4849,6 +4872,13 @@ def main():
     # duration shift function
     if options.shift_durations:
         musicexp.set_shift_durations(options.shift_durations)
+
+    # dynamics scale function
+    if options.dynamics_scale is not None:
+        if options.dynamics_scale < 0:
+            ly.warning(_('requested dynamics scale factor must be '
+                         'non-negative, setting to 0'))
+            options.dynamics_scale = 0
 
     # tab clef option
     if options.tab_clef:

@@ -2446,6 +2446,7 @@ class DynamicsEvent(Event):
         Event.__init__(self)
         self.type = None
         self.force_direction = 0
+        self.font_size_scale = 1.0
 
     def wait_for_note(self):
         return True
@@ -2459,7 +2460,9 @@ class DynamicsEvent(Event):
             color = color_to_ly(self.color)
             if color is not None:
                 res.append(r'\tweak color %s' % color)
-            font_size = get_font_size(self.font_size, command=False)
+
+            font_size = get_font_size(self.font_size, command=False,
+                                      scale=self.font_size_scale)
             if font_size is not None:
                 res.append(r'\tweak font-size %s' % font_size)
 
@@ -2588,7 +2591,7 @@ def font_size_word_to_lily(size, ratio, command):
             return '#%.1f' % font_size
 
 
-def get_font_size(size, command):
+def get_font_size(size, command, scale=1.0):
     if size is None:
         return None
 
@@ -2597,7 +2600,7 @@ def get_font_size(size, command):
 
     try:
         size = float(size)
-        return font_size_number_to_lily(size, ratio, command)
+        return font_size_number_to_lily(size * scale, ratio, command)
     except ValueError:
         return font_size_word_to_lily(size, ratio, command)
 
@@ -2673,7 +2676,9 @@ def text_to_ly(elements, init_markup=None):
             prev_enclosure = enclosure
 
         font_size_attribute = attributes.get('font-size', '')
-        font_size = get_font_size(font_size_attribute, command=True)
+        font_size_scale = attributes.get('font-size-scale', 1.0)
+        font_size = get_font_size(font_size_attribute, command=True,
+                                  scale=font_size_scale)
         if font_size is not None:
             markup.append(font_size)
 
