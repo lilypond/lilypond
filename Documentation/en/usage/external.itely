@@ -465,109 +465,137 @@ to a single duration and add phrase markings or pedal indicators.
 
 @cindex MusicXML
 
-@uref{http://@/www.@/musicxml@/.org/,MusicXML} is an XML dialect for
-representing music notation.
+@uref{https://www.w3.org/2021/06/musicxml40/,MusicXML} is an XML
+dialect for representing music notation.  It is the de-facto
+standard for interchanging scores between notation programs.
+However, some of its elements are rather low-level and
+graphic-oriented, which makes it non-trivial (and sometimes even
+impossible) to automatically convert them to LilyPond.
 
-@command{musicxml2ly} extracts notes, articulations, score structure and
-lyrics from @q{part-wise} MusicXML files then writes them to a
-@file{.ly} file. It is run from the command line as follows;
+The Python script @command{musicxml2ly} extracts notes,
+articulations, score structure, and lyrics from @q{part-wise}
+MusicXML files, writing them to a @file{.ly} file.  It is run from
+the command line as follows.
 
 @example
-musicxml2ly [@var{option}]@dots{} @var{file.xml}
+musicxml2ly [@var{option}]@dots{} @var{file}
 @end example
 
-Note that by @q{command line}, we mean the command line of the
-operating system.  See @ref{Converting from other formats}, for
-more information about this.
+Note that by @q{command line} we mean the command line of the
+operating system.  @xref{Converting from other formats}, for more
+information about this.
 
-If @file{-} is used instead of @var{file.xml}, @command{musicxml2ly}
-reads all input directly from the command line.
+By default, @command{musicxml2ly} strips off the extension from
+@var{file} and appends @file{.ly} to construct the output file
+name.  If @var{file} is @q{@file{-}}, the script reads from
+standard input (and writes to standard output) instead.
 
-The following options are supported by @command{musicxml2ly}:
+If the file called @file{@var{file}} cannot be found,
+@file{@var{file}.xml}, @file{@var{file}.musicxml}, and
+@file{@var{file}.mxl} are also tried as input files.
+
+The following options are supported by @command{musicxml2ly}.
 
 @table @code
 @item -a, --absolute
-convert pitches in absolute mode.
+Convert pitches in absolute mode.
+
+@item --ds, --dynamics-scale=@var{factor}
+Scale @code{<dynamics>} elements by a non-negative @var{factor};
+value 0 means to use LilyPond's standard size for dynamics.  This
+option might be needed for MusicXML files that use a music font
+like @q{Maestro}, where the size of dynamics symbols like @q{f} or
+@q{p} differ greatly from LilyPond's @q{Emmentaler} glyphs.
 
 @item --fb --fretboards
-converts @code{<frame>} events to a separate FretBoard voice instead of
-markups.
+Convert @code{<frame>} events to a separate @code{FretBoard} voice
+instead of markups.
 
 @item -h, --help
-print usage and a summary of all the available command-line options.
+Print usage information and a summary of all the available
+command-line options.
 
-@item -l, --language=LANG
-use @var{LANG} for pitch names, e.g. @code{deutsch} for note names in
-German.
+@item -l, --language=@var{lang}
+Use @var{lang} for pitch names, e.g., @code{deutsch} for note
+names in German.  Allowed values are the note input languages
+supported by LilyPond, see @rnotation{Note names in other
+languages}.
 
-@item --loglevel=@var{LOGLEVEL}
-Sets the output verbosity to @var{LOGLEVEL}. Possible values are
-@code{NONE}, @code{ERROR}, @code{WARN}, @code{PROGRESS} (default) and
-@code{DEBUG}.
+@item --loglevel=@var{log-level}
+Set the output verbosity to @var{log-level}.  Possible values are
+@code{NONE}, @code{ERROR}, @code{WARN}, @code{PROGRESS} (which is
+the default), and @code{DEBUG}.
 
 @item -m, --midi
-activate the midi block in the @var{.ly} file.
+Activate the MIDI block in the output LilyPond file.
 
 @item --nb, --no-beaming
-do not convert beaming information, use LilyPond's automatic
+Do not convert beaming information, use LilyPond's automatic
 beaming instead.
 
 @item --nd, --no-articulation-directions
-do not convert directions (@code{^}, @code{_} or @code{-}) for
+Do not convert directions (@samp{^}, @samp{_}, or @samp{-}) for
 articulations, dynamics, etc.
 
-@item --nrp, --no-rest-positions
-do not convert exact vertical position of rests.
-
-@item --nsb, --no-system-breaks
-ignore system breaks.
+@item --npb, --no-page-breaks
+Ignore page breaks.
 
 @item --npl, --no-page-layout
-do not convert the exact page layout and breaks (shortcut for
-@code{--nsb} @code{--npb} @code{--npm} options).
-
-@item --npb, --no-page-breaks
-ignore page breaks.
+Do not convert the exact page layout and breaks.  This is a
+shortcut for options @option{--npb}, @option{--npm}, and
+@option{--nsb}.
 
 @item --npm, --no-page-margins
-ignore page margins.
+Ignore page margins.
+
+@item --nrp, --no-rest-positions
+Do not convert exact vertical position of rests.
+
+@item --nsb, --no-system-breaks
+Ignore system breaks.
 
 @item --nsd, --no-stem-directions
-ignore stem directions from MusicXML, use lilypond's automatic stemming
-instead.
+Ignore stem directions given in the MusicXML file, use LilyPond's
+automatic stemming instead.
 
-@item -o, --output=@var{FILE}
-set the output file name to @var{FILE}.  If @var{file} is @file{-}, the
-output will be printed to stdout.  If not given, @var{xmlfile.ly} will
-be used instead.
+@item -o, --output=@var{file}
+Set the output file name to @var{file}.  If @var{file} is
+@q{@file{-}}, the output will be printed to standard output.
+
+@item --oe, --ottavas-end-early=t[rue]/f[alse]
+Expect @code{<octave-shift>} end elements before the associated
+@code{<note>} (as in the @q{Finale} notation software) if value is
+@samp{t} (or @code{true}).  Default is @samp{f} (or @code{false}).
 
 @item -r, --relative
-convert pitches in relative mode (default).
+Convert pitches in relative mode (this option is set by default).
 
-@item --transpose=TOPITCH
-the interval between pitch @code{c} and @var{TOPITCH} to transpose by.
-
-@item --sm, --shift-meter=BEATS/BEATTYPE
-change the length|duration of notes as a function of a given time
-signature to make the score look faster or slower, (e.g. @code{4/4} or
-@code{2/2}).
-
-@item --tc, --tab-clef=TABCLEFNAME
-switch between two versions of tab clefs (@code{tab} and
-@code{moderntab}).
+@item --sm, --shift-duration=@var{value}
+Shift durations and time signatures by @var{value}; for example,
+value@tie{}-1 doubles all durations, and value@tie{}1 halves them.
 
 @item --sn --string-numbers=t[rue]/f[alse]
-deactivate string number stencil with @code{--string-numbers}
-@code{false}.  Default is @code{true}.
+Control output of string numbers; value @samp{f} (or @code{false})
+disables them.  Default is @samp{t} (or @code{true}).
+
+@item --tc, --tab-clef=@var{tab-clef-name}
+Switch between two versions of tab clefs.  Possible values for
+@var{tab-clef-name} are @code{tab} (the default) and
+@code{moderntab}.
+
+@item --transpose=@var{to-pitch}
+Set pitch to transpose by the interval between pitch @q{c} and
+@var{to-pitch}.
 
 @item -v, --verbose
-be verbose.
+Be verbose.
 
 @item --version
-show version number and exit.
+Show version number and exit.
 
 @item -z, --compressed
-input file is a zip-compressed MusicXML file.
+Input file is a compressed MusicXML file.  By default, this option
+is active if the input file has @file{.mxl} as the extension.
 @end table
 
 

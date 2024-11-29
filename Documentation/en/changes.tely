@@ -211,7 +211,7 @@ musicD = {
 
 Note that, as before, the widest clef in a staff group determines
 the horizontal position of all clefs in a system; this means, for
-example, that a piano score containing a treble and an alto clef
+example, that a piano score containing a treble and a bass clef
 doesn't change at all.
 
 If you want to restore the previous default values for whatever
@@ -407,7 +407,7 @@ many complex beaming patterns due to overreliance of the value of
 @code{beatBase}.  Now, LilyPond can correctly subdivide most beaming
 patterns and no longer uses the value of @code{beatBase} to limit beam
 subdivision.  Simply setting @code{subdivideBeams} to @code{#t} now
-automatically subdivides all intervals by default.  3@tie{}new
+automatically subdivides all intervals by default.  Three new
 properties have been introduced to tune automatic beam subdivision:
 @code{minimumBeamSubdivisionInterval},
 @code{maximumBeamSubdivisionInterval} and @code{respectIncompleteBeams}.
@@ -1238,6 +1238,47 @@ A new grob property @code{whiteout-color} is available to set the
 color used for white-out operations.  Similarly, the
 @code{\whiteout} markup command now listens to a @code{color}
 property to do the same.
+
+@item
+The @command{musicxml2ly} script has been completely revised to
+better convert MusicXML to LilyPond.  It now supports more
+MusicXML features and elements and tries to be more faithful in
+the conversion, retaining more of the original appearance if
+possible (and sensible).
+
+Here is a list of some notable changes (not taking bug fixes into
+account).
+
+@itemize
+@item The script is now much faster.
+
+@item Overlapping and nested slurs work as expected.
+
+@item Better automatic support of circumventing LilyPond's
+infamous issue #34 (i.e., synchronization of grace note timing
+between staves at the beginning of a piece).
+
+@item Support of two-stem tremolos and nested tuplets.
+
+@item Color and font size support for almost all MusicXML
+elements.  A new command-line option @option{--dynamics-scale}
+helps compensate glyph size differences of dynamics signs in
+various music fonts.
+
+@item Correct handling of ottava endings for MusicXML files
+created by Finale.  The script looks at the @code{<software>}
+element to detect the used notation software.  If necessary, this
+can be overridden with the new command-line option
+@option{--ottavas-end-early}.
+
+@item Option @option{--shift-meter} has been replaced with option
+@option{--shift-durations}, using a simpler syntax.
+
+@item The bar numbers shown as comments in the created LilyPond
+input file are now as expected, i.e., the values shown refer to
+the previous bar.
+
+@end itemize
 
 @end itemize
 
