@@ -1145,7 +1145,6 @@ instrumentTwo = \relative {
 >>
 @end lilypond
 
-
 Both arguments to @code{\partCombine} will be interpreted as separate
 @code{Voice} contexts, so if the music is being specified in relative
 mode then @emph{both} parts must contain a @code{\relative} function,
@@ -1298,6 +1297,32 @@ give the voices, internally, its own custom names: @code{one} and
 @code{two} respectively.  This means if there is any @qq{switch} to a
 differently named @code{Voice} context, the events in that differently
 named @code{Voice} will be ignored.
+
+Because @code{\partCombine} is a two-pass feature, care must be
+taken to not mix up the two phases.  For example, this code
+
+@example
+one = @{ e''2 \tag #'score f''
+             \tag #'part fis'' g''1 @}
+two = @{ e''2 d'' g'1 @}
+
+\removeWithTag #'score \partCombine \one \two
+@end example
+
+@noindent
+fails because the first pass does not know that you are removing
+tagged music, so the information it records is inconsistent with
+the music when it comes time for the second pass.  If you want to
+use @code{\partCombine} with filtering, unfolded repeats, or other
+transformations, you must transform first so that the music is in
+its final form before the first pass, for example,
+
+@example
+...
+\partCombine
+  \removeWithTag #'score \one
+  \removeWithTag #'score \two
+@end example
 
 Refer also to @emph{Known issues and warnings} when using
 @code{\partCombine} with tablature in @ref{Default tablatures} and the
