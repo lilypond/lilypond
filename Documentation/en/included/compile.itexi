@@ -1070,6 +1070,13 @@ compiled with:
 make LANGS='de fr' doc
 @end example
 
+To get correct word hyphenation in the non-English PDF
+documentation files you should install proper @TeX{} Live packages
+for your platform, for example, @q{texlive-hyphen-german} or
+@q{texlive-hyphen-french}.  If you have enough disk space you
+might simply install @q{texlive-full} instead to get everything in
+one rush.
+
 @noindent
 Compilation of documentation in Info format with images can be
 done separately by issuing:
