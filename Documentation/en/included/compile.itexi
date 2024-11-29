@@ -548,7 +548,7 @@ output size by large amounts: for example, the size of the
 Notation Reference shrinks from approx.@: 30@dmn{MB} to 7@dmn{MB}.
 
 @item
-Finally, to convert LilyPond's documentation (in texinfo format)
+Finally, to convert LilyPond's documentation (in Texinfo format)
 to PDF files, including more than thousand PDF snippets generated
 by LilyPond, @uref{https://tug.org/xetex/, Xe@TeX{}} is used by
 default.  If not available,
@@ -1029,15 +1029,15 @@ documentation can be built by issuing:
 make doc
 @end example
 
-or, to build only the PDF documentation and not the HTML,
+or, to build only the PDF documentation and not the HTML version,
 
 @example
 make -C Documentation out=www pdf
 @end example
 
 @warning{The first time you run @command{make@tie{}doc}, the
-process can easily take an hour or more with not much output
-on the command line.}
+process can easily take a very long time with not much output on
+the command line.}
 
 After this initial build, @command{make@tie{}doc} only makes
 changes to the documentation where needed, so it may only take
@@ -1402,7 +1402,7 @@ TODO: ADD
 @section Build system
 
 
-@subheading Version-specific texinfo macros
+@subheading Version-specific Texinfo macros
 
 @itemize
 
