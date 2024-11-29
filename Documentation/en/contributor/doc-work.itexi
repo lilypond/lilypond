@@ -2290,6 +2290,11 @@ Spanish translation blah
 "
 @end example
 
+The argument to @code{doctitle@var{XX}} must not contain a line
+break; it is directly passed on to Texinfo, expecting the title on
+single line (which gets typeset in more than a single line if
+necessary, though).
+
 @code{@@example} blocks need not be verbatim copies; it often
 makes sense to translate variable names, file names, and comments.
 

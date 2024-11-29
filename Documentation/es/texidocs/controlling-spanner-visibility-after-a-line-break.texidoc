@@ -14,5 +14,4 @@ De forma inversa, los objetos de extensión que son visibles
 normalmente, como los objetos de extensión de texto, se pueden
 ocultar habilitando la función de callback.
 "
-  doctitlees = "Controlar la visibilidad de los objetos de
-  extensión después de un salto de línea"
+  doctitlees = "Controlar la visibilidad de los objetos de extensión después de un salto de línea"
