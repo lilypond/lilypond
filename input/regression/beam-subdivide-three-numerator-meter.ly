@@ -1,10 +1,8 @@
 \version "2.25.22"
 
 \header {
-  doctitle = "Beam subdivision inside@tie{}3/16 time"
-
   texidoc = "At position@tie{}1/8, the beam should be subdivided at
-the@tie{}1/16 level due to the time signature"
+the@tie{}1/16 level due to the time signature."
 }
 
 \paper {

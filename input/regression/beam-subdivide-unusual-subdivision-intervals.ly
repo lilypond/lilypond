@@ -1,9 +1,6 @@
 \version "2.25.8"
 
 \header {
-  doctitle = "Beam subdivision whose subdivision interval limits'
-numerators are not powers of@tie{}2."
-
   texidoc = "Properties @code{maximumBeamSubdivisionInterval} and
 @code{minimumBeamSubdivision} may have a non-power of 2 numerator.  If
 @code{maximumBeamSubdivisionInterval} does have non-power-of-2@tie{}

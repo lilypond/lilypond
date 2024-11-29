@@ -1,12 +1,9 @@
 \version "2.25.8"
 
 \header {
-  doctitle = "Beam subdivision of a triplet, sextuplet, dodecuplet and
-qattuorvigintuplet"
-
   texidoc = "Even though their tuplet ratios are the same when
-simplified each additional power of 2 in the tuplet numerator
-subdivides an additional half"
+simplified each additional power of@tie{}2 in the tuplet numerator
+subdivides an additional half."
 }
 
 

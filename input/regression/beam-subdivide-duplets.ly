@@ -1,11 +1,9 @@
 \version "2.25.8"
 
 \header {
-  doctitle = "Beam subdivision of duplets/powers of@tie{}2."
-
   texidoc = "When subdividing tuplet ratios whose numerators are powers
 of@tie{}2, the beamlet removal depth of each subdivision should vary by
-the same level different, dependending on the tuplet ratio magnitude"
+the same level different, depending on the tuplet ratio magnitude."
 }
 
 

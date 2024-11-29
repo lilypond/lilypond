@@ -1,8 +1,6 @@
 \version "2.25.8"
 
 \header {
-  doctitle = "Beam subdivision with 2 layers of tuplets"
-
   texidoc = "A triplet of any level should clearly subdivide its@tie{}3
 beats at its topmost level, and any subdivisions (of powers of @tie{}2)
 of those beats should be at their own level strictly lower than said

@@ -1,10 +1,8 @@
 \version "2.25.22"
 
 \header {
-  doctitle = "Beam subdivision inside a compound meter"
-
   texidoc = "Even under unusual measure lengths, beam
-subdivision should not defect"
+subdivision should not defect."
 }
 
 \paper {

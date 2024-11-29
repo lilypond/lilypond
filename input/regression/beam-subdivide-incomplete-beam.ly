@@ -1,14 +1,10 @@
 \version "2.25.8"
 
 \header {
-
-  doctitle = "Beam subdivide with incomplete remainder"
-
   texidoc = "Beam count at subdivisions should match the count corresponding
 to the location of the current subdivision.  However, if the remainder of the
 beam is shorter than that and incomplete beams are respected,
 the beam count should be adopted accordingly."
-
 }
 
 \paper {

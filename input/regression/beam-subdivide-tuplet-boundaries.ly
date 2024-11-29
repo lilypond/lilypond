@@ -1,10 +1,8 @@
 \version "2.25.8"
 
 \header {
-  doctitle = "Beam subdivision with 2 layers of tuplets"
-
   texidoc = "Stems at boundaries of tuplet spans must have one side
-subdivided from a perspective outside of said tuplet span"
+subdivided from a perspective outside of said tuplet span."
 }
 
 

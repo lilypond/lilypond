@@ -1,16 +1,12 @@
 \version "2.25.22"
 
 \header {
-
-  doctitle = "Special beaming rules for 3/4 time"
-
   texidoc = "
 Beaming in 3/4 time has special treatment.  By default
 six eighth notes are beamed in one. Beams that would imply 6/8 time
 may be avoided with @code{beamHalfMeasure = ##f}.  When the beaming
 is changed, beams should start at the beginning of the measure.
 "
-
 }
 
 \relative c' {

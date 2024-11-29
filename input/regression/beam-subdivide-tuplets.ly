@@ -1,9 +1,6 @@
 \version "2.25.22"
 
 \header {
-  
-  doctitle = "Beam subdivide tuplets"
-
   texidoc = "
 Tuplets that span more than one beat should be
 subdivided if subdivideBeams is #t.  In this example,

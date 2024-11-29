@@ -1,11 +1,8 @@
 \version "2.25.8"
 
 \header {
-  doctitle = "Beam subdivision under a@tie{}1/4@tie{}tuplet that is
-under a@tie{}4/1@tie{}tuplet"
-
   texidoc = "Beams should subdivided as if there was no tuplet to
-consider in this particular case"
+consider in this particular case."
 }
 
 
