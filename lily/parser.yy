@@ -850,11 +850,11 @@ partial_function:
 					  scm_cadr ($2), scm_car ($2)),
 				 $4);
 	}
-	| REPEAT simple_string unsigned_number
+	| REPEAT simple_string unsigned_integer
 	{
 		$$ = scm_cons (ly_list (Syntax::repeat, $3, $2), SCM_EOL);
 	}
-	| REPEAT simple_string unsigned_number partial_function
+	| REPEAT simple_string unsigned_integer partial_function
 	{
 		$$ = scm_cons (ly_list (Syntax::repeat, $3, $2), $4);
 	}
@@ -1506,11 +1506,11 @@ music_assign:
 	;
 
 repeated_music:
-	REPEAT simple_string unsigned_number music
+	REPEAT simple_string unsigned_integer music
 	{
 		$$ = MAKE_SYNTAX (repeat, @$, $2, $3, $4);
 	}
-	| REPEAT simple_string unsigned_number music sequential_alternative_music
+	| REPEAT simple_string unsigned_integer music sequential_alternative_music
 	{
 		$$ = MAKE_SYNTAX (repeat_alt, @$, $2, $3, $4, $5);
 	}
@@ -3869,10 +3869,10 @@ step_number:
 	;
 
 tempo_range:
-	unsigned_number {
+	unsigned_integer {
 		$$ = $1;
 	} %prec ':'
-	| unsigned_number '-' unsigned_number {
+	| unsigned_integer '-' unsigned_integer {
 		$$ = scm_cons ($1, $3);
 	}
 	;
@@ -3929,7 +3929,7 @@ bare_number:
 	}
 	;
 
-unsigned_number:
+unsigned_integer:
 	UNSIGNED
 	| NUMBER_IDENTIFIER
 	{
