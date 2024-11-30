@@ -59,8 +59,7 @@
 %   will take the time of a crotchet).
 % * Trills and turns are expanded. The algorithm tries to choose notes
 %   within the time of the current tempo that lead to each twiddle being
-%   around 1/8 seconds; this can be adjusted with the ac:maxTwiddleTime
-%   variable.
+%   around 1/8 seconds.
 % * Rall, poco rall and a tempo are observed. It'd be fairly trivial to
 %   make accel. and stringendo and so on work too.
 
@@ -166,10 +165,6 @@
 % (or speed up for accel or poco accel)
 #(define ac:rallFactor (ly:make-moment 60/100)) % 40% slowdown
 #(define ac:pocoRallFactor (ly:make-moment 90/100)) % 10% slowdown
-
-% The absolute time for a twiddle in a trill, in minutes.
-% Start with 1/4 seconds == 1/240 minutes
-#(define ac:maxTwiddleTime (ly:make-moment 1/240))
 
 % How long ordinary grace notes should be relative to their notated
 % duration.  9/40 is LilyPond's built-in behavior for MIDI output
@@ -371,20 +366,6 @@
  music))
 
 
-% absolute time in minutes of a length of music, as a rational number (moment)
-#(define (ac:abstime music)
-  (ly:moment-div (ly:music-length music) ac:currentTempo))
-
-% convert absolute time (in minutes) to a moment in the current tempo
-#(define (ac:abs->mom m)
-  (ly:moment-mul m ac:currentTempo))
-
-
-% a moment that is ac:maxTwiddletime seconds at the current tempo.
-#(define (ac:targetTwiddleTime)
-  (ac:abs->mom ac:maxTwiddleTime))
-
-
 % Nearest twiddletime (in minutes) achievable with power-of-2 divisions of
 % the original music.  (twiddletime is the time for one pair of notes
 % in a trill)
@@ -396,8 +377,7 @@
               (ly:music-property music 'elements)))
          (pre-t (if (pair? tr) (ly:music-property (car tr) 'twiddle)
                  '()))
-         (hemisemimom (ly:make-moment 1/64))
-         (t (ac:targetTwiddleTime)))
+         (hemisemimom (ly:make-moment 1/64)))
    (if (ly:moment? pre-t)
     pre-t
     hemisemimom)))
@@ -413,7 +393,6 @@
          (orig-len  (ly:music-length music))
          (t (ac:twiddletime music))
          (uppernote '())
-         (note_moment (ly:moment-mul t (ly:make-moment 1/2)))
          (c1 (ly:moment-div orig-len t))
          (c2 (inexact->exact
               (round (/ (ly:moment-main-numerator c1)
