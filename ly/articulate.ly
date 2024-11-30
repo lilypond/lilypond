@@ -163,8 +163,8 @@
 
 % How much to slow down for a rall. or a poco rall.
 % (or speed up for accel or poco accel)
-#(define ac:rallFactor (ly:make-moment 60/100)) % 40% slowdown
-#(define ac:pocoRallFactor (ly:make-moment 90/100)) % 10% slowdown
+#(define ac:rallFactor 60/100) % 40% slowdown
+#(define ac:pocoRallFactor 90/100) % 10% slowdown
 
 % How long ordinary grace notes should be relative to their notated
 % duration.  9/40 is LilyPond's built-in behavior for MIDI output
@@ -204,7 +204,7 @@
                 (cons 6 0))))
 
 
-#(define ac:currentTempo (ly:make-moment 15/1)) % 4 = 60, measured wholes per minute
+#(define ac:currentTempo 60/4) % 4 = 60, measured wholes per minute
 #(define ac:lastTempo ac:currentTempo) % for 'a tempo' or 'tempo I'
 
 % The duration of the current note.  Start at a crotchet
@@ -273,7 +273,7 @@
 #(define (ac:adjust-props sym music)
   (case sym
    ((tempoWholesPerMinute)
-    (set! ac:currentTempo (ly:music-property music 'value))
+    (set! ac:currentTempo (ly:moment-main (ly:music-property music 'value)))
     (set! ac:lastTempo ac:currentTempo)
   )))
 
@@ -375,12 +375,10 @@
                      (and (eq? 'ArticulationEvent (ly:music-property x 'name))
                       (eq? 'trill (ly:music-property x 'articulation-type))))
               (ly:music-property music 'elements)))
-         (pre-t (if (pair? tr) (ly:music-property (car tr) 'twiddle)
-                 '()))
-         (hemisemimom (ly:make-moment 1/64)))
-   (if (ly:moment? pre-t)
+         (pre-t (if (pair? tr) (ly:music-property (car tr) 'twiddle) '())))
+   (if (number? pre-t)
     pre-t
-    hemisemimom)))
+    1/64)))
 
 
 
@@ -390,13 +388,11 @@
   " Replace music with time-compressed repeats of the music,
     maybe accelerating if the length is longer than a crotchet "
   (let* ((hemisemidur (ly:make-duration 5 0 1/1))
-         (orig-len  (ly:music-length music))
+         (orig-len  (ly:moment-main (ly:music-length music)))
          (t (ac:twiddletime music))
          (uppernote '())
-         (c1 (ly:moment-div orig-len t))
-         (c2 (inexact->exact
-              (round (/ (ly:moment-main-numerator c1)
-                      (* 2 (ly:moment-main-denominator c1))))))
+         (c1 (/ orig-len t))
+         (c2 (inexact->exact (round (/ c1 2))))
          (count (if (< c2 2) 2 c2)))
 
    (set! (ly:music-property music 'elements)
@@ -417,14 +413,13 @@
             (loop (append (list (ly:music-deep-copy uppernote) (ly:music-deep-copy music)) so_far) (1- c))
             so_far)))
           (trillMusic (make-sequential-music trillMusicElements))
-          (newlen (ly:music-length trillMusic))
-          (factor (ly:moment-div  orig-len newlen)))
+          (newlen (ly:moment-main (ly:music-length trillMusic)))
+          (factor (/ orig-len newlen)))
     (ly:music-compress trillMusic factor)
 ; accelerating the music seems to put lily into an infinite loop in
 ; its layout and midi engines.
 ;    (let* ((realfactor (exp (* (/ 1.0 count) (log 0.75))))
-;          (factor (ly:make-moment (inexact->exact (round (* 1024 realfactor)))
-;                   1024)))
+;          (factor (/ (inexact->exact (round (* 1024 realfactor))) 1024)))
 ;     (ac:accel trillMusic factor))
  )))
 
@@ -444,7 +439,7 @@
 % Create music that changes the tempo
 %
 #(define (ac:tempoChange tempo)
-  #{ \tempo 1 = #(ly:moment-main tempo) #})
+  #{ \tempo 1 = #tempo #})
 
 %
 % Totally unfold repeats, so that the non-obvious sequencing doesn't
@@ -659,7 +654,7 @@
 
        ((accel)
         (set! ac:lastTempo ac:currentTempo)
-        (set! ac:currentTempo (ly:moment-div ac:currentTempo ac:rallFactor))
+        (set! ac:currentTempo (/ ac:currentTempo ac:rallFactor))
         (let ((pset (ac:tempoChange ac:currentTempo)))
          (if (null? (cdr actions))
           (make-sequential-music (list pset music))
@@ -668,7 +663,7 @@
 
        ((pocoAccel)
         (set! ac:lastTempo ac:currentTempo)
-        (set! ac:currentTempo (ly:moment-div ac:currentTempo ac:pocoRallFactor))
+        (set! ac:currentTempo (/ ac:currentTempo ac:pocoRallFactor))
         (let ((pset (ac:tempoChange ac:currentTempo)))
          (if (null? (cdr actions))
           (make-sequential-music (list pset music))
@@ -677,7 +672,7 @@
 
        ((rall)
         (set! ac:lastTempo ac:currentTempo)
-        (set! ac:currentTempo (ly:moment-mul ac:currentTempo ac:rallFactor))
+        (set! ac:currentTempo (* ac:currentTempo ac:rallFactor))
         (let ((pset (ac:tempoChange ac:currentTempo)))
          (if (null? (cdr actions))
           (make-sequential-music (list pset music))
@@ -686,7 +681,7 @@
 
        ((pocoRall)
         (set! ac:lastTempo ac:currentTempo)
-        (set! ac:currentTempo (ly:moment-mul ac:currentTempo ac:pocoRallFactor))
+        (set! ac:currentTempo (* ac:currentTempo ac:pocoRallFactor))
         (let ((pset (ac:tempoChange ac:currentTempo)))
          (if (null? (cdr actions))
           (make-sequential-music (list pset music))
@@ -945,13 +940,15 @@ articulate = #(define-music-function (music)
 % Special handling for a gruppetto after a trill.
 #(define (ac:aftergrace main grace)
   (let*
-   ((main-length (ly:music-length main))
-    (grace-orig-length (ly:music-length grace))
+   ((main-length (ly:moment-main (ly:music-length main)))
+    (grace-orig-length (ly:moment-main (ly:music-length grace)))
     (gracelen (ac:twiddletime main))
-    (grace-factor (ly:moment-div gracelen grace-orig-length))
-    (new-main-length (ly:moment-sub main-length gracelen))
-    (factor (ly:moment-div new-main-length main-length))
+    (grace-factor (/ gracelen grace-orig-length))
+    (new-main-length (- main-length gracelen))
+    (factor (/ new-main-length main-length))
   )
+   ;; TODO: Is it acceptable to set a music property (twiddle) that is not
+   ;; listed in scm/define-music-properties.scm?
    (map (lambda (y) (set! (ly:music-property y 'twiddle) gracelen))
          (filter (lambda (z)
                   (and
