@@ -167,23 +167,23 @@
                     (car rest)))
          (count (and unit
                      (cadr rest)))
-         (range-tempo? (pair? count))
+         (wpm (cond ((number? count)
+                     (* (ly:duration->number unit) count))
+                    ((number-pair? count)
+                     (* (ly:duration->number unit)
+                        ;; TODO: Either explain the benefits of rounding or stop
+                        ;; doing it.
+                        (round (interval-center count))))
+                    (else
+                     #f)))
          (tempo-change (ly:set-origin! (make-music 'TempoChangeEvent
                                                    'text text
                                                    'tempo-unit unit
                                                    'metronome-count count)))
          (tempo-set
-          (and unit
+          (and wpm
                (context-spec-music
-                (make-property-set 'tempoWholesPerMinute
-                                   (ly:moment-mul
-                                    (ly:make-moment
-                                     (if range-tempo?
-                                         (round (/ (+ (car count) (cdr count))
-                                                   2))
-                                         count)
-                                     1)
-                                    (ly:duration->moment unit)))
+                (make-property-set 'tempoWholesPerMinute (ly:make-moment wpm))
                 'Score))))
 
     (if tempo-set
