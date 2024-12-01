@@ -721,8 +721,23 @@ class Barline(Measure_element):
             repeat = conversion.RepeatMarker()
             repeat.direction = {'forward': -1, 'backward': 1}.get(direction, 0)
 
-            if ((direction == 'forward' and bartype == 'heavy-light')
-                    or (direction == 'backward' and bartype == 'light-heavy')):
+            # The MusicXML standard has issues with specifying the type for
+            # repeats, especially for back-to-back repeats; see
+            # https://github.com/w3c/musicxml/issues/104 – we do what Finale
+            # does, namely to ignore the bar type for start and end repeats,
+            # setting them to 'thick-thin' and 'thin-thick', respectively.
+            # Since this is LilyPond's default, we don't have to do
+            # anything.
+            #
+            # Similarly, the default back-to-back repeat type for Finale is
+            # 'thin-thick-thin', and we set up LilyPond to use this as the
+            # default, too, which means that we don't have to do anything
+            # for this either.  The only case we actually handle is
+            # 'heavy-heavy', assuming that it specifies a 'heavy-heavy' type
+            # for a back-to-back repeat bar line.
+            if bartype == 'heavy-heavy':
+                bartype = 'dots-heavy-heavy-dots'
+            else:
                 bartype = None
             times = getattr(repeat_element, 'times', None)
             if times is not None:

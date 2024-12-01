@@ -1780,7 +1780,8 @@ class BarLine(Music):
             'none': '',
             'regular': '|',
             'short': ',',
-            'tick': "'"}.get(self.type, None)
+            'tick': "'",
+            'dots-heavy-heavy-dots': ':..:'}.get(self.type, None)
 
         val = []
         if bar_symbol is None:
@@ -1790,7 +1791,10 @@ class BarLine(Music):
             # We can't use `\tweak` here.
             val.append(r'\once \override Staff.BarLine.color = %s'
                        % color_to_ly(self.color))
-        if bar_symbol is not None:
+        if bar_symbol == ':..:':
+            val.append(r'\once \set Score.doubleRepeatBarType = "%s"'
+                       % bar_symbol)
+        elif bar_symbol is not None:
             val.append(r'\bar "%s"' % bar_symbol)
 
         for v in val:

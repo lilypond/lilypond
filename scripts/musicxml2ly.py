@@ -693,6 +693,9 @@ def group_repeats(music_list):
                     ending_start = -1
 
             if repeat_finished:
+                globvars.layout_information.set_context_item(
+                    'Score', 'doubleRepeatBarType = ":|.|:"')
+
                 # We found the whole structure replace it!
                 r = musicexp.RepeatedMusic()
                 if repeat_times <= 0:
