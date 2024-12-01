@@ -105,6 +105,12 @@ way the transposition number is displayed."
     (metronome-markup text dur count hide-note)))
 
 (define (metronome-markup text dur count hide-note)
+  (define (format-number count)
+    (and (positive? count)
+         (finite? count)
+         ;; Non-integers might be useful for fine-tuning MIDI tempo, but there's
+         ;; no use case for carrying the fractional part into the layout.
+         (number->string (round (inexact->exact count)))))
   (let* ((note-mark
           (if (and (not hide-note) (ly:duration? dur))
               (make-smaller-markup
@@ -114,12 +120,12 @@ way the transposition number is displayed."
                 UP))
               #f))
          (count-markup (cond ((number? count)
-                              (if (> count 0)
-                                  (number->string count)
-                                  #f))
-                             ((pair? count)
+                              (format-number count))
+                             ((number-pair? count)
                               ;; Thin Spaces U+2009 & En-dash U+2013
-                              (format #f "~a – ~a" (car count) (cdr count)))
+                              (format #f "~a – ~a"
+                                      (format-number (car count))
+                                      (format-number (cdr count))))
                              (else #f)))
          (note-markup (if (and (not hide-note) count-markup)
                           (list
