@@ -840,6 +840,7 @@ determines the number of scale steps that make up an octave.  Usually the
     (,non-negative-number? . "non-negative number")
     (,number-list? . "number list")
     (,number-or-grob? . "number or grob")
+    (,number-or-number-pair? . "number or pair of numbers")
     (,number-or-pair? . "number or pair")
     (,number-or-string? . "number or string")
     (,number-pair? . "pair of numbers")

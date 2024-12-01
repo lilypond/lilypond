@@ -128,7 +128,7 @@ This property can only be defined as initializer in
      (line-break-permission ,symbol? "When the music is at top-level,
 whether to allow, forbid or force a line break.")
 
-     (metronome-count ,number-or-pair? "How many beats in a minute?")
+     (metronome-count ,number-or-number-pair? "How many beats in a minute?")
      (midi-extra-velocity ,integer? "How much louder or softer should
 this note be in MIDI output? The default is 0.")
      (midi-length ,procedure? "Function to determine how long to play

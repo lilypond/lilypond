@@ -163,6 +163,9 @@
 (define-public (string-or-music? x)
   (or (string? x) (ly:music? x)))
 
+(define-public (number-or-number-pair? x)
+  (or (number? x) (number-pair? x)))
+
 (define-public (number-or-pair? x)
   (or (number? x) (pair? x)))
 
