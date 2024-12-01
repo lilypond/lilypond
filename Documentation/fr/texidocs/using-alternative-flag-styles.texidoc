@@ -1,10 +1,31 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
   texidocfr = "
 Une dérogation à la propriété @code{stencil} de l'objet @code{Flag}
 permet aux croches et notes de durée inférieure d'adopter une autre
 forme de crochet. Sont disponibles les variantes
 @code{modern-straight-flag}, @code{old-straight-flag} et
-@code{flat-flag}.
+@code{flat-flag}. Un @code{\\revert} permet de retrouver l'allure par
+défaut.
+
+Des crochets empilés, autrement dit à l'espacement resserré,
+s'obtiennent à l'aide de l'instruction @code{\\flagStyleStacked}, qui
+s'annule par un @code{\\flagStyleDefault}.
+
+Une dérogation au stencil de @code{Flag} ne modifie en rien le
+positionnement vertical individuel des crochets. Ceci s'observe avec des
+crochets rectilignes : LilyPond n'ajuste pas dynamiquement l'écart entre
+les crochets les uns par rapport aux autres de la même manière que pour
+les ligatures. L'une des solutions pour harmoniser l'apparence consiste
+à remplacer les crochets par des demi-ligatures comme indiqué dans la
+deuxième portée . ceci ne peut toutefois se faire automatiquement. Dans
+le code de cet extrait, ces demi-ligatures se mentionnent à l'aide du
+préfixe @code{@@}, comme par exemple @code{@@c8}.
+
+Il est important de noter que des demi-ligatures @emph{ne sont pas} des
+objets @code{Flag}, ce qui signifie que des modifications apportées aux
+objets @code{Flag} n'auront aucun effet sur elles (il faut utiliser des
+propriétés de @code{Beam}), et les propriétés de leur objet @code{Stem}
+associé adoptera le même comportement qu'avec des ligatures.
 "
 
   doctitlefr = "Crochets de style alternatif"

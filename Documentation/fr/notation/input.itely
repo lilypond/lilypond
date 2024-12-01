@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
+   Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -4691,8 +4691,8 @@ l'implémentation particulière à ce périphérique.
 
 Lors de la génération d'un fichier MIDI, LilyPond transforme simplement
 les valeurs fractionnaires dans l'amplitude linéaire en valeurs entières
-correspondantes (de 0 à 127 et sur 7 octets, ou de 0 à 32767 et sur 14
-octets pour les contrôles MIDI supportant une résolution fine). Ces
+correspondantes (de 0 à 127 et sur 7 bits, ou de 0 à 32767 et sur 14
+bits pour les contrôles MIDI supportant une résolution fine). Ces
 valeurs entières converties sont stockées telles quelles dans le fichier
 MIDI généré. Pour plus d'information sur la manière dont un périphérique
 MIDI interprète ces valeurs, se reporter à sa documentation.

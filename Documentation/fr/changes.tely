@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+    Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -861,12 +861,70 @@ altérations ont été ajoutées : @code{\text-doubleflat},
 @node New for specialist notation
 @unnumbered Nouveautés en matière de notation spécialisée
 
-
 @ignore
+@node Vocal music improvements
+@unnumberedsec Améliorations pour la musique vocale
+@end ignore
+
+@node Keyboard and multi-staff music improvements
+@unnumberedsec Améliorations pour instruments à portées multiples
+
+@itemize
+@item
+La commande @code{\autoBeamOff} interrompt désormais immédiatement la
+ligature automatique. Auparavant, ses effets étaient différés lorsque le
+graveur de ligature automatique était actif.
+
+@item
+Il n'est désormais plus nécessaire de désactiver les ligatures
+automatiques dans le cadre d'un @code{\crossStaff}.
+
+@end itemize
+
+
+@node Unfretted string instrument improvements
+@unnumberedsec Améliorations pour les cordes non frettées
+
+@itemize
+@item
+Les indications @code{\upbow} et @code{\downbow} sont désormais
+correctement inversées lorsque placées sous la portée. En consésquence,
+les glyphes @code{scripts.upbow} et @code{scripts.downbow} ont été
+respectivement renommés en @code{script.uupbow} et
+@code{scripts.udownbow}, et les glyphes inversés nommés
+@code{scripts.dupbow} et @code{scripts.ddownbow}.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  f4^\downbow f^\upbow f_\downbow f_\upbow
+}
+@end lilypond
+
+@end itemize
+
+
 @node Fretted string instrument improvements
 @unnumberedsec Améliorations pour les cordes frettées
 
+@itemize
+@item
+Les réglages par défaut des étiquettes de diagramme de fret ont changé.
 
+@itemize
+@item
+La valeur par défaut de @code{fret-label-vertical-offset} est fixée
+à @w{-0.5}, ce qui a pour effet de centrer l'étiquette dans l'espace du
+fret.
+
+@item
+Le format numérique par défaut est désormais @code{'custom}, avec un
+format de chaîne @code{"~dfr"} (résultant en @q{3fr} par exemple), au
+lieu de @code{'roman-lower}.
+@end itemize
+
+@end itemize
+
+@ignore
 @node Percussion improvements
 @unnumberedsec Améliorations pour la notation des percussions
 
@@ -877,7 +935,6 @@ altérations ont été ajoutées : @code{\text-doubleflat},
 
 @node Chord notation improvements
 @unnumberedsec Améliorations pour la notation des accords
-
 @end ignore
 
 @node Ancient notation improvements
@@ -934,11 +991,11 @@ permettant d'indiquer quelque hampe non nécessaire.
 
 
 @item
-L'utilisation de @file{gregorian.ly} est désuète. Bien que toujours
-fonctionnelle pour raison de compatibilté ascendante, elle devrait être
-remplacée par l'utilisation d'un contexte @code{VaticanaScore}, avec si
-besoin des adaptations manuelles dans le bloc @code{\layout}. Un code
-tel que
+L'utilisation du fichier @file{gregorian.ly} est désuète. Bien que
+toujours fonctionnelle pour raison de compatibilté ascendante, elle
+devrait être remplacée par l'utilisation d'un contexte
+@code{VaticanaScore}, avec si besoin des adaptations manuelles dans le
+bloc @code{\layout}. Un code tel que
 
 @quotation
 @verbatim
@@ -966,61 +1023,34 @@ devrait devenir
 @end verbatim
 @end quotation
 
+@end itemize
+
+@node World music improvements
+@subsubheading Améliorations pour les musiques du monde
+
+@itemize
 @item
-La langue de saisie @q{arabic} est dépréciée. Bien que toujours
+La langue de saisie « arabic » est dépréciée. Bien que toujours
 fonctionnelle pour des raisons de rétrocompatiblité -- si l'on charge
 @file{hel-arabic} --, il est recommandé d'utiliser « english »,
 « italiano » ou votre langue de saisie préférée.
 
-@item
-Les réglages par défaut des étiquettes de diagramme de fret ont changé.
-
-@itemize
-@item
-La valeur par défaut de @code{fret-label-vertical-offset} est fixée
-à @w{-0.5}, ce qui a pour effet de centrer l'étiquette dans l'espace du
-fret.
-
-@item
-Le format numérique par défaut est désormais @code{'custom}, avec un
-format de chaîne @code{"~dfr"} (résultant en @q{3fr} par exemple), au
-lieu de @code{'roman-lower}.
 @end itemize
 
-@item
-La commande @code{\autoBeamOff} interrompt désormais immédiatement la
-ligature automatique. Auparavant, ses effets étaient différés lorsque le
-graveur de ligature automatique était actif.
-
-@item
-Il n'est désormais plus nécessaire de désactiver les ligatures
-automatiques dans le cadre d'un @code{\crossStaff}.
-
-@item
-Les indications @code{\upbow} et @code{\downbow} sont désormais
-correctement inversées lorsque placées sous la portée. En consésquence,
-les glyphes @code{scripts.upbow} et @code{scripts.downbow} ont été
-respectivement renommés en @code{script.uupbow} et
-@code{scripts.udownbow}, et les glyphes inversés nommés
-@code{scripts.dupbow} et @code{scripts.ddownbow}.
-
-@lilypond[quote,verbatim]
-\relative c' {
-  f4^\downbow f^\upbow f_\downbow f_\upbow
-}
-@end lilypond
-
-@end itemize
-
-@ignore
-@subsubheading Améliorations pour les musiques du monde
-
-@end ignore
 
 @node Miscellaneous improvements
 @unnumbered Autres améliorations diverses
 
 @itemize
+@item
+Les fonctions Scheme @code{duration-length} et @code{ly:duration-length}
+ont été respectivement renommées en@code{ly:duration->number} et
+@code{ly:duration->moment}.
+
+@item
+La nouvelle fonction Scheme @code{ly:parser-append-to-include-path}
+ajoute son argument au chemin de recherche courant de l'analyseur.
+
 @item
 La propriété de contexte @code{baseMoment} est abandonnée au profit de
 @code{beatBase}. L'utilisation de @code{baseMoment} accède de manière
@@ -1052,7 +1082,7 @@ bien vers les sources LilyPond ou des enregistrements, etc.
 @end lilypond
 
 @item
-Des parenthèses pour texte de @emph{markup} ont été ajoutés aux fontes
+Des parenthèses pour texte de @emph{markup} ont été ajoutées aux fontes
 Emmentaler, pour s'harmoniser avec les nombres (contrairement à celles
 déjà disponibles pour les altérations).
 
@@ -1297,6 +1327,12 @@ restaure la valeur initale.
   c'
 }
 @end lilypond
+
+@item
+La nouvelle propriété d'objet graphique @code{whiteout-color} permet de
+définir la couleur de mise en surbrillance. Dans la même veine, la
+commande de @emph{markup} @code{\whiteout} attend une propriété
+@code{color} pour faire de même.
 
 @end itemize
 

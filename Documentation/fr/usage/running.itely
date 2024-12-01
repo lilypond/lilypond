@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+   Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -56,6 +56,22 @@ Notre propos n'est pas ici d'expliquer ce qu'est l'interface de
 commande pour un système informatique ni comment elle fonctionne.
 Aussi, si vous ne savez de quoi il retourne, nous vous renvoyons aux
 nombreuses documentations que vous pourrez trouver sur ce sujet.
+
+Il est préférable que la ligne de commande utilise Unicade dans un
+encodage UTF-8. C'est actuellement le standard pour les système de
+type Unix y xompris macOS et GNU/Linux. En ce qui concerne Windows, on
+peut choisir UTF-8 en sélectionant un code-page approprié : tapez
+
+@example
+chcp 65001
+@end example
+
+@noindent
+sur la ligne de commande avant de lancer @command{lilypond.exe}.
+Des solutions pour activer de façon parmanente UTF-8 sur la ligne de
+commande de Windows sont disponibles sur
+internet.@footnote{@uref{https://stackoverflow.com/a/57134096/1276195}
+par exemple donne une réponse argumentée.}
 
 @menu
 * The PATH environment variable::

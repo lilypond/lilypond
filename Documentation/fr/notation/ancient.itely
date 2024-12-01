@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+   Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -728,9 +728,9 @@ Manuel de notation :
 @cindex crochet
 @cindex ancien, crochet
 
-Le réglage de la propriété @code{flag-style} de l'objet hampe
-(@code{Stem}) donne accès aux crochets de style ancien. Les seuls styles
-actuellement pris en charge sont @code{default} et @code{mensural}.
+Le réglage de la propriété @code{style} de l'objet @code{Flag} donne
+accès aux crochets de style ancien. Les seuls styles actuellement pris
+en charge sont @code{default} et @code{mensural}.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \relative c' {

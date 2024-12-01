@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+   Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3009,6 +3009,17 @@ importante.
 @cindex rectiligne, crochet
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/beam-nibs.ly}
+
+@cindex crochet plat
+@cindex plat, crochet
+@cindex crochet rectiligne
+@cindex rectiligne, crochet
+@cindex crochets empilés
+@cindex empilés, crochets
+@funindex \flagStyleStacked
+@funindex \flagStyleDefault
+@lilypondfile[verbatim,ragged-right,texidoc,doctitle]
+{snippets/using-alternative-flag-styles.ly}
 
 @morerefs
 Manuel de notation :
