@@ -69,9 +69,9 @@ def draw_trillelement (expr offset, ending) =
     z5 = whatever * nw + (z3' - ne_dist);
 
     pat := z5
-           -- (z1 - nw_dist){-trill_ne}
-           -- (z1 + nw_dist){trill_ne}
-           -- (z3 + nw_dist){trill_ne}
+           -- (z1 - nw_dist) - (feta_eps, feta_eps)
+           -- (z1 + nw_dist) - (feta_eps, feta_eps)
+           -- (z3 + nw_dist)
            .. top z3{right}
            .. (z3 + ne_dist){-nw};
     pat := pat
@@ -92,8 +92,8 @@ def draw_trillelement (expr offset, ending) =
            .. bot z4{left}
            .. lft z4{up}
            .. (z4 + nw_dist){trill_ne}
-           -- (z1 + nw_dist){trill_ne}
-           -- (z1 - nw_dist){-trill_ne}
+           -- (z1 + nw_dist)
+           -- (z1 - nw_dist)
            -- cycle;
 
     if (ending = 1) or (ending = 3):
@@ -143,6 +143,7 @@ fet_beginchar ("prallprall", "prallprall");
 
   draw_trillelement (-trill_width, 1);
   draw_trillelement (0, 0);
+  labels (1, 2, 3, 3', 4, 5);
   draw_trillelement (trill_width, 2);
 fet_endchar;
 
