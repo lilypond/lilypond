@@ -459,6 +459,7 @@ emmentaler_glyphsets = [
         "scripts.reverseturn",
         "scripts.slashturn",
         "scripts.haydnturn",
+        "scripts.bachschleifer",
 
         "scripts.udownbow",
         "scripts.ddownbow",

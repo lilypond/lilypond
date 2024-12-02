@@ -320,3 +320,47 @@ fet_beginchar ("lineprall", "lineprall");
   draw_trillelement (0, 0);
   draw_trillelement (trill_width, 2);
 fet_endchar;
+
+
+fet_beginchar ("Bach schleifer", "bachschleifer")
+  pair orig_trill_ne;
+  orig_trill_ne := trill_ne;
+  orig_trill_width# := trill_width#;
+
+  save trill_ne, trill_width;
+  pair trill_ne;
+
+  trill_width# = 6/8 orig_trill_width#;
+  define_whole_pixels (trill_width);
+
+  trill_ne := (6/8 xpart orig_trill_ne, ypart orig_trill_ne);
+
+  set_char_box (trill_width#, trill_width#,
+                trill_height#, trill_height#);
+
+  draw_trillelement (-hround (.5 trill_width), 1);
+  draw_trillelement (-hround (.5 trill_width) + trill_width, 2);
+
+  z11 = z4 scaled -1 shifted (-hround (.5 trill_width) + trill_width, 0);
+  z12 = (3 trill_width, 2.5 trill_height);
+
+  % We imitate a small slur.
+  base_angle := angle (z12 - z11);
+  swoosh_angle := 40;
+  swell_angle := 5;
+  tip_factor := 0.4;
+
+  penpos11 (trill_thin,
+            base_angle + swoosh_angle - 90);
+  penpos12 (trill_thin * tip_factor,
+            base_angle - swoosh_angle - swell_angle - 90);
+  penlabels (11, 12);
+
+  pickup pencircle scaled trill_stemwidth;
+
+  fill z11l{dir (base_angle + swoosh_angle)}
+       .. z12l{dir (base_angle - swoosh_angle - swell_angle)}
+       .. z12r{-dir (base_angle - swoosh_angle)}
+       .. z11r{-dir (base_angle + swoosh_angle)}
+       -- cycle;
+fet_endchar;
