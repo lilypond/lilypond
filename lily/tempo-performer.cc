@@ -57,16 +57,13 @@ Tempo_performer::~Tempo_performer ()
 void
 Tempo_performer::process_music ()
 {
-  SCM w = get_property (this, "tempoWholesPerMinute");
-  if (unsmob<Moment> (w) && !ly_is_equal (w, last_tempo_))
+  SCM wpm_scm = get_property (this, "tempoWholesPerMinute");
+  auto *wpm_mom = unsmob<Moment> (wpm_scm);
+  if (wpm_mom && !ly_is_equal (wpm_scm, last_tempo_))
     {
-      Rational r = unsmob<Moment> (w)->main_part_;
-      r *= Rational (4, 1);
-
       Stream_event *cause = nullptr;
-      announce<Audio_tempo> (cause, static_cast<int> (r.trunc_int ()));
-
-      last_tempo_ = w;
+      announce<Audio_tempo> (cause, wpm_mom->main_part_);
+      last_tempo_ = wpm_scm;
     }
 }
 

@@ -25,6 +25,7 @@
 #include "moment.hh"
 #include "piano-pedal.hh"
 #include "pitch.hh"
+#include "rational.hh"
 
 #include <string>
 
@@ -151,9 +152,12 @@ public:
 class Audio_tempo final : public Audio_item
 {
 public:
-  Audio_tempo (int per_minute_4);
+  Audio_tempo (Rational wholes_per_minute)
+    : wholes_per_minute_ (wholes_per_minute)
+  {
+  }
 
-  int per_minute_4_;
+  Rational wholes_per_minute_;
 };
 
 class Audio_time_signature final : public Audio_item

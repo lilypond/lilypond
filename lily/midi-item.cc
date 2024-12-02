@@ -30,6 +30,11 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+#include <algorithm>
+#include <chrono>
+
+using namespace std::literals;
+
 #define PITCH_WHEEL_CENTER 0x2000
 #define PITCH_WHEEL_SEMITONE 0X1000
 
@@ -308,10 +313,15 @@ Midi_tempo::Midi_tempo (Audio_tempo *a)
 std::string
 Midi_tempo::to_string () const
 {
-  uint32_t useconds_per_4 = 60 * 1000000 / audio_->per_minute_4_;
+  const auto us_per_min = Rational {std::chrono::microseconds {1min}.count ()};
+  const auto us_per_quarter = us_per_min / (audio_->wholes_per_minute_ * 4);
+  // I don't see any statement in the MIDI spec about what 0 might do.
+  // I assume it could cause trouble. [DE]
+  const auto midi_val = static_cast<uint32_t> (std::clamp (
+    us_per_quarter.trunc_int (), int64_t {1}, int64_t {0xff'ff'ff}));
   uint8_t out[] = {0xff, 0x51, 0x03};
   return std::string (reinterpret_cast<char *> (out), sizeof (out))
-         + String_convert::be_u24 (useconds_per_4);
+         + String_convert::be_u24 (midi_val);
 }
 
 Midi_text::Midi_text (Audio_text *a)

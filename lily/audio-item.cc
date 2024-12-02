@@ -190,11 +190,6 @@ Audio_span_dynamic::get_volume (Moment mom) const
   return start_volume_ + gain_ * (when / duration_);
 }
 
-Audio_tempo::Audio_tempo (int per_minute_4)
-{
-  per_minute_4_ = per_minute_4;
-}
-
 Audio_time_signature::Audio_time_signature (int beats, int one_beat,
                                             int beat_base_clocks)
 {
