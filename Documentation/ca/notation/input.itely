@@ -3754,7 +3754,7 @@ En generar fitxers MIDI, el LilyPond senzillament converteix de
 forma lineal els valors fraccionaris dins de cada rang (7 bits, o
 14 bits per als controls de canal MIDI que admeten resolució fina)
 en valors enters dins del rang corresponent (de 0 a 127 o de 0 a
-32767, respectivament), arrodonint els valors fraccionaris cap al
+16383, respectivament), arrodonint els valors fraccionaris cap al
 enter més pròxim en direcció oposada al zero.  Els valors enters
 convertits s'emmagatzemen tal qual al fitxer MIDI generat.
 Consulteu la documentació del seu dispositiu MIDI per veure

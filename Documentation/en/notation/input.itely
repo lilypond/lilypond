@@ -4508,7 +4508,7 @@ implementation.
 When generating MIDI files, LilyPond will simply transform the
 fractional values within each range linearly into values in a
 corresponding (7-bit, or 14-bit for MIDI channel controls which support
-fine resolution) integer range (0-127 or 0-32767, respectively),
+fine resolution) integer range (0-127 or 0-16383, respectively),
 rounding fractional values towards the nearest integer away from zero.
 The converted integer values are stored as-is in the generated MIDI
 file.  Please consult the documentation of your MIDI device for

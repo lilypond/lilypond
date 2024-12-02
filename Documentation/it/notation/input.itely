@@ -3728,7 +3728,7 @@ stanno già suonando su quel canale MIDI.
 
 Quando genera file MIDI, LilyPond trasformerà semplicemente le frazioni
 comprese in ciascuna gamma in valori di una gamma di numeri interi
-corrispondenti (0-127 per i 7-bit, 0-32767 per i 14 bit per i controlli
+corrispondenti (0-127 per i 7-bit, 0-16383 per i 14 bit per i controlli
 del canale MIDI che supportano una migliore risoluzione), arrotondando
 i valori delle frazioni sul numero intero più vicino.
 I valori interi convertiti sono salvati così come sono nel file MIDI

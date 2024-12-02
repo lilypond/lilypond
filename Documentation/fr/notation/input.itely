@@ -4691,7 +4691,7 @@ l'implémentation particulière à ce périphérique.
 
 Lors de la génération d'un fichier MIDI, LilyPond transforme simplement
 les valeurs fractionnaires dans l'amplitude linéaire en valeurs entières
-correspondantes (de 0 à 127 et sur 7 bits, ou de 0 à 32767 et sur 14
+correspondantes (de 0 à 127 et sur 7 bits, ou de 0 à 16383 et sur 14
 bits pour les contrôles MIDI supportant une résolution fine). Ces
 valeurs entières converties sont stockées telles quelles dans le fichier
 MIDI généré. Pour plus d'information sur la manière dont un périphérique

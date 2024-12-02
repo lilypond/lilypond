@@ -3977,7 +3977,7 @@ Al generar archivos MIDI, LilyPond sencillamente convierte de
 forma lineal los valores fraccionarios dentro de cada rango (7
 bits, o 14 bits para los controles de canal MIDI que admiten
 resolución fina) en valores enteros dentro del rango
-correspondiente (de 0 a 127 o de 0 a 32767, respectivamente),
+correspondiente (de 0 a 127 o de 0 a 16383, respectivamente),
 redondeando los valores fraccionarios hacia el entero más próximo
 en dirección opuesta al cero.  Los valores enteros convertidos se
 almacenan tal cual en el archivo MIDI generado.  Consulte la
