@@ -462,20 +462,10 @@
    new-music))
 
 %
-% Generate a tempoChangeEvent and its associated property setting.
+% Create music that changes the tempo
 %
 #(define (ac:tempoChange tempo)
-  ;; TODO: #{ \tempo 1 = #(ly:moment-main tempo) #} would be more
-  ;; maintainable.  First, the parser (and some downstream code)
-  ;; would have to be changed to accept a non-integer count.
-  (make-sequential-music
-   (list (make-music 'TempoChangeEvent
-          'metronome-count
-          (ly:moment-main tempo)
-          'tempo-unit
-          (ly:make-duration 0 0 1/1))
-    (context-spec-music
-    (make-property-set 'tempoWholesPerMinute  tempo) 'Score))))
+  #{ \tempo 1 = #(ly:moment-main tempo) #})
 
 %
 % Totally unfold repeats, so that the non-obvious sequencing doesn't

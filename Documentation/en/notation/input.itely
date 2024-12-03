@@ -3829,7 +3829,8 @@ supports pitch bending will also be required.
 @item Rhythms entered as note durations, including tuplets
 @item @q{Simple} articulations; staccato, staccatissimo, accent, marcato
 and portato
-@item Tempo changes using the @code{\tempo} function
+@item Tempo changes using the @code{\tempo} function, including for
+fractional metronome values
 @item Ties
 @item Tremolos that are @emph{not} entered with a
 @q{@code{:}[@var{number}]} value

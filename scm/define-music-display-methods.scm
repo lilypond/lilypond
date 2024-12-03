@@ -1069,8 +1069,9 @@ Otherwise, return #f."
                                 '())
                             (duration->lily-string ?unit #:force-duration #t)
                             (if (pair? ?count)
-                                (format #f "~a - ~a" (car ?count) (cdr ?count))
-                                ?count)
+                                (format #f "#~a - #~a"
+                                        (car ?count) (cdr ?count))
+                                (format #f "#~a" ?count))
                             (new-line->lily-string))))
 
 (define-display-method TempoChangeEvent (expr)

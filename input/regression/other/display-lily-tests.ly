@@ -229,9 +229,10 @@ are reported on the stderr of this run."
 \test ##[ \mark "Allegro" #]
 \test ##[ \textMark "Fl. 1 solo" #]              % TextMarkEvent
 \test ##[ \textEndMark \markup \italic "Seconda volta duo" #]
-\test ##[ \tempo 4 = 120 #]			% MetronomeChangeEvent
-\test ##[ \tempo 4 = 108 - 116 #]
-\test ##[ \tempo "Allegro" 4 = 132 #]
+\test ##[ \tempo 4 = #120 #]			% MetronomeChangeEvent
+\test ##[ \tempo 4 = #239/2 #]
+\test ##[ \tempo 4 = #108 - #116 #]
+\test ##[ \tempo "Allegro" 4 = #132 #]
 \test ##[ \tempo "Andante" #]
 \test ##[ \jump \markup \italic "Gavotte I D.C." #]	% AdHocJumpEvent
 \test ##[ \sectionLabel \markup \italic "Gavotte" #]	% SectionLabelEvent

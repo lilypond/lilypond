@@ -1562,6 +1562,18 @@ A basic metronome mark is simple to write:
 }
 @end lilypond
 
+The stated rate does not have to be an integer, but it must be an
+exact number.
+
+@lilypond[verbatim,quote]
+tempoI = 100
+\fixed c' {
+  \tempo 4 = #(* tempoI 2/3)
+  e2 e4 d
+  c2 g2
+}
+@end lilypond
+
 Metronome marks may also be printed as a range of two numbers:
 
 @lilypond[verbatim,quote]

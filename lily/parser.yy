@@ -3869,10 +3869,10 @@ step_number:
 	;
 
 tempo_range:
-	unsigned_integer {
+	exact_unsigned_number {
 		$$ = $1;
 	} %prec ':'
-	| unsigned_integer '-' unsigned_integer {
+	| exact_unsigned_number '-' exact_unsigned_number {
 		$$ = scm_cons ($1, $3);
 	}
 	;
@@ -3926,6 +3926,29 @@ bare_number:
 	| UNSIGNED
 	| UNSIGNED NUMBER_IDENTIFIER	{
 		$$ = scm_product ($1, $2);
+	}
+	;
+
+exact_unsigned_number:
+	UNSIGNED
+	| NUMBER_IDENTIFIER
+	{
+		if (!scm_is_exact ($1)
+		    || scm_is_true (scm_negative_p ($1)))
+		{
+			parser->parser_error (@1, _("not an exact unsigned number"));
+			$$ = SCM_INUM0;
+		}
+	}
+	| embedded_scm
+	{
+		if (!scm_is_number ($1)
+		    || !scm_is_exact ($1)
+		    || scm_is_true (scm_negative_p ($1)))
+		{
+			parser->parser_error (@1, _("not an exact unsigned number"));
+			$$ = SCM_INUM0;
+		}
 	}
 	;
 
