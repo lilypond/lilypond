@@ -5,6 +5,8 @@
 instructions by @code{\\articulate}."
 }
 
+#(ly:set-option 'warning-as-error)
+
 \include "articulate.ly"
 
 \score {
