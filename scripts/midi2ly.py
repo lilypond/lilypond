@@ -25,6 +25,8 @@
 TODO:
 '''
 
+from decimal import Decimal
+from fractions import Fraction
 import gettext
 import math
 import os
@@ -306,18 +308,24 @@ class Time:
 
 
 class Tempo:
-    def __init__(self, seconds_per_1):
+    def __init__(self, seconds_per_whole):
         self.clocks = 0
-        self.seconds_per_1 = seconds_per_1
+        self.wholes_per_minute = 60 / Fraction(seconds_per_whole)
 
     def __repr__(self):
-        return 'Tempo(%d)' % self.bpm()
-
-    def bpm(self):
-        return 4 * 60 / self.seconds_per_1
+        return f'Tempo({self.wholes_per_minute})'
 
     def dump(self):
-        return '\n  ' + '\\tempo 4 = %d ' % (self.bpm()) + '\n  '
+        qpm = 4 * self.wholes_per_minute
+        comment = ''
+        if qpm.denominator != 1:
+            # Express as a rational with a decimal representation in a comment.
+            comment = f'{float(qpm):g}'
+            if qpm != Decimal(comment): # Is it approximate?
+                comment = '≈' + comment
+            comment = ' % ' + comment
+            qpm = f'#{qpm}'
+        return '\n  ' + f'\\tempo 4 = {qpm}{comment}' + '\n  '
 
 
 class Clef:
@@ -508,7 +516,7 @@ class Channel:
                 if e[1][1] == midi.SET_TEMPO:
                     (u0, u1, u2) = list(map(ord, e[1][2]))
                     us_per_4 = u2 + 256 * (u1 + 256 * u0)
-                    seconds_per_1 = us_per_4 * 4 / 1e6
+                    seconds_per_1 = Fraction(us_per_4 * 4, 1000000)
                     music.append((t, Tempo(seconds_per_1)))
                 elif e[1][1] == midi.TIME_SIGNATURE:
                     num, dur, _, _ = list(map(ord, e[1][2]))
