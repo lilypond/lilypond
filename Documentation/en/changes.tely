@@ -955,6 +955,12 @@ the new inverted glyphs are named @code{scripts.dupbow} and
 
 @itemize
 @item
+@code{\tempo @var{dur} = @var{min} - @var{max}} used to set the
+context property @code{tempoWholesPerMinute} after rounding the
+center of the range to the nearest integer.  It no longer rounds.
+This is expected to change the MIDI tempo in certain cases.
+
+@item
 The Scheme functions @code{duration-length} and
 @code{ly:duration-length} are renamed to
 @code{ly:duration->number} and @code{ly:duration->moment},

@@ -170,10 +170,7 @@
          (wpm (cond ((number? count)
                      (* (ly:duration->number unit) count))
                     ((number-pair? count)
-                     (* (ly:duration->number unit)
-                        ;; TODO: Either explain the benefits of rounding or stop
-                        ;; doing it.
-                        (round (interval-center count))))
+                     (* (ly:duration->number unit) (interval-center count)))
                     (else
                      #f)))
          (tempo-change (ly:set-origin! (make-music 'TempoChangeEvent
