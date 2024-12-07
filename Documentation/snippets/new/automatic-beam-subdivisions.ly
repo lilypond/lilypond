@@ -1,4 +1,4 @@
-\version "2.25.8"
+\version "2.25.23"
 
 \header {
   lsrtags = "automatic-notation, connecting-notes, rhythms"
@@ -7,8 +7,8 @@
 Beams can be subdivided automatically.  By setting the property
 @code{subdivideBeams}, beams are subdivided whenever possible. The
 intervals and depth of subdivision can be limited with properties
-@code{minimumBeamSubdivisionInterval} and
-@code{maximumBeamSubdivisionInterval} respectively.
+@code{beamMinimumSubdivision} and
+@code{beamMaximumSubdivision} respectively.
 "
 
   doctitle = "Automatic beam subdivisions"
@@ -31,9 +31,9 @@ intervals and depth of subdivision can be limited with properties
       }
     >>
     \oneVoice
-    \once \set minimumBeamSubdivisionInterval = \musicLength 8
-    b32^"minimumBeamSubdivisionInterval 1 8"[ a g f c' b a g]
-    \once \set maximumBeamSubdivisionInterval = \musicLength 16
-    b32^"maximumBeamSubdivisionInterval 1 16"[ a g f c' b a g]
+    \once \set beamMinimumSubdivision = #1/8
+    b32^"beamMinimumSubdivision 1/8"[ a g f c' b a g]
+    \once \set beamMaximumSubdivision = #1/16
+    b32^"beamMaximumSubdivision 1/16"[ a g f c' b a g]
   }
 }

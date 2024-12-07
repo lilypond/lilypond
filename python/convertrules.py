@@ -5407,6 +5407,22 @@ def conv(s):
     return s
 
 
+@rule((2, 25, 23), r"""
+maximumBeamSubdivisionInterval -> beamMaximumSubdivision
+minimumBeamSubdivisionInterval -> beamMinimumSubdivision
+""")
+def conv(s):
+    s = re.sub(make_mom_assign_re('maximumBeamSubdivisionInterval'),
+               make_mom_assign_replacer('beamMaximumSubdivision'), s)
+    s = re.sub(r'(\\unset\s+)maximumBeamSubdivisionInterval',
+               r'\1beamMaximumSubdivision', s)
+    s = re.sub(make_mom_assign_re('minimumBeamSubdivisionInterval'),
+               make_mom_assign_replacer('beamMinimumSubdivision'), s)
+    s = re.sub(r'(\\unset\s+)minimumBeamSubdivisionInterval',
+               r'\1beamMinimumSubdivision', s)
+    return s
+
+
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

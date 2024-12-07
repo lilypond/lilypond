@@ -434,16 +434,16 @@ subdivision d'une ligature. La simple activation de
 @code{subdivideBeams} divise automatiquement tous les intervalles par
 défaut. Trois nouvelles propriétés ont été introduites pour permettre
 d'affiner la subdivision automatique des ligatures :
-@code{minimumBeamSubdivisionInterval},
-@code{maximumBeamSubdivisionInterval} et @code{respectIncompleteBeams}.
-@code{minimumBeamSubdivisionInterval} limite les intervalles de
+@code{beamMinimumSubdivision},
+@code{beamMaximumSubdivision} et @code{respectIncompleteBeams}.
+@code{beamMinimumSubdivision} limite les intervalles de
 subdivision de manière identique à ce que @code{beatBase} faisait
 auparavant (réduction de la fréquence des subdivisions de ligatures).
-@code{maximumBeamSubdivisionInterval} limite globalement le nombre de
+@code{beamMaximumSubdivision} limite globalement le nombre de
 tronçons supprimés aux emplacements de subdivision.
 @code{respectIncompleteBeams} limite le nombre de moignons lorsque le
 temps restant ne complèterait pas la métrique de la subdivision. Régler
-@code{minimumBeamSubdivisionInterval} à la valeur de @code{beatBase}
+@code{beamMinimumSubdivision} à la valeur de @code{beatBase}
 dans tous les cas, y compris lorsque @code{beatBase} varie
 implicitement, préserve le comportement antérieur.
 

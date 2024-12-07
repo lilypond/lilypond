@@ -8,18 +8,18 @@ propriété @code{subdivideBeams}. Lorsqu'elle est activée, un certain
 nombre de traits de ligature entre deux hampes est supprimé à des
 intervalles correspondant à la durée de sous-groupe souhaitée.
 
-Les propriétés @code{minimumBeamSubdivisionInterval} et
-@code{maximumBeamSubdivisionInterval} permettent de configurer les
+Les propriétés @code{beamMinimumSubdivision} et
+@code{beamMaximumSubdivision} permettent de configurer les
 limites de la subdivision automatique des ligatures : l'intervalle
 rythmique minimum auquel subdiviser et le nombre de tronçons supprimés
 selon cet intervalle. Lorsque le nombre fourni à
-@code{maximumBeamSubdivisionInterval} n'est pas une puissance de 2, la
+@code{beamMaximumSubdivision} n'est pas une puissance de 2, la
 plus petite durée pour subdiviser sera de
-@code{maximumBeamSubdivisionInterval} divisé par une puissance de 2 tout
-en restant supérieur ou égal à @code{minimumBeamSubdivisionInterval}.
-Dès lors que @code{maximumBeamSubdivisionInterval} est inférieur à
-@code{minimumBeamSubdivisionInterval}, la profondeur de subdivision se
-limite à @code{maximumBeamSubdivisionInterval} mais pas la fréquence ou
+@code{beamMaximumSubdivision} divisé par une puissance de 2 tout
+en restant supérieur ou égal à @code{beamMinimumSubdivision}.
+Dès lors que @code{beamMaximumSubdivision} est inférieur à
+@code{beamMinimumSubdivision}, la profondeur de subdivision se
+limite à @code{beamMaximumSubdivision} mais pas la fréquence ou
 l'intervalle, ce qui peut dévier de la valeur métrique à laquelle on est
 en droit de s'attendre.
 

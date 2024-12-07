@@ -409,15 +409,15 @@ patterns and no longer uses the value of @code{beatBase} to limit beam
 subdivision.  Simply setting @code{subdivideBeams} to @code{#t} now
 automatically subdivides all intervals by default.  Three new
 properties have been introduced to tune automatic beam subdivision:
-@code{minimumBeamSubdivisionInterval},
-@code{maximumBeamSubdivisionInterval} and @code{respectIncompleteBeams}.
-@code{minimumBeamSubdivisionInterval} limits subdivision intervals the
+@code{beamMinimumSubdivision},
+@code{beamMaximumSubdivision} and @code{respectIncompleteBeams}.
+@code{beamMinimumSubdivision} limits subdivision intervals the
 same way as how @code{beatBase} previously did (reducing frequency of
-subdivided beams). @code{maximumBeamSubdivisionInterval} limits the
+subdivided beams). @code{beamMaximumSubdivision} limits the
 number of beamlets removed at subdivisions in general.
 @code{respectIncompleteBeams} limits the number of beamlets at
 subdivisions where the remaining length would not complete the metric
-value of the subdivision. Setting @code{minimumBeamSubdivisionInterval}
+value of the subdivision. Setting @code{beamMinimumSubdivision}
 to the value of @code{beatBase} at all times, even when
 @code{beatBase} implicitly changes, preserves old behavior.
 

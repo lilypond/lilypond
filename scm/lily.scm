@@ -684,6 +684,8 @@ determines the number of scale steps that make up an octave.  Usually the
   ;; not appear literally somewhere in this procedure.  It smells like a bug in
   ;; Guile (3.0.9).
   'baseMoment
+  'maximumBeamSubdivisionInterval
+  'minimumBeamSubdivisionInterval
   'translation-type?
   (let ((getr (deprecated-getter-object-property category-type-symbol))
         (setr (deprecated-setter-object-property category-type-symbol)))

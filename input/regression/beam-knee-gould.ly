@@ -1,4 +1,4 @@
-\version "2.25.17"
+\version "2.25.23"
 
 \header {
   texidoc = "Examples of kneed beams of varying complexity (based on how stem
@@ -31,7 +31,7 @@
   \once \set subdivideBeams = ##f
   c''16[c c c'' c c'' c] s
   |
-  \once \set minimumBeamSubdivisionInterval = \musicLength 4
+  \once \set beamMinimumSubdivision = #1/4
   c''16[c c c'' c c'' c] s
   c''16[c c c'' c \set stemRightBeamCount = 2 c'' c] s
   | \break
@@ -55,9 +55,9 @@
   c32 [c'' c'' c'' c c'' c'' c'']
   \once \set subdivideBeams = ##f
   c32 [c'' c'' c'' c c'' c'' c'']
-  \once \set minimumBeamSubdivisionInterval = \musicLength 8
+  \once \set beamMinimumSubdivision = #1/8
   c32 [c'' c'' c'' c c'' c'' c'']
-  \once \set maximumBeamSubdivisionInterval = \musicLength 16
+  \once \set beamMaximumSubdivision = #1/16
   c32 [c'' c'' c'' c c'' c'' c'']
   | \break
 

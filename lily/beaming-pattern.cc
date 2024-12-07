@@ -583,13 +583,9 @@ Beaming_options::from_context (Context const *context)
   time_signature_ = get_property (context, "timeSignatureFraction");
 
   minimum_subdivision_interval_
-    = from_scm (get_property (context, "minimumBeamSubdivisionInterval"),
-                Moment (0))
-        .main_part_;
-  maximum_subdivision_interval_
-    = from_scm (get_property (context, "maximumBeamSubdivisionInterval"),
-                Moment::infinity ())
-        .main_part_;
+    = from_scm (get_property (context, "beamMinimumSubdivision"), Rational (0));
+  maximum_subdivision_interval_ = from_scm (
+    get_property (context, "beamMaximumSubdivision"), Rational::infinity ());
 }
 
 void

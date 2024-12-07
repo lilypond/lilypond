@@ -1,4 +1,4 @@
-\version "2.25.8"
+\version "2.25.23"
 
 \header {
   texidoc = "Beam count at subdivisions should match the location
@@ -13,6 +13,6 @@ longer than quarter notes, one beam should always be left."
 
 \relative c' {
   \set subdivideBeams = ##t
-  \set minimumBeamSubdivisionInterval = \musicLength 4
+  \set beamMinimumSubdivision = #1/4
   c16 [ c c c c c c c c c c c c c c c ]
 }

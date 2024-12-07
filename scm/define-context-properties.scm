@@ -177,6 +177,14 @@ must be set to@tie{}3 and @var{m}@tie{}(the division remainder) to@tie{}1.
 that normally end on beats.")
      (beamHalfMeasure ,boolean? "Whether to allow a beam to begin
 halfway through the measure in triple time, which could look like 6/8.")
+     (beamMaximumSubdivision ,musical-length-as-number? "Maximum
+interval to subdivide beams, limiting the depth of beamlets removed from
+subdivision. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no subdivision,
+@code{+inf.0}=no limit).")
+     (beamMinimumSubdivision ,musical-length-as-number? "Minimum
+interval to subdivide beams, ignoring beamlets whose subdivision depth is too
+shallow. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no limit,
+@code{+inf.0}=no subdivision).")
      (beatBase ,positive-musical-length-as-number? "The musical length
 corresponding to one unit of @code{beatStructure}.")
      (beatExtraVelocity ,integer? "Extra MIDI velocity added by the
@@ -499,10 +507,6 @@ no grob is created.")
 @code{\\magnifyStaff}.")
      (majorSevenSymbol ,markup? "How should the major 7th be formatted
 in a chord name?")
-     (maximumBeamSubdivisionInterval ,musical-length-as-moment? "Maximum
-interval to subdivide beams, limiting the depth of beamlets removed from
-subdivision. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no subdivision,
-@code{+inf.0}=no limit).")
      (maximumFretStretch ,number? "Don't allocate frets further than
 this from specified frets.")
      (measureBarType ,string? "Bar line to insert at a measure boundary.")
@@ -567,10 +571,6 @@ mechanism selects the highest string with a fret at least
 for a page turn to be allowed.")
      (minimumRepeatLengthForPageTurn ,musical-length-as-moment? "Minimum length
 of a repeated section for a page turn to be allowed within that section.")
-     (minimumBeamSubdivisionInterval ,musical-length-as-moment? "Minimum
-interval to subdivide beams, ignoring beamlets whose subdivision depth is too
-shallow. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no limit,
-@code{+inf.0}=no subdivision).")
      (minorChordModifier ,markup? "Markup displayed following the root
 for a minor chord")
 
@@ -755,8 +755,8 @@ one).")
 @code{fingeringOrientations}.")
      (subdivideBeams ,boolean? "If set, beams of mulitple stems may be
 subdivided by omitting a number of beamlets, dependent on
-@code{maximumBeamSubdivisionInterval}, between beats at mulitiples of
-@code{minimumBeamSubdivisionInterval}.")
+@code{beamMaximumSubdivision}, between beats at mulitiples of
+@code{beamMinimumSubdivision}.")
      (suggestAccidentals ,boolean-or-symbol? "If set to @code{#t},
 accidentals are typeset as suggestions above the note.  Setting it to
 @code{'cautionary} only applies that to cautionary accidentals.")
@@ -972,5 +972,23 @@ finger to use")
 (define-deprecated-property
   'translation-type? 'baseMoment positive-musical-length-as-moment?
   #:new-symbol 'beatBase
+  #:old->new ly:moment-main
+  #:new->old ly:make-moment)
+
+;; TODO: minimumBeamSubdivisionInterval was added in 2.25, so removing it
+;; entirely before releasing 2.26 is probably reasonable.
+(define-deprecated-property
+  'translation-type? 'maximumBeamSubdivisionInterval
+  musical-length-as-moment?
+  #:new-symbol 'beamMaximumSubdivision
+  #:old->new ly:moment-main
+  #:new->old ly:make-moment)
+
+;; TODO: minimumBeamSubdivisionInterval was added in 2.25, so removing it
+;; entirely before releasing 2.26 is probably reasonable.
+(define-deprecated-property
+  'translation-type? 'minimumBeamSubdivisionInterval
+  musical-length-as-moment?
+  #:new-symbol 'beamMinimumSubdivision
   #:old->new ly:moment-main
   #:new->old ly:make-moment)

@@ -1,4 +1,4 @@
-\version "2.25.8"
+\version "2.25.23"
 
 
 \header {
@@ -18,38 +18,37 @@ of the current subdivision."
   \omit Staff.Clef
   \omit Staff.TimeSignature
 
-  \set minimumBeamSubdivisionInterval = \musicLength 4
-  c32[^\markup{"minimumBeamSubdivisionInterval 1/4"} c c c c c c c]
+  \set beamMinimumSubdivision = #1/4
+  c32[^\markup{"beamMinimumSubdivision 1/4"} c c c c c c c]
   \break
 
-  \set minimumBeamSubdivisionInterval = \musicLength 8
-  c32[^\markup{"minimumBeamSubdivisionInterval 1/8"} c c c c c c c]
+  \set beamMinimumSubdivision = #1/8
+  c32[^\markup{"beamMinimumSubdivision 1/8"} c c c c c c c]
   \break
 
-  \set minimumBeamSubdivisionInterval = \musicLength 16
-  c32^\markup{"minimumBeamSubdivisionInterval 1/16"}[ c c c c c c c]
+  \set beamMinimumSubdivision = #1/16
+  c32^\markup{"beamMinimumSubdivision 1/16"}[ c c c c c c c]
   \break
 
-  \set minimumBeamSubdivisionInterval = \musicLength 32
-  c64^\markup{"minimumBeamSubdivisionInterval 1/32"}[ \repeat unfold 14 {c64} c64]
+  \set beamMinimumSubdivision = #1/32
+  c64^\markup{"beamMinimumSubdivision 1/32"}[ \repeat unfold 14 {c64} c64]
   \break
 
-  \unset minimumBeamSubdivisionInterval
+  \unset beamMinimumSubdivision
 
-  \set maximumBeamSubdivisionInterval = \musicLength 4
-  c32[^\markup{"maximumBeamSubdivisionInterval 1/4"} c c c c c c c]
+  \set beamMaximumSubdivision = #1/4
+  c32[^\markup{"beamMaximumSubdivision 1/4"} c c c c c c c]
   \break
 
-  \set maximumBeamSubdivisionInterval = \musicLength 8
-  c32[^\markup{"maximumBeamSubdivisionInterval 1/8"} c c c c c c c]
+  \set beamMaximumSubdivision = #1/8
+  c32[^\markup{"beamMaximumSubdivision 1/8"} c c c c c c c]
   \break
 
-  \set maximumBeamSubdivisionInterval = \musicLength 16
-  c32^\markup{"maximumBeamSubdivisionInterval 1/16"}[ c c c c c c c]
+  \set beamMaximumSubdivision = #1/16
+  c32^\markup{"beamMaximumSubdivision 1/16"}[ c c c c c c c]
   \break
 
-  \set maximumBeamSubdivisionInterval = \musicLength 32
-  c64^\markup{"maximumBeamSubdivisionInterval 1/32"}[ \repeat unfold 14 {c64} c64]
+  \set beamMaximumSubdivision = #1/32
+  c64^\markup{"beamMaximumSubdivision 1/32"}[ \repeat unfold 14 {c64} c64]
   \break
 }
-

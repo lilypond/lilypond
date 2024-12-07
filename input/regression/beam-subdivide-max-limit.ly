@@ -1,9 +1,10 @@
-\version "2.25.22"
+\version "2.25.23"
 
 \header {
-  texidoc = "When @code{maximumBeamSubdivisionInterval} <
-@code{minimumBeamSubdivisionInterval}, the subdivision depth should
-respect the limit imposed by @code{maximumBeamSubdivisionInterval}
+  texidoc = "When @code{beamMaximumSubdivision} <
+@code{beamMinimumSubdivision}, the subdivision depth should
+respect the limit imposed by
+@code{beamMaximumSubdivision}
 even if it is not metrically correct.
 "
 }
@@ -23,7 +24,7 @@ even if it is not metrically correct.
   \set Timing.beatBase = 1
 
   \set subdivideBeams = ##t
-  \set minimumBeamSubdivisionInterval = \musicLength 8
-  \set maximumBeamSubdivisionInterval = \musicLength 16
+  \set beamMinimumSubdivision = #1/8
+  \set beamMaximumSubdivision = #1/16
   \repeat unfold 64 c64
 }

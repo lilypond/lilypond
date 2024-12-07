@@ -6,9 +6,9 @@
 %%
 %% This file is in the public domain.
 %%
-%% Note: this file works from version 2.25.8.
+%% Note: this file works from version 2.25.23.
 
-\version "2.25.8"
+\version "2.25.23"
 
 \header {
   lsrtags = "rhythms"
@@ -21,18 +21,18 @@ the beams into sub-groups by setting the property @code{subdivideBeams}
 to true (@code{#t}).  When set, a number of beamlets between two
 consecutive stems are removed at intervals multiple beams will be
 subdivided at intervals to match the metric value of the subdivision.
-Properties @code{minimumBeamSubdivisionInterval} and
-@code{maximumBeamSubdivisionInterval} allow configuring limits of
+Properties @code{beamMinimumSubdivision} and
+@code{beamMaximumSubdivision} allow configuring limits of
 automatic beam subdivision: the minimum rhythmic interval at which to
 subdivide beams and the number of beamlets removed depending on the
 interval respectively.  If the numerator of
-@code{maximumBeamSubdivisionInterval} is not a power of@tie{}2, the
+@code{beamMaximumSubdivision} is not a power of@tie{}2, the
 smaller rhythmic intervals considered for subdivision are
-@code{maximumBeamSubdivisionInterval} divided by powers of@tie{}2 and
-stay greater than or equal to @code{minimumBeamSubdivisionInterval}.  If
-@code{maximumBeamSubdivisionInterval} < @code{minimumBeamSubdivisionInterval},
+@code{beamMaximumSubdivision} divided by powers of@tie{}2 and
+stay greater than or equal to @code{beamMinimumSubdivision}.  If
+@code{beamMaximumSubdivision} < @code{beamMinimumSubdivision},
 then the depths of beam subdivision are limited to
-@code{maximumBeamSubdivisionInterval}, but not the frequency/intervals,
+@code{beamMaximumSubdivision}, but not the frequency/intervals,
 therefore possibly deviating from the correct expected metric value.  If
 @code{respectIncompleteBeams} is set to true (@code{##t}), the depth of the
 subdivision (number of beams) reflects the longest possible subdivision interval
@@ -51,21 +51,21 @@ last two stems of the beam are exempt from this rule.
   c32[ c c c c c c c]
 
   % Set minimum beam subdivision interval to 1/8 just for this beam
-  \once \set minimumBeamSubdivisionInterval = \musicLength 8
+  \once \set beamMinimumSubdivision = #1/8
   c32[ c c c c c c c]
 
   % Set maximum beam subdivision interval to 1/16 just for this beam
-  \once \set maximumBeamSubdivisionInterval = \musicLength 16
+  \once \set beamMaximumSubdivision = #1/16
   c32[ c c c c c c c]
 
   % Set maximum beam subdivision interval to 3/8 just for this beam
-  \once \set maximumBeamSubdivisionInterval = \musicLength 8*3
+  \once \set beamMaximumSubdivision = #3/8
   [ \repeat unfold 16 c64 ] r2.
 
   % Set maximum beam subdivision interval to 1/64 to limit subdivision depth,
   % despite not being metrically correct
-  \once \set minimumBeamSubdivisionInterval = \musicLength 32
-  \once \set maximumBeamSubdivisionInterval = \musicLength 64
+  \once \set beamMinimumSubdivision = #1/32
+  \once \set beamMaximumSubdivision = #1/64
   [ \repeat unfold 32 c128 ] r2.
 
   % Shorten beam by 1/32
