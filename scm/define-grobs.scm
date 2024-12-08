@@ -3346,6 +3346,7 @@ a circle) to name a string.")))))
     (StrokeFinger
      . (
         (add-stem-support . ,only-if-beamed)
+        (avoid-slur . around)
         (digit-names . #("p" "i" "m" "a" "x"))
         (font-shape . italic)
         (font-size . -4)                ; don't overlap when next to heads.
@@ -3354,6 +3355,7 @@ a circle) to name a string.")))))
         (script-priority . 125)
         (self-alignment-X . ,CENTER)
         (self-alignment-Y . ,CENTER)
+        (slur-padding . 0.3)
         (staff-padding . 0.5)
         (stencil . ,ly:text-interface::print)
         (text . ,stroke-finger::calc-text)
