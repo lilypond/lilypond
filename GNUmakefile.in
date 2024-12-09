@@ -119,7 +119,8 @@ install-help2man:
 	$(MAKE) -C scripts man install-help2man
 	$(MAKE) -C lily man install-help2man
 
-install-doc: install-info-noimages install-WWW
+install-doc:
+	$(MAKE) out=www install-info-noimages install-WWW
 
 uninstall-doc: uninstall-info uninstall-WWW
 
