@@ -29,55 +29,65 @@ import book_snippets
 # Recognize special sequences in the input.
 #
 #   (?P<name>regex) -- Assign result of REGEX to NAME.
-#   *? -- Match non-greedily.
-#   (?!...) -- Match if `...' doesn't match next (without consuming
-#              the string).
+#   *?              -- Match non-greedily.
+#   (?!...)         -- Match if `...' doesn't match next (without
+#                      consuming the string).
 #
 #   (?m) -- Multiline regex: Make ^ and $ match at each line.
 #   (?s) -- Make the dot match all characters including newline.
 #   (?x) -- Ignore whitespace in patterns.
-# See book_base.BookOutputFormat for  possible keys
+#
+# See book_base.BookOutputFormat for possible keys.
 Docbook_snippet_res = {
     'lilypond':
     r'''(?smx)
-          <(?P<inline>(inline)?)mediaobject>\s*
+          < (?P<inline> (inline)? ) mediaobject> \s*
           (?P<match>
-          <textobject.*?>\s*
-          <programlisting\s+language=["']lilypond["'].*?(role=["'](?P<options>.*?)["'])?>
-          (?P<code>.*?) \s*
-          </programlisting\s*>\s*
-          </textobject\s*>\s*)
-          </(inline)?mediaobject>''',
+            <textobject .*? > \s*
+            <programlisting \s+
+              language = ["'] lilypond ["'] .*?
+              ( role = ["'] (?P<options> .*? ) ["'] )?
+            >
+            (?P<code> .*? ) \s*
+            </programlisting \s* > \s*
+            </textobject \s* > \s*
+          )
+          </ (inline)? mediaobject>''',
 
     'lilypond_block':
     r'''(?smx)
-          <(?P<inline>(inline)?)mediaobject>\s*
+          < (?P<inline> (inline)? ) mediaobject> \s*
           (?P<match>
-          <textobject.*?>\s*
-          <programlisting\s+language=["']lilypond["'].*?(role=["'](?P<options>.*?)["'])?>
-          (?P<code>.*?) \s*
-          </programlisting\s*>\s*
-          </textobject\s*>\s*)
-          </(inline)?mediaobject>''',
+            <textobject .*? > \s*
+            <programlisting \s+
+              language = ["'] lilypond ["'] .*?
+              ( role = ["'] (?P<options> .*? ) ["'] )?
+            >
+            (?P<code> .*? ) \s*
+            </programlisting \s* > \s*
+            </textobject \s* > \s*
+          )
+          </ (inline)? mediaobject>''',
 
     'lilypond_file':
     r'''(?smx)
-          <(?P<inline>(inline)?)mediaobject>\s*
+          < (?P<inline> (inline)? ) mediaobject> \s*
           (?P<match>
-          <imageobject.*?>\s*
-          <imagedata\s+
-           fileref=["'](?P<filename>.*?\.ly)["']\s*
-           (role=["'](?P<options>.*?)["'])?\s*
-           (/>|>\s*</imagedata>)\s*
-          </imageobject>\s*)
-          </(inline)?mediaobject>''',
+            <imageobject .*? > \s*
+            <imagedata \s+
+              fileref = ["'] (?P<filename> .*? \.ly ) ["'] \s*
+              ( role = ["'] (?P<options> .*? ) ["'] )? \s*
+            ( /> | > \s* </imagedata> ) \s*
+            </imageobject> \s*
+          )
+          </ (inline)? mediaobject>''',
 
     'multiline_comment':
     r'''(?smx)
           (?P<match>
-          \s*(?!@c\s+)
-          (?P<code><!--\s.*?!-->)
-          \s)''',
+            \s* (?! @c \s+)
+            (?P<code> <!-- \s .*? !--> ) \s
+          )''',
 }
 
 
@@ -110,7 +120,8 @@ Docbook_output = {
 </textobject>''',
 
     book_snippets.VERBATIM: r'''<textobject>
-  <programlisting language="lilypond" role="processed">%(verb)s</programlisting>
+  <programlisting language="lilypond"
+                  role="processed">%(verb)s</programlisting>
 </textobject>''',
 
     book_snippets.VERSION: r'''%(program_version)s''',
