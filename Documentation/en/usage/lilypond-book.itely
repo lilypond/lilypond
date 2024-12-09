@@ -65,12 +65,12 @@ Some texts contain music examples.  These texts are musicological
 treatises, songbooks, or manuals like this.  Such texts can be made by
 hand, simply by importing a PostScript or PDF figure into the word processor.
 However, there is an automated procedure to reduce the amount of work
-involved in HTML, @LaTeX{}, Texinfo and DocBook documents.
+involved in HTML, @LaTeX{}, Texinfo, and DocBook documents.
 
-A script called @code{lilypond-book} will extract the music fragments,
-format them, and put back the resulting notation.  Here we show a small
-example for use with @LaTeX{}.  The example also contains explanatory
-text, so we will not comment on it further.
+A script called @code{lilypond-book} extracts the music fragments,
+formats them, and puts back the resulting notation.  Here we show a
+small example for use with @LaTeX{}.  The example also contains
+explanatory text, so we will not comment on it further.
 
 @subheading Input
 
@@ -89,18 +89,19 @@ For example,
 }
 \end{lilypond}
 
-Options are put in brackets.
+Options to control the appearance of the snippets can be added,
+too.  For example,
 
 \begin{lilypond}[fragment,quote,staffsize=26,verbatim]
   c'4 f16
 \end{lilypond}
 
-Larger examples can be put into a separate file, and introduced with
-\verb+\lilypondfile+.
+Larger music snippets can be put into separate files.  For
+example,
 
 \lilypondfile[quote,noindent]{screech-and-boink.ly}
 
-(If needed, replace @file{screech-and-boink.ly} by any @file{.ly} file
+(If needed, replace \verb+screech-and-boink.ly+ by any \verb+.ly+ file
 you put in the same directory as this file.)
 
 \end{document}
@@ -112,28 +113,33 @@ you put in the same directory as this file.)
 Save the code above to a file called @file{lilybook.lytex}, then in a
 terminal run
 
-@c keep space after @version{} so TeX doesn't choke
 @example
-lilypond-book --output=out --pdf lilybook.lytex
-@emph{lilypond-book (GNU LilyPond) @version{} }
-@emph{Reading lilybook.lytex...}
+> lilypond-book --output=out --pdf lilybook.lytex
+@emph{lilypond-book (GNU LilyPond) @version{}}
+@emph{Reading 'lilybook.lytex'...}
 @emph{@dots{}lots of stuff deleted@dots{}}
-@emph{Compiling lilybook.tex...}
-cd out
-pdflatex lilybook
+@emph{Writing 'out/lilybook.tex'...}
+> cd out
+> pdflatex lilybook
+@emph{This is pdfTeX, ...}
+@emph{(./lilybook.tex}
 @emph{@dots{}lots of stuff deleted@dots{}}
-xpdf lilybook
+@emph{Output written on lilypond.pdf, ...}
+> xpdf lilybook
 @emph{(replace @command{xpdf} by your favorite PDF viewer)}
 @end example
 
-Running @command{lilypond-book} and @command{latex} creates a lot of
-temporary files, which would clutter up the working directory.  To
-remedy this, use the @option{--output=@var{dir}} option.  It will create
-the files in a separate subdirectory @file{dir}.
+Running @command{lilypond-book} and @command{latex} creates a lot
+of temporary files, which would clutter up the working directory.
+To remedy this, use the @option{--output=@var{dir}} option to
+create the files in a separate subdirectory @file{@var{dir}}.
 
-Finally the result of the @LaTeX{} example shown above.@footnote{This
-tutorial is processed with Texinfo, so the example gives slightly
-different results in layout.}  This finishes the tutorial section.
+Because this tutorial is written in Texinfo we cannot directly
+show the @LaTeX{} output of the example.  In the next section,
+however, you can see an approximation (structure-wise) of the
+result.
+
+This finishes the tutorial section.
 
 @page
 
