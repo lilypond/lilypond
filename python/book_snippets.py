@@ -349,6 +349,12 @@ class IncludeSnippet (Snippet):
         return re.sub(f, self.processed_filename(), s)
 
 
+def unescape_xml(s):
+    return re.sub('&gt;', '>',
+                  re.sub('&lt;', '<',
+                         re.sub('&amp;', '&', s)))
+
+
 class LilypondSnippet (Snippet):
     def __init__(self, type, match, formatter, line_number, global_options):
         Snippet.__init__(self, type, match, formatter,
@@ -391,6 +397,8 @@ class LilypondSnippet (Snippet):
 
     def verb_ly(self):
         verb_text = self.substring('code')
+        if self.global_options.format == 'docbook':
+            verb_text = unescape_xml(verb_text)
         if not NOGETTEXT in self.option_dict:
             verb_text = self.verb_ly_gettext(verb_text)
         if not verb_text.endswith('\n'):
@@ -399,6 +407,8 @@ class LilypondSnippet (Snippet):
 
     def ly(self):
         contents = self.substring('code')
+        if self.global_options.format == 'docbook':
+            contents = unescape_xml(contents)
         return ('\\sourcefileline %d\n%s'
                 % (self.line_number - 1, contents))
 
@@ -875,7 +885,10 @@ printing diff against existing file." % filename)
         return output
 
     def get_snippet_code(self) -> str:
-        return self.substring('code')
+        contents = self.substring('code')
+        if self.global_options.format == 'docbook':
+            contents = unescape_xml(contents)
+        return contents
 
     def filter_text(self):
         """Run snippet bodies through a command (say: convert-ly).

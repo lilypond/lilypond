@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xml:lang="en_US" xmlns="http://docbook.org/ns/docbook" version="5.2">
+<title>Escaped Characters</title>
+<mediaobject>
+<textobject>
+<programlisting language="lilypond"
+                role="fragment verbatim staffsize=16 ragged-right">
+\new PianoStaff &lt;&lt;
+  \new Staff { &lt;c'' g''&gt;4 }
+  \new Staff { &lt;e' g'&gt;4 }
+&gt;&gt;
+</programlisting>
+</textobject>
+</mediaobject>
+</article>
