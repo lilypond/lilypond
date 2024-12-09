@@ -1339,13 +1339,15 @@ Debian GNU/Linux
 @end verbatim
 
 
-@subheading Using lilypond python libraries
+@subheading Using LilyPond Python libraries
 
-If you want to use lilypond's python libraries (either running
+If you want to use LilyPond's Python libraries (either running
 certain build scripts manually, or using them in other programs),
-set @code{PYTHONPATH} to @file{python/out} in your build
-directory, or @file{@dots{}/usr/lib/lilypond/current/python} in the
-installation directory structure.
+add the path to the @file{python} subdirectory in your LilyPond
+source code (or git) tree to @code{PYTHONPATH}.  Alternatively,
+add @file{@var{prefix}/@/share/@/lilypond/@/@version{}/@/python}
+if LilyPond is installed in @file{@var{prefix}} (for example,
+@file{/usr/local}).
 
 
 
@@ -1403,6 +1405,28 @@ Lilypond foobar.ly
 TODO: ADD
 
 - other compilation tricks for developers
+
+
+@node Replacing the notation fonts in development versions
+@subsection Replacing the notation fonts in development versions
+
+The instructions to install other notation fonts (see
+@rnotation{Replacing the notation fonts}) are slightly different
+if you call the @command{lilypond} binary directly from the build
+directory: instead of using a version directory name
+@file{@var{X}.@var{Y}.@var{Z}} in the path, you have to use
+@file{current} -- LilyPond supports this special case to avoid
+re-installation in case you are updating the git repository, or if
+you are testing patches.
+
+Assuming that you have compiled LilyPond in directory
+@file{~/@/lilybuild/}, additional font files should go into
+@file{~/@/lilybuild/@/out/@/share/@/lilypond/@/current/@/fonts/@/otf/}
+(this is usually a soft link to directory
+@file{~/lilybuild/@/mf/@/out/}).  Note, however, that you have to
+repeat the installation of additional notation fonts after calling
+@code{make clean} (and a subsequent @code{make}), since this
+operation removes all @file{out/} subdirectories.
 
 
 @node Build system

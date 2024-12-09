@@ -328,7 +328,7 @@ your @file{$HOME/.vimrc} to contain these three lines, in order:
 
 @example
 filetype off
-set runtimepath+=/usr/local/share/lilypond/current/vim/
+set runtimepath+=/usr/local/share/lilypond/@version{}/vim/
 filetype on
 syntax on
 @end example

@@ -3689,7 +3689,11 @@ Here are a few sample bars of music set in LilyPond's Feta glyphs:
 Download and extract the font files.
 
 @item
-Copy the files
+Copy@footnote{Currently it is necessary to repeat these steps
+after installing a new LilyPond version.  If you are running the
+@command{lilypond} binary directly from the build directory, see
+@rcontrib{Replacing the notation fonts in development versions}
+for more information.} the files
 
 @example
 gonville-11.otf
@@ -3704,12 +3708,11 @@ gonville-brace.otf
 @end example
 
 @noindent
-to directory @file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} or
+to directory
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}.
 
 @item
-If you have @file{gonville-*.svg} files,
-copy them to directory @file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} or
+If you have @file{gonville-*.svg} files, copy them to directory
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
 @end itemize
 
@@ -3730,7 +3733,7 @@ The following code changes the notation font to the Gonville font.
 @}
 @end example
 
-For more information, see @ref{Changing fonts}.
+For more information, @pxref{Changing fonts}.
 
 @morerefs
 Learning Manual:
@@ -3755,10 +3758,8 @@ and @file{@var{fontname}-*.svg}, you can use them in the same way
 as Gonville.
 
 That is, copy the @file{@var{fontname}-*.otf} files to
-@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} or
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}.  If
 you have @file{@var{fontname}-*@/.svg} files, copy them to
-@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} or
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
 
 Note: At the moment, LilyPond expects the font file names to have
