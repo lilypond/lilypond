@@ -46,7 +46,7 @@ Docbook_snippet_res = {
             <textobject .*? > \s*
             <programlisting \s+
               language = ["'] lilypond ["'] .*?
-              ( role = ["'] (?P<options> .*? ) ["'] )?
+              ( role = ["'] (?P<options> .*? ) ["'] )? \s*
             >
             (?P<code> .*? ) \s*
             </programlisting \s* > \s*
@@ -61,7 +61,7 @@ Docbook_snippet_res = {
             <textobject .*? > \s*
             <programlisting \s+
               language = ["'] lilypond ["'] .*?
-              ( role = ["'] (?P<options> .*? ) ["'] )?
+              ( role = ["'] (?P<options> .*? ) ["'] )? \s*
             >
             (?P<code> .*? ) \s*
             </programlisting \s* > \s*
