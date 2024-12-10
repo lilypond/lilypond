@@ -48,8 +48,8 @@
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
                                 accidental-switch-interface
-                                inline-accidental-interface
-                                font-interface))
+                                font-interface
+                                inline-accidental-interface))
                  (description . "An accidental.  Horizontal
 padding and configuration between accidentals is controlled
 by the @iref{AccidentalPlacement} grob.")))))
@@ -71,8 +71,8 @@ by the @iref{AccidentalPlacement} grob.")))))
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
                                 accidental-switch-interface
-                                inline-accidental-interface
-                                font-interface))
+                                font-interface
+                                inline-accidental-interface))
                  (description . "A cautionary accidental, normally
 enclosed in parentheses.")))))
 
@@ -332,16 +332,15 @@ line to visually mark and annotate another grob.")))))
         (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (Y-offset . ,side-position-interface::y-aligned-side)
-        (meta .
-              ((class . Item)
-               (interfaces . (bar-number-interface
-                              break-alignable-interface
-                              font-interface
-                              outside-staff-interface
-                              self-alignment-interface
-                              side-position-interface
-                              text-interface))
-               (description . "An ordinary bar number.  Centered
+        (meta . ((class . Item)
+                 (interfaces . (bar-number-interface
+                                break-alignable-interface
+                                font-interface
+                                outside-staff-interface
+                                self-alignment-interface
+                                side-position-interface
+                                text-interface))
+                 (description . "An ordinary bar number.  Centered
 bar numbers are managed separately with @iref{CenteredBarNumber}
 grobs.")))))
 
@@ -758,14 +757,13 @@ an outside-staff comma or a fermata over a bar line.")))))
         (self-alignment-X . ,CENTER)
         (stencil . ,ly:text-interface::print)
         (X-offset . ,centered-spanner-interface::calc-x-offset)
-        (meta .
-              ((class . Spanner)
-               (interfaces . (bar-number-interface
-                              centered-bar-number-interface
-                              centered-spanner-interface
-                              font-interface
-                              text-interface))
-               (description . "A centered bar number; see also
+        (meta . ((class . Spanner)
+                 (interfaces . (bar-number-interface
+                                centered-bar-number-interface
+                                centered-spanner-interface
+                                font-interface
+                                text-interface))
+                 (description . "A centered bar number; see also
 @iref{CenteredBarNumberLineSpanner}.  Ordinary bar numbers are
 managed with @iref{BarNumber} grobs.")))))
 
@@ -1312,10 +1310,10 @@ contain mixed durations.  See also @iref{PercentRepeat},
         (zigzag-length . 1)
         (zigzag-width . 1)
         (meta . ((class . Spanner)
-                 (interfaces . (horizontal-line-spanner-interface
-                                line-interface
-                                duration-line-interface
+                 (interfaces . (duration-line-interface
                                 font-interface
+                                horizontal-line-spanner-interface
+                                line-interface
                                 unbreakable-spanner-interface))
                  (description . "A horizontal duration line,
 continuing rhythmic items (usually note heads).")))))
@@ -1666,8 +1664,8 @@ and @iref{SpacingSpanner}.")))))
         (Y-offset . ,grid-chord-name::calc-Y-offset)
         (meta . ((class . Spanner)
                  (interfaces . (accidental-switch-interface
-                                grid-chord-name-interface
                                 font-interface
+                                grid-chord-name-interface
                                 text-interface))
                  (description . "A chord name in a chord grid.")))))
 
@@ -2200,8 +2198,8 @@ measures.")))))
         (meta . ((class . Spanner)
                  (interfaces . (accidental-switch-interface
                                 font-interface
-                                measure-spanner-interface
                                 line-interface
+                                measure-spanner-interface
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
@@ -2301,8 +2299,8 @@ by a precise indication in parentheses.")))))
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 multi-measure-interface
-                                outside-staff-interface
                                 multi-measure-rest-interface
+                                outside-staff-interface
                                 rest-interface
                                 staff-symbol-referencer-interface))
                  (description . "A multi-measure rest.  See also
@@ -2553,8 +2551,8 @@ note name.")))))
                  (interfaces . (font-interface
                                 horizontal-bracket-interface
                                 line-interface
-                                outside-staff-interface
                                 ottava-bracket-interface
+                                outside-staff-interface
                                 side-position-interface
                                 text-interface))
                  (description . "An ottava bracket.")))))
@@ -3333,10 +3331,10 @@ articulations.")))))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (font-interface
-                                self-alignment-interface
-                                outside-staff-interface
-                                side-position-interface
                                 number-interface
+                                outside-staff-interface
+                                self-alignment-interface
+                                side-position-interface
                                 string-number-interface
                                 text-interface
                                 text-script-interface))
