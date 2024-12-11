@@ -177,7 +177,7 @@ for you).
 
 @end enumerate
 
-@advanced{This process does means that most patches will take about a
+@advanced{This process means that most patches will take about a
 week before finally being merged into @code{master}.  With the limited
 resources for reviewing patches available and a history of unintended
 breakages in the @code{master} branch (from patches that have

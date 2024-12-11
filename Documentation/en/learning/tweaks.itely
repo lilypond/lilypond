@@ -2477,7 +2477,7 @@ property of the @code{Voice} context, created and used by the
 The property may be set to a list of one to three values.
 It controls whether fingerings may be placed above (if
 @code{up} appears in the list), below (if @code{down} appears),
-to the left (if @code{left} appears, or to the right
+to the left (if @code{left} appears), or to the right
 (if @code{right} appears).  Conversely, if a location is not
 listed, no fingering is placed there.  LilyPond takes these
 constraints and works out the best placement for the fingering

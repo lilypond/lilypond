@@ -330,7 +330,7 @@ You might want to use @code{git add -p} instead of @code{git add};
 this allows you to add changes incrementally in an interactive
 way.
 
-To revert changes to a file that has not been committed yet, use
+To revert changes to a file that have not been committed yet, use
 @code{git restore}:@footnote{If you are using an outdated version of Git
 (older than 2.23), you need to use @code{git checkout} instead.}
 
@@ -531,13 +531,14 @@ programming skill or judgement is assumed or required.}
 The current Patch Meister is Colin Campbell
 (@email{cpkc.music@@shaw.ca}).
 
-The Patch Meister reviews the tracker periodically, to list patches
-which have been on review for at least 24 hours.  For each patch, the
-Handler reviews any discussion on the merge request, to determine
-whether the patch can go forward.  If there is any indication that a
-developer thinks the patch is not ready, the Handler marks it
-@code{Patch::needs_work} and makes a comment regarding the reason,
-referring to the comment if needed.
+The Patch Meister reviews the tracker periodically, to list
+patches which have been on review for at least 24 hours.  For each
+patch, the Patch Meister reviews any discussion on the merge
+request, to determine whether the patch can go forward.  If there
+is any indication that a developer thinks the patch is not ready,
+the Patch Meister marks it with @code{Patch::needs_work} and makes
+a comment regarding the reason, referring to the comment if
+needed.
 
 Patches with explicit approval, or at least no negative comment, are
 updated to @code{Patch::countdown}.  The countdown is a 48-hour waiting
@@ -584,11 +585,11 @@ following:
 
 @enumerate
 @item
-The merge must be fast-forward.  In most cases, this can be
-achieved by @q{rebasing} the branch with the most recent commits
-from @code{master}.  This can be handled via GitLab, if no conflicts
-arise.  Otherwise, or if preferred, the operation can
-be performed locally.
+The merge must be of type @q{fast-forward}.  In most cases, this
+can be achieved by @q{rebasing} the branch with the most recent
+commits from @code{master}.  GitLab provides a convenient button
+for that if no conflicts arise.  Otherwise, or if preferred, the
+operation can be (or has to be) performed locally.
 
 Please don't combine a rebase operation with changes of the merge
 request!  Do it in two steps instead (usually first committing

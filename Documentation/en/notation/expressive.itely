@@ -672,6 +672,7 @@ instead.}
 @cindex dynamics, breaking vertical alignment
 @cindex text script, breaking vertical alignment
 @cindex alignment breaking vertical, text scripts
+@cindex breaking vertical alignment of dynamics
 @funindex \breakDynamicSpan
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/breaking-vertical-alignment-of-dynamics-and-textscripts.ly}

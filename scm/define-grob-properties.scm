@@ -1481,7 +1481,8 @@ for positioning elements that align with a column.")
 column as start/@/begin point.  Only columns that have grobs or act as
 bounds are spaced.")
      (bracket ,ly:grob? "The bracket for a number.")
-     (bracket-text ,ly:grob? "The text for an analysis bracket.")
+     (bracket-text ,ly:grob? "A pointer to the text grob of an analysis
+bracket.")
      (break-alignment ,ly:grob? "The @iref{BreakAlignment} in a
 @iref{NonMusicalPaperColumn}.")
 
@@ -1554,8 +1555,8 @@ pure-from-neighbor-interface to determine various grob heights.")
      (note-columns ,ly:grob-array? "An array of @code{NoteColumn} grobs.")
      (note-head ,ly:grob? "A single note head.")
      (note-heads ,ly:grob-array? "An array of note head grobs.")
-     (pedal-text ,ly:grob? "A pointer to the text of a mixed-style piano
-pedal.")
+     (pedal-text ,ly:grob? "A pointer to the text grob of a mixed-style
+piano pedal.")
      (potential-beam ,ly:grob? "For tuplet brackets, a grob to use as
 parallel beam unless the tuplet is broken.")
      (pure-relevant-grobs ,ly:grob-array? "All the grobs (items and spanners)
