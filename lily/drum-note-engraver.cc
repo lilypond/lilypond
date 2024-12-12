@@ -91,6 +91,13 @@ Drum_notes_engraver::process_music ()
           if (scm_is_symbol (style))
             set_property (note, "style", style);
 
+          SCM dir = SCM_EOL;
+          if (scm_is_pair (script))
+            {
+              dir = scm_cdr (script);
+              script = scm_car (script);
+            }
+
           if (scm_is_true (script))
             {
               // Error out if script doesn't exist
@@ -102,7 +109,10 @@ Drum_notes_engraver::process_music ()
 
               Item *p = make_item ("Script", ev->self_scm ());
               make_script_from_event (p, context (), script, 0);
-
+              if (is_scm<Direction> (dir))
+                {
+                  set_property (p, "direction", dir);
+                }
               p->set_y_parent (note);
               Side_position_interface::add_support (p, note);
               scripts_.push_back (p);

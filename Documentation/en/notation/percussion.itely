@@ -239,12 +239,12 @@ five-line staff:
 @lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
   cymc cyms cymr
-  hh hhc hho hhho hhp
+  hh hhc hho hhho hhp hhs
   cb hc bd sn ss
   tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
   cymc cyms cymr \break
-  hh hhc hho hhho hhp \break
+  hh hhc hho hhho hhp hhs \break
   cb hc bd sn ss \break
   tomh tommh tomml toml tomfh tomfl }
 \score {
@@ -279,12 +279,12 @@ commonly employed in France but also elsewhere.
 @lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
   cymc cyms cymr
-  hh hhc hho hhho hhp
+  hh hhc hho hhho hhp hhs
   cb hc bd sn ss
   tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
   cymc cyms cymr \break
-  hh hhc hho hhho hhp \break
+  hh hhc hho hhho hhp hhs \break
   cb hc bd sn ss \break
   tomh tommh tomml toml tomfh tomfl }
 \score {
@@ -315,12 +315,12 @@ Based on the work of Norman Weinberg, published in his
 @lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
   cymc cymr cymra cymch
-  hh hhc hho hhho hhp
+  hh hhc hho hhho hhp hhs
   cb bd bda ss sn rb
   tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
   cymc cymr cymra cymch \break
-  hh hhc hho hhho hhp \break
+  hh hhc hho hhho hhp hhs \break
   cb bd bda ss sn rb \break
   tomh tommh tomml toml tomfh tomfl }
 \score {
@@ -497,23 +497,37 @@ the note head's position on the staff.  That list must then
 be converted into a Scheme hash table, using the
 @code{alist->hash-table} function.
 
+The entry for an articulation can either be a script name symbol
+or a pair, with the first element the script name symbol and the
+second a forced-direction indicator for the script.
+
+[In the following example, note the use of the quasi-quotation
+shorthand (@samp{`}) at the beginning of the Scheme expression
+instead of the standard quotation shorthand (@samp{'}), which
+enables the unquote shorthand (@samp{,}) to evaluate the element
+it precedes.]
+
+@funindex \open
 @funindex \halfopen
 @funindex \stopped
 @cindex half-open high hat
 @cindex high hat, half open
 @cindex pedal high hat
 @cindex high hat, pedal
+@cindex pedal splash high hat
+@cindex high hat, pedal splash
 
 @lilypond[quote,verbatim]
-#(define mydrums '(
-         (bassdrum        ()        #f         -1)
-         (snare           ()        #f         0)
-         (hihat           cross     #f         1)
-         (halfopenhihat   cross     halfopen   1)
-         (pedalhihat      xcircle   stopped    2)
-         (lowtom          diamond   #f         3)))
+#(define mydrums `(
+         (bassdrum        ()        #f               -1)
+         (snare           ()        #f               0)
+         (hihat           cross     #f               1)
+         (halfopenhihat   cross     halfopen         1)
+         (pedalhihat      xcircle   stopped          2)
+         (splashhihat     xcircle   (open . ,DOWN)   2)
+         (lowtom          diamond   #f               3)))
 
-up = \drummode { hh8 hh hhho hhho hhp4 hhp }
+up = \drummode { hh8 hh hhho hhho hhp4 hhs }
 down = \drummode { bd4 sn bd toml8 toml }
 
 \new DrumStaff \with { drumStyleTable = #(alist->hash-table mydrums) }
