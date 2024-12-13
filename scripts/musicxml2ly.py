@@ -510,10 +510,19 @@ def extract_score_structure(part_list, staffinfo):
         groupname = el.get_maybe_exist_named_child('group-name')
         if groupname:
             group.instrument_name = groupname.get_text()
+        # `<group-name-display>` overrides `<group-name>`.
+        groupname = el.get_maybe_exist_named_child('group-name-display')
+        if groupname:
+            group.instrument_name = extract_display_text(groupname)
 
         groupshort = el.get_maybe_exist_named_child('group-abbreviation')
         if groupshort:
             group.short_instrument_name = groupshort.get_text()
+        # `<group-abbreviation-display>` overrides `<group-abbreviation>`.
+        groupshort = el.get_maybe_exist_named_child(
+            'group-abbreviation-display')
+        if groupshort:
+            group.short_instrument_name = extract_display_text(groupshort)
 
         groupsymbol = el.get_maybe_exist_named_child('group-symbol')
         if groupsymbol:
