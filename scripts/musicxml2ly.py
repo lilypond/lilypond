@@ -466,28 +466,32 @@ def extract_score_structure(part_list, staffinfo):
         if not staff:
             return None
         staff.id = el.id
+
         partname = el.get_maybe_exist_named_child('part-name')
         # Finale gives unnamed parts the name "MusicXML Part" automatically!
         if partname and partname.get_text() != "MusicXML Part":
             staff.instrument_name = partname.get_text()
-        # part-name-display overrides part-name!
+        # `<part-name-display>` overrides `<part-name>`.
         partname = el.get_maybe_exist_named_child("part-name-display")
         if partname:
             staff.instrument_name = extract_display_text(partname)
+
         if options.midi:
             staff.sound = extract_instrument_sound(el)
+
         if staff.instrument_name:
             globvars.paper.indent = max(globvars.paper.indent,
                                         len(staff.instrument_name))
             globvars.paper.instrument_names.append(staff.instrument_name)
-        partdisplay = el.get_maybe_exist_named_child('part-abbreviation')
-        if partdisplay:
-            staff.short_instrument_name = partdisplay.get_text()
-        # part-abbreviation-display overrides part-abbreviation!
-        partdisplay = el.get_maybe_exist_named_child(
-            "part-abbreviation-display")
-        if partdisplay:
-            staff.short_instrument_name = extract_display_text(partdisplay)
+
+        partshort = el.get_maybe_exist_named_child('part-abbreviation')
+        if partshort:
+            staff.short_instrument_name = partshort.get_text()
+        # `<part-abbreviation-display>` overrides `<part-abbreviation>`
+        partshort = el.get_maybe_exist_named_child('part-abbreviation-display')
+        if partshort:
+            staff.short_instrument_name = extract_display_text(partshort)
+
         # TODO: Read in the MIDI device / instrument
         if staff.short_instrument_name:
             globvars.paper.short_indent = max(globvars.paper.short_indent,
@@ -502,19 +506,22 @@ def extract_score_structure(part_list, staffinfo):
         group_id = getattr(el, 'number', None)
         if group_id is not None:
             group.id = group_id
-        # PERF: Avoid the following multiple searches.
-        if el.get_maybe_exist_named_child('group-name'):
-            group.instrument_name = el.get_maybe_exist_named_child(
-                'group-name').get_text()
-        if el.get_maybe_exist_named_child('group-abbreviation'):
-            group.short_instrument_name = el.get_maybe_exist_named_child(
-                'group-abbreviation').get_text()
-        if el.get_maybe_exist_named_child('group-symbol'):
-            group.symbol = el.get_maybe_exist_named_child(
-                'group-symbol').get_text()
-        if el.get_maybe_exist_named_child('group-barline'):
-            group.spanbar = el.get_maybe_exist_named_child(
-                'group-barline').get_text()
+
+        groupname = el.get_maybe_exist_named_child('group-name')
+        if groupname:
+            group.instrument_name = groupname.get_text()
+
+        groupshort = el.get_maybe_exist_named_child('group-abbreviation')
+        if groupshort:
+            group.short_instrument_name = groupshort.get_text()
+
+        groupsymbol = el.get_maybe_exist_named_child('group-symbol')
+        if groupsymbol:
+            group.symbol = groupsymbol.get_text()
+
+        groupbarline = el.get_maybe_exist_named_child('group-barline')
+        if groupbarline:
+            group.spanbar = groupbarline.get_text()
         return group
 
     parts_groups = part_list.get_all_children()
