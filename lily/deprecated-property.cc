@@ -36,9 +36,17 @@ Deprecated_property::getter_desc (SCM old_sym, SCM obj_prop)
         {
           scm_set_object_property_x (old_sym, compat_warned_sym, SCM_BOOL_T);
           SCM new_sym = scm_car (desc);
-          warning (_f ("the property '%s' is deprecated; use '%s'",
-                       ly_symbol2string (old_sym).c_str (),
-                       ly_symbol2string (new_sym).c_str ()));
+          SCM special_warning = scm_caddr (desc);
+          if (is_scm<std::string> (special_warning))
+            {
+              warning (from_scm<std::string> (special_warning));
+            }
+          else
+            {
+              warning (_f ("the property '%s' is deprecated; use '%s'",
+                           ly_symbol2string (old_sym).c_str (),
+                           ly_symbol2string (new_sym).c_str ()));
+            }
         }
     }
   return desc;
@@ -56,9 +64,17 @@ Deprecated_property::setter_desc (SCM old_sym, SCM obj_prop)
         {
           scm_set_object_property_x (old_sym, compat_warned_sym, SCM_BOOL_T);
           SCM new_sym = scm_caddr (desc);
-          warning (_f ("the property '%s' is deprecated; use '%s'",
-                       ly_symbol2string (old_sym).c_str (),
-                       ly_symbol2string (new_sym).c_str ()));
+          SCM special_warning = scm_cadddr (desc);
+          if (is_scm<std::string> (special_warning))
+            {
+              warning (from_scm<std::string> (special_warning));
+            }
+          else
+            {
+              warning (_f ("the property '%s' is deprecated; use '%s'",
+                           ly_symbol2string (old_sym).c_str (),
+                           ly_symbol2string (new_sym).c_str ()));
+            }
         }
     }
   return desc;

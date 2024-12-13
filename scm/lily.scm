@@ -655,11 +655,11 @@ determines the number of scale steps that make up an octave.  Usually the
 ;; define-deprecated-property.
 
 ;; Parameters for getting a deprecated translation property.  The value is a
-;; list: ('newSymbol new->old-value-conversion-function).
+;; list: ('newSymbol new->old-value-conversion-function warning).
 (define deprecated-translation-getter-description (make-object-property))
 
 ;; Parameters for setting a deprecated translation property.  The value is a
-;; list: (old-type? old->new-value-conversion-function 'newSymbol).
+;; list: (old-type? old->new-value-conversion-function 'newSymbol warning).
 (define deprecated-translation-setter-description (make-object-property))
 
 ;; This leads the type checker from 'translation-type? to
@@ -679,7 +679,9 @@ determines the number of scale steps that make up an octave.  Usually the
                   category-type-symbol deprecated-symbol deprecated-type?
                   #:key new-symbol
                   (new->old (lambda (x) (error "missing new->old function")))
-                  (old->new (lambda (x) (error "missing old->new function"))))
+                  (old->new (lambda (x) (error "missing old->new function")))
+                  (warning #f))
+  "If warning is #f, a default warning will be generated."
   ;; TODO: Guile raises errors if compilation is disabled and these symbols do
   ;; not appear literally somewhere in this procedure.  It smells like a bug in
   ;; Guile (3.0.9).
@@ -690,9 +692,9 @@ determines the number of scale steps that make up an octave.  Usually the
   (let ((getr (deprecated-getter-object-property category-type-symbol))
         (setr (deprecated-setter-object-property category-type-symbol)))
     (set! (getr deprecated-symbol)
-          (list new-symbol new->old))
+          (list new-symbol new->old warning))
     (set! (setr deprecated-symbol)
-          (list deprecated-type? old->new new-symbol))))
+          (list deprecated-type? old->new new-symbol warning))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
