@@ -1435,12 +1435,14 @@ def musicxml_print_to_lily(el):
             elts.append(musicexp.Break("pageBreak"))
     child = el.get_maybe_exist_named_child("part-name-display")
     if child:
-        elts.append(musicexp.SetEvent("Staff.instrumentName",
-                                      '"%s"' % extract_display_text(child)))
+        name = musicexp.escape_instrument_string(extract_display_text(child))
+        elts.append(musicexp.SetEvent('Staff.instrumentName',
+                                      '%s' % name))
     child = el.get_maybe_exist_named_child("part-abbreviation-display")
     if child:
-        elts.append(musicexp.SetEvent("Staff.shortInstrumentName",
-                                      '"%s"' % extract_display_text(child)))
+        name = musicexp.escape_instrument_string(extract_display_text(child))
+        elts.append(musicexp.SetEvent('Staff.shortInstrumentName',
+                                      '%s' % name))
     return elts
 
 
