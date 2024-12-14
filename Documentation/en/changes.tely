@@ -1300,6 +1300,12 @@ can be overridden with the new command-line option
 @item Option @option{--shift-meter} has been replaced with option
 @option{--shift-durations}, using a simpler syntax.
 
+@item New command-line option @option{--no-tagline} to suppress
+the output of a LilyPond tagline.
+
+@item New command-line option @option{--book} to wrap the
+top-level score with @code{\book}.
+
 @item The bar numbers shown as comments in the created LilyPond
 input file are now as expected, i.e., the values shown refer to
 the previous bar.

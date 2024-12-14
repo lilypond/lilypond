@@ -455,6 +455,32 @@ def get_string_numbers():
         return "t"
 
 
+# Implement command-line option `--book`.
+def set_book(option):
+    global book_option
+    book_option = option
+
+
+def get_book():
+    try:
+        return book_option
+    except NameError:
+        return False
+
+
+# Implement command-line option `--no-tagline`.
+def set_tagline(option):
+    global tagline_option
+    tagline_option = option
+
+
+def get_tagline():
+    try:
+        return tagline_option
+    except NameError:
+        return False
+
+
 def generic_tone_to_pitch(tone):
     # TODO: Support different note name languages as given by the
     #       `--language` command-line option.
@@ -1296,6 +1322,10 @@ class Paper(Base):
         if self.short_indent != 0:
             self.print_length_field(
                 printer, "short-indent", self.short_indent / char_per_cm)
+
+        if not get_tagline():
+            printer.dump('tagline = ##f')
+            printer.newline()
 
         printer.dump('}')
         printer.newline()
@@ -4717,6 +4747,9 @@ class Score(Base):
         @type printer: L{Output_printer<musicexp.Output_printer>}
         """
         self.create_midi = get_create_midi()
+        if get_book():
+            printer.dump(r'\book {')
+            printer.newline()
         printer.dump(r"\score {")
         printer.newline()
         # prints opening <<:
@@ -4761,6 +4794,9 @@ class Score(Base):
         printer.newline()
         printer.dump("}")
         printer.newline()
+        if get_book():
+            printer.dump('}')
+            printer.newline()
 
 
 def test_pitch():

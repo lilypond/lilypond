@@ -112,9 +112,14 @@ def round_to_two_digits(val):
 
 
 def extract_paper_information(score_partwise):
+    early_return_val = None
+    if not options.tagline:
+        # We need a `\paper` block for suppressing the tagline.
+        early_return_val = globvars.paper
+
     defaults = score_partwise.get_maybe_exist_named_child('defaults')
     if not defaults:
-        return None
+        return early_return_val
 
     one_tenth_in_mm = -1
 
@@ -143,7 +148,7 @@ def extract_paper_information(score_partwise):
 
     # We need a valid tenth value for the rest of this function.
     if one_tenth_in_mm <= 0:
-        return None
+        return early_return_val
 
     def tenths_to_cm(txt):
         return round_to_two_digits(float(txt) * one_tenth_in_mm / 10)
@@ -4509,6 +4514,17 @@ information.""") % 'lilypond')
                  help=_("convert '<frame>' events to a separate "
                         "FretBoards voice instead of markups"))
 
+    p.add_option('--book',
+                 action='store_true',
+                 default=False,
+                 help=_(r"put top-level score into '\book'"))
+
+    p.add_option('--nt', '--no-tagline',
+                 action='store_false',
+                 default=True,
+                 dest='tagline',
+                 help=_("don't emit a LilyPond tagline"))
+
     p.add_option_group('',
                        description=(
                            _("Report bugs via %s")
@@ -4908,6 +4924,14 @@ def main():
     # string numbers option
     if options.string_numbers:
         musicexp.set_string_numbers(options.string_numbers)
+
+    # book option
+    if options.book:
+        musicexp.set_book(options.book)
+
+    # no-tagline option
+    if options.tagline:
+        musicexp.set_tagline(options.tagline)
 
     if options.absolute_font_sizes:
         musicexp.use_absolute_font_sizes(options.absolute_font_sizes)

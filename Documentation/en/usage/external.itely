@@ -500,6 +500,11 @@ The following options are supported by @command{musicxml2ly}.
 @item -a, --absolute
 Convert pitches in absolute mode.
 
+@item --book
+Put the top-level score into a @code{\book @{ ... @}} block.  This
+might be useful for further processing with
+@command{lilypond-book}.
+
 @item --ds, --dynamics-scale=@var{factor}
 Scale @code{<dynamics>} elements by a non-negative @var{factor};
 value 0 means to use LilyPond's standard size for dynamics.  This
@@ -557,6 +562,9 @@ Ignore system breaks.
 @item --nsd, --no-stem-directions
 Ignore stem directions given in the MusicXML file, use LilyPond's
 automatic stemming instead.
+
+@item --nt, --no-tagline
+Don't emit a LilyPond tagline (at the bottom of the last page).
 
 @item -o, --output=@var{file}
 Set the output file name to @var{file}.  If @var{file} is
