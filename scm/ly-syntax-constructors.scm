@@ -180,7 +180,7 @@
          (tempo-set
           (and wpm
                (context-spec-music
-                (make-property-set 'tempoWholesPerMinute (ly:make-moment wpm))
+                (make-property-set 'tempoWholesPerMinute wpm)
                 'Score))))
 
     (if tempo-set

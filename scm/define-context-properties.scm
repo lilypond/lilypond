@@ -782,7 +782,7 @@ fret number.  It returns the text as a markup.")
 staff position of a tablature note head.  Called with two arguments:
 the context and the string.")
      (tempoHideNote ,boolean? "Hide the note = count in tempo marks.")
-     (tempoWholesPerMinute ,positive-musical-length-as-moment? "The tempo in
+     (tempoWholesPerMinute ,positive-musical-length-as-number? "The tempo in
 whole notes per minute.")
      (tieWaitForNote ,boolean? "If true, tied notes do not have to
 follow each other directly.  This can be used for writing out
@@ -990,5 +990,12 @@ finger to use")
   'translation-type? 'minimumBeamSubdivisionInterval
   musical-length-as-moment?
   #:new-symbol 'beamMinimumSubdivision
+  #:old->new ly:moment-main
+  #:new->old ly:make-moment)
+
+(define-deprecated-property
+  'translation-type? 'tempoWholesPerMinuteAsMoment
+  positive-musical-length-as-moment?
+  #:new-symbol 'tempoWholesPerMinute
   #:old->new ly:moment-main
   #:new->old ly:make-moment)

@@ -97,8 +97,8 @@ error if protecting against a user error."
 
 (define-public (seconds->moment s context)
   "Return a moment equivalent to @var{s}@tie{}seconds at the current tempo."
-  (ly:moment-mul (ly:context-property context 'tempoWholesPerMinute)
-                 (ly:make-moment (/ s 60))))
+  (ly:make-moment (* (ly:context-property context 'tempoWholesPerMinute)
+                     (/ s 60))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; durations

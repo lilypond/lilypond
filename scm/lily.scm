@@ -688,6 +688,7 @@ determines the number of scale steps that make up an octave.  Usually the
   'baseMoment
   'maximumBeamSubdivisionInterval
   'minimumBeamSubdivisionInterval
+  'tempoWholesPerMinuteAsMoment
   'translation-type?
   (let ((getr (deprecated-getter-object-property category-type-symbol))
         (setr (deprecated-setter-object-property category-type-symbol)))

@@ -5410,6 +5410,7 @@ def conv(s):
 @rule((2, 25, 23), r"""
 maximumBeamSubdivisionInterval -> beamMaximumSubdivision
 minimumBeamSubdivisionInterval -> beamMinimumSubdivision
+tempoWholesPerMinute = \musicLength <duration> -> ... = #<rational>
 """)
 def conv(s):
     s = re.sub(make_mom_assign_re('maximumBeamSubdivisionInterval'),
@@ -5420,6 +5421,9 @@ def conv(s):
                make_mom_assign_replacer('beamMinimumSubdivision'), s)
     s = re.sub(r'(\\unset\s+)minimumBeamSubdivisionInterval',
                r'\1beamMinimumSubdivision', s)
+    s = re.sub(r'\btempoWholesPerMinute\b', r'tempoWholesPerMinuteAsMoment', s)
+    s = re.sub(make_mom_assign_re('tempoWholesPerMinuteAsMoment'),
+               make_mom_assign_replacer('tempoWholesPerMinute'), s)
     return s
 
 

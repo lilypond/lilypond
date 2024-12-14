@@ -955,6 +955,31 @@ the new inverted glyphs are named @code{scripts.dupbow} and
 
 @itemize
 @item
+Various context properties that previously held @code{ly:moment}
+values now hold rational numbers.  To ease this transition, each
+number property is paired with a fallback @code{ly:moment}
+property.  Using the fallback property transparently accesses the
+number property and triggers a warning.
+
+@indentedblock
+@multitable @columnfractions 0.5 0.5
+@item
+@b{Deprecated Context Property}
+@tab
+@b{New Context Property}
+@c rows are sorted by deprecated property name
+@item
+@code{baseMoment}
+@tab
+@code{beatBase}
+@item
+@code{tempoWholesPerMinuteAsMoment}
+@tab
+@code{tempoWholesPerMinute}
+@end multitable
+@end indentedblock
+
+@item
 @code{\tempo @var{dur} = @var{min} - @var{max}} used to set the
 context property @code{tempoWholesPerMinute} after rounding the
 center of the range to the nearest integer.  It no longer rounds.
@@ -969,11 +994,6 @@ respectively.
 @item
 The new Scheme function @code{ly:parser-append-to-include-path}
 appends its argument to the current parser's include path.
-
-@item
-The @code{baseMoment} context property is deprecated in favor of
-@code{beatBase}.  Using @code{baseMoment} transparently accesses
-@code{beatBase} and triggers a warning.
 
 @item
 The value of the @code{timeSignatureSettings} context property

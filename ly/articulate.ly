@@ -134,7 +134,7 @@
 %    customize its effect to user-settable repeat-types. Here the most general
 %    setting is hard-coded, resulting in unchanged behavior.
 
-\version "2.23.2"
+\version "2.25.23"
 
 #(use-modules (srfi srfi-11)
               (ice-9 control)
@@ -273,9 +273,11 @@
 #(define (ac:adjust-props sym music)
   (case sym
    ((tempoWholesPerMinute)
+    (set! ac:currentTempo (ly:music-property music 'value))
+    (set! ac:lastTempo ac:currentTempo))
+   ((tempoWholesPerMinuteAsMoment)
     (set! ac:currentTempo (ly:moment-main (ly:music-property music 'value)))
-    (set! ac:lastTempo ac:currentTempo)
-  )))
+    (set! ac:lastTempo ac:currentTempo))))
 
 % Raise note one step in the current diatonic scale.
 #(define (ac:up note)

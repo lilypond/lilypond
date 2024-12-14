@@ -32,18 +32,11 @@ public:
   ~Tempo_performer ();
 
 protected:
-  void derived_mark () const override;
   void process_music ();
 
 private:
-  SCM last_tempo_ = SCM_EOL;
+  Rational wpm_ = -Rational::infinity ();
 };
-
-void
-Tempo_performer::derived_mark () const
-{
-  scm_gc_mark (last_tempo_);
-}
 
 Tempo_performer::Tempo_performer (Context *c)
   : Performer (c)
@@ -57,13 +50,12 @@ Tempo_performer::~Tempo_performer ()
 void
 Tempo_performer::process_music ()
 {
-  SCM wpm_scm = get_property (this, "tempoWholesPerMinute");
-  auto *wpm_mom = unsmob<Moment> (wpm_scm);
-  if (wpm_mom && !ly_is_equal (wpm_scm, last_tempo_))
+  auto wpm = from_scm (get_property (this, "tempoWholesPerMinute"), wpm_);
+  if (wpm != wpm_)
     {
       Stream_event *cause = nullptr;
-      announce<Audio_tempo> (cause, wpm_mom->main_part_);
-      last_tempo_ = wpm_scm;
+      announce<Audio_tempo> (cause, wpm);
+      wpm_ = wpm;
     }
 }
 
