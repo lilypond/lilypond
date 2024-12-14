@@ -3191,7 +3191,7 @@ eingeschaltet:
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 1*1/20
+      proportionalNotationDuration = #1/20
     }
   }
 }
@@ -3237,7 +3237,7 @@ erscheinen, größere Referenzdauern zwingen sie dichter zusammen.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 8
+      proportionalNotationDuration = #1/8
     }
   }
 }
@@ -3255,7 +3255,7 @@ erscheinen, größere Referenzdauern zwingen sie dichter zusammen.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 16
+      proportionalNotationDuration = #1/16
     }
   }
 }
@@ -3273,7 +3273,7 @@ erscheinen, größere Referenzdauern zwingen sie dichter zusammen.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 32
+      proportionalNotationDuration = #1/32
     }
   }
 }
@@ -3337,7 +3337,7 @@ dieser Situation deutlich:
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 1*1/20
+      proportionalNotationDuration = #1/20
     }
   }
 }
@@ -3367,7 +3367,7 @@ sollte auch noch die gleichmäßige Dehnung (@code{uniform-stretching}) angescha
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 1*1/20
+      proportionalNotationDuration = #1/20
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3457,7 +3457,7 @@ die beiden Partituren unten:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = \musicLength 16
+  \set Score.proportionalNotationDuration = #1/16
   c''8
   c''8
   c''8
@@ -3467,7 +3467,7 @@ die beiden Partituren unten:
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = \musicLength 16
+  \set Score.proportionalNotationDuration = #1/16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8
   c''8

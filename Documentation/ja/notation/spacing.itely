@@ -3244,7 +3244,7 @@ LilyPond はプロポーショナル ノーテーション用に 5 つの設定�
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 1*1/20
+      proportionalNotationDuration = #1/20
     }
   }
 }
@@ -3291,7 +3291,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 8
+      proportionalNotationDuration = #1/8
     }
   }
 }
@@ -3305,7 +3305,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 16
+      proportionalNotationDuration = #1/16
     }
   }
 }
@@ -3319,7 +3319,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 32
+      proportionalNotationDuration = #1/32
     }
   }
 }
@@ -3371,7 +3371,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 1*1/20
+      proportionalNotationDuration = #1/20
     }
   }
 }
@@ -3397,7 +3397,7 @@ LilyPond Scheme 関数 @code{make-moment} は 2 つの引数をとります
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 1*1/20
+      proportionalNotationDuration = #1/20
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3494,12 +3494,12 @@ OFF であるかのどちらかであるということです。@c
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = \musicLength 16
+  \set Score.proportionalNotationDuration = #1/16
   c''8 8 8 \clef alto d'2 2
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = \musicLength 16
+  \set Score.proportionalNotationDuration = #1/16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8 8 8 \clef alto d'2 2
 }

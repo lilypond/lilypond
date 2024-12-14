@@ -1,5 +1,5 @@
 
-\version "2.25.3"
+\version "2.25.23"
 
 \layout {
   indent = #0
@@ -7,7 +7,7 @@
   \context {
     \Score
 
-    proportionalNotationDuration = \musicLength 64
+    proportionalNotationDuration = #1/64
     \override Beam.breakable = ##t
     autoBeaming = ##f
     tupletFullLength = ##t

@@ -692,6 +692,7 @@ determines the number of scale steps that make up an octave.  Usually the
   'minimumBeamSubdivisionInterval
   'minimumPageTurnLength
   'minimumRepeatLengthForPageTurn
+  'proportionalNotationDurationAsMoment
   'tempoWholesPerMinuteAsMoment
   'translation-type?
   'voltaSpannerDuration

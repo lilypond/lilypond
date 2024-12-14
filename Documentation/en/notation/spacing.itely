@@ -3745,7 +3745,7 @@ notation.  We turn proportional notation on with the
 \layout {
   \context {
     \Score
-    proportionalNotationDuration = \musicLength 1*1/20
+    proportionalNotationDuration = #1/20
   }
 }
 @end lilypond
@@ -3779,19 +3779,19 @@ larger reference durations space music tightly.
 rhythm = { c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 } }
 
 \new RhythmicStaff {
-  \set Score.proportionalNotationDuration = \musicLength 8
+  \set Score.proportionalNotationDuration = #1/8
   % Allow overlapping of note heads.
   \override NoteHead.extra-spacing-width = #'(+inf.0 . -inf.0)
   \rhythm
 }
 
 \new RhythmicStaff {
-  \set Score.proportionalNotationDuration = \musicLength 16
+  \set Score.proportionalNotationDuration = #1/16
   \rhythm
 }
 
 \new RhythmicStaff {
-  \set Score.proportionalNotationDuration = \musicLength 32
+  \set Score.proportionalNotationDuration = #1/32
   \rhythm
 }
 @end lilypond
@@ -3835,7 +3835,7 @@ result.  Setting @code{proportionalNotationDuration} fixes this.
 \layout {
   \context {
     \Score
-    proportionalNotationDuration = \musicLength 1*1/20
+    proportionalNotationDuration = #1/20
   }
 }
 @end lilypond
@@ -3858,7 +3858,7 @@ turn on @code{uniform-stretching}, which is a property of
 \layout {
   \context {
     \Score
-    proportionalNotationDuration = \musicLength 1*1/20
+    proportionalNotationDuration = #1/20
     \override SpacingSpanner.uniform-stretching = ##t
   }
 }
@@ -3945,12 +3945,12 @@ property of @code{SpacingSpanner}.  Compare the two scores below:
 
 @lilypond[quote,verbatim,ragged-right]
 {
-  \set Score.proportionalNotationDuration = \musicLength 16
+  \set Score.proportionalNotationDuration = #1/16
   c''8 8 8 \clef alto d'2 d'8
 }
 
 {
-  \set Score.proportionalNotationDuration = \musicLength 16
+  \set Score.proportionalNotationDuration = #1/16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8 8 8 \clef alto d'2 d'8
 }

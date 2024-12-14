@@ -210,11 +210,14 @@ Spacing_engraver::stop_translation_timestep ()
   set_object (unsmob<Grob> (get_property (this, "currentCommandColumn")),
               "spacing", spacing_->self_scm ());
 
-  SCM proportional = get_property (this, "proportionalNotationDuration");
-  if (unsmob<Moment> (proportional))
+  auto const proportional
+    = from_scm (get_property (this, "proportionalNotationDuration"),
+                -Rational::infinity ());
+  if (proportional >= Rational (0))
     {
-      set_property (musical_column, "shortest-playing-duration", proportional);
-      set_property (musical_column, "shortest-starter-duration", proportional);
+      SCM mom = to_scm (Moment (proportional));
+      set_property (musical_column, "shortest-playing-duration", mom);
+      set_property (musical_column, "shortest-starter-duration", mom);
       set_property (musical_column, "used", SCM_BOOL_T);
       return;
     }

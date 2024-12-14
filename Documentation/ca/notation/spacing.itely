@@ -3350,7 +3350,7 @@ l'ajustament @code{proportionalNotationDuration}.
  \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 1*1/20
+      proportionalNotationDuration = #1/20
     }
   }
 }
@@ -3397,7 +3397,7 @@ duracions de referència més llargues apliquen un espaiat més atapeït.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 8
+      proportionalNotationDuration = #1/8
     }
   }
 }
@@ -3411,7 +3411,7 @@ duracions de referència més llargues apliquen un espaiat més atapeït.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 16
+      proportionalNotationDuration = #1/16
     }
   }
 }
@@ -3425,7 +3425,7 @@ duracions de referència més llargues apliquen un espaiat més atapeït.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 32
+      proportionalNotationDuration = #1/32
     }
   }
 }
@@ -3477,7 +3477,7 @@ L'establiment de @code{proportionalNotationDuration} ho soluciona.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 1*1/20
+      proportionalNotationDuration = #1/20
     }
   }
 }
@@ -3502,7 +3502,7 @@ propietat de @code{SpacingSpanner}.
   \layout {
     \context {
       \Score
-      proportionalNotationDuration = \musicLength 1*1/20
+      proportionalNotationDuration = #1/20
       \override SpacingSpanner.uniform-stretching = ##t
     }
   }
@@ -3598,12 +3598,12 @@ Compareu les dues partitures següents:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
-  \set Score.proportionalNotationDuration = \musicLength 16
+  \set Score.proportionalNotationDuration = #1/16
   c''8 8 8 \clef alto d'2 2
 }
 
 \new Staff {
-  \set Score.proportionalNotationDuration = \musicLength 16
+  \set Score.proportionalNotationDuration = #1/16
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   c''8 8 8 \clef alto d'2 2
 }

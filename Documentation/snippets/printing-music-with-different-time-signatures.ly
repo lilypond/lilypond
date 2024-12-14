@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.3"
+\version "2.25.23"
 
 \header {
   lsrtags = "contemporary-notation, percussion, real-music, really-cool, rhythms"
@@ -47,7 +47,7 @@ global = { \time 3/4 { s2.*3 } \bar "" \break { s2.*3 } }
     \remove "Bar_number_engraver"
     \override SpacingSpanner.uniform-stretching = ##t
     \override SpacingSpanner.strict-note-spacing = ##t
-    proportionalNotationDuration = \musicLength 64
+    proportionalNotationDuration = #1/64
   }
   \context {
     \Staff

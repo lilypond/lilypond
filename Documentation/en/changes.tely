@@ -989,6 +989,10 @@ number property and triggers a warning.
 @tab
 @code{pageTurnMinimumRepeatLength}
 @item
+@code{proportionalNotationDurationAsMoment}
+@tab
+@code{proportionalNotationDuration}
+@item
 @code{tempoWholesPerMinuteAsMoment}
 @tab
 @code{tempoWholesPerMinute}

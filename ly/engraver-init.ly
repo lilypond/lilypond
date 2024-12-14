@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.4"
+\version "2.25.23"
 
 %% Warning: if updating context hierarchies, don't forget ly/performer-init.ly!
 
@@ -1064,7 +1064,7 @@ settings like removing bar numbers."
   \accepts ChordGrid
   \remove Bar_number_engraver
   \remove System_start_delimiter_engraver
-  proportionalNotationDuration = \musicLength 4
+  proportionalNotationDuration = #1/4
   %% Printing repeat bar lines even at the start is apparently standard
   %% for jazz.
   printInitialRepeatBar = ##t

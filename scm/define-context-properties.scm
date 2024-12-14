@@ -630,7 +630,7 @@ before a key signature change.")
 in the part combiner?")
      (printTrivialVoltaRepeats ,boolean? "Notate volta-style repeats even when
 the repeat count is@tie{}1.")
-     (proportionalNotationDuration ,musical-length-as-moment? "Global override
+     (proportionalNotationDuration ,musical-length-as-number? "Global override
 for shortest-playing duration.  This is used for switching on proportional
 notation.")
 
@@ -1013,6 +1013,13 @@ finger to use")
 (define-deprecated-property
   'translation-type? 'minimumRepeatLengthForPageTurn musical-length-as-moment?
   #:new-symbol 'pageTurnMinimumRepeatLength
+  #:old->new ly:moment-main
+  #:new->old ly:make-moment)
+
+(define-deprecated-property
+  'translation-type? 'proportionalNotationDurationAsMoment
+  musical-length-as-moment?
+  #:new-symbol 'proportionalNotationDuration
   #:old->new ly:moment-main
   #:new->old ly:make-moment)
 
