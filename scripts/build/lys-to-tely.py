@@ -33,6 +33,9 @@ import getopt
 import re
 import glob
 
+from pathlib import Path
+
+
 program_name = 'lys-to-tely'
 
 include_snippets = '@lysnippets'
@@ -56,6 +59,11 @@ Options:
                                marker '%(include_snippets)s' to indicate
                                where to insert LY-FILEs.  When this option is
                                used, NAME and TITLE are ignored
+
+If a lilypond-book options file exists for an input file (stripping off the
+file name's suffix and appending `.lybook`) that gets eventually included
+with `@musicxmlfile` or `@lilypondfile`, use its contents as additional
+fragment options (separated by whitespace) for this input file.
 """
 
 
@@ -146,6 +154,15 @@ xml_file_re = re.compile(r'.*\.i?(xm|mx)l$')
 
 
 def name2line(n):
+    file_name = Path(n)
+    options_file = file_name.with_suffix('.lybook')
+
+    options_string = ''
+    if os.path.isfile(options_file):
+        options = open(options_file, encoding='utf-8').read().split()
+        if options:
+            options_string = ',' + ','.join(options)
+
     if texi_file_re.match(n):
         # We have a texi include file, simply include it:
         s = r"@include %s" % os.path.basename(n)
@@ -170,7 +187,7 @@ def name2line(n):
 @end ifhtml
 
 @musicxmlfile[%s]{%s}
-""" % (os.path.basename(n), fragment_options, prefix + n)
+""" % (os.path.basename(n), fragment_options + options_string, prefix + n)
 
     else:
         # Assume it's a lilypond file -> create image etc.
@@ -182,7 +199,7 @@ def name2line(n):
 @end ifhtml
 
 @lilypondfile[%s]{%s}
-""" % (os.path.basename(n), fragment_options, prefix + n)
+""" % (os.path.basename(n), fragment_options + options_string, prefix + n)
     return s
 
 
