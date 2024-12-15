@@ -1045,6 +1045,12 @@ globally with command-line option @option{--inline-vshift} and
 locally with an argument to the snippet option @code{inline}.
 
 @item
+It is possible to use various command-line options of
+@command{musicxml2ly} as options for @command{lilypond-book}'s
+@code{musicxmlfile} command.  This was actually introduced in
+version 2.15.9 (in 2011) but stayed undocumented until now.
+
+@item
 Two new command-line options @option{-dfirst} and @option{-dlast}
 have been introduced; they are equivalent to setting
 @code{showFirstLength} and @code{showLastLength}, respectively, in

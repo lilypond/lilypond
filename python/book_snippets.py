@@ -980,16 +980,28 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         self.converted_ly = None
         self.ext = os.path.splitext(os.path.basename(self.filename))[1]
         self.musicxml_options_dict = {
-            'verbose': '--verbose',
-            'lxml': '--lxml',
-            'compressed': '--compressed',
-            'relative': '--relative',
             'absolute': '--absolute',
-            'no-articulation-directions': '--no-articulation-directions',
-            'no-rest-positions': '--no-rest-positions',
-            'no-page-layout': '--no-page-layout',
-            'no-beaming': '--no-beaming',
+            'book': '--book',
+            'compressed': '--compressed',
+            'dynamics-scale': '--dynamics-scale',
+            'fretboards': '--fretboards',
             'language': '--language',
+            'ottavas-end-early': '--ottavas-end-early',
+            'no-articulation-directions': '--no-articulation-directions',
+            'no-beaming': '--no-beaming',
+            'no-page-breaks': '--no-page-breaks',
+            'no-page-layout': '--no-page-layout',
+            'no-page-margins': '--no-page-margins',
+            'no-rest-positions': '--no-rest-positions',
+            'no-stem-directions': '--no-stem-directions',
+            'no-system-breaks': '--no-system-breaks',
+            'no-tagline': '--no-tagline',
+            'shift-duration': '--shift-duration',
+            'string-numbers': '--string-numbers',
+            'tab-clef': '--tab-clef',
+            'transpose': '--transpose',
+            'relative': '--relative',
+            'verbose': '--verbose',
         }
 
     def snippet_options(self):

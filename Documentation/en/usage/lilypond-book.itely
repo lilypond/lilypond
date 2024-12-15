@@ -1000,6 +1000,40 @@ printed, i.e., the directory part of the file path is stripped.
 
 @end table
 
+Finally, the @code{musicxmlfile} command also accepts the
+following options, which are directly passed to
+@command{musicxml2ly}.
+
+@indentedblock
+@raggedright
+@w{@code{absolute}},
+@w{@code{book}},
+@w{@code{compressed}},
+@w{@code{dynamics-scale}},
+@w{@code{fretboards}},
+@w{@code{language}},
+@w{@code{ottavas-end-early}},
+@w{@code{no-articulation-directions}},
+@w{@code{no-beaming}},
+@w{@code{no-page-breaks}},
+@w{@code{no-page-layout}},
+@w{@code{no-page-margins}},
+@w{@code{no-rest-positions}},
+@w{@code{no-stem-directions}},
+@w{@code{no-system-breaks}},
+@w{@code{no-tagline}},
+@w{@code{shift-duration}},
+@w{@code{string-numbers}},
+@w{@code{tab-clef}},
+@w{@code{transpose}},
+@w{@code{relative}},
+@w{@code{verbose}}
+@end raggedright
+@end indentedblock
+
+@noindent
+@xref{Invoking musicxml2ly} for the exact meaning of these options.
+
 
 @node Invoking lilypond-book
 @section Invoking @command{lilypond-book}
