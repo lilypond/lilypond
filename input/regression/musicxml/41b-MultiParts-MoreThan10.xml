@@ -4,12 +4,18 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A piece with
-          20 parts to check whether an application supports
-          that many parts and whether they are
-          correctly sorted.</miscellaneous-field>
+      <miscellaneous-field name="description">A piece with 20 parts (called ‘P0’
+          to ‘P19’) using a small global font size to check whether an
+          application supports that many parts and whether they are correctly
+          sorted.</miscellaneous-field>
     </miscellaneous>
   </identification>
+  <defaults>
+    <scaling>
+      <millimeters>4</millimeters>
+      <tenths>40</tenths>
+    </scaling>
+  </defaults>
   <part-list>
     <score-part id="P0">
       <part-name>P0</part-name>

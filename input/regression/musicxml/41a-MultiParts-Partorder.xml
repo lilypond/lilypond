@@ -4,10 +4,8 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A piece with
-          four parts (P0, P1, P2, P3; different from what
-          Finale creates!). Are they converted in the correct
-          order?</miscellaneous-field>
+      <miscellaneous-field name="description">A piece with four parts named
+          ‘P0’, ‘P1’, ‘P2’, and ‘P3’ (in that order).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
