@@ -44,6 +44,7 @@ LilyPond's source files.
 |   |-- fr/              French
 |   |-- it/              Italian
 |   |-- ja/              Japanese
+|   |-- tr/              Turkish
 |   |-- zh/              Chinese
 |   |
 |   |
@@ -52,15 +53,16 @@ LilyPond's source files.
 |   |-- bib/             Bibliography files for documentation
 |   |-- css/             CSS files for HTML docs
 |   |-- logo/            Web logo and "note" icon
-|   |-- ly-examples/     .ly example files for the webpage
+|   |-- ly-examples/     `.ly` example files for the webpage
 |   |-- misc/            Old announcements, ChangeLogs and NEWS
 |   |-- pictures/        Images (eps/jpg/png/svg) for the webpage
 |   |   `-- pdf/         (pdf)
-|   |-- po/              Translated build/maintenance scripts
+|   |-- po/              Translations for build/maintenance scripts
 |   |-- snippets/        Auto-generated from the LSR and from ./new/
 |   |   `-- new/         Snippets too new for the LSR
+|   |-- tex/             TeX and texinfo library files
 |   |-- topdocs/         AUTHORS, INSTALL
-|   `-- tex/             TeX and texinfo library files
+|   `-- webserver        Support files for the lilypond.org web server
 |
 |
 |   C++ SOURCES:
@@ -73,8 +75,8 @@ LilyPond's source files.
 |
 |   LIBRARIES:
 |
-|-- ly/                  .ly \include files
-|-- mf/                  MetaFont sources for Emmentaler fonts
+|-- ly/                  `.ly` \include files
+|-- mf/                  MetaFont sources and scripts for Emmentaler fonts
 |-- ps/                  PostScript library files
 |-- scm/                 Scheme sources for LilyPond and subroutine files
 |
@@ -85,6 +87,7 @@ LilyPond's source files.
 |-- m4/                  Files used while generating the configure script
 |-- python/              Python modules, MIDI module
 |   `-- auxiliar/        Python modules for build/maintenance
+|       `-- vendored/    External Python packages used during build
 |-- scripts/             End-user scripts (--> lilypond/usr/bin/)
 |   |-- auxiliar/        Maintenance and non-essential build scripts
 |   `-- build/           Essential build scripts
@@ -104,19 +107,23 @@ LilyPond's source files.
 |   |-- binaries/        Scripts to build binaries
 |   |   |-- ansible/     Ansible playbooks for building binaries
 |   |   |-- lib/         Auxiliary files for building binaries
+|   |   |-- patches/     Patch files for external programs
 |   |   `-- relocate/    Relocation data for lilypond binary
 |   `-- doc              Scripts to build documentation
+|
 |
 |   REGRESSION TESTS:
 |
 |-- input/
-|   `-- regression/      .ly regression tests
-|       |-- abc2ly/      .abc regression tests
+|   `-- regression/      `.ly` regression tests
+|       |-- abc2ly/      `.abc` regression tests
+|       |-- include-path-modification/
+|       |                Regression test directory for include paths
 |       |-- lilypond-book/
-|       |                lilypond-book regression tests
-|       |-- midi/        midi2ly regression tests
-|       |-- musicxml/    .xml and .itexi regression tests
-|       `-- other/       regression tests without graphical output
+|       |                `lilypond-book` regression tests
+|       |-- midi/        `midi2ly` regression tests
+|       |-- musicxml/    MusicXML regression tests (for `musicxml2ly`)
+|       `-- other/       Regression tests without graphical output
 |
 |
 |   MISCELLANEOUS:
