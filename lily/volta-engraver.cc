@@ -233,15 +233,16 @@ Volta_engraver::process_music ()
           if (layer.stop_mom_ < Moment::infinity ())
             {
               // VoltaBracket.musical-length was specified.  Check it and
-              // disregard voltaSpannerDuration.
+              // disregard voltaBracketMusicalLength.
               end = (now_mom () >= layer.stop_mom_);
             }
           else
             {
-              auto voltaSpannerDuration
-                = from_scm (get_property (this, "voltaSpannerDuration"),
+              auto voltaBracketMusicalLength
+                = from_scm (get_property (this, "voltaBracketMusicalLength"),
                             Moment::infinity ());
-              end = (voltaSpannerDuration <= now_mom () - layer.start_mom_);
+              end
+                = (voltaBracketMusicalLength <= now_mom () - layer.start_mom_);
             }
         }
 
@@ -365,7 +366,7 @@ Volta_engraver::stop_translation_timestep ()
             {
               // VoltaBracket.musical-length is unlimited, so the bracket
               // continues until the end of the alternative or until
-              // voltaSpannerDuration applies.
+              // voltaBracketMusicalLength applies.
               if (layer.stop_curr_ev_) // the current alternative is empty
                 {
                   layer.bracket_->suicide ();
@@ -471,7 +472,6 @@ currentCommandColumn
 printTrivialVoltaRepeats
 repeatCommands
 stavesFound
-voltaSpannerDuration
                 )",
 
                 /* write */

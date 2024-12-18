@@ -827,12 +827,6 @@ for repeated bass figures.")
 
 
      (vocalName ,markup? "Name of a vocal line.")
-     (voltaSpannerDuration ,musical-length-as-moment? "The maximum musical
-length of a @code{VoltaBracket} when its @code{musical-@/length} property is not
-set.
-
-This property is deprecated; overriding the @code{musical-@/length}
-property of @code{VoltaBracket} is recommended.")
 
 
      (whichBar ,string? "The current bar line type, or @code{'()} if
@@ -889,6 +883,12 @@ the current tuplet description, or @code{'()}.  Tuplet description objects
 are opaque to Scheme.")
 
 
+     (voltaBracketMusicalLength ,musical-length-as-moment? "The maximum
+musical length of a @code{VoltaBracket} when its @code{musical-@/length}
+property is not set.
+
+This property is deprecated; overriding the @code{musical-@/length} property of
+@code{VoltaBracket} is recommended.")
      (dynamicAbsoluteVolumeFunction ,procedure? "A procedure that takes
 one argument, the text value of a dynamic event, and returns the absolute
 volume of that dynamic event.")
@@ -999,3 +999,25 @@ finger to use")
   #:new-symbol 'tempoWholesPerMinute
   #:old->new ly:moment-main
   #:new->old ly:make-moment)
+
+;; voltaSpannerDuration is unlike most other deprecated moment properties
+;; because even as a number, it is still deprecated for other reasons.
+(define-deprecated-property
+  'translation-type? 'voltaSpannerDuration positive-musical-length-as-number?
+  #:new-symbol 'voltaBracketMusicalLength
+  #:old->new ly:make-moment
+  #:new->old ly:moment-main
+  #:warning (G_ "'voltaSpannerDuration' is deprecated; \
+use the grob property VoltaBracket.musical-length"))
+
+;; Upgrading voltaSpannerDuration to VoltaBracket.musical-length is not a simple
+;; find-and-replace, so voltaSpannerDurationAsMoment might still be helpful as a
+;; quick fix for the change in the type of voltaSpannerDuration.
+(define-deprecated-property
+  'translation-type? 'voltaSpannerDurationAsMoment
+  positive-musical-length-as-moment?
+  #:new-symbol 'voltaBracketMusicalLength
+  #:old->new identity
+  #:new->old identity
+  #:warning (G_ "'voltaSpannerDurationAsMoment' is deprecated; \
+use the grob property VoltaBracket.musical-length"))

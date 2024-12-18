@@ -1,12 +1,14 @@
-\version "2.25.4"
-
-#(ly:set-option 'warning-as-error #t)
+\version "2.25.23"
 
 \header {
-  texidoc="A final volta bracket overhanging the next section can be
-achieved manually with the @code{repeatCommands} and
-@code{voltaSpannerDuration} properties."
+  texidoc="A final volta bracket overhanging the next section can be achieved
+manually with the @code{repeatCommands} property and the deprecated
+@code{voltaSpannerDuration} property."
 }
+
+#(ly:set-option 'warning-as-error #t)
+#(ly:expect-warning (G_ "'voltaSpannerDuration' is deprecated; \
+use the grob property VoltaBracket.musical-length"))
 
 music = \context Voice \fixed c' {
   \repeat volta 2 {
@@ -18,7 +20,7 @@ music = \context Voice \fixed c' {
         \set Score.repeatCommands = #`(end-repeat
                                        start-repeat
                                        (volta ,#{ \markup \volta-number "2." #}))
-        \set Score.voltaSpannerDuration = \musicLength 1
+        \set Score.voltaSpannerDuration = 1
       }
     }
   }

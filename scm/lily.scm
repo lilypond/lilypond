@@ -690,6 +690,8 @@ determines the number of scale steps that make up an octave.  Usually the
   'minimumBeamSubdivisionInterval
   'tempoWholesPerMinuteAsMoment
   'translation-type?
+  'voltaSpannerDuration
+  'voltaSpannerDurationAsMoment
   (let ((getr (deprecated-getter-object-property category-type-symbol))
         (setr (deprecated-setter-object-property category-type-symbol)))
     (set! (getr deprecated-symbol)

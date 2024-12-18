@@ -5411,6 +5411,7 @@ def conv(s):
 maximumBeamSubdivisionInterval -> beamMaximumSubdivision
 minimumBeamSubdivisionInterval -> beamMinimumSubdivision
 tempoWholesPerMinute = \musicLength <duration> -> ... = #<rational>
+voltaSpannerDuration = \musicLength <duration> -> ... = #<rational>
 """)
 def conv(s):
     s = re.sub(make_mom_assign_re('maximumBeamSubdivisionInterval'),
@@ -5424,6 +5425,9 @@ def conv(s):
     s = re.sub(r'\btempoWholesPerMinute\b', r'tempoWholesPerMinuteAsMoment', s)
     s = re.sub(make_mom_assign_re('tempoWholesPerMinuteAsMoment'),
                make_mom_assign_replacer('tempoWholesPerMinute'), s)
+    s = re.sub(r'\bvoltaSpannerDuration\b', r'voltaSpannerDurationAsMoment', s)
+    s = re.sub(make_mom_assign_re('voltaSpannerDurationAsMoment'),
+               make_mom_assign_replacer('voltaSpannerDuration'), s)
     return s
 
 

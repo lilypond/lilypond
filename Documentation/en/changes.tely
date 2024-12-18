@@ -976,6 +976,10 @@ number property and triggers a warning.
 @code{tempoWholesPerMinuteAsMoment}
 @tab
 @code{tempoWholesPerMinute}
+@item
+@code{voltaSpannerDurationAsMoment}
+@tab
+@code{voltaSpannerDuration}
 @end multitable
 @end indentedblock
 
