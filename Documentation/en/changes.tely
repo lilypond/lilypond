@@ -973,6 +973,10 @@ number property and triggers a warning.
 @tab
 @code{beatBase}
 @item
+@code{completionUnitAsMoment}
+@tab
+@code{completionUnit}
+@item
 @code{minimumPageTurnLength}
 @tab
 @code{pageTurnMinimumRestLength}

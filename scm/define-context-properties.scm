@@ -272,7 +272,7 @@ each duration being split.
 
 If set to a callback procedure, that procedure is called with the
 context of the completion engraver, and the duration to be split.")
-     (completionUnit ,positive-musical-length-as-moment? "Sub-bar unit of
+     (completionUnit ,positive-musical-length-as-number? "Sub-bar unit of
 completion.")
      (connectArpeggios ,boolean? "If set, connect arpeggios across
 piano staff.")
@@ -971,6 +971,12 @@ finger to use")
 (define-deprecated-property
   'translation-type? 'baseMoment positive-musical-length-as-moment?
   #:new-symbol 'beatBase
+  #:old->new ly:moment-main
+  #:new->old ly:make-moment)
+
+(define-deprecated-property
+  'translation-type? 'completionUnitAsMoment positive-musical-length-as-moment?
+  #:new-symbol 'completionUnit
   #:old->new ly:moment-main
   #:new->old ly:make-moment)
 

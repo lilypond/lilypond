@@ -686,6 +686,7 @@ determines the number of scale steps that make up an octave.  Usually the
   ;; not appear literally somewhere in this procedure.  It smells like a bug in
   ;; Guile (3.0.9).
   'baseMoment
+  'completionUnitAsMoment
   'maximumBeamSubdivisionInterval
   'minimumBeamSubdivisionInterval
   'minimumPageTurnLength

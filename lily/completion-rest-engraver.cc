@@ -114,12 +114,9 @@ Completion_rest_engraver::next_moment (Rational const &note_len)
 
   result = mlen - mpos.main_part_;
 
-  Rational unit;
-  if (auto *const u = unsmob<Moment> (get_property (this, "completionUnit")))
-    {
-      unit = u->main_part_;
-    }
-  else
+  auto const unit
+    = from_scm (get_property (this, "completionUnit"), Rational (0));
+  if (unit <= 0)
     {
       return result;
     }

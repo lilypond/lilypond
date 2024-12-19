@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.22"
+@c \version "2.25.23"
 
 @node Rhythms
 @section Rhythms
@@ -2221,7 +2221,7 @@ the split notes.
   \consists Completion_heads_engraver
 } \relative {
   \time 9/8 g\breve. d''4. \bar "||"
-  \set completionUnit = \musicLength 4.
+  \set completionUnit = #3/8
   g\breve. d4.
 }
 @end lilypond
