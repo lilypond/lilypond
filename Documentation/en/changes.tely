@@ -973,6 +973,14 @@ number property and triggers a warning.
 @tab
 @code{beatBase}
 @item
+@code{minimumPageTurnLength}
+@tab
+@code{pageTurnMinimumRestLength}
+@item
+@code{minimumRepeatLengthForPageTurn}
+@tab
+@code{pageTurnMinimumRepeatLength}
+@item
 @code{tempoWholesPerMinuteAsMoment}
 @tab
 @code{tempoWholesPerMinute}

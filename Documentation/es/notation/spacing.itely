@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.23"
 
 @ignore
 GDP TODO list
@@ -1958,12 +1958,12 @@ barra @q{especial} de compás (como una doble barra), en cuyo caso
 se insertará el @code{\allowPageTurn} en la última barra
 @q{especial} de compás de la sección.
 
-@funindex minimumPageTurnLength
+@funindex pageTurnMinimumRestLength
 El grabador @code{Page_turn_engraver} lee la propiedad de contexto
-@code{minimumPageTurnLength} para determinar qué longitud debe
+@code{pageTurnMinimumRestLength} para determinar qué longitud debe
 tener una sección sin notas antes de que se considere la
 posibilidad de un paso de página.  El valor predeterminado para
-@code{minimumPageTurnLength} es @code{(ly:make-moment 1/1)}.  Si
+@code{pageTurnMinimumRestLength} es @code{1}.  Si
 quiere inhabilitar las vueltas de página, fíjelo a algún valor
 @q{muy grande}.
 
@@ -1973,7 +1973,7 @@ quiere inhabilitar las vueltas de página, fíjelo a algún valor
   a4 b c d |
   R1 | % aquí se permite un salto de página
   a4 b c d |
-  \set Staff.minimumPageTurnLength = \musicLength 2*5
+  \set Staff.pageTurnMinimumRestLength = #5/2
   R1 | % aquí no se permite un salto de página
   a4 b r2 |
   R1*2 | % aquí se permite un salto de página
@@ -1981,7 +1981,7 @@ quiere inhabilitar las vueltas de página, fíjelo a algún valor
 @}
 @end example
 
-@funindex minimumRepeatLengthForPageTurn
+@funindex pageTurnMinimumRepeatLength
 
 Al usar repeticiones de primera y segunda vez, el grabador
 @code{Page_turn_engraver} solo permite un pase de página durante
@@ -1990,7 +1990,7 @@ la repetición para volver a pasar la página hacia atrás. Si la
 repetición es demasiado corta, se puede usar el grabador
 @code{Page_turn_engraver} para @emph{inhabilitar} los pasos de
 página mediante el establecimiento de un valor adecuado para la
-propiedad de contexto @code{minimumRepeatLengthForPageTurn}.  En
+propiedad de contexto @code{pageTurnMinimumRepeatLength}.  En
 este caso el grabador @code{Page_turn_engraver} sólo permitirá los
 pases de página en las repeticiones cuya duración sea mayor que el
 valor especificado.

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.23"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -1921,12 +1921,12 @@ compàs (com una doble barra), cosa que farà que insereixi el
 @code{\allowPageTurn} en la última barra @q{especial} de compàs de
 la secció.
 
-@funindex minimumPageTurnLength
+@funindex pageTurnMinimumRestLength
 El gravador @code{Page_turn_engraver} llegeix la propietat de context
-@code{minimumPageTurnLength} per determinar quina longitud ha de
+@code{pageTurnMinimumRestLength} per determinar quina longitud ha de
 tenir una secció sense notes abans que es consideri la
 possibilitat d'un pas de pagina.  El valor predeterminat per a
-@code{minimumPageTurnLength} és @code{(ly:make-moment 1/1)}.  Si
+@code{pageTurnMinimumRestLength} és @code{1}.  Si
 voleu deshabilitar les voltes de pàgina, establiu-lo a algun valor
 @q{molt gran}.
 
@@ -1936,7 +1936,7 @@ voleu deshabilitar les voltes de pàgina, establiu-lo a algun valor
   a4 b c d |
   R1 | % aquí es permet un salt de pàgina
   a4 b c d |
-  \set Staff.minimumPageTurnLength = \musicLength 2*5
+  \set Staff.pageTurnMinimumRestLength = #5/2
   R1 | % aquí no es permet un salt de pàgina
   a4 b r2 |
   R1*2 | % aquí es permet un salt de pàgina
@@ -1944,7 +1944,7 @@ voleu deshabilitar les voltes de pàgina, establiu-lo a algun valor
 @}
 @end example
 
-@funindex minimumRepeatLengthForPageTurn
+@funindex pageTurnMinimumRepeatLength
 
 En usar repeticions de primera i segona vegada, el gravador
 @code{Page_turn_engraver} sols permet un pas de pàgina durant la
@@ -1953,7 +1953,7 @@ repetició per tornar a passar la pàgina cap a darrere.  Si la
 repetició es massa curta, es pot usar el gravador
 @code{Page_turn_engraver} per @emph{deshabilitar} els passos de
 pàgina mitjançant l'establiment d'un valor adequat per a la
-propietat de context @code{minimumRepeatLengthForPageTurn}.  En
+propietat de context @code{pageTurnMinimumRepeatLength}.  En
 aquest cas el gravador @code{Page_turn_engraver} sols permetrà els
 passos de pàgina a les repeticions la durada de les quals sigui
 més gran que el valor especificat.

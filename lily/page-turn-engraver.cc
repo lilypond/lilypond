@@ -150,8 +150,7 @@ Real
 Page_turn_engraver::penalty (Rational rest_len)
 {
   const auto min_turn
-    = from_scm (get_property (this, "minimumPageTurnLength"), Moment (1))
-        .main_part_;
+    = from_scm (get_property (this, "pageTurnMinimumRestLength"), Rational (1));
 
   return (rest_len < min_turn) ? infinity_f : 0;
 }
@@ -304,9 +303,9 @@ Page_turn_engraver::stop_translation_timestep ()
       Real pen = penalty ((now_mom () - rest_begin_).main_part_
                           + repeat_begin_rest_length_);
 
-      const auto minimumRepeatLengthForPageTurn = from_scm (
-        get_property (this, "minimumRepeatLengthForPageTurn"), Moment (0));
-      if (minimumRepeatLengthForPageTurn > (now_mom () - repeat_begin_))
+      const auto pageTurnMinimumRepeatLength = from_scm (
+        get_property (this, "pageTurnMinimumRepeatLength"), Rational (0));
+      if (pageTurnMinimumRepeatLength > (now_mom () - repeat_begin_).main_part_)
         pen = infinity_f;
 
       if (pen == infinity_f)
@@ -441,8 +440,8 @@ Decide where page turns are allowed to go.
                 /* read */
                 R"(
 currentBarLine
-minimumPageTurnLength
-minimumRepeatLengthForPageTurn
+pageTurnMinimumRestLength
+pageTurnMinimumRepeatLength
                 )",
 
                 /* write */

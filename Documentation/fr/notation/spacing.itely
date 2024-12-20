@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.23"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Jean Abou Samra
@@ -2124,12 +2124,12 @@ fragment, à moins qu'il ne rencontre en chemin une « barre spéciale » --
 telle une double barre -- auquel cas il y déposera le
 @code{\allowPageTurn}.
 
-@funindex minimumPageTurnLength
+@funindex pageTurnMinimumRestLength
 
 Le @code{Page_turn_engraver} examine la propriété de contexte
-@code{minimumPageTurnLength} pour déterminer quelle doit être la
+@code{pageTurnMinimumRestLength} pour déterminer quelle doit être la
 longueur d'un fragment sans note avant une tourne. La valeur par défaut
-de @code{minimumPageTurnLength} est @code{\musicLength 1}, soit une
+de @code{pageTurnMinimumRestLength} est @code{1}, soit une
 ronde, et s'ajuste de la manière suivante :
 
 @example
@@ -2138,7 +2138,7 @@ ronde, et s'ajuste de la manière suivante :
   a4 b c d |
   R1 | % une tourne peut se placer ici
   a4 b c d |
-  \set Staff.minimumPageTurnLength = \musicLength 2*5
+  \set Staff.pageTurnMinimumRestLength = #5/2
   R1 | % il ne peut pas y avoir de tourne ici
   a4 b r2 |
   R1*2 | % une tourne peut se placer ici
@@ -2146,7 +2146,7 @@ ronde, et s'ajuste de la manière suivante :
 @}
 @end example
 
-@funindex minimumRepeatLengthForPageTurn
+@funindex pageTurnMinimumRepeatLength
 
 Le @code{Page_turn_engraver} tient compte des reprises. C'est pourquoi
 il ne permettra une tourne que dans le cas où il y aura suffisamment de
@@ -2154,7 +2154,7 @@ temps au début et à la fin de la reprise pour que l'exécutant puisse
 aisément revenir à la page précédente. Le @code{Page_turn_engraver} est
 même capable d'interdire un tourne dans le cas d'une reprise de courte
 durée, ajustable au travers de la propriété de contexte
-@code{minimumRepeatLengthForPageTurn}.
+@code{pageTurnMinimumRepeatLength}.
 
 Les commandes de tourne -- @code{\pageTurn}, @code{\noPageTurn} et
 @code{\allowPageTurn} -- peuvent s'utiliser à des niveaux supérieurs,

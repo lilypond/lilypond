@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.23"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -1855,12 +1855,12 @@ sezione, a meno che non ci sia una stanghetta @q{speciale} (come
 una doppia stanghetta), nel qual caso il comando @code{\allowPageTurn}
 sarà inserito nella stanghetta finale @qq{speciale} della sezione.
 
-@funindex minimumPageTurnLength
+@funindex pageTurnMinimumRestLength
 L'incisore @code{Page_turn_engraver} legge la proprietà di contesto
-@code{minimumPageTurnLength} per determinare quanto deve essere lunga
+@code{pageTurnMinimumRestLength} per determinare quanto deve essere lunga
 una sezione senza note prima che una voltata di pagina sia considerata.
-Il valore predefinito di @code{minimumPageTurnLength} è
-@code{(ly:make-moment 1/1)}.  Per disabilitare le voltate di pagina,
+Il valore predefinito di @code{pageTurnMinimumRestLength} è
+@code{1}.  Per disabilitare le voltate di pagina,
 impostarla su un valore @qq{molto grande}.
 
 @example
@@ -1869,7 +1869,7 @@ impostarla su un valore @qq{molto grande}.
   a4 b c d |
   R1 | % voltata di pagina permessa qui
   a4 b c d |
-  \set Staff.minimumPageTurnLength = \musicLength 2*5
+  \set Staff.pageTurnMinimumRestLength = #5/2
   R1 | % voltata di pagina non permessa qui
   a4 b r2 |
   R1*2 | % voltata di pagina permessa qui
@@ -1877,13 +1877,13 @@ impostarla su un valore @qq{molto grande}.
 @}
 @end example
 
-@funindex minimumRepeatLengthForPageTurn
+@funindex pageTurnMinimumRepeatLength
 Quando si usano ripetizioni con finali alternativi, l'incisore @code{Page_turn_engraver}
 permetterà una voltata di pagina durante la ripetizione soltanto se c'è
 abbastanza tempo all'inizio e alla fine della ripetizione per voltare
 indietro la pagina.  Se la ripetizione è troppo breve, si può usare
 @code{Page_turn_engraver} per @emph{disabilitare} le voltate impostando
-un valore appropriato per la proprietà di contesto @code{minimumRepeatLengthForPageTurn}.
+un valore appropriato per la proprietà di contesto @code{pageTurnMinimumRepeatLength}.
 In questo caso @code{Page_turn_engraver} consentirà le voltate soltanto nelle
 ripetizioni la cui durata sia maggiore del valore specificato.
 

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.23"
 
 @c Translators: Till Paala
 
@@ -1606,12 +1606,12 @@ Befehl @code{\allowPageTurn} am letzten Taktstrich des Abschnitts ein.  Wenn
 in dem Abschnitt ein besonderer Taktstrich vorkommt (wie etwa ein
 Doppelstrich), wird der Befehl nach diesem Taktstrich gesetzt.
 
-@funindex minimumPageTurnLength
+@funindex pageTurnMinimumRestLength
 
 Der @code{Page_turn_engraver} liest die Kontexteigenschaft
-@code{minimumPageTurnLength} um zu erkennen, wie lang eine Stelle
+@code{pageTurnMinimumRestLength} um zu erkennen, wie lang eine Stelle
 frei von Noten sein muss, damit ein Seitenumbruch in Frage kommt.  Der
-Standardwert hierfür ist @code{(ly:make-moment 1/1)}.  Wenn Sie
+Standardwert hierfür ist @code{1}.  Wenn Sie
 Seitenumbrüche zum Umblättern ausschalten wollen, können Sie
 einen sehr großen Wert angeben.
 
@@ -1621,7 +1621,7 @@ einen sehr großen Wert angeben.
   a4 b c d |
   R1 | % Ein Seitenumbruch zum Umblättern erlaubt
   a4 b c d |
-  \set Staff.minimumPageTurnLength = \musicLength 2*5
+  \set Staff.pageTurnMinimumRestLength = #5/2
   R1 | % Seitenumbruch nicht erlaubt
   a4 b r2 |
   R1*2 | % Seitenumbruch erlaubt
@@ -1629,14 +1629,14 @@ einen sehr großen Wert angeben.
 @}
 @end example
 
-@funindex minimumRepeatLengthForPageTurn
+@funindex pageTurnMinimumRepeatLength
 
 Der @code{Page_turn_engraver} erkennt Wiederholungen vom Typ @code{volta}.
 Ein Seitenumbruch zum Umblättern wird nur zugelassen, wenn vor und nach
 der Wiederholung genug Zeit ist, um die Seite wieder zurückzublättern.
 Wenn die Wiederholung sehr kurz ist, kann auch Umblättern verboten
 werden.  Wenn Sie die Kontexteigenschaft
-@code{minimumRepeatLengthForPageTurn} definieren, erlaubt der
+@code{pageTurnMinimumRepeatLength} definieren, erlaubt der
 @code{Page_turn_engraver} nur Umblättern in Wiederholungen, deren
 Dauer länger als dieser Wert ist.
 

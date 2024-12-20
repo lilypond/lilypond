@@ -5412,6 +5412,8 @@ maximumBeamSubdivisionInterval -> beamMaximumSubdivision
 minimumBeamSubdivisionInterval -> beamMinimumSubdivision
 tempoWholesPerMinute = \musicLength <duration> -> ... = #<rational>
 voltaSpannerDuration = \musicLength <duration> -> ... = #<rational>
+minimumPageTurnLength -> pageTurnMinimumRestLength
+minimumRepeatLengthForPageTurn -> pageTurnMinimumRepeatLength
 """)
 def conv(s):
     s = re.sub(make_mom_assign_re('maximumBeamSubdivisionInterval'),
@@ -5428,6 +5430,10 @@ def conv(s):
     s = re.sub(r'\bvoltaSpannerDuration\b', r'voltaSpannerDurationAsMoment', s)
     s = re.sub(make_mom_assign_re('voltaSpannerDurationAsMoment'),
                make_mom_assign_replacer('voltaSpannerDuration'), s)
+    s = re.sub(make_mom_assign_re('minimumPageTurnLength'),
+               make_mom_assign_replacer('pageTurnMinimumRestLength'), s)
+    s = re.sub(make_mom_assign_re('minimumRepeatLengthForPageTurn'),
+               make_mom_assign_replacer('pageTurnMinimumRepeatLength'), s)
     return s
 
 

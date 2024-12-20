@@ -564,10 +564,6 @@ to@tie{}1 (0=off,@tie{}1=full effect).")
      (minimumFret ,number? "The tablature auto string-selecting
 mechanism selects the highest string with a fret at least
 @code{minimumFret}.")
-     (minimumPageTurnLength ,musical-length-as-moment? "Minimum length of a rest
-for a page turn to be allowed.")
-     (minimumRepeatLengthForPageTurn ,musical-length-as-moment? "Minimum length
-of a repeated section for a page turn to be allowed within that section.")
      (minorChordModifier ,markup? "Markup displayed following the root
 for a minor chord")
 
@@ -599,6 +595,10 @@ time step?")
 translator during music interpretation.")
 
 
+     (pageTurnMinimumRepeatLength ,musical-length-as-number? "Minimum length of
+a repeated section for a page turn to be allowed within that section.")
+     (pageTurnMinimumRestLength ,musical-length-as-number? "Minimum length of a
+rest for a page turn to be allowed.")
      (partCombineForced ,symbol? "Override for the partCombine
 decision.  Can be @code{apart}, @code{chords}, @code{unisono},
 @code{solo1}, or @code{solo2}.")
@@ -989,6 +989,18 @@ finger to use")
   'translation-type? 'minimumBeamSubdivisionInterval
   musical-length-as-moment?
   #:new-symbol 'beamMinimumSubdivision
+  #:old->new ly:moment-main
+  #:new->old ly:make-moment)
+
+(define-deprecated-property
+  'translation-type? 'minimumPageTurnLength musical-length-as-moment?
+  #:new-symbol 'pageTurnMinimumRestLength
+  #:old->new ly:moment-main
+  #:new->old ly:make-moment)
+
+(define-deprecated-property
+  'translation-type? 'minimumRepeatLengthForPageTurn musical-length-as-moment?
+  #:new-symbol 'pageTurnMinimumRepeatLength
   #:old->new ly:moment-main
   #:new->old ly:make-moment)
 

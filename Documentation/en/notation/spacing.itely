@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.23"
 
 @ignore
 GDP TODO list
@@ -2009,11 +2009,11 @@ bar line (such as a double bar), in which case the
 @code{\allowPageTurn} will be inserted at the final @q{special}
 bar line in the section.
 
-@funindex minimumPageTurnLength
+@funindex pageTurnMinimumRestLength
 The @code{Page_turn_engraver} reads the context property
-@code{minimumPageTurnLength} to determine how long a note-free
+@code{pageTurnMinimumRestLength} to determine how long a note-free
 section must be before a page turn is considered.  The default
-value for @code{minimumPageTurnLength} is @code{\musicLength 1}.
+value for @code{pageTurnMinimumRestLength} is @code{1}.
 If you want to disable page turns, set it to something @q{very
 large}.
 
@@ -2023,7 +2023,7 @@ large}.
   a4 b c d |
   R1 | % a page turn will be allowed here
   a4 b c d |
-  \set Staff.minimumPageTurnLength = \musicLength 2*5
+  \set Staff.pageTurnMinimumRestLength = #5/2
   R1 | % a page turn will not be allowed here
   a4 b r2 |
   R1*2 | % a page turn will be allowed here
@@ -2031,14 +2031,14 @@ large}.
 @}
 @end example
 
-@funindex minimumRepeatLengthForPageTurn
+@funindex pageTurnMinimumRepeatLength
 
 When using volta repeats, the @code{Page_turn_engraver} will only allow
 a page turn during the repeat if there is enough time at the beginning
 and end of the repeat to turn the page back.  If the repeat is too
 short then the @code{Page_turn_engraver} can be used to @emph{disable}
 page turns by setting an appropriate value for the context property
-@code{minimumRepeatLengthForPageTurn}.  In this case the
+@code{pageTurnMinimumRepeatLength}.  In this case the
 @code{Page_turn_engraver} will only allows turns in repeats whose
 duration is longer than the value specified.
 

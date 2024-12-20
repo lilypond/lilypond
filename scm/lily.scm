@@ -688,6 +688,8 @@ determines the number of scale steps that make up an octave.  Usually the
   'baseMoment
   'maximumBeamSubdivisionInterval
   'minimumBeamSubdivisionInterval
+  'minimumPageTurnLength
+  'minimumRepeatLengthForPageTurn
   'tempoWholesPerMinuteAsMoment
   'translation-type?
   'voltaSpannerDuration

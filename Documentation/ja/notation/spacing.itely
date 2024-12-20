@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.23"
 
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada
@@ -1827,14 +1827,14 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 @q{特殊な} 小節線がある場合には、@code{\allowPageTurn} がそのセクションの@c
 最後にあるそのような小節線のところに挿入されます。
 
-@funindex minimumPageTurnLength
+@funindex pageTurnMinimumRestLength
 @code{Page_turn_engraver} は@c
-コンテキスト プロパティ @code{minimumPageTurnLength} を読み込んで、@c
+コンテキスト プロパティ @code{pageTurnMinimumRestLength} を読み込んで、@c
 どれくらい音符が無いセクションが続いたらページめくりを考慮するかを決定します。@c
-@code{minimumPageTurnLength} のデフォルト値は
-@code{(ly:make-moment 1/1)} です。@c
+@code{pageTurnMinimumRestLength} のデフォルト値は
+@code{1} です。@c
 ページめくりを不可にしたいのならば、@c
-@code{minimumPageTurnLength} に非常に大きな値をセットします。
+@code{pageTurnMinimumRestLength} に非常に大きな値をセットします。
 
 @example
 \new Staff \with @{ \consists Page_turn_engraver @}
@@ -1842,7 +1842,7 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
   a4 b c d |
   R1 | % ここでページめくりが許可されます
   a4 b c d |
-  \set Staff.minimumPageTurnLength = \musicLength 2*5
+  \set Staff.pageTurnMinimumRestLength = #5/2
   R1 | % ここではページめくりは許可されません
   a4 b r2 |
   R1*2 | % ここでページめくりが許可されます
@@ -1850,14 +1850,14 @@ The @code{ly:minimal-breaking} 関数は最小限の改ページを算出しま�
 @}
 @end example
 
-@funindex minimumRepeatLengthForPageTurn
+@funindex pageTurnMinimumRepeatLength
 
 @code{Page_turn_engraver} は volta 繰り返しを検出します。@c
 繰り返しの開始と終わりにページめくりを行うのに十分な時間がある場合にのみ、@c
 その繰り返しの最中でのページめくりが許可されます。@c
 繰り返しが非常に短い場合、@c
 @code{Page_turn_engraver} はページめくりを不可にする可能性があります。@c
-コンテキスト プロパティ @code{minimumRepeatLengthForPageTurn} に値を@c
+コンテキスト プロパティ @code{pageTurnMinimumRepeatLength} に値を@c
 設定した場合、@c
 その値よりも長い演奏時間を持つ繰り返しに対してのみ、@c
 @code{Page_turn_engraver} は繰り返しの最中でページめくりを許可します。
