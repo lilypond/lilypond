@@ -965,13 +965,16 @@ long appoggiatura is proportional to that of the main note.
 fis8 e16 fis
 \grace a16
 g8 fis16 g |
-a4 \bar "||"
+\set Score.measureLength = \musicLength 4
+a4
+\set Score.measureLength = \musicLength 1
+\section
 
-\set Score.measurePosition = #ZERO-MOMENT
 <d, a fis>4_"performance" r
 g16( fis) e fis
 a16 ( g) fis g |
-a4 \bar "||"
+a4
+\section
 @end lilypond
 
 An appoggiatura may have more notes preceding the main note.
@@ -981,7 +984,8 @@ An appoggiatura may have more notes preceding the main note.
 \time 2/4
 \grace bes16 as8-"notation" as16 bes as8 g |
 \grace { as16[( bes] } <c as>4)
-\grace { as16[( bes] } <c as>4) \bar "||"
+\grace { as16[( bes] } <c as>4)
+\section
 
 \grace bes16 as8-"performance" as16 bes as8 g |
 <<
