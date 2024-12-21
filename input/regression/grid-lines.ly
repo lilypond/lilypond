@@ -5,7 +5,7 @@
 staves synchronized with the notes."
 
 }
-\version "2.25.3"
+\version "2.25.23"
 
 skips =
 {
@@ -39,7 +39,7 @@ skips =
   \context {
     \RhythmicStaff
     \consists "Grid_point_engraver"
-    gridInterval = \musicLength 8
+    gridInterval = #1/8
     \override BarLine.bar-extent = #'(-0.025 . 0.025)
   }
   \context {

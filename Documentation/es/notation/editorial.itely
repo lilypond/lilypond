@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.23"
 
 @node Editorial annotations
 @section Anotaciones editoriales
@@ -967,7 +967,7 @@ de rejilla.
   \context {
     \Staff
     \consists Grid_point_engraver
-    gridInterval = \musicLength 4
+    gridInterval = #1/4
   }
   \context {
     \Score

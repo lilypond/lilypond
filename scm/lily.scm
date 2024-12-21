@@ -687,6 +687,7 @@ determines the number of scale steps that make up an octave.  Usually the
   ;; Guile (3.0.9).
   'baseMoment
   'completionUnitAsMoment
+  'gridIntervalAsMoment
   'maximumBeamSubdivisionInterval
   'minimumBeamSubdivisionInterval
   'minimumPageTurnLength

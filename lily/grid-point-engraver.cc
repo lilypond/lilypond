@@ -35,12 +35,13 @@ protected:
 void
 Grid_point_engraver::process_music ()
 {
-  SCM grid_interval = get_property (this, "gridInterval");
-  if (Moment *mom = unsmob<Moment> (grid_interval))
+  auto grid_interval
+    = from_scm (get_property (this, "gridInterval"), Rational::infinity ());
+  if (isfinite (grid_interval))
     {
       auto now = now_mom ();
 
-      if (!now.main_part_.mod_rat (mom->main_part_))
+      if (!now.main_part_.mod_rat (grid_interval))
         make_item ("GridPoint", SCM_EOL);
     }
 }

@@ -1,4 +1,4 @@
-\version "2.25.11"
+\version "2.25.23"
 
 #(set-global-staff-size 30)
 
@@ -31,7 +31,7 @@ marked with a blue line."
   \context {
     \Voice
     \consists "Grid_point_engraver"
-    gridInterval = #(ly:make-moment 1/4)
+    gridInterval = #1/4
     \override GridPoint.Y-extent = #'(-1 . 3)
   }
   \context {

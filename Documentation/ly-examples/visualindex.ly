@@ -13,7 +13,7 @@
 % - Links are not clickable in SVG output
 
 
-\version "2.25.22"
+\version "2.25.23"
 
 #(set-default-paper-size "a4")
 % #(set-default-paper-size '(cons (* 160 mm) (* (+ 673.2 4) pt)))
@@ -1757,7 +1757,7 @@ VariousMarkup =
 
         \consists Duration_line_engraver
         \consists Grid_point_engraver
-        gridInterval = \musicLength 4
+        gridInterval = #1/4
         \consists Horizontal_bracket_engraver
         \override HorizontalBracket.direction = #UP
       }

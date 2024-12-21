@@ -977,6 +977,10 @@ number property and triggers a warning.
 @tab
 @code{completionUnit}
 @item
+@code{gridIntervalAsMoment}
+@tab
+@code{gridInterval}
+@item
 @code{minimumPageTurnLength}
 @tab
 @code{pageTurnMinimumRestLength}

@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.3"
+\version "2.25.23"
 
 \header {
   lsrtags = "real-music, specific-notation, template"
@@ -164,7 +164,7 @@ AccordionTab= { \dynamicUp
   \context {
     \Staff
     \consists "Grid_point_engraver"
-    gridInterval = \musicLength 4*4 % 4/4 - tact. How many beats per bar
+    gridInterval = #4/4 % 4/4 - tact. How many beats per bar
     % The following line has to be adjusted O-F-T-E-N.
     \override GridPoint.Y-extent = #'(-2 . -21)
   }

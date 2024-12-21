@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.23"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers:
@@ -1466,7 +1466,7 @@ entre chaque ligne.
   \context {
     \Staff
     \consists Grid_point_engraver %% active les guides
-    gridInterval = \musicLength 4
+    gridInterval = #1/4
   }
   \context {
     \Score

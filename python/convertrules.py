@@ -5415,6 +5415,7 @@ voltaSpannerDuration = \musicLength <duration> -> ... = #<rational>
 minimumPageTurnLength -> pageTurnMinimumRestLength
 minimumRepeatLengthForPageTurn -> pageTurnMinimumRepeatLength
 completionUnit = \musicLength <duration> -> completionUnit = #<rational>
+gridInterval = \musicLength <duration> -> ... = #<rational>
 """)
 def conv(s):
     s = re.sub(make_mom_assign_re('maximumBeamSubdivisionInterval'),
@@ -5438,6 +5439,9 @@ def conv(s):
     s = re.sub(r'\bcompletionUnit\b', r'completionUnitAsMoment', s)
     s = re.sub(make_mom_assign_re('completionUnitAsMoment'),
                make_mom_assign_replacer('completionUnit'), s)
+    s = re.sub(r'\bgridInterval\b', r'gridIntervalAsMoment', s)
+    s = re.sub(make_mom_assign_re('gridIntervalAsMoment'),
+               make_mom_assign_replacer('gridInterval'), s)
     return s
 
 

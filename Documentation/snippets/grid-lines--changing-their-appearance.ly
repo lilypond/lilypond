@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.3"
+\version "2.25.23"
 
 \header {
   lsrtags = "editorial-annotations"
@@ -53,7 +53,7 @@ properties.
       % set up grids
       \consists "Grid_point_engraver"
       % set the grid interval to one quarter note
-      gridInterval = \musicLength 4
+      gridInterval = #1/4
     }
     \context {
       \Score

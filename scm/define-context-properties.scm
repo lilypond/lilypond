@@ -430,7 +430,7 @@ The value '() will default to
 '((0 . 0) (1 . 1) (n . n)),
 where n is the minimal number of note-heads in
 the two note columns between which the glissandi occur.")
-     (gridInterval ,positive-musical-length-as-moment? "Interval for which to
+     (gridInterval ,positive-musical-length-as-number? "Interval for which to
 generate @code{GridPoint}s.")
 
 
@@ -977,6 +977,12 @@ finger to use")
 (define-deprecated-property
   'translation-type? 'completionUnitAsMoment positive-musical-length-as-moment?
   #:new-symbol 'completionUnit
+  #:old->new ly:moment-main
+  #:new->old ly:make-moment)
+
+(define-deprecated-property
+  'translation-type? 'gridIntervalAsMoment positive-musical-length-as-moment?
+  #:new-symbol 'gridInterval
   #:old->new ly:moment-main
   #:new->old ly:make-moment)
 
