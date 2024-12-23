@@ -1,15 +1,12 @@
-\version "2.25.15"
+\version "2.25.24"
 
 \header {
-  texidoc = "@code{\\pushContextProperty} and @code{\\popContextProperty}
-are two new commands for manipulating context properties.  The first one
-pushes the current value to a stack and sets a new value, while the second
-one pops off the value from the stack and uses it to restore the previous
-value."
+  texidoc = "@code{\\pushContextProperty} can be used repeatedly.
+@code{\\popContextProperty} pops one value from the stack and uses it to set the
+property.  The output should show a normal-sized note at the beginning and the
+end, a very large note in the middle, and mid-sized notes between them."
 }
 
-#(ly:expect-warning
-    (G_ "context property Staff.fontSize not stacked, setting to default"))
 #(ly:set-option 'warning-as-error #t)
 
 {
@@ -22,5 +19,4 @@ value."
   c'
   \popContextProperty Staff.fontSize
   c'
-  \popContextProperty Staff.fontSize % causing the expected warning
 }

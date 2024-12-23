@@ -1686,29 +1686,30 @@ popContextProperty =
 This is the opposite to function @code{\\pushContextProperty}.")
    (if (= (length path) 1)
        (set! path (cons 'Bottom path)))
-   (context-spec-music
-    (make-music
-     'ApplyContext
-     'procedure
-     (lambda (ctx)
-       (let* ((stacks (ly:context-property ctx 'propertyStacks))
-              (stack (assoc-get (cadr path) stacks '())))
-         (if (null? stack)
-             (begin
-               (ly:warning
-                (G_ "context property ~a.~a not stacked, setting to default")
-                (car path) (cadr path))
-               (ly:context-unset-property ctx (cadr path)))
-             (begin
-               (ly:context-set-property! ctx
-                                         (cadr path)
-                                         (car stack))
-               (ly:context-set-property! ctx
-                                         'propertyStacks
-                                         (assoc-set! stacks
-                                                     (cadr path)
-                                                     (cdr stack))))))))
-    (car path)))
+   (let ((input-location (*location*)))
+     (context-spec-music
+      (make-music
+       'ApplyContext
+       'procedure
+       (lambda (ctx)
+         (let* ((stacks (ly:context-property ctx 'propertyStacks))
+                (stack (assoc-get (cadr path) stacks '())))
+           (if (null? stack)
+               (begin
+                 (ly:input-warning
+                  input-location
+                  (G_ "cannot pop from empty stack; unsetting"))
+                 (ly:context-unset-property ctx (cadr path)))
+               (begin
+                 (ly:context-set-property! ctx
+                                           (cadr path)
+                                           (car stack))
+                 (ly:context-set-property! ctx
+                                           'propertyStacks
+                                           (assoc-set! stacks
+                                                       (cadr path)
+                                                       (cdr stack))))))))
+      (car path))))
 
 propertyOverride =
 #(define-music-function (grob-property-path value) (key-list? scheme?)
