@@ -64,17 +64,30 @@ Context_specced_music_iterator::create_contexts ()
   else
     {
       a = get_own_context ()->find_create_context (dir, ct, c_id, ops);
-      // Warnings in regression tests would be pretty common if we didn't
-      // ignore them for DOWN.
-      //
-      // TODO: Not warning about a failure in DOWN mode smells funny.  It
-      // suggests that the fallback (remaining in the current context) is a
-      // fully acceptable alternative (from the perspective of the end user) in
-      // all cases; however, that seems unlikely.  But if this is the desired
-      // behavior for DOWN mode, should we do it for UP too?
-      if (!a && (dir != DOWN))
+      if (a)
+        {
+          // success
+        }
+      else if (dir == CENTER)
         {
           warning (_f ("cannot find or create context: %s",
+                       Context::diagnostic_id (ct, c_id).c_str ()));
+        }
+      else if (dir == DOWN)
+        {
+          // Warnings in regression tests would be pretty common if we didn't
+          // ignore them for DOWN.
+          //
+          // TODO: Not warning about a failure in DOWN mode smells funny.  It
+          // suggests that the fallback (remaining in the current context) is a
+          // fully acceptable alternative (from the perspective of the end user)
+          // in all cases; however, that seems unlikely.
+        }
+      else // dir == UP
+        {
+          // Though we called find_create_context (), UP mode just searches
+          // existing contexts.
+          warning (_f ("cannot find context: %s",
                        Context::diagnostic_id (ct, c_id).c_str ()));
         }
     }
