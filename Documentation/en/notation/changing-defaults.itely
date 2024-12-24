@@ -2244,11 +2244,12 @@ Internals Reference:
 @funindex \set
 @funindex \override
 
-The @code{\set} and @code{\override} commands manipulate properties
-associated with contexts.  In both cases, the properties follow a
-@emph{hierarchy of contexts}; properties that are not set themselves in
-a context still show the values of their respective parent's
-context.
+The @code{\set} and @code{\override} commands manipulate
+properties associated with contexts.  The properties exist in a
+hierarchy of contexts where each context contains zero or more
+others below it.  A property that is not set in a specific context
+shows the value from the nearest enclosing context where it is
+set.
 
 The lifetime and value of a context property is dynamic and only
 available when music is being interpreted (i.e., @q{iterated}).  At the
@@ -2267,7 +2268,7 @@ their own internal @q{bookkeeping} used to keep track of their own
 individual grob properties and any subproperties.  This means that it
 is possible to define those parts within different contexts and yet
 still have the overall grob definition at the time of grob creation from
-all the pieces provided amongst the current context and its parent(s).
+all the pieces provided amongst the current and enclosing contexts.
 
 A grob is usually created by an engraver at the time of interpreting a
 music expression, and receives its initial properties from the current

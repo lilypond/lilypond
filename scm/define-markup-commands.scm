@@ -1797,10 +1797,10 @@ be added explicitly with the syntax explained in @ref{Manual beams}.
 \\markup \\rhythm { \\stemDown 8 16 8 }
 @end lilypond
 
-@code{\\rhythm} works by creating a @code{StandaloneRhythmVoice}
-context.  The parents of this context are @code{StandaloneRhythmStaff}
-and @code{StandaloneRhythmScore}.  It is possible to apply global
-tweaks to the output by using a @code{\\layout} block.
+@code{\\rhythm} works by creating a @code{StandaloneRhythmVoice} context,
+which is enclosed in a @code{StandaloneRhythmStaff} context, which is
+enclosed in a @code{StandaloneRhythmScore} context. It is possible to
+apply global tweaks to the output by using a @code{\\layout} block.
 
 @lilypond[verbatim,quote]
 \\layout {

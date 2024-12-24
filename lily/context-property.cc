@@ -162,8 +162,8 @@ Grob_property_info::create ()
 /*
   Grob descriptions (ie. alists with layout properties) are
   represented as a (ALIST . BASED-ON) pair, where BASED-ON is the
-  alist defined in a parent context. BASED-ON should always be a tail
-  of ALIST.
+  alist defined in an ancestor context. BASED-ON should always be a
+  tail of ALIST.
 
   Push a single entry from a
   translator property list by name of PROP.  GROB_PROPERTY_PATH

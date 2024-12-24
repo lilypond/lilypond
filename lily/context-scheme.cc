@@ -105,7 +105,7 @@ This undoes a particular @code{\override}, @code{\once \override} or
 LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!", 3, 0, 0,
            (SCM context, SCM name, SCM val),
            R"(
-Set value of property @var{name} in context @var{context} to @var{val}.
+Set value of property @var{name} in @var{context} to @var{val}.
            )")
 {
   auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
@@ -142,17 +142,17 @@ where_defined_with_deprecation_check (Context *ctx, SCM sym, SCM *val)
 
 LY_DEFINE_WITH_SETTER (ly_context_property, "ly:context-property",
                        ly_context_set_property_x, 2, 1, 0,
-                       (SCM context, SCM sym, SCM def),
+                       (SCM context, SCM name, SCM def),
                        R"(
-Return the value for property @var{sym} in @var{context}. If @var{def} is
-given, and property value is @code{'()}, return @var{def}.
+Return the value of property @var{name} visible in @var{context}. If @var{def}
+is given and the property value is @code{'()}, return @var{def}.
                        )")
 {
   auto *const t = LY_ASSERT_SMOB (Context, context, 1);
-  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
   SCM result = SCM_EOL;
-  where_defined_with_deprecation_check (t, sym, &result);
+  where_defined_with_deprecation_check (t, name, &result);
   return !SCM_UNBNDP (def) && scm_is_null (result) ? def : result;
 }
 
@@ -160,8 +160,8 @@ LY_DEFINE (ly_context_property_where_defined,
            "ly:context-property-where-defined", 2, 1, 0,
            (SCM context, SCM name, SCM def),
            R"(
-Return the context above @var{context} where @var{name} is defined,
-or @var{def} (defaulting to @code{'()}) if no such context is found.
+Return the context above @var{context} where property @var{name} is defined, or
+@var{def} (defaulting to @code{'()}) if no such context is found.
            )")
 {
   auto *tr = LY_ASSERT_SMOB (Context, context, 1);
@@ -179,7 +179,7 @@ or @var{def} (defaulting to @code{'()}) if no such context is found.
 LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,
            (SCM context, SCM name),
            R"(
-Unset value of property @var{name} in context @var{context}.
+Unset value of property @var{name} in @var{context}.
            )")
 {
   auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
@@ -216,11 +216,11 @@ Return a list with the children contexts of @var{context}.
   return scm_list_copy (tr->children_contexts ());
 }
 
-/* FIXME: todo: should support translator IDs, and creation? */
+// TODO: Optionally constrain the search with a context ID.
 LY_DEFINE (ly_context_find, "ly:context-find", 2, 0, 0, (SCM context, SCM name),
            R"(
-Find a parent of @var{context} that has name or alias @var{name}.  Return
-@code{#f} if not found.
+Find a context with name or alias @var{name}, first considering @var{context}
+and then searching its ancestors.  Return @code{#f} if not found.
            )")
 {
   auto *tr = LY_ASSERT_SMOB (Context, context, 1);
@@ -233,7 +233,7 @@ Find a parent of @var{context} that has name or alias @var{name}.  Return
 LY_DEFINE (ly_context_event_source, "ly:context-event-source", 1, 0, 0,
            (SCM context),
            R"(
-Return @code{event-source} of context @var{context}.
+Return @code{event-source} of @var{context}.
            )")
 {
   auto *const ctx = LY_ASSERT_SMOB (Context, context, 1);

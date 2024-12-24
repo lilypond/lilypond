@@ -29,10 +29,10 @@
 LY_DEFINE (ly_context_schedule_moment, "ly:context-schedule-moment", 2, 0, 0,
            (SCM context, SCM moment),
            R"(
-Add the given moment @code{moment} (which must lie in the future) to the
-list of moments to process for the global context governing @code{context}.
-This makes it possible for translators (engravers, performers) to see moments
-not directly created by user input.
+Add @var{moment} (which must lie in the future) to the list of moments to
+process for the global context governing @var{context}.  This makes it possible
+for translators (engravers, performers) to act at moments not directly created
+by user input.
            )")
 {
   auto *const ctx = LY_ASSERT_SMOB (Context, context, 1);
