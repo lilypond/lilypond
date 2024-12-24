@@ -141,19 +141,71 @@ where_defined_with_deprecation_check (Context *ctx, SCM sym, SCM *val)
 }
 
 LY_DEFINE_WITH_SETTER (ly_context_property, "ly:context-property",
-                       ly_context_set_property_x, 2, 1, 0,
-                       (SCM context, SCM name, SCM def),
+                       ly_context_set_property_x, 2, 0, 1,
+                       (SCM context, SCM name, SCM rest),
                        R"(
-Return the value of property @var{name} visible in @var{context}. If @var{def}
-is given and the property value is @code{'()}, return @var{def}.
+Get the value of property @var{name} visible in @var{context}.  The first
+@var{rest} argument may optionally be an alternative value to return when the
+property value is @code{'()}.  Following that, there may appear keyword options:
+
+@indentedblock
+@table @code
+@item #:default
+The value to return when the property is not set.  When this option is absent,
+the same value is returned as when the property value is @code{'()}.
+@item #:search-ancestors?
+@code{#f} limits the search to @var{context}.  The default is @code{#t}.
+@end table
+@end indentedblock
                        )")
 {
   auto *const t = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
+  SCM null_alternative_value = SCM_EOL;
+  if (scm_is_pair (rest))
+    {
+      // optional non-keyword value to return when the property value is SCM_EOL
+      if (SCM first = scm_car (rest); !scm_is_keyword (first))
+        {
+          null_alternative_value = first;
+          rest = scm_cdr (rest);
+        }
+    }
+
+  SCM default_value = null_alternative_value;
+  SCM search_ancestors = SCM_BOOL_T;
+  scm_c_bind_keyword_arguments ( //
+    "ly:context-property", rest, static_cast<scm_t_keyword_arguments_flags> (0),
+    ly_keyword2scm ("default"), &default_value,              //
+    ly_keyword2scm ("search-ancestors?"), &search_ancestors, //
+    SCM_UNDEFINED);
+
   SCM result = SCM_EOL;
-  where_defined_with_deprecation_check (t, name, &result);
-  return !SCM_UNBNDP (def) && scm_is_null (result) ? def : result;
+  auto *found = where_defined_with_deprecation_check (t, name, &result);
+  if (scm_is_false (search_ancestors))
+    {
+      // TODO: Instead of calling where_defined_with_deprecation_check and
+      // ignoring a hit in an enclosing context, call a
+      // here_defined_with_deprecation_check that doesn't waste time searching
+      // enclosing contexts.  Cover the new code path in
+      // input/regression/context-property-deprecated-*.ly.
+      if (found != t)
+        {
+          found = nullptr;
+          result = SCM_EOL;
+        }
+    }
+
+  if (found)
+    {
+      if (!scm_is_null (result))
+        return result;
+      else
+        return null_alternative_value;
+    }
+
+  return default_value;
 }
 
 LY_DEFINE (ly_context_property_where_defined,

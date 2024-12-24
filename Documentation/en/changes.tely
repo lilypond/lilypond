@@ -955,6 +955,11 @@ the new inverted glyphs are named @code{scripts.dupbow} and
 
 @itemize
 @item
+The new @code{\contextPropertyCheck} command verifies that a
+property is set to an expected value or is unset in a specific
+context.
+
+@item
 Various context properties that previously held @code{ly:moment}
 values now hold rational numbers.  To ease this transition, each
 number property is paired with a fallback @code{ly:moment}
