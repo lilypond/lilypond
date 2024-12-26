@@ -480,18 +480,21 @@ head up or down, @code{'hold} a dashed horizontal line, @code{'pre-bend} a
 vertical line with an arrow head, and @code{'pre-bend-hold} a vertical line with
 an arrow head continued by a dashed line.
 
+The commands @code{\bendHold}, @code{\preBend}, and
+@code{\preBendHold} are shortcuts for setting the bending style.
+
 @lilypond[verbatim,quote]
 bend-styles = {
   <>^"default"
   f'4\^ g'4\^ f'2
 
-  <>^"'hold"
+  <>^\markup \typewriter "'hold"
   \grace f'4\^ g'1\bendHold \^ g'1
 
-  <>^"'pre-bend"
+  <>^\markup \typewriter "'pre-bend"
   \grace f'4\preBend \^ g'1\bendHold \^ g'1
 
-  <>^"'pre-bend-hold"
+  <>^\markup \typewriter "'pre-bend-hold"
   \grace f'4\preBendHold \^ g'1\bendHold \^ g'1\^ f'
 
   \bar "|."
@@ -515,10 +518,6 @@ bend-styles = {
     \context {
       \TabStaff
       minimumFret = 5
-    }
-    \context {
-      \TabVoice
-      \consists Bend_spanner_engraver
     }
   }
 }
@@ -563,10 +562,6 @@ mus = {
       \Voice
       \omit StringNumber
     }
-    \context {
-      \TabVoice
-      \consists Bend_spanner_engraver
-    }
   }
 }
 @end lilypond
@@ -601,10 +596,6 @@ mus = {
     \context {
       \Voice
       \omit StringNumber
-    }
-    \context {
-      \TabVoice
-      \consists Bend_spanner_engraver
     }
   }
 }
@@ -645,10 +636,6 @@ bends-with-ties-and-skips = {
       \TabStaff
       minimumFret = 3
       restrainOpenStrings = ##t
-    }
-    \context {
-      \TabVoice
-      \consists Bend_spanner_engraver
     }
   }
 }
@@ -1808,7 +1795,7 @@ calculates strings and frets that can be used to play the notes.
   \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1
-    <g, b, d g b' g'>1
+    <g, b, d g b g'>1
   }
 >>
 @end lilypond
@@ -2121,20 +2108,15 @@ the notation of palm mute-style notes by changing the note head to a
 triangle shape.
 
 @lilypond[quote,ragged-right,verbatim]
-\new Voice { % Warning: explicit Voice instantiation is
-             %    required to have palmMuteOff work properly
-             %    when palmMuteOn comes at the beginning of
-             %    the piece.
-  \relative c, {
-    \clef "G_8"
-    \palmMuteOn
-    e8^\markup { \musicglyph "noteheads.s2do"  = palm mute }
-    < e b' e > e
+\relative c, {
+  \clef "G_8"
+  \palmMuteOn
+    e8^\markup { \musicglyph "noteheads.s2do" = palm mute }
+    <e b' e> e
     \palmMuteOff
-    e e  \palmMute e e e |
-    e8 \palmMute { e e e } e e e e |
-    < \palmMute e b' e >8 \palmMute { e e e } < \palmMute e b' e >2
-  }
+    e e \palmMute e e e |
+  e8 \palmMute { e e e } e e e e |
+  <\palmMute e b' e>8 \palmMute { e e e } <\palmMute e b' e>2
 }
 @end lilypond
 

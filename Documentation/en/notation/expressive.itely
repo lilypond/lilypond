@@ -1503,9 +1503,6 @@ information, @pxref{Ties}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/creating-cross-staff-arpeggios-in-other-contexts.ly}
-
 @cindex arpeggio, cross-voice
 @cindex cross-voice arpeggio
 @lilypondfile[verbatim,quote,texidoc,doctitle]

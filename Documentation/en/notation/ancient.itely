@@ -187,8 +187,8 @@ one is satisfied with these defaults, one can proceed directly
 with note entry without worrying about the details on how to
 customize a context.  See one of the predefined contexts
 @code{VaticanaScore}, @code{VaticanaVoice}, @code{VaticanaStaff},
-@code{MensuralVoice}, @code{MensuralStaff}, @code{KievanVoice},
-and @code{KievanStaff}.
+@code{MensuralVoice}, @code{MensuralStaff}, @code{PetrucciStaff},
+@code{PetrucciVoice}, @code{KievanVoice}, and @code{KievanStaff}.
 
 @morerefs
 Music Glossary:
@@ -299,20 +299,43 @@ For typesetting custodes, just put a @code{Custos_engraver} into the
 the style of the custos with an @code{\override} if desired, as shown in
 the following example:
 
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative {
+@c Due to LilyPond's overzealous cropping on the right side we use
+@c different rendering code to avoid that.
+
+@example
+\score @{
+  \relative @{
     a'1
     \break
     g
-  }
-  \layout {
-    \context {
+  @}
+  \layout @{
+    \context @{
       \Staff
       \consists Custos_engraver
       \override Custos.style = #'mensural
+    @}
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+\markup {
+  \score {
+    \relative {
+      a'1
+      \break
+      g
+    }
+    \layout {
+      \context {
+        \Staff
+        \consists Custos_engraver
+        \override Custos.style = #'mensural
+      }
     }
   }
+  \hspace #2
 }
 @end lilypond
 
@@ -2504,9 +2527,7 @@ values, so you can immediately go ahead entering the chant:
 \score {
   <<
     \new KievanVoice = "melody" \relative c' {
-      \cadenzaOn
-        c4 c c c c2 b\longa
-        \fine
+      c4 c c c c2 b\longa \fine
     }
     \new Lyrics \lyricsto "melody" {
       Го -- спо -- ди по -- ми -- луй.
@@ -2575,7 +2596,6 @@ setting the duration to @code{\breve}.  The following example
 demonstrates the various Kievan note heads:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\autoBeamOff
 \cadenzaOn
 \kievanOn
 b'1 b'2 b'4 b'8 b'\breve b'\longa
@@ -2675,6 +2695,9 @@ the chanter to quickly identify the melodic structures of @emph{Znamenny
 chant}.  In LilyPond, melismata are treated as ligatures and the
 spacing is implemented by the @code{Kievan_ligature_engraver}.
 
+@funindex Ligature_bracket_engraver
+@funindex Kievan_ligature_engraver
+
 When the @code{KievanVoice} and @code{KievanStaff} contexts are used,
 the @code{Kievan_@/ligature_@/engraver} is enabled by default.  In other
 contexts, it can be invoked by replacing the @code{Ligature_@/bracket_@/engraver}
@@ -2704,8 +2727,7 @@ The following example demonstrates the use of Kievan ligatures:
 \score {
   <<
     \new KievanVoice = "melody" \relative c' {
-      \cadenzaOn
-        e2 \[ e4( d4 ) \] \[ c4( d e d ) \] e1 \fine
+      e2 \[ e4( d4 ) \] \[ c4( d e d) \] e1 \fine
     }
     \new Lyrics \lyricsto "melody" {
       Га -- врі -- и -- лу
@@ -2726,6 +2748,7 @@ Notation Reference:
 
 @knownissues
 Horizontal spacing of ligatures is poor.
+
 
 @node Working with ancient music - scenarios and solutions
 @subsection Working with ancient music -- scenarios and solutions
@@ -2880,19 +2903,20 @@ chant = \relative {
   c\breve c4 c f, f \finalis
 }
 
-verba = \lyricmode {
-  \once \override LyricText.self-alignment-X = -1
-  "Noctem quietam et" fi -- nem per -- fec -- tum
-  \once \override LyricText.self-alignment-X = -1
-  "concedat nobis Dominus" om -- ni -- po -- tens.
+words = \lyricmode {
+  \tweak self-alignment-X #LEFT "Noctem quietam et"
+    fi -- nem per -- fec -- tum
+  \tweak self-alignment-X #LEFT "concedat nobis Dominus"
+    om -- ni -- po -- tens.
 }
+
 \score {
   \new GregorianTranscriptionStaff <<
     \new GregorianTranscriptionVoice = "melody" {
       \chant
     }
     \new GregorianTranscriptionLyrics = "one" {
-      \lyricsto "melody" \verba
+      \lyricsto "melody" \words
     }
   >>
 }
@@ -2911,7 +2935,6 @@ to a fixed melodic gesture.  In these cases, one can use the
 @lilypond[quote,verbatim,ragged-right]
 chant = \relative {
   \clef "G_8"
-  \set Score.timing = ##f
   \omit Stem
   \omit Flag
   c'\breve*1/16 \hide NoteHead c8 c c c c
@@ -2996,7 +3019,6 @@ spirLyr = \lyricmode {
       \GregorianTranscriptionStaff
       measureBarType = ""
       \override BarLine.X-extent = #'(-1 . 1)
-      \hide Beam
       \hide TupletNumber
       \hide TupletBracket
     }
@@ -3013,6 +3035,9 @@ spirLyr = \lyricmode {
 
 @node Ancient and modern from one source
 @unnumberedsubsubsec Ancient and modern from one source
+
+@funindex Completion_heads_engraver
+@funindex Completion_rest_engraver
 
 @cindex transcription, mensural to modern
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]

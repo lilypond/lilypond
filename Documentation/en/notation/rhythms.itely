@@ -494,16 +494,11 @@ indicate articulation, or @emph{phrasing slurs}, which indicate
 musical phrasing.  A tie is just a way of extending a note
 duration, similar to the augmentation dot.}
 
-A tie is entered by appending a tilde symbol (@code{~}) to the first
-of each pair of notes being tied.  This indicates that the note
-should be tied to the following note, which must be at the same pitch.
-
-@lilypond[quote,verbatim]
-{ a'2~ 4~ 16 r r8 }
-@end lilypond
-
-Ties can make use of the @q{last explicit pitch} interpretation of
-isolated durations:
+A tie is entered by appending a tilde symbol (@samp{~}) to the
+first of each pair of notes being tied.  This indicates that the
+note should be tied to the following note, which must be at the
+same pitch.  Note that ties make use of the @q{last explicit
+pitch} interpretation of isolated durations:
 
 @lilypond[quote,verbatim]
 { a'2~ 4~ 16 r r8 }
@@ -1642,24 +1637,38 @@ written by including an empty string in the input:
 @funindex \markLengthOn
 @funindex \markLengthOff
 
-In a part for an instrument with long periods of rests (see
-@ref{Full measure rests}),
-tempo indications sometimes follow each other closely.
-The command @code{\markLengthOn} provides extra horizontal space
-to prevent tempo indications from overlapping, and @code{\markLengthOff}
-restores the default behavior of ignoring tempo marks
-for horizontal spacing.
+In a part for an instrument with long periods of rests
+(@pxref{Full measure rests}) it happens quite frequently that
+tempo indications, rehearsal marks, and text marks sometimes
+follow each other closely.  The command @code{\markLengthOn}
+provides extra horizontal (and vertical) space to prevent such
+marks from horizontal overlapping, often causing unwanted vertical
+stacking.  Use @code{\markLengthOff} to restore the default
+behavior of ignoring these marks for the horizontal spacing
+algorithm.
 
 @lilypond[verbatim,quote]
 \compressMMRests {
   \markLengthOn
   \tempo "Molto vivace"
   R1*12
-  \tempo "Meno mosso"
+  \mark \default \tempo "Allegretto ma non troppo"
   R1*16
+  \mark \default \tempo "Tranquillo"
+  R1*2
   \markLengthOff
-  \tempo "Tranquillo"
-  R1*20
+  \mark \default \tempo "Tempo I"
+  R1 R1 \break
+
+  \markLengthOff
+  \tempo "Molto vivace"
+  R1*12
+  \mark \default \tempo "Allegretto ma non troppo"
+  R1*16
+  \mark \default \tempo "Tranquillo"
+  R1*2
+  \mark \default \tempo "Tempo I"
+  R1 R1
 }
 @end lilypond
 

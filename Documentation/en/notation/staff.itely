@@ -102,9 +102,9 @@ guitar tuning.  For details, see @ref{Default tablatures}.
 \new TabStaff \relative { c''4 d e f }
 @end lilypond
 
-There are two staff contexts specific for the notation of ancient
-music: @code{MensuralStaff} and @code{VaticanaStaff}.  They are
-described in @ref{Predefined contexts}.
+There are staff contexts specific for the notation of ancient
+music, for example, @code{MensuralStaff} and @code{VaticanaStaff}.
+They are described in @ref{Predefined contexts}.
 
 The @code{GregorianTranscriptionStaff} context creates a staff to
 notate modern Gregorian chant.  It engraves @notation{divisiones}

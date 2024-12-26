@@ -1426,7 +1426,9 @@ To position them correctly use @code{alignBelowContext}:
     }
     \new Voice = "harmony" {
       \relative {
-        f'4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+        f'4 f f f
+        \repeat volta 3 { g8 g g4 g2 }
+        a4 a8. a16 a2
       }
     }
   >>
@@ -1671,8 +1673,8 @@ Notation Reference:
 @cindex divided lyrics
 @cindex lyrics, divided
 
-When just the words and rhythms of the two parts differ with the
-pitches remaining the same, temporarily turning off the automatic
+When just the words and rhythms of the two parts differ while the
+pitches remain the same, temporarily turning off the automatic
 detection of melismata and indicating the melisma in the lyrics
 may be the appropriate method to use:
 
@@ -1682,9 +1684,8 @@ may be the appropriate method to use:
     \new Voice = "melody" {
       \relative c' {
         \set melismaBusyProperties = #'()
-        \slurDown
         \slurDashed
-        e4 e8 ( e ) c4 c |
+        e4 e8( e) c4 c |
         \unset melismaBusyProperties
         c
       }
@@ -1693,7 +1694,7 @@ may be the appropriate method to use:
       They shall not o -- ver -- come
     }
     \new Lyrics \lyricsto "melody" {
-      We will _
+      We will _ rock you, yeah
     }
   >>
 }
@@ -3115,11 +3116,6 @@ rests is sometimes used even though the rest of the notation is
 modern.
 
 @lilypond[verbatim,quote]
-divisioMinima = \caesura
-divisioMaior = { \caesura \shortfermata }
-divisioMaxima = { \caesura \fermata }
-finalis = \section
-
 \score {
   \relative {
     g'2 a4 g
@@ -3318,11 +3314,9 @@ with the bar check symbol, @code{|}.
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line { O come let us sing | unto the | Lord : let }
-        \line { us heartily rejoice in the | strength of | our }
-        \line { sal- | -vation. }
-      }
+      \line { O come let us sing | unto the | Lord : let }
+      \line { us heartily rejoice in the | strength of | our }
+      \line { sal- | -vation. }
     }
   }
 }
@@ -3338,13 +3332,9 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line { O come let us sing \tick unto the \tick Lord : let }
-        \line {
-          us heartily rejoice in the \tick strength of \tick our
-        }
-        \line { sal \tick vation. }
-      }
+      \line { O come let us sing \tick unto the \tick Lord : let }
+      \line { us heartily rejoice in the \tick strength of \tick our }
+      \line { sal \tick vation. }
     }
   }
 }
@@ -3366,15 +3356,9 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line {
-          O come let us sing \tick unto \dot the \tick Lord : let
-        }
-        \line {
-          us heartily rejoice in the \tick strength of \tick our
-        }
-        \line { sal \tick vation. }
-      }
+      \line { O come let us sing \tick unto \dot the \tick Lord : let }
+      \line { us heartily rejoice in the \tick strength of \tick our }
+      \line { sal \tick vation. }
     }
   }
 }
@@ -3394,15 +3378,11 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line { Today if ye will hear his voice * }
-        \line {
-          \concat { \bold hard en }
-          | not your | hearts : as in the pro-
-        }
-        \line { vocation * and as in the \bold day of tempt- | }
-        \line { -ation | in the | wilderness. }
-      }
+      \line { Today if ye will hear his voice * }
+      \line { \concat { \bold hard en } |
+              not your | hearts : as in the pro- }
+      \line { vocation * and as in the \bold day of tempt- | }
+      \line { -ation | in the | wilderness. }
     }
   }
 }
@@ -3418,21 +3398,11 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line {
-          O come let us \concat {
-            si \combine \tick ng
-          }
-          | unto the | Lord : let
-        }
-        \line {
-          us heartily \concat {
-            rejo \combine \tick ice
-          }
-          in the | strength of | our
-        }
-        \line { sal- | -vation. }
-      }
+      \line { O come let us \concat { si \combine \tick ng } |
+              unto the | Lord : let }
+      \line { us heartily \concat { rejo \combine \tick ice }
+              in the | strength of | our }
+      \line { sal- | -vation. }
     }
   }
 }
