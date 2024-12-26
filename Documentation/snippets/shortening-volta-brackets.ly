@@ -6,7 +6,7 @@
 %%
 %% This file is in the public domain.
 %%
-%% Note: this file works from version 2.25.3.
+%% Note: this file works from version 2.25.23.
 
 \version "2.25.23"
 
