@@ -3465,7 +3465,7 @@ of lines:
   a1  \bar ";|-A"
   a1  \bar ";|-A"  \textEndMark "\";|-A\""  \break
   b1  \bar ";|-B" b \bar ";|-B"  \textEndMark "\";|-B\""  \break
-  c1  \bar ";|-C" c \bar ";|-C"  \textEndMark "\";|-C\""   \break 
+  c1  \bar ";|-C" c \bar ";|-C"  \textEndMark "\";|-C\""   \break
   d1  \bar ";|" \textEndMark "\";|\""
 }
 @end lilypond
@@ -3500,10 +3500,10 @@ makes a zero-width span bar.  Here are some examples:
 \fixed c' {
   \new StaffGroup <<
     \new Staff {
-      a1 \bar ";|!-A"  
-      b  \bar ";|!-B"  
-      c' \bar ";|!-C"  
-      d' \bar ";|!-D"  
+      a1 \bar ";|!-A"
+      b  \bar ";|!-B"
+      c' \bar ";|!-C"
+      d' \bar ";|!-D"
       e'
     }
     \new Staff {
@@ -3533,7 +3533,7 @@ the corresponding line position:
 \relative c'' {
   \new StaffGroup <<
     \new Staff {
-      \bar ";|!-good"   
+      \bar ";|!-good"
       a1 \bar ";|!-good"
       % \bar ";|!-bad"     % "WARNING: No span bar glyph defined..."
       b1 \bar ";|!-good"
