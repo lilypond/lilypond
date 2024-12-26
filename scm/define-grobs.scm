@@ -3735,6 +3735,7 @@ direction and shape of stacked @iref{Tie} grobs.")))))
         (space-alist . (
                         (ambitus . (extra-space . 1.0))
                         (cue-clef . (extra-space . 1.5))
+                        (custos . (minimum-space . 0.5))
                         (first-note . (semi-shrink-space . 2.0))
                         (right-edge . (extra-space . 0.5))
                         (signum-repetitionis . (extra-space . 1.0))
