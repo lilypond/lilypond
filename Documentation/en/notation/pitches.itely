@@ -1360,6 +1360,7 @@ need to be applied, as a separate @code{\override}, to the
 @end lilypond
 
 
+@need 1000
 @node Key signature
 @unnumberedsubsubsec Key signature
 

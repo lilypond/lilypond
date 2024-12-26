@@ -1834,6 +1834,7 @@ words = \lyricmode { la __ la __ }
 >>
 @end lilypond
 
+@need 1000
 @node Stanzas
 @subsection Stanzas
 

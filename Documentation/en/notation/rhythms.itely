@@ -2379,6 +2379,9 @@ Internals Reference:
 @node Beams
 @subsection Beams
 
+LilyPond provides two different possibilities for entering beams:
+automatic and manual input, which can be also mixed.
+
 @menu
 * Automatic beams::
 * Setting automatic beam behavior::

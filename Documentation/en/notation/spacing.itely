@@ -848,6 +848,7 @@ Snippets:
 @endmorerefs
 
 
+@need 1000
 @node Other paper variables
 @subsection Other @code{\paper} variables
 

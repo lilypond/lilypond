@@ -1352,6 +1352,7 @@ Output
 @end multitable
 
 
+@need 1500
 @node Ancient music clefs
 @unnumberedsubsec Ancient music clefs
 
@@ -2079,6 +2080,8 @@ columns - JL
 @cindex @q{tenuto} articulation
 @cindex articulation, tenuto
 
+
+@need 1000
 @node Articulation scripts
 @unnumberedsubsec Articulation scripts
 
@@ -2176,6 +2179,8 @@ f^\tenuto e,_\tenuto b'\tenuto
 @cindex @q{Haydn turn} ornament
 @cindex ornament, Haydn turn
 
+
+@need 1000
 @node Ornament scripts
 @unnumberedsubsec Ornament scripts
 
@@ -2282,6 +2287,8 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @cindex fermata, Henze
 @cindex Henze fermata
 
+
+@need 1000
 @node Fermata scripts
 @unnumberedsubsec Fermata scripts
 
@@ -2362,6 +2369,8 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @cindex @q{thumb} fingering
 @cindex fingering, thumb
 
+
+@need 1000
 @node Instrument-specific scripts
 @unnumberedsubsec Instrument-specific scripts
 
@@ -2445,6 +2454,8 @@ f^\thumb e,_\thumb b'\thumb
 @cindex sign, coda, variant
 @cindex coda sign, variant
 
+
+@need 1000
 @node Repeat sign scripts
 @unnumberedsubsec Repeat sign scripts
 
@@ -2488,6 +2499,8 @@ f^\varcoda e,_\varcoda b'\varcoda
 @cindex @q{signum congruentiae} mensural notation
 @cindex mensural notation, signum congruentiae
 
+
+@need 1000
 @node Ancient scripts
 @unnumberedsubsec Ancient scripts
 
@@ -2534,6 +2547,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 @end multitable
 
 
+@need 1000
 @node List of breath marks
 @appendixsec List of breath marks
 
@@ -2619,6 +2633,7 @@ b4 4 \breathe 4
 @end multitable
 
 
+@need 1000
 @node Percussion notes
 @appendixsec Percussion notes
 @cindex drum, various
