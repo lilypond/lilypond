@@ -461,6 +461,15 @@ renamed to @code{'single-number}.
 
 @itemize
 
+
+@item
+It is now possible to position @code{Script} to the left or right side of a
+@code{NoteHead}.
+
+@lilypond[quote,verbatim]
+{ <c' g' c''\atRight \mordent e''>2 }
+@end lilypond
+
 @item
 Hairpins in the style of Ferneyhough now support @dfn{al niente}
 circles.

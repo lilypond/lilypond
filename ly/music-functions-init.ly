@@ -235,6 +235,22 @@ assertBeamSlope =
 @var{comp}.")
    (make-grob-property-override 'Beam 'positions (check-slope-callbacks comp)))
 
+atLeft =
+#(define-event-function (m)(ly:music?)
+   (_i "Set @code{side-axis} to @code{X} and @code{direction} to @code{LEFT}
+for @var{mus}.")
+#{
+  \tweak side-axis #X \tweak direction #LEFT $m
+#})
+
+atRight =
+#(define-event-function (m)(ly:music?)
+   (_i "Set @code{side-axis} to @code{X} and @code{direction} to @code{RIGHT}
+for @var{mus}.")
+#{
+  \tweak side-axis #X \tweak direction #RIGHT $m
+#})
+
 autoChange =
 #(define-music-function (pitch clef-1 clef-2 music)
   ((ly:pitch?) (ly:context-mod?) (ly:context-mod?) ly:music?)

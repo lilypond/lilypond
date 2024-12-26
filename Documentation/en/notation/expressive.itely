@@ -228,6 +228,35 @@ in @file{scm/script.scm}.  Articulations and ornamentations
 may be manually placed above or below the staff; see
 @ref{Direction and placement}.
 
+@funindex \atLeft
+@funindex \atRight
+
+@cindex ornament, horizontally
+@cindex horizontal ornament
+
+It is also possible to position articulations and ornamentations to the left or
+right of a note head by overriding their @code{side-axis} and, if necessary, the
+@code{direction} property.  The convenience functions @code{\atLeft} or
+@code{\atRight} take care of this
+
+@lilypond[verbatim,quote]
+{
+  \set fingeringOrientations = #'(left)
+  \set stringNumberOrientations = #'(left down)
+  <
+   c'-3\5_\rightHandFinger #1 \atLeft \mordent
+   g'^\rightHandFinger #2
+   c''-1\2^\rightHandFinger #3 \atRight \prall
+   e'' ^\rightHandFinger #4
+  >2^\tenuto
+}
+@end lilypond
+
+@predefined
+@code{\atLeft},
+@code{\atRight}.
+@endpredefined
+
 The type of grob that an articulation creates depends on what it
 is attached to.
 

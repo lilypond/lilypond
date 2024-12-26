@@ -91,6 +91,7 @@ to be modified directly."
   \consists Figured_bass_engraver
   \consists Figured_bass_position_engraver
   \consists Script_row_engraver
+  \consists Horizontal_script_engraver
   \consists Non_musical_script_column_engraver
   \consists Cue_clef_engraver
   \consists Fingering_column_engraver

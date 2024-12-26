@@ -2833,7 +2833,7 @@ collisions of different voices.  See also
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (X-offset . ,script-interface::calc-x-offset)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
-        (Y-offset . ,side-position-interface::y-aligned-side)
+        (Y-offset . ,script-interface::calc-y-offset)
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 outside-staff-interface

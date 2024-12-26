@@ -1521,6 +1521,15 @@ by this amount of space in case of French beaming style.")
      (glissando-index ,integer? "The index of a glissando in its note
 column.")
      (grace-spacing ,ly:grob? "A run of grace notes.")
+     (grob-defaults ,list? "A list with type and an alist of properties,
+derived from a list like @code{default-script-alist}, p.e.
+@example
+(@var{accent}
+ . ((@var{avoid-slur} . @var{around})
+    (@var{padding} . 0.20)
+    (@var{script-stencil} . (@var{feta} . (\"sforzato\" . \"sforzato\")))
+    (@var{side-relative-direction} . @var{,DOWN})))
+@end example")
 
      (has-span-bar ,pair? "A pair of grobs containing the span bars to
 be drawn below and above the staff.  If no span bar is in a position,

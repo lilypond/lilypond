@@ -191,6 +191,7 @@ An object that is put above or below a note.
                R"(
 avoid-slur
 direction-source
+grob-defaults
 positioning-done
 script-column
 script-priority
@@ -198,6 +199,7 @@ script-stencil
 side-relative-direction
 slur
 slur-padding
+staff-position
 toward-stem-shift
 toward-stem-shift-in-column
                )");

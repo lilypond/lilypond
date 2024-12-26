@@ -1778,43 +1778,102 @@ visible, just that they exist."
           (ly:grob-suicide! script))))))
 
 (define-public (script-interface::calc-x-offset grob)
-  (ly:grob-property grob 'positioning-done)
-  (let* ((shift-when-alone (ly:grob-property grob 'toward-stem-shift 0.0))
-         (shift-in-column (ly:grob-property grob 'toward-stem-shift-in-column))
-         (script-column (ly:grob-object grob 'script-column #f))
-         (shift
-          (if (and script-column
-                   (number? shift-in-column)
-                   ;; ScriptColumn can contain grobs other than Script.
-                   ;; These should not result in a shift.
-                   (any (lambda (s)
-                          (and (not (eq? s grob))
-                               (grob::has-interface s 'script-interface)
-                               (not (grob::has-interface s
-                                                         'accidental-suggestion-interface))))
-                        (ly:grob-array->list
-                         (ly:grob-object script-column 'scripts))))
-              shift-in-column shift-when-alone))
-         (note-head-location
-          (ly:self-alignment-interface::aligned-on-x-parent grob))
-         (note-head-grob (ly:grob-parent grob X))
-         (stem-grob (ly:grob-object note-head-grob 'stem #f)))
+  (if (zero? (ly:grob-property grob 'side-axis Y))
+      (ly:side-position-interface::x-aligned-side grob)
+      (begin
+        (ly:grob-property grob 'positioning-done)
+        (let* ((shift-when-alone (ly:grob-property grob 'toward-stem-shift 0.0))
+               (shift-in-column
+                 (ly:grob-property grob 'toward-stem-shift-in-column))
+               (script-column (ly:grob-object grob 'script-column #f))
+               (shift
+                (if (and script-column
+                         (number? shift-in-column)
+                         ;; ScriptColumn can contain grobs other than Script.
+                         ;; These should not result in a shift.
+                         (any (lambda (s)
+                                (and (not (eq? s grob))
+                                     (grob::has-interface s 'script-interface)
+                                     (not (grob::has-interface
+                                            s
+                                            'accidental-suggestion-interface))))
+                              (ly:grob-array->list
+                               (ly:grob-object script-column 'scripts))))
+                    shift-in-column shift-when-alone))
+               (note-head-location
+                (ly:self-alignment-interface::aligned-on-x-parent grob))
+               (note-head-grob (ly:grob-parent grob X))
+               (stem-grob (ly:grob-object note-head-grob 'stem #f)))
 
-    (+ note-head-location
-       ;; If the script has the same direction as the stem, move the script
-       ;; in accordance with the value of 'shift'.  Since scripts can also be
-       ;; over skips, we need to check whether the grob has a stem at all.
-       (if stem-grob
-           (let ((dir1 (ly:grob-property grob 'direction))
-                 (dir2 (ly:grob-property stem-grob 'direction)))
-             (if (equal? dir1 dir2)
-                 (let* ((common-refp (ly:grob-common-refpoint grob stem-grob X))
-                        (stem-location
-                         (ly:grob-relative-coordinate stem-grob common-refp X)))
-                   (* shift (- stem-location note-head-location)))
-                 0.0))
-           0.0))))
+          (+ note-head-location
+             ;; If the script has the same direction as the stem, move the
+             ;; script in accordance with the value of 'shift'.  Since scripts
+             ;; can also be over skips, we need to check whether the grob has a
+             ;; stem at all.
+             (if stem-grob
+                 (let ((dir1 (ly:grob-property grob 'direction))
+                       (dir2 (ly:grob-property stem-grob 'direction)))
+                   (if (equal? dir1 dir2)
+                       (let* ((common-refp
+                                (ly:grob-common-refpoint grob stem-grob X))
+                              (stem-location
+                               (ly:grob-relative-coordinate
+                                 stem-grob common-refp X)))
+                         (* shift (- stem-location note-head-location)))
+                       0.0))
+                 0.0))))))
 
+(define-public ((horizontal-script::calc-staff-position val) grob)
+"Set @code{staff-position} for horizontal script definitions in the alist for
+context property @code{scriptDefinitions}.  This opens the possibility to set
+@code{Y-offset} or @code{staff-position} by @code{override} or @code{tweak}.
+Directly setting @code{Y-offset} in script definitions blocks this.
+@var{val} should usually be zero, but can be any other number in order to insert
+some offset from zero in y-axis direction."
+  (if (zero? (ly:grob-property grob 'side-axis))
+      (let* ((head (ly:grob-parent grob Y)))
+        (if (grob::has-interface head 'note-head-interface)
+            (let ((head-staff-pos (ly:grob-property head 'staff-position)))
+              (- head-staff-pos (abs val)))
+            0))
+      #f))
+
+(define-public script-interface::calc-y-offset
+;; If Script is positioned above or below we use
+;; `side-position-interface::y-aligned-side`, an unpure-pure-container.
+;; Otherwise we look into the grob-object 'grob-defaults (provided by the
+;; engraver) for a possible setting of 'Y-offset  or use zero.
+  (let ((variant
+         (lambda (accessor)
+           (lambda (grob . rest)
+             (if (zero? (ly:grob-property grob 'side-axis Y))
+                 (let* ((cause (ly:grob-property grob 'cause))
+                        (articulation-type
+                          (ly:prob-property cause 'articulation-type))
+                        (grob-defaults (ly:grob-object grob 'grob-defaults))
+                        (staff-pos-proc
+                          (assoc-get 'staff-position (cdr grob-defaults)))
+                        (head (ly:grob-parent grob Y))
+                        (head-y
+                          (if (grob::has-interface head 'note-head-interface)
+                              (ly:grob-property head 'staff-position #f)
+                              #f))
+                        (staff-pos
+                          (ly:grob-property grob 'staff-position #f))
+                        (y-off
+                          (if (and head-y staff-pos)
+                              (/ (- staff-pos head-y) 2)
+                              0)))
+                   y-off)
+                 (apply
+                   accessor
+                   side-position-interface::y-aligned-side
+                   grob
+                   rest))))))
+
+   (ly:make-unpure-pure-container
+     (variant ly:unpure-call)
+     (variant ly:pure-call))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; instrument names
