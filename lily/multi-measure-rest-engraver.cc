@@ -278,7 +278,7 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
                 R"(
 Engrave multi-measure rests that are produced with @samp{R}.  It reads
 @code{measureStartNow} and @code{internalBarNumber} to determine what number to
-print over the @ref{MultiMeasureRest}.
+print over the @iref{MultiMeasureRest}.
                 )",
 
                 /* create */

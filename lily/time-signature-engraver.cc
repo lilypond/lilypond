@@ -133,7 +133,7 @@ Time_signature_engraver::boot ()
 ADD_TRANSLATOR (Time_signature_engraver,
                 /* doc */
                 R"(
-Create a @ref{TimeSignature} whenever @code{timeSignatureFraction} changes.
+Create a @iref{TimeSignature} whenever @code{timeSignatureFraction} changes.
                 )",
 
                 /* create */

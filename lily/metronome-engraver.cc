@@ -173,7 +173,7 @@ ADD_TRANSLATOR (Metronome_mark_engraver,
 Engrave metronome marking.  This delegates the formatting work to the function
 in the @code{metronomeMarkFormatter} property.  The mark is put over all
 staves.  The staves are taken from the @code{stavesFound} property, which is
-maintained by @ref{Staff_collecting_engraver}.
+maintained by @iref{Staff_collecting_engraver}.
                 )",
 
                 /* create */

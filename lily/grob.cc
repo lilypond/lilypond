@@ -811,7 +811,7 @@ note head is moved, the staccato dot moves along automatically.
 
 A grob is often associated with a symbol, but some grobs do not print any
 symbols.  They take care of grouping objects.  For example, there is a separate
-grob that stacks staves vertically.  The @ref{NoteCollision} object is also an
+grob that stacks staves vertically.  The @iref{NoteCollision} object is also an
 abstract grob: It only moves around chords, but doesn't print anything.
 
 Grobs have properties (Scheme variables) that can be read and set.  Two types

@@ -244,8 +244,8 @@ ADD_TRANSLATOR (Bar_number_engraver,
 A bar number may be created at any bar line, subject to the
 @code{barNumberVisibility} callback.  By default, it is put on top of all
 staves and appears only at the left side of the staff.  The staves are taken
-from @code{stavesFound}, which is  maintained by
-@ref{Staff_collecting_engraver}.  This engraver usually creates
+from @code{stavesFound}, which is maintained by
+@iref{Staff_collecting_engraver}.  This engraver usually creates
 @code{BarNumber} grobs, but when @code{centerBarNumbers} is true, it makes
 @code{CenteredBarNumber} grobs instead.
                 )",

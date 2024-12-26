@@ -660,7 +660,7 @@ Sets the Y@tie{}coordinate of the end point, in staff-spaces offset
 from the staff center line.  By default, it is the center of the bound
 object, so a glissando points to the vertical center of the note head.
 Not relevant for grobs having the
-@ref{horizontal-line-spanner-interface,horizontal-@/line-@/spanner-@/interface}.
+@iref{horizontal-line-spanner-interface}.
 
 @item attach-dir
 Determines where the line starts and ends in the X@tie{}direction,
@@ -737,7 +737,7 @@ to-barline
 
 ADD_INTERFACE (Horizontal_line_spanner,
                R"(
-This interface is a subset of the @ref{line-spanner-interface}, for
+This interface is a subset of the @iref{line-spanner-interface}, for
 use with line spanners that are always horizontal (such as crescendo
 spanners).  The @code{details.Y} subproperty is irrelevant.  Grobs
 having this interface can be side-positioned vertically.

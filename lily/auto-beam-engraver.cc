@@ -512,7 +512,7 @@ ADD_TRANSLATOR (Auto_beam_engraver,
 Generate beams based on measure characteristics and observed Stems.  Uses
 @code{beatBase}, @code{beatStructure}, @code{beamExceptions},
 @code{measureLength}, and @code{measurePosition} to decide when to start and
-stop a beam.  Overriding beaming is done through @ref{Stem_engraver} properties
+stop a beam.  Overriding beaming is done through @iref{Stem_engraver} properties
 @code{stemLeftBeamCount} and @code{stemRightBeamCount}.
                 )",
 

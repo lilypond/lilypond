@@ -500,8 +500,8 @@ The object that performs break alignment.
 Three interfaces deal specifically with break alignment:
 @enumerate
 @item break-alignment-interface (this one),
-@item @ref{break-alignable-interface}, and
-@item @ref{break-aligned-interface}.
+@item @iref{break-alignable-interface}, and
+@item @iref{break-aligned-interface}.
 @end enumerate
 
 Each of these interfaces supports grob properties that use

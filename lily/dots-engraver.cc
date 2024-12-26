@@ -65,7 +65,7 @@ Dots_engraver::boot ()
 
 ADD_TRANSLATOR (Dots_engraver,
                 R"(
-Create @ref{Dots} objects for @ref{rhythmic-head-interface}s.
+Create @iref{Dots} objects for @iref{rhythmic-head-interface}s.
                 )",
 
                 /* create */

@@ -88,7 +88,7 @@ Phrasing_slur_engraver::boot ()
 ADD_TRANSLATOR (Phrasing_slur_engraver,
                 /* doc */
                 R"(
-Print phrasing slurs.  Similar to @ref{Slur_engraver}.
+Print phrasing slurs.  Similar to @iref{Slur_engraver}.
                 )",
 
                 /* create */
