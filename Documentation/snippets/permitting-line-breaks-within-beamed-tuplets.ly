@@ -14,30 +14,41 @@
   lsrtags = "rhythms, version-specific"
 
   texidoc = "
-This artificial example shows how both manual and automatic line breaks
-may be permitted to within a beamed tuplet. Note that such off-beat
-tuplets have to be beamed manually.
+These artificial examples show how both manual and automatic line
+breaks may be permitted within beamed tuplets that can't be
+rhythmically split in an exact way.
+
+This feature only works with manually beamed tuplets.
 "
 
   doctitle = "Permitting line breaks within beamed tuplets"
 } % begin verbatim
 
 
-\paper { tagline = ##f }
 \layout {
   \context {
     \Voice
-    % Permit line breaks within tuplets
+    % Permit automatic line breaks within tuplets.
     \remove "Forbid_line_break_engraver"
-    % Allow beams to be broken at line breaks
+    % Allow beams to be broken at line breaks.
     \override Beam.breakable = ##t
   }
 }
+
 \relative c'' {
+  <>^"manually forced line break"
   a8
-  \repeat unfold 5 { \tuplet 3/2 { c[ b a] } }
-  % Insert a manual line break within a tuplet
-  \tuplet 3/2 { c[ b \bar "" \break a] }
-  \repeat unfold 5 { \tuplet 3/2 { c[ b a] } }
-  c8
+  \repeat unfold 5 { \tuplet 3/2 { c8[ b g16 a] } }
+  \tuplet 3/2 { c8[ b \break g16 a] }
+  \repeat unfold 5 { \tuplet 3/2 { c8[ b g16 a] } }
+  c8 \bar "||"
 }
+
+\relative c'' {
+  <>^"automatic line break"
+  \repeat unfold 28 a16
+  \tuplet 11/8 { a16[ b c d e f e d c b a] }
+  \repeat unfold 28 a16 \bar "||"
+}
+
+\paper { tagline = ##f }

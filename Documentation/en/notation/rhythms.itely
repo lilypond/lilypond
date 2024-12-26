@@ -349,7 +349,7 @@ bracket is also introduced in @ref{Scaling durations}.
 @cindex beamed tuplet, line break within
 @cindex tuplet, beamed, line break within
 @funindex Forbid_line_break_engraver
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/permitting-line-breaks-within-beamed-tuplets.ly}
 
 
