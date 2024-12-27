@@ -2039,7 +2039,7 @@ and end of the repeat to turn the page back.  If the repeat is too
 short then the @code{Page_turn_engraver} can be used to @emph{disable}
 page turns by setting an appropriate value for the context property
 @code{pageTurnMinimumRepeatLength}.  In this case the
-@code{Page_turn_engraver} will only allows turns in repeats whose
+@code{Page_turn_engraver} will only allow turns in repeats whose
 duration is longer than the value specified.
 
 The page turning commands, @code{\pageTurn}, @code{\noPageTurn} and
