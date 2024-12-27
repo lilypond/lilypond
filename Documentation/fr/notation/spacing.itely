@@ -2328,7 +2328,7 @@ lowerCaseChords = \with {
 
 labelContext =
 #(define-music-function (context) (string?)
-   #{ s1*0^\markup { \upright \typewriter #context } #})
+   #{ <>^\markup { \upright \typewriter #context } #})
 
 \layout {
   \context { \ChordNames  \alignToZero \lowerCaseChords }

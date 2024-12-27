@@ -380,8 +380,8 @@ Scheme list in place of volta numbers removes the music entirely.
 
 @lilypond[verbatim,quote]
 music = \repeat volta 3 {
-  \volta #'() { s1*0^\markup { \bold "3×" } }
-  \volta 1 { s1*0_\markup { \italic dolce } }
+  \volta #'() { <>^\markup { \bold "3×" } }
+  \volta 1 { <>_\markup { \italic dolce } }
   g''1
 }
 

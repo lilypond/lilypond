@@ -374,7 +374,7 @@ carrément la musique.
 
 @lilypond[verbatim,quote]
 music = \repeat volta 3 {
-  \volta #'() { s1*0_\markup { \bold "3×" } }
+  \volta #'() { <>_\markup { \bold "3×" } }
   g''1
 }
 

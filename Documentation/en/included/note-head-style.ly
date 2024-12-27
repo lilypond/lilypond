@@ -38,70 +38,70 @@ pattern = <<
   \clef C
 
   \override Staff.NoteHead.style = #'default
-  s1*0^\markup { "default" }
+  <>^\markup { "default" }
   \pattern
 
   \override Staff.NoteHead.style = #'altdefault
-  s1*0^\markup { "altdefault" }
+  <>^\markup { "altdefault" }
   \pattern
 
   \break
 
   \override Staff.NoteHead.style = #'baroque
-  s1*0^\markup { "baroque" }
+  <>^\markup { "baroque" }
   \pattern
 
   \override Staff.NoteHead.style = #'neomensural
-  s1*0^\markup { "neomensural" }
+  <>^\markup { "neomensural" }
   \pattern
 
   \break
 
   \override Staff.NoteHead.style = #'mensural
-  s1*0^\markup { "mensural" }
+  <>^\markup { "mensural" }
   \pattern
 
   \override Staff.NoteHead.style = #'petrucci
-  s1*0^\markup { "petrucci" }
+  <>^\markup { "petrucci" }
   \pattern
 
   \break
 
   \override Staff.NoteHead.style = #'harmonic
-  s1*0^\markup { "harmonic" }
+  <>^\markup { "harmonic" }
   \pattern
 
   \override Staff.NoteHead.style = #'harmonic-black
-  s1*0^\markup { "harmonic-black" }
+  <>^\markup { "harmonic-black" }
   \pattern
 
   \break
 
   \override Staff.NoteHead.style = #'harmonic-mixed
-  s1*0^\markup { "harmonic-mixed" }
+  <>^\markup { "harmonic-mixed" }
   \pattern
 
   \override Staff.NoteHead.style = #'diamond
-  s1*0^\markup { "diamond" }
+  <>^\markup { "diamond" }
   \pattern
 
   \break
 
   \override Staff.NoteHead.style = #'cross
-  s1*0^\markup { "cross" }
+  <>^\markup { "cross" }
   \pattern
 
   \override Staff.NoteHead.style = #'xcircle
-  s1*0^\markup { "xcircle" }
+  <>^\markup { "xcircle" }
   \pattern
 
   \break
 
   \override Staff.NoteHead.style = #'triangle
-  s1*0^\markup { "triangle" }
+  <>^\markup { "triangle" }
   \pattern
 
   \override Staff.NoteHead.style = #'slash
-  s1*0^\markup { "slash" }
+  <>^\markup { "slash" }
   \pattern
 }
