@@ -189,11 +189,15 @@ emptiness check is restricted to that axis.
 LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge", 4, 1, 0,
            (SCM first, SCM axis, SCM direction, SCM second, SCM padding),
            R"(
-Construct a stencil by putting @var{second} next to @var{first}.  @var{axis}
-can be @code{0} (x@tie{}axis) or@tie{}@code{1} (y@tie{}axis).  @var{direction}
-can be @code{-1} (left or down) or@tie{}@code{1} (right or up).  The stencils
-are juxtaposed with @var{padding} as extra space.  @var{first} and @var{second}
-may also be @code{'()} or @code{#f}.
+Construct a stencil by putting @var{second} next to @var{first}.
+
+@var{axis} can be @code{0} (x@tie{}axis) or@tie{}@code{1} (y@tie{}axis).
+@var{direction} can be @code{-1} (left or down) or@tie{}@code{1} (right or up).
+The stencils are juxtaposed with @var{padding} as extra space.  @var{first} and
+@var{second} may also be @code{'()} or @code{#f}.
+
+If either of the stencils is spacing (i.e., the result of @code{\\hspace} markup
+and similar commands), @var{padding} does not apply.
            )")
 {
   auto *const s1 = unsmob<const Stencil> (first);
@@ -230,17 +234,19 @@ LY_DEFINE (ly_stencil_stack, "ly:stencil-stack", 4, 2, 0,
            (SCM first, SCM axis, SCM direction, SCM second, SCM padding,
             SCM mindist),
            R"(
-Construct a stencil by stacking @var{second} next to @var{first}.  @var{axis}
-can be @code{0} (x@tie{}axis) or@tie{}@code{1} (y@tie{}axis).  @var{direction}
-can be @code{-1} (left or down) or@tie{}@code{1} (right or up).  The stencils
-are juxtaposed with @var{padding} as extra space.  @var{first} and @var{second}
-may also be @code{'()} or @code{#f}.  As opposed to
+Construct a stencil by stacking @var{second} next to @var{first}.
+
+@var{axis} can be @code{0} (x@tie{}axis) or@tie{}@code{1} (y@tie{}axis).
+@var{direction} can be @code{-1} (left or down) or@tie{}@code{1} (right or up).
+The stencils are juxtaposed with @var{padding} as extra space.  @var{first} and
+@var{second} may also be @code{'()} or @code{#f}.  As opposed to
 @code{ly:@/stencil-combine-at-edge}, metrics are suited for successively
 accumulating lines of stencils.  Also, @var{second} stencil is drawn last.
 
 If @var{mindist} is specified, reference points are placed apart at least by
-this distance.  If either of the stencils is spacing, @var{padding} and
-@var{mindist} do not apply.
+this distance.  If either of the stencils is spacing (i.e., the result of
+@code{\\hspace} markup and similar commands), @var{padding} and @var{mindist} do
+not apply.
            )")
 {
   auto *const s1 = unsmob<const Stencil> (first);
