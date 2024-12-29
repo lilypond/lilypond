@@ -587,19 +587,68 @@ encloses the contents."
      (make-filled-box-stencil (cons (cdr xext) (+ (cdr xext) thick)) yext)
      (make-filled-box-stencil (cons (- (car xext) thick) (car xext)) yext))))
 
-;; TODO merge this and prev function.
 (define-public (box-stencil stencil thickness padding)
-  "Add a box around @var{stencil}, producing a new stencil."
-  (let* ((x-ext (interval-widen (ly:stencil-extent stencil 0) padding))
-         (y-ext (interval-widen (ly:stencil-extent stencil 1) padding))
-         (y-rule (make-filled-box-stencil (cons 0 thickness) y-ext))
-         (x-rule (make-filled-box-stencil
-                  (interval-widen x-ext thickness) (cons 0 thickness))))
-    (set! stencil (ly:stencil-combine-at-edge stencil X 1 y-rule padding))
-    (set! stencil (ly:stencil-combine-at-edge stencil X -1 y-rule padding))
-    (set! stencil (ly:stencil-combine-at-edge stencil Y 1 x-rule 0.0))
-    (set! stencil (ly:stencil-combine-at-edge stencil Y -1 x-rule 0.0))
-    stencil))
+  "Add a box around @var{stencil}, producing a new stencil.
+
+The spacing characteristics are preserved if either a @code{\\hspace} or a
+@code{\\vspace} command (with either positive or negative values) gets boxed.
+This means that @var{padding} and @var{thickness} added to an empty extent will
+not participate in spacing and is not recognized by skylines."
+  (let* ((normalize-ext
+          (lambda (i)
+            ;; Replace +/-inf.0 by zero; do not reorder if car > cdr.
+            (cons (if (inf? (car i)) 0.0 (car i))
+                  (if (inf? (cdr i)) 0.0 (cdr i)))))
+         (ext-translate
+          (lambda (ext amount)
+            (cons (+ (car ext) amount) (+ (cdr ext) amount))))
+         (negative-ext?
+          (lambda (ext)
+            (> (car ext) (cdr ext))))
+
+         (raw-x-ext (ly:stencil-extent stencil X))
+         (raw-y-ext (ly:stencil-extent stencil Y))
+         (x-ext (normalize-ext raw-x-ext))
+         (y-ext (normalize-ext raw-y-ext))
+         (negative-x? (negative-ext? raw-x-ext))
+         (negative-y? (negative-ext? raw-y-ext))
+         (x-thick (if negative-x? (- thickness) thickness))
+         (y-thick (if negative-y? (- thickness) thickness))
+         (thick-x-ext (cons 0 x-thick))
+         (thick-y-ext (cons 0 y-thick))
+         (pad-x-ext
+          (interval-widen x-ext (if negative-x? (- padding) padding)))
+         (pad-y-ext
+          (interval-widen y-ext (if negative-y? (- padding) padding)))
+         (width-ext (interval-widen pad-x-ext x-thick))
+         (height-ext (interval-widen pad-y-ext y-thick))
+
+         (boxed-stencil
+          (ly:stencil-add
+           stencil
+           (make-filled-box-stencil     ; left/right
+            (ext-translate thick-x-ext (car width-ext))
+            height-ext)
+           (make-filled-box-stencil     ; right/left
+            (ext-translate thick-x-ext (cdr pad-x-ext))
+            height-ext)
+           (make-filled-box-stencil     ; top/bottom
+            width-ext
+            (ext-translate thick-y-ext (car height-ext)))
+           (make-filled-box-stencil     ; bottom/top
+            width-ext
+            (ext-translate thick-y-ext (cdr pad-y-ext)))))
+
+         (h-space? (ly:stencil-empty? stencil Y))
+         (v-space? (ly:stencil-empty? stencil X)))
+    (ly:make-stencil
+     (ly:stencil-expr boxed-stencil)
+     (if (or h-space? v-space? negative-x?)
+         raw-x-ext
+         (ly:stencil-extent boxed-stencil X))
+     (if (or h-space? v-space? negative-y?)
+         raw-y-ext
+         (ly:stencil-extent boxed-stencil Y)))))
 
 (define-public (circle-stencil stencil thickness padding)
   "Add a circle around @var{stencil}, producing a new stencil."
