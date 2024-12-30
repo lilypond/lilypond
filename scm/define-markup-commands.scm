@@ -1280,6 +1280,21 @@ Create an invisible object taking up @var{amount} horizontal space.
 }
 @end lilypond
 
+@var{amount} can be also a negative value, which can be best visualized as if
+the current drawing point gets moved to the left.
+
+@lilypond[verbatim,quote]
+\\markup \\concat {
+  \\hspace #4
+  \\column {
+    \\box \\concat { AAAA \\hspace #4 }
+    \\box \\concat { AAAA \\hspace #-4 }
+    \\box \\concat { \\hspace #4 AAAA }
+    \\box \\concat { \\hspace #-4 AAAA }
+  }
+}
+@end lilypond
+
 See also @code{\\abs-hspace}."
   (ly:make-stencil "" (cons 0 amount) empty-interval))
 
@@ -1311,18 +1326,31 @@ See also @code{\\hspace}."
   "
 @cindex creating vertical space, in text
 
-Create an invisible object taking up vertical space
-of @var{amount} multiplied by 3.
+Create an invisible object taking up vertical space of @var{amount} multiplied
+by@tie{}3.
 
 @lilypond[verbatim,quote]
 \\markup {
     \\center-column {
     one
-    \\vspace #2
+    \\vspace #1
     two
-    \\vspace #5
+    \\vspace #3
     three
   }
+}
+@end lilypond
+
+@var{amount} can be also a negative value, which can be best visualized as if
+the current drawing point gets moved up.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\vspace #1
+  \\box \\column { AAAA \\vspace #0.4 }
+  \\box \\column { AAAA \\vspace #-0.4 }
+  \\box \\column { \\vspace #0.4 AAAA }
+  \\box \\column { \\vspace #-0.4 AAAA }
 }
 @end lilypond
 
