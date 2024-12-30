@@ -876,10 +876,13 @@ Internals Reference:
 
 There is limited support for white mensural ligatures.
 
-To engrave white mensural ligatures, in the layout block, replace
-the @code{Ligature_@/bracket_@/engraver} with the
+@funindex Ligature_bracket_engraver
+@funindex Mensural_ligature_engraver
+
+To engrave white mensural ligatures, replace the
+@code{Ligature_@/bracket_@/engraver} with the
 @code{Mensural_@/ligature_@/engraver} in the @code{Voice}
-context:
+context's layout block:
 
 @example
 \layout @{
@@ -891,47 +894,45 @@ context:
 @}
 @end example
 
-There is no additional input language to describe the shape of a
-white mensural ligature.  The shape is rather determined solely from
-the pitch and duration of the enclosed notes.  While this approach may
-take a new user a while to get accustomed to, it has the great advantage
-that the full musical information of the ligature is known internally.
-This is not only required for correct MIDI output, but also allows for
-automatic transcription of the ligatures.
+@funindex PetrucciStaff
+@funindex PetrucciVoice
 
-At certain places two consecutive notes can be represented either as
-two squares or as an oblique parallelogram (flexa shape).  In such
-cases the default is the two squares, but a flexa can be required by
-setting the @code{ligature-flexa} property of the @emph{second} note
-head.  The length of a flexa can be set by the note head property
-@code{flexa-width}.
+In the following, we use a @code{PetrucciStaff} context, which
+does this replacement, among other settings, approximating the
+mensural typesetting of Ottaviano Petrucci's @cite{Harmonices
+Musices Odhecaton} (Venice, 1501).  The accompanying voice context
+is called @code{PetrucciVoice}.
+
+There is no additional input language to describe the shape of a
+white mensural ligature; instead, the shape is determined solely
+from the pitches and durations of the enclosed notes.  While this
+approach may take a new user a while to get accustomed to, it has
+the great advantage that the full musical information of the
+ligature is known internally.  This is not only required for
+correct MIDI output, but also allows for automatic transcription
+of the ligatures.
+
+@cindex flexa, in mensural ligatures
+@cindex mensural ligature, flexa
+
+At certain places two consecutive notes can be represented either
+as two squares or as an oblique parallelogram (a @dfn{flexa}
+shape).  In such cases the default is the two squares, but a flexa
+can be required by setting the @code{ligature-flexa} property of
+the @emph{second} note head.  The width of a flexa can be set by
+the note head property @code{flexa-width}.
 
 @noindent
 For example,
 
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative {
-    \set Score.timing = ##f
-    \set Score.measureBarType = #'()
-    \override NoteHead.style = #'petrucci
-    \override Staff.TimeSignature.style = #'mensural
-    \clef "petrucci-g"
-    \[ c''\maxima g \]
-    \[ d'\longa
-       \override NoteHead.ligature-flexa = ##t
-       \once \override NoteHead.flexa-width = 3.2
-       c\breve f e d \]
-    \[ c\maxima d\longa \]
-    \[ e1 a, g\breve \]
-  }
-  \layout {
-    \context {
-      \Voice
-      \remove Ligature_bracket_engraver
-      \consists Mensural_ligature_engraver
-    }
-  }
+@lilypond[quote,verbatim]
+\new PetrucciStaff \relative {
+  \[ c''\maxima g \]
+  \[ d'\longa
+     \tweak ligature-flexa ##t
+     \tweak flexa-width #3.2 c\breve f e d \]
+  \[ c\maxima d\longa \]
+  \[ e1 a, g\breve \]
 }
 @end lilypond
 
@@ -939,88 +940,59 @@ For example,
 Without replacing @code{Ligature_bracket_engraver} with
 @code{Mensural_ligature_engraver}, the same music looks as follows:
 
-@lilypond[quote,ragged-right]
-\relative {
-  \set Score.timing = ##f
-  \set Score.measureBarType = #'()
-  \override NoteHead.style = #'petrucci
-  \override Staff.TimeSignature.style = #'mensural
-  \clef "petrucci-g"
+@lilypond[quote]
+\new PetrucciStaff \relative {
   \[ c''\maxima g \]
   \[ d'\longa
-     \override NoteHead.ligature-flexa = ##t
-     \once \override NoteHead.flexa-width = 3.2
-     c\breve f e d \]
+     \tweak ligature-flexa ##t
+     \tweak flexa-width #3.2 c\breve f e d \]
   \[ c\maxima d\longa \]
   \[ e1 a, g\breve \]
 }
+\layout {
+  \context {
+    \PetrucciVoice
+    \remove Mensural_ligature_engraver
+    \consists Ligature_bracket_engraver
+  }
+}
 @end lilypond
 
-There are also cases when a stem is not required to unambiguously
+There are also cases where a stem is not required to unambiguously
 encode the note length, but is also not forbidden:
 
 @itemize
 @item
-an initial breve (when lower than the next note)
-may or may not have a downward left stem;
+an initial breve (with a lower pitch than the next note) may or
+may not have a downward left stem;
 @item
 a maxima may or may not have a downward right stem;
 @item
-a final longa (when lower than the previous note)
-may or may not have a right stem.
+a final longa (with a lower pitch than the previous note) may or
+may not have a right stem.
 @end itemize
 
 @noindent
-For example,
+Here is an example that demonstrates this tweaking.
 
 @lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative {
-    \set Score.timing = ##f
-    \set Score.measureBarType = #'()
-    \override NoteHead.style = #'petrucci
-    \override Staff.TimeSignature.style = #'mensural
-    \clef "petrucci-c4"
-    \[ \once \override NoteHead.left-down-stem = ##t
-       a\breve b
-       \once \override NoteHead.right-down-stem = ##t
-       g\longa \]
-    \[ \once \override NoteHead.right-down-stem = ##t
-       b\maxima
-       \once \override NoteHead.right-up-stem = ##t
-       g\longa \]
-  }
-  \layout {
-    \context {
-      \Voice
-      \remove Ligature_bracket_engraver
-      \consists Mensural_ligature_engraver
-    }
-  }
+\new PetrucciStaff \relative {
+  \clef "petrucci-c4"
+  \[ \tweak left-down-stem ##t a\breve b
+     \tweak right-down-stem ##t g\longa \]
+  \[ \tweak right-down-stem ##t b\maxima
+     \tweak right-up-stem ##t g\longa \]
 }
 @end lilypond
 
 @noindent
-Without tweaking the same ligatures look like
+Without tweaking the same ligatures look as follows.
 
 @lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative {
-    \set Score.timing = ##f
-    \set Score.measureBarType = #'()
-    \override NoteHead.style = #'petrucci
-    \override Staff.TimeSignature.style = #'mensural
-    \clef "petrucci-c4"
-    \[ a\breve b g\longa \]
-    \[ b\maxima g\longa \]
-  }
-  \layout {
-    \context {
-      \Voice
-      \remove Ligature_bracket_engraver
-      \consists Mensural_ligature_engraver
-    }
-  }
+\new PetrucciStaff \relative {
+  \clef "petrucci-c4"
+  \[ a\breve b g\longa \]
+  \[ b\maxima g\longa \]
 }
 @end lilypond
 
@@ -1035,6 +1007,7 @@ Notation Reference:
 
 @knownissues
 Horizontal spacing of ligatures may be poor.
+
 Accidentals may collide with previous notes.
 
 
