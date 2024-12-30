@@ -1757,8 +1757,8 @@ instruments:
     \combine
       \musicglyph "accordion.discant"
       \combine
-	\raise #0.5 \musicglyph "accordion.dot"
-	\raise #1.5 \musicglyph "accordion.dot"
+        \raise #0.5 \musicglyph "accordion.dot"
+        \raise #1.5 \musicglyph "accordion.dot"
   }
 }
 @end lilypond

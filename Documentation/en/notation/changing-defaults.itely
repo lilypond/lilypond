@@ -1860,7 +1860,7 @@ does not amount to much.  The initialization file (see
      (stencil . ,ly:text-interface::print)
      (direction . ,ly:script-interface::calc-direction)
      (font-encoding . fetaText)
-     (font-size . -5) 		; don't overlap when next to heads.
+     (font-size . -5)           ; don't overlap when next to heads.
      (meta . ((class . Item)
      (interfaces . (finger-interface
                     font-interface

@@ -1343,11 +1343,11 @@ correctly nested in parallel sections:
     \new Lyrics \lyricsto "melody" {
       Not re -- peat -- ed.
       <<
-	{ The first time words. }
-	\new Lyrics {
-	  \set associatedVoice = "melody"
-	  Sec -- ond time words.
-	}
+        { The first time words. }
+        \new Lyrics {
+          \set associatedVoice = "melody"
+          Sec -- ond time words.
+        }
       >>
     }
   >>
@@ -1362,24 +1362,24 @@ More verses may be added in a similar way:
     \new Staff {
       \new Voice = "singleVoice" {
         \relative {
-	  a'4 a a a
-	  \repeat volta 3 { b4 b b b }
+          a'4 a a a
+          \repeat volta 3 { b4 b b b }
           c4 c c c
-	}
+        }
       }
     }
     \new Lyrics \lyricsto "singleVoice" {
       Not re -- peat -- ed.
       <<
-        { The first time words.	}
-	\new Lyrics {
-	  \set associatedVoice = "singleVoice"
-	  Sec -- ond time words.
-	}
-	\new Lyrics {
-	  \set associatedVoice = "singleVoice"
-	  The third time words.
-	}
+        { The first time words. }
+        \new Lyrics {
+          \set associatedVoice = "singleVoice"
+          Sec -- ond time words.
+        }
+        \new Lyrics {
+          \set associatedVoice = "singleVoice"
+          The third time words.
+        }
       >>
       The end sec -- tion.
     }
@@ -1401,26 +1401,26 @@ To position them correctly use @code{alignBelowContext}:
     \new Staff {
       \new Voice = "melody" {
         \relative {
-	  a'4 a a a
-	  \repeat volta 3 { b4 b b b }
+          a'4 a a a
+          \repeat volta 3 { b4 b b b }
           c4 c c c
-	}
+        }
       }
     }
     \new Lyrics = "firstVerse" \lyricsto "melody" {
       Not re -- peat -- ed.
       <<
-        { The first time words.	}
-	\new Lyrics = "secondVerse"
+        { The first time words. }
+        \new Lyrics = "secondVerse"
         \with { alignBelowContext = "firstVerse" } {
-	  \set associatedVoice = "melody"
-	  Sec -- ond time words.
-	}
-	\new Lyrics = "thirdVerse"
+          \set associatedVoice = "melody"
+          Sec -- ond time words.
+        }
+        \new Lyrics = "thirdVerse"
         \with { alignBelowContext = "secondVerse" } {
-	  \set associatedVoice = "melody"
-	  The third time words.
-	}
+          \set associatedVoice = "melody"
+          The third time words.
+        }
       >>
       The end sec -- tion.
     }

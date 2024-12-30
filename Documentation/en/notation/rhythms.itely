@@ -299,7 +299,7 @@ through the @code{bracket-visibility} property as detailed in
 one of the following snippets.
 
 @cindex tuplet bracket, visibility
-@cindex tuplet number	, visibility
+@cindex tuplet number, visibility
 @cindex visibility of tuplets
 More generally, either or both the @code{TupletBracket} and
 @code{TupletNumber} objects may be hidden or shown as explained in
@@ -1753,7 +1753,7 @@ current measure.  It does not create a new numbered bar.
 \relative {
   \set Score.barNumberVisibility = #all-bar-numbers-visible
   \override Score.BarNumber.break-visibility =
-	    #end-of-line-invisible
+              #end-of-line-invisible
   \time 9/8
   d''4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
   \time 12/8
@@ -1769,7 +1769,7 @@ signature changes in mid measure, but it may also be used alone.
 \relative {
   \set Score.barNumberVisibility = #all-bar-numbers-visible
   \override Score.BarNumber.break-visibility =
-	    #end-of-line-invisible
+              #end-of-line-invisible
   \time 6/8
   \partial 8
   e'8 | a4 c8 b[ c b] |
@@ -2880,7 +2880,7 @@ beaming settings for a time signature are described in
       3/4               % timeSignatureFraction
       #1/8              % beatBase
       1,5               % beatStructure
-      #'()		% beamExceptions
+      #'()              % beamExceptions
     \time 3/4
     \repeat unfold 6 { a'8 }
   }

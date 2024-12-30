@@ -981,7 +981,7 @@ For more information see @ref{Formatting text}.
 @lilypond[quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
-	     \doc-chars #kievan
+            \doc-chars #kievan
 @end lilypond
 
 
