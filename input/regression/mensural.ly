@@ -1,16 +1,16 @@
-\version "2.17.6"
-\header {
-  
-  texidoc = "There is limited support for mensural notation: note head
-shapes are available. Mensural stems are centered on the note heads,
-both for up and down stems."
+\version "2.25.23"
 
+\header {
+  texidoc = "LilyPond supports mensural music (including Kievan square
+notation) by providing special contexts.
+
+This test shows basic note values but no ligatures."
 }
 
+music = { e'8 d' b a e'4 d' e'2 d' e'1 d' eis'\breve d' ees'\longa d' }
+musicx = { e'16 d' b a \music }
+musicxx = { e'32 d' b a \musicx }
 
-{ \context Voice { 
-  \override NoteHead.style = #'mensural
-  \transpose c d'' {  c4 c2 c8  c16 c16  c1 c\breve c\longa }
-  \transpose c c' { c4 c2 c8  c16 c16  c1 c\breve c\longa }
-}}
-
+\new KievanStaff { e'8[ d'] b[ a] e'2. d'4. \music }
+\new PetrucciStaff { \clef "petrucci-c3" \musicx }
+\new MensuralStaff { \clef "mensural-c3" \musicxx }

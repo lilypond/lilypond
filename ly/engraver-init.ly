@@ -1538,6 +1538,7 @@ Odhecaton} (Venice, 1501)."
   %% Set glyph styles.
   \override NoteHead.style = #'petrucci
   \override Rest.style = #'mensural
+  \override Flag.style = #'mensural
 
   %% Thickens and shortens stems.
   \override Stem.thickness = #1.7
