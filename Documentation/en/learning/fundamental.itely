@@ -1741,7 +1741,7 @@ appearance of the output.  They are changed by the
 @noindent
 where @var{ContextName} is usually @code{Score},
 @code{Staff}, or @code{Voice}.  It may be omitted,
-in which case the current context (typically @code{Voice}) is assumed.
+in which case @code{Voice} is assumed.
 
 The names of context properties consist of words joined
 together with no hyphens or underscores, all except the
@@ -1828,12 +1828,11 @@ expected bass (or@tie{}F) clef -- because we omitted the context name.
 >>
 @end lilypond
 
-Remember the default context name is @code{Voice}, so the second
-@code{\set} command set the property @code{clefGlyph} in the
-@code{Voice} context to @code{clefs.F}, but as LilyPond does not look
-for any such property in the @code{Voice} context, no
-further action took place.  This is not an error, and no error
-message is emitted.
+The second @code{\set} command effectively sets
+@code{Voice.clefGlyph} to @code{clefs.F}, but as LilyPond
+does not rely on @code{clefGlyph} in the @code{Voice}
+context, setting it there has no impact.  This is not an
+error, and no error message is emitted.
 
 The @code{clefGlyph} property will take effect only
 if it is set in the @code{Staff} context, but
@@ -1841,9 +1840,10 @@ some properties can be set in more than one context.
 For example, the property @code{extraNatural} is by
 default set to @code{#t} (true) for all staves.
 If it is set to @code{#f} (false) in one particular @code{Staff}
-context it applies just to the accidentals on that staff.
-If it is set to false in the @code{Score} context
-it applies to all staves.
+context, it applies just to the accidentals on that staff.
+If it is set to false in the @code{Score} context,
+it applies to all @code{Staff} contexts where it is not
+otherwise set.
 
 So this turns off extra naturals in one staff:
 
@@ -1875,23 +1875,24 @@ and this turns them off in all staves:
 @end lilypond
 
 As another example, if @code{clefTransposition} is set in
-the @code{Score} context this immediately changes the value
-of the transposition in all current staves and sets a new default
-value, which will be applied to all staves.
+the @code{Score} context, it changes the transposition for
+current and future @code{Staff} contexts where it is not
+otherwise set.
 
-The opposite command, @code{\unset}, effectively removes the
-property from the context, which causes most properties to
-revert to their default value.  Usually @code{\unset} is not
-required as a new @code{\set} command will achieve what is
-wanted.
+The opposite command, @code{\unset}, removes the property from
+the context.  Often, another @code{\set} command can achieve the
+same observable result as an @code{\unset}.  The main
+consideration is whether the value from the enclosing context
+should show through. @code{\set} masks it and @code{\unset}
+makes it visible.
 
 The @code{\set} and @code{\unset} commands can appear anywhere
 in the input file and will take effect from the time they are
 encountered until the end of the score or until the property is
 @code{\set} or @code{\unset} again.  Let's try changing the
 font size, which affects the size of the note heads (among
-other things) several times.  The change is from the default
-value, not the most recently set value.
+other things) several times.  The value is set relative to the
+default font size, not to the most recently set value.
 
 @lilypond[quote,verbatim,ragged-right]
 \relative {
@@ -1921,14 +1922,12 @@ general way by using the very powerful @code{\markup} command.
 @funindex \with
 @cindex context properties, setting with @code{\with}
 
-The default value of context properties may be set at the time the
-context is created.  Sometimes this is a clearer way of setting a
-property value if it is to remain fixed for the duration of
-the context.  When a context is created with a @code{\new}
-command it may be followed immediately by a @code{\with @{ @dots{} @}}
-block in which the default property values are set.  For example,
-if we wish to suppress the printing of extra naturals for the
-duration of a staff we would write
+The value of context properties may be set at the time a context
+is created.  When a context is created with a @code{\new} command,
+it may be followed immediately by a @code{\with @{ @dots{}  @}}
+block in which the initial property values are set.  For example,
+if we wished to suppress the printing of extra naturals, we would
+write
 
 @example
 \new Staff \with @{ extraNatural = ##f @}
@@ -1952,16 +1951,10 @@ like this:
 >>
 @end lilypond
 
-Properties set in this way may still be changed dynamically using
-@code{\set} and returned to the default value set in the
-@code{\with} block with @code{\unset}.
-
-@cindex @code{fontSize} property, default and setting
-
-So if the @code{fontSize} property is set in a @code{\with} clause
-it sets the default value of the font size.  If it is later changed
-with @code{\set}, this new default value may be restored with the
-@code{\unset fontSize} command.
+@code{\with} can be a clear way to set values that are intended to
+remain fixed for the duration of the context; however, it does
+nothing to enforce this.  Properties initialized this way can
+still be changed dynamically using @code{\set} and @code{\unset}.
 
 @subsubheading Setting context properties with @code{\context}
 
