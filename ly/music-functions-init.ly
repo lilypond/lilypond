@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.22"
+\version "2.25.23"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2321,7 +2321,7 @@ an explicit tuplet span argument, use
 @end example
 ")
    (if tuplet-span
-       #{ \set tupletSpannerDuration = #(ly:duration->moment tuplet-span) #}
+       #{ \set tupletSpannerDuration = #(ly:duration->number tuplet-span) #}
        #{ \unset tupletSpannerDuration #}))
 
 tweak =

@@ -1002,6 +1002,10 @@ number property and triggers a warning.
 @tab
 @code{tempoWholesPerMinute}
 @item
+@code{tupletSpannerDurationAsMoment}
+@tab
+@code{tupletSpannerDuration}
+@item
 @code{voltaSpannerDurationAsMoment}
 @tab
 @code{voltaSpannerDuration}

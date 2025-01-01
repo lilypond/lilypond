@@ -5417,6 +5417,7 @@ minimumRepeatLengthForPageTurn -> pageTurnMinimumRepeatLength
 completionUnit = \musicLength <duration> -> completionUnit = #<rational>
 gridInterval = \musicLength <duration> -> ... = #<rational>
 proportionalNotationDuration = \musicLength <duration> -> ... = #<rational>
+tupletSpannerDuration = \musicLength <duration> -> ... = #<rational>
 """)
 def conv(s):
     s = re.sub(make_mom_assign_re('maximumBeamSubdivisionInterval'),
@@ -5447,6 +5448,10 @@ def conv(s):
                r'proportionalNotationDurationAsMoment', s)
     s = re.sub(make_mom_assign_re('proportionalNotationDurationAsMoment'),
                make_mom_assign_replacer('proportionalNotationDuration'), s)
+    s = re.sub(r'\btupletSpannerDuration\b',
+               r'tupletSpannerDurationAsMoment', s)
+    s = re.sub(make_mom_assign_re('tupletSpannerDurationAsMoment'),
+               make_mom_assign_replacer('tupletSpannerDuration'), s)
     return s
 
 

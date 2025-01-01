@@ -695,6 +695,7 @@ determines the number of scale steps that make up an octave.  Usually the
   'proportionalNotationDurationAsMoment
   'tempoWholesPerMinuteAsMoment
   'translation-type?
+  'tupletSpannerDurationAsMoment
   'voltaSpannerDuration
   'voltaSpannerDurationAsMoment
   (let ((getr (deprecated-getter-object-property category-type-symbol))

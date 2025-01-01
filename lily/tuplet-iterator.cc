@@ -99,11 +99,9 @@ Tuplet_iterator::process (Moment m)
         }
       else
         {
-          SCM d_scm = get_property (get_context (), "tupletSpannerDuration");
-          if (auto *mp = unsmob<Moment> (d_scm))
-            spanner_duration_ = Moment (mp->main_part_); // discard grace part
-          else
-            spanner_duration_ = Moment::infinity ();
+          spanner_duration_ = Moment (
+            from_scm (get_property (get_context (), "tupletSpannerDuration"),
+                      Rational::infinity ()));
         }
     }
 
