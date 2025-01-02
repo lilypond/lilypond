@@ -641,6 +641,7 @@ guile> (cond ((< a b) "a is less than b")
 * Importing Scheme in LilyPond::
 * Object properties::
 * LilyPond compound variables::
+* LilyPond's box model::
 * Internal music representation::
 @end menu
 
@@ -1067,6 +1068,128 @@ entry found is returned, and the value is the property value.
 
 The Scheme procedure @code{chain-assoc-get} is normally used to get
 grob property values.
+
+@node LilyPond's box model
+@subsection LilyPond's box model
+
+The @q{classical} box model for text (as used, for example, in
+@TeX{}), comprises the three dimensions @dfn{width}, @dfn{height},
+and @dfn{depth}: glyphs are positioned on a horizontal text base
+line; the height of a glyph is the vertical size above this line,
+the depth the size below this line, and the width holds the
+horizontal size of the glyph.  LilyPond adds a fourth dimension,
+@dfn{breapth},@footnote{This artificial name was derived from the
+English word @q{breadth}, which means approximately the same as
+@q{width}.} to extend the horizontal size by a part left of the
+glyph's @q{reference point}, denoted with @q{(0,@tie{}0)} in the
+image below.  The main reason for this extension is that many
+glyphs like fermatas are symmetrical horizontally (and also
+symmetrically attached to a note head), and the best reference
+point for such glyphs is consequently the horizontal center.
+Other glyphs like the quarter-tone accidental shown on the left in
+the image also have considerable breapth.
+
+@lilypond[quote]
+#(define-markup-command (point layout props x y xoff yoff)
+   (number? number? number? number?)
+   (interpret-markup
+    layout props
+    (make-overlay-markup
+     (list
+      (make-translate-markup
+       (cons x y)
+       (make-draw-circle-markup 0.4 0 #t))
+      (make-translate-markup
+       (cons (+ x xoff) (+ y yoff))
+       (make-concat-markup
+        (list "(" (number->string x) ", " (number->string y) ")")))))))
+
+\markup \scale #'(0.8 . 0.8) {
+  \overlay {
+    \scale #'(18 . 16) \with-color #(x11-color "gray80")
+      \musicglyph "accidentals.flatflat.slash"
+
+    \override #'((filled . #f)
+                 (thickness . 2))
+      \polygon #'((-9 . -10) (-9 . 29) (26 . 29) (26 . -10))
+
+    \translate #'(-15 . 0) \draw-line #'(47 . 0)
+    \translate #'(32 . 0) \arrow-head #X #RIGHT ##t
+    \translate #'(31 . -2) \italic "x"
+    \translate #'(0 . -15) \draw-line #'(0 . 50)
+    \translate #'(0 . 35) \arrow-head #Y #UP ##t
+    \translate #'(-2 . 34) \italic "y"
+
+    \point #0 #0 #0.5 #0.8
+    \point #-9 #-10 #0.5 #0.8
+    \point #26 #29 #-3 #1
+
+    \translate #'(-13.5 . -5.5) \rotate #90 \italic "depth"
+    \translate #'(-13.5 . 13) \rotate #90 \italic "height"
+    \translate #'(-8.5 . -12.2) \italic "breapth"
+    \translate #'(9 . -12.2) \italic "width"
+  }
+
+  \hspace #1
+
+  \overlay {
+    \scale #'(16 . 16) \with-color #(x11-color "gray80")
+      \musicglyph "custodes.mensural.u0"
+
+    \override #'((filled . #f)
+                 (thickness . 2))
+      \polygon #'((0 . -5.8) (0 . 32) (21 . 32) (21 . -5.8))
+
+    \translate #'(-6 . 0) \draw-line #'(50 . 0)
+    \translate #'(44 . 0) \arrow-head #X #RIGHT ##t
+    \translate #'(43 . -2) \italic "x"
+    \translate #'(0 . -11) \draw-line #'(0 . 49)
+    \translate #'(0 . 39) \arrow-head #Y #UP ##t
+    \translate #'(-2 . 38) \italic "y"
+
+    \point #0 #0 #0.5 #0.8
+    \point #0 #-5.8 #0.5 #0.8
+    \point #21 #32 #-3 #1
+
+    \translate #'(-4.5 . -3.7) \rotate #90 \italic "depth"
+    \translate #'(-4.5 . 15) \rotate #90 \italic "height"
+    \translate #'(7 . -8) \italic "width"
+  }
+}
+@end lilypond
+
+As demonstrated by the custos glyph on the right side of the
+image, the box defined for a glyph often differs considerably of
+what gets actually printed: LilyPond positions the right side of
+the custos glyph box at the end of a staff, making the long
+extension line stick out to the right into the margin.
+
+This box model is not only used for LilyPond's musical glyphs but
+also for markup of any kind.  Both the horizontal and vertical
+dimensions are specified as an extent; using Scheme notation, the
+left glyph in the image above has a horizontal extent of
+@code{#'(-9 . 26)} and a vertical extent of @code{#'(-10 . 29)}.
+
+LilyPond also uses some extensions to the box model to cover
+special cases.
+
+@itemize
+@item
+If a box should not take part in LilyPond's music spacing
+algorithm along a certain axis, set the extents of this axis to
+the otherwise nonsensical value @code{#'(+inf.0 . -inf.0)}, also
+available as the symbol @code{empty-interval}.
+
+@item
+In markup, @dfn{spacing} (which normally causes horizontal or
+vertical movement of the next object in the markup) is also set up
+as a box internally: the extent along the orthogonal axis is set
+to @code{empty-interval} as a marker, and a spacing
+value@tie{}@var{s} is represented as the extent @code{#'(0
+. @var{s})}.  Contrary to @q{normal} boxes, spacing can be also
+negative: for example, the horizontal extent of the markup command
+@code{\hspace #-4} is @code{#'(0 . -4)}.
+@end itemize
 
 @node Internal music representation
 @subsection Internal music representation

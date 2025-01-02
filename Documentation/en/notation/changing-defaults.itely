@@ -3168,6 +3168,11 @@ its right edge at 10, its bottom edge at -3 and its top edge at 15,
 all measured from the objects' reference point in units of
 staff spaces.
 
+For more information on how such boxes are defined, including the
+formal definition of horizontal and vertical space as set up by
+the @code{\hspace} and @code{\vspace} markup commands, see
+@rextend{LilyPond's box model}.
+
 @morerefs
 Notation Reference:
 @ref{Other markup commands} (documentation for commands similar to
