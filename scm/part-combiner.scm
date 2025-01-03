@@ -808,55 +808,124 @@ the mark when there are no spanners active.
                 (solo1   . (Solo1   solo   solo1))
                 (solo2   . (Solo2   solo   solo2))))))
 
+(define-public ((traverse-state-machine machine) prev-label curr-split-state)
+  (assq-ref (assq-ref machine prev-label)
+            curr-split-state))
+
+(define (state+moment state split)
+  (let ((state-label (car state))
+        (voice (cadr state))
+        (moment (car split))
+        (payload (cddr state)))
+    `(,state-label ,voice ,moment ,@payload)))
+
+(define ((splits-to-states-using next-state-proc merge-same-label)
+         this-split states)
+  "Returns a procedure to be used with fold, that uses next-state-proc to
+transform a split-list of (moment . split-state) into a state-list of
+(label voice-id moment [rest...]).
+
+Accepts next-state-proc: a procedure taking two symbols <label, split-state>
+as arguments, and returning a state (label voice-id [rest...]). If
+next-state-proc traverses a state machine table, this flattens the depedencies
+between elements.
+
+Unless merge-same-label is #f, states with the same label as the previous state
+are skipped.
+
+Note that fold transforms a beginning->end split-list into an end->beginning
+state-list."
+  (if (pair? states)
+      (let* ((prev-label (caar states))
+             ;; to handle an initial event not mapped to a state, we can't
+             ;; just use 'Initial as the prev-label, because if the first
+             ;; actual state is 'Initial, we don't want to skip it as a
+             ;; duplicate. it might need to print text to a voice.
+             (this-state (next-state-proc (or prev-label 'Initial)
+                                          (cdr this-split))))
+        (if (and this-state
+                 ;; any labels after the first that are #f, skip
+                 (car this-state)
+                 ;; is the new state the same as the old state?
+                 (not (and merge-same-label
+                           (eq? (car this-state) prev-label))))
+            (cons (state+moment this-state this-split) states)
+            states))
+      (let ((init-state (next-state-proc 'Initial (cdr this-split))))
+        (if init-state
+            (list (state+moment init-state this-split))
+            ;; if the first split doesn't map to a state
+            ;; we can't discard it, because we need its
+            ;; moment to create an initial skip
+            (list (list #f #f (car this-split)))))))
+
+(define (states-to-segments this-state segments)
+  "A procedure to be used with fold, that transforms a list of states into a
+segment list. These states are lists (voice-id moment event-payload), where
+voice-id is a symbol.
+
+A segment is of the form:
+
+    (state0 moment-interval0 [state1 moment-interval1 [...]]),
+
+where all states in each segment have the same voice-id, and a moment-interval
+is a list consisting of the moments from the states adjecent to it, which might
+belong to the next segment.
+
+Note that the list of states is expected to be ordered end->beginning, and
+fold transforms it into a segment list ordered beginning->end."
+  (if (pair? segments)
+      (let* ((current-segment (car segments))
+             (seg-voice (caar current-segment))
+             (seg-first-moment (cadar current-segment))
+             (this-voice (car this-state))
+             (this-moment (cadr this-state)))
+        (if (eq? this-voice seg-voice)
+            ;; if this-state is in the same voice as the current segment
+            ;; add this-state to the current segment with appropriate skips
+            (cons (cons* this-state
+                         (list this-moment seg-first-moment)
+                         current-segment)
+                  (cdr segments))
+            ;; otherwise, start building a new segment
+            (cons `(,this-state
+                    (,this-moment ,seg-first-moment))
+                  segments)))
+      (list (list this-state))))
+
+(define (segment-el->music el)
+  (if (symbol? (car el))
+      (make-music 'PartCombineEvent
+                  'part-combine-status (caddr el))
+      (skip-of-moment-span (car el) (cadr el))))
+
+(define (segment->music segment)
+  (let ((voice (caar segment)))
+    (cond
+     (voice (make-music 'ContextSpeccedMusic
+                        'context-id (symbol->string voice)
+                        'context-type 'Voice
+                        'element (make-sequential-music (map segment-el->music
+                                                             segment))))
+     ;; if voice is #f for this segment, just create a skip of its full duration
+     ((< 1 (length segment))
+      (skip-of-moment-span (cadar segment)
+                           (cadr (last segment))))
+     ;; don't bother creating zero-duration skips
+     (else #f))))
+
 (define-public (make-part-combine-marks state-machine split-list)
-  "Generate a sequence of part combiner events from a split list."
+  "Generate a sequence of segments alternating skips and part-combine-events for
+each active voice. There may be an initial skip that is not specced to any
+Voice context."
+  (let* ((get-next-state (traverse-state-machine state-machine))
+         (state-list (fold (splits-to-states-using get-next-state #t)
+                           '() split-list))
+         (stripped-labels (map cdr state-list))
+         (segment-list (fold states-to-segments '() stripped-labels))
+         (music-segs (filter-map segment->music segment-list)))
+    (make-sequential-music music-segs)))
 
-  (define (get-state state-name)
-    (assq-ref state-machine state-name))
-
-  (let ((full-seq '()) ; sequence of { \context Voice = "x" {} ... }
-        (segment '()) ; sequence within \context Voice = "x" {...}
-        (prev-moment ZERO-MOMENT)
-        (prev-voice #f)
-        (state (get-state 'Initial)))
-
-    (define (commit-segment)
-      "Add the current segment to the full sequence and begin another."
-      (if (pair? segment)
-          (set! full-seq
-                (cons (make-music 'ContextSpeccedMusic
-                                  'context-id (symbol->string prev-voice)
-                                  'context-type 'Voice
-                                  'element (make-sequential-music (reverse! segment)))
-                      full-seq)))
-      (set! segment '()))
-
-    (define (handle-split split)
-      (let* ((moment (car split))
-             (action (assq-ref state (cdr split))))
-        (if action
-            (let ((voice (cadr action))
-                  (output-event-status (caddr action))
-                  (next-state-name (car action)))
-              (if output-event-status
-                  (let ((dur (ly:moment-sub moment prev-moment)))
-                    ;; start a new segment when the voice changes
-                    (if (not (eq? voice prev-voice))
-                        (begin
-                          (commit-segment)
-                          (set! prev-voice voice)))
-                    (if (not (equal? dur ZERO-MOMENT))
-                        (set! segment (cons (make-music 'SkipEvent
-                                                        'duration (make-duration-of-length dur)) segment)))
-                    (set! segment (cons (make-music 'PartCombineEvent
-                                                    'part-combine-status output-event-status) segment))
-
-                    (set! prev-moment moment)))
-              (set! state (get-state next-state-name))))))
-
-    (for-each handle-split split-list)
-    (commit-segment)
-    (make-sequential-music (reverse! full-seq))))
 
 (define-public default-part-combine-context-change-state-machine-one
   ;; (current-state . ((split-state-event . (next-state output-voice)) ...))
