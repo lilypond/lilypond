@@ -981,53 +981,32 @@ Voice context."
                  (unisono       . (Promoted shared))
                  (unisilence    . (Promoted shared))))))
 
+(define (states-to-change-list this-state changes)
+  (if (pair? changes)
+      (let ((this-moment (cadr this-state))
+            (next-moment (cadar changes)))
+        (cons* this-state
+               (list this-moment next-moment)
+               changes))
+      (list this-state)))
+
+(define (change-el->music el)
+  (if (symbol? (car el))
+      (make-music 'ContextChange
+                  'change-tag '$partCombine
+                  'change-to-type 'Voice
+                  'change-to-id (symbol->string (car el)))
+      (skip-of-moment-span (car el) (cadr el))))
+
 (define-public (make-part-combine-context-changes state-machine split-list)
   "Generate a sequence of part combiner context changes from a split list."
-
-  (define (get-state state-name)
-    (assq-ref state-machine state-name))
-
-  (let* ((change-list '())
-         (prev-moment
-          ;; the start moment is in the first entry of the split list
-          (if (and (pair? split-list) (pair? (car split-list)))
-              (caar split-list)
-              ZERO-MOMENT))
-         (prev-change-moment prev-moment)
-         (prev-voice #f)
-         (state (get-state 'Initial)))
-
-    (define (handle-split split)
-      (let* ((moment (car split))
-             (action (assq-ref state (cdr split))))
-        (if action
-            (let ((voice (cadr action))
-                  (next-state-name (car action)))
-              (if (not (eq? voice prev-voice))
-                  (begin
-                    (set! change-list
-                          (cons (skip-of-moment-span prev-change-moment moment)
-                                change-list))
-                    (set! change-list
-                          (cons (make-music
-                                 'ContextChange
-                                 'change-tag '$partCombine
-                                 'change-to-type 'Voice
-                                 'change-to-id (symbol->string voice))
-                                change-list))
-                    (set! prev-change-moment moment)
-                    (set! prev-voice voice)))
-              (set! prev-moment moment)
-              (set! state (get-state next-state-name))))))
-
-    ;; (display split-list)
-    (for-each handle-split split-list)
-    ;; add a final skip so that the length of the music is correct
-    (set! change-list (cons (skip-of-moment-span prev-change-moment prev-moment)
-                            change-list))
-    (let ((result (make-sequential-music (reverse! change-list))))
-      ;; (display-lily-music result)
-      result)))
+  (let* ((get-next-state (traverse-state-machine state-machine))
+         (state-list (fold (splits-to-states-using get-next-state #f)
+                           '() split-list))
+         (stripped-labels (map cdr state-list))
+         (change-list (fold states-to-change-list '() stripped-labels))
+         (change-music (map change-el->music change-list)))
+    (make-sequential-music change-music)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
