@@ -790,7 +790,9 @@ the mark when there are no spanners active.
 (define-public default-part-combine-mark-state-machine
   ;; (current-state . ((split-state-event .
   ;;                      (next-state output-voice output-event-status)) ...))
-  '((Initial . ((solo1   . (Solo1   solo   solo1))
+  '((Initial . ((apart   . (Initial one    apart))
+                (chords  . (Initial shared chords))
+                (solo1   . (Solo1   solo   solo1))
                 (solo2   . (Solo2   solo   solo2))
                 (unisono . (Unisono shared unisono))))
     (Solo1   . ((apart   . (Initial one    apart))
