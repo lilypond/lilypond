@@ -5467,6 +5467,7 @@ def conv(s):
 
 @rule((2, 25, 24), r"""
 Warn about change in partcombine music types and event classes.
+Warn about change in format of partcombine state machine tables.
 """)
 def conv(s):
     if re.search(r'(Unisono|SoloOne|SoloTwo)Event', s):
@@ -5483,6 +5484,28 @@ PartCombineEvent, with different values for property 'part-combine-status:
 unisono-event, solo-one-event, and unisono-event have been removed. Instead,
 use part-combine-event with different values for property 'part-combine-status:
 'unisono, 'solo1, 'solo2 respectively.
+"""))
+        stderr_write(UPDATE_MANUALLY)
+    if re.search(r'make-part-combine-(marks|context-changes)', s):
+        stderr_write(NOT_SMART % _(r"""
+Advanced use of make-part-combine-marks or make-part-combine-context-changes.
+"""))
+        stderr_write(_(r"""
+The format of values returned by all partcombine state machine tables was
+changed:
+
+  1. 'next-label' symbols moved from LAST to FIRST
+  2. Values are now always proper lists (changed from dotted pairs for
+     context-changes table)
+
+The order of arguments to make-part-combine-marks was reversed (but not for
+make-part-combine-context-changes). The state-machine argument is now optional,
+and expects a procedure rather than a state-machine table. For equivalent
+behavior, pass:
+        (traverse-state-machine <your-state-machine-table>)
+as the second argument.
+
+Refer to part-combiner.scm for more information.
 """))
         stderr_write(UPDATE_MANUALLY)
     return s
