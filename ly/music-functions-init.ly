@@ -1684,32 +1684,35 @@ popContextProperty =
    (_i "Pop value of context property @var{path} from stack and set it.
 
 This is the opposite to function @code{\\pushContextProperty}.")
-   (if (= (length path) 1)
-       (set! path (cons 'Bottom path)))
-   (let ((input-location (*location*)))
-     (context-spec-music
-      (make-music
-       'ApplyContext
-       'procedure
-       (lambda (ctx)
-         (let* ((stacks (ly:context-property ctx 'propertyStacks))
-                (stack (assoc-get (cadr path) stacks '())))
-           (if (null? stack)
-               (begin
-                 (ly:input-warning
-                  input-location
-                  (G_ "cannot pop from empty stack; unsetting"))
-                 (ly:context-unset-property ctx (cadr path)))
-               (begin
-                 (ly:context-set-property! ctx
-                                           (cadr path)
-                                           (car stack))
-                 (ly:context-set-property! ctx
-                                           'propertyStacks
-                                           (assoc-set! stacks
-                                                       (cadr path)
-                                                       (cdr stack))))))))
-      (car path))))
+   (let ((input-location (*location*))
+         (p (check-context-path path)))
+     (if p
+         (let ((ctx-name (car p))
+               (prop-name (cadr p)))
+           (context-spec-music
+            (make-music
+             'ApplyContext
+             'procedure
+             (lambda (ctx)
+               (let* ((stacks (ly:context-property ctx 'propertyStacks))
+                      (stack (assoc-get prop-name stacks '())))
+                 (if (null? stack)
+                     (begin
+                       (ly:input-warning
+                        input-location
+                        (G_ "cannot pop from empty stack; unsetting"))
+                       (ly:context-unset-property ctx prop-name))
+                     (begin
+                       (ly:context-set-property! ctx
+                                                 prop-name
+                                                 (car stack))
+                       (ly:context-set-property! ctx
+                                                 'propertyStacks
+                                                 (assoc-set! stacks
+                                                             prop-name
+                                                             (cdr stack))))))))
+            ctx-name))
+         (make-music 'Music))))
 
 propertyOverride =
 #(define-music-function (grob-property-path value) (key-list? scheme?)
@@ -1867,25 +1870,28 @@ pushContextProperty =
 
 The old value can be popped off the stack and restored with function
 @code{\\popContextProperty}.")
-   (if (= (length path) 1)
-       (set! path (cons 'Bottom path)))
-   (context-spec-music
-    (make-music
-     'ApplyContext
-     'procedure
-     (lambda (ctx)
-       (let* ((stacks (ly:context-property ctx 'propertyStacks))
-              (stack (assoc-get (cadr path) stacks '()))
-              (this-val (ly:context-property ctx (cadr path))))
-         (ly:context-set-property! ctx
-                                   'propertyStacks
-                                   (assoc-set! stacks
-                                               (cadr path)
-                                               (cons this-val stack)))
-         (ly:context-set-property! ctx
-                                   (cadr path)
-                                   value))))
-    (car path)))
+   (let ((p (check-context-path path)))
+     (if p
+         (let ((ctx-name (car p))
+               (prop-name (cadr p)))
+           (context-spec-music
+            (make-music
+             'ApplyContext
+             'procedure
+             (lambda (ctx)
+               (let* ((stacks (ly:context-property ctx 'propertyStacks))
+                      (stack (assoc-get prop-name stacks '()))
+                      (this-val (ly:context-property ctx prop-name)))
+                 (ly:context-set-property! ctx
+                                           'propertyStacks
+                                           (assoc-set! stacks
+                                                       prop-name
+                                                       (cons this-val stack)))
+                 (ly:context-set-property! ctx
+                                           prop-name
+                                           value))))
+            ctx-name))
+         (make-music 'Music))))
 
 pushToTag =
 #(define-music-function (tag more music) (symbol? ly:music? ly:music?)
