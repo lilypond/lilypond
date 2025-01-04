@@ -447,40 +447,46 @@ compressMMRests =
     music))
 
 contextPropertyCheck =
-#(define-music-function (property-path expected-value)
-   (symbol-list-or-symbol? scheme?)
-   (_i "Check that the context property identified by @var{property-path} is set
-to @var{expected-value} in that very context: being set in an enclosing context
-is insufficient.  If @var{expected-value} is @code{#*unspecified*}, check that
-the property is unset in that context.
+#(let ((dummy (make-symbol "never used as a property value")))
+   (define (filter-value value)
+     (if (eq? value dummy)
+         (G_ "unset")
+         value))
+   (define-music-function (property-path expected-value)
+     (symbol-list-or-symbol? (scheme? dummy))
+     (_i "Check that the context property identified by @var{property-path} is
+set to @var{expected-value} in that very context: being set in an enclosing
+context is insufficient.  If @var{expected-value} is @code{\\default}, check
+that the property is unset in that context.
 
 If @var{property-path} does not name a context, @code{Bottom} is implied.
 
 Print a warning if the requested context is not visible looking upward from the
 current context or if the state of the property in the requested context is
 unexpected.")
-   (let ((input-location (*location*))
-         (p (check-context-path property-path)))
-     (if p
-         (let ((ctx-name (car p))
-               (prop-name (cadr p)))
-           (define (check start-ctx)
-             (let ((ctx (ly:context-find start-ctx ctx-name)))
-               (if ctx
-                   (let ((actual-value
-                          (ly:context-property ctx prop-name
-                                               #:default *unspecified*
-                                               #:search-ancestors? #f)))
-                     (when (not (equal? actual-value expected-value))
-                       (ly:input-warning input-location
-                                         (G_ "~a.~a is ~a; expected ~a")
-                                         (ly:context-name ctx) prop-name
-                                         actual-value expected-value)))
-                   (ly:input-warning input-location
-                                     (G_ "cannot find context: ~a")
-                                     ctx-name))))
-           (make-music 'ApplyContext 'procedure check))
-         (make-music 'Music))))
+     (let ((input-location (*location*))
+           (p (check-context-path property-path)))
+       (if p
+           (let ((ctx-name (car p))
+                 (prop-name (cadr p)))
+             (define (check start-ctx)
+               (let ((ctx (ly:context-find start-ctx ctx-name)))
+                 (if ctx
+                     (let ((actual-value
+                            (ly:context-property ctx prop-name
+                                                 #:default dummy
+                                                 #:search-ancestors? #f)))
+                       (when (not (equal? actual-value expected-value))
+                         (ly:input-warning input-location
+                                           (G_ "~a.~a is ~a; expected ~a")
+                                           (ly:context-name ctx) prop-name
+                                           (filter-value actual-value)
+                                           (filter-value expected-value))))
+                     (ly:input-warning input-location
+                                       (G_ "cannot find context: ~a")
+                                       ctx-name))))
+             (make-music 'ApplyContext 'procedure check))
+           (make-music 'Music)))))
 
 crossStaff =
 #(define-music-function (notes) (ly:music?)

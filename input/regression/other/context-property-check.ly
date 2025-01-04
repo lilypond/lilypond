@@ -20,7 +20,7 @@ expected warnings.  The visual output is not important."
 
   \context VaticanaScore {
     \contextPropertyCheck Score.timing ##f
-    \contextPropertyCheck Score.vocalName #*unspecified*
+    \contextPropertyCheck Score.vocalName \default
 
     #(ly:expect-warning
       (ly:translate-cpp-warning-scheme "cannot find context: %s")
@@ -42,18 +42,18 @@ expected warnings.  The visual output is not important."
       \contextPropertyCheck Staff.measureBarType "dummy E"
 
       \unset VaticanaStaff.measureBarType
-      \contextPropertyCheck Staff.measureBarType #*unspecified*
+      \contextPropertyCheck Staff.measureBarType \default
       #(ly:expect-warning
         (G_ "~a.~a is ~a; expected ~a")
-        "VaticanaStaff" "measureBarType" "#<unspecified>" "dummy F")
+        "VaticanaStaff" "measureBarType" (G_ "unset") "dummy F")
       \contextPropertyCheck Staff.measureBarType "dummy F"
 
       s % descends to Bottom (VaticanaVoice)
 
-      \contextPropertyCheck timing #*unspecified*
-      \contextPropertyCheck Bottom.timing #*unspecified*
-      \contextPropertyCheck VaticanaVoice.timing #*unspecified*
-      \contextPropertyCheck Voice.timing #*unspecified*
+      \contextPropertyCheck timing \default
+      \contextPropertyCheck Bottom.timing \default
+      \contextPropertyCheck VaticanaVoice.timing \default
+      \contextPropertyCheck Voice.timing \default
 
       \contextPropertyCheck autoBeaming ##f
       \contextPropertyCheck Bottom.autoBeaming ##f
@@ -69,6 +69,18 @@ expected warnings.  The visual output is not important."
         (ly:translate-cpp-warning-scheme "cannot find context: %s")
         "DrumVoice")
       \contextPropertyCheck DrumVoice.autoBeaming ##f
+
+      \set measureBarType = "dummy H"
+      #(ly:expect-warning
+        (G_ "~a.~a is ~a; expected ~a")
+        "VaticanaVoice" "measureBarType" "dummy H" "#<unspecified>")
+      \contextPropertyCheck measureBarType #*unspecified*
+
+      %% It's a bit weird that a string property is allowed to be set to
+      %% *unspecified*, but since it is, we want \contextPropertyCheck to be
+      %% able to handle it.
+      \set measureBarType = #*unspecified*
+      \contextPropertyCheck measureBarType #*unspecified*
     }
   }
 }
