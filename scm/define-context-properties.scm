@@ -921,7 +921,9 @@ account for time skipped via @code{skipTypesetting}.")
 
      (partialBusy ,boolean? "Signal that \\partial acts at the current timestep.")
      (propertyStacks ,alist? "An alist used by @code{\\pushContextProperty} and
-@code{\\popContextProperty} to emulate a context property stack.")
+@code{\\popContextProperty} to emulate a context property stack.  Each element
+of a stack is a list: either an empty list representing the unset state or a
+one-element list holding the value for the set state.")
 
 
      (quotedCueEventTypes ,list? "A list of symbols, representing the
