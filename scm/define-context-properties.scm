@@ -920,7 +920,7 @@ account for time skipped via @code{skipTypesetting}.")
 
 
      (partialBusy ,boolean? "Signal that \\partial acts at the current timestep.")
-     (propertyStack ,alist? "An alist used by @code{\\pushContextProperty} and
+     (propertyStacks ,alist? "An alist used by @code{\\pushContextProperty} and
 @code{\\popContextProperty} to emulate a context property stack.")
 
 

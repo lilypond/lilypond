@@ -1691,9 +1691,9 @@ This is the opposite to function @code{\\pushContextProperty}.")
      'ApplyContext
      'procedure
      (lambda (ctx)
-       (let* ((stack (ly:context-property ctx 'propertyStack))
-              (this-hierarchy (assoc-get (cadr path) stack '())))
-         (if (null? this-hierarchy)
+       (let* ((stacks (ly:context-property ctx 'propertyStacks))
+              (stack (assoc-get (cadr path) stacks '())))
+         (if (null? stack)
              (begin
                (ly:warning
                 (G_ "context property ~a.~a not stacked, setting to default")
@@ -1702,12 +1702,12 @@ This is the opposite to function @code{\\pushContextProperty}.")
              (begin
                (ly:context-set-property! ctx
                                          (cadr path)
-                                         (car this-hierarchy))
+                                         (car stack))
                (ly:context-set-property! ctx
-                                         'propertyStack
-                                         (assoc-set! stack
+                                         'propertyStacks
+                                         (assoc-set! stacks
                                                      (cadr path)
-                                                     (cdr this-hierarchy))))))))
+                                                     (cdr stack))))))))
     (car path)))
 
 propertyOverride =
@@ -1873,14 +1873,14 @@ The old value can be popped off the stack and restored with function
      'ApplyContext
      'procedure
      (lambda (ctx)
-       (let* ((stack (ly:context-property ctx 'propertyStack))
-              (this-hierarchy (assoc-get (cadr path) stack '()))
+       (let* ((stacks (ly:context-property ctx 'propertyStacks))
+              (stack (assoc-get (cadr path) stacks '()))
               (this-val (ly:context-property ctx (cadr path))))
          (ly:context-set-property! ctx
-                                   'propertyStack
-                                   (assoc-set! stack
+                                   'propertyStacks
+                                   (assoc-set! stacks
                                                (cadr path)
-                                               (cons this-val this-hierarchy)))
+                                               (cons this-val stack)))
          (ly:context-set-property! ctx
                                    (cadr path)
                                    value))))
