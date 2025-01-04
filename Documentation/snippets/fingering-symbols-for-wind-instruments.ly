@@ -22,25 +22,21 @@ useful for wind instruments.
 } % begin verbatim
 
 
-mymarkup = {
-  \once \override TextScript.outside-staff-padding = 0
-  \once \override TextScript.staff-padding = 0
-  \once \override TextScript.padding = 0.2
-  \once \override TextScript.X-offset =
-    #(lambda (g)
-       (+ (ly:self-alignment-interface::centered-on-x-parent g)
-          (ly:self-alignment-interface::x-aligned-on-self g)))
-}
+lineup =
+  \tweak outside-staff-padding #0
+  \tweak staff-padding #0
+  \tweak padding #0.2
+  \tweak parent-alignment-X #CENTER
+  \tweak self-alignment-X #CENTER
+  \etc
 
 \relative c' {
   g\open
-  \mymarkup
-  g^\markup \combine
-      \musicglyph "scripts.open"
-      \musicglyph "scripts.tenuto"
-  \mymarkup
-  g^\markup \combine
-      \musicglyph "scripts.open"
-      \musicglyph "scripts.stopped"
+  g\lineup ^\markup \combine
+              \musicglyph "scripts.open"
+              \musicglyph "scripts.tenuto"
+  g\lineup ^\markup \combine
+              \musicglyph "scripts.open"
+              \musicglyph "scripts.stopped"
   g\stopped
 }

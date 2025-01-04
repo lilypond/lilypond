@@ -852,7 +852,7 @@ There is a predefined alternative coda mark formatter that uses
 @cindex volta bracket, in additional staves
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/adding-volta-brackets-to-additional-staves.ly}
+{snippets/volta-brackets-in-multiple-staves.ly}
 
 @cindex repeat, bar numbers with letters
 @cindex bar number, with letter, in repeat

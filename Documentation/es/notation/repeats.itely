@@ -343,7 +343,7 @@ definidos anteriormente con la instrucción @code{\defineBarLine}
 @cindex primera y segunda vez, corchete en pautas adicionales
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/adding-volta-brackets-to-additional-staves.ly}
+{snippets/volta-brackets-in-multiple-staves.ly}
 
 @cindex repetición, doble, estilo para primera y seguinda vez
 @cindex primera y seguinda vez, estilo de repetición doble

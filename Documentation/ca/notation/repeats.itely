@@ -341,7 +341,7 @@ anteriorment amb la instrucció @code{\defineBarLine}
 {snippets/shortening-volta-brackets.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/adding-volta-brackets-to-additional-staves.ly}
+{snippets/volta-brackets-in-multiple-staves.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/setting-the-double-repeat-default-for-volte.ly}

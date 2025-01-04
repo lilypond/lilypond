@@ -15,79 +15,109 @@
 
   texidoc = "
 Using tags, it is possible to produce both mensural and modern notation
-from the same music.  In this snippet, a function @code{\\menrest} is
+from the same music. In this snippet, a function @code{\\menrest} is
 introduced, allowing mensural rests to be pitched as in the original,
 but with modern rests in the standard staff position.
 
 Tags can also be used where other differences are needed: for example
 using @qq{whole measure rests} (@code{R1}, @code{R\\breve}, etc.) in
 modern music, but normal rests (@code{r1}, @code{r\\breve}, etc.) in
-the mensural version.  Converting mensural music to its modern
+the mensural version. Converting mensural music to its modern
 equivalent is usually referred to as @emph{transcription}.
+
+The call @code{c4.\\Be c8 c\\Am} is the same as @code{c4.[ c8 c]}.
+However, it suppresses warnings if it starts on a note that can't hold
+a beam but needs it anyway due to the use of
+@code{Completion_heads_engraver}.
+
+[The slightly shortened line length of the mensural staff avoids
+cropping of the custos glyph while LilyPond generates clipped images.]
 "
 
   doctitle = "Using tags to produce mensural and modern music from the same source"
 } % begin verbatim
 
 
-\header { tagline = ##f }
-
-menrest =
-#(define-music-function (note)
-  (ly:music?)
-    #{
-      \tag #'mens $(make-music 'RestEvent note)
-      \tag #'mod $(make-music 'RestEvent note 'pitch '())
-    #})
+menrest = #(define-music-function (note) (ly:music?)
+              #{
+                \tag #'mens $(make-music 'RestEvent note)
+                \tag #'mod $(make-music 'RestEvent note 'pitch '())
+              #})
+Be = \tag #'mod
+       #(begin
+          (ly:expect-warning (G_ "stem does not fit in beam"))
+          (ly:expect-warning (G_ "beam was started here"))
+          (make-span-event 'BeamEvent START))
+Am = \tag #'mod ]
 
 MenStyle = {
-  \autoBeamOff
-  \override NoteHead.style = #'petrucci
   \override Score.BarNumber.transparent = ##t
   \override Stem.neutral-direction = #up
+  \omit Slur
+  \omit Beam
 }
 
 finalis = \section
 
 Music = \relative c'' {
-  \set Score.tempoHideNote = ##t
   \key f \major
-  \time 4/4
-  g1 d'2 \menrest bes4 bes2 a2 r4 g4 fis2.
-  \finalis
+  g1 d'2 \menrest bes4 bes a2 \menrest r4 g4 fis4.
+  fis8 fis4 fis g e f4.([ g8] a4[ g8 f]
+    g2.\Be fis8 e\Am fis2) g\breve \finalis
 }
 
-MenLyr = \lyricmode { So farre, deere life, deare life }
-ModLyr = \lyricmode { So far, dear life, dear life }
+MenLyr = \lyricmode {
+  So farre, deere life, deare life,
+  from thy bright beames ab- ſen- ted,
+}
+ModLyr = \lyricmode {
+  So far, dear life, dear life,
+  from your bright beams ab -- sen -- ted, __
+}
 
 \score {
   \keepWithTag #'mens {
     <<
-      \new MensuralStaff
-      {
-        \new MensuralVoice = Cantus
-          \clef "mensural-c1" \MenStyle \Music
+      \new PetrucciStaff {
+        \new PetrucciVoice = "Cantus" {
+          \clef "petrucci-c1" \time 4/4 \MenStyle \Music
+        }
       }
-      \new Lyrics \lyricsto Cantus \MenLyr
+      \new Lyrics \lyricsto "Cantus" \MenLyr
     >>
+  }
+  \layout {
+    line-width = 155\mm
+
+    \context {
+      \PetrucciVoice
+      % No longer necessary starting with version 2.25.23.
+      \override Flag.style = #'mensural
+    }
   }
 }
 
 \score {
   \keepWithTag #'mod {
     \new ChoirStaff <<
-      \new Staff
-      {
-        \new Voice = Sop \with {
+      \new Staff {
+        \new Voice = "Sop" \with {
           \remove "Note_heads_engraver"
           \consists "Completion_heads_engraver"
           \remove "Rest_engraver"
-          \consists "Completion_rest_engraver" }
-        {
-          \shiftDurations 1 0 { \autoBeamOff \Music }
-        }
+          \consists "Completion_rest_engraver"
+        } \shiftDurations 1 0 { \time 2/4 \autoBeamOff \Music }
       }
-      \new Lyrics \lyricsto Sop \ModLyr
+      \new Lyrics \lyricsto "Sop" \ModLyr
     >>
   }
+  \layout {
+    line-width = 157\mm
+  }
 }
+
+\paper {
+  ragged-last = ##t
+}
+
+\header { tagline = ##f }

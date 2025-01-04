@@ -844,7 +844,7 @@ signes @code{\varcoda}.
 @cindex crochet de reprise, plusieurs portées
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/adding-volta-brackets-to-additional-staves.ly}
+{snippets/volta-brackets-in-multiple-staves.ly}
 
 @cindex reprise et numéro de mesure
 @cindex numéro de mesure et reprise

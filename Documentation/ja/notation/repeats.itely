@@ -340,7 +340,7 @@ c'4 e g
 @cindex volta bracket, in additional staves (他の譜における繰り返し括弧)
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/adding-volta-brackets-to-additional-staves.ly}
+{snippets/volta-brackets-in-multiple-staves.ly}
 
 @cindex repeat, double, style for volta (二重繰り返しのスタイル)
 @cindex volta, double repeat style (二重繰り返しのスタイル)

@@ -14,18 +14,36 @@
   lsrtags = "rhythms"
 
   texidoc = "
-Line breaks are normally forbidden when beams cross bar lines; this
-behavior can be changed using enabling @code{Beam.breakable}.
+Normally, LilyPond refuses to automatically break a line at places
+where a beam crosses a bar line.  This behavior can be changed by
+setting the @code{Beam.breakable} property to @code{#t}.
+
+This property does not affect manual breaks inserted with commands like
+@code{\\break}.
 "
 
   doctitle = "Beams across line breaks"
 } % begin verbatim
 
 
-\relative c'' {
-  \override Beam.breakable = ##t
-  c8 c[ c] c[ c] c[ c] c[ \break
-  c8] c[ c] c[ c] c[ c] c
+music = {
+  \repeat unfold 8 c8
+  c8 \repeat unfold 7 { c[ c] }  c
+  \repeat unfold 8 c8
 }
 
-\paper { tagline = ##f }
+\relative c'' {
+  <>^\markup { \typewriter Beam.breakable set to \typewriter "#t" }
+  \override Beam.breakable = ##t
+  \music
+}
+
+\relative c'' {
+  <>^\markup { \typewriter Beam.breakable not set }
+  \music
+}
+
+\paper {
+  line-width = 100\mm
+  tagline = ##f
+}

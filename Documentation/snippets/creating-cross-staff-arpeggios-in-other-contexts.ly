@@ -15,7 +15,8 @@
 
   texidoc = "
 Cross-staff @emph{arpeggios} can be created in contexts other than
-@code{GrandStaff}, @code{PianoStaff} and @code{StaffGroup} if the
+@code{GrandStaff} and its derived siblings (@code{PianoStaff},
+@code{ChoirStaff}, and @code{StaffGroup}) if the
 @code{Span_arpeggio_engraver} is included in the @code{Score} context.
 "
 
@@ -23,27 +24,30 @@ Cross-staff @emph{arpeggios} can be created in contexts other than
 } % begin verbatim
 
 
-\score {
-  \new ChoirStaff {
-    \set Score.connectArpeggios = ##t
-    <<
-      \new Voice \relative c' {
-        <c e>2\arpeggio
-        <d f>2\arpeggio
-        <c e>1\arpeggio
-      }
-      \new Voice \relative c {
-        \clef bass
-        <c g'>2\arpeggio
-        <b g'>2\arpeggio
-        <c g'>1\arpeggio
-      }
-    >>
-  }
-  \layout {
-    \context {
-      \Score
-      \consists "Span_arpeggio_engraver"
+<<
+  \new PianoStaff <<
+    \new Voice \relative c' {
+      <c e>2\arpeggio <d f>2\arpeggio
+      <c e>1\arpeggio
     }
+    \new Voice \relative c {
+      \clef bass
+      <c g'>2\arpeggio <b g'>2\arpeggio
+      <c g'>1\arpeggio
+    }
+  >>
+
+  \new Staff \relative c {
+    \set Score.connectArpeggios = ##t
+    \clef bass
+    c2\arpeggio g\arpeggio
+    c1\arpeggio
+  }
+>>
+
+\layout {
+  \context {
+    \Score
+    \consists "Span_arpeggio_engraver"
   }
 }

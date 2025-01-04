@@ -13,5 +13,5 @@ positioning-segno-and-coda-with-line-break.ly
 setting-the-double-repeat-default-for-volte.ly
 shortening-volta-brackets.ly
 volta-below-chords.ly
-volta-multi-staff.ly
+volta-brackets-in-multiple-staves.ly
 volta-text-markup-using-repeatcommands.ly

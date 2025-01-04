@@ -18,7 +18,7 @@ By adding the @code{Volta_engraver} to the relevant staff, volte can be
 put over staves other than the topmost one in a score.
 "
 
-  doctitle = "Volta multi staff"
+  doctitle = "Volta brackets in multiple staves"
 } % begin verbatim
 
 

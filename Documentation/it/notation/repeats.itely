@@ -338,7 +338,7 @@ comando @code{\defineBarLine} (vedi @ref{Bar lines}).
 @cindex parentesi della volta, in altri righi
 @funindex Volta_engraver
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/adding-volta-brackets-to-additional-staves.ly}
+{snippets/volta-brackets-in-multiple-staves.ly}
 
 @cindex ripetizione, doppia, stile per la volta
 @cindex volta, stile della doppia ripetizione

@@ -14,16 +14,19 @@
   lsrtags = "staff-notation, tweaks-and-overrides"
 
   texidoc = "
-Setting the @code{breakable} property to @code{#t} in combination with
-@code{after-line-breaking} allows a glissando to break if it occurs at
-a line break:
+Normally, LilyPond refuses to automatically break a line at places
+where a glissando crosses a bar line.  This behavior can be changed by
+setting the @code{Glissando.breakable} property to @code{#t}.  Also
+setting the @code{after-line-breaking} property to @code{#t} makes the
+glissando line continue after the break.
+
+The @code{breakable} property does not affect manual breaks inserted
+with commands like @code{\\break}.
 "
 
   doctitle = "Making glissandi breakable"
 } % begin verbatim
 
-
-\paper { tagline = ##f }
 
 glissandoSkipOn = {
   \override NoteColumn.glissando-skip = ##t
@@ -31,14 +34,31 @@ glissandoSkipOn = {
   \override NoteHead.no-ledgers = ##t
 }
 
+music = {
+  \repeat unfold 16 f8 |
+  f1\glissando |
+  a4 r2. |
+  \repeat unfold 16 f8 |
+  f1\glissando \once\glissandoSkipOn |
+  a2 a4 r4 |
+  \repeat unfold 16 f8
+}
+
 \relative c'' {
+  <>^\markup { \typewriter Glissando.breakable
+               set to \typewriter "#t" }
   \override Glissando.breakable = ##t
   \override Glissando.after-line-breaking = ##t
-  f1\glissando |
-  \break
-  a4 r2. |
-  f1\glissando
-  \once \glissandoSkipOn
-  \break
-  a2 a4 r4 |
+  \music
+}
+
+\relative c'' {
+  <>^\markup { \typewriter Glissando.breakable not set }
+  \music
+}
+
+\paper {
+  line-width = 100\mm
+  indent = 0
+  tagline = ##f
 }
