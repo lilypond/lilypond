@@ -773,7 +773,8 @@ determines the number of scale steps that make up an octave.  Usually the
 
     "paper"
     "backend-library"
-    "color"))
+    "color"
+    "context"))
 
 ;;
 ;; Now construct the load list

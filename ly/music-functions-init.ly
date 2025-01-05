@@ -1694,24 +1694,15 @@ This is the opposite to function @code{\\pushContextProperty}.")
              'ApplyContext
              'procedure
              (lambda (ctx)
-               (let* ((stacks (ly:context-property ctx 'propertyStacks
-                                                   #:search-ancestors? #f))
-                      (stack (assoc-get prop-name stacks '())))
-                 (if (null? stack)
-                     (begin
-                       (ly:input-warning
-                        input-location
-                        (G_ "cannot pop from empty stack; unsetting"))
-                       (ly:context-unset-property ctx prop-name))
-                     (let ((top (car stack)))
-                       (if (null? top)
-                           (ly:context-unset-property ctx prop-name)
-                           (ly:context-set-property! ctx prop-name (car top)))
-                       (ly:context-set-property! ctx
-                                                 'propertyStacks
-                                                 (assoc-set! stacks
-                                                             prop-name
-                                                             (cdr stack))))))))
+               (catch
+                'ly:context-property-stack-underflow
+                (lambda ()
+                  (ly:context-property-pop ctx prop-name))
+                (lambda (key . args)
+                  (ly:input-warning
+                   input-location
+                   (G_ "cannot pop from empty stack; unsetting"))
+                  (ly:context-unset-property ctx prop-name)))))
             ctx-name))
          (make-music 'Music))))
 
@@ -1866,41 +1857,24 @@ the built-in @code{\\unset} command.")
          (make-music 'Music))))
 
 pushContextProperty =
-#(let ((dummy (make-symbol "never used as a property value")))
-   (define-music-function (path value) (key-list? scheme?)
-     (_i "Set context property @var{path} to @var{value} and push old value to
-stack.
+#(define-music-function (path value) (key-list? scheme?)
+   (_i "Set context property @var{path} to @var{value} and push old value to stack.
 
 The old value can be popped off the stack and restored with function
 @code{\\popContextProperty}.")
-     (let ((p (check-context-path path)))
-       (if p
-           (let ((ctx-name (car p))
-                 (prop-name (cadr p)))
-             (context-spec-music
-              (make-music
-               'ApplyContext
-               'procedure
-               (lambda (ctx)
-                 (let* ((stacks (ly:context-property ctx 'propertyStacks
-                                                     #:search-ancestors? #f))
-                        (stack (assoc-get prop-name stacks '()))
-                        (top (ly:context-property ctx prop-name
-                                                  #:default dummy
-                                                  #:search-ancestors? #f)))
-                   (if (eq? top dummy)
-                       (set! top '())
-                       (set! top (list top)))
-                   (ly:context-set-property! ctx
-                                             'propertyStacks
-                                             (assoc-set! stacks
-                                                         prop-name
-                                                         (cons top stack)))
-                   (ly:context-set-property! ctx
-                                             prop-name
-                                             value))))
-              ctx-name))
-           (make-music 'Music)))))
+   (let ((p (check-context-path path)))
+     (if p
+         (let ((ctx-name (car p))
+               (prop-name (cadr p)))
+           (context-spec-music
+            (make-music
+             'ApplyContext
+             'procedure
+             (lambda (ctx)
+               (ly:context-property-push ctx prop-name)
+               (ly:context-set-property! ctx prop-name value)))
+            ctx-name))
+         (make-music 'Music))))
 
 pushToTag =
 #(define-music-function (tag more music) (symbol? ly:music? ly:music?)
