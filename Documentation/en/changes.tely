@@ -240,11 +240,11 @@ idiomatic Emacs naming convention, most importantly, having the major
 mode name be the same as the package name that provides it.  Therefore,
 this also makes it easier for new users to set up LilyPond in Emacs.
 
-As a result, this will break some existing Emacs configurations for the
-end users.  However, it only requires minimal changes to the Emacs
-initialization file.  Here's an example of setting up
-@code{lilypond-mode} using the built-in @code{use-package} macro in
-Emacs:
+As a result, this will break some existing Emacs configurations
+for end users.  However, it only requires minimal changes to the
+Emacs initialization file.  Here's an example of setting up
+@code{lilypond-mode} using the built-in @code{use-package} macro
+in Emacs:
 
 @example
 (use-package lilypond-mode
@@ -264,10 +264,10 @@ part of either group, you can skip over this section.
 @itemize
 
 @item
-LilyPond now requires Guile 3.0.7.  As before, it is still strongly
-recommended to compile the @file{.scm} files into bytecode by first
-running @command{make bytecode} during compilation and then
-@command{make install-bytecode} in addition to @command{make install}.
+LilyPond now requires Guile version 3.0.7 or newer.  As before,
+compiling the @file{.scm} files into bytecode is still strongly
+recommended: run @command{make bytecode} for compilation; then run
+@command{make install-bytecode} for installation.
 
 @end itemize
 
@@ -318,9 +318,9 @@ Certain spurious change clefs have been fixed.
 }
 @end lilypond
 
-Using @code{beam::slashed-stencil} arbitrary beams may be slashed.  Setting
-@code{details.slash-side} to @code{RIGHT} the slash is printed at right side
-of the beam.
+Use @code{beam::slashed-stencil} to slash arbitrary beams.  Set
+@code{details.slash-side} to @code{RIGHT} to print the slash at
+the right side of the beam.
 
 @lilypond[quote,verbatim]
 {
@@ -338,10 +338,11 @@ of the beam.
 }
 @end lilypond
 
-The appearence of the slash may be customized by overrides of the
-@code{details} subproperties @code{over-beam-height}, @code{slash-slope},
-@code{slash-side}, @code{slash-stem-fraction}, @code{slash-thickness}, and
-@code{slash-X-positions}.
+Use the @code{over-beam-height}, @code{slash-slope},
+@code{slash-side}, @code{slash-stem-fraction},
+@code{slash-thickness}, and @code{slash-X-positions} subproperties
+of the @code{details} property to customize the appearance of the
+slash.
 
 @item
 It is now possible to right-align different types of bar lines.
@@ -370,7 +371,7 @@ developers deem this unlikely to impact real-world scores.  Please
 report a bug if you find a problem without an obvious workaround.
 
 @item
-The new option @code{span-all-note-heads} may be used to make
+The new @code{span-all-note-heads} option may be used to make
 tuplet brackets span all note heads (not just the stems) as
 recommended by Gould and Ross.
 
@@ -461,7 +462,8 @@ renamed to @code{'single-number}.
 @itemize
 
 @item
-Hairpins in the style of Ferneyhough now support al niente circles.
+Hairpins in the style of Ferneyhough now support @dfn{al niente}
+circles.
 
 @lilypond[quote,verbatim]
 {
@@ -500,15 +502,15 @@ space now.
 @item
 @code{\repeat volta} alternative endings no longer create
 invisible bar lines.  This may affect line breaking, horizontal
-spacing, and @code{VoltaBracket} extent where an alternative
+spacing, and @code{VoltaBracket} length where an alternative
 begins or ends without a bar line.  In the case of an undesired
 change, try adding @code{\bar ""} or another command that creates
 a @code{BarLine} at that point.
 
 @item
 Using the new @code{printInitialRepeatBar} property, it is
-possible to make a start repeat bar line automatically printed
-even at the beginning of the piece.
+possible to print a start repeat bar line, automatically, at the
+beginning of the piece.
 
 @lilypond[quote]
 \fixed c'' {
@@ -659,7 +661,7 @@ override it on a per-grob basis, e.g.,
 
 This is preferable over the already existing @code{font-name}
 property, since the latter makes commands such as @code{\bold}
-ineffective, instead requiring to include @qq{Bold} in the
+ineffective, instead requiring @qq{Bold} to be included in the
 @code{font-name} string.  Using @code{fonts} does not have such
 effects.
 
@@ -675,7 +677,7 @@ In markup, when a music font is used (such as for dynamic markings), a
 glyph absent from the music font was previously rendered in a normal
 text font. This is no longer the case; a warning about the missing glyph
 is output instead.  In order to use a text font, use the @code{\serif},
-@code{\sans} or @code{\typewriter} markup commands.  For example:
+@code{\sans}, or @code{\typewriter} markup commands.  For example:
 
 @lilypond[verbatim,quote]
 dolceP =
@@ -699,9 +701,9 @@ italics, this change makes it possible to use small caps and italics
 at the same time.
 
 @item
-The @code{font-series} property is now more flexible and allows to specify
-values such as @code{semibold} and @code{light} instead of only @code{normal}
-and @code{bold}.
+The @code{font-series} property is now more flexible and allows
+the specification of values such as @code{semibold} and
+@code{light} instead of only @code{normal} and @code{bold}.
 
 The @code{medium} value is now an intermediate value between
 @code{normal} and @code{bold} rather than an equivalent of
@@ -710,8 +712,8 @@ been renamed to @code{\normal-weight}.
 
 
 @item
-The new @code{font-stretch} property allows selecting a condensed or
-expanded font.
+The new @code{font-stretch} property allows the selection a
+condensed or expanded font.
 
 
 @item
@@ -780,11 +782,12 @@ to @code{serif}, not @code{roman}.
 
 
 @item
-The @code{\text} markup command has been removed.  Instead, the @code{\serif},
-@code{\sans} or @code{\typewriter} markup commands should be used.  These
-commands used to set the font style @emph{only if a normal text font
-was used} (not a musical font, such as for dynamics), but now they
-@emph{both} set the font style and make a normal text font used.
+The @code{\text} markup command has been removed.  Instead, the
+@code{\serif}, @code{\sans}, or @code{\typewriter} markup commands
+should be used.  These commands used to set the font style
+@emph{only if a normal text font was used} (not a musical font,
+such as for dynamics), but now they @emph{both} set the font style
+and make a normal text font used.
 
 
 @item
@@ -792,15 +795,15 @@ The font size used by the @code{\volta-number} markup command has
 been reduced to make it better fit with surrounding text.  At the
 same time, the size for the volta bracket number (which uses
 @code{\volta-number} for formatting by default) has been increased
-by the opposite amount, thus compensating the change in the normal
-use case.
+by the opposite amount, thus compensating for the change in the
+normal use case.
 
 @item
 Some glyphs like @q{one} or @q{accidentals.hufnagelM1} in the
-Emmentaler font had too large glyph bounding boxes due to a bug in
-the font production chain.  This is fixed now; be warned, however,
-that you might experience typesetting differences because tighter
-bounding boxes often lead to tighter typesetting.
+Emmentaler font had overly large glyph bounding boxes due to a bug
+in the font production chain.  This is fixed now; be warned,
+however, that you might experience typesetting differences because
+tighter bounding boxes often lead to tighter typesetting.
 
 @item
 New markup commands to print the textual representation of accidentals are
@@ -827,8 +830,8 @@ added:
 @itemize
 
 @item
-For orthogonality with other ancient clefs, five new mensural
-clefs are available: @code{"mensural-f2"}, @code{"mensural-f3"},
+For consistency with other ancient clefs, five new mensural clefs
+are available: @code{"mensural-f2"}, @code{"mensural-f3"},
 @code{"mensural-f4"} (same as @code{"mensural-f"}),
 @code{"mensural-f5"}, @code{"mensural-g1"}, @code{"mensural-g2"}
 (same as @code{"mensural-g"}).
@@ -853,14 +856,10 @@ and allow tweaks to show some non-necessary stems.
     \clef "petrucci-c4"
     \[ a1 g f e \]
     \[ a1 g\longa \]
-    \[ \once \override NoteHead.left-down-stem = ##t
-       a\breve b
-       \once \override NoteHead.right-down-stem = ##t
-       g\longa \]
-    \[ \once \override NoteHead.right-down-stem = ##t
-       b\maxima
-       \once \override NoteHead.right-up-stem = ##t
-       g\longa \]
+    \[ \tweak left-down-stem ##t a\breve b
+       \tweak right-down-stem ##t g\longa \]
+    \[ \tweak right-down-stem ##t b\maxima
+       \tweak right-up-stem ##t g\longa \]
   }
   \layout {
     \context {
@@ -874,9 +873,9 @@ and allow tweaks to show some non-necessary stems.
 
 @item
 The use of the file @file{gregorian.ly} is deprecated.  While
-still working for backward compatibility, it should be replaced
-with a @code{VaticanaScore} context together with some manual
-@code{\layout} changes (if necessary): code like
+still distributed for backward compatibility, it should be
+replaced with a @code{VaticanaScore} context together with some
+manual @code{\layout} changes (if necessary): code like
 
 @quotation
 @verbatim
@@ -911,7 +910,7 @@ still working for backward compatibility (if you load
 @q{italiano}, or your preferred note name language instead.
 
 @item
-Defaults for fret diagram fret labels have changed.
+Defaults for fret labels in fret diagrams have changed.
 
 @itemize
 @item
@@ -925,9 +924,9 @@ instead of @code{'roman-lower}.
 @end itemize
 
 @item
-Command @code{\autoBeamOff} now stops auto-beaming immediately.
-Previously, its effect was delayed if a beam generated by the
-auto-beamer engraver was still active.
+The command @code{\autoBeamOff} now stops auto-beaming
+immediately.  Previously, its effect was delayed if a beam
+generated by the auto-beamer engraver was still active.
 
 @item
 It is no longer necessary to switch off auto-beaming while using
@@ -1106,13 +1105,13 @@ work for LilyPond 2.19}.
 @item
 The printing of arpeggios has been improved, using new, different
 default values for the @code{Arpeggio@/.positions} property.
-Adjustments of this property must probably be updated.
+Adjustments of this property probably must be updated.
 
 @item
 LilyPond provides support for in-notes, i.e., footnote-like
-annotations between music systems.  This isn't new (it was
-actually available since version 2.15.17, published in 2011) but
-it had some flaws and wasn't documented until now.
+annotations between music systems.  This isn't new (it has
+actually been available since version 2.15.17, published in 2011)
+but it had some flaws and wasn't documented until now.
 
 @item
 The @command{lilysong} script has been removed.  Besides lacking
@@ -1135,7 +1134,7 @@ setting @code{set-global-staff-size} in a LilyPond input file.
 
 @item
 Instead of the functions @code{\bookOutputName} and
-@code{\bookOutputSuffix} we now recommend to use the paper
+@code{\bookOutputSuffix} we now recommend using the paper
 variables @code{output-filename} and @code{output-suffix} (which
 are not new but stayed undocumented until now).  While the former
 will work unchanged, the latter is more coherent and easier to
@@ -1234,11 +1233,11 @@ The data emitted by the command-line option
 @option{-dshow-available-fonts} is now sent to standard output.
 
 @item
-Function @code{ly:font-config-display-fonts} got an optional
-argument to select the output port.
+The function @code{ly:font-config-display-fonts} now takes an
+optional argument for output port selection.
 
 @item
-The Scheme command-line option handling is now more robust.  In
+Scheme command-line option handling is now more robust.  In the
 course of the new implementation, some minor changes were
 necessary.
 
@@ -1269,7 +1268,7 @@ handle this automatically.
 @end itemize
 
 @item
-The @code{side-position-interface} got two new properties,
+The @code{side-position-interface} now offers two new properties,
 @code{X-padding} and @code{minimum-X-space}, to control the
 horizontal padding and minimum distance to a grob's parent object,
 independently of the vertical padding and minimum distance.  This
