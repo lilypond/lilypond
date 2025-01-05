@@ -501,18 +501,16 @@ completes @code{make}, @code{make check}, and @code{make doc}.
 
 After testing succeeds, the patch author or a reviewer should
 check regression test results.  To find these, first view the log
-for the @code{make check} step.  Currently, this can be reached by
+for the @code{make check} job.  Currently, this can be reached by
 clicking the second of the three green circles with check marks
 next to the text @qq{Merge request pipeline #@dots{} passed}.
 This opens a small window; click the line containing the word
 @q{check}.
 
-On the job page, you will find a link to the regression test
-visual comparison on the right side; click on the @q{Browse}
-button, then on the @file{test-results} directory, then on the
-@file{index.html} file.  A page talking about @q{You are being
-redirected away from GitLab} appears; you can safely follow the
-link.
+On the job page, you will find a direct link to the regression
+test visual comparison page at the very end of the log text.
+Around ten lines before the last line, look for the text
+@qq{Results can be viewed at @enddots{}}
 
 If tests display no obviously bad differences, the patch can be
 advanced to @code{Patch::review}.  If the size of the regression
