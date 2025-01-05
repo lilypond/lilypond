@@ -2424,8 +2424,10 @@ conjunction with the @code{\single} command.  For example, the
 function @code{\easyHeadsOn} can be used with @code{\single} to
 affect just one note head in a chord;
 
-@lilypond[verbatim,quote,relative=1]
-< \single \easyHeadsOn c' g' >2
+@lilypond[verbatim,quote]
+\relative c' {
+  <\single \easyHeadsOn c' g'>2
+}
 @end lilypond
 
 @morerefs
@@ -3466,6 +3468,7 @@ As for the @code{minimum-length} property, it is often needed to set the
 
   \once \override Glissando.springs-and-rods =
     #ly:spanner::set-spacing-rods
+  % for completeness; not necessary for manual breaks
   \once \override Glissando.breakable = ##t
   \once \override Glissando.after-line-breaking = ##t
   \once \override Glissando.minimum-length-after-break = 20
@@ -3557,7 +3560,6 @@ specified by the @code{left-broken} and @code{right-broken}
 sublists of @code{bound-details}.  For example:
 
 @lilypond[ragged-right,fragment,verbatim,quote]
-\override Glissando.breakable = ##t
 \override Glissando.bound-details.right-broken.Y = -3
 c''1 \glissando \break
 f''1

@@ -1612,6 +1612,11 @@ even in the middle of a measure, and despite the presence of beams.
 
 @lilypond[verbatim,quote]
 \repeat unfold 56 { c'8 \allowBreak }
+
+\paper {
+  indent = 0
+  line-width = 140\mm
+}
 @end lilypond
 
 If you find yourself using @code{\allowBreak} often, you may want to
@@ -1623,7 +1628,11 @@ prevent some of the factors mentioned above from disabling breaks.
 @code{forbidBreakBetweenBarLines} is set to @code{#t}.  To inhibit
 this, set the property to @code{#f}.
 
-@lilypond[quote,ragged-right,line-width=50,verbatim]
+@lilypond[quote,verbatim]
+\fixed c' {
+  c8 d e f g a b c'
+}
+
 \layout {
   \context {
     \Score
@@ -1631,8 +1640,9 @@ this, set the property to @code{#f}.
   }
 }
 
-\fixed c' {
-  c4 d
+\paper {
+  indent = 0
+  line-width = 30\mm
 }
 @end lilypond
 
@@ -1641,11 +1651,16 @@ Note heads and rests extending over bar lines can be made not to
 suppress breaks by removing the @code{Forbid_@/line_@/break_@/engraver}
 from the @code{Voice} context.
 
-@lilypond[quote,ragged-right,line-width=50,verbatim]
+@lilypond[quote,verbatim]
 \new Voice \with {
   \remove Forbid_line_break_engraver
 } \relative {
   c''2. \tuplet 3/2 { c4 c c } c2.
+}
+
+\paper {
+  indent = 0
+  line-width = 35\mm
 }
 @end lilypond
 
@@ -1653,11 +1668,16 @@ from the @code{Voice} context.
 The presence of beams and other unbreakable spanners over bar lines
 is ignored if their @code{breakable} property is set to @code{#t}.
 
-@lilypond[quote,ragged-right,line-width=50,verbatim]
+@lilypond[quote,verbatim]
 \relative c'' {
   \override Beam.breakable = ##t
   c2. c8[ c |
   c8 c] c2. |
+}
+
+\paper {
+  indent = 0
+  line-width = 35\mm
 }
 @end lilypond
 @end itemize
