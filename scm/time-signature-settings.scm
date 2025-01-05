@@ -437,20 +437,23 @@ make a numbered time signature instead."
   (let* ((revargs (reverse time-sig-fraction))
          (den (car revargs))
          (num (apply + (cdr revargs))))
-    (ly:make-moment num den)))
+    (/ num den)))
 
 (define (calculate-complex-compound-time time-sig)
-  (let add-moment ((moment ZERO-MOMENT)
+  (let accumulate ((sum 0)
                    (remaining (map calculate-time-fraction time-sig)))
     (if (pair? remaining)
-        (add-moment (ly:moment-add moment (car remaining)) (cdr remaining))
-        moment)))
+        (accumulate (+ sum (car remaining)) (cdr remaining))
+        sum)))
 
-(define-public (calculate-compound-measure-length time-sig)
+(define (calculate-compound-measure-length-as-number time-sig)
   (cond
-   ((not (pair? time-sig)) (ly:make-moment 4 4))
+   ((not (pair? time-sig)) 4/4)
    ((pair? (car time-sig)) (calculate-complex-compound-time time-sig))
    (else (calculate-time-fraction time-sig))))
+
+(define-public (calculate-compound-measure-length time-sig)
+  (ly:make-moment (calculate-compound-measure-length-as-number time-sig)))
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
