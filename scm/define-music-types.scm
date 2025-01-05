@@ -257,7 +257,7 @@ duration stored in @code{duration}.")
         (length-callback . ,ly:music-sequence::event-chord-length-callback)
         (to-relative-callback .
                               ,ly:music-sequence::event-chord-relative-callback)
-        (types . (event-chord simultaneous-music))
+        (types . (event-chord))
         ))
 
     (ExtenderEvent
