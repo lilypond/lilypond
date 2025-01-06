@@ -42,7 +42,7 @@ Copyright @copyright{} 2002--2023 por los autores.
 * Music engraving::
 * Literature list::
 * GNU Free Documentation License:: Licencia de este documento.
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 
 @docMain
@@ -60,8 +60,8 @@ Copyright @copyright{} 2002--2023 por los autores.
 
 @include en/fdl.itexi
 
-@node LilyPond index
-@appendix Índice de LilyPond
+@node Index of commands and concepts
+@appendix Índice
 
 @printindex cp
 

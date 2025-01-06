@@ -52,7 +52,7 @@ Copyright @copyright{} 1999--2023 por los autores.
 Apéndices
 
 * GNU Free Documentation License:: Licencia de este documento.
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 
 @docMain
@@ -73,8 +73,8 @@ Apéndices
 
 @include en/fdl.itexi
 
-@node LilyPond index
-@appendix Índice de LilyPond
+@node Index of commands and concepts
+@appendix Índice
 
 @printindex cp
 

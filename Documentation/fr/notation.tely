@@ -65,7 +65,7 @@ Annexes
 * Notation manual tables::         tables et diagrammes.
 * Cheat sheet::                    résumé de la syntaxe de LilyPond.
 * GNU Free Documentation License:: licence de ce document.
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 
 @docMain
@@ -88,8 +88,8 @@ Annexes
 
 @include en/fdl.itexi
 
-@node LilyPond index
-@appendix Index de LilyPond
+@node Index of commands and concepts
+@appendix Index
 
 En plus des commandes et mots réservés de LilyPond, cet index recense
 les termes musicaux qui s'y rapportent.

@@ -60,7 +60,7 @@ Annexos
 * Notation manual tables:: Taules i quadres
 * Cheat sheet::       Resum de la sintaxi del LilyPond
 * GNU Free Documentation License::  Llicència d'aquest document
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 
 @docMain
@@ -88,8 +88,8 @@ Annexos
 @include en/fdl.itexi
 
 
-@node LilyPond index
-@appendix Índex del LilyPond
+@node Index of commands and concepts
+@appendix Índex
 
 A més de totes les ordres i paraules clau del LilyPond, aquest
 índex és una llista de termes musicals i les paraules que tenen

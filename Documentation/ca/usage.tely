@@ -50,7 +50,7 @@ Copyright @copyright{} 1999--2023 pels autors.
 Annexos
 
 * GNU Free Documentation License:: Llicència d'aquest document.
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 
 @docMain
@@ -72,8 +72,8 @@ Annexos
 @include en/fdl.itexi
 
 
-@node LilyPond index
-@appendix Índex del LilyPond
+@node Index of commands and concepts
+@appendix Índex
 
 @printindex cp
 

@@ -54,7 +54,7 @@ Anhänge
 * Notation manual tables::         Tabellen und Grafiken.
 * Cheat sheet::                    Überblick über die LilyPond-Syntax.
 * GNU Free Documentation License:: Die Lizenz dieses Handbuchs.
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 
 @docMain
@@ -83,8 +83,8 @@ Anhänge
 @include en/fdl.itexi
 
 
-@node LilyPond index
-@appendix LilyPond-Index
+@node Index of commands and concepts
+@appendix Register
 
 Zusätzlich zu allen LilyPond Befehlen und Schlüsselwörtern listet
 dieser Index alle relevanten Begriffe auf und verlinkt sie mit den

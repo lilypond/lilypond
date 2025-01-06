@@ -54,7 +54,7 @@ Copyright @copyright{} 1999--2023 by the authors.
 付録
 
 * GNU Free Documentation License:: このドキュメントの使用許諾書
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 
 @docMain
@@ -75,8 +75,8 @@ Copyright @copyright{} 1999--2023 by the authors.
 
 @include en/fdl.itexi
 
-@node LilyPond index
-@appendix LilyPond インデックス
+@node Index of commands and concepts
+@appendix インデックス
 
 @printindex cp
 

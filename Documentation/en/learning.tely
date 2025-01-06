@@ -52,7 +52,7 @@ Appendices
 
 * Templates::                      Ready-made templates.
 * GNU Free Documentation License:: License of this document.
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 
 @docMain
@@ -74,8 +74,8 @@ Appendices
 @include en/fdl.itexi
 
 
-@node LilyPond index
-@appendix LilyPond index
+@node Index of commands and concepts
+@appendix Index
 
 @printindex cp
 

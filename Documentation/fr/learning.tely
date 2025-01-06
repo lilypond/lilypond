@@ -59,7 +59,7 @@ Annexes
 
 * Templates::                      modèles prêts à l'emploi.
 * GNU Free Documentation License:: licence de ce document.
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 
 @docMain
@@ -78,8 +78,8 @@ Annexes
 @include fr/learning/templates.itely
 @include en/fdl.itexi
 
-@node LilyPond index
-@appendix Index de LilyPond
+@node Index of commands and concepts
+@appendix Index
 
 @printindex cp
 

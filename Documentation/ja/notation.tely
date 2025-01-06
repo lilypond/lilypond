@@ -56,7 +56,7 @@ Copyright @copyright{} 1999--2023 by 著作者一同
 * Notation manual tables::      表と図
 * Cheat sheet::     LilyPond 構文についての要約
 * GNU Free Documentation License:: このドキュメントの使用許諾書
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 
 @ignore
@@ -67,7 +67,7 @@ Copyright @copyright{} 1999--2023 by 著作者一同
 * 記譜法マニュアル表::      表と図
 * Cheat sheet::     LilyPond 構文についての要約
 * GNU Free Documentation License:: このドキュメントの使用許諾書
-* LilyPond index::
+* Index of commands and concepts::
 @end menu
 @end ignore
 @docMain
@@ -91,8 +91,8 @@ Copyright @copyright{} 1999--2023 by 著作者一同
 @include en/fdl.itexi
 
 
-@node LilyPond index
-@appendix LilyPond インデックス
+@node Index of commands and concepts
+@appendix インデックス
 
 すべての LilyPond コマンドとキーワードに加えて、@c
 このインデックスは、それらに関連する音楽用語や単語をリストアップしていて、@c
