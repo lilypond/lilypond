@@ -60,7 +60,6 @@ Annexos
 * Notation manual tables:: Taules i quadres
 * Cheat sheet::       Resum de la sintaxi del LilyPond
 * GNU Free Documentation License::  Llicència d'aquest document
-* LilyPond command index::
 * LilyPond index::
 @end menu
 
@@ -88,19 +87,6 @@ Annexos
 
 @include en/fdl.itexi
 
-
-@node LilyPond command index
-@appendix Índex d'ordres del LilyPond
-
-Aquest índex fa una relació de totes les ordres i paraules clau
-del LilyPond, amb enllaços a aquelles seccions del manual que
-descriuen o s'ocupen del seu ús.  Cadascú d'aquests enllaços
-consta de dues parts.  La primera part apunta a la situació exacta
-del manual en el qual apareix l'ordre o paraula clau; la segona
-part apunta al començament de la secció corresponent del manual en
-la qual apareix l'ordre o paraula clau.
-
-@printindex ky
 
 @node LilyPond index
 @appendix Índex del LilyPond

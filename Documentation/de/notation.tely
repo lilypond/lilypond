@@ -54,7 +54,6 @@ Anhänge
 * Notation manual tables::         Tabellen und Grafiken.
 * Cheat sheet::                    Überblick über die LilyPond-Syntax.
 * GNU Free Documentation License:: Die Lizenz dieses Handbuchs.
-* LilyPond command index::
 * LilyPond index::
 @end menu
 
@@ -82,18 +81,6 @@ Anhänge
 @include de/notation/cheatsheet.itely
 
 @include en/fdl.itexi
-
-
-@node LilyPond command index
-@appendix Index der LilyPond-Befehle
-
-Dieser Index listet alle LilyPond Befehle und Schlüsselwörter auf,
-versehen mit Verweisen zu den Abschnitten im Handbuch, die den Befehl
-beschreiben oder seine Verwendung diskutieren. Der erste Teil zeigt auf
-die genaue Stelle im Handbuch, an der der Befehl oder das Schlüsselwort
-erscheint, der zweite Teil zeigt auf den entsprechenden Abschnitt.
-
-@printindex ky
 
 
 @node LilyPond index

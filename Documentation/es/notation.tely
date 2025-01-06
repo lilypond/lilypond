@@ -55,7 +55,6 @@ Apéndices
 * Notation manual tables:: Tablas y cuadros.
 * Cheat sheet::        Resumen de la sintaxis de LilyPond.
 * GNU Free Documentation License:: Licencia de este documento.
-* LilyPond command index::
 * LilyPond index::
 @end menu
 
@@ -83,22 +82,6 @@ Apéndices
 
 @include en/fdl.itexi
 
-
-@node LilyPond command index
-@appendix Índice de instrucciones de LilyPond
-
-Este índice relaciona todas las instrucciones y palabras clave de
-LilyPond, con enlaces a aquellas secciones del manual que
-describen o se ocupan de su uso.
-@ifhtml
-Cada uno de los enlaces consta
-de dos partes.  La primera parte apunta a la situación exacta del
-manual en que aparece la instrucción o palabra clave; la segunda
-parte apunta al comienzo de la sección correspondiente del manual
-en la que aparece la instrucción o palabra clave.
-@end ifhtml
-
-@printindex ky
 
 @node LilyPond index
 @appendix Índice de LilyPond

@@ -60,7 +60,6 @@ Appendices
 * Notation manual tables::         Tables and charts.
 * Cheat sheet::                    Summary of LilyPond syntax.
 * GNU Free Documentation License:: License of this document.
-* LilyPond command index::
 * LilyPond index::
 @end menu
 
@@ -83,21 +82,6 @@ Appendices
 
 
 @include en/fdl.itexi
-
-
-@node LilyPond command index
-@appendix LilyPond command index
-
-This index lists all the LilyPond commands and keywords with links to
-those sections of the manual that describe or discuss their use.
-@ifhtml
-Each link is in two parts.  The first part points to the exact location
-in the manual where the command or keyword appears; the second part
-points to the start of the section of the manual in which the command
-or keyword appears.
-@end ifhtml
-
-@printindex ky
 
 
 @node LilyPond index

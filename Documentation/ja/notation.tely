@@ -56,7 +56,6 @@ Copyright @copyright{} 1999--2023 by 著作者一同
 * Notation manual tables::      表と図
 * Cheat sheet::     LilyPond 構文についての要約
 * GNU Free Documentation License:: このドキュメントの使用許諾書
-* LilyPond command index::
 * LilyPond index::
 @end menu
 
@@ -68,7 +67,6 @@ Copyright @copyright{} 1999--2023 by 著作者一同
 * 記譜法マニュアル表::      表と図
 * Cheat sheet::     LilyPond 構文についての要約
 * GNU Free Documentation License:: このドキュメントの使用許諾書
-* LilyPond command index::
 * LilyPond index::
 @end menu
 @end ignore
@@ -92,28 +90,6 @@ Copyright @copyright{} 1999--2023 by 著作者一同
 
 @include en/fdl.itexi
 
-
-@node LilyPond command index
-@appendix LilyPond コマンド インデックス
-
-このインデックスは、すべての LilyPond コマンドとキーワードをリストアップしていて、@c
-それらの使い方について説明しているマニュアルのセクションへのリンクがあります。@c
-@ifhtml
-各リンクは 2 つのパートに分かれています。@c
-最初のパートは、マニュアルの中でコマンドあるいはキーワードが出現する場所@c
-へのリンクです。@c
-2 番目のパートは、マニュアルの中でコマンドあるいはキーワードが出現するセクションの@c
-先頭へのリンクです。
-@end ifhtml
-
-@iftex
-斜体で表示されている項目は、@c
-内部リファレンスや音楽用語集などの、@c
-他の LilyPond ドキュメントファイルへの外部リンクを含んだ場所
-(多くは@q{参照}セクションにあります) を示しています。
-@end iftex
-
-@printindex ky
 
 @node LilyPond index
 @appendix LilyPond インデックス

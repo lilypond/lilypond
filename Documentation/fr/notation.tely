@@ -65,7 +65,6 @@ Annexes
 * Notation manual tables::         tables et diagrammes.
 * Cheat sheet::                    résumé de la syntaxe de LilyPond.
 * GNU Free Documentation License:: licence de ce document.
-* LilyPond command index::
 * LilyPond index::
 @end menu
 
@@ -88,19 +87,6 @@ Annexes
 @include fr/notation/cheatsheet.itely
 
 @include en/fdl.itexi
-
-@node LilyPond command index
-@appendix Index des commandes LilyPond
-
-Cet index recense toutes les commandes et mots réservés de LilyPond,
-sous forme de lien vers les endroits du manuel où ils sont abordés.
-@ifhtml
-Chaque lien est constitué de deux parties : la première pointe
-directement là où la commande ou le terme apparaît, la seconde au début
-de la section où la commande ou le terme est abordé.
-@end ifhtml
-
-@printindex ky
 
 @node LilyPond index
 @appendix Index de LilyPond
