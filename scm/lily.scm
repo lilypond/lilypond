@@ -689,6 +689,7 @@ determines the number of scale steps that make up an octave.  Usually the
   'completionUnitAsMoment
   'gridIntervalAsMoment
   'maximumBeamSubdivisionInterval
+  'measureLengthAsMoment
   'minimumBeamSubdivisionInterval
   'minimumPageTurnLength
   'minimumRepeatLengthForPageTurn

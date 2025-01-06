@@ -510,8 +510,8 @@ in a chord name?")
      (maximumFretStretch ,number? "Don't allocate frets further than
 this from specified frets.")
      (measureBarType ,string? "Bar line to insert at a measure boundary.")
-     (measureLength ,positive-musical-length-as-moment? "Length of one measure
-in the current time signature.")
+     (measureLength ,positive-musical-length-as-number? "The musical length of
+the current measure.")
      (melismaBusyProperties ,list? "A list of properties (symbols) to
 determine whether a melisma is playing.  Setting this property will
 influence how lyrics are aligned to notes.  For example, if set to
@@ -992,6 +992,12 @@ finger to use")
   'translation-type? 'maximumBeamSubdivisionInterval
   musical-length-as-moment?
   #:new-symbol 'beamMaximumSubdivision
+  #:old->new ly:moment-main
+  #:new->old ly:make-moment)
+
+(define-deprecated-property
+  'translation-type? 'measureLengthAsMoment positive-musical-length-as-moment?
+  #:new-symbol 'measureLength
   #:old->new ly:moment-main
   #:new->old ly:make-moment)
 

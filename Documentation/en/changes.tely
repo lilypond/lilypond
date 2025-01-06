@@ -985,6 +985,10 @@ number property and triggers a warning.
 @tab
 @code{gridInterval}
 @item
+@code{measureLengthAsMoment}
+@tab
+@code{measureLength}
+@item
 @code{minimumPageTurnLength}
 @tab
 @code{pageTurnMinimumRestLength}

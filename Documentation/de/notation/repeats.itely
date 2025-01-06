@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.25.23"
 
 @c Translators: Till Paala
 
@@ -237,11 +237,11 @@ zu Beginn jeder Alternative außer der ersten.
 \alternative {
   {
     f2 d |
-    \set Timing.measureLength = \musicLength 2.
+    \set Timing.measureLength = #3/4
     g4 g g  % optional bar check is allowed here
   }
   {
-    \set Timing.measureLength = \musicLength 4*4
+    \set Timing.measureLength = #4/4
     a2 a |
   }
 }

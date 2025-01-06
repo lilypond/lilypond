@@ -139,8 +139,8 @@ duration (base note length and dot count), as a number of whole notes."
 longer than the @code{measureLength} in that context, and @code{#f} otherwise.
 This supports historic use of @code{Completion_heads_engraver} to split
 @code{c1*3} into three whole notes."
-  (if (ly:moment<? (ly:context-property context 'measureLength)
-                   (ly:duration->moment dur))
+  (if (< (ly:context-property context 'measureLength)
+         (ly:duration->number dur))
       1
       #f))
 

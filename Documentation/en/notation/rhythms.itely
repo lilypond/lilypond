@@ -4792,7 +4792,7 @@ next bar line then falls at 9/8 rather than 5/4.
 @lilypond[quote,verbatim]
 \fixed c' {
   \override Score.BarNumber.break-visibility = #all-visible
-  \set Timing.measureLength = \musicLength 4*5
+  \set Timing.measureLength = #5/4
   c1 c4
   c1 c4
   c4 c \partial 8*5 b4 b b8

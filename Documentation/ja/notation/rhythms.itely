@@ -3900,7 +3900,7 @@ MyCadenza = \relative {
 
 @lilypond[quote,verbatim]
 \new Voice \relative {
-  \set Timing.measureLength = \musicLength 4*5
+  \set Timing.measureLength = #5/4
   c'1 c4 |
   c1 c4 |
   c4 c

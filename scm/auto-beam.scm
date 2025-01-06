@@ -58,8 +58,7 @@
   (and (or (zero? (ly:moment-grace (ly:context-current-moment context)))
            (!= dir START))
        (let* ((beat-base (get 'beatBase 1/4))
-              (measure-length (cond ((get 'measureLength #f) => ly:moment-main)
-                                    (else 1)))
+              (measure-length (get 'measureLength 1))
               (time-signature-fraction
                (get 'timeSignatureFraction '(4 . 4)))
               (beat-structure (get 'beatStructure '(1 1 1 1)))

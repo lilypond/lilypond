@@ -1,4 +1,4 @@
-\version "2.25.6"
+\version "2.25.23"
 
 \header {
   texidoc = "@code{\\time} with a zero numerator results in a warning."
@@ -14,6 +14,6 @@
 #(ly:expect-warning
   (ly:translate-cpp-warning-scheme
    "the property '%s' must be of type '%s', ignoring invalid value '%s'")
-   "measureLength" "positive moment with no grace part" ZERO-MOMENT)
+   "measureLength" "positive exact rational or +inf.0" 0)
 
 { \time 0/1 c'1 }

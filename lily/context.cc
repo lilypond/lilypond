@@ -868,8 +868,7 @@ Rational
 measure_length (Context const *context)
 {
   // TODO: Consider changing the default to Moment::infinity().
-  return from_scm (get_property (context, "measureLength"), Moment (1))
-    .main_part_;
+  return from_scm (get_property (context, "measureLength"), Rational (1));
 }
 
 Moment

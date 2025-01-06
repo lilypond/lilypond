@@ -432,7 +432,7 @@ either @code{\\compoundMeter #'((3 2 8))} or the shorter version
     \set Timing.beatBase = #beat-base
     \set Timing.beatStructure = #beat-structure
     \set Timing.beamExceptions = #'()
-    \set Timing.measureLength = #(ly:make-moment mlen)
+    \set Timing.measureLength = #mlen
   #} ))
 
 compressMMRests =

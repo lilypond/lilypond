@@ -1,4 +1,4 @@
-\version "2.25.7"
+\version "2.25.23"
 
 \header {
   texidoc = "@code{\\partial} produces a warning when used at the start of the
@@ -20,7 +20,7 @@ should run with expected warnings only."
     %% handling measure position.  We don't have firm requirements beyond the
     %% warning, but an unintended change in beaming might indicate a problem.
     \time #'(1 3 4 3 1) 8/8
-    measureLength = #INF-MOMENT
+    measureLength = #+inf.0
   }
 }
 

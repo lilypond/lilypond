@@ -3669,7 +3669,7 @@ dass der Takt im Ergebnis 1/8 kürzer ist.  Die nächste Taktlinie
 wird dann auch bei 9/8 gezogen und nicht bei 5/4.
 
 @lilypond[quote,verbatim,relative=1]
-\set Score.measureLength = \musicLength 4*5
+\set Score.measureLength = #5/4
 c1 c4
 c1 c4
 c4 c4

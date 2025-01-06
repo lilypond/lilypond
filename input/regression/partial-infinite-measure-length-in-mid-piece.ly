@@ -1,4 +1,4 @@
-\version "2.25.7"
+\version "2.25.23"
 
 \header {
   texidoc = "@code{\\partial} produces a warning when used in mid piece when
@@ -16,7 +16,7 @@ with expected warnings only."
     \Score
     barNumberVisibility = #(every-nth-bar-number-visible 1)
     \override BarNumber.break-visibility = #all-visible
-    measureLength = #INF-MOMENT
+    measureLength = #+inf.0
   }
 }
 
