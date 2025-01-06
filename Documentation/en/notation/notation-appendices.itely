@@ -57,6 +57,7 @@ releases (up to version 1.7).
 @c The line width is a hack to allow space for instrument names
 @lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
 
+
 @node Common chord modifiers
 @appendixsec Common chord modifiers
 
@@ -511,12 +512,14 @@ Perfect fifth, @*octave
 
 @end multitable
 
+
 @node Predefined string tunings
 @appendixsec Predefined string tunings
 
 The chart below shows the predefined string tunings.
 
 @lilypondfile{en/included/display-predefined-string-tunings.ly}
+
 
 @node Predefined fretboard diagrams
 @appendixsec Predefined fretboard diagrams
@@ -527,15 +530,18 @@ The chart below shows the predefined string tunings.
 * Diagrams for Mandolin::
 @end menu
 
+
 @node Diagrams for Guitar
 @unnumberedsubsec Diagrams for Guitar
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-fretboards.ly}
 
+
 @node Diagrams for Ukulele
 @unnumberedsubsec Diagrams for Ukulele
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-ukulele-fretboards.ly}
+
 
 @node Diagrams for Mandolin
 @unnumberedsubsec Diagrams for Mandolin
@@ -549,6 +555,7 @@ The chart below shows the predefined string tunings.
 Paper sizes are defined in file @file{scm/paper.scm}.
 
 @include en/paper-sizes.tely
+
 
 @node MIDI instruments
 @appendixsec MIDI instruments
@@ -653,7 +660,6 @@ designed to be unambiguous to people with dichromatism.
 
 @node The Emmentaler font
 @appendixsec The Emmentaler font
-
 
 @cindex Emmentaler font
 @cindex font, Emmentaler
@@ -975,6 +981,7 @@ For more information see @ref{Formatting text}.
             \doc-chars #solesmes
 @end lilypond
 
+
 @node Kievan Notation glyphs
 @unnumberedsubsec Kievan Notation glyphs
 
@@ -1022,6 +1029,19 @@ the cases where @emph{middle@tie{}C} sits relative to the clef).
 For more modification possibilities like ottavation digits,
 @pxref{Clef}.
 
+@cindex clef style
+
+@menu
+* Standard clefs::
+* Percussion staff clef::
+* Tab staff clefs::
+* Ancient music clefs::
+@end menu
+
+
+@node Standard clefs
+@unnumberedsubsec Standard clefs
+
 @cindex treble clef
 @cindex clef, treble
 @cindex violin clef
@@ -1061,32 +1081,6 @@ For more modification possibilities like ottavation digits,
 @cindex F clef
 @cindex clef, subbass
 @cindex subbass clef
-@cindex clef, percussion
-@cindex percussion clef
-@cindex clef, tab
-@cindex tab clef
-@cindex clef style
-@cindex ancient music clef
-@cindex clef, ancient music
-@cindex clef, Petrucci
-@cindex clef, mensural
-@cindex clef, black mensural
-@cindex clef, Kievan
-@cindex Petrucci clef
-@cindex mensural clef
-@cindex black mensural clef
-@cindex Kievan clef
-
-@menu
-* Standard clefs::
-* Percussion staff clef::
-* Tab staff clefs::
-* Ancient music clefs::
-@end menu
-
-@node Standard clefs
-@unnumberedsubsec Standard clefs
-
 @multitable @columnfractions .3 .18 .34 .18
 
 @headitem
@@ -1277,6 +1271,9 @@ c1
 @node Percussion staff clef
 @unnumberedsubsec Percussion staff clef
 
+@cindex clef, percussion
+@cindex percussion clef
+
 @multitable @columnfractions .3 .18 .34 .18
 
 @headitem
@@ -1308,6 +1305,9 @@ c1
 
 @node Tab staff clefs
 @unnumberedsubsec Tab staff clefs
+
+@cindex clef, tab
+@cindex tab clef
 
 @multitable @columnfractions .3 .18 .34 .18
 
@@ -1355,6 +1355,17 @@ Output
 @need 1500
 @node Ancient music clefs
 @unnumberedsubsec Ancient music clefs
+
+@cindex ancient music clef
+@cindex clef, ancient music
+@cindex clef, Petrucci
+@cindex clef, mensural
+@cindex clef, black mensural
+@cindex clef, Kievan
+@cindex Petrucci clef
+@cindex mensural clef
+@cindex black mensural clef
+@cindex Kievan clef
 
 @subsubheading Gregorian
 
@@ -2052,6 +2063,11 @@ second column examples was always larger than between the remaining
 columns - JL
 @end ignore
 
+
+@need 1000
+@node Articulation scripts
+@unnumberedsubsec Articulation scripts
+
 @funindex \accent
 @funindex ->
 @funindex \espressivo
@@ -2079,11 +2095,6 @@ columns - JL
 @cindex articulation, staccato
 @cindex @q{tenuto} articulation
 @cindex articulation, tenuto
-
-
-@need 1000
-@node Articulation scripts
-@unnumberedsubsec Articulation scripts
 
 @multitable @columnfractions .25 .25 .25 .25
 
@@ -2129,6 +2140,11 @@ f^\tenuto e,_\tenuto b'\tenuto
 @end lilypond
 
 @end multitable
+
+
+@need 1000
+@node Ornament scripts
+@unnumberedsubsec Ornament scripts
 
 @funindex \prall
 @funindex \prallup
@@ -2178,11 +2194,6 @@ f^\tenuto e,_\tenuto b'\tenuto
 @cindex ornament, slash turn
 @cindex @q{Haydn turn} ornament
 @cindex ornament, Haydn turn
-
-
-@need 1000
-@node Ornament scripts
-@unnumberedsubsec Ornament scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2272,6 +2283,11 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 
 @end multitable
 
+
+@need 1000
+@node Fermata scripts
+@unnumberedsubsec Fermata scripts
+
 @funindex \fermata
 @funindex \shortfermata
 @funindex \longfermata
@@ -2286,11 +2302,6 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @cindex long fermata
 @cindex fermata, Henze
 @cindex Henze fermata
-
-
-@need 1000
-@node Fermata scripts
-@unnumberedsubsec Fermata scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2333,6 +2344,11 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 
 @end multitable
 
+
+@need 1000
+@node Instrument-specific scripts
+@unnumberedsubsec Instrument-specific scripts
+
 @funindex \upbow
 @funindex \downbow
 @funindex \flageolet
@@ -2368,11 +2384,6 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @cindex sign, snappizzicato
 @cindex @q{thumb} fingering
 @cindex fingering, thumb
-
-
-@need 1000
-@node Instrument-specific scripts
-@unnumberedsubsec Instrument-specific scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2441,6 +2452,11 @@ f^\thumb e,_\thumb b'\thumb
 
 @end multitable
 
+
+@need 1000
+@node Repeat sign scripts
+@unnumberedsubsec Repeat sign scripts
+
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
@@ -2453,11 +2469,6 @@ f^\thumb e,_\thumb b'\thumb
 @cindex sign, variant coda
 @cindex sign, coda, variant
 @cindex coda sign, variant
-
-
-@need 1000
-@node Repeat sign scripts
-@unnumberedsubsec Repeat sign scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2479,6 +2490,11 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
+
+@need 1000
+@node Ancient scripts
+@unnumberedsubsec Ancient scripts
+
 @funindex \accentus
 @funindex \circulus
 @funindex \ictus
@@ -2498,11 +2514,6 @@ f^\varcoda e,_\varcoda b'\varcoda
 @cindex articulation, Gregorian, semicirculus
 @cindex @q{signum congruentiae} mensural notation
 @cindex mensural notation, signum congruentiae
-
-
-@need 1000
-@node Ancient scripts
-@unnumberedsubsec Ancient scripts
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2636,6 +2647,7 @@ b4 4 \breathe 4
 @need 1000
 @node Percussion notes
 @appendixsec Percussion notes
+
 @cindex drum, various
 @cindex acoustic bass
 @cindex bass
