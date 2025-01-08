@@ -2952,9 +2952,6 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
     if text == '"_"' and extended:
         return extend
 
-    if text == '""':
-        text = ''
-
     if need_markup and text:
         text = r'\markup %s' % text
 

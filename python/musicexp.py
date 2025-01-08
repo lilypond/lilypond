@@ -1109,7 +1109,7 @@ class VoltaStyleEvent(Music):
 
         # We can't use `\tweak` here.
         text_markup = text_to_ly([self.element])
-        if text_markup != '""':
+        if text_markup:
             ret.append(r'\once \override Score.VoltaBracket.text = '
                        r'\markup %s' % text_markup)
         else:
@@ -2296,7 +2296,8 @@ class DynamicsSpannerEvent(SpanEvent):
         if font_size is not None:
             tweaks.append(r'\tweak font-size %s' % font_size)
 
-        tweaks.append(r'\tweak text \markup ' + text_markup)
+        if text_markup:
+            tweaks.append(r'\tweak text \markup ' + text_markup)
 
         return (tweaks, val)
 
@@ -2515,7 +2516,11 @@ class MarkEvent(Event):
         return False
 
     def ly_expression(self):
-        return r'\mark \markup %s' % text_to_ly(self.text_elements)
+        text_markup = text_to_ly(self.text_elements)
+        if text_markup:
+            return r'\mark \markup %s' % text_markup
+        else:
+            return ''
 
     def print_ly(self, print):
         dir = {1: '#UP',
@@ -2535,7 +2540,11 @@ class TextMarkEvent(Event):
         return False
 
     def ly_expression(self):
-        return r'\textMark \markup %s' % text_to_ly(self.text_elements)
+        text_markup = text_to_ly(self.text_elements)
+        if text_markup:
+            return r'\textMark \markup %s' % text_markup
+        else:
+            return ''
 
     def print_ly(self, print):
         dir = {1: '#UP',
@@ -2740,17 +2749,18 @@ def text_to_ly(elements, init_markup=None):
         name = element.get_name()
         if name == 'words' or name == 'rehearsal' or name == 'ending':
             text = element.get_text()
-            if attributes.get('xml:space', 'default') != 'preserve':
-                # We use Python's special algorithm of `split()`, which
-                # kicks in if there is no separator argument, to eliminate
-                # runs of consecutive whitespace characters.  We also want
-                # this for leading and trailing whitespace, i.e., they
-                # should be treated similarly to in-between whitespace
-                # (instead of being removed completely).
-                text = '|' + text + '|'
-                text = ' '.join(text.split())
-                text = text[1:-1]
-            text = utilities.escape_ly_output_string(text)
+            if text:
+                if attributes.get('xml:space', 'default') != 'preserve':
+                    # We use Python's special algorithm of `split()`, which
+                    # kicks in if there is no separator argument, to eliminate
+                    # runs of consecutive whitespace characters.  We also want
+                    # this for leading and trailing whitespace, i.e., they
+                    # should be treated similarly to in-between whitespace
+                    # (instead of being removed completely).
+                    text = '|' + text + '|'
+                    text = ' '.join(text.split())
+                    text = text[1:-1]
+                text = utilities.escape_ly_output_string(text)
         elif name == 'segno':
             text = r'\fontsize #2 \segno'
         elif name == 'coda':
@@ -2760,7 +2770,8 @@ def text_to_ly(elements, init_markup=None):
         else:
             pass  # XXX
 
-        markup.append(text)
+        if text:
+            markup.append(text)
 
     if concat:
         markup.append('}')
@@ -2787,8 +2798,11 @@ class TextEvent(Event):
         return {1: '^', -1: '_', 0: '-'}.get(self.force_direction, '-')
 
     def ly_expression(self):
-        return r'%s\markup %s' % (self.direction_mod(),
-                                  text_to_ly(self.text_elements))
+        text_markup = text_to_ly(self.text_elements)
+        if text_markup:
+            return r'%s\markup %s' % (self.direction_mod(), text_markup)
+        else:
+            return ''
 
 
 class ArticulationEvent(Event):
@@ -4538,6 +4552,7 @@ voice_text_dict = {
     3: r'\voiceThree',
     4: r'\voiceFour',
 }
+
 
 class Staff(StaffGroup):
     def __init__(self, command="Staff"):
