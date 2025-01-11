@@ -880,12 +880,6 @@ the current tuplet description, or @code{'()}.  Tuplet description objects
 are opaque to Scheme.")
 
 
-     (voltaBracketMusicalLength ,musical-length-as-moment? "The maximum
-musical length of a @code{VoltaBracket} when its @code{musical-@/length}
-property is not set.
-
-This property is deprecated; overriding the @code{musical-@/length} property of
-@code{VoltaBracket} is recommended.")
      (dynamicAbsoluteVolumeFunction ,procedure? "A procedure that takes
 one argument, the text value of a dynamic event, and returns the absolute
 volume of that dynamic event.")
@@ -895,6 +889,7 @@ volume of that dynamic event.")
 proceeding to next time step.  This is an internal variable.")
      (forceBreak ,boolean? "Set to @code{#t} when an event forcing a
 line break was heard.")
+
 
      (graceSettings ,list? "Overrides for grace notes.  This property
 should be manipulated through the @code{add-grace-property} function.")
@@ -955,6 +950,14 @@ finger to use")
 
 
      (tieMelismaBusy ,boolean? "Signal whether a tie is present.")
+
+
+     (voltaBracketMusicalLength ,musical-length-as-moment? "The maximum
+musical length of a @code{VoltaBracket} when its @code{musical-@/length}
+property is not set.
+
+This property is deprecated; overriding the @code{musical-@/length} property of
+@code{VoltaBracket} is recommended.")
      )))
 
 
