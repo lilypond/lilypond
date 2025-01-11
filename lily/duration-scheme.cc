@@ -153,6 +153,8 @@ Convert @var{dur} to a string.
   return to_scm (a->to_string ());
 }
 
+// TODO: Rename ly:duration-factor (to ...-as-pair, or whatever) and rename
+// ly:duration-scale to ly:duration-factor.  Formally deprecate this.
 LY_DEFINE (ly_duration_factor, "ly:duration-factor", 1, 0, 0, (SCM dur),
            R"(
 Extract the compression factor from @var{dur}.  Return it as a pair.

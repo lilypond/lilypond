@@ -306,22 +306,12 @@
 )
 
 % Shorten a note, and save the note's original duration in ac:currentDuration
-#(define (ac:articulate-one-note m fraction)
-  "Replace m with m*fraction"
+#(define (ac:articulate-one-note m scale)
+  "Replace m with m*scale"
   (if  (eq? 'NoteEvent (ly:music-property m 'name))
-   (let*
-    ((dur (ly:music-property m 'duration))
-     (l (ly:duration-log dur))
-     (d (ly:duration-dot-count dur))
-     (factor (ly:duration-factor dur))
-     (num (car fraction))
-     (denom (cdr fraction)))
-    (begin
-     (set! ac:currentDuration dur)
-     (set! (ly:music-property m 'duration)
-      (ly:make-duration l d
-       (* num (car factor))
-       (* denom (cdr factor))))))
+   (let ((dur (ly:music-property m 'duration)))
+    (set! ac:currentDuration dur)
+    (set! (ly:music-property m 'duration) (* dur (scale->factor scale))))
    m))
 
 % helper routine to set duration.
@@ -637,21 +627,15 @@
         (map
          (lambda (x) (ac:articulate-one-note x (cadr actions)))
          (ly:music-property music 'elements))
-        (let*
-         ((num (caadr actions))
-          (denom (cdadr actions))
-          (mult (ly:duration-factor ac:currentDuration))
-          (newnum (* (- denom num) (car mult)))
-          (newdenom (* (cdr mult) denom))
-          (len (ly:duration-log ac:currentDuration))
-          (dots (ly:duration-dot-count ac:currentDuration)))
-
+        (let ((num (caadr actions))
+              (denom (cdadr actions)))
          (if (not (eqv? num denom))
           (make-sequential-music
            (list (ac:to128 music)
            (make-music 'EventChord 'elements
             (list
-             (make-music 'RestEvent 'duration (ly:make-duration len dots newnum newdenom))))))
+             (make-music 'RestEvent
+              'duration (* ac:currentDuration (- 1 (/ num denom))))))))
           music)))
 
        ((accel)
@@ -758,9 +742,9 @@
         (let*
          ((dur (ly:music-property
                 (car (ly:music-property music 'elements)) 'duration))
-          (factor (ly:duration-factor dur))
           (newdur (ly:make-duration (+ (ly:duration-log dur) 2)
-                   (ly:duration-dot-count dur) (car factor)(cdr factor))))
+                                    (ly:duration-dot-count dur)
+                                    (ly:duration-scale dur))))
          (begin
           (map (lambda (y) (ac:setduration y newdur))
            (ly:music-property music 'elements))

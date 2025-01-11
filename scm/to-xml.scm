@@ -90,13 +90,14 @@ is then separated.
     #:value (number->string (ash 1 (ly:duration-log d)))))
 
 (define (duration->xml-node d)
-  (make <xml-node>
-    #:name 'duration
-    ;; #:value (number->string (ash 1 (ly:duration-log d)))))
-    #:attributes `((log . ,(ly:duration-log d))
-                   (dots . ,(ly:duration-dot-count d))
-                   (numer . ,(car (ly:duration-factor d)))
-                   (denom . ,(cdr (ly:duration-factor d))))))
+  (let ((factor (ly:duration-scale d)))
+    (make <xml-node>
+      #:name 'duration
+      ;; #:value (number->string (ash 1 (ly:duration-log d)))))
+      #:attributes `((log . ,(ly:duration-log d))
+                     (dots . ,(ly:duration-dot-count d))
+                     (numer . ,(numerator factor))
+                     (denom . ,(denominator factor))))))
 
 (define (pitch->xml-node p)
   (make <xml-node>
