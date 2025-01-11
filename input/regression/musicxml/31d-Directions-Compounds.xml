@@ -7,7 +7,16 @@
     <miscellaneous>
       <miscellaneous-field name="description">This tests various combinations of
           &lt;direction&gt; children.  The lyrics for each note describe the
-          compound elements assigned to that note.</miscellaneous-field>
+          compound elements assigned to that note.
+
+          The first ‘molto f’ uses &lt;words&gt;molto &lt;words&gt;, i.e., it
+          omits the ‘xml:space’ attribute.   This makes the rendering of the
+          space between ‘molto’ and ‘f’ implementation-dependent (and might be
+          thus omitted).  The second ‘molto f’, together with ‘meno f’, uses
+          ‘xml:space="preserve"’.
+
+          For demonstration purposes, there is no space between words ‘bold’ and
+          ‘italic’.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -82,7 +91,7 @@
         </direction-type>
         <direction-type>
           <words default-y="-80" font-family="Times New Roman" font-size="10.25"
-                 font-style="italic"> subito</words>
+                 font-style="italic" xml:space="preserve"> subito</words>
         </direction-type>
       </direction>
       <note>
@@ -96,7 +105,8 @@
       <direction placement="above">
         <direction-type>
           <words default-y="30" font-family="Times New Roman" font-size="10.25"
-                 font-style="italic" enclosure="rectangle">molto </words>
+                 font-style="italic" enclosure="rectangle"
+                 xml:space="preserve">molto </words>
         </direction-type>
         <direction-type>
           <dynamics default-y="30">
@@ -172,7 +182,7 @@
           <dashes type="stop" number="1"/>
         </direction-type>
         <direction-type>
-          <words font-style="italic">meno </words>
+          <words font-style="italic" xml:space="preserve">meno </words>
         </direction-type>
         <direction-type>
           <dynamics>

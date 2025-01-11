@@ -2750,17 +2750,47 @@ def text_to_ly(elements, init_markup=None):
         if name == 'words' or name == 'rehearsal' or name == 'ending':
             text = element.get_text()
             if text:
+                # For whitespace handling, if the `xml:space` attribute is
+                # set to 'default' (or not explicitly specified), W3C
+                # recommends to apply the normalization algorithm of
+                # attribute values also for the content of XML elements:
+                # remove leading and trailing whitespace, convert all
+                # whitespace to normal spaces, and finally collapse a
+                # sequence of spaces to a single space.
+                #
+                # Note that not all programs do this while importing
+                # MusicXML.  Using `<words>` as an example, MuseScore 4.4
+                # ignores its `xml:space` attribute, always assuming the
+                # value 'preserve'.  On the other hand, Finale 27.4 also
+                # ignores `xml:space`, does not collapse spaces, but applies
+                # a special treatment to collapse CR and LF.
+                #
+                # Since (at least) these two programs also export MusicXML
+                # with meaningful leading and trailing whitespace without
+                # setting `xml:space` to 'preserve', we follow.
                 if attributes.get('xml:space', 'default') != 'preserve':
                     # We use Python's special algorithm of `split()`, which
-                    # kicks in if there is no separator argument, to eliminate
-                    # runs of consecutive whitespace characters.  We also want
-                    # this for leading and trailing whitespace, i.e., they
-                    # should be treated similarly to in-between whitespace
-                    # (instead of being removed completely).
+                    # kicks in if there is no separator argument, to
+                    # eliminate runs of consecutive whitespace characters.
+                    # We temporarily add guards to get this also for leading
+                    # and trailing whitespace.
                     text = '|' + text + '|'
                     text = ' '.join(text.split())
                     text = text[1:-1]
-                text = utilities.escape_ly_output_string(text)
+                    text = utilities.escape_ly_output_string(text)
+                else:
+                    # `\r` can only be created with `&#xD;`.
+                    lines = text.replace('\r', '\n').split('\n')
+                    text = []
+                    text.append(r'\center-column {')
+                    for line in lines:
+                        if line:
+                            text.append(
+                                utilities.escape_ly_output_string(line))
+                        else:
+                            text.append(r'\null')
+                    text.append('}')
+                    text = ' '.join(text)
         elif name == 'segno':
             text = r'\fontsize #2 \segno'
         elif name == 'coda':
