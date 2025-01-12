@@ -1,4 +1,4 @@
-.PHONY : all clean default dist exe help html lib man TAGS\
+.PHONY : all clean default dist help html man TAGS\
 	 po doc WWW WWW-post local-WWW local-WWW\
 	 local-all local-clean local-doc
 
@@ -34,16 +34,13 @@ help: generic-help local-help
 	@echo "  doc-clean    clean \`out-www' directory"
 	@echo "  install      install programs and data (prefix=$(prefix))"
 	@echo "  uninstall    uninstall programs and data"
-	@echo "  test         build regression tests for the program and scripts"
 	@echo
 	@echo "  *Note: Prepend \`local-' (eg. \`local-clean') to restrict"
 	@echo "         any of the above commands to the current directory."
 	@echo
 	@echo "Other generic targets:"
 	@echo "  default      same as \`make all', but restricted to the current directory"
-	@echo "  exe          update all executables"
 	@echo "  help         this help"
-	@echo "  lib          update all libraries"
 	@echo "  TAGS         generate tagfiles"
 	@echo
 	@echo "\`make' may be invoked from any subdirectory that contains a GNUmakefile."
