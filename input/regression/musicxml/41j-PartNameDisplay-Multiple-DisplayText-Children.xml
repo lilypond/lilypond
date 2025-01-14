@@ -5,17 +5,19 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">This score has multiple
-              display-text elements in its part-name-display block.
-              This is handled without crashing.
-      </miscellaneous-field>
+          &lt;display-text&gt; elements in its &lt;part-name-display&gt; block:
+          the word ‘Player’ printed red with a large font size, the word ‘One’
+          printed blue with a small, italic font size.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
     <score-part id="P1">
       <part-name>Music</part-name>
       <part-name-display>
-        <display-text>Player</display-text>
-        <display-text>One</display-text>
+        <display-text xml:space="preserve" color="#FF0000"
+                      font-size="20">Player </display-text>
+        <display-text color="#0000FF" font-size="8"
+                      font-style="italic">One</display-text>
       </part-name-display>
     </score-part>
   </part-list>

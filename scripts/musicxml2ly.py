@@ -472,35 +472,60 @@ def extract_score_structure(part_list, staffinfo):
             return None
         staff.id = el.id
 
+        instrument_name_text = ''
+
         partname = el.get_maybe_exist_named_child('part-name')
         # Finale gives unnamed parts the name "MusicXML Part" automatically!
         if partname and partname.get_text() != "MusicXML Part":
-            staff.instrument_name = partname.get_text()
+            instrument_name_text = partname.get_text()
+            staff.instrument_name = \
+                musicexp.text_to_ly([(partname, partname._attribute_dict)])
         # `<part-name-display>` overrides `<part-name>`.
         partname = el.get_maybe_exist_named_child("part-name-display")
         if partname:
-            staff.instrument_name = extract_display_text(partname)
+            if getattr(partname, 'print-object', 'yes') == 'yes':
+                instrument_name_text = extract_display_text(partname)
+                staff.instrument_name = extract_display_markup(partname)
+            else:
+                staff.instrument_name = None
 
         if options.midi:
             staff.sound = extract_instrument_sound(el)
 
-        if staff.instrument_name:
+        # TODO: Replace this very rough estimate with the first per-system
+        #       left margin value:
+        #
+        #         <print> → <system-layout> → <left-margin>
+        if instrument_name_text:
             globvars.paper.indent = max(globvars.paper.indent,
-                                        len(staff.instrument_name))
-            globvars.paper.instrument_names.append(staff.instrument_name)
+                                        len(instrument_name_text))
+            globvars.paper.instrument_names.append(instrument_name_text)
+
+        short_instrument_name_text = ''
 
         partshort = el.get_maybe_exist_named_child('part-abbreviation')
         if partshort:
-            staff.short_instrument_name = partshort.get_text()
+            short_instrument_name_text = partshort.get_text()
+            staff.short_instrument_name = \
+                musicexp.text_to_ly([(partshort, partshort._attribute_dict)])
         # `<part-abbreviation-display>` overrides `<part-abbreviation>`
         partshort = el.get_maybe_exist_named_child('part-abbreviation-display')
         if partshort:
-            staff.short_instrument_name = extract_display_text(partshort)
+            if getattr(partshort, 'print-object', 'yes') == 'yes':
+                short_instrument_name_text = extract_display_text(partshort)
+                staff.short_instrument_name = extract_display_markup(partshort)
+            else:
+                staff.short_instrument_name = None
 
         # TODO: Read in the MIDI device / instrument
-        if staff.short_instrument_name:
+
+        # TODO: Replace this very rough estimate with the global left margin
+        #       value:
+        #
+        #         <defaults> → <system-layout> → <left-margin>
+        if short_instrument_name_text:
             globvars.paper.short_indent = max(globvars.paper.short_indent,
-                                              len(staff.short_instrument_name))
+                                              len(short_instrument_name_text))
 
         return staff
 
@@ -514,20 +539,29 @@ def extract_score_structure(part_list, staffinfo):
 
         groupname = el.get_maybe_exist_named_child('group-name')
         if groupname:
-            group.instrument_name = groupname.get_text()
+            group.instrument_name = \
+                musicexp.text_to_ly([(groupname, groupname._attribute_dict)])
         # `<group-name-display>` overrides `<group-name>`.
         groupname = el.get_maybe_exist_named_child('group-name-display')
         if groupname:
-            group.instrument_name = extract_display_text(groupname)
+            if getattr(groupname, 'print-object', 'yes') == 'yes':
+                group.instrument_name = extract_display_markup(groupname)
+            else:
+                group.instrument_name = None
 
         groupshort = el.get_maybe_exist_named_child('group-abbreviation')
         if groupshort:
-            group.short_instrument_name = groupshort.get_text()
+            group.short_instrument_name = \
+                musicexp.text_to_ly([(groupshort, groupshort._attribute_dict)])
         # `<group-abbreviation-display>` overrides `<group-abbreviation>`.
         groupshort = el.get_maybe_exist_named_child(
             'group-abbreviation-display')
         if groupshort:
-            group.short_instrument_name = extract_display_text(groupshort)
+            if getattr(groupshort, 'print-object', 'yes') == 'yes':
+                group.short_instrument_name = \
+                    extract_display_markup(groupshort)
+            else:
+                group.short_instrument_name = None
 
         groupsymbol = el.get_maybe_exist_named_child('group-symbol')
         if groupsymbol:
@@ -1412,11 +1446,31 @@ def musicxml_attributes_to_lily(attrs):
 
 
 def extract_display_text(el):
-    children = el.get_typed_children(musicxml.get_class("display-text"))
+    children = el.get_all_children()
     if children:
-        return " ".join([child.get_text() for child in children])
+        text = []
+        for child in children:
+            name = child.get_name()
+            if name == 'accidental-text':
+                text.append('#')  # This is sufficient for a character count.
+            else:
+                t = child.get_text()
+                if t:
+                    text.append(t)
+        return ' '.join(text)
     else:
-        return False
+        return ''
+
+
+def extract_display_markup(el):
+    children = el.get_all_children()
+    if children:
+        elements = []
+        for child in children:
+            elements.append((child, child._attribute_dict))
+        return musicexp.text_to_ly(elements)
+    else:
+        return None
 
 
 def musicxml_print_to_lily(el):
@@ -1432,22 +1486,35 @@ def musicxml_print_to_lily(el):
     #      page-number CDATA #IMPLIED
     #  >
     elts = []
+
     if conversion_settings.convert_system_breaks:
         if getattr(el, 'new-system', None) == 'yes':
             elts.append(musicexp.Break("break"))
+
     if conversion_settings.convert_page_breaks:
         if getattr(el, 'new-page', None) == 'yes':
             elts.append(musicexp.Break("pageBreak"))
+
     child = el.get_maybe_exist_named_child("part-name-display")
     if child:
-        name = musicexp.escape_instrument_string(extract_display_text(child))
+        if getattr(child, 'print-object', 'yes') == 'yes':
+            name = extract_display_markup(child)
+        else:
+            name = ''
+        name = musicexp.escape_instrument_string(name)
         elts.append(musicexp.SetEvent('Staff.instrumentName',
                                       '%s' % name))
+
     child = el.get_maybe_exist_named_child("part-abbreviation-display")
     if child:
-        name = musicexp.escape_instrument_string(extract_display_text(child))
+        if getattr(child, 'print-object', 'yes') == 'yes':
+            name = extract_display_markup(child)
+        else:
+            name = ''
+        name = musicexp.escape_instrument_string(name)
         elts.append(musicexp.SetEvent('Staff.shortInstrumentName',
                                       '%s' % name))
+
     return elts
 
 

@@ -39,17 +39,11 @@ ly_dur = None  # For communication between `Duration` and `TremoloEvent`.
 
 
 def escape_instrument_string(input_string):
-    retstring = input_string.replace('"', r'\"')
-    if re.match('.*[\r\n]+.*', retstring):
-        rx = re.compile(r'[\n\r]+')
-        strings = rx.split(retstring)
-        retstring = r"\markup { \center-column { "
-        for s in strings:
-            retstring += r'\line { "' + s + '" } '
-        retstring += "} }"
-    else:
-        retstring = '"' + retstring + '"'
-    return retstring
+    if '\\' in input_string:
+        return r'\markup ' + input_string
+    if input_string[0] == '"':
+        return input_string
+    return '"' + input_string + '"'
 
 
 def color_to_ly(hex_val):
@@ -2747,7 +2741,14 @@ def text_to_ly(elements, init_markup=None):
 
         text = ''
         name = element.get_name()
-        if name == 'words' or name == 'rehearsal' or name == 'ending':
+        if name in ['display-text',
+                    'ending',
+                    'group-abbreviation',
+                    'group-name',
+                    'part-abbreviation',
+                    'part-name',
+                    'rehearsal',
+                    'words']:
             text = element.get_text()
             if text:
                 # For whitespace handling, if the `xml:space` attribute is
