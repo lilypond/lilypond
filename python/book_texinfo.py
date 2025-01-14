@@ -140,26 +140,20 @@ TexInfo_output = {
 @image{%(info_image_path)s,,,%(alt)s}
 @end ifinfo
 @html
-%(para_pre)s<a href="%(base)s%(ext)s">
+<a href="%(base)s%(ext)s">
   <img align="middle"
        border="0"
        src="%(image)s"
-       alt="%(alt)s"></a>%(para_post)s
+       alt="%(alt)s"></a>
 @end html
 ''',
 
-    # TODO: The `@html` environment should be replaced with `@inlineraw`
-    #       for recent `texi2any` versions.
-    #
     # There must be an empty line at the end to ensure that the following
     # images are typeset in vertical mode (and not in inline mode).
-    book_snippets.PRINTFILENAME: '''@html
-<a href="%(base)s%(ext)s">
-@end html
+    book_snippets.PRINTFILENAME: '''@need 800
+@inlineraw{html, <a href="%(base)s%(ext)s">}
 @file{%(filename)s}
-@html
-</a>
-@end html
+@inlineraw{html, </a>}
 
 ''',
 
@@ -350,18 +344,6 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         rep['base'] = basename
         rep['filename'] = os.path.basename(snippet.filename)
         rep['ext'] = snippet.ext
-        if book_snippets.INLINE not in snippet.option_dict:
-            # URGH: For recent `texi2any` versions, both values must be
-            #       empty.
-            rep['para_pre'] = '<p>'
-            rep['para_post'] = '</p>'
-        else:
-            rep['para_pre'] = ''
-            # URGH: The empty line after `</a>` is necessary for texi2html
-            #       1.82, which swallows the last newline of the `@ifhtml`
-            #       region.  The `@html` environment should be replaced with
-            #       `@inlineraw` for recent `texi2any` versions.
-            rep['para_post'] = '\n'
 
         for image in snippet.get_images():
             rep1 = copy.copy(rep)
