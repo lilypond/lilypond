@@ -2796,6 +2796,13 @@ def text_to_ly(elements, init_markup=None):
             text = r'\fontsize #2 \segno'
         elif name == 'coda':
             text = r'\fontsize #2 \coda'
+        elif name == 'accidental-text':
+            accidental = accidental_values_dict.get(element.get_text(), None)
+            if accidental is not None:
+                if accidental.isascii():
+                    text = r'\tiny \musicglyph "%s"' % accidental
+                else:
+                    text = r'\tiny \number "%s"' % accidental
         elif name == 'lilypond-markup':
             text = element.get_text()
         else:
