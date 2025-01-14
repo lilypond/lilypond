@@ -169,10 +169,6 @@
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
-        <key>
-          <fifths>2</fifths>
-          <mode>major</mode>
-        </key>
         <time symbol="common">
           <beats>4</beats>
           <beat-type>4</beat-type>
@@ -205,10 +201,6 @@
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
-        <key>
-          <fifths>4</fifths>
-          <mode>major</mode>
-        </key>
         <time symbol="common">
           <beats>4</beats>
           <beat-type>4</beat-type>

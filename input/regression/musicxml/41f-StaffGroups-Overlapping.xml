@@ -6,9 +6,10 @@
     <miscellaneous>
       <miscellaneous-field name="description">MusicXML allows for overlapping
           part-groups, while many applications do not allow overlapping groups,
-          but require them to be properly nested. In this case, one group
-          (within parenthesis) goes from staff 1 to 4 and another group
-          (also within parenthesis) goes from staff 3 to 5.</miscellaneous-field>
+          but require them to be properly nested.  In this case, one group
+          (with a curly bracket) goes from staff 1 to 4 and another group (also
+          with a curly bracket) goes from staff 3
+          to 5.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
