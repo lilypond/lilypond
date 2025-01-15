@@ -1,7 +1,14 @@
 LilyPond Binaries
 =================
 
-This directory contains scripts to build and package binaries of LilyPond.
+This directory contains scripts to build and package binaries of LilyPond;
+they are intended to be run within an Ansible playbook, see `ansible/README.md` for more information.
+Linux binaries are created with AlmaLinux 8,
+Windows binaries are created with the MinGW-w64 cross-compiler running on Ubuntu 22.04,
+and macOS binaries under macOS.
+
+There are intentionally no efforts to make the scripts more generic, mainly to keep them simple.
+
 
 Usage
 -----
@@ -22,17 +29,27 @@ The scripts assume all [Requirements for compiling Lilypond](https://lilypond.or
 Additionally, you need a few tools to build the dependencies:
 
  * [`gperf`](https://www.gnu.org/software/gperf/)
- * [`meson`](https://mesonbuild.com/) (at least version 0.55.3)
+ * [`meson`](https://mesonbuild.com/) (at least version 1.2.0)
  * [`ninja`](https://ninja-build.org/)
 
 They should be available for the distribution you use, but some may not be recent enough.
 For `meson` in particular, try installing the latest version with `pip`.
+
+Make sure that your operating system's default compiler is able to compile LilyPond
+(for example, g++ version 8).
+C source code files should then be compiled with the corresponding C compiler sibling that has the same version
+(for example, gcc version 8).
 
 Mingw peculiarities
 -------------------
 
 In order to do cross-compilation to mingw, a previous successful Linux build is necessary,
 because Guile needs to bootstrap itself, which is not possible when host and target system differ.
+
+You need MinGW-w64 version 8.0.0 or newer.
+
+Only the 'win32' thread model is supported for the gcc and g++ mingw cross compilers;
+this can be verified by checking the output of `x86_64-w64-mingw32-gcc -v`.
 
 Goals and Non-Goals
 -------------------
