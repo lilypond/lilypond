@@ -245,7 +245,15 @@ class Ghostscript(ConfigurePackage):
         return []
 
     def configure_args(self, c: Config) -> List[str]:
-        return [
+        mingw_args = []
+        if c.is_mingw():
+            mingw_args = [
+                # Some platforms have sys/times.h for native compilation;
+                # however, mingw doesn't have it. Ghostscript's doesn't
+                # handle this situation correctly.
+                "GCFLAGS=-DHAVE_SYS_TIMES_H=0",
+            ]
+        return mingw_args + [
             # Only enable drivers needed for LilyPond.
             "--disable-contrib",
             "--disable-dynamic",
