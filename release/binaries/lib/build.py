@@ -299,8 +299,13 @@ class ConfigurePackage(Package):
             # Disable shared libraries, force static library build.
             args += self.configure_args_static(c)
 
-            # Install the package to a temporary location.
-            args += [f"--prefix={install_directory}"]
+            # Install the package to a temporary location. We explicitly
+            # specify `--libdir` to avoid issues on platforms where `lib64/`
+            # is used instead of `lib/`.
+            args += [
+                f"--prefix={install_directory}",
+                f"--libdir={install_directory}/lib",
+            ]
             args += self.configure_args(c)
 
             if not self.run_command(c, args, log, "configure"):

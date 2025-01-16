@@ -390,6 +390,12 @@ class Libffi(ConfigurePackage):
     def download_url(self) -> str:
         return f"https://github.com/libffi/libffi/releases/download/v{self.version}/{self.archive}"
 
+    def configure_args(self, c: Config) -> List[str]:
+        return [
+            # Avoid use of `lib64/` on some platforms.
+            "--disable-multi-os-directory",
+        ]
+
     @property
     def license_files(self) -> List[str]:
         return ["LICENSE"]
