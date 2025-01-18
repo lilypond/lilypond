@@ -518,15 +518,16 @@ corner of the beam later on."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff ellipsis
 
-(define-public (staff-ellipsis::calc-y-extent grob)
+(define-public (staff-ellipsis::pure-height grob beg end)
   "Callback for @code{StaffEllipsis} grob, which is used with
 @code{skipTypesetting}."
   (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
-         (staff-extent (if (ly:grob? staff-symbol)
-                           (ly:grob-extent staff-symbol staff-symbol Y)
+         (staff-height (if (ly:grob? staff-symbol)
+                           (ly:grob-pure-height staff-symbol staff-symbol
+                                                beg end)
                            (cons 0 0))))
     ;; widen slightly to cover the outer staff lines even with rounding error
-    (interval-widen staff-extent 1/32)))
+    (interval-widen staff-height 1/32)))
 
 (define-public (staff-ellipsis::print grob)
   "Callback for @code{StaffEllipsis} grob, which is used with
@@ -534,7 +535,7 @@ corner of the beam later on."
   (let ((text-sten (grob-interpret-markup grob (ly:grob-property grob 'text))))
     (ly:make-stencil (ly:stencil-expr text-sten)
                      (ly:stencil-extent text-sten X)
-                     (ly:grob-extent grob grob Y))))
+                     (staff-ellipsis::pure-height grob 0 INFINITY-INT))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff symbol

@@ -3144,7 +3144,8 @@ space.")))))
                                     (make-musicglyph-markup "dots.dot")
                                     (make-null-markup))))
         (whiteout . #t)
-        (Y-extent . ,staff-ellipsis::calc-y-extent)
+        (Y-extent . ,(grob::unpure-Y-extent-from-stencil
+                      staff-ellipsis::pure-height))
         (meta . ((class . Item)
                  (interfaces . (break-aligned-interface
                                 font-interface
