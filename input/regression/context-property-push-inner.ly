@@ -12,12 +12,14 @@ warnings and no instrument names should appear in the output."
 \new PianoStaff <<
   \new Staff = "RH" {
     \set PianoStaff.instrumentName = "A"
-    \pushContextProperty PianoStaff.instrumentName "B"
+    \pushContextProperty PianoStaff.instrumentName
+    \set PianoStaff.instrumentName = "B"
     \contextPropertyCheck PianoStaff.instrumentName "B"
     %% Now, the stack for PianoStaff.instrumentName holds ("A").
 
     \set Staff.instrumentName = #'() % which happens to be the default
-    \pushContextProperty Staff.instrumentName "C"
+    \pushContextProperty Staff.instrumentName
+    \set Staff.instrumentName = "C"
     \contextPropertyCheck Staff.instrumentName "C"
     %% Now, the stack for Staff.instrumentName holds (()).  If the push function
     %% improperly read the PianoStaff stack, the Staff stack would instead hold

@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.25.23"
+@c \version "2.25.24"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault, Jean Abou Samra
@@ -2232,9 +2232,11 @@ cette valeur de la pile et restaure la valeur initale.
 @lilypond[quote,verbatim]
 {
   c'
-  \pushContextProperty Staff.fontSize 3
+  \pushContextProperty Staff.fontSize
+  \set Staff.fontSize = 3
   c'
-  \pushContextProperty Staff.fontSize 6
+  \pushContextProperty Staff.fontSize
+  \set Staff.fontSize = 6
   c'
   \popContextProperty Staff.fontSize
   c'

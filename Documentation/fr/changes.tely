@@ -1317,9 +1317,11 @@ restaure la valeur initale.
 @lilypond[quote,verbatim]
 {
   c'
-  \pushContextProperty Staff.fontSize 3
+  \pushContextProperty Staff.fontSize
+  \set Staff.fontSize = 3
   c'
-  \pushContextProperty Staff.fontSize 6
+  \pushContextProperty Staff.fontSize
+  \set Staff.fontSize = 6
   c'
   \popContextProperty Staff.fontSize
   c'

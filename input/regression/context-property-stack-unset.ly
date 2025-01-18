@@ -21,7 +21,8 @@ measures 1 and@tie{}3; it should differ in measure@tie{}2."
   }
   \new Voice \with \voiceTwo {
     \repeat unfold 4 a'8 % uses Score.autoBeaming (#f)
-    \pushContextProperty Voice.autoBeaming ##t
+    \pushContextProperty Voice.autoBeaming
+    \set Voice.autoBeaming = ##t
     \repeat unfold 4 a'8 % uses Voice.autoBeaming (#t)
     \popContextProperty Voice.autoBeaming
     \repeat unfold 4 a'8 % uses Score.autoBeaming (#t) again

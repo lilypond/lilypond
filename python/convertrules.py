@@ -5468,6 +5468,7 @@ def conv(s):
 @rule((2, 25, 24), r"""
 Warn about change in partcombine music types and event classes.
 Warn about change in format of partcombine state machine tables.
+\pushContextProperty path val -> \pushContextProperty path \set path = val
 """)
 def conv(s):
     if re.search(r'(Unisono|SoloOne|SoloTwo)Event', s):
@@ -5508,6 +5509,8 @@ as the second argument.
 Refer to part-combiner.scm for more information.
 """))
         stderr_write(UPDATE_MANUALLY)
+    s = re.sub(r'(\\pushContextProperty)\s+(\S+)(\s+)',
+               r'\1 \2 \\set \2 = ', s)
     return s
 
 

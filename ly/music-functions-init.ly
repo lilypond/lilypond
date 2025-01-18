@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.23"
+\version "2.25.24"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -511,7 +511,8 @@ crossStaff =
      \temporary \override Flag.style = #'no-flag
      \temporary \override TupletBracket.stencil = ##f
      \temporary \override TupletNumber.stencil = ##f
-     \pushContextProperty autoBeaming ##f
+     \pushContextProperty autoBeaming
+     \set autoBeaming = ##f
 
      <>\noBeam
      #notes
@@ -1856,10 +1857,10 @@ the built-in @code{\\unset} command.")
          (make-music 'Music))))
 
 pushContextProperty =
-#(define-music-function (path value) (key-list? scheme?)
-   (_i "Set context property @var{path} to @var{value} and push old value to stack.
+#(define-music-function (path) (key-list?)
+   (_i "Push the current value of context property @var{path} to a stack.
 
-The old value can be popped off the stack and restored with function
+The property can later be restored to the saved value with function
 @code{\\popContextProperty}.")
    (let ((p (check-context-path path)))
      (if p
@@ -1870,8 +1871,7 @@ The old value can be popped off the stack and restored with function
              'ApplyContext
              'procedure
              (lambda (ctx)
-               (ly:context-property-push ctx prop-name)
-               (ly:context-set-property! ctx prop-name value)))
+               (ly:context-property-push ctx prop-name)))
             ctx-name))
          (make-music 'Music))))
 

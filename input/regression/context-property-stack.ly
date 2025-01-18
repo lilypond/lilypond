@@ -11,9 +11,11 @@ end, a very large note in the middle, and mid-sized notes between them."
 
 {
   c'
-  \pushContextProperty Staff.fontSize 3
+  \pushContextProperty Staff.fontSize
+  \set Staff.fontSize = 3
   c'
-  \pushContextProperty Staff.fontSize 6
+  \pushContextProperty Staff.fontSize
+  \set Staff.fontSize = 6
   c'
   \popContextProperty Staff.fontSize
   c'

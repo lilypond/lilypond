@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.23"
+@c \version "2.25.24"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -2091,19 +2091,20 @@ are equivalent if the current bottom context is @code{Voice}.
 
 As described above, @code{\unset} restores the default value of a
 context property.  However, it is sometimes useful to change a
-value for some time, then returning to the previously used value.
+value for some time, then return to the previously used value.
 For this purpose, there are the two commands
 @code{\pushContextProperty} and @code{\popContextProperty}: the
-first one pushes the current value to a stack and sets a new
-value, while the second one pops off the value from the stack and
-uses it to restore the previous value.
+first one pushes the current value to a stack, while the second
+one pops a value from the stack and restores the property to it.
 
 @lilypond[quote,verbatim]
 {
   c'
-  \pushContextProperty Staff.fontSize 3
+  \pushContextProperty Staff.fontSize
+  \set Staff.fontSize = 3
   c'
-  \pushContextProperty Staff.fontSize 6
+  \pushContextProperty Staff.fontSize
+  \set Staff.fontSize = 6
   c'
   \popContextProperty Staff.fontSize
   c'

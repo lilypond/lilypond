@@ -1287,16 +1287,17 @@ different padding values for the X- and Y-axis, respectively.
 @item
 @code{\pushContextProperty} and @code{\popContextProperty} are two
 new commands for manipulating context properties.  The first one
-pushes the current value to a stack and sets a new value, while
-the second one pops off the value from the stack and uses it to
-restore the previous value.
+pushes the current value to a stack, while the second one pops off
+the value from the stack and uses it to restore the property.
 
 @lilypond[quote,verbatim]
 {
   c'
-  \pushContextProperty Staff.fontSize 3
+  \pushContextProperty Staff.fontSize
+  \set Staff.fontSize = 3
   c'
-  \pushContextProperty Staff.fontSize 6
+  \pushContextProperty Staff.fontSize
+  \set Staff.fontSize = 6
   c'
   \popContextProperty Staff.fontSize
   c'

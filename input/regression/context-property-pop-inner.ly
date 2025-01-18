@@ -11,7 +11,8 @@ contexts enclosing the target context.  No instrument name should appear."
 \new Staff {
   %% Create a stack in Score containing ("FAIL").
   \set Score.instrumentName = "FAIL"
-  \pushContextProperty Score.instrumentName "SCORE"
+  \pushContextProperty Score.instrumentName
+  \set Score.instrumentName = "SCORE"
   \contextPropertyCheck Score.instrumentName "SCORE"
   \contextPropertyCheck Staff.instrumentName #'()
 
