@@ -1380,15 +1380,29 @@ spanner contained in its @code{sticky-host} object.  When the host ends,
 the sticky spanner attached to it has its end announced too.")))
 
 (define (Skip_typesetting_engraver context)
-  (let ((was-skipping? #f))
+  (let ((ellipsis #f)
+        (first-time? #t)
+        (was-skipping? #f))
     (make-engraver
 
      ((process-music engraver)
-      (if was-skipping?
-          (ly:engraver-make-grob engraver 'StaffEllipsis '())))
+      ;; If we created an ellipsis in a prior timestep, we know now that it
+      ;; doesn't qualify as a STOP ellipsis since we're typesetting again.
+      (set! ellipsis #f)
+      (when was-skipping?
+        (set! ellipsis (ly:engraver-make-grob engraver 'StaffEllipsis '()))
+        ;; If we haven't done any typesetting yet, this ellipsis qualifies as a
+        ;; START ellipsis.
+        (when first-time?
+          (ly:grob-set-property! ellipsis 'ellipsis-direction START)))
+      (set! first-time? #f))
 
      ((stop-translation-timestep engraver)
-      (set! was-skipping? (ly:context-property context 'skipTypesetting #f))))))
+      (set! was-skipping? (ly:context-property context 'skipTypesetting #f)))
+
+     ((finalize engraver)
+      (when ellipsis
+        (ly:grob-set-property! ellipsis 'ellipsis-direction STOP))))))
 
 (ly:register-translator
  Skip_typesetting_engraver 'Skip_typesetting_engraver

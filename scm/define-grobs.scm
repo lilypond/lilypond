@@ -3120,7 +3120,8 @@ space.")))))
     (StaffEllipsis ; indicates a cut made by skipTypesetting = ##t
      . (
         (break-align-symbol . staff-ellipsis)
-        (break-visibility . ,all-visible)
+        (break-visibility . ,staff-ellipsis::break-visibility)
+        (ellipsis-direction . ,CENTER)
         (layer . 1)
         (non-musical . #t)
         (space-alist . (
@@ -3149,6 +3150,7 @@ space.")))))
         (meta . ((class . Item)
                  (interfaces . (break-aligned-interface
                                 font-interface
+                                staff-ellipsis-interface
                                 text-interface))
                  (description . "A visual marker (usually three
 consecutive dots) to indicate that typesetting of music is

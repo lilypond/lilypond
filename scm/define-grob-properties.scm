@@ -279,6 +279,10 @@ Positive means move the center to the right.")
 the vertical edges: @code{(@var{left-height} . @var{right-height})}.")
      (edge-text ,pair? "A pair specifying the texts to be set at the
 edges: @code{(@var{left-text} . @var{right-text})}.")
+     (ellipsis-direction ,ly:dir? "The function of a @code{StaffEllipsis} in its
+context: @code{START} where typesetting was never previously enabled,
+@code{CENTER} where there some typeset material precedes and follows, and
+@code{STOP} where typesetting is being disabled for the last time.")
      (endpoint-alignments ,number-pair? "A pair of numbers representing
 the alignments of an object's endpoints.  E.g., the ends of a hairpin
 relative to @code{NoteColumn} grobs.")

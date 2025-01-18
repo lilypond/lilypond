@@ -518,6 +518,13 @@ corner of the beam later on."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff ellipsis
 
+(define-public (staff-ellipsis::break-visibility grob)
+  "Callback for @code{StaffEllipsis} grob, which is used with
+@code{skipTypesetting}."
+  (if (= START (ly:grob-property grob 'ellipsis-direction CENTER))
+      end-of-line-invisible
+      begin-of-line-invisible))
+
 (define-public (staff-ellipsis::pure-height grob beg end)
   "Callback for @code{StaffEllipsis} grob, which is used with
 @code{skipTypesetting}."

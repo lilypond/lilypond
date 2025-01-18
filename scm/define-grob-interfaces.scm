@@ -367,6 +367,12 @@ setting of @code{details.bow-direction}.
  '(index))
 
 (ly:add-interface
+ 'staff-ellipsis-interface
+ "A visual marker (usually three consecutive dots) to indicate that typesetting
+of music is skipped."
+ '(ellipsis-direction))
+
+(ly:add-interface
  'staff-highlight-interface
  "A colored span to highlight a music passage."
  '(bound-prefatory-paddings columns elements shorten-pair))
