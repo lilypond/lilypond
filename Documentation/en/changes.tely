@@ -962,6 +962,21 @@ the new inverted glyphs are named @code{scripts.dupbow} and
 @unnumbered Miscellaneous improvements
 
 @itemize
+
+@item
+The markup commands @code{\hspace} and @code{\vspace} are used to insert space,
+which may be negative.  Other objects are moved accordingly.  This movement may
+be indicated by arrows printed by the new markup command @code{annotate-moving}.
+Note that the arrows do not reflect the actual extents of the objects created
+by @code{\vspace} and @code{\hspace}; you might use @code{\box} for that.
+
+@lilypond[verbatim,quote]
+\markup {
+  left \annotate-moving \hspace #4 right
+  \column { top \annotate-moving \vspace #-4/3 bottom }
+}
+@end lilypond
+
 @item
 The new @code{\contextPropertyCheck} command verifies that a
 property is set to an expected value or is unset in a specific

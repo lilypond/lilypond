@@ -1382,6 +1382,63 @@ points.
 See also @code{\\vspace}."
   (ly:make-stencil "" empty-interval (cons 0 (to-staff-space amount))))
 
+(define-markup-command (annotate-moving layout props arg)
+  (markup?)
+  #:category other
+  #:properties ((color "red")
+                (size 1))
+  "
+@cindex annotate moving by spacing, in text
+
+Indicate @code{\\vspace} and @code{\\hspace} movement with an arrow.
+
+The arrow changes its size and thickness depending on the printed length;
+the maximum size of the arrow head can be controlled with the @code{size}
+property.  If @code{size} exceeds a third of the length of the final arrow,
+it falls back to that third.
+
+Note that the arrows do not reflect the actual extents of the objects created
+by @code{\\vspace} and @code{\\hspace}; you might use @code{\\box} for that.
+
+@lilypond[verbatim,quote]
+\\markup
+  \\column {
+    \\line { left \\annotate-moving \\hspace #4 right }
+    \\line { left \\annotate-moving \\hspace #-4 right }
+    \\line {
+      \\column {
+        top \\override #'(size . 0.6) \\annotate-moving \\vspace #4/3 bottom
+      }
+      \\column {
+        top \\override #'(size . 2.0) \\annotate-moving \\vspace #-4/3 bottom
+      }
+    }
+  }
+@end lilypond
+"
+  (let* ((arg-stil (interpret-markup layout props arg))
+         (x-ext (ly:stencil-extent arg-stil X))
+         (y-ext (ly:stencil-extent arg-stil Y))
+         (v-space? (ly:stencil-empty? arg-stil X))
+         (h-space? (ly:stencil-empty? arg-stil Y))
+         (moving-arrows (arrow-stencil-maker #f #t)))
+    (cond
+      ((and v-space? (not (zero? (- (cdr y-ext) (car y-ext)))))
+        (let* ((v-arrow
+                 (stencil-with-color
+                   (moving-arrows (cons 0.0 (- (cdr y-ext))) size)
+                   color))
+               (final-v-arrow (ly:stencil-outline v-arrow arg-stil)))
+          (ly:stencil-add arg-stil final-v-arrow)))
+      ((and h-space? (not (zero? (- (cdr x-ext) (car x-ext)))))
+        (let* ((h-arrow
+                 (stencil-with-color
+                   (moving-arrows (cons (cdr x-ext) 0.0) size)
+                   color))
+               (final-h-arrow (ly:stencil-outline h-arrow arg-stil)))
+          (ly:stencil-add arg-stil final-h-arrow)))
+      (else arg-stil))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; importing graphics.
