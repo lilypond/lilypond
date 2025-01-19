@@ -2,6 +2,17 @@
 
 depth = .
 
+# The starting elements of `SUBDIRS` are defined in a particular order:
+# First directories with Python scripts, then C++ code, and eventually
+# Scheme code in directory `scm`.  At this point the `lilypond` binary can
+# be executed.
+#
+# `scm/GNUmakefile`, however, performs two tasks in direct succession,
+# namely setting up Scheme files for running `lilypond`, then byte-compiling
+# all `.scm` files with the just created binary.  In other words, it is last
+# directory doing preparatory work and at the same time the first directory
+# that needs a functioning `lilypond` binary.  This works as long as there
+# is only one directory with this requirement.
 SUBDIRS = python scripts \
 	flower lily \
 	mf ly \

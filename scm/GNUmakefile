@@ -31,10 +31,20 @@ TAGS_SOURCES += $(SCM_FILES)
 tree-share-prefix = $(top-build-dir)/out/share/lilypond/current
 guile-ccache = $(tree-share-prefix)/guile-bytecode
 
+$(outdir)/%.scm: | %.scm
+	ln -sf $(abs-src-dir)/$*.scm $@
+
+LINKED_SCM_FILES = $(addprefix $(outdir)/,$(SCM_FILES))
+
+default: $(GEN_SCM_FILES) $(LINKED_SCM_FILES)
+
 # This rule depends on *all* .scm files because Guile is horribly bad at
 # dependency tracking for macros. If any of the source files changes, we
 # have to rebuild the entire bytecode to be sure.
-$(outdir)/bytecode.dummy: compile.ly $(SCM_FILES) $(GEN_SCM_FILES)
+#
+# We depend on `LINKED_SCM_FILES`, which relies on the order-only
+# prerequisite for `%.scm` to link the Scheme files to the output directory.
+$(outdir)/bytecode.dummy: compile.ly $(LINKED_SCM_FILES) $(GEN_SCM_FILES)
 	$(RM) -f $(outdir)/*.go
 	$(RM) -r $(guile-ccache)
 	GUILE_AUTO_COMPILE=1 $(LILYPOND_BINARY) $<
@@ -50,7 +60,7 @@ bytecode: $(outdir)/bytecode.dummy
 # Due to Guile's problems figuring out if files need to be recompiled if macros
 # are involved, make the default target delete *all* of them if any of the
 # source files changes.
-$(outdir)/bytecode-default.dummy: $(SCM_FILES) $(GEN_SCM_FILES)
+$(outdir)/bytecode-default.dummy: $(LINKED_SCM_FILES) $(GEN_SCM_FILES)
 	[ ! -f $(outdir)/lily.go ] || \
 		echo "*** Changes in source .scm file detected, purging all compiled bytecode!"
 	$(RM) -f $(outdir)/*.go
@@ -77,10 +87,3 @@ else
   local-install:
 
 endif # BYTECODE
-
-$(outdir)/%.scm: | %.scm
-	ln -sf $(abs-src-dir)/$*.scm $@
-
-LINKED_SCM_FILES = $(addprefix $(outdir)/,$(SCM_FILES))
-
-default: $(GEN_SCM_FILES) $(LINKED_SCM_FILES)
