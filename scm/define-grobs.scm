@@ -626,8 +626,8 @@ See also @iref{BreakAlignment}.")))))
         (axes . (,X))
         (break-align-orders . ;; end of line
                             #((
-                               left-edge
                                staff-ellipsis
+                               left-edge
                                cue-end-clef
                                ambitus
                                breathing-sign
@@ -642,8 +642,8 @@ See also @iref{BreakAlignment}.")))))
 
                               ;; unbroken
                               (
-                               left-edge
                                staff-ellipsis
+                               left-edge
                                cue-end-clef
                                ambitus
                                breathing-sign
@@ -658,8 +658,8 @@ See also @iref{BreakAlignment}.")))))
 
                               ;; begin of line
                               (
-                               left-edge
                                staff-ellipsis
+                               left-edge
                                ambitus
                                breathing-sign
                                signum-repetitionis
@@ -3129,6 +3129,7 @@ space.")))))
                         (breathing-sign . (extra-space . 1.0))
                         (custos . (extra-space . 1.0))
                         (key-signature . (extra-space . 1.0))
+                        (left-edge . (extra-space . 0.0))
                         (time-signature . (extra-space . 1.0))
                         (signum-repetitionis . (extra-space . 1.0))
                         (staff-bar . (extra-space . 1.0))
