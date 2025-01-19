@@ -1253,25 +1253,25 @@ Horizontal alignment may be fine-tuned using a numeric value:
 @end lilypond
 
 @funindex \hspace
-@cindex padding in markup, horizontal
-@cindex horizontal padding in markup
+@cindex movement in markup, horizontal
+@cindex horizontal movement, in markup
+@cindex markup, horizontal movement
 
-Lastly, words and any other objects may be moved by preceding
-them with padding.  Negative padding is also supported, and
-will move any objects that follow in the opposite direction.
-Although padding is normally invisible, in the following
-example some commands have been added to make it appear
-more clearly:
+Lastly, words and any other objects may be moved horizontally by
+preceding them with @code{\hspace}.  Negative values are also
+supported and move any objects that follow into the opposite
+direction.  Here, we put @code{\hspace} into a box to better show
+its effect.
 
 @lilypond[quote,verbatim]
 \relative {
   d''1-\markup { poco }
   f
-  d-\markup { \with-color #darkred \box \hspace #4 poco }
+  d-\markup \concat { \with-color #darkred \box \hspace #4 poco }
   f
-  d-\markup { \with-color #darkred \box \hspace #-4 poco }
+  d-\markup \concat { \with-color #darkred \box \hspace #-4 poco }
   f
-  d-\markup { \with-color #darkred \box \hspace #10 poco }
+  d-\markup \concat { \with-color #darkred \box \hspace #10 poco }
 }
 @end lilypond
 
@@ -1285,9 +1285,12 @@ markup objects as a whole, as shown for instance in
 @cindex vertical alignment, text
 @cindex alignment, vertical, text
 
+@cindex movement in markup, vertical
+@cindex vertical movement, in markup
+@cindex markup, vertical movement
+
 @funindex \raise
 @funindex \lower
-@funindex \null
 
 Vertical alignment can be set in a similar way.  As stated above, markup
 objects can be moved as a whole; however, it is also possible to move
@@ -1322,14 +1325,14 @@ text objects in markup mode:
 \relative {
   d'2^\markup {
     Acte I
-    \translate #'(-1 . 2) "Scène 1"
+    \translate #'(2 . 2) "Scène 1"
   }
   a'
   g_\markup {
-    \general-align #Y #3.2 \bold "Très modéré"
+    \general-align #Y #5 \bold "Très modéré"
   }
   a
-  d,^\markup \translate-scaled #'(-1 . 2) \teeny {
+  d,^\markup \translate-scaled #'(-3 . 2) \teeny {
    "Une forêt."
   }
   a'4 a g2 a
@@ -1337,30 +1340,59 @@ text objects in markup mode:
 @end lilypond
 
 @funindex \vspace
-@cindex padding in markup, vertical
-@cindex vertical padding in markup
 
-Here again, padding (either positive or negative) is a convenient way
-of positioning objects vertically, when inserted into markup columns:
+Note that @code{\vspace} can @emph{not} be used in general to move
+arbitrary objects up or down within a @code{\column} markup due to
+the way the latter is implemented.  The following naïve approach
+thus fails.
 
 @lilypond[quote,verbatim]
 \relative {
   d'2^\markup {
     Acte I
     \column {
-      \with-color #darkred \box \vspace #-1
+      \vspace #-2
       "Scène 1"
     }
   }
   a'
   g_\markup \column {
-    \with-color #darkred \box \vspace #1
+    \vspace #1
     "Très modéré"
   }
   a
   d,^\markup \column {
-   "Une forêt."
-    \with-color #darkred \box \vspace #2
+    "Une forêt."
+    \vspace #2
+  }
+  a'4 a g2 a
+}
+@end lilypond
+
+What actually works is to put @code{\vspace} between two objects
+that have non-empty extents.
+
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \column {
+      " "
+      \vspace #-2
+      "Scène 1"
+    }
+  }
+  a'
+  g_\markup \column {
+    " "
+    \vspace #1
+    "Très modéré"
+  }
+  a
+  d,^\markup \column {
+    "Une forêt."
+    \vspace #2
+    " "
   }
   a'4 a g2 a
 }
