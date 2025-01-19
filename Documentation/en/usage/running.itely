@@ -403,15 +403,16 @@ LilyPond using @command{strace}, which allows you to determine which
 files are missing.
 
 @item Running LilyPond
-In a jail mounted with @code{noexec} it is impossible to execute any
-external program.  Therefore LilyPond must be run with a backend that
-does not require any such program.  As we have already mentioned, it
-must be run with supernotation privileges (which, of course, it loses
-immediately), possibly using @command{sudo}.  It is also good practice
-to limit the number of seconds of CPU time LilyPond can use (e.g., using
-@command{ulimit@tie{}-t}), and, if your operating system supports it,
-the amount of memory that can be allocated.
-@xref{LilyPond in chroot jail} for more.
+In a jail mounted with @code{noexec} it is impossible to execute
+any external program.  Therefore LilyPond must be run with a
+backend that does not require any such program.  As we have
+already mentioned, it must be run with superuser privileges
+(which, of course, it loses immediately), possibly using
+@command{sudo}.  It is also good practice to limit the number of
+seconds of CPU time LilyPond can use (e.g., using
+@command{ulimit@tie{}-t}), and, if your operating system supports
+it, the amount of memory that can be allocated.  @xref{LilyPond in
+chroot jail} for more.
 @end table
 
 @cindex loglevel
