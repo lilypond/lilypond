@@ -111,9 +111,6 @@ Arpeggio::calc_positions (SCM grob)
 
   heads *= 1 / Staff_symbol_referencer::staff_space (me);
 
-  // Adjust lower position to include note head in interval.
-  heads[DOWN] -= 0.5;
-
   return to_scm (heads);
 }
 
@@ -125,7 +122,7 @@ Arpeggio::print (SCM smob)
   Real ss = Staff_symbol_referencer::staff_space (me);
   Interval heads = from_scm (get_property (me, "positions"), Interval ()) * ss;
 
-  if (heads.is_empty () || heads.length () < 0.5)
+  if (heads.is_empty ())
     {
       if (from_scm<bool> (get_property (me, "transparent")))
         {
@@ -144,6 +141,9 @@ Arpeggio::print (SCM smob)
           return SCM_EOL;
         }
     }
+
+  // Adjust lower position to include note head in interval.
+  heads[DOWN] -= 0.5;
 
   // Make sure that we have at least two wiggles (or a wiggle plus an arrow
   // head)
@@ -201,12 +201,12 @@ Arpeggio::brew_chord_bracket (SCM smob)
 
   Real th = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
             * from_scm<double> (get_property (me, "thickness"), 1);
-  Real sp = 1.0 * Staff_symbol_referencer::staff_space (me);
+  Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length () + sp;
   Real x = from_scm<double> (get_property (me, "protrusion"), 0.4);
 
   Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), th, x, th));
-  mol.translate_axis (heads[LEFT] - 0.5 * sp / 2.0, Y_AXIS);
+  mol.translate_axis (heads[LEFT] - sp / 2.0, Y_AXIS);
   return mol.smobbed_copy ();
 }
 
@@ -225,6 +225,9 @@ Arpeggio::brew_chord_slur (SCM smob)
             * from_scm<double> (get_property (me, "line-thickness"), 1.0);
   Real th = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
             * from_scm<double> (get_property (me, "thickness"), 1.0);
+
+  // Adjust lower position to include note head in interval.
+  heads[DOWN] -= 0.5;
 
   // Avoid too short chord slurs for small intervals.
   if (heads.length () < 1.5 * ss)

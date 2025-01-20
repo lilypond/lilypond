@@ -7,6 +7,8 @@ margin, and the second sign takes its position from the black notes.  The two
 should match."
 }
 
+#(ly:set-option 'warning-as-error #t)
+
 \layout {
   \context {
     \Score
