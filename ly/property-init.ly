@@ -92,8 +92,8 @@ arpeggioNormal = {
   \revert Arpeggio.dash-definition
 }
 arpeggioBracket = {
-  \revert Arpeggio.X-extent
   \override Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
+  \override Arpeggio.X-extent = #ly:grob::stencil-width
 }
 arpeggioParenthesis = {
   \override Arpeggio.stencil = #ly:arpeggio::brew-chord-slur
