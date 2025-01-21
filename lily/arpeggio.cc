@@ -203,9 +203,11 @@ Arpeggio::brew_chord_bracket (SCM smob)
             * from_scm<double> (get_property (me, "thickness"), 1);
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length () + sp;
-  Real x = from_scm<double> (get_property (me, "protrusion"), 0.4);
+  const auto side = from_scm (get_property (me, "direction"), LEFT);
+  const auto width = from_scm<double> (get_property (me, "protrusion"), 0.4);
 
-  Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), th, x, th));
+  Stencil mol (
+    Lookup::bracket (Y_AXIS, Interval (0, dy), th, width * -side, th));
   mol.translate_axis (heads[LEFT] - sp / 2.0, Y_AXIS);
   return mol.smobbed_copy ();
 }
@@ -225,6 +227,7 @@ Arpeggio::brew_chord_slur (SCM smob)
             * from_scm<double> (get_property (me, "line-thickness"), 1.0);
   Real th = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
             * from_scm<double> (get_property (me, "thickness"), 1.0);
+  const auto side = from_scm (get_property (me, "direction"), LEFT);
 
   // Adjust lower position to include note head in interval.
   heads[DOWN] -= 0.5;
@@ -240,7 +243,7 @@ Arpeggio::brew_chord_slur (SCM smob)
 
   Real height_limit = 1.5;
   Real ratio = .33;
-  Bezier curve = slur_shape (dy, height_limit, ratio);
+  Bezier curve = slur_shape (dy, height_limit, ratio * -side);
   curve.rotate (90.0);
 
   Stencil mol (Lookup::slur (curve, th, lt, dash_definition));
