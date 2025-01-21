@@ -49,23 +49,13 @@ inside the staff.
 @cindex notation, font size
 @cindex note head
 
-@funindex fontSize
-@funindex font-size
-@funindex magnification->font-size
-@funindex magstep
-@funindex \magnifyMusic
-@funindex \teeny
-@funindex \tiny
-@funindex \normalsize
-@funindex \small
-@funindex \large
-@funindex \huge
-
 @warning{@*
 For font sizes of text, see @ref{Selecting font and font size}.@*
 For staff size, see @ref{Setting the staff size}.@*
 For cue notes, see @ref{Formatting cue notes}.@*
 For ossia staves, see @ref{Ossia staves}.}
+
+@funindex \magnifyMusic
 
 To change the size of the notation without changing the staff
 size, specify a magnification factor with the @code{\magnifyMusic}
@@ -91,6 +81,8 @@ command:
 
 The @code{\override} in the example above is a bug workaround.
 See the @qq{Known issues and warnings} at the end of this section.
+
+@funindex \normalsize
 
 If a normal sized note head is merged with a smaller one, the size
 of the smaller note may need to be reset (with
@@ -141,6 +133,8 @@ size}.}
 
 @subsubsubheading Resizing individual layout objects
 
+@funindex font-size
+
 An individual layout object can be resized by using the
 @code{\tweak} or @code{\override} commands to adjust its
 @code{font-size} property:
@@ -158,6 +152,8 @@ An individual layout object can be resized by using the
 }
 @end lilypond
 
+@funindex font-interface
+
 The default @code{font-size} value for each layout object is
 listed in the Internals Reference.  The @code{font-size} property
 can only be set for layout objects that support the
@@ -167,6 +163,8 @@ value is 0.  See @rinternals{All layout objects}.
 
 
 @subsubsubheading Understanding the @code{fontSize} property
+
+@funindex fontSize
 
 The @code{fontSize} context property adjusts the relative size of
 all glyph-based notational elements in a context.@footnote{Note
@@ -193,6 +191,8 @@ to the standard size for the current staff height.  The default
 doubles the printed size of the glyphs, and subtracting 6 halves
 the size.  Each step increases the size by approximately 12%.
 
+@funindex magnification->font-size
+
 The Scheme function @code{magnification->font-size} is provided
 for convenience since the logarithmic units of the
 @code{font-size} property are not entirely intuitive.  For
@@ -202,6 +202,8 @@ size, use:
 @example
 \set fontSize = #(magnification->font-size 0.75)
 @end example
+
+@funindex magstep
 
 The Scheme function @code{magstep} does the opposite: it converts
 a @code{font-size} value into a magnification factor.
@@ -236,6 +238,13 @@ c''4-3
 c''4-3
 @end lilypond
 
+@funindex \teeny
+@funindex \tiny
+@funindex \small
+@funindex \normalsize
+@funindex \large
+@funindex \huge
+
 The following shorthand commands are also available:
 
 @multitable @columnfractions .2 .4 .4
@@ -269,7 +278,6 @@ The following shorthand commands are also available:
 @cindex standard font size (notation)
 @cindex font size (notation), standard
 
-@funindex font-interface
 @funindex font-size
 
 Font size changes are achieved by scaling the design size that is

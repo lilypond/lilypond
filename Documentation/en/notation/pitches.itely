@@ -245,6 +245,9 @@ pitches will not affect the octaves of the relative music:
 }
 @end lilypond
 
+@funindex \chordmode
+@funindex \relative
+
 @code{\relative} has no effect on @code{\chordmode} blocks.
 
 @lilypond[verbatim,quote]
@@ -257,6 +260,10 @@ pitches will not affect the octaves of the relative music:
 @end lilypond
 
 @code{\relative} is not allowed inside of @code{\chordmode} blocks.
+
+@funindex \transpose
+@cindex relative octave entry, and transposition
+@cindex transposition, and relative octave entry
 
 Music inside a @code{\transpose} block is absolute unless a
 @code{\relative} is included.
@@ -309,6 +316,8 @@ that each interval contains.
 }
 @end lilypond
 
+@funindex \resetRelativeOctave
+
 In complex situations, it is sometimes useful to get back to a
 certain pitch regardless of what happened before. This can be
 done using @code{\resetRelativeOctave}:
@@ -324,8 +333,6 @@ done using @code{\resetRelativeOctave}:
   c2
 }
 @end lilypond
-
-@funindex \resetRelativeOctave
 
 
 @morerefs
@@ -343,13 +350,6 @@ Snippets:
 Internals Reference:
 @rinternals{RelativeOctaveMusic}.
 @endmorerefs
-
-@cindex relative octave entry, and transposition
-@cindex transposition, and relative octave entry
-
-@funindex \transpose
-@funindex \chordmode
-@funindex \relative
 
 
 @node Accidentals
@@ -487,10 +487,11 @@ Internals Reference:
 @rinternals{accidental-interface}.
 @endmorerefs
 
+
+@knownissues
 @cindex accidental, quarter tone
 @cindex quarter tone accidental
 
-@knownissues
 There are no generally accepted standards for denoting
 quarter tone accidentals, so LilyPond's symbols do not conform to
 any standard.
@@ -698,8 +699,6 @@ This section discusses how to modify pitches.
 
 @c `@funindex \=` is auto-generated
 @funindexpre =
-@funindex \octaveCheck
-@funindex controlpitch
 
 In relative mode, it is easy to forget an octave changing mark.
 Octave checks make such errors easier to find by displaying a
@@ -718,6 +717,9 @@ correction.
   e2 f
 }
 @end lilypond
+
+@funindex \octaveCheck
+@funindex controlpitch
 
 The octave of notes may also be checked with the
 @code{\octaveCheck@tie{}@var{controlpitch}} command.
@@ -894,11 +896,11 @@ Internals Reference:
 @rinternals{TransposedMusic}.
 @endmorerefs
 
+@knownissues
 @funindex \transpose
 @funindex \chordmode
 @funindex \relative
 
-@knownissues
 The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.  To use
 relative mode within transposed music, an additional @code{\relative}
@@ -2150,12 +2152,12 @@ musicB = {
 }
 @end lilypond
 
+@item modern-voice-cautionary
+
 @cindex accidental style, modern-voice-cautionary
 @cindex modern-voice-cautionary accidental style
 
 @funindex modern-voice-cautionary
-
-@item modern-voice-cautionary
 
 This rule is the same as @code{modern-voice}, but with the extra
 accidentals (the ones not typeset by @code{voice}) typeset as
@@ -3057,12 +3059,12 @@ Internals Reference:
 @rinternals{accidental-suggestion-interface}.
 @endmorerefs
 
+@knownissues
 @cindex accidental, and simultaneous notes
 @cindex simultaneous notes and accidentals
 @cindex accidental, in chords
 @cindex chord, accidentals in
 
-@knownissues
 Simultaneous notes are not considered in the automatic
 determination of accidentals; only previous notes and the key
 signature are taken into account.  Forcing accidentals with @samp{!}

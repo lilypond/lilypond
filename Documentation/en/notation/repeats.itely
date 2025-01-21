@@ -76,6 +76,10 @@ repeats.
 * Manual repeat marks::
 @end menu
 
+
+@node Written-out repeats
+@unnumberedsubsubsec Written-out repeats
+
 @cindex written-out repeat
 @cindex repeat, written-out
 @cindex repeat, unfold
@@ -83,10 +87,6 @@ repeats.
 @funindex \repeat
 @funindex \repeat unfold
 @funindex unfold
-
-
-@node Written-out repeats
-@unnumberedsubsubsec Written-out repeats
 
 The @code{\repeat unfold} command repeats music by writing it out
 a number of times.  The syntax is the same as the @code{\repeat
@@ -135,16 +135,15 @@ Internals Reference:
 @endmorerefs
 
 
+@node Simple repeats
+@unnumberedsubsubsec Simple repeats
+
 @cindex volta
 @cindex repeat, simple
 @cindex simple repeat
 @funindex \repeat
 @funindex \repeat volta
 @funindex volta
-
-
-@node Simple repeats
-@unnumberedsubsubsec Simple repeats
 
 This is the syntax for a repeat without variation:
 
@@ -343,14 +342,14 @@ results.}
 @warning{When alternative bar numbering is enabled, it is applied
 to the outermost bracketed alternatives.}
 
+
+@node Other variation in repeated sections
+@unnumberedsubsubsec Other variation in repeated sections
+
 @funindex \alternative
 @funindex \unfolded
 @funindex \unfoldRepeats
 @funindex \volta
-
-
-@node Other variation in repeated sections
-@unnumberedsubsubsec Other variation in repeated sections
 
 An @code{\alternative} block can be used within a @code{\repeat}
 block to produce notation similar to alternative endings
@@ -530,11 +529,12 @@ Demonstrations of common uses follow.
 @quotation
 @table @emph
 
+@item al fine
 @cindex al fine
 @cindex fine
 @cindex repeat, al fine
 @funindex \fine
-@item al fine
+
 Repeat instructions include @emph{al Fine} if a @code{\fine}
 command appears at any prior point (@pxref{Al-fine repeats}).
 
@@ -553,13 +553,14 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
+@item alla coda
 @cindex al coda
 @cindex alla coda
 @cindex coda
 @cindex repeat, alla coda
 @cindex repeat, e poi la coda
 @funindex \sectionLabel
-@item alla coda
+
 The beginning of each alternative ending is marked with an implied
 @code{\codaMark \default}.  Repeat instructions in alternatives
 include @q{@emph{al@tie{}@dots{} e poi la@tie{}@dots{}}} referring
@@ -593,11 +594,12 @@ The return instruction can be abbreviated by setting an
 alternative formatting procedure (@pxref{Segno repeat
 appearance}).
 
+@item da capo
 @cindex D.C.
 @cindex da capo
 @cindex repeat, D.C.
 @cindex repeat, da capo
-@item da capo
+
 Repeat instructions include @emph{D.C.} when the repeated section
 begins at the beginning of the score.  The supported @emph{da
 capo} cases parallel the supported @emph{dal segno} cases.
@@ -614,12 +616,13 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
+@item dal segno
 @cindex D.S.
 @cindex dal segno
 @cindex repeat, D.S.
 @cindex repeat, dal segno
 @cindex segno
-@item dal segno
+
 Repeat instructions include @emph{D.S.} when the repeated section
 begins after the beginning of the score.  The beginning of the
 repeated section is marked with an implied @code{\segnoMark

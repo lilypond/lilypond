@@ -441,14 +441,14 @@ multiple staves.
 @cindex voice
 @cindex lyrics, assigned to one voice
 
+@subsubsubheading Explicitly instantiating voices
+
 @funindex \voiceOne
 @funindex \voiceTwo
 @funindex \voiceThree
 @funindex \voiceFour
 @funindex Voice
 @funindex \oneVoice
-
-@subsubsubheading Explicitly instantiating voices
 
 The basic structure needed to achieve multiple independent
 voices in a single staff is illustrated in the following example:

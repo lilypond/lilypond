@@ -1019,8 +1019,8 @@ Default values not listed here are defined in
 
 @table @code
 
-@cindex page number, auto-numbering
 @item auto-first-page-number
+@cindex page number, auto-numbering
 @funindex auto-first-page-number
 
 The page breaking algorithm is affected by the first page number
@@ -1029,8 +1029,8 @@ will decide whether to start with an odd or even number.  This
 will result in the first page number remaining as is or being
 increased by one.  Default: @code{#f}.
 
-@cindex page number, specify first
 @item first-page-number
+@cindex page number, specify first
 @funindex first-page-number
 
 The value of the page number on the first page.
@@ -1040,14 +1040,14 @@ The value of the page number on the first page.
 
 If set to @code{#t}, a page number is printed on the first page.
 
-@cindex page number, suppress
 @item print-page-number
+@cindex page number, suppress
 @funindex print-page-number
 
 If set to @code{#f}, page numbers are not printed.
 
-@cindex page number, in roman numerals
 @item page-number-type
+@cindex page number, in roman numerals
 @funindex page-number-type
 
 The type of numerals used for page numbers.  Choices include
@@ -1055,9 +1055,9 @@ The type of numerals used for page numbers.  Choices include
 @code{'roman-lower}, and @code{'roman-upper}.  Default:
 @code{'arabic}.
 
+@item bookpart-level-page-numbering
 @cindex page numbers, per book part
 @cindex page numbers, independent for introduction
-@item bookpart-level-page-numbering
 @funindex bookpart-level-page-numbering
 
 If set to @code{#t}, each book part has its independent sequence of
@@ -1368,8 +1368,6 @@ Snippets:
 @cindex layout, file
 @funindex magnification->font-size
 @funindex magstep
-@funindex set-global-staff-size
-@funindex layout-set-staff-size
 
 The default @dfn{staff size} is 20 points, which corresponds to
 a staff height of 7.03@dmn{mm} (one point is equal to 100/7227 of an
@@ -1379,6 +1377,8 @@ ways:
 @enumerate
 
 @item
+@funindex set-global-staff-size
+
 To set the staff size globally for all scores in a file, use
 @code{set-global-staff-size}.
 
@@ -1406,6 +1406,8 @@ different @code{\book} blocks:
 @end example
 
 @item
+@funindex layout-set-staff-size
+
 To set the staff size for a single score within a book, use
 @code{layout-set-staff-size} inside that score's @code{\layout}
 block:
@@ -1569,18 +1571,14 @@ mus = { b1 \bar "|."}
 @node Line breaking
 @subsection Line breaking
 
-@funindex \break
-@funindex \noBreak
-@funindex \autoBreaksOff
-@funindex \autoBreaksOn
-@funindex \autoLineBreaksOff
-@funindex \autoLineBreaksOn
 @cindex manual line break
 @cindex breaking lines
 
 Line breaks are normally determined automatically.  They are
 chosen so that lines look neither cramped nor loose, and
 consecutive lines have similar density.
+
+@funindex \break
 
 To manually force a line break at a bar line, use the
 @code{\break} command:
@@ -1603,6 +1601,8 @@ a note head or rest continuing over the bar line,
 the presence of an @q{unbreakable} spanner, such as a beam or a
 glissando, crossing the bar line.
 @end itemize
+
+@funindex \allowBreak
 
 The @code{\break} command forces a break in all cases, regardless
 of the presence of a bar line or any other factor.  It is also
@@ -1682,8 +1682,15 @@ is ignored if their @code{breakable} property is set to @code{#t}.
 @end lilypond
 @end itemize
 
+@funindex \noBreak
+
 The @code{\noBreak} command will prevent a line break at the bar line
 where it is inserted.
+
+@funindex \autoBreaksOff
+@funindex \autoBreaksOn
+@funindex \autoLineBreaksOff
+@funindex \autoLineBreaksOn
 
 Within a score, automatic line breaking is prevented within music
 lying between @code{\autoLineBreaksOff} and @code{\autoLineBreaksOn}
@@ -2968,8 +2975,6 @@ Snippets:
 @subsection Vertical collision avoidance
 
 @funindex outside-staff-priority
-@funindex outside-staff-padding
-@funindex outside-staff-horizontal-padding
 
 Intuitively, there are some objects in musical notation that belong
 to the staff and there are other objects that should be placed outside
@@ -3013,6 +3018,8 @@ A listing of defaults for @code{outside-staff-priority} may be found in
 }
 @end lilypond
 
+@funindex outside-staff-padding
+
 The vertical padding around outside-staff objects
 can be controlled with property @code{outside-staff-padding}.
 
@@ -3028,6 +3035,7 @@ can be controlled with property @code{outside-staff-padding}.
 }
 @end lilypond
 
+@funindex outside-staff-horizontal-padding
 
 By default, outside-staff objects are placed so they avoid
 a horizontal collision with previously-positioned grobs.  This
@@ -3662,8 +3670,6 @@ Internals Reference:
 
 @funindex indent
 @funindex line-width
-@funindex ragged-right
-@funindex ragged-last
 
 @c Although line-width can be set in \layout, it should be set in paper
 @c block, to get page layout right.
@@ -3675,6 +3681,8 @@ The most basic settings influencing the spacing are @code{indent} and
 control the indentation of the first line of music, and the lengths of
 the lines.
 
+@funindex ragged-right
+
 If @code{ragged-right} is set to @code{#t} in the @code{\layout} block, then
 systems ends at their natural horizontal length, instead of being spread
 horizontally to fill the whole line.  This is useful for
@@ -3684,6 +3692,7 @@ system the default value is true.
 
 @cindex page layout
 @cindex vertical spacing
+@funindex ragged-last
 
 The option @code{ragged-last} is similar to @code{ragged-right}, but
 only affects the last line of the piece.  No restrictions are put on

@@ -44,10 +44,6 @@ This section discusses rhythms, rests, durations, beaming and bars.
 @cindex length of note
 @cindex note length
 
-@funindex \longa
-@funindex \breve
-@funindex \maxima
-
 The durations of notes are entered using numbers and dots.  The number
 entered is based on the reciprocal value of the length of the note.  For
 example, a quarter note is designated using the numerical value of
@@ -55,6 +51,10 @@ example, a quarter note is designated using the numerical value of
 using @code{8} and so on.  Durations as short as @code{1024} notes can be
 entered but shorter values, while possible, can only be entered as
 beamed notes.  Also see @ref{Beams}.
+
+@funindex \longa
+@funindex \breve
+@funindex \maxima
 
 For notes longer than a whole use the @code{\longa} -- double breve --
 and @code{\breve} commands.  A note with the duration of a quadruple
@@ -734,7 +734,6 @@ Rests are entered as part of the music in music expressions.
 @cindex longa rest
 @cindex breve rest
 
-@funindex \rest
 @funindex r
 @funindex \maxima
 @funindex \longa
@@ -770,6 +769,7 @@ measure as well as many measures and are discussed in
 @ref{Full measure rests}.
 
 @cindex rest, specifying vertical position
+@funindex \rest
 
 To explicitly specify a rest's vertical position, write a note
 followed by @code{\rest}.  A rest of the duration of the note will
@@ -1017,9 +1017,6 @@ R1*2 |
 @cindex markup, on multi-measure rest
 @cindex multi-measure rest, with markup
 
-@funindex MultiMeasureRestText
-@funindex MultiMeasureRestScript
-
 Markups can be added to multi-measure rests.
 
 @lilypond[quote,verbatim]
@@ -1028,6 +1025,9 @@ Markups can be added to multi-measure rests.
   R2.*10^\markup { \italic "ad lib." }
 }
 @end lilypond
+
+@funindex MultiMeasureRestText
+@funindex MultiMeasureRestScript
 
 @warning{Markups and articulations attached to multi-measure rests
 are @code{MultiMeasureRestText} and
@@ -1105,10 +1105,10 @@ Internals Reference:
 @rinternals{MultiMeasureRestText}.
 @endmorerefs
 
+@knownissues
 @cindex fingering, and multi-measure rest
 @cindex multi-measure rest, and fingerings
 
-@knownissues
 Fingerings over multi-measure rests (e.g., @code{R1*10-4}) may result
 in the fingering numeral colliding with the bar counter
 numeral.
@@ -1312,7 +1312,6 @@ Mensural time signatures are covered in
 @cindex time signature, default settings
 @cindex auto-beaming, properties for time signatures
 @cindex beaming, time signature default properties
-@funindex \overrideTimeSignatureSettings
 
 In addition to setting the printed time signature, the @code{\time}
 command also sets the values of the time-signature-based properties
@@ -1359,6 +1358,8 @@ signature is executed:
   }
 }
 @end lilypond
+
+@funindex \overrideTimeSignatureSettings
 
 @code{\overrideTimeSignatureSettings} takes four arguments:
 
@@ -2117,11 +2118,11 @@ In order to use this feature with MIDI output, also include
 @end quotation
 
 
+@subsubsubheading Compound time signatures
+
 @funindex \compoundMeter
 @cindex compound time signature
 @cindex time signature, compound
-
-@subsubsubheading Compound time signatures
 
 These are created using the @code{\compoundMeter} function.  The syntax
 for this is:
@@ -2408,9 +2409,6 @@ By default, beams are inserted automatically:
 @cindex manual beam
 @cindex beam, customizing rules
 
-@funindex \autoBeamOn
-@funindex \autoBeamOff
-
 @lilypond[quote,verbatim]
 \relative c'' {
   \time 2/4 c8 c c c
@@ -2421,6 +2419,9 @@ By default, beams are inserted automatically:
 If these automatic decisions are not satisfactory, beaming can be
 entered explicitly; see @ref{Manual beams}.  Beams @emph{must} be
 entered manually if beams are to be extended over rests.
+
+@funindex \autoBeamOn
+@funindex \autoBeamOff
 
 If automatic beaming is not required, it may be turned off with
 @code{\autoBeamOff} and on with @code{\autoBeamOn}:
@@ -2452,18 +2453,13 @@ created; see @ref{Setting automatic beam behavior}.
 @code{\autoBeamOn}.
 @endpredefined
 
-@cindex beam, line breaks
-@cindex line break, beams
-@cindex beam, with knee gap
-@cindex knee gap, with beams
-@funindex breakable
-
 
 @snippets
 
 @anchor{Beams across line breaks}
 @cindex beam, line breaks
 @cindex line break, beams
+@funindex breakable
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/beams-across-line-breaks.ly}
 
@@ -3191,6 +3187,7 @@ page.}
 @cindex line break
 @cindex bar line, invisible
 @cindex measure line, invisible
+@funindex \allowBreak
 
 Line breaks are also permitted at manually inserted bar lines even
 within incomplete measures.  To allow a line break without
@@ -3714,6 +3711,7 @@ properties in order of increasing priority.
 @quotation
 @table @code
 
+@item underlyingRepeatBarType
 @cindex bar line, double
 @cindex bar line, underlying repeat
 @cindex double bar line
@@ -3724,60 +3722,57 @@ properties in order of increasing priority.
 @funindex \repeat segno
 @funindex \repeat volta
 @funindex \segnoMark
-@item underlyingRepeatBarType
+
 Used at points of repetition or departure where no bar line would
 otherwise appear.  This is expected when repeated sections are not
 aligned to measures.  Several commands employ this bar type:
 @code{\codaMark}, @code{\inStaffSegno}, @code{\repeat segno},
 @code{\repeat volta}, and @code{\segnoMark}.
 
+@item caesuraType underlying-bar-line
 @cindex bar line, caesura
 @cindex bar line, phrase
 @cindex caesura bar line
 @cindex phrase bar line
 @funindex \caesura
-@item caesuraType underlying-bar-line
+
 Used at @code{\caesura}; @pxref{Phrase bar lines in hymn tunes}.
 
+@item measureBarType
 @cindex bar line, default
 @cindex bar line, measure
 @cindex bar line, single
 @cindex default bar line
 @cindex measure line
 @cindex single bar line
-@item measureBarType
+
 Used at a measure boundary.
 
+@item caesuraType bar-line
 @cindex bar line, caesura
 @cindex bar line, phrase
 @cindex caesura bar line
 @cindex phrase bar line
 @funindex \caesura
-@item caesuraType bar-line
+
 Used at @code{\caesura}; @pxref{Phrase bar lines in hymn tunes}.
 
+@item sectionBarType
 @cindex bar line, double
 @cindex bar line, section
 @cindex double bar line
 @cindex section bar line
 @funindex \section
-@item sectionBarType
+
 Used at a section break created by @code{\section}.
 
+@item fineBarType
 @cindex bar line, final
 @cindex final bar line
 @funindex \fine
-@item fineBarType
+
 Used at @code{\fine}.
 
-@cindex bar line, repeat
-@cindex bar line, segno
-@cindex repeat bar line
-@cindex segno bar line
-@funindex \inStaffSegno
-@funindex \repeat segno
-@funindex \repeat volta
-@funindex \segnoMark
 @item doubleRepeatBarType
 @itemx doubleRepeatSegnoBarType
 @itemx endRepeatBarType
@@ -3787,6 +3782,15 @@ Used at @code{\fine}.
 @itemx segnoBarType
 @itemx startRepeatBarType
 @itemx startRepeatSegnoBarType
+@cindex bar line, repeat
+@cindex bar line, segno
+@cindex repeat bar line
+@cindex segno bar line
+@funindex \inStaffSegno
+@funindex \repeat segno
+@funindex \repeat volta
+@funindex \segnoMark
+
 Only one of these bar types is used at a time; which one is used
 depends on the structure of the piece.
 
@@ -3946,10 +3950,10 @@ Internals Reference:
 @rinternals{Centered_bar_number_align_engraver}.
 @endmorerefs
 
+@knownissues
 @cindex bar number, collision
 @cindex collision, bar number
 
-@knownissues
 Bar numbers may collide with the top of the @code{StaffGroup} bracket,
 if there is one.  To solve this, the @code{padding} property of
 @code{BarNumber} can be used to position the number correctly.  See
@@ -4327,13 +4331,9 @@ Internals Reference:
 @unnumberedsubsubsec Section divisions
 
 @cindex bar line, double
-@cindex bar line, final
 @cindex bar line, section
 @cindex double bar line
-@cindex final bar line
 @cindex section bar line
-
-@funindex \fine
 @funindex \section
 
 The @code{\section} command marks a point where one section of
@@ -4343,6 +4343,10 @@ of the music is not the end of the piece, such as at a @emph{D.C.}
 instruction or where one movement continues into the next without
 a break.  @code{\section} normally creates a double bar line, but
 its effect can depend on other notation, e.g., repeat bar lines.
+
+@cindex bar line, final
+@cindex final bar line
+@funindex \fine
 
 The @code{\fine} command ends the piece, normally with a final bar
 line.  It is not limited to use at the written end of the music:
@@ -4398,13 +4402,8 @@ Internals Reference:
 
 @cindex ornament
 @cindex grace note
-@cindex appoggiatura
-@cindex acciaccatura
 
 @funindex \grace
-@funindex \slashedGrace
-@funindex \acciaccatura
-@funindex \appoggiatura
 
 Grace notes are musical ornaments, printed in a smaller font, that take
 up no additional logical time in a measure.
@@ -4415,6 +4414,12 @@ up no additional logical time in a measure.
   \grace { b16 c16 } a2)
 }
 @end lilypond
+
+@cindex appoggiatura
+@cindex acciaccatura
+@funindex \slashedGrace
+@funindex \acciaccatura
+@funindex \appoggiatura
 
 There are three other types of grace notes possible; the
 @emph{acciaccatura} -- an unmeasured grace note indicated by a slurred
@@ -4733,10 +4738,6 @@ Snippets:
 @cindex music, unmetered
 @cindex unmetered music
 
-@funindex currentBarNumber
-@funindex measureLength
-@funindex measurePosition
-@funindex timing
 @funindex Timing
 
 Time is administered by the @code{Timing_translator}, which by
@@ -4757,16 +4758,21 @@ to keep track of timing within the score.
 
 @table @code
 @item currentBarNumber
+@funindex currentBarNumber
+
 The current measure number.  For an example showing the
 use of this property see @ref{Bar numbers}.
 
 @item measureLength
+@funindex measureLength
+
 The length of the measures in the current time signature.  For a
 4/4 time this is@tie{}1, and for 6/8 it is 3/4.  Its value
 determines when bar lines are inserted and how automatic beams
 should be generated.
 
 @item measurePosition
+@funindex measurePosition
 This internal property is the current point in the current
 measure.  When it reaches @code{measureLength}, it is reset to
 zero and @code{currentBarNumber} is incremented.
@@ -4774,6 +4780,8 @@ zero and @code{currentBarNumber} is incremented.
 changed with the @code{\partial} command.
 
 @item timing
+@funindex timing
+
 If set to @code{#t}, the above variables are updated for every
 time step.  When set to @code{#f}, the above variables keep their
 current values indefinitely.

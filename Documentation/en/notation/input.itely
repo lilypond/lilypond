@@ -516,19 +516,14 @@ bigMargin = \paper @{ top-margin = 10\cm @}
 @node File structure
 @subsection File structure
 
-@funindex \paper
-@funindex \midi
-@funindex \layout
-@funindex \header
-@funindex \score
-@funindex \book
-@funindex \bookpart
-
 A @file{.ly} file may contain any number of top-level expressions, where a
 top-level expression is one of the following:
 
 @itemize
 @item
+@funindex \paper
+@funindex \midi
+@funindex \layout
 An output definition, such as @code{\paper}, @code{\midi}, and
 @code{\layout}.  Such a definition at the top-level changes the default
 book-wide settings.  If more than one such definition of the same type
@@ -543,12 +538,14 @@ A direct Scheme expression, such as
 @code{#(ly:set-option 'point-and-click #f)}.
 
 @item
+@funindex \header
 A @code{\header} block.  This sets the global (i.e., the top of
 file) header block.  This is the block containing the default
 settings of titling fields like composer, title, etc., for all
 books within the file (see @ref{Titles explained}).
 
 @item
+@funindex \score
 A @code{\score} block.  This score will be collected with other
 top-level scores, and combined as a single @code{\book}.
 This behavior can be changed by setting the variable
@@ -557,6 +554,7 @@ defined in the file @file{../scm/lily-library.scm} and set in the file
 @file{../ly/declarations-init.ly}.)
 
 @item
+@funindex \book
 A @code{\book} block logically combines multiple movements
 (i.e., multiple @code{\score} blocks) in one document.  If there
 are a number of @code{\score}s, one output file will be created
@@ -572,6 +570,7 @@ top level.  The default handler is defined in the init file
 @file{../scm/lily.scm}.
 
 @item
+@funindex \bookpart
 A @code{\bookpart} block.  A book may be divided into several parts,
 using @code{\bookpart} blocks, in order to ease the page breaking,
 or to use different @code{\paper} settings in different parts.
@@ -617,9 +616,8 @@ A markup text, a verse for example
 Markup texts are rendered above, between or below the scores or music
 expressions, wherever they appear.
 
-@cindex variables
-
 @item
+@cindex variables
 A variable, such as
 @example
 foo = @{ c4 d e d @}
@@ -662,28 +660,31 @@ top level.
 At any point in a file, any of the following lexical instructions can
 be entered:
 
+@itemize
+
+@item @code{\version}
 @funindex \version
+
+@item @code{\include}
 @funindex \include
+
+@item @code{\sourcefilename}
 @funindex \sourcefilename
+
+@item @code{\sourcefileline}
 @funindex \sourcefileline
 
+@item
 @funindex %
-@funindex %@{ @dots{} %@}
 @cindex comment
 @cindex line comment
 @cindex single-line comment
-@cindex block comment
-@cindex multi-line comment
-
-@itemize
-@item @code{\version}
-@item @code{\include}
-@item @code{\sourcefilename}
-@item @code{\sourcefileline}
-@item
 A single-line comment, introduced by a leading @code{%} sign.
 
 @item
+@funindex %@{ @dots{} %@}
+@cindex block comment
+@cindex multi-line comment
 A multi-line comment delimited by @code{%@{ @dots{} %@}}.
 
 @end itemize
@@ -3469,12 +3470,12 @@ Installed Files:
 * Replacing the notation font::
 @end menu
 
+@node Extracting fragments of music
+@subsection Extracting fragments of music
+
 @funindex clip-regions
 @cindex fragment, music
 @cindex music fragment
-
-@node Extracting fragments of music
-@subsection Extracting fragments of music
 
 It is possible to output one or more fragments of a score.  To do
 so, use the @code{clip-regions} variable within the @code{\layout}
@@ -3807,10 +3808,11 @@ require additional software to produce sound from them.
 * Enhancing MIDI output::
 @end menu
 
-@cindex MIDI, supported notation
 
 @node Supported notation for MIDI
 @subsection Supported notation for MIDI
+
+@cindex MIDI, supported notation
 
 The following musical notation can be used with LilyPond's default
 capabilities to produce MIDI output;
@@ -3864,10 +3866,11 @@ The c will take the value of a crotchet.
 @noindent
 See @ref{Enhancing MIDI output}.
 
-@cindex MIDI, unsupported notation
 
 @node Unsupported notation for MIDI
 @subsection Unsupported notation for MIDI
+
+@cindex MIDI, unsupported notation
 
 The following items of musical notation cannot be output to MIDI;
 
@@ -3970,14 +3973,12 @@ of different instruments.
 * Setting MIDI block properties::
 @end menu
 
-@cindex MIDI, volume
-@cindex MIDI, equalization
-@cindex MIDI, dynamics
-@cindex dynamics in MIDI
-
 
 @node Dynamic marks in MIDI
 @unnumberedsubsubsec Dynamic marks in MIDI
+
+@cindex dynamics in MIDI
+@cindex MIDI, dynamics
 
 Only the dynamic markings from @code{ppppp} to @code{fffff}, including
 @code{mp}, @code{mf} and @code{sf} have values assigned to them.  This
@@ -4010,6 +4011,8 @@ Internals Reference:
 
 @node Setting MIDI volume
 @unnumberedsubsubsec Setting MIDI volume
+
+@cindex MIDI, volume
 
 The minimum and maximum overall volume of MIDI dynamic markings is
 controlled by setting the properties @code{midiMinimumVolume} and
@@ -4046,6 +4049,8 @@ volume is limited to the range 0.2--0.5.
   @}
 @}
 @end example
+
+@cindex MIDI, equalization
 
 Simple MIDI instrument equalization can be achieved by setting
 @code{midiMinimumVolume} and @code{midiMaximumVolume} properties within
@@ -4191,9 +4196,12 @@ Changes to the @code{midiInstrument}, as well as some MIDI options, at
 the @emph{beginning} of a staff may appear twice in the MIDI output.
 
 
-
 @node Using MIDI instruments
 @subsection Using MIDI instruments
+
+@cindex instrument name
+@cindex MIDI, instrument
+@funindex Staff.midiInstrument
 
 MIDI instruments are set using the @code{midiInstrument} property within
 a @code{Staff} context.
@@ -4406,23 +4414,6 @@ to the @code{'instrument} setting as shown:
 
 @cindex effects in MIDI
 @cindex MIDI, effects
-@cindex pan position in MIDI
-@cindex MIDI, pan position
-@cindex stereo balance in MIDI
-@cindex MIDI, stereo balance
-@cindex balance in MIDI
-@cindex MIDI, balance
-@cindex expression in MIDI
-@cindex MIDI, expression
-@cindex reverb in MIDI
-@cindex MIDI, reverb
-@cindex chorus level in MIDI
-@cindex MIDI, chorus level
-@funindex midiPanPosition
-@funindex midiBalance
-@funindex midiExpression
-@funindex midiReverbLevel
-@funindex midiChorusLevel
 
 The following context properties can be used to apply various MIDI
 effects to notes played on the MIDI channel associated with the
@@ -4441,6 +4432,9 @@ The following context properties are supported:
 @table @code
 
 @item Staff.midiPanPosition
+@funindex midiPanPosition
+@cindex pan position in MIDI
+@cindex MIDI, pan position
 
 The pan position controls how the sound on a MIDI channel is
 distributed between left and right stereo outputs.  The context
@@ -4453,6 +4447,11 @@ right stereo output.  Values between -1.0 and 1.0 can be used to obtain
 mixed distributions between left and right stereo outputs.
 
 @item Staff.midiBalance
+@funindex midiBalance
+@cindex stereo balance in MIDI
+@cindex MIDI, stereo balance
+@cindex balance in MIDI
+@cindex MIDI, balance
 
 The stereo balance of a MIDI channel.  Similarly to the pan position,
 this context property accepts a number between -1.0 (@code{#LEFT}) and
@@ -4461,6 +4460,9 @@ stereo speakers without affecting the distribution of the stereo
 signals.
 
 @item Staff.midiExpression
+@funindex midiExpression
+@cindex expression in MIDI
+@cindex MIDI, expression
 
 Expression level (as a fraction of the maximum available level) to
 apply to a MIDI channel.  A MIDI device combines the MIDI channel's
@@ -4478,12 +4480,18 @@ The expression level ranges from 0.0 (no expression, meaning zero
 volume) to 1.0 (full expression).
 
 @item Staff.midiReverbLevel
+@funindex midiReverbLevel
+@cindex reverb in MIDI
+@cindex MIDI, reverb
 
 Reverb level (as a fraction of the maximum available level) to apply
 to a MIDI channel.  This property accepts numbers between 0.0 (no
 reverb) and 1.0 (full effect).
 
 @item Staff.midiChorusLevel
+@funindex midiChorusLevel
+@cindex chorus level in MIDI
+@cindex MIDI, chorus level
 
 Chorus level (as a fraction of the maximum available level) to apply to
 a MIDI channel.  This property accepts numbers between 0.0 (no chorus
@@ -4531,10 +4539,6 @@ instruments and various @code{\midi} block properties.
 Additional scripts allow to fine-tune the way dynamics, articulations
 and rhythm are rendered in MIDI: the @file{articulate} script
 and the @file{swing} script.
-
-@cindex instrument name
-@cindex MIDI, instrument
-@funindex Staff.midiInstrument
 
 
 @node The articulate script
@@ -4607,19 +4611,19 @@ This script has to be @code{\include}-d at the beginning of the input file:
 \include "swing.ly"
 @end example
 
-@funindex \tripletFeel
-@funindex \applySwing
-@funindex \applySwingWithOffset
-
 Three commands are provided:
 @itemize
 @item
+@funindex \tripletFeel
+
 @code{\tripletFeel} creates a triplet-feel swing.  It takes two
 arguments: the durations that should be affected by it (typically
 @code{8} for eighth notes), and then the music expression to which
 it should be applied.
 
 @item
+@funindex \applySwing
+
 @code{\applySwing} takes an additional argument prior to the music
 expression: a @q{weight list} of @var{n} number ratios expressing the
 way regular notes should be played: for example, @code{#'(2 1)} indicates
@@ -4645,6 +4649,8 @@ may be obtained as follows:
 @end example
 
 @item
+@funindex \applySwingWithOffset
+
 @code{\applySwingWithOffset} adds yet another argument between the
 @q{weight list} and the music expression: an offset length.  This
 command should be used when the music expression has to start

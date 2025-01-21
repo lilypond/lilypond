@@ -625,9 +625,8 @@ The chord name display can also be tuned through the following properties.
 
 @table @code
 
-@funindex chordRootNamer
-
 @item chordRootNamer
+@funindex chordRootNamer
 
 The chord name is usually printed as a letter for the root with an
 optional alteration.  The transformation from pitch to letter is
@@ -635,9 +634,8 @@ done by this function.  Special note names (for example, the German
 @q{H} for a B-chord) can be produced by storing a new function in
 this property.
 
-@funindex majorSevenSymbol
-
 @item majorSevenSymbol
+@funindex majorSevenSymbol
 
 @funindex \blackTriangleMarkup
 @funindex \whiteTriangleMarkup
@@ -647,9 +645,8 @@ of @code{chordRootNamer} to identify a major 7 chord.  Predefined
 options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.
 
-@funindex additionalPitchPrefix
-
 @item additionalPitchPrefix
+@funindex additionalPitchPrefix
 
 When the chord name contains additional pitches, they can optionally
 be prefixed with some text.  The default is no prefix, in order to
@@ -664,9 +661,8 @@ pitches this can be visually effective.
 }
 @end lilypond
 
-@funindex chordNoteNamer
-
 @item chordNoteNamer
+@funindex chordNoteNamer
 
 When the chord name contains additional pitches other than the root
 (e.g., an added bass note), this function is used to print the
@@ -675,9 +671,8 @@ additional pitch.  By default the pitch is printed using
 to a specialized function to change this behavior.  For example, the
 bass note can be printed in lower case.
 
-@funindex chordNameSeparator
-
 @item chordNameSeparator
+@funindex chordNameSeparator
 
 Different parts of a chord name are normally separated by a small
 amount of horizontal space.  By setting @code{chordNameSeparator}, you
@@ -694,9 +689,8 @@ separator between a chord and its bass note; to customize that, use
 }
 @end lilypond
 
-@funindex slashChordSeparator
-
 @item slashChordSeparator
+@funindex slashChordSeparator
 
 Chords can be played over a bass note other than the conventional root
 of the chord.  These are known as @qq{inversions} or @qq{slash chords},
@@ -714,18 +708,16 @@ change it to any markup you choose.
 }
 @end lilypond
 
-@funindex chordNameExceptions
-
 @item chordNameExceptions
+@funindex chordNameExceptions
 
 This property is a list of pairs.  The first item in each pair
 is a set of pitches used to identify the steps present in the chord.
 The second item is a markup that will follow the @code{chordRootNamer}
 output to create the chord name.
 
-@funindex minorChordModifier
-
 @item minorChordModifier
+@funindex minorChordModifier
 
 Minor chords are often denoted via a @q{m} suffix to the right of the
 root of the chord.  However some idioms prefer other suffices, such as
@@ -740,9 +732,8 @@ a minus sign.
 }
 @end lilypond
 
-@funindex chordPrefixSpacer
-
 @item chordPrefixSpacer
+@funindex chordPrefixSpacer
 
 The modifier for minor chords as determined by
 @code{minorChordModifier} is usually printed immediately to the right

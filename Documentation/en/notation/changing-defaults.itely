@@ -176,8 +176,8 @@ and the timing variables are then copied from wherever
 @unnumberedsubsubsec Top-level contexts -- staff containers
 
 @table @code
-@funindex StaffGroup
 @item StaffGroup
+@funindex StaffGroup
 Connect staves vertically by adding a bracket on the left side.
 The bar lines of the contained staves are connected vertically,
 too.
@@ -3079,8 +3079,6 @@ Notation Reference:
 
 Distances in LilyPond are of two types: absolute and scaled.
 
-@funindex \staff-space
-
 Absolute distances are used for specifying margins, indents, and
 other page layout details, and are by default specified in
 millimeters.  In general, distance units may be specified by
@@ -3106,6 +3104,8 @@ points).
   @b{bp} @tab  0.3538 @tab 0.0354 @tab 0.0139 @tab  1.0038  @tab  1
 @end multitable
 @end indentedblock
+
+@funindex \staff-space
 
 Page layout distances can also be specified in scalable units (see
 the following paragraph) by appending @code{\staff-space} to the
@@ -3209,7 +3209,6 @@ across systems.
 
 @cindex spanner, modifying
 @cindex broken spanner, modifying
-@funindex \alterBroken
 
 When a spanner crosses a line break or breaks, each piece
 inherits the attributes of the original spanner.  Thus, ordinary
@@ -3227,6 +3226,8 @@ break.
   g8 f e d) r2
 }
 @end lilypond
+
+@funindex \alterBroken
 
 Independently modifying the appearance of individual pieces
 of a broken spanner is possible with the @code{\alterBroken}
@@ -3596,9 +3597,10 @@ Line spanners may have symbols at the beginning or end, which is
 contained in this subproperty.  This is for internal use; it is
 recommended that @code{text} be used instead.
 
+@item text
 @funindex \startTextSpan
 @funindex \stopTextSpan
-@item text
+
 This is a markup that is evaluated to yield the stencil.  It is used
 to put @emph{cresc.}, @emph{tr}, and other text on horizontal spanners.
 
@@ -4706,6 +4708,8 @@ the alternative @code{\tweak} form:
   \relative { r4 <g' c,> <g c,> <g c,> }
 >>
 @end lilypond
+
+@funindex \vshape
 
 To aid the tweaking process, the @code{\vshape} function is provided.
 Its name means @emph{visual shape}: it acts exactly like @code{\shape},

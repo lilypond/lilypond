@@ -49,21 +49,6 @@ grouping staves.
 @cindex staff instantiation
 @cindex staff, new
 @cindex staff, single
-@cindex staff, drum
-@cindex staff, percussion
-@cindex drum staff
-@cindex percussion staff
-@cindex Gregorian transcription staff
-@cindex rhythmic staff
-@cindex tablature
-
-@funindex \drummode
-@funindex DrumStaff
-@funindex RhythmicStaff
-@funindex TabStaff
-@funindex MensuralStaff
-@funindex VaticanaStaff
-@funindex GregorianTranscriptionStaff
 
 @notation{Staves} (singular: @notation{staff}) are created with
 the @code{\new} or @code{\context} commands.  For details, see
@@ -74,6 +59,13 @@ The basic staff context is @code{Staff}:
 @lilypond[verbatim,quote]
 \new Staff \relative { c''4 d e f }
 @end lilypond
+
+@cindex staff, drum
+@cindex staff, percussion
+@cindex drum staff
+@cindex percussion staff
+@funindex \drummode
+@funindex DrumStaff
 
 The @code{DrumStaff} context creates a five-line staff set up for
 a typical drum set.  Each instrument is shown with a different
@@ -87,6 +79,9 @@ For details, see @ref{Percussion staves}.
 }
 @end lilypond
 
+@cindex rhythmic staff
+@funindex RhythmicStaff
+
 @code{RhythmicStaff} creates a single-line staff that only
 displays the rhythmic values of the input.  Real durations are
 preserved.  For details, see @ref{Showing melody rhythms}.
@@ -95,12 +90,20 @@ preserved.  For details, see @ref{Showing melody rhythms}.
 \new RhythmicStaff { c4 d e f }
 @end lilypond
 
+@cindex tablature
+@funindex TabStaff
+
 @code{TabStaff} creates a tablature with six strings in standard
 guitar tuning.  For details, see @ref{Default tablatures}.
 
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
 @end lilypond
+
+@cindex Gregorian transcription staff
+@funindex MensuralStaff
+@funindex VaticanaStaff
+@funindex GregorianTranscriptionStaff
 
 There are staff contexts specific for the notation of ancient
 music, for example, @code{MensuralStaff} and @code{VaticanaStaff}.
@@ -156,13 +159,6 @@ Internals Reference:
 @cindex system start delimiter
 @cindex bracket, vertical
 @cindex brace, vertical
-@cindex choir staff
-@cindex grand staff
-@cindex piano staff
-@cindex staff group
-@cindex staff, choir
-@cindex staff, piano
-@cindex staff, grand
 @cindex system
 
 Various contexts exist to group single staves together in order to
@@ -180,6 +176,8 @@ not connected.
 >>
 @end lilypond
 
+@cindex staff group
+
 In the @code{StaffGroup} context, the group is started with a
 bracket and bar lines are drawn through all the staves.
 
@@ -189,6 +187,9 @@ bracket and bar lines are drawn through all the staves.
   \new Staff \relative { c''1 c }
 >>
 @end lilypond
+
+@cindex choir staff
+@cindex staff, choir
 
 In a @code{ChoirStaff}, the group starts with a bracket, but bar
 lines are not connected.
@@ -200,6 +201,9 @@ lines are not connected.
 >>
 @end lilypond
 
+@cindex grand staff
+@cindex staff, grand
+
 In a @code{GrandStaff}, the group begins with a brace, and bar
 lines are connected between the staves.
 
@@ -209,6 +213,9 @@ lines are connected between the staves.
   \new Staff \relative { c''1 c }
 >>
 @end lilypond
+
+@cindex piano staff
+@cindex staff, piano
 
 The @code{PianoStaff} is identical to a @code{GrandStaff}, except
 that its staves are only removed together, never separately;
@@ -795,8 +802,6 @@ Internals Reference:
 @cindex hiding Vaticana staves
 @cindex empty staff
 
-@funindex \RemoveEmptyStaves
-@funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 
@@ -852,6 +857,8 @@ objects (that cause a staff not to be considered as empty) are listed in the
 @code{keepAliveInterfaces} context property, as initially set in the
 @file{ly/engraver-init.ly} file.
 
+@funindex \RemoveEmptyStaves
+@funindex \RemoveAllEmptyStaves
 @funindex remove-empty
 @funindex remove-first
 
@@ -1533,10 +1540,8 @@ triplets may result in poor notation.
 @cindex voice, quoting
 
 
-@funindex \cueDuring
 @funindex \cueClef
 @funindex \cueClefUnset
-@funindex \cueDuringWithClef
 @funindex \quoteDuring
 
 @cindex note, smaller
@@ -1592,6 +1597,9 @@ without a @code{CueVoice} if required.
   d,,4 r a r
 }
 @end lilypond
+
+@funindex \cueDuring
+@funindex \cueDuringWithClef
 
 For more complex cue note placement like including transposition, or
 inserting cue notes from multiple music sources, the @code{\cueDuring} or

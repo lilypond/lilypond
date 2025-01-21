@@ -144,8 +144,6 @@ Notation Reference:
 @node Harmonics
 @unnumberedsubsubsec Harmonics
 
-@funindex \harmonic
-
 @subsubsubheading Natural harmonics
 
 @cindex note head, diamond-shaped
@@ -182,6 +180,7 @@ d''2^\flageolet d''_\flageolet
 
 @cindex artificial harmonics
 @cindex harmonics, artificial
+@funindex \harmonic
 
 Artificial harmonics are notated with two notes, one with a normal
 note head indicating the stopped position and one with an open
