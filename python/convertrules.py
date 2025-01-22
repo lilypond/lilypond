@@ -5516,9 +5516,22 @@ Refer to part-combiner.scm for more information.
 
 @rule((2, 25, 25), r"""
 ellipsis-direction -> passage-direction
+remove max-/minimumBeamSubdivisionInterval
 """)
 def conv(s):
     s = re.sub(r'\bellipsis-direction\b', r'passage-direction', s)
+    if 'maximumBeamSubdivisionInterval' in s:
+        stderr_write(NOT_SMART % 'maximumBeamSubdivisionInterval')
+        stderr_write(FROM_TO % ('maximumBeamSubdivisionInterval',
+                                'beamMaximumSubdivision'))
+        stderr_write(UPDATE_MANUALLY)
+        raise FatalConversionError()
+    if 'minimumBeamSubdivisionInterval' in s:
+        stderr_write(NOT_SMART % 'minimumBeamSubdivisionInterval')
+        stderr_write(FROM_TO % ('minimumBeamSubdivisionInterval',
+                                'beamMinimumSubdivision'))
+        stderr_write(UPDATE_MANUALLY)
+        raise FatalConversionError()
     return s;
 
 

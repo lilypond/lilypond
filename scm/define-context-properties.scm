@@ -991,27 +991,9 @@ This property is deprecated; overriding the @code{musical-@/length} property of
   #:old->new ly:moment-main
   #:new->old ly:make-moment)
 
-;; TODO: minimumBeamSubdivisionInterval was added in 2.25, so removing it
-;; entirely before releasing 2.26 is probably reasonable.
-(define-deprecated-property
-  'translation-type? 'maximumBeamSubdivisionInterval
-  musical-length-as-moment?
-  #:new-symbol 'beamMaximumSubdivision
-  #:old->new ly:moment-main
-  #:new->old ly:make-moment)
-
 (define-deprecated-property
   'translation-type? 'measureLengthAsMoment positive-musical-length-as-moment?
   #:new-symbol 'measureLength
-  #:old->new ly:moment-main
-  #:new->old ly:make-moment)
-
-;; TODO: minimumBeamSubdivisionInterval was added in 2.25, so removing it
-;; entirely before releasing 2.26 is probably reasonable.
-(define-deprecated-property
-  'translation-type? 'minimumBeamSubdivisionInterval
-  musical-length-as-moment?
-  #:new-symbol 'beamMinimumSubdivision
   #:old->new ly:moment-main
   #:new->old ly:make-moment)
 
