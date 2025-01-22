@@ -85,9 +85,8 @@ See the @qq{Known issues and warnings} at the end of this section.
 @funindex \normalsize
 
 If a normal sized note head is merged with a smaller one, the size
-of the smaller note may need to be reset (with
-@w{@samp{\once@tie{}\normalsize}}) so that the stems and
-accidentals align properly:
+of the smaller note may need to be reset (with @code{\once
+\normalsize}) so that the stems and accidentals align properly:
 
 @c Chopin Prelude op.28 no.8
 @lilypond[verbatim,quote]

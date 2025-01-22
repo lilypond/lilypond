@@ -231,7 +231,7 @@ optionally with a bracket.  The most common tuplets are triplets
 @end lilypond
 
 @cindex tuplet, grouping
-@noindent
+
 When entering long passages of tuplets, having to write a separate
 @code{\tuplet} command for each group is inconvenient.  It is possible
 to specify the duration of one tuplet group directly before the music
@@ -2737,7 +2737,7 @@ reset @code{beamExceptions}.
 \repeat unfold 6 {a'8}
 @end lilypond
 
-In engraving from the Romantic and Classical periods,
+In engraving from the romantic and classical periods,
 beams often begin midway through the measure in 3/4 time,
 but modern practice is to avoid the false impression of 6/8 time
 (see Gould, p. 153).  Similar situations arise in 3/8 time.

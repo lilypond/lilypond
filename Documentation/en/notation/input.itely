@@ -251,8 +251,9 @@ are music expressions:
 @cindex single-line comment
 @cindex block comment
 @cindex multi-line comment
-Comments are one exception to this general rule.  (For others see
-@ref{File structure}.)  Both single-line comments and comments
+
+Comments are one exception to this general rule.  (For others,
+@pxref{File structure}.)  Both single-line comments and comments
 delimited by @code{%@{ @dots{} %@}} may be placed anywhere within an
 input file.  They may be placed inside or outside a @code{\score}
 block, and inside or outside the single music expression within a

@@ -633,7 +633,7 @@ Internals Reference:
 @funindex \melisma
 @funindex \melismaEnd
 
-Sometimes, particularly in Medieval and baroque music, several notes are
+Sometimes, particularly in medieval and Baroque music, several notes are
 sung on one syllable; this is called melisma, see
 @rglos{melisma}.  The syllable to a melisma is usually
 left-aligned with the first note of the melisma.

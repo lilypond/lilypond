@@ -118,13 +118,13 @@ nail.
 @end itemize
 
 Three styles emulate the appearance of late-medieval and
-renaissance manuscripts and prints of mensural music:
+Renaissance manuscripts and prints of mensural music:
 
 @itemize
 @item
 @cindex mensural
 The @emph{Mensural} style most closely resembles the
-writing style used in late-medieval and early renaissance
+writing style used in late-medieval and early Renaissance
 manuscripts, with its small and narrow, diamond-shaped note heads
 and its rests which approach a hand-drawn style.
 
@@ -145,9 +145,9 @@ larger note heads than the other mensural styles.
 
 @end itemize
 
-@emph{Baroque} and @emph{Classical} are not complete styles
+@emph{Baroque} and @emph{classical} are not complete styles
 but differ from the default style only in some details: certain
-note heads (Baroque) and the quarter rest (Classical).
+note heads (Baroque) and the quarter rest (classical).
 
 Only the mensural style has alternatives for all aspects of the
 notation.  Thus, there are no rests or flags in the Gregorian
