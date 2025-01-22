@@ -1479,8 +1479,8 @@ This makes the @code{ImproVoice} context also work in MIDI output.
 
 @subsubheading Replacing the @code{Score} context
 
-@cindex Score context, replacing
-@cindex context, Score-level
+@cindex @code{Score} context, replacing
+@cindex context, @code{Score}-level
 
 @c This can also be done with \accepts in Global.  Since Global is
 @c a very special context type, we avoid answering the question of
@@ -1776,7 +1776,7 @@ tuned.
 @subsection Layout interfaces
 
 @cindex interface, layout
-@cindex layout interface
+@cindex layout, interface
 @cindex grob
 
 The HTML page that we found in the previous section describes the
@@ -2288,7 +2288,7 @@ starting with a capital letter (e.g., @samp{NoteHead}); whereas normal
 context properties are manipulated using @code{\set} and @code{\unset}
 and are named starting with a lowercase letter.
 
-@cindex @code{tweak}, relation to @code{\override}
+@cindex @code{\tweak}, relation to @code{\override}
 @funindex \tweak
 @funindex \overrideProperty
 
@@ -3679,8 +3679,8 @@ Internals Reference:
 @node Visibility of objects
 @subsection Visibility of objects
 
-@cindex object, visibility of
-@cindex grob, visibility of
+@cindex object, visibility
+@cindex grob, visibility
 @cindex visibility of object
 
 There are four main ways in which the visibility of layout objects
@@ -3737,7 +3737,7 @@ a a a
 @node Making objects transparent
 @unnumberedsubsubsec Making objects transparent
 
-@cindex transparent, making objects
+@cindex transparent objects
 @funindex \hide
 
 Every layout object has a transparent property which by default is
@@ -3761,7 +3761,7 @@ a' a'
 @node Painting objects white
 @unnumberedsubsubsec Painting objects white
 
-@cindex object, coloring
+@cindex object, colored
 @cindex coloring object
 @cindex layer
 @cindex printing order
@@ -4055,7 +4055,7 @@ the visibility of the @code{KeyCancellation} grob instead:
 
 @subsubsubheading Transposed clefs
 
-@cindex transposed clef, visibility of
+@cindex transposed clef, visibility
 @cindex visibility of transposed clef
 @cindex clef, visibility of transposition
 

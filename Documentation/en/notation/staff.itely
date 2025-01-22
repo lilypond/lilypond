@@ -45,8 +45,8 @@ grouping staves.
 @unnumberedsubsubsec Instantiating new staves
 
 @cindex new staff
-@cindex staff initiation
-@cindex staff instantiation
+@cindex staff, initiation
+@cindex staff, instantiation
 @cindex staff, new
 @cindex staff, single
 
@@ -223,7 +223,7 @@ that its staves are only removed together, never separately;
 
 @funindex OneStaff
 @cindex overlaying contexts
-@cindex contexts, overlaying
+@cindex context, overlaying multiple
 The @code{OneStaff} is a staff group that places separate contexts
 in the same vertical alignment.  This example shows three staves
 sharing the same space.  Here, the @code{Time_signature_engraver}
@@ -281,14 +281,14 @@ New staff group contexts may be defined.  For details, see
 @cindex bracket, at start of single staff
 @cindex brace, at start of single staff
 @cindex staff, single, with bracket or brace
-@cindex single staff with bracket or brace
+@cindex single staff, with bracket or brace
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/display-bracket-with-only-one-staff-in-a-system.ly}
 
-@cindex Mensurstriche layout
-@cindex renaissance music
-@cindex transcription of mensural music
-@cindex mensural music, transcription of
+@cindex Mensurstriche, layout
+@cindex Renaissance music
+@cindex transcription, of mensural music
+@cindex mensural music, transcription
 @cindex bar line, between staves
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/mensurstriche-layout-bar-lines-between-the-staves.ly}
@@ -325,11 +325,11 @@ Internals Reference:
 @unnumberedsubsubsec Nested staff groups
 
 @cindex staff, nested
-@cindex nesting of staves
+@cindex nesting, staves
 @cindex system start delimiter, nested
-@cindex nested staff bracket
-@cindex bracket, nesting of
-@cindex brace, nesting of
+@cindex nesting, staff bracket
+@cindex bracket, nested
+@cindex brace, nested
 
 Staff-group contexts can be nested to arbitrary depths.  In this
 case, each child context creates a new bracket adjacent to the
@@ -384,6 +384,7 @@ Internals Reference:
 @unnumberedsubsubsec Separating systems
 
 @cindex system separator mark
+@cindex separator mark, system
 
 If the number of systems per page changes from page to page it is
 customary to separate the systems by placing a system separator mark
@@ -637,7 +638,7 @@ Internals Reference:
 @cindex staff, Frenched
 @cindex ossia
 @cindex Frenched staff
-@cindex staff, resizing of
+@cindex staff, resizing
 @cindex resizing of staves
 
 @funindex \startStaff
@@ -1156,9 +1157,9 @@ For the Known issues and warnings associated with
 @cindex individual parts
 @cindex desk parts
 @cindex section parts
-@cindex parts, individual
-@cindex parts, desk
-@cindex parts, section
+@cindex part, individual
+@cindex part, desk
+@cindex part, section
 
 This section explains how to prepare parts
 for orchestral or ensemble music, which often
@@ -1837,8 +1838,8 @@ direction.
 @node Compressing empty measures
 @unnumberedsubsubsec Compressing empty measures
 
-@cindex multi-measure notes, expanding
-@cindex multi-measure notes, contracting
+@cindex multi-measure rest, expanding multiple
+@cindex multi-measure rest, contracting multiple
 @funindex \compressEmptyMeasures
 @funindex \expandEmptyMeasures
 
@@ -1867,8 +1868,8 @@ the previous example; hence the need for measure numbers
 to be explicitly printed, using the syntax described in
 @ref{Using break-visibility}.
 
-@cindex multi-measure rests, expanding
-@cindex multi-measure rests, contracting
+@cindex multi-measure rest, expanding multiple
+@cindex multi-measure rest, contracting multiple
 @funindex \compressMMRests
 
 Where such a notation may become more useful is when applied to

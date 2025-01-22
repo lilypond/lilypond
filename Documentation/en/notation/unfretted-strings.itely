@@ -93,8 +93,8 @@ Snippets:
 @funindex \romanStringNumbers
 
 @cindex bowing indication
-@cindex up-bow indication
-@cindex down-bow indication
+@cindex @q{up-bow} bowing indication
+@cindex @q{down-bow} bowing indication
 @cindex open string indication
 @cindex string, indicating open
 @cindex string number

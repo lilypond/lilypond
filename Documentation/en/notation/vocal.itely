@@ -592,6 +592,7 @@ Internals Reference:
 @unnumberedsubsubsec Multiple syllables to one note
 
 @funindex _
+@funindex ~
 @cindex space, in lyrics
 @cindex quote, in lyrics
 @cindex tie, in lyrics
@@ -833,6 +834,7 @@ must be inserted manually with a double underscore.
 
 @cindex melisma
 @cindex extender
+@funindex __
 
 @c TODO cf Multiple notes to one syllable; should this be merged in?
 
@@ -850,6 +852,7 @@ single underscore characters; these do not make an extender line to be
 typeset by default.}
 
 @cindex hyphen
+@funindex --
 
 @c leave this as samp. -gp
 Centered hyphens are entered as @samp{ -- } between syllables of a
@@ -880,6 +883,7 @@ Internals Reference:
 @unnumberedsubsubsec Gradual changes of vowel
 
 @cindex vowel transition
+@funindex \vowelTransition
 
 Vowel transitions (gradual changes of vowel or sustained
 consonant), which may be indicated by arrows between syllables,
@@ -1160,7 +1164,7 @@ Notation Reference:
 @node Placing syllables horizontally
 @unnumberedsubsubsec Placing syllables horizontally
 
-@cindex spacing lyrics
+@cindex spacing, lyrics
 @cindex lyrics, increasing space between
 
 To increase the spacing between lyrics, set the
@@ -1482,7 +1486,7 @@ lyrics correctly.
 @end lilypond
 
 @funindex \skip
-@cindex skipping notes in lyrics
+@cindex skipping notes, in lyrics
 @cindex lyrics, skipping notes
 
 But when the repeated section has different words, or when one
@@ -1753,7 +1757,7 @@ passage is the proper construct to use, see section
 @funindex NullVoice
 @cindex polyphony, shared lyrics
 @cindex lyrics, shared among voices
-@cindex @code{\partCombine} and lyrics
+@cindex @code{\partCombine}, and lyrics
 @funindex \partCombine
 
 When two voices with different rhythms share the same lyrics,
@@ -1932,7 +1936,7 @@ text = {
 @unnumberedsubsubsec Adding singers' names to stanzas
 
 @cindex singer name
-@cindex name of singer
+@cindex name, of singer
 
 Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting

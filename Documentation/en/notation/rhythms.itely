@@ -159,13 +159,13 @@ Notes can also be spaced proportionately to their duration, see
 @snippets
 
 @cindex breve note, alternative style
-@cindex alternative style of breve notes
+@cindex alternative style, of breve notes
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/alternative-breve-notes.ly}
 
-@cindex augmentation dot, change number of
-@cindex change number of augmentation dots
-@cindex dotted note, change number of dots
+@cindex augmentation dot, changing number
+@cindex changing number of augmentation dots
+@cindex dotted note, changing number of dots
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/changing-the-number-of-augmentation-dots-per-note.ly}
 
@@ -326,8 +326,8 @@ bracket is also introduced in @ref{Scaling durations}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/entering-several-tuplets-using-only-one--tuplet-command.ly}
 
-@cindex tuplet number, change
-@cindex change tuplet number
+@cindex tuplet number, changing
+@cindex changing tuplet number
 @funindex TupletNumber
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/changing-the-tuplet-number.ly}
@@ -673,13 +673,13 @@ that should cause a gap in ties.
 @snippets
 
 @cindex tie, with arpeggios
-@cindex arpeggio and ties
+@cindex arpeggio, and ties
 @funindex tieWaitForNote
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/using-ties-with-arpeggios.ly}
 
 @cindex tie, manual engraving
-@cindex manual engraving of ties
+@cindex manual engraving, of ties
 @funindex TieColumn
 @anchor{engraving ties manually}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -734,7 +734,7 @@ Rests are entered as part of the music in music expressions.
 @cindex longa rest
 @cindex breve rest
 
-@funindex r
+@cindex @code{r} (rest)
 @funindex \maxima
 @funindex \longa
 @funindex \breve
@@ -822,7 +822,7 @@ are rests from 1024th to maxima (8× whole).
 @cindex spacer note
 @cindex spacer rest
 
-@funindex s
+@cindex @code{s} (invisible rest)
 @funindex \skip
 
 There are two forms of invisible rests: the @dfn{spacer rest}
@@ -957,7 +957,7 @@ following the command.
 @cindex rest, whole, for a full measure
 
 @funindex \compressMMRests
-@funindex R
+@cindex @code{R} (full-measure rest)
 
 Rests for one or more full measures are entered like notes with
 the note name uppercase @samp{R}.  Their duration is entered
@@ -1119,7 +1119,7 @@ numeral.
 There is no way to automatically condense multiple ordinary rests
 into a single multi-measure rest.
 
-@cindex rest, collisions of
+@cindex rest, collisions
 
 Multi-measure rests do not take part in rest collisions.
 
@@ -1280,8 +1280,8 @@ there.  This default behavior may be changed, see
 }
 @end lilypond
 
-@cindex time signature style
-@cindex meter style
+@cindex time signature, style
+@cindex meter, style
 
 @funindex \numericTimeSignature
 @funindex \defaultTimeSignature
@@ -1686,7 +1686,7 @@ algorithm.
 @c perhaps also an example of how to move it horizontally?
 
 @cindex tempo, change, without metronome mark
-@cindex change tempo without metronome mark
+@cindex changing tempo without metronome mark
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-the-tempo-without-a-metronome-mark.ly}
 
@@ -2808,10 +2808,10 @@ The default beaming rules can be found in
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/strict-beat-beaming.ly}
 
-@cindex measure grouping
+@cindex measure, grouping
 @cindex beat, grouping
 @cindex grouping beats
-@cindex measure subgrouping
+@cindex measure, subgrouping
 @cindex conducting signs
 @cindex sign, conducting
 @funindex Measure_grouping_engraver
@@ -3963,10 +3963,10 @@ if there is one.  To solve this, the @code{padding} property of
 @node Bar and bar number checks
 @unnumberedsubsubsec Bar and bar number checks
 
-@cindex bar check
-@cindex bar number check
-@cindex measure check
-@cindex measure number check
+@cindex bar, check
+@cindex bar number, check
+@cindex measure, check
+@cindex measure number, check
 
 @funindex |
 
@@ -4113,7 +4113,7 @@ hollow circle).
 @cindex rehearsal mark, format
 @cindex rehearsal mark, style
 @cindex style, rehearsal mark
-@cindex format, rehearsal mark
+@cindex formatting, rehearsal mark
 @cindex mark, rehearsal, style
 @cindex mark, rehearsal, format
 @cindex rehearsal mark, manual
@@ -4562,7 +4562,7 @@ direction is overridden and then reverted.
 
 @anchor{Positioning grace notes with floating space}
 @cindex grace note, and strict spacing
-@cindex strict spacing and grace notes
+@cindex strict spacing, and grace notes
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/positioning-grace-notes-with-floating-space.ly}
 

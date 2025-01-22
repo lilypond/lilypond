@@ -82,11 +82,10 @@ repeats.
 
 @cindex written-out repeat
 @cindex repeat, written-out
-@cindex repeat, unfold
-@cindex unfold repeat
+@cindex repeat, unfolded
+@cindex unfolding repeat
 @funindex \repeat
 @funindex \repeat unfold
-@funindex unfold
 
 The @code{\repeat unfold} command repeats music by writing it out
 a number of times.  The syntax is the same as the @code{\repeat
@@ -143,7 +142,6 @@ Internals Reference:
 @cindex simple repeat
 @funindex \repeat
 @funindex \repeat volta
-@funindex volta
 
 This is the syntax for a repeat without variation:
 
@@ -233,7 +231,6 @@ there is a truly incomplete measure the first time through.
 @funindex \repeat
 @funindex \repeat volta
 @funindex \volta
-@funindex volta
 
 Repeats with alternative endings can be written two ways.  This is
 the preferred syntax:
@@ -891,11 +888,11 @@ Internals Reference:
 
 @knownissues
 @cindex repeat, ambiguous
-@cindex nested repeat
+@cindex nesting repeat
 @cindex repeat, nested
 @cindex repeat, timing information
 @cindex repeat, and measure number
-@cindex timing information and repeats
+@cindex timing information, and repeats
 @cindex measure number, and repeats
 @cindex repeat, and slur
 @cindex slur, and repeats
@@ -1200,7 +1197,6 @@ single note, a single measure or two measures, and tremolos otherwise.
 @cindex repeat, short
 @cindex repeat, slash
 @funindex \repeat percent
-@funindex percent
 
 Repeated short patterns are printed once, and the repeated pattern
 is replaced with a special sign.
@@ -1270,15 +1266,15 @@ use a double-percent symbol.
 
 @snippets
 
-@cindex percent repeat counter
+@cindex percent repeat, counter
 @cindex counter, percent repeat
-@cindex repeat, percent counter
+@cindex repeat, percent, counter
 @funindex countPercentRepeats
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/percent-repeat-counter.ly}
 
 @cindex percent repeat, count visibility
-@cindex count visibility of percent repeats
+@cindex count visibility, of percent repeats
 @cindex repeat, percent, count visibility
 @funindex repeatCountVisibility
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1342,7 +1338,6 @@ timing track.
 @cindex tremolo
 @cindex repeat, tremolo
 @funindex \repeat tremolo
-@funindex tremolo
 
 Tremolos can take two forms: alternation between two chords or two
 notes, and rapid repetition of a single note or chord.  Tremolos

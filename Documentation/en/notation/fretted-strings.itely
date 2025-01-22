@@ -95,8 +95,8 @@ Notation Reference:
 @unnumberedsubsubsec String number indications
 
 @cindex string number
-@cindex string vs.@: fingering number
-@cindex fingering vs.@: string number
+@cindex string number, vs.@: fingering
+@cindex fingering number, vs.@: string
 
 The string on which a note should be played may be indicated by
 appending @code{\@var{number}} to a note.
@@ -283,7 +283,7 @@ to @code{#t}.
 @funindex \chordRepeats
 @cindex chord, repetition
 @cindex repetition, using @code{q}
-@cindex @code{q}, chord repetition
+@cindex @code{q} (chord repetition)
 
 Chord constructs can be repeated by the chord repetition symbol
 @samp{q}, (@pxref{Chord repetition} for more).  In combination
@@ -392,7 +392,7 @@ ties = \relative {
 }
 @end lilypond
 
-@cindex harmonic indication, in tablature notation
+@cindex harmonic indication, in tablature
 @cindex tablature, and harmonic indications
 @funindex \harmonic
 @funindex \harmonicByFret
@@ -464,9 +464,9 @@ ratioHarmonics = {
 }
 @end lilypond
 
-@cindex string bending, in tablature notation
+@cindex string bending, in tablature
 @cindex tablature, and string bending
-@cindex bending, string, in tablature notation
+@cindex bending, string, in tablature
 @funindex \preBend
 @funindex \bendHold
 @funindex \preBendHold
@@ -665,14 +665,14 @@ bends-with-ties-and-skips = {
 {snippets/polyphony-in-tablature.ly}
 
 @cindex tablature, and harmonics
-@cindex harmonic, in tablatures
+@cindex harmonics, in tablatures
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/open-string-harmonics-in-tablature.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/fretted-string-harmonics-in-tablature.ly}
 
-@cindex slide, in tablature notation
+@cindex slide, in tablature
 @cindex tablature, and slides
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/slides-in-tablature.ly}
@@ -914,10 +914,10 @@ A modern tab clef can also be used.
 
 The modern tab clef supports tablatures from 4 to 7 strings.
 
-@cindex microtone, tab
-@cindex quarter tone, tab
-@cindex tab microtones
-@cindex tab quarter tones
+@cindex microtone, in tablature
+@cindex quarter tone, in tablature
+@cindex tablature, microtones
+@cindex tablature, quarter tones
 
 @code{TabStaff} may support microtones like quarter tones, which
 can be played using bendings.
@@ -1414,7 +1414,7 @@ belong to @code{Voice.TextScript}.
 @snippets
 
 @cindex fret diagram, changing orientation
-@cindex orientation of fret diagram, changing
+@cindex orientation, of fret diagram, changing
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-fret-orientations.ly}
 
@@ -1729,7 +1729,7 @@ belong to @code{FretBoards.FretBoard}.
 {snippets/customizing-fretboard-fret-diagrams.ly}
 
 @cindex fretboard, define predefined
-@cindex define predefined fretboard
+@cindex defining predefined fretboard
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/defining-predefined-fretboards-for-other-instruments.ly}
 

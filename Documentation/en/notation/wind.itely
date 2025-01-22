@@ -111,8 +111,8 @@ Woodwind diagrams can be produced and are described in
 
 @funindex \stopped
 @funindex \open
-@cindex fingering, symbols for wind instruments
-@cindex wind instruments, fingering symbols
+@cindex fingering, symbols, for wind instruments
+@cindex wind instrument, fingering symbols
 @cindex @q{stopped} articulation
 @cindex articulation, stopped
 @cindex @q{open} articulation
@@ -201,8 +201,8 @@ Snippets:
 @node Bagpipe example
 @unnumberedsubsubsec Bagpipe example
 
-@cindex bagpipe example
-@cindex Amazing Grace bagpipe example
+@cindex bagpipe, example
+@cindex @q{Amazing Grace}, bagpipe example
 
 This is what the well known tune Amazing Grace looks like in bagpipe
 notation.
@@ -425,7 +425,7 @@ patterns for the diagrams are in files
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/woodwind-diagrams-listing.ly}
 
-@cindex woodwind diagrams, modifying
+@cindex woodwind diagram, modifying
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/graphical-and-text-woodwind-diagrams.ly}
 
@@ -433,7 +433,7 @@ patterns for the diagrams are in files
 {snippets/changing-the-size-of-woodwind-diagrams.ly}
 
 @cindex woodwind diagram, key lists
-@cindex list of keys in woodwind diagrams
+@cindex list of keys, in woodwind diagrams
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/woodwind-diagrams-key-lists.ly}
 

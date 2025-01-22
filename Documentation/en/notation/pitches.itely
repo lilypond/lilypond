@@ -767,13 +767,12 @@ Internals Reference:
 @node Transpose
 @unnumberedsubsubsec Transpose
 
-@cindex transpose
 @cindex transposing
 @cindex transposition
 @cindex transposition, of pitches
 @cindex transposition, of notes
-@cindex pitch, transposition of
-@cindex note, transposition of
+@cindex pitch, transposition
+@cindex note, transposition
 
 @funindex \transpose
 
@@ -1587,8 +1586,8 @@ how to go back to the current default behavior:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adding-an-ottava-marking-to-a-single-voice.ly}
 
-@cindex ottava spanner, modify slope
-@cindex slope, ottava spanner, modification
+@cindex ottava spanner, modifying slope
+@cindex slope, ottava spanner, modifying
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/modifying-the-ottava-spanner-slope.ly}
 
@@ -1724,11 +1723,9 @@ Snippets:
 @cindex accidental
 @cindex accidental, automatic
 @cindex automatic accidental
-@cindex default accidental style
+@cindex @q{default} accidental style
 
 @funindex \accidentalStyle
-@funindex voice
-@funindex default
 
 There are many different conventions on how to typeset
 accidentals.  LilyPond provides a function to specify which
@@ -1829,7 +1826,7 @@ both staves.
 @table @code
 @item default
 
-@cindex default accidental style
+@cindex @q{default} accidental style
 @cindex accidental style, default
 
 @funindex default
@@ -1891,11 +1888,11 @@ musicB = {
 @item voice
 
 @cindex accidental style, voice
-@cindex voice accidental style
+@cindex @q{voice} accidental style
 @cindex accidental style, modern
-@cindex modern accidental style
+@cindex @q{modern} accidental style
 @cindex accidental style, modern-cautionary
-@cindex modern-cautionary accidental style
+@cindex @q{modern-cautionary} accidental style
 
 @funindex voice
 
@@ -1963,8 +1960,8 @@ musicB = {
 
 @item modern
 
-@cindex accidental, modern style
-@cindex modern style accidental
+@cindex accidental style, modern
+@cindex @q{modern} accidental style
 
 @funindex modern
 
@@ -2030,7 +2027,7 @@ musicB = {
 @item modern-cautionary
 
 @cindex accidental style, modern-cautionary
-@cindex modern-cautionary accidental style
+@cindex @q{modern-cautionary} accidental style
 
 @funindex modern-cautionary
 
@@ -2090,7 +2087,7 @@ musicB = {
 
 @cindex accidental style, modern
 @cindex accidental, multi-voice
-@cindex modern accidental style
+@cindex @q{modern} accidental style
 @cindex modern accidental
 @cindex multi-voice accidental
 
@@ -2155,7 +2152,7 @@ musicB = {
 @item modern-voice-cautionary
 
 @cindex accidental style, modern-voice-cautionary
-@cindex modern-voice-cautionary accidental style
+@cindex @q{modern-voice-cautionary} accidental style
 
 @funindex modern-voice-cautionary
 
@@ -2215,7 +2212,7 @@ musicB = {
 @item piano
 
 @cindex accidental style, piano
-@cindex piano accidental style
+@cindex @q{piano} accidental style
 
 @funindex piano
 
@@ -2277,7 +2274,7 @@ musicB = {
 @item piano-cautionary
 
 @cindex accidental style, piano-cautionary
-@cindex piano-cautionary accidental style
+@cindex @q{piano-cautionary} accidental style
 
 @funindex piano-cautionary
 
@@ -2334,7 +2331,7 @@ musicB = {
 @item choral
 
 @cindex accidental style, choral
-@cindex choral accidental style
+@cindex @q{choral} accidental style
 
 @funindex choral
 
@@ -2395,7 +2392,7 @@ musicB = {
 @item choral-cautionary
 
 @cindex accidental style, choral-cautionary
-@cindex choral-cautionary accidental style
+@cindex @q{choral-cautionary} accidental style
 
 @funindex choral-cautionary
 
@@ -2451,7 +2448,7 @@ musicB = {
 
 @item neo-modern
 
-@cindex neo-modern accidental style
+@cindex @q{neo-modern} accidental style
 @cindex accidental style, neo-modern
 
 @funindex neo-modern
@@ -2510,7 +2507,7 @@ musicB = {
 
 @item neo-modern-cautionary
 
-@cindex neo-modern-cautionary accidental style
+@cindex @q{neo-modern-cautionary} accidental style
 @cindex accidental style, neo-modern-cautionary
 
 @funindex neo-modern-cautionary
@@ -2570,7 +2567,7 @@ musicB = {
 
 @item neo-modern-voice
 
-@cindex neo-modern-voice accidental style
+@cindex @q{neo-modern-voice} accidental style
 @cindex accidental style, neo-modern-voice
 
 @funindex neo-modern-voice
@@ -2629,7 +2626,7 @@ musicB = {
 
 @item neo-modern-voice-cautionary
 
-@cindex neo-modern-voice-cautionary accidental style
+@cindex @q{neo-modern-voice-cautionary} accidental style
 @cindex accidental style, neo-modern-voice-cautionary
 
 @funindex neo-modern-voice-cautionary
@@ -2686,7 +2683,7 @@ musicB = {
 
 @item dodecaphonic
 
-@cindex dodecaphonic accidental style
+@cindex @q{dodecaphonic} accidental style
 @cindex accidental style, dodecaphonic
 
 @funindex dodecaphonic
@@ -2746,7 +2743,7 @@ musicB = {
 
 @item dodecaphonic-no-repeat
 
-@cindex dodecaphonic-no-repeat accidental style
+@cindex @q{dodecaphonic-no-repeat} accidental style
 @cindex accidental style, dodecaphonic-no-repeat
 
 @funindex dodecaphonic-no-repeat
@@ -2805,7 +2802,7 @@ musicB = {
 
 @item dodecaphonic-first
 
-@cindex dodecaphonic-first accidental style
+@cindex @q{dodecaphonic-first} accidental style
 @cindex accidental style, dodecaphonic-first
 
 @funindex dodecaphonic-first
@@ -2865,7 +2862,7 @@ musicB = {
 
 @item teaching
 
-@cindex teaching accidental style
+@cindex @q{teaching} accidental style
 @cindex accidental style, teaching
 
 @funindex teaching
@@ -2929,7 +2926,7 @@ musicB = {
 @item no-reset
 
 @cindex accidental style, no-reset
-@cindex no-reset accidental style
+@cindex @q{no-reset} accidental style
 
 @funindex no-reset
 
@@ -2986,7 +2983,7 @@ musicB = {
 
 @item forget
 
-@cindex forget accidental style
+@cindex @q{forget} accidental style
 @cindex accidental style, forget
 
 @funindex forget
@@ -3313,7 +3310,7 @@ This section suggests ways of altering note heads.
 @cindex parlato note head
 @cindex harmonic note head
 @cindex guitar note head
-@cindex note head style
+@cindex note head, style
 @cindex style, note heads
 
 @funindex cross

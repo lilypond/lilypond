@@ -102,7 +102,7 @@ on notes in chord mode, see @ref{Articulations and ornamentations}.
 @cindex seventh chord
 @cindex root of chord
 @cindex modifier, in chord
-@cindex chord quality
+@cindex chord, quality
 
 Major triads are entered by including the root and an
 optional duration:
@@ -110,6 +110,8 @@ optional duration:
 @lilypond[verbatim,quote,ragged-right]
 \chordmode { c2 f4 g }
 @end lilypond
+
+@funindex :
 
 Minor, augmented, and diminished triads are entered by placing
 @code{:} and a quality modifier string after the duration:
@@ -127,7 +129,7 @@ Seventh chords can be created:
 @funindex aug
 @funindex dim
 @funindex maj
-@funindex m
+@cindex @code{m} (in chord)
 
 The table below shows the actions of the quality modifiers on
 triads and seventh chords.  The default seventh step added to
@@ -395,8 +397,8 @@ interpreted last.
 @unnumberedsubsubsec Chord inversions and specific voicings
 
 @cindex chord, rotating
-@cindex chord inversion
-@cindex chord voicing
+@cindex chord, inversion
+@cindex chord, voicing
 @funindex \invertChords
 @funindex \dropNote
 @funindex \raiseNote
@@ -483,9 +485,9 @@ chordmusic = \relative {
 >>
 @end lilypond
 
-@cindex no-chord symbol
+@cindex @q{No Chord} symbol
 @cindex N.C. symbol
-@cindex indicating No Chord in @code{ChordNames}
+@cindex indicating @q{No Chord}, in @code{ChordNames}
 
 When passed to a @code{ChordNames} context, rests (including
 multi-measure rests) cause the text @qq{N.C.} (@emph{No Chord}) to
@@ -543,7 +545,7 @@ myChords = \chordmode {
 {snippets/simple-lead-sheet.ly}
 
 @funindex noChordSymbol
-@cindex no-chord symbol, customizing
+@cindex @q{No Chord} symbol, customizing
 @cindex N.C. symbol, customizing
 @lilypondfile[verbatim,quote,ragged-right,texidoc, doctitle]
 {snippets/customizing-the-no-chord-symbol.ly}
@@ -759,7 +761,7 @@ used when the root is altered.
 @snippets
 
 @cindex exception, chord names
-@cindex chord names, exceptions
+@cindex chord name, exceptions
 @funindex chordNameExceptions
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/chord-name-exceptions.ly}
@@ -778,7 +780,7 @@ used when the root is altered.
 {snippets/adding-bar-lines-to-chordnames-context.ly}
 
 @cindex volta repeat, below chords
-@cindex chords, volta repeat, below
+@cindex chord, volta repeat, below
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/volta-below-chords.ly}
 

@@ -433,7 +433,7 @@ Music Glossary:
 @node Mensural clefs
 @unnumberedsubsubsec Mensural clefs
 
-@cindex clef style
+@cindex clef, style
 @cindex ancient music clef
 @cindex clef, ancient music
 @cindex clef, Petrucci
@@ -512,7 +512,7 @@ The Mensural g clef is mapped to the Petrucci g clef.
 
 @cindex mensuration sign
 @cindex time signature, mensural
-@cindex time signature style
+@cindex time signature, style
 
 There is limited support for mensuration signs (which are similar
 to but not exactly the same as time signatures).  The glyphs are

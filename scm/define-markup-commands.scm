@@ -1034,7 +1034,7 @@ Overtie @var{arg}.
   #:as-string (format #f "[~a]"
                       (markup->string arg #:layout layout #:props props))
   "
-@cindex enclosing text within a box
+@cindex enclosing text, in box
 
 Draw a box around @var{arg}.
 
@@ -1114,7 +1114,7 @@ circle of diameter@tie{}0 (i.e., sharp corners).
   #:as-string (format #f "[~a]"
                       (markup->string arg #:layout layout #:props props))
   "
-@cindex enclosing text in box, with rounded corners
+@cindex enclosing text, in box with rounded corners
 @cindex drawing box, with rounded corners, around text
 
 Draw a box with rounded corners around @var{arg}.
@@ -1625,8 +1625,8 @@ samplePath =
   "
 @cindex image
 @cindex markup, image
-@cindex PNG, image
-@cindex EPS, image
+@cindex PNG image
+@cindex EPS image
 
 Inline an image @var{file-name}, scaled along @var{axis} to @var{size}.
 
@@ -2529,7 +2529,7 @@ Take a list of markups @var{args} and combine them.
   #:category align
   #:properties ((baseline-skip))
   "
-@cindex stacking text in a column
+@cindex stacking text, in a column
 
 Stack the markups in @var{args} vertically.
 
@@ -2935,7 +2935,7 @@ If @var{axis} is set to@tie{}@code{X}, replace the horizontal dimension.  If
   "
 @cindex bounding box, of glyph
 @cindex glyph, bounding box
-@cindex dimensions, of bounding box
+@cindex dimension, of bounding box
 @cindex extent, of bounding box
 @cindex extent, of actual inking
 
@@ -3383,7 +3383,7 @@ The footnote will be annotated automatically."
                               #:layout layout
                               #:props (prepend-props new-prop props))
   "
-@cindex overriding property within text markup
+@cindex overriding property, within text markup
 
 Add the argument @var{new-prop} to the property list for printing @var{arg}.
 

@@ -282,7 +282,7 @@ Learning Manual:
 @subsection Multiple scores in a book
 
 @funindex \book
-@cindex movements, multiple
+@cindex movement, multiple
 
 A document may contain multiple pieces of music and text.  Examples
 of these are an etude book, or an orchestral part with multiple
@@ -618,7 +618,7 @@ Markup texts are rendered above, between or below the scores or music
 expressions, wherever they appear.
 
 @item
-@cindex variables
+@cindex variable
 A variable, such as
 @example
 foo = @{ c4 d e d @}
@@ -1438,7 +1438,7 @@ Installed Files:
 @node Creating output file metadata
 @subsection Creating output file metadata
 
-@cindex PDF metadata
+@cindex PDF, metadata
 @cindex MIDI, metadata
 
 In addition to being shown in the printed output, @code{\header} variables
@@ -2009,7 +2009,7 @@ music = { a4 b8 e c4 d }
 @subsection Reference to page numbers
 
 @cindex bookmarks
-@cindex page numbers, referencing
+@cindex page number, referencing
 
 A particular place of a score can be marked using the @code{\label}
 command, either at top level or inside music.  This label can then be
@@ -2484,7 +2484,7 @@ notation untouched.
 @node Using variables
 @unnumberedsubsubsec Using variables
 
-@cindex variables, use of
+@cindex variable, using
 
 If sections of the music are defined in variables they can be
 reused in different parts of the score, see @rlearning{Organizing
@@ -2543,8 +2543,8 @@ LilyPond files}.
 @funindex \keepWithTag
 @funindex \removeWithTag
 @cindex tag
-@cindex keep tagged music
-@cindex remove tagged music
+@cindex keeping tagged music
+@cindex removing tagged music
 
 The @code{\tag #'@var{partA}} command marks a music expression
 with the name @var{partA}.
@@ -2812,7 +2812,7 @@ groups of the tags given in the command are visible.
 
 @funindex \pushToTag
 @funindex \appendToTag
-@cindex splice into tagged music
+@cindex splicing, into tagged music
 
 Sometimes you want to splice some music at a particular place in an
 existing music expression.  You can use @code{\pushToTag} and
@@ -3261,6 +3261,8 @@ simpleAccompaniment =
 @unnumberedsubsubsec Text encoding
 
 @cindex UTF-8
+@cindex text encoding
+@cindex encoding, of text
 
 LilyPond uses the character repertoire defined by the Unicode
 consortium and ISO/IEC 10646.  This defines a unique name and
@@ -3978,7 +3980,7 @@ of different instruments.
 @node Dynamic marks in MIDI
 @unnumberedsubsubsec Dynamic marks in MIDI
 
-@cindex dynamics in MIDI
+@cindex dynamics, in MIDI
 @cindex MIDI, dynamics
 
 Only the dynamic markings from @code{ppppp} to @code{fffff}, including
@@ -3993,7 +3995,7 @@ dynamic marks and their associated fractions can be found in
 
 @snippets
 
-@cindex dynamics in MIDI, custom
+@cindex dynamics, in MIDI, custom
 @cindex MIDI, custom dynamics
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/creating-custom-dynamics-in-midi-output.ly}
@@ -4114,7 +4116,7 @@ Internals Reference:
 @snippets
 
 @cindex MIDI, replacing default instrument equalization
-@cindex instrument equalization in MIDI, replacing default
+@cindex instrument equalization, in MIDI, replacing default
 @cindex equalization, instrument, replacing MIDI default
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/replacing-default-midi-instrument-equalization.ly}
@@ -4151,7 +4153,7 @@ definitions; so it is interpreted @emph{as if} it were a context
 modification.
 
 @cindex MIDI, context definitions
-@cindex context definitions with MIDI
+@cindex context definitions, with MIDI
 
 Context definitions follow the same syntax as those in a @code{\layout}
 block;
@@ -4202,7 +4204,7 @@ the @emph{beginning} of a staff may appear twice in the MIDI output.
 
 @cindex instrument name
 @cindex MIDI, instrument
-@funindex Staff.midiInstrument
+@funindex midiInstrument
 
 MIDI instruments are set using the @code{midiInstrument} property within
 a @code{Staff} context.
@@ -4258,7 +4260,7 @@ See @rlearning{Other sources of information}.
 @node Using repeats with MIDI
 @subsection Using repeats with MIDI
 
-@cindex repeats in MIDI
+@cindex repeats, in MIDI
 @cindex MIDI, using repeats
 @funindex \unfoldRepeats
 
@@ -4413,7 +4415,7 @@ to the @code{'instrument} setting as shown:
 @node Context properties for MIDI effects
 @subsection Context properties for MIDI effects
 
-@cindex effects in MIDI
+@cindex effects, in MIDI
 @cindex MIDI, effects
 
 The following context properties can be used to apply various MIDI
@@ -4434,7 +4436,7 @@ The following context properties are supported:
 
 @item Staff.midiPanPosition
 @funindex midiPanPosition
-@cindex pan position in MIDI
+@cindex pan position, in MIDI
 @cindex MIDI, pan position
 
 The pan position controls how the sound on a MIDI channel is
@@ -4449,9 +4451,9 @@ mixed distributions between left and right stereo outputs.
 
 @item Staff.midiBalance
 @funindex midiBalance
-@cindex stereo balance in MIDI
+@cindex stereo balance, in MIDI
 @cindex MIDI, stereo balance
-@cindex balance in MIDI
+@cindex balance, in MIDI
 @cindex MIDI, balance
 
 The stereo balance of a MIDI channel.  Similarly to the pan position,
@@ -4462,7 +4464,7 @@ signals.
 
 @item Staff.midiExpression
 @funindex midiExpression
-@cindex expression in MIDI
+@cindex expression, in MIDI
 @cindex MIDI, expression
 
 Expression level (as a fraction of the maximum available level) to
@@ -4482,7 +4484,7 @@ volume) to 1.0 (full expression).
 
 @item Staff.midiReverbLevel
 @funindex midiReverbLevel
-@cindex reverb in MIDI
+@cindex reverb, in MIDI
 @cindex MIDI, reverb
 
 Reverb level (as a fraction of the maximum available level) to apply
@@ -4491,7 +4493,7 @@ reverb) and 1.0 (full effect).
 
 @item Staff.midiChorusLevel
 @funindex midiChorusLevel
-@cindex chorus level in MIDI
+@cindex chorus level, in MIDI
 @cindex MIDI, chorus level
 
 Chorus level (as a fraction of the maximum available level) to apply to
@@ -4545,8 +4547,7 @@ and the @file{swing} script.
 @node The articulate script
 @unnumberedsubsubsec The @file{articulate} script
 
-@cindex articulate script
-@cindex articulate.ly
+@cindex @code{articulate.ly} script
 
 To use the @file{articulate} script add the appropriate @code{\include}
 command at the top of the input file;
@@ -4597,8 +4598,7 @@ compensate for the note-shortening behavior.}
 @node The swing script
 @unnumberedsubsubsec The @file{swing} script
 
-@cindex swing script
-@cindex swing.ly
+@cindex @code{swing.ly} script
 
 The @file{swing} script provides additional functions allowing
 for regular durations to be played with an unequal rhythm.  The most

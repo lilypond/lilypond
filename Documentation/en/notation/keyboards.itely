@@ -387,7 +387,7 @@ staff based on the first note named in the chord construct.
 @cindex line, staff-change
 @cindex follow voice
 @cindex voice, following
-@cindex staff switching
+@cindex staff, switching
 
 @funindex followVoice
 @funindex \showStaffSwitch
@@ -529,18 +529,14 @@ Sustain pedals are also found on vibraphones and celestas.
 }
 @end lilypond
 
-@cindex pedal indication style
+@cindex pedal indication, style
 @cindex pedal indication, text
 @cindex pedal indication, bracket
 @cindex pedal indication, mixed
-@cindex pedal sustain style
-@cindex sustain pedal style
+@cindex pedal sustain, style
+@cindex sustain pedal, style
 
 @funindex pedalSustainStyle
-@funindex mixed
-@c `@funindex \bracket` is auto-generated
-@funindexpre bracket
-@funindex text
 
 There are three styles of pedal indications: text, bracket, and mixed.
 The sustain pedal and the una corda pedal use the text style by default
@@ -675,8 +671,8 @@ Notation Reference:
 @node Harp pedals
 @unnumberedsubsubsec Harp pedals
 
-@cindex harp pedal
-@cindex harp pedal diagram
+@cindex harp, pedal
+@cindex harp, pedal diagram
 @cindex pedal, harp
 @cindex pedal diagram, harp
 
@@ -694,6 +690,8 @@ cis''1_\markup \concat \vcenter {
 c''!1_\markup \concat \vcenter {
   [ C \natural ] }
 @end lilypond
+
+@funindex \harp-pedal
 
 or pedal diagrams:
 

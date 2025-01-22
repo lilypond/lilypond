@@ -730,8 +730,8 @@ using the markup mode specific syntax.
 
 @cindex markup
 @cindex text markup
-@cindex markup text
-@cindex typeset text
+@cindex markup, text
+@cindex typesetting text
 
 @funindex \markup
 
@@ -740,9 +740,9 @@ text with an extensible syntax called @qq{markup mode}.  Such
 blocks can be used in many contexts (@pxref{Text objects
 overview}).
 
-@cindex markup expression
-@cindex expression, markup
-@cindex markup syntax
+@cindex markup, expression
+@cindex expression markup
+@cindex markup, syntax
 @cindex syntax, markup
 
 In markup mode, words are written as-is.  A single word does not
@@ -844,6 +844,8 @@ the main markup list.
 }
 @end lilypond
 
+@funindex \line
+
 To group elements of a nested markup list in a row, apply the
 @code{\line} command to the markup list.  This stacks elements
 from the markup list horizontally into a single markup.
@@ -887,11 +889,12 @@ a single markup argument.
 @cindex markup, multi-page
 @cindex markup text, multi-page
 @cindex text, spread over multiple pages
-@cindex page breaks, within markup
+@cindex page break, within markup
 
 @funindex \markuplist
 @funindex \justified-lines
 @funindex \wordwrap-lines
+@funindex \line
 
 When the entire content of a @code{\markup} expression is a markup
 list, it is implicitly typeset using the @code{\line} command.
@@ -973,7 +976,7 @@ Syntax error messages for markup mode can be confusing.
 @node Selecting font and font size
 @unnumberedsubsubsec Selecting font and font size
 
-@cindex font switching
+@cindex font, switching
 @cindex changing font
 @cindex switching font
 
@@ -995,8 +998,9 @@ Basic font switching is supported in markup mode:
 }
 @end lilypond
 
-@cindex font size
+@cindex font size (markup)
 @cindex text size
+@cindex markup text, size
 
 @funindex text-font-size
 @funindex \abs-fontsize
@@ -1340,6 +1344,9 @@ text objects in markup mode:
 @end lilypond
 
 @funindex \vspace
+@cindex movement in markup, vertical
+@cindex vertical movement, in markup
+@cindex markup, vertical movement
 
 Note that @code{\vspace} can @emph{not} be used in general to move
 arbitrary objects up or down within a @code{\column} markup due to
@@ -1476,8 +1483,8 @@ the @code{line-width} property.  By default it is set to
 }
 @end lilypond
 
-@cindex word-wrapped text
-@cindex justified text
+@cindex word-wrapping text
+@cindex justifying text
 @cindex text, justified
 @cindex text, word-wrapped
 @cindex markup text, word-wrapped
@@ -1516,8 +1523,8 @@ as shown in the following example.
 }
 @end lilypond
 
-@cindex text alignment command
-@cindex markup text, alignment command
+@cindex text alignment, commands
+@cindex markup text, alignment commands
 @cindex alignment, text, commands
 
 An exhaustive list of text alignment commands can be found in

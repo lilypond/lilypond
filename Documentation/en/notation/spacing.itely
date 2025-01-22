@@ -1056,8 +1056,8 @@ The type of numerals used for page numbers.  Choices include
 @code{'arabic}.
 
 @item bookpart-level-page-numbering
-@cindex page numbers, per book part
-@cindex page numbers, independent for introduction
+@cindex page number, per book part
+@cindex page number, independent for introduction
 @funindex bookpart-level-page-numbering
 
 If set to @code{#t}, each book part has its independent sequence of
@@ -1364,7 +1364,7 @@ Snippets:
 @subsection Setting the staff size
 
 @cindex font size, setting
-@cindex staff size, setting
+@cindex staff, size
 @cindex layout, file
 @funindex magnification->font-size
 @funindex magstep
@@ -1761,7 +1761,7 @@ broken every 4 measures, and only there:
 @snippets
 
 @cindex voice, extra, for handling breaks
-@cindex extra voice for handling breaks
+@cindex extra voice, for handling breaks
 @cindex page break, managing with extra voice
 @cindex line break, managing with extra voice
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -1811,7 +1811,7 @@ how to modify them.
 @funindex \noPageBreak
 @funindex \autoPageBreaksOn
 @funindex \autoPageBreaksOff
-@cindex page breaking, manual
+@cindex page break, manual
 
 The default page breaking may be overridden by inserting
 @code{\pageBreak} or @code{\noPageBreak} commands.  These commands
@@ -2128,7 +2128,7 @@ inside a system.
 @subsection Flexible vertical spacing within systems
 
 @cindex distance, between staves
-@cindex staff distance
+@cindex staff, distance
 @cindex space, between staves
 @cindex space, inside systems
 
@@ -2188,6 +2188,7 @@ systems, scores, markups, and margins is controlled by
 @funindex self-alignment-X
 @funindex X-offset
 @funindex VerticalAxisGroup
+@funindex StaffGrouper
 
 The within-system vertical spacing mechanisms are controlled by
 two sets of grob properties.  The first set is associated with the
@@ -3129,7 +3130,7 @@ base (normally an 8th), is set through @code{base-shortest-duration}.
 @funindex common-shortest-duration
 @funindex base-shortest-duration
 @funindex stem-spacing-correction
-@funindex spacing
+@cindex spacing
 
 Notes that are even shorter than the common shortest note are
 followed by a space that is proportional to their duration relative to

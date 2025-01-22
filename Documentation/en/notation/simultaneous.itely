@@ -171,7 +171,7 @@ enharmonic transcription of one or more pitches,
 
 @cindex chord, repetition
 @cindex repetition, using @code{q}
-@cindex @code{q}, chord repetition
+@cindex @code{q} (chord repetition)
 
 In order to save typing, a shortcut can be used to repeat the preceding
 chord.  The chord repetition symbol is @code{q}:
@@ -1235,7 +1235,7 @@ instrumentTwo = \relative {
 
 @subsubsubheading Using @code{\partCombine} with lyrics
 
-@cindex @code{\partCombine} and lyrics
+@cindex @code{\partCombine}, and lyrics
 
 The @code{\partCombine} command is not designed to work with
 lyrics; if one of the voices is explicitly named in order to

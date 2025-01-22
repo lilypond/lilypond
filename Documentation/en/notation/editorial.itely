@@ -45,7 +45,6 @@ inside the staff.
 
 @cindex font size (notation), scaling
 @cindex font size (notation)
-@cindex selecting font size (notation)
 @cindex notation, font size
 @cindex note head
 
@@ -407,7 +406,7 @@ control the positioning of fingering instructions.
 @snippets
 
 @cindex fingering, orientation
-@cindex string numbers, orientation
+@cindex string number, orientation
 @cindex stroke finger, orientation
 @cindex orientation, of fingerings
 @cindex orientation, of string numbers
@@ -449,7 +448,6 @@ Internals Reference:
 @cindex fingering, line between
 @cindex shift, fingering
 @cindex line, between fingerings
-@funindex glide
 @funindex \glide
 
 For stringed instruments a gliding finger is often indicated by a
@@ -720,11 +718,9 @@ Internals Reference:
 @node Coloring objects
 @unnumberedsubsubsec Coloring objects
 
-@cindex colored object
+@cindex coloring object
 @cindex object, colored
 @cindex color
-@cindex coloring object
-@cindex colored note
 @cindex coloring note
 @cindex note, colored
 
@@ -775,7 +771,7 @@ the rest can be seen through only if the code is compiled with
 the SVG backend, as explained in
 @ref{Alternative output formats}.
 
-@cindex x11 color
+@cindex X11 color
 @funindex x11-color
 
 In a different way, the full range of colors
@@ -823,8 +819,8 @@ them.
 \markup \with-color #(universal-color 'vermillion) vermillion
 @end lilypond
 
-@cindex color, rgb
-@cindex rgb color
+@cindex color, RGB
+@cindex RGB color
 
 @funindex rgb-color
 
@@ -864,10 +860,10 @@ Snippets:
 @rlsr{Editorial annotations}.
 @endmorerefs
 
-@cindex x11 color
-@cindex colored note in chord
-@cindex note, colored in chords
-@cindex color in chord
+@cindex X11 color
+@cindex coloring note, in chord
+@cindex note, colored, in chords
+@cindex color, in chord
 
 @funindex x11-color
 
@@ -1436,8 +1432,8 @@ Internals Reference:
 
 @cindex grid line
 @cindex line, grid
-@cindex vertical lines between staves
-@cindex lines, vertical, between staves
+@cindex vertical line, between staves
+@cindex line, vertical, between staves
 
 @funindex Grid_point_engraver
 @funindex Grid_line_span_engraver

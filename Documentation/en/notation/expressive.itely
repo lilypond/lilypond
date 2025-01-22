@@ -74,10 +74,10 @@ Methods to create new dynamic markings are also discussed.
 @cindex articulation, open
 @cindex open high hat
 @cindex high hat, open
-@cindex @q{half open} articulation
-@cindex articulation, half open
+@cindex @q{half-open} articulation
+@cindex articulation, half-open
 @cindex half-open high hat
-@cindex high hat, half open
+@cindex high hat, half-open
 @cindex @q{stopped} articulation
 @cindex articulation, stopped
 @cindex pedal high hat
@@ -201,12 +201,18 @@ The possible values for @code{@var{name}} are listed in
 }
 @end lilypond
 
-@cindex marcato
-@cindex tenuto
-@cindex staccatissimo
-@cindex accent
-@cindex staccato
-@cindex portato
+@cindex @q{marcato} articulation
+@cindex articulation, marcato
+@cindex @q{tenuto} articulation
+@cindex articulation, tenuto
+@cindex @q{staccatissimo} articulation
+@cindex articulation, staccatissimo
+@cindex @q{accent} articulation
+@cindex articulation, accent
+@cindex @q{staccato} articulation
+@cindex articulation, staccato
+@cindex @q{portato} articulation
+@cindex articulation, portato
 
 Some of these articulations have shorthands for easier entry.
 Shorthands are appended to the note name, and their syntax
@@ -311,9 +317,9 @@ For more information about the ordering of @code{Script} and
 {snippets/controlling-the-vertical-ordering-of-scripts.ly}
 @xref{Default values for script-priority}.
 
-@cindex delayed turn ornamentation
-@cindex turn ornamentation, delayed
-@cindex ornamentation, turn, delayed
+@cindex delayed @q{turn} ornament
+@cindex @q{turn} ornament, delayed
+@cindex ornament, turn, delayed
 @funindex suggestAccidentals
 @funindex AccidentalSuggestion
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -496,6 +502,7 @@ and decrescendo to the same note:
 
 @cindex empty chord
 @cindex chord, empty
+@funindex <>
 If the first in such a sequence of marks on a single note is supposed
 to coincide with the onset of the note, it is convenient to attach
 it to an empty chord @code{<>}. This way, all marks can be entered
@@ -570,7 +577,7 @@ To create new absolute dynamic marks or text that should be
 aligned with dynamics, see @ref{New dynamic marks}.
 
 @cindex dynamics, vertical positioning
-@cindex vertical positioning of dynamics
+@cindex vertical positioning, of dynamics
 
 @funindex DynamicLineSpanner
 
@@ -666,7 +673,7 @@ instead.}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/aligning-the-ends-of-hairpins-to-notecolumn-directions.ly}
 
-@cindex hairpin, moving ends of
+@cindex hairpin, moving ends
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/moving-the-ends-of-hairpins.ly}
 
@@ -700,7 +707,7 @@ instead.}
 @cindex alignment, breaking vertical, dynamics
 @cindex dynamics, breaking vertical alignment
 @cindex text script, breaking vertical alignment
-@cindex alignment breaking vertical, text scripts
+@cindex alignment, breaking vertical, text scripts
 @cindex breaking vertical alignment of dynamics
 @funindex \breakDynamicSpan
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -943,7 +950,7 @@ non-negative integer).
 }
 @end lilypond
 
-@cindex slur style
+@cindex slur, style
 @cindex slur, solid
 @cindex slur, dotted
 @cindex slur, dashed
@@ -1030,8 +1037,8 @@ Custom dash patterns for slurs can be defined:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adjusting-slur-positions-vertically.ly}
 
-@cindex slurs, double, for legato chords
-@cindex double slurs, for legato chords
+@cindex slur, double, for legato chords
+@cindex double slur, for legato chords
 @funindex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/using-double-slurs-for-legato-chords.ly}

@@ -579,7 +579,7 @@ The drum kits listed below are also possible.
 @xref{Coloring objects} for detailed usage syntax.
 
 @cindex list of colors
-@cindex color, list of
+@cindex color, list
 
 @include en/standard-colors.tely
 
@@ -1004,7 +1004,7 @@ For more information see @ref{Formatting text}.
 @node Note head styles
 @appendixsec Note head styles
 
-@cindex note head style
+@cindex note head, style
 The following styles may be used for note heads.
 
 @lilypondfile[noindent]{en/included/note-head-style.ly}
@@ -1029,7 +1029,7 @@ the cases where @emph{middle@tie{}C} sits relative to the clef).
 For more modification possibilities like ottavation digits,
 @pxref{Clef}.
 
-@cindex clef style
+@cindex clef, style
 
 @menu
 * Standard clefs::
@@ -2015,9 +2015,9 @@ for more readability.
 @node List of articulations
 @appendixsec List of articulations
 
-@cindex articulations
-@cindex post-events
-@cindex scripts
+@cindex articulation
+@cindex post-event
+@cindex script
 
 In LilyPond's internal logic, an @q{articulation} is any object
 (other than dynamics) that may be attached directly after a rhythmic
@@ -2369,8 +2369,8 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @cindex harmonics, flageolet
 @cindex @q{open} articulation
 @cindex articulation, open
-@cindex @q{half open} articulation
-@cindex articulation, half open
+@cindex @q{half-open} articulation
+@cindex articulation, half-open
 @cindex foot mark
 @cindex organ pedal mark
 @cindex pedal mark, organ
@@ -2562,7 +2562,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 @node List of breath marks
 @appendixsec List of breath marks
 
-@cindex breath mark symbol, list of
+@cindex breath mark symbol, list
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -2668,8 +2668,8 @@ b4 4 \breathe 4
 @cindex high hat, pedal
 @cindex open high hat
 @cindex high hat, open
-@cindex half open high hat
-@cindex high hat, half open
+@cindex half-open high hat
+@cindex high hat, half-open
 @cindex cymbal, various
 @cindex crash cymbal
 @cindex ride cymbal
@@ -3056,7 +3056,7 @@ type at the beginning, middle, and end of a line.
 For more information, @pxref{Bar lines} and @ref{Automatic bar
 lines}.
 
-@cindex bar line, list of
+@cindex bar line, list
 
 @lilypondfile{en/included/bar-lines.ly}
 
@@ -3210,7 +3210,8 @@ See also:
 @rlearning{Properties found in interfaces}.@*
 @rinternals{Graphical Object Interfaces}.
 
-@cindex lexer
+@cindex lexer, for LilyPond
+@cindex LilyPond lexer
 @cindex @command{flex} program
 
 @item lexer
