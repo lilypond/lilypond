@@ -543,6 +543,19 @@ now be adjusted with the @code{volta-number-offset} property of
 @itemize
 
 @item
+Optional additional material can be enclosed in brackets that pass
+through the staff with @code{\startOptionalMaterial} and
+@code{\stopOptionalMaterial}.
+
+@lilypond[quote]
+{
+  \startOptionalMaterial
+  c'1
+  \stopOptionalMaterial
+}
+@end lilypond
+
+@item
 The @code{FingerGlideSpanner} may now connect @code{StringNumber} and
 @code{StrokeFinger} grobs.
 

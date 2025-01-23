@@ -63,7 +63,9 @@
                    beam-event episema-event finger-glide-event
                    staff-highlight-event ligature-event
                    measure-spanner-event
-                   measure-counter-event pedal-event
+                   measure-counter-event
+                   optional-material-event
+                   pedal-event
                    phrasing-slur-event slur-event
                    span-dynamic-event
                    staff-span-event text-span-event

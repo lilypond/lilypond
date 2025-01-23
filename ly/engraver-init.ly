@@ -98,6 +98,7 @@ to be modified directly."
   \consists Merge_mmrest_numbers_engraver
   \consists Alteration_glyph_engraver
   \consists Staff_highlight_engraver
+  \consists Optional_material_bracket_engraver
 
   localAlterations = #'()
   createSpacing = ##t
@@ -1687,6 +1688,13 @@ accommodated for typesetting a piece in Kievan style."
   middleCPosition = #0
   clefPosition = #0
   clefTransposition = #0
+
+  %% Issue 6772 has a sample image for these brackets.  They appear to extend
+  %% 1/2 of a staff space beyond the extreme staff lines.  The non-arpeggio
+  %% stencil, which is also used for optional material, extends 3/4 of a staff
+  %% space beyond the positions it spans; these numbers are adjusted for that.
+  \override OptionalMaterialBracket.positions = #'(-1.75 . 1.75)
+  \override OptionalMaterialBracket.protrusion = 0.5
 
   alterationGlyphs = #alteration-kievan-glyph-name-alist
 

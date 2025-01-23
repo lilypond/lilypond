@@ -1291,6 +1291,38 @@ vertical position.")))
 @code{accidental-switch-interface} to the value of the context's
 @code{alterationGlyphs} property, when defined.")))
 
+(define-public (Optional_material_bracket_engraver context)
+  (let ((start-event #f)
+        (end-event #f))
+    (make-engraver
+     (listeners
+      ((optional-material-event engraver event)
+       (if (= START (ly:event-property event 'span-direction))
+           (set! start-event event)
+           (set! end-event event))))
+
+     ((process-music engraver)
+      (when (ly:stream-event? end-event)
+        (let ((grob (ly:engraver-make-grob engraver 'OptionalMaterialBracket
+                                           end-event)))
+          (ly:grob-set-property! grob 'passage-direction STOP)))
+        (when (ly:stream-event? start-event)
+          (let ((grob (ly:engraver-make-grob engraver 'OptionalMaterialBracket
+                                             start-event)))
+          (ly:grob-set-property! grob 'passage-direction START))))
+
+     ((stop-translation-timestep engraver)
+      (set! start-event #f)
+      (set! end-event #f)))))
+
+(ly:register-translator
+ Optional_material_bracket_engraver 'Optional_material_bracket_engraver
+ '((grobs-created . (OptionalMaterialBracket))
+   (events-accepted . (optional-material-event))
+   (properties-read . ())
+   (properties-written . ())
+   (description . "Notate in-staff brackets for optional material.")))
+
 (define (Signum_repetitionis_engraver context)
   (let ((end-event '()))
     (make-engraver

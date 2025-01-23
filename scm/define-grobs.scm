@@ -133,6 +133,8 @@ in @dfn{musica ficta}.  Normally positioned above a note.")))))
                         (clef . (extra-space . 1.15))
                         (cue-clef . (extra-space . 0.5))
                         (key-signature . (extra-space . 1.15))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (signum-repetitionis . (extra-space . 1.15))
                         (staff-bar . (extra-space . 1.15))
                         (time-signature . (extra-space . 1.15))
@@ -292,6 +294,8 @@ line to visually mark and annotate another grob.")))))
                         (clef . (extra-space . 1.0))
                         (key-signature . (extra-space . 1.0))
                         (key-cancellation . (extra-space . 1.0))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (first-note . (semi-shrink-space . 1.3))
                         (next-note . (semi-fixed-space . 0.9))
                         (right-edge . (extra-space . 0.0))))
@@ -631,6 +635,7 @@ See also @iref{BreakAlignment}.")))))
                                cue-end-clef
                                ambitus
                                breathing-sign
+                               optional-material-end-bracket
                                signum-repetitionis
                                clef
                                cue-clef
@@ -638,12 +643,14 @@ See also @iref{BreakAlignment}.")))))
                                key-cancellation
                                key-signature
                                time-signature
+                               optional-material-start-bracket
                                custos)
 
                               ;; unbroken
                               (
                                staff-ellipsis
                                left-edge
+                               optional-material-end-bracket
                                cue-end-clef
                                ambitus
                                breathing-sign
@@ -654,12 +661,14 @@ See also @iref{BreakAlignment}.")))))
                                key-cancellation
                                key-signature
                                time-signature
+                               optional-material-start-bracket
                                custos)
 
                               ;; begin of line
                               (
                                staff-ellipsis
                                left-edge
+                               optional-material-end-bracket
                                ambitus
                                breathing-sign
                                signum-repetitionis
@@ -669,6 +678,7 @@ See also @iref{BreakAlignment}.")))))
                                time-signature
                                staff-bar
                                cue-clef
+                               optional-material-start-bracket
                                custos)))
         (non-musical . #t)
         (positioning-done
@@ -699,6 +709,8 @@ time signature follows or precedes a bar line).")))))
                         (clef . (minimum-space . 2.0))
                         (cue-clef . (minimum-space . 2.0))
                         (cue-end-clef . (minimum-space . 2.0))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (first-note . (fixed-space . 1.0)) ;huh?
                         (right-edge . (extra-space . 0.1))))
         (stencil . ,ly:text-interface::print)
@@ -854,6 +866,8 @@ of the square are drawn by @iref{StaffSymbol} and @iref{BarLine}.")))))
                         (key-cancellation . (extra-space . 0.82))
                         (key-signature . (extra-space . 0.82))
                         (time-signature . (extra-space . 1.52))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (first-note . (minimum-fixed-space . 5.0))
                         (next-note . (extra-space . 1.0))
                         (right-edge . (extra-space . 0.5))))
@@ -1057,6 +1071,8 @@ properties if automatic part combining is active.")))))
                         (key-signature . (minimum-space . 3.5))
                         (time-signature . (minimum-space . 4.2))
                         (custos . (minimum-space . 0.0))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (first-note . (minimum-fixed-space . 3.0))
                         (next-note . (extra-space . 1.0))
                         (right-edge . (extra-space . 0.5))))
@@ -1098,6 +1114,8 @@ properties if automatic part combining is active.")))))
                         (key-cancellation . (minimum-space . 3.5))
                         (key-signature . (minimum-space . 3.5))
                         (time-signature . (minimum-space . 4.2))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (first-note . (minimum-fixed-space . 5.0))
                         (next-note . (extra-space . 1.0))
                         (right-edge . (extra-space . 0.5))))
@@ -1159,6 +1177,8 @@ notation like Gregorian chant.")))))
                         (clef . (extra-space . 1.0))
                         (key-signature . (extra-space . 1.0))
                         (key-cancellation . (extra-space . 1.0))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (first-note . (fixed-space . 1.3))
                         (next-note . (semi-fixed-space . 0.9))
                         (right-edge . (extra-space . 0.0))))
@@ -1865,6 +1885,8 @@ departure} like @emph{D.C. al fine}.")))))
                         (cue-clef . (extra-space . 0.5))
                         (right-edge . (extra-space . 0.5))
                         (first-note . (shrink-space . 2.5))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (custos . (extra-space . 1.0))))
         (stencil . ,ly:key-signature-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
@@ -1908,6 +1930,8 @@ before a @iref{KeySignature} grob if the key changes.")))))
                         (signum-repetitionis . (extra-space . 1.1))
                         (staff-bar . (extra-space . 1.1))
                         (cue-clef . (extra-space . 0.5))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (right-edge . (extra-space . 0.5))
                         (first-note . (shrink-space . 2.5))))
         (stencil . ,ly:key-signature-interface::print)
@@ -2012,6 +2036,8 @@ ledger lines of a whole staff.")))))
                         (key-cancellation . (extra-space . 0.0))
                         (key-signature . (extra-space . 0.8))
                         (time-signature . (extra-space . 1.0))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (custos . (extra-space . 0.0))
                         (first-note . (fixed-space . 2.0))
                         (right-edge . (extra-space . 0.0))
@@ -2532,6 +2558,48 @@ note name.")))))
 @iref{SpacingSpanner}.")))))
 
 
+    (OptionalMaterialBracket
+     . (
+        (break-align-symbol . ,(grob::directional-value
+                                'optional-material-start-bracket
+                                'optional-material-end-bracket
+                                #:controlling-property 'passage-direction))
+        (break-visibility . ,passage-delimiter::break-visibility)
+        (break-visibility-passage-end . ,begin-of-line-invisible)
+        (break-visibility-passage-default . ,begin-of-line-invisible)
+        (break-visibility-passage-start . ,end-of-line-invisible)
+        (direction . ,(grob::relay-other-property 'passage-direction))
+        (non-musical . #t)
+        (passage-direction . ,CENTER)
+        (positions . ,optional-material-bracket::positions)
+        (protrusion . 0.75)
+        (thickness . 1.5)
+        (space-alist . (
+                        (ambitus . (extra-space . 2.0))
+                        (breathing-sign . (minimum-space . 1.0))
+                        (custos . (minimum-space . 1.0))
+                        (key-signature . (minimum-space . 1.5))
+                        (time-signature . (minimum-space . 1.5))
+                        (signum-repetitionis . (minimum-space . 1.5))
+                        (staff-bar . (minimum-space . 1.0))
+                        (clef . (minimum-space . 2.0))
+                        (cue-clef . (minimum-space . 2.0))
+                        (cue-end-clef . (minimum-space . 2.0))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
+                        (first-note . (extra-space . 0.5))
+                        (next-note . (extra-space . 0.5))
+                        (right-edge . (extra-space . 0.1))))
+        (stencil . ,ly:arpeggio::brew-chord-bracket)
+        (Y-extent . ,(grob::unpure-Y-extent-from-stencil
+                      ly:arpeggio::pure-height))
+        (meta . ((class . Item)
+                 (interfaces . (break-aligned-interface
+                                optional-material-bracket-interface
+                                passage-delimiter-interface))
+                 (description . "An in-staff bracket delimiting an optional
+passage.")))))
+
     (OttavaBracket
      . (
         (dash-fraction . 0.3)
@@ -2966,6 +3034,8 @@ horizontally align stacked @iref{Script} grobs.")))))
                         (next-note . (semi-fixed-space . 0.9))
                         (signum-repetitionis . (extra-space . 0.5))
                         (staff-bar . (extra-space . 0.5))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (right-edge . (extra-space . 0.0))))
         (stencil . ,ly:bar-line::print)
         (thick-thickness . 6.0)
@@ -3139,6 +3209,8 @@ space.")))))
                         (clef . (extra-space . 1.0))
                         (cue-clef . (extra-space . 1.0))
                         (cue-end-clef . (extra-space . 1.0))
+                        (optional-material-end-bracket . (extra-space . 1.0))
+                        (optional-material-start-bracket . (extra-space . 1.0))
                         (first-note . (extra-space . 1.0))
                         (right-edge . (fixed-space . 0))))
         (stencil . ,staff-ellipsis::print)
@@ -3745,6 +3817,7 @@ direction and shape of stacked @iref{Tie} grobs.")))))
                         (cue-clef . (extra-space . 1.5))
                         (custos . (minimum-space . 0.5))
                         (first-note . (semi-shrink-space . 2.0))
+                        (optional-material-start-bracket extra-space . 1.0)
                         (right-edge . (extra-space . 0.5))
                         (signum-repetitionis . (extra-space . 1.0))
                         (staff-bar . (extra-space . 1.0))))

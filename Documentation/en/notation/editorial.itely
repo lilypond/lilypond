@@ -36,6 +36,7 @@ inside the staff.
 * Hidden notes::
 * Coloring objects::
 * Staff highlights::
+* Brackets for optional material::
 * Parentheses::
 * Stems::
 @end menu
@@ -1051,6 +1052,57 @@ above can be used to work around this issue.
   c'1
 }
 @end lilypond
+
+
+@node Brackets for optional material
+@unnumberedsubsubsec Brackets for optional material
+
+Optional additional material can be enclosed in brackets that pass
+through the staff.
+
+@lilypond[verbatim,quote]
+{
+  \startOptionalMaterial
+  c'1
+  \stopOptionalMaterial
+}
+@end lilypond
+
+The note positions that the bracket encompasses can be overridden.
+The endpoints of the interval are measured in staff spaces from
+the center of the staff to the center of the note.
+
+@lilypond[verbatim,quote]
+{
+  \tweak OptionalMaterialBracket.positions #'(-4 . 1)
+  \startOptionalMaterial
+  c'1
+  \once \override Staff.OptionalMaterialBracket.positions =
+  #'(-2 . 4)
+  \stopOptionalMaterial
+}
+@end lilypond
+
+@cindex matter, optional
+@cindex optional material
+@cindex optional passage
+@funindex \startOptionalMaterial
+@funindex \stopOptionalMaterial
+
+@predefined
+@code{\startOptionalMaterial},
+@code{\stopOptionalMaterial}.
+@endpredefined
+
+@morerefs
+Snippets:
+@rlsr{Editorial annotations}.
+
+Internals Reference:
+@rinternals{Optional_material_bracket_engraver},
+@rinternals{OptionalMaterialBracket},
+@rinternals{optional-material-bracket-interface}.
+@endmorerefs
 
 
 @node Parentheses

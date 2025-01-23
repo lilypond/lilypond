@@ -508,6 +508,14 @@ signatures, breathing signs, @dots{}"
  '(number-type))
 
 (ly:add-interface
+ 'optional-material-bracket-interface
+ "An in-staff bracket around optional material."
+ '(direction
+   thickness
+   positions
+   protrusion))
+
+(ly:add-interface
  'outside-staff-axis-group-interface
  "A vertical axis group on which outside-staff skyline calculations are done."
  '(outside-staff-placement-directive vertical-skyline-elements))

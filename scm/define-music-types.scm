@@ -437,6 +437,11 @@ For iteration inside of chords, @xref{EventChord}.")
         (types . (post-event event note-grouping-event))
         ))
 
+    (OptionalMaterialEvent
+     . ((description . "Start or stop optional material.")
+        (types . (optional-material-event span-event event))
+        ))
+
     (OttavaEvent
      . ((description . "Start or stop an ottava bracket.")
         (types . (ottava-event event))

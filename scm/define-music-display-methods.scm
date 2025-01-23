@@ -1378,6 +1378,9 @@ Otherwise, return #f."
 (define-span-event-display-method MeasureSpannerEvent (_) #f
   "\\startMeasureSpanner" "\\stopMeasureSpanner")
 
+(define-span-event-display-method OptionalMaterialEvent (_) #f
+  "\\startOptionalMaterial" "\\stopOptionalMaterial")
+
 (define-display-method AnnotateOutputEvent (event)
   (let* ((symbol (ly:music-property event 'symbol #f))
          (X-offset (ly:music-property event 'X-offset))

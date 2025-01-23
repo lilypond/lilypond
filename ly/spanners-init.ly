@@ -37,6 +37,10 @@ startMeasureCount = #(make-span-event 'MeasureCounterEvent START)
 stopMeasureCount = #(make-span-event 'MeasureCounterEvent STOP)
 
 
+startOptionalMaterial = #(make-span-event 'OptionalMaterialEvent START)
+stopOptionalMaterial = #(make-span-event 'OptionalMaterialEvent STOP)
+
+
 startTextSpan = #(make-span-event 'TextSpanEvent START)
 stopTextSpan = #(make-span-event 'TextSpanEvent STOP)
 

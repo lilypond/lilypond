@@ -516,6 +516,21 @@ corner of the beam later on."
           rval))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; in-staff brackets for optional material
+
+(define-public (optional-material-bracket::positions grob)
+  "Callback for @code{OptionalMaterialBracket} grobs."
+  (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
+         (y-ext (if (ly:grob? staff-symbol)
+                    (ly:grob-property staff-symbol 'widened-extent)
+                    '(-1 . 1))))
+    ;; This hasn't been tuned.  For what it's worth, extending 3/2 of a space
+    ;; beyond the bar lines (including the 3/4 space inherent in the
+    ;; non-arpeggio stencil) is intended to make the bracket stand out without
+    ;; extending beyond the treble clef or aligning with a ledger line.
+    (interval-widen y-ext 3/4)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff ellipsis
 
 (define-public (staff-ellipsis::pure-height grob beg end)
@@ -1686,6 +1701,23 @@ If the property is not set, use a hyphen character."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general inheritance
+
+(define*-public ((grob::directional-value
+                  value-when-negative value-when-positive
+                  #:key
+                  (controlling-property 'direction)
+                  (default '()))
+                 grob)
+  "@var{grob} callback generator for returning a value depending on the sign of
+the numeric property identified by the @code{#:controlling-property} argument.
+
+Values for negative and positive cases are required.  The @code{#:default}
+argument specifies the return value when the controlling property is zero."
+  (let ((n (ly:grob-property grob controlling-property 0)))
+    (cond
+     ((negative? n) value-when-negative)
+     ((positive? n) value-when-positive)
+     (else default))))
 
 (define-public ((grob::inherit-parent-property axis property . default) grob)
   "@var{grob} callback generator for inheriting a @var{property} from

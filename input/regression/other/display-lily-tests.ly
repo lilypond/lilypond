@@ -1,4 +1,4 @@
-\version "2.23.14"
+\version "2.25.25"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format)
@@ -381,6 +381,10 @@ are reported on the stderr of this run."
 \test ##[ \stopMeasureCount #]
 \test ##[ \startMeasureSpanner #]	% MeasureSpannerEvent
 \test ##[ \stopMeasureSpanner #]
+
+%% optional material
+\test ##[ \startOptionalMaterial #]
+\test ##[ \stopOptionalMaterial #]
 
 %% footnotes
 %\test ##[ \footnote #'(1 . 2) "footnote" NoteHead #] % FootnoteEvent
