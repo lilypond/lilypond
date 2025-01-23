@@ -50,6 +50,12 @@ TEMPLATES := generic $(TEMPLATES)
 # Keep this empty to prevent make from removing intermediate files.
 .SECONDARY:
 
+# We byte-compile Scheme code by default (using the normal `make all; make
+# install` incantation) except if cross-compiling.  If you want to disable
+# byte compilation for whatever reason, add `BYTECODE=no` as an argument
+# to `make` on the command line.
+BYTECODE ?= yes
+
 # The default verbosity is terse, which ideally prints one short line
 # per target of interest in addition to warnings and errors.
 #

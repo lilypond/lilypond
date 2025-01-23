@@ -80,7 +80,6 @@ build:
     - mkdir build && cd build
     - ../autogen.sh $CONFIGURE_FLAGS
     - make $MAKE_FLAGS
-    - make bytecode
   artifacts:
     untracked: true
     exclude:

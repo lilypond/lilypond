@@ -67,8 +67,6 @@ cd build
 
 echo "Building LilyPond..."
 make -j$jobs
-# Also byte-compile the Scheme files to get proper argument names in the IR.
-make bytecode
 
 echo ""
 echo "Building documentation..."

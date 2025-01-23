@@ -168,18 +168,6 @@ class LilyPond(ConfigurePackage):
             + flexlexer
         )
 
-    def make_args(self, c: Config) -> List[str]:
-        args = []
-        if not c.is_mingw():
-            args += ["all", "bytecode"]
-        return args
-
-    def make_install_args(self, c: Config) -> List[str]:
-        args = []
-        if not c.is_mingw():
-            args += ["install-bytecode"]
-        return args
-
     def build(self, c: Config) -> bool:
         # If mingw, copy FlexLexer.h from /usr/include and pass it to configure
         # because the cross-compiler would not find it.

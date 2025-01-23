@@ -264,10 +264,10 @@ part of either group, you can skip over this section.
 @itemize
 
 @item
-LilyPond now requires Guile version 3.0.7 or newer.  As before,
-compiling the @file{.scm} files into bytecode is still strongly
-recommended: run @command{make bytecode} for compilation; then run
-@command{make install-bytecode} for installation.
+LilyPond now requires Guile version 3.0.7 or newer.  By default,
+@file{.scm} files are byte-compiled.  If you don't want to do that
+for whatever reason, add @code{BYTECODE=no} as an argument to
+@command{make}.
 
 @end itemize
 

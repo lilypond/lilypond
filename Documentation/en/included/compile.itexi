@@ -858,6 +858,12 @@ targets, run:
 make help
 @end example
 
+By default, @file{.scm} files are byte-compiled.  If you don't
+want to do that for whatever reason, add @code{BYTECODE=no} as an
+argument to @command{make}.@footnote{Byte compilation of Scheme
+code is disabled while cross-compiling since Guile must bootstrap
+itself to do that, which is not possible in general.}
+
 TODO: Describe what @command{make} actually does.
 
 @morerefs
@@ -946,6 +952,10 @@ su -c 'make install'
 If you don't have superuser privileges, then you need to configure
 the installation directory to one that you can write to, and then
 re-install.  See @ref{Configuring target directories}.
+
+If you have added @code{BYTECODE=no} as an argument to
+@command{make all}, you should do the same for @command{make
+install}.
 
 
 @node Generating documentation
