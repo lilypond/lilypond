@@ -524,6 +524,24 @@ signatures, breathing signs, @dots{}"
    stencils))
 
 (ly:add-interface
+ 'passage-delimiter-interface
+ "Items with this interface allow overriding
+@code{break-@/visibility-@/passage-@/start},
+@code{break-@/visibility-@/passage-@/default}, and
+@code{break-@/visibility-@/passage-@/end} particularly in lieu of overriding
+@code{break-@/visibility}.  The precise meaning of @q{passage}
+depends on the type of item.
+
+The internal @code{passage-@/direction} property determines which
+break-@/visibility property is used in a given instance.
+
+See @rinternals{item-@/interface}."
+ '(break-visibility-passage-end
+   break-visibility-passage-default
+   break-visibility-passage-start
+   passage-direction))
+
+(ly:add-interface
  'percent-repeat-interface
  "Beat, Double and single measure repeats."
  '(dot-negative-kern

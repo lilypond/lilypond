@@ -1705,11 +1705,47 @@ parent or the parent has no setting."
      ((pair? default) (car default))
      (else '()))))
 
+(define*-public ((grob::relay-directional-property
+          negative-property positive-property
+          #:key
+          (controlling-property 'direction)
+          (default '())
+          default-property)
+          grob)
+  "@var{grob} callback generator for returning the value of another property
+depending on the sign of the numeric property identified by the
+@code{#:controlling-property} argument.
+
+The @code{#:default} argument specifies the value to return when any lookup
+fails.
+
+Property names for negative and positive cases are required.  The optional
+@code{#:default-property} argument identifies a property to relay when the
+controlling value is zero; if none is provided, the default value is returned."
+  (let ((dir (ly:grob-property grob controlling-property 0)))
+    (cond
+     ((negative? dir)
+      (ly:grob-property grob negative-property default))
+     ((positive? dir)
+      (ly:grob-property grob positive-property default))
+     ((symbol? default-property)
+      (ly:grob-property grob default-property default))
+     (else
+      default))))
+
 (define ((grob::relay-other-property property) grob)
   "@var{grob} callback generator for returning the value of another
 property, which is identified by the symbol @var{property}."
   (ly:grob-property grob property))
 (export grob::relay-other-property)
+
+(define-public passage-delimiter::break-visibility
+  (grob::relay-directional-property
+   'break-visibility-passage-start
+   'break-visibility-passage-end
+   #:default-property 'break-visibility-passage-default
+   #:default all-invisible
+   #:controlling-property 'passage-direction))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; balloons

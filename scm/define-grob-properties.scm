@@ -176,6 +176,14 @@ broken measure spanners, the left and/or right edge of the staff.")
      (break-visibility ,vector? "A vector of 3@tie{}booleans,
 @w{@code{#(@var{end-of-line} @var{unbroken} @var{begin-of-line})}}.
 @code{#t} means visible, @code{#f} means killed.")
+     (break-visibility-passage-end ,vector? "The value to use for
+@code{break-@/visibility} when the item marks the end of a passage.")
+     (break-visibility-passage-default ,vector? "The value to use for
+@code{break-@/visibility} when the item does not specifically mark the start or
+end of a passage.  (It might be both or neither, depending on the type of
+item.)")
+     (break-visibility-passage-start ,vector? "The value to use for
+@code{break-@/visibility} when the item marks the start of a passage.")
      (breakable ,boolean? "Allow breaks here.")
      (broken-bound-padding ,number? "The amount of padding to insert
 when a spanner is broken at a line break.")
@@ -1570,6 +1578,9 @@ pure-from-neighbor-interface to determine various grob heights.")
      (note-columns ,ly:grob-array? "An array of @code{NoteColumn} grobs.")
      (note-head ,ly:grob? "A single note head.")
      (note-heads ,ly:grob-array? "An array of note head grobs.")
+     (passage-direction ,ly:dir? "The placement of a
+@code{passage-delimiter-interface} item with respect to its passage:
+@code{START} at the start, @code{END} at the end, or @code{CENTER} otherwise.")
      (pedal-text ,ly:grob? "A pointer to the text grob of a mixed-style
 piano pedal.")
      (potential-beam ,ly:grob? "For tuplet brackets, a grob to use as
