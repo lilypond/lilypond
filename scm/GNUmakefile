@@ -54,9 +54,6 @@ $(outdir)/bytecode.dummy: compile.ly $(LINKED_SCM_FILES) $(GEN_SCM_FILES)
 	$(RM) -r $(guile-ccache)
 	touch $@ $(outdir)/bytecode-default.dummy
 
-.PHONY: bytecode
-bytecode: $(outdir)/bytecode.dummy
-
 # Due to Guile's problems figuring out if files need to be recompiled if macros
 # are involved, make the default target delete *all* of them if any of the
 # source files changes.
@@ -71,19 +68,28 @@ no-bytecode: $(outdir)/bytecode-default.dummy
 
 bytecode_installation_dir = $(local_lilypond_libdir)/ccache/lily
 
-.PHONY: install-bytecode
-install-bytecode:
-	-$(INSTALLPY) -d $(DESTDIR)$(bytecode_installation_dir)
-	$(INSTALLPY) -m 644 $(wildcard $(outdir)/*.go) $(DESTDIR)$(bytecode_installation_dir)/
+.PHONY: bytecode \
+        install-bytecode
 
-ifeq ($(BYTECODE),yes)
-  default: bytecode
+ifeq ($(strip $(CROSS)),no)
+  bytecode: $(outdir)/bytecode.dummy
+  install-bytecode:
+	  -$(INSTALLPY) -d $(DESTDIR)$(bytecode_installation_dir)
+	  $(INSTALLPY) -m 644 $(wildcard $(outdir)/*.go) \
+	               $(DESTDIR)$(bytecode_installation_dir)/
 
-  local-install: install-bytecode
-
+  ifeq ($(BYTECODE),yes)
+    default: bytecode
+    local-install: install-bytecode
+  else
+    default: no-bytecode
+    local-install:
+  endif
 else
+  bytecode \
+  install-bytecode:
+	  $(error Scheme byte-compilation disabled while cross-compiling)
+
   default: no-bytecode
-
   local-install:
-
-endif # BYTECODE
+endif

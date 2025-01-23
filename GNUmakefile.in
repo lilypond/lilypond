@@ -92,11 +92,17 @@ refresh-release-files:
 
 
 # Guile bytecode
-bytecode: all
-	$(MAKE) -C scm bytecode
+ifeq ($(strip $(CROSS)),no)
+  bytecode: all
+	  $(MAKE) -C scm bytecode
+  install-bytecode: install
+	  $(MAKE) -C scm install-bytecode
+else
+  bytecode \
+  install-bytecode:
+	  $(error Scheme byte-compilation disabled while cross-compiling)
+endif
 
-install-bytecode: install
-	$(MAKE) -C scm install-bytecode
 
 # PO files
 
