@@ -145,14 +145,6 @@ ly_is_eqv (SCM x, SCM y)
   return scm_is_true (scm_eqv_p (x, y));
 }
 
-/*
-  display and print newline.
-*/
-extern "C"
-{
-  void ly_display_scm (SCM s);
-}
-
 void read_lily_scm_file (std::string);
 void ly_c_init_guile ();
 
@@ -719,6 +711,22 @@ to_scm_list (const T &ct)
       lst = scm_cons (::to_scm (*i), lst);
     }
   return lst;
+}
+
+extern "C"
+{
+  // Print a Scheme value followed by a newline
+  void ly_display_scm (SCM s);
+}
+
+// Support ly_display (v) where v is any value for which to_scm (v) is
+// supported.  This allows, e.g., ly_display ("foo") rather than requring
+// ly_display_scm (to_scm ("foo")).
+template <typename T>
+void
+ly_display (T &&v)
+{
+  return ly_display_scm (to_scm (std::forward<T> (v)));
 }
 
 #endif /* LILY_GUILE_HH */
