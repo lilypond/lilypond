@@ -85,14 +85,11 @@
          (define (end?)
            (let* ((beat-base (get 'beatBase 1/4))
                   (beat-structure (get 'beatStructure '(1 1 1 1)))
-                  ;; TODO: Instead of relying on measure length, sum the beat
-                  ;; structure and find the euclidean-remainder using that.
-                  ;; That will repeat the beat structure to fill the measure
-                  ;; (suggested in issue #6785) as well as eliminate a
-                  ;; dependence on measureLength.
-                  (pos (if (negative? non-grace)
-                           (+ (get 'measureLength 1) non-grace)
-                           non-grace)))
+                  ;; Be resilient to having a beat structure that is shorter
+                  ;; than the measure length: repeat the beat structure as
+                  ;; needed.
+                  (beaming-period (* beat-base (apply + beat-structure)))
+                  (pos (euclidean-remainder non-grace beaming-period)))
              (or (zero? pos) ;; end at measure (beaming period) beginning
                  (let* ((exceptions (sort (map
                                            (lambda (a)
