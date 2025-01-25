@@ -55,58 +55,82 @@
   ;;
   ;;
   ;; Don't start auto beams on grace notes
-  (and (or (zero? (ly:moment-grace (ly:context-current-moment context)))
-           (!= dir START))
-       (let* ((beat-base (get 'beatBase 1/4))
-              (measure-length (get 'measureLength 1))
-              (time-signature-fraction
-               (get 'timeSignatureFraction '(4 . 4)))
-              (beat-structure (get 'beatStructure '(1 1 1 1)))
-              (beat-endings (ending-moments beat-structure beat-base))
-              (exceptions (sort (map
-                                 (lambda (a)
-                                   (if (pair? (car a))
-                                       (cons (/ (caar a) (cdar a))
-                                             (cdr a))
-                                       a))
-                                 (assoc-get 'end
-                                            (get 'beamExceptions '())
-                                            '()))
-                                car<))
-              (function (if (= dir START) 'begin 'end))
-              (beam-half-measure (get 'beamHalfMeasure #t))
-              (type (ly:moment-main test-beam))
-              (non-grace (ly:moment-main measure-pos))
-              (pos (if (negative? non-grace)
-                       (+ measure-length non-grace)
-                       non-grace))
-              (type-grouping (assoc-get type exceptions '()))
-              (default-rule (and (null? type-grouping)
-                                 (larger-setting type exceptions)))
-              (default-grouping (and default-rule (cdr default-rule)))
-              (default-beat-length (and default-rule (car default-rule)))
-              (exception-grouping (if (null? type-grouping)
-                                      default-grouping
-                                      type-grouping))
-              (grouping-moment (if (null? type-grouping)
-                                   default-beat-length
-                                   type))
-              (exception-moments (and exception-grouping
-                                      (ending-moments
-                                       exception-grouping grouping-moment))))
+  (and (or (!= dir START)
+           (zero? (ly:moment-grace (ly:context-current-moment context))))
+       (let ((type (ly:moment-main test-beam))
+             (non-grace (ly:moment-main measure-pos)))
+
+         ;; Start rules -- #t if beam is allowed to start.  Start anywhere,
+         ;; optionally excepting the half-measure point in 3/N time signatures
+         ;; to avoid the appearance of 6/N beat structure.
+         (define (start?)
+           (or (get 'beamHalfMeasure #t)
+               (let ((tsig (get 'timeSignatureFraction '(4 . 4))))
+                 (or ;; the time signature is 3/N
+                  (not (= 3 (car tsig)))
+                  ;; the beamed note is 1/6 of a measure in the time signature
+                  ;; (regardless of the current value of measureLength)
+                  (not (= (denominator type) (* 2 (cdr tsig))))
+                  ;; the measure position is the halfway point
+                  ;; TODO: As above, this should probably infer a regular
+                  ;; measure length from the time signature rather than use the
+                  ;; current value of measureLength.  See issue #6784.
+                  (let* ((mlen (get 'measureLength 1))
+                         (pos (if (negative? non-grace)
+                                  (+ mlen non-grace)
+                                  non-grace)))
+                    (or (not (= (+ pos pos) mlen))))))))
+
+         ;; End rules -- #t if beam is required to end
+         (define (end?)
+           (let* ((beat-base (get 'beatBase 1/4))
+                  (beat-structure (get 'beatStructure '(1 1 1 1)))
+                  ;; TODO: Instead of relying on measure length, sum the beat
+                  ;; structure and find the euclidean-remainder using that.
+                  ;; That will repeat the beat structure to fill the measure
+                  ;; (suggested in issue #6785) as well as eliminate a
+                  ;; dependence on measureLength.
+                  (pos (if (negative? non-grace)
+                           (+ (get 'measureLength 1) non-grace)
+                           non-grace)))
+             (or (zero? pos) ;; end at measure (beaming period) beginning
+                 (let* ((exceptions (sort (map
+                                           (lambda (a)
+                                             (if (pair? (car a))
+                                                 (cons (/ (caar a) (cdar a))
+                                                       (cdr a))
+                                                 a))
+                                           (assoc-get 'end
+                                                      (get 'beamExceptions '())
+                                                      '()))
+                                          car<))
+                        (type-grouping (assoc-get type exceptions '()))
+                        (default-rule (and (null? type-grouping)
+                                           (larger-setting type exceptions)))
+                        (default-grouping (and default-rule (cdr default-rule)))
+
+                        (exception-grouping (if (null? type-grouping)
+                                                default-grouping
+                                                type-grouping)))
+                   (if exception-grouping
+                       ;; check exception rule
+                       (let* ((default-beat-length (and default-rule
+                                                        (car default-rule)))
+                              (grouping-moment (if (null? type-grouping)
+                                                   default-beat-length
+                                                   type))
+                              (exception-moments
+                               (and exception-grouping
+                                    (ending-moments
+                                     exception-grouping grouping-moment))))
+                         (beat-end? pos exception-moments))
+                       ;; no exception, so check beat ending
+                       (beat-end? pos (ending-moments
+                                       beat-structure beat-base)))))))
 
          (if (= dir START)
-             ;; Start rules -- #t if beam is allowed to start
-             (or beam-half-measure ;; Start anywhere, but option for mid-measure
-                 (not (= (+ pos pos) measure-length))
-                 (not (= 3 (car time-signature-fraction))) ;; in triple meter
-                 (not (= (denominator type) ;; when the beamed note is 1/6 of a measure
-                         (* 2 (cdr time-signature-fraction)))))
-             ;; End rules -- #t if beam is required to end
-             (or (zero? pos) ;; end at measure beginning
-                 (if exception-grouping
-                     (beat-end? pos exception-moments) ;; check exception rule
-                     (beat-end? pos beat-endings))))))) ;; no exception, so check beat ending
+             (start?)
+             (end?)))))
 
 
 (define-public (extract-beam-exceptions music)
