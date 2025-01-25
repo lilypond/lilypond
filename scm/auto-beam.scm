@@ -72,13 +72,9 @@
                   ;; (regardless of the current value of measureLength)
                   (not (= (denominator type) (* 2 (cdr tsig))))
                   ;; the measure position is the halfway point
-                  ;; TODO: As above, this should probably infer a regular
-                  ;; measure length from the time signature rather than use the
-                  ;; current value of measureLength.  See issue #6784.
-                  (let* ((mlen (get 'measureLength 1))
-                         (pos (if (negative? non-grace)
-                                  (+ mlen non-grace)
-                                  non-grace)))
+                  ;; (again, regarding the time signature only)
+                  (let* ((mlen (calc-measure-length tsig))
+                         (pos (euclidean-remainder non-grace mlen)))
                     (or (not (= (+ pos pos) mlen))))))))
 
          ;; End rules -- #t if beam is required to end
