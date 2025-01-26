@@ -1770,7 +1770,8 @@ longa or maxima in a ligature.")
 
      (virga ,boolean? "Is this neume a virga?")
 
-     (x-offset ,ly:dimension? "Extra horizontal offset for ligature heads.")
+     (head-x-offset ,ly:dimension? "Extra horizontal offset for ligature
+heads.")
 
      )))
 

@@ -223,7 +223,8 @@ vaticana_brew_primitive (Grob *me)
   else
     delta_pitch = 0;
 
-  Real x_offset = from_scm<double> (get_property (me, "x-offset"), 0);
+  Real head_x_offset = from_scm<double> (get_property (me, "head-x-offset"),
+                                         0);
 
   bool add_stem = from_scm<bool> (get_property (me, "add-stem"));
   bool add_cauda = from_scm<bool> (get_property (me, "add-cauda"));
@@ -251,7 +252,7 @@ vaticana_brew_primitive (Grob *me)
       out = Font_interface::get_default_font (me)->find_by_name ("noteheads.s"
                                                                  + glyph_name);
     }
-  out.translate_axis (x_offset, X_AXIS);
+  out.translate_axis (head_x_offset, X_AXIS);
   Real head_width = out.extent (X_AXIS).length ();
 
   if (add_cauda)
@@ -313,5 +314,5 @@ add-cauda
 add-stem
 add-join
 delta-position
-x-offset
+head-x-offset
                )");

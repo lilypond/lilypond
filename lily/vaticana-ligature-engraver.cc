@@ -254,7 +254,7 @@ Vaticana_ligature_engraver::align_heads (std::vector<Item *> const &primitives,
        */
 
       Real head_width;
-      Real x_offset;
+      Real head_x_offset;
 
       if (context_info & STACKED_HEAD)
         {
@@ -266,11 +266,11 @@ Vaticana_ligature_engraver::align_heads (std::vector<Item *> const &primitives,
            * of this and the other head are horizontally aligned.
            */
           head_width = 0.0;
-          x_offset = join_thickness
-                     - Font_interface::get_default_font (primitive)
-                         ->find_by_name ("noteheads.s" + glyph_name)
-                         .extent (X_AXIS)
-                         .length ();
+          head_x_offset = join_thickness
+                          - Font_interface::get_default_font (primitive)
+                              ->find_by_name ("noteheads.s" + glyph_name)
+                              .extent (X_AXIS)
+                              .length ();
         }
       else if (glyph_name == "flexa" || glyph_name == "")
         {
@@ -279,7 +279,7 @@ Vaticana_ligature_engraver::align_heads (std::vector<Item *> const &primitives,
            * Hence, it is assigned half the width of this shape.
            */
           head_width = 0.5 * flexa_width;
-          x_offset = 0.0;
+          head_x_offset = 0.0;
         }
       else
         {
@@ -291,13 +291,13 @@ Vaticana_ligature_engraver::align_heads (std::vector<Item *> const &primitives,
                          ->find_by_name ("noteheads.s" + glyph_name)
                          .extent (X_AXIS)
                          .length ();
-          x_offset = 0.0;
+          head_x_offset = 0.0;
         }
 
       /*
        * Save the head's final x-offset.
        */
-      set_property (primitive, "x-offset", to_scm (x_offset));
+      set_property (primitive, "head-x-offset", to_scm (head_x_offset));
 
       /*
        * If the head is the 2nd head of a pes or flexa (but not a
