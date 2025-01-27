@@ -362,8 +362,8 @@ a fresh copy of the list-head is made."
   #:category music
   "Draw a numeric time signature based on @var{time-sig}.
 
-@var{time-sig} can be a single number, an alist, a simple list, or a list of
-lists, as the following example demonstrates.
+@var{time-sig} can be a single number, a pair of numbers, a simple list, or a
+list of lists, as the following example demonstrates.
 
 @lilypond[verbatim,quote]
 \\markup {

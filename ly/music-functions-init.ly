@@ -430,7 +430,7 @@ compoundMeter =
   (_i "Create a compound time signature.
 
 The argument @var{args} is a Scheme list of lists.  Each list represents one
-fraction, where all entries but the last hold the summands in the enumerator,
+fraction, where all entries but the last hold the summands in the numerator,
 and the last entry is the denominator.  If the time signature consists of just
 one fraction, the list can be given directly, i.e., not as a list containing a
 single list.  For example, a time signature of (3+1)/8 + 2/4 can be created with
