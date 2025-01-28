@@ -668,9 +668,9 @@ designed to be unambiguous to people with dichromatism.
 @cindex Parmesan font
 @cindex font, Parmesan
 
-The Emmentaler font consists of two @emph{subsets} of glyphs.
-@qq{Feta}, used for classical notation and @qq{Parmesan}, used for
-Ancient notation.
+The Emmentaler font consists of two @emph{subsets} of glyphs:
+@qq{Feta}, used for classical notation, and @qq{Parmesan}, used
+for ancient notation.
 
 Any glyph within the Emmentaler font can be accessed directly by using
 text markup along with the name of the glyph (as shown in the tables
@@ -687,36 +687,12 @@ or
 \markup @{\musicglyph "five"@}
 @end example
 
-For more information see @ref{Formatting text}.
+@xref{Formatting text} for more information.
 
 
 @menu
-* Clef glyphs::
-* Time Signature glyphs::
-* Number glyphs::
-* Figured bass symbol glyphs::
-* Accidental glyphs::
-* Default note head glyphs::
-* Special note head glyphs::
-* Note head glyphs for shape notes::
-* Rest glyphs::
-* Flag glyphs::
-* Dot glyphs::
-* Dynamic glyphs::
-* Script glyphs::
-* Arrowhead glyphs::
-* Bracket-tip glyphs::
-* Pedal glyphs::
-* Accordion glyphs::
-* Tie glyphs::
-* Vaticana glyphs::
-* Medicaea glyphs::
-* Hufnagel glyphs::
-* Mensural glyphs::
-* Neomensural glyphs::
-* Petrucci glyphs::
-* Solesmes glyphs::
-* Kievan Notation glyphs::
+* Modern glyph charts::
+* Ancient glyph charts::
 @end menu
 
 
@@ -732,8 +708,13 @@ For more information see @ref{Formatting text}.
 @end iftex
 
 
-@node Clef glyphs
-@unnumberedsubsec Clef glyphs
+@node Modern glyph charts
+@unnumberedsubsec Modern glyph charts
+
+All glyphs of the @qq{Feta} subset.
+
+@anchor{Clef glyphs}
+@subsubheading Clef glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -741,9 +722,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #clefs
 @end lilypond
 
-
-@node Time Signature glyphs
-@unnumberedsubsec Time Signature glyphs
+@anchor{Time Signature glyphs}
+@subsubheading Time Signature glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -751,9 +731,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #timesig
 @end lilypond
 
-
-@node Number glyphs
-@unnumberedsubsec Number glyphs
+@anchor{Number glyphs}
+@subsubheading Number glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -761,9 +740,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #numbers
 @end lilypond
 
-
-@node Figured bass symbol glyphs
-@unnumberedsubsec Figured bass symbol glyphs
+@anchor{Figured bass symbol glyphs}
+@subsubheading Figured bass symbol glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -771,9 +749,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #figured-bass-symbols
 @end lilypond
 
-
-@node Accidental glyphs
-@unnumberedsubsec Accidental glyphs
+@anchor{Accidental glyphs}
+@subsubheading Accidental glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -781,9 +758,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #accidentals
 @end lilypond
 
-
-@node Default note head glyphs
-@unnumberedsubsec Default note head glyphs
+@anchor{Default note head glyphs}
+@subsubheading Default note head glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -791,9 +767,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #default-noteheads
 @end lilypond
 
-
-@node Special note head glyphs
-@unnumberedsubsec Special note head glyphs
+@anchor{Special note head glyphs}
+@subsubheading Special note head glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -801,9 +776,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #special-noteheads
 @end lilypond
 
-
-@node Note head glyphs for shape notes
-@unnumberedsubsec Note head glyphs for shape notes
+@anchor{Note head glyphs for shape notes}
+@subsubheading Note head glyphs for shape notes
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -811,9 +785,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #shape-note-noteheads
 @end lilypond
 
-
-@node Rest glyphs
-@unnumberedsubsec Rest glyphs
+@anchor{Rest glyphs}
+@subsubheading Rest glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -821,9 +794,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #rests
 @end lilypond
 
-
-@node Flag glyphs
-@unnumberedsubsec Flag glyphs
+@anchor{Flag glyphs}
+@subsubheading Flag glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -831,9 +803,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #flags
 @end lilypond
 
-
-@node Dot glyphs
-@unnumberedsubsec Dot glyphs
+@anchor{Dot glyphs}
+@subsubheading Dot glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -841,9 +812,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #dots
 @end lilypond
 
-
-@node Dynamic glyphs
-@unnumberedsubsec Dynamic glyphs
+@anchor{Dynamic glyphs}
+@subsubheading Dynamic glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -851,9 +821,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #dynamics
 @end lilypond
 
-
-@node Script glyphs
-@unnumberedsubsec Script glyphs
+@anchor{Script glyphs}
+@subsubheading Script glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -861,9 +830,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #scripts
 @end lilypond
 
-
-@node Arrowhead glyphs
-@unnumberedsubsec Arrowhead glyphs
+@anchor{Arrowhead glyphs}
+@subsubheading Arrowhead glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -871,9 +839,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #arrowheads
 @end lilypond
 
-
-@node Bracket-tip glyphs
-@unnumberedsubsec Bracket-tip glyphs
+@anchor{Bracket-tip glyphs}
+@subsubheading Bracket-tip glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -881,9 +848,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #brackettips
 @end lilypond
 
-
-@node Pedal glyphs
-@unnumberedsubsec Pedal glyphs
+@anchor{Pedal glyphs}
+@subsubheading Pedal glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -891,9 +857,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #pedal
 @end lilypond
 
-
-@node Accordion glyphs
-@unnumberedsubsec Accordion glyphs
+@anchor{Accordion glyphs}
+@subsubheading Accordion glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -901,9 +866,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #accordion
 @end lilypond
 
-
-@node Tie glyphs
-@unnumberedsubsec Tie glyphs
+@anchor{Tie glyphs}
+@subsubheading Tie glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -912,8 +876,13 @@ For more information see @ref{Formatting text}.
 @end lilypond
 
 
-@node Vaticana glyphs
-@unnumberedsubsec Vaticana glyphs
+@node Ancient glyph charts
+@unnumberedsubsec Ancient glyph charts
+
+All glyphs of the @qq{Parmesan} subset.
+
+@anchor{Vaticana glyphs}
+@subsubheading Vaticana glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -921,9 +890,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #vaticana
 @end lilypond
 
-
-@node Medicaea glyphs
-@unnumberedsubsec Medicaea glyphs
+@anchor{Medicaea glyphs}
+@subsubheading Medicaea glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -931,9 +899,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #medicaea
 @end lilypond
 
-
-@node Hufnagel glyphs
-@unnumberedsubsec Hufnagel glyphs
+@anchor{Hufnagel glyphs}
+@subsubheading Hufnagel glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -941,9 +908,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #hufnagel
 @end lilypond
 
-
-@node Mensural glyphs
-@unnumberedsubsec Mensural glyphs
+@anchor{Mensural glyphs}
+@subsubheading Mensural glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -951,9 +917,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #mensural
 @end lilypond
 
-
-@node Neomensural glyphs
-@unnumberedsubsec Neomensural glyphs
+@anchor{Neomensural glyphs}
+@subsubheading Neomensural glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -961,9 +926,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #neomensural
 @end lilypond
 
-
-@node Petrucci glyphs
-@unnumberedsubsec Petrucci glyphs
+@anchor{Petrucci glyphs}
+@subsubheading Petrucci glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -971,9 +935,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #petrucci
 @end lilypond
 
-
-@node Solesmes glyphs
-@unnumberedsubsec Solesmes glyphs
+@anchor{Solesmes glyphs}
+@subsubheading Solesmes glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -981,9 +944,8 @@ For more information see @ref{Formatting text}.
             \doc-chars #solesmes
 @end lilypond
 
-
-@node Kievan Notation glyphs
-@unnumberedsubsec Kievan Notation glyphs
+@anchor{Kievan Notation glyphs}
+@subsubheading Kievan Notation glyphs
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
