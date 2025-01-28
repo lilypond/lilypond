@@ -778,6 +778,8 @@ class Guile(ConfigurePackage):
                 f"--with-libiconv-prefix={libiconv_install_dir}",
                 # Disable threads, not needed on Windows.
                 "--without-threads",
+                # Do not link against 'libbcrypt'.
+                "gl_cv_lib_assume_bcrypt=no",
             ]
 
         return (
