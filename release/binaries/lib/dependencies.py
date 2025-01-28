@@ -728,6 +728,16 @@ class Guile(ConfigurePackage):
                     check=True,
                 )
 
+        # Patch '0010-...' changes `libguile/Makefile.am`. We thus modify
+        # `libguile/Makefile.in` manually to avoid a dependency on
+        # `auto(re)conf`.
+        def patch_makefile_in(content: str) -> str:
+            return content.replace("script.h", "script.h setjump-win.h")
+
+        makefile_in = os.path.join("libguile", "Makefile.in")
+        self.patch_file(c, makefile_in, patch_makefile_in)
+
+
     def apply_patches(self, c: Config):
         if c.is_mingw():
             self._apply_patches_mingw(c)
