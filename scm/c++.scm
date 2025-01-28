@@ -42,8 +42,8 @@
 
 (define-public (positive-fraction? x)
   (and (pair? x)
-       (integer? (car x)) (exact? (car x)) (positive? (car x))
-       (integer? (cdr x)) (exact? (cdr x)) (positive? (cdr x))))
+       (positive-exact-integer? (car x))
+       (positive-exact-integer? (cdr x))))
 
 (define-public (exact-rational? x)
   (and (rational? x)

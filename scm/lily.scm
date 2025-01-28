@@ -225,9 +225,12 @@ session has started."
   (and (number? x)
        (positive? x)))
 
+(define (positive-exact-integer? x)
+  (and (integer? x) (exact? x) (positive? x)))
+
 (define (positive-integer-or-false? x)
-  (or (and (boolean? x) (eq? x #f))
-      (and (integer? x) (exact? x) (> x 0))))
+  (or (not x)
+      (positive-exact-integer? x)))
 
 (define (number-or-false? x)
   (or (and (boolean? x) (eq? x #f))
