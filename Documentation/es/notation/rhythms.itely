@@ -698,7 +698,7 @@ las ligaduras de unión.
 @cindex ligadura, edición manual
 @cindex manual, edición de ligadura
 @funindex TieColumn
-@anchor{engraving ties manually}
+@anchor{Engraving ties manually}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/engraving-ties-manually.ly}
 

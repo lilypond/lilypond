@@ -22,7 +22,7 @@ LilyPond kann mit anderen Programmen auf verschiedene Weise interagieren.
 * Text editor support::
 * Converting from other formats::
 * LilyPond output in other programs::
-* independent includes::
+* Independent includes::
 @end menu
 
 
@@ -698,7 +698,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
 @end example
 
 
-@node independent includes
+@node Independent includes
 @section Unabhängige @code{include}-Abschnitte
 
 Einige Leute haben große (und nützliche!) Code-Abschnitte geshrieben,

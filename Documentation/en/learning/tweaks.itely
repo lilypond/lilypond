@@ -3573,7 +3573,7 @@ because the ledger line above the rest is inserted automatically.
 Note that there is a peculiarity with this property if applied to
 a @code{Tie} grob: LilyPond distinguishes between @dfn{exact}
 numbers (like integers and fractions) and @dfn{inexact} numbers
-(like numbers with a decimal point).  See @rnotation{engraving
+(like numbers with a decimal point).  See @rnotation{Engraving
 ties manually} for the difference between exact and inexact
 values.
 
