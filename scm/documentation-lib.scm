@@ -199,7 +199,7 @@ also emit `@anchor` for SYM."
 
     (cons
      (string-append (if anchor
-                        (string-append "@anchor{" name "}")
+                        (string-append "@anchor{property-" name "}")
                         "")
                     "@code{" name "} (" typename ")"
                     (if init-value-pair
