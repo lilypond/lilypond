@@ -6291,6 +6291,7 @@ This is useful for parenthesizing a column containing several lines of text.
 
 (define-markup-command (page-ref layout props label gauge default)
   (symbol? markup? markup?)
+  #:properties ((x-align 1))
   #:category other
   #:as-string ""
   "
@@ -6338,11 +6339,12 @@ width may require additional tweaking."
                                          default))
                         (page-stencil (interpret-markup layout props page-markup))
                         (gap (- (interval-length x-ext)
-                                (interval-length (ly:stencil-extent page-stencil X)))))
+                                (interval-length (ly:stencil-extent page-stencil X))))
+                        (space-from-left-gauge-edge (* (/ (1+ x-align) 2) gap)))
                    (interpret-markup layout props
                                      (make-line-markup
                                       (list
-                                       (make-hspace-markup gap)
+                                       (make-hspace-markup space-from-left-gauge-edge)
                                        page-markup)))))))
       x-ext
       y-ext)

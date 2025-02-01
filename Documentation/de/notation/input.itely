@@ -1510,6 +1510,33 @@ schon vorher bekannt sein.  Die Größe wird mithilfe des Platzhalters
 bestimmt.  Wenn eine Partitur zwischen 10 und 99 Seiten hat, kann man
 "00" schreiben, also eine zweistellige Zahl.
 
+Falls die Größe des finalen Textes sich von der des Platzhalters unterscheidet,
+kann es sinnvoll sein, die horizontale Ausrichtung gegenüber dem Platzhalter
+mit der Eigenschaft @code{x-align} festzulegen.
+Standardmäßig erfolgt die Ausrichtung rechtsbündig mit dem Platzhalter.
+
+@lilypond[quote,verbatim]
+\markup {
+  \box
+    \page-ref #'foo "???" "?" " rechtsbündig (Standard)"
+}
+\markup {
+  \box
+    \override #`(x-align . ,LEFT)
+    \page-ref #'foo "???" "?" " linksbündig"
+}
+\markup {
+  \box
+    \override #'(x-align . -2.5)
+    \page-ref #'foo "???" "?" " links außerhalb"
+}
+@end lilypond
+
+Im Beispiel ist der Platzhalter @samp{???} größer als der eingesetzte Text @samp{?}, der genommen wird,
+weil die Marke @code{#'foo} nicht existiert. @code{x-align} kann mit beliebigen Zahlen
+eingestellt werden oder die bekannten Symbole @code{LEFT}, @code{CENTER} oder @code{RIGHT} annehmen,
+welche die Ausrichtung linksbündig, zentriert oder rechtsbündig gegenüber dem Platzhalter vornehmen.
+
 @predefined
 @funindex \label
 @funindex \page-ref

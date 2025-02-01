@@ -2049,6 +2049,34 @@ the markup have to be known before, so a gauge is used to decide these
 dimensions.  If the book has between 10 and 99 pages, it may be @qq{00},
 i.e., a two digit number.
 
+If the size of the final text is different from the gauge,
+it could be useful to configure the horizontal alignment relative to the gauge
+with the property @code{x-align}.
+The default is right-aligned.
+
+@lilypond[quote,verbatim]
+\markup {
+  \box
+    \page-ref #'foo "???" "?" " right-aligned (default)"
+}
+\markup {
+  \box
+    \override #`(x-align . ,LEFT)
+    \page-ref #'foo "???" "?" " left-aligned"
+}
+\markup {
+  \box
+    \override #'(x-align . -2.5)
+    \page-ref #'foo "???" "?" " left outside"
+}
+@end lilypond
+
+In the example the gauge @samp{???} is wider than the replacement text @samp{?}.
+The replacement is used because the label @code{#'foo} does not exist.
+The property @code{x-align} can be set with any numbers.
+The predefined symbols @code{LEFT}, @code{CENTER} or @code{RIGHT} can also be used to set the
+alignment to left, center or right relative to the gauge.
+
 @predefined
 @funindex \label
 @funindex \page-ref

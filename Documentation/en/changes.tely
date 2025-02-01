@@ -1374,6 +1374,28 @@ the previous bar.
 
 @end itemize
 
+@item
+The markup command @code{\page-ref} has a new property
+@code{x-align} to control the X-alignment of the
+gauge replacement.
+
+@lilypond[quote,verbatim]
+\markup {
+  \box
+    \page-ref #'foo "???" "?" " right-aligned (default)"
+}
+\markup {
+  \box
+    \override #`(x-align . ,LEFT)
+    \page-ref #'foo "???" "?" " left-aligned"
+}
+\markup {
+  \box
+    \override #'(x-align . -2.5)
+    \page-ref #'foo "???" "?" " left outside"
+}
+@end lilypond
+
 @end itemize
 
 
