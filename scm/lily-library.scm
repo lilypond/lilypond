@@ -1581,7 +1581,9 @@ print a warning and set an optional @var{default}."
 (define-public scm->string
   (let ((newline-and-space-regex (ly:make-regex "\n "))
         (procedure-hex-at-regex
-         (ly:make-regex "#<procedure [0-9a-f]+ at .*/([^/]+/[^/]+.scm:)")))
+         (ly:make-regex "#<procedure [0-9a-f]+ at .*/([^/]+/[^/]+.scm:)"))
+        (program-hex-hex-regex
+         (ly:make-regex "#<program [0-9a-f]+ [0-9a-f]+>")))
     (lambda (val)
       (let* ((quote-style (if (string? val)
                               'double
@@ -1604,14 +1606,17 @@ print a warning and set an optional @var{default}."
                    (else
                     (ly:regex-replace
                      procedure-hex-at-regex
-                     (call-with-output-string
-                      (if (pretty-printable? val)
-                          ;; property values in PDF hit margin after 64 columns
-                          (lambda (port)
-                            (pretty-print val port #:width (case quote-style
-                                                             ((single) 63)
-                                                             (else 64))))
-                          (lambda (port) (display val port))))
+                     (ly:regex-replace
+                      program-hex-hex-regex
+                      (call-with-output-string
+                       (if (pretty-printable? val)
+                           ;; property values in PDF hit margin after 64 columns
+                           (lambda (port)
+                             (pretty-print val port #:width (case quote-style
+                                                              ((single) 63)
+                                                              (else 64))))
+                           (lambda (port) (display val port))))
+                      "#<program>")
                      "#<procedure at " 1)))))
         (case quote-style
           ((single) (string-append
