@@ -81,12 +81,27 @@ Return the pure part of @var{pc}.
 int
 Unpure_pure_container::print_smob (SCM port, scm_print_state *) const
 {
+  auto display_part = [&port] (SCM part) {
+    // One common type are procedures. If it has a name, print that.
+    if (ly_is_procedure (part))
+      {
+        SCM name = scm_procedure_name (part);
+        if (ly_is_symbol (name))
+          {
+            scm_display (name, port);
+            return;
+          }
+      }
+
+    scm_display (part, port);
+  };
+
   scm_puts ("#<unpure-pure-container ", port);
-  scm_display (unpure_part (), port);
+  display_part (unpure_part ());
   if (!is_unchanging ())
     {
       scm_puts (" ", port);
-      scm_display (pure_part (), port);
+      display_part (pure_part ());
     }
   scm_puts (" >", port);
   return 1;
