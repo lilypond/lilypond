@@ -17,22 +17,42 @@ LILYPOND_FLAGS = -dpreview -dgs-api=\#f -l DEBUG
 internal-backend-test-ps: internal-backend-test.ly
 	$(call ly_progress,Making,$(outdir)/$@,< $(notdir $<))
 	$(buildscript-dir)/run-and-check.sh \
-	    "$(LILYPOND_BINARY) $(LILYPOND_FLAGS) --formats=ps,pdf,png -o $(outdir)/$@ $<" \
-	    "$(outdir)/$@.log"
+\
+"$(LILYPOND_BINARY) \
+   $(LILYPOND_FLAGS) \
+   --formats=ps,pdf,png \
+   -o $(outdir)/$@ \
+   $<" \
+\
+	  "$(outdir)/$@.log"
 
 internal-backend-test-svg: internal-backend-test.ly
 	$(call ly_progress,Making,$(outdir)/$@,< $(notdir $<))
 	$(buildscript-dir)/run-and-check.sh \
-	    "$(LILYPOND_BINARY) $(LILYPOND_FLAGS) --formats=svg -dbackend=svg -o $(outdir)/$@ $<" \
-	    "$(outdir)/$@.log"
+\
+"$(LILYPOND_BINARY) \
+   $(LILYPOND_FLAGS) \
+   --formats=svg \
+   -dbackend=svg \
+   -o $(outdir)/$@ \
+   $<" \
+\
+	  "$(outdir)/$@.log"
 
 INTERNAL_BACKEND_TEST_FILES = internal-backend-test-ps internal-backend-test-svg
 
 internal-backend-test-cairo: internal-backend-test.ly
 	$(call ly_progress,Making,$(outdir)/$@,< $(notdir $<))
 	$(buildscript-dir)/run-and-check.sh \
-	    "$(LILYPOND_BINARY) $(LILYPOND_FLAGS) --formats=svg,ps,pdf,png -dbackend=cairo -o $(outdir)/$@ $<" \
-	    "$(outdir)/$@.log"
+\
+"$(LILYPOND_BINARY) \
+   $(LILYPOND_FLAGS) \
+   --formats=svg,ps,pdf,png \
+   -dbackend=cairo \
+   -o $(outdir)/$@ \
+   $<" \
+\
+	  "$(outdir)/$@.log"
 
 ifneq ($(CAIRO_CFLAGS),)
 INTERNAL_BACKEND_TEST_FILES += internal-backend-test-cairo

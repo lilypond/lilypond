@@ -68,14 +68,16 @@ $(outdir)/%.pdf: $(outdir)/%.tex
 	rm -fr $(outdir)/$*.build/
 	mkdir $(outdir)/$*.build
 	TEX="$(PDFTEX)" PDFTEX="$(PDFTEX)" PDFLATEX="$(PDFLATEX)" \
-		$(buildscript-dir)/run-and-check.sh \
-			"cd $(outdir); \
-				$(PDFLATEX) \
-					-interaction=nonstopmode \
-					-halt-on-error \
-					-output-directory=$*.build \
-					$(<F)" \
-			"$(outdir)/$*.pdflatex.log"
+	  $(buildscript-dir)/run-and-check.sh \
+\
+"cd $(outdir); \
+   $(PDFLATEX) \
+     -interaction=nonstopmode \
+     -halt-on-error \
+     -output-directory=$*.build \
+     $(<F)" \
+\
+	    "$(outdir)/$*.pdflatex.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
                  -o $(outdir)/$*.pdfmark $(outdir)/$*.build/$*.pdf
@@ -120,25 +122,39 @@ $(outdir)/%.texi: %.tely
 $(outdir)/%.info: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
 	$(buildscript-dir)/run-and-check.sh \
-		"$(TEXI2ANY) --info --output=$@ $<" "$(outdir)/$*.texi2any-info.log"
+\
+"$(TEXI2ANY) \
+   --info \
+   --output=$@ \
+   $<" \
+\
+	  "$(outdir)/$*.texi2any-info.log"
 
 $(outdir)/%.html: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
-	$(buildscript-dir)/run-and-check.sh "DEPTH=$(depth) \
-		$(TEXI2ANY) --html \
-		--output=$@ $<"  "$(outdir)/$*.texilog.log"
+	$(buildscript-dir)/run-and-check.sh \
+\
+"DEPTH=$(depth) \
+   $(TEXI2ANY) \
+     --html \
+     --output=$@ \
+     $<" \
+\
+	  "$(outdir)/$*.texilog.log"
 
 $(outdir)/%.pdf: $(outdir)/%.texi
 	$(call ly_progress,Making,$@,< texi)
 	TEX="$(PDFTEX)" PDFTEX="$(PDFTEX)" PDFLATEX="$(PDFLATEX)" \
-		$(buildscript-dir)/run-and-check.sh \
-			"cd $(outdir); \
-				texi2pdf \
-					-I $(abs-src-dir) \
-					-o $*.tmp.pdf \
-					$(<F) \
-					< /dev/null" \
-			"$(outdir)/$*.texi2pdf.log"
+	  $(buildscript-dir)/run-and-check.sh \
+\
+"cd $(outdir); \
+   texi2pdf \
+     -I $(abs-src-dir) \
+     -o $*.tmp.pdf \
+     $(<F) \
+     < /dev/null" \
+\
+	    "$(outdir)/$*.texi2pdf.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
                  -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
@@ -172,13 +188,15 @@ ifeq (,$(findstring dblatex,$(MISSING_OPTIONAL)))
 $(outdir)/%.pdf: $(outdir)/%.xml
 	$(call ly_progress,Making,$@,< xml)
 	TEX="$(PDFTEX)" PDFTEX="$(PDFTEX)" PDFLATEX="$(PDFLATEX)" \
-		$(buildscript-dir)/run-and-check.sh \
-			"cd $(outdir); \
-				$(DBLATEX) \
-					$(DBLATEX_BACKEND) \
-					-o $*.tmp.pdf \
-					$(<F)" \
-			"$(outdir)/$*.dblatex.log"
+	  $(buildscript-dir)/run-and-check.sh \
+\
+"cd $(outdir); \
+   $(DBLATEX) \
+     $(DBLATEX_BACKEND) \
+     -o $*.tmp.pdf \
+     $(<F)" \
+\
+	    "$(outdir)/$*.dblatex.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
                  -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
