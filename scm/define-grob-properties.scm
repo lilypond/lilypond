@@ -352,10 +352,12 @@ and @code{typewriter}.")
 only.  Use the @code{fonts} property instead.")
      (font-series ,symbol? "Select the series of a font.  Common
 choices are @code{normal} and @code{bold}.  The full list of symbols
-that can be used is: @code{thin}, @code{ultralight}, @code{light},
-@code{semilight}, @code{book}, @code{normal}, @code{medium},
-@code{semibold}, @code{bold}, @code{ultrabold}, @code{heavy},
-@code{ultraheavy}.")
+that can be used is: @code{thin}, @code{ultralight} (or
+@code{extralight}), @code{light}, @code{semilight} (or
+@code{demilight}), @code{book}, @code{normal} (or @code{regular}),
+@code{medium}, @code{semibold} (or @code{demibold}), @code{bold},
+@code{ultrabold} (or @code{extrabold}), @code{heavy} (or @code{black}),
+and @code{ultraheavy} (or @code{ultrablack} or @code{extrablack}).")
      (font-shape ,symbol? "Select the shape of a font.  Possible values
 are @code{upright}, @code{italic}, @code{oblique}, and @code{slanted}
 (which is the same as @code{oblique}).")
