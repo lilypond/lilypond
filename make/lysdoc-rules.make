@@ -5,7 +5,6 @@ $(outdir)/collated-files.list: $(COLLATED_FILES)
 $(outdir)/collated-files.tely: $(outdir)/collated-files.list
 	$(call ly_progress,Making,$@,)
 	$(LYS_TO_TELY) --output=$(outdir)/collated-files.tely \
-	               --name=collated-files.info \
 	               --title="$(TITLE)" \
 	               --author="$(AUTHOR)" \
 	               --input-filename=$^

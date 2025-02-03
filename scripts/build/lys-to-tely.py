@@ -48,7 +48,6 @@ Options:
  -f, --fragment-options=OPTIONS
                              use OPTIONS as lilypond-book fragment options
  -o, --output=OUTPUT         write tely doc to OUTPUT
- -n, --name=NAME             use NAME for info file name
      --prefix=PREFIX         prefix filenames with PREFIX
  -i, --input-filenames=NAME  read list of files from a file instead of stdin
  -g, --glob-input=GLOB       a string which will be passed to glob.glob(GLOB)
@@ -58,7 +57,7 @@ Options:
                                standard template; TEMPLATE should contain a
                                marker '%(include_snippets)s' to indicate
                                where to insert LY-FILEs.  When this option is
-                               used, NAME and TITLE are ignored
+                               used, TITLE gets ignored
 
 If a lilypond-book options file exists for an input file (stripping off the
 file name's suffix and appending `.lybook`) that gets eventually included
@@ -78,7 +77,6 @@ def help(text):
                                   'input-filenames=', 'glob-input=',
                                   'prefix=', 'output='])
 
-name = "ly-doc.info"
 output = "ly-doc.tely"
 title = "Ly Doc"
 author = "The LilyPond development team"
@@ -124,8 +122,6 @@ for opt in options:
         # local variables and none of the global variables! Thus we have to
         # generate the help text here and pass it to the function...
         help(help_text % vars())
-    elif o == '-n' or o == '--name':
-        name = a
     elif o == '-o' or o == '--output':
         output = a
     elif o == '-t' or o == '--title':
