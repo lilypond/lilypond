@@ -39,6 +39,20 @@ from argparse import HelpFormatter
 include_snippets = '@lysnippets'
 
 
+def find_file(name):
+    if os.path.isabs(name):
+        if os.path.isfile(name):
+            return name
+        else:
+            return None
+
+    for d in options.include_path:
+        p = os.path.join(d, name)
+        if os.path.isfile(p):
+            return p
+    return None
+
+
 # A wrapper around `textwrap.wrap()` that keeps newlines in the input string
 # intact.  Taken from https://stackoverflow.com/questions/3853722.
 def wrap_paragraphs(text, width, indent):
@@ -113,6 +127,15 @@ p.add_argument(
     metavar='FILE',
     help='read list of files from %(metavar)s instead of stdin')
 p.add_argument(
+    '-I', '--include',
+    type=str,
+    action='append',
+    dest='include_path',
+    default=['.'],
+    metavar='DIR',
+    help='append %(metavar)s to include path for input files'
+         ' (default: %(default)s)')
+p.add_argument(
     '-g', '--glob-input',
     type=str,
     metavar='GLOB',
@@ -160,7 +183,9 @@ files = options.files
 if options.glob_input:
     files = glob.glob(options.glob_input)
 elif options.input_filenames:
-    files = open(options.input_filenames, encoding='utf-8').read().split()
+    f = find_file(options.input_filenames)
+    if f is not None:
+        files = open(f, encoding='utf-8').read().split()
 
 template_default = rf'''\input texinfo
 
@@ -192,10 +217,11 @@ template_default = rf'''\input texinfo
 @bye
 ''' % (", ".join(files), sys.argv[0])
 
+template = template_default
 if options.template:
-    template = open(options.template, 'r', encoding='utf-8').read()
-else:
-    template = template_default
+    f = find_file(options.template)
+    if f is not None:
+        template = open(f, 'r', encoding='utf-8').read()
 
 
 html_file_re = re.compile(r'.*\.i?html?$')
@@ -211,8 +237,9 @@ def name2line(n):
     fragment_options_file = file_name.with_suffix('.lybook')
 
     fragment_options_string = ''
-    if os.path.isfile(fragment_options_file):
-        fragment_options = open(fragment_options_file, encoding='utf-8').read().split()
+    f = find_file(fragment_options_file)
+    if f is not None:
+        fragment_options = open(f, encoding='utf-8').read().split()
         if fragment_options:
             fragment_options_string = ',' + ','.join(fragment_options)
 
