@@ -130,7 +130,7 @@ for opt in options:
         author = a
     elif o == '-i' or o == '--input-filenames':
         input_filename = a
-    elif o == '-p' or o == '--glob-input':
+    elif o == '-g' or o == '--glob-input':
         glob_input = a
     elif o == '-f' or o == '--fragment-options':
         fragment_options = a
@@ -160,10 +160,12 @@ def name2line(n):
             options_string = ',' + ','.join(options)
 
     if texi_file_re.match(n):
-        # We have a texi include file, simply include it:
+        # We have a Texinfo file; simply include it.
         s = r"@include %s" % os.path.basename(n)
+
     elif (html_file_re.match(n) or info_file_re.match(n)
           or pdf_file_re.match(n) or tex_file_re.match(n)):
+        # Use HTML links for formats that can't be further processed.
         s = r"""
 @ifhtml
 @html
@@ -174,7 +176,7 @@ def name2line(n):
 """ % (os.path.basename(n), os.path.basename(n))
 
     elif xml_file_re.match(n):
-        # Assume it's a MusicXML file -> convert, create image etc.
+        # Assume it's a MusicXML file -> convert, create image, etc.
         s = r"""
 @ifhtml
 @html
@@ -186,7 +188,7 @@ def name2line(n):
 """ % (os.path.basename(n), fragment_options + options_string, prefix + n)
 
     else:
-        # Assume it's a lilypond file -> create image etc.
+        # Assume it's a LilyPond file -> create image, etc.
         s = r"""
 @ifhtml
 @html
@@ -215,4 +217,4 @@ else:
     # not Unix philosophy, but hey, at least we notice when
     # we don't distribute any .ly files.
     sys.stderr.write(
-        "No files specified. Doing nothing. Use -h to display usage.")
+        "No files specified. Doing nothing. Use -h to display usage.\n")
