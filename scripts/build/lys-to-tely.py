@@ -215,7 +215,7 @@ template_default = rf'''\input texinfo
 {include_snippets}
 
 @bye
-''' % (", ".join(files), sys.argv[0])
+''' % ("\n@c           ".join(files), sys.argv[0])
 
 template = template_default
 if options.template:
