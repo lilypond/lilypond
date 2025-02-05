@@ -891,7 +891,7 @@ geschrieben hätte:
 In allen diesen Formen findet die Auswertung des Scheme-Codes statt,
 während die Eingabe noch gelesen wird, entweder im Lexer oder im Parser.
 Wenn man es später ausgeführt haben möchte, muss man
-@ref{Void scheme functions} benutzen oder es in einem Makro speichern:
+@ref{Void Scheme functions} benutzen oder es in einem Makro speichern:
 
 @example
 #(define (nopc)

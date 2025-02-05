@@ -21,7 +21,7 @@ es eine grundlegende Einleitung in LilyPonds
 @ref{Scheme tutorial}.
 
 @menu
-* Lilypond code blocks::
+* LilyPond code blocks::
 * Scheme functions::
 * Music functions::
 * Event functions::
@@ -33,7 +33,7 @@ es eine grundlegende Einleitung in LilyPonds
 @end menu
 
 
-@node Lilypond code blocks
+@node LilyPond code blocks
 @section LilyPond-Codeabschnitte
 
 Codeabschnitte in LilyPond sehen etwa so aus:
@@ -78,7 +78,7 @@ Argumente in LilyPond-Syntax annehmen.
 @menu
 * Scheme function definitions::
 * Scheme function usage::
-* Void scheme functions::
+* Void Scheme functions::
 @end menu
 
 @node Scheme function definitions
@@ -131,7 +131,7 @@ auf den Parameter @code{location} gesetzt.
 werden, wobei die letzte als Ausgabewert der Scheme-Funktion eingesetzt
 wird.  Sie kann LilyPond-Codeabschnitte enthalten, eingeschlossen mit
 Raute-Klammern (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), wie beschrieben
-in @ref{Lilypond code blocks}.  Innerhalb von LilyPond-Codeabschnitten
+in @ref{LilyPond code blocks}.  Innerhalb von LilyPond-Codeabschnitten
 wird mit @code{#} auf Funktionsargumente (etwa @samp{#Arg1}) verwiesen
 oder ein neuer Scheme-Ausdruck mit Funktionsargumenten begonnen
 (etwa @w{@samp{#(cons Arg1 Arg2)}}).  Wo normale Scheme-Ausdrücke mit
@@ -225,10 +225,10 @@ Weil es eine schlechte Idee ist, einen Wert auszugeben, der in einigen
 Kontexten misinterpretiert werden könnte, sollte man Scheme-Funktionen
 nur in den Fällen benutzen, in welchen sie immer einen sinnvollen
 Wert ausgeben, und leere Scheme-Funktionen an anderen stellen
-einsetzen.  Siehe auch @pxref{Void scheme functions}.
+einsetzen.  Siehe auch @pxref{Void Scheme functions}.
 
 
-@node Void scheme functions
+@node Void Scheme functions
 @subsection Leere Scheme-Funktionen
 
 @funindex define-void-function
@@ -311,7 +311,7 @@ function =
 @noindent
 analot zu Scheme-Funktionen, siehe @ref{Scheme function definitions}.
 In der Mehrzahl der Fälle ist @var{body} ein LilyPond-Codeabschnitt (siehe
-@ref{Lilypond code blocks}.
+@ref{LilyPond code blocks}.
 
 Eine Liste der möglichen Typenprädikate findet sich in
 @rnotationnamed{Predefined type predicates, Vordefinierte Typprädikate}.

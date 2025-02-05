@@ -221,7 +221,7 @@ down = \drummode {
 @end lilypond
 
 El ejemplo anterior muestra una notación polifónica prolija.  La
-notación polifónica abreviada, descrita en @rlearningnamed{I'm hearing Voices, Oigo voces},
+notación polifónica abreviada, descrita en @rlearningnamed{I'm hearing voices, Oigo voces},
 también se puede usar.  Por ejemplo,
 
 @lilypond[quote,verbatim]
@@ -419,7 +419,7 @@ personalizados como se explica en
 
 @morerefs
 Manual de aprendizaje:
-@rlearningnamed{I'm hearing Voices, Oigo voces}.
+@rlearningnamed{I'm hearing voices, Oigo voces}.
 
 Referencia de la notación:
 @ref{Custom percussion staves}.

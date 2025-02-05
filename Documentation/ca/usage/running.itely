@@ -13,7 +13,7 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
-@node Running LilyPond
+@node Running lilypond
 @chapter Execució del LilyPond
 
 Aquest capítol detalla els aspectes tècnics de l'execució del
@@ -56,14 +56,14 @@ documents sobre aquest tema si no us resulta familiar la línia
 d'ordres.
 
 @menu
-* Invoking lilypond::
+* Invoking LilyPond::
 * Basic command-line options for LilyPond::
 * Advanced command-line options for LilyPond::
 * Environment variables::
 * LilyPond in chroot jail::
 @end menu
 
-@node Invoking lilypond
+@node Invoking LilyPond
 @unnumberedsubsec Invocació del @command{lilypond}
 
 L'executable @command{lilypond} es pot cridar des d'una línia

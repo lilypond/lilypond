@@ -40,7 +40,7 @@ Copyright @copyright{} 1999--2023 pels autors.
 @c  maybe add a "Tasks" or "Specific tasks" or something like
 @c  that, after Suggestions  -gp
 @menu
-* Running LilyPond::          Operació.
+* Running lilypond::          Operació.
 * Updating files with convert-ly:: Actualitzar els fitxers d'entrada.
 * lilypond-book::                  Integrar text i música.
 * External programs::              Barrejar el LilyPond amb altres programes.

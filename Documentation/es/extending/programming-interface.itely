@@ -106,7 +106,7 @@ que reciben argumentos especificados en la sintaxis de LilyPond.
 @menu
 * Scheme function definitions::
 * Scheme function usage::
-* Void scheme functions::
+* Void Scheme functions::
 @end menu
 
 @node Scheme function definitions
@@ -250,7 +250,7 @@ sería aceptable colocar una asignación.
 Dado que no es buena idea devolver valores que puedan
 malinterpretarse en algún contexto, debería usar funciones de
 Scheme normales solo para los casos en que siempre se devuelve un
-valor útil, y usar funciones de Scheme vacías (@pxref{Void scheme functions}) en caso contrario.
+valor útil, y usar funciones de Scheme vacías (@pxref{Void Scheme functions}) en caso contrario.
 
 Por conveniencia, las funciones de Scheme también se pueden
 llamar directamente desde Scheme, puenteando al analizador
@@ -262,7 +262,7 @@ tomando el valor de Scheme @code{*unspecified*} el papel de la
 palabra reservada @code{\default} para saltar explícitamente
 argumentos opcionales.
 
-@node Void scheme functions
+@node Void Scheme functions
 @subsection Funciones de Scheme vacías
 @funindex define-void-function
 @funindex \void

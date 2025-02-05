@@ -11,7 +11,7 @@
 @c \version "2.19.21"
 
 
-@node Running LilyPond
+@node Running lilypond
 @chapter Ejecutar LilyPond
 
 Este capítulo detalla los aspectos técnicos de la ejecución de
@@ -57,7 +57,7 @@ documentos sobre este tema si no le resulta familiar la línea de
 órdenes.
 
 @menu
-* Invoking lilypond::
+* Invoking LilyPond::
 * Basic command-line options for LilyPond::
 * Advanced command-line options for LilyPond::
 * Environment variables::
@@ -65,7 +65,7 @@ documentos sobre este tema si no le resulta familiar la línea de
 * LilyPond in chroot jail::
 @end menu
 
-@node Invoking lilypond
+@node Invoking LilyPond
 @unnumberedsubsec Invocar @command{lilypond}
 
 El ejecutable @command{lilypond} se puede llamar desde la línea de

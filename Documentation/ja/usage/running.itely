@@ -57,7 +57,7 @@ OS のコマンド ラインの使用方法についての説明は@c
 その内容を扱っている他のドキュメントをあたってください。
 
 @menu
-* Invoking lilypond::
+* Invoking LilyPond::
 * Basic command-line options for LilyPond::
 * Advanced command-line options for LilyPond::
 * Environment variables::
@@ -65,7 +65,7 @@ OS のコマンド ラインの使用方法についての説明は@c
 * LilyPond in chroot jail::
 @end menu
 
-@node Invoking lilypond
+@node Invoking LilyPond
 @unnumberedsubsec @command{lilypond} を呼び出す
 
 @command{lilypond} 実行可能形式ファイルは@c

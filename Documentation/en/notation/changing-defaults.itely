@@ -1948,7 +1948,7 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 * Set and unset::
 * Override and revert::
 * The once command::
-* Set versus override::
+* set versus override::
 * Tweak and single::
 * The offset command::
 * Modifying alists::
@@ -2239,7 +2239,7 @@ Internals Reference:
 @endmorerefs
 
 
-@node Set versus override
+@node set versus override
 @subsection @code{\set} versus @code{\override}
 
 @funindex \set

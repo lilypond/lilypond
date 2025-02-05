@@ -3616,7 +3616,7 @@ zu sehen reverted werden.
 
 An diesem Punkt können wir den letzten Feinschliff an unserem
 Chopin-Beispiel vornehmen, das wir behandelt haben in
-@ref{I'm hearing Voices}.  Wir hatten es in folgende Form
+@ref{I'm hearing voices}.  Wir hatten es in folgende Form
 gebracht:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3767,7 +3767,7 @@ Fis, die auch mit einer Achtelnote verschmolzen ist.  Alles
 andere ist eine einzige Stimme, es ist also am einfachsten, die
 zusätzlichen drei Stimmen nur zeitweise zu erstellen, wenn sie
 auftreten.  Wenn Sie vergessen haben, wie man das anstellt,
-schauen Sie sich nochmal den Abschnitt @ref{I'm hearing Voices}
+schauen Sie sich nochmal den Abschnitt @ref{I'm hearing voices}
 und @ref{Explicitly instantiating voices} an.  Hier wollen wir explizit
 begonnene Stimmen für die polyphone Stelle benutzen, weil LilyPond
 Kollisionen besser vermeidet, wenn alle Stimmen auf diese Weise

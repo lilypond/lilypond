@@ -3818,7 +3818,7 @@ l'informazione musicale in forma testuale.
 
 @menu
 * Displaying LilyPond notation::
-* Displaying scheme music expressions::
+* Displaying Scheme music expressions::
 * Saving music events to a file::
 @end menu
 
@@ -3870,7 +3870,7 @@ dal file di output, usare il comando @code{\void}:
 @end example
 
 
-@node Displaying scheme music expressions
+@node Displaying Scheme music expressions
 @subsection Mostrare le espressioni musicali Scheme
 
 Vedi @rextend{Displaying music expressions}.

@@ -3544,7 +3544,7 @@ tener ningún efecto, debería ser revertida como se muestra.
 @unnumberedsubsubsec La propiedad @code{force-hshift} (forzar desplazamiento horizontal)
 
 Ahora podremos ver cómo aplicar las correcciones finales al
-ejemplo de Chopin que presentamos al final de @ref{I'm hearing Voices},
+ejemplo de Chopin que presentamos al final de @ref{I'm hearing voices},
 que dejamos con este aspecto:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3695,7 +3695,7 @@ también está fundida con la corchea de su misma altura.  Todo lo
 demás está en una sola voz, así que lo más fácil es introducir
 estas tres voces adicionales, en el momento en que se necesiten y
 de forma temporal.  Si ha olvidado cómo hacerlo, lea las secciones
-@ref{I'm hearing Voices} y @ref{Explicitly instantiating voices}.  Aquí tomamos la
+@ref{I'm hearing voices} y @ref{Explicitly instantiating voices}.  Aquí tomamos la
 decisión de utilizar voces instanciadas explícitamente para el
 pasaje polifónico, dado que LilyPond es más probable que pueda
 evitar las colisiones si todas las voces se instancian

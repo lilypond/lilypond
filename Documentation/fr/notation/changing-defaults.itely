@@ -2066,7 +2066,7 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{}
 * Set and unset::
 * Override and revert::
 * The once command::
-* Set versus override::
+* set versus override::
 * Tweak and single::
 * The offset command::
 * Modifying alists::
@@ -2379,7 +2379,7 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@node Set versus override
+@node set versus override
 @subsection @code{\set} ou @code{\override}
 
 @funindex \set

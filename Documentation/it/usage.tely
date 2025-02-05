@@ -39,7 +39,7 @@ Copyright @copyright{} 1999--2023 degli autori.
 @c  maybe add a "Tasks" or "Specific tasks" or something like
 @c  that, after Suggestions  -gp
 @menu
-* Running LilyPond::              Utilizzo.
+* Running lilypond::              Utilizzo.
 * Updating files with convert-ly:: Aggiornare i file di input.
 * lilypond-book::                  Integrare testo e musica.
 * External programs::              Combinare LilyPond con altri programmi.

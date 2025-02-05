@@ -3336,7 +3336,7 @@ deve essere ripristinato, come si vede.
 @unnumberedsubsubsec La proprietà @code{force-hshift}
 
 Possiamo vedere ora come applicare le correzioni finali all'esempio di Chopin
-introdotto alla fine del paragrafo @ref{I'm hearing Voices}, che avevamo
+introdotto alla fine del paragrafo @ref{I'm hearing voices}, che avevamo
 lasciato così:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3483,7 +3483,7 @@ Re, e la semiminima puntata del Fa diesis, anch'essa unita
 alla croma della stessa altezza.  Tutto il resto è su una
 voce singola, quindi il sistema più semplice è introdurre queste
 ulteriori voci temporaneamente, quando sono richieste.  Se ti
-sei dimenticato come fare, rileggi i paragrafi @ref{I'm hearing Voices} e
+sei dimenticato come fare, rileggi i paragrafi @ref{I'm hearing voices} e
 @ref{Explicitly instantiating voices}.  In questo caso scegliamo di
 usare per il passaggio polifonico le voci definite esplicitamente, dato
 che LilyPond riesce a evitare meglio le collisioni se tutte le voci

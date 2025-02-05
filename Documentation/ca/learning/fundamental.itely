@@ -578,12 +578,12 @@ està sempre continguda dins d'una veu --el concepte del LilyPond
 més fonamental de tots--.
 
 @menu
-* I'm hearing Voices::
+* I'm hearing voices::
 * Explicitly instantiating voices::
 * Voices and vocals::
 @end menu
 
-@node I'm hearing Voices
+@node I'm hearing voices
 @subsection Sento veus
 
 @cindex polifonia

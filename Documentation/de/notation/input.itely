@@ -2378,7 +2378,7 @@ Parameter @option{-dclip-systems} aufgerufen werden.  Die Schnipsel
 werden als EPS ausgegeben und dann zu PDF und PNG konvertiert, wenn
 diese Formate auch als Parameter angegeben werden.
 
-Zu mehr Information über Ausgabeformate siehe @rprogramnamed{Invoking lilypond, lilypond aufrufen}.
+Zu mehr Information über Ausgabeformate siehe @rprogramnamed{Invoking LilyPond, lilypond aufrufen}.
 
 
 @node Skipping corrected music
@@ -2515,7 +2515,7 @@ bei der Überprüfung: falsche Oktaven oder falsche Versetzungszeichen
 lassen sich meist sehr gut hören.
 
 Normale MIDI-Ausgabe ist etwas roh; optional kann eine verbesserte und
-realistischere MIDI-Ausgabe mit einem @ref{The Articulate script}
+realistischere MIDI-Ausgabe mit einem @ref{The articulate script}
 erzeugt werden.
 
 Die MIDI-Ausgabe benötigt einen Kanal für jedes System und reserviert
@@ -2530,7 +2530,7 @@ als 15 Notensysteme hat.
 * Repeats in MIDI::
 * Controlling MIDI dynamics::
 * Percussion in MIDI::
-* The Articulate script::
+* The articulate script::
 @end menu
 
 
@@ -2743,7 +2743,7 @@ Spieler benötigt, der Tonhöhen verändern kann.)
 @item Gesangstext
 @end itemize
 
-Durch Einsatz vom @ref{The Articulate script} können noch einige Elemente
+Durch Einsatz vom @ref{The articulate script} können noch einige Elemente
 zu der Liste hinzugefügt werden:
 
 @itemize
@@ -2756,7 +2756,7 @@ zu der Liste hinzugefügt werden:
 @subsubheading In MIDI nicht unterstützt
 
 Folgende Notationselemente werden nicht in die MIDI-Ausgabe einbezogen,
-außer am setzt das @ref{The Articulate script} ein:
+außer am setzt das @ref{The articulate script} ein:
 
 @itemize
 @item Rhythmus, der als Anmerkung notiert wird, bspw. Swing
@@ -3082,7 +3082,7 @@ Weil der MIDI-Standard keine Peitschenschläge kennt, wird ein
 Schlagstock (sidestick) für diesen Zweck eingesetzt.
 
 
-@node The Articulate script
+@node The articulate script
 @subsection Artikuliere-Skript
 
 Eine realistischere MIDI-Ausgabe ist möglich, wenn man das
@@ -3133,7 +3133,7 @@ Information als Text anzeigen:
 
 @menu
 * Displaying LilyPond notation::
-* Displaying scheme music expressions::
+* Displaying Scheme music expressions::
 * Saving music events to a file::
 @end menu
 
@@ -3187,7 +3187,7 @@ eingesetzt werden, damit der Ausdruck für die Interpretation ignoriert wird:
 @end example
 
 
-@node Displaying scheme music expressions
+@node Displaying Scheme music expressions
 @subsection Musikalische Scheme-Ausdrücke anzeigen
 
 Siehe @rextendnamed{Displaying music expressions, Musikalische Funktionen darstellen}.

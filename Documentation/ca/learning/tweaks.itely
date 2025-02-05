@@ -28,7 +28,7 @@ sortida es poden canviar.
 * Appearance of objects::
 * Placement of objects::
 * Vertical spacing::
-* Col·lisions of objects::
+* Collisions of objects::
 * Further tweaking::
 @end menu
 
@@ -2637,7 +2637,7 @@ indicacions de dinàmica estiguessin alineades sobre la mateixa
 línia de base en lloc d'anar cap amunt i cap avall amb les notes.
 La propietat que ho fa és @code{staff-padding} (farciment de
 pentagrama) que s'estudia a la secció dedicada a les col·lisions
-(vegeu @ref{Col·lisions of objects}).
+(vegeu @ref{Collisions of objects}).
 
 @node Vertical spacing
 @section Espaiat vertical
@@ -2843,7 +2843,7 @@ del @code{VerticalAxisGroup}.  Per veure més detalls, consulteu
 @rnotationnamed{Flexible vertical spacing within systems, Espaiat vertical flexible dins dels sistemes}.
 
 
-@node Col·lisions of objects
+@node Collisions of objects
 @section Col·lisions d'objectes
 
 @menu
@@ -3475,7 +3475,7 @@ efecte, hauria de ser revertida com es mostra.
 @unnumberedsubsubsec La propietat @code{force-hshift} (forçar desplaçament horitzontal)
 
 Ara podem veure com aplicar les correccions finals a l'exemple de
-Chopin que vam present al final de @ref{I'm hearing Voices}, que deixem
+Chopin que vam present al final de @ref{I'm hearing voices}, que deixem
 amb aquest aspecte:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -3625,7 +3625,7 @@ fusionada amb la corxera de la seva mateixa alçada.  Tota la resta
 està en una sola veu, així que el més fàcil és introduir aquestes
 tres veus addicionals, en el moment que facin falta i de forma
 temporal.  Si us heu oblidat de com fer-ho, llegiu les seccions
-@ref{I'm hearing Voices} i @ref{Explicitly instantiating voices}.  Aquí prenem la decisió
+@ref{I'm hearing voices} i @ref{Explicitly instantiating voices}.  Aquí prenem la decisió
 d'utilitzar veus instanciades explícitament per al passatge
 polifònic, atès que el LilyPond és més probable que pugui evitar
 les col·lisions si totes les veus s'instancien explícitament

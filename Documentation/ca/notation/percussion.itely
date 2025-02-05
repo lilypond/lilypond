@@ -221,7 +221,7 @@ down = \drummode {
 @end lilypond
 
 L'exemple anterior mostra una notació polifònica completa.  La
-notació polifònica abreujada, descrita a @rlearningnamed{I'm hearing Voices, Sento veus},
+notació polifònica abreujada, descrita a @rlearningnamed{I'm hearing voices, Sento veus},
 també es pot fer servir.  Per exemple,
 
 @lilypond[quote,verbatim]

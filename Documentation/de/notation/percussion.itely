@@ -218,7 +218,7 @@ down = \drummode {
 
 Das Beispiel zeigt ausdrücklich definierte mehrstimmige Notation. Die
 Kurznotation für mehrstimmige Musik, wie sie im Abschnitt
-@rlearningnamed{I'm hearing Voices, Ich höre Stimmen} beschrieben wird, kann auch verwendet werden.
+@rlearningnamed{I'm hearing voices, Ich höre Stimmen} beschrieben wird, kann auch verwendet werden.
 
 @lilypond[quote,verbatim]
 \new DrumStaff <<

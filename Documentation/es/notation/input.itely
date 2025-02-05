@@ -3239,7 +3239,7 @@ sonido a partir de ellos.
 * MIDI channel mapping::
 * Context properties for MIDI effects::
 * Enhancing MIDI output::
-* The Articulate script::
+* The articulate script::
 @end menu
 
 @cindex MIDI, notación contemplada
@@ -3989,7 +3989,7 @@ de cómo interpreta estos valores.
 @subsection Enriquecimiento de la salida MIDI
 
 @menu
-* The Articulate script::
+* The articulate script::
 @end menu
 
 La salida MIDI predeterminada es muy básica, pero se puede
@@ -4004,7 +4004,7 @@ propiedades del bloque @code{\midi} y/o usando el script
 @funindex Staff.midiInstrument
 
 
-@node The Articulate script
+@node The articulate script
 @subsection El script Articulate
 
 @cindex articulate script
@@ -4069,7 +4069,7 @@ presentar información musical en forma de texto.
 
 @menu
 * Displaying LilyPond notation::
-* Displaying scheme music expressions::
+* Displaying Scheme music expressions::
 * Saving music events to a file::
 @end menu
 
@@ -4125,7 +4125,7 @@ use la instrucción @code{\void}.
 @end example
 
 
-@node Displaying scheme music expressions
+@node Displaying Scheme music expressions
 @subsection Impresión de las expresiones musicales de Scheme
 
 Véase @rextendnamed{Displaying music expressions, Presentación de las expresiones musicales}.

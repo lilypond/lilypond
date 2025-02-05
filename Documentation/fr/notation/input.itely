@@ -3962,7 +3962,7 @@ supplémentaire pour les écouter.
 * Unsupported notation for MIDI::
 * The MIDI block::
 * Controlling MIDI dynamics::
-* Using MIDI Instruments::
+* Using MIDI instruments::
 * Using repeats with MIDI::
 * MIDI channel mapping::
 * Context properties for MIDI effects::
@@ -4365,7 +4365,7 @@ Les modifications de @code{midiInstrument} ou autres options MIDI en
 début de portée peuvent se retrouver dédoublées dans la sortie MIDI.
 
 
-@node Using MIDI Instruments
+@node Using MIDI instruments
 @subsection Gestion des instruments MIDI
 
 @cindex instrument, nom d'

@@ -213,7 +213,7 @@ down = \drummode {
 @end lilypond
 
 L'esempio precedente mostra la notazione polifonica in forma estesa.  Ma si può
-usare anche quella in forma breve, descritta in @rlearningnamed{I'm hearing Voices, Sento le Voci}.
+usare anche quella in forma breve, descritta in @rlearningnamed{I'm hearing voices, Sento le Voci}.
 Per esempio,
 
 @lilypond[quote,verbatim]
@@ -459,7 +459,7 @@ spiegato in @ref{Custom percussion staves}.
 
 @morerefs
 Manuale di apprendimento:
-@rlearningnamed{I'm hearing Voices, Sento le Voci}.
+@rlearningnamed{I'm hearing voices, Sento le Voci}.
 
 Guida alla notazione:
 @ref{Custom percussion staves}.

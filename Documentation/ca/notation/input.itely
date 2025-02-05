@@ -3062,7 +3062,7 @@ so a partir d'ells.
 * MIDI channel mapping::
 * Context properties for MIDI effects::
 * Enhancing MIDI output::
-* The Articulate script::
+* The articulate script::
 @end menu
 
 @cindex MIDI, notació amb suport
@@ -3763,10 +3763,6 @@ informació sobre com interpreta aquests valors.
 @node Enhancing MIDI output
 @subsection Enriquiment de la sortida MIDI
 
-@menu
-* The Articulate script::
-@end menu
-
 La sortida MIDI predeterminada és molt bàsica, però es pot
 millorar mitjançant la selecció dels instruments MIDI les
 propietats del bloc @code{\midi} i/o usant l'script
@@ -3779,7 +3775,7 @@ propietats del bloc @code{\midi} i/o usant l'script
 @funindex Staff.midiInstrument
 
 
-@node The Articulate script
+@node The articulate script
 @subsection L'script Articulate
 
 Per utilitzar l'script Articulate, l'hem d'incloure al principi
@@ -3835,7 +3831,7 @@ presentar informació musical en forma de text.
 
 @menu
 * Displaying LilyPond notation::
-* Displaying scheme music expressions::
+* Displaying Scheme music expressions::
 * Saving music events to a file::
 @end menu
 
@@ -3891,7 +3887,7 @@ mateix temps suprimir-la del fitxer de sortida, useu l'ordre @code{\void}.
 @end example
 
 
-@node Displaying scheme music expressions
+@node Displaying Scheme music expressions
 @subsection Impressió de les expressions musicals de l'Scheme
 
 Vegeu @rextendnamed{Displaying music expressions,Presentació de les expressions musicals}.

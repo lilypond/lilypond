@@ -3417,7 +3417,7 @@ a'8 \( ( a''16 ) a'' \)
 @node The force-hshift property
 @unnumberedsubsubsec @code{force-hshift} プロパティ
 
-今や、@ref{I'm hearing Voices} の最後で挙げた Chopin の例に@c
+今や、@ref{I'm hearing voices} の最後で挙げた Chopin の例に@c
 どのように修正を加えるべきかを知っています。@c
 この例は以下のような状態でした:
 
@@ -3565,7 +3565,7 @@ lhMusic = \relative {
 他の部分はすべて単一のボイスなので、最も容易な方法は
 4 つのボイスを必要になったときに一時的に導入する方法です。@c
 一時的に多声にする方法を忘れてしまったのならば、@c
-@ref{I'm hearing Voices} と @ref{Explicitly instantiating voices}
+@ref{I'm hearing voices} と @ref{Explicitly instantiating voices}
 を参照してください。@
 ここでは、多声パッセージに明示的にインスタンス化されたボイスを使うことにします。@c
 なぜなら、すべてのボイスが明示的にインスタンス化されている方が、@c

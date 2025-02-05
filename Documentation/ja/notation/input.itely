@@ -3922,7 +3922,7 @@ LilyPond は音楽情報をテキストとして表示することができま�
 
 @menu
 * Displaying LilyPond notation::
-* Displaying scheme music expressions::
+* Displaying Scheme music expressions::
 * Saving music events to a file::
 @end menu
 
@@ -3976,7 +3976,7 @@ LilyPond は音楽表記を表示するだけでなく、それを解釈しま�
 @end example
 
 
-@node Displaying scheme music expressions
+@node Displaying Scheme music expressions
 @subsection Scheme 音楽表記を表示する
 
 @rextend{Displaying music expressions} を参照してください。

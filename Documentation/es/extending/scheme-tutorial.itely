@@ -988,7 +988,7 @@ Ahora bien, en todas esas formas, el código de Scheme se evalúa en
 el momento en que el código de entrada aún se está procesando, ya
 sea en el analizador léxico o en el analizador sintáctico.  Si
 necesitamos que se ejecute en un momento posterior, debemos
-consultar @ref{Void scheme functions}, o almacenarlo dentro
+consultar @ref{Void Scheme functions}, o almacenarlo dentro
 de un procedimiento:
 
 @example

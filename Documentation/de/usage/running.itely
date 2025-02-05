@@ -56,14 +56,14 @@ Internet, wenn Sie mit der Kommandozeile nicht vertraut sind.
 
 
 @menu
-* Invoking lilypond::
+* Invoking LilyPond::
 * Basic command-line options for LilyPond::
 * Advanced command-line options for LilyPond::
 * Environment variables::
 * LilyPond in chroot jail::
 @end menu
 
-@node Invoking lilypond
+@node Invoking LilyPond
 @unnumberedsubsec @command{lilypond} aufrufen
 
 @cindex @command{lilypond} aufrufen

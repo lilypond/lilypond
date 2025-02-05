@@ -212,7 +212,7 @@ down = \drummode {
 @end lilypond
 
 上記の例は冗長な多声記譜法です。@c
-@rlearningnamed{I'm hearing Voices, 私はボイスを聴いている} で説明した短い多声記譜法を使うことも@c
+@rlearningnamed{I'm hearing voices, 私はボイスを聴いている} で説明した短い多声記譜法を使うことも@c
 できます。@c
 例えば、以下のようになります:
 
@@ -408,7 +408,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 
 @morerefs
 学習マニュアル:
-@rlearning{I'm hearing Voices}
+@rlearning{I'm hearing voices}
 
 記譜法リファレンス:
 @ref{Custom percussion staves}

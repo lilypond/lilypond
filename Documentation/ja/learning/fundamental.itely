@@ -594,13 +594,13 @@ LilyPond も歌う (演奏する) ボイスを必要とします。@c
 -- このことは LilyPond すべてのコンセプトの中での最も基礎的なことです。
 
 @menu
-* I'm hearing Voices::
+* I'm hearing voices::
 * Explicitly instantiating voices::
 * Voices and vocals::
 @end menu
 
 
-@node I'm hearing Voices
+@node I'm hearing voices
 @subsection 私はボイスを聴いている
 
 @cindex polyphony (多声)

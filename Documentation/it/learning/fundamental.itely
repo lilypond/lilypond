@@ -586,12 +586,12 @@ La musica vera e propria per tutti gli strumenti di una partitura è
 contenuta nelle Voci -- il più importante concetto di LilyPond.
 
 @menu
-* I'm hearing Voices::
+* I'm hearing voices::
 * Explicitly instantiating voices::
 * Voices and vocals::
 @end menu
 
-@node I'm hearing Voices
+@node I'm hearing voices
 @subsection Sento le Voci
 
 @cindex polifonia
