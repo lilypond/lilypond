@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2025-01-31.21}
+\def\texinfoversion{2025-02-07.09}
 %
 % Copyright 1985, 1986, 1988, 1990-2025 Free Software Foundation, Inc.
 %
@@ -8176,12 +8176,11 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % Argument is macro body with arguments substituted
 \def\scanmacro#1{%
   \newlinechar`\^^M
-  % expand the expansion of \eatleadingcr twice to maybe remove a leading
-  % newline (and \else and \fi tokens), then call \eatspaces on the result.
+  % expand \eatleadingcr three times to maybe remove a leading
+  % newline, then call \eatspaces on the result.
   \def\xeatspaces##1{%
-    \E\E\E\E\E\E\E\eatspaces\E\E\E\E\E\E\E{\eatleadingcr##1%
+    \E\E\E\E\E\E\E\eatspaces\E\E\E\E\E\E\E{\eatleadingcr{##1}%
   }}%
-  \def\xempty##1{}%
   %
   % Process the macro body under the current catcode regime.
   \scantokens{#1@comment}%
@@ -8234,10 +8233,12 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 \unbrace{\gdef\trim@@@ #1 } #2@{#1}
 }
 
-{\catcode`\^^M=\other%
-\gdef\eatleadingcr#1{\if\noexpand#1\noexpand^^M\else\E#1\fi}}%
-% Warning: this won't work for a delimited argument
-% or for an empty argument
+% Trim a single leading ^^M off a string.
+{\catcode`\^^M=\active \catcode`\Q=3%
+\gdef\eatleadingcr #1{\eatlcra Q#1Q^^MQ}%
+\gdef\eatlcra #1Q^^M{\eatlcrb #1Q}%
+\gdef\eatlcrb Q#1Q#2Q{#1}%
+}
 
 % Trim a single trailing ^^M off a string.
 {\catcode`\^^M=\other \catcode`\Q=3%
@@ -8392,7 +8393,6 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \let\hash\relax
   % \hash is redefined to `#' later to get it into definitions
   \let\xeatspaces\relax
-  \let\xempty\relax
   \parsemargdefxxx#1,;,%
   \ifnum\paramno<10\relax\else
     \paramno0\relax
@@ -8404,11 +8404,9 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \else \let\next=\parsemargdefxxx
     \advance\paramno by 1
     \expandafter\edef\csname macarg.\eatspaces{#1}\endcsname
-        {\xeatspaces{\hash\the\paramno\noexpand\xempty{}}}%
+        {\xeatspaces{\hash\the\paramno}}%
     \edef\paramlist{\paramlist\hash\the\paramno,}%
   \fi\next}
-% the \xempty{} is to give \eatleadingcr an argument in the case of an
-% empty macro argument.
 
 % \parsemacbody, \parsermacbody
 %
@@ -8978,7 +8976,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 %
 \def\savesf{\relax \ifhmode \savesfregister=\spacefactor \fi}
 \def\restoresf{\relax \ifhmode \spacefactor=\savesfregister \fi}
-\def\anchor#1{\savesf \setref{#1}{Ynothing}\restoresf \ignorespaces}
+\def\anchor#1{\savesf \setref{#1}{Yanchor}\restoresf \ignorespaces}
 
 % \setref{NAME}{SNT} defines a cross-reference point NAME (a node or an
 % anchor), which consists of three parts:
@@ -9163,13 +9161,18 @@ might help (with 'rm \jobname.?? \jobname.??s')%
         % It is in another manual, so we don't have it; use node name.
         \def\printedrefname{\ignorespaces #1}%
       \else
-        \ifhavexrefs
-          % We (should) know the real title if we have the xref values.
-          \def\printedrefname{\refx{#1-title}}%
-        \else
-          % Otherwise just copy the Info node name.
+        \getrefx{#1-snt}\tmp
+        \ifx\tmp\Yanchor % reference to anchor
           \def\printedrefname{\ignorespaces #1}%
-        \fi%
+        \else
+          \ifhavexrefs
+            % We (should) know the real title if we have the xref values.
+            \def\printedrefname{\refx{#1-title}}%
+          \else
+            % Otherwise just copy the Info node name.
+            \def\printedrefname{\ignorespaces #1}%
+          \fi
+        \fi
       \fi
     \fi
   \fi
@@ -9281,6 +9284,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 %
 \def\Ynothing{}
 \def\Yomitfromtoc{}
+\def\Yanchor{\isanchor} \let\isanchor\relax
 \def\Ynumbered{%
   \ifnum\secno=0
     \putwordChapter@tie \the\chapno
@@ -9307,14 +9311,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 
 % \refx{NAME} - reference a cross-reference string named NAME.
 \def\refx#1{%
-  \requireauxfile
-  {%
-    \indexnofonts
-    \turnoffactive
-    \def\value##1{##1}%
-    \expandafter\global\expandafter\let\expandafter\thisrefX
-      \csname XR#1\endcsname
-  }%
+  \getrefx{#1}\thisrefX
   \ifx\thisrefX\relax
     % If not defined, say something at least.
     \angleleft un\-de\-fined\angleright
@@ -9333,6 +9330,17 @@ might help (with 'rm \jobname.?? \jobname.??s')%
     % It's defined, so just use it.
     \thisrefX
   \fi
+}
+
+% Set #2 to xref string #1
+\def\getrefx#1#2{%
+  \requireauxfile
+  {%
+    \indexnofonts
+    \turnoffactive
+    \def\value##1{##1}%
+    \expandafter\global\expandafter\let\expandafter#2\csname XR#1\endcsname
+  }%
 }
 
 % This is the macro invoked by entries in the aux file.  Define a control 
