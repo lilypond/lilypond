@@ -119,10 +119,10 @@ c4\5 e\4 g2\3
 
 Quand les indications de doigté et de numéro de corde sont attachées à
 une même note, leur positionnement respectif peut se gérer à l'aide de
-la propriété @code{script-priority} property -- @pxref{Contrôle de
-l'ordre vertical des articulations et ornements} et @ref{Default values
-for script-priority}. Leur ordre d'apparition dans la source n'a donc
-aucune importance.
+la propriété @code{script-priority} property -- @pxref{Controlling the
+vertical ordering of scripts,, Contrôle de l'ordre vertical des
+articulations et ornements} et @ref{Default values for script-priority}.
+Leur ordre d'apparition dans la source n'a donc aucune importance.
 
 @lilypond[verbatim,quote,fragment]
 \clef "treble_8"

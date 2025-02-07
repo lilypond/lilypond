@@ -451,7 +451,7 @@ music = {
 
 @snippets
 
-@anchor{譜を跨ぐ符幹}
+@anchor{Cross-staff stems}
 @cindex cross-staff note (譜を跨ぐ音符)
 @cindex note, cross-staff (譜を跨ぐ音符)
 @cindex cross-staff stem (譜を跨ぐ符幹)

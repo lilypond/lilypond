@@ -250,7 +250,7 @@ objects, Positionnement des objets}.
 @cindex scripts, ordre vertical
 @cindex vertical, ordre des scripts
 @funindex script-priority
-@anchor{Contrôle de l'ordre vertical des articulations et ornements}
+@anchor{Controlling the vertical ordering of scripts}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/controlling-the-vertical-ordering-of-scripts.ly}
 @xref{Default values for script-priority}.
@@ -1355,13 +1355,13 @@ Un glissando est indiqué graphiquement, par une ligne ou des vaguelettes
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adding-timing-marks-to-long-glissandi.ly}
 
-@anchor{Saut de ligne et glissando}
+@anchor{Making glissandi breakable}
 @cindex glissando tronqué
 @cindex tronqué, glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/making-glissandi-breakable.ly}
 
-@anchor{Rappel du glissando à l’occasion d’une alternative}
+@anchor{Extending glissandi across repeats}
 @cindex glissando et reprise
 @cindex reprise et glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1547,7 +1547,7 @@ connectées.
 
 La manière simple de créer des lignes d'arpège sous forme de parenthèse
 n'est pas opérationnelle pour des arpèges inter-portées ;
-@pxref{Hampes et changements de portée}.
+@pxref{Cross-staff stems,, Hampes et changements de portée}.
 
 
 @node Trills

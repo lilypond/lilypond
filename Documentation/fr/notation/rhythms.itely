@@ -512,7 +512,7 @@ Une liaison de tenue sans note d'arrivée est une articulation de
 @dfn{laissez vibrer} -- @pxref{Laissez vibrer} pour la commande
 @code{\laissezVibrer}. Une liaison de tenue venant de nulle part, comme
 celles qui peuvent apparaître en début de section alternative, s'indique
-par la commande @code{\repeatTie} -- @pxref{Tenue et reprise}.
+par la commande @code{\repeatTie} -- @pxref{Repeat tie,, Tenue et reprise}.
 
 @warning{Une liaison de tenue ne doit pas être confondue avec une
 liaison d'@strong{articulation} ou de @strong{phrasé}. Une liaison de
@@ -570,7 +570,7 @@ accords.
 }
 @end lilypond
 
-@anchor{Tenue et reprise}
+@anchor{Repeat tie}
 @cindex liaison de tenue et répétition
 @cindex répétition et liaison de tenue
 @cindex reprise avec alternative et liaison de prolongation
@@ -2477,7 +2477,7 @@ possibles ; @pxref{Setting automatic beam behavior}.
 
 @snippets
 
-@anchor{Ligature au moment d'un saut de ligne}
+@anchor{Beams across line breaks}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/beams-across-line-breaks.ly}
 
@@ -4557,7 +4557,7 @@ même expression.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/redefining-grace-note-global-defaults.ly}
 
-@anchor{Positionnement des notes d'ornement avec espace flottant}
+@anchor{Positioning grace notes with floating space}
 @cindex orenement, espacement
 @cindex espacement, ornement
 @lilypondfile[verbatim,quote,texidoc,doctitle]

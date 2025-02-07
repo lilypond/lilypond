@@ -3277,7 +3277,7 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 なぜなら、その休符の上に加線が自動的に挿入されるからです。
 
 正確な値と不正確な値の違いについては、
-@rnotation{タイを手動で譜刻する} を参照してください。
+@rnotation{Engraving ties manually} を参照してください。
 
 
 @node The extra-offset property

@@ -1290,7 +1290,7 @@ in @ref{Line styles}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/making-glissandi-breakable.ly}
 
-@anchor{Estendere i glissandi sulle volte delle ripetizioni}
+@anchor{Extending glissandi across repeats}
 @cindex glissando, attraverso le ripetizioni
 @cindex ripetizione e glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1474,7 +1474,7 @@ Non è possibile mostrare simultaneamente arpeggi connessi e non connessi in un
 
 L'arpeggio in forma di parentesi non può essere impostato con facilità negli
 arpeggi che attraversano i righi; occorre ricorrere a metodi più complessi
-descritti in @ref{Gambi trasversali ai righi}.
+descritti in @ref{Cross-staff stems,, Gambi trasversali ai righi}.
 
 
 @node Trills

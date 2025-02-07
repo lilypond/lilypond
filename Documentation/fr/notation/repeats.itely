@@ -894,7 +894,7 @@ la reprise.
 L'aspect visuel d'une liaison se continuant dans les autres
 alternatives, peut être simulé à l'aide de la commande @code{\repeatTie}
 lorsqu'elle s'arrête sur sa première note -- méthode qui cependant ne
-fonctionne pas pour un @code{TabStaff} ; @pxref{Tenue et reprise}.
+fonctionne pas pour un @code{TabStaff} ; @pxref{Repeat tie,, Tenue et reprise}.
 D'autres moyens existent pour indiquer la prolongation d'une liaison sur
 des alternatives, y compris dans un @code{TabStaff}, en suivant les
 préceptes donnés à la rubrique @ref{Modifying ties and slurs}.
@@ -902,7 +902,8 @@ préceptes donnés à la rubrique @ref{Modifying ties and slurs}.
 L'aspect visuel d'un glissando se continuant dans les autres
 alternatives peut être simulé à l'aide d'un glissando partant d'une note
 d'ornement supplémentaire et masquée. Un exemple se trouve à la rubrique
-@xref{Rappel du glissando à l’occasion d’une alternative}.
+@xref{Extending glissandi across repeats,, Rappel du glissando à
+l’occasion d’une alternative}.
 
 Le développement, à l'aide de la commande @code{\unfoldRepeats}, d'une
 répétition qui commence sur une mesure incomplète et contient un bloc

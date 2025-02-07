@@ -679,7 +679,7 @@ L.v. タイは以下のように入力します:
 @cindex tie, manual engraving (タイを手動で譜刻する)
 @cindex manual engraving of ties (タイを手動で譜刻する)
 @funindex TieColumn
-@anchor{タイを手動で譜刻する}
+@anchor{Engraving ties manually}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/engraving-ties-manually.ly}
 

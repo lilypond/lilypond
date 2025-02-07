@@ -4141,16 +4141,18 @@ réglages en usage dans la notation proportionnelle.
 @indentedblock
 @table @code
 @item \override SpacingSpanner.strict-grace-spacing = ##t
-espace les notes d'ornement de manière stricte (@pxref{Positionnement
-des notes d'ornement avec espace flottant})
+espace les notes d'ornement de manière stricte (@pxref{Positioning grace
+notes with floating space,, Positionnement des notes d'ornement avec
+espace flottant})
 @item \set tupletFullLength = ##t
 étend le crochet de n-olet pour indiquer rhytmiquement ses points de
 début et de fin
 @item \override Beam.breakable = ##t
-permet d'interrompre des ligatures (@pxref{Ligature au moment d'un saut
-de ligne})
+permet d'interrompre des ligatures (@pxref{Beams across line breaks,,
+Ligature au moment d'un saut de ligne})
 @item \override Glissando.breakable = ##t
-permet d'interrompre des glissandos (@pxref{Saut de ligne et glissando})
+permet d'interrompre des glissandos (@pxref{Making glissandi breakable,,
+Saut de ligne et glissando})
 @item \remove Forbid_line_break_engraver
 autorise les sauts de lignes même lorsqu'un élément musical est encore
 actif (@pxref{Line breaking})
