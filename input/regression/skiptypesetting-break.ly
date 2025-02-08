@@ -1,4 +1,4 @@
-\version "2.25.24"
+\version "2.25.25"
 
 \header {
   texidoc = "The placeholder symbol for material skipped with
@@ -20,7 +20,7 @@ The second line should end with a final bar line after the word STOP.
 }
 
 #(define (x-text-by-dir grob)
-  (let ((dir (ly:grob-property grob 'ellipsis-direction CENTER)))
+  (let ((dir (ly:grob-property grob 'passage-direction CENTER)))
    (cond
     ((= START dir) "START")
     ((= STOP dir) "STOP")

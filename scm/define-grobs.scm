@@ -3120,8 +3120,11 @@ space.")))))
     (StaffEllipsis ; indicates a cut made by skipTypesetting = ##t
      . (
         (break-align-symbol . staff-ellipsis)
-        (break-visibility . ,staff-ellipsis::break-visibility)
-        (ellipsis-direction . ,CENTER)
+        (break-visibility . ,passage-delimiter::break-visibility)
+        (break-visibility-passage-end . ,begin-of-line-invisible)
+        (break-visibility-passage-default . ,begin-of-line-invisible)
+        (break-visibility-passage-start . ,end-of-line-invisible)
+        (passage-direction . ,CENTER)
         (layer . 1)
         (non-musical . #t)
         (space-alist . (
@@ -3151,6 +3154,7 @@ space.")))))
         (meta . ((class . Item)
                  (interfaces . (break-aligned-interface
                                 font-interface
+                                passage-delimiter-interface
                                 staff-ellipsis-interface
                                 text-interface))
                  (description . "A visual marker (usually three

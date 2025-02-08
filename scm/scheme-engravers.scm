@@ -1394,7 +1394,7 @@ the sticky spanner attached to it has its end announced too.")))
         ;; If we haven't done any typesetting yet, this ellipsis qualifies as a
         ;; START ellipsis.
         (when first-time?
-          (ly:grob-set-property! ellipsis 'ellipsis-direction START)))
+          (ly:grob-set-property! ellipsis 'passage-direction START)))
       (set! first-time? #f))
 
      ((stop-translation-timestep engraver)
@@ -1402,7 +1402,7 @@ the sticky spanner attached to it has its end announced too.")))
 
      ((finalize engraver)
       (when ellipsis
-        (ly:grob-set-property! ellipsis 'ellipsis-direction STOP))))))
+        (ly:grob-set-property! ellipsis 'passage-direction STOP))))))
 
 (ly:register-translator
  Skip_typesetting_engraver 'Skip_typesetting_engraver

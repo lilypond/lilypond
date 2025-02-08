@@ -370,7 +370,7 @@ setting of @code{details.bow-direction}.
  'staff-ellipsis-interface
  "A visual marker (usually three consecutive dots) to indicate that typesetting
 of music is skipped."
- '(ellipsis-direction))
+ '())
 
 (ly:add-interface
  'staff-highlight-interface

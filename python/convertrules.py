@@ -5514,6 +5514,14 @@ Refer to part-combiner.scm for more information.
     return s
 
 
+@rule((2, 25, 25), r"""
+ellipsis-direction -> passage-direction
+""")
+def conv(s):
+    s = re.sub(r'\bellipsis-direction\b', r'passage-direction', s)
+    return s;
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
