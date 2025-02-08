@@ -2253,10 +2253,15 @@ time =
 
 The optional number list @var{beat-structure} additionally sets a beat
 structure.")
-  (make-music 'TimeSignatureMusic
-              'numerator (car fraction)
-              'denominator (cdr fraction)
-              'beat-structure beat-structure))
+   (cond
+    ((not (positive-fraction? fraction))
+     (ly:input-warning (*location*) (G_ "unsupported time signature"))
+     (make-music 'Music))
+    (else
+     (make-music 'TimeSignatureMusic
+                 'numerator (car fraction)
+                 'denominator (cdr fraction)
+                 'beat-structure beat-structure))))
 
 times =
 #(define-music-function (fraction music) (fraction? ly:music?)
