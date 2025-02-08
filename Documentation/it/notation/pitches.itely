@@ -747,7 +747,7 @@ falliscono, mentre il secondo non fallisce.
 
 @morerefs
 Frammenti di codice:
-@rlsr{Pitches, Altezze}.
+@rlsrnamed{Pitches, Altezze}.
 
 Guida al funzionamento interno:
 @rinternals{RelativeOctaveCheck}.

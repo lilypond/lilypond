@@ -1378,8 +1378,8 @@ Bir geliştirici, Emacs için bir ana mod olan
 Eğer Emacs'a alışkın değilseniz, muhtemelen LilyPond girdi dosyalarını yazmak
 için farklı bir düzenleyici kullanmayı tercih edebililrsiniz.
 
-Emacs kurulumu hakkında daha fazla bilgiye, @rprogram{Metin düzenleyici desteği}
-bölümünde ulaşabilirsiniz.
+Emacs kurulumu hakkında daha fazla bilgiye, @rprogramnamed{Text editor
+support, Metin düzenleyici desteği} bölümünde ulaşabilirsiniz.
 
 @subsubheading Vim
 @uref{https://www.vim.org}
@@ -1389,7 +1389,7 @@ bir uzantısıdır.  Aynı zamanda genişletilebilir ve yapılandırılabilirdir
 Eğer Vi'ye alışkın değilseniz, muhtemelen LilyPond giriş dosyalarını yazmak için
 farklı bir düzenleyici kullanmayı tercih edebilirsiniz.
 
-Vim kurulumu hakkında daha fazla bilgiye, @rprogram{Text editor support, Metin
+Vim kurulumu hakkında daha fazla bilgiye, @rprogramnamed{Text editor support, Metin
 düzenleyici desteği} bölümünde ulaşabilirsiniz.
 
 @sourceimage{logo-macosx,,}

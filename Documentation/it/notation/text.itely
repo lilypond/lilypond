@@ -328,7 +328,7 @@ Guida al funzionamento interno:
 @funindex \markup
 
 Un blocco @code{\markup} può esistere di per sé, fuori da qualsiasi
-blocco @code{\score}, come un'@tie{@qq{espressione di livello superiore}}.  Questa
+blocco @code{\score}, come un'@tie{}@qq{espressione di livello superiore}.  Questa
 sintassi è descritta in @ref{File structure}.
 
 @lilypond[verbatim,quote]

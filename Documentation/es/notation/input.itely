@@ -3988,10 +3988,6 @@ de cómo interpreta estos valores.
 @node Enhancing MIDI output
 @subsection Enriquecimiento de la salida MIDI
 
-@menu
-* The articulate script::
-@end menu
-
 La salida MIDI predeterminada es muy básica, pero se puede
 mejorar mediante la selección de los instrumentos MIDI las
 propiedades del bloque @code{\midi} y/o usando el script

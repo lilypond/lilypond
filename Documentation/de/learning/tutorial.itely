@@ -757,7 +757,7 @@ Lesen Sie @ref{Tweaking output} in diesem Handbuch.
 @item
 @strong{Bevor Sie sich an ein größeres Projekt machen}: Lesen
 Sie den Abschnitt
-@rprogram{Vorschläge, wie man Dateien schreibt}
+@rprogramnamed{Suggestions for writing files,Vorschläge zum Schreiben von LilyPond-Eingabe-Dateien}
 in der Programmbenutzung.
 
 @end itemize

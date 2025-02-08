@@ -2193,7 +2193,8 @@ definita nell'interfaccia @code{grob-interface} ed è quindi una proprietà di
 tutti gli oggetti di formattazione.  Il valore predefinito è @code{#f} per
 tutti gli oggetti interni al rigo e un valore numerico appropriato, determinato
 al momento della creazione dell'oggetto, per ogni oggetto esterno al rigo.
-Si veda la tabella dettagliata in @rnotation{Valori prefefiniti di outside-staff-priority}.
+Si veda la tabella dettagliata in @rnotationnamed{Default values for
+outside-staff-priority, Valori predefiniti di outside-staff-priority}.
 
 @cindex estensori (spanner)
 @cindex spanner

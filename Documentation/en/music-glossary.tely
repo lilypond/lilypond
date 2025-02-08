@@ -2356,7 +2356,8 @@ all) instruments that play in concert pitch:
 
 @end multitable
 
-@ignore This needs to be reworked.
+@c This needs to be reworked.
+@ignore
 The trombones are a special case: although they are said to be @q{in F} (alto or
 bass) or @q{in B-flat} (tenor), this refers to their fundamental note, not to
 their parts' transposition.  (In fact, the trombones' parts are written at
@@ -8622,14 +8623,13 @@ Not all transposing instruments include the pitch class in their name:
 @item Saxophones (in B-flat or E-flat)
 @end itemize
 
-@ignore Can we do better?
-
+@c Can we do better?
+@ignore
 To make matters more complex, some instruments are transposing instruments,
 but their players play from parts written at concert pitch.  This is the
 case for orchestral trombone and tuba players—whereas trombone players in
 brass bands treat their parts as if written for a true transposing
 instrument in B-flat.
-
 @end ignore
 
 @morerefs

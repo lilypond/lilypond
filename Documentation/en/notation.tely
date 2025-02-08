@@ -57,6 +57,8 @@ Copyright @copyright{} 1998--2023 by the authors.
 
 Appendices
 
+* Markup commands::                Detailed description of all
+    markup commands.
 * Notation manual tables::         Tables and charts.
 * Cheat sheet::                    Summary of LilyPond syntax.
 * GNU Free Documentation License:: License of this document.

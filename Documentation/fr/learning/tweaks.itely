@@ -3056,8 +3056,8 @@ premier essai pour voir :
 
 @cindex @code{VerticalAxisGroup}
 @cindex @code{padding}, sous-propriété
-+@cindex @code{nonstaff-relatedstaff-spacing}, propriété
-+@cindex @code{nonstaff-unrelatedstaff-spacing}, propriété
+@cindex @code{nonstaff-relatedstaff-spacing}, propriété
+@cindex @code{nonstaff-unrelatedstaff-spacing}, propriété
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 <<

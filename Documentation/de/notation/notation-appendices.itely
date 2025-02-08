@@ -1807,7 +1807,7 @@ oder auch @qq{Schnittstelle} (engl. interface) bezeichnet wird.
 Handbuch zum Lernen:
 @rlearningnamed{Objects and interfaces, Objekte und Schnittstellen},
 @rlearningnamed{Naming conventions of objects and properties, Regeln zur Benennung von Objekten und Eigenschaften},
-@rlearning{Eigenschaften, die Schnittstellen besitzen können}.
+@rlearningnamed{Properties found in interfaces, Eigenschaften@comma{} die Schnittstellen besitzen können}.
 
 Notationsreferenz:
 @ref{Layout interfaces}.

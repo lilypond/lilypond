@@ -482,7 +482,7 @@ Manuel de notation :
 @ref{Section divisions}.
 
 Morceaux choisis :
-@rlsr{Repeats, Reprises}.
+@rlsrnamed{Repeats, Reprises}.
 
 Référence des propriétés internes :
 @rinternals{FineEvent},
