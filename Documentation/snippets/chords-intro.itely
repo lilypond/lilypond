@@ -1,11 +1,10 @@
 @node Chords
 @unnumbered Chords
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Chords: \TEXT\
-@end macro
+@set lyprefix Chords
 
-@rnotation{Chord notation}
+See also @rnotation{Chord notation}.
+
+@lymenu
 
 @lysnippets

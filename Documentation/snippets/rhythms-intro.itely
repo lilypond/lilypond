@@ -1,11 +1,10 @@
 @node Rhythms
 @unnumbered Rhythms
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Rhythms: \TEXT\
-@end macro
+@set lyprefix Rhythms
 
-@rnotation{Rhythms}
+See also @rnotation{Rhythms}.
+
+@lymenu
 
 @lysnippets

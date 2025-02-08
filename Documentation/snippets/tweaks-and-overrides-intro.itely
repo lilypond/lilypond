@@ -1,15 +1,12 @@
 @node Tweaks and overrides
 @unnumbered Tweaks and overrides
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Tweaks and overrides: \TEXT\
-@end macro
+@set lyprefix Tweaks and overrides
 
 @c FIXME make xref more precise when the chapter has been
 @c revised in GDP
-@rnotation{Changing defaults}
+See also @rnotation{Changing defaults} and @rlearning{Tweaking output}.
 
-@rlearning{Tweaking output}
+@lymenu
 
 @lysnippets

@@ -1,11 +1,10 @@
 @node Vocal music
 @unnumbered Vocal music
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Vocal music: \TEXT\
-@end macro
+@set lyprefix Vocal music
 
-@rnotation{Vocal music}
+See also @rnotation{Vocal music}.
+
+@lymenu
 
 @lysnippets

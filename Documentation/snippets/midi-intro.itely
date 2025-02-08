@@ -1,11 +1,10 @@
 @node MIDI
 @unnumbered MIDI
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node MIDI: \TEXT\
-@end macro
+@set lyprefix MIDI
 
-@rnotation{Creating MIDI output}
+See also @rnotation{Creating MIDI output}.
+
+@lymenu
 
 @lysnippets

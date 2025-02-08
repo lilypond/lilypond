@@ -1,11 +1,10 @@
 @node Text
 @unnumbered Text
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Text: \TEXT\
-@end macro
+@set lyprefix Text
 
-@rnotation{Text}
+See also @rnotation{Text}.
+
+@lymenu
 
 @lysnippets

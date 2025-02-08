@@ -18,13 +18,6 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-'''
-TODO:
-
- * Add @nodes, split at sections?
-'''
-
-
 import sys
 import os
 import argparse
@@ -99,7 +92,16 @@ p = argparse.ArgumentParser(
                " `.lybook`) that gets eventually included with"
                " `@musicxmlfile` or `@lilypondfile`, use its contents as"
                " additional fragment options (separated by whitespace) for"
-               " this input file.")
+               " this input file.\n"
+               "\n"
+               "If a file gets included with `@lilypondfile`, a `@node`"
+               " line is generated right before it, with its argument"
+               " enclosed in macro `@lynode` (which must be defined in the"
+               " template). If this file contains a `doctitle` field in its"
+               " `\\header` block, it uses the `doctitle` value as the"
+               " `@node` argument. If it doesn't contain such a field (or"
+               " if the file can't be read), the file name is used as the"
+               " argument for `@node`.")
 
 p.add_argument(
     '-f', '--fragment-options',
@@ -198,6 +200,14 @@ template_default = rf'''\input texinfo
 @documentencoding UTF-8
 @afourpaper
 
+@macro lynode{{TEXT}}
+@node \TEXT\
+@end macro
+
+@macro lyentry{{TEXT}}
+\TEXT\
+@end macro
+
 @finalout @c we do not want black boxes.
 
 @titlepage
@@ -222,6 +232,31 @@ if options.template:
     f = find_file(options.template)
     if f is not None:
         template = open(f, 'r', encoding='utf-8').read()
+
+
+doctitle_re = re.compile(r'''(?sx)
+    \\header \s* {
+      .*? \s
+      doctitle \s* = \s* " ( (?: [^"\\] | \\. )* ) "
+    \s .*? }''')
+
+
+def get_node_name(ly_file):
+    node_name = os.path.basename(ly_file)
+
+    f = find_file(ly_file)
+    if f is not None:
+        ly = open(f, encoding='utf-8').read()
+        m = doctitle_re.search(ly)
+        if m:
+            # Replace newlines with spaces as a safety measure.
+            node_name = ' '.join(m.group(1).split())
+
+    # ',' and ':' must be protected since they can cause trouble with
+    # `@node`.  We also undo '\"'.
+    return (node_name.replace(',', '@comma{}')
+                     .replace(':', '@asis{:}')
+                     .replace(r'\"', '"'))
 
 
 html_file_re = re.compile(r'.*\.i?html?$')
@@ -275,6 +310,7 @@ def name2line(n):
 
     else:
         # Assume it's a LilyPond file -> create image, etc.
+        node_name = get_node_name(n)
         s = r"""
 @ifhtml
 @html
@@ -282,16 +318,26 @@ def name2line(n):
 @end html
 @end ifhtml
 
+@lynode{%s}
 @lilypondfile[%s]{%s}
 """ % (os.path.basename(n),
+       node_name,
        options.fragment_options + fragment_options_string,
        options.prefix + n)
+
     return s
 
 
 if files:
-    s = "\n".join(map(name2line, files))
-    s = template.replace(include_snippets, s, 1)
+    snippet_list = []
+
+    for f in files:
+        snippet = name2line(f)
+        snippet_list.append(snippet)
+
+    snippets = '\n'.join(snippet_list)
+
+    s = template.replace(include_snippets, snippets, 1)
     h = open(options.output, "w", encoding="utf8")
     h.write(s)
     h.close()

@@ -1,11 +1,10 @@
 @node Pitches
 @unnumbered Pitches
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Pitches: \TEXT\
-@end macro
+@set lyprefix Pitches
 
-@rnotation{Pitches}
+See also @rnotation{Pitches}.
+
+@lymenu
 
 @lysnippets

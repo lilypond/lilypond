@@ -1,11 +1,10 @@
 @node Spacing
 @unnumbered Spacing
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Spacing: \TEXT\
-@end macro
+@set lyprefix Spacing
 
-@rnotation{Spacing issues}
+See also @rnotation{Spacing issues}.
+
+@lymenu
 
 @lysnippets

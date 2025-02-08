@@ -1,15 +1,13 @@
 @node Contexts and engravers
 @unnumbered Contexts and engravers
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Contexts and engravers: \TEXT\
-@end macro
+@set lyprefix Contexts and engravers
 
 @c FIXME make xref more precise when the chapter has been
 @c revised in GDP
-@rnotation{Changing defaults}
+See also @rnotation{Changing defaults} and
+@rlearning{Contexts and engravers}.
 
-@rlearning{Contexts and engravers}
+@lymenu
 
 @lysnippets

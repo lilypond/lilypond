@@ -1,11 +1,10 @@
 @node Expressive marks
 @unnumbered Expressive marks
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Expressive marks: \TEXT\
-@end macro
+@set lyprefix Expressive marks
 
-@rnotation{Expressive marks}
+See also @rnotation{Expressive marks}.
+
+@lymenu
 
 @lysnippets

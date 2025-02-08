@@ -587,11 +587,12 @@ $(outdir)/snippets/%.itely: snippets/%-intro.itely snippets/%.snippet-list
 	$(call ly_progress,Making,$@,)
 	mkdir -p $(dir $@)
 	xargs $(LYS_TO_TELY) \
-	  --prefix=snippets/ \
-	  -f doctitle,texidoc,verbatim \
-	  --output=$@ \
-	  --template=$< \
-	  < $(filter %.snippet-list, $^)
+		--prefix=snippets/ \
+		-f doctitle,texidoc,verbatim \
+		--output=$@ \
+		--include=$(dir $<) \
+		--template=$< \
+		< $(filter %.snippet-list, $^)
 
 $(outdir)/snippets/dep: $(SNIPPET_LY_FILES)
 	$(call ly_progress,Making,$@,)

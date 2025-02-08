@@ -1,11 +1,10 @@
 @node Unfretted strings
 @unnumbered Unfretted strings
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Unfretted strings: \TEXT\
-@end macro
+@set lyprefix Unfretted strings
 
-@rnotation{Unfretted string instruments}
+See also @rnotation{Unfretted string instruments}.
+
+@lymenu
 
 @lysnippets

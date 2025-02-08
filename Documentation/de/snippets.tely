@@ -44,13 +44,21 @@ Copyright @copyright{} 1999--2023 by the authors.
 
 @include de/macros.itexi
 
-@unmacro lydoctitle
-
-@c `@lsrnode` must be redefined for every included snippet section
-@c to provide a proper node name prefix.
+@c `@lyprefix` must be redefined for every included snippet section
+@c to provide a proper node name and menu prefix.
 @c
+@set lyprefix
+
+@macro lynode{TEXT}
+@node @value{lyprefix} - \TEXT\
+@end macro
+
+@macro lyentry{TEXT}
+@value{lyprefix} - \TEXT\
+@end macro
+
+@unmacro lydoctitle
 @macro lydoctitle{TEXT}
-@lsrnode \TEXT\
 @unnumberedsec \TEXT\
 @end macro
 

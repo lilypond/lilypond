@@ -1,11 +1,10 @@
 @node Percussion
 @unnumbered Percussion
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Percussion: \TEXT\
-@end macro
+@set lyprefix Percussion
 
-@rnotation{Percussion}
+See also @rnotation{Percussion}.
+
+@lymenu
 
 @lysnippets

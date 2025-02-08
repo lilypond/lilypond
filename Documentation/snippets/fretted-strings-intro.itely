@@ -1,11 +1,10 @@
 @node Fretted strings
 @unnumbered Fretted strings
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Fretted strings: \TEXT\
-@end macro
+@set lyprefix Fretted strings
 
-@rnotation{Fretted string instruments}
+See also @rnotation{Fretted string instruments}.
+
+@lymenu
 
 @lysnippets

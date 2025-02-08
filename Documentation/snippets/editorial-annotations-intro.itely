@@ -1,11 +1,10 @@
 @node Editorial annotations
 @unnumbered Editorial annotations
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Editorial annotations: \TEXT\
-@end macro
+@set lyprefix Editorial annotations
 
-@rnotation{Editorial annotations}
+See also @rnotation{Editorial annotations}.
+
+@lymenu
 
 @lysnippets

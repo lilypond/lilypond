@@ -1,11 +1,10 @@
 @node Winds
 @unnumbered Winds
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Winds: \TEXT\
-@end macro
+@set lyprefix Winds
 
-@rnotation{Wind instruments}
+See also @rnotation{Wind instruments}.
+
+@lymenu
 
 @lysnippets

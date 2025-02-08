@@ -1,11 +1,10 @@
 @node Staff notation
 @unnumbered Staff notation
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Staff notation: \TEXT\
-@end macro
+@set lyprefix Staff notation
 
-@rnotation{Staff notation}
+See also @rnotation{Staff notation}.
+
+@lymenu
 
 @lysnippets

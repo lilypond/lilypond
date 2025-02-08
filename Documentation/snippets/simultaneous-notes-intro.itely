@@ -1,11 +1,10 @@
 @node Simultaneous notes
 @unnumbered Simultaneous notes
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node Simultaneous notes: \TEXT\
-@end macro
+@set lyprefix Simultaneous notes
 
-@rnotation{Simultaneous notes}
+See also @rnotation{Simultaneous notes}.
+
+@lymenu
 
 @lysnippets

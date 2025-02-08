@@ -1,11 +1,10 @@
 @node World music
 @unnumbered World music
 
-@unmacro lsrnode
-@macro lsrnode{TEXT}
-@node World music: \TEXT\
-@end macro
+@set lyprefix World music
 
-@rnotation{World music}
+See also @rnotation{World music}.
+
+@lymenu
 
 @lysnippets
