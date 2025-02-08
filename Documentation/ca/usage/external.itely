@@ -406,7 +406,7 @@ syntax on
 
 Si el LilyPond no està instal·lat al directori @file{/usr/local/},
 canviï aquesta ruta d'una forma adequada.  D'aquest tema es parla
-a @rlearning{Altres fonts d'informació}.
+a @rlearningnamed{Other sources of information, Altres fonts d'informació}.
 
 @node Other editors
 @unnumberedsubsec Altres editors
@@ -415,7 +415,7 @@ Altres editors (de text aixi com també gràfics) tenen suport per
 al LilyPond, pero els seus fitxers especials de configuració no es
 distribueixen amb el LilyPond.  Heu de consultar la documentació
 d'aquests programes per obtenir més informació.  Aquests editors
-s'expliquen a @rweb{Entorns millorats}.
+s'expliquen a @rwebnamed{Easier editing, Entorns millorats}.
 
 @node Converting from other formats
 @section Conversió des d'altres formats
@@ -433,7 +433,7 @@ dit, i s'executen des de la línia d'ordres;
 
 Són programes diferents a @command{lilypond} pròpiament dit, i
 s'executen dins la línia d'ordres; consulteu
-@ref{Utilització des de la línia d'ordres} per veure més
+@ref{Command-line usage} per veure més
 informació.  Si teniu MacOS 10.3 o 10.4 i teniu problemes per
 executar alguns d'aquests guions, per exemple @code{convert-ly},
 consulteu @rweb{MacOS X}.
@@ -454,7 +454,7 @@ informes d'error gairebé amb certesa no es resoldran a mig termini.
 @end menu
 
 
-@node Invocació de midi2ly
+@node Invoking midi2ly
 @subsection Invocació de @command{midi2ly}
 
 @cindex MIDI
@@ -472,7 +472,7 @@ fitxers d'un programa que té un convertidor per a un format
 directe.
 
 @command{midi2ly} converteix les pistes en contextos de
-@rinternals{Staff) i els canals en contextos de
+@rinternals{Staff} i els canals en contextos de
 @rinternals{Voice}.  S'utilitza el mode relatiu per a les altures
 i les duracions s'escriuen sols quan cal.
 
@@ -493,7 +493,7 @@ midi2ly [@var{opción}]@dots{} @var{fitxer_midi}
 
 Observeu que en dir @q{línia d'ordres}, volem dir la línia
 d'ordres del sistema operatiu.  Consulteu
-@ref{Conversió des d'altres formats} per veure més informació
+@ref{Converting from other formats} per veure més informació
 sobre això.
 
 @command{midi2ly} hi ha suport per a les opcions següents:
@@ -564,8 +564,8 @@ musicxml2ly [@var{opció}]@dots{} @var{fitxer.xml}
 @end example
 
 Observeu que per @q{línia d'ordres}, ens referim a la línia
-d'ordres del sistema operatiu.  Consulteu @ref{Conversió des
-d'altres formats}, per obtenir més informació sobre això.
+d'ordres del sistema operatiu.  Consulteu @ref{Converting from
+other formats}, per obtenir més informació sobre això.
 
 Si el nom de fitxer proporcionat és @file{-} enlloc de
 @var{fitxer.xml}, @command{musicxml2ly} llegeix tota l'entrada
@@ -763,7 +763,7 @@ etf2ly [@var{opció}]@dots{} @var{fitxer_etf}
 
 Observeu que per @q{línia d'ordres}, ens referim a la línia
 d'ordres del sistema operatiu.  Consulteu
-@ref{Conversió des d'altres formats}, para obtenir més
+@ref{Converting from other formats}, para obtenir més
 informació sobre això.
 
 @command{etf2ly} suporta les opcions següents:
@@ -791,7 +791,7 @@ finalitzades satisfactòriament.
 El propi LilyPond no dóna suport a la utilització de cap altre
 format, però hi ha algunes eines externes que també generen
 fitxers del LilyPond.  Podeu trobar una llista a la secció
-@rweb{Entorns millorats}.
+@rwebnamed{Easier editing, Entorns millorats}.
 
 
 @node LilyPond output in other programs
@@ -888,7 +888,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 
 Cal citar molts fragments d'una partitura gran, també podeu usar
 la funcionalitat clip-systems de retallada de sistemes, vegeu
-@ruser{Extracció de fragments de música}.
+@rnotationnamed{Extracting fragments of music, Extracció de fragments de música}.
 
 
 @node Independent includes
@@ -898,14 +898,14 @@ Alguns usuaris han produït fitxers que es poden incloure amb
 l'ordre @code{\include} al LilyPond per produir certs efectes, i
 els que s'indiquen més avall formen part de la distribució del
 LilyPond. Vegeu també
-@ruser{Treball sobre els fitxers d'entrada}
+@rnotationnamed{Working with input files, Treball sobre els fitxers d'entrada}
 
 @menu
 * MIDI articulation::
 @end menu
 
 
-@node Articulació MIDI
+@node MIDI articulation
 @subsection Articulació MIDI
 
 @cindex MIDI
@@ -917,4 +917,4 @@ funciona ajustant la duració de les notes (que no estiguin sota
 lligadures d'expressió) d'acord amb les articulacions que porti
 cadascuna.  Per exemple, un @q{staccato} redueix la duració a la
 meitat.  @q{tenuto} dóna a una nota la duració completa, etc.  Vegeu
-@ruser{Enriquiment de la sortida MIDI}.
+@rnotationnamed{Enhancing MIDI output, Enriquiment de la sortida MIDI}.
