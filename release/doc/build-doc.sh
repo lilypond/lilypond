@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-IMAGE="registry.gitlab.com/lilypond/lilypond/doc/ubuntu-22.04:20240516"
+IMAGE="registry.gitlab.com/lilypond/lilypond/doc/ubuntu-22.04:20250209"
 
 if [ $# -lt 1 ]; then
   echo "Too few arguments, pass the archive with LilyPond's source code" >&2
