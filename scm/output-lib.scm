@@ -1850,7 +1850,7 @@ some offset from zero in y-axis direction."
 ;; If Script is positioned above or below we use
 ;; `side-position-interface::y-aligned-side`, an unpure-pure-container.
 ;; Otherwise we look into the grob-object 'grob-defaults (provided by the
-;; engraver) for a possible setting of 'Y-offset  or use zero.
+;; engraver) for a possible setting of 'staff-position or use zero.
   (let ((variant
          (lambda (accessor)
            (lambda (grob . rest)
@@ -1859,8 +1859,6 @@ some offset from zero in y-axis direction."
                         (articulation-type
                           (ly:prob-property cause 'articulation-type))
                         (grob-defaults (ly:grob-object grob 'grob-defaults))
-                        (staff-pos-proc
-                          (assoc-get 'staff-position (cdr grob-defaults)))
                         (head (ly:grob-parent grob Y))
                         (head-y
                           (if (grob::has-interface head 'note-head-interface)
@@ -1868,9 +1866,10 @@ some offset from zero in y-axis direction."
                               #f))
                         (staff-pos
                           (ly:grob-property grob 'staff-position #f))
+                        (staff-space (ly:staff-symbol-staff-space grob))
                         (y-off
                           (if (and head-y staff-pos)
-                              (/ (- staff-pos head-y) 2)
+                              (* staff-space (/ (- staff-pos head-y) 2))
                               0)))
                    y-off)
                  (apply
