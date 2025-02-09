@@ -1,6 +1,6 @@
 To update a container image:
 
-* [Authenticate](https://docs.gitlab.com/ee/user/packages/container_registry/#authenticate-with-the-container-registry) with the GitLab Container Registry
+* [Authenticate](https://docs.gitlab.com/ee/user/packages/container_registry/authenticate_with_container_registry.html) with the GitLab Container Registry
 
 * Build and push an image:
 
