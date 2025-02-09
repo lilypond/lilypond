@@ -56,6 +56,7 @@ include:
   - make -C flower --touch all
   - make -C lily --touch all
   - make -C mf --touch all
+  - touch scm/out/*.go
   - echo -e "section_end:`date +%s`:touch_build\r\e[0K"
 
 variables:
@@ -79,6 +80,7 @@ build:
     - mkdir build && cd build
     - ../autogen.sh $CONFIGURE_FLAGS
     - make $MAKE_FLAGS
+    - make bytecode
   artifacts:
     untracked: true
     exclude:
