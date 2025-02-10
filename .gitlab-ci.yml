@@ -168,6 +168,26 @@ check:
       - "test-results/**"
       - "**/*.fail.log"
 
+test-no-bytecode:
+  stage: test
+  rules:
+    - <<: *if-default-branch
+      when: never
+    - <<: *if-mr-to-default
+    - <<: *if-stable-branch
+    - <<: *if-schedule-or-web
+  dependencies: [ "build" ]
+  script:
+    - cd build
+    - rm scm/out/*.go
+    - *touch-build
+    - make $MAKE_FLAGS test
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - "**/*.fail.log"
+
 doc:
   stage: documentation
   rules:
