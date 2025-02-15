@@ -318,45 +318,6 @@ a fresh copy of the list-head is made."
                         (cdr remaining))
           markups))))
 
-;;; Use a centered-column inside a left-column, because the centered column
-;;; moves its reference point to the center, which the left-column undoes.
-(define (format-time-fraction time-sig-fraction)
-  (let* ((revargs (reverse (map number->string time-sig-fraction)))
-         (den (car revargs))
-         (nums (reverse (cdr revargs))))
-    (make-override-markup
-     '(baseline-skip . 0)
-     (make-left-column-markup
-      (list (make-center-column-markup
-             (list (make-line-markup (insert-markups nums "+"))
-                   den)))))))
-
-(define (format-time-numerator time-sig)
-  (make-vcenter-markup (number->string (car time-sig))))
-
-(define (format-time-element time-sig)
-  (cond ((number-pair? time-sig)
-         (format-time-fraction (list (car time-sig) (cdr time-sig))))
-        ((pair? (cdr time-sig))
-         (format-time-fraction time-sig))
-        (else
-         (format-time-numerator time-sig))))
-
-(define (format-time-list time-sig)
-  (make-override-markup '(baseline-skip . 0)
-                        (make-line-markup
-                         (insert-markups (map format-time-element time-sig)
-                                         (make-vcenter-markup "+")))))
-
-(define (format-compound-time time-sig)
-  (make-number-markup
-   (cond
-    ((number? time-sig) (format-time-element (list time-sig)))
-    ((number-pair? time-sig)
-     (format-time-element (list (car time-sig) (cdr time-sig))))
-    ((pair? (car time-sig)) (format-time-list time-sig))
-    (else (format-time-element time-sig)))))
-
 (define-markup-command (compound-meter layout props time-sig)
   (number-or-pair?)
   #:category music
@@ -384,6 +345,45 @@ list of lists, as the following example demonstrates.
 }
 @end lilypond
 "
+  ;; Use a centered-column inside a left-column, because the centered column
+  ;; moves its reference point to the center, which the left-column undoes.
+  (define (format-time-fraction time-sig-fraction)
+    (let* ((revargs (reverse (map number->string time-sig-fraction)))
+           (den (car revargs))
+           (nums (reverse (cdr revargs))))
+      (make-override-markup
+       '(baseline-skip . 0)
+       (make-left-column-markup
+        (list (make-center-column-markup
+               (list (make-line-markup (insert-markups nums "+"))
+                     den)))))))
+
+  (define (format-time-numerator time-sig)
+    (make-vcenter-markup (number->string (car time-sig))))
+
+  (define (format-time-element time-sig)
+    (cond ((number-pair? time-sig)
+           (format-time-fraction (list (car time-sig) (cdr time-sig))))
+          ((pair? (cdr time-sig))
+           (format-time-fraction time-sig))
+          (else
+           (format-time-numerator time-sig))))
+
+  (define (format-time-list time-sig)
+    (make-override-markup '(baseline-skip . 0)
+                          (make-line-markup
+                           (insert-markups (map format-time-element time-sig)
+                                           (make-vcenter-markup "+")))))
+
+  (define (format-compound-time time-sig)
+    (make-number-markup
+     (cond
+      ((number? time-sig) (format-time-element (list time-sig)))
+      ((number-pair? time-sig)
+       (format-time-element (list (car time-sig) (cdr time-sig))))
+      ((pair? (car time-sig)) (format-time-list time-sig))
+      (else (format-time-element time-sig)))))
+
   (interpret-markup layout props (format-compound-time time-sig)))
 
 
