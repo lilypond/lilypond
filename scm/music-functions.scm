@@ -1460,9 +1460,7 @@ post-event."
 
 (define-public (make-duration-of-length moment)
   "Make duration of the given @code{moment} length."
-  (ly:make-duration 0 0
-                    (ly:moment-main-numerator moment)
-                    (ly:moment-main-denominator moment)))
+  (ly:number->duration (ly:moment-main moment)))
 
 (define (make-skipped moment bool)
   "Depending on BOOL, set or unset skipTypesetting,

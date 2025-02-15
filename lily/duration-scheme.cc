@@ -98,6 +98,16 @@ of two (whole, half, quarter, etc.) and a number of augmentation dots.
   return p.smobbed_copy ();
 }
 
+LY_DEFINE (ly_number_2_duration, "ly:number->duration", 1, 0, 0, (SCM x),
+           R"(
+Convert a duration expressed in units of whole notes to a @code{ly:duration}.
+The log, number of dots, and scaling factor are chosen automatically.
+           )")
+{
+  LY_ASSERT_TYPE (is_scm<Rational>, x, 1);
+  return Duration (from_scm<Rational> (x)).smobbed_copy ();
+}
+
 LY_DEFINE (ly_duration_log, "ly:duration-log", 1, 0, 0, (SCM dur),
            R"(
 Extract the duration log from @var{dur}.

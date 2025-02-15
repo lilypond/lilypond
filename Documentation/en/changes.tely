@@ -964,6 +964,12 @@ the new inverted glyphs are named @code{scripts.dupbow} and
 @itemize
 
 @item
+The new Scheme function @code{ly:number->duration} converts a
+duration expressed in units of whole notes to a
+@code{ly:duration}.  The log, number of dots, and scaling factor
+are chosen automatically.
+
+@item
 The markup commands @code{\hspace} and @code{\vspace} are used to insert space,
 which may be negative.  Other objects are moved accordingly.  This movement may
 be indicated by arrows printed by the new markup command @code{annotate-moving}.

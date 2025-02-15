@@ -45,12 +45,21 @@ Duration::Duration (int log, int d)
 
 Duration::Duration (Rational r, bool scale)
 {
-  factor_ = Rational (1, 1);
+  if (!signbit (r))
+    {
+      factor_ = 1;
+    }
+  else
+    {
+      factor_ = -1;
+      r = -r;
+    }
 
-  if (r.num () == 0)
+  if (!isfinite (r) || (r == 0))
     {
       durlog_ = 0;
       dots_ = 0;
+      factor_ *= r;
     }
   else
     {

@@ -34,7 +34,11 @@ struct Duration : public Simple_smob<Duration>
   static const char *const type_p_name_;
   Duration ();
   Duration (int, int);
-  Duration (Rational, bool scale);
+  Duration (Rational num_whole_notes, bool scale);
+  explicit Duration (Rational num_whole_notes)
+    : Duration (num_whole_notes, true)
+  {
+  }
 
   // Convert the Duration to the equivalent number of whole notes.
   explicit operator Rational () const;
