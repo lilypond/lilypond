@@ -303,6 +303,19 @@ Certain spurious change clefs have been fixed.
 @itemize
 
 @item
+The @code{\time} command now accepts a rational number in the
+denominator to support time signatures with a beat longer than a
+whole note.
+
+@lilypond[quote,verbatim]
+{
+  \override Timing.TimeSignature.denominator-style = #'note
+  \time #'(4 . 1/2)
+  e'\breve f' g' a'
+}
+@end lilypond
+
+@item
 The @code{TimeSignature} grob and @code{\compound-@/meter} markup
 function now support number-over-note time signatures via
 @code{denominator-@/style} and related properties.

@@ -28,12 +28,11 @@ The numbers above the staff show the input in each case."
   \tempo \markup \case-label { 2 2 }
   \time 2/2 d1
 
-  %% TODO: If it becomes possible to pass values like #'(2 . 1/2) to \time,
-  %% these should be changed to do that instead of using \override.
-
   \tempo \markup \case-label { 2 ½ }
-  \once \override Timing.TimeSignature.fraction = #'(2 . 1/2)
-  \time 4/1 d\longa
+  \time #'(2 . 1/2) d\longa
+
+  %% TODO: If it becomes possible to pass values like #'(2/3 . 2) to \time,
+  %% this should be changed to do that instead of using \override.
 
   \tempo \markup \case-label { ⅔ 2 }
   \once \override Timing.TimeSignature.fraction = #'(2/3 . 2)

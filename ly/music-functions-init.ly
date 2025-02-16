@@ -2248,13 +2248,13 @@ textEndMark =
 
 time =
 #(define-music-function (beat-structure fraction)
-   ((number-list? '()) fraction?)
+   ((number-list? '()) number-pair?)
    (_i "Set @var{fraction} as a time signature.
 
 The optional number list @var{beat-structure} additionally sets a beat
 structure.")
    (cond
-    ((not (positive-fraction? fraction))
+    ((not (sane-simple-time-signature? fraction))
      (ly:input-warning (*location*) (G_ "unsupported time signature"))
      (make-music 'Music))
     (else

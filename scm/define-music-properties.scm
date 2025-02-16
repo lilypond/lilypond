@@ -78,7 +78,7 @@ with this tag.")
      (create-new ,boolean? "Create a fresh context.")
 
      (delta-step ,number? "How much should a fall change pitch?")
-     (denominator ,integer? "Denominator in a time signature.")
+     (denominator ,rational? "Denominator of a ratio.")
      (digit ,index? "Digit for fingering.")
      (diminished ,boolean? "This bass figure should be slashed.")
      (direction ,ly:dir? "Print this up or down?")
@@ -141,7 +141,7 @@ an event.")
 
      (name ,symbol? "Name of this music object.")
      (no-continuation ,boolean? "If set, disallow continuation lines.")
-     (numerator ,integer? "Numerator of a time signature.")
+     (numerator ,rational? "Numerator of a ratio.")
 
      (octavation ,integer? "This pitch was octavated by how many octaves?
 For chord inversions, this is negative.")

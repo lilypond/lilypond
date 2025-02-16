@@ -872,6 +872,7 @@ determines the number of scale steps that make up an octave.  Usually the
     (,exact-rational? . "an exact rational number")
     (,rational-or-procedure? . "an exact rational or procedure")
     (,rhythmic-location? . "rhythmic location")
+    (,sane-simple-time-signature? . "simple time signature")
     (,scale? . "non-negative rational, fraction, or moment")
     (,scheme? . "any type")
     (,ly:skyline-pair? . "pair of skylines")

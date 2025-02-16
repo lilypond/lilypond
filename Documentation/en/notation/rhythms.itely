@@ -1222,11 +1222,33 @@ Internals Reference:
 
 @funindex \time
 
-The time signature is set as follows:
+To set a basic time signature, use the @code{\time} command with
+the fraction as argument.  A denominator longer than a whole note
+requires Scheme syntax.
 
 @lilypond[quote,verbatim,fragment]
-\time 2/4 c''2
-\time 3/4 c''2.
+\time 2/4
+c''2
+
+\time 3/4
+c''2.
+
+\override Timing.TimeSignature.denominator-style = #'note
+\time #'(2 . 1/2)
+f''\breve c''
+@end lilypond
+
+Other unusual denominators may be used to add augmentation dots in
+the number-over-note style; however, to benefit the most from
+features covered elsewhere, using a conventional fraction for
+@code{\time} and overriding @code{TimeSignature@/.fraction} is
+recommended in such cases.
+
+@lilypond[quote,verbatim,fragment]
+\override Timing.TimeSignature.denominator-style = #'note
+\once \override Timing.TimeSignature.fraction = #'(2 . 8/3)
+\time 6/8
+c''8 8 8 8 8 8
 @end lilypond
 
 Mid-measure time signature changes are covered in @ref{Upbeats}.

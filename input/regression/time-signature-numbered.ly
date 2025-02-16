@@ -19,11 +19,10 @@
 
   \time 10/6 \tuplet 6/4 { d2. d2 d2. d2 }
 
-  %% TODO: If it becomes possible to pass values like #'(2 . 1/2) to \time, this
-  %% should be changed to do that instead of using \override.
+  \time #'(2 . 1/2) d\longa
 
-  \once \override Timing.TimeSignature.fraction = #'(2 . 1/2)
-  \time 4/1 d\longa
+  %% TODO: If it becomes possible to pass values like #'(2/3 . 2) to \time, this
+  %% should be changed to do that instead of using \override.
 
   \once \override Timing.TimeSignature.fraction = #'(2/3 . 2)
   \time 1/3 \tuplet 3/2 { e'4 d'4 }

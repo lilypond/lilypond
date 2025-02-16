@@ -784,9 +784,9 @@ whole notes per minute.")
      (tieWaitForNote ,boolean? "If true, tied notes do not have to
 follow each other directly.  This can be used for writing out
 arpeggios.")
-     (timeSignatureFraction ,positive-fraction? "A pair of numbers,
-signifying the time signature.  For example, @code{'(4 . 4)} is a
-4/4 time signature.")
+     (timeSignatureFraction ,sane-simple-time-signature? "A pair of numbers,
+signifying the time signature.  For example, @code{'(4 . 4)} is a 4/4 time
+signature.")
      (timeSignatureSettings ,cheap-list? "A nested alist of settings for
 time signatures.  Contains elements for various time signatures.  The
 element for each time signature contains entries for @code{beatBase},

@@ -49,6 +49,9 @@
   (and (rational? x)
        (exact? x)))
 
+(define (positive-exact-rational? x)
+  (and (rational? x) (exact? x) (positive? x)))
+
 (define-public (rational-or-procedure? x)
   (or
    (exact-rational? x)
@@ -186,6 +189,11 @@
        (every (lambda (p)
                 (symbol? (car p)))
               x)))
+
+(define-public (sane-simple-time-signature? x)
+  (and (pair? x)
+       (positive-exact-integer? (car x))
+       (positive-exact-rational? (cdr x))))
 
 (define-public (scale? x)
   (or (and (rational? x) (exact? x) (not (negative? x)))
