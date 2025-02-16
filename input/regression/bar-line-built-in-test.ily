@@ -19,11 +19,21 @@
     %% unnecessary; the point is to leave room to change the behavior
     %% of \bar in this regard without breaking this test.
     measureBarType = #'()
+
+    %% Omit volta numbers to simplify the output.  We just want to test
+    %% alignment with bar lines and whether the end is open or closed.
+    \override VoltaBracket.text = ""
   }
 }
 
 staff = \new Staff \fixed c' {
-  \bar \testBar R1 \bar \testBar R1 \bar \testBar
+  \repeat volta 2 {
+    \bar \testBar
+    \alternative {
+      \volta 1 { R1 \bar \testBar }
+      \volta 2 { R1 \bar \testBar }
+    }
+  }
 }
 
 \score {
