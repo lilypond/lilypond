@@ -3227,7 +3227,7 @@ LilyPond では、ミュータブル プロパティは Grob ごとに固有の�
 結果が得られない場合には入力が誤っており、正しいエラー メッセージが@c
 出力されます。文法的なグループと、そのグループを作り上げる LilyPond の@c
 文法は、@file{lily/parser.yy} に定義されており、@c
-@rcontrib{LilyPond grammar} にあるようにバッカス標準形
+LilyPond grammar にあるようにバッカス標準形
 (Backus Normal Form, BNF) で記述されています。@c
 このファイルはプログラムのビルド時に Bison にによって構文解析器を@c
 生成する際に用いられます。このファイルは@c

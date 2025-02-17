@@ -713,7 +713,7 @@ Referencia de la notación:
 @ref{Automatic note splitting}.
 
 Fragmentos de código:
-@rlsr{slurs},
+@rlsr{Expressive marks},
 @rlsr{Rhythms}.
 
 Referencia de funcionamiento interno:
@@ -3689,9 +3689,9 @@ Fragmentos de código:
 @rlsr{Rhythms}.
 
 Referencia de funcionamiento interno:
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{AdHocMarkEvent},
+@rinternals{RehearsalMark},
+@rinternals{RehearsalMarkEvent}.
 
 
 @node Special rhythmic concerns

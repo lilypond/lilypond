@@ -1264,7 +1264,7 @@ LilyPond は音符の水平方向の位置を調節するための手段をい�
 
 @morerefs
 学習マニュアル:
-@rnotation{Moving objects}
+@ref{Moving objects}
 
 記譜法リファレンス:
 @rnotationnamed{Multiple voices, 複数のボイス}

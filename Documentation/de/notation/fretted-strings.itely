@@ -650,7 +650,7 @@ aufgrund der Tonhöhe angeordnet.
 Die Tonhöhe einer Saite in einer Seitenstimmungsliste ist ein
 Tonhöhenobjekt für LilyPond.  Tonhöhenobjekte werden mit der
 Scheme-Funktion +@code{ly:make-pitch} erstellt
-(siehe @rinternals{Scheme-Funktionen}).
+(siehe @rinternalsnamed{Scheme functions, Scheme-Funktionen}).
 
 @code{\stringTuning} erstellt derartige Objekte aus der Akkord-Eingabe.
 
@@ -703,7 +703,7 @@ Schnipsel:
 @rlsr{Fretted strings}.
 
 Referenz der Interna:
-@rinternals{Scheme-Funktionen},
+@rinternalsnamed{Scheme functions, Scheme-Funktionen},
 @rinternals{Tab_note_heads_engraver}.
 
 @knownissues

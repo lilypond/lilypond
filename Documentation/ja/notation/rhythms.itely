@@ -3519,9 +3519,9 @@ f'1 \bar "k"
 @rlsr{Rhythms}
 
 内部リファレンス:
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}
+@rinternals{AdHocMarkEvent},
+@rinternals{RehearsalMark},
+@rinternals{RehearsalMarkEvent}
 
 
 @node Special rhythmic concerns

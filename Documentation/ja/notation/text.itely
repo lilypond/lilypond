@@ -463,9 +463,9 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @rlsr{Text}
 
 内部リファレンス:
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}
+@rinternals{TextMarkEvent},
+@rinternals{Text_mark_engraver},
+@rinternals{TextMark}
 
 
 @node Separate text

@@ -316,9 +316,9 @@ Schnipsel:
 @rlsr{Text}.
 
 Referenz der Interna:
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{TextMarkEvent},
+@rinternals{Text_mark_engraver},
+@rinternals{TextMark}.
 
 @knownissues
 Wenn ein Zeichen am Ende des letzten Taktes einer Partitur gesetzt wird

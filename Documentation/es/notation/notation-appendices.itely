@@ -3440,8 +3440,8 @@ y se produce un mensaje de error adecuado.  Las agrupaciones
 sintácticas y las reglas para construir estas agrupaciones a
 partir de sus elementos constituyentes para la sintaxis de
 LilyPond están definidas en @file{lily/parser.yy} y se muestran en
-la forma normal de Backus (BNF) dentro de @rcontrib{LilyPond
-grammar}.  Este archivo se usa para construir el analizador
+la forma normal de Backus (BNF) dentro de LilyPond
+grammar.  Este archivo se usa para construir el analizador
 sintáctico durante la compilación del programa por parte del
 generador de analizadores sintácticos, Bison.  Es parte del código
 fuente y no se incluye dentro de la instalación binaria de

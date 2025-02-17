@@ -716,7 +716,7 @@ tienen las cuerdas dispuestas en orden de altura.
 La altura de una cuerda dentro de una lista de alturas de cuerdas
 es un objeto altura de LilyPond.  Los objetos altura se crean con
 la función de Scheme @code{ly:make-pitch} (véase
-@rinternals{Funciones de Scheme}).
+@rinternalsnamed{Scheme functions, Funciones de Scheme}).
 
 @code{\stringTuning} crea dicho objeto a partir de la entrada de
 acordes.
@@ -813,7 +813,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Tab_note_heads_engraver},
-@rinternals{Funciones de Scheme}.
+@rinternalsnamed{Scheme functions, Funciones de Scheme}.
 
 @knownissues
 Los cálculos de tablatura automáticos no funcionan bien en la

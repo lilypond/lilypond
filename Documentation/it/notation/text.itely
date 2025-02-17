@@ -312,9 +312,9 @@ Frammenti:
 @rlsr{Text}.
 
 Guida al funzionamento interno:
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{TextMarkEvent},
+@rinternals{Text_mark_engraver},
+@rinternals{TextMark}.
 @endmorerefs
 
 

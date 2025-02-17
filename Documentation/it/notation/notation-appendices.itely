@@ -3596,7 +3596,7 @@ simbolo iniziale della grammatica. Se ciò non può essere ottenuto, il file non
 valido e viene generato un appropriato messaggio di errore. I gruppi sintattici
 e le regole che li definiscono nella sintassi di LilyPond sono definiti in
 @file{lily/parser.yy} e mostrati in Backus Normal Form (BNF) in
-@rcontrib{LilyPond grammar}.  Questo file viene usato dal generatore di parser
+LilyPond grammar.  Questo file viene usato dal generatore di parser
 Bison per generare il parser durante la compilazione del programma.  Fa parte
 del codice sorgente e non è incluso nell'installazione binaria di LilyPond.
 

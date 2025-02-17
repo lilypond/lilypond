@@ -630,7 +630,7 @@ Referència de la notació:
 @ref{Automatic note splitting}.
 
 Fragments de codi:
-@rlsr{slurs},
+@rlsr{Expressive marks},
 @rlsr{Rhythms}.
 
 Referència de funcionament interno:
@@ -3469,9 +3469,9 @@ Fragments de codi:
 @rlsr{Rhythms}.
 
 Referència de funcionament intern:
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{AdHocMarkEvent},
+@rinternals{RehearsalMark},
+@rinternals{RehearsalMarkEvent}.
 
 
 @node Special rhythmic concerns

@@ -3022,7 +3022,7 @@ Referencia de la notación:
 @ref{Score - the master of all contexts}.
 
 Referencia de funcionamiento interno:
-@rinternals{Todas las propiedades de contexto}.
+@rinternalsnamed{Tunable context properties, Todas las propiedades de contexto}.
 
 
 @node Alternative output formats

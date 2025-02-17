@@ -3508,9 +3508,9 @@ Frammenti di codice:
 @rlsr{Rhythms}.
 
 Guida al funzionamento interno:
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{AdHocMarkEvent},
+@rinternals{RehearsalMark},
+@rinternals{RehearsalMarkEvent}.
 @endmorerefs
 
 

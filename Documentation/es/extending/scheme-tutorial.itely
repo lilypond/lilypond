@@ -710,7 +710,7 @@ humano se estructura en palabras y frases.  LilyPond tiene un
 analizador léxico que reconoce elementos indivisibles (números
 literales, cadenas de texto, elementos de Scheme, nombres de nota,
 etc.), y un analizador que entiende la sintaxis, la Gramática de
-LilyPond (@rcontrib{LilyPond grammar}).  Una vez que sabe que se
+LilyPond.  Una vez que sabe que se
 aplica una regla sintáctica concreta, ejecuta las acciones
 asociadas con ella.
 

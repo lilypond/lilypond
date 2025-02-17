@@ -3283,9 +3283,9 @@ Schnipsel:
 @rlsr{Rhythms}.
 
 Referenz der Interna:
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{AdHocMarkEvent},
+@rinternals{RehearsalMark},
+@rinternals{RehearsalMarkEvent}.
 
 
 @node Special rhythmic concerns

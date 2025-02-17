@@ -3200,8 +3200,8 @@ produeix un missatge d'error adequat.  Les agrupacions
 sintàctiques i les regles per construir aquestes agrupacions a
 partir dels seus elements constituents per a la sintaxi del
 LilyPond estan definides a @file{lily/parser.yy} i es mostre a la
-forma normal del Backus (bnf) dins de @rcontrib{LilyPond
-grammar}.  Aquest fitxer s'usa per construir l'analitzador
+forma normal del Backus (bnf) dins de LilyPond
+grammar.  Aquest fitxer s'usa per construir l'analitzador
 sintàctic durant la compilació del programa per part del generador
 d'analitzadors sintàctics, Bison.  És part del codi font i no
 s'inclou dins de la instal·lació binària del LilyPond.

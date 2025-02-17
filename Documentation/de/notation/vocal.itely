@@ -2562,7 +2562,7 @@ LilyPond Erweitern:
 @rextendnamed{Markup construction in Scheme, Beschriftungskonstruktionen in Scheme}.
 
 Referenz der Interna:
-@rinternals{Scheme-Funktionen}.
+@rinternalsnamed{Scheme functions, Scheme-Funktionen}.
 
 @node Musical cues
 @unnumberedsubsubsec Musikalische Stichnoten

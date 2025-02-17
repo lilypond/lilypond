@@ -477,9 +477,9 @@ Fragmentos de código:
 @rlsr{Text}.
 
 Referencia de funcionamiento interno:
-@rinternals{MarkEvent},
-@rinternals{Mark_engraver},
-@rinternals{RehearsalMark}.
+@rinternals{TextMarkEvent},
+@rinternals{Text_mark_engraver},
+@rinternals{TextMark}.
 
 
 @node Separate text
