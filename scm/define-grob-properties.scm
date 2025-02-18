@@ -409,6 +409,11 @@ be included in @code{fret-diagram-details} include the following:
 @code{barre-type} -- Type of barre indication used.  Choices include
 @code{curved}, @code{straight}, and @code{none}.  Default
 @code{curved}.
+@itemize @minus
+@item @code{barre-thickness} -- Thickness of barre line, in multiples of 
+@code{dot-radius}.  Only defined for @code{barre-type=straight}.  Default 
+value@tie{}1.  
+@end itemize
 @item
 @code{capo-thickness} -- Thickness of capo indicator, in multiples of
 fret-space.  Default value@tie{}0.5.
@@ -487,6 +492,9 @@ Default@tie{}1.0.
 label fingerings at the string, rather than in the dot.  Default value
 0.6 for @code{normal} orientation, 0.5 for @code{landscape} and
 @code{opposing-landscape}.
+@item
+@code{string-overhang} -- Extension of string lines beyond last fret line, 
+in multiples of @code{fret-distance}.  Default value@tie{}1.  
 @item
 @code{string-thickness-factor} -- Factor for changing thickness of
 each string in the fret diagram.  Thickness of string @var{k} is given

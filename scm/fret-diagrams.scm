@@ -316,6 +316,10 @@ with magnification @var{mag} of the string @var{text}."
          (my-fret-count (fret-count fret-range))
          (barre-list (assoc-get 'barre-list parameters))
          (barre-type (assoc-get 'barre-type details 'curved))
+	 (string-overhang
+          (assoc-get 'string-overhang details 1.0))
+	 (barre-thickness
+          (assoc-get 'barre-thickness details 1.0))         
          (fret-diagram-stencil '()))
 
     ;;  Here are the fret diagram helper functions that depend on the
@@ -415,7 +419,8 @@ Line thickness is given by @var{th}, fret & string spacing by
              (end-coordinates
               (stencil-coordinates
                (+ fret-half-thick
-                  (* size fret-distance (1+ (fret-count fret-range))))
+                  (* size fret-distance
+                     (+ string-overhang (fret-count fret-range))))
                (+ string-half-thick
                   (* size string-distance string-coordinate)))))
         (ly:round-filled-box
@@ -479,7 +484,7 @@ fret-diagram overall parameters."
                       barre-fret-coordinate
                       barre-start-string-coordinate
                       barre-end-string-coordinate
-                      scale-dot-radius))
+                      (* barre-thickness scale-dot-radius)))
                     ((eq? barre-type 'curved)
                      (make-curved-barre-stencil
                       barre-fret-coordinate
