@@ -30,6 +30,7 @@ from argparse import HelpFormatter
 
 
 include_snippets = '@lysnippets'
+menu_snippets = '@lymenu'
 
 
 def find_file(name):
@@ -87,21 +88,25 @@ p = argparse.ArgumentParser(
         formatter_class=CustomHelpFormatter,
         usage='%(prog)s [OPTION]... [FILE]...',
         description="Construct a 'tely' doc file from LilyPond files.",
-        epilog="If a lilypond-book options file exists for an input file"
-               " (stripping off the file name's suffix and appending"
-               " `.lybook`) that gets eventually included with"
-               " `@musicxmlfile` or `@lilypondfile`, use its contents as"
-               " additional fragment options (separated by whitespace) for"
-               " this input file.\n"
-               "\n"
-               "If a file gets included with `@lilypondfile`, a `@node`"
-               " line is generated right before it, with its argument"
-               " enclosed in macro `@lynode` (which must be defined in the"
-               " template). If this file contains a `doctitle` field in its"
-               " `\\header` block, it uses the `doctitle` value as the"
-               " `@node` argument. If it doesn't contain such a field (or"
-               " if the file can't be read), the file name is used as the"
-               " argument for `@node`.")
+        epilog=f"If a lilypond-book options file exists for an input file"
+               f" (stripping off the file name's suffix and appending"
+               f" `.lybook`) that gets eventually included with"
+               f" `@musicxmlfile` or `@lilypondfile`, use its contents as"
+               f" additional fragment options (separated by whitespace) for"
+               f" this input file.\n"
+               f"\n"
+               f"If a file gets included with `@lilypondfile`, a `@node`"
+               f" line is generated right before it, with its argument"
+               f" enclosed in macro `@lynode` (which must be defined in the"
+               f" template). If this file contains a `doctitle` field in its"
+               f" `\\header` block, it uses the `doctitle` value as the"
+               f" `@node` argument. If it doesn't contain such a field (or"
+               f" if the file can't be read), the file name is used as the"
+               f" argument for `@node`. Additionally, the Texinfo template"
+               f" should contain a marker `{menu_snippets}` to indicate"
+               f" where to insert the corresponding `@menu` block. In this"
+               f" block, each entry is enclosed with macro `@lyentry` (which"
+               f" must be also defined in the template).")
 
 p.add_argument(
     '-f', '--fragment-options',
@@ -222,6 +227,8 @@ template_default = rf'''\input texinfo
 @top {options.title}
 @end ifnottex
 
+{menu_snippets}
+
 {include_snippets}
 
 @bye
@@ -253,7 +260,7 @@ def get_node_name(ly_file):
             node_name = ' '.join(m.group(1).split())
 
     # ',' and ':' must be protected since they can cause trouble with
-    # `@node`.  We also undo '\"'.
+    # `@node` and/or within a `@menu` block.  We also undo '\"'.
     return (node_name.replace(',', '@comma{}')
                      .replace(':', '@asis{:}')
                      .replace(r'\"', '"'))
@@ -268,6 +275,8 @@ xml_file_re = re.compile(r'.*\.i?(xm|mx)l$')
 
 
 def name2line(n):
+    menu_entry = None
+
     file_name = Path(n)
     fragment_options_file = file_name.with_suffix('.lybook')
 
@@ -325,19 +334,32 @@ def name2line(n):
        options.fragment_options + fragment_options_string,
        options.prefix + n)
 
-    return s
+        menu_entry = '* @lyentry{%s}::' % node_name
+
+    return (s, menu_entry)
 
 
 if files:
     snippet_list = []
+    menu_entry_list = []
 
     for f in files:
-        snippet = name2line(f)
+        (snippet, menu_entry) = name2line(f)
         snippet_list.append(snippet)
+        if menu_entry:
+            menu_entry_list.append(menu_entry)
+
+    if menu_entry_list:
+        menu = '@menu\n'
+        menu += '\n'.join(menu_entry_list)
+        menu += '\n@end menu\n'
+    else:
+        menu = ''
 
     snippets = '\n'.join(snippet_list)
 
-    s = template.replace(include_snippets, snippets, 1)
+    s = (template.replace(menu_snippets, menu, 1)
+                 .replace(include_snippets, snippets, 1))
     h = open(options.output, "w", encoding="utf8")
     h.write(s)
     h.close()
