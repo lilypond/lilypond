@@ -20,6 +20,8 @@
 
 \version "2.23.4"
 
+#(use-modules (ice-9 and-let-star))
+
 %% for dashed slurs, phrasing slurs, and ties
 #(define (make-simple-dash-definition dash-fraction dash-period)
     (list (list 0 1 dash-fraction dash-period)))
@@ -61,10 +63,11 @@ ambitusAfter =
               (head (take without-ambitus (1+ target-index)))
               (tail (drop without-ambitus (1+ target-index))))
            (append head '(ambitus) tail)))
-     (let* ((score (ly:context-find context 'Score))
-            (grob-def (ly:context-grob-definition score 'BreakAlignment))
-            (orders (vector->list (ly:assoc-get 'break-align-orders grob-def)))
-            (new-orders (list->vector (map move-ambitus orders))))
+     (and-let* ((score (ly:context-find context 'Score))
+                (grob-def (ly:context-grob-definition score 'BreakAlignment))
+                (break-align-def (assoc-get 'break-align-orders grob-def))
+                (orders (vector->list break-align-def))
+                (new-orders (list->vector (map move-ambitus orders))))
        (ly:context-pushpop-property score 'BreakAlignment 'break-align-orders new-orders)))))
 
 %% arpeggios
