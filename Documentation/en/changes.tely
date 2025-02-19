@@ -1106,8 +1106,8 @@ fonts, which harmonize with digits (in contrast to the already
 available parentheses for accidentals).
 
 @item
-A figure-dash glyph (U+2012) and an en-dash glyph (U+2013) have
-been added to the Emmentaler fonts.
+Glyphs for a figure-dash (U+2012), an en-dash (U+2013), and a
+slash (U+002F) have been added to the Emmentaler fonts.
 
 @item
 A figure space (U+2007), a thin space (U+2009), and a hair space

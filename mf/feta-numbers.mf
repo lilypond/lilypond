@@ -1726,6 +1726,58 @@ fet_beginchar ("left parenthesis", "parenleft");
 fet_endchar;
 
 
+fet_beginchar ("solidus", "slash");
+  save slant, protrusion;
+  save thick, ne, pat;
+  path pat;
+  pair ne;
+
+  slant = 2.5;
+  protrusion = 0.14;
+
+  thick# = 2.88 linethickness#;
+  define_whole_blacker_pixels (thick);
+
+  set_char_box (0, (1 + 2 * protrusion) * height# / slant + 0.5 thick#,
+                protrusion * height#, (1 + protrusion) * height#);
+
+  x1 = -0.5 thick;
+  x2 = x1 + thick;
+  y1 = y2 = -d;
+
+  x3 = x4 + thick;
+  x4 = x1 + (h + d) / slant + 0.5 thick;
+  y3 = y4 = h;
+
+  ne = unitvector (z4 - z1);
+
+  z1a = z1 + blot_diameter * ne;
+  z1b = z1 + blot_diameter * right;
+  z2a = z2 + blot_diameter * ne;
+  z2b = z2 + blot_diameter * left;
+
+  z3a = z3 - blot_diameter * ne;
+  z3b = z3 + blot_diameter * left;
+  z4a = z4 - blot_diameter * ne;
+  z4b = z4 + blot_diameter * right;
+
+  pat = z1a{-ne}
+        .. {right}z1b
+        -- z2b{right}
+        .. {ne}z2a
+        -- z3a{ne}
+        .. {left}z3b
+        -- z4b{left}
+        .. {-ne}z4a
+        -- cycle;
+
+  fill pat;
+
+  labels (range 1 thru 4);
+  labels (1a, 1b, 2a, 2b, 3a, 3b, 4a, 4b);
+fet_endchar;
+
+
 % This corresponds to LaTeX's `\,` command.  Since this and the other two spaces
 % below are mainly intended for use with numbers and number ranges, we base the
 % widths on `fixed_width_advance`, which is approx. 10% (or less) thinner than

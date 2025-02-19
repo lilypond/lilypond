@@ -1,18 +1,18 @@
 \version "2.25.19"
 
 \header {
-  texidoc = "The Emmentaler font contains kerning for many number pairs."
+  texidoc = "Test fractions with the Emmentaler font."
 }
 
 #(define pair-characters
-   '("0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "-" "+" "." "," "(" ")" "/"))
+   '("0" "1" "2" "3" "4" "5" "6" "7" "8" "9"))
 
 #(define (number-line left-character)
    (map (lambda (x)
           (make-with-dimension-markup
-           X '(0 . 4)
+           X '(0 . 5)
            (make-number-markup
-            (make-concat-markup (list left-character x)))))
+            (make-concat-markup (list left-character "/" x)))))
         pair-characters))
 
 #(define (test-kerning title feature-list)

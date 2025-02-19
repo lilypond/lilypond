@@ -150,7 +150,8 @@ def add_feature_kern(font):
         "period": 0.0,
         "comma": 0.0,
         "parenleft": 0.0,
-        "parenright": 0.0
+        "parenright": 0.0,
+        "slash": 0.0,
     }
 
     lsb_factors_keys = sorted(lsb_factors.keys())
@@ -180,6 +181,7 @@ def add_feature_kern(font):
     kern("one", "comma", 0.1 * NKU)
     kern("one", "parenleft", 0.15 * NKU)
     kern("one", "parenright", 0.1 * NKU)
+    kern("one", "slash", 0.1 * NKU)
 
     kern("two", "one", 0.1 * NKU)
     kern("two", "three", 0.1 * NKU)
@@ -191,6 +193,7 @@ def add_feature_kern(font):
     kern("two", "comma", 0.05 * NKU)
     kern("two", "parenleft", 0.2 * NKU)
     kern("two", "parenright", 0.05 * NKU)
+    kern("two", "slash", 0.05 * NKU)
 
     kern("three", "one", 0.1 * NKU)
     kern("three", "zero", 0.1 * NKU)
@@ -206,12 +209,14 @@ def add_feature_kern(font):
     kern("three", "comma", 0.1 * NKU)
     kern("three", "parenleft", 0.2 * NKU)
     kern("three", "parenright", 0.05 * NKU)
+    kern("three", "slash", 0.1 * NKU)
 
     kern("four", "hyphen", 0.1 * NKU)
     kern("four", "period", 0.1 * NKU)
     kern("four", "comma", 0.1 * NKU)
     kern("four", "parenleft", 0.2 * NKU)
     kern("four", "parenright", 0.05 * NKU)
+    kern("four", "slash", 0.2 * NKU)
 
     kern("five", "zero", 0.15 * NKU)
     kern("five", "one", 0.15 * NKU)
@@ -229,6 +234,7 @@ def add_feature_kern(font):
     kern("five", "comma", 0.1 * NKU)
     kern("five", "parenleft", 0.2 * NKU)
     kern("five", "parenright", 0.1 * NKU)
+    kern("five", "slash", 0.1 * NKU)
 
     kern("six", "zero", 0.1 * NKU)
     kern("six", "one", 0.05 * NKU)
@@ -244,6 +250,7 @@ def add_feature_kern(font):
     kern("six", "comma", 0.1 * NKU)
     kern("six", "parenleft", 0.2 * NKU)
     kern("six", "parenright", 0.1 * NKU)
+    kern("six", "slash", 0.1 * NKU)
 
     kern("seven", "four", -0.2 * NKU)
     kern("seven", "five", 0.1 * NKU)
@@ -254,6 +261,7 @@ def add_feature_kern(font):
     kern("seven", "comma", -0.1 * NKU)
     kern("seven", "parenleft", 0.2 * NKU)
     kern("seven", "parenright", 0.05 * NKU)
+    kern("seven", "slash", -0.2 * NKU)
 
     kern("eight", "zero", 0.1 * NKU)
     kern("eight", "one", 0.1 * NKU)
@@ -271,6 +279,7 @@ def add_feature_kern(font):
     kern("eight", "comma", 0.1 * NKU)
     kern("eight", "parenleft", 0.2 * NKU)
     kern("eight", "parenright", 0.1 * NKU)
+    kern("eight", "slash", 0.1 * NKU)
 
     kern("nine", "zero", 0.15 * NKU)
     kern("nine", "one", 0.15 * NKU)
@@ -307,6 +316,7 @@ def add_feature_kern(font):
     kern("plus", "plus", 0.2 * NKU)
     kern("plus", "parenleft", 0.15 * NKU)
     kern("plus", "parenright", -0.05 * NKU)
+    kern("plus", "slash", -0.1 * NKU)
 
     kern("period", "one", 0.1 * NKU)
     kern("period", "two", 0.15 * NKU)
@@ -317,6 +327,7 @@ def add_feature_kern(font):
     kern("period", "nine", 0.1 * NKU)
     kern("period", "period", 0.15 * NKU)
     kern("period", "comma", 0.15 * NKU)
+    kern("period", "slash", 0.2 * NKU)
 
     kern("comma", "one", 0.1 * NKU)
     kern("comma", "two", 0.15 * NKU)
@@ -329,6 +340,7 @@ def add_feature_kern(font):
     kern("comma", "comma", 0.15 * NKU)
     kern("comma", "hyphen", 0.1 * NKU)
     kern("comma", "parenright", 0.15 * NKU)
+    kern("comma", "slash", 0.3 * NKU)
 
     kern("parenleft", "zero", 0.05 * NKU)
     kern("parenleft", "one", 0.1 * NKU)
@@ -343,6 +355,7 @@ def add_feature_kern(font):
     kern("parenleft", "plus", -0.05 * NKU)
     kern("parenleft", "comma", 0.1 * NKU)
     kern("parenleft", "parenright", 0.4 * NKU)
+    kern("parenleft", "slash", 0.3 * NKU)
 
     kern("parenright", "zero", 0.2 * NKU)
     kern("parenright", "one", 0.2 * NKU)
@@ -357,6 +370,19 @@ def add_feature_kern(font):
     kern("parenright", "plus", 0.15 * NKU)
     kern("parenright", "hyphen", 0.2 * NKU)
     kern("parenright", "parenleft", 0.3 * NKU)
+    kern("parenright", "slash", 0.05 * NKU)
+
+    kern("slash", "four", -0.2 * NKU)
+    kern("slash", "five", 0.15 * NKU)
+    kern("slash", "seven", 0.25 * NKU)
+    kern("slash", "eight", 0.1 * NKU)
+    kern("slash", "nine", 0.1 * NKU)
+    kern("slash", "hyphen", -0.1 * NKU)
+    kern("slash", "parenleft", 0.1 * NKU)
+    kern("slash", "parenright", 0.4 * NKU)
+    kern("slash", "period", -0.2 * NKU)
+    kern("slash", "comma", -0.2 * NKU)
+    kern("slash", "slash", -0.4 * NKU)
 
     # Kerning for alternative digits forms; they are identical to the
     # standard glyphs.
