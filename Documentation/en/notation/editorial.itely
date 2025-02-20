@@ -1352,12 +1352,11 @@ notation.
 }
 @end lilypond
 
-
-There are two music functions, @code{balloonGrobText} and
-@code{balloonText};  the former is used like
-@w{@code{\once \override}} to attach text to any grob, and the
-latter is used like @code{\tweak}, typically within chords, to
-attach text to an individual note.
+There are two music functions, @code{balloonText} and
+@code{balloonGrobText}; the former is used like @code{\tweak}, but
+only within chords, to attach text to an individual note of the
+chord; the latter is used like @code{\once \override} to attach
+text to any grob anywhere.
 
 Balloon text does not influence note spacing, but this can be altered:
 
