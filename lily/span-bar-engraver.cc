@@ -24,6 +24,7 @@
 
 #include "translator.icc"
 
+#include <algorithm>
 #include <vector>
 
 /**
@@ -90,12 +91,18 @@ Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_)
     {
+      // Because of alignAboveContext and alignBelowContext, grobs are not
+      // necessarily announced in the order that they should be laid out, so
+      // they need to be sorted.
+      std::stable_sort (bars_.begin (), bars_.end (),
+                        [] (const auto &a, const auto &b) {
+                          return Grob::get_vertical_axis_group_index (a)
+                                 < Grob::get_vertical_axis_group_index (b);
+                        });
+
       const auto num_bars = bars_.size ();
       for (vsize i = 0; i < num_bars; ++i)
         {
-          // TODO: Issue 6745: This assumes that the bar lines were announced in
-          // the order that they will be laid out.  alignAboveContext and
-          // alignBelowContext can make that untrue.
           const bool is_top = (i == 0);
           const bool is_bottom = (i == (num_bars - 1));
           set_object (bars_[i], "has-span-bar",
