@@ -138,10 +138,27 @@ annotation char from string @var{str}."
 (define-public (define-bar-line bar-glyph eol-glyph bol-glyph span-glyph)
   "Define a bar glyph @var{bar-glyph} and its substitutes at the end of
 a line (@var{eol-glyph}), at the beginning of a line (@var{bol-glyph})
-and as a span bar (@var{span-glyph}).  The substitute glyphs may be
-either strings or booleans: @code{#t} calls for the same value as
-@var{bar-glyph} and @code{#f} calls for no glyph."
+and as a span bar (@var{span-glyph}).
 
+After definition, @var{bar-glyph} is accepted as an argument to the @code{\\bar}
+command.  To distinguish bar lines with the same unbroken glyph, @var{bar-glyph}
+may be annotated with text after a hyphen, as in the predefined @code{\\bar
+\".|:-|\"} and @code{\\bar \".|:-||\"}.
+
+The substitute glyphs may be either strings or booleans.
+
+The value @code{#f} or the string @code{\"x\"} call for no glyph.  Unlike
+@code{#f}, @code{\"x\"} may be annotated and may be used in @var{bar-glyph}, as
+in the predefined @code{\\bar \"x-.\"}.  The empty string, @code{\"\"}, calls
+for a zero-width stencil; it also may be annotated, as in the predefined
+@code{\\bar \"-span|\"}.
+
+The value @code{#t} calls for the same value as @var{bar-glyph}.  Note that this
+includes any annotations, which can affect things like which span bar is chosen
+or whether a volta bracket closes.
+
+See @rnotation{List of bar lines}.
+"
   ;; #t means copy the mid-line glyph
   (when (eq? eol-glyph #t)
     (set! eol-glyph bar-glyph))
@@ -1239,21 +1256,8 @@ of the volta brackets relative to the bar lines."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; predefined bar lines
 ;;
-;; definition of bar lines goes as follows:
-;;
-;; (define-bar-line "mid-line bar[-annotation]"
-;;                  "end-of-line bar[-annotation]"
-;;                  "beginning-of-line bar[-annotation]"
-;;                  "span bar")
-;;
-;; Each argument must be a string or #f.  The string "" calls for a
-;; zero-width stencil.  The string "x" or the value #f call for no
-;; stencil.  "x" may be annotated, unlike #f.
-;;
-;; Convention: if two bar lines would be identical in their
-;; unbroken bar glyph, we use annotations to make them distinct;
-;; as a general rule of thumb the main difference in their
-;; behavior at the end of a line is used as annotation, e.g.,
+;; If two bar lines would be identical in their unbroken bar glyph, as a
+;; rule of thumb, we annotate them with the end-of-line glyph, e.g.,
 ;;
 ;;   (define-bar-line "S" #f #t "=")
 ;;   (define-bar-line "S-|" "|" #t "=")
