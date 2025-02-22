@@ -1273,7 +1273,14 @@ of the volta brackets relative to the bar lines."
 (define-bar-line "|." #t #f #t)
 (define-bar-line "||" #t #f #t)
 (define-bar-line ".." #t #f #t)
-(define-bar-line "|.|" #t #f #t) ; Should this break into "|." + ".|"?
+;; Should "|.|" break into "|." + ".|" as if it were a dotless double repeat?
+;; Dan Eble contacted one arranger who has used it: Jeff Olson.
+;;     https://www.mutopiaproject.org/ftp/MozartWA/KV265/guitar-duo-complete/
+;;         guitar-duo-complete-let.pdf
+;; Mozart's work has double repeat bars.  Olson wanted to skip the repetition
+;; but show where it had been.  Splitting the bar line would suggest finality in
+;; inappropriate places.
+(define-bar-line "|.|" #t #f #t)
 (define-bar-line "!" #t #f #t)
 (define-bar-line ";" #t #f #t)
 (define-bar-line "'" #t #f #f)
