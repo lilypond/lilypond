@@ -17,12 +17,6 @@
 This section lists various expressive marks that can be
 created in a score.
 
-@menu
-* Expressive marks attached to notes::
-* Expressive marks as curves::
-* Expressive marks as lines::
-@end menu
-
 
 @node Expressive marks attached to notes
 @subsection Expressive marks attached to notes
@@ -31,11 +25,6 @@ This section explains how to create expressive marks that are
 attached to notes: articulations, ornamentations, and dynamics.
 Methods to create new dynamic markings are also discussed.
 
-@menu
-* Articulations and ornamentations::
-* Dynamics::
-* New dynamic marks::
-@end menu
 
 @node Articulations and ornamentations
 @unnumberedsubsubsec Articulations and ornamentations
@@ -890,12 +879,6 @@ This section explains how to create various expressive marks that
 are curved: normal slurs, phrasing slurs, breath marks, falls, and
 doits.
 
-@menu
-* Slurs::
-* Phrasing slurs::
-* Breath marks::
-* Falls and doits::
-@end menu
 
 @node Slurs
 @unnumberedsubsubsec Slurs
@@ -1326,11 +1309,6 @@ Snippets:
 This section explains how to create various expressive marks that
 follow a linear path: glissandi, arpeggios, and trills.
 
-@menu
-* Glissando::
-* Arpeggio::
-* Trills::
-@end menu
 
 @node Glissando
 @unnumberedsubsubsec Glissando

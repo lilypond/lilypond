@@ -1,15 +1,9 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+
+@need 1500
 @node Modifying the Emmentaler font
 @chapter Modifying the Emmentaler font
 
-@menu
-* Overview of the Emmentaler font::
-* Font creation tools::
-* Adding a new font section::
-* Adding a new glyph::
-* Building the changed font::
-* METAFONT formatting rules::
-@end menu
 
 @node Overview of the Emmentaler font
 @section Overview of the Emmentaler font

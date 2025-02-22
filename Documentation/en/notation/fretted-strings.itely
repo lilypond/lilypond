@@ -23,12 +23,6 @@ to fretted string instruments.
 @cindex guitar tablature
 @cindex banjo tablature
 
-@menu
-* Common notation for fretted strings::
-* Guitar::
-* Banjo::
-* Lute::
-@end menu
 
 @node Common notation for fretted strings
 @subsection Common notation for fretted strings
@@ -36,16 +30,6 @@ to fretted string instruments.
 This section discusses common notation that is unique
 to fretted string instruments.
 
-@menu
-* References for fretted strings::
-* String number indications::
-* Default tablatures::
-* Custom tablatures::
-* Fret diagram markups::
-* Predefined fret diagrams::
-* Automatic fret diagrams::
-* Right-hand fingerings::
-@end menu
 
 @node References for fretted strings
 @unnumberedsubsubsec References for fretted strings
@@ -2003,11 +1987,6 @@ it is not recommended for documents that have no music notation
 in them.  A better alternative is a word processor, text editor,
 or, for experienced users, a typesetter like GuitarTeX.
 
-@menu
-* Indicating position and barring::
-* Indicating harmonics and dampened notes::
-* Indicating power chords::
-@end menu
 
 @node Indicating position and barring
 @unnumberedsubsubsec Indicating position and barring
@@ -2184,12 +2163,9 @@ Snippets:
 @endmorerefs
 
 
+@need 1500
 @node Banjo
 @subsection Banjo
-
-@menu
-* Banjo tablatures::
-@end menu
 
 @node Banjo tablatures
 @unnumberedsubsubsec Banjo tablatures
@@ -2256,12 +2232,9 @@ Snippets:
 @endmorerefs
 
 
+@need 1500
 @node Lute
 @subsection Lute
-
-@menu
-* Lute tablatures::
-@end menu
 
 @node Lute tablatures
 @unnumberedsubsubsec Lute tablatures

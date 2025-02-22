@@ -29,16 +29,6 @@ used with later versions.
 To help with this, the @command{convert-ly} command can be used to
 upgrade older input files to the newer syntax.
 
-@menu
-* Why does the syntax change?::
-* Command-line preliminaries::
-* Invoking convert-ly::
-* Command-line options for convert-ly::
-* Problems running convert-ly::
-* Manual conversions::
-* Writing code to support multiple versions::
-@end menu
-
 
 @node Why does the syntax change?
 @section Why does the syntax change?

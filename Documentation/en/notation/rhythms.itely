@@ -16,25 +16,10 @@
 
 This section discusses rhythms, rests, durations, beaming and bars.
 
-@menu
-* Writing rhythms::
-* Writing rests::
-* Displaying rhythms::
-* Beams::
-* Bars::
-* Special rhythmic concerns::
-@end menu
-
 
 @node Writing rhythms
 @subsection Writing rhythms
 
-@menu
-* Durations::
-* Tuplets::
-* Scaling durations::
-* Ties::
-@end menu
 
 @node Durations
 @unnumberedsubsubsec Durations
@@ -718,12 +703,6 @@ In these cases, a slur may be preferable.
 
 Rests are entered as part of the music in music expressions.
 
-@menu
-* Rests::
-* Invisible rests::
-* Full measure rests::
-* Caesuras::
-@end menu
 
 @node Rests
 @unnumberedsubsubsec Rests
@@ -1230,18 +1209,10 @@ Internals Reference:
 @endmorerefs
 
 
+@need 1500
 @node Displaying rhythms
 @subsection Displaying rhythms
 
-@menu
-* Time signature::
-* Metronome marks::
-* Upbeats::
-* Unmetered music::
-* Polymetric notation::
-* Automatic note splitting::
-* Showing melody rhythms::
-@end menu
 
 @node Time signature
 @unnumberedsubsubsec Time signature
@@ -2392,13 +2363,6 @@ Internals Reference:
 LilyPond provides two different possibilities for entering beams:
 automatic and manual input, which can be also mixed.
 
-@menu
-* Automatic beams::
-* Setting automatic beam behavior::
-* Manual beams::
-* Feathered beams::
-* Slashed beams::
-@end menu
 
 @node Automatic beams
 @unnumberedsubsubsec Automatic beams
@@ -3132,18 +3096,10 @@ mus = \repeat unfold 4 a16
 @end lilypond
 
 
+@need 1500
 @node Bars
 @subsection Bars
 
-@menu
-* Bar lines::
-* Automatic bar lines::
-* Bar numbers::
-* Bar and bar number checks::
-* Rehearsal marks::
-* Measure counts::
-* Section divisions::
-@end menu
 
 @node Bar lines
 @unnumberedsubsubsec Bar lines
@@ -4386,16 +4342,10 @@ Internals Reference:
 @endmorerefs
 
 
-
+@need 1500
 @node Special rhythmic concerns
 @subsection Special rhythmic concerns
 
-
-@menu
-* Grace notes::
-* Aligning to cadenzas::
-* Time administration::
-@end menu
 
 @node Grace notes
 @unnumberedsubsubsec Grace notes

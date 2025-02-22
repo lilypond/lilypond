@@ -1,28 +1,9 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+
+@need 1500
 @node Programming work
 @chapter Programming work
 
-@menu
-* Overview of LilyPond architecture::
-* LilyPond programming languages::
-* Programming without compiling::
-* Finding functions::
-* Code style::
-* Warnings Errors Progress and Debug Output::
-* Debugging LilyPond::
-* Tracing object relationships::
-* Tracing processing time::
-* Adding or modifying features::
-* Iterator tutorial::
-* Engraver tutorial::
-* Callback tutorial::
-* Understanding pure properties::
-* LilyPond scoping::
-* Regular expressions::
-* Scheme->C interface::
-* Garbage collection for dummies::
-* LilyPond miscellany::
-@end menu
 
 @node Overview of LilyPond architecture
 @section Overview of LilyPond architecture
@@ -316,17 +297,6 @@ This will initiate a search of the remote git repository.
 
 This section describes style guidelines for LilyPond
 source code.
-
-@menu
-* Languages::
-* Filenames::
-* Code formatting::
-* Naming conventions::
-* Broken code::
-* Code comments::
-* Handling errors::
-* Localization::
-@end menu
 
 
 @node Languages
@@ -950,13 +920,6 @@ core LilyPond code written in C++.  Another tool is available for
 debugging Scheme code using the Guile debugger.  This section
 describes how to use both gdb and the Guile Debugger.
 
-@menu
-* Debugging overview::
-* Debugging C++ code::
-* Debugging Scheme code::
-* Debugging scoring algorithms::
-* Debugging skylines::
-@end menu
 
 @node Debugging overview
 @subsection Debugging overview
@@ -1515,20 +1478,6 @@ its long-term support.  This section describes the steps necessary
 for feature addition and modification.
 
 
-@menu
-* Write the code::
-* Write regression tests::
-* Write convert-ly rule::
-* Automatically update documentation::
-* Manually update documentation::
-* Edit the Changes file::
-* Verify successful build::
-* Verify regression tests::
-* Post patch for comments::
-* Push patch::
-* Closing the issues::
-@end menu
-
 @node Write the code
 @subsection Write the code
 
@@ -1812,14 +1761,6 @@ made available to the engraver when they are created by other engravers
 during the iteration phase.
 
 
-@menu
-* Useful methods for information processing::
-* Translation process::
-* Listening to music events::
-* Acknowledging grobs::
-* Engraver declaration/documentation::
-@end menu
-
 @node Useful methods for information processing
 @subsection Useful methods for information processing
 
@@ -2013,15 +1954,6 @@ TODO -- This is a placeholder for a tutorial on callback functions.
 
 @node Understanding pure properties
 @section Understanding pure properties
-
-@menu
-* Purity in LilyPond::
-* Writing a pure function::
-* How purity is defined and stored::
-* Where purity is used::
-* Case studies::
-* Debugging tips::
-@end menu
 
 Pure properties are some of the most difficult properties to understand
 in LilyPond but, once understood, it is much easier to work with
@@ -2298,10 +2230,6 @@ The remaining functions are defined in @file{lily/lily-guile.cc},
 Although their names are meaningful there's a few things you should know
 about them.
 
-@menu
-* Comparison::
-* Conversion::
-@end menu
 
 @node Comparison
 @subsection Comparison
@@ -2700,13 +2628,6 @@ This is a place to dump information that may be of use to developers
 but doesn't yet have a proper home.  Ideally, the length of this section
 would become zero as items are moved to other homes.
 
-
-@menu
-* Spacing algorithms::
-* Info from Han-Wen email::
-* Music functions and Guile debugging::
-* Articulations on EventChord::
-@end menu
 
 @node Spacing algorithms
 @subsection Spacing algorithms

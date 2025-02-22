@@ -18,13 +18,6 @@ music from a simple text file.  This section introduces the
 concepts and techniques required to produce equally beautiful but
 more complex scores.
 
-@menu
-* How LilyPond input files work::
-* Voices contain music::
-* Contexts and engravers::
-* Extending the templates::
-@end menu
-
 
 @node How LilyPond input files work
 @section How LilyPond input files work
@@ -35,14 +28,6 @@ wish.  But this flexibility can make things confusing for new
 users.  This section will explain some of this structure, but may
 gloss over some details in favor of simplicity.  For a complete
 description of the input format, see @rnotation{File structure}.
-
-@menu
-* Introduction to the LilyPond file structure::
-* A score is a (single) compound musical expression::
-* Nesting music expressions::
-* Structure of a note entry::
-* On the un-nestedness of brackets and ties::
-@end menu
 
 
 @node Introduction to the LilyPond file structure
@@ -586,12 +571,6 @@ and@tie{}4).
 Singers need voices to sing, and so does LilyPond.  The actual
 music for all instruments in a score is contained in voices -- the
 most fundamental of all LilyPond's concepts.
-
-@menu
-* I'm hearing voices::
-* Explicitly instantiating voices::
-* Voices and vocals::
-@end menu
 
 
 @node I'm hearing voices
@@ -1435,14 +1414,6 @@ these concepts in more detail, as they are important
 in the fine-tuning of LilyPond output.
 
 
-@menu
-* Contexts explained::
-* Creating contexts::
-* Engravers explained::
-* Modifying context properties::
-* Adding and removing engravers::
-@end menu
-
 @node Contexts explained
 @subsection Contexts explained
 
@@ -2206,13 +2177,6 @@ get the staves that you want?  Well, you can find lots of
 templates (@pxref{Templates}) which may give you a start.
 But what if you want something that isn't covered there?  Read on.
 
-@menu
-* Soprano and cello::
-* Four-part SATB vocal score::
-* Building a score from scratch::
-* Saving typing with variables and functions::
-* Scores and parts::
-@end menu
 
 @node Soprano and cello
 @subsection Soprano and cello

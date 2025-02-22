@@ -31,14 +31,6 @@ Please choose the tutorial according to your needs.  (If you don't
 know what the @qq{command line} is, you want the graphical setup!)
 
 
-@menu
-* Graphical setup under GNU/Linux::
-* Graphical setup under Windows::
-* Graphical setup under macOS::
-* Command line setup::
-@end menu
-
-
 @node Graphical setup under GNU/Linux
 @section Graphical setup under GNU/Linux
 

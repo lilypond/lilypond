@@ -17,11 +17,6 @@
 This section discusses the various ways to change the appearance of
 notes and add analysis or educational emphasis.
 
-@menu
-* Inside the staff::
-* Outside the staff::
-@end menu
-
 
 @node Inside the staff
 @subsection Inside the staff
@@ -29,17 +24,6 @@ notes and add analysis or educational emphasis.
 This section discusses how to add emphasis to elements that are
 inside the staff.
 
-@menu
-* Selecting notation font size::
-* Fingering instructions::
-* Gliding fingers::
-* Hidden notes::
-* Coloring objects::
-* Staff highlights::
-* Brackets for optional material::
-* Parentheses::
-* Stems::
-@end menu
 
 @node Selecting notation font size
 @unnumberedsubsubsec Selecting notation font size
@@ -1262,12 +1246,6 @@ Internals Reference:
 This section discusses how to add emphasis to elements in the staff
 from outside of the staff.
 
-@menu
-* Note names::
-* Balloon help::
-* Grid lines::
-* Analysis brackets::
-@end menu
 
 @node Note names
 @unnumberedsubsubsec Note names

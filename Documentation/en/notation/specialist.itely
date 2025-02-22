@@ -19,19 +19,6 @@ Orchestral and ensemble music is not addressed in a separate section;
 however, several notions commonly useful in orchestral scores are
 found in @ref{References for opera and stage musicals}.
 
-@menu
-* Vocal music::
-* Keyboard and other multi-staff instruments::
-* Unfretted string instruments::
-* Fretted string instruments::
-* Percussion::
-* Wind instruments::
-* Chord notation::
-* Contemporary music::
-* Ancient notation::
-* World music::
-@end menu
-
 @include en/notation/vocal.itely
 @include en/notation/keyboards.itely
 @include en/notation/unfretted-strings.itely

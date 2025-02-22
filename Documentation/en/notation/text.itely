@@ -17,11 +17,6 @@
 This section explains how to include text (with various
 formatting) in music scores.
 
-@menu
-* Writing text::
-* Formatting text::
-* Fonts::
-@end menu
 
 @node Writing text
 @subsection Writing text
@@ -33,15 +28,6 @@ This section introduces different ways of adding text to a score.
 from other languages), simply insert the characters directly into
 the LilyPond file.  The file must be saved as UTF-8.  For more
 information, see @ref{Text encoding}.}
-
-@menu
-* Text objects overview::
-* Text scripts::
-* Text spanners::
-* Section labels::
-* Text marks::
-* Separate text::
-@end menu
 
 
 @node Text objects overview
@@ -717,13 +703,6 @@ Internals Reference:
 This section presents basic and advanced text formatting,
 using the markup mode specific syntax.
 
-@menu
-* Text markup introduction::
-* Selecting font and font size::
-* Text alignment::
-* Graphic notation inside markup::
-* Music notation inside markup::
-@end menu
 
 @node Text markup introduction
 @unnumberedsubsubsec Text markup introduction
@@ -1865,12 +1844,6 @@ to display text strings.
 This section shows how to access fonts in LilyPond, and how to
 change them in scores.
 
-@menu
-* Finding fonts::
-* Font families::
-* Font features::
-* Changing fonts::
-@end menu
 
 @node Finding fonts
 @unnumberedsubsubsec Finding fonts

@@ -1,12 +1,8 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+
+@need 1500
 @node Release work
 @chapter Release work
-
-@menu
-* Development phases::
-* Release checklist::
-* Major release checklist::
-@end menu
 
 
 @node Development phases

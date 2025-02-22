@@ -15,13 +15,6 @@
 The purpose of this section is to highlight musical notation issues
 that are relevant to traditions outside the Western tradition.
 
-@menu
-* Common notation for non-Western music::
-* Arabic music::
-* Turkish classical music::
-* Persian classical music::
-@end menu
-
 
 @node Common notation for non-Western music
 @subsection Common notation for non-Western music
@@ -29,10 +22,6 @@ that are relevant to traditions outside the Western tradition.
 This section discusses how to enter and print music scores
 that do not belong to the Western classical tradition,
 also referred to as @notation{Common Practice Period}.
-
-@menu
-* Extending notation and tuning systems::
-@end menu
 
 
 @node Extending notation and tuning systems
@@ -107,15 +96,6 @@ Notation Reference:
 
 This section highlights issues that are relevant to notating Arabic
 music.
-
-@menu
-* References for Arabic music::
-* Arabic note names::
-* Arabic key signatures::
-* Arabic time signatures::
-* Arabic music example::
-* Further reading for Arabic music::
-@end menu
 
 
 @node References for Arabic music
@@ -577,12 +557,6 @@ Ibrahim Ali Darwish Al-masri
 This section highlights issues that are relevant to notating Turkish
 classical music.
 
-@menu
-* References for Turkish classical music::
-* Turkish note names::
-* Turkish key signatures::
-* Further reading for Turkish music::
-@end menu
 
 @node References for Turkish classical music
 @unnumberedsubsubsec References for Turkish classical music
@@ -705,12 +679,6 @@ CDs.
 This section highlights issues that are relevant to notating
 Persian classical music.
 
-@menu
-* Persian music notation::
-* Persian tunings::
-* Persian key signatures::
-* Further reading on Persian music::
-@end menu
 
 @node Persian music notation
 @unnumberedsubsubsec Persian music notation

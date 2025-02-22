@@ -19,12 +19,6 @@ Chords can be entered either as normal notes or in chord mode and displayed
 using a variety of traditional European chord naming conventions.  Chord
 names and figured bass notation can also be displayed.
 
-@menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
-@end menu
-
 
 @node Chord mode
 @subsection Chord mode
@@ -34,12 +28,6 @@ names and figured bass notation can also be displayed.
 Chord mode is used to enter chords using an indicator of the chord
 structure, rather than the chord pitches.
 
-@menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
-* Chord inversions and specific voicings::
-@end menu
 
 @node Chord mode overview
 @unnumberedsubsubsec Chord mode overview
@@ -440,11 +428,6 @@ Snippets:
 Chords can be displayed by name, in addition to the standard display
 as notes on a staff.
 
-@menu
-* Printing chord names::
-* Customizing chord names::
-* Chord grids::
-@end menu
 
 @node Printing chord names
 @unnumberedsubsubsec Printing chord names
@@ -1003,11 +986,6 @@ Internals Reference:
 
 Figured bass notation can be displayed.
 
-@menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
-@end menu
 
 @node Introduction to figured bass
 @unnumberedsubsubsec Introduction to figured bass

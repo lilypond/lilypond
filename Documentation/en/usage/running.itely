@@ -16,13 +16,6 @@
 
 This chapter details the technicalities of running LilyPond.
 
-@menu
-* Normal usage::
-* Command-line usage::
-* Error messages::
-* Common errors::
-@end menu
-
 
 @node Normal usage
 @section Normal usage
@@ -66,16 +59,6 @@ the Windows
 console.@footnote{@uref{https://stackoverflow.com/a/57134096/1276195}
 for example gives a pretty exhaustive answer.}
 
-
-@menu
-* The PATH environment variable::
-* Invoking LilyPond::
-* Basic command-line options for LilyPond::
-* Advanced command-line options for LilyPond::
-* Environment variables::
-* Relocation::
-* LilyPond in chroot jail::
-@end menu
 
 @node The PATH environment variable
 @unnumberedsubsec The @env{PATH} environment variable
@@ -1087,12 +1070,6 @@ necessary support files are computed at run time @emph{relative to
 the executed binary}.
 
 
-@menu
-* Relocation files::
-* Relocation algorithm::
-@end menu
-
-
 @node Relocation files
 @unnumberedsubsubsec Relocation files
 
@@ -1413,16 +1390,6 @@ The error conditions described below occur often, yet the cause
 is not obvious or easily found.  Once seen and understood, they
 are easily handled.
 
-
-@menu
-* Music runs off the page::
-* An extra staff appears::
-* Error message Unbound variable %::
-* Error message FT_Get_Glyph_Name::
-* Warning staff affinities should only decrease::
-* Error message unexpected new::
-* Warning this voice needs a voiceXx or shiftXx setting::
-@end menu
 
 @node Music runs off the page
 @unnumberedsubsec Music runs off the page

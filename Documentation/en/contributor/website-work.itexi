@@ -1,13 +1,8 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+
+@need 1500
 @node Website work
 @chapter Website work
-
-@menu
-* Introduction to website work::
-* Uploading website::
-* Debugging website and docs locally::
-* Translating the website::
-@end menu
 
 
 @node Introduction to website work

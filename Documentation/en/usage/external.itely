@@ -15,14 +15,6 @@
 
 LilyPond can interact with other programs in various ways.
 
-@menu
-* Point and click::
-* Text editor support::
-* Converting from other formats::
-* LilyPond output in other programs::
-* Independent includes::
-@end menu
-
 
 @node Point and click
 @section Point and click
@@ -32,12 +24,6 @@ LilyPond can interact with other programs in various ways.
 Point and click lets you find notes in the input by clicking on them
 in the PDF viewer.  This makes it easier to find input that causes some
 error in the sheet music.
-
-@menu
-* Configuring the system for point and click::
-* Enabling point and click::
-* Selective point-and-click::
-@end menu
 
 
 @node Configuring the system for point and click
@@ -90,11 +76,6 @@ export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
 @warning{If you choose Emacs, an extra configuration is needed.  You should
 add the line @code{(server-start)} to your @file{~/.emacs} file, otherwise
 every click on an object in the PDF will open a new Emacs window.}
-
-@menu
-* Using GNOME for point and click::
-* Extra configuration for Evince::
-@end menu
 
 
 @node Using GNOME for point and click
@@ -285,12 +266,6 @@ lilypond \
 @cindex coloring, syntax
 
 There is support for different text editors for LilyPond.
-
-@menu
-* Emacs mode::
-* Vim mode::
-* Other editors::
-@end menu
 
 
 @node Emacs mode
@@ -734,13 +709,6 @@ are listed in @rweb{Easier editing}.
 This section shows methods to integrate text and music, different than
 the automated method with @command{lilypond-book}.
 
-@menu
-* LuaTeX::
-* OpenOffice and LibreOffice::
-* ly2video::
-* Other programs::
-@end menu
-
 
 @node LuaTeX
 @subsection Lua@TeX{}
@@ -878,10 +846,6 @@ the clip systems feature, see @rnotation{Extracting fragments of music}.
 Some users have produced files that can be @code{\include}d with
 LilyPond to produce certain effects and those listed below are part of
 the LilyPond distribution.  Also see @rnotation{Working with input files}.
-
-@menu
-* MIDI articulation::
-@end menu
 
 
 @node MIDI articulation

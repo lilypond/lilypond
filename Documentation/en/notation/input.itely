@@ -16,15 +16,6 @@
 This section deals with general LilyPond input and output issues,
 rather than specific notation.
 
-@menu
-* Input modes::
-* Input structure::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
-* Creating MIDI output::
-* Extracting musical information::
-@end menu
 
 @c TODO: shouldn't these explanations be scattered in the
 @c sections for the respective input modes? --JeanAS
@@ -177,14 +168,6 @@ something that only can be done with note mode syntax.
 
 The main format of input for LilyPond are text files.  By convention,
 these files end with @file{.ly}.
-
-@menu
-* Structure of a score::
-* Multiple scores in a book::
-* Multiple output files from one input file::
-* Output file names::
-* File structure::
-@end menu
 
 
 @node Structure of a score
@@ -734,27 +717,10 @@ Notation Reference:
 Almost all printed music includes a title and the composer's name;
 some pieces include a lot more information.
 
-@menu
-* Creating titles headers and footers::
-* Custom titles headers and footers::
-* Creating output file metadata::
-* Creating footnotes::
-* Creating in-notes::
-* Reference to page numbers::
-* Table of contents::
-@end menu
-
 
 @need 800
 @node Creating titles headers and footers
 @subsection Creating titles, headers, and footers
-
-@menu
-* Titles explained::
-* Default layout of bookpart and score titles::
-* Default layout of headers and footers::
-@end menu
-
 
 @node Titles explained
 @unnumberedsubsubsec Titles explained
@@ -1149,13 +1115,6 @@ Notation Reference:
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
 
-@menu
-* Custom text formatting for titles::
-* Custom layout for titles::
-* Custom layout for headers and footers::
-@end menu
-
-
 @node Custom text formatting for titles
 @unnumberedsubsubsec Custom text formatting for titles
 
@@ -1504,10 +1463,6 @@ variable @code{footnote-separator-markup}, see
 Footnotes within music expressions and footnotes in stand-alone text
 outside music expressions are created in different ways.
 
-@menu
-* Footnotes in music expressions::
-* Footnotes in stand-alone text::
-@end menu
 
 @node Footnotes in music expressions
 @unnumberedsubsubsec Footnotes in music expressions
@@ -2335,16 +2290,9 @@ Installed Files:
 @endpredefined
 
 
+@need 1500
 @node Working with input files
 @section Working with input files
-
-@menu
-* Including LilyPond files::
-* Different editions from one source::
-* Using music functions::
-* Special characters::
-@end menu
-
 
 @node Including LilyPond files
 @subsection Including LilyPond files
@@ -2503,11 +2451,6 @@ Whichever method is used, separating the notation from the structure of
 the score will make it easier to change the structure while leaving the
 notation untouched.
 
-@menu
-* Using variables::
-* Using tags::
-* Using global settings::
-@end menu
 
 @node Using variables
 @unnumberedsubsubsec Using variables
@@ -2940,12 +2883,6 @@ functions, where the object is to substitute a variable into a
 piece of LilyPond input code.  Other more complex functions are
 described in @rextend{Music functions}.
 
-@menu
-* Substitution function syntax::
-* Substitution function examples::
-* How to prevent sharing of music expressions::
-* Substitution functions and relative octave entry::
-@end menu
 
 @node Substitution function syntax
 @unnumberedsubsubsec Substitution function syntax
@@ -3272,18 +3209,12 @@ simpleAccompaniment =
 @end lilypond
 
 
+@need 1500
 @node Special characters
 @subsection Special characters
 
 @cindex special character
 @cindex non-ASCII character
-
-@menu
-* Text encoding::
-* Unicode::
-* ASCII aliases::
-@end menu
-
 
 @node Text encoding
 @unnumberedsubsubsec Text encoding
@@ -3490,16 +3421,9 @@ Installed Files:
 @endmorerefs
 
 
+@need 1500
 @node Controlling output
 @section Controlling output
-
-@menu
-* Extracting fragments of music::
-* Skipping corrected music::
-* Alternative output formats::
-* Embedding files in PDF output::
-* Replacing the notation font::
-@end menu
 
 @node Extracting fragments of music
 @subsection Extracting fragments of music
@@ -3637,9 +3561,6 @@ Network Graphics (PNG), Scalable Vector Graphics (SVG) and Encapsulated
 PostScript (EPS) output formats are available through command-line options,
 see @rprogram{Basic command-line options for LilyPond}.
 
-@menu
-* SVG Output::
-@end menu
 
 @node SVG Output
 @unnumberedsubsubsec SVG Output
@@ -3827,18 +3748,6 @@ accidentals and so on.
 MIDI files do not contain sound (like AAC, MP3 or Vorbis files) but
 require additional software to produce sound from them.
 
-@menu
-* Supported notation for MIDI::
-* Unsupported notation for MIDI::
-* The MIDI block::
-* Controlling MIDI dynamics::
-* Using MIDI instruments::
-* Using repeats with MIDI::
-* MIDI channel mapping::
-* Context properties for MIDI effects::
-* Enhancing MIDI output::
-@end menu
-
 
 @node Supported notation for MIDI
 @subsection Supported notation for MIDI
@@ -3997,12 +3906,6 @@ available MIDI volume range whereas crescendi and decrescendi vary the
 volume linearly between their two extremes.  It is possible to control
 the relative volume of dynamic markings, and the overall volume levels
 of different instruments.
-
-@menu
-* Dynamic marks in MIDI::
-* Setting MIDI volume::
-* Setting MIDI block properties::
-@end menu
 
 
 @node Dynamic marks in MIDI
@@ -4559,11 +4462,6 @@ information about how the device interprets these values.
 @node Enhancing MIDI output
 @subsection Enhancing MIDI output
 
-@menu
-* The articulate script::
-* The swing script::
-@end menu
-
 The default MIDI output is basic but can be improved by setting MIDI
 instruments and various @code{\midi} block properties.
 
@@ -4720,17 +4618,13 @@ That is why offsets need to be supplied by using
 Grace notes are ignored and simply left unaffected; so are tuplets.
 @end itemize
 
+
 @node Extracting musical information
 @section Extracting musical information
 
 In addition to creating graphical output and MIDI, LilyPond can
 display musical information as text.
 
-@menu
-* Displaying LilyPond notation::
-* Displaying Scheme music expressions::
-* Saving music events to a file::
-@end menu
 
 @node Displaying LilyPond notation
 @subsection Displaying LilyPond notation

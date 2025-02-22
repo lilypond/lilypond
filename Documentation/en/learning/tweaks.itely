@@ -17,26 +17,8 @@ This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
 
-@menu
-* Tweaking basics::
-* The Internals Reference manual::
-* Appearance of objects::
-* Offsets and alignments::
-* Placement of objects::
-* Vertical spacing::
-* Collisions of objects::
-* Further tweaking::
-@end menu
-
-
 @node Tweaking basics
 @section Tweaking basics
-
-@menu
-* Objects and interfaces::
-* Naming conventions of objects and properties::
-* Tweaking methods::
-@end menu
 
 @q{Tweaking} is a LilyPond term for the various methods available
 to the user for modifying the actions taken during interpretation
@@ -197,13 +179,6 @@ Notation Reference:
 
 This subsection discusses the most important tweaking commands.
 
-@menu
-* The override command::
-* The revert command::
-* The once prefix::
-* The tweak and offset commands::
-* The single prefix::
-@end menu
 
 @node The override command
 @unnumberedsubsubsec The @code{\override} command
@@ -636,11 +611,6 @@ to LilyPond's configurability.  To understand how it can be used,
 however, you need a bunch of information that has not yet been
 presented, and which follows in the next subsections.
 
-@menu
-* Properties of layout objects::
-* Properties found in interfaces::
-* Types of properties::
-@end menu
 
 @node Properties of layout objects
 @subsection Properties of layout objects
@@ -1153,11 +1123,6 @@ Let us now put what we have learned into practice with a few
 examples which show how tweaks may be used to change the
 appearance of the printed music.
 
-@menu
-* Visibility and color of objects::
-* Size of objects::
-* Length and thickness of objects::
-@end menu
 
 @node Visibility and color of objects
 @subsection Visibility and color of objects
@@ -1192,12 +1157,6 @@ All of these can affect the visibility of bar lines (and, of course,
 by extension, many other layout objects, too).  Let's consider each of
 these in turn.
 
-@menu
-* The stencil property::
-* The break-visibility property::
-* The transparent property::
-* The color property::
-@end menu
 
 @node The stencil property
 @unnumberedsubsubsec The @code{stencil} property
@@ -2182,12 +2141,6 @@ normally avoided automatically.  There are commands and
 overrides which can modify this automatic behavior, as we
 shall shortly see.
 
-@menu
-* Automatic behavior::
-* Within-staff objects::
-* Outside-staff objects::
-@end menu
-
 
 @node Automatic behavior
 @subsection Automatic behavior
@@ -2274,10 +2227,6 @@ either up or down; others like stems and flags also move to the
 right or left when they point up or down.  This is controlled
 automatically when @code{direction} is set.
 
-@menu
-* The direction property::
-* Fingering::
-@end menu
 
 @node The direction property
 @unnumberedsubsubsec The @code{direction} property
@@ -2549,13 +2498,6 @@ try @w{@code{-7}}:
 Outside-staff objects are automatically placed to avoid collisions.
 There are several ways to override the automatic placement if the
 positioning is not optimum.
-
-@menu
-* The outside-staff-priority property::
-* The textLengthOn command::
-* Dynamics placement::
-* Grob sizing::
-@end menu
 
 
 @node The outside-staff-priority property
@@ -3116,11 +3058,6 @@ should be comfortable with the concepts of @dfn{extents},
 @dfn{offsets}, and @dfn{alignments}, @pxref{Offsets and
 alignments}.
 
-@menu
-* Moving objects::
-* Fixing overlapping notation::
-* Real music example::
-@end menu
 
 @node Moving objects
 @subsection Moving objects
@@ -3403,16 +3340,6 @@ should be used to move them.
 Let's now see how the properties in the previous section can
 help resolve overlapping notation.
 
-@menu
-* The padding property::
-* The right-padding property::
-* The staff-padding property::
-* The self-alignment-X property::
-* The staff-position property::
-* The extra-offset property::
-* The positions property::
-* The force-hshift property::
-@end menu
 
 @node The padding property
 @unnumberedsubsubsec The @code{padding} property
@@ -4300,13 +4227,6 @@ lhMusic = \relative {
 We have almost completed our introduction into tweaking, and only
 some topics remain that we would like to discuss.
 
-@menu
-* Other uses for tweaks::
-* Using variables for layout adjustments::
-* Style sheets::
-* Other sources of information::
-* Advanced tweaks with Scheme::
-@end menu
 
 @node Other uses for tweaks
 @subsection Other uses for tweaks
@@ -4314,10 +4234,6 @@ some topics remain that we would like to discuss.
 Here we describe situations that occur rather frequently in
 real-world scores.
 
-@menu
-* Tying notes across voices::
-* Simulating a fermata in MIDI::
-@end menu
 
 @cindex removing objects
 @cindex object, removing

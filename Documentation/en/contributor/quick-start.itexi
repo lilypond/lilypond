@@ -7,11 +7,6 @@ Want to submit a patch for LilyPond?  Great!  Never created a patch
 before? Never compiled software before? No problem!  This chapter is
 for you and will help you do this as quickly and easily as possible.
 
-@menu
-* LilyDev::
-* Compiling with LilyDev::
-* Now start work!::
-@end menu
 
 @node LilyDev
 @section LilyDev
@@ -58,11 +53,6 @@ instructive to skim over the following information.}
 
 If you are not familiar with GNU/Linux, it may be beneficial to read a
 few @qq{introduction to Linux} type web pages.
-
-@menu
-* Installing LilyDev in VirtualBox::
-* Configuring LilyDev in VirtualBox::
-@end menu
 
 
 @node Installing LilyDev in VirtualBox

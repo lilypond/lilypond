@@ -53,30 +53,12 @@ paper height, or whether to print page numbers, etc.  See
 settings, such as the number of systems to use, or the space
 between staff groups, etc.  @xref{Score layout}.
 
-@menu
-* Page layout::
-* Score layout::
-* Breaks::
-* Vertical spacing::
-* Horizontal spacing::
-* Fitting music onto fewer pages::
-@end menu
-
 
 @node Page layout
 @section Page layout
 
 This section discusses page layout options for the @code{\paper}
 block.
-
-@menu
-* The paper block::
-* Paper size and automatic scaling::
-* Fixed vertical spacing paper variables::
-* Flexible vertical spacing paper variables::
-* Horizontal spacing paper variables::
-* Other paper variables::
-@end menu
 
 
 @node The paper block
@@ -200,6 +182,7 @@ Installed Files:
 @endmorerefs
 
 
+@need 1500
 @node Paper size and automatic scaling
 @subsection Paper size and automatic scaling
 
@@ -207,11 +190,6 @@ Installed Files:
 @cindex page size
 
 @funindex \paper
-
-@menu
-* Setting the paper size::
-* Automatic scaling to paper size::
-@end menu
 
 
 @node Setting the paper size
@@ -435,11 +413,6 @@ settings typically entered inside a @code{\score} or
 @code{\layout} block, and not inside a @code{\paper} block.  See
 @ref{Flexible vertical spacing within systems}.
 
-@menu
-* Structure of flexible vertical spacing alists::
-* List of flexible vertical spacing paper variables::
-@end menu
-
 
 @node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec Structure of flexible vertical spacing alists
@@ -622,12 +595,6 @@ Snippets:
 @warning{Some @code{@bs{}paper} dimensions are automatically
 scaled to the paper size, which may lead to unexpected behavior.
 See @ref{Automatic scaling to paper size}.}
-
-@menu
-* paper variables for widths and margins::
-* paper variables for two-sided mode::
-* paper variables for shifts and indents::
-@end menu
 
 
 @node paper variables for widths and margins
@@ -851,14 +818,6 @@ Snippets:
 @need 1000
 @node Other paper variables
 @subsection Other @code{\paper} variables
-
-@menu
-* paper variables for line breaking::
-* paper variables for page breaking::
-* paper variables for page numbering::
-* paper variables concerning headers and markups::
-* paper variables for debugging::
-@end menu
 
 
 @node paper variables for line breaking
@@ -1185,11 +1144,6 @@ for a detailed explanation, what these variables do.
 
 This section discusses score layout options for the @code{\layout}
 block.
-
-@menu
-* The layout block::
-* Setting the staff size::
-@end menu
 
 
 @node The layout block
@@ -1559,13 +1513,9 @@ mus = { b1 \bar "|."}
 @end lilypond
 
 
+@need 1500
 @node Breaks
 @section Breaks
-
-@menu
-* Line breaking::
-* Page breaking::
-@end menu
 
 
 @node Line breaking
@@ -1792,16 +1742,6 @@ commands after some music.
 
 This section describes the different page breaking methods, and
 how to modify them.
-
-@menu
-* Manual page breaking::
-* Optimal page breaking::
-* Minimal page breaking::
-* One-page page breaking::
-* One-line page breaking::
-* One-line-auto-height page breaking::
-* Optimal page turning::
-@end menu
 
 
 @node Manual page breaking
@@ -2117,12 +2057,6 @@ space available (i.e., paper size and margins), the amount of
 space between systems, and the amount of space between staves
 inside a system.
 
-@menu
-* Flexible vertical spacing within systems::
-* Explicit staff and system positioning::
-* Vertical collision avoidance::
-@end menu
-
 
 @node Flexible vertical spacing within systems
 @subsection Flexible vertical spacing within systems
@@ -2164,13 +2098,6 @@ individual systems.  The vertical spacing between separate
 systems, scores, markups, and margins is controlled by
 @code{\paper} variables, which are discussed in
 @ref{Flexible vertical spacing paper variables}.
-
-@menu
-* Within-system spacing properties::
-* Spacing of ungrouped staves::
-* Spacing of grouped staves::
-* Spacing of non-staff lines::
-@end menu
 
 
 @node Within-system spacing properties
@@ -3061,20 +2988,12 @@ Snippets:
 @endmorerefs
 
 
+@need 1500
 @node Horizontal spacing
 @section Horizontal spacing
 
 @cindex horizontal spacing
 @cindex spacing, horizontal
-
-@menu
-* Horizontal spacing overview::
-* New spacing section::
-* Changing horizontal spacing globally::
-* Adjusting horizontal spacing for specific layout objects::
-* Line width::
-* Proportional notation::
-@end menu
 
 
 @node Horizontal spacing overview
@@ -3254,11 +3173,6 @@ Internals Reference:
 @node Changing horizontal spacing globally
 @subsection Changing horizontal spacing globally
 
-@menu
-* Uniform stretching of tuplets::
-* Strict note spacing::
-@end menu
-
 Horizontal spacing may be altered with the
 @code{base-shortest-duration} property.  Here we compare the same
 music; once without altering the property, and then altered.
@@ -3353,11 +3267,6 @@ apart in the presence of a printed text so that it does not
 overlap with the next note.  Tweaking these first requires
 identifying the type of spacing at play.
 
-@menu
-* Overview of object-specific horizontal spacing tweaks::
-* Spacing between adjacent non-musical items::
-* Spacing between adjacent columns::
-@end menu
 
 @node Overview of object-specific horizontal spacing tweaks
 @unnumberedsubsubsec Overview of object-specific horizontal spacing tweaks
@@ -4037,11 +3946,6 @@ When investigating layout issues, @code{annotate-spacing} is an
 invaluable tool.  This command prints the values of various layout
 spacing variables; for more details see the following section,
 @ref{Displaying spacing}.
-
-@menu
-* Displaying spacing::
-* Changing spacing::
-@end menu
 
 
 @node Displaying spacing

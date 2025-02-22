@@ -22,17 +22,6 @@
 @cindex Petrucci
 @cindex mensural
 
-
-@menu
-* Overview of the supported styles::
-* Ancient notation - common features::
-* Typesetting mensural music::
-* Typesetting Gregorian chant::
-* Typesetting Kievan square notation::
-* Working with ancient music - scenarios and solutions::
-@end menu
-
-
 Support for ancient notation includes features for mensural
 notation, Gregorian chant notation, and Kievan square notation.
 These features can be accessed either by modifying style
@@ -169,13 +158,6 @@ Music Glossary:
 @need 1500
 @node Ancient notation - common features
 @subsection Ancient notation -- common features
-
-@menu
-* Predefined contexts::
-* Ligatures::
-* Custodes::
-@end menu
-
 
 @node Predefined contexts
 @unnumberedsubsubsec Predefined contexts
@@ -376,21 +358,9 @@ Internals Reference:
 @endmorerefs
 
 
+@need 1500
 @node Typesetting mensural music
 @subsection Typesetting mensural music
-
-@menu
-* Mensural contexts::
-* Mensural clefs::
-* Mensural time signatures::
-* Mensural note heads::
-* Mensural flags::
-* Mensural rests::
-* Mensural accidentals and key signatures::
-* Annotational accidentals (musica ficta)::
-* White mensural ligatures::
-@end menu
-
 
 @node Mensural contexts
 @unnumberedsubsubsec Mensural contexts
@@ -1036,16 +1006,6 @@ Accidentals may collide with previous notes.
 
 @node Typesetting Gregorian chant
 @subsection Typesetting Gregorian chant
-
-@menu
-* Gregorian chant contexts::
-* Gregorian clefs::
-* Gregorian accidentals and key signatures::
-* Divisiones::
-* Gregorian articulation signs::
-* Augmentum dots (morae)::
-* Gregorian square neume ligatures::
-@end menu
 
 When typesetting a piece in Gregorian chant notation, the
 @code{Vaticana_ligature_engraver} automatically selects the
@@ -2494,17 +2454,10 @@ of the staff.
 unary music function, such that @code{\augmentum} can be intermixed
 with head prefixes in arbitrary order.
 
+
+@need 1500
 @node Typesetting Kievan square notation
 @subsection Typesetting Kievan square notation
-
-@menu
-* Kievan contexts::
-* Kievan clefs::
-* Kievan notes::
-* Kievan accidentals::
-* Kievan bar lines::
-* Kievan melismata::
-@end menu
 
 @node Kievan contexts
 @unnumberedsubsubsec Kievan contexts
@@ -2752,13 +2705,6 @@ Horizontal spacing of ligatures is poor.
 
 @node Working with ancient music - scenarios and solutions
 @subsection Working with ancient music -- scenarios and solutions
-
-@menu
-* Incipits::
-* Mensurstriche layout::
-* Transcribing Gregorian chant::
-* Ancient and modern from one source::
-@end menu
 
 Working with ancient music frequently involves particular tasks
 which differ considerably from the modern notation for which

@@ -7,18 +7,6 @@
 @c   @n ode Compiling from source
 @c   @s ection Compiling from source
 
-@menu
-* Overview of compiling::
-* Requirements::
-* Getting the source code::
-* Configuring make::
-* Compiling LilyPond::
-* Post-compilation options::
-* Problems::
-* Concurrent stable and development versions::
-* Build system::
-@end menu
-
 
 @node Overview of compiling
 @section Overview of compiling
@@ -46,15 +34,9 @@ unsuccessful, though a workaround is available (see
 @rcontrib{LilyDev}).
 
 
+@need 1500
 @node Requirements
 @section Requirements
-
-
-@menu
-* Requirements for running LilyPond::
-* Requirements for compiling LilyPond::
-* Requirements for building documentation::
-@end menu
 
 
 @node Requirements for running LilyPond
@@ -162,14 +144,6 @@ documented were run immediately after the initial installation
 that I was able to run the full set of make, make test-baseline, make
 check and a full make doc. - James
 @end ignore
-
-@menu
-* Fedora::
-* Linux Mint::
-* OpenSUSE::
-* Ubuntu::
-* Other::
-@end menu
 
 
 @node Fedora
@@ -629,17 +603,11 @@ download and install the free-software
 @uref{https://www.7-zip.org, 7zip archiver} to extract the tarball.
 
 
+@need 1500
 @node Configuring make
 @section Configuring @command{make}
 
-@menu
-* Build modes::
-* Running autogen::
-* Running configure::
-@end menu
 
-
-@need 800
 @node Build modes
 @subsection Build modes
 
@@ -720,17 +688,11 @@ Execute the @file{autogen.sh} script now.
 @end example
 
 
+@need 1500
 @node Running configure
 @subsection Running @command{configure}
 
-@menu
-* Configuration options::
-* Checking build dependencies::
-* Configuring target directories::
-@end menu
 
-
-@need 800
 @node Configuration options
 @unnumberedsubsubsec Configuration options
 
@@ -827,15 +789,9 @@ for different types of program files.  See the full output of
 @xref{Problems}, if you encounter any problems.
 
 
+@need 1500
 @node Compiling LilyPond
 @section Compiling LilyPond
-
-
-@menu
-* Using make::
-* Saving time with the -j option::
-* Useful make variables::
-@end menu
 
 
 @node Using make
@@ -908,15 +864,10 @@ Similarly, to reduce the verbosity, set @code{SILENT=1}.  Because
 of the way these options are implemented, @command{make -s} does
 not serve this purpose.
 
+
+@need 1500
 @node Post-compilation options
 @section Post-compilation options
-
-
-@menu
-* Installing LilyPond from a local build::
-* Generating documentation::
-* Testing LilyPond binary::
-@end menu
 
 
 @node Installing LilyPond from a local build
@@ -988,15 +939,6 @@ The web documentation includes all info files, images, and web
 documents.  The reduced info option omits images and info files
 that are either highly dependent upon images, or discuss technical
 program details.
-
-@menu
-* Documentation editor's edit/compile cycle::
-* Building documentation::
-* Building a single document::
-* Saving time with CPU_COUNT::
-* Installing documentation::
-* Building documentation without compiling::
-@end menu
 
 
 @node Documentation editor's edit/compile cycle

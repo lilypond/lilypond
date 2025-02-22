@@ -34,11 +34,6 @@ on guile can be found at @uref{https://www.gnu.org/software/guile/}.
 The @qq{R5RS} Scheme standard is located at
 @uref{https://www.schemers.org/Documents/Standards/R5RS/}.
 
-@menu
-* Introduction to Scheme::
-* Scheme in LilyPond::
-* Building complicated functions::
-@end menu
 
 @node Introduction to Scheme
 @section Introduction to Scheme
@@ -48,16 +43,6 @@ we will use the Guile interpreter to explore how the language works.
 Once we are familiar with Scheme, we will show how the language can
 be integrated in LilyPond files.
 
-
-@menu
-* Scheme sandbox::
-* Scheme variables::
-* Scheme simple data types::
-* Scheme compound data types::
-* Calculations in Scheme::
-* Scheme procedures::
-* Scheme conditionals::
-@end menu
 
 @node Scheme sandbox
 @subsection Scheme sandbox
@@ -200,12 +185,6 @@ For a complete listing see the Guile reference guide,
 There are also compound data types in Scheme.  The  types commonly used in
 LilyPond programming include pairs, lists, alists, and hash tables.
 
-@menu
-* Pairs::
-* Lists::
-* Association lists (alists)::
-* Hash tables::
-@end menu
 
 @node Pairs
 @unnumberedsubsubsec Pairs
@@ -498,11 +477,6 @@ Scheme procedures are executable Scheme expressions that return a
 value resulting from their execution.  They can also manipulate
 variables defined outside of the procedure.
 
-@menu
-* Defining procedures::
-* Predicates::
-* Return values::
-@end menu
 
 @node Defining procedures
 @unnumberedsubsubsec Defining procedures
@@ -577,13 +551,11 @@ guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 508
 @end lisp
 
+
+@need 1500
 @node Scheme conditionals
 @subsection Scheme conditionals
 
-@menu
-* if::
-* cond::
-@end menu
 
 @node if
 @unnumberedsubsubsec if
@@ -629,21 +601,11 @@ guile> (cond ((< a b) "a is less than b")
 "a is less than b"
 @end lisp
 
+
+@need 1500
 @node Scheme in LilyPond
 @section Scheme in LilyPond
 
-
-@menu
-* LilyPond Scheme syntax::
-* LilyPond variables::
-* Debugging Scheme code::
-* Input variables and Scheme::
-* Importing Scheme in LilyPond::
-* Object properties::
-* LilyPond compound variables::
-* LilyPond's box model::
-* Internal music representation::
-@end menu
 
 @node LilyPond Scheme syntax
 @subsection LilyPond Scheme syntax
@@ -988,20 +950,15 @@ while @code{twentyFour} is a variable.
 @cindex properties vs.@: variables
 @cindex variables vs.@: properties
 
+
 @c  todo -- here we're getting interesting.  We're now introducing
 @c  LilyPond variable types.  I think this deserves a section all
 @c  its own
 
+@need 1500
 @node LilyPond compound variables
 @subsection LilyPond compound variables
 
-@menu
-* Offsets::
-* Fractions::
-* Extents::
-* Property alists::
-* Alist chains::
-@end menu
 
 @node Offsets
 @unnumberedsubsubsec Offsets
@@ -1248,14 +1205,6 @@ property of @rinternals{VoltaRepeatedMusic}, and the alternatives in
 
 This section explains how to gather the information necessary
 to create complicated music functions.
-
-@menu
-* A first approach (example)::
-* Displaying music expressions::
-* Music properties::
-* Doubling a note with slurs (example)::
-* Adding articulation to notes (example)::
-@end menu
 
 
 @node A first approach (example)

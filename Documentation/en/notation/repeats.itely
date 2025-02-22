@@ -53,28 +53,12 @@ This is used to write tremolo beams.
 Chord constructs can be repeated using the chord repetition
 symbol, @code{q}.  See @ref{Chord repetition}.
 
-@menu
-* Long repeats::
-* Short repeats::
-@end menu
-
 
 @node Long repeats
 @subsection Long repeats
 
 This section discusses how to input long (usually multi-measure)
 repeats.
-
-@menu
-* Written-out repeats::
-* Simple repeats::
-* Alternative endings::
-* Other variation in repeated sections::
-* Al-fine repeats::
-* Segno repeat structure::
-* Segno repeat appearance::
-* Manual repeat marks::
-@end menu
 
 
 @node Written-out repeats
@@ -1177,11 +1161,6 @@ Internals Reference:
 This section discusses how to input short repeats.  Short repeats can
 take two forms: slashes or percent signs to represent repeats of a
 single note, a single measure or two measures, and tremolos otherwise.
-
-@menu
-* Percent repeats::
-* Tremolo repeats::
-@end menu
 
 
 @node Percent repeats

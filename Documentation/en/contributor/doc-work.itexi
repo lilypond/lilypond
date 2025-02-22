@@ -13,18 +13,6 @@ To allow multiple authors work simultaneously, we also use git (as
 previously discussed, @pxref{Working with source code}) for the
 documentation.
 
-@menu
-* Introduction to documentation work::
-* version in documentation files::
-* Documentation suggestions::
-* Texinfo introduction and usage policy::
-* Documentation policy::
-* Tips for writing documentation::
-* Scripts to ease documentation work::
-* Documentation strings in the Internals Reference::
-* Translating the documentation::
-@end menu
-
 
 @node Introduction to documentation work
 @section Introduction to documentation work
@@ -218,18 +206,9 @@ some material to work with, we can improve the manual much faster.
 Thanks for your interest!
 
 
+@need 1500
 @node Texinfo introduction and usage policy
 @section Texinfo introduction and usage policy
-
-@menu
-* Texinfo introduction::
-* Documentation files::
-* Sectioning commands::
-* LilyPond formatting::
-* Text formatting::
-* Syntax survey::
-* Other text concerns::
-@end menu
 
 
 @node Texinfo introduction
@@ -660,19 +639,9 @@ the @code{@@morerefs} block.
 @end itemize
 
 
+@need 1500
 @node Syntax survey
 @subsection Syntax survey
-
-@menu
-* Comments::
-* Cross-references::
-* External links::
-* Fixed-width font::
-* Indexing::
-* Lists::
-* Special characters::
-* Miscellany::
-@end menu
 
 
 @node Comments
@@ -1187,16 +1156,10 @@ this limitation.}
 @end itemize
 
 
+@need 1500
 @node Documentation policy
 @section Documentation policy
 
-@menu
-* Books::
-* Section organization::
-* Checking cross-references::
-* General writing::
-* Technical writing style::
-@end menu
 
 @node Books
 @subsection Books
@@ -1578,13 +1541,10 @@ Say @q{invalid} instead.
 @end itemize
 
 
+@need 1500
 @node Tips for writing documentation
 @section Tips for writing documentation
 
-@menu
-* Working on subsections::
-* Searching::
-@end menu
 
 @node Working on subsections
 @subsection Working on subsections
@@ -1745,17 +1705,11 @@ intimidatingly complex, and hard to master even for experts, tools
 have been developed over time to help authors handle the most
 daunting tasks.
 
-@menu
-* Scripts to test the documentation::
-* Scripts to create documentation::
-@end menu
 
+@need 1500
 @node Scripts to test the documentation
 @subsection Scripts to test the documentation
 
-@menu
-* Building only one section of the documentation::
-@end menu
 
 @node Building only one section of the documentation
 @unnumberedsubsubsec Building only one section of the documentation
@@ -1844,13 +1798,10 @@ variables and corresponding default values as
 @command{doc-section.sh}.
 
 
+@need 1500
 @node Scripts to create documentation
 @subsection Scripts to create documentation
 
-@menu
-* Regenerating menus::
-* Updating doc with convert-ly::
-@end menu
 
 @node Regenerating menus
 @unnumberedsubsubsec Regenerating menus
@@ -1888,15 +1839,10 @@ Most documentation writers never touch these, though.  If you want
 to work on them, please ask for help.
 
 
+@need 1500
 @node Translating the documentation
 @section Translating the documentation
 
-@menu
-* Getting started with documentation translation::
-* Documentation translation details::
-* Documentation translation maintenance::
-* Technical background::
-@end menu
 
 @node Getting started with documentation translation
 @subsection Getting started with documentation translation
@@ -1904,11 +1850,6 @@ to work on them, please ask for help.
 First, get the sources from the git repository, @pxref{Working
 with source code}.
 
-@menu
-* Translation requirements::
-* Which documentation can be translated::
-* Starting translation in a new language::
-@end menu
 
 @node Translation requirements
 @unnumberedsubsubsec Translation requirements
@@ -2043,11 +1984,6 @@ Please follow all the instructions with care to ensure quality work.
 
 All files should be encoded in UTF-8.
 
-@menu
-* Files to be translated::
-* Translating the website and other Texinfo documentation::
-* Adding a Texinfo manual::
-@end menu
 
 @node Files to be translated
 @unnumberedsubsubsec Files to be translated
@@ -2341,12 +2277,6 @@ every one or two weeks.  If you feel overwhelmed by the quantity
 of documentation to be updated, @pxref{Maintaining without
 updating translations}.
 
-@menu
-* Check state of translation::
-* Updating documentation translation::
-* Updating translation committishes::
-* Maintaining without updating translations::
-@end menu
 
 @macro seeCommittishesUpdate{}
 @warning{do not forget to update the committish in each file you

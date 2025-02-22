@@ -22,27 +22,12 @@ expansion of musical notation.  The purpose of this section is
 to provide references and information relevant to working with
 these new notational techniques.
 
-@menu
-* Pitch and harmony in contemporary music::
-* Contemporary approaches to rhythm::
-* Graphical notation::
-* Contemporary scoring techniques::
-* New instrumental techniques::
-* Further reading and scores of interest::
-@end menu
-
 
 @node Pitch and harmony in contemporary music
 @subsection Pitch and harmony in contemporary music
 
 This section highlights issues that are relevant to notating
 pitch and harmony in contemporary music.
-
-@menu
-* References for pitch and harmony in contemporary music::
-* Microtonal notation::
-* Contemporary key signatures and harmony::
-@end menu
 
 
 @node References for pitch and harmony in contemporary music
@@ -84,15 +69,6 @@ addressed in @ref{Automatic accidentals}.
 
 This section highlights issues that are relevant to the
 notation of rhythm in contemporary music.
-
-@menu
-* References for contemporary approaches to rhythm::
-* Tuplets in contemporary music::
-* Contemporary time signatures::
-* Extended polymetric notation::
-* Beams in contemporary music::
-* Bar lines in contemporary music::
-@end menu
 
 
 @node References for contemporary approaches to rhythm
@@ -234,11 +210,6 @@ The duration line may end with a hook (beam-style only) or an arrow.
 
 This section suggests books, musical examples and other
 resources useful in studying contemporary musical notation.
-
-@menu
-* Books and articles on contemporary musical notation::
-* Scores and musical examples::
-@end menu
 
 
 @node Books and articles on contemporary musical notation

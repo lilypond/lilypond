@@ -1,16 +1,8 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+
+@need 1500
 @node Regression tests
 @chapter Regression tests
-
-@menu
-* Introduction to regression tests::
-* Precompiled regression tests::
-* Compiling regression tests::
-* Regtest comparison::
-* Pixel-based regtest comparison::
-* Finding the cause of a regression::
-* MusicXML tests::
-@end menu
 
 
 @node Introduction to regression tests

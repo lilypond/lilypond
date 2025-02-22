@@ -11,14 +11,9 @@
 @c \version "2.21.0"
 
 
+@need 1500
 @node Markup commands
 @appendix Markup commands
-
-@menu
-* Text markup commands::
-* Text markup list commands::
-@end menu
-
 
 @node Text markup commands
 @appendixsec Text markup commands
@@ -40,37 +35,9 @@ The following commands can all be used with @code{\markuplist}.
 @include en/markup-list-commands.tely
 
 
+@need 1500
 @node Notation manual tables
 @appendix Notation manual tables
-
-@menu
-* Chord name chart::
-* Common chord modifiers::
-* Predefined string tunings::
-* Predefined fretboard diagrams::
-* Predefined paper sizes::
-* MIDI instruments::
-* List of colors::
-* The Emmentaler font::
-* Note head styles::
-* Accidental glyph sets::
-* Clef styles::
-* List of special characters::
-* List of articulations::
-* List of breath marks::
-* Percussion notes::
-* List of bar lines::
-* Default values for outside-staff-priority::
-* Default values for script-priority::
-* Technical glossary::
-* Available music functions::
-* Context modification identifiers::
-* Paper variables::
-* Naming conventions::
-* Predefined type predicates::
-@end menu
-
-
 
 @node Chord name chart
 @appendixsec Chord name chart
@@ -549,14 +516,9 @@ The chart below shows the predefined string tunings.
 @lilypondfile{en/included/display-predefined-string-tunings.ly}
 
 
+@need 1500
 @node Predefined fretboard diagrams
 @appendixsec Predefined fretboard diagrams
-
-@menu
-* Diagrams for Guitar::
-* Diagrams for Ukulele::
-* Diagrams for Mandolin::
-@end menu
 
 
 @node Diagrams for Guitar
@@ -716,12 +678,6 @@ or
 @end example
 
 @xref{Formatting text} for more information.
-
-
-@menu
-* Modern glyph charts::
-* Ancient glyph charts::
-@end menu
 
 
 @c `texinfo.tex` inserts `\medskip` between images, which is far
@@ -1020,13 +976,6 @@ For more modification possibilities like ottavation digits,
 @pxref{Clef}.
 
 @cindex clef, style
-
-@menu
-* Standard clefs::
-* Percussion staff clef::
-* Tab staff clefs::
-* Ancient music clefs::
-@end menu
 
 
 @node Standard clefs
@@ -2015,15 +1964,6 @@ for use with the @code{\musicglyph} markup command as explained in
 @c Custom percussion staves (for "halfopen" and "stopped")
 @c References for wind instruments (for "open"/"stopped")
 
-
-@menu
-* Articulation scripts::
-* Ornament scripts::
-* Fermata scripts::
-* Instrument-specific scripts::
-* Repeat sign scripts::
-* Ancient scripts::
-@end menu
 
 @ignore
 The @multitable @columnfraction value discrepancy between the first and

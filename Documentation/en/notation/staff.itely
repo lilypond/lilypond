@@ -20,25 +20,12 @@ This section explains how to influence the appearance of staves,
 how to print scores with more than one staff, and how to add tempo
 indications and cue notes to staves.
 
-@menu
-* Displaying staves::
-* Modifying single staves::
-* Writing parts::
-@end menu
-
 
 @node Displaying staves
 @subsection Displaying staves
 
 This section describes the different methods of creating and
 grouping staves.
-
-@menu
-* Instantiating new staves::
-* Grouping staves::
-* Nested staff groups::
-* Separating systems::
-@end menu
 
 
 @node Instantiating new staves
@@ -436,12 +423,6 @@ This section explains how to change specific attributes of one
 staff: for example, modifying the number of staff lines or the
 staff size.  Methods to start and stop staves and set ossia
 sections are also described.
-
-@menu
-* Staff symbol::
-* Ossia staves::
-* Hiding staves::
-@end menu
 
 
 @node Staff symbol
@@ -1172,12 +1153,6 @@ Additionally, a method for printing @emph{divisi} staves,
 sometimes used in individual or desk parts, can be found in
 @ref{Hiding staves}.
 
-@menu
-* Instrument names::
-* Quoting other voices::
-* Formatting cue notes::
-* Compressing empty measures::
-@end menu
 
 @node Instrument names
 @unnumberedsubsubsec Instrument names

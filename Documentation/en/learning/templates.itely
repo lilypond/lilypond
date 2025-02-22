@@ -17,17 +17,6 @@ This section of the manual contains templates with the LilyPond score
 already set up for you.  Just add notes, run LilyPond, and enjoy
 beautiful printed scores!
 
-@menu
-* Built-in templates::
-* Single staff templates::
-* Piano templates::
-* String quartet templates::
-* Vocal ensembles templates::
-* Orchestral templates::
-* Ancient notation templates::
-* Other templates::
-@end menu
-
 
 @node Built-in templates
 @appendixsec Built-in templates
@@ -46,10 +35,6 @@ The required music expressions are entered by defining values for
 specific variables.  These definitions must come before the
 @code{\include}'d file.
 
-@menu
-* SATB template::
-* SSAATTBB template::
-@end menu
 
 @node SATB template
 @appendixsubsec SATB template
@@ -344,12 +329,6 @@ this simple built-in template.
 @node Single staff templates
 @appendixsec Single staff templates
 
-@menu
-* Notes only::
-* Notes and lyrics::
-* Notes and chords::
-* Notes lyrics and chords::
-@end menu
 
 @node Notes only
 @appendixsubsec Notes only
@@ -380,11 +359,6 @@ this simple built-in template.
 @node Piano templates
 @appendixsec Piano templates
 
-@menu
-* Solo piano::
-* Piano and melody with lyrics::
-* Piano-centered lyrics::
-@end menu
 
 @node Solo piano
 @appendixsubsec Solo piano
@@ -409,10 +383,6 @@ this simple built-in template.
 @node String quartet templates
 @appendixsec String quartet templates
 
-@menu
-* String quartet::
-* String quartet parts::
-@end menu
 
 @node String quartet
 @appendixsubsec String quartet
@@ -435,15 +405,6 @@ there.  If you have a relatively simple SATB layout you may prefer to
 use the built-in templates, which can simply be @code{\include}'d,
 @pxref{Built-in templates}.
 
-@menu
-* SATB vocal score::
-* SATB vocal score and automatic piano reduction::
-* SATB with aligned contexts::
-* SATB on four staves::
-* Solo verse and two-part refrain::
-* Hymn tunes::
-* Psalms::
-@end menu
 
 @node SATB vocal score
 @appendixsubsec SATB vocal score
@@ -488,12 +449,10 @@ use the built-in templates, which can simply be @code{\include}'d,
 {snippets/anglican-psalm-template.ly}
 
 
+@need 800
 @node Orchestral templates
 @appendixsec Orchestral templates
 
-@menu
-* Orchestra choir and piano::
-@end menu
 
 @node Orchestra choir and piano
 @appendixsubsec Orchestra, choir and piano
@@ -502,13 +461,10 @@ use the built-in templates, which can simply be @code{\include}'d,
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
+@need 800
 @node Ancient notation templates
 @appendixsec Ancient notation templates
 
-@menu
-* Transcription of mensural music::
-* Gregorian transcription template::
-@end menu
 
 @node Transcription of mensural music
 @appendixsubsec Transcription of mensural music
@@ -523,12 +479,10 @@ use the built-in templates, which can simply be @code{\include}'d,
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
+@need 800
 @node Other templates
 @appendixsec Other templates
 
-@menu
-* Jazz combo::
-@end menu
 
 @node Jazz combo
 @appendixsubsec Jazz combo

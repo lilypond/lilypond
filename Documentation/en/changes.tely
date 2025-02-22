@@ -50,14 +50,6 @@ environments with LilyPond support may provide a way to run
 @command{convert-ly} graphically.}
 
 
-@menu
-* Major changes in LilyPond::
-* New for musical notation::
-* New for specialist notation::
-* Miscellaneous improvements::
-@end menu
-
-
 @node Major changes in LilyPond
 @unnumbered Major changes in LilyPond
 
@@ -272,17 +264,9 @@ for whatever reason, add @code{BYTECODE=no} as an argument to
 @end itemize
 
 
+@need 1500
 @node New for musical notation
 @unnumbered New for musical notation
-
-@menu
-* Pitches improvements::
-* Rhythm improvements::
-* Expressive mark improvements::
-* Repeat improvements::
-* Editorial annotation improvements::
-* Text and font improvements::
-@end menu
 
 @node Pitches improvements
 @unnumberedsec Pitches improvements

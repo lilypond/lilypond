@@ -8,27 +8,11 @@ control system.  This section is intended at getting new contributors
 started with Git, and helping senior developers with less frequently
 used procedures.
 
-@menu
-* Setting up::
-* Git cheat sheet::
-* Lifecycle of a merge request::
-* Writing good commit messages::
-* Commit access::
-* Further Git documentation resources::
-* Repository directory structure::
-@end menu
 
-
-
+@need 1500
 @node Setting up
 @section Setting up
 
-@menu
-* Installing Git::
-* Creating a GitLab account and setting up SSH::
-* Cloning and forking the repository::
-* Configuring Git::
-@end menu
 
 @node Installing Git
 @subsection Installing Git
@@ -429,16 +413,9 @@ git fetch -p origin
 (short for @code{--prune}) once in a while.
 
 
+@need 1500
 @node Lifecycle of a merge request
 @section Lifecycle of a merge request
-
-@menu
-* Uploading a patch for review::
-* Automated testing::
-* Patch countdown::
-* Merging to master::
-* Abandoned patches::
-@end menu
 
 
 @node Uploading a patch for review

@@ -1,14 +1,10 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
 @node Administrative policies
 @chapter Administrative policies
 
 This chapter discusses miscellaneous administrative issues which
 don't fit anywhere else.
-
-@menu
-* LilyPond is GNU Software::
-* Environment variables::
-* Performing yearly copyright update (grand-replace)::
-@end menu
 
 
 @node LilyPond is GNU Software

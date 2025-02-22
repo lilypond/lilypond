@@ -19,23 +19,11 @@ Polyphony in music refers to having more than one voice occurring
 in a piece of music.  Polyphony in LilyPond refers to having more
 than one voice on the same staff.
 
-@menu
-* Single voice::
-* Multiple voices::
-@end menu
-
 
 @node Single voice
 @subsection Single voice
 
 This section discusses simultaneous notes inside the same voice.
-
-@menu
-* Chorded notes::
-* Chord repetition::
-* Simultaneous expressions::
-* Clusters::
-@end menu
 
 
 @node Chorded notes
@@ -422,15 +410,6 @@ Clusters do not produce MIDI output.
 
 This section discusses simultaneous notes in multiple voices or
 multiple staves.
-
-@menu
-* Single-staff polyphony::
-* Voice styles::
-* Collision resolution::
-* Merging rests::
-* Automatic part combining::
-* Writing music in parallel::
-@end menu
 
 
 @node Single-staff polyphony

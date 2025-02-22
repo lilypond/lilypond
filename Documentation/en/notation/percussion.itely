@@ -9,12 +9,10 @@
 
 @c \version "2.17.30"
 
+@need 1500
 @node Percussion
 @section Percussion
 
-@menu
-* Common notation for percussion::
-@end menu
 
 @node Common notation for percussion
 @subsection Common notation for percussion
@@ -22,15 +20,6 @@
 Rhythmic music is primarily used for percussion and drum notation, but it can
 also be used to show the rhythms of melodies.
 
-@menu
-* References for percussion::
-* Basic percussion notation::
-* Drum rolls::
-* Pitched percussion::
-* Percussion staves::
-* Custom percussion staves::
-* Ghost notes::
-@end menu
 
 @node References for percussion
 @unnumberedsubsubsec References for percussion

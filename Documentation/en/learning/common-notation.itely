@@ -32,13 +32,6 @@ This chapter explains how to create beautifully printed music
 containing common musical notation.  For the most basic steps,
 @pxref{Tutorial}.
 
-@menu
-* Single-staff notation::
-* Multiple notes at once::
-* Songs::
-* Final touches::
-@end menu
-
 
 @node Single-staff notation
 @section Single-staff notation
@@ -46,24 +39,10 @@ containing common musical notation.  For the most basic steps,
 This section introduces common notation that is used for the most
 basic music: one voice written on one staff.
 
-@menu
-* Bar lines and bar checks::
-* Pitches and key signatures::
-* Ties and slurs::
-* Articulations and dynamics::
-* Adding text::
-* Automatic and manual beams::
-* Advanced rhythmic commands::
-@end menu
 
-
+@need 1500
 @node Bar lines and bar checks
 @subsection Bar lines and bar checks
-
-@menu
-* Bar lines::
-* Bar checks::
-@end menu
 
 
 @node Bar lines
@@ -121,11 +100,6 @@ Notation Reference:
 @node Pitches and key signatures
 @subsection Pitches and key signatures
 
-@menu
-* Pitch alterations::
-* Key signatures::
-* Warning key signatures and pitches::
-@end menu
 
 @warning{New users often misunderstand how LilyPond uses the key
 signature -- please read the warning at the end of this section.}
@@ -293,13 +267,6 @@ Notation Reference:
 Because of the similar optical appearance, we introduce ties and
 slurs in the same section.
 
-@menu
-* Ties::
-* Slurs::
-* Phrasing slurs::
-* Warnings slurs vs ties::
-@end menu
-
 
 @node Ties
 @unnumberedsubsubsec Ties
@@ -397,12 +364,6 @@ Notation Reference:
 
 Articulations and dynamics are indicated by adding special codes
 after the notes to which they apply.
-
-@menu
-* Articulations::
-* Fingerings::
-* Dynamics::
-@end menu
 
 
 @node Articulations
@@ -610,12 +571,6 @@ We have to extend simple durations (i.e., numbers appended to
 pitches, with or without trailing dots) with more concepts to
 cover a broader range of rhythmic input.
 
-@menu
-* Partial measure::
-* Tuplets::
-* Grace notes::
-@end menu
-
 
 @node Partial measure
 @unnumberedsubsubsec Partial measure
@@ -717,14 +672,6 @@ Polyphony in music refers to having more than one voice occurring
 in a piece of music.  Polyphony in LilyPond refers to having more
 than one voice on the same staff.
 
-@menu
-* Music expressions explained::
-* Multiple staves::
-* Staff groups::
-* Combining notes into chords::
-* Single-staff polyphony::
-@end menu
-
 
 @node Music expressions explained
 @subsection Music expressions explained
@@ -733,12 +680,6 @@ than one voice on the same staff.
 @cindex expression, music
 @cindex compound music expression
 @cindex music expression, compound
-
-@menu
-* Analogy mathematical expressions::
-* Simultaneous music expressions multiple staves::
-* Simultaneous music expressions single-staff::
-@end menu
 
 In LilyPond input files, music is represented by @dfn{music
 expressions}.  A single note is a music expression:
@@ -1067,12 +1008,6 @@ Notation Reference:
 
 This section introduces vocal music and simple song sheets.
 
-@menu
-* Setting simple songs::
-* Aligning lyrics to a melody::
-* Lyrics to multiple staves::
-@end menu
-
 
 @node Setting simple songs
 @subsection Setting simple songs
@@ -1352,13 +1287,6 @@ Notation Reference:
 This is the final section of the tutorial; it demonstrates how to
 add the final touches to simple pieces, and provides an
 introduction to the rest of the manual.
-
-@menu
-* Organizing pieces with variables::
-* Adding titles::
-* Absolute note names::
-* After the tutorial::
-@end menu
 
 
 @node Organizing pieces with variables

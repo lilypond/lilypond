@@ -39,28 +39,10 @@ tutorial on entering numbers, lists, strings, and symbols in
 Scheme.}
 
 
-@menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-@end menu
-
-
 @node Interpretation contexts
 @section Interpretation contexts
 
 This section describes what contexts are, and how to modify them.
-
-@menu
-* Contexts explained::
-* Creating and referencing contexts::
-* Keeping contexts alive::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Context layout order::
-@end menu
 
 @morerefs
 Learning Manual:
@@ -84,13 +66,6 @@ Internals Reference:
 
 Contexts are arranged hierarchically.
 
-@menu
-* Output definitions - blueprints for contexts::
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
-@end menu
 
 @node Output definitions - blueprints for contexts
 @unnumberedsubsubsec Output definitions -- blueprints for contexts
@@ -885,11 +860,6 @@ created.  There are two ways of doing this.  One modifies the default
 values in all contexts of a particular type, the other modifies the
 default values in just one particular instance of a context.
 
-@menu
-* Changing all contexts of the same type::
-* Changing just one specific context::
-* Order of precedence::
-@end menu
 
 @node Changing all contexts of the same type
 @unnumberedsubsubsec Changing all contexts of the same type
@@ -1648,12 +1618,6 @@ Installed Files:
 @node Explaining the Internals Reference
 @section Explaining the Internals Reference
 
-@menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-@end menu
-
 @morerefs
 Notation Reference:
 @ref{Naming conventions}.
@@ -1939,21 +1903,9 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @end quotation
 
 
+@need 1500
 @node Modifying properties
 @section Modifying properties
-
-
-@menu
-* Overview of modifying properties::
-* Set and unset::
-* Override and revert::
-* The once command::
-* set versus override::
-* Tweak and single::
-* The offset command::
-* Modifying alists::
-@end menu
-
 
 @node Overview of modifying properties
 @subsection Overview of modifying properties
@@ -2886,20 +2838,6 @@ modified by completely redefining them as alists.}
 This section discusses various common layout issues and the
 tweaking methods related to them.
 
-@menu
-* Direction and placement::
-* Distances and measurements::
-* Dimensions::
-* Spanners::
-* Line styles::
-* Line spanners::
-* Visibility of objects::
-* Rotating objects::
-* Aligning objects::
-* Modifying stencils::
-* Modifying shapes::
-@end menu
-
 @morerefs
 Learning Manual:
 @rlearning{Tweaking output},
@@ -2932,12 +2870,6 @@ marks may be placed above or below the staff; text may be aligned
 left, right or center; etc.  Most of these choices may be left to
 be determined automatically by LilyPond, but in some cases it may
 be desirable to force a particular direction or placement.
-
-@menu
-* Articulation direction indicators::
-* The direction property::
-@end menu
-
 
 @node Articulation direction indicators
 @unnumberedsubsubsec Articulation direction indicators
@@ -3198,11 +3130,6 @@ to control their appearance and behavior, as well as special
 tweaking methods related to the fact that they can be broken
 across systems.
 
-@menu
-* Modifying broken spanners::
-* Setting minimum lengths for spanners::
-* Controlling spanner end points::
-@end menu
 
 @node Modifying broken spanners
 @unnumberedsubsubsec Modifying broken spanners
@@ -3695,14 +3622,6 @@ There are also a few other techniques which are specific to
 certain layout objects.  These are covered under Special
 considerations.
 
-@menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
-@end menu
-
 
 @node Removing the stencil
 @unnumberedsubsubsec Removing the stencil
@@ -4081,10 +4000,6 @@ Learning Manual:
 Both layout objects and elements of markup text can be rotated by
 any angle about any point, but the method of doing so differs.
 
-@menu
-* Rotating layout objects::
-* Rotating markup::
-@end menu
 
 @node Rotating layout objects
 @unnumberedsubsubsec Rotating layout objects
@@ -4184,12 +4099,6 @@ Extending LilyPond:
 @rextend{Callback functions}.
 @endmorerefs
 
-@menu
-* Setting X-offset and Y-offset directly::
-* Using the side-position-interface::
-* Using the self-alignment-interface::
-* Using the break-alignable-interface::
-@end menu
 
 @node Setting X-offset and Y-offset directly
 @unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
@@ -4562,12 +4471,9 @@ Notation Reference:
 @endmorerefs
 
 
+@need 1500
 @node Modifying shapes
 @subsection Modifying shapes
-
-@menu
-* Modifying ties and slurs::
-@end menu
 
 @node Modifying ties and slurs
 @unnumberedsubsubsec Modifying ties and slurs

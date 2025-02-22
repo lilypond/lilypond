@@ -21,14 +21,6 @@ such beautiful sheet music.
 @c     require adding a new snippet option to lilypond-book.py
 @c check formatting of HTML output
 
-@menu
-* The LilyPond story::
-* Engraving details::
-* Automated engraving::
-* Building software::
-* Putting LilyPond to work::
-* Engraved examples (BWV 861)::
-@end menu
 
 @node The LilyPond story
 @section The LilyPond story
@@ -191,13 +183,6 @@ LilyPond.
 @c hand-engraved scores.  Instead, computer printouts have a bland,
 @c mechanical look, which makes them unpleasant to play from.
 
-@menu
-* Music fonts::
-* Optical spacing::
-* Ledger lines::
-* Optical sizing::
-* Why work so hard?::
-@end menu
 
 @node Music fonts
 @unnumberedsubsec Music fonts
@@ -542,11 +527,6 @@ Here we describe what is required to create software that can mimic the
 layout of engraved scores: a method of describing good layouts to the
 computer and a lot of detailed comparisons with real engravings.
 
-@menu
-* Beauty contests::
-* Improvement by benchmarking::
-* Getting things right::
-@end menu
 
 @node Beauty contests
 @unnumberedsubsec Beauty contests
@@ -917,12 +897,6 @@ with that flexibility in mind.
 
 This section describes some of the programming decisions that we made
 when designing LilyPond.
-
-@menu
-* Music representation::
-* What symbols to engrave?::
-* Flexible architecture::
-@end menu
 
 
 @node Music representation

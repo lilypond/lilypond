@@ -17,35 +17,11 @@
 This section explains how to typeset vocal music, and make sure
 that the lyrics will be aligned with the notes of their melody.
 
-@menu
-* Common notation for vocal music::
-* Techniques specific to lyrics::
-* Stanzas::
-* Songs::
-* Choral::
-* Opera and stage musicals::
-* Chants psalms and hymns::
-* Ancient vocal music::
-
-@end menu
-
 
 @node Common notation for vocal music
 @subsection Common notation for vocal music
 
 This section discusses issues common to most types of vocal music.
-
-@menu
-* References for vocal music::
-* Entering lyrics::
-* Aligning lyrics to a melody::
-* Automatic syllable durations::
-* Manual syllable durations::
-* Multiple syllables to one note::
-* Multiple notes to one syllable::
-* Extenders and hyphens::
-* Gradual changes of vowel::
-@end menu
 
 
 @node References for vocal music
@@ -923,20 +899,11 @@ Internals Reference:
 @endmorerefs
 
 
+@need 1500
 @node Techniques specific to lyrics
 @subsection Techniques specific to lyrics
 
 @c TODO this whole section is to be reorganized
-
-@menu
-* Working with lyrics and variables::
-* Placing lyrics vertically::
-* Placing syllables horizontally::
-* Lyrics and repeats::
-* Divisi lyrics::
-* Polyphony with shared lyrics::
-@end menu
-
 
 
 @node Working with lyrics and variables
@@ -1852,15 +1819,6 @@ words = \lyricmode { la __ la __ }
 @node Stanzas
 @subsection Stanzas
 
-@menu
-* Adding stanza numbers::
-* Adding dynamics marks to stanzas::
-* Adding singers' names to stanzas::
-* Stanzas with different rhythms::
-* Printing stanzas at the end::
-* Printing stanzas at the end in multiple columns::
-@end menu
-
 
 @node Adding stanza numbers
 @unnumberedsubsubsec Adding stanza numbers
@@ -2267,13 +2225,10 @@ Internals Reference:
 @endmorerefs
 
 
+@need 1500
 @node Songs
 @subsection Songs
 
-@menu
-* References for songs::
-* Lead sheets::
-@end menu
 
 @node References for songs
 @unnumberedsubsubsec References for songs
@@ -2368,10 +2323,6 @@ This section discusses notation issues that relate most directly
 to choral music.  This includes anthems, part songs, oratorio,
 etc.
 
-@menu
-* References for choral::
-* Score layouts for choral::
-@end menu
 
 @node References for choral
 @unnumberedsubsubsec References for choral
@@ -2608,13 +2559,6 @@ musicals are indicated in the References below.  This is followed
 by sections covering those techniques which are peculiar to
 typesetting opera and musical scores.
 
-@menu
-* References for opera and stage musicals::
-* Character names::
-* Musical cues::
-* Spoken music::
-* Dialogue over music::
-@end menu
 
 @node References for opera and stage musicals
 @unnumberedsubsubsec References for opera and stage musicals
@@ -3021,13 +2965,6 @@ well-established format in any particular church.  Although the
 formats may differ from church to church the typesetting problems
 which arise are broadly similar, and are covered in this section.
 
-@menu
-* References for chants and psalms::
-* Setting a chant::
-* Pointing a psalm::
-* Phrase bar lines in hymn tunes::
-* Partial measures in hymn tunes::
-@end menu
 
 @node References for chants and psalms
 @unnumberedsubsubsec References for chants and psalms

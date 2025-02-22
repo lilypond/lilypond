@@ -17,17 +17,6 @@ Advanced tweaks may be performed by using Scheme.  If you are
 not familiar with Scheme, you may wish to read our
 @ref{Scheme tutorial}.
 
-@menu
-* LilyPond code blocks::
-* Scheme functions::
-* Music functions::
-* Event functions::
-* Markup functions::
-* Contexts for programmers::
-* Callback functions::
-* Unpure-pure containers::
-* Difficult tweaks::
-@end menu
 
 @node LilyPond code blocks
 @section LilyPond code blocks
@@ -95,11 +84,6 @@ Scheme syntax is allowed.  While Scheme has functions of its own, this
 chapter is concerned with @emph{syntactic} functions, functions that
 receive arguments specified in LilyPond syntax.
 
-@menu
-* Scheme function definitions::
-* Scheme function usage::
-* Void Scheme functions::
-@end menu
 
 @node Scheme function definitions
 @subsection Scheme function definitions
@@ -290,16 +274,6 @@ work for music functions such as @code{\displayMusic}.
 @emph{Music functions} are Scheme procedures that can create music
 expressions automatically, and can be used to greatly simplify the
 input file.
-
-@menu
-* Music function definitions::
-* Music function usage::
-* Simple substitution functions::
-* Intermediate substitution functions::
-* Mathematics in functions::
-* Functions without arguments::
-* Void music functions::
-@end menu
 
 
 @node Music function definitions
@@ -591,13 +565,6 @@ have to write a direction indicator before calling it, like
 Markups are implemented as special Scheme functions which produce a
 @code{Stencil} object given a number of arguments.
 
-@menu
-* Markup construction in Scheme::
-* How markups work internally::
-* New markup command definition::
-* New markup list command definition::
-@end menu
-
 
 @node Markup construction in Scheme
 @subsection Markup construction in Scheme
@@ -741,13 +708,6 @@ of this section, and in @file{scm/define-markup-commands.scm}.
 
 This section discusses the definition of new markup commands.
 
-@menu
-* Markup command definition syntax::
-* On properties::
-* A complete example::
-* Adapting builtin commands::
-* Converting markups to strings::
-@end menu
 
 @node Markup command definition syntax
 @unnumberedsubsubsec Markup command definition syntax
@@ -1241,10 +1201,6 @@ This new markup list command can be used as follows:
 @node Contexts for programmers
 @section Contexts for programmers
 
-@menu
-* Context evaluation::
-* Running a function on all layout objects::
-@end menu
 
 @node Context evaluation
 @subsection Context evaluation

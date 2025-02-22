@@ -21,12 +21,6 @@ this section this entire group of multi-staff instruments is called
 @qq{keyboards} for short, even though some of them do not have a
 keyboard.
 
-@menu
-* Common notation for keyboards::
-* Piano::
-* Accordion::
-* Harp::
-@end menu
 
 @node Common notation for keyboards
 @subsection Common notation for keyboards
@@ -34,12 +28,6 @@ keyboard.
 This section discusses notation issues that may arise for most
 keyboard instruments.
 
-@menu
-* References for keyboards::
-* Changing staff manually::
-* Changing staff automatically::
-* Staff-change lines::
-@end menu
 
 @node References for keyboards
 @unnumberedsubsubsec References for keyboards
@@ -488,9 +476,6 @@ Internals Reference:
 This section discusses notation issues that relate most directly to the
 piano.
 
-@menu
-* Piano pedals::
-@end menu
 
 @node Piano pedals
 @unnumberedsubsubsec Piano pedals
@@ -591,9 +576,6 @@ Internals Reference:
 
 This section discusses notation that is unique to the accordion.
 
-@menu
-* Discant symbols::
-@end menu
 
 @node Discant symbols
 @unnumberedsubsubsec Discant symbols
@@ -633,10 +615,6 @@ Snippets:
 
 This section discusses notation issues that are unique to the harp.
 
-@menu
-* References for harps::
-* Harp pedals::
-@end menu
 
 @node References for harps
 @unnumberedsubsubsec References for harps

@@ -15,13 +15,6 @@
 
 This chapter gives a basic introduction to working with LilyPond.
 
-@menu
-* Compiling a file::
-* How to write input files::
-* Dealing with errors::
-* How to read the manuals::
-@end menu
-
 
 @node Compiling a file
 @section Compiling a file
@@ -75,12 +68,6 @@ produces an error message.
 This section introduces some basic LilyPond syntax to help get you
 started writing input files.
 
-@menu
-* Input characters::
-* Simple notation::
-* Working on input files::
-@end menu
-
 
 @node Input characters
 @subsection Input characters
@@ -105,17 +92,6 @@ feature must be switched off.
 
 @cindex simple notation
 @cindex notation, simple
-
-@menu
-* Pitches::
-* Durations (rhythms)::
-* Rests::
-* Time signature::
-* Tempo marks::
-* Clef::
-* All together::
-@end menu
-
 
 LilyPond adds some notation elements automatically.  In the next
 example, we have only specified four pitches, but LilyPond has
@@ -620,12 +596,6 @@ described in @rprogram{Common errors}.
 This section shows how to read the documentation efficiently, and
 also introduces some useful interactive features available in the
 online version.
-
-@menu
-* Omitted material::
-* Clickable examples::
-* Overview of manuals::
-@end menu
 
 
 @node Omitted material

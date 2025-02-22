@@ -1,16 +1,8 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+
+@need 1500
 @node LSR work
 @chapter LSR work
-
-@menu
-* Introduction to LSR::
-* Adding and editing snippets::
-* Approving snippets::
-* The makelsr script::
-* LSR to Git::
-* Renaming a snippet::
-* Updating the LSR to a new version::
-@end menu
 
 
 @node Introduction to LSR

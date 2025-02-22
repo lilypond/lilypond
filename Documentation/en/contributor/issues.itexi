@@ -5,13 +5,6 @@
 This chapter deals with defects, feature requests, and
 miscellaneous development tasks.
 
-@menu
-* Introduction to issues::
-* Triaging bugs::
-* Issue classification::
-* Adding issues to the tracker::
-@end menu
-
 
 @node Introduction to issues
 @section Introduction to issues
