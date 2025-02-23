@@ -309,6 +309,21 @@ Certain spurious change clefs have been fixed.
 @itemize
 
 @item
+The @code{TimeSignature} grob and @code{\compound-@/meter} markup
+function now support number-over-note time signatures via
+@code{denominator-@/style} and related properties.
+
+@lilypond[quote,verbatim]
+{
+  \override Timing.TimeSignature.style = #'numbered
+  \override Timing.TimeSignature.denominator-style = #'note
+  \once \override Timing.TimeSignature.fraction = #'(2 . 8/3)
+  \time 6/8
+  r4. g'8 8 8
+}
+@end lilypond
+
+@item
 The @code{TimeSignature@/.fraction} property now accepts a
 @code{number-@/pair?} value, which is more general than the
 previous @code{fraction?}.  This makes certain tricks possible

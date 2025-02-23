@@ -247,6 +247,8 @@ positions.")
 and for grouped staves that do not have the relevant
 @code{StaffGrouper} property set (@code{staff-staff-spacing} or
 @code{staffgroup-staff-spacing}).")
+     (denominator-style ,symbol? "The style of denominators in a time
+signature.")
      (details ,symbol-key-alist?  "An alist of parameters for detailed
 grob behavior.  @xref{All layout objects} for more information on the
 available parameters and their default values of a particular grob's
@@ -818,6 +820,15 @@ are this close or closer in units of @code{staff-space} will be
 identified as vertically colliding. Used by @code{Stem} grobs for notes
 in the same voice, and @code{NoteCollision} grobs for notes in
 different voices. Default value@tie{}1.")
+     (note-dots-direction ,ly:dir? "Whether the augmentation dots are shifted up
+or down (or not shifted) relative to the note head in a number-over-note time
+signature.")
+     (note-flag-style ,symbol? "The style of the flags in a number-over-note
+time signature.  See @code{flag-style}.")
+     (note-head-style ,symbol? "The style of the note head in a number-over-note
+time signature.  See @rnotation{Note head styles}.")
+     (note-staff-position ,number? "The position of the note in a
+number-over-note time signature.  See @code{staff-position}.")
      (number-range-separator ,markup? "For a measure counter extending over
 several measures (like with compressed multi-measure rests), this is
 the separator between the two printed numbers.")

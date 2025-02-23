@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.25.25"
 \header{
   texidoc="
 Note head shapes may be set from several choices.
@@ -11,6 +11,8 @@ dimensions.
 "
 }
 
+#(ly:set-option 'warning-as-error #t)
+
 \layout {
   indent = 0.0
   ragged-right = ##t
@@ -19,6 +21,8 @@ dimensions.
 pattern =
 #(define-music-function (name style) (markup? ly:context-mod?)
 #{ <<
+  \override Staff.TimeSignature.note-head-style = #(string->symbol name)
+  \time 2/2
   s1^#name
   \new Voice \with #style {
     \override Stem.direction = #UP
@@ -40,6 +44,9 @@ patternStyle =
 
 \transpose c c {
   \clef C
+  \override Staff.TimeSignature.style = #'numbered
+  \override Staff.TimeSignature.denominator-style = #'note
+  \override Staff.TimeSignature.break-visibility = #end-of-line-invisible
 
   \patternStyle default
   \patternStyle altdefault
@@ -79,6 +86,3 @@ patternStyle =
   \pattern "kievan" \with { \kievanOn }
 
 }
-
-
-

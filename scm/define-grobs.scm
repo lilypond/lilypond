@@ -3807,10 +3807,17 @@ direction and shape of stacked @iref{Tie} grobs.")))))
         (break-align-anchor-alignment . ,LEFT)
         (break-align-symbol . time-signature)
         (break-visibility . ,all-visible)
+        (denominator-style . default)
         (extra-spacing-height
          . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
         (extra-spacing-width . (0.0 . 0.8))
         (non-musical . #t)
+        ;; TODO: Set note-dots-direction to a callback that avoids staff lines.
+        (note-dots-direction . ,CENTER)
+        ;; Although Gould advises against using number-over-note time
+        ;; signatures, her single-note example places the note head immediately
+        ;; under the number (p. 182).
+        (note-staff-position . -1)
         (senza-misura-stencil . #f)
         (space-alist . (
                         (ambitus . (extra-space . 1.0))

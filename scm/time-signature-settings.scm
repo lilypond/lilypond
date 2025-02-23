@@ -321,27 +321,47 @@ a fresh copy of the list-head is made."
 (define-markup-command (compound-meter layout props time-sig)
   (number-or-pair?)
   #:category music
-  #:properties ((font-size 0))
+  #:properties ((denominator-style 'default)
+                (font-size 0)
+                (note-dots-direction CENTER)
+                (note-flag-style '())
+                (note-head-style '())
+                (note-staff-position -2))
   "Draw a numeric time signature based on @var{time-sig}.
 
 @var{time-sig} can be a single number, a pair of numbers, a simple list, or a
 list of lists, as the following example demonstrates.
 
 @lilypond[verbatim,quote]
-\\markup {
+\\markuplist {
   \\override #'(baseline-skip . 4.5)
-  \\column {
-    \\line { Single number:
-               \\compound-meter #3 }
-    \\line { Conventional:
-               \\compound-meter #'(4 . 4) or
-               \\compound-meter #'(4 4) }
-    \\line { Compound:
-               \\compound-meter #'(2 3 5 8) }
-    \\line { Single-number compound:
-               \\compound-meter #'((2) (3)) }
-    \\line { Complex compound:
-               \\compound-meter #'((2 3 8) (3 4)) }
+  \\override #'(padding . 4.5)
+  \\table #'(-1 -1) {
+    \"Single number\"  \\compound-meter #3
+    \"Conventional\"   \\line {
+                       \\compound-meter #'(4 . 4) or
+                       \\compound-meter #'(4 4)
+                     }
+    \"Subdivided\"     \\compound-meter #'(2 3 5 8)
+    \"Alternating\"    \\line {
+                       \\compound-meter #'((2) (3)) or
+                       \\compound-meter #'((2 3 8) (3 4))
+                     }
+  }
+}
+@end lilypond
+
+Setting the @code{denominator-style} property to @code{note} prints
+denominators as a note and dots when exact representation is possible.  Example:
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(denominator-style . note)
+  \\line {
+    \\compound-meter #'(2 2) or
+    \\compound-meter #'(4 1/2) or
+    \\compound-meter #'((2 8/3) (3 4)) but not
+    \\compound-meter #'(8 20)
   }
 }
 @end lilypond
@@ -351,20 +371,54 @@ list of lists, as the following example demonstrates.
            (den (car revargs))
            (nums (reverse (cdr revargs)))
            (nums-markup (make-line-markup
-                         (insert-markups (map number->string nums) "+"))))
-      ;; After centering the terms, move the reference point back to the left.
-      (make-left-align-markup
-       ;; make-center-column-markup allows slashes in rational values to push
-       ;; the denominator down.  Overriding baseline-skip doesn't work to reduce
-       ;; the spacing, so we combine the numerator and denominator the long way.
-       (make-combine-markup
-        (make-center-align-markup nums-markup)
-        (make-center-align-markup
-         (make-translate-markup
-          (cons 0 (* (ly:output-def-lookup layout 'staff-space)
-                     (magstep font-size)
-                     -2))
-          (number->string den)))))))
+                         (insert-markups (map number->string nums) "+")))
+           (note-dur (and (eq? denominator-style 'note)
+                          (positive? den)
+                          (ly:number->duration (/ den)))))
+      (cond
+       ((and note-dur (= 1 (ly:duration-scale note-dur)))
+        (let ((only-note-stencil (interpret-markup
+                                  layout props
+                                  (make-note-by-number-markup
+                                   (ly:duration-log note-dur) 0 DOWN)))
+              (full-note-markup (make-note-by-number-markup
+                                 (ly:duration-log note-dur)
+                                 (ly:duration-dot-count note-dur) DOWN)))
+          ;; After aligning the number and note, move the reference point back
+          ;; to the left.
+          (make-left-align-markup
+           (make-combine-markup
+            (make-center-align-markup nums-markup)
+            (make-translate-markup
+             (cons
+              ;; X: center on note (without dots)
+              (- (interval-center (ly:stencil-extent only-note-stencil X)))
+              ;; Y: move to note-staff-position
+              (* (ly:output-def-lookup layout 'staff-space)
+                 (magstep font-size)
+                 (/ note-staff-position 2)))
+             (make-override-markup
+              (list (cons 'dots-direction note-dots-direction)
+                    (cons 'flag-style note-flag-style)
+                    (cons 'style note-head-style))
+              full-note-markup))))))
+       ((eq? denominator-style 'none)
+        (make-vcenter-markup nums-markup))
+       (else
+        ;; After centering the terms, move the reference point back to the left.
+        (make-left-align-markup
+         ;; make-center-column-markup allows slashes in rational values to push
+         ;; the denominator down.  Overriding baseline-skip doesn't work to
+         ;; reduce the spacing, so we combine the numerator and denominator the
+         ;; long way.
+         (make-combine-markup
+          (make-center-align-markup nums-markup)
+          (make-center-align-markup
+           (make-translate-markup
+            (cons 0 (* (ly:output-def-lookup layout 'staff-space)
+                       (magstep font-size)
+                       -2))
+            (number->string den)))))))))
 
   (define (format-time-numerator time-sig)
     (make-vcenter-markup (number->string (car time-sig))))

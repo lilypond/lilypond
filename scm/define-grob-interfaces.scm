@@ -724,7 +724,7 @@ If set to @code{#t}, parenthesize the number for a tied note after a line break.
 
 (ly:add-interface
  'time-signature-interface
- "A time signature, in different styles.  The following values for
+ "A time signature, in different styles.  The following values of
 @code{style} are recognized:
 
 @table @code
@@ -745,8 +745,32 @@ All time signatures are typeset as a single number, e.g., 3/2 is
 written as@tie{}3.
 @item numbered
 All time signatures are typeset as two numbers.
-@end table"
- '(fraction
+@end table
+
+When @code{style} allows printing denominators, @code{denominator@/-style} can
+alter them.  The following values are recognized:
+
+@table @code
+@item none
+Do not print denominators.
+@item note
+Print denominators as a note and dots when exact representation is possible;
+otherwise print them as numbers.
+@item number
+Print denominators as numbers.  This is the default.
+@end table
+
+When the denominator is a note, @code{note-@/flag-@/style} and
+@code{note-head-@/style} control its appearance, and
+@code{note-@/dots-@/direction} and @code{note-@/staff-@/position} control its
+placement.
+"
+ '(denominator-style
+   fraction
+   note-dots-direction
+   note-flag-style
+   note-head-style
+   note-staff-position
    senza-misura-stencil
    style))
 
