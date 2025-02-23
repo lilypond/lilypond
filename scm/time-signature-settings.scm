@@ -321,6 +321,7 @@ a fresh copy of the list-head is made."
 (define-markup-command (compound-meter layout props time-sig)
   (number-or-pair?)
   #:category music
+  #:properties ((font-size 0))
   "Draw a numeric time signature based on @var{time-sig}.
 
 @var{time-sig} can be a single number, a pair of numbers, a simple list, or a
@@ -345,18 +346,25 @@ list of lists, as the following example demonstrates.
 }
 @end lilypond
 "
-  ;; Use a centered-column inside a left-column, because the centered column
-  ;; moves its reference point to the center, which the left-column undoes.
   (define (format-time-fraction time-sig-fraction)
-    (let* ((revargs (reverse (map number->string time-sig-fraction)))
+    (let* ((revargs (reverse time-sig-fraction))
            (den (car revargs))
-           (nums (reverse (cdr revargs))))
-      (make-override-markup
-       '(baseline-skip . 0)
-       (make-left-column-markup
-        (list (make-center-column-markup
-               (list (make-line-markup (insert-markups nums "+"))
-                     den)))))))
+           (nums (reverse (cdr revargs)))
+           (nums-markup (make-line-markup
+                         (insert-markups (map number->string nums) "+"))))
+      ;; After centering the terms, move the reference point back to the left.
+      (make-left-align-markup
+       ;; make-center-column-markup allows slashes in rational values to push
+       ;; the denominator down.  Overriding baseline-skip doesn't work to reduce
+       ;; the spacing, so we combine the numerator and denominator the long way.
+       (make-combine-markup
+        (make-center-align-markup nums-markup)
+        (make-center-align-markup
+         (make-translate-markup
+          (cons 0 (* (ly:output-def-lookup layout 'staff-space)
+                     (magstep font-size)
+                     -2))
+          (number->string den)))))))
 
   (define (format-time-numerator time-sig)
     (make-vcenter-markup (number->string (car time-sig))))
