@@ -19,12 +19,6 @@
 
 这一章是使用 LilyPond 的基本介绍.
 
-@menu
-* Compiling a file::
-* How to write input files::
-* Dealing with errors::
-* How to read the manuals::
-@end menu
 
 @node Compiling a file
 @section 编译文件
@@ -71,11 +65,6 @@ LilyPond 输入文件从而生成输出文件.
 
 本节将会介绍介绍一些 LilyPond 的基本语法，帮助你开始写输入文件。
 
-@menu
-* Simple notation::
-* Working on input files::
-@end menu
-
 
 @node Simple notation
 @subsection 简单记谱法
@@ -83,15 +72,6 @@ LilyPond 输入文件从而生成输出文件.
 @cindex simple notation (简单记谱法)
 @cindex notation, simple (简单记谱法)
 
-@menu
-* Pitches::
-* Durations (rhythms)::
-* Rests::
-* Time signature::
-* Tempo marks::
-* Clef::
-* All together::
-@end menu
 
 LilyPond 会自动添加一些记谱元素。下面的例子中，我们只指定了四个音高，但是 LilyPond 已经为我们加上了谱号，拍子记号和节奏。
 
@@ -482,11 +462,6 @@ b2 b
 有时候 LilyPond 没有输出你想要的结果。这一节会为你通过一些链接帮助你解决这些你可能遇到的问题。
 
 
-@menu
-* General troubleshooting tips::
-* Some common errors::
-@end menu
-
 @node General troubleshooting tips
 @subsection 一般解决问题的方法
 
@@ -507,12 +482,6 @@ b2 b
 @section 如何阅读教程
 
 这一节展示了如何高效阅读文档，并介绍了一些在线版本中有用的交互性特征。
-
-@menu
-* Omitted material::
-* Clickable examples::
-* Overview of manuals::
-@end menu
 
 
 @node Omitted material
