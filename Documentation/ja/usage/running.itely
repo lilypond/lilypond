@@ -18,13 +18,6 @@
 
 この章では LilyPond を実行するための細かな規定について詳述します。
 
-@menu
-* Normal usage::
-* Command-line usage::
-* Error messages::
-* Common errors::
-@end menu
-
 
 @node Normal usage
 @section 通常の使用方法
@@ -56,14 +49,6 @@ OS のコマンド ラインの使用方法についての説明は@c
 コマンド ラインに馴染みがない場合は、@c
 その内容を扱っている他のドキュメントをあたってください。
 
-@menu
-* Invoking LilyPond::
-* Basic command-line options for LilyPond::
-* Advanced command-line options for LilyPond::
-* Environment variables::
-* Relocation::
-* LilyPond in chroot jail::
-@end menu
 
 @node Invoking LilyPond
 @unnumberedsubsec @command{lilypond} を呼び出す
@@ -1002,12 +987,6 @@ LilyPond も例外ではありません。@c
 @emph{実行されたバイナリに対して相対的に}計算されます。
 
 
-@menu
-* Relocation files::
-* Relocation algorithm::
-@end menu
-
-
 @node Relocation files
 @unnumberedsubsubsec 再配置ファイル
 
@@ -1336,16 +1315,6 @@ test.ly:2:19: error: not a duration: 5
 その原因は明白でなかったり、見つけにくかったりします。@c
 目を通しておくと、それらのエラーに対処しやすくなります。
 
-
-@menu
-* Music runs off the page::
-* An extra staff appears::
-* Error message Unbound variable %::
-* Error message FT_Get_Glyph_Name::
-* Warning staff affinities should only decrease::
-* Error message unexpected new::
-* Warning this voice needs a voiceXx or shiftXx setting::
-@end menu
 
 @node Music runs off the page
 @unnumberedsubsec 楽譜がページからはみ出る

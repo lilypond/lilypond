@@ -21,12 +21,6 @@
 
 このセクションでは楽譜の中で作成可能なさまざまな発想記号をリストアップします。
 
-@menu
-* Expressive marks attached to notes::
-* Expressive marks as curves::
-* Expressive marks as lines::
-@end menu
-
 
 @node Expressive marks attached to notes
 @subsection 音符に付けられる発想記号
@@ -35,13 +29,6 @@
 音符に添付される発想記号には以下のものがあります:
 アーティキュレーション、装飾、強弱記号。@c
 新たに強弱記号を作成する方法についても議論します。
-
-
-@menu
-* Articulations and ornamentations::
-* Dynamics::
-* New dynamic marks::
-@end menu
 
 
 @node Articulations and ornamentations
@@ -708,12 +695,6 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
 -- 通常のスラー、フレージング スラー、ブレス記号、Fall それに Doit --
 を作成する方法について説明します。
 
-@menu
-* Slurs::
-* Phrasing slurs::
-* Breath marks::
-* Falls and doits::
-@end menu
 
 @node Slurs
 @unnumberedsubsubsec スラー
@@ -1129,11 +1110,6 @@ Fall あるいは Doit の向きはプラスあるいはマイナス (上ある�
 このセクションでは直線的な軌道をとるさまざまな発想記号 --
 グリッサンド、アルペジオそれにトリル -- を作成する方法について説明します。
 
-@menu
-* Glissando::
-* Arpeggio::
-* Trills::
-@end menu
 
 @node Glissando
 @unnumberedsubsubsec グリッサンド

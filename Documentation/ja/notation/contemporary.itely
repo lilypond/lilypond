@@ -22,27 +22,12 @@
 このセクションの目的は、@c
 これらの新しい記譜テクニックに関するリファレンスと情報を提供することです。
 
-@menu
-* Pitch and harmony in contemporary music::
-* Contemporary approaches to rhythm::
-* Graphical notation::
-* Contemporary scoring techniques::
-* New instrumental techniques::
-* Further reading and scores of interest::
-@end menu
-
 
 @node Pitch and harmony in contemporary music
 @subsection 現代音楽でのピッチと調和音
 
 このセクションでは、@c
 現代音楽でのピッチと調和音の記譜に関係する問題をハイライトします。
-
-@menu
-* References for pitch and harmony in contemporary music::
-* Microtonal notation::
-* Contemporary key signatures and harmony::
-@end menu
 
 
 @node References for pitch and harmony in contemporary music
@@ -81,15 +66,6 @@
 
 このセクションでは、@c
 現代音楽のリズムの記譜法に関係する問題をハイライトします。
-
-@menu
-* References for contemporary approaches to rhythm::
-* Tuplets in contemporary music::
-* Contemporary time signatures::
-* Extended polymetric notation::
-* Beams in contemporary music::
-* Bar lines in contemporary music::
-@end menu
 
 
 @node References for contemporary approaches to rhythm
@@ -177,11 +153,6 @@
 
 このセクションでは現代音楽記譜法を学ぶ際に有用な本、楽譜例、その他の情報源を@c
 提示します。
-
-@menu
-* Books and articles on contemporary musical notation::
-* Scores and musical examples::
-@end menu
 
 
 @node Books and articles on contemporary musical notation

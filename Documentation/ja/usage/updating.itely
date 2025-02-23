@@ -28,14 +28,6 @@ LilyPond が改善していくにつれ、いくつかのコマンドや関数�
 これに対処するため、このような昔の入力ファイルを新しい構文に更新する
 @command{convert-ly} コマンドを使うことができます。
 
-@menu
-* Why does the syntax change?::
-* Invoking convert-ly::
-* Command line options for convert-ly::
-* Problems running convert-ly::
-* Manual conversions::
-* Writing code to support multiple versions::
-@end menu
 
 @node Why does the syntax change?
 @section 何故構文は変更されるのか？

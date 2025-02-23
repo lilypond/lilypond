@@ -20,22 +20,12 @@
 このセクションの目的は、@c
 西洋音楽の慣習とは異なる音楽に関する記譜の問題をハイライトすることです。
 
-@menu
-* Common notation for non-Western music::
-* Arabic music::
-* Turkish classical music::
-@end menu
-
 
 @node Common notation for non-Western music
 @subsection 非西洋音楽の一般的な記譜法
 
 このセクションでは、西洋のクラシック音楽の様式には属さない楽譜を入力し、@c
 譜刻する方法を説明します。
-
-@menu
-* Extending notation and tuning systems::
-@end menu
 
 
 @node Extending notation and tuning systems
@@ -106,15 +96,6 @@
 @subsection アラブ音楽
 
 このセクションでは、アラブ音楽の記譜に関する問題をハイライトします。
-
-@menu
-* References for Arabic music::
-* Arabic note names::
-* Arabic key signatures::
-* Arabic time signatures::
-* Arabic music example::
-* Further reading for Arabic music::
-@end menu
 
 
 @node References for Arabic music
@@ -521,13 +502,6 @@ Ibrahim Ali Darwish Al-masri
 @subsection トルコの伝統音楽
 
 このセクションではトルコの伝統音楽記譜に関係する問題をハイライトします。
-
-@menu
-* References for Turkish classical music::
-* Turkish note names::
-* Turkish key signatures::
-* Further reading for Turkish music::
-@end menu
 
 
 @node References for Turkish classical music

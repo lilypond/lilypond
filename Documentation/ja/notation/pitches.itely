@@ -20,13 +20,6 @@
 このセクションでは音符のピッチを指定する方法について議論します。@c
 このプロセスには 3 つのステップがあります: 入力、変更、出力です。
 
-@menu
-* Writing pitches::
-* Changing multiple pitches::
-* Displaying pitches::
-* Note heads::
-@end menu
-
 
 @node Writing pitches
 @subsection ピッチを記述する
@@ -35,13 +28,6 @@
 音符をオクターブの中に置くには 2 つの方法があります:
 絶対モードと相対モードです。@c
 たいていの場合、相対モードの方が便利です。
-
-@menu
-* Absolute octave entry::
-* Relative octave entry::
-* Accidentals::
-* Note names in other languages::
-@end menu
 
 
 @node Absolute octave entry
@@ -672,14 +658,6 @@ LilyPond の記号はいかなる標準にも準拠しません。
 
 このセクションではピッチを変更する方法について議論します。
 
-@menu
-* Octave checks::
-* Transpose::
-* Inversion::
-* Retrograde::
-* Modal transformations::
-@end menu
-
 
 @node Octave checks
 @unnumberedsubsubsec オクターブ チェック
@@ -1111,15 +1089,6 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 @subsection ピッチを表示する
 
 このセクションではピッチの出力を変更する方法について議論します。
-
-@menu
-* Clef::
-* Key signature::
-* Ottava brackets::
-* Instrument transpositions::
-* Automatic accidentals::
-* Ambitus::
-@end menu
 
 
 @node Clef
@@ -3113,12 +3082,6 @@ forget = #(define-music-function (music) (ly:music?) #{
 
 このセクションでは符頭を変更する方法について説明します。
 
-@menu
-* Special note heads::
-* Easy notation note heads::
-* Shape note heads::
-* Improvisation::
-@end menu
 
 @node Special note heads
 @unnumberedsubsubsec 特殊な符頭

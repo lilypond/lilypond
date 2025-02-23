@@ -18,19 +18,6 @@
 この章では、特定のタイプの楽器やスタイル向けの音楽記譜を作成するための方法@c
 について説明します。
 
-@menu
-* Vocal music::
-* Keyboard and other multi-staff instruments::
-* Unfretted string instruments::
-* Fretted string instruments::
-* Percussion::
-* Wind instruments::
-* Chord notation::
-* Contemporary music::
-* Ancient notation::
-* World music::
-@end menu
-
 @include ja/notation/vocal.itely
 @include ja/notation/keyboards.itely
 @include ja/notation/unfretted-strings.itely

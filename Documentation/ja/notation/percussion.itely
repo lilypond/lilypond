@@ -12,12 +12,10 @@
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada
 @c Translation status: post-GDP
 
+@need 1500
 @node Percussion
 @section 打楽器
 
-@menu
-* Common notation for percussion::
-@end menu
 
 @node Common notation for percussion
 @subsection 打楽器で共通の記譜法
@@ -25,15 +23,6 @@
 リズム音楽は主に打楽器とドラム記譜法で使用されますが、@c
 旋律のリズムを示すために使うこともできます。
 
-@menu
-* References for percussion::
-* Basic percussion notation::
-* Drum rolls::
-* Pitched percussion::
-* Percussion staves::
-* Custom percussion staves::
-* Ghost notes::
-@end menu
 
 @node References for percussion
 @unnumberedsubsubsec 打楽器のためのリファレンス

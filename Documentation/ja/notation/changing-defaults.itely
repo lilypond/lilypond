@@ -48,31 +48,11 @@ Scheme の要素は、@code{.ly} の中で、@c
 簡単な手引きがあります。}
 
 
-@menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Advanced tweaks::
-* Using music functions::
-@end menu
-
-
 @node Interpretation contexts
 @section コンテキストを理解する
 
 このセクションでは、コンテキストとは何なのか、@c
 それをどのように変更するのかについて説明します。
-
-@menu
-* Contexts explained::
-* Creating and referencing contexts::
-* Keeping contexts alive::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Context layout order::
-@end menu
 
 @morerefs
 学習マニュアル:
@@ -120,13 +100,6 @@ further explanation and with links to the IR.
 
 コンテキストは階層的に配置されます:
 
-@menu
-* Output definitions - blueprints for contexts::
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
-@end menu
 
 @node Output definitions - blueprints for contexts
 @unnumberedsubsubsec 出力定義 - コンテキストの青写真
@@ -889,11 +862,6 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 もう 1 つはただ 1 つのコンテキストのインスタンスのデフォルト値を変更する@c
 方法です。
 
-@menu
-* Changing all contexts of the same type::
-* Changing just one specific context::
-* Order of precedence::
-@end menu
 
 @node Changing all contexts of the same type
 @unnumberedsubsubsec 同じタイプの全コンテキストを変更する
@@ -1542,16 +1510,10 @@ squashedPosition = #0
 @file{ly/engraver-init.ly}
 
 
+@need 1500
 @node Explaining the Internals Reference
 @section 内部リファレンスの説明
 
-
-@menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Naming conventions::
-@end menu
 
 @node Navigating the program reference
 @subsection 内部リファレンスを使いこなす
@@ -1915,6 +1877,7 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @end itemize
 
 
+@need 1500
 @node Modifying properties
 @section プロパティを変更する
 
@@ -1922,16 +1885,6 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @c backslash once the new macro to handle the refs
 @c is available.  Need to find and change all refs at
 @c the same time. -td
-
-@menu
-* Overview of modifying properties::
-* The set command::
-* The override command::
-* The tweak command::
-* set versus override::
-* The offset command::
-* Modifying alists::
-@end menu
 
 
 @node Overview of modifying properties
@@ -2872,20 +2825,9 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 連想配列として丸ごと再定義するしかありません。}
 
 
+@need 1500
 @node Useful concepts and properties
 @section 役に立つコンセプトとプロパティ
-
-@menu
-* Input modes::
-* Direction and placement::
-* Distances and measurements::
-* Dimensions::
-* Staff symbol properties::
-* Spanners::
-* Visibility of objects::
-* Line styles::
-* Rotating objects::
-@end menu
 
 
 @node Input modes
@@ -3022,10 +2964,6 @@ Grob の名前が必要となります。次の @code{\offset} では、連桁�
 これらの選択のほとんどは LilyPond によって自動的に決定されますが、@c
 強制的に向きや配置を指定することが望ましい場合もあります。
 
-@menu
-* Articulation direction indicators::
-* The direction property::
-@end menu
 
 @node Articulation direction indicators
 @unnumberedsubsubsec アーティキュレーションの方向指示子
@@ -3279,10 +3217,6 @@ Scheme ペアです:
 いくつかのスパナ -- 2 つのオブジェクトの間に直線を描くもの -- は、さらに、@c
 @code{line-spanner-interface} をサポートします。
 
-@menu
-* Using the spanner-interface::
-* Using the line-spanner-interface::
-@end menu
 
 @node Using the spanner-interface
 @unnumberedsubsubsec @code{spanner-interface} を使用する
@@ -3603,14 +3537,6 @@ f''1
 
 さらに、特定のレイアウト オブジェクト特有のテクニックがいくつかあります。@c
 それらについては、特別な考慮でカバーされています。
-
-@menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
-@end menu
 
 
 @node Removing the stencil
@@ -4064,10 +3990,6 @@ B フラット メジャーへの明示的な変更の後に出現する調号�
 任意のポイントを中心にして任意の角度で回転させることができます。@c
 しかしながら、回転させる方法はまったく異なります。
 
-@menu
-* Rotating layout objects::
-* Rotating markup::
-@end menu
 
 @node Rotating layout objects
 @unnumberedsubsubsec レイアウト オブジェクトを回転させる
@@ -4125,15 +4047,6 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 
 このセクションでは、@c
 楽譜の見た目を細かく調節するためのさまざまなアプローチについて議論します。
-
-@menu
-* Aligning objects::
-* Vertical grouping of grobs::
-* Modifying stencils::
-* Modifying shapes::
-* Modifying broken spanners::
-* Unpure-pure containers::
-@end menu
 
 @morerefs
 学習マニュアル:
@@ -4206,12 +4119,6 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 拡張:
 @rextend{Callback functions}
 
-@menu
-* Setting X-offset and Y-offset directly::
-* Using the side-position-interface::
-* Using the self-alignment-interface::
-* Using the break-alignable-interface::
-@end menu
 
 @node Setting X-offset and Y-offset directly
 @unnumberedsubsubsec @code{X-offset} と @code{Y-offset} を直接設定する
@@ -4580,12 +4487,10 @@ Emmentaler フォントに含まれる任意の @emph{Feta}
 @ref{Graphical markup}
 
 
+@need 1500
 @node Modifying shapes
 @subsection 形状を変更する
 
-@menu
-* Modifying ties and slurs::
-@end menu
 
 @node Modifying ties and slurs
 @unnumberedsubsubsec タイとスラーの形状を変更する
@@ -4807,12 +4712,10 @@ X@tie{}座標はタイあるいはスラーを取り付ける音符の参照ポ�
 @rinternals{TieColumn}
 
 
+@need 1500
 @node Modifying broken spanners
 @subsection 改行するスパナを変更する
 
-@menu
-* Using alterBroken::
-@end menu
 
 @node Using alterBroken
 @unnumberedsubsubsec @code{\alterBroken} を使用する
@@ -5031,10 +4934,6 @@ smartSquareLineCircleSpace = {
 置換関数は変数を LilyPond 入力コードに置き換えます。@c
 他のもっと複雑な関数については、@rextend{Music functions} で記述されています。
 
-@menu
-* Substitution function syntax::
-* Substitution function examples::
-@end menu
 
 @node Substitution function syntax
 @subsection 置換関数の構文

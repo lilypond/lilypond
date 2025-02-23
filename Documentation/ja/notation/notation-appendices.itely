@@ -13,31 +13,9 @@
 @c Translators: Tomohiro Tatejima, Hiroshi Fukuhara
 @c Translation status: post-GDP
 
+@need 1500
 @node Notation manual tables
 @appendix 付表
-
-@menu
-* Chord name chart::
-* Common chord modifiers::
-* Predefined string tunings::
-* Predefined fretboard diagrams::
-* Predefined paper sizes::
-* MIDI instruments::
-* List of colors::
-* The Emmentaler font::
-* Note head styles::
-* Clef styles::
-* Text markup commands::
-* Text markup list commands::
-* List of special characters::
-* List of articulations::
-* Percussion notes::
-* Technical glossary::
-* Available music functions::
-* Context modification identifiers::
-* Predefined type predicates::
-@end menu
-
 
 
 @node Chord name chart
@@ -506,14 +484,11 @@
 
 @lilypondfile{en/included/display-predefined-string-tunings.ly}
 
+
+@need 1500
 @node Predefined fretboard diagrams
 @appendixsec 定義されたフレット図
 
-@menu
-* Diagrams for Guitar::
-* Diagrams for Ukulele::
-* Diagrams for Mandolin::
-@end menu
 
 @node Diagrams for Guitar
 @unnumberedsubsec ギターのフレット図
@@ -973,34 +948,6 @@ g^\markup @{\musicglyph "scripts.segno" @}
 
 詳しくは @ref{Formatting text} を参照してください。
 
-@menu
-* Clef glyphs::
-* Time Signature glyphs::
-* Number glyphs::
-* Accidental glyphs::
-* Default Notehead glyphs::
-* Special Notehead glyphs::
-* Shape-note Notehead glyphs::
-* Rest glyphs::
-* Flag glyphs::
-* Dot glyphs::
-* Dynamic glyphs::
-* Script glyphs::
-* Arrowhead glyphs::
-* Bracket-tip glyphs::
-* Pedal glyphs::
-* Accordion glyphs::
-* Tie glyphs::
-* Vaticana glyphs::
-* Medicaea glyphs::
-* Hufnagel glyphs::
-* Mensural glyphs::
-* Neomensural glyphs::
-* Petrucci glyphs::
-* Solesmes glyphs::
-* Kievan Notation glyphs::
-@end menu
-
 
 @node Clef glyphs
 @unnumberedsubsec 音部記号グリフ
@@ -1321,12 +1268,6 @@ g^\markup @{\musicglyph "scripts.segno" @}
 @cindex blackmensural clef (黒色計量記譜法の音部記号)
 @cindex Kievan clef (キエフ記譜法の音部記号)
 
-@menu
-* Standard clefs::
-* Percussion staff clef::
-* Tab staff clefs::
-* Ancient music clefs::
-@end menu
 
 @node Standard clefs
 @unnumberedsubsec 通常の音部記号
@@ -2216,15 +2157,6 @@ For translators: you cannot translate the content of these files.
 @c References for wind instruments (for "open"/"stopped" -- not yet funindexed)
 
 
-@menu
-* Articulation scripts::
-* Ornament scripts::
-* Fermata scripts::
-* Instrument-specific scripts::
-* Repeat sign scripts::
-* Ancient scripts::
-@end menu
-
 @ignore
 The @multitable @columnfraction value discrepancy between the first and
 the remaining columns is deliberate; it seems (at least visually
@@ -3013,23 +2945,6 @@ f^\varcoda e,_\varcoda b'\varcoda
 LilyPond の内部で用いられる技術的な用語やコンセプトの一覧です。@c
 これらはマニュアル、メーリング リスト、ソースコードなどに現れます。
 
-@menu
-* alist::
-* callback::
-* closure::
-* glyph::
-* grob::
-* immutable::
-* interface::
-* lexer::
-* mutable::
-* output-def::
-* parser::
-* parser variable::
-* prob::
-* smob::
-* stencil::
-@end menu
 
 @node alist
 @unnumberedsubsec alist (連想配列)

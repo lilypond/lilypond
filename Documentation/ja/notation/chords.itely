@@ -21,12 +21,6 @@
 様々な従来のヨーロッパの和音命名規則を用いて表示することができます。@c
 和音ネームと通奏低音記譜を表示させることもできます。
 
-@menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
-@end menu
-
 
 @node Chord mode
 @subsection 和音モード
@@ -36,12 +30,6 @@
 和音モードでは、和音のピッチではなく、@c
 和音構造の指示子を用いてコードを入力します。
 
-@menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
-* Chord inversions and specific voicings::
-@end menu
 
 @node Chord mode overview
 @unnumberedsubsubsec 和音モードの概要
@@ -443,10 +431,6 @@ maj, maj7
 譜に音符を表示させるという標準の表示に加えて、@c
 コード ネームを表示させることができます。
 
-@menu
-* Printing chord names::
-* Customizing chord names::
-@end menu
 
 @node Printing chord names
 @unnumberedsubsubsec コード ネームを譜刻する
@@ -840,11 +824,6 @@ myChords = \relative c' {
 
 通奏低音を譜刻することができます。
 
-@menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
-@end menu
 
 @node Introduction to figured bass
 @unnumberedsubsubsec 通奏低音の導入部

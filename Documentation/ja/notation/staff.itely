@@ -23,25 +23,12 @@
 このセクションでは、譜の見た目を変える方法、複数の譜を持つ楽譜を譜刻する方法、@c
 それに、テンポ指示と演奏指示楽節の音符を譜に付け加える方法について説明します。
 
-@menu
-* Displaying staves::
-* Modifying single staves::
-* Writing parts::
-@end menu
-
 
 @node Displaying staves
 @subsection 譜を表示する
 
 このセクションでは、譜を作成する方法と、@c
 譜をグループ化する方法をいくつか説明します。
-
-@menu
-* Instantiating new staves::
-* Grouping staves::
-* Nested staff groups::
-* Separating systems::
-@end menu
 
 
 @node Instantiating new staves
@@ -396,12 +383,6 @@
 このセクションでは、譜の属性を変更する方法について説明します:
 例えば、譜線の本数や譜サイズを変更します。@c
 譜を開始/終了する方法とオッシア セクションをセットする方法についても記述します。
-
-@menu
-* Staff symbol::
-* Ossia staves::
-* Hiding staves::
-@end menu
 
 
 @node Staff symbol
@@ -858,13 +839,6 @@
 オーケストラまたはアンサンブル音楽用のパートを作成する方法について説明します。@c
 他のボイスを引用する方法、演奏指示音符を譜刻する方法、@c
 個々のパートで複数の連続する空の小節をまとめる方法についても記述します。
-
-@menu
-* Instrument names::
-* Quoting other voices::
-* Formatting cue notes::
-* Compressing empty measures::
-@end menu
 
 
 @node Instrument names

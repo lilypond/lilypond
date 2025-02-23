@@ -21,12 +21,6 @@
 
 この章は LilyPond に取り組むための基本的な入門書です。
 
-@menu
-* Compiling a file::
-* How to write input files::
-* Dealing with errors::
-* How to read the manuals::
-@end menu
 
 @node Compiling a file
 @section ファイルをコンパイルする
@@ -86,27 +80,12 @@ LilyPond 入力ファイルはシンプルなテキストファイルです。@c
 このセクションでは、あなたが入力ファイルを書き始めるのを手助けするために
 LilyPond の基本的な構文をいくつか紹介します。
 
-@menu
-* Simple notation::
-* Working on input files::
-@end menu
-
 
 @node Simple notation
 @subsection 簡単な記譜法
 
 @cindex simple notation (簡単な記譜法)
 @cindex notation, simple (簡単な記譜法)
-
-@menu
-* Pitches::
-* Durations (rhythms)::
-* Rests::
-* Time signature::
-* Tempo marks::
-* Clef::
-* All together::
-@end menu
 
 LilyPond はいくつかの記譜要素を自動的に追加します。@c
 次の例では、我々は 4 つのピッチを指定しただけですが、LilyPond が音部記号、@c
@@ -579,11 +558,6 @@ b2 b
 このセクションでは、あなたが遭遇するかもしれない問題を解決するのに@c
 役立つリンクをいくつか提供します。
 
-@menu
-* General troubleshooting tips::
-* Some common errors::
-@end menu
-
 
 @node General troubleshooting tips
 @subsection 一般的なトラブルシュート Tips
@@ -612,12 +586,6 @@ LilyPond で発生する問題をトラブルシュートすることは、@c
 
 このセクションではドキュメントを効率的に読む方法を示し、@c
 さらに、オンライン版で利用できる有用な対話的機能をいくつか紹介します。
-
-@menu
-* Omitted material::
-* Clickable examples::
-* Overview of manuals::
-@end menu
 
 
 @node Omitted material

@@ -27,9 +27,6 @@
 -- 主にオーケストラで使用される弦楽器 --
 のための楽譜を記述する際に有用な情報とリファレンスを提供します。
 
-@menu
-* Common notation for unfretted strings::
-@end menu
 
 @node Common notation for unfretted strings
 @subsection フレットの無い弦楽器で共通の記譜法
@@ -40,12 +37,6 @@
 ダブル ストップ (重音奏法) やディヴィジ (divisi) パッセージで
 2 つのボイスが必要となる場合もあります。
 
-@menu
-* References for unfretted strings::
-* Bowing indications::
-* Harmonics::
-* Snap (Bartok) pizzicato::
-@end menu
 
 @node References for unfretted strings
 @unnumberedsubsubsec フレットの無い弦楽器のためのリファレンス

@@ -19,21 +19,12 @@
 
 このセクションでは管楽器の楽譜を記述する際に現れる記譜要素について説明します。
 
-@menu
-* Common notation for wind instruments::
-* Bagpipes::
-* Woodwinds::
-@end menu
 
 @node Common notation for wind instruments
 @subsection 管楽器で共通の記譜法
 
 このセクションでは多くの管楽器で共通の記譜法について説明します。
 
-@menu
-* References for wind instruments::
-* Fingerings::
-@end menu
 
 @node References for wind instruments
 @unnumberedsubsubsec 管楽器のためのリファレンス
@@ -134,10 +125,6 @@
 
 このセクションではバグパイプで共通の記譜法について説明します。
 
-@menu
-* Bagpipe definitions::
-* Bagpipe example::
-@end menu
 
 @node Bagpipe definitions
 @unnumberedsubsubsec バグパイプの定義
@@ -249,9 +236,6 @@ C と F をフラットにするためクロス フィンガリングを使う�
 
 このセクションでは木管楽器に特有の記譜法について説明します。
 
-@menu
-* Woodwind diagrams::
-@end menu
 
 @node Woodwind diagrams
 @subsubsection 木管楽器のダイアグラム

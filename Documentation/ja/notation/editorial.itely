@@ -22,25 +22,12 @@
 このセクションでは、音符の見た目を変える方法と、@c
 分析や教育的な強調を付け加える方法について議論します。
 
-@menu
-* Inside the staff::
-* Outside the staff::
-@end menu
-
 
 @node Inside the staff
 @subsection 譜の内部
 
 このセクションでは、譜の内部にある要素に強調を付け加える方法について説明します。
 
-@menu
-* Selecting notation font size::
-* Fingering instructions::
-* Hidden notes::
-* Coloring objects::
-* Parentheses::
-* Stems::
-@end menu
 
 @node Selecting notation font size
 @unnumberedsubsubsec 記譜フォント サイズを選択する
@@ -691,12 +678,6 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 このセクションでは、@c
 譜の外側から譜の中にある要素を強調するための方法について説明します。
 
-@menu
-* Note names::
-* Balloon help::
-* Grid lines::
-* Analysis brackets::
-@end menu
 
 @node Note names
 @unnumberedsubsubsec 音符名

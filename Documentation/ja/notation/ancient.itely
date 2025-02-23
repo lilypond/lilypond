@@ -25,16 +25,6 @@
 @cindex mensural (計量記譜法)
 
 
-@menu
-* Overview of the supported styles::
-* Ancient notation - common features::
-* Typesetting mensural music::
-* Typesetting Gregorian chant::
-* Typesetting Kievan square notation::
-* Working with ancient music - scenarios and solutions::
-@end menu
-
-
 古代の記譜法のサポートには、計量記譜法、グレゴリオ聖歌の記譜法、@c
 キエフ記譜法が含まれています。これらは、符頭や休符といった@c
 グラフィカル オブジェクトのスタイル プロパティを変更するか、@c
@@ -156,14 +146,9 @@ Petrucci スタイルには符尾や臨時記号がありません。
 @rglos{flag}
 
 
+@need 1500
 @node Ancient notation - common features
 @subsection 古代音楽で共通の記譜法
-
-@menu
-* Pre-defined contexts::
-* Ligatures::
-* Custodes::
-@end menu
 
 
 @node Pre-defined contexts
@@ -341,20 +326,10 @@ Vaticana スタイルと、計量音楽のための Mensural スタイルです
 内部リファレンス:
 @rinternals{Custos}
 
+
+@need 1500
 @node Typesetting mensural music
 @subsection 計量音楽の記譜
-
-@menu
-* Mensural contexts::
-* Mensural clefs::
-* Mensural time signatures::
-* Mensural note heads::
-* Mensural flags::
-* Mensural rests::
-* Mensural accidentals and key signatures::
-* Annotational accidentals (musica ficta)::
-* White mensural ligatures::
-@end menu
 
 
 @node Mensural contexts
@@ -936,16 +911,6 @@ ficta = { \once \set suggestAccidentals = ##t }
 
 @node Typesetting Gregorian chant
 @subsection グレゴリオ聖歌の記譜
-
-@menu
-* Gregorian chant contexts::
-* Gregorian clefs::
-* Gregorian accidentals and key signatures::
-* Divisiones::
-* Gregorian articulation signs::
-* Augmentum dots (morae)::
-* Gregorian square neume ligatures::
-@end menu
 
 グレゴリオ聖歌の楽譜を記譜する時、@c
 @code{Vaticana_ligature_engraver} が適切な符頭を選択するため、@c
@@ -2337,14 +2302,6 @@ Antiphonale Romanum (@emph{Liber Hymnarius}) の第 2 巻に収録されてい�
 (訳注: キエフ記譜法 (Kievan square notation) は、ロシア正教会を中心に@c
 使われている聖歌の記譜法です。符頭が四角形 (square) であることが特徴です。)
 
-@menu
-* Kievan contexts::
-* Kievan clefs::
-* Kievan notes::
-* Kievan accidentals::
-* Kievan bar line::
-* Kievan melismata::
-@end menu
 
 @node Kievan contexts
 @unnumberedsubsubsec キエフ記譜法のコンテキスト
@@ -2574,12 +2531,6 @@ LilyPond では、メリスマはリガトゥーラとして扱われ、@c
 @node Working with ancient music - scenarios and solutions
 @subsection 古代音楽に取り組む -- 事例とその解決法
 
-@menu
-* Incipits::
-* Mensurstriche layout::
-* Transcribing Gregorian chant::
-* Ancient and modern from one source::
-@end menu
 
 古代音楽の譜刻に取り組む場合、LilyPond の主なターゲットである@c
 現代の記譜法とはかなり異なる作業を強いられることが多くあります。@c

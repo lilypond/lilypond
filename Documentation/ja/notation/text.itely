@@ -23,11 +23,6 @@
 このセクションでは、@c
 楽譜に (さまざまなフォーマットの) テキストを含める方法について説明します。
 
-@menu
-* Writing text::
-* Formatting text::
-* Fonts::
-@end menu
 
 @node Writing text
 @subsection テキストを記述する
@@ -41,13 +36,6 @@
 ファイルは UTF-8 で保存しなければなりません。@c
 更なる情報は @ref{Text encoding} を参照してください。}
 
-@menu
-* Text objects overview::
-* Text scripts::
-* Text spanners::
-* Text marks::
-* Separate text::
-@end menu
 
 @node Text objects overview
 @unnumberedsubsubsec テキスト オブジェクトの概要
@@ -553,14 +541,6 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 このセクションでは、@code{\markup} モード特有の構文を用いた@c
 基本的かつ高度なテキスト フォーマットについて説明します。
 
-@menu
-* Text markup introduction::
-* Selecting font and font size::
-* Text alignment::
-* Graphic notation inside markup::
-* Music notation inside markup::
-* Multi-page markup::
-@end menu
 
 @node Text markup introduction
 @unnumberedsubsubsec テキスト マークアップの導入部
@@ -1542,11 +1522,6 @@ a'1_\markup {
 このセクションでは、@c
 フォントを扱う方法と、楽譜の中でフォントを変更する方法について説明します。
 
-@menu
-* Fonts explained::
-* Single entry fonts::
-* Entire document fonts::
-@end menu
 
 @node Fonts explained
 @unnumberedsubsubsec フォントの説明

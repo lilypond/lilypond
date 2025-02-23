@@ -19,13 +19,6 @@
 
 LilyPond は様々な方法で他のプログラムと連携することができます。
 
-@menu
-* Point and click::
-* Text editor support::
-* Converting from other formats::
-* LilyPond output in other programs::
-* Independent includes::
-@end menu
 
 @node Point and click
 @section ポイント＆クリック
@@ -35,12 +28,6 @@ LilyPond は様々な方法で他のプログラムと連携することがで�
 ポイント＆クリックは PDF ビューアの中で表記をクリックすることで@c
 入力の中の表記を見つけ出すことを可能にします。@c
 これは楽譜の中でエラーを引き起こす入力を見つけ出すことをより容易にします。
-
-@menu
-* Configuring the system for point and click::
-* Enabling point and click::
-* Selective point-and-click::
-@end menu
 
 
 @node Configuring the system for point and click
@@ -95,13 +82,6 @@ export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
 @file{~/.emacs} ファイルに @code{(server-start)} という行を追加する必要が@c
 あります。そうしなければ、PDF 内のオブジェクトをクリックする度に@c
 新しい Emacs ウィンドウが開いてしまいます。}
-
-@menu
-* Using Xpdf for point and click::
-* Using GNOME 2 for point and click::
-* Using GNOME 3 for point and click::
-* Extra configuration for Evince::
-@end menu
 
 
 @node Using Xpdf for point and click
@@ -340,12 +320,6 @@ lilypond \
 @cindex coloring, syntax (カラーリング構文)
 
 いくつかのテキスト エディタの LilyPond サポート機能があります。
-
-@menu
-* Emacs mode::
-* Vim mode::
-* Other editors::
-@end menu
 
 
 @node Emacs mode
@@ -779,12 +753,6 @@ LilyPond 自体は他のフォーマットを一切サポートしませんが�
 このセクションでは、@command{lilypond-book} を用いた自動手法ではない、@c
 テキストと楽譜を統合する手法を示します。
 
-@menu
-* LuaTeX::
-* OpenOffice and LibreOffice::
-* Other programs::
-@end menu
-
 
 @node LuaTeX
 @subsection Lua@TeX{}
@@ -872,10 +840,6 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 出力にある効果を生み出すために、LilyPond に @code{\include} することのできる@c
 ファイルを作っているユーザがいます。以下にあるものは LilyPond に@c
 付属しているものです。@rnotationnamed{Working with input files, 入力ファイルに取り組む} も参照してください。
-
-@menu
-* MIDI articulation::
-@end menu
 
 
 @node MIDI articulation

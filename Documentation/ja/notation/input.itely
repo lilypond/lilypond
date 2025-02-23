@@ -20,29 +20,12 @@
 このセクションでは、特定の記譜法ではなく、@c
 LilyPond の一般的な入出力の問題について扱います。
 
-@menu
-* Input structure::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
-* Creating MIDI output::
-* Extracting musical information::
-@end menu
-
 
 @node Input structure
 @section 入力の構造
 
 LilyPond の入力の主となるフォーマットはテキスト ファイルです。@c
 習慣として、それらのファイルの最後には @file{.ly} を付けます。
-
-@menu
-* Structure of a score::
-* Multiple scores in a book::
-* Multiple output files from one input file::
-* Output file names::
-* File structure::
-@end menu
 
 
 @node Structure of a score
@@ -577,24 +560,11 @@ foo = @{ c4 d e d @}
 ほとんどすべての楽譜にはタイトルと作曲者名が含まれます。@c
 楽譜の中にはさらに多くの情報を含むものもあります。
 
-@menu
-* Creating titles headers and footers::
-* Custom titles headers and footers::
-* Creating output file metadata::
-* Creating footnotes::
-* Reference to page numbers::
-* Table of contents::
-@end menu
 
-
+@need 1500
 @node Creating titles headers and footers
 @subsection タイトル、ヘッダ、フッタを作成する
 
-@menu
-* Titles explained::
-* Default layout of bookpart and score titles::
-* Default layout of headers and footers::
-@end menu
 
 @node Titles explained
 @unnumberedsubsubsec タイトルの説明
@@ -958,17 +928,13 @@ foo = @{ c4 d e d @}
 @code{##f} をセットします。
 
 
+@need 1500
 @node Custom titles headers and footers
 @subsection カスタム タイトル、ヘッダ、フッタ
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
 
-@menu
-* Custom text formatting for titles::
-* Custom layout for titles::
-* Custom layout for headers and footers::
-@end menu
 
 @node Custom text formatting for titles
 @unnumberedsubsubsec タイトルのカスタム テキスト フォーマット
@@ -1331,10 +1297,6 @@ PDF の @code{Creator} プロパティは自動的に、@q{LilyPond} と現在�
 音楽表記の中にある脚注と、音楽表記外の独立したテキストにある脚注では、@c
 作り方が異なります。
 
-@menu
-* Footnotes in music expressions::
-* Footnotes in stand-alone text::
-@end menu
 
 @node Footnotes in music expressions
 @unnumberedsubsubsec 音楽表記の中にある脚注
@@ -2006,14 +1968,9 @@ tocAct =
 @endpredefined
 
 
+@need 1500
 @node Working with input files
 @section 入力ファイルに取り組む
-
-@menu
-* Including LilyPond files::
-* Different editions from one source::
-* Special characters::
-@end menu
 
 
 @node Including LilyPond files
@@ -2200,11 +2157,6 @@ LilyPond が使用するパスとファイルのリストを表示します。@c
 どのような方法をとるにしても、楽譜構造から音楽表記を分離しておくと、@c
 音楽表記に手を触れずに楽譜構造を変更することが簡単に行えます。
 
-@menu
-* Using variables::
-* Using tags::
-* Using global settings::
-@end menu
 
 @node Using variables
 @unnumberedsubsubsec 変数を使用する
@@ -2552,17 +2504,12 @@ lilypond -dinclude-settings=MY_SETTINGS.ly MY_SCORE.ly
 @ref{Including LilyPond files}
 
 
+@need 1500
 @node Special characters
 @subsection 特殊文字
 
 @cindex special character (特殊文字)
 @cindex non-ASCII character (非 ASCII 文字)
-
-@menu
-* Text encoding::
-* Unicode::
-* ASCII aliases::
-@end menu
 
 
 @node Text encoding
@@ -2761,15 +2708,9 @@ Unicode U+03BE の文字を入力します
 @file{ly/text-replacements.ly}
 
 
+@need 1500
 @node Controlling output
 @section 出力を制御する
-
-@menu
-* Extracting fragments of music::
-* Skipping corrected music::
-* Alternative output formats::
-* Replacing the notation font::
-@end menu
 
 @funindex clip-regions
 @cindex fragment, music (音楽の断片)
@@ -2880,9 +2821,6 @@ Portable Network Graphics (PNG), Scalable Vector Graphics (SVG),
 Encapsulated PostScript (EPS) フォーマットによる出力が利用可能です。@c
 @rprogram{Basic command-line options for LilyPond} を参照してください。
 
-@menu
-* SVG Output::
-@end menu
 
 @node SVG Output
 @unnumberedsubsubsec SVG 出力
@@ -3057,18 +2995,6 @@ MIDI 出力を聞くことで、間違えて入力された音符や、臨時記
 MIDI ファイルは (AAC, MP3, Vorbis ファイルのような) 音を含みません。@c
 これらから音を作り出すためには、追加のソフトウェアが必要です。
 
-@menu
-* Supported notation for MIDI::
-* Unsupported notation for MIDI::
-* The MIDI block::
-* Controlling MIDI dynamics::
-* Using MIDI instruments::
-* Using repeats with MIDI::
-* MIDI channel mapping::
-* Context properties for MIDI effects::
-* Enhancing MIDI output::
-@end menu
-
 @cindex MIDI, supported notation (MIDI でサポートされている記法)
 
 @node Supported notation for MIDI
@@ -3224,12 +3150,6 @@ MIDI 全体の音量や、強弱記号による相対的な音量、楽器ごと
 強弱記号は、可能な範囲内の MIDI 音量に変換されます。一方、@c
 クレッシェンドやデクレッシェンドは、始点と終点の間の音量を線形に変化させます。@c
 強弱記号の相対的な音量や、楽器ごとの全体的な音量を設定することができます。
-
-@menu
-* Dynamic marks in MIDI::
-* Setting MIDI volume::
-* Setting MIDI block properties::
-@end menu
 
 @cindex MIDI, volume (MIDI での音量)
 @cindex MIDI, equalization (MIDI での音量の均等化)
@@ -3750,11 +3670,6 @@ MIDI ファイルを生成する際、LilyPond は範囲内にある割合の数
 @node Enhancing MIDI output
 @subsection MIDI 出力をより良くする
 
-@menu
-* The articulate script::
-* The swing script::
-@end menu
-
 MIDI の楽器や、@code{\midi} ブロックのプロパティを設定することで@c
 より良くすることができます。
 
@@ -3920,11 +3835,6 @@ MIDI 出力の音符を正しく@q{タイム スケール}します。@c
 グラフィカルな出力と MIDI を作り出すことに加えて、@c
 LilyPond は音楽情報をテキストとして表示することができます。
 
-@menu
-* Displaying LilyPond notation::
-* Displaying Scheme music expressions::
-* Saving music events to a file::
-@end menu
 
 @node Displaying LilyPond notation
 @subsection LilyPond 記譜法を表示する

@@ -24,24 +24,12 @@
 キーボードを含む複数の譜を用いる楽器のグループ全体をまとめて
 @qq{キーボード} と呼びます。
 
-@menu
-* Common notation for keyboards::
-* Piano::
-* Accordion::
-* Harp::
-@end menu
 
 @node Common notation for keyboards
 @subsection キーボードで共通の記譜法
 
 このセクションでは多くのキーボードで生じる記譜の問題について説明します。
 
-@menu
-* References for keyboards::
-* Changing staff manually::
-* Changing staff automatically::
-* Staff-change lines::
-@end menu
 
 @node References for keyboards
 @unnumberedsubsubsec キーボードのためのリファレンス
@@ -487,9 +475,6 @@ music = {
 
 このセクションでは、ピアノに関係する記譜法を説明します。
 
-@menu
-* Piano pedals::
-@end menu
 
 @node Piano pedals
 @unnumberedsubsubsec ピアノ ペダル
@@ -594,9 +579,6 @@ music = {
 
 このセクションでは、アコーディオンに特有の記譜法について説明します。
 
-@menu
-* Discant symbols::
-@end menu
 
 @node Discant symbols
 @unnumberedsubsubsec ディスカント記号
@@ -635,10 +617,6 @@ music = {
 
 このセクションでは、ハープに特有の記譜法について説明します。
 
-@menu
-* References for harps::
-* Harp pedals::
-@end menu
 
 @node References for harps
 @unnumberedsubsubsec ハープのためのリファレンス

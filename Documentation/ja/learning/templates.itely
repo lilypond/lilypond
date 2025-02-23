@@ -22,17 +22,6 @@
 音符を付け加えて、LilyPond を実行してください。@c
 あとは美しく譜刻された楽譜をお楽しみください！
 
-@menu
-* Built-in templates::
-* Single staff templates::
-* Piano templates::
-* String quartet templates::
-* Vocal ensembles templates::
-* Orchestral templates::
-* Ancient notation templates::
-* Other templates::
-@end menu
-
 
 @node Built-in templates
 @appendixsec 組み込まれているテンプレート
@@ -49,10 +38,6 @@
 必要な音楽表記は特定の変数に代入することで入力します。これらの代入文は
 @code{\include} の前に入力されていなければなりません。
 
-@menu
-* SATB template::
-* SSAATTBB template::
-@end menu
 
 @node SATB template
 @appendixsubsec SATB テンプレート
@@ -328,15 +313,10 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 さらに複雑な 8 パート合唱譜はこの単純なテンプレートでは作ることができません。
 
 
+@need 1500
 @node Single staff templates
 @appendixsec 単一譜テンプレート
 
-@menu
-* Notes only::
-* Notes and lyrics::
-* Notes and chords::
-* Notes lyrics and chords::
-@end menu
 
 @node Notes only
 @appendixsubsec 音符のみ
@@ -363,14 +343,10 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
+@need 1500
 @node Piano templates
 @appendixsec ピアノ テンプレート
 
-@menu
-* Solo piano::
-* Piano and melody with lyrics::
-* Piano centered lyrics::
-@end menu
 
 @node Solo piano
 @appendixsubsec ソロ ピアノ
@@ -391,13 +367,10 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 {snippets/piano-template-with-centered-lyrics.ly}
 
 
+@need 1500
 @node String quartet templates
 @appendixsec 弦楽四重奏テンプレート
 
-@menu
-* String quartet::
-* String quartet parts::
-@end menu
 
 @node String quartet
 @appendixsubsec 弦楽四重奏
@@ -420,15 +393,6 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 組み込みのテンプレートを使う方が好まれるかもしれません。@c
 @ref{Built-in templates} を参照してください。
 
-@menu
-* SATB vocal score::
-* SATB vocal score and automatic piano reduction::
-* SATB with aligned contexts::
-* SATB on four staves::
-* Solo verse and two-part refrain::
-* Hymn tunes::
-* Psalms::
-@end menu
 
 @node SATB vocal score
 @appendixsubsec SATB ボーカル譜
@@ -473,12 +437,10 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 {snippets/anglican-psalm-template.ly}
 
 
+@need 1500
 @node Orchestral templates
 @appendixsec オーケストラ テンプレート
 
-@menu
-* Orchestra choir and piano::
-@end menu
 
 @node Orchestra choir and piano
 @appendixsubsec オーケストラ、合唱それにピアノ
@@ -487,13 +449,10 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
+@need 1500
 @node Ancient notation templates
 @appendixsec 古代の記譜法テンプレート
 
-@menu
-* Transcription of mensural music::
-* Gregorian transcription template::
-@end menu
 
 @node Transcription of mensural music
 @appendixsubsec 計量記譜法のテンプレート
@@ -508,12 +467,10 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
+@need 1500
 @node Other templates
 @appendixsec その他のテンプレート
 
-@menu
-* Jazz combo::
-@end menu
 
 @node Jazz combo
 @appendixsubsec ジャズ バンド

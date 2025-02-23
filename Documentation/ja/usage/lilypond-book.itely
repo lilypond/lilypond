@@ -50,17 +50,6 @@ Windows や Mac OS X のコマンド ラインを用いて @code{lilypond-book} 
 @cindex DocBook, adding music (DocBook に楽譜を追加する)
 @cindex LaTeX, adding music (LaTeX に楽譜を追加する)
 
-@menu
-* An example of a musicological document::
-* Integrating music and text::
-* Music fragment options::
-* Invoking lilypond-book::
-* Filename extensions::
-* lilypond-book templates::
-* Sharing the table of contents::
-* Alternative methods of mixing text and music::
-@end menu
-
 
 @node An example of a musicological document
 @section 音楽学のドキュメントの例
@@ -193,12 +182,6 @@ c'4 f16
 
 LilyPond をさまざまな出力フォーマットと統合する方法を説明します。
 
-@menu
-* LaTeX::
-* Texinfo::
-* HTML::
-* DocBook::
-@end menu
 
 @node LaTeX
 @subsection @LaTeX{}

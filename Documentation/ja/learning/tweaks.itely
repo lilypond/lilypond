@@ -20,25 +20,10 @@
 LilyPond は本当にさまざまな設定が可能です。@c
 もしかすると出力のすべての部分が変更されるかもしれません。
 
-@menu
-* Tweaking basics::
-* The Internals Reference manual::
-* Appearance of objects::
-* Placement of objects::
-* Vertical spacing::
-* Collisions of objects::
-* Further tweaking::
-@end menu
 
+@need 1500
 @node Tweaking basics
 @section 調整の基本
-
-@menu
-* Introduction to tweaks::
-* Objects and interfaces::
-* Naming conventions of objects and properties::
-* Tweaking methods::
-@end menu
 
 
 @node Introduction to tweaks
@@ -189,19 +174,12 @@ LilyPond が @code{\new Staff} のようなコマンドに遭遇した場合、@
 @rnotationnamed{Modifying properties, プロパティを変更する}
 
 
+@need 1500
 @node Tweaking methods
 @subsection 調整手段
 
 @cindex tweaking methods (調整手段)
 
-@menu
-* The override command::
-* The revert command::
-* The once prefix::
-* The overrideProperty command::
-* The tweak command::
-* The single prefix::
-@end menu
 
 @node The override command
 @unnumberedsubsubsec @code{\override} コマンド
@@ -596,16 +574,12 @@ emphNoteHead = {
 @ref{Using variables for layout adjustments}
 
 
+@need 1500
 @node The Internals Reference manual
 @section 内部リファレンス マニュアル
 
 @cindex Internals Reference (内部リファレンス)
 
-@menu
-* Properties of layout objects::
-* Properties found in interfaces::
-* Types of properties::
-@end menu
 
 @node Properties of layout objects
 @subsection レイアウト オブジェクトのプロパティ
@@ -1107,12 +1081,6 @@ LilyPond に読み込まれます。@c
 いくつかの例を使ってこれまでに学んだことを練習して、譜刻される楽譜の見た目を@c
 変更するためにどのように調整が使われるのかを見ていきましょう。
 
-@menu
-* Visibility and color of objects::
-* Size of objects::
-* Length and thickness of objects::
-@end menu
-
 
 @node Visibility and color of objects
 @subsection オブジェクトの可視性と色
@@ -1154,13 +1122,6 @@ LilyPond に読み込まれます。@c
 これらすべてが小節線の可視性に影響を与えます (そしてもちろん、@c
 拡大解釈すれば他の多くのレイアウト オブジェクトにも影響を与えます)。@c
 次はこれらのプロパティをそれぞれ見ていきましょう。
-
-@menu
-* The stencil property::
-* The break-visibility property::
-* The transparent property::
-* The color property::
-@end menu
 
 
 @node The stencil property
@@ -1826,14 +1787,9 @@ LilyPond では距離と長さは一般に譜スペース -- 譜の中の隣り�
 オブジェクトではないもの) の太さが同様の方法で変更されるかもしれません。
 
 
+@need 1500
 @node Placement of objects
 @section オブジェクトの配置
-
-@menu
-* Automatic behavior::
-* Within-staff objects::
-* Outside-staff objects::
-@end menu
 
 
 @node Automatic behavior
@@ -1931,10 +1887,6 @@ c''2^"Text4" |
 符幹やフラグのような他のオブジェクトも上下の向きによって位置が左右します。@c
 @code{direction} がセットされているときは、これは自動的に制御されます。
 
-@menu
-* The direction property::
-* Fingering::
-@end menu
 
 @node The direction property
 @unnumberedsubsubsec @code{direction} プロパティ
@@ -2198,13 +2150,6 @@ LilyPond はこれらの制約を受け取り、
 
 譜外部オブジェクトは自動的に衝突を回避するよう配置されます。@c
 配置が最適でない場合に自動配置をオーバライドする方法がいくつかあります。
-
-@menu
-* The outside-staff-priority property::
-* The textLengthOn command::
-* Dynamics placement::
-* Grob sizing::
-@end menu
 
 
 @node The outside-staff-priority property
@@ -2788,14 +2733,10 @@ c''2^"Text4" |
 詳しくは、@rnotation{Flexible vertical spacing paper variables} と
 @rnotation{Flexible vertical spacing within systems} を参照してください。
 
+
+@need 1500
 @node Collisions of objects
 @section オブジェクトの衝突
-
-@menu
-* Moving objects::
-* Fixing overlapping notation::
-* Real music example::
-@end menu
 
 
 @node Moving objects
@@ -3083,17 +3024,6 @@ LilyPond はまずスラーが取り得る位置のリストを生成し、そ�
 
 今度は、前のセクションで扱ったプロパティが記譜の重なりを解決する手助けを@c
 どのようにできるかを見ていきましょう。
-
-@menu
-* The padding property::
-* The right-padding property::
-* The staff-padding property::
-* The self-alignment-X property::
-* The staff-position property::
-* The extra-offset property::
-* The positions property::
-* The force-hshift property::
-@end menu
 
 
 @node The padding property
@@ -4008,24 +3938,13 @@ lhMusic = \relative {
 @end lilypond
 
 
+@need 2000
 @node Further tweaking
 @section 更なる調整
 
-@menu
-* Other uses for tweaks::
-* Using variables for layout adjustments::
-* Style sheets::
-* Other sources of information::
-* Advanced tweaks with Scheme::
-@end menu
 
 @node Other uses for tweaks
 @subsection 調整のその他の使用方法
-
-@menu
-* Tying notes across voices::
-* Simulating a fermata in MIDI::
-@end menu
 
 @cindex removing objects (オブジェクトを削除する)
 @cindex objects, removing (オブジェクトを削除する)

@@ -19,25 +19,11 @@
 
 このセクションではリズム、休符、演奏時間、連桁、小節について議論します。
 
-@menu
-* Writing rhythms::
-* Writing rests::
-* Displaying rhythms::
-* Beams::
-* Bars::
-* Special rhythmic concerns::
-@end menu
 
-
+@need 1500
 @node Writing rhythms
 @subsection リズムを記述する
 
-@menu
-* Durations::
-* Tuplets::
-* Scaling durations::
-* Ties::
-@end menu
 
 @node Durations
 @unnumberedsubsubsec 演奏時間
@@ -714,12 +700,6 @@ L.v. タイは以下のように入力します:
 
 休符は音楽表記の中の音楽の一部として入力されます。
 
-@menu
-* Rests::
-* Invisible rests::
-* Full measure rests::
-@end menu
-
 
 @node Rests
 @unnumberedsubsubsec 休符
@@ -1081,18 +1061,10 @@ R1\fermata
 複数小節にまたがる休符が休符の衝突を引き起こすことはありません。
 
 
+@need 1500
 @node Displaying rhythms
 @subsection リズムを表示する
 
-@menu
-* Time signature::
-* Metronome marks::
-* Upbeats::
-* Unmetered music::
-* Polymetric notation::
-* Automatic note splitting::
-* Showing melody rhythms::
-@end menu
 
 @node Time signature
 @unnumberedsubsubsec 拍子
@@ -2078,15 +2050,9 @@ R1\fermata
 @rinternals{Pitch_squash_engraver}
 
 
+@need 1500
 @node Beams
 @subsection 連桁
-
-@menu
-* Automatic beams::
-* Setting automatic beam behavior::
-* Manual beams::
-* Feathered beams::
-@end menu
 
 
 @node Automatic beams
@@ -2763,15 +2729,9 @@ MIDI 出力での演奏時間は正確です。
 そして分数の数が小さいときにだけ機能します。
 
 
+@need 1500
 @node Bars
 @subsection 小節
-
-@menu
-* Bar lines::
-* Bar numbers::
-* Bar and bar number checks::
-* Rehearsal marks::
-@end menu
 
 
 @node Bar lines
@@ -3524,15 +3484,10 @@ f'1 \bar "k"
 @rinternals{RehearsalMarkEvent}
 
 
+@need 1500
 @node Special rhythmic concerns
 @subsection 特殊なリズム関連事項
 
-
-@menu
-* Grace notes::
-* Aligning to cadenzas::
-* Time administration::
-@end menu
 
 @node Grace notes
 @unnumberedsubsubsec 装飾小音符

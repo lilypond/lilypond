@@ -35,13 +35,6 @@ Tutorial guidelines:  (different from policy.txt!)
 この章では、@ref{Tutorial}内の下記素材で、@c
 一般的な音楽記譜法による美しい楽譜を作成する方法を説明します。
 
-@menu
-* Single staff notation::
-* Multiple notes at once::
-* Songs::
-* Final touches::
-@end menu
-
 
 @node Single staff notation
 @section 単一譜表表記
@@ -49,24 +42,11 @@ Tutorial guidelines:  (different from policy.txt!)
 このセクションはでは 1 つの譜表の上にある 1 つの声部のために使用される@c
 一般的な記譜法を紹介します。
 
-@menu
-* Bar lines and bar checks::
-* Pitches and key signatures::
-* Ties and slurs::
-* Articulations and dynamics::
-* Adding text::
-* Automatic and manual beams::
-* Advanced rhythmic commands::
-@end menu
 
-
+@need 1500
 @node Bar lines and bar checks
 @subsection 小節線と小節チェック
 
-@menu
-* Bar lines::
-* Bar checks::
-@end menu
 
 @node Bar lines
 @unnumberedsubsubsec 小節線
@@ -119,12 +99,6 @@ warning: barcheck failed at: 1/2
 
 @node Pitches and key signatures
 @subsection ピッチと調号
-
-@menu
-* Pitch alterations::
-* Key signatures::
-* Warning key signatures and pitches::
-@end menu
 
 @warning{新しいユーザはしばしば LilyPond の調号の使い方を誤解します。
 -- このページの最後にある警告を読んでください。}
@@ -271,6 +245,7 @@ A フラット メジャーの調では、@code{b} には臨時記号が付き�
 @rnotationnamed{Key signature, 調号}
 
 
+@need 1500
 @node Ties and slurs
 @subsection タイとスラー
 
@@ -283,12 +258,6 @@ A フラット メジャーの調では、@code{b} には臨時記号が付き�
 @funindex ( ... )
 @funindex \( ... \)
 
-@menu
-* Ties::
-* Slurs::
-* Phrasing slurs::
-* Warnings slurs vs ties::
-@end menu
 
 @node Ties
 @unnumberedsubsubsec タイ
@@ -380,11 +349,6 @@ A フラット メジャーの調では、@code{b} には臨時記号が付き�
 アーティキュレーションと強弱記号は、音符の後に@c
 特別なコードを追加することで付加することができます。
 
-@menu
-* Articulations::
-* Fingerings::
-* Dynamics::
-@end menu
 
 @node Articulations
 @unnumberedsubsubsec アーティキュレーション
@@ -569,14 +533,10 @@ a'2_\markup {
 @rnotationnamed{Manual beams, 手動連桁}
 
 
+@need 1500
 @node Advanced rhythmic commands
 @subsection 高度なリズム コマンド
 
-@menu
-* Partial measure::
-* Tuplets::
-* Grace notes::
-@end menu
 
 @node Partial measure
 @unnumberedsubsubsec 部分小節
@@ -676,14 +636,6 @@ a'2_\markup {
 楽譜の中での多声は楽曲の中にある複数の声部を参照します。@c
 LilyPond の中での多声は同じ譜表上にある複数の声部を参照します。
 
-@menu
-* Music expressions explained::
-* Multiple staves::
-* Staff groups::
-* Combining notes into chords::
-* Single staff polyphony::
-@end menu
-
 
 @node Music expressions explained
 @subsection 音楽表記についての説明
@@ -693,11 +645,6 @@ LilyPond の中での多声は同じ譜表上にある複数の声部を参照�
 @cindex compound music expression (複合音楽表記)
 @cindex music expression, compound (複合音楽表記)
 
-@menu
-* Analogy mathematical expressions::
-* Simultaneous music expressions multiple staves::
-* Simultaneous music expressions single staff::
-@end menu
 
 LilyPond 入力ファイルの中では、音楽は @notation{音楽表記} によって表されます。@c
 単一の音符は 1 つの音楽表記になります:
@@ -1013,12 +960,6 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 
 このセクションでは声楽とシンプルな歌曲譜についての紹介を行います。
 
-@menu
-* Setting simple songs::
-* Aligning lyrics to a melody::
-* Lyrics to multiple staves::
-@end menu
-
 
 @node Setting simple songs
 @subsection 簡単な歌曲を作成する
@@ -1288,13 +1229,6 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 このセクションはチュートリアルの最終セクションです。@c
 単純な楽譜に仕上げを加える方法を示し、@c
 このマニュアルの残りの部分についての紹介を行います。
-
-@menu
-* Organizing pieces with variables::
-* Adding titles::
-* Absolute note names::
-* After the tutorial::
-@end menu
 
 
 @node Organizing pieces with variables

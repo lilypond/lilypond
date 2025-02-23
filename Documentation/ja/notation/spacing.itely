@@ -64,29 +64,12 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 -- システム数や譜グループ間の間隔等です。@c
 @ref{Page layout} を参照してください。@c
 
-@menu
-* Page layout::
-* Score layout::
-* Breaks::
-* Vertical spacing::
-* Horizontal spacing::
-* Fitting music onto fewer pages::
-@end menu
 
 @node Page layout
 @section ページ レイアウト
 
 このセクションでは @code{\paper} ブロックで使用するページ レイアウト
 オプションについて説明します。
-
-@menu
-* The paper block::
-* Paper size and automatic scaling::
-* Fixed vertical spacing paper variables::
-* Flexible vertical spacing paper variables::
-* Horizontal spacing paper variables::
-* Other paper variables::
-@end menu
 
 
 @node The paper block
@@ -201,11 +184,6 @@ Scheme を用いて @code{\paper} の値を定義することも可能です。@
 @cindex page size (ページ サイズ)
 
 @funindex \paper
-
-@menu
-* Setting the paper size::
-* Automatic scaling to paper size::
-@end menu
 
 
 @node Setting the paper size
@@ -424,11 +402,6 @@ Scheme 関数
 グラフィカル オブジェクトのプロパティによって制御されます。@c
 @ref{Flexible vertical spacing within systems} を参照してください。
 
-@menu
-* Structure of flexible vertical spacing alists::
-* List of flexible vertical spacing paper variables::
-@end menu
-
 
 @node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec 可変な垂直方向スペース連想リストの構造
@@ -599,12 +572,6 @@ score の最後のシステムと、その後に score の最初のシステム�
 @warning{いくつかの @code{@bs{}paper} の間隔は紙面サイズに応じて自動的に@c
 拡縮され、それにより予期せぬ結果となることがあります。@c
 @ref{Automatic scaling to paper size} を参照してください。}
-
-@menu
-* paper variables for widths and margins::
-* paper variables for two-sided mode::
-* paper variables for shifts and indents::
-@end menu
 
 
 @node paper variables for widths and margins
@@ -828,15 +795,9 @@ score の最初のシステムに対するインデントのレベルです。@c
 @rlsr{Spacing}
 
 
+@need 1500
 @node Other paper variables
 @subsection 他の @code{\paper} 変数
-
-@menu
-* paper variables for line breaking::
-* paper variables for page breaking::
-* paper variables for page numbering::
-* Miscellaneous paper variables::
-@end menu
 
 
 @node paper variables for line breaking
@@ -1109,11 +1070,6 @@ score で使用すべきページ数です。@c
 
 このセクションでは、@code{\layout} ブロックで使用する@c
 楽譜レイアウト オプションについて説明します。
-
-@menu
-* The layout block::
-* Setting the staff size::
-@end menu
 
 
 @node The layout block
@@ -1393,13 +1349,10 @@ Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの
 @rlsr{Spacing}
 
 
+@need 1500
 @node Breaks
 @section 改行/改ページ
 
-@menu
-* Line breaking::
-* Page breaking::
-@end menu
 
 @node Line breaking
 @subsection 改行
@@ -1574,16 +1527,6 @@ Emmentaler フォントは、@emph{Feta} 音楽グリフのセットを 8 つの
 
 このセクションでは、改ページについてのいくつかの方法や、それらをどのように@c
 カスタマイズするかを示します。
-
-@menu
-* Manual page breaking::
-* Optimal page breaking::
-* Minimal page breaking::
-* One-page page breaking::
-* One-line page breaking::
-* One-line-auto-height page breaking::
-* Optimal page turning::
-@end menu
 
 
 @node Manual page breaking
@@ -1908,12 +1851,6 @@ score の中に配置する @code{Page_turn_engraver} は 1 つだけにする�
 利用可能なスペースの量 (つまり、紙面サイズとマージン)、@c
 システムの間隔、それにシステム内部での譜の間隔です。
 
-@menu
-* Flexible vertical spacing within systems::
-* Explicit staff and system positioning::
-* Vertical collision avoidance::
-@end menu
-
 
 @node Flexible vertical spacing within systems
 @subsection システム内部の可変な垂直方向のスペース
@@ -1954,13 +1891,6 @@ score の中に配置する @code{Page_turn_engraver} は 1 つだけにする�
 システム、score、マークアップ、それにマージン間の垂直方向のスペースは、@c
 @code{\paper} 変数によって制御されます
 -- @ref{Flexible vertical spacing paper variables} で説明しています。
-
-@menu
-* Within-system spacing properties::
-* Spacing of ungrouped staves::
-* Spacing of grouped staves::
-* Spacing of non-staff lines::
-@end menu
 
 
 @node Within-system spacing properties
@@ -2828,19 +2758,12 @@ LilyPond は譜外部オブジェクトを、既に配置済みのオブジェ�
 @rlsr{Spacing}
 
 
+@need 1500
 @node Horizontal spacing
 @section 水平方向のスペース
 
 @cindex horizontal spacing (水平方向のスペース)
 @cindex spacing, horizontal (水平方向のスペース)
-
-@menu
-* Horizontal spacing overview::
-* New spacing section::
-* Changing horizontal spacing::
-* Line width::
-* Proportional notation::
-@end menu
 
 
 @node Horizontal spacing overview
@@ -3027,11 +2950,6 @@ Essay on automated music engraving:
 
 @node Changing horizontal spacing
 @subsection 水平方向のスペースを変更する
-
-@menu
-* Uniform stretching of tuplets::
-* Strict note spacing::
-@end menu
 
 水平方向のスペースを、@code{base-shortest-duration} で@c
 変更することができます。@c
@@ -3551,11 +3469,6 @@ OFF であるかのどちらかであるということです。@c
 @code{annotate-spacing} は何にも代え難いツールです。@c
 このコマンドはさまざまなレイアウト スペース変数の値を表示します。@c
 詳細は以下のセクション @ref{Displaying spacing} を参照してください。
-
-@menu
-* Displaying spacing::
-* Changing spacing::
-@end menu
 
 
 @node Displaying spacing
