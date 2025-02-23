@@ -37,6 +37,5 @@ The numbers above the staff show the input in each case."
 
   \tempo \markup \case-label { ⅔ 2 }
   \once \override Timing.TimeSignature.fraction = #'(2/3 . 2)
-  #(ly:expect-warning "strange time signature found: 1/3")
   \time 1/3 \tuplet 3/2 { e'4 d'4 }
 }

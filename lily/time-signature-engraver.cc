@@ -86,22 +86,6 @@ Time_signature_engraver::process_music ()
         set_property (time_signature_, "break-visibility",
                       get_property (this, "initialTimeSignatureVisibility"));
 
-      if (scm_is_pair (fr))
-        {
-          int den = from_scm<int> (scm_cdr (fr));
-          if (den != (1 << intlog2 (den)))
-            {
-              /*
-                Todo: should make typecheck?
-
-                OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-              */
-              time_signature_->warning (
-                _f ("strange time signature found: %d/%d",
-                    from_scm<int> (scm_car (fr)), den));
-            }
-        }
-
       last_time_fraction_ = fr;
     }
 }
